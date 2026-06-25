@@ -5,26 +5,22 @@ on:
     branches: [main]
   schedule:
     # Daily intelligence agent: refresh foreign news, deal flow, prices, and
-    # peer data twice a day (06:00 & 18:00 KST) and redeploy to Pages.
+    # peer data twice a day (06:00 & 18:00 KST). Committing to main triggers
+    # the GitHub Pages build that redeploys the site.
     - cron: "0 21 * * *"
     - cron: "0 9 * * *"
   workflow_dispatch:
 
 permissions:
   contents: write
-  pages: write
-  id-token: write
 
 concurrency:
-  group: pages
-  cancel-in-progress: true
+  group: intelligence-agent
+  cancel-in-progress: false
 
 jobs:
-  build-deploy:
+  agent:
     runs-on: ubuntu-latest
-    environment:
-      name: github-pages
-      url: ${{ steps.deploy.outputs.page_url }}
     steps:
       - name: Checkout
         uses: actions/checkout@v4
@@ -35,7 +31,7 @@ jobs:
           node-version: "20"
 
       - name: Run intelligence agent (crawl fresh foreign data)
-        run: node scripts/crawl.mjs || echo "크롤 실패 — 기존 live.json으로 배포"
+        run: node scripts/crawl.mjs || echo "크롤 실패 — 기존 live.json 유지"
 
       - name: Commit refreshed intelligence data
         if: github.ref == 'refs/heads/main'
@@ -50,17 +46,3 @@ jobs:
             git commit -m "chore: daily intelligence agent refresh [skip ci]"
             git push
           fi
-
-      - name: Configure Pages (auto-enable)
-        uses: actions/configure-pages@v5
-        with:
-          enablement: true
-
-      - name: Upload artifact
-        uses: actions/upload-pages-artifact@v3
-        with:
-          path: "."
-
-      - name: Deploy to GitHub Pages
-        id: deploy
-        uses: actions/deploy-pages@v4
