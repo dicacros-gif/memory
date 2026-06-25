@@ -57,7 +57,10 @@
 
     renderHeader();
     renderBrief();
-    renderKPIs();
+    renderInsights();
+    renderAnalysts();
+    renderValueChain();
+    renderDcDynamics();
     renderTechTrends();
     renderMemoryCategoryTabs();
     renderCategoryLens();
@@ -67,20 +70,22 @@
     renderValuation();
     renderPortfolio();
     renderMaTargets();
+    renderGrowthGaps();
     renderFunds();
     renderMonetization();
     renderRiskReturn();
     renderPrices();
+    renderPriceInsight();
     renderCompetitors();
     renderStartups();
     renderStocks();
     renderNews();
     renderDealflow();
     renderTrending();
-    renderHealth();
     renderScenario();
     renderSources();
     setupQA();
+    setupChrome();
     setupScroll();
     rearm();
   }
@@ -383,6 +388,157 @@
     });
   }
 
+  function newsTitle(item) {
+    return (item && (item.titleKo || item.title)) || "";
+  }
+
+  /* ---------- weekly strategy insights ---------- */
+  function renderInsights() {
+    const grid = $("#insightGrid");
+    if (!grid) return;
+    const data = BASE.insights || { cards: [] };
+    const t = $("#insightsTitle"); if (t) t.textContent = data.title || "이번 주 전략 인사이트";
+    const m = $("#insightsMeta"); if (m) m.textContent = data.subtitle || "";
+    grid.innerHTML = "";
+    (data.cards || []).forEach((c) => {
+      const card = el("article", `insight-card reveal impact-${c.impact || "medium"}`);
+      card.innerHTML = `
+        <div class="insight-top">
+          <span class="insight-tag">${escapeHTML(c.tag || "")}</span>
+          <span class="insight-horizon">${escapeHTML(c.horizon || "")}</span>
+        </div>
+        <h3>${escapeHTML(c.title)}</h3>
+        <p class="insight-judgment">${escapeHTML(c.judgment)}</p>
+        <div class="scenario-track">
+          ${(c.scenarios || []).map((s) => `
+            <div class="scenario-step">
+              <span class="scenario-stage">${escapeHTML(s.stage)}</span>
+              <strong>${escapeHTML(s.label)}</strong>
+              <small>${escapeHTML(s.desc)}</small>
+            </div>`).join("")}
+        </div>
+        <div class="insight-strategy">
+          <span class="insight-strategy-label">대응 전략</span>
+          ${(c.strategy || []).map((s) => `<span class="strat-chip">${escapeHTML(s)}</span>`).join("")}
+        </div>
+      `;
+      grid.appendChild(card);
+    });
+  }
+
+  function renderAnalysts() {
+    const row = $("#analystRow");
+    if (!row) return;
+    const data = BASE.analystViews || { items: [] };
+    const t = $("#analystTitle"); if (t) t.textContent = data.title || "외국 증권사 관점";
+    row.innerHTML = "";
+    (data.items || []).forEach((a) => {
+      const chip = el("div", "analyst-chip reveal");
+      chip.innerHTML = `<strong>${escapeHTML(a.firm)}</strong><span class="analyst-stance">${escapeHTML(a.stance)}</span><small>${escapeHTML(a.note)}</small>`;
+      row.appendChild(chip);
+    });
+  }
+
+  /* ---------- AI memory value chain ---------- */
+  function renderValueChain() {
+    const map = $("#valueChainMap");
+    if (!map) return;
+    const data = BASE.valueChain || { nodes: [] };
+    const t = $("#vcTitle"); if (t) t.textContent = data.title || "";
+    const m = $("#vcMeta"); if (m) m.textContent = data.subtitle || "";
+    const n = $("#vcNote"); if (n) n.textContent = data.note || "";
+    map.innerHTML = "";
+    (data.nodes || []).forEach((node, i) => {
+      if (i > 0) map.appendChild(el("span", "vc-arrow", "→"));
+      const el2 = el("div", `vc-node reveal${node.self ? " vc-self" : ""}`);
+      el2.innerHTML = `<span class="vc-name">${escapeHTML(node.name)}</span><span class="vc-role">${escapeHTML(node.role)}</span><span class="vc-tip">${escapeHTML(node.note)}</span>`;
+      map.appendChild(el2);
+    });
+  }
+
+  /* ---------- AI datacenter dynamics ---------- */
+  function renderDcDynamics() {
+    const grid = $("#dcDynamicsGrid");
+    if (!grid) return;
+    const data = BASE.datacenterDynamics || { items: [] };
+    const t = $("#dcTitle"); if (t) t.textContent = data.title || "";
+    const m = $("#dcMeta"); if (m) m.textContent = data.subtitle || "";
+    const n = $("#dcNote"); if (n) n.textContent = data.note || "";
+    grid.innerHTML = "";
+    (data.items || []).forEach((d) => {
+      const card = el("article", `dc-card reveal tone-${d.tone || "watch"}`);
+      const shareHtml = d.share ? `<div class="dc-share"><span>점유율</span><strong>${countSpan(d.share, { suffix: "%" })}</strong></div>` : "";
+      card.innerHTML = `
+        <div class="dc-top"><div class="entity-name">${escapeHTML(d.name)}</div><span class="dc-seg">${escapeHTML(d.seg)}</span></div>
+        <p class="dc-role">${escapeHTML(d.role)}</p>
+        ${shareHtml}
+        <div class="dc-line dc-opp"><span>기회</span>${escapeHTML(d.hynix)}</div>
+        <div class="dc-line dc-threat"><span>위협</span>${escapeHTML(d.threat)}</div>
+      `;
+      grid.appendChild(card);
+    });
+  }
+
+  /* ---------- growth gaps + synergy targets ---------- */
+  function renderGrowthGaps() {
+    const grid = $("#growthGapGrid");
+    if (!grid) return;
+    const data = BASE.growthGaps || { items: [] };
+    const t = $("#gapTitle"); if (t) t.textContent = data.title || "성장 갭 · 시너지 기업 발굴";
+    grid.innerHTML = "";
+    (data.items || []).forEach((g) => {
+      const card = el("article", "gap-card reveal");
+      card.innerHTML = `
+        <div class="gap-head"><span class="gap-dot"></span><h4>${escapeHTML(g.gap)}</h4></div>
+        <p>${escapeHTML(g.why)}</p>
+        <div class="gap-targets">${(g.targets || []).map((x) => `<span class="tag">${escapeHTML(x)}</span>`).join("")}</div>
+      `;
+      grid.appendChild(card);
+    });
+  }
+
+  /* ---------- price insight ---------- */
+  function renderPriceInsight() {
+    const wrap = $("#priceInsight");
+    if (!wrap) return;
+    const moves = LIVE.signals?.topPriceMoves || [];
+    const top = moves[0];
+    if (!top) { wrap.innerHTML = ""; return; }
+    const up = (top.changePct || 0) >= 0;
+    wrap.innerHTML = `
+      <span class="pi-tag ${up ? "up" : "down"}">${up ? "▲ 상승" : "▼ 하락"}</span>
+      <span class="pi-text"><strong>${escapeHTML(top.item)}</strong> ${escapeHTML(top.changeRaw || "")} · ${up ? "공급 타이트·전가력 확대" : "수요 약세·감산 대응 점검"} → ${up ? "프리미엄 제품 믹스 집중" : "레거시 감산·고부가 전환"}</span>
+    `;
+  }
+
+  /* ---------- chrome: theme, accent, collapsible sidebar ---------- */
+  function setupChrome() {
+    const root = document.documentElement;
+    const themeBtn = $("#themeBtn");
+    const savedTheme = (() => { try { return localStorage.getItem("inv-theme"); } catch (e) { return null; } })() || "light";
+    root.setAttribute("data-theme", savedTheme);
+    if (themeBtn) themeBtn.addEventListener("click", () => {
+      const next = root.getAttribute("data-theme") === "dark" ? "light" : "dark";
+      root.setAttribute("data-theme", next);
+      try { localStorage.setItem("inv-theme", next); } catch (e) {}
+    });
+
+    const accents = ["#f05a28", "#2563eb", "#7c3aed", "#047857", "#e11d48"];
+    let ai = parseInt((() => { try { return localStorage.getItem("inv-accent"); } catch (e) { return "0"; } })() || "0", 10) || 0;
+    const applyAccent = () => root.style.setProperty("--hynix", accents[ai % accents.length]);
+    applyAccent();
+    const colorBtn = $("#colorBtn");
+    if (colorBtn) colorBtn.addEventListener("click", () => { ai = (ai + 1) % accents.length; try { localStorage.setItem("inv-accent", String(ai)); } catch (e) {} applyAccent(); });
+
+    const sc = $("#sideCollapse");
+    if (sc) sc.addEventListener("click", () => document.body.classList.toggle("rail-collapsed"));
+    const st = $("#sbToggle");
+    if (st) st.addEventListener("click", () => document.body.classList.toggle("rail-open"));
+    $$(".side-section-head").forEach((h) => {
+      h.addEventListener("click", () => h.parentElement.classList.toggle("section-closed"));
+    });
+  }
+
   function memoryCategories() {
     return BASE.memoryCategories || [{ id: "all", label: "전체", en: "All", desc: "", keywords: [] }];
   }
@@ -405,12 +561,12 @@
     const wrap = $("#memoryCategoryTabs");
     if (!wrap) return;
     wrap.innerHTML = "";
-    memoryCategories().forEach((category) => {
+    memoryCategories().filter((category) => category.id !== "all").forEach((category) => {
       const button = el("button", `side-tab${category.id === activeMemoryCategory ? " active" : ""}`);
       button.type = "button";
       button.dataset.memoryCat = category.id;
       button.innerHTML = `<span>${escapeHTML(category.label)}</span><small>${escapeHTML(category.en)}</small>`;
-      button.addEventListener("click", () => setMemoryCategory(category.id));
+      button.addEventListener("click", () => setMemoryCategory(category.id === activeMemoryCategory ? "all" : category.id));
       wrap.appendChild(button);
     });
   }
@@ -1254,17 +1410,21 @@
       return;
     }
 
+    const KO_NAME = { samsung: "삼성전자", micron: "마이크론", cxmt: "CXMT (창신메모리)", kioxia: "키옥시아·WD", ymtc: "YMTC (양쯔메모리)" };
+
     competitors.forEach((item) => {
+      const koName = KO_NAME[item.id] || item.shortLabel || item.label;
+      const lines = String(item.baseline || "").split(/\s*·\s*/).map((s) => s.trim()).filter(Boolean).slice(0, 3);
       const card = el("article", "competitor-card reveal");
       card.innerHTML = `
         <div class="competitor-top">
           <div>
-            <div class="entity-name">${escapeHTML(item.shortLabel || item.label)}</div>
+            <div class="entity-name">${escapeHTML(koName)}</div>
             <div class="entity-segment">${escapeHTML(item.segment || "")}</div>
           </div>
           <div class="score-ring" style="--score:${item.pressureScore || 0}"><span>${countSpan(item.pressureScore || 0)}</span></div>
         </div>
-        <p class="entity-body">${escapeHTML(item.baseline || "")}</p>
+        <ul class="insight3">${lines.map((l) => `<li>${escapeHTML(l)}</li>`).join("")}</ul>
       `;
 
       const themeRow = el("div", "theme-row");
@@ -1321,7 +1481,7 @@
       a.href = news.link || "#";
       a.target = "_blank";
       a.rel = "noopener";
-      a.textContent = news.title;
+      a.textContent = newsTitle(news);
       li.appendChild(a);
       list.appendChild(li);
     });
@@ -1350,6 +1510,7 @@
         </div>
       `;
 
+      const DRIVER = { skhynix: "HBM 리더십·AI 수요 견인", samsung: "HBM4 추격·파운드리 회복", micron: "AI 메모리·실적 서프라이즈" };
       if (stock?.latestClose != null) {
         const usd = stock.currency === "USD" || id === "micron";
         const up = (stock.changePct || 0) >= 0;
@@ -1357,7 +1518,13 @@
           ? countSpan(stock.latestClose, { prefix: "$", dec: 2, comma: true })
           : countSpan(stock.latestClose, { prefix: "₩", dec: 0, comma: true })));
         card.appendChild(el("div", `stock-change ${up ? "up" : "down"}`, `${up ? "▲ +" : "▼ "}${fmtNum(stock.changePct, 2)}%`));
-        if (Array.isArray(stock.points) && stock.points.length > 1) card.appendChild(sparkline(stock.points, up));
+        if (Array.isArray(stock.points) && stock.points.length > 1) {
+          card.appendChild(sparkline(stock.points, up));
+          const pts = stock.points;
+          const m = ((pts[pts.length - 1] - pts[0]) / pts[0]) * 100;
+          card.appendChild(el("div", "stock-driver",
+            `<span class="stk-1m ${m >= 0 ? "up" : "down"}">1개월 ${m >= 0 ? "+" : ""}${m.toFixed(1)}%</span><span class="stk-driver-txt">${escapeHTML(DRIVER[id] || "")}</span>`));
+        }
       } else {
         card.appendChild(el("div", "stock-price", "—"));
         card.appendChild(el("div", "stock-change", "데이터 대기 중"));
@@ -1422,7 +1589,7 @@
       a.innerHTML = `
         <span class="news-main">
           <span class="news-cat">${escapeHTML(categoryLabel(item.category))}</span>
-          <span class="news-title">${escapeHTML(item.title)}</span>
+          <span class="news-title">${escapeHTML(newsTitle(item))}</span>
         </span>
         <span class="news-meta">${escapeHTML(item.source || "")} ${escapeHTML(item.date || "")}</span>
       `;
@@ -1446,7 +1613,7 @@
       a.href = item.link || "#";
       a.target = "_blank";
       a.rel = "noopener";
-      a.innerHTML = `<span class="df-title">${escapeHTML(item.title)}</span><span class="df-meta">${escapeHTML(item.source || "")} ${escapeHTML(item.date || "")}</span>`;
+      a.innerHTML = `<span class="df-title">${escapeHTML(newsTitle(item))}</span><span class="df-meta">${escapeHTML(item.source || "")} ${escapeHTML(item.date || "")}</span>`;
       li.appendChild(a);
       list.appendChild(li);
     });
@@ -1603,6 +1770,24 @@
     path.setAttribute("stroke-linejoin", "round");
     path.setAttribute("stroke-linecap", "round");
     svg.appendChild(path);
+    if (cls === "stock-spark") {
+      const mark = (idx, color) => {
+        if (idx < 0) return;
+        const cx = idx * step;
+        const cy = h - ((vals[idx] - min) / range) * h;
+        const c = document.createElementNS("http://www.w3.org/2000/svg", "circle");
+        c.setAttribute("cx", cx.toFixed(1));
+        c.setAttribute("cy", cy.toFixed(1));
+        c.setAttribute("r", "2.8");
+        c.setAttribute("fill", color);
+        const title = document.createElementNS("http://www.w3.org/2000/svg", "title");
+        title.textContent = (color === "#dc2626" ? "고점 " : "저점 ") + vals[idx];
+        c.appendChild(title);
+        svg.appendChild(c);
+      };
+      mark(vals.indexOf(max), "#dc2626");
+      mark(vals.indexOf(min), "#2563eb");
+    }
     return svg;
   }
 

@@ -701,6 +701,37 @@ async function fetchGoogleNews(query, category = "") {
     .filter(isForeignItem);
 }
 
+/* ---------- best-effort EN->KO headline translation (no API key) ---------- */
+let _trCount = 0;
+const TR_CAP = 150;
+
+async function translateKo(text) {
+  if (!text) return "";
+  try {
+    const url = `https://translate.googleapis.com/translate_a/single?client=gtx&sl=auto&tl=ko&dt=t&q=${encodeURIComponent(text)}`;
+    const res = await fetch(url, { headers: { "User-Agent": BROWSER_UA, Accept: "application/json" } });
+    if (!res.ok) return "";
+    const buf = await res.arrayBuffer();
+    const json = JSON.parse(new TextDecoder("utf-8").decode(buf));
+    const parts = (json[0] || []).map((seg) => (seg && seg[0]) || "").join("");
+    return String(parts || "").replace(/\s+/g, " ").trim();
+  } catch {
+    return "";
+  }
+}
+
+async function addKoTitles(arr, limit) {
+  const items = (arr || []).slice(0, limit || (arr || []).length);
+  for (const item of items) {
+    if (_trCount >= TR_CAP) break;
+    if (!item || !item.title || item.titleKo) continue;
+    const ko = await translateKo(item.title);
+    if (ko && ko !== item.title) item.titleKo = ko;
+    _trCount += 1;
+    await sleep(120);
+  }
+}
+
 async function fetchCategory(cat, seen) {
   const items = [];
   for (const query of cat.queries) {
@@ -969,6 +1000,18 @@ async function main() {
   attachPriceHistory(prices, priceHistory);
 
   const { categories, news, trending, newsStats: stats } = newsPayload;
+
+  // Best-effort Korean headlines (no API key; English fallback on any failure).
+  try {
+    await addKoTitles(news, 42);
+    await addKoTitles(dealflow.stream, 24);
+    for (const competitor of competitors.competitors) await addKoTitles(competitor.recentNews, 2);
+    for (const startup of startups.candidates) await addKoTitles(startup.recentNews, 2);
+    note("번역:KO", true, `${_trCount}건`);
+  } catch (error) {
+    note("번역:KO", false, error.message);
+  }
+
   const signals = buildSignals({ prices, competitors, startups, newsStats: stats });
   const okCount = health.filter((item) => item.ok).length;
   console.log(`\n수집 완료: ${okCount}/${health.length} 단계 성공, 외신 뉴스 ${news.length}건, 딜플로우 ${dealflow.stream.length}건, 가격표 ${prices.sections.length}개`);
