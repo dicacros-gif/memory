@@ -1,11 +1,13 @@
-name: Poll TrendForce & Deploy to Pages
+name: Daily Intelligence Agent — Crawl & Deploy
 
 on:
   push:
     branches: [main]
   schedule:
-    # TrendForce has no webhook; poll every 30 minutes and commit only when price history changes.
-    - cron: "*/30 * * * *"
+    # Daily intelligence agent: refresh foreign news, deal flow, prices, and
+    # peer data twice a day (06:00 & 18:00 KST) and redeploy to Pages.
+    - cron: "0 21 * * *"
+    - cron: "0 9 * * *"
   workflow_dispatch:
 
 permissions:
@@ -32,38 +34,22 @@ jobs:
         with:
           node-version: "20"
 
-      - name: Capture current price history checksum
-        id: price-history-before
-        shell: bash
-        run: |
-          if [ -f data/price-history.json ]; then
-            echo "hash=$(sha256sum data/price-history.json | cut -d ' ' -f1)" >> "$GITHUB_OUTPUT"
-          else
-            echo "hash=missing" >> "$GITHUB_OUTPUT"
-          fi
-
-      - name: Crawl fresh live data
+      - name: Run intelligence agent (crawl fresh foreign data)
         run: node scripts/crawl.mjs || echo "크롤 실패 — 기존 live.json으로 배포"
 
-      - name: Commit refreshed price data
+      - name: Commit refreshed intelligence data
         if: github.ref == 'refs/heads/main'
         shell: bash
         run: |
-          before="${{ steps.price-history-before.outputs.hash }}"
-          if [ -f data/price-history.json ]; then
-            after="$(sha256sum data/price-history.json | cut -d ' ' -f1)"
-          else
-            after="missing"
-          fi
-          if [ "$before" = "$after" ]; then
-            echo "TrendForce price tables unchanged; skipping data commit."
-            exit 0
-          fi
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
           git add data/live.json data/price-history.json
-          git commit -m "chore: update TrendForce price history [skip ci]"
-          git push
+          if git diff --cached --quiet; then
+            echo "No data changes to commit."
+          else
+            git commit -m "chore: daily intelligence agent refresh [skip ci]"
+            git push
+          fi
 
       - name: Configure Pages (auto-enable)
         uses: actions/configure-pages@v5

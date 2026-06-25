@@ -1,4 +1,4 @@
-/* SK hynix Memory Intelligence dashboard renderer. */
+/* SK hynix CorpDev & Investment Intelligence dashboard renderer. */
 (() => {
   "use strict";
 
@@ -17,6 +17,7 @@
     prices: { sections: [], watchedItems: [] },
     competitors: { competitors: [] },
     startups: { candidates: [] },
+    dealflow: { themes: [], stream: [], stats: {} },
     signals: { observations: [] },
     categories: [],
     news: [],
@@ -57,24 +58,139 @@
     renderHeader();
     renderBrief();
     renderKPIs();
+    renderTechTrends();
     renderMemoryCategoryTabs();
     renderCategoryLens();
     renderDynamics();
-    renderMonetization();
     renderCorpDev();
+    renderDealProcess();
+    renderValuation();
+    renderPortfolio();
+    renderMaTargets();
+    renderFunds();
+    renderMonetization();
+    renderRiskReturn();
     renderPrices();
     renderCompetitors();
     renderStartups();
     renderStocks();
     renderNews();
+    renderDealflow();
     renderTrending();
     renderHealth();
     renderScenario();
     renderSources();
-    setupMemorySearch();
+    setupQA();
     setupScroll();
+    rearm();
   }
 
+  /* ============================================================
+     Animation engine — scroll-triggered count-up + gauge fills +
+     reveal. Each unit owns an IntersectionObserver entry and
+     RESETS when scrolled out, so it replays on re-entry.
+     ============================================================ */
+  const _seen = new WeakSet();
+  let _io = null;
+
+  function animEngine() {
+    if (_io) return _io;
+    _io = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          const node = entry.target;
+          if (entry.isIntersecting) {
+            node.classList.add("in");
+            if (node.classList.contains("count")) playCount(node);
+            else if (node.classList.contains("gauge")) playGauge(node);
+          } else {
+            node.classList.remove("in");
+            if (node.classList.contains("count")) resetCount(node);
+            else if (node.classList.contains("gauge")) resetGauge(node);
+          }
+        });
+      },
+      { threshold: 0.2, rootMargin: "0px 0px -6% 0px" },
+    );
+    return _io;
+  }
+
+  function armAnimations(root = document) {
+    const io = animEngine();
+    $$(".count, .gauge, .reveal", root).forEach((node) => {
+      if (_seen.has(node)) return;
+      _seen.add(node);
+      io.observe(node);
+    });
+  }
+  const rearm = () => armAnimations(document);
+
+  function fmtCount(value, dec, comma, prefix, suffix) {
+    let body;
+    if (comma) {
+      body = Number(value.toFixed(dec)).toLocaleString("en-US", {
+        minimumFractionDigits: dec,
+        maximumFractionDigits: dec,
+      });
+    } else {
+      body = value.toFixed(dec);
+    }
+    return prefix + body + suffix;
+  }
+
+  function playCount(node) {
+    const to = parseFloat(node.dataset.to);
+    if (Number.isNaN(to)) return;
+    const dec = parseInt(node.dataset.dec || "0", 10);
+    const comma = node.dataset.comma === "1";
+    const prefix = node.dataset.prefix || "";
+    const suffix = node.dataset.suffix || "";
+    const dur = 1050;
+    cancelAnimationFrame(node._raf);
+    let start = null;
+    const step = (t) => {
+      if (!start) start = t;
+      const k = Math.min((t - start) / dur, 1);
+      const e = 1 - Math.pow(1 - k, 3);
+      node.textContent = fmtCount(to * e, dec, comma, prefix, suffix);
+      if (k < 1) node._raf = requestAnimationFrame(step);
+      else node.textContent = fmtCount(to, dec, comma, prefix, suffix);
+    };
+    node._raf = requestAnimationFrame(step);
+  }
+
+  function resetCount(node) {
+    cancelAnimationFrame(node._raf);
+    const dec = parseInt(node.dataset.dec || "0", 10);
+    const comma = node.dataset.comma === "1";
+    node.textContent = fmtCount(0, dec, comma, node.dataset.prefix || "", node.dataset.suffix || "");
+  }
+
+  function playGauge(node) {
+    const f = Math.max(0, Math.min(1, parseFloat(node.dataset.fill) || 0));
+    const bar = node.firstElementChild;
+    if (bar) requestAnimationFrame(() => { bar.style.width = f * 100 + "%"; });
+  }
+
+  function resetGauge(node) {
+    const bar = node.firstElementChild;
+    if (bar) bar.style.width = "0%";
+  }
+
+  // Markup helpers that the animation engine arms after insertion.
+  function countSpan(value, opts = {}) {
+    const { prefix = "", suffix = "", dec = 0, comma = false, cls = "" } = opts;
+    const num = Number(value);
+    if (Number.isNaN(num)) return `<span class="num ${cls}">${escapeHTML(value)}</span>`;
+    return `<span class="num count ${cls}" data-to="${num}" data-prefix="${escapeHTML(prefix)}" data-suffix="${escapeHTML(suffix)}" data-dec="${dec}" data-comma="${comma ? 1 : 0}">${escapeHTML(prefix + (0).toFixed(dec) + suffix)}</span>`;
+  }
+
+  function gaugeBar(frac, color) {
+    const f = Math.max(0, Math.min(1, Number(frac) || 0));
+    return `<span class="gauge" data-fill="${f}"><i style="background:${color || "var(--hynix)"}"></i></span>`;
+  }
+
+  /* ---------- shared formatting ---------- */
   function fmtNum(value, digits = 0) {
     if (value == null || Number.isNaN(Number(value))) return "—";
     return Number(value).toLocaleString("ko-KR", {
@@ -92,6 +208,11 @@
   function fmtKRW(value) {
     if (value == null) return "—";
     return "₩" + Math.round(value).toLocaleString("ko-KR");
+  }
+
+  function fmtUsdM(m) {
+    if (m == null || Number.isNaN(Number(m))) return "—";
+    return m >= 1000 ? "$" + (m / 1000).toFixed(2) + "B" : "$" + Math.round(m) + "M";
   }
 
   function formatUpdated(iso) {
@@ -136,6 +257,29 @@
     return LIVE.news || [];
   }
 
+  // Pool of foreign news + dealflow for tagging section cards by keyword.
+  function liveNewsPool() {
+    const df = (LIVE.dealflow && LIVE.dealflow.stream) || [];
+    return (LIVE.news || []).concat(df);
+  }
+
+  function newsFor(terms, limit = 2) {
+    if (!terms || !terms.length) return [];
+    const needles = terms.map((s) => String(s).toLowerCase());
+    const out = [];
+    const seen = new Set();
+    for (const item of liveNewsPool()) {
+      const hay = String(item.title || "").toLowerCase();
+      if (!needles.some((n) => hay.includes(n))) continue;
+      const key = hay.slice(0, 60);
+      if (seen.has(key)) continue;
+      seen.add(key);
+      out.push(item);
+      if (out.length >= limit) break;
+    }
+    return out;
+  }
+
   function renderHeader() {
     $("#headerUpdatedAt").textContent = formatUpdated(LIVE.updatedAt);
   }
@@ -149,7 +293,7 @@
     ];
 
     observations.slice(0, 4).forEach((text, index) => {
-      const item = el("div", "brief-item");
+      const item = el("div", "brief-item reveal");
       item.appendChild(el("span", "brief-label", labels[index] || "신호"));
       item.appendChild(el("span", "brief-text", escapeHTML(text)));
       wrap.appendChild(item);
@@ -160,57 +304,87 @@
     const grid = $("#kpiGrid");
     grid.innerHTML = "";
 
-    const hbmCategory = (LIVE.categories || []).find((item) => item.id === "hbm");
-    const topPrice = (LIVE.signals?.topPriceMoves || [])[0];
-    const topCompetitor = LIVE.signals?.topCompetitor;
-    const topStartup = LIVE.signals?.topStartup;
-    const healthOk = (LIVE.health || []).filter((item) => item.ok).length;
-    const healthTotal = (LIVE.health || []).length;
+    const stats = LIVE.newsStats || {};
+    const dealCount = (LIVE.dealflow && (LIVE.dealflow.stream || []).length) || 0;
+    const maCount = (BASE.maTargets || []).length;
+    const cvcCount = (LIVE.startups?.candidates || []).length || (BASE.funds?.items || []).length;
+    const portfolioCount = (BASE.portfolio?.holdings || []).length;
 
     const cards = [
       {
         label: "마지막 업데이트",
-        value: LIVE.updatedAt ? formatUpdated(LIVE.updatedAt).replace(" KST", "") : "대기 중",
-        detail: "Asia/Seoul 기준",
+        valueHTML: escapeHTML(LIVE.updatedAt ? formatUpdated(LIVE.updatedAt).replace(" KST", "") : "대기 중"),
+        detail: "Daily agent · Asia/Seoul",
         accent: true,
       },
       {
-        label: "주요 가격 변동",
-        value: topPrice ? topPrice.changeRaw : "—",
-        detail: topPrice ? topPrice.item : "TrendForce 수집 대기",
+        label: "외신 뉴스 (24h)",
+        valueHTML: countSpan(stats.total24h || 0, { suffix: "건" }),
+        detail: `최근 30일 ${stats["30d"] || stats.total || 0}건`,
       },
       {
-        label: "HBM 뉴스",
-        value: `${hbmCategory?.count || 0}건`,
-        detail: "최근 30일 Google News",
+        label: "딜플로우 신호",
+        valueHTML: countSpan(dealCount, { suffix: "건" }),
+        detail: "M&A·투자 외신 스트림",
       },
       {
-        label: "경쟁 압력",
-        value: topCompetitor ? `${topCompetitor.score}/100` : "—",
-        detail: topCompetitor ? topCompetitor.label : "수집 대기",
+        label: "M&A·지분 기회",
+        valueHTML: countSpan(maCount, { suffix: "개" }),
+        detail: "전략 적합도 레이더",
       },
       {
-        label: "투자 후보",
-        value: topStartup ? topStartup.name : "—",
-        detail: topStartup ? `${topStartup.status} · ${topStartup.score}/100` : "수집 대기",
+        label: "CVC 투자 후보",
+        valueHTML: countSpan(cvcCount, { suffix: "개" }),
+        detail: "직접 소수지분 파이프라인",
+      },
+      {
+        label: "포트폴리오 자산",
+        valueHTML: countSpan(portfolioCount, { suffix: "개" }),
+        detail: "보유 지분·자회사",
       },
     ];
 
     cards.forEach((card) => {
-      const node = el("div", `metric-card${card.accent ? " accent" : ""}`);
+      const node = el("div", `metric-card reveal${card.accent ? " accent" : ""}`);
       node.appendChild(el("span", null, card.label));
-      node.appendChild(el("strong", null, escapeHTML(card.value)));
+      node.appendChild(el("strong", null, card.valueHTML));
       node.appendChild(el("small", null, escapeHTML(card.detail)));
       grid.appendChild(node);
     });
+  }
 
-    if (healthTotal) {
-      grid.lastElementChild.title = `크롤링 성공 ${healthOk}/${healthTotal}`;
+  /* ---------- semiconductor & future tech trends ---------- */
+  function renderTechTrends() {
+    const grid = $("#techTrendGrid");
+    if (!grid) return;
+    grid.innerHTML = "";
+    const trends = BASE.techTrends || [];
+    if (!trends.length) {
+      grid.appendChild(el("div", "empty-state", "기술 동향 데이터 대기 중"));
+      return;
     }
+
+    trends.forEach((item) => {
+      const news = newsFor((item.tags || []).concat([item.title]), 1);
+      const card = el("article", "tech-card reveal");
+      card.innerHTML = `
+        <div class="tech-top">
+          <span class="tech-horizon">${escapeHTML(item.horizon)}</span>
+          <span class="tech-status status-${escapeHTML(item.status)}">${escapeHTML(item.status)}</span>
+        </div>
+        <h3>${escapeHTML(item.title)}</h3>
+        <div class="tech-metric">${escapeHTML(item.metric)}</div>
+        <p>${escapeHTML(item.summary)}</p>
+        <div class="tech-impact"><span>투자 시사점</span>${escapeHTML(item.impact)}</div>
+        <div class="tag-row">${(item.tags || []).map((tag) => `<span class="tag">${escapeHTML(tag)}</span>`).join("")}</div>
+      `;
+      if (news.length) card.appendChild(renderMiniNews(news));
+      grid.appendChild(card);
+    });
   }
 
   function memoryCategories() {
-    return BASE.memoryCategories || [{ id: "all", label: "전체", en: "All Memory", desc: "", keywords: [] }];
+    return BASE.memoryCategories || [{ id: "all", label: "전체", en: "All", desc: "", keywords: [] }];
   }
 
   function activeMemoryConfig() {
@@ -223,9 +397,8 @@
     renderMemoryCategoryTabs();
     renderCategoryLens();
     renderDynamics();
-    renderMonetization();
     renderNews();
-    renderSearchResults($("#memorySearch")?.value || "");
+    rearm();
   }
 
   function renderMemoryCategoryTabs() {
@@ -251,7 +424,7 @@
 
     memoryCategories().filter((category) => category.id !== "all").forEach((category) => {
       const stats = categoryStats(category);
-      const card = el("article", `category-card${category.id === activeMemoryCategory ? " active" : ""}`);
+      const card = el("article", `category-card reveal${category.id === activeMemoryCategory ? " active" : ""}`);
       card.innerHTML = `
         <div class="category-card-head">
           <div>
@@ -262,9 +435,9 @@
         </div>
         <p>${escapeHTML(category.desc)}</p>
         <div class="category-stat-row">
-          <div><strong>${stats.news}</strong><span>뉴스</span></div>
-          <div><strong>${stats.prices}</strong><span>가격품목</span></div>
-          <div><strong>${stats.entities}</strong><span>관련타깃</span></div>
+          <div><strong>${countSpan(stats.news)}</strong><span>뉴스</span></div>
+          <div><strong>${countSpan(stats.prices)}</strong><span>가격품목</span></div>
+          <div><strong>${countSpan(stats.entities)}</strong><span>관련타깃</span></div>
         </div>
         <div class="tag-row">${category.keywords.slice(0, 5).map((tag) => `<span class="tag">${escapeHTML(tag)}</span>`).join("")}</div>
       `;
@@ -339,7 +512,7 @@
 
     source.forEach((item) => {
       const linkedNews = (item.linkedCategories || []).flatMap((id) => filteredNewsForCategory(id)).slice(0, 3);
-      const card = el("article", "dynamic-card");
+      const card = el("article", "dynamic-card reveal");
       card.innerHTML = `
         <div class="dynamic-axis">${escapeHTML(item.axis)}</div>
         <h3>${escapeHTML(item.title)}</h3>
@@ -356,17 +529,10 @@
     const grid = $("#monetizationGrid");
     if (!grid) return;
     grid.innerHTML = "";
-    const active = activeMemoryConfig();
-    const terms = (active.keywords || []).map((item) => item.toLowerCase());
-    const models = (BASE.monetizationModels || []).filter((model) => {
-      if (activeMemoryCategory === "all") return true;
-      const text = `${model.title} ${model.revenueLogic} ${(model.memoryFit || []).join(" ")}`.toLowerCase();
-      return terms.some((term) => text.includes(term));
-    });
-    const source = models.length ? models : BASE.monetizationModels || [];
+    const source = BASE.monetizationModels || [];
 
     source.forEach((model) => {
-      const card = el("article", "monetization-card");
+      const card = el("article", "monetization-card reveal");
       card.innerHTML = `
         <h3>${escapeHTML(model.title)}</h3>
         <p>${escapeHTML(model.revenueLogic)}</p>
@@ -380,74 +546,7 @@
     });
   }
 
-  function setupMemorySearch() {
-    const input = $("#memorySearch");
-    const prompts = $("#quickPrompts");
-    if (!input || !prompts) return;
-    const examples = ["HBM 경쟁 구도", "CXL 투자 후보", "NAND 수익화", "중국 경쟁 리스크"];
-    prompts.innerHTML = "";
-    examples.forEach((prompt) => {
-      const button = el("button", null, escapeHTML(prompt));
-      button.type = "button";
-      button.addEventListener("click", () => {
-        input.value = prompt;
-        renderSearchResults(prompt);
-      });
-      prompts.appendChild(button);
-    });
-    input.addEventListener("input", () => renderSearchResults(input.value));
-    renderSearchResults("");
-  }
-
-  function renderSearchResults(query) {
-    const wrap = $("#searchResults");
-    if (!wrap) return;
-    const q = String(query || "").trim().toLowerCase();
-    if (!q) {
-      const active = activeMemoryConfig();
-      wrap.innerHTML = `<span class="search-hint">${escapeHTML(active.label)} 관점으로 가격·경쟁·투자·뉴스가 필터링됩니다.</span>`;
-      return;
-    }
-
-    const categoryHits = memoryCategories().filter((item) => item.id !== "all" && textHits(`${item.label} ${item.en} ${item.desc} ${(item.keywords || []).join(" ")}`, q));
-    const priceHits = filteredPricesForCategory("all").filter((item) => textHits(`${item.item} ${item.sectionTitle} ${item.group}`, q)).slice(0, 3);
-    const startupHits = (LIVE.startups?.candidates || []).filter((item) => textHits(`${item.name} ${item.area} ${item.thesis} ${item.whyHynix} ${(item.tags || []).join(" ")}`, q)).slice(0, 3);
-    const competitorHits = (LIVE.competitors?.competitors || []).filter((item) => textHits(`${item.label} ${item.shortLabel} ${item.segment} ${item.baseline}`, q)).slice(0, 3);
-    const newsHits = allNews().filter((item) => textHits(item.title, q)).slice(0, 4);
-
-    const blocks = [];
-    if (categoryHits.length) blocks.push(searchBlock("카테고리", categoryHits.map((item) => ({ title: item.label, detail: item.desc, action: item.id }))));
-    if (priceHits.length) blocks.push(searchBlock("가격", priceHits.map((item) => ({ title: item.item, detail: `${item.sectionTitle || item.group} · ${item.changeRaw || "변동 없음"}` }))));
-    if (startupHits.length) blocks.push(searchBlock("투자 후보", startupHits.map((item) => ({ title: item.name, detail: `${item.area} · ${item.status || ""}` }))));
-    if (competitorHits.length) blocks.push(searchBlock("경쟁", competitorHits.map((item) => ({ title: item.shortLabel || item.label, detail: `${item.segment} · score ${item.pressureScore || 0}` }))));
-    if (newsHits.length) blocks.push(searchBlock("뉴스", newsHits.map((item) => ({ title: item.title, detail: `${item.source || ""} ${item.date || ""}` }))));
-
-    wrap.innerHTML = blocks.length ? blocks.join("") : '<span class="search-hint">검색 결과가 없습니다. HBM, CXL, NAND, 중국, 수익화처럼 입력해보세요.</span>';
-    $$("#searchResults [data-memory-cat]").forEach((button) => {
-      button.addEventListener("click", () => setMemoryCategory(button.dataset.memoryCat));
-    });
-  }
-
-  function searchBlock(title, rows) {
-    return `
-      <div class="search-block">
-        <strong>${escapeHTML(title)}</strong>
-        ${rows.map((row) => `
-          <button type="button" ${row.action ? `data-memory-cat="${escapeHTML(row.action)}"` : ""}>
-            <span>${escapeHTML(row.title)}</span>
-            <small>${escapeHTML(row.detail || "")}</small>
-          </button>
-        `).join("")}
-      </div>
-    `;
-  }
-
-  function textHits(text, query) {
-    const tokens = query.split(/\s+/).filter(Boolean);
-    const haystack = String(text || "").toLowerCase();
-    return tokens.every((token) => haystack.includes(token));
-  }
-
+  /* ---------- CorpDev workbench ---------- */
   function renderCorpDev() {
     const grid = $("#corpDevGrid");
     if (!grid) return;
@@ -461,7 +560,7 @@
 
     const context = corpDevContext();
     workstreams.forEach((item) => {
-      const card = el("article", "corpdev-card");
+      const card = el("article", "corpdev-card reveal");
       const metrics = corpDevMetrics(item.id, context);
       const actions = item.decisionQuestions || [];
 
@@ -502,7 +601,7 @@
     const competitors = LIVE.competitors?.competitors || [];
     const hbmCategory = (LIVE.categories || []).find((item) => item.id === "hbm");
     const aiCategory = (LIVE.categories || []).find((item) => item.id === "aidemand");
-    const supplyCategory = (LIVE.categories || []).find((item) => item.id === "supply");
+    const dealCategory = (LIVE.categories || []).find((item) => item.id === "dealflow");
     const trending = LIVE.trending || [];
     const highPriorityStartups = startups.filter((item) => (item.score || 0) >= 80).length;
     const cxlStartups = startups.filter((item) => (item.tags || []).some((tag) => /cxl/i.test(tag))).length;
@@ -516,7 +615,7 @@
       competitors,
       hbmNews: hbmCategory?.count || 0,
       aiNews: aiCategory?.count || 0,
-      supplyNews: supplyCategory?.count || 0,
+      dealNews: dealCategory?.count || (LIVE.dealflow?.stream || []).length || 0,
       totalNews: LIVE.newsStats?.total || 0,
       dayNews: LIVE.newsStats?.total24h || 0,
       highPriorityStartups,
@@ -554,12 +653,17 @@
         value: startupName,
         detail: topStartup ? `${topStartup.status} · ${topStartup.score}/100` : "후보 대기",
       },
+      deal: {
+        label: "딜플로우 신호",
+        value: `${ctx.dealNews}건`,
+        detail: "M&A·투자 외신",
+      },
     };
 
     const map = {
       "deal-sourcing": [
         { label: "관찰 타깃", value: `${ctx.startups.length + ctx.competitors.length}개`, detail: "스타트업+경쟁사 레이더" },
-        common.price,
+        common.deal,
         common.competitor,
       ],
       "cvc-startups": [
@@ -568,14 +672,19 @@
         { label: "우선 검토군", value: `${ctx.highPriorityStartups}개`, detail: "score 80 이상" },
       ],
       "investment-strategy": [
-        { label: "HBM 모멘텀", value: `${ctx.hbmNews}건`, detail: "최근 30일 뉴스" },
+        { label: "HBM 모멘텀", value: `${ctx.hbmNews}건`, detail: "최근 30일 외신" },
         common.contract,
         { label: "상위 키워드", value: ctx.topTrend, detail: "뉴스 제목 빈도 기반" },
+      ],
+      "deal-execution": [
+        common.deal,
+        { label: "밸류에이션", value: "EV/Rev · DCF", detail: "Financial modeling" },
+        { label: "실사 항목", value: "기술·재무·법률·고객", detail: "DD 체크리스트" },
       ],
       "portfolio-valueup": [
         { label: "협업 후보", value: startupName, detail: topStartup ? topStartup.area : "후보 대기" },
         { label: "AI 수요 뉴스", value: `${ctx.aiNews}건`, detail: "고객 레퍼런스/PoC 신호" },
-        { label: "공급 신호", value: `${ctx.supplyNews}건`, detail: "제품화·양산 타이밍 점검" },
+        { label: "포트폴리오", value: `${(BASE.portfolio?.holdings || []).length}개`, detail: "보유 자산 health check" },
       ],
       "risk-return": [
         common.competitor,
@@ -590,12 +699,458 @@
   function corpDevStatus(id, ctx) {
     if (id === "risk-return" && (ctx.topCompetitor?.pressureScore || 0) >= 90) return "리스크 상향";
     if (id === "cvc-startups" && ctx.highPriorityStartups >= 2) return "PoC 검토";
-    if (id === "investment-strategy" && ctx.hbmNews >= 100) return "전략 우선";
-    if (id === "deal-sourcing" && ctx.spotMove) return "타깃 갱신";
+    if (id === "investment-strategy" && ctx.hbmNews >= 60) return "전략 우선";
+    if (id === "deal-sourcing" && ctx.dealNews >= 3) return "타깃 갱신";
+    if (id === "deal-execution") return "실행 단계";
     if (id === "portfolio-valueup" && ctx.topStartup) return "Value-up 후보";
     return "관찰";
   }
 
+  /* ---------- deal execution process + valuation ---------- */
+  function renderDealProcess() {
+    const grid = $("#dealProcessGrid");
+    if (!grid) return;
+    grid.innerHTML = "";
+    const steps = BASE.dealProcess || [];
+    steps.forEach((step) => {
+      const card = el("article", "deal-step reveal");
+      card.innerHTML = `
+        <div class="deal-step-num">${escapeHTML(step.step)}</div>
+        <h3>${escapeHTML(step.title)}</h3>
+        <p>${escapeHTML(step.desc)}</p>
+        <div class="deal-step-out">${(step.outputs || []).map((o) => `<span>${escapeHTML(o)}</span>`).join("")}</div>
+        <div class="deal-step-tools">${(step.tools || []).map((t) => `<span class="tag">${escapeHTML(t)}</span>`).join("")}</div>
+      `;
+      grid.appendChild(card);
+    });
+  }
+
+  function renderValuation() {
+    const val = BASE.valuation;
+    if (!val) return;
+    $("#valTitle").textContent = val.title || "지분가치 미니 모델";
+    $("#valDesc").textContent = val.desc || "";
+    $("#valNote").textContent = val.note || "";
+
+    const controls = $("#valControls");
+    const readouts = $("#valReadouts");
+    controls.innerHTML = "";
+    const state = { ...val.defaults };
+    const order = ["revenueUsdM", "growthPct", "evRevenue", "stakePct", "synergyPct"];
+
+    order.forEach((key) => {
+      const range = val.ranges[key];
+      if (!range) return;
+      const wrap = el("div", "sim-field");
+      const label = el("label");
+      label.innerHTML = `<span>${escapeHTML(range.label)}</span><span class="val" id="valv-${key}">${state[key]}${escapeHTML(range.suffix || "")}</span>`;
+      const input = el("input");
+      input.type = "range";
+      input.min = range.min;
+      input.max = range.max;
+      input.step = range.step;
+      input.value = state[key];
+      input.addEventListener("input", () => {
+        state[key] = parseFloat(input.value);
+        $(`#valv-${key}`).textContent = state[key] + (range.suffix || "");
+        update();
+      });
+      wrap.appendChild(label);
+      wrap.appendChild(input);
+      controls.appendChild(wrap);
+    });
+
+    function update() {
+      const ev = state.revenueUsdM * state.evRevenue;
+      const baseStake = ev * (state.stakePct / 100);
+      const withSynergy = baseStake * (1 + state.synergyPct / 100);
+      $("#valResult").textContent = fmtUsdM(withSynergy);
+      $("#valFormula").textContent = `${fmtUsdM(state.revenueUsdM)} × ${state.evRevenue}x × ${state.stakePct}% × (1+${state.synergyPct}%)`;
+      readouts.innerHTML = `
+        <div><span>기업가치 (EV)</span><strong>${fmtUsdM(ev)}</strong></div>
+        <div><span>지분가치 (기본)</span><strong>${fmtUsdM(baseStake)}</strong></div>
+        <div><span>성장률 가정</span><strong>${state.growthPct}%</strong></div>
+      `;
+    }
+    update();
+  }
+
+  /* ---------- portfolio with equity stakes ---------- */
+  function renderPortfolio() {
+    const grid = $("#portfolioGrid");
+    if (!grid) return;
+    grid.innerHTML = "";
+    const portfolio = BASE.portfolio || { holdings: [] };
+    const holdings = portfolio.holdings || [];
+    $("#portfolioMeta").textContent = `보유 ${holdings.length}개 · 지분율·밸류업`;
+    $("#portfolioNote").textContent = portfolio.note || "";
+
+    if (!holdings.length) {
+      grid.appendChild(el("div", "empty-state", "포트폴리오 데이터 대기 중"));
+      return;
+    }
+
+    holdings.forEach((h) => {
+      const news = newsFor(h.match || [h.name], 1);
+      const hasPct = typeof h.stakePct === "number";
+      const card = el("article", "portfolio-card reveal");
+      card.innerHTML = `
+        <div class="portfolio-top">
+          <div>
+            <div class="entity-name">${escapeHTML(h.name)}</div>
+            <div class="entity-segment">${escapeHTML(h.area)} · ${escapeHTML(h.geo || "")}</div>
+          </div>
+          <span class="portfolio-type">${escapeHTML(h.type)}</span>
+        </div>
+        <div class="stake-block">
+          <div class="stake-line">
+            <span class="stake-label">지분율</span>
+            <span class="stake-value">${escapeHTML(h.stake)}</span>
+          </div>
+          ${hasPct ? gaugeBar(Math.min(1, h.stakePct / 100), h.stakePct >= 100 ? "var(--teal)" : "var(--hynix)") : '<div class="stake-undisclosed">소수지분 (미공개)</div>'}
+        </div>
+        <div class="portfolio-meta-row">
+          <div><span>가치</span><strong>${escapeHTML(h.value)}</strong></div>
+          <div><span>상태</span><strong>${escapeHTML(h.status)}</strong></div>
+        </div>
+        <div class="valueup-row"><span>밸류업 방향</span>${escapeHTML(h.valueUp)}</div>
+      `;
+      if (news.length) card.appendChild(renderMiniNews(news));
+      grid.appendChild(card);
+    });
+  }
+
+  /* ---------- M&A / equity opportunity radar ---------- */
+  function renderMaTargets() {
+    const grid = $("#maGrid");
+    if (!grid) return;
+    grid.innerHTML = "";
+    const targets = BASE.maTargets || [];
+    if (!targets.length) {
+      grid.appendChild(el("div", "empty-state", "M&A 기회 데이터 대기 중"));
+      return;
+    }
+
+    targets.forEach((t) => {
+      const news = newsFor(t.match || [t.name], 1);
+      const card = el("article", "ma-card reveal");
+      card.innerHTML = `
+        <div class="ma-top">
+          <div>
+            <div class="entity-name">${escapeHTML(t.name)}</div>
+            <div class="entity-segment">${escapeHTML(t.area)} · ${escapeHTML(t.region || "")}</div>
+          </div>
+          <div class="fit-ring" style="--score:${t.fit || 0}">
+            <span>${countSpan(t.fit || 0)}</span>
+          </div>
+        </div>
+        <div class="ma-structure"><span>딜 구조</span>${escapeHTML(t.structure)}</div>
+        <p class="entity-body">${escapeHTML(t.rationale)}</p>
+        <div class="tag-row">
+          <span class="tag">${escapeHTML(t.stage || "")}</span>
+          <span class="tag tag-fit">fit ${countSpan(t.fit || 0)}</span>
+        </div>
+      `;
+      if (news.length) card.appendChild(renderMiniNews(news));
+      grid.appendChild(card);
+    });
+  }
+
+  /* ---------- CVC & fund coverage ---------- */
+  function renderFunds() {
+    const grid = $("#fundsGrid");
+    if (!grid) return;
+    grid.innerHTML = "";
+    const funds = BASE.funds || { items: [] };
+    $("#fundsNote").textContent = funds.note || "";
+    (funds.items || []).forEach((f) => {
+      const card = el("article", "fund-card reveal");
+      card.innerHTML = `
+        <div class="fund-top">
+          <div class="entity-name">${escapeHTML(f.name)}</div>
+          <span class="fund-type">${escapeHTML(f.type)}</span>
+        </div>
+        <div class="fund-role">${escapeHTML(f.role)}</div>
+        <div class="fund-focus"><span>초점</span>${escapeHTML(f.focus)}</div>
+        <p class="entity-body">${escapeHTML(f.note)}</p>
+        <span class="status-pill">${escapeHTML(f.status)}</span>
+      `;
+      grid.appendChild(card);
+    });
+  }
+
+  /* ---------- return & risk cockpit ---------- */
+  function renderRiskReturn() {
+    const matrix = $("#riskMatrix");
+    const factors = $("#riskFactors");
+    if (!matrix) return;
+    matrix.innerHTML = "";
+    const data = BASE.riskReturn || { items: [], factors: [] };
+
+    const typeColor = {
+      "내재화": "var(--teal)",
+      "자회사": "var(--teal)",
+      "보유 자산": "#0ea5e9",
+      "인수/JV": "var(--hynix)",
+      "소수지분": "#7c3aed",
+      "옵션": "var(--amber)",
+    };
+
+    (data.items || []).forEach((item, i) => {
+      const dot = el("button", "risk-dot reveal");
+      dot.style.left = `${Math.max(2, Math.min(96, item.risk))}%`;
+      dot.style.bottom = `${Math.max(2, Math.min(96, item.return))}%`;
+      dot.style.setProperty("--dotc", typeColor[item.type] || "var(--hynix)");
+      dot.style.transitionDelay = `${i * 60}ms`;
+      dot.title = `${item.name} · ${item.type} · 기대수익 ${item.return} / 리스크 ${item.risk}`;
+      dot.innerHTML = `<i></i><span class="risk-tip">${escapeHTML(item.name)}</span>`;
+      matrix.appendChild(dot);
+    });
+
+    // quadrant guides
+    const guide = el("div", "risk-guides");
+    guide.innerHTML = `<span class="rq rq-tl">고수익·저위험</span><span class="rq rq-tr">고수익·고위험</span><span class="rq rq-bl">저수익·저위험</span><span class="rq rq-br">저수익·고위험</span>`;
+    matrix.appendChild(guide);
+
+    if (factors) {
+      factors.innerHTML = "";
+      (data.factors || []).forEach((f) => {
+        factors.appendChild(el("li", null, `<strong>${escapeHTML(f.label)}</strong><span>${escapeHTML(f.desc)}</span>`));
+      });
+    }
+  }
+
+  /* ---------- Q&A dropdown (typewriter answers) ---------- */
+  let qaTypeTimer = null;
+  let qaCurrentAnswer = "";
+  let qaCurrentNav = null;
+
+  function qaData() {
+    return BASE.qa || { cats: [], pairs: [], intro: "" };
+  }
+
+  function setupQA() {
+    const data = qaData();
+    const sub = $("#qaSub");
+    if (sub) sub.textContent = data.intro || "";
+
+    const input = $("#qaInput");
+    const toggle = $("#qaToggle");
+    const drop = $("#qaDrop");
+    const box = $("#qaBox");
+
+    buildQaDrop("");
+
+    const openDrop = () => { drop.hidden = false; box.classList.add("open"); };
+    const closeDrop = () => { drop.hidden = true; box.classList.remove("open"); };
+
+    toggle.addEventListener("click", (e) => {
+      e.stopPropagation();
+      if (drop.hidden) { buildQaDrop(input.value); openDrop(); } else closeDrop();
+    });
+    input.addEventListener("focus", () => { buildQaDrop(input.value); openDrop(); });
+    input.addEventListener("input", () => { buildQaDrop(input.value); openDrop(); });
+    input.addEventListener("keydown", (e) => {
+      if (e.key === "Enter") { e.preventDefault(); closeDrop(); qaSearch(input.value); }
+      if (e.key === "Escape") closeDrop();
+    });
+    document.addEventListener("click", (e) => {
+      if (box && !box.contains(e.target)) closeDrop();
+    });
+
+    // quick prompts
+    const prompts = $("#quickPrompts");
+    if (prompts) {
+      const examples = ["M&A·지분투자 기회", "포트폴리오 지분율", "CVC 투자 후보", "HBM4 기술 동향", "수익성·리스크"];
+      prompts.innerHTML = "";
+      examples.forEach((p) => {
+        const button = el("button", null, escapeHTML(p));
+        button.type = "button";
+        button.addEventListener("click", () => { input.value = p; qaSearch(p); });
+        prompts.appendChild(button);
+      });
+    }
+  }
+
+  function buildQaDrop(filterText) {
+    const drop = $("#qaDrop");
+    if (!drop) return;
+    const data = qaData();
+    const q = String(filterText || "").trim().toLowerCase();
+    const pairs = q
+      ? data.pairs.filter((p) => p.q.toLowerCase().includes(q) || (p.keywords || []).some((k) => q.includes(k) || k.includes(q)))
+      : data.pairs;
+
+    let html = `<div class="qa-drop-title">질문을 선택하거나 입력 후 Enter · 예시 ${pairs.length}개</div><div class="qa-drop-list">`;
+    (data.cats || []).forEach((cat) => {
+      const items = pairs.filter((p) => p.cat === cat.id);
+      if (!items.length) return;
+      html += `<div class="qa-cat-head" style="color:${cat.color}"><span class="qa-cat-dot" style="background:${cat.color}"></span>${escapeHTML(cat.name)}</div>`;
+      items.forEach((p, i) => {
+        html += `<button type="button" class="qa-drop-item" data-q="${escapeHTML(p.q)}" style="--qa:${cat.color}">${escapeHTML(p.q)}</button>`;
+      });
+    });
+    html += "</div>";
+    if (!pairs.length) html = '<div class="qa-drop-empty">일치하는 질문이 없습니다. Enter로 자연어 검색하세요.</div>';
+    drop.innerHTML = html;
+
+    $$(".qa-drop-item", drop).forEach((btn) => {
+      btn.addEventListener("click", (e) => {
+        e.stopPropagation();
+        const input = $("#qaInput");
+        if (input) input.value = btn.dataset.q;
+        drop.hidden = true;
+        $("#qaBox").classList.remove("open");
+        qaSearch(btn.dataset.q);
+      });
+    });
+  }
+
+  function qaSearch(query) {
+    const data = qaData();
+    const q = String(query || "").trim().toLowerCase();
+    if (!q) return;
+
+    const stripped = q.replace(/[의은는이가을를에서도와과로부터까지만]/g, "");
+    const words = q.split(/[\s,./?!·]+/).filter((w) => w.length > 1);
+
+    const scored = data.pairs.map((p) => {
+      let score = 0;
+      const ql = p.q.toLowerCase();
+      (p.keywords || []).forEach((k) => {
+        if (q.includes(k) || stripped.includes(k)) score += 12;
+        words.forEach((w) => { if (w === k) score += 10; else if (k.startsWith(w) || w.startsWith(k)) score += 5; });
+      });
+      if (ql.includes(q)) score += 8;
+      words.forEach((w) => { if (ql.includes(w)) score += 3; });
+      return { p, score };
+    });
+    scored.sort((a, b) => b.score - a.score);
+
+    if (scored[0] && scored[0].score >= 4) {
+      typeOut(scored[0].p.a, scored[0].p.nav);
+      return;
+    }
+
+    // fallback: synthesize from datasets
+    const results = [];
+    (BASE.maTargets || []).forEach((t) => {
+      if (`${t.name} ${t.area} ${t.rationale}`.toLowerCase().includes(q) || words.some((w) => t.name.toLowerCase().includes(w))) {
+        results.push({ text: `M&A 기회 · ${t.name} — ${t.structure}. ${t.rationale}`, nav: "maTargets" });
+      }
+    });
+    (BASE.portfolio?.holdings || []).forEach((h) => {
+      if (`${h.name} ${h.area} ${h.valueUp}`.toLowerCase().includes(q) || words.some((w) => h.name.toLowerCase().includes(w))) {
+        results.push({ text: `포트폴리오 · ${h.name} (지분율 ${h.stake}) — ${h.valueUp}`, nav: "portfolio" });
+      }
+    });
+    (BASE.techTrends || []).forEach((t) => {
+      if (`${t.title} ${t.summary} ${(t.tags || []).join(" ")}`.toLowerCase().includes(q) || words.some((w) => t.title.toLowerCase().includes(w))) {
+        results.push({ text: `기술 동향 · ${t.title} (${t.horizon}) — ${t.summary}`, nav: "techTrends" });
+      }
+    });
+    liveNewsPool().forEach((n) => {
+      if (words.some((w) => String(n.title || "").toLowerCase().includes(w))) {
+        results.push({ text: `외신 · ${n.source || ""}: ${n.title}`, nav: "news" });
+      }
+    });
+
+    if (results.length) {
+      const top = results.slice(0, 3);
+      typeOut(top.map((r, i) => `${i + 1}. ${r.text}`).join("\n\n"), top[0].nav);
+    } else if (scored[0] && scored[0].score > 0) {
+      typeOut(scored[0].p.a, scored[0].p.nav);
+    } else {
+      typeOut("정확히 일치하는 항목을 찾지 못했습니다. M&A, 포트폴리오, 지분율, CVC, 펀드, HBM4, CXL, 리스크 같은 키워드로 다시 질문해 보세요. 위 드롭다운(▾)에서 예시 질문을 선택할 수도 있습니다.", "corpdev");
+    }
+  }
+
+  function highlightAnswer(text) {
+    const escaped = escapeHTML(text);
+    return escaped.replace(/(\$[\d.,]+[BMK]?|\b\d[\d.,]*%|\b\d[\d.,]*x\b|\b\d+TB\/s|\b\d+(?:억|조)\b|HBM\d?E?|CXL|PIM|NAND|DRAM|M&amp;A|CVC|DCF|EV\/Rev(?:enue)?)/g, '<b class="hl">$1</b>');
+  }
+
+  function formatAnswer(text) {
+    return String(text)
+      .split(/\n\n+/)
+      .map((para, i) => `<p class="qa-para${i === 0 ? " lead" : ""}">${highlightAnswer(para)}</p>`)
+      .join("");
+  }
+
+  function typeOut(text, nav) {
+    const panel = $("#qaAnswer");
+    if (!panel) return;
+    qaCurrentAnswer = text;
+    qaCurrentNav = nav || null;
+    panel.hidden = false;
+    panel.classList.add("show");
+    if (qaTypeTimer) clearInterval(qaTypeTimer);
+
+    const body = `
+      <div class="qa-answer-head">
+        <span class="qa-ava">A</span>
+        <b>Investment Intelligence</b>
+        <span class="qa-typing" id="qaTyping">분석 중…</span>
+        <button class="qa-close" id="qaClose" aria-label="닫기">✕</button>
+      </div>
+      <div class="qa-answer-body" id="qaAnswerBody"></div>
+      <div class="qa-answer-foot" id="qaAnswerFoot"></div>
+    `;
+    panel.innerHTML = body;
+    $("#qaClose").addEventListener("click", closeAnswer);
+
+    const target = $("#qaAnswerBody");
+    let i = 0;
+    const plain = text;
+    qaTypeTimer = setInterval(() => {
+      i += 2;
+      if (i >= plain.length) {
+        clearInterval(qaTypeTimer);
+        qaTypeTimer = null;
+        target.innerHTML = formatAnswer(text);
+        const typing = $("#qaTyping");
+        if (typing) typing.remove();
+        renderAnswerFoot(nav);
+      } else {
+        target.innerHTML = `<p class="qa-para typing">${escapeHTML(plain.slice(0, i))}<span class="qa-cursor">▋</span></p>`;
+      }
+    }, 16);
+
+    // click panel while typing → reveal instantly
+    panel.onclick = (e) => {
+      if (qaTypeTimer && e.target.id !== "qaClose") {
+        clearInterval(qaTypeTimer);
+        qaTypeTimer = null;
+        target.innerHTML = formatAnswer(text);
+        const typing = $("#qaTyping");
+        if (typing) typing.remove();
+        renderAnswerFoot(nav);
+      }
+    };
+  }
+
+  function renderAnswerFoot(nav) {
+    const foot = $("#qaAnswerFoot");
+    if (!foot) return;
+    if (!nav) { foot.innerHTML = ""; return; }
+    foot.innerHTML = `<button class="qa-go" id="qaGo">해당 섹션으로 이동 →</button>`;
+    $("#qaGo").addEventListener("click", (e) => {
+      e.stopPropagation();
+      const target = document.getElementById(nav);
+      if (target) target.scrollIntoView({ behavior: "smooth", block: "start" });
+    });
+  }
+
+  function closeAnswer() {
+    const panel = $("#qaAnswer");
+    if (!panel) return;
+    if (qaTypeTimer) { clearInterval(qaTypeTimer); qaTypeTimer = null; }
+    panel.hidden = true;
+    panel.classList.remove("show");
+    panel.innerHTML = "";
+  }
+
+  /* ---------- prices ---------- */
   function renderPrices() {
     const tabs = $("#priceTabs");
     tabs.innerHTML = "";
@@ -680,7 +1235,7 @@
     }
 
     cards.forEach((move) => {
-      const card = el("div", "signal-card");
+      const card = el("div", "signal-card reveal");
       card.appendChild(el("span", null, escapeHTML(move.group || "가격")));
       card.appendChild(el("strong", null, escapeHTML(move.item)));
       card.appendChild(el("small", null, `${escapeHTML(move.changeRaw || "—")} · 평균 ${escapeHTML(move.averageRaw || fmtPrice(move.average))}`));
@@ -700,14 +1255,14 @@
     }
 
     competitors.forEach((item) => {
-      const card = el("article", "competitor-card");
+      const card = el("article", "competitor-card reveal");
       card.innerHTML = `
         <div class="competitor-top">
           <div>
             <div class="entity-name">${escapeHTML(item.shortLabel || item.label)}</div>
             <div class="entity-segment">${escapeHTML(item.segment || "")}</div>
           </div>
-          <div class="score-ring" style="--score:${item.pressureScore || 0}"><span>${item.pressureScore || 0}</span></div>
+          <div class="score-ring" style="--score:${item.pressureScore || 0}"><span>${countSpan(item.pressureScore || 0)}</span></div>
         </div>
         <p class="entity-body">${escapeHTML(item.baseline || "")}</p>
       `;
@@ -728,12 +1283,12 @@
     $("#startupMeta").textContent = LIVE.startups?.methodology || "";
 
     if (!candidates.length) {
-      grid.appendChild(el("div", "empty-state", "스타트업 데이터 대기 중"));
+      grid.appendChild(el("div", "empty-state", "CVC 후보 데이터 대기 중"));
       return;
     }
 
     candidates.forEach((item, index) => {
-      const card = el("article", `startup-card${index === 0 ? " featured" : ""}`);
+      const card = el("article", `startup-card reveal${index === 0 ? " featured" : ""}`);
       card.innerHTML = `
         <div class="startup-top">
           <div>
@@ -747,7 +1302,7 @@
 
       const tagRow = el("div", "tag-row");
       (item.tags || []).slice(0, 4).forEach((tag) => tagRow.appendChild(el("span", "tag", escapeHTML(tag))));
-      tagRow.appendChild(el("span", "tag", `score ${item.score || 0}`));
+      tagRow.appendChild(el("span", "tag tag-fit", `score ${item.score || 0}`));
       card.appendChild(tagRow);
       card.appendChild(renderMiniNews(item.recentNews || []));
       grid.appendChild(card);
@@ -756,8 +1311,8 @@
 
   function renderMiniNews(items) {
     const list = el("ul", "mini-news");
-    if (!items.length) {
-      list.appendChild(el("li", null, '<span class="empty-state">최근 공개 뉴스 없음</span>'));
+    if (!items || !items.length) {
+      list.appendChild(el("li", null, '<span class="empty-state">관련 외신 없음</span>'));
       return list;
     }
     items.slice(0, 2).forEach((news) => {
@@ -785,7 +1340,7 @@
 
     order.forEach(([id, label, symbol]) => {
       const stock = stocks[id];
-      const card = el("article", "stock-card");
+      const card = el("article", "stock-card reveal");
       card.innerHTML = `
         <div class="stock-top">
           <div>
@@ -798,7 +1353,9 @@
       if (stock?.latestClose != null) {
         const usd = stock.currency === "USD" || id === "micron";
         const up = (stock.changePct || 0) >= 0;
-        card.appendChild(el("div", "stock-price", usd ? "$" + fmtNum(stock.latestClose, 2) : "₩" + fmtNum(stock.latestClose, 0)));
+        card.appendChild(el("div", "stock-price", usd
+          ? countSpan(stock.latestClose, { prefix: "$", dec: 2, comma: true })
+          : countSpan(stock.latestClose, { prefix: "₩", dec: 0, comma: true })));
         card.appendChild(el("div", `stock-change ${up ? "up" : "down"}`, `${up ? "▲ +" : "▼ "}${fmtNum(stock.changePct, 2)}%`));
         if (Array.isArray(stock.points) && stock.points.length > 1) card.appendChild(sparkline(stock.points, up));
       } else {
@@ -869,6 +1426,27 @@
         </span>
         <span class="news-meta">${escapeHTML(item.source || "")} ${escapeHTML(item.date || "")}</span>
       `;
+      li.appendChild(a);
+      list.appendChild(li);
+    });
+  }
+
+  function renderDealflow() {
+    const list = $("#dealflowList");
+    if (!list) return;
+    list.innerHTML = "";
+    const stream = (LIVE.dealflow && LIVE.dealflow.stream) || [];
+    if (!stream.length) {
+      list.appendChild(el("li", null, '<span class="empty-state">딜플로우 외신 대기 중</span>'));
+      return;
+    }
+    stream.slice(0, 8).forEach((item) => {
+      const li = el("li");
+      const a = el("a");
+      a.href = item.link || "#";
+      a.target = "_blank";
+      a.rel = "noopener";
+      a.innerHTML = `<span class="df-title">${escapeHTML(item.title)}</span><span class="df-meta">${escapeHTML(item.source || "")} ${escapeHTML(item.date || "")}</span>`;
       li.appendChild(a);
       list.appendChild(li);
     });

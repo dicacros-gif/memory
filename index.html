@@ -3,18 +3,21 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>SK hynix Memory Intelligence</title>
-  <meta name="description" content="메모리 가격, 경쟁사 동향, 투자 후보 스타트업을 매일 자동 업데이트하는 하이닉스 전략 대시보드" />
+  <title>SK hynix CorpDev & Investment Intelligence</title>
+  <meta name="description" content="하이닉스 관점의 M&A·지분투자·CVC·포트폴리오 밸류업과 반도체 미래 기술 동향을 매일 자동 업데이트하는 투자 의사결정 대시보드" />
   <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='7' fill='%23f05a28'/%3E%3Cpath d='M8 21V10h4v4h8v-4h4v11h-4v-4h-8v4z' fill='white'/%3E%3C/svg%3E" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&display=swap" />
   <link rel="stylesheet" href="assets/css/styles.css" />
 </head>
 <body>
   <aside class="side-rail" id="sideRail">
-    <button class="side-logo" id="sideLogo" type="button" aria-label="메모리 인텔리전스 홈">
+    <button class="side-logo" id="sideLogo" type="button" aria-label="투자 인텔리전스 홈">
       <span class="brand-mark" aria-hidden="true"></span>
       <span>
-        <strong>Memory OS</strong>
-        <small>Category Lens</small>
+        <strong>CorpDev OS</strong>
+        <small>Investment Lens</small>
       </span>
     </button>
     <div class="side-section">
@@ -22,60 +25,75 @@
       <div class="side-tabs" id="memoryCategoryTabs"></div>
     </div>
     <div class="side-section">
-      <p>분석 보드</p>
-      <a href="#dynamics">경쟁 다이나믹스</a>
-      <a href="#monetization">수익화 모델</a>
-      <a href="#corpdev">CorpDev</a>
+      <p>투자 워크벤치</p>
+      <a href="#corpdev">CorpDev 업무</a>
+      <a href="#dealProcess">Deal 프로세스</a>
+      <a href="#portfolio">포트폴리오</a>
+      <a href="#maTargets">M&A 기회</a>
+      <a href="#funds">CVC·펀드</a>
+      <a href="#riskReturn">수익성·리스크</a>
+    </div>
+    <div class="side-section">
+      <p>시장 데이터</p>
+      <a href="#techTrends">기술 동향</a>
       <a href="#prices">가격</a>
+      <a href="#competitors">경쟁</a>
+      <a href="#news">외신 뉴스</a>
     </div>
   </aside>
 
   <header class="site-header" id="siteHeader">
     <div class="header-inner">
-      <a class="brand" href="#top" aria-label="SK hynix Memory Intelligence 홈">
+      <a class="brand" href="#top" aria-label="SK hynix CorpDev Intelligence 홈">
         <span class="brand-mark" aria-hidden="true"></span>
         <span>
           <span class="brand-name">SK hynix</span>
-          <span class="brand-sub">Memory Intelligence</span>
+          <span class="brand-sub">CorpDev & Investment Intelligence</span>
         </span>
       </a>
       <nav class="nav-links" aria-label="대시보드 섹션">
+        <a href="#techTrends">기술동향</a>
         <a href="#corpdev">CorpDev</a>
-        <a href="#prices">가격</a>
-        <a href="#competitors">경쟁</a>
-        <a href="#startups">투자</a>
+        <a href="#portfolio">포트폴리오</a>
+        <a href="#maTargets">M&A</a>
+        <a href="#funds">CVC</a>
         <a href="#news">뉴스</a>
       </nav>
       <div class="header-meta">
-        <span class="live-badge"><span class="pulse-dot"></span> Daily crawl</span>
+        <span class="live-badge"><span class="pulse-dot"></span> Daily agent</span>
         <span class="updated-at" id="headerUpdatedAt">로딩 중</span>
       </div>
     </div>
   </header>
 
   <main id="top">
-    <section class="command-band">
-      <div class="container command-layout">
-        <div>
-          <p class="eyebrow">Natural language search</p>
-          <label class="command-search">
-            <span>질문</span>
-            <input type="search" id="memorySearch" placeholder="예: HBM 경쟁 구도와 투자 후보를 보여줘" autocomplete="off" />
-          </label>
-        </div>
-        <div class="quick-prompts" id="quickPrompts"></div>
-      </div>
+    <section class="command-band" id="qa">
       <div class="container">
-        <div class="search-results" id="searchResults"></div>
+        <div class="qa-head">
+          <p class="eyebrow">Investment Intelligence Q&A</p>
+          <span class="qa-sub" id="qaSub"></span>
+        </div>
+        <div class="qa-box" id="qaBox">
+          <div class="qa-inputline">
+            <span class="qa-ic">Q</span>
+            <input type="search" id="qaInput" placeholder="예: 하이닉스가 발굴해야 할 M&A·지분투자 기회는?" autocomplete="off" />
+            <button class="qa-toggle" id="qaToggle" type="button" aria-label="질문 목록 열기">
+              <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9l6 6 6-6" /></svg>
+            </button>
+          </div>
+          <div class="qa-drop" id="qaDrop" hidden></div>
+        </div>
+        <div class="qa-answer" id="qaAnswer" hidden></div>
+        <div class="quick-prompts" id="quickPrompts"></div>
       </div>
     </section>
 
     <section class="top-band">
       <div class="container top-layout">
         <div class="title-block">
-          <p class="eyebrow">AI 메모리 전략 상황판</p>
-          <h1>가격, 경쟁사, 투자 후보를 매일 한 화면에</h1>
-          <p class="lead">TrendForce 공개 가격표와 뉴스 신호를 수집해 SK하이닉스 관점의 가격 압력, 경쟁 움직임, 스타트업 투자 후보를 갱신합니다.</p>
+          <p class="eyebrow">하이닉스 투자·CorpDev 상황판</p>
+          <h1>M&A·지분투자·CVC·포트폴리오를 매일 한 화면에</h1>
+          <p class="lead">외신 신호와 공개 데이터를 수집해 신규 투자영역 발굴부터 전략 수립, 포트폴리오 밸류업, deal 구조·실사·밸류에이션까지 SK하이닉스 관점의 투자 의사결정을 지원합니다.</p>
         </div>
         <div class="brief-list" id="briefList" aria-live="polite"></div>
       </div>
@@ -87,7 +105,20 @@
       </div>
     </section>
 
-    <section class="section-band" id="categoryLens">
+    <section class="section-band" id="techTrends">
+      <div class="container">
+        <div class="section-head">
+          <div>
+            <p class="eyebrow">Semiconductor & future tech radar</p>
+            <h2>반도체 산업 · 미래 기술 동향</h2>
+          </div>
+          <span class="section-meta">HBM4/4E/5 · CXL · PIM · AI-D · 포토닉스 · 패키징</span>
+        </div>
+        <div class="trend-tech-grid" id="techTrendGrid"></div>
+      </div>
+    </section>
+
+    <section class="section-band section-soft" id="categoryLens">
       <div class="container">
         <div class="section-head">
           <div>
@@ -100,7 +131,7 @@
       </div>
     </section>
 
-    <section class="section-band section-soft" id="dynamics">
+    <section class="section-band" id="dynamics">
       <div class="container">
         <div class="section-head">
           <div>
@@ -110,6 +141,94 @@
           <span class="section-meta">고객 인증 · 가격 사이클 · 중국 경쟁 · 차세대 플랫폼</span>
         </div>
         <div class="dynamics-grid" id="dynamicsGrid"></div>
+      </div>
+    </section>
+
+    <section class="section-band section-soft" id="corpdev">
+      <div class="container">
+        <div class="section-head">
+          <div>
+            <p class="eyebrow">Corporate development workbench</p>
+            <h2>직무 항목별 투자 업무 대시보드</h2>
+          </div>
+          <span class="section-meta">발굴 · CVC · 전략 · 실행 · 포트폴리오 · 리스크</span>
+        </div>
+        <div class="corpdev-grid" id="corpDevGrid"></div>
+      </div>
+    </section>
+
+    <section class="section-band" id="dealProcess">
+      <div class="container">
+        <div class="section-head">
+          <div>
+            <p class="eyebrow">Deal execution pipeline</p>
+            <h2>Deal 실행 프로세스 · Financial Modeling</h2>
+          </div>
+          <span class="section-meta">발굴 → 전략 → 포트폴리오 → 구조 → 실사 → 평가</span>
+        </div>
+        <div class="deal-flow-grid" id="dealProcessGrid"></div>
+        <div class="valuation-wrap">
+          <div class="valuation-head">
+            <div>
+              <p class="eyebrow">Valuation mini-model</p>
+              <h3 id="valTitle">지분가치 · Financial Modeling 미니 모델</h3>
+              <p class="section-desc" id="valDesc"></p>
+            </div>
+          </div>
+          <div class="valuation-layout">
+            <div class="val-controls" id="valControls"></div>
+            <div class="val-output">
+              <div class="val-result">
+                <span>추정 지분가치</span>
+                <strong id="valResult">$0M</strong>
+                <small id="valFormula"></small>
+              </div>
+              <div class="val-readouts" id="valReadouts"></div>
+              <p class="val-note" id="valNote"></p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section-band section-soft" id="portfolio">
+      <div class="container">
+        <div class="section-head">
+          <div>
+            <p class="eyebrow">Portfolio & equity stakes</p>
+            <h2>SK하이닉스 투자 포트폴리오 · 지분율 · 밸류업</h2>
+          </div>
+          <span class="section-meta" id="portfolioMeta"></span>
+        </div>
+        <div class="portfolio-grid" id="portfolioGrid"></div>
+        <p class="portfolio-note" id="portfolioNote"></p>
+      </div>
+    </section>
+
+    <section class="section-band" id="maTargets">
+      <div class="container">
+        <div class="section-head">
+          <div>
+            <p class="eyebrow">M&A & equity opportunity radar</p>
+            <h2>국내외 M&A · 지분투자 기회 발굴</h2>
+          </div>
+          <span class="section-meta">소수지분 · 제휴 · JV · 인수</span>
+        </div>
+        <div class="ma-grid" id="maGrid"></div>
+      </div>
+    </section>
+
+    <section class="section-band section-soft" id="funds">
+      <div class="container">
+        <div class="section-head">
+          <div>
+            <p class="eyebrow">CVC & fund coverage</p>
+            <h2>CVC · 펀드 투자 유니버스</h2>
+          </div>
+          <span class="section-meta">직접 소수지분 + 전문 펀드 LP 커버리지</span>
+        </div>
+        <div class="funds-grid" id="fundsGrid"></div>
+        <p class="portfolio-note" id="fundsNote"></p>
       </div>
     </section>
 
@@ -126,16 +245,26 @@
       </div>
     </section>
 
-    <section class="section-band section-soft" id="corpdev">
+    <section class="section-band section-soft" id="riskReturn">
       <div class="container">
         <div class="section-head">
           <div>
-            <p class="eyebrow">Corporate development workbench</p>
-            <h2>직무 항목별 메모리 업계 대시보드</h2>
+            <p class="eyebrow">Return & risk cockpit</p>
+            <h2>투자 수익성 · 리스크 · 성과 극대화</h2>
           </div>
-          <span class="section-meta">M&A · CVC · 전략 · 포트폴리오 · 리스크</span>
+          <span class="section-meta">기대수익 × 리스크 매트릭스</span>
         </div>
-        <div class="corpdev-grid" id="corpDevGrid"></div>
+        <div class="risk-layout">
+          <div class="risk-matrix-wrap">
+            <div class="risk-matrix" id="riskMatrix"></div>
+            <div class="risk-axislabel risk-axis-x">리스크 →</div>
+            <div class="risk-axislabel risk-axis-y">기대수익 →</div>
+          </div>
+          <div class="risk-side">
+            <h3>핵심 리스크 팩터</h3>
+            <ul class="risk-factors" id="riskFactors"></ul>
+          </div>
+        </div>
       </div>
     </section>
 
@@ -186,8 +315,8 @@
       <div class="container">
         <div class="section-head">
           <div>
-            <p class="eyebrow">Strategic investment radar</p>
-            <h2>하이닉스 투자 후보 스타트업</h2>
+            <p class="eyebrow">CVC investment radar</p>
+            <h2>하이닉스 CVC 투자 후보</h2>
           </div>
           <span class="section-meta" id="startupMeta"></span>
         </div>
@@ -213,8 +342,8 @@
         <div>
           <div class="section-head stacked">
             <div>
-              <p class="eyebrow">News stream</p>
-              <h2>메모리 뉴스 <span class="news-stats" id="newsStats"></span></h2>
+              <p class="eyebrow">Foreign press news stream</p>
+              <h2>외신 뉴스 <span class="news-stats" id="newsStats"></span></h2>
             </div>
           </div>
           <div class="news-controls">
@@ -225,11 +354,15 @@
         </div>
         <aside>
           <div class="trend-panel">
+            <h3>딜플로우 (M&A·투자)</h3>
+            <ul class="dealflow-list" id="dealflowList"></ul>
+          </div>
+          <div class="trend-panel">
             <h3>트렌딩 키워드</h3>
             <div class="trend-cloud" id="trendCloud"></div>
           </div>
           <div class="health-panel">
-            <h3>크롤링 상태</h3>
+            <h3>에이전트 상태</h3>
             <ul id="healthList"></ul>
           </div>
         </aside>

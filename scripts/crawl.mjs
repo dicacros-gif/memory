@@ -47,34 +47,39 @@ const PRICE_PAGES = [
   },
 ];
 
+// Foreign-press-centric news themes. All queries are English so Google News
+// returns international outlets; Korean-language items and Korean outlets are
+// dropped downstream by isForeignItem().
 const CATEGORIES = [
-  { id: "dram", label: "DRAM 가격", queries: ["DRAM 가격", "D램 가격 인상"] },
-  { id: "nand", label: "낸드플래시", queries: ["낸드플래시 가격", "NAND 가격"] },
-  { id: "hbm", label: "HBM", queries: ["HBM", "HBM3E", "HBM4"] },
-  { id: "supply", label: "공급·슈퍼사이클", queries: ["메모리 공급 부족", "메모리 슈퍼사이클", "메모리 감산"] },
-  { id: "aidemand", label: "AI 수요", queries: ["AI 메모리 수요", "데이터센터 메모리"] },
-  { id: "makers", label: "제조사", queries: ["삼성전자 메모리 반도체", "SK하이닉스 HBM", "마이크론 메모리"] },
+  { id: "hbm", label: "HBM·AI Memory", queries: ["HBM4 memory AI accelerator", "high bandwidth memory HBM"] },
+  { id: "dram", label: "DRAM·DDR", queries: ["DRAM DDR5 server memory price", "DRAM market demand"] },
+  { id: "nand", label: "NAND·SSD", queries: ["NAND flash enterprise SSD price", "SSD memory demand"] },
+  { id: "cxl", label: "CXL·Next Memory", queries: ["CXL memory pooling", "CXL switch memory expansion"] },
+  { id: "packaging", label: "Packaging·Photonics", queries: ["advanced packaging HBM hybrid bonding", "silicon photonics interconnect memory"] },
+  { id: "aidemand", label: "AI Demand", queries: ["AI memory demand data center", "AI accelerator memory bandwidth"] },
+  { id: "dealflow", label: "M&A·Investment", queries: ["semiconductor memory M&A acquisition", "memory startup funding round investment", "SK hynix investment stake"] },
+  { id: "china", label: "China·Geopolitics", queries: ["CXMT YMTC China memory", "China DRAM NAND export control"] },
 ];
 
 const COMPETITORS = [
   {
     id: "samsung",
     label: "Samsung Electronics",
-    shortLabel: "삼성전자",
+    shortLabel: "Samsung",
     segment: "DRAM · NAND · HBM · 패키징",
     baseline: "DRAM 점유율과 턴키 패키징 역량이 강점. HBM4 인증·수율·고객 전환 속도를 매일 확인.",
-    queries: ["삼성전자 HBM4 HBM3E DRAM NAND 메모리", "Samsung Electronics HBM4 DRAM NAND AI memory"],
-    watchWords: ["HBM4", "HBM3E", "Nvidia", "Broadcom", "I-Cube", "패키징", "수율"],
+    queries: ["Samsung Electronics HBM4 DRAM NAND AI memory"],
+    watchWords: ["HBM4", "HBM3E", "Nvidia", "Broadcom", "foundry", "packaging", "yield"],
     pressureBase: 28,
   },
   {
     id: "micron",
     label: "Micron",
-    shortLabel: "마이크론",
+    shortLabel: "Micron",
     segment: "DRAM · HBM · 미국 AI 고객",
     baseline: "미국 상장 프리미엄과 HBM 고객 다변화가 강점. 선급계약·CAPEX·HBM4 로드맵 확인.",
-    queries: ["Micron HBM AI memory DRAM supply shortage", "마이크론 HBM 메모리 실적 AI"],
-    watchWords: ["HBM", "HBM4", "guidance", "AI", "contract", "capacity", "실적"],
+    queries: ["Micron HBM AI memory DRAM guidance"],
+    watchWords: ["HBM", "HBM4", "guidance", "AI", "contract", "capacity", "earnings"],
     pressureBase: 30,
   },
   {
@@ -83,18 +88,18 @@ const COMPETITORS = [
     shortLabel: "CXMT",
     segment: "중국 DRAM · DDR5",
     baseline: "레거시 DRAM 가격 하방 압력과 중국 내수 수요의 핵심 변수. DDR5 양산 뉴스 확인.",
-    queries: ["CXMT DRAM DDR5 China memory", "창신메모리 CXMT DDR5 DRAM"],
+    queries: ["CXMT ChangXin DRAM DDR5 China memory"],
     watchWords: ["DDR5", "China", "capacity", "sanction", "yield", "price"],
     pressureBase: 22,
   },
   {
     id: "kioxia",
     label: "Kioxia / Western Digital",
-    shortLabel: "키옥시아·WD",
+    shortLabel: "Kioxia·WD",
     segment: "NAND · 엔터프라이즈 SSD",
     baseline: "NAND 공급 조절, SSD 계약가, 일본·미국 투자 동향이 하이닉스 NAND 전략에 직접 영향.",
-    queries: ["Kioxia Western Digital NAND SSD price", "키옥시아 웨스턴디지털 NAND SSD"],
-    watchWords: ["NAND", "SSD", "enterprise", "wafer", "capacity", "price"],
+    queries: ["Kioxia Western Digital NAND SSD IPO"],
+    watchWords: ["NAND", "SSD", "enterprise", "wafer", "capacity", "IPO"],
     pressureBase: 20,
   },
   {
@@ -103,7 +108,7 @@ const COMPETITORS = [
     shortLabel: "YMTC",
     segment: "중국 NAND · Xtacking",
     baseline: "중국 NAND 내재화와 가격 경쟁의 장기 변수. 제재 우회, 양산 수율, 고객 확대 확인.",
-    queries: ["YMTC NAND China Xtacking memory", "양쯔메모리 YMTC NAND"],
+    queries: ["YMTC Yangtze Memory NAND China Xtacking"],
     watchWords: ["NAND", "Xtacking", "China", "sanction", "capacity", "smartphone"],
     pressureBase: 18,
   },
@@ -120,7 +125,7 @@ const STARTUPS = [
     thesis: "AI 추론 병목을 메모리 가까이에서 처리하는 CXL 모듈형 접근.",
     whyHynix: "HBM 이후의 CXL 메모리 확장·근접연산 제품 포트폴리오 옵션.",
     watch: "서버 OEM PoC, CXL 3.0 상호운용성, 메모리 모듈 공급 파트너십",
-    queries: ["XCENA CXL memory AI startup", "XCENA computational memory"],
+    queries: ["XCENA CXL computational memory startup"],
     tags: ["CXL", "near-memory", "AI inference"],
   },
   {
@@ -133,7 +138,7 @@ const STARTUPS = [
     thesis: "AI 가속기와 메모리 사이 대역폭·전력 병목을 포토닉 패브릭으로 완화.",
     whyHynix: "HBM 패키지와 광 I/O 결합 가능성, 차세대 AI 메모리 차별화.",
     watch: "패키징 파트너, 광엔진 수율, 대형 고객 양산 일정",
-    queries: ["Celestial AI Photonic Fabric memory", "Celestial AI optical interconnect chip memory"],
+    queries: ["Celestial AI Photonic Fabric memory interconnect"],
     tags: ["photonics", "interconnect", "HBM"],
   },
   {
@@ -146,8 +151,21 @@ const STARTUPS = [
     thesis: "AI 클러스터 내부 데이터 이동 비용을 광 기반 네트워크로 낮추는 접근.",
     whyHynix: "HBM 수요를 만드는 AI 클러스터 병목을 이해하고 공동 레퍼런스 설계 가능.",
     watch: "Passage 채택 고객, GPU·ASIC 패키지 통합 로드맵",
-    queries: ["Lightmatter photonic interconnect AI memory", "Lightmatter Passage chip interconnect"],
+    queries: ["Lightmatter Passage photonic interconnect AI"],
     tags: ["photonics", "AI cluster", "interconnect"],
+  },
+  {
+    id: "ayar-labs",
+    name: "Ayar Labs",
+    area: "in-package 광 I/O (optical chiplet)",
+    stage: "Late-stage",
+    geography: "US",
+    fitScore: 82,
+    thesis: "TeraPHY 광 I/O 칩렛으로 패키지 내부 대역폭·전력 병목을 해소.",
+    whyHynix: "HBM·가속기 패키지에 광 I/O를 통합하는 차세대 메모리 인터페이스 옵션.",
+    watch: "UCIe-optical, 파운드리·패키징 파트너, 대형 고객 채택",
+    queries: ["Ayar Labs optical IO chiplet memory funding"],
+    tags: ["photonics", "optical I/O", "chiplet"],
   },
   {
     id: "xconn",
@@ -159,7 +177,7 @@ const STARTUPS = [
     thesis: "CXL 스위치로 서버 메모리 풀링과 확장성을 높이는 인프라 레이어.",
     whyHynix: "CXL 메모리 모듈 수요 창출 및 데이터센터 레퍼런스 확보.",
     watch: "CXL 3.0 스위치 인증, hyperscaler PoC, MemVerge 등 SW 생태계",
-    queries: ["XConn Technologies CXL memory pooling", "XConn CXL switch AI workload"],
+    queries: ["XConn Technologies CXL switch memory pooling"],
     tags: ["CXL", "switch", "memory pooling"],
   },
   {
@@ -172,8 +190,60 @@ const STARTUPS = [
     thesis: "CXL·DRAM·스토리지를 워크로드 단위로 묶는 소프트웨어 계층.",
     whyHynix: "하드웨어 모듈만이 아니라 운영 소프트웨어까지 포함한 CXL GTM 강화.",
     watch: "CXL 풀링 레퍼런스, 클라우드 배포, 파트너 스위치·메모리 호환성",
-    queries: ["MemVerge CXL memory pooling AI", "MemVerge memory machine CXL"],
+    queries: ["MemVerge CXL memory pooling software"],
     tags: ["CXL", "software", "memory virtualization"],
+  },
+  {
+    id: "unifabrix",
+    name: "UnifabriX",
+    area: "CXL 메모리 · Smart Memory Node",
+    stage: "Series A",
+    geography: "Israel",
+    fitScore: 75,
+    thesis: "CXL 기반 메모리 풀링 어플라이언스로 AI 워크로드 대역폭·용량 확장.",
+    whyHynix: "CXL 모듈 수요와 레퍼런스 아키텍처 공동 설계 가능.",
+    watch: "MAX over CXL, 하이퍼스케일 PoC, 표준 적합성",
+    queries: ["UnifabriX CXL memory pooling startup"],
+    tags: ["CXL", "memory node", "pooling"],
+  },
+  {
+    id: "eliyan",
+    name: "Eliyan",
+    area: "chiplet 인터커넥트 (NuLink)",
+    stage: "Series B",
+    geography: "US",
+    fitScore: 74,
+    thesis: "유기 기판 위 고대역 칩렛 연결로 실리콘 인터포저 의존도를 낮춤.",
+    whyHynix: "HBM·칩렛 패키지 비용·대역폭 구조를 바꾸는 인터커넥트 옵션.",
+    watch: "NuLink/UMI 채택, 메모리·로직 패키지 레퍼런스",
+    queries: ["Eliyan chiplet interconnect NuLink memory"],
+    tags: ["chiplet", "interconnect", "packaging"],
+  },
+  {
+    id: "dmatrix",
+    name: "d-Matrix",
+    area: "디지털 in-memory compute (추론)",
+    stage: "Late-stage",
+    geography: "US",
+    fitScore: 73,
+    thesis: "메모리 중심 추론 가속으로 AI 추론 비용·전력을 낮추는 접근.",
+    whyHynix: "near-memory/PIM 생태계 신호와 메모리 중심 컴퓨팅 수요 파악.",
+    watch: "Corsair 채택, 추론 TCO, 메모리 파트너십",
+    queries: ["d-Matrix in-memory compute AI inference funding"],
+    tags: ["in-memory", "inference", "near-memory"],
+  },
+  {
+    id: "enfabrica",
+    name: "Enfabrica",
+    area: "AI 네트워크·메모리 패브릭",
+    stage: "Late-stage",
+    geography: "US",
+    fitScore: 71,
+    thesis: "GPU-메모리-네트워크를 잇는 패브릭으로 메모리 확장·공유를 가속.",
+    whyHynix: "CXL/메모리 패브릭 수요와 데이터센터 메모리 확장 구조 이해.",
+    watch: "ACF SuperNIC, 하이퍼스케일 채택, CXL 연계",
+    queries: ["Enfabrica AI network memory fabric funding"],
+    tags: ["fabric", "memory", "networking"],
   },
   {
     id: "primemas",
@@ -181,11 +251,11 @@ const STARTUPS = [
     area: "CXL · chiplet hub SoC",
     stage: "Series B",
     geography: "US / Asia",
-    fitScore: 74,
+    fitScore: 70,
     thesis: "AI·CXL용 칩렛 허브 SoC로 메모리 확장과 이기종 연결을 단순화.",
     whyHynix: "HBM·CXL·chiplet 생태계 사이의 컨트롤러 IP 옵션.",
     watch: "제품 샘플링, UCIe/CXL 호환성, 서버 플랫폼 채택",
-    queries: ["Primemas CXL chiplet AI memory startup", "Primemas semiconductor Series B CXL"],
+    queries: ["Primemas CXL chiplet hub SoC memory"],
     tags: ["chiplet", "CXL", "controller"],
   },
   {
@@ -194,21 +264,42 @@ const STARTUPS = [
     area: "실리콘 포토닉 AI 연산",
     stage: "Early-growth",
     geography: "US",
-    fitScore: 69,
+    fitScore: 68,
     thesis: "광 기반 AI 연산이 대규모 메모리 대역폭 요구를 바꿀 수 있는 장기 옵션.",
     whyHynix: "HBM 수요 구조 변화와 광 I/O 패키징 협력 가능성을 조기 탐색.",
     watch: "2028 양산 가능성, SRAM/벡터 유닛 통합, 파운드리 호환성",
-    queries: ["Neurophos silicon photonics AI chip memory", "Neurophos optical AI chip startup"],
+    queries: ["Neurophos silicon photonics AI compute startup"],
     tags: ["photonics", "AI compute", "long option"],
   },
 ];
 
+// Foreign deal-flow themes feeding the M&A / CVC / portfolio radars.
+const DEALFLOW = [
+  { id: "ma", label: "Memory M&A", queries: ["semiconductor memory acquisition deal", "memory company merger acquisition"] },
+  { id: "funding", label: "Startup Funding", queries: ["CXL memory startup funding round", "photonics interconnect startup Series funding"] },
+  { id: "skhynix", label: "SK hynix CorpDev", queries: ["SK hynix investment acquisition stake", "SK hynix Solidigm Kioxia"] },
+];
+
 const STOPWORDS = new Set([
-  "메모리", "반도체", "가격", "기자", "단독", "속보", "종합", "영상", "사진", "포토",
-  "관련", "위해", "오늘", "올해", "최근", "뉴스", "시장", "기업", "the", "and", "for",
-  "with", "from", "that", "this", "are", "will", "has", "내용", "공개", "발표", "분석",
-  "이번", "최대", "다시", "daum", "net", "naver",
+  "memory", "chip", "chips", "price", "prices", "market", "report", "says", "said",
+  "the", "and", "for", "with", "from", "that", "this", "are", "will", "has", "new",
+  "its", "into", "amid", "could", "would", "their", "than", "over", "after", "more",
+  "how", "why", "what", "may", "can", "out", "but", "not", "you", "your", "inc",
+  "ltd", "corp", "company", "tech", "news", "update", "billion", "million", "yahoo",
+  "google", "reuters", "bloomberg",
 ]);
+
+// Foreign-press filter: drop Korean-language items and Korean-origin outlets so
+// the dashboard stays 외신(foreign press) 중심. Applied at the single fetch choke point.
+const KOREAN_SOURCE_RE = /(yonhap|korea ?herald|korea ?times|koreatimes|koreaherald|chosun|joongang|joong ?ang|donga|dong-?a|hankyung|hankyoreh|ked ?global|kedglobal|maeil|maekyung|pulse ?news|business ?korea|businesskorea|et ?news|etnews|the ?elec|thelec|zdnet ?korea|sedaily|seoul ?economic|aju ?(business|news)|korea ?economic|korea ?joongang|korea ?biz ?wire|koreabizwire|inews24|edaily|mt\.co\.kr|mk\.co\.kr|dt\.co\.kr|\.kr\b|korea ?pro|the ?korea)/i;
+
+function isForeignItem(item) {
+  if (!item || !item.title) return false;
+  if (/[가-힣]/.test(item.title)) return false; // Korean-language headline
+  const src = `${item.source || ""} ${item.link || ""}`.toLowerCase();
+  if (KOREAN_SOURCE_RE.test(src)) return false;
+  return true;
+}
 
 const health = [];
 function note(step, ok, msg = "") {
@@ -221,7 +312,7 @@ async function fetchText(url) {
     headers: {
       "User-Agent": BROWSER_UA,
       Accept: "text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8",
-      "Accept-Language": "ko,en;q=0.9",
+      "Accept-Language": "en-US,en;q=0.9",
     },
   });
   if (!res.ok) throw new Error(`HTTP ${res.status}`);
@@ -572,16 +663,19 @@ function ymd(dateStr) {
 }
 
 async function fetchGoogleNews(query, category = "") {
-  const url = `https://news.google.com/rss/search?q=${encodeURIComponent(query + " when:30d")}&hl=ko&gl=KR&ceid=KR:ko`;
+  // US English edition → international outlets; Korean items dropped by isForeignItem().
+  const url = `https://news.google.com/rss/search?q=${encodeURIComponent(query + " when:30d")}&hl=en-US&gl=US&ceid=US:en`;
   const xml = await fetchText(url);
-  return parseRSS(xml).map((item) => ({
-    title: item.title,
-    link: item.link,
-    source: item.source,
-    date: ymd(item.pubDate),
-    ts: new Date(item.pubDate).getTime() || 0,
-    category,
-  }));
+  return parseRSS(xml)
+    .map((item) => ({
+      title: item.title,
+      link: item.link,
+      source: item.source,
+      date: ymd(item.pubDate),
+      ts: new Date(item.pubDate).getTime() || 0,
+      category,
+    }))
+    .filter(isForeignItem);
 }
 
 async function fetchCategory(cat, seen) {
@@ -757,6 +851,48 @@ async function collectStartups() {
   };
 }
 
+/* ---------- deal flow (M&A / CVC / SK hynix CorpDev, foreign press) ---------- */
+async function collectDealflow() {
+  const seen = new Set();
+  const themes = [];
+  let stream = [];
+
+  for (const theme of DEALFLOW) {
+    const items = [];
+    for (const query of theme.queries) {
+      try {
+        const queryItems = await fetchGoogleNews(query, theme.id);
+        for (const item of queryItems) {
+          const key = item.title.replace(/\s+/g, " ").toLowerCase();
+          if (seen.has(key)) continue;
+          seen.add(key);
+          items.push(item);
+        }
+      } catch (error) {
+        note(`딜플로우:${theme.label}/${query}`, false, error.message);
+      }
+      await sleep(320);
+    }
+    items.sort((a, b) => b.ts - a.ts);
+    themes.push({
+      id: theme.id,
+      label: theme.label,
+      count: items.length,
+      items: items.slice(0, 10).map(({ ts, category, ...rest }) => rest),
+    });
+    stream = stream.concat(items);
+    note(`딜플로우:${theme.label}`, items.length > 0, `${items.length}건`);
+  }
+
+  stream.sort((a, b) => b.ts - a.ts);
+  return {
+    updatedAt: new Date().toISOString(),
+    themes,
+    stream: stream.slice(0, 40).map(({ ts, category, ...rest }) => ({ ...rest, theme: category || "" })),
+    stats: newsStats(stream),
+  };
+}
+
 function buildSignals({ prices, competitors, startups, newsStats: stats }) {
   const topPriceMoves = prices.watchedItems
     .filter((item) => item.changePct != null)
@@ -798,12 +934,13 @@ function buildSignals({ prices, competitors, startups, newsStats: stats }) {
 
 /* ---------- main ---------- */
 async function main() {
-  const [prices, stocks, newsPayload, competitors, startups] = await Promise.all([
+  const [prices, stocks, newsPayload, competitors, startups, dealflow] = await Promise.all([
     collectPrices(),
     collectStocks(),
     collectNews(),
     collectCompetitors(),
     collectStartups(),
+    collectDealflow(),
   ]);
   const priceHistory = await updatePriceHistory(prices);
   attachPriceHistory(prices, priceHistory);
@@ -811,7 +948,7 @@ async function main() {
   const { categories, news, trending, newsStats: stats } = newsPayload;
   const signals = buildSignals({ prices, competitors, startups, newsStats: stats });
   const okCount = health.filter((item) => item.ok).length;
-  console.log(`\n수집 완료: ${okCount}/${health.length} 단계 성공, 뉴스 ${news.length}건, 가격표 ${prices.sections.length}개`);
+  console.log(`\n수집 완료: ${okCount}/${health.length} 단계 성공, 외신 뉴스 ${news.length}건, 딜플로우 ${dealflow.stream.length}건, 가격표 ${prices.sections.length}개`);
 
   const payload = {
     updatedAt: new Date().toISOString(),
@@ -821,6 +958,7 @@ async function main() {
     priceHistory,
     competitors,
     startups,
+    dealflow,
     signals,
     categories,
     news,
