@@ -1,0 +1,80 @@
+name: Poll TrendForce & Deploy to Pages
+
+on:
+  push:
+    branches: [main]
+  schedule:
+    # TrendForce has no webhook; poll every 30 minutes and commit only when price history changes.
+    - cron: "*/30 * * * *"
+  workflow_dispatch:
+
+permissions:
+  contents: write
+  pages: write
+  id-token: write
+
+concurrency:
+  group: pages
+  cancel-in-progress: true
+
+jobs:
+  build-deploy:
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deploy.outputs.page_url }}
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+
+      - name: Capture current price history checksum
+        id: price-history-before
+        shell: bash
+        run: |
+          if [ -f data/price-history.json ]; then
+            echo "hash=$(sha256sum data/price-history.json | cut -d ' ' -f1)" >> "$GITHUB_OUTPUT"
+          else
+            echo "hash=missing" >> "$GITHUB_OUTPUT"
+          fi
+
+      - name: Crawl fresh live data
+        run: node scripts/crawl.mjs || echo "크롤 실패 — 기존 live.json으로 배포"
+
+      - name: Commit refreshed price data
+        if: github.ref == 'refs/heads/main'
+        shell: bash
+        run: |
+          before="${{ steps.price-history-before.outputs.hash }}"
+          if [ -f data/price-history.json ]; then
+            after="$(sha256sum data/price-history.json | cut -d ' ' -f1)"
+          else
+            after="missing"
+          fi
+          if [ "$before" = "$after" ]; then
+            echo "TrendForce price tables unchanged; skipping data commit."
+            exit 0
+          fi
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add data/live.json data/price-history.json
+          git commit -m "chore: update TrendForce price history [skip ci]"
+          git push
+
+      - name: Configure Pages (auto-enable)
+        uses: actions/configure-pages@v5
+        with:
+          enablement: true
+
+      - name: Upload artifact
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: "."
+
+      - name: Deploy to GitHub Pages
+        id: deploy
+        uses: actions/deploy-pages@v4

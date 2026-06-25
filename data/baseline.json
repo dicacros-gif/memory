@@ -1,0 +1,41 @@
+{
+  "meta": {
+    "title": "SK hynix Memory Intelligence",
+    "subtitle": "메모리 가격, 경쟁사 동향, 투자 후보 스타트업을 매일 자동 업데이트하는 전략 대시보드"
+  },
+  "background": {
+    "title": "메모리 원가 전가 시뮬레이터",
+    "desc": "아래 수치는 자동 크롤링 대상이 아닌 배경 가정값입니다. 완제품 가격 민감도를 빠르게 비교하기 위한 내부 검토용 모델입니다.",
+    "formula": {
+      "costSharePct": 7,
+      "priceIncreasePct": 350,
+      "passThroughPct": 100,
+      "retailIncreasePct": 24.5,
+      "expression": "7% × ~350% × 100% = 최소 +24%",
+      "source": "J.P. Morgan North America Economic Research",
+      "sourceDate": "2026-06-18"
+    }
+  },
+  "simulator": {
+    "defaults": { "costSharePct": 7, "priceIncreasePct": 350, "passThroughPct": 100 },
+    "ranges": {
+      "costSharePct": { "min": 1, "max": 30, "step": 0.5 },
+      "priceIncreasePct": { "min": 0, "max": 500, "step": 5 },
+      "passThroughPct": { "min": 0, "max": 100, "step": 5 }
+    },
+    "devices": [
+      { "id": "flagship", "label": "플래그십 스마트폰", "basePrice": 1500000 },
+      { "id": "midrange", "label": "중급 스마트폰", "basePrice": 600000 },
+      { "id": "laptop", "label": "AI 노트북", "basePrice": 1800000 },
+      { "id": "server", "label": "서버 BOM", "basePrice": 9000000 }
+    ]
+  },
+  "sources": [
+    "가격: TrendForce Price Trends / DRAMeXchange 공개 가격표",
+    "주가: Yahoo Finance chart API",
+    "뉴스: Google News RSS",
+    "경쟁사·스타트업 레이더: 공개 뉴스 빈도와 정적 전략 적합도 기반",
+    "배경 수치: J.P. Morgan North America Economic Research (2026-06-18)"
+  ],
+  "disclaimer": "본 대시보드는 공개 데이터 기반 정보 제공 및 내부 검토 보조용입니다. 투자 조언, 인수 권유, 또는 공급 계약 판단을 대체하지 않습니다."
+}

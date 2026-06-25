@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>SK hynix Memory Intelligence</title>
+  <meta name="description" content="메모리 가격, 경쟁사 동향, 투자 후보 스타트업을 매일 자동 업데이트하는 하이닉스 전략 대시보드" />
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='7' fill='%23f05a28'/%3E%3Cpath d='M8 21V10h4v4h8v-4h4v11h-4v-4h-8v4z' fill='white'/%3E%3C/svg%3E" />
+  <link rel="stylesheet" href="assets/css/styles.css" />
+</head>
+<body>
+  <header class="site-header" id="siteHeader">
+    <div class="header-inner">
+      <a class="brand" href="#top" aria-label="SK hynix Memory Intelligence 홈">
+        <span class="brand-mark" aria-hidden="true"></span>
+        <span>
+          <span class="brand-name">SK hynix</span>
+          <span class="brand-sub">Memory Intelligence</span>
+        </span>
+      </a>
+      <nav class="nav-links" aria-label="대시보드 섹션">
+        <a href="#prices">가격</a>
+        <a href="#competitors">경쟁</a>
+        <a href="#startups">투자</a>
+        <a href="#news">뉴스</a>
+      </nav>
+      <div class="header-meta">
+        <span class="live-badge"><span class="pulse-dot"></span> Daily crawl</span>
+        <span class="updated-at" id="headerUpdatedAt">로딩 중</span>
+      </div>
+    </div>
+  </header>
+
+  <main id="top">
+    <section class="top-band">
+      <div class="container top-layout">
+        <div class="title-block">
+          <p class="eyebrow">AI 메모리 전략 상황판</p>
+          <h1>가격, 경쟁사, 투자 후보를 매일 한 화면에</h1>
+          <p class="lead">TrendForce 공개 가격표와 뉴스 신호를 수집해 SK하이닉스 관점의 가격 압력, 경쟁 움직임, 스타트업 투자 후보를 갱신합니다.</p>
+        </div>
+        <div class="brief-list" id="briefList" aria-live="polite"></div>
+      </div>
+    </section>
+
+    <section class="metric-band">
+      <div class="container">
+        <div class="metric-grid" id="kpiGrid"></div>
+      </div>
+    </section>
+
+    <section class="section-band" id="prices">
+      <div class="container">
+        <div class="section-head">
+          <div>
+            <p class="eyebrow">Memory price board</p>
+            <h2>메모리 가격 업데이트</h2>
+          </div>
+          <div class="segmented" id="priceTabs"></div>
+        </div>
+        <div class="price-layout">
+          <div class="price-table-wrap">
+            <table class="price-table">
+              <thead>
+                <tr>
+                  <th>품목</th>
+                  <th>평균가</th>
+                  <th>변동</th>
+                  <th>추이</th>
+                  <th>범위</th>
+                  <th>업데이트</th>
+                </tr>
+              </thead>
+              <tbody id="priceRows"></tbody>
+            </table>
+          </div>
+          <aside class="signal-strip" id="priceSignals"></aside>
+        </div>
+      </div>
+    </section>
+
+    <section class="section-band section-soft" id="competitors">
+      <div class="container">
+        <div class="section-head">
+          <div>
+            <p class="eyebrow">Competitive radar</p>
+            <h2>하이닉스 경쟁사 동향</h2>
+          </div>
+          <span class="section-meta" id="competitorMeta"></span>
+        </div>
+        <div class="competitor-grid" id="competitorGrid"></div>
+      </div>
+    </section>
+
+    <section class="section-band" id="startups">
+      <div class="container">
+        <div class="section-head">
+          <div>
+            <p class="eyebrow">Strategic investment radar</p>
+            <h2>하이닉스 투자 후보 스타트업</h2>
+          </div>
+          <span class="section-meta" id="startupMeta"></span>
+        </div>
+        <div class="startup-grid" id="startupGrid"></div>
+      </div>
+    </section>
+
+    <section class="section-band section-soft" id="stocks">
+      <div class="container">
+        <div class="section-head">
+          <div>
+            <p class="eyebrow">Listed memory peers</p>
+            <h2>메모리 3사 주가</h2>
+          </div>
+          <span class="section-meta">Yahoo Finance 기준</span>
+        </div>
+        <div class="stock-grid" id="stockGrid"></div>
+      </div>
+    </section>
+
+    <section class="section-band" id="news">
+      <div class="container news-layout">
+        <div>
+          <div class="section-head stacked">
+            <div>
+              <p class="eyebrow">News stream</p>
+              <h2>메모리 뉴스 <span class="news-stats" id="newsStats"></span></h2>
+            </div>
+          </div>
+          <div class="news-controls">
+            <div class="tabs" id="newsTabs"></div>
+            <input type="search" id="newsSearch" class="news-search" placeholder="검색" />
+          </div>
+          <ul class="news-list" id="newsList"></ul>
+        </div>
+        <aside>
+          <div class="trend-panel">
+            <h3>트렌딩 키워드</h3>
+            <div class="trend-cloud" id="trendCloud"></div>
+          </div>
+          <div class="health-panel">
+            <h3>크롤링 상태</h3>
+            <ul id="healthList"></ul>
+          </div>
+        </aside>
+      </div>
+    </section>
+
+    <section class="section-band section-soft" id="scenario">
+      <div class="container">
+        <div class="section-head">
+          <div>
+            <p class="eyebrow">Scenario simulator</p>
+            <h2 id="bgTitle">메모리 원가 전가 시뮬레이터</h2>
+          </div>
+          <span class="section-meta" id="bgSource"></span>
+        </div>
+        <p class="section-desc" id="bgDesc"></p>
+        <div class="sim-layout">
+          <div class="sim-controls" id="simControls"></div>
+          <div class="sim-output">
+            <div class="sim-result">
+              <span>예상 소매가 인상률</span>
+              <strong id="simResult">+0.0%</strong>
+              <small id="simFormula"></small>
+            </div>
+            <div class="sim-devices" id="simDevices"></div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container">
+      <p class="footer-title">출처 및 면책</p>
+      <ul class="source-list" id="sourceList"></ul>
+      <p class="footer-note" id="disclaimer"></p>
+    </div>
+  </footer>
+
+  <script src="assets/js/app.js" defer></script>
+</body>
+</html>
