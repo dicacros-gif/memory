@@ -293,9 +293,24 @@ const STOPWORDS = new Set([
 // the dashboard stays 외신(foreign press) 중심. Applied at the single fetch choke point.
 const KOREAN_SOURCE_RE = /(yonhap|korea ?herald|korea ?times|koreatimes|koreaherald|chosun|joongang|joong ?ang|donga|dong-?a|hankyung|hankyoreh|ked ?global|kedglobal|maeil|maekyung|pulse ?news|business ?korea|businesskorea|et ?news|etnews|the ?elec|thelec|zdnet ?korea|sedaily|seoul ?economic|aju ?(business|news)|korea ?economic|korea ?joongang|korea ?biz ?wire|koreabizwire|inews24|edaily|mt\.co\.kr|mk\.co\.kr|dt\.co\.kr|\.kr\b|korea ?pro|the ?korea)/i;
 
+// Hangul / Hangul Jamo / kana / CJK / surrogate / specials. Stripped from
+// titles so a Latin headline stays clean even if a multibyte char mis-decoded,
+// and a genuinely Korean/CJK headline collapses to a short fragment we drop.
+const NON_LATIN_RE = /[ᄀ-ᇿ　-ヿ㐀-䶿一-鿿가-힣\uD800-\uDFFF豈-﫿￹-￿]/g;
+
+function cleanTitle(value) {
+  return String(value || "")
+    .replace(NON_LATIN_RE, "")
+    .replace(/\s{2,}/g, " ")
+    .trim();
+}
+
 function isForeignItem(item) {
   if (!item || !item.title) return false;
-  if (/[가-힣]/.test(item.title)) return false; // Korean-language headline
+  // After cleanTitle, a real Korean/CJK headline collapses to a tiny Latin
+  // fragment - drop those, and drop Korean-origin outlets. Keeps a clean
+  // Latin-script international (foreign-press) feed.
+  if (item.title.replace(/[^A-Za-z]/g, "").length < 6) return false;
   const src = `${item.source || ""} ${item.link || ""}`.toLowerCase();
   if (KOREAN_SOURCE_RE.test(src)) return false;
   return true;
@@ -676,9 +691,9 @@ async function fetchGoogleNews(query, category = "") {
   const xml = await fetchText(url);
   return parseRSS(xml)
     .map((item) => ({
-      title: item.title,
+      title: cleanTitle(item.title),
       link: item.link,
-      source: item.source,
+      source: cleanTitle(item.source),
       date: ymd(item.pubDate),
       ts: new Date(item.pubDate).getTime() || 0,
       category,
