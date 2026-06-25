@@ -92,6 +92,129 @@
       "output": "리스크 매트릭스, downside case, 성과 극대화 액션"
     }
   ],
+  "memoryCategories": [
+    {
+      "id": "all",
+      "label": "전체",
+      "en": "All Memory",
+      "desc": "가격, 공급, 경쟁, 투자 후보를 한 번에 보는 전체 메모리 인텔리전스",
+      "keywords": ["memory", "메모리", "DRAM", "NAND", "HBM", "CXL", "AI"]
+    },
+    {
+      "id": "hbm",
+      "label": "HBM·AI 메모리",
+      "en": "HBM / AI Memory",
+      "desc": "HBM3E, HBM4, AI 가속기, GPU 고객 인증, CoWoS·패키징 수요",
+      "keywords": ["HBM", "HBM3E", "HBM4", "GPU", "AI", "NVIDIA", "ASIC"]
+    },
+    {
+      "id": "dram",
+      "label": "DRAM·DDR",
+      "en": "DRAM / DDR",
+      "desc": "DDR4, DDR5, LPDDR, 서버·PC·모바일 DRAM 가격과 수요 사이클",
+      "keywords": ["DRAM", "D램", "DDR5", "DDR4", "LPDDR", "서버"]
+    },
+    {
+      "id": "nand",
+      "label": "NAND·SSD",
+      "en": "NAND / SSD",
+      "desc": "NAND wafer, enterprise SSD, client SSD, QLC/TLC 가격과 공급 조절",
+      "keywords": ["NAND", "낸드", "SSD", "QLC", "TLC", "wafer"]
+    },
+    {
+      "id": "cxl",
+      "label": "CXL·메모리 풀링",
+      "en": "CXL / Memory Pooling",
+      "desc": "CXL 모듈, 스위치, 메모리 가상화, near-memory compute 투자 후보",
+      "keywords": ["CXL", "pooling", "near-memory", "computational memory", "메모리 풀링"]
+    },
+    {
+      "id": "packaging",
+      "label": "패키징·인터커넥트",
+      "en": "Packaging / Interconnect",
+      "desc": "advanced packaging, 광 인터커넥트, chiplet, thermal·test 병목",
+      "keywords": ["packaging", "interconnect", "chiplet", "photonics", "thermal", "CoWoS"]
+    },
+    {
+      "id": "china",
+      "label": "중국 경쟁·지정학",
+      "en": "China / Geopolitics",
+      "desc": "CXMT, YMTC, 수출 규제, 중국 내수 공급망과 가격 하방 압력",
+      "keywords": ["CXMT", "YMTC", "China", "중국", "제재", "export control"]
+    }
+  ],
+  "competitiveDynamics": [
+    {
+      "id": "hbm-leadership",
+      "title": "HBM 리더십 방어",
+      "axis": "고객 인증·수율·패키징",
+      "players": ["SK하이닉스", "삼성전자", "Micron"],
+      "whyItMatters": "AI GPU와 ASIC 고객의 장기 공급 계약이 HBM 수익성을 결정합니다.",
+      "watch": ["HBM4 인증", "선급계약", "CoWoS 병목", "수율 개선"],
+      "linkedCategories": ["hbm", "packaging"]
+    },
+    {
+      "id": "commodity-cycle",
+      "title": "범용 DRAM 가격 사이클",
+      "axis": "계약가·spot spread·재고",
+      "players": ["SK하이닉스", "삼성전자", "Micron", "CXMT"],
+      "whyItMatters": "DDR5와 DDR4의 가격 반등은 설비투자와 고객 가격 전가 판단의 선행 지표입니다.",
+      "watch": ["DRAM Contract Price", "DDR5 spot", "서버 수요", "중국 DDR5"],
+      "linkedCategories": ["dram", "china"]
+    },
+    {
+      "id": "nand-profitability",
+      "title": "NAND 수익성 회복",
+      "axis": "wafer 가격·enterprise SSD·감산",
+      "players": ["SK하이닉스", "삼성전자", "Kioxia/WD", "YMTC"],
+      "whyItMatters": "NAND는 공급 조절과 enterprise SSD 수요가 마진 개선의 핵심입니다.",
+      "watch": ["NAND Contract Price", "wafer spot", "enterprise SSD", "QLC 전환"],
+      "linkedCategories": ["nand", "china"]
+    },
+    {
+      "id": "next-memory-platform",
+      "title": "차세대 메모리 플랫폼 선점",
+      "axis": "CXL·광 I/O·chiplet 생태계",
+      "players": ["SK하이닉스", "CXL startups", "Hyperscalers", "Switch vendors"],
+      "whyItMatters": "HBM 이후 메모리 확장성과 데이터 이동 비용을 낮추는 플랫폼 전쟁입니다.",
+      "watch": ["CXL 3.0", "memory pooling", "photonic fabric", "chiplet controller"],
+      "linkedCategories": ["cxl", "packaging"]
+    }
+  ],
+  "monetizationModels": [
+    {
+      "id": "premium-supply",
+      "title": "프리미엄 공급 계약",
+      "revenueLogic": "HBM·enterprise SSD처럼 공급이 타이트한 제품에서 선급금, 장기계약, 우선 배정을 결합합니다.",
+      "memoryFit": ["HBM", "enterprise SSD", "server DDR5"],
+      "metric": "ASP uplift · prepayment · allocation share",
+      "risk": "고객 집중도와 차세대 인증 지연"
+    },
+    {
+      "id": "platform-bundling",
+      "title": "플랫폼 번들링",
+      "revenueLogic": "CXL 메모리, 소프트웨어, 스위치 생태계를 묶어 모듈 단품보다 높은 락인을 만듭니다.",
+      "memoryFit": ["CXL", "memory pooling", "near-memory compute"],
+      "metric": "attach rate · platform margin · PoC conversion",
+      "risk": "표준화 지연과 소프트웨어 생태계 부족"
+    },
+    {
+      "id": "process-valueup",
+      "title": "공정·패키징 value-up",
+      "revenueLogic": "패키징, 테스트, 열관리 병목을 해결해 같은 wafer 투입 대비 고부가 제품 비중을 높입니다.",
+      "memoryFit": ["HBM4", "advanced packaging", "thermal"],
+      "metric": "yield · mix improvement · cycle time",
+      "risk": "CAPEX 회수 기간과 공급망 병목"
+    },
+    {
+      "id": "strategic-options",
+      "title": "전략 옵션 투자",
+      "revenueLogic": "초기 스타트업·펀드 투자로 미래 병목 기술에 대한 접근권과 협상 옵션을 확보합니다.",
+      "memoryFit": ["photonics", "chiplet", "CXL software"],
+      "metric": "option value · follow-on rights · joint development",
+      "risk": "상용화 지연과 기술 표준 변화"
+    }
+  ],
   "sources": [
     "가격: TrendForce Price Trends / DRAMeXchange 공개 가격표",
     "주가: Yahoo Finance chart API",

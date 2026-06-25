@@ -7,7 +7,10 @@
 | 영역 | 내용 | 출처 |
 | --- | --- | --- |
 | 메모리 가격 | DRAM, NAND, wafer, module, SSD 공개 가격표 | TrendForce Price Trends / DRAMeXchange |
+| 자연어 검색·좌측 탭 | HBM, DRAM, NAND, CXL, 패키징, 중국 경쟁 카테고리 탐색 | 정적 카테고리 모델 + 라이브 데이터 |
 | CorpDev 업무별 대시보드 | M&A, CVC, 투자전략, 포트폴리오 value-up, 리스크 분석별 메모리 업계 신호 | 크롤링 데이터 + 고정 업무 프레임 |
+| 경쟁 다이나믹스 | HBM 리더십, DRAM 사이클, NAND 수익성, 차세대 플랫폼 경쟁 | 크롤링 데이터 + 전략 프레임 |
+| 수익화 모델 | 프리미엄 공급계약, 플랫폼 번들링, 공정 value-up, 전략 옵션 투자 | 정적 전략 모델 |
 | 주가 | SK하이닉스, 삼성전자, Micron 1개월 추이 | Yahoo Finance chart API |
 | 경쟁사 동향 | 삼성전자, Micron, CXMT, Kioxia/WD, YMTC 뉴스 레이더 | Google News RSS |
 | 스타트업 레이더 | CXL, photonics, chiplet, near-memory compute 투자 후보 | 정적 전략 적합도 + Google News RSS |

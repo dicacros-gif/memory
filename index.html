@@ -9,6 +9,27 @@
   <link rel="stylesheet" href="assets/css/styles.css" />
 </head>
 <body>
+  <aside class="side-rail" id="sideRail">
+    <button class="side-logo" id="sideLogo" type="button" aria-label="메모리 인텔리전스 홈">
+      <span class="brand-mark" aria-hidden="true"></span>
+      <span>
+        <strong>Memory OS</strong>
+        <small>Category Lens</small>
+      </span>
+    </button>
+    <div class="side-section">
+      <p>카테고리</p>
+      <div class="side-tabs" id="memoryCategoryTabs"></div>
+    </div>
+    <div class="side-section">
+      <p>분석 보드</p>
+      <a href="#dynamics">경쟁 다이나믹스</a>
+      <a href="#monetization">수익화 모델</a>
+      <a href="#corpdev">CorpDev</a>
+      <a href="#prices">가격</a>
+    </div>
+  </aside>
+
   <header class="site-header" id="siteHeader">
     <div class="header-inner">
       <a class="brand" href="#top" aria-label="SK hynix Memory Intelligence 홈">
@@ -33,6 +54,22 @@
   </header>
 
   <main id="top">
+    <section class="command-band">
+      <div class="container command-layout">
+        <div>
+          <p class="eyebrow">Natural language search</p>
+          <label class="command-search">
+            <span>질문</span>
+            <input type="search" id="memorySearch" placeholder="예: HBM 경쟁 구도와 투자 후보를 보여줘" autocomplete="off" />
+          </label>
+        </div>
+        <div class="quick-prompts" id="quickPrompts"></div>
+      </div>
+      <div class="container">
+        <div class="search-results" id="searchResults"></div>
+      </div>
+    </section>
+
     <section class="top-band">
       <div class="container top-layout">
         <div class="title-block">
@@ -50,7 +87,46 @@
       </div>
     </section>
 
-    <section class="section-band" id="corpdev">
+    <section class="section-band" id="categoryLens">
+      <div class="container">
+        <div class="section-head">
+          <div>
+            <p class="eyebrow">Memory category classifier</p>
+            <h2>메모리 분야 카테고리 분류</h2>
+          </div>
+          <span class="section-meta" id="categoryMeta">전체 보기</span>
+        </div>
+        <div class="category-lens-grid" id="categoryLensGrid"></div>
+      </div>
+    </section>
+
+    <section class="section-band section-soft" id="dynamics">
+      <div class="container">
+        <div class="section-head">
+          <div>
+            <p class="eyebrow">Competitive dynamics</p>
+            <h2>경쟁 다이나믹스</h2>
+          </div>
+          <span class="section-meta">고객 인증 · 가격 사이클 · 중국 경쟁 · 차세대 플랫폼</span>
+        </div>
+        <div class="dynamics-grid" id="dynamicsGrid"></div>
+      </div>
+    </section>
+
+    <section class="section-band" id="monetization">
+      <div class="container">
+        <div class="section-head">
+          <div>
+            <p class="eyebrow">Monetization model</p>
+            <h2>메모리 수익화 모델</h2>
+          </div>
+          <span class="section-meta">ASP · 플랫폼 락인 · value-up · 전략 옵션</span>
+        </div>
+        <div class="monetization-grid" id="monetizationGrid"></div>
+      </div>
+    </section>
+
+    <section class="section-band section-soft" id="corpdev">
       <div class="container">
         <div class="section-head">
           <div>
@@ -63,7 +139,7 @@
       </div>
     </section>
 
-    <section class="section-band section-soft" id="prices">
+    <section class="section-band" id="prices">
       <div class="container">
         <div class="section-head">
           <div>
@@ -93,7 +169,7 @@
       </div>
     </section>
 
-    <section class="section-band" id="competitors">
+    <section class="section-band section-soft" id="competitors">
       <div class="container">
         <div class="section-head">
           <div>
@@ -106,7 +182,7 @@
       </div>
     </section>
 
-    <section class="section-band section-soft" id="startups">
+    <section class="section-band" id="startups">
       <div class="container">
         <div class="section-head">
           <div>
@@ -119,7 +195,7 @@
       </div>
     </section>
 
-    <section class="section-band" id="stocks">
+    <section class="section-band section-soft" id="stocks">
       <div class="container">
         <div class="section-head">
           <div>
@@ -132,7 +208,7 @@
       </div>
     </section>
 
-    <section class="section-band section-soft" id="news">
+    <section class="section-band" id="news">
       <div class="container news-layout">
         <div>
           <div class="section-head stacked">
@@ -160,7 +236,7 @@
       </div>
     </section>
 
-    <section class="section-band" id="scenario">
+    <section class="section-band section-soft" id="scenario">
       <div class="container">
         <div class="section-head">
           <div>

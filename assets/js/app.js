@@ -29,6 +29,7 @@
   let LIVE = emptyLive;
   let activePrice = "watch";
   let activeCategory = "all";
+  let activeMemoryCategory = "all";
   let searchTerm = "";
 
   async function loadJSON(path, fallback) {
@@ -56,6 +57,10 @@
     renderHeader();
     renderBrief();
     renderKPIs();
+    renderMemoryCategoryTabs();
+    renderCategoryLens();
+    renderDynamics();
+    renderMonetization();
     renderCorpDev();
     renderPrices();
     renderCompetitors();
@@ -66,6 +71,7 @@
     renderHealth();
     renderScenario();
     renderSources();
+    setupMemorySearch();
     setupScroll();
   }
 
@@ -201,6 +207,245 @@
     if (healthTotal) {
       grid.lastElementChild.title = `크롤링 성공 ${healthOk}/${healthTotal}`;
     }
+  }
+
+  function memoryCategories() {
+    return BASE.memoryCategories || [{ id: "all", label: "전체", en: "All Memory", desc: "", keywords: [] }];
+  }
+
+  function activeMemoryConfig() {
+    return memoryCategories().find((category) => category.id === activeMemoryCategory) || memoryCategories()[0];
+  }
+
+  function setMemoryCategory(id) {
+    activeMemoryCategory = id || "all";
+    activeCategory = { hbm: "hbm", dram: "dram", nand: "nand", all: "all" }[activeMemoryCategory] || "all";
+    renderMemoryCategoryTabs();
+    renderCategoryLens();
+    renderDynamics();
+    renderMonetization();
+    renderNews();
+    renderSearchResults($("#memorySearch")?.value || "");
+  }
+
+  function renderMemoryCategoryTabs() {
+    const wrap = $("#memoryCategoryTabs");
+    if (!wrap) return;
+    wrap.innerHTML = "";
+    memoryCategories().forEach((category) => {
+      const button = el("button", `side-tab${category.id === activeMemoryCategory ? " active" : ""}`);
+      button.type = "button";
+      button.dataset.memoryCat = category.id;
+      button.innerHTML = `<span>${escapeHTML(category.label)}</span><small>${escapeHTML(category.en)}</small>`;
+      button.addEventListener("click", () => setMemoryCategory(category.id));
+      wrap.appendChild(button);
+    });
+  }
+
+  function renderCategoryLens() {
+    const grid = $("#categoryLensGrid");
+    if (!grid) return;
+    grid.innerHTML = "";
+    const active = activeMemoryConfig();
+    $("#categoryMeta").textContent = `${active.label} · ${active.desc || "전체 메모리 업계 신호"}`;
+
+    memoryCategories().filter((category) => category.id !== "all").forEach((category) => {
+      const stats = categoryStats(category);
+      const card = el("article", `category-card${category.id === activeMemoryCategory ? " active" : ""}`);
+      card.innerHTML = `
+        <div class="category-card-head">
+          <div>
+            <span>${escapeHTML(category.en)}</span>
+            <h3>${escapeHTML(category.label)}</h3>
+          </div>
+          <button type="button" data-memory-cat="${escapeHTML(category.id)}">보기</button>
+        </div>
+        <p>${escapeHTML(category.desc)}</p>
+        <div class="category-stat-row">
+          <div><strong>${stats.news}</strong><span>뉴스</span></div>
+          <div><strong>${stats.prices}</strong><span>가격품목</span></div>
+          <div><strong>${stats.entities}</strong><span>관련타깃</span></div>
+        </div>
+        <div class="tag-row">${category.keywords.slice(0, 5).map((tag) => `<span class="tag">${escapeHTML(tag)}</span>`).join("")}</div>
+      `;
+      const btn = card.querySelector("button");
+      btn.addEventListener("click", () => setMemoryCategory(category.id));
+      grid.appendChild(card);
+    });
+  }
+
+  function categoryStats(category) {
+    return {
+      news: filteredNewsForCategory(category.id).length,
+      prices: filteredPricesForCategory(category.id).length,
+      entities: filteredStartupsForCategory(category.id).length + filteredCompetitorsForCategory(category.id).length,
+    };
+  }
+
+  function filteredNewsForCategory(categoryId) {
+    if (!categoryId || categoryId === "all") return allNews();
+    const category = memoryCategories().find((item) => item.id === categoryId);
+    const terms = (category?.keywords || []).map((item) => item.toLowerCase());
+    return allNews().filter((item) => {
+      if (["hbm", "dram", "nand"].includes(categoryId) && item.category === categoryId) return true;
+      const text = `${item.title || ""} ${item.source || ""}`.toLowerCase();
+      return terms.some((term) => text.includes(term));
+    });
+  }
+
+  function filteredPricesForCategory(categoryId) {
+    const rows = (LIVE.prices?.watchedItems || []).concat((LIVE.prices?.sections || []).flatMap((section) =>
+      (section.rows || []).map((row) => ({ ...row, sectionTitle: section.title, group: section.group })),
+    ));
+    if (!categoryId || categoryId === "all") return rows;
+    const category = memoryCategories().find((item) => item.id === categoryId);
+    const terms = (category?.keywords || []).map((item) => item.toLowerCase());
+    return rows.filter((row) => {
+      const text = `${row.item || ""} ${row.sectionTitle || ""} ${row.group || ""}`.toLowerCase();
+      return terms.some((term) => text.includes(term));
+    });
+  }
+
+  function filteredStartupsForCategory(categoryId) {
+    const startups = LIVE.startups?.candidates || [];
+    if (!categoryId || categoryId === "all") return startups;
+    const category = memoryCategories().find((item) => item.id === categoryId);
+    const terms = (category?.keywords || []).map((item) => item.toLowerCase());
+    return startups.filter((item) => {
+      const text = `${item.name || ""} ${item.area || ""} ${item.thesis || ""} ${(item.tags || []).join(" ")}`.toLowerCase();
+      return terms.some((term) => text.includes(term));
+    });
+  }
+
+  function filteredCompetitorsForCategory(categoryId) {
+    const competitors = LIVE.competitors?.competitors || [];
+    if (!categoryId || categoryId === "all") return competitors;
+    const category = memoryCategories().find((item) => item.id === categoryId);
+    const terms = (category?.keywords || []).map((item) => item.toLowerCase());
+    return competitors.filter((item) => {
+      const text = `${item.label || ""} ${item.shortLabel || ""} ${item.segment || ""} ${item.baseline || ""} ${(item.themes || []).map((t) => t.label).join(" ")}`.toLowerCase();
+      return terms.some((term) => text.includes(term));
+    });
+  }
+
+  function renderDynamics() {
+    const grid = $("#dynamicsGrid");
+    if (!grid) return;
+    grid.innerHTML = "";
+    const items = (BASE.competitiveDynamics || []).filter((item) =>
+      activeMemoryCategory === "all" || (item.linkedCategories || []).includes(activeMemoryCategory),
+    );
+    const source = items.length ? items : BASE.competitiveDynamics || [];
+
+    source.forEach((item) => {
+      const linkedNews = (item.linkedCategories || []).flatMap((id) => filteredNewsForCategory(id)).slice(0, 3);
+      const card = el("article", "dynamic-card");
+      card.innerHTML = `
+        <div class="dynamic-axis">${escapeHTML(item.axis)}</div>
+        <h3>${escapeHTML(item.title)}</h3>
+        <p>${escapeHTML(item.whyItMatters)}</p>
+        <div class="player-row">${(item.players || []).map((player) => `<span>${escapeHTML(player)}</span>`).join("")}</div>
+        <div class="watch-row">${(item.watch || []).map((watch) => `<span>${escapeHTML(watch)}</span>`).join("")}</div>
+      `;
+      card.appendChild(renderMiniNews(linkedNews));
+      grid.appendChild(card);
+    });
+  }
+
+  function renderMonetization() {
+    const grid = $("#monetizationGrid");
+    if (!grid) return;
+    grid.innerHTML = "";
+    const active = activeMemoryConfig();
+    const terms = (active.keywords || []).map((item) => item.toLowerCase());
+    const models = (BASE.monetizationModels || []).filter((model) => {
+      if (activeMemoryCategory === "all") return true;
+      const text = `${model.title} ${model.revenueLogic} ${(model.memoryFit || []).join(" ")}`.toLowerCase();
+      return terms.some((term) => text.includes(term));
+    });
+    const source = models.length ? models : BASE.monetizationModels || [];
+
+    source.forEach((model) => {
+      const card = el("article", "monetization-card");
+      card.innerHTML = `
+        <h3>${escapeHTML(model.title)}</h3>
+        <p>${escapeHTML(model.revenueLogic)}</p>
+        <div class="model-fit">${(model.memoryFit || []).map((fit) => `<span>${escapeHTML(fit)}</span>`).join("")}</div>
+        <dl>
+          <div><dt>핵심 지표</dt><dd>${escapeHTML(model.metric)}</dd></div>
+          <div><dt>리스크</dt><dd>${escapeHTML(model.risk)}</dd></div>
+        </dl>
+      `;
+      grid.appendChild(card);
+    });
+  }
+
+  function setupMemorySearch() {
+    const input = $("#memorySearch");
+    const prompts = $("#quickPrompts");
+    if (!input || !prompts) return;
+    const examples = ["HBM 경쟁 구도", "CXL 투자 후보", "NAND 수익화", "중국 경쟁 리스크"];
+    prompts.innerHTML = "";
+    examples.forEach((prompt) => {
+      const button = el("button", null, escapeHTML(prompt));
+      button.type = "button";
+      button.addEventListener("click", () => {
+        input.value = prompt;
+        renderSearchResults(prompt);
+      });
+      prompts.appendChild(button);
+    });
+    input.addEventListener("input", () => renderSearchResults(input.value));
+    renderSearchResults("");
+  }
+
+  function renderSearchResults(query) {
+    const wrap = $("#searchResults");
+    if (!wrap) return;
+    const q = String(query || "").trim().toLowerCase();
+    if (!q) {
+      const active = activeMemoryConfig();
+      wrap.innerHTML = `<span class="search-hint">${escapeHTML(active.label)} 관점으로 가격·경쟁·투자·뉴스가 필터링됩니다.</span>`;
+      return;
+    }
+
+    const categoryHits = memoryCategories().filter((item) => item.id !== "all" && textHits(`${item.label} ${item.en} ${item.desc} ${(item.keywords || []).join(" ")}`, q));
+    const priceHits = filteredPricesForCategory("all").filter((item) => textHits(`${item.item} ${item.sectionTitle} ${item.group}`, q)).slice(0, 3);
+    const startupHits = (LIVE.startups?.candidates || []).filter((item) => textHits(`${item.name} ${item.area} ${item.thesis} ${item.whyHynix} ${(item.tags || []).join(" ")}`, q)).slice(0, 3);
+    const competitorHits = (LIVE.competitors?.competitors || []).filter((item) => textHits(`${item.label} ${item.shortLabel} ${item.segment} ${item.baseline}`, q)).slice(0, 3);
+    const newsHits = allNews().filter((item) => textHits(item.title, q)).slice(0, 4);
+
+    const blocks = [];
+    if (categoryHits.length) blocks.push(searchBlock("카테고리", categoryHits.map((item) => ({ title: item.label, detail: item.desc, action: item.id }))));
+    if (priceHits.length) blocks.push(searchBlock("가격", priceHits.map((item) => ({ title: item.item, detail: `${item.sectionTitle || item.group} · ${item.changeRaw || "변동 없음"}` }))));
+    if (startupHits.length) blocks.push(searchBlock("투자 후보", startupHits.map((item) => ({ title: item.name, detail: `${item.area} · ${item.status || ""}` }))));
+    if (competitorHits.length) blocks.push(searchBlock("경쟁", competitorHits.map((item) => ({ title: item.shortLabel || item.label, detail: `${item.segment} · score ${item.pressureScore || 0}` }))));
+    if (newsHits.length) blocks.push(searchBlock("뉴스", newsHits.map((item) => ({ title: item.title, detail: `${item.source || ""} ${item.date || ""}` }))));
+
+    wrap.innerHTML = blocks.length ? blocks.join("") : '<span class="search-hint">검색 결과가 없습니다. HBM, CXL, NAND, 중국, 수익화처럼 입력해보세요.</span>';
+    $$("#searchResults [data-memory-cat]").forEach((button) => {
+      button.addEventListener("click", () => setMemoryCategory(button.dataset.memoryCat));
+    });
+  }
+
+  function searchBlock(title, rows) {
+    return `
+      <div class="search-block">
+        <strong>${escapeHTML(title)}</strong>
+        ${rows.map((row) => `
+          <button type="button" ${row.action ? `data-memory-cat="${escapeHTML(row.action)}"` : ""}>
+            <span>${escapeHTML(row.title)}</span>
+            <small>${escapeHTML(row.detail || "")}</small>
+          </button>
+        `).join("")}
+      </div>
+    `;
+  }
+
+  function textHits(text, query) {
+    const tokens = query.split(/\s+/).filter(Boolean);
+    const haystack = String(text || "").toLowerCase();
+    return tokens.every((token) => haystack.includes(token));
   }
 
   function renderCorpDev() {
@@ -585,10 +830,10 @@
       tabs.appendChild(btn);
     });
 
-    $("#newsSearch").addEventListener("input", (event) => {
+    $("#newsSearch").oninput = (event) => {
       searchTerm = event.target.value.trim().toLowerCase();
       renderNewsList();
-    });
+    };
 
     renderNewsList();
   }
@@ -602,7 +847,7 @@
   function renderNewsList() {
     const list = $("#newsList");
     list.innerHTML = "";
-    let items = allNews();
+    let items = activeMemoryCategory === "all" ? allNews() : filteredNewsForCategory(activeMemoryCategory);
     if (activeCategory !== "all") items = items.filter((item) => item.category === activeCategory);
     if (searchTerm) items = items.filter((item) => item.title.toLowerCase().includes(searchTerm));
 
