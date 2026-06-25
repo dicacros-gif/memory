@@ -2899,3 +2899,26 @@ body.rail-open .side-rail { transform: none !important; box-shadow: 0 0 50px rgb
   .header-inner { grid-template-columns: auto 1fr auto; }
   .nav-links { display: none; }
 }
+
+/* ============================================================
+   v2.1 — per-article 3-line summary dropdown
+   ============================================================ */
+.news-sum-badge {
+  flex: 0 0 auto; margin-left: 8px; border-radius: 999px;
+  background: rgba(240,90,40,.12); color: var(--hynix-dark);
+  font-size: 9.5px; font-weight: 900; padding: 2px 6px;
+}
+.news-summary { border-top: 1px solid var(--line-soft); }
+.ns-toggle {
+  width: 100%; display: flex; align-items: center; gap: 5px; border: 0; background: transparent;
+  color: var(--hynix-dark); cursor: pointer; font-size: 11.5px; font-weight: 800; padding: 7px 14px; text-align: left;
+}
+.ns-toggle:hover { background: #fff8f5; }
+.ns-toggle svg { transition: transform .2s; }
+.news-summary.open .ns-toggle svg { transform: rotate(180deg); }
+.ns-body { list-style: none; display: grid; gap: 5px; padding: 0 14px 12px 16px; }
+.ns-body li { position: relative; padding-left: 12px; color: var(--ink); font-size: 12px; line-height: 1.45; font-weight: 600; }
+.ns-body li::before { content: ""; position: absolute; left: 0; top: .55em; width: 4px; height: 4px; border-radius: 50%; background: var(--hynix); }
+.ns-body li:last-child { color: var(--teal); font-weight: 700; }
+[data-theme="dark"] .ns-toggle:hover { background: #1c2536; }
+[data-theme="dark"] .news-sum-badge { background: rgba(240,90,40,.2); }

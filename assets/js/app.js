@@ -28,6 +28,7 @@
 
   let BASE = null;
   let LIVE = emptyLive;
+  let SUMM = {};
   let activePrice = "watch";
   let activeCategory = "all";
   let activeMemoryCategory = "all";
@@ -45,10 +46,13 @@
   }
 
   async function init() {
-    [BASE, LIVE] = await Promise.all([
+    let summDoc;
+    [BASE, LIVE, summDoc] = await Promise.all([
       loadJSON("data/baseline.json", null),
       loadJSON("data/live.json", emptyLive),
+      loadJSON("data/summaries.json", { items: {} }),
     ]);
+    SUMM = (summDoc && summDoc.items) || {};
 
     if (!BASE) {
       document.body.innerHTML = '<p style="padding:40px;font-family:sans-serif">baseline.json을 불러올 수 없습니다.</p>';
@@ -390,6 +394,17 @@
 
   function newsTitle(item) {
     return (item && (item.titleKo || item.title)) || "";
+  }
+
+  // Stable key matching data/summaries.json (built from the English title).
+  function summKey(t) {
+    return String(t || "").toLowerCase().replace(/[^a-z0-9]+/g, "").slice(0, 48);
+  }
+
+  function summaryFor(item) {
+    if (!item) return null;
+    const s = SUMM[summKey(item.title)];
+    return Array.isArray(s) && s.length ? s : null;
   }
 
   /* ---------- weekly strategy insights ---------- */
@@ -1586,14 +1601,34 @@
       a.href = item.link || "#";
       a.target = "_blank";
       a.rel = "noopener";
+      const sum = summaryFor(item);
       a.innerHTML = `
         <span class="news-main">
           <span class="news-cat">${escapeHTML(categoryLabel(item.category))}</span>
           <span class="news-title">${escapeHTML(newsTitle(item))}</span>
+          ${sum ? '<span class="news-sum-badge">3줄</span>' : ""}
         </span>
         <span class="news-meta">${escapeHTML(item.source || "")} ${escapeHTML(item.date || "")}</span>
       `;
       li.appendChild(a);
+
+      if (sum) {
+        const wrap = el("div", "news-summary");
+        const btn = el("button", "ns-toggle");
+        btn.type = "button";
+        btn.innerHTML = `<svg viewBox="0 0 24 24" width="12" height="12" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9l6 6 6-6"/></svg> 3줄 요약`;
+        const body = el("ul", "ns-body");
+        body.innerHTML = sum.map((line) => `<li>${escapeHTML(line)}</li>`).join("");
+        body.hidden = true;
+        btn.addEventListener("click", () => {
+          const willOpen = body.hidden;
+          body.hidden = !willOpen;
+          wrap.classList.toggle("open", willOpen);
+        });
+        wrap.appendChild(btn);
+        wrap.appendChild(body);
+        li.appendChild(wrap);
+      }
       list.appendChild(li);
     });
   }
