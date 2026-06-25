@@ -316,12 +316,18 @@ async function fetchText(url) {
     },
   });
   if (!res.ok) throw new Error(`HTTP ${res.status}`);
-  return res.text();
+  // Decode explicitly as UTF-8 from raw bytes. Relying on res.text()'s
+  // charset detection mangled typographic punctuation (curly quotes, dashes)
+  // in foreign headlines into garbage codepoints, so force UTF-8 here.
+  const buf = await res.arrayBuffer();
+  return new TextDecoder("utf-8").decode(buf);
 }
 
 function decodeEntities(value) {
   return String(value || "")
     .replace(/<!\[CDATA\[([\s\S]*?)\]\]>/g, "$1")
+    .replace(/&#x([0-9a-fA-F]+);/g, (_, hex) => { try { return String.fromCodePoint(parseInt(hex, 16)); } catch { return ""; } })
+    .replace(/&#(\d+);/g, (_, dec) => { try { return String.fromCodePoint(parseInt(dec, 10)); } catch { return ""; } })
     .replace(/&nbsp;/g, " ")
     .replace(/&lt;/g, "<")
     .replace(/&gt;/g, ">")
@@ -339,6 +345,8 @@ function stripHTML(html) {
     .replace(/<script[\s\S]*?<\/script>/gi, " ")
     .replace(/<style[\s\S]*?<\/style>/gi, " ")
     .replace(/<[^>]+>/g, " ")
+    .replace(/[\uD800-\uDFFF]/g, "") // strip stray surrogate code units (decode garbage)
+    .replace(/�/g, "") // strip replacement chars
     .replace(/\s+/g, " ")
     .trim();
 }
