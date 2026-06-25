@@ -30,6 +30,68 @@
       { "id": "server", "label": "서버 BOM", "basePrice": 9000000 }
     ]
   },
+  "corpDevWorkstreams": [
+    {
+      "id": "deal-sourcing",
+      "title": "M&A·지분투자 기회 발굴·검토·실행",
+      "dashboard": "Memory Deal Radar",
+      "memoryLens": "HBM, CXL, 고성능 NAND, 첨단 패키징, 광 인터커넥트 영역에서 전략적 공백을 메우는 타깃을 추적합니다.",
+      "decisionQuestions": [
+        "어떤 기술이 SK하이닉스 제품 로드맵의 병목을 줄이는가",
+        "경쟁사가 먼저 확보하면 협상력이 약해지는 영역인가",
+        "소수지분, 전략적 제휴, 인수 중 어떤 구조가 적합한가"
+      ],
+      "output": "타깃 롱리스트, 우선순위 스코어, 투자 형태 제안"
+    },
+    {
+      "id": "cvc-startups",
+      "title": "스타트업 및 펀드 투자 등 CVC 업무",
+      "dashboard": "CVC Pipeline Board",
+      "memoryLens": "CXL, near-memory compute, photonics, chiplet, 메모리 가상화 스타트업을 투자 단계와 협업 가능성으로 분류합니다.",
+      "decisionQuestions": [
+        "PoC로 검증할 고객·제품 접점이 있는가",
+        "펀드 LP 투자로 커버할 영역과 직접 투자할 영역은 무엇인가",
+        "SK하이닉스가 제공할 수 있는 전략적 value-add는 무엇인가"
+      ],
+      "output": "CVC 후보 카드, PoC 우선순위, 펀드 커버리지 맵"
+    },
+    {
+      "id": "investment-strategy",
+      "title": "중장기 투자 전략 수립 및 전사 투자 의사결정 지원",
+      "dashboard": "Memory Strategy Heatmap",
+      "memoryLens": "Spot·계약가, HBM 뉴스 강도, 경쟁사 CAPEX·고객 인증 신호를 묶어 중장기 투자 테마를 점검합니다.",
+      "decisionQuestions": [
+        "가격 사이클과 AI 수요가 같은 방향으로 움직이는가",
+        "DRAM, NAND, HBM, CXL 중 자본 배분 우선순위는 무엇인가",
+        "전사 의사결정에 필요한 핵심 리스크와 옵션은 무엇인가"
+      ],
+      "output": "투자 테마별 매력도, 의사결정 메모, 분기별 watchlist"
+    },
+    {
+      "id": "portfolio-valueup",
+      "title": "기존 투자 포트폴리오 관리 및 Value-up 추진",
+      "dashboard": "Portfolio Value-up Monitor",
+      "memoryLens": "투자사의 기술을 SK하이닉스 제품·고객·제조 생태계에 연결할 수 있는 value-up 기회를 찾습니다.",
+      "decisionQuestions": [
+        "투자사가 HBM, CXL, SSD, 패키징 로드맵 어디에 붙을 수 있는가",
+        "고객 레퍼런스, 공동 개발, 공급망 연결 중 어떤 지원이 필요한가",
+        "후속 투자 또는 엑싯 타이밍을 앞당길 수 있는 이벤트는 무엇인가"
+      ],
+      "output": "포트폴리오 health check, value-up 액션, 후속 투자 트리거"
+    },
+    {
+      "id": "risk-return",
+      "title": "투자 수익성·리스크 분석 및 성과 극대화",
+      "dashboard": "Return & Risk Cockpit",
+      "memoryLens": "가격 변동성, 경쟁 압력, 뉴스 모멘텀, 기술 성숙도를 합쳐 투자 리스크와 기대수익을 비교합니다.",
+      "decisionQuestions": [
+        "가격 사이클 하락 시에도 전략적 방어력이 있는가",
+        "경쟁사 선점, 기술 지연, 고객 미확보 리스크가 얼마나 큰가",
+        "재무 수익과 전략 수익을 함께 높이는 구조는 무엇인가"
+      ],
+      "output": "리스크 매트릭스, downside case, 성과 극대화 액션"
+    }
+  ],
   "sources": [
     "가격: TrendForce Price Trends / DRAMeXchange 공개 가격표",
     "주가: Yahoo Finance chart API",

@@ -56,6 +56,7 @@
     renderHeader();
     renderBrief();
     renderKPIs();
+    renderCorpDev();
     renderPrices();
     renderCompetitors();
     renderStartups();
@@ -200,6 +201,154 @@
     if (healthTotal) {
       grid.lastElementChild.title = `크롤링 성공 ${healthOk}/${healthTotal}`;
     }
+  }
+
+  function renderCorpDev() {
+    const grid = $("#corpDevGrid");
+    if (!grid) return;
+    grid.innerHTML = "";
+    const workstreams = BASE.corpDevWorkstreams || [];
+
+    if (!workstreams.length) {
+      grid.appendChild(el("div", "empty-state", "CorpDev 업무 대시보드 설정 대기 중"));
+      return;
+    }
+
+    const context = corpDevContext();
+    workstreams.forEach((item) => {
+      const card = el("article", "corpdev-card");
+      const metrics = corpDevMetrics(item.id, context);
+      const actions = item.decisionQuestions || [];
+
+      card.innerHTML = `
+        <div class="corpdev-top">
+          <span class="corpdev-dashboard">${escapeHTML(item.dashboard)}</span>
+          <span class="corpdev-status">${escapeHTML(corpDevStatus(item.id, context))}</span>
+        </div>
+        <h3>${escapeHTML(item.title)}</h3>
+        <p>${escapeHTML(item.memoryLens)}</p>
+      `;
+
+      const metricWrap = el("div", "corpdev-metrics");
+      metrics.forEach((metric) => {
+        metricWrap.appendChild(el("div", "corpdev-metric", `
+          <span>${escapeHTML(metric.label)}</span>
+          <strong>${escapeHTML(metric.value)}</strong>
+          <small>${escapeHTML(metric.detail)}</small>
+        `));
+      });
+      card.appendChild(metricWrap);
+
+      const actionList = el("ul", "corpdev-actions");
+      actions.slice(0, 3).forEach((action) => actionList.appendChild(el("li", null, escapeHTML(action))));
+      card.appendChild(actionList);
+      card.appendChild(el("div", "corpdev-output", `산출물 · ${escapeHTML(item.output || "")}`));
+      grid.appendChild(card);
+    });
+  }
+
+  function corpDevContext() {
+    const topPriceMoves = LIVE.signals?.topPriceMoves || [];
+    const spotMove = topPriceMoves.find((item) => /spot/i.test(item.sectionTitle || "")) || topPriceMoves[0];
+    const contractMove = topPriceMoves.find((item) => /contract/i.test(item.sectionTitle || "")) || topPriceMoves[0];
+    const topCompetitor = LIVE.competitors?.competitors?.[0];
+    const topStartup = LIVE.startups?.candidates?.[0];
+    const startups = LIVE.startups?.candidates || [];
+    const competitors = LIVE.competitors?.competitors || [];
+    const hbmCategory = (LIVE.categories || []).find((item) => item.id === "hbm");
+    const aiCategory = (LIVE.categories || []).find((item) => item.id === "aidemand");
+    const supplyCategory = (LIVE.categories || []).find((item) => item.id === "supply");
+    const trending = LIVE.trending || [];
+    const highPriorityStartups = startups.filter((item) => (item.score || 0) >= 80).length;
+    const cxlStartups = startups.filter((item) => (item.tags || []).some((tag) => /cxl/i.test(tag))).length;
+
+    return {
+      spotMove,
+      contractMove,
+      topCompetitor,
+      topStartup,
+      startups,
+      competitors,
+      hbmNews: hbmCategory?.count || 0,
+      aiNews: aiCategory?.count || 0,
+      supplyNews: supplyCategory?.count || 0,
+      totalNews: LIVE.newsStats?.total || 0,
+      dayNews: LIVE.newsStats?.total24h || 0,
+      highPriorityStartups,
+      cxlStartups,
+      topTrend: trending[0]?.term || "—",
+    };
+  }
+
+  function corpDevMetrics(id, ctx) {
+    const topStartup = ctx.topStartup;
+    const topCompetitor = ctx.topCompetitor;
+    const spot = ctx.spotMove;
+    const contract = ctx.contractMove;
+    const startupName = topStartup ? topStartup.name : "—";
+    const competitorName = topCompetitor ? (topCompetitor.shortLabel || topCompetitor.label) : "—";
+
+    const common = {
+      price: {
+        label: "가격 변곡",
+        value: spot ? spot.changeRaw : "—",
+        detail: spot ? spot.item : "Spot price 대기",
+      },
+      contract: {
+        label: "계약가 신호",
+        value: contract ? contract.changeRaw : "—",
+        detail: contract ? contract.item : "Contract price 대기",
+      },
+      competitor: {
+        label: "최대 경쟁 압력",
+        value: topCompetitor ? `${topCompetitor.pressureScore}/100` : "—",
+        detail: competitorName,
+      },
+      startup: {
+        label: "우선 후보",
+        value: startupName,
+        detail: topStartup ? `${topStartup.status} · ${topStartup.score}/100` : "후보 대기",
+      },
+    };
+
+    const map = {
+      "deal-sourcing": [
+        { label: "관찰 타깃", value: `${ctx.startups.length + ctx.competitors.length}개`, detail: "스타트업+경쟁사 레이더" },
+        common.price,
+        common.competitor,
+      ],
+      "cvc-startups": [
+        common.startup,
+        { label: "CXL 후보", value: `${ctx.cxlStartups}개`, detail: "CXL·메모리 풀링 투자 테마" },
+        { label: "우선 검토군", value: `${ctx.highPriorityStartups}개`, detail: "score 80 이상" },
+      ],
+      "investment-strategy": [
+        { label: "HBM 모멘텀", value: `${ctx.hbmNews}건`, detail: "최근 30일 뉴스" },
+        common.contract,
+        { label: "상위 키워드", value: ctx.topTrend, detail: "뉴스 제목 빈도 기반" },
+      ],
+      "portfolio-valueup": [
+        { label: "협업 후보", value: startupName, detail: topStartup ? topStartup.area : "후보 대기" },
+        { label: "AI 수요 뉴스", value: `${ctx.aiNews}건`, detail: "고객 레퍼런스/PoC 신호" },
+        { label: "공급 신호", value: `${ctx.supplyNews}건`, detail: "제품화·양산 타이밍 점검" },
+      ],
+      "risk-return": [
+        common.competitor,
+        common.price,
+        { label: "24h 뉴스 강도", value: `${ctx.dayNews}건`, detail: `전체 ${ctx.totalNews}건 중 신규` },
+      ],
+    };
+
+    return map[id] || [common.price, common.competitor, common.startup];
+  }
+
+  function corpDevStatus(id, ctx) {
+    if (id === "risk-return" && (ctx.topCompetitor?.pressureScore || 0) >= 90) return "리스크 상향";
+    if (id === "cvc-startups" && ctx.highPriorityStartups >= 2) return "PoC 검토";
+    if (id === "investment-strategy" && ctx.hbmNews >= 100) return "전략 우선";
+    if (id === "deal-sourcing" && ctx.spotMove) return "타깃 갱신";
+    if (id === "portfolio-valueup" && ctx.topStartup) return "Value-up 후보";
+    return "관찰";
   }
 
   function renderPrices() {
