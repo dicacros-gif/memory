@@ -28,10 +28,10 @@
 
   let BASE = null;
   let LIVE = emptyLive;
-  let SUMM = {};
   let activePrice = "watch";
   let activeCategory = "all";
   let activeMemoryCategory = "all";
+  let activeDetailCat = "hbm";
   let searchTerm = "";
 
   async function loadJSON(path, fallback) {
@@ -46,13 +46,10 @@
   }
 
   async function init() {
-    let summDoc;
-    [BASE, LIVE, summDoc] = await Promise.all([
+    [BASE, LIVE] = await Promise.all([
       loadJSON("data/baseline.json", null),
       loadJSON("data/live.json", emptyLive),
-      loadJSON("data/summaries.json", { items: {} }),
     ]);
-    SUMM = (summDoc && summDoc.items) || {};
 
     if (!BASE) {
       document.body.innerHTML = '<p style="padding:40px;font-family:sans-serif">baseline.json을 불러올 수 없습니다.</p>';
@@ -67,6 +64,7 @@
     renderTechTrends();
     renderMemoryCategoryTabs();
     renderCategoryLens();
+    renderCategoryDetail();
     renderDynamics();
     renderCorpDev();
     renderDealProcess();
@@ -396,17 +394,6 @@
     return (item && (item.titleKo || item.title)) || "";
   }
 
-  // Stable key matching data/summaries.json (built from the English title).
-  function summKey(t) {
-    return String(t || "").toLowerCase().replace(/[^a-z0-9]+/g, "").slice(0, 48);
-  }
-
-  function summaryFor(item) {
-    if (!item) return null;
-    const s = SUMM[summKey(item.title)];
-    return Array.isArray(s) && s.length ? s : null;
-  }
-
   /* ---------- weekly strategy insights ---------- */
   function renderInsights() {
     const grid = $("#insightGrid");
@@ -445,12 +432,15 @@
     const row = $("#analystRow");
     if (!row) return;
     const data = BASE.analystViews || { items: [] };
-    const t = $("#analystTitle"); if (t) t.textContent = data.title || "외국 증권사 관점";
+    const t = $("#analystTitle"); if (t) t.textContent = data.title || "외국 증권사 리서치";
     row.innerHTML = "";
     (data.items || []).forEach((a) => {
-      const chip = el("div", "analyst-chip reveal");
-      chip.innerHTML = `<strong>${escapeHTML(a.firm)}</strong><span class="analyst-stance">${escapeHTML(a.stance)}</span><small>${escapeHTML(a.note)}</small>`;
-      row.appendChild(chip);
+      const card = el("div", "analyst-chip reveal");
+      card.innerHTML = `
+        <div class="analyst-top"><strong>${escapeHTML(a.firm)}</strong><span class="analyst-stance">${escapeHTML(a.stance)}</span></div>
+        ${a.target ? `<span class="analyst-target">${escapeHTML(a.target)}</span>` : ""}
+        <small>${escapeHTML(a.note)}</small>`;
+      row.appendChild(card);
     });
   }
 
@@ -458,16 +448,23 @@
   function renderValueChain() {
     const map = $("#valueChainMap");
     if (!map) return;
-    const data = BASE.valueChain || { nodes: [] };
+    const data = BASE.valueChain || { tiers: [] };
     const t = $("#vcTitle"); if (t) t.textContent = data.title || "";
     const m = $("#vcMeta"); if (m) m.textContent = data.subtitle || "";
     const n = $("#vcNote"); if (n) n.textContent = data.note || "";
     map.innerHTML = "";
-    (data.nodes || []).forEach((node, i) => {
+    (data.tiers || []).forEach((tier, i) => {
       if (i > 0) map.appendChild(el("span", "vc-arrow", "→"));
-      const el2 = el("div", `vc-node reveal${node.self ? " vc-self" : ""}`);
-      el2.innerHTML = `<span class="vc-name">${escapeHTML(node.name)}</span><span class="vc-role">${escapeHTML(node.role)}</span><span class="vc-tip">${escapeHTML(node.note)}</span>`;
-      map.appendChild(el2);
+      const col = el("div", "vc-tier reveal");
+      col.appendChild(el("div", "vc-tier-label", escapeHTML(tier.label)));
+      const stack = el("div", "vc-tier-nodes");
+      (tier.nodes || []).forEach((node) => {
+        const nd = el("div", `vc-node${node.self ? " vc-self" : ""}`);
+        nd.innerHTML = `<span class="vc-name">${escapeHTML(node.name)}</span><span class="vc-tip">${escapeHTML(node.note || "")}</span>`;
+        stack.appendChild(nd);
+      });
+      col.appendChild(stack);
+      map.appendChild(col);
     });
   }
 
@@ -572,13 +569,66 @@
   }
 
   function setMemoryCategory(id) {
-    activeMemoryCategory = id || "all";
-    activeCategory = { hbm: "hbm", dram: "dram", nand: "nand", all: "all" }[activeMemoryCategory] || "all";
+    if (!id || id === "all") id = activeDetailCat;
+    activeDetailCat = id;
+    activeMemoryCategory = id;
+    activeCategory = { hbm: "hbm", dram: "dram", nand: "nand" }[id] || "all";
     renderMemoryCategoryTabs();
     renderCategoryLens();
+    renderCategoryDetail();
     renderDynamics();
     renderNews();
     rearm();
+    const sec = document.getElementById("categoryLens");
+    if (sec) sec.scrollIntoView({ behavior: "smooth", block: "start" });
+  }
+
+  function renderCategoryDetail() {
+    const panel = $("#categoryDetail");
+    if (!panel) return;
+    const cat = memoryCategories().find((c) => c.id === activeDetailCat)
+      || memoryCategories().find((c) => c.id !== "all");
+    if (!cat) { panel.innerHTML = ""; return; }
+    const stats = categoryStats(cat);
+    const news = filteredNewsForCategory(cat.id).slice(0, 5);
+    const terms = (cat.keywords || []).map((k) => k.toLowerCase());
+    const maHits = (BASE.maTargets || []).filter((t) => {
+      const hay = `${(t.match || []).join(" ")} ${t.area} ${t.name}`.toLowerCase();
+      return terms.some((term) => hay.includes(term));
+    }).slice(0, 3);
+    const comp = filteredCompetitorsForCategory(cat.id).slice(0, 3);
+
+    panel.innerHTML = `
+      <div class="catd-head">
+        <span class="catd-en">${escapeHTML(cat.en)}</span>
+        <h3>${escapeHTML(cat.label)}</h3>
+        <p>${escapeHTML(cat.desc)}</p>
+      </div>
+      <div class="catd-stats">
+        <div><strong>${countSpan(stats.news)}</strong><span>외신</span></div>
+        <div><strong>${countSpan(stats.prices)}</strong><span>가격품목</span></div>
+        <div><strong>${countSpan(stats.entities)}</strong><span>관련타깃</span></div>
+      </div>
+      <div class="tag-row">${(cat.keywords || []).map((t) => `<span class="tag">${escapeHTML(t)}</span>`).join("")}</div>
+      <div class="catd-block"><h4>관련 외신</h4><ul class="catd-news"></ul></div>
+      ${maHits.length ? `<div class="catd-block"><h4>관련 M&A·투자 기회</h4><div class="catd-ma">${maHits.map((t) => `<span class="catd-ma-item">${escapeHTML(t.name)} · ${escapeHTML(t.structure)}</span>`).join("")}</div></div>` : ""}
+      ${comp.length ? `<div class="catd-block"><h4>관련 경쟁사</h4><div class="theme-row">${comp.map((c) => `<span class="theme">${escapeHTML(c.shortLabel || c.label)} ${c.pressureScore || 0}</span>`).join("")}</div></div>` : ""}
+    `;
+    const ul = panel.querySelector(".catd-news");
+    if (news.length) {
+      news.forEach((nw) => {
+        const li = el("li");
+        const a = el("a");
+        a.href = nw.link || "#";
+        a.target = "_blank";
+        a.rel = "noopener";
+        a.textContent = newsTitle(nw);
+        li.appendChild(a);
+        ul.appendChild(li);
+      });
+    } else {
+      ul.innerHTML = '<li><span class="empty-state">관련 외신 대기 중</span></li>';
+    }
   }
 
   function renderMemoryCategoryTabs() {
@@ -586,11 +636,11 @@
     if (!wrap) return;
     wrap.innerHTML = "";
     memoryCategories().filter((category) => category.id !== "all").forEach((category) => {
-      const button = el("button", `side-tab${category.id === activeMemoryCategory ? " active" : ""}`);
+      const button = el("button", `side-tab${category.id === activeDetailCat ? " active" : ""}`);
       button.type = "button";
       button.dataset.memoryCat = category.id;
       button.innerHTML = `<span>${escapeHTML(category.label)}</span><small>${escapeHTML(category.en)}</small>`;
-      button.addEventListener("click", () => setMemoryCategory(category.id === activeMemoryCategory ? "all" : category.id));
+      button.addEventListener("click", () => setMemoryCategory(category.id));
       wrap.appendChild(button);
     });
   }
@@ -604,7 +654,7 @@
 
     memoryCategories().filter((category) => category.id !== "all").forEach((category) => {
       const stats = categoryStats(category);
-      const card = el("article", `category-card reveal${category.id === activeMemoryCategory ? " active" : ""}`);
+      const card = el("article", `category-card reveal${category.id === activeDetailCat ? " active" : ""}`);
       card.innerHTML = `
         <div class="category-card-head">
           <div>
@@ -697,6 +747,7 @@
         <div class="dynamic-axis">${escapeHTML(item.axis)}</div>
         <h3>${escapeHTML(item.title)}</h3>
         <p>${escapeHTML(item.whyItMatters)}</p>
+        ${item.insight ? `<div class="mini-insight"><span>인사이트</span>${escapeHTML(item.insight)}</div>` : ""}
         <div class="player-row">${(item.players || []).map((player) => `<span>${escapeHTML(player)}</span>`).join("")}</div>
         <div class="watch-row">${(item.watch || []).map((watch) => `<span>${escapeHTML(watch)}</span>`).join("")}</div>
       `;
@@ -717,6 +768,7 @@
         <h3>${escapeHTML(model.title)}</h3>
         <p>${escapeHTML(model.revenueLogic)}</p>
         <div class="model-fit">${(model.memoryFit || []).map((fit) => `<span>${escapeHTML(fit)}</span>`).join("")}</div>
+        ${model.insight ? `<div class="mini-insight"><span>인사이트</span>${escapeHTML(model.insight)}</div>` : ""}
         <dl>
           <div><dt>핵심 지표</dt><dd>${escapeHTML(model.metric)}</dd></div>
           <div><dt>리스크</dt><dd>${escapeHTML(model.risk)}</dd></div>
@@ -1619,34 +1671,14 @@
       a.href = item.link || "#";
       a.target = "_blank";
       a.rel = "noopener";
-      const sum = summaryFor(item);
       a.innerHTML = `
         <span class="news-main">
           <span class="news-cat">${escapeHTML(categoryLabel(item.category))}</span>
           <span class="news-title">${escapeHTML(newsTitle(item))}</span>
-          ${sum ? '<span class="news-sum-badge">3줄</span>' : ""}
         </span>
         <span class="news-meta">${escapeHTML(item.source || "")} ${escapeHTML(item.date || "")}</span>
       `;
       li.appendChild(a);
-
-      if (sum) {
-        const wrap = el("div", "news-summary");
-        const btn = el("button", "ns-toggle");
-        btn.type = "button";
-        btn.innerHTML = `<svg viewBox="0 0 24 24" width="12" height="12" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9l6 6 6-6"/></svg> 3줄 요약`;
-        const body = el("ul", "ns-body");
-        body.innerHTML = sum.map((line) => `<li>${escapeHTML(line)}</li>`).join("");
-        body.hidden = true;
-        btn.addEventListener("click", () => {
-          const willOpen = body.hidden;
-          body.hidden = !willOpen;
-          wrap.classList.toggle("open", willOpen);
-        });
-        wrap.appendChild(btn);
-        wrap.appendChild(body);
-        li.appendChild(wrap);
-      }
       list.appendChild(li);
     });
   }
