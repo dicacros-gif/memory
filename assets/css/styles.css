@@ -2922,3 +2922,132 @@ body.rail-open .side-rail { transform: none !important; box-shadow: 0 0 50px rgb
 .ns-body li:last-child { color: var(--teal); font-weight: 700; }
 [data-theme="dark"] .ns-toggle:hover { background: #1c2536; }
 [data-theme="dark"] .news-sum-badge { background: rgba(240,90,40,.2); }
+
+/* ============================================================
+   v3 — full width, box-color tabs, overlay Q&A, whole-box hover
+   ============================================================ */
+
+/* full-width container (max-width 100%) */
+.container { width: calc(100% - 40px); max-width: 100%; }
+.header-inner { width: calc(100% - 40px); max-width: 100%; }
+
+/* ---- sidebar tabs: filled box color when active, hover inversion ---- */
+.side-tabs { display: grid; gap: 5px; }
+.side-section a, .side-tab {
+  border-radius: 8px; transition: background .15s, color .15s, transform .12s;
+}
+.side-section a:hover, .side-tab:hover {
+  background: var(--hynix); color: #fff; transform: translateX(2px);
+}
+.side-tab:hover small { color: rgba(255,255,255,.82); }
+.side-tab.active {
+  background: var(--hynix); color: #fff; box-shadow: none;
+}
+.side-tab.active small { color: rgba(255,255,255,.82); }
+
+/* ---- nav links: pill hover inversion ---- */
+.nav-links a { padding: 6px 12px; border-radius: 999px; transition: background .15s, color .15s; }
+.nav-links a:hover { background: var(--hynix); color: #fff; }
+
+/* ---- interactive chips/buttons: hover inversion ---- */
+.quick-prompts button:hover, .trend-chip:hover, .category-card-head button:hover,
+.segmented button:hover, .strat-chip:hover, .analyst-stance:hover {
+  background: var(--hynix); color: #fff; border-color: var(--hynix);
+}
+
+/* ============================================================
+   v3 — Q&A answer as centered overlay modal
+   ============================================================ */
+body.qa-open { overflow: hidden; }
+.qa-answer.show {
+  position: fixed; inset: 0; z-index: 200; max-width: none; margin: 0;
+  border: 0; border-radius: 0; box-shadow: none;
+  background: rgba(8,12,20,.64);
+  -webkit-backdrop-filter: blur(5px); backdrop-filter: blur(5px);
+  display: grid; place-items: center; padding: 20px;
+  animation: qaFade .2s ease;
+}
+@keyframes qaFade { from { opacity: 0; } to { opacity: 1; } }
+.qa-panel {
+  width: min(740px, 100%); max-height: 86vh; overflow-y: auto;
+  background: linear-gradient(180deg, #0e1626, #14233b); color: #eaf1fb;
+  border: 1px solid rgba(255,255,255,.12); border-radius: 16px;
+  box-shadow: 0 30px 90px rgba(0,0,0,.55);
+  animation: qaPop .34s cubic-bezier(.22,1,.36,1);
+}
+.qa-panel .qa-answer-head { position: sticky; top: 0; background: #0e1626; z-index: 2; }
+
+/* ============================================================
+   v3 — whole-box hover on EVERY card (not just edge), accent-tracking
+   ============================================================ */
+.insight-card, .dc-card, .vc-node, .gap-card, .tech-card, .fund-card,
+.analyst-chip, .deal-step, .scenario-step, .signal-card, .portfolio-card,
+.ma-card, .competitor-card, .startup-card, .stock-card, .corpdev-card,
+.monetization-card, .category-card, .dynamic-card, .metric-card {
+  transition: transform .18s ease, box-shadow .18s ease, border-color .18s ease, background .18s ease;
+}
+.insight-card:hover, .dc-card:hover, .vc-node:hover, .gap-card:hover, .tech-card:hover,
+.fund-card:hover, .analyst-chip:hover, .deal-step:hover, .scenario-step:hover,
+.signal-card:hover, .portfolio-card:hover, .ma-card:hover, .competitor-card:hover,
+.startup-card:hover, .stock-card:hover, .corpdev-card:hover, .monetization-card:hover,
+.category-card:hover, .dynamic-card:hover {
+  transform: translateY(-4px);
+  border-color: var(--hynix);
+  box-shadow: 0 16px 36px color-mix(in srgb, var(--hynix) 24%, transparent);
+}
+/* keep edge accents but make the WHOLE border light up on hover */
+.insight-card:hover { border-left-color: var(--hynix); }
+.dc-card:hover { border-top-color: var(--hynix); }
+.vc-node:not(.vc-self):hover { background: color-mix(in srgb, var(--hynix) 7%, var(--surface)); }
+.scenario-step:hover { background: color-mix(in srgb, var(--hynix) 9%, var(--surface)); }
+
+/* ============================================================
+   v3 — deal-step insight line
+   ============================================================ */
+.deal-step-insight {
+  margin-top: 10px; border-radius: 8px; background: color-mix(in srgb, var(--hynix) 8%, var(--surface));
+  border: 1px solid color-mix(in srgb, var(--hynix) 22%, var(--line));
+  padding: 9px 10px; font-size: 11.5px; font-weight: 700; line-height: 1.45; color: var(--ink);
+}
+.deal-step-insight span {
+  display: block; color: var(--hynix-dark); font-size: 9.5px; font-weight: 900;
+  text-transform: uppercase; letter-spacing: .04em; margin-bottom: 3px;
+}
+
+/* ============================================================
+   v3 — collapsible sidebar via left/margin (transform-quirk-proof)
+   ============================================================ */
+.side-rail { transition: left .26s cubic-bezier(.4,0,.2,1), margin-left .26s cubic-bezier(.4,0,.2,1); }
+body.rail-collapsed .side-rail { transform: none; margin-left: -260px; }
+body.rail-open .side-rail { transform: none; }
+@media (min-width: 1080px) {
+  body.rail-collapsed.rail-open .side-rail { margin-left: 0; box-shadow: 0 0 50px rgba(0,0,0,.35); }
+  body.rail-collapsed.rail-open { padding-left: 0; }
+}
+
+@media (max-width: 1079px) {
+  body { padding-left: 0; }
+  .side-rail {
+    position: fixed; top: 0; bottom: 0; left: -300px; width: 272px; max-width: 84vw;
+    transform: none; margin-left: 0; z-index: 90; display: flex; flex-direction: column;
+    padding: 16px 14px; overflow-y: auto;
+  }
+  body.rail-open .side-rail { left: 0; transform: none; }
+  body.rail-open .sb-backdrop { display: block; }
+  .sb-backdrop {
+    display: none; position: fixed; inset: 0; background: rgba(0,0,0,.45); z-index: 85;
+  }
+  .sb-toggle { display: inline-flex; }
+  .side-section:last-child { display: grid; }
+  .side-tabs { display: grid; }
+  .side-tab { min-width: 0; }
+  .side-collapse { display: none; }
+}
+
+@media (max-width: 760px) {
+  .container, .header-inner { width: calc(100% - 24px); }
+  .section-band { padding: 34px 0; }
+  .title-block h1 { font-size: 30px; }
+  .qa-panel { width: 100%; max-height: 90vh; border-radius: 14px; }
+  .header-tools .live-badge { display: none; }
+}

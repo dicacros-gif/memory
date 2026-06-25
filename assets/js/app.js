@@ -60,7 +60,6 @@
     }
 
     renderHeader();
-    renderBrief();
     renderInsights();
     renderAnalysts();
     renderValueChain();
@@ -295,6 +294,7 @@
 
   function renderBrief() {
     const wrap = $("#briefList");
+    if (!wrap) return;
     wrap.innerHTML = "";
     const labels = ["뉴스", "가격", "경쟁", "투자"];
     const observations = (LIVE.signals && LIVE.signals.observations) || [
@@ -552,6 +552,15 @@
     $$(".side-section-head").forEach((h) => {
       h.addEventListener("click", () => h.parentElement.classList.toggle("section-closed"));
     });
+
+    // mobile drawer: backdrop + link clicks close the rail
+    const backdrop = $("#sbBackdrop");
+    const closeRail = () => document.body.classList.remove("rail-open");
+    if (backdrop) backdrop.addEventListener("click", closeRail);
+    $$("#sideRail a").forEach((a) => a.addEventListener("click", closeRail));
+    $$("#memoryCategoryTabs .side-tab").forEach((b) => b.addEventListener("click", () => {
+      if (window.innerWidth <= 1079) closeRail();
+    }));
   }
 
   function memoryCategories() {
@@ -889,6 +898,7 @@
         <div class="deal-step-num">${escapeHTML(step.step)}</div>
         <h3>${escapeHTML(step.title)}</h3>
         <p>${escapeHTML(step.desc)}</p>
+        ${step.insight ? `<div class="deal-step-insight"><span>인사이트</span>${escapeHTML(step.insight)}</div>` : ""}
         <div class="deal-step-out">${(step.outputs || []).map((o) => `<span>${escapeHTML(o)}</span>`).join("")}</div>
         <div class="deal-step-tools">${(step.tools || []).map((t) => `<span class="tag">${escapeHTML(t)}</span>`).join("")}</div>
       `;
@@ -1258,16 +1268,19 @@
     if (qaTypeTimer) clearInterval(qaTypeTimer);
 
     const body = `
-      <div class="qa-answer-head">
-        <span class="qa-ava">A</span>
-        <b>Investment Intelligence</b>
-        <span class="qa-typing" id="qaTyping">분석 중…</span>
-        <button class="qa-close" id="qaClose" aria-label="닫기">✕</button>
+      <div class="qa-panel" role="dialog" aria-modal="true">
+        <div class="qa-answer-head">
+          <span class="qa-ava">A</span>
+          <b>Investment Intelligence</b>
+          <span class="qa-typing" id="qaTyping">분석 중…</span>
+          <button class="qa-close" id="qaClose" aria-label="닫기">✕</button>
+        </div>
+        <div class="qa-answer-body" id="qaAnswerBody"></div>
+        <div class="qa-answer-foot" id="qaAnswerFoot"></div>
       </div>
-      <div class="qa-answer-body" id="qaAnswerBody"></div>
-      <div class="qa-answer-foot" id="qaAnswerFoot"></div>
     `;
     panel.innerHTML = body;
+    document.body.classList.add("qa-open");
     $("#qaClose").addEventListener("click", closeAnswer);
 
     const target = $("#qaAnswerBody");
@@ -1287,8 +1300,9 @@
       }
     }, 16);
 
-    // click panel while typing → reveal instantly
+    // click on backdrop closes; click inside while typing reveals instantly
     panel.onclick = (e) => {
+      if (e.target === panel) { closeAnswer(); return; }
       if (qaTypeTimer && e.target.id !== "qaClose") {
         clearInterval(qaTypeTimer);
         qaTypeTimer = null;
@@ -1299,6 +1313,9 @@
       }
     };
   }
+
+  function _escClose(e) { if (e.key === "Escape") closeAnswer(); }
+  document.addEventListener("keydown", _escClose);
 
   function renderAnswerFoot(nav) {
     const foot = $("#qaAnswerFoot");
@@ -1319,6 +1336,7 @@
     panel.hidden = true;
     panel.classList.remove("show");
     panel.innerHTML = "";
+    document.body.classList.remove("qa-open");
   }
 
   /* ---------- prices ---------- */
