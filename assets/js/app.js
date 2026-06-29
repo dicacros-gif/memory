@@ -65,6 +65,28 @@
     aidemand: "#16A34A",
     china: "#1428A0",
   };
+  const COLOR_PRESETS = [
+    { name: "Violet", sidebar: "#4322A8", sidebarHi: "#6145B6", sidebarLow: "#24125B", accent: "#4322A8", blue: "#1428A0", teal: "#0A9D8E", purple: "#7A38D6", green: "#0E8A50" },
+    { name: "Navy", sidebar: "#0B1F4D", sidebarHi: "#173B84", sidebarLow: "#071229", accent: "#0F62FE", blue: "#1428A0", teal: "#0A9D8E", purple: "#9333EA", green: "#0E8A50" },
+    { name: "Cobalt", sidebar: "#1428A0", sidebarHi: "#2D6BFF", sidebarLow: "#07145F", accent: "#2D6BFF", blue: "#1428A0", teal: "#0891B2", purple: "#C026D3", green: "#16A34A" },
+    { name: "Teal", sidebar: "#0A6E63", sidebarHi: "#0A9D8E", sidebarLow: "#06413C", accent: "#0A9D8E", blue: "#1668E3", teal: "#0A9D8E", purple: "#6D28D9", green: "#0E8A50" },
+    { name: "Graphite", sidebar: "#10131C", sidebarHi: "#2B3144", sidebarLow: "#070A12", accent: "#7A38D6", blue: "#2D6BFF", teal: "#0A9D8E", purple: "#7A38D6", green: "#16A34A" },
+  ];
+  const NAV_ACCENTS = {
+    overview: "#FFFFFF",
+    workbench: "#B9A7FF",
+    crawler: "#7EE7C8",
+    prices: "#FFD166",
+    news: "#93C5FD",
+    "china-dynamics": "#7DD3FC",
+    "china-deep-dive": "#86EFAC",
+    categories: "#C4B5FD",
+    competitors: "#F0ABFC",
+    dynamics: "#FDBA74",
+    monetization: "#A7F3D0",
+    response: "#FCA5A5",
+    intelligence: "#BAE6FD",
+  };
   const CHINA_DYNAMIC_AXES = [
     {
       id: "capacity",
@@ -352,6 +374,7 @@
   let workbenchMode = "crawler";
   let selectedInsightId = null;
   let responsePriority = "all";
+  let paletteIndex = 0;
   let typeTimer = null;
 
   async function loadJSON(path, fallback) {
@@ -480,10 +503,87 @@
     document.title = BASE.meta?.title || document.title;
     const saved = localStorage.getItem("memory-theme") || "light";
     document.documentElement.dataset.theme = saved;
+    const savedPalette = Number(localStorage.getItem("memory-palette-index") || 0);
+    applyPalette(savedPalette);
+    setSidebarCollapsed(localStorage.getItem("memory-sidebar-collapsed") === "1", { persist: false, cycle: false });
+    decorateSidebarItems();
+
     $("#themeBtn").addEventListener("click", () => {
       const next = document.documentElement.dataset.theme === "dark" ? "light" : "dark";
       document.documentElement.dataset.theme = next;
       localStorage.setItem("memory-theme", next);
+    });
+
+    $("#paletteBtn")?.addEventListener("click", () => cyclePalette());
+    $("#sidebarFold")?.addEventListener("click", (event) => {
+      event.stopPropagation();
+      toggleSidebarCollapsed();
+    });
+  }
+
+  function normalizePaletteIndex(index) {
+    const n = Number(index);
+    if (!Number.isFinite(n)) return 0;
+    return ((Math.trunc(n) % COLOR_PRESETS.length) + COLOR_PRESETS.length) % COLOR_PRESETS.length;
+  }
+
+  function applyPalette(index, options = {}) {
+    paletteIndex = normalizePaletteIndex(index);
+    const palette = COLOR_PRESETS[paletteIndex] || COLOR_PRESETS[0];
+    const root = document.documentElement;
+    root.style.setProperty("--sidebar", palette.sidebar);
+    root.style.setProperty("--sidebar-hi", palette.sidebarHi);
+    root.style.setProperty("--sidebar-low", palette.sidebarLow);
+    root.style.setProperty("--accent", palette.accent);
+    root.style.setProperty("--brand", palette.accent);
+    root.style.setProperty("--blue", palette.blue);
+    root.style.setProperty("--teal", palette.teal);
+    root.style.setProperty("--purple", palette.purple);
+    root.style.setProperty("--green", palette.green);
+    root.dataset.palette = palette.name.toLowerCase();
+    localStorage.setItem("memory-palette-index", String(paletteIndex));
+
+    const btn = $("#paletteBtn");
+    if (btn) {
+      btn.title = `색상 변경 · ${palette.name}`;
+      btn.setAttribute("aria-label", `색상 변경 · ${palette.name}`);
+      if (options.pulse) {
+        btn.classList.remove("is-cycling");
+        void btn.offsetWidth;
+        btn.classList.add("is-cycling");
+        window.setTimeout(() => btn.classList.remove("is-cycling"), 480);
+      }
+    }
+  }
+
+  function cyclePalette() {
+    applyPalette(paletteIndex + 1, { pulse: true });
+  }
+
+  function setSidebarCollapsed(collapsed, options = {}) {
+    const shouldCollapse = Boolean(collapsed);
+    document.body.classList.toggle("sidebar-collapsed", shouldCollapse);
+    if (options.persist !== false) {
+      localStorage.setItem("memory-sidebar-collapsed", shouldCollapse ? "1" : "0");
+    }
+    const btn = $("#sidebarFold");
+    if (btn) {
+      btn.setAttribute("aria-label", shouldCollapse ? "사이드바 펼치기" : "사이드바 접기");
+      btn.title = shouldCollapse ? "사이드바 펼치기 · 색상 변경" : "사이드바 접기 · 색상 변경";
+    }
+    if (options.cycle) cyclePalette();
+  }
+
+  function toggleSidebarCollapsed() {
+    setSidebarCollapsed(!document.body.classList.contains("sidebar-collapsed"), { cycle: true });
+  }
+
+  function decorateSidebarItems() {
+    $$(".sb-item").forEach((btn) => {
+      const id = btn.dataset.jump || "";
+      btn.style.setProperty("--nav-active", NAV_ACCENTS[id] || "rgba(255,255,255,.92)");
+      const label = btn.querySelector(".sb-label strong")?.textContent?.trim();
+      if (label) btn.title = label;
     });
   }
 
@@ -1569,7 +1669,12 @@
 
   function setupInteractions() {
     $$("[data-jump]").forEach((btn) => {
-      btn.addEventListener("click", () => jumpTo(btn.dataset.jump));
+      btn.addEventListener("click", () => {
+        if (btn.classList.contains("sb-item")) {
+          $$(".sb-item").forEach((item) => item.classList.toggle("active", item === btn));
+        }
+        jumpTo(btn.dataset.jump);
+      });
     });
 
     $("#mobileMenu").addEventListener("click", () => document.body.classList.add("menu-open"));
