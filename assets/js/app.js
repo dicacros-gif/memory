@@ -1506,12 +1506,30 @@
     const signal = isChinaArticle(item)
       ? "중국 신호: 내수 고객, 정책 지원, 장비·패키징 우회 가능성 확인"
       : "외신 신호: 해외 검증 보도 기준으로 가격·수요·경쟁 구도 확인";
-    const meta = `${item.source || "출처 미상"}${item.date || item.published ? ` · ${item.date || item.published}` : ""}`;
+    const meta = item.source || "출처 미상";
     return [
       `핵심: ${clipText(summary, 78)}`,
       `벤치마킹: ${category}`,
       `체크포인트: ${signal} · ${meta}`,
     ];
+  }
+
+  function formatNewsDate(value) {
+    const raw = String(value || "").trim();
+    if (!raw) return "";
+    const numeric = raw.match(/(?:20\d{2}[.\-/년]\s*)?(\d{1,2})[.\-/월]\s*(\d{1,2})/);
+    if (numeric) return `${Number(numeric[1])}/${Number(numeric[2])}일`;
+    const english = raw.match(/\b(Jan|Feb|Mar|Apr|May|Jun|Jul|Aug|Sep|Oct|Nov|Dec)[a-z]*\.?\s+(\d{1,2})\b/i);
+    if (english) {
+      const month = ["jan", "feb", "mar", "apr", "may", "jun", "jul", "aug", "sep", "oct", "nov", "dec"]
+        .indexOf(english[1].slice(0, 3).toLowerCase()) + 1;
+      if (month > 0) return `${month}/${Number(english[2])}일`;
+    }
+    const parsed = new Date(raw);
+    if (!Number.isNaN(parsed.getTime())) {
+      return `${parsed.getMonth() + 1}/${parsed.getDate()}일`;
+    }
+    return raw;
   }
 
   function clipText(text, limit) {
@@ -1651,7 +1669,7 @@
             ${insights.map((line) => `<span>${escapeHTML(line)}</span>`).join("")}
           </span>
         </span>
-        <span class="news-meta">${escapeHTML(item.date || item.published || "")}</span>
+        <span class="news-meta">${escapeHTML(formatNewsDate(item.date || item.published))}</span>
       `;
       li.appendChild(a);
       list.appendChild(li);
