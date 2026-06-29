@@ -1,1486 +1,515 @@
 {
   "meta": {
-    "title": "SK hynix CorpDev · Investment Intelligence",
-    "subtitle": "하이닉스 관점 M&A·지분투자·CVC·포트폴리오 밸류업 · 매일 자동 업데이트"
+    "title": "SK hynix China Memory Benchmark Dashboard",
+    "subtitle": "중국 메모리 경쟁사, 공급망, 인재/IP 리스크, 가격과 외신 신호를 통합 추적",
+    "reference": "bizdevelopment1-max/ai 스타일의 좌측 카테고리, 상단 Q&A, 보드형 인터랙션"
   },
-  "background": {
-    "title": "메모리 원가 전가 시뮬레이터",
-    "desc": "아래 수치는 자동 크롤링 대상이 아닌 배경 가정값 · 완제품 가격 민감도를 빠르게 비교하기 위한 내부 검토용 모델",
-    "formula": {
-      "costSharePct": 7,
-      "priceIncreasePct": 350,
-      "passThroughPct": 100,
-      "retailIncreasePct": 24.5,
-      "expression": "7% × ~350% × 100% = 최소 +24%",
-      "source": "J.P. Morgan North America Economic Research",
-      "sourceDate": "2026-06-18"
-    }
-  },
-  "simulator": {
-    "defaults": {
-      "costSharePct": 7,
-      "priceIncreasePct": 350,
-      "passThroughPct": 100
-    },
-    "ranges": {
-      "costSharePct": {
-        "min": 1,
-        "max": 30,
-        "step": 0.5
-      },
-      "priceIncreasePct": {
-        "min": 0,
-        "max": 500,
-        "step": 5
-      },
-      "passThroughPct": {
-        "min": 0,
-        "max": 100,
-        "step": 5
-      }
-    },
-    "devices": [
-      {
-        "id": "flagship",
-        "label": "플래그십 스마트폰",
-        "basePrice": 1500000
-      },
-      {
-        "id": "midrange",
-        "label": "중급 스마트폰",
-        "basePrice": 600000
-      },
-      {
-        "id": "laptop",
-        "label": "AI 노트북",
-        "basePrice": 1800000
-      },
-      {
-        "id": "server",
-        "label": "서버 BOM",
-        "basePrice": 9000000
-      }
-    ]
-  },
-  "valuation": {
-    "title": "지분가치 · Financial Modeling 미니 모델",
-    "desc": "타깃 매출에 EV/Revenue 멀티플과 인수 지분율을 적용해 지분가치를 빠르게 추정하는 내부 검토용 약식 모델 · 정밀 밸류에이션은 실사·DCF로 보완",
-    "defaults": {
-      "revenueUsdM": 120,
-      "growthPct": 60,
-      "evRevenue": 8,
-      "stakePct": 20,
-      "synergyPct": 15
-    },
-    "ranges": {
-      "revenueUsdM": {
-        "min": 5,
-        "max": 2000,
-        "step": 5,
-        "label": "타깃 연매출",
-        "suffix": "M$"
-      },
-      "growthPct": {
-        "min": 0,
-        "max": 200,
-        "step": 5,
-        "label": "연성장률(YoY)",
-        "suffix": "%"
-      },
-      "evRevenue": {
-        "min": 1,
-        "max": 30,
-        "step": 0.5,
-        "label": "EV/Revenue 멀티플",
-        "suffix": "x"
-      },
-      "stakePct": {
-        "min": 1,
-        "max": 100,
-        "step": 1,
-        "label": "인수 지분율",
-        "suffix": "%"
-      },
-      "synergyPct": {
-        "min": 0,
-        "max": 60,
-        "step": 1,
-        "label": "전략 시너지 프리미엄",
-        "suffix": "%"
-      }
-    },
-    "note": "지분가치 ≈ 매출 × EV/Rev 멀티플 × 지분율 × (1 + 시너지 프리미엄) · 약식 추정이며 투자 권유 아님"
-  },
-  "qa": {
-    "intro": "M&A·CVC·포트폴리오·기술 동향을 질문으로 탐색하세요. 질문을 선택하거나 자연어로 검색하면 답변이 타이핑.",
-    "cats": [
-      {
-        "id": "ma",
-        "name": "M&A · 지분투자",
-        "color": "#f05a28"
-      },
-      {
-        "id": "cvc",
-        "name": "CVC · 펀드",
-        "color": "#7c3aed"
-      },
-      {
-        "id": "portfolio",
-        "name": "포트폴리오 · 밸류업",
-        "color": "#047857"
-      },
-      {
-        "id": "tech",
-        "name": "기술 동향",
-        "color": "#2563eb"
-      },
-      {
-        "id": "risk",
-        "name": "수익성 · 리스크",
-        "color": "#b45309"
-      }
-    ],
-    "pairs": [
-      {
-        "cat": "ma",
-        "q": "하이닉스가 지금 발굴해야 할 국내외 M&A·지분투자 기회는?",
-        "a": "AI 메모리 로드맵의 병목을 메우는 영역이 1순위.\n\nCXL 스위치·메모리 풀링, 실리콘 포토닉 인터커넥트, HBM 베이스다이 로직, 첨단 패키징·테스트, 메모리 컨트롤러 IP, 글래스 기판이 핵심 후보군. 경쟁사가 먼저 확보하면 협상력이 약해지는 영역(포토닉스·CXL 생태계)은 소수지분+옵션으로 선점하고, 제품 로드맵에 즉시 붙는 영역(컨트롤러·패키징)은 인수·JV로 내재화하는 구조가 적합.",
-        "keywords": [
-          "m&a",
-          "인수",
-          "지분투자",
-          "기회",
-          "발굴",
-          "딜",
-          "cxl",
-          "포토닉스",
-          "패키징"
-        ],
-        "nav": "maTargets"
-      },
-      {
-        "cat": "ma",
-        "q": "소수지분, 전략적 제휴, 인수 중 어떤 딜 구조가 맞나?",
-        "a": "기술 성숙도와 전략 통제 필요성으로 구조를 결정.\n\n초기·표준 미정 기술(실리콘 포토닉스, 차세대 메모리 연산)은 소수지분+후속투자권(follow-on)+공동개발로 옵션을 확보. 제품화 임박·로드맵 직결 기술(SSD/메모리 컨트롤러, 패키징·테스트)은 경영권 인수 또는 JV로 내재화. 고객 접점·공급망 연결이 핵심이면 전략적 제휴+상호 지분으로 락인. 각 구조는 실사·밸류에이션·거버넌스 조건으로 리스크를 통제.",
-        "keywords": [
-          "딜 구조",
-          "소수지분",
-          "제휴",
-          "인수",
-          "jv",
-          "구조",
-          "거버넌스"
-        ],
-        "nav": "dealProcess"
-      },
-      {
-        "cat": "cvc",
-        "q": "CVC 관점에서 어떤 스타트업·업체를 보고 있나?",
-        "a": "메모리 확장성과 데이터 이동 비용을 낮추는 업체가 중심.\n\nCXL(XCENA·XConn·MemVerge), 포토닉 인터커넥트(Celestial AI·Lightmatter·Ayar Labs), 칩렛·컨트롤러(Primemas), near-memory/PIM, SSD 컨트롤러, AI 추론 메모리, 첨단 적층 소재까지 폭넓게 추적. 직접 소수지분으로 갈 영역과 전문 펀드 LP로 커버할 영역을 분리해, PoC로 검증 가능한 고객·제품 접점이 있는 후보를 우선.",
-        "keywords": [
-          "cvc",
-          "스타트업",
-          "벤처",
-          "투자 후보",
-          "업체",
-          "펀드"
-        ],
-        "nav": "funds"
-      },
-      {
-        "cat": "cvc",
-        "q": "직접 투자와 펀드 LP 투자는 어떻게 나누나?",
-        "a": "전략 적합도와 정보 우위로 직접/간접을 구분.\n\n메모리 로드맵에 직접 붙고 PoC·공동개발이 가능한 후보는 SK hynix Ventures를 통해 직접 소수지분으로 진입. 영역이 넓고 초기 리스크가 큰 딥테크(양자·신소재·차세대 컴퓨팅)는 전문 VC 펀드에 LP로 참여해 딜플로우와 시장 신호를 확보. 펀드 커버리지는 정보 레이더이자 직접 투자 파이프라인 역할 수행",
-        "keywords": [
-          "펀드",
-          "lp",
-          "직접 투자",
-          "간접",
-          "커버리지",
-          "ventures"
-        ],
-        "nav": "funds"
-      },
-      {
-        "cat": "portfolio",
-        "q": "하이닉스의 기존 투자 포트폴리오와 지분율은?",
-        "a": "대표 보유 자산은 다음(공개 자료 기준).\n\nKioxia: Bain 컨소시엄을 통한 약 7% 지분 + 15% 상당 전환사채(2028 전환), AI·NAND 사이클로 평가이익 대폭 확대. Solidigm: 100% 자회사(Intel NAND 인수)로 미국 'AI Company'로 재편 중. SK hynix AI Company(US): 100억 달러+ 규모 미국 AI 투자 비히클 신설. 그 외 SK hynix Ventures 포트폴리오의 소수지분(CXL·포토닉스·적층 제조 등)을 보유. 미공개 지분은 '소수지분'으로 표기.",
-        "keywords": [
-          "포트폴리오",
-          "지분율",
-          "kioxia",
-          "solidigm",
-          "보유",
-          "자회사"
-        ],
-        "nav": "portfolio"
-      },
-      {
-        "cat": "portfolio",
-        "q": "포트폴리오 관리·밸류업 방향은?",
-        "a": "투자사의 기술을 하이닉스 제품·고객·제조 생태계에 연결하는 것이 밸류업의 핵심.\n\nKioxia는 NAND 협력·IPO 후 지분가치 재평가, Solidigm은 eSSD·AI 데이터센터로 매출 믹스 상향, CVC 소수지분은 공동 PoC·레퍼런스 고객 연결로 후속 라운드 가치를 제고. 각 자산에 대해 health check → value-up 액션 → 후속투자/엑싯 트리거를 분기 단위로 점검.",
-        "keywords": [
-          "밸류업",
-          "value-up",
-          "관리",
-          "포트폴리오",
-          "엑싯",
-          "후속투자"
-        ],
-        "nav": "portfolio"
-      },
-      {
-        "cat": "tech",
-        "q": "주목해야 할 반도체·메모리 미래 기술 동향은?",
-        "a": "AI 수요가 메모리 아키텍처를 바꾸는 국면.\n\nHBM4가 2026년 양산(2048-bit, 1.5~2TB/s/stack)에 진입하고, HBM4E(~2027)·HBM5(2029~)로 확장. CXL 메모리 풀링, PIM/PNM(연산 인메모리, GPU-HBM 대비 ~53% 성능 향상), AI-D DRAM(MRDIMM Gen2·LPDDR6-PIM), 400단+ NAND, 실리콘 포토닉스, 글래스 기판·첨단 패키징이 핵심 축. 각 기술은 신규 투자 영역 발굴의 출발점.",
-        "keywords": [
-          "기술 동향",
-          "hbm4",
-          "hbm5",
-          "cxl",
-          "pim",
-          "포토닉스",
-          "미래 기술",
-          "트렌드"
-        ],
-        "nav": "techTrends"
-      },
-      {
-        "cat": "tech",
-        "q": "신규 투자 영역은 어떻게 발굴하나?",
-        "a": "기술 로드맵의 병목과 인접 생태계에서 공백을 발굴.\n\n① 제품 로드맵(HBM4E·CXL·PIM)의 병목 기술 → ② 경쟁사·하이퍼스케일러가 선점 중인 인접 영역 → ③ 외신·특허·펀딩 신호로 부상하는 테마를 교차 점검. 발굴된 영역은 투자전략 수립 → 포트폴리오 적합도 → deal 구조 → 실사 → 밸류에이션 순으로 검증해 전사 투자 의사결정에 상정.",
-        "keywords": [
-          "신규 투자",
-          "영역 발굴",
-          "발굴",
-          "병목",
-          "로드맵",
-          "테마"
-        ],
-        "nav": "dealProcess"
-      },
-      {
-        "cat": "risk",
-        "q": "투자 수익성과 리스크는 어떻게 분석하나?",
-        "a": "재무 수익과 전략 수익을 함께 보고 리스크를 매트릭스로 통제.\n\n기대수익(지분가치 상승·전략 옵션 가치)과 리스크(가격 사이클, 경쟁 선점, 기술 지연, 고객 미확보, 지정학)를 축으로 후보를 배치. 하방 시나리오(메모리 다운사이클)에서도 전략적 방어력이 있는지, 후속투자권·공동개발로 downside를 줄일 수 있는지로 성과 극대화 액션을 도출.",
-        "keywords": [
-          "수익성",
-          "리스크",
-          "성과",
-          "downside",
-          "분석",
-          "매트릭스"
-        ],
-        "nav": "riskReturn"
-      },
-      {
-        "cat": "risk",
-        "q": "중장기 투자 전략과 전사 의사결정은 어떻게 지원하나?",
-        "a": "가격 사이클·AI 수요·경쟁 CAPEX 신호를 묶어 자본 배분 우선순위를 제시.\n\nDRAM·NAND·HBM·CXL 중 어디에 자본을 더 배분할지, 어떤 영역을 M&A로 내재화하고 어떤 영역을 옵션(소수지분)으로 가져갈지를 분기 watchlist로 정리. 각 테마의 매력도·리스크·옵션을 의사결정 메모로 만들어 전사 투자심의에 상정.",
-        "keywords": [
-          "중장기",
-          "전략",
-          "전사",
-          "의사결정",
-          "자본 배분",
-          "watchlist"
-        ],
-        "nav": "corpdev"
-      }
-    ]
-  },
-  "techTrends": [
+  "kpis": [
     {
-      "id": "hbm4",
-      "title": "HBM4 양산 진입",
-      "horizon": "2026",
-      "status": "양산",
-      "metric": "2,048-bit · 1.5~2TB/s",
-      "summary": "JEDEC JESD270-4 기반 2,048-bit 인터페이스, 스택당 1.5~2TB/s 대역폭, 64GB 용량 · 베이스다이 로직 공정이 차별화 포인트",
-      "impact": "GPU·ASIC 고객 장기계약과 패키징·로직 파트너십이 투자 우선순위",
-      "tags": [
-        "HBM",
-        "AI 가속기",
-        "베이스다이"
-      ]
+      "label": "2026 글로벌 반도체 시장",
+      "value": "9750",
+      "prefix": "$",
+      "suffix": "억",
+      "note": "WSTS 전망 기반, AI 인프라 확장이 핵심 동인"
     },
     {
-      "id": "hbm4e",
-      "title": "HBM4E · 커스텀 HBM",
-      "horizon": "2027~2028",
-      "status": "개발",
-      "metric": "10Gbps · 2.5TB/s",
-      "summary": "데이터레이트 10Gbps, 스택당 2.5TB/s, 패키지당 ~80W · 16-Hi 적층과 고객 맞춤형 커스텀 HBM4E로 확장",
-      "impact": "커스텀 로직·패키징 역량 보강 위한 소수지분·JV 후보 영역",
-      "tags": [
-        "HBM4E",
-        "커스텀",
-        "16-Hi"
-      ]
+      "label": "메모리 성장률",
+      "value": "30",
+      "suffix": "%",
+      "note": "HBM, eSSD, 서버 DRAM 중심 슈퍼사이클"
     },
     {
-      "id": "hbm5",
-      "title": "HBM5 · 차세대 로드맵",
-      "horizon": "2029~2031",
-      "status": "로드맵",
-      "metric": "HBM5 · 400단+ NAND",
-      "summary": "HBM5, GDDR7-Next, 400단 이상 NAND를 포함한 장기 로드맵 · 메모리·로직·패키징 융합 가속",
-      "impact": "장기 옵션(포토닉스·신소재) 선제 투자로 차별화 확보",
-      "tags": [
-        "HBM5",
-        "GDDR7",
-        "400-layer"
-      ]
+      "label": "빅펀드 3기",
+      "value": "3440",
+      "suffix": "억 위안",
+      "note": "EUV·EDA·패키징·소부장 초크포인트 해소 목적"
     },
     {
-      "id": "cxl",
-      "title": "CXL 메모리 풀링",
-      "horizon": "2026~2028",
-      "status": "확산",
-      "metric": "CXL 3.x · pooling",
-      "summary": "서버 메모리 풀링·확장으로 TCO 절감 · 스위치·소프트웨어 생태계가 채택의 관건",
-      "impact": "CXL 스위치·SW 스타트업 직접 소수지분 + 펀드 커버리지",
-      "tags": [
-        "CXL",
-        "pooling",
-        "TCO"
-      ]
+      "label": "CXMT DRAM 점유율",
+      "value": "7.7",
+      "suffix": "%",
+      "decimals": 1,
+      "note": "글로벌 4위권 DRAM 업체로 부상"
     },
     {
-      "id": "pim",
-      "title": "PIM · PNM 연산 인메모리",
-      "horizon": "2026~2029",
-      "status": "상용 초입",
-      "metric": "+53% 성능 · -10% 전력",
-      "summary": "베이스다이에 연산 로직을 내장한 PIM-HBM이 GPU-HBM 대비 약 53% 성능, 10%+ 전력효율 개선 · LPDDR6-PIM도 로드맵",
-      "impact": "near-memory compute·PIM SW 생태계가 신규 투자 영역",
-      "tags": [
-        "PIM",
-        "PNM",
-        "near-memory"
-      ]
+      "label": "YMTC NAND 출하 점유율",
+      "value": "13",
+      "suffix": "%",
+      "note": "마이크론 NAND 점유율에 근접한 중국 NAND 축"
     },
     {
-      "id": "aidram",
-      "title": "AI-D 맞춤형 DRAM",
-      "horizon": "2026~2028",
-      "status": "확산",
-      "metric": "MRDIMM Gen2 · LPDDR6",
-      "summary": "AI 서버용 LPDDR5X SoCAMM2, MRDIMM Gen2, LPDDR5R, LPDDR6-PIM 등 워크로드 맞춤형 DRAM 라인업",
-      "impact": "모듈·컨트롤러·테스트 밸류체인 내재화 기회",
-      "tags": [
-        "AI-D",
-        "MRDIMM",
-        "LPDDR6"
-      ]
-    },
-    {
-      "id": "photonics",
-      "title": "실리콘 포토닉스 인터커넥트",
-      "horizon": "2027~2030",
-      "status": "장기 옵션",
-      "metric": "chip-to-memory fabric",
-      "summary": "가속기-메모리 간 대역폭·전력 병목을 광 패브릭으로 완화 · 패키지 통합 수율이 관건",
-      "impact": "Celestial AI·Lightmatter·Ayar Labs급 후보 옵션 투자",
-      "tags": [
-        "photonics",
-        "interconnect",
-        "optical I/O"
-      ]
-    },
-    {
-      "id": "packaging",
-      "title": "첨단 패키징 · 글래스 기판",
-      "horizon": "2026~2029",
-      "status": "전환",
-      "metric": "CoWoS · 글래스 기판",
-      "summary": "하이브리드 본딩, 글래스 기판, 열관리·테스트 병목 해소가 HBM 고부가 믹스의 핵심",
-      "impact": "패키징·테스트·열관리 인수·JV로 capacity 내재화",
-      "tags": [
-        "packaging",
-        "glass substrate",
-        "thermal"
-      ]
+      "label": "중국 장비 국산화율",
+      "value": "23.2",
+      "suffix": "%",
+      "decimals": 1,
+      "note": "2021년 8%에서 빠르게 상승, 2030년 39% 전망"
     }
   ],
-  "corpDevWorkstreams": [
-    {
-      "id": "deal-sourcing",
-      "title": "신규 투자영역 발굴 · M&A·지분투자 기회 발굴",
-      "dashboard": "Memory Deal Radar",
-      "memoryLens": "HBM, CXL, 고성능 NAND, 첨단 패키징, 광 인터커넥트, PIM 영역에서 전략적 공백을 메우는 국내외 타깃을 추적",
-      "decisionQuestions": [
-        "어떤 기술이 SK하이닉스 제품 로드맵의 병목을 줄이는가",
-        "경쟁사가 먼저 확보하면 협상력이 약해지는 영역인가",
-        "소수지분, 전략적 제휴, JV, 인수 중 어떤 구조가 적합한가"
-      ],
-      "output": "타깃 롱리스트, 우선순위 스코어, 투자 형태 제안"
-    },
-    {
-      "id": "cvc-startups",
-      "title": "스타트업 및 펀드 투자 등 CVC 업무",
-      "dashboard": "CVC Pipeline Board",
-      "memoryLens": "CXL, near-memory compute, photonics, chiplet, 메모리 가상화, SSD 컨트롤러 스타트업을 투자 단계와 협업 가능성으로 분류",
-      "decisionQuestions": [
-        "PoC로 검증할 고객·제품 접점이 있는가",
-        "펀드 LP 투자로 커버할 영역과 직접 투자할 영역은 무엇인가",
-        "SK하이닉스가 제공할 수 있는 전략적 value-add는 무엇인가"
-      ],
-      "output": "CVC 후보 카드, PoC 우선순위, 펀드 커버리지 맵"
-    },
-    {
-      "id": "investment-strategy",
-      "title": "중장기 투자 전략 수립 및 전사 투자 의사결정 지원",
-      "dashboard": "Memory Strategy Heatmap",
-      "memoryLens": "Spot·계약가, HBM 뉴스 강도, 경쟁사 CAPEX·고객 인증 신호를 묶어 중장기 투자 테마와 자본 배분을 점검",
-      "decisionQuestions": [
-        "가격 사이클과 AI 수요가 같은 방향으로 움직이는가",
-        "DRAM, NAND, HBM, CXL 중 자본 배분 우선순위는 무엇인가",
-        "전사 의사결정에 필요한 핵심 리스크와 옵션은 무엇인가"
-      ],
-      "output": "투자 테마별 매력도, 의사결정 메모, 분기별 watchlist"
-    },
-    {
-      "id": "deal-execution",
-      "title": "Deal 구조 수립 · 실사 · 평가(Financial Modeling)",
-      "dashboard": "Deal Execution Desk",
-      "memoryLens": "발굴된 타깃을 구조 설계 → 실사 → 밸류에이션으로 검증하고, 거버넌스·후속투자권 조건을 설계",
-      "decisionQuestions": [
-        "지분율·거버넌스·후속투자권을 어떻게 설계할 것인가",
-        "기술·재무·법률·고객 실사의 핵심 리스크는 무엇인가",
-        "EV/Revenue·DCF 기준 적정 지분가치와 시너지 프리미엄은 얼마인가"
-      ],
-      "output": "딜 구조안, 실사 체크리스트, 밸류에이션 모델"
-    },
-    {
-      "id": "portfolio-valueup",
-      "title": "기존 투자 포트폴리오 관리 및 Value-up 추진",
-      "dashboard": "Portfolio Value-up Monitor",
-      "memoryLens": "투자사의 기술을 SK하이닉스 제품·고객·제조 생태계에 연결할 수 있는 value-up 기회를 발굴",
-      "decisionQuestions": [
-        "투자사가 HBM, CXL, SSD, 패키징 로드맵 어디에 붙을 수 있는가",
-        "고객 레퍼런스, 공동 개발, 공급망 연결 중 어떤 지원이 필요한가",
-        "후속 투자 또는 엑싯 타이밍을 앞당길 수 있는 이벤트는 무엇인가"
-      ],
-      "output": "포트폴리오 health check, value-up 액션, 후속 투자 트리거"
-    },
-    {
-      "id": "risk-return",
-      "title": "투자 수익성·리스크 분석 및 성과 극대화",
-      "dashboard": "Return & Risk Cockpit",
-      "memoryLens": "가격 변동성, 경쟁 압력, 뉴스 모멘텀, 기술 성숙도를 합쳐 투자 리스크와 기대수익을 비교",
-      "decisionQuestions": [
-        "가격 사이클 하락 시에도 전략적 방어력이 있는가",
-        "경쟁사 선점, 기술 지연, 고객 미확보 리스크가 얼마나 큰가",
-        "재무 수익과 전략 수익을 함께 높이는 구조는 무엇인가"
-      ],
-      "output": "리스크 매트릭스, downside case, 성과 극대화 액션"
-    }
-  ],
-  "dealProcess": [
-    {
-      "step": "01",
-      "id": "sourcing",
-      "title": "신규 투자영역 발굴",
-      "desc": "로드맵 병목·인접 생태계·외신/특허/펀딩 신호를 교차 분석해 투자 테마를 도출",
-      "outputs": [
-        "테마 롱리스트",
-        "병목 매핑"
-      ],
-      "tools": [
-        "Deal Radar",
-        "외신·특허 신호"
-      ],
-      "insight": "최우선 발굴: CXL 스위치·실리콘 포토닉 인터커넥트 · 외신 펀딩 신호 급증 영역 우선 스캔"
-    },
-    {
-      "step": "02",
-      "id": "strategy",
-      "title": "투자 전략 수립",
-      "desc": "테마별 전략 적합도·자본 배분·직접/펀드 구분을 정해 중장기 투자 전략으로 통합",
-      "outputs": [
-        "전략 적합도",
-        "자본 배분안"
-      ],
-      "tools": [
-        "Strategy Heatmap"
-      ],
-      "insight": "HBM4E·커스텀 HBM에 자본 집중 · CXL·포토닉스는 옵션(소수지분)으로 분산"
-    },
-    {
-      "step": "03",
-      "id": "portfolio",
-      "title": "투자 포트폴리오 관리",
-      "desc": "기존 보유 자산과 신규 후보를 함께 보고 중복·공백·밸류업 기회를 점검",
-      "outputs": [
-        "포트폴리오 맵",
-        "value-up 액션"
-      ],
-      "tools": [
-        "Value-up Monitor"
-      ],
-      "insight": "Kioxia(7%+CB)·Solidigm(100%) 중복 점검 · eSSD·NAND 시너지 갭 보강"
-    },
-    {
-      "step": "04",
-      "id": "structuring",
-      "title": "Deal 구조 수립",
-      "desc": "소수지분·제휴·JV·인수 중 구조를 선택하고 지분율·거버넌스·후속투자권을 설계",
-      "outputs": [
-        "딜 구조안",
-        "텀시트 골격"
-      ],
-      "tools": [
-        "Execution Desk"
-      ],
-      "insight": "로드맵 직결(컨트롤러·패키징)은 인수·JV · 표준 미정(포토닉스)은 소수지분+후속투자권"
-    },
-    {
-      "step": "05",
-      "id": "diligence",
-      "title": "실사 (Due Diligence)",
-      "desc": "기술·재무·법률·고객·IP 실사로 리스크를 검증하고 가치 조정 요인을 식별",
-      "outputs": [
-        "실사 체크리스트",
-        "리스크 로그"
-      ],
-      "tools": [
-        "DD Checklist"
-      ],
-      "insight": "기술 성숙도·고객 PoC·IP 분쟁·중국 수출규제 노출 집중 검증"
-    },
-    {
-      "step": "06",
-      "id": "valuation",
-      "title": "평가 · Financial Modeling",
-      "desc": "EV/Revenue·DCF·시너지 프리미엄으로 적정 지분가치를 산출해 전사 투자 의사결정에 상정",
-      "outputs": [
-        "밸류에이션 모델",
-        "의사결정 메모"
-      ],
-      "tools": [
-        "Valuation Model"
-      ],
-      "insight": "EV/Rev 8~12x·DCF 교차 · AI 메모리 프리미엄 반영 · 다운사이클 민감도 스트레스"
-    }
-  ],
-  "portfolio": {
-    "note": "공개 자료·언론 보도 기반 추정이며 미공개 지분은 '소수지분'으로 표기 · 투자 권유 아님",
-    "holdings": [
-      {
-        "name": "Kioxia Holdings",
-        "type": "전략적 지분투자 (컨소시엄)",
-        "area": "NAND · 엔터프라이즈 SSD",
-        "geo": "Japan",
-        "stake": "≈7% + CB 15%",
-        "stakePct": 7,
-        "value": "평가이익 대폭 확대",
-        "status": "평가이익 실현 구간",
-        "valueUp": "IPO 후 지분가치 재평가, NAND 공급·기술 협력, 2028 전환사채 보통주 전환 옵션",
-        "match": [
-          "kioxia",
-          "키옥시아"
-        ]
-      },
-      {
-        "name": "Solidigm (Solidigm Inc.)",
-        "type": "자회사 (인수)",
-        "area": "엔터프라이즈·클라이언트 SSD",
-        "geo": "US",
-        "stake": "100%",
-        "stakePct": 100,
-        "value": "Intel NAND 인수($9B)",
-        "status": "구조조정 · 밸류업",
-        "valueUp": "미국 'AI Company'로 재편, AI 데이터센터 eSSD 매출 믹스 상향, NAND 통합 시너지",
-        "match": [
-          "solidigm",
-          "솔리다임"
-        ]
-      },
-      {
-        "name": "SK hynix AI Company (US)",
-        "type": "신규 투자 비히클",
-        "area": "AI 솔루션 · 데이터센터",
-        "geo": "US",
-        "stake": "100% (설립)",
-        "stakePct": 100,
-        "value": "$10B+ 투자 약정",
-        "status": "신설 (2026.1)",
-        "valueUp": "미국 AI 기업 전략 투자, AI 시스템 최적화 SW부터 데이터센터 생태계로 확장",
-        "match": [
-          "ai company",
-          "solidigm inc"
-        ]
-      },
-      {
-        "name": "SK hynix Ventures",
-        "type": "CVC (직접 소수지분)",
-        "area": "딥테크 · 메모리 인접",
-        "geo": "US · Global",
-        "stake": "소수지분 (포트폴리오)",
-        "stakePct": null,
-        "value": "다수 포트폴리오 보유",
-        "status": "활성 투자",
-        "valueUp": "CXL·포토닉스·적층제조 등 전략 소수지분, 공동 PoC로 후속 라운드 가치 제고",
-        "match": [
-          "sk hynix ventures",
-          "fabric8labs",
-          "fabric8"
-        ]
-      },
-      {
-        "name": "Gauss Labs",
-        "type": "자회사 (스핀오프)",
-        "area": "산업 AI · 계측·수율",
-        "geo": "Korea · US",
-        "stake": "그룹 지배지분",
-        "stakePct": null,
-        "value": "제조 AI 내재화",
-        "status": "성장",
-        "valueUp": "반도체 계측·수율 AI를 제조 라인에 적용해 원가·수율 밸류업",
-        "match": [
-          "gauss labs",
-          "gauss"
-        ]
-      },
-      {
-        "name": "CXL · 포토닉스 소수지분",
-        "type": "전략 옵션 (소수지분)",
-        "area": "CXL · 광 인터커넥트",
-        "geo": "US · Asia",
-        "stake": "소수지분 (미공개)",
-        "stakePct": null,
-        "value": "옵션 가치",
-        "status": "옵션 보유",
-        "valueUp": "차세대 메모리 플랫폼 접근권·후속투자권 확보, 표준화 진전 시 비중 확대",
-        "match": [
-          "cxl",
-          "photonic",
-          "포토닉"
-        ]
-      }
-    ]
-  },
-  "funds": {
-    "note": "CVC 직접 투자와 전문 펀드 LP 커버리지를 분리해 딜플로우와 정보 우위를 확보 · 펀드명은 커버리지 후보 예시이며 실제 약정과 무관",
-    "items": [
-      {
-        "name": "SK hynix Ventures",
-        "type": "사내 CVC",
-        "role": "직접 소수지분 · PoC 연계",
-        "focus": "CXL · 포토닉스 · 컨트롤러 · 적층제조",
-        "status": "활성",
-        "note": "메모리 로드맵 직결 후보를 직접 투자, 공동개발로 value-add 제공"
-      },
-      {
-        "name": "딥테크 반도체 펀드 (LP 커버리지)",
-        "type": "VC 펀드 LP",
-        "role": "광역 딜플로우 · 시장 신호",
-        "focus": "차세대 컴퓨팅 · 신소재 · 양자",
-        "status": "커버리지",
-        "note": "초기 리스크가 큰 광역 영역을 LP로 커버해 파이프라인 확보"
-      },
-      {
-        "name": "AI 인프라 펀드 (LP 커버리지)",
-        "type": "VC 펀드 LP",
-        "role": "AI 데이터센터 생태계 접근",
-        "focus": "AI 가속 · 인터커넥트 · 시스템 SW",
-        "status": "커버리지",
-        "note": "AI Company 전략 투자와 연계한 데이터센터 생태계 레이더"
-      },
-      {
-        "name": "전략 제휴 + 상호 지분",
-        "type": "전략적 제휴",
-        "role": "고객·공급망 락인",
-        "focus": "패키징 · 테스트 · 컨트롤러",
-        "status": "선별",
-        "note": "제품 로드맵 직결 파트너와 상호 지분·공동개발로 락인"
-      }
-    ]
-  },
-  "maTargets": [
-    {
-      "id": "cxl-switch",
-      "name": "CXL 스위치 · 풀링",
-      "area": "메모리 확장 인프라",
-      "structure": "소수지분 + 후속투자권",
-      "stage": "Scale-up",
-      "region": "US",
-      "fit": 86,
-      "rationale": "CXL 메모리 모듈 수요 창출, 데이터센터 레퍼런스 확보 · 표준화 진전 시 비중 확대",
-      "match": [
-        "cxl",
-        "xconn",
-        "memverge",
-        "pooling"
-      ]
-    },
-    {
-      "id": "photonic-fabric",
-      "name": "실리콘 포토닉 패브릭",
-      "area": "광 인터커넥트",
-      "structure": "전략적 제휴 + 옵션",
-      "stage": "Late-stage",
-      "region": "US",
-      "fit": 84,
-      "rationale": "HBM 패키지와 광 I/O 결합으로 차세대 AI 메모리 차별화 · 경쟁사 선점 리스크 큰 영역",
-      "match": [
-        "photonic",
-        "celestial",
-        "lightmatter",
-        "ayar"
-      ]
-    },
-    {
-      "id": "ssd-controller",
-      "name": "엔터프라이즈 SSD 컨트롤러",
-      "area": "NAND 밸류체인",
-      "structure": "인수 또는 JV",
-      "stage": "Growth",
-      "region": "US · Korea",
-      "fit": 82,
-      "rationale": "Solidigm eSSD 로드맵 직결 · 컨트롤러 내재화로 마진·공급 통제력 강화",
-      "match": [
-        "controller",
-        "ssd controller",
-        "fadu"
-      ]
-    },
-    {
-      "id": "advanced-packaging",
-      "name": "첨단 패키징 · 테스트",
-      "area": "패키징 capacity",
-      "structure": "인수 · JV",
-      "stage": "Mature",
-      "region": "Asia",
-      "fit": 80,
-      "rationale": "HBM4/4E 고부가 믹스의 병목 · 하이브리드 본딩·열관리·테스트 capacity 내재화",
-      "match": [
-        "packaging",
-        "hybrid bonding",
-        "test",
-        "cowos"
-      ]
-    },
-    {
-      "id": "pim-software",
-      "name": "PIM · near-memory SW",
-      "area": "연산 인메모리",
-      "structure": "소수지분 + 공동개발",
-      "stage": "Early-growth",
-      "region": "US",
-      "fit": 76,
-      "rationale": "PIM-HBM·LPDDR6-PIM 상용화의 소프트웨어 생태계 선점 · 초기 옵션 확보",
-      "match": [
-        "pim",
-        "near-memory",
-        "computational"
-      ]
-    },
-    {
-      "id": "glass-substrate",
-      "name": "글래스 기판 · 신소재",
-      "area": "패키징 소재",
-      "structure": "소수지분 + 공급계약",
-      "stage": "Early",
-      "region": "US · Asia",
-      "fit": 72,
-      "rationale": "차세대 기판 전환의 장기 옵션 · 공급 안정성과 원가 경쟁력 선확보",
-      "match": [
-        "glass substrate",
-        "substrate",
-        "신소재"
-      ]
-    }
-  ],
-  "riskReturn": {
-    "note": "기대수익(전략+재무)과 리스크를 0~100으로 정규화한 내부 검토용 배치 · 가로축 리스크, 세로축 기대수익",
-    "items": [
-      {
-        "name": "HBM4/4E 패키징",
-        "type": "내재화",
-        "return": 88,
-        "risk": 42
-      },
-      {
-        "name": "CXL 스위치·풀링",
-        "type": "소수지분",
-        "return": 78,
-        "risk": 58
-      },
-      {
-        "name": "포토닉 인터커넥트",
-        "type": "옵션",
-        "return": 82,
-        "risk": 74
-      },
-      {
-        "name": "SSD 컨트롤러",
-        "type": "인수/JV",
-        "return": 72,
-        "risk": 48
-      },
-      {
-        "name": "PIM SW",
-        "type": "소수지분",
-        "return": 66,
-        "risk": 64
-      },
-      {
-        "name": "글래스 기판",
-        "type": "옵션",
-        "return": 60,
-        "risk": 70
-      },
-      {
-        "name": "Kioxia 지분",
-        "type": "보유 자산",
-        "return": 84,
-        "risk": 38
-      },
-      {
-        "name": "Solidigm eSSD",
-        "type": "자회사",
-        "return": 76,
-        "risk": 46
-      }
-    ],
-    "factors": [
-      {
-        "label": "가격 사이클",
-        "desc": "메모리 다운사이클 시 평가가치·현금흐름 압박"
-      },
-      {
-        "label": "경쟁 선점",
-        "desc": "삼성·Micron·하이퍼스케일러의 선제 확보 리스크"
-      },
-      {
-        "label": "기술 지연",
-        "desc": "표준화·양산 일정 지연으로 옵션 가치 훼손"
-      },
-      {
-        "label": "고객 미확보",
-        "desc": "PoC→양산 전환 실패 시 수요 부재"
-      },
-      {
-        "label": "지정학",
-        "desc": "수출 규제·공급망 분절로 인한 실행 제약"
-      }
-    ]
-  },
   "memoryCategories": [
     {
       "id": "all",
       "label": "전체",
-      "en": "All",
-      "desc": "가격, 공급, 경쟁, 투자 후보를 한 번에 보는 전체 인텔리전스",
-      "keywords": [
-        "memory",
-        "메모리",
-        "DRAM",
-        "NAND",
-        "HBM",
-        "CXL",
-        "AI"
-      ]
-    },
-    {
-      "id": "hbm",
-      "label": "HBM·AI 메모리",
-      "en": "HBM / AI Memory",
-      "desc": "HBM3E, HBM4, AI 가속기, GPU 고객 인증, CoWoS·패키징 수요",
-      "keywords": [
-        "HBM",
-        "HBM3E",
-        "HBM4",
-        "GPU",
-        "AI",
-        "NVIDIA",
-        "ASIC"
-      ]
+      "en": "All Signals",
+      "desc": "중국 메모리 생태계 전체를 통합 보기",
+      "keywords": []
     },
     {
       "id": "dram",
-      "label": "DRAM·DDR",
-      "en": "DRAM / DDR",
-      "desc": "DDR4, DDR5, LPDDR, 서버·PC·모바일 DRAM 가격과 수요 사이클",
-      "keywords": [
-        "DRAM",
-        "D램",
-        "DDR5",
-        "DDR4",
-        "LPDDR",
-        "서버"
-      ]
+      "label": "DRAM · CXMT",
+      "en": "DRAM / CXMT",
+      "desc": "범용 DRAM, DDR4/DDR5, LPDDR, 애플·중국 빅테크 공급망 다변화 신호",
+      "keywords": ["DRAM", "DDR5", "DDR4", "LPDDR", "CXMT", "ChangXin", "Apple", "Tencent"]
     },
     {
       "id": "nand",
-      "label": "NAND·SSD",
-      "en": "NAND / SSD",
-      "desc": "NAND wafer, enterprise SSD, client SSD, QLC/TLC 가격과 공급 조절",
-      "keywords": [
-        "NAND",
-        "낸드",
-        "SSD",
-        "QLC",
-        "TLC",
-        "wafer"
-      ]
-    },
-    {
-      "id": "cxl",
-      "label": "CXL·메모리 풀링",
-      "en": "CXL / Memory Pooling",
-      "desc": "CXL 모듈, 스위치, 메모리 가상화, near-memory compute 투자 후보",
-      "keywords": [
-        "CXL",
-        "pooling",
-        "near-memory",
-        "computational memory",
-        "메모리 풀링"
-      ]
+      "label": "NAND · YMTC",
+      "en": "NAND / YMTC",
+      "desc": "Xtacking, 3D NAND, eSSD, 스마트폰·데이터센터 NAND 공급망",
+      "keywords": ["NAND", "YMTC", "Yangtze", "Xtacking", "SSD", "Kioxia", "Western Digital"]
     },
     {
       "id": "packaging",
-      "label": "패키징·인터커넥트",
-      "en": "Packaging / Interconnect",
-      "desc": "advanced packaging, 광 인터커넥트, chiplet, thermal·test 병목",
-      "keywords": [
-        "packaging",
-        "interconnect",
-        "chiplet",
-        "photonics",
-        "thermal",
-        "CoWoS"
-      ]
+      "label": "첨단 패키징",
+      "en": "Advanced Packaging",
+      "desc": "JCET, TFME, XMC, HBM 적층, 하이브리드 본딩, CPO, 칩렛 생태계",
+      "keywords": ["JCET", "TFME", "XMC", "packaging", "HBM", "hybrid bonding", "CPO", "chiplet"]
     },
     {
-      "id": "china",
-      "label": "중국 경쟁·지정학",
-      "en": "China / Geopolitics",
-      "desc": "CXMT, YMTC, 수출 규제, 중국 내수 공급망과 가격 하방 압력",
-      "keywords": [
-        "CXMT",
-        "YMTC",
-        "China",
-        "중국",
-        "제재",
-        "export control"
-      ]
+      "id": "equipment",
+      "label": "소부장 · 장비",
+      "en": "Equipment / Materials",
+      "desc": "Naura, AMEC, ACM Research, CMP·세정·식각·증착·소재 국산화",
+      "keywords": ["Naura", "AMEC", "ACM Research", "equipment", "etching", "CVD", "CMP", "materials"]
+    },
+    {
+      "id": "talent",
+      "label": "인재 · IP 리스크",
+      "en": "Talent / IP Risk",
+      "desc": "핵심 수율 엔지니어 영입, Boss Zhipin·Maimai 마이크로데이터, 기술 유출 리스크",
+      "keywords": ["talent", "engineer", "IP", "Boss Zhipin", "Maimai", "recruiting", "yield"]
+    },
+    {
+      "id": "geopolitics",
+      "label": "지정학 · 규제",
+      "en": "Geopolitics",
+      "desc": "미국 수출통제, CHIPS Act, STRIDE, 빅펀드 3기, 중국 내재화 전략",
+      "keywords": ["export control", "CHIPS", "STRIDE", "Big Fund", "sanction", "China"]
     }
   ],
-  "competitiveDynamics": [
+  "qa": {
+    "intro": "중국 메모리 벤치마킹 질문을 선택하거나 자연어로 입력하세요.",
+    "cats": [
+      { "id": "threat", "name": "경쟁 위협", "color": "#f05a28" },
+      { "id": "source", "name": "정보 소스", "color": "#2563eb" },
+      { "id": "strategy", "name": "대응 전략", "color": "#0e8f6e" },
+      { "id": "price", "name": "가격·뉴스", "color": "#6d28d9" }
+    ],
+    "pairs": [
+      {
+        "cat": "threat",
+        "q": "CXMT의 비대칭 위협은 무엇인가?",
+        "a": "CXMT는 HBM4 최선단에서 당장 SK하이닉스를 압도하기보다, DDR4·DDR5·LPDDR 같은 범용 DRAM에서 가격 하방 압력을 만드는 비대칭 위협입니다.\n\n핵심은 세 가지입니다. 첫째, 한국 3사가 HBM과 서버 DRAM에 캐파를 집중하는 사이 레거시 DRAM 공급 부족을 파고듭니다. 둘째, 텐센트·알리바바·바이트댄스·레노버·샤오미 같은 중국 내수 고객을 장기 공급 계약으로 묶습니다. 셋째, 애플 같은 글로벌 세트 업체가 CXMT를 가격 협상용 '메기'로 쓰면 과점 가격 구조가 흔들릴 수 있습니다.",
+        "keywords": ["cxmt", "비대칭", "dram", "메기", "apple", "애플", "가격"],
+        "nav": "dynamics"
+      },
+      {
+        "cat": "threat",
+        "q": "YMTC는 왜 단순 NAND 경쟁사가 아닌가?",
+        "a": "YMTC는 Xtacking 기반 NAND 업체를 넘어 중국식 종합 메모리 생태계의 축으로 확장되고 있습니다.\n\n분리형 적층 구조는 선단 노광 장비 제약을 우회하면서 비트 밀도와 수율을 끌어올리는 방식입니다. 여기에 XMC와 패키징 생태계가 결합하면 NAND, 로직, HBM 패키징까지 연결되는 중국판 IDM 모델로 진화할 수 있습니다. SK하이닉스 관점에서는 NAND 가격 경쟁뿐 아니라 eSSD, 패키징, 내수 AI 가속기 공급망까지 함께 봐야 합니다.",
+        "keywords": ["ymtc", "nand", "xtacking", "xmc", "essd"],
+        "nav": "competitors"
+      },
+      {
+        "cat": "source",
+        "q": "중국 업체의 실제 로드맵은 어디서 먼저 보이나?",
+        "a": "공식 IR보다 마이크로데이터가 먼저 움직입니다.\n\n금융 채널에서는 CITIC, CICC, HSBC Qianhai의 IPO·Pre-IPO 문서가 자금 사용 목적과 고객 계약을 드러냅니다. 채용 채널에서는 Boss Zhipin의 TSV, DUV 멀티패터닝, 하이브리드 본딩 JD 빈도가 6~12개월 뒤 병목을 보여줍니다. Maimai 익명 커뮤니티는 장비 qual 실패, 수율 고충, 한국 엔지니어 조직 적응 문제 같은 현장 신호를 포착합니다. TechInsights, Yole, DigiTimes, 36Kr, EE Times는 칩 실체와 공급망 움직임을 검증합니다.",
+        "keywords": ["소스", "정보", "boss", "maimai", "citic", "techinsights", "yole"],
+        "nav": "intelligence"
+      },
+      {
+        "cat": "strategy",
+        "q": "SK하이닉스가 바로 만들어야 할 대응 보드는?",
+        "a": "첫 번째는 글로벌 마이크로데이터 레이더입니다. 채용 공고, 익명 커뮤니티, IPO 문서, 장비 반입, 외신 기사, 특허·펀딩 신호를 월별로 묶어 경쟁사 병목을 조기 경보화해야 합니다.\n\n두 번째는 레거시 마진 방어 보드입니다. CXMT가 LPDDR·DDR5 물량을 밀어 넣는 시나리오에 대비해 공정 효율, 장비 재활용, 고객별 가격 민감도를 함께 봐야 합니다. 세 번째는 핵심 수율 엔지니어 리텐션 보드입니다. HBM 수율 레시피와 생산 안정화 경험이 중국으로 이동하면 3~4년 격차가 1~2년으로 단축될 수 있습니다.",
+        "keywords": ["대응", "보드", "레이더", "리텐션", "마이크로데이터", "전략"],
+        "nav": "response"
+      },
+      {
+        "cat": "price",
+        "q": "TrendForce spot과 contract 가격은 어떻게 봐야 하나?",
+        "a": "Spot 가격은 단기 수급과 유통 재고의 온도계이고, Contract 가격은 고객 협상력과 분기 가격 결정권의 결과입니다.\n\nDRAM spot이 먼저 움직이고 contract가 뒤따라오면 공급 부족이 고객 계약가로 전이되는 신호입니다. 반대로 spot이 꺾이는데 contract가 버티면 장기 계약과 프리미엄 제품 믹스가 방어막으로 작동하는 구간입니다. 이 대시보드는 TrendForce DRAM/NAND spot과 contract 테이블을 매일 가져와 품목별 변동과 history를 함께 보여줍니다.",
+        "keywords": ["trendforce", "spot", "contract", "가격", "계약가", "현물가"],
+        "nav": "prices"
+      }
+    ]
+  },
+  "channels": [
     {
-      "id": "hbm-leadership",
-      "title": "HBM 리더십 방어",
-      "axis": "고객 인증·수율·패키징",
-      "players": [
-        "SK하이닉스",
-        "삼성전자",
-        "Micron"
-      ],
-      "whyItMatters": "AI GPU와 ASIC 고객의 장기 공급 계약이 HBM 수익성을 결정",
-      "watch": [
-        "HBM4 인증",
-        "선급계약",
-        "CoWoS 병목",
-        "수율 개선"
-      ],
-      "linkedCategories": [
-        "hbm",
-        "packaging"
-      ],
-      "insight": "HBM4 인증·수율 격차가 점유율·ASP 좌우"
+      "id": "finance",
+      "title": "금융·증권사 채널",
+      "source": "CITIC · CICC · HSBC Qianhai",
+      "desc": "IPO 투자설명서, Pre-IPO 자금 조달, 고객 계약, 기관 투자자, 팹 가동률과 출하 점유율을 추적",
+      "signals": ["CXMT STAR Market 문서", "YMTC Pre-IPO 코칭", "Tencent 공급 계약", "웨이퍼 출하량 점유율"],
+      "linkedCategories": ["dram", "nand", "geopolitics"]
     },
     {
-      "id": "commodity-cycle",
-      "title": "범용 DRAM 가격 사이클",
-      "axis": "계약가·spot spread·재고",
-      "players": [
-        "SK하이닉스",
-        "삼성전자",
-        "Micron",
-        "CXMT"
-      ],
-      "whyItMatters": "DDR5와 DDR4의 가격 반등은 설비투자와 고객 가격 전가 판단의 선행 지표",
-      "watch": [
-        "DRAM Contract Price",
-        "DDR5 spot",
-        "서버 수요",
-        "중국 DDR5"
-      ],
-      "linkedCategories": [
-        "dram",
-        "china"
-      ],
-      "insight": "DDR5 반등이 capex·전가 판단 선행지표"
+      "id": "hiring",
+      "title": "채용 플랫폼",
+      "source": "Boss Zhipin",
+      "desc": "실무 부서장이 올리는 JD 빈도와 키워드로 6~12개월 뒤 공정 병목과 기술 포커스를 선행 감지",
+      "signals": ["HBM TSV 수율 엔지니어", "DUV 멀티패터닝 광학", "하이브리드 본딩", "장비 qual 엔지니어"],
+      "linkedCategories": ["packaging", "talent", "equipment"]
     },
     {
-      "id": "nand-profitability",
-      "title": "NAND 수익성 회복",
-      "axis": "wafer 가격·enterprise SSD·감산",
-      "players": [
-        "SK하이닉스",
-        "삼성전자",
-        "Kioxia/WD",
-        "YMTC"
-      ],
-      "whyItMatters": "NAND는 공급 조절과 enterprise SSD 수요가 마진 개선의 핵심",
-      "watch": [
-        "NAND Contract Price",
-        "wafer spot",
-        "enterprise SSD",
-        "QLC 전환"
-      ],
-      "linkedCategories": [
-        "nand",
-        "china"
-      ],
-      "insight": "감산·eSSD 수요가 NAND 마진 회복 열쇠"
+      "id": "community",
+      "title": "현지 커뮤니티",
+      "source": "Maimai · 익명 게시판",
+      "desc": "YMTC 램프업 지연, 장비 테스트 실패, 한국 엔지니어 조직 적응, 수율 고충 같은 비정형 현장 신호",
+      "signals": ["우한 3공장 ramp-up", "국산 장비 qual", "조직 문화 충돌", "연봉·리텐션 신호"],
+      "linkedCategories": ["talent", "equipment", "nand"]
     },
     {
-      "id": "next-memory-platform",
-      "title": "차세대 메모리 플랫폼 선점",
-      "axis": "CXL·광 I/O·chiplet 생태계",
-      "players": [
-        "SK하이닉스",
-        "CXL startups",
-        "Hyperscalers",
-        "Switch vendors"
+      "id": "teardown",
+      "title": "전문 기술 분석",
+      "source": "TechInsights · Yole Group",
+      "desc": "칩 분해, SEM/STEM 단면, 셀 크기, 비트 밀도, W2W 하이브리드 본딩 구조를 물리적으로 검증",
+      "signals": ["CXMT 16nm G4", "Gloway DDR5-6000", "YMTC Xtacking 4.0", "W2W bonding"],
+      "linkedCategories": ["dram", "nand", "packaging"]
+    },
+    {
+      "id": "media",
+      "title": "중국·외신 기술 미디어",
+      "source": "DigiTimes · 36Kr · EE Times",
+      "desc": "애플·빅테크 공급망 협상, 장비 반입, 고객 인증, 중국 정책 변화와 투자 흐름을 추적",
+      "signals": ["Apple supply chain", "AI accelerator", "export control", "Big Fund III"],
+      "linkedCategories": ["dram", "geopolitics", "equipment"]
+    },
+    {
+      "id": "price",
+      "title": "가격 데이터",
+      "source": "TrendForce · DRAMeXchange",
+      "desc": "DRAM/NAND spot과 contract price를 매일 비교해 가격 전이와 하방 압력 신호를 확인",
+      "signals": ["DRAM Spot", "DRAM Contract", "NAND Contract", "SSD Street Price"],
+      "linkedCategories": ["dram", "nand"]
+    }
+  ],
+  "companies": [
+    {
+      "id": "cxmt",
+      "name": "CXMT",
+      "fullName": "ChangXin Memory Technologies",
+      "category": "DRAM",
+      "score": 86,
+      "summary": "범용 DRAM 공급 부족과 중국 내수 빅테크 수요를 타고 급성장한 비대칭 위협.",
+      "metrics": [
+        { "label": "DRAM 점유율", "value": "7.7%" },
+        { "label": "2026 Q1 매출", "value": "508억 위안" },
+        { "label": "허페이 월 캐파", "value": "30만장+" }
       ],
-      "whyItMatters": "HBM 이후 메모리 확장성과 데이터 이동 비용을 낮추는 플랫폼 전쟁",
-      "watch": [
-        "CXL 3.0",
-        "memory pooling",
-        "photonic fabric",
-        "chiplet controller"
+      "watch": ["DDR5-8000·LPDDR5X-10667 공개", "16nm G4·15nm 양산 로드맵", "Tencent $30억 장기 공급 계약", "Apple 공급망 다변화 테스트 가능성"],
+      "insight": "HBM4보다 DDR5·LPDDR 가격 하방 압력과 고객 협상력 변화가 먼저 위협으로 나타날 가능성이 큽니다.",
+      "linkedCategories": ["dram", "geopolitics"]
+    },
+    {
+      "id": "ymtc",
+      "name": "YMTC",
+      "fullName": "Yangtze Memory Technologies",
+      "category": "NAND",
+      "score": 82,
+      "summary": "Xtacking 기반 3D NAND로 서방 장비 제약을 우회하며 NAND·eSSD 생태계에 압력을 주는 축.",
+      "metrics": [
+        { "label": "NAND 출하 점유율", "value": "13%" },
+        { "label": "기술 키워드", "value": "Xtacking 4.0" },
+        { "label": "경쟁 축", "value": "Kioxia·WD" }
       ],
-      "linkedCategories": [
-        "cxl",
-        "packaging"
+      "watch": ["270단급 NAND 수율 안정화", "eSSD·스마트폰 고객 확대", "XMC 패키징 연계", "NAND 가격 방어선"],
+      "insight": "가격 경쟁만이 아니라 NAND와 로직·패키징을 결합하는 중국형 종합 메모리 모델로 봐야 합니다.",
+      "linkedCategories": ["nand", "packaging"]
+    },
+    {
+      "id": "jcet",
+      "name": "JCET / TFME",
+      "fullName": "중국 OSAT 패키징 축",
+      "category": "Advanced Packaging",
+      "score": 78,
+      "summary": "XDFOI, fan-out, RDL, silicon bridge, CPO 등으로 중국 AI 패키징 생태계를 두껍게 만드는 후공정 축.",
+      "metrics": [
+        { "label": "JCET 2025 첨단패키징", "value": "270억 위안" },
+        { "label": "플랫폼", "value": "XDFOI" },
+        { "label": "역할", "value": "HBM 후방 지원" }
       ],
-      "insight": "CXL·광 I/O 선점이 HBM 이후 주도권"
+      "watch": ["CoWoS 대체 시도", "CPO 패키징", "HPC·스토리지 고객", "TFME·Huatian CapEx"],
+      "insight": "CXMT·YMTC가 자체 TSV·인터포저 역량이 부족해도 OSAT 플랫폼을 빌려 고성능 패키징에 진입할 수 있습니다.",
+      "linkedCategories": ["packaging"]
+    },
+    {
+      "id": "xmc",
+      "name": "XMC",
+      "fullName": "Wuhan Xinxin Semiconductor Manufacturing",
+      "category": "Foundry / HBM Packaging",
+      "score": 76,
+      "summary": "YMTC 핵심 자회사에서 HBM 패키징과 하이엔드 로직 제조 축으로 선회하는 우한 거점.",
+      "metrics": [
+        { "label": "우한 투자 계획", "value": "2600억 위안" },
+        { "label": "위치", "value": "Wuhan" },
+        { "label": "역할", "value": "Made in China HBM" }
+      ],
+      "watch": ["HBM 라이선스 예외 틈새", "CXMT·YMTC base die 연계", "Huawei·Baidu AI 가속기", "첨단 언더필·소재"],
+      "insight": "중국 내수 AI 가속기용 순도 높은 중국산 HBM 공급망의 조립 거점이 될 수 있습니다.",
+      "linkedCategories": ["packaging", "geopolitics"]
+    },
+    {
+      "id": "naura",
+      "name": "Naura",
+      "fullName": "북방화창",
+      "category": "Equipment",
+      "score": 74,
+      "summary": "PVD, 식각, 열처리 등 종합 장비에서 CXMT·YMTC 캐파 증설의 1차 수혜를 받는 중국 장비 대표.",
+      "metrics": [
+        { "label": "공정", "value": "PVD·Etch" },
+        { "label": "수혜", "value": "CXMT/YMTC" },
+        { "label": "전략", "value": "국산 대체" }
+      ],
+      "watch": ["팹 증설 발주", "서방 장비 대체율", "공정 recipe 내재화", "정부 인센티브"],
+      "insight": "EUV는 취약하지만 식각·증착·열처리 장비부터 국산 대체율이 빠르게 올라가고 있습니다.",
+      "linkedCategories": ["equipment", "geopolitics"]
+    },
+    {
+      "id": "amec",
+      "name": "AMEC",
+      "fullName": "중웨이반도체",
+      "category": "Etch / CVD",
+      "score": 72,
+      "summary": "건식 식각, CVD, MOCVD 장비로 YMTC Xtacking과 SMIC 선단 공정의 핵심 파트너 역할.",
+      "metrics": [
+        { "label": "주력", "value": "Dry Etch" },
+        { "label": "연계", "value": "YMTC·SMIC" },
+        { "label": "경쟁", "value": "Lam/KLA 대체" }
+      ],
+      "watch": ["미세공정 수율 확보", "CVD·MOCVD 확장", "고객 qual", "제재 우회 공급망"],
+      "insight": "식각과 세정처럼 공정 스텝이 늘어날수록 수요가 커지는 장비에서 중국 독자 생태계가 강해집니다.",
+      "linkedCategories": ["equipment"]
+    },
+    {
+      "id": "acm",
+      "name": "ACM Research",
+      "fullName": "ACM 리서치",
+      "category": "Wet Cleaning",
+      "score": 67,
+      "summary": "웨이퍼 표면 처리와 습식 세정 장비로 미세 노드 오염 제거와 수율 안정화에 관여.",
+      "metrics": [
+        { "label": "주력", "value": "Wet Cleaning" },
+        { "label": "수요", "value": "공정스텝 증가" },
+        { "label": "신호", "value": "Yield" }
+      ],
+      "watch": ["세정 장비 수요", "미세 노드 contamination", "중국 내 독점 지위", "고객사 qual 통과"],
+      "insight": "미세화가 진행될수록 세정 수요가 늘어나 장비 국산화의 숨은 병목이 됩니다.",
+      "linkedCategories": ["equipment"]
+    },
+    {
+      "id": "materials",
+      "name": "Shanghai Sinyang / Anji",
+      "fullName": "상하이신양 · 안지과기",
+      "category": "Materials",
+      "score": 69,
+      "summary": "CMP slurry, 세정액, 특수 소재를 중심으로 한국 소부장 기업의 공정 노하우 흡수를 시도하는 소재 축.",
+      "metrics": [
+        { "label": "분야", "value": "CMP·세정액" },
+        { "label": "전술", "value": "JV·공동 R&D" },
+        { "label": "리스크", "value": "Recipe 흡수" }
+      ],
+      "watch": ["한국 소부장 JV 제안", "R&D 비용 전액 지원", "중국 내수 우선 공급권", "원천 소재 IP"],
+      "insight": "단순 복제가 아니라 공정 recipe와 소재 데이터 흡수 전술로 봐야 합니다.",
+      "linkedCategories": ["equipment", "talent"]
+    }
+  ],
+  "dynamics": [
+    {
+      "title": "범용 DRAM 가격 하방 압력",
+      "axis": "Legacy DRAM · CXMT · 고객 협상력",
+      "desc": "HBM 집중으로 생긴 범용 DRAM 공급 공백을 CXMT가 DDR5·LPDDR로 파고들면 SK하이닉스의 현금창출원 방어가 중요해집니다.",
+      "players": ["CXMT", "Apple", "Tencent", "SK hynix"],
+      "watch": ["DDR5 spot", "LPDDR 고객 인증", "contract price spread", "Apple 승인 로비"],
+      "linkedCategories": ["dram"]
+    },
+    {
+      "title": "NAND·eSSD 수익성 회복의 교란",
+      "axis": "YMTC · Xtacking · Enterprise SSD",
+      "desc": "YMTC가 NAND 점유율을 확대하고 eSSD로 올라오면 NAND 가격 회복과 Solidigm 시너지에 압력을 줄 수 있습니다.",
+      "players": ["YMTC", "Kioxia", "WD", "Solidigm"],
+      "watch": ["NAND contract", "Xtacking yield", "eSSD 고객", "wafer price"],
+      "linkedCategories": ["nand"]
+    },
+    {
+      "title": "첨단 패키징 우회로",
+      "axis": "JCET · XMC · HBM package",
+      "desc": "선단 노광 제약을 첨단 패키징으로 우회하면서 중국 내수 AI 가속기용 HBM 조립 생태계를 만들 가능성이 있습니다.",
+      "players": ["JCET", "TFME", "XMC", "Huawei", "Baidu"],
+      "watch": ["HBM stacking", "hybrid bonding", "CPO", "underfill materials"],
+      "linkedCategories": ["packaging"]
+    },
+    {
+      "title": "소부장 국산화의 누적 효과",
+      "axis": "Big Fund III · Equipment localization",
+      "desc": "EUV는 여전히 취약하지만 식각·증착·세정·CMP부터 국산화율이 올라가며 중국식 공급망 회복력이 높아집니다.",
+      "players": ["Naura", "AMEC", "ACM", "Anji"],
+      "watch": ["localization rate", "qual pass", "tool import", "recipe transfer"],
+      "linkedCategories": ["equipment", "geopolitics"]
+    },
+    {
+      "title": "핵심 엔지니어와 IP 이동",
+      "axis": "Talent poaching · Yield recipe",
+      "desc": "HBM 수율 안정화 경험을 가진 엔지니어가 이동하면 공정 격차가 빠르게 단축될 수 있습니다.",
+      "players": ["CXMT", "YMTC", "Boss Zhipin", "Maimai"],
+      "watch": ["TSV JD", "hybrid bonding JD", "연봉 제안", "IP litigation"],
+      "linkedCategories": ["talent"]
+    },
+    {
+      "title": "미·중 규제와 우회 공급망",
+      "axis": "Export control · China self-sufficiency",
+      "desc": "미국 수출통제는 중국의 독자 공급망 투자를 가속하고, XMC 같은 틈새 예외가 새로운 조립 거점으로 작동할 수 있습니다.",
+      "players": ["BIS", "Big Fund III", "XMC", "SMIC"],
+      "watch": ["Entity List", "HBM export rule", "STRIDE", "license exception"],
+      "linkedCategories": ["geopolitics", "packaging"]
     }
   ],
   "monetizationModels": [
     {
-      "id": "premium-supply",
-      "title": "프리미엄 공급 계약",
-      "revenueLogic": "HBM·enterprise SSD처럼 공급이 타이트한 제품에서 선급금, 장기계약, 우선 배정을 결합",
-      "memoryFit": [
-        "HBM",
-        "enterprise SSD",
-        "server DDR5"
-      ],
-      "metric": "ASP uplift · prepayment · allocation share",
-      "risk": "고객 집중도와 차세대 인증 지연",
-      "insight": "HBM 선급·우선배정으로 ASP 프리미엄 극대화"
+      "title": "HBM 프리미엄 공급 계약",
+      "logic": "NVIDIA·ASIC 고객과 장기 선급·우선 배정 계약을 묶어 ASP 프리미엄을 방어",
+      "metric": "HBM ASP uplift · prepayment · allocation share",
+      "risk": "삼성·마이크론 HBM4 인증 속도와 고객 다변화",
+      "linkedCategories": ["packaging", "geopolitics"]
     },
     {
-      "id": "platform-bundling",
-      "title": "플랫폼 번들링",
-      "revenueLogic": "CXL 메모리, 소프트웨어, 스위치 생태계를 묶어 모듈 단품보다 높은 락인을 형성",
-      "memoryFit": [
-        "CXL",
-        "memory pooling",
-        "near-memory compute"
-      ],
-      "metric": "attach rate · platform margin · PoC conversion",
-      "risk": "표준화 지연과 소프트웨어 생태계 부족",
-      "insight": "CXL SW·스위치 번들로 모듈 단품 대비 락인"
+      "title": "레거시 DRAM 원가 방어",
+      "logic": "CXMT 가격 하방에 대비해 성숙 제품군의 공정 효율, 장비 reuse, 고객별 contract 방어선을 관리",
+      "metric": "cash cost · DDR5/LPDDR margin · spot-contract spread",
+      "risk": "Apple·중국 빅테크의 공급망 다변화 협상력",
+      "linkedCategories": ["dram"]
     },
     {
-      "id": "process-valueup",
-      "title": "공정·패키징 value-up",
-      "revenueLogic": "패키징, 테스트, 열관리 병목을 해결해 같은 wafer 투입 대비 고부가 제품 비중을 제고",
-      "memoryFit": [
-        "HBM4",
-        "advanced packaging",
-        "thermal"
-      ],
-      "metric": "yield · mix improvement · cycle time",
-      "risk": "CAPEX 회수 기간과 공급망 병목",
-      "insight": "패키징·수율 개선으로 동일 wafer 고부가 전환"
+      "title": "NAND·eSSD 믹스 전환",
+      "logic": "범용 NAND 가격 경쟁을 enterprise SSD·AI 데이터센터 스토리지 믹스로 흡수",
+      "metric": "eSSD revenue mix · NAND contract price · QLC attach",
+      "risk": "YMTC Xtacking 기반 가격 경쟁과 Kioxia/WD 공급 조절",
+      "linkedCategories": ["nand"]
     },
     {
-      "id": "strategic-options",
-      "title": "전략 옵션 투자",
-      "revenueLogic": "초기 스타트업·펀드 투자로 미래 병목 기술에 대한 접근권과 협상 옵션을 확보",
-      "memoryFit": [
-        "photonics",
-        "chiplet",
-        "CXL software"
-      ],
-      "metric": "option value · follow-on rights · joint development",
-      "risk": "상용화 지연과 기술 표준 변화",
-      "insight": "초기 소수지분으로 미래 병목 기술 옵션 확보"
+      "title": "CXL·메모리 플랫폼 번들",
+      "logic": "CXL 메모리 모듈과 pooling software, controller, switch 생태계를 묶어 단품 마진을 플랫폼 마진으로 전환",
+      "metric": "attach rate · PoC conversion · platform margin",
+      "risk": "표준 지연과 소프트웨어 생태계 부재",
+      "linkedCategories": ["dram", "packaging"]
+    },
+    {
+      "title": "첨단 패키징 value-up",
+      "logic": "HBM 수율·thermal·test 병목을 개선해 동일 wafer 투입 대비 고부가 제품 비중을 높임",
+      "metric": "yield · cycle time · known-good-stack ratio",
+      "risk": "JCET·XMC의 중국 내수 HBM 조립 우회로",
+      "linkedCategories": ["packaging"]
+    },
+    {
+      "title": "마이크로데이터 인텔리전스",
+      "logic": "채용·커뮤니티·외신·IPO 문서·가격 데이터를 결합한 내부 조기경보 대시보드를 운영",
+      "metric": "lead time · signal confidence · watchlist hit rate",
+      "risk": "노이즈와 검증되지 않은 현장 신호의 과대해석",
+      "linkedCategories": ["talent", "equipment", "geopolitics"]
+    }
+  ],
+  "responses": [
+    {
+      "title": "레거시 마진 방어",
+      "priority": "P0",
+      "desc": "HBM 초격차를 유지하면서도 DDR5·LPDDR·NAND cash cow를 CXMT/YMTC 가격 공세에 방치하지 않는 방어 체계",
+      "actions": ["제품별 cash cost floor 산정", "spot-contract spread 알림", "고객별 가격 민감도 매핑", "장비 reuse·공정 효율화"]
+    },
+    {
+      "title": "중국 마이크로데이터 레이더",
+      "priority": "P0",
+      "desc": "Boss Zhipin, Maimai, IPO 문서, 외신, 장비 반입, 특허·펀딩 신호를 경쟁사별 병목으로 변환",
+      "actions": ["JD 키워드 크롤링", "익명 커뮤니티 토픽 모델링", "CITIC/CICC 문서 수집", "TechInsights/Yole teardown 연결"]
+    },
+    {
+      "title": "HBM·PIM 초격차 유지",
+      "priority": "P1",
+      "desc": "중국이 HBM3 하위 세대로 진입해도 HBM4·PIM·custom HBM에서 수율과 고객 인증 격차를 유지",
+      "actions": ["HBM4E roadmap lock-in", "ASIC 고객 직접 설계 협업", "known-good-stack 개선", "thermal/test 병목 제거"]
+    },
+    {
+      "title": "인재/IP 리텐션 방어",
+      "priority": "P0",
+      "desc": "핵심 수율 엔지니어와 공정 recipe 접근권을 별도로 관리하고 보상·문화·법적 통제를 결합",
+      "actions": ["핵심 인력 risk score", "stock option·장기 인센티브", "접근권 최소화", "퇴직 후 IP 모니터링"]
+    },
+    {
+      "title": "소부장 동맹 재설계",
+      "priority": "P1",
+      "desc": "중국 JV 유혹에 흔들릴 수 있는 한국 소부장 생태계를 장기 계약과 공동 R&D로 묶음",
+      "actions": ["소재 recipe 보호", "패키징 소재 공동 개발", "국내 cluster anchor deal", "중국 JV 제안 모니터링"]
+    },
+    {
+      "title": "중국 내수 AI 공급망 감시",
+      "priority": "P1",
+      "desc": "Huawei·Baidu·Tencent·Alibaba가 CXMT/YMTC/XMC 조합을 얼마나 채택하는지 추적",
+      "actions": ["고객 인증 뉴스 추적", "AI accelerator BOM 감시", "장기 공급계약 데이터화", "regulatory exception 추적"]
+    }
+  ],
+  "fallbackNews": [
+    {
+      "category": "dram",
+      "source": "TechInsights",
+      "title": "CXMT DDR5 teardown points to 16nm-class DRAM progress",
+      "summary": "Physical analysis remains the most reliable way to verify Chinese DRAM claims.",
+      "date": "2026",
+      "link": "https://www.techinsights.com/"
+    },
+    {
+      "category": "nand",
+      "source": "Yole Group",
+      "title": "YMTC Xtacking architecture keeps China NAND competition in focus",
+      "summary": "Wafer-to-wafer bonding and 3D NAND process choices shape cost and yield.",
+      "date": "2026",
+      "link": "https://www.yolegroup.com/"
+    },
+    {
+      "category": "packaging",
+      "source": "DigiTimes",
+      "title": "China advanced packaging capacity expands around AI and memory demand",
+      "summary": "OSAT investment is becoming a critical route around leading-edge process limits.",
+      "date": "2026",
+      "link": "https://www.digitimes.com/"
+    },
+    {
+      "category": "equipment",
+      "source": "EE Times",
+      "title": "China chip equipment localization accelerates under export controls",
+      "summary": "Etch, deposition and cleaning tools are early areas of substitution pressure.",
+      "date": "2026",
+      "link": "https://www.eetimes.com/"
+    },
+    {
+      "category": "geopolitics",
+      "source": "Reuters",
+      "title": "US-China chip controls keep memory supply chain risk elevated",
+      "summary": "Export controls and domestic subsidies continue to reshape semiconductor sourcing.",
+      "date": "2026",
+      "link": "https://www.reuters.com/"
+    },
+    {
+      "category": "talent",
+      "source": "36Kr",
+      "title": "China semiconductor hiring signals intensify around packaging and AI memory",
+      "summary": "Hiring platforms can reveal process bottlenecks before formal announcements.",
+      "date": "2026",
+      "link": "https://36kr.com/"
     }
   ],
   "sources": [
-    "가격: TrendForce Price Trends / DRAMeXchange 공개 가격표",
-    "주가: Yahoo Finance chart API",
-    "뉴스: Google News RSS — 외신(foreign press) 중심",
-    "경쟁사·스타트업·M&A 레이더: 공개 뉴스 빈도와 정적 전략 적합도 기반",
-    "포트폴리오·기술 동향: 공개 보도·기업 발표 기반 추정(미공개 지분은 '소수지분' 표기)",
-    "배경 수치: J.P. Morgan North America Economic Research (2026-06-18)"
+    "TrendForce / DRAMeXchange public price tables",
+    "TechInsights teardown and semiconductor analysis",
+    "Yole Group semiconductor equipment, packaging and memory reports",
+    "DigiTimes, 36Kr, EE Times, Reuters, Bloomberg, CNBC foreign and China-facing coverage",
+    "첨부 보고서: SK하이닉스 중국 벤치마킹 업체 심층 분석 (2026 최신 동향)"
   ],
-  "disclaimer": "본 대시보드는 공개 데이터 기반 정보 제공 및 내부 검토 보조용. 투자 조언, 인수 권유, 또는 공급 계약 판단 대체 불가. 지분율·밸류에이션 수치는 공개 자료 기반 추정이며 미공개 항목은 '소수지분'으로 표기.",
-  "insights": {
-    "title": "금주 전략 인사이트",
-    "subtitle": "외신·실적·가격 신호 기반 전략 판단 · 시나리오 플래닝",
-    "cards": [
-      {
-        "id": "hbm4-samsung",
-        "tag": "경쟁 구도",
-        "title": "HBM4 삼성 추격 시작",
-        "judgment": "삼성 HBM4 엔비디아 인증 진입 · 하이닉스 독점 구도 약화 · 2027년 이후 가격 프리미엄 감소 가능",
-        "horizon": "2026~2027",
-        "impact": "high",
-        "scenarios": [
-          {
-            "stage": "1",
-            "label": "인증 통과",
-            "desc": "삼성 일부 물량 인증 · 하이닉스 점유율 70%+ 유지"
-          },
-          {
-            "stage": "2",
-            "label": "멀티벤더",
-            "desc": "엔비디아 이원화 본격화 · ASP 하락 압력"
-          },
-          {
-            "stage": "3",
-            "label": "프리미엄 축소",
-            "desc": "2027년+ HBM 프리미엄 감소 · 마진 정상화"
-          }
-        ],
-        "strategy": [
-          "커스텀 HBM4E 선점",
-          "수율·패키징 원가 우위",
-          "베이스다이 로직 차별화",
-          "장기계약 선급 확보"
-        ]
-      },
-      {
-        "id": "nvidia-dependency",
-        "tag": "고객 집중",
-        "title": "엔비디아 의존도 증가",
-        "judgment": "단기 수혜 · 장기 리스크 · 브로드컴 ASIC·하이퍼스케일 TPU 대응 필요",
-        "horizon": "2026~2028",
-        "impact": "high",
-        "scenarios": [
-          {
-            "stage": "1",
-            "label": "수혜 집중",
-            "desc": "엔비디아 HBM 수요 폭발 · 단기 실적 견인"
-          },
-          {
-            "stage": "2",
-            "label": "경로 분산",
-            "desc": "브로드컴·AWS·구글 ASIC 비중 확대"
-          },
-          {
-            "stage": "3",
-            "label": "고객 재편",
-            "desc": "커스텀 HBM 중심 고객 포트폴리오 다변화"
-          }
-        ],
-        "strategy": [
-          "커스텀 HBM 라인 확보",
-          "ASIC 고객 직거래",
-          "고객 집중 리스크 헤지"
-        ]
-      },
-      {
-        "id": "hbm4-competition",
-        "tag": "가격",
-        "title": "HBM4 경쟁 심화",
-        "judgment": "삼성 수율 개선 시 ASP 하락 가능 · 공급 과잉 진입 시 마진 압박",
-        "horizon": "2026~2027",
-        "impact": "medium",
-        "scenarios": [
-          {
-            "stage": "1",
-            "label": "타이트 유지",
-            "desc": "수요 초과 · ASP 강세 지속"
-          },
-          {
-            "stage": "2",
-            "label": "수율 개선",
-            "desc": "삼성·마이크론 수율 추격 · 공급 증가"
-          },
-          {
-            "stage": "3",
-            "label": "ASP 하락",
-            "desc": "멀티벤더·증설로 단가 하락 · 차별화 필요"
-          }
-        ],
-        "strategy": [
-          "고용량 16-Hi 선점",
-          "원가 절감·수율 격차",
-          "번들·플랫폼 락인"
-        ]
-      },
-      {
-        "id": "ai-capex",
-        "tag": "수요",
-        "title": "AI capex 둔화 조짐",
-        "judgment": "하이퍼스케일 capex 둔화 시 서버 DRAM 성장률 둔화 가능 · 사이클 변곡 주시",
-        "horizon": "2027~2028",
-        "impact": "medium",
-        "scenarios": [
-          {
-            "stage": "1",
-            "label": "고성장",
-            "desc": "AI capex 확대 지속 · 서버 DRAM·HBM 동반 성장"
-          },
-          {
-            "stage": "2",
-            "label": "둔화 조짐",
-            "desc": "capex 증가율 둔화 · 재고 조정 신호"
-          },
-          {
-            "stage": "3",
-            "label": "성장 둔화",
-            "desc": "서버 DRAM 성장률 둔화 · HBM 편중 심화"
-          }
-        ],
-        "strategy": [
-          "HBM·고부가 믹스 집중",
-          "레거시 감산 탄력 운영",
-          "CXL·신수요 영역 선제 투자",
-          "비메모리 시너지 발굴"
-        ]
-      }
-    ],
-    "note": "공개 외신·실적·가격 신호 기반 내부 검토용 판단 · 투자의견 아님"
-  },
-  "valueChain": {
-    "title": "AI 메모리 밸류체인 맵",
-    "subtitle": "메모리 공급사 → 가속기 → 서버 → 클라우드 → AI 모델",
-    "tiers": [
-      {
-        "label": "메모리 공급사",
-        "nodes": [
-          {
-            "name": "SK하이닉스",
-            "note": "HBM 1위 · 출발점",
-            "self": true
-          },
-          {
-            "name": "삼성전자",
-            "note": "HBM4 추격 · 턴키"
-          },
-          {
-            "name": "마이크론",
-            "note": "미국 AI 고객"
-          },
-          {
-            "name": "CXMT",
-            "note": "중국 DRAM 레거시"
-          },
-          {
-            "name": "YMTC",
-            "note": "중국 NAND"
-          },
-          {
-            "name": "Nanya 난야",
-            "note": "대만 DRAM"
-          }
-        ]
-      },
-      {
-        "label": "AI 가속기",
-        "nodes": [
-          {
-            "name": "엔비디아",
-            "note": "GPU 표준 · 최대 고객"
-          },
-          {
-            "name": "AMD",
-            "note": "Instinct 추론"
-          },
-          {
-            "name": "Broadcom",
-            "note": "커스텀 ASIC"
-          }
-        ]
-      },
-      {
-        "label": "서버 OEM",
-        "nodes": [
-          {
-            "name": "Dell·Supermicro",
-            "note": "AI 서버 조립"
-          }
-        ]
-      },
-      {
-        "label": "클라우드",
-        "nodes": [
-          {
-            "name": "AWS·하이퍼스케일",
-            "note": "데이터센터 수요"
-          },
-          {
-            "name": "Google·MS",
-            "note": "자체 ASIC 병행"
-          }
-        ]
-      },
-      {
-        "label": "AI 모델",
-        "nodes": [
-          {
-            "name": "OpenAI·Anthropic",
-            "note": "수요 원천"
-          }
-        ]
-      }
-    ],
-    "note": "메모리 공급 경쟁 심화 · 하이닉스 HBM 리더십 유지가 관건 · ASIC·하이퍼스케일 직거래로 경로 다변화"
-  },
-  "datacenterDynamics": {
-    "title": "AI 데이터센터 가속기 다이나믹스",
-    "subtitle": "가속기 경로별 하이닉스 메모리 기회·위협",
-    "items": [
-      {
-        "name": "NVIDIA",
-        "seg": "GPU",
-        "share": 85,
-        "role": "AI 학습·추론 표준",
-        "hynix": "HBM 최대 고객",
-        "threat": "의존도 집중 리스크",
-        "tone": "core"
-      },
-      {
-        "name": "AMD",
-        "seg": "GPU(Instinct)",
-        "share": 8,
-        "role": "추론 대안 부상",
-        "hynix": "HBM 공급 다변화 기회",
-        "threat": "점유율 격차",
-        "tone": "opp"
-      },
-      {
-        "name": "Broadcom",
-        "seg": "커스텀 ASIC",
-        "share": 0,
-        "role": "하이퍼스케일 커스텀 칩",
-        "hynix": "커스텀 HBM 수요",
-        "threat": "엔비디아 대체 가속",
-        "tone": "opp"
-      },
-      {
-        "name": "AWS Trainium",
-        "seg": "자체 ASIC",
-        "share": 0,
-        "role": "AWS 내재화 가속기",
-        "hynix": "메모리 직거래 기회",
-        "threat": "범용 GPU 수요 잠식",
-        "tone": "watch"
-      },
-      {
-        "name": "Google TPU",
-        "seg": "자체 ASIC",
-        "share": 0,
-        "role": "구글 내재화 가속기",
-        "hynix": "커스텀 HBM 협력",
-        "threat": "GPU 외 경로 확대",
-        "tone": "watch"
-      }
-    ],
-    "note": "ASIC·하이퍼스케일 내재화 확대 = 엔비디아 의존 완화 + 커스텀 HBM 신수요"
-  },
-  "growthGaps": {
-    "title": "성장 갭 · 시너지 기업 발굴",
-    "subtitle": "하이닉스 성장 위한 부족 역량 · 인수·제휴 후보",
-    "items": [
-      {
-        "gap": "커스텀 HBM 로직",
-        "why": "베이스다이 로직 설계 내재화 부족",
-        "targets": [
-          "로직 IP 설계사",
-          "칩렛 컨트롤러"
-        ]
-      },
-      {
-        "gap": "광 인터커넥트",
-        "why": "대역폭 병목 차세대 대응 공백",
-        "targets": [
-          "Celestial AI",
-          "Ayar Labs",
-          "Lightmatter"
-        ]
-      },
-      {
-        "gap": "CXL 생태계",
-        "why": "메모리 확장 스위치·SW 약점",
-        "targets": [
-          "XConn",
-          "MemVerge",
-          "UnifabriX"
-        ]
-      },
-      {
-        "gap": "첨단 패키징",
-        "why": "HBM4 고부가 capacity 병목",
-        "targets": [
-          "하이브리드 본딩",
-          "글래스 기판"
-        ]
-      },
-      {
-        "gap": "추론 메모리",
-        "why": "추론 비용 절감 신수요",
-        "targets": [
-          "d-Matrix",
-          "near-memory PIM"
-        ]
-      }
-    ],
-    "note": "갭별 인수·소수지분·제휴 구조 차등 적용"
-  },
-  "analystViews": {
-    "title": "외국 증권사 리서치",
-    "subtitle": "공개 시장 스탠스 요약 · 예시",
-    "items": [
-      {
-        "firm": "Morgan Stanley",
-        "stance": "비중확대",
-        "target": "HBM 사이클",
-        "note": "AI 메모리 수요 강세 · 멀티벤더 ASP 압력 주시 · HBM4 인증 속도 관건"
-      },
-      {
-        "firm": "Goldman Sachs",
-        "stance": "매수",
-        "target": "메모리 슈퍼사이클",
-        "note": "HBM4 리더십 프리미엄 · 2026 영업레버리지 · 공급 타이트 지속"
-      },
-      {
-        "firm": "J.P. Morgan",
-        "stance": "비중확대",
-        "target": "DRAM 업황",
-        "note": "공급 규율 강화 · AI 서버 DRAM 견인 · 2027 capex 둔화 변수"
-      },
-      {
-        "firm": "Bernstein",
-        "stance": "중립",
-        "target": "경쟁 구도",
-        "note": "삼성 HBM4 추격 · 중국 레거시 하방 · 밸류 부담 점검"
-      },
-      {
-        "firm": "Citi",
-        "stance": "매수",
-        "target": "HBM·eSSD",
-        "note": "HBM 믹스 상향 · Solidigm eSSD 회복 · NAND 흑자 전환"
-      },
-      {
-        "firm": "UBS",
-        "stance": "비중확대",
-        "target": "AI capex",
-        "note": "하이퍼스케일 capex 확대 · 커스텀 HBM 신수요 · 수요 정상화 리스크"
-      }
-    ],
-    "note": "공개 보도 기반 요약 예시 · 실제 투자의견과 다를 수 있음 · 투자 권유 아님"
-  }
+  "disclaimer": "이 대시보드는 공개 자료와 사용자가 제공한 벤치마킹 원문을 기반으로 한 내부 검토용 정보 화면입니다. 투자 권유, 매수·매도 의견, 확정 사실 보증이 아닙니다."
 }
