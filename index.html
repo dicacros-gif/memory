@@ -10,7 +10,7 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard/dist/web/static/pretendard.css" />
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;700;800;900&family=Space+Grotesk:wght@500;600;700&display=swap" />
-  <link rel="stylesheet" href="assets/css/styles.css?v=china-deep-dive-20260629" />
+  <link rel="stylesheet" href="assets/css/styles.css?v=crawler-control-20260629" />
 </head>
 <body>
   <div class="app">
@@ -35,6 +35,10 @@
         </button>
 
         <div class="sb-group">매일 크롤링</div>
+        <button class="sb-item" type="button" data-jump="crawler">
+          <span class="sb-ico" aria-hidden="true">⌬</span>
+          <span class="sb-label"><strong>전체 크롤링 관제</strong><small>Source Pipeline</small></span>
+        </button>
         <button class="sb-item" type="button" data-jump="prices">
           <span class="sb-ico" aria-hidden="true">▤</span>
           <span class="sb-label"><strong>Spot / Contract 가격</strong><small>TrendForce Prices</small></span>
@@ -101,7 +105,7 @@
         </button>
         <div class="tb-title">
           <h1>Memory Intelligence</h1>
-          <p>SK hynix China benchmark · Daily prices · Foreign/China news</p>
+          <p>SK hynix China benchmark · Full crawler map · Daily prices · Foreign/China news</p>
         </div>
         <div class="tb-actions">
           <div class="qa" id="qaBox">
@@ -131,6 +135,34 @@
           <div class="workbench-body">
             <div class="workbench-stage" id="workbenchStage"></div>
             <aside class="workbench-detail" id="workbenchDetail"></aside>
+          </div>
+        </section>
+
+        <section class="board crawler-board" id="crawler">
+          <div class="board-head">
+            <div>
+              <p class="eyebrow">Full crawling control tower</p>
+              <h2>전체 내용 크롤링 관제 대시보드</h2>
+            </div>
+            <span class="board-meta" id="crawlerMeta">수집 파이프라인 로딩</span>
+          </div>
+          <div class="crawler-summary" id="crawlerSummary"></div>
+          <div class="crawler-flow" id="crawlerFlow"></div>
+          <div class="crawler-body">
+            <section class="crawler-panel">
+              <div class="crawler-panel-head">
+                <h3>분류 로직</h3>
+                <span>수집 → 정제 → 대시보드</span>
+              </div>
+              <div class="crawler-taxonomy" id="crawlerTaxonomy"></div>
+            </section>
+            <section class="crawler-panel">
+              <div class="crawler-panel-head">
+                <h3>전체 수집 로그</h3>
+                <span id="crawlerHealthMeta">health check</span>
+              </div>
+              <div class="crawler-health" id="crawlerHealth"></div>
+            </section>
           </div>
         </section>
 
@@ -300,6 +332,6 @@
   <div class="qa-answer" id="qaAnswer" hidden></div>
   <div class="inspector" id="inspector" hidden></div>
   <div class="backdrop" id="backdrop"></div>
-  <script src="assets/js/app.js?v=china-deep-dive-20260629" defer></script>
+  <script src="assets/js/app.js?v=crawler-control-20260629" defer></script>
 </body>
 </html>

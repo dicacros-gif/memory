@@ -201,6 +201,12 @@
   ];
   const WORKBENCH_MODES = [
     {
+      id: "crawler",
+      label: "크롤링 관제",
+      sub: "Source · Health · Map",
+      section: "crawler",
+    },
+    {
       id: "dynamics",
       label: "중국 다이내믹스",
       sub: "캐파 · 장비 · 패키징",
@@ -236,6 +242,7 @@
     { id: "chinese", label: "중국어 기사", countId: "chinaNewsCount", bucketId: "chinaNewsBucket", listId: "chinaNewsList" },
   ];
   const SECTION_LABELS = {
+    crawler: "전체 크롤링 관제",
     "china-dynamics": "중국 반도체 다이내믹스",
     "china-deep-dive": "중국 심층 벤치마킹",
     dynamics: "경쟁 다이나믹스",
@@ -247,6 +254,92 @@
     news: "중국·외신 기사",
     prices: "TrendForce 가격",
   };
+  const CRAWL_PIPELINE = [
+    {
+      id: "trendforce-price",
+      label: "TrendForce 가격",
+      source: "DRAM/NAND spot·contract 공개 가격표",
+      method: "HTML 가격 테이블 파싱 → 품목별 history 누적",
+      fields: ["평균가", "변동률", "업데이트 시각", "품목별 trend"],
+      filters: ["DRAM/NAND 그룹화", "Spot/Contract 분리", "가격 historyKey 매핑"],
+      output: "Spot / Contract 가격 추이",
+      section: "prices",
+      linkedCategories: ["dram", "nand"],
+      healthKeys: ["가격:", "가격히스토리"],
+    },
+    {
+      id: "foreign-news",
+      label: "영어권 기사",
+      source: "Google News RSS · 해외 기술/금융/반도체 매체",
+      method: "카테고리별 영어 질의 → 한국 매체·비관련 소비자기기 기사 제외",
+      fields: ["제목", "출처", "날짜", "링크", "3줄 인사이트"],
+      filters: ["memory 키워드", "한국 출처 제외", "업체/카테고리 매칭"],
+      output: "영어권 기사 탭",
+      section: "news",
+      linkedCategories: ["hbm", "dram", "nand", "cxl", "packaging", "aidemand"],
+      healthKeys: ["뉴스:"],
+    },
+    {
+      id: "china-news",
+      label: "중국 기사·중국 신호",
+      source: "CXMT·YMTC·JCET·XMC·Naura·AMEC 중심 RSS 질의",
+      method: "중국 업체/정책/장비 키워드로 기사 분류 → 중국어 기사 탭과 다이내믹스에 동시 연결",
+      fields: ["중국 업체", "정책/수출통제", "장비/패키징", "내수 고객"],
+      filters: ["China 키워드", "중국 생태계 업체명", "정책·장비·패키징 축"],
+      output: "중국어 기사 · 중국 반도체 다이내믹스",
+      section: "china-dynamics",
+      linkedCategories: ["china", "dram", "nand", "equipment", "packaging", "geopolitics"],
+      healthKeys: ["뉴스:China", "벤치마킹:"],
+    },
+    {
+      id: "benchmark-signals",
+      label: "벤치마킹 신호",
+      source: "China Capacity · Equipment Localization · Advanced Packaging · Talent/IP",
+      method: "테마별 질의 결과를 캐파·장비·패키징·인재/IP 축으로 재분류",
+      fields: ["캐파", "장비 국산화", "패키징 우회", "인재/IP"],
+      filters: ["중복 제거", "테마별 keyword scoring", "다이내믹스 축 매핑"],
+      output: "중국 반도체 다이내믹스 · 심층 벤치마킹",
+      section: "china-deep-dive",
+      linkedCategories: ["china", "equipment", "packaging", "talent", "geopolitics"],
+      healthKeys: ["벤치마킹:"],
+    },
+    {
+      id: "competitors",
+      label: "경쟁사·주가",
+      source: "Samsung · Micron · CXMT · YMTC · Kioxia/WD · 상장 peer 시세",
+      method: "업체별 뉴스 질의와 주가 API 대체 소스를 결합해 압력 점수 산출",
+      fields: ["기사 건수", "watch word", "pressure score", "주가 변동"],
+      filters: ["업체 alias", "watch word hit", "카테고리 매칭"],
+      output: "중국 경쟁사 · 경쟁 다이나믹스",
+      section: "competitors",
+      linkedCategories: ["dram", "nand", "hbm", "china"],
+      healthKeys: ["경쟁사:", "주가:"],
+    },
+    {
+      id: "startup-radar",
+      label: "스타트업 레이더",
+      source: "CXL · 포토닉스 · near-memory · AI interconnect 스타트업",
+      method: "후보별 최신 기사/펀딩/고객 신호를 점수화해 SK하이닉스 전략 적합도에 연결",
+      fields: ["fit score", "funding/news", "PoC", "파트너십"],
+      filters: ["CXL/HBM/광 I/O 키워드", "투자 적합도", "고객 신호"],
+      output: "대응 대시보드 · 정보 획득 채널",
+      section: "response",
+      linkedCategories: ["cxl", "hbm", "packaging", "aidemand"],
+      healthKeys: ["스타트업:"],
+    },
+    {
+      id: "ko-insight",
+      label: "정제·한글 인사이트",
+      source: "수집 기사 제목/요약/카테고리 메타데이터",
+      method: "한국어 제목 정리 → 3줄 인사이트 → 자연어 검색/상세 패널에 주입",
+      fields: ["한국어 제목", "핵심 요약", "벤치마킹 포인트", "체크포인트"],
+      filters: ["제목 출처 suffix 제거", "날짜 1회 표기", "중복 기사 제거"],
+      output: "자연어 검색 · 기사 탭 · 상세 패널",
+      section: "news",
+      linkedCategories: ["all"],
+      healthKeys: ["번역:KO"],
+    },
+  ];
 
   let BASE = null;
   let LIVE = emptyLive;
@@ -256,7 +349,7 @@
   let newsSearch = "";
   let newsCompany = "all";
   let newsSource = "english";
-  let workbenchMode = "dynamics";
+  let workbenchMode = "crawler";
   let selectedInsightId = null;
   let responsePriority = "all";
   let typeTimer = null;
@@ -292,6 +385,7 @@
     renderDynamics();
     renderModels();
     renderResponses();
+    renderCrawlerBoard();
     renderPrices();
     renderNews();
     renderChinaDynamics();
@@ -421,6 +515,7 @@
     renderDynamics();
     renderModels();
     renderNews();
+    renderCrawlerBoard();
     renderChinaDeepDive();
     renderWorkbench();
     animateCounts();
@@ -577,6 +672,185 @@
       grid.appendChild(card);
     });
     if (!items.length) grid.appendChild(el("div", "empty", "선택한 카테고리의 경쟁사 카드가 없습니다."));
+  }
+
+  function pipelineRelated(item) {
+    if (activeCategory === "all") return true;
+    const cats = item.linkedCategories || [];
+    return !cats.length || cats.includes("all") || cats.includes(activeCategory);
+  }
+
+  function healthMatches(entry, keys = []) {
+    const step = String(entry?.step || "");
+    return keys.some((key) => step.startsWith(key) || step.includes(key));
+  }
+
+  function pipelineHealth(item) {
+    return (LIVE.health || []).filter((entry) => healthMatches(entry, item.healthKeys || []));
+  }
+
+  function healthStatus(entries) {
+    if (!entries.length) return { label: "대기", cls: "idle" };
+    return entries.every((entry) => entry.ok) ? { label: "정상", cls: "ok" } : { label: "점검", cls: "fail" };
+  }
+
+  function categorySignalTotal() {
+    return (LIVE.categories || []).reduce((sum, category) => {
+      const count = Number(category.count ?? category.items?.length ?? 0);
+      return sum + (Number.isFinite(count) ? count : 0);
+    }, 0);
+  }
+
+  function benchmarkSignalTotal() {
+    return Number(LIVE.benchmarkSignals?.stats?.total ?? LIVE.benchmarkSignals?.stream?.length ?? 0) || 0;
+  }
+
+  function parseHealthCount(entries) {
+    return entries.reduce((sum, entry) => {
+      const match = String(entry.msg || "").match(/(\d+)/);
+      return sum + (match ? Number(match[1]) : 0);
+    }, 0);
+  }
+
+  function pipelineSignalCount(item) {
+    const health = pipelineHealth(item);
+    if (item.id === "trendforce-price") return allPriceRows().length;
+    if (item.id === "foreign-news") return rawNews().filter((news) => !isChinaArticle(news)).length;
+    if (item.id === "china-news") return rawNews().filter(isChinaArticle).length;
+    if (item.id === "benchmark-signals") return benchmarkSignalTotal();
+    if (item.id === "competitors") return (LIVE.competitors?.competitors || []).length || parseHealthCount(health);
+    if (item.id === "startup-radar") return (LIVE.startups?.candidates || []).length || parseHealthCount(health);
+    if (item.id === "ko-insight") return parseHealthCount(health) || rawNews().length;
+    return parseHealthCount(health);
+  }
+
+  function crawlerPipelineItems() {
+    return CRAWL_PIPELINE
+      .filter(pipelineRelated)
+      .map((item) => {
+        const health = pipelineHealth(item);
+        const status = healthStatus(health);
+        return {
+          ...item,
+          health,
+          status,
+          signalCount: pipelineSignalCount(item),
+        };
+      });
+  }
+
+  function renderCrawlerBoard() {
+    const summary = $("#crawlerSummary");
+    const flow = $("#crawlerFlow");
+    const taxonomy = $("#crawlerTaxonomy");
+    const healthWrap = $("#crawlerHealth");
+    const meta = $("#crawlerMeta");
+    if (!summary || !flow || !taxonomy || !healthWrap) return;
+
+    const health = LIVE.health || [];
+    const ok = health.filter((entry) => entry.ok).length;
+    const fail = Math.max(health.length - ok, 0);
+    const priceRows = allPriceRows().length;
+    const priceSections = LIVE.prices?.sections?.length || 0;
+    const visibleNews = rawNews().length;
+    const chinaNews = rawNews().filter(isChinaArticle).length;
+    const categorySignals = categorySignalTotal();
+    const benchmarkSignals = benchmarkSignalTotal();
+    const pipelineItems = crawlerPipelineItems();
+
+    if (meta) meta.textContent = `${fmtNum(pipelineItems.length)}개 수집 채널 · ${fmtDate(LIVE.updatedAt)}`;
+
+    const cards = [
+      { label: "Run health", value: `${ok}/${health.length}`, note: fail ? `${fmtNum(fail)}개 단계 점검 필요` : "전체 수집 단계 정상" },
+      { label: "가격 테이블", value: priceRows, note: `${fmtNum(priceSections)}개 TrendForce 표` },
+      { label: "뉴스 원천 신호", value: categorySignals, note: `화면 노출 ${fmtNum(visibleNews)}건` },
+      { label: "중국·벤치마킹", value: chinaNews + benchmarkSignals, note: `중국 기사 ${fmtNum(chinaNews)}건 · 테마 ${fmtNum(benchmarkSignals)}건` },
+      { label: "업데이트", value: fmtDate(LIVE.updatedAt), note: "GitHub Actions daily crawler" },
+    ];
+    summary.innerHTML = cards.map((card) => `
+      <article class="crawler-stat">
+        <span>${escapeHTML(card.label)}</span>
+        <strong>${typeof card.value === "number" ? countHTML(card.value) : escapeHTML(card.value)}</strong>
+        <small>${escapeHTML(card.note)}</small>
+      </article>
+    `).join("");
+
+    flow.innerHTML = "";
+    pipelineItems.forEach((item, index) => {
+      const card = el("article", "crawler-card reveal");
+      card.style.animationDelay = `${index * 30}ms`;
+      card.style.setProperty("--local-accent", categoryAccent((item.linkedCategories || [])[0]));
+      card.innerHTML = `
+        <div class="crawler-card-head">
+          <span class="chip accent">${escapeHTML(item.label)}</span>
+          <span class="crawler-status ${escapeHTML(item.status.cls)}">${escapeHTML(item.status.label)}</span>
+        </div>
+        <h3>${escapeHTML(item.source)}</h3>
+        <p>${escapeHTML(item.method)}</p>
+        <div class="crawl-tags">${item.fields.map((field) => `<span>${escapeHTML(field)}</span>`).join("")}</div>
+        <div class="crawler-rule">
+          <strong>필터/분류</strong>
+          <span>${escapeHTML(item.filters.join(" → "))}</span>
+        </div>
+        <div class="crawler-card-foot">
+          <span>${fmtNum(item.signalCount)}개 신호</span>
+          <button type="button" data-crawl-jump="${escapeHTML(item.section)}">${escapeHTML(SECTION_LABELS[item.section] || item.output)}</button>
+        </div>
+      `;
+      card.querySelector("[data-crawl-jump]")?.addEventListener("click", () => jumpTo(item.section));
+      makeInspectable(card, {
+        type: "크롤링 파이프라인",
+        tag: item.label,
+        title: item.output,
+        body: `${item.source} · ${item.method}`,
+        section: item.section,
+        categories: item.linkedCategories || [],
+        watch: item.fields.concat(item.filters),
+        metrics: [
+          { label: "신호", value: fmtNum(item.signalCount) },
+          { label: "Health", value: item.status.label },
+          { label: "Steps", value: fmtNum(item.health.length) },
+        ],
+      });
+      flow.appendChild(card);
+    });
+
+    const taxonomyRows = []
+      .concat((LIVE.categories || []).map((category) => ({
+        type: "뉴스 카테고리",
+        label: category.label || category.id,
+        count: Number(category.count ?? category.items?.length ?? 0) || 0,
+        note: `${fmtNum(category.items?.length || 0)}개 샘플 · 기사 탭/자연어 검색`,
+      })))
+      .concat((LIVE.benchmarkSignals?.themes || []).map((theme) => ({
+        type: "벤치마킹 테마",
+        label: theme.label || theme.id,
+        count: Number(theme.count ?? theme.items?.length ?? 0) || 0,
+        note: `${fmtNum(theme.items?.length || 0)}개 샘플 · 중국 다이내믹스`,
+      })))
+      .filter((row) => {
+        if (activeCategory === "all") return true;
+        const hay = `${row.label} ${row.type}`.toLowerCase();
+        return hay.includes(activeCategory.toLowerCase()) || categoryName(activeCategory).includes(row.label);
+      });
+
+    taxonomy.innerHTML = taxonomyRows.length ? taxonomyRows.map((row) => `
+      <div class="crawler-tax-row">
+        <span>${escapeHTML(row.type)}</span>
+        <strong>${escapeHTML(row.label)}</strong>
+        <em>${fmtNum(row.count)}건 · ${escapeHTML(row.note)}</em>
+      </div>
+    `).join("") : `<div class="empty">선택한 카테고리에 직접 연결된 분류 로그가 없습니다.</div>`;
+
+    const healthOk = health.filter((entry) => entry.ok).length;
+    const healthMeta = $("#crawlerHealthMeta");
+    if (healthMeta) healthMeta.textContent = `${fmtNum(healthOk)}/${fmtNum(health.length)} 정상`;
+    healthWrap.innerHTML = health.length ? health.map((entry) => `
+      <div class="health-chip ${entry.ok ? "ok" : "fail"}">
+        <strong>${escapeHTML(entry.step || "step")}</strong>
+        <span>${escapeHTML(entry.msg || "")}</span>
+      </div>
+    `).join("") : `<div class="empty">수집 로그가 아직 없습니다.</div>`;
   }
 
   function liveBenchmarkTheme(id) {
@@ -774,6 +1048,25 @@
 
   function workbenchItems(mode = workbenchMode) {
     let items = [];
+    if (mode === "crawler") {
+      items = crawlerPipelineItems().map((item) => ({
+        id: `crawler-${item.id}`,
+        mode,
+        type: "크롤링 관제",
+        tag: item.label,
+        title: item.output,
+        body: `${item.source} · ${item.method}`,
+        section: item.section,
+        categories: item.linkedCategories || [],
+        watch: item.fields.concat(item.filters),
+        metrics: [
+          { label: "신호", value: fmtNum(item.signalCount) },
+          { label: "Health", value: item.status.label },
+          { label: "Steps", value: fmtNum(item.health.length) },
+        ],
+      }));
+    }
+
     if (mode === "dynamics") {
       items = CHINA_DYNAMIC_AXES.map((axis) => {
         const count = axisSignalCount(axis);
@@ -1306,7 +1599,7 @@
   }
 
   function setupScrollSpy() {
-    const sections = ["overview", "workbench", "prices", "news", "china-dynamics", "china-deep-dive", "categories", "competitors", "dynamics", "monetization", "response", "intelligence"];
+    const sections = ["overview", "workbench", "crawler", "prices", "news", "china-dynamics", "china-deep-dive", "categories", "competitors", "dynamics", "monetization", "response", "intelligence"];
     const update = () => {
       const y = window.scrollY + 96;
       let active = "overview";

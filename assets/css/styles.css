@@ -641,7 +641,7 @@ button {
 
 .workbench-tabs {
   display: grid;
-  grid-template-columns: repeat(5, minmax(0, 1fr));
+  grid-template-columns: repeat(6, minmax(0, 1fr));
   gap: 8px;
   margin-bottom: 13px;
 }
@@ -858,6 +858,251 @@ button {
   border-color: var(--line);
   background: var(--panel-2);
   color: var(--ink-2);
+}
+
+.crawler-board {
+  border-color: color-mix(in srgb, var(--green) 24%, var(--line));
+  background:
+    linear-gradient(135deg, color-mix(in srgb, var(--green) 6%, transparent), transparent 42%),
+    var(--panel);
+}
+
+.crawler-summary {
+  display: grid;
+  grid-template-columns: repeat(5, minmax(0, 1fr));
+  gap: 10px;
+  margin-bottom: 12px;
+}
+
+.crawler-stat {
+  min-width: 0;
+  min-height: 104px;
+  display: grid;
+  align-content: start;
+  gap: 8px;
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  background: var(--panel-2);
+  padding: 13px;
+}
+
+.crawler-stat span,
+.crawler-stat small {
+  color: var(--muted);
+  font-size: 11px;
+  line-height: 1.45;
+  font-weight: 800;
+}
+
+.crawler-stat strong {
+  color: var(--ink);
+  font-family: var(--display);
+  font-size: 20px;
+  line-height: 1.12;
+  overflow-wrap: anywhere;
+}
+
+.crawler-flow {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 12px;
+  margin-bottom: 12px;
+}
+
+.crawler-card {
+  min-width: 0;
+  display: grid;
+  align-content: start;
+  gap: 10px;
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  background:
+    linear-gradient(180deg, color-mix(in srgb, var(--local-accent, var(--green)) 5%, transparent), transparent 44%),
+    var(--panel);
+  padding: 14px;
+  box-shadow: var(--shadow);
+  transition: transform .18s, border-color .18s, box-shadow .18s;
+}
+
+.crawler-card:hover {
+  transform: translateY(-2px);
+  border-color: var(--local-accent, var(--green));
+  box-shadow: var(--shadow-lg);
+}
+
+.crawler-card-head,
+.crawler-card-foot,
+.crawler-panel-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+}
+
+.crawler-card h3 {
+  min-height: 43px;
+  font-size: 15px;
+  line-height: 1.35;
+  font-weight: 900;
+}
+
+.crawler-card p {
+  color: var(--ink-2);
+  font-size: 12px;
+  line-height: 1.55;
+  font-weight: 650;
+}
+
+.crawler-status {
+  flex: 0 0 auto;
+  border-radius: 999px;
+  padding: 4px 8px;
+  font-size: 10px;
+  font-weight: 900;
+}
+
+.crawler-status.ok {
+  color: var(--green);
+  background: color-mix(in srgb, var(--green) 11%, transparent);
+}
+
+.crawler-status.fail {
+  color: var(--red);
+  background: color-mix(in srgb, var(--red) 10%, transparent);
+}
+
+.crawler-status.idle {
+  color: var(--muted);
+  background: var(--panel-2);
+}
+
+.crawl-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+
+.crawl-tags span {
+  border: 1px solid var(--line-2);
+  border-radius: 999px;
+  background: var(--panel-2);
+  color: var(--ink-2);
+  padding: 4px 7px;
+  font-size: 10.5px;
+  font-weight: 800;
+}
+
+.crawler-rule {
+  display: grid;
+  gap: 4px;
+  border-top: 1px solid var(--line-2);
+  padding-top: 9px;
+}
+
+.crawler-rule strong {
+  color: var(--local-accent, var(--green));
+  font-size: 10px;
+  font-weight: 900;
+}
+
+.crawler-rule span,
+.crawler-card-foot span {
+  color: var(--ink-2);
+  font-size: 11.5px;
+  line-height: 1.45;
+  font-weight: 750;
+}
+
+.crawler-card-foot {
+  margin-top: auto;
+}
+
+.crawler-card-foot button {
+  flex: 0 0 auto;
+  border: 1px solid var(--local-accent, var(--accent));
+  border-radius: 8px;
+  background: color-mix(in srgb, var(--local-accent, var(--accent)) 9%, var(--panel));
+  color: var(--local-accent, var(--accent));
+  padding: 6px 8px;
+  font-size: 11px;
+  font-weight: 900;
+}
+
+.crawler-body {
+  display: grid;
+  grid-template-columns: minmax(0, .92fr) minmax(0, 1.08fr);
+  gap: 12px;
+}
+
+.crawler-panel {
+  min-width: 0;
+  display: grid;
+  align-content: start;
+  gap: 10px;
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  background: var(--panel);
+  padding: 14px;
+}
+
+.crawler-panel-head h3 {
+  font-size: 15px;
+  font-weight: 900;
+}
+
+.crawler-panel-head span {
+  color: var(--muted);
+  font-size: 11px;
+  font-weight: 850;
+}
+
+.crawler-taxonomy,
+.crawler-health {
+  display: grid;
+  gap: 7px;
+}
+
+.crawler-tax-row,
+.health-chip {
+  min-width: 0;
+  display: grid;
+  gap: 4px;
+  border: 1px solid var(--line-2);
+  border-left: 3px solid var(--local-accent, var(--green));
+  border-radius: 8px;
+  background: var(--panel-2);
+  padding: 9px;
+}
+
+.crawler-tax-row span,
+.health-chip span {
+  color: var(--muted);
+  font-size: 10.5px;
+  font-weight: 850;
+}
+
+.crawler-tax-row strong,
+.health-chip strong {
+  color: var(--ink);
+  font-size: 12.5px;
+  line-height: 1.35;
+  font-weight: 900;
+}
+
+.crawler-tax-row em {
+  color: var(--ink-2);
+  font-size: 11.5px;
+  line-height: 1.45;
+  font-style: normal;
+  font-weight: 700;
+}
+
+.health-chip.ok {
+  border-left-color: var(--green);
+}
+
+.health-chip.fail {
+  border-left-color: var(--red);
 }
 
 .board-control-row {
@@ -1928,11 +2173,16 @@ button {
 
   .category-grid,
   .channel-grid,
+  .crawler-summary,
   .dynamic-grid,
   .model-grid,
   .response-grid,
   .price-summary {
     grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .crawler-flow {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
   }
 
   .china-dynamics-grid {
@@ -2014,7 +2264,8 @@ button {
   }
 
   .hero,
-  .news-layout {
+  .news-layout,
+  .crawler-body {
     grid-template-columns: 1fr;
   }
 
@@ -2041,7 +2292,8 @@ button {
 
   .china-dynamics-overview,
   .china-dynamics-grid,
-  .china-deep-grid {
+  .china-deep-grid,
+  .crawler-flow {
     grid-template-columns: repeat(2, minmax(0, 1fr));
   }
 }
@@ -2072,11 +2324,13 @@ button {
   }
 
   .kpi-strip,
-  .workbench-tabs,
-  .workbench-stage,
-  .category-grid,
-  .channel-grid,
-  .company-grid,
+    .workbench-tabs,
+    .workbench-stage,
+    .category-grid,
+    .channel-grid,
+    .company-grid,
+    .crawler-summary,
+    .crawler-flow,
     .dynamic-grid,
     .china-dynamics-overview,
     .china-dynamics-grid,
