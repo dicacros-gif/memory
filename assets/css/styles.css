@@ -152,6 +152,23 @@ button {
   gap: 5px;
 }
 
+.sb-nav {
+  align-content: start;
+}
+
+.sb-group {
+  margin: 9px 8px 2px;
+  color: rgba(255, 255, 255, .46);
+  font-size: 10px;
+  font-weight: 900;
+  letter-spacing: .08em;
+  text-transform: uppercase;
+}
+
+.sb-group:first-child {
+  margin-top: 0;
+}
+
 .sb-item,
 .sb-cat {
   width: 100%;
@@ -167,6 +184,54 @@ button {
   transition: background .16s, color .16s, transform .16s;
 }
 
+.sb-item {
+  min-height: 46px;
+  display: flex;
+  align-items: center;
+  gap: 9px;
+}
+
+.sb-ico {
+  width: 22px;
+  height: 22px;
+  display: grid;
+  place-items: center;
+  flex: 0 0 auto;
+  border: 1px solid rgba(255, 255, 255, .16);
+  border-radius: 7px;
+  background: rgba(255, 255, 255, .08);
+  color: rgba(255, 255, 255, .82);
+  font-size: 13px;
+  line-height: 1;
+}
+
+.sb-label {
+  min-width: 0;
+  display: grid;
+  gap: 2px;
+}
+
+.sb-label strong,
+.sb-label small {
+  display: block;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.sb-label strong {
+  color: inherit;
+  font-size: 12px;
+  line-height: 1.1;
+}
+
+.sb-label small {
+  color: rgba(255, 255, 255, .46);
+  font-size: 10px;
+  font-weight: 700;
+  line-height: 1.15;
+}
+
 .sb-item:hover,
 .sb-item.active,
 .sb-cat:hover,
@@ -179,6 +244,12 @@ button {
 .sb-item.active,
 .sb-cat.active {
   box-shadow: inset 3px 0 0 var(--accent);
+}
+
+.sb-item.active .sb-ico {
+  border-color: color-mix(in srgb, var(--accent) 70%, #fff 30%);
+  background: color-mix(in srgb, var(--accent) 72%, transparent);
+  color: #fff;
 }
 
 .sb-cat {

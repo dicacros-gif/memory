@@ -58,7 +58,6 @@
 
     renderChrome();
     renderSidebarCategories();
-    renderHero();
     renderKpis();
     renderCategories();
     renderChannels();
@@ -160,11 +159,6 @@
     });
   }
 
-  function renderHero() {
-    $("#heroUpdated").textContent = fmtDate(LIVE.updatedAt);
-    $("#sideUpdated").textContent = fmtDate(LIVE.updatedAt);
-  }
-
   function renderSidebarCategories() {
     const wrap = $("#sideCategories");
     wrap.innerHTML = "";
@@ -196,7 +190,7 @@
   }
 
   function renderKpis() {
-    const strip = $("#kpiStrip");
+    const strip = $("#overview");
     strip.innerHTML = "";
     (BASE.kpis || []).forEach((kpi, index) => {
       const node = el("article", "kpi reveal");

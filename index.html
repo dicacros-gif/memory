@@ -23,15 +23,49 @@
       </button>
 
       <nav class="sb-nav" aria-label="대시보드 섹션">
-        <button class="sb-item active" type="button" data-jump="overview">Executive Summary</button>
-        <button class="sb-item" type="button" data-jump="categories">Memory Categories</button>
-        <button class="sb-item" type="button" data-jump="intelligence">Intelligence Sources</button>
-        <button class="sb-item" type="button" data-jump="competitors">China Competitors</button>
-        <button class="sb-item" type="button" data-jump="dynamics">Competitive Dynamics</button>
-        <button class="sb-item" type="button" data-jump="monetization">Benchmark Models</button>
-        <button class="sb-item" type="button" data-jump="response">Strategic Response</button>
-        <button class="sb-item" type="button" data-jump="prices">Spot / Contract Prices</button>
-        <button class="sb-item" type="button" data-jump="news">Foreign / China News</button>
+        <div class="sb-group">개요</div>
+        <button class="sb-item active" type="button" data-jump="overview">
+          <span class="sb-ico" aria-hidden="true">▦</span>
+          <span class="sb-label"><strong>오늘의 요약</strong><small>Overview</small></span>
+        </button>
+
+        <div class="sb-group">벤치마킹 분류</div>
+        <button class="sb-item" type="button" data-jump="categories">
+          <span class="sb-ico" aria-hidden="true">◎</span>
+          <span class="sb-label"><strong>메모리 카테고리</strong><small>Memory Categories</small></span>
+        </button>
+        <button class="sb-item" type="button" data-jump="intelligence">
+          <span class="sb-ico" aria-hidden="true">⌕</span>
+          <span class="sb-label"><strong>정보 획득 채널</strong><small>Intelligence Sources</small></span>
+        </button>
+        <button class="sb-item" type="button" data-jump="competitors">
+          <span class="sb-ico" aria-hidden="true">◫</span>
+          <span class="sb-label"><strong>중국 경쟁사</strong><small>China Competitors</small></span>
+        </button>
+
+        <div class="sb-group">심층 분석</div>
+        <button class="sb-item" type="button" data-jump="dynamics">
+          <span class="sb-ico" aria-hidden="true">↗</span>
+          <span class="sb-label"><strong>경쟁 다이나믹스</strong><small>Competitive Dynamics</small></span>
+        </button>
+        <button class="sb-item" type="button" data-jump="monetization">
+          <span class="sb-ico" aria-hidden="true">◇</span>
+          <span class="sb-label"><strong>벤치마킹 모델</strong><small>Benchmark Models</small></span>
+        </button>
+        <button class="sb-item" type="button" data-jump="response">
+          <span class="sb-ico" aria-hidden="true">⌁</span>
+          <span class="sb-label"><strong>대응 대시보드</strong><small>Strategic Response</small></span>
+        </button>
+
+        <div class="sb-group">정량 데이터</div>
+        <button class="sb-item" type="button" data-jump="prices">
+          <span class="sb-ico" aria-hidden="true">▤</span>
+          <span class="sb-label"><strong>Spot / Contract 가격</strong><small>TrendForce Prices</small></span>
+        </button>
+        <button class="sb-item" type="button" data-jump="news">
+          <span class="sb-ico" aria-hidden="true">□</span>
+          <span class="sb-label"><strong>외신·중국 기사</strong><small>Foreign / China News</small></span>
+        </button>
       </nav>
 
       <div class="sb-block">
@@ -40,8 +74,8 @@
       </div>
 
       <div class="sb-foot">
-        <span id="sideUpdated">Daily agent 대기 중</span>
-        <small>한국 매체 제외 · 중국/외신 중심</small>
+        <span>Benchmark feed</span>
+        <small>한국 매체 제외 · 외신/중국 중심</small>
       </div>
     </aside>
 
@@ -68,20 +102,7 @@
       </header>
 
       <main class="main" id="main">
-        <section class="hero panel" id="overview">
-          <div class="hero-copy">
-            <p class="eyebrow">2026 China memory benchmark</p>
-            <h2>중국 메모리 생태계를 경쟁사·공급망·인재/IP 신호까지 한 화면에서 추적</h2>
-            <p class="hero-lead">TrendForce 가격, 외신·중국 기술 미디어, 금융/채용/커뮤니티 신호를 결합해 CXMT·YMTC·JCET·XMC·Naura·AMEC의 전략 변화를 빠르게 읽는 의사결정 보드입니다.</p>
-          </div>
-          <div class="hero-status">
-            <span>Last update</span>
-            <strong id="heroUpdated">Loading</strong>
-            <small>Asia/Seoul · GitHub Actions daily crawler</small>
-          </div>
-        </section>
-
-        <section class="kpi-strip" id="kpiStrip"></section>
+        <section class="kpi-strip" id="overview" aria-label="오늘의 벤치마킹 요약"></section>
 
         <section class="board" id="categories">
           <div class="board-head">
