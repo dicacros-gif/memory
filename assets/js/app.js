@@ -22,9 +22,24 @@
   };
 
   const KOREAN_SOURCE_RE =
-    /(yonhap|korea ?herald|korea ?times|koreatimes|koreaherald|chosun|joongang|joong ?ang|donga|dong-?a|hankyung|hankyoreh|ked ?global|kedglobal|maeil|maekyung|pulse ?news|business ?korea|businesskorea|et ?news|etnews|the ?elec|thelec|zdnet ?korea|sedaily|seoul ?economic|aju ?(business|news)|korea ?economic|korea ?joongang|korea ?biz ?wire|koreabizwire|inews24|edaily|mt\.co\.kr|mk\.co\.kr|dt\.co\.kr|\.kr\b|korea ?pro|the ?korea|naver|daum|fnnews|newspim|moneytoday|heraldcorp)/i;
+    /(yonhap|korea ?herald|korea ?times|koreatimes|koreaherald|chosun|joongang|joong ?ang|donga|dong-?a|hankyung|hankyoreh|ked ?global|kedglobal|maeil|maekyung|pulse ?news|business ?korea|businesskorea|et ?news|etnews|the ?elec|thelec|zdnet ?korea|sedaily|seoul ?economic|aju ?(business|news|press)|korea ?economic|korea ?joongang|korea ?biz ?wire|koreabizwire|inews24|edaily|mt\.co\.kr|mk\.co\.kr|dt\.co\.kr|\.kr\b|korea ?pro|the ?korea|naver|daum|fnnews|newspim|moneytoday|heraldcorp)/i;
   const MEMORY_NEWS_RE =
     /(memory|dram|nand|hbm|ddr|lpddr|gddr|ssd|semiconductor|chip|wafer|foundry|packaging|interconnect|cxl|trendforce|dramexchange|micron|samsung|sk hynix|hynix|kioxia|western digital|sandisk|cxmt|changxin|ymtc|yangtze|jcet|tfme|xmc|wuhan xinxin|naura|amec|acm research|techinsights|yole|big fund|export control|china chip|chinese chip)/i;
+  const CHINA_NEWS_RE =
+    /(china|chinese|cxmt|changxin|ymtc|yangtze|jcet|tfme|xmc|wuhan|naura|amec|huawei|tencent|alibaba|baidu|lenovo|big fund|36kr|pandaily|caixin|yicai|scmp|kraneshares|sina|sohu|eastmoney|huxiu|jiwei|c114|digitimes asia)/i;
+  const SOURCE_SUFFIX_RE = /\s[-–—]\s(?:[A-Za-z0-9가-힣 .·&]+)$/;
+  const CATEGORY_INSIGHTS = {
+    hbm: "HBM 인증·수율·고객 승인 속도를 삼성·마이크론과 비교",
+    dram: "DDR5·LPDDR·범용 DRAM 가격과 고객 인증 변화 추적",
+    nand: "YMTC·eSSD·NAND 계약가 회복 사이클과 공급 압력 비교",
+    cxl: "CXL 메모리 풀링·컨트롤러·스위치 생태계 진입 타이밍 관찰",
+    packaging: "HBM 적층·하이브리드 본딩·OSAT 우회로와 장비 병목 점검",
+    aidemand: "AI 서버·가속기 수요가 메모리 믹스와 가격에 주는 영향 확인",
+    china: "중국 내수 고객·정책·공급망 내재화 신호를 경쟁사별로 추적",
+    equipment: "Naura·AMEC·ACM 등 장비 국산화와 공정 recipe 흡수 속도 관찰",
+    geopolitics: "수출통제·허가 예외·중국 자본 투입이 공급망을 바꾸는지 점검",
+    talent: "핵심 엔지니어 이동·채용 JD·IP 신호가 기술 격차를 줄이는지 확인",
+  };
 
   let BASE = null;
   let LIVE = emptyLive;
@@ -692,12 +707,51 @@
   }
 
   function isMemoryRelevant(item) {
-    const hay = `${item.title || ""} ${item.summary || ""} ${item.source || ""}`.toLowerCase();
+    const hay = `${item.title || ""} ${item.titleKo || ""} ${item.summary || ""} ${item.source || ""}`.toLowerCase();
     return MEMORY_NEWS_RE.test(hay);
   }
 
   function newsTitle(item) {
-    return item.title || item.titleKo || "";
+    return cleanKoreanTitle(item.titleKo || item.title || "");
+  }
+
+  function cleanKoreanTitle(title) {
+    return String(title || "")
+      .replace(SOURCE_SUFFIX_RE, "")
+      .replace(/\bApple\b/g, "애플")
+      .replace(/\bSamsung\b/g, "삼성")
+      .replace(/\bMicron\b/g, "마이크론")
+      .replace(/\bNVIDIA\b/g, "엔비디아")
+      .replace(/\bSK Hynix\b/gi, "SK하이닉스")
+      .replace(/\s+/g, " ")
+      .trim();
+  }
+
+  function isChinaArticle(item) {
+    if (item.category === "china") return true;
+    const hay = `${item.category || ""} ${item.source || ""} ${item.link || ""} ${item.title || ""} ${item.titleKo || ""} ${item.summary || ""}`;
+    return CHINA_NEWS_RE.test(hay);
+  }
+
+  function insightLines(item) {
+    const title = newsTitle(item);
+    const summary = cleanKoreanTitle(item.summary || title);
+    const category = CATEGORY_INSIGHTS[item.category] || "메모리 업계 가격·고객·공급망 변화를 함께 점검";
+    const signal = isChinaArticle(item)
+      ? "중국 신호: 내수 고객, 정책 지원, 장비·패키징 우회 가능성 확인"
+      : "외신 신호: 해외 검증 보도 기준으로 가격·수요·경쟁 구도 확인";
+    const meta = `${item.source || "출처 미상"}${item.date || item.published ? ` · ${item.date || item.published}` : ""}`;
+    return [
+      `핵심: ${clipText(summary, 78)}`,
+      `벤치마킹: ${category}`,
+      `체크포인트: ${signal} · ${meta}`,
+    ];
+  }
+
+  function clipText(text, limit) {
+    const clean = String(text || "").replace(/\s+/g, " ").trim();
+    if (clean.length <= limit) return clean;
+    return `${clean.slice(0, limit - 1).trim()}…`;
   }
 
   function filteredNews(categoryId = activeCategory) {
@@ -706,7 +760,7 @@
     return rawNews().filter((item) => {
       if (!categoryId || categoryId === "all") return true;
       if (item.category === categoryId) return true;
-      const hay = `${item.title || ""} ${item.summary || ""} ${item.source || ""}`.toLowerCase();
+      const hay = `${item.title || ""} ${item.titleKo || ""} ${item.summary || ""} ${item.source || ""}`.toLowerCase();
       return terms.some((term) => hay.includes(term));
     });
   }
@@ -740,30 +794,41 @@
   }
 
   function renderNewsList() {
-    const list = $("#newsList");
     const base = newsCategory === "all" ? rawNews() : filteredNews(newsCategory);
     const items = base.filter((item) => {
       if (!newsSearch) return true;
-      return `${item.title || ""} ${item.summary || ""} ${item.source || ""}`.toLowerCase().includes(newsSearch);
+      return `${item.title || ""} ${item.titleKo || ""} ${item.summary || ""} ${item.source || ""}`.toLowerCase().includes(newsSearch);
     });
+    const chinaItems = items.filter(isChinaArticle);
+    const foreignItems = items.filter((item) => !isChinaArticle(item));
     $("#newsStats").textContent = `· ${items.length}건`;
+    $("#chinaNewsCount").textContent = `${chinaItems.length}건`;
+    $("#foreignNewsCount").textContent = `${foreignItems.length}건`;
+    renderNewsBucket($("#chinaNewsList"), chinaItems, "조건에 맞는 중국 기사 없음");
+    renderNewsBucket($("#foreignNewsList"), foreignItems, "조건에 맞는 외신 기사 없음");
+  }
+
+  function renderNewsBucket(list, items, emptyMessage) {
     list.innerHTML = "";
     if (!items.length) {
-      list.appendChild(el("li", null, "<span class=\"empty\">조건에 맞는 외신/중국 기사 없음</span>"));
+      list.appendChild(el("li", null, `<span class="empty">${escapeHTML(emptyMessage)}</span>`));
       return;
     }
 
-    items.slice(0, 42).forEach((item) => {
+    items.slice(0, 28).forEach((item) => {
       const li = el("li");
       const a = el("a");
       a.href = item.link || "#";
       a.target = "_blank";
       a.rel = "noopener";
+      const insights = insightLines(item);
       a.innerHTML = `
         <span>
           <span class="source-tag">${escapeHTML(item.source || "Foreign source")}</span>
           <span class="news-title">${escapeHTML(newsTitle(item))}</span>
-          ${item.summary ? `<span class="news-summary">${escapeHTML(item.summary)}</span>` : ""}
+          <span class="news-insights">
+            ${insights.map((line) => `<span>${escapeHTML(line)}</span>`).join("")}
+          </span>
         </span>
         <span class="news-meta">${escapeHTML(item.date || item.published || "")}</span>
       `;
