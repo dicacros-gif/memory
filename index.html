@@ -10,7 +10,7 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard/dist/web/static/pretendard.css" />
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;700;800;900&family=Space+Grotesk:wght@500;600;700&display=swap" />
-  <link rel="stylesheet" href="assets/css/styles.css?v=visual-refresh-20260629" />
+  <link rel="stylesheet" href="assets/css/styles.css?v=dynamic-workbench-20260629" />
 </head>
 <body>
   <div class="app">
@@ -28,6 +28,10 @@
         <button class="sb-item active" type="button" data-jump="overview">
           <span class="sb-ico" aria-hidden="true">▦</span>
           <span class="sb-label"><strong>오늘의 요약</strong><small>Overview</small></span>
+        </button>
+        <button class="sb-item" type="button" data-jump="workbench">
+          <span class="sb-ico" aria-hidden="true">◈</span>
+          <span class="sb-label"><strong>인터랙티브 콕핏</strong><small>Dynamic Workbench</small></span>
         </button>
 
         <div class="sb-group">매일 크롤링</div>
@@ -110,6 +114,21 @@
 
       <main class="main" id="main">
         <section class="kpi-strip" id="overview" aria-label="오늘의 벤치마킹 요약"></section>
+
+        <section class="board workbench-board" id="workbench">
+          <div class="board-head">
+            <div>
+              <p class="eyebrow">Dynamic intelligence workbench</p>
+              <h2>중국 메모리 벤치마킹 인터랙티브 콕핏</h2>
+            </div>
+            <span class="board-meta" id="workbenchMeta">신호 선택 대기</span>
+          </div>
+          <div class="workbench-tabs" id="workbenchTabs"></div>
+          <div class="workbench-body">
+            <div class="workbench-stage" id="workbenchStage"></div>
+            <aside class="workbench-detail" id="workbenchDetail"></aside>
+          </div>
+        </section>
 
         <section class="board" id="prices">
           <div class="board-head">
@@ -214,6 +233,7 @@
             </div>
             <span class="board-meta">비대칭 위협 · 메기 전략 · 수직 계열화</span>
           </div>
+          <div class="board-control-row" id="dynamicControls"></div>
           <div class="dynamic-grid" id="dynamicGrid"></div>
         </section>
 
@@ -225,6 +245,7 @@
             </div>
             <span class="board-meta">HBM 인증 · 레거시 가격 · 패키징 우회</span>
           </div>
+          <div class="board-control-row" id="modelControls"></div>
           <div class="model-grid" id="modelGrid"></div>
         </section>
 
@@ -236,6 +257,7 @@
             </div>
             <span class="board-meta">가격 · 공급망 · 인재 · IP</span>
           </div>
+          <div class="board-control-row" id="responseControls"></div>
           <div class="response-grid" id="responseGrid"></div>
         </section>
 
@@ -254,7 +276,8 @@
   </div>
 
   <div class="qa-answer" id="qaAnswer" hidden></div>
+  <div class="inspector" id="inspector" hidden></div>
   <div class="backdrop" id="backdrop"></div>
-  <script src="assets/js/app.js?v=visual-refresh-20260629" defer></script>
+  <script src="assets/js/app.js?v=dynamic-workbench-20260629" defer></script>
 </body>
 </html>

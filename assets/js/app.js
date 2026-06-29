@@ -107,6 +107,49 @@
       watch: ["Big Fund III", "Entity List", "허가 예외", "지방정부 보조금"],
     },
   ];
+  const WORKBENCH_MODES = [
+    {
+      id: "dynamics",
+      label: "중국 다이내믹스",
+      sub: "Capacity · Equipment · Packaging",
+      section: "china-dynamics",
+    },
+    {
+      id: "competition",
+      label: "경쟁 구도",
+      sub: "CXMT · YMTC · OSAT",
+      section: "dynamics",
+    },
+    {
+      id: "monetization",
+      label: "수익화 모델",
+      sub: "Margin · Mix · Platform",
+      section: "monetization",
+    },
+    {
+      id: "response",
+      label: "대응 액션",
+      sub: "P0/P1 execution",
+      section: "response",
+    },
+    {
+      id: "intelligence",
+      label: "정보 채널",
+      sub: "Finance · Hiring · Teardown",
+      section: "intelligence",
+    },
+  ];
+  const SECTION_LABELS = {
+    "china-dynamics": "중국 반도체 다이내믹스",
+    dynamics: "경쟁 다이나믹스",
+    monetization: "벤치마킹 모델",
+    response: "대응 대시보드",
+    intelligence: "정보 획득 채널",
+    categories: "메모리 카테고리",
+    competitors: "중국 경쟁사",
+    news: "중국·외신 기사",
+    prices: "TrendForce 가격",
+  };
 
   let BASE = null;
   let LIVE = emptyLive;
@@ -114,6 +157,9 @@
   let priceFilter = "all";
   let newsCategory = "all";
   let newsSearch = "";
+  let workbenchMode = "dynamics";
+  let selectedInsightId = null;
+  let responsePriority = "all";
   let typeTimer = null;
 
   async function loadJSON(path, fallback) {
@@ -150,6 +196,7 @@
     renderPrices();
     renderNews();
     renderChinaDynamics();
+    renderWorkbench();
     setupQA();
     setupInteractions();
     setupScrollSpy();
@@ -274,6 +321,7 @@
     renderDynamics();
     renderModels();
     renderNews();
+    renderWorkbench();
     animateCounts();
   }
 
@@ -328,6 +376,20 @@
         <div class="tag-row">${(cat.keywords || []).slice(0, 5).map((tag) => `<span class="tag">${escapeHTML(tag)}</span>`).join("")}</div>
       `;
       card.querySelector("[data-cat]").addEventListener("click", () => setCategory(cat.id));
+      makeInspectable(card, {
+        type: "메모리 카테고리",
+        tag: cat.en,
+        title: cat.label,
+        body: cat.desc,
+        section: "categories",
+        categories: [cat.id],
+        watch: cat.keywords || [],
+        metrics: [
+          { label: "업체", value: fmtNum(stats.companies) },
+          { label: "외신", value: fmtNum(stats.news) },
+          { label: "가격", value: fmtNum(stats.prices) },
+        ],
+      });
       grid.appendChild(card);
     });
   }
@@ -357,6 +419,20 @@
         <p>${escapeHTML(item.desc)}</p>
         <ul class="watch-list">${(item.signals || []).map((s) => `<li>${escapeHTML(s)}</li>`).join("")}</ul>
       `;
+      makeInspectable(card, {
+        type: "정보 채널",
+        tag: item.source,
+        title: item.title,
+        body: item.desc,
+        section: "intelligence",
+        categories: item.linkedCategories || [],
+        watch: item.signals || [],
+        metrics: [
+          { label: "Signals", value: fmtNum((item.signals || []).length) },
+          { label: "Source", value: item.source },
+          { label: "Fit", value: (item.linkedCategories || []).map(categoryName).join(" · ") || "전체" },
+        ],
+      });
       grid.appendChild(card);
     });
     if (!grid.children.length) grid.appendChild(el("div", "empty", "선택한 카테고리의 정보 소스가 없습니다."));
@@ -387,6 +463,16 @@
         <ul class="watch-list">${(company.watch || []).slice(0, 4).map((w) => `<li>${escapeHTML(w)}</li>`).join("")}</ul>
         <div class="insight-box"><span>Benchmark insight</span>${escapeHTML(company.insight)}</div>
       `;
+      makeInspectable(card, {
+        type: "중국 경쟁사",
+        tag: company.category,
+        title: company.name,
+        body: `${company.summary} ${company.insight || ""}`,
+        section: "competitors",
+        categories: company.linkedCategories || [],
+        watch: company.watch || [],
+        metrics: company.metrics || [],
+      });
       grid.appendChild(card);
     });
     if (!items.length) grid.appendChild(el("div", "empty", "선택한 카테고리의 경쟁사 카드가 없습니다."));
@@ -474,6 +560,7 @@
       const items = axisLiveItems(axis);
       const card = el("article", "china-dyn-card reveal");
       card.style.animationDelay = `${index * 35}ms`;
+      card.style.setProperty("--local-accent", categoryAccent((axis.categoryIds || [])[0]));
       card.innerHTML = `
         <div class="dyn-card-head">
           <span class="chip accent">${escapeHTML(axis.label)}</span>
@@ -491,12 +578,431 @@
           `).join("") : `<li><span>Signal</span><em>수집된 최신 신호 없음</em></li>`}
         </ul>
       `;
+      makeInspectable(card, {
+        type: "중국 반도체 다이내믹스",
+        tag: axis.label,
+        title: axis.title,
+        body: axis.pulse,
+        section: "china-dynamics",
+        categories: axis.categoryIds || [],
+        watch: axis.watch || [],
+        links: items,
+        metrics: [
+          { label: "Signal", value: fmtNum(count) },
+          { label: "Momentum", value: momentum.label },
+          { label: "Article", value: fmtNum(items.length) },
+        ],
+      });
       grid.appendChild(card);
+    });
+  }
+
+  function inferCategoriesFromText(text) {
+    const hay = String(text || "").toLowerCase();
+    return memoryCategories()
+      .filter((cat) => cat.id !== "all")
+      .filter((cat) => (cat.keywords || []).some((term) => hay.includes(String(term).toLowerCase())))
+      .map((cat) => cat.id);
+  }
+
+  function responseLinkedCategories(item) {
+    if (item.linkedCategories?.length) return item.linkedCategories;
+    return inferCategoriesFromText(`${item.title || ""} ${item.desc || ""} ${(item.actions || []).join(" ")}`);
+  }
+
+  function workbenchItems(mode = workbenchMode) {
+    let items = [];
+    if (mode === "dynamics") {
+      items = CHINA_DYNAMIC_AXES.map((axis) => {
+        const count = axisSignalCount(axis);
+        const momentum = axisMomentum(count);
+        const links = axisLiveItems(axis).slice(0, 3);
+        return {
+          id: `axis-${axis.id}`,
+          mode,
+          type: "중국 반도체 다이내믹스",
+          tag: axis.label,
+          title: axis.title,
+          body: axis.pulse,
+          section: "china-dynamics",
+          categories: axis.categoryIds || [],
+          watch: axis.watch || [],
+          metrics: [
+            { label: "Signal", value: fmtNum(count) },
+            { label: "Momentum", value: momentum.label },
+            { label: "Article", value: fmtNum(links.length) },
+          ],
+          links,
+        };
+      });
+    }
+
+    if (mode === "competition") {
+      items = (BASE.dynamics || []).map((item, index) => ({
+        id: `competition-${index}`,
+        mode,
+        type: "경쟁 다이나믹스",
+        tag: item.axis,
+        title: item.title,
+        body: item.desc,
+        section: "dynamics",
+        categories: item.linkedCategories || [],
+        watch: item.watch || [],
+        metrics: [
+          { label: "Players", value: fmtNum((item.players || []).length) },
+          { label: "Watch", value: fmtNum((item.watch || []).length) },
+          { label: "Category", value: (item.linkedCategories || []).map(categoryName).join(" · ") || "전체" },
+        ],
+        tags: item.players || [],
+      }));
+    }
+
+    if (mode === "monetization") {
+      items = (BASE.monetizationModels || []).map((item, index) => ({
+        id: `model-${index}`,
+        mode,
+        type: "수익화 모델",
+        tag: (item.linkedCategories || []).map(categoryName).join(" · ") || "Benchmark",
+        title: item.title,
+        body: item.logic,
+        section: "monetization",
+        categories: item.linkedCategories || [],
+        watch: [item.metric, item.watch].filter(Boolean),
+        metrics: [
+          { label: "Metric", value: item.metric },
+          { label: "Watch", value: item.watch },
+          { label: "Fit", value: (item.linkedCategories || []).map(categoryName).join(" · ") || "전체" },
+        ],
+      }));
+    }
+
+    if (mode === "response") {
+      items = (BASE.responses || []).map((item, index) => ({
+        id: `response-${index}`,
+        mode,
+        type: "대응 액션",
+        tag: item.priority,
+        title: item.title,
+        body: item.desc,
+        section: "response",
+        categories: responseLinkedCategories(item),
+        watch: item.actions || [],
+        metrics: [
+          { label: "Priority", value: item.priority },
+          { label: "Actions", value: fmtNum((item.actions || []).length) },
+          { label: "Owner view", value: "전략·운영" },
+        ],
+      }));
+    }
+
+    if (mode === "intelligence") {
+      items = (BASE.channels || []).map((item, index) => ({
+        id: `channel-${index}`,
+        mode,
+        type: "정보 채널",
+        tag: item.source,
+        title: item.title,
+        body: item.desc,
+        section: "intelligence",
+        categories: item.linkedCategories || [],
+        watch: item.signals || [],
+        metrics: [
+          { label: "Signals", value: fmtNum((item.signals || []).length) },
+          { label: "Source", value: item.source },
+          { label: "Fit", value: (item.linkedCategories || []).map(categoryName).join(" · ") || "전체" },
+        ],
+      }));
+    }
+
+    return items.filter((item) => {
+      if (activeCategory === "all") return true;
+      if (!item.categories || !item.categories.length) return true;
+      return item.categories.includes(activeCategory);
+    });
+  }
+
+  function renderWorkbench() {
+    const tabs = $("#workbenchTabs");
+    const stage = $("#workbenchStage");
+    const detail = $("#workbenchDetail");
+    if (!tabs || !stage || !detail) return;
+
+    tabs.innerHTML = "";
+    WORKBENCH_MODES.forEach((mode) => {
+      const count = workbenchItems(mode.id).length;
+      const btn = el("button", mode.id === workbenchMode ? "active" : "");
+      btn.type = "button";
+      btn.dataset.workMode = mode.id;
+      btn.innerHTML = `
+        <strong>${escapeHTML(mode.label)}</strong>
+        <small>${escapeHTML(mode.sub)} · ${fmtNum(count)}</small>
+      `;
+      btn.addEventListener("click", () => {
+        workbenchMode = mode.id;
+        selectedInsightId = null;
+        renderWorkbench();
+      });
+      tabs.appendChild(btn);
+    });
+
+    const mode = WORKBENCH_MODES.find((item) => item.id === workbenchMode) || WORKBENCH_MODES[0];
+    const items = workbenchItems(workbenchMode);
+    if (!items.some((item) => item.id === selectedInsightId)) {
+      selectedInsightId = items[0]?.id || null;
+    }
+    const selected = items.find((item) => item.id === selectedInsightId) || items[0];
+    $("#workbenchMeta").textContent = `${mode.label} · ${activeCategoryData().label} · ${fmtNum(items.length)}개 객체`;
+
+    stage.innerHTML = "";
+    if (!items.length) {
+      stage.appendChild(el("div", "empty", "선택한 카테고리에 연결된 인터랙티브 객체가 없습니다."));
+      renderWorkbenchDetail(null);
+      return;
+    }
+
+    items.forEach((item, index) => {
+      const card = el("article", `work-card reveal${item.id === selected?.id ? " selected" : ""}`);
+      card.style.animationDelay = `${index * 25}ms`;
+      card.style.setProperty("--local-accent", categoryAccent((item.categories || [])[0]));
+      card.dataset.workItem = item.id;
+      card.innerHTML = `
+        <div class="work-card-head">
+          <span class="chip accent">${escapeHTML(item.tag || item.type)}</span>
+          <span class="work-card-section">${escapeHTML(SECTION_LABELS[item.section] || item.section)}</span>
+        </div>
+        <h3>${escapeHTML(item.title)}</h3>
+        <p>${escapeHTML(clipText(item.body, 116))}</p>
+        <div class="work-card-foot">
+          ${(item.metrics || []).slice(0, 2).map((metric) => `<span>${escapeHTML(metric.label)}: ${escapeHTML(metric.value)}</span>`).join("")}
+        </div>
+      `;
+      card.tabIndex = 0;
+      card.setAttribute("role", "button");
+      card.setAttribute("aria-label", `${item.title} 선택`);
+      card.addEventListener("click", () => {
+        selectedInsightId = item.id;
+        renderWorkbench();
+      });
+      card.addEventListener("keydown", (event) => {
+        if (event.key === "Enter" || event.key === " ") {
+          event.preventDefault();
+          selectedInsightId = item.id;
+          renderWorkbench();
+        }
+      });
+      stage.appendChild(card);
+    });
+
+    renderWorkbenchDetail(selected);
+  }
+
+  function metricCards(metrics = [], limit = 3) {
+    return metrics.slice(0, limit).map((metric) => `
+      <div class="metric">
+        <strong>${escapeHTML(metric.value ?? metric)}</strong>
+        <span>${escapeHTML(metric.label || "Metric")}</span>
+      </div>
+    `).join("");
+  }
+
+  function renderWorkbenchDetail(item) {
+    const detail = $("#workbenchDetail");
+    if (!detail) return;
+    if (!item) {
+      detail.innerHTML = `<div class="empty">분석 객체를 선택하면 상세 맥락이 열립니다.</div>`;
+      return;
+    }
+    const categories = (item.categories || []).map(categoryName).filter(Boolean);
+    detail.style.setProperty("--local-accent", categoryAccent((item.categories || [])[0]));
+    detail.innerHTML = `
+      <div class="work-detail-head">
+        <span class="chip accent">${escapeHTML(item.type || "Insight")}</span>
+        <h3>${escapeHTML(item.title)}</h3>
+        <p>${escapeHTML(item.body)}</p>
+      </div>
+      <div class="metric-row">${metricCards(item.metrics || [], 3)}</div>
+      <div class="work-detail-block">
+        <strong>관찰 포인트</strong>
+        <ul class="watch-list">${(item.watch || []).slice(0, 5).map((watch) => `<li>${escapeHTML(watch)}</li>`).join("")}</ul>
+      </div>
+      <div class="work-detail-block">
+        <strong>연결 카테고리</strong>
+        <div class="tag-row">${categories.length ? categories.map((name, index) => `<button class="tag as-button" type="button" data-work-cat="${escapeHTML((item.categories || [])[index])}">${escapeHTML(name)}</button>`).join("") : "<span class=\"tag\">전체</span>"}</div>
+      </div>
+      ${item.links?.length ? `
+        <div class="work-detail-block">
+          <strong>관련 최신 신호</strong>
+          <ul class="work-link-list">
+            ${item.links.map((link) => `
+              <li><a href="${escapeHTML(link.link || "#")}" target="_blank" rel="noopener">${escapeHTML(newsTitle(link) || link.title || link.source || "Signal")}</a></li>
+            `).join("")}
+          </ul>
+        </div>
+      ` : ""}
+      <div class="work-detail-actions">
+        <button type="button" data-open-inspector>상세 패널 열기</button>
+        <button type="button" data-work-jump="${escapeHTML(item.section)}">관련 보드로 이동</button>
+      </div>
+    `;
+
+    detail.querySelector("[data-open-inspector]")?.addEventListener("click", () => openInspector(item));
+    detail.querySelectorAll("[data-work-jump]").forEach((btn) => {
+      btn.addEventListener("click", () => jumpTo(btn.dataset.workJump));
+    });
+    detail.querySelectorAll("[data-work-cat]").forEach((btn) => {
+      btn.addEventListener("click", () => {
+        setCategory(btn.dataset.workCat);
+        jumpTo("categories");
+      });
+    });
+  }
+
+  function makeInspectable(card, payload) {
+    card.classList.add("inspectable");
+    card.tabIndex = 0;
+    card.setAttribute("role", "button");
+    card.setAttribute("aria-label", `${payload.title || "항목"} 상세 보기`);
+    card.addEventListener("click", (event) => {
+      if (event.target.closest("a, button")) return;
+      openInspector(payload);
+    });
+    card.addEventListener("keydown", (event) => {
+      if (event.key !== "Enter" && event.key !== " ") return;
+      event.preventDefault();
+      openInspector(payload);
+    });
+  }
+
+  function normalizePayload(payload) {
+    return {
+      type: payload.type || payload.tag || "Benchmark insight",
+      tag: payload.tag || payload.type || "",
+      title: payload.title || "상세 정보",
+      body: payload.body || payload.desc || payload.summary || payload.logic || "",
+      section: payload.section || "workbench",
+      categories: payload.categories || payload.linkedCategories || payload.categoryIds || [],
+      watch: payload.watch || payload.actions || payload.signals || [],
+      metrics: payload.metrics || [],
+      links: payload.links || [],
+      tags: payload.tags || payload.players || [],
+    };
+  }
+
+  function openInspector(payload) {
+    const data = normalizePayload(payload);
+    const overlay = $("#inspector");
+    if (!overlay) return;
+    overlay.hidden = false;
+    overlay.style.setProperty("--local-accent", categoryAccent((data.categories || [])[0]));
+    document.body.style.overflow = "hidden";
+    overlay.innerHTML = `
+      <div class="inspector-panel" role="dialog" aria-modal="true">
+        <div class="inspector-head">
+          <div>
+            <span class="chip accent">${escapeHTML(data.type)}</span>
+            <h3>${escapeHTML(data.title)}</h3>
+          </div>
+          <button type="button" data-close-inspector>닫기</button>
+        </div>
+        <div class="inspector-body">
+          <p>${escapeHTML(data.body)}</p>
+          ${data.metrics.length ? `<div class="metric-row">${metricCards(data.metrics, 4)}</div>` : ""}
+          ${data.tags.length ? `<div class="tag-row">${data.tags.map((tag) => `<span class="tag">${escapeHTML(tag)}</span>`).join("")}</div>` : ""}
+          ${data.watch.length ? `
+            <div class="inspector-block">
+              <strong>체크포인트</strong>
+              <ul class="watch-list">${data.watch.map((item) => `<li>${escapeHTML(item)}</li>`).join("")}</ul>
+            </div>
+          ` : ""}
+          ${data.categories.length ? `
+            <div class="inspector-block">
+              <strong>카테고리</strong>
+              <div class="tag-row">${data.categories.map((id) => `<button class="tag as-button" type="button" data-inspector-cat="${escapeHTML(id)}">${escapeHTML(categoryName(id))}</button>`).join("")}</div>
+            </div>
+          ` : ""}
+          ${data.links.length ? `
+            <div class="inspector-block">
+              <strong>관련 기사·신호</strong>
+              <ul class="work-link-list">
+                ${data.links.map((link) => `<li><a href="${escapeHTML(link.link || "#")}" target="_blank" rel="noopener">${escapeHTML(newsTitle(link) || link.title || link.source || "Signal")}</a></li>`).join("")}
+              </ul>
+            </div>
+          ` : ""}
+        </div>
+        <div class="inspector-actions">
+          <button type="button" data-inspector-jump="${escapeHTML(data.section)}">관련 보드로 이동</button>
+        </div>
+      </div>
+    `;
+    overlay.querySelector("[data-close-inspector]")?.addEventListener("click", closeInspector);
+    overlay.addEventListener("click", (event) => {
+      if (event.target === overlay) closeInspector();
+    }, { once: true });
+    overlay.querySelectorAll("[data-inspector-cat]").forEach((btn) => {
+      btn.addEventListener("click", () => {
+        closeInspector();
+        setCategory(btn.dataset.inspectorCat);
+        jumpTo("categories");
+      });
+    });
+    overlay.querySelector("[data-inspector-jump]")?.addEventListener("click", (event) => {
+      closeInspector();
+      jumpTo(event.currentTarget.dataset.inspectorJump);
+    });
+  }
+
+  function closeInspector() {
+    const overlay = $("#inspector");
+    if (!overlay || overlay.hidden) return;
+    overlay.hidden = true;
+    overlay.innerHTML = "";
+    document.body.style.overflow = "";
+  }
+
+  function renderCategoryControls(targetId, sourceItems, targetSection) {
+    const wrap = $(`#${targetId}`);
+    if (!wrap) return;
+    const cats = memoryCategories();
+    wrap.innerHTML = "";
+    cats.forEach((cat) => {
+      const count = cat.id === "all"
+        ? sourceItems.length
+        : sourceItems.filter((item) => (item.linkedCategories || []).includes(cat.id)).length;
+      if (cat.id !== "all" && !count) return;
+      const btn = el("button", cat.id === activeCategory ? "active" : "");
+      btn.type = "button";
+      btn.style.setProperty("--local-accent", categoryAccent(cat.id));
+      btn.innerHTML = `<span>${escapeHTML(cat.label)}</span><small>${fmtNum(count)}</small>`;
+      btn.addEventListener("click", () => {
+        setCategory(cat.id);
+        jumpTo(targetSection);
+      });
+      wrap.appendChild(btn);
+    });
+  }
+
+  function renderResponseControls() {
+    const wrap = $("#responseControls");
+    if (!wrap) return;
+    const items = BASE.responses || [];
+    const priorities = ["all"].concat(Array.from(new Set(items.map((item) => item.priority).filter(Boolean))));
+    wrap.innerHTML = "";
+    priorities.forEach((priority) => {
+      const count = priority === "all" ? items.length : items.filter((item) => item.priority === priority).length;
+      const btn = el("button", priority === responsePriority ? "active" : "");
+      btn.type = "button";
+      btn.innerHTML = `<span>${priority === "all" ? "전체" : escapeHTML(priority)}</span><small>${fmtNum(count)}</small>`;
+      btn.addEventListener("click", () => {
+        responsePriority = priority;
+        renderResponses();
+      });
+      wrap.appendChild(btn);
     });
   }
 
   function renderDynamics() {
     const grid = $("#dynamicGrid");
+    renderCategoryControls("dynamicControls", BASE.dynamics || [], "dynamics");
     grid.innerHTML = "";
     (BASE.dynamics || []).filter(relatedToActive).forEach((item, index) => {
       const card = el("article", "card reveal");
@@ -509,6 +1015,21 @@
         <div class="tag-row">${(item.players || []).map((p) => `<span class="tag">${escapeHTML(p)}</span>`).join("")}</div>
         <ul class="watch-list">${(item.watch || []).map((w) => `<li>${escapeHTML(w)}</li>`).join("")}</ul>
       `;
+      makeInspectable(card, {
+        type: "경쟁 다이나믹스",
+        tag: item.axis,
+        title: item.title,
+        body: item.desc,
+        section: "dynamics",
+        categories: item.linkedCategories || [],
+        watch: item.watch || [],
+        tags: item.players || [],
+        metrics: [
+          { label: "Players", value: fmtNum((item.players || []).length) },
+          { label: "Watch", value: fmtNum((item.watch || []).length) },
+          { label: "Fit", value: (item.linkedCategories || []).map(categoryName).join(" · ") || "전체" },
+        ],
+      });
       grid.appendChild(card);
     });
     if (!grid.children.length) grid.appendChild(el("div", "empty", "선택한 카테고리의 경쟁 다이나믹스가 없습니다."));
@@ -516,6 +1037,7 @@
 
   function renderModels() {
     const grid = $("#modelGrid");
+    renderCategoryControls("modelControls", BASE.monetizationModels || [], "monetization");
     grid.innerHTML = "";
     (BASE.monetizationModels || []).filter(relatedToActive).forEach((item, index) => {
       const card = el("article", "card reveal");
@@ -530,6 +1052,20 @@
           <div class="metric"><strong>Fit</strong><span>${(item.linkedCategories || []).map(categoryName).join(" · ")}</span></div>
         </div>
       `;
+      makeInspectable(card, {
+        type: "수익화 모델",
+        tag: (item.linkedCategories || []).map(categoryName).join(" · ") || "Benchmark",
+        title: item.title,
+        body: item.logic,
+        section: "monetization",
+        categories: item.linkedCategories || [],
+        watch: [item.metric, item.watch].filter(Boolean),
+        metrics: [
+          { label: "Metric", value: item.metric },
+          { label: "Watch", value: item.watch },
+          { label: "Fit", value: (item.linkedCategories || []).map(categoryName).join(" · ") || "전체" },
+        ],
+      });
       grid.appendChild(card);
     });
     if (!grid.children.length) grid.appendChild(el("div", "empty", "선택한 카테고리의 벤치마킹 모델이 없습니다."));
@@ -537,8 +1073,11 @@
 
   function renderResponses() {
     const grid = $("#responseGrid");
+    renderResponseControls();
     grid.innerHTML = "";
-    (BASE.responses || []).forEach((item, index) => {
+    (BASE.responses || [])
+      .filter((item) => responsePriority === "all" || item.priority === responsePriority)
+      .forEach((item, index) => {
       const card = el("article", "card reveal");
       card.style.animationDelay = `${index * 35}ms`;
       card.innerHTML = `
@@ -551,6 +1090,20 @@
         <p>${escapeHTML(item.desc)}</p>
         <ul class="watch-list">${(item.actions || []).map((a) => `<li>${escapeHTML(a)}</li>`).join("")}</ul>
       `;
+      makeInspectable(card, {
+        type: "대응 액션",
+        tag: item.priority,
+        title: item.title,
+        body: item.desc,
+        section: "response",
+        categories: responseLinkedCategories(item),
+        watch: item.actions || [],
+        metrics: [
+          { label: "Priority", value: item.priority },
+          { label: "Actions", value: fmtNum((item.actions || []).length) },
+          { label: "Owner view", value: "전략·운영" },
+        ],
+      });
       grid.appendChild(card);
     });
   }
@@ -571,6 +1124,10 @@
       newsSearch = event.target.value.trim().toLowerCase();
       renderNewsList();
     });
+
+    document.addEventListener("keydown", (event) => {
+      if (event.key === "Escape") closeInspector();
+    });
   }
 
   function jumpTo(id) {
@@ -582,7 +1139,7 @@
   }
 
   function setupScrollSpy() {
-    const sections = ["overview", "prices", "news", "china-dynamics", "categories", "competitors", "dynamics", "monetization", "response", "intelligence"];
+    const sections = ["overview", "workbench", "prices", "news", "china-dynamics", "categories", "competitors", "dynamics", "monetization", "response", "intelligence"];
     const update = () => {
       const y = window.scrollY + 96;
       let active = "overview";
