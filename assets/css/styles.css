@@ -1,23 +1,25 @@
 :root {
-  --font: "Noto Sans KR", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
-  --display: "Space Grotesk", "Noto Sans KR", sans-serif;
-  --bg: #eef1f5;
+  --font: "Pretendard", "Noto Sans KR", -apple-system, "Apple SD Gothic Neo", "Malgun Gothic", sans-serif;
+  --display: "Space Grotesk", var(--font);
+  --brand: #4322a8;
+  --bg: #eef0f4;
   --panel: #ffffff;
   --panel-2: #f7f8fb;
-  --ink: #101827;
-  --ink-2: #435067;
-  --muted: #6f7b90;
-  --line: #dde3ec;
+  --ink: #0e1525;
+  --ink-2: #44506a;
+  --muted: #6d7891;
+  --line: #e4e8ef;
   --line-2: #edf0f5;
-  --accent: #f05a28;
-  --blue: #2563eb;
-  --teal: #0e8f6e;
-  --purple: #6d28d9;
+  --accent: #4322a8;
+  --blue: #1428a0;
+  --teal: #0a9d8e;
+  --purple: #7a38d6;
   --amber: #b45309;
-  --red: #dc2626;
-  --green: #047857;
-  --sidebar: #172033;
-  --shadow: 0 1px 2px rgba(16, 24, 39, .05), 0 10px 30px rgba(16, 24, 39, .08);
+  --red: #d23b3b;
+  --green: #0e8a50;
+  --sidebar: #4322a8;
+  --shadow: 0 1px 2px rgba(16, 21, 37, .05), 0 1px 1px rgba(16, 21, 37, .04);
+  --shadow-lg: 0 8px 28px rgba(16, 21, 37, .10);
   --radius: 12px;
 }
 
@@ -30,8 +32,9 @@
   --muted: #76839a;
   --line: #243044;
   --line-2: #1a2334;
-  --sidebar: #0d1320;
-  --shadow: 0 12px 36px rgba(0, 0, 0, .42);
+  --sidebar: #10131c;
+  --shadow: 0 1px 2px rgba(0, 0, 0, .4);
+  --shadow-lg: 0 12px 40px rgba(0, 0, 0, .55);
 }
 
 * {
@@ -49,9 +52,11 @@ body {
 body {
   font-family: var(--font);
   color: var(--ink);
-  background:
-    radial-gradient(circle at top left, rgba(240, 90, 40, .11), transparent 34%),
-    linear-gradient(145deg, #f2f4f8 0%, var(--bg) 42%, #e8eef7 100%);
+  background: linear-gradient(168deg,
+    color-mix(in srgb, var(--accent) 8%, var(--bg)) 0%,
+    var(--bg) 36%,
+    color-mix(in srgb, var(--accent) 5%, var(--bg)) 100%);
+  background-attachment: fixed;
   font-variant-numeric: tabular-nums;
   -webkit-font-smoothing: antialiased;
   text-rendering: optimizeLegibility;
@@ -60,9 +65,8 @@ body {
 }
 
 [data-theme="dark"] body {
-  background:
-    radial-gradient(circle at top left, rgba(240, 90, 40, .12), transparent 28%),
-    linear-gradient(145deg, #080d16, #0d1421 55%, #09111f);
+  background: linear-gradient(168deg, #070a12, #0c111a 42%, #10151f);
+  background-attachment: fixed;
 }
 
 a {
@@ -81,7 +85,7 @@ button {
 .app {
   min-height: 100vh;
   display: grid;
-  grid-template-columns: 252px minmax(0, 1fr);
+  grid-template-columns: 236px minmax(0, 1fr);
 }
 
 .sidebar {
@@ -91,13 +95,11 @@ button {
   z-index: 60;
   display: flex;
   flex-direction: column;
-  gap: 18px;
-  background:
-    linear-gradient(180deg, rgba(240, 90, 40, .16), transparent 28%),
-    var(--sidebar);
+  gap: 16px;
+  background: linear-gradient(168deg, #6145b6 0%, var(--sidebar) 40%, #24125b 100%);
   color: #fff;
-  padding: 18px 14px;
-  box-shadow: inset -1px 0 0 rgba(255, 255, 255, .08);
+  padding: 16px 12px;
+  box-shadow: none;
   overflow-y: auto;
   overscroll-behavior: contain;
 }
@@ -108,10 +110,10 @@ button {
   align-items: center;
   gap: 11px;
   border: 0;
-  border-radius: 10px;
-  background: rgba(255, 255, 255, .07);
+  border-radius: 8px;
+  background: transparent;
   color: #fff;
-  padding: 10px;
+  padding: 4px;
   text-align: left;
 }
 
@@ -122,8 +124,8 @@ button {
   place-items: center;
   flex: 0 0 auto;
   border-radius: 9px;
-  background: linear-gradient(135deg, var(--accent), #f7a928 55%, var(--teal));
-  color: #fff;
+  background: #fff;
+  color: var(--sidebar);
   font-family: var(--display);
   font-weight: 800;
 }
@@ -134,17 +136,18 @@ button {
 }
 
 .sb-logo-text strong {
-  font-family: var(--display);
-  font-size: 15px;
+  font-family: var(--font);
+  font-size: 13px;
   line-height: 1.1;
+  letter-spacing: .01em;
 }
 
 .sb-logo-text small {
-  margin-top: 3px;
-  color: rgba(255, 255, 255, .62);
+  margin-top: 1px;
+  color: rgba(255, 255, 255, .72);
   font-size: 10px;
   font-weight: 700;
-  letter-spacing: .08em;
+  letter-spacing: .06em;
   text-transform: uppercase;
 }
 
@@ -159,8 +162,8 @@ button {
 }
 
 .sb-group {
-  margin: 9px 8px 2px;
-  color: rgba(255, 255, 255, .46);
+  margin: 10px 9px 2px;
+  color: rgba(255, 255, 255, .55);
   font-size: 10px;
   font-weight: 900;
   letter-spacing: .08em;
@@ -178,8 +181,8 @@ button {
   border: 0;
   border-radius: 8px;
   background: transparent;
-  color: rgba(255, 255, 255, .72);
-  padding: 8px 10px;
+  color: rgba(255, 255, 255, .76);
+  padding: 8px 9px;
   text-align: left;
   font-size: 12px;
   font-weight: 700;
@@ -187,22 +190,22 @@ button {
 }
 
 .sb-item {
-  min-height: 46px;
+  min-height: 38px;
   display: flex;
   align-items: center;
   gap: 9px;
 }
 
 .sb-ico {
-  width: 22px;
-  height: 22px;
+  width: 24px;
+  height: 24px;
   display: grid;
   place-items: center;
   flex: 0 0 auto;
-  border: 1px solid rgba(255, 255, 255, .16);
+  border: 0;
   border-radius: 7px;
-  background: rgba(255, 255, 255, .08);
-  color: rgba(255, 255, 255, .82);
+  background: rgba(255, 255, 255, .12);
+  color: rgba(255, 255, 255, .9);
   font-size: 13px;
   line-height: 1;
 }
@@ -223,12 +226,12 @@ button {
 
 .sb-label strong {
   color: inherit;
-  font-size: 12px;
+  font-size: 12.5px;
   line-height: 1.1;
 }
 
 .sb-label small {
-  color: rgba(255, 255, 255, .46);
+  color: rgba(255, 255, 255, .52);
   font-size: 10px;
   font-weight: 700;
   line-height: 1.15;
@@ -245,13 +248,17 @@ button {
 
 .sb-item.active,
 .sb-cat.active {
-  box-shadow: inset 3px 0 0 var(--accent);
+  background: linear-gradient(90deg, rgba(255, 255, 255, .24), rgba(255, 255, 255, .1));
+  box-shadow: none;
+}
+
+.sb-cat.active {
+  background: linear-gradient(90deg, color-mix(in srgb, var(--local-accent, #fff) 30%, transparent), rgba(255, 255, 255, .08));
 }
 
 .sb-item.active .sb-ico {
-  border-color: color-mix(in srgb, var(--accent) 70%, #fff 30%);
-  background: color-mix(in srgb, var(--accent) 72%, transparent);
-  color: #fff;
+  background: #fff;
+  color: var(--sidebar);
 }
 
 .sb-cat {
@@ -306,32 +313,27 @@ button {
   position: sticky;
   top: 0;
   z-index: 50;
-  min-height: 64px;
+  min-height: 60px;
   display: flex;
   align-items: center;
-  gap: 18px;
+  gap: 14px;
   border-bottom: 1px solid var(--line);
-  background: color-mix(in srgb, var(--panel) 90%, transparent);
-  backdrop-filter: blur(14px);
-  padding: 10px 24px;
+  background: var(--panel);
+  backdrop-filter: none;
+  padding: 8px 24px;
 }
 
 .tb-title {
-  min-width: 280px;
+  min-width: 240px;
 }
 
 .tb-title h1 {
   width: fit-content;
-  font-family: var(--display);
+  font-family: var(--font);
   font-size: 20px;
   line-height: 1.15;
   font-weight: 800;
-  background: linear-gradient(90deg, var(--ink), var(--accent), var(--blue), var(--teal), var(--ink));
-  background-size: 240% auto;
-  -webkit-background-clip: text;
-  background-clip: text;
-  -webkit-text-fill-color: transparent;
-  animation: titleFlow 8s linear infinite;
+  color: var(--ink);
 }
 
 @keyframes titleFlow {
@@ -356,33 +358,33 @@ button {
 
 .qa {
   position: relative;
-  width: min(560px, 48vw);
+  width: min(520px, 46vw);
 }
 
 .qa-line {
-  height: 42px;
+  height: 38px;
   display: grid;
   grid-template-columns: 38px minmax(0, 1fr) 42px;
   align-items: center;
   overflow: hidden;
-  border: 2px solid var(--blue);
-  border-radius: 10px;
+  border: 1px solid var(--line);
+  border-radius: 9px;
   background: var(--panel);
-  animation: hueBorder 7s linear infinite alternate;
+  animation: none;
 }
 
 @keyframes hueBorder {
   0% { border-color: #2563eb; box-shadow: 0 0 0 3px rgba(37, 99, 235, .12); }
   33% { border-color: #6d28d9; box-shadow: 0 0 0 3px rgba(109, 40, 217, .12); }
   66% { border-color: #0e8f6e; box-shadow: 0 0 0 3px rgba(14, 143, 110, .12); }
-  100% { border-color: #f05a28; box-shadow: 0 0 0 3px rgba(240, 90, 40, .12); }
+  100% { border-color: #0a9d8e; box-shadow: 0 0 0 3px rgba(10, 157, 142, .12); }
 }
 
 .qa-line span {
   display: grid;
   place-items: center;
   height: 100%;
-  color: var(--accent);
+  color: var(--brand);
   font-family: var(--display);
   font-weight: 800;
 }
@@ -394,7 +396,7 @@ button {
   outline: none;
   background: transparent;
   color: var(--ink);
-  font-size: 13px;
+  font-size: 12.5px;
   font-weight: 700;
 }
 
@@ -412,8 +414,8 @@ button {
 }
 
 .theme-btn {
-  width: 40px;
-  height: 40px;
+  width: 38px;
+  height: 38px;
   display: grid;
   place-items: center;
   border-radius: 9px;
@@ -490,8 +492,8 @@ button {
 
 .main {
   display: grid;
-  gap: 18px;
-  padding: 22px 24px 36px;
+  gap: 16px;
+  padding: 20px 24px 34px;
 }
 
 .main > *,
@@ -579,12 +581,12 @@ button {
 }
 
 .kpi {
-  min-height: 122px;
+  min-height: 118px;
   display: grid;
   align-content: start;
   gap: 8px;
   border-right: 1px solid var(--line-2);
-  padding: 16px;
+  padding: 15px;
 }
 
 .kpi:last-child {
@@ -599,7 +601,7 @@ button {
 
 .kpi strong {
   font-family: var(--display);
-  font-size: 27px;
+  font-size: 26px;
   line-height: 1.05;
 }
 
@@ -611,20 +613,20 @@ button {
 }
 
 .board {
-  padding: 20px;
+  padding: 16px;
 }
 
 .board-head {
   display: flex;
   align-items: end;
   justify-content: space-between;
-  gap: 18px;
-  margin-bottom: 16px;
+  gap: 16px;
+  margin-bottom: 14px;
 }
 
 .board-head h2 {
   margin-top: 4px;
-  font-size: 22px;
+  font-size: 20px;
   line-height: 1.25;
   font-weight: 900;
 }
@@ -660,19 +662,19 @@ button {
   border: 1px solid var(--line);
   border-radius: 10px;
   background: var(--panel);
-  padding: 15px;
+  padding: 14px;
   transition: transform .18s, border-color .18s, box-shadow .18s, background .18s;
 }
 
 .card:hover {
-  transform: translateY(-3px);
-  border-color: var(--accent);
-  box-shadow: 0 15px 34px rgba(240, 90, 40, .14);
+  transform: translateY(-2px);
+  border-color: var(--local-accent, var(--accent));
+  box-shadow: var(--shadow-lg);
 }
 
 .card.active {
-  border-color: var(--accent);
-  background: color-mix(in srgb, var(--accent) 7%, var(--panel));
+  border-color: var(--local-accent, var(--accent));
+  background: color-mix(in srgb, var(--local-accent, var(--accent)) 5%, var(--panel));
 }
 
 .card-top {
@@ -688,6 +690,7 @@ button {
   display: inline-flex;
   align-items: center;
   min-height: 23px;
+  border: 1px solid var(--line-2);
   border-radius: 999px;
   background: var(--panel-2);
   color: var(--ink-2);
@@ -697,8 +700,9 @@ button {
 }
 
 .chip.accent {
-  background: color-mix(in srgb, var(--accent) 15%, transparent);
-  color: var(--accent);
+  border-color: color-mix(in srgb, var(--local-accent, var(--accent)) 20%, var(--line));
+  background: color-mix(in srgb, var(--local-accent, var(--accent)) 10%, var(--panel));
+  color: var(--local-accent, var(--accent));
 }
 
 .card h3 {
@@ -725,7 +729,7 @@ button {
 .metric {
   border: 1px solid var(--line-2);
   border-radius: 8px;
-  background: var(--panel-2);
+  background: color-mix(in srgb, var(--panel-2) 88%, var(--accent) 12%);
   padding: 9px;
 }
 
@@ -791,9 +795,9 @@ button {
 
 .insight-box {
   margin-top: 12px;
-  border: 1px solid color-mix(in srgb, var(--accent) 25%, var(--line));
+  border: 1px solid color-mix(in srgb, var(--local-accent, var(--accent)) 25%, var(--line));
   border-radius: 8px;
-  background: color-mix(in srgb, var(--accent) 8%, var(--panel));
+  background: color-mix(in srgb, var(--local-accent, var(--accent)) 7%, var(--panel));
   padding: 10px;
   color: var(--ink);
   font-size: 12px;
@@ -804,7 +808,7 @@ button {
 .insight-box span {
   display: block;
   margin-bottom: 4px;
-  color: var(--accent);
+  color: var(--local-accent, var(--accent));
   font-size: 10px;
   font-weight: 900;
   letter-spacing: .05em;
@@ -936,7 +940,7 @@ button {
 
 .news-search:focus {
   border-color: var(--accent);
-  box-shadow: 0 0 0 3px rgba(240, 90, 40, .13);
+  box-shadow: 0 0 0 3px color-mix(in srgb, var(--accent) 18%, transparent);
 }
 
 .news-layout {
@@ -1005,7 +1009,7 @@ button {
 
 .news-list a:hover .news-title,
 .rainbow:hover {
-  background: linear-gradient(90deg, #2563eb, #6d28d9, #0e8f6e, #f05a28, #2563eb);
+  background: linear-gradient(90deg, var(--blue), var(--purple), var(--teal), var(--brand), var(--blue));
   background-size: 220% auto;
   -webkit-background-clip: text;
   background-clip: text;
@@ -1087,11 +1091,11 @@ button {
   width: min(760px, 100%);
   max-height: 88vh;
   overflow-y: auto;
-  border: 1px solid rgba(255, 255, 255, .15);
-  border-radius: 16px;
-  background: linear-gradient(180deg, #0d1728, #14233b);
-  color: #eaf1fb;
-  box-shadow: 0 30px 90px rgba(0, 0, 0, .55);
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  background: var(--panel);
+  color: var(--ink);
+  box-shadow: var(--shadow-lg);
   animation: pop .28s cubic-bezier(.22, 1, .36, 1);
 }
 
@@ -1106,8 +1110,8 @@ button {
   display: flex;
   align-items: center;
   gap: 10px;
-  border-bottom: 1px solid rgba(255, 255, 255, .1);
-  background: #0d1728;
+  border-bottom: 1px solid var(--line);
+  background: var(--panel);
   padding: 14px 16px;
 }
 
@@ -1117,8 +1121,8 @@ button {
   display: grid;
   place-items: center;
   border-radius: 8px;
-  background: #00ff41;
-  color: #0b1510;
+  background: var(--accent);
+  color: #fff;
   font-family: var(--display);
   font-weight: 900;
 }
@@ -1129,40 +1133,40 @@ button {
 
 .answer-head button {
   margin-left: auto;
-  border: 0;
+  border: 1px solid var(--line);
   border-radius: 8px;
-  background: rgba(255, 255, 255, .1);
-  color: #fff;
+  background: var(--panel-2);
+  color: var(--ink-2);
   padding: 7px 9px;
 }
 
 .answer-body {
   padding: 18px;
-  color: #bfffcf;
-  font-family: var(--display), monospace;
+  color: var(--ink-2);
+  font-family: var(--font);
   font-size: 14px;
   line-height: 1.8;
   white-space: pre-wrap;
-  text-shadow: 0 0 5px rgba(0, 255, 65, .2);
+  text-shadow: none;
 }
 
 .answer-body b {
-  color: #fff27a;
+  color: var(--accent);
 }
 
 .answer-foot {
   display: flex;
   justify-content: end;
   gap: 8px;
-  border-top: 1px solid rgba(255, 255, 255, .1);
+  border-top: 1px solid var(--line);
   padding: 14px 16px;
 }
 
 .answer-foot button {
-  border: 1px solid rgba(255, 255, 255, .18);
+  border: 1px solid var(--accent);
   border-radius: 9px;
-  background: #00ff41;
-  color: #08120d;
+  background: var(--accent);
+  color: #fff;
   padding: 8px 12px;
   font-size: 12px;
   font-weight: 900;

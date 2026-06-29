@@ -40,6 +40,19 @@
     geopolitics: "수출통제·허가 예외·중국 자본 투입이 공급망을 바꾸는지 점검",
     talent: "핵심 엔지니어 이동·채용 JD·IP 신호가 기술 격차를 줄이는지 확인",
   };
+  const CATEGORY_ACCENTS = {
+    all: "#4322A8",
+    dram: "#7A38D6",
+    nand: "#1428A0",
+    packaging: "#0E8F6E",
+    equipment: "#0A6E63",
+    talent: "#C026D3",
+    geopolitics: "#2D6BFF",
+    hbm: "#7A38D6",
+    cxl: "#0891B2",
+    aidemand: "#16A34A",
+    china: "#1428A0",
+  };
 
   let BASE = null;
   let LIVE = emptyLive;
@@ -90,6 +103,10 @@
 
   function memoryCategories() {
     return BASE.memoryCategories || [];
+  }
+
+  function categoryAccent(id) {
+    return CATEGORY_ACCENTS[id] || CATEGORY_ACCENTS.all;
   }
 
   function activeCategoryData() {
@@ -181,6 +198,7 @@
       const btn = el("button", `sb-cat${category.id === activeCategory ? " active" : ""}`);
       btn.type = "button";
       btn.dataset.category = category.id;
+      btn.style.setProperty("--local-accent", categoryAccent(category.id));
       btn.innerHTML = `<span>${escapeHTML(category.label)}</span><small>${escapeHTML(category.en)}</small>`;
       btn.addEventListener("click", () => {
         setCategory(category.id);
@@ -237,6 +255,7 @@
       const stats = categoryStats(cat.id);
       const card = el("article", `card reveal${cat.id === activeCategory ? " active" : ""}`);
       card.style.animationDelay = `${index * 35}ms`;
+      card.style.setProperty("--local-accent", categoryAccent(cat.id));
       card.innerHTML = `
         <div class="card-top">
           <div>
@@ -272,6 +291,7 @@
     (BASE.channels || []).filter(relatedToActive).forEach((item, index) => {
       const card = el("article", "card reveal");
       card.style.animationDelay = `${index * 35}ms`;
+      card.style.setProperty("--local-accent", categoryAccent((item.linkedCategories || [])[0]));
       card.innerHTML = `
         <div class="card-top">
           <div>
@@ -295,6 +315,7 @@
     items.forEach((company, index) => {
       const card = el("article", "card reveal");
       card.style.animationDelay = `${index * 35}ms`;
+      card.style.setProperty("--local-accent", categoryAccent((company.linkedCategories || [])[0]));
       card.innerHTML = `
         <div class="card-top">
           <div>
@@ -322,6 +343,7 @@
     (BASE.dynamics || []).filter(relatedToActive).forEach((item, index) => {
       const card = el("article", "card reveal");
       card.style.animationDelay = `${index * 35}ms`;
+      card.style.setProperty("--local-accent", categoryAccent((item.linkedCategories || [])[0]));
       card.innerHTML = `
         <span class="chip accent">${escapeHTML(item.axis)}</span>
         <h3>${escapeHTML(item.title)}</h3>
@@ -340,6 +362,7 @@
     (BASE.monetizationModels || []).filter(relatedToActive).forEach((item, index) => {
       const card = el("article", "card reveal");
       card.style.animationDelay = `${index * 35}ms`;
+      card.style.setProperty("--local-accent", categoryAccent((item.linkedCategories || [])[0]));
       card.innerHTML = `
         <h3>${escapeHTML(item.title)}</h3>
         <p>${escapeHTML(item.logic)}</p>
