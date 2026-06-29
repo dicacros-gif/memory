@@ -57,7 +57,7 @@ const CATEGORIES = [
   { id: "cxl", label: "CXL·Next Memory", queries: ["CXL memory pooling", "CXL switch memory expansion"] },
   { id: "packaging", label: "Packaging·Photonics", queries: ["advanced packaging HBM hybrid bonding", "silicon photonics interconnect memory"] },
   { id: "aidemand", label: "AI Demand", queries: ["AI memory demand data center", "AI accelerator memory bandwidth"] },
-  { id: "dealflow", label: "M&A·Investment", queries: ["semiconductor memory M&A acquisition", "memory startup funding round investment", "SK hynix investment stake"] },
+  { id: "benchmark", label: "China Benchmark", queries: ["China memory benchmark CXMT YMTC", "Chinese semiconductor equipment localization memory"] },
   { id: "china", label: "China·Geopolitics", queries: ["CXMT YMTC China memory", "China DRAM NAND export control"] },
 ];
 
@@ -97,7 +97,7 @@ const COMPETITORS = [
     label: "Kioxia / Western Digital",
     shortLabel: "Kioxia·WD",
     segment: "NAND · 엔터프라이즈 SSD",
-    baseline: "NAND 공급 조절, SSD 계약가, 일본·미국 투자 동향이 하이닉스 NAND 전략에 직접 영향.",
+    baseline: "NAND 공급 조절, SSD 계약가, 일본·미국 자본 지출 동향이 하이닉스 NAND 전략에 직접 영향.",
     queries: ["Kioxia Western Digital NAND SSD IPO"],
     watchWords: ["NAND", "SSD", "enterprise", "wafer", "capacity", "IPO"],
     pressureBase: 20,
@@ -273,11 +273,12 @@ const STARTUPS = [
   },
 ];
 
-// Foreign deal-flow themes feeding the M&A / CVC / portfolio radars.
-const DEALFLOW = [
-  { id: "ma", label: "Memory M&A", queries: ["semiconductor memory acquisition deal", "memory company merger acquisition"] },
-  { id: "funding", label: "Startup Funding", queries: ["CXL memory startup funding round", "photonics interconnect startup Series funding"] },
-  { id: "skhynix", label: "SK hynix CorpDev", queries: ["SK hynix investment acquisition stake", "SK hynix Solidigm Kioxia"] },
+// Foreign benchmark themes feeding the China memory signal radar.
+const BENCHMARK_SIGNAL_THEMES = [
+  { id: "capacity", label: "China Capacity", queries: ["CXMT capacity DRAM wafer China", "YMTC NAND capacity Xtacking China"] },
+  { id: "equipment", label: "Equipment Localization", queries: ["China semiconductor equipment localization Naura AMEC", "Chinese chip equipment localization memory"] },
+  { id: "packaging", label: "Advanced Packaging", queries: ["JCET advanced packaging AI memory", "XMC HBM packaging China"] },
+  { id: "talent", label: "Talent and IP Signals", queries: ["China semiconductor talent hiring memory", "CXMT engineer hiring DRAM"] },
 ];
 
 const STOPWORDS = new Set([
@@ -905,13 +906,13 @@ async function collectStartups() {
   };
 }
 
-/* ---------- deal flow (M&A / CVC / SK hynix CorpDev, foreign press) ---------- */
-async function collectDealflow() {
+/* ---------- benchmark signal stream (foreign press) ---------- */
+async function collectBenchmarkSignals() {
   const seen = new Set();
   const themes = [];
   let stream = [];
 
-  for (const theme of DEALFLOW) {
+  for (const theme of BENCHMARK_SIGNAL_THEMES) {
     const items = [];
     for (const query of theme.queries) {
       try {
@@ -923,7 +924,7 @@ async function collectDealflow() {
           items.push(item);
         }
       } catch (error) {
-        note(`딜플로우:${theme.label}/${query}`, false, error.message);
+        note(`벤치마킹:${theme.label}/${query}`, false, error.message);
       }
       await sleep(320);
     }
@@ -935,7 +936,7 @@ async function collectDealflow() {
       items: items.slice(0, 10).map(({ ts, category, ...rest }) => rest),
     });
     stream = stream.concat(items);
-    note(`딜플로우:${theme.label}`, items.length > 0, `${items.length}건`);
+    note(`벤치마킹:${theme.label}`, items.length > 0, `${items.length}건`);
   }
 
   stream.sort((a, b) => b.ts - a.ts);
@@ -988,13 +989,13 @@ function buildSignals({ prices, competitors, startups, newsStats: stats }) {
 
 /* ---------- main ---------- */
 async function main() {
-  const [prices, stocks, newsPayload, competitors, startups, dealflow] = await Promise.all([
+  const [prices, stocks, newsPayload, competitors, startups, benchmarkSignals] = await Promise.all([
     collectPrices(),
     collectStocks(),
     collectNews(),
     collectCompetitors(),
     collectStartups(),
-    collectDealflow(),
+    collectBenchmarkSignals(),
   ]);
   const priceHistory = await updatePriceHistory(prices);
   attachPriceHistory(prices, priceHistory);
@@ -1004,7 +1005,7 @@ async function main() {
   // Best-effort Korean headlines (no API key; English fallback on any failure).
   try {
     await addKoTitles(news, 42);
-    await addKoTitles(dealflow.stream, 24);
+    await addKoTitles(benchmarkSignals.stream, 24);
     for (const competitor of competitors.competitors) await addKoTitles(competitor.recentNews, 2);
     for (const startup of startups.candidates) await addKoTitles(startup.recentNews, 2);
     note("번역:KO", true, `${_trCount}건`);
@@ -1014,7 +1015,7 @@ async function main() {
 
   const signals = buildSignals({ prices, competitors, startups, newsStats: stats });
   const okCount = health.filter((item) => item.ok).length;
-  console.log(`\n수집 완료: ${okCount}/${health.length} 단계 성공, 외신 뉴스 ${news.length}건, 딜플로우 ${dealflow.stream.length}건, 가격표 ${prices.sections.length}개`);
+  console.log(`\n수집 완료: ${okCount}/${health.length} 단계 성공, 외신 뉴스 ${news.length}건, 벤치마킹 신호 ${benchmarkSignals.stream.length}건, 가격표 ${prices.sections.length}개`);
 
   const payload = {
     updatedAt: new Date().toISOString(),
@@ -1024,7 +1025,7 @@ async function main() {
     priceHistory,
     competitors,
     startups,
-    dealflow,
+    benchmarkSignals,
     signals,
     categories,
     news,

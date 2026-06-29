@@ -10,7 +10,7 @@
 | China Competitors | CXMT, YMTC, JCET/TFME, XMC, Naura, AMEC, ACM Research, Shanghai Sinyang/Anji | 첨부 벤치마킹 원문 기반 |
 | Intelligence Sources | CITIC/CICC/HSBC, Boss Zhipin, Maimai, TechInsights, Yole, DigiTimes, 36Kr, EE Times | 정적 모델 + 외신 |
 | Competitive Dynamics | 범용 DRAM 가격 하방, NAND/eSSD 교란, 패키징 우회, 소부장 국산화, 인재/IP 이동 | 정적 모델 |
-| Monetization Models | HBM 프리미엄, 레거시 DRAM 방어, NAND/eSSD 믹스, CXL 번들, 패키징 value-up | 정적 모델 |
+| Benchmark Models | HBM 인증, 레거시 DRAM 가격, NAND/eSSD 믹스, CXL 번들, 패키징 우회 | 정적 모델 |
 | Spot / Contract Prices | TrendForce DRAM/NAND spot 및 contract price | `scripts/crawl.mjs` |
 | Foreign / China News | 한국 출처를 제외한 외신·중국 중심 메모리 기사 | Google News RSS + 필터 |
 
@@ -64,4 +64,4 @@ https://dicacros-gif.github.io/memory/
 
 ## 면책
 
-이 대시보드는 공개 자료와 사용자가 제공한 벤치마킹 원문을 바탕으로 만든 내부 검토용 정보 화면입니다. 투자 권유, 매수·매도 의견, 공급 계약 판단을 대체하지 않습니다.
+이 대시보드는 공개 자료와 사용자가 제공한 벤치마킹 원문을 바탕으로 만든 내부 검토용 정보 화면입니다. 매수·매도 의견이나 공급 계약 판단을 대체하지 않습니다.

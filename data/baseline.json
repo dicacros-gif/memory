@@ -1,7 +1,7 @@
 {
   "meta": {
     "title": "SK hynix China Memory Benchmark Dashboard",
-    "subtitle": "중국 메모리 경쟁사, 공급망, 인재/IP 리스크, 가격과 외신 신호를 통합 추적",
+    "subtitle": "중국 메모리 경쟁사, 공급망, 인재/IP 신호, 가격과 외신 신호를 통합 추적",
     "reference": "bizdevelopment1-max/ai 스타일의 좌측 카테고리, 상단 Q&A, 보드형 인터랙션"
   },
   "kpis": [
@@ -83,9 +83,9 @@
     },
     {
       "id": "talent",
-      "label": "인재 · IP 리스크",
-      "en": "Talent / IP Risk",
-      "desc": "핵심 수율 엔지니어 영입, Boss Zhipin·Maimai 마이크로데이터, 기술 유출 리스크",
+      "label": "인재 · IP 신호",
+      "en": "Talent / IP Signals",
+      "desc": "핵심 수율 엔지니어 영입, Boss Zhipin·Maimai 마이크로데이터, 기술 유출 징후",
       "keywords": ["talent", "engineer", "IP", "Boss Zhipin", "Maimai", "recruiting", "yield"]
     },
     {
@@ -147,7 +147,7 @@
       "id": "finance",
       "title": "금융·증권사 채널",
       "source": "CITIC · CICC · HSBC Qianhai",
-      "desc": "IPO 투자설명서, Pre-IPO 자금 조달, 고객 계약, 기관 투자자, 팹 가동률과 출하 점유율을 추적",
+      "desc": "IPO 문서, Pre-IPO 자금 조달, 고객 계약, 기관 보유 변화, 팹 가동률과 출하 점유율을 추적",
       "signals": ["CXMT STAR Market 문서", "YMTC Pre-IPO 코칭", "Tencent 공급 계약", "웨이퍼 출하량 점유율"],
       "linkedCategories": ["dram", "nand", "geopolitics"]
     },
@@ -179,7 +179,7 @@
       "id": "media",
       "title": "중국·외신 기술 미디어",
       "source": "DigiTimes · 36Kr · EE Times",
-      "desc": "애플·빅테크 공급망 협상, 장비 반입, 고객 인증, 중국 정책 변화와 투자 흐름을 추적",
+      "desc": "애플·빅테크 공급망 협상, 장비 반입, 고객 인증, 중국 정책 변화와 자본 흐름을 추적",
       "signals": ["Apple supply chain", "AI accelerator", "export control", "Big Fund III"],
       "linkedCategories": ["dram", "geopolitics", "equipment"]
     },
@@ -249,7 +249,7 @@
       "score": 76,
       "summary": "YMTC 핵심 자회사에서 HBM 패키징과 하이엔드 로직 제조 축으로 선회하는 우한 거점.",
       "metrics": [
-        { "label": "우한 투자 계획", "value": "2600억 위안" },
+        { "label": "우한 증설 계획", "value": "2600억 위안" },
         { "label": "위치", "value": "Wuhan" },
         { "label": "역할", "value": "Made in China HBM" }
       ],
@@ -315,7 +315,7 @@
       "metrics": [
         { "label": "분야", "value": "CMP·세정액" },
         { "label": "전술", "value": "JV·공동 R&D" },
-        { "label": "리스크", "value": "Recipe 흡수" }
+        { "label": "관찰점", "value": "Recipe 흡수" }
       ],
       "watch": ["한국 소부장 JV 제안", "R&D 비용 전액 지원", "중국 내수 우선 공급권", "원천 소재 IP"],
       "insight": "단순 복제가 아니라 공정 recipe와 소재 데이터 흡수 전술로 봐야 합니다.",
@@ -332,7 +332,7 @@
       "linkedCategories": ["dram"]
     },
     {
-      "title": "NAND·eSSD 수익성 회복의 교란",
+      "title": "NAND·eSSD 회복 사이클 교란",
       "axis": "YMTC · Xtacking · Enterprise SSD",
       "desc": "YMTC가 NAND 점유율을 확대하고 eSSD로 올라오면 NAND 가격 회복과 Solidigm 시너지에 압력을 줄 수 있습니다.",
       "players": ["YMTC", "Kioxia", "WD", "Solidigm"],
@@ -366,7 +366,7 @@
     {
       "title": "미·중 규제와 우회 공급망",
       "axis": "Export control · China self-sufficiency",
-      "desc": "미국 수출통제는 중국의 독자 공급망 투자를 가속하고, XMC 같은 틈새 예외가 새로운 조립 거점으로 작동할 수 있습니다.",
+      "desc": "미국 수출통제는 중국의 독자 공급망 자본 투입을 가속하고, XMC 같은 틈새 예외가 새로운 조립 거점으로 작동할 수 있습니다.",
       "players": ["BIS", "Big Fund III", "XMC", "SMIC"],
       "watch": ["Entity List", "HBM export rule", "STRIDE", "license exception"],
       "linkedCategories": ["geopolitics", "packaging"]
@@ -377,42 +377,42 @@
       "title": "HBM 프리미엄 공급 계약",
       "logic": "NVIDIA·ASIC 고객과 장기 선급·우선 배정 계약을 묶어 ASP 프리미엄을 방어",
       "metric": "HBM ASP uplift · prepayment · allocation share",
-      "risk": "삼성·마이크론 HBM4 인증 속도와 고객 다변화",
+      "watch": "삼성·마이크론 HBM4 인증 속도와 고객 다변화",
       "linkedCategories": ["packaging", "geopolitics"]
     },
     {
       "title": "레거시 DRAM 원가 방어",
       "logic": "CXMT 가격 하방에 대비해 성숙 제품군의 공정 효율, 장비 reuse, 고객별 contract 방어선을 관리",
       "metric": "cash cost · DDR5/LPDDR margin · spot-contract spread",
-      "risk": "Apple·중국 빅테크의 공급망 다변화 협상력",
+      "watch": "Apple·중국 빅테크의 공급망 다변화 협상력",
       "linkedCategories": ["dram"]
     },
     {
       "title": "NAND·eSSD 믹스 전환",
       "logic": "범용 NAND 가격 경쟁을 enterprise SSD·AI 데이터센터 스토리지 믹스로 흡수",
       "metric": "eSSD revenue mix · NAND contract price · QLC attach",
-      "risk": "YMTC Xtacking 기반 가격 경쟁과 Kioxia/WD 공급 조절",
+      "watch": "YMTC Xtacking 기반 가격 경쟁과 Kioxia/WD 공급 조절",
       "linkedCategories": ["nand"]
     },
     {
       "title": "CXL·메모리 플랫폼 번들",
       "logic": "CXL 메모리 모듈과 pooling software, controller, switch 생태계를 묶어 단품 마진을 플랫폼 마진으로 전환",
       "metric": "attach rate · PoC conversion · platform margin",
-      "risk": "표준 지연과 소프트웨어 생태계 부재",
+      "watch": "표준 지연과 소프트웨어 생태계 부재",
       "linkedCategories": ["dram", "packaging"]
     },
     {
       "title": "첨단 패키징 value-up",
       "logic": "HBM 수율·thermal·test 병목을 개선해 동일 wafer 투입 대비 고부가 제품 비중을 높임",
       "metric": "yield · cycle time · known-good-stack ratio",
-      "risk": "JCET·XMC의 중국 내수 HBM 조립 우회로",
+      "watch": "JCET·XMC의 중국 내수 HBM 조립 우회로",
       "linkedCategories": ["packaging"]
     },
     {
       "title": "마이크로데이터 인텔리전스",
       "logic": "채용·커뮤니티·외신·IPO 문서·가격 데이터를 결합한 내부 조기경보 대시보드를 운영",
       "metric": "lead time · signal confidence · watchlist hit rate",
-      "risk": "노이즈와 검증되지 않은 현장 신호의 과대해석",
+      "watch": "노이즈와 검증되지 않은 현장 신호의 과대해석",
       "linkedCategories": ["talent", "equipment", "geopolitics"]
     }
   ],
@@ -439,7 +439,7 @@
       "title": "인재/IP 리텐션 방어",
       "priority": "P0",
       "desc": "핵심 수율 엔지니어와 공정 recipe 접근권을 별도로 관리하고 보상·문화·법적 통제를 결합",
-      "actions": ["핵심 인력 risk score", "stock option·장기 인센티브", "접근권 최소화", "퇴직 후 IP 모니터링"]
+      "actions": ["핵심 인력 signal score", "stock option·장기 인센티브", "접근권 최소화", "퇴직 후 IP 모니터링"]
     },
     {
       "title": "소부장 동맹 재설계",
@@ -475,7 +475,7 @@
       "category": "packaging",
       "source": "DigiTimes",
       "title": "China advanced packaging capacity expands around AI and memory demand",
-      "summary": "OSAT investment is becoming a critical route around leading-edge process limits.",
+      "summary": "OSAT capacity expansion is becoming a critical route around leading-edge process limits.",
       "date": "2026",
       "link": "https://www.digitimes.com/"
     },
@@ -490,7 +490,7 @@
     {
       "category": "geopolitics",
       "source": "Reuters",
-      "title": "US-China chip controls keep memory supply chain risk elevated",
+      "title": "US-China chip controls keep memory supply chain pressure elevated",
       "summary": "Export controls and domestic subsidies continue to reshape semiconductor sourcing.",
       "date": "2026",
       "link": "https://www.reuters.com/"
@@ -511,5 +511,5 @@
     "DigiTimes, 36Kr, EE Times, Reuters, Bloomberg, CNBC foreign and China-facing coverage",
     "첨부 보고서: SK하이닉스 중국 벤치마킹 업체 심층 분석 (2026 최신 동향)"
   ],
-  "disclaimer": "이 대시보드는 공개 자료와 사용자가 제공한 벤치마킹 원문을 기반으로 한 내부 검토용 정보 화면입니다. 투자 권유, 매수·매도 의견, 확정 사실 보증이 아닙니다."
+  "disclaimer": "이 대시보드는 공개 자료와 사용자가 제공한 벤치마킹 원문을 기반으로 한 내부 검토용 정보 화면입니다. 매수·매도 의견이나 확정 사실 보증이 아닙니다."
 }

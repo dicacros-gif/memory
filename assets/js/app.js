@@ -16,7 +16,7 @@
     prices: { sections: [], watchedItems: [] },
     news: [],
     categories: [],
-    dealflow: { stream: [] },
+    benchmarkSignals: { stream: [] },
     newsStats: {},
     health: [],
   };
@@ -336,13 +336,13 @@
         <p>${escapeHTML(item.logic)}</p>
         <div class="metric-row">
           <div class="metric"><strong>Metric</strong><span>${escapeHTML(item.metric)}</span></div>
-          <div class="metric"><strong>Risk</strong><span>${escapeHTML(item.risk)}</span></div>
+          <div class="metric"><strong>Watch</strong><span>${escapeHTML(item.watch)}</span></div>
           <div class="metric"><strong>Fit</strong><span>${(item.linkedCategories || []).map(categoryName).join(" · ")}</span></div>
         </div>
       `;
       grid.appendChild(card);
     });
-    if (!grid.children.length) grid.appendChild(el("div", "empty", "선택한 카테고리의 수익화 모델이 없습니다."));
+    if (!grid.children.length) grid.appendChild(el("div", "empty", "선택한 카테고리의 벤치마킹 모델이 없습니다."));
   }
 
   function renderResponses() {
@@ -685,7 +685,7 @@
 
   /* ---------------- News ---------------- */
   function rawNews() {
-    const live = (LIVE.news || []).concat(LIVE.dealflow?.stream || []);
+    const live = LIVE.news || [];
     const clean = live.filter((item) => isForeignNews(item) && isMemoryRelevant(item));
     return clean.length ? clean : (BASE.fallbackNews || []);
   }
