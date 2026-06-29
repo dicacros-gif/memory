@@ -149,6 +149,10 @@
       section: "intelligence",
     },
   ];
+  const NEWS_SOURCE_TABS = [
+    { id: "english", label: "영어권 기사", countId: "foreignNewsCount", bucketId: "foreignNewsBucket", listId: "foreignNewsList" },
+    { id: "chinese", label: "중국어 기사", countId: "chinaNewsCount", bucketId: "chinaNewsBucket", listId: "chinaNewsList" },
+  ];
   const SECTION_LABELS = {
     "china-dynamics": "중국 반도체 다이내믹스",
     dynamics: "경쟁 다이나믹스",
@@ -168,6 +172,7 @@
   let newsCategory = "all";
   let newsSearch = "";
   let newsCompany = "all";
+  let newsSource = "english";
   let workbenchMode = "dynamics";
   let selectedInsightId = null;
   let responsePriority = "all";
@@ -1585,19 +1590,25 @@
     return newsCompanyTerms(company).some((term) => hay.includes(term));
   }
 
+  function newsMatchesSource(item, sourceId = newsSource) {
+    return sourceId === "chinese" ? isChinaArticle(item) : !isChinaArticle(item);
+  }
+
   function newsBaseForCategory(categoryId = newsCategory) {
     return categoryId === "all" ? rawNews() : filteredNews(categoryId);
   }
 
-  function newsForView(categoryId = newsCategory, companyId = newsCompany) {
-    return newsBaseForCategory(categoryId).filter((item) => newsMatchesCompany(item, companyId));
+  function newsForView(categoryId = newsCategory, companyId = newsCompany, sourceId = newsSource) {
+    return newsBaseForCategory(categoryId)
+      .filter((item) => newsMatchesCompany(item, companyId))
+      .filter((item) => newsMatchesSource(item, sourceId));
   }
 
   function renderNewsCompanySelect() {
     const select = $("#newsCompanySelect");
     if (!select) return;
     const current = newsCompany;
-    const categoryBase = newsBaseForCategory(newsCategory);
+    const categoryBase = newsBaseForCategory(newsCategory).filter((item) => newsMatchesSource(item));
     const options = [{ id: "all", label: "전체 업체", count: categoryBase.length }].concat(newsCompanies().map((company) => ({
       id: company.id,
       label: company.name,
@@ -1609,6 +1620,22 @@
     ).join("");
     select.value = options.some((option) => option.id === current) ? current : "all";
     newsCompany = select.value;
+  }
+
+  function renderNewsSourceTabs() {
+    const wrap = $("#newsSourceTabs");
+    if (!wrap) return;
+    wrap.innerHTML = "";
+    NEWS_SOURCE_TABS.forEach((tab) => {
+      const count = newsForView(newsCategory, newsCompany, tab.id).length;
+      const btn = el("button", tab.id === newsSource ? "active" : "", `${escapeHTML(tab.label)} ${fmtNum(count)}건`);
+      btn.type = "button";
+      btn.addEventListener("click", () => {
+        newsSource = tab.id;
+        renderNews();
+      });
+      wrap.appendChild(btn);
+    });
   }
 
   function renderNews() {
@@ -1626,6 +1653,7 @@
     }
 
     renderNewsCompanySelect();
+    renderNewsSourceTabs();
 
     options.forEach((opt) => {
       const btn = el("button", opt.id === newsCategory ? "active" : "", `${escapeHTML(opt.label)} ${opt.count}`);
@@ -1648,13 +1676,15 @@
       if (!newsSearch) return true;
       return `${item.title || ""} ${item.titleKo || ""} ${item.summary || ""} ${item.source || ""}`.toLowerCase().includes(newsSearch);
     });
-    const chinaItems = items.filter(isChinaArticle);
-    const foreignItems = items.filter((item) => !isChinaArticle(item));
+    const activeTab = NEWS_SOURCE_TABS.find((tab) => tab.id === newsSource) || NEWS_SOURCE_TABS[0];
     $("#newsStats").textContent = `· ${items.length}건`;
-    $("#chinaNewsCount").textContent = `${chinaItems.length}건`;
-    $("#foreignNewsCount").textContent = `${foreignItems.length}건`;
-    renderNewsBucket($("#chinaNewsList"), chinaItems, "조건에 맞는 중국 기사 없음");
-    renderNewsBucket($("#foreignNewsList"), foreignItems, "조건에 맞는 외신 기사 없음");
+    NEWS_SOURCE_TABS.forEach((tab) => {
+      const bucket = $(`#${tab.bucketId}`);
+      const count = $(`#${tab.countId}`);
+      if (bucket) bucket.hidden = tab.id !== newsSource;
+      if (count) count.textContent = tab.id === newsSource ? `${items.length}건` : "0건";
+    });
+    renderNewsBucket($(`#${activeTab.listId}`), items, `조건에 맞는 ${activeTab.label} 없음`);
   }
 
   function renderNewsBucket(list, items, emptyMessage) {

@@ -1267,14 +1267,16 @@ button {
 }
 
 .segmented,
-.news-tabs {
+.news-tabs,
+.news-source-tabs {
   display: flex;
   flex-wrap: wrap;
   gap: 6px;
 }
 
 .segmented button,
-.news-tabs button {
+.news-tabs button,
+.news-source-tabs button {
   min-height: 34px;
   border: 1px solid var(--line);
   border-radius: 8px;
@@ -1287,11 +1289,21 @@ button {
 
 .segmented button.active,
 .news-tabs button.active,
+.news-source-tabs button.active,
 .segmented button:hover,
-.news-tabs button:hover {
+.news-tabs button:hover,
+.news-source-tabs button:hover {
   border-color: var(--accent);
   background: var(--accent);
   color: #fff;
+}
+
+.news-source-tabs {
+  margin-top: 8px;
+}
+
+.news-source-tabs button {
+  border-radius: 999px;
 }
 
 .price-summary {
@@ -1438,10 +1450,18 @@ button {
   min-width: 0;
 }
 
+.news-columns.source-tabbed {
+  grid-template-columns: minmax(0, 1fr);
+}
+
 .news-bucket {
   min-width: 0;
   display: grid;
   gap: 8px;
+}
+
+.news-bucket[hidden] {
+  display: none !important;
 }
 
 .news-bucket-head {
