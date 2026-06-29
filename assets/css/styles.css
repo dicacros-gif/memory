@@ -1346,6 +1346,35 @@ button {
   height: 30px;
 }
 
+.news-title-row {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px;
+}
+
+.news-title-row #newsStats {
+  white-space: nowrap;
+}
+
+.news-company-select {
+  max-width: min(240px, 100%);
+  min-height: 32px;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  background: var(--panel);
+  color: var(--ink);
+  outline: none;
+  padding: 5px 30px 5px 10px;
+  font-size: 12px;
+  font-weight: 850;
+}
+
+.news-company-select:focus {
+  border-color: var(--accent);
+  box-shadow: 0 0 0 3px color-mix(in srgb, var(--accent) 18%, transparent);
+}
+
 .news-search {
   width: min(280px, 100%);
   min-height: 38px;

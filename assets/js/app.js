@@ -30,6 +30,16 @@
   const APPLE_CONTENT_RE =
     /\b(apple|applem|aapl|iphone|ipad|macbook|9to5mac|applemagazine)\b|애플|아이폰|아이패드|맥북/i;
   const SOURCE_SUFFIX_RE = /\s[-–—]\s(?:[A-Za-z0-9가-힣 .·&]+)$/;
+  const COMPANY_NEWS_ALIASES = {
+    cxmt: ["cxmt", "changxin", "changxin memory", "changxin memory technologies"],
+    ymtc: ["ymtc", "yangtze memory", "yangtze memory technologies", "yangtze"],
+    jcet: ["jcet", "tfme", "tongfu", "huatian", "osat", "xdf oi", "xdfoi"],
+    xmc: ["xmc", "wuhan xinxin", "xinxin semiconductor"],
+    naura: ["naura", "north micro", "naura technology", "북방화창"],
+    amec: ["amec", "advanced micro-fabrication", "중웨이", "중웨이반도체"],
+    acm: ["acm research", "acmrcsh", "acm", "盛美"],
+    materials: ["shanghai sinyang", "sinyang", "anji", "anji technology", "anjimicro", "상하이신양", "안지과기"],
+  };
   const CATEGORY_INSIGHTS = {
     hbm: "HBM 인증·수율·고객 승인 속도를 삼성·마이크론과 비교",
     dram: "DDR5·LPDDR·범용 DRAM 가격과 고객 인증 변화 추적",
@@ -157,6 +167,7 @@
   let priceFilter = "all";
   let newsCategory = "all";
   let newsSearch = "";
+  let newsCompany = "all";
   let workbenchMode = "dynamics";
   let selectedInsightId = null;
   let responsePriority = "all";
@@ -1125,6 +1136,11 @@
       renderNewsList();
     });
 
+    $("#newsCompanySelect")?.addEventListener("change", (event) => {
+      newsCompany = event.target.value;
+      renderNews();
+    });
+
     document.addEventListener("keydown", (event) => {
       if (event.key === "Escape") closeInspector();
     });
@@ -1515,25 +1531,80 @@
     });
   }
 
+  function newsCompanies() {
+    return BASE.companies || [];
+  }
+
+  function newsCompanyTerms(company) {
+    if (!company) return [];
+    const pieces = [
+      company.id,
+      company.name,
+      company.fullName,
+      ...(COMPANY_NEWS_ALIASES[company.id] || []),
+    ];
+    return Array.from(new Set(pieces.flatMap((piece) => String(piece || "")
+      .split(/[\/·,()]+/)
+      .map((term) => term.toLowerCase().replace(/\s+/g, " ").trim())
+      .filter((term) => term.length > 1))));
+  }
+
+  function newsMatchesCompany(item, companyId = newsCompany) {
+    if (!companyId || companyId === "all") return true;
+    const company = newsCompanies().find((entry) => entry.id === companyId);
+    if (!company) return true;
+    const hay = `${item.title || ""} ${item.titleKo || ""} ${item.summary || ""} ${item.source || ""} ${item.link || ""}`.toLowerCase();
+    return newsCompanyTerms(company).some((term) => hay.includes(term));
+  }
+
+  function newsBaseForCategory(categoryId = newsCategory) {
+    return categoryId === "all" ? rawNews() : filteredNews(categoryId);
+  }
+
+  function newsForView(categoryId = newsCategory, companyId = newsCompany) {
+    return newsBaseForCategory(categoryId).filter((item) => newsMatchesCompany(item, companyId));
+  }
+
+  function renderNewsCompanySelect() {
+    const select = $("#newsCompanySelect");
+    if (!select) return;
+    const current = newsCompany;
+    const categoryBase = newsBaseForCategory(newsCategory);
+    const options = [{ id: "all", label: "전체 업체", count: categoryBase.length }].concat(newsCompanies().map((company) => ({
+      id: company.id,
+      label: company.name,
+      count: categoryBase.filter((item) => newsMatchesCompany(item, company.id)).length,
+    })));
+
+    select.innerHTML = options.map((option) =>
+      `<option value="${escapeHTML(option.id)}">${escapeHTML(option.label)} · ${fmtNum(option.count)}건</option>`
+    ).join("");
+    select.value = options.some((option) => option.id === current) ? current : "all";
+    newsCompany = select.value;
+  }
+
   function renderNews() {
     const tabs = $("#newsTabs");
     tabs.innerHTML = "";
     const cats = memoryCategories().filter((cat) => cat.id !== "all");
-    const options = [{ id: "all", label: "전체", count: rawNews().length }].concat(cats.map((cat) => ({
+    const options = [{ id: "all", label: "전체", count: newsForView("all").length }].concat(cats.map((cat) => ({
       id: cat.id,
       label: cat.label,
-      count: filteredNews(cat.id).length,
+      count: newsForView(cat.id).length,
     })));
 
     if (activeCategory !== "all" && options.some((opt) => opt.id === activeCategory)) {
       newsCategory = activeCategory;
     }
 
+    renderNewsCompanySelect();
+
     options.forEach((opt) => {
       const btn = el("button", opt.id === newsCategory ? "active" : "", `${escapeHTML(opt.label)} ${opt.count}`);
       btn.type = "button";
       btn.addEventListener("click", () => {
         newsCategory = opt.id;
+        renderNewsCompanySelect();
         renderNewsList();
         $$("#newsTabs button").forEach((b) => b.classList.toggle("active", b === btn));
       });
@@ -1544,7 +1615,7 @@
   }
 
   function renderNewsList() {
-    const base = newsCategory === "all" ? rawNews() : filteredNews(newsCategory);
+    const base = newsForView(newsCategory);
     const items = base.filter((item) => {
       if (!newsSearch) return true;
       return `${item.title || ""} ${item.titleKo || ""} ${item.summary || ""} ${item.source || ""}`.toLowerCase().includes(newsSearch);

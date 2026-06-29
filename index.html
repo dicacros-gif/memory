@@ -10,7 +10,7 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard/dist/web/static/pretendard.css" />
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;700;800;900&family=Space+Grotesk:wght@500;600;700&display=swap" />
-  <link rel="stylesheet" href="assets/css/styles.css?v=sidebar-flow-20260629" />
+  <link rel="stylesheet" href="assets/css/styles.css?v=news-company-filter-20260629" />
 </head>
 <body>
   <div class="app">
@@ -160,7 +160,11 @@
           <div class="board-head">
             <div>
               <p class="eyebrow">Foreign / China article stream</p>
-              <h2>중국 기사 · 외신 기사 <span id="newsStats"></span></h2>
+              <h2 class="news-title-row">
+                <span>중국 기사 · 외신 기사</span>
+                <span id="newsStats"></span>
+                <select class="news-company-select" id="newsCompanySelect" aria-label="기사 업체 선택"></select>
+              </h2>
             </div>
             <input class="news-search" id="newsSearch" type="search" placeholder="CXMT, YMTC, Micron..." />
           </div>
@@ -278,6 +282,6 @@
   <div class="qa-answer" id="qaAnswer" hidden></div>
   <div class="inspector" id="inspector" hidden></div>
   <div class="backdrop" id="backdrop"></div>
-  <script src="assets/js/app.js?v=dynamic-workbench-20260629" defer></script>
+  <script src="assets/js/app.js?v=news-company-filter-20260629" defer></script>
 </body>
 </html>
