@@ -401,7 +401,7 @@
   }
 
   function setupScrollSpy() {
-    const sections = ["overview", "categories", "competitors", "dynamics", "monetization", "response", "prices", "news", "intelligence"];
+    const sections = ["overview", "prices", "news", "categories", "competitors", "dynamics", "monetization", "response", "intelligence"];
     const update = () => {
       const y = window.scrollY + 96;
       let active = "overview";
