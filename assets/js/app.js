@@ -27,6 +27,8 @@
     /(memory|dram|nand|hbm|ddr|lpddr|gddr|ssd|semiconductor|chip|wafer|foundry|packaging|interconnect|cxl|trendforce|dramexchange|micron|samsung|sk hynix|hynix|kioxia|western digital|sandisk|cxmt|changxin|ymtc|yangtze|jcet|tfme|xmc|wuhan xinxin|naura|amec|acm research|techinsights|yole|big fund|export control|china chip|chinese chip)/i;
   const CHINA_NEWS_RE =
     /(china|chinese|cxmt|changxin|ymtc|yangtze|jcet|tfme|xmc|wuhan|naura|amec|huawei|tencent|alibaba|baidu|lenovo|big fund|36kr|pandaily|caixin|yicai|scmp|kraneshares|sina|sohu|eastmoney|huxiu|jiwei|c114|digitimes asia)/i;
+  const APPLE_CONTENT_RE =
+    /\b(apple|aapl|iphone|ipad|macbook|9to5mac|applemagazine)\b|애플|아이폰|아이패드|맥북/i;
   const SOURCE_SUFFIX_RE = /\s[-–—]\s(?:[A-Za-z0-9가-힣 .·&]+)$/;
   const CATEGORY_INSIGHTS = {
     hbm: "HBM 인증·수율·고객 승인 속도를 삼성·마이크론과 비교",
@@ -726,7 +728,7 @@
   /* ---------------- News ---------------- */
   function rawNews() {
     const live = LIVE.news || [];
-    const clean = live.filter((item) => isForeignNews(item) && isMemoryRelevant(item));
+    const clean = live.filter((item) => isForeignNews(item) && isMemoryRelevant(item) && !isAppleContent(item));
     return clean.length ? clean : (BASE.fallbackNews || []);
   }
 
@@ -742,6 +744,11 @@
     return MEMORY_NEWS_RE.test(hay);
   }
 
+  function isAppleContent(item) {
+    const hay = `${item.title || ""} ${item.titleKo || ""} ${item.summary || ""} ${item.source || ""} ${item.link || ""}`;
+    return APPLE_CONTENT_RE.test(hay);
+  }
+
   function newsTitle(item) {
     return cleanKoreanTitle(item.titleKo || item.title || "");
   }
@@ -749,7 +756,6 @@
   function cleanKoreanTitle(title) {
     return String(title || "")
       .replace(SOURCE_SUFFIX_RE, "")
-      .replace(/\bApple\b/g, "애플")
       .replace(/\bSamsung\b/g, "삼성")
       .replace(/\bMicron\b/g, "마이크론")
       .replace(/\bNVIDIA\b/g, "엔비디아")

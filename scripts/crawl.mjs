@@ -287,12 +287,13 @@ const STOPWORDS = new Set([
   "its", "into", "amid", "could", "would", "their", "than", "over", "after", "more",
   "how", "why", "what", "may", "can", "out", "but", "not", "you", "your", "inc",
   "ltd", "corp", "company", "tech", "news", "update", "billion", "million", "yahoo",
-  "google", "reuters", "bloomberg",
+  "google", "reuters", "bloomberg", "apple", "aapl", "iphone", "ipad", "macbook",
 ]);
 
 // Foreign-press filter: drop Korean-language items and Korean-origin outlets so
 // the dashboard stays 외신(foreign press) 중심. Applied at the single fetch choke point.
 const KOREAN_SOURCE_RE = /(yonhap|korea ?herald|korea ?times|koreatimes|koreaherald|chosun|joongang|joong ?ang|donga|dong-?a|hankyung|hankyoreh|ked ?global|kedglobal|maeil|maekyung|pulse ?news|business ?korea|businesskorea|et ?news|etnews|the ?elec|thelec|zdnet ?korea|sedaily|seoul ?economic|aju ?(business|news)|korea ?economic|korea ?joongang|korea ?biz ?wire|koreabizwire|inews24|edaily|mt\.co\.kr|mk\.co\.kr|dt\.co\.kr|\.kr\b|korea ?pro|the ?korea|naver|daum|fnnews|newspim|moneytoday|heraldcorp)/i;
+const EXCLUDED_NEWS_RE = /\b(apple|aapl|iphone|ipad|macbook|9to5mac|applemagazine)\b|애플|아이폰|아이패드|맥북/i;
 
 // Hangul / Hangul Jamo / kana / CJK / surrogate / specials. Stripped from
 // titles so a Latin headline stays clean even if a multibyte char mis-decoded,
@@ -314,6 +315,7 @@ function isForeignItem(item) {
   if (item.title.replace(/[^A-Za-z]/g, "").length < 6) return false;
   const src = `${item.source || ""} ${item.link || ""}`.toLowerCase();
   if (KOREAN_SOURCE_RE.test(src)) return false;
+  if (EXCLUDED_NEWS_RE.test(`${item.title || ""} ${item.source || ""} ${item.link || ""}`)) return false;
   return true;
 }
 
