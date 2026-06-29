@@ -815,7 +815,7 @@
       return;
     }
 
-    items.slice(0, 28).forEach((item) => {
+    items.slice(0, 42).forEach((item) => {
       const li = el("li");
       const a = el("a");
       a.href = item.link || "#";
