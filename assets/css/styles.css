@@ -1936,6 +1936,121 @@ body.sidebar-collapsed .sb-ico {
   margin-bottom: 12px;
 }
 
+.advanced-module-panel {
+  margin-bottom: 12px;
+}
+
+.advanced-module-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 12px;
+}
+
+.advanced-module-card {
+  display: grid;
+  gap: 11px;
+  min-width: 0;
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  background: var(--panel);
+  padding: 14px;
+  transition: transform .18s, border-color .18s, box-shadow .18s, background .18s;
+}
+
+.advanced-module-card:hover {
+  transform: translateY(-2px);
+  border-color: var(--local-accent, var(--accent));
+  background: color-mix(in srgb, var(--local-accent, var(--accent)) 6%, var(--panel));
+  box-shadow: var(--shadow-lg);
+}
+
+.advanced-module-head,
+.advanced-module-actions {
+  display: flex;
+  align-items: start;
+  gap: 8px;
+}
+
+.advanced-module-head {
+  justify-content: space-between;
+}
+
+.advanced-module-actions {
+  justify-content: flex-end;
+  flex-wrap: wrap;
+}
+
+.advanced-module-card h3 {
+  margin-top: 7px;
+  font-size: 15px;
+  line-height: 1.35;
+}
+
+.advanced-module-card p {
+  color: var(--ink-2);
+  font-size: 12px;
+  line-height: 1.58;
+  font-weight: 650;
+}
+
+.advanced-score-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 8px;
+}
+
+.advanced-score {
+  min-width: 0;
+  display: grid;
+  gap: 4px;
+  border: 1px solid var(--line-2);
+  border-radius: 7px;
+  background: var(--panel-2);
+  padding: 8px;
+}
+
+.advanced-score strong {
+  color: var(--local-accent, var(--accent));
+  font-family: var(--display);
+  font-size: 17px;
+  line-height: 1.1;
+  overflow-wrap: anywhere;
+}
+
+.advanced-score span,
+.advanced-score small {
+  color: var(--muted);
+  font-size: 10.5px;
+  font-weight: 850;
+  line-height: 1.35;
+  overflow-wrap: anywhere;
+}
+
+.advanced-score small {
+  color: var(--ink-2);
+  font-weight: 650;
+}
+
+.source-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+
+.source-row a {
+  display: inline-flex;
+  align-items: center;
+  max-width: 100%;
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  background: var(--panel-2);
+  color: var(--muted);
+  padding: 5px 8px;
+  font-size: 10.5px;
+  font-weight: 900;
+  overflow-wrap: anywhere;
+}
+
 .arch-track-card,
 .share-card,
 .roadmap-card,
@@ -3163,6 +3278,7 @@ body.sidebar-collapsed .sb-ico {
   .channel-grid,
   .crawler-summary,
   .ai-matrix-summary,
+  .advanced-module-grid,
   .share-matrix,
   .platform-module-grid,
   .corpdev-summary,
@@ -3359,6 +3475,7 @@ body.sidebar-collapsed .sb-ico {
   .china-dynamics-grid,
   .china-deep-grid,
   .ai-matrix-summary,
+  .advanced-module-grid,
   .architecture-track-grid,
   .value-chain-map,
   .platform-module-grid,
@@ -3404,6 +3521,7 @@ body.sidebar-collapsed .sb-ico {
     .company-grid,
     .crawler-summary,
     .ai-matrix-summary,
+    .advanced-module-grid,
     .architecture-track-grid,
     .architecture-split,
     .share-matrix,

@@ -324,6 +324,18 @@
       healthKeys: ["뉴스:HBM", "뉴스:CXL", "벤치마킹:Advanced Packaging"],
     },
     {
+      id: "foundry-memory-fusion",
+      label: "파운드리-메모리 융합",
+      source: "SK하이닉스-TSMC HBM4 · 삼성 1c/4nm 턴키 · CoWoS/패키징 할당",
+      method: "HBM4 base die, foundry node, CoWoS, Rubin 인증, logic die yield 신호를 고도화 인사이트 모듈로 연결",
+      fields: ["base die node", "CoWoS allocation", "logic die yield", "custom HBM sample", "Rubin qualification"],
+      filters: ["HBM4", "TSMC", "Samsung 4nm", "CoWoS", "Rubin", "base die"],
+      output: "파운드리-메모리 융합 시너지 트래커",
+      section: "ai-matrix",
+      linkedCategories: ["hbm", "packaging", "aidemand"],
+      healthKeys: ["뉴스:HBM", "벤치마킹:Advanced Packaging"],
+    },
+    {
       id: "foreign-news",
       label: "영어권 기사",
       source: "Google News RSS · 해외 기술/금융/반도체 매체",
@@ -346,6 +358,18 @@
       section: "china-dynamics",
       linkedCategories: ["china", "dram", "nand", "equipment", "packaging", "geopolitics"],
       healthKeys: ["뉴스:China", "벤치마킹:"],
+    },
+    {
+      id: "china-capa-warning",
+      label: "중국 잉여 캐파 경보",
+      source: "CXMT 매출/캐파 · YMTC Phase 3 · Naura/AMEC 국산 장비 · BIS 수출통제",
+      method: "중국 wafer start, 국산 장비 비중, DDR5/NAND 가격 spread, 미국 규제 이벤트를 조기경보 점수로 분류",
+      fields: ["wafer starts", "domestic tooling", "spot-contract spread", "BIS update", "risk score"],
+      filters: ["CXMT/YMTC", "capacity", "domestic equipment", "export control", "DRAM/NAND price"],
+      output: "중국 잉여 캐파 조기경보",
+      section: "china-dynamics",
+      linkedCategories: ["dram", "nand", "china", "equipment", "geopolitics"],
+      healthKeys: ["뉴스:China", "벤치마킹:China Capacity", "벤치마킹:Equipment Localization"],
     },
     {
       id: "benchmark-signals",
@@ -382,6 +406,18 @@
       section: "response",
       linkedCategories: ["cxl", "hbm", "packaging", "aidemand"],
       healthKeys: ["스타트업:"],
+    },
+    {
+      id: "post-hbm-architecture",
+      label: "Post-HBM 아키텍처",
+      source: "CXL 3.1/3.2 · Pangea v3 · 4F² VG/3D DRAM · IP/기판/테스터 밸류체인",
+      method: "CXL 표준, 서버 PoC, 3D DRAM 로드맵, 국내 소부장 밸류체인 신호를 Next-Gen Architecture Viewer로 분류",
+      fields: ["CXL standard", "Pangea v3", "4F2 VG", "controller IP", "tester/substrate"],
+      filters: ["CXL 3.1/3.2", "3D DRAM", "4F2 VG", "Openedges/FADU/TLB", "Exicon/Neosem"],
+      output: "Post-HBM 생태계 확장",
+      section: "ai-matrix",
+      linkedCategories: ["cxl", "dram", "equipment", "aidemand"],
+      healthKeys: ["뉴스:CXL", "벤치마킹:CXL and PIM Value Chain"],
     },
     {
       id: "ko-insight",
@@ -1424,6 +1460,7 @@
     return BASE.architectureMatrix || {
       summary: [],
       tracks: [],
+      advancedModules: [],
       shareMatrix: [],
       roadmap: [],
       valueChain: [],
@@ -1441,20 +1478,22 @@
     const matrix = architectureMatrix();
     const summary = $("#architectureSummary");
     const tracksWrap = $("#architectureTracks");
+    const advancedWrap = $("#advancedInsightModules");
     const shareWrap = $("#architectureShareMatrix");
     const roadmapWrap = $("#architectureRoadmap");
     const valueWrap = $("#valueChainMap");
     const moduleWrap = $("#platformModules");
     const meta = $("#architectureMeta");
-    if (!summary || !tracksWrap || !shareWrap || !roadmapWrap || !valueWrap || !moduleWrap) return;
+    if (!summary || !tracksWrap || !advancedWrap || !shareWrap || !roadmapWrap || !valueWrap || !moduleWrap) return;
 
     const tracks = (matrix.tracks || []).filter(architectureRelated);
+    const advancedModules = (matrix.advancedModules || []).filter(architectureRelated);
     const shareRows = (matrix.shareMatrix || []).filter(architectureRelated);
     const roadmap = matrix.roadmap || [];
     const valueChain = (matrix.valueChain || []).filter(architectureRelated);
     const modules = matrix.platformModules || [];
     if (meta) {
-      const objectCount = tracks.length + shareRows.length + roadmap.length + valueChain.length + modules.length;
+      const objectCount = tracks.length + advancedModules.length + shareRows.length + roadmap.length + valueChain.length + modules.length;
       meta.textContent = `${fmtNum(objectCount)}개 객체 · ${activeCategoryData().label} · ${matrix.sourceNote || "첨부 보고서 반영"}`;
     }
 
@@ -1493,6 +1532,56 @@
       tracksWrap.appendChild(card);
     });
     if (!tracksWrap.children.length) tracksWrap.appendChild(el("div", "empty", "선택한 카테고리의 AI 메모리 트랙이 없습니다."));
+
+    advancedWrap.innerHTML = "";
+    advancedModules.forEach((module, index) => {
+      const payload = {
+        type: "고도화 인사이트 모듈",
+        tag: module.badge || module.subtitle,
+        title: module.title,
+        body: module.thesis,
+        section: "ai-matrix",
+        categories: module.linkedCategories || [],
+        watch: (module.signals || []).concat(module.actions || []),
+        tags: (module.sources || []).map((source) => source.label || source.url || "Source"),
+        metrics: (module.scorecards || []).map((score) => ({
+          label: score.label,
+          value: score.value,
+        })),
+      };
+      const card = el("article", "advanced-module-card reveal");
+      card.style.animationDelay = `${index * 35}ms`;
+      card.style.setProperty("--local-accent", categoryAccent((module.linkedCategories || [])[0]));
+      card.innerHTML = `
+        <div class="advanced-module-head">
+          <div>
+            <span class="chip accent">${escapeHTML(module.subtitle || "Insight module")}</span>
+            <h3>${escapeHTML(module.title)}</h3>
+          </div>
+          <div class="advanced-module-actions">
+            ${factBadge(module.badge || "Watch", module.status || "watch")}
+            <button class="copy-btn" type="button" data-copy-advanced>복사</button>
+          </div>
+        </div>
+        <p>${escapeHTML(module.thesis || "")}</p>
+        <div class="advanced-score-grid">
+          ${(module.scorecards || []).map((score) => `
+            <div class="advanced-score">
+              <strong>${escapeHTML(score.value)}</strong>
+              <span>${escapeHTML(score.label)}</span>
+              <small>${escapeHTML(score.note || "")}</small>
+            </div>
+          `).join("")}
+        </div>
+        <div class="tag-row">${(module.signals || []).map((signal) => `<span class="tag">${escapeHTML(signal)}</span>`).join("")}</div>
+        ${(module.actions || []).length ? `<ul class="watch-list">${module.actions.map((action) => `<li>${escapeHTML(action)}</li>`).join("")}</ul>` : ""}
+        ${(module.sources || []).length ? `<div class="source-row">${module.sources.map((source) => `<a href="${escapeHTML(source.url || "#")}" target="_blank" rel="noopener">${escapeHTML(source.label || source.url || "Source")}</a>`).join("")}</div>` : ""}
+      `;
+      card.querySelector("[data-copy-advanced]")?.addEventListener("click", (event) => copyPayload(payload, event.currentTarget));
+      makeInspectable(card, payload);
+      advancedWrap.appendChild(card);
+    });
+    if (!advancedWrap.children.length) advancedWrap.appendChild(el("div", "empty", "선택한 카테고리의 고도화 인사이트 모듈이 없습니다."));
 
     shareWrap.innerHTML = "";
     shareRows.forEach((row, index) => {
@@ -2732,11 +2821,12 @@
     const drop = $("#qaDrop");
     const data = BASE.qa || { cats: [], pairs: [] };
     const q = String(filter || "").toLowerCase();
+    const queryTerms = q.split(/\s+/).map((term) => term.trim()).filter(Boolean);
     const cats = data.cats || [];
     const pairs = (data.pairs || []).filter((pair) => {
       if (!q) return true;
       const hay = `${pair.q} ${pair.a} ${(pair.keywords || []).join(" ")}`.toLowerCase();
-      return hay.includes(q);
+      return hay.includes(q) || queryTerms.every((term) => hay.includes(term));
     });
 
     drop.innerHTML = "";
@@ -2772,7 +2862,10 @@
     const scored = (data.pairs || []).map((pair) => {
       const tokens = [pair.q].concat(pair.keywords || []).map((x) => String(x).toLowerCase());
       const hay = q.toLowerCase();
+      const pairHay = `${pair.q} ${pair.a} ${(pair.keywords || []).join(" ")}`.toLowerCase();
+      const queryTerms = hay.split(/\s+/).map((term) => term.trim()).filter(Boolean);
       const score = tokens.reduce((acc, token) => acc + (token && hay.includes(token) ? 3 : 0), 0) +
+        queryTerms.reduce((acc, term) => acc + (term && pairHay.includes(term) ? 2 : 0), 0) +
         (pair.q.toLowerCase().includes(hay) ? 5 : 0);
       return { pair, score };
     }).sort((a, b) => b.score - a.score);
