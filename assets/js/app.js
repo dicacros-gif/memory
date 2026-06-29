@@ -78,6 +78,7 @@
   ];
   const NAV_ACCENTS = {
     overview: "#FFFFFF",
+    numbers: "#FDE68A",
     workbench: "#B9A7FF",
     "ai-matrix": "#C4B5FD",
     crawler: "#7EE7C8",
@@ -282,6 +283,7 @@
     { id: "chinese", label: "중국어 기사", countId: "chinaNewsCount", bucketId: "chinaNewsBucket", listId: "chinaNewsList" },
   ];
   const SECTION_LABELS = {
+    numbers: "숫자 대시보드",
     crawler: "전체 크롤링 관제",
     "ai-matrix": "AI 메모리 매트릭스",
     "china-dynamics": "중국 반도체 다이내믹스",
@@ -409,6 +411,9 @@
   let responsePriority = "all";
   let paletteIndex = 0;
   let typeTimer = null;
+  let numberOrder = [];
+  let numberFolded = {};
+  let draggedNumberId = null;
 
   async function loadJSON(path, fallback) {
     try {
@@ -435,6 +440,7 @@
     renderChrome();
     renderSidebarCategories();
     renderKpis();
+    renderNumberDashboard();
     renderCategories();
     renderChannels();
     renderCompanies();
@@ -688,6 +694,7 @@
     const cat = activeCategoryData();
     $("#categoryMeta").textContent = `${cat.label} · ${cat.desc}`;
     $$(".sb-cat").forEach((btn) => btn.classList.toggle("active", btn.dataset.category === id));
+    renderNumberDashboard();
     renderCategories();
     renderChannels();
     renderCompanies();
@@ -724,6 +731,371 @@
       `;
       strip.appendChild(node);
     });
+  }
+
+  function setCopyState(button, label = "복사됨") {
+    if (!button) return;
+    const original = button.dataset.originalText || button.textContent || "복사";
+    button.dataset.originalText = original;
+    button.classList.add("copied");
+    button.textContent = label;
+    window.setTimeout(() => {
+      button.classList.remove("copied");
+      button.textContent = original;
+    }, 1100);
+  }
+
+  async function copyTextToClipboard(text, button) {
+    const value = String(text || "").trim();
+    if (!value) return;
+    try {
+      if (navigator.clipboard?.writeText) {
+        try {
+          await navigator.clipboard.writeText(value);
+          setCopyState(button);
+          return;
+        } catch {
+          // Fall through to the legacy path for localhost and embedded browsers.
+        }
+      }
+      const area = document.createElement("textarea");
+      area.value = value;
+      area.setAttribute("readonly", "");
+      area.style.position = "fixed";
+      area.style.left = "-9999px";
+      document.body.appendChild(area);
+      area.select();
+      const ok = document.execCommand("copy");
+      area.remove();
+      if (!ok) throw new Error("execCommand copy returned false");
+      setCopyState(button);
+    } catch (error) {
+      console.warn("copy failed", error);
+      showCopyFallback(value);
+      setCopyState(button, "복사 준비");
+    }
+  }
+
+  function showCopyFallback(value) {
+    let panel = $(".copy-fallback");
+    if (!panel) {
+      panel = el("div", "copy-fallback", `
+        <div class="copy-fallback-head">
+          <strong>복사 텍스트</strong>
+          <button type="button" data-copy-fallback-close>닫기</button>
+        </div>
+        <textarea readonly></textarea>
+      `);
+      document.body.appendChild(panel);
+      panel.querySelector("[data-copy-fallback-close]")?.addEventListener("click", () => {
+        panel.hidden = true;
+      });
+    }
+    const area = panel.querySelector("textarea");
+    area.value = value;
+    panel.hidden = false;
+    area.focus();
+    area.select();
+  }
+
+  function payloadPlainText(payload) {
+    const data = normalizePayload(payload);
+    const lines = [
+      `[${data.type}] ${data.title}`,
+      data.body,
+    ];
+    if (data.metrics.length) {
+      lines.push("", "숫자/지표");
+      data.metrics.forEach((metric) => {
+        lines.push(`- ${metric.label || "Metric"}: ${metric.value ?? metric}`);
+      });
+    }
+    if (data.watch.length) {
+      lines.push("", "체크포인트");
+      data.watch.forEach((item) => lines.push(`- ${item}`));
+    }
+    if (data.tags.length) lines.push("", `관련 플레이어: ${data.tags.join(" · ")}`);
+    if (data.categories.length) lines.push(`카테고리: ${data.categories.map(categoryName).join(" · ")}`);
+    return lines.filter((line) => line !== null && line !== undefined).join("\n");
+  }
+
+  function copyPayload(payload, button) {
+    copyTextToClipboard(payloadPlainText(payload), button);
+  }
+
+  function inferKpiCategories(kpi) {
+    const hay = `${kpi.label || ""} ${kpi.note || ""} ${kpi.alt || ""}`.toLowerCase();
+    const out = [];
+    [
+      ["hbm", /hbm|premium|ai/],
+      ["dram", /dram|ddr|lpddr|cxmt/],
+      ["nand", /nand|ssd|ymtc|solidigm/],
+      ["packaging", /packaging|tsv|bonder|hybrid/],
+      ["equipment", /equipment|tool|naura|amec|localization/],
+      ["geopolitics", /wsts|export|sanction|regulation|big fund/],
+    ].forEach(([id, re]) => {
+      if (re.test(hay)) out.push(id);
+    });
+    return out;
+  }
+
+  function numberDisplayValue(item) {
+    const n = Number(item.value);
+    if (Number.isNaN(n)) return String(item.value ?? "");
+    return `${item.prefix || ""}${fmtNum(n, item.decimals || 0)}${item.suffix || ""}`;
+  }
+
+  function numberRelated(item) {
+    if (activeCategory === "all") return true;
+    const cats = item.linkedCategories || [];
+    return !cats.length || cats.includes(activeCategory);
+  }
+
+  function numberDashboardItems() {
+    const health = LIVE.health || [];
+    const ok = health.filter((entry) => entry.ok).length;
+    const fail = Math.max(health.length - ok, 0);
+    const priceState = freshnessState({
+      updatedAt: LIVE.prices?.updatedAt || LIVE.updatedAt,
+      count: allPriceRows().length,
+      healthKeys: ["가격:"],
+      staleHours: 30,
+    });
+    const newsState = freshnessState({
+      updatedAt: LIVE.updatedAt,
+      count: rawNews().length,
+      healthKeys: ["뉴스", "외신", "중국"],
+      staleHours: 36,
+    });
+    const corpLayers = Object.values(BASE.corpDev?.layers || {});
+    const corpEvents = corpLayers.reduce((sum, layer) => sum + (layer.items || []).length, 0);
+    const baseItems = (BASE.kpis || []).map((kpi, index) => ({
+      id: `kpi-${index}`,
+      kind: "KPI",
+      title: kpi.label,
+      value: kpi.value,
+      prefix: kpi.prefix || "",
+      suffix: kpi.suffix || "",
+      decimals: kpi.decimals || 0,
+      note: kpi.note,
+      alt: kpi.alt,
+      badge: kpi.badge || kpi.status || "KPI",
+      statusClass: kpi.statusClass || kpi.status || "watch",
+      source: kpi.source || "baseline",
+      sourceDate: kpi.sourceDate || "",
+      sourceUrl: kpi.sourceUrl || "",
+      linkedCategories: kpi.linkedCategories || inferKpiCategories(kpi),
+    }));
+    const liveItems = [
+      {
+        id: "live-price-rows",
+        kind: "Crawler",
+        title: "Spot / Contract 가격 rows",
+        value: allPriceRows().length,
+        suffix: "건",
+        note: `${fmtNum(LIVE.prices?.sections?.length || 0)}개 TrendForce 표 · 품목별 rows 기준`,
+        badge: priceState.label,
+        statusClass: priceState.cls,
+        source: "TrendForce crawler",
+        sourceDate: fmtDate(LIVE.prices?.updatedAt || LIVE.updatedAt),
+        linkedCategories: ["dram", "nand"],
+      },
+      {
+        id: "live-foreign-news",
+        kind: "News",
+        title: "영어권 기사",
+        value: rawNews().filter((item) => !isChinaArticle(item)).length,
+        suffix: "건",
+        note: "Reuters · Bloomberg · FT · TrendForce · TechInsights 중심",
+        badge: newsState.label,
+        statusClass: newsState.cls,
+        source: "foreign news crawler",
+        sourceDate: fmtDate(LIVE.updatedAt),
+        linkedCategories: ["hbm", "dram", "nand", "packaging", "geopolitics"],
+      },
+      {
+        id: "live-china-news",
+        kind: "News",
+        title: "중국어 기사",
+        value: rawNews().filter(isChinaArticle).length,
+        suffix: "건",
+        note: "财新 · 第一财经 · 集微网 · 观察者网 등 중국 생태계 신호",
+        badge: newsState.label,
+        statusClass: newsState.cls,
+        source: "china news crawler",
+        sourceDate: fmtDate(LIVE.updatedAt),
+        linkedCategories: ["china", "dram", "nand", "equipment", "packaging"],
+      },
+      {
+        id: "live-crawler-health",
+        kind: "Health",
+        title: "수집 성공 단계",
+        value: ok,
+        suffix: `/${health.length}`,
+        note: fail ? `${fmtNum(fail)}개 수집 단계 점검 필요` : "가격·뉴스·벤치마킹 수집 단계 정상",
+        badge: fail ? "Fail" : "OK",
+        statusClass: fail ? "fail" : "ok",
+        source: "GitHub Actions daily crawler",
+        sourceDate: fmtDate(LIVE.updatedAt),
+        linkedCategories: [],
+      },
+      {
+        id: "live-corpdev-events",
+        kind: "Corp Dev",
+        title: "거래·자본 이벤트",
+        value: corpEvents,
+        suffix: "건",
+        note: "M&A · JV · IPO · 지분투자 · 정부펀드 · 장기 공급계약 레이어",
+        badge: "Layer",
+        statusClass: "watch",
+        source: "baseline corpDev layer",
+        sourceDate: "versioned",
+        linkedCategories: ["corpdev", "geopolitics", "equipment"],
+      },
+    ];
+    return baseItems.concat(liveItems);
+  }
+
+  function orderedNumberItems(items) {
+    if (!numberOrder.length) {
+      try {
+        numberOrder = JSON.parse(localStorage.getItem("memory-number-order") || "[]");
+      } catch {
+        numberOrder = [];
+      }
+    }
+    try {
+      numberFolded = JSON.parse(localStorage.getItem("memory-number-folded") || "{}") || {};
+    } catch {
+      numberFolded = {};
+    }
+    const ids = items.map((item) => item.id);
+    const order = numberOrder.filter((id) => ids.includes(id)).concat(ids.filter((id) => !numberOrder.includes(id)));
+    return order.map((id) => items.find((item) => item.id === id)).filter(Boolean);
+  }
+
+  function saveNumberPrefs() {
+    localStorage.setItem("memory-number-order", JSON.stringify(numberOrder));
+    localStorage.setItem("memory-number-folded", JSON.stringify(numberFolded));
+  }
+
+  function numberProgress(item) {
+    const n = Number(item.value);
+    if (Number.isNaN(n)) return 64;
+    if (String(item.suffix || "").includes("%")) return Math.max(6, Math.min(100, n));
+    if (String(item.statusClass || "").toLowerCase() === "fail") return 22;
+    if (String(item.statusClass || "").toLowerCase() === "stale") return 58;
+    return Math.max(12, Math.min(100, n * 8));
+  }
+
+  function numberPlainText(item) {
+    return [
+      `[${item.kind || "KPI"}] ${item.title}`,
+      `값: ${numberDisplayValue(item)}`,
+      `상태: ${item.badge || item.statusClass || "Watch"}`,
+      `출처: ${item.source || "baseline"}${item.sourceDate ? ` · ${item.sourceDate}` : ""}`,
+      item.note ? `요약: ${item.note}` : "",
+      item.alt ? `비교: ${item.alt}` : "",
+      item.linkedCategories?.length ? `카테고리: ${item.linkedCategories.map(categoryName).join(" · ")}` : "",
+    ].filter(Boolean).join("\n");
+  }
+
+  function renderNumberDashboard() {
+    const grid = $("#numberGrid");
+    if (!grid) return;
+    const items = orderedNumberItems(numberDashboardItems().filter(numberRelated));
+    const meta = $("#numberMeta");
+    if (meta) meta.textContent = `${fmtNum(items.length)}개 지표 · ${activeCategoryData()?.label || "전체"} · ${fmtDate(LIVE.updatedAt)}`;
+    grid.innerHTML = "";
+    items.forEach((item, index) => {
+      const payload = {
+        type: item.kind || "숫자 대시보드",
+        tag: item.badge,
+        title: item.title,
+        body: item.note,
+        section: "numbers",
+        categories: item.linkedCategories || [],
+        watch: [item.alt, item.source, item.sourceDate].filter(Boolean),
+        metrics: [
+          { label: "Value", value: numberDisplayValue(item) },
+          { label: "Status", value: item.badge || item.statusClass || "Watch" },
+          { label: "Source", value: item.source || "baseline" },
+        ],
+      };
+      const folded = Boolean(numberFolded[item.id]);
+      const card = el("article", `number-card reveal${folded ? " folded" : ""}`);
+      card.draggable = true;
+      card.dataset.numberId = item.id;
+      card.style.animationDelay = `${index * 30}ms`;
+      card.style.setProperty("--local-accent", categoryAccent((item.linkedCategories || [])[0]));
+      card.innerHTML = `
+        <div class="number-card-head">
+          <span class="chip accent">${escapeHTML(item.kind || "KPI")}</span>
+          <div class="number-actions">
+            <button class="copy-btn" type="button" data-copy-number="${escapeHTML(item.id)}">복사</button>
+            <button class="copy-btn ghost" type="button" data-number-toggle="${escapeHTML(item.id)}" aria-expanded="${folded ? "false" : "true"}">${folded ? "펼치기" : "접기"}</button>
+          </div>
+        </div>
+        <h3>${escapeHTML(item.title)}</h3>
+        <strong class="number-value">${countHTML(item.value, {
+          prefix: item.prefix || "",
+          suffix: item.suffix || "",
+          decimals: item.decimals || 0,
+        })}</strong>
+        <div class="number-body">
+          <div class="number-status">
+            ${factBadge(item.badge || item.statusClass || "Watch", item.statusClass || "watch")}
+            <span>${escapeHTML(item.sourceDate || "")}</span>
+          </div>
+          <p>${escapeHTML(item.note || "")}</p>
+          ${item.alt ? `<small>${escapeHTML(item.alt)}</small>` : ""}
+          <div class="number-bar"><i style="width:${numberProgress(item)}%"></i></div>
+          <div class="number-source">${escapeHTML(item.source || "baseline")}</div>
+        </div>
+      `;
+      card.querySelector("[data-copy-number]")?.addEventListener("click", (event) => copyTextToClipboard(numberPlainText(item), event.currentTarget));
+      card.querySelector("[data-number-toggle]")?.addEventListener("click", () => {
+        numberFolded[item.id] = !numberFolded[item.id];
+        saveNumberPrefs();
+        renderNumberDashboard();
+      });
+      card.addEventListener("dragstart", () => {
+        draggedNumberId = item.id;
+        card.classList.add("dragging");
+      });
+      card.addEventListener("dragend", () => {
+        draggedNumberId = null;
+        card.classList.remove("dragging");
+        $$(".number-card.drop-target").forEach((node) => node.classList.remove("drop-target"));
+      });
+      card.addEventListener("dragover", (event) => {
+        event.preventDefault();
+        if (draggedNumberId && draggedNumberId !== item.id) card.classList.add("drop-target");
+      });
+      card.addEventListener("dragleave", () => card.classList.remove("drop-target"));
+      card.addEventListener("drop", (event) => {
+        event.preventDefault();
+        card.classList.remove("drop-target");
+        if (!draggedNumberId || draggedNumberId === item.id) return;
+        const allIds = numberDashboardItems().map((entry) => entry.id);
+        const currentOrder = (numberOrder.length ? numberOrder : allIds).filter((id) => allIds.includes(id));
+        allIds.forEach((id) => {
+          if (!currentOrder.includes(id)) currentOrder.push(id);
+        });
+        const from = currentOrder.indexOf(draggedNumberId);
+        const to = currentOrder.indexOf(item.id);
+        if (from < 0 || to < 0) return;
+        currentOrder.splice(from, 1);
+        currentOrder.splice(to, 0, draggedNumberId);
+        numberOrder = currentOrder;
+        saveNumberPrefs();
+        renderNumberDashboard();
+      });
+      makeInspectable(card, payload);
+      grid.appendChild(card);
+    });
+    if (!grid.children.length) grid.appendChild(el("div", "empty", "선택한 카테고리의 숫자 지표가 없습니다."));
+    animateCounts(grid);
   }
 
   function relatedToActive(item) {
@@ -1864,11 +2236,13 @@
         </div>
       ` : ""}
       <div class="work-detail-actions">
+        <button type="button" data-copy-work>인사이트 복사</button>
         <button type="button" data-open-inspector>상세 패널 열기</button>
         <button type="button" data-work-jump="${escapeHTML(item.section)}">관련 보드로 이동</button>
       </div>
     `;
 
+    detail.querySelector("[data-copy-work]")?.addEventListener("click", (event) => copyPayload(item, event.currentTarget));
     detail.querySelector("[data-open-inspector]")?.addEventListener("click", () => openInspector(item));
     detail.querySelectorAll("[data-work-jump]").forEach((btn) => {
       btn.addEventListener("click", () => jumpTo(btn.dataset.workJump));
@@ -1954,11 +2328,13 @@
           ` : ""}
         </div>
         <div class="inspector-actions">
+          <button type="button" data-inspector-copy>인사이트 복사</button>
           <button type="button" data-inspector-jump="${escapeHTML(data.section)}">관련 보드로 이동</button>
         </div>
       </div>
     `;
     overlay.querySelector("[data-close-inspector]")?.addEventListener("click", closeInspector);
+    overlay.querySelector("[data-inspector-copy]")?.addEventListener("click", (event) => copyTextToClipboard(payloadPlainText(data), event.currentTarget));
     overlay.addEventListener("click", (event) => {
       if (event.target === overlay) closeInspector();
     }, { once: true });
@@ -2024,36 +2400,163 @@
     });
   }
 
+  function dynamicsPayload(item) {
+    return {
+      type: "경쟁 다이나믹스",
+      tag: item.axis,
+      title: item.title,
+      body: item.desc,
+      section: "dynamics",
+      categories: item.linkedCategories || [],
+      watch: item.watch || [],
+      tags: item.players || [],
+      metrics: [
+        { label: "Players", value: fmtNum((item.players || []).length) },
+        { label: "Watch", value: fmtNum((item.watch || []).length) },
+        { label: "Fit", value: (item.linkedCategories || []).map(categoryName).join(" · ") || "전체" },
+      ],
+    };
+  }
+
+  function renderDynamicRelationMap(items) {
+    const wrap = $("#dynamicRelationMap");
+    if (!wrap) return;
+    wrap.innerHTML = "";
+    if (!items.length) {
+      wrap.appendChild(el("div", "empty", "선택한 카테고리의 관계 맵이 없습니다."));
+      return;
+    }
+    const head = el("div", "relation-head", `
+      <div>
+        <span>Competitive graph</span>
+        <strong>${escapeHTML(activeCategoryData()?.label || "전체")} 관계 맵</strong>
+      </div>
+      <small>플레이어 · 병목 · 관찰 지표를 클릭/복사</small>
+    `);
+    const lanes = el("div", "relation-lanes");
+    items.forEach((item, index) => {
+      const players = item.players || [];
+      const from = players[0] || "시장";
+      const to = players.slice(1, 4).join(" · ") || item.title;
+      const payload = dynamicsPayload(item);
+      const edge = el("article", "relation-edge reveal");
+      edge.style.animationDelay = `${index * 30}ms`;
+      edge.style.setProperty("--local-accent", categoryAccent((item.linkedCategories || [])[0]));
+      edge.innerHTML = `
+        <div class="relation-node source">${escapeHTML(from)}</div>
+        <div class="relation-connector">
+          <span>${escapeHTML(item.axis || "dynamic")}</span>
+          <i></i>
+        </div>
+        <div class="relation-node target">${escapeHTML(to)}</div>
+        <p>${escapeHTML(item.desc)}</p>
+        <div class="relation-foot">
+          <span>${(item.watch || []).slice(0, 2).map(escapeHTML).join(" · ")}</span>
+          <button class="copy-btn" type="button" data-copy-relation>복사</button>
+        </div>
+      `;
+      edge.querySelector("[data-copy-relation]")?.addEventListener("click", (event) => copyPayload(payload, event.currentTarget));
+      makeInspectable(edge, payload);
+      lanes.appendChild(edge);
+    });
+    wrap.append(head, lanes);
+  }
+
+  function modelPayload(item) {
+    return {
+      type: "수익화 모델",
+      tag: (item.linkedCategories || []).map(categoryName).join(" · ") || "Benchmark",
+      title: item.title,
+      body: item.logic,
+      section: "monetization",
+      categories: item.linkedCategories || [],
+      watch: [item.metric, item.watch].filter(Boolean),
+      metrics: [
+        { label: "Metric", value: item.metric },
+        { label: "Watch", value: item.watch },
+        { label: "Fit", value: (item.linkedCategories || []).map(categoryName).join(" · ") || "전체" },
+      ],
+    };
+  }
+
+  function moneyFlowFromModel(item) {
+    const cats = item.linkedCategories || [];
+    if (cats.includes("hbm")) return { from: "AI GPU·ASIC 고객", to: "SK hynix HBM", lever: "ASP 프리미엄" };
+    if (cats.includes("dram")) return { from: "PC·모바일·중국 빅테크", to: "범용 DRAM", lever: "원가 방어" };
+    if (cats.includes("nand")) return { from: "클라우드·eSSD 고객", to: "NAND·Solidigm", lever: "믹스 전환" };
+    if (cats.includes("packaging")) return { from: "장비·OSAT 생태계", to: "첨단 패키징", lever: "수율·캐파" };
+    if (cats.includes("cxl")) return { from: "데이터센터 플랫폼", to: "CXL/PIM", lever: "플랫폼 옵션" };
+    return { from: "시장 신호", to: "벤치마킹 모델", lever: "관찰 지표" };
+  }
+
+  function renderMoneyFlowMap(items) {
+    const wrap = $("#moneyFlowMap");
+    if (!wrap) return;
+    wrap.innerHTML = "";
+    if (!items.length) {
+      wrap.appendChild(el("div", "empty", "선택한 카테고리의 수익화 흐름이 없습니다."));
+      return;
+    }
+    const head = el("div", "relation-head", `
+      <div>
+        <span>Money flow</span>
+        <strong>수익화 레버 맵</strong>
+      </div>
+      <small>고객 · 제품 · 지표를 한 줄 흐름으로 추적</small>
+    `);
+    const flow = el("div", "money-flow-lanes");
+    items.forEach((item, index) => {
+      const payload = modelPayload(item);
+      const flowInfo = moneyFlowFromModel(item);
+      const node = el("article", "money-flow-card reveal");
+      node.style.animationDelay = `${index * 30}ms`;
+      node.style.setProperty("--local-accent", categoryAccent((item.linkedCategories || [])[0]));
+      node.innerHTML = `
+        <div class="money-flow-path">
+          <span>${escapeHTML(flowInfo.from)}</span>
+          <i></i>
+          <span>${escapeHTML(flowInfo.to)}</span>
+        </div>
+        <div class="money-flow-main">
+          <h3>${escapeHTML(item.title)}</h3>
+          <p>${escapeHTML(item.logic)}</p>
+        </div>
+        <div class="money-flow-metrics">
+          <div><strong>${escapeHTML(flowInfo.lever)}</strong><span>수익 레버</span></div>
+          <div><strong>${escapeHTML(item.metric)}</strong><span>핵심 숫자</span></div>
+          <button class="copy-btn" type="button" data-copy-money>복사</button>
+        </div>
+      `;
+      node.querySelector("[data-copy-money]")?.addEventListener("click", (event) => copyPayload(payload, event.currentTarget));
+      makeInspectable(node, payload);
+      flow.appendChild(node);
+    });
+    wrap.append(head, flow);
+  }
+
   function renderDynamics() {
     const grid = $("#dynamicGrid");
     renderCategoryControls("dynamicControls", BASE.dynamics || [], "dynamics");
+    const items = (BASE.dynamics || []).filter(relatedToActive);
+    renderDynamicRelationMap(items);
     grid.innerHTML = "";
-    (BASE.dynamics || []).filter(relatedToActive).forEach((item, index) => {
+    items.forEach((item, index) => {
+      const payload = dynamicsPayload(item);
       const card = el("article", "card reveal");
       card.style.animationDelay = `${index * 35}ms`;
       card.style.setProperty("--local-accent", categoryAccent((item.linkedCategories || [])[0]));
       card.innerHTML = `
-        <span class="chip accent">${escapeHTML(item.axis)}</span>
+        <div class="card-top">
+          <span class="chip accent">${escapeHTML(item.axis)}</span>
+          <button class="copy-btn" type="button" data-copy-dynamic>복사</button>
+        </div>
         <h3>${escapeHTML(item.title)}</h3>
         <p>${escapeHTML(item.desc)}</p>
         <div class="tag-row">${(item.players || []).map((p) => `<span class="tag">${escapeHTML(p)}</span>`).join("")}</div>
         <ul class="watch-list">${(item.watch || []).map((w) => `<li>${escapeHTML(w)}</li>`).join("")}</ul>
       `;
-      makeInspectable(card, {
-        type: "경쟁 다이나믹스",
-        tag: item.axis,
-        title: item.title,
-        body: item.desc,
-        section: "dynamics",
-        categories: item.linkedCategories || [],
-        watch: item.watch || [],
-        tags: item.players || [],
-        metrics: [
-          { label: "Players", value: fmtNum((item.players || []).length) },
-          { label: "Watch", value: fmtNum((item.watch || []).length) },
-          { label: "Fit", value: (item.linkedCategories || []).map(categoryName).join(" · ") || "전체" },
-        ],
-      });
+      card.querySelector("[data-copy-dynamic]")?.addEventListener("click", (event) => copyPayload(payload, event.currentTarget));
+      makeInspectable(card, payload);
       grid.appendChild(card);
     });
     if (!grid.children.length) grid.appendChild(el("div", "empty", "선택한 카테고리의 경쟁 다이나믹스가 없습니다."));
@@ -2062,34 +2565,30 @@
   function renderModels() {
     const grid = $("#modelGrid");
     renderCategoryControls("modelControls", BASE.monetizationModels || [], "monetization");
+    const items = (BASE.monetizationModels || []).filter(relatedToActive);
+    renderMoneyFlowMap(items);
     grid.innerHTML = "";
-    (BASE.monetizationModels || []).filter(relatedToActive).forEach((item, index) => {
-      const card = el("article", "card reveal");
+    items.forEach((item, index) => {
+      const payload = modelPayload(item);
+      const flowInfo = moneyFlowFromModel(item);
+      const card = el("article", "biz-card reveal");
       card.style.animationDelay = `${index * 35}ms`;
       card.style.setProperty("--local-accent", categoryAccent((item.linkedCategories || [])[0]));
       card.innerHTML = `
+        <div class="biz-card-head">
+          <span class="chip accent">${escapeHTML(flowInfo.lever)}</span>
+          <button class="copy-btn" type="button" data-copy-model>복사</button>
+        </div>
         <h3>${escapeHTML(item.title)}</h3>
         <p>${escapeHTML(item.logic)}</p>
-        <div class="metric-row">
-          <div class="metric"><strong>Metric</strong><span>${escapeHTML(item.metric)}</span></div>
-          <div class="metric"><strong>Watch</strong><span>${escapeHTML(item.watch)}</span></div>
-          <div class="metric"><strong>Fit</strong><span>${(item.linkedCategories || []).map(categoryName).join(" · ")}</span></div>
+        <div class="biz-metrics">
+          <div class="biz-metric"><strong>Metric</strong><span>${escapeHTML(item.metric)}</span></div>
+          <div class="biz-metric"><strong>Watch</strong><span>${escapeHTML(item.watch)}</span></div>
+          <div class="biz-metric"><strong>Fit</strong><span>${(item.linkedCategories || []).map(categoryName).join(" · ")}</span></div>
         </div>
       `;
-      makeInspectable(card, {
-        type: "수익화 모델",
-        tag: (item.linkedCategories || []).map(categoryName).join(" · ") || "Benchmark",
-        title: item.title,
-        body: item.logic,
-        section: "monetization",
-        categories: item.linkedCategories || [],
-        watch: [item.metric, item.watch].filter(Boolean),
-        metrics: [
-          { label: "Metric", value: item.metric },
-          { label: "Watch", value: item.watch },
-          { label: "Fit", value: (item.linkedCategories || []).map(categoryName).join(" · ") || "전체" },
-        ],
-      });
+      card.querySelector("[data-copy-model]")?.addEventListener("click", (event) => copyPayload(payload, event.currentTarget));
+      makeInspectable(card, payload);
       grid.appendChild(card);
     });
     if (!grid.children.length) grid.appendChild(el("div", "empty", "선택한 카테고리의 벤치마킹 모델이 없습니다."));
@@ -2173,7 +2672,7 @@
   }
 
   function setupScrollSpy() {
-    const sections = ["overview", "workbench", "ai-matrix", "crawler", "prices", "news", "china-dynamics", "china-deep-dive", "corpdev", "categories", "competitors", "dynamics", "monetization", "response", "intelligence"];
+    const sections = ["overview", "numbers", "workbench", "ai-matrix", "crawler", "prices", "news", "china-dynamics", "china-deep-dive", "corpdev", "categories", "competitors", "dynamics", "monetization", "response", "intelligence"];
     const update = () => {
       const y = window.scrollY + 96;
       let active = "overview";
