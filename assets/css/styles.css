@@ -642,6 +642,7 @@ body.sidebar-collapsed .sb-ico {
 .board,
 .kpi-strip,
 .kpi,
+.board-head-actions,
 .news-layout,
 .news-columns,
 .source-panel {
@@ -673,6 +674,74 @@ body.sidebar-collapsed .sb-ico {
   font-weight: 900;
   letter-spacing: .08em;
   text-transform: uppercase;
+}
+
+.board-head-actions {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+.freshness-badge,
+.claim-badge,
+.data-state {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  width: fit-content;
+  max-width: 100%;
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  background: var(--panel-2);
+  color: var(--muted);
+  padding: 6px 9px;
+  font-size: 10.5px;
+  font-weight: 900;
+  line-height: 1.15;
+  white-space: nowrap;
+}
+
+.freshness-badge::before,
+.data-state::before {
+  content: "";
+  width: 7px;
+  height: 7px;
+  flex: 0 0 auto;
+  border-radius: 999px;
+  background: currentColor;
+}
+
+.freshness-badge.ok,
+.data-state.ok,
+.claim-badge.ok {
+  border-color: color-mix(in srgb, var(--green) 34%, var(--line));
+  color: var(--green);
+  background: color-mix(in srgb, var(--green) 10%, var(--panel));
+}
+
+.freshness-badge.stale,
+.data-state.stale,
+.claim-badge.stale,
+.claim-badge.watch {
+  border-color: color-mix(in srgb, #b7791f 34%, var(--line));
+  color: #9a5b00;
+  background: color-mix(in srgb, #f6ad55 12%, var(--panel));
+}
+
+.freshness-badge.fail,
+.data-state.fail,
+.claim-badge.fail {
+  border-color: color-mix(in srgb, var(--red) 34%, var(--line));
+  color: var(--red);
+  background: color-mix(in srgb, var(--red) 9%, var(--panel));
+}
+
+.claim-badge {
+  border-radius: 7px;
+  padding: 5px 7px;
+  white-space: normal;
 }
 
 .hero h2 {
@@ -729,6 +798,19 @@ body.sidebar-collapsed .sb-ico {
   gap: 8px;
   border-right: 1px solid var(--line-2);
   padding: 15px;
+}
+
+.kpi .kpi-meta {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  flex-wrap: wrap;
+}
+
+.kpi .kpi-alt {
+  color: var(--muted);
+  font-size: 10.5px;
+  line-height: 1.45;
 }
 
 .kpi:last-child {
@@ -1005,6 +1087,98 @@ body.sidebar-collapsed .sb-ico {
   background:
     linear-gradient(135deg, color-mix(in srgb, var(--green) 6%, transparent), transparent 42%),
     var(--panel);
+}
+
+.corpdev-board {
+  background:
+    linear-gradient(135deg, color-mix(in srgb, var(--teal) 8%, transparent), transparent 42%),
+    var(--panel);
+}
+
+.corpdev-summary {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 8px;
+  margin-bottom: 12px;
+}
+
+.corpdev-summary .card {
+  min-height: 96px;
+}
+
+.corpdev-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 10px;
+}
+
+.corpdev-card {
+  position: relative;
+  overflow: hidden;
+}
+
+.corpdev-card::before {
+  content: "";
+  position: absolute;
+  inset: 0 auto 0 0;
+  width: 4px;
+  background: var(--local-accent, var(--accent));
+}
+
+.corpdev-card .card-top {
+  margin-left: 4px;
+}
+
+.corpdev-event-meta {
+  display: flex;
+  gap: 6px;
+  flex-wrap: wrap;
+  margin-top: 10px;
+}
+
+.claim-ledger {
+  margin-top: 14px;
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  background: var(--panel-2);
+  padding: 12px;
+}
+
+.claim-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 8px;
+  margin-top: 10px;
+}
+
+.claim-card {
+  border: 1px solid var(--line);
+  border-radius: 9px;
+  background: var(--panel);
+  padding: 11px;
+}
+
+.claim-card h4 {
+  font-size: 13px;
+  line-height: 1.35;
+  font-weight: 900;
+}
+
+.claim-card p {
+  margin-top: 7px;
+  color: var(--ink-2);
+  font-size: 11.5px;
+  line-height: 1.55;
+  font-weight: 650;
+}
+
+.claim-card a {
+  display: inline-flex;
+  margin-top: 8px;
+  color: var(--accent);
+  font-size: 11px;
+  font-weight: 900;
+  text-decoration: none;
 }
 
 .crawler-summary {
@@ -2314,6 +2488,9 @@ body.sidebar-collapsed .sb-ico {
   .category-grid,
   .channel-grid,
   .crawler-summary,
+  .corpdev-summary,
+  .corpdev-grid,
+  .claim-grid,
   .dynamic-grid,
   .model-grid,
   .response-grid,
@@ -2462,6 +2639,16 @@ body.sidebar-collapsed .sb-ico {
     grid-template-columns: 1fr;
   }
 
+  .board-head {
+    align-items: start;
+    flex-direction: column;
+  }
+
+  .board-head-actions {
+    width: 100%;
+    justify-content: flex-start;
+  }
+
   .workbench-body {
     grid-template-columns: 1fr;
   }
@@ -2486,6 +2673,9 @@ body.sidebar-collapsed .sb-ico {
   .china-dynamics-overview,
   .china-dynamics-grid,
   .china-deep-grid,
+  .corpdev-summary,
+  .corpdev-grid,
+  .claim-grid,
   .crawler-flow {
     grid-template-columns: repeat(2, minmax(0, 1fr));
   }
@@ -2524,6 +2714,9 @@ body.sidebar-collapsed .sb-ico {
     .company-grid,
     .crawler-summary,
     .crawler-flow,
+    .corpdev-summary,
+    .corpdev-grid,
+    .claim-grid,
     .dynamic-grid,
     .china-dynamics-overview,
     .china-dynamics-grid,
