@@ -55,6 +55,58 @@
     aidemand: "#16A34A",
     china: "#1428A0",
   };
+  const CHINA_DYNAMIC_AXES = [
+    {
+      id: "capacity",
+      title: "캐파·내수 고객 재편",
+      label: "Capacity",
+      theme: "capacity",
+      categoryIds: ["china", "dram", "aidemand"],
+      keywords: ["cxmt", "smic", "xmc", "capacity", "fab", "huawei", "tencent", "alibaba", "baidu"],
+      pulse: "CXMT·SMIC·XMC 증설과 중국 빅테크 조달이 메모리 수요의 내부 순환을 키우는지 추적",
+      watch: ["월별 캐파 증설", "내수 AI 고객 인증", "장기 공급 계약", "팹 가동률"],
+    },
+    {
+      id: "equipment",
+      title: "장비 국산화·공정 병목",
+      label: "Equipment",
+      theme: "equipment",
+      categoryIds: ["equipment", "geopolitics"],
+      keywords: ["naura", "amec", "acm", "equipment", "localization", "etch", "deposition", "cmp"],
+      pulse: "EUV 제약을 식각·증착·세정·CMP 국산화로 얼마나 우회하는지 보는 공급망 회복력 축",
+      watch: ["국산 장비 qual", "recipe 이전", "수출통제 노출", "소재·부품 병목"],
+    },
+    {
+      id: "packaging",
+      title: "첨단 패키징 우회로",
+      label: "Packaging",
+      theme: "packaging",
+      categoryIds: ["packaging", "hbm"],
+      keywords: ["jcet", "tfme", "xmc", "packaging", "hbm", "hybrid bonding", "cpo", "chiplet"],
+      pulse: "선단 노광 격차를 OSAT·XMC·CPO·hybrid bonding으로 보완하는 중국 AI 패키징 생태계",
+      watch: ["HBM 조립 우회", "CPO·실리콘 브리지", "fan-out/RDL", "열·테스트 병목"],
+    },
+    {
+      id: "talent",
+      title: "인재·IP·수율 레시피",
+      label: "Talent/IP",
+      theme: "talent",
+      categoryIds: ["talent", "packaging"],
+      keywords: ["talent", "hiring", "engineer", "ip", "yield", "tsv", "hybrid bonding"],
+      pulse: "채용·커뮤니티·특허 신호로 수율 엔지니어 이동과 공정 노하우 유출 가능성을 조기 감지",
+      watch: ["TSV JD 증가", "수율 엔지니어 이동", "IP 분쟁", "익명 커뮤니티 신호"],
+    },
+    {
+      id: "policy",
+      title: "정책 자본·수출통제 반작용",
+      label: "Policy",
+      theme: "capacity",
+      categoryIds: ["china", "geopolitics"],
+      keywords: ["export control", "sanction", "big fund", "stride", "china", "entity list", "license"],
+      pulse: "수출통제가 중국 빅펀드·지방정부 자본 투입과 내재화 속도를 오히려 높이는지 관찰",
+      watch: ["Big Fund III", "Entity List", "허가 예외", "지방정부 보조금"],
+    },
+  ];
 
   let BASE = null;
   let LIVE = emptyLive;
@@ -97,6 +149,7 @@
     renderResponses();
     renderPrices();
     renderNews();
+    renderChinaDynamics();
     setupQA();
     setupInteractions();
     setupScrollSpy();
@@ -339,6 +392,109 @@
     if (!items.length) grid.appendChild(el("div", "empty", "선택한 카테고리의 경쟁사 카드가 없습니다."));
   }
 
+  function liveBenchmarkTheme(id) {
+    return (LIVE.benchmarkSignals?.themes || []).find((theme) => theme.id === id) || null;
+  }
+
+  function liveNewsCategory(id) {
+    return (LIVE.categories || []).find((category) => category.id === id) || null;
+  }
+
+  function axisSignalCount(axis) {
+    if (!axis) return 0;
+    const theme = liveBenchmarkTheme(axis.theme);
+    const themeCount = Number(theme?.count ?? theme?.items?.length ?? 0) || 0;
+    const categoryCount = (axis.categoryIds || []).reduce((sum, id) => {
+      const category = liveNewsCategory(id);
+      return sum + (Number(category?.count ?? category?.items?.length ?? 0) || 0);
+    }, 0);
+    return themeCount + categoryCount;
+  }
+
+  function axisMomentum(count) {
+    if (count >= 80) return { label: "High", cls: "high" };
+    if (count >= 30) return { label: "Active", cls: "active" };
+    return { label: "Watch", cls: "watch" };
+  }
+
+  function axisLiveItems(axis) {
+    const keywords = (axis.keywords || []).map((word) => word.toLowerCase());
+    const items = [];
+    const theme = liveBenchmarkTheme(axis.theme);
+    if (theme?.items) items.push(...theme.items);
+    (axis.categoryIds || []).forEach((id) => {
+      const category = liveNewsCategory(id);
+      if (category?.items) items.push(...category.items);
+    });
+    items.push(...rawNews().filter((item) => {
+      const hay = `${item.title || ""} ${item.titleKo || ""} ${item.summary || ""} ${item.source || ""}`.toLowerCase();
+      return keywords.some((keyword) => hay.includes(keyword));
+    }));
+
+    const seen = new Set();
+    return items.filter((item) => {
+      const key = `${item.title || ""} ${item.source || ""}`.toLowerCase().replace(/\s+/g, " ").trim();
+      if (!key || seen.has(key)) return false;
+      seen.add(key);
+      return true;
+    }).slice(0, 4);
+  }
+
+  function renderChinaDynamics() {
+    const overview = $("#chinaDynamicsOverview");
+    const grid = $("#chinaDynamicsGrid");
+    if (!overview || !grid) return;
+
+    const chinaNewsCount = rawNews().filter(isChinaArticle).length;
+    const chinaCategorySignals = Number(liveNewsCategory("china")?.count ?? chinaNewsCount) || chinaNewsCount;
+    const benchmarkSignals = Number(LIVE.benchmarkSignals?.stats?.total ?? LIVE.benchmarkSignals?.stream?.length ?? 0) || 0;
+    const equipmentSignals = axisSignalCount(CHINA_DYNAMIC_AXES.find((axis) => axis.id === "equipment"));
+    const packagingSignals = axisSignalCount(CHINA_DYNAMIC_AXES.find((axis) => axis.id === "packaging"));
+    const totalChinaSignals = benchmarkSignals + chinaCategorySignals;
+    $("#chinaDynamicsMeta").textContent = `${fmtNum(totalChinaSignals)}개 핵심 신호 · ${fmtDate(LIVE.updatedAt)}`;
+
+    const overviewItems = [
+      { label: "중국 기사", value: chinaNewsCount, note: "CXMT·YMTC·장비·패키징 관련" },
+      { label: "벤치마킹 신호", value: benchmarkSignals, note: "캐파·장비·패키징·인재/IP" },
+      { label: "장비 국산화", value: equipmentSignals, note: "Naura·AMEC·ACM 축" },
+      { label: "패키징 우회로", value: packagingSignals, note: "JCET·XMC·HBM 조립" },
+    ];
+    overview.innerHTML = overviewItems.map((item) => `
+      <article class="dyn-stat">
+        <span>${escapeHTML(item.label)}</span>
+        <strong>${countHTML(item.value)}</strong>
+        <small>${escapeHTML(item.note)}</small>
+      </article>
+    `).join("");
+
+    grid.innerHTML = "";
+    CHINA_DYNAMIC_AXES.forEach((axis, index) => {
+      const count = axisSignalCount(axis);
+      const momentum = axisMomentum(count);
+      const items = axisLiveItems(axis);
+      const card = el("article", "china-dyn-card reveal");
+      card.style.animationDelay = `${index * 35}ms`;
+      card.innerHTML = `
+        <div class="dyn-card-head">
+          <span class="chip accent">${escapeHTML(axis.label)}</span>
+          <span class="dyn-level ${escapeHTML(momentum.cls)}">${escapeHTML(momentum.label)} · ${fmtNum(count)}</span>
+        </div>
+        <h3>${escapeHTML(axis.title)}</h3>
+        <p>${escapeHTML(axis.pulse)}</p>
+        <div class="tag-row">${(axis.watch || []).map((item) => `<span class="tag">${escapeHTML(item)}</span>`).join("")}</div>
+        <ul class="dyn-feed">
+          ${items.length ? items.map((item) => `
+            <li>
+              <span>${escapeHTML(item.source || item.theme || "Signal")}</span>
+              <a href="${escapeHTML(item.link || "#")}" target="_blank" rel="noopener">${escapeHTML(newsTitle(item) || item.title || "")}</a>
+            </li>
+          `).join("") : `<li><span>Signal</span><em>수집된 최신 신호 없음</em></li>`}
+        </ul>
+      `;
+      grid.appendChild(card);
+    });
+  }
+
   function renderDynamics() {
     const grid = $("#dynamicGrid");
     grid.innerHTML = "";
@@ -426,7 +582,7 @@
   }
 
   function setupScrollSpy() {
-    const sections = ["overview", "prices", "news", "categories", "competitors", "dynamics", "monetization", "response", "intelligence"];
+    const sections = ["overview", "prices", "news", "china-dynamics", "categories", "competitors", "dynamics", "monetization", "response", "intelligence"];
     const update = () => {
       const y = window.scrollY + 96;
       let active = "overview";
