@@ -1087,6 +1087,151 @@ button {
   color: var(--accent);
 }
 
+.china-deep-board {
+  border-color: color-mix(in srgb, var(--teal) 24%, var(--line));
+  background:
+    linear-gradient(140deg, color-mix(in srgb, var(--teal) 7%, transparent), transparent 34%),
+    linear-gradient(320deg, color-mix(in srgb, var(--amber) 5%, transparent), transparent 38%),
+    var(--panel);
+}
+
+.china-deep-summary {
+  display: grid;
+  gap: 8px;
+  border: 1px solid color-mix(in srgb, var(--teal) 22%, var(--line));
+  border-radius: 10px;
+  background: color-mix(in srgb, var(--teal) 6%, var(--panel));
+  margin-bottom: 12px;
+  padding: 13px 14px;
+}
+
+.china-deep-summary p {
+  position: relative;
+  color: var(--ink-2);
+  font-size: 13px;
+  line-height: 1.58;
+  font-weight: 760;
+  padding-left: 14px;
+}
+
+.china-deep-summary p::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: .72em;
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background: var(--teal);
+}
+
+.china-deep-grid {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 12px;
+}
+
+.china-deep-card {
+  min-width: 0;
+  display: grid;
+  align-content: start;
+  gap: 10px;
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  background:
+    linear-gradient(180deg, color-mix(in srgb, var(--local-accent, var(--teal)) 5%, transparent), transparent 42%),
+    var(--panel);
+  padding: 14px;
+  box-shadow: var(--shadow);
+  transition: transform .18s, border-color .18s, box-shadow .18s, background .18s;
+}
+
+.china-deep-card:hover {
+  transform: translateY(-2px);
+  border-color: var(--local-accent, var(--teal));
+  box-shadow: var(--shadow-lg);
+}
+
+.deep-card-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+}
+
+.deep-index {
+  flex: 0 0 auto;
+  color: color-mix(in srgb, var(--local-accent, var(--teal)) 52%, var(--muted));
+  font-family: var(--display);
+  font-size: 18px;
+  font-weight: 800;
+  line-height: 1;
+}
+
+.china-deep-card h3 {
+  min-height: 48px;
+  color: var(--ink);
+  font-size: 15px;
+  line-height: 1.35;
+  font-weight: 900;
+}
+
+.china-deep-card p {
+  color: var(--ink-2);
+  font-size: 12px;
+  line-height: 1.58;
+  font-weight: 650;
+}
+
+.deep-facts {
+  display: grid;
+  gap: 6px;
+}
+
+.deep-facts span {
+  position: relative;
+  min-width: 0;
+  border: 1px solid var(--line-2);
+  border-radius: 8px;
+  background: var(--panel-2);
+  color: var(--ink-2);
+  padding: 7px 8px 7px 19px;
+  font-size: 11.5px;
+  line-height: 1.42;
+  font-weight: 760;
+}
+
+.deep-facts span::before {
+  content: "";
+  position: absolute;
+  left: 8px;
+  top: 13px;
+  width: 4px;
+  height: 4px;
+  border-radius: 50%;
+  background: var(--local-accent, var(--teal));
+}
+
+.deep-implication {
+  display: grid;
+  gap: 5px;
+  border-top: 1px solid var(--line-2);
+  padding-top: 10px;
+}
+
+.deep-implication strong {
+  color: var(--local-accent, var(--teal));
+  font-size: 10.5px;
+  font-weight: 900;
+}
+
+.deep-implication span {
+  color: var(--ink);
+  font-size: 12px;
+  line-height: 1.5;
+  font-weight: 760;
+}
+
 .card {
   min-width: 0;
   border: 1px solid var(--line);
@@ -1793,6 +1938,10 @@ button {
   .china-dynamics-grid {
     grid-template-columns: repeat(3, minmax(0, 1fr));
   }
+
+  .china-deep-grid {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
 }
 
 @media (max-width: 980px) {
@@ -1891,7 +2040,8 @@ button {
   }
 
   .china-dynamics-overview,
-  .china-dynamics-grid {
+  .china-dynamics-grid,
+  .china-deep-grid {
     grid-template-columns: repeat(2, minmax(0, 1fr));
   }
 }
@@ -1927,12 +2077,13 @@ button {
   .category-grid,
   .channel-grid,
   .company-grid,
-  .dynamic-grid,
-  .china-dynamics-overview,
-  .china-dynamics-grid,
-  .model-grid,
-  .response-grid,
-  .news-columns,
+    .dynamic-grid,
+    .china-dynamics-overview,
+    .china-dynamics-grid,
+    .china-deep-grid,
+    .model-grid,
+    .response-grid,
+    .news-columns,
   .price-summary {
     grid-template-columns: 1fr;
   }

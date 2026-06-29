@@ -10,7 +10,7 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard/dist/web/static/pretendard.css" />
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;700;800;900&family=Space+Grotesk:wght@500;600;700&display=swap" />
-  <link rel="stylesheet" href="assets/css/styles.css?v=news-language-tabs-20260629" />
+  <link rel="stylesheet" href="assets/css/styles.css?v=china-deep-dive-20260629" />
 </head>
 <body>
   <div class="app">
@@ -46,6 +46,10 @@
         <button class="sb-item" type="button" data-jump="china-dynamics">
           <span class="sb-ico" aria-hidden="true">↔</span>
           <span class="sb-label"><strong>중국 반도체 다이내믹스</strong><small>China Semi Dynamics</small></span>
+        </button>
+        <button class="sb-item" type="button" data-jump="china-deep-dive">
+          <span class="sb-ico" aria-hidden="true">▧</span>
+          <span class="sb-label"><strong>심층 벤치마킹</strong><small>EUV/DUV · Xtacking</small></span>
         </button>
 
         <div class="sb-group">벤치마킹 분류</div>
@@ -209,6 +213,18 @@
           <div class="china-dynamics-grid" id="chinaDynamicsGrid"></div>
         </section>
 
+        <section class="board china-deep-board" id="china-deep-dive">
+          <div class="board-head">
+            <div>
+              <p class="eyebrow">중국 메모리 심층 벤치마킹</p>
+              <h2>공정 · 낸드 · 패키징 · 소부장 · 인재/IP</h2>
+            </div>
+            <span class="board-meta" id="chinaDeepMeta">구조 분석 로딩</span>
+          </div>
+          <div class="china-deep-summary" id="chinaDeepSummary"></div>
+          <div class="china-deep-grid" id="chinaDeepGrid"></div>
+        </section>
+
         <section class="board" id="categories">
           <div class="board-head">
             <div>
@@ -284,6 +300,6 @@
   <div class="qa-answer" id="qaAnswer" hidden></div>
   <div class="inspector" id="inspector" hidden></div>
   <div class="backdrop" id="backdrop"></div>
-  <script src="assets/js/app.js?v=news-language-tabs-20260629" defer></script>
+  <script src="assets/js/app.js?v=china-deep-dive-20260629" defer></script>
 </body>
 </html>

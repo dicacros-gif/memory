@@ -117,6 +117,88 @@
       watch: ["Big Fund III", "Entity List", "허가 예외", "지방정부 보조금"],
     },
   ];
+  const CHINA_DEEP_DIVE = [
+    {
+      id: "dram-euv-duv",
+      tag: "DRAM 공정",
+      title: "CXMT 16nm(G4) 진입과 EUV 부재 한계",
+      thesis: "TechInsights 분석 기준 CXMT는 16nm(G4) DDR5 모듈을 양산하고 15nm 진입을 노리지만, EUV 없이 DUV 멀티패터닝으로 선단 D램을 밀어붙이는 구조적 한계가 큽니다",
+      facts: ["Gloway DDR5-6000 양산", "DDR5 8000Mbps·LPDDR5X 10667Mbps 공개", "16nm 수율 90%+·2026년 말 15nm 목표"],
+      risk: "DUV 반복 노광은 공정 스텝·마스크 비용·변동성을 키우며, TSV 적층이 필요한 HBM3 전환 시 열 변형과 패키징 수율 리스크가 커집니다",
+      implication: "HBM 선두와의 격차는 단기 축소보다 3~4년 기술 갭 유지 가능성이 높고, 실제 위협은 레거시 DRAM 가격 하방에서 먼저 나타납니다",
+      linkedCategories: ["dram", "packaging", "equipment"],
+    },
+    {
+      id: "ymtc-xtacking",
+      tag: "NAND 구조",
+      title: "YMTC Xtacking 4.0과 270단급 NAND 추격",
+      thesis: "YMTC는 로직 제어 웨이퍼와 메모리 셀 웨이퍼를 분리 가공한 뒤 하이브리드 본딩하는 Xtacking 4.0으로 기존 NAND 구조를 우회합니다",
+      facts: ["NAND 점유율 2025년 1분기 8% → 2026년 1분기 13%", "256Gb 기준 4.41Gb/mm² 비트 밀도", "267~294단 추정 3D NAND 양산"],
+      risk: "두 장의 웨이퍼를 쓰는 공정은 성능과 밀도에는 유리하지만 보조금 없는 원가 경쟁력에는 의문이 남습니다",
+      implication: "SK하이닉스는 NAND 가격만이 아니라 eSSD·스마트폰·서버 고객의 중국 내수 보조금 효과를 함께 봐야 합니다",
+      linkedCategories: ["nand", "packaging"],
+    },
+    {
+      id: "wuhan-phase3",
+      tag: "우한 3공장",
+      title: "YMTC 우한 Phase 3와 D램 병행 생산",
+      thesis: "미국 제재 이후 YMTC는 우한 3공장에 국산 장비를 대거 투입하고, 일부 캐파를 D램과 TSV 패키징 준비로 돌리며 종합 메모리 기업화를 시도합니다",
+      facts: ["2026년 하반기 가동 목표", "핵심 장비 50%+ 국산 장비", "캐파 50%를 D램 제조 라인에 할당한 것으로 관찰"],
+      risk: "국산 장비 qual과 공정 recipe 안정화가 지연되면 NAND·D램 동시 확장 전략은 수율 병목에 부딪힐 수 있습니다",
+      implication: "YMTC는 단순 NAND 경쟁사가 아니라 NAND·D램·TSV 적층을 묶는 중국형 IDM 후보로 추적해야 합니다",
+      linkedCategories: ["nand", "dram", "equipment", "packaging"],
+    },
+    {
+      id: "advanced-packaging",
+      tag: "첨단 패키징",
+      title: "JCET·XMC의 패키징 우회로",
+      thesis: "중국은 7nm 이하 선단 공정 제약을 2.5D/3D 이종 집적과 하이브리드 본딩 기반 첨단 패키징으로 우회하려 합니다",
+      facts: ["JCET XDFOI 플랫폼 HVM 전환", "2025년 첨단 패키징 매출 270억 위안", "우한 XMC에 2,600억 위안 투자"],
+      risk: "CXMT·YMTC 베이스 다이를 XMC가 고대역폭 패키징으로 묶는 구조가 자리 잡으면 중국 내수 AI 가속기용 HBM 우회 공급망이 두꺼워집니다",
+      implication: "SK하이닉스는 HBM 다이 경쟁뿐 아니라 OSAT·인터포저·언더필·테스트 병목을 함께 보는 패키징 레이더가 필요합니다",
+      linkedCategories: ["packaging", "hbm", "geopolitics"],
+    },
+    {
+      id: "big-fund-equipment",
+      tag: "소부장",
+      title: "빅펀드 3기와 장비·소재 국산화",
+      thesis: "빅펀드 3기는 단순 팹 증설보다 EUV·EDA·첨단 화학 소재 같은 초크포인트에 자본을 집중하고 있습니다",
+      facts: ["빅펀드 3기 약 475억 달러", "장비 국산화율 2021년 8% → 2025년 23.2%", "2030년 39% 전망"],
+      risk: "AMEC 식각, Naura 종합장비, ACM 세정이 서방 장비를 대체하고 소재 기업은 JV·공동 R&D를 통해 recipe 흡수를 시도합니다",
+      implication: "한국 소부장 파트너의 JV 제안, 소재 recipe 이전, 중국 내수 우선 공급권 요구를 조기 탐지해야 합니다",
+      linkedCategories: ["equipment", "geopolitics", "talent"],
+    },
+    {
+      id: "talent-ip",
+      tag: "인재/IP",
+      title: "수율 엔지니어와 IP 유출 리스크",
+      thesis: "중국의 기술 추격은 설계 도면보다 수율 안정화 경험이 풍부한 현장 인력과 공정 데이터 확보에 초점을 맞춥니다",
+      facts: ["한국 출신 엔지니어 유입 신호", "Boss Zhipin 기반 핀셋 채용", "D램 설계·공정 데이터 유출 사건"],
+      risk: "수율 recipe와 생산 안정화 경험이 이동하면 장비 제약보다 빠르게 기술 격차가 좁혀질 수 있습니다",
+      implication: "핵심 엔지니어 보상, 접근권 최소화, 퇴직 후 IP 모니터링, 채용 플랫폼 크롤링을 한 보드에서 묶어야 합니다",
+      linkedCategories: ["talent", "dram", "packaging"],
+    },
+    {
+      id: "bifurcation",
+      tag: "미래 방향",
+      title: "자급자족 생태계와 공급망 분리",
+      thesis: "미국 중심 밸류체인과 중국 대체 생태계가 장기적으로 분리되며, 시장은 호환성이 낮은 두 공급망으로 갈라질 가능성이 커지고 있습니다",
+      facts: ["수출통제 반작용", "장비·EDA·소재 초크포인트 집중", "내수 고객과 보조금 기반 수요 흡수"],
+      risk: "제재는 중국의 외부 의존도를 낮추는 촉매로 작동하고, 글로벌 고객의 이중 공급망 전략을 강화합니다",
+      implication: "SK하이닉스는 중국 내수 가격·캐파 신호와 비중국 프리미엄 고객 락인을 동시에 관리해야 합니다",
+      linkedCategories: ["geopolitics", "china", "dram", "nand"],
+    },
+    {
+      id: "skhynix-response",
+      tag: "대응 전략",
+      title: "SK하이닉스 대응 축",
+      thesis: "중국은 HBM4 최선단보다 레거시 DRAM·NAND와 패키징 우회로에서 비대칭 위협을 먼저 만들 가능성이 큽니다",
+      facts: ["HBM·PIM 초격차 유지", "레거시 D램 원가 방어", "중국 로컬 마이크로데이터 조기경보"],
+      risk: "글로벌 세트 업체의 가격 협상력과 중국 보조금 물량이 결합하면 범용 메모리 단가가 급격히 흔들릴 수 있습니다",
+      implication: "핵심 고객 연대, 범용 제품 cash-cost floor, Xueqiu·Boss Zhipin·특허·채용 신호 크롤링, 핵심 인력 방어가 함께 필요합니다",
+      linkedCategories: ["dram", "nand", "talent", "geopolitics"],
+    },
+  ];
   const WORKBENCH_MODES = [
     {
       id: "dynamics",
@@ -155,6 +237,7 @@
   ];
   const SECTION_LABELS = {
     "china-dynamics": "중국 반도체 다이내믹스",
+    "china-deep-dive": "중국 심층 벤치마킹",
     dynamics: "경쟁 다이나믹스",
     monetization: "벤치마킹 모델",
     response: "대응 대시보드",
@@ -212,6 +295,7 @@
     renderPrices();
     renderNews();
     renderChinaDynamics();
+    renderChinaDeepDive();
     renderWorkbench();
     setupQA();
     setupInteractions();
@@ -337,6 +421,7 @@
     renderDynamics();
     renderModels();
     renderNews();
+    renderChinaDeepDive();
     renderWorkbench();
     animateCounts();
   }
@@ -621,6 +706,57 @@
       });
       grid.appendChild(card);
     });
+  }
+
+  function renderChinaDeepDive() {
+    const grid = $("#chinaDeepGrid");
+    const summary = $("#chinaDeepSummary");
+    const meta = $("#chinaDeepMeta");
+    if (!grid) return;
+
+    const items = CHINA_DEEP_DIVE.filter(relatedToActive);
+    if (meta) meta.textContent = `${fmtNum(items.length)}개 심층 항목 · ${activeCategoryData().label}`;
+    if (summary) {
+      const lines = [
+        "중국 반도체의 핵심 방향은 EUV 부재를 DUV 멀티패터닝·Xtacking·첨단 패키징으로 우회하는 것입니다",
+        "DRAM은 CXMT의 레거시 가격 압박, NAND는 YMTC의 내수 보조금과 Xtacking 확장이 먼저 위협으로 나타납니다",
+        "SK하이닉스는 HBM 초격차와 동시에 레거시 원가 방어, 소부장/JV 감시, 인재/IP 리스크 방어를 병행해야 합니다",
+      ];
+      summary.innerHTML = lines.map((line) => `<p>${escapeHTML(line)}</p>`).join("");
+    }
+
+    grid.innerHTML = "";
+    items.forEach((item, index) => {
+      const card = el("article", "china-deep-card reveal");
+      card.style.animationDelay = `${index * 35}ms`;
+      card.style.setProperty("--local-accent", categoryAccent((item.linkedCategories || [])[0]));
+      card.innerHTML = `
+        <div class="deep-card-head">
+          <span class="chip accent">${escapeHTML(item.tag)}</span>
+          <span class="deep-index">${String(index + 1).padStart(2, "0")}</span>
+        </div>
+        <h3>${escapeHTML(item.title)}</h3>
+        <p>${escapeHTML(item.thesis)}</p>
+        <div class="deep-facts">
+          ${(item.facts || []).map((fact) => `<span>${escapeHTML(fact)}</span>`).join("")}
+        </div>
+        <div class="insight-box"><span>리스크</span>${escapeHTML(item.risk)}</div>
+        <div class="deep-implication"><strong>SK하이닉스 시사점</strong><span>${escapeHTML(item.implication)}</span></div>
+      `;
+      makeInspectable(card, {
+        type: "중국 심층 벤치마킹",
+        tag: item.tag,
+        title: item.title,
+        body: item.thesis,
+        section: "china-deep-dive",
+        categories: item.linkedCategories || [],
+        watch: [item.risk, item.implication].concat(item.facts || []),
+        metrics: (item.facts || []).slice(0, 3).map((fact, idx) => ({ label: `핵심 ${idx + 1}`, value: fact })),
+      });
+      grid.appendChild(card);
+    });
+
+    if (!items.length) grid.appendChild(el("div", "empty", "선택한 카테고리의 심층 벤치마킹 항목이 없습니다."));
   }
 
   function inferCategoriesFromText(text) {
@@ -1170,7 +1306,7 @@
   }
 
   function setupScrollSpy() {
-    const sections = ["overview", "workbench", "prices", "news", "china-dynamics", "categories", "competitors", "dynamics", "monetization", "response", "intelligence"];
+    const sections = ["overview", "workbench", "prices", "news", "china-dynamics", "china-deep-dive", "categories", "competitors", "dynamics", "monetization", "response", "intelligence"];
     const update = () => {
       const y = window.scrollY + 96;
       let active = "overview";
