@@ -934,6 +934,36 @@ button {
   margin-bottom: 12px;
 }
 
+.china-dynamics-summary {
+  display: grid;
+  gap: 8px;
+  border: 1px solid color-mix(in srgb, var(--accent) 18%, var(--line));
+  border-radius: 10px;
+  background: color-mix(in srgb, var(--accent) 6%, var(--panel));
+  margin-bottom: 12px;
+  padding: 13px 14px;
+}
+
+.china-dynamics-summary p {
+  position: relative;
+  color: var(--ink-2);
+  font-size: 13px;
+  line-height: 1.58;
+  font-weight: 720;
+  padding-left: 14px;
+}
+
+.china-dynamics-summary p::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: .72em;
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background: var(--accent);
+}
+
 .dyn-stat {
   min-height: 102px;
   display: grid;

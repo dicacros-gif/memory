@@ -69,7 +69,7 @@
     {
       id: "capacity",
       title: "캐파·내수 고객 재편",
-      label: "Capacity",
+      label: "캐파/고객",
       theme: "capacity",
       categoryIds: ["china", "dram", "aidemand"],
       keywords: ["cxmt", "smic", "xmc", "capacity", "fab", "huawei", "tencent", "alibaba", "baidu"],
@@ -79,7 +79,7 @@
     {
       id: "equipment",
       title: "장비 국산화·공정 병목",
-      label: "Equipment",
+      label: "장비",
       theme: "equipment",
       categoryIds: ["equipment", "geopolitics"],
       keywords: ["naura", "amec", "acm", "equipment", "localization", "etch", "deposition", "cmp"],
@@ -89,7 +89,7 @@
     {
       id: "packaging",
       title: "첨단 패키징 우회로",
-      label: "Packaging",
+      label: "패키징",
       theme: "packaging",
       categoryIds: ["packaging", "hbm"],
       keywords: ["jcet", "tfme", "xmc", "packaging", "hbm", "hybrid bonding", "cpo", "chiplet"],
@@ -99,7 +99,7 @@
     {
       id: "talent",
       title: "인재·IP·수율 레시피",
-      label: "Talent/IP",
+      label: "인재/IP",
       theme: "talent",
       categoryIds: ["talent", "packaging"],
       keywords: ["talent", "hiring", "engineer", "ip", "yield", "tsv", "hybrid bonding"],
@@ -109,7 +109,7 @@
     {
       id: "policy",
       title: "정책 자본·수출통제 반작용",
-      label: "Policy",
+      label: "정책",
       theme: "capacity",
       categoryIds: ["china", "geopolitics"],
       keywords: ["export control", "sanction", "big fund", "stride", "china", "entity list", "license"],
@@ -121,7 +121,7 @@
     {
       id: "dynamics",
       label: "중국 다이내믹스",
-      sub: "Capacity · Equipment · Packaging",
+      sub: "캐파 · 장비 · 패키징",
       section: "china-dynamics",
     },
     {
@@ -540,6 +540,7 @@
   function renderChinaDynamics() {
     const overview = $("#chinaDynamicsOverview");
     const grid = $("#chinaDynamicsGrid");
+    const summary = $("#chinaDynamicsSummary");
     if (!overview || !grid) return;
 
     const chinaNewsCount = rawNews().filter(isChinaArticle).length;
@@ -549,6 +550,15 @@
     const packagingSignals = axisSignalCount(CHINA_DYNAMIC_AXES.find((axis) => axis.id === "packaging"));
     const totalChinaSignals = benchmarkSignals + chinaCategorySignals;
     $("#chinaDynamicsMeta").textContent = `${fmtNum(totalChinaSignals)}개 핵심 신호 · ${fmtDate(LIVE.updatedAt)}`;
+
+    if (summary) {
+      const summaryLines = [
+        `중국 메모리 생태계는 CXMT·YMTC 중심의 캐파 확대와 내수 AI 고객 확보를 통해 범용 DRAM/NAND 영향력을 키우고 있습니다.`,
+        `Naura·AMEC·ACM 장비 국산화 신호 ${fmtNum(equipmentSignals)}건과 JCET·XMC 패키징 우회 신호 ${fmtNum(packagingSignals)}건이 선단 제약을 보완하는 축입니다.`,
+        `빅펀드·수출통제 반작용, 인재/IP 이동, 수율 레시피 유출 가능성은 SK하이닉스가 별도로 추적해야 할 핵심 리스크입니다.`,
+      ];
+      summary.innerHTML = summaryLines.map((line) => `<p>${escapeHTML(line)}</p>`).join("");
+    }
 
     const overviewItems = [
       { label: "중국 기사", value: chinaNewsCount, note: "CXMT·YMTC·장비·패키징 관련" },
