@@ -396,11 +396,12 @@
     const target = document.getElementById(id);
     if (!target) return;
     document.body.classList.remove("menu-open");
-    target.scrollIntoView({ behavior: "smooth", block: "start" });
+    const lastSection = $$("main > section").at(-1);
+    target.scrollIntoView({ behavior: "smooth", block: target === lastSection ? "end" : "start" });
   }
 
   function setupScrollSpy() {
-    const sections = ["overview", "categories", "intelligence", "competitors", "dynamics", "monetization", "response", "prices", "news"];
+    const sections = ["overview", "categories", "competitors", "dynamics", "monetization", "response", "prices", "news", "intelligence"];
     const update = () => {
       const y = window.scrollY + 96;
       let active = "overview";
@@ -408,6 +409,13 @@
         const node = document.getElementById(id);
         if (node && node.offsetTop <= y) active = id;
       });
+      if (window.innerHeight + window.scrollY >= document.documentElement.scrollHeight - 4) {
+        active = sections[sections.length - 1];
+      }
+      const lastNode = document.getElementById(sections[sections.length - 1]);
+      if (lastNode && lastNode.getBoundingClientRect().top < window.innerHeight * 0.72) {
+        active = sections[sections.length - 1];
+      }
       $$(".sb-item").forEach((btn) => btn.classList.toggle("active", btn.dataset.jump === active));
     };
     window.addEventListener("scroll", update, { passive: true });

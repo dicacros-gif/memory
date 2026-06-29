@@ -9,7 +9,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;700;800;900&family=Space+Grotesk:wght@500;600;700&display=swap" />
-  <link rel="stylesheet" href="assets/css/styles.css?v=news-split-20260629" />
+  <link rel="stylesheet" href="assets/css/styles.css?v=intelligence-bottom-3-20260629" />
 </head>
 <body>
   <div class="app">
@@ -33,10 +33,6 @@
         <button class="sb-item" type="button" data-jump="categories">
           <span class="sb-ico" aria-hidden="true">◎</span>
           <span class="sb-label"><strong>메모리 카테고리</strong><small>Memory Categories</small></span>
-        </button>
-        <button class="sb-item" type="button" data-jump="intelligence">
-          <span class="sb-ico" aria-hidden="true">⌕</span>
-          <span class="sb-label"><strong>정보 획득 채널</strong><small>Intelligence Sources</small></span>
         </button>
         <button class="sb-item" type="button" data-jump="competitors">
           <span class="sb-ico" aria-hidden="true">◫</span>
@@ -65,6 +61,12 @@
         <button class="sb-item" type="button" data-jump="news">
           <span class="sb-ico" aria-hidden="true">□</span>
           <span class="sb-label"><strong>외신·중국 기사</strong><small>Foreign / China News</small></span>
+        </button>
+
+        <div class="sb-group">참고 정보</div>
+        <button class="sb-item" type="button" data-jump="intelligence">
+          <span class="sb-ico" aria-hidden="true">⌕</span>
+          <span class="sb-label"><strong>정보 획득 채널</strong><small>Intelligence Sources</small></span>
         </button>
       </nav>
 
@@ -113,17 +115,6 @@
             <span class="board-meta" id="categoryMeta">전체 보기</span>
           </div>
           <div class="category-grid" id="categoryGrid"></div>
-        </section>
-
-        <section class="board" id="intelligence">
-          <div class="board-head">
-            <div>
-              <p class="eyebrow">China intelligence channels</p>
-              <h2>벤치마킹 정보 획득 채널</h2>
-            </div>
-            <span class="board-meta">금융 · 채용 · 기술분석 · 커뮤니티</span>
-          </div>
-          <div class="channel-grid" id="channelGrid"></div>
         </section>
 
         <section class="board" id="competitors">
@@ -230,12 +221,23 @@
             </aside>
           </div>
         </section>
+
+        <section class="board" id="intelligence">
+          <div class="board-head">
+            <div>
+              <p class="eyebrow">China intelligence channels</p>
+              <h2>벤치마킹 정보 획득 채널</h2>
+            </div>
+            <span class="board-meta">금융 · 채용 · 기술분석 · 커뮤니티</span>
+          </div>
+          <div class="channel-grid" id="channelGrid"></div>
+        </section>
       </main>
     </div>
   </div>
 
   <div class="qa-answer" id="qaAnswer" hidden></div>
   <div class="backdrop" id="backdrop"></div>
-  <script src="assets/js/app.js?v=news-split-20260629" defer></script>
+  <script src="assets/js/app.js?v=intelligence-bottom-3-20260629" defer></script>
 </body>
 </html>
