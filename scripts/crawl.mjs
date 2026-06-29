@@ -54,8 +54,8 @@ const CATEGORIES = [
   { id: "hbm", label: "HBM·AI Memory", queries: ["HBM4 memory AI accelerator", "high bandwidth memory HBM"] },
   { id: "dram", label: "DRAM·DDR", queries: ["DRAM DDR5 server memory price", "DRAM market demand"] },
   { id: "nand", label: "NAND·SSD", queries: ["NAND flash enterprise SSD price", "SSD memory demand"] },
-  { id: "cxl", label: "CXL·Next Memory", queries: ["CXL memory pooling", "CXL switch memory expansion"] },
-  { id: "packaging", label: "Packaging·Photonics", queries: ["advanced packaging HBM hybrid bonding", "silicon photonics interconnect memory"] },
+  { id: "cxl", label: "CXL·Next Memory", queries: ["CXL memory pooling", "CXL switch memory expansion", "CXL memory tester module"] },
+  { id: "packaging", label: "Packaging·Photonics", queries: ["advanced packaging HBM hybrid bonding", "silicon photonics interconnect memory", "HBM TC bonder equipment supply chain"] },
   { id: "aidemand", label: "AI Demand", queries: ["AI memory demand data center", "AI accelerator memory bandwidth"] },
   { id: "benchmark", label: "China Benchmark", queries: ["China memory benchmark CXMT YMTC", "Chinese semiconductor equipment localization memory"] },
   { id: "china", label: "China·Geopolitics", queries: ["CXMT YMTC China memory", "China DRAM NAND export control"] },
@@ -277,7 +277,8 @@ const STARTUPS = [
 const BENCHMARK_SIGNAL_THEMES = [
   { id: "capacity", label: "China Capacity", queries: ["CXMT capacity DRAM wafer China", "YMTC NAND capacity Xtacking China"] },
   { id: "equipment", label: "Equipment Localization", queries: ["China semiconductor equipment localization Naura AMEC", "Chinese chip equipment localization memory"] },
-  { id: "packaging", label: "Advanced Packaging", queries: ["JCET advanced packaging AI memory", "XMC HBM packaging China"] },
+  { id: "packaging", label: "Advanced Packaging", queries: ["JCET advanced packaging AI memory", "XMC HBM packaging China", "HBM TC bonder patent equipment"] },
+  { id: "cxl", label: "CXL and PIM Value Chain", queries: ["CXL memory tester Exicon Neosem", "CXL controller IP memory pooling PIM"] },
   { id: "talent", label: "Talent and IP Signals", queries: ["China semiconductor talent hiring memory", "CXMT engineer hiring DRAM"] },
 ];
 

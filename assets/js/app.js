@@ -79,6 +79,7 @@
   const NAV_ACCENTS = {
     overview: "#FFFFFF",
     workbench: "#B9A7FF",
+    "ai-matrix": "#C4B5FD",
     crawler: "#7EE7C8",
     prices: "#FFD166",
     news: "#93C5FD",
@@ -234,6 +235,12 @@
       section: "crawler",
     },
     {
+      id: "architecture",
+      label: "AI Matrix",
+      sub: "HBM · CXL · Commodity",
+      section: "ai-matrix",
+    },
+    {
       id: "dynamics",
       label: "중국 다이내믹스",
       sub: "캐파 · 장비 · 패키징",
@@ -276,6 +283,7 @@
   ];
   const SECTION_LABELS = {
     crawler: "전체 크롤링 관제",
+    "ai-matrix": "AI 메모리 매트릭스",
     "china-dynamics": "중국 반도체 다이내믹스",
     "china-deep-dive": "중국 심층 벤치마킹",
     corpdev: "Corp Dev 레이어",
@@ -300,6 +308,18 @@
       section: "prices",
       linkedCategories: ["dram", "nand"],
       healthKeys: ["가격:", "가격히스토리"],
+    },
+    {
+      id: "ai-architecture-signal",
+      label: "HBM/CXL 아키텍처",
+      source: "HBM4 · Custom HBM · CXL/PIM · TC 본더 · 장비 계약",
+      method: "공식 로드맵, 해외 리서치, 장비 공시, 소송/특허 신호를 Premium AI Matrix와 Supply Chain Explorer로 분류",
+      fields: ["HBM 점유율", "고객 인증", "베이스 다이", "TC 본더", "CXL 테스터"],
+      filters: ["HBM/CXL 키워드", "소부장 vendor alias", "특허·계약·수율 신호", "첨부 보고서 Watch 항목"],
+      output: "AI 메모리 매트릭스",
+      section: "ai-matrix",
+      linkedCategories: ["hbm", "cxl", "aidemand", "packaging", "equipment"],
+      healthKeys: ["뉴스:HBM", "뉴스:CXL", "벤치마킹:Advanced Packaging"],
     },
     {
       id: "foreign-news",
@@ -422,6 +442,7 @@
     renderModels();
     renderResponses();
     renderCrawlerBoard();
+    renderArchitectureMatrix();
     renderPrices();
     renderNews();
     renderChinaDynamics();
@@ -674,6 +695,7 @@
     renderModels();
     renderNews();
     renderCrawlerBoard();
+    renderArchitectureMatrix();
     renderChinaDeepDive();
     renderCorpDev();
     renderWorkbench();
@@ -880,6 +902,14 @@
   function pipelineSignalCount(item) {
     const health = pipelineHealth(item);
     if (item.id === "trendforce-price") return allPriceRows().length;
+    if (item.id === "ai-architecture-signal") {
+      const newsCount = rawNews().filter((news) => {
+        const hay = `${news.title || ""} ${news.titleKo || ""} ${news.summary || ""} ${news.category || ""}`.toLowerCase();
+        return /(hbm|cxl|pim|bonder|packaging|rubin|nvidia|micron|samsung|sk hynix|test|controller)/i.test(hay);
+      }).length;
+      const matrix = BASE.architectureMatrix || {};
+      return newsCount + (matrix.roadmap || []).length + (matrix.valueChain || []).length;
+    }
     if (item.id === "foreign-news") return rawNews().filter((news) => !isChinaArticle(news)).length;
     if (item.id === "china-news") return rawNews().filter(isChinaArticle).length;
     if (item.id === "benchmark-signals") return benchmarkSignalTotal();
@@ -1016,6 +1046,174 @@
         <span>${escapeHTML(entry.msg || "")}</span>
       </div>
     `).join("") : `<div class="empty">수집 로그가 아직 없습니다.</div>`;
+  }
+
+  function architectureMatrix() {
+    return BASE.architectureMatrix || {
+      summary: [],
+      tracks: [],
+      shareMatrix: [],
+      roadmap: [],
+      valueChain: [],
+      platformModules: [],
+    };
+  }
+
+  function architectureRelated(item) {
+    if (activeCategory === "all") return true;
+    const cats = item.linkedCategories || [];
+    return !cats.length || cats.includes(activeCategory);
+  }
+
+  function renderArchitectureMatrix() {
+    const matrix = architectureMatrix();
+    const summary = $("#architectureSummary");
+    const tracksWrap = $("#architectureTracks");
+    const shareWrap = $("#architectureShareMatrix");
+    const roadmapWrap = $("#architectureRoadmap");
+    const valueWrap = $("#valueChainMap");
+    const moduleWrap = $("#platformModules");
+    const meta = $("#architectureMeta");
+    if (!summary || !tracksWrap || !shareWrap || !roadmapWrap || !valueWrap || !moduleWrap) return;
+
+    const tracks = (matrix.tracks || []).filter(architectureRelated);
+    const shareRows = (matrix.shareMatrix || []).filter(architectureRelated);
+    const roadmap = matrix.roadmap || [];
+    const valueChain = (matrix.valueChain || []).filter(architectureRelated);
+    const modules = matrix.platformModules || [];
+    if (meta) {
+      const objectCount = tracks.length + shareRows.length + roadmap.length + valueChain.length + modules.length;
+      meta.textContent = `${fmtNum(objectCount)}개 객체 · ${activeCategoryData().label} · ${matrix.sourceNote || "첨부 보고서 반영"}`;
+    }
+
+    summary.innerHTML = (matrix.summary || []).map((line, index) => `
+      <article class="ai-summary-line">
+        <span>${String(index + 1).padStart(2, "0")}</span>
+        <p>${escapeHTML(line)}</p>
+      </article>
+    `).join("");
+
+    tracksWrap.innerHTML = "";
+    tracks.forEach((track, index) => {
+      const card = el("article", "arch-track-card reveal");
+      card.style.animationDelay = `${index * 35}ms`;
+      card.style.setProperty("--local-accent", categoryAccent((track.linkedCategories || [])[0]));
+      card.innerHTML = `
+        <div class="arch-track-head">
+          <span class="chip accent">${escapeHTML(track.label)}</span>
+          ${factBadge("Watch", "watch")}
+        </div>
+        <h3>${escapeHTML(track.title)}</h3>
+        <p>${escapeHTML(track.thesis)}</p>
+        <div class="metric-row">${metricCards(track.metrics || [], 3)}</div>
+        <div class="tag-row">${(track.watch || []).map((item) => `<span class="tag">${escapeHTML(item)}</span>`).join("")}</div>
+      `;
+      makeInspectable(card, {
+        type: "AI 메모리 트랙",
+        tag: track.label,
+        title: track.title,
+        body: track.thesis,
+        section: "ai-matrix",
+        categories: track.linkedCategories || [],
+        watch: track.watch || [],
+        metrics: track.metrics || [],
+      });
+      tracksWrap.appendChild(card);
+    });
+    if (!tracksWrap.children.length) tracksWrap.appendChild(el("div", "empty", "선택한 카테고리의 AI 메모리 트랙이 없습니다."));
+
+    shareWrap.innerHTML = "";
+    shareRows.forEach((row, index) => {
+      const card = el("article", "share-card reveal");
+      card.style.animationDelay = `${index * 25}ms`;
+      card.style.setProperty("--local-accent", categoryAccent((row.linkedCategories || [])[0]));
+      card.innerHTML = `
+        <div class="share-head">
+          <div>
+            <span class="chip accent">${escapeHTML(row.type || "Benchmark")}</span>
+            <h3>${escapeHTML(row.company)}</h3>
+          </div>
+          <span class="share-hbm">${escapeHTML(row.hbmShare || "-")}</span>
+        </div>
+        <div class="share-metrics">
+          <div><strong>${escapeHTML(row.dramShare2025 || "-")}</strong><span>2025 DRAM</span></div>
+          <div><strong>${escapeHTML(row.dramShare2026 || "-")}</strong><span>2026 DRAM</span></div>
+          <div><strong>${escapeHTML(row.nandShare2026 || "-")}</strong><span>2026 NAND</span></div>
+        </div>
+        <p>${escapeHTML(row.position || "")}</p>
+        <ul class="watch-list">${(row.watch || []).slice(0, 4).map((item) => `<li>${escapeHTML(item)}</li>`).join("")}</ul>
+      `;
+      makeInspectable(card, {
+        type: "경쟁사 벤치마크",
+        tag: row.type,
+        title: row.company,
+        body: row.position,
+        section: "ai-matrix",
+        categories: row.linkedCategories || [],
+        watch: row.watch || [],
+        metrics: [
+          { label: "HBM", value: row.hbmShare || "-" },
+          { label: "2026 DRAM", value: row.dramShare2026 || "-" },
+          { label: "2026 NAND", value: row.nandShare2026 || "-" },
+        ],
+      });
+      shareWrap.appendChild(card);
+    });
+    if (!shareWrap.children.length) shareWrap.appendChild(el("div", "empty", "선택한 카테고리의 경쟁사 매트릭스가 없습니다."));
+
+    roadmapWrap.innerHTML = roadmap.map((item, index) => `
+      <article class="roadmap-card reveal" style="animation-delay:${index * 25}ms">
+        <span>${escapeHTML(item.period)}</span>
+        <h4>${escapeHTML(item.title)}</h4>
+        <p>${escapeHTML(item.detail)}</p>
+        <div class="tag-row">${(item.checkpoints || []).map((point) => `<span class="tag">${escapeHTML(point)}</span>`).join("")}</div>
+      </article>
+    `).join("");
+
+    valueWrap.innerHTML = "";
+    valueChain.forEach((node, index) => {
+      const card = el("article", "value-node reveal");
+      card.style.animationDelay = `${index * 25}ms`;
+      card.style.setProperty("--local-accent", categoryAccent((node.linkedCategories || [])[0]));
+      card.innerHTML = `
+        <div class="value-node-head">
+          <span class="chip accent">${escapeHTML(node.segment)}</span>
+          <small>${fmtNum((node.players || []).length)} vendors</small>
+        </div>
+        <h3>${escapeHTML((node.players || []).join(" · "))}</h3>
+        <p>${escapeHTML(node.role || "")}</p>
+        <div class="insight-box"><span>Risk overlay</span>${escapeHTML(node.risk || "")}</div>
+        <div class="tag-row">${(node.signals || []).map((signal) => `<span class="tag">${escapeHTML(signal)}</span>`).join("")}</div>
+      `;
+      makeInspectable(card, {
+        type: "Supply Chain Explorer",
+        tag: node.segment,
+        title: (node.players || []).join(" · "),
+        body: `${node.role || ""} ${node.risk || ""}`,
+        section: "ai-matrix",
+        categories: node.linkedCategories || [],
+        watch: node.signals || [],
+        tags: node.players || [],
+        metrics: [
+          { label: "Vendors", value: fmtNum((node.players || []).length) },
+          { label: "Segment", value: node.segment },
+          { label: "Risk", value: "Overlay" },
+        ],
+      });
+      valueWrap.appendChild(card);
+    });
+    if (!valueWrap.children.length) valueWrap.appendChild(el("div", "empty", "선택한 카테고리의 밸류체인 노드가 없습니다."));
+
+    moduleWrap.innerHTML = modules.map((module, index) => `
+      <article class="platform-module reveal" style="animation-delay:${index * 25}ms">
+        <span class="chip accent">${escapeHTML(module.name)}</span>
+        <p>${escapeHTML(module.function)}</p>
+        <div class="module-foot">
+          <strong>${escapeHTML(module.users)}</strong>
+          <span>${escapeHTML(module.differentiation)}</span>
+        </div>
+      </article>
+    `).join("");
   }
 
   function liveBenchmarkTheme(id) {
@@ -1350,6 +1548,72 @@
           { label: "Steps", value: fmtNum(item.health.length) },
         ],
       }));
+    }
+
+    if (mode === "architecture") {
+      const matrix = architectureMatrix();
+      items = []
+        .concat((matrix.tracks || []).map((track, index) => ({
+          id: `arch-track-${track.id || index}`,
+          mode,
+          type: "AI 메모리 트랙",
+          tag: track.label,
+          title: track.title,
+          body: track.thesis,
+          section: "ai-matrix",
+          categories: track.linkedCategories || [],
+          watch: track.watch || [],
+          metrics: track.metrics || [],
+        })))
+        .concat((matrix.shareMatrix || []).map((row, index) => ({
+          id: `arch-share-${index}`,
+          mode,
+          type: "경쟁사 벤치마크",
+          tag: row.type,
+          title: row.company,
+          body: row.position,
+          section: "ai-matrix",
+          categories: row.linkedCategories || [],
+          watch: row.watch || [],
+          metrics: [
+            { label: "HBM", value: row.hbmShare || "-" },
+            { label: "2026 DRAM", value: row.dramShare2026 || "-" },
+            { label: "2026 NAND", value: row.nandShare2026 || "-" },
+          ],
+        })))
+        .concat((matrix.roadmap || []).map((item, index) => ({
+          id: `arch-roadmap-${index}`,
+          mode,
+          type: "기술 로드맵",
+          tag: item.period,
+          title: item.title,
+          body: item.detail,
+          section: "ai-matrix",
+          categories: inferCategoriesFromText(`${item.title} ${item.detail} ${(item.checkpoints || []).join(" ")}`),
+          watch: item.checkpoints || [],
+          metrics: [
+            { label: "Period", value: item.period },
+            { label: "Owner", value: item.owner },
+            { label: "Checkpoints", value: fmtNum((item.checkpoints || []).length) },
+          ],
+        })))
+        .concat((matrix.valueChain || []).map((node, index) => ({
+          id: `arch-value-${index}`,
+          mode,
+          type: "Supply Chain Explorer",
+          tag: node.segment,
+          title: (node.players || []).join(" · "),
+          body: `${node.role || ""} ${node.risk || ""}`,
+          section: "ai-matrix",
+          categories: node.linkedCategories || [],
+          watch: node.signals || [],
+          tags: node.players || [],
+          metrics: [
+            { label: "Vendors", value: fmtNum((node.players || []).length) },
+            { label: "Segment", value: node.segment },
+            { label: "Risk", value: "Overlay" },
+          ],
+        })));
     }
 
     if (mode === "dynamics") {
@@ -1909,7 +2173,7 @@
   }
 
   function setupScrollSpy() {
-    const sections = ["overview", "workbench", "crawler", "prices", "news", "china-dynamics", "china-deep-dive", "corpdev", "categories", "competitors", "dynamics", "monetization", "response", "intelligence"];
+    const sections = ["overview", "workbench", "ai-matrix", "crawler", "prices", "news", "china-dynamics", "china-deep-dive", "corpdev", "categories", "competitors", "dynamics", "monetization", "response", "intelligence"];
     const update = () => {
       const y = window.scrollY + 96;
       let active = "overview";

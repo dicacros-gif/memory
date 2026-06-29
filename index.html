@@ -10,7 +10,7 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard/dist/web/static/pretendard.css" />
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;700;800;900&family=Space+Grotesk:wght@500;600;700&display=swap" />
-  <link rel="stylesheet" href="assets/css/styles.css?v=ia-freshness-corpdev-20260629" />
+  <link rel="stylesheet" href="assets/css/styles.css?v=hbm-ai-matrix-20260630" />
 </head>
 <body>
   <div class="app">
@@ -33,6 +33,10 @@
         <button class="sb-item" type="button" data-jump="workbench">
           <span class="sb-ico" aria-hidden="true">◈</span>
           <span class="sb-label"><strong>인터랙티브 콕핏</strong><small>Dynamic Workbench</small></span>
+        </button>
+        <button class="sb-item" type="button" data-jump="ai-matrix">
+          <span class="sb-ico" aria-hidden="true">◬</span>
+          <span class="sb-label"><strong>AI 메모리 매트릭스</strong><small>HBM · CXL · Commodity</small></span>
         </button>
 
         <div class="sb-group">매일 크롤링</div>
@@ -144,6 +148,48 @@
             <div class="workbench-stage" id="workbenchStage"></div>
             <aside class="workbench-detail" id="workbenchDetail"></aside>
           </div>
+        </section>
+
+        <section class="board ai-matrix-board" id="ai-matrix">
+          <div class="board-head">
+            <div>
+              <p class="eyebrow">Premium AI architecture vs commodity volume</p>
+              <h2>AI 메모리 매트릭스</h2>
+            </div>
+            <span class="board-meta" id="architectureMeta">HBM · CXL/PIM · DRAM/NAND · 소부장</span>
+          </div>
+          <div class="ai-matrix-summary" id="architectureSummary"></div>
+          <div class="architecture-track-grid" id="architectureTracks"></div>
+          <div class="architecture-split">
+            <section class="arch-panel">
+              <div class="crawler-panel-head">
+                <h3>Samsung · SK hynix · Micron · China 벤치마크</h3>
+                <span>HBM / DRAM / NAND 포지셔닝</span>
+              </div>
+              <div class="share-matrix" id="architectureShareMatrix"></div>
+            </section>
+            <section class="arch-panel">
+              <div class="crawler-panel-head">
+                <h3>기술 로드맵</h3>
+                <span>HBM4 · Custom HBM · CXL/PIM</span>
+              </div>
+              <div class="roadmap-list" id="architectureRoadmap"></div>
+            </section>
+          </div>
+          <section class="arch-panel">
+            <div class="crawler-panel-head">
+              <h3>Supply Chain Explorer</h3>
+              <span>TC 본더 · CXL 테스터 · 인터페이스 IP · 중국 장비 국산화</span>
+            </div>
+            <div class="value-chain-map" id="valueChainMap"></div>
+          </section>
+          <section class="arch-panel">
+            <div class="crawler-panel-head">
+              <h3>플랫폼 구현 모듈</h3>
+              <span>첨부 제안 기반 IA 모듈</span>
+            </div>
+            <div class="platform-module-grid" id="platformModules"></div>
+          </section>
         </section>
 
         <section class="board crawler-board" id="crawler">
@@ -366,6 +412,6 @@
   <div class="qa-answer" id="qaAnswer" hidden></div>
   <div class="inspector" id="inspector" hidden></div>
   <div class="backdrop" id="backdrop"></div>
-  <script src="assets/js/app.js?v=ia-freshness-corpdev-20260629" defer></script>
+  <script src="assets/js/app.js?v=hbm-ai-matrix-20260630" defer></script>
 </body>
 </html>
