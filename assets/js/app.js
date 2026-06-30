@@ -1878,59 +1878,33 @@
       </article>
     `).join("");
 
-    flow.innerHTML = "";
-    pipelineItems.forEach((item, index) => {
-      const card = el("article", "crawler-card reveal");
-      card.style.animationDelay = `${index * 30}ms`;
-      card.style.setProperty("--local-accent", categoryAccent((item.linkedCategories || [])[0]));
-      card.innerHTML = `
+    const compactStages = [
+      { label: "수집", value: `${fmtNum(ok)}/${fmtNum(health.length)}`, note: fail ? `${fmtNum(fail)}개 점검 필요` : "정상", cls: fail ? "fail" : "ok" },
+      { label: "정제", value: fmtNum(categorySignals + benchmarkSignals), note: "뉴스·벤치마킹 분류", cls: "ok" },
+      { label: "대시보드", value: fmtNum(pipelineItems.length), note: "주요 보드 연결", cls: "ok" },
+    ];
+    flow.innerHTML = compactStages.map((stage) => `
+      <article class="crawler-card compact">
         <div class="crawler-card-head">
-          <span class="chip accent">${escapeHTML(item.label)}</span>
-          <span class="crawler-status ${escapeHTML(item.status.cls)}">${escapeHTML(item.status.label)}</span>
+          <span class="chip accent">${escapeHTML(stage.label)}</span>
+          <span class="crawler-status ${escapeHTML(stage.cls)}">${escapeHTML(stage.note)}</span>
         </div>
-        <h3>${escapeHTML(item.source)}</h3>
-        <p>${escapeHTML(item.method)}</p>
-        <div class="crawl-tags">${item.fields.map((field) => `<span>${escapeHTML(field)}</span>`).join("")}</div>
-        <div class="crawler-rule">
-          <strong>필터/분류</strong>
-          <span>${escapeHTML(item.filters.join(" → "))}</span>
-        </div>
-        <div class="crawler-card-foot">
-          <span>${fmtNum(item.signalCount)}개 신호</span>
-          <button type="button" data-crawl-jump="${escapeHTML(item.section)}">${escapeHTML(SECTION_LABELS[item.section] || item.output)}</button>
-        </div>
-      `;
-      card.querySelector("[data-crawl-jump]")?.addEventListener("click", () => jumpTo(item.section));
-      makeInspectable(card, {
-        type: "크롤링 파이프라인",
-        tag: item.label,
-        title: item.output,
-        body: `${item.source} · ${item.method}`,
-        section: item.section,
-        categories: item.linkedCategories || [],
-        watch: item.fields.concat(item.filters),
-        metrics: [
-          { label: "신호", value: fmtNum(item.signalCount) },
-          { label: "Health", value: item.status.label },
-          { label: "Steps", value: fmtNum(item.health.length) },
-        ],
-      });
-      flow.appendChild(card);
-    });
+        <h3>${escapeHTML(stage.value)}</h3>
+      </article>
+    `).join("");
 
     const taxonomyRows = []
       .concat((LIVE.categories || []).map((category) => ({
-        type: "뉴스 카테고리",
+        type: "뉴스",
         label: category.label || category.id,
         count: Number(category.count ?? category.items?.length ?? 0) || 0,
-        note: `${fmtNum(category.items?.length || 0)}개 샘플 · 기사 탭/자연어 검색`,
       })))
       .concat((LIVE.benchmarkSignals?.themes || []).map((theme) => ({
-        type: "벤치마킹 테마",
+        type: "벤치마킹",
         label: theme.label || theme.id,
         count: Number(theme.count ?? theme.items?.length ?? 0) || 0,
-        note: `${fmtNum(theme.items?.length || 0)}개 샘플 · 중국 다이내믹스`,
       })))
+      .filter((row) => row.count > 0)
       .filter((row) => {
         if (activeCategory === "all") return true;
         const hay = `${row.label} ${row.type}`.toLowerCase();
@@ -1941,19 +1915,25 @@
       <div class="crawler-tax-row">
         <span>${escapeHTML(row.type)}</span>
         <strong>${escapeHTML(row.label)}</strong>
-        <em>${fmtNum(row.count)}건 · ${escapeHTML(row.note)}</em>
+        <em>${fmtNum(row.count)}건</em>
       </div>
     `).join("") : `<div class="empty">선택한 카테고리에 직접 연결된 분류 로그가 없습니다.</div>`;
 
     const healthOk = health.filter((entry) => entry.ok).length;
     const healthMeta = $("#crawlerHealthMeta");
     if (healthMeta) healthMeta.textContent = `${fmtNum(healthOk)}/${fmtNum(health.length)} 정상`;
-    healthWrap.innerHTML = health.length ? health.map((entry) => `
-      <div class="health-chip ${entry.ok ? "ok" : "fail"}">
+    const healthIssues = health.filter((entry) => !entry.ok).slice(0, 6);
+    healthWrap.innerHTML = healthIssues.length ? healthIssues.map((entry) => `
+      <div class="health-chip fail">
         <strong>${escapeHTML(entry.step || "step")}</strong>
         <span>${escapeHTML(entry.msg || "")}</span>
       </div>
-    `).join("") : `<div class="empty">수집 로그가 아직 없습니다.</div>`;
+    `).join("") : `
+      <div class="health-chip ok">
+        <strong>전체 수집 로그</strong>
+        <span>${fmtNum(healthOk)}/${fmtNum(health.length)} 정상 · 상세 로그는 숨김</span>
+      </div>
+    `;
   }
 
   function architectureMatrix() {
@@ -3629,7 +3609,7 @@
   }
 
   function setupScrollSpy() {
-    const sections = ["overview", "daily-review", "numbers", "workbench", "ai-matrix", "crawler", "prices", "news", "china-dynamics", "talent-radar", "china-deep-dive", "corpdev", "categories", "competitors", "dynamics", "monetization", "response", "intelligence"];
+    const sections = ["overview", "daily-review", "numbers", "workbench", "ai-matrix", "prices", "news", "china-dynamics", "talent-radar", "china-deep-dive", "corpdev", "categories", "competitors", "dynamics", "monetization", "response", "intelligence", "crawler"];
     const update = () => {
       const y = window.scrollY + chromeOffset() + 22;
       let active = "overview";
