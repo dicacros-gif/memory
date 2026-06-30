@@ -30,6 +30,8 @@
   const APPLE_CONTENT_RE =
     /\b(apple|applem|aapl|iphone|ipad|macbook|9to5mac|applemagazine)\b|애플|아이폰|아이패드|맥북/i;
   const SOURCE_SUFFIX_RE = /\s[-–—]\s(?:[A-Za-z0-9가-힣 .·&]+)$/;
+  const HIDDEN_SECTIONS = new Set(["corpdev"]);
+  const HIDDEN_CATEGORY_IDS = new Set(["corpdev"]);
   const COMPANY_NEWS_ALIASES = {
     cxmt: ["cxmt", "changxin", "changxin memory", "changxin memory technologies"],
     ymtc: ["ymtc", "yangtze memory", "yangtze memory technologies", "yangtze"],
@@ -51,7 +53,6 @@
     equipment: "Naura·AMEC·ACM 등 장비 국산화와 공정 recipe 흡수 속도 관찰",
     geopolitics: "수출통제·허가 예외·중국 자본 투입이 공급망을 바꾸는지 점검",
     talent: "핵심 엔지니어 이동·채용 JD·IP 신호가 기술 격차를 줄이는지 확인",
-    corpdev: "M&A·JV·IPO·지분·정책자금·장기 공급계약을 거래 이벤트로 추적",
     operations: "SK하이닉스 중국 운영, 다롄/Solidigm, VEU 규제 리스크를 별도 점검",
   };
   const CATEGORY_ACCENTS = {
@@ -66,7 +67,6 @@
     cxl: "#0891B2",
     aidemand: "#16A34A",
     china: "#1428A0",
-    corpdev: "#B45309",
     operations: "#475569",
   };
   const COLOR_PRESETS = [
@@ -88,7 +88,6 @@
     "china-dynamics": "#7DD3FC",
     "talent-radar": "#F0ABFC",
     "china-deep-dive": "#86EFAC",
-    corpdev: "#FCD34D",
     categories: "#C4B5FD",
     competitors: "#F0ABFC",
     dynamics: "#FDBA74",
@@ -290,12 +289,6 @@
       section: "response",
     },
     {
-      id: "corpdev",
-      label: "Corp Dev",
-      sub: "M&A · JV · IPO",
-      section: "corpdev",
-    },
-    {
       id: "intelligence",
       label: "정보 채널",
       sub: "Finance · Hiring · Teardown",
@@ -311,7 +304,6 @@
     { id: "market", label: "시장/가격", sub: "Spot · Contract · WSTS", categories: ["dram", "nand", "aidemand"], keywords: ["가격", "spot", "contract", "wsts", "market", "성장", "매출", "규모"] },
     { id: "hbm", label: "HBM/Post-HBM", sub: "HBM4 · CXL · 3D DRAM", categories: ["hbm", "cxl", "packaging", "aidemand"], keywords: ["hbm", "rubin", "cxl", "pim", "3d dram", "cowos", "tsmc"] },
     { id: "china-risk", label: "중국 리스크", sub: "CXMT · YMTC · 정책", categories: ["china", "geopolitics", "equipment", "talent"], keywords: ["cxmt", "ymtc", "big fund", "match", "veU", "중국", "국산화", "수출통제"] },
-    { id: "corpdev", label: "거래/자본", sub: "IPO · JV · 공급계약", categories: ["corpdev", "operations"], keywords: ["ipo", "jv", "m&a", "계약", "지분", "투자", "fund"] },
     { id: "pipeline", label: "수집상태", sub: "Freshness · Health", categories: ["operations"], keywords: ["freshness", "health", "crawler", "rows", "뉴스", "수집", "pipeline"] },
   ];
   const SECTION_LABELS = {
@@ -322,7 +314,6 @@
     "china-dynamics": "중국 반도체 다이내믹스",
     "talent-radar": "인재·채용 레이더",
     "china-deep-dive": "중국 심층 벤치마킹",
-    corpdev: "Corp Dev 레이어",
     dynamics: "경쟁 다이나믹스",
     monetization: "벤치마킹 모델",
     response: "대응 대시보드",
@@ -488,7 +479,6 @@
   let newsCompany = "all";
   let newsSource = "english";
   let workbenchMode = "review";
-  let corpDevLayer = "all";
   let selectedInsightId = null;
   let reviewView = "today";
   let selectedReviewId = null;
@@ -542,7 +532,6 @@
     renderChinaDynamics();
     renderTalentRadar();
     renderChinaDeepDive();
-    renderCorpDev();
     renderWorkbench();
     setupQA();
     setupInteractions();
@@ -552,7 +541,7 @@
   }
 
   function memoryCategories() {
-    return BASE.memoryCategories || [];
+    return visibleItems(BASE.memoryCategories || []);
   }
 
   function categoryAccent(id) {
@@ -600,6 +589,28 @@
     const n = Number(value);
     if (!Number.isFinite(n)) return min;
     return Math.max(min, Math.min(max, n));
+  }
+
+  function itemIds(item = {}) {
+    return []
+      .concat(item.id || [])
+      .concat(item.section || [])
+      .concat(item.category || [])
+      .concat(item.categories || [])
+      .concat(item.linkedCategories || [])
+      .concat(item.categoryIds || [])
+      .map((id) => String(id || "").toLowerCase());
+  }
+
+  function isHiddenItem(item = {}) {
+    const ids = itemIds(item);
+    if (ids.some((id) => HIDDEN_SECTIONS.has(id) || HIDDEN_CATEGORY_IDS.has(id))) return true;
+    const text = `${item.kind || ""} ${item.type || ""} ${item.label || ""} ${item.title || ""}`.toLowerCase();
+    return text.includes("corp dev") || text.includes("corpdev");
+  }
+
+  function visibleItems(items = []) {
+    return items.filter((item) => !isHiddenItem(item));
   }
 
   function hoursSince(value) {
@@ -847,7 +858,7 @@
   }
 
   function setCategory(id) {
-    activeCategory = id;
+    activeCategory = HIDDEN_CATEGORY_IDS.has(String(id || "").toLowerCase()) ? "all" : id;
     const cat = activeCategoryData();
     $("#categoryMeta").textContent = `${cat.label} · ${cat.desc}`;
     $$(".sb-cat").forEach((btn) => btn.classList.toggle("active", btn.dataset.category === id));
@@ -863,7 +874,6 @@
     renderArchitectureMatrix();
     renderChinaDeepDive();
     renderTalentRadar();
-    renderCorpDev();
     renderWorkbench();
     animateCounts();
   }
@@ -1226,7 +1236,7 @@
 
   function dailyReviewItems() {
     const seed = dailyReviewData().queueSeed || [];
-    return seed.concat(liveReviewItems())
+    return visibleItems(seed.concat(liveReviewItems()))
       .map((item) => ({
         ...item,
         categories: item.linkedCategories || item.categories || [],
@@ -1267,7 +1277,7 @@
     }
 
     const cards = [
-      { label: "New since last review", value: newCount, note: "새로 들어온 기사·가격·거래 이벤트" },
+      { label: "New since last review", value: newCount, note: "새로 들어온 기사·가격·수집 신호" },
       { label: "Changed items", value: changedCount, note: "수치·상태·중요도 변경 재검토" },
       { label: "P1 queue", value: p1Count, note: "사업 영향·신규성·출처 신뢰도 상위" },
       { label: "Pipeline alerts", value: pipelineCount, note: "수집 실패·stale·rows 없음" },
@@ -1438,8 +1448,6 @@
       healthKeys: ["뉴스", "외신", "중국"],
       staleHours: 36,
     });
-    const corpLayers = Object.values(BASE.corpDev?.layers || {});
-    const corpEvents = corpLayers.reduce((sum, layer) => sum + (layer.items || []).length, 0);
     const baseItems = (BASE.kpis || []).map((kpi, index) => ({
       id: `kpi-${index}`,
       kind: "KPI",
@@ -1510,21 +1518,8 @@
         sourceDate: fmtDate(LIVE.updatedAt),
         linkedCategories: [],
       },
-      {
-        id: "live-corpdev-events",
-        kind: "Corp Dev",
-        title: "거래·자본 이벤트",
-        value: corpEvents,
-        suffix: "건",
-        note: "M&A · JV · IPO · 지분투자 · 정부펀드 · 장기 공급계약 레이어",
-        badge: "Layer",
-        statusClass: "watch",
-        source: "baseline corpDev layer",
-        sourceDate: "versioned",
-        linkedCategories: ["corpdev", "geopolitics", "equipment"],
-      },
     ];
-    return baseItems.concat(liveItems);
+    return visibleItems(baseItems.concat(liveItems));
   }
 
   function orderedNumberItems(items) {
@@ -1675,6 +1670,7 @@
   }
 
   function relatedToActive(item) {
+    if (isHiddenItem(item)) return false;
     if (activeCategory === "all") return true;
     return (item.linkedCategories || []).includes(activeCategory);
   }
@@ -1735,7 +1731,7 @@
   function renderChannels() {
     const grid = $("#channelGrid");
     grid.innerHTML = "";
-    (BASE.channels || []).filter(relatedToActive).forEach((item, index) => {
+    visibleItems(BASE.channels || []).filter(relatedToActive).forEach((item, index) => {
       const card = el("article", "card reveal");
       card.style.animationDelay = `${index * 35}ms`;
       card.style.setProperty("--local-accent", categoryAccent((item.linkedCategories || [])[0]));
@@ -2510,126 +2506,6 @@
     if (!items.length) grid.appendChild(el("div", "empty", "선택한 카테고리의 심층 벤치마킹 항목이 없습니다."));
   }
 
-  function corpDevLayers() {
-    return BASE.corpDev?.layers || [];
-  }
-
-  function corpDevEvents(layerId = corpDevLayer) {
-    return corpDevLayers().flatMap((layer) => (layer.events || []).map((event) => ({
-      ...event,
-      layerId: layer.id,
-      layerLabel: layer.label,
-      layerTitle: layer.title,
-      layerDesc: layer.desc,
-    }))).filter((event) => {
-      const layerMatch = layerId === "all" || event.layerId === layerId;
-      const categoryMatch = activeCategory === "all" || (event.linkedCategories || []).includes(activeCategory);
-      return layerMatch && categoryMatch;
-    });
-  }
-
-  function renderCorpDev() {
-    const summary = $("#corpdevSummary");
-    const tabs = $("#corpdevLayerTabs");
-    const grid = $("#corpdevGrid");
-    const ledger = $("#claimLedger");
-    const meta = $("#corpdevMeta");
-    if (!summary || !tabs || !grid) return;
-
-    const layers = corpDevLayers();
-    const allEvents = corpDevEvents("all");
-    const visibleEvents = corpDevEvents();
-    const okClaims = (BASE.claimLedger || []).filter((claim) => String(claim.statusClass || "").toLowerCase() === "ok").length;
-    if (meta) meta.textContent = `${fmtNum(layers.length)}개 레이어 · ${fmtNum(allEvents.length)}개 이벤트 · ${activeCategoryData().label}`;
-
-    const summaryCards = [
-      { label: "레이어", value: layers.length, note: "M&A · JV · IPO · 지분 · 정책자금 · 장기계약" },
-      { label: "거래/자본 이벤트", value: allEvents.length, note: "중국 메모리 생태계 Corp Dev 신호" },
-      { label: "검증 OK", value: okClaims, note: "팩트 레저 기준 확정/공식 항목" },
-      { label: "업데이트", value: fmtDate(LIVE.updatedAt), note: "크롤링·큐레이션 결합" },
-    ];
-    summary.innerHTML = summaryCards.map((card) => `
-      <article class="card">
-        <span class="chip accent">${escapeHTML(card.label)}</span>
-        <h3>${typeof card.value === "number" ? countHTML(card.value) : escapeHTML(card.value)}</h3>
-        <p>${escapeHTML(card.note)}</p>
-      </article>
-    `).join("");
-
-    const layerOptions = [{ id: "all", label: "전체", count: allEvents.length }].concat(layers.map((layer) => ({
-      id: layer.id,
-      label: layer.label,
-      count: corpDevEvents(layer.id).length,
-    })));
-    tabs.innerHTML = layerOptions.map((layer) => `
-      <button type="button" class="${layer.id === corpDevLayer ? "active" : ""}" data-corpdev-layer="${escapeHTML(layer.id)}">
-        <span>${escapeHTML(layer.label)}</span><small>${fmtNum(layer.count)}</small>
-      </button>
-    `).join("");
-    tabs.querySelectorAll("[data-corpdev-layer]").forEach((btn) => {
-      btn.addEventListener("click", () => {
-        corpDevLayer = btn.dataset.corpdevLayer;
-        renderCorpDev();
-      });
-    });
-
-    grid.innerHTML = "";
-    visibleEvents.forEach((event, index) => {
-      const card = el("article", "card corpdev-card reveal");
-      card.style.animationDelay = `${index * 30}ms`;
-      card.style.setProperty("--local-accent", categoryAccent((event.linkedCategories || ["corpdev"])[0]));
-      card.innerHTML = `
-        <div class="card-top">
-          <div>
-            <span class="chip accent">${escapeHTML(event.layerLabel)}</span>
-            <h3>${escapeHTML(event.title)}</h3>
-            <span class="source-tag">${escapeHTML(event.date || event.source || "")}</span>
-          </div>
-          ${factBadge(event.confidence || "보도", event.statusClass || "watch")}
-        </div>
-        <p>${escapeHTML(event.insight || event.desc || "")}</p>
-        <div class="corpdev-event-meta">
-          ${(event.tags || []).slice(0, 5).map((tag) => `<span class="tag">${escapeHTML(tag)}</span>`).join("")}
-        </div>
-        <ul class="watch-list">${(event.watch || []).slice(0, 4).map((item) => `<li>${escapeHTML(item)}</li>`).join("")}</ul>
-        ${event.sourceUrl ? `<a class="rainbow" href="${escapeHTML(event.sourceUrl)}" target="_blank" rel="noopener">${escapeHTML(event.source || "source")}</a>` : ""}
-      `;
-      makeInspectable(card, {
-        type: "Corp Dev 이벤트",
-        tag: event.layerLabel,
-        title: event.title,
-        body: event.insight || event.desc,
-        section: "corpdev",
-        categories: event.linkedCategories || ["corpdev"],
-        watch: event.watch || [],
-        tags: event.tags || [],
-        links: event.sourceUrl ? [{ title: event.source || event.title, link: event.sourceUrl }] : [],
-        metrics: [
-          { label: "Layer", value: event.layerLabel },
-          { label: "Status", value: event.confidence || "보도" },
-          { label: "Date", value: event.date || "상시" },
-        ],
-      });
-      grid.appendChild(card);
-    });
-    if (!grid.children.length) grid.appendChild(el("div", "empty", "선택한 조건의 Corp Dev 이벤트가 없습니다."));
-
-    if (ledger) {
-      const claims = BASE.claimLedger || [];
-      ledger.innerHTML = claims.map((claim) => `
-        <article class="claim-card">
-          <div class="card-top">
-            <h4>${escapeHTML(claim.claim)}</h4>
-            ${factBadge(claim.status || "검증", claim.statusClass || "watch")}
-          </div>
-          <p>${escapeHTML(claim.note || "")}</p>
-          <span class="source-tag">${escapeHTML(claim.version || "전망 버전 미상")}</span>
-          ${claim.sourceUrl ? `<a href="${escapeHTML(claim.sourceUrl)}" target="_blank" rel="noopener">${escapeHTML(claim.source || "원문")}</a>` : ""}
-        </article>
-      `).join("");
-    }
-  }
-
   function inferCategoriesFromText(text) {
     const hay = String(text || "").toLowerCase();
     return memoryCategories()
@@ -2867,28 +2743,8 @@
       }));
     }
 
-    if (mode === "corpdev") {
-      items = corpDevEvents("all").map((event, index) => ({
-        id: `corpdev-${event.layerId}-${index}`,
-        mode,
-        type: "Corp Dev 이벤트",
-        tag: event.layerLabel,
-        title: event.title,
-        body: event.insight || event.desc,
-        section: "corpdev",
-        categories: event.linkedCategories || ["corpdev"],
-        watch: event.watch || [],
-        metrics: [
-          { label: "Layer", value: event.layerLabel },
-          { label: "Status", value: event.confidence || "보도" },
-          { label: "Date", value: event.date || "상시" },
-        ],
-        links: event.sourceUrl ? [{ title: event.source || event.title, link: event.sourceUrl }] : [],
-      }));
-    }
-
     if (mode === "intelligence") {
-      items = (BASE.channels || []).map((item, index) => ({
+      items = visibleItems(BASE.channels || []).map((item, index) => ({
         id: `channel-${index}`,
         mode,
         type: "정보 채널",
@@ -2906,7 +2762,7 @@
       }));
     }
 
-    return items.filter((item) => {
+    return visibleItems(items).filter((item) => {
       if (activeCategory === "all") return true;
       if (!item.categories || !item.categories.length) return true;
       return item.categories.includes(activeCategory);
@@ -3159,11 +3015,12 @@
     const wrap = $(`#${targetId}`);
     if (!wrap) return;
     const cats = memoryCategories();
+    const visibleSourceItems = visibleItems(sourceItems);
     wrap.innerHTML = "";
     cats.forEach((cat) => {
       const count = cat.id === "all"
-        ? sourceItems.length
-        : sourceItems.filter((item) => (item.linkedCategories || []).includes(cat.id)).length;
+        ? visibleSourceItems.length
+        : visibleSourceItems.filter((item) => (item.linkedCategories || []).includes(cat.id)).length;
       if (cat.id !== "all" && !count) return;
       const btn = el("button", cat.id === activeCategory ? "active" : "");
       btn.type = "button";
@@ -3441,7 +3298,7 @@
         <strong>수익화 Watch</strong>
         <ul class="watch-list">
           <li>${escapeHTML(item.watch || "가격·고객·캐파 변화")}</li>
-          <li>${escapeHTML(flowInfo.lever)} 지표를 가격/뉴스/Corp Dev 큐와 같이 확인</li>
+          <li>${escapeHTML(flowInfo.lever)} 지표를 가격/뉴스/대응 큐와 같이 확인</li>
         </ul>
       </div>
       ${links.length ? `
@@ -3697,7 +3554,7 @@
   }
 
   function setupScrollSpy() {
-    const sections = ["overview", "daily-review", "numbers", "workbench", "ai-matrix", "prices", "news", "china-dynamics", "talent-radar", "china-deep-dive", "corpdev", "categories", "competitors", "dynamics", "monetization", "response", "intelligence", "crawler"];
+    const sections = ["overview", "daily-review", "numbers", "workbench", "ai-matrix", "prices", "news", "china-dynamics", "talent-radar", "china-deep-dive", "categories", "competitors", "dynamics", "monetization", "response", "intelligence", "crawler"];
     const update = () => {
       const y = window.scrollY + chromeOffset() + 22;
       let active = "overview";
