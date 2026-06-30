@@ -253,12 +253,6 @@
       section: "crawler",
     },
     {
-      id: "architecture",
-      label: "AI Matrix",
-      sub: "HBM · CXL · Commodity",
-      section: "ai-matrix",
-    },
-    {
       id: "dynamics",
       label: "중국 다이내믹스",
       sub: "캐파 · 장비 · 패키징",
@@ -269,6 +263,12 @@
       label: "인재 레이더",
       sub: "Hiring · Campus · IP",
       section: "talent-radar",
+    },
+    {
+      id: "architecture",
+      label: "AI Matrix",
+      sub: "HBM · CXL · Commodity",
+      section: "ai-matrix",
     },
     {
       id: "competition",
@@ -3554,7 +3554,7 @@
   }
 
   function setupScrollSpy() {
-    const sections = ["overview", "daily-review", "numbers", "workbench", "ai-matrix", "prices", "news", "china-dynamics", "talent-radar", "china-deep-dive", "categories", "competitors", "dynamics", "monetization", "response", "intelligence", "crawler"];
+    const sections = ["overview", "daily-review", "crawler", "prices", "news", "china-dynamics", "talent-radar", "numbers", "workbench", "ai-matrix", "china-deep-dive", "categories", "competitors", "dynamics", "monetization", "response", "intelligence"];
     const update = () => {
       const y = window.scrollY + chromeOffset() + 22;
       let active = "overview";
