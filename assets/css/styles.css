@@ -643,6 +643,7 @@ body.sidebar-collapsed .sb-ico {
 .kpi-strip,
 .kpi,
 .board-head-actions,
+.table-wrap,
 .news-layout,
 .news-columns,
 .source-panel {
@@ -1432,6 +1433,7 @@ body.sidebar-collapsed .sb-ico {
   display: grid;
   align-content: start;
   gap: 10px;
+  overflow-wrap: anywhere;
   border: 1px solid var(--line);
   border-radius: 10px;
   background:
@@ -1557,6 +1559,7 @@ body.sidebar-collapsed .sb-ico {
   display: grid;
   align-content: start;
   gap: 10px;
+  overflow-wrap: anywhere;
   border: 1px solid var(--line);
   border-radius: 10px;
   background: var(--panel);
@@ -1585,6 +1588,7 @@ body.sidebar-collapsed .sb-ico {
   min-width: 0;
   display: grid;
   gap: 4px;
+  overflow-wrap: anywhere;
   border: 1px solid var(--line-2);
   border-left: 3px solid var(--local-accent, var(--green));
   border-radius: 8px;
@@ -2434,6 +2438,155 @@ body.sidebar-collapsed .sb-ico {
   color: var(--accent);
 }
 
+.talent-radar-board {
+  border-color: color-mix(in srgb, #c026d3 24%, var(--line));
+  background:
+    linear-gradient(135deg, color-mix(in srgb, #c026d3 7%, transparent), transparent 38%),
+    var(--panel);
+}
+
+.talent-summary,
+.talent-company-grid,
+.talent-source-grid,
+.talent-keyword-grid,
+.talent-rule-grid {
+  display: grid;
+  gap: 12px;
+}
+
+.talent-summary {
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  margin-bottom: 12px;
+}
+
+.talent-summary-line,
+.talent-company-card,
+.talent-source-card,
+.talent-keyword-card,
+.talent-rule-card,
+.talent-panel {
+  min-width: 0;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  background: var(--panel);
+}
+
+.talent-summary-line {
+  display: grid;
+  grid-template-columns: 32px minmax(0, 1fr);
+  gap: 8px;
+  align-items: start;
+  padding: 11px;
+}
+
+.talent-summary-line span {
+  color: var(--purple);
+  font-family: var(--display);
+  font-size: 17px;
+  font-weight: 900;
+}
+
+.talent-summary-line p,
+.talent-company-card p,
+.talent-keyword-card p,
+.talent-rule-card p {
+  color: var(--ink-2);
+  font-size: 12px;
+  line-height: 1.55;
+  font-weight: 650;
+}
+
+.talent-company-grid {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  margin-bottom: 12px;
+}
+
+.talent-company-card,
+.talent-source-card,
+.talent-keyword-card,
+.talent-rule-card {
+  display: grid;
+  gap: 10px;
+  padding: 12px;
+  overflow-wrap: anywhere;
+  transition: border-color .18s, background .18s, transform .18s;
+}
+
+.talent-company-card:hover,
+.talent-source-card:hover,
+.talent-keyword-card:hover {
+  transform: translateY(-2px);
+  border-color: var(--local-accent, var(--accent));
+  background: color-mix(in srgb, var(--local-accent, var(--accent)) 6%, var(--panel));
+}
+
+.talent-card-head {
+  display: flex;
+  align-items: start;
+  justify-content: space-between;
+  gap: 10px;
+}
+
+.talent-card-head h3 {
+  margin-top: 6px;
+  font-size: 15px;
+  line-height: 1.35;
+}
+
+.talent-metric-grid {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 8px;
+}
+
+.talent-split {
+  display: grid;
+  grid-template-columns: minmax(0, 1.1fr) minmax(0, .9fr);
+  gap: 12px;
+}
+
+.talent-panel {
+  padding: 12px;
+}
+
+.talent-source-grid {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+
+.talent-keyword-grid {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  margin-bottom: 12px;
+}
+
+.talent-rule-grid {
+  grid-template-columns: 1fr;
+}
+
+.talent-rule-card {
+  grid-template-columns: 74px minmax(0, 1fr);
+  align-items: start;
+}
+
+.talent-rule-card strong {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 28px;
+  border-radius: 7px;
+  background: color-mix(in srgb, var(--local-accent, var(--accent)) 12%, var(--panel-2));
+  color: var(--local-accent, var(--accent));
+  font-size: 11px;
+  font-weight: 900;
+}
+
+.talent-rule-card.level-high strong {
+  --local-accent: var(--red);
+}
+
+.talent-rule-card.level-active strong {
+  --local-accent: var(--green);
+}
+
 .china-deep-board {
   border-color: color-mix(in srgb, var(--teal) 24%, var(--line));
   background:
@@ -2670,6 +2823,7 @@ body.sidebar-collapsed .sb-ico {
 }
 
 .metric {
+  min-width: 0;
   border: 1px solid var(--line-2);
   border-radius: 8px;
   background: color-mix(in srgb, var(--panel-2) 88%, var(--accent) 12%);
@@ -2684,6 +2838,7 @@ body.sidebar-collapsed .sb-ico {
 .metric strong {
   font-family: var(--display);
   font-size: 18px;
+  overflow-wrap: anywhere;
 }
 
 .metric span {
@@ -2691,6 +2846,7 @@ body.sidebar-collapsed .sb-ico {
   color: var(--muted);
   font-size: 10px;
   font-weight: 800;
+  overflow-wrap: anywhere;
 }
 
 .tag-row,
@@ -3277,6 +3433,10 @@ body.sidebar-collapsed .sb-ico {
   .category-grid,
   .channel-grid,
   .crawler-summary,
+  .talent-summary,
+  .talent-company-grid,
+  .talent-source-grid,
+  .talent-keyword-grid,
   .ai-matrix-summary,
   .advanced-module-grid,
   .share-matrix,
@@ -3449,6 +3609,12 @@ body.sidebar-collapsed .sb-ico {
     justify-content: flex-start;
   }
 
+  .freshness-badge {
+    width: 100%;
+    white-space: normal;
+    line-height: 1.35;
+  }
+
   .workbench-body {
     grid-template-columns: 1fr;
   }
@@ -3474,6 +3640,10 @@ body.sidebar-collapsed .sb-ico {
   .china-dynamics-overview,
   .china-dynamics-grid,
   .china-deep-grid,
+  .talent-summary,
+  .talent-company-grid,
+  .talent-source-grid,
+  .talent-keyword-grid,
   .ai-matrix-summary,
   .advanced-module-grid,
   .architecture-track-grid,
@@ -3483,6 +3653,14 @@ body.sidebar-collapsed .sb-ico {
   .corpdev-grid,
   .claim-grid,
   .crawler-flow {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .talent-split {
+    grid-template-columns: 1fr;
+  }
+
+  .talent-metric-grid {
     grid-template-columns: repeat(2, minmax(0, 1fr));
   }
 }
@@ -3535,6 +3713,12 @@ body.sidebar-collapsed .sb-ico {
     .china-dynamics-overview,
     .china-dynamics-grid,
     .china-deep-grid,
+    .talent-summary,
+    .talent-company-grid,
+    .talent-source-grid,
+    .talent-keyword-grid,
+    .talent-metric-grid,
+    .talent-split,
     .model-grid,
     .relation-lanes,
     .money-flow-lanes,

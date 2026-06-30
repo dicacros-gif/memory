@@ -85,6 +85,7 @@
     prices: "#FFD166",
     news: "#93C5FD",
     "china-dynamics": "#7DD3FC",
+    "talent-radar": "#F0ABFC",
     "china-deep-dive": "#86EFAC",
     corpdev: "#FCD34D",
     categories: "#C4B5FD",
@@ -131,9 +132,9 @@
       label: "인재/IP",
       theme: "talent",
       categoryIds: ["talent", "packaging"],
-      keywords: ["talent", "hiring", "engineer", "ip", "yield", "tsv", "hybrid bonding"],
-      pulse: "채용·커뮤니티·특허 신호로 수율 엔지니어 이동과 공정 노하우 유출 가능성을 조기 감지",
-      watch: ["TSV JD 증가", "수율 엔지니어 이동", "IP 분쟁", "익명 커뮤니티 신호"],
+      keywords: ["talent", "hiring", "engineer", "ip", "yield", "tsv", "hybrid bonding", "xtacking", "campus recruiting", "tsinghua", "boss zhipin", "ymtc careers", "cxmt careers"],
+      pulse: "공식 채용·로컬 JD·대학 파이프라인·전문 매체/IP 신호로 수율 엔지니어 이동과 공정 노하우 유출 가능성을 조기 감지",
+      watch: ["TSV/HBM JD 증가", "CXMT/YMTC 공식 채용", "칭화대 캠퍼스 리크루팅", "수율 엔지니어 이동", "IP 분쟁"],
     },
     {
       id: "policy",
@@ -248,6 +249,12 @@
       section: "china-dynamics",
     },
     {
+      id: "talent",
+      label: "인재 레이더",
+      sub: "Hiring · Campus · IP",
+      section: "talent-radar",
+    },
+    {
       id: "competition",
       label: "경쟁 구도",
       sub: "CXMT · YMTC · OSAT",
@@ -287,6 +294,7 @@
     crawler: "전체 크롤링 관제",
     "ai-matrix": "AI 메모리 매트릭스",
     "china-dynamics": "중국 반도체 다이내믹스",
+    "talent-radar": "인재·채용 레이더",
     "china-deep-dive": "중국 심층 벤치마킹",
     corpdev: "Corp Dev 레이어",
     dynamics: "경쟁 다이나믹스",
@@ -370,6 +378,18 @@
       section: "china-dynamics",
       linkedCategories: ["dram", "nand", "china", "equipment", "geopolitics"],
       healthKeys: ["뉴스:China", "벤치마킹:China Capacity", "벤치마킹:Equipment Localization"],
+    },
+    {
+      id: "talent-hiring-radar",
+      label: "인재·채용 레이더",
+      source: "CXMT/YMTC 공식 채용 · Boss Zhipin/Liepin/Maimai · Tsinghua/HUST · ijiwei/IP",
+      method: "TSV, Yield, Advanced Packaging, Xtacking, eSSD, tool qual, campus recruiting 키워드를 MECE 축으로 분류",
+      fields: ["공식 JD", "로컬 채용", "대학 취업센터", "전문 매체/IP", "경보 수준"],
+      filters: ["CXMT/YMTC alias", "TSV/HBM/yield", "Xtacking/eSSD", "campus recruiting", "IP/non-compete"],
+      output: "인재·채용 레이더",
+      section: "talent-radar",
+      linkedCategories: ["talent", "dram", "nand", "packaging", "equipment"],
+      healthKeys: ["벤치마킹:Talent", "뉴스:China"],
     },
     {
       id: "benchmark-signals",
@@ -488,6 +508,7 @@
     renderPrices();
     renderNews();
     renderChinaDynamics();
+    renderTalentRadar();
     renderChinaDeepDive();
     renderCorpDev();
     renderWorkbench();
@@ -740,6 +761,7 @@
     renderCrawlerBoard();
     renderArchitectureMatrix();
     renderChinaDeepDive();
+    renderTalentRadar();
     renderCorpDev();
     renderWorkbench();
     animateCounts();
@@ -1320,6 +1342,10 @@
     }
     if (item.id === "foreign-news") return rawNews().filter((news) => !isChinaArticle(news)).length;
     if (item.id === "china-news") return rawNews().filter(isChinaArticle).length;
+    if (item.id === "talent-hiring-radar") {
+      const axis = CHINA_DYNAMIC_AXES.find((entry) => entry.id === "talent");
+      return axisSignalCount(axis) + (BASE.talentRadar?.companySignals?.length || 0);
+    }
     if (item.id === "benchmark-signals") return benchmarkSignalTotal();
     if (item.id === "competitors") return (LIVE.competitors?.competitors || []).length || parseHealthCount(health);
     if (item.id === "startup-radar") return (LIVE.startups?.candidates || []).length || parseHealthCount(health);
@@ -1806,6 +1832,135 @@
     });
   }
 
+  function talentRadarData() {
+    return BASE.talentRadar || {
+      summary: [],
+      companySignals: [],
+      meceSources: [],
+      keywordTaxonomy: [],
+      warningRules: [],
+    };
+  }
+
+  function talentRelated(item) {
+    if (activeCategory === "all") return true;
+    const cats = item.linkedCategories || [];
+    return !cats.length || cats.includes(activeCategory);
+  }
+
+  function renderTalentRadar() {
+    const data = talentRadarData();
+    const summary = $("#talentSummary");
+    const companies = $("#talentCompanyGrid");
+    const sources = $("#talentSourceGrid");
+    const keywords = $("#talentKeywordGrid");
+    const rules = $("#talentRuleGrid");
+    const meta = $("#talentRadarMeta");
+    if (!summary || !companies || !sources || !keywords || !rules) return;
+
+    const companyItems = (data.companySignals || []).filter(talentRelated);
+    const sourceItems = (data.meceSources || []).filter(talentRelated);
+    const keywordItems = data.keywordTaxonomy || [];
+    const ruleItems = data.warningRules || [];
+    const liveTalentSignals = axisSignalCount(CHINA_DYNAMIC_AXES.find((axis) => axis.id === "talent"));
+    if (meta) {
+      meta.textContent = `${fmtNum(companyItems.length + sourceItems.length + keywordItems.length + ruleItems.length)}개 객체 · ${activeCategoryData().label} · 채용 신호 ${fmtNum(liveTalentSignals)}건`;
+    }
+
+    summary.innerHTML = (data.summary || []).map((line, index) => `
+      <article class="talent-summary-line">
+        <span>${String(index + 1).padStart(2, "0")}</span>
+        <p>${escapeHTML(line)}</p>
+      </article>
+    `).join("");
+
+    companies.innerHTML = "";
+    companyItems.forEach((item, index) => {
+      const payload = {
+        type: "인재·채용 레이더",
+        tag: item.company,
+        title: item.title,
+        body: item.thesis,
+        section: "talent-radar",
+        categories: item.linkedCategories || [],
+        watch: (item.signals || []).concat(item.risk ? [item.risk] : []),
+        tags: [item.company],
+        metrics: item.metrics || [],
+      };
+      const card = el("article", "talent-company-card reveal");
+      card.style.animationDelay = `${index * 35}ms`;
+      card.style.setProperty("--local-accent", categoryAccent((item.linkedCategories || [])[0] || "talent"));
+      card.innerHTML = `
+        <div class="talent-card-head">
+          <div>
+            <span class="chip accent">${escapeHTML(item.company)}</span>
+            <h3>${escapeHTML(item.title)}</h3>
+          </div>
+          <button class="copy-btn" type="button" data-copy-talent>복사</button>
+        </div>
+        <p>${escapeHTML(item.thesis || "")}</p>
+        <div class="talent-metric-grid">${metricCards(item.metrics || [], 4)}</div>
+        <div class="tag-row">${(item.signals || []).map((signal) => `<span class="tag">${escapeHTML(signal)}</span>`).join("")}</div>
+        <div class="insight-box"><span>Risk interpretation</span>${escapeHTML(item.risk || "")}</div>
+      `;
+      card.querySelector("[data-copy-talent]")?.addEventListener("click", (event) => copyPayload(payload, event.currentTarget));
+      makeInspectable(card, payload);
+      companies.appendChild(card);
+    });
+    if (!companies.children.length) companies.appendChild(el("div", "empty", "선택한 카테고리의 회사별 채용 신호가 없습니다."));
+
+    sources.innerHTML = "";
+    sourceItems.forEach((item, index) => {
+      const payload = {
+        type: "MECE 크롤링 타깃",
+        tag: item.axis,
+        title: item.axis,
+        body: item.why,
+        section: "talent-radar",
+        categories: item.linkedCategories || [],
+        watch: item.signals || [],
+        tags: (item.targets || []).map((target) => target.name),
+        metrics: [
+          { label: "Targets", value: fmtNum((item.targets || []).length) },
+          { label: "Signals", value: fmtNum((item.signals || []).length) },
+        ],
+      };
+      const card = el("article", "talent-source-card reveal");
+      card.style.animationDelay = `${index * 30}ms`;
+      card.style.setProperty("--local-accent", categoryAccent((item.linkedCategories || [])[0] || "talent"));
+      card.innerHTML = `
+        <div class="talent-card-head">
+          <div>
+            <span class="chip accent">${escapeHTML(item.axis)}</span>
+            <h3>${escapeHTML(item.why || "")}</h3>
+          </div>
+          <button class="copy-btn" type="button" data-copy-source>복사</button>
+        </div>
+        <div class="source-row">${(item.targets || []).map((target) => `<a href="${escapeHTML(target.url || "#")}" target="_blank" rel="noopener">${escapeHTML(target.name || target.url || "Target")}</a>`).join("")}</div>
+        <div class="tag-row">${(item.signals || []).map((signal) => `<span class="tag">${escapeHTML(signal)}</span>`).join("")}</div>
+      `;
+      card.querySelector("[data-copy-source]")?.addEventListener("click", (event) => copyPayload(payload, event.currentTarget));
+      makeInspectable(card, payload);
+      sources.appendChild(card);
+    });
+    if (!sources.children.length) sources.appendChild(el("div", "empty", "선택한 카테고리의 크롤링 타깃이 없습니다."));
+
+    keywords.innerHTML = keywordItems.map((item, index) => `
+      <article class="talent-keyword-card reveal" style="animation-delay:${index * 25}ms">
+        <span class="chip accent">${escapeHTML(item.cluster)}</span>
+        <div class="tag-row">${(item.keywords || []).map((keyword) => `<span class="tag">${escapeHTML(keyword)}</span>`).join("")}</div>
+        <p>${escapeHTML(item.interpretation || "")}</p>
+      </article>
+    `).join("");
+
+    rules.innerHTML = ruleItems.map((item, index) => `
+      <article class="talent-rule-card reveal level-${escapeHTML(String(item.level || "watch").toLowerCase())}" style="animation-delay:${index * 25}ms">
+        <strong>${escapeHTML(item.level || "Watch")}</strong>
+        <p>${escapeHTML(item.rule || "")}</p>
+      </article>
+    `).join("");
+  }
+
   function renderChinaDeepDive() {
     const grid = $("#chinaDeepGrid");
     const summary = $("#chinaDeepSummary");
@@ -2100,6 +2255,40 @@
           links,
         };
       });
+    }
+
+    if (mode === "talent") {
+      const data = talentRadarData();
+      items = []
+        .concat((data.companySignals || []).map((item, index) => ({
+          id: `talent-company-${index}`,
+          mode,
+          type: "인재·채용 레이더",
+          tag: item.company,
+          title: item.title,
+          body: item.thesis,
+          section: "talent-radar",
+          categories: item.linkedCategories || [],
+          watch: (item.signals || []).concat(item.risk ? [item.risk] : []),
+          metrics: item.metrics || [],
+          tags: [item.company],
+        })))
+        .concat((data.meceSources || []).map((item, index) => ({
+          id: `talent-source-${index}`,
+          mode,
+          type: "MECE 크롤링 타깃",
+          tag: item.axis,
+          title: item.axis,
+          body: item.why,
+          section: "talent-radar",
+          categories: item.linkedCategories || [],
+          watch: item.signals || [],
+          metrics: [
+            { label: "Targets", value: fmtNum((item.targets || []).length) },
+            { label: "Signals", value: fmtNum((item.signals || []).length) },
+          ],
+          tags: (item.targets || []).map((target) => target.name),
+        })));
     }
 
     if (mode === "competition") {
@@ -2761,7 +2950,7 @@
   }
 
   function setupScrollSpy() {
-    const sections = ["overview", "numbers", "workbench", "ai-matrix", "crawler", "prices", "news", "china-dynamics", "china-deep-dive", "corpdev", "categories", "competitors", "dynamics", "monetization", "response", "intelligence"];
+    const sections = ["overview", "numbers", "workbench", "ai-matrix", "crawler", "prices", "news", "china-dynamics", "talent-radar", "china-deep-dive", "corpdev", "categories", "competitors", "dynamics", "monetization", "response", "intelligence"];
     const update = () => {
       const y = window.scrollY + 96;
       let active = "overview";

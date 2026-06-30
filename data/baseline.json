@@ -161,6 +161,32 @@
       "source": "Yole / Sina",
       "sourceDate": "2026-06",
       "sourceUrl": "https://finance.sina.com.cn/tech/roll/2026-06-29/doc-inifacku5479444.shtml"
+    },
+    {
+      "label": "CXMT R&D 인력",
+      "value": "4653",
+      "suffix": "명",
+      "note": "IPO/보도 맥락 기준 전체 1.53만 명 중 30%+가 R&D 인력. HBM 수율·DDR5/LPDDR5X·선단 DRAM 양산 인력 흡수 여부를 채용 공고로 추적",
+      "alt": "한국·미국·일본 메모리 출신 인력 유입 추정치는 별도 Watch로 관리",
+      "badge": "채용 Watch",
+      "status": "Watch",
+      "statusClass": "watch",
+      "source": "중국어권 보도 / IPO context",
+      "sourceDate": "2026",
+      "sourceUrl": "https://www.cxmt.com/en/join.html"
+    },
+    {
+      "label": "YMTC 주택 혜택",
+      "value": "40",
+      "suffix": "% 할인",
+      "note": "우한 지역 주택 구매 혜택 등 보상 패키지로 IC 설계·초소형 전자·소프트웨어 인재를 흡수한다는 보도 기반 Watch 지표",
+      "alt": "eSSD·Xtacking·패키징·테스트를 묶는 IDM 생태계 구축 신호로 해석",
+      "badge": "보상 패키지",
+      "status": "Watch",
+      "statusClass": "watch",
+      "source": "YMTC careers / 현지 보도",
+      "sourceDate": "2026",
+      "sourceUrl": "https://www.ymtc.com/en/careers"
     }
   ],
   "memoryCategories": [
@@ -327,6 +353,20 @@
         "a": "Post-HBM 축은 CXL 3.1/3.2, 3D DRAM, IP/컨트롤러, 기판, 테스터로 넓어집니다.\n\n삼성 Pangea v3와 CMM-D, SK하이닉스 4F² VG·3D DRAM 로드맵, 오픈엣지테크놀로지·파두·티엘비·엑시콘·네오셈 같은 국내 밸류체인을 함께 맵핑해야 합니다. 핵심 선행지표는 매출보다 서버 OEM PoC, 표준 호환성, 고객 인증, 장비 주문입니다.",
         "keywords": ["post-hbm", "cxl", "3d dram", "4f2", "pangea", "오픈엣지", "파두", "티엘비", "엑시콘", "네오셈"],
         "nav": "ai-matrix"
+      },
+      {
+        "cat": "source",
+        "q": "CXMT와 YMTC 채용 공고에서 무엇을 봐야 하나?",
+        "a": "채용 공고는 기술 로드맵보다 빠른 선행 신호입니다.\n\nCXMT는 TSV, HBM stacking, DDR5/LPDDR5X, process integration, yield engineer가 늘어나는지 봐야 합니다. YMTC는 Xtacking, eSSD, IC design, software engineering, package/test가 핵심입니다. 공식 채용 포털은 방향성을, Boss Zhipin·Liepin·Maimai는 세부 JD와 보상을, 칭화대 등 대학 취업센터는 3~5년 뒤 인재 파이프라인을 보여줍니다.",
+        "keywords": ["채용", "cxmt", "ymtc", "tsv", "yield", "xtacking", "칭화대", "boss zhipin", "인재"],
+        "nav": "talent-radar"
+      },
+      {
+        "cat": "threat",
+        "q": "중국 인재 확보가 왜 IP 리스크인가?",
+        "a": "메모리 격차는 설계 도면보다 양산 수율 레시피와 장비 qual 경험에서 줄어듭니다.\n\nCXMT가 한국·미국·일본 메모리 출신 양산 엔지니어를 흡수하고, YMTC가 IC 설계·패키징·테스트·소프트웨어 인재를 묶으면 EUV 부재의 약점을 일부 우회할 수 있습니다. 그래서 핵심 수율 엔지니어 이동, 연봉 프리미엄, non-compete/IP 소송, campus recruiting 집중 부서를 함께 추적해야 합니다.",
+        "keywords": ["인재", "ip", "유출", "엔지니어", "yield", "recipe", "non-compete", "리스크"],
+        "nav": "talent-radar"
       }
     ]
   },
@@ -598,6 +638,99 @@
     ],
     "sourceNote": "첨부 HBM 시장 보고서 반영 · 수치별 외부 출처 보강 필요 항목은 Watch로 표시"
   },
+  "talentRadar": {
+    "summary": [
+      "중국 메모리 업체의 채용 공고는 제품 발표보다 6~18개월 빠른 기술 선행 지표입니다.",
+      "CXMT는 HBM 수율 안정화, DDR5/LPDDR5X, 선단 DRAM 양산 경험 인력을 흡수하는 축으로 추적합니다.",
+      "YMTC는 Xtacking, eSSD, 패키징·테스트, 소프트웨어를 묶어 완전한 IDM 생태계를 구축하는 방향으로 봐야 합니다."
+    ],
+    "companySignals": [
+      {
+        "company": "CXMT",
+        "title": "HBM 수율 안정화 및 선단 DRAM 인력 블랙홀",
+        "thesis": "IPO를 앞둔 CXMT는 R&D와 양산 수율 경험을 동시에 확보하며 범용 DRAM 물량 공세에서 DDR5·LPDDR5X·HBM 상용화 축으로 기술 중심을 이동시키고 있습니다.",
+        "metrics": [
+          { "label": "직원", "value": "15,300명", "note": "보도/IPO context 기준" },
+          { "label": "R&D", "value": "4,653명", "note": "전체 30%+" },
+          { "label": "해외 인력", "value": "200명+", "note": "한국 엔지니어 추정, Watch" },
+          { "label": "기술 초점", "value": "HBM/DDR5", "note": "TSV·수율·LPDDR5X" }
+        ],
+        "signals": ["TSV yield engineer", "HBM stacking", "DDR5 process integration", "LPDDR5X validation", "Korean/Japan/Taiwan talent"],
+        "risk": "수율 안정화 엔지니어 이동이 확인되면 EUV 부재보다 빠르게 양산 격차가 줄어드는 조기경보로 해석합니다.",
+        "linkedCategories": ["dram", "hbm", "talent", "packaging"]
+      },
+      {
+        "company": "YMTC",
+        "title": "Xtacking·eSSD·패키징·테스트를 묶는 IDM 인재 흡수",
+        "thesis": "YMTC는 3D NAND 설계를 넘어 제조, 후공정, 테스트, 소프트웨어까지 묶는 자급형 IDM 생태계를 목표로 IC 설계·마이크로전자·소프트웨어 인재를 집중 채용합니다.",
+        "metrics": [
+          { "label": "보상", "value": "주택 40% 할인", "note": "우한 지역 혜택 보도" },
+          { "label": "연차", "value": "15일+", "note": "채용 패키지 Watch" },
+          { "label": "제품 초점", "value": "eSSD", "note": "기업용 SSD 믹스" },
+          { "label": "기술 초점", "value": "Xtacking", "note": "W2W/패키징" }
+        ],
+        "signals": ["IC design", "microelectronics", "software engineering", "Xtacking architecture", "package/test integration"],
+        "risk": "우한 Phase 3와 채용 키워드가 동시에 증가하면 NAND를 넘어 DRAM·HBM 패키징까지 확장하는 신호로 봅니다.",
+        "linkedCategories": ["nand", "packaging", "talent", "equipment"]
+      }
+    ],
+    "meceSources": [
+      {
+        "axis": "공식 채용 포털",
+        "why": "회사 내부가 공개적으로 찾는 직무·지역·직급·공정 키워드를 직접 확인",
+        "targets": [
+          { "name": "CXMT Careers", "url": "https://www.cxmt.com/en/join.html" },
+          { "name": "YMTC Careers", "url": "https://www.ymtc.com/en/careers" }
+        ],
+        "signals": ["TSV", "Yield", "Advanced Packaging", "DDR5", "LPDDR5X", "HBM"],
+        "linkedCategories": ["talent", "dram", "nand", "packaging"]
+      },
+      {
+        "axis": "로컬 채용 플랫폼",
+        "why": "공식 사이트보다 세부 JD와 보상·직급·부서 힌트가 빠르게 노출",
+        "targets": [
+          { "name": "Boss Zhipin", "url": "https://www.zhipin.com/" },
+          { "name": "Liepin", "url": "https://www.liepin.com/" },
+          { "name": "Maimai", "url": "https://maimai.cn/" }
+        ],
+        "signals": ["yield recipe", "process integration", "tool qual", "salary premium", "relocation"],
+        "linkedCategories": ["talent", "equipment"]
+      },
+      {
+        "axis": "대학 취업센터",
+        "why": "3~5년 뒤 기술 방향을 보여주는 국가급 인재 파이프라인",
+        "targets": [
+          { "name": "Tsinghua Career", "url": "https://career.tsinghua.edu.cn/" },
+          { "name": "Huazhong/Wuhan campus", "url": "https://job.hust.edu.cn/" }
+        ],
+        "signals": ["campus talk", "IC design", "microelectronics", "software", "package/test"],
+        "linkedCategories": ["talent", "geopolitics"]
+      },
+      {
+        "axis": "중국 반도체 전문 매체/IP",
+        "why": "핵심 인력 이동, 특허, 산학협력, 장비 qual 보도를 가장 빠르게 포착",
+        "targets": [
+          { "name": "ijiwei", "url": "https://www.ijiwei.com/" },
+          { "name": "JW Insights", "url": "https://www.jwview.com/" },
+          { "name": "CNIPA patent", "url": "https://english.cnipa.gov.cn/" }
+        ],
+        "signals": ["talent transfer", "patent filing", "Xtacking", "HBM packaging", "tool qualification"],
+        "linkedCategories": ["talent", "packaging", "equipment"]
+      }
+    ],
+    "keywordTaxonomy": [
+      { "cluster": "HBM·패키징", "keywords": ["TSV", "Hybrid bonding", "HBM stacking", "Thermal", "Underfill"], "interpretation": "HBM 상용화·패키징 수율 병목 진입 신호" },
+      { "cluster": "DRAM 선단 공정", "keywords": ["DDR5", "LPDDR5X", "1x/1y/1z", "DUV multipatterning", "process integration"], "interpretation": "범용 DRAM에서 선단/고성능 제품 믹스로 이동" },
+      { "cluster": "NAND·IDM", "keywords": ["Xtacking", "eSSD", "W2W bonding", "controller firmware", "package test"], "interpretation": "YMTC의 설계-제조-후공정-테스트 수직 통합" },
+      { "cluster": "수율·장비", "keywords": ["yield improvement", "tool qual", "defect analysis", "metrology", "recipe"], "interpretation": "국산 장비 qual과 수율 레시피 흡수 속도" },
+      { "cluster": "인력/IP 리스크", "keywords": ["Korean engineer", "retention", "salary premium", "IP litigation", "non-compete"], "interpretation": "해외 핵심 인력 이동과 IP 유출 조기경보" }
+    ],
+    "warningRules": [
+      { "level": "High", "rule": "TSV/HBM/yield 공고가 30일 내 2배 이상 증가하고 패키징 장비·소재 키워드가 동반 증가" },
+      { "level": "Active", "rule": "CXMT/YMTC 공식 포털과 로컬 채용 플랫폼에서 같은 직무 키워드가 동시에 관측" },
+      { "level": "Watch", "rule": "칭화대·화중과기대 등 캠퍼스 채용에서 특정 부서·공정 직무가 반복 노출" }
+    ]
+  },
   "channels": [
     {
       "id": "finance",
@@ -609,10 +742,10 @@
     },
     {
       "id": "hiring",
-      "title": "채용 플랫폼",
-      "source": "Boss Zhipin",
-      "desc": "실무 부서장이 올리는 JD 빈도와 키워드로 6~12개월 뒤 공정 병목과 기술 포커스를 선행 감지",
-      "signals": ["HBM TSV 수율 엔지니어", "DUV 멀티패터닝 광학", "하이브리드 본딩", "장비 qual 엔지니어"],
+      "title": "채용·인재 레이더",
+      "source": "CXMT/YMTC Careers · Boss Zhipin · Tsinghua Career",
+      "desc": "공식 채용 포털, 로컬 채용 플랫폼, 대학 취업센터의 JD 빈도와 키워드로 6~18개월 뒤 공정 병목과 기술 포커스를 선행 감지",
+      "signals": ["HBM TSV 수율 엔지니어", "DDR5/LPDDR5X process integration", "Xtacking/eSSD firmware", "하이브리드 본딩", "장비 qual 엔지니어", "캠퍼스 리크루팅"],
       "linkedCategories": ["packaging", "talent", "equipment"]
     },
     {
