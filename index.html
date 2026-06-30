@@ -10,7 +10,7 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard/dist/web/static/pretendard.css" />
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;700;800;900&family=Space+Grotesk:wght@500;600;700&display=swap" />
-  <link rel="stylesheet" href="assets/css/styles.css?v=daily-review-20260630" />
+  <link rel="stylesheet" href="assets/css/styles.css?v=interactive-20260630" />
 </head>
 <body>
   <div class="app">
@@ -178,6 +178,8 @@
             </div>
             <span class="board-meta" id="numberMeta">접기 · 드래그 정렬 · 복사</span>
           </div>
+          <div class="number-lens-tabs" id="numberLensTabs"></div>
+          <div class="number-lens-summary" id="numberLensSummary"></div>
           <div class="number-grid" id="numberGrid"></div>
         </section>
 
@@ -450,7 +452,10 @@
             <span class="board-meta">비대칭 위협 · 메기 전략 · 수직 계열화</span>
           </div>
           <div class="board-control-row" id="dynamicControls"></div>
-          <div class="relation-map" id="dynamicRelationMap"></div>
+          <div class="interactive-split">
+            <div class="relation-map" id="dynamicRelationMap"></div>
+            <aside class="focus-panel" id="dynamicFocusPanel"></aside>
+          </div>
           <div class="dynamic-grid" id="dynamicGrid"></div>
         </section>
 
@@ -463,7 +468,10 @@
             <span class="board-meta">HBM 인증 · 레거시 가격 · 패키징 우회</span>
           </div>
           <div class="board-control-row" id="modelControls"></div>
-          <div class="money-flow-map" id="moneyFlowMap"></div>
+          <div class="interactive-split">
+            <div class="money-flow-map" id="moneyFlowMap"></div>
+            <aside class="focus-panel" id="modelFocusPanel"></aside>
+          </div>
           <div class="model-grid" id="modelGrid"></div>
         </section>
 

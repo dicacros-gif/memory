@@ -306,6 +306,14 @@
     { id: "english", label: "영어권 기사", countId: "foreignNewsCount", bucketId: "foreignNewsBucket", listId: "foreignNewsList" },
     { id: "chinese", label: "중국어 기사", countId: "chinaNewsCount", bucketId: "chinaNewsBucket", listId: "chinaNewsList" },
   ];
+  const QUANT_LENSES = [
+    { id: "all", label: "전체", sub: "All KPI", categories: [] },
+    { id: "market", label: "시장/가격", sub: "Spot · Contract · WSTS", categories: ["dram", "nand", "aidemand"], keywords: ["가격", "spot", "contract", "wsts", "market", "성장", "매출", "규모"] },
+    { id: "hbm", label: "HBM/Post-HBM", sub: "HBM4 · CXL · 3D DRAM", categories: ["hbm", "cxl", "packaging", "aidemand"], keywords: ["hbm", "rubin", "cxl", "pim", "3d dram", "cowos", "tsmc"] },
+    { id: "china-risk", label: "중국 리스크", sub: "CXMT · YMTC · 정책", categories: ["china", "geopolitics", "equipment", "talent"], keywords: ["cxmt", "ymtc", "big fund", "match", "veU", "중국", "국산화", "수출통제"] },
+    { id: "corpdev", label: "거래/자본", sub: "IPO · JV · 공급계약", categories: ["corpdev", "operations"], keywords: ["ipo", "jv", "m&a", "계약", "지분", "투자", "fund"] },
+    { id: "pipeline", label: "수집상태", sub: "Freshness · Health", categories: ["operations"], keywords: ["freshness", "health", "crawler", "rows", "뉴스", "수집", "pipeline"] },
+  ];
   const SECTION_LABELS = {
     "daily-review": "일일 리뷰 큐",
     numbers: "숫자 대시보드",
@@ -484,6 +492,9 @@
   let selectedInsightId = null;
   let reviewView = "today";
   let selectedReviewId = null;
+  let numberLens = "all";
+  let dynamicFocusId = null;
+  let modelFocusId = null;
   let responsePriority = "all";
   let paletteIndex = 0;
   let typeTimer = null;
@@ -682,6 +693,15 @@
       event.stopPropagation();
       toggleSidebarCollapsed();
     });
+    $("#sidebar")?.addEventListener("click", (event) => {
+      if (event.target.closest("button, a, input, select")) return;
+      if (window.matchMedia?.("(max-width: 980px)")?.matches) {
+        document.body.classList.remove("menu-open");
+        cyclePalette();
+        return;
+      }
+      toggleSidebarCollapsed();
+    });
   }
 
   function normalizePaletteIndex(index) {
@@ -744,7 +764,8 @@
   function decorateSidebarItems() {
     $$(".sb-item").forEach((btn) => {
       const id = btn.dataset.jump || "";
-      btn.style.setProperty("--nav-active", NAV_ACCENTS[id] || "rgba(255,255,255,.92)");
+      const accent = NAV_ACCENTS[id] || "rgba(255,255,255,.92)";
+      btn.style.setProperty("--nav-active", accent);
       const label = btn.querySelector(".sb-label strong")?.textContent?.trim();
       if (label) btn.title = label;
     });
@@ -929,6 +950,63 @@
     if (activeCategory === "all") return true;
     const cats = item.linkedCategories || [];
     return !cats.length || cats.includes(activeCategory);
+  }
+
+  function numberLensData(id = numberLens) {
+    return QUANT_LENSES.find((lens) => lens.id === id) || QUANT_LENSES[0];
+  }
+
+  function numberLensRelated(item, lensId = numberLens) {
+    const lens = numberLensData(lensId);
+    if (!lens || lens.id === "all") return true;
+    const cats = item.linkedCategories || [];
+    const hay = `${item.kind || ""} ${item.title || ""} ${item.note || ""} ${item.alt || ""} ${item.source || ""}`.toLowerCase();
+    const categoryHit = (lens.categories || []).some((id) => cats.includes(id));
+    const keywordHit = (lens.keywords || []).some((term) => hay.includes(String(term).toLowerCase()));
+    return categoryHit || keywordHit;
+  }
+
+  function renderNumberLensControls(allItems) {
+    const wrap = $("#numberLensTabs");
+    if (!wrap) return;
+    wrap.innerHTML = "";
+    QUANT_LENSES.forEach((lens) => {
+      const count = allItems.filter((item) => numberLensRelated(item, lens.id)).length;
+      const btn = el("button", lens.id === numberLens ? "active" : "");
+      btn.type = "button";
+      btn.dataset.numberLens = lens.id;
+      btn.innerHTML = `<strong>${escapeHTML(lens.label)}</strong><small>${escapeHTML(lens.sub)} · ${fmtNum(count)}</small>`;
+      btn.addEventListener("click", () => {
+        numberLens = lens.id;
+        renderNumberDashboard();
+      });
+      wrap.appendChild(btn);
+    });
+  }
+
+  function renderNumberLensSummary(items, allItems) {
+    const wrap = $("#numberLensSummary");
+    if (!wrap) return;
+    const lens = numberLensData();
+    const ok = items.filter((item) => String(item.statusClass || item.status || "").toLowerCase() === "ok").length;
+    const watch = items.filter((item) => /watch|stale/i.test(`${item.statusClass || ""} ${item.status || ""} ${item.badge || ""}`)).length;
+    const p1 = dailyReviewItems().filter((item) => (item.priorityBand === "P1" || Number(item.priorityScore || 0) >= 85) && reviewRelated(item)).length;
+    const visibleCats = Array.from(new Set(items.flatMap((item) => item.linkedCategories || []))).filter(Boolean);
+    const topCat = visibleCats.slice(0, 3).map(categoryName).join(" · ") || activeCategoryData()?.label || "전체";
+    const cards = [
+      { label: "Lens", value: lens.label, note: lens.sub },
+      { label: "Visible KPI", value: items.length, note: `${fmtNum(allItems.length)}개 중 선택` },
+      { label: "OK / Watch", value: `${ok}/${watch}`, note: "출처·전망 버전 상태" },
+      { label: "P1 queue", value: p1, note: "일일 리뷰 큐와 연결" },
+      { label: "Topic", value: topCat, note: "정량 탭 분류 축" },
+    ];
+    wrap.innerHTML = cards.map((card) => `
+      <article class="number-lens-card">
+        <span>${escapeHTML(card.label)}</span>
+        <strong>${typeof card.value === "number" ? countHTML(card.value) : escapeHTML(card.value)}</strong>
+        <small>${escapeHTML(card.note)}</small>
+      </article>
+    `).join("");
   }
 
   function dailyReviewData() {
@@ -1438,9 +1516,12 @@
   function renderNumberDashboard() {
     const grid = $("#numberGrid");
     if (!grid) return;
-    const items = orderedNumberItems(numberDashboardItems().filter(numberRelated));
+    const allItems = orderedNumberItems(numberDashboardItems().filter(numberRelated));
+    const items = allItems.filter((item) => numberLensRelated(item));
+    renderNumberLensControls(allItems);
+    renderNumberLensSummary(items, allItems);
     const meta = $("#numberMeta");
-    if (meta) meta.textContent = `${fmtNum(items.length)}개 지표 · ${activeCategoryData()?.label || "전체"} · ${fmtDate(LIVE.updatedAt)}`;
+    if (meta) meta.textContent = `${numberLensData().label} · ${fmtNum(items.length)}개 지표 · ${activeCategoryData()?.label || "전체"} · ${fmtDate(LIVE.updatedAt)}`;
     grid.innerHTML = "";
     items.forEach((item, index) => {
       const payload = {
@@ -3093,6 +3174,83 @@
     };
   }
 
+  function stablePanelKey(prefix, item, index) {
+    return `${prefix}-${item.id || item.title || item.axis || index}`;
+  }
+
+  function itemNewsLinks(item, limit = 3) {
+    const terms = (item.players || item.entities || item.tags || [])
+      .concat(item.title || "", item.axis || "")
+      .map((term) => String(term || "").toLowerCase())
+      .filter((term) => term.length > 2);
+    if (!terms.length) return [];
+    return rawNews().filter((news) => {
+      const hay = `${news.title || ""} ${news.titleKo || ""} ${news.summary || ""} ${news.source || ""}`.toLowerCase();
+      return terms.some((term) => hay.includes(term));
+    }).slice(0, limit).map((news) => ({
+      title: newsTitle(news),
+      link: news.link,
+      source: news.source,
+    }));
+  }
+
+  function renderDynamicFocusPanel(items) {
+    const panel = $("#dynamicFocusPanel");
+    if (!panel) return;
+    if (!items.length) {
+      panel.innerHTML = `<div class="empty">경쟁 축을 선택하면 정량 readout이 열립니다.</div>`;
+      return;
+    }
+    if (!items.some((item, index) => stablePanelKey("dynamic", item, index) === dynamicFocusId)) {
+      dynamicFocusId = stablePanelKey("dynamic", items[0], 0);
+    }
+    const index = items.findIndex((item, i) => stablePanelKey("dynamic", item, i) === dynamicFocusId);
+    const item = items[index] || items[0];
+    const payload = dynamicsPayload(item);
+    const links = itemNewsLinks(item);
+    const categories = (item.linkedCategories || []).map(categoryName).filter(Boolean);
+    panel.style.setProperty("--local-accent", categoryAccent((item.linkedCategories || [])[0]));
+    panel.innerHTML = `
+      <div class="focus-head">
+        <span class="chip accent">${escapeHTML(item.axis || "Dynamic")}</span>
+        <h3>${escapeHTML(item.title)}</h3>
+        <p>${escapeHTML(item.desc || "")}</p>
+      </div>
+      <div class="focus-readout">
+        <div><strong>${fmtNum((item.players || []).length)}</strong><span>Players</span></div>
+        <div><strong>${fmtNum((item.watch || []).length)}</strong><span>Watch</span></div>
+        <div><strong>${escapeHTML(categories[0] || "전체")}</strong><span>Primary axis</span></div>
+      </div>
+      <div class="focus-block">
+        <strong>경쟁 플레이어</strong>
+        <div class="tag-row">${(item.players || []).map((p) => `<span class="tag">${escapeHTML(p)}</span>`).join("") || "<span class=\"tag\">시장 전체</span>"}</div>
+      </div>
+      <div class="focus-block">
+        <strong>관찰 지표</strong>
+        <ul class="watch-list">${(item.watch || []).map((w) => `<li>${escapeHTML(w)}</li>`).join("")}</ul>
+      </div>
+      ${links.length ? `
+        <div class="focus-block">
+          <strong>관련 최신 신호</strong>
+          <ul class="work-link-list">${links.map((link) => `<li><a href="${escapeHTML(link.link || "#")}" target="_blank" rel="noopener">${escapeHTML(link.title || link.source || "Signal")}</a></li>`).join("")}</ul>
+        </div>
+      ` : ""}
+      <div class="focus-actions">
+        <button type="button" data-focus-copy>복사</button>
+        <button type="button" data-focus-inspector>상세 패널</button>
+        <button type="button" data-focus-workbench>워크벤치</button>
+      </div>
+    `;
+    panel.querySelector("[data-focus-copy]")?.addEventListener("click", (event) => copyPayload(payload, event.currentTarget));
+    panel.querySelector("[data-focus-inspector]")?.addEventListener("click", () => openInspector({ ...payload, links }));
+    panel.querySelector("[data-focus-workbench]")?.addEventListener("click", () => {
+      workbenchMode = "competition";
+      selectedInsightId = null;
+      renderWorkbench();
+      jumpTo("workbench");
+    });
+  }
+
   function renderDynamicRelationMap(items) {
     const wrap = $("#dynamicRelationMap");
     if (!wrap) return;
@@ -3114,7 +3272,8 @@
       const from = players[0] || "시장";
       const to = players.slice(1, 4).join(" · ") || item.title;
       const payload = dynamicsPayload(item);
-      const edge = el("article", "relation-edge reveal");
+      const key = stablePanelKey("dynamic", item, index);
+      const edge = el("article", `relation-edge reveal${key === dynamicFocusId ? " selected" : ""}`);
       edge.style.animationDelay = `${index * 30}ms`;
       edge.style.setProperty("--local-accent", categoryAccent((item.linkedCategories || [])[0]));
       edge.innerHTML = `
@@ -3131,7 +3290,20 @@
         </div>
       `;
       edge.querySelector("[data-copy-relation]")?.addEventListener("click", (event) => copyPayload(payload, event.currentTarget));
-      makeInspectable(edge, payload);
+      edge.tabIndex = 0;
+      edge.setAttribute("role", "button");
+      edge.setAttribute("aria-label", `${item.title} 선택`);
+      edge.addEventListener("click", (event) => {
+        if (event.target.closest("button, a")) return;
+        dynamicFocusId = key;
+        renderDynamics();
+      });
+      edge.addEventListener("keydown", (event) => {
+        if (event.key !== "Enter" && event.key !== " ") return;
+        event.preventDefault();
+        dynamicFocusId = key;
+        renderDynamics();
+      });
       lanes.appendChild(edge);
     });
     wrap.append(head, lanes);
@@ -3152,6 +3324,67 @@
         { label: "Fit", value: (item.linkedCategories || []).map(categoryName).join(" · ") || "전체" },
       ],
     };
+  }
+
+  function renderModelFocusPanel(items) {
+    const panel = $("#modelFocusPanel");
+    if (!panel) return;
+    if (!items.length) {
+      panel.innerHTML = `<div class="empty">수익화 레버를 선택하면 정량 readout이 열립니다.</div>`;
+      return;
+    }
+    if (!items.some((item, index) => stablePanelKey("model", item, index) === modelFocusId)) {
+      modelFocusId = stablePanelKey("model", items[0], 0);
+    }
+    const index = items.findIndex((item, i) => stablePanelKey("model", item, i) === modelFocusId);
+    const item = items[index] || items[0];
+    const payload = modelPayload(item);
+    const flowInfo = moneyFlowFromModel(item);
+    const links = itemNewsLinks({ ...item, players: [item.title, flowInfo.from, flowInfo.to] });
+    panel.style.setProperty("--local-accent", categoryAccent((item.linkedCategories || [])[0]));
+    panel.innerHTML = `
+      <div class="focus-head">
+        <span class="chip accent">${escapeHTML(flowInfo.lever)}</span>
+        <h3>${escapeHTML(item.title)}</h3>
+        <p>${escapeHTML(item.logic || "")}</p>
+      </div>
+      <div class="focus-readout">
+        <div><strong>${escapeHTML(item.metric || "-")}</strong><span>Core metric</span></div>
+        <div><strong>${escapeHTML(flowInfo.to)}</strong><span>Revenue pool</span></div>
+        <div><strong>${escapeHTML((item.linkedCategories || []).map(categoryName).join(" · ") || "전체")}</strong><span>Fit</span></div>
+      </div>
+      <div class="focus-flow">
+        <span>${escapeHTML(flowInfo.from)}</span>
+        <i></i>
+        <span>${escapeHTML(flowInfo.to)}</span>
+      </div>
+      <div class="focus-block">
+        <strong>수익화 Watch</strong>
+        <ul class="watch-list">
+          <li>${escapeHTML(item.watch || "가격·고객·캐파 변화")}</li>
+          <li>${escapeHTML(flowInfo.lever)} 지표를 가격/뉴스/Corp Dev 큐와 같이 확인</li>
+        </ul>
+      </div>
+      ${links.length ? `
+        <div class="focus-block">
+          <strong>관련 최신 신호</strong>
+          <ul class="work-link-list">${links.map((link) => `<li><a href="${escapeHTML(link.link || "#")}" target="_blank" rel="noopener">${escapeHTML(link.title || link.source || "Signal")}</a></li>`).join("")}</ul>
+        </div>
+      ` : ""}
+      <div class="focus-actions">
+        <button type="button" data-model-copy>복사</button>
+        <button type="button" data-model-inspector>상세 패널</button>
+        <button type="button" data-model-workbench>워크벤치</button>
+      </div>
+    `;
+    panel.querySelector("[data-model-copy]")?.addEventListener("click", (event) => copyPayload(payload, event.currentTarget));
+    panel.querySelector("[data-model-inspector]")?.addEventListener("click", () => openInspector({ ...payload, links }));
+    panel.querySelector("[data-model-workbench]")?.addEventListener("click", () => {
+      workbenchMode = "monetization";
+      selectedInsightId = null;
+      renderWorkbench();
+      jumpTo("workbench");
+    });
   }
 
   function moneyFlowFromModel(item) {
@@ -3183,7 +3416,8 @@
     items.forEach((item, index) => {
       const payload = modelPayload(item);
       const flowInfo = moneyFlowFromModel(item);
-      const node = el("article", "money-flow-card reveal");
+      const key = stablePanelKey("model", item, index);
+      const node = el("article", `money-flow-card reveal${key === modelFocusId ? " selected" : ""}`);
       node.style.animationDelay = `${index * 30}ms`;
       node.style.setProperty("--local-accent", categoryAccent((item.linkedCategories || [])[0]));
       node.innerHTML = `
@@ -3203,7 +3437,20 @@
         </div>
       `;
       node.querySelector("[data-copy-money]")?.addEventListener("click", (event) => copyPayload(payload, event.currentTarget));
-      makeInspectable(node, payload);
+      node.tabIndex = 0;
+      node.setAttribute("role", "button");
+      node.setAttribute("aria-label", `${item.title} 선택`);
+      node.addEventListener("click", (event) => {
+        if (event.target.closest("button, a")) return;
+        modelFocusId = key;
+        renderModels();
+      });
+      node.addEventListener("keydown", (event) => {
+        if (event.key !== "Enter" && event.key !== " ") return;
+        event.preventDefault();
+        modelFocusId = key;
+        renderModels();
+      });
       flow.appendChild(node);
     });
     wrap.append(head, flow);
@@ -3213,13 +3460,19 @@
     const grid = $("#dynamicGrid");
     renderCategoryControls("dynamicControls", BASE.dynamics || [], "dynamics");
     const items = (BASE.dynamics || []).filter(relatedToActive);
+    if (!items.some((item, index) => stablePanelKey("dynamic", item, index) === dynamicFocusId)) {
+      dynamicFocusId = items[0] ? stablePanelKey("dynamic", items[0], 0) : null;
+    }
     renderDynamicRelationMap(items);
+    renderDynamicFocusPanel(items);
     grid.innerHTML = "";
     items.forEach((item, index) => {
       const payload = dynamicsPayload(item);
-      const card = el("article", "card reveal");
+      const key = stablePanelKey("dynamic", item, index);
+      const card = el("article", `card reveal${key === dynamicFocusId ? " selected" : ""}`);
       card.style.animationDelay = `${index * 35}ms`;
       card.style.setProperty("--local-accent", categoryAccent((item.linkedCategories || [])[0]));
+      card.dataset.dynamicKey = key;
       card.innerHTML = `
         <div class="card-top">
           <span class="chip accent">${escapeHTML(item.axis)}</span>
@@ -3231,7 +3484,11 @@
         <ul class="watch-list">${(item.watch || []).map((w) => `<li>${escapeHTML(w)}</li>`).join("")}</ul>
       `;
       card.querySelector("[data-copy-dynamic]")?.addEventListener("click", (event) => copyPayload(payload, event.currentTarget));
-      makeInspectable(card, payload);
+      card.addEventListener("click", (event) => {
+        if (event.target.closest("button, a")) return;
+        dynamicFocusId = key;
+        renderDynamics();
+      });
       grid.appendChild(card);
     });
     if (!grid.children.length) grid.appendChild(el("div", "empty", "선택한 카테고리의 경쟁 다이나믹스가 없습니다."));
@@ -3241,12 +3498,17 @@
     const grid = $("#modelGrid");
     renderCategoryControls("modelControls", BASE.monetizationModels || [], "monetization");
     const items = (BASE.monetizationModels || []).filter(relatedToActive);
+    if (!items.some((item, index) => stablePanelKey("model", item, index) === modelFocusId)) {
+      modelFocusId = items[0] ? stablePanelKey("model", items[0], 0) : null;
+    }
     renderMoneyFlowMap(items);
+    renderModelFocusPanel(items);
     grid.innerHTML = "";
     items.forEach((item, index) => {
       const payload = modelPayload(item);
       const flowInfo = moneyFlowFromModel(item);
-      const card = el("article", "biz-card reveal");
+      const key = stablePanelKey("model", item, index);
+      const card = el("article", `biz-card reveal${key === modelFocusId ? " selected" : ""}`);
       card.style.animationDelay = `${index * 35}ms`;
       card.style.setProperty("--local-accent", categoryAccent((item.linkedCategories || [])[0]));
       card.innerHTML = `
@@ -3263,7 +3525,11 @@
         </div>
       `;
       card.querySelector("[data-copy-model]")?.addEventListener("click", (event) => copyPayload(payload, event.currentTarget));
-      makeInspectable(card, payload);
+      card.addEventListener("click", (event) => {
+        if (event.target.closest("button, a")) return;
+        modelFocusId = key;
+        renderModels();
+      });
       grid.appendChild(card);
     });
     if (!grid.children.length) grid.appendChild(el("div", "empty", "선택한 카테고리의 벤치마킹 모델이 없습니다."));
