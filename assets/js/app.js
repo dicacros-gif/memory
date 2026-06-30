@@ -681,6 +681,9 @@
     applyPalette(savedPalette);
     setSidebarCollapsed(localStorage.getItem("memory-sidebar-collapsed") === "1", { persist: false, cycle: false });
     decorateSidebarItems();
+    syncChromeMetrics();
+    window.addEventListener("resize", syncChromeMetrics, { passive: true });
+    document.fonts?.ready?.then(syncChromeMetrics).catch(() => {});
 
     $("#themeBtn").addEventListener("click", () => {
       const next = document.documentElement.dataset.theme === "dark" ? "light" : "dark";
@@ -702,6 +705,19 @@
       }
       toggleSidebarCollapsed();
     });
+  }
+
+  function syncChromeMetrics() {
+    const topbar = $(".topbar");
+    if (!topbar) return;
+    const height = Math.ceil(topbar.getBoundingClientRect().height || 64);
+    document.documentElement.style.setProperty("--topbar-h", `${height}px`);
+  }
+
+  function chromeOffset() {
+    const raw = getComputedStyle(document.documentElement).getPropertyValue("--topbar-h");
+    const height = Number.parseFloat(raw);
+    return Number.isFinite(height) ? height + 18 : 82;
   }
 
   function normalizePaletteIndex(index) {
@@ -3608,14 +3624,14 @@
     const target = document.getElementById(id);
     if (!target) return;
     document.body.classList.remove("menu-open");
-    const lastSection = $$("main > section").at(-1);
-    target.scrollIntoView({ behavior: "smooth", block: target === lastSection ? "end" : "start" });
+    const y = Math.max(0, target.getBoundingClientRect().top + window.scrollY - chromeOffset());
+    window.scrollTo({ top: y, behavior: "smooth" });
   }
 
   function setupScrollSpy() {
     const sections = ["overview", "daily-review", "numbers", "workbench", "ai-matrix", "crawler", "prices", "news", "china-dynamics", "talent-radar", "china-deep-dive", "corpdev", "categories", "competitors", "dynamics", "monetization", "response", "intelligence"];
     const update = () => {
-      const y = window.scrollY + 96;
+      const y = window.scrollY + chromeOffset() + 22;
       let active = "overview";
       sections.forEach((id) => {
         const node = document.getElementById(id);
