@@ -548,6 +548,7 @@
     setupInteractions();
     setupScrollSpy();
     animateCounts();
+    animateMeters();
   }
 
   function memoryCategories() {
@@ -593,6 +594,12 @@
     if (Number.isNaN(n)) return escapeHTML(value);
     const { prefix = "", suffix = "", decimals = 0 } = opts;
     return `<span class="count" data-to="${n}" data-prefix="${escapeHTML(prefix)}" data-suffix="${escapeHTML(suffix)}" data-decimals="${decimals}">${escapeHTML(prefix)}0${escapeHTML(suffix)}</span>`;
+  }
+
+  function clamp(value, min = 0, max = 100) {
+    const n = Number(value);
+    if (!Number.isFinite(n)) return min;
+    return Math.max(min, Math.min(max, n));
   }
 
   function hoursSince(value) {
@@ -671,6 +678,41 @@
       });
     }, { threshold: 0.3 });
     counts.forEach((node) => io.observe(node));
+  }
+
+  function animateMeters(root = document) {
+    const meters = $$("[data-fill-to], [data-score-to]", root);
+    const run = (node) => {
+      if (node.dataset.meterDone === "1") return;
+      node.dataset.meterDone = "1";
+      const target = clamp(node.dataset.fillTo ?? node.dataset.scoreTo ?? 0);
+      const start = performance.now();
+      const dur = Number(node.dataset.meterDur || 1100);
+      const step = (now) => {
+        const k = Math.min((now - start) / dur, 1);
+        const eased = 1 - Math.pow(1 - k, 3);
+        const value = target * eased;
+        if (node.dataset.fillTo != null) node.style.width = `${value}%`;
+        if (node.dataset.scoreTo != null) node.style.setProperty("--score", value);
+        if (k < 1) requestAnimationFrame(step);
+        else {
+          if (node.dataset.fillTo != null) node.style.width = `${target}%`;
+          if (node.dataset.scoreTo != null) node.style.setProperty("--score", target);
+        }
+      };
+      requestAnimationFrame(step);
+    };
+
+    if (!("IntersectionObserver" in window)) {
+      meters.forEach(run);
+      return;
+    }
+    const io = new IntersectionObserver((entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) run(entry.target);
+      });
+    }, { threshold: 0.25 });
+    meters.forEach((node) => io.observe(node));
   }
 
   function renderChrome() {
@@ -1581,7 +1623,8 @@
           </div>
           <p>${escapeHTML(item.note || "")}</p>
           ${item.alt ? `<small>${escapeHTML(item.alt)}</small>` : ""}
-          <div class="number-bar"><i style="width:${numberProgress(item)}%"></i></div>
+          <div class="number-bar" aria-label="0 to 100 gauge"><i data-fill-to="${numberProgress(item)}" style="width:0%"></i></div>
+          <div class="number-scale"><span>0</span><span>${fmtNum(numberProgress(item))}/100</span></div>
           <div class="number-source">${escapeHTML(item.source || "baseline")}</div>
         </div>
       `;
@@ -1628,6 +1671,7 @@
     });
     if (!grid.children.length) grid.appendChild(el("div", "empty", "선택한 카테고리의 숫자 지표가 없습니다."));
     animateCounts(grid);
+    animateMeters(grid);
   }
 
   function relatedToActive(item) {
@@ -3174,6 +3218,36 @@
     return `${prefix}-${item.id || item.title || item.axis || index}`;
   }
 
+  function dynamicScore(item) {
+    return clamp(38 + (item.players || []).length * 9 + (item.watch || []).length * 8 + itemNewsLinks(item, 5).length * 4);
+  }
+
+  function modelScore(item) {
+    const flow = moneyFlowFromModel(item);
+    return clamp(42 + (item.linkedCategories || []).length * 12 + (item.metric ? 14 : 0) + (item.watch ? 10 : 0) + (flow.lever ? 8 : 0));
+  }
+
+  function scoreRingHTML(score, label = "Score") {
+    const safe = clamp(score);
+    return `
+      <div class="score-ring" data-score-to="${safe}" style="--score:0">
+        <span class="score-value">${countHTML(safe)}</span>
+        <small>${escapeHTML(label)}</small>
+      </div>
+    `;
+  }
+
+  function orbitPoint(index, total, radius = 39, start = -90) {
+    const angle = start + (360 / Math.max(total, 1)) * index;
+    const rad = angle * Math.PI / 180;
+    return {
+      x: 50 + Math.cos(rad) * radius,
+      y: 50 + Math.sin(rad) * radius,
+      angle,
+      length: radius,
+    };
+  }
+
   function itemNewsLinks(item, limit = 3) {
     const terms = (item.players || item.entities || item.tags || [])
       .concat(item.title || "", item.axis || "")
@@ -3217,6 +3291,10 @@
         <div><strong>${fmtNum((item.watch || []).length)}</strong><span>Watch</span></div>
         <div><strong>${escapeHTML(categories[0] || "전체")}</strong><span>Primary axis</span></div>
       </div>
+      <div class="focus-score-row">
+        ${scoreRingHTML(dynamicScore(item), "Impact")}
+        <div class="focus-score-copy"><strong>0 -> 100</strong><span>Selected axis power</span></div>
+      </div>
       <div class="focus-block">
         <strong>경쟁 플레이어</strong>
         <div class="tag-row">${(item.players || []).map((p) => `<span class="tag">${escapeHTML(p)}</span>`).join("") || "<span class=\"tag\">시장 전체</span>"}</div>
@@ -3255,54 +3333,55 @@
       wrap.appendChild(el("div", "empty", "선택한 카테고리의 관계 맵이 없습니다."));
       return;
     }
-    const head = el("div", "relation-head", `
+    const orbitHead = el("div", "relation-head", `
       <div>
-        <span>Competitive graph</span>
-        <strong>${escapeHTML(activeCategoryData()?.label || "전체")} 관계 맵</strong>
+        <span>Interactive dynamics</span>
+        <strong>${escapeHTML(activeCategoryData()?.label || "All")} 0 -> 100 map</strong>
       </div>
-      <small>플레이어 · 병목 · 관찰 지표를 클릭/복사</small>
+      <small>Hover or click each circular node to change the readout</small>
     `);
-    const lanes = el("div", "relation-lanes");
-    items.forEach((item, index) => {
-      const players = item.players || [];
-      const from = players[0] || "시장";
-      const to = players.slice(1, 4).join(" · ") || item.title;
-      const payload = dynamicsPayload(item);
-      const key = stablePanelKey("dynamic", item, index);
-      const edge = el("article", `relation-edge reveal${key === dynamicFocusId ? " selected" : ""}`);
-      edge.style.animationDelay = `${index * 30}ms`;
-      edge.style.setProperty("--local-accent", categoryAccent((item.linkedCategories || [])[0]));
-      edge.innerHTML = `
-        <div class="relation-node source">${escapeHTML(from)}</div>
-        <div class="relation-connector">
-          <span>${escapeHTML(item.axis || "dynamic")}</span>
-          <i></i>
-        </div>
-        <div class="relation-node target">${escapeHTML(to)}</div>
-        <p>${escapeHTML(item.desc)}</p>
-        <div class="relation-foot">
-          <span>${(item.watch || []).slice(0, 2).map(escapeHTML).join(" · ")}</span>
-          <button class="copy-btn" type="button" data-copy-relation>복사</button>
-        </div>
-      `;
-      edge.querySelector("[data-copy-relation]")?.addEventListener("click", (event) => copyPayload(payload, event.currentTarget));
-      edge.tabIndex = 0;
-      edge.setAttribute("role", "button");
-      edge.setAttribute("aria-label", `${item.title} 선택`);
-      edge.addEventListener("click", (event) => {
-        if (event.target.closest("button, a")) return;
-        dynamicFocusId = key;
-        renderDynamics();
-      });
-      edge.addEventListener("keydown", (event) => {
-        if (event.key !== "Enter" && event.key !== " ") return;
-        event.preventDefault();
-        dynamicFocusId = key;
-        renderDynamics();
-      });
-      lanes.appendChild(edge);
+    const orbit = el("div", "orbit-map dynamic-orbit");
+    const stage = el("div", "orbit-stage");
+    const hub = el("button", "orbit-center", `<strong>Dynamics</strong><span>${fmtNum(items.length)} axes</span>`);
+    hub.type = "button";
+    hub.addEventListener("click", () => {
+      dynamicFocusId = items[0] ? stablePanelKey("dynamic", items[0], 0) : null;
+      renderDynamics();
     });
-    wrap.append(head, lanes);
+    stage.appendChild(hub);
+    items.forEach((item, index) => {
+      const key = stablePanelKey("dynamic", item, index);
+      const point = orbitPoint(index, items.length);
+      const score = dynamicScore(item);
+      const accent = categoryAccent((item.linkedCategories || [])[0]);
+      const line = el("i", `orbit-line${key === dynamicFocusId ? " selected" : ""}`);
+      line.style.setProperty("--angle", `${point.angle}deg`);
+      line.style.setProperty("--len", `${point.length}%`);
+      line.style.setProperty("--local-accent", accent);
+      const node = el("button", `orbit-node${key === dynamicFocusId ? " selected" : ""}`);
+      node.type = "button";
+      node.style.setProperty("--x", `${point.x}%`);
+      node.style.setProperty("--y", `${point.y}%`);
+      node.style.setProperty("--local-accent", accent);
+      node.innerHTML = `
+        ${scoreRingHTML(score, "Power")}
+        <strong>${escapeHTML(item.axis || item.title || "Dynamic")}</strong>
+        <span>${fmtNum((item.players || []).length)} players</span>
+      `;
+      const select = () => {
+        if (dynamicFocusId === key) return;
+        dynamicFocusId = key;
+        renderDynamics();
+      };
+      node.addEventListener("mouseenter", select);
+      node.addEventListener("focus", select);
+      node.addEventListener("click", select);
+      stage.append(line, node);
+    });
+    orbit.appendChild(stage);
+    wrap.append(orbitHead, orbit);
+    animateCounts(wrap);
+    animateMeters(wrap);
   }
 
   function modelPayload(item) {
@@ -3348,6 +3427,10 @@
         <div><strong>${escapeHTML(item.metric || "-")}</strong><span>Core metric</span></div>
         <div><strong>${escapeHTML(flowInfo.to)}</strong><span>Revenue pool</span></div>
         <div><strong>${escapeHTML((item.linkedCategories || []).map(categoryName).join(" · ") || "전체")}</strong><span>Fit</span></div>
+      </div>
+      <div class="focus-score-row">
+        ${scoreRingHTML(modelScore(item), "Revenue")}
+        <div class="focus-score-copy"><strong>0 -> 100</strong><span>Selected money lever</span></div>
       </div>
       <div class="focus-flow">
         <span>${escapeHTML(flowInfo.from)}</span>
@@ -3398,58 +3481,59 @@
     if (!wrap) return;
     wrap.innerHTML = "";
     if (!items.length) {
-      wrap.appendChild(el("div", "empty", "선택한 카테고리의 수익화 흐름이 없습니다."));
+      wrap.appendChild(el("div", "empty", "No monetization map for the selected category."));
       return;
     }
-    const head = el("div", "relation-head", `
+    const orbitHead = el("div", "relation-head", `
       <div>
-        <span>Money flow</span>
-        <strong>수익화 레버 맵</strong>
+        <span>Interactive monetization</span>
+        <strong>Revenue lever 0 -> 100 map</strong>
       </div>
-      <small>고객 · 제품 · 지표를 한 줄 흐름으로 추적</small>
+      <small>Hover or click each circular node to inspect the money flow</small>
     `);
-    const flow = el("div", "money-flow-lanes");
-    items.forEach((item, index) => {
-      const payload = modelPayload(item);
-      const flowInfo = moneyFlowFromModel(item);
-      const key = stablePanelKey("model", item, index);
-      const node = el("article", `money-flow-card reveal${key === modelFocusId ? " selected" : ""}`);
-      node.style.animationDelay = `${index * 30}ms`;
-      node.style.setProperty("--local-accent", categoryAccent((item.linkedCategories || [])[0]));
-      node.innerHTML = `
-        <div class="money-flow-path">
-          <span>${escapeHTML(flowInfo.from)}</span>
-          <i></i>
-          <span>${escapeHTML(flowInfo.to)}</span>
-        </div>
-        <div class="money-flow-main">
-          <h3>${escapeHTML(item.title)}</h3>
-          <p>${escapeHTML(item.logic)}</p>
-        </div>
-        <div class="money-flow-metrics">
-          <div><strong>${escapeHTML(flowInfo.lever)}</strong><span>수익 레버</span></div>
-          <div><strong>${escapeHTML(item.metric)}</strong><span>핵심 숫자</span></div>
-          <button class="copy-btn" type="button" data-copy-money>복사</button>
-        </div>
-      `;
-      node.querySelector("[data-copy-money]")?.addEventListener("click", (event) => copyPayload(payload, event.currentTarget));
-      node.tabIndex = 0;
-      node.setAttribute("role", "button");
-      node.setAttribute("aria-label", `${item.title} 선택`);
-      node.addEventListener("click", (event) => {
-        if (event.target.closest("button, a")) return;
-        modelFocusId = key;
-        renderModels();
-      });
-      node.addEventListener("keydown", (event) => {
-        if (event.key !== "Enter" && event.key !== " ") return;
-        event.preventDefault();
-        modelFocusId = key;
-        renderModels();
-      });
-      flow.appendChild(node);
+    const orbit = el("div", "orbit-map money-orbit");
+    const stage = el("div", "orbit-stage");
+    const hub = el("button", "orbit-center", `<strong>Money flow</strong><span>${fmtNum(items.length)} levers</span>`);
+    hub.type = "button";
+    hub.addEventListener("click", () => {
+      modelFocusId = items[0] ? stablePanelKey("model", items[0], 0) : null;
+      renderModels();
     });
-    wrap.append(head, flow);
+    stage.appendChild(hub);
+    items.forEach((item, index) => {
+      const key = stablePanelKey("model", item, index);
+      const point = orbitPoint(index, items.length, 38);
+      const flowInfo = moneyFlowFromModel(item);
+      const score = modelScore(item);
+      const accent = categoryAccent((item.linkedCategories || [])[0]);
+      const line = el("i", `orbit-line${key === modelFocusId ? " selected" : ""}`);
+      line.style.setProperty("--angle", `${point.angle}deg`);
+      line.style.setProperty("--len", `${point.length}%`);
+      line.style.setProperty("--local-accent", accent);
+      const node = el("button", `orbit-node money${key === modelFocusId ? " selected" : ""}`);
+      node.type = "button";
+      node.style.setProperty("--x", `${point.x}%`);
+      node.style.setProperty("--y", `${point.y}%`);
+      node.style.setProperty("--local-accent", accent);
+      node.innerHTML = `
+        ${scoreRingHTML(score, "Revenue")}
+        <strong>${escapeHTML(flowInfo.lever || item.title || "Lever")}</strong>
+        <span>${escapeHTML(item.metric || flowInfo.to || "Metric")}</span>
+      `;
+      const select = () => {
+        if (modelFocusId === key) return;
+        modelFocusId = key;
+        renderModels();
+      };
+      node.addEventListener("mouseenter", select);
+      node.addEventListener("focus", select);
+      node.addEventListener("click", select);
+      stage.append(line, node);
+    });
+    orbit.appendChild(stage);
+    wrap.append(orbitHead, orbit);
+    animateCounts(wrap);
+    animateMeters(wrap);
   }
 
   function renderDynamics() {
@@ -3488,6 +3572,8 @@
       grid.appendChild(card);
     });
     if (!grid.children.length) grid.appendChild(el("div", "empty", "선택한 카테고리의 경쟁 다이나믹스가 없습니다."));
+    animateCounts($("#dynamics") || grid);
+    animateMeters($("#dynamics") || grid);
   }
 
   function renderModels() {
@@ -3529,6 +3615,8 @@
       grid.appendChild(card);
     });
     if (!grid.children.length) grid.appendChild(el("div", "empty", "선택한 카테고리의 벤치마킹 모델이 없습니다."));
+    animateCounts($("#monetization") || grid);
+    animateMeters($("#monetization") || grid);
   }
 
   function renderResponses() {

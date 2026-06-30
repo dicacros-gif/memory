@@ -1067,8 +1067,19 @@ body.sidebar-collapsed .sb-ico {
 .number-bar i {
   display: block;
   height: 100%;
+  width: 0;
   border-radius: inherit;
   background: linear-gradient(90deg, var(--local-accent, var(--accent)), var(--teal));
+}
+
+.number-scale {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-top: -3px;
+  color: var(--muted);
+  font-size: 9.5px;
+  font-weight: 900;
 }
 
 .number-source {
@@ -2297,6 +2308,67 @@ body.sidebar-collapsed .sb-ico {
   text-transform: uppercase;
 }
 
+.focus-score-row {
+  display: grid;
+  grid-template-columns: 74px minmax(0, 1fr);
+  gap: 10px;
+  align-items: center;
+  border: 1px solid color-mix(in srgb, var(--local-accent, var(--accent)) 20%, var(--line));
+  border-radius: 10px;
+  background: color-mix(in srgb, var(--local-accent, var(--accent)) 5%, var(--panel-2));
+  padding: 9px;
+}
+
+.focus-score-copy {
+  display: grid;
+  gap: 3px;
+  min-width: 0;
+}
+
+.focus-score-copy strong {
+  color: var(--ink);
+  font-size: 14px;
+  font-weight: 950;
+}
+
+.focus-score-copy span {
+  color: var(--muted);
+  font-size: 10px;
+  font-weight: 900;
+  text-transform: uppercase;
+}
+
+.score-ring {
+  --score: 0;
+  width: 62px;
+  height: 62px;
+  display: grid;
+  place-items: center;
+  border-radius: 50%;
+  background:
+    radial-gradient(circle at center, var(--panel) 0 58%, transparent 59%),
+    conic-gradient(var(--local-accent, var(--accent)) calc(var(--score) * 1%), color-mix(in srgb, var(--ink) 9%, var(--panel-2)) 0);
+  box-shadow: inset 0 0 0 1px color-mix(in srgb, var(--local-accent, var(--accent)) 18%, var(--line));
+  position: relative;
+}
+
+.score-ring .score-value {
+  color: var(--ink);
+  font-size: 15px;
+  font-weight: 950;
+  line-height: 1;
+}
+
+.score-ring small {
+  position: absolute;
+  bottom: 12px;
+  color: var(--muted);
+  font-size: 7.5px;
+  font-weight: 950;
+  letter-spacing: .02em;
+  text-transform: uppercase;
+}
+
 .focus-block {
   display: grid;
   gap: 8px;
@@ -2383,6 +2455,149 @@ body.sidebar-collapsed .sb-ico {
   display: block;
   margin-top: 2px;
   font-size: 14px;
+}
+
+.orbit-map {
+  min-width: 0;
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  background:
+    radial-gradient(circle at 50% 50%, color-mix(in srgb, var(--accent) 8%, transparent) 0 14%, transparent 15%),
+    linear-gradient(180deg, var(--panel), var(--panel-2));
+  padding: 12px;
+  box-shadow: var(--shadow);
+}
+
+.orbit-stage {
+  position: relative;
+  min-height: 500px;
+  overflow: hidden;
+  border: 1px solid color-mix(in srgb, var(--ink) 8%, transparent);
+  border-radius: 12px;
+  background:
+    radial-gradient(circle at center, transparent 0 34%, color-mix(in srgb, var(--ink) 7%, transparent) 34.4% 34.8%, transparent 35.2%),
+    radial-gradient(circle at center, transparent 0 58%, color-mix(in srgb, var(--ink) 5%, transparent) 58.4% 58.8%, transparent 59.2%);
+}
+
+.orbit-stage::before,
+.orbit-stage::after {
+  content: "";
+  position: absolute;
+  inset: 52px;
+  border: 1px dashed color-mix(in srgb, var(--ink) 12%, transparent);
+  border-radius: 50%;
+  pointer-events: none;
+}
+
+.orbit-stage::after {
+  inset: 128px;
+  border-style: solid;
+  border-color: color-mix(in srgb, var(--accent) 12%, transparent);
+}
+
+.orbit-center,
+.orbit-node {
+  border: 1px solid color-mix(in srgb, var(--local-accent, var(--accent)) 32%, var(--line));
+  border-radius: 12px;
+  background: color-mix(in srgb, var(--panel) 86%, var(--local-accent, var(--accent)));
+  color: var(--ink);
+  box-shadow: var(--shadow);
+}
+
+.orbit-center {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  z-index: 3;
+  width: 132px;
+  min-height: 84px;
+  display: grid;
+  place-items: center;
+  gap: 4px;
+  transform: translate(-50%, -50%);
+  padding: 12px;
+}
+
+.orbit-center strong,
+.orbit-node strong {
+  font-size: 12px;
+  font-weight: 950;
+  line-height: 1.25;
+  text-align: center;
+  overflow-wrap: anywhere;
+}
+
+.orbit-center span,
+.orbit-node > span {
+  color: var(--muted);
+  font-size: 9.5px;
+  font-weight: 900;
+  line-height: 1.25;
+  text-align: center;
+}
+
+.orbit-line {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  z-index: 1;
+  width: var(--len);
+  height: 2px;
+  transform-origin: 0 50%;
+  transform: rotate(var(--angle)) scaleX(.45);
+  border-radius: 999px;
+  background: linear-gradient(90deg, color-mix(in srgb, var(--local-accent, var(--accent)) 55%, transparent), transparent);
+  opacity: .45;
+  transition: transform .22s, opacity .22s, background .22s;
+}
+
+.orbit-line.selected {
+  transform: rotate(var(--angle)) scaleX(1);
+  background: linear-gradient(90deg, var(--local-accent, var(--accent)), var(--teal));
+  opacity: .9;
+}
+
+.orbit-node {
+  position: absolute;
+  left: var(--x);
+  top: var(--y);
+  z-index: 2;
+  width: 124px;
+  min-height: 112px;
+  display: grid;
+  justify-items: center;
+  align-content: center;
+  gap: 6px;
+  transform: translate(-50%, -50%) scale(.96);
+  padding: 9px 8px;
+  transition: border-color .18s, background .18s, box-shadow .18s, transform .18s;
+}
+
+.orbit-node .score-ring {
+  width: 48px;
+  height: 48px;
+}
+
+.orbit-node .score-ring .score-value {
+  font-size: 12px;
+}
+
+.orbit-node .score-ring small {
+  bottom: 8px;
+  font-size: 6px;
+}
+
+.orbit-node:hover,
+.orbit-node:focus-visible,
+.orbit-node.selected {
+  border-color: var(--local-accent, var(--accent));
+  background: color-mix(in srgb, var(--local-accent, var(--accent)) 11%, var(--panel));
+  box-shadow: var(--shadow-lg);
+  transform: translate(-50%, -50%) scale(1.03);
+}
+
+.orbit-node.money {
+  border-radius: 999px;
 }
 
 .relation-lanes,
@@ -4396,6 +4611,44 @@ body.sidebar-collapsed .sb-ico {
 
   .talent-metric-grid {
     grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 760px) {
+  .orbit-stage {
+    min-height: 620px;
+  }
+
+  .orbit-stage::before {
+    inset: 38px;
+  }
+
+  .orbit-stage::after {
+    inset: 106px;
+  }
+
+  .orbit-center {
+    width: 112px;
+    min-height: 76px;
+  }
+
+  .orbit-node {
+    width: 104px;
+    min-height: 104px;
+    padding: 8px 7px;
+  }
+
+  .orbit-node strong {
+    font-size: 10.5px;
+  }
+
+  .orbit-node > span {
+    font-size: 8.5px;
+  }
+
+  .orbit-node .score-ring {
+    width: 42px;
+    height: 42px;
   }
 }
 
