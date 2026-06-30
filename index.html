@@ -10,7 +10,7 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard/dist/web/static/pretendard.css" />
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;700;800;900&family=Space+Grotesk:wght@500;600;700&display=swap" />
-  <link rel="stylesheet" href="assets/css/styles.css?v=factcheck-update-20260630" />
+  <link rel="stylesheet" href="assets/css/styles.css?v=daily-review-20260630" />
 </head>
 <body>
   <div class="app">
@@ -29,6 +29,10 @@
         <button class="sb-item active" type="button" data-jump="overview">
           <span class="sb-ico" aria-hidden="true">▦</span>
           <span class="sb-label"><strong>오늘의 요약</strong><small>Overview</small></span>
+        </button>
+        <button class="sb-item" type="button" data-jump="daily-review">
+          <span class="sb-ico" aria-hidden="true">✓</span>
+          <span class="sb-label"><strong>일일 리뷰 큐</strong><small>Digest / Diff</small></span>
         </button>
         <button class="sb-item" type="button" data-jump="numbers">
           <span class="sb-ico" aria-hidden="true">#</span>
@@ -142,6 +146,29 @@
 
       <main class="main" id="main">
         <section class="kpi-strip" id="overview" aria-label="오늘의 벤치마킹 요약"></section>
+
+        <section class="board review-board" id="daily-review">
+          <div class="board-head">
+            <div>
+              <p class="eyebrow">Daily digest · review queue · semantic diff</p>
+              <h2>일일 크롤링 리뷰 큐</h2>
+            </div>
+            <span class="freshness-badge" id="reviewMeta">리뷰 상태 확인 중</span>
+          </div>
+          <div class="review-summary" id="reviewSummary"></div>
+          <div class="review-layout">
+            <section class="review-panel">
+              <div class="crawler-panel-head">
+                <h3>Priority Queue</h3>
+                <span>New · Changed · P1 · Pipeline</span>
+              </div>
+              <div class="review-controls" id="reviewControls"></div>
+              <div class="review-queue" id="reviewQueue"></div>
+            </section>
+            <aside class="review-detail" id="reviewDetail"></aside>
+          </div>
+          <div class="review-schema" id="reviewSchema"></div>
+        </section>
 
         <section class="board number-board" id="numbers">
           <div class="board-head">
