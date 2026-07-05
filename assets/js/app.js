@@ -371,10 +371,6 @@
         { axis: "금지선", status: "X", title: "경쟁사 영업비밀·recipe 반입 금지", evidence: "인력 확보는 합법적 공개 채용과 내부 리텐션 중심으로 설계해야 합니다.", implication: "경쟁사 비밀자료, 수율 recipe, 고객 비공개 데이터를 가져오는 방식은 금지합니다.", source: "Compliance rule", sourceUrl: "https://www.skhynix.com/company/UI-FR-CP06/" },
       ],
       actions: ["중국 거점별 핵심 직무 vacancy를 월별로 점검", "EHS·facility·품질 인력은 로컬 풀을 유지", "접근권·퇴직자 자료 반출 로그를 인사/보안 KPI로 관리"],
-      sources: [
-        { label: "SK hynix China offices", url: "https://www.skhynix.com/company/UI-FR-CP06/" },
-        { label: "BIS VEU China fabs", url: "https://www.bis.gov/press-release/department-commerce-closes-export-controls-loophole-foreign-owned-semiconductor-fabs-china" },
-      ],
     },
     {
       id: "nand-essd",
@@ -399,10 +395,6 @@
         { axis: "금지선", status: "X", title: "경쟁사 고객 비공개 인증자료 활용 금지", evidence: "YMTC 등 경쟁사 동향은 공개 기사·공식 채용·특허·가격 신호로만 수집해야 합니다.", implication: "고객 NDA 자료나 경쟁사 비공개 테스트 데이터를 채용 조건으로 요구하지 않습니다.", source: "Compliance rule", sourceUrl: "https://www.skhynix.com/company/UI-FR-CP06/" },
       ],
       actions: ["중국 eSSD 고객별 FAE coverage map 작성", "펌웨어·검증 인력의 접근권 등급화", "YMTC eSSD/내수 조달 신호와 Dalian 채용 계획을 연결"],
-      sources: [
-        { label: "SK hynix Intel NAND acquisition", url: "https://news.skhynix.com/sk-hynix-completes-the-first-phase-of-intel-nand-and-ssd-business-acquisition/" },
-        { label: "SK hynix China offices", url: "https://www.skhynix.com/company/UI-FR-CP06/" },
-      ],
     },
     {
       id: "infra-packaging",
@@ -427,11 +419,6 @@
         { axis: "허용범위", status: "O", title: "EHS·facility 검증 인력은 선제 확보 가능", evidence: "공개 EIA와 보세구 자료는 환경·물류·유틸리티 검증 필요성을 보여줍니다.", implication: "확장 여부와 무관하게 시설 안정성과 규제 대응 인력은 확보 가치가 있습니다.", source: "Wuxi Government", sourceUrl: "https://en.wuxi.gov.cn/2025-07/31/c_1113622.htm" },
       ],
       actions: ["전력·용수·폐수 숫자를 채용 승인 게이트로 설정", "facility/EHS 인력은 option pool로 확보", "패키징 인력과 전공정 선단 인력을 별도 승인 체계로 분리"],
-      sources: [
-        { label: "Wuxi K7 EIA", url: "https://www.wnd.gov.cn/doc/2017/02/28/2386281.shtml" },
-        { label: "Wuxi bonded zone expansion", url: "https://en.wuxi.gov.cn/2025-07/31/c_1113622.htm" },
-        { label: "BIS VEU China fabs", url: "https://www.bis.gov/press-release/department-commerce-closes-export-controls-loophole-foreign-owned-semiconductor-fabs-china" },
-      ],
     },
     {
       id: "defense",
@@ -456,11 +443,6 @@
         { axis: "금지선", status: "X", title: "인력 확보를 통한 영업비밀 이전 금지", evidence: "채용은 역량 확보가 목적이며 경쟁사 영업비밀·고객 NDA·recipe 이전은 허용하지 않습니다.", implication: "면접·온보딩 단계에서 비공개 자료 반입 금지와 IP 클린룸 원칙을 명시합니다.", source: "Compliance rule", sourceUrl: "https://www.skhynix.com/company/UI-FR-CP06/" },
       ],
       actions: ["핵심 인력 리텐션 스코어를 경영진 탭과 연결", "퇴직자·협력사 접근권 회수를 자동 체크리스트화", "중국 공개 채용 키워드를 주간 경보로 요약"],
-      sources: [
-        { label: "Talent radar live data", url: "https://dicacros-gif.github.io/memory/data/live.json" },
-        { label: "SK hynix China offices", url: "https://www.skhynix.com/company/UI-FR-CP06/" },
-        { label: "BIS VEU China fabs", url: "https://www.bis.gov/press-release/department-commerce-closes-export-controls-loophole-foreign-owned-semiconductor-fabs-china" },
-      ],
     },
   ];
   const CHINA_TALENT_STRATEGY_INVESTMENTS = {
@@ -6401,7 +6383,7 @@
         { label: "ROI 지수", value: fmtNum(roi.roi) },
         { label: "Top 투자", value: roi.top?.investment?.label || "-" },
       ],
-      links: (scenario.sources || []).map((source) => ({ title: source.label, link: source.url })),
+      links: [],
       tags: [scenario.label, scenario.status, "Hiring", "Retention", "IP"].filter(Boolean),
     };
   }
@@ -6509,13 +6491,12 @@
     const summary = $("#talentStrategySummary");
     const grid = $("#talentStrategyRuleGrid");
     const focus = $("#talentStrategyFocus");
-    const sourceGrid = $("#talentStrategySourceGrid");
     const roiGrid = $("#talentRoiGrid");
     const planning = $("#talentScenarioPlanning");
     const meta = $("#talentStrategyMeta");
     const sourceMeta = $("#talentStrategySourceMeta");
     const roiMeta = $("#talentRoiMeta");
-    if (!summary || !grid || !focus || !sourceGrid) return;
+    if (!summary || !grid || !focus) return;
 
     const scenario = activeChinaTalentScenario();
     const accent = categoryAccent(scenario.accentCategory);
@@ -6689,18 +6670,6 @@
         });
       });
     }
-
-    const sourceItems = (scenario.sources || []).concat(liveItems.map((item) => ({
-      label: item.titleKo || item.title || item.label || item.source || "Live signal",
-      url: item.link || item.url,
-    })));
-    sourceGrid.innerHTML = sourceItems.map((source, index) => `
-      <article class="policy-source-card reveal" style="--local-accent:${accent}; animation-delay:${index * 25}ms">
-        <span>인력 전략 소스</span>
-        <strong>${escapeHTML(source.label)}</strong>
-        ${sourceLinkHTML(source.url, "열기")}
-      </article>
-    `).join("");
 
     animateCounts(summary);
     animateCounts(grid);
