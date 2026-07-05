@@ -29,10 +29,12 @@
 
   const KOREAN_SOURCE_RE =
     /(yonhap|korea ?herald|korea ?times|koreatimes|koreaherald|chosun|joongang|joong ?ang|donga|dong-?a|hankyung|hankyoreh|ked ?global|kedglobal|maeil|maekyung|pulse ?news|business ?korea|businesskorea|et ?news|etnews|the ?elec|thelec|zdnet ?korea|sedaily|seoul ?economic|aju ?(business|news|press)|korea ?economic|korea ?joongang|korea ?biz ?wire|koreabizwire|inews24|edaily|mt\.co\.kr|mk\.co\.kr|dt\.co\.kr|\.kr\b|korea ?pro|the ?korea|naver|daum|fnnews|newspim|moneytoday|heraldcorp)/i;
+  const LOW_CONFIDENCE_NEWS_RE =
+    /(ad hoc news|indexbox|36\s*kr|36kr|borncity|mjengo|blockchain\.news|odaily|zamin\.uz|finance\.biggo|crypto briefing|weex)/i;
   const MEMORY_NEWS_RE =
     /(memory|dram|nand|hbm|ddr|lpddr|gddr|ssd|semiconductor|chip|wafer|foundry|packaging|interconnect|cxl|trendforce|dramexchange|micron|samsung|sk hynix|hynix|kioxia|western digital|sandisk|cxmt|changxin|ymtc|yangtze|jcet|tfme|xmc|wuhan xinxin|naura|amec|acm research|techinsights|yole|big fund|export control|china chip|chinese chip)/i;
   const CHINA_NEWS_RE =
-    /(china|chinese|cxmt|changxin|ymtc|yangtze|jcet|tfme|xmc|wuhan|naura|amec|huawei|tencent|alibaba|baidu|lenovo|big fund|36kr|pandaily|caixin|yicai|scmp|kraneshares|sina|sohu|eastmoney|huxiu|jiwei|c114|digitimes asia)/i;
+    /(china|chinese|cxmt|changxin|ymtc|yangtze|jcet|tfme|xmc|wuhan|naura|amec|huawei|tencent|alibaba|baidu|lenovo|big fund|pandaily|caixin|yicai|scmp|kraneshares|sina|sohu|eastmoney|huxiu|jiwei|c114|digitimes asia)/i;
   const APPLE_CONTENT_RE =
     /\b(apple|applem|aapl|iphone|ipad|macbook|9to5mac|applemagazine)\b|애플|아이폰|아이패드|맥북/i;
   const SOURCE_SUFFIX_RE = /\s[-–—]\s(?:[A-Za-z0-9가-힣 .·&]+)$/;
@@ -679,11 +681,12 @@
       keywords: ["ymtc", "yangtze", "xtacking", "essd", "wuhan phase 3", "nand", "flash"],
       metrics: [
         { label: "NAND 점유율", value: "13%" },
-        { label: "셀 밀도", value: "20.5Gb/mm²" },
+        { label: "공식 밀도", value: "12.66Gb/mm²" },
+        { label: "추정 밀도", value: "~20.5Gb/mm²" },
         { label: "제품 축", value: "eSSD" },
       ],
       strategy: [
-        "Xtacking으로 셀 어레이와 로직 웨이퍼를 분리해 미세화 제약을 우회",
+        "Xtacking으로 셀 어레이와 로직 웨이퍼를 분리해 미세화 제약을 우회하되 공식 측정값과 추정치를 분리",
         "중국 서버·스마트폰 고객을 묶어 eSSD와 고용량 NAND 내수 수요를 흡수",
         "우한 Phase 3에서 국산 장비와 패키징/테스트를 결합해 자급형 IDM으로 이동",
       ],
@@ -1480,11 +1483,11 @@
     {
       id: "ymtc-xtacking",
       tag: "NAND 구조",
-      title: "YMTC Xtacking 4.0과 최신 NAND 밀도 선도",
-      thesis: "YMTC는 로직 제어 웨이퍼와 메모리 셀 웨이퍼를 분리 가공한 뒤 하이브리드 본딩하는 Xtacking 4.0으로 기존 NAND 구조를 우회하고, 최신 294단급 제품에서 높은 셀 밀도를 확보했습니다",
-      facts: ["NAND 점유율 2025년 1분기 8% → 2026년 1분기 13%", "Xtacking 4.0 최신 밀도 20.5Gb/mm²", "294단급·활성층 약 270단 제품 확인"],
-      risk: "기존 4.41Gb/mm² 수치는 초기 세대 지표라 최신 경쟁력을 과소평가합니다. 다만 수율 안정화는 별도 검증이 필요합니다",
-      implication: "SK하이닉스는 NAND 가격뿐 아니라 eSSD·데이터센터 고객 확대와 YMTC의 기술 선도 지표를 동시에 봐야 합니다",
+      title: "YMTC Xtacking 4.0 공식값과 추정값 분리",
+      thesis: "YMTC는 로직 제어 웨이퍼와 메모리 셀 웨이퍼를 분리 가공한 뒤 하이브리드 본딩하는 Xtacking 4.0으로 기존 NAND 구조를 우회하지만, 공식 측정 밀도와 추정 밀도는 분리해서 봐야 합니다",
+      facts: ["NAND 점유율 2025년 1분기 8% → 2026년 1분기 13%", "TechInsights Gen5 512Gb TLC 공식 밀도 12.66Gb/mm²", "~20.5Gb/mm²는 1Tb/294L(2yyL) 추정치로 별도 Watch"],
+      risk: "셀 밀도, 단수, 수율 안정화는 서로 다른 지표입니다. 수율 안정화는 별도 검증 없이 확정 표현하지 않습니다",
+      implication: "SK하이닉스는 NAND 가격뿐 아니라 eSSD·데이터센터 고객 확대, 공식 밀도, 추정 밀도, 우한 Phase 3 램프를 분리 추적해야 합니다",
       linkedCategories: ["nand", "packaging"],
       source: "TechInsights",
       sourceUrl: "https://www.techinsights.com/blog/ymtc-xtacking40-breaking-new-ground-3d-nand-technology",
@@ -1516,7 +1519,7 @@
       tag: "소부장",
       title: "빅펀드 3기와 장비·소재 국산화",
       thesis: "빅펀드 3기는 단순 팹 증설보다 EUV·EDA·첨단 화학 소재 같은 초크포인트에 자본을 집중하고 있습니다",
-      facts: ["빅펀드 3기 약 475억 달러", "Yole 기준 장비 국산화율 2025년 23.2%", "중국 내 팹·핵심 공정 기준은 35~40%+ 보도"],
+      facts: ["빅펀드 3기 3,440억 위안·약 $47.5B", "Yole 기준 장비 국산화율 2025년 23.2%", "중국 내 팹·핵심 공정 기준은 35~40%+ 보도"],
       risk: "집계 기준에 따라 국산화율 수치가 달라집니다. AMEC 식각, Naura 종합장비, ACM 세정이 서방 장비를 대체하고 소재 기업은 JV·공동 R&D를 통해 recipe 흡수를 시도합니다",
       implication: "한국 소부장 파트너의 JV 제안, 소재 recipe 이전, 중국 내수 우선 공급권 요구를 조기 탐지해야 합니다",
       linkedCategories: ["equipment", "geopolitics", "talent"],
@@ -2266,7 +2269,12 @@
         if (entry.isIntersecting) run(entry.target);
       });
     }, { threshold: 0.3 });
-    counts.forEach((node) => io.observe(node));
+    counts.forEach((node) => {
+      io.observe(node);
+      const rect = node.getBoundingClientRect();
+      if (rect.top < window.innerHeight && rect.bottom > 0) run(node);
+    });
+    window.setTimeout(() => counts.forEach(run), 1200);
   }
 
   function animateMeters(root = document) {
@@ -2593,7 +2601,11 @@
     renderExecutiveSummary();
     const strip = $("#kpiStrip") || $("#overview");
     strip.innerHTML = "";
-    (BASE.kpis || []).slice(0, 6).forEach((kpi, index) => {
+    const kpis = (BASE.kpis || []).filter((kpi) => {
+      const status = `${kpi.status || ""} ${kpi.statusClass || ""}`.toLowerCase();
+      return kpi.showInKpiStrip !== false && !status.includes("stale");
+    });
+    kpis.slice(0, 6).forEach((kpi, index) => {
       const node = el("article", "kpi reveal");
       node.style.animationDelay = `${index * 35}ms`;
       const hasSourceUrl = String(kpi.sourceUrl || "").trim();
@@ -8616,7 +8628,7 @@
     const live = LIVE.news || [];
     const curated = BASE.curatedNews || [];
     const clean = dedupeNews(live.concat(curated)
-      .filter((item) => isForeignNews(item) && isMemoryRelevant(item) && !isAppleContent(item)));
+      .filter((item) => isForeignNews(item) && isMemoryRelevant(item) && !isAppleContent(item) && !isLowConfidenceNews(item)));
     return clean.length ? clean : (BASE.fallbackNews || []);
   }
 
@@ -8635,6 +8647,12 @@
     if (!item || !item.title) return false;
     if (KOREAN_SOURCE_RE.test(src)) return false;
     return true;
+  }
+
+  function isLowConfidenceNews(item) {
+    if (item?.curated) return false;
+    const hay = `${item?.source || ""} ${item?.title || ""} ${item?.summary || ""} ${item?.link || ""}`;
+    return LOW_CONFIDENCE_NEWS_RE.test(hay);
   }
 
   function isMemoryRelevant(item) {
