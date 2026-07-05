@@ -5791,17 +5791,9 @@
     if (!items.some((item) => item.id === strategicDecisionFocusId)) strategicDecisionFocusId = items[0]?.id || "china-key-account-lock";
     const selected = items.find((item) => item.id === strategicDecisionFocusId) || items[0];
     const totalSignals = items.reduce((sum, item) => sum + item.signals, 0);
-    const goCount = items.filter((item) => /go/i.test(item.stage)).length;
-    const defendCount = items.filter((item) => /defend|hold/i.test(item.stage)).length;
-    const watchCount = items.filter((item) => /watch/i.test(item.stage)).length;
-    if (meta) meta.textContent = `${fmtNum(items.length)}개 의사결정 안건 · ${fmtDate(LIVE.updatedAt)}`;
-
-    summary.innerHTML = investmentSummaryHTML([
-      { label: "의사결정 안건", value: items.length, note: "계약·제품·제휴·운영·IP 방어", suffix: "개" },
-      { label: "Go", value: goCount, note: "즉시 경영진 상정 대상", suffix: "건" },
-      { label: "Watch", value: watchCount, note: "조건 충족 시 JV/제휴 검토", suffix: "건" },
-      { label: "Defend/Hold", value: defendCount, note: "가격·캐파 하방 방어 안건", suffix: "건" },
-    ]);
+    if (meta) meta.textContent = `${fmtNum(items.length)}개 투자 판단 · ${fmtDate(LIVE.updatedAt)}`;
+    summary.hidden = true;
+    summary.innerHTML = "";
 
     grid.innerHTML = items.map((item, index) => `
       <button class="investment-card reveal${item.id === selected?.id ? " active" : ""}" type="button" data-strategic-decision="${escapeHTML(item.id)}" style="--local-accent:${categoryAccent((item.linkedCategories || [])[0])}; animation-delay:${index * 25}ms">
