@@ -329,6 +329,44 @@
   ];
   const PROJECTION_START_MONTHS = 30;
   const PROJECTION_YEAR_COUNT = 5;
+  const PROJECTION_SCENARIOS = [
+    {
+      id: "neutral",
+      label: "중립",
+      sub: "Base case",
+      tone: "현재 크롤링 가격·뉴스·중국 벤치마크 신호를 그대로 반영한 기준 케이스",
+      scoreBias: 0,
+      serverLift: 0,
+      storageLift: 0,
+      terminalLift: 0,
+      legacyLift: 0,
+      riskLabel: "기준",
+    },
+    {
+      id: "best",
+      label: "Best",
+      sub: "Upside case",
+      tone: "HBM·서버 DRAM·eSSD 수요가 강하고 중국 범용 가격 압력이 완화되는 상방 케이스",
+      scoreBias: 8,
+      serverLift: 4.6,
+      storageLift: 2.5,
+      terminalLift: -1.3,
+      legacyLift: -2.2,
+      riskLabel: "상방",
+    },
+    {
+      id: "worst",
+      label: "Worst",
+      sub: "Downside case",
+      tone: "HBM4 인증 지연, 중국 캐파 확대, 범용 DRAM/NAND 가격 하방을 크게 반영한 방어 케이스",
+      scoreBias: -10,
+      serverLift: -4.8,
+      storageLift: -3.0,
+      terminalLift: 3.4,
+      legacyLift: 3.8,
+      riskLabel: "하방",
+    },
+  ];
   const SKHYNIX_PRODUCT_PROJECTION = [
     {
       id: "ai-server",
@@ -952,6 +990,7 @@
   let modelFocusId = null;
   let chinaNandFocusId = "ymtc";
   let projectionFocusId = "ai-server";
+  let projectionScenario = "neutral";
   let execDecisionFocusId = "hbm-ai-server";
   let selectedBacktestDate = "";
   let responsePriority = "all";
@@ -3720,22 +3759,45 @@
     });
   }
 
-  function projectionSeries(segments = productProjectionSegments()) {
+  function projectionScenarioData(id = projectionScenario) {
+    return PROJECTION_SCENARIOS.find((scenario) => scenario.id === id) || PROJECTION_SCENARIOS[0];
+  }
+
+  function projectionScenarioDelta(segment, scenario, ratio) {
+    if (!segment || !scenario || scenario.id === "neutral") return 0;
+    const chinaPressure = axisSignalCount(CHINA_DYNAMIC_AXES.find((axis) => axis.id === "capacity")) + axisSignalCount(CHINA_DYNAMIC_AXES.find((axis) => axis.id === "equipment")) + rawNews().filter(isChinaArticle).length;
+    let delta = 0;
+    if (segment.id === "ai-server") delta += scenario.serverLift || 0;
+    if (segment.id === "dc-storage") delta += scenario.storageLift || 0;
+    if (segment.id === "mobile-pc" || segment.id === "auto-edge") delta += scenario.terminalLift || 0;
+    if (segment.id === "legacy") delta += scenario.legacyLift || 0;
+
+    if (scenario.id === "best" && segment.id === "ai-server") delta += Math.min(segment.signals || 0, 140) * .018;
+    if (scenario.id === "best" && segment.id === "dc-storage") delta += Math.max(segment.priceMomentum || 0, 0) * .22;
+    if (scenario.id === "worst" && (segment.id === "mobile-pc" || segment.id === "legacy")) delta += Math.min(chinaPressure, 140) * .026;
+    if (scenario.id === "worst" && segment.id === "ai-server") delta -= Math.max(segment.priceMomentum || 0, 0) * .16;
+
+    return delta * ratio;
+  }
+
+  function projectionSeries(segments = productProjectionSegments(), scenarioId = projectionScenario) {
+    const scenario = projectionScenarioData(scenarioId);
     const horizon = projectionWindowData();
     return horizon.years.map((year, index) => {
       const ratio = horizon.years.length <= 1 ? 0 : index / (horizon.years.length - 1);
       const raw = segments.map((segment) => {
         const base = segment.startShare + (segment.endShare - segment.startShare) * ratio;
-        const liveBoost = (segment.score - 75) * segment.sensitivity * .09 * ratio;
+        const liveBoost = (segment.score + scenario.scoreBias - 75) * segment.sensitivity * .09 * ratio;
         const priceBoost = segment.priceMomentum * .18 * ratio;
         return {
           segment,
-          raw: Math.max(1, base + liveBoost + priceBoost),
+          raw: Math.max(1, base + liveBoost + priceBoost + projectionScenarioDelta(segment, scenario, ratio)),
         };
       });
       const total = raw.reduce((sum, item) => sum + item.raw, 0) || 1;
       return {
         year,
+        scenario: scenario.id,
         index,
         items: raw.map((item) => ({
           segment: item.segment,
@@ -3743,6 +3805,13 @@
         })),
       };
     });
+  }
+
+  function projectionScenarioSeriesMap(segments = productProjectionSegments()) {
+    return PROJECTION_SCENARIOS.reduce((map, scenario) => {
+      map[scenario.id] = projectionSeries(segments, scenario.id);
+      return map;
+    }, {});
   }
 
   function projectionShare(series, segmentId, point = -1) {
@@ -3755,14 +3824,14 @@
     return ids.reduce((sum, id) => sum + projectionShare(series, id, point), 0);
   }
 
-  function projectionSegmentPayload(segment, series) {
+  function projectionSegmentPayload(segment, series, scenario = projectionScenarioData()) {
     const start = projectionShare(series, segment.id, 0);
     const end = projectionShare(series, segment.id, -1);
     return {
       type: "제품군 프로젝션",
-      tag: segment.demand,
+      tag: `${segment.demand} · ${scenario.label}`,
       title: segment.title,
-      body: `${segment.thesis} ${segment.risk}`,
+      body: `${scenario.label} case: ${scenario.tone} ${segment.thesis} ${segment.risk}`,
       section: "projection",
       categories: segment.linkedCategories || [],
       watch: (segment.triggers || []).concat(segment.actions || []),
@@ -3771,18 +3840,25 @@
       metrics: [
         { label: "T+30M", value: `${fmtNum(start, 1)}%` },
         { label: "5Y", value: `${fmtNum(end, 1)}%` },
+        { label: "Case", value: scenario.label },
         { label: "Signal", value: fmtNum(segment.signals) },
         { label: "Score", value: fmtNum(segment.score) },
       ],
     };
   }
 
-  function projectionDriverCards(segments, series) {
+  function projectionDriverCards(segments, series, scenario = projectionScenarioData()) {
     const serverScore = (segments.find((item) => item.id === "ai-server")?.score || 0) * .58 + (segments.find((item) => item.id === "dc-storage")?.score || 0) * .42;
     const terminalScore = (segments.find((item) => item.id === "mobile-pc")?.score || 0) * .72 + (segments.find((item) => item.id === "auto-edge")?.score || 0) * .28;
     const chinaSignals = axisSignalCount(CHINA_DYNAMIC_AXES.find((axis) => axis.id === "capacity")) + axisSignalCount(CHINA_DYNAMIC_AXES.find((axis) => axis.id === "equipment")) + rawNews().filter(isChinaArticle).length;
     const nandMomentum = projectionPriceMomentum(segments.find((item) => item.id === "dc-storage") || {});
     return [
+      {
+        label: "선택 시나리오",
+        value: scenario.label,
+        score: clamp(70 + (scenario.id === "best" ? 16 : scenario.id === "worst" ? -12 : 0)),
+        note: scenario.tone,
+      },
       {
         label: "서버향 프리미엄",
         value: projectionGroupShare(series, ["ai-server", "dc-storage"]),
@@ -3819,28 +3895,35 @@
     const summary = $("#projectionSummary");
     const stack = $("#projectionStack");
     const tabs = $("#projectionTabs");
+    const scenarioTabs = $("#projectionScenarioTabs");
+    const scenarioChart = $("#projectionScenarioChart");
     const focus = $("#projectionFocus");
     const drivers = $("#projectionDrivers");
     const meta = $("#projectionMeta");
     const windowNode = $("#projectionWindow");
-    if (!summary || !stack || !tabs || !focus || !drivers) return;
+    if (!summary || !stack || !tabs || !scenarioTabs || !scenarioChart || !focus || !drivers) return;
 
     const horizon = projectionWindowData();
     const segments = productProjectionSegments();
-    const series = projectionSeries(segments);
+    const scenario = projectionScenarioData();
+    const scenarioMap = projectionScenarioSeriesMap(segments);
+    const series = scenarioMap[scenario.id] || projectionSeries(segments, scenario.id);
     if (!segments.some((item) => item.id === projectionFocusId)) projectionFocusId = segments[0]?.id || "ai-server";
     const selected = segments.find((item) => item.id === projectionFocusId) || segments[0];
     const serverShare = projectionGroupShare(series, ["ai-server", "dc-storage"]);
     const terminalShare = projectionGroupShare(series, ["mobile-pc", "auto-edge"]);
+    const bestServerShare = projectionGroupShare(scenarioMap.best || series, ["ai-server", "dc-storage"]);
+    const worstServerShare = projectionGroupShare(scenarioMap.worst || series, ["ai-server", "dc-storage"]);
     const totalSignals = segments.reduce((sum, segment) => sum + segment.signals, 0);
 
-    if (meta) meta.textContent = `${horizon.detail} · ${fmtNum(totalSignals)}개 신호 · ${fmtDate(LIVE.updatedAt)}`;
+    if (meta) meta.textContent = `${scenario.label} case · ${horizon.detail} · ${fmtNum(totalSignals)}개 신호 · ${fmtDate(LIVE.updatedAt)}`;
     if (windowNode) windowNode.textContent = `${horizon.rangeLabel} · 현재 수집일 +${PROJECTION_START_MONTHS}개월부터`;
 
     const summaryCards = [
-      { label: "전망 구간", value: horizon.rangeLabel, note: horizon.detail },
+      { label: "선택 케이스", value: scenario.label, note: scenario.tone },
       { label: "서버향 믹스", value: serverShare, note: "AI 서버 + 데이터센터 스토리지", suffix: "%", decimals: 1 },
       { label: "단말향 믹스", value: terminalShare, note: "모바일/PC + 오토/엣지", suffix: "%", decimals: 1 },
+      { label: "서버향 3-case 범위", value: `${fmtNum(worstServerShare, 1)}~${fmtNum(bestServerShare, 1)}%`, note: "Worst~Best 5Y 민감도 범위" },
       { label: "크롤링 신호", value: totalSignals, note: "뉴스·가격·벤치마킹 반영", suffix: "건" },
     ];
     summary.innerHTML = summaryCards.map((card) => `
@@ -3850,6 +3933,51 @@
         <small>${escapeHTML(card.note)}</small>
       </article>
     `).join("");
+
+    scenarioTabs.innerHTML = PROJECTION_SCENARIOS.map((item) => {
+      const itemSeries = scenarioMap[item.id] || series;
+      const selectedShare = selected ? projectionShare(itemSeries, selected.id, -1) : 0;
+      return `
+        <button class="projection-scenario-tab reveal${item.id === scenario.id ? " active" : ""}" type="button" data-projection-scenario="${escapeHTML(item.id)}">
+          <span>${escapeHTML(item.label)}</span>
+          <strong>${escapeHTML(item.sub)}</strong>
+          <em>${selected ? escapeHTML(selected.short) : "Product"} 5Y ${fmtNum(selectedShare, 1)}%</em>
+        </button>
+      `;
+    }).join("");
+
+    scenarioChart.innerHTML = PROJECTION_SCENARIOS.map((item, index) => {
+      const itemSeries = scenarioMap[item.id] || series;
+      const itemServer = projectionGroupShare(itemSeries, ["ai-server", "dc-storage"]);
+      const itemTerminal = projectionGroupShare(itemSeries, ["mobile-pc", "auto-edge"]);
+      const itemSelected = selected ? projectionShare(itemSeries, selected.id, -1) : 0;
+      return `
+        <button class="scenario-card reveal${item.id === scenario.id ? " active" : ""}" type="button" data-projection-scenario="${escapeHTML(item.id)}" style="animation-delay:${index * 35}ms">
+          <div class="scenario-card-head">
+            <span>${escapeHTML(item.label)}</span>
+            <strong>${countHTML(itemSelected, { suffix: "%", decimals: 1 })}</strong>
+          </div>
+          <p>${escapeHTML(item.tone)}</p>
+          <div class="scenario-bars">
+            <div class="scenario-bar-row">
+              <span>서버향</span>
+              <i><b data-fill-to="${clamp(itemServer)}" style="width:0%"></b></i>
+              <em>${fmtNum(itemServer, 1)}%</em>
+            </div>
+            <div class="scenario-bar-row">
+              <span>단말향</span>
+              <i><b data-fill-to="${clamp(itemTerminal)}" style="width:0%"></b></i>
+              <em>${fmtNum(itemTerminal, 1)}%</em>
+            </div>
+            <div class="scenario-bar-row">
+              <span>${selected ? escapeHTML(selected.short) : "선택"}</span>
+              <i><b data-fill-to="${clamp(itemSelected)}" style="width:0%"></b></i>
+              <em>${fmtNum(itemSelected, 1)}%</em>
+            </div>
+          </div>
+        </button>
+      `;
+    }).join("");
 
     stack.innerHTML = series.map((row, rowIndex) => `
       <article class="projection-year reveal" style="animation-delay:${rowIndex * 30}ms">
@@ -3891,13 +4019,13 @@
     }).join("");
 
     if (selected) {
-      const payload = projectionSegmentPayload(selected, series);
+      const payload = projectionSegmentPayload(selected, series, scenario);
       const startShare = projectionShare(series, selected.id, 0);
       const endShare = projectionShare(series, selected.id, -1);
       focus.style.setProperty("--local-accent", categoryAccent((selected.linkedCategories || [])[0]));
       focus.innerHTML = `
         <div class="projection-focus-head">
-          <span class="chip accent">${escapeHTML(selected.label)}</span>
+          <span class="chip accent">${escapeHTML(selected.label)} · ${escapeHTML(scenario.label)}</span>
           <h3>${escapeHTML(selected.title)}</h3>
           <p>${escapeHTML(selected.thesis)}</p>
         </div>
@@ -3909,6 +4037,10 @@
         <div class="projection-focus-block">
           <strong>제품군</strong>
           <div class="tag-row">${(selected.products || []).map((product) => `<span class="tag">${escapeHTML(product)}</span>`).join("")}</div>
+        </div>
+        <div class="projection-focus-block scenario-note">
+          <strong>선택 케이스</strong>
+          <p>${escapeHTML(scenario.tone)}</p>
         </div>
         <div class="projection-focus-block">
           <strong>전망 가정</strong>
@@ -3936,7 +4068,7 @@
       focus.querySelector("[data-projection-news]")?.addEventListener("click", () => jumpTo("news"));
     }
 
-    drivers.innerHTML = projectionDriverCards(segments, series).map((driver, index) => `
+    drivers.innerHTML = projectionDriverCards(segments, series, scenario).map((driver, index) => `
       <article class="projection-driver reveal" style="animation-delay:${index * 25}ms">
         <div>
           <span>${escapeHTML(driver.label)}</span>
@@ -3959,10 +4091,19 @@
         renderProductProjection();
       });
     });
+    $$("#projectionScenarioTabs [data-projection-scenario], #projectionScenarioChart [data-projection-scenario]").forEach((btn) => {
+      btn.addEventListener("click", () => {
+        projectionScenario = btn.dataset.projectionScenario || "neutral";
+        renderProductProjection();
+      });
+    });
     animateCounts(summary);
+    animateCounts(scenarioTabs);
+    animateCounts(scenarioChart);
     animateCounts(stack);
     animateCounts(tabs);
     animateCounts(drivers);
+    animateMeters(scenarioChart);
     animateMeters(tabs);
     animateMeters(drivers);
   }

@@ -1680,7 +1680,7 @@ body.sidebar-collapsed .sb-ico {
 
 .projection-summary {
   display: grid;
-  grid-template-columns: repeat(4, minmax(0, 1fr));
+  grid-template-columns: repeat(5, minmax(0, 1fr));
   gap: 10px;
   margin-bottom: 12px;
 }
@@ -1690,7 +1690,9 @@ body.sidebar-collapsed .sb-ico {
 .projection-focus,
 .projection-driver,
 .projection-year,
-.projection-tab {
+.projection-tab,
+.projection-scenario-tab,
+.scenario-card {
   min-width: 0;
   border: 1px solid var(--line);
   border-radius: 10px;
@@ -1741,6 +1743,128 @@ body.sidebar-collapsed .sb-ico {
   display: grid;
   gap: 12px;
   padding: 12px;
+}
+
+.projection-scenario-tabs {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 8px;
+}
+
+.projection-scenario-tab {
+  display: grid;
+  gap: 5px;
+  color: var(--ink);
+  padding: 10px 12px;
+  text-align: left;
+  transition: transform .16s, border-color .16s, background .16s, box-shadow .16s;
+}
+
+.projection-scenario-tab:hover,
+.projection-scenario-tab:focus-visible,
+.projection-scenario-tab.active,
+.scenario-card:hover,
+.scenario-card:focus-visible,
+.scenario-card.active {
+  outline: none;
+  transform: translateY(-2px);
+  border-color: var(--amber);
+  background: color-mix(in srgb, var(--amber) 10%, var(--panel));
+  box-shadow: var(--shadow-lg);
+}
+
+.projection-scenario-tab span,
+.scenario-card-head span,
+.scenario-bar-row span {
+  color: var(--muted);
+  font-size: 10px;
+  font-weight: 950;
+  letter-spacing: .04em;
+  text-transform: uppercase;
+}
+
+.projection-scenario-tab strong {
+  color: var(--ink);
+  font-size: 14px;
+  font-weight: 950;
+}
+
+.projection-scenario-tab em {
+  color: var(--amber);
+  font-size: 11px;
+  font-style: normal;
+  font-weight: 900;
+}
+
+.projection-scenario-chart {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 10px;
+}
+
+.scenario-card {
+  display: grid;
+  gap: 10px;
+  color: var(--ink);
+  padding: 12px;
+  text-align: left;
+  transition: transform .16s, border-color .16s, background .16s, box-shadow .16s;
+}
+
+.scenario-card-head {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 8px;
+}
+
+.scenario-card-head strong {
+  font-family: var(--display);
+  font-size: 25px;
+  line-height: 1;
+}
+
+.scenario-card p {
+  min-height: 44px;
+  color: var(--ink-2);
+  font-size: 11.5px;
+  line-height: 1.45;
+  font-weight: 750;
+}
+
+.scenario-bars {
+  display: grid;
+  gap: 7px;
+}
+
+.scenario-bar-row {
+  display: grid;
+  grid-template-columns: 54px minmax(0, 1fr) 42px;
+  gap: 7px;
+  align-items: center;
+}
+
+.scenario-bar-row i {
+  display: block;
+  height: 8px;
+  overflow: hidden;
+  border-radius: 99px;
+  background: color-mix(in srgb, var(--ink) 8%, var(--panel));
+}
+
+.scenario-bar-row b {
+  display: block;
+  height: 100%;
+  border-radius: inherit;
+  background: linear-gradient(90deg, var(--amber), var(--teal));
+}
+
+.scenario-bar-row em {
+  color: var(--ink);
+  font-size: 10px;
+  font-style: normal;
+  font-weight: 950;
+  text-align: right;
 }
 
 .projection-stack {
@@ -1957,7 +2081,7 @@ body.sidebar-collapsed .sb-ico {
 
 .projection-drivers {
   display: grid;
-  grid-template-columns: repeat(4, minmax(0, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(210px, 1fr));
   gap: 10px;
   margin-top: 12px;
 }
@@ -5556,7 +5680,9 @@ body.sidebar-collapsed .sb-ico {
     grid-template-columns: repeat(3, minmax(0, 1fr));
   }
 
-  .projection-tabs {
+  .projection-tabs,
+  .projection-scenario-tabs,
+  .projection-scenario-chart {
     grid-template-columns: repeat(3, minmax(0, 1fr));
   }
 
@@ -5570,6 +5696,7 @@ body.sidebar-collapsed .sb-ico {
   .exec-card-grid,
   .decision-summary,
   .projection-summary,
+  .projection-scenario-chart,
   .projection-drivers,
   .crawler-summary,
   .review-summary,
@@ -5825,6 +5952,7 @@ body.sidebar-collapsed .sb-ico {
 
   .number-live-ribbon,
   .projection-drivers,
+  .projection-scenario-chart,
   .workbench-mece {
     grid-template-columns: 1fr;
   }
@@ -5844,6 +5972,7 @@ body.sidebar-collapsed .sb-ico {
   .decision-summary,
   .decision-grid,
   .projection-summary,
+  .projection-scenario-tabs,
   .projection-tabs,
   .china-nand-summary,
   .china-nand-map,
@@ -5964,6 +6093,8 @@ body.sidebar-collapsed .sb-ico {
     .decision-grid,
     .decision-control,
     .projection-summary,
+    .projection-scenario-tabs,
+    .projection-scenario-chart,
     .projection-layout,
     .projection-tabs,
     .projection-year-list,
