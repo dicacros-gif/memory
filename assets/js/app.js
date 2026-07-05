@@ -554,6 +554,68 @@
       },
     ],
   };
+  const CEO_CHALLENGES = [
+    {
+      id: "evidence-quality",
+      label: "근거가 부족한데 왜 실행하나?",
+      angle: "Evidence",
+      question: "현재 크롤링 데이터가 충분하지 않은데 이 투자 판단을 CEO가 승인해야 하는 이유는 무엇인가?",
+    },
+    {
+      id: "roi-credibility",
+      label: "ROI 지수를 믿을 수 있나?",
+      angle: "ROI",
+      question: "ROI 지수가 실제 재무수익률이 아니라면 의사결정 지표로 쓸 수 있는가?",
+    },
+    {
+      id: "budget-cut",
+      label: "예산을 줄이면 무엇을 남기나?",
+      angle: "Capital",
+      question: "예산이 절반으로 줄면 어떤 투자만 남기고 무엇을 보류해야 하는가?",
+    },
+    {
+      id: "no-go",
+      label: "X 게이트가 있으면 중단 아닌가?",
+      angle: "Gate",
+      question: "No-Go 항목이 있는데 왜 시나리오 전체를 폐기하지 않는가?",
+    },
+    {
+      id: "ip-risk",
+      label: "채용이 IP 유출을 키우지 않나?",
+      angle: "IP",
+      question: "중국 인력 확보가 오히려 핵심 recipe와 영업비밀 유출 리스크를 키우는 것 아닌가?",
+    },
+    {
+      id: "outsourcing",
+      label: "외주로 해결하면 안 되나?",
+      angle: "Operating model",
+      question: "직접 채용보다 협력사·외주로 처리하는 편이 비용 효율적이지 않은가?",
+    },
+    {
+      id: "bis-shock",
+      label: "BIS 규제가 더 강해지면?",
+      angle: "Policy shock",
+      question: "미국 수출통제가 강화되면 이 인력 투자 계획은 어떻게 바뀌어야 하는가?",
+    },
+    {
+      id: "china-zero",
+      label: "중국 전용 신호가 0건이면?",
+      angle: "Data gap",
+      question: "China Talent Strategy 전용 RSS가 0건이면 이 보드를 신뢰해도 되는가?",
+    },
+    {
+      id: "kpi-reversal",
+      label: "어떤 KPI면 결정을 뒤집나?",
+      angle: "Kill switch",
+      question: "어떤 숫자가 나오면 투자 확대 결정을 중단하거나 반대로 확대해야 하는가?",
+    },
+    {
+      id: "strategic-fit",
+      label: "SK하이닉스 전략과 무슨 관련인가?",
+      angle: "Strategic fit",
+      question: "이 인력 투자가 HBM, NAND/eSSD, 중국 법인 운영, 리스크 방어와 어떻게 연결되는가?",
+    },
+  ];
   const CHINA_DYNAMIC_AXES = [
     {
       id: "capacity",
@@ -1901,6 +1963,8 @@
   let policyMakerTab = "china";
   let chinaInfraSite = "wuxi";
   let chinaTalentScenarioId = "operate";
+  let ceoChallengeId = "roi-credibility";
+  let ceoChallengeTargetId = "scenario";
   let projectionFocusId = "ai-server";
   let projectionScenario = "neutral";
   let execDecisionFocusId = "hbm-ai-server";
@@ -5636,6 +5700,134 @@
     };
   }
 
+  function chinaTalentChallengeTargets(scenario = activeChinaTalentScenario()) {
+    return [
+      { id: "scenario", label: `${scenario.label} 전체`, type: "시나리오", investment: null },
+    ].concat(chinaTalentInvestments(scenario).map((investment) => ({
+      id: `investment:${investment.id}`,
+      label: investment.label,
+      type: investment.type,
+      investment,
+    })));
+  }
+
+  function activeCeoChallengeTarget(scenario = activeChinaTalentScenario()) {
+    const targets = chinaTalentChallengeTargets(scenario);
+    const target = targets.find((item) => item.id === ceoChallengeTargetId) || targets[0];
+    ceoChallengeTargetId = target.id;
+    return target;
+  }
+
+  function activeCeoChallenge() {
+    const challenge = CEO_CHALLENGES.find((item) => item.id === ceoChallengeId) || CEO_CHALLENGES[0];
+    ceoChallengeId = challenge.id;
+    return challenge;
+  }
+
+  function ceoTargetModel(scenario, target) {
+    const scenarioRoi = chinaTalentScenarioRoi(scenario);
+    if (target?.investment) return chinaTalentRoiModel(scenario, target.investment);
+    return {
+      cost: Math.round((scenarioRoi.modeled || []).reduce((sum, item) => sum + item.model.cost, 0) / Math.max(scenarioRoi.count, 1)),
+      payoff: Math.round((scenarioRoi.modeled || []).reduce((sum, item) => sum + item.model.payoff, 0) / Math.max(scenarioRoi.count, 1)),
+      risk: Math.round((scenarioRoi.modeled || []).reduce((sum, item) => sum + item.model.risk, 0) / Math.max(scenarioRoi.count, 1)),
+      profitability: scenarioRoi.profitability,
+      roi: scenarioRoi.roi,
+      downside: scenarioRoi.downside,
+      upside: scenarioRoi.upside,
+      decision: scenarioRoi.top?.model?.decision || "옵션 유지",
+      decisionClass: scenarioRoi.top?.model?.decisionClass || "watch",
+      formula: `시나리오 평균 ROI 지수 = 투자안 ${fmtNum(scenarioRoi.count)}개 평균`,
+    };
+  }
+
+  function buildCeoAgentAnswer(scenario, target, challenge) {
+    const model = ceoTargetModel(scenario, target);
+    const gates = chinaTalentGateStats(scenario);
+    const signals = chinaTalentSignalCount(scenario);
+    const targetLabel = target?.label || scenario.label;
+    const investment = target?.investment;
+    const top = chinaTalentScenarioRoi(scenario).top;
+    const kpis = investment?.kpis || top?.investment?.kpis || ["크롤링 신호", "O/X 게이트", "ROI 지수"];
+    const noGoText = gates.noGo ? `X 게이트 ${fmtNum(gates.noGo)}개가 있어 전면 집행이 아니라 통제 조건부 집행입니다.` : "현재 선택 시나리오에는 즉시 중단형 X 게이트가 낮습니다.";
+
+    const common = {
+      title: `${challenge.angle} · ${targetLabel}`,
+      metrics: [
+        { label: "ROI", value: fmtNum(model.roi) },
+        { label: "수익성", value: fmtNum(model.profitability) },
+        { label: "신호", value: fmtNum(signals) },
+        { label: "O/X", value: `${fmtNum(gates.ok)}/${fmtNum(gates.noGo)}` },
+      ],
+      kpis,
+    };
+
+    const answers = {
+      "evidence-quality": {
+        verdict: signals > 0 ? "승인 가능하되, 전면 집행이 아니라 단계 집행이 맞습니다." : "승인은 보류가 아니라 소액 옵션 집행으로 제한해야 합니다.",
+        logic: `현재 판단은 단일 기사에 기대지 않고 크롤링 신호 ${fmtNum(signals)}개, O 게이트 ${fmtNum(gates.ok)}개, X 게이트 ${fmtNum(gates.noGo)}개, ROI 지수 ${fmtNum(model.roi)}를 함께 봅니다.`,
+        counter: "근거가 부족하다는 지적은 맞습니다. 그래서 숫자가 없는 매출·인력 규모를 만들지 않고, 공개 데이터 기반의 상대지수와 O/X 게이트로만 판단합니다.",
+        action: `${targetLabel}는 ${model.decision}로 두고, 다음 크롤링에서 전용 신호가 증가하거나 X 게이트가 해소될 때만 예산을 올립니다.`,
+      },
+      "roi-credibility": {
+        verdict: "이 ROI는 재무 ROI %가 아니라 경영 의사결정용 상대지수로 써야 합니다.",
+        logic: `${model.formula}. 실제 현금흐름이 아니라 투자비, 효익, 리스크, 크롤링 신호, O/X 게이트를 0~100으로 표준화한 비교 모델입니다.`,
+        counter: "따라서 CFO 보고용 IRR/NPV로 쓰면 안 됩니다. 대신 어떤 투자안을 먼저 실사할지 정하는 1차 필터로는 유효합니다.",
+        action: `ROI 지수 ${fmtNum(model.roi)} 이상인 항목은 실사 후보, ${fmtNum(model.downside)} 이하 하방이면 옵션 유지로 분리합니다.`,
+      },
+      "budget-cut": {
+        verdict: top?.investment ? `예산을 줄이면 '${top.investment.label}'만 남기는 것이 우선입니다.` : `${targetLabel}는 옵션 유지가 맞습니다.`,
+        logic: `선택 시나리오 평균 ROI는 ${fmtNum(chinaTalentScenarioRoi(scenario).roi)}이고, 최상위 투자안은 ROI ${fmtNum(top?.model?.roi || model.roi)}입니다. 낮은 ROI 투자안은 다음 수집일까지 보류합니다.`,
+        counter: "모든 투자를 얇게 집행하면 보안·품질·채용 어느 것도 임계치에 도달하지 못합니다.",
+        action: "1순위 투자만 승인하고, 나머지는 KPI 경보가 발생할 때 자동 재상정하는 방식이 좋습니다.",
+      },
+      "no-go": {
+        verdict: gates.noGo ? "X 게이트는 시나리오 폐기가 아니라 투자 범위 제한 조건입니다." : "현재는 X 게이트보다 실행 KPI 관리가 핵심입니다.",
+        logic: noGoText,
+        counter: "예를 들어 BIS·IP·recipe 금지선은 생산 확대나 기술 이전을 막지만, EHS, 리텐션, 공개정보 크롤링까지 막지는 않습니다.",
+        action: "X 게이트와 무관하게 허용되는 투자만 남기고, 금지선에 닿는 채용·데이터 접근·기술 이전은 자동 보류합니다.",
+      },
+      "ip-risk": {
+        verdict: "채용 확대보다 접근권 통제와 클린룸 설계가 선행되어야 합니다.",
+        logic: `${targetLabel}의 리스크 지수는 ${fmtNum(model.risk)}입니다. IP 리스크가 높은 항목은 직접 채용보다 역할 분리, 접근권 등급화, 퇴직자 로그 관리가 먼저입니다.`,
+        counter: "인력 확보 자체가 위험한 것이 아니라, 채용과 recipe 접근을 같은 승인선에 두는 것이 위험합니다.",
+        action: "면접·온보딩·퇴직 단계에 비공개자료 반입 금지, 계정 회수 SLA, 핵심 데이터 접근 예외승인 로그를 넣습니다.",
+      },
+      outsourcing: {
+        verdict: "외주는 보조 수단이고, 핵심 품질·IP·고객 판단은 내부 역량으로 남겨야 합니다.",
+        logic: `투자비 지수 ${fmtNum(model.cost)}가 높은 항목은 외주로 일부 낮출 수 있지만, ROI 지수 ${fmtNum(model.roi)}의 핵심은 학습된 운영 데이터와 고객 대응 속도입니다.`,
+        counter: "전력·EHS·일반 운영은 협력사 활용이 가능하지만, 펌웨어 검증, 고객 품질, IP 통제는 내부 책임자가 필요합니다.",
+        action: "외주 가능 업무와 내부 보유 업무를 RACI로 분리하고, 고객·recipe·접근권이 걸린 업무는 내부 owner를 둡니다.",
+      },
+      "bis-shock": {
+        verdict: "BIS 쇼크가 오면 확장형 채용은 줄이고 운영 유지·컴플라이언스·리텐션으로 전환해야 합니다.",
+        logic: "미국 수출통제는 기존 운영과 캐파 확대/기술 업그레이드를 분리합니다. 그래서 채용도 운영 유지형과 업그레이드형을 분리해야 합니다.",
+        counter: "규제가 강해진다고 중국 사업 인력을 모두 줄이면 운영 리스크가 커집니다. 줄일 것은 선단 이전·확장형 직무입니다.",
+        action: "BIS 강화 이벤트가 발생하면 Fab·패키징 확장 채용은 hold, IP·접근권 자동 통제와 운영 continuity 인력은 maintain으로 둡니다.",
+      },
+      "china-zero": {
+        verdict: "전용 RSS 0건은 '근거 없음'이 아니라 '직접 신호 부족'으로 표시해야 합니다.",
+        logic: `현재 보드는 China Talent Strategy 전용 신호가 적을 경우 Talent/IP, China 뉴스, 공식 소스, O/X 게이트를 보조 신호로 사용합니다. 그래서 전용 신호가 0이면 ROI 확대가 아니라 보수적 단계 집행입니다.`,
+        counter: "신호 0건인데 확정 숫자를 만들면 할루시네이션입니다. 그래서 화면은 재무액이 아니라 상대지수와 검증 상태를 보여줍니다.",
+        action: "전용 신호가 2회 연속 0건이면 쿼리·소스 목록을 보강하고, 투자 확대는 다음 수집까지 보류합니다.",
+      },
+      "kpi-reversal": {
+        verdict: "결정을 뒤집는 KPI를 먼저 정해야 합니다.",
+        logic: `${targetLabel}의 핵심 KPI는 ${kpis.slice(0, 3).join(", ")}입니다. ROI 지수만 보지 말고 KPI 방향 전환을 kill switch로 둬야 합니다.`,
+        counter: "CEO 관점에서 가장 위험한 것은 한 번 승인한 투자가 관성으로 계속되는 것입니다.",
+        action: `ROI ${fmtNum(Math.max(40, model.roi - 12))} 이하, X 게이트 ${fmtNum(gates.noGo + 1)}개 이상, 또는 핵심 KPI 2개 악화 시 자동 재심의로 돌립니다.`,
+      },
+      "strategic-fit": {
+        verdict: `${targetLabel}는 중국 사업 자체보다 SK하이닉스의 HBM·NAND/eSSD·운영 리스크 방어와 연결될 때 의미가 있습니다.`,
+        logic: `수익성 지수 ${fmtNum(model.profitability)}는 고객 방어, 수율 노하우 보호, 운영 중단 방지, 가격 하락 조기 대응의 조합입니다.`,
+        counter: "중국 인력 확보를 독립 프로젝트로 보면 비용입니다. 제품군·고객·IP 방어와 연결하면 옵션 가치가 생깁니다.",
+        action: "각 채용 요청은 HBM 수율, eSSD 고객 방어, Wuxi/Dalian/Chongqing 운영 안정, IP 리스크 중 하나에 반드시 매핑합니다.",
+      },
+    };
+
+    return { ...common, ...(answers[challenge.id] || answers["roi-credibility"]) };
+  }
+
   function chinaTalentPayload(scenario) {
     const roi = chinaTalentScenarioRoi(scenario);
     return {
@@ -5676,6 +5868,88 @@
     });
   }
 
+  function renderCeoChallengeAgent(scenario = activeChinaTalentScenario()) {
+    const targetSelect = $("#ceoChallengeTarget");
+    const challengeSelect = $("#ceoChallengeSelect");
+    const answerWrap = $("#ceoAgentAnswer");
+    const meta = $("#ceoChallengeMeta");
+    if (!targetSelect || !challengeSelect || !answerWrap) return;
+
+    const targets = chinaTalentChallengeTargets(scenario);
+    const target = activeCeoChallengeTarget(scenario);
+    const challenge = activeCeoChallenge();
+    const response = buildCeoAgentAnswer(scenario, target, challenge);
+    const accent = categoryAccent(scenario.accentCategory);
+
+    targetSelect.innerHTML = targets.map((item) => `
+      <option value="${escapeHTML(item.id)}"${item.id === target.id ? " selected" : ""}>${escapeHTML(item.type)} · ${escapeHTML(item.label)}</option>
+    `).join("");
+    challengeSelect.innerHTML = CEO_CHALLENGES.map((item) => `
+      <option value="${escapeHTML(item.id)}"${item.id === challenge.id ? " selected" : ""}>${escapeHTML(item.label)}</option>
+    `).join("");
+    if (meta) meta.textContent = `${scenario.label} · ${target.label} · ${challenge.angle}`;
+
+    targetSelect.onchange = (event) => {
+      ceoChallengeTargetId = event.target.value;
+      renderChinaTalentStrategy();
+    };
+    challengeSelect.onchange = (event) => {
+      ceoChallengeId = event.target.value;
+      renderChinaTalentStrategy();
+    };
+
+    answerWrap.style.setProperty("--local-accent", accent);
+    answerWrap.innerHTML = `
+      <div class="agent-head">
+        <span>AGENT</span>
+        <div>
+          <strong>${escapeHTML(response.title)}</strong>
+          <small>${escapeHTML(challenge.question)}</small>
+        </div>
+        <button type="button" data-agent-copy>복사</button>
+      </div>
+      <div class="agent-metrics">
+        ${(response.metrics || []).map((metric) => `
+          <div><strong>${escapeHTML(metric.value)}</strong><span>${escapeHTML(metric.label)}</span></div>
+        `).join("")}
+      </div>
+      <div class="agent-answer-grid">
+        <article>
+          <span>판단</span>
+          <p>${escapeHTML(response.verdict)}</p>
+        </article>
+        <article>
+          <span>논리</span>
+          <p>${escapeHTML(response.logic)}</p>
+        </article>
+        <article>
+          <span>CEO 반론에 대한 답</span>
+          <p>${escapeHTML(response.counter)}</p>
+        </article>
+        <article>
+          <span>실행 조건</span>
+          <p>${escapeHTML(response.action)}</p>
+        </article>
+      </div>
+      <div class="agent-kpi-row">
+        <strong>추적 KPI</strong>
+        ${(response.kpis || []).slice(0, 4).map((kpi) => `<span>${escapeHTML(kpi)}</span>`).join("")}
+      </div>
+    `;
+    answerWrap.querySelector("[data-agent-copy]")?.addEventListener("click", (event) => {
+      copyPayload({
+        type: "CEO 챌린지 AGENT 답변",
+        tag: challenge.angle,
+        title: challenge.question,
+        body: `${response.verdict}\n\n논리: ${response.logic}\n\n반론 답변: ${response.counter}\n\n실행 조건: ${response.action}`,
+        section: "china-talent-strategy",
+        categories: [scenario.accentCategory || "talent"],
+        metrics: response.metrics || [],
+        watch: response.kpis || [],
+      }, event.currentTarget);
+    });
+  }
+
   function renderChinaTalentStrategy() {
     const summary = $("#talentStrategySummary");
     const grid = $("#talentStrategyRuleGrid");
@@ -5702,6 +5976,7 @@
     if (sourceMeta) sourceMeta.textContent = `시나리오 ${fmtNum(CHINA_TALENT_STRATEGY_SCENARIOS.length)}개 · 라이브 ${fmtNum(liveItems.length)}개 · RSS ${fmtNum(Number(theme?.count ?? 0) || 0)}개`;
     if (roiMeta) roiMeta.textContent = `ROI 지수 ${fmtNum(scenarioRoi.roi)} · 수익성 ${fmtNum(scenarioRoi.profitability)} · ${scenarioRoi.top?.investment?.label || "투자안 확인"}`;
     renderChinaTalentTabs(scenario);
+    renderCeoChallengeAgent(scenario);
 
     summary.style.setProperty("--local-accent", accent);
     summary.innerHTML = [

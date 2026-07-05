@@ -10,7 +10,7 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard/dist/web/static/pretendard.css" />
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;700;800;900&family=Space+Grotesk:wght@500;600;700&display=swap" />
-  <link rel="stylesheet" href="assets/css/styles.css?v=china-talent-roi-20260705" />
+  <link rel="stylesheet" href="assets/css/styles.css?v=ceo-agent-challenge-20260705" />
 </head>
 <body>
   <div class="app">
@@ -344,6 +344,23 @@
               <span>크롤링 신호 → O/X 게이트 → 투자안 → ROI → 실행 판단</span>
             </div>
             <div class="talent-planning-map" id="talentScenarioPlanning"></div>
+          </div>
+          <div class="ceo-challenge-board">
+            <div class="crawler-panel-head">
+              <h3>CEO 챌린지 · AGENT 답변</h3>
+              <span id="ceoChallengeMeta">시나리오와 투자안을 선택해 반론을 검증</span>
+            </div>
+            <div class="ceo-challenge-controls">
+              <label>
+                <span>답변 대상</span>
+                <select id="ceoChallengeTarget" aria-label="CEO 챌린지 답변 대상"></select>
+              </label>
+              <label>
+                <span>CEO 챌린지</span>
+                <select id="ceoChallengeSelect" aria-label="CEO 챌린지 선택"></select>
+              </label>
+            </div>
+            <div class="ceo-agent-answer" id="ceoAgentAnswer"></div>
           </div>
           <div class="policy-source-grid" id="talentStrategySourceGrid"></div>
         </section>
@@ -728,6 +745,6 @@
   <div class="qa-answer" id="qaAnswer" hidden></div>
   <div class="inspector" id="inspector" hidden></div>
   <div class="backdrop" id="backdrop"></div>
-  <script src="assets/js/app.js?v=china-talent-roi-20260705" defer></script>
+  <script src="assets/js/app.js?v=ceo-agent-challenge-20260705" defer></script>
 </body>
 </html>
