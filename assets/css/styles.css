@@ -1006,45 +1006,12 @@ body.sidebar-collapsed .sb-ico {
   -webkit-line-clamp: 1;
 }
 
-.data-integrity-grid {
-  display: grid;
-  grid-template-columns: repeat(5, minmax(0, 1fr));
-  gap: 10px;
-}
-
-.integrity-card {
-  min-width: 0;
-  display: grid;
-  align-content: start;
-  gap: 7px;
-  min-height: 116px;
-  border: 1px solid var(--line);
-  border-radius: 10px;
-  background: var(--panel-2);
-  padding: 12px;
-}
-
-.integrity-card > span,
 .evidence-mini {
   color: var(--muted);
   font-size: 10px;
   font-weight: 950;
   letter-spacing: .04em;
   text-transform: uppercase;
-}
-
-.integrity-card strong {
-  color: var(--ink);
-  font-family: var(--display);
-  font-size: 22px;
-  line-height: 1;
-}
-
-.integrity-card small {
-  color: var(--ink-2);
-  font-size: 11px;
-  line-height: 1.45;
-  font-weight: 750;
 }
 
 .evidence-row {
@@ -7176,7 +7143,6 @@ body.sidebar-collapsed .sb-ico {
 
   .category-grid,
   .channel-grid,
-  .data-integrity-grid,
   .exec-card-grid,
   .decision-summary,
   .category-ox-matrix,
@@ -7485,7 +7451,6 @@ body.sidebar-collapsed .sb-ico {
   }
 
   .kpi-strip,
-  .data-integrity-grid,
   .number-grid,
   .exec-card-grid,
   .exec-strategy,
@@ -7658,16 +7623,15 @@ body.sidebar-collapsed .sb-ico {
   }
 
   .kpi-strip,
-  .data-integrity-grid,
-    .number-grid,
-    .number-lens-tabs,
-    .number-lens-summary,
-    .focus-readout,
-    .workbench-tabs,
-    .workbench-stage,
-    .review-summary,
-    .evidence-framework-summary,
-    .evidence-layer-grid,
+  .number-grid,
+  .number-lens-tabs,
+  .number-lens-summary,
+  .focus-readout,
+  .workbench-tabs,
+  .workbench-stage,
+  .review-summary,
+  .evidence-framework-summary,
+  .evidence-layer-grid,
     .evidence-framework-layout,
     .evidence-claim-grid,
     .review-controls,

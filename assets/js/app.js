@@ -2190,59 +2190,6 @@
     return `<a class="source-tag" href="${escapeHTML(clean)}" target="_blank" rel="noopener">${escapeHTML(label)}</a>`;
   }
 
-  function renderDataIntegrityBoard() {
-    const target = $("#dataIntegrityGrid");
-    if (!target) return;
-    const kpis = BASE.kpis || [];
-    const kpiWithSource = kpis.filter((kpi) => String(kpi.sourceUrl || "").trim()).length;
-    const news = rawNews();
-    const newsWithLinks = news.filter((item) => String(item.link || "").trim()).length;
-    const health = LIVE.health || [];
-    const ok = health.filter((entry) => entry.ok).length;
-    const priceRows = allPriceRows().length;
-    const cards = [
-      {
-        label: "가격 실측",
-        value: priceRows,
-        suffix: " rows",
-        note: `${LIVE.prices?.source || "TrendForce"} · ${fmtDate(LIVE.prices?.updatedAt || LIVE.updatedAt)}`,
-        state: priceRows ? "ok" : "fail",
-      },
-      {
-        label: "뉴스 링크",
-        value: `${fmtNum(newsWithLinks)}/${fmtNum(news.length)}`,
-        note: "링크가 있는 기사만 원문 근거로 사용",
-        state: newsWithLinks ? "ok" : "fail",
-      },
-      {
-        label: "KPI 출처 URL",
-        value: `${fmtNum(kpiWithSource)}/${fmtNum(kpis.length)}`,
-        note: "URL 없는 KPI는 화면에서 검증 필요로 표시",
-        state: kpiWithSource === kpis.length ? "ok" : "watch",
-      },
-      {
-        label: "수집 단계",
-        value: `${fmtNum(ok)}/${fmtNum(health.length)}`,
-        note: "GitHub Actions health log 기준",
-        state: ok === health.length ? "ok" : "watch",
-      },
-      {
-        label: "프로젝션",
-        value: "모델",
-        note: "실측값이 아니라 가격·뉴스 신호 기반 시나리오 산출",
-        state: "watch",
-      },
-    ];
-    target.innerHTML = cards.map((card, index) => `
-      <article class="integrity-card reveal" style="animation-delay:${index * 25}ms">
-        <span>${escapeHTML(card.label)}</span>
-        <strong>${typeof card.value === "number" ? `${fmtNum(card.value)}${escapeHTML(card.suffix || "")}` : escapeHTML(card.value)}</strong>
-        ${factBadge(card.state === "ok" ? "실측/출처" : card.state === "fail" ? "검증 필요" : "보도/모델", card.state)}
-        <small>${escapeHTML(card.note)}</small>
-      </article>
-    `).join("");
-  }
-
   function animateCounts(root = document) {
     const counts = $$(".count", root);
     const run = (node) => {
@@ -2695,7 +2642,6 @@
       `;
       strip.appendChild(node);
     });
-    renderDataIntegrityBoard();
   }
 
   function setCopyState(button, label = "복사됨") {
