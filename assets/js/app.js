@@ -8870,28 +8870,8 @@
   }
 
   function renderPriceSummary() {
-    const rows = priceRowsFor();
     const summary = $("#priceSummary");
-    const up = rows.filter((row) => Number(row.changePct) > 0).length;
-    const down = rows.filter((row) => Number(row.changePct) < 0).length;
-    const contract = rows.filter((row) => /contract/i.test(row.sectionTitle || "")).length;
-    const spot = rows.filter((row) => /spot|street/i.test(row.sectionTitle || "")).length;
-    const updated = LIVE.prices?.updatedAt || LIVE.updatedAt;
-    const status = freshnessState({ updatedAt: updated, count: allPriceRows().length, healthKeys: ["가격:"], staleHours: 30 });
-    const cards = [
-      ["Status", status.label, LIVE.prices?.source || "TrendForce / DRAMeXchange"],
-      ["Rows", rows.length, "선택 조건 가격 항목"],
-      ["Spot", spot, "현물·street price"],
-      ["Contract", contract, "계약가 항목"],
-      ["Up / Down", `${up}/${down}`, fmtDate(updated)],
-    ];
-    summary.innerHTML = cards.map(([label, value, note]) => `
-      <article class="card">
-        <span class="chip accent">${escapeHTML(label)}</span>
-        <h3>${typeof value === "number" ? countHTML(value) : escapeHTML(value)}</h3>
-        <p>${escapeHTML(note)}</p>
-      </article>
-    `).join("");
+    if (summary) summary.innerHTML = "";
   }
 
   function renderPriceRows() {
