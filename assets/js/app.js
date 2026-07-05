@@ -364,7 +364,7 @@
         { name: "스토리지 고객 품질", target: "Dalian", plan: "eSSD/SSD 고객 대응, FA, 신뢰성, 물류 운영 인력을 보강" },
         { name: "후공정·보세구 운영", target: "Chongqing", plan: "패키징/테스트 운영, 보세구 통관, 고객 납기 관리 인력을 유지" },
       ],
-      channels: ["공식 채용", "현지 대학·전문대 협력", "협력사 전환 채용", "EHS·facility 인증 인력 풀"],
+      channels: ["로컬 채용", "현지 대학·전문대 협력", "협력사 전환 채용", "EHS·facility 인증 인력 풀"],
       gates: [
         { axis: "채용 범위", status: "O", title: "현지 운영·EHS·설비 인력 확보", evidence: "공개 공식 거점은 Wuxi, Dalian, Chongqing으로 확인됩니다.", implication: "중국 법인의 안정 운영을 위한 현지 채용은 O로 판단합니다.", source: "SK hynix Offices", sourceUrl: "https://www.skhynix.com/company/UI-FR-CP06/" },
         { axis: "데이터 접근", status: "Watch", title: "공정 데이터 접근권 최소화", evidence: "중국 사업은 미국 수출통제와 한국 국가핵심기술 보호 관점에서 운영 유지와 기술 업그레이드를 분리해야 합니다.", implication: "현지 운영 인력에게 필요한 업무권한만 부여하고 recipe·수율 데이터 접근은 로그화합니다.", source: "BIS", sourceUrl: "https://www.bis.gov/press-release/department-commerce-closes-export-controls-loophole-foreign-owned-semiconductor-fabs-china" },
@@ -388,11 +388,11 @@
         { name: "펌웨어 검증·신뢰성", target: "Dalian / global link", plan: "현지 검증 인력은 확대하되 핵심 펌웨어 소스와 보안키 접근은 분리" },
         { name: "NAND 가격·고객 정보 분석", target: "China sales ops", plan: "YMTC, eSSD 조달, NAND 계약가, 내수 보조금 신호를 매일 분석" },
       ],
-      channels: ["공식 경력 채용", "고객 품질/FAE 추천 채용", "대학 펌웨어·스토리지 랩", "중국 서버 고객 공동 품질 워룸"],
+      channels: ["로컬 경력 채용", "고객 품질/FAE 추천 채용", "대학 펌웨어·스토리지 랩", "중국 서버 고객 공동 품질 워룸"],
       gates: [
         { axis: "사업 필요성", status: "O", title: "Dalian/Solidigm 스토리지 운영과 연결", evidence: "SK하이닉스는 Intel NAND/SSD 사업 1단계 인수를 완료했고 Solidigm을 통해 SSD 사업을 운영합니다.", implication: "eSSD 고객 품질·검증 인력은 중국 사업 방어에 직접 필요합니다.", source: "SK hynix Newsroom", sourceUrl: "https://news.skhynix.com/sk-hynix-completes-the-first-phase-of-intel-nand-and-ssd-business-acquisition/" },
         { axis: "IP 통제", status: "Watch", title: "펌웨어·컨트롤러 IP 접근 분리", evidence: "NAND 사업 강화는 고객 대응 인력과 핵심 IP 접근 인력을 분리해야 합니다.", implication: "현지 인력은 검증·품질·고객 대응 중심, 핵심 펌웨어 소스는 본사 통제 중심으로 둡니다.", source: "Internal control logic", sourceUrl: "https://www.skhynix.com/company/UI-FR-CP06/" },
-        { axis: "금지선", status: "X", title: "경쟁사 고객 비공개 인증자료 활용 금지", evidence: "YMTC 등 경쟁사 동향은 공개 기사·공식 채용·특허·가격 신호로만 수집해야 합니다.", implication: "고객 NDA 자료나 경쟁사 비공개 테스트 데이터를 채용 조건으로 요구하지 않습니다.", source: "Compliance rule", sourceUrl: "https://www.skhynix.com/company/UI-FR-CP06/" },
+        { axis: "금지선", status: "X", title: "경쟁사 고객 비공개 인증자료 활용 금지", evidence: "YMTC 등 경쟁사 동향은 공개 기사·로컬 채용·특허·가격 신호로만 수집해야 합니다.", implication: "고객 NDA 자료나 경쟁사 비공개 테스트 데이터를 채용 조건으로 요구하지 않습니다.", source: "Compliance rule", sourceUrl: "https://www.skhynix.com/company/UI-FR-CP06/" },
       ],
       actions: ["중국 eSSD 고객별 FAE coverage map 작성", "펌웨어·검증 인력의 접근권 등급화", "YMTC eSSD/내수 조달 신호와 Dalian 채용 계획을 연결"],
     },
@@ -434,7 +434,7 @@
       roles: [
         { name: "핵심 인력 리텐션", target: "Korea / China interface", plan: "수율·패키징·펌웨어 핵심 인력의 보상, 경력경로, 이직 위험 신호를 월별 관리" },
         { name: "IP·보안·법무", target: "HQ / China subsidiaries", plan: "퇴직자 자료반출, 접근권, 협력사 계정, 로컬 채용 접촉 로그를 통합" },
-        { name: "공개 채용 인텔리전스", target: "China public sources", plan: "CXMT/YMTC 공식 채용, Boss Zhipin/Liepin/Maimai, 대학 취업센터, 특허 키워드 수집" },
+        { name: "공개 채용 인텔리전스", target: "China public sources", plan: "Boss Zhipin/Liepin/Maimai, 대학 취업센터, 특허 키워드 수집" },
       ],
       channels: ["리텐션 패키지", "법무·보안 전담 채용", "공개 채용/특허 크롤링", "대학·산학 신호 모니터링"],
       gates: [
@@ -577,7 +577,7 @@
         id: "hiring-intel-crawler",
         label: "채용·특허 조기경보",
         type: "인텔리전스",
-        investment: "CXMT/YMTC 공식 채용, 로컬 채용, 대학, 특허 키워드 크롤링 강화",
+        investment: "로컬 채용, 대학, 특허 키워드 크롤링 강화",
         monetization: "경쟁사의 기술 방향을 빠르게 포착해 방어 투자 타이밍을 앞당김",
         costIndex: 18,
         payoffIndex: 60,
@@ -686,9 +686,9 @@
       label: "인재/IP",
       theme: "talent",
       categoryIds: ["talent", "packaging"],
-      keywords: ["talent", "hiring", "engineer", "ip", "yield", "tsv", "hybrid bonding", "xtacking", "campus recruiting", "tsinghua", "boss zhipin", "ymtc careers", "cxmt careers"],
-      pulse: "공식 채용·로컬 JD·대학 파이프라인·전문 매체/IP 신호로 수율 엔지니어 이동과 공정 노하우 유출 가능성을 조기 감지",
-      watch: ["TSV/HBM JD 증가", "CXMT/YMTC 공식 채용", "칭화대 캠퍼스 리크루팅", "수율 엔지니어 이동", "IP 분쟁"],
+      keywords: ["talent", "hiring", "engineer", "ip", "yield", "tsv", "hybrid bonding", "xtacking", "campus recruiting", "tsinghua", "boss zhipin", "recruitment"],
+      pulse: "로컬 JD·대학 파이프라인·전문 매체/IP 신호로 수율 엔지니어 이동과 공정 노하우 유출 가능성을 조기 감지",
+      watch: ["TSV/HBM JD 증가", "CXMT/YMTC 공개 채용 신호", "칭화대 캠퍼스 리크루팅", "수율 엔지니어 이동", "IP 분쟁"],
     },
     {
       id: "policy",
@@ -1386,10 +1386,10 @@
       capital: "핵심 인력 보상 + 법무/보안",
       title: "중국 채용 공고를 기술 로드맵과 IP 리스크의 선행 신호로 사용",
       thesis: "CXMT와 YMTC의 채용은 향후 공정·패키징·수율 안정화 방향을 보여줍니다. TSV, yield, advanced packaging, DDR5, HBM 키워드가 늘면 기술 격차 축소 속도를 다시 산정해야 합니다.",
-      actions: ["CXMT/YMTC 공식 채용과 Boss Zhipin 키워드 빈도 추적", "핵심 수율 인력 보상·접근권·퇴직 모니터링 강화", "채용 급증 신호를 기술 로드맵 리스크와 연결"],
-      triggers: ["CXMT hiring", "YMTC careers", "Boss Zhipin", "yield engineer", "TSV", "HBM"],
+      actions: ["CXMT/YMTC 공개 채용 신호와 Boss Zhipin 키워드 빈도 추적", "핵심 수율 인력 보상·접근권·퇴직 모니터링 강화", "채용 급증 신호를 기술 로드맵 리스크와 연결"],
+      triggers: ["CXMT hiring", "YMTC recruitment", "Boss Zhipin", "yield engineer", "TSV", "HBM"],
       linkedCategories: ["talent", "dram", "packaging", "geopolitics"],
-      keywords: ["hiring", "talent", "yield", "engineer", "boss zhipin", "cxmt", "ymtc careers", "tsv", "hbm"],
+      keywords: ["hiring", "talent", "yield", "engineer", "boss zhipin", "cxmt", "ymtc recruitment", "tsv", "hbm"],
       baseScore: 84,
     },
   ];
@@ -1992,9 +1992,9 @@
     {
       id: "talent-hiring-radar",
       label: "인재·채용 레이더",
-      source: "CXMT/YMTC 공식 채용 · Boss Zhipin/Liepin/Maimai · Tsinghua/HUST · ijiwei/IP",
+      source: "Boss Zhipin/Liepin/Maimai · Tsinghua/HUST · ijiwei/IP",
       method: "TSV, Yield, Advanced Packaging, Xtacking, eSSD, tool qual, campus recruiting 키워드를 전략 축으로 분류",
-      fields: ["공식 JD", "로컬 채용", "대학 취업센터", "전문 매체/IP", "경보 수준"],
+      fields: ["공개 JD", "로컬 채용", "대학 취업센터", "전문 매체/IP", "경보 수준"],
       filters: ["CXMT/YMTC alias", "TSV/HBM/yield", "Xtacking/eSSD", "campus recruiting", "IP/non-compete"],
       output: "인재·채용 레이더",
       section: "talent-radar",
@@ -7178,19 +7178,17 @@
     const data = talentRadarData();
     const summary = $("#talentSummary");
     const companies = $("#talentCompanyGrid");
-    const sources = $("#talentSourceGrid");
     const keywords = $("#talentKeywordGrid");
     const rules = $("#talentRuleGrid");
     const meta = $("#talentRadarMeta");
-    if (!summary || !companies || !sources || !keywords || !rules) return;
+    if (!summary || !companies || !keywords || !rules) return;
 
     const companyItems = (data.companySignals || []).filter(talentRelated);
-    const sourceItems = (data.meceSources || []).filter(talentRelated);
     const keywordItems = data.keywordTaxonomy || [];
     const ruleItems = data.warningRules || [];
     const liveTalentSignals = axisSignalCount(CHINA_DYNAMIC_AXES.find((axis) => axis.id === "talent"));
     if (meta) {
-      meta.textContent = `${fmtNum(companyItems.length + sourceItems.length + keywordItems.length + ruleItems.length)}개 객체 · ${activeCategoryData().label} · 채용 신호 ${fmtNum(liveTalentSignals)}건`;
+      meta.textContent = `${fmtNum(companyItems.length + keywordItems.length + ruleItems.length)}개 객체 · ${activeCategoryData().label} · 채용 신호 ${fmtNum(liveTalentSignals)}건`;
     }
 
     summary.innerHTML = (data.summary || []).map((line, index) => `
@@ -7234,42 +7232,6 @@
       companies.appendChild(card);
     });
     if (!companies.children.length) companies.appendChild(el("div", "empty", "선택한 카테고리의 회사별 채용 신호가 없습니다."));
-
-    sources.innerHTML = "";
-    sourceItems.forEach((item, index) => {
-      const payload = {
-        type: "크롤링 타깃",
-        tag: item.axis,
-        title: item.axis,
-        body: item.why,
-        section: "talent-radar",
-        categories: item.linkedCategories || [],
-        watch: item.signals || [],
-        tags: (item.targets || []).map((target) => target.name),
-        metrics: [
-          { label: "Targets", value: fmtNum((item.targets || []).length) },
-          { label: "Signals", value: fmtNum((item.signals || []).length) },
-        ],
-      };
-      const card = el("article", "talent-source-card reveal");
-      card.style.animationDelay = `${index * 30}ms`;
-      card.style.setProperty("--local-accent", categoryAccent((item.linkedCategories || [])[0] || "talent"));
-      card.innerHTML = `
-        <div class="talent-card-head">
-          <div>
-            <span class="chip accent">${escapeHTML(item.axis)}</span>
-            <h3>${escapeHTML(item.why || "")}</h3>
-          </div>
-          <button class="copy-btn" type="button" data-copy-source>복사</button>
-        </div>
-        <div class="source-row">${(item.targets || []).map((target) => `<a href="${escapeHTML(target.url || "#")}" target="_blank" rel="noopener">${escapeHTML(target.name || target.url || "Target")}</a>`).join("")}</div>
-        <div class="tag-row">${(item.signals || []).map((signal) => `<span class="tag">${escapeHTML(signal)}</span>`).join("")}</div>
-      `;
-      card.querySelector("[data-copy-source]")?.addEventListener("click", (event) => copyPayload(payload, event.currentTarget));
-      makeInspectable(card, payload);
-      sources.appendChild(card);
-    });
-    if (!sources.children.length) sources.appendChild(el("div", "empty", "선택한 카테고리의 크롤링 타깃이 없습니다."));
 
     keywords.innerHTML = keywordItems.map((item, index) => `
       <article class="talent-keyword-card reveal" style="animation-delay:${index * 25}ms">
@@ -7644,8 +7606,7 @@
 
     if (mode === "talent") {
       const data = talentRadarData();
-      items = []
-        .concat((data.companySignals || []).map((item, index) => ({
+      items = (data.companySignals || []).map((item, index) => ({
           id: `talent-company-${index}`,
           mode,
           type: "인재·채용 레이더",
@@ -7657,23 +7618,7 @@
           watch: (item.signals || []).concat(item.risk ? [item.risk] : []),
           metrics: item.metrics || [],
           tags: [item.company],
-        })))
-        .concat((data.meceSources || []).map((item, index) => ({
-          id: `talent-source-${index}`,
-          mode,
-          type: "크롤링 타깃",
-          tag: item.axis,
-          title: item.axis,
-          body: item.why,
-          section: "talent-radar",
-          categories: item.linkedCategories || [],
-          watch: item.signals || [],
-          metrics: [
-            { label: "Targets", value: fmtNum((item.targets || []).length) },
-            { label: "Signals", value: fmtNum((item.signals || []).length) },
-          ],
-          tags: (item.targets || []).map((target) => target.name),
-        })));
+        }));
     }
 
     if (mode === "projection") {
