@@ -11,7 +11,7 @@
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard/dist/web/static/pretendard.css" />
   <link rel="stylesheet" as="style" crossorigin href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css" />
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@500;700&family=Noto+Sans+KR:wght@400;500;700;800;900&family=Space+Grotesk:wght@500;600;700&display=swap" />
-  <link rel="stylesheet" href="assets/css/styles.css?v=ai-ux-20260705-news-cards" />
+  <link rel="stylesheet" href="assets/css/styles.css?v=ai-ux-20260705-clevel" />
 </head>
 <body>
   <div class="scroll-prog" id="scrollProg" aria-hidden="true"></div>
@@ -34,7 +34,7 @@
         <div class="sb-quick-grid" id="sideQuick"></div>
       </div>
 
-      <details class="sb-block sb-filter">
+      <details class="sb-block sb-filter" open>
         <summary>주제 필터</summary>
         <div class="sb-cats" id="sideCategories"></div>
       </details>
@@ -94,6 +94,34 @@
             <section class="exec-strategy" id="execStrategy"></section>
           </div>
           <div class="kpi-strip" id="kpiStrip"></div>
+        </section>
+
+        <section class="board c-level-board" id="c-level-cockpit">
+          <div class="board-head">
+            <div>
+              <p class="eyebrow">C-level strategy cockpit · evidence only · daily crawler</p>
+              <h2>C-level 전략 의사결정 보드</h2>
+            </div>
+            <span class="freshness-badge" id="cLevelFreshness">실제 수집 데이터 연결 중</span>
+          </div>
+          <div class="c-level-hero" id="cLevelHero"></div>
+          <div class="c-level-layout">
+            <section class="c-level-panel">
+              <div class="crawler-panel-head">
+                <h3>오늘의 의사결정 안건</h3>
+                <span id="cLevelDecisionMeta">가격 · 뉴스 · 정책 · 벤치마킹 근거로 자동 계산</span>
+              </div>
+              <div class="c-level-decision-grid" id="cLevelDecisionGrid"></div>
+            </section>
+            <aside class="c-level-agent-panel">
+              <div class="crawler-panel-head">
+                <h3>전문가 에이전트 토론</h3>
+                <span>근거 없는 항목은 보류</span>
+              </div>
+              <div class="c-level-agent-grid" id="cLevelAgentGrid"></div>
+            </aside>
+          </div>
+          <div class="c-level-evidence" id="cLevelEvidence"></div>
         </section>
 
         <section class="board executive-decision-board" id="executive-decision">
@@ -541,6 +569,6 @@
   <div class="qa-answer" id="qaAnswer" hidden></div>
   <div class="inspector" id="inspector" hidden></div>
   <div class="backdrop" id="backdrop"></div>
-  <script src="assets/js/app.js?v=ai-ux-20260705-news-cards" defer></script>
+  <script src="assets/js/app.js?v=ai-ux-20260705-clevel" defer></script>
 </body>
 </html>

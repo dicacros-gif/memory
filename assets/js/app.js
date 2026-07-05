@@ -101,7 +101,7 @@
   const APPLE_CONTENT_RE =
     /\b(apple|applem|aapl|iphone|ipad|macbook|9to5mac|applemagazine)\b|애플|아이폰|아이패드|맥북/i;
   const SOURCE_SUFFIX_RE = /\s[-–—]\s(?:[A-Za-z0-9가-힣 .·&]+)$/;
-  const HIDDEN_SECTIONS = new Set(["corpdev"]);
+  const HIDDEN_SECTIONS = new Set(["corpdev", "categories", "response"]);
   const HIDDEN_CATEGORY_IDS = new Set(["corpdev"]);
   const COMPANY_NEWS_ALIASES = {
     cxmt: ["cxmt", "changxin", "changxin memory", "changxin memory technologies"],
@@ -1678,7 +1678,7 @@
       desc: "오늘의 핵심 변화, 경보, 업데이트 시각, 우선순위 바로가기",
       cadence: "Daily crawler",
       jump: "overview",
-      sections: ["overview"],
+      sections: ["overview", "c-level-cockpit"],
     },
     {
       id: "analysis",
@@ -1686,7 +1686,7 @@
       desc: "CEO 챌린지, 백테스트, 제품군 프로젝션, ROI·수익 모델",
       cadence: "Decision lab",
       jump: "executive-decision",
-      sections: ["executive-decision", "management-strategy", "strategic-investment-decision", "numbers", "projection", "workbench", "response"],
+      sections: ["executive-decision", "management-strategy", "strategic-investment-decision", "numbers", "projection", "workbench"],
     },
     {
       id: "market",
@@ -1824,6 +1824,7 @@
   ];
   const SECTION_LABELS = {
     overview: "홈",
+    "c-level-cockpit": "C-level 전략 보드",
     "executive-decision": "경영진 의사결정",
     "management-strategy": "중국 경영전략 수립",
     "strategic-investment-decision": "중국 전략적 의사 결정",
@@ -1844,6 +1845,7 @@
   };
   const SECTION_ORDER = [
     "overview",
+    "c-level-cockpit",
     "workbench",
     "prices",
     "news",
@@ -1860,11 +1862,10 @@
     "strategic-investment-decision",
     "numbers",
     "projection",
-    "response",
-    "categories",
   ];
   const NAV_SECTION_TARGETS = {
     overview: "overview",
+    "c-level-cockpit": "overview",
     workbench: "workbench",
     prices: "prices",
     news: "prices",
@@ -1953,10 +1954,12 @@
       return;
     }
 
+    hideDisabledSections();
     renderChrome();
     renderSidebarNav();
     renderSidebarCategories();
     renderKpis();
+    renderCLevelCockpit();
     renderExecutiveDecision();
     renderManagementStrategy();
     renderStrategicInvestmentDecision();
@@ -1981,6 +1984,13 @@
     normalizeBriefCopy(document.body);
     animateCounts();
     animateMeters();
+  }
+
+  function hideDisabledSections() {
+    HIDDEN_SECTIONS.forEach((id) => {
+      const node = document.getElementById(id);
+      if (node) node.hidden = true;
+    });
   }
 
   function memoryCategories() {
@@ -2074,6 +2084,7 @@
   function normalizeBrandName(value) {
     return String(value ?? "")
       .replace(/SK\s*하이닉스/g, "SKHY")
+      .replace(/SK하이닉스/g, "SKHY")
       .replace(/\bSK\s+hynix\b/gi, "SKHY");
   }
 
@@ -2536,7 +2547,7 @@
     wrap.onclick = (event) => {
       const btn = event.target.closest("[data-category]");
       if (!btn || !wrap.contains(btn)) return;
-      setCategory(btn.dataset.category, { jumpTo: "categories" });
+      setCategory(btn.dataset.category, { jumpTo: "c-level-cockpit" });
     };
   }
 
@@ -2565,6 +2576,7 @@
   function categoryRenderSteps() {
     return [
       renderExecutiveSummary,
+      renderCLevelCockpit,
       renderCategories,
       renderExecutiveDecision,
       renderNumberDashboard,
@@ -2783,6 +2795,439 @@
       `;
       strip.appendChild(node);
     });
+  }
+
+  function cLevelDecisionAxes() {
+    return [
+      {
+        id: "hbm-moat",
+        label: "HBM/AI 서버 초격차",
+        category: "hbm",
+        categories: ["hbm", "aidemand", "packaging"],
+        owner: "CEO · CTO",
+        jump: "executive-decision",
+        terms: ["hbm", "hbm4", "hbm4e", "nvidia", "rubin", "tsmc", "cowos", "server", "ai memory"],
+        action: "HBM4 ramp, 고객 인증, 패키징 병목을 주간 의사결정 안건으로 유지",
+        go: "고객 락인",
+        watch: "패키징 병목",
+        hold: "근거 보류",
+      },
+      {
+        id: "china-dram",
+        label: "중국 DRAM 가격 압력",
+        category: "dram",
+        categories: ["dram", "china", "operations"],
+        owner: "CEO · CFO",
+        jump: "prices",
+        terms: ["cxmt", "changxin", "dram", "ddr5", "ddr4", "lpddr", "tencent", "capacity", "wpm"],
+        action: "CXMT 점유율, 장기계약, DDR5 spot/contract spread를 가격 방어 안건으로 상정",
+        go: "가격 방어",
+        watch: "중국 캐파",
+        hold: "근거 보류",
+      },
+      {
+        id: "nand-essd",
+        label: "NAND/eSSD 방어",
+        category: "nand",
+        categories: ["nand", "aidemand", "china"],
+        owner: "사업총괄 · CFO",
+        jump: "china-nand",
+        terms: ["ymtc", "yangtze", "nand", "ssd", "essd", "solidigm", "xtacking", "lenovo", "wuhan"],
+        action: "eSSD 고객 방어, Solidigm value-up, YMTC OEM 침투를 같은 보드에서 추적",
+        go: "고객 방어",
+        watch: "YMTC 침투",
+        hold: "근거 보류",
+      },
+      {
+        id: "policy-fab",
+        label: "정책/Fab 라이선스",
+        category: "geopolitics",
+        categories: ["geopolitics", "operations", "china"],
+        owner: "법무 · 대외협력",
+        jump: "policy-makers",
+        terms: ["bis", "veu", "match", "chips", "wuxi", "dalian", "license", "export control", "fab"],
+        action: "중국 증설, 운영유지, 기술 업그레이드를 분리해 승인 조건을 관리",
+        go: "조건부 승인",
+        watch: "규제 이벤트",
+        hold: "No-Go",
+      },
+      {
+        id: "packaging-equipment",
+        label: "패키징·장비 우회로",
+        category: "packaging",
+        categories: ["packaging", "equipment", "china"],
+        owner: "CTO · 구매",
+        jump: "china-dynamics",
+        terms: ["jcet", "xmc", "tfme", "naura", "amec", "acm", "packaging", "hybrid bonding", "tsv", "equipment"],
+        action: "중국 패키징·장비 qual 신호를 HBM 우회로와 IP 방어 안건으로 연결",
+        go: "옵션 투자",
+        watch: "국산 장비 qual",
+        hold: "근거 보류",
+      },
+      {
+        id: "talent-ip",
+        label: "인재/IP 조기경보",
+        category: "talent",
+        categories: ["talent", "china", "operations"],
+        owner: "CHRO · CISO",
+        jump: "talent-radar",
+        terms: ["talent", "hiring", "yield", "engineer", "ip", "tsv", "boss zhipin", "campus", "maimai"],
+        action: "수율 엔지니어, 채용 JD, IP 소송 신호를 리텐션·보안 게이트로 연결",
+        go: "방어 강화",
+        watch: "채용 신호",
+        hold: "근거 보류",
+      },
+    ];
+  }
+
+  function cLevelAxisVisible(axis) {
+    if (activeCategory === "all") return true;
+    return (axis.categories || []).includes(activeCategory);
+  }
+
+  function cLevelTextHasAny(text, terms = []) {
+    const hay = String(text || "").toLowerCase();
+    return terms.some((term) => hay.includes(String(term || "").toLowerCase()));
+  }
+
+  function cLevelNewsFor(axis) {
+    return rawNews().filter((item) => {
+      const link = String(item.link || item.sourceUrl || "").trim();
+      if (!link) return false;
+      return cLevelTextHasAny(`${item.title || ""} ${item.titleKo || ""} ${item.summary || ""} ${item.source || ""} ${item.category || ""}`, axis.terms);
+    });
+  }
+
+  function cLevelBenchmarkFor(axis) {
+    return (LIVE.benchmarkSignals?.stream || []).filter((item) => {
+      const link = String(item.link || item.sourceUrl || "").trim();
+      if (!link) return false;
+      return cLevelTextHasAny(`${item.title || ""} ${item.titleKo || ""} ${item.summary || ""} ${item.source || ""} ${item.theme || ""}`, axis.terms);
+    });
+  }
+
+  function cLevelPriceRowsFor(axis) {
+    return allPriceRows().filter((row) => cLevelTextHasAny(`${row.group || ""} ${row.sectionTitle || ""} ${row.item || ""}`, axis.terms));
+  }
+
+  function cLevelKpisFor(axis) {
+    return (BASE.kpis || []).filter((item) => {
+      if (!String(item.sourceUrl || "").trim()) return false;
+      return cLevelTextHasAny(`${item.label || ""} ${item.note || ""} ${item.alt || ""} ${item.source || ""}`, axis.terms);
+    });
+  }
+
+  function cLevelEvidenceFor(axis) {
+    return {
+      news: cLevelNewsFor(axis),
+      benchmark: cLevelBenchmarkFor(axis),
+      prices: cLevelPriceRowsFor(axis),
+      kpis: cLevelKpisFor(axis),
+    };
+  }
+
+  function cLevelEvidenceCount(evidence = {}) {
+    return (evidence.news || []).length + (evidence.benchmark || []).length + (evidence.prices || []).length + (evidence.kpis || []).length;
+  }
+
+  function cLevelPriceMomentum(rows = []) {
+    const changes = rows.map((row) => Number(row.changePct)).filter(Number.isFinite);
+    if (!changes.length) return 0;
+    return changes.reduce((sum, value) => sum + value, 0) / changes.length;
+  }
+
+  function cLevelDecisionItem(axis) {
+    const evidence = cLevelEvidenceFor(axis);
+    const evidenceCount = cLevelEvidenceCount(evidence);
+    const linkCount = evidence.news.length + evidence.benchmark.length + evidence.kpis.length;
+    const priceRows = evidence.prices.length;
+    const priceMomentum = cLevelPriceMomentum(evidence.prices);
+    const confidence = clamp(linkCount * 9 + priceRows * 5 + Math.min(20, Math.abs(priceMomentum) * 6), 0, 100);
+    let verdict = "Hold";
+    if (confidence >= 68) verdict = axis.id === "policy-fab" || axis.id === "talent-ip" || priceMomentum < -0.35 ? "Watch" : "Go";
+    else if (confidence >= 34) verdict = "Watch";
+    const tone = verdict === "Go" ? axis.go : verdict === "Watch" ? axis.watch : axis.hold;
+    return { ...axis, evidence, evidenceCount, linkCount, priceRows, priceMomentum, confidence, verdict, tone };
+  }
+
+  function cLevelDecisionItems() {
+    return cLevelDecisionAxes()
+      .filter(cLevelAxisVisible)
+      .map(cLevelDecisionItem)
+      .filter((item) => item.evidenceCount > 0)
+      .sort((a, b) => b.confidence - a.confidence || b.evidenceCount - a.evidenceCount);
+  }
+
+  function cLevelEvidencePool() {
+    return cLevelDecisionAxes().flatMap((axis) => {
+      const evidence = cLevelEvidenceFor(axis);
+      return []
+        .concat(evidence.news || [])
+        .concat(evidence.benchmark || [])
+        .concat(evidence.kpis || [])
+        .concat(evidence.prices || []);
+    });
+  }
+
+  function cLevelEvidenceScore() {
+    const items = cLevelDecisionAxes().map(cLevelDecisionItem).filter((item) => item.evidenceCount > 0);
+    if (!items.length) return 0;
+    return clamp(items.reduce((sum, item) => sum + item.confidence, 0) / items.length);
+  }
+
+  function cLevelSourceLinks(decisions = []) {
+    const links = [];
+    decisions.forEach((item) => {
+      item.evidence.news.slice(0, 3).forEach((news) => {
+        links.push({
+          type: "뉴스",
+          title: newsTitle(news),
+          source: news.source || "News",
+          date: news.date || news.publishedAt || news.crawledAt,
+          url: news.link || news.sourceUrl,
+          axis: item.label,
+        });
+      });
+      item.evidence.benchmark.slice(0, 2).forEach((news) => {
+        links.push({
+          type: "벤치마킹",
+          title: newsTitle(news),
+          source: news.source || news.theme || "Benchmark",
+          date: news.date || news.publishedAt || news.crawledAt,
+          url: news.link || news.sourceUrl,
+          axis: item.label,
+        });
+      });
+      item.evidence.kpis.slice(0, 2).forEach((kpi) => {
+        links.push({
+          type: "KPI",
+          title: kpi.label,
+          source: kpi.source || "KPI",
+          date: kpi.sourceDate,
+          url: kpi.sourceUrl,
+          axis: item.label,
+        });
+      });
+      item.evidence.prices.slice(0, 2).forEach((row) => {
+        links.push({
+          type: "가격",
+          title: `${row.group || row.sectionTitle || "Price"} · ${row.item || ""}`,
+          source: "TrendForce/DRAMeXchange",
+          date: row.lastUpdate || LIVE.prices?.updatedAt,
+          url: row.sourceUrl,
+          axis: item.label,
+        });
+      });
+    });
+    const seen = new Set();
+    return links.filter((link) => {
+      const key = String(link.url || link.title || "").toLowerCase();
+      if (!key || seen.has(key)) return false;
+      seen.add(key);
+      return true;
+    });
+  }
+
+  function cLevelAgentItems(decisions = []) {
+    const top = decisions[0];
+    const second = decisions[1] || top;
+    const totalEvidence = decisions.reduce((sum, item) => sum + item.evidenceCount, 0);
+    const topLabel = top?.label || "근거 축 없음";
+    const topAction = top?.action || "sourceUrl과 가격 row가 쌓일 때까지 보류";
+    return [
+      {
+        id: "ceo",
+        name: "CEO Agent",
+        role: "우선순위",
+        color: "#3C82FF",
+        message: `${topLabel}을 첫 안건으로 둡니다. 현재 ${fmtNum(totalEvidence)}개 근거가 연결됐고, 근거가 없는 축은 승격하지 않습니다.`,
+      },
+      {
+        id: "cfo",
+        name: "CFO Agent",
+        role: "수익성",
+        color: "#22C55E",
+        message: "ROI 숫자는 재무 수익률이 아니라 실사 우선순위 지수로만 사용합니다. NPV/IRR은 원문 가격과 고객 계약 근거가 붙은 뒤 별도 모델로 계산합니다.",
+      },
+      {
+        id: "cto",
+        name: "CTO Agent",
+        role: "기술/제품",
+        color: "#A050FF",
+        message: `${topAction}. HBM, NAND, 패키징, 장비 신호는 고객 인증과 수율 병목 관점으로 분리합니다.`,
+      },
+      {
+        id: "policy",
+        name: "Policy Agent",
+        role: "규제/Fab",
+        color: "#FFB830",
+        message: "중국 Fab 판단은 운영 유지, 캐파 확대, 기술 업그레이드로 분리합니다. BIS/CHIPS/MATCH 근거가 없는 확대 안건은 Watch로 남깁니다.",
+      },
+      {
+        id: "market",
+        name: "Market Agent",
+        role: "가격/고객",
+        color: "#00C8A0",
+        message: `${second?.label || topLabel}의 가격 rows와 기사 링크를 같이 봅니다. Spot이 먼저 꺾이고 contract가 뒤따르면 가격 방어 안건으로 전환합니다.`,
+      },
+      {
+        id: "audit",
+        name: "Data Auditor",
+        role: "팩트 검증",
+        color: "#EF4444",
+        message: "sourceUrl, 뉴스 link, 가격 row 중 하나도 없으면 사실 카드에 올리지 않습니다. 한국 뉴스와 저신뢰 RSS는 내부 필터에서 제외합니다.",
+      },
+    ];
+  }
+
+  function cLevelMetricCards(decisions = []) {
+    const sources = cLevelSourceLinks(decisions);
+    const priceRows = allPriceRows().length;
+    const newsLinks = rawNews().filter((item) => item.link || item.sourceUrl).length;
+    return [
+      { label: "검증 근거", value: sources.length, unit: "개", note: "링크·가격 rows만 승격" },
+      { label: "의사결정 축", value: decisions.length, unit: "개", note: "근거 0개 축 제외" },
+      { label: "가격 rows", value: priceRows, unit: "rows", note: "TrendForce 공개 표" },
+      { label: "뉴스 링크", value: newsLinks, unit: "건", note: "중복 제거 후 표시" },
+    ];
+  }
+
+  function renderCLevelCockpit() {
+    const hero = $("#cLevelHero");
+    const grid = $("#cLevelDecisionGrid");
+    const agents = $("#cLevelAgentGrid");
+    const evidenceWrap = $("#cLevelEvidence");
+    const badge = $("#cLevelFreshness");
+    const meta = $("#cLevelDecisionMeta");
+    if (!hero || !grid || !agents || !evidenceWrap) return;
+
+    const decisions = cLevelDecisionItems();
+    const sources = cLevelSourceLinks(decisions);
+    const totalEvidence = decisions.reduce((sum, item) => sum + item.evidenceCount, 0);
+    const metricCards = cLevelMetricCards(decisions);
+    const activeLabel = activeCategoryData()?.label || "전체";
+
+    if (badge) {
+      badge.className = `freshness-badge ${sources.length ? "ok" : "empty"}`;
+      badge.textContent = `${sources.length ? "근거 연결" : "근거 대기"} · ${fmtDate(LIVE.updatedAt)} · GitHub Actions daily crawler`;
+    }
+    if (meta) {
+      meta.textContent = `${activeLabel} · ${fmtNum(totalEvidence)}개 근거 · ${fmtNum(sources.length)}개 원문/가격 링크`;
+    }
+
+    hero.innerHTML = `
+      <div class="c-level-headline reveal">
+        <span class="c-level-kicker">Evidence-gated strategy</span>
+        <h3>매일 수집된 가격·뉴스·정책·벤치마킹 데이터를 경영 안건으로 자동 전환</h3>
+        <p>팩트 레이어는 sourceUrl, 기사 link, 가격 row가 있는 항목만 사용합니다. 해석과 시나리오는 별도 판단 레이어로 분리합니다.</p>
+        <div class="c-level-actions">
+          <button type="button" data-jump="executive-decision">경영진 의사결정</button>
+          <button type="button" data-jump="prices">가격 확인</button>
+          <button type="button" data-jump="china-nand">중국 NAND/DRAM</button>
+        </div>
+      </div>
+      <div class="c-level-metrics">
+        ${metricCards.map((card) => `
+          <article class="c-level-metric reveal">
+            <span>${escapeHTML(card.label)}</span>
+            <strong>${countHTML(card.value)}${escapeHTML(card.unit)}</strong>
+            <small>${escapeHTML(card.note)}</small>
+          </article>
+        `).join("")}
+      </div>
+    `;
+
+    if (!decisions.length) {
+      grid.innerHTML = `
+        <article class="empty-card">
+          <strong>선택한 필터에서 검증 가능한 근거가 없습니다.</strong>
+          <p>전체 필터로 전환하거나 다음 크롤링 이후 sourceUrl/link/가격 row가 들어온 항목만 의사결정 보드에 표시합니다.</p>
+        </article>
+      `;
+      agents.innerHTML = "";
+      evidenceWrap.innerHTML = "";
+      return;
+    }
+
+    grid.innerHTML = decisions.map((item, index) => `
+      <button class="c-level-card ${escapeHTML(item.verdict.toLowerCase())} reveal" type="button" data-jump="${escapeHTML(item.jump)}" style="--local-accent:${categoryAccent(item.category)}; animation-delay:${index * 35}ms">
+        <span class="c-level-card-top">
+          <em>${escapeHTML(item.owner)}</em>
+          ${factBadge(item.verdict, item.verdict === "Go" ? "ok" : item.verdict === "Watch" ? "watch" : "fail")}
+        </span>
+        <strong>${escapeHTML(item.label)}</strong>
+        <p>${escapeHTML(item.action)}</p>
+        <div class="c-level-card-metrics">
+          <span><b>${countHTML(item.evidenceCount)}</b><small>근거</small></span>
+          <span><b>${countHTML(item.linkCount)}</b><small>링크/KPI</small></span>
+          <span><b>${countHTML(item.priceRows)}</b><small>가격 rows</small></span>
+        </div>
+        <div class="c-level-meter" data-fill-to="${item.confidence}"><i style="width:0"></i></div>
+        <small>${escapeHTML(item.tone)} · 신뢰도 ${fmtNum(Math.round(item.confidence))}/100</small>
+      </button>
+    `).join("");
+
+    const agentItems = cLevelAgentItems(decisions);
+    agents.innerHTML = `
+      <div class="agent-debate c-level-agent-debate" style="--local-accent:${categoryAccent(decisions[0]?.category || "hbm")}">
+        <div class="agent-debate-title">
+          <span>AGENT COUNCIL</span>
+          <strong>${escapeHTML(decisions[0]?.label || "C-level 판단")} 토론</strong>
+          <small>각 에이전트는 실제 데이터 근거 수와 출처 조건을 기준으로만 답변합니다.</small>
+        </div>
+        <div class="agent-roster">
+          ${agentItems.map((agent, index) => `
+            <div class="agent-avatar-card" style="--agent-color:${escapeHTML(agent.color)}; --delay:${index * 55}ms">
+              <b>${escapeHTML(agent.id.toUpperCase().slice(0, 2))}</b>
+              <span>${escapeHTML(agent.name)}</span>
+              <small>${escapeHTML(agent.role)}</small>
+            </div>
+          `).join("")}
+        </div>
+        <div class="agent-chat">
+          ${agentItems.map((agent, index) => `
+            <div class="agent-turn${index % 2 ? " right" : ""}" style="--agent-color:${escapeHTML(agent.color)}; --delay:${index * 110}ms">
+              <span class="agent-badge">${escapeHTML(agent.id.toUpperCase().slice(0, 2))}</span>
+              <div class="speech-bubble">
+                <div class="speech-meta"><strong>${escapeHTML(agent.name)}</strong><span>${escapeHTML(agent.role)}</span></div>
+                <p>${escapeHTML(agent.message)}</p>
+              </div>
+            </div>
+          `).join("")}
+        </div>
+      </div>
+    `;
+
+    evidenceWrap.innerHTML = `
+      <article class="c-level-proof-card reveal">
+        <span>Fact layer</span>
+        <strong>검증 가능한 근거만 사용</strong>
+        <p>sourceUrl, 기사 link, 가격 row 중 하나 이상이 있는 항목만 C-level 카드에 반영합니다.</p>
+      </article>
+      <article class="c-level-proof-card reveal">
+        <span>Interpretation layer</span>
+        <strong>전략 판단은 근거 수와 방향성으로 분리</strong>
+        <p>Go/Watch/Hold는 재무 확정치가 아니라 의사결정 우선순위입니다.</p>
+      </article>
+      <article class="c-level-source-card reveal">
+        <span>대표 원문</span>
+        <div class="c-level-source-list">
+          ${sources.slice(0, 8).map((source) => `
+            <a href="${escapeHTML(source.url)}" target="_blank" rel="noopener">
+              <em>${escapeHTML(source.type)} · ${escapeHTML(source.axis)}</em>
+              <strong>${escapeHTML(source.title || source.source)}</strong>
+              <small>${escapeHTML(source.source)}${source.date ? ` · ${escapeHTML(shortKstDate(source.date) || source.date)}` : ""}</small>
+            </a>
+          `).join("")}
+        </div>
+      </article>
+    `;
+
+    hero.querySelectorAll("[data-jump]").forEach((btn) => btn.addEventListener("click", () => jumpTo(btn.dataset.jump)));
+    grid.querySelectorAll("[data-jump]").forEach((btn) => btn.addEventListener("click", () => jumpTo(btn.dataset.jump)));
+    animateCounts(hero);
+    animateCounts(grid);
+    animateMeters(grid);
   }
 
   function setCopyState(button, label = "복사됨") {
@@ -3096,6 +3541,13 @@
         status: "Today",
         score: clamp((freshnessScore(priceState, allPriceRows().length) + freshnessScore(newsState, newsCount)) / 2),
         note: "오늘 핵심 변화와 우선순위",
+      },
+      "c-level-cockpit": {
+        value: cLevelEvidencePool().length,
+        unit: "evidence",
+        status: "C-level",
+        score: cLevelEvidenceScore(),
+        note: "실제 수집 근거 기반 전략/의사결정",
       },
       "executive-decision": {
         value: testedBacktests.length,
@@ -7044,7 +7496,7 @@
     detail.querySelectorAll("[data-work-cat]").forEach((btn) => {
       btn.addEventListener("click", () => {
         setCategory(btn.dataset.workCat);
-        jumpTo("categories");
+        jumpTo("c-level-cockpit");
       });
     });
   }
@@ -7136,7 +7588,7 @@
       btn.addEventListener("click", () => {
         closeInspector();
         setCategory(btn.dataset.inspectorCat);
-        jumpTo("categories");
+        jumpTo("c-level-cockpit");
       });
     });
     overlay.querySelector("[data-inspector-jump]")?.addEventListener("click", (event) => {
@@ -8139,6 +8591,8 @@
       .replace(/\bMicron\b/g, "마이크론")
       .replace(/\bNVIDIA\b/g, "엔비디아")
       .replace(/\bSK Hynix\b/gi, "SKHY")
+      .replace(/SK\s*하이닉스/g, "SKHY")
+      .replace(/SK하이닉스/g, "SKHY")
       .replace(/SK\s*하이닉스/g, "SKHY")
       .replace(/SK하이닉스/g, "SKHY")
       .replace(/\s+/g, " ")
