@@ -1644,12 +1644,6 @@
       section: "china-talent-strategy",
     },
     {
-      id: "crawler",
-      label: "크롤링 관제",
-      sub: "Source · Health · Map",
-      section: "crawler",
-    },
-    {
       id: "dynamics",
       label: "중국 다이내믹스",
       sub: "캐파 · 장비 · 패키징",
@@ -1727,7 +1721,7 @@
       desc: "가격·수급 변화와 기사 흐름",
       cadence: "Market data",
       jump: "prices",
-      sections: ["prices", "news", "crawler"],
+      sections: ["prices", "news"],
     },
     {
       id: "competitors",
@@ -1784,7 +1778,6 @@
     "daily-review": "일일 리뷰 큐",
     numbers: "숫자 대시보드",
     projection: "제품군 프로젝션",
-    crawler: "전체 크롤링 관제",
     "ai-matrix": "AI 메모리 매트릭스",
     "china-dynamics": "중국 반도체 다이내믹스",
     "china-nand": "중국 NAND 사업 강화",
@@ -1809,7 +1802,6 @@
     "china-talent-strategy",
     "daily-review",
     "evidence-framework",
-    "crawler",
     "prices",
     "news",
     "china-nand",
@@ -1831,7 +1823,6 @@
     "daily-review": "overview",
     prices: "prices",
     news: "prices",
-    crawler: "evidence-framework",
     "policy-makers": "policy-makers",
     "china-fab-infra": "policy-makers",
     "china-nand": "china-nand",
@@ -1853,201 +1844,6 @@
     categories: "evidence-framework",
     intelligence: "evidence-framework",
   };
-  const CRAWL_PIPELINE = [
-    {
-      id: "trendforce-price",
-      label: "TrendForce 가격",
-      source: "DRAM/NAND spot·contract 공개 가격표",
-      method: "HTML 가격 테이블 파싱 → 품목별 history 누적",
-      fields: ["평균가", "변동률", "업데이트 시각", "품목별 trend"],
-      filters: ["DRAM/NAND 그룹화", "Spot/Contract 분리", "가격 historyKey 매핑"],
-      output: "Spot / Contract 가격 추이",
-      section: "prices",
-      linkedCategories: ["dram", "nand"],
-      healthKeys: ["가격:", "가격히스토리"],
-    },
-    {
-      id: "executive-backtest",
-      label: "경영진 의사결정 백테스트",
-      source: "price-history.json 실제 가격 포인트 · live.json 중국 뉴스/벤치마킹 신호",
-      method: "선택한 년도의 첫 가격 포인트를 기준으로 당시까지의 가격 모멘텀을 계산하고, 이후 최신 수집가까지 실제 변화율로 의사결정 적중 여부 검증",
-      fields: ["선택 년도", "제품군", "당시 판단", "이후 실제 변화율", "관측 품목 수", "데이터 충분성"],
-      filters: ["HBM proxy", "서버 DRAM", "eSSD/NAND", "단말 proxy", "레거시", "중국 가격 압력"],
-      output: "경영진 의사결정 · 백테스트",
-      section: "executive-decision",
-      linkedCategories: ["hbm", "dram", "nand", "aidemand", "china", "geopolitics"],
-      healthKeys: ["가격:", "가격히스토리", "뉴스:China", "벤치마킹:China"],
-    },
-    {
-      id: "ai-architecture-signal",
-      label: "HBM/CXL 아키텍처",
-      source: "HBM4 · Custom HBM · CXL/PIM · TC 본더 · 장비 계약",
-      method: "공식 로드맵, 해외 리서치, 장비 공시, 소송/특허 신호를 Premium AI Matrix와 Supply Chain Explorer로 분류",
-      fields: ["HBM 점유율", "고객 인증", "베이스 다이", "TC 본더", "CXL 테스터"],
-      filters: ["HBM/CXL 키워드", "소부장 vendor alias", "특허·계약·수율 신호", "첨부 보고서 Watch 항목"],
-      output: "AI 메모리 매트릭스",
-      section: "ai-matrix",
-      linkedCategories: ["hbm", "cxl", "aidemand", "packaging", "equipment"],
-      healthKeys: ["뉴스:HBM", "뉴스:CXL", "벤치마킹:Advanced Packaging"],
-    },
-    {
-      id: "foundry-memory-fusion",
-      label: "파운드리-메모리 융합",
-      source: "SK하이닉스-TSMC HBM4 · 삼성 1c/4nm 턴키 · CoWoS/패키징 할당",
-      method: "HBM4 base die, foundry node, CoWoS, Rubin 인증, logic die yield 신호를 고도화 인사이트 모듈로 연결",
-      fields: ["base die node", "CoWoS allocation", "logic die yield", "custom HBM sample", "Rubin qualification"],
-      filters: ["HBM4", "TSMC", "Samsung 4nm", "CoWoS", "Rubin", "base die"],
-      output: "파운드리-메모리 융합 시너지 트래커",
-      section: "ai-matrix",
-      linkedCategories: ["hbm", "packaging", "aidemand"],
-      healthKeys: ["뉴스:HBM", "벤치마킹:Advanced Packaging"],
-    },
-    {
-      id: "foreign-news",
-      label: "영어권 기사",
-      source: "Google News RSS · 해외 기술/금융/반도체 매체",
-      method: "카테고리별 영어 질의 → 한국 매체·비관련 소비자기기 기사 제외",
-      fields: ["제목", "출처", "날짜", "링크", "3줄 인사이트"],
-      filters: ["memory 키워드", "한국 출처 제외", "업체/카테고리 매칭"],
-      output: "영어권 기사 탭",
-      section: "news",
-      linkedCategories: ["hbm", "dram", "nand", "cxl", "packaging", "aidemand"],
-      healthKeys: ["뉴스:"],
-    },
-    {
-      id: "china-news",
-      label: "중국 기사·중국 신호",
-      source: "CXMT·YMTC·JCET·XMC·Naura·AMEC 중심 RSS 질의",
-      method: "중국 업체/정책/장비 키워드로 기사 분류 → 중국어 기사 탭과 다이내믹스에 동시 연결",
-      fields: ["중국 업체", "정책/수출통제", "장비/패키징", "내수 고객"],
-      filters: ["China 키워드", "중국 생태계 업체명", "정책·장비·패키징 축"],
-      output: "중국어 기사 · 중국 반도체 다이내믹스",
-      section: "china-dynamics",
-      linkedCategories: ["china", "dram", "nand", "equipment", "packaging", "geopolitics"],
-      healthKeys: ["뉴스:China", "벤치마킹:"],
-    },
-    {
-      id: "china-capa-warning",
-      label: "중국 잉여 캐파 경보",
-      source: "CXMT 매출/캐파 · YMTC Phase 3 · Naura/AMEC 국산 장비 · BIS 수출통제",
-      method: "중국 wafer start, 국산 장비 비중, DDR5/NAND 가격 spread, 미국 규제 이벤트를 조기경보 점수로 분류",
-      fields: ["wafer starts", "domestic tooling", "spot-contract spread", "BIS update", "risk score"],
-      filters: ["CXMT/YMTC", "capacity", "domestic equipment", "export control", "DRAM/NAND price"],
-      output: "중국 잉여 캐파 조기경보",
-      section: "china-dynamics",
-      linkedCategories: ["dram", "nand", "china", "equipment", "geopolitics"],
-      healthKeys: ["뉴스:China", "벤치마킹:China Capacity", "벤치마킹:Equipment Localization"],
-    },
-    {
-      id: "china-fab-infra",
-      label: "중국 Fab 인프라",
-      source: "공개 인허가 · 정책 · 규제 신호",
-      method: "토지/부지, 용수/폐수, 전력/유틸리티, 환경 인허가, 수출통제 신호를 크롤링 데이터와 RSS 보조 질의로 갱신",
-      fields: ["토지/부지", "용수/폐수", "전력/유틸리티", "환경 인허가", "BIS 제약"],
-      filters: ["Wuxi/K7/C2F", "water/wastewater", "power/substation", "land-use", "environmental impact", "BIS VEU"],
-      output: "중국 Fab 확장성 판단",
-      section: "china-fab-infra",
-      linkedCategories: ["china", "operations", "geopolitics"],
-      healthKeys: ["중국Fab인프라", "벤치마킹:China Fab Infrastructure", "뉴스:China Fab Infra"],
-    },
-    {
-      id: "china-talent-strategy",
-      label: "중국 인력 확보 전략",
-      source: "CXMT/YMTC 채용 · SK 중국 거점 · BIS/컴플라이언스 · 대학/로컬 채용 신호",
-      method: "운영 유지, NAND/eSSD 강화, Fab·패키징 확장, 리스크 방어 시나리오로 채용·리텐션·IP 게이트를 분류",
-      fields: ["확보 직무", "채용 채널", "O/X 게이트", "IP 금지선", "리텐션"],
-      filters: ["Wuxi/Dalian/Chongqing", "yield/TSV/HBM", "eSSD/firmware/FAE", "EHS/facility", "Boss Zhipin/Liepin/Maimai"],
-      output: "전략 시나리오별 중국 인력 확보 계획",
-      section: "china-talent-strategy",
-      linkedCategories: ["talent", "china", "operations", "geopolitics", "nand", "packaging"],
-      healthKeys: ["벤치마킹:China Talent Strategy", "뉴스:China Talent Strategy", "벤치마킹:Talent", "뉴스:China"],
-    },
-    {
-      id: "china-nand-business",
-      label: "중국 NAND 사업 강화",
-      source: "YMTC Xtacking/eSSD · XMC 패키징 · JCET/TFME · Naura/AMEC/ACM · BIS/Big Fund",
-      method: "업체 전략, 가격, 고객, 장비, 정책, 채용 신호를 중국 NAND 사업 판단 보드로 연결",
-      fields: ["NAND 가격", "eSSD 고객", "Xtacking", "우한 Phase 3", "장비 국산화", "사업 체크리스트"],
-      filters: ["YMTC/XMC/JCET", "NAND/eSSD", "domestic equipment", "export control", "hiring/IP"],
-      output: "중국 NAND 사업 강화 인텔리전스",
-      section: "china-nand",
-      linkedCategories: ["nand", "packaging", "equipment", "china", "geopolitics"],
-      healthKeys: ["뉴스:NAND", "뉴스:China", "벤치마킹:China NAND", "벤치마킹:China Capacity"],
-    },
-    {
-      id: "skhynix-product-projection",
-      label: "SK하이닉스 제품군 프로젝션",
-      source: "TrendForce 가격 · HBM/AI 서버 뉴스 · NAND/eSSD · 중국 캐파/장비/정책 신호",
-      method: "현재 수집 데이터를 서버향, 데이터센터 스토리지, 단말, 오토·엣지, 레거시 방어 축으로 재분류해 T+30개월부터 5년 믹스 지수 계산",
-      fields: ["수요처", "제품군", "T+30M 믹스", "5Y 믹스", "신호 점수", "리스크"],
-      filters: ["HBM/DDR5/CXL", "eSSD/QLC/Solidigm", "LPDDR/UFS/client SSD", "CXMT/YMTC 캐파", "Spot/contract 가격"],
-      output: "제품군 프로젝션",
-      section: "projection",
-      linkedCategories: ["hbm", "dram", "nand", "cxl", "aidemand", "china"],
-      healthKeys: ["뉴스:HBM", "뉴스:NAND", "뉴스:AI", "가격:", "벤치마킹:China Capacity"],
-    },
-    {
-      id: "talent-hiring-radar",
-      label: "인재·채용 레이더",
-      source: "Boss Zhipin/Liepin/Maimai · Tsinghua/HUST · ijiwei/IP",
-      method: "TSV, Yield, Advanced Packaging, Xtacking, eSSD, tool qual, campus recruiting 키워드를 전략 축으로 분류",
-      fields: ["공개 JD", "로컬 채용", "대학 취업센터", "전문 매체/IP", "경보 수준"],
-      filters: ["CXMT/YMTC alias", "TSV/HBM/yield", "Xtacking/eSSD", "campus recruiting", "IP/non-compete"],
-      output: "인재·채용 레이더",
-      section: "talent-radar",
-      linkedCategories: ["talent", "dram", "nand", "packaging", "equipment"],
-      healthKeys: ["벤치마킹:Talent", "뉴스:China"],
-    },
-    {
-      id: "benchmark-signals",
-      label: "벤치마킹 신호",
-      source: "China Capacity · Equipment Localization · Advanced Packaging · Talent/IP",
-      method: "테마별 질의 결과를 캐파·장비·패키징·인재/IP 축으로 재분류",
-      fields: ["캐파", "장비 국산화", "패키징 우회", "인재/IP"],
-      filters: ["중복 제거", "테마별 keyword scoring", "다이내믹스 축 매핑"],
-      output: "중국 반도체 다이내믹스 · 심층 벤치마킹",
-      section: "china-deep-dive",
-      linkedCategories: ["china", "equipment", "packaging", "talent", "geopolitics"],
-      healthKeys: ["벤치마킹:"],
-    },
-    {
-      id: "startup-radar",
-      label: "스타트업 레이더",
-      source: "CXL · 포토닉스 · near-memory · AI interconnect 스타트업",
-      method: "후보별 최신 기사/펀딩/고객 신호를 점수화해 SK하이닉스 전략 적합도에 연결",
-      fields: ["fit score", "funding/news", "PoC", "파트너십"],
-      filters: ["CXL/HBM/광 I/O 키워드", "투자 적합도", "고객 신호"],
-      output: "대응 대시보드 · 정보 획득 채널",
-      section: "response",
-      linkedCategories: ["cxl", "hbm", "packaging", "aidemand"],
-      healthKeys: ["스타트업:"],
-    },
-    {
-      id: "post-hbm-architecture",
-      label: "Post-HBM 아키텍처",
-      source: "CXL 3.1/3.2 · Pangea v3 · 4F² VG/3D DRAM · IP/기판/테스터 밸류체인",
-      method: "CXL 표준, 서버 PoC, 3D DRAM 로드맵, 국내 소부장 밸류체인 신호를 Next-Gen Architecture Viewer로 분류",
-      fields: ["CXL standard", "Pangea v3", "4F2 VG", "controller IP", "tester/substrate"],
-      filters: ["CXL 3.1/3.2", "3D DRAM", "4F2 VG", "Openedges/FADU/TLB", "Exicon/Neosem"],
-      output: "Post-HBM 생태계 확장",
-      section: "ai-matrix",
-      linkedCategories: ["cxl", "dram", "equipment", "aidemand"],
-      healthKeys: ["뉴스:CXL", "벤치마킹:CXL and PIM Value Chain"],
-    },
-    {
-      id: "ko-insight",
-      label: "정제·한글 인사이트",
-      source: "수집 기사 제목/요약/카테고리 메타데이터",
-      method: "한국어 제목 정리 → 3줄 인사이트 → 자연어 검색/상세 패널에 주입",
-      fields: ["한국어 제목", "핵심 요약", "벤치마킹 포인트", "체크포인트"],
-      filters: ["제목 출처 suffix 제거", "날짜 1회 표기", "중복 기사 제거"],
-      output: "자연어 검색 · 기사 탭 · 상세 패널",
-      section: "news",
-      linkedCategories: ["all"],
-      healthKeys: ["번역:KO"],
-    },
-  ];
-
   const PRICE_PERIODS = [
     { id: "week", label: "주", days: 7 },
     { id: "quarter", label: "분기", days: 92 },
@@ -2138,7 +1934,6 @@
     renderDynamics();
     renderModels();
     renderResponses();
-    renderCrawlerBoard();
     renderArchitectureMatrix();
     renderPrices();
     renderNews();
@@ -2665,7 +2460,6 @@
       renderDynamics,
       renderModels,
       renderNews,
-      renderCrawlerBoard,
       renderArchitectureMatrix,
       renderChinaDeepDive,
       renderTalentRadar,
@@ -4182,179 +3976,8 @@
     if (!grid.children.length) grid.appendChild(el("div", "empty", "선택한 카테고리의 정보 소스가 없습니다."));
   }
 
-  function pipelineRelated(item) {
-    if (activeCategory === "all") return true;
-    const cats = item.linkedCategories || [];
-    return !cats.length || cats.includes("all") || cats.includes(activeCategory);
-  }
-
-  function healthMatches(entry, keys = []) {
-    const step = String(entry?.step || "");
-    return keys.some((key) => step.startsWith(key) || step.includes(key));
-  }
-
-  function pipelineHealth(item) {
-    return (LIVE.health || []).filter((entry) => healthMatches(entry, item.healthKeys || []));
-  }
-
-  function healthStatus(entries) {
-    if (!entries.length) return { label: "대기", cls: "idle" };
-    return entries.every((entry) => entry.ok) ? { label: "정상", cls: "ok" } : { label: "점검", cls: "fail" };
-  }
-
-  function categorySignalTotal() {
-    return (LIVE.categories || []).reduce((sum, category) => {
-      const count = Number(category.count ?? category.items?.length ?? 0);
-      return sum + (Number.isFinite(count) ? count : 0);
-    }, 0);
-  }
-
   function benchmarkSignalTotal() {
     return Number(LIVE.benchmarkSignals?.stats?.total ?? LIVE.benchmarkSignals?.stream?.length ?? 0) || 0;
-  }
-
-  function parseHealthCount(entries) {
-    return entries.reduce((sum, entry) => {
-      const match = String(entry.msg || "").match(/(\d+)/);
-      return sum + (match ? Number(match[1]) : 0);
-    }, 0);
-  }
-
-  function pipelineSignalCount(item) {
-    const health = pipelineHealth(item);
-    if (item.id === "trendforce-price") return allPriceRows().length;
-    if (item.id === "executive-backtest") return historyItems().length;
-    if (item.id === "ai-architecture-signal") {
-      const newsCount = rawNews().filter((news) => {
-        const hay = `${news.title || ""} ${news.titleKo || ""} ${news.summary || ""} ${news.category || ""}`.toLowerCase();
-        return /(hbm|cxl|pim|bonder|packaging|rubin|nvidia|micron|samsung|sk hynix|test|controller)/i.test(hay);
-      }).length;
-      const matrix = BASE.architectureMatrix || {};
-      return newsCount + (matrix.roadmap || []).length + (matrix.valueChain || []).length;
-    }
-    if (item.id === "foreign-news") return rawNews().filter((news) => !isChinaArticle(news)).length;
-    if (item.id === "china-news") return rawNews().filter(isChinaArticle).length;
-    if (item.id === "china-fab-infra") return chinaInfraSignalCount(activeChinaInfraSite());
-    if (item.id === "china-talent-strategy") return CHINA_TALENT_STRATEGY_SCENARIOS.reduce((sum, scenario) => sum + chinaTalentSignalCount(scenario), 0);
-    if (item.id === "china-nand-business") return CHINA_NAND_BUSINESS_LAYERS.reduce((sum, layer) => sum + nandBusinessSignalCount(layer), 0);
-    if (item.id === "skhynix-product-projection") return projectionTotalSignals();
-    if (item.id === "talent-hiring-radar") {
-      const axis = CHINA_DYNAMIC_AXES.find((entry) => entry.id === "talent");
-      return axisSignalCount(axis) + (BASE.talentRadar?.companySignals?.length || 0);
-    }
-    if (item.id === "benchmark-signals") return benchmarkSignalTotal();
-    if (item.id === "startup-radar") return (LIVE.startups?.candidates || []).length || parseHealthCount(health);
-    if (item.id === "ko-insight") return parseHealthCount(health) || rawNews().length;
-    return parseHealthCount(health);
-  }
-
-  function crawlerPipelineItems() {
-    return CRAWL_PIPELINE
-      .filter(pipelineRelated)
-      .map((item) => {
-        const health = pipelineHealth(item);
-        const status = healthStatus(health);
-        return {
-          ...item,
-          health,
-          status,
-          signalCount: pipelineSignalCount(item),
-        };
-      });
-  }
-
-  function renderCrawlerBoard() {
-    const summary = $("#crawlerSummary");
-    const flow = $("#crawlerFlow");
-    const taxonomy = $("#crawlerTaxonomy");
-    const healthWrap = $("#crawlerHealth");
-    const meta = $("#crawlerMeta");
-    if (!summary || !flow || !taxonomy || !healthWrap) return;
-
-    const health = LIVE.health || [];
-    const ok = health.filter((entry) => entry.ok).length;
-    const fail = Math.max(health.length - ok, 0);
-    const priceRows = allPriceRows().length;
-    const priceSections = LIVE.prices?.sections?.length || 0;
-    const visibleNews = rawNews().length;
-    const chinaNews = rawNews().filter(isChinaArticle).length;
-    const categorySignals = categorySignalTotal();
-    const benchmarkSignals = benchmarkSignalTotal();
-    const pipelineItems = crawlerPipelineItems();
-
-    if (meta) meta.textContent = `${fmtNum(pipelineItems.length)}개 수집 채널 · ${fmtDate(LIVE.updatedAt)}`;
-
-    const cards = [
-      { label: "Run health", value: `${ok}/${health.length}`, note: fail ? `${fmtNum(fail)}개 단계 점검 필요` : "전체 수집 단계 정상" },
-      { label: "가격 테이블", value: priceRows, note: `${fmtNum(priceSections)}개 TrendForce 표` },
-      { label: "뉴스 원천 신호", value: categorySignals, note: `화면 노출 ${fmtNum(visibleNews)}건` },
-      { label: "중국·벤치마킹", value: chinaNews + benchmarkSignals, note: "중국·외신 벤치마킹 신호" },
-      { label: "업데이트", value: fmtDate(LIVE.updatedAt), note: "GitHub Actions daily crawler" },
-    ];
-    summary.innerHTML = cards.map((card) => `
-      <article class="crawler-stat">
-        <span>${escapeHTML(card.label)}</span>
-        <strong>${typeof card.value === "number" ? countHTML(card.value) : escapeHTML(card.value)}</strong>
-        <small>${escapeHTML(card.note)}</small>
-      </article>
-    `).join("");
-
-    const compactStages = [
-      { label: "수집", value: `${fmtNum(ok)}/${fmtNum(health.length)}`, note: fail ? `${fmtNum(fail)}개 점검 필요` : "정상", cls: fail ? "fail" : "ok" },
-      { label: "정제", value: fmtNum(categorySignals + benchmarkSignals), note: "뉴스·벤치마킹 분류", cls: "ok" },
-      { label: "대시보드", value: fmtNum(pipelineItems.length), note: "주요 보드 연결", cls: "ok" },
-    ];
-    flow.innerHTML = compactStages.map((stage) => `
-      <article class="crawler-card compact">
-        <div class="crawler-card-head">
-          <span class="chip accent">${escapeHTML(stage.label)}</span>
-          <span class="crawler-status ${escapeHTML(stage.cls)}">${escapeHTML(stage.note)}</span>
-        </div>
-        <h3>${escapeHTML(stage.value)}</h3>
-      </article>
-    `).join("");
-
-    const taxonomyRows = []
-      .concat((LIVE.categories || []).map((category) => ({
-        type: "뉴스",
-        label: category.label || category.id,
-        count: Number(category.count ?? category.items?.length ?? 0) || 0,
-      })))
-      .concat((LIVE.benchmarkSignals?.themes || []).map((theme) => ({
-        type: "벤치마킹",
-        label: theme.label || theme.id,
-        count: Number(theme.count ?? theme.items?.length ?? 0) || 0,
-      })))
-      .filter((row) => row.count > 0)
-      .filter((row) => {
-        if (activeCategory === "all") return true;
-        const hay = `${row.label} ${row.type}`.toLowerCase();
-        return hay.includes(activeCategory.toLowerCase()) || categoryName(activeCategory).includes(row.label);
-      });
-
-    taxonomy.innerHTML = taxonomyRows.length ? taxonomyRows.map((row) => `
-      <div class="crawler-tax-row">
-        <span>${escapeHTML(row.type)}</span>
-        <strong>${escapeHTML(row.label)}</strong>
-        <em>${fmtNum(row.count)}건</em>
-      </div>
-    `).join("") : `<div class="empty">선택한 카테고리에 직접 연결된 분류 로그가 없습니다.</div>`;
-
-    const healthOk = health.filter((entry) => entry.ok).length;
-    const healthMeta = $("#crawlerHealthMeta");
-    if (healthMeta) healthMeta.textContent = `${fmtNum(healthOk)}/${fmtNum(health.length)} 정상`;
-    const healthIssues = health.filter((entry) => !entry.ok).slice(0, 6);
-    healthWrap.innerHTML = healthIssues.length ? healthIssues.map((entry) => `
-      <div class="health-chip fail">
-        <strong>${escapeHTML(entry.step || "step")}</strong>
-        <span>${escapeHTML(entry.msg || "")}</span>
-      </div>
-    `).join("") : `
-      <div class="health-chip ok">
-        <strong>전체 수집 로그</strong>
-        <span>${fmtNum(healthOk)}/${fmtNum(health.length)} 정상 · 상세 로그는 숨김</span>
-      </div>
-    `;
   }
 
   function architectureMatrix() {
@@ -7315,25 +6938,6 @@
       })));
     }
 
-    if (mode === "crawler") {
-      items = crawlerPipelineItems().map((item) => ({
-        id: `crawler-${item.id}`,
-        mode,
-        type: "크롤링 관제",
-        tag: item.label,
-        title: item.output,
-        body: `${item.source} · ${item.method}`,
-        section: item.section,
-        categories: item.linkedCategories || [],
-        watch: item.fields.concat(item.filters),
-        metrics: [
-          { label: "신호", value: fmtNum(item.signalCount) },
-          { label: "Health", value: item.status.label },
-          { label: "Steps", value: fmtNum(item.health.length) },
-        ],
-      }));
-    }
-
     if (mode === "nand") {
       items = CHINA_NAND_BUSINESS_LAYERS.map((item) => ({
         id: `nand-${item.id}`,
@@ -8797,7 +8401,7 @@
       const entries = healthEntries(["가격:"]);
       const failed = entries.filter((entry) => !entry.ok).map((entry) => entry.msg).filter(Boolean).join(" · ");
       const msg = failed || "TrendForce 공개 테이블 구조 변경, 접근 실패, 또는 아직 수집된 rows가 없습니다.";
-      tbody.appendChild(el("tr", null, `<td colspan="6" class="empty"><span class="data-state fail">오류 발생 · 가격 rows 없음</span><br>${escapeHTML(msg)}<br>다음 행동: 크롤링 관제에서 가격 단계 메시지를 확인하고 전일 가격 히스토리 폴백 여부를 점검하세요.<br>마지막 시도: ${escapeHTML(fmtDate(LIVE.prices?.updatedAt || LIVE.updatedAt))}</td>`));
+      tbody.appendChild(el("tr", null, `<td colspan="6" class="empty"><span class="data-state fail">오류 발생 · 가격 rows 없음</span><br>${escapeHTML(msg)}<br>다음 행동: 하단 수집 상태와 전일 가격 히스토리 폴백 여부를 점검하세요.<br>마지막 시도: ${escapeHTML(fmtDate(LIVE.prices?.updatedAt || LIVE.updatedAt))}</td>`));
       return;
     }
 
