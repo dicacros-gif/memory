@@ -84,6 +84,8 @@
   const NAV_ACCENTS = {
     overview: "#FFFFFF",
     "executive-decision": "#FDE68A",
+    "management-strategy": "#A7F3D0",
+    "strategic-investment-decision": "#FBCFE8",
     "daily-review": "#A7F3D0",
     numbers: "#FDE68A",
     projection: "#FBBF24",
@@ -562,6 +564,190 @@
       downside: "중국 proxy 가격이 하락하면 가격 하방, 고객 침투, 수출통제 반작용을 즉시 경영진 안건으로 올립니다.",
     },
   ];
+  const INVESTMENT_STRATEGY_PILLARS = [
+    {
+      id: "hbm-premium",
+      label: "AI 서버/HBM 초격차",
+      role: "Core growth",
+      allocation: "45%",
+      horizon: "30개월 이후 5년",
+      capital: "직접 CAPEX + 전략 제휴",
+      title: "HBM4·Custom HBM·서버 DRAM에 자본을 우선 배분",
+      thesis: "AI 서버향 제품군은 가격·뉴스·프로젝션 신호가 동시에 강한 축입니다. TSMC/패키징 병목, 고객 인증, DDR5/CXL 확장을 한 묶음으로 보고 프리미엄 믹스를 방어해야 합니다.",
+      actions: ["HBM4 고객 인증과 베이스 다이 협력 고정", "패키징·테스트 병목 업체 투자 후보 추적", "서버 DRAM·CXL 옵션을 후속 포트폴리오로 연결"],
+      triggers: ["HBM4 Rubin 인증", "CoWoS/첨단 패키징 할당", "DDR5 contract 가격", "AI accelerator 수요"],
+      linkedCategories: ["hbm", "aidemand", "packaging", "dram"],
+      keywords: ["hbm", "hbm4", "hbm3e", "nvidia", "rubin", "tsmc", "cowos", "server", "ddr5", "cxl"],
+      baseScore: 88,
+    },
+    {
+      id: "china-nand",
+      label: "중국 NAND/eSSD 대응",
+      role: "Defense growth",
+      allocation: "18%",
+      horizon: "상시",
+      capital: "고객 방어 + 선택적 제휴",
+      title: "YMTC·XMC·JCET 신호를 eSSD 방어 투자로 전환",
+      thesis: "YMTC의 Xtacking, 우한 Phase 3, eSSD 고객 인증은 NAND 수익성에 직접 영향을 줍니다. 가격 방어와 고객 락인을 동시에 보는 투자 테마가 필요합니다.",
+      actions: ["eSSD 고객 인증 방어", "Solidigm/QLC value-up 과제 추적", "중국 내수 보조금·공급계약 신호를 조기 경보로 연결"],
+      triggers: ["YMTC eSSD 인증", "NAND contract 가격", "Wuhan Phase 3", "XMC HBM packaging"],
+      linkedCategories: ["nand", "china", "packaging"],
+      keywords: ["ymtc", "xtacking", "essd", "solidigm", "qlc", "nand", "xmc", "wuhan", "jcet"],
+      baseScore: 78,
+    },
+    {
+      id: "equipment-materials",
+      label: "소부장·장비 초크포인트",
+      role: "Supply hedge",
+      allocation: "12%",
+      horizon: "18~36개월",
+      capital: "소수지분 + 장기 공급계약",
+      title: "장비·소재 병목을 전략적 투자 후보로 분리",
+      thesis: "Naura·AMEC·ACM 등 중국 장비 내재화는 단순 경쟁 뉴스가 아니라 원가·수율·수출통제 리스크입니다. 핵심 소재와 장비의 대체 조달 옵션을 투자 관점에서 봐야 합니다.",
+      actions: ["핵심 소재 recipe/IP 방어 조건 설정", "장기 공급계약과 소수지분 투자 병행", "중국 JV 요구와 기술 이전 리스크 분리"],
+      triggers: ["Big Fund III", "NAURA", "AMEC", "ACM Research", "export control"],
+      linkedCategories: ["equipment", "geopolitics", "talent"],
+      keywords: ["naura", "amec", "acm", "equipment", "big fund", "export control", "materials", "eda"],
+      baseScore: 74,
+    },
+    {
+      id: "post-hbm",
+      label: "Post-HBM 옵션",
+      role: "Option value",
+      allocation: "10%",
+      horizon: "3~5년",
+      capital: "옵션형 소수지분 + 후속투자권",
+      title: "CXL·PIM·3D DRAM을 차세대 선택권으로 확보",
+      thesis: "HBM 이후의 병목은 CXL, PIM, 3D DRAM, 포토닉 인터커넥트로 이동합니다. 현재 매출 기여보다 기술 옵션 가치와 고객 PoC 신호를 기준으로 투자해야 합니다.",
+      actions: ["CXL 컨트롤러/IP 후보 롱리스트", "PIM·3D DRAM 장비/EDA 의존도 추적", "후속투자권 포함 소수지분 구조 설계"],
+      triggers: ["CXL 3.1/3.2", "PIM", "3D DRAM", "silicon photonics", "controller IP"],
+      linkedCategories: ["cxl", "hbm", "packaging", "aidemand"],
+      keywords: ["cxl", "pim", "3d dram", "photonics", "interconnect", "controller", "memory expansion"],
+      baseScore: 70,
+    },
+    {
+      id: "talent-ip",
+      label: "인재/IP 방어",
+      role: "Risk shield",
+      allocation: "8%",
+      horizon: "즉시",
+      capital: "보상·법무·보안 투자",
+      title: "수율 엔지니어와 공정 레시피를 투자 리스크로 관리",
+      thesis: "중국 업체의 채용·인재 이동은 기술 격차를 줄이는 선행 신호입니다. 방어 투자는 비용이 아니라 HBM·DRAM 수율 자산을 보호하는 옵션입니다.",
+      actions: ["핵심 수율 인력 보상 패키지 강화", "이직·접근권·IP 이상징후 모니터링", "Boss Zhipin·캠퍼스 채용 신호 크롤링"],
+      triggers: ["CXMT hiring", "yield engineer", "Boss Zhipin", "IP leak", "Korean engineer"],
+      linkedCategories: ["talent", "dram", "geopolitics"],
+      keywords: ["hiring", "talent", "yield", "engineer", "ip", "boss zhipin", "cxmt"],
+      baseScore: 76,
+    },
+    {
+      id: "legacy-cash",
+      label: "레거시 현금흐름 방어",
+      role: "Cash defense",
+      allocation: "7%",
+      horizon: "상시",
+      capital: "원가 절감 + SKU 선택",
+      title: "DDR4·범용 NAND는 증설보다 가격 하방 방어에 집중",
+      thesis: "CXMT·YMTC의 물량 공세는 레거시 가격을 먼저 흔듭니다. 투자는 성장 CAPEX보다 cash-cost floor, 재고 회전, 고객별 가격 방어에 집중해야 합니다.",
+      actions: ["저마진 SKU 축소", "cash-cost floor와 재고 회전 KPI 관리", "중국 캐파·spot/contract spread 조기 경보"],
+      triggers: ["DDR4 spot", "CXMT capacity", "YMTC wafer", "oversupply", "contract price"],
+      linkedCategories: ["dram", "nand", "china"],
+      keywords: ["ddr4", "legacy", "commodity", "spot", "contract", "cxmt", "ymtc", "oversupply", "wafer"],
+      baseScore: 68,
+    },
+  ];
+  const STRATEGIC_INVESTMENT_DECISIONS = [
+    {
+      id: "hbm-packaging-jv",
+      label: "HBM 패키징 병목",
+      option: "JV / 인수 검토",
+      stage: "Go",
+      capital: "대형 전략 투자",
+      title: "HBM 베이스 다이·패키징·테스트 병목을 통합 투자 안건으로 상정",
+      logic: "AI 서버/HBM 프리미엄이 유지되는 케이스에서는 패키징 병목이 매출 인식과 고객 락인의 핵심 제약입니다.",
+      gate: ["고객 인증 일정", "패키징 capacity", "수율 ramp", "TSMC/OSAT 협력 조건"],
+      action: "전략 제휴와 지분투자 병행, 병목 업체는 인수/JV까지 검토",
+      linkedStrategy: "hbm-premium",
+      linkedCategories: ["hbm", "packaging", "aidemand"],
+      keywords: ["hbm", "packaging", "cowos", "tsmc", "osat", "test", "base die"],
+      baseScore: 86,
+    },
+    {
+      id: "cxl-minority",
+      label: "CXL·PIM 옵션",
+      option: "소수지분 + 후속투자권",
+      stage: "Option",
+      capital: "중소형 옵션 투자",
+      title: "CXL 컨트롤러/IP와 PIM 생태계를 미래 선택권으로 확보",
+      logic: "표준과 수요가 아직 완전히 확정되지 않았으므로 통제권보다 후속투자권과 고객 PoC 데이터가 중요합니다.",
+      gate: ["CXL 3.1/3.2 채택", "고객 PoC", "컨트롤러 IP 성숙도", "서버 OEM 협력"],
+      action: "소수지분, 공동개발권, 후속투자권 중심으로 구조화",
+      linkedStrategy: "post-hbm",
+      linkedCategories: ["cxl", "hbm", "aidemand"],
+      keywords: ["cxl", "pim", "controller", "ip", "memory expansion", "server"],
+      baseScore: 72,
+    },
+    {
+      id: "nand-customer-defense",
+      label: "NAND/eSSD 고객 방어",
+      option: "장기 공급계약 / 가격 방어",
+      stage: "Defend",
+      capital: "선택적 방어 투자",
+      title: "YMTC eSSD·내수 보조금 신호를 고객 방어 의사결정으로 연결",
+      logic: "중국 NAND가 원가보다 고객 인증을 먼저 흔들 경우, 투자 판단은 증설보다 고객 방어·Solidigm value-up이 우선입니다.",
+      gate: ["YMTC 고객 인증", "NAND contract 가격", "eSSD 입찰", "중국 보조금"],
+      action: "핵심 고객 장기계약, QLC/eSSD 제품 믹스 개선, 저수익 영역 축소",
+      linkedStrategy: "china-nand",
+      linkedCategories: ["nand", "china"],
+      keywords: ["ymtc", "essd", "solidigm", "qlc", "nand", "customer", "contract"],
+      baseScore: 80,
+    },
+    {
+      id: "equipment-supply-hedge",
+      label: "소부장 공급망",
+      option: "전략 제휴 / 공급계약",
+      stage: "Watch",
+      capital: "헤지성 투자",
+      title: "장비·소재 초크포인트는 공급 안정성과 IP 조건을 함께 보고 결정",
+      logic: "중국 장비 내재화와 수출통제 변화가 동시에 움직이면 공급 안정성 확보가 재무 수익률만큼 중요해집니다.",
+      gate: ["수출통제 변화", "장비 qualify", "소재 recipe 이전 요구", "대체 공급 가능성"],
+      action: "핵심 공급사 장기계약, 소수지분, JV 제안은 IP 조건부로 제한",
+      linkedStrategy: "equipment-materials",
+      linkedCategories: ["equipment", "geopolitics"],
+      keywords: ["naura", "amec", "equipment", "materials", "export control", "big fund"],
+      baseScore: 74,
+    },
+    {
+      id: "talent-ip-shield",
+      label: "인재/IP 방어",
+      option: "보상·법무·보안 투자",
+      stage: "Go",
+      capital: "즉시 집행",
+      title: "핵심 수율 인력과 공정 레시피를 투자 자산으로 보호",
+      logic: "인재 유출은 장비 제약보다 빠르게 기술 격차를 줄일 수 있어 방어 의사결정의 우선순위가 높습니다.",
+      gate: ["핵심 인력 이탈", "채용 JD 급증", "IP 소송/수사", "공정 데이터 접근 이상"],
+      action: "핵심 인력 보상, 접근권 통제, 이직 모니터링, 법적 방어 예산 선집행",
+      linkedStrategy: "talent-ip",
+      linkedCategories: ["talent", "geopolitics", "dram"],
+      keywords: ["talent", "hiring", "yield", "ip", "engineer", "cxmt"],
+      baseScore: 82,
+    },
+    {
+      id: "legacy-capex-hold",
+      label: "레거시 증설",
+      option: "보류 / 원가 방어",
+      stage: "Hold",
+      capital: "CAPEX 억제",
+      title: "범용 DRAM/NAND 증설은 보류하고 가격 하방 방어 KPI로 관리",
+      logic: "중국 캐파가 레거시 가격을 압박하는 국면에서는 성장 투자보다 원가·재고·고객 선택이 의사결정 핵심입니다.",
+      gate: ["DDR4/eTT 가격", "spot-contract spread", "CXMT 캐파", "YMTC wafer 가격"],
+      action: "저수익 SKU 축소, 재고 회전 관리, 범용 CAPEX 보수화",
+      linkedStrategy: "legacy-cash",
+      linkedCategories: ["dram", "nand", "china"],
+      keywords: ["ddr4", "legacy", "commodity", "spot", "contract", "capacity", "oversupply"],
+      baseScore: 68,
+    },
+  ];
   const CHINA_DEEP_DIVE = [
     {
       id: "dram-euv-duv",
@@ -668,6 +854,18 @@
       section: "executive-decision",
     },
     {
+      id: "strategy-formulation",
+      label: "경영전략 수립",
+      sub: "Capital · Theme",
+      section: "management-strategy",
+    },
+    {
+      id: "investment-decision",
+      label: "전략적 의사 결정",
+      sub: "M&A · JV · Minority",
+      section: "strategic-investment-decision",
+    },
+    {
       id: "crawler",
       label: "크롤링 관제",
       sub: "Source · Health · Map",
@@ -753,9 +951,9 @@
     {
       id: "strategy",
       label: "전략·대응",
-      desc: "경쟁 다이내믹스, 수익화 모델, 대응 액션, 정보 채널",
+      desc: "경영전략 수립, 전략적 투자 의사결정, 경쟁 다이내믹스, 대응 액션",
       cadence: "Decision layer",
-      sections: ["dynamics", "monetization", "response", "intelligence"],
+      sections: ["management-strategy", "strategic-investment-decision", "dynamics", "monetization", "response", "intelligence"],
     },
   ];
   const NEWS_SOURCE_TABS = [
@@ -771,6 +969,8 @@
   ];
   const SECTION_LABELS = {
     "executive-decision": "경영진 의사결정",
+    "management-strategy": "경영전략 수립",
+    "strategic-investment-decision": "전략적 의사 결정",
     "daily-review": "일일 리뷰 큐",
     numbers: "숫자 대시보드",
     projection: "제품군 프로젝션",
@@ -989,6 +1189,8 @@
   let dynamicFocusId = null;
   let modelFocusId = null;
   let chinaNandFocusId = "ymtc";
+  let managementStrategyFocusId = "hbm-premium";
+  let strategicDecisionFocusId = "hbm-packaging-jv";
   let projectionFocusId = "ai-server";
   let projectionScenario = "neutral";
   let execDecisionFocusId = "hbm-ai-server";
@@ -1027,6 +1229,8 @@
     renderSidebarCategories();
     renderKpis();
     renderExecutiveDecision();
+    renderManagementStrategy();
+    renderStrategicInvestmentDecision();
     renderDailyReview();
     renderNumberDashboard();
     renderProductProjection();
@@ -2265,6 +2469,20 @@
         status: "Backtest",
         score: testedBacktests.length ? clamp((hitBacktests.length / testedBacktests.length) * 100, 18, 100) : 18,
         note: "제품군별 실제 가격 백테스트",
+      },
+      "management-strategy": {
+        value: managementStrategyItems().length,
+        unit: "테마",
+        status: "Strategy",
+        score: managementStrategyItems().length ? clamp(managementStrategyItems().reduce((sum, item) => sum + item.score, 0) / managementStrategyItems().length) : 0,
+        note: "투자 테마·자본 배분",
+      },
+      "strategic-investment-decision": {
+        value: strategicInvestmentDecisionItems().length,
+        unit: "옵션",
+        status: "Investment",
+        score: strategicInvestmentDecisionItems().length ? clamp(strategicInvestmentDecisionItems().reduce((sum, item) => sum + item.score, 0) / strategicInvestmentDecisionItems().length) : 0,
+        note: "투자/JV/방어 판단",
       },
       "daily-review": {
         value: dailyReviewItems().length,
@@ -3659,6 +3877,285 @@
     animateMeters(grid);
   }
 
+  function investmentPriceRows(item) {
+    const terms = (item.keywords || []).map((term) => String(term).toLowerCase()).filter(Boolean);
+    if (!terms.length) return [];
+    return allPriceRows().filter((row) => {
+      const hay = `${row.group || ""} ${row.sectionTitle || ""} ${row.item || ""}`.toLowerCase();
+      return terms.some((term) => hay.includes(term));
+    });
+  }
+
+  function investmentPriceMomentum(item) {
+    const values = investmentPriceRows(item)
+      .map((row) => Number(row.changePct))
+      .filter((value) => Number.isFinite(value));
+    if (!values.length) return 0;
+    return values.reduce((sum, value) => sum + value, 0) / values.length;
+  }
+
+  function investmentEvidenceLinks(item, limit = 4) {
+    const terms = (item.keywords || []).map((term) => String(term).toLowerCase()).filter(Boolean);
+    const seen = new Set();
+    return rawNews().filter((news) => {
+      const hay = `${news.title || ""} ${news.titleKo || ""} ${news.summary || ""} ${news.source || ""}`.toLowerCase();
+      return terms.some((term) => hay.includes(term));
+    }).filter((news) => {
+      const key = `${news.title || ""} ${news.source || ""}`.toLowerCase().replace(/\s+/g, " ").trim();
+      if (!key || seen.has(key)) return false;
+      seen.add(key);
+      return true;
+    }).slice(0, limit);
+  }
+
+  function investmentSignalCount(item) {
+    const terms = (item.keywords || []).map((term) => String(term).toLowerCase()).filter(Boolean);
+    const categoryCount = (item.linkedCategories || []).reduce((sum, id) => {
+      const category = liveNewsCategory(id);
+      return sum + (Number(category?.count ?? category?.items?.length ?? 0) || 0);
+    }, 0);
+    const axisCount = CHINA_DYNAMIC_AXES.reduce((sum, axis) => {
+      const axisText = `${axis.id || ""} ${axis.title || ""} ${axis.label || ""} ${(axis.keywords || []).join(" ")}`.toLowerCase();
+      const categoryHit = (axis.categoryIds || []).some((id) => (item.linkedCategories || []).includes(id));
+      return sum + (categoryHit || terms.some((term) => axisText.includes(term)) ? axisSignalCount(axis) : 0);
+    }, 0);
+    return investmentEvidenceLinks(item, 999).length + Math.round(categoryCount / 8) + axisCount + investmentPriceRows(item).length;
+  }
+
+  function managementStrategyItems() {
+    return INVESTMENT_STRATEGY_PILLARS.map((item) => {
+      const signals = investmentSignalCount(item);
+      const priceMomentum = investmentPriceMomentum(item);
+      const chinaRisk = (item.linkedCategories || []).includes("china") ? rawNews().filter(isChinaArticle).length * .06 : 0;
+      const score = clamp(item.baseScore + Math.min(signals, 160) * .08 + priceMomentum * 1.8 + chinaRisk);
+      return {
+        ...item,
+        signals,
+        priceRows: investmentPriceRows(item).length,
+        priceMomentum,
+        score,
+        links: investmentEvidenceLinks(item, 5),
+      };
+    });
+  }
+
+  function strategicInvestmentDecisionItems() {
+    const strategyMap = new Map(managementStrategyItems().map((item) => [item.id, item]));
+    return STRATEGIC_INVESTMENT_DECISIONS.map((item) => {
+      const strategy = strategyMap.get(item.linkedStrategy);
+      const signals = investmentSignalCount(item) + Math.round((strategy?.signals || 0) * .45);
+      const priceMomentum = investmentPriceMomentum(item);
+      const score = clamp(item.baseScore + Math.min(signals, 180) * .07 + priceMomentum * 1.5 + ((strategy?.score || 0) - 70) * .18);
+      return {
+        ...item,
+        strategy,
+        signals,
+        priceRows: investmentPriceRows(item).length,
+        priceMomentum,
+        score,
+        links: investmentEvidenceLinks(item, 5).concat(strategy?.links || []).slice(0, 5),
+      };
+    });
+  }
+
+  function investmentAverageScore(items = []) {
+    return items.length ? items.reduce((sum, item) => sum + item.score, 0) / items.length : 0;
+  }
+
+  function investmentPayload(item, section) {
+    return {
+      type: section === "management-strategy" ? "경영전략 수립" : "전략적 의사 결정",
+      tag: item.role || item.option || "Investment",
+      title: item.title,
+      body: item.thesis || item.logic,
+      section,
+      categories: item.linkedCategories || [],
+      watch: (item.triggers || item.gate || []).concat(item.actions || item.action || []),
+      tags: [item.label, item.capital, item.allocation, item.stage].filter(Boolean),
+      links: item.links || [],
+      metrics: [
+        { label: "Score", value: fmtNum(item.score) },
+        { label: "Signal", value: fmtNum(item.signals) },
+        { label: "Price rows", value: fmtNum(item.priceRows || 0) },
+      ],
+    };
+  }
+
+  function investmentSummaryHTML(cards) {
+    return cards.map((card) => `
+      <article class="investment-stat reveal">
+        <span>${escapeHTML(card.label)}</span>
+        <strong>${typeof card.value === "number" ? countHTML(card.value, { suffix: card.suffix || "", decimals: card.decimals || 0 }) : escapeHTML(card.value)}</strong>
+        <small>${escapeHTML(card.note)}</small>
+      </article>
+    `).join("");
+  }
+
+  function renderInvestmentFocus(target, item, section) {
+    if (!target || !item) return;
+    const payload = investmentPayload(item, section);
+    target.style.setProperty("--local-accent", categoryAccent((item.linkedCategories || [])[0]));
+    target.innerHTML = `
+      <div class="investment-focus-head">
+        <span class="chip accent">${escapeHTML(item.label)} · ${escapeHTML(item.role || item.option)}</span>
+        <h3>${escapeHTML(item.title)}</h3>
+        <p>${escapeHTML(item.thesis || item.logic)}</p>
+      </div>
+      <div class="metric-row">
+        <div class="metric"><strong>${fmtNum(item.score)}</strong><span>Score</span></div>
+        <div class="metric"><strong>${fmtNum(item.signals)}</strong><span>Signal</span></div>
+        <div class="metric"><strong>${item.allocation ? escapeHTML(item.allocation) : escapeHTML(item.stage || "Gate")}</strong><span>${item.allocation ? "배분" : "판단"}</span></div>
+      </div>
+      <div class="investment-focus-block">
+        <strong>투자 관점</strong>
+        <p>${escapeHTML(item.capital || item.action || "")}</p>
+      </div>
+      <div class="investment-focus-block">
+        <strong>${section === "management-strategy" ? "전략 실행" : "의사결정 게이트"}</strong>
+        <ul class="watch-list">${(item.actions || item.gate || []).map((line) => `<li>${escapeHTML(line)}</li>`).join("")}</ul>
+      </div>
+      <div class="investment-focus-block">
+        <strong>매일 확인할 신호</strong>
+        <ul class="watch-list">${(item.triggers || item.gate || []).map((line) => `<li>${escapeHTML(line)}</li>`).join("")}</ul>
+      </div>
+      ${item.links?.length ? `
+        <div class="investment-focus-block">
+          <strong>관련 최신 기사/신호</strong>
+          <ul class="work-link-list">${item.links.map((link) => `<li><a href="${escapeHTML(link.link || "#")}" target="_blank" rel="noopener">${escapeHTML(newsTitle(link) || link.title || "Signal")}</a></li>`).join("")}</ul>
+        </div>
+      ` : ""}
+      <div class="focus-actions">
+        <button type="button" data-investment-copy>복사</button>
+        <button type="button" data-investment-inspector>상세 패널</button>
+        <button type="button" data-investment-workbench>워크벤치</button>
+      </div>
+    `;
+    target.querySelector("[data-investment-copy]")?.addEventListener("click", (event) => copyPayload(payload, event.currentTarget));
+    target.querySelector("[data-investment-inspector]")?.addEventListener("click", () => openInspector(payload));
+    target.querySelector("[data-investment-workbench]")?.addEventListener("click", () => {
+      workbenchMode = section === "management-strategy" ? "strategy-formulation" : "investment-decision";
+      selectedInsightId = null;
+      renderWorkbench();
+      jumpTo("workbench");
+    });
+  }
+
+  function renderManagementStrategy() {
+    const summary = $("#managementStrategySummary");
+    const flow = $("#managementStrategyFlow");
+    const grid = $("#managementStrategyGrid");
+    const focus = $("#managementStrategyFocus");
+    const meta = $("#managementStrategyMeta");
+    if (!summary || !flow || !grid || !focus) return;
+
+    const items = managementStrategyItems();
+    if (!items.some((item) => item.id === managementStrategyFocusId)) managementStrategyFocusId = items[0]?.id || "hbm-premium";
+    const selected = items.find((item) => item.id === managementStrategyFocusId) || items[0];
+    const totalSignals = items.reduce((sum, item) => sum + item.signals, 0);
+    const avgScore = investmentAverageScore(items);
+    const chinaSignals = rawNews().filter(isChinaArticle).length + benchmarkSignalTotal();
+    if (meta) meta.textContent = `${fmtNum(items.length)}개 투자 테마 · ${fmtNum(totalSignals)}개 신호 · ${fmtDate(LIVE.updatedAt)}`;
+
+    summary.innerHTML = investmentSummaryHTML([
+      { label: "투자 테마", value: items.length, note: "성장·방어·옵션·리스크 분리", suffix: "개" },
+      { label: "평균 확신도", value: avgScore, note: "크롤링 신호 기반 점수", suffix: "%", decimals: 0 },
+      { label: "중국 관련 신호", value: chinaSignals, note: "뉴스·벤치마킹·정책 신호", suffix: "건" },
+      { label: "가격 근거", value: allPriceRows().length, note: "TrendForce spot/contract rows", suffix: "rows" },
+    ]);
+
+    const flowSteps = [
+      { label: "1. 수집", note: "가격·뉴스·채용·중국 다이내믹스" },
+      { label: "2. 전략 가설", note: "HBM 성장, NAND 방어, CXL 옵션" },
+      { label: "3. 투자 테마", note: "CAPEX·JV·소수지분·공급계약" },
+      { label: "4. KPI", note: "신호 수, 가격 모멘텀, 실행 게이트" },
+    ];
+    flow.innerHTML = flowSteps.map((step, index) => `
+      <article class="investment-flow-step reveal" style="animation-delay:${index * 30}ms">
+        <strong>${escapeHTML(step.label)}</strong>
+        <span>${escapeHTML(step.note)}</span>
+      </article>
+    `).join("");
+
+    grid.innerHTML = items.map((item, index) => `
+      <button class="investment-card reveal${item.id === selected?.id ? " active" : ""}" type="button" data-management-strategy="${escapeHTML(item.id)}" style="--local-accent:${categoryAccent((item.linkedCategories || [])[0])}; animation-delay:${index * 25}ms">
+        ${scoreRingHTML(item.score, "Score")}
+        <span>
+          <small>${escapeHTML(item.role)} · ${escapeHTML(item.allocation)}</small>
+          <strong>${escapeHTML(item.label)}</strong>
+          <em>${fmtNum(item.signals)} signals · ${escapeHTML(item.capital)}</em>
+        </span>
+      </button>
+    `).join("");
+    renderInvestmentFocus(focus, selected, "management-strategy");
+    grid.querySelectorAll("[data-management-strategy]").forEach((btn) => {
+      btn.addEventListener("click", () => {
+        managementStrategyFocusId = btn.dataset.managementStrategy;
+        renderManagementStrategy();
+      });
+    });
+    animateCounts(summary);
+    animateCounts(grid);
+    animateMeters(grid);
+  }
+
+  function renderStrategicInvestmentDecision() {
+    const summary = $("#strategicDecisionSummary");
+    const grid = $("#strategicDecisionGrid");
+    const focus = $("#strategicDecisionFocus");
+    const evidence = $("#strategicDecisionEvidence");
+    const meta = $("#strategicDecisionMeta");
+    if (!summary || !grid || !focus || !evidence) return;
+
+    const items = strategicInvestmentDecisionItems();
+    if (!items.some((item) => item.id === strategicDecisionFocusId)) strategicDecisionFocusId = items[0]?.id || "hbm-packaging-jv";
+    const selected = items.find((item) => item.id === strategicDecisionFocusId) || items[0];
+    const totalSignals = items.reduce((sum, item) => sum + item.signals, 0);
+    const goCount = items.filter((item) => /go/i.test(item.stage)).length;
+    const defendCount = items.filter((item) => /defend|hold/i.test(item.stage)).length;
+    if (meta) meta.textContent = `${fmtNum(items.length)}개 투자 옵션 · ${fmtNum(totalSignals)}개 근거 신호 · ${fmtDate(LIVE.updatedAt)}`;
+
+    summary.innerHTML = investmentSummaryHTML([
+      { label: "투자 옵션", value: items.length, note: "인수·JV·소수지분·방어·보류", suffix: "개" },
+      { label: "Go 안건", value: goCount, note: "즉시 상정 가능한 투자 판단", suffix: "개" },
+      { label: "방어/보류", value: defendCount, note: "중국 가격 압력 대응 안건", suffix: "개" },
+      { label: "평균 확신도", value: investmentAverageScore(items), note: "전략 테마와 live 신호 결합", suffix: "%", decimals: 0 },
+    ]);
+
+    grid.innerHTML = items.map((item, index) => `
+      <button class="investment-card reveal${item.id === selected?.id ? " active" : ""}" type="button" data-strategic-decision="${escapeHTML(item.id)}" style="--local-accent:${categoryAccent((item.linkedCategories || [])[0])}; animation-delay:${index * 25}ms">
+        ${scoreRingHTML(item.score, "Fit")}
+        <span>
+          <small>${escapeHTML(item.stage)} · ${escapeHTML(item.option)}</small>
+          <strong>${escapeHTML(item.label)}</strong>
+          <em>${fmtNum(item.signals)} signals · ${escapeHTML(item.capital)}</em>
+        </span>
+      </button>
+    `).join("");
+    renderInvestmentFocus(focus, selected, "strategic-investment-decision");
+
+    const evidenceLinks = selected?.links || [];
+    evidence.innerHTML = `
+      <div>
+        <span>Decision evidence</span>
+        <strong>${escapeHTML(selected?.label || "투자 옵션")}</strong>
+        <small>${escapeHTML(selected?.action || "")}</small>
+      </div>
+      <ul class="work-link-list">
+        ${evidenceLinks.length ? evidenceLinks.map((link) => `<li><a href="${escapeHTML(link.link || "#")}" target="_blank" rel="noopener">${escapeHTML(newsTitle(link) || link.title || "Signal")}</a></li>`).join("") : `<li><em>현재 선택 옵션에 연결된 최신 기사 신호가 없습니다.</em></li>`}
+      </ul>
+    `;
+
+    grid.querySelectorAll("[data-strategic-decision]").forEach((btn) => {
+      btn.addEventListener("click", () => {
+        strategicDecisionFocusId = btn.dataset.strategicDecision;
+        renderStrategicInvestmentDecision();
+      });
+    });
+    animateCounts(summary);
+    animateCounts(grid);
+    animateMeters(grid);
+  }
+
   function projectionAnchorDate() {
     const date = new Date(LIVE.updatedAt || Date.now());
     return Number.isNaN(date.getTime()) ? new Date() : date;
@@ -4421,6 +4918,48 @@
           { label: "품목", value: fmtNum(item.observations.length) },
         ],
         tags: item.products || [],
+      }));
+    }
+
+    if (mode === "strategy-formulation") {
+      items = managementStrategyItems().map((item) => ({
+        id: `strategy-${item.id}`,
+        mode,
+        type: "경영전략 수립",
+        tag: `${item.role} · ${item.allocation}`,
+        title: item.title,
+        body: item.thesis,
+        section: "management-strategy",
+        categories: item.linkedCategories || [],
+        watch: (item.triggers || []).concat(item.actions || []),
+        metrics: [
+          { label: "Score", value: fmtNum(item.score) },
+          { label: "Signal", value: fmtNum(item.signals) },
+          { label: "Capital", value: item.capital },
+        ],
+        tags: [item.label, item.horizon, item.allocation].filter(Boolean),
+        links: item.links || [],
+      }));
+    }
+
+    if (mode === "investment-decision") {
+      items = strategicInvestmentDecisionItems().map((item) => ({
+        id: `investment-${item.id}`,
+        mode,
+        type: "전략적 의사 결정",
+        tag: `${item.stage} · ${item.option}`,
+        title: item.title,
+        body: item.logic,
+        section: "strategic-investment-decision",
+        categories: item.linkedCategories || [],
+        watch: (item.gate || []).concat(item.action || []),
+        metrics: [
+          { label: "Score", value: fmtNum(item.score) },
+          { label: "Signal", value: fmtNum(item.signals) },
+          { label: "Capital", value: item.capital },
+        ],
+        tags: [item.label, item.option, item.stage].filter(Boolean),
+        links: item.links || [],
       }));
     }
 
@@ -5540,7 +6079,7 @@
   }
 
   function setupScrollSpy() {
-    const sections = ["overview", "executive-decision", "daily-review", "crawler", "prices", "news", "china-nand", "china-dynamics", "talent-radar", "numbers", "projection", "workbench", "ai-matrix", "china-deep-dive", "categories", "competitors", "dynamics", "monetization", "response", "intelligence"];
+    const sections = ["overview", "executive-decision", "management-strategy", "strategic-investment-decision", "daily-review", "crawler", "prices", "news", "china-nand", "china-dynamics", "talent-radar", "numbers", "projection", "workbench", "ai-matrix", "china-deep-dive", "categories", "competitors", "dynamics", "monetization", "response", "intelligence"];
     const update = () => {
       const y = window.scrollY + chromeOffset() + 22;
       let active = "overview";
