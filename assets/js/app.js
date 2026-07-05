@@ -3883,10 +3883,10 @@
       },
       "management-strategy": {
         value: managementStrategyItems().length,
-        unit: "축",
+        unit: "방향",
         status: "China Biz",
         score: managementStrategyItems().length ? clamp(managementStrategyItems().reduce((sum, item) => sum + item.score, 0) / managementStrategyItems().length) : 0,
-        note: "중국 고객·제품·운영 전략축",
+        note: "중국 고객·제품·운영 방향",
       },
       "strategic-investment-decision": {
         value: strategicInvestmentDecisionItems().length,
@@ -5729,22 +5729,14 @@
     if (!items.some((item) => item.id === managementStrategyFocusId)) managementStrategyFocusId = items[0]?.id || "china-key-account";
     const selected = items.find((item) => item.id === managementStrategyFocusId) || items[0];
     const totalSignals = items.reduce((sum, item) => sum + item.signals, 0);
-    const avgScore = investmentAverageScore(items);
-    const chinaSignals = rawNews().filter(isChinaArticle).length + benchmarkSignalTotal();
-    const regulationSignals = items.filter((item) => (item.linkedCategories || []).some((id) => ["geopolitics", "operations"].includes(id))).reduce((sum, item) => sum + item.signals, 0);
-    if (meta) meta.textContent = `${fmtNum(items.length)}개 전략축 · ${fmtDate(LIVE.updatedAt)}`;
-
-    summary.innerHTML = investmentSummaryHTML([
-      { label: "전략축", value: items.length, note: "고객·제품·생태계·공급망·운영·인재", suffix: "개" },
-      { label: "중국 신호", value: chinaSignals, note: "중국 기사·외신·벤치마킹 합산", suffix: "건" },
-      { label: "가격/계약 rows", value: allPriceRows().length, note: "DRAM·NAND spot/contract 근거", suffix: "rows" },
-      { label: "운영·규제 신호", value: regulationSignals, note: "BIS/VEU·수출통제·중국 운영 리스크", suffix: "건" },
-    ]);
+    if (meta) meta.textContent = `${fmtNum(items.length)}개 사업 방향 · ${fmtDate(LIVE.updatedAt)}`;
+    summary.hidden = true;
+    summary.innerHTML = "";
 
     const flowSteps = [
       { label: "1. 중국 신호 수집", note: "가격·뉴스·채용·정책·팹/패키징" },
       { label: "2. 사업 영향 분류", note: "고객 방어, NAND/eSSD, 운영 리스크" },
-      { label: "3. 전략축 선택", note: "계약, 제품 믹스, 제휴, 보안/법무" },
+      { label: "3. 사업 방향 선택", note: "계약, 제품 믹스, 제휴, 보안/법무" },
       { label: "4. 의사결정 이관", note: "2번 탭의 Go/Defend/Watch/Hold 안건" },
     ];
     flow.innerHTML = flowSteps.map((step, index) => `
