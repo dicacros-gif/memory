@@ -1735,7 +1735,7 @@
       desc: "CXMT, YMTC, XMC, JCET, Naura, AMEC의 기술·캐파·공급망 변화",
       cadence: "China benchmark",
       jump: "china-nand",
-      sections: ["china-nand", "china-dynamics", "competitors", "ai-matrix", "china-deep-dive"],
+      sections: ["china-nand", "china-dynamics", "ai-matrix", "china-deep-dive"],
     },
     {
       id: "policy",
@@ -1796,7 +1796,6 @@
     intelligence: "정보 획득 채널",
     "evidence-framework": "증거 품질 레이어",
     categories: "메모리 카테고리",
-    competitors: "중국 경쟁사",
     news: "중국·외신 기사",
     prices: "TrendForce 가격",
   };
@@ -1822,7 +1821,6 @@
     "ai-matrix",
     "china-deep-dive",
     "categories",
-    "competitors",
     "dynamics",
     "monetization",
     "response",
@@ -1838,7 +1836,6 @@
     "china-fab-infra": "policy-makers",
     "china-nand": "china-nand",
     "china-dynamics": "china-nand",
-    competitors: "china-nand",
     "ai-matrix": "china-nand",
     "china-deep-dive": "china-nand",
     "talent-radar": "talent-radar",
@@ -2014,18 +2011,6 @@
       healthKeys: ["벤치마킹:"],
     },
     {
-      id: "competitors",
-      label: "경쟁사·주가",
-      source: "Samsung · Micron · CXMT · YMTC · Kioxia/WD · 상장 peer 시세",
-      method: "업체별 뉴스 질의와 주가 API 대체 소스를 결합해 압력 점수 산출",
-      fields: ["기사 건수", "watch word", "pressure score", "주가 변동"],
-      filters: ["업체 alias", "watch word hit", "카테고리 매칭"],
-      output: "중국 경쟁사 · 경쟁 다이나믹스",
-      section: "competitors",
-      linkedCategories: ["dram", "nand", "hbm", "china"],
-      healthKeys: ["경쟁사:", "주가:"],
-    },
-    {
       id: "startup-radar",
       label: "스타트업 레이더",
       source: "CXL · 포토닉스 · near-memory · AI interconnect 스타트업",
@@ -2150,7 +2135,6 @@
     renderProductProjection();
     renderCategories();
     renderChannels();
-    renderCompanies();
     renderDynamics();
     renderModels();
     renderResponses();
@@ -2678,7 +2662,6 @@
       renderNumberDashboard,
       renderProductProjection,
       renderChannels,
-      renderCompanies,
       renderDynamics,
       renderModels,
       renderNews,
@@ -3808,13 +3791,6 @@
         score: 88,
         note: "메모리 업계 카테고리",
       },
-      competitors: {
-        value: (BASE.companies || []).filter(relatedToActive).length,
-        unit: "사",
-        status: "Peer",
-        score: clamp((BASE.companies || []).filter(relatedToActive).length * 13, 24, 100),
-        note: "CXMT·YMTC·OSAT·장비",
-      },
       dynamics: {
         value: (BASE.dynamics || []).filter(relatedToActive).length,
         unit: "축",
@@ -4206,47 +4182,6 @@
     if (!grid.children.length) grid.appendChild(el("div", "empty", "선택한 카테고리의 정보 소스가 없습니다."));
   }
 
-  function renderCompanies() {
-    const grid = $("#companyGrid");
-    const items = (BASE.companies || []).filter(relatedToActive);
-    $("#competitorMeta").textContent = `${items.length}개 업체 · ${activeCategoryData().label}`;
-    grid.innerHTML = "";
-    items.forEach((company, index) => {
-      const card = el("article", "card reveal");
-      card.style.animationDelay = `${index * 35}ms`;
-      card.style.setProperty("--local-accent", categoryAccent((company.linkedCategories || [])[0]));
-      card.innerHTML = `
-        <div class="card-top">
-          <div>
-            <span class="chip accent">${escapeHTML(company.category)}</span>
-            <h3>${escapeHTML(company.name)}</h3>
-            <span class="source-tag">${escapeHTML(company.fullName)}</span>
-            ${company.claimStatus ? factBadge(company.claimStatus, company.claimClass || "watch") : ""}
-          </div>
-          <div class="score" style="--score:${Number(company.score || 0)}"><span>${escapeHTML(company.score || "")}</span></div>
-        </div>
-        <p>${escapeHTML(company.summary)}</p>
-        <div class="metric-row">
-          ${(company.metrics || []).slice(0, 3).map((m) => `<div class="metric"><strong>${escapeHTML(m.value)}</strong><span>${escapeHTML(m.label)}</span></div>`).join("")}
-        </div>
-        <ul class="watch-list">${(company.watch || []).slice(0, 4).map((w) => `<li>${escapeHTML(w)}</li>`).join("")}</ul>
-        <div class="insight-box"><span>Benchmark insight</span>${escapeHTML(company.insight)}</div>
-      `;
-      makeInspectable(card, {
-        type: "중국 경쟁사",
-        tag: company.category,
-        title: company.name,
-        body: `${company.summary} ${company.insight || ""}`,
-        section: "competitors",
-        categories: company.linkedCategories || [],
-        watch: company.watch || [],
-        metrics: company.metrics || [],
-      });
-      grid.appendChild(card);
-    });
-    if (!items.length) grid.appendChild(el("div", "empty", "선택한 카테고리의 경쟁사 카드가 없습니다."));
-  }
-
   function pipelineRelated(item) {
     if (activeCategory === "all") return true;
     const cats = item.linkedCategories || [];
@@ -4308,7 +4243,6 @@
       return axisSignalCount(axis) + (BASE.talentRadar?.companySignals?.length || 0);
     }
     if (item.id === "benchmark-signals") return benchmarkSignalTotal();
-    if (item.id === "competitors") return (LIVE.competitors?.competitors || []).length || parseHealthCount(health);
     if (item.id === "startup-radar") return (LIVE.startups?.candidates || []).length || parseHealthCount(health);
     if (item.id === "ko-insight") return parseHealthCount(health) || rawNews().length;
     return parseHealthCount(health);
@@ -7851,7 +7785,7 @@
 
   function normalizePayload(payload) {
     return {
-      type: payload.type || payload.tag || "Benchmark insight",
+      type: payload.type || payload.tag || "Insight",
       tag: payload.tag || payload.type || "",
       title: payload.title || "상세 정보",
       body: payload.body || payload.desc || payload.summary || payload.logic || "",
