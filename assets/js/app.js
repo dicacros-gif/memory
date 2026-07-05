@@ -1830,9 +1830,11 @@
   let responsePriority = "all";
   let paletteIndex = 0;
   let typeTimer = null;
+  let selectedQaQuestion = "";
   let numberOrder = [];
   let numberFolded = {};
   let draggedNumberId = null;
+  const QA_PLACEHOLDER = "Memory 시장에 대해 물어보세요";
   const CATEGORY_RENDER_BUDGET_MS = 12;
 
   async function loadJSON(path, fallback) {
@@ -6969,12 +6971,22 @@
     const input = $("#qaInput");
     const toggle = $("#qaToggle");
     const drop = $("#qaDrop");
+    const box = $("#qaBox");
+    if (!input || !toggle || !drop || !box) return;
+    input.placeholder = QA_PLACEHOLDER;
+    toggle.setAttribute("aria-expanded", "false");
 
     const openDrop = () => {
       renderQADrop(input.value);
       drop.hidden = false;
+      box.classList.add("open");
+      toggle.setAttribute("aria-expanded", "true");
     };
-    const closeDrop = () => { drop.hidden = true; };
+    const closeDrop = () => {
+      drop.hidden = true;
+      box.classList.remove("open");
+      toggle.setAttribute("aria-expanded", "false");
+    };
 
     toggle.addEventListener("click", (event) => {
       event.stopPropagation();
@@ -6984,13 +6996,17 @@
 
     input.addEventListener("focus", openDrop);
     input.addEventListener("input", () => {
+      selectedQaQuestion = "";
       if (!drop.hidden) renderQADrop(input.value);
     });
     input.addEventListener("keydown", (event) => {
       if (event.key === "Enter") {
         event.preventDefault();
+        const query = input.value;
         closeDrop();
-        answerQuestion(input.value);
+        answerQuestion(query);
+        input.value = "";
+        input.placeholder = QA_PLACEHOLDER;
       }
       if (event.key === "Escape") closeDrop();
     });
@@ -7002,31 +7018,56 @@
   function renderQADrop(filter = "") {
     const drop = $("#qaDrop");
     const data = BASE.qa || { cats: [], pairs: [] };
-    const q = String(filter || "").toLowerCase();
-    const queryTerms = q.split(/\s+/).map((term) => term.trim()).filter(Boolean);
+    const q = String(filter || "").trim();
     const cats = data.cats || [];
-    const pairs = (data.pairs || []).filter((pair) => {
-      if (!q) return true;
-      const hay = `${pair.q} ${pair.a} ${(pair.keywords || []).join(" ")}`.toLowerCase();
-      return hay.includes(q) || queryTerms.every((term) => hay.includes(term));
-    });
+    const scored = (data.pairs || []).map((pair) => ({ pair, score: qaMatchScore(pair, q) }));
+    const pairs = q
+      ? scored.filter((item) => item.score > 0).sort((a, b) => b.score - a.score).map((item) => item.pair)
+      : (data.pairs || []);
+    const bestQuestion = q ? scored.sort((a, b) => b.score - a.score)[0]?.pair?.q : selectedQaQuestion;
 
     drop.innerHTML = "";
+    drop.appendChild(el("div", "qa-drop-head", `
+      <span>${escapeHTML(data.intro || "질문을 선택하거나 자연어로 입력하세요.")}</span>
+      <strong>${fmtNum(pairs.length)}개 질문</strong>
+    `));
+    const appendOption = (group, pair, cat) => {
+      const active = pair.q === selectedQaQuestion || (q && pair.q === bestQuestion);
+      const btn = el("button", `qa-option${active ? " active" : ""}`, `
+        <span class="qa-option-kicker">${escapeHTML(cat.name)} · ${escapeHTML(SECTION_LABELS[pair.nav] || "Dashboard")}</span>
+        <strong>${escapeHTML(pair.q)}</strong>
+        <small>${escapeHTML(qaPreview(pair.a))}</small>
+      `);
+      btn.type = "button";
+      btn.setAttribute("aria-pressed", active ? "true" : "false");
+      btn.style.setProperty("--qa", cat.color || "var(--accent)");
+      btn.addEventListener("click", () => {
+        selectedQaQuestion = pair.q;
+        $("#qaInput").value = "";
+        $("#qaInput").placeholder = QA_PLACEHOLDER;
+        drop.hidden = true;
+        $("#qaBox").classList.remove("open");
+        $("#qaToggle").setAttribute("aria-expanded", "false");
+        answerQuestion(pair.q, pair);
+      });
+      group.appendChild(btn);
+    };
+    if (q && pairs.length) {
+      const group = el("div", "qa-group qa-search-results");
+      group.style.setProperty("--qa", "var(--accent)");
+      group.appendChild(el("div", "qa-group-title", `<span>검색 결과</span><em>관련도순</em>`));
+      pairs.forEach((pair) => appendOption(group, pair, qaCat(pair)));
+      drop.appendChild(group);
+      return;
+    }
     cats.forEach((cat) => {
       const groupPairs = pairs.filter((pair) => pair.cat === cat.id);
       if (!groupPairs.length) return;
       const group = el("div", "qa-group");
-      group.appendChild(el("div", "qa-group-title", escapeHTML(cat.name)));
+      group.style.setProperty("--qa", cat.color || "var(--accent)");
+      group.appendChild(el("div", "qa-group-title", `<span>${escapeHTML(cat.name)}</span><em>${fmtNum(groupPairs.length)}</em>`));
       groupPairs.forEach((pair) => {
-        const btn = el("button", "qa-option", escapeHTML(pair.q));
-        btn.type = "button";
-        btn.style.setProperty("--qa", cat.color || "var(--accent)");
-        btn.addEventListener("click", () => {
-          $("#qaInput").value = pair.q;
-          drop.hidden = true;
-          answerQuestion(pair.q);
-        });
-        group.appendChild(btn);
+        appendOption(group, pair, cat);
       });
       drop.appendChild(group);
     });
@@ -7036,35 +7077,175 @@
     }
   }
 
-  function answerQuestion(query) {
+  function answerQuestion(query, forcedPair) {
     const data = BASE.qa || { pairs: [] };
     const q = String(query || "").trim();
     if (!q) return;
 
-    const scored = (data.pairs || []).map((pair) => {
-      const tokens = [pair.q].concat(pair.keywords || []).map((x) => String(x).toLowerCase());
-      const hay = q.toLowerCase();
-      const pairHay = `${pair.q} ${pair.a} ${(pair.keywords || []).join(" ")}`.toLowerCase();
-      const queryTerms = hay.split(/\s+/).map((term) => term.trim()).filter(Boolean);
-      const score = tokens.reduce((acc, token) => acc + (token && hay.includes(token) ? 3 : 0), 0) +
-        queryTerms.reduce((acc, term) => acc + (term && pairHay.includes(term) ? 2 : 0), 0) +
-        (pair.q.toLowerCase().includes(hay) ? 5 : 0);
-      return { pair, score };
-    }).sort((a, b) => b.score - a.score);
-
-    const best = scored[0]?.score > 0 ? scored[0].pair : data.pairs[0];
-    showAnswer(best || { q, a: "관련 답변을 찾지 못했습니다.", nav: "overview" });
+    const scored = (data.pairs || []).map((pair) => ({ pair, score: qaMatchScore(pair, q) })).sort((a, b) => b.score - a.score);
+    const best = forcedPair || (scored[0]?.score > 0 ? scored[0].pair : null) || dashboardFallbackPair(q);
+    selectedQaQuestion = best.q;
+    const input = $("#qaInput");
+    if (input) {
+      input.value = "";
+      input.placeholder = QA_PLACEHOLDER;
+    }
+    showAnswer(best, q);
   }
 
-  function showAnswer(pair) {
+  function qaNormalize(value) {
+    return String(value || "")
+      .toLowerCase()
+      .replace(/[^\p{L}\p{N}.$%+]+/gu, " ")
+      .replace(/\s+/g, " ")
+      .trim();
+  }
+
+  function qaTerms(pair = {}, query = "") {
+    const raw = `${query} ${pair.q || ""} ${(pair.keywords || []).join(" ")}`;
+    const stop = new Set(["무엇인가", "무엇", "왜", "어떻게", "하나", "해야", "되나", "있나", "시장", "memory", "메모리", "대해"]);
+    return Array.from(new Set(qaNormalize(raw).split(" ").filter((term) => term.length > 1 && !stop.has(term)))).slice(0, 24);
+  }
+
+  function qaScoreText(text, terms = []) {
+    const hay = qaNormalize(text);
+    if (!hay || !terms.length) return 0;
+    return terms.reduce((score, term) => score + (hay.includes(term) ? Math.min(8, Math.max(2, term.length)) : 0), 0);
+  }
+
+  function qaMatchScore(pair = {}, query = "") {
+    const q = qaNormalize(query);
+    if (!q) return 0;
+    const terms = qaTerms(pair, query);
+    const pairHay = `${pair.q || ""} ${pair.a || ""} ${(pair.keywords || []).join(" ")}`;
+    let score = qaScoreText(pairHay, terms);
+    if (qaNormalize(pair.q).includes(q)) score += 18;
+    (pair.keywords || []).forEach((keyword) => {
+      const key = qaNormalize(keyword);
+      if (key && q.includes(key)) score += 10;
+    });
+    return score;
+  }
+
+  function qaPreview(text = "") {
+    return String(text || "").replace(/\s+/g, " ").trim().slice(0, 108);
+  }
+
+  function qaCat(pair = {}) {
+    return (BASE.qa?.cats || []).find((cat) => cat.id === pair.cat) || { name: "Dashboard", color: "var(--accent)" };
+  }
+
+  function dashboardFallbackPair(query) {
+    const terms = qaTerms({}, query);
+    return {
+      cat: "strategy",
+      q: query,
+      a: "정확히 일치하는 드롭다운 질문은 없지만, 입력한 자연어와 가까운 대시보드 신호를 기준으로 답합니다.\n\n아래의 관련 가격 rows, 기사, 벤치마킹 신호를 먼저 확인하세요. 특정 업체·제품·정책 키워드를 함께 입력하면 CXMT, YMTC, HBM, NAND, BIS, TrendForce 같은 보드로 더 정확히 연결됩니다.",
+      keywords: terms,
+      nav: terms.some((term) => /price|spot|contract|가격|trendforce/.test(term)) ? "prices" : "overview",
+    };
+  }
+
+  function qaRelatedNews(pair = {}, query = "", limit = 4) {
+    const terms = qaTerms(pair, query);
+    const seen = new Set();
+    return rawNews()
+      .map((item) => ({
+        item,
+        score: qaScoreText(`${newsTitle(item)} ${item.title || ""} ${item.summary || ""} ${item.source || ""} ${item.category || ""}`, terms),
+      }))
+      .filter(({ item, score }) => {
+        const key = canonicalNewsKey(item);
+        if (!key || seen.has(key) || score <= 0) return false;
+        seen.add(key);
+        return true;
+      })
+      .sort((a, b) => b.score - a.score)
+      .slice(0, limit)
+      .map(({ item }) => item);
+  }
+
+  function qaRelatedPrices(pair = {}, query = "", limit = 4) {
+    const terms = qaTerms(pair, query);
+    const rows = allPriceRows()
+      .map((row) => ({
+        row,
+        score: qaScoreText(`${row.group || ""} ${row.sectionTitle || ""} ${row.item || ""} ${row.direction || ""}`, terms),
+      }))
+      .filter(({ score }) => score > 0)
+      .sort((a, b) => b.score - a.score)
+      .slice(0, limit)
+      .map(({ row }) => row);
+    if (rows.length) return rows;
+    if ((pair.nav || "") === "prices" || /spot|contract|가격|trendforce/i.test(`${query} ${(pair.keywords || []).join(" ")}`)) {
+      return allPriceRows().slice(0, limit);
+    }
+    return [];
+  }
+
+  function qaBenchmarkCount(pair = {}, query = "") {
+    const terms = qaTerms(pair, query);
+    const chinaTerms = ["cxmt", "ymtc", "china", "중국", "nand", "dram", "bis", "wuxi", "fab", "ipo"];
+    if (!terms.some((term) => chinaTerms.includes(term))) return 0;
+    return benchmarkSignalTotal();
+  }
+
+  function qaLiveContextHTML(pair = {}, query = "") {
+    const relatedNews = qaRelatedNews(pair, query, 4);
+    const relatedPrices = qaRelatedPrices(pair, query, 4);
+    const allRows = allPriceRows();
+    const allNews = rawNews();
+    const benchmarkCount = qaBenchmarkCount(pair, query);
+    const metrics = [
+      { label: "업데이트", value: fmtDate(LIVE.updatedAt), note: "live.json" },
+      { label: "관련 기사", value: relatedNews.length || allNews.length, note: relatedNews.length ? "질문 키워드 매칭" : "전체 기사 풀" },
+      { label: "가격 rows", value: relatedPrices.length || allRows.length, note: "TrendForce spot/contract" },
+      { label: "벤치마킹", value: benchmarkCount || benchmarkSignalTotal(), note: "중국·외신 신호" },
+    ];
+    return `
+      <section class="qa-live-context">
+        <div class="qa-live-head">
+          <span>대시보드 최신 데이터 기반</span>
+          <strong>${escapeHTML(SECTION_LABELS[pair.nav] || "관련 보드")} · ${escapeHTML(fmtDate(LIVE.updatedAt))}</strong>
+        </div>
+        <div class="qa-live-metrics">
+          ${metrics.map((metric) => `
+            <article>
+              <span>${escapeHTML(metric.label)}</span>
+              <strong>${typeof metric.value === "number" ? fmtNum(metric.value) : escapeHTML(metric.value)}</strong>
+              <small>${escapeHTML(metric.note)}</small>
+            </article>
+          `).join("")}
+        </div>
+        ${relatedPrices.length ? `
+          <div class="qa-live-block">
+            <h4>연결 가격</h4>
+            <ul>${relatedPrices.map((row) => `<li><span>${escapeHTML(row.group || row.sectionTitle || "Price")}</span><strong>${escapeHTML(row.item || "")}</strong><em>${escapeHTML(row.averageRaw || row.average || "-")} · ${escapeHTML(row.changeRaw || `${fmtNum(Number(row.changePct || 0), 2)}%`)}</em></li>`).join("")}</ul>
+          </div>
+        ` : ""}
+        ${relatedNews.length ? `
+          <div class="qa-live-block">
+            <h4>연결 기사</h4>
+            <ul>${relatedNews.map((item) => `<li><span>${escapeHTML(item.source || "News")}</span><a href="${escapeHTML(item.link || item.sourceUrl || "#")}" target="_blank" rel="noopener">${escapeHTML(newsTitle(item) || item.title || "기사")}</a><em>${escapeHTML(shortKstDate(item.date || item.publishedAt || item.crawledAt || LIVE.updatedAt) || "")}</em></li>`).join("")}</ul>
+          </div>
+        ` : ""}
+      </section>
+    `;
+  }
+
+  function showAnswer(pair, query = "") {
     const overlay = $("#qaAnswer");
+    const cat = qaCat(pair);
     overlay.hidden = false;
     document.body.style.overflow = "hidden";
     overlay.innerHTML = `
-      <div class="answer-panel" role="dialog" aria-modal="true">
+      <div class="answer-panel" role="dialog" aria-modal="true" style="--answer-accent:${escapeHTML(cat.color || "var(--accent)")}">
         <div class="answer-head">
           <span>A</span>
-          <strong>${escapeHTML(pair.q)}</strong>
+          <div>
+            <em>${escapeHTML(cat.name)} · ${escapeHTML(SECTION_LABELS[pair.nav] || "Dashboard")}</em>
+            <strong>${escapeHTML(pair.q)}</strong>
+          </div>
           <button type="button" id="answerClose">닫기</button>
         </div>
         <div class="answer-body" id="answerBody"></div>
@@ -7083,7 +7264,7 @@
       if (event.target === overlay) closeAnswer();
     }, { once: true });
 
-    typeAnswer(pair.a || "");
+    typeAnswer(pair.a || "", pair, query || pair.q);
   }
 
   function closeAnswer() {
@@ -7094,9 +7275,10 @@
     document.body.style.overflow = "";
   }
 
-  function typeAnswer(text) {
+  function typeAnswer(text, pair = {}, query = "") {
     const body = $("#answerBody");
     const highlighted = highlight(text);
+    const liveHTML = qaLiveContextHTML(pair, query);
     const plain = text;
     let i = 0;
     if (typeTimer) clearInterval(typeTimer);
@@ -7105,7 +7287,7 @@
       if (i >= plain.length) {
         clearInterval(typeTimer);
         typeTimer = null;
-        body.innerHTML = highlighted;
+        body.innerHTML = `${highlighted}${liveHTML}`;
         return;
       }
       body.textContent = plain.slice(0, i) + "▋";
@@ -7114,7 +7296,7 @@
 
   function highlight(text) {
     return escapeHTML(text).replace(
-      /(CXMT|YMTC|XMC|JCET|Naura|AMEC|TrendForce|HBM4?E?|DRAM|NAND|DDR5|LPDDR|CXL|IP|TSV|EUV|DUV|Big Fund|빅펀드|메기|비대칭|마이크로데이터)/g,
+      /(CXMT|YMTC|XMC|JCET|Naura|AMEC|ACM|TrendForce|Reuters|Counterpoint|TechInsights|Yole|Nvidia|TSMC|CoWoS|Rubin|HBM4?E?|HBM5|DRAM|NAND|DDR5|LPDDR|CXL|PIM|IP|TSV|EUV|DUV|BIS|VEU|IPO|STAR|Big Fund|빅펀드|텐센트|메기|비대칭|마이크로데이터|Xtacking|eSSD)/g,
       "<b>$1</b>",
     );
   }
