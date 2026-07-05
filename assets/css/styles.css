@@ -6761,6 +6761,7 @@ body.sidebar-collapsed .sb-ico {
 }
 
 .news-company-select {
+  flex: 0 0 190px;
   max-width: min(240px, 100%);
   min-height: 32px;
   border: 1px solid var(--line);
@@ -7385,6 +7386,13 @@ body.sidebar-collapsed .sb-ico {
   .board-head-actions {
     width: 100%;
     justify-content: flex-start;
+  }
+
+  .board-head-actions .news-company-select,
+  .board-head-actions .news-search {
+    width: 100%;
+    max-width: 100%;
+    flex-basis: 100%;
   }
 
   .freshness-badge {

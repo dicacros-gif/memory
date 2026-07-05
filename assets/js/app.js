@@ -9095,6 +9095,18 @@
     });
   }
 
+  function setNewsFreshness() {
+    const node = $("#newsFreshness");
+    if (!node) return;
+    const updatedAt = LIVE.news?.updatedAt || LIVE.updatedAt;
+    const total = rawNews().length;
+    const stale = hoursSince(updatedAt) > 18;
+    const cls = total && !stale ? "ok" : "stale";
+    const label = total ? (stale ? "확인 필요" : "업데이트") : "수집 대기";
+    node.className = `freshness-badge ${cls}`;
+    node.textContent = `${label} · 뉴스 · ${fmtDate(updatedAt)} · Google News RSS + 큐레이션`;
+  }
+
   function renderNews() {
     const tabs = $("#newsTabs");
     tabs.innerHTML = "";
@@ -9147,14 +9159,7 @@
       if (bucket) bucket.hidden = tab.id !== newsSource;
       if (count) count.textContent = `${fmtNum(sourceCount)}건`;
     });
-    setFreshness("#newsFreshness", {
-      label: "뉴스",
-      updatedAt: LIVE.updatedAt,
-      source: "Google News RSS + 큐레이션",
-      count: rawNews().length,
-      healthKeys: ["뉴스:"],
-      staleHours: 18,
-    });
+    setNewsFreshness();
     renderNewsBucket($(`#${activeTab.listId}`), items, `조건에 맞는 ${activeTab.label} 없음`);
   }
 
