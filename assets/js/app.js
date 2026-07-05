@@ -5439,12 +5439,9 @@
       focus.querySelector("[data-decision-inspector]")?.addEventListener("click", () => openInspector(payload));
       focus.querySelector("[data-decision-prices]")?.addEventListener("click", () => jumpTo("prices"));
 
-      evidence.innerHTML = `
-        <div class="crawler-panel-head">
-          <h3>백테스트 근거 데이터</h3>
-          <span>실제 가격 series · proxy 명시 · 선택 시점 이후 결과</span>
-        </div>
-        ${active.observations.length ? `
+      if (active.observations.length) {
+        evidence.hidden = false;
+        evidence.innerHTML = `
           <div class="decision-table-wrap">
             <table class="decision-table">
               <thead>
@@ -5471,10 +5468,14 @@
               </tbody>
             </table>
           </div>
-        ` : `<div class="empty">선택한 시점 이후 실제 결과를 계산할 수 있는 가격 포인트가 없습니다. 더 많은 일일 수집이 누적되면 자동으로 백테스트가 열립니다.</div>`}
-      `;
+        `;
+      } else {
+        evidence.hidden = true;
+        evidence.innerHTML = "";
+      }
     } else {
       focus.innerHTML = `<div class="empty">제품군을 선택하면 의사결정 근거가 열립니다.</div>`;
+      evidence.hidden = true;
       evidence.innerHTML = "";
     }
 
