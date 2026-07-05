@@ -33,25 +33,29 @@
           <span class="sb-ico" aria-hidden="true">H</span>
           <span class="sb-label"><strong>홈</strong><small>오늘 핵심 변화</small></span>
         </button>
+        <button class="sb-item" type="button" data-jump="executive-decision">
+          <span class="sb-ico" aria-hidden="true">A</span>
+          <span class="sb-label"><strong>경영진</strong><small>의사결정 · AGENT · 백테스트</small></span>
+        </button>
+        <button class="sb-item" type="button" data-jump="management-strategy">
+          <span class="sb-ico" aria-hidden="true">S</span>
+          <span class="sb-label"><strong>전략/투자</strong><small>중국 사업 · ROI · 실행</small></span>
+        </button>
         <button class="sb-item" type="button" data-jump="prices">
           <span class="sb-ico" aria-hidden="true">M</span>
           <span class="sb-label"><strong>시장</strong><small>가격 · 기사 · 수급</small></span>
-        </button>
-        <button class="sb-item" type="button" data-jump="policy-makers">
-          <span class="sb-ico" aria-hidden="true">P</span>
-          <span class="sb-label"><strong>정책</strong><small>중국 · 한국 · 미국</small></span>
         </button>
         <button class="sb-item" type="button" data-jump="china-nand">
           <span class="sb-ico" aria-hidden="true">C</span>
           <span class="sb-label"><strong>경쟁사</strong><small>CXMT · YMTC · OSAT</small></span>
         </button>
+        <button class="sb-item" type="button" data-jump="policy-makers">
+          <span class="sb-ico" aria-hidden="true">P</span>
+          <span class="sb-label"><strong>정책/Fab</strong><small>정책 · 토지 · 용수 · 전력</small></span>
+        </button>
         <button class="sb-item" type="button" data-jump="talent-radar">
           <span class="sb-ico" aria-hidden="true">T</span>
           <span class="sb-label"><strong>인재/IP</strong><small>채용 · 대학 · 보안</small></span>
-        </button>
-        <button class="sb-item" type="button" data-jump="executive-decision">
-          <span class="sb-ico" aria-hidden="true">A</span>
-          <span class="sb-label"><strong>분석실</strong><small>의사결정 · ROI · 백테스트</small></span>
         </button>
         <button class="sb-item" type="button" data-jump="evidence-framework">
           <span class="sb-ico" aria-hidden="true">R</span>
@@ -61,10 +65,11 @@
 
       <div class="sb-block sb-quick">
         <div class="sb-block-title">빠른 이동</div>
-        <button type="button" data-jump="daily-review">일일 리뷰</button>
-        <button type="button" data-jump="news">기사 스트림</button>
+        <button type="button" data-jump="executive-decision">경영진 의사결정</button>
+        <button type="button" data-jump="management-strategy">전략/투자 분석</button>
+        <button type="button" data-jump="prices">가격·기사</button>
         <button type="button" data-jump="projection">제품 예측</button>
-        <button type="button" data-jump="workbench">워크벤치</button>
+        <button type="button" data-jump="daily-review">일일 리뷰</button>
       </div>
 
       <details class="sb-block sb-filter">
@@ -161,6 +166,23 @@
             <aside class="decision-focus" id="execDecisionFocus"></aside>
           </div>
           <div class="decision-evidence" id="execDecisionEvidence"></div>
+          <div class="ceo-challenge-board">
+            <div class="crawler-panel-head">
+              <h3>CEO 챌린지 · AGENT 답변</h3>
+              <span id="ceoChallengeMeta">시나리오와 투자안을 선택해 반론을 검증</span>
+            </div>
+            <div class="ceo-challenge-controls">
+              <label>
+                <span>답변 대상</span>
+                <select id="ceoChallengeTarget" aria-label="CEO 챌린지 답변 대상"></select>
+              </label>
+              <label>
+                <span>CEO 챌린지</span>
+                <select id="ceoChallengeSelect" aria-label="CEO 챌린지 선택"></select>
+              </label>
+            </div>
+            <div class="ceo-agent-answer" id="ceoAgentAnswer"></div>
+          </div>
         </section>
 
         <section class="board investment-board management-strategy-board" id="management-strategy">
@@ -287,23 +309,6 @@
               <span>크롤링 신호 → O/X 게이트 → 투자안 → ROI → 실행 판단</span>
             </div>
             <div class="talent-planning-map" id="talentScenarioPlanning"></div>
-          </div>
-          <div class="ceo-challenge-board">
-            <div class="crawler-panel-head">
-              <h3>CEO 챌린지 · AGENT 답변</h3>
-              <span id="ceoChallengeMeta">시나리오와 투자안을 선택해 반론을 검증</span>
-            </div>
-            <div class="ceo-challenge-controls">
-              <label>
-                <span>답변 대상</span>
-                <select id="ceoChallengeTarget" aria-label="CEO 챌린지 답변 대상"></select>
-              </label>
-              <label>
-                <span>CEO 챌린지</span>
-                <select id="ceoChallengeSelect" aria-label="CEO 챌린지 선택"></select>
-              </label>
-            </div>
-            <div class="ceo-agent-answer" id="ceoAgentAnswer"></div>
           </div>
         </section>
 
@@ -718,6 +723,6 @@
   <div class="qa-answer" id="qaAnswer" hidden></div>
   <div class="inspector" id="inspector" hidden></div>
   <div class="backdrop" id="backdrop"></div>
-  <script src="assets/js/app.js?v=ai-ux-20260705-talent-sources-hidden" defer></script>
+  <script src="assets/js/app.js?v=ai-ux-20260705-ceo-agent-exec" defer></script>
 </body>
 </html>
