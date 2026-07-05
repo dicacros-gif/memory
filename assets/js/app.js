@@ -89,6 +89,7 @@
     "strategic-investment-decision": "#FBCFE8",
     "policy-makers": "#BFDBFE",
     "china-fab-infra": "#67E8F9",
+    "china-talent-strategy": "#F0ABFC",
     "daily-review": "#A7F3D0",
     numbers: "#FDE68A",
     projection: "#FBBF24",
@@ -292,6 +293,122 @@
       ],
       sources: [
         { label: "SK hynix China offices", url: "https://www.skhynix.com/company/UI-FR-CP06/" },
+      ],
+    },
+  ];
+  const CHINA_TALENT_STRATEGY_SCENARIOS = [
+    {
+      id: "operate",
+      label: "운영 유지",
+      en: "Operate",
+      subtitle: "Wuxi · Dalian · Chongqing",
+      accentCategory: "operations",
+      verdict: "O / 현지 운영 안정화",
+      status: "OK",
+      direction: "중국 내 기존 거점은 신규 선단 이전보다 운영 연속성, EHS, 설비 유지보수, 고객 품질 대응 인력을 안정적으로 확보하는 것이 우선입니다.",
+      decision: "Wuxi DRAM, Dalian storage, Chongqing 운영 거점은 현지 채용을 유지하되 핵심 공정 recipe와 선단 수율 데이터 접근권은 본사 통제 아래 둡니다.",
+      keywords: ["wuxi", "dalian", "chongqing", "sk hynix", "ehs", "facility", "quality", "maintenance", "operator", "engineer"],
+      roles: [
+        { name: "Fab 운영·설비 유지", target: "Wuxi", plan: "장비 PM, facility, utility, EHS, 품질 인력을 현지 상시 풀로 확보" },
+        { name: "스토리지 고객 품질", target: "Dalian", plan: "eSSD/SSD 고객 대응, FA, 신뢰성, 물류 운영 인력을 보강" },
+        { name: "후공정·보세구 운영", target: "Chongqing", plan: "패키징/테스트 운영, 보세구 통관, 고객 납기 관리 인력을 유지" },
+      ],
+      channels: ["공식 채용", "현지 대학·전문대 협력", "협력사 전환 채용", "EHS·facility 인증 인력 풀"],
+      gates: [
+        { axis: "채용 범위", status: "O", title: "현지 운영·EHS·설비 인력 확보", evidence: "공개 공식 거점은 Wuxi, Dalian, Chongqing으로 확인됩니다.", implication: "중국 법인의 안정 운영을 위한 현지 채용은 O로 판단합니다.", source: "SK hynix Offices", sourceUrl: "https://www.skhynix.com/company/UI-FR-CP06/" },
+        { axis: "데이터 접근", status: "Watch", title: "공정 데이터 접근권 최소화", evidence: "중국 사업은 미국 수출통제와 한국 국가핵심기술 보호 관점에서 운영 유지와 기술 업그레이드를 분리해야 합니다.", implication: "현지 운영 인력에게 필요한 업무권한만 부여하고 recipe·수율 데이터 접근은 로그화합니다.", source: "BIS", sourceUrl: "https://www.bis.gov/press-release/department-commerce-closes-export-controls-loophole-foreign-owned-semiconductor-fabs-china" },
+        { axis: "금지선", status: "X", title: "경쟁사 영업비밀·recipe 반입 금지", evidence: "인력 확보는 합법적 공개 채용과 내부 리텐션 중심으로 설계해야 합니다.", implication: "경쟁사 비밀자료, 수율 recipe, 고객 비공개 데이터를 가져오는 방식은 금지합니다.", source: "Compliance rule", sourceUrl: "https://www.skhynix.com/company/UI-FR-CP06/" },
+      ],
+      actions: ["중국 거점별 핵심 직무 vacancy를 월별로 점검", "EHS·facility·품질 인력은 로컬 풀을 유지", "접근권·퇴직자 자료 반출 로그를 인사/보안 KPI로 관리"],
+      sources: [
+        { label: "SK hynix China offices", url: "https://www.skhynix.com/company/UI-FR-CP06/" },
+        { label: "BIS VEU China fabs", url: "https://www.bis.gov/press-release/department-commerce-closes-export-controls-loophole-foreign-owned-semiconductor-fabs-china" },
+      ],
+    },
+    {
+      id: "nand-essd",
+      label: "NAND/eSSD 강화",
+      en: "NAND / eSSD",
+      subtitle: "Dalian · Solidigm · customer quality",
+      accentCategory: "nand",
+      verdict: "조건부 O",
+      status: "Watch",
+      direction: "중국 NAND·eSSD 사업은 Dalian/Solidigm 자산, 중국 서버 고객, YMTC eSSD 침투 신호를 함께 보며 고객 품질·펌웨어 검증·FAE 인력을 확보해야 합니다.",
+      decision: "고객 대응과 제품 검증 인력은 확충하되, 컨트롤러 IP와 펌웨어 핵심 소스 접근은 지역·직무별로 차등 통제합니다.",
+      keywords: ["dalian", "solidigm", "enterprise ssd", "essd", "ymtc", "nand", "firmware", "customer quality", "fae", "validation"],
+      roles: [
+        { name: "eSSD 고객 품질·FAE", target: "Dalian / China customer", plan: "중국 서버·스토리지 고객의 qualification, RMA, FA 대응 속도 강화" },
+        { name: "펌웨어 검증·신뢰성", target: "Dalian / global link", plan: "현지 검증 인력은 확대하되 핵심 펌웨어 소스와 보안키 접근은 분리" },
+        { name: "NAND 가격·고객 정보 분석", target: "China sales ops", plan: "YMTC, eSSD 조달, NAND 계약가, 내수 보조금 신호를 매일 분석" },
+      ],
+      channels: ["공식 경력 채용", "고객 품질/FAE 추천 채용", "대학 펌웨어·스토리지 랩", "중국 서버 고객 공동 품질 워룸"],
+      gates: [
+        { axis: "사업 필요성", status: "O", title: "Dalian/Solidigm 스토리지 운영과 연결", evidence: "SK하이닉스는 Intel NAND/SSD 사업 1단계 인수를 완료했고 Solidigm을 통해 SSD 사업을 운영합니다.", implication: "eSSD 고객 품질·검증 인력은 중국 사업 방어에 직접 필요합니다.", source: "SK hynix Newsroom", sourceUrl: "https://news.skhynix.com/sk-hynix-completes-the-first-phase-of-intel-nand-and-ssd-business-acquisition/" },
+        { axis: "IP 통제", status: "Watch", title: "펌웨어·컨트롤러 IP 접근 분리", evidence: "NAND 사업 강화는 고객 대응 인력과 핵심 IP 접근 인력을 분리해야 합니다.", implication: "현지 인력은 검증·품질·고객 대응 중심, 핵심 펌웨어 소스는 본사 통제 중심으로 둡니다.", source: "Internal control logic", sourceUrl: "https://www.skhynix.com/company/UI-FR-CP06/" },
+        { axis: "금지선", status: "X", title: "경쟁사 고객 비공개 인증자료 활용 금지", evidence: "YMTC 등 경쟁사 동향은 공개 기사·공식 채용·특허·가격 신호로만 수집해야 합니다.", implication: "고객 NDA 자료나 경쟁사 비공개 테스트 데이터를 채용 조건으로 요구하지 않습니다.", source: "Compliance rule", sourceUrl: "https://www.skhynix.com/company/UI-FR-CP06/" },
+      ],
+      actions: ["중국 eSSD 고객별 FAE coverage map 작성", "펌웨어·검증 인력의 접근권 등급화", "YMTC eSSD/내수 조달 신호와 Dalian 채용 계획을 연결"],
+      sources: [
+        { label: "SK hynix Intel NAND acquisition", url: "https://news.skhynix.com/sk-hynix-completes-the-first-phase-of-intel-nand-and-ssd-business-acquisition/" },
+        { label: "SK hynix China offices", url: "https://www.skhynix.com/company/UI-FR-CP06/" },
+      ],
+    },
+    {
+      id: "infra-packaging",
+      label: "Fab·패키징 확장",
+      en: "Infra / Packaging",
+      subtitle: "Wuxi utilities · Chongqing backend",
+      accentCategory: "packaging",
+      verdict: "확인필요",
+      status: "Check",
+      direction: "추가 fab 또는 패키징 확장은 토지·용수·전력·환경·BIS 제약이 모두 충족될 때만 가능하므로, 생산 인력보다 먼저 유틸리티·EHS·인허가·패키징 산업공학 인력이 필요합니다.",
+      decision: "증설 O/X가 확정되기 전에는 설비·수처리·전력·환경 인허가 인력을 option 형태로 확보하고, 선단 공정 이전 직무는 승인 전 채용하지 않습니다.",
+      keywords: ["wuxi", "k7", "c2f", "water", "wastewater", "power", "facility", "packaging", "test", "chongqing", "environmental impact"],
+      roles: [
+        { name: "유틸리티·전력·수처리", target: "Wuxi", plan: "전력 수전, 냉동기 부하, 공정용수, 폐수총량을 숫자로 검증할 현지 전문가 확보" },
+        { name: "환경 인허가·정부 대응", target: "Wuxi / Chongqing", plan: "EIA, 보세구, 배출총량, 화학물질 규제 대응 전담" },
+        { name: "패키징·테스트 산업공학", target: "Chongqing", plan: "후공정/테스트 증설 가능성만 검토하고 전공정 선단 recipe 직무와 분리" },
+      ],
+      channels: ["EHS 전문 채용", "전력·수처리 협력사 인력 풀", "지방정부/보세구 인허가 전문가", "패키징 테스트 경력 채용"],
+      gates: [
+        { axis: "선행조건", status: "확인필요", title: "토지·용수·전력 숫자 확인 전 채용 제한", evidence: "Wuxi K7 EIA와 C2F 근거는 있으나 추가 신규 fab의 전력 수전·남은 부지·용수 배정 숫자는 공개 확인이 부족합니다.", implication: "확장형 생산 인력 채용은 숫자 확인 후 단계적으로 열어야 합니다.", source: "Wuxi EIA", sourceUrl: "https://www.wnd.gov.cn/doc/2017/02/28/2386281.shtml" },
+        { axis: "규제", status: "X", title: "BIS 승인 없는 캐파 확대·기술 업그레이드 인력 투입 금지", evidence: "BIS는 기존 운영 라이선스와 중국 내 캐파 확대/기술 업그레이드를 분리했습니다.", implication: "인프라가 가능해도 규제 승인 전 선단 공정 인력 채용은 No-Go입니다.", source: "BIS", sourceUrl: "https://www.bis.gov/press-release/department-commerce-closes-export-controls-loophole-foreign-owned-semiconductor-fabs-china" },
+        { axis: "허용범위", status: "O", title: "EHS·facility 검증 인력은 선제 확보 가능", evidence: "공개 EIA와 보세구 자료는 환경·물류·유틸리티 검증 필요성을 보여줍니다.", implication: "확장 여부와 무관하게 시설 안정성과 규제 대응 인력은 확보 가치가 있습니다.", source: "Wuxi Government", sourceUrl: "https://en.wuxi.gov.cn/2025-07/31/c_1113622.htm" },
+      ],
+      actions: ["전력·용수·폐수 숫자를 채용 승인 게이트로 설정", "facility/EHS 인력은 option pool로 확보", "패키징 인력과 전공정 선단 인력을 별도 승인 체계로 분리"],
+      sources: [
+        { label: "Wuxi K7 EIA", url: "https://www.wnd.gov.cn/doc/2017/02/28/2386281.shtml" },
+        { label: "Wuxi bonded zone expansion", url: "https://en.wuxi.gov.cn/2025-07/31/c_1113622.htm" },
+        { label: "BIS VEU China fabs", url: "https://www.bis.gov/press-release/department-commerce-closes-export-controls-loophole-foreign-owned-semiconductor-fabs-china" },
+      ],
+    },
+    {
+      id: "defense",
+      label: "리스크 방어",
+      en: "Defense",
+      subtitle: "IP · retention · compliance",
+      accentCategory: "geopolitics",
+      verdict: "O / 방어 우선",
+      status: "OK",
+      direction: "중국 메모리 경쟁이 인재·IP·수율 recipe 축으로 이동할수록 신규 채용보다 핵심 인력 리텐션, 퇴직자 관리, 접근권 통제, 공개 채용 신호 분석 인력이 더 중요합니다.",
+      decision: "중국 인력 전략은 확보와 방어를 동시에 보되, 기술 유출 가능성이 있는 직무는 보상·보안·법무 예산을 먼저 배정합니다.",
+      keywords: ["talent", "ip", "yield", "retention", "compliance", "trade secret", "engineer", "boss zhipin", "liepin", "maimai", "cnipa"],
+      roles: [
+        { name: "핵심 인력 리텐션", target: "Korea / China interface", plan: "수율·패키징·펌웨어 핵심 인력의 보상, 경력경로, 이직 위험 신호를 월별 관리" },
+        { name: "IP·보안·법무", target: "HQ / China subsidiaries", plan: "퇴직자 자료반출, 접근권, 협력사 계정, 로컬 채용 접촉 로그를 통합" },
+        { name: "공개 채용 인텔리전스", target: "China public sources", plan: "CXMT/YMTC 공식 채용, Boss Zhipin/Liepin/Maimai, 대학 취업센터, 특허 키워드 수집" },
+      ],
+      channels: ["리텐션 패키지", "법무·보안 전담 채용", "공개 채용/특허 크롤링", "대학·산학 신호 모니터링"],
+      gates: [
+        { axis: "방어 투자", status: "O", title: "핵심 수율 인력 리텐션 예산 선집행", evidence: "중국 Talent/IP 레이더는 수율·TSV·Xtacking·캠퍼스 채용 신호를 매일 추적합니다.", implication: "핵심 인력 방어는 비용이 아니라 HBM·DRAM·NAND 수율 자산 보호 옵션입니다.", source: "Talent radar", sourceUrl: "https://dicacros-gif.github.io/memory/" },
+        { axis: "공개정보 수집", status: "O", title: "채용 공고·특허·전문매체 기반 조기경보", evidence: "공개 채용과 특허 키워드는 경쟁사의 개발 방향을 합법적으로 추정할 수 있는 선행 신호입니다.", implication: "비공개 정보 없이도 TSV, yield, HBM, Xtacking JD 증가를 경보 지표로 쓸 수 있습니다.", source: "Crawler methodology", sourceUrl: "https://dicacros-gif.github.io/memory/data/live.json" },
+        { axis: "금지선", status: "X", title: "인력 확보를 통한 영업비밀 이전 금지", evidence: "채용은 역량 확보가 목적이며 경쟁사 영업비밀·고객 NDA·recipe 이전은 허용하지 않습니다.", implication: "면접·온보딩 단계에서 비공개 자료 반입 금지와 IP 클린룸 원칙을 명시합니다.", source: "Compliance rule", sourceUrl: "https://www.skhynix.com/company/UI-FR-CP06/" },
+      ],
+      actions: ["핵심 인력 리텐션 스코어를 경영진 탭과 연결", "퇴직자·협력사 접근권 회수를 자동 체크리스트화", "중국 공개 채용 키워드를 주간 경보로 요약"],
+      sources: [
+        { label: "Talent radar live data", url: "https://dicacros-gif.github.io/memory/data/live.json" },
+        { label: "SK hynix China offices", url: "https://www.skhynix.com/company/UI-FR-CP06/" },
+        { label: "BIS VEU China fabs", url: "https://www.bis.gov/press-release/department-commerce-closes-export-controls-loophole-foreign-owned-semiconductor-fabs-china" },
       ],
     },
   ];
@@ -1281,6 +1398,12 @@
       section: "china-fab-infra",
     },
     {
+      id: "china-talent-strategy",
+      label: "중국 인력 전략",
+      sub: "Scenario · Hiring · IP",
+      section: "china-talent-strategy",
+    },
+    {
       id: "crawler",
       label: "크롤링 관제",
       sub: "Source · Health · Map",
@@ -1368,7 +1491,7 @@
       label: "중국 전략·대응",
       desc: "중국 고객·NAND/eSSD·패키징·장비·규제·인재/IP 의사결정",
       cadence: "Decision layer",
-      sections: ["management-strategy", "strategic-investment-decision", "policy-makers", "china-fab-infra", "dynamics", "monetization", "response", "intelligence"],
+      sections: ["management-strategy", "strategic-investment-decision", "policy-makers", "china-fab-infra", "china-talent-strategy", "dynamics", "monetization", "response", "intelligence"],
     },
   ];
   const NEWS_SOURCE_TABS = [
@@ -1388,6 +1511,7 @@
     "strategic-investment-decision": "중국 전략적 의사 결정",
     "policy-makers": "정책 방향성",
     "china-fab-infra": "중국 Fab 인프라",
+    "china-talent-strategy": "중국 인력 전략",
     "daily-review": "일일 리뷰 큐",
     numbers: "숫자 대시보드",
     projection: "제품군 프로젝션",
@@ -1502,6 +1626,18 @@
       section: "china-fab-infra",
       linkedCategories: ["china", "operations", "geopolitics"],
       healthKeys: ["중국Fab인프라", "벤치마킹:China Fab Infrastructure", "뉴스:China Fab Infra"],
+    },
+    {
+      id: "china-talent-strategy",
+      label: "중국 인력 확보 전략",
+      source: "CXMT/YMTC 채용 · SK 중국 거점 · BIS/컴플라이언스 · 대학/로컬 채용 신호",
+      method: "운영 유지, NAND/eSSD 강화, Fab·패키징 확장, 리스크 방어 시나리오로 채용·리텐션·IP 게이트를 분류",
+      fields: ["확보 직무", "채용 채널", "O/X 게이트", "IP 금지선", "리텐션"],
+      filters: ["Wuxi/Dalian/Chongqing", "yield/TSV/HBM", "eSSD/firmware/FAE", "EHS/facility", "Boss Zhipin/Liepin/Maimai"],
+      output: "전략 시나리오별 중국 인력 확보 계획",
+      section: "china-talent-strategy",
+      linkedCategories: ["talent", "china", "operations", "geopolitics", "nand", "packaging"],
+      healthKeys: ["벤치마킹:China Talent Strategy", "뉴스:China Talent Strategy", "벤치마킹:Talent", "뉴스:China"],
     },
     {
       id: "china-nand-business",
@@ -1622,6 +1758,7 @@
   let strategicDecisionFocusId = "china-key-account-lock";
   let policyMakerTab = "china";
   let chinaInfraSite = "wuxi";
+  let chinaTalentScenarioId = "operate";
   let projectionFocusId = "ai-server";
   let projectionScenario = "neutral";
   let execDecisionFocusId = "hbm-ai-server";
@@ -1664,6 +1801,7 @@
     renderStrategicInvestmentDecision();
     renderPolicyMakers();
     renderChinaFabInfra();
+    renderChinaTalentStrategy();
     renderDailyReview();
     renderNumberDashboard();
     renderProductProjection();
@@ -3021,6 +3159,13 @@
         score: clamp(52 + chinaInfraSignalCount(activeChinaInfraSite()) * 6, 32, 92),
         note: "토지·용수·전력·환경·BIS 확장성",
       },
+      "china-talent-strategy": {
+        value: chinaTalentSignalCount(activeChinaTalentScenario()),
+        unit: "signal",
+        status: activeChinaTalentScenario().label,
+        score: clamp(58 + chinaTalentSignalCount(activeChinaTalentScenario()) * 3, 34, 94),
+        note: "채용·리텐션·IP·컴플라이언스",
+      },
       "daily-review": {
         value: dailyReviewItems().length,
         unit: "개",
@@ -3594,6 +3739,7 @@
     if (item.id === "foreign-news") return rawNews().filter((news) => !isChinaArticle(news)).length;
     if (item.id === "china-news") return rawNews().filter(isChinaArticle).length;
     if (item.id === "china-fab-infra") return chinaInfraSignalCount(activeChinaInfraSite());
+    if (item.id === "china-talent-strategy") return CHINA_TALENT_STRATEGY_SCENARIOS.reduce((sum, scenario) => sum + chinaTalentSignalCount(scenario), 0);
     if (item.id === "china-nand-business") return CHINA_NAND_BUSINESS_LAYERS.reduce((sum, layer) => sum + nandBusinessSignalCount(layer), 0);
     if (item.id === "skhynix-product-projection") return projectionTotalSignals();
     if (item.id === "talent-hiring-radar") {
@@ -5245,6 +5391,204 @@
     animateMeters(grid);
   }
 
+  function activeChinaTalentScenario() {
+    return CHINA_TALENT_STRATEGY_SCENARIOS.find((scenario) => scenario.id === chinaTalentScenarioId) || CHINA_TALENT_STRATEGY_SCENARIOS[0];
+  }
+
+  function chinaTalentTheme() {
+    return liveBenchmarkTheme("china_talent_strategy") || liveBenchmarkTheme("talent") || null;
+  }
+
+  function chinaTalentLiveItems(scenario = activeChinaTalentScenario(), limit = 6) {
+    const keywords = (scenario.keywords || []).map((keyword) => String(keyword).toLowerCase());
+    const items = [];
+    ["china_talent_strategy", "talent"].forEach((id) => {
+      const theme = liveBenchmarkTheme(id);
+      if (theme?.items) items.push(...theme.items);
+    });
+    const talentCategory = liveNewsCategory("china_talent_strategy");
+    if (talentCategory?.items) items.push(...talentCategory.items);
+    items.push(...rawNews().filter((item) => {
+      const hay = `${item.title || ""} ${item.titleKo || ""} ${item.summary || ""} ${item.source || ""} ${item.link || ""}`.toLowerCase();
+      return keywords.some((keyword) => hay.includes(keyword));
+    }));
+    const seen = new Set();
+    return items.filter((item) => {
+      const hay = `${item.title || item.titleKo || item.label || ""} ${item.source || ""}`.toLowerCase().replace(/\s+/g, " ").trim();
+      const related = !keywords.length || keywords.some((keyword) => hay.includes(keyword));
+      if (!hay || seen.has(hay) || !related) return false;
+      seen.add(hay);
+      return true;
+    }).slice(0, limit);
+  }
+
+  function chinaTalentSignalCount(scenario = activeChinaTalentScenario()) {
+    const theme = chinaTalentTheme();
+    const themeCount = Number(theme?.count ?? theme?.items?.length ?? 0) || 0;
+    return chinaTalentLiveItems(scenario, 24).length + Math.min(themeCount, 24);
+  }
+
+  function chinaTalentPayload(scenario) {
+    return {
+      type: "중국 인력 확보 전략",
+      tag: scenario.en,
+      title: `${scenario.label} 시나리오 인력 계획`,
+      body: `${scenario.direction} ${scenario.decision}`,
+      section: "china-talent-strategy",
+      categories: [scenario.accentCategory || "talent"],
+      watch: (scenario.roles || []).map((role) => `${role.name}: ${role.plan}`).concat((scenario.gates || []).map((gate) => `${gate.axis}: ${gate.status} - ${gate.implication}`)),
+      metrics: [
+        { label: "판단", value: scenario.verdict },
+        { label: "확보 직무", value: fmtNum((scenario.roles || []).length) },
+        { label: "O/X 게이트", value: fmtNum((scenario.gates || []).length) },
+        { label: "크롤링 신호", value: fmtNum(chinaTalentSignalCount(scenario)) },
+      ],
+      links: (scenario.sources || []).map((source) => ({ title: source.label, link: source.url })),
+      tags: [scenario.label, scenario.status, "Hiring", "Retention", "IP"].filter(Boolean),
+    };
+  }
+
+  function renderChinaTalentTabs(scenario) {
+    const tabs = $("#talentScenarioTabs");
+    if (!tabs) return;
+    tabs.innerHTML = CHINA_TALENT_STRATEGY_SCENARIOS.map((item) => `
+      <button class="policy-tab${item.id === scenario.id ? " active" : ""}" type="button" role="tab" aria-selected="${item.id === scenario.id ? "true" : "false"}" data-talent-scenario="${escapeHTML(item.id)}" style="--local-accent:${categoryAccent(item.accentCategory)}">
+        <strong>${escapeHTML(item.label)}</strong>
+        <span>${escapeHTML(item.subtitle)}</span>
+      </button>
+    `).join("");
+    tabs.querySelectorAll("[data-talent-scenario]").forEach((btn) => {
+      btn.addEventListener("click", () => {
+        chinaTalentScenarioId = btn.dataset.talentScenario;
+        renderChinaTalentStrategy();
+      });
+    });
+  }
+
+  function renderChinaTalentStrategy() {
+    const summary = $("#talentStrategySummary");
+    const grid = $("#talentStrategyRuleGrid");
+    const focus = $("#talentStrategyFocus");
+    const sourceGrid = $("#talentStrategySourceGrid");
+    const meta = $("#talentStrategyMeta");
+    const sourceMeta = $("#talentStrategySourceMeta");
+    if (!summary || !grid || !focus || !sourceGrid) return;
+
+    const scenario = activeChinaTalentScenario();
+    const accent = categoryAccent(scenario.accentCategory);
+    const payload = chinaTalentPayload(scenario);
+    const liveItems = chinaTalentLiveItems(scenario, 6);
+    const signalCount = chinaTalentSignalCount(scenario);
+    const okGates = (scenario.gates || []).filter((gate) => policyStatusClass(gate.status) === "ok").length;
+    const noGoGates = (scenario.gates || []).filter((gate) => policyStatusClass(gate.status) === "fail").length;
+    const theme = chinaTalentTheme();
+    if (meta) meta.textContent = `${scenario.label} · 확보 직무 ${fmtNum((scenario.roles || []).length)}개 · 크롤링 신호 ${fmtNum(signalCount)}개`;
+    if (sourceMeta) sourceMeta.textContent = `시나리오 ${fmtNum(CHINA_TALENT_STRATEGY_SCENARIOS.length)}개 · 라이브 ${fmtNum(liveItems.length)}개 · RSS ${fmtNum(Number(theme?.count ?? 0) || 0)}개`;
+    renderChinaTalentTabs(scenario);
+
+    summary.style.setProperty("--local-accent", accent);
+    summary.innerHTML = [
+      { label: "시나리오 판단", value: scenario.verdict, note: scenario.decision },
+      { label: "확보 직무", value: `${fmtNum((scenario.roles || []).length)}개`, note: (scenario.roles || []).map((role) => role.name).join(" · ") },
+      { label: "O 게이트", value: `${fmtNum(okGates)}개`, note: "즉시 실행 가능한 합법적 채용/리텐션 항목" },
+      { label: "X 게이트", value: `${fmtNum(noGoGates)}개`, note: "영업비밀·recipe·승인 없는 업그레이드 금지선" },
+    ].map((card, index) => `
+      <article class="policy-card reveal" style="animation-delay:${index * 25}ms">
+        <span>${escapeHTML(card.label)}</span>
+        <strong>${escapeHTML(card.value)}</strong>
+        <p>${escapeHTML(card.note)}</p>
+      </article>
+    `).join("");
+
+    grid.innerHTML = (scenario.gates || []).map((gate, index) => {
+      const cls = policyStatusClass(gate.status);
+      return `
+        <article class="policy-rule-card reveal" style="--local-accent:${accent}; animation-delay:${index * 25}ms">
+          <div class="policy-rule-top">
+            <span class="policy-status ${cls}">${escapeHTML(gate.status)}</span>
+            <small>${escapeHTML(gate.axis)}</small>
+          </div>
+          <h3>${escapeHTML(gate.title)}</h3>
+          <p>${escapeHTML(gate.evidence)}</p>
+          <em>${escapeHTML(gate.implication)}</em>
+          <div class="policy-rule-foot">${sourceLinkHTML(gate.sourceUrl, gate.source || "출처")}</div>
+        </article>
+      `;
+    }).join("");
+
+    focus.style.setProperty("--local-accent", accent);
+    focus.innerHTML = `
+      <div class="policy-focus-head">
+        <span class="chip accent">${escapeHTML(scenario.en)} · ${escapeHTML(scenario.status)}</span>
+        <h3>${escapeHTML(scenario.label)} 인력 확보 계획</h3>
+        <p>${escapeHTML(scenario.direction)}</p>
+      </div>
+      <div class="policy-verdict ${policyStatusClass(scenario.status)}">
+        <strong>${escapeHTML(scenario.verdict)}</strong>
+        <span>${escapeHTML(scenario.decision)}</span>
+      </div>
+      <div class="metric-row">
+        <div class="metric"><strong>${fmtNum(signalCount)}</strong><span>크롤링 신호</span></div>
+        <div class="metric"><strong>${fmtNum((scenario.roles || []).length)}</strong><span>확보 직무</span></div>
+        <div class="metric"><strong>${fmtNum(noGoGates)}</strong><span>No-Go</span></div>
+      </div>
+      <div class="policy-focus-block">
+        <strong>확보 직무</strong>
+        <ul class="policy-site-list">
+          ${(scenario.roles || []).map((role) => `
+            <li>
+              <b>${escapeHTML(role.name)}</b>
+              <span>${escapeHTML(role.target)}</span>
+              <small>${escapeHTML(role.plan)}</small>
+            </li>
+          `).join("")}
+        </ul>
+      </div>
+      <div class="policy-focus-block">
+        <strong>채용 채널</strong>
+        <ul class="watch-list">
+          ${(scenario.channels || []).map((channel) => `<li>${escapeHTML(channel)}</li>`).join("")}
+        </ul>
+      </div>
+      <div class="policy-focus-block">
+        <strong>실행 액션</strong>
+        <ul class="watch-list">
+          ${(scenario.actions || []).map((action) => `<li>${escapeHTML(action)}</li>`).join("")}
+        </ul>
+      </div>
+      <div class="focus-actions">
+        <button type="button" data-talent-strategy-copy>복사</button>
+        <button type="button" data-talent-strategy-inspector>상세 패널</button>
+        <button type="button" data-talent-strategy-workbench>워크벤치</button>
+      </div>
+    `;
+    focus.querySelector("[data-talent-strategy-copy]")?.addEventListener("click", (event) => copyPayload(payload, event.currentTarget));
+    focus.querySelector("[data-talent-strategy-inspector]")?.addEventListener("click", () => openInspector(payload));
+    focus.querySelector("[data-talent-strategy-workbench]")?.addEventListener("click", () => {
+      workbenchMode = "china-talent-strategy";
+      selectedInsightId = null;
+      renderWorkbench();
+      jumpTo("workbench");
+    });
+
+    const sourceItems = (scenario.sources || []).concat(liveItems.map((item) => ({
+      label: item.titleKo || item.title || item.label || item.source || "Live signal",
+      url: item.link || item.url,
+    })));
+    sourceGrid.innerHTML = sourceItems.map((source, index) => `
+      <article class="policy-source-card reveal" style="--local-accent:${accent}; animation-delay:${index * 25}ms">
+        <span>인력 전략 소스</span>
+        <strong>${escapeHTML(source.label)}</strong>
+        ${sourceLinkHTML(source.url, "열기")}
+      </article>
+    `).join("");
+
+    animateCounts(summary);
+    animateCounts(grid);
+    animateMeters(summary);
+    animateMeters(grid);
+  }
+
   function projectionAnchorDate() {
     const date = new Date(LIVE.updatedAt || Date.now());
     return Number.isNaN(date.getTime()) ? new Date() : date;
@@ -6107,6 +6451,28 @@
         ],
         tags: [site.verdict, check.axis, "Land/Water/Power"].filter(Boolean),
         links: check.sourceUrl ? [{ title: check.source || check.title, link: check.sourceUrl }] : [],
+      })));
+    }
+
+    if (mode === "china-talent-strategy") {
+      items = CHINA_TALENT_STRATEGY_SCENARIOS.flatMap((scenario) => (scenario.gates || []).map((gate) => ({
+        id: `talent-strategy-${scenario.id}-${gate.axis}`,
+        mode,
+        type: "중국 인력 확보 전략",
+        tag: `${scenario.label} · ${gate.status}`,
+        title: `${gate.axis} · ${gate.title}`,
+        body: `${scenario.direction} ${gate.evidence} ${gate.implication}`,
+        section: "china-talent-strategy",
+        categories: [scenario.accentCategory || "talent"],
+        watch: (scenario.roles || []).map((role) => `${role.name}: ${role.plan}`).concat(scenario.actions || [], gate.implication),
+        metrics: [
+          { label: "시나리오", value: scenario.label },
+          { label: "판단", value: gate.status },
+          { label: "신호", value: fmtNum(chinaTalentSignalCount(scenario)) },
+          { label: "직무", value: fmtNum((scenario.roles || []).length) },
+        ],
+        tags: [scenario.verdict, gate.axis, "China hiring"].filter(Boolean),
+        links: gate.sourceUrl ? [{ title: gate.source || gate.title, link: gate.sourceUrl }] : [],
       })));
     }
 
@@ -7226,7 +7592,7 @@
   }
 
   function setupScrollSpy() {
-    const sections = ["overview", "executive-decision", "management-strategy", "strategic-investment-decision", "policy-makers", "china-fab-infra", "daily-review", "crawler", "prices", "news", "china-nand", "china-dynamics", "talent-radar", "numbers", "projection", "workbench", "ai-matrix", "china-deep-dive", "categories", "competitors", "dynamics", "monetization", "response", "intelligence"];
+    const sections = ["overview", "executive-decision", "management-strategy", "strategic-investment-decision", "policy-makers", "china-fab-infra", "china-talent-strategy", "daily-review", "crawler", "prices", "news", "china-nand", "china-dynamics", "talent-radar", "numbers", "projection", "workbench", "ai-matrix", "china-deep-dive", "categories", "competitors", "dynamics", "monetization", "response", "intelligence"];
     const update = () => {
       const y = window.scrollY + chromeOffset() + 22;
       let active = "overview";
