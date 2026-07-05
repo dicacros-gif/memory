@@ -168,8 +168,6 @@
     "china-deep-dive": "#86EFAC",
     categories: "#C4B5FD",
     competitors: "#F0ABFC",
-    dynamics: "#FDBA74",
-    monetization: "#A7F3D0",
     response: "#FCA5A5",
     intelligence: "#BAE6FD",
   };
@@ -1667,18 +1665,6 @@
       section: "ai-matrix",
     },
     {
-      id: "competition",
-      label: "경쟁 구도",
-      sub: "CXMT · YMTC · OSAT",
-      section: "dynamics",
-    },
-    {
-      id: "monetization",
-      label: "수익화 모델",
-      sub: "Margin · Mix · Platform",
-      section: "monetization",
-    },
-    {
       id: "response",
       label: "대응 액션",
       sub: "P0/P1 execution",
@@ -1706,7 +1692,7 @@
       desc: "CEO 챌린지, 백테스트, 제품군 프로젝션, ROI·수익 모델",
       cadence: "Decision lab",
       jump: "executive-decision",
-      sections: ["executive-decision", "management-strategy", "strategic-investment-decision", "numbers", "projection", "workbench", "dynamics", "monetization", "response"],
+      sections: ["executive-decision", "management-strategy", "strategic-investment-decision", "numbers", "projection", "workbench", "response"],
     },
     {
       id: "market",
@@ -1767,8 +1753,6 @@
     "china-nand": "중국 NAND 사업 강화",
     "talent-radar": "인재·채용 레이더",
     "china-deep-dive": "중국 심층 벤치마킹",
-    dynamics: "경쟁 다이나믹스",
-    monetization: "벤치마킹 모델",
     response: "대응 대시보드",
     intelligence: "정보 획득 채널",
     categories: "메모리 카테고리",
@@ -1794,8 +1778,6 @@
     "ai-matrix",
     "china-deep-dive",
     "categories",
-    "dynamics",
-    "monetization",
     "response",
     "intelligence",
   ];
@@ -1817,8 +1799,6 @@
     numbers: "executive-decision",
     projection: "executive-decision",
     workbench: "executive-decision",
-    dynamics: "management-strategy",
-    monetization: "management-strategy",
     response: "management-strategy",
     categories: "china-nand",
     intelligence: "china-nand",
@@ -1845,8 +1825,6 @@
   let workbenchMode = "executive";
   let selectedInsightId = null;
   let numberLens = "all";
-  let dynamicFocusId = null;
-  let modelFocusId = null;
   let chinaNandFocusId = "ymtc";
   let managementStrategyFocusId = "china-key-account";
   let strategicDecisionFocusId = "china-key-account-lock";
@@ -1905,8 +1883,6 @@
     renderProductProjection();
     renderCategories();
     renderChannels();
-    renderDynamics();
-    renderModels();
     renderResponses();
     renderArchitectureMatrix();
     renderPrices();
@@ -2436,8 +2412,6 @@
       renderNumberDashboard,
       renderProductProjection,
       renderChannels,
-      renderDynamics,
-      renderModels,
       renderNews,
       renderArchitectureMatrix,
       renderChinaDeepDive,
@@ -3105,20 +3079,6 @@
         status: "분류",
         score: 88,
         note: "메모리 업계 카테고리",
-      },
-      dynamics: {
-        value: (BASE.dynamics || []).filter(relatedToActive).length,
-        unit: "축",
-        status: "Dynamics",
-        score: 82,
-        note: "경쟁 다이나믹스 관계 맵",
-      },
-      monetization: {
-        value: (BASE.monetizationModels || []).filter(relatedToActive).length,
-        unit: "모델",
-        status: "Margin",
-        score: 78,
-        note: "수익화·가격·믹스 모델",
       },
       response: {
         value: (BASE.responses || []).filter((item) => relatedToActive({ ...item, linkedCategories: responseLinkedCategories(item) })).length,
@@ -6587,45 +6547,6 @@
       });
     }
 
-    if (mode === "competition") {
-      items = (BASE.dynamics || []).map((item, index) => ({
-        id: `competition-${index}`,
-        mode,
-        type: "경쟁 다이나믹스",
-        tag: item.axis,
-        title: item.title,
-        body: item.desc,
-        section: "dynamics",
-        categories: item.linkedCategories || [],
-        watch: item.watch || [],
-        metrics: [
-          { label: "Players", value: fmtNum((item.players || []).length) },
-          { label: "Watch", value: fmtNum((item.watch || []).length) },
-          { label: "Category", value: (item.linkedCategories || []).map(categoryName).join(" · ") || "전체" },
-        ],
-        tags: item.players || [],
-      }));
-    }
-
-    if (mode === "monetization") {
-      items = (BASE.monetizationModels || []).map((item, index) => ({
-        id: `model-${index}`,
-        mode,
-        type: "수익화 모델",
-        tag: (item.linkedCategories || []).map(categoryName).join(" · ") || "Benchmark",
-        title: item.title,
-        body: item.logic,
-        section: "monetization",
-        categories: item.linkedCategories || [],
-        watch: [item.metric, item.watch].filter(Boolean),
-        metrics: [
-          { label: "Metric", value: item.metric },
-          { label: "Watch", value: item.watch },
-          { label: "Fit", value: (item.linkedCategories || []).map(categoryName).join(" · ") || "전체" },
-        ],
-      }));
-    }
-
     if (mode === "response") {
       items = (BASE.responses || []).map((item, index) => ({
         id: `response-${index}`,
@@ -7011,37 +6932,6 @@
     });
   }
 
-  function dynamicsPayload(item) {
-    return {
-      type: "경쟁 다이나믹스",
-      tag: item.axis,
-      title: item.title,
-      body: item.desc,
-      section: "dynamics",
-      categories: item.linkedCategories || [],
-      watch: item.watch || [],
-      tags: item.players || [],
-      metrics: [
-        { label: "Players", value: fmtNum((item.players || []).length) },
-        { label: "Watch", value: fmtNum((item.watch || []).length) },
-        { label: "Fit", value: (item.linkedCategories || []).map(categoryName).join(" · ") || "전체" },
-      ],
-    };
-  }
-
-  function stablePanelKey(prefix, item, index) {
-    return `${prefix}-${item.id || item.title || item.axis || index}`;
-  }
-
-  function dynamicScore(item) {
-    return clamp(38 + (item.players || []).length * 9 + (item.watch || []).length * 8 + itemNewsLinks(item, 5).length * 4);
-  }
-
-  function modelScore(item) {
-    const flow = moneyFlowFromModel(item);
-    return clamp(42 + (item.linkedCategories || []).length * 12 + (item.metric ? 14 : 0) + (item.watch ? 10 : 0) + (flow.lever ? 8 : 0));
-  }
-
   function scoreRingHTML(score, label = "Score") {
     const safe = clamp(score);
     return `
@@ -7050,388 +6940,6 @@
         <small>${escapeHTML(label)}</small>
       </div>
     `;
-  }
-
-  function orbitPoint(index, total, radius = 39, start = -90) {
-    const angle = start + (360 / Math.max(total, 1)) * index;
-    const rad = angle * Math.PI / 180;
-    return {
-      x: 50 + Math.cos(rad) * radius,
-      y: 50 + Math.sin(rad) * radius,
-      angle,
-      length: radius,
-    };
-  }
-
-  function itemNewsLinks(item, limit = 3) {
-    const terms = (item.players || item.entities || item.tags || [])
-      .concat(item.title || "", item.axis || "")
-      .map((term) => String(term || "").toLowerCase())
-      .filter((term) => term.length > 2);
-    if (!terms.length) return [];
-    return rawNews().filter((news) => {
-      const hay = `${news.title || ""} ${news.titleKo || ""} ${news.summary || ""} ${news.source || ""}`.toLowerCase();
-      return terms.some((term) => hay.includes(term));
-    }).slice(0, limit).map((news) => ({
-      title: newsTitle(news),
-      link: news.link,
-      source: news.source,
-    }));
-  }
-
-  function renderDynamicFocusPanel(items) {
-    const panel = $("#dynamicFocusPanel");
-    if (!panel) return;
-    if (!items.length) {
-      panel.innerHTML = `<div class="empty">경쟁 축을 선택하면 정량 readout이 열립니다.</div>`;
-      return;
-    }
-    if (!items.some((item, index) => stablePanelKey("dynamic", item, index) === dynamicFocusId)) {
-      dynamicFocusId = stablePanelKey("dynamic", items[0], 0);
-    }
-    const index = items.findIndex((item, i) => stablePanelKey("dynamic", item, i) === dynamicFocusId);
-    const item = items[index] || items[0];
-    const payload = dynamicsPayload(item);
-    const links = itemNewsLinks(item);
-    const categories = (item.linkedCategories || []).map(categoryName).filter(Boolean);
-    panel.style.setProperty("--local-accent", categoryAccent((item.linkedCategories || [])[0]));
-    panel.innerHTML = `
-      <div class="focus-head">
-        <span class="chip accent">${escapeHTML(item.axis || "Dynamic")}</span>
-        <h3>${escapeHTML(item.title)}</h3>
-        <p>${escapeHTML(item.desc || "")}</p>
-      </div>
-      <div class="focus-readout">
-        <div><strong>${fmtNum((item.players || []).length)}</strong><span>Players</span></div>
-        <div><strong>${fmtNum((item.watch || []).length)}</strong><span>Watch</span></div>
-        <div><strong>${escapeHTML(categories[0] || "전체")}</strong><span>Primary axis</span></div>
-      </div>
-      <div class="focus-score-row">
-        ${scoreRingHTML(dynamicScore(item), "Impact")}
-        <div class="focus-score-copy"><strong>0 -> 100</strong><span>Selected axis power</span></div>
-      </div>
-      <div class="focus-block">
-        <strong>경쟁 플레이어</strong>
-        <div class="tag-row">${(item.players || []).map((p) => `<span class="tag">${escapeHTML(p)}</span>`).join("") || "<span class=\"tag\">시장 전체</span>"}</div>
-      </div>
-      <div class="focus-block">
-        <strong>관찰 지표</strong>
-        <ul class="watch-list">${(item.watch || []).map((w) => `<li>${escapeHTML(w)}</li>`).join("")}</ul>
-      </div>
-      ${links.length ? `
-        <div class="focus-block">
-          <strong>관련 최신 신호</strong>
-          <ul class="work-link-list">${links.map((link) => `<li><a href="${escapeHTML(link.link || "#")}" target="_blank" rel="noopener">${escapeHTML(link.title || link.source || "Signal")}</a></li>`).join("")}</ul>
-        </div>
-      ` : ""}
-      <div class="focus-actions">
-        <button type="button" data-focus-copy>복사</button>
-        <button type="button" data-focus-inspector>상세 패널</button>
-        <button type="button" data-focus-workbench>워크벤치</button>
-      </div>
-    `;
-    panel.querySelector("[data-focus-copy]")?.addEventListener("click", (event) => copyPayload(payload, event.currentTarget));
-    panel.querySelector("[data-focus-inspector]")?.addEventListener("click", () => openInspector({ ...payload, links }));
-    panel.querySelector("[data-focus-workbench]")?.addEventListener("click", () => {
-      workbenchMode = "competition";
-      selectedInsightId = null;
-      renderWorkbench();
-      jumpTo("workbench");
-    });
-  }
-
-  function renderDynamicRelationMap(items) {
-    const wrap = $("#dynamicRelationMap");
-    if (!wrap) return;
-    wrap.innerHTML = "";
-    if (!items.length) {
-      wrap.appendChild(el("div", "empty", "선택한 카테고리의 관계 맵이 없습니다."));
-      return;
-    }
-    const orbitHead = el("div", "relation-head", `
-      <div>
-        <span>Interactive dynamics</span>
-        <strong>${escapeHTML(activeCategoryData()?.label || "All")} 0 -> 100 map</strong>
-      </div>
-      <small>Hover or click each circular node to change the readout</small>
-    `);
-    const orbit = el("div", "orbit-map dynamic-orbit");
-    const stage = el("div", "orbit-stage");
-    const hub = el("button", "orbit-center", `<strong>Dynamics</strong><span>${fmtNum(items.length)} axes</span>`);
-    hub.type = "button";
-    hub.addEventListener("click", () => {
-      dynamicFocusId = items[0] ? stablePanelKey("dynamic", items[0], 0) : null;
-      renderDynamics();
-    });
-    stage.appendChild(hub);
-    items.forEach((item, index) => {
-      const key = stablePanelKey("dynamic", item, index);
-      const point = orbitPoint(index, items.length);
-      const score = dynamicScore(item);
-      const accent = categoryAccent((item.linkedCategories || [])[0]);
-      const line = el("i", `orbit-line${key === dynamicFocusId ? " selected" : ""}`);
-      line.style.setProperty("--angle", `${point.angle}deg`);
-      line.style.setProperty("--len", `${point.length}%`);
-      line.style.setProperty("--local-accent", accent);
-      const node = el("button", `orbit-node${key === dynamicFocusId ? " selected" : ""}`);
-      node.type = "button";
-      node.style.setProperty("--x", `${point.x}%`);
-      node.style.setProperty("--y", `${point.y}%`);
-      node.style.setProperty("--local-accent", accent);
-      node.innerHTML = `
-        ${scoreRingHTML(score, "Power")}
-        <strong>${escapeHTML(item.axis || item.title || "Dynamic")}</strong>
-        <span>${fmtNum((item.players || []).length)} players</span>
-      `;
-      const select = () => {
-        if (dynamicFocusId === key) return;
-        dynamicFocusId = key;
-        renderDynamics();
-      };
-      node.addEventListener("mouseenter", select);
-      node.addEventListener("focus", select);
-      node.addEventListener("click", select);
-      stage.append(line, node);
-    });
-    orbit.appendChild(stage);
-    wrap.append(orbitHead, orbit);
-    animateCounts(wrap);
-    animateMeters(wrap);
-  }
-
-  function modelPayload(item) {
-    return {
-      type: "수익화 모델",
-      tag: (item.linkedCategories || []).map(categoryName).join(" · ") || "Benchmark",
-      title: item.title,
-      body: item.logic,
-      section: "monetization",
-      categories: item.linkedCategories || [],
-      watch: [item.metric, item.watch].filter(Boolean),
-      metrics: [
-        { label: "Metric", value: item.metric },
-        { label: "Watch", value: item.watch },
-        { label: "Fit", value: (item.linkedCategories || []).map(categoryName).join(" · ") || "전체" },
-      ],
-    };
-  }
-
-  function renderModelFocusPanel(items) {
-    const panel = $("#modelFocusPanel");
-    if (!panel) return;
-    if (!items.length) {
-      panel.innerHTML = `<div class="empty">수익화 레버를 선택하면 정량 readout이 열립니다.</div>`;
-      return;
-    }
-    if (!items.some((item, index) => stablePanelKey("model", item, index) === modelFocusId)) {
-      modelFocusId = stablePanelKey("model", items[0], 0);
-    }
-    const index = items.findIndex((item, i) => stablePanelKey("model", item, i) === modelFocusId);
-    const item = items[index] || items[0];
-    const payload = modelPayload(item);
-    const flowInfo = moneyFlowFromModel(item);
-    const links = itemNewsLinks({ ...item, players: [item.title, flowInfo.from, flowInfo.to] });
-    panel.style.setProperty("--local-accent", categoryAccent((item.linkedCategories || [])[0]));
-    panel.innerHTML = `
-      <div class="focus-head">
-        <span class="chip accent">${escapeHTML(flowInfo.lever)}</span>
-        <h3>${escapeHTML(item.title)}</h3>
-        <p>${escapeHTML(item.logic || "")}</p>
-      </div>
-      <div class="focus-readout">
-        <div><strong>${escapeHTML(item.metric || "-")}</strong><span>Core metric</span></div>
-        <div><strong>${escapeHTML(flowInfo.to)}</strong><span>Revenue pool</span></div>
-        <div><strong>${escapeHTML((item.linkedCategories || []).map(categoryName).join(" · ") || "전체")}</strong><span>Fit</span></div>
-      </div>
-      <div class="focus-score-row">
-        ${scoreRingHTML(modelScore(item), "Revenue")}
-        <div class="focus-score-copy"><strong>0 -> 100</strong><span>Selected money lever</span></div>
-      </div>
-      <div class="focus-flow">
-        <span>${escapeHTML(flowInfo.from)}</span>
-        <i></i>
-        <span>${escapeHTML(flowInfo.to)}</span>
-      </div>
-      <div class="focus-block">
-        <strong>수익화 Watch</strong>
-        <ul class="watch-list">
-          <li>${escapeHTML(item.watch || "가격·고객·캐파 변화")}</li>
-          <li>${escapeHTML(flowInfo.lever)} 지표를 가격/뉴스/대응 큐와 같이 확인</li>
-        </ul>
-      </div>
-      ${links.length ? `
-        <div class="focus-block">
-          <strong>관련 최신 신호</strong>
-          <ul class="work-link-list">${links.map((link) => `<li><a href="${escapeHTML(link.link || "#")}" target="_blank" rel="noopener">${escapeHTML(link.title || link.source || "Signal")}</a></li>`).join("")}</ul>
-        </div>
-      ` : ""}
-      <div class="focus-actions">
-        <button type="button" data-model-copy>복사</button>
-        <button type="button" data-model-inspector>상세 패널</button>
-        <button type="button" data-model-workbench>워크벤치</button>
-      </div>
-    `;
-    panel.querySelector("[data-model-copy]")?.addEventListener("click", (event) => copyPayload(payload, event.currentTarget));
-    panel.querySelector("[data-model-inspector]")?.addEventListener("click", () => openInspector({ ...payload, links }));
-    panel.querySelector("[data-model-workbench]")?.addEventListener("click", () => {
-      workbenchMode = "monetization";
-      selectedInsightId = null;
-      renderWorkbench();
-      jumpTo("workbench");
-    });
-  }
-
-  function moneyFlowFromModel(item) {
-    const cats = item.linkedCategories || [];
-    if (cats.includes("hbm")) return { from: "AI GPU·ASIC 고객", to: "SKHY HBM", lever: "ASP 프리미엄" };
-    if (cats.includes("dram")) return { from: "PC·모바일·중국 빅테크", to: "범용 DRAM", lever: "원가 방어" };
-    if (cats.includes("nand")) return { from: "클라우드·eSSD 고객", to: "NAND·Solidigm", lever: "믹스 전환" };
-    if (cats.includes("packaging")) return { from: "장비·OSAT 생태계", to: "첨단 패키징", lever: "수율·캐파" };
-    if (cats.includes("cxl")) return { from: "데이터센터 플랫폼", to: "CXL/PIM", lever: "플랫폼 옵션" };
-    return { from: "시장 신호", to: "벤치마킹 모델", lever: "관찰 지표" };
-  }
-
-  function renderMoneyFlowMap(items) {
-    const wrap = $("#moneyFlowMap");
-    if (!wrap) return;
-    wrap.innerHTML = "";
-    if (!items.length) {
-      wrap.appendChild(el("div", "empty", "No monetization map for the selected category."));
-      return;
-    }
-    const orbitHead = el("div", "relation-head", `
-      <div>
-        <span>Interactive monetization</span>
-        <strong>Revenue lever 0 -> 100 map</strong>
-      </div>
-      <small>Hover or click each circular node to inspect the money flow</small>
-    `);
-    const orbit = el("div", "orbit-map money-orbit");
-    const stage = el("div", "orbit-stage");
-    const hub = el("button", "orbit-center", `<strong>Money flow</strong><span>${fmtNum(items.length)} levers</span>`);
-    hub.type = "button";
-    hub.addEventListener("click", () => {
-      modelFocusId = items[0] ? stablePanelKey("model", items[0], 0) : null;
-      renderModels();
-    });
-    stage.appendChild(hub);
-    items.forEach((item, index) => {
-      const key = stablePanelKey("model", item, index);
-      const point = orbitPoint(index, items.length, 38);
-      const flowInfo = moneyFlowFromModel(item);
-      const score = modelScore(item);
-      const accent = categoryAccent((item.linkedCategories || [])[0]);
-      const line = el("i", `orbit-line${key === modelFocusId ? " selected" : ""}`);
-      line.style.setProperty("--angle", `${point.angle}deg`);
-      line.style.setProperty("--len", `${point.length}%`);
-      line.style.setProperty("--local-accent", accent);
-      const node = el("button", `orbit-node money${key === modelFocusId ? " selected" : ""}`);
-      node.type = "button";
-      node.style.setProperty("--x", `${point.x}%`);
-      node.style.setProperty("--y", `${point.y}%`);
-      node.style.setProperty("--local-accent", accent);
-      node.innerHTML = `
-        ${scoreRingHTML(score, "Revenue")}
-        <strong>${escapeHTML(flowInfo.lever || item.title || "Lever")}</strong>
-        <span>${escapeHTML(item.metric || flowInfo.to || "Metric")}</span>
-      `;
-      const select = () => {
-        if (modelFocusId === key) return;
-        modelFocusId = key;
-        renderModels();
-      };
-      node.addEventListener("mouseenter", select);
-      node.addEventListener("focus", select);
-      node.addEventListener("click", select);
-      stage.append(line, node);
-    });
-    orbit.appendChild(stage);
-    wrap.append(orbitHead, orbit);
-    animateCounts(wrap);
-    animateMeters(wrap);
-  }
-
-  function renderDynamics() {
-    const grid = $("#dynamicGrid");
-    renderCategoryControls("dynamicControls", BASE.dynamics || [], "dynamics");
-    const items = (BASE.dynamics || []).filter(relatedToActive);
-    if (!items.some((item, index) => stablePanelKey("dynamic", item, index) === dynamicFocusId)) {
-      dynamicFocusId = items[0] ? stablePanelKey("dynamic", items[0], 0) : null;
-    }
-    renderDynamicRelationMap(items);
-    renderDynamicFocusPanel(items);
-    grid.innerHTML = "";
-    items.forEach((item, index) => {
-      const payload = dynamicsPayload(item);
-      const key = stablePanelKey("dynamic", item, index);
-      const card = el("article", `card reveal${key === dynamicFocusId ? " selected" : ""}`);
-      card.style.animationDelay = `${index * 35}ms`;
-      card.style.setProperty("--local-accent", categoryAccent((item.linkedCategories || [])[0]));
-      card.dataset.dynamicKey = key;
-      card.innerHTML = `
-        <div class="card-top">
-          <span class="chip accent">${escapeHTML(item.axis)}</span>
-          <button class="copy-btn" type="button" data-copy-dynamic>복사</button>
-        </div>
-        <h3>${escapeHTML(item.title)}</h3>
-        <p>${escapeHTML(item.desc)}</p>
-        <div class="tag-row">${(item.players || []).map((p) => `<span class="tag">${escapeHTML(p)}</span>`).join("")}</div>
-        <ul class="watch-list">${(item.watch || []).map((w) => `<li>${escapeHTML(w)}</li>`).join("")}</ul>
-      `;
-      card.querySelector("[data-copy-dynamic]")?.addEventListener("click", (event) => copyPayload(payload, event.currentTarget));
-      card.addEventListener("click", (event) => {
-        if (event.target.closest("button, a")) return;
-        dynamicFocusId = key;
-        renderDynamics();
-      });
-      grid.appendChild(card);
-    });
-    if (!grid.children.length) grid.appendChild(el("div", "empty", "선택한 카테고리의 경쟁 다이나믹스가 없습니다."));
-    animateCounts($("#dynamics") || grid);
-    animateMeters($("#dynamics") || grid);
-  }
-
-  function renderModels() {
-    const grid = $("#modelGrid");
-    renderCategoryControls("modelControls", BASE.monetizationModels || [], "monetization");
-    const items = (BASE.monetizationModels || []).filter(relatedToActive);
-    if (!items.some((item, index) => stablePanelKey("model", item, index) === modelFocusId)) {
-      modelFocusId = items[0] ? stablePanelKey("model", items[0], 0) : null;
-    }
-    renderMoneyFlowMap(items);
-    renderModelFocusPanel(items);
-    grid.innerHTML = "";
-    items.forEach((item, index) => {
-      const payload = modelPayload(item);
-      const flowInfo = moneyFlowFromModel(item);
-      const key = stablePanelKey("model", item, index);
-      const card = el("article", `biz-card reveal${key === modelFocusId ? " selected" : ""}`);
-      card.style.animationDelay = `${index * 35}ms`;
-      card.style.setProperty("--local-accent", categoryAccent((item.linkedCategories || [])[0]));
-      card.innerHTML = `
-        <div class="biz-card-head">
-          <span class="chip accent">${escapeHTML(flowInfo.lever)}</span>
-          <button class="copy-btn" type="button" data-copy-model>복사</button>
-        </div>
-        <h3>${escapeHTML(item.title)}</h3>
-        <p>${escapeHTML(item.logic)}</p>
-        <div class="biz-metrics">
-          <div class="biz-metric"><strong>Metric</strong><span>${escapeHTML(item.metric)}</span></div>
-          <div class="biz-metric"><strong>Watch</strong><span>${escapeHTML(item.watch)}</span></div>
-          <div class="biz-metric"><strong>Fit</strong><span>${(item.linkedCategories || []).map(categoryName).join(" · ")}</span></div>
-        </div>
-      `;
-      card.querySelector("[data-copy-model]")?.addEventListener("click", (event) => copyPayload(payload, event.currentTarget));
-      card.addEventListener("click", (event) => {
-        if (event.target.closest("button, a")) return;
-        modelFocusId = key;
-        renderModels();
-      });
-      grid.appendChild(card);
-    });
-    if (!grid.children.length) grid.appendChild(el("div", "empty", "선택한 카테고리의 벤치마킹 모델이 없습니다."));
-    animateCounts($("#monetization") || grid);
-    animateMeters($("#monetization") || grid);
   }
 
   function renderResponses() {
