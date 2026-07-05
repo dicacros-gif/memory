@@ -3094,9 +3094,6 @@
   }
 
   function liveReviewItems() {
-    const health = LIVE.health || [];
-    const ok = health.filter((entry) => entry.ok).length;
-    const fail = Math.max(health.length - ok, 0);
     const priceRows = allPriceRows();
     const pricesState = freshnessState({
       updatedAt: LIVE.prices?.updatedAt || LIVE.updatedAt,
@@ -3113,8 +3110,6 @@
       healthKeys: ["뉴스", "외신", "중국"],
       staleHours: 36,
     });
-    const categorySignals = categorySignalTotal();
-    const benchmarkSignals = benchmarkSignalTotal();
     const firstNews = news[0];
     const items = [
       {
@@ -3172,35 +3167,6 @@
           { label: "Rows", value: `${fmtNum(priceRows.length)}개` },
           { label: "Status", value: pricesState.label },
           { label: "Updated", value: reviewShortDate(LIVE.prices?.updatedAt || LIVE.updatedAt) },
-        ],
-      },
-      {
-        id: "live-pipeline-health",
-        primaryType: "pipeline",
-        priorityBand: fail ? "P1" : "P3",
-        priorityScore: fail ? 94 : 58,
-        reviewStatus: fail ? "In Review" : "Confirmed",
-        changeType: fail ? "수집 점검" : "정상",
-        title: `수집 파이프라인 health ${ok}/${health.length}`,
-        summary: "가격, 뉴스, 벤치마킹, 한글 인사이트 단계별 성공/실패를 먼저 확인해 오늘 digest의 신뢰도를 판정합니다.",
-        source: "GitHub Actions daily crawler",
-        sourceUrl: "https://github.com/dicacros-gif/memory/actions",
-        publishedAt: LIVE.updatedAt,
-        crawledAt: LIVE.updatedAt,
-        section: "crawler",
-        linkedCategories: ["operations", "geopolitics"],
-        topics: ["Pipeline", "Freshness", "Observability"],
-        entities: ["GitHub Actions", "live.json", "price-history.json"],
-        pipelineAlert: Boolean(fail),
-        insights: [
-          fail ? `${fmtNum(fail)}개 단계가 점검 대상입니다. 실패 단계의 msg를 먼저 확인하세요.` : "현재 health 단계는 정상입니다.",
-          `뉴스 원천 신호 ${fmtNum(categorySignals)}개, 벤치마킹 신호 ${fmtNum(benchmarkSignals)}개를 downstream 보드로 분배합니다.`,
-          "다음 단계는 source-level freshness, parse success rate, duplicate ratio를 별도 KPI로 저장하는 것입니다.",
-        ],
-        metrics: [
-          { label: "Health", value: `${ok}/${health.length}` },
-          { label: "점검 단계", value: `${fmtNum(fail)}개` },
-          { label: "Updated", value: reviewShortDate(LIVE.updatedAt) },
         ],
       },
     ];
