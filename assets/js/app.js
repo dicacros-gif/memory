@@ -8344,12 +8344,12 @@
   function renderNewsBucket(list, items, emptyMessage) {
     list.innerHTML = "";
     if (!items.length) {
-      list.appendChild(el("li", null, `<span class="empty empty-action"><strong>${escapeHTML(emptyMessage)}</strong><em>업체 드롭다운을 전체 업체로 바꾸거나 검색어를 줄이면 즉시 다시 계산됩니다.</em></span>`));
+      list.appendChild(el("li", "news-empty-row", `<span class="empty empty-action"><strong>${escapeHTML(emptyMessage)}</strong><em>업체 드롭다운을 전체 업체로 바꾸거나 검색어를 줄이면 즉시 다시 계산됩니다.</em></span>`));
       return;
     }
 
     items.slice(0, 42).forEach((item) => {
-      const li = el("li");
+      const li = el("li", "news-card-item");
       const card = el("article", "news-card");
       const a = el("a", "news-title");
       a.href = item.link || "#";
