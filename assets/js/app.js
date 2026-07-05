@@ -159,7 +159,6 @@
     projection: "#FBBF24",
     workbench: "#B9A7FF",
     "ai-matrix": "#C4B5FD",
-    crawler: "#7EE7C8",
     prices: "#FFD166",
     news: "#93C5FD",
     "china-nand": "#66D9E8",
@@ -2523,8 +2522,6 @@
     const routeGrid = $("#hubRouteGrid");
     if (!hero || !statusGrid || !actions || !routeGrid) return;
 
-    const health = LIVE.health || [];
-    const ok = health.filter((entry) => entry.ok).length;
     const priceRows = allPriceRows().length;
     const news = rawNews();
     const sourceCount = new Set(news.map((item) => item.source).filter(Boolean)).size;
@@ -2541,7 +2538,6 @@
       { label: "업데이트 시각", value: fmtDate(LIVE.updatedAt), note: "Asia/Seoul · daily crawler" },
       { label: "가격 rows", value: priceRows, note: "Spot / Contract 공개 표" },
       { label: "기사 소스", value: sourceCount, note: `${fmtNum(news.length)}건 기사 · 한국 소스 제외` },
-      { label: "수집 상태", value: `${ok}/${health.length}`, note: health.length === ok ? "정상 수집" : "점검 필요 단계 있음" },
     ];
     statusGrid.innerHTML = statusCards.map((card) => `
       <article class="today-status-card reveal">
@@ -7329,7 +7325,7 @@
       const entries = healthEntries(["가격:"]);
       const failed = entries.filter((entry) => !entry.ok).map((entry) => entry.msg).filter(Boolean).join(" · ");
       const msg = failed || "TrendForce 공개 테이블 구조 변경, 접근 실패, 또는 아직 수집된 rows가 없습니다.";
-      tbody.appendChild(el("tr", null, `<td colspan="6" class="empty"><span class="data-state fail">오류 발생 · 가격 rows 없음</span><br>${escapeHTML(msg)}<br>다음 행동: 하단 수집 상태와 전일 가격 히스토리 폴백 여부를 점검하세요.<br>마지막 시도: ${escapeHTML(fmtDate(LIVE.prices?.updatedAt || LIVE.updatedAt))}</td>`));
+      tbody.appendChild(el("tr", null, `<td colspan="6" class="empty"><span class="data-state fail">오류 발생 · 가격 rows 없음</span><br>${escapeHTML(msg)}<br>다음 행동: 전일 가격 히스토리 폴백 여부를 점검하세요.<br>마지막 시도: ${escapeHTML(fmtDate(LIVE.prices?.updatedAt || LIVE.updatedAt))}</td>`));
       return;
     }
 
