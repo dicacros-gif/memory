@@ -2454,14 +2454,13 @@
           <div class="sb-nav-group-label">${escapeHTML(group.label)}</div>
           ${items.map((routeSource) => {
             const route = routeDisplay(routeSource);
-            const telemetry = routeTelemetry(routeSource);
             const accent = routeAccent(routeSource.id);
             return `
               <button class="sb-item${routeSource.jump === "overview" ? " active" : ""}" type="button" data-jump="${escapeHTML(routeSource.jump)}" data-route="${escapeHTML(routeSource.id)}" style="--nav-active:${escapeHTML(accent)}" title="${escapeHTML(route.desc)}">
                 <span class="sb-ico" aria-hidden="true">${escapeHTML(SIDE_NAV_ICONS[routeSource.id] || route.label.slice(0, 1))}</span>
                 <span class="sb-label">
                   <strong>${escapeHTML(route.label)}</strong>
-                  <small>${escapeHTML(route.cadence)} · ${fmtNum(telemetry.signals)}개</small>
+                  <small>바로가기</small>
                 </span>
               </button>
             `;
@@ -2668,14 +2667,9 @@
 
   function renderTodayHub() {
     const hero = $("#todayHero");
-    const statusGrid = $("#todayStatusGrid");
     const actions = $("#todayActions");
-    const routeGrid = $("#hubRouteGrid");
-    if (!hero || !statusGrid || !actions || !routeGrid) return;
+    if (!hero || !actions) return;
 
-    const priceRows = allPriceRows().length;
-    const news = rawNews();
-    const sourceCount = new Set(news.map((item) => item.source).filter(Boolean)).size;
     const headline = "오늘의 핵심 변화 · 가격·기사·중국 경쟁 신호";
     const lead = "매일 수집되는 가격, 외신/중국어 기사, 정책·Fab·인재 신호를 업무별 보드로 나누어 보여줍니다.";
 
@@ -2684,19 +2678,6 @@
       copy.querySelector("h2").textContent = headline;
       copy.querySelector("p:not(.eyebrow)").textContent = lead;
     }
-
-    const statusCards = [
-      { label: "업데이트 시각", value: fmtDate(LIVE.updatedAt), note: "Asia/Seoul · daily crawler" },
-      { label: "가격 rows", value: priceRows, note: "Spot / Contract 공개 표" },
-      { label: "기사 소스", value: sourceCount, note: `${fmtNum(news.length)}건 기사 · 한국 소스 제외` },
-    ];
-    statusGrid.innerHTML = statusCards.map((card) => `
-      <article class="today-status-card reveal">
-        <span>${escapeHTML(card.label)}</span>
-        <strong>${typeof card.value === "number" ? countHTML(card.value) : escapeHTML(card.value)}</strong>
-        <small>${escapeHTML(card.note)}</small>
-      </article>
-    `).join("");
 
     const actionItems = [
       { label: "경영진 의사결정", jump: "executive-decision", accent: routeAccent("analysis") },
@@ -2708,23 +2689,8 @@
       <button type="button" data-jump="${escapeHTML(item.jump)}" style="--local-accent:${escapeHTML(item.accent)}">${escapeHTML(item.label)}</button>
     `).join("");
 
-    routeGrid.innerHTML = IA_ROUTES.map((route, index) => {
-      const telemetry = routeTelemetry(route);
-      return `
-        <button class="hub-route-card reveal" type="button" data-jump="${escapeHTML(route.jump || route.sections[0])}" style="--local-accent:${escapeHTML(routeAccent(route.id))}; animation-delay:${index * 28}ms">
-          <span>${escapeHTML(route.cadence)}</span>
-          <strong>${escapeHTML(route.label)}</strong>
-          <p>${escapeHTML(route.desc)}</p>
-          <div class="hub-route-meter" aria-hidden="true"><i data-fill-to="${telemetry.score}" style="width:0%"></i></div>
-          <small>${fmtNum(telemetry.signals)}개 신호 · ${fmtNum(route.sections.length)}개 보드</small>
-        </button>
-      `;
-    }).join("");
-
     hero.querySelectorAll("[data-jump]").forEach((btn) => btn.addEventListener("click", () => jumpTo(btn.dataset.jump)));
-    routeGrid.querySelectorAll("[data-jump]").forEach((btn) => btn.addEventListener("click", () => jumpTo(btn.dataset.jump)));
     animateCounts(hero);
-    animateMeters(routeGrid);
   }
 
   function renderExecutiveSummary() {
@@ -4727,7 +4693,7 @@
       <div class="metric-row">
         <div class="metric"><strong>${fmtNum(item.score)}</strong><span>모델점수</span></div>
         <div class="metric"><strong>${fmtNum(item.evidenceCount || sourceUrlItems(item.links || []).length)}</strong><span>출처/기사 근거</span></div>
-        <div class="metric"><strong>${fmtNum(item.priceRows || 0)}</strong><span>가격 rows</span></div>
+        <div class="metric"><strong>${fmtNum(item.priceRows || 0)}</strong><span>가격 데이터</span></div>
       </div>
       <div class="investment-focus-block">
         <strong>${item.allocation ? "전략 가중치(모델)" : "판단 상태"}</strong>
@@ -4739,7 +4705,7 @@
       </div>
       <div class="investment-focus-block">
         <strong>숫자 산식</strong>
-        <p>모델점수 = 기준점수 + 크롤링 신호 + 가격 모멘텀 + 연결 전략 점수. 실측값은 가격 rows와 원문 링크 수만 별도 집계합니다.</p>
+        <p>모델점수 = 기준점수 + 크롤링 신호 + 가격 모멘텀 + 연결 전략 점수. 실측값은 가격 데이터와 원문 링크 수만 별도 집계합니다.</p>
       </div>
       <div class="investment-focus-block">
         <strong>${section === "management-strategy" ? "전략 실행" : "의사결정 게이트"}</strong>
@@ -6046,7 +6012,7 @@
         suffix: "%",
         decimals: 2,
         score: clamp(58 + nandMomentum * 8 + (segments.find((item) => item.id === "dc-storage")?.signals || 0) * .22),
-        note: "TrendForce NAND/SSD 가격 rows와 eSSD 기사 신호 기반",
+        note: "TrendForce NAND/SSD 가격 데이터와 eSSD 기사 신호 기반",
       },
     ];
   }
@@ -6233,7 +6199,7 @@
         </div>
         <div class="projection-focus-block scenario-note">
           <strong>검증 기준</strong>
-          <p>이 탭의 비중은 실측 판매 전망이 아니라 price-history/live.json의 가격 rows, 기사 링크, 벤치마킹 신호를 정규화한 모델 산출값입니다. 실제 숫자는 신호 건수와 가격 rows로만 표시합니다.</p>
+          <p>이 탭의 비중은 실측 판매 전망이 아니라 price-history/live.json의 가격 데이터, 기사 링크, 벤치마킹 신호를 정규화한 모델 산출값입니다. 실제 숫자는 신호 건수와 가격 데이터로만 표시합니다.</p>
         </div>
         <div class="projection-focus-block">
           <strong>제품군</strong>
@@ -6591,7 +6557,7 @@
           { label: "모델점수", value: fmtNum(item.score) },
           { label: "실제 신호", value: fmtNum(item.signals) },
           { label: "근거 링크", value: fmtNum(item.evidenceCount || 0) },
-          { label: "가격 rows", value: fmtNum(item.priceRows || 0) },
+          { label: "가격 데이터", value: fmtNum(item.priceRows || 0) },
         ],
         tags: [item.label, item.horizon, item.allocation].filter(Boolean),
         links: item.links || [],
@@ -6613,7 +6579,7 @@
           { label: "모델점수", value: fmtNum(item.score) },
           { label: "실제 신호", value: fmtNum(item.signals) },
           { label: "근거 링크", value: fmtNum(item.evidenceCount || 0) },
-          { label: "가격 rows", value: fmtNum(item.priceRows || 0) },
+          { label: "가격 데이터", value: fmtNum(item.priceRows || 0) },
         ],
         tags: [item.label, item.option, item.stage].filter(Boolean),
         links: item.links || [],
@@ -7492,7 +7458,7 @@
     return {
       cat: "strategy",
       q: query,
-      a: "정확히 일치하는 드롭다운 질문은 없지만, 입력한 자연어와 가까운 대시보드 신호를 기준으로 답합니다.\n\n아래의 관련 가격 rows, 기사, 벤치마킹 신호를 먼저 확인하세요. 특정 업체·제품·정책 키워드를 함께 입력하면 CXMT, YMTC, HBM, NAND, BIS, TrendForce 같은 보드로 더 정확히 연결됩니다.",
+      a: "정확히 일치하는 드롭다운 질문은 없지만, 입력한 자연어와 가까운 대시보드 신호를 기준으로 답합니다.\n\n아래의 관련 가격 데이터, 기사, 벤치마킹 신호를 먼저 확인하세요. 특정 업체·제품·정책 키워드를 함께 입력하면 CXMT, YMTC, HBM, NAND, BIS, TrendForce 같은 보드로 더 정확히 연결됩니다.",
       keywords: terms,
       nav: terms.some((term) => /price|spot|contract|가격|trendforce/.test(term)) ? "prices" : "overview",
     };
@@ -7551,7 +7517,7 @@
     const metrics = [
       { label: "업데이트", value: fmtDate(LIVE.updatedAt), note: "live.json" },
       { label: "관련 기사", value: relatedNews.length || allNews.length, note: relatedNews.length ? "질문 키워드 매칭" : "전체 기사 풀" },
-      { label: "가격 rows", value: relatedPrices.length || allRows.length, note: "TrendForce spot/contract" },
+      { label: "가격 데이터", value: relatedPrices.length || allRows.length, note: "TrendForce spot/contract" },
       { label: "벤치마킹", value: benchmarkCount || benchmarkSignalTotal(), note: "중국·외신 신호" },
     ];
     return `
@@ -7859,7 +7825,7 @@
       const entries = healthEntries(["가격:"]);
       const failed = entries.filter((entry) => !entry.ok).map((entry) => entry.msg).filter(Boolean).join(" · ");
       const msg = failed || "TrendForce 공개 테이블 구조 변경, 접근 실패, 또는 아직 수집된 rows가 없습니다.";
-      tbody.appendChild(el("tr", null, `<td colspan="6" class="empty"><span class="data-state fail">오류 발생 · 가격 rows 없음</span><br>${escapeHTML(msg)}<br>다음 행동: 전일 가격 히스토리 폴백 여부를 점검하세요.<br>마지막 시도: ${escapeHTML(fmtDate(LIVE.prices?.updatedAt || LIVE.updatedAt))}</td>`));
+      tbody.appendChild(el("tr", null, `<td colspan="6" class="empty"><span class="data-state fail">오류 발생 · 가격 데이터 없음</span><br>${escapeHTML(msg)}<br>다음 행동: 전일 가격 히스토리 폴백 여부를 점검하세요.<br>마지막 시도: ${escapeHTML(fmtDate(LIVE.prices?.updatedAt || LIVE.updatedAt))}</td>`));
       return;
     }
 
