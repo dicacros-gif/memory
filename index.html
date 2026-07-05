@@ -10,10 +10,12 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard/dist/web/static/pretendard.css" />
   <link rel="stylesheet" as="style" crossorigin href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css" />
-  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;700;800;900&family=Space+Grotesk:wght@500;600;700&display=swap" />
-  <link rel="stylesheet" href="assets/css/styles.css?v=exec-year-product-20260705" />
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@500;700&family=Noto+Sans+KR:wght@400;500;700;800;900&family=Space+Grotesk:wght@500;600;700&display=swap" />
+  <link rel="stylesheet" href="assets/css/styles.css?v=ai-ux-20260705" />
 </head>
 <body>
+  <div class="scroll-prog" id="scrollProg" aria-hidden="true"></div>
+  <button class="scroll-top" id="scrollTop" type="button" aria-label="맨 위로 이동">↑</button>
   <div class="app">
     <aside class="sidebar" id="sidebar">
       <button class="sb-fold" id="sidebarFold" type="button" aria-label="사이드바 접기" title="사이드바 접기 · 색상 변경">‹</button>
@@ -163,6 +165,14 @@
               <button id="qaToggle" type="button" aria-label="질문 목록 열기">▾</button>
             </div>
             <div class="qa-dropdown" id="qaDrop" hidden></div>
+          </div>
+          <div class="theme-switcher" id="themeSwitcher" aria-label="색상 테마">
+            <span class="theme-switcher-label">Theme</span>
+            <button class="theme-dot active" type="button" data-palette-index="0" title="Cyan" aria-label="Cyan theme"></button>
+            <button class="theme-dot" type="button" data-palette-index="1" title="Purple" aria-label="Purple theme"></button>
+            <button class="theme-dot" type="button" data-palette-index="2" title="Emerald" aria-label="Emerald theme"></button>
+            <button class="theme-dot" type="button" data-palette-index="3" title="Rose" aria-label="Rose theme"></button>
+            <button class="theme-dot" type="button" data-palette-index="4" title="Amber" aria-label="Amber theme"></button>
           </div>
           <button class="palette-btn" id="paletteBtn" type="button" aria-label="색상 변경" title="색상 변경">
             <span aria-hidden="true"></span>
@@ -748,6 +758,6 @@
   <div class="qa-answer" id="qaAnswer" hidden></div>
   <div class="inspector" id="inspector" hidden></div>
   <div class="backdrop" id="backdrop"></div>
-  <script src="assets/js/app.js?v=exec-year-product-20260705" defer></script>
+  <script src="assets/js/app.js?v=ai-ux-20260705" defer></script>
 </body>
 </html>

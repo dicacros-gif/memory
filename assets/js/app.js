@@ -76,11 +76,11 @@
     operations: "#475569",
   };
   const COLOR_PRESETS = [
-    { name: "Violet", sidebar: "#4322A8", sidebarHi: "#6145B6", sidebarLow: "#24125B", accent: "#4322A8", blue: "#1428A0", teal: "#0A9D8E", purple: "#7A38D6", green: "#0E8A50" },
-    { name: "Navy", sidebar: "#0B1F4D", sidebarHi: "#173B84", sidebarLow: "#071229", accent: "#0F62FE", blue: "#1428A0", teal: "#0A9D8E", purple: "#9333EA", green: "#0E8A50" },
-    { name: "Cobalt", sidebar: "#1428A0", sidebarHi: "#2D6BFF", sidebarLow: "#07145F", accent: "#2D6BFF", blue: "#1428A0", teal: "#0891B2", purple: "#C026D3", green: "#16A34A" },
-    { name: "Teal", sidebar: "#0A6E63", sidebarHi: "#0A9D8E", sidebarLow: "#06413C", accent: "#0A9D8E", blue: "#1668E3", teal: "#0A9D8E", purple: "#6D28D9", green: "#0E8A50" },
-    { name: "Graphite", sidebar: "#10131C", sidebarHi: "#2B3144", sidebarLow: "#070A12", accent: "#7A38D6", blue: "#2D6BFF", teal: "#0A9D8E", purple: "#7A38D6", green: "#16A34A" },
+    { name: "Cyan", sidebar: "#071D43", sidebarHi: "#123B7A", sidebarLow: "#050B1A", accent: "#3C82FF", accent1: "#3C82FF", accent2: "#00E6FF", accent3: "#A050FF", accentRgb1: "60, 130, 255", accentRgb2: "0, 230, 255", blue: "#3C82FF", teal: "#00C8A0", purple: "#A050FF", green: "#10B981" },
+    { name: "Purple", sidebar: "#25104D", sidebarHi: "#6530B8", sidebarLow: "#120824", accent: "#A050FF", accent1: "#A050FF", accent2: "#FF3CAA", accent3: "#C878FF", accentRgb1: "160, 80, 255", accentRgb2: "255, 60, 170", blue: "#7C7CFF", teal: "#00C8FF", purple: "#A050FF", green: "#10B981" },
+    { name: "Emerald", sidebar: "#063D36", sidebarHi: "#008A78", sidebarLow: "#03201D", accent: "#00C8A0", accent1: "#00C8A0", accent2: "#00E5C8", accent3: "#00C8FF", accentRgb1: "0, 200, 160", accentRgb2: "0, 229, 200", blue: "#2563EB", teal: "#00C8A0", purple: "#7C3AED", green: "#00B86B" },
+    { name: "Rose", sidebar: "#4A1021", sidebarHi: "#B6204B", sidebarLow: "#220811", accent: "#FF4070", accent1: "#FF4070", accent2: "#FF6B9D", accent3: "#FF8C42", accentRgb1: "255, 64, 112", accentRgb2: "255, 107, 157", blue: "#3C82FF", teal: "#00C8A0", purple: "#C878FF", green: "#10B981" },
+    { name: "Amber", sidebar: "#4A2605", sidebarHi: "#B96A0A", sidebarLow: "#201003", accent: "#FF9500", accent1: "#FF9500", accent2: "#FFB830", accent3: "#FF6B28", accentRgb1: "255, 149, 0", accentRgb2: "255, 184, 48", blue: "#3C82FF", teal: "#00AFA0", purple: "#A050FF", green: "#10B981" },
   ];
   const NAV_ACCENTS = {
     overview: "#FFFFFF",
@@ -2306,7 +2306,7 @@
 
   function renderChrome() {
     document.title = BASE.meta?.title || document.title;
-    const saved = localStorage.getItem("memory-theme") || "light";
+    const saved = localStorage.getItem("memory-theme") || "dark";
     document.documentElement.dataset.theme = saved;
     const savedPalette = Number(localStorage.getItem("memory-palette-index") || 0);
     applyPalette(savedPalette);
@@ -2323,6 +2323,12 @@
     });
 
     $("#paletteBtn")?.addEventListener("click", () => cyclePalette());
+    $$(".theme-dot").forEach((btn) => {
+      btn.addEventListener("click", () => applyPalette(btn.dataset.paletteIndex, { pulse: true }));
+    });
+    $("#scrollTop")?.addEventListener("click", () => window.scrollTo({ top: 0, behavior: "smooth" }));
+    updateScrollProgress();
+    window.addEventListener("scroll", updateScrollProgress, { passive: true });
     $("#sidebarFold")?.addEventListener("click", (event) => {
       event.stopPropagation();
       toggleSidebarCollapsed();
@@ -2336,6 +2342,16 @@
       }
       toggleSidebarCollapsed();
     });
+  }
+
+  function updateScrollProgress() {
+    const scroll = $("#scrollProg");
+    const top = $("#scrollTop");
+    const doc = document.documentElement;
+    const max = Math.max(1, doc.scrollHeight - doc.clientHeight);
+    const progress = Math.min(100, Math.max(0, (doc.scrollTop / max) * 100));
+    if (scroll) scroll.style.width = `${progress}%`;
+    if (top) top.classList.toggle("show", window.scrollY > 420);
   }
 
   function syncChromeMetrics() {
@@ -2366,12 +2382,18 @@
     root.style.setProperty("--sidebar-low", palette.sidebarLow);
     root.style.setProperty("--accent", palette.accent);
     root.style.setProperty("--brand", palette.accent);
+    root.style.setProperty("--accent-1", palette.accent1 || palette.accent);
+    root.style.setProperty("--accent-2", palette.accent2 || palette.teal || palette.accent);
+    root.style.setProperty("--accent-3", palette.accent3 || palette.purple || palette.accent);
+    root.style.setProperty("--accent-rgb-1", palette.accentRgb1 || "60, 130, 255");
+    root.style.setProperty("--accent-rgb-2", palette.accentRgb2 || "0, 200, 255");
     root.style.setProperty("--blue", palette.blue);
     root.style.setProperty("--teal", palette.teal);
     root.style.setProperty("--purple", palette.purple);
     root.style.setProperty("--green", palette.green);
     root.dataset.palette = palette.name.toLowerCase();
     localStorage.setItem("memory-palette-index", String(paletteIndex));
+    $$(".theme-dot").forEach((dot) => dot.classList.toggle("active", Number(dot.dataset.paletteIndex) === paletteIndex));
 
     const btn = $("#paletteBtn");
     if (btn) {
