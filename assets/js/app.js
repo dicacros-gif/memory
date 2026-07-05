@@ -963,6 +963,8 @@
       risk: "DUV 반복 노광은 공정 스텝·마스크 비용·변동성을 키우며, HBM3는 열·패키징·소재·수율 병목으로 2026년 내 의미 있는 양산이 어렵다는 평가가 우세합니다",
       implication: "HBM 선두와의 격차는 3~4년 유지 가능성이 높고, CXMT의 실제 위협은 IPO 자금 투입 이후 레거시 DRAM 가격 하방에서 먼저 나타납니다",
       linkedCategories: ["dram", "packaging", "equipment"],
+      source: "TechInsights / Tom's Hardware",
+      sourceUrl: "https://www.tomshardware.com/pc-components/dram/chinas-cxmt-reportedly-delays-mass-production-of-ddr5-memory",
     },
     {
       id: "ymtc-xtacking",
@@ -973,6 +975,8 @@
       risk: "기존 4.41Gb/mm² 수치는 초기 세대 지표라 최신 경쟁력을 과소평가합니다. 다만 수율 안정화는 별도 검증이 필요합니다",
       implication: "SK하이닉스는 NAND 가격뿐 아니라 eSSD·데이터센터 고객 확대와 YMTC의 기술 선도 지표를 동시에 봐야 합니다",
       linkedCategories: ["nand", "packaging"],
+      source: "TechInsights",
+      sourceUrl: "https://www.techinsights.com/blog/ymtc-xtacking40-breaking-new-ground-3d-nand-technology",
     },
     {
       id: "wuhan-phase3",
@@ -983,6 +987,8 @@
       risk: "국산 장비 qual과 공정 recipe 안정화가 지연되면 NAND·D램 동시 확장 전략은 수율 병목에 부딪힐 수 있습니다",
       implication: "YMTC는 단순 NAND 경쟁사가 아니라 NAND·D램·TSV 적층을 묶는 중국형 IDM 후보로 추적해야 합니다",
       linkedCategories: ["nand", "dram", "equipment", "packaging"],
+      source: "Reuters / Tom's Hardware",
+      sourceUrl: "https://www.tomshardware.com/tech-industry/semiconductors/ymtcs-third-wuhan-fab-clears-beijings-50-percent-domestic-tooling-threshold-as-two-more-are-planned",
     },
     {
       id: "advanced-packaging",
@@ -1003,6 +1009,8 @@
       risk: "집계 기준에 따라 국산화율 수치가 달라집니다. AMEC 식각, Naura 종합장비, ACM 세정이 서방 장비를 대체하고 소재 기업은 JV·공동 R&D를 통해 recipe 흡수를 시도합니다",
       implication: "한국 소부장 파트너의 JV 제안, 소재 recipe 이전, 중국 내수 우선 공급권 요구를 조기 탐지해야 합니다",
       linkedCategories: ["equipment", "geopolitics", "talent"],
+      source: "Reuters",
+      sourceUrl: "https://www.reuters.com/technology/china-sets-up-475-bln-state-fund-boost-semiconductor-industry-2024-05-27/",
     },
     {
       id: "match-act",
@@ -1578,6 +1586,91 @@
     return `<span class="claim-badge ${escapeHTML(cls)}">${escapeHTML(label || status || "검증")}</span>`;
   }
 
+  function sourceUrlItems(items = []) {
+    return items.filter((item) => String(item?.sourceUrl || item?.link || "").trim());
+  }
+
+  function proofState({ sourceUrl = "", linkCount = 0, priceRows = 0, signals = 0 } = {}) {
+    if (sourceUrl || linkCount > 0 || priceRows > 0) return { cls: "ok", label: "근거 연결" };
+    if (signals > 0) return { cls: "watch", label: "신호 기반" };
+    return { cls: "fail", label: "검증 필요" };
+  }
+
+  function proofBadgeHTML(item = {}) {
+    const linkCount = sourceUrlItems(item.links || []).length;
+    const state = proofState({
+      sourceUrl: item.sourceUrl,
+      linkCount,
+      priceRows: item.priceRows || 0,
+      signals: item.signals || 0,
+    });
+    const detail = state.cls === "ok"
+      ? `출처 ${fmtNum(linkCount)} · 가격 ${fmtNum(item.priceRows || 0)} rows`
+      : state.cls === "watch"
+        ? `신호 ${fmtNum(item.signals || 0)} · 출처 보강`
+        : "숫자 근거 없음";
+    return `${factBadge(state.label, state.cls)}<span class="evidence-mini">${escapeHTML(detail)}</span>`;
+  }
+
+  function sourceLinkHTML(url, label = "원문") {
+    const clean = String(url || "").trim();
+    if (!clean) return `<span class="data-state fail">출처 URL 없음</span>`;
+    return `<a class="source-tag" href="${escapeHTML(clean)}" target="_blank" rel="noopener">${escapeHTML(label)}</a>`;
+  }
+
+  function renderDataIntegrityBoard() {
+    const target = $("#dataIntegrityGrid");
+    if (!target) return;
+    const kpis = BASE.kpis || [];
+    const kpiWithSource = kpis.filter((kpi) => String(kpi.sourceUrl || "").trim()).length;
+    const news = rawNews();
+    const newsWithLinks = news.filter((item) => String(item.link || "").trim()).length;
+    const health = LIVE.health || [];
+    const ok = health.filter((entry) => entry.ok).length;
+    const priceRows = allPriceRows().length;
+    const cards = [
+      {
+        label: "가격 실측",
+        value: priceRows,
+        suffix: " rows",
+        note: `${LIVE.prices?.source || "TrendForce"} · ${fmtDate(LIVE.prices?.updatedAt || LIVE.updatedAt)}`,
+        state: priceRows ? "ok" : "fail",
+      },
+      {
+        label: "뉴스 링크",
+        value: `${fmtNum(newsWithLinks)}/${fmtNum(news.length)}`,
+        note: "링크가 있는 기사만 원문 근거로 사용",
+        state: newsWithLinks ? "ok" : "fail",
+      },
+      {
+        label: "KPI 출처 URL",
+        value: `${fmtNum(kpiWithSource)}/${fmtNum(kpis.length)}`,
+        note: "URL 없는 KPI는 화면에서 검증 필요로 표시",
+        state: kpiWithSource === kpis.length ? "ok" : "watch",
+      },
+      {
+        label: "수집 단계",
+        value: `${fmtNum(ok)}/${fmtNum(health.length)}`,
+        note: "GitHub Actions health log 기준",
+        state: ok === health.length ? "ok" : "watch",
+      },
+      {
+        label: "프로젝션",
+        value: "모델",
+        note: "실측값이 아니라 가격·뉴스 신호 기반 시나리오 산출",
+        state: "watch",
+      },
+    ];
+    target.innerHTML = cards.map((card, index) => `
+      <article class="integrity-card reveal" style="animation-delay:${index * 25}ms">
+        <span>${escapeHTML(card.label)}</span>
+        <strong>${typeof card.value === "number" ? `${fmtNum(card.value)}${escapeHTML(card.suffix || "")}` : escapeHTML(card.value)}</strong>
+        ${factBadge(card.state === "ok" ? "실측/출처" : card.state === "fail" ? "검증 필요" : "보도/모델", card.state)}
+        <small>${escapeHTML(card.note)}</small>
+      </article>
+    `).join("");
+  }
+
   function animateCounts(root = document) {
     const counts = $$(".count", root);
     const run = (node) => {
@@ -1917,6 +2010,9 @@
     (BASE.kpis || []).slice(0, 6).forEach((kpi, index) => {
       const node = el("article", "kpi reveal");
       node.style.animationDelay = `${index * 35}ms`;
+      const hasSourceUrl = String(kpi.sourceUrl || "").trim();
+      const statusClass = hasSourceUrl ? (kpi.statusClass || kpi.status || "ok") : "fail";
+      const badgeLabel = hasSourceUrl ? (kpi.badge || kpi.status || "출처 있음") : "출처 미첨부";
       node.innerHTML = `
         <span>${escapeHTML(kpi.label)}</span>
         <strong>${countHTML(kpi.value, {
@@ -1925,14 +2021,16 @@
           decimals: kpi.decimals || 0,
         })}</strong>
         <div class="kpi-meta">
-          ${factBadge(kpi.badge || kpi.status || "OK", kpi.statusClass || kpi.status || "ok")}
+          ${factBadge(badgeLabel, statusClass)}
           ${kpi.sourceDate ? `<span class="source-tag">${escapeHTML(kpi.sourceDate)}</span>` : ""}
+          ${sourceLinkHTML(kpi.sourceUrl, kpi.source || "원문")}
         </div>
         <small>${escapeHTML(kpi.note)}</small>
         ${kpi.alt ? `<em class="kpi-alt">${escapeHTML(kpi.alt)}</em>` : ""}
       `;
       strip.appendChild(node);
     });
+    renderDataIntegrityBoard();
   }
 
   function setCopyState(button, label = "복사됨") {
@@ -4133,13 +4231,16 @@
       const priceMomentum = investmentPriceMomentum(item);
       const chinaRisk = (item.linkedCategories || []).includes("china") ? rawNews().filter(isChinaArticle).length * .06 : 0;
       const score = clamp(item.baseScore + Math.min(signals, 160) * .08 + priceMomentum * 1.8 + chinaRisk);
+      const links = investmentEvidenceLinks(item, 5);
+      const evidenceCount = investmentEvidenceLinks(item, 999).length;
       return {
         ...item,
         signals,
         priceRows: investmentPriceRows(item).length,
         priceMomentum,
         score,
-        links: investmentEvidenceLinks(item, 5),
+        evidenceCount,
+        links,
       };
     });
   }
@@ -4158,6 +4259,7 @@
         priceRows: investmentPriceRows(item).length,
         priceMomentum,
         score,
+        evidenceCount: investmentEvidenceLinks(item, 999).length + (strategy?.evidenceCount || 0),
         links: investmentEvidenceLinks(item, 5).concat(strategy?.links || []).slice(0, 5),
       };
     });
@@ -4179,8 +4281,8 @@
       tags: [item.label, item.capital, item.allocation, item.stage].filter(Boolean),
       links: item.links || [],
       metrics: [
-        { label: "Score", value: fmtNum(item.score) },
-        { label: "Signal", value: fmtNum(item.signals) },
+        { label: "Model score", value: fmtNum(item.score) },
+        { label: "Evidence links", value: fmtNum(item.evidenceCount || sourceUrlItems(item.links || []).length) },
         { label: "Price rows", value: fmtNum(item.priceRows || 0) },
       ],
     };
@@ -4203,6 +4305,7 @@
       title: item.businessAxis || item.label,
       label: item.label,
       score: item.score,
+      proof: proofBadgeHTML(item),
       body: item.thesis,
       action: (item.actions || [])[0] || item.capital,
       delay: index * 35,
@@ -4212,8 +4315,9 @@
         <span>${escapeHTML(card.title)}</span>
         <div>
           <strong>${escapeHTML(card.label)}</strong>
-          <em>${fmtNum(card.score)}%</em>
+          <em>모델 ${fmtNum(card.score)}%</em>
         </div>
+        <div class="evidence-row">${card.proof}</div>
         <p>${escapeHTML(card.body)}</p>
         <small>${escapeHTML(card.action || "")}</small>
       </article>
@@ -4234,7 +4338,7 @@
           <strong>${escapeHTML(top?.label || axis)}</strong>
           <p>${escapeHTML(top?.capital || "크롤링 신호를 기다리는 축")}</p>
           <div class="lane-meter" aria-hidden="true"><i data-fill-to="${clamp(score)}" style="width:0%"></i></div>
-          <small>${fmtNum(signals || top?.signals || 0)} signals · ${fmtNum(score)}%</small>
+          <small>${fmtNum(signals || top?.signals || 0)} signals · 모델 ${fmtNum(score)}% · 근거 ${fmtNum(top?.evidenceCount || 0)}건</small>
         </button>
       `;
     }).join("");
@@ -4250,7 +4354,7 @@
           <strong>${escapeHTML(item.label)}</strong>
           <p>${escapeHTML(item.action || item.logic || "")}</p>
           <div class="gate-meter" aria-hidden="true"><i data-fill-to="${clamp(item.score)}" style="width:0%"></i></div>
-          <small>${fmtNum(item.signals)} signals · fit ${fmtNum(item.score)}%</small>
+          <small>${fmtNum(item.signals)} signals · 모델 ${fmtNum(item.score)}% · 근거 ${fmtNum(item.evidenceCount || 0)}건</small>
         </button>
       `;
     }).join("");
@@ -4265,15 +4369,24 @@
         <span class="chip accent">${escapeHTML(item.label)} · ${escapeHTML(item.role || item.option)}</span>
         <h3>${escapeHTML(item.title)}</h3>
         <p>${escapeHTML(item.thesis || item.logic)}</p>
+        <div class="evidence-row">${proofBadgeHTML(item)}</div>
       </div>
       <div class="metric-row">
-        <div class="metric"><strong>${fmtNum(item.score)}</strong><span>Score</span></div>
-        <div class="metric"><strong>${fmtNum(item.signals)}</strong><span>Signal</span></div>
-        <div class="metric"><strong>${item.allocation ? escapeHTML(item.allocation) : escapeHTML(item.stage || "Gate")}</strong><span>${item.allocation ? "배분" : "판단"}</span></div>
+        <div class="metric"><strong>${fmtNum(item.score)}</strong><span>모델점수</span></div>
+        <div class="metric"><strong>${fmtNum(item.evidenceCount || sourceUrlItems(item.links || []).length)}</strong><span>출처/기사 근거</span></div>
+        <div class="metric"><strong>${fmtNum(item.priceRows || 0)}</strong><span>가격 rows</span></div>
       </div>
       <div class="investment-focus-block">
-        <strong>투자 관점</strong>
+        <strong>${item.allocation ? "전략 가중치(모델)" : "판단 상태"}</strong>
+        <p>${item.allocation ? `${escapeHTML(item.allocation)} · 실제 자본 배분 확정값이 아니라, 현재 수집 신호 기반 우선순위입니다.` : escapeHTML(item.stage || "Gate")}</p>
+      </div>
+      <div class="investment-focus-block">
+        <strong>실행 관점</strong>
         <p>${escapeHTML(item.capital || item.action || "")}</p>
+      </div>
+      <div class="investment-focus-block">
+        <strong>숫자 산식</strong>
+        <p>모델점수 = 기준점수 + 크롤링 신호 + 가격 모멘텀 + 연결 전략 점수. 실측값은 가격 rows와 원문 링크 수만 별도 집계합니다.</p>
       </div>
       <div class="investment-focus-block">
         <strong>${section === "management-strategy" ? "전략 실행" : "의사결정 게이트"}</strong>
@@ -4346,11 +4459,11 @@
 
     grid.innerHTML = items.map((item, index) => `
       <button class="investment-card reveal${item.id === selected?.id ? " active" : ""}" type="button" data-management-strategy="${escapeHTML(item.id)}" style="--local-accent:${categoryAccent((item.linkedCategories || [])[0])}; animation-delay:${index * 25}ms">
-        ${scoreRingHTML(item.score, "Score")}
+        ${scoreRingHTML(item.score, "Model")}
         <span>
-          <small>${escapeHTML(item.businessAxis)} · ${escapeHTML(item.allocation)}</small>
+          <small>${escapeHTML(item.businessAxis)} · 모델가중치 ${escapeHTML(item.allocation)}</small>
           <strong>${escapeHTML(item.label)}</strong>
-          <em>${fmtNum(item.signals)} signals · ${escapeHTML(item.capital)}</em>
+          <em>${fmtNum(item.signals)} signals · 근거 ${fmtNum(item.evidenceCount || 0)}건</em>
         </span>
       </button>
     `).join("");
@@ -4403,11 +4516,11 @@
 
     grid.innerHTML = items.map((item, index) => `
       <button class="investment-card reveal${item.id === selected?.id ? " active" : ""}" type="button" data-strategic-decision="${escapeHTML(item.id)}" style="--local-accent:${categoryAccent((item.linkedCategories || [])[0])}; animation-delay:${index * 25}ms">
-        ${scoreRingHTML(item.score, "Fit")}
+        ${scoreRingHTML(item.score, "Model")}
         <span>
           <small>${escapeHTML(item.stage)} · ${escapeHTML(item.option)}</small>
           <strong>${escapeHTML(item.label)}</strong>
-          <em>${fmtNum(item.signals)} signals · ${escapeHTML(item.capital)}</em>
+          <em>${fmtNum(item.signals)} signals · 근거 ${fmtNum(item.evidenceCount || 0)}건</em>
         </span>
       </button>
     `).join("");
@@ -4420,6 +4533,7 @@
         <span>Decision evidence</span>
         <strong>${escapeHTML(selected?.label || "투자 옵션")}</strong>
         <small>${escapeHTML(selected?.action || "")}</small>
+        <div class="evidence-row">${proofBadgeHTML(selected || {})}</div>
       </div>
       <ul class="work-link-list">
         ${evidenceLinks.length ? evidenceLinks.map((link) => `<li><a href="${escapeHTML(link.link || "#")}" target="_blank" rel="noopener">${escapeHTML(newsTitle(link) || link.title || "Signal")}</a></li>`).join("") : `<li><em>현재 선택 옵션에 연결된 최신 기사 신호가 없습니다.</em></li>`}
@@ -4624,11 +4738,11 @@
       tags: segment.products || [],
       links: segment.links || [],
       metrics: [
-        { label: "T+30M", value: `${fmtNum(start, 1)}%` },
-        { label: "5Y", value: `${fmtNum(end, 1)}%` },
+        { label: "T+30M 모델", value: `${fmtNum(start, 1)}%` },
+        { label: "5Y 모델", value: `${fmtNum(end, 1)}%` },
         { label: "Case", value: scenario.label },
-        { label: "Signal", value: fmtNum(segment.signals) },
-        { label: "Score", value: fmtNum(segment.score) },
+        { label: "실제 신호", value: fmtNum(segment.signals) },
+        { label: "모델점수", value: fmtNum(segment.score) },
       ],
     };
   }
@@ -4702,15 +4816,15 @@
     const worstServerShare = projectionGroupShare(scenarioMap.worst || series, ["ai-server", "dc-storage"]);
     const totalSignals = segments.reduce((sum, segment) => sum + segment.signals, 0);
 
-    if (meta) meta.textContent = `${scenario.label} case · ${horizon.detail} · ${fmtNum(totalSignals)}개 신호 · ${fmtDate(LIVE.updatedAt)}`;
+    if (meta) meta.textContent = `${scenario.label} case · 모델 산출 · ${horizon.detail} · ${fmtNum(totalSignals)}개 신호 · ${fmtDate(LIVE.updatedAt)}`;
     if (windowNode) windowNode.textContent = `${horizon.rangeLabel} · 현재 수집일 +${PROJECTION_START_MONTHS}개월부터`;
 
     const summaryCards = [
       { label: "선택 케이스", value: scenario.label, note: scenario.tone },
-      { label: "서버향 믹스", value: serverShare, note: "AI 서버 + 데이터센터 스토리지", suffix: "%", decimals: 1 },
-      { label: "단말향 믹스", value: terminalShare, note: "모바일/PC + 오토/엣지", suffix: "%", decimals: 1 },
-      { label: "서버향 3-case 범위", value: `${fmtNum(worstServerShare, 1)}~${fmtNum(bestServerShare, 1)}%`, note: "Worst~Best 5Y 민감도 범위" },
-      { label: "크롤링 신호", value: totalSignals, note: "뉴스·가격·벤치마킹 반영", suffix: "건" },
+      { label: "서버향 믹스", value: serverShare, note: "모델 산출 · AI 서버 + 데이터센터 스토리지", suffix: "%", decimals: 1 },
+      { label: "단말향 믹스", value: terminalShare, note: "모델 산출 · 모바일/PC + 오토/엣지", suffix: "%", decimals: 1 },
+      { label: "서버향 3-case 범위", value: `${fmtNum(worstServerShare, 1)}~${fmtNum(bestServerShare, 1)}%`, note: "Worst~Best 5Y 민감도 · 실측 아님" },
+      { label: "크롤링 신호", value: totalSignals, note: "뉴스·가격·벤치마킹 실제 건수", suffix: "건" },
     ];
     summary.innerHTML = summaryCards.map((card) => `
       <article class="projection-stat reveal">
@@ -4727,7 +4841,7 @@
         <button class="projection-scenario-tab reveal${item.id === scenario.id ? " active" : ""}" type="button" data-projection-scenario="${escapeHTML(item.id)}">
           <span>${escapeHTML(item.label)}</span>
           <strong>${escapeHTML(item.sub)}</strong>
-          <em>${selected ? escapeHTML(selected.short) : "Product"} 5Y ${fmtNum(selectedShare, 1)}%</em>
+          <em>${selected ? escapeHTML(selected.short) : "Product"} 5Y 모델 ${fmtNum(selectedShare, 1)}%</em>
         </button>
       `;
     }).join("");
@@ -4743,7 +4857,7 @@
             <span>${escapeHTML(item.label)}</span>
             <strong>${countHTML(itemSelected, { suffix: "%", decimals: 1 })}</strong>
           </div>
-          <p>${escapeHTML(item.tone)}</p>
+          <p>${escapeHTML(item.tone)} · 모델 산출값</p>
           <div class="scenario-bars">
             <div class="scenario-bar-row">
               <span>서버향</span>
@@ -4796,9 +4910,9 @@
         <button class="projection-tab reveal${segment.id === selected?.id ? " active" : ""}" type="button" data-projection-tab="${escapeHTML(segment.id)}" style="--local-accent:${categoryAccent((segment.linkedCategories || [])[0])}; animation-delay:${index * 25}ms">
           ${scoreRingHTML(segment.score, "Score")}
           <span>
-            <small>${escapeHTML(segment.demand)}</small>
-            <strong>${escapeHTML(segment.label)}</strong>
-            <em>5Y ${fmtNum(endShare, 1)}% · ${fmtNum(segment.signals)} signals</em>
+          <small>${escapeHTML(segment.demand)} · 모델점수</small>
+          <strong>${escapeHTML(segment.label)}</strong>
+          <em>5Y 모델 ${fmtNum(endShare, 1)}% · 실제 신호 ${fmtNum(segment.signals)}건</em>
           </span>
         </button>
       `;
@@ -4816,9 +4930,13 @@
           <p>${escapeHTML(selected.thesis)}</p>
         </div>
         <div class="metric-row">
-          <div class="metric"><strong>${fmtNum(startShare, 1)}%</strong><span>T+30개월</span></div>
-          <div class="metric"><strong>${fmtNum(endShare, 1)}%</strong><span>5년차</span></div>
-          <div class="metric"><strong>${fmtNum(selected.signals)}</strong><span>크롤링 신호</span></div>
+          <div class="metric"><strong>${fmtNum(startShare, 1)}%</strong><span>T+30개월 모델</span></div>
+          <div class="metric"><strong>${fmtNum(endShare, 1)}%</strong><span>5년차 모델</span></div>
+          <div class="metric"><strong>${fmtNum(selected.signals)}</strong><span>실제 신호 건수</span></div>
+        </div>
+        <div class="projection-focus-block scenario-note">
+          <strong>검증 기준</strong>
+          <p>이 탭의 비중은 실측 판매 전망이 아니라 price-history/live.json의 가격 rows, 기사 링크, 벤치마킹 신호를 정규화한 모델 산출값입니다. 실제 숫자는 신호 건수와 가격 rows로만 표시합니다.</p>
         </div>
         <div class="projection-focus-block">
           <strong>제품군</strong>
@@ -5124,6 +5242,9 @@
     grid.innerHTML = "";
     items.forEach((item, index) => {
       const card = el("article", "china-deep-card reveal");
+      const numericFacts = (item.facts || []).filter((fact) => /\d/.test(String(fact || "")));
+      const sourceState = item.sourceUrl ? "ok" : numericFacts.length ? "fail" : "watch";
+      const sourceLabel = item.sourceUrl ? "출처 연결" : numericFacts.length ? "출처 URL 필요" : "정성 분석";
       card.style.animationDelay = `${index * 35}ms`;
       card.style.setProperty("--local-accent", categoryAccent((item.linkedCategories || [])[0]));
       card.innerHTML = `
@@ -5131,10 +5252,14 @@
           <span class="chip accent">${escapeHTML(item.tag)}</span>
           <span class="deep-index">${String(index + 1).padStart(2, "0")}</span>
         </div>
+        <div class="evidence-row">
+          ${factBadge(sourceLabel, sourceState)}
+          ${item.sourceUrl ? sourceLinkHTML(item.sourceUrl, item.source || "원문") : `<span class="evidence-mini">숫자 fact ${fmtNum(numericFacts.length)}개</span>`}
+        </div>
         <h3>${escapeHTML(item.title)}</h3>
         <p>${escapeHTML(item.thesis)}</p>
         <div class="deep-facts">
-          ${(item.facts || []).map((fact) => `<span>${escapeHTML(fact)}</span>`).join("")}
+          ${(item.facts || []).map((fact) => `<span>${escapeHTML(fact)}${/\d/.test(String(fact || "")) && !item.sourceUrl ? " · 출처 필요" : ""}</span>`).join("")}
         </div>
         <div class="insight-box"><span>리스크</span>${escapeHTML(item.risk)}</div>
         <div class="deep-implication"><strong>SK하이닉스 시사점</strong><span>${escapeHTML(item.implication)}</span></div>
@@ -5148,6 +5273,7 @@
         categories: item.linkedCategories || [],
         watch: [item.risk, item.implication].concat(item.facts || []),
         metrics: (item.facts || []).slice(0, 3).map((fact, idx) => ({ label: `핵심 ${idx + 1}`, value: fact })),
+        links: item.sourceUrl ? [{ title: item.source || item.title, link: item.sourceUrl }] : [],
       });
       grid.appendChild(card);
     });
@@ -5222,9 +5348,10 @@
         categories: item.linkedCategories || [],
         watch: (item.triggers || []).concat(item.actions || []),
         metrics: [
-          { label: "Score", value: fmtNum(item.score) },
-          { label: "Signal", value: fmtNum(item.signals) },
-          { label: "Capital", value: item.capital },
+          { label: "모델점수", value: fmtNum(item.score) },
+          { label: "실제 신호", value: fmtNum(item.signals) },
+          { label: "근거 링크", value: fmtNum(item.evidenceCount || 0) },
+          { label: "가격 rows", value: fmtNum(item.priceRows || 0) },
         ],
         tags: [item.label, item.horizon, item.allocation].filter(Boolean),
         links: item.links || [],
@@ -5243,9 +5370,10 @@
         categories: item.linkedCategories || [],
         watch: (item.gate || []).concat(item.action || []),
         metrics: [
-          { label: "Score", value: fmtNum(item.score) },
-          { label: "Signal", value: fmtNum(item.signals) },
-          { label: "Capital", value: item.capital },
+          { label: "모델점수", value: fmtNum(item.score) },
+          { label: "실제 신호", value: fmtNum(item.signals) },
+          { label: "근거 링크", value: fmtNum(item.evidenceCount || 0) },
+          { label: "가격 rows", value: fmtNum(item.priceRows || 0) },
         ],
         tags: [item.label, item.option, item.stage].filter(Boolean),
         links: item.links || [],

@@ -876,6 +876,60 @@ body.sidebar-collapsed .sb-ico {
   -webkit-line-clamp: 1;
 }
 
+.data-integrity-grid {
+  display: grid;
+  grid-template-columns: repeat(5, minmax(0, 1fr));
+  gap: 10px;
+}
+
+.integrity-card {
+  min-width: 0;
+  display: grid;
+  align-content: start;
+  gap: 7px;
+  min-height: 116px;
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  background: var(--panel-2);
+  padding: 12px;
+}
+
+.integrity-card > span,
+.evidence-mini {
+  color: var(--muted);
+  font-size: 10px;
+  font-weight: 950;
+  letter-spacing: .04em;
+  text-transform: uppercase;
+}
+
+.integrity-card strong {
+  color: var(--ink);
+  font-family: var(--display);
+  font-size: 22px;
+  line-height: 1;
+}
+
+.integrity-card small {
+  color: var(--ink-2);
+  font-size: 11px;
+  line-height: 1.45;
+  font-weight: 750;
+}
+
+.evidence-row {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  flex-wrap: wrap;
+  min-width: 0;
+}
+
+.evidence-mini {
+  text-transform: none;
+  letter-spacing: 0;
+}
+
 .executive-summary {
   display: grid;
   gap: 14px;
@@ -6024,6 +6078,7 @@ body.sidebar-collapsed .sb-ico {
 
   .category-grid,
   .channel-grid,
+  .data-integrity-grid,
   .exec-card-grid,
   .decision-summary,
   .investment-summary,
@@ -6312,6 +6367,7 @@ body.sidebar-collapsed .sb-ico {
   }
 
   .kpi-strip,
+  .data-integrity-grid,
   .number-grid,
   .exec-card-grid,
   .exec-strategy,
@@ -6427,6 +6483,7 @@ body.sidebar-collapsed .sb-ico {
   }
 
   .kpi-strip,
+  .data-integrity-grid,
     .number-grid,
     .number-lens-tabs,
     .number-lens-summary,
