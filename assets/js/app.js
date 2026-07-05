@@ -17,6 +17,7 @@
     news: [],
     categories: [],
     benchmarkSignals: { stream: [] },
+    chinaInfra: { sources: [], signals: [] },
     newsStats: {},
     health: [],
   };
@@ -87,6 +88,7 @@
     "management-strategy": "#A7F3D0",
     "strategic-investment-decision": "#FBCFE8",
     "policy-makers": "#BFDBFE",
+    "china-fab-infra": "#67E8F9",
     "daily-review": "#A7F3D0",
     numbers: "#FDE68A",
     projection: "#FBBF24",
@@ -212,6 +214,84 @@
         { label: "BIS VEU change", url: "https://www.bis.gov/press-release/department-commerce-closes-export-controls-loophole-foreign-owned-semiconductor-fabs-china" },
         { label: "CHIPS for America", url: "https://www.chips.gov/" },
         { label: "Treasury outbound investment", url: "https://home.treasury.gov/policy-issues/international/outbound-investment-program" },
+      ],
+    },
+  ];
+  const CHINA_FAB_INFRA_SITES = [
+    {
+      id: "wuxi",
+      label: "Wuxi DRAM",
+      en: "Wuxi",
+      subtitle: "K7 plot · C2/C2F · DRAM",
+      accentCategory: "china",
+      verdict: "조건부 O / 신규 대규모 Fab는 확인 필요",
+      status: "Watch",
+      direction: "Wuxi는 기존 C2/C2F DRAM 거점과 K7 부지 내 기술개조·클린룸 확장 근거가 확인됩니다. 다만 추가 신규 fab 증설은 토지사용권, 전력 수전, 용수/폐수 처리 여유, BIS 라이선스를 동시에 확인해야 합니다.",
+      decision: "기존 fab 효율화·클린룸 단계 확장은 조건부 검토 가능. 새 fab/대규모 캐파 증설은 전력·용수·토지 권리·미국 수출통제 확인 전까지 X에 가깝게 보수적으로 판단합니다.",
+      liveTerms: ["wuxi", "sk hynix", "water", "power", "land", "k7", "c2f", "cleanroom", "bonded zone", "environmental impact"],
+      sites: [
+        { name: "SK hynix Semiconductor (China) Ltd.", role: "Wuxi DRAM production site", note: "공식 오피스 기준 중국 핵심 DRAM 생산 거점" },
+        { name: "K7 plot / Wuxi Hi-Tech District Comprehensive Bonded Zone", role: "기존 공장·기술개조 위치", note: "2017년 EIA에 K7 부지·기존 공장 내 증축으로 명시" },
+      ],
+      checks: [
+        { axis: "토지/부지", status: "조건부 O", title: "K7 부지 내 기존 공장 확장 근거", evidence: "2017년 WND 환경영향평가는 12인치 IC 라인 6기 기술개조와 CleanRoom 확장을 K7 부지, 기존 공장 내 프로젝트로 명시했습니다.", implication: "기존 부지 내 기술개조·클린룸 확장 근거는 있으나, 남은 토지 면적/토지사용권 기간은 별도 확인해야 합니다.", source: "Wuxi New District EIA", sourceUrl: "https://www.wnd.gov.cn/doc/2017/02/28/2386281.shtml" },
+        { axis: "클린룸/공간", status: "조건부 O", title: "C2F 58,000m2 및 추가 클린룸 유연성", evidence: "SK하이닉스는 C2F가 58,000m2 규모이며, 추가 클린룸 공사와 장비 반입 시점은 시장 상황에 따라 유연하게 결정한다고 밝혔습니다.", implication: "공간 병목 완화 근거는 있으나 신규 fab 증설과 동일하게 해석하면 안 됩니다.", source: "SK hynix Newsroom", sourceUrl: "https://news.skhynix.com/sk-hynix-completes-expanded-fab-c2f-in-wuxi-china/" },
+        { axis: "용수/폐수", status: "Watch", title: "재생수·MBR·신청하수처리장 연계", evidence: "EIA는 산성/불소/동/유기/생활폐수를 분류 처리하고, 재생수 회용 시범공정·MBR 회용·신청하수처리장 연계를 설명합니다.", implication: "기존 승인 범위의 폐수 처리 체계는 확인되나, 추가 캐파는 신규 물 사용량·폐수총량·수질총량 인허가가 필요합니다.", source: "Wuxi New District EIA", sourceUrl: "https://www.wnd.gov.cn/doc/2017/02/28/2386281.shtml" },
+        { axis: "전력/유틸리티", status: "확인필요", title: "전력 수전 용량 공개자료 부족", evidence: "확인한 공개자료에는 Wuxi fab의 전력 계약용량, 변전소 여유, 추가 장비 수전 가능량이 숫자로 공개되어 있지 않습니다.", implication: "추가 fab 판단은 전력 quota·변전소·비상전원·냉동기 부하 확인 전까지 보류해야 합니다.", source: "Public source gap", sourceUrl: "https://www.skhynix.com/company/UI-FR-CP06/" },
+        { axis: "환경/인허가", status: "O", title: "2017년 프로젝트 환경 타당성 결론", evidence: "EIA는 해당 주소의 건설이 산업정책·지역계획과 부합하고 오염방지 조치가 기술경제적으로 가능하다고 결론 냈습니다.", implication: "동일 범위의 기술개조 근거는 있으나, 신규 fab은 새 EIA·공중의견·배출총량 심사를 다시 봐야 합니다.", source: "Wuxi New District EIA", sourceUrl: "https://www.wnd.gov.cn/doc/2017/02/28/2386281.shtml" },
+        { axis: "보세구/물류", status: "Watch", title: "Wuxi 보세구 확장", evidence: "Wuxi Hi-Tech District 종합보세구는 2025년 면적을 1.11km2 늘려 총 3.49km2로 조정됐고, SK hynix premises가 핵심 사례로 언급됐습니다.", implication: "주변 산업·물류 수용력은 긍정 신호지만 SK하이닉스 보유 토지 확대 증거는 아닙니다.", source: "Wuxi Government", sourceUrl: "https://en.wuxi.gov.cn/2025-07/31/c_1113622.htm" },
+        { axis: "미국 수출통제", status: "X", title: "캐파 확대·기술 업그레이드 라이선스 리스크", evidence: "BIS는 VEU 특례 종료 후 기존 운영 라이선스는 의도하지만 중국 내 캐파 확대나 기술 업그레이드 라이선스는 의도하지 않는다고 밝혔습니다.", implication: "인프라가 가능해도 장비·SW·공정 업그레이드가 막히면 확장 판단은 No-Go입니다.", source: "BIS", sourceUrl: "https://www.bis.gov/press-release/department-commerce-closes-export-controls-loophole-foreign-owned-semiconductor-fabs-china" },
+      ],
+      sources: [
+        { label: "SK hynix Wuxi C2F", url: "https://news.skhynix.com/sk-hynix-completes-expanded-fab-c2f-in-wuxi-china/" },
+        { label: "Wuxi EIA K7 plot", url: "https://www.wnd.gov.cn/doc/2017/02/28/2386281.shtml" },
+        { label: "Wuxi bonded zone expansion", url: "https://en.wuxi.gov.cn/2025-07/31/c_1113622.htm" },
+        { label: "BIS VEU change", url: "https://www.bis.gov/press-release/department-commerce-closes-export-controls-loophole-foreign-owned-semiconductor-fabs-china" },
+      ],
+    },
+    {
+      id: "dalian",
+      label: "Dalian Storage",
+      en: "Dalian",
+      subtitle: "NAND / Solidigm · storage site",
+      accentCategory: "nand",
+      verdict: "확인필요",
+      status: "Check",
+      direction: "Dalian 법인 주소와 스토리지 거점은 공식 오피스 페이지로 확인되지만, 추가 wafer fab 확장을 판단할 수 있는 토지·용수·전력 수치 공개자료는 부족합니다.",
+      decision: "Dalian은 NAND/Solidigm 운영 리스크 관찰 대상으로 두고, 신규 fab 확장 후보로 보기 전에 부지 권리·수전 용량·폐수 처리 인허가를 새로 확인합니다.",
+      liveTerms: ["dalian", "solidigm", "sk hynix", "storage", "water", "power", "land"],
+      sites: [
+        { name: "SK hynix Semiconductor storage technology (Dalian) Co. Ltd", role: "Dalian storage site", note: "공식 오피스 기준 주소 확인" },
+      ],
+      checks: [
+        { axis: "토지/부지", status: "확인필요", title: "Dalian 토지사용권·확장 부지 미공개", evidence: "공식 오피스는 위치를 제공하지만 추가 fab 후보 면적이나 토지사용권 조건은 공개 확인되지 않았습니다.", implication: "부지 권리 확인 전 신규 fab 확장 판단 금지.", source: "SK hynix Offices", sourceUrl: "https://www.skhynix.com/company/UI-FR-CP06/" },
+        { axis: "용수/폐수", status: "확인필요", title: "공정 용수·폐수 인허가 미확인", evidence: "Dalian site의 공정 용수 배정량과 폐수 처리 여유는 공개자료로 확인되지 않았습니다.", implication: "NAND/스토리지 공정 확장은 현지 EIA·수자원 허가를 먼저 크롤링해야 합니다.", source: "SK hynix Offices", sourceUrl: "https://www.skhynix.com/company/UI-FR-CP06/" },
+        { axis: "전력/유틸리티", status: "확인필요", title: "수전 용량·변전소 여유 미확인", evidence: "전력 계약용량과 비상전원 구성은 공개자료가 없습니다.", implication: "전력 신호 없이는 fab 확장 O 판단 불가.", source: "Public source gap", sourceUrl: "https://www.skhynix.com/company/UI-FR-CP06/" },
+      ],
+      sources: [
+        { label: "SK hynix China offices", url: "https://www.skhynix.com/company/UI-FR-CP06/" },
+      ],
+    },
+    {
+      id: "chongqing",
+      label: "Chongqing Assembly",
+      en: "Chongqing",
+      subtitle: "bonded zone · back-end/operations",
+      accentCategory: "packaging",
+      verdict: "Fab 확장 X / 운영 인프라 Watch",
+      status: "Watch",
+      direction: "Chongqing 법인은 공식 오피스 기준 중국 내 운영 거점이지만, wafer fab 확장 후보라기보다 후공정/보세구 운영 리스크 관찰 대상으로 보는 것이 안전합니다.",
+      decision: "Chongqing은 추가 전공정 fab 후보로 판단하지 않고, 물류·후공정·고객 대응 인프라 탭에서 감시합니다.",
+      liveTerms: ["chongqing", "sk hynix", "bonded zone", "assembly", "packaging", "power", "water"],
+      sites: [
+        { name: "SK hynix Semiconductor (Chongqing) Ltd.", role: "Chongqing headquarters", note: "공식 오피스 기준 보세구 거점" },
+      ],
+      checks: [
+        { axis: "Fab 적합성", status: "X", title: "전공정 fab 확장 근거 부족", evidence: "공식 오피스는 Chongqing 소재 법인을 보여주지만 300mm 전공정 fab 확장 근거는 공개 확인되지 않았습니다.", implication: "fab 확장 후보보다는 후공정/물류 운영 리스크로 분류합니다.", source: "SK hynix Offices", sourceUrl: "https://www.skhynix.com/company/UI-FR-CP06/" },
+        { axis: "용수/전력", status: "확인필요", title: "후공정 증설 유틸리티 확인 필요", evidence: "공개자료만으로 용수·전력 여유를 판단할 수 없습니다.", implication: "패키징/테스트 증설도 전력·폐수·화학물질 허가를 별도 확인합니다.", source: "Public source gap", sourceUrl: "https://www.skhynix.com/company/UI-FR-CP06/" },
+      ],
+      sources: [
+        { label: "SK hynix China offices", url: "https://www.skhynix.com/company/UI-FR-CP06/" },
       ],
     },
   ];
@@ -1195,6 +1275,12 @@
       section: "policy-makers",
     },
     {
+      id: "china-fab-infra",
+      label: "중국 Fab 인프라",
+      sub: "Land · Water · Power",
+      section: "china-fab-infra",
+    },
+    {
       id: "crawler",
       label: "크롤링 관제",
       sub: "Source · Health · Map",
@@ -1282,7 +1368,7 @@
       label: "중국 전략·대응",
       desc: "중국 고객·NAND/eSSD·패키징·장비·규제·인재/IP 의사결정",
       cadence: "Decision layer",
-      sections: ["management-strategy", "strategic-investment-decision", "policy-makers", "dynamics", "monetization", "response", "intelligence"],
+      sections: ["management-strategy", "strategic-investment-decision", "policy-makers", "china-fab-infra", "dynamics", "monetization", "response", "intelligence"],
     },
   ];
   const NEWS_SOURCE_TABS = [
@@ -1301,6 +1387,7 @@
     "management-strategy": "중국 경영전략 수립",
     "strategic-investment-decision": "중국 전략적 의사 결정",
     "policy-makers": "정책 방향성",
+    "china-fab-infra": "중국 Fab 인프라",
     "daily-review": "일일 리뷰 큐",
     numbers: "숫자 대시보드",
     projection: "제품군 프로젝션",
@@ -1403,6 +1490,18 @@
       section: "china-dynamics",
       linkedCategories: ["dram", "nand", "china", "equipment", "geopolitics"],
       healthKeys: ["뉴스:China", "벤치마킹:China Capacity", "벤치마킹:Equipment Localization"],
+    },
+    {
+      id: "china-fab-infra",
+      label: "중국 Fab 인프라",
+      source: "SK hynix Wuxi C2F · Wuxi K7 EIA · Wuxi 보세구 · BIS",
+      method: "토지/부지, 용수/폐수, 전력/유틸리티, 환경 인허가, 수출통제 신호를 매일 직접 fetch 및 RSS 보조 질의로 갱신",
+      fields: ["토지/부지", "용수/폐수", "전력/유틸리티", "환경 인허가", "BIS 제약"],
+      filters: ["Wuxi/K7/C2F", "water/wastewater", "power/substation", "land-use", "environmental impact", "BIS VEU"],
+      output: "중국 Fab 확장성 판단",
+      section: "china-fab-infra",
+      linkedCategories: ["china", "operations", "geopolitics"],
+      healthKeys: ["중국Fab인프라", "벤치마킹:China Fab Infrastructure", "뉴스:China Fab Infra"],
     },
     {
       id: "china-nand-business",
@@ -1522,6 +1621,7 @@
   let managementStrategyFocusId = "china-key-account";
   let strategicDecisionFocusId = "china-key-account-lock";
   let policyMakerTab = "china";
+  let chinaInfraSite = "wuxi";
   let projectionFocusId = "ai-server";
   let projectionScenario = "neutral";
   let execDecisionFocusId = "hbm-ai-server";
@@ -1563,6 +1663,7 @@
     renderManagementStrategy();
     renderStrategicInvestmentDecision();
     renderPolicyMakers();
+    renderChinaFabInfra();
     renderDailyReview();
     renderNumberDashboard();
     renderProductProjection();
@@ -2913,6 +3014,13 @@
         score: 86,
         note: "중국·한국·미국 정책 방향성",
       },
+      "china-fab-infra": {
+        value: chinaInfraSignalCount(activeChinaInfraSite()),
+        unit: "signal",
+        status: activeChinaInfraSite().label,
+        score: clamp(52 + chinaInfraSignalCount(activeChinaInfraSite()) * 6, 32, 92),
+        note: "토지·용수·전력·환경·BIS 확장성",
+      },
       "daily-review": {
         value: dailyReviewItems().length,
         unit: "개",
@@ -3485,6 +3593,7 @@
     }
     if (item.id === "foreign-news") return rawNews().filter((news) => !isChinaArticle(news)).length;
     if (item.id === "china-news") return rawNews().filter(isChinaArticle).length;
+    if (item.id === "china-fab-infra") return chinaInfraSignalCount(activeChinaInfraSite());
     if (item.id === "china-nand-business") return CHINA_NAND_BUSINESS_LAYERS.reduce((sum, layer) => sum + nandBusinessSignalCount(layer), 0);
     if (item.id === "skhynix-product-projection") return projectionTotalSignals();
     if (item.id === "talent-hiring-radar") {
@@ -4953,6 +5062,189 @@
     animateMeters(grid);
   }
 
+  function activeChinaInfraSite() {
+    return CHINA_FAB_INFRA_SITES.find((site) => site.id === chinaInfraSite) || CHINA_FAB_INFRA_SITES[0];
+  }
+
+  function chinaInfraTheme() {
+    return (LIVE.benchmarkSignals?.themes || []).find((theme) => theme.id === "china_infra" || theme.label === "China Fab Infrastructure") || null;
+  }
+
+  function chinaInfraLiveSources(site = activeChinaInfraSite()) {
+    const sources = LIVE.chinaInfra?.sources || [];
+    return sources.filter((source) => !source.site || source.site === site.id || source.site === "all");
+  }
+
+  function chinaInfraSignalCount(site = activeChinaInfraSite()) {
+    const terms = (site.liveTerms || []).map((term) => String(term).toLowerCase());
+    const newsCount = rawNews().filter((news) => {
+      const hay = `${news.title || ""} ${news.titleKo || ""} ${news.summary || ""} ${news.source || ""} ${news.link || ""}`.toLowerCase();
+      return terms.some((term) => hay.includes(term));
+    }).length;
+    const theme = chinaInfraTheme();
+    const themeCount = Number(theme?.count ?? theme?.items?.length ?? 0) || 0;
+    return newsCount + themeCount + chinaInfraLiveSources(site).length;
+  }
+
+  function chinaInfraPayload(site) {
+    return {
+      type: "중국 Fab 인프라",
+      tag: site.en,
+      title: `${site.label} 확장성 판단`,
+      body: `${site.direction} ${site.decision}`,
+      section: "china-fab-infra",
+      categories: [site.accentCategory || "china"],
+      watch: (site.checks || []).map((check) => `${check.axis}: ${check.title} - ${check.implication}`),
+      metrics: [
+        { label: "판단", value: site.verdict },
+        { label: "체크포인트", value: fmtNum((site.checks || []).length) },
+        { label: "크롤링 신호", value: fmtNum(chinaInfraSignalCount(site)) },
+        { label: "직접 소스", value: fmtNum(chinaInfraLiveSources(site).length) },
+      ],
+      links: (site.sources || []).map((source) => ({ title: source.label, link: source.url })),
+      tags: [site.label, site.status, "Land", "Water", "Power"],
+    };
+  }
+
+  function renderChinaInfraTabs(site) {
+    const tabs = $("#infraSiteTabs");
+    if (!tabs) return;
+    tabs.innerHTML = CHINA_FAB_INFRA_SITES.map((item) => `
+      <button class="policy-tab${item.id === site.id ? " active" : ""}" type="button" role="tab" aria-selected="${item.id === site.id ? "true" : "false"}" data-infra-site="${escapeHTML(item.id)}" style="--local-accent:${categoryAccent(item.accentCategory)}">
+        <strong>${escapeHTML(item.label)}</strong>
+        <span>${escapeHTML(item.subtitle)}</span>
+      </button>
+    `).join("");
+    tabs.querySelectorAll("[data-infra-site]").forEach((btn) => {
+      btn.addEventListener("click", () => {
+        chinaInfraSite = btn.dataset.infraSite;
+        renderChinaFabInfra();
+      });
+    });
+  }
+
+  function renderChinaFabInfra() {
+    const summary = $("#infraSummary");
+    const grid = $("#infraRuleGrid");
+    const focus = $("#infraFocus");
+    const sourceGrid = $("#infraSourceGrid");
+    const meta = $("#infraMakerMeta");
+    const sourceMeta = $("#infraSourceMeta");
+    if (!summary || !grid || !focus || !sourceGrid) return;
+
+    const site = activeChinaInfraSite();
+    const accent = categoryAccent(site.accentCategory);
+    const payload = chinaInfraPayload(site);
+    const liveSources = chinaInfraLiveSources(site);
+    const signalCount = chinaInfraSignalCount(site);
+    const theme = chinaInfraTheme();
+    if (meta) meta.textContent = `${site.label} · ${fmtNum((site.checks || []).length)}개 체크포인트 · 크롤링 신호 ${fmtNum(signalCount)}개`;
+    if (sourceMeta) sourceMeta.textContent = `직접 소스 ${fmtNum(liveSources.length)}개 · RSS ${fmtNum(Number(theme?.count ?? 0) || 0)}개 · ${fmtDate(LIVE.chinaInfra?.updatedAt || LIVE.updatedAt)}`;
+    renderChinaInfraTabs(site);
+
+    summary.style.setProperty("--local-accent", accent);
+    summary.innerHTML = [
+      { label: "최종 판단", value: site.verdict, note: site.decision },
+      { label: "토지/부지", value: (site.checks || []).find((check) => check.axis.includes("토지"))?.status || "확인필요", note: "소유권/토지사용권과 기존 부지 내 확장 근거를 분리 판단" },
+      { label: "용수/폐수", value: (site.checks || []).find((check) => check.axis.includes("용수"))?.status || "확인필요", note: "공정용수, 재생수, 폐수총량, 하수처리장 여유 확인" },
+      { label: "전력", value: (site.checks || []).find((check) => check.axis.includes("전력"))?.status || "확인필요", note: "수전 용량, 변전소, 비상전원, 냉동기 부하 확인" },
+    ].map((card, index) => `
+      <article class="policy-card reveal" style="animation-delay:${index * 25}ms">
+        <span>${escapeHTML(card.label)}</span>
+        <strong>${escapeHTML(card.value)}</strong>
+        <p>${escapeHTML(card.note)}</p>
+      </article>
+    `).join("");
+
+    grid.innerHTML = (site.checks || []).map((check, index) => {
+      const cls = policyStatusClass(check.status);
+      return `
+        <article class="policy-rule-card reveal" style="--local-accent:${accent}; animation-delay:${index * 25}ms">
+          <div class="policy-rule-top">
+            <span class="policy-status ${cls}">${escapeHTML(check.status)}</span>
+            <small>${escapeHTML(check.axis)}</small>
+          </div>
+          <h3>${escapeHTML(check.title)}</h3>
+          <p>${escapeHTML(check.evidence)}</p>
+          <em>${escapeHTML(check.implication)}</em>
+          <div class="policy-rule-foot">${sourceLinkHTML(check.sourceUrl, check.source || "출처")}</div>
+        </article>
+      `;
+    }).join("");
+
+    focus.style.setProperty("--local-accent", accent);
+    focus.innerHTML = `
+      <div class="policy-focus-head">
+        <span class="chip accent">${escapeHTML(site.en)} · ${escapeHTML(site.status)}</span>
+        <h3>${escapeHTML(site.label)} 확장성 판단</h3>
+        <p>${escapeHTML(site.direction)}</p>
+      </div>
+      <div class="policy-verdict ${policyStatusClass(site.status)}">
+        <strong>${escapeHTML(site.verdict)}</strong>
+        <span>${escapeHTML(site.decision)}</span>
+      </div>
+      <div class="metric-row">
+        <div class="metric"><strong>${fmtNum(signalCount)}</strong><span>크롤링 신호</span></div>
+        <div class="metric"><strong>${fmtNum(liveSources.length)}</strong><span>직접 fetch 소스</span></div>
+        <div class="metric"><strong>${fmtNum((site.checks || []).filter((check) => policyStatusClass(check.status) === "fail").length)}</strong><span>No-Go 항목</span></div>
+      </div>
+      <div class="policy-focus-block">
+        <strong>SK 중국 거점</strong>
+        <ul class="policy-site-list">
+          ${(site.sites || []).map((row) => `
+            <li>
+              <b>${escapeHTML(row.name)}</b>
+              <span>${escapeHTML(row.role)}</span>
+              <small>${escapeHTML(row.note)}</small>
+            </li>
+          `).join("")}
+        </ul>
+      </div>
+      <div class="policy-focus-block">
+        <strong>확장 판단 로직</strong>
+        <p>토지사용권·남은 부지, 공정용수/폐수총량, 수전 용량, 환경영향평가, BIS 라이선스가 모두 통과해야 추가 fab 확장을 O로 판단합니다. 하나라도 공개자료가 없으면 확인필요 또는 X로 둡니다.</p>
+      </div>
+      <div class="policy-focus-block">
+        <strong>주기 크롤링</strong>
+        <ul class="watch-list">
+          <li>Wuxi K7 EIA, SK하이닉스 Wuxi C2F, Wuxi 보세구, BIS 페이지를 매일 직접 fetch합니다.</li>
+          <li>Google News RSS로 Wuxi water/power/land/EIA/BIS 보조 신호를 수집합니다.</li>
+          <li>전력 quota, 토지사용권, 신규 EIA 숫자가 나오기 전까지 신규 fab 증설은 보수적으로 판단합니다.</li>
+        </ul>
+      </div>
+      <div class="focus-actions">
+        <button type="button" data-infra-copy>복사</button>
+        <button type="button" data-infra-inspector>상세 패널</button>
+        <button type="button" data-infra-workbench>워크벤치</button>
+      </div>
+    `;
+    focus.querySelector("[data-infra-copy]")?.addEventListener("click", (event) => copyPayload(payload, event.currentTarget));
+    focus.querySelector("[data-infra-inspector]")?.addEventListener("click", () => openInspector(payload));
+    focus.querySelector("[data-infra-workbench]")?.addEventListener("click", () => {
+      workbenchMode = "china-fab-infra";
+      selectedInsightId = null;
+      renderWorkbench();
+      jumpTo("workbench");
+    });
+
+    const sourceItems = (site.sources || []).concat(liveSources.map((source) => ({
+      label: source.label || source.id || "Live source",
+      url: source.url,
+    })));
+    sourceGrid.innerHTML = sourceItems.map((source, index) => `
+      <article class="policy-source-card reveal" style="--local-accent:${accent}; animation-delay:${index * 25}ms">
+        <span>인프라 소스</span>
+        <strong>${escapeHTML(source.label)}</strong>
+        ${sourceLinkHTML(source.url, "열기")}
+      </article>
+    `).join("");
+
+    animateCounts(summary);
+    animateCounts(grid);
+    animateMeters(summary);
+    animateMeters(grid);
+  }
+
   function projectionAnchorDate() {
     const date = new Date(LIVE.updatedAt || Date.now());
     return Number.isNaN(date.getTime()) ? new Date() : date;
@@ -5793,6 +6085,28 @@
         ],
         tags: [lens.verdict, rule.axis, lens.law].filter(Boolean),
         links: rule.sourceUrl ? [{ title: rule.source || rule.title, link: rule.sourceUrl }] : [],
+      })));
+    }
+
+    if (mode === "china-fab-infra") {
+      items = CHINA_FAB_INFRA_SITES.flatMap((site) => (site.checks || []).map((check) => ({
+        id: `infra-${site.id}-${check.axis}`,
+        mode,
+        type: "중국 Fab 인프라",
+        tag: `${site.label} · ${check.status}`,
+        title: `${check.axis} · ${check.title}`,
+        body: `${check.evidence} ${check.implication}`,
+        section: "china-fab-infra",
+        categories: [site.accentCategory || "china"],
+        watch: [site.direction, site.decision, check.implication],
+        metrics: [
+          { label: "거점", value: site.label },
+          { label: "판단", value: check.status },
+          { label: "신호", value: fmtNum(chinaInfraSignalCount(site)) },
+          { label: "출처", value: check.source || "source" },
+        ],
+        tags: [site.verdict, check.axis, "Land/Water/Power"].filter(Boolean),
+        links: check.sourceUrl ? [{ title: check.source || check.title, link: check.sourceUrl }] : [],
       })));
     }
 
@@ -6912,7 +7226,7 @@
   }
 
   function setupScrollSpy() {
-    const sections = ["overview", "executive-decision", "management-strategy", "strategic-investment-decision", "policy-makers", "daily-review", "crawler", "prices", "news", "china-nand", "china-dynamics", "talent-radar", "numbers", "projection", "workbench", "ai-matrix", "china-deep-dive", "categories", "competitors", "dynamics", "monetization", "response", "intelligence"];
+    const sections = ["overview", "executive-decision", "management-strategy", "strategic-investment-decision", "policy-makers", "china-fab-infra", "daily-review", "crawler", "prices", "news", "china-nand", "china-dynamics", "talent-radar", "numbers", "projection", "workbench", "ai-matrix", "china-deep-dive", "categories", "competitors", "dynamics", "monetization", "response", "intelligence"];
     const update = () => {
       const y = window.scrollY + chromeOffset() + 22;
       let active = "overview";

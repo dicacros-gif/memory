@@ -61,6 +61,7 @@ const CATEGORIES = [
   { id: "aidemand", label: "AI Demand", queries: ["AI memory demand data center", "AI accelerator memory bandwidth"] },
   { id: "benchmark", label: "China Benchmark", queries: ["China memory benchmark CXMT YMTC", "Chinese semiconductor equipment localization memory"] },
   { id: "china", label: "China·Geopolitics", queries: ["CXMT YMTC China memory", "China DRAM NAND export control", "CXMT revenue 2025 DRAM capacity", "YMTC Wuhan Phase 3 domestic equipment Naura AMEC", "BIS China memory export control VEU", "MATCH Act DUV cryogenic etch China semiconductor equipment", "CXMT IPO registration approved STAR Market 29.5 billion yuan", "CXMT careers yield engineer HBM TSV", "YMTC careers Xtacking eSSD engineer", "Tsinghua career CXMT YMTC semiconductor recruitment"] },
+  { id: "china_infra", label: "China Fab Infra", queries: ["SK hynix Wuxi fab water power land expansion", "SK hynix Wuxi K7 environmental impact assessment cleanroom expansion", "Wuxi high-tech bonded zone SK hynix land water electricity", "SK hynix Wuxi C2F additional cleanroom equipment installation", "BIS VEU SK hynix Wuxi fab capacity upgrade"] },
 ];
 
 const COMPETITORS = [
@@ -281,9 +282,48 @@ const BENCHMARK_SIGNAL_THEMES = [
   { id: "china_nand_business", label: "China NAND Business", queries: ["YMTC eSSD customer NAND China", "YMTC Xtacking 4.0 enterprise SSD", "XMC Wuhan Xinxin NAND packaging", "JCET TFME NAND controller advanced packaging", "Naura AMEC ACM YMTC NAND equipment", "China server SSD procurement YMTC"] },
   { id: "skhynix_product_projection", label: "SK hynix Product Projection", queries: ["SK hynix HBM4 DDR5 CXL server roadmap", "SK hynix Solidigm enterprise SSD AI server demand", "SK hynix LPDDR UFS client SSD product mix", "memory AI server product mix projection DRAM NAND HBM", "automotive edge AI memory SK hynix"] },
   { id: "equipment", label: "Equipment Localization", queries: ["China semiconductor equipment localization Naura AMEC", "Chinese chip equipment localization memory", "Yole China semiconductor equipment localization 23.2 percent", "MATCH Act DUV lithography cryogenic etching China"] },
+  { id: "china_infra", label: "China Fab Infrastructure", queries: ["SK hynix Wuxi K7 plot water power fab expansion", "SK hynix Wuxi environmental impact assessment wastewater reuse", "Wuxi bonded zone SK hynix comprehensive bonded zone expansion", "BIS VEU SK hynix China fab capacity upgrade", "Wuxi semiconductor fab water electricity land use"] },
   { id: "packaging", label: "Advanced Packaging", queries: ["JCET advanced packaging AI memory", "XMC HBM packaging China", "HBM TC bonder patent equipment"] },
   { id: "cxl", label: "CXL and PIM Value Chain", queries: ["CXL memory tester Exicon Neosem", "CXL controller IP memory pooling PIM", "CXL 3.1 module substrate TLB", "Openedges CXL controller IP", "FADU CXL memory controller"] },
   { id: "talent", label: "Talent and IP Signals", queries: ["China semiconductor talent hiring memory", "CXMT engineer hiring DRAM", "CXMT careers TSV yield engineer", "YMTC careers Xtacking eSSD engineer", "ijiwei CXMT YMTC recruitment engineer", "Tsinghua career CXMT YMTC semiconductor recruitment", "Boss Zhipin CXMT YMTC yield engineer", "Liepin CXMT YMTC semiconductor engineer", "Maimai CXMT YMTC memory engineer", "CNIPA CXMT YMTC HBM TSV patent"] },
+];
+
+const CHINA_INFRA_SOURCE_PAGES = [
+  {
+    id: "wuxi-c2f",
+    site: "wuxi",
+    label: "SK hynix Wuxi C2F",
+    url: "https://news.skhynix.com/sk-hynix-completes-expanded-fab-c2f-in-wuxi-china/",
+    markers: ["58,000", "additional cleanroom", "Wuxi FAB", "C2F"],
+  },
+  {
+    id: "wuxi-k7-eia",
+    site: "wuxi",
+    label: "Wuxi K7 EIA",
+    url: "https://www.wnd.gov.cn/doc/2017/02/28/2386281.shtml",
+    markers: ["K7", "CleanRoom", "121K", "废水", "中水回用"],
+  },
+  {
+    id: "wuxi-bonded-zone",
+    site: "wuxi",
+    label: "Wuxi bonded zone expansion",
+    url: "https://en.wuxi.gov.cn/2025-07/31/c_1113622.htm",
+    markers: ["3.49 square kilometers", "SK hynix", "1.11 square kilometers", "$10 billion"],
+  },
+  {
+    id: "skhynix-china-offices",
+    site: "all",
+    label: "SK hynix China offices",
+    url: "https://www.skhynix.com/company/UI-FR-CP06/",
+    markers: ["Wuxi", "Chongqing", "Dalian"],
+  },
+  {
+    id: "bis-veu",
+    site: "all",
+    label: "BIS VEU China fabs",
+    url: "https://www.bis.gov/press-release/department-commerce-closes-export-controls-loophole-foreign-owned-semiconductor-fabs-china",
+    markers: ["foreign-owned semiconductor fabs", "China", "license"],
+  },
 ];
 
 const STOPWORDS = new Set([
@@ -955,6 +995,51 @@ async function collectBenchmarkSignals() {
   };
 }
 
+async function collectChinaInfra() {
+  const sources = [];
+  for (const source of CHINA_INFRA_SOURCE_PAGES) {
+    try {
+      const html = await fetchText(source.url);
+      const text = stripHTML(html).slice(0, 240000);
+      const markers = (source.markers || []).map((marker) => ({
+        marker,
+        hit: text.toLowerCase().includes(String(marker).toLowerCase()),
+      }));
+      const hitCount = markers.filter((marker) => marker.hit).length;
+      sources.push({
+        id: source.id,
+        site: source.site,
+        label: source.label,
+        url: source.url,
+        ok: true,
+        markerHits: hitCount,
+        markers,
+        excerpt: text.slice(0, 360),
+        crawledAt: new Date().toISOString(),
+      });
+      note(`중국Fab인프라:${source.label}`, hitCount > 0, `${hitCount}/${markers.length} markers`);
+    } catch (error) {
+      sources.push({
+        id: source.id,
+        site: source.site,
+        label: source.label,
+        url: source.url,
+        ok: false,
+        error: error.message,
+        crawledAt: new Date().toISOString(),
+      });
+      note(`중국Fab인프라:${source.label}`, false, error.message);
+    }
+    await sleep(250);
+  }
+  return {
+    updatedAt: new Date().toISOString(),
+    sources,
+    signals: sources.filter((source) => source.ok),
+    methodology: "Official/source pages are fetched daily. Marker hits are used only as freshness and availability checks; land ownership, water allocation, and power quota require primary permits before a Go decision.",
+  };
+}
+
 function buildSignals({ prices, competitors, startups, newsStats: stats }) {
   const topPriceMoves = prices.watchedItems
     .filter((item) => item.changePct != null)
@@ -996,13 +1081,14 @@ function buildSignals({ prices, competitors, startups, newsStats: stats }) {
 
 /* ---------- main ---------- */
 async function main() {
-  const [prices, stocks, newsPayload, competitors, startups, benchmarkSignals] = await Promise.all([
+  const [prices, stocks, newsPayload, competitors, startups, benchmarkSignals, chinaInfra] = await Promise.all([
     collectPrices(),
     collectStocks(),
     collectNews(),
     collectCompetitors(),
     collectStartups(),
     collectBenchmarkSignals(),
+    collectChinaInfra(),
   ]);
   const priceHistory = await updatePriceHistory(prices);
   attachPriceHistory(prices, priceHistory);
@@ -1033,6 +1119,7 @@ async function main() {
     competitors,
     startups,
     benchmarkSignals,
+    chinaInfra,
     signals,
     categories,
     news,

@@ -10,7 +10,7 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard/dist/web/static/pretendard.css" />
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;700;800;900&family=Space+Grotesk:wght@500;600;700&display=swap" />
-  <link rel="stylesheet" href="assets/css/styles.css?v=policy-maker-20260705-2" />
+  <link rel="stylesheet" href="assets/css/styles.css?v=china-infra-20260705" />
 </head>
 <body>
   <div class="app">
@@ -45,6 +45,10 @@
         <button class="sb-item" type="button" data-jump="policy-makers">
           <span class="sb-ico" aria-hidden="true">P</span>
           <span class="sb-label"><strong>Policy Maker</strong><small>CN / KR / US</small></span>
+        </button>
+        <button class="sb-item" type="button" data-jump="china-fab-infra">
+          <span class="sb-ico" aria-hidden="true">I</span>
+          <span class="sb-label"><strong>중국 Fab 인프라</strong><small>Land / Water / Power</small></span>
         </button>
 
         <div class="sb-group">매일 업데이트</div>
@@ -278,6 +282,29 @@
             <aside class="policy-focus" id="policyFocus"></aside>
           </div>
           <div class="policy-source-grid" id="policySourceGrid"></div>
+        </section>
+
+        <section class="board policy-board infra-board" id="china-fab-infra">
+          <div class="board-head">
+            <div>
+              <p class="eyebrow">China fab expansion infrastructure · periodic crawler</p>
+              <h2>중국 Fab 확장성 판단 · 토지 · 용수 · 전력</h2>
+            </div>
+            <span class="board-meta" id="infraMakerMeta">인프라 크롤링 소스 로딩</span>
+          </div>
+          <div class="policy-tabs" id="infraSiteTabs" role="tablist" aria-label="SK hynix China site tabs"></div>
+          <div class="policy-summary" id="infraSummary"></div>
+          <div class="policy-layout">
+            <section class="policy-panel">
+              <div class="crawler-panel-head">
+                <h3>추가 Fab 확장 체크포인트</h3>
+                <span id="infraSourceMeta">토지·용수·전력·환경·규제 신호</span>
+              </div>
+              <div class="policy-rule-grid" id="infraRuleGrid"></div>
+            </section>
+            <aside class="policy-focus" id="infraFocus"></aside>
+          </div>
+          <div class="policy-source-grid" id="infraSourceGrid"></div>
         </section>
 
         <section class="board review-board" id="daily-review">
@@ -660,6 +687,6 @@
   <div class="qa-answer" id="qaAnswer" hidden></div>
   <div class="inspector" id="inspector" hidden></div>
   <div class="backdrop" id="backdrop"></div>
-  <script src="assets/js/app.js?v=policy-maker-20260705-2" defer></script>
+  <script src="assets/js/app.js?v=china-infra-20260705" defer></script>
 </body>
 </html>
