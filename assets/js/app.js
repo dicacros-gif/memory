@@ -748,6 +748,211 @@
       baseScore: 68,
     },
   ];
+  const CHINA_BUSINESS_STRATEGY_PILLARS = [
+    {
+      id: "china-key-account",
+      label: "중국 핵심 고객 방어",
+      role: "Customer moat",
+      businessAxis: "고객/매출",
+      allocation: "26%",
+      horizon: "0~18개월",
+      capital: "장기 공급계약 + 공동 로드맵",
+      title: "중국 빅테크·서버 고객을 전략 계정으로 재분류",
+      thesis: "중국 고객은 단순 가격 협상 상대가 아니라 YMTC·CXMT 채택 여부를 가장 빨리 보여주는 선행 지표입니다. 서버 DRAM, eSSD, HBM 옵션을 고객별 로드맵으로 묶어 방어해야 합니다.",
+      actions: ["중국 빅테크·서버 OEM별 제품군 침투율 추적", "DRAM·eSSD 번들 계약과 가격 방어 조건 설계", "경쟁사 인증 신호 발생 시 72시간 내 계정별 대응안 작성"],
+      triggers: ["Tencent DRAM supply", "Huawei AI server", "Alibaba/Baidu capex", "server DDR5", "eSSD tender"],
+      linkedCategories: ["china", "aidemand", "dram", "nand"],
+      keywords: ["china customer", "tencent", "huawei", "alibaba", "baidu", "lenovo", "server", "ddr5", "essd", "supply contract"],
+      baseScore: 86,
+    },
+    {
+      id: "china-nand-essd",
+      label: "NAND/eSSD 사업 방어",
+      role: "Product defense",
+      businessAxis: "제품/가격",
+      allocation: "22%",
+      horizon: "상시",
+      capital: "Solidigm value-up + 고객 락인",
+      title: "YMTC의 eSSD·Xtacking 확장을 중국 NAND 사업 방어 KPI로 연결",
+      thesis: "YMTC의 기술 진전은 낸드 가격보다 고객 인증에서 먼저 나타납니다. eSSD, QLC, 데이터센터 스토리지와 중국 내수 보조금 신호를 묶어 방어 우선순위를 정해야 합니다.",
+      actions: ["중국 eSSD 입찰·고객 인증 신호를 일일 보드 상단에 배치", "Solidigm QLC/eSSD 경쟁력 개선 과제를 가격 추이와 연결", "저마진 소비자 SSD보다 데이터센터 고객 방어를 우선"],
+      triggers: ["YMTC eSSD", "Xtacking 4.0", "NAND contract price", "Wuhan Phase 3", "QLC"],
+      linkedCategories: ["nand", "china", "packaging"],
+      keywords: ["ymtc", "xtacking", "essd", "solidigm", "qlc", "nand", "wuhan", "datacenter ssd"],
+      baseScore: 82,
+    },
+    {
+      id: "china-packaging-route",
+      label: "패키징 우회로 추적",
+      role: "Ecosystem watch",
+      businessAxis: "생태계",
+      allocation: "17%",
+      horizon: "12~36개월",
+      capital: "OSAT·테스트·소재 제휴 옵션",
+      title: "XMC·JCET의 2.5D/3D 패키징 우회로를 HBM 리스크로 관리",
+      thesis: "중국은 EUV 부재를 첨단 패키징으로 우회하려 합니다. XMC, JCET, 인터포저, 테스트, 언더필 신호는 중국 AI 메모리 경쟁력의 실제 속도를 보여줍니다.",
+      actions: ["XMC·JCET 투자·장비 반입·고객 인증 기사 자동 태깅", "HBM 베이스 다이와 패키징 수율 신호를 분리 추적", "한국/대만 OSAT 협력 옵션을 경쟁 대응안에 포함"],
+      triggers: ["XMC HBM packaging", "JCET XDFOI", "advanced packaging", "interposer", "hybrid bonding"],
+      linkedCategories: ["packaging", "hbm", "china", "geopolitics"],
+      keywords: ["xmc", "jcet", "xdfoi", "advanced packaging", "hbm packaging", "interposer", "hybrid bonding", "tsv"],
+      baseScore: 78,
+    },
+    {
+      id: "china-equipment-localization",
+      label: "장비·소재 내재화",
+      role: "Supply hedge",
+      businessAxis: "공급망",
+      allocation: "14%",
+      horizon: "18~48개월",
+      capital: "대체 조달 + IP 조건부 협력",
+      title: "Naura·AMEC·ACM 국산화 속도를 중국 팹 실행력 지표로 사용",
+      thesis: "중국 장비 내재화는 단순 소부장 뉴스가 아니라 YMTC·CXMT의 캐파 실현 가능성을 좌우합니다. 수출통제, Big Fund III, 장비 qualify, 소재 recipe 요구를 한 축으로 봐야 합니다.",
+      actions: ["Naura·AMEC·ACM 기사와 팹 일정의 동시 발생을 경보화", "한국 소부장 JV 제안은 recipe/IP 이전 조건으로 별도 심사", "BIS·MATCH Act 변화와 장비 반입 신호를 연결"],
+      triggers: ["NAURA", "AMEC", "ACM Research", "Big Fund III", "export control", "DUV"],
+      linkedCategories: ["equipment", "geopolitics", "china"],
+      keywords: ["naura", "amec", "acm", "equipment", "materials", "big fund", "export control", "match act", "duv"],
+      baseScore: 76,
+    },
+    {
+      id: "china-ops-regulation",
+      label: "중국 운영·규제 리스크",
+      role: "Operating risk",
+      businessAxis: "운영/규제",
+      allocation: "12%",
+      horizon: "상시",
+      capital: "다롄/Solidigm 운영 시나리오",
+      title: "중국 내 운영자산과 BIS/VEU 규제를 사업 연속성 의사결정에 반영",
+      thesis: "중국 사업 전략은 경쟁사 벤치마킹만으로 끝나지 않습니다. 다롄 NAND, Solidigm, VEU, 수출통제, 현지 고객 계약을 함께 보며 운영 리스크와 매출 방어를 동시에 판단해야 합니다.",
+      actions: ["BIS/VEU 변경을 중국 운영 리스크 배지로 노출", "다롄·Solidigm 관련 기사와 NAND 가격 변동을 같은 타임라인에 배치", "규제 악화 시 고객·생산·재고 전환 시나리오를 즉시 실행"],
+      triggers: ["BIS VEU", "Dalian NAND", "Solidigm", "export license", "China operation"],
+      linkedCategories: ["geopolitics", "operations", "nand", "china"],
+      keywords: ["bis", "veu", "dalian", "solidigm", "export license", "china operation", "regulation"],
+      baseScore: 80,
+    },
+    {
+      id: "china-talent-ip",
+      label: "인재/IP 조기경보",
+      role: "Capability defense",
+      businessAxis: "인재/IP",
+      allocation: "9%",
+      horizon: "즉시",
+      capital: "핵심 인력 보상 + 법무/보안",
+      title: "중국 채용 공고를 기술 로드맵과 IP 리스크의 선행 신호로 사용",
+      thesis: "CXMT와 YMTC의 채용은 향후 공정·패키징·수율 안정화 방향을 보여줍니다. TSV, yield, advanced packaging, DDR5, HBM 키워드가 늘면 기술 격차 축소 속도를 다시 산정해야 합니다.",
+      actions: ["CXMT/YMTC 공식 채용과 Boss Zhipin 키워드 빈도 추적", "핵심 수율 인력 보상·접근권·퇴직 모니터링 강화", "채용 급증 신호를 기술 로드맵 리스크와 연결"],
+      triggers: ["CXMT hiring", "YMTC careers", "Boss Zhipin", "yield engineer", "TSV", "HBM"],
+      linkedCategories: ["talent", "dram", "packaging", "geopolitics"],
+      keywords: ["hiring", "talent", "yield", "engineer", "boss zhipin", "cxmt", "ymtc careers", "tsv", "hbm"],
+      baseScore: 84,
+    },
+  ];
+  const CHINA_BUSINESS_DECISIONS = [
+    {
+      id: "china-key-account-lock",
+      label: "핵심 고객 락인",
+      option: "장기계약 / 공동개발",
+      stage: "Go",
+      capital: "우선 집행",
+      title: "중국 핵심 고객별 DRAM·eSSD 방어 패키지를 결정",
+      logic: "중국 고객이 CXMT·YMTC를 테스트하는 신호가 나오면 가격 대응만으로는 부족합니다. 제품 번들, 인증 지원, 공급 안정성, 장기 물량 조건을 함께 제시해야 합니다.",
+      gate: ["경쟁사 인증 신호", "고객별 물량 기여도", "가격 spread", "내수 보조금 영향"],
+      action: "계정별 방어안과 승인 가능한 가격/물량 조건을 경영진 안건으로 상정",
+      linkedStrategy: "china-key-account",
+      linkedCategories: ["china", "aidemand", "dram", "nand"],
+      keywords: ["china customer", "tencent", "huawei", "alibaba", "baidu", "server", "supply contract"],
+      baseScore: 86,
+    },
+    {
+      id: "china-essd-defense",
+      label: "eSSD 방어 투자",
+      option: "제품 믹스 / 고객 계약",
+      stage: "Defend",
+      capital: "선택 집행",
+      title: "YMTC 확장에 맞서 Solidigm·QLC·eSSD 사업 방어를 결정",
+      logic: "NAND 가격 하락보다 위험한 신호는 중국 데이터센터 고객 인증입니다. 고객 방어와 제품 믹스 개선을 투자 안건으로 묶어야 합니다.",
+      gate: ["YMTC eSSD 인증", "NAND contract 가격", "QLC 원가 경쟁력", "중국 서버 수요"],
+      action: "핵심 고객 장기계약, Solidigm value-up, 저수익 SKU 축소를 동시에 실행",
+      linkedStrategy: "china-nand-essd",
+      linkedCategories: ["nand", "china"],
+      keywords: ["ymtc", "essd", "solidigm", "qlc", "nand contract", "datacenter ssd"],
+      baseScore: 82,
+    },
+    {
+      id: "china-packaging-hedge",
+      label: "패키징 대응 옵션",
+      option: "제휴 / 소수지분 / 공급권",
+      stage: "Watch",
+      capital: "조건부 집행",
+      title: "XMC·JCET 패키징 우회로에 대응할 OSAT·테스트 옵션을 확보",
+      logic: "중국이 선단 공정 제약을 패키징으로 우회하면 HBM 위협은 다이 수율보다 후공정에서 빨라질 수 있습니다. 옵션 확보가 늦으면 대응 비용이 커집니다.",
+      gate: ["XMC 설비 반입", "JCET XDFOI 수주", "HBM TSV 키워드", "고객 샘플 출하"],
+      action: "OSAT·테스트·소재 파트너 후보를 후속투자권 중심으로 구조화",
+      linkedStrategy: "china-packaging-route",
+      linkedCategories: ["packaging", "hbm", "china"],
+      keywords: ["xmc", "jcet", "advanced packaging", "hbm packaging", "interposer", "tsv"],
+      baseScore: 78,
+    },
+    {
+      id: "china-equipment-ip-gate",
+      label: "소부장 협력 게이트",
+      option: "JV 조건부 / IP 방어",
+      stage: "Watch",
+      capital: "리스크 심사",
+      title: "중국 장비·소재 협력 제안은 IP 이전 조건으로 사전 게이트를 통과",
+      logic: "장비·소재 협력은 공급망 헤지일 수 있지만 recipe와 공정 데이터 유출 통로가 될 수 있습니다. JV·공동 R&D 조건을 표준화해야 합니다.",
+      gate: ["recipe 이전 요구", "중국 정부펀드 참여", "대체 공급 필요성", "수출통제 예외 가능성"],
+      action: "IP 금지선, 데이터 접근권, 공급권 범위를 표준 텀시트로 관리",
+      linkedStrategy: "china-equipment-localization",
+      linkedCategories: ["equipment", "geopolitics", "talent"],
+      keywords: ["equipment", "materials", "joint venture", "recipe", "ip", "big fund", "export control"],
+      baseScore: 76,
+    },
+    {
+      id: "china-operation-scenario",
+      label: "운영 시나리오 전환",
+      option: "생산/재고/고객 전환",
+      stage: "Go",
+      capital: "운영 의사결정",
+      title: "BIS/VEU와 다롄·Solidigm 리스크에 맞춰 사업 연속성 옵션을 결정",
+      logic: "중국 내 운영자산과 수출통제 변화는 가격보다 빠르게 공급 가능 물량을 바꿀 수 있습니다. 규제 시나리오별 생산·재고·고객 전환안이 필요합니다.",
+      gate: ["BIS/VEU 변경", "라이선스 갱신", "중국 내 고객 계약", "NAND 가격 급변"],
+      action: "규제 악화 시 대체 생산, 재고 배분, 고객 우선순위 전환안을 실행",
+      linkedStrategy: "china-ops-regulation",
+      linkedCategories: ["geopolitics", "operations", "nand"],
+      keywords: ["bis", "veu", "dalian", "solidigm", "export license", "operation"],
+      baseScore: 80,
+    },
+    {
+      id: "china-talent-retention",
+      label: "핵심 인재 방어",
+      option: "보상 / 법무 / 보안",
+      stage: "Go",
+      capital: "즉시 집행",
+      title: "수율·패키징 핵심 인력과 공정 데이터를 중국 사업 리스크로 관리",
+      logic: "중국 업체의 채용 신호가 강해질수록 장비 제약을 뛰어넘는 기술 이전 리스크가 커집니다. 보상과 접근권 관리가 동시에 필요합니다.",
+      gate: ["Yield 채용 급증", "TSV/HBM JD 증가", "퇴직자 접근권", "IP 소송/수사"],
+      action: "핵심 인력 보상, 접근권 재점검, 채용 플랫폼 크롤링 경보를 집행",
+      linkedStrategy: "china-talent-ip",
+      linkedCategories: ["talent", "dram", "packaging"],
+      keywords: ["hiring", "yield", "boss zhipin", "ip", "engineer", "tsv", "hbm"],
+      baseScore: 84,
+    },
+    {
+      id: "china-legacy-capex",
+      label: "레거시 CAPEX 보수화",
+      option: "보류 / 원가 방어",
+      stage: "Hold",
+      capital: "CAPEX 억제",
+      title: "CXMT·YMTC 물량 공세 국면에서는 범용 증설보다 원가 방어를 우선",
+      logic: "중국 캐파가 DDR4, eTT, 소비자 SSD 가격을 흔들 때 증설은 리스크를 키울 수 있습니다. 가격 하방 방어와 재고 회전이 우선입니다.",
+      gate: ["DDR4/eTT spot", "contract spread", "CXMT 캐파", "YMTC wafer 가격"],
+      action: "저수익 SKU 축소, 재고 회전, cash-cost floor 경보를 중심으로 운영",
+      linkedStrategy: "china-nand-essd",
+      linkedCategories: ["dram", "nand", "china"],
+      keywords: ["ddr4", "ett", "legacy", "spot", "contract", "cxmt", "ymtc", "oversupply"],
+      baseScore: 70,
+    },
+  ];
   const CHINA_DEEP_DIVE = [
     {
       id: "dram-euv-duv",
@@ -855,14 +1060,14 @@
     },
     {
       id: "strategy-formulation",
-      label: "경영전략 수립",
-      sub: "Capital · Theme",
+      label: "중국 경영전략 수립",
+      sub: "Customer · NAND · Risk",
       section: "management-strategy",
     },
     {
       id: "investment-decision",
-      label: "전략적 의사 결정",
-      sub: "M&A · JV · Minority",
+      label: "중국 전략적 의사 결정",
+      sub: "Contract · JV · Defense",
       section: "strategic-investment-decision",
     },
     {
@@ -950,8 +1155,8 @@
     },
     {
       id: "strategy",
-      label: "전략·대응",
-      desc: "경영전략 수립, 전략적 투자 의사결정, 경쟁 다이내믹스, 대응 액션",
+      label: "중국 전략·대응",
+      desc: "중국 고객·NAND/eSSD·패키징·장비·규제·인재/IP 의사결정",
       cadence: "Decision layer",
       sections: ["management-strategy", "strategic-investment-decision", "dynamics", "monetization", "response", "intelligence"],
     },
@@ -969,8 +1174,8 @@
   ];
   const SECTION_LABELS = {
     "executive-decision": "경영진 의사결정",
-    "management-strategy": "경영전략 수립",
-    "strategic-investment-decision": "전략적 의사 결정",
+    "management-strategy": "중국 경영전략 수립",
+    "strategic-investment-decision": "중국 전략적 의사 결정",
     "daily-review": "일일 리뷰 큐",
     numbers: "숫자 대시보드",
     projection: "제품군 프로젝션",
@@ -1189,8 +1394,8 @@
   let dynamicFocusId = null;
   let modelFocusId = null;
   let chinaNandFocusId = "ymtc";
-  let managementStrategyFocusId = "hbm-premium";
-  let strategicDecisionFocusId = "hbm-packaging-jv";
+  let managementStrategyFocusId = "china-key-account";
+  let strategicDecisionFocusId = "china-key-account-lock";
   let projectionFocusId = "ai-server";
   let projectionScenario = "neutral";
   let execDecisionFocusId = "hbm-ai-server";
@@ -2472,17 +2677,17 @@
       },
       "management-strategy": {
         value: managementStrategyItems().length,
-        unit: "테마",
-        status: "Strategy",
+        unit: "축",
+        status: "China Biz",
         score: managementStrategyItems().length ? clamp(managementStrategyItems().reduce((sum, item) => sum + item.score, 0) / managementStrategyItems().length) : 0,
-        note: "투자 테마·자본 배분",
+        note: "중국 고객·제품·운영 전략축",
       },
       "strategic-investment-decision": {
         value: strategicInvestmentDecisionItems().length,
-        unit: "옵션",
-        status: "Investment",
+        unit: "안건",
+        status: "Decision",
         score: strategicInvestmentDecisionItems().length ? clamp(strategicInvestmentDecisionItems().reduce((sum, item) => sum + item.score, 0) / strategicInvestmentDecisionItems().length) : 0,
-        note: "투자/JV/방어 판단",
+        note: "계약·JV·운영·방어 판단",
       },
       "daily-review": {
         value: dailyReviewItems().length,
@@ -3923,7 +4128,7 @@
   }
 
   function managementStrategyItems() {
-    return INVESTMENT_STRATEGY_PILLARS.map((item) => {
+    return CHINA_BUSINESS_STRATEGY_PILLARS.map((item) => {
       const signals = investmentSignalCount(item);
       const priceMomentum = investmentPriceMomentum(item);
       const chinaRisk = (item.linkedCategories || []).includes("china") ? rawNews().filter(isChinaArticle).length * .06 : 0;
@@ -3941,7 +4146,7 @@
 
   function strategicInvestmentDecisionItems() {
     const strategyMap = new Map(managementStrategyItems().map((item) => [item.id, item]));
-    return STRATEGIC_INVESTMENT_DECISIONS.map((item) => {
+    return CHINA_BUSINESS_DECISIONS.map((item) => {
       const strategy = strategyMap.get(item.linkedStrategy);
       const signals = investmentSignalCount(item) + Math.round((strategy?.signals || 0) * .45);
       const priceMomentum = investmentPriceMomentum(item);
@@ -3964,8 +4169,8 @@
 
   function investmentPayload(item, section) {
     return {
-      type: section === "management-strategy" ? "경영전략 수립" : "전략적 의사 결정",
-      tag: item.role || item.option || "Investment",
+      type: section === "management-strategy" ? "중국 경영전략 수립" : "중국 전략적 의사 결정",
+      tag: item.businessAxis || item.role || item.option || "China business",
       title: item.title,
       body: item.thesis || item.logic,
       section,
@@ -3989,6 +4194,66 @@
         <small>${escapeHTML(card.note)}</small>
       </article>
     `).join("");
+  }
+
+  function renderChinaBusinessBrief(target, items = []) {
+    if (!target) return;
+    const leaders = [...items].sort((a, b) => b.score - a.score).slice(0, 3);
+    const cards = leaders.map((item, index) => ({
+      title: item.businessAxis || item.label,
+      label: item.label,
+      score: item.score,
+      body: item.thesis,
+      action: (item.actions || [])[0] || item.capital,
+      delay: index * 35,
+    }));
+    target.innerHTML = cards.map((card) => `
+      <article class="china-business-brief-card reveal" style="animation-delay:${card.delay}ms">
+        <span>${escapeHTML(card.title)}</span>
+        <div>
+          <strong>${escapeHTML(card.label)}</strong>
+          <em>${fmtNum(card.score)}%</em>
+        </div>
+        <p>${escapeHTML(card.body)}</p>
+        <small>${escapeHTML(card.action || "")}</small>
+      </article>
+    `).join("");
+  }
+
+  function renderChinaBusinessMap(target, items = [], selectedId = "") {
+    if (!target) return;
+    const axes = ["고객/매출", "제품/가격", "생태계", "공급망", "운영/규제", "인재/IP"];
+    target.innerHTML = axes.map((axis, index) => {
+      const axisItems = items.filter((item) => item.businessAxis === axis);
+      const top = axisItems[0] || items[index % Math.max(items.length, 1)];
+      const signals = axisItems.reduce((sum, item) => sum + item.signals, 0);
+      const score = axisItems.length ? investmentAverageScore(axisItems) : top?.score || 0;
+      return `
+        <button class="china-business-lane reveal${top?.id === selectedId ? " active" : ""}" type="button" data-china-business-strategy="${escapeHTML(top?.id || "")}" style="--local-accent:${categoryAccent((top?.linkedCategories || [])[0])}; animation-delay:${index * 25}ms">
+          <span>${escapeHTML(axis)}</span>
+          <strong>${escapeHTML(top?.label || axis)}</strong>
+          <p>${escapeHTML(top?.capital || "크롤링 신호를 기다리는 축")}</p>
+          <div class="lane-meter" aria-hidden="true"><i data-fill-to="${clamp(score)}" style="width:0%"></i></div>
+          <small>${fmtNum(signals || top?.signals || 0)} signals · ${fmtNum(score)}%</small>
+        </button>
+      `;
+    }).join("");
+  }
+
+  function renderChinaDecisionGates(target, items = [], selectedId = "") {
+    if (!target) return;
+    target.innerHTML = items.map((item, index) => {
+      const stage = String(item.stage || "Watch").toLowerCase();
+      return `
+        <button class="china-decision-gate reveal ${stage}${item.id === selectedId ? " active" : ""}" type="button" data-china-decision-gate="${escapeHTML(item.id)}" style="--local-accent:${categoryAccent((item.linkedCategories || [])[0])}; animation-delay:${index * 25}ms">
+          <span>${escapeHTML(item.stage)} · ${escapeHTML(item.option)}</span>
+          <strong>${escapeHTML(item.label)}</strong>
+          <p>${escapeHTML(item.action || item.logic || "")}</p>
+          <div class="gate-meter" aria-hidden="true"><i data-fill-to="${clamp(item.score)}" style="width:0%"></i></div>
+          <small>${fmtNum(item.signals)} signals · fit ${fmtNum(item.score)}%</small>
+        </button>
+      `;
+    }).join("");
   }
 
   function renderInvestmentFocus(target, item, section) {
@@ -4043,31 +4308,34 @@
   function renderManagementStrategy() {
     const summary = $("#managementStrategySummary");
     const flow = $("#managementStrategyFlow");
+    const brief = $("#chinaBusinessBrief");
+    const map = $("#chinaBusinessMap");
     const grid = $("#managementStrategyGrid");
     const focus = $("#managementStrategyFocus");
     const meta = $("#managementStrategyMeta");
     if (!summary || !flow || !grid || !focus) return;
 
     const items = managementStrategyItems();
-    if (!items.some((item) => item.id === managementStrategyFocusId)) managementStrategyFocusId = items[0]?.id || "hbm-premium";
+    if (!items.some((item) => item.id === managementStrategyFocusId)) managementStrategyFocusId = items[0]?.id || "china-key-account";
     const selected = items.find((item) => item.id === managementStrategyFocusId) || items[0];
     const totalSignals = items.reduce((sum, item) => sum + item.signals, 0);
     const avgScore = investmentAverageScore(items);
     const chinaSignals = rawNews().filter(isChinaArticle).length + benchmarkSignalTotal();
-    if (meta) meta.textContent = `${fmtNum(items.length)}개 투자 테마 · ${fmtNum(totalSignals)}개 신호 · ${fmtDate(LIVE.updatedAt)}`;
+    const regulationSignals = items.filter((item) => (item.linkedCategories || []).some((id) => ["geopolitics", "operations"].includes(id))).reduce((sum, item) => sum + item.signals, 0);
+    if (meta) meta.textContent = `${fmtNum(items.length)}개 중국 사업 전략축 · ${fmtNum(totalSignals)}개 크롤링 신호 · ${fmtDate(LIVE.updatedAt)}`;
 
     summary.innerHTML = investmentSummaryHTML([
-      { label: "투자 테마", value: items.length, note: "성장·방어·옵션·리스크 분리", suffix: "개" },
-      { label: "평균 확신도", value: avgScore, note: "크롤링 신호 기반 점수", suffix: "%", decimals: 0 },
-      { label: "중국 관련 신호", value: chinaSignals, note: "뉴스·벤치마킹·정책 신호", suffix: "건" },
-      { label: "가격 근거", value: allPriceRows().length, note: "TrendForce spot/contract rows", suffix: "rows" },
+      { label: "전략축", value: items.length, note: "고객·제품·생태계·공급망·운영·인재", suffix: "개" },
+      { label: "중국 신호", value: chinaSignals, note: "중국 기사·외신·벤치마킹 합산", suffix: "건" },
+      { label: "가격/계약 rows", value: allPriceRows().length, note: "DRAM·NAND spot/contract 근거", suffix: "rows" },
+      { label: "운영·규제 신호", value: regulationSignals, note: "BIS/VEU·수출통제·중국 운영 리스크", suffix: "건" },
     ]);
 
     const flowSteps = [
-      { label: "1. 수집", note: "가격·뉴스·채용·중국 다이내믹스" },
-      { label: "2. 전략 가설", note: "HBM 성장, NAND 방어, CXL 옵션" },
-      { label: "3. 투자 테마", note: "CAPEX·JV·소수지분·공급계약" },
-      { label: "4. KPI", note: "신호 수, 가격 모멘텀, 실행 게이트" },
+      { label: "1. 중국 신호 수집", note: "가격·뉴스·채용·정책·팹/패키징" },
+      { label: "2. 사업 영향 분류", note: "고객 방어, NAND/eSSD, 운영 리스크" },
+      { label: "3. 전략축 선택", note: "계약, 제품 믹스, 제휴, 보안/법무" },
+      { label: "4. 의사결정 이관", note: "2번 탭의 Go/Defend/Watch/Hold 안건" },
     ];
     flow.innerHTML = flowSteps.map((step, index) => `
       <article class="investment-flow-step reveal" style="animation-delay:${index * 30}ms">
@@ -4080,12 +4348,14 @@
       <button class="investment-card reveal${item.id === selected?.id ? " active" : ""}" type="button" data-management-strategy="${escapeHTML(item.id)}" style="--local-accent:${categoryAccent((item.linkedCategories || [])[0])}; animation-delay:${index * 25}ms">
         ${scoreRingHTML(item.score, "Score")}
         <span>
-          <small>${escapeHTML(item.role)} · ${escapeHTML(item.allocation)}</small>
+          <small>${escapeHTML(item.businessAxis)} · ${escapeHTML(item.allocation)}</small>
           <strong>${escapeHTML(item.label)}</strong>
           <em>${fmtNum(item.signals)} signals · ${escapeHTML(item.capital)}</em>
         </span>
       </button>
     `).join("");
+    renderChinaBusinessBrief(brief, items);
+    renderChinaBusinessMap(map, items, selected?.id);
     renderInvestmentFocus(focus, selected, "management-strategy");
     grid.querySelectorAll("[data-management-strategy]").forEach((btn) => {
       btn.addEventListener("click", () => {
@@ -4093,13 +4363,22 @@
         renderManagementStrategy();
       });
     });
+    map?.querySelectorAll("[data-china-business-strategy]").forEach((btn) => {
+      btn.addEventListener("click", () => {
+        managementStrategyFocusId = btn.dataset.chinaBusinessStrategy;
+        renderManagementStrategy();
+      });
+    });
     animateCounts(summary);
+    animateCounts(brief);
     animateCounts(grid);
+    animateMeters(map);
     animateMeters(grid);
   }
 
   function renderStrategicInvestmentDecision() {
     const summary = $("#strategicDecisionSummary");
+    const gates = $("#chinaDecisionGates");
     const grid = $("#strategicDecisionGrid");
     const focus = $("#strategicDecisionFocus");
     const evidence = $("#strategicDecisionEvidence");
@@ -4107,18 +4386,19 @@
     if (!summary || !grid || !focus || !evidence) return;
 
     const items = strategicInvestmentDecisionItems();
-    if (!items.some((item) => item.id === strategicDecisionFocusId)) strategicDecisionFocusId = items[0]?.id || "hbm-packaging-jv";
+    if (!items.some((item) => item.id === strategicDecisionFocusId)) strategicDecisionFocusId = items[0]?.id || "china-key-account-lock";
     const selected = items.find((item) => item.id === strategicDecisionFocusId) || items[0];
     const totalSignals = items.reduce((sum, item) => sum + item.signals, 0);
     const goCount = items.filter((item) => /go/i.test(item.stage)).length;
     const defendCount = items.filter((item) => /defend|hold/i.test(item.stage)).length;
-    if (meta) meta.textContent = `${fmtNum(items.length)}개 투자 옵션 · ${fmtNum(totalSignals)}개 근거 신호 · ${fmtDate(LIVE.updatedAt)}`;
+    const watchCount = items.filter((item) => /watch/i.test(item.stage)).length;
+    if (meta) meta.textContent = `${fmtNum(items.length)}개 중국 사업 안건 · ${fmtNum(totalSignals)}개 근거 신호 · ${fmtDate(LIVE.updatedAt)}`;
 
     summary.innerHTML = investmentSummaryHTML([
-      { label: "투자 옵션", value: items.length, note: "인수·JV·소수지분·방어·보류", suffix: "개" },
-      { label: "Go 안건", value: goCount, note: "즉시 상정 가능한 투자 판단", suffix: "개" },
-      { label: "방어/보류", value: defendCount, note: "중국 가격 압력 대응 안건", suffix: "개" },
-      { label: "평균 확신도", value: investmentAverageScore(items), note: "전략 테마와 live 신호 결합", suffix: "%", decimals: 0 },
+      { label: "의사결정 안건", value: items.length, note: "계약·제품·제휴·운영·IP 방어", suffix: "개" },
+      { label: "Go", value: goCount, note: "즉시 경영진 상정 대상", suffix: "건" },
+      { label: "Watch", value: watchCount, note: "조건 충족 시 JV/제휴 검토", suffix: "건" },
+      { label: "Defend/Hold", value: defendCount, note: "가격·캐파 하방 방어 안건", suffix: "건" },
     ]);
 
     grid.innerHTML = items.map((item, index) => `
@@ -4131,6 +4411,7 @@
         </span>
       </button>
     `).join("");
+    renderChinaDecisionGates(gates, items, selected?.id);
     renderInvestmentFocus(focus, selected, "strategic-investment-decision");
 
     const evidenceLinks = selected?.links || [];
@@ -4151,8 +4432,16 @@
         renderStrategicInvestmentDecision();
       });
     });
+    gates?.querySelectorAll("[data-china-decision-gate]").forEach((btn) => {
+      btn.addEventListener("click", () => {
+        strategicDecisionFocusId = btn.dataset.chinaDecisionGate;
+        renderStrategicInvestmentDecision();
+      });
+    });
     animateCounts(summary);
+    animateCounts(gates);
     animateCounts(grid);
+    animateMeters(gates);
     animateMeters(grid);
   }
 

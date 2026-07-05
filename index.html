@@ -10,7 +10,7 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard/dist/web/static/pretendard.css" />
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;700;800;900&family=Space+Grotesk:wght@500;600;700&display=swap" />
-  <link rel="stylesheet" href="assets/css/styles.css?v=investment-tabs-20260705" />
+  <link rel="stylesheet" href="assets/css/styles.css?v=china-business-20260705" />
 </head>
 <body>
   <div class="app">
@@ -36,11 +36,11 @@
         </button>
         <button class="sb-item" type="button" data-jump="management-strategy">
           <span class="sb-ico" aria-hidden="true">1</span>
-          <span class="sb-label"><strong>경영전략 수립</strong><small>Investment Strategy</small></span>
+          <span class="sb-label"><strong>중국 경영전략 수립</strong><small>China Business</small></span>
         </button>
         <button class="sb-item" type="button" data-jump="strategic-investment-decision">
           <span class="sb-ico" aria-hidden="true">2</span>
-          <span class="sb-label"><strong>전략적 의사 결정</strong><small>Investment Decision</small></span>
+          <span class="sb-label"><strong>중국 전략적 의사 결정</strong><small>China Decision</small></span>
         </button>
 
         <div class="sb-group">매일 업데이트</div>
@@ -201,18 +201,20 @@
         <section class="board investment-board management-strategy-board" id="management-strategy">
           <div class="board-head">
             <div>
-              <p class="eyebrow">Investment lens · strategy formulation · crawler based</p>
-              <h2>경영전략 수립</h2>
+              <p class="eyebrow">China business · strategy formulation · crawler based</p>
+              <h2>경영전략 수립 · 중국 비즈니스</h2>
             </div>
-            <span class="board-meta" id="managementStrategyMeta">투자 전략 신호 로딩</span>
+            <span class="board-meta" id="managementStrategyMeta">중국 비즈니스 전략 신호 로딩</span>
           </div>
           <div class="investment-summary" id="managementStrategySummary"></div>
+          <div class="china-business-brief" id="chinaBusinessBrief"></div>
           <div class="investment-flow" id="managementStrategyFlow"></div>
+          <div class="china-business-map" id="chinaBusinessMap"></div>
           <div class="investment-layout">
             <section class="investment-panel">
               <div class="crawler-panel-head">
-                <h3>투자 테마 · 자본 배분</h3>
-                <span>HBM · NAND · CXL · 장비 · 인재/IP</span>
+                <h3>중국 사업 전략축 · 자본 배분</h3>
+                <span>고객 · NAND/eSSD · 패키징 · 장비 · 규제 · 인재/IP</span>
               </div>
               <div class="investment-grid" id="managementStrategyGrid"></div>
             </section>
@@ -223,17 +225,18 @@
         <section class="board investment-board strategic-investment-board" id="strategic-investment-decision">
           <div class="board-head">
             <div>
-              <p class="eyebrow">Investment lens · strategic decision · evidence based</p>
-              <h2>전략적 의사 결정</h2>
+              <p class="eyebrow">China business · strategic decision · evidence based</p>
+              <h2>전략적 의사 결정 · 중국 비즈니스</h2>
             </div>
-            <span class="board-meta" id="strategicDecisionMeta">투자 의사결정 신호 로딩</span>
+            <span class="board-meta" id="strategicDecisionMeta">중국 사업 의사결정 신호 로딩</span>
           </div>
           <div class="investment-summary" id="strategicDecisionSummary"></div>
+          <div class="china-decision-gates" id="chinaDecisionGates"></div>
           <div class="investment-layout">
             <section class="investment-panel">
               <div class="crawler-panel-head">
-                <h3>투자 옵션 · 실행 판단</h3>
-                <span>인수 · JV · 소수지분 · 공급계약 · 방어</span>
+                <h3>중국 사업 옵션 · 실행 판단</h3>
+                <span>핵심 고객 · 장기계약 · JV 조건 · 운영 규제 · 방어</span>
               </div>
               <div class="investment-grid decision-option-grid" id="strategicDecisionGrid"></div>
             </section>
@@ -622,6 +625,6 @@
   <div class="qa-answer" id="qaAnswer" hidden></div>
   <div class="inspector" id="inspector" hidden></div>
   <div class="backdrop" id="backdrop"></div>
-  <script src="assets/js/app.js?v=investment-tabs-20260705" defer></script>
+  <script src="assets/js/app.js?v=china-business-20260705" defer></script>
 </body>
 </html>

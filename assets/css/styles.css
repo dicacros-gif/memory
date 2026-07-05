@@ -1855,6 +1855,152 @@ body.sidebar-collapsed .sb-ico {
   font-weight: 950;
 }
 
+.china-business-brief,
+.china-business-map,
+.china-decision-gates {
+  display: grid;
+  gap: 10px;
+  margin-bottom: 12px;
+}
+
+.china-business-brief {
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+}
+
+.china-business-map {
+  grid-template-columns: repeat(6, minmax(0, 1fr));
+}
+
+.china-decision-gates {
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+}
+
+.china-business-brief-card,
+.china-business-lane,
+.china-decision-gate {
+  min-width: 0;
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  background: var(--panel-2);
+}
+
+.china-business-brief-card {
+  display: grid;
+  gap: 9px;
+  min-height: 148px;
+  padding: 13px;
+}
+
+.china-business-brief-card > span,
+.china-business-lane > span,
+.china-decision-gate > span {
+  color: var(--muted);
+  font-size: 10px;
+  font-weight: 950;
+  letter-spacing: .04em;
+  text-transform: uppercase;
+}
+
+.china-business-brief-card > div {
+  display: flex;
+  gap: 10px;
+  align-items: baseline;
+  justify-content: space-between;
+  min-width: 0;
+}
+
+.china-business-brief-card strong,
+.china-business-lane strong,
+.china-decision-gate strong {
+  color: var(--ink);
+  font-size: 14px;
+  line-height: 1.25;
+  font-weight: 950;
+}
+
+.china-business-brief-card em {
+  color: var(--accent);
+  font-style: normal;
+  font-weight: 950;
+}
+
+.china-business-brief-card p,
+.china-business-brief-card small,
+.china-business-lane p,
+.china-business-lane small,
+.china-decision-gate p,
+.china-decision-gate small {
+  color: var(--ink-2);
+  font-size: 11px;
+  line-height: 1.45;
+  font-weight: 750;
+}
+
+.china-business-brief-card small,
+.china-business-lane small,
+.china-decision-gate small {
+  color: var(--muted);
+  font-weight: 850;
+}
+
+.china-business-lane,
+.china-decision-gate {
+  display: grid;
+  align-content: start;
+  gap: 8px;
+  color: var(--ink);
+  padding: 12px;
+  text-align: left;
+  transition: transform .16s, border-color .16s, background .16s, box-shadow .16s;
+}
+
+.china-business-lane:hover,
+.china-business-lane:focus-visible,
+.china-business-lane.active,
+.china-decision-gate:hover,
+.china-decision-gate:focus-visible,
+.china-decision-gate.active {
+  outline: none;
+  transform: translateY(-2px);
+  border-color: var(--local-accent, var(--accent));
+  background: color-mix(in srgb, var(--local-accent, var(--accent)) 8%, var(--panel));
+  box-shadow: var(--shadow-lg);
+}
+
+.lane-meter,
+.gate-meter {
+  width: 100%;
+  height: 6px;
+  overflow: hidden;
+  border-radius: 999px;
+  background: color-mix(in srgb, var(--line) 70%, transparent);
+}
+
+.lane-meter i,
+.gate-meter i {
+  display: block;
+  width: 0;
+  height: 100%;
+  border-radius: inherit;
+  background: linear-gradient(90deg, var(--local-accent, var(--accent)), color-mix(in srgb, var(--local-accent, var(--accent)) 45%, var(--teal)));
+}
+
+.china-decision-gate.go {
+  border-color: color-mix(in srgb, var(--green) 32%, var(--line));
+}
+
+.china-decision-gate.defend {
+  border-color: color-mix(in srgb, var(--amber) 32%, var(--line));
+}
+
+.china-decision-gate.watch {
+  border-color: color-mix(in srgb, var(--blue) 32%, var(--line));
+}
+
+.china-decision-gate.hold {
+  border-color: color-mix(in srgb, var(--red) 26%, var(--line));
+}
+
 .projection-board {
   border-color: color-mix(in srgb, var(--amber) 30%, var(--line));
   background:
@@ -5883,6 +6029,9 @@ body.sidebar-collapsed .sb-ico {
   .investment-summary,
   .investment-flow,
   .investment-evidence,
+  .china-business-brief,
+  .china-business-map,
+  .china-decision-gates,
   .projection-summary,
   .projection-scenario-chart,
   .projection-drivers,
@@ -6171,6 +6320,9 @@ body.sidebar-collapsed .sb-ico {
   .investment-summary,
   .investment-flow,
   .investment-grid,
+  .china-business-brief,
+  .china-business-map,
+  .china-decision-gates,
   .projection-summary,
   .projection-scenario-tabs,
   .projection-tabs,
@@ -6297,6 +6449,9 @@ body.sidebar-collapsed .sb-ico {
     .investment-layout,
     .investment-grid,
     .investment-evidence,
+    .china-business-brief,
+    .china-business-map,
+    .china-decision-gates,
     .projection-summary,
     .projection-scenario-tabs,
     .projection-scenario-chart,
