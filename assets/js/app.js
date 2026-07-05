@@ -1756,7 +1756,7 @@
     {
       id: "methodology",
       label: "방법론",
-      desc: "팩트·해석·가정·방법론 레이어, 출처 정책, 수집 주기, 예외 처리",
+      desc: "출처 정책, 수집 주기, 예외 처리",
       cadence: "Trust layer",
       jump: "evidence-framework",
       sections: ["evidence-framework", "categories", "intelligence"],
@@ -3391,18 +3391,8 @@
 
   function evidenceFrameworkData() {
     return BASE.evidenceFramework || {
-      summary: [
-        "팩트 레이어는 검증 가능한 수치·기사·공시만 둡니다.",
-        "해석 레이어는 운영팀의 판단 문장을 둡니다.",
-        "가정 레이어는 추정, 전망, 시나리오를 둡니다.",
-        "방법론 레이어는 수집 범위, 제외 규칙, 출처 체계를 둡니다.",
-      ],
-      layers: [
-        { id: "fact", label: "팩트 레이어", rule: "검증 가능한 수치·기사·공시만 배치" },
-        { id: "interpretation", label: "해석 레이어", rule: "운영팀 판단 문장만 배치" },
-        { id: "assumption", label: "가정 레이어", rule: "추정·전망·시나리오만 배치" },
-        { id: "methodology", label: "방법론 레이어", rule: "수집 범위·제외 규칙·출처 체계" },
-      ],
+      summary: [],
+      layers: [],
       sourceTypes: [],
       evidenceLevels: [],
       methodology: [],
@@ -3502,41 +3492,11 @@
 
     const framework = evidenceFrameworkData();
     const items = evidenceItems();
-    const confirmed = items.filter((item) => String(item.evidenceLevel).toLowerCase() === "confirmed");
-    const factItems = items.filter((item) => item.layer === "fact");
-    const missingUrls = items.filter((item) => !String(item.sourceUrl || item.link || "").trim());
-    const stale = items.filter((item) => String(item.evidenceLevel).toLowerCase() === "stale");
-    const watch = items.filter((item) => /watch|inferred/i.test(item.evidenceLevel));
-    if (meta) meta.textContent = `${fmtNum(items.length)}개 항목 · Confirmed ${fmtNum(confirmed.length)} · URL 없음 ${fmtNum(missingUrls.length)}`;
+    if (meta) meta.textContent = `${fmtNum(items.length)}개 항목 · 출처 분류`;
+    summary.innerHTML = "";
+    layerGrid.innerHTML = "";
 
-    const summaryCards = [
-      { label: "Confirmed", value: confirmed.length, note: "URL 있는 공식/외신/분석 원문" },
-      { label: "Fact layer", value: factItems.length, note: "검증 가능한 수치·기사·공시만" },
-      { label: "Watch / Inferred", value: watch.length, note: "해석·가정 레이어로 격리" },
-      { label: "Source URL 없음", value: missingUrls.length, note: "팩트 레이어 승격 금지" },
-      { label: "Stale", value: stale.length, note: "전망 충돌·기준일 노후 항목" },
-    ];
-    summary.innerHTML = summaryCards.map((card) => `
-      <article class="evidence-summary-card">
-        <span>${escapeHTML(card.label)}</span>
-        <strong>${countHTML(card.value)}</strong>
-        <small>${escapeHTML(card.note)}</small>
-      </article>
-    `).join("");
-
-    layerGrid.innerHTML = (framework.layers || []).map((layer) => {
-      const count = layer.id === "methodology" ? (framework.methodology || []).length : items.filter((item) => item.layer === layer.id).length;
-      return `
-        <article class="evidence-layer-card ${layer.id === evidenceFilter ? "active" : ""}">
-          <span>${escapeHTML(layer.label)}</span>
-          <strong>${countHTML(count)}</strong>
-          <p>${escapeHTML(layer.rule || "")}</p>
-          <small>${escapeHTML(layer.description || "")}</small>
-        </article>
-      `;
-    }).join("");
-
-    const filters = [{ id: "all", label: "전체" }].concat(framework.layers || []);
+    const filters = [{ id: "all", label: "전체" }];
     tabs.innerHTML = filters.map((filter) => `
       <button type="button" class="${filter.id === evidenceFilter ? "active" : ""}" data-evidence-filter="${escapeHTML(filter.id)}">
         <strong>${escapeHTML(filter.label)}</strong>
@@ -3559,7 +3519,7 @@
             <span class="source-tag">Rule ${fmtNum(index + 1)}</span>
           </div>
           <h3>${escapeHTML(line)}</h3>
-          <p>이 규칙은 팩트 레이어 승격과 뉴스/크롤링 제외 기준에 적용됩니다.</p>
+          <p>이 규칙은 뉴스/크롤링 제외 기준에 적용됩니다.</p>
         </article>
       `).join("");
     } else {
@@ -3574,7 +3534,6 @@
             <div class="evidence-card-top">
               ${factBadge(evidenceLabel("level", level), levelClass)}
               <span class="source-tag">${escapeHTML(evidenceLabel("sourceType", sourceType))}</span>
-              <span class="source-tag">${escapeHTML(evidenceLabel("layer", layer))}</span>
             </div>
             <h3>${escapeHTML(item.title || item.claim || item.label)}</h3>
             <p>${escapeHTML(item.body || item.note || "")}</p>
@@ -3587,22 +3546,7 @@
       }).join("") || `<div class="empty">선택한 레이어에 항목이 없습니다.</div>`;
     }
 
-    method.innerHTML = `
-      <div class="evidence-dictionary">
-        <h4>출처 유형</h4>
-        ${(framework.sourceTypes || []).map((item) => `<p><strong>${escapeHTML(item.label)}</strong><span>${escapeHTML(item.description)}</span></p>`).join("")}
-      </div>
-      <div class="evidence-dictionary">
-        <h4>증거 수준</h4>
-        ${(framework.evidenceLevels || []).map((item) => `<p><strong>${escapeHTML(item.label)}</strong><span>${escapeHTML(item.description)}</span></p>`).join("")}
-      </div>
-      <div class="evidence-dictionary">
-        <h4>레이어 규칙</h4>
-        ${(framework.summary || []).map((line) => `<p><strong>Rule</strong><span>${escapeHTML(line)}</span></p>`).join("")}
-      </div>
-    `;
-    animateCounts(summary);
-    animateCounts(layerGrid);
+    method.innerHTML = "";
   }
 
   function numberDashboardItems() {
@@ -3981,7 +3925,7 @@
         unit: "claim",
         status: "Evidence",
         score: clamp(52 + sourceUrlItems(evidenceItems()).length * 2, 42, 94),
-        note: "팩트·해석·가정·방법론 레이어",
+        note: "출처 검증",
       },
       intelligence: {
         value: visibleItems(BASE.channels || []).filter(relatedToActive).length,
