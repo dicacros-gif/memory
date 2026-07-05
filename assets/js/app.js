@@ -1720,11 +1720,28 @@
     },
   ];
   const IA_ROUTES = MECE_GROUPS;
+  const SIDE_NAV_ROUTES = [
+    ...MECE_GROUPS.filter((route) => route.id === "home"),
+    {
+      id: "workbench",
+      label: "분석실",
+      desc: "동적 워크벤치, 정량 분석, 시나리오·ROI·에이전트 토론",
+      cadence: "Decision lab",
+      jump: "workbench",
+      sections: ["workbench"],
+    },
+    ...MECE_GROUPS.filter((route) => ["market", "policy", "competitors", "talent", "analysis"].includes(route.id)),
+  ];
   const ROUTE_DISPLAY = {
     home: {
       label: "홈",
       desc: "오늘 핵심 변화, 경보, 업데이트 시각을 먼저 확인",
       cadence: "Daily",
+    },
+    workbench: {
+      label: "분석실",
+      desc: "워크벤치, 정량 분석, 에이전트 토론, 시나리오 비교",
+      cadence: "Decision lab",
     },
     analysis: {
       label: "경영진",
@@ -1766,13 +1783,14 @@
     talent: { label: "인재 · IP", en: "Talent / IP", desc: "채용, 핵심 수율 인력 이동, IP 방어 신호" },
   };
   const SIDE_NAV_GROUPS = [
-    { label: "오늘", routes: ["home"] },
+    { label: "요약·분석", routes: ["home", "workbench"] },
+    { label: "시장·정책", routes: ["market", "policy"] },
+    { label: "중국·인재", routes: ["competitors", "talent"] },
     { label: "의사결정", routes: ["analysis"] },
-    { label: "시장·경쟁", routes: ["market", "competitors"] },
-    { label: "리스크", routes: ["policy", "talent"] },
   ];
   const SIDE_NAV_ICONS = {
     home: "H",
+    workbench: "W",
     analysis: "A",
     market: "M",
     competitors: "C",
@@ -1780,10 +1798,10 @@
     talent: "T",
   };
   const SIDE_QUICK_ACTIONS = [
-    { label: "경영진", hint: "의사결정", jump: "executive-decision", route: "analysis" },
+    { label: "분석실", hint: "워크벤치", jump: "workbench", route: "workbench" },
     { label: "가격·기사", hint: "시장", jump: "prices", route: "market" },
-    { label: "중국 경쟁", hint: "CXMT·YMTC", jump: "china-nand", route: "competitors" },
     { label: "정책/Fab", hint: "BIS·인프라", jump: "policy-makers", route: "policy" },
+    { label: "경영진", hint: "의사결정", jump: "executive-decision", route: "analysis" },
   ];
   const TOPIC_FILTER_GROUPS = [
     { label: "전체", hint: "All", categories: ["all"] },
@@ -1824,27 +1842,28 @@
   };
   const SECTION_ORDER = [
     "overview",
+    "workbench",
+    "prices",
+    "news",
+    "policy-makers",
+    "china-fab-infra",
+    "china-nand",
+    "china-dynamics",
+    "ai-matrix",
+    "china-deep-dive",
+    "talent-radar",
+    "china-talent-strategy",
     "executive-decision",
     "management-strategy",
     "strategic-investment-decision",
-    "policy-makers",
-    "china-fab-infra",
-    "china-talent-strategy",
-    "prices",
-    "news",
-    "china-nand",
-    "china-dynamics",
-    "talent-radar",
     "numbers",
     "projection",
-    "workbench",
-    "ai-matrix",
-    "china-deep-dive",
-    "categories",
     "response",
+    "categories",
   ];
   const NAV_SECTION_TARGETS = {
     overview: "overview",
+    workbench: "workbench",
     prices: "prices",
     news: "prices",
     "policy-makers": "policy-makers",
@@ -1856,12 +1875,11 @@
     "talent-radar": "talent-radar",
     "china-talent-strategy": "talent-radar",
     "executive-decision": "executive-decision",
-    "management-strategy": "management-strategy",
-    "strategic-investment-decision": "management-strategy",
+    "management-strategy": "executive-decision",
+    "strategic-investment-decision": "executive-decision",
     numbers: "executive-decision",
     projection: "executive-decision",
-    workbench: "executive-decision",
-    response: "management-strategy",
+    response: "executive-decision",
     categories: "china-nand",
   };
   const PRICE_PERIODS = [
@@ -2431,7 +2449,7 @@
   }
 
   function routeById(id) {
-    return IA_ROUTES.find((route) => route.id === id) || null;
+    return SIDE_NAV_ROUTES.find((route) => route.id === id) || IA_ROUTES.find((route) => route.id === id) || null;
   }
 
   function routeDisplay(route) {
@@ -2646,6 +2664,7 @@
   function routeAccent(routeId) {
     return {
       home: "#3C82FF",
+      workbench: "#22C55E",
       market: "#FFB830",
       policy: "#60A5FA",
       competitors: "#00C8A0",
