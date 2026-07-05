@@ -371,7 +371,7 @@
         "q": "중국 업체의 실제 로드맵은 어디서 먼저 보이나?",
         "a": "공식 IR보다 마이크로데이터가 먼저 움직입니다.\n\n금융 채널에서는 CITIC, CICC, HSBC Qianhai의 IPO·Pre-IPO 문서가 자금 사용 목적과 고객 계약을 드러냅니다. 채용 채널에서는 Boss Zhipin의 TSV, DUV 멀티패터닝, 하이브리드 본딩 JD 빈도가 6~12개월 뒤 병목을 보여줍니다. Maimai 익명 커뮤니티는 장비 qual 실패, 수율 고충, 한국 엔지니어 조직 적응 문제 같은 현장 신호를 포착합니다. TechInsights, Yole, DigiTimes, EE Times, Caixin, Yicai, ijiwei는 칩 실체와 공급망 움직임을 교차 검증합니다.",
         "keywords": ["소스", "정보", "boss", "maimai", "citic", "techinsights", "yole"],
-        "nav": "intelligence"
+        "nav": "news"
       },
       {
         "cat": "strategy",
@@ -804,64 +804,6 @@
       { "level": "Watch", "rule": "칭화대·화중과기대 등 캠퍼스 채용에서 특정 부서·공정 직무가 반복 노출" }
     ]
   },
-  "channels": [
-    {
-      "id": "finance",
-      "title": "금융·증권사 채널",
-      "source": "CITIC · CICC · HSBC Qianhai",
-      "desc": "IPO 문서, Pre-IPO 자금 조달, 고객 계약, 기관 보유 변화, 팹 가동률과 출하 점유율을 추적",
-      "signals": ["CXMT STAR Market 문서", "YMTC Pre-IPO 코칭", "Tencent 공급 계약", "웨이퍼 출하량 점유율"],
-      "linkedCategories": ["dram", "nand", "geopolitics"]
-    },
-    {
-      "id": "hiring",
-      "title": "채용·인재 레이더",
-      "source": "Boss Zhipin · Tsinghua Career · 전문 매체/IP",
-      "desc": "로컬 채용 플랫폼, 대학 취업센터, 전문 매체/IP의 JD 빈도와 키워드로 6~18개월 뒤 공정 병목과 기술 포커스를 선행 감지",
-      "signals": ["HBM TSV 수율 엔지니어", "DDR5/LPDDR5X process integration", "Xtacking/eSSD firmware", "하이브리드 본딩", "장비 qual 엔지니어", "캠퍼스 리크루팅"],
-      "linkedCategories": ["packaging", "talent", "equipment"]
-    },
-    {
-      "id": "community",
-      "title": "현지 커뮤니티",
-      "source": "Maimai · 익명 게시판",
-      "desc": "YMTC 램프업 지연, 장비 테스트 실패, 한국 엔지니어 조직 적응, 수율 고충 같은 비정형 현장 신호",
-      "signals": ["우한 3공장 ramp-up", "국산 장비 qual", "조직 문화 충돌", "연봉·리텐션 신호"],
-      "linkedCategories": ["talent", "equipment", "nand"]
-    },
-    {
-      "id": "teardown",
-      "title": "전문 기술 분석",
-      "source": "TechInsights · Yole Group",
-      "desc": "칩 분해, SEM/STEM 단면, 셀 크기, 비트 밀도, W2W 하이브리드 본딩 구조를 물리적으로 검증",
-      "signals": ["CXMT 16nm G4", "Gloway DDR5-6000", "YMTC Xtacking 4.0", "W2W bonding"],
-      "linkedCategories": ["dram", "nand", "packaging"]
-    },
-    {
-      "id": "media",
-      "title": "중국·외신 기술 미디어",
-      "source": "DigiTimes · Caixin · Yicai · ijiwei · EE Times",
-      "desc": "빅테크 공급망 협상, 장비 반입, 고객 인증, 중국 정책 변화와 자본 흐름을 추적",
-      "signals": ["AI accelerator", "export control", "Big Fund III"],
-      "linkedCategories": ["dram", "geopolitics", "equipment"]
-    },
-    {
-      "id": "corpdev",
-      "title": "거래·자본 이벤트",
-      "source": "Reuters · STAR Market · 지방 국자 플랫폼",
-      "desc": "M&A, JV, 지분 이동, IPO/Pre-IPO, 정부펀드, 장기 공급계약을 별도 Corp Dev 레이어로 추적",
-      "signals": ["CXMT IPO", "Tencent 장기 DRAM 계약", "YMTC/XMC 지분 재편", "Big Fund III", "Solidigm/Dalian 자산"],
-      "linkedCategories": ["corpdev", "operations", "dram", "nand", "geopolitics"]
-    },
-    {
-      "id": "price",
-      "title": "가격 데이터",
-      "source": "TrendForce · DRAMeXchange",
-      "desc": "DRAM/NAND spot과 contract price를 매일 비교해 가격 전이와 하방 압력 신호를 확인",
-      "signals": ["DRAM Spot", "DRAM Contract", "NAND Contract", "SSD Street Price"],
-      "linkedCategories": ["dram", "nand"]
-    }
-  ],
   "companies": [
     {
       "id": "cxmt",

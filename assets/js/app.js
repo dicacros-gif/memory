@@ -169,7 +169,6 @@
     categories: "#C4B5FD",
     competitors: "#F0ABFC",
     response: "#FCA5A5",
-    intelligence: "#BAE6FD",
   };
   const POLICY_MAKER_LENSES = [
     {
@@ -1670,12 +1669,6 @@
       sub: "P0/P1 execution",
       section: "response",
     },
-    {
-      id: "intelligence",
-      label: "정보 채널",
-      sub: "Finance · Hiring · Teardown",
-      section: "intelligence",
-    },
   ];
   const MECE_GROUPS = [
     {
@@ -1754,7 +1747,6 @@
     "talent-radar": "인재·채용 레이더",
     "china-deep-dive": "중국 심층 벤치마킹",
     response: "대응 대시보드",
-    intelligence: "정보 획득 채널",
     categories: "메모리 카테고리",
     news: "중국·외신 기사",
     prices: "TrendForce 가격",
@@ -1779,7 +1771,6 @@
     "china-deep-dive",
     "categories",
     "response",
-    "intelligence",
   ];
   const NAV_SECTION_TARGETS = {
     overview: "overview",
@@ -1801,7 +1792,6 @@
     workbench: "executive-decision",
     response: "management-strategy",
     categories: "china-nand",
-    intelligence: "china-nand",
   };
   const PRICE_PERIODS = [
     { id: "week", label: "주", days: 7 },
@@ -1882,7 +1872,6 @@
     renderNumberDashboard();
     renderProductProjection();
     renderCategories();
-    renderChannels();
     renderResponses();
     renderArchitectureMatrix();
     renderPrices();
@@ -2411,7 +2400,6 @@
       renderExecutiveDecision,
       renderNumberDashboard,
       renderProductProjection,
-      renderChannels,
       renderNews,
       renderArchitectureMatrix,
       renderChinaDeepDive,
@@ -3087,13 +3075,6 @@
         score: 76,
         note: "SKHY 대응 체크리스트",
       },
-      intelligence: {
-        value: visibleItems(BASE.channels || []).filter(relatedToActive).length,
-        unit: "채널",
-        status: "Source",
-        score: 72,
-        note: "금융·채용·기술분석 채널",
-      },
     };
     const item = map[section] || { value: 0, unit: "", status: "Watch", score: 50, note: SECTION_LABELS[section] || section };
     return {
@@ -3412,42 +3393,6 @@
     target.querySelectorAll("[data-category-ox]").forEach((btn) => {
       btn.addEventListener("click", () => setCategory(btn.dataset.categoryOx));
     });
-  }
-
-  function renderChannels() {
-    const grid = $("#channelGrid");
-    grid.innerHTML = "";
-    visibleItems(BASE.channels || []).filter(relatedToActive).forEach((item, index) => {
-      const card = el("article", "card reveal");
-      card.style.animationDelay = `${index * 35}ms`;
-      card.style.setProperty("--local-accent", categoryAccent((item.linkedCategories || [])[0]));
-      card.innerHTML = `
-        <div class="card-top">
-          <div>
-            <span class="chip accent">${escapeHTML(item.source)}</span>
-            <h3>${escapeHTML(item.title)}</h3>
-          </div>
-        </div>
-        <p>${escapeHTML(item.desc)}</p>
-        <ul class="watch-list">${(item.signals || []).map((s) => `<li>${escapeHTML(s)}</li>`).join("")}</ul>
-      `;
-      makeInspectable(card, {
-        type: "정보 채널",
-        tag: item.source,
-        title: item.title,
-        body: item.desc,
-        section: "intelligence",
-        categories: item.linkedCategories || [],
-        watch: item.signals || [],
-        metrics: [
-          { label: "Signals", value: fmtNum((item.signals || []).length) },
-          { label: "Source", value: item.source },
-          { label: "Fit", value: (item.linkedCategories || []).map(categoryName).join(" · ") || "전체" },
-        ],
-      });
-      grid.appendChild(card);
-    });
-    if (!grid.children.length) grid.appendChild(el("div", "empty", "선택한 카테고리의 정보 소스가 없습니다."));
   }
 
   function benchmarkSignalTotal() {
@@ -6562,25 +6507,6 @@
           { label: "Priority", value: item.priority },
           { label: "Actions", value: fmtNum((item.actions || []).length) },
           { label: "Owner view", value: "전략·운영" },
-        ],
-      }));
-    }
-
-    if (mode === "intelligence") {
-      items = visibleItems(BASE.channels || []).map((item, index) => ({
-        id: `channel-${index}`,
-        mode,
-        type: "정보 채널",
-        tag: item.source,
-        title: item.title,
-        body: item.desc,
-        section: "intelligence",
-        categories: item.linkedCategories || [],
-        watch: item.signals || [],
-        metrics: [
-          { label: "Signals", value: fmtNum((item.signals || []).length) },
-          { label: "Source", value: item.source },
-          { label: "Fit", value: (item.linkedCategories || []).map(categoryName).join(" · ") || "전체" },
         ],
       }));
     }
