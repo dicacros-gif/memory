@@ -86,6 +86,7 @@
     "executive-decision": "#FDE68A",
     "management-strategy": "#A7F3D0",
     "strategic-investment-decision": "#FBCFE8",
+    "policy-makers": "#BFDBFE",
     "daily-review": "#A7F3D0",
     numbers: "#FDE68A",
     projection: "#FBBF24",
@@ -105,6 +106,115 @@
     response: "#FCA5A5",
     intelligence: "#BAE6FD",
   };
+  const POLICY_MAKER_LENSES = [
+    {
+      id: "china",
+      label: "중국",
+      en: "China",
+      subtitle: "자립화 · 지방정부 · 당조직 · 환경규제",
+      accentCategory: "china",
+      verdict: "조건부 O",
+      status: "Watch",
+      direction: "반도체 자립, 지방정부 펀드, 공급망 내재화, 외자 안정화가 동시에 움직입니다. SK하이닉스 중국 법인은 현지 운영 연속성과 기술/IP 방어를 분리해 관리해야 합니다.",
+      law: "회사법상 당조직 활동 조건 제공 의무, 지방 IC 펀드, 환경 고품질 발전 기조",
+      skImpact: "Wuxi DRAM, Chongqing 후공정, Dalian/Solidigm 스토리지 거점은 중국 산업정책과 미국 수출통제 사이에서 기존 운영 중심으로 관리해야 합니다.",
+      strategy: "중국 내 고객 대응은 유지하되, 선단 공정 업그레이드·핵심 recipe 이전·JV 구조는 공식 출처와 법무 검토가 충족될 때만 조건부 진행합니다.",
+      partyNote: "공개 확인 필요: 공개 출처로 확인되는 것은 중국 회사법의 당조직 조항과 Wuxi 시 당서기 참석 기록입니다. SK하이닉스 중국 법인 내부 당서기 성명은 공개 출처로 확인되지 않아 추정하지 않습니다.",
+      sites: [
+        { name: "SK hynix Semiconductor (China) Ltd.", role: "Wuxi DRAM production site", note: "공식 오피스 페이지 기준 생산 거점" },
+        { name: "SK hynix Semiconductor (Chongqing) Ltd.", role: "Chongqing headquarters", note: "보세구 후공정/운영 리스크 추적" },
+        { name: "SK hynix Semiconductor storage technology (Dalian) Co. Ltd", role: "Dalian storage site", note: "Solidigm/NAND 자산과 규제 리스크 별도 추적" },
+      ],
+      rules: [
+        { axis: "산업정책", status: "O", title: "지방정부 반도체 펀드와 내재화", evidence: "Shenzhen은 50억 위안 IC 펀드를 조성하고 자율·효율적 로컬 공급망을 목표로 제시했습니다.", implication: "중국 고객/장비/소부장 신호는 가격 경쟁보다 먼저 중국 내 생태계 속도 지표로 추적합니다.", source: "Shenzhen Government", sourceUrl: "https://www.sz.gov.cn/en_szgov/news/latest/content/post_12177837.html" },
+        { axis: "당조직", status: "Watch", title: "회사법상 당조직 활동 조건 제공", evidence: "중국 회사법은 회사 내 공산당 조직 설치와 활동 조건 제공을 규정합니다.", implication: "법정 일반 조항과 특정 법인의 내부 당서기 정보는 분리 표기해야 합니다.", source: "PRC Company Law", sourceUrl: "https://natlex.ilo.org/dyn/natlex2/natlex2/files/download/92643/CHN92643%20Eng.pdf" },
+        { axis: "SK 중국 법인", status: "확인필요", title: "법인 내부 당서기 공개 확인", evidence: "SK하이닉스 공식/뉴스룸 공개자료에서 내부 당서기 성명은 확인되지 않았습니다.", implication: "공개 확인 전까지 실명/조직 직책을 추정하지 않고, 현지 정부 접점과 별도 관리합니다.", source: "SK hynix Offices", sourceUrl: "https://www.skhynix.com/company/UI-FR-CP06/" },
+        { axis: "지역정부 접점", status: "O", title: "Wuxi 시 당서기 참석 기록", evidence: "2019년 Wuxi C2F 완공식에는 Wuxi Party Secretary가 참석했습니다.", implication: "이는 지방정부 정책 접점 증거이지 SK하이닉스 내부 당서기 증거가 아닙니다.", source: "SK hynix Newsroom", sourceUrl: "https://news.skhynix.com/sk-hynix-completes-expanded-fab-c2f-in-wuxi-china/" },
+        { axis: "환경/인허가", status: "Watch", title: "고수준 보호와 고품질 발전 병행", evidence: "중국 환경정책은 신규 오염물질·POPs 관리와 산업 고도화를 동시에 압박합니다.", implication: "Wuxi/Dalian/Chongqing 인허가·폐수·화학물질 이슈를 생산 연속성 리스크로 별도 추적합니다.", source: "China MEE", sourceUrl: "https://english.mee.gov.cn/News_service/news_release/202405/P020240529333532299021.pdf" },
+      ],
+      actions: [
+        "중국 내 증설/업그레이드 요청은 '운영 유지', '캐파 확대', '기술 업그레이드'로 분리해 승인합니다.",
+        "당조직/노조/지방정부 접점은 법무·컴플라이언스 로그로 남기고 내부 직책은 공개 확인 전 추정하지 않습니다.",
+        "현지 환경 인허가와 미국 수출통제 이벤트를 같은 리스크 캘린더에 올립니다.",
+      ],
+      sources: [
+        { label: "SK hynix China sites", url: "https://www.skhynix.com/company/UI-FR-CP06/" },
+        { label: "SK hynix Wuxi C2F", url: "https://news.skhynix.com/sk-hynix-completes-expanded-fab-c2f-in-wuxi-china/" },
+        { label: "PRC Company Law", url: "https://natlex.ilo.org/dyn/natlex2/natlex2/files/download/92643/CHN92643%20Eng.pdf" },
+        { label: "Shenzhen IC fund", url: "https://www.sz.gov.cn/en_szgov/news/latest/content/post_12177837.html" },
+      ],
+    },
+    {
+      id: "korea",
+      label: "한국",
+      en: "Korea",
+      subtitle: "K-Chips · 금융지원 · 용인 클러스터 · 환경규제 완화",
+      accentCategory: "operations",
+      verdict: "O",
+      status: "OK",
+      direction: "한국 정부는 세액공제, 정책금융, R&D·인력, 용수·전력 인프라를 묶어 국내 첨단 반도체 생태계 경쟁력을 높이는 방향입니다.",
+      law: "K-Chips 세액공제, 26조원 반도체 생태계 지원 패키지, 화학물질 규제 합리화",
+      skImpact: "HBM·선단 DRAM·차세대 패키징·핵심 인력 방어는 한국 내 투자와 연결하고, 중국 법인 리스크는 본사 통제 로그로 끌어올려야 합니다.",
+      strategy: "한국 내 첨단 투자를 우선순위로 두고 중국 사업은 현금창출·고객 대응·규제 준수 중심으로 관리합니다. 정책금융/세액공제는 HBM, eSSD, CXL, 환경설비 투자에 연결합니다.",
+      partyNote: "한국 탭에서는 중국 당조직 정보를 직접 판단하지 않고, 해외법인 리스크 통제·국가핵심기술 보호·인력 유출 방어 관점으로 연결합니다.",
+      sites: [
+        { name: "Icheon / Cheongju", role: "국내 제조·R&D 중심", note: "첨단 투자와 국가전략기술 세액공제 연계" },
+        { name: "Yongin cluster", role: "용수·전력·도로 인프라", note: "정부 인프라 패키지 추적" },
+        { name: "China subsidiaries", role: "해외법인 리스크", note: "본사 기준 IP/인력/규제 통제" },
+      ],
+      rules: [
+        { axis: "세제", status: "O", title: "K-Chips 투자세액공제 확대", evidence: "대기업·중견기업 세액공제율 15%에서 20%, 중소기업 25%에서 30%로 확대가 공표됐습니다.", implication: "한국 내 HBM/선단 공정/환경설비 투자를 우선 검토합니다.", source: "MOEF", sourceUrl: "https://english.moef.go.kr/pc/selectTbPressCenterDtl.do?boardCd=N0001&seq=6117" },
+        { axis: "금융", status: "O", title: "26조원 생태계 지원 패키지", evidence: "18.1조원 금융지원, 17조원 저리대출, 8천억원 펀드, 2025~2027년 5조원 R&D·사업화·인력 투자가 제시됐습니다.", implication: "소부장·패키징·CXL·테스트 밸류체인과 공동 투자 후보를 연결합니다.", source: "MOEF", sourceUrl: "https://english.moef.go.kr/pc/selectTbPressCenterDtl.do?boardCd=N0001&seq=5899" },
+        { axis: "인프라", status: "O", title: "용수·전력·도로 패키지", evidence: "용인 클러스터 용수 이중관로와 3GW 전력 공급 등 인프라 지원 방향이 공표됐습니다.", implication: "국내 첨단 캐파 병목을 중국 리스크 완충장치로 봅니다.", source: "MOEF", sourceUrl: "https://english.moef.go.kr/pc/selectTbPressCenterDtl.do?boardCd=N0001&seq=5899" },
+        { axis: "환경법", status: "Watch", title: "화학물질 규제 합리화", evidence: "환경부는 첨단산업 규제 개선과 2030년까지 8.8조원 이상 경제효과를 언급했습니다.", implication: "화학물질·폐수·온실가스 투자는 인허가 속도와 사회적 수용성을 동시에 관리합니다.", source: "Korea Ministry of Environment", sourceUrl: "https://www.me.go.kr/eng/web/board/read.do%3Bjsessionid%3DbQgYIwaC9B0IXC1md7cW0H3MX3-7KITTl5QdwSO8.mehome1?boardCategoryId=&boardId=1620870&boardMasterId=522&decorator=&maxIndexPages=10&maxPageItems=10&menuId=&orgCd=&pagerOffset=480&searchKey=&searchValue=" },
+      ],
+      actions: [
+        "국내 정책금융·세액공제 대상 투자와 중국 사업 유지투자를 분리해 ROI를 계산합니다.",
+        "국가핵심기술·인력 유출 방어를 중국 벤치마킹 탭의 Talent/IP 신호와 연결합니다.",
+        "환경 인허가 개선 항목은 실제 공장별 병목 제거 여부로만 성과 판단합니다.",
+      ],
+      sources: [
+        { label: "MOEF support package", url: "https://english.moef.go.kr/pc/selectTbPressCenterDtl.do?boardCd=N0001&seq=5899" },
+        { label: "MOEF K-Chips", url: "https://english.moef.go.kr/pc/selectTbPressCenterDtl.do?boardCd=N0001&seq=6117" },
+        { label: "Korea Ministry of Environment", url: "https://www.me.go.kr/eng/web/board/read.do%3Bjsessionid%3DbQgYIwaC9B0IXC1md7cW0H3MX3-7KITTl5QdwSO8.mehome1?boardCategoryId=&boardId=1620870&boardMasterId=522&decorator=&maxIndexPages=10&maxPageItems=10&menuId=&orgCd=&pagerOffset=480&searchKey=&searchValue=" },
+      ],
+    },
+    {
+      id: "usa",
+      label: "미국",
+      en: "United States",
+      subtitle: "CHIPS Act · BIS export control · outbound investment · NEPA",
+      accentCategory: "geopolitics",
+      verdict: "조건부 O / 업그레이드 X",
+      status: "Watch",
+      direction: "미국은 CHIPS 보조금으로 자국 내 제조·R&D를 키우고, 중국 내 선단 반도체 역량 확대를 수출통제와 투자심사로 제한하는 방향입니다.",
+      law: "CHIPS and Science Act, BIS VEU 변경, Outbound Investment Program, NEPA",
+      skImpact: "SK하이닉스 중국 공장은 기존 운영 유지와 기술 업그레이드·캐파 확대를 분리해 BIS 라이선스 리스크를 관리해야 합니다.",
+      strategy: "중국 공장은 기존 fab 운영 연속성, 고객 서비스, 규제 증빙을 우선합니다. 미국/한국 투자와 HBM·AI 메모리 로드맵은 중국 내 업그레이드와 법적으로 분리합니다.",
+      partyNote: "미국 탭의 핵심은 중국 내부 정치조직 자체가 아니라, 중국 법인·고객·장비 흐름이 미국 수출통제상 최종용도·최종사용자 리스크로 어떻게 보이는지입니다.",
+      sites: [
+        { name: "Former VEU China fabs", role: "기존 운영 라이선스", note: "BIS는 기존 fab 운영 허용 취지와 확대/업그레이드 제한 취지를 분리했습니다." },
+        { name: "US CHIPS ecosystem", role: "미국 내 R&D·제조 인센티브", note: "미국 내 시설·장비 투자 인센티브와 R&D 프로그램" },
+        { name: "Outbound investment", role: "중국 관련 투자 제한/신고", note: "미국인·미국 controlled foreign entity 거래 검토 필요" },
+      ],
+      rules: [
+        { axis: "CHIPS Act", status: "O", title: "미국 내 제조·R&D 인센티브", evidence: "CHIPS for America는 500억 달러 규모이며 R&D 110억 달러, 시설·장비 인센티브 390억 달러를 집행합니다.", implication: "미국 고객·패키징·R&D 협력은 중국 사업과 분리된 투자 트랙으로 관리합니다.", source: "CHIPS.gov / NIST", sourceUrl: "https://www.chips.gov/" },
+        { axis: "BIS/VEU", status: "X", title: "중국 fab 캐파 확대·기술 업그레이드", evidence: "BIS는 VEU 특례 종료 후 기존 fab 운영 라이선스는 의도하되, 중국 내 캐파 확대나 기술 업그레이드 라이선스는 의도하지 않는다고 밝혔습니다.", implication: "Wuxi/Dalian/Chongqing 장비·소프트웨어 반입은 운영 유지와 업그레이드를 분리해 증빙해야 합니다.", source: "BIS", sourceUrl: "https://www.bis.gov/press-release/department-commerce-closes-export-controls-loophole-foreign-owned-semiconductor-fabs-china" },
+        { axis: "Outbound investment", status: "Watch", title: "중국 첨단기술 투자 신고/금지", evidence: "미 재무부 규칙은 반도체·마이크로일렉트로닉스, 양자, AI를 대상으로 하고 PRC/HK/Macau를 country of concern으로 지정합니다.", implication: "미국인·미국 계열사가 연결된 중국 JV/지분투자/기술협력은 사전 심사가 필요합니다.", source: "U.S. Treasury", sourceUrl: "https://home.treasury.gov/policy-issues/international/outbound-investment-program" },
+        { axis: "환경/인허가", status: "Watch", title: "NEPA와 대형 투자 인허가", evidence: "CHIPS 프로그램은 NEPA 항목을 별도 운영하고, 대형 투자 환경검토는 일정 리스크가 될 수 있습니다.", implication: "미국 내 신규 시설·패키징·R&D 투자는 환경 검토 일정을 의사결정 모델에 넣습니다.", source: "CHIPS.gov / NIST", sourceUrl: "https://www.chips.gov/" },
+      ],
+      actions: [
+        "중국 fab 관련 장비·SW·기술 반입은 기존 운영 유지인지, 캐파 확대/업그레이드인지 먼저 분류합니다.",
+        "미국 고객 HBM/AI 메모리 계약과 중국 내 범용 제품 운영은 문서상 분리합니다.",
+        "미국인이 관여하는 중국 투자·JV·공급계약은 Outbound Investment와 EAR 체크리스트를 거치게 합니다.",
+      ],
+      sources: [
+        { label: "BIS VEU change", url: "https://www.bis.gov/press-release/department-commerce-closes-export-controls-loophole-foreign-owned-semiconductor-fabs-china" },
+        { label: "CHIPS for America", url: "https://www.chips.gov/" },
+        { label: "Treasury outbound investment", url: "https://home.treasury.gov/policy-issues/international/outbound-investment-program" },
+      ],
+    },
+  ];
   const CHINA_DYNAMIC_AXES = [
     {
       id: "capacity",
@@ -1079,6 +1189,12 @@
       section: "strategic-investment-decision",
     },
     {
+      id: "policy-makers",
+      label: "Policy Maker",
+      sub: "China · Korea · US",
+      section: "policy-makers",
+    },
+    {
       id: "crawler",
       label: "크롤링 관제",
       sub: "Source · Health · Map",
@@ -1166,7 +1282,7 @@
       label: "중국 전략·대응",
       desc: "중국 고객·NAND/eSSD·패키징·장비·규제·인재/IP 의사결정",
       cadence: "Decision layer",
-      sections: ["management-strategy", "strategic-investment-decision", "dynamics", "monetization", "response", "intelligence"],
+      sections: ["management-strategy", "strategic-investment-decision", "policy-makers", "dynamics", "monetization", "response", "intelligence"],
     },
   ];
   const NEWS_SOURCE_TABS = [
@@ -1184,6 +1300,7 @@
     "executive-decision": "경영진 의사결정",
     "management-strategy": "중국 경영전략 수립",
     "strategic-investment-decision": "중국 전략적 의사 결정",
+    "policy-makers": "정책 방향성",
     "daily-review": "일일 리뷰 큐",
     numbers: "숫자 대시보드",
     projection: "제품군 프로젝션",
@@ -1404,6 +1521,7 @@
   let chinaNandFocusId = "ymtc";
   let managementStrategyFocusId = "china-key-account";
   let strategicDecisionFocusId = "china-key-account-lock";
+  let policyMakerTab = "china";
   let projectionFocusId = "ai-server";
   let projectionScenario = "neutral";
   let execDecisionFocusId = "hbm-ai-server";
@@ -1444,6 +1562,7 @@
     renderExecutiveDecision();
     renderManagementStrategy();
     renderStrategicInvestmentDecision();
+    renderPolicyMakers();
     renderDailyReview();
     renderNumberDashboard();
     renderProductProjection();
@@ -2786,6 +2905,13 @@
         status: "Decision",
         score: strategicInvestmentDecisionItems().length ? clamp(strategicInvestmentDecisionItems().reduce((sum, item) => sum + item.score, 0) / strategicInvestmentDecisionItems().length) : 0,
         note: "계약·JV·운영·방어 판단",
+      },
+      "policy-makers": {
+        value: POLICY_MAKER_LENSES.reduce((sum, lens) => sum + (lens.rules || []).length, 0),
+        unit: "check",
+        status: activePolicyLens().label,
+        score: 86,
+        note: "중국·한국·미국 정책 방향성",
       },
       "daily-review": {
         value: dailyReviewItems().length,
@@ -4667,6 +4793,166 @@
     animateMeters(grid);
   }
 
+  function activePolicyLens() {
+    return POLICY_MAKER_LENSES.find((lens) => lens.id === policyMakerTab) || POLICY_MAKER_LENSES[0];
+  }
+
+  function policyStatusClass(status) {
+    const text = String(status || "").toLowerCase();
+    if (text.includes("확인")) return "check";
+    if (text === "x" || text.includes("fail") || text.includes("금지")) return "fail";
+    if (text.includes("watch") || text.includes("조건")) return "watch";
+    if (text === "o" || text.includes("ok")) return "ok";
+    return "watch";
+  }
+
+  function policyPayload(lens) {
+    return {
+      type: "Policy Maker",
+      tag: lens.en,
+      title: `${lens.label} 정책 방향성`,
+      body: `${lens.direction} ${lens.skImpact}`,
+      section: "policy-makers",
+      categories: [lens.accentCategory || "geopolitics"],
+      watch: (lens.rules || []).map((rule) => `${rule.axis}: ${rule.title} - ${rule.implication}`).concat(lens.actions || []),
+      metrics: [
+        { label: "판단", value: lens.verdict },
+        { label: "체크포인트", value: fmtNum((lens.rules || []).length) },
+        { label: "출처", value: fmtNum((lens.sources || []).length) },
+        { label: "SK 거점", value: fmtNum((lens.sites || []).length) },
+      ],
+      links: (lens.sources || []).map((source) => ({ title: source.label, link: source.url })),
+      tags: [lens.label, lens.status, lens.law].filter(Boolean),
+    };
+  }
+
+  function renderPolicyTabs(lens) {
+    const tabs = $("#policyTabs");
+    if (!tabs) return;
+    tabs.innerHTML = POLICY_MAKER_LENSES.map((item) => `
+      <button class="policy-tab${item.id === lens.id ? " active" : ""}" type="button" role="tab" aria-selected="${item.id === lens.id ? "true" : "false"}" data-policy-tab="${escapeHTML(item.id)}" style="--local-accent:${categoryAccent(item.accentCategory)}">
+        <strong>${escapeHTML(item.label)}</strong>
+        <span>${escapeHTML(item.subtitle)}</span>
+      </button>
+    `).join("");
+    tabs.querySelectorAll("[data-policy-tab]").forEach((btn) => {
+      btn.addEventListener("click", () => {
+        policyMakerTab = btn.dataset.policyTab;
+        renderPolicyMakers();
+      });
+    });
+  }
+
+  function renderPolicyMakers() {
+    const summary = $("#policySummary");
+    const grid = $("#policyRuleGrid");
+    const focus = $("#policyFocus");
+    const sourceGrid = $("#policySourceGrid");
+    const meta = $("#policyMakerMeta");
+    const sourceMeta = $("#policySourceMeta");
+    if (!summary || !grid || !focus || !sourceGrid) return;
+
+    const lens = activePolicyLens();
+    const accent = categoryAccent(lens.accentCategory);
+    const payload = policyPayload(lens);
+    if (meta) meta.textContent = `${lens.label} · ${fmtNum((lens.rules || []).length)}개 체크포인트 · ${fmtNum((lens.sources || []).length)}개 공식/원문 출처`;
+    if (sourceMeta) sourceMeta.textContent = `${lens.law} · ${fmtDate(LIVE.updatedAt)}`;
+    renderPolicyTabs(lens);
+
+    summary.style.setProperty("--local-accent", accent);
+    summary.innerHTML = [
+      { label: "정책 방향", value: lens.status, note: lens.direction },
+      { label: "법·규제", value: lens.verdict, note: lens.law },
+      { label: "SK 영향", value: `${(lens.sites || []).length}개 거점`, note: lens.skImpact },
+      { label: "전략 방향", value: "Action", note: lens.strategy },
+    ].map((card, index) => `
+      <article class="policy-card reveal" style="animation-delay:${index * 25}ms">
+        <span>${escapeHTML(card.label)}</span>
+        <strong>${escapeHTML(card.value)}</strong>
+        <p>${escapeHTML(card.note)}</p>
+      </article>
+    `).join("");
+
+    grid.innerHTML = (lens.rules || []).map((rule, index) => {
+      const cls = policyStatusClass(rule.status);
+      return `
+        <article class="policy-rule-card reveal" style="--local-accent:${accent}; animation-delay:${index * 25}ms">
+          <div class="policy-rule-top">
+            <span class="policy-status ${cls}">${escapeHTML(rule.status)}</span>
+            <small>${escapeHTML(rule.axis)}</small>
+          </div>
+          <h3>${escapeHTML(rule.title)}</h3>
+          <p>${escapeHTML(rule.evidence)}</p>
+          <em>${escapeHTML(rule.implication)}</em>
+          <div class="policy-rule-foot">${sourceLinkHTML(rule.sourceUrl, rule.source || "출처")}</div>
+        </article>
+      `;
+    }).join("");
+
+    focus.style.setProperty("--local-accent", accent);
+    focus.innerHTML = `
+      <div class="policy-focus-head">
+        <span class="chip accent">${escapeHTML(lens.en)} · ${escapeHTML(lens.status)}</span>
+        <h3>${escapeHTML(lens.label)} Policy Maker 방향성</h3>
+        <p>${escapeHTML(lens.direction)}</p>
+      </div>
+      <div class="policy-verdict ${policyStatusClass(lens.status)}">
+        <strong>${escapeHTML(lens.verdict)}</strong>
+        <span>${escapeHTML(lens.skImpact)}</span>
+      </div>
+      <div class="policy-focus-block">
+        <strong>SK하이닉스 전략 방향</strong>
+        <p>${escapeHTML(lens.strategy)}</p>
+      </div>
+      <div class="policy-focus-block">
+        <strong>SK 중국 법인·공장</strong>
+        <ul class="policy-site-list">
+          ${(lens.sites || []).map((site) => `
+            <li>
+              <b>${escapeHTML(site.name)}</b>
+              <span>${escapeHTML(site.role)}</span>
+              <small>${escapeHTML(site.note)}</small>
+            </li>
+          `).join("")}
+        </ul>
+      </div>
+      <div class="policy-focus-block">
+        <strong>당서기/정치조직 해석</strong>
+        <p>${escapeHTML(lens.partyNote)}</p>
+      </div>
+      <div class="policy-focus-block">
+        <strong>의사결정 액션</strong>
+        <ul class="watch-list">${(lens.actions || []).map((line) => `<li>${escapeHTML(line)}</li>`).join("")}</ul>
+      </div>
+      <div class="focus-actions">
+        <button type="button" data-policy-copy>복사</button>
+        <button type="button" data-policy-inspector>상세 패널</button>
+        <button type="button" data-policy-workbench>워크벤치</button>
+      </div>
+    `;
+    focus.querySelector("[data-policy-copy]")?.addEventListener("click", (event) => copyPayload(payload, event.currentTarget));
+    focus.querySelector("[data-policy-inspector]")?.addEventListener("click", () => openInspector(payload));
+    focus.querySelector("[data-policy-workbench]")?.addEventListener("click", () => {
+      workbenchMode = "policy-makers";
+      selectedInsightId = null;
+      renderWorkbench();
+      jumpTo("workbench");
+    });
+
+    sourceGrid.innerHTML = (lens.sources || []).map((source, index) => `
+      <article class="policy-source-card reveal" style="--local-accent:${accent}; animation-delay:${index * 25}ms">
+        <span>공식/원문 출처</span>
+        <strong>${escapeHTML(source.label)}</strong>
+        ${sourceLinkHTML(source.url, "열기")}
+      </article>
+    `).join("");
+
+    animateCounts(summary);
+    animateCounts(grid);
+    animateMeters(summary);
+    animateMeters(grid);
+  }
+
   function projectionAnchorDate() {
     const date = new Date(LIVE.updatedAt || Date.now());
     return Number.isNaN(date.getTime()) ? new Date() : date;
@@ -5486,6 +5772,28 @@
         tags: [item.label, item.option, item.stage].filter(Boolean),
         links: item.links || [],
       }));
+    }
+
+    if (mode === "policy-makers") {
+      items = POLICY_MAKER_LENSES.flatMap((lens) => (lens.rules || []).map((rule) => ({
+        id: `policy-${lens.id}-${rule.axis}`,
+        mode,
+        type: "Policy Maker",
+        tag: `${lens.label} · ${rule.status}`,
+        title: `${rule.axis} · ${rule.title}`,
+        body: `${rule.evidence} ${rule.implication}`,
+        section: "policy-makers",
+        categories: [lens.accentCategory || "geopolitics"],
+        watch: [lens.direction, lens.strategy, rule.implication].concat(lens.actions || []),
+        metrics: [
+          { label: "국가", value: lens.label },
+          { label: "판단", value: rule.status },
+          { label: "상태", value: lens.status },
+          { label: "출처", value: rule.source || "source" },
+        ],
+        tags: [lens.verdict, rule.axis, lens.law].filter(Boolean),
+        links: rule.sourceUrl ? [{ title: rule.source || rule.title, link: rule.sourceUrl }] : [],
+      })));
     }
 
     if (mode === "crawler") {
@@ -6604,7 +6912,7 @@
   }
 
   function setupScrollSpy() {
-    const sections = ["overview", "executive-decision", "management-strategy", "strategic-investment-decision", "daily-review", "crawler", "prices", "news", "china-nand", "china-dynamics", "talent-radar", "numbers", "projection", "workbench", "ai-matrix", "china-deep-dive", "categories", "competitors", "dynamics", "monetization", "response", "intelligence"];
+    const sections = ["overview", "executive-decision", "management-strategy", "strategic-investment-decision", "policy-makers", "daily-review", "crawler", "prices", "news", "china-nand", "china-dynamics", "talent-radar", "numbers", "projection", "workbench", "ai-matrix", "china-deep-dive", "categories", "competitors", "dynamics", "monetization", "response", "intelligence"];
     const update = () => {
       const y = window.scrollY + chromeOffset() + 22;
       let active = "overview";

@@ -10,7 +10,7 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard/dist/web/static/pretendard.css" />
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;700;800;900&family=Space+Grotesk:wght@500;600;700&display=swap" />
-  <link rel="stylesheet" href="assets/css/styles.css?v=category-ox-20260705" />
+  <link rel="stylesheet" href="assets/css/styles.css?v=policy-maker-20260705-2" />
 </head>
 <body>
   <div class="app">
@@ -41,6 +41,10 @@
         <button class="sb-item" type="button" data-jump="strategic-investment-decision">
           <span class="sb-ico" aria-hidden="true">2</span>
           <span class="sb-label"><strong>중국 전략적 의사 결정</strong><small>China Decision</small></span>
+        </button>
+        <button class="sb-item" type="button" data-jump="policy-makers">
+          <span class="sb-ico" aria-hidden="true">P</span>
+          <span class="sb-label"><strong>Policy Maker</strong><small>CN / KR / US</small></span>
         </button>
 
         <div class="sb-group">매일 업데이트</div>
@@ -251,6 +255,29 @@
             <aside class="investment-focus" id="strategicDecisionFocus"></aside>
           </div>
           <div class="investment-evidence" id="strategicDecisionEvidence"></div>
+        </section>
+
+        <section class="board policy-board" id="policy-makers">
+          <div class="board-head">
+            <div>
+              <p class="eyebrow">Policy maker direction · China / Korea / United States</p>
+              <h2>정책 방향성 · SK하이닉스 중국 사업 판단</h2>
+            </div>
+            <span class="board-meta" id="policyMakerMeta">정책 소스 로딩</span>
+          </div>
+          <div class="policy-tabs" id="policyTabs" role="tablist" aria-label="Policy maker country tabs"></div>
+          <div class="policy-summary" id="policySummary"></div>
+          <div class="policy-layout">
+            <section class="policy-panel">
+              <div class="crawler-panel-head">
+                <h3>정책/법·규제 체크포인트</h3>
+                <span id="policySourceMeta">공식 출처 기반 판단</span>
+              </div>
+              <div class="policy-rule-grid" id="policyRuleGrid"></div>
+            </section>
+            <aside class="policy-focus" id="policyFocus"></aside>
+          </div>
+          <div class="policy-source-grid" id="policySourceGrid"></div>
         </section>
 
         <section class="board review-board" id="daily-review">
@@ -633,6 +660,6 @@
   <div class="qa-answer" id="qaAnswer" hidden></div>
   <div class="inspector" id="inspector" hidden></div>
   <div class="backdrop" id="backdrop"></div>
-  <script src="assets/js/app.js?v=category-ox-20260705" defer></script>
+  <script src="assets/js/app.js?v=policy-maker-20260705-2" defer></script>
 </body>
 </html>
