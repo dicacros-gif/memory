@@ -310,14 +310,6 @@
         { axis: "보세구/물류", status: "Watch", title: "Wuxi 보세구 확장", evidence: "Wuxi Hi-Tech District 종합보세구는 2025년 면적을 1.11km2 늘려 총 3.49km2로 조정됐고, SK hynix premises가 핵심 사례로 언급됐습니다.", implication: "주변 산업·물류 수용력은 긍정 신호지만 SK하이닉스 보유 토지 확대 증거는 아닙니다.", source: "Wuxi Government", sourceUrl: "https://en.wuxi.gov.cn/2025-07/31/c_1113622.htm" },
         { axis: "미국 수출통제", status: "X", title: "캐파 확대·기술 업그레이드 라이선스 리스크", evidence: "BIS는 VEU 특례 종료 후 기존 운영 라이선스는 의도하지만 중국 내 캐파 확대나 기술 업그레이드 라이선스는 의도하지 않는다고 밝혔습니다.", implication: "인프라가 가능해도 장비·SW·공정 업그레이드가 막히면 확장 판단은 No-Go입니다.", source: "BIS", sourceUrl: "https://www.bis.gov/press-release/department-commerce-closes-export-controls-loophole-foreign-owned-semiconductor-fabs-china" },
       ],
-      sources: [
-        { label: "SK hynix Wuxi C2F", url: "https://news.skhynix.com/sk-hynix-completes-expanded-fab-c2f-in-wuxi-china/" },
-        { label: "Wuxi 1a conversion", url: "https://www.semimedia.cc/sk-hynix-completes-wuxi-dram-fab-upgrade-enabling-advanced-1a-process-production/" },
-        { label: "Wuxi/Dalian 2025 investment", url: "https://www.trendforce.com/news/2026/03/27/news-memory-giants-china-investments-soar-in-2025-samsung-xian-up-67-5-sk-hynix-wuxi-dalian-hit-trillion-won/" },
-        { label: "Wuxi EIA K7 plot", url: "https://www.wnd.gov.cn/doc/2017/02/28/2386281.shtml" },
-        { label: "Wuxi bonded zone expansion", url: "https://en.wuxi.gov.cn/2025-07/31/c_1113622.htm" },
-        { label: "BIS VEU change", url: "https://www.bis.gov/press-release/department-commerce-closes-export-controls-loophole-foreign-owned-semiconductor-fabs-china" },
-      ],
     },
     {
       id: "dalian",
@@ -340,11 +332,6 @@
         { axis: "용수/폐수", status: "확인필요", title: "공정 용수·폐수 인허가 미확인", evidence: "Dalian site의 공정 용수 배정량과 폐수 처리 여유는 공개자료로 확인되지 않았습니다.", implication: "NAND/스토리지 공정 확장은 현지 EIA·수자원 허가를 먼저 크롤링해야 합니다.", source: "SK hynix Offices", sourceUrl: "https://www.skhynix.com/company/UI-FR-CP06/" },
         { axis: "전력/유틸리티", status: "확인필요", title: "수전 용량·변전소 여유 미확인", evidence: "전력 계약용량과 비상전원 구성은 공개자료가 없습니다.", implication: "전력 신호 없이는 fab 확장 O 판단 불가.", source: "Public source gap", sourceUrl: "https://www.skhynix.com/company/UI-FR-CP06/" },
       ],
-      sources: [
-        { label: "SK hynix China offices", url: "https://www.skhynix.com/company/UI-FR-CP06/" },
-        { label: "Dalian 2025 investment", url: "https://www.trendforce.com/news/2026/03/27/news-memory-giants-china-investments-soar-in-2025-samsung-xian-up-67-5-sk-hynix-wuxi-dalian-hit-trillion-won/" },
-        { label: "Dalian Phase 2 restart", url: "https://www.trendforce.com/news/2026/03/30/news-samsung-reportedly-advances-xian-to-236-layer-nand-sk-hynix-eyes-dalian-upgrade-amid-tight-supply/" },
-      ],
     },
     {
       id: "chongqing",
@@ -363,9 +350,6 @@
       checks: [
         { axis: "Fab 적합성", status: "X", title: "전공정 fab 확장 근거 부족", evidence: "공식 오피스는 Chongqing 소재 법인을 보여주지만 300mm 전공정 fab 확장 근거는 공개 확인되지 않았습니다.", implication: "fab 확장 후보보다는 후공정/물류 운영 리스크로 분류합니다.", source: "SK hynix Offices", sourceUrl: "https://www.skhynix.com/company/UI-FR-CP06/" },
         { axis: "용수/전력", status: "확인필요", title: "후공정 증설 유틸리티 확인 필요", evidence: "공개자료만으로 용수·전력 여유를 판단할 수 없습니다.", implication: "패키징/테스트 증설도 전력·폐수·화학물질 허가를 별도 확인합니다.", source: "Public source gap", sourceUrl: "https://www.skhynix.com/company/UI-FR-CP06/" },
-      ],
-      sources: [
-        { label: "SK hynix China offices", url: "https://www.skhynix.com/company/UI-FR-CP06/" },
       ],
     },
   ];
@@ -1984,8 +1968,8 @@
     {
       id: "china-fab-infra",
       label: "중국 Fab 인프라",
-      source: "SK hynix Wuxi C2F · Wuxi K7 EIA · Wuxi 보세구 · BIS",
-      method: "토지/부지, 용수/폐수, 전력/유틸리티, 환경 인허가, 수출통제 신호를 매일 직접 fetch 및 RSS 보조 질의로 갱신",
+      source: "공개 인허가 · 정책 · 규제 신호",
+      method: "토지/부지, 용수/폐수, 전력/유틸리티, 환경 인허가, 수출통제 신호를 크롤링 데이터와 RSS 보조 질의로 갱신",
       fields: ["토지/부지", "용수/폐수", "전력/유틸리티", "환경 인허가", "BIS 제약"],
       filters: ["Wuxi/K7/C2F", "water/wastewater", "power/substation", "land-use", "environmental impact", "BIS VEU"],
       output: "중국 Fab 확장성 판단",
@@ -6043,9 +6027,8 @@
         { label: "판단", value: site.verdict },
         { label: "체크포인트", value: fmtNum((site.checks || []).length) },
         { label: "크롤링 신호", value: fmtNum(chinaInfraSignalCount(site)) },
-        { label: "직접 소스", value: fmtNum(chinaInfraLiveSources(site).length) },
       ],
-      links: (site.sources || []).map((source) => ({ title: source.label, link: source.url })),
+      links: [],
       tags: [site.label, site.status, "Land", "Water", "Power"],
     };
   }
@@ -6071,19 +6054,17 @@
     const summary = $("#infraSummary");
     const grid = $("#infraRuleGrid");
     const focus = $("#infraFocus");
-    const sourceGrid = $("#infraSourceGrid");
     const meta = $("#infraMakerMeta");
     const sourceMeta = $("#infraSourceMeta");
-    if (!summary || !grid || !focus || !sourceGrid) return;
+    if (!summary || !grid || !focus) return;
 
     const site = activeChinaInfraSite();
     const accent = categoryAccent(site.accentCategory);
     const payload = chinaInfraPayload(site);
-    const liveSources = chinaInfraLiveSources(site);
     const signalCount = chinaInfraSignalCount(site);
     const theme = chinaInfraTheme();
     if (meta) meta.textContent = `${site.label} · ${fmtNum((site.checks || []).length)}개 체크포인트 · 크롤링 신호 ${fmtNum(signalCount)}개`;
-    if (sourceMeta) sourceMeta.textContent = `직접 소스 ${fmtNum(liveSources.length)}개 · RSS ${fmtNum(Number(theme?.count ?? 0) || 0)}개 · ${fmtDate(LIVE.chinaInfra?.updatedAt || LIVE.updatedAt)}`;
+    if (sourceMeta) sourceMeta.textContent = `RSS ${fmtNum(Number(theme?.count ?? 0) || 0)}개 · ${fmtDate(LIVE.chinaInfra?.updatedAt || LIVE.updatedAt)}`;
     renderChinaInfraTabs(site);
 
     summary.style.setProperty("--local-accent", accent);
@@ -6129,7 +6110,6 @@
       </div>
       <div class="metric-row">
         <div class="metric"><strong>${fmtNum(signalCount)}</strong><span>크롤링 신호</span></div>
-        <div class="metric"><strong>${fmtNum(liveSources.length)}</strong><span>직접 fetch 소스</span></div>
         <div class="metric"><strong>${fmtNum((site.checks || []).filter((check) => policyStatusClass(check.status) === "fail").length)}</strong><span>No-Go 항목</span></div>
       </div>
       <div class="policy-focus-block">
@@ -6151,7 +6131,7 @@
       <div class="policy-focus-block">
         <strong>주기 크롤링</strong>
         <ul class="watch-list">
-          <li>Wuxi K7 EIA, SK하이닉스 Wuxi C2F, Wuxi 보세구, BIS 페이지를 매일 직접 fetch합니다.</li>
+          <li>공개 인허가·정책·규제 신호는 요약 지표와 O/X 판단 근거로만 반영합니다.</li>
           <li>Google News RSS로 Wuxi water/power/land/EIA/BIS 보조 신호를 수집합니다.</li>
           <li>전력 quota, 토지사용권, 신규 EIA 숫자가 나오기 전까지 신규 fab 증설은 보수적으로 판단합니다.</li>
         </ul>
@@ -6170,18 +6150,6 @@
       renderWorkbench();
       jumpTo("workbench");
     });
-
-    const sourceItems = (site.sources || []).concat(liveSources.map((source) => ({
-      label: source.label || source.id || "Live source",
-      url: source.url,
-    })));
-    sourceGrid.innerHTML = sourceItems.map((source, index) => `
-      <article class="policy-source-card reveal" style="--local-accent:${accent}; animation-delay:${index * 25}ms">
-        <span>인프라 소스</span>
-        <strong>${escapeHTML(source.label)}</strong>
-        ${sourceLinkHTML(source.url, "열기")}
-      </article>
-    `).join("");
 
     animateCounts(summary);
     animateCounts(grid);
