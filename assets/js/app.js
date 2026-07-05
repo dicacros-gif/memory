@@ -205,12 +205,6 @@
         "당조직/노조/지방정부 접점은 법무·컴플라이언스 로그로 남기고 내부 직책은 공개 확인 전 추정하지 않습니다.",
         "현지 환경 인허가와 미국 수출통제 이벤트를 같은 리스크 캘린더에 올립니다.",
       ],
-      sources: [
-        { label: "SK hynix China sites", url: "https://www.skhynix.com/company/UI-FR-CP06/" },
-        { label: "SK hynix Wuxi C2F", url: "https://news.skhynix.com/sk-hynix-completes-expanded-fab-c2f-in-wuxi-china/" },
-        { label: "PRC Company Law", url: "https://natlex.ilo.org/dyn/natlex2/natlex2/files/download/92643/CHN92643%20Eng.pdf" },
-        { label: "Shenzhen IC fund", url: "https://www.sz.gov.cn/en_szgov/news/latest/content/post_12177837.html" },
-      ],
     },
     {
       id: "korea",
@@ -5894,15 +5888,14 @@
     const summary = $("#policySummary");
     const grid = $("#policyRuleGrid");
     const focus = $("#policyFocus");
-    const sourceGrid = $("#policySourceGrid");
     const meta = $("#policyMakerMeta");
     const sourceMeta = $("#policySourceMeta");
-    if (!summary || !grid || !focus || !sourceGrid) return;
+    if (!summary || !grid || !focus) return;
 
     const lens = activePolicyLens();
     const accent = categoryAccent(lens.accentCategory);
     const payload = policyPayload(lens);
-    if (meta) meta.textContent = `${lens.label} · ${fmtNum((lens.rules || []).length)}개 체크포인트 · ${fmtNum((lens.sources || []).length)}개 공식/원문 출처`;
+    if (meta) meta.textContent = `${lens.label} · ${fmtNum((lens.rules || []).length)}개 체크포인트`;
     if (sourceMeta) sourceMeta.textContent = `${lens.law} · ${fmtDate(LIVE.updatedAt)}`;
     renderPolicyTabs(lens);
 
@@ -5985,14 +5978,6 @@
       renderWorkbench();
       jumpTo("workbench");
     });
-
-    sourceGrid.innerHTML = (lens.sources || []).map((source, index) => `
-      <article class="policy-source-card reveal" style="--local-accent:${accent}; animation-delay:${index * 25}ms">
-        <span>공식/원문 출처</span>
-        <strong>${escapeHTML(source.label)}</strong>
-        ${sourceLinkHTML(source.url, "열기")}
-      </article>
-    `).join("");
 
     animateCounts(summary);
     animateCounts(grid);
