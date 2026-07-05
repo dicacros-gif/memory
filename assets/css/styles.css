@@ -7344,3 +7344,15 @@ body.sidebar-collapsed .sb-ico {
     border-radius: 12px 12px 0 0;
   }
 }
+
+/* projection trajectory line chart (T+30M -> 5Y, 3-case) */
+.proj-line-wrap { margin-bottom: 14px; }
+.proj-line-head { display: flex; align-items: center; justify-content: space-between; gap: 12px; flex-wrap: wrap; margin-bottom: 6px; }
+.proj-line-title { font-size: 12px; font-weight: 700; color: var(--muted, #94a3b8); }
+.proj-line-legend { display: inline-flex; gap: 14px; font-size: 11px; font-weight: 700; }
+.proj-line-legend span { display: inline-flex; align-items: center; gap: 5px; color: var(--ink, #e7eef7); }
+.proj-line-legend i { width: 14px; height: 3px; border-radius: 2px; display: inline-block; }
+.proj-line-chart { width: 100%; height: 240px; background: var(--panel-2, var(--panel, #fff)); border: 1px solid var(--line, #e4e8ef); border-radius: 10px; }
+.pl-grid { stroke: var(--line-2, var(--line, #edf0f5)); stroke-width: 1; opacity: .8; }
+.pl-ylab { fill: var(--muted, #94a3b8); font-size: 9px; font-family: var(--display, monospace); }
+.pl-xlab { fill: var(--muted, #94a3b8); font-size: 9px; font-family: var(--display, monospace); }

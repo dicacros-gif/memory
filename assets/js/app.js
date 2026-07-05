@@ -6451,6 +6451,44 @@
     ];
   }
 
+  function projectionTrajectorySVG(scenarioMap, selected, horizon) {
+    if (!selected) return "";
+    const cases = [
+      { id: "base", label: "중립", color: "#3b82f6" },
+      { id: "best", label: "베스트", color: "#22c55e" },
+      { id: "worst", label: "워스트", color: "#ef4444" },
+    ];
+    const baseSeries = scenarioMap.base || scenarioMap[Object.keys(scenarioMap)[0]] || [];
+    const n = baseSeries.length;
+    if (n < 2) return "";
+    const W = 680, H = 240, padL = 42, padR = 14, padT = 14, padB = 28;
+    const lines = cases.map((c) => {
+      const ser = scenarioMap[c.id] || baseSeries;
+      return { ...c, pts: ser.map((row, i) => projectionShare(ser, selected.id, i)) };
+    });
+    const vals = lines.flatMap((l) => l.pts);
+    let lo = Math.min(...vals), hi = Math.max(...vals);
+    if (hi - lo < 4) { lo -= 2; hi += 2; }
+    const pad = (hi - lo) * 0.12;
+    lo = Math.max(0, lo - pad); hi = hi + pad;
+    const xAt = (i) => padL + (W - padL - padR) * (n <= 1 ? 0 : i / (n - 1));
+    const yAt = (v) => padT + (H - padT - padB) * (1 - (v - lo) / ((hi - lo) || 1));
+    const years = baseSeries.map((r) => r.year);
+    const grid = [0, 0.25, 0.5, 0.75, 1].map((g) => {
+      const yv = lo + (hi - lo) * (1 - g);
+      const yy = padT + (H - padT - padB) * g;
+      return `<line x1="${padL}" y1="${yy.toFixed(1)}" x2="${W - padR}" y2="${yy.toFixed(1)}" class="pl-grid"/><text x="6" y="${(yy + 3).toFixed(1)}" class="pl-ylab">${fmtNum(yv, 0)}%</text>`;
+    }).join("");
+    const xlabels = years.map((yr, i) => `<text x="${xAt(i).toFixed(1)}" y="${H - 8}" class="pl-xlab" text-anchor="middle">${escapeHTML(String(yr))}</text>`).join("");
+    const paths = lines.map((l) => {
+      const d = l.pts.map((v, i) => `${i === 0 ? "M" : "L"}${xAt(i).toFixed(1)},${yAt(v).toFixed(1)}`).join(" ");
+      const dots = l.pts.map((v, i) => `<circle cx="${xAt(i).toFixed(1)}" cy="${yAt(v).toFixed(1)}" r="2.6" fill="${l.color}"><title>${l.label} ${escapeHTML(String(years[i]))}: ${fmtNum(v, 1)}%</title></circle>`).join("");
+      return `<path d="${d}" fill="none" stroke="${l.color}" stroke-width="2.2" stroke-linejoin="round" stroke-linecap="round"/>${dots}`;
+    }).join("");
+    const legend = lines.map((l) => `<span><i style="background:${l.color}"></i>${l.label}</span>`).join("");
+    return `<div class="proj-line-wrap"><div class="proj-line-head"><span class="proj-line-title">${escapeHTML(selected.title || selected.short || "제품군")} · 점유율 궤적 T+30M→5Y</span><span class="proj-line-legend">${legend}</span></div><svg viewBox="0 0 ${W} ${H}" class="proj-line-chart" preserveAspectRatio="none" role="img" aria-label="제품군 점유율 3-case 궤적">${grid}${xlabels}${paths}</svg></div>`;
+  }
+
   function renderProductProjection() {
     const summary = $("#projectionSummary");
     const stack = $("#projectionStack");
@@ -6506,7 +6544,7 @@
       `;
     }).join("");
 
-    scenarioChart.innerHTML = PROJECTION_SCENARIOS.map((item, index) => {
+    scenarioChart.innerHTML = projectionTrajectorySVG(scenarioMap, selected, horizon) + PROJECTION_SCENARIOS.map((item, index) => {
       const itemSeries = scenarioMap[item.id] || series;
       const itemServer = projectionGroupShare(itemSeries, ["ai-server", "dc-storage"]);
       const itemTerminal = projectionGroupShare(itemSeries, ["mobile-pc", "auto-edge"]);
