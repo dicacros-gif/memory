@@ -1947,6 +1947,8 @@
   let LIVE = emptyLive;
   let HISTORY = emptyHistory;
   let activeCategory = "all";
+  let categoryRenderToken = 0;
+  let categoryRenderFrame = 0;
   let priceFilter = "all";
   let newsCategory = "all";
   let newsSearch = "";
@@ -1979,6 +1981,7 @@
   let numberOrder = [];
   let numberFolded = {};
   let draggedNumberId = null;
+  const CATEGORY_RENDER_BUDGET_MS = 12;
 
   async function loadJSON(path, fallback) {
     try {
@@ -2452,44 +2455,106 @@
 
   function renderSidebarCategories() {
     const wrap = $("#sideCategories");
+    if (!wrap) return;
     wrap.innerHTML = "";
     memoryCategories().forEach((category) => {
       const btn = el("button", `sb-cat${category.id === activeCategory ? " active" : ""}`);
       btn.type = "button";
       btn.dataset.category = category.id;
+      btn.setAttribute("aria-pressed", category.id === activeCategory ? "true" : "false");
       btn.style.setProperty("--local-accent", categoryAccent(category.id));
       btn.innerHTML = `<span>${escapeHTML(category.label)}</span><small>${escapeHTML(category.en)}</small>`;
-      btn.addEventListener("click", () => {
-        setCategory(category.id);
-        jumpTo("categories");
-      });
       wrap.appendChild(btn);
+    });
+    wrap.onclick = (event) => {
+      const btn = event.target.closest("[data-category]");
+      if (!btn || !wrap.contains(btn)) return;
+      setCategory(btn.dataset.category, { jumpTo: "categories" });
+    };
+  }
+
+  function normalizeCategoryId(id) {
+    const next = String(id || "all");
+    return HIDDEN_CATEGORY_IDS.has(next.toLowerCase()) ? "all" : next;
+  }
+
+  function updateCategoryChromeState(pending = false) {
+    const cat = activeCategoryData() || { label: "All", desc: "" };
+    const meta = $("#categoryMeta");
+    if (meta) meta.textContent = `${cat.label} \u00b7 ${cat.desc}`;
+    $$(".sb-cat").forEach((btn) => {
+      const isActive = btn.dataset.category === activeCategory;
+      btn.classList.toggle("active", isActive);
+      btn.classList.toggle("is-pending", pending && isActive);
+      btn.setAttribute("aria-pressed", isActive ? "true" : "false");
     });
   }
 
-  function setCategory(id) {
-    activeCategory = HIDDEN_CATEGORY_IDS.has(String(id || "").toLowerCase()) ? "all" : id;
-    const cat = activeCategoryData();
-    $("#categoryMeta").textContent = `${cat.label} · ${cat.desc}`;
-    $$(".sb-cat").forEach((btn) => btn.classList.toggle("active", btn.dataset.category === id));
-    renderDailyReview();
-    renderExecutiveDecision();
-    renderNumberDashboard();
-    renderProductProjection();
-    renderCategories();
-    renderChannels();
-    renderCompanies();
-    renderDynamics();
-    renderModels();
-    renderNews();
-    renderCrawlerBoard();
-    renderArchitectureMatrix();
-    renderChinaDeepDive();
-    renderTalentRadar();
-    renderChinaNandBusiness();
-    renderWorkbench();
+  function categoryRenderSteps() {
+    return [
+      renderCategories,
+      renderDailyReview,
+      renderExecutiveDecision,
+      renderNumberDashboard,
+      renderProductProjection,
+      renderChannels,
+      renderCompanies,
+      renderDynamics,
+      renderModels,
+      renderNews,
+      renderCrawlerBoard,
+      renderArchitectureMatrix,
+      renderChinaDeepDive,
+      renderTalentRadar,
+      renderChinaNandBusiness,
+      renderWorkbench,
+    ];
+  }
+
+  function finishCategoryRender(token) {
+    if (token !== categoryRenderToken) return;
+    categoryRenderFrame = 0;
+    document.body.classList.remove("category-updating");
+    updateCategoryChromeState(false);
     animateCounts();
     animateMeters();
+  }
+
+  function scheduleCategoryRender() {
+    const token = ++categoryRenderToken;
+    if (categoryRenderFrame) {
+      cancelAnimationFrame(categoryRenderFrame);
+      categoryRenderFrame = 0;
+    }
+    const steps = categoryRenderSteps();
+    let index = 0;
+    const run = () => {
+      if (token !== categoryRenderToken) return;
+      const start = performance.now();
+      while (index < steps.length && performance.now() - start < CATEGORY_RENDER_BUDGET_MS) {
+        const step = steps[index];
+        index += 1;
+        try {
+          step();
+        } catch (error) {
+          console.warn("Category render step failed", error);
+        }
+      }
+      if (index < steps.length) {
+        categoryRenderFrame = requestAnimationFrame(run);
+      } else {
+        finishCategoryRender(token);
+      }
+    };
+    categoryRenderFrame = requestAnimationFrame(run);
+  }
+
+  function setCategory(id, options = {}) {
+    activeCategory = normalizeCategoryId(id);
+    document.body.classList.add("category-updating");
+    updateCategoryChromeState(true);
+    if (options.jumpTo) requestAnimationFrame(() => jumpTo(options.jumpTo));
+    scheduleCategoryRender();
   }
 
   function executiveStrategyLines() {
