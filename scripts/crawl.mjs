@@ -110,7 +110,7 @@ const COMPETITORS = [
     id: "ymtc",
     label: "YMTC",
     shortLabel: "YMTC",
-    segment: "중국 NAND · Xtacking",
+    segment: "중국 NAND / SSD",
     baseline: "중국 NAND 내재화와 가격 경쟁의 장기 변수. 제재 우회, 양산 수율, 고객 확대 확인.",
     queries: ["YMTC Yangtze Memory NAND China Xtacking", "YMTC enterprise SSD customer", "YMTC Wuhan Phase 3 NAND equipment"],
     watchWords: ["NAND", "Xtacking", "China", "sanction", "capacity", "smartphone", "eSSD", "Wuhan", "firmware"],

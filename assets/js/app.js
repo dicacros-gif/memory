@@ -3091,7 +3091,7 @@
       { label: "Lens", value: lens.label, note: lens.sub },
       { label: "Visible KPI", value: items.length, note: `${fmtNum(allItems.length)}개 중 선택` },
       { label: "정상 / 관찰", value: `${ok}/${watch}`, note: "출처·전망 버전 상태" },
-      { label: "P1 queue", value: p1, note: "일일 리뷰 큐와 연결" },
+      { label: "우선순위", value: p1, note: "일일 리뷰 큐와 연결" },
       { label: "Topic", value: topCat, note: "정량 탭 분류 축" },
     ];
     wrap.innerHTML = cards.map((card) => `
@@ -3251,11 +3251,6 @@
     if (!items.some((item) => item.id === selectedReviewId)) selectedReviewId = items[0]?.id || null;
     const selected = items.find((item) => item.id === selectedReviewId) || items[0] || null;
     const data = dailyReviewData();
-    const newCount = allItems.filter((item) => /new/i.test(item.changeType || "") || item.reviewStatus === "New").length;
-    const changedCount = allItems.filter((item) => /changed|updated|diff|metric/i.test(item.changeType || "")).length;
-    const p1Count = allItems.filter((item) => item.priorityBand === "P1" || Number(item.priorityScore || 0) >= 85).length;
-    const pipelineCount = allItems.filter((item) => item.pipelineAlert || item.primaryType === "pipeline").length;
-    const topTopics = Array.from(new Set(allItems.flatMap((item) => item.topics || []))).slice(0, 4).join(" · ") || "HBM · DRAM · NAND · China";
     const meta = $("#reviewMeta");
     if (meta) {
       const state = freshnessState({
@@ -3267,21 +3262,7 @@
       meta.className = `freshness-badge ${state.cls}`;
       meta.textContent = `${state.label} · 리뷰 큐 · ${fmtDate(LIVE.updatedAt)} · ${fmtNum(allItems.length)}개`;
     }
-
-    const cards = [
-      { label: "신규 항목", value: newCount, note: "새로 들어온 기사·가격·수집 신호" },
-      { label: "변경 항목", value: changedCount, note: "수치·상태·중요도 변경 재검토" },
-      { label: "우선 검토", value: p1Count, note: "사업 영향·신규성·출처 신뢰도 상위" },
-      { label: "수집 점검", value: pipelineCount, note: "수집 실패·업데이트 지연·rows 없음" },
-      { label: "주제 스냅샷", value: topTopics, note: activeCategoryData()?.label || "전체 카테고리" },
-    ];
-    summary.innerHTML = cards.map((card) => `
-      <article class="review-stat">
-        <span>${escapeHTML(card.label)}</span>
-        <strong>${typeof card.value === "number" ? countHTML(card.value) : escapeHTML(card.value)}</strong>
-        <small>${escapeHTML(card.note)}</small>
-      </article>
-    `).join("");
+    summary.innerHTML = "";
 
     const views = data.savedViews || [];
     controls.innerHTML = views.map((view) => {
@@ -3339,23 +3320,7 @@
 
     renderReviewDetail(selected);
 
-    schema.innerHTML = `
-      ${(data.facets || []).map((facet) => `
-        <article class="review-schema-card">
-          <span>${escapeHTML(facet.axis)}</span>
-          <strong>${escapeHTML(facet.rule)}</strong>
-          <p>${(facet.values || []).map(escapeHTML).join(" · ")}</p>
-        </article>
-      `).join("")}
-      ${(data.schemaFields || []).slice(0, 4).map((group) => `
-        <article class="review-schema-card muted">
-          <span>${escapeHTML(group.group)}</span>
-          <strong>${escapeHTML((group.fields || []).slice(0, 3).join(" · "))}</strong>
-          <p>${escapeHTML(group.purpose || "item-level provenance")}</p>
-        </article>
-      `).join("")}
-    `;
-    animateCounts(summary);
+    schema.innerHTML = "";
   }
 
   function renderReviewDetail(item) {
