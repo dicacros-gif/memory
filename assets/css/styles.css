@@ -6937,6 +6937,38 @@ body.sidebar-collapsed .sb-ico {
   margin-bottom: 12px;
 }
 
+.price-period-controls {
+  display: inline-flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 8px;
+}
+
+.price-period-controls label {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  min-height: 36px;
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  background: var(--panel);
+  padding: 4px 6px 4px 11px;
+  color: var(--muted);
+  font-size: 11px;
+  font-weight: 900;
+}
+
+.price-period-controls select {
+  min-height: 27px;
+  border: 0;
+  border-radius: 999px;
+  background: var(--panel-2);
+  color: var(--ink);
+  padding: 0 26px 0 10px;
+  font: inherit;
+}
+
 .table-wrap {
   overflow-x: auto;
   border: 1px solid var(--line);

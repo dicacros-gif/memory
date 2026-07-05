@@ -2063,6 +2063,12 @@
     },
   ];
 
+  const PRICE_PERIODS = [
+    { id: "week", label: "주", days: 7 },
+    { id: "quarter", label: "분기", days: 92 },
+    { id: "year", label: "1년", days: 365 },
+  ];
+
   let BASE = null;
   let LIVE = emptyLive;
   let HISTORY = emptyHistory;
@@ -2070,6 +2076,8 @@
   let categoryRenderToken = 0;
   let categoryRenderFrame = 0;
   let priceFilter = "all";
+  let pricePeriod = "week";
+  let priceAsOfDate = "";
   let newsCategory = "all";
   let newsSearch = "";
   let newsCompany = "all";
@@ -8840,6 +8848,139 @@
     return rows;
   }
 
+  function pricePointTime(point = {}) {
+    const raw = point.crawledAt || point.updatedAt || point.date || point.sourceUpdate;
+    const time = new Date(raw).getTime();
+    return Number.isFinite(time) ? time : 0;
+  }
+
+  function kstDayKey(value) {
+    const date = value instanceof Date ? value : new Date(value);
+    if (Number.isNaN(date.getTime())) return "";
+    const parts = new Intl.DateTimeFormat("en", {
+      timeZone: "Asia/Seoul",
+      year: "numeric",
+      month: "2-digit",
+      day: "2-digit",
+    }).formatToParts(date);
+    const get = (type) => parts.find((part) => part.type === type)?.value || "";
+    return `${get("year")}-${get("month")}-${get("day")}`;
+  }
+
+  function shortKstDate(value) {
+    const date = value instanceof Date ? value : new Date(value);
+    if (Number.isNaN(date.getTime())) return "";
+    return date.toLocaleDateString("ko-KR", {
+      timeZone: "Asia/Seoul",
+      month: "numeric",
+      day: "numeric",
+    });
+  }
+
+  function priceHistoryFor(row = {}) {
+    const key = row.historyKey || row.key || `${row.sectionTitle || ""}::${row.item || ""}`.toLowerCase();
+    const points = HISTORY?.items?.[key]?.points || row.history || [];
+    return points
+      .map((point) => ({ ...point, time: pricePointTime(point) }))
+      .filter((point) => point.time && point.average != null && !Number.isNaN(Number(point.average)))
+      .sort((a, b) => a.time - b.time);
+  }
+
+  function priceDateEntries() {
+    const byDate = new Map();
+    allPriceRows().forEach((row) => {
+      priceHistoryFor(row).forEach((point) => {
+        const key = kstDayKey(point.time);
+        if (!key) return;
+        const prev = byDate.get(key);
+        if (!prev || point.time > prev.time) byDate.set(key, { key, time: point.time });
+      });
+    });
+    return Array.from(byDate.values()).sort((a, b) => b.time - a.time);
+  }
+
+  function activePriceDateEntry() {
+    const entries = priceDateEntries();
+    if (!entries.length) return null;
+    if (!entries.some((entry) => entry.key === priceAsOfDate)) priceAsOfDate = entries[0].key;
+    return entries.find((entry) => entry.key === priceAsOfDate) || entries[0];
+  }
+
+  function activePricePeriod() {
+    return PRICE_PERIODS.find((period) => period.id === pricePeriod) || PRICE_PERIODS[0];
+  }
+
+  function priceTrendForRow(row = {}) {
+    const points = priceHistoryFor(row);
+    const asOf = activePriceDateEntry();
+    if (!points.length || !asOf) {
+      return {
+        points: (row.history || []).map((point) => Number(point.average)).filter((value) => !Number.isNaN(value)),
+        average: row.average,
+        averageRaw: row.averageRaw,
+        changePct: Number(row.changePct),
+        direction: row.direction || "flat",
+        rangeLabel: row.lastUpdate || "TrendForce",
+      };
+    }
+    const period = activePricePeriod();
+    const endCandidates = points.filter((point) => point.time <= asOf.time);
+    const end = endCandidates[endCandidates.length - 1] || points[points.length - 1];
+    const startMs = end.time - period.days * 86400000;
+    const windowPoints = endCandidates.filter((point) => point.time >= startMs);
+    const scoped = windowPoints.length ? windowPoints : [endCandidates[0], end].filter(Boolean);
+    const start = scoped[0] || end;
+    const startValue = Number(start?.average);
+    const endValue = Number(end?.average);
+    const changePct = start && end && start.time !== end.time && startValue
+      ? ((endValue - startValue) / startValue) * 100
+      : Number(end.changePct || 0);
+    const direction = changePct > 0 ? "up" : changePct < 0 ? "down" : "flat";
+    return {
+      points: scoped.map((point) => Number(point.average)).filter((value) => !Number.isNaN(value)),
+      average: end.average,
+      averageRaw: end.averageRaw || formatPrice(end.average),
+      changePct,
+      direction,
+      rangeLabel: `${shortKstDate(start.time)}-${shortKstDate(end.time)}`,
+      sourceUpdate: end.sourceUpdate,
+      crawledAt: end.crawledAt,
+    };
+  }
+
+  function renderPriceControls() {
+    const dateSelect = $("#priceDateSelect");
+    const periodTabs = $("#pricePeriodTabs");
+    const entries = priceDateEntries();
+    if (dateSelect) {
+      if (!entries.length) {
+        dateSelect.innerHTML = `<option>수집 전</option>`;
+        dateSelect.disabled = true;
+      } else {
+        const active = activePriceDateEntry();
+        dateSelect.disabled = false;
+        dateSelect.innerHTML = entries.map((entry, index) => `
+          <option value="${escapeHTML(entry.key)}"${entry.key === active?.key ? " selected" : ""}>${escapeHTML(shortKstDate(entry.time))}${index === 0 ? " · 최근" : ""}</option>
+        `).join("");
+        dateSelect.onchange = (event) => {
+          priceAsOfDate = event.target.value;
+          renderPrices();
+        };
+      }
+    }
+    if (periodTabs) {
+      periodTabs.innerHTML = PRICE_PERIODS.map((period) => `
+        <button type="button" class="${period.id === pricePeriod ? "active" : ""}" data-price-period="${escapeHTML(period.id)}">${escapeHTML(period.label)}</button>
+      `).join("");
+      periodTabs.querySelectorAll("[data-price-period]").forEach((btn) => {
+        btn.addEventListener("click", () => {
+          pricePeriod = btn.dataset.pricePeriod || "week";
+          renderPrices();
+        });
+      });
+    }
+  }
+
   function renderPrices() {
     const tabs = $("#priceTabs");
     tabs.innerHTML = "";
@@ -8857,6 +8998,7 @@
       tabs.appendChild(btn);
     });
 
+    renderPriceControls();
     renderPriceSummary();
     renderPriceRows();
     setFreshness("#priceFreshness", {
@@ -8888,16 +9030,17 @@
 
     rows.slice(0, 22).forEach((row) => {
       const tr = el("tr");
-      const change = formatChange(row);
+      const trend = priceTrendForRow(row);
+      const change = formatChange(trend);
       tr.innerHTML = `
         <td><span class="source-tag">${escapeHTML(row.group || "")}</span></td>
         <td><span class="price-main">${escapeHTML(row.item)}</span><span class="price-sub">${escapeHTML(row.sectionTitle || "")}</span></td>
-        <td>${escapeHTML(row.averageRaw || formatPrice(row.average))}</td>
-        <td><span class="change ${escapeHTML(row.direction || "flat")}">${escapeHTML(change)}</span></td>
+        <td>${escapeHTML(trend.averageRaw || formatPrice(trend.average))}</td>
+        <td><span class="change ${escapeHTML(trend.direction || "flat")}">${escapeHTML(change)}</span><span class="price-sub">${escapeHTML(activePricePeriod().label)} 기준</span></td>
         <td></td>
-        <td><a class="rainbow" href="${escapeHTML(row.sourceUrl || "#")}" target="_blank" rel="noopener">${escapeHTML(row.lastUpdate || "TrendForce")}</a></td>
+        <td><a class="rainbow" href="${escapeHTML(row.sourceUrl || "#")}" target="_blank" rel="noopener">${escapeHTML(trend.rangeLabel || row.lastUpdate || "TrendForce")}</a></td>
       `;
-      tr.children[4].appendChild(sparkline((row.history || []).map((p) => p.average).filter((x) => x != null), row.direction));
+      tr.children[4].appendChild(sparkline(trend.points, trend.direction));
       tbody.appendChild(tr);
     });
   }

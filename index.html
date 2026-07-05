@@ -400,6 +400,13 @@
             <div class="board-head-actions">
               <span class="freshness-badge" id="priceFreshness">로드 중 · 가격 테이블 연결</span>
               <div class="segmented" id="priceTabs"></div>
+              <div class="price-period-controls">
+                <label for="priceDateSelect">
+                  <span>기준 날짜</span>
+                  <select id="priceDateSelect" aria-label="가격 기준 날짜 선택"></select>
+                </label>
+                <div class="segmented" id="pricePeriodTabs" aria-label="가격 추이 기간 선택"></div>
+              </div>
             </div>
           </div>
           <div class="price-summary" id="priceSummary" hidden></div>
