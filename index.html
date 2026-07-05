@@ -10,7 +10,7 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard/dist/web/static/pretendard.css" />
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;700;800;900&family=Space+Grotesk:wght@500;600;700&display=swap" />
-  <link rel="stylesheet" href="assets/css/styles.css?v=mece-interactive-20260705" />
+  <link rel="stylesheet" href="assets/css/styles.css?v=strategy-nand-20260705" />
 </head>
 <body>
   <div class="app">
@@ -28,7 +28,7 @@
         <div class="sb-group">개요</div>
         <button class="sb-item active" type="button" data-jump="overview">
           <span class="sb-ico" aria-hidden="true">▦</span>
-          <span class="sb-label"><strong>오늘의 요약</strong><small>Live Overview</small></span>
+          <span class="sb-label"><strong>Executive Summary</strong><small>Strategy Brief</small></span>
         </button>
 
         <div class="sb-group">매일 업데이트</div>
@@ -47,6 +47,10 @@
         <button class="sb-item" type="button" data-jump="news">
           <span class="sb-ico" aria-hidden="true">□</span>
           <span class="sb-label"><strong>영어권·중국어 기사</strong><small>News Stream</small></span>
+        </button>
+        <button class="sb-item" type="button" data-jump="china-nand">
+          <span class="sb-ico" aria-hidden="true">◆</span>
+          <span class="sb-label"><strong>중국 NAND 전략</strong><small>Business Lens</small></span>
         </button>
         <button class="sb-item" type="button" data-jump="china-dynamics">
           <span class="sb-ico" aria-hidden="true">↔</span>
@@ -139,7 +143,21 @@
       </header>
 
       <main class="main" id="main">
-        <section class="kpi-strip" id="overview" aria-label="오늘의 벤치마킹 요약"></section>
+        <section class="executive-summary" id="overview" aria-label="Executive Summary">
+          <div class="exec-head">
+            <div>
+              <p class="eyebrow">Executive Summary</p>
+              <h2>중국 메모리·NAND 전략 브리프</h2>
+              <p>매일 수집되는 가격, 뉴스, 채용, 정책 신호를 먼저 읽고 중국 업체 전략과 SK하이닉스 대응 과제를 한 화면에서 정리합니다.</p>
+            </div>
+            <span class="freshness-badge" id="execFreshness">요약 상태 확인 중</span>
+          </div>
+          <div class="exec-layout">
+            <section class="exec-brief" id="execBrief"></section>
+            <section class="exec-strategy" id="execStrategy"></section>
+          </div>
+          <div class="kpi-strip" id="kpiStrip"></div>
+        </section>
 
         <section class="board review-board" id="daily-review">
           <div class="board-head">
@@ -264,6 +282,22 @@
           </div>
         </section>
 
+        <section class="board china-nand-board" id="china-nand">
+          <div class="board-head">
+            <div>
+              <p class="eyebrow">China NAND business strengthening</p>
+              <h2>중국 NAND 사업 강화 인텔리전스</h2>
+            </div>
+            <span class="board-meta" id="chinaNandMeta">YMTC · XMC · JCET · 장비 국산화</span>
+          </div>
+          <div class="china-nand-summary" id="chinaNandSummary"></div>
+          <div class="china-nand-cockpit">
+            <div class="china-nand-map" id="chinaNandMap"></div>
+            <aside class="china-nand-focus" id="chinaNandFocus"></aside>
+          </div>
+          <div class="china-nand-playbook" id="chinaNandPlaybook"></div>
+        </section>
+
         <section class="board china-dynamics-board" id="china-dynamics">
           <div class="board-head">
             <div>
@@ -290,7 +324,7 @@
           <div class="talent-split">
             <section class="talent-panel">
               <div class="crawler-panel-head">
-                <h3>MECE 크롤링 타깃</h3>
+                <h3>크롤링 타깃</h3>
                 <span>공식 채용 · 로컬 채용 · 대학 파이프라인 · 전문 매체/IP</span>
               </div>
               <div class="talent-source-grid" id="talentSourceGrid"></div>
@@ -480,6 +514,6 @@
   <div class="qa-answer" id="qaAnswer" hidden></div>
   <div class="inspector" id="inspector" hidden></div>
   <div class="backdrop" id="backdrop"></div>
-  <script src="assets/js/app.js?v=mece-interactive-20260705" defer></script>
+  <script src="assets/js/app.js?v=strategy-nand-20260705" defer></script>
 </body>
 </html>

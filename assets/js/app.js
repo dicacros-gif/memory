@@ -85,6 +85,7 @@
     crawler: "#7EE7C8",
     prices: "#FFD166",
     news: "#93C5FD",
+    "china-nand": "#66D9E8",
     "china-dynamics": "#7DD3FC",
     "talent-radar": "#F0ABFC",
     "china-deep-dive": "#86EFAC",
@@ -145,6 +146,178 @@
       keywords: ["export control", "sanction", "big fund", "stride", "china", "entity list", "license"],
       pulse: "수출통제가 중국 빅펀드·지방정부 자본 투입과 내재화 속도를 오히려 높이는지 관찰",
       watch: ["Big Fund III", "Entity List", "허가 예외", "지방정부 보조금"],
+    },
+  ];
+  const CHINA_NAND_BUSINESS_LAYERS = [
+    {
+      id: "ymtc",
+      label: "YMTC",
+      role: "NAND·eSSD 공격수",
+      title: "Xtacking 4.0 기반 중국 NAND 자립 전략",
+      score: 92,
+      linkedCategories: ["nand", "packaging", "equipment"],
+      keywords: ["ymtc", "yangtze", "xtacking", "essd", "wuhan phase 3", "nand", "flash"],
+      metrics: [
+        { label: "NAND 점유율", value: "13%" },
+        { label: "셀 밀도", value: "20.5Gb/mm²" },
+        { label: "제품 축", value: "eSSD" },
+      ],
+      strategy: [
+        "Xtacking으로 셀 어레이와 로직 웨이퍼를 분리해 미세화 제약을 우회",
+        "중국 서버·스마트폰 고객을 묶어 eSSD와 고용량 NAND 내수 수요를 흡수",
+        "우한 Phase 3에서 국산 장비와 패키징/테스트를 결합해 자급형 IDM으로 이동",
+      ],
+      crawl: ["YMTC Xtacking 4.0", "enterprise SSD customer", "Wuhan Phase 3", "domestic NAND equipment", "controller firmware"],
+      decisions: ["NAND contract price 하방 압력", "Solidigm/eSSD 고객 방어", "Xtacking 세대별 밀도·수율 검증", "국산 장비 qual 속도"],
+      risk: "수율 안정화가 확인되면 가격 경쟁이 아니라 기업용 SSD 고객 침투가 핵심 위협으로 바뀝니다.",
+    },
+    {
+      id: "xmc",
+      label: "XMC",
+      role: "패키징·우한 생태계",
+      title: "YMTC와 연결된 패키징·테스트 우회로",
+      score: 84,
+      linkedCategories: ["nand", "packaging", "china"],
+      keywords: ["xmc", "wuhan xinxin", "xinxin", "packaging", "hbm", "nand", "wuhan"],
+      metrics: [
+        { label: "역할", value: "패키징/테스트" },
+        { label: "거점", value: "우한" },
+        { label: "감시", value: "HBM/NAND" },
+      ],
+      strategy: [
+        "NAND·DRAM 다이를 후공정으로 묶어 선단 공정 격차를 일부 보완",
+        "우한 지방정부 투자와 YMTC 생태계를 결합해 장비·패키징 클러스터를 형성",
+        "HBM 조립 보도는 과장 가능성을 분리하고, 실제 장비 반입·테스트 캐파를 확인",
+      ],
+      crawl: ["XMC HBM packaging", "Wuhan Xinxin investment", "advanced packaging equipment", "NAND package test"],
+      decisions: ["후공정 병목/캐파", "패키징 소재·장비 소싱", "우한 클러스터 투자", "XMC/YMTC 협력 범위"],
+      risk: "패키징 우회로가 안정되면 NAND/eSSD와 AI 메모리 모두에서 중국 공급망 자립도가 높아집니다.",
+    },
+    {
+      id: "jcet",
+      label: "JCET·TFME",
+      role: "OSAT 상용화 축",
+      title: "XDFOI·fan-out 기반 첨단 패키징 확대",
+      score: 79,
+      linkedCategories: ["packaging", "nand", "hbm"],
+      keywords: ["jcet", "tfme", "tongfu", "huatian", "xdf oi", "xdfoi", "fan-out", "advanced packaging"],
+      metrics: [
+        { label: "플랫폼", value: "XDFOI" },
+        { label: "역할", value: "OSAT" },
+        { label: "초점", value: "AI/NAND" },
+      ],
+      strategy: [
+        "실리콘 브리지·fan-out·RDL로 CoWoS 의존도를 낮추는 중국형 패키징 옵션을 확장",
+        "NAND 컨트롤러, eSSD, AI 가속기 후공정까지 묶어 공급망 협상력을 확보",
+        "수율·열·테스트 병목은 실제 양산 규모와 고객 인증으로 검증",
+      ],
+      crawl: ["JCET XDFOI", "Tongfu advanced packaging", "fan-out RDL China", "OSAT AI memory"],
+      decisions: ["패키징 대체 가능성", "테스트 병목", "소재/기판 수요", "고객 인증 뉴스"],
+      risk: "OSAT가 고객 인증을 확보하면 중국 업체는 선단 노광 약점을 후공정으로 보완할 수 있습니다.",
+    },
+    {
+      id: "equipment",
+      label: "Naura·AMEC·ACM",
+      role: "장비 내재화",
+      title: "NAND 공정 장비 국산화와 recipe 흡수",
+      score: 86,
+      linkedCategories: ["equipment", "nand", "geopolitics"],
+      keywords: ["naura", "amec", "acm research", "equipment localization", "etch", "deposition", "cleaning", "cmp"],
+      metrics: [
+        { label: "축", value: "식각/증착/세정" },
+        { label: "감시", value: "tool qual" },
+        { label: "리스크", value: "recipe" },
+      ],
+      strategy: [
+        "EUV가 아닌 식각·증착·세정·CMP 내재화로 NAND 공정 안정성을 끌어올림",
+        "국산 장비 qual과 YMTC Phase 3 램프업이 함께 나오면 공급량 확대 가능성이 상승",
+        "한국 소부장에는 JV·공동개발·레시피 이전 압력이 커질 수 있음",
+      ],
+      crawl: ["Naura NAND equipment", "AMEC etch YMTC", "ACM cleaning China memory", "domestic equipment qualification"],
+      decisions: ["국산 장비 승인 속도", "소재·부품 병목", "한국 소부장 노출", "수출통제 반작용"],
+      risk: "장비 국산화가 품질 기준을 넘으면 중국 NAND 캐파는 규제보다 내부 공급망 속도에 좌우됩니다.",
+    },
+    {
+      id: "cxmt",
+      label: "CXMT",
+      role: "DRAM 가격 압력",
+      title: "DRAM 물량 공세가 NAND 수익성에 주는 간접 압력",
+      score: 74,
+      linkedCategories: ["dram", "nand", "china"],
+      keywords: ["cxmt", "changxin", "dram", "ddr5", "lpddr5x", "ipo", "capacity"],
+      metrics: [
+        { label: "제품", value: "DDR5/LPDDR" },
+        { label: "자본", value: "IPO" },
+        { label: "압력", value: "Legacy ASP" },
+      ],
+      strategy: [
+        "DDR5·LPDDR 물량과 중국 빅테크 장기계약으로 범용 메모리 가격 협상력을 확대",
+        "NAND 직접 경쟁사는 아니지만 메모리 업황 전반의 ASP와 고객 협상력을 흔듦",
+        "HBM 위협보다 레거시 가격 하방과 캐파 증설 속도가 우선 감시 대상",
+      ],
+      crawl: ["CXMT IPO capacity", "CXMT DDR5 customer", "China DRAM contract", "Tencent supply agreement"],
+      decisions: ["DRAM/NAND 가격 전이", "고객 협상력", "범용 제품 원가 방어", "중국 내수 보조금"],
+      risk: "DRAM 가격 하방이 NAND 믹스 개선 효과를 상쇄할 수 있어 메모리 포트폴리오 단위로 봐야 합니다.",
+    },
+    {
+      id: "policy",
+      label: "정책자본·규제",
+      role: "자본/수출통제",
+      title: "빅펀드와 수출통제 반작용",
+      score: 81,
+      linkedCategories: ["geopolitics", "nand", "equipment"],
+      keywords: ["big fund", "export control", "bis", "entity list", "match act", "license", "sanction"],
+      metrics: [
+        { label: "자본", value: "Big Fund" },
+        { label: "규제", value: "BIS" },
+        { label: "효과", value: "내재화" },
+      ],
+      strategy: [
+        "제재는 단기 장비 조달을 막지만 장기적으로 내재화 투자와 대체 공급망 형성을 촉진",
+        "BIS/VEU, Entity List, MATCH Act, 네덜란드·일본 동참 여부를 YMTC 증설과 같이 추적",
+        "정책자본은 NAND 가격 경쟁과 장비 국산화의 자금원으로 연결",
+      ],
+      crawl: ["BIS China memory export control", "MATCH Act DUV China", "Big Fund III NAND", "Entity List YMTC"],
+      decisions: ["규제 이벤트 캘린더", "캐파 지연/가속", "소부장 매출 노출", "중국 내수 조달 전환"],
+      risk: "규제가 강해질수록 중국은 글로벌 공급망과 다른 조달 체계를 고착화할 가능성이 큽니다.",
+    },
+  ];
+  const NAND_BUSINESS_WORKFLOWS = [
+    {
+      label: "기회 발굴",
+      desc: "YMTC eSSD, XMC 패키징, 장비 국산화, 채용 JD를 연결해 사업·투자·제휴 후보군을 도출",
+      output: "테마 후보",
+      linkedCategories: ["nand", "packaging", "equipment"],
+    },
+    {
+      label: "전략 수립",
+      desc: "NAND 가격, 고객 인증, 캐파, 수출통제 이벤트를 묶어 방어/공격/옵션 전략으로 구분",
+      output: "전략 맵",
+      linkedCategories: ["nand", "geopolitics"],
+    },
+    {
+      label: "포트폴리오 점검",
+      desc: "Solidigm·eSSD·범용 NAND·HBM 자본 배분을 같이 보며 중복과 공백을 점검",
+      output: "Value-up 과제",
+      linkedCategories: ["nand", "operations"],
+    },
+    {
+      label: "제휴·계약 구조",
+      desc: "장기 공급계약, 장비/소재 제휴, 소수지분 투자, 공동개발 옵션을 리스크별로 구분",
+      output: "구조안",
+      linkedCategories: ["nand", "equipment", "packaging"],
+    },
+    {
+      label: "실사·모델링",
+      desc: "기술 성숙도, 수율, 고객 PoC, IP, 규제 노출, EV/Revenue·DCF·시너지 민감도를 확인",
+      output: "의사결정 메모",
+      linkedCategories: ["nand", "talent", "geopolitics"],
+    },
+    {
+      label: "수익성·리스크",
+      desc: "NAND contract/spot 가격, eSSD 믹스, 중국 보조금 물량, IP/인재 방어 비용을 지표화",
+      output: "리스크 스코어",
+      linkedCategories: ["nand", "dram", "talent"],
     },
   ];
   const CHINA_DEEP_DIVE = [
@@ -259,6 +432,12 @@
       section: "china-dynamics",
     },
     {
+      id: "nand",
+      label: "NAND 전략",
+      sub: "YMTC · eSSD · XMC",
+      section: "china-nand",
+    },
+    {
       id: "talent",
       label: "인재 레이더",
       sub: "Hiring · Campus · IP",
@@ -301,7 +480,7 @@
       label: "매일 업데이트",
       desc: "크롤링 성공 여부와 오늘 바뀐 가격·뉴스·중국 신호",
       cadence: "Daily crawler",
-      sections: ["daily-review", "crawler", "prices", "news", "china-dynamics", "talent-radar"],
+      sections: ["daily-review", "crawler", "prices", "news", "china-nand", "china-dynamics", "talent-radar"],
     },
     {
       id: "quant",
@@ -342,6 +521,7 @@
     crawler: "전체 크롤링 관제",
     "ai-matrix": "AI 메모리 매트릭스",
     "china-dynamics": "중국 반도체 다이내믹스",
+    "china-nand": "중국 NAND 사업 강화",
     "talent-radar": "인재·채용 레이더",
     "china-deep-dive": "중국 심층 벤치마킹",
     dynamics: "경쟁 다이나믹스",
@@ -427,10 +607,22 @@
       healthKeys: ["뉴스:China", "벤치마킹:China Capacity", "벤치마킹:Equipment Localization"],
     },
     {
+      id: "china-nand-business",
+      label: "중국 NAND 사업 강화",
+      source: "YMTC Xtacking/eSSD · XMC 패키징 · JCET/TFME · Naura/AMEC/ACM · BIS/Big Fund",
+      method: "업체 전략, 가격, 고객, 장비, 정책, 채용 신호를 중국 NAND 사업 판단 보드로 연결",
+      fields: ["NAND 가격", "eSSD 고객", "Xtacking", "우한 Phase 3", "장비 국산화", "사업 체크리스트"],
+      filters: ["YMTC/XMC/JCET", "NAND/eSSD", "domestic equipment", "export control", "hiring/IP"],
+      output: "중국 NAND 사업 강화 인텔리전스",
+      section: "china-nand",
+      linkedCategories: ["nand", "packaging", "equipment", "china", "geopolitics"],
+      healthKeys: ["뉴스:NAND", "뉴스:China", "벤치마킹:China NAND", "벤치마킹:China Capacity"],
+    },
+    {
       id: "talent-hiring-radar",
       label: "인재·채용 레이더",
       source: "CXMT/YMTC 공식 채용 · Boss Zhipin/Liepin/Maimai · Tsinghua/HUST · ijiwei/IP",
-      method: "TSV, Yield, Advanced Packaging, Xtacking, eSSD, tool qual, campus recruiting 키워드를 MECE 축으로 분류",
+      method: "TSV, Yield, Advanced Packaging, Xtacking, eSSD, tool qual, campus recruiting 키워드를 전략 축으로 분류",
       fields: ["공식 JD", "로컬 채용", "대학 취업센터", "전문 매체/IP", "경보 수준"],
       filters: ["CXMT/YMTC alias", "TSV/HBM/yield", "Xtacking/eSSD", "campus recruiting", "IP/non-compete"],
       output: "인재·채용 레이더",
@@ -515,6 +707,7 @@
   let numberLens = "all";
   let dynamicFocusId = null;
   let modelFocusId = null;
+  let chinaNandFocusId = "ymtc";
   let responsePriority = "all";
   let paletteIndex = 0;
   let typeTimer = null;
@@ -559,6 +752,7 @@
     renderArchitectureMatrix();
     renderPrices();
     renderNews();
+    renderChinaNandBusiness();
     renderChinaDynamics();
     renderTalentRadar();
     renderChinaDeepDive();
@@ -904,15 +1098,115 @@
     renderArchitectureMatrix();
     renderChinaDeepDive();
     renderTalentRadar();
+    renderChinaNandBusiness();
     renderWorkbench();
     animateCounts();
     animateMeters();
   }
 
+  function executiveStrategyLines() {
+    const nandRows = nandPriceRows().length;
+    const chinaSignals = CHINA_NAND_BUSINESS_LAYERS.reduce((sum, item) => sum + nandBusinessSignalCount(item), 0);
+    return [
+      {
+        label: "중국 업체 전략",
+        title: "YMTC는 NAND/eSSD, CXMT는 DRAM 가격, XMC·JCET는 패키징 우회로",
+        body: "중국 메모리 전략은 한 업체의 단일 추격이 아니라 NAND 기술, DRAM 캐파, 후공정, 장비 국산화, 정책자본이 분업하는 구조입니다.",
+        jump: "china-nand",
+        value: chinaSignals,
+        unit: "signal",
+      },
+      {
+        label: "NAND 비즈니스",
+        title: "TrendForce 가격과 YMTC/XMC 신호를 매일 먼저 확인",
+        body: "NAND contract/spot, eSSD 고객, Xtacking 세대, 우한 Phase 3, 국산 장비 qual을 묶어 가격 하방과 고객 침투를 판단합니다.",
+        jump: "prices",
+        value: nandRows,
+        unit: "rows",
+      },
+      {
+        label: "필요 업무",
+        title: "기회 발굴·전략 수립·포트폴리오·실사·수익성 관리",
+        body: "첨부 이미지의 사업개발 업무 항목은 중국 NAND 관점에서 후보 발굴, 제휴/계약 구조, 모델링, value-up, 리스크 대응 체크리스트로 반영했습니다.",
+        jump: "china-nand",
+        value: NAND_BUSINESS_WORKFLOWS.length,
+        unit: "checks",
+      },
+    ];
+  }
+
+  function renderExecutiveSummary() {
+    const brief = $("#execBrief");
+    const strategy = $("#execStrategy");
+    if (!brief || !strategy) return;
+    const health = LIVE.health || [];
+    const ok = health.filter((entry) => entry.ok).length;
+    const status = freshnessState({
+      updatedAt: LIVE.updatedAt,
+      count: rawNews().length + allPriceRows().length + health.length,
+      healthKeys: ["뉴스", "가격:"],
+      staleHours: 36,
+    });
+    setFreshness("#execFreshness", {
+      label: "Executive Summary",
+      updatedAt: LIVE.updatedAt,
+      source: "daily crawler",
+      count: rawNews().length + allPriceRows().length + health.length,
+      healthKeys: ["뉴스", "가격:"],
+      staleHours: 36,
+    });
+
+    const cards = [
+      { label: "수집 상태", value: `${ok}/${health.length}`, note: status.label, jump: "crawler" },
+      { label: "NAND 가격", value: nandPriceRows().length, note: "Spot·contract rows", jump: "prices" },
+      { label: "중국 기사", value: rawNews().filter(isChinaArticle).length, note: "중국어·중국 관련", jump: "news" },
+      { label: "사업 체크", value: NAND_BUSINESS_WORKFLOWS.length, note: "전략 업무 항목", jump: "china-nand" },
+    ];
+    brief.innerHTML = `
+      <div class="exec-card-grid">
+        ${cards.map((card) => `
+          <button class="exec-stat reveal" type="button" data-jump="${escapeHTML(card.jump)}">
+            <span>${escapeHTML(card.label)}</span>
+            <strong>${typeof card.value === "number" ? countHTML(card.value) : escapeHTML(card.value)}</strong>
+            <small>${escapeHTML(card.note)}</small>
+          </button>
+        `).join("")}
+      </div>
+      <div class="exec-bullets">
+        ${executiveStrategyLines().map((item) => `
+          <button class="exec-line reveal" type="button" data-jump="${escapeHTML(item.jump)}">
+            <span>${escapeHTML(item.label)}</span>
+            <strong>${escapeHTML(item.title)}</strong>
+            <p>${escapeHTML(item.body)}</p>
+          </button>
+        `).join("")}
+      </div>
+    `;
+
+    strategy.innerHTML = CHINA_NAND_BUSINESS_LAYERS.slice(0, 6).map((item, index) => `
+      <button class="exec-strategy-card reveal" type="button" data-exec-nand="${escapeHTML(item.id)}" style="--local-accent:${categoryAccent((item.linkedCategories || [])[0])}; animation-delay:${index * 30}ms">
+        <span>${escapeHTML(item.label)}</span>
+        <strong>${escapeHTML(item.role)}</strong>
+        <small>${escapeHTML(item.strategy[0] || item.title)}</small>
+      </button>
+    `).join("");
+
+    brief.querySelectorAll("[data-jump]").forEach((btn) => btn.addEventListener("click", () => jumpTo(btn.dataset.jump)));
+    strategy.querySelectorAll("[data-exec-nand]").forEach((btn) => {
+      btn.addEventListener("click", () => {
+        chinaNandFocusId = btn.dataset.execNand;
+        renderChinaNandBusiness();
+        jumpTo("china-nand");
+      });
+    });
+    animateCounts(brief);
+  }
+
   function renderKpis() {
-    const strip = $("#overview");
+    renderExecutiveSummary();
+    const strip = $("#kpiStrip") || $("#overview");
     strip.innerHTML = "";
-    (BASE.kpis || []).forEach((kpi, index) => {
+    (BASE.kpis || []).slice(0, 6).forEach((kpi, index) => {
       const node = el("article", "kpi reveal");
       node.style.animationDelay = `${index * 35}ms`;
       node.innerHTML = `
@@ -1646,6 +1940,13 @@
         score: freshnessScore(newsState, newsCount),
         note: "영어권·중국어 기사",
       },
+      "china-nand": {
+        value: CHINA_NAND_BUSINESS_LAYERS.reduce((sum, item) => sum + nandBusinessSignalCount(item), 0),
+        unit: "signal",
+        status: "NAND",
+        score: clamp(54 + Math.min(CHINA_NAND_BUSINESS_LAYERS.reduce((sum, item) => sum + nandBusinessSignalCount(item), 0), 40)),
+        note: "YMTC·XMC·eSSD·장비",
+      },
       "china-dynamics": {
         value: chinaSignalCount,
         unit: "signal",
@@ -1691,7 +1992,7 @@
       categories: {
         value: Math.max(memoryCategories().length - 1, 0),
         unit: "개",
-        status: "MECE",
+        status: "분류",
         score: 88,
         note: "메모리 업계 카테고리",
       },
@@ -1744,9 +2045,9 @@
   function renderNumberLiveRibbon() {
     const wrap = $("#numberLiveRibbon");
     if (!wrap) return;
-    const items = ["prices", "news", "crawler", "china-dynamics"].map(sectionTelemetry);
+    const items = ["prices", "news", "china-nand", "crawler"].map(sectionTelemetry);
     wrap.innerHTML = items.map((item) => `
-      <button class="quant-ribbon-card reveal" type="button" data-jump="${escapeHTML(item.section)}" style="--local-accent:${categoryAccent((item.section === "china-dynamics" && "china") || (item.section === "prices" && "dram") || (item.section === "news" && "geopolitics") || "operations")}">
+      <button class="quant-ribbon-card reveal" type="button" data-jump="${escapeHTML(item.section)}" style="--local-accent:${categoryAccent((item.section === "china-nand" && "nand") || (item.section === "china-dynamics" && "china") || (item.section === "prices" && "dram") || (item.section === "news" && "geopolitics") || "operations")}">
         <span class="score-ring compact" data-score-to="${item.score}" style="--score:0">
           <span class="score-value">${countHTML(Math.round(item.score))}</span>
           <small>/100</small>
@@ -2068,6 +2369,7 @@
     }
     if (item.id === "foreign-news") return rawNews().filter((news) => !isChinaArticle(news)).length;
     if (item.id === "china-news") return rawNews().filter(isChinaArticle).length;
+    if (item.id === "china-nand-business") return CHINA_NAND_BUSINESS_LAYERS.reduce((sum, layer) => sum + nandBusinessSignalCount(layer), 0);
     if (item.id === "talent-hiring-radar") {
       const axis = CHINA_DYNAMIC_AXES.find((entry) => entry.id === "talent");
       return axisSignalCount(axis) + (BASE.talentRadar?.companySignals?.length || 0);
@@ -2457,6 +2759,169 @@
     }).slice(0, 4);
   }
 
+  function nandPriceRows() {
+    return allPriceRows().filter((row) => /nand|ssd|flash|wafer|ufs|emmc/i.test(`${row.group || ""} ${row.sectionTitle || ""} ${row.item || ""}`));
+  }
+
+  function nandBusinessSignalCount(item) {
+    const keywords = (item.keywords || []).map((keyword) => String(keyword).toLowerCase());
+    if (!keywords.length) return 0;
+    const newsCount = rawNews().filter((news) => {
+      const hay = `${news.title || ""} ${news.titleKo || ""} ${news.summary || ""} ${news.source || ""}`.toLowerCase();
+      return keywords.some((keyword) => hay.includes(keyword));
+    }).length;
+    const themeCount = (LIVE.benchmarkSignals?.themes || []).reduce((sum, theme) => {
+      const hay = `${theme.id || ""} ${theme.label || ""}`.toLowerCase();
+      return sum + (keywords.some((keyword) => hay.includes(keyword)) ? Number(theme.count ?? theme.items?.length ?? 0) || 0 : 0);
+    }, 0);
+    const priceCount = (item.linkedCategories || []).includes("nand") ? Math.min(nandPriceRows().length, 12) : 0;
+    return newsCount + themeCount + priceCount;
+  }
+
+  function nandBusinessLinks(item, limit = 4) {
+    const keywords = (item.keywords || []).map((keyword) => String(keyword).toLowerCase());
+    const seen = new Set();
+    return rawNews().filter((news) => {
+      const hay = `${news.title || ""} ${news.titleKo || ""} ${news.summary || ""} ${news.source || ""}`.toLowerCase();
+      return keywords.some((keyword) => hay.includes(keyword));
+    }).filter((news) => {
+      const key = `${news.title || ""} ${news.source || ""}`.toLowerCase().replace(/\s+/g, " ").trim();
+      if (!key || seen.has(key)) return false;
+      seen.add(key);
+      return true;
+    }).slice(0, limit);
+  }
+
+  function renderChinaNandBusiness() {
+    const summary = $("#chinaNandSummary");
+    const map = $("#chinaNandMap");
+    const focus = $("#chinaNandFocus");
+    const playbook = $("#chinaNandPlaybook");
+    const meta = $("#chinaNandMeta");
+    if (!summary || !map || !focus || !playbook) return;
+
+    const layers = CHINA_NAND_BUSINESS_LAYERS.filter((item) => {
+      if (activeCategory === "all") return true;
+      return (item.linkedCategories || []).includes(activeCategory);
+    });
+    const visibleLayers = layers.length ? layers : CHINA_NAND_BUSINESS_LAYERS;
+    if (!visibleLayers.some((item) => item.id === chinaNandFocusId)) chinaNandFocusId = visibleLayers[0]?.id || "ymtc";
+    const selected = visibleLayers.find((item) => item.id === chinaNandFocusId) || visibleLayers[0];
+    const totalSignals = visibleLayers.reduce((sum, item) => sum + nandBusinessSignalCount(item), 0);
+    const nandRows = nandPriceRows();
+    const ymtcLinks = nandBusinessLinks(CHINA_NAND_BUSINESS_LAYERS.find((item) => item.id === "ymtc") || {}, 6);
+    if (meta) meta.textContent = `${fmtNum(totalSignals)}개 신호 · NAND 가격 ${fmtNum(nandRows.length)} rows · ${fmtDate(LIVE.updatedAt)}`;
+
+    const summaryCards = [
+      { label: "NAND 가격 rows", value: nandRows.length, note: "Spot·contract·SSD·wafer" },
+      { label: "YMTC/XMC 신호", value: ymtcLinks.length, note: "Xtacking·eSSD·우한 클러스터" },
+      { label: "전략 축", value: visibleLayers.length, note: "업체·장비·정책 분리" },
+      { label: "업무 체크", value: NAND_BUSINESS_WORKFLOWS.length, note: "발굴·전략·실사·수익성" },
+    ];
+    summary.innerHTML = summaryCards.map((card) => `
+      <article class="nand-stat reveal">
+        <span>${escapeHTML(card.label)}</span>
+        <strong>${countHTML(card.value)}</strong>
+        <small>${escapeHTML(card.note)}</small>
+      </article>
+    `).join("");
+
+    map.innerHTML = visibleLayers.map((item, index) => {
+      const count = nandBusinessSignalCount(item);
+      const score = clamp(item.score + Math.min(count, 12) - 6);
+      return `
+        <button class="nand-node reveal${item.id === selected?.id ? " active" : ""}" type="button" data-nand-node="${escapeHTML(item.id)}" style="--local-accent:${categoryAccent((item.linkedCategories || [])[0])}; animation-delay:${index * 32}ms">
+          ${scoreRingHTML(score, "Score")}
+          <span>
+            <small>${escapeHTML(item.role)}</small>
+            <strong>${escapeHTML(item.label)}</strong>
+            <em>${fmtNum(count)} signals</em>
+          </span>
+        </button>
+      `;
+    }).join("");
+
+    if (selected) {
+      const links = nandBusinessLinks(selected, 4);
+      const payload = {
+        type: "중국 NAND 사업 강화",
+        tag: selected.role,
+        title: selected.title,
+        body: selected.risk,
+        section: "china-nand",
+        categories: selected.linkedCategories || [],
+        watch: selected.decisions || [],
+        tags: selected.crawl || [],
+        metrics: selected.metrics || [],
+        links,
+      };
+      focus.style.setProperty("--local-accent", categoryAccent((selected.linkedCategories || [])[0]));
+      focus.innerHTML = `
+        <div class="nand-focus-head">
+          <span class="chip accent">${escapeHTML(selected.role)}</span>
+          <h3>${escapeHTML(selected.title)}</h3>
+          <p>${escapeHTML(selected.risk)}</p>
+        </div>
+        <div class="metric-row">${metricCards(selected.metrics || [], 3)}</div>
+        <div class="nand-focus-block">
+          <strong>업체 전략</strong>
+          <ul class="watch-list">${(selected.strategy || []).map((line) => `<li>${escapeHTML(line)}</li>`).join("")}</ul>
+        </div>
+        <div class="nand-focus-block">
+          <strong>매일 크롤링 키워드</strong>
+          <div class="tag-row">${(selected.crawl || []).map((tag) => `<span class="tag">${escapeHTML(tag)}</span>`).join("")}</div>
+        </div>
+        <div class="nand-focus-block">
+          <strong>사업 판단 포인트</strong>
+          <ul class="watch-list">${(selected.decisions || []).map((line) => `<li>${escapeHTML(line)}</li>`).join("")}</ul>
+        </div>
+        ${links.length ? `
+          <div class="nand-focus-block">
+            <strong>관련 최신 기사</strong>
+            <ul class="work-link-list">${links.map((link) => `<li><a href="${escapeHTML(link.link || "#")}" target="_blank" rel="noopener">${escapeHTML(newsTitle(link) || link.title || "Signal")}</a></li>`).join("")}</ul>
+          </div>
+        ` : ""}
+        <div class="focus-actions">
+          <button type="button" data-nand-copy>복사</button>
+          <button type="button" data-nand-inspector>상세 패널</button>
+          <button type="button" data-nand-news>기사 보기</button>
+        </div>
+      `;
+      focus.querySelector("[data-nand-copy]")?.addEventListener("click", (event) => copyPayload(payload, event.currentTarget));
+      focus.querySelector("[data-nand-inspector]")?.addEventListener("click", () => openInspector(payload));
+      focus.querySelector("[data-nand-news]")?.addEventListener("click", () => jumpTo("news"));
+    } else {
+      focus.innerHTML = `<div class="empty">선택한 카테고리의 중국 NAND 전략 항목이 없습니다.</div>`;
+    }
+
+    playbook.innerHTML = NAND_BUSINESS_WORKFLOWS.filter((item) => {
+      if (activeCategory === "all") return true;
+      return (item.linkedCategories || []).includes(activeCategory);
+    }).map((item, index) => `
+      <article class="nand-work-card reveal" style="--local-accent:${categoryAccent((item.linkedCategories || [])[0])}; animation-delay:${index * 25}ms">
+        <span class="chip accent">${String(index + 1).padStart(2, "0")}</span>
+        <h3>${escapeHTML(item.label)}</h3>
+        <p>${escapeHTML(item.desc)}</p>
+        <strong>${escapeHTML(item.output)}</strong>
+      </article>
+    `).join("") || `<div class="empty">선택한 카테고리의 사업 체크리스트가 없습니다.</div>`;
+
+    map.querySelectorAll("[data-nand-node]").forEach((btn) => {
+      btn.addEventListener("click", () => {
+        chinaNandFocusId = btn.dataset.nandNode;
+        renderChinaNandBusiness();
+      });
+      btn.addEventListener("mouseenter", () => {
+        if (chinaNandFocusId === btn.dataset.nandNode) return;
+        chinaNandFocusId = btn.dataset.nandNode;
+        renderChinaNandBusiness();
+      });
+    });
+    animateCounts(summary);
+    animateCounts(map);
+    animateMeters(map);
+  }
+
   function renderChinaDynamics() {
     const overview = $("#chinaDynamicsOverview");
     const grid = $("#chinaDynamicsGrid");
@@ -2618,7 +3083,7 @@
     sources.innerHTML = "";
     sourceItems.forEach((item, index) => {
       const payload = {
-        type: "MECE 크롤링 타깃",
+        type: "크롤링 타깃",
         tag: item.axis,
         title: item.axis,
         body: item.why,
@@ -2772,6 +3237,26 @@
       }));
     }
 
+    if (mode === "nand") {
+      items = CHINA_NAND_BUSINESS_LAYERS.map((item) => ({
+        id: `nand-${item.id}`,
+        mode,
+        type: "중국 NAND 사업 강화",
+        tag: item.role,
+        title: item.title,
+        body: item.risk,
+        section: "china-nand",
+        categories: item.linkedCategories || [],
+        watch: (item.decisions || []).concat(item.crawl || []),
+        metrics: (item.metrics || []).concat([
+          { label: "Signal", value: fmtNum(nandBusinessSignalCount(item)) },
+          { label: "Score", value: fmtNum(item.score) },
+        ]),
+        tags: [item.label].concat(item.crawl || []),
+        links: nandBusinessLinks(item, 3),
+      }));
+    }
+
     if (mode === "architecture") {
       const matrix = architectureMatrix();
       items = []
@@ -2882,7 +3367,7 @@
         .concat((data.meceSources || []).map((item, index) => ({
           id: `talent-source-${index}`,
           mode,
-          type: "MECE 크롤링 타깃",
+          type: "크롤링 타깃",
           tag: item.axis,
           title: item.axis,
           body: item.why,
@@ -3822,7 +4307,7 @@
   }
 
   function setupScrollSpy() {
-    const sections = ["overview", "daily-review", "crawler", "prices", "news", "china-dynamics", "talent-radar", "numbers", "workbench", "ai-matrix", "china-deep-dive", "categories", "competitors", "dynamics", "monetization", "response", "intelligence"];
+    const sections = ["overview", "daily-review", "crawler", "prices", "news", "china-nand", "china-dynamics", "talent-radar", "numbers", "workbench", "ai-matrix", "china-deep-dive", "categories", "competitors", "dynamics", "monetization", "response", "intelligence"];
     const update = () => {
       const y = window.scrollY + chromeOffset() + 22;
       let active = "overview";

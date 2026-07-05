@@ -680,6 +680,7 @@ body.sidebar-collapsed .sb-ico {
 
 .panel,
 .board,
+.executive-summary,
 .kpi-strip {
   border: 1px solid var(--line);
   border-radius: var(--radius);
@@ -862,6 +863,164 @@ body.sidebar-collapsed .sb-ico {
   font-size: 11px;
   line-height: 1.45;
   font-weight: 600;
+  display: -webkit-box;
+  overflow: hidden;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
+}
+
+.kpi .kpi-alt {
+  display: -webkit-box;
+  overflow: hidden;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 1;
+}
+
+.executive-summary {
+  display: grid;
+  gap: 14px;
+  padding: 16px;
+  background:
+    linear-gradient(135deg, color-mix(in srgb, var(--accent) 9%, transparent), transparent 42%),
+    linear-gradient(225deg, color-mix(in srgb, var(--teal) 7%, transparent), transparent 48%),
+    var(--panel);
+}
+
+.exec-head {
+  display: flex;
+  align-items: start;
+  justify-content: space-between;
+  gap: 16px;
+}
+
+.exec-head h2 {
+  margin-top: 4px;
+  color: var(--ink);
+  font-size: 24px;
+  line-height: 1.18;
+  font-weight: 950;
+}
+
+.exec-head p:not(.eyebrow) {
+  max-width: 780px;
+  margin-top: 7px;
+  color: var(--ink-2);
+  font-size: 13px;
+  line-height: 1.55;
+  font-weight: 700;
+}
+
+.exec-layout {
+  display: grid;
+  grid-template-columns: minmax(0, 1.35fr) minmax(320px, .75fr);
+  gap: 12px;
+  align-items: stretch;
+}
+
+.exec-brief,
+.exec-strategy {
+  min-width: 0;
+  display: grid;
+  gap: 10px;
+}
+
+.exec-card-grid {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 8px;
+}
+
+.exec-stat,
+.exec-line,
+.exec-strategy-card {
+  min-width: 0;
+  border: 1px solid var(--line);
+  border-radius: 9px;
+  background: var(--panel-2);
+  color: var(--ink);
+  padding: 11px;
+  text-align: left;
+  transition: transform .16s, border-color .16s, background .16s, box-shadow .16s;
+}
+
+.exec-stat:hover,
+.exec-line:hover,
+.exec-strategy-card:hover,
+.exec-stat:focus-visible,
+.exec-line:focus-visible,
+.exec-strategy-card:focus-visible {
+  outline: none;
+  transform: translateY(-1px);
+  border-color: var(--local-accent, var(--accent));
+  background: color-mix(in srgb, var(--local-accent, var(--accent)) 8%, var(--panel));
+  box-shadow: var(--shadow-lg);
+}
+
+.exec-stat {
+  min-height: 92px;
+  display: grid;
+  gap: 6px;
+  align-content: start;
+}
+
+.exec-stat span,
+.exec-line span,
+.exec-strategy-card span {
+  color: var(--muted);
+  font-size: 10px;
+  font-weight: 950;
+  letter-spacing: .04em;
+  text-transform: uppercase;
+}
+
+.exec-stat strong {
+  font-family: var(--display);
+  font-size: 23px;
+  line-height: 1;
+}
+
+.exec-stat small,
+.exec-strategy-card small {
+  color: var(--ink-2);
+  font-size: 11px;
+  line-height: 1.42;
+  font-weight: 750;
+}
+
+.exec-bullets {
+  display: grid;
+  gap: 8px;
+}
+
+.exec-line {
+  display: grid;
+  gap: 5px;
+}
+
+.exec-line strong,
+.exec-strategy-card strong {
+  color: var(--ink);
+  font-size: 13.5px;
+  line-height: 1.32;
+  font-weight: 950;
+}
+
+.exec-line p {
+  color: var(--ink-2);
+  font-size: 12px;
+  line-height: 1.5;
+  font-weight: 700;
+}
+
+.exec-strategy {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+
+.exec-strategy-card {
+  min-height: 112px;
+  display: grid;
+  gap: 6px;
+  align-content: start;
 }
 
 .number-board {
@@ -3428,6 +3587,193 @@ body.sidebar-collapsed .sb-ico {
   font-weight: 700;
 }
 
+.china-nand-board {
+  border-color: color-mix(in srgb, var(--teal) 30%, var(--line));
+  background:
+    linear-gradient(135deg, color-mix(in srgb, var(--teal) 10%, transparent), transparent 42%),
+    linear-gradient(225deg, color-mix(in srgb, var(--blue) 6%, transparent), transparent 52%),
+    var(--panel);
+}
+
+.china-nand-summary {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 10px;
+  margin-bottom: 12px;
+}
+
+.nand-stat {
+  min-width: 0;
+  min-height: 96px;
+  display: grid;
+  align-content: start;
+  gap: 7px;
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  background: var(--panel);
+  padding: 12px;
+}
+
+.nand-stat span,
+.nand-node small,
+.nand-work-card span {
+  color: var(--muted);
+  font-size: 10px;
+  font-weight: 950;
+  letter-spacing: .04em;
+  text-transform: uppercase;
+}
+
+.nand-stat strong {
+  font-family: var(--display);
+  font-size: 24px;
+  line-height: 1;
+}
+
+.nand-stat small {
+  color: var(--ink-2);
+  font-size: 11px;
+  font-weight: 750;
+}
+
+.china-nand-cockpit {
+  display: grid;
+  grid-template-columns: minmax(0, 1.12fr) minmax(340px, .88fr);
+  gap: 12px;
+  align-items: start;
+}
+
+.china-nand-map {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 10px;
+}
+
+.nand-node {
+  min-width: 0;
+  min-height: 132px;
+  display: grid;
+  grid-template-columns: 70px minmax(0, 1fr);
+  gap: 10px;
+  align-items: center;
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  background: var(--panel);
+  color: var(--ink);
+  padding: 12px;
+  text-align: left;
+  transition: transform .16s, border-color .16s, background .16s, box-shadow .16s;
+}
+
+.nand-node:hover,
+.nand-node:focus-visible,
+.nand-node.active {
+  outline: none;
+  transform: translateY(-2px);
+  border-color: var(--local-accent, var(--accent));
+  background: color-mix(in srgb, var(--local-accent, var(--accent)) 7%, var(--panel));
+  box-shadow: var(--shadow-lg);
+}
+
+.nand-node > span {
+  min-width: 0;
+  display: grid;
+  gap: 5px;
+}
+
+.nand-node strong {
+  color: var(--ink);
+  font-size: 16px;
+  font-weight: 950;
+  line-height: 1.2;
+}
+
+.nand-node em {
+  color: var(--local-accent, var(--accent));
+  font-size: 11px;
+  font-style: normal;
+  font-weight: 950;
+}
+
+.china-nand-focus {
+  position: sticky;
+  top: calc(var(--topbar-h) + 16px);
+  min-width: 0;
+  display: grid;
+  gap: 12px;
+  border: 1px solid color-mix(in srgb, var(--local-accent, var(--accent)) 24%, var(--line));
+  border-radius: 10px;
+  background: var(--panel);
+  padding: 14px;
+}
+
+.nand-focus-head {
+  display: grid;
+  gap: 8px;
+}
+
+.nand-focus-head h3 {
+  color: var(--ink);
+  font-size: 18px;
+  line-height: 1.3;
+  font-weight: 950;
+}
+
+.nand-focus-head p,
+.nand-focus-block li,
+.nand-work-card p {
+  color: var(--ink-2);
+  font-size: 12.5px;
+  line-height: 1.55;
+  font-weight: 700;
+}
+
+.nand-focus-block {
+  display: grid;
+  gap: 8px;
+}
+
+.nand-focus-block > strong {
+  color: var(--muted);
+  font-size: 10px;
+  font-weight: 950;
+  letter-spacing: .04em;
+  text-transform: uppercase;
+}
+
+.china-nand-playbook {
+  display: grid;
+  grid-template-columns: repeat(6, minmax(0, 1fr));
+  gap: 10px;
+  margin-top: 12px;
+}
+
+.nand-work-card {
+  min-width: 0;
+  min-height: 168px;
+  display: grid;
+  align-content: start;
+  gap: 9px;
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  background: var(--panel);
+  padding: 12px;
+}
+
+.nand-work-card h3 {
+  color: var(--ink);
+  font-size: 14px;
+  font-weight: 950;
+  line-height: 1.3;
+}
+
+.nand-work-card > strong {
+  margin-top: auto;
+  color: var(--local-accent, var(--accent));
+  font-size: 11px;
+  font-weight: 950;
+}
+
 .china-dynamics-board {
   border-color: color-mix(in srgb, var(--accent) 28%, var(--line));
   background:
@@ -4590,11 +4936,18 @@ body.sidebar-collapsed .sb-ico {
     grid-template-columns: repeat(2, minmax(0, 1fr));
   }
 
+  .china-nand-cockpit {
+    grid-template-columns: 1fr;
+  }
+
+  .china-nand-playbook {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+
   .workbench-tabs {
     grid-template-columns: repeat(3, minmax(0, 1fr));
   }
 
-  .kpi-strip,
   .number-grid,
   .company-grid {
     grid-template-columns: repeat(3, minmax(0, 1fr));
@@ -4602,9 +4955,12 @@ body.sidebar-collapsed .sb-ico {
 
   .category-grid,
   .channel-grid,
+  .exec-card-grid,
   .crawler-summary,
   .review-summary,
   .review-schema,
+  .china-nand-summary,
+  .china-nand-map,
   .talent-summary,
   .talent-company-grid,
   .talent-source-grid,
@@ -4799,6 +5155,14 @@ body.sidebar-collapsed .sb-ico {
     grid-template-columns: 1fr;
   }
 
+  .exec-head {
+    flex-direction: column;
+  }
+
+  .china-nand-focus {
+    position: static;
+  }
+
   .interactive-split {
     grid-template-columns: 1fr;
   }
@@ -4834,7 +5198,12 @@ body.sidebar-collapsed .sb-ico {
   }
 
   .kpi-strip,
-  .number-grid {
+  .number-grid,
+  .exec-card-grid,
+  .exec-strategy,
+  .china-nand-summary,
+  .china-nand-map,
+  .china-nand-playbook {
     grid-template-columns: repeat(2, minmax(0, 1fr));
   }
 
@@ -4922,7 +5291,8 @@ body.sidebar-collapsed .sb-ico {
   }
 
   .hero,
-  .board {
+  .board,
+  .executive-summary {
     padding: 16px;
   }
 
@@ -4942,6 +5312,13 @@ body.sidebar-collapsed .sb-ico {
     .review-controls,
     .review-detail-grid,
     .review-schema,
+    .exec-layout,
+    .exec-card-grid,
+    .exec-strategy,
+    .china-nand-summary,
+    .china-nand-cockpit,
+    .china-nand-map,
+    .china-nand-playbook,
     .category-grid,
     .channel-grid,
     .company-grid,

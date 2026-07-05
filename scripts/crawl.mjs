@@ -53,7 +53,8 @@ const PRICE_PAGES = [
 const CATEGORIES = [
   { id: "hbm", label: "HBM·AI Memory", queries: ["HBM4 memory AI accelerator", "high bandwidth memory HBM", "SK hynix TSMC HBM4 base die", "Samsung HBM4 1c DRAM 4nm base die", "NVIDIA Rubin HBM4 11Gbps", "CXMT HBM3 delayed mass production 2027"] },
   { id: "dram", label: "DRAM·DDR", queries: ["DRAM DDR5 server memory price", "DRAM market demand", "CXMT DDR5 yield 80 percent 90 target", "CXMT IPO 29.5 billion yuan DRAM capacity"] },
-  { id: "nand", label: "NAND·SSD", queries: ["NAND flash enterprise SSD price", "SSD memory demand", "YMTC Xtacking 4.0 20.5 Gb/mm2 294 layer"] },
+  { id: "nand", label: "NAND·SSD", queries: ["NAND flash enterprise SSD price", "SSD memory demand", "YMTC Xtacking 4.0 20.5 Gb/mm2 294 layer", "YMTC enterprise SSD customer China", "NAND contract price China eSSD"] },
+  { id: "china_nand", label: "China NAND Business", queries: ["YMTC eSSD Xtacking customer", "YMTC Wuhan Phase 3 NAND domestic equipment", "XMC Wuhan Xinxin NAND packaging", "JCET TFME advanced packaging NAND controller", "Naura AMEC ACM Research YMTC NAND equipment", "YMTC controller firmware enterprise SSD", "China NAND subsidy server SSD procurement"] },
   { id: "cxl", label: "CXL·Next Memory", queries: ["CXL memory pooling", "CXL switch memory expansion", "CXL memory tester module", "CXL 3.1 memory module CMM-D", "Pangea v3 CXL 3.2", "4F2 vertical gate 3D DRAM SK hynix"] },
   { id: "packaging", label: "Packaging·Photonics", queries: ["advanced packaging HBM hybrid bonding", "silicon photonics interconnect memory", "HBM TC bonder equipment supply chain"] },
   { id: "aidemand", label: "AI Demand", queries: ["AI memory demand data center", "AI accelerator memory bandwidth"] },
@@ -108,8 +109,8 @@ const COMPETITORS = [
     shortLabel: "YMTC",
     segment: "중국 NAND · Xtacking",
     baseline: "중국 NAND 내재화와 가격 경쟁의 장기 변수. 제재 우회, 양산 수율, 고객 확대 확인.",
-    queries: ["YMTC Yangtze Memory NAND China Xtacking"],
-    watchWords: ["NAND", "Xtacking", "China", "sanction", "capacity", "smartphone"],
+    queries: ["YMTC Yangtze Memory NAND China Xtacking", "YMTC enterprise SSD customer", "YMTC Wuhan Phase 3 NAND equipment"],
+    watchWords: ["NAND", "Xtacking", "China", "sanction", "capacity", "smartphone", "eSSD", "Wuhan", "firmware"],
     pressureBase: 18,
   },
 ];
@@ -276,6 +277,7 @@ const STARTUPS = [
 // Foreign benchmark themes feeding the China memory signal radar.
 const BENCHMARK_SIGNAL_THEMES = [
   { id: "capacity", label: "China Capacity", queries: ["CXMT capacity DRAM wafer China", "YMTC NAND capacity Xtacking China", "CXMT Shanghai fab DRAM wafer start", "CXMT IPO proceeds wafer capacity", "YMTC Wuhan Phase 3 50000 wafers"] },
+  { id: "china_nand_business", label: "China NAND Business", queries: ["YMTC eSSD customer NAND China", "YMTC Xtacking 4.0 enterprise SSD", "XMC Wuhan Xinxin NAND packaging", "JCET TFME NAND controller advanced packaging", "Naura AMEC ACM YMTC NAND equipment", "China server SSD procurement YMTC"] },
   { id: "equipment", label: "Equipment Localization", queries: ["China semiconductor equipment localization Naura AMEC", "Chinese chip equipment localization memory", "Yole China semiconductor equipment localization 23.2 percent", "MATCH Act DUV lithography cryogenic etching China"] },
   { id: "packaging", label: "Advanced Packaging", queries: ["JCET advanced packaging AI memory", "XMC HBM packaging China", "HBM TC bonder patent equipment"] },
   { id: "cxl", label: "CXL and PIM Value Chain", queries: ["CXL memory tester Exicon Neosem", "CXL controller IP memory pooling PIM", "CXL 3.1 module substrate TLB", "Openedges CXL controller IP", "FADU CXL memory controller"] },
