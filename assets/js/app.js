@@ -1707,7 +1707,6 @@
     { id: "market", label: "시장/가격", sub: "Spot · Contract · WSTS", categories: ["dram", "nand", "aidemand"], keywords: ["가격", "spot", "contract", "wsts", "market", "성장", "매출", "규모"] },
     { id: "hbm", label: "HBM/Post-HBM", sub: "HBM4 · CXL · 3D DRAM", categories: ["hbm", "cxl", "packaging", "aidemand"], keywords: ["hbm", "rubin", "cxl", "pim", "3d dram", "cowos", "tsmc"] },
     { id: "china-risk", label: "중국 리스크", sub: "CXMT · YMTC · 정책", categories: ["china", "geopolitics", "equipment", "talent"], keywords: ["cxmt", "ymtc", "big fund", "match", "veU", "중국", "국산화", "수출통제"] },
-    { id: "pipeline", label: "수집상태", sub: "Freshness · Health", categories: ["operations"], keywords: ["freshness", "health", "crawler", "rows", "뉴스", "수집", "pipeline"] },
   ];
   const SECTION_LABELS = {
     "executive-decision": "경영진 의사결정",
@@ -4000,7 +3999,7 @@
       { label: "Run health", value: `${ok}/${health.length}`, note: fail ? `${fmtNum(fail)}개 단계 점검 필요` : "전체 수집 단계 정상" },
       { label: "가격 테이블", value: priceRows, note: `${fmtNum(priceSections)}개 TrendForce 표` },
       { label: "뉴스 원천 신호", value: categorySignals, note: `화면 노출 ${fmtNum(visibleNews)}건` },
-      { label: "중국·벤치마킹", value: chinaNews + benchmarkSignals, note: `중국 기사 ${fmtNum(chinaNews)}건 · 테마 ${fmtNum(benchmarkSignals)}건` },
+      { label: "중국·벤치마킹", value: chinaNews + benchmarkSignals, note: "중국·외신 벤치마킹 신호" },
       { label: "업데이트", value: fmtDate(LIVE.updatedAt), note: "GitHub Actions daily crawler" },
     ];
     summary.innerHTML = cards.map((card) => `
@@ -5193,7 +5192,7 @@
     const avgScore = investmentAverageScore(items);
     const chinaSignals = rawNews().filter(isChinaArticle).length + benchmarkSignalTotal();
     const regulationSignals = items.filter((item) => (item.linkedCategories || []).some((id) => ["geopolitics", "operations"].includes(id))).reduce((sum, item) => sum + item.signals, 0);
-    if (meta) meta.textContent = `${fmtNum(items.length)}개 중국 사업 전략축 · ${fmtNum(totalSignals)}개 크롤링 신호 · ${fmtDate(LIVE.updatedAt)}`;
+    if (meta) meta.textContent = `${fmtNum(items.length)}개 전략축 · ${fmtDate(LIVE.updatedAt)}`;
 
     summary.innerHTML = investmentSummaryHTML([
       { label: "전략축", value: items.length, note: "고객·제품·생태계·공급망·운영·인재", suffix: "개" },
@@ -5263,7 +5262,7 @@
     const goCount = items.filter((item) => /go/i.test(item.stage)).length;
     const defendCount = items.filter((item) => /defend|hold/i.test(item.stage)).length;
     const watchCount = items.filter((item) => /watch/i.test(item.stage)).length;
-    if (meta) meta.textContent = `${fmtNum(items.length)}개 중국 사업 안건 · ${fmtNum(totalSignals)}개 근거 신호 · ${fmtDate(LIVE.updatedAt)}`;
+    if (meta) meta.textContent = `${fmtNum(items.length)}개 의사결정 안건 · ${fmtDate(LIVE.updatedAt)}`;
 
     summary.innerHTML = investmentSummaryHTML([
       { label: "의사결정 안건", value: items.length, note: "계약·제품·제휴·운영·IP 방어", suffix: "개" },
