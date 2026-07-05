@@ -5198,7 +5198,7 @@
         label: "데이터 부족",
         cls: "insufficient",
         action: "추정 금지",
-        logic: "선택 시점 이전 가격 포인트가 부족해 당시 판단을 만들 수 없습니다.",
+        logic: "기준일 이전 가격 포인트 부족 · 당시 판단 생성 불가",
       };
     }
     if (product.decisionBias === "risk") {
@@ -5213,8 +5213,8 @@
       if (priorMomentum >= 0.65) return { label: "선별 확대", cls: "expand", action: "고부가 SKU 중심", logic: "방어형 제품군도 가격 모멘텀이 확인된 SKU는 선별 확대합니다." };
       return { label: "유지", cls: "hold", action: "믹스 조정", logic: "가격 방향성이 중립이라 서버향 우선 배분을 유지합니다." };
     }
-    if (priorMomentum >= 0.55) return { label: "확대", cls: "expand", action: "캐파·고객 락인", logic: "선택 시점까지 실제 가격 모멘텀이 양수라 성장 제품군 확대 판단입니다." };
-    if (priorMomentum <= -0.45) return { label: "보수", cls: "defend", action: "가격 방어", logic: "선택 시점까지 가격 약세가 확인되어 보수적 공급/가격 관리가 필요합니다." };
+    if (priorMomentum >= 0.55) return { label: "확대", cls: "expand", action: "캐파·고객 락인", logic: "기준일까지 실제 가격 모멘텀 양수 · 성장 제품군 확대 판단" };
+    if (priorMomentum <= -0.45) return { label: "보수", cls: "defend", action: "가격 방어", logic: "기준일까지 가격 약세 확인 · 보수적 공급/가격 관리 필요" };
     return { label: "유지", cls: "hold", action: "옵션 유지", logic: "방향성이 약해 장기 고객과 옵션 투자를 유지합니다." };
   }
 
@@ -5322,16 +5322,12 @@
     renderBacktestControls();
     const selectedYearOption = selectedBacktestYearOption();
     const selected = selectedBacktestIso();
-    const allItems = executiveBacktests();
     const items = executiveBacktestsForSelection();
     if (!items.some((item) => item.id === execDecisionFocusId)) execDecisionFocusId = items[0]?.id || "hbm-ai-server";
     const active = items.find((item) => item.id === execDecisionFocusId) || items[0];
     const historyCount = historyItems().length;
-    const hitItems = items.filter((item) => item.outcome.hit === true).length;
-    const testedItems = items.filter((item) => item.outcome.hit !== null).length;
     const latestAtRaw = items.length ? Math.max(...items.map((item) => item.latestAt || 0), 0) : 0;
     const latestAt = Number.isFinite(latestAtRaw) ? latestAtRaw : 0;
-    const hitRate = testedItems ? hitItems / testedItems * 100 : null;
     const productLabel = selectedExecProductLabel();
     const yearLabel = selectedYearOption?.label || "시점 없음";
     const selectedSeriesKeys = new Set();
@@ -5343,22 +5339,8 @@
     const selectedSeriesCount = selectedSeriesKeys.size;
     if (meta) meta.textContent = `${yearLabel} 기준 · ${productLabel} · ${fmtNum(selectedSeriesCount)}개 매칭 series · ${latestAt ? pointDateLabel(latestAt) : "최신 결과 없음"}까지 검증`;
     if (coverage) coverage.textContent = `${yearLabel} 첫 수집점 ${selected ? pointDateLabel(selected) : "없음"} · 전체 가격 series ${fmtNum(historyCount)}개 · 제품군 매칭 ${fmtNum(selectedSeriesCount)}개`;
-
-    const summaryCards = [
-      { label: "선택 시점", value: yearLabel, note: `기준점: ${selected ? pointDateLabel(selected) : "없음"}` },
-      { label: "하이닉스 제품군", value: productLabel, note: selectedExecProductId === "all" ? "전체 제품군 비교" : "선택 제품군만 필터링" },
-      { label: "최신 검증 시점", value: latestAt ? pointDateLabel(latestAt) : "없음", note: "선택 시점 기준점 이후 실제 수집 결과" },
-      { label: "검증 제품군", value: testedItems, note: `${fmtNum(items.length)}개 표시 · 전체 ${fmtNum(allItems.length)}개`, suffix: "개" },
-      { label: "적중률", value: hitRate == null ? "검증 불가" : hitRate, note: "확대/방어/유지 판단 기준", suffix: "%", decimals: 0 },
-      { label: "중국 신호", value: rawNews().filter(isChinaArticle).length + benchmarkSignalTotal(), note: "뉴스·벤치마킹 최신 신호", suffix: "건" },
-    ];
-    summary.innerHTML = summaryCards.map((card) => `
-      <article class="decision-stat reveal">
-        <span>${escapeHTML(card.label)}</span>
-        <strong>${typeof card.value === "number" ? countHTML(card.value, { suffix: card.suffix || "", decimals: card.decimals || 0 }) : escapeHTML(card.value)}</strong>
-        <small>${escapeHTML(card.note)}</small>
-      </article>
-    `).join("");
+    summary.hidden = true;
+    summary.innerHTML = "";
     renderCategoryDecisionMatrix(items);
 
     grid.innerHTML = items.map((item, index) => `
@@ -5384,7 +5366,7 @@
         type: "경영진 의사결정 백테스트",
         tag: active.demand,
         title: active.label,
-        body: `${active.rationale} 선택 시점 판단: ${active.decision.label}. 이후 실제 변화: ${active.actualChange == null ? "데이터 부족" : `${fmtNum(active.actualChange, 2)}%`}.`,
+        body: `${active.rationale} 기준일 판단: ${active.decision.label}. 이후 실제 변화: ${active.actualChange == null ? "데이터 부족" : `${fmtNum(active.actualChange, 2)}%`}.`,
         section: "executive-decision",
         categories: [active.category],
         watch: [active.decision.logic, active.upside, active.downside],
@@ -5409,7 +5391,7 @@
           <small>${escapeHTML(active.decision.logic)}</small>
         </div>
         <div class="metric-row">
-          <div class="metric"><strong>${active.priorMomentum == null ? "NA" : `${fmtNum(active.priorMomentum, 2)}%`}</strong><span>선택 시점 직전</span></div>
+          <div class="metric"><strong>${active.priorMomentum == null ? "NA" : `${fmtNum(active.priorMomentum, 2)}%`}</strong><span>직전 모멘텀</span></div>
           <div class="metric"><strong>${active.actualChange == null ? "NA" : `${fmtNum(active.actualChange, 2)}%`}</strong><span>이후 실제</span></div>
           <div class="metric"><strong>${fmtNum(active.observations.length)}</strong><span>관측 품목</span></div>
         </div>
@@ -5418,7 +5400,7 @@
           <span>기준점 ${escapeHTML(pointDateLabel(selected))} → 최신 ${escapeHTML(active.latestAt ? pointDateLabel(active.latestAt) : "없음")}</span>
         </div>
         <div class="decision-focus-block">
-          <strong>SK하이닉스 제품군</strong>
+          <strong>제품군</strong>
           <div class="tag-row">${(active.products || []).map((product) => `<span class="tag">${escapeHTML(product)}</span>`).join("")}</div>
         </div>
         <div class="decision-focus-block">

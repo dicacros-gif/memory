@@ -139,7 +139,7 @@
             </div>
             <span class="board-meta" id="execDecisionMeta">로드 중 · 가격 히스토리/제품군 매칭 연결</span>
           </div>
-          <div class="decision-summary" id="execDecisionSummary"></div>
+          <div class="decision-summary" id="execDecisionSummary" hidden></div>
           <section class="category-ox-panel" aria-label="카테고리별 O X 의사결정 포인트">
             <div class="crawler-panel-head">
               <h3>카테고리별 O/X 의사결정 포인트</h3>
@@ -152,8 +152,8 @@
               <div class="decision-control">
                 <label for="backtestYearSelect">년도 선택</label>
                 <select id="backtestYearSelect" aria-label="백테스트 년도 선택"></select>
-                <label for="execProductSelect">하이닉스 제품군</label>
-                <select id="execProductSelect" aria-label="하이닉스 제품군 선택"></select>
+                <label for="execProductSelect">제품군</label>
+                <select id="execProductSelect" aria-label="제품군 선택"></select>
                 <span id="backtestCoverage">로드 중 · 가격 히스토리 확인</span>
               </div>
               <div class="decision-grid" id="execDecisionGrid"></div>
@@ -720,6 +720,6 @@
   <div class="qa-answer" id="qaAnswer" hidden></div>
   <div class="inspector" id="inspector" hidden></div>
   <div class="backdrop" id="backdrop"></div>
-  <script src="assets/js/app.js?v=ai-ux-20260705-backtest-evidence" defer></script>
+  <script src="assets/js/app.js?v=ai-ux-20260705-exec-summary-hidden" defer></script>
 </body>
 </html>
