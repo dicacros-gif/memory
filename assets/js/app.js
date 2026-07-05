@@ -2751,7 +2751,7 @@
       },
       {
         label: "NAND 비즈니스",
-        title: "TrendForce 가격과 YMTC/XMC 신호를 매일 먼저 확인",
+        title: "TrendForce 가격과 중국 생태계 변화를 매일 먼저 확인",
         body: "NAND contract/spot, eSSD 고객, Xtacking 세대, 우한 Phase 3, 국산 장비 qual을 묶어 가격 하방과 고객 침투를 판단합니다.",
         jump: "prices",
         value: nandRows,
@@ -4833,23 +4833,10 @@
     if (!visibleLayers.some((item) => item.id === chinaNandFocusId)) chinaNandFocusId = visibleLayers[0]?.id || "ymtc";
     const selected = visibleLayers.find((item) => item.id === chinaNandFocusId) || visibleLayers[0];
     const totalSignals = visibleLayers.reduce((sum, item) => sum + nandBusinessSignalCount(item), 0);
-    const nandRows = nandPriceRows();
-    const ymtcLinks = nandBusinessLinks(CHINA_NAND_BUSINESS_LAYERS.find((item) => item.id === "ymtc") || {}, 6);
-    if (meta) meta.textContent = `${fmtNum(totalSignals)}개 신호 · NAND 가격 ${fmtNum(nandRows.length)} rows · ${fmtDate(LIVE.updatedAt)}`;
+    if (meta) meta.textContent = `${fmtNum(totalSignals)}개 신호 · ${fmtDate(LIVE.updatedAt)}`;
 
-    const summaryCards = [
-      { label: "NAND 가격 rows", value: nandRows.length, note: "Spot·contract·SSD·wafer" },
-      { label: "YMTC/XMC 신호", value: ymtcLinks.length, note: "Xtacking·eSSD·우한 클러스터" },
-      { label: "전략 축", value: visibleLayers.length, note: "업체·장비·정책 분리" },
-      { label: "업무 체크", value: NAND_BUSINESS_WORKFLOWS.length, note: "발굴·전략·실사·수익성" },
-    ];
-    summary.innerHTML = summaryCards.map((card) => `
-      <article class="nand-stat reveal">
-        <span>${escapeHTML(card.label)}</span>
-        <strong>${countHTML(card.value)}</strong>
-        <small>${escapeHTML(card.note)}</small>
-      </article>
-    `).join("");
+    summary.innerHTML = "";
+    summary.hidden = true;
 
     map.innerHTML = visibleLayers.map((item, index) => {
       const count = nandBusinessSignalCount(item);
