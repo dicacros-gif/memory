@@ -6050,6 +6050,108 @@ body.sidebar-collapsed .sb-ico {
   margin-bottom: 12px;
 }
 
+.price-trend-card {
+  min-width: 0;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  background:
+    linear-gradient(135deg, rgba(34, 197, 94, .08), rgba(60, 130, 255, .05)),
+    var(--panel);
+  padding: 14px;
+}
+
+.price-trend-wide {
+  grid-column: span 2;
+}
+
+.price-trend-head {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 12px;
+  margin-bottom: 10px;
+}
+
+.price-trend-head span,
+.price-trend-card > span {
+  display: block;
+  color: var(--muted);
+  font-size: 11px;
+  font-weight: 900;
+  text-transform: uppercase;
+}
+
+.price-trend-head strong,
+.price-trend-card > strong {
+  display: block;
+  margin-top: 4px;
+  color: var(--ink);
+  font-size: 21px;
+  font-weight: 900;
+}
+
+.price-trend-head em,
+.price-trend-card small {
+  color: var(--muted);
+  font-size: 11px;
+  font-style: normal;
+  font-weight: 800;
+}
+
+.price-trend-svg {
+  display: block;
+  width: 100%;
+  height: 178px;
+  overflow: visible;
+}
+
+.price-grid-line {
+  stroke: var(--line);
+  stroke-width: 1;
+}
+
+.price-grid-line.faint {
+  opacity: .65;
+}
+
+.price-axis-label {
+  fill: var(--muted);
+  font-size: 10px;
+  font-weight: 800;
+}
+
+.price-trend-legend {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 7px;
+  margin-top: 8px;
+}
+
+.price-trend-legend span {
+  display: inline-flex;
+  align-items: center;
+  max-width: 100%;
+  gap: 5px;
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  background: var(--panel-2);
+  color: var(--ink-2);
+  padding: 4px 8px;
+  font-size: 10px;
+  font-weight: 850;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.price-trend-legend i {
+  flex: 0 0 auto;
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--series);
+}
+
 .price-period-controls {
   display: inline-flex;
   flex-wrap: wrap;
@@ -6780,6 +6882,10 @@ body.sidebar-collapsed .sb-ico {
     grid-template-columns: repeat(2, minmax(0, 1fr));
   }
 
+  .price-trend-wide {
+    grid-column: span 2;
+  }
+
   .china-dynamics-grid {
     grid-template-columns: repeat(3, minmax(0, 1fr));
   }
@@ -7231,6 +7337,10 @@ body.sidebar-collapsed .sb-ico {
     .news-columns,
   .price-summary {
     grid-template-columns: 1fr;
+  }
+
+  .price-trend-wide {
+    grid-column: span 1;
   }
 
   .news-list a {

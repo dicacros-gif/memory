@@ -7730,10 +7730,38 @@
     return PRICE_PERIODS.find((period) => period.id === pricePeriod) || PRICE_PERIODS[0];
   }
 
+  function latestPriceDateEntry() {
+    return priceDateEntries()[0] || null;
+  }
+
+  function priceUsesFullTrend() {
+    return pricePeriod !== "week";
+  }
+
+  function priceTrendEndEntry() {
+    return priceUsesFullTrend() ? latestPriceDateEntry() || activePriceDateEntry() : activePriceDateEntry();
+  }
+
+  function scopedPricePoints(points = []) {
+    const period = activePricePeriod();
+    const endEntry = priceTrendEndEntry();
+    const candidates = endEntry ? points.filter((point) => point.time <= endEntry.time) : points;
+    const end = candidates[candidates.length - 1] || points[points.length - 1];
+    if (!end) return { scoped: [], start: null, end: null };
+    const startMs = end.time - period.days * 86400000;
+    const windowPoints = candidates.filter((point) => point.time >= startMs);
+    const scoped = windowPoints.length ? windowPoints : candidates;
+    return {
+      scoped: scoped.length ? scoped : [end],
+      start: scoped[0] || end,
+      end,
+    };
+  }
+
   function priceTrendForRow(row = {}) {
     const points = priceHistoryFor(row);
-    const asOf = activePriceDateEntry();
-    if (!points.length || !asOf) {
+    activePriceDateEntry();
+    if (!points.length) {
       return {
         points: (row.history || []).map((point) => Number(point.average)).filter((value) => !Number.isNaN(value)),
         average: row.average,
@@ -7743,13 +7771,7 @@
         rangeLabel: row.lastUpdate || "TrendForce",
       };
     }
-    const period = activePricePeriod();
-    const endCandidates = points.filter((point) => point.time <= asOf.time);
-    const end = endCandidates[endCandidates.length - 1] || points[points.length - 1];
-    const startMs = end.time - period.days * 86400000;
-    const windowPoints = endCandidates.filter((point) => point.time >= startMs);
-    const scoped = windowPoints.length ? windowPoints : [endCandidates[0], end].filter(Boolean);
-    const start = scoped[0] || end;
+    const { scoped, start, end } = scopedPricePoints(points);
     const startValue = Number(start?.average);
     const endValue = Number(end?.average);
     const changePct = start && end && start.time !== end.time && startValue
@@ -7763,6 +7785,11 @@
       changePct,
       direction,
       rangeLabel: `${shortKstDate(start.time)}-${shortKstDate(end.time)}`,
+      rangeMode: priceUsesFullTrend() ? "수집 전체 추세" : `${activePricePeriod().label} 기준`,
+      pointCount: scoped.length,
+      startTime: start.time,
+      endTime: end.time,
+      plotPoints: scoped.map((point) => ({ time: point.time, value: Number(point.average) })).filter((point) => !Number.isNaN(point.value)),
       sourceUpdate: end.sourceUpdate,
       crawledAt: end.crawledAt,
     };
@@ -7833,7 +7860,103 @@
 
   function renderPriceSummary() {
     const summary = $("#priceSummary");
-    if (summary) summary.innerHTML = "";
+    if (!summary) return;
+    const rows = priceRowsFor();
+    const trends = rows
+      .map((row) => ({ row, trend: priceTrendForRow(row) }))
+      .filter((item) => (item.trend.plotPoints || []).length >= 2);
+    if (!trends.length) {
+      summary.hidden = true;
+      summary.innerHTML = "";
+      return;
+    }
+    const visible = trends
+      .sort((a, b) => (b.trend.pointCount || 0) - (a.trend.pointCount || 0))
+      .slice(0, 6);
+    const changed = trends.filter((item) => Number(item.trend.changePct) !== 0);
+    const up = trends.filter((item) => Number(item.trend.changePct) > 0).length;
+    const down = trends.filter((item) => Number(item.trend.changePct) < 0).length;
+    const leader = changed
+      .slice()
+      .sort((a, b) => Math.abs(Number(b.trend.changePct || 0)) - Math.abs(Number(a.trend.changePct || 0)))[0] || trends[0];
+    const rangeStart = Math.min(...visible.map((item) => item.trend.startTime).filter(Number.isFinite));
+    const rangeEnd = Math.max(...visible.map((item) => item.trend.endTime).filter(Number.isFinite));
+    summary.hidden = false;
+    summary.innerHTML = `
+      <article class="price-trend-card price-trend-wide">
+        <div class="price-trend-head">
+          <div>
+            <span>${escapeHTML(priceUsesFullTrend() ? "전체 트렌드" : "주간 트렌드")}</span>
+            <strong>${escapeHTML(shortKstDate(rangeStart))} - ${escapeHTML(shortKstDate(rangeEnd))}</strong>
+          </div>
+          <em>${escapeHTML(activePricePeriod().label)} · ${escapeHTML(priceFilter === "all" ? "Spot+Contract" : priceFilter)}</em>
+        </div>
+        ${priceTrendSvg(visible)}
+        <div class="price-trend-legend">
+          ${visible.map((item, index) => `
+            <span style="--series:${escapeHTML(priceSeriesColor(index))}">
+              <i></i>${escapeHTML(item.row.item)}
+            </span>
+          `).join("")}
+        </div>
+      </article>
+      <article class="price-trend-card">
+        <span>상승/하락</span>
+        <strong>${escapeHTML(`${up}/${down}`)}</strong>
+        <small>${escapeHTML(trends.length)}개 품목 · 실제 수집 히스토리</small>
+      </article>
+      <article class="price-trend-card">
+        <span>최대 변동</span>
+        <strong>${escapeHTML(formatChange(leader.trend))}</strong>
+        <small>${escapeHTML(leader.row.item || "품목")}</small>
+      </article>
+    `;
+  }
+
+  function priceSeriesColor(index = 0) {
+    return ["#22C55E", "#3C82FF", "#FFB830", "#A050FF", "#EF4444", "#00C8A0"][index % 6];
+  }
+
+  function priceTrendSvg(items = []) {
+    const width = 720;
+    const height = 170;
+    const pad = { top: 12, right: 12, bottom: 18, left: 12 };
+    const allTimes = items.flatMap((item) => (item.trend.plotPoints || []).map((point) => point.time)).filter(Number.isFinite);
+    const minTime = Math.min(...allTimes);
+    const maxTime = Math.max(...allTimes);
+    const timeRange = maxTime - minTime || 1;
+    const paths = items.map((item, index) => {
+      const points = item.trend.plotPoints || [];
+      const values = points.map((point) => point.value);
+      const min = Math.min(...values);
+      const max = Math.max(...values);
+      const range = max - min || 1;
+      const d = points.map((point, pointIndex) => {
+        const x = pad.left + ((point.time - minTime) / timeRange) * (width - pad.left - pad.right);
+        const normalized = (point.value - min) / range;
+        const y = pad.top + (1 - normalized) * (height - pad.top - pad.bottom);
+        return `${pointIndex ? "L" : "M"}${x.toFixed(1)},${y.toFixed(1)}`;
+      }).join(" ");
+      const last = points[points.length - 1];
+      const lastX = last ? pad.left + ((last.time - minTime) / timeRange) * (width - pad.left - pad.right) : 0;
+      const lastNorm = last ? (last.value - min) / range : 0;
+      const lastY = pad.top + (1 - lastNorm) * (height - pad.top - pad.bottom);
+      const color = priceSeriesColor(index);
+      return `
+        <path d="${escapeHTML(d)}" fill="none" stroke="${escapeHTML(color)}" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"></path>
+        <circle cx="${lastX.toFixed(1)}" cy="${lastY.toFixed(1)}" r="3.4" fill="${escapeHTML(color)}"></circle>
+      `;
+    }).join("");
+    return `
+      <svg class="price-trend-svg" viewBox="0 0 ${width} ${height}" role="img" aria-label="기간별 가격 추이 정규화 차트">
+        <line x1="${pad.left}" y1="${pad.top}" x2="${pad.left}" y2="${height - pad.bottom}" class="price-grid-line"></line>
+        <line x1="${pad.left}" y1="${height - pad.bottom}" x2="${width - pad.right}" y2="${height - pad.bottom}" class="price-grid-line"></line>
+        <line x1="${pad.left}" y1="${pad.top + (height - pad.top - pad.bottom) / 2}" x2="${width - pad.right}" y2="${pad.top + (height - pad.top - pad.bottom) / 2}" class="price-grid-line faint"></line>
+        ${paths}
+        <text x="${pad.left}" y="${height - 3}" class="price-axis-label">${escapeHTML(shortKstDate(minTime))}</text>
+        <text x="${width - pad.right}" y="${height - 3}" text-anchor="end" class="price-axis-label">${escapeHTML(shortKstDate(maxTime))}</text>
+      </svg>
+    `;
   }
 
   function renderPriceRows() {
@@ -7856,7 +7979,7 @@
         <td><span class="source-tag">${escapeHTML(row.group || "")}</span></td>
         <td><span class="price-main">${escapeHTML(row.item)}</span><span class="price-sub">${escapeHTML(row.sectionTitle || "")}</span></td>
         <td>${escapeHTML(trend.averageRaw || formatPrice(trend.average))}</td>
-        <td><span class="change ${escapeHTML(trend.direction || "flat")}">${escapeHTML(change)}</span><span class="price-sub">${escapeHTML(activePricePeriod().label)} 기준</span></td>
+        <td><span class="change ${escapeHTML(trend.direction || "flat")}">${escapeHTML(change)}</span><span class="price-sub">${escapeHTML(trend.rangeMode || `${activePricePeriod().label} 기준`)} · ${escapeHTML(String(trend.pointCount || trend.points?.length || 0))}개</span></td>
         <td></td>
         <td><a class="rainbow" href="${escapeHTML(row.sourceUrl || "#")}" target="_blank" rel="noopener">${escapeHTML(trend.rangeLabel || row.lastUpdate || "TrendForce")}</a></td>
       `;
