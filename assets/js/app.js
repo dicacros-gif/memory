@@ -8154,17 +8154,92 @@
 
   function insightLines(item) {
     const title = newsTitle(item);
-    const summary = cleanKoreanTitle(item.summary || title);
+    const summary = cleanInsightText(item.summary || "");
     const category = CATEGORY_INSIGHTS[item.category] || "메모리 업계 가격·고객·공급망 변화를 함께 점검";
-    const signal = isChinaArticle(item)
-      ? "중국 신호: 내수 고객, 정책 지원, 장비·패키징 우회 가능성 확인"
-      : "외신 신호: 해외 검증 보도 기준으로 가격·수요·경쟁 구도 확인";
-    const titleLikeSummary = summary && title && summary.toLowerCase() === title.toLowerCase();
-    return [
-      `요약: ${clipText(titleLikeSummary ? category : summary, 78)}`,
-      `관찰: ${category}`,
-      `확인: ${signal}`,
+    const rows = [
+      { label: "요약", text: newsSummaryLine(item, title, summary, category) },
+      { label: "인사이트", text: newsImpactLine(item, category) },
+      { label: "확인 포인트", text: newsCheckLine(item) },
     ];
+    return uniqueInsightRows(rows);
+  }
+
+  function cleanInsightText(text) {
+    return cleanKoreanTitle(text || "")
+      .replace(/^(요약|관찰|인사이트|확인|확인 포인트)\s*[:：]\s*/i, "")
+      .replace(/\s+/g, " ")
+      .trim();
+  }
+
+  function newsSummaryLine(item, title, summary, category) {
+    const cleanedTitle = cleanInsightText(title);
+    const cleanedCategory = cleanInsightText(category);
+    if (summary && !sameInsightText(summary, cleanedTitle) && !sameInsightText(summary, cleanedCategory)) {
+      return summary;
+    }
+
+    const placement = cleanInsightText(String(item.placement || "").replace(/[·|/]+/g, " · "));
+    if (placement && !sameInsightText(placement, cleanedCategory)) {
+      return `${cleanedTitle ? `${cleanedTitle}: ` : ""}${placement}`;
+    }
+
+    if (cleanedTitle) {
+      return `${cleanedTitle} 관련 가격·고객·공급망 신호 확인`;
+    }
+    return cleanedCategory || "메모리 업계 신호를 가격·고객·공급망 관점에서 확인";
+  }
+
+  function newsImpactLine(item, category) {
+    const impacts = {
+      hbm: "HBM4/HBM4E 고객 ramp와 패키징 병목이 프리미엄 메모리 공급 우위 좌우",
+      dram: "DDR5·LPDDR 물량 확대는 범용 DRAM spot/contract 하방 압력의 선행 신호",
+      nand: "eSSD·client SSD 채택 변화가 NAND 회복 강도와 Solidigm 방어 전략 변수",
+      cxl: "CXL·PIM PoC와 인증이 Post-HBM 옵션 투자 우선순위 변화 요인",
+      packaging: "XMC·JCET·TFME 패키징 우회로는 선단 공정 격차 보완 변수",
+      aidemand: "AI 서버·eSSD 수요가 HBM, DDR5, NAND 가격 방어력을 동시 지지",
+      china: "중국 내수 고객·정책자금·장비 내재화가 가격보다 먼저 경쟁 구도 변화",
+      equipment: "Naura·AMEC·ACM 장비 qual은 YMTC·CXMT ramp 속도의 선행지표",
+      geopolitics: "BIS·MATCH Act·VEU 변화가 중국 fab 증설과 장비 교체 타임라인 좌우",
+      talent: "수율 엔지니어·채용 JD 증가는 공정 병목과 IP 리스크 조기 신호",
+      operations: "Wuxi·Dalian·Solidigm 운영 변화는 중국 노출과 NAND 방어 전략 변수",
+    };
+    return impacts[item.category] || category || "가격·고객·공급망 변화가 다음 의사결정 우선순위 변화 요인";
+  }
+
+  function newsCheckLine(item) {
+    const source = cleanInsightText(item.source || "원문");
+    const date = formatNewsDate(item.date || item.published);
+    const sourceText = `${source}${date ? ` · ${date}` : ""}`;
+    return isChinaArticle(item)
+      ? `${sourceText} 기준 업체·캐파·정책 수치 분리 검증`
+      : `${sourceText} 기준 가격·수요·고객 수치 원문 확인`;
+  }
+
+  function uniqueInsightRows(rows) {
+    const seen = new Set();
+    const fallback = [
+      "원문 제목과 요약을 분리해 같은 문장이 반복되지 않도록 정리했습니다.",
+      "사업 영향은 가격·고객·공급망 중 어느 축이 움직이는지로 판단합니다.",
+      "원문 링크·발표일·수치 출처를 확인한 뒤 의사결정 보드에 연결합니다.",
+    ];
+    return rows.map((row, index) => {
+      let text = cleanInsightText(row.text);
+      if (!text || seen.has(insightKey(text))) text = fallback[index] || fallback[fallback.length - 1];
+      seen.add(insightKey(text));
+      return `${row.label}: ${clipText(text, index === 0 ? 92 : 88)}`;
+    });
+  }
+
+  function sameInsightText(left, right) {
+    const a = insightKey(left);
+    const b = insightKey(right);
+    return Boolean(a && b && a === b);
+  }
+
+  function insightKey(text) {
+    return cleanInsightText(text)
+      .toLowerCase()
+      .replace(/[\s·.,:;|/()[\]{}'"“”‘’!?%+\-→~$]+/g, "");
   }
 
   function formatNewsDate(value) {
