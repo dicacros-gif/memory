@@ -80,6 +80,7 @@
     overview: "#FFFFFF",
     "daily-review": "#A7F3D0",
     numbers: "#FDE68A",
+    projection: "#FBBF24",
     workbench: "#B9A7FF",
     "ai-matrix": "#C4B5FD",
     crawler: "#7EE7C8",
@@ -320,6 +321,110 @@
       linkedCategories: ["nand", "dram", "talent"],
     },
   ];
+  const PROJECTION_START_MONTHS = 30;
+  const PROJECTION_YEAR_COUNT = 5;
+  const SKHYNIX_PRODUCT_PROJECTION = [
+    {
+      id: "ai-server",
+      label: "AI 서버향",
+      short: "AI 서버",
+      demand: "Server",
+      title: "HBM·DDR5·CXL 중심 프리미엄 서버 포트폴리오",
+      startShare: 48,
+      endShare: 58,
+      baseScore: 91,
+      sensitivity: 1.18,
+      linkedCategories: ["hbm", "dram", "cxl", "aidemand", "packaging"],
+      products: ["HBM3E/HBM4", "DDR5 RDIMM/MRDIMM", "CXL Memory", "Custom HBM"],
+      keywords: ["hbm", "hbm4", "hbm3e", "nvidia", "rubin", "ai accelerator", "data center", "server", "cxl", "ddr5", "rdimm", "mrdimm", "tsmc", "cowos"],
+      priceTerms: ["dram", "ddr5", "gddr", "module"],
+      thesis: "AI 서버는 30개월 뒤에도 SK하이닉스 제품 믹스의 최우선 축입니다. HBM4 베이스 다이, DDR5 고용량 모듈, CXL 확장 메모리가 함께 서버 ASP를 방어합니다.",
+      assumptions: ["HBM4/Custom HBM 고객 인증 유지", "NVIDIA·ASIC 고객의 대역폭 요구 지속", "DDR5 고용량 모듈과 CXL이 서버당 메모리 탑재량 확대"],
+      triggers: ["HBM4 Rubin 인증", "CoWoS/패키징 할당량", "DDR5 contract 가격", "CXL 서버 PoC"],
+      actions: ["HBM 고객 락인", "서버 DRAM 원가·수율 개선", "CXL 컨트롤러/IP 옵션 확보"],
+      risk: "HBM4 속도 요구 상향과 패키징 병목이 양산 일정을 밀면 서버향 비중은 높아져도 매출 인식이 늦어질 수 있습니다.",
+    },
+    {
+      id: "dc-storage",
+      label: "데이터센터 스토리지향",
+      short: "eSSD",
+      demand: "Server",
+      title: "eSSD·QLC·Solidigm 기반 서버 스토리지 포트폴리오",
+      startShare: 21,
+      endShare: 22,
+      baseScore: 78,
+      sensitivity: 1.05,
+      linkedCategories: ["nand", "aidemand", "operations", "china"],
+      products: ["Enterprise SSD", "QLC NAND", "Solidigm", "PCIe Gen5/Gen6 SSD"],
+      keywords: ["essd", "enterprise ssd", "solidigm", "qlc", "nand", "data center ssd", "server ssd", "pcie", "storage"],
+      priceTerms: ["nand", "ssd", "wafer", "flash"],
+      thesis: "AI 서버 증설은 스토리지 계층에도 연결됩니다. eSSD와 QLC는 NAND 수익성 방어 축이지만 YMTC의 내수 eSSD 침투와 계약가 변동을 같이 봐야 합니다.",
+      assumptions: ["AI 학습/추론 데이터셋 증가", "엔터프라이즈 SSD 계약가 회복", "Solidigm 제품 믹스 개선"],
+      triggers: ["NAND contract 가격", "YMTC eSSD 고객 뉴스", "서버 SSD 조달/인증", "QLC 제품 전환"],
+      actions: ["eSSD 고객 방어", "QLC 원가 로드맵", "중국 내수 SSD 침투율 조기경보"],
+      risk: "YMTC가 eSSD 고객 인증과 내수 보조금을 동시에 확보하면 가격보다 고객 침투 속도가 더 큰 변수입니다.",
+    },
+    {
+      id: "mobile-pc",
+      label: "모바일·PC 단말향",
+      short: "단말",
+      demand: "Terminal",
+      title: "LPDDR·UFS·Client SSD 중심 단말 포트폴리오",
+      startShare: 21,
+      endShare: 12,
+      baseScore: 61,
+      sensitivity: .82,
+      linkedCategories: ["dram", "nand", "china"],
+      products: ["LPDDR5X/LPDDR6", "UFS", "Client SSD", "Mobile NAND"],
+      keywords: ["lpddr", "lpddr5x", "lpddr6", "ufs", "client ssd", "pc ssd", "smartphone", "mobile", "pc", "notebook", "terminal"],
+      priceTerms: ["nand", "ssd", "module", "dram", "lpddr"],
+      thesis: "단말향은 절대 수요가 남아 있지만, AI 서버 우선 투자와 중국 범용 메모리 물량 공세로 비중이 낮아지는 방어형 축입니다.",
+      assumptions: ["스마트폰/PC 교체 수요는 완만", "LPDDR·UFS는 원가 경쟁 압력 확대", "서버향 캐파 우선 배분 지속"],
+      triggers: ["LPDDR5X/6 고객 인증", "client SSD contract 가격", "CXMT DDR5/LPDDR 뉴스", "YMTC 모바일 NAND 공급"],
+      actions: ["고부가 모바일 제품 선별", "범용 단말 제품 cash-cost floor 관리", "중국 가격 하방에 대한 빠른 믹스 조정"],
+      risk: "CXMT와 YMTC의 범용 제품 공급이 늘면 단말향 ASP는 구조적으로 압박받을 가능성이 큽니다.",
+    },
+    {
+      id: "auto-edge",
+      label: "오토·엣지향",
+      short: "오토/엣지",
+      demand: "Terminal",
+      title: "차량·엣지 AI용 고신뢰 메모리 옵션",
+      startShare: 5,
+      endShare: 5,
+      baseScore: 64,
+      sensitivity: .75,
+      linkedCategories: ["dram", "nand", "aidemand"],
+      products: ["Automotive DRAM", "Industrial NAND", "Edge AI Memory", "Embedded SSD"],
+      keywords: ["automotive memory", "vehicle", "edge ai", "industrial", "embedded", "adas", "on-device ai", "inference"],
+      priceTerms: ["dram", "nand", "ssd"],
+      thesis: "차량·엣지는 서버만큼 크지는 않지만 장주기 인증과 고신뢰 요구가 있어 가격 하락기에 방어적 수익성을 제공할 수 있습니다.",
+      assumptions: ["차량용 인증 주기 유지", "온디바이스 AI와 엣지 추론 확대", "산업용 NAND의 장기 공급 계약 확대"],
+      triggers: ["차량용 메모리 인증", "엣지 AI SoC 채택", "산업용 장기계약", "온디바이스 AI 수요"],
+      actions: ["장기공급 계약", "고신뢰 제품 포트폴리오", "엣지 AI 고객 개발"],
+      risk: "인증 주기가 길어 단기 매출 기여는 제한적이며, 범용 단말과 섞어 보면 성장성이 과소평가될 수 있습니다.",
+    },
+    {
+      id: "legacy",
+      label: "레거시·범용 방어",
+      short: "레거시",
+      demand: "Commodity",
+      title: "DDR4·범용 NAND·가격 하방 방어 포트폴리오",
+      startShare: 5,
+      endShare: 3,
+      baseScore: 48,
+      sensitivity: .65,
+      linkedCategories: ["dram", "nand", "china", "geopolitics"],
+      products: ["DDR4", "Commodity DRAM", "Retail SSD", "Wafer/Legacy NAND"],
+      keywords: ["ddr4", "legacy", "commodity", "spot price", "contract price", "cxmt", "ymtc", "oversupply", "wafer"],
+      priceTerms: ["dram", "nand", "wafer", "spot", "contract"],
+      thesis: "레거시는 성장 축이 아니라 현금흐름과 고객 유지 방어 축입니다. 중국 물량 공세가 가장 먼저 가격을 흔드는 영역입니다.",
+      assumptions: ["중국 보조금 물량 확대", "범용 DRAM/NAND 가격 변동성 확대", "고마진 서버향 캐파 우선 배분"],
+      triggers: ["CXMT 캐파 증설", "YMTC wafer/SSD 가격", "Spot-contract spread", "BIS/수출통제 반작용"],
+      actions: ["cash-cost floor", "재고 회전 관리", "저수익 SKU 축소"],
+      risk: "가격 방어가 실패하면 서버향 성장에도 전사 믹스 개선 속도가 둔화될 수 있습니다.",
+    },
+  ];
   const CHINA_DEEP_DIVE = [
     {
       id: "dram-euv-duv",
@@ -444,6 +549,12 @@
       section: "talent-radar",
     },
     {
+      id: "projection",
+      label: "제품 프로젝션",
+      sub: "Server · Terminal · 30M+",
+      section: "projection",
+    },
+    {
       id: "architecture",
       label: "AI Matrix",
       sub: "HBM · CXL · Commodity",
@@ -485,9 +596,9 @@
     {
       id: "quant",
       label: "실시간 분석",
-      desc: "숫자 KPI와 선택형 인텔리전스 워크벤치",
+      desc: "숫자 KPI, 제품군 프로젝션, 선택형 인텔리전스 워크벤치",
       cadence: "Interactive",
-      sections: ["numbers", "workbench"],
+      sections: ["numbers", "projection", "workbench"],
     },
     {
       id: "benchmark",
@@ -518,6 +629,7 @@
   const SECTION_LABELS = {
     "daily-review": "일일 리뷰 큐",
     numbers: "숫자 대시보드",
+    projection: "제품군 프로젝션",
     crawler: "전체 크롤링 관제",
     "ai-matrix": "AI 메모리 매트릭스",
     "china-dynamics": "중국 반도체 다이내믹스",
@@ -619,6 +731,18 @@
       healthKeys: ["뉴스:NAND", "뉴스:China", "벤치마킹:China NAND", "벤치마킹:China Capacity"],
     },
     {
+      id: "skhynix-product-projection",
+      label: "SK하이닉스 제품군 프로젝션",
+      source: "TrendForce 가격 · HBM/AI 서버 뉴스 · NAND/eSSD · 중국 캐파/장비/정책 신호",
+      method: "현재 수집 데이터를 서버향, 데이터센터 스토리지, 단말, 오토·엣지, 레거시 방어 축으로 재분류해 T+30개월부터 5년 믹스 지수 계산",
+      fields: ["수요처", "제품군", "T+30M 믹스", "5Y 믹스", "신호 점수", "리스크"],
+      filters: ["HBM/DDR5/CXL", "eSSD/QLC/Solidigm", "LPDDR/UFS/client SSD", "CXMT/YMTC 캐파", "Spot/contract 가격"],
+      output: "제품군 프로젝션",
+      section: "projection",
+      linkedCategories: ["hbm", "dram", "nand", "cxl", "aidemand", "china"],
+      healthKeys: ["뉴스:HBM", "뉴스:NAND", "뉴스:AI", "가격:", "벤치마킹:China Capacity"],
+    },
+    {
       id: "talent-hiring-radar",
       label: "인재·채용 레이더",
       source: "CXMT/YMTC 공식 채용 · Boss Zhipin/Liepin/Maimai · Tsinghua/HUST · ijiwei/IP",
@@ -708,6 +832,7 @@
   let dynamicFocusId = null;
   let modelFocusId = null;
   let chinaNandFocusId = "ymtc";
+  let projectionFocusId = "ai-server";
   let responsePriority = "all";
   let paletteIndex = 0;
   let typeTimer = null;
@@ -742,6 +867,7 @@
     renderKpis();
     renderDailyReview();
     renderNumberDashboard();
+    renderProductProjection();
     renderCategories();
     renderChannels();
     renderCompanies();
@@ -1088,6 +1214,7 @@
     $$(".sb-cat").forEach((btn) => btn.classList.toggle("active", btn.dataset.category === id));
     renderDailyReview();
     renderNumberDashboard();
+    renderProductProjection();
     renderCategories();
     renderChannels();
     renderCompanies();
@@ -1125,6 +1252,14 @@
         unit: "rows",
       },
       {
+        label: "제품군 프로젝션",
+        title: "30개월 후부터 5년간 서버향·단말향 믹스 변화를 추적",
+        body: "현재 크롤링된 HBM, NAND/eSSD, 단말, 중국 캐파 신호를 반영해 SK하이닉스 제품군의 수요처별 시나리오를 매일 갱신합니다.",
+        jump: "projection",
+        value: projectionTotalSignals(),
+        unit: "signals",
+      },
+      {
         label: "필요 업무",
         title: "기회 발굴·전략 수립·포트폴리오·실사·수익성 관리",
         body: "첨부 이미지의 사업개발 업무 항목은 중국 NAND 관점에서 후보 발굴, 제휴/계약 구조, 모델링, value-up, 리스크 대응 체크리스트로 반영했습니다.",
@@ -1160,6 +1295,7 @@
       { label: "수집 상태", value: `${ok}/${health.length}`, note: status.label, jump: "crawler" },
       { label: "NAND 가격", value: nandPriceRows().length, note: "Spot·contract rows", jump: "prices" },
       { label: "중국 기사", value: rawNews().filter(isChinaArticle).length, note: "중국어·중국 관련", jump: "news" },
+      { label: "제품 예측", value: projectionTotalSignals(), note: "30M+5Y 신호", jump: "projection" },
       { label: "사업 체크", value: NAND_BUSINESS_WORKFLOWS.length, note: "전략 업무 항목", jump: "china-nand" },
     ];
     brief.innerHTML = `
@@ -1844,7 +1980,52 @@
         linkedCategories: [],
       },
     ];
-    return visibleItems(baseItems.concat(liveItems));
+    const projectionSegments = productProjectionSegments();
+    const projectionRows = projectionSeries(projectionSegments);
+    const projectionItems = [
+      {
+        id: "projection-server-share",
+        kind: "Projection",
+        title: "5년차 서버향 제품 믹스",
+        value: projectionGroupShare(projectionRows, ["ai-server", "dc-storage"]),
+        suffix: "%",
+        decimals: 1,
+        note: "AI 서버향 HBM/DDR5/CXL과 데이터센터 eSSD를 합산한 지수형 믹스",
+        badge: "30M+5Y",
+        statusClass: "watch",
+        source: "crawler-derived projection",
+        sourceDate: fmtDate(LIVE.updatedAt),
+        linkedCategories: ["hbm", "dram", "nand", "aidemand"],
+      },
+      {
+        id: "projection-terminal-share",
+        kind: "Projection",
+        title: "5년차 단말향 제품 믹스",
+        value: projectionGroupShare(projectionRows, ["mobile-pc", "auto-edge"]),
+        suffix: "%",
+        decimals: 1,
+        note: "모바일/PC 단말과 오토·엣지 고신뢰 제품을 합산한 방어형 수요처",
+        badge: "30M+5Y",
+        statusClass: "watch",
+        source: "crawler-derived projection",
+        sourceDate: fmtDate(LIVE.updatedAt),
+        linkedCategories: ["dram", "nand", "aidemand"],
+      },
+      {
+        id: "projection-signal-total",
+        kind: "Projection",
+        title: "제품군 프로젝션 입력 신호",
+        value: projectionTotalSignals(),
+        suffix: "건",
+        note: "현재 live.json의 가격 rows, 뉴스, 중국 벤치마킹 신호를 제품군별로 재분류",
+        badge: "Live input",
+        statusClass: "ok",
+        source: "live.json",
+        sourceDate: fmtDate(LIVE.updatedAt),
+        linkedCategories: ["operations", "china"],
+      },
+    ];
+    return visibleItems(baseItems.concat(liveItems, projectionItems));
   }
 
   function orderedNumberItems(items) {
@@ -1968,6 +2149,13 @@
         score: clamp(numberDashboardItems().filter(numberRelated).length * 5, 28, 100),
         note: "움직이는 정량 대시보드",
       },
+      projection: {
+        value: projectionTotalSignals(),
+        unit: "signal",
+        status: "Projection",
+        score: clamp(58 + Math.min(projectionTotalSignals(), 180) * .18),
+        note: "30개월 후~5년 제품 믹스",
+      },
       workbench: {
         value: WORKBENCH_MODES.length,
         unit: "탭",
@@ -2045,9 +2233,9 @@
   function renderNumberLiveRibbon() {
     const wrap = $("#numberLiveRibbon");
     if (!wrap) return;
-    const items = ["prices", "news", "china-nand", "crawler"].map(sectionTelemetry);
+    const items = ["prices", "news", "projection", "china-nand", "crawler"].map(sectionTelemetry);
     wrap.innerHTML = items.map((item) => `
-      <button class="quant-ribbon-card reveal" type="button" data-jump="${escapeHTML(item.section)}" style="--local-accent:${categoryAccent((item.section === "china-nand" && "nand") || (item.section === "china-dynamics" && "china") || (item.section === "prices" && "dram") || (item.section === "news" && "geopolitics") || "operations")}">
+      <button class="quant-ribbon-card reveal" type="button" data-jump="${escapeHTML(item.section)}" style="--local-accent:${categoryAccent((item.section === "projection" && "hbm") || (item.section === "china-nand" && "nand") || (item.section === "china-dynamics" && "china") || (item.section === "prices" && "dram") || (item.section === "news" && "geopolitics") || "operations")}">
         <span class="score-ring compact" data-score-to="${item.score}" style="--score:0">
           <span class="score-value">${countHTML(Math.round(item.score))}</span>
           <small>/100</small>
@@ -2370,6 +2558,7 @@
     if (item.id === "foreign-news") return rawNews().filter((news) => !isChinaArticle(news)).length;
     if (item.id === "china-news") return rawNews().filter(isChinaArticle).length;
     if (item.id === "china-nand-business") return CHINA_NAND_BUSINESS_LAYERS.reduce((sum, layer) => sum + nandBusinessSignalCount(layer), 0);
+    if (item.id === "skhynix-product-projection") return projectionTotalSignals();
     if (item.id === "talent-hiring-radar") {
       const axis = CHINA_DYNAMIC_AXES.find((entry) => entry.id === "talent");
       return axisSignalCount(axis) + (BASE.talentRadar?.companySignals?.length || 0);
@@ -2922,6 +3111,353 @@
     animateMeters(map);
   }
 
+  function projectionAnchorDate() {
+    const date = new Date(LIVE.updatedAt || Date.now());
+    return Number.isNaN(date.getTime()) ? new Date() : date;
+  }
+
+  function addMonths(date, months) {
+    const copy = new Date(date.getTime());
+    const day = copy.getDate();
+    copy.setMonth(copy.getMonth() + months);
+    if (copy.getDate() < day) copy.setDate(0);
+    return copy;
+  }
+
+  function projectionWindowData() {
+    const anchor = projectionAnchorDate();
+    const start = addMonths(anchor, PROJECTION_START_MONTHS);
+    const years = Array.from({ length: PROJECTION_YEAR_COUNT }, (_, index) => String(start.getFullYear() + index));
+    const end = addMonths(start, PROJECTION_YEAR_COUNT * 12 - 1);
+    return {
+      anchor,
+      start,
+      end,
+      years,
+      rangeLabel: `${start.getFullYear()}~${end.getFullYear()}`,
+      detail: `${start.getFullYear()}.${start.getMonth() + 1} 시작 · ${PROJECTION_YEAR_COUNT}년`,
+    };
+  }
+
+  function textHasAny(text, terms = []) {
+    const hay = String(text || "").toLowerCase();
+    return terms.some((term) => hay.includes(String(term || "").toLowerCase()));
+  }
+
+  function projectionPriceRows(segment) {
+    const terms = (segment.priceTerms || segment.keywords || []).map((term) => String(term).toLowerCase());
+    return allPriceRows().filter((row) => {
+      const hay = `${row.group || ""} ${row.sectionTitle || ""} ${row.item || ""}`.toLowerCase();
+      return terms.some((term) => hay.includes(term));
+    });
+  }
+
+  function projectionPriceMomentum(segment) {
+    const values = projectionPriceRows(segment)
+      .map((row) => Number(row.changePct))
+      .filter((value) => Number.isFinite(value));
+    if (!values.length) return 0;
+    return values.reduce((sum, value) => sum + value, 0) / values.length;
+  }
+
+  function projectionNewsLinks(segment, limit = 4) {
+    const terms = (segment.keywords || []).map((term) => String(term).toLowerCase()).filter(Boolean);
+    const seen = new Set();
+    return rawNews().filter((news) => {
+      const hay = `${news.title || ""} ${news.titleKo || ""} ${news.summary || ""} ${news.source || ""}`.toLowerCase();
+      return terms.some((term) => hay.includes(term));
+    }).filter((news) => {
+      const key = `${news.title || ""} ${news.source || ""}`.toLowerCase().replace(/\s+/g, " ").trim();
+      if (!key || seen.has(key)) return false;
+      seen.add(key);
+      return true;
+    }).slice(0, limit);
+  }
+
+  function projectionSignalCount(segment) {
+    const terms = (segment.keywords || []).map((term) => String(term).toLowerCase()).filter(Boolean);
+    const newsCount = projectionNewsLinks(segment, 999).length;
+    const categoryCount = (segment.linkedCategories || []).reduce((sum, id) => {
+      const category = liveNewsCategory(id);
+      return sum + (Number(category?.count ?? category?.items?.length ?? 0) || 0);
+    }, 0);
+    const benchmarkCount = (LIVE.benchmarkSignals?.themes || []).reduce((sum, theme) => {
+      const hay = `${theme.id || ""} ${theme.label || ""}`.toLowerCase();
+      return sum + (terms.some((term) => hay.includes(term)) ? Number(theme.count ?? theme.items?.length ?? 0) || 0 : 0);
+    }, 0);
+    return newsCount + Math.round(categoryCount / 6) + benchmarkCount + projectionPriceRows(segment).length;
+  }
+
+  function projectionTotalSignals() {
+    return SKHYNIX_PRODUCT_PROJECTION.reduce((sum, segment) => sum + projectionSignalCount(segment), 0);
+  }
+
+  function productProjectionSegments() {
+    const chinaPressure = axisSignalCount(CHINA_DYNAMIC_AXES.find((axis) => axis.id === "capacity")) + axisSignalCount(CHINA_DYNAMIC_AXES.find((axis) => axis.id === "policy"));
+    return SKHYNIX_PRODUCT_PROJECTION.map((segment) => {
+      const signals = projectionSignalCount(segment);
+      const priceMomentum = projectionPriceMomentum(segment);
+      const chinaPenalty = segment.id === "legacy" || segment.id === "mobile-pc" ? Math.min(chinaPressure, 100) * .06 : 0;
+      const storageChinaWatch = segment.id === "dc-storage" ? Math.min(axisSignalCount(CHINA_DYNAMIC_AXES.find((axis) => axis.id === "equipment")), 60) * .05 : 0;
+      const score = clamp(segment.baseScore + Math.min(signals, 160) * .08 + priceMomentum * 2 - chinaPenalty + storageChinaWatch);
+      return {
+        ...segment,
+        signals,
+        priceRows: projectionPriceRows(segment).length,
+        priceMomentum,
+        score,
+        links: projectionNewsLinks(segment, 4),
+      };
+    });
+  }
+
+  function projectionSeries(segments = productProjectionSegments()) {
+    const horizon = projectionWindowData();
+    return horizon.years.map((year, index) => {
+      const ratio = horizon.years.length <= 1 ? 0 : index / (horizon.years.length - 1);
+      const raw = segments.map((segment) => {
+        const base = segment.startShare + (segment.endShare - segment.startShare) * ratio;
+        const liveBoost = (segment.score - 75) * segment.sensitivity * .09 * ratio;
+        const priceBoost = segment.priceMomentum * .18 * ratio;
+        return {
+          segment,
+          raw: Math.max(1, base + liveBoost + priceBoost),
+        };
+      });
+      const total = raw.reduce((sum, item) => sum + item.raw, 0) || 1;
+      return {
+        year,
+        index,
+        items: raw.map((item) => ({
+          segment: item.segment,
+          share: item.raw / total * 100,
+        })),
+      };
+    });
+  }
+
+  function projectionShare(series, segmentId, point = -1) {
+    const row = series.at(point) || series[series.length - 1];
+    const found = row?.items?.find((item) => item.segment.id === segmentId);
+    return found ? found.share : 0;
+  }
+
+  function projectionGroupShare(series, ids = [], point = -1) {
+    return ids.reduce((sum, id) => sum + projectionShare(series, id, point), 0);
+  }
+
+  function projectionSegmentPayload(segment, series) {
+    const start = projectionShare(series, segment.id, 0);
+    const end = projectionShare(series, segment.id, -1);
+    return {
+      type: "제품군 프로젝션",
+      tag: segment.demand,
+      title: segment.title,
+      body: `${segment.thesis} ${segment.risk}`,
+      section: "projection",
+      categories: segment.linkedCategories || [],
+      watch: (segment.triggers || []).concat(segment.actions || []),
+      tags: segment.products || [],
+      links: segment.links || [],
+      metrics: [
+        { label: "T+30M", value: `${fmtNum(start, 1)}%` },
+        { label: "5Y", value: `${fmtNum(end, 1)}%` },
+        { label: "Signal", value: fmtNum(segment.signals) },
+        { label: "Score", value: fmtNum(segment.score) },
+      ],
+    };
+  }
+
+  function projectionDriverCards(segments, series) {
+    const serverScore = (segments.find((item) => item.id === "ai-server")?.score || 0) * .58 + (segments.find((item) => item.id === "dc-storage")?.score || 0) * .42;
+    const terminalScore = (segments.find((item) => item.id === "mobile-pc")?.score || 0) * .72 + (segments.find((item) => item.id === "auto-edge")?.score || 0) * .28;
+    const chinaSignals = axisSignalCount(CHINA_DYNAMIC_AXES.find((axis) => axis.id === "capacity")) + axisSignalCount(CHINA_DYNAMIC_AXES.find((axis) => axis.id === "equipment")) + rawNews().filter(isChinaArticle).length;
+    const nandMomentum = projectionPriceMomentum(segments.find((item) => item.id === "dc-storage") || {});
+    return [
+      {
+        label: "서버향 프리미엄",
+        value: projectionGroupShare(series, ["ai-server", "dc-storage"]),
+        suffix: "%",
+        score: clamp(serverScore),
+        note: "HBM·서버 DRAM·eSSD가 전사 믹스를 끌어올리는 축",
+      },
+      {
+        label: "단말향 방어",
+        value: projectionGroupShare(series, ["mobile-pc", "auto-edge"]),
+        suffix: "%",
+        score: clamp(terminalScore),
+        note: "LPDDR·UFS·client SSD는 가격 방어와 고부가 선별이 핵심",
+      },
+      {
+        label: "중국 가격 압력",
+        value: chinaSignals,
+        suffix: "건",
+        score: clamp(chinaSignals * 1.15, 20, 100),
+        note: "CXMT·YMTC 캐파, 장비 국산화, 정책자본 신호를 반영",
+      },
+      {
+        label: "NAND/eSSD 모멘텀",
+        value: nandMomentum,
+        suffix: "%",
+        decimals: 2,
+        score: clamp(58 + nandMomentum * 8 + (segments.find((item) => item.id === "dc-storage")?.signals || 0) * .22),
+        note: "TrendForce NAND/SSD 가격 rows와 eSSD 기사 신호 기반",
+      },
+    ];
+  }
+
+  function renderProductProjection() {
+    const summary = $("#projectionSummary");
+    const stack = $("#projectionStack");
+    const tabs = $("#projectionTabs");
+    const focus = $("#projectionFocus");
+    const drivers = $("#projectionDrivers");
+    const meta = $("#projectionMeta");
+    const windowNode = $("#projectionWindow");
+    if (!summary || !stack || !tabs || !focus || !drivers) return;
+
+    const horizon = projectionWindowData();
+    const segments = productProjectionSegments();
+    const series = projectionSeries(segments);
+    if (!segments.some((item) => item.id === projectionFocusId)) projectionFocusId = segments[0]?.id || "ai-server";
+    const selected = segments.find((item) => item.id === projectionFocusId) || segments[0];
+    const serverShare = projectionGroupShare(series, ["ai-server", "dc-storage"]);
+    const terminalShare = projectionGroupShare(series, ["mobile-pc", "auto-edge"]);
+    const totalSignals = segments.reduce((sum, segment) => sum + segment.signals, 0);
+
+    if (meta) meta.textContent = `${horizon.detail} · ${fmtNum(totalSignals)}개 신호 · ${fmtDate(LIVE.updatedAt)}`;
+    if (windowNode) windowNode.textContent = `${horizon.rangeLabel} · 현재 수집일 +${PROJECTION_START_MONTHS}개월부터`;
+
+    const summaryCards = [
+      { label: "전망 구간", value: horizon.rangeLabel, note: horizon.detail },
+      { label: "서버향 믹스", value: serverShare, note: "AI 서버 + 데이터센터 스토리지", suffix: "%", decimals: 1 },
+      { label: "단말향 믹스", value: terminalShare, note: "모바일/PC + 오토/엣지", suffix: "%", decimals: 1 },
+      { label: "크롤링 신호", value: totalSignals, note: "뉴스·가격·벤치마킹 반영", suffix: "건" },
+    ];
+    summary.innerHTML = summaryCards.map((card) => `
+      <article class="projection-stat reveal">
+        <span>${escapeHTML(card.label)}</span>
+        <strong>${typeof card.value === "number" ? countHTML(card.value, { suffix: card.suffix || "", decimals: card.decimals || 0 }) : escapeHTML(card.value)}</strong>
+        <small>${escapeHTML(card.note)}</small>
+      </article>
+    `).join("");
+
+    stack.innerHTML = series.map((row, rowIndex) => `
+      <article class="projection-year reveal" style="animation-delay:${rowIndex * 30}ms">
+        <div class="projection-year-head">
+          <strong>${escapeHTML(row.year)}</strong>
+          <span>${rowIndex === 0 ? "T+30M" : `Y+${rowIndex}`}</span>
+        </div>
+        <div class="projection-bar" aria-label="${escapeHTML(row.year)} 제품군 믹스">
+          ${row.items.map((item) => `
+            <button class="projection-bar-seg${item.segment.id === selected?.id ? " active" : ""}" type="button" data-projection-seg="${escapeHTML(item.segment.id)}" style="--w:${item.share.toFixed(2)}%;--local-accent:${categoryAccent((item.segment.linkedCategories || [])[0])}" title="${escapeHTML(item.segment.label)} ${fmtNum(item.share, 1)}%">
+              <span>${escapeHTML(item.segment.short)}</span>
+            </button>
+          `).join("")}
+        </div>
+        <div class="projection-year-list">
+          ${row.items.map((item) => `
+            <button type="button" data-projection-seg="${escapeHTML(item.segment.id)}">
+              <span style="--local-accent:${categoryAccent((item.segment.linkedCategories || [])[0])}"></span>
+              <em>${escapeHTML(item.segment.short)}</em>
+              <strong>${fmtNum(item.share, 1)}%</strong>
+            </button>
+          `).join("")}
+        </div>
+      </article>
+    `).join("");
+
+    tabs.innerHTML = segments.map((segment, index) => {
+      const endShare = projectionShare(series, segment.id, -1);
+      return `
+        <button class="projection-tab reveal${segment.id === selected?.id ? " active" : ""}" type="button" data-projection-tab="${escapeHTML(segment.id)}" style="--local-accent:${categoryAccent((segment.linkedCategories || [])[0])}; animation-delay:${index * 25}ms">
+          ${scoreRingHTML(segment.score, "Score")}
+          <span>
+            <small>${escapeHTML(segment.demand)}</small>
+            <strong>${escapeHTML(segment.label)}</strong>
+            <em>5Y ${fmtNum(endShare, 1)}% · ${fmtNum(segment.signals)} signals</em>
+          </span>
+        </button>
+      `;
+    }).join("");
+
+    if (selected) {
+      const payload = projectionSegmentPayload(selected, series);
+      const startShare = projectionShare(series, selected.id, 0);
+      const endShare = projectionShare(series, selected.id, -1);
+      focus.style.setProperty("--local-accent", categoryAccent((selected.linkedCategories || [])[0]));
+      focus.innerHTML = `
+        <div class="projection-focus-head">
+          <span class="chip accent">${escapeHTML(selected.label)}</span>
+          <h3>${escapeHTML(selected.title)}</h3>
+          <p>${escapeHTML(selected.thesis)}</p>
+        </div>
+        <div class="metric-row">
+          <div class="metric"><strong>${fmtNum(startShare, 1)}%</strong><span>T+30개월</span></div>
+          <div class="metric"><strong>${fmtNum(endShare, 1)}%</strong><span>5년차</span></div>
+          <div class="metric"><strong>${fmtNum(selected.signals)}</strong><span>크롤링 신호</span></div>
+        </div>
+        <div class="projection-focus-block">
+          <strong>제품군</strong>
+          <div class="tag-row">${(selected.products || []).map((product) => `<span class="tag">${escapeHTML(product)}</span>`).join("")}</div>
+        </div>
+        <div class="projection-focus-block">
+          <strong>전망 가정</strong>
+          <ul class="watch-list">${(selected.assumptions || []).map((line) => `<li>${escapeHTML(line)}</li>`).join("")}</ul>
+        </div>
+        <div class="projection-focus-block">
+          <strong>매일 확인할 트리거</strong>
+          <ul class="watch-list">${(selected.triggers || []).map((line) => `<li>${escapeHTML(line)}</li>`).join("")}</ul>
+        </div>
+        <div class="insight-box"><span>리스크</span>${escapeHTML(selected.risk)}</div>
+        ${selected.links?.length ? `
+          <div class="projection-focus-block">
+            <strong>관련 최신 기사</strong>
+            <ul class="work-link-list">${selected.links.map((link) => `<li><a href="${escapeHTML(link.link || "#")}" target="_blank" rel="noopener">${escapeHTML(newsTitle(link) || link.title || "Signal")}</a></li>`).join("")}</ul>
+          </div>
+        ` : ""}
+        <div class="focus-actions">
+          <button type="button" data-projection-copy>복사</button>
+          <button type="button" data-projection-inspector>상세 패널</button>
+          <button type="button" data-projection-news>기사 보기</button>
+        </div>
+      `;
+      focus.querySelector("[data-projection-copy]")?.addEventListener("click", (event) => copyPayload(payload, event.currentTarget));
+      focus.querySelector("[data-projection-inspector]")?.addEventListener("click", () => openInspector(payload));
+      focus.querySelector("[data-projection-news]")?.addEventListener("click", () => jumpTo("news"));
+    }
+
+    drivers.innerHTML = projectionDriverCards(segments, series).map((driver, index) => `
+      <article class="projection-driver reveal" style="animation-delay:${index * 25}ms">
+        <div>
+          <span>${escapeHTML(driver.label)}</span>
+          <strong>${countHTML(driver.value, { suffix: driver.suffix || "", decimals: driver.decimals || 0 })}</strong>
+          <small>${escapeHTML(driver.note)}</small>
+        </div>
+        ${scoreRingHTML(driver.score, "Gauge")}
+      </article>
+    `).join("");
+
+    $$("#projectionStack [data-projection-seg], #projectionTabs [data-projection-tab]").forEach((btn) => {
+      const id = btn.dataset.projectionSeg || btn.dataset.projectionTab;
+      btn.addEventListener("click", () => {
+        projectionFocusId = id;
+        renderProductProjection();
+      });
+      btn.addEventListener("mouseenter", () => {
+        if (projectionFocusId === id) return;
+        projectionFocusId = id;
+        renderProductProjection();
+      });
+    });
+    animateCounts(summary);
+    animateCounts(stack);
+    animateCounts(tabs);
+    animateCounts(drivers);
+    animateMeters(tabs);
+    animateMeters(drivers);
+  }
+
   function renderChinaDynamics() {
     const overview = $("#chinaDynamicsOverview");
     const grid = $("#chinaDynamicsGrid");
@@ -3380,6 +3916,33 @@
           ],
           tags: (item.targets || []).map((target) => target.name),
         })));
+    }
+
+    if (mode === "projection") {
+      const segments = productProjectionSegments();
+      const series = projectionSeries(segments);
+      items = segments.map((segment) => {
+        const startShare = projectionShare(series, segment.id, 0);
+        const endShare = projectionShare(series, segment.id, -1);
+        return {
+          id: `projection-${segment.id}`,
+          mode,
+          type: "제품군 프로젝션",
+          tag: segment.label,
+          title: segment.title,
+          body: `${segment.thesis} ${segment.risk}`,
+          section: "projection",
+          categories: segment.linkedCategories || [],
+          watch: (segment.triggers || []).concat(segment.actions || []),
+          metrics: [
+            { label: "T+30M", value: `${fmtNum(startShare, 1)}%` },
+            { label: "5Y", value: `${fmtNum(endShare, 1)}%` },
+            { label: "Signal", value: fmtNum(segment.signals) },
+          ],
+          tags: segment.products || [],
+          links: segment.links || [],
+        };
+      });
     }
 
     if (mode === "competition") {
@@ -4307,7 +4870,7 @@
   }
 
   function setupScrollSpy() {
-    const sections = ["overview", "daily-review", "crawler", "prices", "news", "china-nand", "china-dynamics", "talent-radar", "numbers", "workbench", "ai-matrix", "china-deep-dive", "categories", "competitors", "dynamics", "monetization", "response", "intelligence"];
+    const sections = ["overview", "daily-review", "crawler", "prices", "news", "china-nand", "china-dynamics", "talent-radar", "numbers", "projection", "workbench", "ai-matrix", "china-deep-dive", "categories", "competitors", "dynamics", "monetization", "response", "intelligence"];
     const update = () => {
       const y = window.scrollY + chromeOffset() + 22;
       let active = "overview";
