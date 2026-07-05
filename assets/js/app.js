@@ -20,6 +20,11 @@
     newsStats: {},
     health: [],
   };
+  const emptyHistory = {
+    updatedAt: null,
+    timezone: "Asia/Seoul",
+    items: {},
+  };
 
   const KOREAN_SOURCE_RE =
     /(yonhap|korea ?herald|korea ?times|koreatimes|koreaherald|chosun|joongang|joong ?ang|donga|dong-?a|hankyung|hankyoreh|ked ?global|kedglobal|maeil|maekyung|pulse ?news|business ?korea|businesskorea|et ?news|etnews|the ?elec|thelec|zdnet ?korea|sedaily|seoul ?economic|aju ?(business|news|press)|korea ?economic|korea ?joongang|korea ?biz ?wire|koreabizwire|inews24|edaily|mt\.co\.kr|mk\.co\.kr|dt\.co\.kr|\.kr\b|korea ?pro|the ?korea|naver|daum|fnnews|newspim|moneytoday|heraldcorp)/i;
@@ -78,6 +83,7 @@
   ];
   const NAV_ACCENTS = {
     overview: "#FFFFFF",
+    "executive-decision": "#FDE68A",
     "daily-review": "#A7F3D0",
     numbers: "#FDE68A",
     projection: "#FBBF24",
@@ -425,6 +431,99 @@
       risk: "가격 방어가 실패하면 서버향 성장에도 전사 믹스 개선 속도가 둔화될 수 있습니다.",
     },
   ];
+  const EXEC_DECISION_PRODUCTS = [
+    {
+      id: "hbm-ai-server",
+      label: "HBM·AI 서버",
+      demand: "서버향",
+      category: "hbm",
+      products: ["HBM3E/HBM4", "Custom HBM", "서버 DDR5", "CXL Memory"],
+      priceTerms: ["ddr5", "gddr", "module", "dram contract", "dram spot"],
+      chinaTerms: ["cxmt", "hbm", "ddr5", "ai server", "rubin"],
+      decisionBias: "growth",
+      rationale: "AI 서버향은 HBM 직접 가격표가 없으므로 DDR5/GDDR/모듈 가격을 프리미엄 메모리 proxy로 사용합니다.",
+      upside: "가격 모멘텀이 양수이고 중국 HBM 실질 양산 신호가 약하면 증설·고객 락인이 우선입니다.",
+      downside: "HBM4 인증 지연이나 서버 DRAM 가격 약세가 확인되면 고객별 할당과 수율 리스크를 보수적으로 봅니다.",
+    },
+    {
+      id: "server-dram",
+      label: "서버 DRAM",
+      demand: "서버향",
+      category: "dram",
+      products: ["DDR5 RDIMM", "MRDIMM", "고용량 서버 DIMM"],
+      priceTerms: ["ddr5", "so-dimm", "dram contract", "dram spot"],
+      chinaTerms: ["cxmt", "ddr5", "server dram", "dram capacity"],
+      decisionBias: "growth",
+      rationale: "TrendForce DRAM spot/contract와 DDR5 품목을 사용해 서버 DRAM 가격 방향을 검증합니다.",
+      upside: "DDR5 가격 상승이 이어지면 서버향 캐파 우선 배분과 장기계약 확대가 유효합니다.",
+      downside: "DDR5 spot 약세 또는 CXMT DDR5 캐파 확대 신호가 강하면 보수적 재고/가격 방어가 필요합니다.",
+    },
+    {
+      id: "enterprise-ssd",
+      label: "eSSD·Solidigm",
+      demand: "서버향 스토리지",
+      category: "nand",
+      products: ["Enterprise SSD", "QLC NAND", "Solidigm", "PCIe Gen5/Gen6 SSD"],
+      priceTerms: ["nand flash contract", "pc-client oem ssd", "ssd", "tlc", "qlc"],
+      chinaTerms: ["ymtc", "essd", "xtacking", "server ssd", "wuhan"],
+      decisionBias: "balanced",
+      rationale: "eSSD 전용 공개 가격이 제한적이므로 NAND contract와 SSD/OEM SSD 품목을 실제 proxy로 사용합니다.",
+      upside: "NAND 계약가와 SSD 가격이 동반 상승하면 eSSD 믹스 확대와 Solidigm value-up이 우선입니다.",
+      downside: "YMTC eSSD 고객 인증 또는 NAND wafer 약세가 나오면 중국 가격 침투 리스크를 높게 봅니다.",
+    },
+    {
+      id: "mobile-pc-terminal",
+      label: "모바일·PC 단말",
+      demand: "단말향",
+      category: "dram",
+      products: ["LPDDR5X/LPDDR6", "UFS", "Client SSD", "모바일 NAND"],
+      priceTerms: ["lpddr", "so-dimm", "module", "client", "ufs", "memory card", "microsd", "pc-client"],
+      chinaTerms: ["cxmt", "ymtc", "lpddr", "ufs", "client ssd"],
+      decisionBias: "defense",
+      rationale: "LPDDR/UFS 공개 가격이 제한되어 module, SO-DIMM, PC-client SSD, memory card 가격을 단말 proxy로 사용합니다.",
+      upside: "단말 proxy 가격이 개선되면 고부가 LPDDR/UFS SKU 중심으로 선별 확대합니다.",
+      downside: "중국 범용 제품 공급과 client SSD 약세가 보이면 저수익 SKU 축소와 원가 방어가 우선입니다.",
+    },
+    {
+      id: "auto-edge",
+      label: "오토·엣지",
+      demand: "오토·엣지",
+      category: "aidemand",
+      products: ["Automotive DRAM", "Industrial NAND", "Embedded SSD", "Edge AI Memory"],
+      priceTerms: ["dram", "nand", "ssd", "embedded", "industrial"],
+      chinaTerms: ["edge ai", "automotive memory", "industrial nand", "china"],
+      decisionBias: "balanced",
+      rationale: "차량/산업용 전용 공개 가격이 없으므로 DRAM/NAND/SSD 전체 가격 방향과 뉴스 신호를 보조 지표로 사용합니다.",
+      upside: "가격 안정과 인증 뉴스가 같이 나오면 장기공급계약 중심의 옵션 확대가 적합합니다.",
+      downside: "범용 가격 약세가 심하면 오토·엣지는 수익성 방어용으로만 제한 배분합니다.",
+    },
+    {
+      id: "legacy-commodity",
+      label: "레거시·범용",
+      demand: "범용 방어",
+      category: "dram",
+      products: ["DDR4", "DDR3", "Commodity DRAM", "Retail SSD", "Wafer NAND"],
+      priceTerms: ["ddr4", "ddr3", "ett", "wafer", "mlc", "retail", "street"],
+      chinaTerms: ["cxmt", "ymtc", "legacy", "commodity", "oversupply"],
+      decisionBias: "defense",
+      rationale: "중국 물량 공세가 가장 먼저 반영되는 DDR4/eTT/wafer/SSD street 가격을 실제 방어 지표로 사용합니다.",
+      upside: "레거시 가격이 상승해도 구조적 성장으로 보지 않고 현금흐름 회수와 재고 정상화에 초점을 둡니다.",
+      downside: "가격 하락이 확인되면 생산/재고/저수익 SKU를 빠르게 줄이는 의사결정이 필요합니다.",
+    },
+    {
+      id: "china-exposure",
+      label: "중국 노출·가격 압력",
+      demand: "중국 포함",
+      category: "china",
+      products: ["CXMT DRAM 압력", "YMTC NAND/eSSD", "중국 장비 국산화", "레거시 가격"],
+      priceTerms: ["ddr4", "ddr5", "ett", "nand", "wafer", "ssd", "mlc", "tlc"],
+      chinaTerms: ["cxmt", "ymtc", "naura", "amec", "xmc", "jcet", "china capacity", "big fund"],
+      decisionBias: "risk",
+      rationale: "중국 업체별 실적/캐파의 과거 가격 직접 데이터는 없으므로 중국 영향이 큰 DDR4/eTT/NAND/SSD 가격을 실제 proxy로 사용합니다.",
+      upside: "중국 관련 가격 proxy가 상승해도 의사결정은 확대보다 경쟁 압력 완화 여부 확인에 둡니다.",
+      downside: "중국 proxy 가격이 하락하면 가격 하방, 고객 침투, 수출통제 반작용을 즉시 경영진 안건으로 올립니다.",
+    },
+  ];
   const CHINA_DEEP_DIVE = [
     {
       id: "dram-euv-duv",
@@ -525,6 +624,12 @@
       section: "daily-review",
     },
     {
+      id: "executive",
+      label: "경영진 의사결정",
+      sub: "Decision · Backtest",
+      section: "executive-decision",
+    },
+    {
       id: "crawler",
       label: "크롤링 관제",
       sub: "Source · Health · Map",
@@ -591,7 +696,7 @@
       label: "매일 업데이트",
       desc: "크롤링 성공 여부와 오늘 바뀐 가격·뉴스·중국 신호",
       cadence: "Daily crawler",
-      sections: ["daily-review", "crawler", "prices", "news", "china-nand", "china-dynamics", "talent-radar"],
+      sections: ["executive-decision", "daily-review", "crawler", "prices", "news", "china-nand", "china-dynamics", "talent-radar"],
     },
     {
       id: "quant",
@@ -627,6 +732,7 @@
     { id: "pipeline", label: "수집상태", sub: "Freshness · Health", categories: ["operations"], keywords: ["freshness", "health", "crawler", "rows", "뉴스", "수집", "pipeline"] },
   ];
   const SECTION_LABELS = {
+    "executive-decision": "경영진 의사결정",
     "daily-review": "일일 리뷰 큐",
     numbers: "숫자 대시보드",
     projection: "제품군 프로젝션",
@@ -657,6 +763,18 @@
       section: "prices",
       linkedCategories: ["dram", "nand"],
       healthKeys: ["가격:", "가격히스토리"],
+    },
+    {
+      id: "executive-backtest",
+      label: "경영진 의사결정 백테스트",
+      source: "price-history.json 실제 가격 포인트 · live.json 중국 뉴스/벤치마킹 신호",
+      method: "선택한 과거 수집일 기준으로 당시까지의 가격 모멘텀을 계산하고, 이후 최신 수집가까지 실제 변화율로 의사결정 적중 여부 검증",
+      fields: ["과거 수집일", "제품군", "당시 판단", "이후 실제 변화율", "관측 품목 수", "데이터 충분성"],
+      filters: ["HBM proxy", "서버 DRAM", "eSSD/NAND", "단말 proxy", "레거시", "중국 가격 압력"],
+      output: "경영진 의사결정 · 백테스트",
+      section: "executive-decision",
+      linkedCategories: ["hbm", "dram", "nand", "aidemand", "china", "geopolitics"],
+      healthKeys: ["가격:", "가격히스토리", "뉴스:China", "벤치마킹:China"],
     },
     {
       id: "ai-architecture-signal",
@@ -818,6 +936,7 @@
 
   let BASE = null;
   let LIVE = emptyLive;
+  let HISTORY = emptyHistory;
   let activeCategory = "all";
   let priceFilter = "all";
   let newsCategory = "all";
@@ -833,6 +952,8 @@
   let modelFocusId = null;
   let chinaNandFocusId = "ymtc";
   let projectionFocusId = "ai-server";
+  let execDecisionFocusId = "hbm-ai-server";
+  let selectedBacktestDate = "";
   let responsePriority = "all";
   let paletteIndex = 0;
   let typeTimer = null;
@@ -852,9 +973,10 @@
   }
 
   async function init() {
-    [BASE, LIVE] = await Promise.all([
+    [BASE, LIVE, HISTORY] = await Promise.all([
       loadJSON("data/baseline.json", null),
       loadJSON("data/live.json", emptyLive),
+      loadJSON("data/price-history.json", emptyHistory),
     ]);
 
     if (!BASE) {
@@ -865,6 +987,7 @@
     renderChrome();
     renderSidebarCategories();
     renderKpis();
+    renderExecutiveDecision();
     renderDailyReview();
     renderNumberDashboard();
     renderProductProjection();
@@ -1213,6 +1336,7 @@
     $("#categoryMeta").textContent = `${cat.label} · ${cat.desc}`;
     $$(".sb-cat").forEach((btn) => btn.classList.toggle("active", btn.dataset.category === id));
     renderDailyReview();
+    renderExecutiveDecision();
     renderNumberDashboard();
     renderProductProjection();
     renderCategories();
@@ -2091,8 +2215,18 @@
     });
     const talentData = talentRadarData();
     const architecture = architectureMatrix();
+    const backtests = executiveBacktests();
+    const testedBacktests = backtests.filter((item) => item.outcome.hit !== null);
+    const hitBacktests = backtests.filter((item) => item.outcome.hit === true);
 
     const map = {
+      "executive-decision": {
+        value: testedBacktests.length,
+        unit: `/${backtests.length}`,
+        status: "Backtest",
+        score: testedBacktests.length ? clamp((hitBacktests.length / testedBacktests.length) * 100, 18, 100) : 18,
+        note: "제품군별 실제 가격 백테스트",
+      },
       "daily-review": {
         value: dailyReviewItems().length,
         unit: "개",
@@ -2547,6 +2681,7 @@
   function pipelineSignalCount(item) {
     const health = pipelineHealth(item);
     if (item.id === "trendforce-price") return allPriceRows().length;
+    if (item.id === "executive-backtest") return historyItems().length;
     if (item.id === "ai-architecture-signal") {
       const newsCount = rawNews().filter((news) => {
         const hay = `${news.title || ""} ${news.titleKo || ""} ${news.summary || ""} ${news.category || ""}`.toLowerCase();
@@ -3109,6 +3244,380 @@
     animateCounts(summary);
     animateCounts(map);
     animateMeters(map);
+  }
+
+  function historyItems() {
+    const items = Object.values(HISTORY?.items || {}).filter((item) => Array.isArray(item.points) && item.points.length);
+    if (items.length) return items;
+    return allPriceRows().filter((row) => Array.isArray(row.history) && row.history.length).map((row) => ({
+      key: row.historyKey || `${row.sectionTitle || ""}::${row.item || ""}`,
+      item: row.item,
+      sectionTitle: row.sectionTitle,
+      group: row.group,
+      sourceUrl: row.sourceUrl,
+      points: row.history,
+    }));
+  }
+
+  function pointTime(point) {
+    const value = point?.crawledAt || point?.sourceUpdate || point?.date || "";
+    const parsed = new Date(value);
+    return Number.isNaN(parsed.getTime()) ? 0 : parsed.getTime();
+  }
+
+  function pointDateLabel(value) {
+    if (!value) return "데이터 없음";
+    const date = new Date(value);
+    if (Number.isNaN(date.getTime())) return String(value);
+    return date.toLocaleString("ko-KR", {
+      timeZone: "Asia/Seoul",
+      month: "numeric",
+      day: "numeric",
+      hour: "2-digit",
+      minute: "2-digit",
+    });
+  }
+
+  function backtestDateOptions() {
+    const times = new Map();
+    historyItems().forEach((series) => {
+      (series.points || []).forEach((point) => {
+        const t = pointTime(point);
+        if (t) times.set(new Date(t).toISOString(), pointDateLabel(t));
+      });
+    });
+    return Array.from(times.entries())
+      .sort((a, b) => new Date(a[0]) - new Date(b[0]))
+      .map(([value, label]) => ({ value, label }));
+  }
+
+  function ensureBacktestDate() {
+    const options = backtestDateOptions();
+    if (!options.length) {
+      selectedBacktestDate = "";
+      return null;
+    }
+    if (!options.some((item) => item.value === selectedBacktestDate)) {
+      selectedBacktestDate = options[Math.max(0, options.length - 2)]?.value || options[0].value;
+    }
+    return selectedBacktestDate;
+  }
+
+  function historyMatchesProduct(series, product) {
+    const hay = `${series.key || ""} ${series.item || ""} ${series.sectionTitle || ""} ${series.group || ""}`.toLowerCase();
+    return (product.priceTerms || []).some((term) => hay.includes(String(term).toLowerCase()));
+  }
+
+  function productHistorySeries(product) {
+    return historyItems().filter((series) => historyMatchesProduct(series, product));
+  }
+
+  function sortedPoints(series) {
+    return (series.points || [])
+      .filter((point) => Number.isFinite(Number(point.average)))
+      .map((point) => ({ ...point, _time: pointTime(point) }))
+      .filter((point) => point._time)
+      .sort((a, b) => a._time - b._time);
+  }
+
+  function backtestObservation(series, selectedTime) {
+    const points = sortedPoints(series);
+    const startIndex = points.findLastIndex((point) => point._time <= selectedTime);
+    if (startIndex < 0) return null;
+    const start = points[startIndex];
+    const previous = startIndex > 0 ? points[startIndex - 1] : null;
+    const latest = points[points.length - 1];
+    if (!latest || latest._time <= start._time) return null;
+    const startAvg = Number(start.average);
+    const latestAvg = Number(latest.average);
+    const previousAvg = Number(previous?.average);
+    if (!Number.isFinite(startAvg) || !Number.isFinite(latestAvg) || !startAvg) return null;
+    const actualChange = (latestAvg / startAvg - 1) * 100;
+    const priorChange = Number.isFinite(previousAvg) && previousAvg ? (startAvg / previousAvg - 1) * 100 : null;
+    return {
+      key: series.key,
+      item: series.item || series.key,
+      sectionTitle: series.sectionTitle || "",
+      group: series.group || "",
+      sourceUrl: series.sourceUrl || "",
+      start,
+      previous,
+      latest,
+      startAvg,
+      latestAvg,
+      actualChange,
+      priorChange,
+      days: Math.max(0, (latest._time - start._time) / 864e5),
+    };
+  }
+
+  function average(values = []) {
+    const nums = values.filter((value) => Number.isFinite(Number(value))).map(Number);
+    if (!nums.length) return null;
+    return nums.reduce((sum, value) => sum + value, 0) / nums.length;
+  }
+
+  function decisionFromMomentum(product, priorMomentum, coverage, chinaSignalCount) {
+    if (coverage < 2 || priorMomentum == null) {
+      return {
+        label: "데이터 부족",
+        cls: "insufficient",
+        action: "추정 금지",
+        logic: "선택 시점 이전 가격 포인트가 부족해 당시 판단을 만들 수 없습니다.",
+      };
+    }
+    if (product.decisionBias === "risk") {
+      if (priorMomentum <= -0.35 || chinaSignalCount >= 40) {
+        return { label: "방어 강화", cls: "defend", action: "가격·고객 방어", logic: "중국 proxy 가격 약세 또는 중국 신호가 강해 가격 하방 리스크를 우선합니다." };
+      }
+      if (priorMomentum >= 0.5) return { label: "압력 완화 확인", cls: "hold", action: "확인 후 선별 대응", logic: "중국 proxy 가격은 양호하지만 확대보다 침투율과 고객 인증을 확인합니다." };
+      return { label: "관찰 유지", cls: "hold", action: "일일 감시", logic: "방향성이 약해 가격·뉴스·캐파 데이터를 더 쌓습니다." };
+    }
+    if (product.decisionBias === "defense") {
+      if (priorMomentum <= -0.45) return { label: "축소·방어", cls: "defend", action: "저수익 SKU 축소", logic: "단말/범용 proxy 가격이 약세라 원가와 재고 방어가 우선입니다." };
+      if (priorMomentum >= 0.65) return { label: "선별 확대", cls: "expand", action: "고부가 SKU 중심", logic: "방어형 제품군도 가격 모멘텀이 확인된 SKU는 선별 확대합니다." };
+      return { label: "유지", cls: "hold", action: "믹스 조정", logic: "가격 방향성이 중립이라 서버향 우선 배분을 유지합니다." };
+    }
+    if (priorMomentum >= 0.55) return { label: "확대", cls: "expand", action: "캐파·고객 락인", logic: "선택 시점까지 실제 가격 모멘텀이 양수라 성장 제품군 확대 판단입니다." };
+    if (priorMomentum <= -0.45) return { label: "보수", cls: "defend", action: "가격 방어", logic: "선택 시점까지 가격 약세가 확인되어 보수적 공급/가격 관리가 필요합니다." };
+    return { label: "유지", cls: "hold", action: "옵션 유지", logic: "방향성이 약해 장기 고객과 옵션 투자를 유지합니다." };
+  }
+
+  function outcomeFromDecision(decision, actualChange) {
+    if (decision.cls === "insufficient" || actualChange == null) return { label: "검증 불가", cls: "insufficient", hit: null };
+    if (decision.cls === "expand") {
+      return actualChange > 0 ? { label: "확대 적중", cls: "hit", hit: true } : { label: "확대 역행", cls: "miss", hit: false };
+    }
+    if (decision.cls === "defend") {
+      return actualChange < 0 ? { label: "방어 적중", cls: "hit", hit: true } : { label: "방어 기회비용", cls: "miss", hit: false };
+    }
+    return Math.abs(actualChange) <= 0.6 ? { label: "유지 적중", cls: "hit", hit: true } : { label: "유지 재검토", cls: "watch", hit: null };
+  }
+
+  function productBacktest(product, selectedIso = ensureBacktestDate()) {
+    const selectedTime = selectedIso ? new Date(selectedIso).getTime() : 0;
+    const matched = productHistorySeries(product);
+    const observations = matched.map((series) => backtestObservation(series, selectedTime)).filter(Boolean);
+    const priorMomentum = average(observations.map((item) => item.priorChange));
+    const actualChange = average(observations.map((item) => item.actualChange));
+    const avgDays = average(observations.map((item) => item.days)) || 0;
+    const chinaSignalCount = rawNews().filter((news) => {
+      const hay = `${news.title || ""} ${news.titleKo || ""} ${news.summary || ""} ${news.source || ""}`.toLowerCase();
+      return (product.chinaTerms || []).some((term) => hay.includes(String(term).toLowerCase()));
+    }).length + (product.id === "china-exposure" ? benchmarkSignalTotal() : 0);
+    const decision = decisionFromMomentum(product, priorMomentum, observations.length, chinaSignalCount);
+    const outcome = outcomeFromDecision(decision, actualChange);
+    const confidence = observations.length
+      ? clamp(30 + Math.min(observations.length, 12) * 5 + Math.min(avgDays, 20) * 1.2)
+      : 0;
+    return {
+      ...product,
+      observations,
+      matchedCount: matched.length,
+      priorMomentum,
+      actualChange,
+      avgDays,
+      chinaSignalCount,
+      decision,
+      outcome,
+      confidence,
+      latestAt: observations.reduce((latest, item) => Math.max(latest, item.latest._time || 0), 0),
+    };
+  }
+
+  function executiveBacktests() {
+    const selected = ensureBacktestDate();
+    return EXEC_DECISION_PRODUCTS.map((product) => productBacktest(product, selected));
+  }
+
+  function decisionClassLabel(item) {
+    if (!item.observations.length) return "데이터 부족";
+    return `${fmtNum(item.observations.length)}개 품목 · ${fmtNum(item.confidence)}점`;
+  }
+
+  function renderBacktestDateSelect() {
+    const select = $("#backtestDateSelect");
+    if (!select) return;
+    const options = backtestDateOptions();
+    ensureBacktestDate();
+    select.innerHTML = options.length ? options.map((option) => `
+      <option value="${escapeHTML(option.value)}"${option.value === selectedBacktestDate ? " selected" : ""}>${escapeHTML(option.label)}</option>
+    `).join("") : `<option value="">가격 히스토리 없음</option>`;
+    select.onchange = () => {
+      selectedBacktestDate = select.value;
+      renderExecutiveDecision();
+    };
+  }
+
+  function renderExecutiveDecision() {
+    const summary = $("#execDecisionSummary");
+    const grid = $("#execDecisionGrid");
+    const focus = $("#execDecisionFocus");
+    const evidence = $("#execDecisionEvidence");
+    const meta = $("#execDecisionMeta");
+    const coverage = $("#backtestCoverage");
+    if (!summary || !grid || !focus || !evidence) return;
+
+    renderBacktestDateSelect();
+    const selected = ensureBacktestDate();
+    const items = executiveBacktests();
+    if (!items.some((item) => item.id === execDecisionFocusId)) execDecisionFocusId = items[0]?.id || "hbm-ai-server";
+    const active = items.find((item) => item.id === execDecisionFocusId) || items[0];
+    const historyCount = historyItems().length;
+    const hitItems = items.filter((item) => item.outcome.hit === true).length;
+    const testedItems = items.filter((item) => item.outcome.hit !== null).length;
+    const latestAtRaw = items.length ? Math.max(...items.map((item) => item.latestAt || 0), 0) : 0;
+    const latestAt = Number.isFinite(latestAtRaw) ? latestAtRaw : 0;
+    const hitRate = testedItems ? hitItems / testedItems * 100 : null;
+    if (meta) meta.textContent = `${pointDateLabel(selected)} 선택 · ${fmtNum(historyCount)}개 가격 series · ${latestAt ? pointDateLabel(latestAt) : "최신 결과 없음"}까지 검증`;
+    if (coverage) coverage.textContent = `실제 가격 series ${fmtNum(historyCount)}개 · 추정 없는 backtest`;
+
+    const summaryCards = [
+      { label: "선택 과거 시점", value: pointDateLabel(selected), note: "당시까지 확인된 가격 포인트만 사용" },
+      { label: "최신 검증 시점", value: latestAt ? pointDateLabel(latestAt) : "없음", note: "선택일 이후 실제 수집 결과" },
+      { label: "검증 제품군", value: testedItems, note: `${fmtNum(items.length)}개 중 결과 판정 가능`, suffix: "개" },
+      { label: "적중률", value: hitRate == null ? "검증 불가" : hitRate, note: "확대/방어/유지 판단 기준", suffix: "%", decimals: 0 },
+      { label: "중국 신호", value: rawNews().filter(isChinaArticle).length + benchmarkSignalTotal(), note: "뉴스·벤치마킹 최신 신호", suffix: "건" },
+    ];
+    summary.innerHTML = summaryCards.map((card) => `
+      <article class="decision-stat reveal">
+        <span>${escapeHTML(card.label)}</span>
+        <strong>${typeof card.value === "number" ? countHTML(card.value, { suffix: card.suffix || "", decimals: card.decimals || 0 }) : escapeHTML(card.value)}</strong>
+        <small>${escapeHTML(card.note)}</small>
+      </article>
+    `).join("");
+
+    grid.innerHTML = items.map((item, index) => `
+      <button class="decision-card reveal${item.id === active?.id ? " active" : ""}" type="button" data-decision-product="${escapeHTML(item.id)}" style="--local-accent:${categoryAccent(item.category)}; animation-delay:${index * 25}ms">
+        <div class="decision-card-top">
+          ${scoreRingHTML(item.confidence, "Data")}
+          <span>
+            <small>${escapeHTML(item.demand)}</small>
+            <strong>${escapeHTML(item.label)}</strong>
+            <em>${escapeHTML(item.decision.label)} · ${escapeHTML(item.outcome.label)}</em>
+          </span>
+        </div>
+        <div class="decision-card-metrics">
+          <span>당시 ${item.priorMomentum == null ? "NA" : `${fmtNum(item.priorMomentum, 2)}%`}</span>
+          <span>이후 ${item.actualChange == null ? "NA" : `${fmtNum(item.actualChange, 2)}%`}</span>
+          <span>${escapeHTML(decisionClassLabel(item))}</span>
+        </div>
+      </button>
+    `).join("") || `<div class="empty">선택한 카테고리에 연결된 경영진 의사결정 항목이 없습니다.</div>`;
+
+    if (active) {
+      const payload = {
+        type: "경영진 의사결정 백테스트",
+        tag: active.demand,
+        title: active.label,
+        body: `${active.rationale} 선택 시점 판단: ${active.decision.label}. 이후 실제 변화: ${active.actualChange == null ? "데이터 부족" : `${fmtNum(active.actualChange, 2)}%`}.`,
+        section: "executive-decision",
+        categories: [active.category],
+        watch: [active.decision.logic, active.upside, active.downside],
+        tags: active.products || [],
+        metrics: [
+          { label: "당시 모멘텀", value: active.priorMomentum == null ? "NA" : `${fmtNum(active.priorMomentum, 2)}%` },
+          { label: "이후 실제 변화", value: active.actualChange == null ? "NA" : `${fmtNum(active.actualChange, 2)}%` },
+          { label: "관측 품목", value: fmtNum(active.observations.length) },
+          { label: "중국 신호", value: fmtNum(active.chinaSignalCount) },
+        ],
+      };
+      focus.style.setProperty("--local-accent", categoryAccent(active.category));
+      focus.innerHTML = `
+        <div class="decision-focus-head">
+          <span class="chip accent">${escapeHTML(active.demand)}</span>
+          <h3>${escapeHTML(active.label)}</h3>
+          <p>${escapeHTML(active.rationale)}</p>
+        </div>
+        <div class="decision-verdict ${escapeHTML(active.decision.cls)}">
+          <strong>${escapeHTML(active.decision.label)}</strong>
+          <span>${escapeHTML(active.decision.action)}</span>
+          <small>${escapeHTML(active.decision.logic)}</small>
+        </div>
+        <div class="metric-row">
+          <div class="metric"><strong>${active.priorMomentum == null ? "NA" : `${fmtNum(active.priorMomentum, 2)}%`}</strong><span>선택 시점 직전</span></div>
+          <div class="metric"><strong>${active.actualChange == null ? "NA" : `${fmtNum(active.actualChange, 2)}%`}</strong><span>이후 실제</span></div>
+          <div class="metric"><strong>${fmtNum(active.observations.length)}</strong><span>관측 품목</span></div>
+        </div>
+        <div class="decision-outcome ${escapeHTML(active.outcome.cls)}">
+          <strong>${escapeHTML(active.outcome.label)}</strong>
+          <span>선택일 ${escapeHTML(pointDateLabel(selected))} → 최신 ${escapeHTML(active.latestAt ? pointDateLabel(active.latestAt) : "없음")}</span>
+        </div>
+        <div class="decision-focus-block">
+          <strong>SK하이닉스 제품군</strong>
+          <div class="tag-row">${(active.products || []).map((product) => `<span class="tag">${escapeHTML(product)}</span>`).join("")}</div>
+        </div>
+        <div class="decision-focus-block">
+          <strong>경영진 체크포인트</strong>
+          <ul class="watch-list">
+            <li>${escapeHTML(active.upside)}</li>
+            <li>${escapeHTML(active.downside)}</li>
+            <li>중국 관련 최신 신호 ${fmtNum(active.chinaSignalCount)}건은 과거 판정에는 넣지 않고 현재 리스크 overlay로만 표시합니다.</li>
+          </ul>
+        </div>
+        <div class="focus-actions">
+          <button type="button" data-decision-copy>복사</button>
+          <button type="button" data-decision-inspector>상세 패널</button>
+          <button type="button" data-decision-prices>가격표 보기</button>
+        </div>
+      `;
+      focus.querySelector("[data-decision-copy]")?.addEventListener("click", (event) => copyPayload(payload, event.currentTarget));
+      focus.querySelector("[data-decision-inspector]")?.addEventListener("click", () => openInspector(payload));
+      focus.querySelector("[data-decision-prices]")?.addEventListener("click", () => jumpTo("prices"));
+
+      evidence.innerHTML = `
+        <div class="crawler-panel-head">
+          <h3>백테스트 근거 데이터</h3>
+          <span>실제 가격 series · proxy 명시 · 선택 시점 이후 결과</span>
+        </div>
+        ${active.observations.length ? `
+          <div class="decision-table-wrap">
+            <table class="decision-table">
+              <thead>
+                <tr>
+                  <th>품목</th>
+                  <th>가격표</th>
+                  <th>선택일 가격</th>
+                  <th>최신 가격</th>
+                  <th>실제 변화</th>
+                  <th>관측 기간</th>
+                </tr>
+              </thead>
+              <tbody>
+                ${active.observations.slice(0, 16).map((obs) => `
+                  <tr>
+                    <td>${escapeHTML(obs.item)}</td>
+                    <td>${escapeHTML(obs.sectionTitle || obs.group)}</td>
+                    <td>${fmtNum(obs.startAvg, 3)}</td>
+                    <td>${fmtNum(obs.latestAvg, 3)}</td>
+                    <td><span class="change ${obs.actualChange > 0 ? "up" : obs.actualChange < 0 ? "down" : "flat"}">${obs.actualChange > 0 ? "+" : ""}${fmtNum(obs.actualChange, 2)}%</span></td>
+                    <td>${fmtNum(obs.days, 1)}일</td>
+                  </tr>
+                `).join("")}
+              </tbody>
+            </table>
+          </div>
+        ` : `<div class="empty">선택한 시점 이후 실제 결과를 계산할 수 있는 가격 포인트가 없습니다. 더 많은 일일 수집이 누적되면 자동으로 백테스트가 열립니다.</div>`}
+      `;
+    } else {
+      focus.innerHTML = `<div class="empty">제품군을 선택하면 의사결정 근거가 열립니다.</div>`;
+      evidence.innerHTML = "";
+    }
+
+    grid.querySelectorAll("[data-decision-product]").forEach((btn) => {
+      btn.addEventListener("click", () => {
+        execDecisionFocusId = btn.dataset.decisionProduct;
+        renderExecutiveDecision();
+      });
+      btn.addEventListener("mouseenter", () => {
+        if (execDecisionFocusId === btn.dataset.decisionProduct) return;
+        execDecisionFocusId = btn.dataset.decisionProduct;
+        renderExecutiveDecision();
+      });
+    });
+    animateCounts(summary);
+    animateCounts(grid);
+    animateMeters(grid);
   }
 
   function projectionAnchorDate() {
@@ -3751,6 +4260,26 @@
           { label: "Source", value: item.source || "source" },
         ],
         links: item.sourceUrl ? [{ title: item.source || item.title, link: item.sourceUrl }] : [],
+      }));
+    }
+
+    if (mode === "executive") {
+      items = executiveBacktests().map((item) => ({
+        id: `executive-${item.id}`,
+        mode,
+        type: "경영진 의사결정 백테스트",
+        tag: `${item.demand} · ${item.decision.label}`,
+        title: item.label,
+        body: `${item.rationale} 이후 실제 변화 ${item.actualChange == null ? "데이터 부족" : `${fmtNum(item.actualChange, 2)}%`} · ${item.outcome.label}`,
+        section: "executive-decision",
+        categories: [item.category],
+        watch: [item.decision.logic, item.upside, item.downside],
+        metrics: [
+          { label: "당시", value: item.priorMomentum == null ? "NA" : `${fmtNum(item.priorMomentum, 2)}%` },
+          { label: "이후", value: item.actualChange == null ? "NA" : `${fmtNum(item.actualChange, 2)}%` },
+          { label: "품목", value: fmtNum(item.observations.length) },
+        ],
+        tags: item.products || [],
       }));
     }
 
@@ -4870,7 +5399,7 @@
   }
 
   function setupScrollSpy() {
-    const sections = ["overview", "daily-review", "crawler", "prices", "news", "china-nand", "china-dynamics", "talent-radar", "numbers", "projection", "workbench", "ai-matrix", "china-deep-dive", "categories", "competitors", "dynamics", "monetization", "response", "intelligence"];
+    const sections = ["overview", "executive-decision", "daily-review", "crawler", "prices", "news", "china-nand", "china-dynamics", "talent-radar", "numbers", "projection", "workbench", "ai-matrix", "china-deep-dive", "categories", "competitors", "dynamics", "monetization", "response", "intelligence"];
     const update = () => {
       const y = window.scrollY + chromeOffset() + 22;
       let active = "overview";

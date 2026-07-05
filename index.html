@@ -10,7 +10,7 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard/dist/web/static/pretendard.css" />
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;700;800;900&family=Space+Grotesk:wght@500;600;700&display=swap" />
-  <link rel="stylesheet" href="assets/css/styles.css?v=product-projection-20260705" />
+  <link rel="stylesheet" href="assets/css/styles.css?v=executive-backtest-20260705" />
 </head>
 <body>
   <div class="app">
@@ -29,6 +29,10 @@
         <button class="sb-item active" type="button" data-jump="overview">
           <span class="sb-ico" aria-hidden="true">▦</span>
           <span class="sb-label"><strong>Executive Summary</strong><small>Strategy Brief</small></span>
+        </button>
+        <button class="sb-item" type="button" data-jump="executive-decision">
+          <span class="sb-ico" aria-hidden="true">◉</span>
+          <span class="sb-label"><strong>경영진 의사결정</strong><small>Backtest Board</small></span>
         </button>
 
         <div class="sb-group">매일 업데이트</div>
@@ -161,6 +165,29 @@
             <section class="exec-strategy" id="execStrategy"></section>
           </div>
           <div class="kpi-strip" id="kpiStrip"></div>
+        </section>
+
+        <section class="board executive-decision-board" id="executive-decision">
+          <div class="board-head">
+            <div>
+              <p class="eyebrow">Executive decision · historical backtest · actual crawl data</p>
+              <h2>경영진 의사결정 · 백테스트</h2>
+            </div>
+            <span class="board-meta" id="execDecisionMeta">실제 수집 데이터 로딩</span>
+          </div>
+          <div class="decision-summary" id="execDecisionSummary"></div>
+          <div class="decision-layout">
+            <section class="decision-panel">
+              <div class="decision-control">
+                <label for="backtestDateSelect">과거 시점 선택</label>
+                <select id="backtestDateSelect" aria-label="백테스트 과거 시점 선택"></select>
+                <span id="backtestCoverage">가격 히스토리 확인 중</span>
+              </div>
+              <div class="decision-grid" id="execDecisionGrid"></div>
+            </section>
+            <aside class="decision-focus" id="execDecisionFocus"></aside>
+          </div>
+          <div class="decision-evidence" id="execDecisionEvidence"></div>
         </section>
 
         <section class="board review-board" id="daily-review">
@@ -541,6 +568,6 @@
   <div class="qa-answer" id="qaAnswer" hidden></div>
   <div class="inspector" id="inspector" hidden></div>
   <div class="backdrop" id="backdrop"></div>
-  <script src="assets/js/app.js?v=product-projection-20260705" defer></script>
+  <script src="assets/js/app.js?v=executive-backtest-20260705" defer></script>
 </body>
 </html>
