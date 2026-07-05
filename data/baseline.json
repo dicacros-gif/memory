@@ -61,6 +61,19 @@
       "sourceUrl": "https://counterpointresearch.com/en/insights/global-dram-and-hbm-market-share"
     },
     {
+      "label": "DRAM Top3 점유율",
+      "value": "89",
+      "suffix": "%",
+      "note": "Counterpoint Research 2026년 1분기 기준 삼성전자 38%, SK하이닉스 29%, Micron 22%로 Top3 합산 89%. CXMT 8%는 과점 구조를 흔드는 중국 진입 신호로 분리 추적",
+      "alt": "경영 판단: 과점은 유지되지만 범용 DRAM 가격 방어는 CXMT share와 spot/contract spread를 같이 봐야 합니다.",
+      "badge": "Counterpoint",
+      "status": "OK",
+      "statusClass": "ok",
+      "source": "Counterpoint Research",
+      "sourceDate": "2026 Q1",
+      "sourceUrl": "https://counterpointresearch.com/en/insights/global-dram-and-hbm-market-share"
+    },
+    {
       "label": "HBM4 Rubin 요구 속도",
       "value": "11",
       "suffix": "Gbps+",
@@ -71,7 +84,8 @@
       "statusClass": "ok",
       "source": "Micron / SK hynix / TrendForce",
       "sourceDate": "2026 Q1",
-      "sourceUrl": "https://investors.micron.com/news-releases/news-release-details/micron-high-volume-production-hbm4-designed-nvidia-vera-rubin"
+      "sourceUrl": "https://investors.micron.com/news-releases/news-release-details/micron-high-volume-production-hbm4-designed-nvidia-vera-rubin",
+      "showInKpiStrip": false
     },
     {
       "label": "범용 DRAM CXMT 점유율",
@@ -85,6 +99,19 @@
       "source": "Counterpoint Research",
       "sourceDate": "2026 Q1",
       "sourceUrl": "https://counterpointresearch.com/en/insights/global-dram-revenue-surges-to-near-dollar-100-billion-mark-in-q1-2026"
+    },
+    {
+      "label": "중국 메모리 가격 할인",
+      "value": "15",
+      "suffix": "%+",
+      "note": "TechWireAsia가 Taiwan Industry Economics Services 코멘트를 인용해 동급 사양 대비 중국 메모리 가격 우위 15%+를 제시. CXMT/YMTC 물량 확대와 함께 범용 DRAM/NAND 가격 하방 경보로 추적",
+      "alt": "직접 실측 가격표가 아니라 외신/분석 코멘트 기반 Watch 지표입니다.",
+      "badge": "가격 경보",
+      "status": "Watch",
+      "statusClass": "watch",
+      "source": "TechWire Asia / Taiwan Industry Economics Services",
+      "sourceDate": "2026-04-09",
+      "sourceUrl": "https://techwireasia.com/2026/04/chinese-memory-chips-ymtc-cxmt-nand-dram-expansion/"
     },
     {
       "label": "CXMT 2025 매출",
@@ -556,6 +583,62 @@
       }
     },
     "queueSeed": [
+      {
+        "id": "seed-dram-q1-share-counterpoint",
+        "primaryType": "benchmark_note",
+        "priorityBand": "P1",
+        "priorityScore": 96,
+        "reviewStatus": "New",
+        "changeType": "New fact",
+        "title": "2026년 1분기 DRAM 점유율과 CXMT 8% 진입",
+        "summary": "Counterpoint 기준 삼성전자 38%, SK하이닉스 29%, Micron 22%로 Top3 합산 89%. CXMT 8%는 과점 구조를 유지한 채 중국이 범용 DRAM 가격 협상력을 키우는 신호입니다.",
+        "source": "Counterpoint Research",
+        "sourceUrl": "https://counterpointresearch.com/en/insights/global-dram-and-hbm-market-share",
+        "publishedAt": "2026-06-08",
+        "reviewDueAt": "2026-07-05",
+        "section": "overview",
+        "linkedCategories": ["dram", "china", "benchmark"],
+        "topics": ["DRAM", "Market Share", "China", "CXMT"],
+        "entities": ["Samsung", "SK hynix", "Micron", "CXMT"],
+        "insights": [
+          "SK하이닉스는 HBM 점유율 58%를 유지하면서도 범용 DRAM에서는 CXMT의 8% 진입을 가격 하방 신호로 봐야 합니다.",
+          "Top3 합산 89%는 과점이 깨진 것이 아니라 중국 업체가 가격 협상용 대안 공급원으로 떠오르는 국면을 뜻합니다.",
+          "spot/contract spread, 중국 내수 장기계약, CXMT 캐파 증설을 같은 보드에서 매일 대조해야 합니다."
+        ],
+        "metrics": [
+          { "label": "Top3", "value": "89%" },
+          { "label": "CXMT", "value": "8%" },
+          { "label": "Priority", "value": "P1" }
+        ]
+      },
+      {
+        "id": "seed-china-memory-price-discount",
+        "primaryType": "price",
+        "priorityBand": "P1",
+        "priorityScore": 94,
+        "reviewStatus": "New",
+        "changeType": "New watch",
+        "title": "중국 메모리 15%+ 가격 우위와 2027 공급파",
+        "summary": "TechWireAsia는 중국 메모리의 15%+ 가격 우위와 CXMT/YMTC 캐파 확대를 2027년 공급파로 연결합니다. 실측 가격표가 아니므로 Watch로 두고 TrendForce spot/contract rows와 대조합니다.",
+        "source": "TechWire Asia / Taiwan Industry Economics Services",
+        "sourceUrl": "https://techwireasia.com/2026/04/chinese-memory-chips-ymtc-cxmt-nand-dram-expansion/",
+        "publishedAt": "2026-04-09",
+        "reviewDueAt": "2026-07-05",
+        "section": "prices",
+        "linkedCategories": ["dram", "nand", "china_nand", "china"],
+        "topics": ["DRAM", "NAND", "Price", "Capacity"],
+        "entities": ["CXMT", "YMTC", "TrendForce"],
+        "insights": [
+          "15%+ 할인 신호는 확정 가격이 아니라 외신/분석 코멘트이므로 실측 가격과 분리합니다.",
+          "CXMT 290,000 wpm, YMTC 우한 라인, 중국 내수 보조금이 동시에 움직이면 범용 DRAM/NAND 가격 방어선을 다시 계산해야 합니다.",
+          "2027년 공급파는 HBM보다 레거시 DRAM·NAND 수익성에 먼저 충격을 줄 가능성이 큽니다."
+        ],
+        "metrics": [
+          { "label": "Discount", "value": "15%+" },
+          { "label": "Horizon", "value": "2027" },
+          { "label": "Evidence", "value": "Watch" }
+        ]
+      },
       {
         "id": "seed-cxmt-ipo-ddr5-price",
         "primaryType": "corp_dev",
@@ -1768,6 +1851,54 @@
       "evidenceLevel": "Confirmed"
     },
     {
+      "claim": "2026년 1분기 DRAM 매출 점유율",
+      "status": "출처 확인",
+      "statusClass": "ok",
+      "version": "Counterpoint Q1 2026: 삼성전자 38%, SK하이닉스 29%, Micron 22%, CXMT 8%",
+      "note": "Top3 합산 89%로 과점 구조는 유지되지만, CXMT 8%는 중국 범용 DRAM 공급과 가격 협상력 변화를 보는 핵심 경보로 올렸습니다.",
+      "source": "Counterpoint Research",
+      "sourceUrl": "https://counterpointresearch.com/en/insights/global-dram-and-hbm-market-share",
+      "layer": "fact",
+      "sourceType": "analysis",
+      "evidenceLevel": "Confirmed"
+    },
+    {
+      "claim": "중국 메모리 가격 15%+ 할인 신호",
+      "status": "관찰 지표",
+      "statusClass": "watch",
+      "version": "TechWireAsia 2026-04-09",
+      "note": "동급 사양 대비 중국 메모리의 15%+ 가격 우위는 실측 가격표가 아니라 외신/분석 코멘트입니다. 범용 DRAM·NAND 가격 하방 경보에는 반영하되 확정 KPI와 분리합니다.",
+      "source": "TechWire Asia / Taiwan Industry Economics Services",
+      "sourceUrl": "https://techwireasia.com/2026/04/chinese-memory-chips-ymtc-cxmt-nand-dram-expansion/",
+      "layer": "interpretation",
+      "sourceType": "foreign",
+      "evidenceLevel": "Watch"
+    },
+    {
+      "claim": "DRAM/NAND 계약가 급등",
+      "status": "보도/분석 추적",
+      "statusClass": "watch",
+      "version": "TrendForce 인용: DRAM Q2 +58~63%, NAND Q2 +70~75%",
+      "note": "AI 서버와 eSSD 수요가 가격을 밀어 올리는 국면입니다. TrendForce 원표/공식 페이지와 일일 가격 크롤러의 spot·contract rows를 대조해야 확정값으로 승격합니다.",
+      "source": "Tom's Hardware / TrendForce",
+      "sourceUrl": "https://www.tomshardware.com/pc-components/dram/dram-and-nand-contract-prices-to-climb-again-in-q2",
+      "layer": "fact",
+      "sourceType": "analysis",
+      "evidenceLevel": "Watch"
+    },
+    {
+      "claim": "CXMT HBM 추격 거리",
+      "status": "톤다운 유지",
+      "statusClass": "watch",
+      "version": "ChinaTalk 2025-04: 글로벌 선두 대비 3~4년 후행 평가",
+      "note": "중국 HBM 위협은 단기 양산 확정이 아니라 HBM3/HBM3E 진입 시도, 수출통제, 패키징 병목, 중국 AI 가속기 수요를 묶어 보는 Watch 신호로 유지합니다.",
+      "source": "ChinaTalk",
+      "sourceUrl": "https://www.chinatalk.media/p/mapping-chinas-hbm-advancement",
+      "layer": "interpretation",
+      "sourceType": "foreign",
+      "evidenceLevel": "Watch"
+    },
+    {
       "claim": "삼성전자 HBM4 1c DRAM · 4nm 베이스 다이 · 11.7~13Gbps",
       "status": "출처 보강",
       "statusClass": "watch",
@@ -1828,6 +1959,54 @@
     }
   ],
   "curatedNews": [
+    {
+      "language": "english",
+      "curated": true,
+      "category": "dram",
+      "source": "Counterpoint Research",
+      "date": "2026-06-08",
+      "title": "Global DRAM and HBM Market Share: Quarterly",
+      "titleKo": "2026년 1분기 DRAM 점유율: 삼성 38%, SK하이닉스 29%, Micron 22%, CXMT 8%",
+      "summary": "Top3 합산 89% 과점은 유지되지만 CXMT 8% 진입은 범용 DRAM 가격 방어와 중국 고객 장기계약을 함께 봐야 하는 신호.",
+      "placement": "overview KPI · market share · competitive dynamics",
+      "link": "https://counterpointresearch.com/en/insights/global-dram-and-hbm-market-share"
+    },
+    {
+      "language": "english",
+      "curated": true,
+      "category": "china_nand",
+      "source": "TechWire Asia",
+      "date": "2026-04-09",
+      "title": "Chinese memory giants are scaling fast, and the AI boom is giving them cover",
+      "titleKo": "CXMT·YMTC 증설과 2027년 중국 메모리 공급파 경보",
+      "summary": "CXMT 2025년 매출 약 80억 달러, DRAM 월 캐파 290,000장, 중국 메모리 15%+ 가격 우위 신호를 중국 비즈니스 하방 경보로 연결.",
+      "placement": "china-nand · price pressure · capacity early warning",
+      "link": "https://techwireasia.com/2026/04/chinese-memory-chips-ymtc-cxmt-nand-dram-expansion/"
+    },
+    {
+      "language": "english",
+      "curated": true,
+      "category": "nand",
+      "source": "Tom's Hardware / TrendForce",
+      "date": "2026-04-10",
+      "title": "DRAM prices predicted to jump 63% in Q2, NAND up to 75%",
+      "titleKo": "TrendForce 인용: DRAM Q2 +58~63%, NAND Q2 +70~75% 가격 경보",
+      "summary": "AI 서버와 eSSD 수요가 contract 가격을 밀어 올리는 구간. 실측 가격표가 갱신되면 TrendForce spot/contract rows와 대조해 확정값으로 승격.",
+      "placement": "market · spot/contract price · projection inputs",
+      "link": "https://www.tomshardware.com/pc-components/dram/dram-and-nand-contract-prices-to-climb-again-in-q2"
+    },
+    {
+      "language": "english",
+      "curated": true,
+      "category": "hbm",
+      "source": "ChinaTalk",
+      "date": "2025-04-17",
+      "title": "Mapping China's HBM Advances",
+      "titleKo": "중국 HBM 추격: CXMT HBM3/HBM3E 시도와 3~4년 격차 평가",
+      "summary": "CXMT의 HBM 추격은 단기 확정 양산이 아니라 수출통제, 패키징 수율, 중국 AI 가속기 수요를 결합한 Watch 신호로 표시.",
+      "placement": "hbm · china dynamics · evidence watch",
+      "link": "https://www.chinatalk.media/p/mapping-chinas-hbm-advancement"
+    },
     {
       "language": "chinese",
       "curated": true,
@@ -1891,13 +2070,13 @@
     {
       "language": "chinese",
       "curated": true,
-      "category": "corpdev",
+      "category": "packaging",
       "source": "新浪财经",
       "date": "2026-06-21",
       "title": "长江存储出让39%股权，武汉新芯将“易主”至光谷国资",
       "titleKo": "YMTC·XMC 지분 재편과 우한 국자 플랫폼",
       "summary": "YMTC·XMC 지분 재편은 XMC/HBM 패키징과 지방정부 자본 흐름을 읽는 핵심 이벤트.",
-      "placement": "#corpdev 지분·거버넌스 이벤트 · XMC 카드",
+      "placement": "packaging · 지분/거버넌스 이벤트 · XMC 카드",
       "link": "http://finance.sina.com.cn/jjxw/2026-06-21/doc-inieepeq0896574.shtml"
     },
     {
@@ -1909,7 +2088,7 @@
       "title": "大基金三期加码半导体材料设备！招商证券电子首席",
       "titleKo": "빅펀드 3기, 반도체 소재·장비 투자 강화",
       "summary": "정책자금이 장비·소재 병목 해소에 집중되는 흐름을 보여준다.",
-      "placement": "geopolitics · equipment · #corpdev 정책자금",
+      "placement": "geopolitics · equipment · 정책자금",
       "link": "http://www.21jingji.com/article/20260603/herald/4b1717e54786cebc6467db5e790180f4.html"
     },
     {
@@ -1927,7 +2106,7 @@
     {
       "language": "english",
       "curated": true,
-      "category": "corpdev",
+      "category": "china",
       "source": "Reuters via Yahoo Finance",
       "date": "2026-06-29",
       "title": "Exclusive-China's CXMT wins $3 billion memory supply deal with Tencent, sources say",
@@ -2041,7 +2220,7 @@
       "title": "Chinese foundry XMC aims to produce HBM memory",
       "titleKo": "XMC, 중국 HBM 패키징 프로젝트 추진",
       "summary": "XMC의 HBM 프로젝트, 조립라인·패키징 장비 입찰, 월 3,000장 목표 보도를 추적.",
-      "placement": "XMC 카드 · packaging · #corpdev 지분/프로젝트",
+      "placement": "XMC 카드 · packaging · 지분/프로젝트",
       "link": "https://www.tomshardware.com/tech-industry/manufacturing/chinese-foundry-xmc-aims-to-produce-hbm-memory"
     },
     {
@@ -2089,7 +2268,7 @@
       "title": "SK hynix completes the First Phase of Intel NAND and SSD Business Acquisition",
       "titleKo": "SK하이닉스, Intel NAND/SSD 1단계 인수 완료",
       "summary": "다롄 NAND 제조시설 자산과 Solidigm 브랜드를 중국 운영·자산 포트폴리오로 추적.",
-      "placement": "SK hynix China operations · #corpdev M&A/자산",
+      "placement": "SK hynix China operations · 중국 자산/운영",
       "link": "https://news.skhynix.com/sk-hynix-completes-the-first-phase-of-intel-nand-and-ssd-business-acquisition/"
     },
     {

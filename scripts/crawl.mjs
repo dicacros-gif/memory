@@ -51,16 +51,16 @@ const PRICE_PAGES = [
 // returns international outlets; Korean-language items and Korean outlets are
 // dropped downstream by isForeignItem().
 const CATEGORIES = [
-  { id: "hbm", label: "HBM·AI Memory", queries: ["HBM4 memory AI accelerator", "high bandwidth memory HBM", "SK hynix TSMC HBM4 base die", "Samsung HBM4 1c DRAM 4nm base die", "NVIDIA Rubin HBM4 11Gbps", "CXMT HBM3 delayed mass production 2027"] },
-  { id: "dram", label: "DRAM·DDR", queries: ["DRAM DDR5 server memory price", "DRAM market demand", "CXMT DDR5 yield 80 percent 90 target", "CXMT IPO 29.5 billion yuan DRAM capacity"] },
-  { id: "nand", label: "NAND·SSD", queries: ["NAND flash enterprise SSD price", "SSD memory demand", "YMTC Xtacking 4.0 12.66 Gb/mm2 TechInsights 512Gb", "YMTC 1Tb 294 layer 20.5 Gb/mm2 estimate", "YMTC enterprise SSD customer China", "NAND contract price China eSSD"] },
-  { id: "china_nand", label: "China NAND Business", queries: ["YMTC eSSD Xtacking customer", "YMTC Wuhan Phase 3 NAND domestic equipment", "XMC Wuhan Xinxin NAND packaging", "JCET TFME advanced packaging NAND controller", "Naura AMEC ACM Research YMTC NAND equipment", "YMTC controller firmware enterprise SSD", "China NAND subsidy server SSD procurement"] },
+  { id: "hbm", label: "HBM·AI Memory", queries: ["HBM4 memory AI accelerator", "high bandwidth memory HBM", "SK hynix TSMC HBM4 base die", "Samsung HBM4 1c DRAM 4nm base die", "NVIDIA Rubin HBM4 11Gbps", "CXMT HBM3 delayed mass production 2027", "ChinaTalk mapping China's HBM advancement CXMT HBM3 HBM3E", "HBM export control China December 2024 SK hynix Samsung Micron"] },
+  { id: "dram", label: "DRAM·DDR", queries: ["DRAM DDR5 server memory price", "DRAM market demand", "CXMT DDR5 yield 80 percent 90 target", "CXMT IPO 29.5 billion yuan DRAM capacity", "Counterpoint DRAM market share Q1 2026 Samsung SK hynix Micron CXMT", "CXMT 2027 DRAM share forecast 14 percent", "DRAM contract price Q1 2026 90 95 TrendForce"] },
+  { id: "nand", label: "NAND·SSD", queries: ["NAND flash enterprise SSD price", "SSD memory demand", "YMTC Xtacking 4.0 12.66 Gb/mm2 TechInsights 512Gb", "YMTC 1Tb 294 layer 20.5 Gb/mm2 estimate", "YMTC enterprise SSD customer China", "NAND contract price China eSSD", "YMTC NAND market share 2026 HSBC Qianhai 13 percent", "NAND contract price Q2 2026 70 75 TrendForce", "YMTC homegrown NAND production line US sanctions"] },
+  { id: "china_nand", label: "China NAND Business", queries: ["YMTC eSSD Xtacking customer", "YMTC Wuhan Phase 3 NAND domestic equipment", "XMC Wuhan Xinxin NAND packaging", "JCET TFME advanced packaging NAND controller", "Naura AMEC ACM Research YMTC NAND equipment", "YMTC controller firmware enterprise SSD", "China NAND subsidy server SSD procurement", "Chinese memory chips 15 percent cheaper YMTC CXMT", "China memory capacity expansion 2027 YMTC CXMT"] },
   { id: "skhynix_projection", label: "SK hynix Product Projection", queries: ["SK hynix HBM4 server DRAM product mix", "SK hynix enterprise SSD Solidigm AI server storage", "SK hynix LPDDR UFS mobile memory demand", "SK hynix CXL memory module server roadmap", "SK hynix automotive memory edge AI", "memory product mix AI server terminal NAND DRAM"] },
   { id: "cxl", label: "CXL·Next Memory", queries: ["CXL memory pooling", "CXL switch memory expansion", "CXL memory tester module", "CXL 3.1 memory module CMM-D", "Pangea v3 CXL 3.2", "4F2 vertical gate 3D DRAM SK hynix"] },
   { id: "packaging", label: "Packaging·Photonics", queries: ["advanced packaging HBM hybrid bonding", "silicon photonics interconnect memory", "HBM TC bonder equipment supply chain"] },
   { id: "aidemand", label: "AI Demand", queries: ["AI memory demand data center", "AI accelerator memory bandwidth"] },
   { id: "benchmark", label: "China Benchmark", queries: ["China memory benchmark CXMT YMTC", "Chinese semiconductor equipment localization memory"] },
-  { id: "china", label: "China·Geopolitics", queries: ["CXMT YMTC China memory", "China DRAM NAND export control", "CXMT revenue 2025 DRAM capacity", "YMTC Wuhan Phase 3 domestic equipment Naura AMEC", "BIS China memory export control VEU", "MATCH Act DUV cryogenic etch China semiconductor equipment", "CXMT IPO registration approved STAR Market 29.5 billion yuan", "CXMT careers yield engineer HBM TSV", "YMTC careers Xtacking eSSD engineer", "Tsinghua career CXMT YMTC semiconductor recruitment"] },
+  { id: "china", label: "China·Geopolitics", queries: ["CXMT YMTC China memory", "China DRAM NAND export control", "CXMT revenue 2025 DRAM capacity", "YMTC Wuhan Phase 3 domestic equipment Naura AMEC", "BIS China memory export control VEU", "US VEU revocation SK hynix Samsung Intel China fabs annual license 2026", "MATCH Act DUV cryogenic etch China semiconductor equipment", "CXMT IPO registration approved STAR Market 29.5 billion yuan", "CXMT careers yield engineer HBM TSV", "YMTC careers Xtacking eSSD engineer", "Tsinghua career CXMT YMTC semiconductor recruitment", "Nvidia H20 export controls China HBM memory demand The Diplomat"] },
   { id: "china_infra", label: "China Fab Infra", queries: ["SK hynix Wuxi fab water power land expansion", "SK hynix Wuxi K7 environmental impact assessment cleanroom expansion", "Wuxi high-tech bonded zone SK hynix land water electricity", "SK hynix Wuxi C2F additional cleanroom equipment installation", "BIS VEU SK hynix Wuxi fab capacity upgrade"] },
   { id: "china_talent_strategy", label: "China Talent Strategy", queries: ["SK hynix China hiring Wuxi Dalian Chongqing semiconductor", "China memory talent retention IP compliance semiconductor", "CXMT YMTC hiring yield TSV HBM engineer", "China enterprise SSD firmware FAE hiring memory", "Wuxi semiconductor EHS facility utilities hiring fab"] },
 ];
@@ -279,15 +279,15 @@ const STARTUPS = [
 
 // Foreign benchmark themes feeding the China memory signal radar.
 const BENCHMARK_SIGNAL_THEMES = [
-  { id: "capacity", label: "China Capacity", queries: ["CXMT capacity DRAM wafer China", "YMTC NAND capacity Xtacking China", "CXMT Shanghai fab DRAM wafer start", "CXMT IPO proceeds wafer capacity", "YMTC Wuhan Phase 3 50000 wafers"] },
-  { id: "china_nand_business", label: "China NAND Business", queries: ["YMTC eSSD customer NAND China", "YMTC Xtacking 4.0 enterprise SSD", "XMC Wuhan Xinxin NAND packaging", "JCET TFME NAND controller advanced packaging", "Naura AMEC ACM YMTC NAND equipment", "China server SSD procurement YMTC"] },
+  { id: "capacity", label: "China Capacity", queries: ["CXMT capacity DRAM wafer China", "YMTC NAND capacity Xtacking China", "CXMT Shanghai fab DRAM wafer start", "CXMT IPO proceeds wafer capacity", "YMTC Wuhan Phase 3 50000 wafers", "Counterpoint CXMT 8 percent DRAM market share Q1 2026", "CXMT 300000 wafers per month 2026", "China memory capacity expansion 120000 140000 wafers 2026"] },
+  { id: "china_nand_business", label: "China NAND Business", queries: ["YMTC eSSD customer NAND China", "YMTC Xtacking 4.0 enterprise SSD", "XMC Wuhan Xinxin NAND packaging", "JCET TFME NAND controller advanced packaging", "Naura AMEC ACM YMTC NAND equipment", "China server SSD procurement YMTC", "YMTC NAND share 13 percent 2026", "Chinese memory chips price advantage 15 percent"] },
   { id: "skhynix_product_projection", label: "SK hynix Product Projection", queries: ["SK hynix HBM4 DDR5 CXL server roadmap", "SK hynix Solidigm enterprise SSD AI server demand", "SK hynix LPDDR UFS client SSD product mix", "memory AI server product mix projection DRAM NAND HBM", "automotive edge AI memory SK hynix"] },
-  { id: "equipment", label: "Equipment Localization", queries: ["China semiconductor equipment localization Naura AMEC", "Chinese chip equipment localization memory", "Yole China semiconductor equipment localization 23.2 percent", "MATCH Act DUV lithography cryogenic etching China"] },
+  { id: "equipment", label: "Equipment Localization", queries: ["China semiconductor equipment localization Naura AMEC", "Chinese chip equipment localization memory", "Yole China semiconductor equipment localization 23.2 percent", "MATCH Act DUV lithography cryogenic etching China", "YMTC homegrown NAND production line Naura AMEC ACM"] },
   { id: "china_infra", label: "China Fab Infrastructure", queries: ["SK hynix Wuxi K7 plot water power fab expansion", "SK hynix Wuxi environmental impact assessment wastewater reuse", "Wuxi bonded zone SK hynix comprehensive bonded zone expansion", "BIS VEU SK hynix China fab capacity upgrade", "Wuxi semiconductor fab water electricity land use"] },
   { id: "china_talent_strategy", label: "China Talent Strategy", queries: ["SK hynix China workforce strategy Wuxi Dalian Chongqing", "China memory hiring strategy IP retention compliance", "CXMT YMTC Boss Zhipin yield engineer hiring", "China semiconductor campus recruiting Tsinghua memory engineer", "China fab EHS facility water power engineer hiring"] },
   { id: "packaging", label: "Advanced Packaging", queries: ["JCET advanced packaging AI memory", "XMC HBM packaging China", "HBM TC bonder patent equipment"] },
   { id: "cxl", label: "CXL and PIM Value Chain", queries: ["CXL memory tester Exicon Neosem", "CXL controller IP memory pooling PIM", "CXL 3.1 module substrate TLB", "Openedges CXL controller IP", "FADU CXL memory controller"] },
-  { id: "talent", label: "Talent and IP Signals", queries: ["China semiconductor talent hiring memory", "CXMT engineer hiring DRAM", "CXMT careers TSV yield engineer", "YMTC careers Xtacking eSSD engineer", "ijiwei CXMT YMTC recruitment engineer", "Tsinghua career CXMT YMTC semiconductor recruitment", "Boss Zhipin CXMT YMTC yield engineer", "Liepin CXMT YMTC semiconductor engineer", "Maimai CXMT YMTC memory engineer", "CNIPA CXMT YMTC HBM TSV patent"] },
+  { id: "talent", label: "Talent and IP Signals", queries: ["China semiconductor talent hiring memory", "CXMT engineer hiring DRAM", "CXMT careers TSV yield engineer", "YMTC careers Xtacking eSSD engineer", "ijiwei CXMT YMTC recruitment engineer", "Tsinghua career CXMT YMTC semiconductor recruitment", "Boss Zhipin CXMT YMTC yield engineer", "Liepin CXMT YMTC semiconductor engineer", "Maimai CXMT YMTC memory engineer", "CNIPA CXMT YMTC HBM TSV patent", "China memory IP litigation Korean engineer CXMT YMTC"] },
 ];
 
 const CHINA_INFRA_SOURCE_PAGES = [
@@ -339,9 +339,73 @@ const STOPWORDS = new Set([
 
 // Foreign-press filter: drop Korean-language items and Korean-origin outlets so
 // the dashboard stays 외신(foreign press) 중심. Applied at the single fetch choke point.
-const KOREAN_SOURCE_RE = /(yonhap|korea ?herald|korea ?times|koreatimes|koreaherald|chosun|joongang|joong ?ang|donga|dong-?a|hankyung|hankyoreh|ked ?global|kedglobal|maeil|maekyung|pulse ?news|business ?korea|businesskorea|et ?news|etnews|the ?elec|thelec|zdnet ?korea|sedaily|seoul ?economic|aju ?(business|news)|korea ?economic|korea ?joongang|korea ?biz ?wire|koreabizwire|inews24|edaily|mt\.co\.kr|mk\.co\.kr|dt\.co\.kr|\.kr\b|korea ?pro|the ?korea|naver|daum|fnnews|newspim|moneytoday|heraldcorp)/i;
+const KOREAN_SOURCE_RE = new RegExp(
+  [
+    "yonhap",
+    "yna\\.co\\.kr",
+    "korea ?herald",
+    "koreaherald",
+    "koreaherald\\.com",
+    "korea ?times",
+    "koreatimes",
+    "koreatimes\\.co\\.kr",
+    "chosun",
+    "biz\\.chosun\\.com",
+    "chosun\\.com",
+    "joongang",
+    "joong ?ang",
+    "joins\\.com",
+    "koreajoongangdaily",
+    "donga",
+    "dong-?a",
+    "hankyung",
+    "hankyoreh",
+    "ked ?global",
+    "kedglobal",
+    "kedglobal\\.com",
+    "maeil",
+    "maekyung",
+    "pulse ?news",
+    "pulsenews",
+    "pulsenews\\.co\\.kr",
+    "business ?korea",
+    "businesskorea",
+    "businesspost",
+    "et ?news",
+    "etnews",
+    "etnews\\.com",
+    "the ?elec",
+    "thelec",
+    "zdnet ?korea",
+    "sedaily",
+    "sedaily\\.com",
+    "seoul ?economic",
+    "aju ?(business|news|press)",
+    "korea ?economic",
+    "korea ?joongang",
+    "korea ?biz ?wire",
+    "koreabizwire",
+    "inews24",
+    "edaily",
+    "mt\\.co\\.kr",
+    "mk\\.co\\.kr",
+    "dt\\.co\\.kr",
+    "\\.kr\\b",
+    "korea ?pro",
+    "the ?korea",
+    "naver",
+    "daum",
+    "fnnews",
+    "newspim",
+    "moneytoday",
+    "heraldcorp",
+    "ytn",
+    "ddaily"
+  ].join("|"),
+  "i"
+);
 const EXCLUDED_NEWS_RE = /\b(apple|applem|aapl|iphone|ipad|macbook|9to5mac|applemagazine)\b|애플|아이폰|아이패드|맥북/i;
-const LOW_CONFIDENCE_NEWS_RE = /(ad hoc news|indexbox|36\s*kr|36kr|borncity|mjengo|blockchain\.news|odaily|zamin\.uz|finance\.biggo|crypto briefing|weex)/i;
+const LOW_CONFIDENCE_NEWS_RE = /(ad hoc news|indexbox|36\s*kr|36kr|borncity|mjengo|blockchain\.news|odaily|zamin\.uz|finance\.biggo|crypto briefing|weex|fortrinawwer|siliconanalysts|nand-research|reddit|facebook|linkedin\.com|x\.com|twitter\.com)/i;
 
 // Hangul / Hangul Jamo / kana / CJK / surrogate / specials. Stripped from
 // titles so a Latin headline stays clean even if a multibyte char mis-decoded,
@@ -361,7 +425,7 @@ function isForeignItem(item) {
   // fragment - drop those, and drop Korean-origin outlets. Keeps a clean
   // Latin-script international (foreign-press) feed.
   if (item.title.replace(/[^A-Za-z]/g, "").length < 6) return false;
-  const src = `${item.source || ""} ${item.link || ""}`.toLowerCase();
+  const src = `${item.source || ""} ${item.title || ""} ${item.link || ""}`.toLowerCase();
   if (KOREAN_SOURCE_RE.test(src)) return false;
   if (EXCLUDED_NEWS_RE.test(`${item.title || ""} ${item.source || ""} ${item.link || ""}`)) return false;
   if (LOW_CONFIDENCE_NEWS_RE.test(`${item.title || ""} ${item.source || ""} ${item.link || ""}`)) return false;

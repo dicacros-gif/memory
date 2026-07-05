@@ -27,10 +27,73 @@
     items: {},
   };
 
-  const KOREAN_SOURCE_RE =
-    /(yonhap|korea ?herald|korea ?times|koreatimes|koreaherald|chosun|joongang|joong ?ang|donga|dong-?a|hankyung|hankyoreh|ked ?global|kedglobal|maeil|maekyung|pulse ?news|business ?korea|businesskorea|et ?news|etnews|the ?elec|thelec|zdnet ?korea|sedaily|seoul ?economic|aju ?(business|news|press)|korea ?economic|korea ?joongang|korea ?biz ?wire|koreabizwire|inews24|edaily|mt\.co\.kr|mk\.co\.kr|dt\.co\.kr|\.kr\b|korea ?pro|the ?korea|naver|daum|fnnews|newspim|moneytoday|heraldcorp)/i;
+  const KOREAN_SOURCE_RE = new RegExp(
+    [
+      "yonhap",
+      "yna\\.co\\.kr",
+      "korea ?herald",
+      "koreaherald",
+      "koreaherald\\.com",
+      "korea ?times",
+      "koreatimes",
+      "koreatimes\\.co\\.kr",
+      "chosun",
+      "biz\\.chosun\\.com",
+      "chosun\\.com",
+      "joongang",
+      "joong ?ang",
+      "joins\\.com",
+      "koreajoongangdaily",
+      "donga",
+      "dong-?a",
+      "hankyung",
+      "hankyoreh",
+      "ked ?global",
+      "kedglobal",
+      "kedglobal\\.com",
+      "maeil",
+      "maekyung",
+      "pulse ?news",
+      "pulsenews",
+      "pulsenews\\.co\\.kr",
+      "business ?korea",
+      "businesskorea",
+      "businesspost",
+      "et ?news",
+      "etnews",
+      "etnews\\.com",
+      "the ?elec",
+      "thelec",
+      "zdnet ?korea",
+      "sedaily",
+      "sedaily\\.com",
+      "seoul ?economic",
+      "aju ?(business|news|press)",
+      "korea ?economic",
+      "korea ?joongang",
+      "korea ?biz ?wire",
+      "koreabizwire",
+      "inews24",
+      "edaily",
+      "mt\\.co\\.kr",
+      "mk\\.co\\.kr",
+      "dt\\.co\\.kr",
+      "\\.kr\\b",
+      "korea ?pro",
+      "the ?korea",
+      "naver",
+      "daum",
+      "fnnews",
+      "newspim",
+      "moneytoday",
+      "heraldcorp",
+      "ytn",
+      "ddaily"
+    ].join("|"),
+    "i"
+  );
   const LOW_CONFIDENCE_NEWS_RE =
-    /(ad hoc news|indexbox|36\s*kr|36kr|borncity|mjengo|blockchain\.news|odaily|zamin\.uz|finance\.biggo|crypto briefing|weex)/i;
+    /(ad hoc news|indexbox|36\s*kr|36kr|borncity|mjengo|blockchain\.news|odaily|zamin\.uz|finance\.biggo|crypto briefing|weex|fortrinawwer|siliconanalysts|nand-research|reddit|facebook|linkedin\.com|x\.com|twitter\.com)/i;
   const MEMORY_NEWS_RE =
     /(memory|dram|nand|hbm|ddr|lpddr|gddr|ssd|semiconductor|chip|wafer|foundry|packaging|interconnect|cxl|trendforce|dramexchange|micron|samsung|sk hynix|hynix|kioxia|western digital|sandisk|cxmt|changxin|ymtc|yangtze|jcet|tfme|xmc|wuhan xinxin|naura|amec|acm research|techinsights|yole|big fund|export control|china chip|chinese chip)/i;
   const CHINA_NEWS_RE =
@@ -238,7 +301,7 @@
       ],
       checks: [
         { axis: "공정 업그레이드", status: "O", title: "Wuxi 1z→1a 전환 완료", evidence: "SemiMedia는 2026년 1월 Wuxi DRAM 팹이 1z에서 1a로 전환됐고, 12인치 기준 월 18만~19만 장 캐파 중 약 90%가 1a 공정이라고 보도했습니다.", implication: "DDR5·고성능 DRAM 양산 여력과 수익성은 개선 신호지만, 1b/1c 같은 최선단 이전 근거로 해석하지 않습니다.", source: "SemiMedia", sourceUrl: "https://www.semimedia.cc/sk-hynix-completes-wuxi-dram-fab-upgrade-enabling-advanced-1a-process-production/" },
-        { axis: "투자 집행", status: "O", title: "2025년 Wuxi 투자 5,810억 원", evidence: "TrendForce는 SK하이닉스 사업보고서/SeDaily를 인용해 2025년 Wuxi DRAM 투자액이 5,810억 원으로 전년 2,873억 원 대비 102% 증가했다고 정리했습니다.", implication: "중국 거점은 단순 유지가 아니라 제재 범위 내 최적화·운영 효율화 투자가 진행된 것으로 추적합니다.", source: "TrendForce", sourceUrl: "https://www.trendforce.com/news/2026/03/27/news-memory-giants-china-investments-soar-in-2025-samsung-xian-up-67-5-sk-hynix-wuxi-dalian-hit-trillion-won/" },
+        { axis: "투자 집행", status: "O", title: "2025년 Wuxi 투자 5,810억 원", evidence: "TrendForce가 2025년 Wuxi DRAM 투자액을 5,810억 원으로 정리했습니다. 전년 2,873억 원 대비 102% 증가한 수치로 중국 거점 운영 효율화 신호입니다.", implication: "중국 거점은 단순 유지가 아니라 제재 범위 내 최적화·운영 효율화 투자가 진행된 것으로 추적합니다.", source: "TrendForce", sourceUrl: "https://www.trendforce.com/news/2026/03/27/news-memory-giants-china-investments-soar-in-2025-samsung-xian-up-67-5-sk-hynix-wuxi-dalian-hit-trillion-won/" },
         { axis: "토지/부지", status: "조건부 O", title: "K7 부지 내 기존 공장 확장 근거", evidence: "2017년 WND 환경영향평가는 12인치 IC 라인 6기 기술개조와 CleanRoom 확장을 K7 부지, 기존 공장 내 프로젝트로 명시했습니다.", implication: "기존 부지 내 기술개조·클린룸 확장 근거는 있으나, 남은 토지 면적/토지사용권 기간은 별도 확인해야 합니다.", source: "Wuxi New District EIA", sourceUrl: "https://www.wnd.gov.cn/doc/2017/02/28/2386281.shtml" },
         { axis: "클린룸/공간", status: "조건부 O", title: "C2F 58,000m2 및 추가 클린룸 유연성", evidence: "SK하이닉스는 C2F가 58,000m2 규모이며, 추가 클린룸 공사와 장비 반입 시점은 시장 상황에 따라 유연하게 결정한다고 밝혔습니다.", implication: "공간 병목 완화 근거는 있으나 신규 fab 증설과 동일하게 해석하면 안 됩니다.", source: "SK hynix Newsroom", sourceUrl: "https://news.skhynix.com/sk-hynix-completes-expanded-fab-c2f-in-wuxi-china/" },
         { axis: "용수/폐수", status: "Watch", title: "재생수·MBR·신청하수처리장 연계", evidence: "EIA는 산성/불소/동/유기/생활폐수를 분류 처리하고, 재생수 회용 시범공정·MBR 회용·신청하수처리장 연계를 설명합니다.", implication: "기존 승인 범위의 폐수 처리 체계는 확인되나, 추가 캐파는 신규 물 사용량·폐수총량·수질총량 인허가가 필요합니다.", source: "Wuxi New District EIA", sourceUrl: "https://www.wnd.gov.cn/doc/2017/02/28/2386281.shtml" },
@@ -271,7 +334,7 @@
         { name: "SK hynix Semiconductor storage technology (Dalian) Co. Ltd", role: "Dalian storage site", note: "공식 오피스 기준 주소 확인" },
       ],
       checks: [
-        { axis: "투자 집행", status: "O", title: "2025년 Dalian NAND 투자 4,406억 원", evidence: "TrendForce는 SK하이닉스 사업보고서/SeDaily를 인용해 2025년 Dalian NAND 투자액이 4,406억 원으로 전년 대비 52% 증가했다고 정리했습니다.", implication: "Dalian은 단순 보유 자산이 아니라 NAND/Solidigm 운영 효율화와 캐파 옵션의 우선 감시 자산입니다.", source: "TrendForce", sourceUrl: "https://www.trendforce.com/news/2026/03/27/news-memory-giants-china-investments-soar-in-2025-samsung-xian-up-67-5-sk-hynix-wuxi-dalian-hit-trillion-won/" },
+        { axis: "투자 집행", status: "O", title: "2025년 Dalian NAND 투자 4,406억 원", evidence: "TrendForce가 2025년 Dalian NAND 투자액을 4,406억 원으로 정리했습니다. 전년 대비 52% 증가한 수치로 NAND/Solidigm 운영 효율화와 캐파 옵션을 함께 봐야 합니다.", implication: "Dalian은 단순 보유 자산이 아니라 NAND/Solidigm 운영 효율화와 캐파 옵션의 우선 감시 자산입니다.", source: "TrendForce", sourceUrl: "https://www.trendforce.com/news/2026/03/27/news-memory-giants-china-investments-soar-in-2025-samsung-xian-up-67-5-sk-hynix-wuxi-dalian-hit-trillion-won/" },
         { axis: "Phase 2 재가동", status: "Watch", title: "2026년 하반기 Dalian Phase 2 장비 설치 검토", evidence: "TrendForce는 The Bell 보도를 인용해 Dalian Phase 2가 NAND 캐파 확장 후보로 부상했고 2026년 하반기 장비 설치를 계획한다고 전했습니다. Phase 1은 192-layer로 최신 321-layer 대비 2세대 이상 뒤처진 것으로 언급됐습니다.", implication: "중국 내 NAND 캐파 옵션은 살아 있지만, 200-layer 중반대 생산·장비 반입·BIS 허가를 분리 확인해야 합니다.", source: "TrendForce", sourceUrl: "https://www.trendforce.com/news/2026/03/30/news-samsung-reportedly-advances-xian-to-236-layer-nand-sk-hynix-eyes-dalian-upgrade-amid-tight-supply/" },
         { axis: "토지/부지", status: "확인필요", title: "Dalian 토지사용권·확장 부지 미공개", evidence: "공식 오피스는 위치를 제공하지만 추가 fab 후보 면적이나 토지사용권 조건은 공개 확인되지 않았습니다.", implication: "부지 권리 확인 전 신규 fab 확장 판단 금지.", source: "SK hynix Offices", sourceUrl: "https://www.skhynix.com/company/UI-FR-CP06/" },
         { axis: "용수/폐수", status: "확인필요", title: "공정 용수·폐수 인허가 미확인", evidence: "Dalian site의 공정 용수 배정량과 폐수 처리 여유는 공개자료로 확인되지 않았습니다.", implication: "NAND/스토리지 공정 확장은 현지 EIA·수자원 허가를 먼저 크롤링해야 합니다.", source: "SK hynix Offices", sourceUrl: "https://www.skhynix.com/company/UI-FR-CP06/" },
@@ -9045,8 +9108,8 @@
   }
 
   function isForeignNews(item) {
-    const src = `${item.source || ""} ${item.link || ""}`.toLowerCase();
     if (!item || !item.title) return false;
+    const src = `${item.source || ""} ${item.link || ""} ${item.sourceUrl || ""} ${item.placement || ""}`.toLowerCase();
     if (KOREAN_SOURCE_RE.test(src)) return false;
     return true;
   }

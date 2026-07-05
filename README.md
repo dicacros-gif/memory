@@ -20,9 +20,10 @@
 
 제외 예시:
 
-- Yonhap, Chosun, JoongAng, Donga, Hankyung, KED Global
-- Business Korea, The Elec, ETNews, ZDNet Korea
-- `*.kr`, Naver, Daum, MK, MT, Fnnews, Newspim 등
+- Yonhap/YNA, Chosun/biz.chosun, JoongAng/joins, Donga, Hankyung, KED Global
+- Korea Times, Korea Herald, Business Korea, Business Post, The Elec, ETNews, ZDNet Korea
+- SE Daily/Seoul Economic, Pulse/Maeil/MK, Aju, Edaily, MT, Fnnews, Newspim
+- `*.kr`, `chosun.com`, `kedglobal.com`, `sedaily.com`, `mk.co.kr`, Naver, Daum 등
 
 허용 방향:
 
