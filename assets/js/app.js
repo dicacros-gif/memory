@@ -295,6 +295,36 @@
       section: "intelligence",
     },
   ];
+  const MECE_GROUPS = [
+    {
+      id: "daily",
+      label: "매일 업데이트",
+      desc: "크롤링 성공 여부와 오늘 바뀐 가격·뉴스·중국 신호",
+      cadence: "Daily crawler",
+      sections: ["daily-review", "crawler", "prices", "news", "china-dynamics", "talent-radar"],
+    },
+    {
+      id: "quant",
+      label: "실시간 분석",
+      desc: "숫자 KPI와 선택형 인텔리전스 워크벤치",
+      cadence: "Interactive",
+      sections: ["numbers", "workbench"],
+    },
+    {
+      id: "benchmark",
+      label: "기준 벤치마킹",
+      desc: "중국 메모리 기술·경쟁사·카테고리 기준 프레임",
+      cadence: "Reference layer",
+      sections: ["ai-matrix", "china-deep-dive", "categories", "competitors"],
+    },
+    {
+      id: "strategy",
+      label: "전략·대응",
+      desc: "경쟁 다이내믹스, 수익화 모델, 대응 액션, 정보 채널",
+      cadence: "Decision layer",
+      sections: ["dynamics", "monetization", "response", "intelligence"],
+    },
+  ];
   const NEWS_SOURCE_TABS = [
     { id: "english", label: "영어권 기사", countId: "foreignNewsCount", bucketId: "foreignNewsBucket", listId: "foreignNewsList" },
     { id: "chinese", label: "중국어 기사", countId: "chinaNewsCount", bucketId: "chinaNewsBucket", listId: "chinaNewsList" },
@@ -876,6 +906,7 @@
     renderTalentRadar();
     renderWorkbench();
     animateCounts();
+    animateMeters();
   }
 
   function renderKpis() {
@@ -1554,6 +1585,186 @@
     return Math.max(12, Math.min(100, n * 8));
   }
 
+  function freshnessScore(state, count = 1) {
+    if (!count) return 14;
+    if (state?.cls === "ok") return 96;
+    if (state?.cls === "stale") return 58;
+    if (state?.cls === "fail") return 24;
+    return 70;
+  }
+
+  function workbenchModeForSection(section) {
+    return WORKBENCH_MODES.find((mode) => mode.section === section)?.id || "";
+  }
+
+  function sectionTelemetry(section) {
+    const health = LIVE.health || [];
+    const healthOk = health.filter((entry) => entry.ok).length;
+    const newsCount = rawNews().length;
+    const chinaSignalCount = CHINA_DYNAMIC_AXES.reduce((sum, axis) => sum + axisSignalCount(axis), 0);
+    const priceState = freshnessState({
+      updatedAt: LIVE.prices?.updatedAt || LIVE.updatedAt,
+      count: allPriceRows().length,
+      healthKeys: ["가격:"],
+      staleHours: 30,
+    });
+    const newsState = freshnessState({
+      updatedAt: LIVE.updatedAt,
+      count: newsCount,
+      healthKeys: ["뉴스", "외신", "중국"],
+      staleHours: 36,
+    });
+    const talentData = talentRadarData();
+    const architecture = architectureMatrix();
+
+    const map = {
+      "daily-review": {
+        value: dailyReviewItems().length,
+        unit: "개",
+        status: "Review",
+        score: clamp(dailyReviewItems().length * 7, dailyReviewItems().length ? 30 : 0, 100),
+        note: "오늘 검토할 digest queue",
+      },
+      crawler: {
+        value: healthOk,
+        unit: `/${health.length}`,
+        status: health.length && healthOk === health.length ? "OK" : "Check",
+        score: health.length ? clamp((healthOk / health.length) * 100) : 0,
+        note: "수집 성공 단계",
+      },
+      prices: {
+        value: allPriceRows().length,
+        unit: "rows",
+        status: priceState.label,
+        score: freshnessScore(priceState, allPriceRows().length),
+        note: "Spot·contract 가격 rows",
+      },
+      news: {
+        value: newsCount,
+        unit: "건",
+        status: newsState.label,
+        score: freshnessScore(newsState, newsCount),
+        note: "영어권·중국어 기사",
+      },
+      "china-dynamics": {
+        value: chinaSignalCount,
+        unit: "signal",
+        status: axisMomentum(chinaSignalCount).label,
+        score: clamp(chinaSignalCount * 1.35, chinaSignalCount ? 28 : 0, 100),
+        note: "캐파·장비·패키징·정책",
+      },
+      "talent-radar": {
+        value: (talentData.companySignals || []).length + (talentData.meceSources || []).length,
+        unit: "축",
+        status: "Hiring",
+        score: clamp(((talentData.companySignals || []).length + (talentData.meceSources || []).length) * 12, 20, 100),
+        note: "채용·IP·캠퍼스 신호",
+      },
+      numbers: {
+        value: numberDashboardItems().filter(numberRelated).length,
+        unit: "KPI",
+        status: "Quant",
+        score: clamp(numberDashboardItems().filter(numberRelated).length * 5, 28, 100),
+        note: "움직이는 정량 대시보드",
+      },
+      workbench: {
+        value: WORKBENCH_MODES.length,
+        unit: "탭",
+        status: "Interactive",
+        score: 92,
+        note: "선택형 분석 워크벤치",
+      },
+      "ai-matrix": {
+        value: (architecture.tracks || []).length + (architecture.shareMatrix || []).length + (architecture.roadmap || []).length,
+        unit: "노드",
+        status: "Matrix",
+        score: 84,
+        note: "HBM·CXL·commodity 프레임",
+      },
+      "china-deep-dive": {
+        value: CHINA_DEEP_DIVE.filter(relatedToActive).length,
+        unit: "건",
+        status: "Benchmark",
+        score: clamp(CHINA_DEEP_DIVE.filter(relatedToActive).length * 12, 26, 100),
+        note: "중국 업체 심층 벤치마킹",
+      },
+      categories: {
+        value: Math.max(memoryCategories().length - 1, 0),
+        unit: "개",
+        status: "MECE",
+        score: 88,
+        note: "메모리 업계 카테고리",
+      },
+      competitors: {
+        value: (BASE.companies || []).filter(relatedToActive).length,
+        unit: "사",
+        status: "Peer",
+        score: clamp((BASE.companies || []).filter(relatedToActive).length * 13, 24, 100),
+        note: "CXMT·YMTC·OSAT·장비",
+      },
+      dynamics: {
+        value: (BASE.dynamics || []).filter(relatedToActive).length,
+        unit: "축",
+        status: "Dynamics",
+        score: 82,
+        note: "경쟁 다이나믹스 관계 맵",
+      },
+      monetization: {
+        value: (BASE.monetizationModels || []).filter(relatedToActive).length,
+        unit: "모델",
+        status: "Margin",
+        score: 78,
+        note: "수익화·가격·믹스 모델",
+      },
+      response: {
+        value: (BASE.responses || []).filter((item) => relatedToActive({ ...item, linkedCategories: responseLinkedCategories(item) })).length,
+        unit: "액션",
+        status: "Action",
+        score: 76,
+        note: "SK하이닉스 대응 체크리스트",
+      },
+      intelligence: {
+        value: visibleItems(BASE.channels || []).filter(relatedToActive).length,
+        unit: "채널",
+        status: "Source",
+        score: 72,
+        note: "금융·채용·기술분석 채널",
+      },
+    };
+    const item = map[section] || { value: 0, unit: "", status: "Watch", score: 50, note: SECTION_LABELS[section] || section };
+    return {
+      ...item,
+      section,
+      label: SECTION_LABELS[section] || section,
+      mode: workbenchModeForSection(section),
+      score: clamp(item.score),
+    };
+  }
+
+  function renderNumberLiveRibbon() {
+    const wrap = $("#numberLiveRibbon");
+    if (!wrap) return;
+    const items = ["prices", "news", "crawler", "china-dynamics"].map(sectionTelemetry);
+    wrap.innerHTML = items.map((item) => `
+      <button class="quant-ribbon-card reveal" type="button" data-jump="${escapeHTML(item.section)}" style="--local-accent:${categoryAccent((item.section === "china-dynamics" && "china") || (item.section === "prices" && "dram") || (item.section === "news" && "geopolitics") || "operations")}">
+        <span class="score-ring compact" data-score-to="${item.score}" style="--score:0">
+          <span class="score-value">${countHTML(Math.round(item.score))}</span>
+          <small>/100</small>
+        </span>
+        <span class="quant-ribbon-copy">
+          <small>${escapeHTML(item.status)} · ${escapeHTML(item.note)}</small>
+          <strong>${escapeHTML(item.label)}</strong>
+          <span>${countHTML(item.value)}${escapeHTML(item.unit)} · ${escapeHTML(fmtDate(LIVE.updatedAt))}</span>
+        </span>
+      </button>
+    `).join("");
+    wrap.querySelectorAll("[data-jump]").forEach((btn) => {
+      btn.addEventListener("click", () => jumpTo(btn.dataset.jump));
+    });
+    animateCounts(wrap);
+    animateMeters(wrap);
+  }
+
   function numberPlainText(item) {
     return [
       `[${item.kind || "KPI"}] ${item.title}`,
@@ -1571,6 +1782,7 @@
     if (!grid) return;
     const allItems = orderedNumberItems(numberDashboardItems().filter(numberRelated));
     const items = allItems.filter((item) => numberLensRelated(item));
+    renderNumberLiveRibbon();
     renderNumberLensControls(allItems);
     renderNumberLensSummary(items, allItems);
     const meta = $("#numberMeta");
@@ -2769,12 +2981,68 @@
     });
   }
 
+  function renderWorkbenchMece() {
+    const wrap = $("#workbenchMece");
+    if (!wrap) return;
+    const activeMode = WORKBENCH_MODES.find((mode) => mode.id === workbenchMode);
+    wrap.innerHTML = MECE_GROUPS.map((group) => {
+      const sections = group.sections.map(sectionTelemetry);
+      const groupScore = sections.length ? Math.round(sections.reduce((sum, item) => sum + item.score, 0) / sections.length) : 0;
+      const total = sections.reduce((sum, item) => sum + (Number(item.value) || 0), 0);
+      return `
+        <article class="mece-group-card reveal" data-mece-group="${escapeHTML(group.id)}">
+          <div class="mece-group-head">
+            <div>
+              <span>${escapeHTML(group.cadence)}</span>
+              <strong>${escapeHTML(group.label)}</strong>
+            </div>
+            <span class="score-ring tiny" data-score-to="${groupScore}" style="--score:0">
+              <span class="score-value">${countHTML(groupScore)}</span>
+              <small>/100</small>
+            </span>
+          </div>
+          <p>${escapeHTML(group.desc)}</p>
+          <div class="mece-group-meter"><i data-fill-to="${groupScore}" style="width:0%"></i></div>
+          <div class="mece-node-list">
+            ${sections.map((item) => `
+              <button class="mece-node${item.section === activeMode?.section ? " active" : ""}" type="button" data-mece-section="${escapeHTML(item.section)}" data-mece-mode="${escapeHTML(item.mode)}">
+                <span>
+                  <strong>${escapeHTML(item.label)}</strong>
+                  <small>${escapeHTML(item.note)}</small>
+                </span>
+                <em>${countHTML(item.value)}${escapeHTML(item.unit)}</em>
+              </button>
+            `).join("")}
+          </div>
+          <div class="mece-group-foot">
+            <span>${escapeHTML(fmtNum(total))} signals</span>
+            <span>${escapeHTML(group.sections.length)} boards</span>
+          </div>
+        </article>
+      `;
+    }).join("");
+
+    wrap.querySelectorAll("[data-mece-section]").forEach((btn) => {
+      btn.addEventListener("click", () => {
+        if (btn.dataset.meceMode) {
+          workbenchMode = btn.dataset.meceMode;
+          selectedInsightId = null;
+          renderWorkbench();
+        }
+        jumpTo(btn.dataset.meceSection);
+      });
+    });
+    animateCounts(wrap);
+    animateMeters(wrap);
+  }
+
   function renderWorkbench() {
     const tabs = $("#workbenchTabs");
     const stage = $("#workbenchStage");
     const detail = $("#workbenchDetail");
     if (!tabs || !stage || !detail) return;
 
+    renderWorkbenchMece();
     tabs.innerHTML = "";
     WORKBENCH_MODES.forEach((mode) => {
       const count = workbenchItems(mode.id).length;
