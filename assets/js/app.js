@@ -6796,7 +6796,6 @@
       { label: "서버향 믹스", value: serverShare, note: "모델 산출 · AI 서버 + 데이터센터 스토리지", suffix: "%", decimals: 1 },
       { label: "단말향 믹스", value: terminalShare, note: "모델 산출 · 모바일/PC + 오토/엣지", suffix: "%", decimals: 1 },
       { label: "서버향 3-case 범위", value: `${fmtNum(worstServerShare, 1)}~${fmtNum(bestServerShare, 1)}%`, note: "Worst~Best 5Y 민감도 · 실측 아님" },
-      { label: "크롤링 신호", value: totalSignals, note: "뉴스·가격·벤치마킹 실제 건수", suffix: "건" },
     ];
     summary.innerHTML = summaryCards.map((card) => `
       <article class="projection-stat reveal">
