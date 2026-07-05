@@ -1724,7 +1724,7 @@
     {
       id: "market",
       label: "시장",
-      desc: "TrendForce 가격, 영어권·중국어 기사, 수급 변화와 수집 상태",
+      desc: "가격·수급 변화와 기사 흐름",
       cadence: "Market data",
       jump: "prices",
       sections: ["prices", "news", "crawler"],
@@ -3558,21 +3558,6 @@
   }
 
   function numberDashboardItems() {
-    const health = LIVE.health || [];
-    const ok = health.filter((entry) => entry.ok).length;
-    const fail = Math.max(health.length - ok, 0);
-    const priceState = freshnessState({
-      updatedAt: LIVE.prices?.updatedAt || LIVE.updatedAt,
-      count: allPriceRows().length,
-      healthKeys: ["가격:"],
-      staleHours: 30,
-    });
-    const newsState = freshnessState({
-      updatedAt: LIVE.updatedAt,
-      count: rawNews().length,
-      healthKeys: ["뉴스", "외신", "중국"],
-      staleHours: 36,
-    });
     const baseItems = (BASE.kpis || []).map((kpi, index) => ({
       id: `kpi-${index}`,
       kind: "KPI",
@@ -3590,60 +3575,6 @@
       sourceUrl: kpi.sourceUrl || "",
       linkedCategories: kpi.linkedCategories || inferKpiCategories(kpi),
     }));
-    const liveItems = [
-      {
-        id: "live-price-rows",
-        kind: "Crawler",
-        title: "Spot / Contract 가격 rows",
-        value: allPriceRows().length,
-        suffix: "건",
-        note: `${fmtNum(LIVE.prices?.sections?.length || 0)}개 TrendForce 표 · 품목별 rows 기준`,
-        badge: priceState.label,
-        statusClass: priceState.cls,
-        source: "TrendForce crawler",
-        sourceDate: fmtDate(LIVE.prices?.updatedAt || LIVE.updatedAt),
-        linkedCategories: ["dram", "nand"],
-      },
-      {
-        id: "live-foreign-news",
-        kind: "News",
-        title: "영어권 기사",
-        value: rawNews().filter((item) => !isChinaArticle(item)).length,
-        suffix: "건",
-        note: "Reuters · Bloomberg · FT · TrendForce · TechInsights 중심",
-        badge: newsState.label,
-        statusClass: newsState.cls,
-        source: "foreign news crawler",
-        sourceDate: fmtDate(LIVE.updatedAt),
-        linkedCategories: ["hbm", "dram", "nand", "packaging", "geopolitics"],
-      },
-      {
-        id: "live-china-news",
-        kind: "News",
-        title: "중국어 기사",
-        value: rawNews().filter(isChinaArticle).length,
-        suffix: "건",
-        note: "财新 · 第一财经 · 集微网 · 观察者网 등 중국 생태계 신호",
-        badge: newsState.label,
-        statusClass: newsState.cls,
-        source: "china news crawler",
-        sourceDate: fmtDate(LIVE.updatedAt),
-        linkedCategories: ["china", "dram", "nand", "equipment", "packaging"],
-      },
-      {
-        id: "live-crawler-health",
-        kind: "Health",
-        title: "수집 성공 단계",
-        value: ok,
-        suffix: `/${health.length}`,
-        note: fail ? `${fmtNum(fail)}개 수집 단계 점검 필요` : "가격·뉴스·벤치마킹 수집 단계 정상",
-        badge: fail ? "점검 필요" : "정상",
-        statusClass: fail ? "fail" : "ok",
-        source: "GitHub Actions daily crawler",
-        sourceDate: fmtDate(LIVE.updatedAt),
-        linkedCategories: [],
-      },
-    ];
     const projectionSegments = productProjectionSegments();
     const projectionRows = projectionSeries(projectionSegments);
     const projectionItems = [
@@ -3681,7 +3612,7 @@
         title: "제품군 프로젝션 입력 신호",
         value: projectionTotalSignals(),
         suffix: "건",
-        note: "현재 live.json의 가격 rows, 뉴스, 중국 벤치마킹 신호를 제품군별로 재분류",
+        note: "현재 live.json의 제품·중국 벤치마킹 신호를 제품군별로 재분류",
         badge: "Live input",
         statusClass: "ok",
         source: "live.json",
@@ -3689,7 +3620,7 @@
         linkedCategories: ["operations", "china"],
       },
     ];
-    return visibleItems(baseItems.concat(liveItems, projectionItems));
+    return visibleItems(baseItems.concat(projectionItems));
   }
 
   function orderedNumberItems(items) {
@@ -3737,8 +3668,6 @@
   }
 
   function sectionTelemetry(section) {
-    const health = LIVE.health || [];
-    const healthOk = health.filter((entry) => entry.ok).length;
     const newsCount = rawNews().length;
     const chinaSignalCount = CHINA_DYNAMIC_AXES.reduce((sum, axis) => sum + axisSignalCount(axis), 0);
     const priceState = freshnessState({
@@ -3815,27 +3744,6 @@
         status: "Review",
         score: clamp(dailyReviewItems().length * 7, dailyReviewItems().length ? 30 : 0, 100),
         note: "오늘 검토할 digest queue",
-      },
-      crawler: {
-        value: healthOk,
-        unit: `/${health.length}`,
-        status: health.length && healthOk === health.length ? "정상" : "점검 필요",
-        score: health.length ? clamp((healthOk / health.length) * 100) : 0,
-        note: "수집 성공 단계",
-      },
-      prices: {
-        value: allPriceRows().length,
-        unit: "rows",
-        status: priceState.label,
-        score: freshnessScore(priceState, allPriceRows().length),
-        note: "Spot·contract 가격 rows",
-      },
-      news: {
-        value: newsCount,
-        unit: "건",
-        status: newsState.label,
-        score: freshnessScore(newsState, newsCount),
-        note: "영어권·중국어 기사",
       },
       "china-nand": {
         value: CHINA_NAND_BUSINESS_LAYERS.reduce((sum, item) => sum + nandBusinessSignalCount(item), 0),
@@ -3956,7 +3864,7 @@
   function renderNumberLiveRibbon() {
     const wrap = $("#numberLiveRibbon");
     if (!wrap) return;
-    const items = ["prices", "news", "projection", "china-nand", "crawler"].map(sectionTelemetry);
+    const items = ["projection", "china-nand"].map(sectionTelemetry);
     wrap.innerHTML = items.map((item) => `
       <button class="quant-ribbon-card reveal" type="button" data-jump="${escapeHTML(item.section)}" style="--local-accent:${categoryAccent((item.section === "projection" && "hbm") || (item.section === "china-nand" && "nand") || (item.section === "china-dynamics" && "china") || (item.section === "prices" && "dram") || (item.section === "news" && "geopolitics") || "operations")}">
         <span class="score-ring compact" data-score-to="${item.score}" style="--score:0">
