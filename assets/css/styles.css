@@ -4277,6 +4277,208 @@ body.sidebar-collapsed .sb-ico {
   text-decoration: none;
 }
 
+.evidence-framework-summary,
+.evidence-layer-grid {
+  display: grid;
+  grid-template-columns: repeat(5, minmax(0, 1fr));
+  gap: 8px;
+  margin-bottom: 10px;
+}
+
+.evidence-summary-card,
+.evidence-layer-card,
+.evidence-claim-card,
+.evidence-method-panel {
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  background: var(--panel);
+  box-shadow: var(--shadow);
+}
+
+.evidence-summary-card,
+.evidence-layer-card {
+  min-width: 0;
+  padding: 12px;
+}
+
+.evidence-summary-card span,
+.evidence-layer-card span {
+  display: block;
+  color: var(--muted);
+  font-size: 11px;
+  font-weight: 850;
+}
+
+.evidence-summary-card strong,
+.evidence-layer-card strong {
+  display: block;
+  margin-top: 5px;
+  font-family: var(--display);
+  font-size: 22px;
+  line-height: 1;
+}
+
+.evidence-summary-card small,
+.evidence-layer-card small,
+.evidence-layer-card p {
+  display: block;
+  margin-top: 7px;
+  color: var(--ink-2);
+  font-size: 11px;
+  line-height: 1.45;
+  font-weight: 650;
+}
+
+.evidence-layer-card.active {
+  border-color: color-mix(in srgb, var(--accent) 52%, var(--line));
+  background: color-mix(in srgb, var(--accent) 8%, var(--panel));
+}
+
+.evidence-framework-layout {
+  display: grid;
+  grid-template-columns: minmax(0, 1.65fr) minmax(280px, .75fr);
+  gap: 12px;
+}
+
+.evidence-ledger-panel,
+.evidence-method-panel {
+  min-width: 0;
+  padding: 12px;
+}
+
+.evidence-filter-tabs {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin: 10px 0;
+}
+
+.evidence-filter-tabs button {
+  border: 1px solid var(--line);
+  border-radius: 9px;
+  background: var(--panel-2);
+  color: var(--ink);
+  padding: 8px 10px;
+  font: inherit;
+  font-weight: 900;
+  cursor: pointer;
+}
+
+.evidence-filter-tabs button small {
+  margin-left: 6px;
+  color: var(--muted);
+}
+
+.evidence-filter-tabs button.active {
+  border-color: color-mix(in srgb, var(--accent) 55%, var(--line));
+  background: color-mix(in srgb, var(--accent) 10%, var(--panel));
+  color: var(--accent);
+}
+
+.evidence-claim-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 9px;
+}
+
+.evidence-claim-card {
+  position: relative;
+  overflow: hidden;
+  padding: 12px;
+}
+
+.evidence-claim-card::before {
+  content: "";
+  position: absolute;
+  inset: 0 auto 0 0;
+  width: 4px;
+  background: var(--accent);
+}
+
+.evidence-claim-card.fact::before {
+  background: var(--green);
+}
+
+.evidence-claim-card.interpretation::before {
+  background: var(--blue);
+}
+
+.evidence-claim-card.assumption::before {
+  background: var(--amber);
+}
+
+.evidence-claim-card.methodology::before {
+  background: var(--purple);
+}
+
+.evidence-card-top,
+.evidence-card-foot {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  align-items: center;
+}
+
+.evidence-claim-card h3 {
+  margin-top: 9px;
+  font-size: 14px;
+  line-height: 1.35;
+  font-weight: 950;
+}
+
+.evidence-claim-card p {
+  margin-top: 7px;
+  color: var(--ink-2);
+  font-size: 12px;
+  line-height: 1.55;
+  font-weight: 650;
+}
+
+.evidence-card-foot {
+  justify-content: space-between;
+  margin-top: 10px;
+  color: var(--muted);
+  font-size: 11px;
+  font-weight: 800;
+}
+
+.source-tag.muted {
+  color: var(--muted);
+  background: var(--panel-2);
+}
+
+.evidence-methodology {
+  display: grid;
+  gap: 10px;
+  margin-top: 10px;
+}
+
+.evidence-dictionary {
+  border: 1px solid var(--line);
+  border-radius: 9px;
+  background: var(--panel-2);
+  padding: 10px;
+}
+
+.evidence-dictionary h4 {
+  font-size: 12px;
+  font-weight: 950;
+}
+
+.evidence-dictionary p {
+  display: grid;
+  grid-template-columns: 82px minmax(0, 1fr);
+  gap: 8px;
+  margin-top: 8px;
+  color: var(--ink-2);
+  font-size: 11.5px;
+  line-height: 1.45;
+}
+
+.evidence-dictionary strong {
+  color: var(--ink);
+}
+
 .crawler-summary {
   display: grid;
   grid-template-columns: repeat(5, minmax(0, 1fr));
@@ -6910,6 +7112,10 @@ body.sidebar-collapsed .sb-ico {
     grid-template-columns: 1fr;
   }
 
+  .evidence-framework-layout {
+    grid-template-columns: 1fr;
+  }
+
   .china-nand-playbook {
     grid-template-columns: repeat(3, minmax(0, 1fr));
   }
@@ -6948,6 +7154,8 @@ body.sidebar-collapsed .sb-ico {
   .projection-drivers,
   .crawler-summary,
   .review-summary,
+  .evidence-framework-summary,
+  .evidence-layer-grid,
   .review-schema,
   .china-nand-summary,
   .china-nand-map,
@@ -6966,6 +7174,7 @@ body.sidebar-collapsed .sb-ico {
   .corpdev-summary,
   .corpdev-grid,
   .claim-grid,
+  .evidence-claim-grid,
   .dynamic-grid,
   .model-grid,
   .response-grid,
@@ -7411,6 +7620,10 @@ body.sidebar-collapsed .sb-ico {
     .workbench-tabs,
     .workbench-stage,
     .review-summary,
+    .evidence-framework-summary,
+    .evidence-layer-grid,
+    .evidence-framework-layout,
+    .evidence-claim-grid,
     .review-controls,
     .review-detail-grid,
     .review-schema,
