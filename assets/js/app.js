@@ -2547,15 +2547,6 @@
     const brief = $("#execBrief");
     const strategy = $("#execStrategy");
     if (!brief || !strategy) return;
-    const healthCount = (LIVE.health || []).length;
-    setFreshness("#execFreshness", {
-      label: "Executive Summary",
-      updatedAt: LIVE.updatedAt,
-      source: "daily crawler",
-      count: rawNews().length + allPriceRows().length + healthCount,
-      healthKeys: ["뉴스", "가격:"],
-      staleHours: 36,
-    });
 
     brief.innerHTML = `
       <div class="exec-bullets">
