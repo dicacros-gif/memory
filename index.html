@@ -11,7 +11,7 @@
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard/dist/web/static/pretendard.css" />
   <link rel="stylesheet" as="style" crossorigin href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css" />
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@500;700&family=Noto+Sans+KR:wght@400;500;700;800;900&family=Space+Grotesk:wght@500;600;700&display=swap" />
-  <link rel="stylesheet" href="assets/css/styles.css?v=ai-ux-20260705-qa-search" />
+  <link rel="stylesheet" href="assets/css/styles.css?v=ai-ux-20260705-sidebar-groups" />
 </head>
 <body>
   <div class="scroll-prog" id="scrollProg" aria-hidden="true"></div>
@@ -27,44 +27,11 @@
         </span>
       </button>
 
-      <nav class="sb-nav ia-nav" aria-label="대시보드 핵심 탭">
-        <div class="sb-group">핵심 흐름</div>
-        <button class="sb-item active" type="button" data-jump="overview">
-          <span class="sb-ico" aria-hidden="true">H</span>
-          <span class="sb-label"><strong>홈</strong><small>오늘 핵심 변화</small></span>
-        </button>
-        <button class="sb-item" type="button" data-jump="executive-decision">
-          <span class="sb-ico" aria-hidden="true">A</span>
-          <span class="sb-label"><strong>경영진</strong><small>의사결정 · AGENT · 백테스트</small></span>
-        </button>
-        <button class="sb-item" type="button" data-jump="management-strategy">
-          <span class="sb-ico" aria-hidden="true">S</span>
-          <span class="sb-label"><strong>전략/투자</strong><small>중국 사업 · ROI · 실행</small></span>
-        </button>
-        <button class="sb-item" type="button" data-jump="prices">
-          <span class="sb-ico" aria-hidden="true">M</span>
-          <span class="sb-label"><strong>시장</strong><small>가격 · 기사 · 수급</small></span>
-        </button>
-        <button class="sb-item" type="button" data-jump="china-nand">
-          <span class="sb-ico" aria-hidden="true">C</span>
-          <span class="sb-label"><strong>경쟁사</strong><small>CXMT · YMTC · OSAT</small></span>
-        </button>
-        <button class="sb-item" type="button" data-jump="policy-makers">
-          <span class="sb-ico" aria-hidden="true">P</span>
-          <span class="sb-label"><strong>정책/Fab</strong><small>정책 · 토지 · 용수 · 전력</small></span>
-        </button>
-        <button class="sb-item" type="button" data-jump="talent-radar">
-          <span class="sb-ico" aria-hidden="true">T</span>
-          <span class="sb-label"><strong>인재/IP</strong><small>채용 · 대학 · 보안</small></span>
-        </button>
-      </nav>
+      <nav class="sb-nav ia-nav" id="sideNav" aria-label="대시보드 핵심 탭"></nav>
 
       <div class="sb-block sb-quick">
         <div class="sb-block-title">빠른 이동</div>
-        <button type="button" data-jump="executive-decision">경영진 의사결정</button>
-        <button type="button" data-jump="management-strategy">전략/투자 분석</button>
-        <button type="button" data-jump="prices">가격·기사</button>
-        <button type="button" data-jump="projection">제품 예측</button>
+        <div class="sb-quick-grid" id="sideQuick"></div>
       </div>
 
       <details class="sb-block sb-filter">
@@ -577,6 +544,6 @@
   <div class="qa-answer" id="qaAnswer" hidden></div>
   <div class="inspector" id="inspector" hidden></div>
   <div class="backdrop" id="backdrop"></div>
-  <script src="assets/js/app.js?v=ai-ux-20260705-qa-search" defer></script>
+  <script src="assets/js/app.js?v=ai-ux-20260705-sidebar-groups" defer></script>
 </body>
 </html>

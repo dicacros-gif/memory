@@ -1720,6 +1720,78 @@
     },
   ];
   const IA_ROUTES = MECE_GROUPS;
+  const ROUTE_DISPLAY = {
+    home: {
+      label: "홈",
+      desc: "오늘 핵심 변화, 경보, 업데이트 시각을 먼저 확인",
+      cadence: "Daily",
+    },
+    analysis: {
+      label: "경영진",
+      desc: "의사결정, 백테스트, 제품군 프로젝션, ROI 시나리오",
+      cadence: "Decision lab",
+    },
+    market: {
+      label: "시장",
+      desc: "Spot/Contract 가격, 영어권·중국어 기사, 수급 신호",
+      cadence: "Market data",
+    },
+    competitors: {
+      label: "경쟁사",
+      desc: "CXMT, YMTC, XMC, JCET, Naura, AMEC 벤치마크",
+      cadence: "China benchmark",
+    },
+    policy: {
+      label: "정책/Fab",
+      desc: "중국·한국·미국 정책과 중국 Fab 인프라 판단",
+      cadence: "Policy watch",
+    },
+    talent: {
+      label: "인재/IP",
+      desc: "채용, 대학 파이프라인, 수율 인력, IP 리스크",
+      cadence: "Hiring watch",
+    },
+  };
+  const CATEGORY_DISPLAY = {
+    all: { label: "전체", en: "All Signals", desc: "수집된 가격·뉴스·벤치마킹 신호 전체" },
+    dram: { label: "DRAM · CXMT", en: "DRAM / CXMT", desc: "DDR4·DDR5·LPDDR와 CXMT 가격 하방 압력" },
+    nand: { label: "NAND · YMTC", en: "NAND / SSD", desc: "Xtacking, eSSD, YMTC·XMC 공급망 변화" },
+    aidemand: { label: "AI 수요 · eSSD", en: "AI Demand", desc: "AI 서버, eSSD, 데이터센터 수요 신호" },
+    hbm: { label: "HBM 초격차", en: "HBM Moat", desc: "HBM3E/HBM4, 고객 인증, 베이스 다이·패키징 병목" },
+    cxl: { label: "CXL · PIM", en: "CXL / PIM", desc: "Post-HBM, CXL, PIM, 3D DRAM 전환 신호" },
+    packaging: { label: "첨단 패키징", en: "Advanced Packaging", desc: "JCET, XMC, 하이브리드 본딩, TSV, 칩렛" },
+    equipment: { label: "소부장 · 장비", en: "Equipment / Materials", desc: "Naura, AMEC, ACM과 중국 장비 내재화" },
+    geopolitics: { label: "정책 · 규제", en: "Policy / Geopolitics", desc: "BIS, CHIPS, Big Fund, 수출통제 리스크" },
+    operations: { label: "SKHY 중국 운영", en: "SKHY China Ops", desc: "Wuxi, Dalian, Solidigm, VEU와 Fab 운영 리스크" },
+    talent: { label: "인재 · IP", en: "Talent / IP", desc: "채용, 핵심 수율 인력 이동, IP 방어 신호" },
+  };
+  const SIDE_NAV_GROUPS = [
+    { label: "오늘", routes: ["home"] },
+    { label: "의사결정", routes: ["analysis"] },
+    { label: "시장·경쟁", routes: ["market", "competitors"] },
+    { label: "리스크", routes: ["policy", "talent"] },
+  ];
+  const SIDE_NAV_ICONS = {
+    home: "H",
+    analysis: "A",
+    market: "M",
+    competitors: "C",
+    policy: "P",
+    talent: "T",
+  };
+  const SIDE_QUICK_ACTIONS = [
+    { label: "경영진", hint: "의사결정", jump: "executive-decision", route: "analysis" },
+    { label: "가격·기사", hint: "시장", jump: "prices", route: "market" },
+    { label: "중국 경쟁", hint: "CXMT·YMTC", jump: "china-nand", route: "competitors" },
+    { label: "정책/Fab", hint: "BIS·인프라", jump: "policy-makers", route: "policy" },
+  ];
+  const TOPIC_FILTER_GROUPS = [
+    { label: "전체", hint: "All", categories: ["all"] },
+    { label: "시장·제품", hint: "DRAM·NAND·수요", categories: ["dram", "nand", "aidemand"] },
+    { label: "AI·차세대", hint: "HBM·CXL·패키징", categories: ["hbm", "cxl", "packaging"] },
+    { label: "중국 공급망", hint: "장비·정책·운영", categories: ["equipment", "geopolitics", "operations"] },
+    { label: "인재·IP", hint: "채용·보안", categories: ["talent"] },
+  ];
   const NEWS_SOURCE_TABS = [
     { id: "english", label: "영어권 기사", countId: "foreignNewsCount", bucketId: "foreignNewsBucket", listId: "foreignNewsList" },
     { id: "chinese", label: "중국어 기사", countId: "chinaNewsCount", bucketId: "chinaNewsBucket", listId: "chinaNewsList" },
@@ -1862,6 +1934,7 @@
     }
 
     renderChrome();
+    renderSidebarNav();
     renderSidebarCategories();
     renderKpis();
     renderExecutiveDecision();
@@ -2349,26 +2422,97 @@
 
   function decorateSidebarItems() {
     $$(".sb-item").forEach((btn) => {
-      const id = btn.dataset.jump || "";
-      const accent = NAV_ACCENTS[id] || "rgba(255,255,255,.92)";
+      const id = btn.dataset.route || btn.dataset.jump || "";
+      const accent = routeAccent(id) || NAV_ACCENTS[btn.dataset.jump] || "rgba(255,255,255,.92)";
       btn.style.setProperty("--nav-active", accent);
       const label = btn.querySelector(".sb-label strong")?.textContent?.trim();
       if (label) btn.title = label;
     });
   }
 
+  function routeById(id) {
+    return IA_ROUTES.find((route) => route.id === id) || null;
+  }
+
+  function routeDisplay(route) {
+    return { ...route, ...(ROUTE_DISPLAY[route.id] || {}) };
+  }
+
+  function categoryDisplay(category) {
+    return { ...category, ...(CATEGORY_DISPLAY[category.id] || {}) };
+  }
+
+  function renderSidebarNav() {
+    const nav = $("#sideNav");
+    const quick = $("#sideQuick");
+    if (!nav) return;
+    nav.innerHTML = SIDE_NAV_GROUPS.map((group) => {
+      const items = group.routes.map(routeById).filter(Boolean);
+      if (!items.length) return "";
+      return `
+        <div class="sb-nav-group">
+          <div class="sb-nav-group-label">${escapeHTML(group.label)}</div>
+          ${items.map((routeSource) => {
+            const route = routeDisplay(routeSource);
+            const telemetry = routeTelemetry(routeSource);
+            const accent = routeAccent(routeSource.id);
+            return `
+              <button class="sb-item${routeSource.jump === "overview" ? " active" : ""}" type="button" data-jump="${escapeHTML(routeSource.jump)}" data-route="${escapeHTML(routeSource.id)}" style="--nav-active:${escapeHTML(accent)}" title="${escapeHTML(route.desc)}">
+                <span class="sb-ico" aria-hidden="true">${escapeHTML(SIDE_NAV_ICONS[routeSource.id] || route.label.slice(0, 1))}</span>
+                <span class="sb-label">
+                  <strong>${escapeHTML(route.label)}</strong>
+                  <small>${escapeHTML(route.cadence)} · ${fmtNum(telemetry.signals)}개</small>
+                </span>
+              </button>
+            `;
+          }).join("")}
+        </div>
+      `;
+    }).join("");
+
+    if (quick) {
+      quick.innerHTML = SIDE_QUICK_ACTIONS.map((item) => `
+        <button type="button" data-jump="${escapeHTML(item.jump)}" style="--local-accent:${escapeHTML(routeAccent(item.route))}" title="${escapeHTML(item.hint)}">
+          <strong>${escapeHTML(item.label)}</strong>
+          <small>${escapeHTML(item.hint)}</small>
+        </button>
+      `).join("");
+    }
+    decorateSidebarItems();
+  }
+
   function renderSidebarCategories() {
     const wrap = $("#sideCategories");
     if (!wrap) return;
     wrap.innerHTML = "";
-    memoryCategories().forEach((category) => {
-      const btn = el("button", `sb-cat${category.id === activeCategory ? " active" : ""}`);
-      btn.type = "button";
-      btn.dataset.category = category.id;
-      btn.setAttribute("aria-pressed", category.id === activeCategory ? "true" : "false");
-      btn.style.setProperty("--local-accent", categoryAccent(category.id));
-      btn.innerHTML = `<span>${escapeHTML(category.label)}</span><small>${escapeHTML(category.en)}</small>`;
-      wrap.appendChild(btn);
+    const byId = new Map(memoryCategories().map((category) => [category.id, categoryDisplay(category)]));
+    TOPIC_FILTER_GROUPS.forEach((group) => {
+      const categories = group.categories.map((id) => byId.get(id)).filter(Boolean);
+      if (!categories.length) return;
+      const node = el("div", "sb-filter-group");
+      const isGroupActive = categories.some((category) => category.id === activeCategory);
+      node.innerHTML = `
+        <div class="sb-filter-head${isGroupActive ? " active" : ""}">
+          <span>${escapeHTML(group.label)}</span>
+          <em>${escapeHTML(group.hint)}</em>
+        </div>
+        <div class="sb-filter-options"></div>
+      `;
+      const options = node.querySelector(".sb-filter-options");
+      categories.forEach((category) => {
+        const btn = el("button", `sb-cat${category.id === activeCategory ? " active" : ""}`);
+        btn.type = "button";
+        btn.dataset.category = category.id;
+        btn.setAttribute("aria-pressed", category.id === activeCategory ? "true" : "false");
+        btn.style.setProperty("--local-accent", categoryAccent(category.id));
+        btn.title = category.desc || category.label;
+        btn.innerHTML = `
+          <span>${escapeHTML(category.label)}</span>
+          <small>${escapeHTML(category.en)}</small>
+        `;
+        options.appendChild(btn);
+      });
+      wrap.appendChild(node);
     });
     wrap.onclick = (event) => {
       const btn = event.target.closest("[data-category]");
@@ -2391,6 +2535,11 @@
       btn.classList.toggle("active", isActive);
       btn.classList.toggle("is-pending", pending && isActive);
       btn.setAttribute("aria-pressed", isActive ? "true" : "false");
+    });
+    $$(".sb-filter-head").forEach((head) => {
+      const group = head.closest(".sb-filter-group");
+      const hasActive = Boolean(group?.querySelector(".sb-cat.active"));
+      head.classList.toggle("active", hasActive);
     });
   }
 
