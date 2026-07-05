@@ -2182,6 +2182,7 @@
     setupQA();
     setupInteractions();
     setupScrollSpy();
+    normalizeBriefCopy(document.body);
     animateCounts();
     animateMeters();
   }
@@ -2198,9 +2199,85 @@
     return memoryCategories().find((item) => item.id === activeCategory) || memoryCategories()[0];
   }
 
+  function briefCopyText(value) {
+    if (value == null) return "";
+    const original = String(value);
+    if (!/[가-힣]/.test(original)) return original;
+
+    let text = original.replace(/\s+/g, " ").trim();
+    const proseLike = text.length > 18 || /합니다|됩니다|입니다|습니다|니다|다[.!?。]|[.!?。]\s/.test(text);
+    if (!proseLike) return original;
+
+    [
+      [/확인해야\s*합니다/g, "확인 필요"],
+      [/추적해야\s*합니다/g, "추적 필요"],
+      [/계산해야\s*합니다/g, "계산 필요"],
+      [/봐야\s*합니다/g, "검토 필요"],
+      [/해야\s*합니다/g, "필요"],
+      [/필요합니다/g, "필요"],
+      [/가능합니다/g, "가능"],
+      [/중요합니다/g, "중요"],
+      [/아닙니다/g, "아님"],
+      [/있습니다/g, "있음"],
+      [/없습니다/g, "없음"],
+      [/어렵습니다/g, "어려움"],
+      [/높습니다/g, "높음"],
+      [/낮습니다/g, "낮음"],
+      [/큽니다/g, "큼"],
+      [/작습니다/g, "작음"],
+      [/나타납니다/g, "나타남"],
+      [/보입니다/g, "보임"],
+      [/움직입니다/g, "움직임"],
+      [/봅니다/g, "검토"],
+      [/보여줍니다/g, "표시"],
+      [/올라옵니다/g, "상승"],
+      [/커집니다/g, "확대"],
+      [/줄어듭니다/g, "축소"],
+      [/흔들립니다/g, "변동"],
+      [/됩니다/g, "됨"],
+      [/합니다/g, ""],
+      [/입니다/g, ""],
+      [/습니다/g, "음"],
+    ].forEach(([pattern, replacement]) => {
+      text = text.replace(pattern, replacement);
+    });
+
+    return text
+      .replace(/([가-힣)])\.(?=\s|$)/g, "$1 ·")
+      .replace(/([가-힣)])다(?=[.!?。]|$)/g, "$1")
+      .replace(/[!?。](?=\s|$)/g, " ·")
+      .replace(/\s*·\s*/g, " · ")
+      .replace(/\s{2,}/g, " ")
+      .replace(/\s+([,;:])/g, "$1")
+      .replace(/\s*·\s*$/g, "")
+      .trim();
+  }
+
+  function normalizeBriefCopy(root = document.body) {
+    if (!root || typeof document.createTreeWalker !== "function") return;
+    const walker = document.createTreeWalker(root, NodeFilter.SHOW_TEXT, {
+      acceptNode(node) {
+        const parent = node.parentElement;
+        if (!parent || !/[가-힣]/.test(node.nodeValue || "")) return NodeFilter.FILTER_REJECT;
+        if (parent.closest("script, style, textarea, input, select, option, code, pre, .count")) return NodeFilter.FILTER_REJECT;
+        return NodeFilter.FILTER_ACCEPT;
+      },
+    });
+    const nodes = [];
+    let node = walker.nextNode();
+    while (node) {
+      nodes.push(node);
+      node = walker.nextNode();
+    }
+    nodes.forEach((textNode) => {
+      const next = briefCopyText(textNode.nodeValue);
+      if (next !== textNode.nodeValue) textNode.nodeValue = next;
+    });
+  }
+
   function escapeHTML(value) {
     const div = document.createElement("div");
-    div.textContent = value == null ? "" : String(value);
+    div.textContent = briefCopyText(value);
     return div.innerHTML;
   }
 
@@ -9151,7 +9228,7 @@
   }
 
   function clipText(text, limit) {
-    const clean = String(text || "").replace(/\s+/g, " ").trim();
+    const clean = briefCopyText(text).replace(/\s+/g, " ").trim();
     if (clean.length <= limit) return clean;
     return `${clean.slice(0, limit - 1).trim()}…`;
   }
