@@ -1443,6 +1443,132 @@ body.sidebar-collapsed .sb-ico {
   margin-bottom: 12px;
 }
 
+.category-ox-panel {
+  display: grid;
+  gap: 10px;
+  margin-bottom: 12px;
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  background: var(--panel-2);
+  padding: 12px;
+}
+
+.category-ox-matrix {
+  display: grid;
+  grid-template-columns: repeat(5, minmax(0, 1fr));
+  gap: 10px;
+}
+
+.category-ox-card {
+  min-width: 0;
+  display: grid;
+  grid-template-columns: 42px minmax(0, 1fr);
+  gap: 10px;
+  align-items: start;
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  background: var(--panel);
+  color: var(--ink);
+  padding: 11px;
+  text-align: left;
+  transition: transform .16s, border-color .16s, background .16s, box-shadow .16s;
+}
+
+.category-ox-card:hover,
+.category-ox-card:focus-visible,
+.category-ox-card.active {
+  outline: none;
+  transform: translateY(-2px);
+  border-color: var(--local-accent, var(--accent));
+  background: color-mix(in srgb, var(--local-accent, var(--accent)) 7%, var(--panel));
+  box-shadow: var(--shadow-lg);
+}
+
+.category-ox-card.go {
+  border-color: color-mix(in srgb, var(--green) 24%, var(--line));
+}
+
+.category-ox-card.stop {
+  border-color: color-mix(in srgb, var(--red) 20%, var(--line));
+}
+
+.ox-mark {
+  width: 42px;
+  height: 42px;
+  display: grid;
+  place-items: center;
+  border: 1px solid currentColor;
+  border-radius: 10px;
+  font-family: var(--display);
+  font-size: 20px;
+  font-weight: 950;
+  line-height: 1;
+}
+
+.ox-mark.o {
+  color: var(--green);
+  background: color-mix(in srgb, var(--green) 10%, var(--panel));
+}
+
+.ox-mark.x {
+  color: var(--red);
+  background: color-mix(in srgb, var(--red) 8%, var(--panel));
+}
+
+.category-ox-body {
+  min-width: 0;
+  display: grid;
+  gap: 5px;
+}
+
+.category-ox-body small,
+.category-ox-card em,
+.ox-metrics span {
+  color: var(--muted);
+  font-size: 10px;
+  font-weight: 950;
+  letter-spacing: .04em;
+  text-transform: uppercase;
+}
+
+.category-ox-body strong {
+  color: var(--ink);
+  font-size: 13px;
+  line-height: 1.28;
+  font-weight: 950;
+}
+
+.category-ox-body p {
+  color: var(--ink-2);
+  font-size: 11px;
+  line-height: 1.42;
+  font-weight: 760;
+}
+
+.ox-metrics {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 5px;
+}
+
+.ox-metrics span {
+  min-width: 0;
+  overflow: hidden;
+  border-radius: 7px;
+  background: var(--panel-2);
+  padding: 5px 6px;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.category-ox-card em {
+  grid-column: 1 / -1;
+  color: var(--local-accent, var(--accent));
+  font-style: normal;
+  text-transform: none;
+  letter-spacing: 0;
+}
+
 .decision-stat,
 .decision-panel,
 .decision-focus,
@@ -6081,6 +6207,7 @@ body.sidebar-collapsed .sb-ico {
   .data-integrity-grid,
   .exec-card-grid,
   .decision-summary,
+  .category-ox-matrix,
   .investment-summary,
   .investment-flow,
   .investment-evidence,
@@ -6372,6 +6499,7 @@ body.sidebar-collapsed .sb-ico {
   .exec-card-grid,
   .exec-strategy,
   .decision-summary,
+  .category-ox-matrix,
   .decision-grid,
   .investment-summary,
   .investment-flow,
@@ -6498,6 +6626,7 @@ body.sidebar-collapsed .sb-ico {
     .exec-card-grid,
     .exec-strategy,
     .decision-summary,
+    .category-ox-matrix,
     .decision-layout,
     .decision-grid,
     .decision-control,

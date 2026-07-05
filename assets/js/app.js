@@ -3123,6 +3123,113 @@
     };
   }
 
+  const CATEGORY_DECISION_POINTS = {
+    dram: "서버 DRAM 가격·캐파 배분",
+    nand: "eSSD·Solidigm 고객 방어",
+    packaging: "XMC·JCET 패키징 우회 대응",
+    equipment: "소부장 JV·IP 게이트",
+    talent: "핵심 인재·공정 IP 방어",
+    geopolitics: "수출통제·BIS/VEU 시나리오",
+    hbm: "HBM 고객 락인·패키징 병목",
+    cxl: "CXL/PIM 옵션 투자",
+    aidemand: "AI 서버·eSSD 믹스 전환",
+    operations: "다롄/Solidigm 운영 전환",
+  };
+  const PRICE_DECISION_CATEGORIES = new Set(["dram", "nand", "hbm", "aidemand"]);
+
+  function categoryPriceEvidence(cat = {}) {
+    const id = cat.id;
+    const terms = (cat.keywords || []).map((term) => String(term).toLowerCase()).filter(Boolean);
+    return allPriceRows().filter((row) => {
+      const hay = `${row.group || ""} ${row.sectionTitle || ""} ${row.item || ""}`.toLowerCase();
+      if (id === "dram") return /dram|ddr|lpddr|gddr|module/.test(hay);
+      if (id === "nand") return /nand|ssd|flash|wafer|ufs|emmc|card/.test(hay);
+      if (id === "hbm") return /dram|ddr5|gddr|module/.test(hay);
+      if (id === "aidemand") return /dram|ddr5|nand|ssd|module/.test(hay);
+      return terms.some((term) => hay.includes(term));
+    });
+  }
+
+  function categoryDecisionRows(backtests = executiveBacktests()) {
+    const strategies = managementStrategyItems();
+    const decisions = strategicInvestmentDecisionItems();
+    return memoryCategories().filter((cat) => cat.id !== "all").map((cat) => {
+      const newsItems = filteredNews(cat.id);
+      const sourceCount = sourceUrlItems(newsItems).length;
+      const priceRows = categoryPriceEvidence(cat).length;
+      const backtestItems = backtests.filter((item) => item.category === cat.id);
+      const testedBacktests = backtestItems.filter((item) => item.outcome.hit !== null || item.observations.length);
+      const relatedStrategies = strategies.filter((item) => (item.linkedCategories || []).includes(cat.id));
+      const relatedDecisions = decisions.filter((item) => {
+        const cats = (item.linkedCategories || []).concat(item.strategy?.linkedCategories || []);
+        return cats.includes(cat.id);
+      });
+      const liveCategoryCount = Number(liveNewsCategory(cat.id)?.count ?? liveNewsCategory(cat.id)?.items?.length ?? 0) || 0;
+      const benchmarkCount = CHINA_DYNAMIC_AXES
+        .filter((axis) => (axis.categoryIds || []).includes(cat.id))
+        .reduce((sum, axis) => sum + axisSignalCount(axis), 0);
+      const signalCount = liveCategoryCount + benchmarkCount + newsItems.length;
+      const needsPrice = PRICE_DECISION_CATEGORIES.has(cat.id);
+      const sourceOk = sourceCount >= 3 || newsItems.length >= 8;
+      const priceOk = !needsPrice || priceRows > 0 || testedBacktests.length > 0;
+      const agendaOk = relatedDecisions.length > 0 || relatedStrategies.length > 0 || testedBacktests.length > 0;
+      const verdict = sourceOk && priceOk && agendaOk ? "O" : "X";
+      const missing = [];
+      if (!sourceOk) missing.push(`원문 링크 3건 미만(${fmtNum(sourceCount)}건)`);
+      if (!priceOk) missing.push("가격/proxy 또는 백테스트 부족");
+      if (!agendaOk) missing.push("연결된 전략 안건 없음");
+      const decision = backtestItems[0]?.decision?.label || relatedDecisions[0]?.stage || (verdict === "O" ? "상정" : "보류");
+      return {
+        id: cat.id,
+        label: cat.label,
+        point: CATEGORY_DECISION_POINTS[cat.id] || cat.desc || cat.label,
+        verdict,
+        decision,
+        cls: verdict === "O" ? "ok" : "fail",
+        reason: verdict === "O"
+          ? `원문 ${fmtNum(sourceCount)}건 · 가격/proxy ${fmtNum(priceRows)} rows · 안건 ${fmtNum(relatedDecisions.length + relatedStrategies.length)}개`
+          : missing.join(" · "),
+        sourceCount,
+        priceRows,
+        signalCount,
+        backtestCount: testedBacktests.length,
+        agendaCount: relatedDecisions.length + relatedStrategies.length,
+      };
+    });
+  }
+
+  function renderCategoryDecisionMatrix(backtests = executiveBacktests()) {
+    const target = $("#categoryDecisionMatrix");
+    const meta = $("#categoryOxMeta");
+    if (!target) return;
+    const rows = categoryDecisionRows(backtests);
+    const okCount = rows.filter((row) => row.verdict === "O").length;
+    const xCount = rows.length - okCount;
+    if (meta) {
+      meta.textContent = `O ${fmtNum(okCount)}개 · X ${fmtNum(xCount)}개 · 기준: 원문 링크 + 가격/proxy + 연결 안건`;
+    }
+    target.innerHTML = rows.map((row, index) => `
+      <button class="category-ox-card reveal ${row.verdict === "O" ? "go" : "stop"}${row.id === activeCategory ? " active" : ""}" type="button" data-category-ox="${escapeHTML(row.id)}" style="--local-accent:${categoryAccent(row.id)}; animation-delay:${index * 22}ms">
+        <span class="ox-mark ${row.verdict === "O" ? "o" : "x"}">${escapeHTML(row.verdict)}</span>
+        <div class="category-ox-body">
+          <small>${escapeHTML(row.label)}</small>
+          <strong>${escapeHTML(row.point)}</strong>
+          <p>${escapeHTML(row.reason)}</p>
+          <div class="ox-metrics">
+            <span>신호 ${fmtNum(row.signalCount)}</span>
+            <span>원문 ${fmtNum(row.sourceCount)}</span>
+            <span>가격 ${fmtNum(row.priceRows)}</span>
+            <span>안건 ${fmtNum(row.agendaCount)}</span>
+          </div>
+        </div>
+        <em>${escapeHTML(row.verdict === "O" ? "의사결정 상정" : "보류/데이터 보강")}</em>
+      </button>
+    `).join("");
+    target.querySelectorAll("[data-category-ox]").forEach((btn) => {
+      btn.addEventListener("click", () => setCategory(btn.dataset.categoryOx));
+    });
+  }
+
   function renderChannels() {
     const grid = $("#channelGrid");
     grid.innerHTML = "";
@@ -4046,6 +4153,7 @@
         <small>${escapeHTML(card.note)}</small>
       </article>
     `).join("");
+    renderCategoryDecisionMatrix(items);
 
     grid.innerHTML = items.map((item, index) => `
       <button class="decision-card reveal${item.id === active?.id ? " active" : ""}" type="button" data-decision-product="${escapeHTML(item.id)}" style="--local-accent:${categoryAccent(item.category)}; animation-delay:${index * 25}ms">
