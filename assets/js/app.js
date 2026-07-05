@@ -2160,6 +2160,7 @@
       loadJSON("data/live.json", emptyLive),
       loadJSON("data/price-history.json", emptyHistory),
     ]);
+    LIVE = normalizeLiveData(LIVE);
 
     if (!BASE) {
       document.body.innerHTML = "<main class=\"empty\">baseline.json을 불러오지 못했습니다.</main>";
@@ -2272,6 +2273,31 @@
 
   function visibleItems(items = []) {
     return items.filter((item) => !isHiddenItem(item));
+  }
+
+  function positiveCount(item = {}) {
+    const count = Number(item.count ?? item.items?.length ?? 0);
+    return Number.isFinite(count) ? count : 0;
+  }
+
+  function hasPositiveCount(item = {}) {
+    return positiveCount(item) > 0;
+  }
+
+  function normalizeLiveData(data = emptyLive) {
+    const next = { ...emptyLive, ...(data || {}) };
+    next.categories = (next.categories || []).filter(hasPositiveCount);
+    next.benchmarkSignals = {
+      ...(next.benchmarkSignals || {}),
+      themes: (next.benchmarkSignals?.themes || []).filter(hasPositiveCount),
+      stream: next.benchmarkSignals?.stream || [],
+    };
+    next.health = (next.health || []).filter((entry) => {
+      const step = String(entry?.step || "");
+      const msg = String(entry?.msg || "");
+      return !(entry?.ok === false && /^(뉴스|벤치마킹):/.test(step) && /0건/.test(msg));
+    });
+    return next;
   }
 
   function hoursSince(value) {
@@ -4158,8 +4184,11 @@
     grid.innerHTML = "";
     const active = activeCategoryData();
     $("#categoryMeta").textContent = `${active.label} · ${active.desc}`;
-    memoryCategories().filter((cat) => cat.id !== "all").forEach((cat, index) => {
-      const stats = categoryStats(cat.id);
+    memoryCategories()
+      .filter((cat) => cat.id !== "all")
+      .map((cat) => ({ cat, stats: categoryStats(cat.id) }))
+      .filter(({ stats }) => (stats.companies + stats.news + stats.prices) > 0)
+      .forEach(({ cat, stats }, index) => {
       const card = el("article", `card reveal${cat.id === activeCategory ? " active" : ""}`);
       card.style.animationDelay = `${index * 35}ms`;
       card.style.setProperty("--local-accent", categoryAccent(cat.id));
@@ -4788,11 +4817,11 @@
   }
 
   function liveBenchmarkTheme(id) {
-    return (LIVE.benchmarkSignals?.themes || []).find((theme) => theme.id === id) || null;
+    return (LIVE.benchmarkSignals?.themes || []).find((theme) => theme.id === id && hasPositiveCount(theme)) || null;
   }
 
   function liveNewsCategory(id) {
-    return (LIVE.categories || []).find((category) => category.id === id) || null;
+    return (LIVE.categories || []).find((category) => category.id === id && hasPositiveCount(category)) || null;
   }
 
   function axisSignalCount(axis) {
@@ -7249,8 +7278,9 @@
     `).join("");
 
     grid.innerHTML = "";
-    CHINA_DYNAMIC_AXES.forEach((axis, index) => {
-      const count = axisSignalCount(axis);
+    CHINA_DYNAMIC_AXES.map((axis) => ({ axis, count: axisSignalCount(axis) }))
+      .filter(({ count }) => count > 0)
+      .forEach(({ axis, count }, index) => {
       const momentum = axisMomentum(count);
       const items = axisLiveItems(axis);
       const card = el("article", "china-dyn-card reveal");
@@ -9297,11 +9327,12 @@
       id: cat.id,
       label: cat.label,
       count: newsForView(cat.id).length,
-    })));
+    })).filter((opt) => opt.count > 0));
 
     if (activeCategory !== "all" && options.some((opt) => opt.id === activeCategory)) {
       newsCategory = activeCategory;
     }
+    if (!options.some((opt) => opt.id === newsCategory)) newsCategory = "all";
 
     renderNewsCompanySelect();
     renderNewsSourceTabs();

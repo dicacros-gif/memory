@@ -865,7 +865,11 @@ async function fetchCategory(cat, seen) {
     await sleep(350);
   }
   items.sort((a, b) => b.ts - a.ts);
-  note(`뉴스:${cat.label}`, items.length > 0, `${items.length}건`);
+  if (items.length > 0) {
+    note(`뉴스:${cat.label}`, true, `${items.length}건`);
+  } else {
+    console.log(`- 뉴스:${cat.label} 0건 → 카테고리 제외`);
+  }
   return items;
 }
 
@@ -916,6 +920,7 @@ async function collectNews() {
   for (const cat of CATEGORIES) {
     const items = await fetchCategory(cat, seen);
     all = all.concat(items);
+    if (!items.length) continue;
     categories.push({
       id: cat.id,
       label: cat.label,
@@ -1044,14 +1049,18 @@ async function collectBenchmarkSignals() {
       await sleep(320);
     }
     items.sort((a, b) => b.ts - a.ts);
-    themes.push({
-      id: theme.id,
-      label: theme.label,
-      count: items.length,
-      items: items.slice(0, 10).map(({ ts, category, ...rest }) => rest),
-    });
-    stream = stream.concat(items);
-    note(`벤치마킹:${theme.label}`, items.length > 0, `${items.length}건`);
+    if (items.length > 0) {
+      themes.push({
+        id: theme.id,
+        label: theme.label,
+        count: items.length,
+        items: items.slice(0, 10).map(({ ts, category, ...rest }) => rest),
+      });
+      stream = stream.concat(items);
+      note(`벤치마킹:${theme.label}`, true, `${items.length}건`);
+    } else {
+      console.log(`- 벤치마킹:${theme.label} 0건 → 테마 제외`);
+    }
   }
 
   stream.sort((a, b) => b.ts - a.ts);
