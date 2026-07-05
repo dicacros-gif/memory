@@ -902,7 +902,7 @@
       id: "worst",
       label: "Worst",
       sub: "Downside case",
-      tone: "HBM4 인증 지연, 중국 캐파 확대, 범용 DRAM/NAND 가격 하방을 크게 반영한 방어 케이스",
+      tone: "HBM4 ramp·패키징 병목, 중국 캐파 확대, 범용 DRAM/NAND 가격 하방을 크게 반영한 방어 케이스",
       scoreBias: -10,
       serverLift: -4.8,
       storageLift: -3.0,
@@ -928,7 +928,7 @@
       priceTerms: ["dram", "ddr5", "gddr", "module"],
       thesis: "AI 서버는 30개월 뒤에도 SKHY 제품 믹스의 최우선 축입니다. HBM4 베이스 다이, DDR5 고용량 모듈, CXL 확장 메모리가 함께 서버 ASP를 방어합니다.",
       assumptions: ["HBM4/Custom HBM 고객 인증 유지", "NVIDIA·ASIC 고객의 대역폭 요구 지속", "DDR5 고용량 모듈과 CXL이 서버당 메모리 탑재량 확대"],
-      triggers: ["HBM4 Rubin 인증", "CoWoS/패키징 할당량", "DDR5 contract 가격", "CXL 서버 PoC"],
+      triggers: ["HBM4 Rubin ramp", "CoWoS/패키징 할당량", "DDR5 contract 가격", "CXL 서버 PoC"],
       actions: ["HBM 고객 락인", "서버 DRAM 원가·수율 개선", "CXL 컨트롤러/IP 옵션 확보"],
       risk: "HBM4 속도 요구 상향과 패키징 병목이 양산 일정을 밀면 서버향 비중은 높아져도 매출 인식이 늦어질 수 있습니다.",
     },
@@ -1025,7 +1025,7 @@
       decisionBias: "growth",
       rationale: "AI 서버향은 HBM 직접 가격표가 없으므로 DDR5/GDDR/모듈 가격을 프리미엄 메모리 proxy로 사용합니다.",
       upside: "가격 모멘텀이 양수이고 중국 HBM 실질 양산 신호가 약하면 증설·고객 락인이 우선입니다.",
-      downside: "HBM4 인증 지연이나 서버 DRAM 가격 약세가 확인되면 고객별 할당과 수율 리스크를 보수적으로 봅니다.",
+      downside: "HBM4 고객별 ramp 지연, CoWoS/패키징 병목, 서버 DRAM 가격 약세가 확인되면 고객별 할당과 수율 리스크를 보수적으로 봅니다.",
     },
     {
       id: "server-dram",
@@ -1499,14 +1499,14 @@
     {
       id: "dram-euv-duv",
       tag: "DRAM 공정",
-      title: "CXMT 16nm(G4) 진입과 EUV 부재 한계",
-      thesis: "TechInsights 분석 기준 CXMT는 16nm(G4) DDR5 모듈을 양산하고 15nm 진입을 노리지만, EUV 없이 DUV 멀티패터닝으로 선단 D램을 밀어붙이는 구조적 한계가 큽니다",
-      facts: ["Gloway DDR5-6000 양산 확인", "DDR5 수율은 90%+ 확정이 아니라 80%대 Watch", "15nm는 2026년 말 목표"],
-      risk: "DUV 반복 노광은 공정 스텝·마스크 비용·변동성을 키우며, HBM3는 열·패키징·소재·수율 병목으로 2026년 내 의미 있는 양산이 어렵다는 평가가 우세합니다",
-      implication: "HBM 선두와의 격차는 3~4년 유지 가능성이 높고, CXMT의 실제 위협은 IPO 자금 투입 이후 레거시 DRAM 가격 하방에서 먼저 나타납니다",
+      title: "CXMT DDR5 수율 80%+와 HBM3 지연",
+      thesis: "CXMT는 DDR5 수율 80%+ 구간을 넘기며 범용 DRAM 위협을 현실화했지만, HBM3는 소재·패키징·수율 병목으로 2026년 H1 목표가 철회되고 2027년 의미 있는 물량을 보는 구도입니다",
+      facts: ["DDR5 수율 80%+는 2025 Citigroup·2026 SemiAnalysis 모델 기준 Confirmed", "CXMT 공식 노드: DDR5-4800 17nm, TechInsights 16nm는 역분석 추정", "HBM3 H1 2026 목표 철회, 2027년 12-layer HBM3가 현실적 목표"],
+      risk: "DUV 반복 노광은 공정 스텝·마스크 비용·변동성을 키웁니다. 단기 HBM 위협보다 DDR5·LPDDR·레거시 DRAM 가격 하방 압력이 더 빠르게 나타날 가능성이 큽니다",
+      implication: "HBM 격차는 3년+로 좁혀진 상태로 보고, CXMT의 즉시 위협은 IPO 자금·Tencent 장기계약·DDR5 점유율 상승이 만드는 범용 DRAM 가격 협상력 약화입니다",
       linkedCategories: ["dram", "packaging", "equipment"],
-      source: "TechInsights / Tom's Hardware",
-      sourceUrl: "https://www.tomshardware.com/pc-components/dram/chinas-cxmt-reportedly-delays-mass-production-of-ddr5-memory",
+      source: "SCMP / CXMT / Reuters",
+      sourceUrl: "https://www.scmp.com/tech/tech-war/article/3296794/chinas-top-memory-chip-maker-cxmt-narrows-tech-gap-leaders-samsung-hynix-micron",
     },
     {
       id: "ymtc-xtacking",
@@ -1525,11 +1525,11 @@
       tag: "우한 3공장",
       title: "YMTC 우한 Phase 3와 D램 병행 생산",
       thesis: "미국 제재 이후 YMTC는 우한 3공장에 국산 장비를 대거 투입하고, 일부 캐파를 D램과 TSV 패키징 준비로 돌리며 종합 메모리 기업화를 시도합니다",
-      facts: ["기존 Line 1·2 합산 약 200,000 wpm", "우한 Phase 3는 2027년 50,000 wpm 도달 보도", "추가 2개 팹까지 포함하면 장기 캐파 두 배 이상 확대 가능"],
+      facts: ["기존 Line 1 약 100,000 wpm + Line 2 약 60,000 wpm = 합산 약 160,000 wpm", "우한 Phase 3는 2026년 하반기 가동, 2027년 50,000 wpm 도달 보도", "추가 2개 팹까지 포함하면 장기 캐파 두 배 이상 확대 가능"],
       risk: "국산 장비 qual과 공정 recipe 안정화가 지연되면 NAND·D램 동시 확장 전략은 수율 병목에 부딪힐 수 있습니다",
       implication: "YMTC는 단순 NAND 경쟁사가 아니라 NAND·D램·TSV 적층을 묶는 중국형 IDM 후보로 추적해야 합니다",
       linkedCategories: ["nand", "dram", "equipment", "packaging"],
-      source: "Reuters via Evertiq / Tom's Hardware",
+      source: "Reuters via Evertiq / public capacity reports",
       sourceUrl: "https://evertiq.com/design/2026-04-14-ymtc-plans-new-fabs-to-boost-capacity-amid-rising-us-china-tensions",
     },
     {
@@ -1547,22 +1547,24 @@
       tag: "소부장",
       title: "빅펀드 3기와 장비·소재 국산화",
       thesis: "빅펀드 3기는 단순 팹 증설보다 EUV·EDA·첨단 화학 소재 같은 초크포인트에 자본을 집중하고 있습니다",
-      facts: ["빅펀드 3기 3,440억 위안·약 $47.5B", "Yole 기준 장비 국산화율 2025년 23.2%", "중국 내 팹·핵심 공정 기준은 35~40%+ 보도"],
-      risk: "집계 기준에 따라 국산화율 수치가 달라집니다. AMEC 식각, Naura 종합장비, ACM 세정이 서방 장비를 대체하고 소재 기업은 JV·공동 R&D를 통해 recipe 흡수를 시도합니다",
+      facts: ["빅펀드 3기 3,440억 위안·약 $47.5B", "Yole 기준 장비 국산화율 2025년 23.2%", "ACM Research 2025 매출 $901M, Q1 2026 매출 $231.3M, Entity List/미국 부품 조달 리스크"],
+      risk: "집계 기준에 따라 국산화율 수치가 달라집니다. AMEC 식각, Naura 종합장비, ACM 세정이 서방 장비를 대체하지만 Entity List와 미국 원산 부품 조달 리스크가 장비 ramp의 새로운 병목입니다",
       implication: "한국 소부장 파트너의 JV 제안, 소재 recipe 이전, 중국 내수 우선 공급권 요구를 조기 탐지해야 합니다",
       linkedCategories: ["equipment", "geopolitics", "talent"],
-      source: "Reuters",
-      sourceUrl: "https://www.reuters.com/technology/china-sets-up-475-bln-state-fund-boost-semiconductor-industry-2024-05-27/",
+      source: "Reuters / ACM Research / StockTitan",
+      sourceUrl: "https://www.stocktitan.net/news/ACMR/acm-research-reports-first-quarter-2026-3bbkh6alnsih.html",
     },
     {
       id: "match-act",
       tag: "규제 리스크",
-      title: "MATCH Act와 DUV·극저온 식각 제한 변수",
-      thesis: "2026년 4월 발의된 MATCH Act는 침수 DUV 리소그래피와 극저온 식각 장비의 대중 수출 제한을 강화하고 동맹국 동참을 요구하는 규제 변수입니다",
-      facts: ["DUV·극저온 식각 장비 제한 논의", "150일 내 동맹국 동참 요구", "YMTC Phase 4·5와 CXMT 장비 교체 타임라인에 영향"],
-      risk: "통과 시 중국 선단 메모리 캐파가 현재 수준에 묶일 수 있지만, 동시에 국산 장비 50%+ 승인 요건과 내재화 투자를 더 가속할 수 있습니다",
-      implication: "BIS/VEU, MATCH Act, 네덜란드·일본 동참 여부를 YMTC Phase 3 이후 팹 일정과 연결해 추적해야 합니다",
+      title: "MATCH Act: DUV 제한 유지, 극저온 식각 전국 금지 삭제",
+      thesis: "MATCH Act는 아직 법률로 확정되지 않은 의회 법안입니다. 2026년 4월 16일 수정으로 극저온 식각 장비의 전국적 blanket ban은 삭제됐고, DUV 리소그래피 제한과 동맹국 정렬 요구는 유지됩니다",
+      facts: ["Cryogenic etch blanket ban removed, Reuters 2026-04-16", "DUV restriction retained", "HR 8170은 2026-04-22 하원 외교위 36:8 통과, S.4281은 2026-04-13 Senate Banking Committee 회부"],
+      risk: "법률 확정 전에는 실행 규제로 오인하면 안 됩니다. 다만 통과 시 CXMT·YMTC·SMIC 장비 교체와 우회 조달 타임라인을 늦출 수 있습니다",
+      implication: "대시보드는 MATCH Act를 현행 규제가 아니라 정책 Watch로 표시하고, BIS/VEU·네덜란드·일본 동참 여부와 함께 YMTC Phase 3 이후 팹 일정에 연결합니다",
       linkedCategories: ["geopolitics", "equipment", "china"],
+      source: "Reuters / Congress trackers",
+      sourceUrl: "https://finance.yahoo.com/sectors/technology/articles/us-lawmakers-amend-restrictions-chinese-180025088.html",
     },
     {
       id: "talent-ip",
@@ -8029,7 +8031,7 @@
   function rawNews() {
     const live = LIVE.news || [];
     const curated = BASE.curatedNews || [];
-    const clean = dedupeNews(live.concat(curated)
+    const clean = dedupeNews(curated.concat(live)
       .filter((item) => isForeignNews(item) && isMemoryRelevant(item) && !isAppleContent(item) && !isLowConfidenceNews(item)));
     return clean.length ? clean : (BASE.fallbackNews || []);
   }
@@ -8137,6 +8139,8 @@
       .replace(/\bMicron\b/g, "마이크론")
       .replace(/\bNVIDIA\b/g, "엔비디아")
       .replace(/\bSK Hynix\b/gi, "SKHY")
+      .replace(/SK\s*하이닉스/g, "SKHY")
+      .replace(/SK하이닉스/g, "SKHY")
       .replace(/\s+/g, " ")
       .trim();
   }
