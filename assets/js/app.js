@@ -4221,6 +4221,150 @@
     return selected;
   }
 
+  function agentInitials(name = "Agent") {
+    return String(name)
+      .split(/[\s/·]+/)
+      .filter(Boolean)
+      .map((part) => part.charAt(0))
+      .join("")
+      .slice(0, 3)
+      .toUpperCase() || "A";
+  }
+
+  function agentDebateHTML({ mode = "default", title = "Agent debate", subtitle = "", metrics = [], turns = [], kpis = [], accent = "" } = {}) {
+    const colors = ["#06B6D4", "#8B5CF6", "#22C55E", "#F59E0B", "#EF4444", "#0EA5E9"];
+    const normalizedTurns = turns.filter((turn) => turn?.message).slice(0, 7).map((turn, index) => ({
+      ...turn,
+      color: turn.color || colors[index % colors.length],
+      side: turn.side || (index % 2 ? "right" : "left"),
+    }));
+    const agents = [];
+    normalizedTurns.forEach((turn) => {
+      if (!agents.some((agent) => agent.name === turn.name)) {
+        agents.push({
+          name: turn.name,
+          role: turn.role,
+          avatar: turn.avatar || agentInitials(turn.name),
+          color: turn.color,
+        });
+      }
+    });
+
+    return `
+      <div class="agent-debate agent-debate-${escapeHTML(mode)}" style="--local-accent:${escapeHTML(accent || colors[0])}">
+        <div class="agent-debate-title">
+          <span>EXPERT AGENTS</span>
+          <strong>${escapeHTML(title)}</strong>
+          ${subtitle ? `<small>${escapeHTML(subtitle)}</small>` : ""}
+        </div>
+        ${metrics.length ? `
+          <div class="agent-debate-metrics">
+            ${metrics.slice(0, 4).map((metric) => `
+              <div>
+                <strong>${escapeHTML(metric.value)}</strong>
+                <span>${escapeHTML(metric.label)}</span>
+              </div>
+            `).join("")}
+          </div>
+        ` : ""}
+        <div class="agent-roster" aria-label="토론 참여 전문가">
+          ${agents.slice(0, 6).map((agent, index) => `
+            <div class="agent-avatar-card" style="--agent-color:${escapeHTML(agent.color)};--delay:${index * 70}ms">
+              <b>${escapeHTML(agent.avatar)}</b>
+              <span>${escapeHTML(agent.name)}</span>
+              <small>${escapeHTML(agent.role || "Expert")}</small>
+            </div>
+          `).join("")}
+        </div>
+        <div class="agent-chat" aria-label="전문가 토론 말풍선">
+          ${normalizedTurns.map((turn, index) => `
+            <article class="agent-turn ${escapeHTML(turn.side)}" style="--agent-color:${escapeHTML(turn.color)};--delay:${index * 110}ms">
+              <div class="agent-badge">${escapeHTML(turn.avatar || agentInitials(turn.name))}</div>
+              <div class="speech-bubble">
+                <div class="speech-meta">
+                  <strong>${escapeHTML(turn.name)}</strong>
+                  <span>${escapeHTML(turn.role || "Expert")}</span>
+                </div>
+                <p>${escapeHTML(turn.message)}</p>
+              </div>
+            </article>
+          `).join("")}
+        </div>
+        ${kpis.length ? `
+          <div class="agent-kpi-row">
+            <strong>추적 KPI</strong>
+            ${kpis.slice(0, 5).map((kpi) => `<span>${escapeHTML(kpi)}</span>`).join("")}
+          </div>
+        ` : ""}
+      </div>
+    `;
+  }
+
+  function executiveDecisionDebateHTML(active, selectedYearOption, productLabel, selectedIso, selectedSeriesCount) {
+    if (!active) return "";
+    const accent = categoryAccent(active.category);
+    const actual = active.actualChange == null ? "선택 시점 이후 실측 데이터 부족" : `${active.actualChange > 0 ? "+" : ""}${fmtNum(active.actualChange, 2)}%`;
+    const prior = active.priorMomentum == null ? "NA" : `${active.priorMomentum > 0 ? "+" : ""}${fmtNum(active.priorMomentum, 2)}%`;
+    const yearLabel = selectedYearOption?.label || "선택 시점 없음";
+    return agentDebateHTML({
+      mode: "decision",
+      title: `${active.label} 의사결정 토론`,
+      subtitle: `${yearLabel} · ${productLabel} · 기준점 ${selectedIso ? pointDateLabel(selectedIso) : "없음"}`,
+      accent,
+      metrics: [
+        { label: "판단", value: active.decision.label },
+        { label: "사전 모멘텀", value: prior },
+        { label: "이후 실측", value: actual },
+        { label: "중국 신호", value: fmtNum(active.chinaSignalCount) },
+      ],
+      turns: [
+        {
+          name: "CEO",
+          role: "의사결정 질문",
+          avatar: "CEO",
+          color: "#111827",
+          message: `${yearLabel} 기준으로 ${active.label}을 ${active.decision.label} 안건으로 올려도 되는가?`,
+        },
+        {
+          name: "Data Agent",
+          role: "가격·백테스트",
+          avatar: "DATA",
+          color: "#06B6D4",
+          message: `가격 series ${fmtNum(selectedSeriesCount)}개와 관측 ${fmtNum(active.observations.length)}개를 연결했습니다. 사전 모멘텀은 ${prior}, 선택 시점 이후 결과는 ${actual}입니다.`,
+        },
+        {
+          name: "China Agent",
+          role: "중국 신호",
+          avatar: "CN",
+          color: "#EF4444",
+          message: `중국 관련 최신 신호 ${fmtNum(active.chinaSignalCount)}건은 과거 가격을 바꾸지 않고 현재 리스크 overlay로만 반영합니다.`,
+        },
+        {
+          name: "CFO Agent",
+          role: "수익성·자본배분",
+          avatar: "CFO",
+          color: "#F59E0B",
+          message: `${active.decision.label} 판단의 근거는 ${active.decision.logic}입니다. 실행 문구는 '${active.decision.action}'로 제한합니다.`,
+        },
+        {
+          name: "Risk Agent",
+          role: "하방 리스크",
+          avatar: "RISK",
+          color: "#8B5CF6",
+          message: active.downside,
+        },
+        {
+          name: "Strategy Agent",
+          role: "최종 정리",
+          avatar: "STR",
+          color: "#22C55E",
+          message: active.upside,
+        },
+      ],
+      kpis: ["price spread", "china signal count", "customer mix", "BIS event", "actual outcome"],
+    });
+  }
+
   function renderExecutiveDecision() {
     const summary = $("#execDecisionSummary");
     const grid = $("#execDecisionGrid");
@@ -4301,6 +4445,7 @@
           <span>${escapeHTML(active.decision.action)}</span>
           <small>${escapeHTML(active.decision.logic)}</small>
         </div>
+        ${executiveDecisionDebateHTML(active, selectedYearOption, productLabel, selected, selectedSeriesCount)}
         <div class="metric-row">
           <div class="metric"><strong>${active.priorMomentum == null ? "NA" : `${fmtNum(active.priorMomentum, 2)}%`}</strong><span>직전 모멘텀</span></div>
           <div class="metric"><strong>${active.actualChange == null ? "NA" : `${fmtNum(active.actualChange, 2)}%`}</strong><span>이후 실제</span></div>
@@ -5300,6 +5445,63 @@
     return { ...common, ...(answers[challenge.id] || answers["roi-credibility"]) };
   }
 
+  function ceoChallengeDebateHTML(scenario, target, challenge, response) {
+    const accent = categoryAccent(scenario.accentCategory || "talent");
+    const targetLabel = target?.label || scenario.label;
+    return agentDebateHTML({
+      mode: "ceo-challenge",
+      title: `${challenge.angle} 챌린지 토론`,
+      subtitle: `${scenario.label} · ${targetLabel}`,
+      accent,
+      metrics: response.metrics || [],
+      turns: [
+        {
+          name: "CEO",
+          role: "Challenge",
+          avatar: "CEO",
+          color: "#111827",
+          message: challenge.question,
+        },
+        {
+          name: "Strategy Agent",
+          role: "전략 판단",
+          avatar: "STR",
+          color: "#22C55E",
+          message: response.verdict,
+        },
+        {
+          name: "Data Agent",
+          role: "근거·수치",
+          avatar: "DATA",
+          color: "#06B6D4",
+          message: response.logic,
+        },
+        {
+          name: "Risk Agent",
+          role: "CEO 반론 대응",
+          avatar: "RISK",
+          color: "#8B5CF6",
+          message: response.counter,
+        },
+        {
+          name: "CFO Agent",
+          role: "자본배분",
+          avatar: "CFO",
+          color: "#F59E0B",
+          message: `ROI 지수는 재무 IRR/NPV가 아니라 우선순위 필터입니다. ${targetLabel}은 수익성·비용·리스크 지표를 함께 봐야 합니다.`,
+        },
+        {
+          name: "Execution Agent",
+          role: "실행 조건",
+          avatar: "OPS",
+          color: "#0EA5E9",
+          message: response.action,
+        },
+      ],
+      kpis: response.kpis || [],
+    });
+  }
+
   function chinaTalentPayload(scenario) {
     const roi = chinaTalentScenarioRoi(scenario);
     return {
@@ -5372,6 +5574,7 @@
 
     answerWrap.style.setProperty("--local-accent", accent);
     answerWrap.innerHTML = `
+      ${ceoChallengeDebateHTML(scenario, target, challenge, response)}
       <div class="agent-head">
         <span>AGENT</span>
         <div>

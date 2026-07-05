@@ -511,8 +511,12 @@ body.category-updating .sb-cat.active {
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .sb-cat.is-pending::after {
+  .sb-cat.is-pending::after,
+  .agent-avatar-card,
+  .agent-turn {
     animation: none;
+    opacity: 1;
+    transform: none;
   }
 }
 
@@ -3607,6 +3611,272 @@ body.sidebar-collapsed .sb-ico {
   font-weight: 850;
 }
 
+.ceo-agent-answer > .agent-head {
+  order: -1;
+}
+
+.ceo-agent-answer > .agent-metrics,
+.ceo-agent-answer > .agent-answer-grid,
+.ceo-agent-answer > .agent-kpi-row {
+  display: none;
+}
+
+.agent-debate {
+  min-width: 0;
+  display: grid;
+  gap: 12px;
+  border: 1px solid color-mix(in srgb, var(--local-accent, var(--accent)) 30%, var(--line));
+  border-radius: 12px;
+  background:
+    radial-gradient(circle at 12% 8%, color-mix(in srgb, var(--local-accent, var(--accent)) 14%, transparent), transparent 32%),
+    linear-gradient(135deg, color-mix(in srgb, var(--local-accent, var(--accent)) 7%, transparent), transparent 46%),
+    var(--panel);
+  padding: 12px;
+  overflow: hidden;
+}
+
+.decision-focus .agent-debate {
+  background:
+    linear-gradient(135deg, color-mix(in srgb, var(--local-accent, var(--accent)) 9%, transparent), transparent 44%),
+    var(--panel-2);
+}
+
+.agent-debate-title {
+  display: grid;
+  gap: 4px;
+}
+
+.agent-debate-title span {
+  color: var(--local-accent, var(--accent));
+  font-size: 10px;
+  font-weight: 950;
+  letter-spacing: .08em;
+}
+
+.agent-debate-title strong {
+  color: var(--ink);
+  font-size: 15px;
+  line-height: 1.25;
+  font-weight: 950;
+}
+
+.agent-debate-title small {
+  color: var(--ink-2);
+  font-size: 11.5px;
+  line-height: 1.4;
+  font-weight: 750;
+}
+
+.agent-debate-metrics {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 8px;
+}
+
+.agent-debate-metrics div {
+  min-width: 0;
+  display: grid;
+  gap: 4px;
+  border: 1px solid var(--line);
+  border-radius: 9px;
+  background: color-mix(in srgb, var(--panel-2) 88%, transparent);
+  padding: 9px;
+}
+
+.agent-debate-metrics strong {
+  overflow: hidden;
+  color: var(--ink);
+  font-family: var(--display);
+  font-size: 19px;
+  line-height: 1;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.agent-debate-metrics span {
+  color: var(--muted);
+  font-size: 10px;
+  font-weight: 950;
+  letter-spacing: .04em;
+  text-transform: uppercase;
+}
+
+.agent-roster {
+  display: grid;
+  grid-template-columns: repeat(6, minmax(0, 1fr));
+  gap: 7px;
+}
+
+.agent-avatar-card {
+  min-width: 0;
+  display: grid;
+  justify-items: center;
+  gap: 4px;
+  border: 1px solid color-mix(in srgb, var(--agent-color) 30%, var(--line));
+  border-radius: 10px;
+  background: color-mix(in srgb, var(--agent-color) 7%, var(--panel-2));
+  padding: 8px 6px;
+  opacity: 0;
+  transform: translateY(10px) scale(.96);
+  animation: agentPop .52s cubic-bezier(.2, .8, .2, 1) forwards;
+  animation-delay: var(--delay, 0ms);
+}
+
+.agent-avatar-card b,
+.agent-badge {
+  display: inline-grid;
+  place-items: center;
+  border-radius: 999px;
+  background: var(--agent-color);
+  color: #fff;
+  font-family: var(--display);
+  font-size: 10px;
+  font-weight: 950;
+  letter-spacing: .02em;
+}
+
+.agent-avatar-card b {
+  width: 34px;
+  height: 34px;
+  box-shadow: 0 0 0 4px color-mix(in srgb, var(--agent-color) 18%, transparent);
+}
+
+.agent-avatar-card span,
+.agent-avatar-card small {
+  max-width: 100%;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.agent-avatar-card span {
+  color: var(--ink);
+  font-size: 10.5px;
+  font-weight: 950;
+}
+
+.agent-avatar-card small {
+  color: var(--ink-2);
+  font-size: 9.5px;
+  font-weight: 750;
+}
+
+.agent-chat {
+  display: grid;
+  gap: 9px;
+}
+
+.agent-turn {
+  min-width: 0;
+  display: flex;
+  align-items: flex-start;
+  gap: 8px;
+  opacity: 0;
+  transform: translateY(10px);
+  animation: bubbleIn .58s cubic-bezier(.2, .8, .2, 1) forwards;
+  animation-delay: calc(180ms + var(--delay, 0ms));
+}
+
+.agent-turn.right {
+  flex-direction: row-reverse;
+}
+
+.agent-badge {
+  width: 34px;
+  height: 34px;
+  flex: 0 0 34px;
+  box-shadow: 0 0 0 4px color-mix(in srgb, var(--agent-color) 16%, transparent);
+}
+
+.speech-bubble {
+  position: relative;
+  min-width: 0;
+  max-width: min(86%, 620px);
+  display: grid;
+  gap: 5px;
+  border: 1px solid color-mix(in srgb, var(--agent-color) 24%, var(--line));
+  border-radius: 12px;
+  background: color-mix(in srgb, var(--agent-color) 6%, var(--panel-2));
+  padding: 10px 11px;
+  box-shadow: 0 12px 28px rgba(15, 23, 42, .08);
+  overflow-wrap: anywhere;
+}
+
+.speech-bubble::before {
+  content: "";
+  position: absolute;
+  top: 13px;
+  left: -6px;
+  width: 10px;
+  height: 10px;
+  border-left: 1px solid color-mix(in srgb, var(--agent-color) 24%, var(--line));
+  border-bottom: 1px solid color-mix(in srgb, var(--agent-color) 24%, var(--line));
+  background: color-mix(in srgb, var(--agent-color) 6%, var(--panel-2));
+  transform: rotate(45deg);
+}
+
+.agent-turn.right .speech-bubble::before {
+  right: -6px;
+  left: auto;
+  border-right: 1px solid color-mix(in srgb, var(--agent-color) 24%, var(--line));
+  border-left: 0;
+}
+
+.speech-meta {
+  display: flex;
+  align-items: baseline;
+  gap: 7px;
+  flex-wrap: wrap;
+}
+
+.speech-meta strong {
+  color: var(--ink);
+  font-size: 12px;
+  font-weight: 950;
+}
+
+.speech-meta span {
+  color: var(--agent-color);
+  font-size: 10px;
+  font-weight: 950;
+  letter-spacing: .04em;
+  text-transform: uppercase;
+}
+
+.speech-bubble p {
+  color: var(--ink-2);
+  font-size: 12px;
+  line-height: 1.55;
+  font-weight: 760;
+  overflow-wrap: anywhere;
+}
+
+@keyframes agentPop {
+  0% {
+    opacity: 0;
+    transform: translateY(10px) scale(.96);
+  }
+  70% {
+    opacity: 1;
+    transform: translateY(-2px) scale(1.02);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+@keyframes bubbleIn {
+  from {
+    opacity: 0;
+    transform: translateY(10px) scale(.98);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
 .projection-stack {
   display: grid;
   gap: 10px;
@@ -6492,6 +6762,8 @@ body.sidebar-collapsed .sb-ico {
   .talent-roi-grid,
   .talent-planning-map,
   .ceo-challenge-controls,
+  .agent-debate-metrics,
+  .agent-roster,
   .agent-answer-grid,
   .talent-company-grid,
   .talent-source-grid,
@@ -6946,6 +7218,8 @@ body.sidebar-collapsed .sb-ico {
     .talent-roi-grid,
     .talent-planning-map,
     .ceo-challenge-controls,
+    .agent-debate-metrics,
+    .agent-roster,
     .agent-metrics,
     .agent-answer-grid,
     .talent-company-grid,
