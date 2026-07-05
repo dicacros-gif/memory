@@ -4533,24 +4533,27 @@
   }
 
   function backtestYearOptions() {
-    const years = new Map();
+    // Real crawled history at month granularity → past decision points expand
+    // automatically as the daily crawler accumulates price-history (no fabrication).
+    const months = new Map();
     historyItems().forEach((series) => {
       (series.points || []).forEach((point) => {
         const t = pointTime(point);
         if (!t) return;
-        const year = String(new Date(t).getFullYear());
-        const current = years.get(year) || { value: year, year, firstTime: t, lastTime: t, count: 0 };
+        const d = new Date(t);
+        const key = `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, "0")}`;
+        const current = months.get(key) || { value: key, year: String(d.getFullYear()), month: d.getMonth() + 1, firstTime: t, lastTime: t, count: 0 };
         current.firstTime = Math.min(current.firstTime, t);
         current.lastTime = Math.max(current.lastTime, t);
         current.count += 1;
-        years.set(year, current);
+        months.set(key, current);
       });
     });
-    return Array.from(years.values())
-      .sort((a, b) => Number(a.year) - Number(b.year))
+    return Array.from(months.values())
+      .sort((a, b) => a.firstTime - b.firstTime)
       .map((item) => ({
         ...item,
-        label: `${item.year}년`,
+        label: `${item.year}년 ${item.month}월`,
         benchmarkIso: new Date(item.firstTime).toISOString(),
       }));
   }
@@ -4776,7 +4779,7 @@
     const latestAt = Number.isFinite(latestAtRaw) ? latestAtRaw : 0;
     const hitRate = testedItems ? hitItems / testedItems * 100 : null;
     const productLabel = selectedExecProductLabel();
-    const yearLabel = selectedYearOption?.label || "연도 없음";
+    const yearLabel = selectedYearOption?.label || "시점 없음";
     const selectedSeriesKeys = new Set();
     items.forEach((item) => {
       productHistorySeries(item).forEach((series) => {
@@ -4788,9 +4791,9 @@
     if (coverage) coverage.textContent = `${yearLabel} 첫 수집점 ${selected ? pointDateLabel(selected) : "없음"} · 전체 가격 series ${fmtNum(historyCount)}개 · 제품군 매칭 ${fmtNum(selectedSeriesCount)}개`;
 
     const summaryCards = [
-      { label: "선택 년도", value: yearLabel, note: `기준점: ${selected ? pointDateLabel(selected) : "없음"}` },
+      { label: "선택 시점", value: yearLabel, note: `기준점: ${selected ? pointDateLabel(selected) : "없음"}` },
       { label: "하이닉스 제품군", value: productLabel, note: selectedExecProductId === "all" ? "전체 제품군 비교" : "선택 제품군만 필터링" },
-      { label: "최신 검증 시점", value: latestAt ? pointDateLabel(latestAt) : "없음", note: "선택 년도 기준점 이후 실제 수집 결과" },
+      { label: "최신 검증 시점", value: latestAt ? pointDateLabel(latestAt) : "없음", note: "선택 시점 기준점 이후 실제 수집 결과" },
       { label: "검증 제품군", value: testedItems, note: `${fmtNum(items.length)}개 표시 · 전체 ${fmtNum(allItems.length)}개`, suffix: "개" },
       { label: "적중률", value: hitRate == null ? "검증 불가" : hitRate, note: "확대/방어/유지 판단 기준", suffix: "%", decimals: 0 },
       { label: "중국 신호", value: rawNews().filter(isChinaArticle).length + benchmarkSignalTotal(), note: "뉴스·벤치마킹 최신 신호", suffix: "건" },
