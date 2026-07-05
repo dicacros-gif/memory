@@ -412,6 +412,148 @@
       ],
     },
   ];
+  const CHINA_TALENT_STRATEGY_INVESTMENTS = {
+    operate: [
+      {
+        id: "ops-continuity",
+        label: "운영 연속성 인력 풀",
+        type: "운영 안정",
+        investment: "Wuxi/Dalian/Chongqing 운영·EHS·facility 상시 채용 풀",
+        monetization: "가동 중단·품질비용·긴급 외주비를 낮추는 방어형 수익성",
+        costIndex: 34,
+        payoffIndex: 62,
+        riskIndex: 24,
+        horizon: "6~12M",
+        kpis: ["vacancy coverage", "EHS incident", "utility downtime"],
+      },
+      {
+        id: "quality-response",
+        label: "중국 고객 품질 대응",
+        type: "고객 방어",
+        investment: "FA, reliability, customer quality, logistics 운영 인력 보강",
+        monetization: "RMA 대응 속도와 고객 유지율을 높여 가격 협상력 훼손을 방어",
+        costIndex: 28,
+        payoffIndex: 58,
+        riskIndex: 22,
+        horizon: "3~9M",
+        kpis: ["RMA lead time", "customer issue closure", "on-time delivery"],
+      },
+    ],
+    "nand-essd": [
+      {
+        id: "essd-fae",
+        label: "eSSD FAE·검증 조직",
+        type: "매출 방어",
+        investment: "중국 서버 고객 qualification, RMA, FAE, validation 전담 인력",
+        monetization: "YMTC eSSD 침투에 맞서 Solidigm/eSSD 고객 이탈을 막는 방어 수익",
+        costIndex: 46,
+        payoffIndex: 75,
+        riskIndex: 38,
+        horizon: "6~18M",
+        kpis: ["qualification win", "RMA closure", "eSSD contract defense"],
+      },
+      {
+        id: "firmware-cleanroom",
+        label: "펌웨어 검증 클린룸",
+        type: "IP 통제",
+        investment: "현지 검증 인력과 핵심 펌웨어 소스 접근권을 분리한 클린룸 운영",
+        monetization: "품질 검증 속도를 높이면서 IP 유출 리스크와 재작업 비용을 낮춤",
+        costIndex: 42,
+        payoffIndex: 70,
+        riskIndex: 34,
+        horizon: "9~18M",
+        kpis: ["firmware defect escape", "access exception", "validation cycle"],
+      },
+      {
+        id: "nand-market-intel",
+        label: "NAND 고객·가격 인텔리전스",
+        type: "가격 방어",
+        investment: "YMTC/eSSD 조달, NAND 계약가, 내수 보조금 신호 분석 인력",
+        monetization: "가격 하락 신호를 조기에 반영해 저수익 SKU와 고객 믹스를 조정",
+        costIndex: 22,
+        payoffIndex: 54,
+        riskIndex: 18,
+        horizon: "1~6M",
+        kpis: ["price alert lead time", "customer signal count", "SKU pruning"],
+      },
+    ],
+    "infra-packaging": [
+      {
+        id: "utility-ehs-option",
+        label: "유틸리티·EHS 옵션 풀",
+        type: "증설 옵션",
+        investment: "전력·용수·폐수·환경 인허가 전문가를 option pool로 확보",
+        monetization: "확장 승인 전 숫자 검증을 앞당겨 잘못된 CAPEX 집행을 방지",
+        costIndex: 38,
+        payoffIndex: 63,
+        riskIndex: 32,
+        horizon: "3~12M",
+        kpis: ["power quota evidence", "water permit evidence", "EIA readiness"],
+      },
+      {
+        id: "packaging-ie",
+        label: "패키징·테스트 산업공학",
+        type: "후공정 생산성",
+        investment: "Chongqing 후공정/테스트 IE, yield ramp, bottleneck 분석 인력",
+        monetization: "후공정 병목과 테스트 cycle time을 줄여 패키징 수익성을 방어",
+        costIndex: 48,
+        payoffIndex: 68,
+        riskIndex: 41,
+        horizon: "9~24M",
+        kpis: ["test cycle time", "backend yield", "bottleneck removal"],
+      },
+      {
+        id: "permit-readiness",
+        label: "인허가 준비 태스크포스",
+        type: "규제 리스크",
+        investment: "Wuxi 보세구, EIA, BIS 분류, 지방정부 대응 전담",
+        monetization: "No-Go 투자를 초기에 차단하고 승인 가능한 운영 유지 투자만 선별",
+        costIndex: 25,
+        payoffIndex: 56,
+        riskIndex: 26,
+        horizon: "1~9M",
+        kpis: ["permit gap list", "BIS classification", "decision lead time"],
+      },
+    ],
+    defense: [
+      {
+        id: "retention-shield",
+        label: "핵심 인력 리텐션 실드",
+        type: "수율 자산 보호",
+        investment: "수율·TSV·패키징·펌웨어 핵심 인력 보상과 이직 위험 관리",
+        monetization: "수율 노하우 유출을 줄여 HBM/DRAM/NAND 양산 안정성을 방어",
+        costIndex: 52,
+        payoffIndex: 82,
+        riskIndex: 28,
+        horizon: "6~24M",
+        kpis: ["critical attrition", "retention coverage", "yield recipe access"],
+      },
+      {
+        id: "ip-compliance-automation",
+        label: "IP·접근권 자동 통제",
+        type: "법무·보안",
+        investment: "퇴직자 자료반출, 협력사 계정, 현지 접근권 회수 자동화",
+        monetization: "유출·소송·규제 위반의 꼬리 리스크를 낮추는 보험형 ROI",
+        costIndex: 36,
+        payoffIndex: 74,
+        riskIndex: 20,
+        horizon: "3~12M",
+        kpis: ["access revocation SLA", "exfiltration alert", "audit closure"],
+      },
+      {
+        id: "hiring-intel-crawler",
+        label: "채용·특허 조기경보",
+        type: "인텔리전스",
+        investment: "CXMT/YMTC 공식 채용, 로컬 채용, 대학, 특허 키워드 크롤링 강화",
+        monetization: "경쟁사의 기술 방향을 빠르게 포착해 방어 투자 타이밍을 앞당김",
+        costIndex: 18,
+        payoffIndex: 60,
+        riskIndex: 16,
+        horizon: "1~6M",
+        kpis: ["keyword drift", "signal freshness", "alert precision"],
+      },
+    ],
+  };
   const CHINA_DYNAMIC_AXES = [
     {
       id: "capacity",
@@ -5428,7 +5570,74 @@
     return chinaTalentLiveItems(scenario, 24).length + Math.min(themeCount, 24);
   }
 
+  function chinaTalentInvestments(scenario = activeChinaTalentScenario()) {
+    return CHINA_TALENT_STRATEGY_INVESTMENTS[scenario.id] || [];
+  }
+
+  function chinaTalentGateStats(scenario = activeChinaTalentScenario()) {
+    const gates = scenario.gates || [];
+    const ok = gates.filter((gate) => policyStatusClass(gate.status) === "ok").length;
+    const noGo = gates.filter((gate) => policyStatusClass(gate.status) === "fail").length;
+    const watch = gates.length - ok - noGo;
+    return { ok, noGo, watch, total: gates.length };
+  }
+
+  function chinaTalentRoiModel(scenario, investment) {
+    const signals = chinaTalentSignalCount(scenario);
+    const gates = chinaTalentGateStats(scenario);
+    const signalBoost = Math.min(signals, 30) * .72;
+    const gateBoost = gates.ok * 5.5 - gates.noGo * 7.5 - gates.watch * 1.5;
+    const cost = Number(investment.costIndex || 0);
+    const payoff = Number(investment.payoffIndex || 0);
+    const risk = Number(investment.riskIndex || 0);
+    const profitability = clamp(Math.round(payoff + signalBoost * .7 - cost * .28), 0, 100);
+    const roi = clamp(Math.round(payoff + signalBoost + gateBoost - cost * .42 - risk * .35), 0, 100);
+    const downside = clamp(Math.round(roi - risk * .22 - gates.noGo * 5), 0, 100);
+    const upside = clamp(Math.round(roi + signalBoost * .35 + gates.ok * 4), 0, 100);
+    const decision = gates.noGo >= 2
+      ? "법무 선행"
+      : roi >= 72
+        ? "확대 투자"
+        : roi >= 58
+          ? "단계 투자"
+          : roi >= 42
+            ? "옵션 유지"
+            : "보류";
+    const decisionClass = decision.includes("확대") ? "ok" : decision.includes("단계") ? "watch" : decision.includes("옵션") ? "check" : "fail";
+    return {
+      cost,
+      payoff,
+      risk,
+      signals,
+      profitability,
+      roi,
+      downside,
+      upside,
+      decision,
+      decisionClass,
+      formula: `ROI 지수 = 효익(${fmtNum(payoff)}) + 신호(${fmtNum(signalBoost, 1)}) + 게이트(${fmtNum(gateBoost, 1)}) - 비용(${fmtNum(cost * .42, 1)}) - 리스크(${fmtNum(risk * .35, 1)})`,
+    };
+  }
+
+  function chinaTalentScenarioRoi(scenario = activeChinaTalentScenario()) {
+    const investments = chinaTalentInvestments(scenario);
+    if (!investments.length) return { roi: 0, profitability: 0, downside: 0, upside: 0, top: null, count: 0 };
+    const modeled = investments.map((investment) => ({ investment, model: chinaTalentRoiModel(scenario, investment) }));
+    const avg = (key) => modeled.reduce((sum, item) => sum + item.model[key], 0) / modeled.length;
+    const top = modeled.slice().sort((a, b) => b.model.roi - a.model.roi)[0];
+    return {
+      roi: Math.round(avg("roi")),
+      profitability: Math.round(avg("profitability")),
+      downside: Math.round(avg("downside")),
+      upside: Math.round(avg("upside")),
+      top,
+      count: modeled.length,
+      modeled,
+    };
+  }
+
   function chinaTalentPayload(scenario) {
+    const roi = chinaTalentScenarioRoi(scenario);
     return {
       type: "중국 인력 확보 전략",
       tag: scenario.en,
@@ -5442,6 +5651,8 @@
         { label: "확보 직무", value: fmtNum((scenario.roles || []).length) },
         { label: "O/X 게이트", value: fmtNum((scenario.gates || []).length) },
         { label: "크롤링 신호", value: fmtNum(chinaTalentSignalCount(scenario)) },
+        { label: "ROI 지수", value: fmtNum(roi.roi) },
+        { label: "Top 투자", value: roi.top?.investment?.label || "-" },
       ],
       links: (scenario.sources || []).map((source) => ({ title: source.label, link: source.url })),
       tags: [scenario.label, scenario.status, "Hiring", "Retention", "IP"].filter(Boolean),
@@ -5470,8 +5681,11 @@
     const grid = $("#talentStrategyRuleGrid");
     const focus = $("#talentStrategyFocus");
     const sourceGrid = $("#talentStrategySourceGrid");
+    const roiGrid = $("#talentRoiGrid");
+    const planning = $("#talentScenarioPlanning");
     const meta = $("#talentStrategyMeta");
     const sourceMeta = $("#talentStrategySourceMeta");
+    const roiMeta = $("#talentRoiMeta");
     if (!summary || !grid || !focus || !sourceGrid) return;
 
     const scenario = activeChinaTalentScenario();
@@ -5479,11 +5693,14 @@
     const payload = chinaTalentPayload(scenario);
     const liveItems = chinaTalentLiveItems(scenario, 6);
     const signalCount = chinaTalentSignalCount(scenario);
-    const okGates = (scenario.gates || []).filter((gate) => policyStatusClass(gate.status) === "ok").length;
-    const noGoGates = (scenario.gates || []).filter((gate) => policyStatusClass(gate.status) === "fail").length;
+    const gateStats = chinaTalentGateStats(scenario);
+    const okGates = gateStats.ok;
+    const noGoGates = gateStats.noGo;
+    const scenarioRoi = chinaTalentScenarioRoi(scenario);
     const theme = chinaTalentTheme();
     if (meta) meta.textContent = `${scenario.label} · 확보 직무 ${fmtNum((scenario.roles || []).length)}개 · 크롤링 신호 ${fmtNum(signalCount)}개`;
     if (sourceMeta) sourceMeta.textContent = `시나리오 ${fmtNum(CHINA_TALENT_STRATEGY_SCENARIOS.length)}개 · 라이브 ${fmtNum(liveItems.length)}개 · RSS ${fmtNum(Number(theme?.count ?? 0) || 0)}개`;
+    if (roiMeta) roiMeta.textContent = `ROI 지수 ${fmtNum(scenarioRoi.roi)} · 수익성 ${fmtNum(scenarioRoi.profitability)} · ${scenarioRoi.top?.investment?.label || "투자안 확인"}`;
     renderChinaTalentTabs(scenario);
 
     summary.style.setProperty("--local-accent", accent);
@@ -5528,9 +5745,14 @@
         <span>${escapeHTML(scenario.decision)}</span>
       </div>
       <div class="metric-row">
+        <div class="metric"><strong>${fmtNum(scenarioRoi.roi)}</strong><span>ROI 지수</span></div>
+        <div class="metric"><strong>${fmtNum(scenarioRoi.profitability)}</strong><span>수익성</span></div>
         <div class="metric"><strong>${fmtNum(signalCount)}</strong><span>크롤링 신호</span></div>
-        <div class="metric"><strong>${fmtNum((scenario.roles || []).length)}</strong><span>확보 직무</span></div>
         <div class="metric"><strong>${fmtNum(noGoGates)}</strong><span>No-Go</span></div>
+      </div>
+      <div class="policy-focus-block">
+        <strong>최우선 투자</strong>
+        <p>${escapeHTML(scenarioRoi.top ? `${scenarioRoi.top.investment.label}: ${scenarioRoi.top.investment.monetization}` : "투자안이 없습니다.")}</p>
       </div>
       <div class="policy-focus-block">
         <strong>확보 직무</strong>
@@ -5571,6 +5793,73 @@
       jumpTo("workbench");
     });
 
+    if (roiGrid) {
+      roiGrid.innerHTML = scenarioRoi.modeled.map(({ investment, model }, index) => `
+        <article class="talent-roi-card reveal" style="--local-accent:${accent}; animation-delay:${index * 35}ms">
+          <div class="talent-roi-head">
+            <span>${escapeHTML(investment.type)}</span>
+            <b class="policy-status ${model.decisionClass}">${escapeHTML(model.decision)}</b>
+          </div>
+          <h3>${escapeHTML(investment.label)}</h3>
+          <p>${escapeHTML(investment.investment)}</p>
+          <div class="metric-row compact">
+            <div class="metric"><strong>${fmtNum(model.cost)}</strong><span>투자비</span></div>
+            <div class="metric"><strong>${fmtNum(model.profitability)}</strong><span>수익성</span></div>
+            <div class="metric"><strong>${fmtNum(model.roi)}</strong><span>ROI</span></div>
+          </div>
+          <div class="scenario-bars">
+            <div class="scenario-bar-row"><span>Down</span><i><b style="width:${model.downside}%"></b></i><em>${fmtNum(model.downside)}</em></div>
+            <div class="scenario-bar-row"><span>Base</span><i><b style="width:${model.roi}%"></b></i><em>${fmtNum(model.roi)}</em></div>
+            <div class="scenario-bar-row"><span>Up</span><i><b style="width:${model.upside}%"></b></i><em>${fmtNum(model.upside)}</em></div>
+          </div>
+          <div class="talent-roi-note">
+            <strong>수익성 논리</strong>
+            <p>${escapeHTML(investment.monetization)}</p>
+            <small>${escapeHTML(model.formula)}</small>
+          </div>
+          <ul class="watch-list">
+            ${(investment.kpis || []).slice(0, 3).map((kpi) => `<li>${escapeHTML(kpi)}</li>`).join("")}
+          </ul>
+        </article>
+      `).join("");
+    }
+
+    if (planning) {
+      planning.innerHTML = CHINA_TALENT_STRATEGY_SCENARIOS.map((item, index) => {
+        const model = chinaTalentScenarioRoi(item);
+        const stats = chinaTalentGateStats(item);
+        return `
+          <button class="scenario-card talent-plan-card reveal${item.id === scenario.id ? " active" : ""}" type="button" data-talent-plan-scenario="${escapeHTML(item.id)}" style="--local-accent:${categoryAccent(item.accentCategory)}; animation-delay:${index * 35}ms">
+            <div class="scenario-card-head">
+              <span>${escapeHTML(item.label)}</span>
+              <strong>${fmtNum(model.roi)}</strong>
+            </div>
+            <p>${escapeHTML(model.top ? model.top.investment.monetization : item.decision)}</p>
+            <div class="scenario-bars">
+              <div class="scenario-bar-row"><span>ROI</span><i><b style="width:${model.roi}%"></b></i><em>${fmtNum(model.roi)}</em></div>
+              <div class="scenario-bar-row"><span>수익성</span><i><b style="width:${model.profitability}%"></b></i><em>${fmtNum(model.profitability)}</em></div>
+              <div class="scenario-bar-row"><span>하방</span><i><b style="width:${model.downside}%"></b></i><em>${fmtNum(model.downside)}</em></div>
+            </div>
+            <div class="talent-plan-flow" aria-hidden="true">
+              <span>신호 ${fmtNum(chinaTalentSignalCount(item))}</span>
+              <i>→</i>
+              <span>O ${fmtNum(stats.ok)} / X ${fmtNum(stats.noGo)}</span>
+              <i>→</i>
+              <span>${escapeHTML(model.top?.investment?.label || "투자안")}</span>
+              <i>→</i>
+              <span>${escapeHTML(model.top?.model?.decision || "판단")}</span>
+            </div>
+          </button>
+        `;
+      }).join("");
+      planning.querySelectorAll("[data-talent-plan-scenario]").forEach((btn) => {
+        btn.addEventListener("click", () => {
+          chinaTalentScenarioId = btn.dataset.talentPlanScenario;
+          renderChinaTalentStrategy();
+        });
+      });
+    }
+
     const sourceItems = (scenario.sources || []).concat(liveItems.map((item) => ({
       label: item.titleKo || item.title || item.label || item.source || "Live signal",
       url: item.link || item.url,
@@ -5585,8 +5874,12 @@
 
     animateCounts(summary);
     animateCounts(grid);
+    animateCounts(roiGrid || summary);
+    animateCounts(planning || summary);
     animateMeters(summary);
     animateMeters(grid);
+    animateMeters(roiGrid || summary);
+    animateMeters(planning || summary);
   }
 
   function projectionAnchorDate() {
@@ -6469,6 +6762,7 @@
           { label: "시나리오", value: scenario.label },
           { label: "판단", value: gate.status },
           { label: "신호", value: fmtNum(chinaTalentSignalCount(scenario)) },
+          { label: "ROI", value: fmtNum(chinaTalentScenarioRoi(scenario).roi) },
           { label: "직무", value: fmtNum((scenario.roles || []).length) },
         ],
         tags: [scenario.verdict, gate.axis, "China hiring"].filter(Boolean),

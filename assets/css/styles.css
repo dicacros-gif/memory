@@ -2664,6 +2664,145 @@ body.sidebar-collapsed .sb-ico {
   text-align: right;
 }
 
+.talent-roi-board,
+.talent-planning-board {
+  display: grid;
+  gap: 10px;
+  margin-top: 12px;
+  padding: 12px;
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  background:
+    linear-gradient(135deg, color-mix(in srgb, var(--local-accent, var(--accent)) 6%, transparent), transparent 44%),
+    var(--panel-2);
+}
+
+.talent-roi-grid,
+.talent-planning-map {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 10px;
+}
+
+.talent-roi-card {
+  min-width: 0;
+  display: grid;
+  align-content: start;
+  gap: 10px;
+  min-height: 290px;
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  background: var(--panel);
+  padding: 12px;
+  transition: transform .16s, border-color .16s, background .16s, box-shadow .16s;
+}
+
+.talent-roi-card:hover,
+.talent-roi-card:focus-within,
+.talent-plan-card:hover,
+.talent-plan-card:focus-visible,
+.talent-plan-card.active {
+  transform: translateY(-2px);
+  border-color: var(--local-accent, var(--accent));
+  background: color-mix(in srgb, var(--local-accent, var(--accent)) 8%, var(--panel));
+  box-shadow: var(--shadow-lg);
+}
+
+.talent-roi-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+}
+
+.talent-roi-head span,
+.talent-roi-note strong,
+.talent-roi-note small,
+.talent-plan-flow span {
+  color: var(--muted);
+  font-size: 10px;
+  font-weight: 950;
+  letter-spacing: .04em;
+  text-transform: uppercase;
+}
+
+.talent-roi-card h3 {
+  color: var(--ink);
+  font-size: 15px;
+  line-height: 1.28;
+  font-weight: 950;
+}
+
+.talent-roi-card p,
+.talent-roi-note p {
+  color: var(--ink-2);
+  font-size: 11.5px;
+  line-height: 1.48;
+  font-weight: 750;
+}
+
+.metric-row.compact {
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 7px;
+}
+
+.metric-row.compact .metric {
+  min-height: 62px;
+  padding: 8px;
+}
+
+.talent-roi-note {
+  display: grid;
+  gap: 5px;
+  border-top: 1px solid var(--line-2);
+  padding-top: 9px;
+}
+
+.talent-roi-note small {
+  text-transform: none;
+  letter-spacing: 0;
+  line-height: 1.42;
+}
+
+.talent-plan-card {
+  min-height: 238px;
+  border-color: var(--line);
+  background: var(--panel);
+}
+
+.talent-plan-card .scenario-card-head strong {
+  color: var(--local-accent, var(--accent));
+}
+
+.talent-plan-flow {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  flex-wrap: wrap;
+  border-top: 1px solid var(--line-2);
+  padding-top: 9px;
+}
+
+.talent-plan-flow span {
+  display: inline-flex;
+  align-items: center;
+  min-height: 24px;
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  background: var(--panel-2);
+  color: var(--ink-2);
+  padding: 4px 7px;
+  text-transform: none;
+  letter-spacing: 0;
+}
+
+.talent-plan-flow i {
+  color: var(--muted);
+  font-style: normal;
+  font-size: 11px;
+  font-weight: 950;
+}
+
 .projection-stack {
   display: grid;
   gap: 10px;
@@ -6511,6 +6650,8 @@ body.sidebar-collapsed .sb-ico {
   .china-nand-summary,
   .china-nand-map,
   .talent-summary,
+  .talent-roi-grid,
+  .talent-planning-map,
   .talent-company-grid,
   .talent-source-grid,
   .talent-keyword-grid,
@@ -6969,6 +7110,8 @@ body.sidebar-collapsed .sb-ico {
     .china-dynamics-grid,
     .china-deep-grid,
     .talent-summary,
+    .talent-roi-grid,
+    .talent-planning-map,
     .talent-company-grid,
     .talent-source-grid,
     .talent-keyword-grid,
