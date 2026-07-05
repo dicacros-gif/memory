@@ -155,7 +155,6 @@
     "policy-makers": "#BFDBFE",
     "china-fab-infra": "#67E8F9",
     "china-talent-strategy": "#F0ABFC",
-    "daily-review": "#A7F3D0",
     numbers: "#FDE68A",
     projection: "#FBBF24",
     workbench: "#B9A7FF",
@@ -1602,12 +1601,6 @@
   ];
   const WORKBENCH_MODES = [
     {
-      id: "review",
-      label: "리뷰 큐",
-      sub: "Digest · Diff · Status",
-      section: "daily-review",
-    },
-    {
       id: "executive",
       label: "경영진 의사결정",
       sub: "Decision · Backtest",
@@ -1705,7 +1698,7 @@
       desc: "오늘의 핵심 변화, 경보, 업데이트 시각, 우선순위 바로가기",
       cadence: "Daily crawler",
       jump: "overview",
-      sections: ["overview", "daily-review"],
+      sections: ["overview"],
     },
     {
       id: "analysis",
@@ -1747,14 +1740,6 @@
       jump: "talent-radar",
       sections: ["talent-radar", "china-talent-strategy"],
     },
-    {
-      id: "methodology",
-      label: "방법론",
-      desc: "출처 정책, 수집 주기, 예외 처리",
-      cadence: "Trust layer",
-      jump: "evidence-framework",
-      sections: ["evidence-framework", "categories", "intelligence"],
-    },
   ];
   const IA_ROUTES = MECE_GROUPS;
   const NEWS_SOURCE_TABS = [
@@ -1775,7 +1760,6 @@
     "policy-makers": "정책 방향성",
     "china-fab-infra": "중국 Fab 인프라",
     "china-talent-strategy": "중국 인력 전략",
-    "daily-review": "일일 리뷰 큐",
     numbers: "숫자 대시보드",
     projection: "제품군 프로젝션",
     "ai-matrix": "AI 메모리 매트릭스",
@@ -1787,7 +1771,6 @@
     monetization: "벤치마킹 모델",
     response: "대응 대시보드",
     intelligence: "정보 획득 채널",
-    "evidence-framework": "증거 품질 레이어",
     categories: "메모리 카테고리",
     news: "중국·외신 기사",
     prices: "TrendForce 가격",
@@ -1800,8 +1783,6 @@
     "policy-makers",
     "china-fab-infra",
     "china-talent-strategy",
-    "daily-review",
-    "evidence-framework",
     "prices",
     "news",
     "china-nand",
@@ -1820,7 +1801,6 @@
   ];
   const NAV_SECTION_TARGETS = {
     overview: "overview",
-    "daily-review": "overview",
     prices: "prices",
     news: "prices",
     "policy-makers": "policy-makers",
@@ -1840,9 +1820,8 @@
     dynamics: "management-strategy",
     monetization: "management-strategy",
     response: "management-strategy",
-    "evidence-framework": "evidence-framework",
-    categories: "evidence-framework",
-    intelligence: "evidence-framework",
+    categories: "china-nand",
+    intelligence: "china-nand",
   };
   const PRICE_PERIODS = [
     { id: "week", label: "주", days: 7 },
@@ -1863,11 +1842,8 @@
   let newsSearch = "";
   let newsCompany = "all";
   let newsSource = "english";
-  let workbenchMode = "review";
+  let workbenchMode = "executive";
   let selectedInsightId = null;
-  let reviewView = "today";
-  let selectedReviewId = null;
-  let evidenceFilter = "all";
   let numberLens = "all";
   let dynamicFocusId = null;
   let modelFocusId = null;
@@ -1925,8 +1901,6 @@
     renderPolicyMakers();
     renderChinaFabInfra();
     renderChinaTalentStrategy();
-    renderDailyReview();
-    renderEvidenceFramework();
     renderNumberDashboard();
     renderProductProjection();
     renderCategories();
@@ -2458,7 +2432,6 @@
     return [
       renderExecutiveSummary,
       renderCategories,
-      renderDailyReview,
       renderExecutiveDecision,
       renderNumberDashboard,
       renderProductProjection,
@@ -2593,11 +2566,8 @@
     const priceRows = allPriceRows().length;
     const news = rawNews();
     const sourceCount = new Set(news.map((item) => item.source).filter(Boolean)).size;
-    const topReview = dailyReviewItems()[0];
-    const headline = topReview
-      ? `오늘의 우선순위 · ${topReview.primaryType === "pipeline" ? "수집 신뢰도 점검" : topReview.title}`
-      : "오늘의 우선순위 · 가격·기사·중국 경쟁 신호 확인";
-    const lead = topReview?.summary || "매일 수집되는 가격, 외신/중국어 기사, 정책·Fab·인재 신호를 업무별 보드로 나누어 보여줍니다.";
+    const headline = "오늘의 핵심 변화 · 가격·기사·중국 경쟁 신호";
+    const lead = "매일 수집되는 가격, 외신/중국어 기사, 정책·Fab·인재 신호를 업무별 보드로 나누어 보여줍니다.";
 
     const copy = hero.querySelector(".today-hero-copy");
     if (copy) {
@@ -2875,14 +2845,12 @@
     const lens = numberLensData();
     const ok = items.filter((item) => String(item.statusClass || item.status || "").toLowerCase() === "ok").length;
     const watch = items.filter((item) => /watch|stale/i.test(`${item.statusClass || ""} ${item.status || ""} ${item.badge || ""}`)).length;
-    const p1 = dailyReviewItems().filter((item) => (item.priorityBand === "P1" || Number(item.priorityScore || 0) >= 85) && reviewRelated(item)).length;
     const visibleCats = Array.from(new Set(items.flatMap((item) => item.linkedCategories || []))).filter(Boolean);
     const topCat = visibleCats.slice(0, 3).map(categoryName).join(" · ") || activeCategoryData()?.label || "전체";
     const cards = [
       { label: "Lens", value: lens.label, note: lens.sub },
       { label: "Visible KPI", value: items.length, note: `${fmtNum(allItems.length)}개 중 선택` },
       { label: "정상 / 관찰", value: `${ok}/${watch}`, note: "출처·전망 버전 상태" },
-      { label: "우선순위", value: p1, note: "일일 리뷰 큐와 연결" },
       { label: "Topic", value: topCat, note: "정량 탭 분류 축" },
     ];
     wrap.innerHTML = cards.map((card) => `
@@ -2892,452 +2860,6 @@
         <small>${escapeHTML(card.note)}</small>
       </article>
     `).join("");
-  }
-
-  function dailyReviewData() {
-    return BASE.dailyReview || {
-      summary: [],
-      facets: [],
-      schemaFields: [],
-      queueSeed: [],
-      savedViews: [
-        { id: "today", label: "Today" },
-        { id: "changed", label: "Changed" },
-        { id: "p1", label: "P1" },
-        { id: "pipeline", label: "Pipeline" },
-      ],
-    };
-  }
-
-  function reviewRelated(item) {
-    if (activeCategory === "all") return true;
-    const cats = item.linkedCategories || item.categories || [];
-    return !cats.length || cats.includes("all") || cats.includes(activeCategory);
-  }
-
-  function reviewShortDate(value) {
-    if (!value) return "아직 수집 전";
-    const date = new Date(value);
-    if (!Number.isNaN(date.getTime())) return `${date.getMonth() + 1}/${date.getDate()}일`;
-    return formatNewsDate(value) || String(value);
-  }
-
-  function reviewPriorityClass(priority = "P3") {
-    return String(priority || "P3").toLowerCase().replace(/[^a-z0-9-]/g, "");
-  }
-
-  function reviewStatusClass(status = "New") {
-    return String(status || "New").toLowerCase().replace(/\s+/g, "-").replace(/[^a-z0-9-]/g, "");
-  }
-
-  function reviewViewMatches(item) {
-    if (reviewView === "changed") return /changed|updated|diff|metric/i.test(item.changeType || "");
-    if (reviewView === "p1") return item.priorityBand === "P1" || Number(item.priorityScore || 0) >= 85;
-    if (reviewView === "pipeline") return item.primaryType === "pipeline" || item.primaryType === "price" || item.pipelineAlert;
-    return true;
-  }
-
-  function liveReviewItems() {
-    const priceRows = allPriceRows();
-    const pricesState = freshnessState({
-      updatedAt: LIVE.prices?.updatedAt || LIVE.updatedAt,
-      count: priceRows.length,
-      healthKeys: ["가격:"],
-      staleHours: 30,
-    });
-    const news = rawNews();
-    const chinaNews = news.filter(isChinaArticle);
-    const englishNews = news.filter((item) => !isChinaArticle(item));
-    const newsState = freshnessState({
-      updatedAt: LIVE.updatedAt,
-      count: news.length,
-      healthKeys: ["뉴스", "외신", "중국"],
-      staleHours: 36,
-    });
-    const firstNews = news[0];
-    const items = [
-      {
-        id: "live-news-digest",
-        primaryType: "news",
-        priorityBand: newsState.cls === "fail" ? "P1" : "P2",
-        priorityScore: newsState.cls === "fail" ? 88 : 74,
-        reviewStatus: newsState.cls === "fail" ? "In Review" : "New",
-        changeType: "New",
-        title: `영어권 ${fmtNum(englishNews.length)}건 · 중국어 ${fmtNum(chinaNews.length)}건 기사 검토`,
-        summary: "중복 제거 후 노출되는 외신·중국 기사 묶음을 당일 digest로 검토합니다. 기사 탭에서 업체 드롭다운과 언어 탭을 함께 확인하세요.",
-        source: "Google News RSS / curated foreign & China sources",
-        sourceUrl: firstNews?.link || "",
-        publishedAt: firstNews?.date || LIVE.updatedAt,
-        crawledAt: LIVE.updatedAt,
-        section: "news",
-        linkedCategories: ["china", "dram", "nand", "hbm", "geopolitics"],
-        topics: ["News", "China", "Memory"],
-        entities: ["CXMT", "YMTC", "SKHY", "Samsung", "Micron"],
-        insights: [
-          `화면 노출 뉴스는 ${fmtNum(news.length)}건이며 중국어 기사 ${fmtNum(chinaNews.length)}건, 영어권 기사 ${fmtNum(englishNews.length)}건으로 분리됩니다.`,
-          "동일 보도 재전송은 canonical URL과 제목 fingerprint 기준 exact/near dedupe로 확장해야 합니다.",
-          "P1 승격 후보는 가격, 수출통제, 고객계약, 캐파 증설, 수율·패키징 병목 기사입니다.",
-        ],
-        metrics: [
-          { label: "News", value: `${fmtNum(news.length)}건` },
-          { label: "China", value: `${fmtNum(chinaNews.length)}건` },
-          { label: "Status", value: newsState.label },
-        ],
-      },
-      {
-        id: "live-price-freshness",
-        primaryType: "price",
-        priorityBand: pricesState.cls === "fail" ? "P1" : "P2",
-        priorityScore: pricesState.cls === "fail" ? 91 : 78,
-        reviewStatus: pricesState.cls === "fail" ? "In Review" : "New",
-        changeType: priceRows.length ? "Changed" : "Pipeline alert",
-        title: `TrendForce Spot/Contract 가격 freshness와 rows 검토`,
-        summary: "메모리 현물가와 계약가 rows가 비어 있거나 stale이면 전일/관찰 품목 폴백과 수집 실패 UI를 함께 확인해야 합니다.",
-        source: LIVE.prices?.source || "TrendForce / DRAMeXchange",
-        sourceUrl: LIVE.prices?.sourceUrl || "https://www.trendforce.com/",
-        publishedAt: LIVE.prices?.updatedAt || LIVE.updatedAt,
-        crawledAt: LIVE.updatedAt,
-        section: "prices",
-        linkedCategories: ["dram", "nand"],
-        topics: ["Spot price", "Contract price", "Freshness"],
-        entities: ["TrendForce", "DRAMeXchange"],
-        pipelineAlert: pricesState.cls !== "ok",
-        insights: [
-          `현재 가격 rows는 ${fmtNum(priceRows.length)}개이며 상태는 ${pricesState.label}입니다.`,
-          "Spot은 단기 유통 재고, Contract는 분기 협상력과 제품 믹스의 결과로 분리해서 봐야 합니다.",
-          "Rows가 0이면 공개 테이블 구조 변경, 접근 실패, 수집 실패 중 어느 단계인지 pipeline health를 먼저 봅니다.",
-        ],
-        metrics: [
-          { label: "Rows", value: `${fmtNum(priceRows.length)}개` },
-          { label: "Status", value: pricesState.label },
-          { label: "Updated", value: reviewShortDate(LIVE.prices?.updatedAt || LIVE.updatedAt) },
-        ],
-      },
-    ];
-    return items;
-  }
-
-  function dailyReviewItems() {
-    const seed = dailyReviewData().queueSeed || [];
-    return visibleItems(seed.concat(liveReviewItems()))
-      .map((item) => ({
-        ...item,
-        categories: item.linkedCategories || item.categories || [],
-        body: item.summary || item.body || "",
-      }))
-      .filter(reviewRelated)
-      .sort((a, b) => Number(b.priorityScore || 0) - Number(a.priorityScore || 0));
-  }
-
-  function renderDailyReview() {
-    const summary = $("#reviewSummary");
-    const controls = $("#reviewControls");
-    const queue = $("#reviewQueue");
-    const detail = $("#reviewDetail");
-    const schema = $("#reviewSchema");
-    if (!summary || !controls || !queue || !detail || !schema) return;
-
-    const allItems = dailyReviewItems();
-    const items = allItems.filter(reviewViewMatches);
-    if (!items.some((item) => item.id === selectedReviewId)) selectedReviewId = items[0]?.id || null;
-    const selected = items.find((item) => item.id === selectedReviewId) || items[0] || null;
-    const data = dailyReviewData();
-    const meta = $("#reviewMeta");
-    if (meta) {
-      const state = freshnessState({
-        updatedAt: LIVE.updatedAt,
-        count: rawNews().length + allPriceRows().length + (LIVE.health || []).length,
-        healthKeys: ["뉴스", "가격:", "벤치마킹"],
-        staleHours: 36,
-      });
-      meta.className = `freshness-badge ${state.cls}`;
-      meta.textContent = `${state.label} · 리뷰 큐 · ${fmtDate(LIVE.updatedAt)} · ${fmtNum(allItems.length)}개`;
-    }
-    summary.innerHTML = "";
-
-    const views = data.savedViews || [];
-    controls.innerHTML = views.map((view) => {
-      const viewCount = allItems.filter((item) => {
-        if (view.id === "today") return true;
-        if (view.id === "changed") return /changed|updated|diff|metric/i.test(item.changeType || "");
-        if (view.id === "p1") return item.priorityBand === "P1" || Number(item.priorityScore || 0) >= 85;
-        if (view.id === "pipeline") return item.pipelineAlert || item.primaryType === "pipeline" || item.primaryType === "price";
-        return true;
-      }).length;
-      return `<button type="button" class="${view.id === reviewView ? "active" : ""}" data-review-view="${escapeHTML(view.id)}">
-        <strong>${escapeHTML(view.label)}</strong><small>${fmtNum(viewCount)}</small>
-      </button>`;
-    }).join("");
-    controls.querySelectorAll("[data-review-view]").forEach((btn) => {
-      btn.addEventListener("click", () => {
-        reviewView = btn.dataset.reviewView || "today";
-        selectedReviewId = null;
-        renderDailyReview();
-      });
-    });
-
-    queue.innerHTML = "";
-    if (!items.length) {
-      queue.appendChild(el("div", "empty empty-action", "<strong>조건에 맞는 리뷰 항목이 없습니다.</strong><em>보기 탭을 Today로 바꾸거나 왼쪽 주제 필터를 전체로 되돌리세요.</em>"));
-    }
-    items.forEach((item, index) => {
-      const card = el("article", `review-item reveal${item.id === selected?.id ? " active" : ""}`);
-      card.style.animationDelay = `${index * 25}ms`;
-      card.style.setProperty("--local-accent", categoryAccent((item.linkedCategories || [])[0]));
-      card.dataset.reviewId = item.id;
-      card.innerHTML = `
-        <div class="review-item-main">
-          <div class="review-item-head">
-            <span class="review-priority ${reviewPriorityClass(item.priorityBand)}">${escapeHTML(item.priorityBand || "P3")}</span>
-            <span class="review-status ${reviewStatusClass(item.reviewStatus)}">${escapeHTML(item.reviewStatus || "New")}</span>
-            <span class="review-change">${escapeHTML(item.changeType || "New")}</span>
-            <span class="review-score">${fmtNum(item.priorityScore || 0)}</span>
-          </div>
-          <h3>${escapeHTML(item.title)}</h3>
-          <p>${escapeHTML(clipText(item.summary || item.body || "", 142))}</p>
-          <div class="review-item-foot">
-            <span>${escapeHTML(item.primaryType || "item")}</span>
-            <span>${escapeHTML(item.source || "source")}</span>
-            <span>${escapeHTML(reviewShortDate(item.publishedAt || item.crawledAt))}</span>
-          </div>
-        </div>
-      `;
-      card.addEventListener("click", () => {
-        selectedReviewId = item.id;
-        renderDailyReview();
-      });
-      queue.appendChild(card);
-    });
-
-    renderReviewDetail(selected);
-
-    schema.innerHTML = "";
-  }
-
-  function renderReviewDetail(item) {
-    const detail = $("#reviewDetail");
-    if (!detail) return;
-    if (!item) {
-      detail.innerHTML = `<div class="empty">리뷰 항목을 선택하면 provenance, diff, 우선순위 근거가 열립니다.</div>`;
-      return;
-    }
-    const data = dailyReviewData();
-    const formula = data.priorityFormula || {};
-    const weights = formula.weights || {};
-    const categories = (item.linkedCategories || item.categories || []).map(categoryName).filter(Boolean);
-    detail.style.setProperty("--local-accent", categoryAccent((item.linkedCategories || [])[0]));
-    detail.innerHTML = `
-      <div class="review-detail-head">
-        <span class="review-priority ${reviewPriorityClass(item.priorityBand)}">${escapeHTML(item.priorityBand || "P3")}</span>
-        <span class="review-status ${reviewStatusClass(item.reviewStatus)}">${escapeHTML(item.reviewStatus || "New")}</span>
-        <h3>${escapeHTML(item.title)}</h3>
-        <p>${escapeHTML(item.summary || item.body || "")}</p>
-      </div>
-      <div class="metric-row">${metricCards(item.metrics || [], 4)}</div>
-      <div class="review-detail-block">
-        <strong>3줄 인사이트</strong>
-        <ul class="watch-list">${(item.insights || []).slice(0, 3).map((line) => `<li>${escapeHTML(line)}</li>`).join("")}</ul>
-      </div>
-      <div class="review-detail-grid">
-        <div>
-          <span>Primary type</span>
-          <strong>${escapeHTML(item.primaryType || "item")}</strong>
-        </div>
-        <div>
-          <span>Published</span>
-          <strong>${escapeHTML(reviewShortDate(item.publishedAt))}</strong>
-        </div>
-        <div>
-          <span>Crawled</span>
-          <strong>${escapeHTML(reviewShortDate(item.crawledAt || LIVE.updatedAt))}</strong>
-        </div>
-        <div>
-          <span>Score</span>
-          <strong>${fmtNum(item.priorityScore || 0)}</strong>
-        </div>
-      </div>
-      <div class="review-detail-block">
-        <strong>카테고리 · 엔티티</strong>
-        <div class="tag-row">
-          ${categories.map((name) => `<span class="tag">${escapeHTML(name)}</span>`).join("") || "<span class=\"tag\">전체</span>"}
-          ${(item.entities || []).slice(0, 5).map((entity) => `<span class="tag">${escapeHTML(entity)}</span>`).join("")}
-        </div>
-      </div>
-      <div class="review-formula">
-        <strong>Priority formula</strong>
-        <p>${escapeHTML(formula.expression || "impact + novelty + source reliability - duplicate penalty")}</p>
-        <div>${Object.entries(weights).map(([key, value]) => `<span>${escapeHTML(key)} ${escapeHTML(value)}</span>`).join("")}</div>
-      </div>
-      <div class="review-detail-actions">
-        <button type="button" data-review-copy>복사</button>
-        <button type="button" data-review-inspector>상세 패널</button>
-        <button type="button" data-review-jump="${escapeHTML(item.section || "daily-review")}">관련 보드</button>
-        ${item.sourceUrl ? `<a href="${escapeHTML(item.sourceUrl)}" target="_blank" rel="noopener">원문</a>` : ""}
-      </div>
-    `;
-    detail.querySelector("[data-review-copy]")?.addEventListener("click", (event) => copyPayload(item, event.currentTarget));
-    detail.querySelector("[data-review-inspector]")?.addEventListener("click", () => openInspector(item));
-    detail.querySelector("[data-review-jump]")?.addEventListener("click", (event) => jumpTo(event.currentTarget.dataset.reviewJump));
-  }
-
-  function evidenceFrameworkData() {
-    return BASE.evidenceFramework || {
-      summary: [],
-      layers: [],
-      sourceTypes: [],
-      evidenceLevels: [],
-      methodology: [],
-    };
-  }
-
-  function evidenceLevelOf(item = {}) {
-    const explicit = String(item.evidenceLevel || "").trim();
-    if (explicit) return explicit;
-    const status = `${item.status || ""} ${item.statusClass || ""} ${item.badge || ""}`.toLowerCase();
-    if (status.includes("stale")) return "Stale";
-    if (status.includes("ok") || status.includes("확인") || status.includes("official")) return "Confirmed";
-    if (status.includes("watch") || status.includes("보강") || status.includes("검증")) return "Watch";
-    return String(item.sourceUrl || "").trim() ? "Watch" : "Inferred";
-  }
-
-  function sourceTypeOf(item = {}) {
-    const explicit = String(item.sourceType || "").trim();
-    if (explicit) return explicit;
-    const src = `${item.source || ""} ${item.sourceUrl || ""}`.toLowerCase();
-    if (/wsts|trendforce|techinsights|counterpoint|yole|omdia|market|research/.test(src)) return "analysis";
-    if (/reuters|bloomberg|ft\.com|nikkei|cnbc|yahoo|tomshardware|digitimes|eetimes|gasgoo/.test(src)) return "foreign";
-    if (/bis|gov|scio|china\.org|cxmt|sk hynix|samsung|micron|treasury|chips|ministry|official|company law|wnd|wuxi/.test(src)) return "official";
-    return "internal";
-  }
-
-  function evidenceLayerOf(item = {}) {
-    const explicit = String(item.layer || "").trim();
-    if (explicit) return explicit;
-    const level = evidenceLevelOf(item).toLowerCase();
-    const hasUrl = Boolean(String(item.sourceUrl || item.link || "").trim());
-    if (level === "confirmed" && hasUrl && sourceTypeOf(item) !== "internal") return "fact";
-    if (level === "inferred") return "interpretation";
-    return "assumption";
-  }
-
-  function evidenceLabel(kind, id) {
-    const data = evidenceFrameworkData();
-    const list = kind === "sourceType" ? data.sourceTypes : kind === "level" ? data.evidenceLevels : data.layers;
-    const found = (list || []).find((item) => String(item.id).toLowerCase() === String(id).toLowerCase() || item.label === id);
-    return found?.label || id || "Unclassified";
-  }
-
-  function evidenceStatusClass(level) {
-    const key = String(level || "").toLowerCase();
-    if (key === "confirmed") return "ok";
-    if (key === "stale") return "stale";
-    if (key === "inferred") return "watch";
-    return "watch";
-  }
-
-  function evidenceSourceHTML(item) {
-    const url = String(item.sourceUrl || item.link || "").trim();
-    if (url) return sourceLinkHTML(url, item.source || "원문");
-    return `<span class="source-tag muted">${escapeHTML(evidenceLabel("sourceType", sourceTypeOf(item)))}</span>`;
-  }
-
-  function evidenceItems() {
-    const claimItems = (BASE.claimLedger || []).map((item, index) => ({
-      ...item,
-      id: `claim-${index}`,
-      itemType: "Claim",
-      title: item.claim,
-      body: item.note,
-    }));
-    const kpiItems = (BASE.kpis || []).map((kpi, index) => {
-      const level = String(kpi.statusClass || kpi.status || "").toLowerCase().includes("ok") && String(kpi.sourceUrl || "").trim()
-        ? "Confirmed"
-        : evidenceLevelOf(kpi);
-      return {
-        ...kpi,
-        id: `kpi-${index}`,
-        itemType: "KPI",
-        title: kpi.label,
-        body: kpi.note,
-        version: numberDisplayValue(kpi),
-        evidenceLevel: level,
-        sourceType: sourceTypeOf(kpi),
-      };
-    });
-    return claimItems.concat(kpiItems).map((item) => ({
-      ...item,
-      layer: evidenceLayerOf(item),
-      evidenceLevel: evidenceLevelOf(item),
-      sourceType: sourceTypeOf(item),
-    }));
-  }
-
-  function renderEvidenceFramework() {
-    const summary = $("#evidenceFrameworkSummary");
-    const layerGrid = $("#evidenceLayerGrid");
-    const tabs = $("#evidenceFilterTabs");
-    const claimGrid = $("#evidenceClaimGrid");
-    const method = $("#evidenceMethodology");
-    const meta = $("#evidenceFrameworkMeta");
-    if (!summary || !layerGrid || !tabs || !claimGrid || !method) return;
-
-    const framework = evidenceFrameworkData();
-    const items = evidenceItems();
-    if (meta) meta.textContent = `${fmtNum(items.length)}개 항목 · 출처 분류`;
-    summary.innerHTML = "";
-    layerGrid.innerHTML = "";
-
-    const filters = [{ id: "all", label: "전체" }];
-    tabs.innerHTML = filters.map((filter) => `
-      <button type="button" class="${filter.id === evidenceFilter ? "active" : ""}" data-evidence-filter="${escapeHTML(filter.id)}">
-        <strong>${escapeHTML(filter.label)}</strong>
-        <small>${filter.id === "all" ? fmtNum(items.length) : fmtNum(filter.id === "methodology" ? (framework.methodology || []).length : items.filter((item) => item.layer === filter.id).length)}</small>
-      </button>
-    `).join("");
-    tabs.querySelectorAll("[data-evidence-filter]").forEach((btn) => {
-      btn.addEventListener("click", () => {
-        evidenceFilter = btn.dataset.evidenceFilter || "all";
-        renderEvidenceFramework();
-      });
-    });
-
-    const visible = evidenceFilter === "all" ? items : items.filter((item) => item.layer === evidenceFilter);
-    if (evidenceFilter === "methodology") {
-      claimGrid.innerHTML = (framework.methodology || []).map((line, index) => `
-        <article class="evidence-claim-card methodology">
-          <div class="evidence-card-top">
-            ${factBadge("Methodology", "ok")}
-            <span class="source-tag">Rule ${fmtNum(index + 1)}</span>
-          </div>
-          <h3>${escapeHTML(line)}</h3>
-          <p>이 규칙은 뉴스/크롤링 제외 기준에 적용됩니다.</p>
-        </article>
-      `).join("");
-    } else {
-      claimGrid.innerHTML = visible.slice(0, 48).map((item) => {
-        const level = evidenceLevelOf(item);
-        const sourceType = sourceTypeOf(item);
-        const layer = evidenceLayerOf(item);
-        const urlMissing = !String(item.sourceUrl || item.link || "").trim();
-        const levelClass = evidenceStatusClass(level);
-        return `
-          <article class="evidence-claim-card ${escapeHTML(layer)}">
-            <div class="evidence-card-top">
-              ${factBadge(evidenceLabel("level", level), levelClass)}
-              <span class="source-tag">${escapeHTML(evidenceLabel("sourceType", sourceType))}</span>
-            </div>
-            <h3>${escapeHTML(item.title || item.claim || item.label)}</h3>
-            <p>${escapeHTML(item.body || item.note || "")}</p>
-            <div class="evidence-card-foot">
-              <span>${escapeHTML(item.itemType || "Item")} · ${escapeHTML(item.version || item.sourceDate || "")}</span>
-              ${urlMissing ? `<span class="data-state ${layer === "fact" ? "fail" : "watch"}">URL 없음 · 팩트 승격 금지</span>` : evidenceSourceHTML(item)}
-            </div>
-          </article>
-        `;
-      }).join("") || `<div class="empty">선택한 레이어에 항목이 없습니다.</div>`;
-    }
-
-    method.innerHTML = "";
   }
 
   function numberDashboardItems() {
@@ -3473,7 +2995,7 @@
 
     const map = {
       overview: {
-        value: dailyReviewItems().length + allPriceRows().length + newsCount,
+        value: allPriceRows().length + newsCount,
         unit: "signal",
         status: "Today",
         score: clamp((freshnessScore(priceState, allPriceRows().length) + freshnessScore(newsState, newsCount)) / 2),
@@ -3520,13 +3042,6 @@
         status: activeChinaTalentScenario().label,
         score: clamp(58 + chinaTalentSignalCount(activeChinaTalentScenario()) * 3, 34, 94),
         note: "채용·리텐션·IP·컴플라이언스",
-      },
-      "daily-review": {
-        value: dailyReviewItems().length,
-        unit: "개",
-        status: "Review",
-        score: clamp(dailyReviewItems().length * 7, dailyReviewItems().length ? 30 : 0, 100),
-        note: "오늘 검토할 digest queue",
       },
       "china-nand": {
         value: CHINA_NAND_BUSINESS_LAYERS.reduce((sum, item) => sum + nandBusinessSignalCount(item), 0),
@@ -3611,13 +3126,6 @@
         status: "Action",
         score: 76,
         note: "SKHY 대응 체크리스트",
-      },
-      "evidence-framework": {
-        value: evidenceItems().length,
-        unit: "claim",
-        status: "Evidence",
-        score: clamp(52 + sourceUrlItems(evidenceItems()).length * 2, 42, 94),
-        note: "출처 검증",
       },
       intelligence: {
         value: visibleItems(BASE.channels || []).filter(relatedToActive).length,
@@ -6793,26 +6301,6 @@
 
   function workbenchItems(mode = workbenchMode) {
     let items = [];
-    if (mode === "review") {
-      items = dailyReviewItems().map((item) => ({
-        id: `review-${item.id}`,
-        mode,
-        type: "일일 리뷰 큐",
-        tag: `${item.priorityBand || "P3"} · ${item.reviewStatus || "New"}`,
-        title: item.title,
-        body: item.summary || item.body,
-        section: item.section || "daily-review",
-        categories: item.linkedCategories || item.categories || [],
-        watch: (item.insights || []).concat(item.topics || []),
-        metrics: [
-          { label: "Score", value: fmtNum(item.priorityScore || 0) },
-          { label: "Change", value: item.changeType || "New" },
-          { label: "Source", value: item.source || "source" },
-        ],
-        links: item.sourceUrl ? [{ title: item.source || item.title, link: item.sourceUrl }] : [],
-      }));
-    }
-
     if (mode === "executive") {
       items = executiveBacktests().map((item) => ({
         id: `executive-${item.id}`,

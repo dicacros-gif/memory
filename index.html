@@ -57,10 +57,6 @@
           <span class="sb-ico" aria-hidden="true">T</span>
           <span class="sb-label"><strong>인재/IP</strong><small>채용 · 대학 · 보안</small></span>
         </button>
-        <button class="sb-item" type="button" data-jump="evidence-framework">
-          <span class="sb-ico" aria-hidden="true">R</span>
-          <span class="sb-label"><strong>방법론</strong><small>출처 · 수집 주기 · FAQ</small></span>
-        </button>
       </nav>
 
       <div class="sb-block sb-quick">
@@ -69,7 +65,6 @@
         <button type="button" data-jump="management-strategy">전략/투자 분석</button>
         <button type="button" data-jump="prices">가격·기사</button>
         <button type="button" data-jump="projection">제품 예측</button>
-        <button type="button" data-jump="daily-review">일일 리뷰</button>
       </div>
 
       <details class="sb-block sb-filter">
@@ -309,57 +304,6 @@
               <span>크롤링 신호 → O/X 게이트 → 투자안 → ROI → 실행 판단</span>
             </div>
             <div class="talent-planning-map" id="talentScenarioPlanning"></div>
-          </div>
-        </section>
-
-        <section class="board review-board" id="daily-review">
-          <div class="board-head">
-            <div>
-              <p class="eyebrow">Daily digest · review queue · semantic diff</p>
-              <h2>일일 크롤링 리뷰 큐</h2>
-            </div>
-          </div>
-          <div class="review-summary" id="reviewSummary" hidden></div>
-          <div class="review-layout">
-            <section class="review-panel">
-              <div class="crawler-panel-head">
-                <h3>Priority Queue</h3>
-                <span>New · Changed · P1 · Pipeline</span>
-              </div>
-              <div class="review-controls" id="reviewControls"></div>
-              <div class="review-queue" id="reviewQueue"></div>
-            </section>
-            <aside class="review-detail" id="reviewDetail"></aside>
-          </div>
-          <div class="review-schema" id="reviewSchema" hidden></div>
-        </section>
-
-        <section class="board evidence-framework-board" id="evidence-framework">
-          <div class="board-head">
-            <div>
-              <p class="eyebrow">Evidence framework · source type · proof level</p>
-              <h2>출처 검증</h2>
-            </div>
-            <span class="board-meta" id="evidenceFrameworkMeta">로드 중 · 출처와 증거 수준 분류</span>
-          </div>
-          <div class="evidence-framework-summary" id="evidenceFrameworkSummary" hidden></div>
-          <div class="evidence-layer-grid" id="evidenceLayerGrid" hidden></div>
-          <div class="evidence-framework-layout">
-            <section class="evidence-ledger-panel">
-              <div class="crawler-panel-head">
-                <h3>Claim Ledger 분류</h3>
-                <span>출처 유형 · 증거 수준 · 레이어</span>
-              </div>
-              <div class="evidence-filter-tabs" id="evidenceFilterTabs"></div>
-              <div class="evidence-claim-grid" id="evidenceClaimGrid"></div>
-            </section>
-            <aside class="evidence-method-panel" hidden>
-              <div class="crawler-panel-head">
-                <h3>방법론 · 제외 규칙</h3>
-                <span>Fact 승격 기준</span>
-              </div>
-              <div class="evidence-methodology" id="evidenceMethodology"></div>
-            </aside>
           </div>
         </section>
 
@@ -668,9 +612,6 @@
           </div>
           <div class="channel-grid" id="channelGrid"></div>
         </section>
-        <footer class="page-status-footer" aria-label="하단 수집 상태">
-          <span class="freshness-badge" id="reviewMeta">로드 중 · 오늘의 리뷰 큐 계산</span>
-        </footer>
       </main>
     </div>
   </div>
