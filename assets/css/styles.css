@@ -864,6 +864,19 @@ body.sidebar-collapsed .sb-ico {
   scroll-margin-top: calc(var(--topbar-h) + 18px);
 }
 
+.page-status-footer {
+  order: 99;
+  display: flex;
+  justify-content: flex-end;
+  padding: 2px 0 12px;
+}
+
+.page-status-footer .freshness-badge {
+  opacity: .72;
+  transform: scale(.96);
+  transform-origin: right center;
+}
+
 #overview { order: 1; }
 #daily-review { order: 2; }
 #prices { order: 3; }

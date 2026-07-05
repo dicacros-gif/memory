@@ -11,7 +11,7 @@
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard/dist/web/static/pretendard.css" />
   <link rel="stylesheet" as="style" crossorigin href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css" />
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@500;700&family=Noto+Sans+KR:wght@400;500;700;800;900&family=Space+Grotesk:wght@500;600;700&display=swap" />
-  <link rel="stylesheet" href="assets/css/styles.css?v=ai-ux-20260705" />
+  <link rel="stylesheet" href="assets/css/styles.css?v=ai-ux-20260705-review-footer" />
 </head>
 <body>
   <div class="scroll-prog" id="scrollProg" aria-hidden="true"></div>
@@ -315,7 +315,6 @@
               <p class="eyebrow">Daily digest · review queue · semantic diff</p>
               <h2>일일 크롤링 리뷰 큐</h2>
             </div>
-            <span class="freshness-badge" id="reviewMeta">로드 중 · 오늘의 리뷰 큐 계산</span>
           </div>
           <div class="review-summary" id="reviewSummary"></div>
           <div class="review-layout">
@@ -711,6 +710,9 @@
           </div>
           <div class="channel-grid" id="channelGrid"></div>
         </section>
+        <footer class="page-status-footer" aria-label="하단 수집 상태">
+          <span class="freshness-badge" id="reviewMeta">로드 중 · 오늘의 리뷰 큐 계산</span>
+        </footer>
       </main>
     </div>
   </div>
@@ -718,6 +720,6 @@
   <div class="qa-answer" id="qaAnswer" hidden></div>
   <div class="inspector" id="inspector" hidden></div>
   <div class="backdrop" id="backdrop"></div>
-  <script src="assets/js/app.js?v=ai-ux-20260705" defer></script>
+  <script src="assets/js/app.js?v=ai-ux-20260705-review-footer" defer></script>
 </body>
 </html>
