@@ -5039,7 +5039,7 @@
       tags: [item.label, item.capital, item.allocation, item.stage].filter(Boolean),
       links: item.links || [],
       metrics: [
-        { label: "Model score", value: fmtNum(item.score) },
+        { label: "근거지수", value: fmtNum(item.score) },
         { label: "Evidence links", value: fmtNum(item.evidenceCount || sourceUrlItems(item.links || []).length) },
         { label: "Price rows", value: fmtNum(item.priceRows || 0) },
       ],
@@ -5096,7 +5096,7 @@
           <strong>${escapeHTML(top?.label || axis)}</strong>
           <p>${escapeHTML(top?.capital || "크롤링 신호를 기다리는 축")}</p>
           <div class="lane-meter" aria-hidden="true"><i data-fill-to="${clamp(score)}" style="width:0%"></i></div>
-          <small>${fmtNum(signals || top?.signals || 0)} signals · 모델 ${fmtNum(score)}% · 근거 ${fmtNum(top?.evidenceCount || 0)}건</small>
+          <small>${fmtNum(signals || top?.signals || 0)} signals · 근거지수 ${fmtNum(score)}% · 근거 ${fmtNum(top?.evidenceCount || 0)}건</small>
         </button>
       `;
     }).join("");
@@ -5217,9 +5217,9 @@
 
     grid.innerHTML = items.map((item, index) => `
       <button class="investment-card reveal${item.id === selected?.id ? " active" : ""}" type="button" data-management-strategy="${escapeHTML(item.id)}" style="--local-accent:${categoryAccent((item.linkedCategories || [])[0])}; animation-delay:${index * 25}ms">
-        ${scoreRingHTML(item.score, "Model")}
+        ${scoreRingHTML(item.score, "근거지수")}
         <span>
-          <small>${escapeHTML(item.businessAxis)} · 모델가중치 ${escapeHTML(item.allocation)}</small>
+          <small>${escapeHTML(item.businessAxis)} · 신호비중 ${totalSignals ? Math.round((item.signals / totalSignals) * 100) : 0}%</small>
           <strong>${escapeHTML(item.label)}</strong>
           <em>${fmtNum(item.signals)} signals · 근거 ${fmtNum(item.evidenceCount || 0)}건</em>
         </span>
@@ -5274,7 +5274,7 @@
 
     grid.innerHTML = items.map((item, index) => `
       <button class="investment-card reveal${item.id === selected?.id ? " active" : ""}" type="button" data-strategic-decision="${escapeHTML(item.id)}" style="--local-accent:${categoryAccent((item.linkedCategories || [])[0])}; animation-delay:${index * 25}ms">
-        ${scoreRingHTML(item.score, "Model")}
+        ${scoreRingHTML(item.score, "근거지수")}
         <span>
           <small>${escapeHTML(item.stage)} · ${escapeHTML(item.option)}</small>
           <strong>${escapeHTML(item.label)}</strong>
