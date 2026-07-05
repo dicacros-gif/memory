@@ -2547,40 +2547,17 @@
     const brief = $("#execBrief");
     const strategy = $("#execStrategy");
     if (!brief || !strategy) return;
-    const health = LIVE.health || [];
-    const ok = health.filter((entry) => entry.ok).length;
-    const status = freshnessState({
-      updatedAt: LIVE.updatedAt,
-      count: rawNews().length + allPriceRows().length + health.length,
-      healthKeys: ["뉴스", "가격:"],
-      staleHours: 36,
-    });
+    const healthCount = (LIVE.health || []).length;
     setFreshness("#execFreshness", {
       label: "Executive Summary",
       updatedAt: LIVE.updatedAt,
       source: "daily crawler",
-      count: rawNews().length + allPriceRows().length + health.length,
+      count: rawNews().length + allPriceRows().length + healthCount,
       healthKeys: ["뉴스", "가격:"],
       staleHours: 36,
     });
 
-    const cards = [
-      { label: "수집 상태", value: `${ok}/${health.length}`, note: status.label, jump: "crawler" },
-      { label: "NAND 가격", value: nandPriceRows().length, note: "Spot·contract rows", jump: "prices" },
-      { label: "중국 기사", value: rawNews().filter(isChinaArticle).length, note: "중국어·중국 관련", jump: "news" },
-      { label: "제품 예측", value: projectionTotalSignals(), note: "30M+5Y 신호", jump: "projection" },
-      { label: "사업 체크", value: NAND_BUSINESS_WORKFLOWS.length, note: "전략 업무 항목", jump: "china-nand" },
-    ];
     brief.innerHTML = `
-      <div class="exec-card-grid">
-        ${cards.map((card) => `
-          <button class="exec-stat reveal" type="button" data-jump="${escapeHTML(card.jump)}">
-            <span>${escapeHTML(card.label)}</span>
-            <strong>${typeof card.value === "number" ? countHTML(card.value) : escapeHTML(card.value)}</strong>
-            <small>${escapeHTML(card.note)}</small>
-          </button>
-        `).join("")}
-      </div>
       <div class="exec-bullets">
         ${executiveStrategyLines().map((item) => `
           <button class="exec-line reveal" type="button" data-jump="${escapeHTML(item.jump)}">
