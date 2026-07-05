@@ -10,7 +10,7 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard/dist/web/static/pretendard.css" />
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;700;800;900&family=Space+Grotesk:wght@500;600;700&display=swap" />
-  <link rel="stylesheet" href="assets/css/styles.css?v=ceo-agent-challenge-20260705" />
+  <link rel="stylesheet" href="assets/css/styles.css?v=exec-year-product-20260705" />
 </head>
 <body>
   <div class="app">
@@ -207,8 +207,10 @@
           <div class="decision-layout">
             <section class="decision-panel">
               <div class="decision-control">
-                <label for="backtestDateSelect">과거 시점 선택</label>
-                <select id="backtestDateSelect" aria-label="백테스트 과거 시점 선택"></select>
+                <label for="backtestYearSelect">년도 선택</label>
+                <select id="backtestYearSelect" aria-label="백테스트 년도 선택"></select>
+                <label for="execProductSelect">하이닉스 제품군</label>
+                <select id="execProductSelect" aria-label="하이닉스 제품군 선택"></select>
                 <span id="backtestCoverage">가격 히스토리 확인 중</span>
               </div>
               <div class="decision-grid" id="execDecisionGrid"></div>
@@ -745,6 +747,6 @@
   <div class="qa-answer" id="qaAnswer" hidden></div>
   <div class="inspector" id="inspector" hidden></div>
   <div class="backdrop" id="backdrop"></div>
-  <script src="assets/js/app.js?v=ceo-agent-challenge-20260705" defer></script>
+  <script src="assets/js/app.js?v=exec-year-product-20260705" defer></script>
 </body>
 </html>

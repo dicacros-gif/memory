@@ -1751,8 +1751,8 @@
       id: "executive-backtest",
       label: "경영진 의사결정 백테스트",
       source: "price-history.json 실제 가격 포인트 · live.json 중국 뉴스/벤치마킹 신호",
-      method: "선택한 과거 수집일 기준으로 당시까지의 가격 모멘텀을 계산하고, 이후 최신 수집가까지 실제 변화율로 의사결정 적중 여부 검증",
-      fields: ["과거 수집일", "제품군", "당시 판단", "이후 실제 변화율", "관측 품목 수", "데이터 충분성"],
+      method: "선택한 년도의 첫 가격 포인트를 기준으로 당시까지의 가격 모멘텀을 계산하고, 이후 최신 수집가까지 실제 변화율로 의사결정 적중 여부 검증",
+      fields: ["선택 년도", "제품군", "당시 판단", "이후 실제 변화율", "관측 품목 수", "데이터 충분성"],
       filters: ["HBM proxy", "서버 DRAM", "eSSD/NAND", "단말 proxy", "레거시", "중국 가격 압력"],
       output: "경영진 의사결정 · 백테스트",
       section: "executive-decision",
@@ -1968,7 +1968,8 @@
   let projectionFocusId = "ai-server";
   let projectionScenario = "neutral";
   let execDecisionFocusId = "hbm-ai-server";
-  let selectedBacktestDate = "";
+  let selectedBacktestYear = "";
+  let selectedExecProductId = "all";
   let responsePriority = "all";
   let paletteIndex = 0;
   let typeTimer = null;
@@ -4532,29 +4533,53 @@
     });
   }
 
-  function backtestDateOptions() {
-    const times = new Map();
+  function backtestYearOptions() {
+    const years = new Map();
     historyItems().forEach((series) => {
       (series.points || []).forEach((point) => {
         const t = pointTime(point);
-        if (t) times.set(new Date(t).toISOString(), pointDateLabel(t));
+        if (!t) return;
+        const year = String(new Date(t).getFullYear());
+        const current = years.get(year) || { value: year, year, firstTime: t, lastTime: t, count: 0 };
+        current.firstTime = Math.min(current.firstTime, t);
+        current.lastTime = Math.max(current.lastTime, t);
+        current.count += 1;
+        years.set(year, current);
       });
     });
-    return Array.from(times.entries())
-      .sort((a, b) => new Date(a[0]) - new Date(b[0]))
-      .map(([value, label]) => ({ value, label }));
+    return Array.from(years.values())
+      .sort((a, b) => Number(a.year) - Number(b.year))
+      .map((item) => ({
+        ...item,
+        label: `${item.year}년`,
+        benchmarkIso: new Date(item.firstTime).toISOString(),
+      }));
   }
 
-  function ensureBacktestDate() {
-    const options = backtestDateOptions();
+  function ensureBacktestYear() {
+    const options = backtestYearOptions();
     if (!options.length) {
-      selectedBacktestDate = "";
+      selectedBacktestYear = "";
       return null;
     }
-    if (!options.some((item) => item.value === selectedBacktestDate)) {
-      selectedBacktestDate = options[Math.max(0, options.length - 2)]?.value || options[0].value;
+    if (!options.some((item) => item.value === selectedBacktestYear)) {
+      selectedBacktestYear = options[options.length - 1]?.value || options[0].value;
     }
-    return selectedBacktestDate;
+    return selectedBacktestYear;
+  }
+
+  function selectedBacktestYearOption() {
+    const year = ensureBacktestYear();
+    return backtestYearOptions().find((item) => item.value === year) || null;
+  }
+
+  function selectedBacktestIso() {
+    return selectedBacktestYearOption()?.benchmarkIso || null;
+  }
+
+  function selectedExecProductLabel() {
+    if (selectedExecProductId === "all") return "전체 제품군";
+    return EXEC_DECISION_PRODUCTS.find((item) => item.id === selectedExecProductId)?.label || "전체 제품군";
   }
 
   function historyMatchesProduct(series, product) {
@@ -4648,7 +4673,7 @@
     return Math.abs(actualChange) <= 0.6 ? { label: "유지 적중", cls: "hit", hit: true } : { label: "유지 재검토", cls: "watch", hit: null };
   }
 
-  function productBacktest(product, selectedIso = ensureBacktestDate()) {
+  function productBacktest(product, selectedIso = selectedBacktestIso()) {
     const selectedTime = selectedIso ? new Date(selectedIso).getTime() : 0;
     const matched = productHistorySeries(product);
     const observations = matched.map((series) => backtestObservation(series, selectedTime)).filter(Boolean);
@@ -4680,7 +4705,8 @@
   }
 
   function executiveBacktests() {
-    const selected = ensureBacktestDate();
+    ensureBacktestYear();
+    const selected = selectedBacktestIso();
     return EXEC_DECISION_PRODUCTS.map((product) => productBacktest(product, selected));
   }
 
@@ -4689,18 +4715,43 @@
     return `${fmtNum(item.observations.length)}개 품목 · ${fmtNum(item.confidence)}점`;
   }
 
-  function renderBacktestDateSelect() {
-    const select = $("#backtestDateSelect");
-    if (!select) return;
-    const options = backtestDateOptions();
-    ensureBacktestDate();
-    select.innerHTML = options.length ? options.map((option) => `
-      <option value="${escapeHTML(option.value)}"${option.value === selectedBacktestDate ? " selected" : ""}>${escapeHTML(option.label)}</option>
-    `).join("") : `<option value="">가격 히스토리 없음</option>`;
-    select.onchange = () => {
-      selectedBacktestDate = select.value;
-      renderExecutiveDecision();
-    };
+  function renderBacktestControls() {
+    const yearSelect = $("#backtestYearSelect");
+    const productSelect = $("#execProductSelect");
+    const yearOptions = backtestYearOptions();
+    ensureBacktestYear();
+    if (yearSelect) {
+      yearSelect.innerHTML = yearOptions.length ? yearOptions.map((option) => `
+        <option value="${escapeHTML(option.value)}"${option.value === selectedBacktestYear ? " selected" : ""}>${escapeHTML(option.label)}</option>
+      `).join("") : `<option value="">가격 히스토리 없음</option>`;
+      yearSelect.onchange = () => {
+        selectedBacktestYear = yearSelect.value;
+        renderExecutiveDecision();
+      };
+    }
+    if (productSelect) {
+      const productOptions = [{ id: "all", label: "전체 제품군", demand: "All" }].concat(EXEC_DECISION_PRODUCTS);
+      if (!productOptions.some((item) => item.id === selectedExecProductId)) selectedExecProductId = "all";
+      productSelect.innerHTML = productOptions.map((option) => `
+        <option value="${escapeHTML(option.id)}"${option.id === selectedExecProductId ? " selected" : ""}>${escapeHTML(option.label)}${option.demand && option.id !== "all" ? ` · ${escapeHTML(option.demand)}` : ""}</option>
+      `).join("");
+      productSelect.onchange = () => {
+        selectedExecProductId = productSelect.value;
+        if (selectedExecProductId !== "all") execDecisionFocusId = selectedExecProductId;
+        renderExecutiveDecision();
+      };
+    }
+  }
+
+  function executiveBacktestsForSelection() {
+    const allItems = executiveBacktests();
+    if (selectedExecProductId === "all") return allItems;
+    const selected = allItems.filter((item) => item.id === selectedExecProductId);
+    if (!selected.length) {
+      selectedExecProductId = "all";
+      return allItems;
+    }
+    return selected;
   }
 
   function renderExecutiveDecision() {
@@ -4712,9 +4763,11 @@
     const coverage = $("#backtestCoverage");
     if (!summary || !grid || !focus || !evidence) return;
 
-    renderBacktestDateSelect();
-    const selected = ensureBacktestDate();
-    const items = executiveBacktests();
+    renderBacktestControls();
+    const selectedYearOption = selectedBacktestYearOption();
+    const selected = selectedBacktestIso();
+    const allItems = executiveBacktests();
+    const items = executiveBacktestsForSelection();
     if (!items.some((item) => item.id === execDecisionFocusId)) execDecisionFocusId = items[0]?.id || "hbm-ai-server";
     const active = items.find((item) => item.id === execDecisionFocusId) || items[0];
     const historyCount = historyItems().length;
@@ -4723,13 +4776,23 @@
     const latestAtRaw = items.length ? Math.max(...items.map((item) => item.latestAt || 0), 0) : 0;
     const latestAt = Number.isFinite(latestAtRaw) ? latestAtRaw : 0;
     const hitRate = testedItems ? hitItems / testedItems * 100 : null;
-    if (meta) meta.textContent = `${pointDateLabel(selected)} 선택 · ${fmtNum(historyCount)}개 가격 series · ${latestAt ? pointDateLabel(latestAt) : "최신 결과 없음"}까지 검증`;
-    if (coverage) coverage.textContent = `실제 가격 series ${fmtNum(historyCount)}개 · 추정 없는 backtest`;
+    const productLabel = selectedExecProductLabel();
+    const yearLabel = selectedYearOption?.label || "연도 없음";
+    const selectedSeriesKeys = new Set();
+    items.forEach((item) => {
+      productHistorySeries(item).forEach((series) => {
+        selectedSeriesKeys.add(series.key || `${series.sectionTitle || ""}::${series.item || ""}`);
+      });
+    });
+    const selectedSeriesCount = selectedSeriesKeys.size;
+    if (meta) meta.textContent = `${yearLabel} 기준 · ${productLabel} · ${fmtNum(selectedSeriesCount)}개 매칭 series · ${latestAt ? pointDateLabel(latestAt) : "최신 결과 없음"}까지 검증`;
+    if (coverage) coverage.textContent = `${yearLabel} 첫 수집점 ${selected ? pointDateLabel(selected) : "없음"} · 전체 가격 series ${fmtNum(historyCount)}개 · 제품군 매칭 ${fmtNum(selectedSeriesCount)}개`;
 
     const summaryCards = [
-      { label: "선택 과거 시점", value: pointDateLabel(selected), note: "당시까지 확인된 가격 포인트만 사용" },
-      { label: "최신 검증 시점", value: latestAt ? pointDateLabel(latestAt) : "없음", note: "선택일 이후 실제 수집 결과" },
-      { label: "검증 제품군", value: testedItems, note: `${fmtNum(items.length)}개 중 결과 판정 가능`, suffix: "개" },
+      { label: "선택 년도", value: yearLabel, note: `기준점: ${selected ? pointDateLabel(selected) : "없음"}` },
+      { label: "하이닉스 제품군", value: productLabel, note: selectedExecProductId === "all" ? "전체 제품군 비교" : "선택 제품군만 필터링" },
+      { label: "최신 검증 시점", value: latestAt ? pointDateLabel(latestAt) : "없음", note: "선택 년도 기준점 이후 실제 수집 결과" },
+      { label: "검증 제품군", value: testedItems, note: `${fmtNum(items.length)}개 표시 · 전체 ${fmtNum(allItems.length)}개`, suffix: "개" },
       { label: "적중률", value: hitRate == null ? "검증 불가" : hitRate, note: "확대/방어/유지 판단 기준", suffix: "%", decimals: 0 },
       { label: "중국 신호", value: rawNews().filter(isChinaArticle).length + benchmarkSignalTotal(), note: "뉴스·벤치마킹 최신 신호", suffix: "건" },
     ];
@@ -4796,7 +4859,7 @@
         </div>
         <div class="decision-outcome ${escapeHTML(active.outcome.cls)}">
           <strong>${escapeHTML(active.outcome.label)}</strong>
-          <span>선택일 ${escapeHTML(pointDateLabel(selected))} → 최신 ${escapeHTML(active.latestAt ? pointDateLabel(active.latestAt) : "없음")}</span>
+          <span>기준점 ${escapeHTML(pointDateLabel(selected))} → 최신 ${escapeHTML(active.latestAt ? pointDateLabel(active.latestAt) : "없음")}</span>
         </div>
         <div class="decision-focus-block">
           <strong>SK하이닉스 제품군</strong>
@@ -4832,7 +4895,7 @@
                 <tr>
                   <th>품목</th>
                   <th>가격표</th>
-                  <th>선택일 가격</th>
+                  <th>기준점 가격</th>
                   <th>최신 가격</th>
                   <th>실제 변화</th>
                   <th>관측 기간</th>
