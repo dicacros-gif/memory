@@ -124,7 +124,7 @@
     equipment: "Naura·AMEC·ACM 등 장비 국산화와 공정 recipe 흡수 속도 관찰",
     geopolitics: "수출통제·허가 예외·중국 자본 투입이 공급망을 바꾸는지 점검",
     talent: "핵심 엔지니어 이동·채용 JD·IP 신호가 기술 격차를 줄이는지 확인",
-    operations: "SK하이닉스 중국 운영, 다롄/Solidigm, VEU 규제 리스크를 별도 점검",
+    operations: "SKHY 중국 운영, 다롄/Solidigm, VEU 규제 리스크를 별도 점검",
   };
   const CATEGORY_ACCENTS = {
     all: "#4322A8",
@@ -183,11 +183,11 @@
       accentCategory: "china",
       verdict: "조건부 O",
       status: "Watch",
-      direction: "반도체 자립, 지방정부 펀드, 공급망 내재화, 외자 안정화가 동시에 움직입니다. SK하이닉스 중국 법인은 현지 운영 연속성과 기술/IP 방어를 분리해 관리해야 합니다.",
+      direction: "반도체 자립, 지방정부 펀드, 공급망 내재화, 외자 안정화가 동시에 움직입니다. SKHY 중국 법인은 현지 운영 연속성과 기술/IP 방어를 분리해 관리해야 합니다.",
       law: "회사법상 당조직 활동 조건 제공 의무, 지방 IC 펀드, 환경 고품질 발전 기조",
       skImpact: "Wuxi DRAM, Chongqing 후공정, Dalian/Solidigm 스토리지 거점은 중국 산업정책과 미국 수출통제 사이에서 기존 운영 중심으로 관리해야 합니다.",
       strategy: "중국 내 고객 대응은 유지하되, 선단 공정 업그레이드·핵심 recipe 이전·JV 구조는 공식 출처와 법무 검토가 충족될 때만 조건부 진행합니다.",
-      partyNote: "공개 확인 필요: 공개 출처로 확인되는 것은 중국 회사법의 당조직 조항과 Wuxi 시 당서기 참석 기록입니다. SK하이닉스 중국 법인 내부 당서기 성명은 공개 출처로 확인되지 않아 추정하지 않습니다.",
+      partyNote: "공개 확인 필요: 공개 출처로 확인되는 것은 중국 회사법의 당조직 조항과 Wuxi 시 당서기 참석 기록입니다. SKHY 중국 법인 내부 당서기 성명은 공개 출처로 확인되지 않아 추정하지 않습니다.",
       sites: [
         { name: "SK hynix Semiconductor (China) Ltd.", role: "Wuxi DRAM production site", note: "공식 오피스 페이지 기준 생산 거점" },
         { name: "SK hynix Semiconductor (Chongqing) Ltd.", role: "Chongqing headquarters", note: "보세구 후공정/운영 리스크 추적" },
@@ -196,8 +196,8 @@
       rules: [
         { axis: "산업정책", status: "O", title: "지방정부 반도체 펀드와 내재화", evidence: "Shenzhen은 50억 위안 IC 펀드를 조성하고 자율·효율적 로컬 공급망을 목표로 제시했습니다.", implication: "중국 고객/장비/소부장 신호는 가격 경쟁보다 먼저 중국 내 생태계 속도 지표로 추적합니다.", source: "Shenzhen Government", sourceUrl: "https://www.sz.gov.cn/en_szgov/news/latest/content/post_12177837.html" },
         { axis: "당조직", status: "Watch", title: "회사법상 당조직 활동 조건 제공", evidence: "중국 회사법은 회사 내 공산당 조직 설치와 활동 조건 제공을 규정합니다.", implication: "법정 일반 조항과 특정 법인의 내부 당서기 정보는 분리 표기해야 합니다.", source: "PRC Company Law", sourceUrl: "https://natlex.ilo.org/dyn/natlex2/natlex2/files/download/92643/CHN92643%20Eng.pdf" },
-        { axis: "SK 중국 법인", status: "확인필요", title: "법인 내부 당서기 공개 확인", evidence: "SK하이닉스 공식/뉴스룸 공개자료에서 내부 당서기 성명은 확인되지 않았습니다.", implication: "공개 확인 전까지 실명/조직 직책을 추정하지 않고, 현지 정부 접점과 별도 관리합니다.", source: "SK hynix Offices", sourceUrl: "https://www.skhynix.com/company/UI-FR-CP06/" },
-        { axis: "지역정부 접점", status: "O", title: "Wuxi 시 당서기 참석 기록", evidence: "2019년 Wuxi C2F 완공식에는 Wuxi Party Secretary가 참석했습니다.", implication: "이는 지방정부 정책 접점 증거이지 SK하이닉스 내부 당서기 증거가 아닙니다.", source: "SK hynix Newsroom", sourceUrl: "https://news.skhynix.com/sk-hynix-completes-expanded-fab-c2f-in-wuxi-china/" },
+        { axis: "SK 중국 법인", status: "확인필요", title: "법인 내부 당서기 공개 확인", evidence: "SKHY 공식/뉴스룸 공개자료에서 내부 당서기 성명은 확인되지 않았습니다.", implication: "공개 확인 전까지 실명/조직 직책을 추정하지 않고, 현지 정부 접점과 별도 관리합니다.", source: "SKHY Offices", sourceUrl: "https://www.skhynix.com/company/UI-FR-CP06/" },
+        { axis: "지역정부 접점", status: "O", title: "Wuxi 시 당서기 참석 기록", evidence: "2019년 Wuxi C2F 완공식에는 Wuxi Party Secretary가 참석했습니다.", implication: "이는 지방정부 정책 접점 증거이지 SKHY 내부 당서기 증거가 아닙니다.", source: "SKHY Newsroom", sourceUrl: "https://news.skhynix.com/sk-hynix-completes-expanded-fab-c2f-in-wuxi-china/" },
         { axis: "환경/인허가", status: "Watch", title: "고수준 보호와 고품질 발전 병행", evidence: "중국 환경정책은 신규 오염물질·POPs 관리와 산업 고도화를 동시에 압박합니다.", implication: "Wuxi/Dalian/Chongqing 인허가·폐수·화학물질 이슈를 생산 연속성 리스크로 별도 추적합니다.", source: "China MEE", sourceUrl: "https://english.mee.gov.cn/News_service/news_release/202405/P020240529333532299021.pdf" },
       ],
       actions: [
@@ -251,7 +251,7 @@
       status: "Watch",
       direction: "미국은 CHIPS 보조금으로 자국 내 제조·R&D를 키우고, 중국 내 선단 반도체 역량 확대를 수출통제와 투자심사로 제한하는 방향입니다.",
       law: "CHIPS and Science Act, BIS VEU 변경, Outbound Investment Program, NEPA",
-      skImpact: "SK하이닉스 중국 공장은 기존 운영 유지와 기술 업그레이드·캐파 확대를 분리해 BIS 라이선스 리스크를 관리해야 합니다.",
+      skImpact: "SKHY 중국 공장은 기존 운영 유지와 기술 업그레이드·캐파 확대를 분리해 BIS 라이선스 리스크를 관리해야 합니다.",
       strategy: "중국 공장은 기존 fab 운영 연속성, 고객 서비스, 규제 증빙을 우선합니다. 미국/한국 투자와 HBM·AI 메모리 로드맵은 중국 내 업그레이드와 법적으로 분리합니다.",
       partyNote: "미국 탭의 핵심은 중국 내부 정치조직 자체가 아니라, 중국 법인·고객·장비 흐름이 미국 수출통제상 최종용도·최종사용자 리스크로 어떻게 보이는지입니다.",
       sites: [
@@ -297,11 +297,11 @@
         { axis: "공정 업그레이드", status: "O", title: "Wuxi 1z→1a 전환 완료", evidence: "SemiMedia는 2026년 1월 Wuxi DRAM 팹이 1z에서 1a로 전환됐고, 12인치 기준 월 18만~19만 장 캐파 중 약 90%가 1a 공정이라고 보도했습니다.", implication: "DDR5·고성능 DRAM 양산 여력과 수익성은 개선 신호지만, 1b/1c 같은 최선단 이전 근거로 해석하지 않습니다.", source: "SemiMedia", sourceUrl: "https://www.semimedia.cc/sk-hynix-completes-wuxi-dram-fab-upgrade-enabling-advanced-1a-process-production/" },
         { axis: "투자 집행", status: "O", title: "2025년 Wuxi 투자 5,810억 원", evidence: "TrendForce가 2025년 Wuxi DRAM 투자액을 5,810억 원으로 정리했습니다. 전년 2,873억 원 대비 102% 증가한 수치로 중국 거점 운영 효율화 신호입니다.", implication: "중국 거점은 단순 유지가 아니라 제재 범위 내 최적화·운영 효율화 투자가 진행된 것으로 추적합니다.", source: "TrendForce", sourceUrl: "https://www.trendforce.com/news/2026/03/27/news-memory-giants-china-investments-soar-in-2025-samsung-xian-up-67-5-sk-hynix-wuxi-dalian-hit-trillion-won/" },
         { axis: "토지/부지", status: "조건부 O", title: "K7 부지 내 기존 공장 확장 근거", evidence: "2017년 WND 환경영향평가는 12인치 IC 라인 6기 기술개조와 CleanRoom 확장을 K7 부지, 기존 공장 내 프로젝트로 명시했습니다.", implication: "기존 부지 내 기술개조·클린룸 확장 근거는 있으나, 남은 토지 면적/토지사용권 기간은 별도 확인해야 합니다.", source: "Wuxi New District EIA", sourceUrl: "https://www.wnd.gov.cn/doc/2017/02/28/2386281.shtml" },
-        { axis: "클린룸/공간", status: "조건부 O", title: "C2F 58,000m2 및 추가 클린룸 유연성", evidence: "SK하이닉스는 C2F가 58,000m2 규모이며, 추가 클린룸 공사와 장비 반입 시점은 시장 상황에 따라 유연하게 결정한다고 밝혔습니다.", implication: "공간 병목 완화 근거는 있으나 신규 fab 증설과 동일하게 해석하면 안 됩니다.", source: "SK hynix Newsroom", sourceUrl: "https://news.skhynix.com/sk-hynix-completes-expanded-fab-c2f-in-wuxi-china/" },
+        { axis: "클린룸/공간", status: "조건부 O", title: "C2F 58,000m2 및 추가 클린룸 유연성", evidence: "SKHY는 C2F가 58,000m2 규모이며, 추가 클린룸 공사와 장비 반입 시점은 시장 상황에 따라 유연하게 결정한다고 밝혔습니다.", implication: "공간 병목 완화 근거는 있으나 신규 fab 증설과 동일하게 해석하면 안 됩니다.", source: "SKHY Newsroom", sourceUrl: "https://news.skhynix.com/sk-hynix-completes-expanded-fab-c2f-in-wuxi-china/" },
         { axis: "용수/폐수", status: "Watch", title: "재생수·MBR·신청하수처리장 연계", evidence: "EIA는 산성/불소/동/유기/생활폐수를 분류 처리하고, 재생수 회용 시범공정·MBR 회용·신청하수처리장 연계를 설명합니다.", implication: "기존 승인 범위의 폐수 처리 체계는 확인되나, 추가 캐파는 신규 물 사용량·폐수총량·수질총량 인허가가 필요합니다.", source: "Wuxi New District EIA", sourceUrl: "https://www.wnd.gov.cn/doc/2017/02/28/2386281.shtml" },
         { axis: "전력/유틸리티", status: "확인필요", title: "전력 수전 용량 공개자료 부족", evidence: "확인한 공개자료에는 Wuxi fab의 전력 계약용량, 변전소 여유, 추가 장비 수전 가능량이 숫자로 공개되어 있지 않습니다.", implication: "추가 fab 판단은 전력 quota·변전소·비상전원·냉동기 부하 확인 전까지 보류해야 합니다.", source: "Public source gap", sourceUrl: "https://www.skhynix.com/company/UI-FR-CP06/" },
         { axis: "환경/인허가", status: "O", title: "2017년 프로젝트 환경 타당성 결론", evidence: "EIA는 해당 주소의 건설이 산업정책·지역계획과 부합하고 오염방지 조치가 기술경제적으로 가능하다고 결론 냈습니다.", implication: "동일 범위의 기술개조 근거는 있으나, 신규 fab은 새 EIA·공중의견·배출총량 심사를 다시 봐야 합니다.", source: "Wuxi New District EIA", sourceUrl: "https://www.wnd.gov.cn/doc/2017/02/28/2386281.shtml" },
-        { axis: "보세구/물류", status: "Watch", title: "Wuxi 보세구 확장", evidence: "Wuxi Hi-Tech District 종합보세구는 2025년 면적을 1.11km2 늘려 총 3.49km2로 조정됐고, SK hynix premises가 핵심 사례로 언급됐습니다.", implication: "주변 산업·물류 수용력은 긍정 신호지만 SK하이닉스 보유 토지 확대 증거는 아닙니다.", source: "Wuxi Government", sourceUrl: "https://en.wuxi.gov.cn/2025-07/31/c_1113622.htm" },
+        { axis: "보세구/물류", status: "Watch", title: "Wuxi 보세구 확장", evidence: "Wuxi Hi-Tech District 종합보세구는 2025년 면적을 1.11km2 늘려 총 3.49km2로 조정됐고, SK hynix premises가 핵심 사례로 언급됐습니다.", implication: "주변 산업·물류 수용력은 긍정 신호지만 SKHY 보유 토지 확대 증거는 아닙니다.", source: "Wuxi Government", sourceUrl: "https://en.wuxi.gov.cn/2025-07/31/c_1113622.htm" },
         { axis: "미국 수출통제", status: "X", title: "캐파 확대·기술 업그레이드 라이선스 리스크", evidence: "BIS는 VEU 특례 종료 후 기존 운영 라이선스는 의도하지만 중국 내 캐파 확대나 기술 업그레이드 라이선스는 의도하지 않는다고 밝혔습니다.", implication: "인프라가 가능해도 장비·SW·공정 업그레이드가 막히면 확장 판단은 No-Go입니다.", source: "BIS", sourceUrl: "https://www.bis.gov/press-release/department-commerce-closes-export-controls-loophole-foreign-owned-semiconductor-fabs-china" },
       ],
     },
@@ -322,8 +322,8 @@
       checks: [
         { axis: "투자 집행", status: "O", title: "2025년 Dalian NAND 투자 4,406억 원", evidence: "TrendForce가 2025년 Dalian NAND 투자액을 4,406억 원으로 정리했습니다. 전년 대비 52% 증가한 수치로 NAND/Solidigm 운영 효율화와 캐파 옵션을 함께 봐야 합니다.", implication: "Dalian은 단순 보유 자산이 아니라 NAND/Solidigm 운영 효율화와 캐파 옵션의 우선 감시 자산입니다.", source: "TrendForce", sourceUrl: "https://www.trendforce.com/news/2026/03/27/news-memory-giants-china-investments-soar-in-2025-samsung-xian-up-67-5-sk-hynix-wuxi-dalian-hit-trillion-won/" },
         { axis: "Phase 2 재가동", status: "Watch", title: "2026년 하반기 Dalian Phase 2 장비 설치 검토", evidence: "TrendForce는 The Bell 보도를 인용해 Dalian Phase 2가 NAND 캐파 확장 후보로 부상했고 2026년 하반기 장비 설치를 계획한다고 전했습니다. Phase 1은 192-layer로 최신 321-layer 대비 2세대 이상 뒤처진 것으로 언급됐습니다.", implication: "중국 내 NAND 캐파 옵션은 살아 있지만, 200-layer 중반대 생산·장비 반입·BIS 허가를 분리 확인해야 합니다.", source: "TrendForce", sourceUrl: "https://www.trendforce.com/news/2026/03/30/news-samsung-reportedly-advances-xian-to-236-layer-nand-sk-hynix-eyes-dalian-upgrade-amid-tight-supply/" },
-        { axis: "토지/부지", status: "확인필요", title: "Dalian 토지사용권·확장 부지 미공개", evidence: "공식 오피스는 위치를 제공하지만 추가 fab 후보 면적이나 토지사용권 조건은 공개 확인되지 않았습니다.", implication: "부지 권리 확인 전 신규 fab 확장 판단 금지.", source: "SK hynix Offices", sourceUrl: "https://www.skhynix.com/company/UI-FR-CP06/" },
-        { axis: "용수/폐수", status: "확인필요", title: "공정 용수·폐수 인허가 미확인", evidence: "Dalian site의 공정 용수 배정량과 폐수 처리 여유는 공개자료로 확인되지 않았습니다.", implication: "NAND/스토리지 공정 확장은 현지 EIA·수자원 허가를 먼저 크롤링해야 합니다.", source: "SK hynix Offices", sourceUrl: "https://www.skhynix.com/company/UI-FR-CP06/" },
+        { axis: "토지/부지", status: "확인필요", title: "Dalian 토지사용권·확장 부지 미공개", evidence: "공식 오피스는 위치를 제공하지만 추가 fab 후보 면적이나 토지사용권 조건은 공개 확인되지 않았습니다.", implication: "부지 권리 확인 전 신규 fab 확장 판단 금지.", source: "SKHY Offices", sourceUrl: "https://www.skhynix.com/company/UI-FR-CP06/" },
+        { axis: "용수/폐수", status: "확인필요", title: "공정 용수·폐수 인허가 미확인", evidence: "Dalian site의 공정 용수 배정량과 폐수 처리 여유는 공개자료로 확인되지 않았습니다.", implication: "NAND/스토리지 공정 확장은 현지 EIA·수자원 허가를 먼저 크롤링해야 합니다.", source: "SKHY Offices", sourceUrl: "https://www.skhynix.com/company/UI-FR-CP06/" },
         { axis: "전력/유틸리티", status: "확인필요", title: "수전 용량·변전소 여유 미확인", evidence: "전력 계약용량과 비상전원 구성은 공개자료가 없습니다.", implication: "전력 신호 없이는 fab 확장 O 판단 불가.", source: "Public source gap", sourceUrl: "https://www.skhynix.com/company/UI-FR-CP06/" },
       ],
     },
@@ -342,7 +342,7 @@
         { name: "SK hynix Semiconductor (Chongqing) Ltd.", role: "Chongqing headquarters", note: "공식 오피스 기준 보세구 거점" },
       ],
       checks: [
-        { axis: "Fab 적합성", status: "X", title: "전공정 fab 확장 근거 부족", evidence: "공식 오피스는 Chongqing 소재 법인을 보여주지만 300mm 전공정 fab 확장 근거는 공개 확인되지 않았습니다.", implication: "fab 확장 후보보다는 후공정/물류 운영 리스크로 분류합니다.", source: "SK hynix Offices", sourceUrl: "https://www.skhynix.com/company/UI-FR-CP06/" },
+        { axis: "Fab 적합성", status: "X", title: "전공정 fab 확장 근거 부족", evidence: "공식 오피스는 Chongqing 소재 법인을 보여주지만 300mm 전공정 fab 확장 근거는 공개 확인되지 않았습니다.", implication: "fab 확장 후보보다는 후공정/물류 운영 리스크로 분류합니다.", source: "SKHY Offices", sourceUrl: "https://www.skhynix.com/company/UI-FR-CP06/" },
         { axis: "용수/전력", status: "확인필요", title: "후공정 증설 유틸리티 확인 필요", evidence: "공개자료만으로 용수·전력 여유를 판단할 수 없습니다.", implication: "패키징/테스트 증설도 전력·폐수·화학물질 허가를 별도 확인합니다.", source: "Public source gap", sourceUrl: "https://www.skhynix.com/company/UI-FR-CP06/" },
       ],
     },
@@ -366,7 +366,7 @@
       ],
       channels: ["로컬 채용", "현지 대학·전문대 협력", "협력사 전환 채용", "EHS·facility 인증 인력 풀"],
       gates: [
-        { axis: "채용 범위", status: "O", title: "현지 운영·EHS·설비 인력 확보", evidence: "공개 공식 거점은 Wuxi, Dalian, Chongqing으로 확인됩니다.", implication: "중국 법인의 안정 운영을 위한 현지 채용은 O로 판단합니다.", source: "SK hynix Offices", sourceUrl: "https://www.skhynix.com/company/UI-FR-CP06/" },
+        { axis: "채용 범위", status: "O", title: "현지 운영·EHS·설비 인력 확보", evidence: "공개 공식 거점은 Wuxi, Dalian, Chongqing으로 확인됩니다.", implication: "중국 법인의 안정 운영을 위한 현지 채용은 O로 판단합니다.", source: "SKHY Offices", sourceUrl: "https://www.skhynix.com/company/UI-FR-CP06/" },
         { axis: "데이터 접근", status: "Watch", title: "공정 데이터 접근권 최소화", evidence: "중국 사업은 미국 수출통제와 한국 국가핵심기술 보호 관점에서 운영 유지와 기술 업그레이드를 분리해야 합니다.", implication: "현지 운영 인력에게 필요한 업무권한만 부여하고 recipe·수율 데이터 접근은 로그화합니다.", source: "BIS", sourceUrl: "https://www.bis.gov/press-release/department-commerce-closes-export-controls-loophole-foreign-owned-semiconductor-fabs-china" },
         { axis: "금지선", status: "X", title: "경쟁사 영업비밀·recipe 반입 금지", evidence: "인력 확보는 합법적 공개 채용과 내부 리텐션 중심으로 설계해야 합니다.", implication: "경쟁사 비밀자료, 수율 recipe, 고객 비공개 데이터를 가져오는 방식은 금지합니다.", source: "Compliance rule", sourceUrl: "https://www.skhynix.com/company/UI-FR-CP06/" },
       ],
@@ -390,7 +390,7 @@
       ],
       channels: ["로컬 경력 채용", "고객 품질/FAE 추천 채용", "대학 펌웨어·스토리지 랩", "중국 서버 고객 공동 품질 워룸"],
       gates: [
-        { axis: "사업 필요성", status: "O", title: "Dalian/Solidigm 스토리지 운영과 연결", evidence: "SK하이닉스는 Intel NAND/SSD 사업 1단계 인수를 완료했고 Solidigm을 통해 SSD 사업을 운영합니다.", implication: "eSSD 고객 품질·검증 인력은 중국 사업 방어에 직접 필요합니다.", source: "SK hynix Newsroom", sourceUrl: "https://news.skhynix.com/sk-hynix-completes-the-first-phase-of-intel-nand-and-ssd-business-acquisition/" },
+        { axis: "사업 필요성", status: "O", title: "Dalian/Solidigm 스토리지 운영과 연결", evidence: "SKHY는 Intel NAND/SSD 사업 1단계 인수를 완료했고 Solidigm을 통해 SSD 사업을 운영합니다.", implication: "eSSD 고객 품질·검증 인력은 중국 사업 방어에 직접 필요합니다.", source: "SKHY Newsroom", sourceUrl: "https://news.skhynix.com/sk-hynix-completes-the-first-phase-of-intel-nand-and-ssd-business-acquisition/" },
         { axis: "IP 통제", status: "Watch", title: "펌웨어·컨트롤러 IP 접근 분리", evidence: "NAND 사업 강화는 고객 대응 인력과 핵심 IP 접근 인력을 분리해야 합니다.", implication: "현지 인력은 검증·품질·고객 대응 중심, 핵심 펌웨어 소스는 본사 통제 중심으로 둡니다.", source: "Internal control logic", sourceUrl: "https://www.skhynix.com/company/UI-FR-CP06/" },
         { axis: "금지선", status: "X", title: "경쟁사 고객 비공개 인증자료 활용 금지", evidence: "YMTC 등 경쟁사 동향은 공개 기사·로컬 채용·특허·가격 신호로만 수집해야 합니다.", implication: "고객 NDA 자료나 경쟁사 비공개 테스트 데이터를 채용 조건으로 요구하지 않습니다.", source: "Compliance rule", sourceUrl: "https://www.skhynix.com/company/UI-FR-CP06/" },
       ],
@@ -644,7 +644,7 @@
     },
     {
       id: "strategic-fit",
-      label: "SK하이닉스 전략과 무슨 관련인가?",
+      label: "SKHY 전략과 무슨 관련인가?",
       angle: "Strategic fit",
       question: "이 인력 투자가 HBM, NAND/eSSD, 중국 법인 운영, 리스크 방어와 어떻게 연결되는가?",
     },
@@ -931,7 +931,7 @@
       products: ["HBM3E/HBM4", "DDR5 RDIMM/MRDIMM", "CXL Memory", "Custom HBM"],
       keywords: ["hbm", "hbm4", "hbm3e", "nvidia", "rubin", "ai accelerator", "data center", "server", "cxl", "ddr5", "rdimm", "mrdimm", "tsmc", "cowos"],
       priceTerms: ["dram", "ddr5", "gddr", "module"],
-      thesis: "AI 서버는 30개월 뒤에도 SK하이닉스 제품 믹스의 최우선 축입니다. HBM4 베이스 다이, DDR5 고용량 모듈, CXL 확장 메모리가 함께 서버 ASP를 방어합니다.",
+      thesis: "AI 서버는 30개월 뒤에도 SKHY 제품 믹스의 최우선 축입니다. HBM4 베이스 다이, DDR5 고용량 모듈, CXL 확장 메모리가 함께 서버 ASP를 방어합니다.",
       assumptions: ["HBM4/Custom HBM 고객 인증 유지", "NVIDIA·ASIC 고객의 대역폭 요구 지속", "DDR5 고용량 모듈과 CXL이 서버당 메모리 탑재량 확대"],
       triggers: ["HBM4 Rubin 인증", "CoWoS/패키징 할당량", "DDR5 contract 가격", "CXL 서버 PoC"],
       actions: ["HBM 고객 락인", "서버 DRAM 원가·수율 개선", "CXL 컨트롤러/IP 옵션 확보"],
@@ -1520,7 +1520,7 @@
       thesis: "YMTC는 로직 제어 웨이퍼와 메모리 셀 웨이퍼를 분리 가공한 뒤 하이브리드 본딩하는 Xtacking 4.0으로 기존 NAND 구조를 우회하지만, 공식 측정 밀도와 추정 밀도는 분리해서 봐야 합니다",
       facts: ["NAND 점유율 2025년 1분기 8% → 2026년 1분기 13%", "TechInsights Gen5 512Gb TLC 공식 밀도 12.66Gb/mm²", "~20.5Gb/mm²는 1Tb/294L(2yyL) 추정치로 별도 Watch"],
       risk: "셀 밀도, 단수, 수율 안정화는 서로 다른 지표입니다. 수율 안정화는 별도 검증 없이 확정 표현하지 않습니다",
-      implication: "SK하이닉스는 NAND 가격뿐 아니라 eSSD·데이터센터 고객 확대, 공식 밀도, 추정 밀도, 우한 Phase 3 램프를 분리 추적해야 합니다",
+      implication: "SKHY는 NAND 가격뿐 아니라 eSSD·데이터센터 고객 확대, 공식 밀도, 추정 밀도, 우한 Phase 3 램프를 분리 추적해야 합니다",
       linkedCategories: ["nand", "packaging"],
       source: "TechInsights",
       sourceUrl: "https://www.techinsights.com/blog/ymtc-xtacking40-breaking-new-ground-3d-nand-technology",
@@ -1544,7 +1544,7 @@
       thesis: "중국은 7nm 이하 선단 공정 제약을 2.5D/3D 이종 집적과 하이브리드 본딩 기반 첨단 패키징으로 우회하려 합니다",
       facts: ["JCET 2025년 첨단 패키징 매출 270억 위안 확인", "XMC 월 3,000장 HBM 패키징 장비 보도", "XMC 2,600억 위안 투자 수치는 검증 미완료"],
       risk: "CXMT·YMTC 베이스 다이를 XMC가 고대역폭 패키징으로 묶는 구조가 자리 잡을 수 있지만, 투자 규모 수치는 확인/미확인을 분리해야 합니다",
-      implication: "SK하이닉스는 HBM 다이 경쟁뿐 아니라 OSAT·인터포저·언더필·테스트 병목을 함께 보는 패키징 레이더가 필요합니다",
+      implication: "SKHY는 HBM 다이 경쟁뿐 아니라 OSAT·인터포저·언더필·테스트 병목을 함께 보는 패키징 레이더가 필요합니다",
       linkedCategories: ["packaging", "hbm", "geopolitics"],
     },
     {
@@ -1586,13 +1586,13 @@
       thesis: "미국 중심 밸류체인과 중국 대체 생태계가 장기적으로 분리되며, 시장은 호환성이 낮은 두 공급망으로 갈라질 가능성이 커지고 있습니다",
       facts: ["수출통제 반작용", "장비·EDA·소재 초크포인트 집중", "내수 고객과 보조금 기반 수요 흡수"],
       risk: "제재는 중국의 외부 의존도를 낮추는 촉매로 작동하고, 글로벌 고객의 이중 공급망 전략을 강화합니다",
-      implication: "SK하이닉스는 중국 내수 가격·캐파 신호와 비중국 프리미엄 고객 락인을 동시에 관리해야 합니다",
+      implication: "SKHY는 중국 내수 가격·캐파 신호와 비중국 프리미엄 고객 락인을 동시에 관리해야 합니다",
       linkedCategories: ["geopolitics", "china", "dram", "nand"],
     },
     {
       id: "skhynix-response",
       tag: "대응 전략",
-      title: "SK하이닉스 대응 축",
+      title: "SKHY 대응 축",
       thesis: "중국은 HBM4 최선단보다 레거시 DRAM·NAND와 패키징 우회로에서 비대칭 위협을 먼저 만들 가능성이 큽니다",
       facts: ["HBM·PIM 초격차 유지", "레거시 D램 원가 방어", "중국 로컬 마이크로데이터 조기경보"],
       risk: "글로벌 세트 업체의 가격 협상력과 중국 보조금 물량이 결합하면 범용 메모리 단가가 급격히 흔들릴 수 있습니다",
@@ -2038,9 +2038,15 @@
     });
   }
 
+  function normalizeBrandName(value) {
+    return String(value ?? "")
+      .replace(/SK\s*하이닉스/g, "SKHY")
+      .replace(/\bSK\s+hynix\b/gi, "SKHY");
+  }
+
   function escapeHTML(value) {
     const div = document.createElement("div");
-    div.textContent = briefCopyText(value);
+    div.textContent = normalizeBrandName(briefCopyText(value));
     return div.innerHTML;
   }
 
@@ -2537,7 +2543,7 @@
       {
         label: "제품군 프로젝션",
         title: "30개월 후부터 5년간 서버향·단말향 믹스 변화를 추적",
-        body: "현재 크롤링된 HBM, NAND/eSSD, 단말, 중국 캐파 신호를 반영해 SK하이닉스 제품군의 수요처별 시나리오를 매일 갱신합니다.",
+        body: "현재 크롤링된 HBM, NAND/eSSD, 단말, 중국 캐파 신호를 반영해 SKHY 제품군의 수요처별 시나리오를 매일 갱신합니다.",
         jump: "projection",
         value: projectionTotalSignals(),
         unit: "signals",
@@ -2966,7 +2972,7 @@
         section: "news",
         linkedCategories: ["china", "dram", "nand", "hbm", "geopolitics"],
         topics: ["News", "China", "Memory"],
-        entities: ["CXMT", "YMTC", "SK hynix", "Samsung", "Micron"],
+        entities: ["CXMT", "YMTC", "SKHY", "Samsung", "Micron"],
         insights: [
           `화면 노출 뉴스는 ${fmtNum(news.length)}건이며 중국어 기사 ${fmtNum(chinaNews.length)}건, 영어권 기사 ${fmtNum(englishNews.length)}건으로 분리됩니다.`,
           "동일 보도 재전송은 canonical URL과 제목 fingerprint 기준 exact/near dedupe로 확장해야 합니다.",
@@ -3604,7 +3610,7 @@
         unit: "액션",
         status: "Action",
         score: 76,
-        note: "SK하이닉스 대응 체크리스트",
+        note: "SKHY 대응 체크리스트",
       },
       "evidence-framework": {
         value: evidenceItems().length,
@@ -5292,7 +5298,7 @@
         <span>${escapeHTML(lens.skImpact)}</span>
       </div>
       <div class="policy-focus-block">
-        <strong>SK하이닉스 전략 방향</strong>
+        <strong>SKHY 전략 방향</strong>
         <p>${escapeHTML(lens.strategy)}</p>
       </div>
       <div class="policy-focus-block">
@@ -5724,7 +5730,7 @@
         action: `ROI ${fmtNum(Math.max(40, model.roi - 12))} 이하, X 게이트 ${fmtNum(gates.noGo + 1)}개 이상, 또는 핵심 KPI 2개 악화 시 자동 재심의로 돌립니다.`,
       },
       "strategic-fit": {
-        verdict: `${targetLabel}는 중국 사업 자체보다 SK하이닉스의 HBM·NAND/eSSD·운영 리스크 방어와 연결될 때 의미가 있습니다.`,
+        verdict: `${targetLabel}는 중국 사업 자체보다 SKHY의 HBM·NAND/eSSD·운영 리스크 방어와 연결될 때 의미가 있습니다.`,
         logic: `수익성 지수 ${fmtNum(model.profitability)}는 고객 방어, 수율 노하우 보호, 운영 중단 방지, 가격 하락 조기 대응의 조합입니다.`,
         counter: "중국 인력 확보를 독립 프로젝트로 보면 비용입니다. 제품군·고객·IP 방어와 연결하면 옵션 가치가 생깁니다.",
         action: "각 채용 요청은 HBM 수율, eSSD 고객 방어, Wuxi/Dalian/Chongqing 운영 안정, IP 리스크 중 하나에 반드시 매핑합니다.",
@@ -6558,7 +6564,7 @@
       const summaryLines = [
         `중국 메모리 생태계는 CXMT·YMTC 중심의 캐파 확대와 내수 AI 고객 확보를 통해 범용 DRAM/NAND 영향력을 키우고 있습니다`,
         `Naura·AMEC·ACM 장비 국산화 신호 ${fmtNum(equipmentSignals)}건과 JCET·XMC 패키징 우회 신호 ${fmtNum(packagingSignals)}건이 선단 제약을 보완하는 축입니다`,
-        `빅펀드·수출통제 반작용, 인재/IP 이동, 수율 레시피 유출 가능성은 SK하이닉스가 별도로 추적해야 할 핵심 리스크입니다`,
+        `빅펀드·수출통제 반작용, 인재/IP 이동, 수율 레시피 유출 가능성은 SKHY가 별도로 추적해야 할 핵심 리스크입니다`,
       ];
       summary.innerHTML = summaryLines.map((line) => `<p>${escapeHTML(line)}</p>`).join("");
     }
@@ -6725,7 +6731,7 @@
       const lines = [
         "중국 반도체의 핵심 방향은 EUV 부재를 DUV 멀티패터닝·Xtacking·첨단 패키징으로 우회하는 것입니다",
         "DRAM은 CXMT의 레거시 가격 압박, NAND는 YMTC의 내수 보조금과 Xtacking 확장이 먼저 위협으로 나타납니다",
-        "SK하이닉스는 HBM 초격차와 동시에 레거시 원가 방어, 소부장/JV 감시, 인재/IP 리스크 방어를 병행해야 합니다",
+        "SKHY는 HBM 초격차와 동시에 레거시 원가 방어, 소부장/JV 감시, 인재/IP 리스크 방어를 병행해야 합니다",
       ];
       summary.innerHTML = lines.map((line) => `<p>${escapeHTML(line)}</p>`).join("");
     }
@@ -6753,7 +6759,7 @@
           ${(item.facts || []).map((fact) => `<span>${escapeHTML(fact)}${/\d/.test(String(fact || "")) && !item.sourceUrl ? " · 출처 필요" : ""}</span>`).join("")}
         </div>
         <div class="insight-box"><span>리스크</span>${escapeHTML(item.risk)}</div>
-        <div class="deep-implication"><strong>SK하이닉스 시사점</strong><span>${escapeHTML(item.implication)}</span></div>
+        <div class="deep-implication"><strong>SKHY 시사점</strong><span>${escapeHTML(item.implication)}</span></div>
       `;
       makeInspectable(card, {
         type: "중국 심층 벤치마킹",
@@ -7789,7 +7795,7 @@
 
   function moneyFlowFromModel(item) {
     const cats = item.linkedCategories || [];
-    if (cats.includes("hbm")) return { from: "AI GPU·ASIC 고객", to: "SK hynix HBM", lever: "ASP 프리미엄" };
+    if (cats.includes("hbm")) return { from: "AI GPU·ASIC 고객", to: "SKHY HBM", lever: "ASP 프리미엄" };
     if (cats.includes("dram")) return { from: "PC·모바일·중국 빅테크", to: "범용 DRAM", lever: "원가 방어" };
     if (cats.includes("nand")) return { from: "클라우드·eSSD 고객", to: "NAND·Solidigm", lever: "믹스 전환" };
     if (cats.includes("packaging")) return { from: "장비·OSAT 생태계", to: "첨단 패키징", lever: "수율·캐파" };
@@ -8570,7 +8576,7 @@
       .replace(/\bSamsung\b/g, "삼성")
       .replace(/\bMicron\b/g, "마이크론")
       .replace(/\bNVIDIA\b/g, "엔비디아")
-      .replace(/\bSK Hynix\b/gi, "SK하이닉스")
+      .replace(/\bSK Hynix\b/gi, "SKHY")
       .replace(/\s+/g, " ")
       .trim();
   }

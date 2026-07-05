@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 /**
- * SK hynix memory intelligence crawler.
+ * SKHY memory intelligence crawler.
  *
  * Collects public memory price tables, listed peer stocks, memory news,
  * competitor signals, and startup radar data for the static dashboard.
@@ -21,7 +21,7 @@ const sleep = (ms) => new Promise((resolveSleep) => setTimeout(resolveSleep, ms)
 
 const TICKERS = [
   { id: "samsung", label: "삼성전자", symbol: "005930.KS" },
-  { id: "skhynix", label: "SK하이닉스", symbol: "000660.KS" },
+  { id: "skhynix", label: "SKHY", symbol: "000660.KS" },
   { id: "micron", label: "Micron", symbol: "MU" },
 ];
 
@@ -55,7 +55,7 @@ const CATEGORIES = [
   { id: "dram", label: "DRAM·DDR", queries: ["DRAM DDR5 server memory price", "DRAM market demand", "CXMT DDR5 yield 80 percent 90 target", "CXMT IPO 29.5 billion yuan DRAM capacity", "Counterpoint DRAM market share Q1 2026 Samsung SK hynix Micron CXMT", "CXMT 2027 DRAM share forecast 14 percent", "DRAM contract price Q1 2026 90 95 TrendForce"] },
   { id: "nand", label: "NAND·SSD", queries: ["NAND flash enterprise SSD price", "SSD memory demand", "YMTC Xtacking 4.0 12.66 Gb/mm2 TechInsights 512Gb", "YMTC 1Tb 294 layer 20.5 Gb/mm2 estimate", "YMTC enterprise SSD customer China", "NAND contract price China eSSD", "YMTC NAND market share 2026 HSBC Qianhai 13 percent", "NAND contract price Q2 2026 70 75 TrendForce", "YMTC homegrown NAND production line US sanctions"] },
   { id: "china_nand", label: "China NAND Business", queries: ["YMTC eSSD Xtacking customer", "YMTC Wuhan Phase 3 NAND domestic equipment", "XMC Wuhan Xinxin NAND packaging", "JCET TFME advanced packaging NAND controller", "Naura AMEC ACM Research YMTC NAND equipment", "YMTC controller firmware enterprise SSD", "China NAND subsidy server SSD procurement", "Chinese memory chips 15 percent cheaper YMTC CXMT", "China memory capacity expansion 2027 YMTC CXMT"] },
-  { id: "skhynix_projection", label: "SK hynix Product Projection", queries: ["SK hynix HBM4 server DRAM product mix", "SK hynix enterprise SSD Solidigm AI server storage", "SK hynix LPDDR UFS mobile memory demand", "SK hynix CXL memory module server roadmap", "SK hynix automotive memory edge AI", "memory product mix AI server terminal NAND DRAM"] },
+  { id: "skhynix_projection", label: "SKHY Product Projection", queries: ["SK hynix HBM4 server DRAM product mix", "SK hynix enterprise SSD Solidigm AI server storage", "SK hynix LPDDR UFS mobile memory demand", "SK hynix CXL memory module server roadmap", "SK hynix automotive memory edge AI", "memory product mix AI server terminal NAND DRAM"] },
   { id: "cxl", label: "CXL·Next Memory", queries: ["CXL memory pooling", "CXL switch memory expansion", "CXL memory tester module", "CXL 3.1 memory module CMM-D", "Pangea v3 CXL 3.2", "4F2 vertical gate 3D DRAM SK hynix"] },
   { id: "packaging", label: "Packaging·Photonics", queries: ["advanced packaging HBM hybrid bonding", "silicon photonics interconnect memory", "HBM TC bonder equipment supply chain"] },
   { id: "aidemand", label: "AI Demand", queries: ["AI memory demand data center", "AI accelerator memory bandwidth"] },
@@ -281,7 +281,7 @@ const STARTUPS = [
 const BENCHMARK_SIGNAL_THEMES = [
   { id: "capacity", label: "China Capacity", queries: ["CXMT capacity DRAM wafer China", "YMTC NAND capacity Xtacking China", "CXMT Shanghai fab DRAM wafer start", "CXMT IPO proceeds wafer capacity", "YMTC Wuhan Phase 3 50000 wafers", "Counterpoint CXMT 8 percent DRAM market share Q1 2026", "CXMT 300000 wafers per month 2026", "China memory capacity expansion 120000 140000 wafers 2026"] },
   { id: "china_nand_business", label: "China NAND Business", queries: ["YMTC eSSD customer NAND China", "YMTC Xtacking 4.0 enterprise SSD", "XMC Wuhan Xinxin NAND packaging", "JCET TFME NAND controller advanced packaging", "Naura AMEC ACM YMTC NAND equipment", "China server SSD procurement YMTC", "YMTC NAND share 13 percent 2026", "Chinese memory chips price advantage 15 percent"] },
-  { id: "skhynix_product_projection", label: "SK hynix Product Projection", queries: ["SK hynix HBM4 DDR5 CXL server roadmap", "SK hynix Solidigm enterprise SSD AI server demand", "SK hynix LPDDR UFS client SSD product mix", "memory AI server product mix projection DRAM NAND HBM", "automotive edge AI memory SK hynix"] },
+  { id: "skhynix_product_projection", label: "SKHY Product Projection", queries: ["SK hynix HBM4 DDR5 CXL server roadmap", "SK hynix Solidigm enterprise SSD AI server demand", "SK hynix LPDDR UFS client SSD product mix", "memory AI server product mix projection DRAM NAND HBM", "automotive edge AI memory SK hynix"] },
   { id: "equipment", label: "Equipment Localization", queries: ["China semiconductor equipment localization Naura AMEC", "Chinese chip equipment localization memory", "Yole China semiconductor equipment localization 23.2 percent", "MATCH Act DUV lithography cryogenic etching China", "YMTC homegrown NAND production line Naura AMEC ACM"] },
   { id: "china_infra", label: "China Fab Infrastructure", queries: ["SK hynix Wuxi K7 plot water power fab expansion", "SK hynix Wuxi environmental impact assessment wastewater reuse", "Wuxi bonded zone SK hynix comprehensive bonded zone expansion", "BIS VEU SK hynix China fab capacity upgrade", "Wuxi semiconductor fab water electricity land use"] },
   { id: "china_talent_strategy", label: "China Talent Strategy", queries: ["SK hynix China workforce strategy Wuxi Dalian Chongqing", "China memory hiring strategy IP retention compliance", "CXMT YMTC Boss Zhipin yield engineer hiring", "China semiconductor campus recruiting Tsinghua memory engineer", "China fab EHS facility water power engineer hiring"] },
@@ -294,7 +294,7 @@ const CHINA_INFRA_SOURCE_PAGES = [
   {
     id: "wuxi-c2f",
     site: "wuxi",
-    label: "SK hynix Wuxi C2F",
+    label: "SKHY Wuxi C2F",
     url: "https://news.skhynix.com/sk-hynix-completes-expanded-fab-c2f-in-wuxi-china/",
     markers: ["58,000", "additional cleanroom", "Wuxi FAB", "C2F"],
   },
@@ -315,7 +315,7 @@ const CHINA_INFRA_SOURCE_PAGES = [
   {
     id: "skhynix-china-offices",
     site: "all",
-    label: "SK hynix China offices",
+    label: "SKHY China offices",
     url: "https://www.skhynix.com/company/UI-FR-CP06/",
     markers: ["Wuxi", "Chongqing", "Dalian"],
   },
