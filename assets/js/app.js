@@ -9091,14 +9091,59 @@
     return clean.length ? clean : (BASE.fallbackNews || []);
   }
 
+  function canonicalNewsKey(item = {}) {
+    const url = String(item.link || item.sourceUrl || "").trim();
+    if (url) {
+      try {
+        const parsed = new URL(url);
+        parsed.hash = "";
+        parsed.searchParams.delete("utm_source");
+        parsed.searchParams.delete("utm_medium");
+        parsed.searchParams.delete("utm_campaign");
+        parsed.searchParams.delete("utm_term");
+        parsed.searchParams.delete("utm_content");
+        return `url:${parsed.toString().replace(/\/$/, "").toLowerCase()}`;
+      } catch {
+        return `url:${url.replace(/#.*$/, "").replace(/\/$/, "").toLowerCase()}`;
+      }
+    }
+    const title = cleanKoreanTitle(item.titleKo || item.title || "")
+      .toLowerCase()
+      .replace(/^(핵심|벤치마킹|체크포인트)\s*:\s*/, "")
+      .replace(/\s+/g, " ")
+      .trim();
+    const source = String(item.source || "").toLowerCase().trim();
+    return title ? `title:${title}|${source}` : "";
+  }
+
+  function mergeNewsDuplicate(prev = {}, next = {}) {
+    const prevScore = (prev.titleKo ? 4 : 0) + (prev.summary ? 2 : 0) + (prev.source ? 1 : 0);
+    const nextScore = (next.titleKo ? 4 : 0) + (next.summary ? 2 : 0) + (next.source ? 1 : 0);
+    const base = nextScore > prevScore ? next : prev;
+    const other = base === next ? prev : next;
+    return {
+      ...other,
+      ...base,
+      link: base.link || other.link,
+      sourceUrl: base.sourceUrl || other.sourceUrl,
+      source: base.source || other.source,
+      titleKo: stripTrailingSource(base.titleKo || other.titleKo || "", base.source || other.source),
+      title: stripTrailingSource(base.title || other.title || "", base.source || other.source),
+      summary: base.summary || other.summary,
+      category: base.category || other.category,
+      date: base.date || other.date,
+      language: base.language || other.language,
+    };
+  }
+
   function dedupeNews(items = []) {
-    const seen = new Set();
-    return items.filter((item) => {
-      const key = `${item.link || ""} ${item.title || ""}`.toLowerCase().replace(/\s+/g, " ").trim();
-      if (!key || seen.has(key)) return false;
-      seen.add(key);
-      return true;
+    const byKey = new Map();
+    items.forEach((item) => {
+      const key = canonicalNewsKey(item);
+      if (!key) return;
+      byKey.set(key, byKey.has(key) ? mergeNewsDuplicate(byKey.get(key), item) : item);
     });
+    return Array.from(byKey.values());
   }
 
   function isForeignNews(item) {
@@ -9126,7 +9171,20 @@
   }
 
   function newsTitle(item) {
-    return cleanKoreanTitle(item.titleKo || item.title || "");
+    return stripTrailingSource(cleanKoreanTitle(item.titleKo || item.title || ""), item.source);
+  }
+
+  function stripTrailingSource(title, source) {
+    let clean = String(title || "").replace(/\s+/g, " ").trim();
+    const src = String(source || "").replace(/\s+/g, " ").trim();
+    if (!clean || !src) return clean;
+    const lower = clean.toLowerCase();
+    const srcLower = src.toLowerCase();
+    [" - ", " – ", " — ", " | ", " :: "].forEach((sep) => {
+      const suffix = `${sep}${srcLower}`;
+      if (lower.endsWith(suffix)) clean = clean.slice(0, -suffix.length).trim();
+    });
+    return clean;
   }
 
   function cleanKoreanTitle(title) {
@@ -9154,11 +9212,11 @@
     const signal = isChinaArticle(item)
       ? "중국 신호: 내수 고객, 정책 지원, 장비·패키징 우회 가능성 확인"
       : "외신 신호: 해외 검증 보도 기준으로 가격·수요·경쟁 구도 확인";
-    const meta = item.source || "출처 미상";
+    const titleLikeSummary = summary && title && summary.toLowerCase() === title.toLowerCase();
     return [
-      `핵심: ${clipText(summary, 78)}`,
-      `벤치마킹: ${category}`,
-      `체크포인트: ${signal} · ${meta}`,
+      `요약: ${clipText(titleLikeSummary ? category : summary, 78)}`,
+      `관찰: ${category}`,
+      `확인: ${signal}`,
     ];
   }
 
@@ -9349,22 +9407,24 @@
 
     items.slice(0, 42).forEach((item) => {
       const li = el("li");
-      const a = el("a");
+      const card = el("article", "news-card");
+      const a = el("a", "news-title");
       a.href = item.link || "#";
       a.target = "_blank";
       a.rel = "noopener";
       const insights = insightLines(item);
-      a.innerHTML = `
-        <span>
+      a.textContent = newsTitle(item);
+      card.innerHTML = `
+        <div class="news-card-head">
           <span class="source-tag">${escapeHTML(item.source || "Foreign source")}</span>
-          <span class="news-title">${escapeHTML(newsTitle(item))}</span>
-          <span class="news-insights">
-            ${insights.map((line) => `<span>${escapeHTML(line)}</span>`).join("")}
-          </span>
-        </span>
-        <span class="news-meta">${escapeHTML(formatNewsDate(item.date || item.published))}</span>
+          <span class="news-meta">${escapeHTML(formatNewsDate(item.date || item.published))}</span>
+        </div>
+        <div class="news-insights">
+          ${insights.map((line) => `<span>${escapeHTML(line)}</span>`).join("")}
+        </div>
       `;
-      li.appendChild(a);
+      card.insertBefore(a, card.querySelector(".news-insights"));
+      li.appendChild(card);
       list.appendChild(li);
     });
   }

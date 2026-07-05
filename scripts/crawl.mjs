@@ -419,6 +419,23 @@ function cleanTitle(value) {
     .trim();
 }
 
+function canonicalNewsKey(item = {}) {
+  const url = String(item.link || item.sourceUrl || "").trim();
+  if (url) {
+    try {
+      const parsed = new URL(url);
+      parsed.hash = "";
+      for (const key of ["utm_source", "utm_medium", "utm_campaign", "utm_term", "utm_content"]) {
+        parsed.searchParams.delete(key);
+      }
+      return `url:${parsed.toString().replace(/\/$/, "").toLowerCase()}`;
+    } catch {
+      return `url:${url.replace(/#.*$/, "").replace(/\/$/, "").toLowerCase()}`;
+    }
+  }
+  return `title:${String(item.title || "").toLowerCase().replace(/\s+/g, " ").trim()}|${String(item.source || "").toLowerCase().trim()}`;
+}
+
 function isForeignItem(item) {
   if (!item || !item.title) return false;
   // After cleanTitle, a real Korean/CJK headline collapses to a tiny Latin
@@ -854,7 +871,7 @@ async function fetchCategory(cat, seen) {
     try {
       const queryItems = await fetchGoogleNews(query, cat.id);
       for (const item of queryItems) {
-        const key = item.title.replace(/\s+/g, " ").toLowerCase();
+        const key = canonicalNewsKey(item);
         if (seen.has(key)) continue;
         seen.add(key);
         items.push(item);
@@ -1038,7 +1055,7 @@ async function collectBenchmarkSignals() {
       try {
         const queryItems = await fetchGoogleNews(query, theme.id);
         for (const item of queryItems) {
-          const key = item.title.replace(/\s+/g, " ").toLowerCase();
+          const key = canonicalNewsKey(item);
           if (seen.has(key)) continue;
           seen.add(key);
           items.push(item);

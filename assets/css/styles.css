@@ -7158,15 +7158,26 @@ body.sidebar-collapsed .sb-ico {
   border-top: 1px solid var(--line-2);
 }
 
-.news-list a {
+.news-card {
   display: grid;
   grid-template-columns: minmax(0, 1fr);
   gap: 8px;
   padding: 13px 14px;
+}
+
+.news-card-head {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+}
+
+.news-list a {
   text-decoration: none;
 }
 
-.news-list a:hover .news-title,
+.news-list a.news-title:hover,
 .rainbow:hover {
   background: linear-gradient(90deg, var(--blue), var(--purple), var(--teal), var(--brand), var(--blue));
   background-size: 220% auto;
