@@ -27,128 +27,50 @@
         </span>
       </button>
 
-      <nav class="sb-nav" aria-label="대시보드 섹션">
-        <div class="sb-group">개요</div>
+      <nav class="sb-nav ia-nav" aria-label="대시보드 핵심 탭">
+        <div class="sb-group">핵심 흐름</div>
         <button class="sb-item active" type="button" data-jump="overview">
-          <span class="sb-ico" aria-hidden="true">▦</span>
-          <span class="sb-label"><strong>Executive Summary</strong><small>Strategy Brief</small></span>
+          <span class="sb-ico" aria-hidden="true">H</span>
+          <span class="sb-label"><strong>홈</strong><small>오늘 핵심 변화</small></span>
         </button>
-        <button class="sb-item" type="button" data-jump="executive-decision">
-          <span class="sb-ico" aria-hidden="true">◉</span>
-          <span class="sb-label"><strong>경영진 의사결정</strong><small>Backtest Board</small></span>
-        </button>
-        <button class="sb-item" type="button" data-jump="management-strategy">
-          <span class="sb-ico" aria-hidden="true">1</span>
-          <span class="sb-label"><strong>중국 경영전략 수립</strong><small>China Business</small></span>
-        </button>
-        <button class="sb-item" type="button" data-jump="strategic-investment-decision">
-          <span class="sb-ico" aria-hidden="true">2</span>
-          <span class="sb-label"><strong>중국 전략적 의사 결정</strong><small>China Decision</small></span>
+        <button class="sb-item" type="button" data-jump="prices">
+          <span class="sb-ico" aria-hidden="true">M</span>
+          <span class="sb-label"><strong>시장</strong><small>가격 · 기사 · 수급</small></span>
         </button>
         <button class="sb-item" type="button" data-jump="policy-makers">
           <span class="sb-ico" aria-hidden="true">P</span>
-          <span class="sb-label"><strong>Policy Maker</strong><small>CN / KR / US</small></span>
-        </button>
-        <button class="sb-item" type="button" data-jump="china-fab-infra">
-          <span class="sb-ico" aria-hidden="true">I</span>
-          <span class="sb-label"><strong>중국 Fab 인프라</strong><small>Land / Water / Power</small></span>
-        </button>
-        <button class="sb-item" type="button" data-jump="china-talent-strategy">
-          <span class="sb-ico" aria-hidden="true">T</span>
-          <span class="sb-label"><strong>중국 인력 전략</strong><small>Scenario Hiring</small></span>
-        </button>
-
-        <div class="sb-group">매일 업데이트</div>
-        <button class="sb-item" type="button" data-jump="daily-review">
-          <span class="sb-ico" aria-hidden="true">✓</span>
-          <span class="sb-label"><strong>일일 리뷰 큐</strong><small>Daily Diff</small></span>
-        </button>
-        <button class="sb-item" type="button" data-jump="crawler">
-          <span class="sb-ico" aria-hidden="true">⌬</span>
-          <span class="sb-label"><strong>전체 크롤링 관제</strong><small>Pipeline Health</small></span>
-        </button>
-        <button class="sb-item" type="button" data-jump="prices">
-          <span class="sb-ico" aria-hidden="true">▤</span>
-          <span class="sb-label"><strong>가격 추이</strong><small>Spot / Contract</small></span>
-        </button>
-        <button class="sb-item" type="button" data-jump="news">
-          <span class="sb-ico" aria-hidden="true">□</span>
-          <span class="sb-label"><strong>영어권·중국어 기사</strong><small>News Stream</small></span>
+          <span class="sb-label"><strong>정책</strong><small>중국 · 한국 · 미국</small></span>
         </button>
         <button class="sb-item" type="button" data-jump="china-nand">
-          <span class="sb-ico" aria-hidden="true">◆</span>
-          <span class="sb-label"><strong>중국 NAND 전략</strong><small>Business Lens</small></span>
-        </button>
-        <button class="sb-item" type="button" data-jump="china-dynamics">
-          <span class="sb-ico" aria-hidden="true">↔</span>
-          <span class="sb-label"><strong>중국 반도체 흐름</strong><small>Live Dynamics</small></span>
+          <span class="sb-ico" aria-hidden="true">C</span>
+          <span class="sb-label"><strong>경쟁사</strong><small>CXMT · YMTC · OSAT</small></span>
         </button>
         <button class="sb-item" type="button" data-jump="talent-radar">
-          <span class="sb-ico" aria-hidden="true">人</span>
-          <span class="sb-label"><strong>인재·채용 레이더</strong><small>Hiring Signals</small></span>
+          <span class="sb-ico" aria-hidden="true">T</span>
+          <span class="sb-label"><strong>인재/IP</strong><small>채용 · 대학 · 보안</small></span>
         </button>
-
-        <div class="sb-group">실시간 분석</div>
-        <button class="sb-item" type="button" data-jump="numbers">
-          <span class="sb-ico" aria-hidden="true">#</span>
-          <span class="sb-label"><strong>숫자 대시보드</strong><small>KPI / Gauge</small></span>
-        </button>
-        <button class="sb-item" type="button" data-jump="projection">
-          <span class="sb-ico" aria-hidden="true">⌁</span>
-          <span class="sb-label"><strong>제품군 프로젝션</strong><small>30M + 5Y</small></span>
-        </button>
-        <button class="sb-item" type="button" data-jump="workbench">
-          <span class="sb-ico" aria-hidden="true">◈</span>
-          <span class="sb-label"><strong>워크벤치</strong><small>Dynamic Workbench</small></span>
+        <button class="sb-item" type="button" data-jump="executive-decision">
+          <span class="sb-ico" aria-hidden="true">A</span>
+          <span class="sb-label"><strong>분석실</strong><small>의사결정 · ROI · 백테스트</small></span>
         </button>
         <button class="sb-item" type="button" data-jump="evidence-framework">
-          <span class="sb-ico" aria-hidden="true">✓</span>
-          <span class="sb-label"><strong>증거 품질 레이어</strong><small>Fact / Assumption</small></span>
-        </button>
-
-        <div class="sb-group">기준 벤치마킹</div>
-        <button class="sb-item" type="button" data-jump="ai-matrix">
-          <span class="sb-ico" aria-hidden="true">◬</span>
-          <span class="sb-label"><strong>AI 메모리 매트릭스</strong><small>HBM · CXL · NAND</small></span>
-        </button>
-        <button class="sb-item" type="button" data-jump="china-deep-dive">
-          <span class="sb-ico" aria-hidden="true">▧</span>
-          <span class="sb-label"><strong>심층 벤치마킹</strong><small>Process · Package</small></span>
-        </button>
-        <button class="sb-item" type="button" data-jump="categories">
-          <span class="sb-ico" aria-hidden="true">◎</span>
-          <span class="sb-label"><strong>메모리 카테고리</strong><small>Taxonomy</small></span>
-        </button>
-        <button class="sb-item" type="button" data-jump="competitors">
-          <span class="sb-ico" aria-hidden="true">◫</span>
-          <span class="sb-label"><strong>중국 경쟁사</strong><small>Competitors</small></span>
-        </button>
-
-        <div class="sb-group">전략·대응</div>
-        <button class="sb-item" type="button" data-jump="dynamics">
-          <span class="sb-ico" aria-hidden="true">↗</span>
-          <span class="sb-label"><strong>경쟁 다이나믹스</strong><small>Competitive Map</small></span>
-        </button>
-        <button class="sb-item" type="button" data-jump="monetization">
-          <span class="sb-ico" aria-hidden="true">◇</span>
-          <span class="sb-label"><strong>벤치마킹 모델</strong><small>Revenue Model</small></span>
-        </button>
-        <button class="sb-item" type="button" data-jump="response">
-          <span class="sb-ico" aria-hidden="true">⌁</span>
-          <span class="sb-label"><strong>대응 대시보드</strong><small>Response</small></span>
-        </button>
-
-        <div class="sb-group">참고 정보</div>
-        <button class="sb-item" type="button" data-jump="intelligence">
-          <span class="sb-ico" aria-hidden="true">⌕</span>
-          <span class="sb-label"><strong>정보 획득 채널</strong><small>Sources</small></span>
+          <span class="sb-ico" aria-hidden="true">R</span>
+          <span class="sb-label"><strong>방법론</strong><small>출처 · 수집 주기 · FAQ</small></span>
         </button>
       </nav>
 
-      <div class="sb-block">
-        <div class="sb-block-title">카테고리 필터</div>
-        <div class="sb-cats" id="sideCategories"></div>
+      <div class="sb-block sb-quick">
+        <div class="sb-block-title">빠른 이동</div>
+        <button type="button" data-jump="daily-review">일일 리뷰</button>
+        <button type="button" data-jump="news">기사 스트림</button>
+        <button type="button" data-jump="projection">제품 예측</button>
+        <button type="button" data-jump="workbench">워크벤치</button>
       </div>
+
+      <details class="sb-block sb-filter">
+        <summary>주제 필터</summary>
+        <div class="sb-cats" id="sideCategories"></div>
+      </details>
 
     </aside>
 
@@ -187,6 +109,16 @@
 
       <main class="main" id="main">
         <section class="executive-summary" id="overview" aria-label="Executive Summary">
+          <div class="today-hero" id="todayHero">
+            <div class="today-hero-copy">
+              <p class="eyebrow">Home · Daily Intelligence</p>
+              <h2>오늘의 핵심 변화</h2>
+              <p>가격, 기사, 중국 경쟁사, 정책·Fab·인재 신호를 먼저 요약하고 필요한 보드로 바로 이동합니다.</p>
+              <div class="today-actions" id="todayActions"></div>
+            </div>
+            <div class="today-status-grid" id="todayStatusGrid"></div>
+          </div>
+          <div class="hub-route-grid" id="hubRouteGrid" aria-label="업무별 바로가기"></div>
           <div class="exec-head">
             <div>
               <p class="eyebrow">Executive Summary</p>
@@ -205,13 +137,13 @@
               <p class="eyebrow">Executive decision · historical backtest · actual crawl data</p>
               <h2>경영진 의사결정 · 백테스트</h2>
             </div>
-            <span class="board-meta" id="execDecisionMeta">실제 수집 데이터 로딩</span>
+            <span class="board-meta" id="execDecisionMeta">로드 중 · 가격 히스토리와 제품군 매칭을 연결합니다</span>
           </div>
           <div class="decision-summary" id="execDecisionSummary"></div>
           <section class="category-ox-panel" aria-label="카테고리별 O X 의사결정 포인트">
             <div class="crawler-panel-head">
               <h3>카테고리별 O/X 의사결정 포인트</h3>
-              <span id="categoryOxMeta">카테고리 판단 기준 로딩</span>
+              <span id="categoryOxMeta">로드 중 · 카테고리별 판단 기준을 계산합니다</span>
             </div>
             <div class="category-ox-matrix" id="categoryDecisionMatrix"></div>
           </section>
@@ -222,7 +154,7 @@
                 <select id="backtestYearSelect" aria-label="백테스트 년도 선택"></select>
                 <label for="execProductSelect">하이닉스 제품군</label>
                 <select id="execProductSelect" aria-label="하이닉스 제품군 선택"></select>
-                <span id="backtestCoverage">가격 히스토리 확인 중</span>
+                <span id="backtestCoverage">로드 중 · 가격 히스토리 확인</span>
               </div>
               <div class="decision-grid" id="execDecisionGrid"></div>
             </section>
@@ -237,7 +169,7 @@
               <p class="eyebrow">China business · strategy formulation · crawler based</p>
               <h2>경영전략 수립 · 중국 비즈니스</h2>
             </div>
-            <span class="board-meta" id="managementStrategyMeta">중국 비즈니스 전략 신호 로딩</span>
+            <span class="board-meta" id="managementStrategyMeta">로드 중 · 중국 비즈니스 전략 신호 연결</span>
           </div>
           <div class="investment-summary" id="managementStrategySummary"></div>
           <div class="china-business-brief" id="chinaBusinessBrief"></div>
@@ -261,7 +193,7 @@
               <p class="eyebrow">China business · strategic decision · evidence based</p>
               <h2>전략적 의사 결정 · 중국 비즈니스</h2>
             </div>
-            <span class="board-meta" id="strategicDecisionMeta">중국 사업 의사결정 신호 로딩</span>
+            <span class="board-meta" id="strategicDecisionMeta">로드 중 · 중국 사업 의사결정 신호 연결</span>
           </div>
           <div class="investment-summary" id="strategicDecisionSummary"></div>
           <div class="china-decision-gates" id="chinaDecisionGates"></div>
@@ -284,7 +216,7 @@
               <p class="eyebrow">Policy maker direction · China / Korea / United States</p>
               <h2>정책 방향성 · SK하이닉스 중국 사업 판단</h2>
             </div>
-            <span class="board-meta" id="policyMakerMeta">정책 소스 로딩</span>
+            <span class="board-meta" id="policyMakerMeta">로드 중 · 정책 원문과 영향 분석 연결</span>
           </div>
           <div class="policy-tabs" id="policyTabs" role="tablist" aria-label="Policy maker country tabs"></div>
           <div class="policy-summary" id="policySummary"></div>
@@ -307,7 +239,7 @@
               <p class="eyebrow">China fab expansion infrastructure · periodic crawler</p>
               <h2>중국 Fab 확장성 판단 · 토지 · 용수 · 전력</h2>
             </div>
-            <span class="board-meta" id="infraMakerMeta">인프라 크롤링 소스 로딩</span>
+            <span class="board-meta" id="infraMakerMeta">로드 중 · 토지·용수·전력 소스 연결</span>
           </div>
           <div class="policy-tabs" id="infraSiteTabs" role="tablist" aria-label="SK hynix China site tabs"></div>
           <div class="policy-summary" id="infraSummary"></div>
@@ -330,7 +262,7 @@
               <p class="eyebrow">China workforce strategy · scenario tabs · lawful hiring</p>
               <h2>전략 시나리오별 중국 인력 확보 계획</h2>
             </div>
-            <span class="board-meta" id="talentStrategyMeta">인력 전략 신호 로딩</span>
+            <span class="board-meta" id="talentStrategyMeta">로드 중 · 인력 전략 신호 연결</span>
           </div>
           <div class="policy-tabs" id="talentScenarioTabs" role="tablist" aria-label="China talent strategy scenario tabs"></div>
           <div class="policy-summary" id="talentStrategySummary"></div>
@@ -384,7 +316,7 @@
               <p class="eyebrow">Daily digest · review queue · semantic diff</p>
               <h2>일일 크롤링 리뷰 큐</h2>
             </div>
-            <span class="freshness-badge" id="reviewMeta">리뷰 상태 확인 중</span>
+            <span class="freshness-badge" id="reviewMeta">로드 중 · 오늘의 리뷰 큐 계산</span>
           </div>
           <div class="review-summary" id="reviewSummary"></div>
           <div class="review-layout">
@@ -407,7 +339,7 @@
               <p class="eyebrow">Evidence framework · source type · proof level</p>
               <h2>팩트 · 해석 · 가정 · 방법론 레이어</h2>
             </div>
-            <span class="board-meta" id="evidenceFrameworkMeta">증거 체계 로딩</span>
+            <span class="board-meta" id="evidenceFrameworkMeta">로드 중 · 출처와 증거 수준 분류</span>
           </div>
           <div class="evidence-framework-summary" id="evidenceFrameworkSummary"></div>
           <div class="evidence-layer-grid" id="evidenceLayerGrid"></div>
@@ -436,7 +368,7 @@
               <p class="eyebrow">Full crawling control tower</p>
               <h2>전체 내용 크롤링 관제 대시보드</h2>
             </div>
-            <span class="board-meta" id="crawlerMeta">수집 파이프라인 로딩</span>
+            <span class="board-meta" id="crawlerMeta">로드 중 · 수집 파이프라인 점검</span>
           </div>
           <div class="crawler-summary" id="crawlerSummary"></div>
           <div class="crawler-flow" id="crawlerFlow"></div>
@@ -465,7 +397,7 @@
               <h2>Spot / Contract 가격 추이</h2>
             </div>
             <div class="board-head-actions">
-              <span class="freshness-badge" id="priceFreshness">가격 상태 확인 중</span>
+              <span class="freshness-badge" id="priceFreshness">로드 중 · 가격 테이블 연결</span>
               <div class="segmented" id="priceTabs"></div>
             </div>
           </div>
@@ -498,7 +430,7 @@
             </div>
             <div class="board-head-actions">
               <select class="news-company-select" id="newsCompanySelect" aria-label="기사 업체 선택"></select>
-              <span class="freshness-badge" id="newsFreshness">뉴스 상태 확인 중</span>
+              <span class="freshness-badge" id="newsFreshness">로드 중 · 기사 스트림 연결</span>
               <input class="news-search" id="newsSearch" type="search" placeholder="CXMT, YMTC, Micron..." />
             </div>
           </div>
@@ -509,14 +441,14 @@
               <section class="news-bucket" id="foreignNewsBucket">
                 <div class="news-bucket-head">
                   <h3>영어권 기사</h3>
-                  <span id="foreignNewsCount">0건</span>
+                  <span id="foreignNewsCount">집계 전</span>
                 </div>
                 <ul class="news-list" id="foreignNewsList"></ul>
               </section>
               <section class="news-bucket" id="chinaNewsBucket">
                 <div class="news-bucket-head">
                   <h3>중국어 기사</h3>
-                  <span id="chinaNewsCount">0건</span>
+                  <span id="chinaNewsCount">집계 전</span>
                 </div>
                 <ul class="news-list" id="chinaNewsList"></ul>
               </section>
@@ -633,7 +565,7 @@
               <p class="eyebrow">Dynamic intelligence workbench</p>
               <h2>중국 메모리 벤치마킹</h2>
             </div>
-            <span class="board-meta" id="workbenchMeta">신호 선택 대기</span>
+            <span class="board-meta" id="workbenchMeta">분석 객체를 선택하세요</span>
           </div>
           <div class="workbench-mece" id="workbenchMece"></div>
           <div class="workbench-tabs" id="workbenchTabs"></div>
@@ -698,7 +630,7 @@
               <p class="eyebrow">중국 메모리 심층 벤치마킹</p>
               <h2>공정 · 낸드 · 패키징 · 소부장 · 인재/IP</h2>
             </div>
-            <span class="board-meta" id="chinaDeepMeta">구조 분석 로딩</span>
+            <span class="board-meta" id="chinaDeepMeta">로드 중 · 구조 분석 연결</span>
           </div>
           <div class="china-deep-summary" id="chinaDeepSummary"></div>
           <div class="china-deep-grid" id="chinaDeepGrid"></div>

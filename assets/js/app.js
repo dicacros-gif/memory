@@ -1683,34 +1683,63 @@
   ];
   const MECE_GROUPS = [
     {
-      id: "daily",
-      label: "매일 업데이트",
-      desc: "크롤링 성공 여부와 오늘 바뀐 가격·뉴스·중국 신호",
+      id: "home",
+      label: "홈",
+      desc: "오늘의 핵심 변화, 경보, 업데이트 시각, 우선순위 바로가기",
       cadence: "Daily crawler",
-      sections: ["executive-decision", "daily-review", "crawler", "prices", "news", "china-nand", "china-dynamics", "talent-radar"],
+      jump: "overview",
+      sections: ["overview", "daily-review"],
     },
     {
-      id: "quant",
-      label: "실시간 분석",
-      desc: "숫자 KPI, 제품군 프로젝션, 선택형 인텔리전스 워크벤치",
-      cadence: "Interactive",
-      sections: ["numbers", "projection", "workbench"],
+      id: "market",
+      label: "시장",
+      desc: "TrendForce 가격, 영어권·중국어 기사, 수급 변화와 수집 상태",
+      cadence: "Market data",
+      jump: "prices",
+      sections: ["prices", "news", "crawler"],
     },
     {
-      id: "benchmark",
-      label: "기준 벤치마킹",
-      desc: "중국 메모리 기술·경쟁사·카테고리 기준 프레임",
-      cadence: "Reference layer",
-      sections: ["ai-matrix", "china-deep-dive", "categories", "competitors"],
+      id: "policy",
+      label: "정책",
+      desc: "중국·한국·미국 정책 방향, CHIPS/BIS, 중국 Fab 인프라 판단",
+      cadence: "Policy watch",
+      jump: "policy-makers",
+      sections: ["policy-makers", "china-fab-infra"],
     },
     {
-      id: "strategy",
-      label: "중국 전략·대응",
-      desc: "중국 고객·NAND/eSSD·패키징·장비·규제·인재/IP 의사결정",
-      cadence: "Decision layer",
-      sections: ["management-strategy", "strategic-investment-decision", "policy-makers", "china-fab-infra", "china-talent-strategy", "dynamics", "monetization", "response", "intelligence"],
+      id: "competitors",
+      label: "경쟁사",
+      desc: "CXMT, YMTC, XMC, JCET, Naura, AMEC의 기술·캐파·공급망 변화",
+      cadence: "China benchmark",
+      jump: "china-nand",
+      sections: ["china-nand", "china-dynamics", "competitors", "ai-matrix", "china-deep-dive"],
+    },
+    {
+      id: "talent",
+      label: "인재/IP",
+      desc: "채용 공고, 대학 파이프라인, 수율 인력, IP 리스크 조기경보",
+      cadence: "Hiring watch",
+      jump: "talent-radar",
+      sections: ["talent-radar", "china-talent-strategy"],
+    },
+    {
+      id: "analysis",
+      label: "분석실",
+      desc: "경영진 의사결정, 백테스트, 제품군 프로젝션, ROI·수익 모델",
+      cadence: "Decision lab",
+      jump: "executive-decision",
+      sections: ["executive-decision", "management-strategy", "strategic-investment-decision", "numbers", "projection", "workbench", "dynamics", "monetization", "response"],
+    },
+    {
+      id: "methodology",
+      label: "방법론",
+      desc: "팩트·해석·가정·방법론 레이어, 출처 정책, 수집 주기, 예외 처리",
+      cadence: "Trust layer",
+      jump: "evidence-framework",
+      sections: ["evidence-framework", "categories", "intelligence"],
     },
   ];
+  const IA_ROUTES = MECE_GROUPS;
   const NEWS_SOURCE_TABS = [
     { id: "english", label: "영어권 기사", countId: "foreignNewsCount", bucketId: "foreignNewsBucket", listId: "foreignNewsList" },
     { id: "chinese", label: "중국어 기사", countId: "chinaNewsCount", bucketId: "chinaNewsBucket", listId: "chinaNewsList" },
@@ -1722,6 +1751,7 @@
     { id: "china-risk", label: "중국 리스크", sub: "CXMT · YMTC · 정책", categories: ["china", "geopolitics", "equipment", "talent"], keywords: ["cxmt", "ymtc", "big fund", "match", "veU", "중국", "국산화", "수출통제"] },
   ];
   const SECTION_LABELS = {
+    overview: "홈",
     "executive-decision": "경영진 의사결정",
     "management-strategy": "중국 경영전략 수립",
     "strategic-investment-decision": "중국 전략적 의사 결정",
@@ -1741,10 +1771,67 @@
     monetization: "벤치마킹 모델",
     response: "대응 대시보드",
     intelligence: "정보 획득 채널",
+    "evidence-framework": "증거 품질 레이어",
     categories: "메모리 카테고리",
     competitors: "중국 경쟁사",
     news: "중국·외신 기사",
     prices: "TrendForce 가격",
+  };
+  const SECTION_ORDER = [
+    "overview",
+    "daily-review",
+    "prices",
+    "news",
+    "crawler",
+    "policy-makers",
+    "china-fab-infra",
+    "china-nand",
+    "china-dynamics",
+    "competitors",
+    "ai-matrix",
+    "china-deep-dive",
+    "talent-radar",
+    "china-talent-strategy",
+    "executive-decision",
+    "management-strategy",
+    "strategic-investment-decision",
+    "numbers",
+    "projection",
+    "workbench",
+    "dynamics",
+    "monetization",
+    "response",
+    "evidence-framework",
+    "categories",
+    "intelligence",
+  ];
+  const NAV_SECTION_TARGETS = {
+    overview: "overview",
+    "daily-review": "overview",
+    prices: "prices",
+    news: "prices",
+    crawler: "evidence-framework",
+    "policy-makers": "policy-makers",
+    "china-fab-infra": "policy-makers",
+    "china-nand": "china-nand",
+    "china-dynamics": "china-nand",
+    competitors: "china-nand",
+    "ai-matrix": "china-nand",
+    "china-deep-dive": "china-nand",
+    "talent-radar": "talent-radar",
+    "china-talent-strategy": "talent-radar",
+    "executive-decision": "executive-decision",
+    "management-strategy": "executive-decision",
+    "strategic-investment-decision": "executive-decision",
+    numbers: "executive-decision",
+    projection: "executive-decision",
+    workbench: "executive-decision",
+    dynamics: "executive-decision",
+    monetization: "executive-decision",
+    response: "executive-decision",
+    "evidence-framework": "evidence-framework",
+    categories: "evidence-framework",
+    intelligence: "evidence-framework",
   };
   const CRAWL_PIPELINE = [
     {
@@ -2141,9 +2228,10 @@
   function freshnessState({ updatedAt, count = 0, healthKeys = [], staleHours = 36 } = {}) {
     const entries = healthEntries(healthKeys);
     const hasFailure = entries.some((entry) => !entry.ok);
-    if (!count || hasFailure) return { cls: "fail", label: "Fail" };
-    if (hoursSince(updatedAt) > staleHours) return { cls: "stale", label: "Stale" };
-    return { cls: "ok", label: "OK" };
+    if (hasFailure) return { cls: "fail", label: "수집 지연" };
+    if (!count) return { cls: "empty", label: "조건에 맞는 결과 없음" };
+    if (hoursSince(updatedAt) > staleHours) return { cls: "stale", label: "업데이트 지연" };
+    return { cls: "ok", label: "정상" };
   }
 
   function freshnessHTML({ label, updatedAt, source, count, healthKeys, staleHours }) {
@@ -2449,6 +2537,7 @@
 
   function categoryRenderSteps() {
     return [
+      renderExecutiveSummary,
       renderCategories,
       renderDailyReview,
       renderExecutiveDecision,
@@ -2553,10 +2642,101 @@
     ];
   }
 
+  function routeAccent(routeId) {
+    return {
+      home: "#3C82FF",
+      market: "#FFB830",
+      policy: "#60A5FA",
+      competitors: "#00C8A0",
+      talent: "#F0ABFC",
+      analysis: "#A050FF",
+      methodology: "#94A3B8",
+    }[routeId] || "var(--accent)";
+  }
+
+  function routeTelemetry(route) {
+    const sections = (route.sections || []).map(sectionTelemetry);
+    const numericValues = sections.map((item) => Number(item.value)).filter(Number.isFinite);
+    const score = sections.length
+      ? Math.round(sections.reduce((sum, item) => sum + Number(item.score || 0), 0) / sections.length)
+      : 0;
+    const signals = numericValues.reduce((sum, value) => sum + value, 0);
+    return { sections, score: clamp(score), signals };
+  }
+
+  function renderTodayHub() {
+    const hero = $("#todayHero");
+    const statusGrid = $("#todayStatusGrid");
+    const actions = $("#todayActions");
+    const routeGrid = $("#hubRouteGrid");
+    if (!hero || !statusGrid || !actions || !routeGrid) return;
+
+    const health = LIVE.health || [];
+    const ok = health.filter((entry) => entry.ok).length;
+    const priceRows = allPriceRows().length;
+    const news = rawNews();
+    const sourceCount = new Set(news.map((item) => item.source).filter(Boolean)).size;
+    const topReview = dailyReviewItems()[0];
+    const headline = topReview
+      ? `오늘의 우선순위 · ${topReview.primaryType === "pipeline" ? "수집 신뢰도 점검" : topReview.title}`
+      : "오늘의 우선순위 · 가격·기사·중국 경쟁 신호 확인";
+    const lead = topReview?.summary || "매일 수집되는 가격, 외신/중국어 기사, 정책·Fab·인재 신호를 업무별 보드로 나누어 보여줍니다.";
+
+    const copy = hero.querySelector(".today-hero-copy");
+    if (copy) {
+      copy.querySelector("h2").textContent = headline;
+      copy.querySelector("p:not(.eyebrow)").textContent = lead;
+    }
+
+    const statusCards = [
+      { label: "업데이트 시각", value: fmtDate(LIVE.updatedAt), note: "Asia/Seoul · daily crawler" },
+      { label: "가격 rows", value: priceRows, note: "Spot / Contract 공개 표" },
+      { label: "기사 소스", value: sourceCount, note: `${fmtNum(news.length)}건 기사 · 한국 소스 제외` },
+      { label: "수집 상태", value: `${ok}/${health.length}`, note: health.length === ok ? "정상 수집" : "점검 필요 단계 있음" },
+    ];
+    statusGrid.innerHTML = statusCards.map((card) => `
+      <article class="today-status-card reveal">
+        <span>${escapeHTML(card.label)}</span>
+        <strong>${typeof card.value === "number" ? countHTML(card.value) : escapeHTML(card.value)}</strong>
+        <small>${escapeHTML(card.note)}</small>
+      </article>
+    `).join("");
+
+    const actionItems = [
+      { label: "경영진 의사결정", jump: "executive-decision", accent: routeAccent("analysis") },
+      { label: "가격·기사 확인", jump: "prices", accent: routeAccent("market") },
+      { label: "중국 경쟁사", jump: "china-nand", accent: routeAccent("competitors") },
+      { label: "정책·Fab 리스크", jump: "policy-makers", accent: routeAccent("policy") },
+    ];
+    actions.innerHTML = actionItems.map((item) => `
+      <button type="button" data-jump="${escapeHTML(item.jump)}" style="--local-accent:${escapeHTML(item.accent)}">${escapeHTML(item.label)}</button>
+    `).join("");
+
+    routeGrid.innerHTML = IA_ROUTES.map((route, index) => {
+      const telemetry = routeTelemetry(route);
+      return `
+        <button class="hub-route-card reveal" type="button" data-jump="${escapeHTML(route.jump || route.sections[0])}" style="--local-accent:${escapeHTML(routeAccent(route.id))}; animation-delay:${index * 28}ms">
+          <span>${escapeHTML(route.cadence)}</span>
+          <strong>${escapeHTML(route.label)}</strong>
+          <p>${escapeHTML(route.desc)}</p>
+          <div class="hub-route-meter" aria-hidden="true"><i data-fill-to="${telemetry.score}" style="width:0%"></i></div>
+          <small>${fmtNum(telemetry.signals)}개 신호 · ${fmtNum(route.sections.length)}개 보드</small>
+        </button>
+      `;
+    }).join("");
+
+    hero.querySelectorAll("[data-jump]").forEach((btn) => btn.addEventListener("click", () => jumpTo(btn.dataset.jump)));
+    routeGrid.querySelectorAll("[data-jump]").forEach((btn) => btn.addEventListener("click", () => jumpTo(btn.dataset.jump)));
+    animateCounts(hero);
+    animateMeters(routeGrid);
+  }
+
   function renderExecutiveSummary() {
     const brief = $("#execBrief");
     const strategy = $("#execStrategy");
     if (!brief || !strategy) return;
+
+    renderTodayHub();
 
     brief.innerHTML = `
       <div class="exec-bullets">
@@ -2784,7 +2964,7 @@
     const cards = [
       { label: "Lens", value: lens.label, note: lens.sub },
       { label: "Visible KPI", value: items.length, note: `${fmtNum(allItems.length)}개 중 선택` },
-      { label: "OK / Watch", value: `${ok}/${watch}`, note: "출처·전망 버전 상태" },
+      { label: "정상 / 관찰", value: `${ok}/${watch}`, note: "출처·전망 버전 상태" },
       { label: "P1 queue", value: p1, note: "일일 리뷰 큐와 연결" },
       { label: "Topic", value: topCat, note: "정량 탭 분류 축" },
     ];
@@ -2819,7 +2999,7 @@
   }
 
   function reviewShortDate(value) {
-    if (!value) return "수집 대기";
+    if (!value) return "아직 수집 전";
     const date = new Date(value);
     if (!Number.isNaN(date.getTime())) return `${date.getMonth() + 1}/${date.getDate()}일`;
     return formatNewsDate(value) || String(value);
@@ -2927,7 +3107,7 @@
         priorityBand: fail ? "P1" : "P3",
         priorityScore: fail ? 94 : 58,
         reviewStatus: fail ? "In Review" : "Confirmed",
-        changeType: fail ? "Pipeline alert" : "OK",
+        changeType: fail ? "수집 점검" : "정상",
         title: `수집 파이프라인 health ${ok}/${health.length}`,
         summary: "가격, 뉴스, 벤치마킹, 한글 인사이트 단계별 성공/실패를 먼저 확인해 오늘 digest의 신뢰도를 판정합니다.",
         source: "GitHub Actions daily crawler",
@@ -2946,7 +3126,7 @@
         ],
         metrics: [
           { label: "Health", value: `${ok}/${health.length}` },
-          { label: "Fail", value: `${fmtNum(fail)}개` },
+          { label: "점검 단계", value: `${fmtNum(fail)}개` },
           { label: "Updated", value: reviewShortDate(LIVE.updatedAt) },
         ],
       },
@@ -2997,11 +3177,11 @@
     }
 
     const cards = [
-      { label: "New since last review", value: newCount, note: "새로 들어온 기사·가격·수집 신호" },
-      { label: "Changed items", value: changedCount, note: "수치·상태·중요도 변경 재검토" },
-      { label: "P1 queue", value: p1Count, note: "사업 영향·신규성·출처 신뢰도 상위" },
-      { label: "Pipeline alerts", value: pipelineCount, note: "수집 실패·stale·rows 없음" },
-      { label: "Topic snapshot", value: topTopics, note: activeCategoryData()?.label || "전체 카테고리" },
+      { label: "신규 항목", value: newCount, note: "새로 들어온 기사·가격·수집 신호" },
+      { label: "변경 항목", value: changedCount, note: "수치·상태·중요도 변경 재검토" },
+      { label: "우선 검토", value: p1Count, note: "사업 영향·신규성·출처 신뢰도 상위" },
+      { label: "수집 점검", value: pipelineCount, note: "수집 실패·업데이트 지연·rows 없음" },
+      { label: "주제 스냅샷", value: topTopics, note: activeCategoryData()?.label || "전체 카테고리" },
     ];
     summary.innerHTML = cards.map((card) => `
       <article class="review-stat">
@@ -3034,7 +3214,7 @@
 
     queue.innerHTML = "";
     if (!items.length) {
-      queue.appendChild(el("div", "empty", "선택한 view와 카테고리에 맞는 리뷰 항목이 없습니다."));
+      queue.appendChild(el("div", "empty empty-action", "<strong>조건에 맞는 리뷰 항목이 없습니다.</strong><em>보기 탭을 Today로 바꾸거나 왼쪽 주제 필터를 전체로 되돌리세요.</em>"));
     }
     items.forEach((item, index) => {
       const card = el("article", `review-item reveal${item.id === selected?.id ? " active" : ""}`);
@@ -3448,7 +3628,7 @@
         value: ok,
         suffix: `/${health.length}`,
         note: fail ? `${fmtNum(fail)}개 수집 단계 점검 필요` : "가격·뉴스·벤치마킹 수집 단계 정상",
-        badge: fail ? "Fail" : "OK",
+        badge: fail ? "점검 필요" : "정상",
         statusClass: fail ? "fail" : "ok",
         source: "GitHub Actions daily crawler",
         sourceDate: fmtDate(LIVE.updatedAt),
@@ -3571,6 +3751,13 @@
     const hitBacktests = backtests.filter((item) => item.outcome.hit === true);
 
     const map = {
+      overview: {
+        value: dailyReviewItems().length + allPriceRows().length + newsCount,
+        unit: "signal",
+        status: "Today",
+        score: clamp((freshnessScore(priceState, allPriceRows().length) + freshnessScore(newsState, newsCount)) / 2),
+        note: "오늘 핵심 변화와 우선순위",
+      },
       "executive-decision": {
         value: testedBacktests.length,
         unit: `/${backtests.length}`,
@@ -3623,7 +3810,7 @@
       crawler: {
         value: healthOk,
         unit: `/${health.length}`,
-        status: health.length && healthOk === health.length ? "OK" : "Check",
+        status: health.length && healthOk === health.length ? "정상" : "점검 필요",
         score: health.length ? clamp((healthOk / health.length) * 100) : 0,
         note: "수집 성공 단계",
       },
@@ -3731,6 +3918,13 @@
         status: "Action",
         score: 76,
         note: "SK하이닉스 대응 체크리스트",
+      },
+      "evidence-framework": {
+        value: evidenceItems().length,
+        unit: "claim",
+        status: "Evidence",
+        score: clamp(52 + sourceUrlItems(evidenceItems()).length * 2, 42, 94),
+        note: "팩트·해석·가정·방법론 레이어",
       },
       intelligence: {
         value: visibleItems(BASE.channels || []).filter(relatedToActive).length,
@@ -7698,8 +7892,8 @@
             `).join("")}
           </div>
           <div class="mece-group-foot">
-            <span>${escapeHTML(fmtNum(total))} signals</span>
-            <span>${escapeHTML(group.sections.length)} boards</span>
+            <span>${escapeHTML(fmtNum(total))}개 신호</span>
+            <span>${escapeHTML(group.sections.length)}개 보드</span>
           </div>
         </article>
       `;
@@ -8505,7 +8699,7 @@
   }
 
   function setupScrollSpy() {
-    const sections = ["overview", "executive-decision", "management-strategy", "strategic-investment-decision", "policy-makers", "china-fab-infra", "china-talent-strategy", "daily-review", "crawler", "prices", "news", "china-nand", "china-dynamics", "talent-radar", "numbers", "projection", "workbench", "ai-matrix", "china-deep-dive", "categories", "competitors", "dynamics", "monetization", "response", "intelligence"];
+    const sections = SECTION_ORDER;
     const update = () => {
       const y = window.scrollY + chromeOffset() + 22;
       let active = "overview";
@@ -8520,7 +8714,8 @@
       if (lastNode && lastNode.getBoundingClientRect().top < window.innerHeight * 0.72) {
         active = sections[sections.length - 1];
       }
-      $$(".sb-item").forEach((btn) => btn.classList.toggle("active", btn.dataset.jump === active));
+      const navTarget = NAV_SECTION_TARGETS[active] || active;
+      $$(".sb-item").forEach((btn) => btn.classList.toggle("active", btn.dataset.jump === navTarget));
     };
     window.addEventListener("scroll", update, { passive: true });
     update();
@@ -8773,7 +8968,7 @@
       const entries = healthEntries(["가격:"]);
       const failed = entries.filter((entry) => !entry.ok).map((entry) => entry.msg).filter(Boolean).join(" · ");
       const msg = failed || "TrendForce 공개 테이블 구조 변경, 접근 실패, 또는 아직 수집된 rows가 없습니다.";
-      tbody.appendChild(el("tr", null, `<td colspan="6" class="empty"><span class="data-state fail">Fail · 가격 rows 없음</span><br>${escapeHTML(msg)}<br>마지막 시도: ${escapeHTML(fmtDate(LIVE.prices?.updatedAt || LIVE.updatedAt))}</td>`));
+      tbody.appendChild(el("tr", null, `<td colspan="6" class="empty"><span class="data-state fail">오류 발생 · 가격 rows 없음</span><br>${escapeHTML(msg)}<br>다음 행동: 크롤링 관제에서 가격 단계 메시지를 확인하고 전일 가격 히스토리 폴백 여부를 점검하세요.<br>마지막 시도: ${escapeHTML(fmtDate(LIVE.prices?.updatedAt || LIVE.updatedAt))}</td>`));
       return;
     }
 
@@ -8806,7 +9001,7 @@
   }
 
   function sparkline(vals, direction = "flat") {
-    if (!vals || vals.length < 2) return el("span", "price-sub", "history 대기");
+    if (!vals || vals.length < 2) return el("span", "price-sub", "히스토리 누적 전");
     const min = Math.min(...vals);
     const max = Math.max(...vals);
     const range = max - min || 1;
@@ -9026,7 +9221,7 @@
     const total = rawNews().length;
     const stale = hoursSince(updatedAt) > 18;
     const cls = total && !stale ? "ok" : "stale";
-    const label = total ? (stale ? "확인 필요" : "업데이트") : "수집 대기";
+    const label = total ? (stale ? "업데이트 지연" : "업데이트") : "조건에 맞는 결과 없음";
     node.className = `freshness-badge ${cls}`;
     node.textContent = `${label} · 뉴스 · ${fmtDate(updatedAt)} · Google News RSS + 큐레이션`;
   }
@@ -9090,7 +9285,7 @@
   function renderNewsBucket(list, items, emptyMessage) {
     list.innerHTML = "";
     if (!items.length) {
-      list.appendChild(el("li", null, `<span class="empty">${escapeHTML(emptyMessage)}</span>`));
+      list.appendChild(el("li", null, `<span class="empty empty-action"><strong>${escapeHTML(emptyMessage)}</strong><em>업체 드롭다운을 전체 업체로 바꾸거나 검색어를 줄이면 즉시 다시 계산됩니다.</em></span>`));
       return;
     }
 
