@@ -1681,7 +1681,7 @@
     {
       id: "home",
       label: "홈",
-      desc: "Executive Summary, C-level 안건, 오늘의 변화",
+      desc: "Executive Summary",
       cadence: "Daily crawler",
       jump: "overview",
       sections: ["overview", "c-level-cockpit"],
@@ -1743,7 +1743,7 @@
   const ROUTE_DISPLAY = {
     home: {
       label: "홈",
-      desc: "오늘 핵심 변화, 경보, 업데이트 시각을 먼저 확인",
+      desc: "Executive Summary",
       cadence: "Daily",
     },
     workbench: {
@@ -2696,8 +2696,8 @@
     const actions = $("#todayActions");
     if (!hero || !actions) return;
 
-    const headline = "오늘의 핵심 변화 · 가격·기사·중국 경쟁 신호";
-    const lead = "매일 수집되는 가격, 외신/중국어 기사, 정책·Fab·인재 신호를 업무별 보드로 나누어 보여줍니다.";
+    const headline = "Executive Summary";
+    const lead = "매일 수집된 가격, 기사, 정책, 중국 경쟁 신호를 경영진 요약으로 압축";
 
     const copy = hero.querySelector(".today-hero-copy");
     if (copy) {
@@ -2705,17 +2705,7 @@
       copy.querySelector("p:not(.eyebrow)").textContent = lead;
     }
 
-    const actionItems = [
-      { label: "경영진 의사결정", jump: "executive-decision", accent: routeAccent("analysis") },
-      { label: "가격·기사 확인", jump: "prices", accent: routeAccent("market") },
-      { label: "중국 경쟁사", jump: "china-nand", accent: routeAccent("competitors") },
-      { label: "정책·Fab 리스크", jump: "policy-makers", accent: routeAccent("policy") },
-    ];
-    actions.innerHTML = actionItems.map((item) => `
-      <button type="button" data-jump="${escapeHTML(item.jump)}" style="--local-accent:${escapeHTML(item.accent)}">${escapeHTML(item.label)}</button>
-    `).join("");
-
-    hero.querySelectorAll("[data-jump]").forEach((btn) => btn.addEventListener("click", () => jumpTo(btn.dataset.jump)));
+    actions.innerHTML = "";
     animateCounts(hero);
   }
 
@@ -3554,7 +3544,7 @@
         unit: "signal",
         status: "Today",
         score: clamp((freshnessScore(priceState, allPriceRows().length) + freshnessScore(newsState, newsCount)) / 2),
-        note: "오늘 핵심 변화와 우선순위",
+        note: "Executive Summary",
       },
       "c-level-cockpit": {
         value: cLevelEvidencePool().length,
