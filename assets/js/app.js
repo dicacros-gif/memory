@@ -1958,6 +1958,7 @@
   let ceoChallengeTargetId = "scenario";
   let cLevelCouncilDecisionId = "";
   let cLevelCouncilRan = false;
+  let execDecisionCouncilRan = false;
   let projectionFocusId = "ai-server";
   let projectionScenario = "neutral";
   let execDecisionFocusId = "hbm-ai-server";
@@ -5273,6 +5274,7 @@
       `).join("") : `<option value="">가격 히스토리 없음</option>`;
       yearSelect.onchange = () => {
         selectedBacktestYear = yearSelect.value;
+        execDecisionCouncilRan = false;
         renderExecutiveDecision();
       };
     }
@@ -5285,6 +5287,7 @@
       productSelect.onchange = () => {
         selectedExecProductId = productSelect.value;
         if (selectedExecProductId !== "all") execDecisionFocusId = selectedExecProductId;
+        execDecisionCouncilRan = false;
         renderExecutiveDecision();
       };
     }
@@ -5380,69 +5383,171 @@
     `;
   }
 
-  function executiveDecisionDebateHTML(active, selectedYearOption, productLabel, selectedIso, selectedSeriesCount) {
+  function executiveDecisionAgentItems(active, selectedYearOption, productLabel, selectedIso, selectedSeriesCount) {
     if (!active) return "";
-    const accent = categoryAccent(active.category);
     const actual = active.actualChange == null ? "선택 시점 이후 실측 데이터 부족" : `${active.actualChange > 0 ? "+" : ""}${fmtNum(active.actualChange, 2)}%`;
     const prior = active.priorMomentum == null ? "NA" : `${active.priorMomentum > 0 ? "+" : ""}${fmtNum(active.priorMomentum, 2)}%`;
     const yearLabel = selectedYearOption?.label || "선택 시점 없음";
-    return agentDebateHTML({
-      mode: "decision",
-      title: `${active.label} 의사결정 토론`,
-      subtitle: `${yearLabel} · ${productLabel} · 기준점 ${selectedIso ? pointDateLabel(selectedIso) : "없음"}`,
-      accent,
-      metrics: [
-        { label: "판단", value: active.decision.label },
-        { label: "사전 모멘텀", value: prior },
-        { label: "이후 실측", value: actual },
-        { label: "중국 신호", value: fmtNum(active.chinaSignalCount) },
-      ],
-      turns: [
-        {
-          name: "CEO",
-          role: "의사결정 질문",
-          avatar: "CEO",
-          color: "#111827",
-          message: `${yearLabel} 기준으로 ${active.label}을 ${active.decision.label} 안건으로 올려도 되는가?`,
-        },
-        {
-          name: "Data Agent",
-          role: "가격·백테스트",
-          avatar: "DATA",
-          color: "#06B6D4",
-          message: `가격 series ${fmtNum(selectedSeriesCount)}개와 관측 ${fmtNum(active.observations.length)}개를 연결했습니다. 사전 모멘텀은 ${prior}, 선택 시점 이후 결과는 ${actual}입니다.`,
-        },
-        {
-          name: "China Agent",
-          role: "중국 신호",
-          avatar: "CN",
-          color: "#EF4444",
-          message: `중국 관련 최신 신호 ${fmtNum(active.chinaSignalCount)}건은 과거 가격을 바꾸지 않고 현재 리스크 overlay로만 반영합니다.`,
-        },
-        {
-          name: "CFO Agent",
-          role: "수익성·자본배분",
-          avatar: "CFO",
-          color: "#F59E0B",
-          message: `${active.decision.label} 판단의 근거는 ${active.decision.logic}입니다. 실행 문구는 '${active.decision.action}'로 제한합니다.`,
-        },
-        {
-          name: "Risk Agent",
-          role: "하방 리스크",
-          avatar: "RISK",
-          color: "#8B5CF6",
-          message: active.downside,
-        },
-        {
-          name: "Strategy Agent",
-          role: "최종 정리",
-          avatar: "STR",
-          color: "#22C55E",
-          message: active.upside,
-        },
-      ],
-      kpis: ["price spread", "china signal count", "customer mix", "BIS event", "actual outcome"],
-    });
+    return [
+      {
+        id: "ceo",
+        initials: "CEO",
+        name: "CEO Agent",
+        title: "Executive Chair",
+        role: "의사결정 질문",
+        color: "#111827",
+        stance: "우선순위",
+        message: `${yearLabel} 기준으로 ${active.label}을 ${active.decision.label} 안건으로 올려도 되는가?`,
+      },
+      {
+        id: "cfo",
+        initials: "CFO",
+        name: "CFO Agent",
+        title: "Capital Allocation",
+        role: "수익성·자본배분",
+        color: "#F59E0B",
+        stance: "자본 효율",
+        message: `${active.decision.label} 판단의 근거는 ${active.decision.logic}입니다. 실행 문구는 '${active.decision.action}'로 제한합니다.`,
+      },
+      {
+        id: "cto",
+        initials: "CTO",
+        name: "CTO Agent",
+        title: "Technology Roadmap",
+        role: "기술·제품",
+        color: "#8B5CF6",
+        stance: "제품 병목",
+        message: `${(active.products || []).slice(0, 4).join(" · ")} 제품군 기준으로 봅니다. ${active.downside}`,
+      },
+      {
+        id: "policy",
+        initials: "POL",
+        name: "Policy Agent",
+        title: "Policy & Fab Risk",
+        role: "규제·Fab",
+        color: "#EF4444",
+        stance: "정책 overlay",
+        message: `중국 관련 최신 신호 ${fmtNum(active.chinaSignalCount)}건은 과거 가격을 바꾸지 않고 현재 리스크 overlay로만 반영합니다. BIS/CHIPS/MATCH 이벤트는 가격 판단과 별도 게이트로 분리합니다.`,
+      },
+      {
+        id: "market",
+        initials: "MKT",
+        name: "Market Agent",
+        title: "Price & Customer Signal",
+        role: "가격·고객",
+        color: "#06B6D4",
+        stance: "실측 검증",
+        message: `가격 series ${fmtNum(selectedSeriesCount)}개와 관측 ${fmtNum(active.observations.length)}개를 연결했습니다. 사전 모멘텀은 ${prior}, 선택 시점 이후 결과는 ${actual}입니다.`,
+      },
+      {
+        id: "auditor",
+        initials: "AUD",
+        name: "Data Auditor",
+        title: "Evidence Gatekeeper",
+        role: "팩트 검증",
+        color: "#22C55E",
+        stance: "근거 확인",
+        message: `가격 관측 ${fmtNum(active.observations.length)}개와 중국 신호 ${fmtNum(active.chinaSignalCount)}건만 사용합니다. HBM 직접 가격표가 없는 경우 proxy임을 표시하고, 근거 없는 수치는 결론에 올리지 않습니다.`,
+      },
+    ].filter((agent) => agent.message);
+  }
+
+  function executiveDecisionCouncilConclusion(active, selectedYearOption, selectedIso) {
+    const yearLabel = selectedYearOption?.label || "선택 시점 없음";
+    const actual = active?.actualChange == null ? "실측 부족" : `${active.actualChange > 0 ? "+" : ""}${fmtNum(active.actualChange, 2)}%`;
+    const prior = active?.priorMomentum == null ? "NA" : `${active.priorMomentum > 0 ? "+" : ""}${fmtNum(active.priorMomentum, 2)}%`;
+    const outcome = active?.outcome?.label || "검증 대기";
+    return {
+      title: `${active?.decision?.label || "판단 대기"} · ${active?.decision?.action || "실행 보류"}`,
+      body: `${active?.label || "선택 안건"}은 ${yearLabel} 기준점 ${selectedIso ? pointDateLabel(selectedIso) : "없음"}에서 직전 모멘텀 ${prior}, 이후 실측 ${actual}, 관측 ${fmtNum(active?.observations?.length || 0)}개로 검증했습니다.`,
+      next: `결론: ${outcome}. ${active?.decision?.logic || "근거가 더 쌓이면 재판단합니다."}`,
+    };
+  }
+
+  function executiveDecisionDebateHTML(active, selectedYearOption, productLabel, selectedIso, selectedSeriesCount, items = []) {
+    if (!active) return "";
+    const accent = categoryAccent(active.category);
+    const actual = active.actualChange == null ? "NA" : `${active.actualChange > 0 ? "+" : ""}${fmtNum(active.actualChange, 2)}%`;
+    const prior = active.priorMomentum == null ? "NA" : `${active.priorMomentum > 0 ? "+" : ""}${fmtNum(active.priorMomentum, 2)}%`;
+    const yearLabel = selectedYearOption?.label || "선택 시점 없음";
+    const agentItems = executiveDecisionAgentItems(active, selectedYearOption, productLabel, selectedIso, selectedSeriesCount);
+    const conclusion = executiveDecisionCouncilConclusion(active, selectedYearOption, selectedIso);
+    const councilStepDelay = 820;
+    const councilConclusionDelay = agentItems.length * councilStepDelay + 560;
+    return `
+      <div class="agent-debate agent-debate-decision decision-agent-council" style="--local-accent:${escapeHTML(accent)}">
+        <div class="agent-debate-title">
+          <span>EXPERT AGENTS</span>
+          <strong>${escapeHTML(active.label)} 의사결정 토론</strong>
+          <small>여러 안건 중 하나를 선택하고 실행하면 CEO, CFO, CTO, Policy, Market, Auditor가 순차 토론한 뒤 결론을 냅니다.</small>
+        </div>
+        <div class="c-level-agent-controls decision-agent-controls">
+          <label>
+            <span>안건 선택</span>
+            <select id="execDecisionCouncilSelect" aria-label="제품군 전문가 에이전트 토론 안건 선택">
+              ${items.map((item) => `<option value="${escapeHTML(item.id)}"${item.id === active.id ? " selected" : ""}>${escapeHTML(item.label)} · ${escapeHTML(item.decision.label)} · ${fmtNum(item.observations.length)}개 관측</option>`).join("")}
+            </select>
+          </label>
+          <button type="button" id="execDecisionRunCouncil">${execDecisionCouncilRan ? "토론 다시 실행" : "에이전트 실행"}</button>
+        </div>
+        <div class="agent-selected-brief">
+          <span>선택 안건</span>
+          <strong>${escapeHTML(active.label)} · ${escapeHTML(active.decision.label)} · 관측 ${fmtNum(active.observations.length)}개</strong>
+          <p>${escapeHTML(active.rationale)}</p>
+          <small>${escapeHTML(yearLabel)} · ${escapeHTML(productLabel)} · 기준점 ${selectedIso ? escapeHTML(pointDateLabel(selectedIso)) : "없음"}</small>
+        </div>
+        <div class="agent-debate-metrics">
+          <div><strong>${escapeHTML(active.decision.label)}</strong><span>판단</span></div>
+          <div><strong>${escapeHTML(prior)}</strong><span>사전 모멘텀</span></div>
+          <div><strong>${escapeHTML(actual)}</strong><span>이후 실측</span></div>
+          <div><strong>${fmtNum(active.chinaSignalCount)}</strong><span>중국 신호</span></div>
+        </div>
+        ${execDecisionCouncilRan ? `
+          <div class="agent-roster" aria-label="제품군 토론 참여 전문가">
+            ${agentItems.map((agent, index) => `
+              <div class="agent-avatar-card" style="--agent-color:${escapeHTML(agent.color)}; --delay:${index * councilStepDelay}ms">
+                <div class="agent-person">
+                  <b>${escapeHTML(agent.initials)}</b>
+                  <i aria-hidden="true"></i>
+                </div>
+                <span>${escapeHTML(agent.name)}</span>
+                <small>${escapeHTML(agent.title || agent.role)}</small>
+                <em>${escapeHTML(agent.stance || agent.role)}</em>
+              </div>
+            `).join("")}
+          </div>
+          <div class="agent-chat" aria-label="제품군 전문가 토론 말풍선">
+            ${agentItems.map((agent, index) => `
+              <article class="agent-turn${index % 2 ? " right" : ""}" style="--agent-color:${escapeHTML(agent.color)}; --delay:${index * councilStepDelay + 220}ms">
+                <div class="agent-badge">${escapeHTML(agent.initials)}</div>
+                <div class="speech-bubble">
+                  <div class="speech-meta">
+                    <strong>${escapeHTML(agent.name)}</strong>
+                    <span>${escapeHTML(agent.role)}</span>
+                  </div>
+                  <p>${escapeHTML(agent.message)}</p>
+                </div>
+              </article>
+            `).join("")}
+          </div>
+          <div class="agent-conclusion reveal" style="--local-accent:${escapeHTML(accent)}; --delay:${councilConclusionDelay}ms">
+            <span>결론</span>
+            <strong>${escapeHTML(conclusion.title)}</strong>
+            <p>${escapeHTML(conclusion.body)}</p>
+            <small>${escapeHTML(conclusion.next)}</small>
+          </div>
+          <div class="agent-kpi-row">
+            <strong>추적 KPI</strong>
+            ${["price spread", "china signal count", "customer mix", "BIS event", "actual outcome"].map((kpi) => `<span>${escapeHTML(kpi)}</span>`).join("")}
+          </div>
+        ` : `
+          <div class="agent-waiting">
+            <strong>안건을 선택한 뒤 에이전트 실행을 누르세요.</strong>
+            <p>실행 전에는 에이전트를 호출하지 않습니다. 실행 후 가격·백테스트·중국 신호·수익성·리스크 관점이 순차 말풍선으로 나타납니다.</p>
+          </div>
+        `}
+      </div>
+    `;
   }
 
   function renderExecutiveDecision() {
@@ -5458,7 +5563,10 @@
     const selectedYearOption = selectedBacktestYearOption();
     const selected = selectedBacktestIso();
     const items = executiveBacktestsForSelection();
-    if (!items.some((item) => item.id === execDecisionFocusId)) execDecisionFocusId = items[0]?.id || "hbm-ai-server";
+    if (!items.some((item) => item.id === execDecisionFocusId)) {
+      execDecisionFocusId = items[0]?.id || "hbm-ai-server";
+      execDecisionCouncilRan = false;
+    }
     const active = items.find((item) => item.id === execDecisionFocusId) || items[0];
     const historyCount = historyItems().length;
     const latestAtRaw = items.length ? Math.max(...items.map((item) => item.latestAt || 0), 0) : 0;
@@ -5525,7 +5633,7 @@
           <span>${escapeHTML(active.decision.action)}</span>
           <small>${escapeHTML(active.decision.logic)}</small>
         </div>
-        ${executiveDecisionDebateHTML(active, selectedYearOption, productLabel, selected, selectedSeriesCount)}
+        ${executiveDecisionDebateHTML(active, selectedYearOption, productLabel, selected, selectedSeriesCount, items)}
         <div class="metric-row">
           <div class="metric"><strong>${active.priorMomentum == null ? "NA" : `${fmtNum(active.priorMomentum, 2)}%`}</strong><span>직전 모멘텀</span></div>
           <div class="metric"><strong>${active.actualChange == null ? "NA" : `${fmtNum(active.actualChange, 2)}%`}</strong><span>이후 실제</span></div>
@@ -5553,6 +5661,15 @@
           <button type="button" data-decision-prices>가격표 보기</button>
         </div>
       `;
+      focus.querySelector("#execDecisionCouncilSelect")?.addEventListener("change", (event) => {
+        execDecisionFocusId = event.target.value;
+        execDecisionCouncilRan = false;
+        renderExecutiveDecision();
+      });
+      focus.querySelector("#execDecisionRunCouncil")?.addEventListener("click", () => {
+        execDecisionCouncilRan = true;
+        renderExecutiveDecision();
+      });
       focus.querySelector("[data-decision-copy]")?.addEventListener("click", (event) => copyPayload(payload, event.currentTarget));
       focus.querySelector("[data-decision-inspector]")?.addEventListener("click", () => openInspector(payload));
       focus.querySelector("[data-decision-prices]")?.addEventListener("click", () => jumpTo("prices"));
@@ -5599,11 +5716,7 @@
 
     grid.querySelectorAll("[data-decision-product]").forEach((btn) => {
       btn.addEventListener("click", () => {
-        execDecisionFocusId = btn.dataset.decisionProduct;
-        renderExecutiveDecision();
-      });
-      btn.addEventListener("mouseenter", () => {
-        if (execDecisionFocusId === btn.dataset.decisionProduct) return;
+        if (execDecisionFocusId !== btn.dataset.decisionProduct) execDecisionCouncilRan = false;
         execDecisionFocusId = btn.dataset.decisionProduct;
         renderExecutiveDecision();
       });
