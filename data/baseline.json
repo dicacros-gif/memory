@@ -144,12 +144,12 @@
       "label": "CXMT DDR5 수율",
       "value": "80",
       "suffix": "%+",
-      "note": "2025년 Citigroup 분석과 2026년 SemiAnalysis 모델 인용 기준 DDR5 수율 80% 돌파를 반영. 90%+는 아직 목표/추가 확인 영역",
+      "note": "2025년 Citigroup 분석과 2026년 SemiAnalysis 인용/모델 기준 DDR5 수율 80% 돌파 신호를 반영. 직접 원문 확인 전까지 수율 수치는 Watch로 유지",
       "alt": "CXMT 공식 노드는 DDR5-4800 17nm, TechInsights 역분석은 16nm 추정으로 분리 표기",
-      "badge": "모델 확인",
-      "status": "OK",
-      "statusClass": "ok",
-      "source": "SCMP / SemiAnalysis model cited",
+      "badge": "Watch",
+      "status": "Watch",
+      "statusClass": "watch",
+      "source": "SCMP / cited models",
       "sourceDate": "2026-05",
       "sourceUrl": "https://www.scmp.com/tech/tech-war/article/3296794/chinas-top-memory-chip-maker-cxmt-narrows-tech-gap-leaders-samsung-hynix-micron"
     },
@@ -593,7 +593,7 @@
       {
         "cat": "threat",
         "q": "CXMT DDR5 수율과 HBM3 일정은 어떻게 업데이트됐나?",
-        "a": "CXMT DDR5 수율은 2025년 Citigroup 분석과 2026년 SemiAnalysis 모델 인용 기준으로 80%+ 구간 돌파를 반영합니다. 다만 90%+는 아직 별도 확인이 필요한 목표/가정 레이어입니다.\n\n공정 노드는 분리해서 봅니다. CXMT 공식 제품 노드는 DDR5-4800 17nm이고, TechInsights의 16nm 표기는 역분석 추정값입니다. 따라서 공식 발표와 teardown 추정치를 한 줄에 섞지 않습니다.\n\nHBM3는 반대로 낙관론을 낮춥니다. H1 2026 의미 있는 양산 목표는 사실상 철회된 것으로 보고, H2 2026은 낙관 시나리오, 2027년 12-layer HBM3가 현실적인 의미 물량 목표입니다. SKHY 대응은 HBM보다 DDR5·LPDDR·서버 DRAM 가격 하방에 먼저 초점을 둡니다.",
+        "a": "CXMT DDR5 수율은 2025년 Citigroup 분석과 2026년 SemiAnalysis 인용/모델 기준으로 80%+ 구간 돌파 신호를 반영하되, 직접 원문 링크가 없는 수율 숫자는 Confirmed가 아니라 Watch로 둡니다. 90%+는 목표/가정 레이어입니다.\n\n공정 노드는 분리해서 봅니다. CXMT 공식 제품 노드는 DDR5-4800 17nm이고, TechInsights의 16nm 표기는 역분석 추정값입니다. 따라서 공식 발표와 teardown 추정치를 한 줄에 섞지 않습니다.\n\nHBM3는 낙관론을 낮춥니다. WCCFTech/ZDNet Korea 인용 업계 보도 기준 2026년 H1 목표는 2H 2026 이후로 지연됐고, 2026년 내 의미 있는 양산은 어렵다는 평가가 우세합니다. 2027년 12-layer HBM3는 전망/Watch로 분리하고, SKHY 대응은 HBM보다 DDR5·LPDDR·서버 DRAM 가격 하방에 먼저 초점을 둡니다.",
         "keywords": [
           "cxmt",
           "ddr5",
@@ -2104,13 +2104,13 @@
         "desc": "Intel NAND/SSD와 다롄 제조시설 인수, Solidigm 운영, 중국 내 장비 반입 리스크를 추적",
         "events": [
           {
-            "title": "Intel NAND/SSD 1단계 인수와 Solidigm 출범",
-            "date": "2021-12-30",
-            "source": "SKHY Newsroom",
-            "sourceUrl": "https://news.skhynix.com/sk-hynix-completes-the-first-phase-of-intel-nand-and-ssd-business-acquisition/",
+            "title": "Intel NAND/SSD 2차·최종 클로징 완료",
+            "date": "2025-03-27",
+            "source": "Intel 8-K",
+            "sourceUrl": "https://www.intc.com/filings-reports/all-sec-filings/content/0000050863-25-000060/0000050863-25-000060.pdf",
             "confidence": "공식",
             "statusClass": "ok",
-            "insight": "SKHY 중국 운영 리스크는 경쟁사 벤치마킹과 분리해 다롄 NAND/Solidigm 자산, IPO 보류·매각 검토 가능성, NAND 세대 전환 관점에서 추적해야 합니다.",
+            "insight": "SKHY는 2025년 3월 27일 Intel NAND 사업 2차·최종 클로징을 완료했고 약 19억 달러 최종 지급과 함께 NAND 기술·제조 사업을 취득했습니다. Dalian/Solidigm은 최종 클로징 이후 통합 운영 자산으로 추적해야 합니다.",
             "watch": [
               "다롄 제조시설",
               "Solidigm 시너지",
@@ -2367,7 +2367,7 @@
       "date": "2025-01-30",
       "title": "China's top memory chip maker CXMT narrows tech gap with leaders Samsung, Hynix, Micron",
       "titleKo": "CXMT DDR5 16nm 역분석과 수율 80%+ 업데이트 근거",
-      "summary": "CXMT DDR5 기술 격차 축소 신호. 대시보드에서는 공식 17nm 발표와 TechInsights 16nm teardown 추정을 분리하고, 수율 80%+는 모델 확인으로 표기.",
+      "summary": "CXMT DDR5 기술 격차 축소 신호. 대시보드에서는 공식 17nm 발표와 TechInsights 16nm teardown 추정을 분리하고, 수율 80%+는 직접 원문 확인 전까지 Watch로 표기.",
       "placement": "china-deep-dive · CXMT 수율 · DRAM 공정",
       "link": "https://www.scmp.com/tech/tech-war/article/3296794/chinas-top-memory-chip-maker-cxmt-narrows-tech-gap-leaders-samsung-hynix-micron"
     },
@@ -2511,7 +2511,7 @@
       "date": "2025-04-17",
       "title": "Mapping China's HBM Advances",
       "titleKo": "중국 HBM 추격: CXMT HBM3 지연과 3년+ 격차 평가",
-      "summary": "CXMT HBM3는 H1 2026 의미 물량 목표가 철회된 것으로 보고, H2 2026은 낙관 시나리오, 2027년 12-layer HBM3를 현실적 Watch로 표시.",
+      "summary": "CXMT HBM3는 WCCFTech/ZDNet Korea 인용 업계 보도 기준 2026년 H1 목표에서 2H 2026 이후로 지연. 2026년 내 의미 물량은 어렵다는 평가가 우세하며 2027년 12-layer는 전망/Watch로 표시.",
       "placement": "hbm · china dynamics · evidence watch",
       "link": "https://www.chinatalk.media/p/mapping-chinas-hbm-advancement"
     },
@@ -2771,13 +2771,13 @@
       "language": "english",
       "curated": true,
       "category": "operations",
-      "source": "SKHY Newsroom",
-      "date": "2021-12-30",
-      "title": "SKHY completes the First Phase of Intel NAND and SSD Business Acquisition",
-      "titleKo": "SKHY, Intel NAND/SSD 1단계 인수 완료",
-      "summary": "다롄 NAND 제조시설 자산과 Solidigm 브랜드를 중국 운영·자산 포트폴리오로 추적.",
+      "source": "Intel 8-K",
+      "date": "2025-03-27",
+      "title": "Intel and SKHY complete second and final closing of NAND business sale",
+      "titleKo": "SKHY, Intel NAND/SSD 2차·최종 클로징 완료",
+      "summary": "Intel 8-K 기준 약 19억 달러 최종 지급과 함께 NAND 기술·제조 사업을 취득했고, 1차 클로징 당시의 NAND wafer 제조·판매 계약은 종료.",
       "placement": "SKHY China operations · 중국 자산/운영",
-      "link": "https://news.skhynix.com/sk-hynix-completes-the-first-phase-of-intel-nand-and-ssd-business-acquisition/"
+      "link": "https://www.intc.com/filings-reports/all-sec-filings/content/0000050863-25-000060/0000050863-25-000060.pdf"
     },
     {
       "language": "english",

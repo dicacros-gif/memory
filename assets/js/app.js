@@ -221,8 +221,8 @@
         { name: "China subsidiaries", role: "해외법인 리스크", note: "본사 기준 IP/인력/규제 통제" },
       ],
       rules: [
-        { axis: "세제", status: "O", title: "K-Chips 투자세액공제 확대", evidence: "대기업·중견기업 세액공제율 15%에서 20%, 중소기업 25%에서 30%로 확대가 공표됐습니다.", implication: "한국 내 HBM/선단 공정/환경설비 투자를 우선 검토합니다.", source: "MOEF", sourceUrl: "https://english.moef.go.kr/pc/selectTbPressCenterDtl.do?boardCd=N0001&seq=6117" },
-        { axis: "금융", status: "O", title: "26조원 생태계 지원 패키지", evidence: "18.1조원 금융지원, 17조원 저리대출, 8천억원 펀드, 2025~2027년 5조원 R&D·사업화·인력 투자가 제시됐습니다.", implication: "소부장·패키징·CXL·테스트 밸류체인과 공동 투자 후보를 연결합니다.", source: "MOEF", sourceUrl: "https://english.moef.go.kr/pc/selectTbPressCenterDtl.do?boardCd=N0001&seq=5899" },
+        { axis: "세제", status: "O", title: "K-Chips 투자세액공제 확대", evidence: "MOEF 공식 영문자료 기준 대기업·중견기업은 15%에서 20%, 중소기업은 25%에서 30%로 5%p 확대됐습니다.", implication: "한국 내 HBM/선단 공정/환경설비 투자를 우선 검토하되, 실제 적용은 기업 규모와 투자 유형별 세법 검토를 별도로 둡니다.", source: "MOEF", sourceUrl: "https://english.moef.go.kr/pc/selectTbPressCenterDtl.do?boardCd=N0001&seq=6117" },
+        { axis: "금융", status: "O", title: "26조원 생태계 지원 패키지", evidence: "26조원 패키지 중 18.1조원(+α)은 금융지원 프로그램이며, 그 안에 17조원 저리대출과 최대 8천억원 생태계 펀드가 포함됩니다. 2025~2027년 약 5조원 R&D·사업화·인력 투자는 별도 축입니다.", implication: "17조원 대출과 8천억원 펀드를 18.1조원에 중복 가산하지 않고, 금융·R&D·인프라 축을 분리해 투자 후보를 연결합니다.", source: "MOEF", sourceUrl: "https://english.moef.go.kr/pc/selectTbPressCenterDtl.do?boardCd=N0001&seq=5899" },
         { axis: "인프라", status: "O", title: "용수·전력·도로 패키지", evidence: "용인 클러스터 용수 이중관로와 3GW 전력 공급 등 인프라 지원 방향이 공표됐습니다.", implication: "국내 첨단 캐파 병목을 중국 리스크 완충장치로 봅니다.", source: "MOEF", sourceUrl: "https://english.moef.go.kr/pc/selectTbPressCenterDtl.do?boardCd=N0001&seq=5899" },
         { axis: "환경법", status: "Watch", title: "화학물질 규제 합리화", evidence: "환경부는 첨단산업 규제 개선과 2030년까지 8.8조원 이상 경제효과를 언급했습니다.", implication: "화학물질·폐수·온실가스 투자는 인허가 속도와 사회적 수용성을 동시에 관리합니다.", source: "Korea Ministry of Environment", sourceUrl: "https://www.me.go.kr/eng/web/board/read.do%3Bjsessionid%3DbQgYIwaC9B0IXC1md7cW0H3MX3-7KITTl5QdwSO8.mehome1?boardCategoryId=&boardId=1620870&boardMasterId=522&decorator=&maxIndexPages=10&maxPageItems=10&menuId=&orgCd=&pagerOffset=480&searchKey=&searchValue=" },
       ],
@@ -256,7 +256,7 @@
         { name: "Outbound investment", role: "중국 관련 투자 제한/신고", note: "미국인·미국 controlled foreign entity 거래 검토 필요" },
       ],
       rules: [
-        { axis: "CHIPS Act", status: "O", title: "미국 내 제조·R&D 인센티브", evidence: "CHIPS for America는 500억 달러 규모이며 R&D 110억 달러, 시설·장비 인센티브 390억 달러를 집행합니다.", implication: "미국 고객·패키징·R&D 협력은 중국 사업과 분리된 투자 트랙으로 관리합니다.", source: "CHIPS.gov / NIST", sourceUrl: "https://www.chips.gov/" },
+        { axis: "CHIPS Act", status: "O", title: "미국 내 제조·R&D 인센티브", evidence: "CHIPS and Science Act/Commerce 반도체 지원 총액은 공식 자료에서 약 527억 달러로 설명되며, NIST CHIPS for America 개요의 DOC 집행 suite는 500억 달러입니다. 이 중 R&D 110억 달러, 시설·장비 인센티브 390억 달러로 나뉩니다.", implication: "미국 고객·패키징·R&D 협력은 중국 사업과 분리된 투자 트랙으로 관리하고, 법안 총액과 DOC 집행 프로그램을 같은 숫자로 혼용하지 않습니다.", source: "NIST CHIPS for America", sourceUrl: "https://www.nist.gov/chips" },
         { axis: "BIS/VEU", status: "X", title: "중국 fab 캐파 확대·기술 업그레이드", evidence: "BIS는 VEU 특례 종료 후 기존 fab 운영 라이선스는 의도하되, 중국 내 캐파 확대나 기술 업그레이드 라이선스는 의도하지 않는다고 밝혔습니다.", implication: "Wuxi/Dalian/Chongqing 장비·소프트웨어 반입은 운영 유지와 업그레이드를 분리해 증빙해야 합니다.", source: "BIS", sourceUrl: "https://www.bis.gov/press-release/department-commerce-closes-export-controls-loophole-foreign-owned-semiconductor-fabs-china" },
         { axis: "Outbound investment", status: "Watch", title: "중국 첨단기술 투자 신고/금지", evidence: "미 재무부 규칙은 반도체·마이크로일렉트로닉스, 양자, AI를 대상으로 하고 PRC/HK/Macau를 country of concern으로 지정합니다.", implication: "미국인·미국 계열사가 연결된 중국 JV/지분투자/기술협력은 사전 심사가 필요합니다.", source: "U.S. Treasury", sourceUrl: "https://home.treasury.gov/policy-issues/international/outbound-investment-program" },
         { axis: "환경/인허가", status: "Watch", title: "NEPA와 대형 투자 인허가", evidence: "CHIPS 프로그램은 NEPA 항목을 별도 운영하고, 대형 투자 환경검토는 일정 리스크가 될 수 있습니다.", implication: "미국 내 신규 시설·패키징·R&D 투자는 환경 검토 일정을 의사결정 모델에 넣습니다.", source: "CHIPS.gov / NIST", sourceUrl: "https://www.chips.gov/" },
@@ -386,7 +386,7 @@
       ],
       channels: ["로컬 경력 채용", "고객 품질/FAE 추천 채용", "대학 펌웨어·스토리지 랩", "중국 서버 고객 공동 품질 워룸"],
       gates: [
-        { axis: "사업 필요성", status: "O", title: "Dalian/Solidigm 스토리지 운영과 연결", evidence: "SKHY는 Intel NAND/SSD 사업 1단계 인수를 완료했고 Solidigm을 통해 SSD 사업을 운영합니다.", implication: "eSSD 고객 품질·검증 인력은 중국 사업 방어에 직접 필요합니다.", source: "SKHY Newsroom", sourceUrl: "https://news.skhynix.com/sk-hynix-completes-the-first-phase-of-intel-nand-and-ssd-business-acquisition/" },
+        { axis: "사업 필요성", status: "O", title: "Dalian/Solidigm 스토리지 운영과 연결", evidence: "Intel 8-K 기준 SKHY는 2025년 3월 27일 Intel NAND 사업 2차·최종 클로징을 완료했고, 약 19억 달러 최종 지급과 함께 NAND 기술·제조 사업을 취득했습니다. 2021년 초기 클로징 당시의 NAND wafer 제조·판매 계약도 종료됐습니다.", implication: "eSSD 고객 품질·검증 인력은 중국 사업 방어에 직접 필요하며, Dalian/Solidigm은 최종 클로징 이후 통합 운영 자산으로 봅니다.", source: "Intel 8-K", sourceUrl: "https://www.intc.com/filings-reports/all-sec-filings/content/0000050863-25-000060/0000050863-25-000060.pdf" },
         { axis: "IP 통제", status: "Watch", title: "펌웨어·컨트롤러 IP 접근 분리", evidence: "NAND 사업 강화는 고객 대응 인력과 핵심 IP 접근 인력을 분리해야 합니다.", implication: "현지 인력은 검증·품질·고객 대응 중심, 핵심 펌웨어 소스는 본사 통제 중심으로 둡니다.", source: "Internal control logic", sourceUrl: "https://www.skhynix.com/company/UI-FR-CP06/" },
         { axis: "금지선", status: "X", title: "경쟁사 고객 비공개 인증자료 활용 금지", evidence: "YMTC 등 경쟁사 동향은 공개 기사·로컬 채용·특허·가격 신호로만 수집해야 합니다.", implication: "고객 NDA 자료나 경쟁사 비공개 테스트 데이터를 채용 조건으로 요구하지 않습니다.", source: "Compliance rule", sourceUrl: "https://www.skhynix.com/company/UI-FR-CP06/" },
       ],
@@ -1500,14 +1500,14 @@
     {
       id: "dram-euv-duv",
       tag: "DRAM 공정",
-      title: "CXMT DDR5 수율 80%+와 HBM3 지연",
-      thesis: "CXMT는 DDR5 수율 80%+ 구간을 넘기며 범용 DRAM 위협을 현실화했지만, HBM3는 소재·패키징·수율 병목으로 2026년 H1 목표가 철회되고 2027년 의미 있는 물량을 보는 구도입니다",
-      facts: ["DDR5 수율 80%+는 2025 Citigroup·2026 SemiAnalysis 모델 기준 Confirmed", "CXMT 공식 노드: DDR5-4800 17nm, TechInsights 16nm는 역분석 추정", "HBM3 H1 2026 목표 철회, 2027년 12-layer HBM3가 현실적 목표"],
+      title: "CXMT DDR5 수율 Watch와 HBM3 지연",
+      thesis: "CXMT의 DDR5 수율 80%+와 점유율 상승은 범용 DRAM 위협으로 보되, 수율 수치는 외부 분석·인용 기반 Watch로 둡니다. HBM3는 소재·패키징·수율 병목으로 2026년 H1 목표가 지연됐고, 의미 있는 양산은 2026년 내 어렵다는 업계 보도가 우세합니다",
+      facts: ["DDR5 수율 80%+는 Citigroup·SemiAnalysis 인용/모델 기반 Watch이며, 사이트 팩트 레이어에서는 Confirmed로 승격하지 않음", "CXMT 공식 노드: DDR5-4800 17nm, TechInsights 16nm는 역분석 추정", "HBM3는 2026년 1H 목표에서 2H 2026 이후로 지연됐고, 2027년 12-layer 물량화는 전망/Watch로 분리"],
       risk: "DUV 반복 노광은 공정 스텝·마스크 비용·변동성을 키웁니다. 단기 HBM 위협보다 DDR5·LPDDR·레거시 DRAM 가격 하방 압력이 더 빠르게 나타날 가능성이 큽니다",
       implication: "HBM 격차는 3년+로 좁혀진 상태로 보고, CXMT의 즉시 위협은 IPO 자금·Tencent 장기계약·DDR5 점유율 상승이 만드는 범용 DRAM 가격 협상력 약화입니다",
       linkedCategories: ["dram", "packaging", "equipment"],
-      source: "SCMP / CXMT / Reuters",
-      sourceUrl: "https://www.scmp.com/tech/tech-war/article/3296794/chinas-top-memory-chip-maker-cxmt-narrows-tech-gap-leaders-samsung-hynix-micron",
+      source: "SCMP / WCCFTech / industry reports",
+      sourceUrl: "https://wccftech.com/china-ymtc-hits-hbm3-roadblock-domestic-makers-rush-hbm-manufacturing/",
     },
     {
       id: "ymtc-xtacking",
