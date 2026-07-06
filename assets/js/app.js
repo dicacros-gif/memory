@@ -1947,6 +1947,7 @@
   let memoryMarketMode = "competitive";
   let memoryMarketFocusId = "";
   let memoryMarketEdgeType = "all";
+  let memoryMarketNodePositions = {};
   let numberLens = "all";
   let chinaNandFocusId = "ymtc";
   let managementStrategyFocusId = "china-key-account";
@@ -1973,6 +1974,12 @@
   let draggedNumberId = null;
   const QA_PLACEHOLDER = "Memory 시장에 대해 물어보세요";
   const CATEGORY_RENDER_BUDGET_MS = 12;
+
+  try {
+    memoryMarketNodePositions = JSON.parse(localStorage.getItem("memory-market-node-positions") || "{}") || {};
+  } catch (error) {
+    memoryMarketNodePositions = {};
+  }
 
   async function loadJSON(path, fallback) {
     try {
@@ -3604,7 +3611,8 @@
         const related = edges.filter((edge) => edge.from === node.id || edge.to === node.id);
         const signal = related.reduce((sum, edge) => sum + edge.evidenceCount, 0);
         const score = related.length ? clamp(related.reduce((sum, edge) => sum + edge.score, 0) / related.length) : 0;
-        return { ...node, related, signal, score };
+        const position = memoryMarketNodePosition(node.id, node.x, node.y);
+        return { ...node, ...position, related, signal, score };
       });
   }
 
@@ -3616,6 +3624,104 @@
       공급: "#F59E0B",
       매출: "#F97316",
     }[type] || "var(--accent)";
+  }
+
+  function memoryMarketNodePosition(id, fallbackX = 50, fallbackY = 50) {
+    const saved = memoryMarketNodePositions[id] || {};
+    const x = Number(saved.x);
+    const y = Number(saved.y);
+    return {
+      x: clamp(Number.isFinite(x) ? x : fallbackX, 6, 94),
+      y: clamp(Number.isFinite(y) ? y : fallbackY, 7, 93),
+    };
+  }
+
+  function persistMemoryMarketNodePositions() {
+    try {
+      localStorage.setItem("memory-market-node-positions", JSON.stringify(memoryMarketNodePositions));
+    } catch (error) {
+      // Ignore storage failures; drag still works for the current render.
+    }
+  }
+
+  function updateMemoryNetworkPositions(graph = $("#memoryMarketGraph")) {
+    if (!graph) return;
+    const positions = new Map();
+    graph.querySelectorAll(".memory-node[data-memory-node]").forEach((node) => {
+      const id = node.dataset.memoryNode;
+      const x = clamp(Number(node.dataset.nodeX), 6, 94);
+      const y = clamp(Number(node.dataset.nodeY), 7, 93);
+      if (!id || !Number.isFinite(x) || !Number.isFinite(y)) return;
+      positions.set(id, { x, y });
+      node.style.setProperty("--node-x", `${x}%`);
+      node.style.setProperty("--node-y", `${y}%`);
+    });
+    graph.querySelectorAll(".memory-edge[data-from][data-to]").forEach((path) => {
+      const from = positions.get(path.dataset.from);
+      const to = positions.get(path.dataset.to);
+      if (!from || !to) return;
+      path.setAttribute("d", `M ${from.x} ${from.y} L ${to.x} ${to.y}`);
+    });
+  }
+
+  function bindMemoryMarketNodeDrag(graph = $("#memoryMarketGraph")) {
+    const network = graph?.querySelector(".memory-network");
+    if (!graph || !network) return;
+    let dragState = null;
+    const finishDrag = (event) => {
+      if (!dragState) return;
+      const { node, id, pointerId, moved } = dragState;
+      try {
+        if (node.hasPointerCapture?.(pointerId)) node.releasePointerCapture(pointerId);
+      } catch (error) {
+        // Ignore capture release failures from canceled pointer streams.
+      }
+      node.classList.remove("dragging");
+      network.classList.remove("drag-active");
+      if (moved) {
+        node.dataset.dragMoved = "1";
+        persistMemoryMarketNodePositions();
+        window.setTimeout(() => {
+          if (node.dataset.memoryNode === id) delete node.dataset.dragMoved;
+        }, 120);
+      }
+      dragState = null;
+    };
+
+    graph.querySelectorAll(".memory-node[data-memory-node]").forEach((node) => {
+      node.addEventListener("pointerdown", (event) => {
+        if (event.button != null && event.button !== 0) return;
+        const id = node.dataset.memoryNode;
+        if (!id) return;
+        dragState = {
+          id,
+          node,
+          pointerId: event.pointerId,
+          startX: event.clientX,
+          startY: event.clientY,
+          moved: false,
+        };
+        node.setPointerCapture?.(event.pointerId);
+        node.classList.add("dragging");
+        network.classList.add("drag-active");
+      });
+      node.addEventListener("pointermove", (event) => {
+        if (!dragState || dragState.node !== node) return;
+        const rect = network.getBoundingClientRect();
+        if (!rect.width || !rect.height) return;
+        const x = clamp(((event.clientX - rect.left) / rect.width) * 100, 6, 94);
+        const y = clamp(((event.clientY - rect.top) / rect.height) * 100, 7, 93);
+        const movedDistance = Math.abs(event.clientX - dragState.startX) + Math.abs(event.clientY - dragState.startY);
+        dragState.moved = dragState.moved || movedDistance > 3;
+        node.dataset.nodeX = x.toFixed(2);
+        node.dataset.nodeY = y.toFixed(2);
+        memoryMarketNodePositions[dragState.id] = { x: Number(x.toFixed(2)), y: Number(y.toFixed(2)) };
+        updateMemoryNetworkPositions(graph);
+        event.preventDefault();
+      });
+      node.addEventListener("pointerup", finishDrag);
+      node.addEventListener("pointercancel", finishDrag);
+    });
   }
 
   function memoryMarketSelected(edges = [], nodes = []) {
@@ -3797,7 +3903,10 @@
           <span>${escapeHTML(config.title)}</span>
           <strong>${escapeHTML(config.subtitle)}</strong>
         </div>
-        <em>노드/관계선을 선택하면 오른쪽 근거 패널이 바뀝니다.</em>
+        <div class="memory-map-intro-actions">
+          <em>노드를 드래그하여 이동 · 클릭하면 상세 관계 보기</em>
+          <button type="button" data-memory-reset>배치 초기화</button>
+        </div>
       </div>
       <div class="memory-network">
         <svg class="memory-network-svg" viewBox="0 0 100 100" preserveAspectRatio="none" aria-hidden="true">
@@ -3806,19 +3915,24 @@
             const to = nodeMap.get(edge.to);
             if (!from || !to) return "";
             const active = selected?.kind === "edge" && selected.edge.id === edge.id;
-            return `<path class="memory-edge ${active ? "active" : ""}" data-memory-edge="${escapeHTML(edge.id)}" d="M ${from.x} ${from.y} L ${to.x} ${to.y}" style="--edge-color:${memoryMarketEdgeColor(edge.type)}; --delay:${index * 80}ms; --edge-width:${Math.max(1.2, Math.min(4.8, edge.score / 24))}" />`;
+            return `<path class="memory-edge ${active ? "active" : ""}" data-memory-edge="${escapeHTML(edge.id)}" data-from="${escapeHTML(edge.from)}" data-to="${escapeHTML(edge.to)}" d="M ${from.x} ${from.y} L ${to.x} ${to.y}" style="--edge-color:${memoryMarketEdgeColor(edge.type)}; --delay:${index * 80}ms; --edge-width:${Math.max(1.2, Math.min(4.8, edge.score / 24))}" />`;
           }).join("")}
         </svg>
+        <div class="memory-network-legend" aria-label="관계 범례">
+          ${config.types.map((type) => `<span style="--edge-color:${memoryMarketEdgeColor(type)}"><i></i>${escapeHTML(type)}</span>`).join("")}
+        </div>
         ${nodes.map((node, index) => {
           const active = selected?.kind === "node" && selected.node.id === node.id;
+          const nodeSize = Math.round(clamp(74 + (node.score || 0) * .54, 82, 134));
           return `
-            <button class="memory-node ${active ? "active" : ""}" type="button" data-memory-node="${escapeHTML(node.id)}" style="--node-x:${node.x}%; --node-y:${node.y}%; --local-accent:${categoryAccent(node.category)}; --delay:${index * 45}ms">
+            <button class="memory-node ${active ? "active" : ""}" type="button" draggable="false" data-memory-node="${escapeHTML(node.id)}" data-node-x="${Number(node.x).toFixed(2)}" data-node-y="${Number(node.y).toFixed(2)}" aria-label="${escapeHTML(node.name)} 관계 노드. 드래그하여 이동" title="드래그하여 이동 · 클릭하여 상세 보기" style="--node-x:${node.x}%; --node-y:${node.y}%; --node-size:${nodeSize}px; --local-accent:${categoryAccent(node.category)}; --delay:${index * 45}ms">
               <b>${escapeHTML(node.name)}</b>
               <span>${escapeHTML(node.role)}</span>
               <em>${fmtNum(node.signal)}</em>
             </button>
           `;
         }).join("")}
+        <div class="memory-drag-hint">노드 드래그 · 관계선 클릭 · 원 크기 = 연결 신뢰도</div>
       </div>
       <div class="memory-relation-strip">
         ${edges.slice(0, 8).map((edge, index) => `
@@ -3831,8 +3945,10 @@
       </div>
     `;
 
+    bindMemoryMarketNodeDrag(graph);
     graph.querySelectorAll("[data-memory-node]").forEach((btn) => {
       btn.addEventListener("click", () => {
+        if (btn.dataset.dragMoved === "1") return;
         memoryMarketFocusId = `node:${btn.dataset.memoryNode}`;
         renderMemoryMarketMap();
       });
@@ -3857,6 +3973,12 @@
         memoryMarketFocusId = "";
         renderMemoryMarketMap();
       });
+    });
+    graph.querySelector("[data-memory-reset]")?.addEventListener("click", () => {
+      memoryMarketNodePositions = {};
+      persistMemoryMarketNodePositions();
+      memoryMarketFocusId = "";
+      renderMemoryMarketMap();
     });
 
     renderMemoryMarketDetail(selected, edges);
