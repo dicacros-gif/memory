@@ -1688,7 +1688,7 @@
     {
       id: "home",
       label: "홈",
-      desc: "Executive Summary",
+      desc: "일일 인텔리전스",
       cadence: "Daily crawler",
       jump: "overview",
       sections: ["overview", "c-level-cockpit"],
@@ -1750,7 +1750,7 @@
   const ROUTE_DISPLAY = {
     home: {
       label: "홈",
-      desc: "Executive Summary",
+      desc: "일일 인텔리전스",
       cadence: "Daily",
     },
     workbench: {
@@ -2711,15 +2711,6 @@
     const hero = $("#todayHero");
     const actions = $("#todayActions");
     if (!hero || !actions) return;
-
-    const headline = "Executive Summary";
-    const lead = "매일 수집된 가격, 기사, 정책, 중국 경쟁 신호를 경영진 요약으로 압축";
-
-    const copy = hero.querySelector(".today-hero-copy");
-    if (copy) {
-      copy.querySelector("h2").textContent = headline;
-      copy.querySelector("p:not(.eyebrow)").textContent = lead;
-    }
 
     actions.innerHTML = "";
     animateCounts(hero);
@@ -4018,7 +4009,7 @@
         unit: "signal",
         status: "Today",
         score: clamp((freshnessScore(priceState, allPriceRows().length) + freshnessScore(newsState, newsCount)) / 2),
-        note: "Executive Summary",
+        note: "일일 인텔리전스",
       },
       "c-level-cockpit": {
         value: cLevelEvidencePool().length,
