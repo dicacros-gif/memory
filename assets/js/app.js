@@ -3282,6 +3282,68 @@
     });
   }
 
+  function compactAuditText(value = "", max = 58) {
+    const text = String(value || "").replace(/\s+/g, " ").trim();
+    return text.length > max ? `${text.slice(0, max - 1)}…` : text;
+  }
+
+  function cLevelEvidenceRelevance(item = {}, selected = {}) {
+    const text = `${newsTitle(item) || ""} ${item.title || ""} ${item.titleKo || ""} ${item.summary || ""} ${item.source || ""} ${item.category || ""} ${item.theme || ""}`.toLowerCase();
+    const terms = selected.terms || [];
+    let score = 0;
+    terms.forEach((term) => {
+      const needle = String(term || "").toLowerCase();
+      if (!needle) return;
+      if (text.includes(needle)) score += needle.length > 4 ? 5 : 3;
+    });
+    if (selected.category && text.includes(String(selected.category).toLowerCase())) score += 4;
+    if (selected.id === "china-dram" && /(cxmt|changxin|tencent|dram|ddr5|lpddr|wpm)/i.test(text)) score += 12;
+    if (selected.id === "nand-essd" && /(ymtc|yangtze|nand|essd|xtacking|solidigm|wuhan)/i.test(text)) score += 12;
+    if (selected.id === "hbm-moat" && /(hbm|nvidia|rubin|tsmc|cowos|server)/i.test(text)) score += 12;
+    if (selected.id === "policy-fab" && /(bis|veu|chips|match|wuxi|dalian|license|fab)/i.test(text)) score += 12;
+    return score;
+  }
+
+  function cLevelAuditMessage(selected = {}, profile = {}, relations = []) {
+    const evidence = selected.evidence || {};
+    const articles = []
+      .concat(evidence.news || [])
+      .concat(evidence.benchmark || [])
+      .filter((item) => String(item.link || item.sourceUrl || "").trim());
+    const canonical = new Map();
+    articles.forEach((item) => {
+      const key = canonicalNewsKey(item) || String(item.link || item.sourceUrl || newsTitle(item) || item.title || "").toLowerCase();
+      if (key && !canonical.has(key)) canonical.set(key, item);
+    });
+    const duplicateCount = Math.max(0, articles.length - canonical.size);
+    const kpis = (evidence.kpis || []).filter((item) => String(item.sourceUrl || "").trim());
+    const prices = evidence.prices || [];
+    const topArticle = Array.from(canonical.values())
+      .sort((a, b) => cLevelEvidenceRelevance(b, selected) - cLevelEvidenceRelevance(a, selected))[0];
+    const topKpi = kpis[0];
+    const topPrice = prices[0];
+    const sourceLabel = topArticle
+      ? `대표 원문은 "${compactAuditText(newsTitle(topArticle) || topArticle.title || topArticle.source || "기사")}"입니다.`
+      : topKpi
+        ? `대표 KPI는 "${compactAuditText(topKpi.label || topKpi.title || topKpi.source || "KPI")}"입니다.`
+        : topPrice
+          ? "기사 원문보다 가격 row가 먼저 연결된 안건입니다."
+          : "대표 원문이 아직 없어 사실 카드 승격은 보류합니다.";
+    const priceLabel = topPrice
+      ? `${compactAuditText(`${topPrice.group || topPrice.sectionTitle || "가격"} ${topPrice.item || ""}`)}${Number.isFinite(Number(topPrice.changePct)) ? ` ${Number(topPrice.changePct) > 0 ? "+" : ""}${fmtNum(topPrice.changePct, 2)}%` : ""}`
+      : "";
+    const relationLabel = relations.length
+      ? `관계 맵은 ${fmtNum(relations.length)}개 관계선 중 근거가 연결된 축만 표시합니다.`
+      : "관계 맵은 아직 이 안건에서 승격할 만한 근거가 없습니다.";
+    const gaps = [];
+    if (!canonical.size && !kpis.length) gaps.push("원문/KPI");
+    if (!prices.length) gaps.push("가격 row");
+    const gate = gaps.length
+      ? `보강 필요: ${gaps.join("·")}가 부족하므로 결론 문구는 ${selected.verdict === "Go" ? "Go에서 Watch로 낮춰 검토" : "Watch/Hold로 제한"}합니다.`
+      : `근거 충족: 원문/KPI와 가격 row가 함께 있어 ${selected.verdict || "Watch"} 판단을 표시할 수 있습니다.`;
+    return `${selected.label || "선택 안건"} 감사 결과: 기사·벤치마킹 ${fmtNum(articles.length)}건을 canonical ${fmtNum(canonical.size)}건으로 압축${duplicateCount ? `, 중복 ${fmtNum(duplicateCount)}건 제외` : ""}; KPI ${fmtNum(kpis.length)}건; 가격 row ${fmtNum(prices.length)}개. ${sourceLabel}${priceLabel ? ` 가격 기준은 ${priceLabel}입니다.` : ""} ${relationLabel} ${profile.audit || "수치와 해석을 분리해 표시합니다."} ${gate}`;
+  }
+
   function cLevelAgentItems(decision = {}, decisions = []) {
     const selected = decision || decisions[0];
     const contrast = decisions.find((item) => item.id !== selected?.id) || selected;
@@ -3335,7 +3397,7 @@
         name: "Data Auditor",
         role: "팩트 검증",
         color: "#EF4444",
-        message: "sourceUrl, 뉴스 link, 가격 row 중 하나도 없으면 관계 그래프와 사실 카드에 올리지 않습니다. 관계선은 실제 크롤링 근거 수로만 두께와 점수를 조정합니다.",
+        message: cLevelAuditMessage(selected, cLevelDecisionProfile(selected), relatedRelations),
       },
     ];
   }
@@ -3366,7 +3428,7 @@
         cto: "HBM4 ramp, 베이스 다이, CoWoS·패키징 할당, 수율 안정화가 같은 방향인지 분리 점검합니다.",
         policy: "미국 고객·첨단 패키징·중국 노출을 분리해 수출통제나 end-use 리스크가 붙는 구간은 별도 승인 게이트로 둡니다.",
         market: "HBM 직접 가격표가 없으면 DDR5/GDDR/모듈 가격과 고객 인증 뉴스를 proxy로 쓰되, proxy임을 명시합니다.",
-        audit: "HBM 점유율·고객 인증·양산 일정은 공식/외신/분석 원문 링크가 있는 항목만 사실 카드에 올립니다.",
+        audit: "HBM 점유율은 Counterpoint/WSTS 등 분석 원문, HBM4 양산·고객 인증은 회사 발표와 외신 보도를 분리해 표시합니다.",
         next: "고객별 HBM4 ramp, 패키징 병목, 서버 DRAM 가격 약세를 2주 단위로 재검토",
       },
       "china-dram": {
@@ -3376,7 +3438,7 @@
         cto: "CXMT의 DDR5 수율, 공정 노드, HBM 지연은 분리해서 봅니다. 실제 위협은 단기 HBM보다 범용 DRAM 가격입니다.",
         policy: "중국 내수 고객 계약과 BIS/DUV 제한은 별도 트랙입니다. 규제가 있어도 내수 캐파 확대는 가격 압력으로 남깁니다.",
         market: "Spot이 먼저 꺾이고 Contract가 뒤따르면 가격 재협상·재고 축소·고객 방어를 동시에 검토합니다.",
-        audit: "CXMT 매출·캐파·점유율 수치는 기준일과 출처가 다르면 하나의 확정치처럼 합치지 않습니다.",
+        audit: "CXMT 점유율·캐파·매출은 기준일별로 분리하고, DDR5 가격 압력과 HBM3 지연 신호를 같은 결론으로 섞지 않습니다.",
         next: "DDR5 spot/contract spread와 중국 빅테크 계약 보도를 주간 경보로 연결",
       },
       "legacy-commodity": {
@@ -3386,7 +3448,7 @@
         cto: "DDR4·DDR5·LPDDR·wafer NAND를 한 묶음으로 판단하지 않고 제품군별 원가·수율·전환 가능성을 따로 봅니다.",
         policy: "중국 캐파 확대와 수출통제 반작용은 레거시 가격 방어의 외부 변수로만 올리고, 증설 승인과 섞지 않습니다.",
         market: "CXMT·YMTC·Kioxia·SanDisk 신호와 spot/contract 가격을 같이 봐야 가격 방어 시점을 놓치지 않습니다.",
-        audit: "중복 뉴스와 RSS 재가공 기사 대신 canonical link가 있는 기사와 가격 row만 근거로 씁니다.",
+        audit: "범용 가격 방어는 DRAM/NAND 가격 row와 중국 캐파·고객 계약 뉴스가 같은 제품군을 가리킬 때만 강한 신호로 봅니다.",
         next: "가격 하방, 고객 이탈, 중국 캐파 신호 중 2개 이상 동시 발생 시 방어 실행 검토",
       },
       "nand-essd": {
@@ -3396,7 +3458,7 @@
         cto: "YMTC Xtacking, QLC/eSSD, XMC 패키징 연결은 기술 축을 나눠 보되 수율 미확인 수치는 Watch로 둡니다.",
         policy: "우한 클러스터와 국산 장비 qual은 제재 내성의 신호입니다. 다만 SKHY 중국 운영 승인 조건과는 분리합니다.",
         market: "NAND spot/contract가 벌어지고 eSSD 고객 뉴스가 나오면 가격 방어와 장기계약 재협상을 같이 검토합니다.",
-        audit: "YMTC 층수·밀도·캐파 수치는 공식값과 분석 추정값을 섞지 않고 별도 표기합니다.",
+        audit: "YMTC 층수·밀도·캐파는 공식 발표, TechInsights 추정, 시장 보도 값을 분리하고 eSSD 고객 신호와 별도 검증합니다.",
         next: "eSSD 인증, NAND contract, Solidigm/Dalian 운영 근거를 한 보드에서 재점검",
       },
       "competitive-dynamics": {
@@ -3406,7 +3468,7 @@
         cto: "HBM, DRAM, NAND, 패키징 관계를 한 원형 맵에 올리되 기술 병목은 제품군별로 분리합니다.",
         policy: "중국·미국·한국 정책 이벤트가 관계선의 방향을 바꾸는 경우에만 규제 overlay를 붙입니다.",
         market: "관계선은 가격, 고객 계약, 캐파, 공급 뉴스 중 하나 이상이 확인될 때만 두껍게 표시합니다.",
-        audit: "중복 기사에서 나온 관계는 1개 canonical 관계로만 계산합니다.",
+        audit: "관계선은 가격·고객·캐파·정책 중 어느 축을 움직이는지 확인된 경우만 경쟁 맵에 남깁니다.",
         next: "경쟁, 파트너십, 투자, 공급 관계를 각각 가격·고객·정책 보드와 연결",
       },
       "money-flow": {
@@ -3416,7 +3478,7 @@
         cto: "돈이 몰리는 기술이 실제 메모리 병목을 푸는지 CXL, 포토닉스, HBM, NAND별로 검증합니다.",
         policy: "미국 outbound investment와 중국 반도체 투자 제한이 걸리는 후보는 실사 전에 법무 게이트를 통과해야 합니다.",
         market: "매출 신호는 고객 계약, 양산 파트너, 하이퍼스케일러 PoC가 확인될 때 강하게 반영합니다.",
-        audit: "조달액·밸류에이션·계약 규모는 발표일과 출처가 있는 항목만 수치로 표시합니다.",
+        audit: "투자 라운드, 계약 규모, 매출 수치는 발표일·통화·거래 단계가 확인된 항목만 돈의 흐름에 반영합니다.",
         next: "투자 흐름과 매출 흐름을 분리해 CVC 후보와 고객 방어 후보로 나누기",
       },
       "customer-supply-lock": {
@@ -3426,7 +3488,7 @@
         cto: "고객 인증은 제품 성능, 수율, 패키징 병목이 함께 풀릴 때만 공급 약속으로 연결합니다.",
         policy: "중국 클라우드 고객 계약은 내수 정책과 수출통제 조건을 분리해 봅니다.",
         market: "텐센트·알리바바·바이트댄스·NVIDIA 등 고객 신호는 가격 협상력 변화로 해석합니다.",
-        audit: "고객 계약 규모와 기간은 외신/공식 출처가 없으면 사실 수치로 쓰지 않습니다.",
+        audit: "고객 계약은 금액·기간·승인 벤더 여부가 함께 확인된 경우만 공급 배분 판단에 반영합니다.",
         next: "고객 인증, 계약 기간, 공급 가능 캐파를 한 게이트로 묶기",
       },
       "china-capex-warning": {
@@ -3436,7 +3498,7 @@
         cto: "Naura·AMEC·ACM 등 장비 내재화는 공정 성능보다 제재 내성 향상 신호로 먼저 봅니다.",
         policy: "Big Fund, 지방정부 펀드, BIS/MATCH 변화는 같은 캘린더에서 보되 법률 확정 전 항목은 Watch로 둡니다.",
         market: "중국 wafer start와 가격 spread가 같은 방향이면 범용 가격 하방 확률을 높입니다.",
-        audit: "정책자금 규모와 IPO 조달액은 발표일·통화·승인 단계가 확인된 원문만 사용합니다.",
+        audit: "정책자금과 IPO는 승인 완료, 심사 통과, 보도 추정 단계를 나눠 표시하고 wafer start 신호와 연결 여부를 확인합니다.",
         next: "IPO 자금 집행, 신규 fab ramp, 가격 spread를 공급과잉 경보 조건으로 묶기",
       },
       "hbm-foundry-alliance": {
@@ -3446,7 +3508,7 @@
         cto: "TSMC base die, 삼성 턴키, Micron ramp를 같은 표에서 비교하고 인증 일정 지연은 별도 리스크로 둡니다.",
         policy: "대만·미국·중국 공급망 노출을 분리해 계약 구조와 수출통제 조건을 같이 검토합니다.",
         market: "NVIDIA/ASIC 고객 인증 일정과 서버 DRAM 가격이 엇갈리면 고객별 할당을 보수적으로 조정합니다.",
-        audit: "HBM4 양산·출하·인증 표현은 회사 공식 발표와 외신 보도를 구분해 표시합니다.",
+        audit: "HBM4 양산·출하·인증은 고객명, 베이스 다이, 패키징 할당 근거가 확인된 항목만 강한 신호로 둡니다.",
         next: "고객 인증 일정, CoWoS 할당, base die 수율을 같은 스코어보드로 연결",
       },
       "startup-option-investment": {
@@ -3456,7 +3518,7 @@
         cto: "CXL 스위치, 광 I/O, PIM, 3D DRAM은 서로 다른 병목입니다. 같은 기술처럼 묶어 투자하지 않습니다.",
         policy: "미국 outbound investment, 중국 반도체 투자 제한, 고객 데이터 접근권을 투자 조건으로 확인합니다.",
         market: "매출보다 hyperscaler PoC, 표준 호환성, 고객 인증, 공급 파트너가 선행지표입니다.",
-        audit: "스타트업 밸류에이션·조달액은 보도일과 라운드가 확인된 외신/공식 릴리스만 반영합니다.",
+        audit: "스타트업은 라운드·밸류에이션보다 제품 양산 파트너, 고객 PoC, 표준 호환 근거가 있는지 우선 확인합니다.",
         next: "PoC 후보와 단순 Watch 후보를 분리하고 후속투자권 조건을 검토",
       },
       "policy-fab": {
@@ -3466,7 +3528,7 @@
         cto: "Wuxi/Dalian 공정 전환은 수율·장비 반입·고객 인증 가능성을 동시에 확인해야 합니다.",
         policy: "BIS VEU, CHIPS, MATCH, EAR 조건이 확인되지 않은 업그레이드는 No-Go 또는 Watch입니다.",
         market: "중국 내 운영 리스크가 가격 프리미엄을 상쇄하면 고객 배분을 재검토합니다.",
-        audit: "정부·규제 원문과 회사 공식 자료가 없는 Fab 확대 주장은 사실 카드에 올리지 않습니다.",
+        audit: "Fab 안건은 BIS/VEU, 환경 인허가, 토지·용수·전력 숫자가 동시에 확인될 때만 확대 판단에 반영합니다.",
         next: "운영 유지와 기술 업그레이드의 승인 문서·환경 인허가·수출통제 조건을 분리",
       },
       "packaging-equipment": {
@@ -3476,7 +3538,7 @@
         cto: "TSV, 하이브리드 본딩, fan-out, 식각·증착·세정 장비 qual을 각각 분리해 봅니다.",
         policy: "Entity List와 수출통제 변화는 국산 장비 qual 속도와 반대로 움직일 수 있습니다.",
         market: "중국 OSAT·장비 뉴스가 고객 인증이나 wafer start와 연결될 때만 시장 영향도를 높입니다.",
-        audit: "장비 성능·매출·국산화율은 업체 공식/분석 출처별로 분리하고 추정치는 Inferred로 둡니다.",
+        audit: "장비·패키징 신호는 매출, 장비 qual, 고객 인증, Entity List 리스크를 분리해 제품군별 리스크로 표시합니다.",
         next: "패키징 우회와 장비 내재화를 HBM·NAND·DRAM별 리스크로 재분류",
       },
       "talent-ip": {
@@ -3486,7 +3548,7 @@
         cto: "공정 recipe, 장비 qual, TSV/HBM stacking 경험 이동을 설계도 유출보다 높은 위험으로 봅니다.",
         policy: "non-compete, IP 소송, 출입권한, 중국 채용 플랫폼 신호를 법무·보안 게이트로 연결합니다.",
         market: "경쟁사 채용이 늘어도 제품 가격과 고객 인증으로 전이되지 않으면 Watch 단계에 둡니다.",
-        audit: "채용 공고 키워드는 기술 로드맵의 직접 증거가 아니라 6~12개월 선행 신호로만 표시합니다.",
+        audit: "채용·IP 신호는 기술 완성의 증거가 아니라 TSV·수율·패키징 병목을 6~12개월 앞서 보는 선행지표로 제한합니다.",
         next: "핵심 수율 인력, JD 키워드, IP 사건을 한 리텐션 보드로 묶기",
       },
     };
@@ -3497,7 +3559,7 @@
       cto: "기술 병목과 제품군 실행 조건을 섞지 않고 검증 가능한 항목만 남깁니다.",
       policy: "규제·Fab·정책자금 조건은 실행 게이트로 분리합니다.",
       market: "가격·고객·계약 신호가 동시에 움직일 때만 시장 안건으로 승격합니다.",
-      audit: "출처 링크나 가격 row가 없는 항목은 사실 레이어로 승격하지 않습니다.",
+      audit: "선택 안건의 대표 원문, KPI, 가격 row가 무엇인지 먼저 확인하고 부족한 축은 Watch/Hold로 낮춥니다.",
       next: "근거가 보강될 때까지 주간 모니터링",
     };
     return profiles[decision?.id] || fallback;
@@ -3582,7 +3644,7 @@
         role: "팩트 검증·중복 제거",
         color: "#EF4444",
         stance: "근거 게이트",
-        message: `${profile.audit} sourceUrl, 뉴스 link, 가격 row 중 하나도 없으면 관계 그래프와 사실 카드에 올리지 않습니다. 중복 기사는 canonical link 기준으로 1건만 반영합니다.`,
+        message: cLevelAuditMessage(selected, profile, relatedRelations),
       },
     ];
   }
