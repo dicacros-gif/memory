@@ -1909,6 +1909,8 @@
   let chinaTalentScenarioId = "operate";
   let ceoChallengeId = "roi-credibility";
   let ceoChallengeTargetId = "scenario";
+  let cLevelCouncilDecisionId = "";
+  let cLevelCouncilRan = false;
   let projectionFocusId = "ai-server";
   let projectionScenario = "neutral";
   let execDecisionFocusId = "hbm-ai-server";
@@ -3013,19 +3015,19 @@
     });
   }
 
-  function cLevelAgentItems(decisions = []) {
-    const top = decisions[0];
-    const second = decisions[1] || top;
-    const totalEvidence = decisions.reduce((sum, item) => sum + item.evidenceCount, 0);
-    const topLabel = top?.label || "근거 축 없음";
-    const topAction = top?.action || "sourceUrl과 가격 row가 쌓일 때까지 보류";
+  function cLevelAgentItems(decision = {}, decisions = []) {
+    const selected = decision || decisions[0];
+    const contrast = decisions.find((item) => item.id !== selected?.id) || selected;
+    const totalEvidence = selected?.evidenceCount || 0;
+    const topLabel = selected?.label || "근거 축 없음";
+    const topAction = selected?.action || "sourceUrl과 가격 row가 쌓일 때까지 보류";
     return [
       {
         id: "ceo",
         name: "CEO Agent",
         role: "우선순위",
         color: "#3C82FF",
-        message: `${topLabel}을 첫 안건으로 둡니다. 현재 ${fmtNum(totalEvidence)}개 근거가 연결됐고, 근거가 없는 축은 승격하지 않습니다.`,
+        message: `${topLabel} 안건을 검토합니다. 현재 이 안건에 ${fmtNum(totalEvidence)}개 근거가 연결됐고, 근거가 없는 축은 결론에서 제외합니다.`,
       },
       {
         id: "cfo",
@@ -3053,7 +3055,7 @@
         name: "Market Agent",
         role: "가격/고객",
         color: "#00C8A0",
-        message: `${second?.label || topLabel}의 가격 rows와 기사 링크를 같이 봅니다. Spot이 먼저 꺾이고 contract가 뒤따르면 가격 방어 안건으로 전환합니다.`,
+        message: `${topLabel}의 가격 rows와 기사 링크를 먼저 봅니다. 비교 축은 ${contrast?.label || topLabel}이며, Spot이 먼저 꺾이고 contract가 뒤따르면 방어 안건으로 전환합니다.`,
       },
       {
         id: "audit",
@@ -3063,6 +3065,23 @@
         message: "sourceUrl, 뉴스 link, 가격 row 중 하나도 없으면 사실 카드에 올리지 않습니다. 한국 뉴스와 저신뢰 RSS는 내부 필터에서 제외합니다.",
       },
     ];
+  }
+
+  function cLevelCouncilConclusion(decision = {}) {
+    const evidence = decision.evidenceCount || 0;
+    const confidence = Math.round(decision.confidence || 0);
+    const verdict = decision.verdict || "Hold";
+    const action = decision.action || "추가 근거 수집";
+    const direction = verdict === "Go"
+      ? "경영진 안건으로 상정"
+      : verdict === "Watch"
+        ? "조건부 모니터링 후 재심의"
+        : "결정 보류";
+    return {
+      title: `${verdict} · ${direction}`,
+      body: `${decision.label || "선택 안건"}은 ${fmtNum(evidence)}개 근거와 신뢰도 ${fmtNum(confidence)}/100 기준으로 ${direction}이 적절합니다.`,
+      next: `다음 액션: ${action}`,
+    };
   }
 
   function renderCLevelCockpit() {
@@ -3095,8 +3114,14 @@
       return;
     }
 
+    if (!decisions.some((item) => item.id === cLevelCouncilDecisionId)) {
+      cLevelCouncilDecisionId = decisions[0].id;
+      cLevelCouncilRan = false;
+    }
+    const selectedDecision = decisions.find((item) => item.id === cLevelCouncilDecisionId) || decisions[0];
+
     grid.innerHTML = decisions.map((item, index) => `
-      <button class="c-level-card ${escapeHTML(item.verdict.toLowerCase())} reveal" type="button" data-jump="${escapeHTML(item.jump)}" style="--local-accent:${categoryAccent(item.category)}; animation-delay:${index * 35}ms">
+      <button class="c-level-card ${escapeHTML(item.verdict.toLowerCase())}${item.id === selectedDecision.id ? " council-active" : ""} reveal" type="button" data-council-pick="${escapeHTML(item.id)}" style="--local-accent:${categoryAccent(item.category)}; animation-delay:${index * 35}ms">
         <span class="c-level-card-top">
           <em>${escapeHTML(item.owner)}</em>
           ${factBadge(item.verdict, item.verdict === "Go" ? "ok" : item.verdict === "Watch" ? "watch" : "fail")}
@@ -3113,13 +3138,23 @@
       </button>
     `).join("");
 
-    const agentItems = cLevelAgentItems(decisions);
+    const agentItems = cLevelAgentItems(selectedDecision, decisions);
+    const conclusion = cLevelCouncilConclusion(selectedDecision);
     agents.innerHTML = `
-      <div class="agent-debate c-level-agent-debate" style="--local-accent:${categoryAccent(decisions[0]?.category || "hbm")}">
+      <div class="agent-debate c-level-agent-debate" style="--local-accent:${categoryAccent(selectedDecision?.category || "hbm")}">
         <div class="agent-debate-title">
           <span>AGENT COUNCIL</span>
-          <strong>${escapeHTML(decisions[0]?.label || "C-level 판단")} 토론</strong>
-          <small>각 에이전트는 실제 데이터 근거 수와 출처 조건을 기준으로만 답변합니다.</small>
+          <strong>${escapeHTML(selectedDecision?.label || "C-level 판단")} 토론</strong>
+          <small>안건을 선택하고 실행하면 각 에이전트가 순차 토론한 뒤 결론을 냅니다.</small>
+        </div>
+        <div class="c-level-agent-controls">
+          <label>
+            <span>안건 선택</span>
+            <select id="cLevelCouncilSelect" aria-label="에이전트 토론 안건 선택">
+              ${decisions.map((item) => `<option value="${escapeHTML(item.id)}"${item.id === selectedDecision.id ? " selected" : ""}>${escapeHTML(item.label)} · ${escapeHTML(item.verdict)} · 근거 ${fmtNum(item.evidenceCount)}개</option>`).join("")}
+            </select>
+          </label>
+          <button type="button" id="cLevelRunCouncil">${cLevelCouncilRan ? "다시 실행" : "에이전트 실행"}</button>
         </div>
         <div class="agent-roster">
           ${agentItems.map((agent, index) => `
@@ -3130,21 +3165,56 @@
             </div>
           `).join("")}
         </div>
-        <div class="agent-chat">
-          ${agentItems.map((agent, index) => `
-            <div class="agent-turn${index % 2 ? " right" : ""}" style="--agent-color:${escapeHTML(agent.color)}; --delay:${index * 110}ms">
-              <span class="agent-badge">${escapeHTML(agent.id.toUpperCase().slice(0, 2))}</span>
-              <div class="speech-bubble">
-                <div class="speech-meta"><strong>${escapeHTML(agent.name)}</strong><span>${escapeHTML(agent.role)}</span></div>
-                <p>${escapeHTML(agent.message)}</p>
+        ${cLevelCouncilRan ? `
+          <div class="agent-chat">
+            ${agentItems.map((agent, index) => `
+              <div class="agent-turn${index % 2 ? " right" : ""}" style="--agent-color:${escapeHTML(agent.color)}; --delay:${index * 110}ms">
+                <span class="agent-badge">${escapeHTML(agent.id.toUpperCase().slice(0, 2))}</span>
+                <div class="speech-bubble">
+                  <div class="speech-meta"><strong>${escapeHTML(agent.name)}</strong><span>${escapeHTML(agent.role)}</span></div>
+                  <p>${escapeHTML(agent.message)}</p>
+                </div>
               </div>
-            </div>
-          `).join("")}
-        </div>
+            `).join("")}
+          </div>
+          <div class="agent-conclusion reveal" style="--local-accent:${categoryAccent(selectedDecision?.category || "hbm")}">
+            <span>Conclusion</span>
+            <strong>${escapeHTML(conclusion.title)}</strong>
+            <p>${escapeHTML(conclusion.body)}</p>
+            <small>${escapeHTML(conclusion.next)}</small>
+          </div>
+        ` : `
+          <div class="agent-waiting">
+            <strong>안건을 선택한 뒤 에이전트 실행을 누르세요.</strong>
+            <p>토론 전에는 에이전트 발언을 표시하지 않고, 실행 후 실제 연결 근거 기준으로 결론을 생성합니다.</p>
+          </div>
+        `}
       </div>
     `;
 
-    grid.querySelectorAll("[data-jump]").forEach((btn) => btn.addEventListener("click", () => jumpTo(btn.dataset.jump)));
+    const councilSelect = $("#cLevelCouncilSelect");
+    if (councilSelect) {
+      councilSelect.addEventListener("change", (event) => {
+        cLevelCouncilDecisionId = event.target.value;
+        cLevelCouncilRan = false;
+        renderCLevelCockpit();
+      });
+    }
+    const runCouncil = $("#cLevelRunCouncil");
+    if (runCouncil) {
+      runCouncil.addEventListener("click", () => {
+        cLevelCouncilRan = true;
+        renderCLevelCockpit();
+      });
+    }
+    grid.querySelectorAll("[data-council-pick]").forEach((btn) => {
+      btn.addEventListener("click", () => {
+        cLevelCouncilDecisionId = btn.dataset.councilPick;
+        cLevelCouncilRan = false;
+        renderCLevelCockpit();
+      });
+    });
+
     animateCounts(grid);
     animateMeters(grid);
   }

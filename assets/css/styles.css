@@ -1700,11 +1700,18 @@ body.sidebar-collapsed .sb-ico {
 }
 
 .c-level-card:hover,
-.c-level-card:focus-visible {
+.c-level-card:focus-visible,
+.c-level-card.council-active {
   transform: translateY(-2px);
   border-color: color-mix(in srgb, var(--local-accent, var(--accent)) 52%, var(--line));
   background: color-mix(in srgb, var(--local-accent, var(--accent)) 8%, var(--panel-2));
   box-shadow: 0 14px 30px color-mix(in srgb, var(--local-accent, var(--accent)) 12%, transparent);
+}
+
+.c-level-card.council-active {
+  box-shadow:
+    inset 0 0 0 1px color-mix(in srgb, var(--local-accent, var(--accent)) 42%, transparent),
+    0 14px 30px color-mix(in srgb, var(--local-accent, var(--accent)) 14%, transparent);
 }
 
 .c-level-card-top {
@@ -1816,6 +1823,86 @@ body.sidebar-collapsed .sb-ico {
 
 .c-level-agent-debate {
   border-radius: 10px;
+}
+
+.c-level-agent-controls {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  gap: 9px;
+  align-items: end;
+}
+
+.c-level-agent-controls label {
+  min-width: 0;
+  display: grid;
+  gap: 5px;
+}
+
+.c-level-agent-controls label span,
+.agent-conclusion span {
+  color: var(--muted);
+  font-size: 10px;
+  font-weight: 950;
+  letter-spacing: .05em;
+  text-transform: uppercase;
+}
+
+.c-level-agent-controls select {
+  width: 100%;
+  min-width: 0;
+  min-height: 40px;
+  border: 1px solid color-mix(in srgb, var(--local-accent, var(--accent)) 24%, var(--line));
+  border-radius: 8px;
+  background: var(--panel-2);
+  color: var(--ink);
+  padding: 0 10px;
+  font-size: 12px;
+  font-weight: 850;
+}
+
+.c-level-agent-controls button {
+  min-height: 40px;
+  border: 1px solid color-mix(in srgb, var(--local-accent, var(--accent)) 34%, var(--line));
+  border-radius: 8px;
+  background: linear-gradient(135deg, var(--local-accent, var(--accent)), color-mix(in srgb, var(--local-accent, var(--accent)) 66%, #0f172a));
+  color: #fff;
+  padding: 0 13px;
+  font-size: 12px;
+  font-weight: 950;
+  white-space: nowrap;
+  box-shadow: 0 12px 26px color-mix(in srgb, var(--local-accent, var(--accent)) 18%, transparent);
+}
+
+.c-level-agent-controls button:hover,
+.c-level-agent-controls button:focus-visible {
+  transform: translateY(-1px);
+}
+
+.agent-waiting,
+.agent-conclusion {
+  display: grid;
+  gap: 6px;
+  border: 1px solid color-mix(in srgb, var(--local-accent, var(--accent)) 24%, var(--line));
+  border-radius: 10px;
+  background: color-mix(in srgb, var(--local-accent, var(--accent)) 6%, var(--panel-2));
+  padding: 12px;
+}
+
+.agent-waiting strong,
+.agent-conclusion strong {
+  color: var(--ink);
+  font-size: 14px;
+  line-height: 1.28;
+  font-weight: 950;
+}
+
+.agent-waiting p,
+.agent-conclusion p,
+.agent-conclusion small {
+  color: var(--ink-2);
+  font-size: 12px;
+  line-height: 1.55;
+  font-weight: 760;
 }
 
 .empty-action {
@@ -7456,6 +7543,7 @@ body.sidebar-collapsed .sb-ico {
   .c-level-metrics,
   .c-level-layout,
   .c-level-decision-grid,
+  .c-level-agent-controls,
   .c-level-evidence,
   .c-level-source-list,
   .number-grid,
