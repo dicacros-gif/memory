@@ -280,10 +280,10 @@
       en: "Wuxi",
       subtitle: "K7 plot · C2/C2F · DRAM",
       accentCategory: "china",
-      verdict: "운영 업그레이드 O / 신규 대규모 Fab는 확인 필요",
+      verdict: "운영 업그레이드 O / 신규 대규모 Fab는 보류",
       status: "Watch",
-      direction: "Wuxi는 기존 C2/C2F DRAM 거점과 K7 부지 내 기술개조·클린룸 확장 근거가 확인됩니다. 2026년 1월 1z→1a 전환 완료 보도로 고부가 DDR5/고성능 DRAM 생산 여력은 개선됐지만, 추가 신규 fab 증설은 토지사용권, 전력 수전, 용수/폐수 처리 여유, BIS 라이선스를 동시에 확인해야 합니다.",
-      decision: "기존 fab 효율화·1a 전환·클린룸 단계 확장은 운영 개선으로 인정합니다. 새 fab/대규모 캐파 증설은 전력·용수·토지 권리·미국 수출통제 확인 전까지 X에 가깝게 보수적으로 판단합니다.",
+      direction: "Wuxi는 기존 C2/C2F DRAM 거점과 K7 부지 내 기술개조·클린룸 확장 근거가 확인됩니다. 2026년 1월 1z→1a 전환 완료 보도로 고부가 DDR5/고성능 DRAM 생산 여력은 개선됐지만, 추가 신규 fab 증설은 공개 원문으로 확인된 토지/부지와 용수/폐수 근거만 반영합니다.",
+      decision: "기존 fab 효율화·1a 전환·클린룸 단계 확장은 운영 개선으로 인정합니다. 새 fab/대규모 캐파 증설은 공개자료로 수전 용량·변전소 여유·비상전원이 확인되지 않아 보류합니다.",
       liveTerms: ["wuxi", "sk hynix", "1a", "1z", "water", "power", "land", "k7", "c2f", "cleanroom", "bonded zone", "environmental impact"],
       sites: [
         { name: "SK hynix Semiconductor (China) Ltd.", role: "Wuxi DRAM production site", note: "공식 오피스 기준 중국 핵심 DRAM 생산 거점" },
@@ -295,7 +295,6 @@
         { axis: "토지/부지", status: "조건부 O", title: "K7 부지 내 기존 공장 확장 근거", evidence: "2017년 WND 환경영향평가는 12인치 IC 라인 6기 기술개조와 CleanRoom 확장을 K7 부지, 기존 공장 내 프로젝트로 명시했습니다.", implication: "기존 부지 내 기술개조·클린룸 확장 근거는 있으나, 남은 토지 면적/토지사용권 기간은 별도 확인해야 합니다.", source: "Wuxi New District EIA", sourceUrl: "https://www.wnd.gov.cn/doc/2017/02/28/2386281.shtml" },
         { axis: "클린룸/공간", status: "조건부 O", title: "C2F 58,000m2 및 추가 클린룸 유연성", evidence: "SKHY는 C2F가 58,000m2 규모이며, 추가 클린룸 공사와 장비 반입 시점은 시장 상황에 따라 유연하게 결정한다고 밝혔습니다.", implication: "공간 병목 완화 근거는 있으나 신규 fab 증설과 동일하게 해석하면 안 됩니다.", source: "SKHY Newsroom", sourceUrl: "https://news.skhynix.com/sk-hynix-completes-expanded-fab-c2f-in-wuxi-china/" },
         { axis: "용수/폐수", status: "Watch", title: "재생수·MBR·신청하수처리장 연계", evidence: "EIA는 산성/불소/동/유기/생활폐수를 분류 처리하고, 재생수 회용 시범공정·MBR 회용·신청하수처리장 연계를 설명합니다.", implication: "기존 승인 범위의 폐수 처리 체계는 확인되나, 추가 캐파는 신규 물 사용량·폐수총량·수질총량 인허가가 필요합니다.", source: "Wuxi New District EIA", sourceUrl: "https://www.wnd.gov.cn/doc/2017/02/28/2386281.shtml" },
-        { axis: "전력/유틸리티", status: "확인필요", title: "전력 수전 용량 공개자료 부족", evidence: "확인한 공개자료에는 Wuxi fab의 전력 계약용량, 변전소 여유, 추가 장비 수전 가능량이 숫자로 공개되어 있지 않습니다.", implication: "추가 fab 판단은 전력 quota·변전소·비상전원·냉동기 부하 확인 전까지 보류해야 합니다.", source: "Public source gap", sourceUrl: "https://www.skhynix.com/company/UI-FR-CP06/" },
         { axis: "환경/인허가", status: "O", title: "2017년 프로젝트 환경 타당성 결론", evidence: "EIA는 해당 주소의 건설이 산업정책·지역계획과 부합하고 오염방지 조치가 기술경제적으로 가능하다고 결론 냈습니다.", implication: "동일 범위의 기술개조 근거는 있으나, 신규 fab은 새 EIA·공중의견·배출총량 심사를 다시 봐야 합니다.", source: "Wuxi New District EIA", sourceUrl: "https://www.wnd.gov.cn/doc/2017/02/28/2386281.shtml" },
         { axis: "보세구/물류", status: "Watch", title: "Wuxi 보세구 확장", evidence: "Wuxi Hi-Tech District 종합보세구는 2025년 면적을 1.11km2 늘려 총 3.49km2로 조정됐고, SK hynix premises가 핵심 사례로 언급됐습니다.", implication: "주변 산업·물류 수용력은 긍정 신호지만 SKHY 보유 토지 확대 증거는 아닙니다.", source: "Wuxi Government", sourceUrl: "https://en.wuxi.gov.cn/2025-07/31/c_1113622.htm" },
         { axis: "미국 수출통제", status: "X", title: "캐파 확대·기술 업그레이드 라이선스 리스크", evidence: "BIS는 VEU 특례 종료 후 기존 운영 라이선스는 의도하지만 중국 내 캐파 확대나 기술 업그레이드 라이선스는 의도하지 않는다고 밝혔습니다.", implication: "인프라가 가능해도 장비·SW·공정 업그레이드가 막히면 확장 판단은 No-Go입니다.", source: "BIS", sourceUrl: "https://www.bis.gov/press-release/department-commerce-closes-export-controls-loophole-foreign-owned-semiconductor-fabs-china" },
@@ -307,7 +306,7 @@
       en: "Dalian",
       subtitle: "NAND / Solidigm · storage site",
       accentCategory: "nand",
-      verdict: "Phase 2 Watch / 확장 인프라 확인필요",
+      verdict: "Phase 2 Watch / 확장 인프라 근거 미공개",
       status: "Check",
       direction: "Dalian 법인 주소와 스토리지 거점은 공식 오피스 페이지로 확인됩니다. 2025년 투자 증가와 2026년 하반기 Phase 2 장비 설치 검토 보도는 NAND 캐파 옵션을 다시 열지만, 추가 wafer fab 확장을 판단할 수 있는 토지·용수·전력 수치 공개자료는 부족합니다.",
       decision: "Dalian은 NAND/Solidigm 운영 리스크와 Phase 2 재가동 옵션을 함께 관찰합니다. 신규 fab 확장 후보로 보기 전에 부지 권리·수전 용량·폐수 처리 인허가와 BIS 라이선스를 새로 확인합니다.",
@@ -318,9 +317,6 @@
       checks: [
         { axis: "투자 집행", status: "O", title: "2025년 Dalian NAND 투자 4,406억 원", evidence: "TrendForce가 2025년 Dalian NAND 투자액을 4,406억 원으로 정리했습니다. 전년 대비 52% 증가한 수치로 NAND/Solidigm 운영 효율화와 캐파 옵션을 함께 봐야 합니다.", implication: "Dalian은 단순 보유 자산이 아니라 NAND/Solidigm 운영 효율화와 캐파 옵션의 우선 감시 자산입니다.", source: "TrendForce", sourceUrl: "https://www.trendforce.com/news/2026/03/27/news-memory-giants-china-investments-soar-in-2025-samsung-xian-up-67-5-sk-hynix-wuxi-dalian-hit-trillion-won/" },
         { axis: "Phase 2 재가동", status: "Watch", title: "2026년 하반기 Dalian Phase 2 장비 설치 검토", evidence: "TrendForce/The Bell 보도는 Dalian 업그레이드 후보와 200-layer 중반대 NAND 검토를 언급하지만, Dalian Phase 1의 현재 양산 세대를 단일 확정값처럼 표시하지 않습니다. Intel 계열 floating-gate legacy 공정과 200-layer급 전환 가능성을 분리 검증합니다.", implication: "중국 내 NAND 캐파 옵션은 살아 있지만, 생산 세대·장비 반입·BIS 허가·Phase 2 장비 설치를 각각 원문 근거로 확인해야 합니다.", source: "TrendForce / The Bell", sourceUrl: "https://www.trendforce.com/news/2026/03/30/news-samsung-reportedly-advances-xian-to-236-layer-nand-sk-hynix-eyes-dalian-upgrade-amid-tight-supply/" },
-        { axis: "토지/부지", status: "확인필요", title: "Dalian 토지사용권·확장 부지 미공개", evidence: "공식 오피스는 위치를 제공하지만 추가 fab 후보 면적이나 토지사용권 조건은 공개 확인되지 않았습니다.", implication: "부지 권리 확인 전 신규 fab 확장 판단 금지.", source: "SKHY Offices", sourceUrl: "https://www.skhynix.com/company/UI-FR-CP06/" },
-        { axis: "용수/폐수", status: "확인필요", title: "공정 용수·폐수 인허가 미확인", evidence: "Dalian site의 공정 용수 배정량과 폐수 처리 여유는 공개자료로 확인되지 않았습니다.", implication: "NAND/스토리지 공정 확장은 현지 EIA·수자원 허가를 먼저 크롤링해야 합니다.", source: "SKHY Offices", sourceUrl: "https://www.skhynix.com/company/UI-FR-CP06/" },
-        { axis: "전력/유틸리티", status: "확인필요", title: "수전 용량·변전소 여유 미확인", evidence: "전력 계약용량과 비상전원 구성은 공개자료가 없습니다.", implication: "전력 신호 없이는 fab 확장 O 판단 불가.", source: "Public source gap", sourceUrl: "https://www.skhynix.com/company/UI-FR-CP06/" },
       ],
     },
     {
@@ -339,7 +335,6 @@
       ],
       checks: [
         { axis: "Fab 적합성", status: "X", title: "전공정 fab 확장 근거 부족", evidence: "공식 오피스는 Chongqing 소재 법인을 보여주지만 300mm 전공정 fab 확장 근거는 공개 확인되지 않았습니다.", implication: "fab 확장 후보보다는 후공정/물류 운영 리스크로 분류합니다.", source: "SKHY Offices", sourceUrl: "https://www.skhynix.com/company/UI-FR-CP06/" },
-        { axis: "용수/전력", status: "확인필요", title: "후공정 증설 유틸리티 확인 필요", evidence: "공개자료만으로 용수·전력 여유를 판단할 수 없습니다.", implication: "패키징/테스트 증설도 전력·폐수·화학물질 허가를 별도 확인합니다.", source: "Public source gap", sourceUrl: "https://www.skhynix.com/company/UI-FR-CP06/" },
       ],
     },
   ];
@@ -7392,12 +7387,31 @@
     if (sourceMeta) sourceMeta.textContent = `RSS ${fmtNum(Number(theme?.count ?? 0) || 0)}개 · ${fmtDate(LIVE.chinaInfra?.updatedAt || LIVE.updatedAt)}`;
     renderChinaInfraTabs(site);
 
+    const verifiedInfraCards = [
+      {
+        label: "토지/부지",
+        match: (check) => check.axis.includes("토지") || check.axis.includes("클린룸"),
+        note: "기존 부지 내 기술개조·클린룸 확장 근거만 표시",
+      },
+      {
+        label: "용수/폐수",
+        match: (check) => check.axis.includes("용수") || check.axis.includes("폐수"),
+        note: "공정폐수 분류처리·재생수·MBR·하수처리장 연계 근거만 표시",
+      },
+      {
+        label: "전력",
+        match: (check) => check.axis.includes("전력") || check.axis.includes("유틸리티"),
+        note: "수전 용량·변전소·비상전원 수치가 원문으로 확인된 경우만 표시",
+      },
+    ].map((card) => {
+      const found = (site.checks || []).find((check) => card.match(check) && check.status !== "확인필요");
+      return found ? { label: card.label, value: found.status, note: found.title || card.note } : null;
+    }).filter(Boolean);
+
     summary.style.setProperty("--local-accent", accent);
     summary.innerHTML = [
       { label: "최종 판단", value: site.verdict, note: site.decision },
-      { label: "토지/부지", value: (site.checks || []).find((check) => check.axis.includes("토지"))?.status || "확인필요", note: "소유권/토지사용권과 기존 부지 내 확장 근거를 분리 판단" },
-      { label: "용수/폐수", value: (site.checks || []).find((check) => check.axis.includes("용수"))?.status || "확인필요", note: "공정용수, 재생수, 폐수총량, 하수처리장 여유 확인" },
-      { label: "전력", value: (site.checks || []).find((check) => check.axis.includes("전력"))?.status || "확인필요", note: "수전 용량, 변전소, 비상전원, 냉동기 부하 확인" },
+      ...verifiedInfraCards,
     ].map((card, index) => `
       <article class="policy-card reveal" style="animation-delay:${index * 25}ms">
         <span>${escapeHTML(card.label)}</span>
@@ -7451,7 +7465,7 @@
       </div>
       <div class="policy-focus-block">
         <strong>확장 판단 로직</strong>
-        <p>토지사용권·남은 부지, 공정용수/폐수총량, 수전 용량, 환경영향평가, BIS 라이선스가 모두 통과해야 추가 fab 확장을 O로 판단합니다. 하나라도 공개자료가 없으면 확인필요 또는 X로 둡니다.</p>
+        <p>토지사용권·남은 부지, 공정용수/폐수총량, 수전 용량, 환경영향평가, BIS 라이선스가 모두 통과해야 추가 fab 확장을 O로 판단합니다. 공개 원문으로 확인되지 않은 항목은 요약 카드에서 제외하고 확장 판단은 보류 또는 X로 둡니다.</p>
       </div>
       <div class="policy-focus-block">
         <strong>주기 크롤링</strong>
