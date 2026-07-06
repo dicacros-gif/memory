@@ -3149,6 +3149,8 @@
 
     const agentItems = cLevelAgentItems(selectedDecision, decisions);
     const conclusion = cLevelCouncilConclusion(selectedDecision);
+    const councilStepDelay = 820;
+    const councilConclusionDelay = agentItems.length * councilStepDelay + 560;
     agents.innerHTML = `
       <div class="agent-debate c-level-agent-debate" style="--local-accent:${categoryAccent(selectedDecision?.category || "hbm")}">
         <div class="agent-debate-title">
@@ -3174,7 +3176,7 @@
         ${cLevelCouncilRan ? `
           <div class="agent-roster">
             ${agentItems.map((agent, index) => `
-              <div class="agent-avatar-card" style="--agent-color:${escapeHTML(agent.color)}; --delay:${index * 55}ms">
+              <div class="agent-avatar-card" style="--agent-color:${escapeHTML(agent.color)}; --delay:${index * councilStepDelay}ms">
                 <b>${escapeHTML(agent.id.toUpperCase().slice(0, 2))}</b>
                 <span>${escapeHTML(agent.name)}</span>
                 <small>${escapeHTML(agent.role)}</small>
@@ -3183,7 +3185,7 @@
           </div>
           <div class="agent-chat">
             ${agentItems.map((agent, index) => `
-              <div class="agent-turn${index % 2 ? " right" : ""}" style="--agent-color:${escapeHTML(agent.color)}; --delay:${index * 110}ms">
+              <div class="agent-turn${index % 2 ? " right" : ""}" style="--agent-color:${escapeHTML(agent.color)}; --delay:${index * councilStepDelay + 220}ms">
                 <span class="agent-badge">${escapeHTML(agent.id.toUpperCase().slice(0, 2))}</span>
                 <div class="speech-bubble">
                   <div class="speech-meta"><strong>${escapeHTML(agent.name)}</strong><span>${escapeHTML(agent.role)}</span></div>
@@ -3192,7 +3194,7 @@
               </div>
             `).join("")}
           </div>
-          <div class="agent-conclusion reveal" style="--local-accent:${categoryAccent(selectedDecision?.category || "hbm")}">
+          <div class="agent-conclusion reveal" style="--local-accent:${categoryAccent(selectedDecision?.category || "hbm")}; --delay:${councilConclusionDelay}ms">
             <span>결론</span>
             <strong>${escapeHTML(conclusion.title)}</strong>
             <p>${escapeHTML(conclusion.body)}</p>
