@@ -581,51 +581,51 @@
   const CEO_CHALLENGES = [
     {
       id: "roi-credibility",
-      label: "ROI 지수를 믿을 수 있나?",
+      label: "ROI 지수는 어디까지 믿나?",
       angle: "ROI",
-      question: "ROI 지수가 실제 재무수익률이 아니라면 의사결정 지표로 쓸 수 있는가?",
+      question: "이 안건을 CFO 보고용 재무수익률이 아니라 실사 우선순위로만 써야 하는 이유는?",
     },
     {
       id: "budget-cut",
-      label: "예산을 줄이면 무엇을 남기나?",
+      label: "예산이 절반이면 무엇만 남기나?",
       angle: "Capital",
-      question: "예산이 절반으로 줄면 어떤 투자만 남기고 무엇을 보류해야 하는가?",
+      question: "예산이 50% 줄어도 SKHY가 유지해야 할 1순위 투자와 보류할 항목은?",
     },
     {
       id: "no-go",
-      label: "X 게이트가 있으면 중단 아닌가?",
+      label: "X 게이트가 있으면 중단인가?",
       angle: "Gate",
-      question: "No-Go 항목이 있는데 왜 시나리오 전체를 폐기하지 않는가?",
+      question: "No-Go 조건이 있는 안건을 폐기하지 않고 제한 집행할 수 있는 범위는?",
     },
     {
       id: "ip-risk",
-      label: "채용이 IP 유출을 키우지 않나?",
+      label: "인력 확보가 IP 리스크를 키우나?",
       angle: "IP",
-      question: "중국 인력 확보가 오히려 핵심 recipe와 영업비밀 유출 리스크를 키우는 것 아닌가?",
+      question: "중국 인력 전략이 수율 recipe와 고객 정보를 노출하지 않도록 필요한 통제는?",
     },
     {
       id: "outsourcing",
-      label: "외주로 해결하면 안 되나?",
+      label: "외주로 대체 가능한가?",
       angle: "Operating model",
-      question: "직접 채용보다 협력사·외주로 처리하는 편이 비용 효율적이지 않은가?",
+      question: "SKHY 내부가 반드시 보유해야 할 역량과 협력사로 넘길 수 있는 업무는?",
     },
     {
       id: "bis-shock",
-      label: "BIS 규제가 더 강해지면?",
+      label: "BIS가 강화되면 무엇을 멈추나?",
       angle: "Policy shock",
-      question: "미국 수출통제가 강화되면 이 인력 투자 계획은 어떻게 바뀌어야 하는가?",
+      question: "미국 수출통제가 강화될 때 유지·축소·중단할 인력/투자 항목은?",
     },
     {
       id: "kpi-reversal",
-      label: "어떤 KPI면 재검토하나?",
+      label: "어떤 KPI면 결정을 뒤집나?",
       angle: "Recheck KPI",
-      question: "어떤 숫자가 나오면 투자 확대 결정을 중단하거나 반대로 확대해야 하는가?",
+      question: "어떤 수치가 나오면 Go를 Watch/Hold로 낮추거나 반대로 확대해야 하나?",
     },
     {
       id: "strategic-fit",
-      label: "SKHY 전략과 무슨 관련인가?",
+      label: "SKHY 전략과 직접 연결되나?",
       angle: "Strategic fit",
-      question: "이 인력 투자가 HBM, NAND/eSSD, 중국 법인 운영, 리스크 방어와 어떻게 연결되는가?",
+      question: "이 안건이 HBM·NAND/eSSD·중국 운영·IP 방어 중 어느 경영 목표에 기여하나?",
     },
   ];
   const CHINA_DYNAMIC_AXES = [
@@ -2101,7 +2101,7 @@
       acceptNode(node) {
         const parent = node.parentElement;
         if (!parent || !/[가-힣]/.test(node.nodeValue || "")) return NodeFilter.FILTER_REJECT;
-        if (parent.closest("script, style, textarea, input, select, option, code, pre, .count")) return NodeFilter.FILTER_REJECT;
+        if (parent.closest("script, style, textarea, input, select, option, code, pre, .count, #ceoAgentAnswer, .agent-debate, .agent-chat, .speech-bubble")) return NodeFilter.FILTER_REJECT;
         return NodeFilter.FILTER_ACCEPT;
       },
     });
@@ -2127,6 +2127,12 @@
   function escapeHTML(value) {
     const div = document.createElement("div");
     div.textContent = normalizeBrandName(briefCopyText(value));
+    return div.innerHTML;
+  }
+
+  function escapeReadableHTML(value) {
+    const div = document.createElement("div");
+    div.textContent = normalizeBrandName(String(value ?? ""));
     return div.innerHTML;
   }
 
@@ -3315,92 +3321,14 @@
     const priceLabel = topPrice
       ? `${compactAuditText(`${topPrice.group || topPrice.sectionTitle || "가격"} ${topPrice.item || ""}`)}${Number.isFinite(Number(topPrice.changePct)) ? ` ${Number(topPrice.changePct) > 0 ? "+" : ""}${fmtNum(topPrice.changePct, 2)}%` : ""}`
       : "";
-    const relationLabel = relations.length
-      ? `관계 맵은 ${fmtNum(relations.length)}개 관계선 중 근거가 연결된 축만 표시합니다.`
-      : "관계 맵은 아직 이 안건에서 승격할 만한 근거가 없습니다.";
     const gaps = [];
     if (!canonical.size && !kpis.length) gaps.push("원문/KPI");
     if (!prices.length) gaps.push("가격 row");
     const gate = gaps.length
-      ? `보강 필요: ${gaps.join("·")}가 부족하므로 결론 문구는 ${selected.verdict === "Go" ? "Go에서 Watch로 낮춰 검토" : "Watch/Hold로 제한"}합니다.`
-      : `근거 충족: 원문/KPI와 가격 row가 함께 있어 ${selected.verdict || "Watch"} 판단을 표시할 수 있습니다.`;
+      ? `보강 필요: ${gaps.join("·")} 부족. 결론은 ${selected.verdict === "Go" ? "Watch로 낮춰 재검토" : "Watch/Hold로 제한"}.`
+      : `근거 충족: 원문/KPI와 가격 row가 함께 있어 ${selected.verdict || "Watch"} 판단 가능.`;
     const primaryFlip = primaryDecisionFlipKpi(selected);
-    return `${selected.label || "선택 안건"} 감사 결과: 우선 확인할 재검토 KPI는 ${primaryFlip.label}입니다. 현재 ${primaryFlip.current}; 기준은 "${primaryFlip.trigger}"입니다. 기사·벤치마킹 ${fmtNum(articles.length)}건을 canonical ${fmtNum(canonical.size)}건으로 압축${duplicateCount ? `, 중복 ${fmtNum(duplicateCount)}건 제외` : ""}; KPI ${fmtNum(kpis.length)}건; 가격 row ${fmtNum(prices.length)}개. ${sourceLabel}${priceLabel ? ` 가격 기준은 ${priceLabel}입니다.` : ""} ${relationLabel} ${profile.audit || "수치와 해석을 분리해 표시합니다."} ${gate}`;
-  }
-
-  function cLevelAgentItems(decision = {}, decisions = []) {
-    const selected = decision || decisions[0];
-    const contrast = decisions.find((item) => item.id !== selected?.id) || selected;
-    const totalEvidence = selected?.evidenceCount || 0;
-    const topLabel = selected?.label || "근거 축 없음";
-    const topAction = selected?.action || "sourceUrl과 가격 row가 쌓일 때까지 보류";
-    const relatedRelations = memoryMarketRelationsForTerms(selected?.terms || []);
-    const moneyRelations = relatedRelations.filter((item) => item.mode === "money");
-    const competitiveRelations = relatedRelations.filter((item) => item.mode === "competitive");
-    const topRelation = relatedRelations[0];
-    const priceRows = selected?.priceRows || 0;
-    const linkCount = selected?.linkCount || 0;
-    return [
-      {
-        id: "ceo",
-        name: "CEO Agent",
-        role: "우선순위",
-        color: "#3C82FF",
-        message: `${topLabel} 안건을 검토합니다. 근거 ${fmtNum(totalEvidence)}개, 관계 ${fmtNum(relatedRelations.length)}개가 연결됐습니다. 최우선 관계는 ${topRelation ? `${topRelation.from} → ${topRelation.to}` : "아직 없음"}입니다.`,
-      },
-      {
-        id: "cfo",
-        name: "CFO Agent",
-        role: "수익성",
-        color: "#22C55E",
-        message: `Money Flow 관점에서는 투자/매출 관계 ${fmtNum(moneyRelations.length)}개를 봅니다. 이 화면의 지수는 회계 ROI가 아니라 실사 우선순위이며, NPV/IRR은 계약 원문과 가격 rows가 붙은 뒤 별도 계산합니다.`,
-      },
-      {
-        id: "cto",
-        name: "CTO Agent",
-        role: "기술/제품",
-        color: "#A050FF",
-        message: `${topAction}. 경쟁 관계 ${fmtNum(competitiveRelations.length)}개 중 기술 병목은 HBM 인증, NAND/eSSD, 패키징, 장비 qual로 분리해 봅니다.`,
-      },
-      {
-        id: "policy",
-        name: "Policy Agent",
-        role: "규제/Fab",
-        color: "#FFB830",
-        message: "중국 Fab 판단은 운영 유지, 캐파 확대, 기술 업그레이드로 분리합니다. Big Fund, BIS, CHIPS, MATCH 근거가 붙지 않은 투자·공급 관계는 Watch로 남깁니다.",
-      },
-      {
-        id: "market",
-        name: "Market Agent",
-        role: "가격/고객",
-        color: "#00C8A0",
-        message: `${topLabel}은 가격 rows ${fmtNum(priceRows)}개와 링크 ${fmtNum(linkCount)}개를 먼저 봅니다. 비교 축은 ${contrast?.label || topLabel}이며, Spot이 먼저 꺾이고 contract가 뒤따르면 공급 배분·가격 재협상 안건으로 전환합니다.`,
-      },
-      {
-        id: "audit",
-        name: "Data Auditor",
-        role: "팩트 검증",
-        color: "#EF4444",
-        message: cLevelAuditMessage(selected, cLevelDecisionProfile(selected), relatedRelations),
-      },
-    ];
-  }
-
-  function cLevelCouncilConclusion(decision = {}) {
-    const evidence = decision.evidenceCount || 0;
-    const confidence = Math.round(decision.confidence || 0);
-    const verdict = decision.verdict || "Hold";
-    const action = decision.action || "추가 근거 수집";
-    const direction = verdict === "Go"
-      ? "경영진 안건으로 상정"
-      : verdict === "Watch"
-        ? "조건부 모니터링 후 재심의"
-        : "결정 보류";
-    return {
-      title: `${verdict} · ${direction}`,
-      body: `${decision.label || "선택 안건"}은 ${fmtNum(evidence)}개 근거와 신뢰도 ${fmtNum(confidence)}/100 기준으로 ${direction}이 적절합니다.`,
-      next: `다음 액션: ${action}`,
-    };
+    return `${selected.label || "선택 안건"} 감사: 원문 ${fmtNum(canonical.size)}건${duplicateCount ? `, 중복 제외 ${fmtNum(duplicateCount)}건` : ""}; KPI ${fmtNum(kpis.length)}건; 가격 row ${fmtNum(prices.length)}개. ${sourceLabel}${priceLabel ? ` 가격 기준: ${priceLabel}.` : ""} 재검토 KPI는 ${primaryFlip.label}(${primaryFlip.trigger}). ${profile.audit || "수치와 해석을 분리합니다."} ${gate}`;
   }
 
   function cLevelDecisionProfile(decision = {}) {
@@ -3582,7 +3510,7 @@
         role: "우선순위·최종 안건화",
         color: "#2D6BFF",
         stance: selected?.verdict === "Go" ? "상정" : selected?.verdict === "Watch" ? "조건부 검토" : "보류",
-        message: `우선 확인할 재검토 KPI는 ${primaryFlip.label}입니다. 현재 ${primaryFlip.current}; 기준은 ${primaryFlip.trigger}. 이 기준을 충족한 경우에만 "${profile.question}"을 ${verdictMeaning} 안건으로 둡니다. 핵심 관계는 ${topRelationText}입니다.`,
+        message: `경영진 질문: ${profile.question} 결론은 ${selected?.verdict || "Watch"}(${verdictMeaning})입니다. 근거 ${fmtNum(totalEvidence)}개, 신뢰도 ${fmtNum(confidence)}/100, 핵심 관계 ${topRelationText}. 결정을 바꾸는 KPI는 ${primaryFlip.label}(${primaryFlip.trigger})입니다.`,
       },
       {
         id: "cfo",
@@ -3592,7 +3520,7 @@
         role: "수익성·자본배분",
         color: "#00C2A8",
         stance: "투자/매출 분리",
-        message: `${profile.cfo} Money Flow 근거는 ${fmtNum(moneyRelations.length)}개입니다. ${priceFlip.label} 기준은 ${priceFlip.trigger}. 현재 판단 영향은 ${priceFlip.flip}이며, 재무 집행 전에는 별도 NPV/IRR 모델로 다시 검증합니다.`,
+        message: `재무 관점: ${profile.cfo} Money Flow 근거 ${fmtNum(moneyRelations.length)}개와 가격 row ${fmtNum(priceRows)}개를 확인했습니다. 이 단계는 승인용 IRR/NPV가 아니라 실사 우선순위이며, ${priceFlip.label} 기준(${priceFlip.trigger})을 넘으면 자본배분안을 다시 냅니다.`,
       },
       {
         id: "cto",
@@ -3602,7 +3530,7 @@
         role: "기술·제품 로드맵",
         color: "#8B5CF6",
         stance: "병목 분리",
-        message: `${profile.cto} Competitive Dynamics 근거는 ${fmtNum(competitiveRelations.length)}개입니다. 기술 병목은 가격·정책 판단과 섞지 않고, ${flipKpis.map((item) => item.label).slice(0, 3).join(" · ")} 순서로 실행 조건을 확인합니다.`,
+        message: `기술 관점: ${profile.cto} 경쟁 관계 ${fmtNum(competitiveRelations.length)}개 중 제품 실행에 연결된 병목만 남깁니다. 확인 순서는 ${flipKpis.map((item) => item.label).slice(0, 3).join(" · ")}입니다.`,
       },
       {
         id: "policy",
@@ -3612,7 +3540,7 @@
         role: "규제·Fab·정책자금",
         color: "#F59E0B",
         stance: "라이선스 게이트",
-        message: `${profile.policy} 실행 조건은 운영 유지, 캐파 확대, 기술 업그레이드를 나눠 승인하는 것입니다. ${policyFlip.label}: ${policyFlip.trigger}. 규제 원문이 없으면 Go가 아니라 Watch입니다.`,
+        message: `정책/Fab 관점: ${profile.policy} 운영 유지, 캐파 확대, 기술 업그레이드를 분리해 승인해야 합니다. ${policyFlip.label} 기준은 ${policyFlip.trigger}; 규제 원문이 없으면 Go가 아니라 Watch입니다.`,
       },
       {
         id: "market",
@@ -3622,7 +3550,7 @@
         role: "가격·고객·계약",
         color: "#10B981",
         stance: "가격 전이 확인",
-        message: `${profile.market} 현재 가격 rows ${fmtNum(priceRows)}개와 링크/KPI ${fmtNum(linkCount)}개를 봅니다. 비교 축은 ${contrast?.label || "비교 안건"}이며, ${priceFlip.trigger}.`,
+        message: `시장 관점: ${profile.market} 현재 가격 row ${fmtNum(priceRows)}개, 링크/KPI ${fmtNum(linkCount)}개, 비교축 ${contrast?.label || "비교 안건"}을 확인했습니다. Spot/contract가 ${priceFlip.trigger}이면 고객·공급 배분을 재검토합니다.`,
       },
       {
         id: "audit",
@@ -3651,8 +3579,8 @@
         : "의사결정 보류";
     return {
       title: `${verdict} · ${direction}`,
-      body: `질문: "${profile.question}" 결론: 검증 근거 ${fmtNum(evidence)}개와 신뢰도 ${fmtNum(confidence)}/100 기준으로 ${direction}이 적절합니다.`,
-      next: `다음 액션: ${action}. 재검토 KPI는 ${primaryFlip.label}: ${primaryFlip.trigger}. ${profile.next}`,
+      body: `경영진 결론: "${profile.question}"에 대해 검증 근거 ${fmtNum(evidence)}개, 신뢰도 ${fmtNum(confidence)}/100 기준으로 ${direction}.`,
+      next: `다음 액션: ${action}. 재검토 KPI: ${primaryFlip.label}(${primaryFlip.trigger}). ${profile.next}`,
     };
   }
 
@@ -3747,7 +3675,7 @@
                 <span class="agent-badge">${escapeHTML(agent.initials || agent.id.toUpperCase().slice(0, 2))}</span>
                 <div class="speech-bubble">
                   <div class="speech-meta"><strong>${escapeHTML(agent.name)}</strong><span>${escapeHTML(agent.role)}</span></div>
-                  <p>${escapeHTML(agent.message)}</p>
+                  <p>${escapeReadableHTML(agent.message)}</p>
                 </div>
               </div>
             `).join("")}
@@ -6175,7 +6103,7 @@
                   <strong>${escapeHTML(turn.name)}</strong>
                   <span>${escapeHTML(turn.role || "Expert")}</span>
                 </div>
-                <p>${escapeHTML(turn.message)}</p>
+                <p>${escapeReadableHTML(turn.message)}</p>
               </div>
             </article>
           `).join("")}
@@ -6449,7 +6377,7 @@
         role: "의사결정 질문",
         color: "#111827",
         stance: "우선순위",
-        message: `우선 확인할 재검토 KPI는 ${primaryFlip.label}입니다. 현재 ${primaryFlip.current}이며, 기준은 ${primaryFlip.trigger}. 이 기준을 충족한 경우에만 "${profile.question}"의 현재 결론을 ${active.decision.label}로 둡니다.`,
+        message: `경영진 질문: ${profile.question} 현재 결론은 ${active.decision.label}입니다. 단, 재검토 기준(${primaryFlip.label}: ${primaryFlip.trigger})이 충족되면 판단을 재상정합니다.`,
       },
       {
         id: "data",
@@ -6459,7 +6387,7 @@
         role: "가격·백테스트",
         color: "#06B6D4",
         stance: "실측 검증",
-        message: `${profile.data} ${point} 기준 가격 series ${fmtNum(selectedSeriesCount)}개 중 관측 ${fmtNum(active.observations.length)}개만 계산했습니다. 사전 모멘텀 ${prior}, 이후 실측 ${actual}. ${priceFlip.label} 기준의 현재 판단 영향은 ${priceFlip.flip}입니다.`,
+        message: `근거: ${profile.data} ${point} 기준 가격 series ${fmtNum(selectedSeriesCount)}개 중 관측 ${fmtNum(active.observations.length)}개만 계산했습니다. 사전 모멘텀 ${prior}, 이후 실측 ${actual}. ${priceFlip.label}은 ${priceFlip.flip} 조건입니다.`,
       },
       {
         id: "china",
@@ -6469,7 +6397,7 @@
         role: "중국 신호",
         color: "#8B5CF6",
         stance: "현재 리스크",
-        message: `${profile.china} 연결된 중국 신호 ${fmtNum(active.chinaSignalCount)}건은 백테스트를 소급 변경하지 않고 overlay로만 둡니다. ${chinaFlip.label} 기준이 실제 기사/가격 근거와 같이 충족되면 ${chinaFlip.flip}으로 재분류합니다.`,
+        message: `중국 overlay: ${profile.china} 연결 신호 ${fmtNum(active.chinaSignalCount)}건은 과거 백테스트에 소급 반영하지 않습니다. ${chinaFlip.label} 기준이 원문/가격 근거와 같이 충족되면 판단을 '${chinaFlip.flip}'로 재분류합니다.`,
       },
       {
         id: "cfo",
@@ -6479,7 +6407,7 @@
         role: "수익성·자본배분",
         color: "#F59E0B",
         stance: "자본 효율",
-        message: `${profile.cfo} 이 판단은 IRR/NPV가 아니라 실사 우선순위입니다. 재검토 기준이 확인되기 전 실행 문구는 '${active.decision.action}'로 제한하고, ${primaryFlip.flip}이면 예산 집행안을 다시 검토합니다.`,
+        message: `자본배분: ${profile.cfo} 이 판단은 IRR/NPV가 아니라 실사 우선순위입니다. 실행 문구는 '${active.decision.action}'로 제한하고, 재검토 기준이 충족되면 예산안을 다시 냅니다.`,
       },
       {
         id: "risk",
@@ -6489,7 +6417,7 @@
         role: "하방 리스크",
         color: "#EF4444",
         stance: "No-Go 조건",
-        message: `${profile.risk} 현재 하방 문구는 "${active.downside}"입니다. 자동 재검토 조건은 ${flipKpis.slice(0, 3).map((item) => item.label).join(" · ")} 중 2개 이상 악화입니다.`,
+        message: `리스크 게이트: ${profile.risk} 하방 조건은 "${active.downside}"입니다. ${flipKpis.slice(0, 3).map((item) => item.label).join(" · ")} 중 2개 이상 악화되면 결론을 낮춥니다.`,
       },
       {
         id: "strategy",
@@ -6499,7 +6427,7 @@
         role: "최종 정리",
         color: "#22C55E",
         stance: "실행 판단",
-        message: `${profile.strategy} 대상 제품군은 ${(active.products || []).slice(0, 4).join(" · ") || productLabel}입니다. 결론은 ${active.decision.label}로 두되, 위 KPI가 기준선을 넘으면 다음 수집 시점에 자동 재검토합니다.`,
+        message: `권고: ${profile.strategy} 대상 제품군은 ${(active.products || []).slice(0, 4).join(" · ") || productLabel}입니다. 결론은 ${active.decision.label}로 두고, 위 KPI가 기준선을 넘으면 다음 수집 시점에 자동 재검토합니다.`,
       },
     ].filter((agent) => agent.message);
   }
@@ -6513,8 +6441,8 @@
     const primaryFlip = primaryDecisionFlipKpi(active);
     return {
       title: `${active?.decision?.label || "판단 대기"} · ${active?.decision?.action || "실행 보류"}`,
-      body: `질문: "${profile.question}" ${yearLabel} 기준점 ${selectedIso ? pointDateLabel(selectedIso) : "없음"}에서 직전 모멘텀 ${prior}, 이후 실측 ${actual}, 관측 ${fmtNum(active?.observations?.length || 0)}개로 검증했습니다.`,
-      next: `결론: ${outcome}. 우선 재검토 KPI는 ${primaryFlip.label}이며, ${primaryFlip.trigger}. ${active?.decision?.logic || "근거가 더 쌓이면 재판단합니다."}`,
+      body: `경영진 결론: "${profile.question}" ${yearLabel} 기준점 ${selectedIso ? pointDateLabel(selectedIso) : "없음"}에서 직전 모멘텀 ${prior}, 이후 실측 ${actual}, 관측 ${fmtNum(active?.observations?.length || 0)}개로 검증.`,
+      next: `검증 결과: ${outcome}. 재검토 KPI: ${primaryFlip.label}(${primaryFlip.trigger}). ${active?.decision?.logic || "근거가 더 쌓이면 재판단합니다."}`,
     };
   }
 
@@ -6581,7 +6509,7 @@
                     <strong>${escapeHTML(agent.name)}</strong>
                     <span>${escapeHTML(agent.role)}</span>
                   </div>
-                  <p>${escapeHTML(agent.message)}</p>
+                  <p>${escapeReadableHTML(agent.message)}</p>
                 </div>
               </article>
             `).join("")}
@@ -7664,52 +7592,52 @@
 
     const answers = {
       "roi-credibility": {
-        verdict: "이 ROI는 재무 ROI %가 아니라 경영 의사결정용 상대지수로 써야 합니다.",
-        logic: `${model.formula}. 실제 현금흐름이 아니라 투자비, 효익, 리스크, 크롤링 신호, O/X 게이트를 0~100으로 표준화한 비교 모델입니다.`,
-        counter: "따라서 CFO 보고용 IRR/NPV로 쓰면 안 됩니다. 대신 어떤 투자안을 먼저 실사할지 정하는 1차 필터로는 유효합니다.",
-        action: `ROI 지수 ${fmtNum(model.roi)} 이상인 항목은 실사 후보, ${fmtNum(model.downside)} 이하 하방이면 옵션 유지로 분리합니다.`,
+        verdict: "재무 ROI가 아니라 실사 우선순위 지표로만 사용합니다.",
+        logic: `${model.formula}. 비용 ${fmtNum(model.cost)}, 효익 ${fmtNum(model.payoff)}, 리스크 ${fmtNum(model.risk)}, O/X ${fmtNum(gates.ok)}/${fmtNum(gates.noGo)}를 0~100으로 표준화했습니다.`,
+        counter: "CFO 보고용 IRR/NPV는 계약 가격, 물량, 투자비 원문이 붙은 뒤 별도 산출해야 합니다.",
+        action: `SKHY 액션: ROI 지수 ${fmtNum(model.roi)}점은 실사 순서 결정에만 쓰고, ${primaryFlip.label} 기준을 넘으면 재상정합니다.`,
       },
       "budget-cut": {
-        verdict: top?.investment ? `예산을 줄이면 '${top.investment.label}'만 남기는 것이 우선입니다.` : `${targetLabel}는 옵션 유지가 맞습니다.`,
-        logic: `선택 시나리오 평균 ROI는 ${fmtNum(chinaTalentScenarioRoi(scenario).roi)}이고, 최상위 투자안은 ROI ${fmtNum(top?.model?.roi || model.roi)}입니다. 낮은 ROI 투자안은 다음 수집일까지 보류합니다.`,
-        counter: "모든 투자를 얇게 집행하면 보안·품질·채용 어느 것도 임계치에 도달하지 못합니다.",
-        action: "1순위 투자만 승인하고, 나머지는 KPI 경보가 발생할 때 자동 재상정하는 방식이 좋습니다.",
+        verdict: top?.investment ? `예산 축소 시 '${top.investment.label}'만 1순위로 남깁니다.` : `${targetLabel}는 옵션 유지가 적절합니다.`,
+        logic: `시나리오 평균 ROI ${fmtNum(chinaTalentScenarioRoi(scenario).roi)}, 최상위 투자안 ROI ${fmtNum(top?.model?.roi || model.roi)}입니다. 낮은 ROI 항목은 다음 수집일까지 보류합니다.`,
+        counter: "모든 항목을 얇게 집행하면 보안, 품질, 리텐션 모두 임계치에 도달하지 못합니다.",
+        action: "SKHY 액션: 1순위만 승인하고 나머지는 KPI 경보 발생 시 자동 재상정합니다.",
       },
       "no-go": {
-        verdict: gates.noGo ? "X 게이트는 시나리오 폐기가 아니라 투자 범위 제한 조건입니다." : "현재는 X 게이트보다 실행 KPI 관리가 핵심입니다.",
+        verdict: gates.noGo ? "X 게이트는 폐기 사유가 아니라 집행 범위 제한 조건입니다." : "현재는 X 게이트보다 실행 KPI 관리가 우선입니다.",
         logic: noGoText,
-        counter: "예를 들어 BIS·IP·recipe 금지선은 생산 확대나 기술 이전을 막지만, EHS, 리텐션, 공개정보 크롤링까지 막지는 않습니다.",
-        action: "X 게이트와 무관하게 허용되는 투자만 남기고, 금지선에 닿는 채용·데이터 접근·기술 이전은 자동 보류합니다.",
+        counter: "BIS, IP, recipe 금지선은 생산 확대나 기술 이전을 막지만 EHS, 리텐션, 공개정보 분석까지 막지는 않습니다.",
+        action: "SKHY 액션: 허용 투자만 남기고 금지선에 닿는 채용, 데이터 접근, 기술 이전은 자동 보류합니다.",
       },
       "ip-risk": {
-        verdict: "채용 확대보다 접근권 통제와 클린룸 설계가 선행되어야 합니다.",
-        logic: `${targetLabel}의 리스크 지수는 ${fmtNum(model.risk)}입니다. IP 리스크가 높은 항목은 직접 채용보다 역할 분리, 접근권 등급화, 퇴직자 로그 관리가 먼저입니다.`,
-        counter: "인력 확보 자체가 위험한 것이 아니라, 채용과 recipe 접근을 같은 승인선에 두는 것이 위험합니다.",
-        action: "면접·온보딩·퇴직 단계에 비공개자료 반입 금지, 계정 회수 SLA, 핵심 데이터 접근 예외승인 로그를 넣습니다.",
+        verdict: "인력 확보 전에 접근권 통제와 클린룸 운영을 먼저 승인해야 합니다.",
+        logic: `${targetLabel} 리스크 지수는 ${fmtNum(model.risk)}입니다. 고위험 항목은 역할 분리, 접근권 등급화, 퇴직자 로그 관리가 선행돼야 합니다.`,
+        counter: "위험은 채용 자체가 아니라 채용과 recipe 접근을 같은 승인선에 두는 데서 발생합니다.",
+        action: "SKHY 액션: 면접, 온보딩, 퇴직 단계에 자료 반입 금지, 계정 회수 SLA, 예외승인 로그를 적용합니다.",
       },
       outsourcing: {
-        verdict: "외주는 보조 수단이고, 핵심 품질·IP·고객 판단은 내부 역량으로 남겨야 합니다.",
-        logic: `투자비 지수 ${fmtNum(model.cost)}가 높은 항목은 외주로 일부 낮출 수 있지만, ROI 지수 ${fmtNum(model.roi)}의 핵심은 학습된 운영 데이터와 고객 대응 속도입니다.`,
-        counter: "전력·EHS·일반 운영은 협력사 활용이 가능하지만, 펌웨어 검증, 고객 품질, IP 통제는 내부 책임자가 필요합니다.",
-        action: "외주 가능 업무와 내부 보유 업무를 RACI로 분리하고, 고객·recipe·접근권이 걸린 업무는 내부 owner를 둡니다.",
+        verdict: "외주는 보조 수단이며 품질, IP, 고객 판단은 내부 owner가 가져야 합니다.",
+        logic: `투자비 지수 ${fmtNum(model.cost)}는 외주로 낮출 수 있지만 ROI ${fmtNum(model.roi)}의 핵심은 운영 데이터와 고객 대응 속도입니다.`,
+        counter: "전력, EHS, 일반 운영은 협력 가능하지만 펌웨어 검증, 고객 품질, IP 통제는 내부 책임이 필요합니다.",
+        action: "SKHY 액션: RACI로 외주 가능 업무와 내부 보유 업무를 분리하고 recipe·고객·접근권 업무는 내부 승인으로 제한합니다.",
       },
       "bis-shock": {
-        verdict: "BIS 쇼크가 오면 확장형 채용은 줄이고 운영 유지·컴플라이언스·리텐션으로 전환해야 합니다.",
-        logic: "미국 수출통제는 기존 운영과 캐파 확대/기술 업그레이드를 분리합니다. 그래서 채용도 운영 유지형과 업그레이드형을 분리해야 합니다.",
-        counter: "규제가 강해진다고 중국 사업 인력을 모두 줄이면 운영 리스크가 커집니다. 줄일 것은 선단 이전·확장형 직무입니다.",
-        action: "BIS 강화 이벤트가 발생하면 Fab·패키징 확장 채용은 hold, IP·접근권 자동 통제와 운영 continuity 인력은 maintain으로 둡니다.",
+        verdict: "BIS 강화 시 확장형 채용은 줄이고 운영 유지, 컴플라이언스, 리텐션으로 전환합니다.",
+        logic: "수출통제는 기존 운영, 캐파 확대, 기술 업그레이드를 다르게 취급하므로 인력 계획도 같은 방식으로 나눠야 합니다.",
+        counter: "규제가 강해졌다고 중국 운영 인력을 일괄 축소하면 Fab continuity 리스크가 커집니다.",
+        action: "SKHY 액션: Fab·패키징 확장 채용은 Hold, IP·접근권 통제와 운영 continuity 인력은 Maintain으로 분류합니다.",
       },
       "kpi-reversal": {
-        verdict: "의사결정 재검토 기준을 먼저 정의해야 합니다.",
-        logic: `${targetLabel}의 1순위 재검토 KPI는 ${primaryFlip.label}입니다. 현재 ${primaryFlip.current}; 기준은 "${primaryFlip.trigger}"입니다. ROI 지수만 보지 말고 KPI 방향 전환을 자동 재검토 조건으로 둬야 합니다.`,
-        counter: "CEO 관점에서 가장 위험한 것은 한 번 승인한 투자가 관성으로 계속되는 것입니다.",
-        action: `ROI ${fmtNum(Math.max(40, model.roi - 12))} 이하, X 게이트 ${fmtNum(gates.noGo + 1)}개 이상, 또는 핵심 KPI 2개 악화 시 자동 재검토로 돌립니다.`,
+        verdict: "결정을 바꾸는 KPI를 먼저 정해야 합니다.",
+        logic: `${targetLabel}의 1순위 KPI는 ${primaryFlip.label}입니다. 현재 ${primaryFlip.current}; 재검토 기준은 "${primaryFlip.trigger}"입니다.`,
+        counter: "가장 큰 리스크는 한 번 승인한 투자가 데이터 변화와 무관하게 관성으로 계속되는 것입니다.",
+        action: `SKHY 액션: ROI 지수 ${fmtNum(Math.max(40, model.roi - 12))}점 이하, X 게이트 ${fmtNum(gates.noGo + 1)}개 이상, 또는 핵심 KPI 2개 악화 시 Watch/Hold로 낮춥니다.`,
       },
       "strategic-fit": {
-        verdict: `${targetLabel}는 중국 사업 자체보다 SKHY의 HBM·NAND/eSSD·운영 리스크 방어와 연결될 때 의미가 있습니다.`,
-        logic: `수익성 지수 ${fmtNum(model.profitability)}는 고객 방어, 수율 노하우 보호, 운영 중단 방지, 가격 하락 조기 대응의 조합입니다.`,
-        counter: "중국 인력 확보를 독립 프로젝트로 보면 비용입니다. 제품군·고객·IP 방어와 연결하면 옵션 가치가 생깁니다.",
-        action: "각 채용 요청은 HBM 수율, eSSD 고객 방어, Wuxi/Dalian/Chongqing 운영 안정, IP 리스크 중 하나에 반드시 매핑합니다.",
+        verdict: `${targetLabel}는 HBM, NAND/eSSD, 중국 운영, IP 방어 중 하나와 직접 연결될 때만 의미가 있습니다.`,
+        logic: `수익성 지수 ${fmtNum(model.profitability)}는 고객 방어, 수율 노하우 보호, 운영 중단 방지, 가격 하락 조기 대응을 반영합니다.`,
+        counter: "중국 인력 확보를 독립 프로젝트로 보면 비용입니다. 제품군, 고객, IP 방어와 연결될 때 옵션 가치가 생깁니다.",
+        action: "SKHY 액션: 모든 채용 요청을 HBM 수율, eSSD 고객 방어, 중국 운영 안정, IP 리스크 중 하나에 매핑합니다.",
       },
     };
 
@@ -7728,42 +7656,42 @@
       turns: [
         {
           name: "CEO",
-          role: "Challenge",
+          role: "경영진 질문",
           avatar: "CEO",
           color: "#111827",
           message: challenge.question,
         },
         {
           name: "Strategy Agent",
-          role: "전략 판단",
+          role: "권고",
           avatar: "STR",
           color: "#22C55E",
           message: response.verdict,
         },
         {
           name: "Data Agent",
-          role: "근거·수치",
+          role: "근거",
           avatar: "DATA",
           color: "#06B6D4",
           message: response.logic,
         },
         {
           name: "Risk Agent",
-          role: "CEO 반론 대응",
+          role: "리스크",
           avatar: "RISK",
           color: "#8B5CF6",
           message: response.counter,
         },
         {
           name: "CFO Agent",
-          role: "자본배분",
+          role: "재무 조건",
           avatar: "CFO",
           color: "#F59E0B",
-          message: `ROI 지수는 재무 IRR/NPV가 아니라 우선순위 필터입니다. ${targetLabel}은 수익성·비용·리스크 지표를 함께 봐야 합니다.`,
+          message: `${targetLabel} 안건은 승인 전 단계에서 수익성, 비용, 리스크를 분리해 봅니다. 재무 집행은 원문 계약, 가격, 투자비가 붙은 뒤 NPV/IRR로 재검증합니다.`,
         },
         {
           name: "Execution Agent",
-          role: "실행 조건",
+          role: "다음 액션",
           avatar: "OPS",
           color: "#0EA5E9",
           message: response.action,
@@ -7830,7 +7758,7 @@
       <option value="${escapeHTML(item.id)}"${item.id === target.id ? " selected" : ""}>${escapeHTML(item.type)} · ${escapeHTML(item.label)}</option>
     `).join("");
     challengeSelect.innerHTML = CEO_CHALLENGES.map((item) => `
-      <option value="${escapeHTML(item.id)}"${item.id === challenge.id ? " selected" : ""}>${escapeHTML(item.label)}</option>
+      <option value="${escapeHTML(item.id)}"${item.id === challenge.id ? " selected" : ""}>${escapeReadableHTML(item.label)}</option>
     `).join("");
     if (meta) meta.textContent = `${scenario.label} · ${target.label} · ${challenge.angle}`;
 
@@ -7853,40 +7781,12 @@
         chinaSignalCount: chinaTalentSignalCount(scenario),
       })}
       ${ceoChallengeDebateHTML(scenario, target, challenge, response)}
-      <div class="agent-head">
-        <span>AGENT</span>
-        <div>
-          <strong>${escapeHTML(response.title)}</strong>
-          <small>${escapeHTML(challenge.question)}</small>
-        </div>
-        <button type="button" data-agent-copy>복사</button>
-      </div>
-      <div class="agent-metrics">
-        ${(response.metrics || []).map((metric) => `
-          <div><strong>${escapeHTML(metric.value)}</strong><span>${escapeHTML(metric.label)}</span></div>
-        `).join("")}
-      </div>
-      <div class="agent-answer-grid">
-        <article>
-          <span>판단</span>
-          <p>${escapeHTML(response.verdict)}</p>
-        </article>
-        <article>
-          <span>논리</span>
-          <p>${escapeHTML(response.logic)}</p>
-        </article>
-        <article>
-          <span>CEO 반론에 대한 답</span>
-          <p>${escapeHTML(response.counter)}</p>
-        </article>
-        <article>
-          <span>실행 조건</span>
-          <p>${escapeHTML(response.action)}</p>
-        </article>
-      </div>
       <div class="agent-kpi-row">
-        <strong>추적 KPI</strong>
+        <strong>재검토 KPI</strong>
         ${(response.kpis || []).slice(0, 4).map((kpi) => `<span>${escapeHTML(kpi)}</span>`).join("")}
+      </div>
+      <div class="focus-actions agent-copy-actions">
+        <button type="button" data-agent-copy>답변 복사</button>
       </div>
     `;
     answerWrap.querySelector("[data-agent-copy]")?.addEventListener("click", (event) => {
