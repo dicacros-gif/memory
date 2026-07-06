@@ -4652,6 +4652,7 @@ body.sidebar-collapsed .sb-ico {
   min-width: 0;
   display: grid;
   gap: 12px;
+  position: relative;
   border: 1px solid color-mix(in srgb, var(--local-accent, var(--accent)) 30%, var(--line));
   border-radius: 12px;
   background:
@@ -4660,6 +4661,23 @@ body.sidebar-collapsed .sb-ico {
     var(--panel);
   padding: 12px;
   overflow: hidden;
+}
+
+.agent-debate::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background:
+    linear-gradient(90deg, transparent, color-mix(in srgb, var(--local-accent, var(--accent)) 12%, transparent), transparent);
+  opacity: .48;
+  transform: translateX(-120%);
+  animation: agentCouncilScan 7.5s ease-in-out infinite;
+}
+
+.agent-debate > * {
+  position: relative;
+  z-index: 1;
 }
 
 .decision-focus .agent-debate {
@@ -4729,25 +4747,42 @@ body.sidebar-collapsed .sb-ico {
 }
 
 .agent-roster {
+  position: relative;
   display: grid;
   grid-template-columns: repeat(6, minmax(0, 1fr));
   gap: 7px;
+}
+
+.agent-roster::before {
+  content: "";
+  position: absolute;
+  left: 8%;
+  right: 8%;
+  top: 38px;
+  height: 2px;
+  border-radius: 999px;
+  background: linear-gradient(90deg,
+    transparent,
+    color-mix(in srgb, var(--local-accent, var(--accent)) 22%, var(--line)),
+    transparent);
 }
 
 .agent-avatar-card {
   min-width: 0;
   display: grid;
   justify-items: center;
-  gap: 4px;
+  gap: 5px;
   position: relative;
   overflow: hidden;
   border: 1px solid color-mix(in srgb, var(--agent-color) 30%, var(--line));
   border-radius: 10px;
   background: color-mix(in srgb, var(--agent-color) 7%, var(--panel-2));
-  padding: 8px 6px;
+  padding: 10px 7px 8px;
   opacity: 0;
   transform: translateY(10px) scale(.96);
-  animation: agentPop .52s cubic-bezier(.2, .8, .2, 1) forwards;
+  animation:
+    agentPop .52s cubic-bezier(.2, .8, .2, 1) forwards,
+    agentCardSpeak 1.45s ease-out forwards;
   animation-delay: var(--delay, 0ms);
   transition:
     transform .18s cubic-bezier(.34, 1.56, .64, 1),
@@ -4766,6 +4801,18 @@ body.sidebar-collapsed .sb-ico {
   transition: opacity .18s;
 }
 
+.agent-avatar-card::after {
+  content: "";
+  position: absolute;
+  inset: 7px;
+  border: 1px solid color-mix(in srgb, var(--agent-color) 28%, transparent);
+  border-radius: 9px;
+  opacity: 0;
+  transform: scale(.96);
+  animation: agentCardHalo 1.45s ease-out forwards;
+  animation-delay: var(--delay, 0ms);
+}
+
 .agent-avatar-card:hover,
 .agent-avatar-card:focus-within {
   transform: translateY(-2px) scale(1.02);
@@ -4781,31 +4828,60 @@ body.sidebar-collapsed .sb-ico {
 .agent-person {
   position: relative;
   z-index: 1;
-  display: grid;
-  justify-items: center;
-  gap: 0;
+  width: 54px;
+  height: 54px;
+  display: block;
+  border-radius: 999px;
+  background:
+    radial-gradient(circle at 34% 28%, rgba(255, 255, 255, .88), transparent 12%),
+    linear-gradient(145deg, color-mix(in srgb, var(--agent-color) 92%, #fff), color-mix(in srgb, var(--agent-color) 68%, #0f172a));
+  box-shadow:
+    0 0 0 5px color-mix(in srgb, var(--agent-color) 15%, transparent),
+    inset 0 1px 0 rgba(255, 255, 255, .38);
+  animation: agentPersonBreathe 2.2s ease-in-out infinite;
+  animation-delay: var(--delay, 0ms);
+}
+
+.agent-person::before {
+  content: "";
+  position: absolute;
+  left: 50%;
+  top: 10px;
+  width: 22px;
+  height: 22px;
+  border-radius: 999px;
+  background:
+    radial-gradient(circle at 35% 34%, rgba(255, 255, 255, .72) 0 9%, transparent 10%),
+    #fff;
+  box-shadow: 0 7px 16px rgba(15, 23, 42, .14);
+  transform: translateX(-50%);
 }
 
 .agent-person i {
-  width: 42px;
-  height: 15px;
-  margin-top: -6px;
-  border-radius: 999px 999px 8px 8px;
-  background: color-mix(in srgb, var(--agent-color) 28%, var(--panel));
-  box-shadow: inset 0 0 0 1px color-mix(in srgb, #fff 18%, transparent);
+  position: absolute;
+  left: 50%;
+  bottom: 8px;
+  width: 34px;
+  height: 18px;
+  border-radius: 999px 999px 12px 12px;
+  background:
+    linear-gradient(180deg, rgba(255, 255, 255, .98), rgba(255, 255, 255, .82));
+  box-shadow: inset 0 -1px 0 color-mix(in srgb, var(--agent-color) 16%, transparent);
+  transform: translateX(-50%);
 }
 
 .agent-person::after {
   content: "";
   position: absolute;
-  right: 3px;
-  top: 1px;
-  width: 8px;
-  height: 8px;
+  right: 4px;
+  top: 4px;
+  width: 9px;
+  height: 9px;
   border: 2px solid var(--panel);
   border-radius: 999px;
   background: #22c55e;
   box-shadow: 0 0 12px #22c55e;
+  animation: agentStatusPulse 1.4s ease-in-out infinite;
 }
 
 .agent-avatar-card b,
@@ -4822,9 +4898,15 @@ body.sidebar-collapsed .sb-ico {
 }
 
 .agent-avatar-card b {
-  width: 34px;
-  height: 34px;
-  box-shadow: 0 0 0 4px color-mix(in srgb, var(--agent-color) 18%, transparent);
+  position: absolute;
+  right: -2px;
+  bottom: -2px;
+  width: 22px;
+  height: 22px;
+  border: 2px solid var(--panel);
+  background: color-mix(in srgb, var(--agent-color) 88%, #111827);
+  font-size: 7.5px;
+  box-shadow: 0 0 0 4px color-mix(in srgb, var(--agent-color) 14%, transparent);
 }
 
 .agent-avatar-card span,
@@ -4877,30 +4959,105 @@ body.sidebar-collapsed .sb-ico {
 }
 
 .agent-chat {
+  position: relative;
   display: grid;
   gap: 9px;
+  padding: 4px 0;
+}
+
+.agent-chat::before {
+  content: "";
+  position: absolute;
+  top: 8px;
+  bottom: 8px;
+  left: 17px;
+  width: 2px;
+  border-radius: 999px;
+  background: linear-gradient(180deg,
+    color-mix(in srgb, var(--local-accent, var(--accent)) 36%, transparent),
+    color-mix(in srgb, var(--local-accent, var(--accent)) 8%, transparent));
+}
+
+.agent-chat::after {
+  content: "";
+  position: absolute;
+  left: 13px;
+  top: 8px;
+  width: 10px;
+  height: 10px;
+  border-radius: 999px;
+  background: var(--local-accent, var(--accent));
+  box-shadow: 0 0 18px color-mix(in srgb, var(--local-accent, var(--accent)) 64%, transparent);
+  animation: agentTimelineCursor 6.2s ease-in-out infinite;
 }
 
 .agent-turn {
+  position: relative;
   min-width: 0;
   display: flex;
   align-items: flex-start;
   gap: 8px;
   opacity: 0;
-  transform: translateY(10px);
-  animation: bubbleIn .58s cubic-bezier(.2, .8, .2, 1) forwards;
+  transform: translateY(10px) scale(.98);
+  animation:
+    bubbleIn .58s cubic-bezier(.2, .8, .2, 1) forwards,
+    agentTurnSpotlight 1.25s ease-out forwards;
   animation-delay: calc(180ms + var(--delay, 0ms));
+}
+
+.agent-turn::before {
+  content: "";
+  position: absolute;
+  top: 19px;
+  left: 16px;
+  width: 12px;
+  height: 2px;
+  border-radius: 999px;
+  background: color-mix(in srgb, var(--agent-color) 58%, transparent);
+  box-shadow: 0 0 14px color-mix(in srgb, var(--agent-color) 40%, transparent);
+  transform-origin: left center;
+  animation: agentConnectorDraw .82s ease-out forwards;
+  animation-delay: calc(310ms + var(--delay, 0ms));
 }
 
 .agent-turn.right {
   flex-direction: row-reverse;
 }
 
+.agent-turn.right::before {
+  right: 16px;
+  left: auto;
+  transform-origin: right center;
+}
+
 .agent-badge {
-  width: 34px;
-  height: 34px;
-  flex: 0 0 34px;
-  box-shadow: 0 0 0 4px color-mix(in srgb, var(--agent-color) 16%, transparent);
+  position: relative;
+  width: 38px;
+  height: 38px;
+  flex: 0 0 38px;
+  color: transparent;
+  background:
+    radial-gradient(circle at 50% 32%, #fff 0 18%, transparent 19%),
+    radial-gradient(ellipse at 50% 80%, #fff 0 32%, transparent 33%),
+    linear-gradient(145deg, var(--agent-color), color-mix(in srgb, var(--agent-color) 58%, #0f172a));
+  box-shadow:
+    0 0 0 4px color-mix(in srgb, var(--agent-color) 16%, transparent),
+    0 12px 24px color-mix(in srgb, var(--agent-color) 18%, transparent);
+  animation: agentBadgeSpeak 1.2s ease-out forwards;
+  animation-delay: calc(180ms + var(--delay, 0ms));
+}
+
+.agent-badge::after {
+  content: "";
+  position: absolute;
+  right: 1px;
+  bottom: 1px;
+  width: 9px;
+  height: 9px;
+  border: 2px solid var(--panel);
+  border-radius: 999px;
+  background: #22c55e;
+  box-shadow: 0 0 12px #22c55e;
 }
 
 .speech-bubble {
@@ -4915,6 +5072,9 @@ body.sidebar-collapsed .sb-ico {
   padding: 10px 11px;
   box-shadow: 0 12px 28px rgba(15, 23, 42, .08);
   overflow-wrap: anywhere;
+  opacity: 0;
+  animation: speechBubbleReveal .7s cubic-bezier(.2, .8, .2, 1) forwards;
+  animation-delay: calc(260ms + var(--delay, 0ms));
   transition:
     transform .18s cubic-bezier(.34, 1.56, .64, 1),
     background .16s,
@@ -4941,6 +5101,19 @@ body.sidebar-collapsed .sb-ico {
   border-bottom: 1px solid color-mix(in srgb, var(--agent-color) 24%, var(--line));
   background: color-mix(in srgb, var(--agent-color) 6%, var(--panel-2));
   transform: rotate(45deg);
+}
+
+.speech-bubble::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, .22), transparent);
+  opacity: 0;
+  transform: translateX(-110%);
+  animation: speechHighlight 1.15s ease-out forwards;
+  animation-delay: calc(360ms + var(--delay, 0ms));
+  pointer-events: none;
 }
 
 .agent-turn.right .speech-bubble::before {
@@ -5002,6 +5175,184 @@ body.sidebar-collapsed .sb-ico {
   to {
     opacity: 1;
     transform: translateY(0) scale(1);
+  }
+}
+
+@keyframes agentCouncilScan {
+  0%, 48%, 100% {
+    opacity: 0;
+    transform: translateX(-120%);
+  }
+  58% {
+    opacity: .42;
+  }
+  72% {
+    opacity: 0;
+    transform: translateX(120%);
+  }
+}
+
+@keyframes agentCardSpeak {
+  0%, 100% {
+    box-shadow: 0 0 0 color-mix(in srgb, var(--agent-color) 0%, transparent);
+  }
+  38% {
+    box-shadow:
+      0 16px 34px color-mix(in srgb, var(--agent-color) 22%, transparent),
+      0 0 0 7px color-mix(in srgb, var(--agent-color) 13%, transparent);
+  }
+}
+
+@keyframes agentCardHalo {
+  0% {
+    opacity: 0;
+    transform: scale(.94);
+  }
+  26% {
+    opacity: .86;
+    transform: scale(1.01);
+  }
+  100% {
+    opacity: 0;
+    transform: scale(1.08);
+  }
+}
+
+@keyframes agentPersonBreathe {
+  0%, 100% {
+    transform: translateY(0) scale(1);
+    filter: saturate(1);
+  }
+  50% {
+    transform: translateY(-1px) scale(1.025);
+    filter: saturate(1.12);
+  }
+}
+
+@keyframes agentStatusPulse {
+  0%, 100% {
+    transform: scale(.92);
+    opacity: .82;
+  }
+  50% {
+    transform: scale(1.12);
+    opacity: 1;
+  }
+}
+
+@keyframes agentTimelineCursor {
+  0%, 8% {
+    transform: translateY(0);
+    opacity: 0;
+  }
+  14% {
+    opacity: 1;
+  }
+  84% {
+    transform: translateY(calc(100% + 220px));
+    opacity: .9;
+  }
+  100% {
+    transform: translateY(calc(100% + 260px));
+    opacity: 0;
+  }
+}
+
+@keyframes agentTurnSpotlight {
+  0% {
+    filter: saturate(1);
+  }
+  28% {
+    filter: saturate(1.22) brightness(1.03);
+  }
+  100% {
+    filter: saturate(1);
+  }
+}
+
+@keyframes agentBadgeSpeak {
+  0% {
+    transform: scale(.94);
+  }
+  34% {
+    transform: scale(1.12);
+    box-shadow:
+      0 0 0 6px color-mix(in srgb, var(--agent-color) 18%, transparent),
+      0 14px 28px color-mix(in srgb, var(--agent-color) 28%, transparent);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+
+@keyframes agentConnectorDraw {
+  0% {
+    opacity: 0;
+    transform: scaleX(0);
+  }
+  42% {
+    opacity: 1;
+  }
+  100% {
+    opacity: .9;
+    transform: scaleX(1);
+  }
+}
+
+@keyframes speechBubbleReveal {
+  0% {
+    opacity: 0;
+    clip-path: inset(0 100% 0 0 round 12px);
+  }
+  68% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 1;
+    clip-path: inset(0 0 0 0 round 12px);
+  }
+}
+
+@keyframes speechHighlight {
+  0% {
+    opacity: 0;
+    transform: translateX(-110%);
+  }
+  30% {
+    opacity: .7;
+  }
+  100% {
+    opacity: 0;
+    transform: translateX(110%);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .agent-debate::before,
+  .agent-avatar-card,
+  .agent-avatar-card::after,
+  .agent-person,
+  .agent-person::after,
+  .agent-chat::after,
+  .agent-turn,
+  .agent-turn::before,
+  .agent-badge,
+  .speech-bubble,
+  .speech-bubble::after {
+    animation: none;
+  }
+
+  .agent-avatar-card,
+  .agent-turn,
+  .speech-bubble {
+    opacity: 1;
+    transform: none;
+    clip-path: none;
+  }
+
+  .agent-avatar-card::after,
+  .speech-bubble::after {
+    display: none;
   }
 }
 
