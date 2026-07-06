@@ -31,7 +31,9 @@
         318000
       ],
       "currency": "KRW",
-      "label": "삼성전자"
+      "label": "삼성전자",
+      "updatedAt": "2026-07-06T09:04:29.138Z",
+      "displayNote": "latestClose and health logs can have different crawl timestamps; show timestamp with the price."
     },
     "skhynix": {
       "symbol": "000660.KS",
@@ -62,7 +64,9 @@
         2343000
       ],
       "currency": "KRW",
-      "label": "SKHY"
+      "label": "SKHY",
+      "updatedAt": "2026-07-06T09:04:29.138Z",
+      "displayNote": "latestClose and health logs can have different crawl timestamps; show timestamp with the price."
     },
     "micron": {
       "symbol": "MU",
@@ -93,7 +97,9 @@
         975.56
       ],
       "currency": "USD",
-      "label": "Micron"
+      "label": "Micron",
+      "updatedAt": "2026-07-06T09:04:29.138Z",
+      "displayNote": "latestClose and health logs can have different crawl timestamps; show timestamp with the price."
     }
   },
   "prices": {
@@ -7789,7 +7795,7 @@
         "label": "Micron",
         "shortLabel": "Micron",
         "segment": "DRAM · HBM · 미국 AI 고객",
-        "baseline": "미국 상장 프리미엄과 HBM 고객 다변화가 강점. 선급계약·CAPEX·HBM4 로드맵 확인.",
+        "baseline": "US-listed AI memory peer. Track HBM customer diversification, prepaid contracts, CAPEX, HBM4 roadmap, and whether the 2026 YTD rally has already priced in AI-memory expectations.",
         "queries": [
           "Micron HBM AI memory DRAM guidance"
         ],
@@ -8018,12 +8024,12 @@
       },
       {
         "id": "kioxia",
-        "label": "Kioxia / Western Digital",
-        "shortLabel": "Kioxia·WD",
-        "segment": "NAND · 엔터프라이즈 SSD",
-        "baseline": "NAND 공급 조절, SSD 계약가, 일본·미국 자본 지출 동향이 하이닉스 NAND 전략에 직접 영향.",
+        "label": "Kioxia / SanDisk",
+        "shortLabel": "Kioxia-SanDisk",
+        "segment": "NAND / BiCS Flash / enterprise SSD",
+        "baseline": "Kioxia and SanDisk jointly developed next-generation BiCS Flash signals. Track 332-layer / 10th-generation samples, SSD contract pricing, and AI data center NAND demand against SKHY NAND strategy.",
         "queries": [
-          "Kioxia Western Digital NAND SSD IPO"
+          "Kioxia SanDisk 332-layer BiCS Flash 10th generation NAND AI data center"
         ],
         "watchWords": [
           "NAND",
@@ -8031,23 +8037,41 @@
           "enterprise",
           "wafer",
           "capacity",
-          "IPO"
+          "IPO",
+          "SanDisk",
+          "BiCS",
+          "332-layer"
         ],
         "pressureBase": 20,
-        "pressureScore": 27,
+        "pressureScore": 41,
         "stats": {
-          "total": 2,
-          "total24h": 0,
-          "7d": 0,
-          "30d": 2
+          "total": 5,
+          "total24h": 1,
+          "7d": 4,
+          "30d": 5
         },
         "themes": [
           {
-            "label": "IPO",
+            "label": "BiCS Flash",
             "count": 2
+          },
+          {
+            "label": "AI data center",
+            "count": 2
+          },
+          {
+            "label": "IPO",
+            "count": 1
           }
         ],
         "recentNews": [
+          {
+            "title": "Kioxia ships next-gen flash memory samples as AI boom fuels dramatic comeback",
+            "titleKo": "Kioxia and SanDisk ship 332-layer 10th-generation BiCS Flash samples",
+            "source": "The Japan Times",
+            "date": "2026-07-03",
+            "link": "https://www.japantimes.co.jp/business/2026/07/03/companies/kioxia-flash-memory-data-centers/"
+          },
           {
             "title": "Memory Giant Kioxia’s US IPO: Key Information You Need to Know - TradingKey",
             "link": "https://news.google.com/rss/articles/CBMioAFBVV95cUxOLVV0MzVfcXFYbkpVVXFYOVJLZEtJRko0aURoMFJYcU1iSFVlTWdydUlCV1pCTFdGRi0zTFhKa0l1dzMxd2Zlem50MmhvYW1rR2NUeVZUOURUU3FRSU10VzZ6bDcyS2QyY0F0TjZjQ05VVXNXMmM3Mjk0RFhGRFU3VVgySVZtYW5oRzg3WG0wbl9wQVZzN3BNTG5uT29WcmZ4?oc=5",
@@ -8072,29 +8096,31 @@
       {
         "id": "celestial-ai",
         "name": "Celestial AI",
-        "area": "광 인터커넥트 · chip-to-memory fabric",
+        "area": "chip-to-chip and rack-scale optical fabric",
         "stage": "Late-stage",
         "geography": "US",
         "fitScore": 86,
-        "thesis": "AI 가속기와 메모리 사이 대역폭·전력 병목을 포토닉 패브릭으로 완화.",
-        "whyHynix": "HBM 패키지와 광 I/O 결합 가능성, 차세대 AI 메모리 차별화.",
-        "watch": "패키징 파트너, 광엔진 수율, 대형 고객 양산 일정",
+        "thesis": "Photonic Fabric links chip-to-chip and server-to-server paths with optical scale-up networking for AI infrastructure.",
+        "whyHynix": "Track whether optical fabric can reduce bandwidth and power bottlenecks around HBM packages and AI accelerators.",
+        "watch": "Total funding $520M; final Series C1 $255M; Samsung Catalyst Fund participated; foundry partnership includes TSMC.",
         "queries": [
-          "Celestial AI Photonic Fabric memory interconnect"
+          "Celestial AI Photonic Fabric Series C1 Samsung Catalyst TSMC"
         ],
         "tags": [
           "photonics",
           "interconnect",
-          "HBM"
+          "rack-scale",
+          "TSMC",
+          "Samsung Catalyst"
         ],
         "score": 100,
-        "momentum": 18,
-        "status": "우선 검토",
+        "momentum": 22,
+        "status": "Priority review",
         "stats": {
-          "total": 6,
+          "total": 8,
           "total24h": 1,
           "7d": 3,
-          "30d": 6
+          "30d": 8
         },
         "themes": [
           {
@@ -8111,6 +8137,13 @@
           }
         ],
         "recentNews": [
+          {
+            "title": "Celestial AI Closes Final Series C1 Round to Accelerate Next-Generation AI Computing",
+            "titleKo": "Celestial AI final Series C1 close brings total funding to $520M",
+            "source": "Business Wire",
+            "date": "2025-08-12",
+            "link": "https://www.businesswire.com/news/home/20250812918226/en/Celestial-AI-Closes-Final-Series-C1-Round-to-Accelerate-Next-Generation-AI-Computing"
+          },
           {
             "title": "These 7 stocks will solve AI’s most important bottleneck - MSN",
             "link": "https://news.google.com/rss/articles/CBMiqgFBVV95cUxOV3A4LUYzZFhzZ2xYbTl3M3pLd2RvalJlbFlicnhrei16R2pFTHFYQ3ljQU5fRzhxQkNqUFZVSEdRUC1MMFhUS0JWRmZZQm1nTXI0cUR6Tm5BdzdMSlpFWnQxYlVjZjVuWlZkWlQ0OXB1N1U2bXZMZWZ5QzR4Rjk2aEZSN1k4S1UwSndPRUQzdVkzY1pKZFAtZVM0NnNhY3k5bHhwaXV0Y2k4Zw?oc=5",
@@ -8142,24 +8175,26 @@
       {
         "id": "dmatrix",
         "name": "d-Matrix",
-        "area": "디지털 in-memory compute (추론)",
+        "area": "SRAM-based digital in-memory compute for inference",
         "stage": "Late-stage",
         "geography": "US",
-        "fitScore": 73,
-        "thesis": "메모리 중심 추론 가속으로 AI 추론 비용·전력을 낮추는 접근.",
-        "whyHynix": "near-memory/PIM 생태계 신호와 메모리 중심 컴퓨팅 수요 파악.",
-        "watch": "Corsair 채택, 추론 TCO, 메모리 파트너십",
+        "fitScore": 94,
+        "thesis": "Corsair is the current SRAM inference accelerator, Pavehawk is the system platform, and Raptor is the next 3D DRAM plus compute stack.",
+        "whyHynix": "Separate d-Matrix as a Post-HBM complement or substitute signal for near-memory inference workloads.",
+        "watch": "Corsair production; 2GB on-chip SRAM; 150TB/s memory bandwidth; Raptor 3D DRAM plus compute stack; Pavehawk test chip.",
         "queries": [
-          "d-Matrix in-memory compute AI inference funding"
+          "d-Matrix Corsair Pavehawk Raptor 3D DRAM SRAM inference accelerator"
         ],
         "tags": [
           "in-memory",
           "inference",
+          "SRAM",
+          "3D DRAM",
           "near-memory"
         ],
         "score": 94,
-        "momentum": 21,
-        "status": "우선 검토",
+        "momentum": 24,
+        "status": "Priority review",
         "stats": {
           "total": 12,
           "total24h": 0,
@@ -8177,6 +8212,20 @@
           }
         ],
         "recentNews": [
+          {
+            "title": "d-Matrix Corsair, Pavehawk and Raptor product roadmap discussion",
+            "titleKo": "d-Matrix product roadmap: Corsair, Pavehawk, Raptor, and 3D DRAM inference",
+            "source": "YouTube",
+            "date": "2026-06-01",
+            "link": "https://www.youtube.com/watch?v=k1OHyARgxDM"
+          },
+          {
+            "title": "d-Matrix Corsair production signal",
+            "titleKo": "d-Matrix Corsair production signal in June 2026",
+            "source": "AwesomeAgents",
+            "date": "2026-06-01",
+            "link": "https://awesomeagents.ai/hardware/d-matrix-corsair/"
+          },
           {
             "title": "Qualcomm's proposed solution to catch up in AI infra: Bury the compute under the DRAM - The Register",
             "link": "https://news.google.com/rss/articles/CBMi1AFBVV95cUxPaFI5aTQ4RjBES2tEbHFXTEhtTWd5Qzg1UFFBcHZqb3l6cC1SOWptMnJrMFctVzRYN3FlTTdvbFVVODYzWkJHMENkY0wzZzZFdkp4Y3NURmxRZTd5Yjl6dVg2Tm9YaElyWndjaVF0alFWMDFxMmVIU1M1YUs2dkVCNThLR0JqeGVwc2JteGJoMmhDcDBuYlZEZWJscUV5ZHJGcW80WGJ0NmdDcFd1X3RlR3JhbDBCejN2ZWI0dXlnbEsxYTM1NUZuVThxcXdHX19vdmpISg?oc=5",
@@ -8208,59 +8257,91 @@
       {
         "id": "xcena",
         "name": "XCENA",
-        "area": "CXL 기반 컴퓨테이셔널 메모리",
-        "stage": "Growth",
+        "area": "PCIe Gen6 and CXL 3.2 computational memory",
+        "stage": "Series B",
         "geography": "Korea / US",
         "fitScore": 88,
-        "thesis": "AI 추론 병목을 메모리 가까이에서 처리하는 CXL 모듈형 접근.",
-        "whyHynix": "HBM 이후의 CXL 메모리 확장·근접연산 제품 포트폴리오 옵션.",
-        "watch": "서버 OEM PoC, CXL 3.0 상호운용성, 메모리 모듈 공급 파트너십",
+        "thesis": "MX1 combines PCIe Gen6, CXL 3.2, RISC-V near-data processing, and DDR5 pooling as a Post-HBM memory option.",
+        "whyHynix": "Use XCENA as a CXL expansion and near-memory compute PoC candidate after HBM, tracking Samsung foundry MP timing.",
+        "watch": "Series B $135M; total funding $185M; valuation $570M; Samsung foundry MP target late 2026; revenue target 2027; Pangyo and Sunnyvale offices.",
         "queries": [
-          "XCENA CXL computational memory startup"
+          "XCENA Series B MX1 CXL 3.2 PCIe Gen6 Samsung foundry"
         ],
         "tags": [
           "CXL",
-          "near-memory",
-          "AI inference"
+          "PCIe Gen6",
+          "RISC-V",
+          "DDR5 pooling",
+          "near-memory"
         ],
-        "score": 88,
-        "momentum": 0,
-        "status": "공동 PoC",
+        "score": 96,
+        "momentum": 18,
+        "status": "Joint PoC",
         "stats": {
-          "total": 0,
+          "total": 4,
           "total24h": 0,
-          "7d": 0,
-          "30d": 0
+          "7d": 1,
+          "30d": 4
         },
-        "themes": [],
-        "recentNews": []
+        "themes": [
+          {
+            "label": "CXL 3.2",
+            "count": 2
+          },
+          {
+            "label": "Series B",
+            "count": 1
+          },
+          {
+            "label": "Samsung foundry",
+            "count": 1
+          }
+        ],
+        "recentNews": [
+          {
+            "title": "This chip startup just raised $135M on a bet that AI's biggest bottleneck isn't compute -- it's memory",
+            "titleKo": "XCENA raises $135M Series B at $570M valuation for MX1 computational memory",
+            "source": "TechCrunch",
+            "date": "2026-05-29",
+            "link": "https://techcrunch.com/2026/05/29/xcena-secures-135m-at-570m-valuation-betting-on-memory-as-ais-real-bottleneck/"
+          },
+          {
+            "title": "XCENA MX1 RISC-V Computational Memory in CXL 3.0",
+            "titleKo": "XCENA MX1 uses PCIe Gen6, CXL, and RISC-V computational memory",
+            "source": "ServeTheHome",
+            "date": "2025-08-13",
+            "link": "https://www.servethehome.com/xcena-mx1-risc-v-computational-memory-in-cxl-3-0/"
+          }
+        ]
       },
       {
         "id": "lightmatter",
         "name": "Lightmatter",
-        "area": "포토닉 컴퓨팅 · AI 인터커넥트",
+        "area": "photonic interconnect with Passage L20 and M1000",
         "stage": "Late-stage",
         "geography": "US",
         "fitScore": 80,
-        "thesis": "AI 클러스터 내부 데이터 이동 비용을 광 기반 네트워크로 낮추는 접근.",
-        "whyHynix": "HBM 수요를 만드는 AI 클러스터 병목을 이해하고 공동 레퍼런스 설계 가능.",
-        "watch": "Passage 채택 고객, GPU·ASIC 패키지 통합 로드맵",
+        "thesis": "Passage L20 is a unified optical engine for NPO/OBO applications that targets AI cluster chiplet and rack bandwidth bottlenecks.",
+        "whyHynix": "Track optical interconnect as an HBM-adjacent package and cluster design option.",
+        "watch": "Total funding $850M; Series D $400M; valuation $4.4B; Passage L20 6.4Tbps bidirectional, 212.5Gbps PAM4, sampling planned late 2026.",
         "queries": [
-          "Lightmatter Passage photonic interconnect AI"
+          "Lightmatter Passage L20 M1000 photonic interconnect 6.4Tbps"
         ],
         "tags": [
           "photonics",
+          "Passage L20",
+          "M1000",
           "AI cluster",
           "interconnect"
         ],
-        "score": 86,
-        "momentum": 6,
-        "status": "공동 PoC",
+        "score": 92,
+        "momentum": 14,
+        "status": "Joint PoC",
         "stats": {
-          "total": 2,
+          "total": 4,
           "total24h": 0,
           "7d": 1,
-          "30d": 2
+          "30d": 4
         },
         "themes": [
           {
@@ -8273,6 +8354,20 @@
           }
         ],
         "recentNews": [
+          {
+            "title": "Lightmatter Expands Photonic Interconnect Roadmap with Passage L20 Unified Optical Engine",
+            "titleKo": "Lightmatter announces Passage L20 photonic interconnect roadmap",
+            "source": "Lightmatter",
+            "date": "2026-03-11",
+            "link": "https://lightmatter.co/press-release/lightmatter-expands-photonic-interconnect-roadmap-with-passage-l20-unified-optical-engine-for-npo-and-obo-applications/"
+          },
+          {
+            "title": "Lightmatter InterConnect 2026: The Future of AI Runs on Light",
+            "titleKo": "Lightmatter InterConnect 2026 event for AI optical interconnects",
+            "source": "Lightmatter",
+            "date": "2026-05-29",
+            "link": "https://lightmatter.co/resource/lightmatter-interconnect-2026-the-future-of-ai-runs-on-light/"
+          },
           {
             "title": "EMIB-T Roadmap, Custom HBM, HBM4 Packaging Challenges, Microfluidic Cooling, Photonic Interconnects, and More - SemiAnalysis",
             "link": "https://news.google.com/rss/articles/CBMiWkFVX3lxTE5Eb2VEVVJPN0xOVUJ3TVBFWGFJWVBTX1lCQnFBZnlwM0czTHItZnh2OWdZa25xRzc2OHJrSVB0VnNUTWwyVVFDalNNYVN4T0JhNHBWNldBYXhZdw?oc=5",
@@ -8292,32 +8387,49 @@
       {
         "id": "ayar-labs",
         "name": "Ayar Labs",
-        "area": "in-package 광 I/O (optical chiplet)",
-        "stage": "Late-stage",
+        "area": "in-package optical I/O and TeraPHY UCIe chiplet",
+        "stage": "Pre-IPO",
         "geography": "US",
         "fitScore": 82,
-        "thesis": "TeraPHY 광 I/O 칩렛으로 패키지 내부 대역폭·전력 병목을 해소.",
-        "whyHynix": "HBM·가속기 패키지에 광 I/O를 통합하는 차세대 메모리 인터페이스 옵션.",
-        "watch": "UCIe-optical, 파운드리·패키징 파트너, 대형 고객 채택",
+        "thesis": "TeraPHY is an 8Tbps bidirectional UCIe-compliant in-package optical I/O chiplet for GPU and ASIC scale-up fabrics.",
+        "whyHynix": "Track optical I/O integration around HBM packages, GUC and Alchip 200Tbps+ XPU work, and 2027 hyperscaler deployment targets.",
+        "watch": "Series E $500M; total funding $870M; valuation $3.75B; NVIDIA, AMD Ventures, Sequoia, ARK, and MediaTek participated; Taiwan office expansion.",
         "queries": [
-          "Ayar Labs optical IO chiplet memory funding"
+          "Ayar Labs Series E TeraPHY UCIe 8Tbps optical I/O"
         ],
         "tags": [
           "photonics",
           "optical I/O",
-          "chiplet"
+          "chiplet",
+          "UCIe",
+          "Pre-IPO"
         ],
-        "score": 82,
-        "momentum": 0,
-        "status": "공동 PoC",
+        "score": 90,
+        "momentum": 16,
+        "status": "Joint PoC",
         "stats": {
-          "total": 0,
+          "total": 4,
           "total24h": 0,
-          "7d": 0,
-          "30d": 0
+          "7d": 1,
+          "30d": 4
         },
         "themes": [],
-        "recentNews": []
+        "recentNews": [
+          {
+            "title": "Ayar Labs Raises $500M Series E for Co-Packaged Optics",
+            "titleKo": "Ayar Labs raises $500M Series E at $3.75B valuation",
+            "source": "TAMradar",
+            "date": "2026-03-03",
+            "link": "https://www.tamradar.com/funding-rounds/ayar-labs-series-e-500m"
+          },
+          {
+            "title": "TeraPHY Optical I/O Chiplet",
+            "titleKo": "Ayar Labs TeraPHY delivers 8Tbps bidirectional UCIe optical I/O",
+            "source": "Ayar Labs",
+            "date": "2026-07-06",
+            "link": "https://ayarlabs.com/teraphy/"
+          }
+        ]
       },
       {
         "id": "xconn",
@@ -8354,6 +8466,69 @@
             "source": "simplywall.st",
             "date": "2026-06-24",
             "titleKo": "Marvell(MRVL), Nvidia가 관계를 심화함에 따라 Celestial AI와 XConn 인수 - Simplywall.st"
+          }
+        ]
+      },
+      {
+        "id": "panmnesia",
+        "name": "Panmnesia",
+        "area": "CXL memory switch and server memory expansion",
+        "stage": "Growth",
+        "geography": "Korea / US customers",
+        "fitScore": 80,
+        "thesis": "CXL memory switch and controller technology can expand DDR5 servers and reuse DDR4 memory at lower memory cost.",
+        "whyHynix": "Track Panmnesia beside XConn as a CXL switch option, using Meta deployment and CXL 3.1 switch signals as Post-HBM indicators.",
+        "watch": "Meta CXL deployment; Panmnesia next-stage CXL switch/controller; 64-node scale; low-latency memory expansion; PCIe/CXL roadmap.",
+        "queries": [
+          "Panmnesia Panmesia Meta CXL switch server memory expansion"
+        ],
+        "tags": [
+          "CXL",
+          "switch",
+          "memory pooling",
+          "Meta",
+          "server memory"
+        ],
+        "score": 80,
+        "momentum": 10,
+        "status": "Add to review",
+        "stats": {
+          "total": 3,
+          "total24h": 1,
+          "7d": 3,
+          "30d": 3
+        },
+        "themes": [
+          {
+            "label": "CXL",
+            "count": 3
+          },
+          {
+            "label": "Meta",
+            "count": 1
+          }
+        ],
+        "recentNews": [
+          {
+            "title": "Panmnesia and Meta demo CXL's advantages in expanding server memory - Electronics Weekly",
+            "titleKo": "Panmnesia and Meta demonstrate CXL server memory expansion benefits",
+            "source": "Electronics Weekly",
+            "date": "2026-07-06",
+            "link": "https://news.google.com/rss/articles/CBMiiwFBVV95cUxNTVBiaFIxNldFckNuOXdQMkMxd1JyMFY0ZG9hcW44cy1SSVd2Zi1pRVlLQ250YktQSWtsR1ZOdXlBZzhjaDBYVk13b3dGaGlqTDItNUxLZy1JZzBobnNFaFRxcTFwN3BJdHBUWVUteW80ay16bnNJeGU2SWRjTHZod1RvMUNZZktuSXAw?oc=5"
+          },
+          {
+            "title": "Panmnesia boosts CXL scale with fabric switching. Meta repurposes old DRAM with CXL",
+            "titleKo": "Panmnesia CXL fabric switching and Meta DDR4 reuse signal",
+            "source": "Blocks & Files",
+            "date": "2026-06-26",
+            "link": "https://www.blocksandfiles.com/architecture/2026/06/26/panmnesia-boosts-cxl-scale-with-fabric-switching-meta-repurposes-old-dram-with-cxl/5263151"
+          },
+          {
+            "title": "Panmnesia Unveils Next-Stage CXL Switch and Controller",
+            "titleKo": "Panmnesia unveils next-stage CXL switch and controller",
+            "source": "StorageNewsletter",
+            "date": "2026-07-01",
+            "link": "https://www.storagenewsletter.com/2026/07/01/panmnesia-unveils-next-stage-cxl-switch-and-controller/"
           }
         ]
       },
@@ -10503,6 +10678,15 @@
   ],
   "news": [
     {
+      "title": "Samsung likely to post 18-fold jump in profit on surging AI demand for memory",
+      "titleKo": "Samsung Q2 profit forecast should use Reuters as the primary source",
+      "source": "Reuters",
+      "date": "2026-07-05",
+      "category": "hbm",
+      "summary": "Reuters reports Samsung Q2 operating profit could rise 18-fold on AI memory demand. Asia Business Outlook is treated as a low-confidence source and filtered from the UI.",
+      "link": "https://www.reuters.com/world/asia-pacific/samsung-likely-post-18-fold-jump-profit-surging-ai-demand-memory-2026-07-05/"
+    },
+    {
       "title": "Data Center AI Growth Faces Challenging Bottlenecks - Semiconductor Engineering",
       "link": "https://news.google.com/rss/articles/CBMihwFBVV95cUxQNzVId1FkSmNkMmdGUHEwUUpUdUhTTi12bXRXVy1lWTZ5M2NlMW1oRTY1UW51bDFBaldxblAyUDNVc1JGTFc2NGhxbVloWHpXR1VOYmZpSjNrclp3XzlWcDBqb2syWEZDcGFod2kzUWprYXd4RHNOQjhDR1d2dVlpR3pJUFBqU00?oc=5",
       "source": "Semiconductor Engineering",
@@ -10540,7 +10724,8 @@
       "source": "Asia Business Outlook",
       "date": "2026-07-06",
       "category": "skhynix_projection",
-      "titleKo": "삼성, AI 메모리 칩 수요 급증으로 2분기 이익 56억 달러 예상 - 아시아 비즈니스 전망"
+      "titleKo": "삼성, AI 메모리 칩 수요 급증으로 2분기 이익 56억 달러 예상 - 아시아 비즈니스 전망",
+      "lowConfidence": true
     },
     {
       "title": "Samsung, SK hynix, and Micron Sued Over DRAM Price Fixing Amid Samsung's Expected 20% Price Hike - scanx.trade",
@@ -11046,7 +11231,7 @@
     {
       "step": "스타트업:XCENA",
       "ok": true,
-      "msg": "0건 / score 88"
+      "msg": "4 items / score 96"
     },
     {
       "step": "주가:SKHY",
@@ -11071,7 +11256,7 @@
     {
       "step": "스타트업:Celestial AI",
       "ok": true,
-      "msg": "6건 / score 100"
+      "msg": "8 items / score 100"
     },
     {
       "step": "가격:NAND / Storage",
@@ -11091,7 +11276,7 @@
     {
       "step": "스타트업:Lightmatter",
       "ok": true,
-      "msg": "2건 / score 86"
+      "msg": "4 items / score 92"
     },
     {
       "step": "경쟁사:CXMT",
@@ -11101,12 +11286,12 @@
     {
       "step": "스타트업:Ayar Labs",
       "ok": true,
-      "msg": "0건 / score 82"
+      "msg": "4 items / score 90"
     },
     {
-      "step": "경쟁사:Kioxia·WD",
+      "step": "competitor:Kioxia-SanDisk",
       "ok": true,
-      "msg": "2건 / score 27"
+      "msg": "5 items / score 41"
     },
     {
       "step": "스타트업:XConn Technologies",
@@ -11141,7 +11326,7 @@
     {
       "step": "스타트업:d-Matrix",
       "ok": true,
-      "msg": "12건 / score 94"
+      "msg": "12 items / score 94"
     },
     {
       "step": "벤치마킹:China Capacity",
@@ -11262,6 +11447,11 @@
       "step": "번역:KO",
       "ok": true,
       "msg": "83건"
+    },
+    {
+      "step": "startup:Panmnesia",
+      "ok": true,
+      "msg": "3 items / score 80"
     }
   ]
 }

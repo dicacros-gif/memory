@@ -93,7 +93,7 @@
     "i"
   );
   const LOW_CONFIDENCE_NEWS_RE =
-    /(ad hoc news|indexbox|36\s*kr|36kr|borncity|mjengo|blockchain\.news|odaily|zamin\.uz|finance\.biggo|crypto briefing|weex|fortrinawwer|siliconanalysts|nand-research|reddit|facebook|linkedin\.com|x\.com|twitter\.com)/i;
+    /(ad hoc news|asia business outlook|indexbox|36\s*kr|36kr|borncity|mjengo|blockchain\.news|odaily|zamin\.uz|finance\.biggo|crypto briefing|weex|fortrinawwer|siliconanalysts|nand-research|reddit|facebook|linkedin\.com|x\.com|twitter\.com)/i;
   const MEMORY_NEWS_RE =
     /(memory|dram|nand|hbm|ddr|lpddr|gddr|ssd|semiconductor|chip|wafer|foundry|packaging|interconnect|cxl|trendforce|dramexchange|micron|samsung|sk hynix|hynix|kioxia|western digital|sandisk|cxmt|changxin|ymtc|yangtze|jcet|tfme|xmc|wuhan xinxin|naura|amec|acm research|techinsights|yole|big fund|export control|china chip|chinese chip)/i;
   const CHINA_NEWS_RE =
@@ -1617,6 +1617,12 @@
       section: "strategic-investment-decision",
     },
     {
+      id: "startup-radar",
+      label: "스타트업 투자 후보",
+      sub: "CXL · Photonics · PIM",
+      section: "workbench",
+    },
+    {
       id: "policy-makers",
       label: "Policy Maker",
       sub: "China · Korea · US",
@@ -1675,7 +1681,7 @@
     {
       id: "home",
       label: "홈",
-      desc: "오늘의 핵심 변화, 경보, 업데이트 시각, 우선순위 바로가기",
+      desc: "Executive Summary, C-level 안건, 오늘의 변화",
       cadence: "Daily crawler",
       jump: "overview",
       sections: ["overview", "c-level-cockpit"],
@@ -1832,6 +1838,7 @@
     "china-nand": "중국 NAND 사업 강화",
     "talent-radar": "인재·채용 레이더",
     "china-deep-dive": "중국 심층 벤치마킹",
+    workbench: "분석실",
     response: "대응 대시보드",
     categories: "메모리 카테고리",
     news: "중국·외신 기사",
@@ -2486,7 +2493,7 @@
                 <span class="sb-ico" aria-hidden="true">${escapeHTML(SIDE_NAV_ICONS[routeSource.id] || route.label.slice(0, 1))}</span>
                 <span class="sb-label">
                   <strong>${escapeHTML(route.label)}</strong>
-                  <small>바로가기</small>
+                  <small>${escapeHTML(route.desc || route.cadence || "")}</small>
                 </span>
               </button>
             `;
@@ -6982,6 +6989,27 @@
     return inferCategoriesFromText(`${item.title || ""} ${item.desc || ""} ${(item.actions || []).join(" ")}`);
   }
 
+  function startupCandidateLinks(item = {}) {
+    return (item.recentNews || [])
+      .filter((news) => String(news.link || news.sourceUrl || "").trim())
+      .slice(0, 4);
+  }
+
+  function startupCandidateCategories(item = {}) {
+    const categories = inferCategoriesFromText(`${item.name || ""} ${item.area || ""} ${item.thesis || ""} ${item.whyHynix || ""} ${item.watch || ""} ${(item.tags || []).join(" ")}`);
+    if (categories.length) return categories;
+    return ["cxl"];
+  }
+
+  function startupCandidateWatch(item = {}) {
+    return [item.whyHynix, item.watch]
+      .filter(Boolean)
+      .flatMap((text) => String(text).split(/;|；|\s·\s/))
+      .map((text) => text.trim())
+      .filter(Boolean)
+      .slice(0, 5);
+  }
+
   function workbenchItems(mode = workbenchMode) {
     let items = [];
     if (mode === "executive") {
@@ -7046,6 +7074,31 @@
         tags: [item.label, item.option, item.stage].filter(Boolean),
         links: item.links || [],
       }));
+    }
+
+    if (mode === "startup-radar") {
+      items = (LIVE.startups?.candidates || []).map((item) => {
+        const categories = startupCandidateCategories(item);
+        const links = startupCandidateLinks(item);
+        return {
+          id: `startup-${item.id || item.name}`,
+          mode,
+          type: "스타트업 투자 후보",
+          tag: `${item.stage || "Stage"} · ${item.status || "Review"}`,
+          title: item.name,
+          body: item.thesis || item.area || "",
+          section: "workbench",
+          categories,
+          watch: startupCandidateWatch(item),
+          metrics: [
+            { label: "Fit", value: fmtNum(item.fitScore || item.score || 0) },
+            { label: "Signals", value: fmtNum(item.stats?.total || links.length) },
+            { label: "Stage", value: item.stage || "-" },
+          ],
+          tags: [item.area, item.geography, item.status].filter(Boolean),
+          links,
+        };
+      });
     }
 
     if (mode === "policy-makers") {
