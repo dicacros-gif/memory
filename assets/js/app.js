@@ -94,6 +94,9 @@
   );
   const LOW_CONFIDENCE_NEWS_RE =
     /(ad hoc news|asia business outlook|indexbox|36\s*kr|36kr|borncity|mjengo|blockchain\.news|odaily|zamin\.uz|finance\.biggo|crypto briefing|weex|fortrinawwer|siliconanalysts|nand-research|reddit|facebook|linkedin\.com|x\.com|twitter\.com)/i;
+  const SKHYNIX_NEWSROOM_RE = /news\.skhynix\.com|sk\s*hynix\s*newsroom|skhy\s*newsroom/i;
+  const AUTHORITATIVE_NEWS_RE =
+    /(reuters|bloomberg|financial times|ft\.com|nikkei|cnbc|trendforce|dramexchange|techinsights|yole|counterpoint|tom'?s hardware|tomshardware|south china morning post|scmp|digitimes|ee times|eetimes|semianalysis|techwire asia|the register|business insider|network world|evertiq|technode|techspot|japan times|electronics weekly|businesswire|pr newswire|solidigm|intel|u\.s\. bis|bis\.gov|wsts|acm research ir|cxmt|shanghai stock exchange|财新|caixin|第一财经|yicai|21财经|21世纪经济报道|证券时报|stcn|中国经营报|cb\.com\.cn|新浪财经|新浪科技|finance\.sina|电子工程专辑|eet-china|集微网|ijiwei|经济观察网|eeo\.com\.cn|techweb|chinaflashmarket)/i;
   const MEMORY_NEWS_RE =
     /(memory|dram|nand|hbm|ddr|lpddr|gddr|ssd|semiconductor|chip|wafer|foundry|packaging|interconnect|cxl|trendforce|dramexchange|micron|samsung|sk hynix|hynix|kioxia|western digital|sandisk|cxmt|changxin|ymtc|yangtze|jcet|tfme|xmc|wuhan xinxin|naura|amec|acm research|techinsights|yole|big fund|export control|china chip|chinese chip)/i;
   const CHINA_NEWS_RE =
@@ -183,7 +186,7 @@
       law: "회사법상 당조직 활동 조건 제공 의무, 지방 IC 펀드, 환경 고품질 발전 기조",
       skImpact: "Wuxi DRAM, Chongqing 후공정, Dalian/Solidigm 스토리지 거점은 중국 산업정책과 미국 수출통제 사이에서 기존 운영 중심으로 관리해야 합니다.",
       strategy: "중국 내 고객 대응은 유지하되, 선단 공정 업그레이드·핵심 recipe 이전·JV 구조는 공식 출처와 법무 검토가 충족될 때만 조건부 진행합니다.",
-      partyNote: "공개 확인 필요: 공개 출처로 확인되는 것은 중국 회사법의 당조직 조항과 Wuxi 시 당서기 참석 기록입니다. SKHY 중국 법인 내부 당서기 성명은 공개 출처로 확인되지 않아 추정하지 않습니다.",
+      partyNote: "공개 확인 필요: 공개 출처로 확인되는 것은 중국 회사법의 당조직 조항입니다. SKHY 중국 법인 내부 당서기 성명은 공개 출처로 확인되지 않아 추정하지 않습니다.",
       sites: [
         { name: "SK hynix Semiconductor (China) Ltd.", role: "Wuxi DRAM production site", note: "공식 오피스 페이지 기준 생산 거점" },
         { name: "SK hynix Semiconductor (Chongqing) Ltd.", role: "Chongqing headquarters", note: "보세구 후공정/운영 리스크 추적" },
@@ -193,7 +196,6 @@
         { axis: "산업정책", status: "O", title: "Shenzhen 2025년 50억 위안 IC 펀드", evidence: "Shenzhen은 2025년 5월 50억 위안 반도체·IC 펀드 등록을 발표했습니다. 같은 공식 발표는 2024년 10월 100억 위안급 시 펀드 계획과 38개 IC 관련 펀드·합산 1000억 위안+ 기존 운용 배경도 함께 설명합니다.", implication: "50억 위안 펀드는 신규 단독 빅펀드처럼 과대평가하지 않고, Shenzhen 기존 IC 펀드 생태계의 추가 실행 신호로 추적합니다.", source: "Shenzhen Government", sourceUrl: "https://www.sz.gov.cn/en_szgov/news/latest/content/post_12177837.html" },
         { axis: "당조직", status: "Watch", title: "회사법상 당조직 활동 조건 제공", evidence: "중국 회사법은 회사 내 공산당 조직 설치와 활동 조건 제공을 규정합니다.", implication: "법정 일반 조항과 특정 법인의 내부 당서기 정보는 분리 표기해야 합니다.", source: "PRC Company Law", sourceUrl: "https://natlex.ilo.org/dyn/natlex2/natlex2/files/download/92643/CHN92643%20Eng.pdf" },
         { axis: "SK 중국 법인", status: "확인필요", title: "법인 내부 당서기 공개 확인", evidence: "SKHY 공식/뉴스룸 공개자료에서 내부 당서기 성명은 확인되지 않았습니다.", implication: "공개 확인 전까지 실명/조직 직책을 추정하지 않고, 현지 정부 접점과 별도 관리합니다.", source: "SKHY Offices", sourceUrl: "https://www.skhynix.com/company/UI-FR-CP06/" },
-        { axis: "지역정부 접점", status: "O", title: "Wuxi 시 당서기 참석 기록", evidence: "2019년 Wuxi C2F 완공식에는 Wuxi Party Secretary가 참석했습니다.", implication: "이는 지방정부 정책 접점 증거이지 SKHY 내부 당서기 증거가 아닙니다.", source: "SKHY Newsroom", sourceUrl: "https://news.skhynix.com/sk-hynix-completes-expanded-fab-c2f-in-wuxi-china/" },
         { axis: "환경/인허가", status: "Watch", title: "고수준 보호와 고품질 발전 병행", evidence: "중국 환경정책은 신규 오염물질·POPs 관리와 산업 고도화를 동시에 압박합니다.", implication: "Wuxi/Dalian/Chongqing 인허가·폐수·화학물질 이슈를 생산 연속성 리스크로 별도 추적합니다.", source: "China MEE", sourceUrl: "https://english.mee.gov.cn/News_service/news_release/202405/P020240529333532299021.pdf" },
       ],
       actions: [
@@ -293,7 +295,6 @@
         { axis: "공정 업그레이드", status: "O", title: "Wuxi 1z→1a 전환 완료", evidence: "SemiMedia는 2026년 1월 Wuxi DRAM 팹이 1z에서 1a로 전환됐고, 12인치 기준 월 18만~19만 장 캐파 중 약 90%가 1a 공정이라고 보도했습니다.", implication: "DDR5·고성능 DRAM 양산 여력과 수익성은 개선 신호지만, 1b/1c 같은 최선단 이전 근거로 해석하지 않습니다.", source: "SemiMedia", sourceUrl: "https://www.semimedia.cc/sk-hynix-completes-wuxi-dram-fab-upgrade-enabling-advanced-1a-process-production/" },
         { axis: "투자 집행", status: "O", title: "2025년 Wuxi 투자 5,810억 원", evidence: "TrendForce가 2025년 Wuxi DRAM 투자액을 5,810억 원으로 정리했습니다. 전년 2,873억 원 대비 102% 증가한 수치로 중국 거점 운영 효율화 신호입니다.", implication: "중국 거점은 단순 유지가 아니라 제재 범위 내 최적화·운영 효율화 투자가 진행된 것으로 추적합니다.", source: "TrendForce", sourceUrl: "https://www.trendforce.com/news/2026/03/27/news-memory-giants-china-investments-soar-in-2025-samsung-xian-up-67-5-sk-hynix-wuxi-dalian-hit-trillion-won/" },
         { axis: "토지/부지", status: "조건부 O", title: "K7 부지 내 기존 공장 확장 근거", evidence: "2017년 WND 환경영향평가는 12인치 IC 라인 6기 기술개조와 CleanRoom 확장을 K7 부지, 기존 공장 내 프로젝트로 명시했습니다.", implication: "기존 부지 내 기술개조·클린룸 확장 근거는 있으나, 남은 토지 면적/토지사용권 기간은 별도 확인해야 합니다.", source: "Wuxi New District EIA", sourceUrl: "https://www.wnd.gov.cn/doc/2017/02/28/2386281.shtml" },
-        { axis: "클린룸/공간", status: "조건부 O", title: "C2F 58,000m2 및 추가 클린룸 유연성", evidence: "SKHY는 C2F가 58,000m2 규모이며, 추가 클린룸 공사와 장비 반입 시점은 시장 상황에 따라 유연하게 결정한다고 밝혔습니다.", implication: "공간 병목 완화 근거는 있으나 신규 fab 증설과 동일하게 해석하면 안 됩니다.", source: "SKHY Newsroom", sourceUrl: "https://news.skhynix.com/sk-hynix-completes-expanded-fab-c2f-in-wuxi-china/" },
         { axis: "용수/폐수", status: "Watch", title: "재생수·MBR·신청하수처리장 연계", evidence: "EIA는 산성/불소/동/유기/생활폐수를 분류 처리하고, 재생수 회용 시범공정·MBR 회용·신청하수처리장 연계를 설명합니다.", implication: "기존 승인 범위의 폐수 처리 체계는 확인되나, 추가 캐파는 신규 물 사용량·폐수총량·수질총량 인허가가 필요합니다.", source: "Wuxi New District EIA", sourceUrl: "https://www.wnd.gov.cn/doc/2017/02/28/2386281.shtml" },
         { axis: "환경/인허가", status: "O", title: "2017년 프로젝트 환경 타당성 결론", evidence: "EIA는 해당 주소의 건설이 산업정책·지역계획과 부합하고 오염방지 조치가 기술경제적으로 가능하다고 결론 냈습니다.", implication: "동일 범위의 기술개조 근거는 있으나, 신규 fab은 새 EIA·공중의견·배출총량 심사를 다시 봐야 합니다.", source: "Wuxi New District EIA", sourceUrl: "https://www.wnd.gov.cn/doc/2017/02/28/2386281.shtml" },
         { axis: "보세구/물류", status: "Watch", title: "Wuxi 보세구 확장", evidence: "Wuxi Hi-Tech District 종합보세구는 2025년 면적을 1.11km2 늘려 총 3.49km2로 조정됐고, SK hynix premises가 핵심 사례로 언급됐습니다.", implication: "주변 산업·물류 수용력은 긍정 신호지만 SKHY 보유 토지 확대 증거는 아닙니다.", source: "Wuxi Government", sourceUrl: "https://en.wuxi.gov.cn/2025-07/31/c_1113622.htm" },
@@ -10476,11 +10477,24 @@
     const live = LIVE.news || [];
     const curated = BASE.curatedNews || [];
     const clean = dedupeNews(curated.concat(live)
-      .filter((item) => isForeignNews(item) && isMemoryRelevant(item) && !isAppleContent(item) && !isLowConfidenceNews(item)));
+      .filter((item) => isForeignNews(item) && isAuthoritativeNews(item) && isMemoryRelevant(item) && !isAppleContent(item) && !isLowConfidenceNews(item) && !isSkhynixNewsroom(item)));
     return clean.length ? clean : (BASE.fallbackNews || []);
   }
 
   function canonicalNewsKey(item = {}) {
+    const title = cleanKoreanTitle(item.title || item.titleKo || "")
+      .toLowerCase()
+      .replace(/^(핵심|벤치마킹|체크포인트)\s*:\s*/, "")
+      .replace(SOURCE_SUFFIX_RE, "")
+      .split(/\s[—–]\s/)[0]
+      .replace(/[^a-z0-9가-힣一-鿿 ]+/g, " ")
+      .replace(/\s+/g, " ")
+      .trim();
+    const titleKey = /[一-鿿가-힣]/.test(title)
+      ? title.slice(0, 96)
+      : title.split(" ").slice(0, 10).join(" ");
+    const source = newsPublisherText(item).toLowerCase().trim();
+    if (titleKey) return `title:${titleKey}|${source}`;
     const url = String(item.link || item.sourceUrl || "").trim();
     if (url) {
       try {
@@ -10496,13 +10510,7 @@
         return `url:${url.replace(/#.*$/, "").replace(/\/$/, "").toLowerCase()}`;
       }
     }
-    const title = cleanKoreanTitle(item.titleKo || item.title || "")
-      .toLowerCase()
-      .replace(/^(핵심|벤치마킹|체크포인트)\s*:\s*/, "")
-      .replace(/\s+/g, " ")
-      .trim();
-    const source = String(item.source || "").toLowerCase().trim();
-    return title ? `title:${title}|${source}` : "";
+    return "";
   }
 
   function mergeNewsDuplicate(prev = {}, next = {}) {
@@ -10539,7 +10547,26 @@
     if (!item || !item.title) return false;
     const src = `${item.source || ""} ${item.link || ""} ${item.sourceUrl || ""} ${item.placement || ""}`.toLowerCase();
     if (KOREAN_SOURCE_RE.test(src)) return false;
+    if (SKHYNIX_NEWSROOM_RE.test(src)) return false;
     return true;
+  }
+
+  function isSkhynixNewsroom(item) {
+    const hay = `${item?.source || ""} ${item?.title || ""} ${item?.titleKo || ""} ${item?.summary || ""} ${item?.link || ""} ${item?.sourceUrl || ""}`;
+    return SKHYNIX_NEWSROOM_RE.test(hay);
+  }
+
+  function newsPublisherText(item = {}) {
+    const source = String(item.source || "").trim();
+    if (source) return source;
+    const parts = String(item.title || "").split(/\s[-–—]\s/).map((part) => part.trim()).filter(Boolean);
+    return parts.length > 1 ? parts[parts.length - 1] : "";
+  }
+
+  function isAuthoritativeNews(item) {
+    if (!item) return false;
+    const hay = `${newsPublisherText(item)} ${item.link || ""} ${item.sourceUrl || ""}`;
+    return AUTHORITATIVE_NEWS_RE.test(hay);
   }
 
   function isLowConfidenceNews(item) {

@@ -65,6 +65,13 @@ const CATEGORIES = [
   { id: "china_talent_strategy", label: "China Talent Strategy", queries: ["SK hynix China hiring Wuxi Dalian Chongqing semiconductor", "China memory talent retention IP compliance semiconductor", "CXMT YMTC hiring yield TSV HBM engineer", "China enterprise SSD firmware FAE hiring memory", "Wuxi semiconductor EHS facility utilities hiring fab"] },
 ];
 
+const CHINESE_CATEGORIES = [
+  { id: "dram", label: "DRAM·CXMT 중국어", queries: ["长鑫存储 腾讯 DRAM 供应 合同", "长鑫存储 IPO 科创板 DRAM 产能", "长鑫存储 DDR5 LPDDR5X 量产"] },
+  { id: "nand", label: "NAND·YMTC 중국어", queries: ["长江存储 武汉 三期 2026 下半年 量产", "长江存储 A股 IPO NAND 产能", "长江存储 Xtacking 企业级 SSD"] },
+  { id: "equipment", label: "장비 국산화 중국어", queries: ["长江存储 长鑫存储 国产设备 扩产", "北方华创 中微公司 长江存储 长鑫存储", "半导体设备 国产化 存储 长江 长鑫"] },
+  { id: "china", label: "중국 메모리 정책 중국어", queries: ["中国 存储 芯片 供应链 大基金 长江 长鑫", "两存 扩产 半导体 存储 IPO", "长鑫 长江 存储 超级周期"] },
+];
+
 const COMPETITORS = [
   {
     id: "samsung",
@@ -292,13 +299,6 @@ const BENCHMARK_SIGNAL_THEMES = [
 
 const CHINA_INFRA_SOURCE_PAGES = [
   {
-    id: "wuxi-c2f",
-    site: "wuxi",
-    label: "SKHY Wuxi C2F",
-    url: "https://news.skhynix.com/sk-hynix-completes-expanded-fab-c2f-in-wuxi-china/",
-    markers: ["58,000", "additional cleanroom", "Wuxi FAB", "C2F"],
-  },
-  {
     id: "wuxi-k7-eia",
     site: "wuxi",
     label: "Wuxi K7 EIA",
@@ -406,11 +406,17 @@ const KOREAN_SOURCE_RE = new RegExp(
 );
 const EXCLUDED_NEWS_RE = /\b(apple|applem|aapl|iphone|ipad|macbook|9to5mac|applemagazine)\b|애플|아이폰|아이패드|맥북/i;
 const LOW_CONFIDENCE_NEWS_RE = /(ad hoc news|indexbox|36\s*kr|36kr|borncity|mjengo|blockchain\.news|odaily|zamin\.uz|finance\.biggo|crypto briefing|weex|fortrinawwer|siliconanalysts|nand-research|reddit|facebook|linkedin\.com|x\.com|twitter\.com)/i;
+const SKHYNIX_NEWSROOM_RE = /news\.skhynix\.com|sk\s*hynix\s*newsroom|skhy\s*newsroom/i;
+const AUTHORITATIVE_EN_NEWS_RE =
+  /(reuters|bloomberg|financial times|ft\.com|nikkei|cnbc|trendforce|dramexchange|techinsights|yole|counterpoint|tom'?s hardware|tomshardware|south china morning post|scmp|digitimes|ee times|eetimes|semianalysis|techwire asia|the register|business insider|network world|evertiq|technode|techspot|japan times|electronics weekly|businesswire|pr newswire|solidigm|intel|u\.s\. bis|bis\.gov|wsts|acm research ir|cxmt|shanghai stock exchange)/i;
+const AUTHORITATIVE_CN_NEWS_RE =
+  /(财新|caixin|第一财经|yicai|21财经|21世纪经济报道|证券时报|stcn|中国经营报|cb\.com\.cn|新浪财经|新浪科技|finance\.sina|电子工程专辑|eet-china|集微网|ijiwei|经济观察网|eeo\.com\.cn|techweb|chinaflashmarket)/i;
 
 // Hangul / Hangul Jamo / kana / CJK / surrogate / specials. Stripped from
 // titles so a Latin headline stays clean even if a multibyte char mis-decoded,
 // and a genuinely Korean/CJK headline collapses to a short fragment we drop.
 const NON_LATIN_RE = /[ᄀ-ᇿ　-ヿ㐀-䶿一-鿿가-힣\uD800-\uDFFF豈-﫿￹-￿]/g;
+const CJK_RE = /[一-鿿]/;
 
 function cleanTitle(value) {
   return String(value || "")
@@ -419,9 +425,25 @@ function cleanTitle(value) {
     .trim();
 }
 
+function cleanLocalizedTitle(value, locale = "en") {
+  if (locale === "zh") return stripHTML(value).replace(/\s{2,}/g, " ").trim();
+  return cleanTitle(value);
+}
+
 function canonicalNewsKey(item = {}) {
+  const title = String(item.title || "")
+    .replace(/\s[-–—]\s[^-–—|]+$/g, "")
+    .split(/\s[—–]\s/)[0]
+    .toLowerCase()
+    .replace(/[^a-z0-9가-힣一-鿿 ]+/g, " ")
+    .replace(/\s+/g, " ")
+    .trim();
+  const titleKey = /[一-鿿가-힣]/.test(title)
+    ? title.slice(0, 96)
+    : title.split(" ").slice(0, 10).join(" ");
+  if (titleKey) return `title:${titleKey}|${publisherText(item).toLowerCase().trim()}`;
   const url = String(item.link || item.sourceUrl || "").trim();
-  if (url) {
+  if (url && !/news\.google\.com\/(?:rss\/)?articles/i.test(url)) {
     try {
       const parsed = new URL(url);
       parsed.hash = "";
@@ -433,7 +455,14 @@ function canonicalNewsKey(item = {}) {
       return `url:${url.replace(/#.*$/, "").replace(/\/$/, "").toLowerCase()}`;
     }
   }
-  return `title:${String(item.title || "").toLowerCase().replace(/\s+/g, " ").trim()}|${String(item.source || "").toLowerCase().trim()}`;
+  return "";
+}
+
+function publisherText(item = {}) {
+  const source = String(item.source || "").trim();
+  if (source) return source;
+  const parts = String(item.title || "").split(/\s[-–—]\s/).map((part) => part.trim()).filter(Boolean);
+  return parts.length > 1 ? parts[parts.length - 1] : "";
 }
 
 function isForeignItem(item) {
@@ -441,12 +470,19 @@ function isForeignItem(item) {
   // After cleanTitle, a real Korean/CJK headline collapses to a tiny Latin
   // fragment - drop those, and drop Korean-origin outlets. Keeps a clean
   // Latin-script international (foreign-press) feed.
-  if (item.title.replace(/[^A-Za-z]/g, "").length < 6) return false;
+  if (item.language === "chinese") {
+    if (!CJK_RE.test(item.title)) return false;
+  } else if (item.title.replace(/[^A-Za-z]/g, "").length < 6) {
+    return false;
+  }
   const src = `${item.source || ""} ${item.title || ""} ${item.link || ""}`.toLowerCase();
   if (KOREAN_SOURCE_RE.test(src)) return false;
+  if (SKHYNIX_NEWSROOM_RE.test(src)) return false;
   if (EXCLUDED_NEWS_RE.test(`${item.title || ""} ${item.source || ""} ${item.link || ""}`)) return false;
   if (LOW_CONFIDENCE_NEWS_RE.test(`${item.title || ""} ${item.source || ""} ${item.link || ""}`)) return false;
-  return true;
+  const authority = `${publisherText(item)} ${item.link || ""}`;
+  if (item.language === "chinese") return AUTHORITATIVE_CN_NEWS_RE.test(authority);
+  return AUTHORITATIVE_EN_NEWS_RE.test(authority);
 }
 
 const health = [];
@@ -818,18 +854,22 @@ function ymd(dateStr) {
   return Number.isNaN(date.getTime()) ? "" : date.toISOString().slice(0, 10);
 }
 
-async function fetchGoogleNews(query, category = "") {
-  // US English edition → international outlets; Korean items dropped by isForeignItem().
-  const url = `https://news.google.com/rss/search?q=${encodeURIComponent(query + " when:30d")}&hl=en-US&gl=US&ceid=US:en`;
+async function fetchGoogleNews(query, category = "", locale = "en") {
+  const isChinese = locale === "zh";
+  const edition = isChinese
+    ? { hl: "zh-CN", gl: "CN", ceid: "CN:zh-Hans" }
+    : { hl: "en-US", gl: "US", ceid: "US:en" };
+  const url = `https://news.google.com/rss/search?q=${encodeURIComponent(query + " when:30d")}&hl=${edition.hl}&gl=${edition.gl}&ceid=${edition.ceid}`;
   const xml = await fetchText(url);
   return parseRSS(xml)
     .map((item) => ({
-      title: cleanTitle(item.title),
+      title: cleanLocalizedTitle(item.title, locale),
       link: item.link,
-      source: cleanTitle(item.source),
+      source: cleanLocalizedTitle(item.source, locale),
       date: ymd(item.pubDate),
       ts: new Date(item.pubDate).getTime() || 0,
       category,
+      language: isChinese ? "chinese" : "english",
     }))
     .filter(isForeignItem);
 }
@@ -865,11 +905,11 @@ async function addKoTitles(arr, limit) {
   }
 }
 
-async function fetchCategory(cat, seen) {
+async function fetchCategory(cat, seen, locale = "en") {
   const items = [];
   for (const query of cat.queries) {
     try {
-      const queryItems = await fetchGoogleNews(query, cat.id);
+      const queryItems = await fetchGoogleNews(query, cat.id, locale);
       for (const item of queryItems) {
         const key = canonicalNewsKey(item);
         if (seen.has(key)) continue;
@@ -944,6 +984,24 @@ async function collectNews() {
       count: items.length,
       items: items.slice(0, 12).map(({ ts, category, ...rest }) => rest),
     });
+  }
+
+  for (const cat of CHINESE_CATEGORIES) {
+    const items = await fetchCategory(cat, seen, "zh");
+    all = all.concat(items);
+    if (!items.length) continue;
+    const existing = categories.find((entry) => entry.id === cat.id);
+    if (existing) {
+      existing.count += items.length;
+      existing.items = existing.items.concat(items.slice(0, 8).map(({ ts, category, ...rest }) => rest)).slice(0, 12);
+    } else {
+      categories.push({
+        id: cat.id,
+        label: cat.label,
+        count: items.length,
+        items: items.slice(0, 12).map(({ ts, category, ...rest }) => rest),
+      });
+    }
   }
 
   all.sort((a, b) => b.ts - a.ts);

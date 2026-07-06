@@ -8219,6 +8219,7 @@ body.sidebar-collapsed .sb-ico {
 }
 
 .news-card {
+  --news-accent: var(--local-accent, var(--accent));
   display: flex;
   flex-direction: column;
   width: 100%;
@@ -8228,39 +8229,51 @@ body.sidebar-collapsed .sb-ico {
   border: 1px solid var(--line);
   border-radius: 10px;
   background:
-    linear-gradient(145deg, color-mix(in srgb, var(--accent) 7%, transparent), transparent 42%),
+    linear-gradient(145deg, color-mix(in srgb, var(--news-accent) 7%, transparent), transparent 42%),
     var(--panel);
   padding: 14px;
   box-shadow: 0 14px 36px rgba(15, 23, 42, .06);
   transition: transform .18s ease, border-color .18s ease, box-shadow .18s ease, background .18s ease, color .18s ease;
 }
 
-.news-card:hover {
-  transform: translateY(-2px);
+.news-card:hover,
+.news-card:focus-within {
+  transform: translateY(-3px);
   color: #fff;
-  border-color: color-mix(in srgb, var(--accent) 72%, var(--line));
+  border-color: color-mix(in srgb, var(--news-accent) 84%, var(--line));
   background:
     linear-gradient(135deg,
-      color-mix(in srgb, var(--accent) 94%, #111827) 0%,
+      color-mix(in srgb, var(--news-accent) 96%, #111827) 0%,
       color-mix(in srgb, var(--accent-3) 72%, #0f172a) 54%,
       color-mix(in srgb, var(--accent-2) 42%, #111827) 100%);
-  box-shadow: 0 22px 52px color-mix(in srgb, var(--accent) 28%, rgba(15, 23, 42, .2));
+  box-shadow: 0 22px 52px color-mix(in srgb, var(--news-accent) 34%, rgba(15, 23, 42, .2));
 }
 
 .news-card:hover .news-title,
+.news-card:focus-within .news-title,
 .news-card:hover .news-insights span,
-.news-card:hover .news-meta {
+.news-card:focus-within .news-insights span,
+.news-card:hover .news-meta,
+.news-card:focus-within .news-meta {
   color: rgba(255, 255, 255, .92);
 }
 
-.news-card:hover .news-title {
+.news-card:hover .news-title,
+.news-card:focus-within .news-title {
   color: #fff;
 }
 
-.news-card:hover .source-tag {
-  color: #fff;
-  border-color: rgba(255, 255, 255, .34);
-  background: rgba(255, 255, 255, .14);
+.news-card:hover .source-tag,
+.news-card:focus-within .source-tag {
+  color: color-mix(in srgb, var(--news-accent) 72%, #111827);
+  border-color: rgba(255, 255, 255, .9);
+  background: rgba(255, 255, 255, .94);
+}
+
+.news-card:hover .news-insights span,
+.news-card:focus-within .news-insights span {
+  border-color: rgba(255, 255, 255, .32);
+  background: rgba(255, 255, 255, .13);
 }
 
 .news-card-head {
