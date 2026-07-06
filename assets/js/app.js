@@ -3342,7 +3342,8 @@
     const gate = gaps.length
       ? `보강 필요: ${gaps.join("·")}가 부족하므로 결론 문구는 ${selected.verdict === "Go" ? "Go에서 Watch로 낮춰 검토" : "Watch/Hold로 제한"}합니다.`
       : `근거 충족: 원문/KPI와 가격 row가 함께 있어 ${selected.verdict || "Watch"} 판단을 표시할 수 있습니다.`;
-    return `${selected.label || "선택 안건"} 감사 결과: 기사·벤치마킹 ${fmtNum(articles.length)}건을 canonical ${fmtNum(canonical.size)}건으로 압축${duplicateCount ? `, 중복 ${fmtNum(duplicateCount)}건 제외` : ""}; KPI ${fmtNum(kpis.length)}건; 가격 row ${fmtNum(prices.length)}개. ${sourceLabel}${priceLabel ? ` 가격 기준은 ${priceLabel}입니다.` : ""} ${relationLabel} ${profile.audit || "수치와 해석을 분리해 표시합니다."} ${gate}`;
+    const primaryFlip = primaryDecisionFlipKpi(selected);
+    return `${selected.label || "선택 안건"} 감사 결과: 먼저 뒤집는 KPI는 ${primaryFlip.label}입니다. 현재 ${primaryFlip.current}; 조건은 "${primaryFlip.trigger}"입니다. 기사·벤치마킹 ${fmtNum(articles.length)}건을 canonical ${fmtNum(canonical.size)}건으로 압축${duplicateCount ? `, 중복 ${fmtNum(duplicateCount)}건 제외` : ""}; KPI ${fmtNum(kpis.length)}건; 가격 row ${fmtNum(prices.length)}개. ${sourceLabel}${priceLabel ? ` 가격 기준은 ${priceLabel}입니다.` : ""} ${relationLabel} ${profile.audit || "수치와 해석을 분리해 표시합니다."} ${gate}`;
   }
 
   function cLevelAgentItems(decision = {}, decisions = []) {
@@ -3581,6 +3582,10 @@
       ? `${memoryMarketNodeName(topRelation.from)} → ${memoryMarketNodeName(topRelation.to)}`
       : "근거가 붙은 관계선 없음";
     const profile = cLevelDecisionProfile(selected);
+    const flipKpis = decisionFlipKpis(selected);
+    const primaryFlip = primaryDecisionFlipKpi(selected);
+    const priceFlip = flipKpis.find((item) => item.id === "price-turn") || primaryFlip;
+    const policyFlip = flipKpis.find((item) => item.id === "policy-license") || primaryFlip;
     const verdictMeaning = selected?.verdict === "Go"
       ? "즉시 상정"
       : selected?.verdict === "Watch"
@@ -3595,7 +3600,7 @@
         role: "우선순위·최종 안건화",
         color: "#2D6BFF",
         stance: selected?.verdict === "Go" ? "상정" : selected?.verdict === "Watch" ? "조건부 검토" : "보류",
-        message: `질문은 "${profile.question}"입니다. 현재 근거 ${fmtNum(totalEvidence)}개, 신뢰도 ${fmtNum(confidence)}/100으로 ${verdictMeaning}입니다. ${profile.ceo} 핵심 관계는 ${topRelationText}입니다.`,
+        message: `먼저 뒤집는 KPI는 ${primaryFlip.label}입니다. 현재 ${primaryFlip.current}; ${primaryFlip.trigger}. 이 게이트를 통과한 뒤에만 "${profile.question}"을 ${verdictMeaning} 안건으로 둡니다. 핵심 관계는 ${topRelationText}입니다.`,
       },
       {
         id: "cfo",
@@ -3605,7 +3610,7 @@
         role: "수익성·자본배분",
         color: "#00C2A8",
         stance: "투자/매출 분리",
-        message: `${profile.cfo} Money Flow 근거는 ${fmtNum(moneyRelations.length)}개입니다. 가격 row ${fmtNum(priceRows)}개와 링크/KPI ${fmtNum(linkCount)}개가 부족하면 재무 ROI가 아니라 1차 필터로만 씁니다.`,
+        message: `${profile.cfo} Money Flow 근거는 ${fmtNum(moneyRelations.length)}개입니다. ${priceFlip.label}이 ${priceFlip.flip} 조건이면 자본 집행을 멈추고 NPV/IRR 재계산 전 단계로 낮춥니다.`,
       },
       {
         id: "cto",
@@ -3615,7 +3620,7 @@
         role: "기술·제품 로드맵",
         color: "#8B5CF6",
         stance: "병목 분리",
-        message: `${profile.cto} Competitive Dynamics 근거는 ${fmtNum(competitiveRelations.length)}개입니다. 기술 병목은 가격·정책 판단과 섞지 않고 제품군별 실행 조건으로 내립니다.`,
+        message: `${profile.cto} Competitive Dynamics 근거는 ${fmtNum(competitiveRelations.length)}개입니다. 기술 병목은 가격·정책 판단과 섞지 않고, ${flipKpis.map((item) => item.label).slice(0, 3).join(" · ")} 순서로 실행 조건을 확인합니다.`,
       },
       {
         id: "policy",
@@ -3625,7 +3630,7 @@
         role: "규제·Fab·정책자금",
         color: "#F59E0B",
         stance: "라이선스 게이트",
-        message: `${profile.policy} 실행 조건은 운영 유지, 캐파 확대, 기술 업그레이드를 나눠 승인하는 것입니다. 규제 원문이 없으면 Go가 아니라 Watch입니다.`,
+        message: `${profile.policy} 실행 조건은 운영 유지, 캐파 확대, 기술 업그레이드를 나눠 승인하는 것입니다. ${policyFlip.label}: ${policyFlip.trigger}. 규제 원문이 없으면 Go가 아니라 Watch입니다.`,
       },
       {
         id: "market",
@@ -3635,7 +3640,7 @@
         role: "가격·고객·계약",
         color: "#10B981",
         stance: "가격 전이 확인",
-        message: `${profile.market} 현재 가격 rows ${fmtNum(priceRows)}개와 링크/KPI ${fmtNum(linkCount)}개를 봅니다. 비교 축은 ${contrast?.label || "비교 안건"}이며, Spot/Contract 전이가 확인될 때만 고객·가격 재협상으로 전환합니다.`,
+        message: `${profile.market} 현재 가격 rows ${fmtNum(priceRows)}개와 링크/KPI ${fmtNum(linkCount)}개를 봅니다. 비교 축은 ${contrast?.label || "비교 안건"}이며, ${priceFlip.trigger}.`,
       },
       {
         id: "audit",
@@ -3656,6 +3661,7 @@
     const verdict = decision.verdict || "Hold";
     const action = decision.action || "추가 근거 수집";
     const profile = cLevelDecisionProfile(decision);
+    const primaryFlip = primaryDecisionFlipKpi(decision);
     const direction = verdict === "Go"
       ? "경영진 안건으로 상정"
       : verdict === "Watch"
@@ -3664,7 +3670,7 @@
     return {
       title: `${verdict} · ${direction}`,
       body: `질문: "${profile.question}" 결론: 검증 근거 ${fmtNum(evidence)}개와 신뢰도 ${fmtNum(confidence)}/100 기준으로 ${direction}이 적절합니다.`,
-      next: `다음 액션: ${action}. ${profile.next}`,
+      next: `다음 액션: ${action}. 재심의 KPI는 ${primaryFlip.label}: ${primaryFlip.trigger}. ${profile.next}`,
     };
   }
 
@@ -3732,6 +3738,7 @@
           </label>
           <button type="button" id="cLevelRunCouncil">${cLevelCouncilRan ? "토론 다시 실행" : "에이전트 실행"}</button>
         </div>
+        ${decisionFlipKpiHTML(selectedDecision)}
         <div class="agent-selected-brief">
           <span>선택 안건</span>
           <strong>${escapeHTML(selectedDecision?.label || "안건")}</strong>
@@ -6201,6 +6208,164 @@
     `;
   }
 
+  function signedPercent(value, decimals = 2) {
+    const num = Number(value);
+    if (!Number.isFinite(num)) return "NA";
+    return `${num > 0 ? "+" : ""}${fmtNum(num, decimals)}%`;
+  }
+
+  function decisionEvidenceMetrics(subject = {}) {
+    const evidence = subject.evidence || {};
+    const newsLinks = (evidence.news || []).filter((item) => String(item.link || item.sourceUrl || "").trim()).length;
+    const benchmarkLinks = (evidence.benchmark || []).filter((item) => String(item.link || item.sourceUrl || "").trim()).length;
+    const kpiLinks = (evidence.kpis || []).filter((item) => String(item.sourceUrl || item.link || "").trim()).length;
+    const priceRows = Number(subject.priceRows ?? subject.observations?.length ?? evidence.prices?.length ?? 0) || 0;
+    const linkCount = Number(subject.linkCount ?? (newsLinks + benchmarkLinks + kpiLinks)) || 0;
+    const evidenceCount = Number(subject.evidenceCount ?? (linkCount + priceRows)) || 0;
+    const priceMove = Number.isFinite(Number(subject.actualChange))
+      ? Number(subject.actualChange)
+      : Number.isFinite(Number(subject.priceMomentum))
+        ? Number(subject.priceMomentum)
+        : Number.isFinite(Number(subject.priorMomentum))
+          ? Number(subject.priorMomentum)
+          : null;
+    const priorMove = Number.isFinite(Number(subject.priorMomentum)) ? Number(subject.priorMomentum) : null;
+    const chinaSignals = Number(subject.chinaSignalCount ?? 0) || 0;
+    return { newsLinks, benchmarkLinks, kpiLinks, priceRows, linkCount, evidenceCount, priceMove, priorMove, chinaSignals };
+  }
+
+  function decisionFlipKpis(subject = {}, context = {}) {
+    const metrics = decisionEvidenceMetrics(subject);
+    const id = String(subject.id || context.id || "");
+    const category = String(subject.category || context.category || "");
+    const label = subject.label || context.label || "선택 안건";
+    const productLike = Boolean(subject.observations);
+    const rows = [];
+    const hasEvidence = metrics.linkCount > 0 || metrics.priceRows > 0;
+    rows.push({
+      id: "evidence-gate",
+      label: "근거 게이트",
+      current: hasEvidence ? `링크/KPI ${fmtNum(metrics.linkCount)} · 가격 ${fmtNum(metrics.priceRows)} rows` : "검증 근거 부족",
+      trigger: "원문 link, sourceUrl, 가격 row가 모두 없으면 Go 금지",
+      flip: "Go → Watch/Hold",
+      tone: hasEvidence ? "ok" : "fail",
+    });
+
+    if (productLike || metrics.priceRows || /dram|nand|legacy|server|terminal|china|commodity|ssd/i.test(`${id} ${category} ${label}`)) {
+      const moveText = metrics.priceMove == null ? `가격 row ${fmtNum(metrics.priceRows)}개` : signedPercent(metrics.priceMove);
+      const bearish = metrics.priceMove != null && metrics.priceMove <= -0.45;
+      const bullish = metrics.priceMove != null && metrics.priceMove >= 0.55;
+      rows.push({
+        id: "price-turn",
+        label: "가격 반전",
+        current: moveText,
+        trigger: "spot/proxy가 -0.45% 이하로 꺾이거나 contract가 뒤따르면 방어 전환",
+        flip: bullish ? "방어 → 선별 확대 검토" : "확대/유지 → 방어",
+        tone: bearish ? "fail" : bullish ? "ok" : "watch",
+      });
+    }
+
+    if (/hbm|server|ai|rubin|foundry/i.test(`${id} ${category} ${label}`)) {
+      rows.push({
+        id: "hbm-ramp",
+        label: "HBM 고객 ramp",
+        current: `관측 ${fmtNum(subject.observations?.length || metrics.priceRows)}개 · 링크/KPI ${fmtNum(metrics.linkCount)}`,
+        trigger: "고객 인증 지연, CoWoS/base die 병목, 서버 DRAM 약세가 동시에 확인되면 확대 보류",
+        flip: "증설/락인 → Watch",
+        tone: metrics.linkCount || metrics.priceRows ? "watch" : "fail",
+      });
+    }
+
+    if (/cxmt|dram|legacy|commodity|china-exposure|china-dram/i.test(`${id} ${category} ${label}`)) {
+      rows.push({
+        id: "cxmt-pressure",
+        label: "CXMT 가격 압력",
+        current: `중국 신호 ${fmtNum(metrics.chinaSignals || subject.evidenceCount || 0)}건`,
+        trigger: "CXMT 점유율 10%+ 또는 고객 장기계약 + DDR5/LPDDR 가격 약세 동시 발생",
+        flip: "유지 → 가격 방어",
+        tone: (metrics.chinaSignals || subject.evidenceCount || 0) >= 40 ? "fail" : (metrics.chinaSignals || subject.evidenceCount || 0) ? "watch" : "check",
+      });
+    }
+
+    if (/ymtc|nand|ssd|solidigm|essd/i.test(`${id} ${category} ${label}`)) {
+      rows.push({
+        id: "ymtc-essd",
+        label: "YMTC/eSSD 침투",
+        current: `NAND/SSD 근거 ${fmtNum(metrics.evidenceCount)}개`,
+        trigger: "YMTC eSSD 인증, 우한 ramp, NAND contract 약세가 같이 나오면 고객 방어 우선",
+        flip: "확대 → 고객 방어",
+        tone: metrics.evidenceCount ? "watch" : "fail",
+      });
+    }
+
+    if (/policy|fab|bis|veu|chips|match|operations|china-operation/i.test(`${id} ${category} ${label}`)) {
+      rows.push({
+        id: "policy-license",
+        label: "정책/Fab 라이선스",
+        current: `정책 근거 ${fmtNum(metrics.linkCount)}개`,
+        trigger: "BIS/VEU/CHIPS/MATCH 원문 또는 인허가 근거 없으면 캐파 확대 승인 금지",
+        flip: "확대 → 운영 유지/No-Go",
+        tone: metrics.linkCount ? "watch" : "fail",
+      });
+    }
+
+    if (/talent|ip|hiring|yield/i.test(`${id} ${category} ${label}`)) {
+      rows.push({
+        id: "talent-ip",
+        label: "인재/IP 경보",
+        current: `신호 ${fmtNum(metrics.chinaSignals || metrics.evidenceCount)}건`,
+        trigger: "수율 엔지니어 이동, TSV/HBM JD 급증, IP 사건 확인 시 리텐션·보안 선집행",
+        flip: "모니터링 → 방어 예산",
+        tone: (metrics.chinaSignals || metrics.evidenceCount) ? "watch" : "check",
+      });
+    }
+
+    const seen = new Set();
+    return rows.filter((row) => {
+      if (seen.has(row.id)) return false;
+      seen.add(row.id);
+      return true;
+    }).slice(0, 5);
+  }
+
+  function decisionFlipKpiHTML(subject = {}, context = {}) {
+    const items = decisionFlipKpis(subject, context);
+    if (!items.length) return "";
+    return `
+      <div class="decision-flip-kpis" style="--local-accent:${categoryAccent(subject.category || context.category || "hbm")}">
+        <div class="decision-flip-title">
+          <span>Decision flip KPI</span>
+          <strong>결정을 뒤집는 KPI</strong>
+          <small>아래 조건이 바뀌면 에이전트 결론도 자동으로 Go/Watch/Hold를 재판단합니다.</small>
+        </div>
+        <div class="decision-flip-grid">
+          ${items.map((item, index) => `
+            <article class="decision-flip-card ${escapeHTML(item.tone)} reveal" style="animation-delay:${index * 28}ms">
+              <span>${escapeHTML(item.label)}</span>
+              <strong>${escapeHTML(item.current)}</strong>
+              <p>${escapeHTML(item.trigger)}</p>
+              <em>${escapeHTML(item.flip)}</em>
+            </article>
+          `).join("")}
+        </div>
+      </div>
+    `;
+  }
+
+  function decisionFlipKpiLabels(subject = {}, context = {}) {
+    return decisionFlipKpis(subject, context).map((item) => `${item.label}: ${item.trigger}`);
+  }
+
+  function primaryDecisionFlipKpi(subject = {}, context = {}) {
+    return decisionFlipKpis(subject, context)[0] || {
+      label: "근거 게이트",
+      current: "검증 근거 부족",
+      trigger: "원문 link/sourceUrl/가격 row 없으면 Go 금지",
+      flip: "Go → Watch/Hold",
+      tone: "fail",
+    };
+  }
+
   function executiveDecisionProfile(active = {}, selectedYearOption = {}, productLabel = "전체 제품군") {
     const yearLabel = selectedYearOption?.label || "선택 시점 없음";
     const profiles = {
@@ -6287,6 +6452,10 @@
     const yearLabel = selectedYearOption?.label || "선택 시점 없음";
     const profile = executiveDecisionProfile(active, selectedYearOption, productLabel);
     const point = selectedIso ? pointDateLabel(selectedIso) : "기준점 없음";
+    const flipKpis = decisionFlipKpis(active, { label: productLabel });
+    const primaryFlip = primaryDecisionFlipKpi(active, { label: productLabel });
+    const priceFlip = flipKpis.find((item) => item.id === "price-turn") || primaryFlip;
+    const chinaFlip = flipKpis.find((item) => /cxmt|ymtc|china/i.test(item.id)) || primaryFlip;
     return [
       {
         id: "ceo",
@@ -6296,7 +6465,7 @@
         role: "의사결정 질문",
         color: "#111827",
         stance: "우선순위",
-        message: `질문은 "${profile.question}"입니다. 현재 판단은 ${active.decision.label}이며, ${profile.ceo}`,
+        message: `먼저 뒤집는 KPI는 ${primaryFlip.label}입니다. 현재 ${primaryFlip.current}이며, ${primaryFlip.trigger}. 그 조건을 통과할 때만 "${profile.question}"을 ${active.decision.label} 안건으로 유지합니다.`,
       },
       {
         id: "data",
@@ -6306,7 +6475,7 @@
         role: "가격·백테스트",
         color: "#06B6D4",
         stance: "실측 검증",
-        message: `${profile.data} ${point} 기준으로 가격 series ${fmtNum(selectedSeriesCount)}개와 관측 ${fmtNum(active.observations.length)}개를 연결했습니다. 사전 모멘텀은 ${prior}, 이후 실측은 ${actual}입니다.`,
+        message: `${profile.data} ${point} 기준 가격 series ${fmtNum(selectedSeriesCount)}개 중 관측 ${fmtNum(active.observations.length)}개만 계산했습니다. 사전 모멘텀 ${prior}, 이후 실측 ${actual}. ${priceFlip.label}이 ${priceFlip.flip} 조건이면 판단을 재계산합니다.`,
       },
       {
         id: "china",
@@ -6316,7 +6485,7 @@
         role: "중국 신호",
         color: "#8B5CF6",
         stance: "현재 리스크",
-        message: `${profile.china} 연결된 중국 신호는 ${fmtNum(active.chinaSignalCount)}건이며, 백테스트 결과를 소급 변경하지 않습니다.`,
+        message: `${profile.china} 연결된 중국 신호 ${fmtNum(active.chinaSignalCount)}건은 백테스트를 소급 변경하지 않고 overlay로만 둡니다. ${chinaFlip.label} 조건이 실제 기사/가격 근거와 같이 충족되면 방어 안건으로 뒤집습니다.`,
       },
       {
         id: "cfo",
@@ -6326,7 +6495,7 @@
         role: "수익성·자본배분",
         color: "#F59E0B",
         stance: "자본 효율",
-        message: `${profile.cfo} 이 판단은 IRR/NPV가 아니라 실사 우선순위입니다. 실행 문구는 '${active.decision.action}'로 제한합니다.`,
+        message: `${profile.cfo} 이 판단은 IRR/NPV가 아니라 실사 우선순위입니다. KPI 발동 전 실행 문구는 '${active.decision.action}'로 제한하고, ${primaryFlip.flip} 조건이면 예산 집행안을 다시 엽니다.`,
       },
       {
         id: "risk",
@@ -6336,7 +6505,7 @@
         role: "하방 리스크",
         color: "#EF4444",
         stance: "No-Go 조건",
-        message: `${profile.risk} 현재 하방 문구는 "${active.downside}"입니다.`,
+        message: `${profile.risk} 현재 하방 문구는 "${active.downside}"입니다. Kill switch는 ${flipKpis.slice(0, 3).map((item) => item.label).join(" · ")} 중 2개 이상 악화입니다.`,
       },
       {
         id: "strategy",
@@ -6346,7 +6515,7 @@
         role: "최종 정리",
         color: "#22C55E",
         stance: "실행 판단",
-        message: `${profile.strategy} 대상 제품군은 ${(active.products || []).slice(0, 4).join(" · ") || productLabel}입니다. 근거 없는 수치는 결론에 올리지 않습니다.`,
+        message: `${profile.strategy} 대상 제품군은 ${(active.products || []).slice(0, 4).join(" · ") || productLabel}입니다. 결론은 ${active.decision.label}로 두되, 위 KPI가 발동하면 다음 수집 시점에 자동 재심의합니다.`,
       },
     ].filter((agent) => agent.message);
   }
@@ -6357,10 +6526,11 @@
     const prior = active?.priorMomentum == null ? "NA" : `${active.priorMomentum > 0 ? "+" : ""}${fmtNum(active.priorMomentum, 2)}%`;
     const outcome = active?.outcome?.label || "검증 대기";
     const profile = executiveDecisionProfile(active, selectedYearOption);
+    const primaryFlip = primaryDecisionFlipKpi(active);
     return {
       title: `${active?.decision?.label || "판단 대기"} · ${active?.decision?.action || "실행 보류"}`,
       body: `질문: "${profile.question}" ${yearLabel} 기준점 ${selectedIso ? pointDateLabel(selectedIso) : "없음"}에서 직전 모멘텀 ${prior}, 이후 실측 ${actual}, 관측 ${fmtNum(active?.observations?.length || 0)}개로 검증했습니다.`,
-      next: `결론: ${outcome}. ${active?.decision?.logic || "근거가 더 쌓이면 재판단합니다."} ${profile.strategy}`,
+      next: `결론: ${outcome}. 우선 재심의 KPI는 ${primaryFlip.label}이며, ${primaryFlip.trigger}. ${active?.decision?.logic || "근거가 더 쌓이면 재판단합니다."}`,
     };
   }
 
@@ -6437,10 +6607,6 @@
             <strong>${escapeHTML(conclusion.title)}</strong>
             <p>${escapeHTML(conclusion.body)}</p>
             <small>${escapeHTML(conclusion.next)}</small>
-          </div>
-          <div class="agent-kpi-row">
-            <strong>추적 KPI</strong>
-            ${["price spread", "china signal count", "customer mix", "BIS event", "actual outcome"].map((kpi) => `<span>${escapeHTML(kpi)}</span>`).join("")}
           </div>
         ` : `
           <div class="agent-waiting">
@@ -6530,6 +6696,7 @@
           <h3>${escapeHTML(active.label)}</h3>
           <p>${escapeHTML(active.rationale)}</p>
         </div>
+        ${decisionFlipKpiHTML(active, { label: productLabel })}
         <div class="decision-verdict ${escapeHTML(active.decision.cls)}">
           <strong>${escapeHTML(active.decision.label)}</strong>
           <span>${escapeHTML(active.decision.action)}</span>
@@ -7467,6 +7634,18 @@
     const top = chinaTalentScenarioRoi(scenario).top;
     const kpis = investment?.kpis || top?.investment?.kpis || ["크롤링 신호", "O/X 게이트", "ROI 지수"];
     const noGoText = gates.noGo ? `X 게이트 ${fmtNum(gates.noGo)}개가 있어 전면 집행이 아니라 통제 조건부 집행입니다.` : "현재 선택 시나리오에는 즉시 중단형 X 게이트가 낮습니다.";
+    const flipSubject = {
+      id: `talent-ip-${challenge.id || "challenge"}`,
+      label: targetLabel,
+      category: scenario.accentCategory || "talent",
+      evidenceCount: signals + gates.total,
+      linkCount: gates.ok,
+      priceRows: 0,
+      chinaSignalCount: signals,
+      verdict: model.decision,
+    };
+    const flipKpis = decisionFlipKpis(flipSubject);
+    const primaryFlip = primaryDecisionFlipKpi(flipSubject);
 
     const common = {
       title: `${challenge.angle} · ${targetLabel}`,
@@ -7476,7 +7655,8 @@
         { label: "신호", value: fmtNum(signals) },
         { label: "O/X", value: `${fmtNum(gates.ok)}/${fmtNum(gates.noGo)}` },
       ],
-      kpis,
+      kpis: decisionFlipKpiLabels(flipSubject).slice(0, 3).concat(kpis).slice(0, 5),
+      flipSubject,
     };
 
     const answers = {
@@ -7530,7 +7710,7 @@
       },
       "kpi-reversal": {
         verdict: "결정을 뒤집는 KPI를 먼저 정해야 합니다.",
-        logic: `${targetLabel}의 핵심 KPI는 ${kpis.slice(0, 3).join(", ")}입니다. ROI 지수만 보지 말고 KPI 방향 전환을 kill switch로 둬야 합니다.`,
+        logic: `${targetLabel}의 1순위 재심의 KPI는 ${primaryFlip.label}입니다. 현재 ${primaryFlip.current}; 발동 조건은 "${primaryFlip.trigger}"입니다. ROI 지수만 보지 말고 KPI 방향 전환을 kill switch로 둬야 합니다.`,
         counter: "CEO 관점에서 가장 위험한 것은 한 번 승인한 투자가 관성으로 계속되는 것입니다.",
         action: `ROI ${fmtNum(Math.max(40, model.roi - 12))} 이하, X 게이트 ${fmtNum(gates.noGo + 1)}개 이상, 또는 핵심 KPI 2개 악화 시 자동 재심의로 돌립니다.`,
       },
@@ -7598,7 +7778,7 @@
           message: response.action,
         },
       ],
-      kpis: response.kpis || [],
+      kpis: [],
     });
   }
 
@@ -7674,6 +7854,13 @@
 
     answerWrap.style.setProperty("--local-accent", accent);
     answerWrap.innerHTML = `
+      ${decisionFlipKpiHTML(response.flipSubject || {
+        id: "talent-ip",
+        label: target.label,
+        category: scenario.accentCategory || "talent",
+        evidenceCount: chinaTalentSignalCount(scenario),
+        chinaSignalCount: chinaTalentSignalCount(scenario),
+      })}
       ${ceoChallengeDebateHTML(scenario, target, challenge, response)}
       <div class="agent-head">
         <span>AGENT</span>

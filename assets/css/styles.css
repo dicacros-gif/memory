@@ -4729,6 +4729,158 @@ body.sidebar-collapsed .sb-ico {
   font-weight: 850;
 }
 
+.decision-flip-kpis {
+  display: grid;
+  gap: 9px;
+  border: 1px solid color-mix(in srgb, var(--local-accent, var(--accent)) 28%, var(--line));
+  border-radius: 12px;
+  background:
+    linear-gradient(135deg, color-mix(in srgb, var(--local-accent, var(--accent)) 8%, transparent), transparent 46%),
+    color-mix(in srgb, var(--panel-2) 92%, transparent);
+  padding: 10px;
+}
+
+.decision-flip-title {
+  display: grid;
+  gap: 3px;
+}
+
+.decision-flip-title span {
+  color: var(--local-accent, var(--accent));
+  font-size: 9.5px;
+  font-weight: 950;
+  letter-spacing: .08em;
+  text-transform: uppercase;
+}
+
+.decision-flip-title strong {
+  color: var(--ink);
+  font-size: 14px;
+  font-weight: 950;
+}
+
+.decision-flip-title small {
+  color: var(--ink-2);
+  font-size: 11px;
+  line-height: 1.35;
+  font-weight: 750;
+}
+
+.decision-flip-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(178px, 1fr));
+  gap: 8px;
+}
+
+.decision-flip-card {
+  min-width: 0;
+  display: grid;
+  gap: 5px;
+  position: relative;
+  overflow: hidden;
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  background: var(--panel);
+  padding: 9px;
+  transition:
+    transform .18s cubic-bezier(.34, 1.56, .64, 1),
+    background .16s,
+    border-color .16s,
+    box-shadow .18s,
+    color .16s;
+}
+
+.decision-flip-card::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  opacity: 0;
+  background: linear-gradient(135deg, var(--local-accent, var(--accent)), color-mix(in srgb, var(--local-accent, var(--accent)) 62%, #111827));
+  transition: opacity .16s;
+}
+
+.decision-flip-card > * {
+  position: relative;
+  z-index: 1;
+}
+
+.decision-flip-card span {
+  color: var(--muted);
+  font-size: 9.5px;
+  font-weight: 950;
+  letter-spacing: .04em;
+  text-transform: uppercase;
+}
+
+.decision-flip-card strong {
+  overflow: hidden;
+  color: var(--ink);
+  font-family: var(--display);
+  font-size: 17px;
+  line-height: 1.08;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.decision-flip-card p {
+  color: var(--ink-2);
+  font-size: 11px;
+  line-height: 1.42;
+  font-weight: 760;
+}
+
+.decision-flip-card em {
+  justify-self: start;
+  border-radius: 999px;
+  background: color-mix(in srgb, var(--local-accent, var(--accent)) 9%, var(--panel-2));
+  color: var(--local-accent, var(--accent));
+  padding: 3px 7px;
+  font-size: 9.5px;
+  font-style: normal;
+  font-weight: 950;
+}
+
+.decision-flip-card.ok {
+  border-color: color-mix(in srgb, #16a34a 28%, var(--line));
+}
+
+.decision-flip-card.watch,
+.decision-flip-card.check {
+  border-color: color-mix(in srgb, #f59e0b 30%, var(--line));
+}
+
+.decision-flip-card.fail {
+  border-color: color-mix(in srgb, #ef4444 30%, var(--line));
+}
+
+.decision-flip-card:hover,
+.decision-flip-card:focus-within {
+  transform: translateY(-2px);
+  border-color: var(--local-accent, var(--accent));
+  box-shadow: 0 14px 32px color-mix(in srgb, var(--local-accent, var(--accent)) 18%, transparent);
+}
+
+.decision-flip-card:hover::before,
+.decision-flip-card:focus-within::before {
+  opacity: .96;
+}
+
+.decision-flip-card:hover span,
+.decision-flip-card:hover strong,
+.decision-flip-card:hover p,
+.decision-flip-card:hover em,
+.decision-flip-card:focus-within span,
+.decision-flip-card:focus-within strong,
+.decision-flip-card:focus-within p,
+.decision-flip-card:focus-within em {
+  color: #fff;
+}
+
+.decision-flip-card:hover em,
+.decision-flip-card:focus-within em {
+  background: rgba(255, 255, 255, .15);
+}
+
 .ceo-agent-answer > .agent-head {
   order: -1;
 }
