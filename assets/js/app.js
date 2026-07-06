@@ -2881,6 +2881,45 @@
         hold: "근거 보류",
       },
       {
+        id: "hbm-foundry-alliance",
+        label: "HBM4 파운드리 동맹",
+        category: "hbm",
+        categories: ["hbm", "packaging", "aidemand", "operations"],
+        owner: "CEO · CTO · 공급망",
+        jump: "memory-market-map",
+        terms: ["hbm4", "hbm4e", "tsmc", "cowos", "base die", "nvidia", "rubin", "packaging", "foundry"],
+        action: "SKHY-TSMC 동맹, 삼성 턴키, Micron 추격을 같은 관계 보드에서 비교해 HBM4 고객 인증과 패키징 할당 우선순위를 결정",
+        go: "고객 락인 강화",
+        watch: "인증 일정 감시",
+        hold: "근거 보류",
+      },
+      {
+        id: "china-capex-warning",
+        label: "중국 캐파·정책자금 경보",
+        category: "china",
+        categories: ["china", "dram", "nand", "equipment", "geopolitics"],
+        owner: "CEO · Policy · CFO",
+        jump: "memory-market-map",
+        terms: ["cxmt", "ymtc", "big fund", "ipo", "capacity", "wpm", "naura", "amec", "wuhan", "shanghai", "hefei", "policy"],
+        action: "CXMT IPO·YMTC 우한 증설·Big Fund 자금을 투자 관계선으로 묶어 레거시 DRAM/NAND 하방 압력 경보로 전환",
+        go: "가격 방어 준비",
+        watch: "캐파 ramp 감시",
+        hold: "근거 보류",
+      },
+      {
+        id: "startup-option-investment",
+        label: "Post-HBM 옵션 투자",
+        category: "operations",
+        categories: ["hbm", "cxl", "packaging", "aidemand", "operations"],
+        owner: "CVC · CTO · CFO",
+        jump: "memory-market-map",
+        terms: ["cxl", "photonic", "photonics", "pim", "xcena", "celestial", "lightmatter", "ayar", "xconn", "startup", "funding"],
+        action: "CXL·포토닉스·PIM 후보를 Money Flow 투자 축으로 비교해 직접 투자, 공동 PoC, 관찰 대상을 분리",
+        go: "PoC/실사 착수",
+        watch: "옵션 유지",
+        hold: "근거 보류",
+      },
+      {
         id: "policy-fab",
         label: "정책/Fab 라이선스",
         category: "geopolitics",
@@ -3145,6 +3184,101 @@
     };
   }
 
+  function cLevelAgentItems(decision = {}, decisions = []) {
+    const selected = decision || decisions[0] || {};
+    const contrast = decisions.find((item) => item.id !== selected?.id) || selected;
+    const totalEvidence = selected?.evidenceCount || 0;
+    const relatedRelations = memoryMarketRelationsForTerms(selected?.terms || []);
+    const moneyRelations = relatedRelations.filter((item) => item.mode === "money");
+    const competitiveRelations = relatedRelations.filter((item) => item.mode === "competitive");
+    const topRelation = relatedRelations[0];
+    const priceRows = selected?.priceRows || 0;
+    const linkCount = selected?.linkCount || 0;
+    const confidence = Math.round(selected?.confidence || 0);
+    const topRelationText = topRelation
+      ? `${memoryMarketNodeName(topRelation.from)} → ${memoryMarketNodeName(topRelation.to)}`
+      : "근거가 붙은 관계선 없음";
+    return [
+      {
+        id: "ceo",
+        initials: "CE",
+        name: "CEO Agent",
+        title: "Chief Executive Officer",
+        role: "우선순위·최종 안건화",
+        color: "#2D6BFF",
+        stance: selected?.verdict === "Go" ? "상정" : selected?.verdict === "Watch" ? "조건부 검토" : "보류",
+        message: `${selected?.label || "선택 안건"}은 근거 ${fmtNum(totalEvidence)}개, 신뢰도 ${fmtNum(confidence)}/100입니다. 먼저 ${topRelationText} 관계를 경영진 안건의 핵심 축으로 두고, 근거 없는 축은 회의에서 제외합니다.`,
+      },
+      {
+        id: "cfo",
+        initials: "CF",
+        name: "CFO Agent",
+        title: "Chief Financial Officer",
+        role: "수익성·자본배분",
+        color: "#00C2A8",
+        stance: "투자/매출 분리",
+        message: `Money Flow는 투자/매출 관계 ${fmtNum(moneyRelations.length)}개를 보여줍니다. 이 화면의 ROI류 지표는 회계 수익률이 아니라 실사 우선순위이며, NPV/IRR은 원문 계약·가격 rows가 붙은 안건만 별도 모델로 넘깁니다.`,
+      },
+      {
+        id: "cto",
+        initials: "CT",
+        name: "CTO Agent",
+        title: "Chief Technology Officer",
+        role: "기술·제품 로드맵",
+        color: "#8B5CF6",
+        stance: "병목 분리",
+        message: `Competitive Dynamics는 경쟁·파트너십·투자·공급 관계 ${fmtNum(competitiveRelations.length)}개를 분리합니다. HBM 인증, NAND/eSSD, 패키징, 장비 qual 병목을 한 안건에 섞지 않고 제품군별 실행 조건으로 나눕니다.`,
+      },
+      {
+        id: "policy",
+        initials: "PO",
+        name: "Policy Agent",
+        title: "Policy & Fab Risk Lead",
+        role: "규제·Fab·정책자금",
+        color: "#F59E0B",
+        stance: "라이선스 게이트",
+        message: `중국 Fab 판단은 운영 유지, 캐파 확대, 기술 업그레이드로 나눕니다. BIS/CHIPS/MATCH/Big Fund 근거가 붙지 않은 확대 안건은 실행이 아니라 Watch로 남깁니다.`,
+      },
+      {
+        id: "market",
+        initials: "MA",
+        name: "Market Agent",
+        title: "Market Intelligence Lead",
+        role: "가격·고객·계약",
+        color: "#10B981",
+        stance: "가격 전이 확인",
+        message: `${selected?.label || "선택 안건"}은 가격 rows ${fmtNum(priceRows)}개와 링크/KPI ${fmtNum(linkCount)}개를 먼저 봅니다. ${contrast?.label || "비교 안건"} 대비 Spot이 먼저 꺾이고 Contract가 뒤따르면 공급 배분·가격 재협상 안건으로 전환합니다.`,
+      },
+      {
+        id: "audit",
+        initials: "AU",
+        name: "Data Auditor",
+        title: "Evidence Gatekeeper",
+        role: "팩트 검증·중복 제거",
+        color: "#EF4444",
+        stance: "근거 게이트",
+        message: "sourceUrl, 뉴스 link, 가격 row 중 하나도 없으면 관계 그래프와 사실 카드에 올리지 않습니다. 관계선 두께와 점수는 실제 크롤링 근거 수만 반영합니다.",
+      },
+    ];
+  }
+
+  function cLevelCouncilConclusion(decision = {}) {
+    const evidence = decision.evidenceCount || 0;
+    const confidence = Math.round(decision.confidence || 0);
+    const verdict = decision.verdict || "Hold";
+    const action = decision.action || "추가 근거 수집";
+    const direction = verdict === "Go"
+      ? "경영진 안건으로 상정"
+      : verdict === "Watch"
+        ? "조건 충족 전까지 모니터링"
+        : "의사결정 보류";
+    return {
+      title: `${verdict} · ${direction}`,
+      body: `${decision.label || "선택 안건"}은 검증 근거 ${fmtNum(evidence)}개와 신뢰도 ${fmtNum(confidence)}/100 기준으로 ${direction}이 적절합니다.`,
+      next: `다음 액션: ${action}`,
+    };
+  }
+
   function renderCLevelCockpit() {
     const grid = $("#cLevelDecisionGrid");
     const agents = $("#cLevelAgentGrid");
@@ -3208,12 +3342,12 @@
         <div class="agent-debate-title">
           <span>EXPERT AGENTS</span>
           <strong>레거시·범용 의사결정 토론</strong>
-          <small>여러 안건 중 하나를 선택하고 실행하면 각 에이전트가 순차 토론한 뒤 결론을 냅니다.</small>
+          <small>여러 안건 중 하나를 선택하고 실행하면 CEO, CFO, CTO, Policy, Market, Auditor가 순차 토론한 뒤 결론을 냅니다.</small>
         </div>
         <div class="c-level-agent-controls">
           <label>
             <span>안건 선택</span>
-            <select id="cLevelCouncilSelect" aria-label="에이전트 토론 안건 선택">
+            <select id="cLevelCouncilSelect" aria-label="전문가 에이전트 토론 안건 선택">
               ${decisions.map((item) => `<option value="${escapeHTML(item.id)}"${item.id === selectedDecision.id ? " selected" : ""}>${escapeHTML(item.label)} · ${escapeHTML(item.verdict)} · 근거 ${fmtNum(item.evidenceCount)}개</option>`).join("")}
             </select>
           </label>
@@ -3229,16 +3363,20 @@
           <div class="agent-roster">
             ${agentItems.map((agent, index) => `
               <div class="agent-avatar-card" style="--agent-color:${escapeHTML(agent.color)}; --delay:${index * councilStepDelay}ms">
-                <b>${escapeHTML(agent.id.toUpperCase().slice(0, 2))}</b>
+                <div class="agent-person">
+                  <b>${escapeHTML(agent.initials || agent.id.toUpperCase().slice(0, 2))}</b>
+                  <i aria-hidden="true"></i>
+                </div>
                 <span>${escapeHTML(agent.name)}</span>
-                <small>${escapeHTML(agent.role)}</small>
+                <small>${escapeHTML(agent.title || agent.role)}</small>
+                <em>${escapeHTML(agent.stance || agent.role)}</em>
               </div>
             `).join("")}
           </div>
           <div class="agent-chat">
             ${agentItems.map((agent, index) => `
               <div class="agent-turn${index % 2 ? " right" : ""}" style="--agent-color:${escapeHTML(agent.color)}; --delay:${index * councilStepDelay + 220}ms">
-                <span class="agent-badge">${escapeHTML(agent.id.toUpperCase().slice(0, 2))}</span>
+                <span class="agent-badge">${escapeHTML(agent.initials || agent.id.toUpperCase().slice(0, 2))}</span>
                 <div class="speech-bubble">
                   <div class="speech-meta"><strong>${escapeHTML(agent.name)}</strong><span>${escapeHTML(agent.role)}</span></div>
                   <p>${escapeHTML(agent.message)}</p>
@@ -3255,7 +3393,7 @@
         ` : `
           <div class="agent-waiting">
             <strong>안건을 선택한 뒤 에이전트 실행을 누르세요.</strong>
-            <p>실행 전에는 에이전트를 노출하지 않습니다. 실행 후 실제 연결 근거 기준으로 CEO, CFO, CTO, 정책, 시장, 감사 에이전트가 토론합니다.</p>
+            <p>실행 전에는 에이전트를 호출하지 않습니다. 실행 후 실제 연결 근거 기준으로 CEO, CFO, CTO, 정책, 시장, 감사 에이전트가 순서대로 발언합니다.</p>
           </div>
         `}
       </div>
