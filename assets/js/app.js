@@ -1942,7 +1942,9 @@
   let ceoChallengeTargetId = "scenario";
   let cLevelCouncilDecisionId = "";
   let cLevelCouncilRan = false;
+  let cLevelCouncilScenarioRun = 0;
   let execDecisionCouncilRan = false;
+  let execDecisionCouncilScenarioRun = 0;
   let projectionFocusId = "ai-server";
   let projectionScenario = "neutral";
   let execDecisionFocusId = "hbm-ai-server";
@@ -3477,7 +3479,119 @@
     return profiles[decision?.id] || fallback;
   }
 
-  function cLevelAgentItems(decision = {}, decisions = []) {
+  const AGENT_FUTURE_SCENARIOS = [
+    {
+      id: "base",
+      label: "기준 시나리오",
+      horizon: "30개월",
+      tilt: "base",
+      premise: "현재 수집된 가격, 기사, 정책, 벤치마킹 근거가 큰 충격 없이 이어지는 경우",
+      ceo: "현 결론을 유지하되 결정을 바꾸는 KPI를 먼저 둡니다.",
+      cfo: "재무 집행은 보류하고 가격 row와 고객 계약 근거가 쌓인 안건부터 실사합니다.",
+      cto: "제품군별 기술 병목은 현재 확인된 근거 범위에서만 판단합니다.",
+      policy: "규제 원문이 추가되지 않으면 운영 유지와 확대 투자를 분리합니다.",
+      market: "Spot/contract와 고객 계약 신호가 같은 방향으로 움직이는지만 확인합니다.",
+      audit: "이 시나리오는 현재 데이터의 기준선이며 사실 레이어와 가정 레이어를 분리합니다.",
+      conclusion: "현재 결론 유지",
+    },
+    {
+      id: "china-pressure",
+      label: "중국 공급압력",
+      horizon: "12~24개월",
+      tilt: "down",
+      premise: "CXMT DDR5/LPDDR 물량과 YMTC eSSD/NAND 침투가 빨라져 범용 가격 협상력이 약해지는 경우",
+      ceo: "가격 방어와 고객 락인을 우선하며 확대 안건은 조건부로 낮춥니다.",
+      cfo: "Bear case ASP와 재고 방어 비용을 먼저 반영하고 저수익 SKU 축소를 검토합니다.",
+      cto: "HBM과 범용 DRAM/NAND를 분리하고 중국 가격 압력은 레거시 제품군에 먼저 반영합니다.",
+      policy: "중국 내수 보조금과 국산 장비 qual은 제재와 별도로 공급압력 변수로 둡니다.",
+      market: "Spot이 먼저 약해지고 contract가 뒤따르면 고객별 가격 방어 안건으로 전환합니다.",
+      audit: "중국 공급압력은 점유율, 고객계약, 가격 row가 동시에 확인될 때만 강한 신호로 승격합니다.",
+      conclusion: "방어 우선",
+    },
+    {
+      id: "policy-tightening",
+      label: "정책 강화",
+      horizon: "6~18개월",
+      tilt: "down",
+      premise: "BIS/VEU, CHIPS, MATCH, 중국 인허가·환경 규제가 강화되어 중국 Fab 업그레이드와 장비 반입이 느려지는 경우",
+      ceo: "중국 운영은 유지·확대·기술 업그레이드로 쪼개고 확대성 안건은 Watch로 낮춥니다.",
+      cfo: "CAPEX 집행은 라이선스 확보 전 보류하고 운영 continuity 예산만 별도 승인합니다.",
+      cto: "선단 공정 전환보다 기존 공정 안정화, 수율 유지, 고객 품질 대응을 우선합니다.",
+      policy: "원문 규제와 허가 상태가 없으면 Go 판단을 금지하고 법무 게이트를 먼저 통과시킵니다.",
+      market: "정책 리스크가 가격 프리미엄을 상쇄하면 고객 배분과 재고 전략을 재검토합니다.",
+      audit: "정책 강화 시나리오는 법령·기관 원문이 붙은 항목만 사실 근거로 사용합니다.",
+      conclusion: "라이선스 게이트 우선",
+    },
+    {
+      id: "ai-upside",
+      label: "AI 수요 상방",
+      horizon: "30개월~5년",
+      tilt: "up",
+      premise: "AI 서버, HBM4/HBM4E, eSSD 수요가 예상보다 강하고 고객 장기계약 또는 선급 신호가 확대되는 경우",
+      ceo: "프리미엄 제품군은 고객 락인과 공급 배분을 앞당기고 범용은 현금흐름 방어로 분리합니다.",
+      cfo: "장기계약, 선급, 프리미엄 ASP 근거가 붙은 제품군만 선별 CAPEX 후보로 올립니다.",
+      cto: "HBM base die, CoWoS/패키징, eSSD 인증 병목을 해소하는 투자를 우선합니다.",
+      policy: "미국 고객과 첨단 패키징 노출은 중국 Fab 안건과 분리해 승인합니다.",
+      market: "AI 수요가 강해도 spot 약세가 동반되면 고객별 믹스와 계약 조건을 따로 봅니다.",
+      audit: "상방 시나리오는 고객 계약, 가격 row, 출하·인증 원문이 있을 때만 Go 강도를 높입니다.",
+      conclusion: "선별 확대",
+    },
+    {
+      id: "execution-bottleneck",
+      label: "실행 병목",
+      horizon: "6~24개월",
+      tilt: "watch",
+      premise: "CoWoS/패키징, 장비 qual, 고객 인증, 수율 안정화가 지연되어 수요는 있어도 출하 전환이 느려지는 경우",
+      ceo: "수요가 있어도 실행 병목이 확인되면 Go를 단계 집행으로 낮춥니다.",
+      cfo: "CAPEX는 milestone tranche로 쪼개고 고객 인증 전 지출을 제한합니다.",
+      cto: "수율, 패키징, 테스트, 고객 인증을 같은 일정표에 놓고 병목 해소 순서를 정합니다.",
+      policy: "장비 반입과 인허가가 지연되면 증설보다 운영 안정과 대체 조달을 먼저 봅니다.",
+      market: "고객 수요 뉴스보다 실제 인증, 출하, 가격 반영 여부를 우선합니다.",
+      audit: "실행 병목은 이벤트 뉴스가 아니라 일정 지연, 인증 실패, 가격 미반영 근거가 있어야 승격합니다.",
+      conclusion: "단계 집행",
+    },
+  ];
+
+  function agentFutureScenario(run = 0) {
+    const index = ((Number(run) || 0) % AGENT_FUTURE_SCENARIOS.length + AGENT_FUTURE_SCENARIOS.length) % AGENT_FUTURE_SCENARIOS.length;
+    return AGENT_FUTURE_SCENARIOS[index];
+  }
+
+  function scenarioVerdict(baseVerdict = "Watch", scenario = agentFutureScenario()) {
+    const verdict = baseVerdict || "Watch";
+    if (scenario.tilt === "base") return verdict;
+    if (scenario.tilt === "up") {
+      if (verdict === "Hold") return "Watch";
+      if (verdict === "Watch") return "Go";
+      return "Go";
+    }
+    if (scenario.tilt === "down") {
+      if (verdict === "Go") return "Watch";
+      if (verdict === "Watch") return "Hold";
+      return "Hold";
+    }
+    if (scenario.tilt === "watch") return verdict === "Go" ? "Watch" : verdict;
+    return verdict;
+  }
+
+  function scenarioDecisionLabel(verdict = "Watch") {
+    if (verdict === "Go") return "상정";
+    if (verdict === "Watch") return "조건부 재검토";
+    return "보류";
+  }
+
+  function scenarioBriefHTML(scenario = agentFutureScenario()) {
+    return `
+      <div class="agent-scenario-brief" data-scenario="${escapeHTML(scenario.id)}">
+        <span>미래 가정</span>
+        <strong>${escapeHTML(scenario.label)} · ${escapeHTML(scenario.horizon)}</strong>
+        <p>${escapeReadableHTML(scenario.premise)}</p>
+        <small>토론 다시 실행 시 다음 가정으로 전환 · ${escapeHTML(scenario.conclusion)}</small>
+      </div>
+    `;
+  }
+
+  function cLevelAgentItems(decision = {}, decisions = [], scenario = agentFutureScenario()) {
     const selected = decision || decisions[0] || {};
     const contrast = decisions.find((item) => item.id !== selected?.id) || selected;
     const totalEvidence = selected?.evidenceCount || 0;
@@ -3496,6 +3610,7 @@
     const primaryFlip = primaryDecisionFlipKpi(selected);
     const priceFlip = flipKpis.find((item) => item.id === "price-turn") || primaryFlip;
     const policyFlip = flipKpis.find((item) => item.id === "policy-license") || primaryFlip;
+    const scenarioVerdictValue = scenarioVerdict(selected?.verdict || "Watch", scenario);
     const verdictMeaning = selected?.verdict === "Go"
       ? "즉시 상정"
       : selected?.verdict === "Watch"
@@ -3509,8 +3624,8 @@
         title: "Chief Executive Officer",
         role: "우선순위·최종 안건화",
         color: "#2D6BFF",
-        stance: selected?.verdict === "Go" ? "상정" : selected?.verdict === "Watch" ? "조건부 검토" : "보류",
-        message: `경영진 질문: ${profile.question} 결론은 ${selected?.verdict || "Watch"}(${verdictMeaning})입니다. 근거 ${fmtNum(totalEvidence)}개, 신뢰도 ${fmtNum(confidence)}/100, 핵심 관계 ${topRelationText}. 결정을 바꾸는 KPI는 ${primaryFlip.label}(${primaryFlip.trigger})입니다.`,
+        stance: scenarioDecisionLabel(scenarioVerdictValue),
+        message: `경영진 질문: ${profile.question} 기준 결론은 ${selected?.verdict || "Watch"}(${verdictMeaning})입니다. 이번 재실행 가정은 ${scenario.label}: ${scenario.ceo} 따라서 토론 결론은 ${scenarioVerdictValue}(${scenarioDecisionLabel(scenarioVerdictValue)})로 조정합니다. 근거 ${fmtNum(totalEvidence)}개, 신뢰도 ${fmtNum(confidence)}/100, 핵심 관계 ${topRelationText}.`,
       },
       {
         id: "cfo",
@@ -3520,7 +3635,7 @@
         role: "수익성·자본배분",
         color: "#00C2A8",
         stance: "투자/매출 분리",
-        message: `재무 관점: ${profile.cfo} Money Flow 근거 ${fmtNum(moneyRelations.length)}개와 가격 row ${fmtNum(priceRows)}개를 확인했습니다. 이 단계는 승인용 IRR/NPV가 아니라 실사 우선순위이며, ${priceFlip.label} 기준(${priceFlip.trigger})을 넘으면 자본배분안을 다시 냅니다.`,
+        message: `재무 관점: ${profile.cfo} ${scenario.cfo} Money Flow 근거 ${fmtNum(moneyRelations.length)}개와 가격 row ${fmtNum(priceRows)}개를 확인했습니다. ${priceFlip.label} 기준(${priceFlip.trigger})을 넘으면 자본배분안을 다시 냅니다.`,
       },
       {
         id: "cto",
@@ -3530,7 +3645,7 @@
         role: "기술·제품 로드맵",
         color: "#8B5CF6",
         stance: "병목 분리",
-        message: `기술 관점: ${profile.cto} 경쟁 관계 ${fmtNum(competitiveRelations.length)}개 중 제품 실행에 연결된 병목만 남깁니다. 확인 순서는 ${flipKpis.map((item) => item.label).slice(0, 3).join(" · ")}입니다.`,
+        message: `기술 관점: ${profile.cto} ${scenario.cto} 경쟁 관계 ${fmtNum(competitiveRelations.length)}개 중 제품 실행에 연결된 병목만 남깁니다. 확인 순서는 ${flipKpis.map((item) => item.label).slice(0, 3).join(" · ")}입니다.`,
       },
       {
         id: "policy",
@@ -3540,7 +3655,7 @@
         role: "규제·Fab·정책자금",
         color: "#F59E0B",
         stance: "라이선스 게이트",
-        message: `정책/Fab 관점: ${profile.policy} 운영 유지, 캐파 확대, 기술 업그레이드를 분리해 승인해야 합니다. ${policyFlip.label} 기준은 ${policyFlip.trigger}; 규제 원문이 없으면 Go가 아니라 Watch입니다.`,
+        message: `정책/Fab 관점: ${profile.policy} ${scenario.policy} 운영 유지, 캐파 확대, 기술 업그레이드를 분리해 승인합니다. ${policyFlip.label} 기준은 ${policyFlip.trigger}; 규제 원문이 없으면 Go가 아니라 Watch입니다.`,
       },
       {
         id: "market",
@@ -3550,7 +3665,7 @@
         role: "가격·고객·계약",
         color: "#10B981",
         stance: "가격 전이 확인",
-        message: `시장 관점: ${profile.market} 현재 가격 row ${fmtNum(priceRows)}개, 링크/KPI ${fmtNum(linkCount)}개, 비교축 ${contrast?.label || "비교 안건"}을 확인했습니다. Spot/contract가 ${priceFlip.trigger}이면 고객·공급 배분을 재검토합니다.`,
+        message: `시장 관점: ${profile.market} ${scenario.market} 현재 가격 row ${fmtNum(priceRows)}개, 링크/KPI ${fmtNum(linkCount)}개, 비교축 ${contrast?.label || "비교 안건"}을 확인했습니다.`,
       },
       {
         id: "audit",
@@ -3560,15 +3675,15 @@
         role: "팩트 검증·중복 제거",
         color: "#EF4444",
         stance: "근거 게이트",
-        message: cLevelAuditMessage(selected, profile, relatedRelations),
+        message: `${cLevelAuditMessage(selected, profile, relatedRelations)} 시나리오 감사: ${scenario.audit}`,
       },
     ];
   }
 
-  function cLevelCouncilConclusion(decision = {}) {
+  function cLevelCouncilConclusion(decision = {}, scenario = agentFutureScenario()) {
     const evidence = decision.evidenceCount || 0;
     const confidence = Math.round(decision.confidence || 0);
-    const verdict = decision.verdict || "Hold";
+    const verdict = scenarioVerdict(decision.verdict || "Hold", scenario);
     const action = decision.action || "추가 근거 수집";
     const profile = cLevelDecisionProfile(decision);
     const primaryFlip = primaryDecisionFlipKpi(decision);
@@ -3578,9 +3693,9 @@
         ? "조건 충족 전까지 모니터링"
         : "의사결정 보류";
     return {
-      title: `${verdict} · ${direction}`,
-      body: `경영진 결론: "${profile.question}"에 대해 검증 근거 ${fmtNum(evidence)}개, 신뢰도 ${fmtNum(confidence)}/100 기준으로 ${direction}.`,
-      next: `다음 액션: ${action}. 재검토 KPI: ${primaryFlip.label}(${primaryFlip.trigger}). ${profile.next}`,
+      title: `${verdict} · ${direction} · ${scenario.label}`,
+      body: `경영진 결론: "${profile.question}"에 대해 ${scenario.label}을 적용하면 검증 근거 ${fmtNum(evidence)}개, 신뢰도 ${fmtNum(confidence)}/100 기준으로 ${direction}.`,
+      next: `다음 액션: ${scenario.conclusion} 중심으로 ${action}. 재검토 KPI: ${primaryFlip.label}(${primaryFlip.trigger}). ${profile.next}`,
     };
   }
 
@@ -3605,6 +3720,7 @@
     if (!decisions.some((item) => item.id === cLevelCouncilDecisionId)) {
       cLevelCouncilDecisionId = (decisions.find((item) => item.id === "legacy-commodity") || decisions[0]).id;
       cLevelCouncilRan = false;
+      cLevelCouncilScenarioRun = 0;
     }
     const selectedDecision = decisions.find((item) => item.id === cLevelCouncilDecisionId) || decisions[0];
 
@@ -3626,8 +3742,9 @@
       </button>
     `).join("");
 
-    const agentItems = cLevelAgentItems(selectedDecision, decisions);
-    const conclusion = cLevelCouncilConclusion(selectedDecision);
+    const councilScenario = agentFutureScenario(cLevelCouncilScenarioRun);
+    const agentItems = cLevelAgentItems(selectedDecision, decisions, councilScenario);
+    const conclusion = cLevelCouncilConclusion(selectedDecision, councilScenario);
     const selectedProfile = cLevelDecisionProfile(selectedDecision);
     const rosterStepDelay = 120;
     const chatStartDelay = agentItems.length * rosterStepDelay + 720;
@@ -3638,6 +3755,7 @@
         <div class="agent-debate-title">
           <span>EXPERT AGENTS</span>
           <strong>${escapeHTML(selectedDecision?.label || "경영진 안건")} 토론</strong>
+          <small>${escapeHTML(councilScenario.label)} · ${escapeHTML(councilScenario.horizon)}</small>
         </div>
         <div class="c-level-agent-controls">
           <label>
@@ -3649,6 +3767,7 @@
           <button type="button" id="cLevelRunCouncil">${cLevelCouncilRan ? "토론 다시 실행" : "에이전트 실행"}</button>
         </div>
         ${decisionFlipKpiHTML(selectedDecision)}
+        ${scenarioBriefHTML(councilScenario)}
         <div class="agent-selected-brief">
           <span>선택 안건</span>
           <strong>${escapeHTML(selectedDecision?.label || "안건")}</strong>
@@ -3700,6 +3819,7 @@
       const chooseCouncilAgenda = (event) => {
         cLevelCouncilDecisionId = event.target.value;
         cLevelCouncilRan = false;
+        cLevelCouncilScenarioRun = 0;
         renderCLevelCockpit();
       };
       councilSelect.addEventListener("input", chooseCouncilAgenda);
@@ -3708,6 +3828,8 @@
     const runCouncil = $("#cLevelRunCouncil");
     if (runCouncil) {
       runCouncil.addEventListener("click", () => {
+        if (cLevelCouncilRan) cLevelCouncilScenarioRun += 1;
+        else cLevelCouncilScenarioRun = 0;
         cLevelCouncilRan = true;
         renderCLevelCockpit();
       });
@@ -3716,6 +3838,7 @@
       btn.addEventListener("click", () => {
         cLevelCouncilDecisionId = btn.dataset.councilPick;
         cLevelCouncilRan = false;
+        cLevelCouncilScenarioRun = 0;
         renderCLevelCockpit();
       });
     });
@@ -6007,6 +6130,7 @@
       yearSelect.onchange = () => {
         selectedBacktestYear = yearSelect.value;
         execDecisionCouncilRan = false;
+        execDecisionCouncilScenarioRun = 0;
         renderExecutiveDecision();
       };
     }
@@ -6020,6 +6144,7 @@
         selectedExecProductId = productSelect.value;
         if (selectedExecProductId !== "all") execDecisionFocusId = selectedExecProductId;
         execDecisionCouncilRan = false;
+        execDecisionCouncilScenarioRun = 0;
         renderExecutiveDecision();
       };
     }
@@ -6357,7 +6482,7 @@
     return profiles[active?.id] || fallback;
   }
 
-  function executiveDecisionAgentItems(active, selectedYearOption, productLabel, selectedIso, selectedSeriesCount) {
+  function executiveDecisionAgentItems(active, selectedYearOption, productLabel, selectedIso, selectedSeriesCount, scenario = agentFutureScenario()) {
     if (!active) return "";
     const actual = active.actualChange == null ? "선택 시점 이후 실측 데이터 부족" : `${active.actualChange > 0 ? "+" : ""}${fmtNum(active.actualChange, 2)}%`;
     const prior = active.priorMomentum == null ? "NA" : `${active.priorMomentum > 0 ? "+" : ""}${fmtNum(active.priorMomentum, 2)}%`;
@@ -6376,8 +6501,8 @@
         title: "Executive Chair",
         role: "의사결정 질문",
         color: "#111827",
-        stance: "우선순위",
-        message: `경영진 질문: ${profile.question} 현재 결론은 ${active.decision.label}입니다. 단, 재검토 기준(${primaryFlip.label}: ${primaryFlip.trigger})이 충족되면 판단을 재상정합니다.`,
+        stance: scenario.conclusion,
+        message: `경영진 질문: ${profile.question} 현재 결론은 ${active.decision.label}입니다. 이번 재실행 가정은 ${scenario.label}: ${scenario.ceo} 실행 판단은 ${scenario.conclusion}으로 조정합니다. 재검토 기준(${primaryFlip.label}: ${primaryFlip.trigger})이 충족되면 판단을 재상정합니다.`,
       },
       {
         id: "data",
@@ -6387,7 +6512,7 @@
         role: "가격·백테스트",
         color: "#06B6D4",
         stance: "실측 검증",
-        message: `근거: ${profile.data} ${point} 기준 가격 series ${fmtNum(selectedSeriesCount)}개 중 관측 ${fmtNum(active.observations.length)}개만 계산했습니다. 사전 모멘텀 ${prior}, 이후 실측 ${actual}. ${priceFlip.label}은 ${priceFlip.flip} 조건입니다.`,
+        message: `근거: ${profile.data} ${point} 기준 가격 series ${fmtNum(selectedSeriesCount)}개 중 관측 ${fmtNum(active.observations.length)}개만 계산했습니다. 사전 모멘텀 ${prior}, 이후 실측 ${actual}. ${scenario.label}에서는 ${scenario.market}`,
       },
       {
         id: "china",
@@ -6397,7 +6522,7 @@
         role: "중국 신호",
         color: "#8B5CF6",
         stance: "현재 리스크",
-        message: `중국 overlay: ${profile.china} 연결 신호 ${fmtNum(active.chinaSignalCount)}건은 과거 백테스트에 소급 반영하지 않습니다. ${chinaFlip.label} 기준이 원문/가격 근거와 같이 충족되면 판단을 '${chinaFlip.flip}'로 재분류합니다.`,
+        message: `중국 overlay: ${profile.china} 연결 신호 ${fmtNum(active.chinaSignalCount)}건은 과거 백테스트에 소급 반영하지 않습니다. ${scenario.label}에서는 ${scenario.id === "china-pressure" ? "중국 신호를 Bear case로 상향 반영합니다." : "중국 신호를 현재 리스크 overlay로만 유지합니다."} ${chinaFlip.label} 기준이 충족되면 판단을 '${chinaFlip.flip}'로 재분류합니다.`,
       },
       {
         id: "cfo",
@@ -6407,7 +6532,7 @@
         role: "수익성·자본배분",
         color: "#F59E0B",
         stance: "자본 효율",
-        message: `자본배분: ${profile.cfo} 이 판단은 IRR/NPV가 아니라 실사 우선순위입니다. 실행 문구는 '${active.decision.action}'로 제한하고, 재검토 기준이 충족되면 예산안을 다시 냅니다.`,
+        message: `자본배분: ${profile.cfo} ${scenario.cfo} 이 판단은 IRR/NPV가 아니라 실사 우선순위입니다. 실행 문구는 '${active.decision.action}'로 제한하고, 재검토 기준이 충족되면 예산안을 다시 냅니다.`,
       },
       {
         id: "risk",
@@ -6417,7 +6542,7 @@
         role: "하방 리스크",
         color: "#EF4444",
         stance: "No-Go 조건",
-        message: `리스크 게이트: ${profile.risk} 하방 조건은 "${active.downside}"입니다. ${flipKpis.slice(0, 3).map((item) => item.label).join(" · ")} 중 2개 이상 악화되면 결론을 낮춥니다.`,
+        message: `리스크 게이트: ${profile.risk} ${scenario.policy} 하방 조건은 "${active.downside}"입니다. ${flipKpis.slice(0, 3).map((item) => item.label).join(" · ")} 중 2개 이상 악화되면 결론을 낮춥니다.`,
       },
       {
         id: "strategy",
@@ -6426,13 +6551,13 @@
         title: "Final Synthesis",
         role: "최종 정리",
         color: "#22C55E",
-        stance: "실행 판단",
-        message: `권고: ${profile.strategy} 대상 제품군은 ${(active.products || []).slice(0, 4).join(" · ") || productLabel}입니다. 결론은 ${active.decision.label}로 두고, 위 KPI가 기준선을 넘으면 다음 수집 시점에 자동 재검토합니다.`,
+        stance: scenario.conclusion,
+        message: `권고: ${profile.strategy} 대상 제품군은 ${(active.products || []).slice(0, 4).join(" · ") || productLabel}입니다. ${scenario.label}에서는 ${scenario.conclusion}을 우선 결론으로 두고, 위 KPI가 기준선을 넘으면 다음 수집 시점에 자동 재검토합니다.`,
       },
     ].filter((agent) => agent.message);
   }
 
-  function executiveDecisionCouncilConclusion(active, selectedYearOption, selectedIso) {
+  function executiveDecisionCouncilConclusion(active, selectedYearOption, selectedIso, scenario = agentFutureScenario()) {
     const yearLabel = selectedYearOption?.label || "선택 시점 없음";
     const actual = active?.actualChange == null ? "실측 부족" : `${active.actualChange > 0 ? "+" : ""}${fmtNum(active.actualChange, 2)}%`;
     const prior = active?.priorMomentum == null ? "NA" : `${active.priorMomentum > 0 ? "+" : ""}${fmtNum(active.priorMomentum, 2)}%`;
@@ -6440,20 +6565,20 @@
     const profile = executiveDecisionProfile(active, selectedYearOption);
     const primaryFlip = primaryDecisionFlipKpi(active);
     return {
-      title: `${active?.decision?.label || "판단 대기"} · ${active?.decision?.action || "실행 보류"}`,
-      body: `경영진 결론: "${profile.question}" ${yearLabel} 기준점 ${selectedIso ? pointDateLabel(selectedIso) : "없음"}에서 직전 모멘텀 ${prior}, 이후 실측 ${actual}, 관측 ${fmtNum(active?.observations?.length || 0)}개로 검증.`,
-      next: `검증 결과: ${outcome}. 재검토 KPI: ${primaryFlip.label}(${primaryFlip.trigger}). ${active?.decision?.logic || "근거가 더 쌓이면 재판단합니다."}`,
+      title: `${scenario.conclusion} · ${scenario.label}`,
+      body: `경영진 결론: "${profile.question}" ${yearLabel} 기준점 ${selectedIso ? pointDateLabel(selectedIso) : "없음"}에서 직전 모멘텀 ${prior}, 이후 실측 ${actual}, 관측 ${fmtNum(active?.observations?.length || 0)}개를 기준으로 ${scenario.label}을 stress test했습니다.`,
+      next: `검증 결과: ${outcome}. 시나리오 액션: ${scenario.conclusion}. 재검토 KPI: ${primaryFlip.label}(${primaryFlip.trigger}). ${active?.decision?.logic || "근거가 더 쌓이면 재판단합니다."}`,
     };
   }
 
-  function executiveDecisionDebateHTML(active, selectedYearOption, productLabel, selectedIso, selectedSeriesCount, items = []) {
+  function executiveDecisionDebateHTML(active, selectedYearOption, productLabel, selectedIso, selectedSeriesCount, items = [], scenario = agentFutureScenario()) {
     if (!active) return "";
     const accent = categoryAccent(active.category);
     const actual = active.actualChange == null ? "NA" : `${active.actualChange > 0 ? "+" : ""}${fmtNum(active.actualChange, 2)}%`;
     const prior = active.priorMomentum == null ? "NA" : `${active.priorMomentum > 0 ? "+" : ""}${fmtNum(active.priorMomentum, 2)}%`;
     const yearLabel = selectedYearOption?.label || "선택 시점 없음";
-    const agentItems = executiveDecisionAgentItems(active, selectedYearOption, productLabel, selectedIso, selectedSeriesCount);
-    const conclusion = executiveDecisionCouncilConclusion(active, selectedYearOption, selectedIso);
+    const agentItems = executiveDecisionAgentItems(active, selectedYearOption, productLabel, selectedIso, selectedSeriesCount, scenario);
+    const conclusion = executiveDecisionCouncilConclusion(active, selectedYearOption, selectedIso, scenario);
     const profile = executiveDecisionProfile(active, selectedYearOption, productLabel);
     const rosterStepDelay = 120;
     const chatStartDelay = agentItems.length * rosterStepDelay + 720;
@@ -6464,6 +6589,7 @@
         <div class="agent-debate-title">
           <span>EXPERT AGENTS</span>
           <strong>${escapeHTML(active.label)} 의사결정 토론</strong>
+          <small>${escapeHTML(scenario.label)} · ${escapeHTML(scenario.horizon)}</small>
         </div>
         <div class="c-level-agent-controls decision-agent-controls">
           <label>
@@ -6480,6 +6606,7 @@
           <p>${escapeHTML(`질문: "${profile.question}"`)}</p>
           <small>${escapeHTML(yearLabel)} · ${escapeHTML(productLabel)} · 기준점 ${selectedIso ? escapeHTML(pointDateLabel(selectedIso)) : "없음"}</small>
         </div>
+        ${scenarioBriefHTML(scenario)}
         <div class="agent-debate-metrics">
           <div><strong>${escapeHTML(active.decision.label)}</strong><span>판단</span></div>
           <div><strong>${escapeHTML(prior)}</strong><span>사전 모멘텀</span></div>
@@ -6546,6 +6673,7 @@
     if (!items.some((item) => item.id === execDecisionFocusId)) {
       execDecisionFocusId = items[0]?.id || "hbm-ai-server";
       execDecisionCouncilRan = false;
+      execDecisionCouncilScenarioRun = 0;
     }
     const active = items.find((item) => item.id === execDecisionFocusId) || items[0];
     const historyCount = historyItems().length;
@@ -6560,6 +6688,7 @@
       });
     });
     const selectedSeriesCount = selectedSeriesKeys.size;
+    const executiveScenario = agentFutureScenario(execDecisionCouncilScenarioRun);
     if (meta) meta.textContent = `${yearLabel} 기준 · ${productLabel} · ${fmtNum(selectedSeriesCount)}개 매칭 series · ${latestAt ? pointDateLabel(latestAt) : "최신 결과 없음"}까지 검증`;
     if (coverage) coverage.textContent = `${yearLabel} 첫 수집점 ${selected ? pointDateLabel(selected) : "없음"} · 전체 가격 series ${fmtNum(historyCount)}개 · 제품군 매칭 ${fmtNum(selectedSeriesCount)}개`;
     summary.hidden = true;
@@ -6614,7 +6743,7 @@
           <span>${escapeHTML(active.decision.action)}</span>
           <small>${escapeHTML(active.decision.logic)}</small>
         </div>
-        ${executiveDecisionDebateHTML(active, selectedYearOption, productLabel, selected, selectedSeriesCount, items)}
+        ${executiveDecisionDebateHTML(active, selectedYearOption, productLabel, selected, selectedSeriesCount, items, executiveScenario)}
         <div class="metric-row">
           <div class="metric"><strong>${active.priorMomentum == null ? "NA" : `${fmtNum(active.priorMomentum, 2)}%`}</strong><span>직전 모멘텀</span></div>
           <div class="metric"><strong>${active.actualChange == null ? "NA" : `${fmtNum(active.actualChange, 2)}%`}</strong><span>이후 실제</span></div>
@@ -6645,14 +6774,18 @@
       focus.querySelector("#execDecisionCouncilSelect")?.addEventListener("change", (event) => {
         execDecisionFocusId = event.target.value;
         execDecisionCouncilRan = false;
+        execDecisionCouncilScenarioRun = 0;
         renderExecutiveDecision();
       });
       focus.querySelector("#execDecisionCouncilSelect")?.addEventListener("input", (event) => {
         execDecisionFocusId = event.target.value;
         execDecisionCouncilRan = false;
+        execDecisionCouncilScenarioRun = 0;
         renderExecutiveDecision();
       });
       focus.querySelector("#execDecisionRunCouncil")?.addEventListener("click", () => {
+        if (execDecisionCouncilRan) execDecisionCouncilScenarioRun += 1;
+        else execDecisionCouncilScenarioRun = 0;
         execDecisionCouncilRan = true;
         renderExecutiveDecision();
       });
@@ -6703,6 +6836,7 @@
     grid.querySelectorAll("[data-decision-product]").forEach((btn) => {
       btn.addEventListener("click", () => {
         if (execDecisionFocusId !== btn.dataset.decisionProduct) execDecisionCouncilRan = false;
+        if (execDecisionFocusId !== btn.dataset.decisionProduct) execDecisionCouncilScenarioRun = 0;
         execDecisionFocusId = btn.dataset.decisionProduct;
         renderExecutiveDecision();
       });

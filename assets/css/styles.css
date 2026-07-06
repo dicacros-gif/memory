@@ -1967,6 +1967,7 @@ body.sidebar-collapsed .sb-ico {
 }
 
 .agent-selected-brief,
+.agent-scenario-brief,
 .agent-waiting,
 .agent-conclusion {
   display: grid;
@@ -1978,6 +1979,7 @@ body.sidebar-collapsed .sb-ico {
 }
 
 .agent-selected-brief strong,
+.agent-scenario-brief strong,
 .agent-waiting strong,
 .agent-conclusion strong {
   color: var(--ink);
@@ -1986,7 +1988,8 @@ body.sidebar-collapsed .sb-ico {
   font-weight: 950;
 }
 
-.agent-selected-brief > span {
+.agent-selected-brief > span,
+.agent-scenario-brief > span {
   color: var(--muted);
   font-size: 10px;
   letter-spacing: .05em;
@@ -1995,6 +1998,8 @@ body.sidebar-collapsed .sb-ico {
 
 .agent-selected-brief p,
 .agent-selected-brief small,
+.agent-scenario-brief p,
+.agent-scenario-brief small,
 .agent-waiting p,
 .agent-conclusion p,
 .agent-conclusion small {
@@ -2002,6 +2007,26 @@ body.sidebar-collapsed .sb-ico {
   font-size: 12px;
   line-height: 1.55;
   font-weight: 760;
+}
+
+.agent-scenario-brief {
+  background:
+    linear-gradient(135deg, color-mix(in srgb, var(--local-accent, var(--accent)) 12%, transparent), transparent 58%),
+    color-mix(in srgb, var(--panel-2) 92%, transparent);
+  transition: background .18s ease, border-color .18s ease, color .18s ease, transform .18s ease;
+}
+
+.agent-scenario-brief:hover {
+  transform: translateY(-1px);
+  border-color: var(--local-accent, var(--accent));
+  background: var(--local-accent, var(--accent));
+}
+
+.agent-scenario-brief:hover > span,
+.agent-scenario-brief:hover strong,
+.agent-scenario-brief:hover p,
+.agent-scenario-brief:hover small {
+  color: #fff;
 }
 
 .c-level-agent-debate .agent-conclusion.reveal {
