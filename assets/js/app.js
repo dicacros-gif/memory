@@ -3313,21 +3313,9 @@
   function renderCLevelCockpit() {
     const grid = $("#cLevelDecisionGrid");
     const agents = $("#cLevelAgentGrid");
-    const badge = $("#cLevelFreshness");
-    const meta = $("#cLevelDecisionMeta");
     if (!grid || !agents) return;
 
     const decisions = cLevelDecisionItems();
-    const totalEvidence = decisions.reduce((sum, item) => sum + item.evidenceCount, 0);
-    const activeLabel = activeCategoryData()?.label || "전체";
-
-    if (badge) {
-      badge.className = `freshness-badge ${decisions.length ? "ok" : "empty"}`;
-      badge.textContent = `${decisions.length ? "의사결정 안건 연결" : "안건 대기"} · ${fmtDate(LIVE.updatedAt)} · GitHub Actions daily crawler`;
-    }
-    if (meta) {
-      meta.textContent = `${activeLabel} · ${fmtNum(totalEvidence)}개 근거 기반`;
-    }
 
     if (!decisions.length) {
       grid.innerHTML = `
@@ -3373,7 +3361,6 @@
         <div class="agent-debate-title">
           <span>EXPERT AGENTS</span>
           <strong>레거시·범용 의사결정 토론</strong>
-          <small>여러 안건 중 하나를 선택하고 실행하면 CEO, CFO, CTO, Policy, Market, Auditor가 순차 토론한 뒤 결론을 냅니다.</small>
         </div>
         <div class="c-level-agent-controls">
           <label>
@@ -5597,7 +5584,6 @@
         <div class="agent-debate-title">
           <span>EXPERT AGENTS</span>
           <strong>${escapeHTML(active.label)} 의사결정 토론</strong>
-          <small>여러 안건 중 하나를 선택하고 실행하면 CEO, CFO, CTO, Policy, Market, Auditor가 순차 토론한 뒤 결론을 냅니다.</small>
         </div>
         <div class="c-level-agent-controls decision-agent-controls">
           <label>
