@@ -3215,6 +3215,152 @@
     };
   }
 
+  function cLevelDecisionProfile(decision = {}) {
+    const profiles = {
+      "hbm-moat": {
+        question: "HBM4·AI 서버 캐파와 고객 락인을 지금 Go 안건으로 올릴 것인가?",
+        ceo: "AI 서버 수요와 HBM 고객 인증이 동시에 붙을 때만 최우선 안건으로 승격합니다.",
+        cfo: "프리미엄 ASP와 고객 선급·장기계약 근거가 붙기 전까지는 CAPEX 집행안을 NPV/IRR로 확정하지 않습니다.",
+        cto: "HBM4 ramp, 베이스 다이, CoWoS·패키징 할당, 수율 안정화가 같은 방향인지 분리 점검합니다.",
+        policy: "미국 고객·첨단 패키징·중국 노출을 분리해 수출통제나 end-use 리스크가 붙는 구간은 별도 승인 게이트로 둡니다.",
+        market: "HBM 직접 가격표가 없으면 DDR5/GDDR/모듈 가격과 고객 인증 뉴스를 proxy로 쓰되, proxy임을 명시합니다.",
+        audit: "HBM 점유율·고객 인증·양산 일정은 공식/외신/분석 원문 링크가 있는 항목만 사실 카드에 올립니다.",
+        next: "고객별 HBM4 ramp, 패키징 병목, 서버 DRAM 가격 약세를 2주 단위로 재검토",
+      },
+      "china-dram": {
+        question: "CXMT발 DDR5·LPDDR 가격 압력을 가격 방어 안건으로 격상할 것인가?",
+        ceo: "CXMT 점유율, 장기 공급계약, DDR5/LPDDR 가격 신호가 함께 움직이면 Watch에서 방어 안건으로 올립니다.",
+        cfo: "레거시 마진 floor와 고객별 가격 민감도를 먼저 계산하고, 중국 물량 공세는 Bear case에 반영합니다.",
+        cto: "CXMT의 DDR5 수율, 공정 노드, HBM 지연은 분리해서 봅니다. 실제 위협은 단기 HBM보다 범용 DRAM 가격입니다.",
+        policy: "중국 내수 고객 계약과 BIS/DUV 제한은 별도 트랙입니다. 규제가 있어도 내수 캐파 확대는 가격 압력으로 남깁니다.",
+        market: "Spot이 먼저 꺾이고 Contract가 뒤따르면 가격 재협상·재고 축소·고객 방어를 동시에 검토합니다.",
+        audit: "CXMT 매출·캐파·점유율 수치는 기준일과 출처가 다르면 하나의 확정치처럼 합치지 않습니다.",
+        next: "DDR5 spot/contract spread와 중국 빅테크 계약 보도를 주간 경보로 연결",
+      },
+      "legacy-commodity": {
+        question: "범용 DRAM/NAND 가격 방어를 지금 경영진 안건으로 올릴 것인가?",
+        ceo: "레거시·범용은 성장 안건이 아니라 현금흐름 방어 안건입니다. 가격 하방 신호가 확인될 때만 즉시 상정합니다.",
+        cfo: "ROI는 재무 수익률이 아니라 실사 우선순위입니다. 저수익 SKU 축소, 재고 회전, cash-cost floor를 먼저 봅니다.",
+        cto: "DDR4·DDR5·LPDDR·wafer NAND를 한 묶음으로 판단하지 않고 제품군별 원가·수율·전환 가능성을 따로 봅니다.",
+        policy: "중국 캐파 확대와 수출통제 반작용은 레거시 가격 방어의 외부 변수로만 올리고, 증설 승인과 섞지 않습니다.",
+        market: "CXMT·YMTC·Kioxia·SanDisk 신호와 spot/contract 가격을 같이 봐야 가격 방어 시점을 놓치지 않습니다.",
+        audit: "중복 뉴스와 RSS 재가공 기사 대신 canonical link가 있는 기사와 가격 row만 근거로 씁니다.",
+        next: "가격 하방, 고객 이탈, 중국 캐파 신호 중 2개 이상 동시 발생 시 방어 실행 검토",
+      },
+      "nand-essd": {
+        question: "YMTC·eSSD 침투에 맞서 Solidigm/NAND 방어 투자를 집행할 것인가?",
+        ceo: "NAND는 가격만 보지 말고 eSSD 고객 인증, Solidigm value-up, 중국 내수 보조금까지 묶어 판단합니다.",
+        cfo: "NAND contract와 SSD/OEM proxy가 동반 개선될 때만 믹스 확대를 검토하고, 약세면 고객 방어 예산으로 제한합니다.",
+        cto: "YMTC Xtacking, QLC/eSSD, XMC 패키징 연결은 기술 축을 나눠 보되 수율 미확인 수치는 Watch로 둡니다.",
+        policy: "우한 클러스터와 국산 장비 qual은 제재 내성의 신호입니다. 다만 SKHY 중국 운영 승인 조건과는 분리합니다.",
+        market: "NAND spot/contract가 벌어지고 eSSD 고객 뉴스가 나오면 가격 방어와 장기계약 재협상을 같이 검토합니다.",
+        audit: "YMTC 층수·밀도·캐파 수치는 공식값과 분석 추정값을 섞지 않고 별도 표기합니다.",
+        next: "eSSD 인증, NAND contract, Solidigm/Dalian 운영 근거를 한 보드에서 재점검",
+      },
+      "competitive-dynamics": {
+        question: "경쟁·파트너십·투자·공급 관계를 오늘의 경영진 경쟁 맵으로 승격할 것인가?",
+        ceo: "경쟁 다이나믹스는 단순 뉴스 묶음이 아니라 어느 관계가 SKHY 가격·고객·공급망에 영향을 주는지 보는 안건입니다.",
+        cfo: "경쟁 관계가 돈의 흐름으로 연결되지 않으면 투자안이 아니라 모니터링 안건으로 남깁니다.",
+        cto: "HBM, DRAM, NAND, 패키징 관계를 한 원형 맵에 올리되 기술 병목은 제품군별로 분리합니다.",
+        policy: "중국·미국·한국 정책 이벤트가 관계선의 방향을 바꾸는 경우에만 규제 overlay를 붙입니다.",
+        market: "관계선은 가격, 고객 계약, 캐파, 공급 뉴스 중 하나 이상이 확인될 때만 두껍게 표시합니다.",
+        audit: "중복 기사에서 나온 관계는 1개 canonical 관계로만 계산합니다.",
+        next: "경쟁, 파트너십, 투자, 공급 관계를 각각 가격·고객·정책 보드와 연결",
+      },
+      "money-flow": {
+        question: "투자와 매출의 흐름이 SKHY의 자본배분 우선순위를 바꿀 만큼 강한가?",
+        ceo: "돈의 흐름은 누가 투자받고 누가 매출을 확보하는지를 보며, 기술 매력도와 별도로 판단합니다.",
+        cfo: "투자 라운드, 장기 공급계약, 고객 매출 근거가 붙은 항목만 자본배분 후보로 승격합니다.",
+        cto: "돈이 몰리는 기술이 실제 메모리 병목을 푸는지 CXL, 포토닉스, HBM, NAND별로 검증합니다.",
+        policy: "미국 outbound investment와 중국 반도체 투자 제한이 걸리는 후보는 실사 전에 법무 게이트를 통과해야 합니다.",
+        market: "매출 신호는 고객 계약, 양산 파트너, 하이퍼스케일러 PoC가 확인될 때 강하게 반영합니다.",
+        audit: "조달액·밸류에이션·계약 규모는 발표일과 출처가 있는 항목만 수치로 표시합니다.",
+        next: "투자 흐름과 매출 흐름을 분리해 CVC 후보와 고객 방어 후보로 나누기",
+      },
+      "customer-supply-lock": {
+        question: "AI 고객·중국 클라우드·eSSD 고객 계약을 공급 배분 의사결정으로 연결할 것인가?",
+        ceo: "고객 락인은 가격보다 먼저 움직이는 신호입니다. 장기계약과 승인 벤더 변화가 있으면 우선순위를 올립니다.",
+        cfo: "고객 계약은 ASP 방어와 물량 안정성을 같이 주지만, 할인 조건이 크면 수익성 검토가 먼저입니다.",
+        cto: "고객 인증은 제품 성능, 수율, 패키징 병목이 함께 풀릴 때만 공급 약속으로 연결합니다.",
+        policy: "중국 클라우드 고객 계약은 내수 정책과 수출통제 조건을 분리해 봅니다.",
+        market: "텐센트·알리바바·바이트댄스·NVIDIA 등 고객 신호는 가격 협상력 변화로 해석합니다.",
+        audit: "고객 계약 규모와 기간은 외신/공식 출처가 없으면 사실 수치로 쓰지 않습니다.",
+        next: "고객 인증, 계약 기간, 공급 가능 캐파를 한 게이트로 묶기",
+      },
+      "china-capex-warning": {
+        question: "CXMT IPO·YMTC 증설·Big Fund를 공급과잉 조기경보로 볼 것인가?",
+        ceo: "중국 정책자본은 단일 회사 뉴스가 아니라 DRAM/NAND 공급곡선 변화로 해석합니다.",
+        cfo: "보조금 기반 캐파는 단기 적자에도 유지될 수 있으므로 Base/Bear/Bull ASP 민감도에 별도 반영합니다.",
+        cto: "Naura·AMEC·ACM 등 장비 내재화는 공정 성능보다 제재 내성 향상 신호로 먼저 봅니다.",
+        policy: "Big Fund, 지방정부 펀드, BIS/MATCH 변화는 같은 캘린더에서 보되 법률 확정 전 항목은 Watch로 둡니다.",
+        market: "중국 wafer start와 가격 spread가 같은 방향이면 범용 가격 하방 확률을 높입니다.",
+        audit: "정책자금 규모와 IPO 조달액은 발표일·통화·승인 단계가 확인된 원문만 사용합니다.",
+        next: "IPO 자금 집행, 신규 fab ramp, 가격 spread를 공급과잉 경보 조건으로 묶기",
+      },
+      "hbm-foundry-alliance": {
+        question: "SKHY-TSMC HBM4 파운드리 동맹을 우선 투자·계약 안건으로 확정할 것인가?",
+        ceo: "HBM4부터는 메모리 경쟁이 아니라 베이스 다이·패키징·고객 인증 경쟁입니다.",
+        cfo: "CoWoS/패키징 할당과 고객 장기계약이 붙을 때만 프리미엄 투자 집행안을 Go로 둡니다.",
+        cto: "TSMC base die, 삼성 턴키, Micron ramp를 같은 표에서 비교하고 인증 일정 지연은 별도 리스크로 둡니다.",
+        policy: "대만·미국·중국 공급망 노출을 분리해 계약 구조와 수출통제 조건을 같이 검토합니다.",
+        market: "NVIDIA/ASIC 고객 인증 일정과 서버 DRAM 가격이 엇갈리면 고객별 할당을 보수적으로 조정합니다.",
+        audit: "HBM4 양산·출하·인증 표현은 회사 공식 발표와 외신 보도를 구분해 표시합니다.",
+        next: "고객 인증 일정, CoWoS 할당, base die 수율을 같은 스코어보드로 연결",
+      },
+      "startup-option-investment": {
+        question: "CXL·포토닉스·PIM을 지금 CVC/소수지분 옵션으로 집행할 것인가?",
+        ceo: "Post-HBM은 즉시 인수보다 옵션 가치와 고객 PoC 신호를 기준으로 단계화합니다.",
+        cfo: "Series stage, 누적 조달, 전략 투자자, 양산 파트너가 확인된 후보만 실사 우선순위에 올립니다.",
+        cto: "CXL 스위치, 광 I/O, PIM, 3D DRAM은 서로 다른 병목입니다. 같은 기술처럼 묶어 투자하지 않습니다.",
+        policy: "미국 outbound investment, 중국 반도체 투자 제한, 고객 데이터 접근권을 투자 조건으로 확인합니다.",
+        market: "매출보다 hyperscaler PoC, 표준 호환성, 고객 인증, 공급 파트너가 선행지표입니다.",
+        audit: "스타트업 밸류에이션·조달액은 보도일과 라운드가 확인된 외신/공식 릴리스만 반영합니다.",
+        next: "PoC 후보와 단순 Watch 후보를 분리하고 후속투자권 조건을 검토",
+      },
+      "policy-fab": {
+        question: "중국 Fab 운영을 유지·확대·기술 업그레이드 중 어디까지 승인할 것인가?",
+        ceo: "중국 Fab 안건은 운영 유지, 캐파 확대, 기술 업그레이드를 반드시 분리해 결재합니다.",
+        cfo: "운영 유지 CAPEX와 신규 증설 CAPEX의 리스크 할인율을 다르게 둡니다.",
+        cto: "Wuxi/Dalian 공정 전환은 수율·장비 반입·고객 인증 가능성을 동시에 확인해야 합니다.",
+        policy: "BIS VEU, CHIPS, MATCH, EAR 조건이 확인되지 않은 업그레이드는 No-Go 또는 Watch입니다.",
+        market: "중국 내 운영 리스크가 가격 프리미엄을 상쇄하면 고객 배분을 재검토합니다.",
+        audit: "정부·규제 원문과 회사 공식 자료가 없는 Fab 확대 주장은 사실 카드에 올리지 않습니다.",
+        next: "운영 유지와 기술 업그레이드의 승인 문서·환경 인허가·수출통제 조건을 분리",
+      },
+      "packaging-equipment": {
+        question: "중국 패키징·장비 우회로를 SKHY의 IP/공급망 방어 안건으로 올릴 것인가?",
+        ceo: "XMC·JCET·Naura·AMEC 신호는 경쟁 뉴스가 아니라 선단 공정 우회 전략입니다.",
+        cfo: "장비 내재화가 가격에 반영되기 전까지는 방어 비용과 대체 조달 옵션을 따로 계산합니다.",
+        cto: "TSV, 하이브리드 본딩, fan-out, 식각·증착·세정 장비 qual을 각각 분리해 봅니다.",
+        policy: "Entity List와 수출통제 변화는 국산 장비 qual 속도와 반대로 움직일 수 있습니다.",
+        market: "중국 OSAT·장비 뉴스가 고객 인증이나 wafer start와 연결될 때만 시장 영향도를 높입니다.",
+        audit: "장비 성능·매출·국산화율은 업체 공식/분석 출처별로 분리하고 추정치는 Inferred로 둡니다.",
+        next: "패키징 우회와 장비 내재화를 HBM·NAND·DRAM별 리스크로 재분류",
+      },
+      "talent-ip": {
+        question: "중국 인재/IP 신호를 보안·리텐션 예산 안건으로 올릴 것인가?",
+        ceo: "수율 엔지니어 이동은 기술 격차를 줄이는 선행 신호이므로 단순 HR 이슈로 보지 않습니다.",
+        cfo: "핵심 인력 리텐션 비용은 방어 비용이 아니라 HBM·DRAM 수율 자산 보호 투자로 봅니다.",
+        cto: "공정 recipe, 장비 qual, TSV/HBM stacking 경험 이동을 설계도 유출보다 높은 위험으로 봅니다.",
+        policy: "non-compete, IP 소송, 출입권한, 중국 채용 플랫폼 신호를 법무·보안 게이트로 연결합니다.",
+        market: "경쟁사 채용이 늘어도 제품 가격과 고객 인증으로 전이되지 않으면 Watch 단계에 둡니다.",
+        audit: "채용 공고 키워드는 기술 로드맵의 직접 증거가 아니라 6~12개월 선행 신호로만 표시합니다.",
+        next: "핵심 수율 인력, JD 키워드, IP 사건을 한 리텐션 보드로 묶기",
+      },
+    };
+    const fallback = {
+      question: `${decision.label || "선택 안건"}을 경영진 의사결정 안건으로 올릴 수 있는가?`,
+      ceo: "근거 수, 신뢰도, 가격 row, 출처 링크를 기준으로 Go/Watch/Hold를 나눕니다.",
+      cfo: "재무 확정치가 없는 항목은 실사 우선순위로만 사용하고 예산 집행 모델은 분리합니다.",
+      cto: "기술 병목과 제품군 실행 조건을 섞지 않고 검증 가능한 항목만 남깁니다.",
+      policy: "규제·Fab·정책자금 조건은 실행 게이트로 분리합니다.",
+      market: "가격·고객·계약 신호가 동시에 움직일 때만 시장 안건으로 승격합니다.",
+      audit: "출처 링크나 가격 row가 없는 항목은 사실 레이어로 승격하지 않습니다.",
+      next: "근거가 보강될 때까지 주간 모니터링",
+    };
+    return profiles[decision?.id] || fallback;
+  }
+
   function cLevelAgentItems(decision = {}, decisions = []) {
     const selected = decision || decisions[0] || {};
     const contrast = decisions.find((item) => item.id !== selected?.id) || selected;
@@ -3229,6 +3375,12 @@
     const topRelationText = topRelation
       ? `${memoryMarketNodeName(topRelation.from)} → ${memoryMarketNodeName(topRelation.to)}`
       : "근거가 붙은 관계선 없음";
+    const profile = cLevelDecisionProfile(selected);
+    const verdictMeaning = selected?.verdict === "Go"
+      ? "즉시 상정"
+      : selected?.verdict === "Watch"
+        ? "조건부 재검토"
+        : "보류";
     return [
       {
         id: "ceo",
@@ -3238,7 +3390,7 @@
         role: "우선순위·최종 안건화",
         color: "#2D6BFF",
         stance: selected?.verdict === "Go" ? "상정" : selected?.verdict === "Watch" ? "조건부 검토" : "보류",
-        message: `${selected?.label || "선택 안건"}은 근거 ${fmtNum(totalEvidence)}개, 신뢰도 ${fmtNum(confidence)}/100입니다. 먼저 ${topRelationText} 관계를 경영진 안건의 핵심 축으로 두고, 근거 없는 축은 회의에서 제외합니다.`,
+        message: `질문은 "${profile.question}"입니다. 현재 근거 ${fmtNum(totalEvidence)}개, 신뢰도 ${fmtNum(confidence)}/100으로 ${verdictMeaning}입니다. ${profile.ceo} 핵심 관계는 ${topRelationText}입니다.`,
       },
       {
         id: "cfo",
@@ -3248,7 +3400,7 @@
         role: "수익성·자본배분",
         color: "#00C2A8",
         stance: "투자/매출 분리",
-        message: `Money Flow는 투자/매출 관계 ${fmtNum(moneyRelations.length)}개를 보여줍니다. 이 화면의 ROI류 지표는 회계 수익률이 아니라 실사 우선순위이며, NPV/IRR은 원문 계약·가격 rows가 붙은 안건만 별도 모델로 넘깁니다.`,
+        message: `${profile.cfo} Money Flow 근거는 ${fmtNum(moneyRelations.length)}개입니다. 가격 row ${fmtNum(priceRows)}개와 링크/KPI ${fmtNum(linkCount)}개가 부족하면 재무 ROI가 아니라 1차 필터로만 씁니다.`,
       },
       {
         id: "cto",
@@ -3258,7 +3410,7 @@
         role: "기술·제품 로드맵",
         color: "#8B5CF6",
         stance: "병목 분리",
-        message: `Competitive Dynamics는 경쟁·파트너십·투자·공급 관계 ${fmtNum(competitiveRelations.length)}개를 분리합니다. HBM 인증, NAND/eSSD, 패키징, 장비 qual 병목을 한 안건에 섞지 않고 제품군별 실행 조건으로 나눕니다.`,
+        message: `${profile.cto} Competitive Dynamics 근거는 ${fmtNum(competitiveRelations.length)}개입니다. 기술 병목은 가격·정책 판단과 섞지 않고 제품군별 실행 조건으로 내립니다.`,
       },
       {
         id: "policy",
@@ -3268,7 +3420,7 @@
         role: "규제·Fab·정책자금",
         color: "#F59E0B",
         stance: "라이선스 게이트",
-        message: `중국 Fab 판단은 운영 유지, 캐파 확대, 기술 업그레이드로 나눕니다. BIS/CHIPS/MATCH/Big Fund 근거가 붙지 않은 확대 안건은 실행이 아니라 Watch로 남깁니다.`,
+        message: `${profile.policy} 실행 조건은 운영 유지, 캐파 확대, 기술 업그레이드를 나눠 승인하는 것입니다. 규제 원문이 없으면 Go가 아니라 Watch입니다.`,
       },
       {
         id: "market",
@@ -3278,7 +3430,7 @@
         role: "가격·고객·계약",
         color: "#10B981",
         stance: "가격 전이 확인",
-        message: `${selected?.label || "선택 안건"}은 가격 rows ${fmtNum(priceRows)}개와 링크/KPI ${fmtNum(linkCount)}개를 먼저 봅니다. ${contrast?.label || "비교 안건"} 대비 Spot이 먼저 꺾이고 Contract가 뒤따르면 공급 배분·가격 재협상 안건으로 전환합니다.`,
+        message: `${profile.market} 현재 가격 rows ${fmtNum(priceRows)}개와 링크/KPI ${fmtNum(linkCount)}개를 봅니다. 비교 축은 ${contrast?.label || "비교 안건"}이며, Spot/Contract 전이가 확인될 때만 고객·가격 재협상으로 전환합니다.`,
       },
       {
         id: "audit",
@@ -3288,7 +3440,7 @@
         role: "팩트 검증·중복 제거",
         color: "#EF4444",
         stance: "근거 게이트",
-        message: "sourceUrl, 뉴스 link, 가격 row 중 하나도 없으면 관계 그래프와 사실 카드에 올리지 않습니다. 관계선 두께와 점수는 실제 크롤링 근거 수만 반영합니다.",
+        message: `${profile.audit} sourceUrl, 뉴스 link, 가격 row 중 하나도 없으면 관계 그래프와 사실 카드에 올리지 않습니다. 중복 기사는 canonical link 기준으로 1건만 반영합니다.`,
       },
     ];
   }
@@ -3298,6 +3450,7 @@
     const confidence = Math.round(decision.confidence || 0);
     const verdict = decision.verdict || "Hold";
     const action = decision.action || "추가 근거 수집";
+    const profile = cLevelDecisionProfile(decision);
     const direction = verdict === "Go"
       ? "경영진 안건으로 상정"
       : verdict === "Watch"
@@ -3305,8 +3458,8 @@
         : "의사결정 보류";
     return {
       title: `${verdict} · ${direction}`,
-      body: `${decision.label || "선택 안건"}은 검증 근거 ${fmtNum(evidence)}개와 신뢰도 ${fmtNum(confidence)}/100 기준으로 ${direction}이 적절합니다.`,
-      next: `다음 액션: ${action}`,
+      body: `질문: "${profile.question}" 결론: 검증 근거 ${fmtNum(evidence)}개와 신뢰도 ${fmtNum(confidence)}/100 기준으로 ${direction}이 적절합니다.`,
+      next: `다음 액션: ${action}. ${profile.next}`,
     };
   }
 
@@ -3354,13 +3507,14 @@
 
     const agentItems = cLevelAgentItems(selectedDecision, decisions);
     const conclusion = cLevelCouncilConclusion(selectedDecision);
+    const selectedProfile = cLevelDecisionProfile(selectedDecision);
     const councilStepDelay = 820;
     const councilConclusionDelay = agentItems.length * councilStepDelay + 560;
     agents.innerHTML = `
       <div class="agent-debate c-level-agent-debate" style="--local-accent:${categoryAccent(selectedDecision?.category || "hbm")}">
         <div class="agent-debate-title">
           <span>EXPERT AGENTS</span>
-          <strong>레거시·범용 의사결정 토론</strong>
+          <strong>${escapeHTML(selectedDecision?.label || "경영진 안건")} 토론</strong>
         </div>
         <div class="c-level-agent-controls">
           <label>
@@ -3374,7 +3528,7 @@
         <div class="agent-selected-brief">
           <span>선택 안건</span>
           <strong>${escapeHTML(selectedDecision?.label || "안건")}</strong>
-          <p>${escapeHTML(selectedDecision?.action || "")}</p>
+          <p>${escapeHTML(`질문: "${selectedProfile.question}"`)}</p>
           <small>${escapeHTML(selectedDecision?.verdict || "Hold")} · 근거 ${fmtNum(selectedDecision?.evidenceCount || 0)}개 · 신뢰도 ${fmtNum(Math.round(selectedDecision?.confidence || 0))}/100</small>
         </div>
         ${cLevelCouncilRan ? `
@@ -5488,11 +5642,92 @@
     `;
   }
 
+  function executiveDecisionProfile(active = {}, selectedYearOption = {}, productLabel = "전체 제품군") {
+    const yearLabel = selectedYearOption?.label || "선택 시점 없음";
+    const profiles = {
+      "hbm-ai-server": {
+        question: `${yearLabel} 기준 HBM·AI 서버 제품군을 증설·고객 락인 안건으로 확대할 것인가?`,
+        ceo: "AI 서버향은 가격표보다 고객 인증, HBM4 ramp, 패키징 병목이 먼저 의사결정을 좌우합니다.",
+        data: "HBM 직접 가격이 없으면 DDR5/GDDR/모듈 가격을 proxy로 쓰고, proxy 여부를 결론에 남깁니다.",
+        china: "중국 HBM 신호는 과거 가격을 바꾸지 않고 현재 리스크 overlay로만 둡니다.",
+        cfo: "고객 장기계약과 프리미엄 ASP 근거가 붙기 전에는 CAPEX를 확정 재무 ROI로 처리하지 않습니다.",
+        risk: "HBM4 고객별 ramp 지연, CoWoS/패키징 병목, 서버 DRAM 약세가 동시에 나오면 확대가 아니라 보수 재검토입니다.",
+        strategy: "가격 모멘텀이 양수이고 중국 HBM 실질 양산 신호가 약하면 증설·고객 락인을 우선합니다.",
+      },
+      "server-dram": {
+        question: `${yearLabel} 기준 서버 DRAM 캐파를 장기계약 중심으로 확대할 것인가?`,
+        ceo: "서버 DRAM은 HBM 보조축이 아니라 AI 서버 고객 락인의 별도 축입니다.",
+        data: "DDR5 spot/contract와 서버 DIMM proxy를 기준점 전후로 나눠 백테스트합니다.",
+        china: "CXMT DDR5 캐파와 중국 빅테크 계약은 현재 가격 방어 리스크로 overlay합니다.",
+        cfo: "장기계약 ASP와 재고 회전이 확인될 때만 서버향 우선 배분을 예산안으로 넘깁니다.",
+        risk: "DDR5 spot이 먼저 꺾이고 contract가 따라가면 가격 방어와 고객별 물량 조정으로 전환합니다.",
+        strategy: "가격 상승과 고객 인증이 같이 나오면 서버향 캐파 우선 배분이 적절합니다.",
+      },
+      "enterprise-ssd": {
+        question: `${yearLabel} 기준 eSSD·Solidigm 방어/확대 투자를 집행할 것인가?`,
+        ceo: "eSSD는 NAND 가격뿐 아니라 고객 인증, QLC 로드맵, Solidigm value-up을 같이 봐야 합니다.",
+        data: "eSSD 전용 가격이 제한적이므로 NAND contract, SSD/OEM SSD proxy를 명시해 사용합니다.",
+        china: "YMTC Xtacking, eSSD 인증, 우한 클러스터 신호는 가격 침투 리스크로 overlay합니다.",
+        cfo: "NAND contract와 SSD proxy가 동반 개선될 때만 믹스 확대, 약세면 고객 방어 예산으로 제한합니다.",
+        risk: "YMTC eSSD 인증 또는 NAND wafer 약세가 확인되면 가격 방어와 고객 장기계약 재협상이 우선입니다.",
+        strategy: "Solidigm/Dalian은 유지·매각·value-up 시나리오를 별도로 비교해야 합니다.",
+      },
+      "mobile-pc-terminal": {
+        question: `${yearLabel} 기준 모바일·PC 단말향 제품을 선별 확대할 것인가, 방어할 것인가?`,
+        ceo: "단말향은 성장보다 저수익 SKU 정리와 고부가 LPDDR/UFS 선별이 핵심입니다.",
+        data: "LPDDR/UFS 직접 가격이 제한적이면 module, SO-DIMM, PC-client SSD, memory card proxy를 사용합니다.",
+        china: "CXMT LPDDR와 YMTC client SSD 신호는 단말 가격 하방 overlay로 봅니다.",
+        cfo: "가격 개선이 확인된 SKU만 확대하고 약세 품목은 재고·원가 방어로 전환합니다.",
+        risk: "client SSD 약세와 중국 범용 제품 공급이 동시에 나오면 저수익 SKU 축소가 우선입니다.",
+        strategy: "단말은 전면 확대보다 고객·제품별 선별 배분으로 운영합니다.",
+      },
+      "auto-edge": {
+        question: `${yearLabel} 기준 오토·엣지 메모리를 장기공급 옵션으로 유지할 것인가?`,
+        ceo: "오토·엣지는 단기 가격보다 인증, 장기 공급계약, 수요 안정성이 핵심입니다.",
+        data: "전용 가격이 부족하면 DRAM/NAND/SSD 전체 방향과 인증 뉴스를 보조 지표로 둡니다.",
+        china: "중국 산업용·엣지 AI 신호는 현재 리스크 overlay이며 과거 백테스트에는 넣지 않습니다.",
+        cfo: "수익성 방어용 옵션인지 성장 투자안인지 고객 계약 근거로 분리합니다.",
+        risk: "범용 가격 약세가 심하면 오토·엣지는 제한 배분하고 인증 중심으로 유지합니다.",
+        strategy: "가격 안정과 인증 뉴스가 같이 나올 때만 장기공급계약 옵션을 확대합니다.",
+      },
+      "legacy-commodity": {
+        question: `${yearLabel} 기준 레거시·범용 제품을 유지할 것인가, 방어 축소할 것인가?`,
+        ceo: "레거시·범용은 성장 축이 아니라 현금흐름·고객 유지 방어 축입니다.",
+        data: "DDR4/eTT/wafer/SSD street 가격을 기준점 전후로 나눠 방어 판단을 검증합니다.",
+        china: "CXMT·YMTC 물량 공세는 과거 가격이 아니라 현재 하방 리스크 overlay로 반영합니다.",
+        cfo: "가격 하락이 확인되면 저수익 SKU 축소, 재고 회전, cash-cost floor를 우선합니다.",
+        risk: "가격 방어 실패는 서버향 믹스 개선 속도까지 늦출 수 있습니다.",
+        strategy: "레거시는 상승해도 구조적 성장으로 보지 않고 현금흐름 회수와 재고 정상화에 둡니다.",
+      },
+      "china-exposure": {
+        question: `${yearLabel} 기준 중국 노출·가격 압력을 별도 경영진 리스크 안건으로 올릴 것인가?`,
+        ceo: "중국 노출은 제품군 하나가 아니라 DRAM, NAND, 장비, 정책자본이 결합된 리스크입니다.",
+        data: "중국 업체별 실적/캐파의 직접 가격 데이터가 없으면 DDR4/eTT/NAND/SSD proxy를 사용합니다.",
+        china: "CXMT, YMTC, Naura, AMEC, XMC, JCET 신호를 업체별로 나누고 현재 overlay로만 반영합니다.",
+        cfo: "중국 proxy 가격이 하락하면 가격 하방, 고객 침투, 재고 방어 비용을 Bear case에 반영합니다.",
+        risk: "정책자본과 wafer start가 늘고 spot/contract가 약해지면 즉시 방어 안건입니다.",
+        strategy: "중국 관련 가격 proxy가 좋아져도 확대보다 경쟁 압력 완화 확인에 둡니다.",
+      },
+    };
+    const fallback = {
+      question: `${yearLabel} 기준 ${active?.label || productLabel}을 어떤 실행 판단으로 올릴 것인가?`,
+      ceo: "제품군별로 확대, 방어, 유지, 데이터 부족을 분리합니다.",
+      data: "선택 시점 이후 실제 수집된 가격 관측만 백테스트에 사용합니다.",
+      china: "중국 신호는 현재 리스크 overlay로만 반영합니다.",
+      cfo: "확정 재무 ROI가 아니라 실사 우선순위로만 사용합니다.",
+      risk: "하방 조건이 확인되면 보수적으로 재검토합니다.",
+      strategy: "근거가 쌓이면 다음 크롤링에서 판단을 갱신합니다.",
+    };
+    return profiles[active?.id] || fallback;
+  }
+
   function executiveDecisionAgentItems(active, selectedYearOption, productLabel, selectedIso, selectedSeriesCount) {
     if (!active) return "";
     const actual = active.actualChange == null ? "선택 시점 이후 실측 데이터 부족" : `${active.actualChange > 0 ? "+" : ""}${fmtNum(active.actualChange, 2)}%`;
     const prior = active.priorMomentum == null ? "NA" : `${active.priorMomentum > 0 ? "+" : ""}${fmtNum(active.priorMomentum, 2)}%`;
     const yearLabel = selectedYearOption?.label || "선택 시점 없음";
+    const profile = executiveDecisionProfile(active, selectedYearOption, productLabel);
+    const point = selectedIso ? pointDateLabel(selectedIso) : "기준점 없음";
     return [
       {
         id: "ceo",
@@ -5502,7 +5737,27 @@
         role: "의사결정 질문",
         color: "#111827",
         stance: "우선순위",
-        message: `${yearLabel} 기준으로 ${active.label}을 ${active.decision.label} 안건으로 올려도 되는가?`,
+        message: `질문은 "${profile.question}"입니다. 현재 판단은 ${active.decision.label}이며, ${profile.ceo}`,
+      },
+      {
+        id: "data",
+        initials: "DATA",
+        name: "Data Agent",
+        title: "Backtest & Price Series",
+        role: "가격·백테스트",
+        color: "#06B6D4",
+        stance: "실측 검증",
+        message: `${profile.data} ${point} 기준으로 가격 series ${fmtNum(selectedSeriesCount)}개와 관측 ${fmtNum(active.observations.length)}개를 연결했습니다. 사전 모멘텀은 ${prior}, 이후 실측은 ${actual}입니다.`,
+      },
+      {
+        id: "china",
+        initials: "CN",
+        name: "China Agent",
+        title: "China Risk Overlay",
+        role: "중국 신호",
+        color: "#8B5CF6",
+        stance: "현재 리스크",
+        message: `${profile.china} 연결된 중국 신호는 ${fmtNum(active.chinaSignalCount)}건이며, 백테스트 결과를 소급 변경하지 않습니다.`,
       },
       {
         id: "cfo",
@@ -5512,47 +5767,27 @@
         role: "수익성·자본배분",
         color: "#F59E0B",
         stance: "자본 효율",
-        message: `${active.decision.label} 판단의 근거는 ${active.decision.logic}입니다. 실행 문구는 '${active.decision.action}'로 제한합니다.`,
+        message: `${profile.cfo} 이 판단은 IRR/NPV가 아니라 실사 우선순위입니다. 실행 문구는 '${active.decision.action}'로 제한합니다.`,
       },
       {
-        id: "cto",
-        initials: "CTO",
-        name: "CTO Agent",
-        title: "Technology Roadmap",
-        role: "기술·제품",
-        color: "#8B5CF6",
-        stance: "제품 병목",
-        message: `${(active.products || []).slice(0, 4).join(" · ")} 제품군 기준으로 봅니다. ${active.downside}`,
-      },
-      {
-        id: "policy",
-        initials: "POL",
-        name: "Policy Agent",
-        title: "Policy & Fab Risk",
-        role: "규제·Fab",
+        id: "risk",
+        initials: "RISK",
+        name: "Risk Agent",
+        title: "Downside Gate",
+        role: "하방 리스크",
         color: "#EF4444",
-        stance: "정책 overlay",
-        message: `중국 관련 최신 신호 ${fmtNum(active.chinaSignalCount)}건은 과거 가격을 바꾸지 않고 현재 리스크 overlay로만 반영합니다. BIS/CHIPS/MATCH 이벤트는 가격 판단과 별도 게이트로 분리합니다.`,
+        stance: "No-Go 조건",
+        message: `${profile.risk} 현재 하방 문구는 "${active.downside}"입니다.`,
       },
       {
-        id: "market",
-        initials: "MKT",
-        name: "Market Agent",
-        title: "Price & Customer Signal",
-        role: "가격·고객",
-        color: "#06B6D4",
-        stance: "실측 검증",
-        message: `가격 series ${fmtNum(selectedSeriesCount)}개와 관측 ${fmtNum(active.observations.length)}개를 연결했습니다. 사전 모멘텀은 ${prior}, 선택 시점 이후 결과는 ${actual}입니다.`,
-      },
-      {
-        id: "auditor",
-        initials: "AUD",
-        name: "Data Auditor",
-        title: "Evidence Gatekeeper",
-        role: "팩트 검증",
+        id: "strategy",
+        initials: "STR",
+        name: "Strategy Agent",
+        title: "Final Synthesis",
+        role: "최종 정리",
         color: "#22C55E",
-        stance: "근거 확인",
-        message: `가격 관측 ${fmtNum(active.observations.length)}개와 중국 신호 ${fmtNum(active.chinaSignalCount)}건만 사용합니다. HBM 직접 가격표가 없는 경우 proxy임을 표시하고, 근거 없는 수치는 결론에 올리지 않습니다.`,
+        stance: "실행 판단",
+        message: `${profile.strategy} 대상 제품군은 ${(active.products || []).slice(0, 4).join(" · ") || productLabel}입니다. 근거 없는 수치는 결론에 올리지 않습니다.`,
       },
     ].filter((agent) => agent.message);
   }
@@ -5562,10 +5797,11 @@
     const actual = active?.actualChange == null ? "실측 부족" : `${active.actualChange > 0 ? "+" : ""}${fmtNum(active.actualChange, 2)}%`;
     const prior = active?.priorMomentum == null ? "NA" : `${active.priorMomentum > 0 ? "+" : ""}${fmtNum(active.priorMomentum, 2)}%`;
     const outcome = active?.outcome?.label || "검증 대기";
+    const profile = executiveDecisionProfile(active, selectedYearOption);
     return {
       title: `${active?.decision?.label || "판단 대기"} · ${active?.decision?.action || "실행 보류"}`,
-      body: `${active?.label || "선택 안건"}은 ${yearLabel} 기준점 ${selectedIso ? pointDateLabel(selectedIso) : "없음"}에서 직전 모멘텀 ${prior}, 이후 실측 ${actual}, 관측 ${fmtNum(active?.observations?.length || 0)}개로 검증했습니다.`,
-      next: `결론: ${outcome}. ${active?.decision?.logic || "근거가 더 쌓이면 재판단합니다."}`,
+      body: `질문: "${profile.question}" ${yearLabel} 기준점 ${selectedIso ? pointDateLabel(selectedIso) : "없음"}에서 직전 모멘텀 ${prior}, 이후 실측 ${actual}, 관측 ${fmtNum(active?.observations?.length || 0)}개로 검증했습니다.`,
+      next: `결론: ${outcome}. ${active?.decision?.logic || "근거가 더 쌓이면 재판단합니다."} ${profile.strategy}`,
     };
   }
 
@@ -5577,6 +5813,7 @@
     const yearLabel = selectedYearOption?.label || "선택 시점 없음";
     const agentItems = executiveDecisionAgentItems(active, selectedYearOption, productLabel, selectedIso, selectedSeriesCount);
     const conclusion = executiveDecisionCouncilConclusion(active, selectedYearOption, selectedIso);
+    const profile = executiveDecisionProfile(active, selectedYearOption, productLabel);
     const councilStepDelay = 820;
     const councilConclusionDelay = agentItems.length * councilStepDelay + 560;
     return `
@@ -5597,7 +5834,7 @@
         <div class="agent-selected-brief">
           <span>선택 안건</span>
           <strong>${escapeHTML(active.label)} · ${escapeHTML(active.decision.label)} · 관측 ${fmtNum(active.observations.length)}개</strong>
-          <p>${escapeHTML(active.rationale)}</p>
+          <p>${escapeHTML(`질문: "${profile.question}"`)}</p>
           <small>${escapeHTML(yearLabel)} · ${escapeHTML(productLabel)} · 기준점 ${selectedIso ? escapeHTML(pointDateLabel(selectedIso)) : "없음"}</small>
         </div>
         <div class="agent-debate-metrics">
