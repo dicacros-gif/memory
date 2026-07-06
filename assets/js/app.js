@@ -3650,8 +3650,10 @@
     const agentItems = cLevelAgentItems(selectedDecision, decisions);
     const conclusion = cLevelCouncilConclusion(selectedDecision);
     const selectedProfile = cLevelDecisionProfile(selectedDecision);
+    const rosterStepDelay = 120;
+    const chatStartDelay = agentItems.length * rosterStepDelay + 720;
     const councilStepDelay = 820;
-    const councilConclusionDelay = agentItems.length * councilStepDelay + 560;
+    const councilConclusionDelay = chatStartDelay + agentItems.length * councilStepDelay + 760;
     agents.innerHTML = `
       <div class="agent-debate c-level-agent-debate" style="--local-accent:${categoryAccent(selectedDecision?.category || "hbm")}">
         <div class="agent-debate-title">
@@ -3676,7 +3678,7 @@
         ${cLevelCouncilRan ? `
           <div class="agent-roster">
             ${agentItems.map((agent, index) => `
-              <div class="agent-avatar-card" style="--agent-color:${escapeHTML(agent.color)}; --delay:${index * councilStepDelay}ms">
+              <div class="agent-avatar-card" style="--agent-color:${escapeHTML(agent.color)}; --delay:${index * rosterStepDelay}ms">
                 <div class="agent-person">
                   <b>${escapeHTML(agent.initials || agent.id.toUpperCase().slice(0, 2))}</b>
                   <i aria-hidden="true"></i>
@@ -3687,9 +3689,9 @@
               </div>
             `).join("")}
           </div>
-          <div class="agent-chat">
+          <div class="agent-chat" style="--chat-delay:${chatStartDelay}ms">
             ${agentItems.map((agent, index) => `
-              <div class="agent-turn${index % 2 ? " right" : ""}" style="--agent-color:${escapeHTML(agent.color)}; --delay:${index * councilStepDelay + 220}ms">
+              <div class="agent-turn${index % 2 ? " right" : ""}" style="--agent-color:${escapeHTML(agent.color)}; --delay:${chatStartDelay + index * councilStepDelay}ms">
                 <span class="agent-badge">${escapeHTML(agent.initials || agent.id.toUpperCase().slice(0, 2))}</span>
                 <div class="speech-bubble">
                   <div class="speech-meta"><strong>${escapeHTML(agent.name)}</strong><span>${escapeHTML(agent.role)}</span></div>
@@ -3715,11 +3717,13 @@
 
     const councilSelect = $("#cLevelCouncilSelect");
     if (councilSelect) {
-      councilSelect.addEventListener("change", (event) => {
+      const chooseCouncilAgenda = (event) => {
         cLevelCouncilDecisionId = event.target.value;
         cLevelCouncilRan = false;
         renderCLevelCockpit();
-      });
+      };
+      councilSelect.addEventListener("input", chooseCouncilAgenda);
+      councilSelect.addEventListener("change", chooseCouncilAgenda);
     }
     const runCouncil = $("#cLevelRunCouncil");
     if (runCouncil) {
@@ -5733,6 +5737,9 @@
         });
       }
     });
+    const rosterStepDelay = 100;
+    const chatStartDelay = agents.length * rosterStepDelay + 620;
+    const chatStepDelay = 620;
 
     return `
       <div class="agent-debate agent-debate-${escapeHTML(mode)}" style="--local-accent:${escapeHTML(accent || colors[0])}">
@@ -5753,16 +5760,16 @@
         ` : ""}
         <div class="agent-roster" aria-label="토론 참여 전문가">
           ${agents.slice(0, 6).map((agent, index) => `
-            <div class="agent-avatar-card" style="--agent-color:${escapeHTML(agent.color)};--delay:${index * 70}ms">
+            <div class="agent-avatar-card" style="--agent-color:${escapeHTML(agent.color)};--delay:${index * rosterStepDelay}ms">
               <b>${escapeHTML(agent.avatar)}</b>
               <span>${escapeHTML(agent.name)}</span>
               <small>${escapeHTML(agent.role || "Expert")}</small>
             </div>
           `).join("")}
         </div>
-        <div class="agent-chat" aria-label="전문가 토론 말풍선">
+        <div class="agent-chat" aria-label="전문가 토론 말풍선" style="--chat-delay:${chatStartDelay}ms">
           ${normalizedTurns.map((turn, index) => `
-            <article class="agent-turn ${escapeHTML(turn.side)}" style="--agent-color:${escapeHTML(turn.color)};--delay:${index * 110}ms">
+            <article class="agent-turn ${escapeHTML(turn.side)}" style="--agent-color:${escapeHTML(turn.color)};--delay:${chatStartDelay + index * chatStepDelay}ms">
               <div class="agent-badge">${escapeHTML(turn.avatar || agentInitials(turn.name))}</div>
               <div class="speech-bubble">
                 <div class="speech-meta">
@@ -5956,8 +5963,10 @@
     const agentItems = executiveDecisionAgentItems(active, selectedYearOption, productLabel, selectedIso, selectedSeriesCount);
     const conclusion = executiveDecisionCouncilConclusion(active, selectedYearOption, selectedIso);
     const profile = executiveDecisionProfile(active, selectedYearOption, productLabel);
+    const rosterStepDelay = 120;
+    const chatStartDelay = agentItems.length * rosterStepDelay + 720;
     const councilStepDelay = 820;
-    const councilConclusionDelay = agentItems.length * councilStepDelay + 560;
+    const councilConclusionDelay = chatStartDelay + agentItems.length * councilStepDelay + 760;
     return `
       <div class="agent-debate agent-debate-decision decision-agent-council" style="--local-accent:${escapeHTML(accent)}">
         <div class="agent-debate-title">
@@ -5988,7 +5997,7 @@
         ${execDecisionCouncilRan ? `
           <div class="agent-roster" aria-label="제품군 토론 참여 전문가">
             ${agentItems.map((agent, index) => `
-              <div class="agent-avatar-card" style="--agent-color:${escapeHTML(agent.color)}; --delay:${index * councilStepDelay}ms">
+              <div class="agent-avatar-card" style="--agent-color:${escapeHTML(agent.color)}; --delay:${index * rosterStepDelay}ms">
                 <div class="agent-person">
                   <b>${escapeHTML(agent.initials)}</b>
                   <i aria-hidden="true"></i>
@@ -5999,9 +6008,9 @@
               </div>
             `).join("")}
           </div>
-          <div class="agent-chat" aria-label="제품군 전문가 토론 말풍선">
+          <div class="agent-chat" aria-label="제품군 전문가 토론 말풍선" style="--chat-delay:${chatStartDelay}ms">
             ${agentItems.map((agent, index) => `
-              <article class="agent-turn${index % 2 ? " right" : ""}" style="--agent-color:${escapeHTML(agent.color)}; --delay:${index * councilStepDelay + 220}ms">
+              <article class="agent-turn${index % 2 ? " right" : ""}" style="--agent-color:${escapeHTML(agent.color)}; --delay:${chatStartDelay + index * councilStepDelay}ms">
                 <div class="agent-badge">${escapeHTML(agent.initials)}</div>
                 <div class="speech-bubble">
                   <div class="speech-meta">
@@ -6145,6 +6154,11 @@
         </div>
       `;
       focus.querySelector("#execDecisionCouncilSelect")?.addEventListener("change", (event) => {
+        execDecisionFocusId = event.target.value;
+        execDecisionCouncilRan = false;
+        renderExecutiveDecision();
+      });
+      focus.querySelector("#execDecisionCouncilSelect")?.addEventListener("input", (event) => {
         execDecisionFocusId = event.target.value;
         execDecisionCouncilRan = false;
         renderExecutiveDecision();

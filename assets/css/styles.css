@@ -1892,6 +1892,8 @@ body.sidebar-collapsed .sb-ico {
 }
 
 .c-level-agent-controls {
+  position: relative;
+  z-index: 8;
   display: grid;
   grid-template-columns: minmax(0, 1fr) auto;
   gap: 9px;
@@ -4740,7 +4742,8 @@ body.sidebar-collapsed .sb-ico {
     linear-gradient(135deg, color-mix(in srgb, var(--local-accent, var(--accent)) 7%, transparent), transparent 46%),
     var(--panel);
   padding: 12px;
-  overflow: hidden;
+  overflow: visible;
+  isolation: isolate;
 }
 
 .agent-debate::before {
@@ -4758,6 +4761,15 @@ body.sidebar-collapsed .sb-ico {
 .agent-debate > * {
   position: relative;
   z-index: 1;
+}
+
+.agent-debate > .c-level-agent-controls,
+.agent-debate > .decision-agent-controls {
+  z-index: 8;
+}
+
+.agent-debate > .agent-selected-brief {
+  z-index: 5;
 }
 
 .decision-focus .agent-debate {
@@ -5043,6 +5055,9 @@ body.sidebar-collapsed .sb-ico {
   display: grid;
   gap: 9px;
   padding: 4px 0;
+  opacity: 0;
+  animation: agentChatPhaseIn .22s ease-out forwards;
+  animation-delay: var(--chat-delay, 0ms);
 }
 
 .agent-chat::before {
@@ -5069,6 +5084,7 @@ body.sidebar-collapsed .sb-ico {
   background: var(--local-accent, var(--accent));
   box-shadow: 0 0 18px color-mix(in srgb, var(--local-accent, var(--accent)) 64%, transparent);
   animation: agentTimelineCursor 6.2s ease-in-out infinite;
+  animation-delay: var(--chat-delay, 0ms);
 }
 
 .agent-turn {
@@ -5247,6 +5263,17 @@ body.sidebar-collapsed .sb-ico {
   }
 }
 
+@keyframes agentChatPhaseIn {
+  from {
+    opacity: 0;
+    transform: translateY(6px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
 @keyframes bubbleIn {
   from {
     opacity: 0;
@@ -5413,6 +5440,7 @@ body.sidebar-collapsed .sb-ico {
   .agent-avatar-card::after,
   .agent-person,
   .agent-person::after,
+  .agent-chat,
   .agent-chat::after,
   .agent-turn,
   .agent-turn::before,
@@ -5423,6 +5451,7 @@ body.sidebar-collapsed .sb-ico {
   }
 
   .agent-avatar-card,
+  .agent-chat,
   .agent-turn,
   .speech-bubble {
     opacity: 1;
