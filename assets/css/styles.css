@@ -783,10 +783,13 @@ body.sidebar-collapsed .sb-ico {
 
 .tb-title {
   min-width: 190px;
+  min-width: min(190px, 26vw);
+  flex: 0 1 auto;
 }
 
 .tb-title h1 {
   width: fit-content;
+  max-width: 100%;
   font-family: var(--font);
   font-size: 17px;
   line-height: 1.15;
@@ -798,6 +801,9 @@ body.sidebar-collapsed .sb-ico {
   background-clip: text;
   -webkit-text-fill-color: transparent;
   animation: titleFlow 5.5s linear infinite;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 @keyframes titleFlow {
@@ -818,11 +824,14 @@ body.sidebar-collapsed .sb-ico {
   align-items: center;
   gap: 8px;
   min-width: 0;
+  flex: 1 1 auto;
+  justify-content: flex-end;
 }
 
 .qa {
   position: relative;
   width: min(580px, 48vw);
+  min-width: 0;
 }
 
 .qa-line {
@@ -8692,31 +8701,78 @@ body.sidebar-collapsed .sb-ico {
   .topbar {
     left: 0;
     right: 0;
-    display: grid;
-    grid-template-columns: 40px minmax(0, 1fr);
-    align-items: start;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    flex-wrap: nowrap;
+    min-height: 48px;
+    padding-top: 6px;
+    padding-bottom: 6px;
   }
 
   .topbar > * {
     min-width: 0;
   }
 
+  .mobile-menu {
+    flex: 0 0 40px;
+  }
+
+  .tb-title {
+    flex: 0 1 auto;
+    min-width: 0;
+    max-width: clamp(118px, 22vw, 190px);
+  }
+
+  .tb-title h1 {
+    font-size: 16px;
+    line-height: 1;
+  }
+
   .tb-actions {
-    grid-column: 1 / -1;
-    width: 100%;
+    flex: 1 1 auto;
+    width: auto;
     margin-left: 0;
-    display: grid;
-    grid-template-columns: minmax(0, 1fr) 36px 36px;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    min-width: 0;
   }
 
   .qa {
-    width: 100%;
-    min-width: 0;
-    grid-column: 1 / -1;
+    flex: 1 1 220px;
+    width: auto;
+    max-width: min(520px, 100%);
+    min-width: 160px;
+    grid-column: auto;
+  }
+
+  .palette-btn,
+  .theme-btn {
+    flex: 0 0 34px;
+    width: 34px;
+    height: 34px;
   }
 
   .qa-line {
-    grid-template-columns: 34px minmax(0, 1fr) 36px;
+    height: 34px;
+    grid-template-columns: 32px minmax(0, 1fr) 32px;
+  }
+
+  .qa-line span {
+    width: 22px;
+    height: 22px;
+    margin-left: 5px;
+    border-radius: 7px;
+  }
+
+  .qa-line button {
+    font-size: 14px;
+  }
+
+  .qa-line input {
+    font-size: 12px;
+    min-width: 0;
   }
 
   .qa-live-block li {
@@ -8900,14 +8956,50 @@ body.sidebar-collapsed .sb-ico {
 
   .tb-title {
     min-width: 0;
+    max-width: 158px;
   }
 
   .tb-title h1 {
-    font-size: 17px;
+    font-size: 16px;
   }
 
   .tb-actions {
-    grid-template-columns: minmax(0, 1fr) 36px 36px;
+    display: flex;
+    gap: 5px;
+  }
+
+  .qa {
+    min-width: 118px;
+  }
+
+  .qa-line {
+    height: 32px;
+    grid-template-columns: 30px minmax(0, 1fr) 30px;
+  }
+
+  .qa-line span {
+    width: 20px;
+    height: 20px;
+    margin-left: 5px;
+    border-radius: 7px;
+  }
+
+  .qa-line input {
+    font-size: 11px;
+  }
+
+  .palette-btn,
+  .theme-btn {
+    flex-basis: 32px;
+    width: 32px;
+    height: 32px;
+  }
+
+  .mobile-menu {
+    flex-basis: 36px;
+    width: 36px;
+    height: 36px;
+    padding: 8px;
   }
 
   .hero,
@@ -9053,6 +9145,73 @@ body.sidebar-collapsed .sb-ico {
     border-top: 1px solid var(--line);
     border-left: 0;
     border-radius: 12px 12px 0 0;
+  }
+}
+
+@media (max-width: 480px) {
+  .topbar {
+    gap: 6px;
+    min-height: 44px;
+    padding: 5px 8px;
+  }
+
+  .mobile-menu {
+    flex-basis: 32px;
+    width: 32px;
+    height: 32px;
+    padding: 7px;
+  }
+
+  .mobile-menu span {
+    width: 16px;
+  }
+
+  .tb-title {
+    max-width: 106px;
+  }
+
+  .tb-title h1 {
+    font-size: 14px;
+  }
+
+  .qa {
+    min-width: 86px;
+  }
+
+  .qa-line {
+    height: 30px;
+    grid-template-columns: 26px minmax(0, 1fr) 26px;
+    border-radius: 9px;
+  }
+
+  .qa-line span {
+    width: 18px;
+    height: 18px;
+    margin-left: 4px;
+    border-radius: 6px;
+    font-size: 12px;
+  }
+
+  .qa-line input {
+    font-size: 10.5px;
+    font-weight: 850;
+  }
+
+  .qa-line button {
+    font-size: 12px;
+  }
+
+  .palette-btn,
+  .theme-btn {
+    flex-basis: 30px;
+    width: 30px;
+    height: 30px;
+    border-radius: 7px;
+  }
+
+  .palette-btn span {
+    width: 14px;
+    height: 14px;
   }
 }
 
