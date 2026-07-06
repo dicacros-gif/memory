@@ -8211,21 +8211,65 @@
     return PROJECTION_SCENARIOS.find((scenario) => scenario.id === id) || PROJECTION_SCENARIOS[0];
   }
 
+  function projectionChinaPressureIndex() {
+    const capacity = axisSignalCount(CHINA_DYNAMIC_AXES.find((axis) => axis.id === "capacity"));
+    const equipment = axisSignalCount(CHINA_DYNAMIC_AXES.find((axis) => axis.id === "equipment"));
+    const policy = axisSignalCount(CHINA_DYNAMIC_AXES.find((axis) => axis.id === "policy"));
+    const chinaNews = rawNews().filter(isChinaArticle).length;
+    return clamp(capacity * .45 + equipment * .28 + policy * .18 + chinaNews * .08, 0, 100) / 100;
+  }
+
+  function projectionCaseWeight(segmentId) {
+    const weights = {
+      "ai-server": { neutral: .35, best: 3.8, worst: -3.2, signal: .95, price: .42, china: -.3 },
+      "dc-storage": { neutral: .15, best: 2.1, worst: -1.7, signal: .58, price: .36, china: -.55 },
+      "mobile-pc": { neutral: -.2, best: -1.2, worst: 1.4, signal: .18, price: .18, china: .52 },
+      "auto-edge": { neutral: .05, best: .55, worst: .75, signal: .22, price: .14, china: .12 },
+      legacy: { neutral: -.45, best: -2.7, worst: 3.2, signal: .22, price: .24, china: .88 },
+    };
+    return weights[segmentId] || { neutral: 0, best: .5, worst: -.5, signal: .2, price: .2, china: 0 };
+  }
+
+  function projectionScenarioLift(segment, scenario) {
+    if (!segment || !scenario) return 0;
+    if (segment.id === "ai-server") return scenario.serverLift || 0;
+    if (segment.id === "dc-storage") return scenario.storageLift || 0;
+    if (segment.id === "mobile-pc" || segment.id === "auto-edge") return scenario.terminalLift || 0;
+    if (segment.id === "legacy") return scenario.legacyLift || 0;
+    return 0;
+  }
+
   function projectionScenarioDelta(segment, scenario, ratio) {
-    if (!segment || !scenario || scenario.id === "neutral") return 0;
-    const chinaPressure = axisSignalCount(CHINA_DYNAMIC_AXES.find((axis) => axis.id === "capacity")) + axisSignalCount(CHINA_DYNAMIC_AXES.find((axis) => axis.id === "equipment")) + rawNews().filter(isChinaArticle).length;
-    let delta = 0;
-    if (segment.id === "ai-server") delta += scenario.serverLift || 0;
-    if (segment.id === "dc-storage") delta += scenario.storageLift || 0;
-    if (segment.id === "mobile-pc" || segment.id === "auto-edge") delta += scenario.terminalLift || 0;
-    if (segment.id === "legacy") delta += scenario.legacyLift || 0;
+    if (!segment || !scenario) return 0;
+    const weight = projectionCaseWeight(segment.id);
+    const signalIndex = clamp((segment.signals || 0) / 180, 0, 1.25);
+    const priceIndex = clamp((segment.priceMomentum || 0) / 6, -1.2, 1.2);
+    const positivePrice = Math.max(priceIndex, 0);
+    const negativePrice = Math.max(-priceIndex, 0);
+    const chinaIndex = projectionChinaPressureIndex();
+    const chinaExposure = weight.china || 0;
+    const modelLift = projectionScenarioLift(segment, scenario) * .35;
+    const baseCase = weight[scenario.id] || 0;
+    let evidenceDelta = 0;
 
-    if (scenario.id === "best" && segment.id === "ai-server") delta += Math.min(segment.signals || 0, 140) * .018;
-    if (scenario.id === "best" && segment.id === "dc-storage") delta += Math.max(segment.priceMomentum || 0, 0) * .22;
-    if (scenario.id === "worst" && (segment.id === "mobile-pc" || segment.id === "legacy")) delta += Math.min(chinaPressure, 140) * .026;
-    if (scenario.id === "worst" && segment.id === "ai-server") delta -= Math.max(segment.priceMomentum || 0, 0) * .16;
+    if (scenario.id === "best") {
+      evidenceDelta += signalIndex * weight.signal;
+      evidenceDelta += positivePrice * weight.price;
+      evidenceDelta -= Math.max(chinaExposure, 0) * chinaIndex * .8;
+      evidenceDelta += Math.min(chinaExposure, 0) * chinaIndex * .35;
+    } else if (scenario.id === "worst") {
+      evidenceDelta -= positivePrice * weight.price * .45;
+      evidenceDelta -= negativePrice * weight.price * .25;
+      evidenceDelta += Math.max(chinaExposure, 0) * chinaIndex;
+      evidenceDelta += Math.min(chinaExposure, 0) * chinaIndex * .85;
+      evidenceDelta -= signalIndex * weight.signal * .2;
+    } else {
+      evidenceDelta += signalIndex * weight.signal * .16;
+      evidenceDelta += priceIndex * weight.price * .28;
+      evidenceDelta += chinaExposure * chinaIndex * .28;
+    }
 
-    return delta * ratio;
+    return (baseCase + modelLift + evidenceDelta) * ratio;
   }
 
   function projectionSeries(segments = productProjectionSegments(), scenarioId = projectionScenario) {
@@ -8342,11 +8386,11 @@
   function projectionTrajectorySVG(scenarioMap, selected, horizon) {
     if (!selected) return "";
     const cases = [
-      { id: "base", label: "중립", color: "#3b82f6" },
+      { id: "neutral", label: "중립", color: "#3b82f6" },
       { id: "best", label: "베스트", color: "#22c55e" },
       { id: "worst", label: "워스트", color: "#ef4444" },
     ];
-    const baseSeries = scenarioMap.base || scenarioMap[Object.keys(scenarioMap)[0]] || [];
+    const baseSeries = scenarioMap.neutral || scenarioMap[Object.keys(scenarioMap)[0]] || [];
     const n = baseSeries.length;
     if (n < 2) return "";
     const W = 680, H = 240, padL = 42, padR = 14, padT = 14, padB = 28;
