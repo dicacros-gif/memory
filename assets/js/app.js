@@ -1974,9 +1974,10 @@
   let draggedNumberId = null;
   const QA_PLACEHOLDER = "Memory 시장에 대해 물어보세요";
   const CATEGORY_RENDER_BUDGET_MS = 12;
+  const MEMORY_MARKET_POSITIONS_KEY = "memory-market-node-positions-v2";
 
   try {
-    memoryMarketNodePositions = JSON.parse(localStorage.getItem("memory-market-node-positions") || "{}") || {};
+    memoryMarketNodePositions = JSON.parse(localStorage.getItem(MEMORY_MARKET_POSITIONS_KEY) || "{}") || {};
   } catch (error) {
     memoryMarketNodePositions = {};
   }
@@ -3808,47 +3809,370 @@
 
   function memoryMarketNodes() {
     return [
-      { id: "skhy", name: "SKHY", role: "HBM·DRAM·NAND", category: "hbm", x: 46, y: 48 },
-      { id: "samsung", name: "Samsung", role: "HBM·DRAM·NAND", category: "hbm", x: 24, y: 24 },
-      { id: "micron", name: "Micron", role: "HBM·DRAM", category: "dram", x: 72, y: 24 },
-      { id: "cxmt", name: "CXMT", role: "중국 DRAM", category: "dram", x: 20, y: 70 },
-      { id: "ymtc", name: "YMTC", role: "중국 NAND/eSSD", category: "nand", x: 70, y: 72 },
-      { id: "kioxia-sandisk", name: "Kioxia·SanDisk", role: "NAND peer", category: "nand", x: 88, y: 50 },
-      { id: "nvidia-ai", name: "NVIDIA·AI 고객", role: "AI 서버 수요", category: "aidemand", x: 48, y: 12 },
-      { id: "tsmc", name: "TSMC", role: "HBM4 base die", category: "packaging", x: 10, y: 42 },
-      { id: "jcet-xmc", name: "JCET·XMC", role: "첨단 패키징", category: "packaging", x: 42, y: 88 },
-      { id: "naura-amec", name: "Naura·AMEC", role: "장비 국산화", category: "equipment", x: 10, y: 88 },
-      { id: "china-fund", name: "Big Fund·지방정부", role: "정책 자본", category: "geopolitics", x: 90, y: 86 },
-      { id: "china-cloud", name: "중국 클라우드/OEM", role: "내수 고객", category: "china", x: 92, y: 16 },
-      { id: "solidigm", name: "Solidigm", role: "eSSD·Dalian", category: "operations", x: 62, y: 92 },
-      { id: "cxl-startups", name: "CXL·Photonics 후보", role: "옵션 투자", category: "cxl", x: 30, y: 8 },
+      { id: "skhy", name: "SKHY", role: "HBM·DRAM·NAND 중심", category: "hbm", x: 50, y: 50 },
+      { id: "nvidia-ai", name: "NVIDIA·AI 고객", role: "HBM 수요/매출", category: "aidemand", x: 50, y: 12 },
+      { id: "tsmc", name: "TSMC", role: "HBM4 base die", category: "packaging", x: 24, y: 24 },
+      { id: "samsung", name: "Samsung", role: "HBM·DRAM 경쟁", category: "hbm", x: 16, y: 48 },
+      { id: "micron", name: "Micron", role: "HBM·DRAM 경쟁", category: "dram", x: 84, y: 42 },
+      { id: "cxmt", name: "CXMT", role: "중국 DRAM 가격 압력", category: "dram", x: 18, y: 72 },
+      { id: "ymtc", name: "YMTC", role: "중국 NAND/eSSD", category: "nand", x: 70, y: 78 },
+      { id: "kioxia-sandisk", name: "Kioxia·SanDisk", role: "NAND peer", category: "nand", x: 90, y: 68 },
+      { id: "solidigm", name: "Solidigm", role: "eSSD·Dalian 방어", category: "operations", x: 60, y: 68 },
+      { id: "jcet-xmc", name: "JCET·XMC", role: "첨단 패키징 우회", category: "packaging", x: 46, y: 88 },
+      { id: "naura-amec", name: "Naura·AMEC", role: "장비 국산화", category: "equipment", x: 16, y: 88 },
+      { id: "china-fund", name: "Big Fund·지방정부", role: "정책 자본", category: "geopolitics", x: 84, y: 92 },
+      { id: "china-cloud", name: "중국 클라우드/OEM", role: "내수 고객", category: "china", x: 86, y: 16 },
+      { id: "cxl-startups", name: "CXL·Photonics 후보", role: "Post-HBM 옵션", category: "cxl", x: 30, y: 8 },
     ];
   }
 
   function memoryMarketEdges() {
     return [
-      { id: "skhy-samsung-hbm", mode: "competitive", from: "skhy", to: "samsung", type: "경쟁", label: "HBM4·AI 서버 경쟁", terms: ["sk hynix", "skhy", "samsung", "hbm", "hbm4", "ai memory"], categories: ["hbm", "aidemand"], weight: 82 },
-      { id: "skhy-micron-hbm", mode: "competitive", from: "skhy", to: "micron", type: "경쟁", label: "HBM·DDR5·서버 DRAM 경쟁", terms: ["sk hynix", "skhy", "micron", "hbm", "ddr5", "server dram"], categories: ["hbm", "dram"], weight: 76 },
-      { id: "skhy-cxmt-dram", mode: "competitive", from: "skhy", to: "cxmt", type: "경쟁", label: "범용 DRAM 가격 하방 압력", terms: ["cxmt", "changxin", "dram", "ddr5", "ddr4", "lpddr", "tencent"], categories: ["dram", "china"], weight: 88 },
-      { id: "skhy-ymtc-nand", mode: "competitive", from: "skhy", to: "ymtc", type: "경쟁", label: "NAND/eSSD 고객 침투 경쟁", terms: ["ymtc", "yangtze", "nand", "ssd", "essd", "xtacking", "solidigm"], categories: ["nand", "china", "aidemand"], weight: 84 },
-      { id: "kioxia-ymtc-nand", mode: "competitive", from: "kioxia-sandisk", to: "ymtc", type: "경쟁", label: "3D NAND 세대·원가 경쟁", terms: ["kioxia", "sandisk", "ymtc", "3d nand", "bics", "xtacking"], categories: ["nand"], weight: 66 },
-      { id: "skhy-tsmc-hbm4", mode: "competitive", from: "skhy", to: "tsmc", type: "파트너십", label: "HBM4 base die·패키징 협력", terms: ["sk hynix", "skhy", "tsmc", "hbm4", "base die", "cowos"], categories: ["hbm", "packaging"], weight: 72 },
-      { id: "skhy-nvidia-supply", mode: "competitive", from: "skhy", to: "nvidia-ai", type: "공급", label: "AI 서버 HBM 공급 락인", terms: ["nvidia", "hbm", "rubin", "ai server", "sk hynix", "skhy"], categories: ["hbm", "aidemand"], weight: 90 },
-      { id: "cxmt-china-cloud-supply", mode: "competitive", from: "cxmt", to: "china-cloud", type: "공급", label: "중국 빅테크 서버 DRAM 공급", terms: ["cxmt", "tencent", "alibaba", "bytedance", "server dram", "contract"], categories: ["dram", "china"], weight: 86 },
-      { id: "ymtc-china-oem-supply", mode: "competitive", from: "ymtc", to: "china-cloud", type: "공급", label: "중국 OEM·eSSD 공급 확대", terms: ["ymtc", "essd", "ssd", "smartphone", "server", "china oem"], categories: ["nand", "china"], weight: 76 },
-      { id: "naura-amec-cxmt", mode: "competitive", from: "naura-amec", to: "cxmt", type: "공급", label: "DRAM 장비 국산화 공급", terms: ["naura", "amec", "cxmt", "equipment", "etch", "deposition"], categories: ["equipment", "dram", "china"], weight: 70 },
-      { id: "naura-amec-ymtc", mode: "competitive", from: "naura-amec", to: "ymtc", type: "공급", label: "NAND 장비 qual·내재화", terms: ["naura", "amec", "ymtc", "wuhan", "equipment", "localization"], categories: ["equipment", "nand", "china"], weight: 74 },
-      { id: "fund-cxmt-competitive", mode: "competitive", from: "china-fund", to: "cxmt", type: "투자", label: "IPO·지방정부 캐파 자금", terms: ["cxmt", "ipo", "fund", "big fund", "capacity", "wpm"], categories: ["dram", "geopolitics", "china"], weight: 76 },
-      { id: "fund-ymtc-competitive", mode: "competitive", from: "china-fund", to: "ymtc", type: "투자", label: "우한 클러스터·NAND 증설 자금", terms: ["ymtc", "wuhan", "phase 3", "big fund", "capacity", "investment"], categories: ["nand", "geopolitics", "china"], weight: 76 },
-      { id: "skhy-ai-revenue", mode: "money", from: "nvidia-ai", to: "skhy", type: "매출", label: "HBM·AI 서버 매출 노출", terms: ["nvidia", "hbm", "ai server", "sk hynix", "skhy", "rubin"], categories: ["hbm", "aidemand"], weight: 94, flowIndex: 92 },
-      { id: "china-cloud-cxmt-revenue", mode: "money", from: "china-cloud", to: "cxmt", type: "매출", label: "중국 서버 DRAM 장기계약 매출", terms: ["cxmt", "tencent", "server dram", "contract", "alibaba", "bytedance"], categories: ["dram", "china"], weight: 88, flowIndex: 84 },
-      { id: "china-oem-ymtc-revenue", mode: "money", from: "china-cloud", to: "ymtc", type: "매출", label: "중국 eSSD·스마트폰 NAND 매출", terms: ["ymtc", "essd", "ssd", "smartphone", "nand", "oem"], categories: ["nand", "china"], weight: 78, flowIndex: 76 },
-      { id: "fund-cxmt-money", mode: "money", from: "china-fund", to: "cxmt", type: "투자", label: "CXMT IPO·캐파 확대 자금", terms: ["cxmt", "ipo", "funding", "big fund", "capacity", "wpm"], categories: ["dram", "china", "geopolitics"], weight: 82, flowIndex: 80 },
-      { id: "fund-ymtc-money", mode: "money", from: "china-fund", to: "ymtc", type: "투자", label: "YMTC 우한 Phase 3·장비 내재화", terms: ["ymtc", "wuhan", "phase 3", "investment", "big fund", "equipment"], categories: ["nand", "equipment", "geopolitics"], weight: 80, flowIndex: 78 },
-      { id: "skhy-wuxi-dalian-invest", mode: "money", from: "skhy", to: "solidigm", type: "투자", label: "Dalian·Solidigm value-up 투자", terms: ["sk hynix", "skhy", "solidigm", "dalian", "nand", "ssd", "investment"], categories: ["nand", "operations"], weight: 70, flowIndex: 68 },
-      { id: "skhy-tsmc-invest", mode: "money", from: "skhy", to: "tsmc", type: "투자", label: "HBM4 로직·패키징 외부 생태계 지출", terms: ["sk hynix", "skhy", "tsmc", "hbm4", "base die", "packaging"], categories: ["hbm", "packaging"], weight: 66, flowIndex: 64 },
-      { id: "skhy-startup-option", mode: "money", from: "skhy", to: "cxl-startups", type: "투자", label: "CXL·포토닉스·PIM 옵션 투자", terms: ["cxl", "photonics", "pim", "xconn", "celestial", "ayar", "lightmatter", "xcena", "startup"], categories: ["cxl", "packaging", "aidemand"], weight: 62, flowIndex: 58 },
-      { id: "solidigm-essd-revenue", mode: "money", from: "china-cloud", to: "solidigm", type: "매출", label: "eSSD 고객 방어 매출", terms: ["solidigm", "essd", "ssd", "dalian", "server", "datacenter"], categories: ["nand", "aidemand", "operations"], weight: 66, flowIndex: 60 },
+      {
+        id: "skhy-samsung-hbm",
+        mode: "competitive",
+        from: "skhy",
+        to: "samsung",
+        type: "경쟁",
+        label: "HBM4·HBM3E 고객 인증 경쟁",
+        terms: ["sk hynix", "skhy", "samsung", "hbm", "hbm4", "hbm3e", "ai memory"],
+        match: [["samsung"], ["hbm", "hbm4", "hbm3e", "ai memory"]],
+        priceTerms: ["dram", "ddr5", "gddr"],
+        categories: ["hbm", "aidemand"],
+        weight: 82,
+        interpretation: "Samsung은 HBM4 턴키와 HBM3E 인증으로 SKHY 프리미엄 고객 락인에 도전하는 축입니다.",
+      },
+      {
+        id: "skhy-micron-hbm",
+        mode: "competitive",
+        from: "skhy",
+        to: "micron",
+        type: "경쟁",
+        label: "HBM·서버 DRAM 공급 경쟁",
+        terms: ["sk hynix", "skhy", "micron", "hbm", "ddr5", "server dram"],
+        match: [["micron"], ["hbm", "ddr5", "server dram"]],
+        priceTerms: ["dram", "ddr5"],
+        categories: ["hbm", "dram"],
+        weight: 76,
+        interpretation: "Micron은 HBM ramp와 서버 DDR5 물량으로 AI 서버 메모리 경쟁을 압박합니다.",
+      },
+      {
+        id: "skhy-cxmt-dram",
+        mode: "competitive",
+        from: "skhy",
+        to: "cxmt",
+        type: "경쟁",
+        label: "DDR5·LPDDR 가격 하방 압력",
+        terms: ["cxmt", "changxin", "dram", "ddr5", "ddr4", "lpddr", "tencent"],
+        match: [["cxmt", "changxin"], ["dram", "ddr5", "ddr4", "lpddr", "tencent"]],
+        priceTerms: ["dram", "ddr5", "ddr4", "lpddr"],
+        categories: ["dram", "china"],
+        weight: 88,
+        interpretation: "CXMT는 HBM보다 범용 DRAM spot/contract 가격 방어에 먼저 영향을 줍니다.",
+      },
+      {
+        id: "skhy-ymtc-nand",
+        mode: "competitive",
+        from: "skhy",
+        to: "ymtc",
+        type: "경쟁",
+        label: "NAND/eSSD 고객 침투 경쟁",
+        terms: ["ymtc", "yangtze", "nand", "ssd", "essd", "xtacking", "solidigm"],
+        match: [["ymtc", "yangtze"], ["nand", "ssd", "essd", "xtacking"]],
+        priceTerms: ["nand", "ssd", "wafer"],
+        categories: ["nand", "china", "aidemand"],
+        weight: 84,
+        interpretation: "YMTC는 Xtacking과 eSSD 침투로 Solidigm/NAND 고객 방어를 흔드는 축입니다.",
+      },
+      {
+        id: "kioxia-ymtc-nand",
+        mode: "competitive",
+        from: "kioxia-sandisk",
+        to: "ymtc",
+        type: "경쟁",
+        label: "3D NAND 세대·원가 경쟁",
+        terms: ["kioxia", "sandisk", "ymtc", "3d nand", "bics", "xtacking"],
+        match: [["kioxia", "sandisk", "ymtc", "yangtze"], ["nand", "bics", "xtacking", "3d nand"]],
+        priceTerms: ["nand", "wafer", "ssd"],
+        categories: ["nand"],
+        weight: 66,
+        interpretation: "Kioxia·SanDisk와 YMTC는 NAND 단수·밀도·원가 곡선에서 비교해야 합니다.",
+      },
+      {
+        id: "skhy-tsmc-hbm4",
+        mode: "competitive",
+        from: "skhy",
+        to: "tsmc",
+        type: "파트너십",
+        label: "HBM4 base die·CoWoS 협력",
+        terms: ["sk hynix", "skhy", "tsmc", "hbm4", "base die", "cowos"],
+        match: [["tsmc"], ["hbm4", "base die", "cowos", "packaging"]],
+        priceTerms: ["dram", "ddr5"],
+        categories: ["hbm", "packaging"],
+        weight: 72,
+        interpretation: "SKHY-TSMC 협력은 HBM4 베이스 다이와 패키징 병목을 푸는 파트너십입니다.",
+      },
+      {
+        id: "skhy-nvidia-supply",
+        mode: "competitive",
+        from: "skhy",
+        to: "nvidia-ai",
+        type: "공급",
+        label: "AI 서버 HBM 공급 락인",
+        terms: ["nvidia", "hbm", "rubin", "ai server", "sk hynix", "skhy"],
+        match: [["nvidia", "rubin"], ["hbm", "sk hynix", "skhy", "ai server"]],
+        priceTerms: ["dram", "ddr5", "gddr"],
+        categories: ["hbm", "aidemand"],
+        weight: 90,
+        interpretation: "SKHY에서 NVIDIA/AI 고객으로 가는 선은 제품 공급 락인입니다.",
+      },
+      {
+        id: "cxmt-china-cloud-supply",
+        mode: "competitive",
+        from: "cxmt",
+        to: "china-cloud",
+        type: "공급",
+        label: "중국 빅테크 서버 DRAM 공급",
+        terms: ["cxmt", "tencent", "alibaba", "bytedance", "server dram", "contract"],
+        match: [["cxmt", "changxin"], ["tencent", "alibaba", "bytedance", "server dram", "contract"]],
+        priceTerms: ["dram", "ddr5"],
+        categories: ["dram", "china"],
+        weight: 86,
+        interpretation: "CXMT에서 중국 클라우드/OEM으로 가는 선은 내수 서버 DRAM 공급과 고객 승인입니다.",
+      },
+      {
+        id: "ymtc-china-oem-supply",
+        mode: "competitive",
+        from: "ymtc",
+        to: "china-cloud",
+        type: "공급",
+        label: "중국 OEM·eSSD 공급 확대",
+        terms: ["ymtc", "essd", "ssd", "smartphone", "server", "china oem"],
+        match: [["ymtc", "yangtze"], ["essd", "ssd", "smartphone", "server", "oem"]],
+        priceTerms: ["nand", "ssd"],
+        categories: ["nand", "china"],
+        weight: 76,
+        interpretation: "YMTC에서 중국 OEM/클라우드로 가는 선은 NAND/eSSD 고객 침투입니다.",
+      },
+      {
+        id: "naura-amec-cxmt",
+        mode: "competitive",
+        from: "naura-amec",
+        to: "cxmt",
+        type: "공급",
+        label: "DRAM 장비 국산화 공급",
+        terms: ["naura", "amec", "cxmt", "equipment", "etch", "deposition"],
+        match: [["naura", "amec", "acm", "equipment"], ["cxmt", "dram", "etch", "deposition"]],
+        priceTerms: [],
+        categories: ["equipment", "dram", "china"],
+        weight: 70,
+        interpretation: "Naura·AMEC는 CXMT의 DRAM 장비 내재화와 제재 내성을 보강하는 공급 축입니다.",
+      },
+      {
+        id: "naura-amec-ymtc",
+        mode: "competitive",
+        from: "naura-amec",
+        to: "ymtc",
+        type: "공급",
+        label: "NAND 장비 qual·내재화",
+        terms: ["naura", "amec", "ymtc", "wuhan", "equipment", "localization"],
+        match: [["naura", "amec", "acm", "equipment"], ["ymtc", "wuhan", "nand", "localization"]],
+        priceTerms: [],
+        categories: ["equipment", "nand", "china"],
+        weight: 74,
+        interpretation: "Naura·AMEC에서 YMTC로 가는 선은 우한 NAND 장비 qual과 내재화 공급망입니다.",
+      },
+      {
+        id: "jcet-xmc-cxmt-packaging",
+        mode: "competitive",
+        from: "jcet-xmc",
+        to: "cxmt",
+        type: "공급",
+        label: "HBM/DRAM 패키징 우회로",
+        terms: ["jcet", "xmc", "cxmt", "hbm", "packaging", "tsv"],
+        match: [["jcet", "xmc", "packaging", "tsv"], ["cxmt", "hbm", "dram"]],
+        priceTerms: [],
+        categories: ["packaging", "dram", "china"],
+        weight: 68,
+        interpretation: "JCET·XMC에서 CXMT로 가는 선은 선단 공정 제약을 후공정으로 우회하려는 패키징 공급축입니다.",
+      },
+      {
+        id: "jcet-xmc-ymtc-packaging",
+        mode: "competitive",
+        from: "jcet-xmc",
+        to: "ymtc",
+        type: "공급",
+        label: "NAND·HBM 패키징 생태계",
+        terms: ["jcet", "xmc", "ymtc", "packaging", "wuhan", "hbm"],
+        match: [["jcet", "xmc", "packaging"], ["ymtc", "wuhan", "nand", "hbm"]],
+        priceTerms: [],
+        categories: ["packaging", "nand", "china"],
+        weight: 66,
+        interpretation: "JCET·XMC와 YMTC 연결은 우한 클러스터의 NAND/패키징 생태계를 의미합니다.",
+      },
+      {
+        id: "fund-cxmt-competitive",
+        mode: "competitive",
+        from: "china-fund",
+        to: "cxmt",
+        type: "투자",
+        label: "IPO·지방정부 캐파 자금",
+        terms: ["cxmt", "ipo", "fund", "big fund", "capacity", "wpm"],
+        match: [["cxmt"], ["ipo", "fund", "big fund", "capacity", "wpm"]],
+        priceTerms: [],
+        categories: ["dram", "geopolitics", "china"],
+        weight: 76,
+        interpretation: "정책자본에서 CXMT로 가는 선은 캐파 확대와 DRAM 가격 하방 위험의 자금축입니다.",
+      },
+      {
+        id: "fund-ymtc-competitive",
+        mode: "competitive",
+        from: "china-fund",
+        to: "ymtc",
+        type: "투자",
+        label: "우한 클러스터·NAND 증설 자금",
+        terms: ["ymtc", "wuhan", "phase 3", "big fund", "capacity", "investment"],
+        match: [["ymtc", "wuhan"], ["phase 3", "big fund", "capacity", "investment"]],
+        priceTerms: [],
+        categories: ["nand", "geopolitics", "china"],
+        weight: 76,
+        interpretation: "정책자본에서 YMTC로 가는 선은 우한 증설과 장비 내재화 자금축입니다.",
+      },
+      {
+        id: "skhy-ai-revenue",
+        mode: "money",
+        from: "nvidia-ai",
+        to: "skhy",
+        type: "매출",
+        label: "HBM·AI 서버 매출 노출",
+        terms: ["nvidia", "hbm", "ai server", "sk hynix", "skhy", "rubin"],
+        match: [["nvidia", "rubin"], ["hbm", "sk hynix", "skhy", "ai server"]],
+        priceTerms: ["dram", "ddr5", "gddr"],
+        categories: ["hbm", "aidemand"],
+        weight: 94,
+        flowIndex: 92,
+        interpretation: "NVIDIA/AI 고객에서 SKHY로 가는 선은 HBM 매출과 고객 락인 현금흐름입니다.",
+      },
+      {
+        id: "china-cloud-cxmt-revenue",
+        mode: "money",
+        from: "china-cloud",
+        to: "cxmt",
+        type: "매출",
+        label: "중국 서버 DRAM 장기계약 매출",
+        terms: ["cxmt", "tencent", "server dram", "contract", "alibaba", "bytedance"],
+        match: [["cxmt"], ["tencent", "alibaba", "bytedance", "server dram", "contract"]],
+        priceTerms: ["dram", "ddr5"],
+        categories: ["dram", "china"],
+        weight: 88,
+        flowIndex: 84,
+        interpretation: "중국 클라우드/OEM에서 CXMT로 가는 선은 서버 DRAM 계약 매출입니다.",
+      },
+      {
+        id: "china-oem-ymtc-revenue",
+        mode: "money",
+        from: "china-cloud",
+        to: "ymtc",
+        type: "매출",
+        label: "중국 eSSD·스마트폰 NAND 매출",
+        terms: ["ymtc", "essd", "ssd", "smartphone", "nand", "oem"],
+        match: [["ymtc"], ["essd", "ssd", "smartphone", "nand", "oem"]],
+        priceTerms: ["nand", "ssd"],
+        categories: ["nand", "china"],
+        weight: 78,
+        flowIndex: 76,
+        interpretation: "중국 OEM/클라우드에서 YMTC로 가는 선은 NAND/eSSD 매출 신호입니다.",
+      },
+      {
+        id: "fund-cxmt-money",
+        mode: "money",
+        from: "china-fund",
+        to: "cxmt",
+        type: "투자",
+        label: "CXMT IPO·캐파 확대 자금",
+        terms: ["cxmt", "ipo", "funding", "big fund", "capacity", "wpm"],
+        match: [["cxmt"], ["ipo", "funding", "big fund", "capacity", "wpm"]],
+        priceTerms: [],
+        categories: ["dram", "china", "geopolitics"],
+        weight: 82,
+        flowIndex: 80,
+        interpretation: "정책자본에서 CXMT로 가는 선은 IPO·캐파 확대 투자 흐름입니다.",
+      },
+      {
+        id: "fund-ymtc-money",
+        mode: "money",
+        from: "china-fund",
+        to: "ymtc",
+        type: "투자",
+        label: "YMTC 우한 Phase 3·장비 내재화",
+        terms: ["ymtc", "wuhan", "phase 3", "investment", "big fund", "equipment"],
+        match: [["ymtc", "wuhan"], ["phase 3", "investment", "big fund", "equipment"]],
+        priceTerms: [],
+        categories: ["nand", "equipment", "geopolitics"],
+        weight: 80,
+        flowIndex: 78,
+        interpretation: "정책자본에서 YMTC로 가는 선은 우한 Phase 3와 장비 내재화 투자입니다.",
+      },
+      {
+        id: "skhy-wuxi-dalian-invest",
+        mode: "money",
+        from: "skhy",
+        to: "solidigm",
+        type: "투자",
+        label: "Dalian·Solidigm value-up 투자",
+        terms: ["sk hynix", "skhy", "solidigm", "dalian", "nand", "ssd", "investment"],
+        match: [["sk hynix", "skhy", "solidigm"], ["dalian", "nand", "ssd", "investment"]],
+        priceTerms: ["nand", "ssd"],
+        categories: ["nand", "operations"],
+        weight: 70,
+        flowIndex: 68,
+        interpretation: "SKHY에서 Solidigm/Dalian으로 가는 선은 eSSD·NAND value-up 투자 흐름입니다.",
+      },
+      {
+        id: "skhy-tsmc-invest",
+        mode: "money",
+        from: "skhy",
+        to: "tsmc",
+        type: "투자",
+        label: "HBM4 로직·패키징 외부 생태계 지출",
+        terms: ["sk hynix", "skhy", "tsmc", "hbm4", "base die", "packaging"],
+        match: [["tsmc"], ["sk hynix", "skhy", "hbm4", "base die", "packaging"]],
+        priceTerms: ["dram", "ddr5"],
+        categories: ["hbm", "packaging"],
+        weight: 66,
+        flowIndex: 64,
+        interpretation: "SKHY에서 TSMC로 가는 선은 HBM4 베이스 다이·패키징 외부 생태계 지출입니다.",
+      },
+      {
+        id: "skhy-startup-option",
+        mode: "money",
+        from: "skhy",
+        to: "cxl-startups",
+        type: "투자",
+        label: "CXL·포토닉스·PIM 옵션 투자",
+        terms: ["cxl", "photonics", "pim", "xconn", "celestial", "ayar", "lightmatter", "xcena", "startup"],
+        match: [["cxl", "photonics", "pim", "xconn", "celestial", "ayar", "lightmatter", "xcena", "startup"]],
+        priceTerms: [],
+        categories: ["cxl", "packaging", "aidemand"],
+        weight: 62,
+        flowIndex: 58,
+        interpretation: "SKHY에서 CXL·포토닉스 후보로 가는 선은 Post-HBM 옵션 투자 흐름입니다.",
+      },
+      {
+        id: "solidigm-essd-revenue",
+        mode: "money",
+        from: "china-cloud",
+        to: "solidigm",
+        type: "매출",
+        label: "eSSD 고객 방어 매출",
+        terms: ["solidigm", "essd", "ssd", "dalian", "server", "datacenter"],
+        match: [["solidigm", "essd", "ssd"], ["server", "datacenter", "china", "customer", "dalian"]],
+        priceTerms: ["nand", "ssd"],
+        categories: ["nand", "aidemand", "operations"],
+        weight: 66,
+        flowIndex: 60,
+        interpretation: "중국 클라우드/OEM에서 Solidigm으로 가는 선은 eSSD 고객 방어 매출입니다.",
+      },
     ];
   }
 
@@ -3864,7 +4188,7 @@
       : {
           id: "competitive",
           title: "Competitive Dynamics",
-          subtitle: "경쟁·파트너십·투자·공급 관계를 메모리 시장 맥락으로 인터랙티브하게 비교",
+          subtitle: "",
           types: ["경쟁", "파트너십", "투자", "공급"],
           accent: "#38BDF8",
         };
@@ -3875,30 +4199,46 @@
     return terms.some((term) => hay.includes(String(term || "").toLowerCase()));
   }
 
+  function memoryMarketMatchGroups(edge = {}) {
+    return (edge.match || [])
+      .map((group) => [].concat(group || []).map((term) => String(term || "").toLowerCase()).filter(Boolean))
+      .filter((group) => group.length);
+  }
+
+  function memoryMarketTextMatchesGroups(text, groups = []) {
+    const hay = String(text || "").toLowerCase();
+    return groups.length ? groups.every((group) => group.some((term) => hay.includes(term))) : false;
+  }
+
   function memoryMarketEdgeTerms(edge = {}) {
     return []
       .concat(edge.terms || [])
-      .concat([edge.label, edge.type, edge.from, edge.to])
+      .concat((edge.match || []).flat())
+      .concat(edge.priceTerms || [])
+      .concat([edge.label, edge.type, edge.from, edge.to, edge.interpretation])
       .map((term) => String(term || "").toLowerCase())
       .filter(Boolean);
   }
 
   function memoryMarketEvidenceFor(edge = {}) {
     const terms = memoryMarketEdgeTerms(edge);
+    const groups = memoryMarketMatchGroups(edge);
+    const priceTerms = (edge.priceTerms || []).map((term) => String(term || "").toLowerCase()).filter(Boolean);
+    const matchesEvidence = (text) => (groups.length ? memoryMarketTextMatchesGroups(text, groups) : memoryMarketTextHasAny(text, terms));
     const news = rawNews().filter((item) => {
       const link = String(item.link || item.sourceUrl || "").trim();
       if (!link) return false;
-      return memoryMarketTextHasAny(`${item.title || ""} ${item.titleKo || ""} ${item.summary || ""} ${item.source || ""} ${item.category || ""}`, terms);
+      return matchesEvidence(`${item.title || ""} ${item.titleKo || ""} ${item.summary || ""} ${item.source || ""} ${item.category || ""}`);
     });
     const benchmark = (LIVE.benchmarkSignals?.stream || []).filter((item) => {
       const link = String(item.link || item.sourceUrl || "").trim();
       if (!link) return false;
-      return memoryMarketTextHasAny(`${item.title || ""} ${item.titleKo || ""} ${item.summary || ""} ${item.source || ""} ${item.theme || ""}`, terms);
+      return matchesEvidence(`${item.title || ""} ${item.titleKo || ""} ${item.summary || ""} ${item.source || ""} ${item.theme || ""}`);
     });
-    const prices = allPriceRows().filter((row) => memoryMarketTextHasAny(`${row.group || ""} ${row.sectionTitle || ""} ${row.item || ""}`, terms));
+    const prices = allPriceRows().filter((row) => priceTerms.length && memoryMarketTextHasAny(`${row.group || ""} ${row.sectionTitle || ""} ${row.item || ""}`, priceTerms));
     const kpis = (BASE.kpis || []).filter((item) => {
       if (!String(item.sourceUrl || "").trim()) return false;
-      return memoryMarketTextHasAny(`${item.label || ""} ${item.note || ""} ${item.alt || ""} ${item.source || ""}`, terms);
+      return matchesEvidence(`${item.label || ""} ${item.note || ""} ${item.alt || ""} ${item.source || ""}`);
     });
     return { news, benchmark, prices, kpis };
   }
@@ -3983,7 +4323,7 @@
 
   function persistMemoryMarketNodePositions() {
     try {
-      localStorage.setItem("memory-market-node-positions", JSON.stringify(memoryMarketNodePositions));
+      localStorage.setItem(MEMORY_MARKET_POSITIONS_KEY, JSON.stringify(memoryMarketNodePositions));
     } catch (error) {
       // Ignore storage failures; drag still works for the current render.
     }
@@ -4098,6 +4438,14 @@
     }).slice(0, limit);
   }
 
+  function memoryMarketRelationSymbol(edge = {}) {
+    return ["경쟁", "파트너십"].includes(edge.type) ? "↔" : "→";
+  }
+
+  function memoryMarketRelationTitle(edge = {}) {
+    return `${memoryMarketNodeName(edge.from)} ${memoryMarketRelationSymbol(edge)} ${memoryMarketNodeName(edge.to)}`;
+  }
+
   function renderMemoryMarketDetail(selected, edges = []) {
     const detail = $("#memoryMarketDetail");
     if (!detail) return;
@@ -4125,7 +4473,7 @@
         <div class="memory-relation-list">
           ${node.related.slice(0, 6).map((edge) => `
             <button type="button" data-memory-edge="${escapeHTML(edge.id)}" style="--edge-color:${memoryMarketEdgeColor(edge.type)}">
-              <strong>${escapeHTML(edge.from === node.id ? `${node.name} → ${memoryMarketNodeName(edge.to)}` : `${memoryMarketNodeName(edge.from)} → ${node.name}`)}</strong>
+              <strong>${escapeHTML(memoryMarketRelationTitle(edge))}</strong>
               <span>${escapeHTML(edge.type)} · ${escapeHTML(edge.label)} · 근거 ${fmtNum(edge.evidenceCount)}</span>
             </button>
           `).join("")}
@@ -4138,7 +4486,7 @@
       detail.innerHTML = `
         <div class="memory-detail-head">
           <span>${escapeHTML(edge.type)}</span>
-          <h3>${escapeHTML(memoryMarketNodeName(edge.from))} → ${escapeHTML(memoryMarketNodeName(edge.to))}</h3>
+          <h3>${escapeHTML(memoryMarketRelationTitle(edge))}</h3>
           <p>${escapeHTML(edge.label)}</p>
         </div>
         <div class="metric-row">
@@ -4154,7 +4502,7 @@
         </div>
         <div class="memory-detail-block">
           <strong>의사결정 해석</strong>
-          <p>${escapeHTML(edge.mode === "money" ? "투자와 매출 노출을 분리해 실제 계약·가격 근거가 있는 흐름만 CFO 검토 대상으로 올립니다." : "경쟁·파트너십·투자·공급 관계를 구분해 고객 락인, 가격 방어, 제휴 우선순위를 판단합니다.")}</p>
+          <p>${escapeHTML(edge.interpretation || (edge.mode === "money" ? "투자와 매출 노출을 분리해 실제 계약·가격 근거가 있는 흐름만 CFO 검토 대상으로 올립니다." : "경쟁·파트너십·투자·공급 관계를 구분해 고객 락인, 가격 방어, 제휴 우선순위를 판단합니다."))}</p>
         </div>
         ${links.length ? `
           <div class="memory-detail-block">
@@ -4246,7 +4594,7 @@
       <div class="memory-map-intro">
         <div>
           <span>${escapeHTML(config.title)}</span>
-          <strong>${escapeHTML(config.subtitle)}</strong>
+          ${config.subtitle ? `<strong>${escapeHTML(config.subtitle)}</strong>` : ""}
         </div>
         <div class="memory-map-intro-actions">
           <em>노드를 드래그하여 이동 · 클릭하면 상세 관계 보기</em>
@@ -4283,7 +4631,7 @@
         ${edges.slice(0, 8).map((edge, index) => `
           <button class="${selected?.kind === "edge" && selected.edge.id === edge.id ? "active" : ""}" type="button" data-memory-edge="${escapeHTML(edge.id)}" style="--edge-color:${memoryMarketEdgeColor(edge.type)}; animation-delay:${index * 45}ms">
             <span>${escapeHTML(edge.type)}</span>
-            <strong>${escapeHTML(memoryMarketNodeName(edge.from))} → ${escapeHTML(memoryMarketNodeName(edge.to))}</strong>
+            <strong>${escapeHTML(memoryMarketRelationTitle(edge))}</strong>
             <small>${escapeHTML(edge.label)} · 근거 ${fmtNum(edge.evidenceCount)}</small>
           </button>
         `).join("")}
