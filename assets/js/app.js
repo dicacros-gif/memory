@@ -2036,6 +2036,7 @@
     normalizeBriefCopy(document.body);
     animateCounts();
     animateMeters();
+    setupMouseDrivenMetrics();
   }
 
   function hideDisabledSections() {
@@ -2297,6 +2298,81 @@
     return `${factBadge(state.label, state.cls)}<span class="evidence-mini">${escapeHTML(detail)}</span>`;
   }
 
+  function scopedMetricNodes(root, selector) {
+    if (!root) return [];
+    const nodes = [];
+    if (root.matches?.(selector)) nodes.push(root);
+    nodes.push(...$$(selector, root));
+    return Array.from(new Set(nodes));
+  }
+
+  function countTarget(node) {
+    const value = Number(node?.dataset?.to || 0);
+    return Number.isFinite(value) ? value : 0;
+  }
+
+  function setCountValue(node, value) {
+    if (!node) return;
+    const prefix = node.dataset.prefix || "";
+    const suffix = node.dataset.suffix || "";
+    const decimals = Number(node.dataset.decimals || 0);
+    const safe = Number.isFinite(Number(value)) ? Number(value) : 0;
+    node.dataset.motionValue = String(safe);
+    node.textContent = prefix + fmtNum(safe, decimals) + suffix;
+  }
+
+  function animateCountNode(node, { from = 0, to = countTarget(node), dur = 850, guard = false } = {}) {
+    if (!node) return;
+    if (guard && node.dataset.done === "1") return;
+    node.dataset.done = "1";
+    const token = String((Number(node.dataset.countToken || 0) || 0) + 1);
+    node.dataset.countToken = token;
+    const start = performance.now();
+    const origin = Number.isFinite(Number(from)) ? Number(from) : 0;
+    const target = Number.isFinite(Number(to)) ? Number(to) : 0;
+    const step = (now) => {
+      if (node.dataset.countToken !== token) return;
+      const k = Math.min((now - start) / dur, 1);
+      const eased = 1 - Math.pow(1 - k, 3);
+      setCountValue(node, origin + (target - origin) * eased);
+      if (k < 1) requestAnimationFrame(step);
+      else setCountValue(node, target);
+    };
+    requestAnimationFrame(step);
+  }
+
+  function meterTarget(node) {
+    return clamp(node?.dataset?.fillTo ?? node?.dataset?.scoreTo ?? 0);
+  }
+
+  function setMeterValue(node, value) {
+    if (!node) return;
+    const safe = clamp(value);
+    node.dataset.motionValue = String(safe);
+    if (node.dataset.fillTo != null) node.style.width = `${safe}%`;
+    if (node.dataset.scoreTo != null) node.style.setProperty("--score", safe);
+  }
+
+  function animateMeterNode(node, { from = 0, to = meterTarget(node), dur = 1100, guard = false } = {}) {
+    if (!node) return;
+    if (guard && node.dataset.meterDone === "1") return;
+    node.dataset.meterDone = "1";
+    const token = String((Number(node.dataset.meterToken || 0) || 0) + 1);
+    node.dataset.meterToken = token;
+    const start = performance.now();
+    const origin = clamp(from);
+    const target = clamp(to);
+    const step = (now) => {
+      if (node.dataset.meterToken !== token) return;
+      const k = Math.min((now - start) / dur, 1);
+      const eased = 1 - Math.pow(1 - k, 3);
+      setMeterValue(node, origin + (target - origin) * eased);
+      if (k < 1) requestAnimationFrame(step);
+      else setMeterValue(node, target);
+    };
+    requestAnimationFrame(step);
+  }
+
   function sourceLinkHTML(url, label = "원문") {
     const clean = String(url || "").trim();
     if (!clean) return `<span class="data-state fail">출처 URL 없음</span>`;
@@ -2306,22 +2382,7 @@
   function animateCounts(root = document) {
     const counts = $$(".count", root);
     const run = (node) => {
-      if (node.dataset.done === "1") return;
-      node.dataset.done = "1";
-      const to = Number(node.dataset.to || 0);
-      const prefix = node.dataset.prefix || "";
-      const suffix = node.dataset.suffix || "";
-      const decimals = Number(node.dataset.decimals || 0);
-      const start = performance.now();
-      const dur = 850;
-      const step = (now) => {
-        const k = Math.min((now - start) / dur, 1);
-        const eased = 1 - Math.pow(1 - k, 3);
-        node.textContent = prefix + fmtNum(to * eased, decimals) + suffix;
-        if (k < 1) requestAnimationFrame(step);
-        else node.textContent = prefix + fmtNum(to, decimals) + suffix;
-      };
-      requestAnimationFrame(step);
+      animateCountNode(node, { from: 0, to: countTarget(node), dur: 850, guard: true });
     };
 
     if (!("IntersectionObserver" in window)) {
@@ -2345,24 +2406,12 @@
   function animateMeters(root = document) {
     const meters = $$("[data-fill-to], [data-score-to]", root);
     const run = (node) => {
-      if (node.dataset.meterDone === "1") return;
-      node.dataset.meterDone = "1";
-      const target = clamp(node.dataset.fillTo ?? node.dataset.scoreTo ?? 0);
-      const start = performance.now();
-      const dur = Number(node.dataset.meterDur || 1100);
-      const step = (now) => {
-        const k = Math.min((now - start) / dur, 1);
-        const eased = 1 - Math.pow(1 - k, 3);
-        const value = target * eased;
-        if (node.dataset.fillTo != null) node.style.width = `${value}%`;
-        if (node.dataset.scoreTo != null) node.style.setProperty("--score", value);
-        if (k < 1) requestAnimationFrame(step);
-        else {
-          if (node.dataset.fillTo != null) node.style.width = `${target}%`;
-          if (node.dataset.scoreTo != null) node.style.setProperty("--score", target);
-        }
-      };
-      requestAnimationFrame(step);
+      animateMeterNode(node, {
+        from: 0,
+        to: meterTarget(node),
+        dur: Number(node.dataset.meterDur || 1100),
+        guard: true,
+      });
     };
 
     if (!("IntersectionObserver" in window)) {
@@ -2375,6 +2424,99 @@
       });
     }, { threshold: 0.25 });
     meters.forEach((node) => io.observe(node));
+  }
+
+  function metricMotionScope(target) {
+    if (!(target instanceof Element)) return null;
+    const direct = target.closest(".count, [data-fill-to], [data-score-to], .score-ring");
+    const scopeSelector = [
+      ".c-level-card",
+      ".decision-card",
+      ".number-card",
+      ".metric",
+      ".kpi-card",
+      ".hub-route-card",
+      ".projection-stat",
+      ".projection-driver",
+      ".projection-tab",
+      ".projection-scenario-tab",
+      ".mece-group",
+      ".lane-card",
+      ".gate-card",
+      ".agent-debate-metrics > div",
+      ".score-ring",
+      ".memory-node",
+      "article.card",
+      "button",
+    ].join(", ");
+    return direct?.closest(scopeSelector) || target.closest(scopeSelector);
+  }
+
+  function cancelMetricAnimations(scope) {
+    scopedMetricNodes(scope, ".count").forEach((node) => {
+      node.dataset.countToken = String((Number(node.dataset.countToken || 0) || 0) + 1);
+    });
+    scopedMetricNodes(scope, "[data-fill-to], [data-score-to]").forEach((node) => {
+      node.dataset.meterToken = String((Number(node.dataset.meterToken || 0) || 0) + 1);
+    });
+  }
+
+  function applyMetricMotion(scope, progress) {
+    const ratio = clamp(progress, 0, 100) / 100;
+    scopedMetricNodes(scope, ".count").forEach((node) => {
+      setCountValue(node, countTarget(node) * ratio);
+    });
+    scopedMetricNodes(scope, "[data-fill-to], [data-score-to]").forEach((node) => {
+      setMeterValue(node, meterTarget(node) * ratio);
+    });
+  }
+
+  function restoreMetricMotion(scope) {
+    if (!scope) return;
+    scope.classList.remove("metric-motion-active");
+    scopedMetricNodes(scope, ".count").forEach((node) => {
+      animateCountNode(node, {
+        from: Number(node.dataset.motionValue || 0),
+        to: countTarget(node),
+        dur: 420,
+      });
+    });
+    scopedMetricNodes(scope, "[data-fill-to], [data-score-to]").forEach((node) => {
+      animateMeterNode(node, {
+        from: Number(node.dataset.motionValue || 0),
+        to: meterTarget(node),
+        dur: 460,
+      });
+    });
+  }
+
+  let metricMotionBound = false;
+  let metricMotionActiveScope = null;
+  function setupMouseDrivenMetrics() {
+    if (metricMotionBound) return;
+    metricMotionBound = true;
+    document.addEventListener("pointermove", (event) => {
+      const scope = metricMotionScope(event.target);
+      if (!scope) return;
+      const countNodes = scopedMetricNodes(scope, ".count");
+      const meterNodes = scopedMetricNodes(scope, "[data-fill-to], [data-score-to]");
+      if (!countNodes.length && !meterNodes.length) return;
+      if (metricMotionActiveScope && metricMotionActiveScope !== scope) restoreMetricMotion(metricMotionActiveScope);
+      if (metricMotionActiveScope !== scope) {
+        metricMotionActiveScope = scope;
+        cancelMetricAnimations(scope);
+      }
+      const rect = scope.getBoundingClientRect();
+      const progress = rect.width ? ((event.clientX - rect.left) / rect.width) * 100 : 100;
+      scope.classList.add("metric-motion-active");
+      applyMetricMotion(scope, progress);
+    }, { passive: true });
+    document.addEventListener("pointerout", (event) => {
+      const scope = metricMotionScope(event.target);
+      if (!scope || (event.relatedTarget && scope.contains(event.relatedTarget))) return;
+      if (metricMotionActiveScope === scope) metricMotionActiveScope = null;
+      restoreMetricMotion(scope);
+    }, { passive: true });
   }
 
   function renderChrome() {
