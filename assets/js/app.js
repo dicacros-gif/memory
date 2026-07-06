@@ -1799,12 +1799,6 @@
     policy: "P",
     talent: "T",
   };
-  const SIDE_QUICK_ACTIONS = [
-    { label: "분석실", hint: "워크벤치", jump: "workbench", route: "workbench" },
-    { label: "가격·기사", hint: "시장", jump: "prices", route: "market" },
-    { label: "정책/Fab", hint: "BIS·인프라", jump: "policy-makers", route: "policy" },
-    { label: "경영진", hint: "의사결정", jump: "executive-decision", route: "analysis" },
-  ];
   const TOPIC_FILTER_GROUPS = [
     { label: "전체", hint: "All", categories: ["all"] },
     { label: "시장·제품", hint: "DRAM·NAND·수요", categories: ["dram", "nand", "aidemand"] },
@@ -2475,7 +2469,6 @@
 
   function renderSidebarNav() {
     const nav = $("#sideNav");
-    const quick = $("#sideQuick");
     if (!nav) return;
     nav.innerHTML = SIDE_NAV_GROUPS.map((group) => {
       const items = group.routes.map(routeById).filter(Boolean);
@@ -2500,14 +2493,6 @@
       `;
     }).join("");
 
-    if (quick) {
-      quick.innerHTML = SIDE_QUICK_ACTIONS.map((item) => `
-        <button type="button" data-jump="${escapeHTML(item.jump)}" style="--local-accent:${escapeHTML(routeAccent(item.route))}" title="${escapeHTML(item.hint)}">
-          <strong>${escapeHTML(item.label)}</strong>
-          <small>${escapeHTML(item.hint)}</small>
-        </button>
-      `).join("");
-    }
     decorateSidebarItems();
   }
 
@@ -3080,62 +3065,24 @@
     ];
   }
 
-  function cLevelMetricCards(decisions = []) {
-    const sources = cLevelSourceLinks(decisions);
-    const priceRows = allPriceRows().length;
-    const newsLinks = rawNews().filter((item) => item.link || item.sourceUrl).length;
-    return [
-      { label: "검증 근거", value: sources.length, unit: "개", note: "링크·가격 rows만 승격" },
-      { label: "의사결정 축", value: decisions.length, unit: "개", note: "근거 0개 축 제외" },
-      { label: "가격 rows", value: priceRows, unit: "rows", note: "TrendForce 공개 표" },
-      { label: "뉴스 링크", value: newsLinks, unit: "건", note: "중복 제거 후 표시" },
-    ];
-  }
-
   function renderCLevelCockpit() {
-    const hero = $("#cLevelHero");
     const grid = $("#cLevelDecisionGrid");
     const agents = $("#cLevelAgentGrid");
-    const evidenceWrap = $("#cLevelEvidence");
     const badge = $("#cLevelFreshness");
     const meta = $("#cLevelDecisionMeta");
-    if (!hero || !grid || !agents || !evidenceWrap) return;
+    if (!grid || !agents) return;
 
     const decisions = cLevelDecisionItems();
-    const sources = cLevelSourceLinks(decisions);
     const totalEvidence = decisions.reduce((sum, item) => sum + item.evidenceCount, 0);
-    const metricCards = cLevelMetricCards(decisions);
     const activeLabel = activeCategoryData()?.label || "전체";
 
     if (badge) {
-      badge.className = `freshness-badge ${sources.length ? "ok" : "empty"}`;
-      badge.textContent = `${sources.length ? "근거 연결" : "근거 대기"} · ${fmtDate(LIVE.updatedAt)} · GitHub Actions daily crawler`;
+      badge.className = `freshness-badge ${decisions.length ? "ok" : "empty"}`;
+      badge.textContent = `${decisions.length ? "의사결정 안건 연결" : "안건 대기"} · ${fmtDate(LIVE.updatedAt)} · GitHub Actions daily crawler`;
     }
     if (meta) {
-      meta.textContent = `${activeLabel} · ${fmtNum(totalEvidence)}개 근거 · ${fmtNum(sources.length)}개 원문/가격 링크`;
+      meta.textContent = `${activeLabel} · ${fmtNum(totalEvidence)}개 근거 기반`;
     }
-
-    hero.innerHTML = `
-      <div class="c-level-headline reveal">
-        <span class="c-level-kicker">Evidence-gated strategy</span>
-        <h3>매일 수집된 가격·뉴스·정책·벤치마킹 데이터를 경영 안건으로 자동 전환</h3>
-        <p>팩트 레이어는 sourceUrl, 기사 link, 가격 row가 있는 항목만 사용합니다. 해석과 시나리오는 별도 판단 레이어로 분리합니다.</p>
-        <div class="c-level-actions">
-          <button type="button" data-jump="executive-decision">경영진 의사결정</button>
-          <button type="button" data-jump="prices">가격 확인</button>
-          <button type="button" data-jump="china-nand">중국 NAND/DRAM</button>
-        </div>
-      </div>
-      <div class="c-level-metrics">
-        ${metricCards.map((card) => `
-          <article class="c-level-metric reveal">
-            <span>${escapeHTML(card.label)}</span>
-            <strong>${countHTML(card.value)}${escapeHTML(card.unit)}</strong>
-            <small>${escapeHTML(card.note)}</small>
-          </article>
-        `).join("")}
-      </div>
-    `;
 
     if (!decisions.length) {
       grid.innerHTML = `
@@ -3145,7 +3092,6 @@
         </article>
       `;
       agents.innerHTML = "";
-      evidenceWrap.innerHTML = "";
       return;
     }
 
@@ -3198,34 +3144,7 @@
       </div>
     `;
 
-    evidenceWrap.innerHTML = `
-      <article class="c-level-proof-card reveal">
-        <span>Fact layer</span>
-        <strong>검증 가능한 근거만 사용</strong>
-        <p>sourceUrl, 기사 link, 가격 row 중 하나 이상이 있는 항목만 C-level 카드에 반영합니다.</p>
-      </article>
-      <article class="c-level-proof-card reveal">
-        <span>Interpretation layer</span>
-        <strong>전략 판단은 근거 수와 방향성으로 분리</strong>
-        <p>Go/Watch/Hold는 재무 확정치가 아니라 의사결정 우선순위입니다.</p>
-      </article>
-      <article class="c-level-source-card reveal">
-        <span>대표 원문</span>
-        <div class="c-level-source-list">
-          ${sources.slice(0, 8).map((source) => `
-            <a href="${escapeHTML(source.url)}" target="_blank" rel="noopener">
-              <em>${escapeHTML(source.type)} · ${escapeHTML(source.axis)}</em>
-              <strong>${escapeHTML(source.title || source.source)}</strong>
-              <small>${escapeHTML(source.source)}${source.date ? ` · ${escapeHTML(shortKstDate(source.date) || source.date)}` : ""}</small>
-            </a>
-          `).join("")}
-        </div>
-      </article>
-    `;
-
-    hero.querySelectorAll("[data-jump]").forEach((btn) => btn.addEventListener("click", () => jumpTo(btn.dataset.jump)));
     grid.querySelectorAll("[data-jump]").forEach((btn) => btn.addEventListener("click", () => jumpTo(btn.dataset.jump)));
-    animateCounts(hero);
     animateCounts(grid);
     animateMeters(grid);
   }
