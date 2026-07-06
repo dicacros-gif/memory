@@ -158,6 +158,7 @@
     numbers: "#FDE68A",
     projection: "#FBBF24",
     workbench: "#B9A7FF",
+    "memory-market-map": "#38BDF8",
     "ai-matrix": "#C4B5FD",
     prices: "#FFD166",
     news: "#93C5FD",
@@ -1647,6 +1648,12 @@
       section: "china-dynamics",
     },
     {
+      id: "market-map",
+      label: "경쟁·돈의 흐름",
+      sub: "Dynamics · Money Flow",
+      section: "memory-market-map",
+    },
+    {
       id: "nand",
       label: "NAND 전략",
       sub: "YMTC · eSSD · XMC",
@@ -1708,7 +1715,7 @@
       desc: "CXMT, YMTC, XMC, JCET, Naura, AMEC의 기술·캐파·공급망 변화",
       cadence: "China benchmark",
       jump: "china-nand",
-      sections: ["china-nand", "china-dynamics", "ai-matrix", "china-deep-dive"],
+      sections: ["china-nand", "china-dynamics", "memory-market-map", "ai-matrix", "china-deep-dive"],
     },
     {
       id: "policy",
@@ -1798,6 +1805,7 @@
   const SIDE_NAV_ICONS = {
     home: "H",
     workbench: "W",
+    "market-map": "F",
     analysis: "A",
     market: "M",
     competitors: "C",
@@ -1832,6 +1840,7 @@
     "china-talent-strategy": "중국 인력 전략",
     numbers: "숫자 대시보드",
     projection: "제품군 프로젝션",
+    "memory-market-map": "경쟁·돈의 흐름",
     "ai-matrix": "AI 메모리 매트릭스",
     "china-dynamics": "중국 반도체 다이내믹스",
     "china-nand": "중국 NAND 사업 강화",
@@ -1858,6 +1867,7 @@
     "china-fab-infra",
     "china-nand",
     "china-dynamics",
+    "memory-market-map",
     "ai-matrix",
     "china-deep-dive",
     "talent-radar",
@@ -1873,6 +1883,7 @@
     "china-fab-infra": "policy-makers",
     "china-nand": "china-nand",
     "china-dynamics": "china-nand",
+    "memory-market-map": "china-nand",
     "ai-matrix": "china-nand",
     "china-deep-dive": "china-nand",
     "talent-radar": "talent-radar",
@@ -1906,6 +1917,9 @@
   let newsSource = "english";
   let workbenchMode = "executive";
   let selectedInsightId = null;
+  let memoryMarketMode = "competitive";
+  let memoryMarketFocusId = "";
+  let memoryMarketEdgeType = "all";
   let numberLens = "all";
   let chinaNandFocusId = "ymtc";
   let managementStrategyFocusId = "china-key-account";
@@ -1979,6 +1993,7 @@
     renderChinaDynamics();
     renderTalentRadar();
     renderChinaDeepDive();
+    renderMemoryMarketMap();
     renderWorkbench();
     setupQA();
     setupInteractions();
@@ -2576,6 +2591,7 @@
       renderProductProjection,
       renderNews,
       renderArchitectureMatrix,
+      renderMemoryMarketMap,
       renderChinaDeepDive,
       renderTalentRadar,
       renderChinaNandBusiness,
@@ -2835,6 +2851,45 @@
         hold: "근거 보류",
       },
       {
+        id: "competitive-dynamics",
+        label: "경쟁 다이나믹스 대응",
+        category: "china",
+        categories: ["dram", "nand", "hbm", "packaging", "equipment", "china"],
+        owner: "CEO · 전략",
+        jump: "memory-market-map",
+        terms: ["competitive", "competition", "rival", "samsung", "micron", "cxmt", "ymtc", "kioxia", "sandisk", "jcet", "xmc", "naura", "amec", "hbm", "nand", "dram"],
+        action: "경쟁·파트너십·투자·공급 관계를 한 화면에서 비교해 가격 방어, 고객 락인, 제휴 우선순위를 결정",
+        go: "관계 재배치",
+        watch: "경쟁축 변화",
+        hold: "근거 보류",
+      },
+      {
+        id: "money-flow",
+        label: "Money Flow 수익성 판단",
+        category: "operations",
+        categories: ["hbm", "dram", "nand", "aidemand", "operations", "china"],
+        owner: "CFO · 사업총괄",
+        jump: "memory-market-map",
+        terms: ["money flow", "revenue", "sales", "investment", "funding", "capex", "contract", "tencent", "nvidia", "hyperscaler", "solidigm", "wuxi", "dalian", "ipo", "big fund"],
+        action: "투자·매출 노출 흐름을 구분해 어디서 현금이 들어오고 어디로 방어 비용이 나가는지 검토",
+        go: "수익성 검토",
+        watch: "현금흐름 변화",
+        hold: "근거 보류",
+      },
+      {
+        id: "customer-supply-lock",
+        label: "고객·공급 계약 재가격화",
+        category: "aidemand",
+        categories: ["hbm", "aidemand", "dram", "nand", "operations"],
+        owner: "영업 · SCM",
+        jump: "memory-market-map",
+        terms: ["nvidia", "ai server", "hyperscaler", "tencent", "alibaba", "bytedance", "contract", "supply", "customer", "essd", "server dram", "hbm"],
+        action: "AI 서버 고객 매출, 중국 장기계약, eSSD 침투를 묶어 공급 배분과 가격 재협상 우선순위를 정리",
+        go: "계약 재가격화",
+        watch: "고객 전환",
+        hold: "근거 보류",
+      },
+      {
         id: "policy-fab",
         label: "정책/Fab 라이선스",
         category: "geopolitics",
@@ -3030,48 +3085,54 @@
     const totalEvidence = selected?.evidenceCount || 0;
     const topLabel = selected?.label || "근거 축 없음";
     const topAction = selected?.action || "sourceUrl과 가격 row가 쌓일 때까지 보류";
+    const relatedRelations = memoryMarketRelationsForTerms(selected?.terms || []);
+    const moneyRelations = relatedRelations.filter((item) => item.mode === "money");
+    const competitiveRelations = relatedRelations.filter((item) => item.mode === "competitive");
+    const topRelation = relatedRelations[0];
+    const priceRows = selected?.priceRows || 0;
+    const linkCount = selected?.linkCount || 0;
     return [
       {
         id: "ceo",
         name: "CEO Agent",
         role: "우선순위",
         color: "#3C82FF",
-        message: `${topLabel} 안건을 검토합니다. 현재 이 안건에 ${fmtNum(totalEvidence)}개 근거가 연결됐고, 근거가 없는 축은 결론에서 제외합니다.`,
+        message: `${topLabel} 안건을 검토합니다. 근거 ${fmtNum(totalEvidence)}개, 관계 ${fmtNum(relatedRelations.length)}개가 연결됐습니다. 최우선 관계는 ${topRelation ? `${topRelation.from} → ${topRelation.to}` : "아직 없음"}입니다.`,
       },
       {
         id: "cfo",
         name: "CFO Agent",
         role: "수익성",
         color: "#22C55E",
-        message: "ROI 숫자는 재무 수익률이 아니라 실사 우선순위 지수로만 사용합니다. NPV/IRR은 원문 가격과 고객 계약 근거가 붙은 뒤 별도 모델로 계산합니다.",
+        message: `Money Flow 관점에서는 투자/매출 관계 ${fmtNum(moneyRelations.length)}개를 봅니다. 이 화면의 지수는 회계 ROI가 아니라 실사 우선순위이며, NPV/IRR은 계약 원문과 가격 rows가 붙은 뒤 별도 계산합니다.`,
       },
       {
         id: "cto",
         name: "CTO Agent",
         role: "기술/제품",
         color: "#A050FF",
-        message: `${topAction}. HBM, NAND, 패키징, 장비 신호는 고객 인증과 수율 병목 관점으로 분리합니다.`,
+        message: `${topAction}. 경쟁 관계 ${fmtNum(competitiveRelations.length)}개 중 기술 병목은 HBM 인증, NAND/eSSD, 패키징, 장비 qual로 분리해 봅니다.`,
       },
       {
         id: "policy",
         name: "Policy Agent",
         role: "규제/Fab",
         color: "#FFB830",
-        message: "중국 Fab 판단은 운영 유지, 캐파 확대, 기술 업그레이드로 분리합니다. BIS/CHIPS/MATCH 근거가 없는 확대 안건은 Watch로 남깁니다.",
+        message: "중국 Fab 판단은 운영 유지, 캐파 확대, 기술 업그레이드로 분리합니다. Big Fund, BIS, CHIPS, MATCH 근거가 붙지 않은 투자·공급 관계는 Watch로 남깁니다.",
       },
       {
         id: "market",
         name: "Market Agent",
         role: "가격/고객",
         color: "#00C8A0",
-        message: `${topLabel}의 가격 rows와 기사 링크를 먼저 봅니다. 비교 축은 ${contrast?.label || topLabel}이며, Spot이 먼저 꺾이고 contract가 뒤따르면 방어 안건으로 전환합니다.`,
+        message: `${topLabel}은 가격 rows ${fmtNum(priceRows)}개와 링크 ${fmtNum(linkCount)}개를 먼저 봅니다. 비교 축은 ${contrast?.label || topLabel}이며, Spot이 먼저 꺾이고 contract가 뒤따르면 공급 배분·가격 재협상 안건으로 전환합니다.`,
       },
       {
         id: "audit",
         name: "Data Auditor",
         role: "팩트 검증",
         color: "#EF4444",
-        message: "sourceUrl, 뉴스 link, 가격 row 중 하나도 없으면 사실 카드에 올리지 않습니다. 한국 뉴스와 저신뢰 RSS는 내부 필터에서 제외합니다.",
+        message: "sourceUrl, 뉴스 link, 가격 row 중 하나도 없으면 관계 그래프와 사실 카드에 올리지 않습니다. 관계선은 실제 크롤링 근거 수로만 두께와 점수를 조정합니다.",
       },
     ];
   }
@@ -3234,6 +3295,417 @@
 
     animateCounts(grid);
     animateMeters(grid);
+  }
+
+  function memoryMarketNodes() {
+    return [
+      { id: "skhy", name: "SKHY", role: "HBM·DRAM·NAND", category: "hbm", x: 46, y: 48 },
+      { id: "samsung", name: "Samsung", role: "HBM·DRAM·NAND", category: "hbm", x: 24, y: 24 },
+      { id: "micron", name: "Micron", role: "HBM·DRAM", category: "dram", x: 72, y: 24 },
+      { id: "cxmt", name: "CXMT", role: "중국 DRAM", category: "dram", x: 20, y: 70 },
+      { id: "ymtc", name: "YMTC", role: "중국 NAND/eSSD", category: "nand", x: 70, y: 72 },
+      { id: "kioxia-sandisk", name: "Kioxia·SanDisk", role: "NAND peer", category: "nand", x: 88, y: 50 },
+      { id: "nvidia-ai", name: "NVIDIA·AI 고객", role: "AI 서버 수요", category: "aidemand", x: 48, y: 12 },
+      { id: "tsmc", name: "TSMC", role: "HBM4 base die", category: "packaging", x: 10, y: 42 },
+      { id: "jcet-xmc", name: "JCET·XMC", role: "첨단 패키징", category: "packaging", x: 42, y: 88 },
+      { id: "naura-amec", name: "Naura·AMEC", role: "장비 국산화", category: "equipment", x: 10, y: 88 },
+      { id: "china-fund", name: "Big Fund·지방정부", role: "정책 자본", category: "geopolitics", x: 90, y: 86 },
+      { id: "china-cloud", name: "중국 클라우드/OEM", role: "내수 고객", category: "china", x: 92, y: 16 },
+      { id: "solidigm", name: "Solidigm", role: "eSSD·Dalian", category: "operations", x: 62, y: 92 },
+      { id: "cxl-startups", name: "CXL·Photonics 후보", role: "옵션 투자", category: "cxl", x: 30, y: 8 },
+    ];
+  }
+
+  function memoryMarketEdges() {
+    return [
+      { id: "skhy-samsung-hbm", mode: "competitive", from: "skhy", to: "samsung", type: "경쟁", label: "HBM4·AI 서버 경쟁", terms: ["sk hynix", "skhy", "samsung", "hbm", "hbm4", "ai memory"], categories: ["hbm", "aidemand"], weight: 82 },
+      { id: "skhy-micron-hbm", mode: "competitive", from: "skhy", to: "micron", type: "경쟁", label: "HBM·DDR5·서버 DRAM 경쟁", terms: ["sk hynix", "skhy", "micron", "hbm", "ddr5", "server dram"], categories: ["hbm", "dram"], weight: 76 },
+      { id: "skhy-cxmt-dram", mode: "competitive", from: "skhy", to: "cxmt", type: "경쟁", label: "범용 DRAM 가격 하방 압력", terms: ["cxmt", "changxin", "dram", "ddr5", "ddr4", "lpddr", "tencent"], categories: ["dram", "china"], weight: 88 },
+      { id: "skhy-ymtc-nand", mode: "competitive", from: "skhy", to: "ymtc", type: "경쟁", label: "NAND/eSSD 고객 침투 경쟁", terms: ["ymtc", "yangtze", "nand", "ssd", "essd", "xtacking", "solidigm"], categories: ["nand", "china", "aidemand"], weight: 84 },
+      { id: "kioxia-ymtc-nand", mode: "competitive", from: "kioxia-sandisk", to: "ymtc", type: "경쟁", label: "3D NAND 세대·원가 경쟁", terms: ["kioxia", "sandisk", "ymtc", "3d nand", "bics", "xtacking"], categories: ["nand"], weight: 66 },
+      { id: "skhy-tsmc-hbm4", mode: "competitive", from: "skhy", to: "tsmc", type: "파트너십", label: "HBM4 base die·패키징 협력", terms: ["sk hynix", "skhy", "tsmc", "hbm4", "base die", "cowos"], categories: ["hbm", "packaging"], weight: 72 },
+      { id: "skhy-nvidia-supply", mode: "competitive", from: "skhy", to: "nvidia-ai", type: "공급", label: "AI 서버 HBM 공급 락인", terms: ["nvidia", "hbm", "rubin", "ai server", "sk hynix", "skhy"], categories: ["hbm", "aidemand"], weight: 90 },
+      { id: "cxmt-china-cloud-supply", mode: "competitive", from: "cxmt", to: "china-cloud", type: "공급", label: "중국 빅테크 서버 DRAM 공급", terms: ["cxmt", "tencent", "alibaba", "bytedance", "server dram", "contract"], categories: ["dram", "china"], weight: 86 },
+      { id: "ymtc-china-oem-supply", mode: "competitive", from: "ymtc", to: "china-cloud", type: "공급", label: "중국 OEM·eSSD 공급 확대", terms: ["ymtc", "essd", "ssd", "smartphone", "server", "china oem"], categories: ["nand", "china"], weight: 76 },
+      { id: "naura-amec-cxmt", mode: "competitive", from: "naura-amec", to: "cxmt", type: "공급", label: "DRAM 장비 국산화 공급", terms: ["naura", "amec", "cxmt", "equipment", "etch", "deposition"], categories: ["equipment", "dram", "china"], weight: 70 },
+      { id: "naura-amec-ymtc", mode: "competitive", from: "naura-amec", to: "ymtc", type: "공급", label: "NAND 장비 qual·내재화", terms: ["naura", "amec", "ymtc", "wuhan", "equipment", "localization"], categories: ["equipment", "nand", "china"], weight: 74 },
+      { id: "fund-cxmt-competitive", mode: "competitive", from: "china-fund", to: "cxmt", type: "투자", label: "IPO·지방정부 캐파 자금", terms: ["cxmt", "ipo", "fund", "big fund", "capacity", "wpm"], categories: ["dram", "geopolitics", "china"], weight: 76 },
+      { id: "fund-ymtc-competitive", mode: "competitive", from: "china-fund", to: "ymtc", type: "투자", label: "우한 클러스터·NAND 증설 자금", terms: ["ymtc", "wuhan", "phase 3", "big fund", "capacity", "investment"], categories: ["nand", "geopolitics", "china"], weight: 76 },
+      { id: "skhy-ai-revenue", mode: "money", from: "nvidia-ai", to: "skhy", type: "매출", label: "HBM·AI 서버 매출 노출", terms: ["nvidia", "hbm", "ai server", "sk hynix", "skhy", "rubin"], categories: ["hbm", "aidemand"], weight: 94, flowIndex: 92 },
+      { id: "china-cloud-cxmt-revenue", mode: "money", from: "china-cloud", to: "cxmt", type: "매출", label: "중국 서버 DRAM 장기계약 매출", terms: ["cxmt", "tencent", "server dram", "contract", "alibaba", "bytedance"], categories: ["dram", "china"], weight: 88, flowIndex: 84 },
+      { id: "china-oem-ymtc-revenue", mode: "money", from: "china-cloud", to: "ymtc", type: "매출", label: "중국 eSSD·스마트폰 NAND 매출", terms: ["ymtc", "essd", "ssd", "smartphone", "nand", "oem"], categories: ["nand", "china"], weight: 78, flowIndex: 76 },
+      { id: "fund-cxmt-money", mode: "money", from: "china-fund", to: "cxmt", type: "투자", label: "CXMT IPO·캐파 확대 자금", terms: ["cxmt", "ipo", "funding", "big fund", "capacity", "wpm"], categories: ["dram", "china", "geopolitics"], weight: 82, flowIndex: 80 },
+      { id: "fund-ymtc-money", mode: "money", from: "china-fund", to: "ymtc", type: "투자", label: "YMTC 우한 Phase 3·장비 내재화", terms: ["ymtc", "wuhan", "phase 3", "investment", "big fund", "equipment"], categories: ["nand", "equipment", "geopolitics"], weight: 80, flowIndex: 78 },
+      { id: "skhy-wuxi-dalian-invest", mode: "money", from: "skhy", to: "solidigm", type: "투자", label: "Dalian·Solidigm value-up 투자", terms: ["sk hynix", "skhy", "solidigm", "dalian", "nand", "ssd", "investment"], categories: ["nand", "operations"], weight: 70, flowIndex: 68 },
+      { id: "skhy-tsmc-invest", mode: "money", from: "skhy", to: "tsmc", type: "투자", label: "HBM4 로직·패키징 외부 생태계 지출", terms: ["sk hynix", "skhy", "tsmc", "hbm4", "base die", "packaging"], categories: ["hbm", "packaging"], weight: 66, flowIndex: 64 },
+      { id: "skhy-startup-option", mode: "money", from: "skhy", to: "cxl-startups", type: "투자", label: "CXL·포토닉스·PIM 옵션 투자", terms: ["cxl", "photonics", "pim", "xconn", "celestial", "ayar", "lightmatter", "xcena", "startup"], categories: ["cxl", "packaging", "aidemand"], weight: 62, flowIndex: 58 },
+      { id: "solidigm-essd-revenue", mode: "money", from: "china-cloud", to: "solidigm", type: "매출", label: "eSSD 고객 방어 매출", terms: ["solidigm", "essd", "ssd", "dalian", "server", "datacenter"], categories: ["nand", "aidemand", "operations"], weight: 66, flowIndex: 60 },
+    ];
+  }
+
+  function memoryMarketModeConfig(mode = memoryMarketMode) {
+    return mode === "money"
+      ? {
+          id: "money",
+          title: "Money Flow · 돈의 흐름",
+          subtitle: "투자와 매출 노출을 분리해 현금이 들어오는 축과 방어 비용이 나가는 축을 추적",
+          types: ["투자", "매출"],
+          accent: "#F59E0B",
+        }
+      : {
+          id: "competitive",
+          title: "Competitive Dynamics",
+          subtitle: "경쟁·파트너십·투자·공급 관계를 메모리 시장 맥락으로 인터랙티브하게 비교",
+          types: ["경쟁", "파트너십", "투자", "공급"],
+          accent: "#38BDF8",
+        };
+  }
+
+  function memoryMarketTextHasAny(text, terms = []) {
+    const hay = String(text || "").toLowerCase();
+    return terms.some((term) => hay.includes(String(term || "").toLowerCase()));
+  }
+
+  function memoryMarketEdgeTerms(edge = {}) {
+    return []
+      .concat(edge.terms || [])
+      .concat([edge.label, edge.type, edge.from, edge.to])
+      .map((term) => String(term || "").toLowerCase())
+      .filter(Boolean);
+  }
+
+  function memoryMarketEvidenceFor(edge = {}) {
+    const terms = memoryMarketEdgeTerms(edge);
+    const news = rawNews().filter((item) => {
+      const link = String(item.link || item.sourceUrl || "").trim();
+      if (!link) return false;
+      return memoryMarketTextHasAny(`${item.title || ""} ${item.titleKo || ""} ${item.summary || ""} ${item.source || ""} ${item.category || ""}`, terms);
+    });
+    const benchmark = (LIVE.benchmarkSignals?.stream || []).filter((item) => {
+      const link = String(item.link || item.sourceUrl || "").trim();
+      if (!link) return false;
+      return memoryMarketTextHasAny(`${item.title || ""} ${item.titleKo || ""} ${item.summary || ""} ${item.source || ""} ${item.theme || ""}`, terms);
+    });
+    const prices = allPriceRows().filter((row) => memoryMarketTextHasAny(`${row.group || ""} ${row.sectionTitle || ""} ${row.item || ""}`, terms));
+    const kpis = (BASE.kpis || []).filter((item) => {
+      if (!String(item.sourceUrl || "").trim()) return false;
+      return memoryMarketTextHasAny(`${item.label || ""} ${item.note || ""} ${item.alt || ""} ${item.source || ""}`, terms);
+    });
+    return { news, benchmark, prices, kpis };
+  }
+
+  function memoryMarketEvidenceCount(evidence = {}) {
+    return (evidence.news || []).length + (evidence.benchmark || []).length + (evidence.prices || []).length + (evidence.kpis || []).length;
+  }
+
+  function memoryMarketRelationItem(edge = {}) {
+    const evidence = memoryMarketEvidenceFor(edge);
+    const evidenceCount = memoryMarketEvidenceCount(evidence);
+    const linkCount = evidence.news.length + evidence.benchmark.length + evidence.kpis.length;
+    const priceRows = evidence.prices.length;
+    const score = clamp((edge.weight || 50) + Math.min(evidenceCount, 40) * 1.2 + priceRows * 2, 8, 100);
+    const flowIndex = clamp((edge.flowIndex || edge.weight || 50) + Math.min(linkCount, 24) * 1.1 + priceRows * 1.4, 6, 100);
+    return { ...edge, evidence, evidenceCount, linkCount, priceRows, score, flowIndex };
+  }
+
+  function memoryMarketRelatedToActive(edge = {}) {
+    if (activeCategory === "all") return true;
+    return (edge.categories || []).includes(activeCategory);
+  }
+
+  function memoryMarketRelations(mode = memoryMarketMode, type = memoryMarketEdgeType) {
+    const config = memoryMarketModeConfig(mode);
+    return memoryMarketEdges()
+      .filter((edge) => edge.mode === config.id)
+      .filter((edge) => type === "all" || edge.type === type)
+      .filter(memoryMarketRelatedToActive)
+      .map(memoryMarketRelationItem)
+      .filter((edge) => edge.evidenceCount > 0)
+      .sort((a, b) => b.score - a.score || b.evidenceCount - a.evidenceCount);
+  }
+
+  function memoryMarketRelationsForTerms(terms = []) {
+    const normalized = terms.map((term) => String(term || "").toLowerCase()).filter(Boolean);
+    if (!normalized.length) return [];
+    return memoryMarketEdges()
+      .filter((edge) => memoryMarketTextHasAny(memoryMarketEdgeTerms(edge).join(" "), normalized))
+      .map(memoryMarketRelationItem)
+      .filter((edge) => edge.evidenceCount > 0)
+      .sort((a, b) => b.score - a.score || b.evidenceCount - a.evidenceCount);
+  }
+
+  function memoryMarketNodesFor(edges = []) {
+    const allNodes = memoryMarketNodes();
+    const used = new Set();
+    edges.forEach((edge) => {
+      used.add(edge.from);
+      used.add(edge.to);
+    });
+    return allNodes
+      .filter((node) => used.has(node.id))
+      .map((node) => {
+        const related = edges.filter((edge) => edge.from === node.id || edge.to === node.id);
+        const signal = related.reduce((sum, edge) => sum + edge.evidenceCount, 0);
+        const score = related.length ? clamp(related.reduce((sum, edge) => sum + edge.score, 0) / related.length) : 0;
+        return { ...node, related, signal, score };
+      });
+  }
+
+  function memoryMarketEdgeColor(type) {
+    return {
+      경쟁: "#EF4444",
+      파트너십: "#3B82F6",
+      투자: "#10B981",
+      공급: "#F59E0B",
+      매출: "#F97316",
+    }[type] || "var(--accent)";
+  }
+
+  function memoryMarketSelected(edges = [], nodes = []) {
+    if (memoryMarketFocusId.startsWith("node:")) {
+      const node = nodes.find((item) => `node:${item.id}` === memoryMarketFocusId);
+      if (node) return { kind: "node", node };
+    }
+    if (memoryMarketFocusId.startsWith("edge:")) {
+      const edge = edges.find((item) => `edge:${item.id}` === memoryMarketFocusId);
+      if (edge) return { kind: "edge", edge };
+    }
+    const fallback = edges[0];
+    memoryMarketFocusId = fallback ? `edge:${fallback.id}` : "";
+    return fallback ? { kind: "edge", edge: fallback } : null;
+  }
+
+  function memoryMarketEvidenceLinks(edge = {}, limit = 4) {
+    const links = []
+      .concat((edge.evidence?.news || []).map((item) => ({ ...item, kind: "뉴스" })))
+      .concat((edge.evidence?.benchmark || []).map((item) => ({ ...item, kind: "벤치마킹" })))
+      .concat((edge.evidence?.kpis || []).map((item) => ({ ...item, kind: "KPI", title: item.label, link: item.sourceUrl })))
+      .filter((item) => String(item.link || item.sourceUrl || "").trim());
+    const seen = new Set();
+    return links.filter((item) => {
+      const key = String(item.link || item.sourceUrl || item.title || "").toLowerCase();
+      if (!key || seen.has(key)) return false;
+      seen.add(key);
+      return true;
+    }).slice(0, limit);
+  }
+
+  function renderMemoryMarketDetail(selected, edges = []) {
+    const detail = $("#memoryMarketDetail");
+    if (!detail) return;
+    if (!selected) {
+      detail.innerHTML = `<div class="empty">관계 신호가 없습니다.</div>`;
+      return;
+    }
+
+    if (selected.kind === "node") {
+      const node = selected.node;
+      detail.style.setProperty("--local-accent", categoryAccent(node.category));
+      detail.innerHTML = `
+        <div class="memory-detail-head">
+          <span>${escapeHTML(node.role)}</span>
+          <h3>${escapeHTML(node.name)}</h3>
+          <p>${escapeHTML(categoryName(node.category))} 축에서 연결된 경쟁·투자·공급·매출 관계를 집계합니다.</p>
+        </div>
+        <div class="metric-row">
+          ${metricCards([
+            { label: "관계", value: fmtNum(node.related.length) },
+            { label: "근거", value: fmtNum(node.signal) },
+            { label: "점수", value: fmtNum(Math.round(node.score)) },
+          ], 3)}
+        </div>
+        <div class="memory-relation-list">
+          ${node.related.slice(0, 6).map((edge) => `
+            <button type="button" data-memory-edge="${escapeHTML(edge.id)}" style="--edge-color:${memoryMarketEdgeColor(edge.type)}">
+              <strong>${escapeHTML(edge.from === node.id ? `${node.name} → ${memoryMarketNodeName(edge.to)}` : `${memoryMarketNodeName(edge.from)} → ${node.name}`)}</strong>
+              <span>${escapeHTML(edge.type)} · ${escapeHTML(edge.label)} · 근거 ${fmtNum(edge.evidenceCount)}</span>
+            </button>
+          `).join("")}
+        </div>
+      `;
+    } else {
+      const edge = selected.edge;
+      const links = memoryMarketEvidenceLinks(edge, 5);
+      detail.style.setProperty("--local-accent", memoryMarketEdgeColor(edge.type));
+      detail.innerHTML = `
+        <div class="memory-detail-head">
+          <span>${escapeHTML(edge.type)}</span>
+          <h3>${escapeHTML(memoryMarketNodeName(edge.from))} → ${escapeHTML(memoryMarketNodeName(edge.to))}</h3>
+          <p>${escapeHTML(edge.label)}</p>
+        </div>
+        <div class="metric-row">
+          ${metricCards([
+            { label: "근거", value: fmtNum(edge.evidenceCount) },
+            { label: "링크", value: fmtNum(edge.linkCount) },
+            { label: "가격 rows", value: fmtNum(edge.priceRows) },
+          ], 3)}
+        </div>
+        <div class="memory-flow-readout">
+          <div class="scenario-bar-row"><span>${edge.mode === "money" ? "Flow" : "Power"}</span><i><b style="width:${edge.mode === "money" ? edge.flowIndex : edge.score}%"></b></i><em>${fmtNum(Math.round(edge.mode === "money" ? edge.flowIndex : edge.score))}</em></div>
+          <div class="scenario-bar-row"><span>Evidence</span><i><b style="width:${clamp(edge.evidenceCount * 5)}%"></b></i><em>${fmtNum(edge.evidenceCount)}</em></div>
+        </div>
+        <div class="memory-detail-block">
+          <strong>의사결정 해석</strong>
+          <p>${escapeHTML(edge.mode === "money" ? "투자와 매출 노출을 분리해 실제 계약·가격 근거가 있는 흐름만 CFO 검토 대상으로 올립니다." : "경쟁·파트너십·투자·공급 관계를 구분해 고객 락인, 가격 방어, 제휴 우선순위를 판단합니다.")}</p>
+        </div>
+        ${links.length ? `
+          <div class="memory-detail-block">
+            <strong>연결 근거</strong>
+            <ul class="work-link-list">
+              ${links.map((item) => `<li><a href="${escapeHTML(item.link || item.sourceUrl)}" target="_blank" rel="noopener">${escapeHTML(item.kind || "근거")} · ${escapeHTML(newsTitle(item) || item.title || item.source || "Signal")}</a></li>`).join("")}
+            </ul>
+          </div>
+        ` : ""}
+      `;
+    }
+
+    detail.querySelectorAll("[data-memory-edge]").forEach((btn) => {
+      btn.addEventListener("click", () => {
+        memoryMarketFocusId = `edge:${btn.dataset.memoryEdge}`;
+        renderMemoryMarketMap();
+      });
+    });
+  }
+
+  function memoryMarketNodeName(id) {
+    return memoryMarketNodes().find((node) => node.id === id)?.name || id;
+  }
+
+  function renderMemoryMarketMap() {
+    const tabs = $("#memoryMarketTabs");
+    const summary = $("#memoryMarketSummary");
+    const graph = $("#memoryMarketGraph");
+    const meta = $("#memoryMarketMapMeta");
+    if (!tabs || !summary || !graph) return;
+
+    const config = memoryMarketModeConfig(memoryMarketMode);
+    const allModeEdges = memoryMarketRelations(memoryMarketMode, "all");
+    const edges = memoryMarketRelations(memoryMarketMode, memoryMarketEdgeType);
+    const nodes = memoryMarketNodesFor(edges);
+    const selected = memoryMarketSelected(edges, nodes);
+    const totalEvidence = edges.reduce((sum, edge) => sum + edge.evidenceCount, 0);
+    const totalPriceRows = edges.reduce((sum, edge) => sum + edge.priceRows, 0);
+    if (meta) meta.textContent = `${config.title} · 관계 ${fmtNum(edges.length)}개 · 근거 ${fmtNum(totalEvidence)}개`;
+
+    tabs.innerHTML = `
+      <button type="button" class="${memoryMarketMode === "competitive" ? "active" : ""}" data-memory-mode="competitive">
+        <strong>Competitive Dynamics</strong><small>경쟁 · 파트너십 · 투자 · 공급</small>
+      </button>
+      <button type="button" class="${memoryMarketMode === "money" ? "active" : ""}" data-memory-mode="money">
+        <strong>Money Flow · 돈의 흐름</strong><small>투자 · 매출</small>
+      </button>
+    `;
+
+    const typeCounts = config.types.map((type) => ({
+      type,
+      count: allModeEdges.filter((edge) => edge.type === type).length,
+      evidence: allModeEdges.filter((edge) => edge.type === type).reduce((sum, edge) => sum + edge.evidenceCount, 0),
+    }));
+
+    summary.innerHTML = `
+      <article class="memory-map-kpi">
+        <span>${escapeHTML(config.title)}</span>
+        <strong>${countHTML(edges.length)}</strong>
+        <small>선택 조건 관계</small>
+      </article>
+      <article class="memory-map-kpi">
+        <span>근거</span>
+        <strong>${countHTML(totalEvidence)}</strong>
+        <small>뉴스·벤치마킹·가격 rows</small>
+      </article>
+      <article class="memory-map-kpi">
+        <span>가격 rows</span>
+        <strong>${countHTML(totalPriceRows)}</strong>
+        <small>Spot/Contract 연결</small>
+      </article>
+      <article class="memory-map-type-filter">
+        <span>관계 필터</span>
+        <div>
+          <button type="button" class="${memoryMarketEdgeType === "all" ? "active" : ""}" data-memory-edge-type="all">전체 · ${fmtNum(allModeEdges.length)}</button>
+          ${typeCounts.map((item) => `<button type="button" class="${memoryMarketEdgeType === item.type ? "active" : ""}" data-memory-edge-type="${escapeHTML(item.type)}" style="--edge-color:${memoryMarketEdgeColor(item.type)}">${escapeHTML(item.type)} · ${fmtNum(item.count)}</button>`).join("")}
+        </div>
+      </article>
+    `;
+
+    if (!edges.length) {
+      graph.innerHTML = `<div class="empty">선택한 조건에 연결된 근거 있는 관계가 없습니다.</div>`;
+      renderMemoryMarketDetail(null, edges);
+      return;
+    }
+
+    const nodeMap = new Map(nodes.map((node) => [node.id, node]));
+    graph.innerHTML = `
+      <div class="memory-map-intro">
+        <div>
+          <span>${escapeHTML(config.title)}</span>
+          <strong>${escapeHTML(config.subtitle)}</strong>
+        </div>
+        <em>노드/관계선을 선택하면 오른쪽 근거 패널이 바뀝니다.</em>
+      </div>
+      <div class="memory-network">
+        <svg class="memory-network-svg" viewBox="0 0 100 100" preserveAspectRatio="none" aria-hidden="true">
+          ${edges.map((edge, index) => {
+            const from = nodeMap.get(edge.from);
+            const to = nodeMap.get(edge.to);
+            if (!from || !to) return "";
+            const active = selected?.kind === "edge" && selected.edge.id === edge.id;
+            return `<path class="memory-edge ${active ? "active" : ""}" data-memory-edge="${escapeHTML(edge.id)}" d="M ${from.x} ${from.y} L ${to.x} ${to.y}" style="--edge-color:${memoryMarketEdgeColor(edge.type)}; --delay:${index * 80}ms; --edge-width:${Math.max(1.2, Math.min(4.8, edge.score / 24))}" />`;
+          }).join("")}
+        </svg>
+        ${nodes.map((node, index) => {
+          const active = selected?.kind === "node" && selected.node.id === node.id;
+          return `
+            <button class="memory-node ${active ? "active" : ""}" type="button" data-memory-node="${escapeHTML(node.id)}" style="--node-x:${node.x}%; --node-y:${node.y}%; --local-accent:${categoryAccent(node.category)}; --delay:${index * 45}ms">
+              <b>${escapeHTML(node.name)}</b>
+              <span>${escapeHTML(node.role)}</span>
+              <em>${fmtNum(node.signal)}</em>
+            </button>
+          `;
+        }).join("")}
+      </div>
+      <div class="memory-relation-strip">
+        ${edges.slice(0, 8).map((edge, index) => `
+          <button class="${selected?.kind === "edge" && selected.edge.id === edge.id ? "active" : ""}" type="button" data-memory-edge="${escapeHTML(edge.id)}" style="--edge-color:${memoryMarketEdgeColor(edge.type)}; animation-delay:${index * 45}ms">
+            <span>${escapeHTML(edge.type)}</span>
+            <strong>${escapeHTML(memoryMarketNodeName(edge.from))} → ${escapeHTML(memoryMarketNodeName(edge.to))}</strong>
+            <small>${escapeHTML(edge.label)} · 근거 ${fmtNum(edge.evidenceCount)}</small>
+          </button>
+        `).join("")}
+      </div>
+    `;
+
+    graph.querySelectorAll("[data-memory-node]").forEach((btn) => {
+      btn.addEventListener("click", () => {
+        memoryMarketFocusId = `node:${btn.dataset.memoryNode}`;
+        renderMemoryMarketMap();
+      });
+    });
+    graph.querySelectorAll("[data-memory-edge]").forEach((node) => {
+      node.addEventListener("click", () => {
+        memoryMarketFocusId = `edge:${node.dataset.memoryEdge}`;
+        renderMemoryMarketMap();
+      });
+    });
+    tabs.querySelectorAll("[data-memory-mode]").forEach((btn) => {
+      btn.addEventListener("click", () => {
+        memoryMarketMode = btn.dataset.memoryMode;
+        memoryMarketEdgeType = "all";
+        memoryMarketFocusId = "";
+        renderMemoryMarketMap();
+      });
+    });
+    summary.querySelectorAll("[data-memory-edge-type]").forEach((btn) => {
+      btn.addEventListener("click", () => {
+        memoryMarketEdgeType = btn.dataset.memoryEdgeType || "all";
+        memoryMarketFocusId = "";
+        renderMemoryMarketMap();
+      });
+    });
+
+    renderMemoryMarketDetail(selected, edges);
+    animateCounts(summary);
+    animateCounts(graph);
+    animateMeters(graph);
   }
 
   function setCopyState(button, label = "복사됨") {
@@ -3610,6 +4082,13 @@
         status: axisMomentum(chinaSignalCount).label,
         score: clamp(chinaSignalCount * 1.35, chinaSignalCount ? 28 : 0, 100),
         note: "캐파·장비·패키징·정책",
+      },
+      "memory-market-map": {
+        value: memoryMarketRelations("competitive", "all").length + memoryMarketRelations("money", "all").length,
+        unit: "관계",
+        status: "Dynamics",
+        score: clamp(46 + (memoryMarketRelations("competitive", "all").length + memoryMarketRelations("money", "all").length) * 4, 28, 100),
+        note: "경쟁·파트너십·투자·공급·매출 흐름",
       },
       "talent-radar": {
         value: (talentData.companySignals || []).length + (talentData.meceSources || []).length,
@@ -7109,6 +7588,35 @@
           links,
         };
       });
+    }
+
+    if (mode === "market-map") {
+      items = []
+        .concat(memoryMarketRelations("competitive", "all"))
+        .concat(memoryMarketRelations("money", "all"))
+        .map((item) => ({
+          id: `market-map-${item.id}`,
+          mode,
+          type: item.mode === "money" ? "Money Flow" : "Competitive Dynamics",
+          tag: `${item.type} · ${memoryMarketNodeName(item.from)} → ${memoryMarketNodeName(item.to)}`,
+          title: item.label,
+          body: item.mode === "money"
+            ? "투자와 매출 노출을 분리해 수익성·방어 비용·계약 우선순위를 판단합니다."
+            : "경쟁·파트너십·투자·공급 관계를 비교해 고객 락인과 가격 방어 우선순위를 판단합니다.",
+          section: "memory-market-map",
+          categories: item.categories || [],
+          watch: [
+            `${memoryMarketNodeName(item.from)} → ${memoryMarketNodeName(item.to)}`,
+            `근거 ${fmtNum(item.evidenceCount)}개`,
+            `가격 rows ${fmtNum(item.priceRows)}개`,
+          ],
+          metrics: [
+            { label: "관계점수", value: fmtNum(Math.round(item.score)) },
+            { label: "근거", value: fmtNum(item.evidenceCount) },
+            { label: item.mode === "money" ? "Flow" : "Power", value: fmtNum(Math.round(item.mode === "money" ? item.flowIndex : item.score)) },
+          ],
+          links: memoryMarketEvidenceLinks(item, 4),
+        }));
     }
 
     if (mode === "policy-makers") {
