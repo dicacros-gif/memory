@@ -1738,7 +1738,7 @@
       jump: "workbench",
       sections: ["workbench"],
     },
-    ...MECE_GROUPS.filter((route) => ["market", "policy", "competitors", "talent", "analysis"].includes(route.id)),
+    ...MECE_GROUPS.filter((route) => ["analysis", "market", "policy", "competitors", "talent"].includes(route.id)),
   ];
   const ROUTE_DISPLAY = {
     home: {
@@ -1791,10 +1791,9 @@
     talent: { label: "인재 · IP", en: "Talent / IP", desc: "채용, 핵심 수율 인력 이동, IP 방어 신호" },
   };
   const SIDE_NAV_GROUPS = [
-    { label: "요약·분석", routes: ["home", "workbench"] },
+    { label: "요약·분석", routes: ["home", "workbench", "analysis"] },
     { label: "시장·정책", routes: ["market", "policy"] },
     { label: "중국·인재", routes: ["competitors", "talent"] },
-    { label: "의사결정", routes: ["analysis"] },
   ];
   const SIDE_NAV_ICONS = {
     home: "H",
@@ -1848,6 +1847,11 @@
     "overview",
     "c-level-cockpit",
     "workbench",
+    "executive-decision",
+    "management-strategy",
+    "strategic-investment-decision",
+    "numbers",
+    "projection",
     "prices",
     "news",
     "policy-makers",
@@ -1858,11 +1862,6 @@
     "china-deep-dive",
     "talent-radar",
     "china-talent-strategy",
-    "executive-decision",
-    "management-strategy",
-    "strategic-investment-decision",
-    "numbers",
-    "projection",
   ];
   const NAV_SECTION_TARGETS = {
     overview: "overview",
