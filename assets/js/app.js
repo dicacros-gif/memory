@@ -1691,15 +1691,15 @@
       desc: "일일 인텔리전스",
       cadence: "Daily crawler",
       jump: "overview",
-      sections: ["overview", "c-level-cockpit"],
+      sections: ["overview"],
     },
     {
       id: "analysis",
-      label: "경영진 의사결정",
-      desc: "CEO 챌린지, 백테스트, 제품군 프로젝션, ROI·수익 모델",
+      label: "전략·백테스트",
+      desc: "백테스트, 경영전략, 제품군 프로젝션, ROI 시나리오",
       cadence: "Decision lab",
       jump: "executive-decision",
-      sections: ["executive-decision", "management-strategy", "strategic-investment-decision", "numbers", "projection", "workbench"],
+      sections: ["executive-decision", "management-strategy", "strategic-investment-decision", "numbers", "projection"],
     },
     {
       id: "market",
@@ -1715,7 +1715,7 @@
       desc: "CXMT, YMTC, XMC, JCET, Naura, AMEC의 기술·캐파·공급망 변화",
       cadence: "China benchmark",
       jump: "china-nand",
-      sections: ["china-nand", "china-dynamics", "memory-market-map", "ai-matrix", "china-deep-dive"],
+      sections: ["china-nand", "china-dynamics", "ai-matrix", "china-deep-dive"],
     },
     {
       id: "policy",
@@ -1738,12 +1738,28 @@
   const SIDE_NAV_ROUTES = [
     ...MECE_GROUPS.filter((route) => route.id === "home"),
     {
+      id: "c-level",
+      label: "경영진 의사결정",
+      desc: "C-level 전략 보드, 의사결정 안건",
+      cadence: "C-level cockpit",
+      jump: "c-level-cockpit",
+      sections: ["c-level-cockpit"],
+    },
+    {
       id: "workbench",
       label: "분석실",
-      desc: "동적 워크벤치, 정량 분석, 시나리오·ROI·에이전트 토론",
+      desc: "워크벤치, 정량 분석, 에이전트 토론",
       cadence: "Decision lab",
       jump: "workbench",
       sections: ["workbench"],
+    },
+    {
+      id: "market-map",
+      label: "경쟁·돈흐름",
+      desc: "Competitive Dynamics, Money Flow",
+      cadence: "Dynamics",
+      jump: "memory-market-map",
+      sections: ["memory-market-map"],
     },
     ...MECE_GROUPS.filter((route) => ["analysis", "market", "policy", "competitors", "talent"].includes(route.id)),
   ];
@@ -1753,14 +1769,24 @@
       desc: "일일 인텔리전스",
       cadence: "Daily",
     },
+    "c-level": {
+      label: "경영진",
+      desc: "C-level 전략 보드, 의사결정 안건",
+      cadence: "C-level",
+    },
     workbench: {
       label: "분석실",
       desc: "워크벤치, 정량 분석, 에이전트 토론, 시나리오 비교",
       cadence: "Decision lab",
     },
+    "market-map": {
+      label: "경쟁·돈흐름",
+      desc: "경쟁, 파트너십, 투자, 공급, 매출 흐름",
+      cadence: "Dynamics",
+    },
     analysis: {
-      label: "경영진",
-      desc: "의사결정, 백테스트, 제품군 프로젝션, ROI 시나리오",
+      label: "전략·백테스트",
+      desc: "백테스트, 경영전략, 제품군 프로젝션, ROI 시나리오",
       cadence: "Decision lab",
     },
     market: {
@@ -1798,12 +1824,13 @@
     talent: { label: "인재 · IP", en: "Talent / IP", desc: "채용, 핵심 수율 인력 이동, IP 방어 신호" },
   };
   const SIDE_NAV_GROUPS = [
-    { label: "요약·분석", routes: ["home", "workbench", "analysis"] },
+    { label: "요약·의사결정", routes: ["home", "c-level", "workbench", "market-map", "analysis"] },
     { label: "시장·정책", routes: ["market", "policy"] },
     { label: "중국·인재", routes: ["competitors", "talent"] },
   ];
   const SIDE_NAV_ICONS = {
     home: "H",
+    "c-level": "E",
     workbench: "W",
     "market-map": "F",
     analysis: "A",
@@ -1856,6 +1883,7 @@
     "overview",
     "c-level-cockpit",
     "workbench",
+    "memory-market-map",
     "executive-decision",
     "management-strategy",
     "strategic-investment-decision",
@@ -1867,7 +1895,6 @@
     "china-fab-infra",
     "china-nand",
     "china-dynamics",
-    "memory-market-map",
     "ai-matrix",
     "china-deep-dive",
     "talent-radar",
@@ -1875,15 +1902,15 @@
   ];
   const NAV_SECTION_TARGETS = {
     overview: "overview",
-    "c-level-cockpit": "overview",
+    "c-level-cockpit": "c-level-cockpit",
     workbench: "workbench",
+    "memory-market-map": "memory-market-map",
     prices: "prices",
     news: "prices",
     "policy-makers": "policy-makers",
     "china-fab-infra": "policy-makers",
     "china-nand": "china-nand",
     "china-dynamics": "china-nand",
-    "memory-market-map": "china-nand",
     "ai-matrix": "china-nand",
     "china-deep-dive": "china-nand",
     "talent-radar": "talent-radar",
