@@ -2068,7 +2068,7 @@ body.sidebar-collapsed .sb-ico {
   color: var(--ink);
   padding: 11px;
   text-align: left;
-  transition: transform .16s, border-color .16s, background .16s, box-shadow .16s;
+  transition: transform .16s, border-color .16s, background .16s, box-shadow .16s, color .16s;
 }
 
 .exec-stat:hover,
@@ -2079,9 +2079,40 @@ body.sidebar-collapsed .sb-ico {
 .exec-strategy-card:focus-visible {
   outline: none;
   transform: translateY(-1px);
-  border-color: var(--local-accent, var(--accent));
-  background: color-mix(in srgb, var(--local-accent, var(--accent)) 8%, var(--panel));
+  border-color: color-mix(in srgb, var(--local-accent, var(--accent)) 84%, #fff);
+  background:
+    radial-gradient(circle at 12% 10%, rgba(255, 255, 255, .24), transparent 34%),
+    linear-gradient(135deg, color-mix(in srgb, var(--local-accent, var(--accent)) 94%, #14213d), color-mix(in srgb, var(--local-accent, var(--accent)) 62%, #07111f));
+  color: #fff;
   box-shadow: var(--shadow-lg);
+}
+
+.exec-stat:hover span,
+.exec-stat:hover strong,
+.exec-stat:hover small,
+.exec-line:hover span,
+.exec-line:hover strong,
+.exec-line:hover p,
+.exec-strategy-card:hover span,
+.exec-strategy-card:hover strong,
+.exec-strategy-card:hover small,
+.exec-stat:focus-visible span,
+.exec-stat:focus-visible strong,
+.exec-stat:focus-visible small,
+.exec-line:focus-visible span,
+.exec-line:focus-visible strong,
+.exec-line:focus-visible p,
+.exec-strategy-card:focus-visible span,
+.exec-strategy-card:focus-visible strong,
+.exec-strategy-card:focus-visible small {
+  color: #fff;
+}
+
+.exec-line:hover p,
+.exec-strategy-card:hover small,
+.exec-line:focus-visible p,
+.exec-strategy-card:focus-visible small {
+  color: rgba(255, 255, 255, .9);
 }
 
 .exec-stat {
@@ -2321,13 +2352,62 @@ body.sidebar-collapsed .sb-ico {
   background: var(--panel-2);
   padding: 13px;
   cursor: grab;
-  transition: border-color .18s, transform .18s, background .18s;
+  transition: border-color .18s, transform .18s, background .18s, box-shadow .18s, color .18s;
 }
 
 .number-card:hover,
 .number-card.drop-target {
-  border-color: var(--local-accent, var(--accent));
-  background: color-mix(in srgb, var(--local-accent, var(--accent)) 8%, var(--panel));
+  transform: translateY(-2px);
+  border-color: color-mix(in srgb, var(--local-accent, var(--accent)) 84%, #fff);
+  background:
+    radial-gradient(circle at 8% 8%, rgba(255, 255, 255, .24), transparent 32%),
+    linear-gradient(135deg, color-mix(in srgb, var(--local-accent, var(--accent)) 92%, #14213d), color-mix(in srgb, var(--local-accent, var(--accent)) 58%, #07111f));
+  color: #fff;
+  box-shadow: var(--shadow-lg);
+}
+
+.number-card:hover h3,
+.number-card:hover .number-value,
+.number-card:hover .number-body p,
+.number-card:hover .number-body small,
+.number-card:hover .number-source,
+.number-card:hover .number-status span:not(.claim-badge),
+.number-card:hover .number-scale,
+.number-card.drop-target h3,
+.number-card.drop-target .number-value,
+.number-card.drop-target .number-body p,
+.number-card.drop-target .number-body small,
+.number-card.drop-target .number-source,
+.number-card.drop-target .number-status span:not(.claim-badge),
+.number-card.drop-target .number-scale {
+  color: #fff;
+}
+
+.number-card:hover .chip,
+.number-card.drop-target .chip,
+.number-card:hover .claim-badge,
+.number-card.drop-target .claim-badge,
+.number-card:hover .copy-btn,
+.number-card.drop-target .copy-btn {
+  border-color: rgba(255, 255, 255, .34);
+  background: rgba(255, 255, 255, .16);
+  color: #fff;
+}
+
+.number-card:hover .copy-btn:hover,
+.number-card.drop-target .copy-btn:hover {
+  background: #fff;
+  color: color-mix(in srgb, var(--local-accent, var(--accent)) 82%, #111827);
+}
+
+.number-card:hover .number-bar,
+.number-card.drop-target .number-bar {
+  background: rgba(255, 255, 255, .2);
+}
+
+.number-card:hover .number-bar i,
+.number-card.drop-target .number-bar i {
+  background: linear-gradient(90deg, #fff, rgba(255, 255, 255, .58));
 }
 
 .number-card.dragging {
@@ -6735,9 +6815,24 @@ body.sidebar-collapsed .sb-ico {
 .nand-node.active {
   outline: none;
   transform: translateY(-2px);
-  border-color: var(--local-accent, var(--accent));
-  background: color-mix(in srgb, var(--local-accent, var(--accent)) 7%, var(--panel));
+  border-color: color-mix(in srgb, var(--local-accent, var(--accent)) 84%, #fff);
+  background:
+    radial-gradient(circle at 10% 12%, rgba(255, 255, 255, .24), transparent 34%),
+    linear-gradient(135deg, color-mix(in srgb, var(--local-accent, var(--accent)) 92%, #14213d), color-mix(in srgb, var(--local-accent, var(--accent)) 58%, #07111f));
+  color: #fff;
   box-shadow: var(--shadow-lg);
+}
+
+.nand-node:hover strong,
+.nand-node:hover small,
+.nand-node:hover em,
+.nand-node:focus-visible strong,
+.nand-node:focus-visible small,
+.nand-node:focus-visible em,
+.nand-node.active strong,
+.nand-node.active small,
+.nand-node.active em {
+  color: #fff;
 }
 
 .nand-node > span {
@@ -6823,6 +6918,36 @@ body.sidebar-collapsed .sb-ico {
   border-radius: 10px;
   background: var(--panel);
   padding: 12px;
+  transition: transform .16s, border-color .16s, background .16s, box-shadow .16s, color .16s;
+}
+
+.nand-work-card:hover,
+.nand-work-card:focus-within {
+  transform: translateY(-2px);
+  border-color: color-mix(in srgb, var(--local-accent, var(--accent)) 84%, #fff);
+  background:
+    radial-gradient(circle at 10% 12%, rgba(255, 255, 255, .24), transparent 34%),
+    linear-gradient(135deg, color-mix(in srgb, var(--local-accent, var(--accent)) 92%, #14213d), color-mix(in srgb, var(--local-accent, var(--accent)) 58%, #07111f));
+  color: #fff;
+  box-shadow: var(--shadow-lg);
+}
+
+.nand-work-card:hover span,
+.nand-work-card:hover h3,
+.nand-work-card:hover p,
+.nand-work-card:hover > strong,
+.nand-work-card:focus-within span,
+.nand-work-card:focus-within h3,
+.nand-work-card:focus-within p,
+.nand-work-card:focus-within > strong {
+  color: #fff;
+}
+
+.nand-work-card:hover .chip,
+.nand-work-card:focus-within .chip {
+  border-color: rgba(255, 255, 255, .34);
+  background: rgba(255, 255, 255, .16);
+  color: #fff;
 }
 
 .nand-work-card h3 {
