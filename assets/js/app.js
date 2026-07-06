@@ -634,8 +634,8 @@
     },
     {
       id: "kpi-reversal",
-      label: "어떤 KPI면 결정을 뒤집나?",
-      angle: "Kill switch",
+      label: "어떤 KPI면 재검토하나?",
+      angle: "Recheck KPI",
       question: "어떤 숫자가 나오면 투자 확대 결정을 중단하거나 반대로 확대해야 하는가?",
     },
     {
@@ -1317,7 +1317,7 @@
       horizon: "상시",
       capital: "Solidigm value-up + 고객 락인",
       title: "YMTC의 eSSD·Xtacking 확장을 중국 NAND 사업 방어 KPI로 연결",
-      thesis: "YMTC의 기술 진전은 낸드 가격보다 고객 인증에서 먼저 나타납니다. eSSD, QLC, 데이터센터 스토리지와 중국 내수 보조금 신호를 묶어 방어 우선순위를 정해야 합니다.",
+      thesis: "YMTC의 기술 진전은 낸드 가격보다 고객 인증에서 먼저 나타납니다. eSSD, QLC, 데이터센터 스토리지와 중국 내수 보조금 신호를 묶어 방어 우선순위를 관리합니다.",
       actions: ["중국 eSSD 입찰·고객 인증 신호를 일일 보드 상단에 배치", "Solidigm QLC/eSSD 경쟁력 개선 과제를 가격 추이와 연결", "저마진 소비자 SSD보다 데이터센터 고객 방어를 우선"],
       triggers: ["YMTC eSSD", "Xtacking 4.0", "NAND contract price", "Wuhan Phase 3", "QLC"],
       linkedCategories: ["nand", "china", "packaging"],
@@ -1381,7 +1381,7 @@
       horizon: "즉시",
       capital: "핵심 인력 보상 + 법무/보안",
       title: "중국 채용 공고를 기술 로드맵과 IP 리스크의 선행 신호로 사용",
-      thesis: "CXMT와 YMTC의 채용은 향후 공정·패키징·수율 안정화 방향을 보여줍니다. TSV, yield, advanced packaging, DDR5, HBM 키워드가 늘면 기술 격차 축소 속도를 다시 산정해야 합니다.",
+      thesis: "CXMT와 YMTC의 채용은 향후 공정·패키징·수율 안정화 방향을 보여줍니다. TSV, yield, advanced packaging, DDR5, HBM 키워드가 늘면 기술 격차 축소 속도를 다시 계산합니다.",
       actions: ["CXMT/YMTC 공개 채용 신호와 Boss Zhipin 키워드 빈도 추적", "핵심 수율 인력 보상·접근권·퇴직 모니터링 강화", "채용 급증 신호를 기술 로드맵 리스크와 연결"],
       triggers: ["CXMT hiring", "YMTC recruitment", "Boss Zhipin", "yield engineer", "TSV", "HBM"],
       linkedCategories: ["talent", "dram", "packaging", "geopolitics"],
@@ -2073,7 +2073,6 @@
       [/추적해야\s*합니다/g, "추적 필요"],
       [/계산해야\s*합니다/g, "계산 필요"],
       [/봐야\s*합니다/g, "검토 필요"],
-      [/해야\s*합니다/g, "필요"],
       [/필요합니다/g, "필요"],
       [/가능합니다/g, "가능"],
       [/중요합니다/g, "중요"],
@@ -3343,7 +3342,7 @@
       ? `보강 필요: ${gaps.join("·")}가 부족하므로 결론 문구는 ${selected.verdict === "Go" ? "Go에서 Watch로 낮춰 검토" : "Watch/Hold로 제한"}합니다.`
       : `근거 충족: 원문/KPI와 가격 row가 함께 있어 ${selected.verdict || "Watch"} 판단을 표시할 수 있습니다.`;
     const primaryFlip = primaryDecisionFlipKpi(selected);
-    return `${selected.label || "선택 안건"} 감사 결과: 먼저 뒤집는 KPI는 ${primaryFlip.label}입니다. 현재 ${primaryFlip.current}; 조건은 "${primaryFlip.trigger}"입니다. 기사·벤치마킹 ${fmtNum(articles.length)}건을 canonical ${fmtNum(canonical.size)}건으로 압축${duplicateCount ? `, 중복 ${fmtNum(duplicateCount)}건 제외` : ""}; KPI ${fmtNum(kpis.length)}건; 가격 row ${fmtNum(prices.length)}개. ${sourceLabel}${priceLabel ? ` 가격 기준은 ${priceLabel}입니다.` : ""} ${relationLabel} ${profile.audit || "수치와 해석을 분리해 표시합니다."} ${gate}`;
+    return `${selected.label || "선택 안건"} 감사 결과: 우선 확인할 재검토 KPI는 ${primaryFlip.label}입니다. 현재 ${primaryFlip.current}; 기준은 "${primaryFlip.trigger}"입니다. 기사·벤치마킹 ${fmtNum(articles.length)}건을 canonical ${fmtNum(canonical.size)}건으로 압축${duplicateCount ? `, 중복 ${fmtNum(duplicateCount)}건 제외` : ""}; KPI ${fmtNum(kpis.length)}건; 가격 row ${fmtNum(prices.length)}개. ${sourceLabel}${priceLabel ? ` 가격 기준은 ${priceLabel}입니다.` : ""} ${relationLabel} ${profile.audit || "수치와 해석을 분리해 표시합니다."} ${gate}`;
   }
 
   function cLevelAgentItems(decision = {}, decisions = []) {
@@ -3600,7 +3599,7 @@
         role: "우선순위·최종 안건화",
         color: "#2D6BFF",
         stance: selected?.verdict === "Go" ? "상정" : selected?.verdict === "Watch" ? "조건부 검토" : "보류",
-        message: `먼저 뒤집는 KPI는 ${primaryFlip.label}입니다. 현재 ${primaryFlip.current}; ${primaryFlip.trigger}. 이 게이트를 통과한 뒤에만 "${profile.question}"을 ${verdictMeaning} 안건으로 둡니다. 핵심 관계는 ${topRelationText}입니다.`,
+        message: `우선 확인할 재검토 KPI는 ${primaryFlip.label}입니다. 현재 ${primaryFlip.current}; 기준은 ${primaryFlip.trigger}. 이 기준을 충족한 경우에만 "${profile.question}"을 ${verdictMeaning} 안건으로 둡니다. 핵심 관계는 ${topRelationText}입니다.`,
       },
       {
         id: "cfo",
@@ -3610,7 +3609,7 @@
         role: "수익성·자본배분",
         color: "#00C2A8",
         stance: "투자/매출 분리",
-        message: `${profile.cfo} Money Flow 근거는 ${fmtNum(moneyRelations.length)}개입니다. ${priceFlip.label}이 ${priceFlip.flip} 조건이면 자본 집행을 멈추고 NPV/IRR 재계산 전 단계로 낮춥니다.`,
+        message: `${profile.cfo} Money Flow 근거는 ${fmtNum(moneyRelations.length)}개입니다. ${priceFlip.label} 기준은 ${priceFlip.trigger}. 현재 판단 영향은 ${priceFlip.flip}이며, 재무 집행 전에는 별도 NPV/IRR 모델로 다시 검증합니다.`,
       },
       {
         id: "cto",
@@ -3670,7 +3669,7 @@
     return {
       title: `${verdict} · ${direction}`,
       body: `질문: "${profile.question}" 결론: 검증 근거 ${fmtNum(evidence)}개와 신뢰도 ${fmtNum(confidence)}/100 기준으로 ${direction}이 적절합니다.`,
-      next: `다음 액션: ${action}. 재심의 KPI는 ${primaryFlip.label}: ${primaryFlip.trigger}. ${profile.next}`,
+      next: `다음 액션: ${action}. 재검토 KPI는 ${primaryFlip.label}: ${primaryFlip.trigger}. ${profile.next}`,
     };
   }
 
@@ -6242,28 +6241,14 @@
     const productLike = Boolean(subject.observations);
     const rows = [];
     const hasEvidence = metrics.linkCount > 0 || metrics.priceRows > 0;
-    rows.push({
+    const evidenceGate = {
       id: "evidence-gate",
       label: "근거 게이트",
       current: hasEvidence ? `링크/KPI ${fmtNum(metrics.linkCount)} · 가격 ${fmtNum(metrics.priceRows)} rows` : "검증 근거 부족",
       trigger: "원문 link, sourceUrl, 가격 row가 모두 없으면 Go 금지",
-      flip: "Go → Watch/Hold",
+      flip: hasEvidence ? "근거 충족: 판단 유지 가능" : "근거 없음: Watch/Hold",
       tone: hasEvidence ? "ok" : "fail",
-    });
-
-    if (productLike || metrics.priceRows || /dram|nand|legacy|server|terminal|china|commodity|ssd/i.test(`${id} ${category} ${label}`)) {
-      const moveText = metrics.priceMove == null ? `가격 row ${fmtNum(metrics.priceRows)}개` : signedPercent(metrics.priceMove);
-      const bearish = metrics.priceMove != null && metrics.priceMove <= -0.45;
-      const bullish = metrics.priceMove != null && metrics.priceMove >= 0.55;
-      rows.push({
-        id: "price-turn",
-        label: "가격 반전",
-        current: moveText,
-        trigger: "spot/proxy가 -0.45% 이하로 꺾이거나 contract가 뒤따르면 방어 전환",
-        flip: bullish ? "방어 → 선별 확대 검토" : "확대/유지 → 방어",
-        tone: bearish ? "fail" : bullish ? "ok" : "watch",
-      });
-    }
+    };
 
     if (/hbm|server|ai|rubin|foundry/i.test(`${id} ${category} ${label}`)) {
       rows.push({
@@ -6271,7 +6256,7 @@
         label: "HBM 고객 ramp",
         current: `관측 ${fmtNum(subject.observations?.length || metrics.priceRows)}개 · 링크/KPI ${fmtNum(metrics.linkCount)}`,
         trigger: "고객 인증 지연, CoWoS/base die 병목, 서버 DRAM 약세가 동시에 확인되면 확대 보류",
-        flip: "증설/락인 → Watch",
+        flip: "지연 확인: 확대 보류",
         tone: metrics.linkCount || metrics.priceRows ? "watch" : "fail",
       });
     }
@@ -6282,7 +6267,7 @@
         label: "CXMT 가격 압력",
         current: `중국 신호 ${fmtNum(metrics.chinaSignals || subject.evidenceCount || 0)}건`,
         trigger: "CXMT 점유율 10%+ 또는 고객 장기계약 + DDR5/LPDDR 가격 약세 동시 발생",
-        flip: "유지 → 가격 방어",
+        flip: "동시 확인: 가격 방어",
         tone: (metrics.chinaSignals || subject.evidenceCount || 0) >= 40 ? "fail" : (metrics.chinaSignals || subject.evidenceCount || 0) ? "watch" : "check",
       });
     }
@@ -6293,7 +6278,7 @@
         label: "YMTC/eSSD 침투",
         current: `NAND/SSD 근거 ${fmtNum(metrics.evidenceCount)}개`,
         trigger: "YMTC eSSD 인증, 우한 ramp, NAND contract 약세가 같이 나오면 고객 방어 우선",
-        flip: "확대 → 고객 방어",
+        flip: "동시 확인: 고객 방어",
         tone: metrics.evidenceCount ? "watch" : "fail",
       });
     }
@@ -6304,7 +6289,7 @@
         label: "정책/Fab 라이선스",
         current: `정책 근거 ${fmtNum(metrics.linkCount)}개`,
         trigger: "BIS/VEU/CHIPS/MATCH 원문 또는 인허가 근거 없으면 캐파 확대 승인 금지",
-        flip: "확대 → 운영 유지/No-Go",
+        flip: "근거 없음: 운영 유지/No-Go",
         tone: metrics.linkCount ? "watch" : "fail",
       });
     }
@@ -6315,10 +6300,26 @@
         label: "인재/IP 경보",
         current: `신호 ${fmtNum(metrics.chinaSignals || metrics.evidenceCount)}건`,
         trigger: "수율 엔지니어 이동, TSV/HBM JD 급증, IP 사건 확인 시 리텐션·보안 선집행",
-        flip: "모니터링 → 방어 예산",
+        flip: "확인 시: 방어 예산",
         tone: (metrics.chinaSignals || metrics.evidenceCount) ? "watch" : "check",
       });
     }
+
+    if (productLike || metrics.priceRows || /dram|nand|legacy|server|terminal|china|commodity|ssd/i.test(`${id} ${category} ${label}`)) {
+      const moveText = metrics.priceMove == null ? `가격 row ${fmtNum(metrics.priceRows)}개` : signedPercent(metrics.priceMove);
+      const bearish = metrics.priceMove != null && metrics.priceMove <= -0.45;
+      const bullish = metrics.priceMove != null && metrics.priceMove >= 0.55;
+      rows.push({
+        id: "price-turn",
+        label: "가격 반전",
+        current: moveText,
+        trigger: "spot/proxy -0.45% 이하: 방어, +0.55% 이상: 선별 확대, 그 사이는 유지",
+        flip: bearish ? "약세: 방어 전환" : bullish ? "강세: 선별 확대 검토" : "중립: 유지/관찰",
+        tone: bearish ? "fail" : bullish ? "ok" : "watch",
+      });
+    }
+
+    rows.push(evidenceGate);
 
     const seen = new Set();
     return rows.filter((row) => {
@@ -6334,9 +6335,9 @@
     return `
       <div class="decision-flip-kpis" style="--local-accent:${categoryAccent(subject.category || context.category || "hbm")}">
         <div class="decision-flip-title">
-          <span>Decision flip KPI</span>
-          <strong>결정을 뒤집는 KPI</strong>
-          <small>아래 조건이 바뀌면 에이전트 결론도 자동으로 Go/Watch/Hold를 재판단합니다.</small>
+          <span>Decision review KPI</span>
+          <strong>의사결정 재검토 KPI</strong>
+          <small>아래 기준선을 넘으면 에이전트 결론을 Go/Watch/Hold로 다시 판단합니다.</small>
         </div>
         <div class="decision-flip-grid">
           ${items.map((item, index) => `
@@ -6465,7 +6466,7 @@
         role: "의사결정 질문",
         color: "#111827",
         stance: "우선순위",
-        message: `먼저 뒤집는 KPI는 ${primaryFlip.label}입니다. 현재 ${primaryFlip.current}이며, ${primaryFlip.trigger}. 그 조건을 통과할 때만 "${profile.question}"을 ${active.decision.label} 안건으로 유지합니다.`,
+        message: `우선 확인할 재검토 KPI는 ${primaryFlip.label}입니다. 현재 ${primaryFlip.current}이며, 기준은 ${primaryFlip.trigger}. 이 기준을 충족한 경우에만 "${profile.question}"의 현재 결론을 ${active.decision.label}로 둡니다.`,
       },
       {
         id: "data",
@@ -6475,7 +6476,7 @@
         role: "가격·백테스트",
         color: "#06B6D4",
         stance: "실측 검증",
-        message: `${profile.data} ${point} 기준 가격 series ${fmtNum(selectedSeriesCount)}개 중 관측 ${fmtNum(active.observations.length)}개만 계산했습니다. 사전 모멘텀 ${prior}, 이후 실측 ${actual}. ${priceFlip.label}이 ${priceFlip.flip} 조건이면 판단을 재계산합니다.`,
+        message: `${profile.data} ${point} 기준 가격 series ${fmtNum(selectedSeriesCount)}개 중 관측 ${fmtNum(active.observations.length)}개만 계산했습니다. 사전 모멘텀 ${prior}, 이후 실측 ${actual}. ${priceFlip.label} 기준의 현재 판단 영향은 ${priceFlip.flip}입니다.`,
       },
       {
         id: "china",
@@ -6485,7 +6486,7 @@
         role: "중국 신호",
         color: "#8B5CF6",
         stance: "현재 리스크",
-        message: `${profile.china} 연결된 중국 신호 ${fmtNum(active.chinaSignalCount)}건은 백테스트를 소급 변경하지 않고 overlay로만 둡니다. ${chinaFlip.label} 조건이 실제 기사/가격 근거와 같이 충족되면 방어 안건으로 뒤집습니다.`,
+        message: `${profile.china} 연결된 중국 신호 ${fmtNum(active.chinaSignalCount)}건은 백테스트를 소급 변경하지 않고 overlay로만 둡니다. ${chinaFlip.label} 기준이 실제 기사/가격 근거와 같이 충족되면 ${chinaFlip.flip}으로 재분류합니다.`,
       },
       {
         id: "cfo",
@@ -6495,7 +6496,7 @@
         role: "수익성·자본배분",
         color: "#F59E0B",
         stance: "자본 효율",
-        message: `${profile.cfo} 이 판단은 IRR/NPV가 아니라 실사 우선순위입니다. KPI 발동 전 실행 문구는 '${active.decision.action}'로 제한하고, ${primaryFlip.flip} 조건이면 예산 집행안을 다시 엽니다.`,
+        message: `${profile.cfo} 이 판단은 IRR/NPV가 아니라 실사 우선순위입니다. 재검토 기준이 확인되기 전 실행 문구는 '${active.decision.action}'로 제한하고, ${primaryFlip.flip}이면 예산 집행안을 다시 검토합니다.`,
       },
       {
         id: "risk",
@@ -6505,7 +6506,7 @@
         role: "하방 리스크",
         color: "#EF4444",
         stance: "No-Go 조건",
-        message: `${profile.risk} 현재 하방 문구는 "${active.downside}"입니다. Kill switch는 ${flipKpis.slice(0, 3).map((item) => item.label).join(" · ")} 중 2개 이상 악화입니다.`,
+        message: `${profile.risk} 현재 하방 문구는 "${active.downside}"입니다. 자동 재검토 조건은 ${flipKpis.slice(0, 3).map((item) => item.label).join(" · ")} 중 2개 이상 악화입니다.`,
       },
       {
         id: "strategy",
@@ -6515,7 +6516,7 @@
         role: "최종 정리",
         color: "#22C55E",
         stance: "실행 판단",
-        message: `${profile.strategy} 대상 제품군은 ${(active.products || []).slice(0, 4).join(" · ") || productLabel}입니다. 결론은 ${active.decision.label}로 두되, 위 KPI가 발동하면 다음 수집 시점에 자동 재심의합니다.`,
+        message: `${profile.strategy} 대상 제품군은 ${(active.products || []).slice(0, 4).join(" · ") || productLabel}입니다. 결론은 ${active.decision.label}로 두되, 위 KPI가 기준선을 넘으면 다음 수집 시점에 자동 재검토합니다.`,
       },
     ].filter((agent) => agent.message);
   }
@@ -6530,7 +6531,7 @@
     return {
       title: `${active?.decision?.label || "판단 대기"} · ${active?.decision?.action || "실행 보류"}`,
       body: `질문: "${profile.question}" ${yearLabel} 기준점 ${selectedIso ? pointDateLabel(selectedIso) : "없음"}에서 직전 모멘텀 ${prior}, 이후 실측 ${actual}, 관측 ${fmtNum(active?.observations?.length || 0)}개로 검증했습니다.`,
-      next: `결론: ${outcome}. 우선 재심의 KPI는 ${primaryFlip.label}이며, ${primaryFlip.trigger}. ${active?.decision?.logic || "근거가 더 쌓이면 재판단합니다."}`,
+      next: `결론: ${outcome}. 우선 재검토 KPI는 ${primaryFlip.label}이며, ${primaryFlip.trigger}. ${active?.decision?.logic || "근거가 더 쌓이면 재판단합니다."}`,
     };
   }
 
@@ -7709,10 +7710,10 @@
         action: "전용 신호가 2회 연속 0건이면 쿼리·소스 목록을 보강하고, 투자 확대는 다음 수집까지 보류합니다.",
       },
       "kpi-reversal": {
-        verdict: "결정을 뒤집는 KPI를 먼저 정해야 합니다.",
-        logic: `${targetLabel}의 1순위 재심의 KPI는 ${primaryFlip.label}입니다. 현재 ${primaryFlip.current}; 발동 조건은 "${primaryFlip.trigger}"입니다. ROI 지수만 보지 말고 KPI 방향 전환을 kill switch로 둬야 합니다.`,
+        verdict: "의사결정 재검토 기준을 먼저 정의해야 합니다.",
+        logic: `${targetLabel}의 1순위 재검토 KPI는 ${primaryFlip.label}입니다. 현재 ${primaryFlip.current}; 기준은 "${primaryFlip.trigger}"입니다. ROI 지수만 보지 말고 KPI 방향 전환을 자동 재검토 조건으로 둬야 합니다.`,
         counter: "CEO 관점에서 가장 위험한 것은 한 번 승인한 투자가 관성으로 계속되는 것입니다.",
-        action: `ROI ${fmtNum(Math.max(40, model.roi - 12))} 이하, X 게이트 ${fmtNum(gates.noGo + 1)}개 이상, 또는 핵심 KPI 2개 악화 시 자동 재심의로 돌립니다.`,
+        action: `ROI ${fmtNum(Math.max(40, model.roi - 12))} 이하, X 게이트 ${fmtNum(gates.noGo + 1)}개 이상, 또는 핵심 KPI 2개 악화 시 자동 재검토로 돌립니다.`,
       },
       "strategic-fit": {
         verdict: `${targetLabel}는 중국 사업 자체보다 SKHY의 HBM·NAND/eSSD·운영 리스크 방어와 연결될 때 의미가 있습니다.`,
