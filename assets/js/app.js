@@ -580,12 +580,6 @@
   };
   const CEO_CHALLENGES = [
     {
-      id: "evidence-quality",
-      label: "근거가 부족한데 왜 실행하나?",
-      angle: "Evidence",
-      question: "현재 크롤링 데이터가 충분하지 않은데 이 투자 판단을 CEO가 승인해야 하는 이유는 무엇인가?",
-    },
-    {
       id: "roi-credibility",
       label: "ROI 지수를 믿을 수 있나?",
       angle: "ROI",
@@ -7669,12 +7663,6 @@
     };
 
     const answers = {
-      "evidence-quality": {
-        verdict: signals > 0 ? "승인 가능하되, 전면 집행이 아니라 단계 집행이 맞습니다." : "승인은 보류가 아니라 소액 옵션 집행으로 제한해야 합니다.",
-        logic: `현재 판단은 단일 기사에 기대지 않고 크롤링 신호 ${fmtNum(signals)}개, O 게이트 ${fmtNum(gates.ok)}개, X 게이트 ${fmtNum(gates.noGo)}개, ROI 지수 ${fmtNum(model.roi)}를 함께 봅니다.`,
-        counter: "근거가 부족하다는 지적은 맞습니다. 그래서 숫자가 없는 매출·인력 규모를 만들지 않고, 공개 데이터 기반의 상대지수와 O/X 게이트로만 판단합니다.",
-        action: `${targetLabel}는 ${model.decision}로 두고, 다음 크롤링에서 전용 신호가 증가하거나 X 게이트가 해소될 때만 예산을 올립니다.`,
-      },
       "roi-credibility": {
         verdict: "이 ROI는 재무 ROI %가 아니라 경영 의사결정용 상대지수로 써야 합니다.",
         logic: `${model.formula}. 실제 현금흐름이 아니라 투자비, 효익, 리스크, 크롤링 신호, O/X 게이트를 0~100으로 표준화한 비교 모델입니다.`,
