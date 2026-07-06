@@ -9679,7 +9679,7 @@
     $("#mobileMenu").addEventListener("click", () => document.body.classList.add("menu-open"));
     $("#backdrop").addEventListener("click", () => document.body.classList.remove("menu-open"));
 
-    $("#newsSearch").addEventListener("input", (event) => {
+    $("#newsSearch")?.addEventListener("input", (event) => {
       newsSearch = event.target.value.trim().toLowerCase();
       renderNewsList();
     });
@@ -10629,12 +10629,9 @@
   }
 
   function newsCheckLine(item) {
-    const source = cleanInsightText(item.source || "원문");
-    const date = formatNewsDate(item.date || item.published);
-    const sourceText = `${source}${date ? ` · ${date}` : ""}`;
     return isChinaArticle(item)
-      ? `${sourceText} 기준 업체·캐파·정책 수치 분리 검증`
-      : `${sourceText} 기준 가격·수요·고객 수치 원문 확인`;
+      ? "업체·캐파·정책 수치를 원문 기준으로 분리 검증"
+      : "가격·수요·고객 수치를 원문 기준으로 확인";
   }
 
   function uniqueInsightRows(rows) {
@@ -10648,8 +10645,21 @@
       let text = cleanInsightText(row.text);
       if (!text || seen.has(insightKey(text))) text = fallback[index] || fallback[fallback.length - 1];
       seen.add(insightKey(text));
-      return `${row.label}: ${clipText(text, index === 0 ? 92 : 88)}`;
+      return clipText(text, index === 0 ? 92 : 88);
     });
+  }
+
+  function newsTimestamp(item = {}) {
+    const raw = item.date || item.published || item.crawledAt || item.updatedAt || item.collectedAt || "";
+    if (!raw) return 0;
+    const parsed = new Date(raw);
+    if (!Number.isNaN(parsed.getTime())) return parsed.getTime();
+    const numeric = String(raw).match(/(?:(20\d{2})[.\-/년]\s*)?(\d{1,2})[.\-/월]\s*(\d{1,2})/);
+    if (numeric) {
+      const year = Number(numeric[1] || new Date(LIVE.updatedAt || Date.now()).getFullYear());
+      return new Date(year, Number(numeric[2]) - 1, Number(numeric[3])).getTime();
+    }
+    return 0;
   }
 
   function sameInsightText(left, right) {
@@ -10736,7 +10746,8 @@
   function newsForView(categoryId = newsCategory, companyId = newsCompany, sourceId = newsSource) {
     return newsBaseForCategory(categoryId)
       .filter((item) => newsMatchesCompany(item, companyId))
-      .filter((item) => newsMatchesSource(item, sourceId));
+      .filter((item) => newsMatchesSource(item, sourceId))
+      .sort((a, b) => newsTimestamp(b) - newsTimestamp(a));
   }
 
   function renderNewsCompanySelect() {
@@ -10845,11 +10856,11 @@
   function renderNewsBucket(list, items, emptyMessage) {
     list.innerHTML = "";
     if (!items.length) {
-      list.appendChild(el("li", "news-empty-row", `<span class="empty empty-action"><strong>${escapeHTML(emptyMessage)}</strong><em>업체 드롭다운을 전체 업체로 바꾸거나 검색어를 줄이면 즉시 다시 계산됩니다.</em></span>`));
+      list.appendChild(el("li", "news-empty-row", `<span class="empty empty-action"><strong>${escapeHTML(emptyMessage)}</strong><em>업체 드롭다운을 전체 업체로 바꾸면 즉시 다시 계산됩니다.</em></span>`));
       return;
     }
 
-    items.slice(0, 42).forEach((item) => {
+    items.slice().sort((a, b) => newsTimestamp(b) - newsTimestamp(a)).slice(0, 42).forEach((item) => {
       const li = el("li", "news-card-item");
       const card = el("article", "news-card");
       const a = el("a", "news-title");

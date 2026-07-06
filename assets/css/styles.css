@@ -8207,13 +8207,35 @@ body.sidebar-collapsed .sb-ico {
     var(--panel);
   padding: 14px;
   box-shadow: 0 14px 36px rgba(15, 23, 42, .06);
-  transition: transform .18s ease, border-color .18s ease, box-shadow .18s ease;
+  transition: transform .18s ease, border-color .18s ease, box-shadow .18s ease, background .18s ease, color .18s ease;
 }
 
 .news-card:hover {
   transform: translateY(-2px);
-  border-color: color-mix(in srgb, var(--accent) 45%, var(--line));
-  box-shadow: 0 20px 44px rgba(15, 23, 42, .12);
+  color: #fff;
+  border-color: color-mix(in srgb, var(--accent) 72%, var(--line));
+  background:
+    linear-gradient(135deg,
+      color-mix(in srgb, var(--accent) 94%, #111827) 0%,
+      color-mix(in srgb, var(--accent-3) 72%, #0f172a) 54%,
+      color-mix(in srgb, var(--accent-2) 42%, #111827) 100%);
+  box-shadow: 0 22px 52px color-mix(in srgb, var(--accent) 28%, rgba(15, 23, 42, .2));
+}
+
+.news-card:hover .news-title,
+.news-card:hover .news-insights span,
+.news-card:hover .news-meta {
+  color: rgba(255, 255, 255, .92);
+}
+
+.news-card:hover .news-title {
+  color: #fff;
+}
+
+.news-card:hover .source-tag {
+  color: #fff;
+  border-color: rgba(255, 255, 255, .34);
+  background: rgba(255, 255, 255, .14);
 }
 
 .news-card-head {
@@ -8228,7 +8250,6 @@ body.sidebar-collapsed .sb-ico {
   text-decoration: none;
 }
 
-.news-list a.news-title:hover,
 .rainbow:hover {
   background: linear-gradient(90deg, var(--blue), var(--purple), var(--teal), var(--brand), var(--blue));
   background-size: 220% auto;
@@ -8236,6 +8257,10 @@ body.sidebar-collapsed .sb-ico {
   background-clip: text;
   -webkit-text-fill-color: transparent;
   animation: rainbowShift 1.5s linear infinite;
+}
+
+.news-list a.news-title:hover {
+  color: inherit;
 }
 
 @keyframes rainbowShift {
