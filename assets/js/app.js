@@ -2819,6 +2819,19 @@
         hold: "근거 보류",
       },
       {
+        id: "legacy-commodity",
+        label: "레거시·범용 의사결정",
+        category: "dram",
+        categories: ["dram", "nand", "aidemand", "operations", "china"],
+        owner: "CEO · CFO · 영업",
+        jump: "prices",
+        terms: ["legacy", "commodity", "dram", "ddr4", "ddr5", "lpddr", "nand", "ssd", "spot", "contract", "cxmt", "ymtc", "kioxia", "sandisk", "solidigm"],
+        action: "DDR·LPDDR·NAND spot/contract spread와 CXMT·YMTC·Kioxia-SanDisk 신호를 제품 믹스·가격 방어·고객 배분 안건으로 전환",
+        go: "방어 실행",
+        watch: "가격/캐파 감시",
+        hold: "근거 보류",
+      },
+      {
         id: "nand-essd",
         label: "NAND/eSSD 방어",
         category: "nand",
@@ -3121,7 +3134,7 @@
     }
 
     if (!decisions.some((item) => item.id === cLevelCouncilDecisionId)) {
-      cLevelCouncilDecisionId = decisions[0].id;
+      cLevelCouncilDecisionId = (decisions.find((item) => item.id === "legacy-commodity") || decisions[0]).id;
       cLevelCouncilRan = false;
     }
     const selectedDecision = decisions.find((item) => item.id === cLevelCouncilDecisionId) || decisions[0];
@@ -3149,9 +3162,9 @@
     agents.innerHTML = `
       <div class="agent-debate c-level-agent-debate" style="--local-accent:${categoryAccent(selectedDecision?.category || "hbm")}">
         <div class="agent-debate-title">
-          <span>AGENT COUNCIL</span>
-          <strong>${escapeHTML(selectedDecision?.label || "C-level 판단")} 토론</strong>
-          <small>안건을 선택하고 실행하면 각 에이전트가 순차 토론한 뒤 결론을 냅니다.</small>
+          <span>EXPERT AGENTS</span>
+          <strong>레거시·범용 의사결정 토론</strong>
+          <small>여러 안건 중 하나를 선택하고 실행하면 각 에이전트가 순차 토론한 뒤 결론을 냅니다.</small>
         </div>
         <div class="c-level-agent-controls">
           <label>
@@ -3160,18 +3173,24 @@
               ${decisions.map((item) => `<option value="${escapeHTML(item.id)}"${item.id === selectedDecision.id ? " selected" : ""}>${escapeHTML(item.label)} · ${escapeHTML(item.verdict)} · 근거 ${fmtNum(item.evidenceCount)}개</option>`).join("")}
             </select>
           </label>
-          <button type="button" id="cLevelRunCouncil">${cLevelCouncilRan ? "다시 실행" : "에이전트 실행"}</button>
+          <button type="button" id="cLevelRunCouncil">${cLevelCouncilRan ? "토론 다시 실행" : "에이전트 실행"}</button>
         </div>
-        <div class="agent-roster">
-          ${agentItems.map((agent, index) => `
-            <div class="agent-avatar-card" style="--agent-color:${escapeHTML(agent.color)}; --delay:${index * 55}ms">
-              <b>${escapeHTML(agent.id.toUpperCase().slice(0, 2))}</b>
-              <span>${escapeHTML(agent.name)}</span>
-              <small>${escapeHTML(agent.role)}</small>
-            </div>
-          `).join("")}
+        <div class="agent-selected-brief">
+          <span>선택 안건</span>
+          <strong>${escapeHTML(selectedDecision?.label || "안건")}</strong>
+          <p>${escapeHTML(selectedDecision?.action || "")}</p>
+          <small>${escapeHTML(selectedDecision?.verdict || "Hold")} · 근거 ${fmtNum(selectedDecision?.evidenceCount || 0)}개 · 신뢰도 ${fmtNum(Math.round(selectedDecision?.confidence || 0))}/100</small>
         </div>
         ${cLevelCouncilRan ? `
+          <div class="agent-roster">
+            ${agentItems.map((agent, index) => `
+              <div class="agent-avatar-card" style="--agent-color:${escapeHTML(agent.color)}; --delay:${index * 55}ms">
+                <b>${escapeHTML(agent.id.toUpperCase().slice(0, 2))}</b>
+                <span>${escapeHTML(agent.name)}</span>
+                <small>${escapeHTML(agent.role)}</small>
+              </div>
+            `).join("")}
+          </div>
           <div class="agent-chat">
             ${agentItems.map((agent, index) => `
               <div class="agent-turn${index % 2 ? " right" : ""}" style="--agent-color:${escapeHTML(agent.color)}; --delay:${index * 110}ms">
@@ -3184,7 +3203,7 @@
             `).join("")}
           </div>
           <div class="agent-conclusion reveal" style="--local-accent:${categoryAccent(selectedDecision?.category || "hbm")}">
-            <span>Conclusion</span>
+            <span>결론</span>
             <strong>${escapeHTML(conclusion.title)}</strong>
             <p>${escapeHTML(conclusion.body)}</p>
             <small>${escapeHTML(conclusion.next)}</small>
@@ -3192,7 +3211,7 @@
         ` : `
           <div class="agent-waiting">
             <strong>안건을 선택한 뒤 에이전트 실행을 누르세요.</strong>
-            <p>토론 전에는 에이전트 발언을 표시하지 않고, 실행 후 실제 연결 근거 기준으로 결론을 생성합니다.</p>
+            <p>실행 전에는 에이전트를 노출하지 않습니다. 실행 후 실제 연결 근거 기준으로 CEO, CFO, CTO, 정책, 시장, 감사 에이전트가 토론합니다.</p>
           </div>
         `}
       </div>

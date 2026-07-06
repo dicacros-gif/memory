@@ -1878,6 +1878,7 @@ body.sidebar-collapsed .sb-ico {
   transform: translateY(-1px);
 }
 
+.agent-selected-brief,
 .agent-waiting,
 .agent-conclusion {
   display: grid;
@@ -1888,6 +1889,7 @@ body.sidebar-collapsed .sb-ico {
   padding: 12px;
 }
 
+.agent-selected-brief strong,
 .agent-waiting strong,
 .agent-conclusion strong {
   color: var(--ink);
@@ -1896,6 +1898,15 @@ body.sidebar-collapsed .sb-ico {
   font-weight: 950;
 }
 
+.agent-selected-brief > span {
+  color: var(--muted);
+  font-size: 10px;
+  letter-spacing: .05em;
+  text-transform: uppercase;
+}
+
+.agent-selected-brief p,
+.agent-selected-brief small,
 .agent-waiting p,
 .agent-conclusion p,
 .agent-conclusion small {
