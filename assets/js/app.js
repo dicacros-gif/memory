@@ -2396,9 +2396,6 @@
     });
 
     $("#paletteBtn")?.addEventListener("click", () => cyclePalette());
-    $$(".theme-dot").forEach((btn) => {
-      btn.addEventListener("click", () => applyPalette(btn.dataset.paletteIndex, { pulse: true }));
-    });
     $("#scrollTop")?.addEventListener("click", () => window.scrollTo({ top: 0, behavior: "smooth" }));
     updateScrollProgress();
     window.addEventListener("scroll", updateScrollProgress, { passive: true });
@@ -2466,7 +2463,6 @@
     root.style.setProperty("--green", palette.green);
     root.dataset.palette = palette.name.toLowerCase();
     localStorage.setItem("memory-palette-index", String(paletteIndex));
-    $$(".theme-dot").forEach((dot) => dot.classList.toggle("active", Number(dot.dataset.paletteIndex) === paletteIndex));
 
     const btn = $("#paletteBtn");
     if (btn) {
