@@ -5231,9 +5231,14 @@ body.sidebar-collapsed .sb-ico {
 }
 
 .agent-avatar-card span {
-  color: var(--ink);
-  font-size: 10.5px;
+  border: 1px solid color-mix(in srgb, var(--agent-color) 26%, transparent);
+  border-radius: 999px;
+  background: color-mix(in srgb, var(--agent-color) 8%, var(--panel));
+  color: color-mix(in srgb, var(--agent-color) 76%, var(--ink));
+  padding: 3px 8px;
+  font-size: 10px;
   font-weight: 950;
+  line-height: 1;
 }
 
 .agent-avatar-card small {
@@ -5260,6 +5265,12 @@ body.sidebar-collapsed .sb-ico {
 .agent-avatar-card:focus-within small,
 .agent-avatar-card:focus-within em {
   color: #fff;
+}
+
+.agent-avatar-card:hover span,
+.agent-avatar-card:focus-within span {
+  border-color: rgba(255, 255, 255, .52);
+  background: rgba(255, 255, 255, .14);
 }
 
 .agent-avatar-card:hover em,
@@ -6457,19 +6468,19 @@ body.sidebar-collapsed .sb-ico {
   text-decoration: none;
 }
 
-.crawler-panel-head {
+.intel-panel-head {
   display: flex;
   align-items: center;
   justify-content: space-between;
   gap: 8px;
 }
 
-.crawler-panel-head h3 {
+.intel-panel-head h3 {
   font-size: 13px;
   font-weight: 900;
 }
 
-.crawler-panel-head span {
+.intel-panel-head span {
   color: var(--muted);
   font-size: 10px;
   font-weight: 850;

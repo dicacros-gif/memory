@@ -4,7 +4,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Memory Intelligence</title>
-  <meta name="description" content="중국 메모리 경쟁사, DRAM·NAND·첨단 패키징·소부장·인재/IP 신호를 외신과 TrendForce 가격 데이터 중심으로 추적하는 벤치마킹 대시보드" />
+  <meta name="description" content="중국 메모리 경쟁사, DRAM·NAND·첨단 패키징·소부장·인재/IP 신호를 외신과 TrendForce 가격 데이터 중심으로 분석하는 전략 인텔리전스" />
   <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='8' fill='%234322A8'/%3E%3Cpath d='M8 21V10h4v4h8v-4h4v11h-4v-4h-8v4z' fill='white'/%3E%3C/svg%3E" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -19,7 +19,7 @@
   <div class="app">
     <aside class="sidebar" id="sidebar">
       <button class="sb-fold" id="sidebarFold" type="button" aria-label="사이드바 접기" title="사이드바 접기 · 색상 변경">‹</button>
-      <button class="sb-logo" type="button" data-jump="overview" aria-label="대시보드 홈">
+      <button class="sb-logo" type="button" data-jump="overview" aria-label="인텔리전스 홈">
         <span class="sb-mark">M</span>
         <span class="sb-logo-text">
           <strong>MEMORY</strong>
@@ -27,7 +27,7 @@
         </span>
       </button>
 
-      <nav class="sb-nav ia-nav" id="sideNav" aria-label="대시보드 핵심 탭"></nav>
+      <nav class="sb-nav ia-nav" id="sideNav" aria-label="핵심 탭"></nav>
 
       <details class="sb-block sb-filter" open>
         <summary>주제 필터</summary>
@@ -72,7 +72,7 @@
         <section class="board c-level-board" id="c-level-cockpit">
           <div class="board-head">
             <div>
-              <p class="eyebrow">C-level strategy cockpit · evidence only · daily crawler</p>
+              <p class="eyebrow">C-level strategy council · evidence only</p>
               <h2>C-level 전략 의사결정 보드</h2>
             </div>
           </div>
@@ -89,14 +89,14 @@
         <section class="board executive-decision-board" id="executive-decision">
           <div class="board-head">
             <div>
-              <p class="eyebrow">Executive decision · historical backtest · actual crawl data</p>
+              <p class="eyebrow">Executive decision · historical backtest · actual evidence</p>
               <h2>경영진 의사결정 · 백테스트</h2>
             </div>
             <span class="board-meta" id="execDecisionMeta">로드 중 · 가격 히스토리/제품군 매칭 연결</span>
           </div>
           <div class="decision-summary" id="execDecisionSummary" hidden></div>
           <section class="category-ox-panel" aria-label="카테고리별 O X 의사결정 포인트">
-            <div class="crawler-panel-head">
+            <div class="intel-panel-head">
               <h3>카테고리별 O/X 의사결정 포인트</h3>
               <span id="categoryOxMeta">로드 중 · 카테고리별 판단 기준 계산</span>
             </div>
@@ -117,8 +117,8 @@
           </div>
           <div class="decision-evidence" id="execDecisionEvidence"></div>
           <div class="ceo-challenge-board">
-            <div class="crawler-panel-head">
-              <h3>CEO 챌린지 · AGENT 답변</h3>
+            <div class="intel-panel-head">
+              <h3>CEO 챌린지 · 전문가 답변</h3>
               <span id="ceoChallengeMeta">시나리오와 투자안을 선택해 반론을 검증</span>
             </div>
             <div class="ceo-challenge-controls">
@@ -138,7 +138,7 @@
         <section class="board investment-board management-strategy-board" id="management-strategy">
           <div class="board-head">
             <div>
-              <p class="eyebrow">China business · strategy formulation · crawler based</p>
+              <p class="eyebrow">China business · strategy formulation · evidence based</p>
               <h2>경영전략 수립 · 중국 비즈니스</h2>
             </div>
             <span class="board-meta" id="managementStrategyMeta">로드 중 · 중국 비즈니스 전략 신호 연결</span>
@@ -149,7 +149,7 @@
           <div class="china-business-map" id="chinaBusinessMap"></div>
           <div class="investment-layout">
             <section class="investment-panel">
-              <div class="crawler-panel-head">
+              <div class="intel-panel-head">
                 <h3>중국 사업 방향 · 자본 배분</h3>
                 <span>고객 · NAND/eSSD · 패키징 · 장비 · 규제 · 인재/IP</span>
               </div>
@@ -171,7 +171,7 @@
           <div class="china-decision-gates" id="chinaDecisionGates"></div>
           <div class="investment-layout">
             <section class="investment-panel">
-              <div class="crawler-panel-head">
+              <div class="intel-panel-head">
                 <h3>중국 사업 옵션 · 실행 판단</h3>
                 <span>핵심 고객 · 장기계약 · JV 조건 · 운영 규제 · 방어</span>
               </div>
@@ -194,7 +194,7 @@
           <div class="policy-summary" id="policySummary"></div>
           <div class="policy-layout">
             <section class="policy-panel">
-              <div class="crawler-panel-head">
+              <div class="intel-panel-head">
                 <h3>정책/법·규제 체크포인트</h3>
                 <span id="policySourceMeta">공식 출처 기반 판단</span>
               </div>
@@ -207,7 +207,7 @@
         <section class="board policy-board infra-board" id="china-fab-infra">
           <div class="board-head">
             <div>
-              <p class="eyebrow">China fab expansion infrastructure · periodic crawler</p>
+              <p class="eyebrow">China fab expansion infrastructure · policy and utility evidence</p>
               <h2>중국 Fab 확장성 판단 · 토지 · 용수 · 전력</h2>
             </div>
             <span class="board-meta" id="infraMakerMeta">로드 중 · 토지·용수·전력 소스 연결</span>
@@ -216,7 +216,7 @@
           <div class="policy-summary" id="infraSummary"></div>
           <div class="policy-layout">
             <section class="policy-panel">
-              <div class="crawler-panel-head">
+              <div class="intel-panel-head">
                 <h3>추가 Fab 확장 체크포인트</h3>
                 <span id="infraSourceMeta">토지·용수·전력·환경·규제 신호</span>
               </div>
@@ -238,7 +238,7 @@
           <div class="policy-summary" id="talentStrategySummary"></div>
           <div class="policy-layout">
             <section class="policy-panel">
-              <div class="crawler-panel-head">
+              <div class="intel-panel-head">
                 <h3>확보 직무 · 채널 · O/X 게이트</h3>
                 <span id="talentStrategySourceMeta">채용·캠퍼스·리텐션·컴플라이언스 신호</span>
               </div>
@@ -247,16 +247,16 @@
             <aside class="policy-focus" id="talentStrategyFocus"></aside>
           </div>
           <div class="talent-roi-board">
-            <div class="crawler-panel-head">
+            <div class="intel-panel-head">
               <h3>투자별 수익성 · ROI 지수</h3>
               <span id="talentRoiMeta">공개 데이터 기반 가정 모델</span>
             </div>
             <div class="talent-roi-grid" id="talentRoiGrid"></div>
           </div>
           <div class="talent-planning-board">
-            <div class="crawler-panel-head">
+            <div class="intel-panel-head">
               <h3>시나리오 플래닝 도식</h3>
-              <span>크롤링 신호 → O/X 게이트 → 투자안 → ROI → 실행 판단</span>
+              <span>가격·뉴스·정책 근거 → O/X 게이트 → 투자안 → ROI → 실행 판단</span>
             </div>
             <div class="talent-planning-map" id="talentScenarioPlanning"></div>
           </div>
@@ -375,7 +375,7 @@
           <div class="talent-company-grid" id="talentCompanyGrid"></div>
           <div class="talent-split">
             <section class="talent-panel">
-              <div class="crawler-panel-head">
+              <div class="intel-panel-head">
                 <h3>키워드 Taxonomy & 경보 규칙</h3>
                 <span>TSV · Yield · Xtacking · Tool qual · IP risk</span>
               </div>
@@ -388,7 +388,7 @@
         <section class="board number-board" id="numbers">
           <div class="board-head">
             <div>
-              <p class="eyebrow">Interactive number dashboard</p>
+              <p class="eyebrow">Interactive quantitative analysis</p>
               <h2>숫자로 보는 메모리 벤치마킹</h2>
             </div>
             <span class="board-meta" id="numberMeta">접기 · 드래그 정렬 · 복사</span>
@@ -402,7 +402,7 @@
         <section class="board projection-board" id="projection">
           <div class="board-head">
             <div>
-              <p class="eyebrow">SKHY product projection · crawler based</p>
+              <p class="eyebrow">SKHY product projection · evidence based</p>
               <h2>제품군 프로젝션</h2>
             </div>
             <span class="board-meta" id="projectionMeta">30개월 후부터 5년 전망</span>
@@ -410,7 +410,7 @@
           <div class="projection-summary" id="projectionSummary"></div>
           <div class="projection-layout">
             <section class="projection-panel">
-              <div class="crawler-panel-head">
+              <div class="intel-panel-head">
                 <h3>수요처별 믹스 전망</h3>
                 <span id="projectionWindow">T+30M · 5Y</span>
               </div>
@@ -466,7 +466,7 @@
           <div class="ai-matrix-summary" id="architectureSummary"></div>
           <div class="architecture-track-grid" id="architectureTracks"></div>
           <section class="arch-panel advanced-module-panel">
-            <div class="crawler-panel-head">
+            <div class="intel-panel-head">
               <h3>고도화 인사이트 모듈</h3>
               <span>파운드리-메모리 융합 · 중국 캐파 경보 · Post-HBM 아키텍처</span>
             </div>
@@ -474,14 +474,14 @@
           </section>
           <div class="architecture-split">
             <section class="arch-panel">
-              <div class="crawler-panel-head">
+              <div class="intel-panel-head">
                 <h3>Samsung · SKHY · Micron · China 벤치마크</h3>
                 <span>HBM / DRAM / NAND 포지셔닝</span>
               </div>
               <div class="share-matrix" id="architectureShareMatrix"></div>
             </section>
             <section class="arch-panel">
-              <div class="crawler-panel-head">
+              <div class="intel-panel-head">
                 <h3>기술 로드맵</h3>
                 <span>HBM4 · Custom HBM · CXL/PIM</span>
               </div>
@@ -489,14 +489,14 @@
             </section>
           </div>
           <section class="arch-panel">
-            <div class="crawler-panel-head">
+            <div class="intel-panel-head">
               <h3>Supply Chain Explorer</h3>
               <span>TC 본더 · CXL 테스터 · 인터페이스 IP · 중국 장비 국산화</span>
             </div>
             <div class="value-chain-map" id="valueChainMap"></div>
           </section>
           <section class="arch-panel">
-            <div class="crawler-panel-head">
+            <div class="intel-panel-head">
               <h3>플랫폼 구현 모듈</h3>
               <span>첨부 제안 기반 IA 모듈</span>
             </div>
@@ -531,7 +531,7 @@
           <div class="board-head">
             <div>
               <p class="eyebrow">Strategic response</p>
-              <h2>SKHY 대응 대시보드</h2>
+              <h2>SKHY 대응 전략</h2>
             </div>
             <span class="board-meta">가격 · 공급망 · 인재 · IP</span>
           </div>

@@ -428,10 +428,10 @@
         { name: "IP·보안·법무", target: "HQ / China subsidiaries", plan: "퇴직자 자료반출, 접근권, 협력사 계정, 로컬 채용 접촉 로그를 통합" },
         { name: "공개 채용 인텔리전스", target: "China public sources", plan: "Boss Zhipin/Liepin/Maimai, 대학 취업센터, 특허 키워드 수집" },
       ],
-      channels: ["리텐션 패키지", "법무·보안 전담 채용", "공개 채용/특허 크롤링", "대학·산학 신호 모니터링"],
+      channels: ["리텐션 패키지", "법무·보안 전담 채용", "공개 채용/특허 신호 분석", "대학·산학 신호 모니터링"],
       gates: [
         { axis: "방어 투자", status: "O", title: "핵심 수율 인력 리텐션 예산 선집행", evidence: "중국 Talent/IP 레이더는 수율·TSV·Xtacking·캠퍼스 채용 신호를 매일 추적합니다.", implication: "핵심 인력 방어는 비용이 아니라 HBM·DRAM·NAND 수율 자산 보호 옵션입니다.", source: "Talent radar", sourceUrl: "https://dicacros-gif.github.io/memory/" },
-        { axis: "공개정보 수집", status: "O", title: "채용 공고·특허·전문매체 기반 조기경보", evidence: "공개 채용과 특허 키워드는 경쟁사의 개발 방향을 합법적으로 추정할 수 있는 선행 신호입니다.", implication: "비공개 정보 없이도 TSV, yield, HBM, Xtacking JD 증가를 경보 지표로 쓸 수 있습니다.", source: "Crawler methodology", sourceUrl: "https://dicacros-gif.github.io/memory/data/live.json" },
+        { axis: "공개정보 수집", status: "O", title: "채용 공고·특허·전문매체 기반 조기경보", evidence: "공개 채용과 특허 키워드는 경쟁사의 개발 방향을 합법적으로 추정할 수 있는 선행 신호입니다.", implication: "비공개 정보 없이도 TSV, yield, HBM, Xtacking JD 증가를 경보 지표로 쓸 수 있습니다.", source: "Evidence methodology", sourceUrl: "https://dicacros-gif.github.io/memory/data/live.json" },
         { axis: "금지선", status: "X", title: "인력 확보를 통한 영업비밀 이전 금지", evidence: "채용은 역량 확보가 목적이며 경쟁사 영업비밀·고객 NDA·recipe 이전은 허용하지 않습니다.", implication: "면접·온보딩 단계에서 비공개 자료 반입 금지와 IP 클린룸 원칙을 명시합니다.", source: "Compliance rule", sourceUrl: "https://www.skhynix.com/company/UI-FR-CP06/" },
       ],
       actions: ["핵심 인력 리텐션 스코어를 경영진 탭과 연결", "퇴직자·협력사 접근권 회수를 자동 체크리스트화", "중국 공개 채용 키워드를 주간 경보로 요약"],
@@ -566,10 +566,10 @@
         kpis: ["access revocation SLA", "exfiltration alert", "audit closure"],
       },
       {
-        id: "hiring-intel-crawler",
+        id: "hiring-intel-signals",
         label: "채용·특허 조기경보",
         type: "인텔리전스",
-        investment: "로컬 채용, 대학, 특허 키워드 크롤링 강화",
+        investment: "로컬 채용, 대학, 특허 키워드 분석 강화",
         monetization: "경쟁사의 기술 방향을 빠르게 포착해 방어 투자 타이밍을 앞당김",
         costIndex: 18,
         payoffIndex: 60,
@@ -863,7 +863,7 @@
       id: "neutral",
       label: "중립",
       sub: "Base case",
-      tone: "현재 크롤링 가격·뉴스·중국 벤치마크 신호를 그대로 반영한 기준 케이스",
+      tone: "현재 가격·뉴스·중국 벤치마크 신호를 반영한 기준 케이스",
       scoreBias: 0,
       serverLift: 0,
       storageLift: 0,
@@ -1161,7 +1161,7 @@
       capital: "보상·법무·보안 투자",
       title: "수율 엔지니어와 공정 레시피를 투자 리스크로 관리",
       thesis: "중국 업체의 채용·인재 이동은 기술 격차를 줄이는 선행 신호입니다. 방어 투자는 비용이 아니라 HBM·DRAM 수율 자산을 보호하는 옵션입니다.",
-      actions: ["핵심 수율 인력 보상 패키지 강화", "이직·접근권·IP 이상징후 모니터링", "Boss Zhipin·캠퍼스 채용 신호 크롤링"],
+      actions: ["핵심 수율 인력 보상 패키지 강화", "이직·접근권·IP 이상징후 모니터링", "Boss Zhipin·캠퍼스 채용 신호 분석"],
       triggers: ["CXMT hiring", "yield engineer", "Boss Zhipin", "IP leak", "Korean engineer"],
       linkedCategories: ["talent", "dram", "geopolitics"],
       keywords: ["hiring", "talent", "yield", "engineer", "ip", "boss zhipin", "cxmt"],
@@ -1458,7 +1458,7 @@
       title: "수율·패키징 핵심 인력과 공정 데이터를 중국 사업 리스크로 관리",
       logic: "중국 업체의 채용 신호가 강해질수록 장비 제약을 뛰어넘는 기술 이전 리스크가 커집니다. 보상과 접근권 관리가 동시에 필요합니다.",
       gate: ["Yield 채용 급증", "TSV/HBM JD 증가", "퇴직자 접근권", "IP 소송/수사"],
-      action: "핵심 인력 보상, 접근권 재점검, 채용 플랫폼 크롤링 경보를 집행",
+      action: "핵심 인력 보상, 접근권 재점검, 채용 플랫폼 경보를 집행",
       linkedStrategy: "china-talent-ip",
       linkedCategories: ["talent", "dram", "packaging"],
       keywords: ["hiring", "yield", "boss zhipin", "ip", "engineer", "tsv", "hbm"],
@@ -1546,7 +1546,7 @@
       thesis: "MATCH Act는 아직 법률로 확정되지 않은 의회 법안입니다. 2026년 4월 16일 수정으로 극저온 식각 장비의 전국적 blanket ban은 삭제됐고, DUV 리소그래피 제한과 동맹국 정렬 요구는 유지됩니다",
       facts: ["Cryogenic etch blanket ban removed, Reuters 2026-04-16", "DUV restriction retained", "HR 8170은 2026-04-22 하원 외교위 36:8 통과, S.4281은 2026-04-13 Senate Banking Committee 회부"],
       risk: "법률 확정 전에는 실행 규제로 오인하면 안 됩니다. 다만 통과 시 CXMT·YMTC·SMIC 장비 교체와 우회 조달 타임라인을 늦출 수 있습니다",
-      implication: "대시보드는 MATCH Act를 현행 규제가 아니라 정책 Watch로 표시하고, BIS/VEU·네덜란드·일본 동참 여부와 함께 YMTC Phase 3 이후 팹 일정에 연결합니다",
+      implication: "MATCH Act는 현행 규제가 아니라 정책 Watch로 두고, BIS/VEU·네덜란드·일본 동참 여부와 함께 YMTC Phase 3 이후 팹 일정에 연결합니다",
       linkedCategories: ["geopolitics", "equipment", "china"],
       source: "Reuters / Congress trackers",
       sourceUrl: "https://finance.yahoo.com/sectors/technology/articles/us-lawmakers-amend-restrictions-chinese-180025088.html",
@@ -1558,7 +1558,7 @@
       thesis: "중국의 기술 추격은 설계 도면보다 수율 안정화 경험이 풍부한 현장 인력과 공정 데이터 확보에 초점을 맞춥니다",
       facts: ["한국 출신 엔지니어 유입 신호", "Boss Zhipin 기반 핀셋 채용", "D램 설계·공정 데이터 유출 사건"],
       risk: "수율 recipe와 생산 안정화 경험이 이동하면 장비 제약보다 빠르게 기술 격차가 좁혀질 수 있습니다",
-      implication: "핵심 엔지니어 보상, 접근권 최소화, 퇴직 후 IP 모니터링, 채용 플랫폼 크롤링을 한 보드에서 묶어야 합니다",
+      implication: "핵심 엔지니어 보상, 접근권 최소화, 퇴직 후 IP 모니터링, 채용 플랫폼 신호를 함께 봐야 합니다",
       linkedCategories: ["talent", "dram", "packaging"],
     },
     {
@@ -1578,7 +1578,7 @@
       thesis: "중국은 HBM4 최선단보다 레거시 DRAM·NAND와 패키징 우회로에서 비대칭 위협을 먼저 만들 가능성이 큽니다",
       facts: ["HBM·PIM 초격차 유지", "레거시 D램 원가 방어", "중국 로컬 마이크로데이터 조기경보"],
       risk: "글로벌 세트 업체의 가격 협상력과 중국 보조금 물량이 결합하면 범용 메모리 단가가 급격히 흔들릴 수 있습니다",
-      implication: "핵심 고객 연대, 범용 제품 cash-cost floor, Xueqiu·Boss Zhipin·특허·채용 신호 크롤링, 핵심 인력 방어가 함께 필요합니다",
+      implication: "핵심 고객 연대, 범용 제품 cash-cost floor, Xueqiu·Boss Zhipin·특허·채용 신호 분석, 핵심 인력 방어가 함께 필요합니다",
       linkedCategories: ["dram", "nand", "talent", "geopolitics"],
     },
   ];
@@ -1673,7 +1673,7 @@
       id: "home",
       label: "홈",
       desc: "일일 인텔리전스",
-      cadence: "Daily crawler",
+      cadence: "Daily",
       jump: "overview",
       sections: ["overview"],
     },
@@ -1724,7 +1724,7 @@
     {
       id: "c-level",
       label: "경영진 의사결정",
-      desc: "C-level 전략 보드, 의사결정 안건",
+      desc: "C-level 전략 회의, 의사결정 안건",
       cadence: "C-level cockpit",
       jump: "c-level-cockpit",
       sections: ["c-level-cockpit"],
@@ -1732,7 +1732,7 @@
     {
       id: "workbench",
       label: "분석실",
-      desc: "워크벤치, 정량 분석, 에이전트 토론",
+      desc: "워크벤치, 정량 분석, 전문가 토론",
       cadence: "Decision lab",
       jump: "workbench",
       sections: ["workbench"],
@@ -1755,12 +1755,12 @@
     },
     "c-level": {
       label: "경영진",
-      desc: "C-level 전략 보드, 의사결정 안건",
+      desc: "C-level 전략 회의, 의사결정 안건",
       cadence: "C-level",
     },
     workbench: {
       label: "분석실",
-      desc: "워크벤치, 정량 분석, 에이전트 토론, 시나리오 비교",
+      desc: "워크벤치, 정량 분석, 전문가 토론, 시나리오 비교",
       cadence: "Decision lab",
     },
     "market-map": {
@@ -1849,7 +1849,7 @@
     "policy-makers": "정책 방향성",
     "china-fab-infra": "중국 Fab 인프라",
     "china-talent-strategy": "중국 인력 전략",
-    numbers: "숫자 대시보드",
+    numbers: "정량 분석",
     projection: "제품군 프로젝션",
     "memory-market-map": "경쟁·돈의 흐름",
     "ai-matrix": "AI 메모리 매트릭스",
@@ -1858,7 +1858,7 @@
     "talent-radar": "인재·채용 레이더",
     "china-deep-dive": "중국 심층 벤치마킹",
     workbench: "분석실",
-    response: "대응 대시보드",
+    response: "대응 전략",
     categories: "메모리 카테고리",
     news: "중국·외신 기사",
     prices: "TrendForce 가격",
@@ -2004,7 +2004,7 @@
     renderPolicyMakers();
     renderChinaFabInfra();
     renderChinaTalentStrategy();
-    renderNumberDashboard();
+    renderNumberAnalysis();
     renderProductProjection();
     renderCategories();
     renderResponses();
@@ -2752,7 +2752,7 @@
       renderCLevelCockpit,
       renderCategories,
       renderExecutiveDecision,
-      renderNumberDashboard,
+      renderNumberAnalysis,
       renderProductProjection,
       renderNews,
       renderArchitectureMatrix,
@@ -2833,7 +2833,7 @@
       {
         label: "제품군 프로젝션",
         title: "30개월 후부터 5년간 서버향·단말향 믹스 변화를 추적",
-        body: "현재 크롤링된 HBM, NAND/eSSD, 단말, 중국 캐파 신호를 반영해 SKHY 제품군의 수요처별 시나리오를 매일 갱신합니다.",
+        body: "현재 HBM, NAND/eSSD, 단말, 중국 캐파 신호를 반영해 SKHY 제품군의 수요처별 시나리오를 매일 갱신합니다.",
         jump: "projection",
         value: projectionTotalSignals(),
         unit: "signals",
@@ -3487,7 +3487,7 @@
       horizon: "30개월",
       tilt: "base",
       premise: "현재 수집된 가격, 기사, 정책, 벤치마킹 근거가 큰 충격 없이 이어지는 경우",
-      ceo: "현 결론을 유지하되 결정을 바꾸는 KPI를 먼저 둡니다.",
+      ceo: "현 결론은 유지하되 판단 변경 KPI를 선제 정의합니다.",
       cfo: "재무 집행은 보류하고 가격 row와 고객 계약 근거가 쌓인 안건부터 실사합니다.",
       cto: "제품군별 기술 병목은 현재 확인된 근거 범위에서만 판단합니다.",
       policy: "규제 원문이 추가되지 않으면 운영 유지와 확대 투자를 분리합니다.",
@@ -3623,58 +3623,58 @@
     return [
       {
         id: "ceo",
-        initials: "CE",
-        name: "CEO Agent",
+        initials: "CEO",
+        name: "CEO",
         title: "Chief Executive Officer",
         role: "우선순위·최종 안건화",
         color: "#2D6BFF",
         stance: scenarioDecisionLabel(scenarioVerdictValue),
-        message: `CEO 질문: ${profile.question} 현재 결론은 ${selected?.verdict || "Watch"}(${verdictMeaning})입니다. ${scenario.label} 가정에서는 ${scenario.ceo} 결론은 ${scenarioVerdictValue}(${scenarioDecisionLabel(scenarioVerdictValue)})로 조정합니다. 근거 ${fmtNum(totalEvidence)}개, 신뢰도 ${fmtNum(confidence)}/100, 핵심 관계 ${topRelationText}.`,
+        message: `의사결정 질문: ${profile.question} 현재 결론은 ${selected?.verdict || "Watch"}(${verdictMeaning})입니다. ${scenario.label} 가정에서는 ${scenario.ceo} 결론은 ${scenarioVerdictValue}(${scenarioDecisionLabel(scenarioVerdictValue)})로 조정합니다. 근거 ${fmtNum(totalEvidence)}개, 신뢰도 ${fmtNum(confidence)}/100, 핵심 관계는 ${topRelationText}.`,
       },
       {
         id: "cfo",
-        initials: "CF",
-        name: "CFO Agent",
+        initials: "CFO",
+        name: "CFO",
         title: "Chief Financial Officer",
         role: "수익성·자본배분",
         color: "#00C2A8",
         stance: "투자/매출 분리",
-        message: `CFO 반박: 이 안건은 재무 ROI 확정치가 아니라 자본배분 후보입니다. ${profile.cfo} ${scenario.cfo} Money Flow는 ${moneyLabel}, 가격 row는 ${fmtNum(priceRows)}개입니다. ${priceFlip.label} 기준(${priceFlip.trigger})을 넘으면 예산안을 다시 냅니다.`,
+        message: `재무 반박: 이 안건은 확정 ROI가 아니라 자본배분 후보입니다. ${profile.cfo} ${scenario.cfo} 현금흐름 근거는 ${moneyLabel}, 가격 근거는 ${fmtNum(priceRows)}개입니다. ${priceFlip.label} 기준(${priceFlip.trigger})을 넘기 전까지 예산 확정은 보류합니다.`,
       },
       {
         id: "cto",
-        initials: "CT",
-        name: "CTO Agent",
+        initials: "CTO",
+        name: "CTO",
         title: "Chief Technology Officer",
         role: "기술·제품 로드맵",
         color: "#8B5CF6",
         stance: "병목 분리",
-        message: `CTO 검토: ${profile.cto} ${scenario.cto} 경쟁 관계는 ${competitiveLabel}이며, 제품 실행과 무관한 뉴스는 제외합니다. 확인 순서는 ${flipKpis.map((item) => item.label).slice(0, 3).join(" · ")}입니다.`,
+        message: `기술 검토: ${profile.cto} ${scenario.cto} 경쟁 관계는 ${competitiveLabel}입니다. 제품 실행과 무관한 뉴스는 제외하고 ${flipKpis.map((item) => item.label).slice(0, 3).join(" · ")} 순서로 검증합니다.`,
       },
       {
         id: "cso",
-        initials: "CS",
-        name: "CSO Agent",
+        initials: "CSO",
+        name: "CSO",
         title: "Corporate Strategy Officer",
         role: "전략 옵션·우선순위",
         color: "#7C3AED",
         stance: "옵션 분리",
-        message: `전략 판단: ${profile.next} 선택지는 즉시 실행, 조건부 실사, 옵션 유지로 나눕니다. 관계선 ${fmtNum(relationCount)}개 중 근거가 없는 축은 경영진 안건에서 제외합니다.`,
+        message: `전략 판단: ${profile.next} 선택지는 즉시 실행, 조건부 실사, 옵션 유지로 나눕니다. 관계 ${fmtNum(relationCount)}개 중 가격·고객·정책 근거가 약한 축은 결론 강도를 낮춥니다.`,
       },
       {
         id: "coo",
-        initials: "CO",
-        name: "COO Agent",
+        initials: "COO",
+        name: "COO",
         title: "Operations & Supply Lead",
         role: "운영·공급 실행성",
         color: "#0EA5E9",
         stance: "실행 가능성",
-        message: `운영 관점: 공급, Fab, 고객 인증, 재고 전환 가능성이 동시에 맞아야 실행합니다. 현재 가격 row ${fmtNum(priceRows)}개와 링크/KPI ${fmtNum(linkCount)}개를 실행 체크리스트의 최소 근거로 사용합니다.`,
+        message: `운영 반박: 공급, Fab, 고객 인증, 재고 전환이 동시에 맞아야 실행할 수 있습니다. 가격 근거 ${fmtNum(priceRows)}개와 원문/KPI ${fmtNum(linkCount)}개를 최소 실행 조건으로 둡니다.`,
       },
       {
         id: "policy",
-        initials: "PO",
-        name: "Policy Agent",
+        initials: "POL",
+        name: "Policy",
         title: "Policy & Fab Risk Lead",
         role: "규제·Fab·정책자금",
         color: "#F59E0B",
@@ -3683,8 +3683,8 @@
       },
       {
         id: "market",
-        initials: "MA",
-        name: "Market Agent",
+        initials: "MKT",
+        name: "Market",
         title: "Market Intelligence Lead",
         role: "가격·고객·계약",
         color: "#10B981",
@@ -3694,17 +3694,17 @@
       {
         id: "china",
         initials: "CN",
-        name: "China Agent",
+        name: "China",
         title: "China Memory Lead",
         role: "중국 경쟁 신호",
         color: "#DB2777",
         stance: "중국 압력",
-        message: `중국 관점: CXMT·YMTC·XMC·JCET·Naura·AMEC 신호는 한 묶음이 아니라 DRAM 가격, NAND/eSSD, 패키징, 장비 내재화로 분리합니다. ${scenario.label}에서는 ${scenario.id === "china-pressure" ? "범용 가격 방어 강도를 높입니다." : "현재 리스크 overlay로만 반영합니다."}`,
+        message: `중국 반박: CXMT·YMTC·XMC·JCET·Naura·AMEC를 한 묶음으로 보면 판단이 흐려집니다. DRAM 가격, NAND/eSSD, 패키징, 장비 내재화로 나누고 ${scenario.label}에서는 ${scenario.id === "china-pressure" ? "범용 가격 방어 강도를 높입니다." : "현재 리스크로만 반영합니다."}`,
       },
       {
         id: "risk",
         initials: "RK",
-        name: "Risk Agent",
+        name: "Risk",
         title: "Downside & Reversal Gate",
         role: "판단 변경 KPI",
         color: "#F43F5E",
@@ -3714,7 +3714,7 @@
       {
         id: "audit",
         initials: "AU",
-        name: "Data Auditor",
+        name: "Auditor",
         title: "Evidence Gatekeeper",
         role: "팩트 검증·중복 제거",
         color: "#EF4444",
@@ -3739,7 +3739,7 @@
     return {
       title: `${verdict} · ${direction} · ${scenario.label}`,
       body: `컨설팅 결론: "${profile.question}"에 대해 ${scenario.label}을 적용하면 검증 근거 ${fmtNum(evidence)}개, 신뢰도 ${fmtNum(confidence)}/100 기준으로 ${direction}.`,
-      next: `실행 조건: ${scenario.conclusion} 중심으로 ${action}. 결론을 바꿀 KPI는 ${primaryFlip.label}(${primaryFlip.trigger}). ${profile.next}`,
+      next: `실행 조건: ${scenario.conclusion} 중심으로 ${action}. 판단 변경 KPI는 ${primaryFlip.label}(${primaryFlip.trigger}). ${profile.next}`,
     };
   }
 
@@ -3754,7 +3754,7 @@
       grid.innerHTML = `
         <article class="empty-card">
           <strong>선택한 필터에서 검증 가능한 근거가 없습니다.</strong>
-          <p>전체 필터로 전환하거나 다음 크롤링 이후 sourceUrl/link/가격 row가 들어온 항목만 의사결정 보드에 표시합니다.</p>
+          <p>전체 필터로 전환하거나 원문 링크·가격 근거가 있는 항목만 의사결정 목록에 표시합니다.</p>
         </article>
       `;
       agents.innerHTML = "";
@@ -3797,18 +3797,18 @@
     agents.innerHTML = `
       <div class="agent-debate c-level-agent-debate" style="--local-accent:${categoryAccent(selectedDecision?.category || "hbm")}">
         <div class="agent-debate-title">
-          <span>EXPERT AGENTS</span>
+          <span>EXPERT COUNCIL</span>
           <strong>${escapeHTML(selectedDecision?.label || "경영진 안건")} 토론</strong>
           <small>${escapeHTML(councilScenario.label)} · ${escapeHTML(councilScenario.horizon)}</small>
         </div>
         <div class="c-level-agent-controls">
           <label>
             <span>안건 선택</span>
-            <select id="cLevelCouncilSelect" aria-label="전문가 에이전트 토론 안건 선택">
+            <select id="cLevelCouncilSelect" aria-label="전문가 토론 안건 선택">
               ${decisions.map((item) => `<option value="${escapeHTML(item.id)}"${item.id === selectedDecision.id ? " selected" : ""}>${escapeHTML(item.label)} · ${escapeHTML(item.verdict)} · 근거 ${fmtNum(item.evidenceCount)}개</option>`).join("")}
             </select>
           </label>
-          <button type="button" id="cLevelRunCouncil">${cLevelCouncilRan ? "토론 다시 실행" : "에이전트 실행"}</button>
+          <button type="button" id="cLevelRunCouncil">${cLevelCouncilRan ? "토론 다시 실행" : "토론 실행"}</button>
         </div>
         ${decisionFlipKpiHTML(selectedDecision)}
         ${scenarioBriefHTML(councilScenario)}
@@ -3851,8 +3851,8 @@
           </div>
         ` : `
           <div class="agent-waiting">
-            <strong>안건을 선택한 뒤 에이전트 실행을 누르세요.</strong>
-            <p>실행 전에는 에이전트를 호출하지 않습니다. 실행 후 CEO, CFO, CTO, 전략, 운영, 정책, 시장, 중국, 리스크, 감사 에이전트가 실제 연결 근거 기준으로 순차 발언합니다.</p>
+            <strong>안건을 선택한 뒤 토론 실행을 누르세요.</strong>
+            <p>실행 전에는 전문가를 호출하지 않습니다. 실행 후 CEO, CFO, CTO, 전략, 운영, 정책, 시장, 중국, 리스크, 감사가 근거 기준으로 순차 발언합니다.</p>
           </div>
         `}
       </div>
@@ -5011,7 +5011,7 @@
       btn.innerHTML = `<strong>${escapeHTML(lens.label)}</strong><small>${escapeHTML(lens.sub)} · ${fmtNum(count)}</small>`;
       btn.addEventListener("click", () => {
         numberLens = lens.id;
-        renderNumberDashboard();
+        renderNumberAnalysis();
       });
       wrap.appendChild(btn);
     });
@@ -5040,7 +5040,7 @@
     `).join("");
   }
 
-  function numberDashboardItems() {
+  function numberAnalysisItems() {
     const baseItems = (BASE.kpis || []).map((kpi, index) => ({
       id: `kpi-${index}`,
       kind: "KPI",
@@ -5071,7 +5071,7 @@
         note: "AI 서버향 HBM/DDR5/CXL과 데이터센터 eSSD를 합산한 지수형 믹스",
         badge: "30M+5Y",
         statusClass: "watch",
-        source: "crawler-derived projection",
+        source: "evidence-based projection",
         sourceDate: fmtDate(LIVE.updatedAt),
         linkedCategories: ["hbm", "dram", "nand", "aidemand"],
       },
@@ -5085,7 +5085,7 @@
         note: "모바일/PC 단말과 오토·엣지 고신뢰 제품을 합산한 방어형 수요처",
         badge: "30M+5Y",
         statusClass: "watch",
-        source: "crawler-derived projection",
+        source: "evidence-based projection",
         sourceDate: fmtDate(LIVE.updatedAt),
         linkedCategories: ["dram", "nand", "aidemand"],
       },
@@ -5257,11 +5257,11 @@
         note: "채용·IP·캠퍼스 신호",
       },
       numbers: {
-        value: numberDashboardItems().filter(numberRelated).length,
+        value: numberAnalysisItems().filter(numberRelated).length,
         unit: "KPI",
         status: "Quant",
-        score: clamp(numberDashboardItems().filter(numberRelated).length * 5, 28, 100),
-        note: "움직이는 정량 대시보드",
+        score: clamp(numberAnalysisItems().filter(numberRelated).length * 5, 28, 100),
+        note: "움직이는 정량 분석",
       },
       projection: {
         value: projectionTotalSignals(),
@@ -5352,10 +5352,10 @@
     ].filter(Boolean).join("\n");
   }
 
-  function renderNumberDashboard() {
+  function renderNumberAnalysis() {
     const grid = $("#numberGrid");
     if (!grid) return;
-    const allItems = orderedNumberItems(numberDashboardItems().filter(numberRelated));
+    const allItems = orderedNumberItems(numberAnalysisItems().filter(numberRelated));
     const items = allItems.filter((item) => numberLensRelated(item));
     renderNumberLiveRibbon();
     renderNumberLensControls(allItems);
@@ -5365,7 +5365,7 @@
     grid.innerHTML = "";
     items.forEach((item, index) => {
       const payload = {
-        type: item.kind || "숫자 대시보드",
+        type: item.kind || "정량 분석",
         tag: item.badge,
         title: item.title,
         body: item.note,
@@ -5414,7 +5414,7 @@
       card.querySelector("[data-number-toggle]")?.addEventListener("click", () => {
         numberFolded[item.id] = !numberFolded[item.id];
         saveNumberPrefs();
-        renderNumberDashboard();
+        renderNumberAnalysis();
       });
       card.addEventListener("dragstart", () => {
         draggedNumberId = item.id;
@@ -5434,7 +5434,7 @@
         event.preventDefault();
         card.classList.remove("drop-target");
         if (!draggedNumberId || draggedNumberId === item.id) return;
-        const allIds = numberDashboardItems().map((entry) => entry.id);
+        const allIds = numberAnalysisItems().map((entry) => entry.id);
         const currentOrder = (numberOrder.length ? numberOrder : allIds).filter((id) => allIds.includes(id));
         allIds.forEach((id) => {
           if (!currentOrder.includes(id)) currentOrder.push(id);
@@ -5446,7 +5446,7 @@
         currentOrder.splice(to, 0, draggedNumberId);
         numberOrder = currentOrder;
         saveNumberPrefs();
-        renderNumberDashboard();
+        renderNumberAnalysis();
       });
       makeInspectable(card, payload);
       grid.appendChild(card);
@@ -5994,7 +5994,7 @@
           <ul class="watch-list">${(selected.strategy || []).map((line) => `<li>${escapeHTML(line)}</li>`).join("")}</ul>
         </div>
         <div class="nand-focus-block">
-          <strong>매일 크롤링 키워드</strong>
+          <strong>매일 확인할 핵심 키워드</strong>
           <div class="tag-row">${(selected.crawl || []).map((tag) => `<span class="tag">${escapeHTML(tag)}</span>`).join("")}</div>
         </div>
         <div class="nand-focus-block">
@@ -6082,7 +6082,7 @@
 
   function backtestYearOptions() {
     // Real crawled history at month granularity → past decision points expand
-    // automatically as the daily crawler accumulates price-history (no fabrication).
+    // automatically as the evidence history accumulates price-history (no fabrication).
     const months = new Map();
     historyItems().forEach((series) => {
       (series.points || []).forEach((point) => {
@@ -6308,7 +6308,7 @@
     return selected;
   }
 
-  function agentInitials(name = "Agent") {
+  function agentInitials(name = "Expert") {
     return String(name)
       .split(/[\s/·]+/)
       .filter(Boolean)
@@ -6318,7 +6318,7 @@
       .toUpperCase() || "A";
   }
 
-  function agentDebateHTML({ mode = "default", title = "Agent debate", subtitle = "", metrics = [], turns = [], kpis = [], accent = "" } = {}) {
+  function agentDebateHTML({ mode = "default", title = "Expert debate", subtitle = "", metrics = [], turns = [], kpis = [], accent = "" } = {}) {
     const colors = ["#06B6D4", "#8B5CF6", "#22C55E", "#F59E0B", "#EF4444", "#0EA5E9"];
     const normalizedTurns = turns.filter((turn) => turn?.message).slice(0, 10).map((turn, index) => ({
       ...turn,
@@ -6343,7 +6343,7 @@
     return `
       <div class="agent-debate agent-debate-${escapeHTML(mode)}" style="--local-accent:${escapeHTML(accent || colors[0])}">
         <div class="agent-debate-title">
-          <span>EXPERT AGENTS</span>
+          <span>EXPERT COUNCIL</span>
           <strong>${escapeHTML(title)}</strong>
           ${subtitle ? `<small>${escapeHTML(subtitle)}</small>` : ""}
         </div>
@@ -6523,7 +6523,7 @@
         <div class="decision-flip-title">
           <span>Decision review KPI</span>
           <strong>의사결정 재검토 KPI</strong>
-          <small>아래 기준선을 넘으면 에이전트 결론을 Go/Watch/Hold로 다시 판단합니다.</small>
+          <small>아래 기준선을 넘으면 전문가 결론을 Go/Watch/Hold로 다시 판단합니다.</small>
         </div>
         <div class="decision-flip-grid">
           ${items.map((item, index) => `
@@ -6627,7 +6627,7 @@
       china: "중국 신호는 현재 리스크 overlay로만 반영합니다.",
       cfo: "확정 재무 ROI가 아니라 실사 우선순위로만 사용합니다.",
       risk: "하방 조건이 확인되면 보수적으로 재검토합니다.",
-      strategy: "근거가 쌓이면 다음 크롤링에서 판단을 갱신합니다.",
+      strategy: "근거가 보강되면 다음 검토에서 판단을 갱신합니다.",
     };
     return profiles[active?.id] || fallback;
   }
@@ -6647,37 +6647,37 @@
       {
         id: "ceo",
         initials: "CEO",
-        name: "CEO Agent",
+        name: "CEO",
         title: "Executive Chair",
         role: "의사결정 질문",
         color: "#111827",
         stance: scenario.conclusion,
-        message: `CEO 질문: ${profile.question} 현재 결론은 ${active.decision.label}입니다. ${scenario.label} 가정에서는 ${scenario.ceo} 실행 판단은 ${scenario.conclusion}으로 조정합니다. ${primaryFlip.label}(${primaryFlip.trigger})이 충족되면 판단을 재상정합니다.`,
+        message: `의사결정 질문: ${profile.question} 현재 결론은 ${active.decision.label}입니다. ${scenario.label} 가정에서는 ${scenario.ceo} 실행 판단: ${scenario.conclusion}. ${primaryFlip.label}(${primaryFlip.trigger})이 충족되면 판단을 재상정합니다.`,
       },
       {
         id: "data",
         initials: "DATA",
-        name: "Data Agent",
+        name: "Data",
         title: "Backtest & Price Series",
         role: "가격·백테스트",
         color: "#06B6D4",
         stance: "실측 검증",
-        message: `Data 검증: ${profile.data} ${point} 기준 가격 series ${fmtNum(selectedSeriesCount)}개 중 관측 ${fmtNum(active.observations.length)}개만 계산했습니다. 사전 모멘텀 ${prior}, 이후 실측 ${actual}. ${scenario.label}에서는 ${scenario.market}`,
+        message: `근거 검증: ${profile.data} ${point} 기준 가격 series ${fmtNum(selectedSeriesCount)}개 중 관측 ${fmtNum(active.observations.length)}개만 계산했습니다. 사전 모멘텀 ${prior}, 이후 실측 ${actual}. ${scenario.label}에서는 ${scenario.market}`,
       },
       {
         id: "china",
         initials: "CN",
-        name: "China Agent",
+        name: "China",
         title: "China Risk Overlay",
         role: "중국 신호",
         color: "#8B5CF6",
         stance: "현재 리스크",
-        message: `중국 반론: ${profile.china} 연결 신호 ${fmtNum(active.chinaSignalCount)}건은 과거 백테스트에 소급 반영하지 않습니다. ${scenario.label}에서는 ${scenario.id === "china-pressure" ? "중국 신호를 Bear case로 상향 반영합니다." : "중국 신호를 현재 리스크 overlay로만 유지합니다."} ${chinaFlip.label} 기준이 충족되면 판단을 '${chinaFlip.flip}'로 재분류합니다.`,
+        message: `중국 반론: ${profile.china} 연결 신호 ${fmtNum(active.chinaSignalCount)}건은 과거 판단에 소급 반영하지 않습니다. ${scenario.label}에서는 ${scenario.id === "china-pressure" ? "중국 신호를 Bear case로 상향 반영합니다." : "중국 신호를 현재 리스크로만 유지합니다."} ${chinaFlip.label} 기준이 충족되면 판단을 '${chinaFlip.flip}'로 재분류합니다.`,
       },
       {
         id: "cfo",
         initials: "CFO",
-        name: "CFO Agent",
+        name: "CFO",
         title: "Capital Allocation",
         role: "수익성·자본배분",
         color: "#F59E0B",
@@ -6687,7 +6687,7 @@
       {
         id: "cto",
         initials: "CTO",
-        name: "CTO Agent",
+        name: "CTO",
         title: "Product & Technology",
         role: "제품·기술 병목",
         color: "#7C3AED",
@@ -6697,7 +6697,7 @@
       {
         id: "coo",
         initials: "COO",
-        name: "COO Agent",
+        name: "COO",
         title: "Operations & Supply",
         role: "공급·운영 실행",
         color: "#0EA5E9",
@@ -6707,7 +6707,7 @@
       {
         id: "market",
         initials: "MKT",
-        name: "Market Agent",
+        name: "Market",
         title: "Customer & Pricing",
         role: "가격·고객",
         color: "#10B981",
@@ -6717,7 +6717,7 @@
       {
         id: "risk",
         initials: "RISK",
-        name: "Risk Agent",
+        name: "Risk",
         title: "Downside Gate",
         role: "하방 리스크",
         color: "#EF4444",
@@ -6727,7 +6727,7 @@
       {
         id: "audit",
         initials: "AUD",
-        name: "Data Auditor",
+        name: "Auditor",
         title: "Evidence & Method",
         role: "근거 감사",
         color: "#475569",
@@ -6737,12 +6737,12 @@
       {
         id: "strategy",
         initials: "STR",
-        name: "Strategy Agent",
+        name: "Strategy",
         title: "Final Synthesis",
         role: "최종 정리",
         color: "#22C55E",
         stance: scenario.conclusion,
-        message: `권고: ${profile.strategy} 대상 제품군은 ${(active.products || []).slice(0, 4).join(" · ") || productLabel}입니다. ${scenario.label}에서는 ${scenario.conclusion}을 우선 결론으로 두고, 위 KPI가 기준선을 넘으면 다음 수집 시점에 자동 재검토합니다.`,
+        message: `권고: ${profile.strategy} 대상 제품군은 ${(active.products || []).slice(0, 4).join(" · ") || productLabel}입니다. ${scenario.label}에서는 ${scenario.conclusion}을 우선 결론으로 두고, 위 KPI가 기준선을 넘으면 다음 검토에서 재판단합니다.`,
       },
     ].filter((agent) => agent.message);
   }
@@ -6777,18 +6777,18 @@
     return `
       <div class="agent-debate agent-debate-decision decision-agent-council" style="--local-accent:${escapeHTML(accent)}">
         <div class="agent-debate-title">
-          <span>EXPERT AGENTS</span>
+          <span>EXPERT COUNCIL</span>
           <strong>${escapeHTML(active.label)} 의사결정 토론</strong>
           <small>${escapeHTML(scenario.label)} · ${escapeHTML(scenario.horizon)}</small>
         </div>
         <div class="c-level-agent-controls decision-agent-controls">
           <label>
             <span>안건 선택</span>
-            <select id="execDecisionCouncilSelect" aria-label="제품군 전문가 에이전트 토론 안건 선택">
+            <select id="execDecisionCouncilSelect" aria-label="제품군 전문가 토론 안건 선택">
               ${items.map((item) => `<option value="${escapeHTML(item.id)}"${item.id === active.id ? " selected" : ""}>${escapeHTML(item.label)} · ${escapeHTML(item.decision.label)} · ${fmtNum(item.observations.length)}개 관측</option>`).join("")}
             </select>
           </label>
-          <button type="button" id="execDecisionRunCouncil">${execDecisionCouncilRan ? "토론 다시 실행" : "에이전트 실행"}</button>
+          <button type="button" id="execDecisionRunCouncil">${execDecisionCouncilRan ? "토론 다시 실행" : "토론 실행"}</button>
         </div>
         <div class="agent-selected-brief">
           <span>선택 안건</span>
@@ -6839,8 +6839,8 @@
           </div>
         ` : `
           <div class="agent-waiting">
-            <strong>안건을 선택한 뒤 에이전트 실행을 누르세요.</strong>
-            <p>실행 전에는 에이전트를 호출하지 않습니다. 실행 후 CEO, Data, China, CFO, CTO, COO, Market, Risk, Auditor, Strategy가 순차 말풍선으로 토론합니다.</p>
+            <strong>안건을 선택한 뒤 토론 실행을 누르세요.</strong>
+            <p>실행 전에는 전문가를 호출하지 않습니다. 실행 후 CEO, Data, China, CFO, CTO, COO, Market, Risk, Auditor, Strategy가 순차 말풍선으로 토론합니다.</p>
           </div>
         `}
       </div>
@@ -7192,7 +7192,7 @@
         <button class="china-business-lane reveal${top?.id === selectedId ? " active" : ""}" type="button" data-china-business-strategy="${escapeHTML(top?.id || "")}" style="--local-accent:${categoryAccent((top?.linkedCategories || [])[0])}; animation-delay:${index * 25}ms">
           <span>${escapeHTML(axis)}</span>
           <strong>${escapeHTML(top?.label || axis)}</strong>
-          <p>${escapeHTML(top?.capital || "크롤링 신호를 기다리는 축")}</p>
+          <p>${escapeHTML(top?.capital || "근거 보강을 기다리는 축")}</p>
           <div class="lane-meter" aria-hidden="true"><i data-fill-to="${clamp(score)}" style="width:0%"></i></div>
           <small>${fmtNum(signals || top?.signals || 0)} signals · 근거지수 ${fmtNum(score)}% · 근거 ${fmtNum(top?.evidenceCount || 0)}건</small>
         </button>
@@ -7242,7 +7242,7 @@
       </div>
       <div class="investment-focus-block">
         <strong>숫자 산식</strong>
-        <p>모델점수 = 기준점수 + 크롤링 신호 + 가격 모멘텀 + 연결 전략 점수. 실측값은 가격 데이터와 원문 링크 수만 별도 집계합니다.</p>
+        <p>모델점수 = 기준점수 + 가격·뉴스·정책 근거 + 가격 모멘텀 + 연결 전략 점수. 실측값은 가격 데이터와 원문 링크 수만 별도 집계합니다.</p>
       </div>
       <div class="investment-focus-block">
         <strong>${section === "management-strategy" ? "전략 실행" : "의사결정 게이트"}</strong>
@@ -7586,7 +7586,7 @@
       metrics: [
         { label: "판단", value: site.verdict },
         { label: "체크포인트", value: fmtNum((site.checks || []).length) },
-        { label: "크롤링 신호", value: fmtNum(chinaInfraSignalCount(site)) },
+        { label: "근거 신호", value: fmtNum(chinaInfraSignalCount(site)) },
       ],
       links: [],
       tags: [site.label, site.status, "Land", "Water", "Power"],
@@ -7623,7 +7623,7 @@
     const payload = chinaInfraPayload(site);
     const signalCount = chinaInfraSignalCount(site);
     const theme = chinaInfraTheme();
-    if (meta) meta.textContent = `${site.label} · ${fmtNum((site.checks || []).length)}개 체크포인트 · 크롤링 신호 ${fmtNum(signalCount)}개`;
+    if (meta) meta.textContent = `${site.label} · ${fmtNum((site.checks || []).length)}개 체크포인트 · 근거 신호 ${fmtNum(signalCount)}개`;
     if (sourceMeta) sourceMeta.textContent = `RSS ${fmtNum(Number(theme?.count ?? 0) || 0)}개 · ${fmtDate(LIVE.chinaInfra?.updatedAt || LIVE.updatedAt)}`;
     renderChinaInfraTabs(site);
 
@@ -7688,7 +7688,7 @@
         <span>${escapeHTML(site.decision)}</span>
       </div>
       <div class="metric-row">
-        <div class="metric"><strong>${fmtNum(signalCount)}</strong><span>크롤링 신호</span></div>
+        <div class="metric"><strong>${fmtNum(signalCount)}</strong><span>근거 신호</span></div>
         <div class="metric"><strong>${fmtNum((site.checks || []).filter((check) => policyStatusClass(check.status) === "fail").length)}</strong><span>No-Go 항목</span></div>
       </div>
       <div class="policy-focus-block">
@@ -7708,10 +7708,10 @@
         <p>토지사용권·남은 부지, 공정용수/폐수총량, 수전 용량, 환경영향평가, BIS 라이선스가 모두 통과해야 추가 fab 확장을 O로 판단합니다. 공개 원문으로 확인되지 않은 항목은 요약 카드에서 제외하고 확장 판단은 보류 또는 X로 둡니다.</p>
       </div>
       <div class="policy-focus-block">
-        <strong>주기 크롤링</strong>
+        <strong>주기 점검</strong>
         <ul class="watch-list">
           <li>공개 인허가·정책·규제 신호는 요약 지표와 O/X 판단 근거로만 반영합니다.</li>
-          <li>Google News RSS로 Wuxi water/power/land/EIA/BIS 보조 신호를 수집합니다.</li>
+          <li>Wuxi water/power/land/EIA/BIS 보조 신호를 원문·외신 기준으로 확인합니다.</li>
           <li>전력 quota, 토지사용권, 신규 EIA 숫자가 나오기 전까지 신규 fab 증설은 보수적으로 판단합니다.</li>
         </ul>
       </div>
@@ -7887,7 +7887,7 @@
     const targetLabel = target?.label || scenario.label;
     const investment = target?.investment;
     const top = chinaTalentScenarioRoi(scenario).top;
-    const kpis = investment?.kpis || top?.investment?.kpis || ["크롤링 신호", "O/X 게이트", "ROI 지수"];
+    const kpis = investment?.kpis || top?.investment?.kpis || ["근거 신호", "O/X 게이트", "ROI 지수"];
     const noGoText = gates.noGo ? `X 게이트 ${fmtNum(gates.noGo)}개가 있어 전면 집행이 아니라 통제 조건부 집행입니다.` : "현재 선택 시나리오에는 즉시 중단형 X 게이트가 낮습니다.";
     const flipSubject = {
       id: `talent-ip-${challenge.id || "challenge"}`,
@@ -7986,49 +7986,49 @@
           message: challenge.question,
         },
         {
-          name: "Strategy Agent",
+          name: "Strategy",
           role: "권고",
           avatar: "STR",
           color: "#22C55E",
           message: response.verdict,
         },
         {
-          name: "Data Agent",
+          name: "Data",
           role: "근거",
           avatar: "DATA",
           color: "#06B6D4",
           message: response.logic,
         },
         {
-          name: "Risk Agent",
+          name: "Risk",
           role: "리스크",
           avatar: "RISK",
           color: "#8B5CF6",
           message: response.counter,
         },
         {
-          name: "Policy Agent",
+          name: "Policy",
           role: "규제·컴플라이언스",
           avatar: "POL",
           color: "#DB2777",
           message: "중국 운영, 인재 확보, IP 접근권은 운영 유지와 기술 이전을 분리해 승인합니다. 규제 원문이나 내부 승인 조건이 없으면 확대형 실행은 Watch로 둡니다.",
         },
         {
-          name: "CFO Agent",
+          name: "CFO",
           role: "재무 조건",
           avatar: "CFO",
           color: "#F59E0B",
           message: `${targetLabel} 안건은 승인 전 단계에서 수익성, 비용, 리스크를 분리해 봅니다. 재무 집행은 원문 계약, 가격, 투자비가 붙은 뒤 NPV/IRR로 재검증합니다.`,
         },
         {
-          name: "Data Auditor",
+          name: "Auditor",
           role: "근거 감사",
           avatar: "AUD",
           color: "#475569",
-          message: "근거 없는 추정은 결론 강도를 올리지 않습니다. sourceUrl, 기사 링크, 가격 row, O/X 게이트 중 확인 가능한 항목만 에이전트 답변의 기준으로 사용합니다.",
+        message: "근거 없는 추정은 결론 강도를 올리지 않습니다. 원문 링크, 기사 링크, 가격 데이터, O/X 게이트 중 확인 가능한 항목만 답변 기준으로 사용합니다.",
         },
         {
-          name: "Execution Agent",
+          name: "Execution",
           role: "다음 액션",
           avatar: "OPS",
           color: "#0EA5E9",
@@ -8053,7 +8053,7 @@
         { label: "판단", value: scenario.verdict },
         { label: "확보 직무", value: fmtNum((scenario.roles || []).length) },
         { label: "O/X 게이트", value: fmtNum((scenario.gates || []).length) },
-        { label: "크롤링 신호", value: fmtNum(chinaTalentSignalCount(scenario)) },
+        { label: "근거 신호", value: fmtNum(chinaTalentSignalCount(scenario)) },
         { label: "ROI 지수", value: fmtNum(roi.roi) },
         { label: "Top 투자", value: roi.top?.investment?.label || "-" },
       ],
@@ -8129,7 +8129,7 @@
     `;
     answerWrap.querySelector("[data-agent-copy]")?.addEventListener("click", (event) => {
       copyPayload({
-        type: "CEO 챌린지 AGENT 답변",
+        type: "CEO 챌린지 전문가 답변",
         tag: challenge.angle,
         title: challenge.question,
         body: `${response.verdict}\n\n논리: ${response.logic}\n\n반론 답변: ${response.counter}\n\n실행 조건: ${response.action}`,
@@ -8162,7 +8162,7 @@
     const noGoGates = gateStats.noGo;
     const scenarioRoi = chinaTalentScenarioRoi(scenario);
     const theme = chinaTalentTheme();
-    if (meta) meta.textContent = `${scenario.label} · 확보 직무 ${fmtNum((scenario.roles || []).length)}개 · 크롤링 신호 ${fmtNum(signalCount)}개`;
+    if (meta) meta.textContent = `${scenario.label} · 확보 직무 ${fmtNum((scenario.roles || []).length)}개 · 근거 신호 ${fmtNum(signalCount)}개`;
     if (sourceMeta) sourceMeta.textContent = `시나리오 ${fmtNum(CHINA_TALENT_STRATEGY_SCENARIOS.length)}개 · 라이브 ${fmtNum(liveItems.length)}개 · RSS ${fmtNum(Number(theme?.count ?? 0) || 0)}개`;
     if (roiMeta) roiMeta.textContent = `ROI 지수 ${fmtNum(scenarioRoi.roi)} · 수익성 ${fmtNum(scenarioRoi.profitability)} · ${scenarioRoi.top?.investment?.label || "투자안 확인"}`;
     renderChinaTalentTabs(scenario);
@@ -8212,7 +8212,7 @@
       <div class="metric-row">
         <div class="metric"><strong>${fmtNum(scenarioRoi.roi)}</strong><span>ROI 지수</span></div>
         <div class="metric"><strong>${fmtNum(scenarioRoi.profitability)}</strong><span>수익성</span></div>
-        <div class="metric"><strong>${fmtNum(signalCount)}</strong><span>크롤링 신호</span></div>
+        <div class="metric"><strong>${fmtNum(signalCount)}</strong><span>근거 신호</span></div>
         <div class="metric"><strong>${fmtNum(noGoGates)}</strong><span>No-Go</span></div>
       </div>
       <div class="policy-focus-block">
@@ -10021,7 +10021,7 @@
     const appendOption = (group, pair, cat) => {
       const active = pair.q === selectedQaQuestion || (q && pair.q === bestQuestion);
       const btn = el("button", `qa-option${active ? " active" : ""}`, `
-        <span class="qa-option-kicker">${escapeHTML(cat.name)} · ${escapeHTML(SECTION_LABELS[pair.nav] || "Dashboard")}</span>
+        <span class="qa-option-kicker">${escapeHTML(cat.name)} · ${escapeHTML(SECTION_LABELS[pair.nav] || "Intelligence")}</span>
         <strong>${escapeHTML(pair.q)}</strong>
         <small>${escapeHTML(qaPreview(pair.a))}</small>
       `);
@@ -10070,7 +10070,7 @@
     if (!q) return;
 
     const scored = (data.pairs || []).map((pair) => ({ pair, score: qaMatchScore(pair, q) })).sort((a, b) => b.score - a.score);
-    const best = forcedPair || (scored[0]?.score > 0 ? scored[0].pair : null) || dashboardFallbackPair(q);
+    const best = forcedPair || (scored[0]?.score > 0 ? scored[0].pair : null) || intelligenceFallbackPair(q);
     selectedQaQuestion = best.q;
     const input = $("#qaInput");
     if (input) {
@@ -10119,15 +10119,15 @@
   }
 
   function qaCat(pair = {}) {
-    return (BASE.qa?.cats || []).find((cat) => cat.id === pair.cat) || { name: "Dashboard", color: "var(--accent)" };
+    return (BASE.qa?.cats || []).find((cat) => cat.id === pair.cat) || { name: "Intelligence", color: "var(--accent)" };
   }
 
-  function dashboardFallbackPair(query) {
+  function intelligenceFallbackPair(query) {
     const terms = qaTerms({}, query);
     return {
       cat: "strategy",
       q: query,
-      a: "정확히 일치하는 드롭다운 질문은 없지만, 입력한 자연어와 가까운 대시보드 신호를 기준으로 답합니다.\n\n아래의 관련 가격 데이터, 기사, 벤치마킹 신호를 먼저 확인하세요. 특정 업체·제품·정책 키워드를 함께 입력하면 CXMT, YMTC, HBM, NAND, BIS, TrendForce 같은 보드로 더 정확히 연결됩니다.",
+      a: "정확히 일치하는 드롭다운 질문은 없지만, 입력한 자연어와 가까운 가격·기사·벤치마킹 신호를 기준으로 답합니다.\n\n아래의 관련 가격 데이터, 기사, 벤치마킹 신호를 먼저 확인하세요. 특정 업체·제품·정책 키워드를 함께 입력하면 CXMT, YMTC, HBM, NAND, BIS, TrendForce 같은 근거로 더 정확히 연결됩니다.",
       keywords: terms,
       nav: terms.some((term) => /price|spot|contract|가격|trendforce/.test(term)) ? "prices" : "overview",
     };
@@ -10192,7 +10192,7 @@
     return `
       <section class="qa-live-context">
         <div class="qa-live-head">
-          <span>대시보드 최신 데이터 기반</span>
+          <span>최신 근거 기반</span>
           <strong>${escapeHTML(SECTION_LABELS[pair.nav] || "관련 보드")} · ${escapeHTML(fmtDate(LIVE.updatedAt))}</strong>
         </div>
         <div class="qa-live-metrics">
@@ -10230,7 +10230,7 @@
         <div class="answer-head">
           <span>A</span>
           <div>
-            <em>${escapeHTML(cat.name)} · ${escapeHTML(SECTION_LABELS[pair.nav] || "Dashboard")}</em>
+            <em>${escapeHTML(cat.name)} · ${escapeHTML(SECTION_LABELS[pair.nav] || "Intelligence")}</em>
             <strong>${escapeHTML(pair.q)}</strong>
           </div>
           <button type="button" id="answerClose">닫기</button>
