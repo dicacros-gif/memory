@@ -10804,10 +10804,12 @@
   }
 
   function highlight(text) {
-    const importantSentence = /(^|\n\n)([^<\n]*(?:핵심|판단 포인트|의사결정 포인트|전략 검토|운영 기준|SKHY 관점|리스크|따라서|최신 기준|확정 근거|Watch|P1|경보선)[^<\n]*[.?!。]|[^<\n]*(?:봐야 합니다|분리합니다|표시합니다|둡니다|확인합니다)\.)/g;
-    return escapeHTML(text)
-      .replace(importantSentence, '$1<mark class="answer-highlight"><strong>$2</strong></mark>')
-      .replace(
+    const importantSegment = /(핵심|판단 포인트|의사결정 포인트|전략 검토|운영 기준|SKHY 관점|리스크|따라서|최신 기준|확정 근거|Watch|P1|경보선|검토 필요|상향|전망|분리|섞지 않음|봐야)/;
+    const emphasized = escapeHTML(text)
+      .split(/( · |\n\n)/)
+      .map((part) => importantSegment.test(part) ? `<mark class="answer-highlight"><strong>${part}</strong></mark>` : part)
+      .join("");
+    return emphasized.replace(
       /(CXMT|YMTC|XMC|JCET|Naura|AMEC|ACM|TrendForce|Reuters|Counterpoint|TechInsights|Yole|Nvidia|TSMC|CoWoS|Rubin|HBM4?E?|HBM5|DRAM|NAND|DDR5|LPDDR|CXL|PIM|IP|TSV|EUV|DUV|BIS|VEU|IPO|STAR|Big Fund|빅펀드|텐센트|메기|비대칭|마이크로데이터|Xtacking|eSSD)/g,
       "<b>$1</b>",
     );
