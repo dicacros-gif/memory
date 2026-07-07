@@ -258,7 +258,7 @@
         { name: "Outbound investment", role: "중국 관련 투자 제한/신고", note: "미국인·미국 controlled foreign entity 거래 검토 필요" },
       ],
       rules: [
-        { axis: "CHIPS Act", status: "O", title: "미국 내 제조·R&D 인센티브", evidence: "CHIPS and Science Act/Commerce 반도체 지원 총액은 공식 자료에서 약 527억 달러로 설명되며, NIST CHIPS for America 개요의 DOC 집행 suite는 500억 달러입니다. 이 중 R&D 110억 달러, 시설·장비 인센티브 390억 달러로 나뉩니다.", implication: "미국 고객·패키징·R&D 협력은 중국 사업과 분리된 투자 트랙으로 관리하고, 법안 총액과 DOC 집행 프로그램을 같은 숫자로 혼용하지 않습니다.", source: "NIST CHIPS for America", sourceUrl: "https://www.nist.gov/chips" },
+        { axis: "CHIPS Act", status: "O", title: "미국 내 제조·R&D 인센티브", evidence: "CHIPS Act 법안 총액은 NGA 개요 기준 $52.7B입니다. NIST가 설명하는 DOC CHIPS for America 집행분은 $50B이며, 이 중 제조 인센티브 $39B와 R&D $11B로 구성됩니다. 법안 총액과 DOC 집행 프로그램을 같은 숫자로 혼용하지 않습니다.", implication: "미국 고객·패키징·R&D 협력은 중국 사업과 분리된 투자 트랙으로 관리하고, 투자 검토에서는 법안 총액 $52.7B와 DOC 집행분 $50B를 분리 표기합니다.", source: "NIST / NGA", sourceUrl: "https://www.nist.gov/chips" },
         { axis: "BIS/VEU", status: "X", title: "중국 fab 캐파 확대·기술 업그레이드", evidence: "BIS는 VEU 특례 종료 후 기존 fab 운영 라이선스는 의도하되, 중국 내 캐파 확대나 기술 업그레이드 라이선스는 의도하지 않는다고 밝혔습니다.", implication: "Wuxi/Dalian/Chongqing 장비·소프트웨어 반입은 운영 유지와 업그레이드를 분리해 증빙해야 합니다.", source: "BIS", sourceUrl: "https://www.bis.gov/press-release/department-commerce-closes-export-controls-loophole-foreign-owned-semiconductor-fabs-china" },
         { axis: "Outbound investment", status: "Watch", title: "중국 첨단기술 투자 신고/금지", evidence: "미 재무부 규칙은 반도체·마이크로일렉트로닉스, 양자, AI를 대상으로 하고 PRC/HK/Macau를 country of concern으로 지정합니다.", implication: "미국인·미국 계열사가 연결된 중국 JV/지분투자/기술협력은 사전 심사가 필요합니다.", source: "U.S. Treasury", sourceUrl: "https://home.treasury.gov/policy-issues/international/outbound-investment-program" },
         { axis: "환경/인허가", status: "Watch", title: "NEPA와 대형 투자 인허가", evidence: "CHIPS 프로그램은 NEPA 항목을 별도 운영하고, 대형 투자 환경검토는 일정 리스크가 될 수 있습니다.", implication: "미국 내 신규 시설·패키징·R&D 투자는 환경 검토 일정을 의사결정 모델에 넣습니다.", source: "CHIPS.gov / NIST", sourceUrl: "https://www.chips.gov/" },
@@ -382,7 +382,7 @@
       ],
       channels: ["로컬 경력 채용", "고객 품질/FAE 추천 채용", "대학 펌웨어·스토리지 랩", "중국 서버 고객 공동 품질 워룸"],
       gates: [
-        { axis: "사업 필요성", status: "O", title: "Dalian/Solidigm 스토리지 운영과 연결", evidence: "Intel 8-K 기준 SKHY는 2025년 3월 27일 Intel NAND 사업 2차·최종 클로징을 완료했고, 약 19억 달러 최종 지급과 함께 NAND 기술·제조 사업을 취득했습니다. 2021년 초기 클로징 당시의 NAND wafer 제조·판매 계약도 종료됐습니다.", implication: "eSSD 고객 품질·검증 인력은 중국 사업 방어에 직접 필요하며, Dalian/Solidigm은 최종 클로징 이후 통합 운영 자산으로 봅니다.", source: "Intel 8-K", sourceUrl: "https://www.intc.com/filings-reports/all-sec-filings/content/0000050863-25-000060/0000050863-25-000060.pdf" },
+        { axis: "사업 필요성", status: "O", title: "Dalian/Solidigm 스토리지 운영과 연결", evidence: "Intel NAND 거래는 총 약 $8.85B 규모로 봅니다. Phase 1은 2021년 SSD 사업과 Dalian 팹 인수($6.61B), Phase 2는 2025년 3월 27일 NAND 기술·제조 사업 최종 취득과 조정 후 최종 지급 약 $1.9B입니다. 일부 보도에서 언급된 Phase 2 예상금액 $2.24B는 최종 지급액과 분리합니다.", implication: "eSSD 고객 품질·검증 인력은 중국 사업 방어에 직접 필요하며, Dalian/Solidigm은 최종 클로징 이후 통합 운영 자산으로 봅니다.", source: "Intel 8-K", sourceUrl: "https://www.intc.com/filings-reports/all-sec-filings/content/0000050863-25-000060/0000050863-25-000060.pdf" },
         { axis: "IP 통제", status: "Watch", title: "펌웨어·컨트롤러 IP 접근 분리", evidence: "NAND 사업 강화는 고객 대응 인력과 핵심 IP 접근 인력을 분리해야 합니다.", implication: "현지 인력은 검증·품질·고객 대응 중심, 핵심 펌웨어 소스는 본사 통제 중심으로 둡니다.", source: "Internal control logic", sourceUrl: "https://www.skhynix.com/company/UI-FR-CP06/" },
         { axis: "금지선", status: "X", title: "경쟁사 고객 비공개 인증자료 활용 금지", evidence: "YMTC 등 경쟁사 동향은 공개 기사·로컬 채용·특허·가격 신호로만 수집해야 합니다.", implication: "고객 NDA 자료나 경쟁사 비공개 테스트 데이터를 채용 조건으로 요구하지 않습니다.", source: "Compliance rule", sourceUrl: "https://www.skhynix.com/company/UI-FR-CP06/" },
       ],
@@ -1510,12 +1510,12 @@
       tag: "우한 3공장",
       title: "YMTC 우한 Phase 3 장비 설치와 2026년 하반기 양산",
       thesis: "YMTC 우한 Phase 3는 단순 모니터링 신호가 아니라 장비 설치와 2026년 하반기 양산 개시 타임라인이 보도된 NAND 캐파 확장 이벤트입니다",
-      facts: ["기존 Line 1 약 100,000 wpm + Line 2 약 60,000 wpm = 합산 약 160,000 wpm", "우한 Phase 3는 장비 설치와 2026년 하반기 양산 개시 보도를 별도 Confirmed/Watch 근거로 추적", "2027년 50,000 wpm 도달과 추가 팹 2곳은 ramp-up 시나리오로 분리"],
+      facts: ["기존 Wuhan 두 팹 합산 캐파는 출처별 160,000~200,000 wpm 범위로 표시", "ChosunBiz 기준은 Line 1 약 100,000 wpm + Line 2 약 60,000 wpm = 약 160,000 wpm", "Tom's Hardware/Reuters와 Sokatec 계열 보도는 기존 두 팹 합산 약 200,000 wpm으로 보도하므로 단일 확정치가 아니라 Watch 범위값으로 관리"],
       risk: "국산 장비 qual과 공정 recipe 안정화가 지연되면 계획된 ramp 속도와 수율은 다시 Watch로 낮춰야 합니다",
       implication: "YMTC는 단순 NAND 경쟁사가 아니라 NAND 캐파, eSSD 고객, XMC 패키징, 국산 장비 qual을 묶는 중국형 IDM 후보로 추적해야 합니다",
       linkedCategories: ["nand", "dram", "equipment", "packaging"],
-      source: "Reuters / NineScrolls / Korea Herald",
-      sourceUrl: "https://evertiq.com/design/2026-04-14-ymtc-plans-new-fabs-to-boost-capacity-amid-rising-us-china-tensions",
+      source: "Tom's Hardware / Reuters / Sokatec",
+      sourceUrl: "https://www.tomshardware.com/tech-industry/semiconductors/ymtc-planms-two-additional-wuhan-fabs",
     },
     {
       id: "advanced-packaging",
