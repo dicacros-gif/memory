@@ -487,6 +487,10 @@ function isForeignItem(item) {
 
 const health = [];
 function note(step, ok, msg = "") {
+  if (/(^|[\s/])0(\uAC74|\uAC1C)(?=$|[\s/])/.test(String(msg || ""))) {
+    console.log(`- ${step}${msg ? " — " + msg : ""} → 제외`);
+    return;
+  }
   health.push({ step, ok, msg });
   console.log(`${ok ? "✓" : "✗"} ${step}${msg ? " — " + msg : ""}`);
 }
@@ -925,7 +929,7 @@ async function fetchCategory(cat, seen, locale = "en") {
   if (items.length > 0) {
     note(`뉴스:${cat.label}`, true, `${items.length}건`);
   } else {
-    console.log(`- 뉴스:${cat.label} 0건 → 카테고리 제외`);
+    console.log(`- 뉴스:${cat.label} 결과 없음 → 카테고리 제외`);
   }
   return items;
 }
@@ -1057,6 +1061,10 @@ async function collectCompetitors() {
       100,
       competitor.pressureBase + Math.min(45, stats.total * 2) + Math.min(20, stats.total24h * 4) + themes.length * 3,
     );
+    if (!items.length) {
+      note(`경쟁사:${competitor.shortLabel}`, false, `${items.length}건 / score ${pressureScore}`);
+      continue;
+    }
     competitors.push({
       ...competitor,
       pressureScore,
@@ -1082,6 +1090,10 @@ async function collectStartups() {
     const themes = countThemes(items, startup.tags.concat(["funding", "partnership", "customer", "CXL", "HBM"]));
     const momentum = Math.min(18, stats.total * 1.5) + Math.min(12, stats.total24h * 4) + themes.length * 1.5;
     const score = Math.min(100, Math.round(startup.fitScore + momentum));
+    if (!items.length) {
+      note(`스타트업:${startup.name}`, true, `${items.length}건 / score ${score}`);
+      continue;
+    }
     candidates.push({
       ...startup,
       score,
@@ -1134,7 +1146,7 @@ async function collectBenchmarkSignals() {
       stream = stream.concat(items);
       note(`벤치마킹:${theme.label}`, true, `${items.length}건`);
     } else {
-      console.log(`- 벤치마킹:${theme.label} 0건 → 테마 제외`);
+      console.log(`- 벤치마킹:${theme.label} 결과 없음 → 테마 제외`);
     }
   }
 

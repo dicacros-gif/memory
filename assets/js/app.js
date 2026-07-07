@@ -1532,12 +1532,12 @@
       tag: "소부장",
       title: "빅펀드 3기와 장비·소재 국산화",
       thesis: "빅펀드 3기는 단순 팹 증설보다 EUV·EDA·첨단 화학 소재 같은 초크포인트에 자본을 집중하고 있습니다",
-      facts: ["빅펀드 3기 3,440억 위안·약 $47.5B", "장비 국산화율 2025년 23.2%는 Yole 유료 리서치 인용 보도로만 확인되어 원문 링크 확보 전까지 Watch", "ACM Research FY2025 매출 $901.3M, Q1 2026 매출 $231.263M·출하 $240.7M은 ACM IR 원문 기준으로 추적"],
+      facts: ["빅펀드 3기 3,440억 위안·약 $47.5B", "Yole Group 공개 보도자료 기준 장비 국산화율은 2021년 8%에서 2025년 23.2%로 상승, 2030년 39% 전망", "ACM Research FY2025 매출 $901.3M, Q1 2026 매출 $231.263M·출하 $240.7M은 ACM IR 원문 기준으로 추적"],
       risk: "집계 기준에 따라 국산화율 수치가 달라집니다. AMEC 식각, Naura 종합장비, ACM 세정이 서방 장비를 대체하지만 Entity List와 미국 원산 부품 조달 리스크가 장비 ramp의 새로운 병목입니다",
       implication: "한국 소부장 파트너의 JV 제안, 소재 recipe 이전, 중국 내수 우선 공급권 요구를 조기 탐지해야 합니다",
       linkedCategories: ["equipment", "geopolitics", "talent"],
-      source: "Reuters / ACM Research IR",
-      sourceUrl: "https://ir.acmr.com/news-releases/news-release-details/acm-research-reports-first-quarter-2026-results",
+      source: "Reuters / Yole Group / ACM Research IR",
+      sourceUrl: "https://www.yolegroup.com/press-release/chinas-semiconductor-equipment-localization-enters-a-new-growth-phase/",
     },
     {
       id: "match-act",
@@ -1671,7 +1671,7 @@
   const MECE_GROUPS = [
     {
       id: "home",
-      label: "홈",
+      label: "Executive Summary",
       desc: "일일 인텔리전스",
       cadence: "Daily",
       jump: "overview",
@@ -1749,7 +1749,7 @@
   ];
   const ROUTE_DISPLAY = {
     home: {
-      label: "홈",
+      label: "Executive Summary",
       desc: "일일 인텔리전스",
       cadence: "Daily",
     },
@@ -1841,7 +1841,7 @@
     { id: "china-risk", label: "중국 리스크", sub: "CXMT · YMTC · 정책", categories: ["china", "geopolitics", "equipment", "talent"], keywords: ["cxmt", "ymtc", "big fund", "match", "veU", "중국", "국산화", "수출통제"] },
   ];
   const SECTION_LABELS = {
-    overview: "홈",
+    overview: "Executive Summary",
     "c-level-cockpit": "C-level 전략 보드",
     "executive-decision": "경영진 의사결정",
     "management-strategy": "중국 경영전략 수립",
@@ -2203,6 +2203,10 @@
     return positiveCount(item) > 0;
   }
 
+  function isZeroCountMessage(msg = "") {
+    return /(^|[\s/])0(\uAC74|\uAC1C)(?=$|[\s/])/.test(String(msg || ""));
+  }
+
   function normalizeLiveData(data = emptyLive) {
     const next = { ...emptyLive, ...(data || {}) };
     next.categories = (next.categories || []).filter(hasPositiveCount);
@@ -2211,10 +2215,17 @@
       themes: (next.benchmarkSignals?.themes || []).filter(hasPositiveCount),
       stream: next.benchmarkSignals?.stream || [],
     };
+    next.competitors = {
+      ...(next.competitors || {}),
+      competitors: (next.competitors?.competitors || []).filter((item) => Number(item?.stats?.total ?? item?.count ?? item?.items?.length ?? 0) > 0),
+    };
+    next.startups = {
+      ...(next.startups || {}),
+      candidates: (next.startups?.candidates || []).filter((item) => Number(item?.stats?.total ?? item?.count ?? item?.items?.length ?? 0) > 0),
+    };
     next.health = (next.health || []).filter((entry) => {
-      const step = String(entry?.step || "");
       const msg = String(entry?.msg || "");
-      return !(entry?.ok === false && /^(뉴스|벤치마킹):/.test(step) && /0건/.test(msg));
+      return !isZeroCountMessage(msg);
     });
     return next;
   }
@@ -3898,7 +3909,7 @@
       { id: "tsmc", name: "TSMC", role: "HBM4 base die", metric: "CoWoS", category: "packaging", x: 24, y: 24, scale: 78 },
       { id: "samsung", name: "Samsung", role: "HBM·DRAM 경쟁", metric: "HBM 21%", category: "hbm", x: 16, y: 48, scale: 86 },
       { id: "micron", name: "Micron", role: "HBM·DRAM 경쟁", metric: "DRAM 22%", category: "dram", x: 84, y: 42, scale: 80 },
-      { id: "cxmt", name: "CXMT", role: "중국 DRAM 가격 압력", metric: "DRAM 10%+", category: "dram", x: 18, y: 72, scale: 88 },
+      { id: "cxmt", name: "CXMT", role: "중국 DRAM 가격 압력", metric: "DRAM 8%", category: "dram", x: 18, y: 72, scale: 88 },
       { id: "ymtc", name: "YMTC", role: "중국 NAND/eSSD", metric: "NAND 13%", category: "nand", x: 70, y: 78, scale: 86 },
       { id: "kioxia-sandisk", name: "Kioxia·SanDisk", role: "NAND peer", metric: "BiCS", category: "nand", x: 90, y: 68, scale: 74 },
       { id: "solidigm", name: "Solidigm", role: "eSSD·Dalian 방어", metric: "eSSD", category: "operations", x: 60, y: 68, scale: 72 },
@@ -5590,7 +5601,7 @@
         backtestCount: testedBacktests.length,
         agendaCount: relatedDecisions.length + relatedStrategies.length,
       };
-    });
+    }).filter((row) => row.signalCount > 0 || row.sourceCount > 0 || row.priceRows > 0 || row.agendaCount > 0 || row.backtestCount > 0);
   }
 
   function renderCategoryDecisionMatrix(backtests = executiveBacktests()) {
@@ -9202,7 +9213,9 @@
     }
 
     if (mode === "startup-radar") {
-      items = (LIVE.startups?.candidates || []).map((item) => {
+      items = (LIVE.startups?.candidates || [])
+      .filter((item) => Number(item?.stats?.total ?? item?.count ?? item?.items?.length ?? 0) > 0)
+      .map((item) => {
         const categories = startupCandidateCategories(item);
         const links = startupCandidateLinks(item);
         return {
