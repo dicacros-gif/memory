@@ -1683,7 +1683,7 @@
       desc: "백테스트, 경영전략, 제품군 프로젝션, ROI 시나리오",
       cadence: "Decision lab",
       jump: "executive-decision",
-      sections: ["executive-decision", "management-strategy", "strategic-investment-decision", "numbers", "projection"],
+      sections: ["executive-decision", "management-strategy", "strategic-investment-decision", "numbers", "projection", "hyperscaler-demand"],
     },
     {
       id: "market",
@@ -1724,7 +1724,7 @@
     {
       id: "c-level",
       label: "경영진 의사결정",
-      desc: "C-level 전략 회의, 의사결정 안건",
+      desc: "전략 회의·의사결정 안건",
       cadence: "C-level cockpit",
       jump: "c-level-cockpit",
       sections: ["c-level-cockpit"],
@@ -1755,42 +1755,42 @@
     },
     "c-level": {
       label: "경영진",
-      desc: "C-level 전략 회의, 의사결정 안건",
+      desc: "전략 회의·의사결정 안건",
       cadence: "C-level",
     },
     workbench: {
       label: "분석실",
-      desc: "워크벤치, 정량 분석, 전문가 토론, 시나리오 비교",
+      desc: "워크벤치·정량분석·전문가 토론",
       cadence: "Decision lab",
     },
     "market-map": {
       label: "경쟁·돈흐름",
-      desc: "경쟁, 파트너십, 투자, 공급, 매출 흐름",
+      desc: "경쟁·파트너십·투자·공급·매출",
       cadence: "Dynamics",
     },
     analysis: {
       label: "전략·백테스트",
-      desc: "백테스트, 경영전략, 제품군 프로젝션, ROI 시나리오",
+      desc: "백테스트·경영전략·프로젝션·ROI",
       cadence: "Decision lab",
     },
     market: {
       label: "시장",
-      desc: "Spot/Contract 가격, 영어권·중국어 기사, 수급 신호",
+      desc: "가격·외신/중국 기사·수급",
       cadence: "Market data",
     },
     competitors: {
       label: "경쟁사",
-      desc: "CXMT, YMTC, XMC, JCET, Naura, AMEC 벤치마크",
+      desc: "CXMT·YMTC·JCET·Naura·AMEC",
       cadence: "China benchmark",
     },
     policy: {
       label: "정책/Fab",
-      desc: "중국·한국·미국 정책과 중국 Fab 인프라 판단",
+      desc: "중·한·미 정책·중국 Fab 인프라",
       cadence: "Policy watch",
     },
     talent: {
       label: "인재/IP",
-      desc: "채용, 대학 파이프라인, 수율 인력, IP 리스크",
+      desc: "채용·수율 인력·IP 리스크",
       cadence: "Hiring watch",
     },
   };
@@ -1946,6 +1946,8 @@
   let cLevelCouncilScenarioRun = 0;
   let cLevelCouncilRunToken = 0;
   const cLevelCouncilTimers = [];
+  let hyperscalerScenario = "base";
+  let hyperscalerFocusId = "";
   let execDecisionCouncilRan = false;
   let execDecisionCouncilScenarioRun = 0;
   let projectionFocusId = "ai-server";
@@ -2008,6 +2010,7 @@
     renderChinaTalentStrategy();
     renderNumberAnalysis();
     renderProductProjection();
+    renderHyperscalerDemand();
     renderCategories();
     renderResponses();
     renderArchitectureMatrix();
@@ -2026,6 +2029,173 @@
     animateCounts();
     animateMeters();
     setupMouseDrivenMetrics();
+  }
+
+  /* ---------------- Hyperscaler memory demand · scenario planning ---------------- */
+  // Logic: AI 가속기 출하(대) × HBM GB/대 → 총 HBM 수요(PB) × SKHY 점유율 → SKHY 물량.
+  // 범용 서버 DRAM·eSSD NAND는 동반 수요로 YoY 지표로 병기. 모두 공개 데이터 기반 논리 추정.
+  const HYPERSCALER_SCENARIOS = [
+    {
+      id: "bear",
+      label: "Bear · 소화 국면",
+      tone: "watch",
+      accelUnits: 5.0, hbmPerUnit: 180, skhyShare: 52, serverDramYoY: 8, essdYoY: 6,
+      premise: "AI CapEx 소화·전력/부지 제약으로 가속기 출하 둔화, HBM 재고 조정",
+      readout: "범용 가격 방어를 우선하고 HBM CAPEX는 milestone tranche로 제한",
+    },
+    {
+      id: "base",
+      label: "Base · 기준",
+      tone: "ok",
+      accelUnits: 6.5, hbmPerUnit: 210, skhyShare: 55, serverDramYoY: 15, essdYoY: 18,
+      premise: "빅테크 CapEx 견조, 가속기 YoY +40% 내외, HBM3E→HBM4 완만 전환",
+      readout: "HBM4 고객 인증 일정에 캐파를 선배분, 범용은 현금흐름 방어",
+    },
+    {
+      id: "bull",
+      label: "Bull · AI 상방",
+      tone: "ok",
+      accelUnits: 8.5, hbmPerUnit: 250, skhyShare: 58, serverDramYoY: 24, essdYoY: 30,
+      premise: "추론 수요 폭발·커스텀 ASIC 급증, HBM4 조기 채택과 대당 용량 상향",
+      readout: "HBM 선제 증설·장기계약 락인을 앞당기되 범용 캐파 잠식 트레이드오프 관리",
+    },
+  ];
+
+  function hyperscalerScenarioData(id = hyperscalerScenario) {
+    return HYPERSCALER_SCENARIOS.find((s) => s.id === id) || HYPERSCALER_SCENARIOS[1];
+  }
+
+  // 총 HBM 수요(PB) = 가속기 출하(백만 대) × HBM(GB/대) ÷ 1 (백만 GB = 1 PB)
+  function hyperscalerHbmTotals(scenario = hyperscalerScenarioData()) {
+    const totalHbmPb = Math.round(scenario.accelUnits * scenario.hbmPerUnit);
+    const skhyHbmPb = Math.round(totalHbmPb * scenario.skhyShare / 100);
+    return { totalHbmPb, skhyHbmPb };
+  }
+
+  function hyperscalerAccounts() {
+    return [
+      { id: "azure", name: "Microsoft · Azure", region: "US", capex: "↑↑ 최상", asic: "Maia 200", hbmPull: 96, note: "OpenAI 학습·추론 동시 확장. HBM4 최우선 고객군, 서버 DRAM 동반 최대." },
+      { id: "aws", name: "Amazon · AWS", region: "US", capex: "↑↑ 최상", asic: "Trainium2/3", hbmPull: 90, note: "자체 ASIC 확대 = HBM 직접 조달 + NVIDIA 간접 수요. eSSD 대량." },
+      { id: "google", name: "Google Cloud", region: "US", capex: "↑ 강", asic: "TPU v7 Ironwood", hbmPull: 88, note: "TPU HBM 자체 조달 규모가 커 SKHY·삼성 물량 배분의 핵심 변수." },
+      { id: "meta", name: "Meta", region: "US", capex: "↑↑ 최상", asic: "MTIA", hbmPull: 84, note: "추론·추천 가속 = 서버 DRAM·HBM 동반. 자본 여력 높아 Bull 민감도 큼." },
+      { id: "oracle", name: "Oracle · OpenAI(Stargate)", region: "US", capex: "↑↑↑ 신규", asic: "NVIDIA 중심", hbmPull: 80, note: "대형 신규 수요이나 착공·자금 가시성 낮음 → 계약 확정 전 Watch." },
+      { id: "xai", name: "xAI", region: "US", capex: "↑↑ 급증", asic: "NVIDIA", hbmPull: 68, note: "Colossus 확장 공격적, 전력·부지 제약이 실제 출하의 상한." },
+      { id: "china", name: "중국(Alibaba·Tencent·ByteDance)", region: "CN", capex: "↑ 제한", asic: "자체·H20·국산", hbmPull: 58, note: "수출통제로 SKHY 직접 노출 제한. CXMT/국산 HBM 대체 압력을 별도 경보로 관리." },
+    ];
+  }
+
+  function hyperscalerAccountPull(account, scenario = hyperscalerScenarioData()) {
+    // 시나리오 tilt를 각 계정 HBM 견인도에 반영. 중국은 상방에서도 수출통제로 상단이 눌림.
+    const tilt = scenario.id === "bull" ? 1.12 : scenario.id === "bear" ? 0.82 : 1;
+    const capped = account.region === "CN" ? Math.min(account.hbmPull * tilt, 66) : account.hbmPull * tilt;
+    return Math.round(clamp(capped, 8, 100));
+  }
+
+  function renderHyperscalerDemand() {
+    const logic = $("#hyperscalerLogic");
+    const tabs = $("#hyperscalerScenarioTabs");
+    const summary = $("#hyperscalerSummary");
+    const grid = $("#hyperscalerGrid");
+    const focus = $("#hyperscalerFocus");
+    const assumptions = $("#hyperscalerAssumptions");
+    const meta = $("#hyperscalerMeta");
+    if (!tabs || !summary || !grid) return;
+
+    const scenario = hyperscalerScenarioData();
+    const { totalHbmPb, skhyHbmPb } = hyperscalerHbmTotals(scenario);
+    const accounts = hyperscalerAccounts();
+    if (meta) meta.textContent = `${scenario.label} · 가속기 ${fmtNum(scenario.accelUnits, 1)}백만 대 · HBM ${fmtNum(scenario.hbmPerUnit)}GB/대`;
+
+    if (logic) {
+      const steps = [
+        { k: "① 가속기 출하", v: `${fmtNum(scenario.accelUnits, 1)}백만 대`, s: "NVIDIA+AMD+커스텀 ASIC 2026E" },
+        { k: "② HBM 탑재량", v: `${fmtNum(scenario.hbmPerUnit)} GB/대`, s: "B200 192 · GB300 288 가중 평균" },
+        { k: "③ 총 HBM 수요", v: `${fmtNum(totalHbmPb)} PB`, s: "①×② (백만 대 × GB)" },
+        { k: "④ SKHY 점유율", v: `${fmtNum(scenario.skhyShare)}%`, s: "HBM 리더십 가정" },
+        { k: "⑤ SKHY HBM 물량", v: `${fmtNum(skhyHbmPb)} PB`, s: "③×④ 논리 추정" },
+      ];
+      logic.innerHTML = steps.map((step, i) => `
+        <article class="hs-logic-step reveal" style="--delay:${i * 60}ms">
+          <span>${escapeHTML(step.k)}</span>
+          <strong>${escapeHTML(step.v)}</strong>
+          <small>${escapeHTML(step.s)}</small>
+        </article>
+      `).join(`<i class="hs-logic-arrow" aria-hidden="true">→</i>`);
+    }
+
+    tabs.innerHTML = HYPERSCALER_SCENARIOS.map((s) => `
+      <button type="button" class="${s.id === hyperscalerScenario ? "active" : ""}" data-hs-scenario="${escapeHTML(s.id)}" style="--tab-tone:${s.tone === "watch" ? "#F59E0B" : "#10B981"}">
+        <strong>${escapeHTML(s.label)}</strong>
+        <small>가속기 ${fmtNum(s.accelUnits, 1)}M · HBM ${fmtNum(s.hbmPerUnit)}GB</small>
+      </button>
+    `).join("");
+
+    summary.innerHTML = `
+      <article class="hs-kpi"><span>총 HBM 수요</span><strong>${countHTML(totalHbmPb)}<em>PB</em></strong><small>${escapeHTML(scenario.premise)}</small></article>
+      <article class="hs-kpi accent"><span>SKHY HBM 물량</span><strong>${countHTML(skhyHbmPb)}<em>PB</em></strong><small>점유율 ${fmtNum(scenario.skhyShare)}% 가정</small></article>
+      <article class="hs-kpi"><span>서버 DRAM</span><strong>+${countHTML(scenario.serverDramYoY)}<em>% YoY</em></strong><small>범용 동반 수요</small></article>
+      <article class="hs-kpi"><span>eSSD NAND</span><strong>+${countHTML(scenario.essdYoY)}<em>% YoY</em></strong><small>AI 스토리지 견인</small></article>
+      <article class="hs-readout"><span>경영 판단</span><strong>${escapeHTML(scenario.readout)}</strong></article>
+    `;
+
+    const focusId = accounts.some((a) => a.id === hyperscalerFocusId) ? hyperscalerFocusId : accounts[0].id;
+    grid.innerHTML = accounts.map((account, i) => {
+      const pull = hyperscalerAccountPull(account, scenario);
+      return `
+        <button class="hs-card ${account.id === focusId ? "active" : ""} reveal" type="button" data-hs-account="${escapeHTML(account.id)}" style="--delay:${i * 40}ms; --pull:${pull}%">
+          <span class="hs-card-top"><em>${escapeHTML(account.region)}</em><b>CapEx ${escapeHTML(account.capex)}</b></span>
+          <strong>${escapeHTML(account.name)}</strong>
+          <small>자체칩 ${escapeHTML(account.asic)}</small>
+          <div class="hs-pull"><i style="width:${pull}%"></i></div>
+          <span class="hs-pull-label">HBM 견인도 ${fmtNum(pull)}/100</span>
+        </button>
+      `;
+    }).join("");
+
+    if (focus) {
+      const account = accounts.find((a) => a.id === focusId) || accounts[0];
+      const pull = hyperscalerAccountPull(account, scenario);
+      focus.innerHTML = `
+        <span class="hs-focus-tag">${escapeHTML(account.region)} · 수요 심층</span>
+        <strong>${escapeHTML(account.name)}</strong>
+        <div class="hs-focus-metrics">
+          <span><b>${escapeHTML(account.capex)}</b><small>CapEx 방향</small></span>
+          <span><b>${escapeHTML(account.asic)}</b><small>자체 가속기</small></span>
+          <span><b>${fmtNum(pull)}/100</b><small>HBM 견인도</small></span>
+        </div>
+        <p>${escapeHTML(account.note)}</p>
+        <small class="hs-focus-note">${escapeHTML(scenario.label)} 기준 · SKHY 함의로 해석</small>
+      `;
+    }
+
+    if (assumptions) {
+      assumptions.innerHTML = `
+        <div class="intel-panel-head"><h3>모델 가정 · 반증 조건</h3><span>공개 데이터 기반 논리 추정 (확정치 아님)</span></div>
+        <ul class="hs-assume-list">
+          <li><b>가정</b> 가속기 출하는 NVIDIA·AMD·커스텀 ASIC 합산, HBM/대는 세대 믹스 가중 평균</li>
+          <li><b>가정</b> 총 HBM 수요(PB) = 출하(백만 대) × HBM(GB/대); SKHY 점유율은 HBM 리더십 유지 가정</li>
+          <li><b>반증</b> 커스텀 ASIC이 HBM 대신 저용량 구성을 택하면 ②·③ 동시 하향</li>
+          <li><b>반증</b> 전력·부지·CoWoS 병목이 실제 출하 상한 → Bull 시나리오 지연</li>
+          <li><b>경보</b> 중국 수출통제·CXMT HBM 진입은 중국 계정 견인도를 구조적으로 상단 제한</li>
+        </ul>
+      `;
+    }
+
+    tabs.querySelectorAll("[data-hs-scenario]").forEach((btn) => {
+      btn.addEventListener("click", () => {
+        hyperscalerScenario = btn.dataset.hsScenario;
+        renderHyperscalerDemand();
+      });
+    });
+    grid.querySelectorAll("[data-hs-account]").forEach((btn) => {
+      btn.addEventListener("click", () => {
+        hyperscalerFocusId = btn.dataset.hsAccount;
+        renderHyperscalerDemand();
+      });
+    });
+
+    animateCounts(summary);
+    animateCounts(logic);
   }
 
   function hideDisabledSections() {
@@ -2296,7 +2466,7 @@
       signals: item.signals || 0,
     });
     const detail = state.cls === "ok"
-      ? `출처 ${fmtNum(linkCount)} · 가격 ${fmtNum(item.priceRows || 0)} rows`
+      ? (item.priceRows > 0 ? `출처 ${fmtNum(linkCount)} · 가격 ${fmtNum(item.priceRows)} rows` : `출처 ${fmtNum(linkCount)}건`)
       : state.cls === "watch"
         ? `신호 ${fmtNum(item.signals || 0)} · 출처 보강`
         : "숫자 근거 없음";
@@ -5947,7 +6117,7 @@
         decision,
         cls: verdict === "O" ? "ok" : "fail",
         reason: verdict === "O"
-          ? `원문 ${fmtNum(sourceCount)}건 · 가격/proxy ${fmtNum(priceRows)} rows · 안건 ${fmtNum(relatedDecisions.length + relatedStrategies.length)}개`
+          ? `원문 ${fmtNum(sourceCount)}건${priceRows > 0 ? ` · 가격/proxy ${fmtNum(priceRows)} rows` : ""} · 안건 ${fmtNum(relatedDecisions.length + relatedStrategies.length)}개`
           : missing.join(" · "),
         sourceCount,
         priceRows,
@@ -6795,7 +6965,7 @@
     const evidenceGate = {
       id: "evidence-gate",
       label: "근거 게이트",
-      current: hasEvidence ? `링크/KPI ${fmtNum(metrics.linkCount)} · 가격 ${fmtNum(metrics.priceRows)} rows` : "검증 근거 부족",
+      current: hasEvidence ? (metrics.priceRows > 0 ? `링크/KPI ${fmtNum(metrics.linkCount)} · 가격 ${fmtNum(metrics.priceRows)} rows` : `링크/KPI ${fmtNum(metrics.linkCount)}`) : "검증 근거 부족",
       trigger: "원문 link, sourceUrl, 가격 row가 모두 없으면 Go 금지",
       flip: hasEvidence ? "근거 충족: 판단 유지 가능" : "근거 없음: Watch/Hold",
       tone: hasEvidence ? "ok" : "fail",
@@ -7989,7 +8159,10 @@
     const signalCount = chinaInfraSignalCount(site);
     const theme = chinaInfraTheme();
     if (meta) meta.textContent = `${site.label} · ${fmtNum((site.checks || []).length)}개 체크포인트 · 근거 신호 ${fmtNum(signalCount)}개`;
-    if (sourceMeta) sourceMeta.textContent = `RSS ${fmtNum(Number(theme?.count ?? 0) || 0)}개 · ${fmtDate(LIVE.chinaInfra?.updatedAt || LIVE.updatedAt)}`;
+    if (sourceMeta) {
+      const rssCount = Number(theme?.count ?? 0) || 0;
+      sourceMeta.textContent = `${rssCount > 0 ? `RSS ${fmtNum(rssCount)}개 · ` : ""}${fmtDate(LIVE.chinaInfra?.updatedAt || LIVE.updatedAt)}`;
+    }
     renderChinaInfraTabs(site);
 
     const verifiedInfraCards = [
@@ -8528,7 +8701,10 @@
     const scenarioRoi = chinaTalentScenarioRoi(scenario);
     const theme = chinaTalentTheme();
     if (meta) meta.textContent = `${scenario.label} · 확보 직무 ${fmtNum((scenario.roles || []).length)}개 · 근거 신호 ${fmtNum(signalCount)}개`;
-    if (sourceMeta) sourceMeta.textContent = `시나리오 ${fmtNum(CHINA_TALENT_STRATEGY_SCENARIOS.length)}개 · 라이브 ${fmtNum(liveItems.length)}개 · RSS ${fmtNum(Number(theme?.count ?? 0) || 0)}개`;
+    if (sourceMeta) {
+      const rssCount = Number(theme?.count ?? 0) || 0;
+      sourceMeta.textContent = `시나리오 ${fmtNum(CHINA_TALENT_STRATEGY_SCENARIOS.length)}개 · 라이브 ${fmtNum(liveItems.length)}개${rssCount > 0 ? ` · RSS ${fmtNum(rssCount)}개` : ""}`;
+    }
     if (roiMeta) roiMeta.textContent = `ROI 지수 ${fmtNum(scenarioRoi.roi)} · 수익성 ${fmtNum(scenarioRoi.profitability)} · ${scenarioRoi.top?.investment?.label || "투자안 확인"}`;
     renderChinaTalentTabs(scenario);
     renderCeoChallengeAgent(scenario);
@@ -10547,30 +10723,9 @@
   function qaLiveContextHTML(pair = {}, query = "") {
     const relatedNews = qaRelatedNews(pair, query, 4);
     const relatedPrices = qaRelatedPrices(pair, query, 4);
-    const allRows = allPriceRows();
-    const allNews = rawNews();
-    const benchmarkCount = qaBenchmarkCount(pair, query);
-    const metrics = [
-      { label: "업데이트", value: fmtDate(LIVE.updatedAt), note: "live.json" },
-      { label: "관련 기사", value: relatedNews.length || allNews.length, note: relatedNews.length ? "질문 키워드 매칭" : "전체 기사 풀" },
-      { label: "가격 데이터", value: relatedPrices.length || allRows.length, note: "TrendForce spot/contract" },
-      { label: "벤치마킹", value: benchmarkCount || benchmarkSignalTotal(), note: "중국·외신 신호" },
-    ];
+    if (!relatedPrices.length && !relatedNews.length) return "";
     return `
       <section class="qa-live-context">
-        <div class="qa-live-head">
-          <span>최신 근거 기반</span>
-          <strong>${escapeHTML(SECTION_LABELS[pair.nav] || "관련 보드")} · ${escapeHTML(fmtDate(LIVE.updatedAt))}</strong>
-        </div>
-        <div class="qa-live-metrics">
-          ${metrics.map((metric) => `
-            <article>
-              <span>${escapeHTML(metric.label)}</span>
-              <strong>${typeof metric.value === "number" ? fmtNum(metric.value) : escapeHTML(metric.value)}</strong>
-              <small>${escapeHTML(metric.note)}</small>
-            </article>
-          `).join("")}
-        </div>
         ${relatedPrices.length ? `
           <div class="qa-live-block">
             <h4>연결 가격</h4>
@@ -10649,7 +10804,10 @@
   }
 
   function highlight(text) {
-    return escapeHTML(text).replace(
+    const importantSentence = /(^|\n\n)([^<\n]*(?:핵심|판단 포인트|의사결정 포인트|전략 검토|운영 기준|SKHY 관점|리스크|따라서|최신 기준|확정 근거|Watch|P1|경보선)[^<\n]*[.?!。]|[^<\n]*(?:봐야 합니다|분리합니다|표시합니다|둡니다|확인합니다)\.)/g;
+    return escapeHTML(text)
+      .replace(importantSentence, '$1<mark class="answer-highlight"><strong>$2</strong></mark>')
+      .replace(
       /(CXMT|YMTC|XMC|JCET|Naura|AMEC|ACM|TrendForce|Reuters|Counterpoint|TechInsights|Yole|Nvidia|TSMC|CoWoS|Rubin|HBM4?E?|HBM5|DRAM|NAND|DDR5|LPDDR|CXL|PIM|IP|TSV|EUV|DUV|BIS|VEU|IPO|STAR|Big Fund|빅펀드|텐센트|메기|비대칭|마이크로데이터|Xtacking|eSSD)/g,
       "<b>$1</b>",
     );
@@ -11380,7 +11538,9 @@
       id: company.id,
       label: company.name,
       count: categoryBase.filter((item) => newsMatchesCompany(item, company.id)).length,
-    })));
+    })))
+      // 크롤링 0건인 업체는 드롭다운에서 제외 (선택된 업체는 문맥 유지 위해 남김)
+      .filter((option) => option.id === "all" || option.count > 0 || option.id === current);
 
     select.innerHTML = options.map((option) =>
       `<option value="${escapeHTML(option.id)}">${escapeHTML(option.label)} · ${fmtNum(option.count)}건</option>`
