@@ -2311,6 +2311,21 @@
     return div.innerHTML;
   }
 
+  // Render an agent line to highlighted HTML:
+  //   **key**  -> accent-colored keyword
+  //   ==text== -> yellow highlight + underline (most important)
+  // and auto-color Go / Watch / Hold / No-Go verdicts by tone.
+  function renderAgentSpeech(value) {
+    let html = escapeReadableHTML(String(value ?? ""));
+    html = html.replace(/==([^=]+)==/g, '<mark class="ag-hl">$1</mark>');
+    html = html.replace(/\*\*([^*]+)\*\*/g, '<b class="ag-key">$1</b>');
+    html = html.replace(/(No-Go|Go|Watch|Hold)/g, (m) => {
+      const cls = m === "Go" ? "go" : m === "Watch" ? "watch" : "hold";
+      return `<b class="ag-verdict ag-${cls}">${m}</b>`;
+    });
+    return html;
+  }
+
   function fmtDate(iso) {
     if (!iso) return "아직 수집 전";
     const date = new Date(iso);
@@ -3881,7 +3896,7 @@
         role: "우선순위·최종 안건화",
         color: "#2D6BFF",
         stance: scenarioDecisionLabel(scenarioVerdictValue),
-        message: `의사결정 질문: ${profile.question} 현재 결론은 ${selected?.verdict || "Watch"}(${verdictMeaning})입니다. ${scenario.label} 가정에서는 ${scenario.ceo} 결론은 ${scenarioVerdictValue}(${scenarioDecisionLabel(scenarioVerdictValue)})로 조정합니다. 근거 ${fmtNum(totalEvidence)}개, 신뢰도 ${fmtNum(confidence)}/100, 핵심 관계는 ${topRelationText}.`,
+        message: `의사결정 질문은 "${profile.question}" ${profile.ceo} ${scenario.ceo} 저는 이 안건을 **${selected?.verdict || "Watch"}**(${verdictMeaning})로 보고, ${scenario.label}에서는 ==${scenarioVerdictValue}==(${scenarioDecisionLabel(scenarioVerdictValue)})로 조정합니다.`,
       },
       {
         id: "cfo",
@@ -3891,7 +3906,7 @@
         role: "수익성·자본배분",
         color: "#00C2A8",
         stance: "투자/매출 분리",
-        message: `재무 반박: 이 안건은 확정 ROI가 아니라 자본배분 후보입니다. ${profile.cfo} ${scenario.cfo} 현금흐름 근거는 ${moneyLabel}, 가격 근거는 ${fmtNum(priceRows)}개입니다. ${priceFlip.label} 기준(${priceFlip.trigger})을 넘기 전까지 예산 확정은 보류합니다.`,
+        message: `재무 반박: 이건 확정 ROI가 아니라 **자본배분 후보**입니다. ${profile.cfo} ${scenario.cfo} ==${priceFlip.label}(${priceFlip.trigger})==를 넘기 전까지 예산 확정은 보류하고, 저수익 SKU부터 회수 우선순위를 봅니다.`,
       },
       {
         id: "cto",
@@ -3901,7 +3916,7 @@
         role: "기술·제품 로드맵",
         color: "#8B5CF6",
         stance: "병목 분리",
-        message: `기술 검토: ${profile.cto} ${scenario.cto} 경쟁 관계는 ${competitiveLabel}입니다. 제품 실행과 무관한 뉴스는 제외하고 ${flipKpis.map((item) => item.label).slice(0, 3).join(" · ")} 순서로 검증합니다.`,
+        message: `기술 검토: ${profile.cto} ${scenario.cto} 제품 실행과 무관한 뉴스는 빼고 **${flipKpis.map((item) => item.label).slice(0, 3).join(" · ")}** 순서로 병목을 검증합니다. 수율·인증이 안 서면 수요가 있어도 물량 약속으로 연결하지 않습니다.`,
       },
       {
         id: "cso",
@@ -3911,7 +3926,7 @@
         role: "전략 옵션·우선순위",
         color: "#7C3AED",
         stance: "옵션 분리",
-        message: `전략 판단: ${profile.next} 선택지는 즉시 실행, 조건부 실사, 옵션 유지로 나눕니다. 관계 ${fmtNum(relationCount)}개 중 가격·고객·정책 근거가 약한 축은 결론 강도를 낮춥니다.`,
+        message: `전략 판단: ${profile.next} 선택지를 **즉시 실행 · 조건부 실사 · 옵션 유지**로 나누고, 가격·고객·정책 근거가 약한 축은 결론 강도를 낮춥니다. 우리가 이길 수 있는 축에만 자원을 집중합니다.`,
       },
       {
         id: "coo",
@@ -3921,7 +3936,7 @@
         role: "운영·공급 실행성",
         color: "#0EA5E9",
         stance: "실행 가능성",
-        message: `운영 반박: 공급, Fab, 고객 인증, 재고 전환이 동시에 맞아야 실행할 수 있습니다. 가격 근거 ${fmtNum(priceRows)}개와 원문/KPI ${fmtNum(linkCount)}개를 최소 실행 조건으로 둡니다.`,
+        message: `운영 반박: **공급 · Fab · 고객 인증 · 재고 전환**이 동시에 맞아야 실행할 수 있습니다. 인증·출하 일정이 서지 않으면 수요가 있어도 ==단계 집행==으로 낮춰 CAPEX를 milestone로 쪼갭니다.`,
       },
       {
         id: "policy",
@@ -3931,7 +3946,7 @@
         role: "규제·Fab·정책자금",
         color: "#F59E0B",
         stance: "라이선스 게이트",
-        message: `Policy 게이트: ${profile.policy} ${scenario.policy} 운영 유지, 캐파 확대, 기술 업그레이드는 같은 결재선에 두지 않습니다. ${policyFlip.label} 기준은 ${policyFlip.trigger}; 규제 원문이 없으면 Go가 아니라 Watch입니다.`,
+        message: `Policy 게이트: ${profile.policy} ${scenario.policy} **운영 유지 · 캐파 확대 · 기술 업그레이드**는 같은 결재선에 두지 않습니다. ==규제 원문이 확인되지 않으면 Go가 아니라 Watch==입니다.`,
       },
       {
         id: "market",
@@ -3941,7 +3956,7 @@
         role: "가격·고객·계약",
         color: "#10B981",
         stance: "가격 전이 확인",
-        message: `Market 검토: ${profile.market} ${scenario.market} 현재 가격 row ${fmtNum(priceRows)}개, 링크/KPI ${fmtNum(linkCount)}개, 비교축은 ${contrast?.label || "비교 안건"}입니다. 가격과 고객 신호가 같은 방향일 때만 결론을 높입니다.`,
+        message: `Market 검토: ${profile.market} ${scenario.market} **가격과 고객 신호가 같은 방향**일 때만 결론을 높입니다. spot만 흔들리면 확대가 아니라 ==재고 조정·계약 재협상==부터 검토합니다.`,
       },
       {
         id: "china",
@@ -3951,7 +3966,7 @@
         role: "중국 경쟁 신호",
         color: "#DB2777",
         stance: "중국 압력",
-        message: `중국 반박: CXMT·YMTC·XMC·JCET·Naura·AMEC를 한 묶음으로 보면 판단이 흐려집니다. DRAM 가격, NAND/eSSD, 패키징, 장비 내재화로 나누고 ${scenario.label}에서는 ${scenario.id === "china-pressure" ? "범용 가격 방어 강도를 높입니다." : "현재 리스크로만 반영합니다."}`,
+        message: `중국 반박: CXMT·YMTC·XMC·JCET·Naura·AMEC를 한 묶음으로 보면 판단이 흐려집니다. **DRAM 가격 · NAND/eSSD · 패키징 · 장비 내재화**로 나눠 보고, ${scenario.label}에서는 ${scenario.id === "china-pressure" ? "==범용 가격 방어==를 최우선에 둡니다." : "현재 리스크로만 반영합니다."}`,
       },
       {
         id: "risk",
@@ -3961,7 +3976,7 @@
         role: "판단 변경 KPI",
         color: "#F43F5E",
         stance: "KPI 게이트",
-        message: `리스크 반박: 결론을 고정하지 않습니다. ${primaryFlip.label}이 ${primaryFlip.trigger} 조건에 닿거나, 핵심 KPI 2개 이상이 악화되면 ${primaryFlip.flip}로 낮춰 재상정합니다.`,
+        message: `Risk 게이트: 결론을 고정하지 않습니다. ==${primaryFlip.label}==이 ${primaryFlip.trigger}에 닿거나 핵심 KPI 2개 이상이 악화되면 **${primaryFlip.flip}**로 낮춰 즉시 재상정합니다.`,
       },
       {
         id: "devil",
@@ -3971,7 +3986,7 @@
         role: "합의 반박·프리모템",
         color: "#111827",
         stance: "일부러 반대",
-        message: `일부러 반대합니다(Pre-mortem): 12개월 뒤 이 ${selected?.verdict || "Watch"} 결론이 틀렸다면 원인은 무엇입니까? ① 우리는 이미 방향을 정해두고 근거 ${fmtNum(totalEvidence)}개 중 유리한 것만 골랐을 수 있습니다(확증편향). ② 관계 ${topRelationText}는 상관일 뿐 인과가 아닐 수 있습니다. ③ ${scenario.label}만 보고 반대 시나리오를 과소평가했을 수 있습니다. 반증 데이터를 CEO가 아니라 저에게 먼저 제출하십시오. 반증이 안 나오면 그것이 오히려 위험 신호입니다.`,
+        message: `일부러 반대합니다(Pre-mortem): 12개월 뒤 이 **${selected?.verdict || "Watch"}** 결론이 틀렸다면 원인은 무엇입니까? ① 유리한 근거만 골랐을 수 있습니다(==확증편향==). ② ${topRelationText} 관계는 상관일 뿐 인과가 아닐 수 있습니다. ③ ${scenario.label}만 보고 반대 시나리오를 과소평가했을 수 있습니다. ==반증부터 제시하십시오==. 반증이 안 나오면 그게 오히려 위험 신호입니다.`,
       },
       {
         id: "audit",
@@ -3981,7 +3996,7 @@
         role: "팩트 검증·중복 제거",
         color: "#EF4444",
         stance: "근거 게이트",
-        message: `${cLevelAuditMessage(selected, profile, relatedRelations)} 감사 결론: ${scenario.audit}`,
+        message: `Auditor 확인: **원문과 가격 근거가 함께 붙은 항목**만 사실로 승격합니다. 수치와 해석을 분리하고, ${scenario.audit} ==근거가 부족하면 Go가 아니라 Watch/Hold==로 제한합니다.`,
       },
     ];
   }
@@ -4000,8 +4015,8 @@
         : "의사결정 보류";
     return {
       title: `${verdict} · ${direction} · ${scenario.label}`,
-      body: `컨설팅 결론: "${profile.question}"에 대해 ${scenario.label}을 적용하면 검증 근거 ${fmtNum(evidence)}개, 신뢰도 ${fmtNum(confidence)}/100 기준으로 ${direction}.`,
-      next: `실행 조건: ${scenario.conclusion} 중심으로 ${action}. 판단 변경 KPI는 ${primaryFlip.label}(${primaryFlip.trigger}). ${profile.next}`,
+      body: `경영진 결론: "${profile.question}" ${scenario.label}에서는 ${direction}이 맞습니다. ${profile.ceo}`,
+      next: `실행 조건: ${scenario.conclusion}을 중심으로 ${action}. 판단 변경 트리거는 ${primaryFlip.label}(${primaryFlip.trigger})이며, 이 선이 깨지면 즉시 재상정합니다.`,
     };
   }
 
@@ -4098,10 +4113,10 @@
           <div class="agent-chat js-debate" data-council-chat>
             ${agentItems.map((agent, index) => `
               <div class="agent-turn pending${index % 2 ? " right" : ""}" data-agent-slot="${index}" style="--agent-color:${escapeHTML(agent.color)}">
-                <span class="agent-badge">${escapeHTML(agent.initials || agent.id.toUpperCase().slice(0, 2))}</span>
+                <span class="agent-badge-wrap"><span class="agent-badge">${escapeHTML(agent.initials || agent.id.toUpperCase().slice(0, 2))}</span><small class="agent-badge-name">${escapeHTML(agent.name)}</small></span>
                 <div class="speech-bubble">
                   <div class="speech-meta"><strong>${escapeHTML(agent.name)}</strong><span>${escapeHTML(agent.role)}</span></div>
-                  <p data-say="${escapeHTML(agent.message)}"></p>
+                  <p>${renderAgentSpeech(agent.message)}</p>
                 </div>
               </div>
             `).join("")}
@@ -4232,9 +4247,11 @@
       if (st) card.classList.add(st);
     };
 
-    // Snapshot each bubble's text (templates may or may not pre-set data-say).
+    // Snapshot each bubble: plain text for the typing pass, highlighted HTML to
+    // restore once the line finishes typing.
     turns.forEach((turn) => {
       const p = turn.querySelector("p");
+      if (p && p.dataset.rich == null) p.dataset.rich = p.innerHTML;
       if (p && p.dataset.say == null) p.dataset.say = p.textContent;
     });
 
@@ -4244,7 +4261,7 @@
         turn.classList.remove("pending");
         turn.classList.add("done");
         const p = turn.querySelector("p");
-        if (p) p.textContent = p.dataset.say || "";
+        if (p) p.innerHTML = p.dataset.rich || escapeReadableHTML(p.dataset.say || "");
       });
       avatars.forEach((card) => card.classList.add("done"));
       if (conclusion) conclusion.classList.remove("pending", "reveal");
@@ -4291,8 +4308,10 @@
       turn.querySelector(".speech-bubble")?.classList.add("live");
       setCard(turnName(turn), "speaking");
       if (turns[i + 1]) setCard(turnName(turns[i + 1]), "next");
-      typeMessage(turn.querySelector("p"), () => {
+      const p = turn.querySelector("p");
+      typeMessage(p, () => {
         if (!alive()) return;
+        if (p && p.dataset.rich) p.innerHTML = p.dataset.rich;
         turn.classList.remove("speaking");
         turn.classList.add("done");
         turn.querySelector(".speech-bubble")?.classList.remove("live");
@@ -6952,13 +6971,13 @@
         <div class="agent-chat" aria-label="전문가 토론 말풍선" style="--chat-delay:${chatStartDelay}ms">
           ${normalizedTurns.map((turn, index) => `
             <article class="agent-turn ${escapeHTML(turn.side)}" style="--agent-color:${escapeHTML(turn.color)};--delay:${chatStartDelay + index * chatStepDelay}ms">
-              <div class="agent-badge">${escapeHTML(turn.avatar || agentInitials(turn.name))}</div>
+              <div class="agent-badge-wrap"><div class="agent-badge">${escapeHTML(turn.avatar || agentInitials(turn.name))}</div><small class="agent-badge-name">${escapeHTML(turn.name)}</small></div>
               <div class="speech-bubble">
                 <div class="speech-meta">
                   <strong>${escapeHTML(turn.name)}</strong>
                   <span>${escapeHTML(turn.role || "Expert")}</span>
                 </div>
-                <p>${escapeReadableHTML(turn.message)}</p>
+                <p>${renderAgentSpeech(turn.message)}</p>
               </div>
             </article>
           `).join("")}
@@ -7410,13 +7429,13 @@
           <div class="agent-chat" aria-label="제품군 전문가 토론 말풍선" style="--chat-delay:${chatStartDelay}ms">
             ${agentItems.map((agent, index) => `
               <article class="agent-turn${index % 2 ? " right" : ""}" style="--agent-color:${escapeHTML(agent.color)}; --delay:${chatStartDelay + index * councilStepDelay}ms">
-                <div class="agent-badge">${escapeHTML(agent.initials)}</div>
+                <div class="agent-badge-wrap"><div class="agent-badge">${escapeHTML(agent.initials)}</div><small class="agent-badge-name">${escapeHTML(agent.name)}</small></div>
                 <div class="speech-bubble">
                   <div class="speech-meta">
                     <strong>${escapeHTML(agent.name)}</strong>
                     <span>${escapeHTML(agent.role)}</span>
                   </div>
-                  <p>${escapeReadableHTML(agent.message)}</p>
+                  <p>${renderAgentSpeech(agent.message)}</p>
                 </div>
               </article>
             `).join("")}
