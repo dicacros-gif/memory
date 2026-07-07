@@ -3537,11 +3537,11 @@ body.sidebar-collapsed .sb-ico {
 }
 
 .memory-market-map-board {
+  --mode-accent: var(--brand);
   background:
-    radial-gradient(circle at 16% 4%, color-mix(in srgb, #2d6bff 18%, transparent), transparent 34%),
-    radial-gradient(circle at 86% 10%, color-mix(in srgb, #00c2a8 16%, transparent), transparent 28%),
-    linear-gradient(135deg, color-mix(in srgb, #38bdf8 8%, transparent), transparent 42%),
-    linear-gradient(225deg, color-mix(in srgb, #10b981 7%, transparent), transparent 48%),
+    linear-gradient(135deg, color-mix(in srgb, #4322a8 9%, transparent), transparent 46%),
+    linear-gradient(225deg, color-mix(in srgb, #0e8f6e 8%, transparent), transparent 48%),
+    linear-gradient(180deg, color-mix(in srgb, var(--panel) 96%, #fff), var(--panel)),
     var(--panel);
 }
 
@@ -3588,7 +3588,7 @@ body.sidebar-collapsed .sb-ico {
   content: "";
   position: absolute;
   inset: 0;
-  background: linear-gradient(135deg, var(--accent), color-mix(in srgb, var(--accent) 58%, #00c2a8));
+  background: linear-gradient(135deg, var(--tab-accent, var(--mode-accent, var(--accent))), color-mix(in srgb, var(--tab-accent, var(--mode-accent, var(--accent))) 58%, #00c2a8));
   opacity: 0;
   transition: opacity .18s;
 }
@@ -3596,9 +3596,9 @@ body.sidebar-collapsed .sb-ico {
 .memory-map-tabs button:hover,
 .memory-map-tabs button.active {
   transform: translateY(-2px);
-  border-color: var(--accent);
-  background: color-mix(in srgb, var(--accent) 10%, var(--panel));
-  box-shadow: 0 12px 30px color-mix(in srgb, var(--accent) 22%, transparent);
+  border-color: var(--tab-accent, var(--mode-accent, var(--accent)));
+  background: color-mix(in srgb, var(--tab-accent, var(--mode-accent, var(--accent))) 10%, var(--panel));
+  box-shadow: 0 12px 30px color-mix(in srgb, var(--tab-accent, var(--mode-accent, var(--accent))) 22%, transparent);
 }
 
 .memory-map-tabs button:hover::before,
@@ -3651,10 +3651,10 @@ body.sidebar-collapsed .sb-ico {
 .memory-map-kpi:hover,
 .memory-map-type-filter:hover {
   transform: translateY(-2px);
-  border-color: var(--accent);
-  background: linear-gradient(135deg, var(--accent), color-mix(in srgb, var(--accent) 58%, #00c2a8));
+  border-color: var(--mode-accent, var(--accent));
+  background: linear-gradient(135deg, var(--mode-accent, var(--accent)), color-mix(in srgb, var(--mode-accent, var(--accent)) 58%, #00c2a8));
   color: #fff;
-  box-shadow: 0 14px 34px color-mix(in srgb, var(--accent) 22%, transparent);
+  box-shadow: 0 14px 34px color-mix(in srgb, var(--mode-accent, var(--accent)) 22%, transparent);
 }
 
 .memory-map-kpi:hover span,
@@ -3790,12 +3790,15 @@ body.sidebar-collapsed .sb-ico {
   border: 1px solid color-mix(in srgb, var(--ink) 8%, var(--line));
   border-radius: 12px;
   background:
-    radial-gradient(circle at 52% 44%, color-mix(in srgb, var(--accent) 8%, transparent), transparent 34%),
+    radial-gradient(ellipse at 50% 50%, color-mix(in srgb, var(--mode-accent, var(--accent)) 13%, transparent), transparent 42%),
+    conic-gradient(from 150deg at 50% 50%, color-mix(in srgb, #4322a8 12%, transparent), transparent 21%, color-mix(in srgb, #0e8f6e 11%, transparent), transparent 58%, color-mix(in srgb, #f59e0b 10%, transparent), transparent 82%, color-mix(in srgb, #ef4444 9%, transparent)),
     linear-gradient(color-mix(in srgb, var(--ink) 4%, transparent) 1px, transparent 1px),
     linear-gradient(90deg, color-mix(in srgb, var(--ink) 4%, transparent) 1px, transparent 1px),
-    linear-gradient(180deg, color-mix(in srgb, var(--panel) 94%, transparent), color-mix(in srgb, var(--panel-2) 88%, transparent));
-  background-size: auto, 42px 42px, 42px 42px, auto;
-  box-shadow: inset 0 1px 0 rgba(255, 255, 255, .72);
+    linear-gradient(180deg, color-mix(in srgb, var(--panel) 96%, transparent), color-mix(in srgb, var(--panel-2) 90%, transparent));
+  background-size: auto, auto, 42px 42px, 42px 42px, auto;
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, .72),
+    inset 0 0 0 1px color-mix(in srgb, var(--mode-accent, var(--accent)) 8%, transparent);
   isolation: isolate;
 }
 
@@ -3812,16 +3815,26 @@ body.sidebar-collapsed .sb-ico {
   stroke: var(--edge-color);
   stroke-width: var(--edge-width, 2);
   stroke-linecap: round;
-  opacity: .28;
-  stroke-dasharray: 7 9;
+  stroke-linejoin: round;
+  opacity: var(--edge-opacity, .46);
+  stroke-dasharray: var(--edge-dash, 7 9);
   animation: memoryEdgeFlow 2.8s linear infinite, memoryEdgeIn .6s ease forwards;
   animation-delay: var(--delay, 0ms), var(--delay, 0ms);
   cursor: pointer;
   pointer-events: stroke;
+  vector-effect: non-scaling-stroke;
   transition:
     opacity .16s,
     stroke-width .16s,
     filter .16s;
+}
+
+.memory-edge.directed {
+  stroke-dasharray: var(--edge-dash, 9 6);
+}
+
+.memory-edge.bidir {
+  stroke-dasharray: var(--edge-dash, 1 0);
 }
 
 .memory-edge:hover,
@@ -3893,6 +3906,7 @@ body.sidebar-collapsed .sb-ico {
   opacity: 0;
   animation: agentPop .48s cubic-bezier(.2, .8, .2, 1) forwards;
   animation-delay: var(--delay, 0ms);
+  isolation: isolate;
   box-shadow:
     0 18px 42px color-mix(in srgb, var(--local-accent, var(--accent)) 22%, transparent),
     inset 0 1px 0 rgba(255, 255, 255, .34);
@@ -3905,6 +3919,29 @@ body.sidebar-collapsed .sb-ico {
     border-color .16s,
     box-shadow .18s,
     color .16s;
+}
+
+.memory-node::before,
+.memory-node::after {
+  content: "";
+  position: absolute;
+  border-radius: inherit;
+  pointer-events: none;
+  z-index: 0;
+}
+
+.memory-node::before {
+  inset: -6px;
+  background: conic-gradient(var(--local-accent, var(--accent)) var(--node-score-pct, 70%), color-mix(in srgb, var(--local-accent, var(--accent)) 10%, transparent) 0);
+  opacity: .72;
+  filter: saturate(1.15);
+  transform: rotate(-22deg);
+}
+
+.memory-node::after {
+  inset: 7px;
+  border: 1px solid rgba(255, 255, 255, .22);
+  background: radial-gradient(circle at 50% 50%, rgba(255, 255, 255, .16), transparent 64%);
 }
 
 .memory-node:hover,
@@ -3920,6 +3957,12 @@ body.sidebar-collapsed .sb-ico {
     0 24px 56px color-mix(in srgb, var(--local-accent, var(--accent)) 40%, transparent),
     0 0 0 8px color-mix(in srgb, var(--local-accent, var(--accent)) 12%, transparent),
     inset 0 1px 0 rgba(255, 255, 255, .42);
+}
+
+.memory-node:hover::before,
+.memory-node.active::before {
+  opacity: 1;
+  animation: memoryNodeRing 1.4s linear infinite;
 }
 
 .memory-node.dragging {
@@ -3941,6 +3984,8 @@ body.sidebar-collapsed .sb-ico {
 
 .memory-node b,
 .memory-node span {
+  position: relative;
+  z-index: 1;
   max-width: 100%;
   overflow: hidden;
   display: -webkit-box;
@@ -3968,6 +4013,8 @@ body.sidebar-collapsed .sb-ico {
 }
 
 .memory-node em {
+  position: relative;
+  z-index: 1;
   align-self: start;
   min-width: 28px;
   border-radius: 999px;
@@ -4110,6 +4157,10 @@ body.sidebar-collapsed .sb-ico {
 
 @keyframes memoryEdgeIn {
   from { opacity: 0; }
+}
+
+@keyframes memoryNodeRing {
+  to { transform: rotate(338deg); }
 }
 
 .china-business-brief,

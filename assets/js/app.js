@@ -3904,20 +3904,20 @@
 
   function memoryMarketNodes() {
     return [
-      { id: "skhy", name: "SKHY", role: "HBM·DRAM·NAND 중심", metric: "HBM 58%", category: "hbm", x: 50, y: 50, scale: 98 },
-      { id: "nvidia-ai", name: "NVIDIA·AI 고객", role: "HBM 수요/매출", metric: "AI demand", category: "aidemand", x: 50, y: 12, scale: 92 },
-      { id: "tsmc", name: "TSMC", role: "HBM4 base die", metric: "CoWoS", category: "packaging", x: 24, y: 24, scale: 78 },
-      { id: "samsung", name: "Samsung", role: "HBM·DRAM 경쟁", metric: "HBM 21%", category: "hbm", x: 16, y: 48, scale: 86 },
-      { id: "micron", name: "Micron", role: "HBM·DRAM 경쟁", metric: "DRAM 22%", category: "dram", x: 84, y: 42, scale: 80 },
-      { id: "cxmt", name: "CXMT", role: "중국 DRAM 가격 압력", metric: "DRAM 8%", category: "dram", x: 18, y: 72, scale: 88 },
-      { id: "ymtc", name: "YMTC", role: "중국 NAND/eSSD", metric: "NAND 13%", category: "nand", x: 70, y: 78, scale: 86 },
-      { id: "kioxia-sandisk", name: "Kioxia·SanDisk", role: "NAND peer", metric: "BiCS", category: "nand", x: 90, y: 68, scale: 74 },
-      { id: "solidigm", name: "Solidigm", role: "eSSD·Dalian 방어", metric: "eSSD", category: "operations", x: 60, y: 68, scale: 72 },
-      { id: "jcet-xmc", name: "JCET·XMC", role: "첨단 패키징 우회", metric: "OSAT", category: "packaging", x: 46, y: 88, scale: 78 },
-      { id: "naura-amec", name: "Naura·AMEC", role: "장비 국산화", metric: "Etch/Depo", category: "equipment", x: 16, y: 88, scale: 76 },
-      { id: "china-fund", name: "Big Fund·지방정부", role: "정책 자본", metric: "Capital", category: "geopolitics", x: 84, y: 92, scale: 82 },
-      { id: "china-cloud", name: "중국 클라우드/OEM", role: "내수 고객", metric: "Demand", category: "china", x: 86, y: 16, scale: 84 },
-      { id: "cxl-startups", name: "CXL·Photonics 후보", role: "Post-HBM 옵션", metric: "Option", category: "cxl", x: 30, y: 8, scale: 68 },
+      { id: "skhy", name: "SKHY", role: "HBM·DRAM·NAND 중심", metric: "HBM 58%", category: "hbm", x: 50, y: 50, scale: 104 },
+      { id: "nvidia-ai", name: "NVIDIA·AI 고객", role: "HBM 수요·매출", metric: "AI demand", category: "aidemand", x: 52, y: 10, scale: 94 },
+      { id: "tsmc", name: "TSMC", role: "HBM4 base die", metric: "CoWoS", category: "packaging", x: 24, y: 22, scale: 80 },
+      { id: "samsung", name: "Samsung", role: "HBM·DRAM 경쟁", metric: "HBM 21%", category: "hbm", x: 13, y: 46, scale: 88 },
+      { id: "micron", name: "Micron", role: "HBM·DRAM 경쟁", metric: "DRAM 22%", category: "dram", x: 86, y: 38, scale: 82 },
+      { id: "cxmt", name: "CXMT", role: "중국 DRAM 가격 압력", metric: "DRAM 8%", category: "dram", x: 16, y: 70, scale: 90 },
+      { id: "ymtc", name: "YMTC", role: "중국 NAND·eSSD", metric: "NAND 13%", category: "nand", x: 72, y: 76, scale: 88 },
+      { id: "kioxia-sandisk", name: "Kioxia·SanDisk", role: "NAND peer", metric: "BiCS", category: "nand", x: 90, y: 64, scale: 74 },
+      { id: "solidigm", name: "Solidigm", role: "eSSD·Dalian 방어", metric: "eSSD", category: "operations", x: 56, y: 72, scale: 74 },
+      { id: "jcet-xmc", name: "JCET·XMC", role: "첨단 패키징 우회", metric: "OSAT", category: "packaging", x: 42, y: 88, scale: 80 },
+      { id: "naura-amec", name: "Naura·AMEC", role: "장비 국산화", metric: "Etch/Depo", category: "equipment", x: 16, y: 88, scale: 78 },
+      { id: "china-fund", name: "Big Fund·지방정부", role: "정책 자본", metric: "Capital", category: "geopolitics", x: 86, y: 90, scale: 84 },
+      { id: "china-cloud", name: "중국 클라우드/OEM", role: "내수 고객", metric: "Demand", category: "china", x: 87, y: 15, scale: 86 },
+      { id: "cxl-startups", name: "CXL·Photonics", role: "Post-HBM 옵션", metric: "Option", category: "cxl", x: 32, y: 9, scale: 70 },
     ];
   }
 
@@ -4380,14 +4380,14 @@
           title: "Money Flow · 돈의 흐름",
           subtitle: "투자 · 매출",
           types: ["투자", "매출"],
-          accent: "#F59E0B",
+          accent: "#0E8F6E",
         }
       : {
           id: "competitive",
           title: "Competitive Dynamics",
           subtitle: "경쟁 · 파트너십 · 투자 · 공급",
           types: ["경쟁", "파트너십", "투자", "공급"],
-          accent: "#38BDF8",
+          accent: "#4322A8",
         };
   }
 
@@ -4518,6 +4518,24 @@
     };
   }
 
+  function memoryMarketEdgeStrength(edge = {}) {
+    return clamp(edge.mode === "money" ? edge.flowIndex || edge.score : edge.score || edge.weight || 50, 8, 100);
+  }
+
+  function memoryMarketCurvePath(from = {}, to = {}, index = 0) {
+    const x1 = Number(from.x);
+    const y1 = Number(from.y);
+    const x2 = Number(to.x);
+    const y2 = Number(to.y);
+    const dx = x2 - x1;
+    const dy = y2 - y1;
+    const distance = Math.max(1, Math.hypot(dx, dy));
+    const bend = ((index % 2 ? -1 : 1) * (7 + (index % 4) * 2.2)) / distance;
+    const cx = (x1 + x2) / 2 - dy * bend;
+    const cy = (y1 + y2) / 2 + dx * bend;
+    return `M ${x1.toFixed(2)} ${y1.toFixed(2)} Q ${cx.toFixed(2)} ${cy.toFixed(2)} ${x2.toFixed(2)} ${y2.toFixed(2)}`;
+  }
+
   function persistMemoryMarketNodePositions() {
     try {
       localStorage.setItem(MEMORY_MARKET_POSITIONS_KEY, JSON.stringify(memoryMarketNodePositions));
@@ -4538,11 +4556,11 @@
       node.style.setProperty("--node-x", `${x}%`);
       node.style.setProperty("--node-y", `${y}%`);
     });
-    graph.querySelectorAll(".memory-edge[data-from][data-to]").forEach((path) => {
+    graph.querySelectorAll(".memory-edge[data-from][data-to]").forEach((path, index) => {
       const from = positions.get(path.dataset.from);
       const to = positions.get(path.dataset.to);
       if (!from || !to) return;
-      path.setAttribute("d", `M ${from.x} ${from.y} L ${to.x} ${to.y}`);
+      path.setAttribute("d", memoryMarketCurvePath(from, to, index));
     });
   }
 
@@ -4739,12 +4757,15 @@
     const totalEvidence = edges.reduce((sum, edge) => sum + edge.evidenceCount, 0);
     const totalPriceRows = edges.reduce((sum, edge) => sum + edge.priceRows, 0);
     if (meta) meta.textContent = `${config.title} · 관계 ${fmtNum(edges.length)}개 · 근거 ${fmtNum(totalEvidence)}개`;
+    tabs.style.setProperty("--mode-accent", config.accent);
+    summary.style.setProperty("--mode-accent", config.accent);
+    graph.style.setProperty("--mode-accent", config.accent);
 
     tabs.innerHTML = `
-      <button type="button" class="${memoryMarketMode === "competitive" ? "active" : ""}" data-memory-mode="competitive">
+      <button type="button" class="${memoryMarketMode === "competitive" ? "active" : ""}" data-memory-mode="competitive" style="--tab-accent:#4322A8">
         <strong>Competitive Dynamics</strong><small>경쟁 · 파트너십 · 투자 · 공급</small>
       </button>
-      <button type="button" class="${memoryMarketMode === "money" ? "active" : ""}" data-memory-mode="money">
+      <button type="button" class="${memoryMarketMode === "money" ? "active" : ""}" data-memory-mode="money" style="--tab-accent:#0E8F6E">
         <strong>Money Flow · 돈의 흐름</strong><small>투자 · 매출</small>
       </button>
     `;
@@ -4800,12 +4821,26 @@
       </div>
       <div class="memory-network">
         <svg class="memory-network-svg" viewBox="0 0 100 100" preserveAspectRatio="none" aria-hidden="true">
+          <defs>
+            <marker id="memory-arrow-end" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto" markerUnits="strokeWidth">
+              <path d="M 0 0 L 8 4 L 0 8 z" fill="context-stroke"></path>
+            </marker>
+            <marker id="memory-arrow-start" markerWidth="8" markerHeight="8" refX="1" refY="4" orient="auto" markerUnits="strokeWidth">
+              <path d="M 8 0 L 0 4 L 8 8 z" fill="context-stroke"></path>
+            </marker>
+          </defs>
           ${edges.map((edge, index) => {
             const from = nodeMap.get(edge.from);
             const to = nodeMap.get(edge.to);
             if (!from || !to) return "";
             const active = selected?.kind === "edge" && selected.edge.id === edge.id;
-            return `<path class="memory-edge ${active ? "active" : ""}" data-memory-edge="${escapeHTML(edge.id)}" data-from="${escapeHTML(edge.from)}" data-to="${escapeHTML(edge.to)}" d="M ${from.x} ${from.y} L ${to.x} ${to.y}" style="--edge-color:${memoryMarketEdgeColor(edge.type)}; --delay:${index * 80}ms; --edge-width:${Math.max(1.2, Math.min(4.8, edge.score / 24))}" />`;
+            const strength = memoryMarketEdgeStrength(edge);
+            const bidirectional = ["경쟁", "파트너십"].includes(edge.type);
+            const path = memoryMarketCurvePath(from, to, index);
+            const width = (1.7 + strength / 100 * 4.6).toFixed(2);
+            const opacity = (0.24 + strength * 0.006).toFixed(2);
+            const dash = edge.mode === "money" ? "9 6" : edge.type === "경쟁" ? "5 6" : edge.type === "파트너십" ? "1 0" : "10 7";
+            return `<path class="memory-edge ${active ? "active" : ""} ${bidirectional ? "bidir" : "directed"}" data-memory-edge="${escapeHTML(edge.id)}" data-from="${escapeHTML(edge.from)}" data-to="${escapeHTML(edge.to)}" d="${path}" style="--edge-color:${memoryMarketEdgeColor(edge.type)}; --delay:${index * 70}ms; --edge-width:${width}; --edge-strength:${strength}; --edge-opacity:${opacity}; --edge-dash:${dash}" marker-end="url(#memory-arrow-end)" ${bidirectional ? 'marker-start="url(#memory-arrow-start)"' : ""} />`;
           }).join("")}
         </svg>
         <div class="memory-network-legend" aria-label="관계 범례">
@@ -4813,10 +4848,11 @@
         </div>
         ${nodes.map((node, index) => {
           const active = selected?.kind === "node" && selected.node.id === node.id;
-          const nodeSize = Math.round(clamp((node.scale || 74) + Math.min(node.signal || 0, 36) * .42 + (node.score || 0) * .24, 84, 148));
+          const nodeScore = clamp(node.score || node.scale || 60, 10, 100);
+          const nodeSize = Math.round(clamp(70 + nodeScore * .54 + Math.min(node.signal || 0, 34) * .36, 86, 154));
           const nodeMetric = node.metric || `${fmtNum(node.signal)}건`;
           return `
-            <button class="memory-node ${active ? "active" : ""}" type="button" draggable="false" data-memory-node="${escapeHTML(node.id)}" data-node-x="${Number(node.x).toFixed(2)}" data-node-y="${Number(node.y).toFixed(2)}" aria-label="${escapeHTML(node.name)} 관계 노드. 드래그하여 이동" title="드래그하여 이동 · 클릭하여 상세 보기" style="--node-x:${node.x}%; --node-y:${node.y}%; --node-size:${nodeSize}px; --local-accent:${categoryAccent(node.category)}; --delay:${index * 45}ms">
+            <button class="memory-node ${active ? "active" : ""}" type="button" draggable="false" data-memory-node="${escapeHTML(node.id)}" data-node-x="${Number(node.x).toFixed(2)}" data-node-y="${Number(node.y).toFixed(2)}" aria-label="${escapeHTML(node.name)} 관계 노드. 드래그하여 이동" title="드래그하여 이동 · 클릭하여 상세 보기" style="--node-x:${node.x}%; --node-y:${node.y}%; --node-size:${nodeSize}px; --node-score:${nodeScore}; --node-score-pct:${nodeScore}%; --local-accent:${categoryAccent(node.category)}; --delay:${index * 45}ms">
               <b>${escapeHTML(node.name)}</b>
               <span>${escapeHTML(node.role)}</span>
               <em>${escapeHTML(nodeMetric)}</em>
