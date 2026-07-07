@@ -1683,7 +1683,7 @@
       desc: "백테스트, 경영전략, 제품군 프로젝션, ROI 시나리오",
       cadence: "Decision lab",
       jump: "executive-decision",
-      sections: ["executive-decision", "management-strategy", "strategic-investment-decision", "numbers", "projection", "hyperscaler-demand"],
+      sections: ["executive-decision", "management-strategy", "strategic-investment-decision", "numbers", "projection"],
     },
     {
       id: "market",
@@ -1691,7 +1691,7 @@
       desc: "가격·수급 변화와 기사 흐름",
       cadence: "Market data",
       jump: "prices",
-      sections: ["prices", "news"],
+      sections: ["prices", "hyperscaler-demand", "news"],
     },
     {
       id: "competitors",
@@ -1948,6 +1948,7 @@
   const cLevelCouncilTimers = [];
   let hyperscalerScenario = "base";
   let hyperscalerFocusId = "";
+  let forecastCategory = "hyperscaler";
   let execDecisionCouncilRan = false;
   let execDecisionCouncilScenarioRun = 0;
   let projectionFocusId = "ai-server";
@@ -2034,64 +2035,156 @@
   /* ---------------- Hyperscaler memory demand · scenario planning ---------------- */
   // Logic: AI 가속기 출하(대) × HBM GB/대 → 총 HBM 수요(PB) × SKHY 점유율 → SKHY 물량.
   // 범용 서버 DRAM·eSSD NAND는 동반 수요로 YoY 지표로 병기. 모두 공개 데이터 기반 논리 추정.
-  const HYPERSCALER_SCENARIOS = [
+  // Scenario tilts are multipliers so they apply across every demand category.
+  const FORECAST_SCENARIOS = [
+    { id: "bear", label: "Bear · 소화 국면", tone: "watch", unitsMul: 0.82, memMul: 0.9, shareMul: 0.96, demandMul: 0.5,
+      premise: "수요 소화·거시 둔화로 출하 감소, 메모리 재고 조정", readout: "범용 가격 방어 우선, CAPEX는 milestone tranche로 제한" },
+    { id: "base", label: "Base · 기준", tone: "ok", unitsMul: 1, memMul: 1, shareMul: 1, demandMul: 1,
+      premise: "출하·믹스 견조, 세대 전환 완만 진행", readout: "프리미엄 인증 일정에 캐파 선배분, 범용은 현금흐름 방어" },
+    { id: "bull", label: "Bull · 상방", tone: "ok", unitsMul: 1.28, memMul: 1.18, shareMul: 1.04, demandMul: 1.6,
+      premise: "AI·온디바이스 수요 상방, 대당 탑재량 상향과 조기 세대 전환", readout: "선제 증설·장기계약 락인, 범용 캐파 잠식 트레이드오프 관리" },
+  ];
+
+  // Each category defines its own demand-driver logic (수요처 출하 × 메모리 탑재량).
+  const FORECAST_CATEGORIES = [
     {
-      id: "bear",
-      label: "Bear · 소화 국면",
-      tone: "watch",
-      accelUnits: 5.0, hbmPerUnit: 180, skhyShare: 52, serverDramYoY: 8, essdYoY: 6,
-      premise: "AI CapEx 소화·전력/부지 제약으로 가속기 출하 둔화, HBM 재고 조정",
-      readout: "범용 가격 방어를 우선하고 HBM CAPEX는 milestone tranche로 제한",
+      id: "hyperscaler", label: "AI서버·하이퍼스케일러", accent: "#2D6BFF",
+      units: 6.5, unitLabel: "백만 대", unitStep: "가속기 출하", unitNote: "NVIDIA+AMD+커스텀 ASIC 2026E",
+      memPerUnit: 210, memLabel: "GB/대", memName: "HBM", memNote: "B200 192 · GB300 288 가중 평균",
+      skhyShare: 55, shareNote: "HBM 리더십 가정",
+      dramYoY: 15, dramLabel: "서버 DRAM", nandYoY: 18, nandLabel: "eSSD NAND",
+      driverLabel: "CapEx 방향", techLabel: "자체 가속기", pullLabel: "HBM 견인도", panelTitle: "하이퍼스케일러별 수요 풀",
+      accounts: [
+        { id: "azure", name: "Microsoft · Azure", region: "US", driver: "↑↑ 최상", tech: "Maia 200", pull: 96, note: "OpenAI 학습·추론 동시 확장. HBM4 최우선 고객군, 서버 DRAM 동반 최대." },
+        { id: "aws", name: "Amazon · AWS", region: "US", driver: "↑↑ 최상", tech: "Trainium2/3", pull: 90, note: "자체 ASIC 확대 = HBM 직접 조달 + NVIDIA 간접 수요. eSSD 대량." },
+        { id: "google", name: "Google Cloud", region: "US", driver: "↑ 강", tech: "TPU v7 Ironwood", pull: 88, note: "TPU HBM 자체 조달 규모가 커 SKHY·삼성 물량 배분의 핵심 변수." },
+        { id: "meta", name: "Meta", region: "US", driver: "↑↑ 최상", tech: "MTIA", pull: 84, note: "추론·추천 가속 = 서버 DRAM·HBM 동반. 자본 여력 높아 Bull 민감도 큼." },
+        { id: "oracle", name: "Oracle · OpenAI(Stargate)", region: "US", driver: "↑↑↑ 신규", tech: "NVIDIA 중심", pull: 80, note: "대형 신규 수요이나 착공·자금 가시성 낮음 → 계약 확정 전 Watch." },
+        { id: "xai", name: "xAI", region: "US", driver: "↑↑ 급증", tech: "NVIDIA", pull: 68, note: "Colossus 확장 공격적, 전력·부지 제약이 실제 출하의 상한." },
+        { id: "china", name: "중국(Alibaba·Tencent·ByteDance)", region: "CN", driver: "↑ 제한", tech: "자체·H20·국산", pull: 58, note: "수출통제로 SKHY 직접 노출 제한. CXMT/국산 HBM 대체 압력을 별도 경보로 관리." },
+      ],
+      assume: [
+        "가속기 출하는 NVIDIA·AMD·커스텀 ASIC 합산, HBM/대는 세대 믹스 가중 평균",
+        "총 HBM 수요(PB) = 출하(백만 대) × HBM(GB/대); SKHY 점유율은 HBM 리더십 유지 가정",
+        "커스텀 ASIC이 HBM 대신 저용량 구성을 택하면 탑재량·총수요 동시 하향(반증)",
+        "전력·부지·CoWoS 병목이 실제 출하 상한 → Bull 지연(반증)",
+      ],
     },
     {
-      id: "base",
-      label: "Base · 기준",
-      tone: "ok",
-      accelUnits: 6.5, hbmPerUnit: 210, skhyShare: 55, serverDramYoY: 15, essdYoY: 18,
-      premise: "빅테크 CapEx 견조, 가속기 YoY +40% 내외, HBM3E→HBM4 완만 전환",
-      readout: "HBM4 고객 인증 일정에 캐파를 선배분, 범용은 현금흐름 방어",
+      id: "auto", label: "자동차", accent: "#0EA5E9",
+      units: 93, unitLabel: "백만 대", unitStep: "차량 생산", unitNote: "글로벌 신차 2026E (EV+ICE)",
+      memPerUnit: 6, memLabel: "GB/대", memName: "차량용 DRAM+NAND", memNote: "ADAS L2+·IVI·존아키텍처 평균",
+      skhyShare: 26, shareNote: "오토향 점유율 가정",
+      dramYoY: 12, dramLabel: "차량 DRAM", nandYoY: 22, nandLabel: "차량 NAND",
+      driverLabel: "생산 방향", techLabel: "ADAS/SDV", pullLabel: "메모리 견인도", panelTitle: "완성차·Tier1 수요 풀",
+      accounts: [
+        { id: "tesla", name: "Tesla", region: "US", driver: "↑ 강", tech: "FSD HW5", pull: 88, note: "FSD·추론용 고용량 메모리. 차량당 DRAM 최상위 견인." },
+        { id: "byd", name: "BYD", region: "CN", driver: "↑↑ 최상", tech: "자체 ADAS", pull: 74, note: "판매량 세계 1위 EV. 중국 내수 + 국산 메모리 병행." },
+        { id: "hyundai", name: "Hyundai · Kia", region: "KR", driver: "↑ 강", tech: "Pleos SDV", pull: 66, note: "SDV·자율주행 투자 확대, 국내 공급망 연계." },
+        { id: "tier1", name: "Bosch · Continental(Tier1)", region: "EU", driver: "↑ 공급", tech: "도메인 컨트롤러", pull: 70, note: "존/도메인 컨트롤러가 차량용 DRAM 집적도를 끌어올림." },
+        { id: "vw", name: "Volkswagen", region: "EU", driver: "→ 정체", tech: "Zonal E/E", pull: 60, note: "SDV 전환 지연, 존아키텍처 채택 속도가 변수." },
+        { id: "toyota", name: "Toyota", region: "JP", driver: "→ 점진", tech: "HEV 중심", pull: 56, note: "하이브리드 중심, ADAS 고도화는 점진적." },
+      ],
+      assume: [
+        "차량용은 온도·수명 인증(AEC-Q) 때문에 세대 전환이 서버보다 느림",
+        "총수요 = 신차 생산 × 차량당 메모리; ADAS 레벨 상승이 탑재량 견인",
+        "EV·SDV 침투가 늦으면 탑재량·총수요 동시 하향(반증)",
+        "차량용은 고신뢰·롱테일 재고로 가격 방어력이 상대적으로 높음",
+      ],
     },
     {
-      id: "bull",
-      label: "Bull · AI 상방",
-      tone: "ok",
-      accelUnits: 8.5, hbmPerUnit: 250, skhyShare: 58, serverDramYoY: 24, essdYoY: 30,
-      premise: "추론 수요 폭발·커스텀 ASIC 급증, HBM4 조기 채택과 대당 용량 상향",
-      readout: "HBM 선제 증설·장기계약 락인을 앞당기되 범용 캐파 잠식 트레이드오프 관리",
+      id: "mobile", label: "모바일·스마트폰", accent: "#8B5CF6",
+      units: 1200, unitLabel: "백만 대", unitStep: "스마트폰 출하", unitNote: "글로벌 스마트폰 2026E",
+      memPerUnit: 9, memLabel: "GB/대", memName: "LPDDR+UFS", memNote: "온디바이스 AI로 8→12GB 상향",
+      skhyShare: 30, shareNote: "모바일 DRAM 점유율 가정",
+      dramYoY: 8, dramLabel: "LPDDR", nandYoY: 11, nandLabel: "UFS NAND",
+      driverLabel: "출하 방향", techLabel: "온디바이스 AI", pullLabel: "메모리 견인도", panelTitle: "스마트폰 브랜드 수요 풀",
+      accounts: [
+        { id: "apple", name: "Apple", region: "US", driver: "→ 견조", tech: "Apple Intelligence", pull: 82, note: "온디바이스 AI로 기본 DRAM 8→12GB 상향 견인." },
+        { id: "samsung-mx", name: "Samsung MX", region: "KR", driver: "→ 견조", tech: "Galaxy AI", pull: 78, note: "Galaxy AI 탑재 확대, 자사 메모리 우선 조달." },
+        { id: "xiaomi", name: "Xiaomi", region: "CN", driver: "↑ 강", tech: "HyperAI", pull: 70, note: "중국 플래그십 12~16GB 상향, 가격 민감." },
+        { id: "oppo-vivo", name: "Oppo · Vivo", region: "CN", driver: "↑ 강", tech: "온디바이스 LLM", pull: 66, note: "중국 내수 온디바이스 AI 채택 가속." },
+        { id: "transsion", name: "Transsion", region: "CN", driver: "↑ 신흥", tech: "엔트리", pull: 46, note: "신흥시장 저용량 중심 → 견인도 낮음." },
+      ],
+      assume: [
+        "총수요 = 스마트폰 출하 × 대당 메모리(LPDDR+UFS)",
+        "온디바이스 AI가 기본 탑재량을 끌어올리는 것이 상방의 핵심",
+        "교체 주기 장기화·엔트리 비중 확대 시 탑재량 상향 둔화(반증)",
+        "LPDDR ASP 프리미엄이 유지될 때만 믹스 전환이 수익성 개선",
+      ],
+    },
+    {
+      id: "pc", label: "PC·가전", accent: "#F59E0B",
+      units: 260, unitLabel: "백만 대", unitStep: "PC·가전 출하", unitNote: "PC 교체 사이클 + AI PC 2026E",
+      memPerUnit: 18, memLabel: "GB/대", memName: "DDR5/LPCAMM+SSD", memNote: "AI PC 16GB 기본화·LPCAMM 채택",
+      skhyShare: 28, shareNote: "PC DRAM 점유율 가정",
+      dramYoY: 7, dramLabel: "PC DRAM", nandYoY: 9, nandLabel: "클라이언트 SSD",
+      driverLabel: "출하 방향", techLabel: "AI PC/엣지", pullLabel: "메모리 견인도", panelTitle: "PC·가전 브랜드 수요 풀",
+      accounts: [
+        { id: "lenovo", name: "Lenovo", region: "CN", driver: "↑ 강", tech: "Copilot+ AI PC", pull: 80, note: "AI PC 전환 = 16GB 기본화, LPCAMM 채택 선도." },
+        { id: "dell", name: "Dell", region: "US", driver: "↑ 강", tech: "AI PC+엣지서버", pull: 76, note: "상용 AI PC + 엣지 서버 동반 수요." },
+        { id: "hp", name: "HP", region: "US", driver: "↑ 교체", tech: "AI PC", pull: 74, note: "상용 교체 수요, Win 전환 겹침." },
+        { id: "apple-mac", name: "Apple Mac", region: "US", driver: "→ 견조", tech: "M-series 통합메모리", pull: 72, note: "통합메모리 고용량, 자체 SoC 조달." },
+        { id: "appliance", name: "가전(Samsung·LG)", region: "KR", driver: "→ 초기", tech: "On-device 가전 AI", pull: 44, note: "가전 엣지 AI 초기 단계, 저용량 중심." },
+      ],
+      assume: [
+        "총수요 = PC·가전 출하 × 대당 메모리",
+        "AI PC 침투율과 대당 기본 용량 상향이 상방 동력",
+        "PC 교체 사이클 지연 시 출하·총수요 동시 하향(반증)",
+        "가전 엣지 AI는 아직 저용량 → 견인도 제한적",
+      ],
+    },
+    {
+      id: "datacenter", label: "데이터센터 스토리지", accent: "#10B981",
+      units: 14, unitLabel: "백만 대", unitStep: "서버 출하", unitNote: "글로벌 서버 + AI 노드 2026E",
+      memPerUnit: 480, memLabel: "GB/대", memName: "서버DRAM+eSSD", memNote: "고용량 RDIMM·QLC eSSD 평균",
+      skhyShare: 24, shareNote: "서버 DRAM/eSSD 점유율 가정",
+      dramYoY: 16, dramLabel: "서버 DRAM", nandYoY: 28, nandLabel: "eSSD NAND",
+      driverLabel: "증설 방향", techLabel: "스토리지 사양", pullLabel: "메모리 견인도", panelTitle: "데이터센터·스토리지 수요 풀",
+      accounts: [
+        { id: "azure-st", name: "Azure Storage", region: "US", driver: "↑↑ 최상", tech: "QLC eSSD", pull: 90, note: "AI 데이터레이크·체크포인트 = eSSD 대량, 서버 DRAM 동반." },
+        { id: "aws-st", name: "AWS Storage", region: "US", driver: "↑↑ 최상", tech: "Nitro/eSSD", pull: 88, note: "S3·벡터DB 확장, 고용량 서버 DRAM 동반." },
+        { id: "solidigm-dc", name: "Solidigm(SKHY)", region: "KR", driver: "↑ 공급", tech: "QLC eSSD", pull: 82, note: "SKHY 자회사, eSSD value-up 직접 수혜." },
+        { id: "google-st", name: "Google Storage", region: "US", driver: "↑ 강", tech: "TPU 데이터 스테이징", pull: 78, note: "TPU 파이프라인 데이터 스테이징 수요." },
+        { id: "china-dc", name: "중국 클라우드 스토리지", region: "CN", driver: "↑ 국산", tech: "국산 eSSD", pull: 60, note: "수출통제로 국산 NAND 대체 압력, SKHY 직접 노출 제한." },
+      ],
+      assume: [
+        "총수요 = 서버 출하 × 노드당 메모리(서버 DRAM+eSSD)",
+        "AI 데이터 증가가 eSSD 용량을 비선형으로 견인",
+        "QLC 전환·고용량 eSSD 채택이 늦으면 NAND 총수요 하향(반증)",
+        "eSSD는 SKHY·Solidigm 직접 수혜 축으로 별도 추적",
+      ],
     },
   ];
 
-  function hyperscalerScenarioData(id = hyperscalerScenario) {
-    return HYPERSCALER_SCENARIOS.find((s) => s.id === id) || HYPERSCALER_SCENARIOS[1];
+  function forecastCategoryData(id = forecastCategory) {
+    return FORECAST_CATEGORIES.find((c) => c.id === id) || FORECAST_CATEGORIES[0];
   }
 
-  // 총 HBM 수요(PB) = 가속기 출하(백만 대) × HBM(GB/대) ÷ 1 (백만 GB = 1 PB)
-  function hyperscalerHbmTotals(scenario = hyperscalerScenarioData()) {
-    const totalHbmPb = Math.round(scenario.accelUnits * scenario.hbmPerUnit);
-    const skhyHbmPb = Math.round(totalHbmPb * scenario.skhyShare / 100);
-    return { totalHbmPb, skhyHbmPb };
+  function forecastScenarioData(id = hyperscalerScenario) {
+    return FORECAST_SCENARIOS.find((s) => s.id === id) || FORECAST_SCENARIOS[1];
   }
 
-  function hyperscalerAccounts() {
-    return [
-      { id: "azure", name: "Microsoft · Azure", region: "US", capex: "↑↑ 최상", asic: "Maia 200", hbmPull: 96, note: "OpenAI 학습·추론 동시 확장. HBM4 최우선 고객군, 서버 DRAM 동반 최대." },
-      { id: "aws", name: "Amazon · AWS", region: "US", capex: "↑↑ 최상", asic: "Trainium2/3", hbmPull: 90, note: "자체 ASIC 확대 = HBM 직접 조달 + NVIDIA 간접 수요. eSSD 대량." },
-      { id: "google", name: "Google Cloud", region: "US", capex: "↑ 강", asic: "TPU v7 Ironwood", hbmPull: 88, note: "TPU HBM 자체 조달 규모가 커 SKHY·삼성 물량 배분의 핵심 변수." },
-      { id: "meta", name: "Meta", region: "US", capex: "↑↑ 최상", asic: "MTIA", hbmPull: 84, note: "추론·추천 가속 = 서버 DRAM·HBM 동반. 자본 여력 높아 Bull 민감도 큼." },
-      { id: "oracle", name: "Oracle · OpenAI(Stargate)", region: "US", capex: "↑↑↑ 신규", asic: "NVIDIA 중심", hbmPull: 80, note: "대형 신규 수요이나 착공·자금 가시성 낮음 → 계약 확정 전 Watch." },
-      { id: "xai", name: "xAI", region: "US", capex: "↑↑ 급증", asic: "NVIDIA", hbmPull: 68, note: "Colossus 확장 공격적, 전력·부지 제약이 실제 출하의 상한." },
-      { id: "china", name: "중국(Alibaba·Tencent·ByteDance)", region: "CN", capex: "↑ 제한", asic: "자체·H20·국산", hbmPull: 58, note: "수출통제로 SKHY 직접 노출 제한. CXMT/국산 HBM 대체 압력을 별도 경보로 관리." },
-    ];
+  // Scenario-adjusted driver values for a category.
+  function forecastDrivers(category = forecastCategoryData(), scenario = forecastScenarioData()) {
+    const units = category.units * scenario.unitsMul;
+    const memPerUnit = category.memPerUnit * scenario.memMul;
+    const skhyShare = clamp(category.skhyShare * scenario.shareMul, 5, 80);
+    const totalPb = Math.round(units * memPerUnit);
+    const skhyPb = Math.round(totalPb * skhyShare / 100);
+    const dramYoY = Math.round(category.dramYoY * scenario.demandMul);
+    const nandYoY = Math.round(category.nandYoY * scenario.demandMul);
+    return { units, memPerUnit, skhyShare, totalPb, skhyPb, dramYoY, nandYoY };
   }
 
-  function hyperscalerAccountPull(account, scenario = hyperscalerScenarioData()) {
-    // 시나리오 tilt를 각 계정 HBM 견인도에 반영. 중국은 상방에서도 수출통제로 상단이 눌림.
+  function forecastAccountPull(account, scenario = forecastScenarioData()) {
     const tilt = scenario.id === "bull" ? 1.12 : scenario.id === "bear" ? 0.82 : 1;
-    const capped = account.region === "CN" ? Math.min(account.hbmPull * tilt, 66) : account.hbmPull * tilt;
+    const capped = account.region === "CN" ? Math.min(account.pull * tilt, 70) : account.pull * tilt;
     return Math.round(clamp(capped, 8, 100));
   }
 
   function renderHyperscalerDemand() {
+    const catTabs = $("#forecastCategoryTabs");
     const logic = $("#hyperscalerLogic");
     const tabs = $("#hyperscalerScenarioTabs");
     const summary = $("#hyperscalerSummary");
@@ -2099,23 +2192,36 @@
     const focus = $("#hyperscalerFocus");
     const assumptions = $("#hyperscalerAssumptions");
     const meta = $("#hyperscalerMeta");
+    const panelTitle = $("#hyperscalerPanelTitle");
+    const panelMeta = $("#hyperscalerPanelMeta");
     if (!tabs || !summary || !grid) return;
 
-    const scenario = hyperscalerScenarioData();
-    const { totalHbmPb, skhyHbmPb } = hyperscalerHbmTotals(scenario);
-    const accounts = hyperscalerAccounts();
-    if (meta) meta.textContent = `${scenario.label} · 가속기 ${fmtNum(scenario.accelUnits, 1)}백만 대 · HBM ${fmtNum(scenario.hbmPerUnit)}GB/대`;
+    const category = forecastCategoryData();
+    const scenario = forecastScenarioData();
+    const d = forecastDrivers(category, scenario);
+    const accounts = category.accounts;
+    if (meta) meta.textContent = `${category.label} · ${scenario.label} · ${fmtNum(d.units, d.units < 20 ? 1 : 0)}${category.unitLabel} × ${fmtNum(d.memPerUnit)}${category.memLabel}`;
+    if (panelTitle) panelTitle.textContent = category.panelTitle;
+    if (panelMeta) panelMeta.textContent = `${category.driverLabel} · ${category.techLabel} · ${category.pullLabel}`;
+
+    if (catTabs) {
+      catTabs.innerHTML = FORECAST_CATEGORIES.map((c) => `
+        <button type="button" class="${c.id === forecastCategory ? "active" : ""}" data-forecast-cat="${escapeHTML(c.id)}" style="--cat-accent:${c.accent}">
+          <strong>${escapeHTML(c.label)}</strong>
+        </button>
+      `).join("");
+    }
 
     if (logic) {
       const steps = [
-        { k: "① 가속기 출하", v: `${fmtNum(scenario.accelUnits, 1)}백만 대`, s: "NVIDIA+AMD+커스텀 ASIC 2026E" },
-        { k: "② HBM 탑재량", v: `${fmtNum(scenario.hbmPerUnit)} GB/대`, s: "B200 192 · GB300 288 가중 평균" },
-        { k: "③ 총 HBM 수요", v: `${fmtNum(totalHbmPb)} PB`, s: "①×② (백만 대 × GB)" },
-        { k: "④ SKHY 점유율", v: `${fmtNum(scenario.skhyShare)}%`, s: "HBM 리더십 가정" },
-        { k: "⑤ SKHY HBM 물량", v: `${fmtNum(skhyHbmPb)} PB`, s: "③×④ 논리 추정" },
+        { k: `① ${category.unitStep}`, v: `${fmtNum(d.units, d.units < 20 ? 1 : 0)} ${category.unitLabel}`, s: category.unitNote },
+        { k: "② 메모리 탑재량", v: `${fmtNum(d.memPerUnit)} ${category.memLabel}`, s: `${category.memName} · ${category.memNote}` },
+        { k: "③ 총 메모리 수요", v: `${fmtNum(d.totalPb)} PB`, s: "①×② (백만 대 × GB)" },
+        { k: "④ SKHY 점유율", v: `${fmtNum(d.skhyShare)}%`, s: category.shareNote },
+        { k: "⑤ SKHY 물량", v: `${fmtNum(d.skhyPb)} PB`, s: "③×④ 논리 추정" },
       ];
       logic.innerHTML = steps.map((step, i) => `
-        <article class="hs-logic-step reveal" style="--delay:${i * 60}ms">
+        <article class="hs-logic-step reveal" style="--delay:${i * 60}ms; --cat-accent:${category.accent}">
           <span>${escapeHTML(step.k)}</span>
           <strong>${escapeHTML(step.v)}</strong>
           <small>${escapeHTML(step.s)}</small>
@@ -2123,45 +2229,48 @@
       `).join(`<i class="hs-logic-arrow" aria-hidden="true">→</i>`);
     }
 
-    tabs.innerHTML = HYPERSCALER_SCENARIOS.map((s) => `
-      <button type="button" class="${s.id === hyperscalerScenario ? "active" : ""}" data-hs-scenario="${escapeHTML(s.id)}" style="--tab-tone:${s.tone === "watch" ? "#F59E0B" : "#10B981"}">
-        <strong>${escapeHTML(s.label)}</strong>
-        <small>가속기 ${fmtNum(s.accelUnits, 1)}M · HBM ${fmtNum(s.hbmPerUnit)}GB</small>
-      </button>
-    `).join("");
+    tabs.innerHTML = FORECAST_SCENARIOS.map((s) => {
+      const sd = forecastDrivers(category, s);
+      return `
+        <button type="button" class="${s.id === hyperscalerScenario ? "active" : ""}" data-hs-scenario="${escapeHTML(s.id)}" style="--tab-tone:${s.tone === "watch" ? "#F59E0B" : "#10B981"}">
+          <strong>${escapeHTML(s.label)}</strong>
+          <small>총 ${fmtNum(sd.totalPb)} PB · SKHY ${fmtNum(sd.skhyPb)} PB</small>
+        </button>
+      `;
+    }).join("");
 
     summary.innerHTML = `
-      <article class="hs-kpi"><span>총 HBM 수요</span><strong>${countHTML(totalHbmPb)}<em>PB</em></strong><small>${escapeHTML(scenario.premise)}</small></article>
-      <article class="hs-kpi accent"><span>SKHY HBM 물량</span><strong>${countHTML(skhyHbmPb)}<em>PB</em></strong><small>점유율 ${fmtNum(scenario.skhyShare)}% 가정</small></article>
-      <article class="hs-kpi"><span>서버 DRAM</span><strong>+${countHTML(scenario.serverDramYoY)}<em>% YoY</em></strong><small>범용 동반 수요</small></article>
-      <article class="hs-kpi"><span>eSSD NAND</span><strong>+${countHTML(scenario.essdYoY)}<em>% YoY</em></strong><small>AI 스토리지 견인</small></article>
+      <article class="hs-kpi"><span>총 메모리 수요</span><strong>${countHTML(d.totalPb)}<em>PB</em></strong><small>${escapeHTML(scenario.premise)}</small></article>
+      <article class="hs-kpi accent"><span>SKHY 물량</span><strong>${countHTML(d.skhyPb)}<em>PB</em></strong><small>점유율 ${fmtNum(d.skhyShare)}% 가정</small></article>
+      <article class="hs-kpi"><span>${escapeHTML(category.dramLabel)}</span><strong>+${countHTML(d.dramYoY)}<em>% YoY</em></strong><small>동반 DRAM 수요</small></article>
+      <article class="hs-kpi"><span>${escapeHTML(category.nandLabel)}</span><strong>+${countHTML(d.nandYoY)}<em>% YoY</em></strong><small>동반 NAND 수요</small></article>
       <article class="hs-readout"><span>경영 판단</span><strong>${escapeHTML(scenario.readout)}</strong></article>
     `;
 
     const focusId = accounts.some((a) => a.id === hyperscalerFocusId) ? hyperscalerFocusId : accounts[0].id;
     grid.innerHTML = accounts.map((account, i) => {
-      const pull = hyperscalerAccountPull(account, scenario);
+      const pull = forecastAccountPull(account, scenario);
       return `
         <button class="hs-card ${account.id === focusId ? "active" : ""} reveal" type="button" data-hs-account="${escapeHTML(account.id)}" style="--delay:${i * 40}ms; --pull:${pull}%">
-          <span class="hs-card-top"><em>${escapeHTML(account.region)}</em><b>CapEx ${escapeHTML(account.capex)}</b></span>
+          <span class="hs-card-top"><em>${escapeHTML(account.region)}</em><b>${escapeHTML(category.driverLabel)} ${escapeHTML(account.driver)}</b></span>
           <strong>${escapeHTML(account.name)}</strong>
-          <small>자체칩 ${escapeHTML(account.asic)}</small>
+          <small>${escapeHTML(category.techLabel)} · ${escapeHTML(account.tech)}</small>
           <div class="hs-pull"><i style="width:${pull}%"></i></div>
-          <span class="hs-pull-label">HBM 견인도 ${fmtNum(pull)}/100</span>
+          <span class="hs-pull-label">${escapeHTML(category.pullLabel)} ${fmtNum(pull)}/100</span>
         </button>
       `;
     }).join("");
 
     if (focus) {
       const account = accounts.find((a) => a.id === focusId) || accounts[0];
-      const pull = hyperscalerAccountPull(account, scenario);
+      const pull = forecastAccountPull(account, scenario);
       focus.innerHTML = `
         <span class="hs-focus-tag">${escapeHTML(account.region)} · 수요 심층</span>
         <strong>${escapeHTML(account.name)}</strong>
         <div class="hs-focus-metrics">
-          <span><b>${escapeHTML(account.capex)}</b><small>CapEx 방향</small></span>
-          <span><b>${escapeHTML(account.asic)}</b><small>자체 가속기</small></span>
-          <span><b>${fmtNum(pull)}/100</b><small>HBM 견인도</small></span>
+          <span><b>${escapeHTML(account.driver)}</b><small>${escapeHTML(category.driverLabel)}</small></span>
+          <span><b>${escapeHTML(account.tech)}</b><small>${escapeHTML(category.techLabel)}</small></span>
+          <span><b>${fmtNum(pull)}/100</b><small>${escapeHTML(category.pullLabel)}</small></span>
         </div>
         <p>${escapeHTML(account.note)}</p>
         <small class="hs-focus-note">${escapeHTML(scenario.label)} 기준 · SKHY 함의로 해석</small>
@@ -2170,17 +2279,20 @@
 
     if (assumptions) {
       assumptions.innerHTML = `
-        <div class="intel-panel-head"><h3>모델 가정 · 반증 조건</h3><span>공개 데이터 기반 논리 추정 (확정치 아님)</span></div>
+        <div class="intel-panel-head"><h3>모델 가정 · 반증 조건</h3><span>${escapeHTML(category.label)} · 공개 데이터 기반 논리 추정 (확정치 아님)</span></div>
         <ul class="hs-assume-list">
-          <li><b>가정</b> 가속기 출하는 NVIDIA·AMD·커스텀 ASIC 합산, HBM/대는 세대 믹스 가중 평균</li>
-          <li><b>가정</b> 총 HBM 수요(PB) = 출하(백만 대) × HBM(GB/대); SKHY 점유율은 HBM 리더십 유지 가정</li>
-          <li><b>반증</b> 커스텀 ASIC이 HBM 대신 저용량 구성을 택하면 ②·③ 동시 하향</li>
-          <li><b>반증</b> 전력·부지·CoWoS 병목이 실제 출하 상한 → Bull 시나리오 지연</li>
-          <li><b>경보</b> 중국 수출통제·CXMT HBM 진입은 중국 계정 견인도를 구조적으로 상단 제한</li>
+          ${category.assume.map((line, i) => `<li><b>${i < 2 ? "가정" : "반증"}</b> ${escapeHTML(line)}</li>`).join("")}
         </ul>
       `;
     }
 
+    if (catTabs) catTabs.querySelectorAll("[data-forecast-cat]").forEach((btn) => {
+      btn.addEventListener("click", () => {
+        forecastCategory = btn.dataset.forecastCat;
+        hyperscalerFocusId = "";
+        renderHyperscalerDemand();
+      });
+    });
     tabs.querySelectorAll("[data-hs-scenario]").forEach((btn) => {
       btn.addEventListener("click", () => {
         hyperscalerScenario = btn.dataset.hsScenario;
@@ -4334,8 +4446,9 @@
       { id: "ymtc", name: "YMTC", role: "중국 NAND·eSSD", metric: "NAND 13%", category: "nand", x: 72, y: 76, scale: 88 },
       { id: "kioxia-sandisk", name: "Kioxia·SanDisk", role: "NAND peer", metric: "BiCS", category: "nand", x: 90, y: 64, scale: 74 },
       { id: "solidigm", name: "Solidigm", role: "eSSD·Dalian 방어", metric: "eSSD", category: "operations", x: 56, y: 72, scale: 74 },
-      { id: "jcet-xmc", name: "JCET·XMC", role: "첨단 패키징 우회", metric: "OSAT", category: "packaging", x: 42, y: 88, scale: 80 },
-      { id: "naura-amec", name: "Naura·AMEC", role: "장비 국산화", metric: "Etch/Depo", category: "equipment", x: 16, y: 88, scale: 78 },
+      { id: "jcet-xmc", name: "JCET·XMC·TFME", role: "첨단 패키징 우회", metric: "OSAT", category: "packaging", x: 42, y: 90, scale: 78 },
+      { id: "naura-amec", name: "Naura·AMEC·ACM", role: "장비 국산화", metric: "Etch/Depo/세정", category: "equipment", x: 14, y: 90, scale: 76 },
+      { id: "smic", name: "SMIC", role: "중국 파운드리·base die", metric: "Foundry", category: "china", x: 28, y: 72, scale: 74 },
       { id: "china-fund", name: "Big Fund·지방정부", role: "정책 자본", metric: "Capital", category: "geopolitics", x: 86, y: 90, scale: 84 },
       { id: "china-cloud", name: "중국 클라우드/OEM", role: "내수 고객", metric: "Demand", category: "china", x: 87, y: 15, scale: 86 },
       { id: "cxl-startups", name: "CXL·Photonics", role: "Post-HBM 옵션", metric: "Option", category: "cxl", x: 30, y: 8, scale: 70 },
@@ -4600,6 +4713,18 @@
         categories: ["packaging", "geopolitics", "china"],
         weight: 68,
         interpretation: "정책자본에서 패키징 축으로 가는 선은 선단 공정 제약을 후공정으로 보완하려는 중국형 우회 전략입니다.",
+      },
+      {
+        id: "smic-cxmt-basedie", mode: "competitive", from: "smic", to: "cxmt", type: "파트너십", structural: true,
+        label: "중국 base die·로직 파운드리 연계", terms: ["smic", "cxmt", "base die", "logic", "foundry"],
+        match: [["smic"], ["cxmt", "base die", "logic", "dram"]], priceTerms: [], categories: ["dram", "china", "packaging"], weight: 58,
+        interpretation: "SMIC는 CXMT의 로직·base die 국산 파운드리 옵션으로, 중국 HBM 내재화의 잠재 축입니다.",
+      },
+      {
+        id: "fund-smic-invest", mode: "competitive", from: "china-fund", to: "smic", type: "투자", structural: true,
+        label: "파운드리 정책자금", terms: ["smic", "big fund", "foundry", "정책자금", "investment"],
+        match: [["smic"], ["fund", "big fund", "investment", "foundry"]], priceTerms: [], categories: ["china", "geopolitics"], weight: 62,
+        interpretation: "정책자본에서 SMIC로 가는 선은 중국 파운드리·로직 내재화 자금축입니다.",
       },
       {
         id: "global-equip-skhy-supply",
@@ -4915,6 +5040,61 @@
         weight: 66,
         flowIndex: 60,
         interpretation: "중국 클라우드/OEM에서 Solidigm으로 가는 선은 eSSD 고객 방어 매출입니다.",
+      },
+      {
+        id: "kioxia-nand-revenue", mode: "money", from: "china-cloud", to: "kioxia-sandisk", type: "매출", structural: true,
+        label: "글로벌 NAND·SSD 매출", terms: ["kioxia", "sandisk", "nand", "ssd", "bics"],
+        match: [["kioxia", "sandisk"], ["nand", "ssd", "bics"]], priceTerms: ["nand", "ssd"], categories: ["nand"], weight: 60, flowIndex: 56,
+        interpretation: "OEM·클라우드에서 Kioxia·SanDisk로 가는 선은 글로벌 NAND/SSD 매출입니다.",
+      },
+      {
+        id: "samsung-ai-revenue2", mode: "money", from: "nvidia-ai", to: "samsung", type: "매출", structural: true,
+        label: "삼성 HBM·서버 DRAM 매출", terms: ["samsung", "hbm", "server dram", "nvidia"],
+        match: [["samsung"], ["hbm", "server dram"]], priceTerms: ["dram"], categories: ["hbm", "dram"], weight: 66, flowIndex: 62,
+        interpretation: "AI 고객에서 삼성으로 가는 선은 HBM·서버 DRAM 추격 매출입니다.",
+      },
+      // ---- 밸류체인 상류로 나가는 CAPEX/조달 지출(투자) : 메모리사 → 장비·소재·기판·IP ----
+      {
+        id: "skhy-equip-spend", mode: "money", from: "skhy", to: "global-equip", type: "투자", structural: true,
+        label: "전공정 장비 CAPEX 지출", terms: ["asml", "applied materials", "lam", "tokyo electron", "euv", "capex"],
+        match: [["asml", "lam", "applied materials", "tokyo electron"], ["equipment", "euv", "capex"]], priceTerms: [], categories: ["equipment", "hbm", "dram"], weight: 72, flowIndex: 74,
+        interpretation: "SKHY에서 글로벌 장비사로 나가는 선은 EUV·전공정 장비 CAPEX 지출입니다.",
+      },
+      {
+        id: "skhy-krsupply-spend", mode: "money", from: "skhy", to: "kr-supply", type: "투자", structural: true,
+        label: "국내 소부장·TC본더 조달", terms: ["hanmi", "한미", "주성", "원익", "tc bonder", "packaging"],
+        match: [["hanmi", "한미", "주성", "원익"], ["packaging", "bonding", "equipment"]], priceTerms: [], categories: ["equipment", "packaging"], weight: 58, flowIndex: 58,
+        interpretation: "SKHY에서 국내 소부장으로 나가는 선은 HBM 후공정 장비 조달 지출입니다.",
+      },
+      {
+        id: "skhy-materials-spend", mode: "money", from: "skhy", to: "materials", type: "투자", structural: true,
+        label: "소재·전구체·PR 조달", terms: ["precursor", "photoresist", "materials", "전구체", "소재"],
+        match: [["precursor", "photoresist", "materials", "전구체", "소재"], ["dram", "nand", "hbm"]], priceTerms: [], categories: ["operations", "dram", "nand"], weight: 52, flowIndex: 52,
+        interpretation: "SKHY에서 소재·소모품으로 나가는 선은 전구체·포토레지스트 조달 지출입니다.",
+      },
+      {
+        id: "skhy-substrate-spend", mode: "money", from: "skhy", to: "substrate", type: "투자", structural: true,
+        label: "ABF 기판·인터포저 조달", terms: ["substrate", "interposer", "abf", "기판", "인터포저"],
+        match: [["substrate", "interposer", "abf", "기판"], ["hbm", "packaging"]], priceTerms: [], categories: ["packaging", "hbm"], weight: 54, flowIndex: 54,
+        interpretation: "SKHY에서 기판·인터포저로 나가는 선은 HBM 패키지 후공정 상류 조달입니다.",
+      },
+      {
+        id: "skhy-eda-spend", mode: "money", from: "skhy", to: "eda-ip", type: "투자", structural: true,
+        label: "HBM4 base die IP 라이선스", terms: ["synopsys", "cadence", "arm", "eda", "ip", "base die"],
+        match: [["synopsys", "cadence", "arm", "eda", "ip"], ["base die", "hbm4", "controller"]], priceTerms: [], categories: ["cxl", "hbm", "packaging"], weight: 50, flowIndex: 50,
+        interpretation: "SKHY에서 EDA·설계 IP로 나가는 선은 HBM4 base die 로직 IP 라이선스 지출입니다.",
+      },
+      {
+        id: "skhy-tsmc-basedie-spend", mode: "money", from: "skhy", to: "tsmc", type: "투자", structural: true,
+        label: "HBM4 base die 파운드리 지출", terms: ["tsmc", "base die", "hbm4", "cowos", "foundry"],
+        match: [["tsmc"], ["base die", "hbm4", "cowos"]], priceTerms: [], categories: ["hbm", "packaging"], weight: 60, flowIndex: 60,
+        interpretation: "SKHY에서 TSMC로 나가는 선은 HBM4 base die·CoWoS 파운드리 지출입니다.",
+      },
+      {
+        id: "samsung-equip-spend", mode: "money", from: "samsung", to: "global-equip", type: "투자", structural: true,
+        label: "경쟁사 장비 CAPEX", terms: ["samsung", "asml", "lam", "equipment", "capex"],
+        match: [["samsung"], ["equipment", "euv", "capex"]], priceTerms: [], categories: ["equipment", "hbm"], weight: 60, flowIndex: 60,
+        interpretation: "삼성에서 글로벌 장비사로 나가는 선도 같은 상류로, 장비 할당 경쟁을 만듭니다.",
       },
     ];
   }
@@ -5368,11 +5548,11 @@
       <div class="memory-network">
         <svg class="memory-network-svg" viewBox="0 0 100 100" preserveAspectRatio="none" aria-hidden="true">
           <defs>
-            <marker id="memory-arrow-end" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto" markerUnits="strokeWidth">
-              <path d="M 0 0 L 8 4 L 0 8 z" fill="context-stroke"></path>
+            <marker id="memory-arrow-end" markerWidth="5.5" markerHeight="5.5" refX="4.8" refY="2.75" orient="auto" markerUnits="strokeWidth">
+              <path d="M 0 0 L 5.5 2.75 L 0 5.5 z" fill="context-stroke"></path>
             </marker>
-            <marker id="memory-arrow-start" markerWidth="8" markerHeight="8" refX="1" refY="4" orient="auto" markerUnits="strokeWidth">
-              <path d="M 8 0 L 0 4 L 8 8 z" fill="context-stroke"></path>
+            <marker id="memory-arrow-start" markerWidth="5.5" markerHeight="5.5" refX="0.7" refY="2.75" orient="auto" markerUnits="strokeWidth">
+              <path d="M 5.5 0 L 0 2.75 L 5.5 5.5 z" fill="context-stroke"></path>
             </marker>
           </defs>
           ${edges.map((edge, index) => {
@@ -5386,8 +5566,8 @@
             // Money Flow: stroke width is a quantified read of flowIndex (투자·매출 규모),
             // so a thick line literally means "more cash moving on this arrow".
             const width = (edge.mode === "money"
-              ? (2.4 + strength / 100 * 7.6)
-              : (1.7 + strength / 100 * 4.6)).toFixed(2);
+              ? (1.3 + strength / 100 * 3.4)
+              : (1.0 + strength / 100 * 2.6)).toFixed(2);
             const opacity = (edge.mode === "money"
               ? (0.34 + strength * 0.006)
               : (0.24 + strength * 0.006)).toFixed(2);

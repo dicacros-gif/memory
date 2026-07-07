@@ -9951,3 +9951,39 @@ body.sidebar-collapsed .sb-ico {
   text-overflow: ellipsis;
   white-space: nowrap;
 }
+
+/* ---------------- Forecast category tabs ---------------- */
+.forecast-cat-tabs {
+  display: flex;
+  gap: 6px;
+  flex-wrap: wrap;
+  margin-bottom: 12px;
+}
+.forecast-cat-tabs button {
+  padding: 8px 14px;
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  background: var(--panel-2, var(--panel));
+  cursor: pointer;
+  transition: border-color .16s, background .16s, transform .16s, box-shadow .16s, color .16s;
+}
+.forecast-cat-tabs button strong { font-size: 12px; font-weight: 900; color: var(--ink); }
+.forecast-cat-tabs button:hover {
+  transform: translateY(-2px);
+  border-color: var(--cat-accent);
+  background: color-mix(in srgb, var(--cat-accent) 12%, var(--panel));
+}
+.forecast-cat-tabs button:hover strong { color: var(--cat-accent); }
+.forecast-cat-tabs button.active {
+  border-color: var(--cat-accent);
+  background: color-mix(in srgb, var(--cat-accent) 18%, var(--panel));
+  box-shadow: inset 0 0 0 1px var(--cat-accent), 0 10px 22px color-mix(in srgb, var(--cat-accent) 22%, transparent);
+}
+.forecast-cat-tabs button.active strong { color: var(--cat-accent); }
+/* category accent flows into the logic chain + focus */
+.hs-logic-step:hover {
+  border-color: var(--cat-accent, #10B981);
+  background: color-mix(in srgb, var(--cat-accent, #10B981) 12%, var(--panel));
+  box-shadow: 0 12px 26px color-mix(in srgb, var(--cat-accent, #10B981) 20%, transparent);
+}
+.hs-logic-step:hover strong { color: var(--cat-accent, #10B981); }
