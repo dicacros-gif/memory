@@ -1944,6 +1944,8 @@
   let cLevelCouncilDecisionId = "";
   let cLevelCouncilRan = false;
   let cLevelCouncilScenarioRun = 0;
+  let cLevelCouncilRunToken = 0;
+  const cLevelCouncilTimers = [];
   let execDecisionCouncilRan = false;
   let execDecisionCouncilScenarioRun = 0;
   let projectionFocusId = "ai-server";
@@ -3134,6 +3136,45 @@
         watch: "채용 신호",
         hold: "근거 보류",
       },
+      {
+        id: "capacity-discipline",
+        label: "캐파 규율·감산 판단",
+        category: "operations",
+        categories: ["dram", "nand", "operations", "china", "aidemand"],
+        owner: "CEO · CFO · 생산",
+        jump: "prices",
+        terms: ["capacity", "capex", "utilization", "inventory", "wafer", "cut", "감산", "재고", "oversupply", "dram", "nand", "spot", "contract"],
+        action: "가동률·재고·CAPEX를 묶어 범용 감산 유지와 HBM 우선 배분을 하나의 캐파 규율 안건으로 판단",
+        go: "규율 유지",
+        watch: "재고·가동률",
+        hold: "근거 보류",
+      },
+      {
+        id: "us-fab-tariff",
+        label: "미국 투자·관세 대응",
+        category: "geopolitics",
+        categories: ["geopolitics", "operations", "hbm", "aidemand"],
+        owner: "CEO · CFO · 대외협력",
+        jump: "policy-makers",
+        terms: ["chips act", "tariff", "관세", "indiana", "us fab", "advanced packaging", "subsidy", "guardrail", "export", "section 232", "capex"],
+        action: "미국 첨단 패키징 투자, CHIPS 보조금, 관세·가드레일 조건을 자본배분과 공급 배분 안건으로 연결",
+        go: "조건부 집행",
+        watch: "정책 확정 대기",
+        hold: "근거 보류",
+      },
+      {
+        id: "ondevice-lpddr",
+        label: "온디바이스 AI·LPDDR 수요",
+        category: "aidemand",
+        categories: ["aidemand", "dram", "operations"],
+        owner: "영업 · CTO",
+        jump: "projection",
+        terms: ["lpddr", "lpcamm", "on-device", "on device", "edge ai", "mobile", "smartphone", "pc", "ddr5", "so-dimm", "client"],
+        action: "온디바이스 AI가 만드는 LPDDR·LPCAMM·클라이언트 DRAM 믹스 상방을 제품 프로젝션과 가격 방어에 반영",
+        go: "믹스 상향",
+        watch: "수요 확인",
+        hold: "근거 보류",
+      },
     ];
   }
 
@@ -3477,6 +3518,36 @@
         audit: "채용·IP 신호는 기술 완성의 증거가 아니라 TSV·수율·패키징 병목을 6~12개월 앞서 보는 선행지표로 제한합니다.",
         next: "핵심 수율 인력, JD 키워드, IP 사건을 한 리텐션 보드로 묶기",
       },
+      "capacity-discipline": {
+        question: "범용 감산·가동률 규율을 유지하면서 HBM에 캐파를 우선 배분할 것인가?",
+        ceo: "캐파 규율은 점유율 방어가 아니라 이익률 방어입니다. 경쟁사가 먼저 증설하면 규율은 깨지므로 삼성·마이크론 가동률을 같은 화면에서 봅니다.",
+        cfo: "감산의 기회비용은 매출 감소가 아니라 ASP 회복 속도입니다. 재고 주수와 cash-cost floor가 개선되지 않으면 규율을 풀지 않습니다.",
+        cto: "HBM 전환에 쓰는 웨이퍼는 범용 캐파를 잠식합니다. 트레이드오프를 제품군별로 수치화하지 않으면 '둘 다'는 환상입니다.",
+        policy: "중국 보조금 캐파는 규율에 동참하지 않습니다. 우리 감산이 중국 점유율만 키우는 역설을 경보 조건으로 둡니다.",
+        market: "Spot 반등이 contract로 이어질 때만 규율 완화를 검토하고, 재고 소진 신호 없이 증설 논의는 하지 않습니다.",
+        audit: "가동률·재고·CAPEX 발표는 회사 공시, 가격 row, 애널리스트 추정을 분리하고 '업계 감산 공조'는 추정으로 표시합니다.",
+        next: "재고 주수, spot/contract spread, 경쟁사 가동률을 감산 유지·완화 게이트로 연결",
+      },
+      "us-fab-tariff": {
+        question: "미국 첨단 패키징 투자와 관세·CHIPS 조건을 지금 집행 안건으로 확정할 것인가?",
+        ceo: "미국 투자는 고객 근접성이라는 편익과 원가·가드레일이라는 비용의 트레이드오프입니다. 보조금 확정 전 발표는 협상 카드로만 씁니다.",
+        cfo: "CHIPS 보조금·세액공제를 순현재가치에 반영하되, 가드레일로 인한 중국 캐파 동결 비용을 같은 모델에 넣어야 왜곡이 없습니다.",
+        cto: "미국 팹은 첨단 패키징·HBM 후공정에 한정하고, 전공정 이전은 인력·수율·장비 생태계 부재를 이유로 분리 판단합니다.",
+        policy: "관세(Section 232), CHIPS 가드레일, 대중 수출통제는 서로 다른 캘린더입니다. 하나의 조건으로 뭉뚱그리면 No-Go를 놓칩니다.",
+        market: "관세가 고객 최종가에 전가되면 수요 탄력성을 재추정하고, AI 고객 근접 공급 프리미엄과 상계합니다.",
+        audit: "보조금·관세·가드레일은 법안 확정, 행정명령, 보도 추정 단계를 나눠 표시하고 확정 전 항목은 Watch로 둡니다.",
+        next: "보조금 확정, 가드레일 조건, 관세율을 자본배분·공급배분 게이트로 분리",
+      },
+      "ondevice-lpddr": {
+        question: "온디바이스 AI 수요를 LPDDR·클라이언트 DRAM 믹스 상향 안건으로 올릴 것인가?",
+        ceo: "온디바이스 AI는 HBM 다음의 두 번째 성장 축 후보입니다. 다만 서버 HBM 캐파를 희생하지 않는 선에서만 믹스를 올립니다.",
+        cfo: "LPDDR·LPCAMM ASP가 범용 DDR 대비 프리미엄을 유지할 때만 믹스 전환이 수익성 개선입니다. 단순 물량 증가는 함정입니다.",
+        cto: "LPDDR5X·LPCAMM·모바일 HBM은 서로 다른 로드맵입니다. AI PC·폰의 실제 채택률과 DRAM 탑재량 증가를 분리 검증합니다.",
+        policy: "온디바이스 수요는 지정학 노출이 낮아 오히려 중국 리스크 헤지 축이 될 수 있습니다.",
+        market: "AI PC·플래그십 폰 출하와 대당 DRAM 용량이 함께 늘 때만 강한 신호로 보고, 벤더 발표는 proxy로 둡니다.",
+        audit: "온디바이스 수요는 출하 전망, 탑재량, ASP를 분리하고 마케팅성 '메모리 2배' 주장은 Watch로 제한합니다.",
+        next: "AI PC·폰 출하, 대당 탑재량, LPDDR ASP를 프로젝션·가격 방어와 연결",
+      },
     };
     const fallback = {
       question: `${decision.label || "선택 안건"}을 경영진 의사결정 안건으로 올릴 수 있는가?`,
@@ -3723,6 +3794,16 @@
         message: `리스크 반박: 결론을 고정하지 않습니다. ${primaryFlip.label}이 ${primaryFlip.trigger} 조건에 닿거나, 핵심 KPI 2개 이상이 악화되면 ${primaryFlip.flip}로 낮춰 재상정합니다.`,
       },
       {
+        id: "devil",
+        initials: "DA",
+        name: "Devil's Advocate",
+        title: "Red Team · 반론 전담",
+        role: "합의 반박·프리모템",
+        color: "#111827",
+        stance: "일부러 반대",
+        message: `일부러 반대합니다(Pre-mortem): 12개월 뒤 이 ${selected?.verdict || "Watch"} 결론이 틀렸다면 원인은 무엇입니까? ① 우리는 이미 방향을 정해두고 근거 ${fmtNum(totalEvidence)}개 중 유리한 것만 골랐을 수 있습니다(확증편향). ② 관계 ${topRelationText}는 상관일 뿐 인과가 아닐 수 있습니다. ③ ${scenario.label}만 보고 반대 시나리오를 과소평가했을 수 있습니다. 반증 데이터를 CEO가 아니라 저에게 먼저 제출하십시오. 반증이 안 나오면 그것이 오히려 위험 신호입니다.`,
+      },
+      {
         id: "audit",
         initials: "AU",
         name: "Auditor",
@@ -3830,12 +3911,13 @@
           <small>${escapeHTML(selectedDecision?.verdict || "Hold")} · 근거 ${fmtNum(selectedDecision?.evidenceCount || 0)}개 · 신뢰도 ${fmtNum(Math.round(selectedDecision?.confidence || 0))}/100</small>
         </div>
         ${cLevelCouncilRan ? `
-          <div class="agent-roster">
+          <div class="agent-roster" data-council-roster>
             ${agentItems.map((agent, index) => `
-              <div class="agent-avatar-card" style="--agent-color:${escapeHTML(agent.color)}; --delay:${index * rosterStepDelay}ms">
+              <div class="agent-avatar-card" data-agent-slot="${index}" style="--agent-color:${escapeHTML(agent.color)}; --delay:${index * rosterStepDelay}ms">
                 <div class="agent-person">
                   <b>${escapeHTML(agent.initials || agent.id.toUpperCase().slice(0, 2))}</b>
                   <i aria-hidden="true"></i>
+                  <u class="agent-typing" aria-hidden="true"><s></s><s></s><s></s></u>
                 </div>
                 <span>${escapeHTML(agent.name)}</span>
                 <small>${escapeHTML(agent.title || agent.role)}</small>
@@ -3843,18 +3925,18 @@
               </div>
             `).join("")}
           </div>
-          <div class="agent-chat" style="--chat-delay:${chatStartDelay}ms">
+          <div class="agent-chat js-debate" data-council-chat>
             ${agentItems.map((agent, index) => `
-              <div class="agent-turn${index % 2 ? " right" : ""}" style="--agent-color:${escapeHTML(agent.color)}; --delay:${chatStartDelay + index * councilStepDelay}ms">
+              <div class="agent-turn pending${index % 2 ? " right" : ""}" data-agent-slot="${index}" style="--agent-color:${escapeHTML(agent.color)}">
                 <span class="agent-badge">${escapeHTML(agent.initials || agent.id.toUpperCase().slice(0, 2))}</span>
                 <div class="speech-bubble">
                   <div class="speech-meta"><strong>${escapeHTML(agent.name)}</strong><span>${escapeHTML(agent.role)}</span></div>
-                  <p>${escapeReadableHTML(agent.message)}</p>
+                  <p data-say="${escapeHTML(agent.message)}"></p>
                 </div>
               </div>
             `).join("")}
           </div>
-          <div class="agent-conclusion reveal" style="--local-accent:${categoryAccent(selectedDecision?.category || "hbm")}; --delay:${councilConclusionDelay}ms">
+          <div class="agent-conclusion pending" data-council-conclusion style="--local-accent:${categoryAccent(selectedDecision?.category || "hbm")}">
             <span>결론</span>
             <strong>${escapeHTML(conclusion.title)}</strong>
             <p>${escapeHTML(conclusion.body)}</p>
@@ -3863,7 +3945,7 @@
         ` : `
           <div class="agent-waiting">
             <strong>안건을 선택한 뒤 토론 실행을 누르세요.</strong>
-            <p>실행 전에는 전문가를 호출하지 않습니다. 실행 후 CEO, CFO, CTO, 전략, 운영, 정책, 시장, 중국, 리스크, 감사가 근거 기준으로 순차 발언합니다.</p>
+            <p>실행 전에는 전문가를 호출하지 않습니다. 실행 후 CEO·CFO·CTO·전략·운영·정책·시장·중국·리스크·반론(Devil's Advocate)·감사가 근거 기준으로 한 명씩 순차 발언하며, 반론 전담이 합의를 의도적으로 반박합니다.</p>
           </div>
         `}
       </div>
@@ -3900,6 +3982,111 @@
 
     animateCounts(grid);
     animateMeters(grid);
+
+    if (cLevelCouncilRan) animateCouncilDebate(agents);
+  }
+
+  function clearCouncilTimers() {
+    while (cLevelCouncilTimers.length) window.clearTimeout(cLevelCouncilTimers.pop());
+  }
+
+  function scheduleCouncilStep(fn, delay) {
+    const id = window.setTimeout(fn, delay);
+    cLevelCouncilTimers.push(id);
+    return id;
+  }
+
+  // Drive the C-level council as a live, sequential debate: one expert at a time,
+  // avatar spotlighted while "speaking", message typed out like a real person,
+  // and the next expert queued so the exchange reads as a rebuttal chain.
+  function animateCouncilDebate(scope) {
+    clearCouncilTimers();
+    const token = ++cLevelCouncilRunToken;
+    const root = scope || document;
+    const chat = root.querySelector("[data-council-chat]");
+    const roster = root.querySelector("[data-council-roster]");
+    const conclusion = root.querySelector("[data-council-conclusion]");
+    if (!chat) return;
+    const turns = Array.from(chat.querySelectorAll(".agent-turn"));
+    const avatars = roster ? Array.from(roster.querySelectorAll(".agent-avatar-card")) : [];
+    const reduceMotion = window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+    const avatarAt = (i) => avatars.find((el) => Number(el.dataset.agentSlot) === i);
+    const setAvatarState = (i, state) => {
+      const el = avatarAt(i);
+      if (!el) return;
+      el.classList.remove("speaking", "next", "done");
+      if (state) el.classList.add(state);
+    };
+
+    if (reduceMotion) {
+      turns.forEach((turn, i) => {
+        turn.classList.remove("pending");
+        turn.classList.add("done");
+        const p = turn.querySelector("p[data-say]");
+        if (p) p.textContent = p.dataset.say || "";
+        setAvatarState(i, "done");
+      });
+      if (conclusion) conclusion.classList.remove("pending");
+      return;
+    }
+
+    // Reset to a clean pre-run state so re-running restarts the whole exchange.
+    turns.forEach((turn) => {
+      turn.classList.add("pending");
+      turn.classList.remove("speaking", "done");
+      const p = turn.querySelector("p[data-say]");
+      if (p) p.textContent = "";
+    });
+    avatars.forEach((el) => el.classList.remove("speaking", "next", "done"));
+    if (conclusion) conclusion.classList.add("pending");
+
+    const typeMessage = (p, done) => {
+      const text = p ? p.dataset.say || "" : "";
+      if (!p || !text) { done(); return; }
+      // Fill the whole message in ~0.9s regardless of length so long rebuttals stay snappy.
+      const totalMs = 900;
+      const steps = 26;
+      const step = Math.max(1, Math.ceil(text.length / steps));
+      const tick = Math.max(18, Math.round(totalMs / Math.ceil(text.length / step)));
+      let shown = 0;
+      const advance = () => {
+        if (token !== cLevelCouncilRunToken) return;
+        shown = Math.min(text.length, shown + step);
+        p.textContent = text.slice(0, shown);
+        if (shown >= text.length) { done(); return; }
+        scheduleCouncilStep(advance, tick);
+      };
+      advance();
+    };
+
+    const speak = (i) => {
+      if (token !== cLevelCouncilRunToken) return;
+      if (i >= turns.length) {
+        if (conclusion) scheduleCouncilStep(() => {
+          if (token === cLevelCouncilRunToken) conclusion.classList.remove("pending");
+        }, 260);
+        return;
+      }
+      const turn = turns[i];
+      turn.classList.remove("pending");
+      turn.classList.add("speaking");
+      turn.querySelector(".speech-bubble")?.classList.add("live");
+      setAvatarState(i, "speaking");
+      setAvatarState(i + 1, "next");
+      const p = turn.querySelector("p[data-say]");
+      typeMessage(p, () => {
+        if (token !== cLevelCouncilRunToken) return;
+        turn.classList.remove("speaking");
+        turn.classList.add("done");
+        turn.querySelector(".speech-bubble")?.classList.remove("live");
+        setAvatarState(i, "done");
+        scheduleCouncilStep(() => speak(i + 1), 320);
+      });
+    };
+
+    // Let the roster finish its stagger-in, then start the exchange.
+    scheduleCouncilStep(() => speak(0), Math.min(900, avatars.length * 90 + 360));
   }
 
   function memoryMarketNodes() {
@@ -3917,7 +4104,12 @@
       { id: "naura-amec", name: "Naura·AMEC", role: "장비 국산화", metric: "Etch/Depo", category: "equipment", x: 16, y: 88, scale: 78 },
       { id: "china-fund", name: "Big Fund·지방정부", role: "정책 자본", metric: "Capital", category: "geopolitics", x: 86, y: 90, scale: 84 },
       { id: "china-cloud", name: "중국 클라우드/OEM", role: "내수 고객", metric: "Demand", category: "china", x: 87, y: 15, scale: 86 },
-      { id: "cxl-startups", name: "CXL·Photonics", role: "Post-HBM 옵션", metric: "Option", category: "cxl", x: 32, y: 9, scale: 70 },
+      { id: "cxl-startups", name: "CXL·Photonics", role: "Post-HBM 옵션", metric: "Option", category: "cxl", x: 30, y: 8, scale: 70 },
+      { id: "global-equip", name: "ASML·AMAT·Lam·TEL", role: "글로벌 前공정 장비", metric: "EUV·Etch·Depo", category: "equipment", x: 8, y: 22, scale: 80 },
+      { id: "kr-supply", name: "한미·주성·원익IPS", role: "국내 소부장", metric: "TC본더·장비", category: "equipment", x: 33, y: 38, scale: 72 },
+      { id: "materials", name: "소재·전구체·PR", role: "소재·소모품", metric: "전구체·포토레지스트", category: "operations", x: 8, y: 52, scale: 68 },
+      { id: "eda-ip", name: "Synopsys·Cadence·Arm", role: "설계 IP·EDA", metric: "Base die·컨트롤러 IP", category: "cxl", x: 46, y: 16, scale: 68 },
+      { id: "substrate", name: "기판·인터포저", role: "ABF·2.5D 기판", metric: "Substrate", category: "packaging", x: 70, y: 52, scale: 68 },
     ];
   }
 
@@ -4174,6 +4366,126 @@
         categories: ["packaging", "geopolitics", "china"],
         weight: 68,
         interpretation: "정책자본에서 패키징 축으로 가는 선은 선단 공정 제약을 후공정으로 보완하려는 중국형 우회 전략입니다.",
+      },
+      {
+        id: "global-equip-skhy-supply",
+        mode: "competitive",
+        from: "global-equip",
+        to: "skhy",
+        type: "공급",
+        structural: true,
+        label: "EUV·전공정 장비 공급 (밸류체인 상류)",
+        terms: ["asml", "applied materials", "lam research", "tokyo electron", "euv", "etch", "deposition", "equipment"],
+        match: [["asml", "applied materials", "lam", "tokyo electron", "euv"], ["equipment", "etch", "deposition", "dram", "hbm"]],
+        priceTerms: [],
+        categories: ["equipment", "dram", "hbm"],
+        weight: 72,
+        interpretation: "글로벌 전공정 장비(ASML·AMAT·Lam·TEL)는 SKHY·삼성·마이크론 공통 상류 병목이며, 중국은 수출통제로 이 축이 막혀 국산화로 우회합니다.",
+      },
+      {
+        id: "global-equip-naura-rivalry",
+        mode: "competitive",
+        from: "global-equip",
+        to: "naura-amec",
+        type: "경쟁",
+        structural: true,
+        label: "수출통제 → 중국 장비 국산화 대체",
+        terms: ["asml", "lam", "applied materials", "naura", "amec", "acm", "export control", "localization", "euv"],
+        match: [["naura", "amec", "acm", "asml", "lam"], ["export control", "localization", "equipment", "euv"]],
+        priceTerms: [],
+        categories: ["equipment", "geopolitics", "china"],
+        weight: 66,
+        interpretation: "글로벌 장비 수출통제가 강해질수록 Naura·AMEC 국산 대체가 빨라지는 상충 관계입니다.",
+      },
+      {
+        id: "kr-supply-skhy-partner",
+        mode: "competitive",
+        from: "kr-supply",
+        to: "skhy",
+        type: "파트너십",
+        structural: true,
+        label: "국내 소부장·TC본더 협력 (HBM 후공정)",
+        terms: ["hanmi", "한미반도체", "주성엔지니어링", "원익", "tc bonder", "hybrid bonding", "packaging", "equipment"],
+        match: [["hanmi", "한미", "주성", "원익", "tc bonder"], ["hbm", "packaging", "bonding", "equipment"]],
+        priceTerms: [],
+        categories: ["equipment", "packaging", "hbm"],
+        weight: 64,
+        interpretation: "국내 소부장(한미 TC본더·주성·원익)은 SKHY HBM 후공정 캐파의 국산 협력축으로, 장비 공급 안정성과 직결됩니다.",
+      },
+      {
+        id: "materials-skhy-supply",
+        mode: "competitive",
+        from: "materials",
+        to: "skhy",
+        type: "공급",
+        structural: true,
+        label: "소재·전구체·포토레지스트 공급",
+        terms: ["precursor", "photoresist", "materials", "전구체", "포토레지스트", "소재", "wafer", "chemical"],
+        match: [["precursor", "photoresist", "materials", "전구체", "소재"], ["dram", "nand", "wafer", "hbm"]],
+        priceTerms: [],
+        categories: ["operations", "dram", "nand"],
+        weight: 58,
+        interpretation: "소재·전구체·PR은 원가와 수율의 상류 변수로, 공급망 다변화가 지정학 리스크 방어의 기본 축입니다.",
+      },
+      {
+        id: "eda-ip-skhy-partner",
+        mode: "competitive",
+        from: "eda-ip",
+        to: "skhy",
+        type: "파트너십",
+        structural: true,
+        label: "HBM4 base die·컨트롤러 설계 IP",
+        terms: ["synopsys", "cadence", "arm", "eda", "ip", "base die", "controller", "hbm4"],
+        match: [["synopsys", "cadence", "arm", "eda", "ip"], ["base die", "controller", "hbm4", "logic"]],
+        priceTerms: [],
+        categories: ["cxl", "hbm", "packaging"],
+        weight: 60,
+        interpretation: "HBM4부터 로직 base die가 커지며 EDA·설계 IP가 메모리사의 새로운 상류 파트너십 축이 됩니다.",
+      },
+      {
+        id: "eda-ip-tsmc-partner",
+        mode: "competitive",
+        from: "eda-ip",
+        to: "tsmc",
+        type: "파트너십",
+        structural: true,
+        label: "Base die 로직 파운드리 설계 연계",
+        terms: ["synopsys", "cadence", "arm", "tsmc", "base die", "logic", "foundry"],
+        match: [["synopsys", "cadence", "arm", "tsmc"], ["base die", "logic", "foundry", "hbm4"]],
+        priceTerms: [],
+        categories: ["cxl", "packaging", "hbm"],
+        weight: 56,
+        interpretation: "TSMC base die 로직은 EDA·IP 생태계와 함께 설계되어 HBM4 상류 밸류체인을 형성합니다.",
+      },
+      {
+        id: "substrate-skhy-supply",
+        mode: "competitive",
+        from: "substrate",
+        to: "skhy",
+        type: "공급",
+        structural: true,
+        label: "ABF 기판·2.5D 인터포저 공급",
+        terms: ["substrate", "interposer", "abf", "기판", "인터포저", "packaging", "2.5d"],
+        match: [["substrate", "interposer", "abf", "기판"], ["hbm", "packaging", "cowos", "2.5d"]],
+        priceTerms: [],
+        categories: ["packaging", "hbm"],
+        weight: 58,
+        interpretation: "ABF 기판·인터포저는 HBM·AI 패키지의 후공정 상류 병목으로, 공급 타이트닝은 출하 캐파에 직접 영향을 줍니다.",
+      },
+      {
+        id: "substrate-tsmc-supply",
+        mode: "competitive",
+        from: "substrate",
+        to: "tsmc",
+        type: "공급",
+        structural: true,
+        label: "CoWoS 인터포저 후공정 연계",
+        terms: ["substrate", "interposer", "cowos", "tsmc", "packaging", "2.5d"],
+        match: [["substrate", "interposer", "cowos"], ["tsmc", "packaging", "2.5d", "hbm"]],
+        priceTerms: [],
+        categories: ["packaging", "hbm"],
+        weight: 56,
+        interpretation: "CoWoS 인터포저 공급은 TSMC 패키징 할당과 함께 HBM 출하 병목을 좌우합니다.",
       },
       {
         id: "skhy-ai-revenue",
@@ -4466,7 +4778,7 @@
       .filter((edge) => type === "all" || edge.type === type)
       .filter(memoryMarketRelatedToActive)
       .map(memoryMarketRelationItem)
-      .filter((edge) => edge.evidenceCount > 0)
+      .filter((edge) => edge.evidenceCount > 0 || edge.structural)
       .sort((a, b) => b.score - a.score || b.evidenceCount - a.evidenceCount);
   }
 
@@ -4837,8 +5149,14 @@
             const strength = memoryMarketEdgeStrength(edge);
             const bidirectional = ["경쟁", "파트너십"].includes(edge.type);
             const path = memoryMarketCurvePath(from, to, index);
-            const width = (1.7 + strength / 100 * 4.6).toFixed(2);
-            const opacity = (0.24 + strength * 0.006).toFixed(2);
+            // Money Flow: stroke width is a quantified read of flowIndex (투자·매출 규모),
+            // so a thick line literally means "more cash moving on this arrow".
+            const width = (edge.mode === "money"
+              ? (2.4 + strength / 100 * 7.6)
+              : (1.7 + strength / 100 * 4.6)).toFixed(2);
+            const opacity = (edge.mode === "money"
+              ? (0.34 + strength * 0.006)
+              : (0.24 + strength * 0.006)).toFixed(2);
             const dash = edge.mode === "money" ? "9 6" : edge.type === "경쟁" ? "5 6" : edge.type === "파트너십" ? "1 0" : "10 7";
             return `<path class="memory-edge ${active ? "active" : ""} ${bidirectional ? "bidir" : "directed"}" data-memory-edge="${escapeHTML(edge.id)}" data-from="${escapeHTML(edge.from)}" data-to="${escapeHTML(edge.to)}" d="${path}" style="--edge-color:${memoryMarketEdgeColor(edge.type)}; --delay:${index * 70}ms; --edge-width:${width}; --edge-strength:${strength}; --edge-opacity:${opacity}; --edge-dash:${dash}" marker-end="url(#memory-arrow-end)" ${bidirectional ? 'marker-start="url(#memory-arrow-start)"' : ""} />`;
           }).join("")}
@@ -4866,7 +5184,7 @@
           <button class="${selected?.kind === "edge" && selected.edge.id === edge.id ? "active" : ""}" type="button" data-memory-edge="${escapeHTML(edge.id)}" style="--edge-color:${memoryMarketEdgeColor(edge.type)}; animation-delay:${index * 45}ms">
             <span>${escapeHTML(edge.type)}</span>
             <strong>${escapeHTML(memoryMarketRelationTitle(edge))}</strong>
-            <small>${escapeHTML(edge.label)} · 근거 ${fmtNum(edge.evidenceCount)}</small>
+            <small>${escapeHTML(edge.label)} · 근거 ${fmtNum(edge.evidenceCount)}${edge.mode === "money" ? ` · 흐름지수 ${fmtNum(Math.round(edge.flowIndex))}` : ""}</small>
           </button>
         `).join("")}
       </div>

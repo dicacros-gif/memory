@@ -22,30 +22,31 @@
     },
     {
       "label": "메모리 성장률",
-      "value": "250",
+      "value": "296",
       "suffix": "%",
-      "note": "WSTS Spring 2026 최신 전망 기준 Memory YoY 약 +250%, 메모리 시장은 $800B+로 제시",
-      "alt": "기존 SKHY outlook의 약 +30% 전망은 이전 전망 버전으로 별도 보관",
-      "badge": "WSTS Spring",
+      "note": "TrendForce 2026년 5월 29일 최신 전망 기준 글로벌 메모리 시장은 2026년 $889.3B로 상향 조정됐고, 2025년 대비 약 +296% 성장이 제시됐습니다.",
+      "alt": "WSTS는 전체 반도체 시장 전망, TrendForce는 메모리 세그먼트 전망으로 범위가 다르므로 분리 표기합니다.",
+      "badge": "TrendForce 최신",
       "status": "OK",
       "statusClass": "ok",
-      "source": "WSTS",
-      "sourceDate": "2026-06-02",
-      "sourceUrl": "https://www.wsts.org/76/103/Global-Semiconductor-Market-Surges-Beyond-15T-2026"
+      "source": "TrendForce",
+      "sourceDate": "2026-05-29",
+      "sourceUrl": "https://www.trendforce.com/presscenter/news/20260529-13068.html"
     },
     {
       "label": "메모리 시장 규모",
-      "value": "800",
+      "value": "889.3",
       "prefix": "$",
-      "suffix": "B+",
-      "note": "WSTS Spring 2026 기준 메모리 세그먼트는 AI 수요와 가격 회복으로 8000억 달러 이상 전망",
-      "alt": "2027년 전체 반도체 시장 전망은 약 $1.91T로 별도 추적",
-      "badge": "WSTS 최신",
+      "suffix": "B",
+      "decimals": 1,
+      "note": "TrendForce는 2026년 글로벌 메모리 시장 전망을 기존 $551.6B에서 $889.3B로 상향했고, 2027년은 $842.7B에서 $1.28T+로 상향했습니다.",
+      "alt": "2026 DRAM $618.7B, NAND $270.6B / 2027 DRAM $903.3B, NAND $379.4B 전망을 별도 Q&A에서 설명합니다.",
+      "badge": "TrendForce 최신",
       "status": "OK",
       "statusClass": "ok",
-      "source": "WSTS",
-      "sourceDate": "2026-06-02",
-      "sourceUrl": "https://www.wsts.org/76/103/Global-Semiconductor-Market-Surges-Beyond-15T-2026"
+      "source": "TrendForce",
+      "sourceDate": "2026-05-29",
+      "sourceUrl": "https://www.trendforce.com/presscenter/news/20260529-13068.html"
     },
     {
       "label": "SKHY HBM 점유율",
@@ -56,9 +57,9 @@
       "badge": "범위 병기",
       "status": "Watch",
       "statusClass": "watch",
-      "source": "Counterpoint / SKHY Newsroom / Silicon Analysts",
+      "source": "Counterpoint / Silicon Analysts",
       "sourceDate": "2025~Q1 2026",
-      "sourceUrl": "https://news.skhynix.com/2026-market-outlook-focus-on-the-hbm-led-memory-supercycle/"
+      "sourceUrl": "https://counterpointresearch.com/en/insights/global-dram-and-hbm-market-share"
     },
     {
       "label": "DRAM Top3 점유율",
@@ -479,7 +480,7 @@
       {
         "cat": "hbm",
         "q": "HBM4E 개발 경쟁에서 삼성의 반격 신호는 어디서 확인하나?",
-        "a": "삼성의 HBM 반격 신호는 세 채널에서 동시에 확인해야 합니다.\n\n첫째, Nvidia 공급망 동향입니다. 현재 근거 기준 SKHY는 12-layer HBM4E 샘플, 고속 I/O, 열저항 개선, 에너지 효율 개선 신호를 고객 인증 일정과 함께 봅니다. 삼성은 HBM4E 실물 칩 공개와 샘플 발송 계획, 1c DRAM + 4nm 로직 베이스 다이 턴키 전략을 함께 봐야 합니다. 둘째, 삼성 HBM4 매출과 HBM 점유율 회복 속도입니다. 셋째, TechInsights 같은 역분석 보고서에서 90~120일 래그로 확인되는 베이스 다이 공정 스택과 패키징 수율 변화입니다.\n\n판단 포인트는 단순 제품 발표가 아니라 Nvidia/Rubin 인증 일정, TSMC CoWoS 할당, 삼성 턴키 수율, SKHY-TSMC 베이스 다이 협업을 같은 스코어보드에서 비교하는 것입니다.",
+        "a": "삼성의 HBM 반격 신호는 HBM4E 발표보다 Vera Rubin HBM4 공급 구도에서 먼저 확인해야 합니다.\n\n현재 확인 가능한 구조는 3자 경쟁입니다. Micron은 2026년 3월 HBM4 36GB 12H 고용량 제품의 양산 출하와 NVIDIA Vera Rubin 설계를 공식 발표했습니다. TNW 등 외신은 NVIDIA가 SKHY·삼성·Micron을 Vera Rubin HBM4 공급자로 cleared 했다고 보도하지만, 업체별 물량 배분은 NVIDIA 공식 수치가 아니라 분석가 추정치이므로 Watch로 둡니다.\n\n판단 포인트는 삼성의 HBM4E 실물 공개 자체가 아니라 Vera Rubin 내 실제 물량 배분, 1c DRAM+4nm 로직 베이스 다이 턴키 수율, TSMC CoWoS 할당, SKHY-TSMC 베이스 다이 협업을 같은 스코어보드에서 비교하는 것입니다.",
         "keywords": [
           "hbm4e",
           "samsung",
@@ -496,7 +497,7 @@
       {
         "cat": "hbm",
         "q": "SKHY HBM4와 2026년 실적은 어떻게 반영해야 하나?",
-        "a": "SKHY의 HBM 리스크 문구는 일부 긍정 해소로 업데이트해야 합니다. SKHY 공식 Q1 2026 실적 기준 매출 52.5763조 원, 영업이익 37.6103조 원, 순이익 40.3459조 원으로 분기 사상 최대를 기록했습니다.\n\nHBM4는 2025년 개발·양산 준비 완료 이후 2026년 Nvidia Vera Rubin 공급을 향한 양산 ramp를 핵심 추적값으로 둡니다. HBM4E는 2026년 H2 샘플, 2027년 양산 목표로 관리합니다.\n\n의사결정 포인트는 막연한 HBM4 지연 리스크가 아니라 고객별 할당, TSMC 베이스 다이 협업, CoWoS/패키징 병목, 삼성 HBM4 출하와 Micron HBM4 ramp를 같은 스코어보드에서 비교하는 것입니다.",
+        "a": "SKHY의 HBM 리스크 문구는 일부 긍정 해소로 업데이트해야 합니다. SKHY 공식 Q1 2026 실적 기준 매출 52.5763조 원, 영업이익 37.6103조 원, 순이익 40.3459조 원으로 분기 사상 최대를 기록했습니다.\n\nHBM4는 Vera Rubin ramp, NVIDIA와의 장기 협력, TSMC 베이스 다이 협업을 핵심 추적값으로 둡니다. 외신은 SKHY가 Vera Rubin HBM4 물량의 60~70%를 차지한다고 보도하지만, 이는 공식 배분 수치가 아니라 분석가 추정치이므로 Watch로 표시합니다. HBM4E는 2026년 H2 샘플, 2027년 양산 목표로 관리합니다.\n\n의사결정 포인트는 막연한 HBM4 지연 리스크가 아니라 고객별 할당, CoWoS/패키징 병목, 삼성 턴키 수율, Micron HBM4 양산 ramp를 같은 스코어보드에서 비교하는 것입니다.",
         "keywords": [
           "skhy",
           "sk hynix",
@@ -512,7 +513,7 @@
       {
         "cat": "threat",
         "q": "CXMT의 비대칭 위협은 무엇인가?",
-        "a": "CXMT는 HBM4 최선단에서 당장 SKHY를 압도하기보다, DDR5·LPDDR·레거시 DRAM에서 가격 하방 압력과 고객 협상력을 만드는 비대칭 위협입니다.\n\n최신 기준은 세 가지입니다. 첫째, SSE 기준 2025년 매출 617.99억 위안, 2026년 1분기 매출 508억 위안으로 성장 속도가 확인됐습니다. 둘째, Counterpoint 기준 Q1 2026 DRAM 매출 점유율 8%와 Tencent 200억 위안+ 다년 서버 DRAM 계약은 고객 락인 신호입니다. 셋째, DDR5는 80%+ 수율 숫자를 확정값으로 보지 않고, 다이 면적과 cost-per-bit 격차까지 함께 봐야 합니다. CXMT 16GB DDR5 다이가 삼성 대비 약 40% 크다는 보도는 가격 공세의 지속 가능성을 제한하는 비용 신호입니다.\n\n전략 검토에서는 CXMT 매출 점유율 8%가 10%+ 경보선으로 가는지, IPO 295억 위안 자금 집행, Tencent·Alibaba·ByteDance 추가 계약, DDR5 spot/contract spread를 동시에 봅니다.",
+        "a": "CXMT는 HBM4 최선단에서 당장 SKHY를 압도하기보다, DDR5·LPDDR·레거시 DRAM에서 가격 하방 압력과 고객 협상력을 만드는 비대칭 위협입니다.\n\n최신 기준은 세 가지입니다. 첫째, SSE 기준 2025년 매출 617.99억 위안, 2026년 1분기 매출 508억 위안으로 성장 속도가 확인됐습니다. 둘째, Counterpoint 기준 Q1 2026 DRAM 매출 점유율 8%와 Tencent 200억 위안+ 다년 서버 DRAM 계약은 고객 락인 신호입니다. 셋째, DDR5·LPDDR 세부 시장 점유율이 고속 상승한다는 분석 신호는 전체 DRAM 10% 경보선보다 먼저 볼 조기경보입니다. 다만 세부 점유율 수치는 원문 확인 전까지 Watch로 둡니다.\n\n전략 검토에서는 CXMT 총 DRAM 매출 점유율 8%→10%+ 진입 여부, DDR5/LPDDR 세부 침투율, IPO 295억 위안 자금 집행, Tencent·Alibaba·ByteDance 추가 계약, DDR5 spot/contract spread를 동시에 봅니다.",
         "keywords": [
           "cxmt",
           "비대칭",
@@ -579,7 +580,7 @@
       {
         "cat": "threat",
         "q": "CXMT의 텐센트 $2.94B 장기계약이 왜 구조적 위협인가?",
-        "a": "Reuters 보도로 확인된 CXMT-텐센트 서버 DRAM 공급계약은 규모 약 ¥200억, $2.94B, 기간 3~5년으로 알려졌습니다. 단순 납품 계약이 아니라 세 가지 의미가 있습니다.\n\n첫째, 중국 빅테크 고객의 공식 approved vendor 진입 신호입니다. 둘째, CXMT 매출 성장과 흑자 전환 내러티브를 강화해 Counterpoint Q1 2026 DRAM 매출 점유율 8%에서 10%+ 매출 경보선 도달 시점을 앞당길 수 있습니다. 셋째, STAR마켓 IPO 전 앵커 고객 확보로 기업가치 정당성을 강화하고 캐파 증설 자금 조달을 쉽게 만듭니다.\n\nSKHY 관점에서는 중국 서버 DRAM 시장의 가격 협상력이 중기적으로 약화되는 신호입니다.",
+        "a": "Reuters 보도로 확인된 CXMT-텐센트 서버 DRAM 공급계약은 규모 약 ¥200억, $2.94B, 기간 3~5년으로 알려졌습니다. 단순 납품 계약이 아니라 세 가지 의미가 있습니다.\n\n첫째, 중국 빅테크 고객의 공식 approved vendor 진입 신호입니다. 둘째, CXMT 매출 성장과 흑자 전환 내러티브를 강화해 Counterpoint Q1 2026 DRAM 매출 점유율 8%에서 10%+ 매출 경보선 도달 시점을 앞당길 수 있습니다. 셋째, STAR마켓 IPO 전 앵커 고객 확보로 기업가치 정당성을 강화하고 상하이 신규 팹과 캐파 확대 자금 조달을 쉽게 만듭니다.\n\nSKHY 관점에서는 중국 서버 DRAM 시장의 가격 협상력이 중기적으로 약화되는 신호이며, Tencent 이후 Alibaba·ByteDance 등 추가 고객 계약 여부를 P1 조기경보로 봐야 합니다.",
         "keywords": [
           "cxmt",
           "tencent",
@@ -612,7 +613,7 @@
       {
         "cat": "china",
         "q": "YMTC Wuhan Fab 3이 가동되면 글로벌 NAND 순위는 어떻게 바뀌나?",
-        "a": "YMTC 우한 Fab 3은 NAND 순위 경쟁의 변곡점입니다. 기존 Wuhan 운영 기준선은 Line 1 약 100k wpm + Line 2 약 60k wpm = 약 160k wpm으로 둡니다. Reuters/Tom's Hardware의 기존 두 팹 합산 200k wpm 보도는 명목·확장 기준 가능성이 있어 단일 확정값이 아니라 Watch 범위로 표시합니다.\n\nFab 3는 장비 설치와 2026년 하반기 양산 개시 보도가 확인된 진행 이벤트로 보고, 2027년 50k wpm 도달과 추가 2개 팹은 ramp-up 시나리오로 분리합니다. 기술 격차는 YMTC 270L급/294L 추정 로드맵과 SKHY 선단 NAND 로드맵 사이에 남아 있지만, Xtacking 분리형 적층으로 EUV 없이 비트 밀도를 확장 중입니다.\n\n따라서 Fab 3은 단순 캐파 숫자가 아니라 Xtacking, eSSD 고객, XMC 패키징, 국산 장비 qual과 함께 봐야 합니다.",
+        "a": "YMTC 우한 Fab 3은 NAND 순위 경쟁의 변곡점입니다. 기존 Wuhan 운영 기준선은 Line 1 약 100k wpm + Line 2 약 60k wpm = 약 160k wpm으로 둡니다. Reuters/Tom's Hardware의 기존 두 팹 합산 200k wpm 보도는 명목·확장 기준 가능성이 있어 단일 확정값이 아니라 Watch 범위로 표시합니다.\n\nFab 3는 2026년 하반기 가동 시작과 초기 30k~50k wpm ramp-up을 분리해 봅니다. Fab 3가 안정화되고 추가 2개 우한 팹 계획이 실제 장비 발주로 이어지면, YMTC는 출하량 기준 글로벌 NAND 3위권 진입을 노릴 수 있습니다. 다만 200k wpm 단일값, 3위 진입 시점, 글로벌 고객 인증은 모두 출처별 차이가 있어 Watch로 둡니다.\n\n따라서 Fab 3은 단순 캐파 숫자가 아니라 Xtacking, eSSD 고객, XMC 패키징, 국산 장비 qual과 함께 봐야 합니다.",
         "keywords": [
           "ymtc",
           "wuhan",
@@ -663,7 +664,7 @@
       {
         "cat": "strategy",
         "q": "P1 리뷰 큐 기준은 무엇인가?",
-        "a": "P1은 impact, novelty, entity importance, source reliability, freshness, anomaly를 합산하고 duplicate penalty를 뺀 운영 우선순위입니다.\n\n자동 P1 발동 조건은 CXMT 점유율 +2%p 이상 변동, DRAM/NAND 계약가 주간 ±5% 이상, BIS 규제 신규 공고, HBM 고객 인증 일정 변경, Tencent·Alibaba·Bytedance의 CXMT 추가 계약 보도입니다.\n\n가격 폭락 가능성, CXMT·YMTC 캐파 증설, 수출통제, 고객 장기계약, HBM/CXL 인증 지연, 수율·패키징 병목처럼 SKHY 의사결정에 바로 영향을 주는 항목이 우선입니다.",
+        "a": "P1은 impact, novelty, entity importance, source reliability, freshness, anomaly를 합산하고 duplicate penalty를 뺀 운영 우선순위입니다.\n\n자동 P1 발동 조건은 두 층으로 둡니다. 단기 트리거는 CXMT 점유율 +2%p 이상 변동, DRAM/NAND 계약가 주간 ±5% 이상, BIS 규제 신규 공고, HBM 고객 인증 일정 변경, Tencent·Alibaba·ByteDance의 CXMT 추가 계약 보도입니다. 분기 트리거는 DRAM/NAND 계약가 두 자릿수 상승, CXMT·YMTC 캐파 계획의 장비 발주 전환, MATCH Act 같은 정책 이벤트의 위원회/본회의 통과입니다.\n\n가격 폭락 가능성, CXMT·YMTC 캐파 증설, 수출통제, 고객 장기계약, HBM/CXL 인증 지연, 수율·패키징 병목처럼 SKHY 의사결정에 바로 영향을 주는 항목이 우선입니다.",
         "keywords": [
           "p1",
           "review",
@@ -695,7 +696,7 @@
       {
         "cat": "policy",
         "q": "MATCH Act는 현재 어떤 상태인가?",
-        "a": "MATCH Act는 2026년 7월 현재 확정 법률이 아니라 입법 Watch입니다. 확인된 내용은 2026년 4월 16일 수정으로 극저온 식각 장비의 전국적 blanket ban이 삭제됐고, DUV 리소그래피 제한과 동맹국 수출통제 정렬 요구는 유지됐다는 점입니다.\n\n하원 HR 8170은 2026년 4월 22일 하원 외교위 36:8로 통과됐습니다. 2026년 5월 하원 본회의 통과 보도는 존재하지만 공식 tracker 확인 전까지는 Watch로 두고, 상원 S.4281은 2026년 4월 13일 Senate Banking Committee 회부 상태로 분리 표시합니다. 따라서 화면에서는 현행 규제처럼 표시하지 않습니다.\n\n의사결정 포인트는 법안 명칭이 아니라 DUV·부품·서비스 제한이 CXMT·YMTC·SMIC 장비 교체와 우회 조달 타임라인을 얼마나 늦추는지입니다.",
+        "a": "MATCH Act는 2026년 7월 현재 확정 법률이 아니라 입법 Watch입니다. 확인된 내용은 2026년 4월 16일 수정으로 극저온 식각 장비의 전국적 blanket ban이 삭제됐고, DUV 리소그래피 제한과 동맹국 수출통제 정렬 요구는 유지됐다는 점입니다.\n\n하원 HR 8170은 2026년 4월 22일 하원 외교위 36:8로 통과됐습니다. 2026년 5월 하원 본회의 통과 보도는 존재하지만 공식 tracker 확인 전까지는 Watch로 두고, 상원 S.4281은 2026년 4월 13일 Senate Banking Committee 회부 상태로 분리 표시합니다. 핵심은 특정 칩보다 제조 장비 레이어를 겨냥하고, 미국 소프트웨어·부품이 들어간 외국 장비와 동맹국 정렬까지 압박할 수 있다는 점입니다.\n\n의사결정 포인트는 법안 명칭이 아니라 DUV·부품·서비스 제한이 CXMT·YMTC·SMIC 장비 교체와 우회 조달 타임라인을 얼마나 늦추는지입니다.",
         "keywords": [
           "match act",
           "duv",
@@ -727,7 +728,7 @@
       {
         "cat": "strategy",
         "q": "SKHY가 바로 만들어야 할 대응 보드는?",
-        "a": "세 개의 보드를 우선 구축해야 합니다.\n\n첫째, 글로벌 마이크로데이터 레이더입니다. 채용 공고, 익명 커뮤니티, IPO 문서, 장비 반입, 외신 기사, 특허·펀딩 신호를 월별로 묶어 경쟁사 병목을 조기 경보화합니다. 둘째, 레거시 마진 방어 보드입니다. CXMT가 LPDDR·DDR5 물량을 밀어 넣는 시나리오에 대비해 공정 효율, 장비 재활용, 고객별 가격 민감도를 봅니다. 셋째, 핵심 수율 엔지니어 리텐션 보드입니다.\n\n이 사이트에서는 이를 경영진 의사결정, 중국 비즈니스 전략, 인재/IP 레이더로 나누어 연결합니다.",
+        "a": "세 개의 보드를 우선 구축해야 합니다.\n\n첫째, 글로벌 마이크로데이터 레이더입니다. 채용 공고, 익명 커뮤니티, IPO 문서, 장비 반입, 외신 기사, 특허·펀딩 신호를 월별로 묶어 경쟁사 병목을 조기 경보화합니다. 둘째, 레거시 마진 방어 보드입니다. CXMT가 LPDDR·DDR5 물량을 밀어 넣는 시나리오에 대비해 공정 효율, 장비 재활용, 고객별 가격 민감도, AEC-Q100 같은 고객 인증 전환 리드타임을 봅니다. 셋째, 핵심 수율 엔지니어 리텐션 보드입니다.\n\n이 사이트에서는 이를 경영진 의사결정, 중국 비즈니스 전략, 인재/IP 레이더로 나누어 연결합니다.",
         "keywords": [
           "대응 보드",
           "microdata",
@@ -742,7 +743,7 @@
       {
         "cat": "hbm",
         "q": "HBM 프리미엄 트랙과 범용 메모리 트랙은 왜 분리해야 하나?",
-        "a": "두 시장은 같은 메모리 업종 안에 있지만 작동 논리가 완전히 다릅니다.\n\nHBM·CXL·PIM은 Nvidia/ASIC 고객 인증, 대역폭, 베이스 다이, 패키징 수율이 핵심인 프리미엄 아키텍처 시장입니다. 반면 범용 DRAM·NAND는 출하량, 중국 내수 보조금, 레거시 재고, TrendForce spot/contract 가격이 수익성을 좌우합니다.\n\n따라서 대응 지표, 의사결정 주기, 담당 조직을 분리해야 합니다. 전략 검토는 AI Memory Matrix와 가격·중국 캐파 보드를 나누어 이 차이를 보여줍니다.",
+        "a": "두 시장은 같은 메모리 업종 안에 있지만 작동 논리가 다릅니다.\n\nHBM·CXL·PIM은 Nvidia/ASIC 고객 인증, 대역폭, 베이스 다이, 패키징 수율이 핵심인 프리미엄 아키텍처 시장입니다. 반면 범용 DRAM·NAND는 출하량, 중국 내수 보조금, 레거시 재고, TrendForce spot/contract 가격이 수익성을 좌우합니다.\n\n다만 Agentic AI 전환으로 서버 DDR5, RDIMM, eSSD 수요가 HBM 주변으로 함께 당겨지는 스필오버가 생깁니다. 따라서 조직과 KPI는 분리하되, 가격·캐파 의사결정은 HBM, 서버 DRAM, eSSD를 같은 시나리오에서 교차 확인해야 합니다.",
         "keywords": [
           "hbm",
           "premium",
@@ -776,7 +777,7 @@
       {
         "cat": "hbm",
         "q": "HBM4 경쟁에서 파운드리 동맹이 왜 중요한가?",
-        "a": "HBM4부터는 메모리 적층뿐 아니라 로직 베이스 다이와 첨단 패키징 할당량이 성능·전력·원가를 좌우합니다.\n\nSKHY는 TSMC의 첨단 로직 공정을 HBM4 베이스 다이에 적용해 고객 맞춤형 HBM을 강화하고, 삼성전자는 1c DRAM과 4nm 로직 베이스 다이를 내부 턴키로 묶어 반격합니다. 그래서 CoWoS/패키징 할당, base die node, logic die yield, Rubin 인증 일정을 같은 스코어보드에서 봐야 합니다.\n\n중국은 HBM 선두 대비 후행이지만 XMC HBM 패키징과 국산 장비 입찰 신호는 Watch로 유지합니다.",
+        "a": "HBM4부터는 메모리 적층뿐 아니라 로직 베이스 다이와 첨단 패키징 할당량이 성능·전력·원가를 좌우합니다.\n\nSKHY는 TSMC의 첨단 로직 공정을 HBM4 베이스 다이에 적용해 고객 맞춤형 HBM을 강화하고, 삼성전자는 1c DRAM과 4nm 로직 베이스 다이를 내부 턴키로 묶어 반격합니다. Micron은 HBM4 36GB 12H 양산 출하를 공식화해 Vera Rubin 공급 구도에 진입했습니다. 그래서 CoWoS/패키징 할당, base die node, logic die yield, Rubin 인증 일정을 3사 스코어보드에서 봐야 합니다.\n\n중국은 HBM 선두 대비 후행이지만 XMC HBM 패키징과 국산 장비 입찰 신호는 Watch로 유지합니다.",
         "keywords": [
           "hbm4",
           "foundry",
@@ -808,7 +809,7 @@
       {
         "cat": "price",
         "q": "TrendForce spot과 contract 가격은 어떻게 봐야 하나?",
-        "a": "Spot 가격은 단기 수급과 유통 재고의 온도계이고, Contract 가격은 고객 협상력과 분기 가격 결정권의 결과입니다.\n\nDRAM spot이 먼저 움직이고 contract가 뒤따라오면 공급 부족이 고객 계약가로 전이되는 신호입니다. 반대로 spot이 꺾이는데 contract가 버티면 장기 계약과 프리미엄 제품 믹스가 방어막으로 작동하는 구간입니다. CXMT 캐파 확대 시 범용 DRAM spot이 먼저 반응하므로 spread 모니터링이 핵심입니다.\n\n가격 보드에서는 기준 날짜와 주·분기·1년 기간을 선택해 spot/contract 흐름을 비교합니다.",
+        "a": "Spot 가격은 단기 수급과 유통 재고의 온도계이고, Contract 가격은 고객 협상력과 분기 가격 결정권의 결과입니다.\n\nDRAM spot이 먼저 움직이고 contract가 뒤따라오면 공급 부족이 고객 계약가로 전이되는 신호입니다. 2026년 1분기처럼 contract가 급등하면 고객 재고와 LTA 가격 floor를 같이 봐야 합니다. 반대로 spot이 꺾이는데 contract가 버티면 장기 계약과 프리미엄 제품 믹스가 방어막으로 작동하는 구간입니다.\n\n가격 보드에서는 기준 날짜와 주·분기·1년 기간을 선택해 spot/contract 흐름을 비교하고, CXMT 캐파 확대가 범용 DRAM spot에 먼저 반영되는지 확인합니다.",
         "keywords": [
           "trendforce",
           "spot",
@@ -858,7 +859,7 @@
       {
         "cat": "hbm",
         "q": "HBM4 Rubin 플랫폼에서 SKHY의 점유율 방어 전략은?",
-        "a": "Rubin 플랫폼에서 SKHY의 방어 전략은 qualification 선점, TSMC 베이스 다이 협업, 차세대 생산능력 확보 세 가지입니다.\n\n첫째, HBM4 qualification 타임라인을 선점해 고객 인증 리드를 유지합니다. 둘째, TSMC 첨단 로직 공정 결합 HBM4 베이스 다이로 고객 맞춤형 패키징을 차별화합니다. 셋째, Yongin 클러스터와 차세대 HBM4E/HBM5 생산 준비를 통해 공급 신뢰도를 높입니다.\n\n리스크는 Rubin 플랫폼 비중과 고객별 물량 배분이 바뀔 때 CoWoS 할당과 HBM ASP가 동시에 흔들릴 수 있다는 점입니다.",
+        "a": "Rubin 플랫폼에서 SKHY의 방어 전략은 qualification 선점, TSMC 베이스 다이 협업, 차세대 생산능력 확보 세 가지입니다.\n\n첫째, HBM4 qualification 타임라인과 NVIDIA 공동개발 관계를 고객 락인으로 연결합니다. 둘째, TSMC 첨단 로직 공정 결합 HBM4 베이스 다이로 고객 맞춤형 패키징을 차별화합니다. 셋째, Yongin 클러스터와 차세대 HBM4E/HBM5 생산 준비를 통해 공급 신뢰도를 높입니다.\n\n리스크는 3사 공급 구도에서 물량 배분이 바뀔 때 CoWoS 할당과 HBM ASP가 동시에 흔들릴 수 있다는 점입니다. SKHY 60~70% 배분 보도는 공식값이 아니라 Watch 추정치로 표시합니다.",
         "keywords": [
           "rubin",
           "hbm4",
@@ -874,7 +875,7 @@
       {
         "cat": "threat",
         "q": "CXMT IPO가 글로벌 DRAM 경쟁에 미치는 영향은?",
-        "a": "CXMT IPO는 범용 DRAM 가격 압력을 강화하는 자금 조달 이벤트입니다.\n\n현재 핵심은 IPO 자금이 상하이 신규 팹과 허페이·베이징 캐파 확대에 얼마나 투입되는지입니다. 현재 30만 wpm 수준에서 60만 wpm 목표가 현실화되면, 삼성·SKHY·Micron의 과점 구도 자체를 즉시 붕괴시키지는 않더라도 DDR5·LPDDR 가격 협상력에는 직접 영향을 줍니다.\n\n따라서 IPO 문서의 자금 사용처, 고객 장기계약, 장비 발주, 채용 JD 변화를 같은 월별 레이더에 올려야 합니다.",
+        "a": "CXMT IPO는 범용 DRAM 가격 압력을 강화하는 자금 조달 이벤트입니다.\n\nSSE 심사 통과와 295억 위안 조달 계획은 확정 근거로 두고, 기업가치·장기 60만 wpm 목표는 보도/전망 레이어로 분리합니다. 핵심은 IPO 자금이 상하이 신규 팹, 허페이·베이징 캐파 확대, DDR5/LPDDR 전환, 장비 국산화에 얼마나 투입되는지입니다.\n\n삼성·SKHY·Micron의 과점 구도 자체를 즉시 붕괴시키지는 않더라도 DDR5·LPDDR 가격 협상력에는 직접 영향을 줍니다. 따라서 IPO 문서의 자금 사용처, 고객 장기계약, 장비 발주, 채용 JD 변화를 같은 월별 레이더에 올려야 합니다.",
         "keywords": [
           "cxmt",
           "ipo",
@@ -890,7 +891,7 @@
       {
         "cat": "price",
         "q": "2026년 메모리 시장 규모와 2027년 전망은 어떻게 보나?",
-        "a": "메모리 시장 전망은 단일 확정치가 아니라 기관별 발표일과 가정이 다른 전망 레이어로 봐야 합니다.\n\n최신 전망 근거 기준으로는 TrendForce의 2026~2027년 메모리 매출 상향 조정, DRAM/NAND/HBM 구조적 공급 부족, HBM 웨이퍼 전환에 따른 conventional DRAM 부족을 핵심 가정으로 둡니다. 2027년은 AI 서버와 agentic AI 수요가 DRAM·HBM·eSSD를 동시에 끌어올리는 시나리오를 봅니다.\n\n운영 판단에서는 WSTS, TrendForce, Counterpoint, 회사별 가이던스를 분리해 표시하고, 충돌하는 전망은 단일 확정치처럼 쓰지 않습니다.",
+        "a": "메모리 시장 전망은 단일 확정치가 아니라 기관별 발표일과 가정이 다른 전망 레이어로 봐야 합니다.\n\nTrendForce 2026년 5월 29일 전망 기준 글로벌 메모리 시장은 2026년 $889.3B로 기존 $551.6B에서 상향됐고, 2027년은 $1.28T+로 기존 $842.7B에서 상향됐습니다. 세그먼트별로는 2026년 DRAM $618.7B, NAND $270.6B, 2027년 DRAM $903.3B, NAND $379.4B 전망입니다.\n\n핵심 가정은 Agentic AI 전환, HBM 웨이퍼 소비에 따른 conventional DRAM 공급 압축, eSSD/NAND 수요 확대입니다. WSTS, TrendForce, Counterpoint, 회사별 가이던스는 범위와 발표일이 다르므로 단일 확정치처럼 섞지 않습니다.",
         "keywords": [
           "2026",
           "2027",
@@ -2324,6 +2325,42 @@
     ]
   },
   "curatedNews": [
+    {
+      "language": "english",
+      "curated": true,
+      "category": "aidemand",
+      "source": "TrendForce",
+      "date": "2026-05-29",
+      "title": "Agentic AI Drives Structural Expansion in Memory Demand, Global Memory Market Projected to Reach US$1.28 Trillion by 2027",
+      "titleKo": "TrendForce, 2027년 글로벌 메모리 시장 $1.28T+ 전망",
+      "summary": "TrendForce는 2026년 메모리 시장 전망을 $889.3B, 2027년을 $1.28T+로 상향. 2026년 DRAM $618.7B, NAND $270.6B 전망을 Q&A 시장 규모 답변의 기준으로 사용합니다.",
+      "placement": "price · market outlook · Q26",
+      "link": "https://www.trendforce.com/presscenter/news/20260529-13068.html"
+    },
+    {
+      "language": "english",
+      "curated": true,
+      "category": "hbm",
+      "source": "Micron IR",
+      "date": "2026-03-16",
+      "title": "Micron in High-Volume Production of HBM4 Designed for NVIDIA Vera Rubin",
+      "titleKo": "Micron, NVIDIA Vera Rubin용 HBM4 36GB 12H 양산 출하 공식화",
+      "summary": "Micron은 HBM4 36GB 12H를 2026년 1분기 양산 출하했고 NVIDIA Vera Rubin용으로 설계됐다고 발표. HBM4 공급 구도를 SKHY·삼성 양자 구도에서 3자 경쟁으로 봐야 합니다.",
+      "placement": "hbm · Vera Rubin · Q1/Q19/Q24",
+      "link": "https://investors.micron.com/news-releases/news-release-details/micron-high-volume-production-hbm4-designed-nvidia-vera-rubin"
+    },
+    {
+      "language": "english",
+      "curated": true,
+      "category": "hbm",
+      "source": "TNW",
+      "date": "2026-06-08",
+      "title": "Nvidia and SK Hynix seal multi-year HBM4 AI memory deal",
+      "titleKo": "NVIDIA-SKHY, HBM4·Vera Rubin 장기 공동개발 협력",
+      "summary": "TNW는 SKHY가 NVIDIA와 차세대 AI 메모리 공동개발 협력을 체결했고, Vera Rubin HBM4 물량 60~70% 추정치를 Watch로 보도했습니다. 공식 배분값이 아니므로 추정 레이어로 표시합니다.",
+      "placement": "hbm · Vera Rubin · Q2/Q24",
+      "link": "https://thenextweb.com/news/nvidia-locks-in-sk-hynix-for-the-ai-memory-race-as-the-chip-industrys-toughest-bottleneck-gets-its-own-multi-year-deal"
+    },
     {
       "language": "english",
       "curated": true,
