@@ -4166,38 +4166,88 @@
     return id;
   }
 
-  // Drive the C-level council as a live, sequential debate: one expert at a time,
-  // avatar spotlighted while "speaking", message typed out like a real person,
-  // and the next expert queued so the exchange reads as a rebuttal chain.
-  function animateCouncilDebate(scope) {
-    clearCouncilTimers();
-    const token = ++cLevelCouncilRunToken;
-    const root = scope || document;
-    const chat = root.querySelector("[data-council-chat]");
-    const roster = root.querySelector("[data-council-roster]");
-    const conclusion = root.querySelector("[data-council-conclusion]");
-    if (!chat) return;
-    const turns = Array.from(chat.querySelectorAll(".agent-turn"));
-    const avatars = roster ? Array.from(roster.querySelectorAll(".agent-avatar-card")) : [];
-    const reduceMotion = window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  // Per-debate run state (token + timers) so multiple councils animate independently.
+  const debateRunStates = new WeakMap();
 
-    const avatarAt = (i) => avatars.find((el) => Number(el.dataset.agentSlot) === i);
-    const setAvatarState = (i, state) => {
-      const el = avatarAt(i);
-      if (!el) return;
-      el.classList.remove("speaking", "next", "done");
-      if (state) el.classList.add(state);
+  // C-level entry point (kept for compatibility): find the chat in scope and drive it.
+  function animateCouncilDebate(scope) {
+    const root = scope || document;
+    activateDebate(root.querySelector("[data-council-chat], .agent-chat"));
+  }
+
+  // Activate every not-yet-live debate under root (used by the render pipeline and
+  // by boards that re-render their own council on interaction).
+  function activateDebatesIn(root = document) {
+    const base = root instanceof Element || root === document ? root : document;
+    base.querySelectorAll(".agent-chat").forEach((chat) => {
+      if (!chat.querySelector(".agent-turn")) return;
+      if (chat.dataset.debateLive === "1") return;
+      activateDebate(chat);
+    });
+  }
+
+  // Drive any council as a live, sequential debate: one expert at a time, the matching
+  // roster avatar spotlighted while "speaking", the message typed out like a real person,
+  // and the next expert queued so the exchange reads as a devil's-advocate rebuttal chain.
+  // Works generically: reads each bubble's text at runtime and matches the roster by name.
+  function activateDebate(chat) {
+    if (!chat) return;
+    const container = chat.closest(".agent-debate") || chat.parentElement || chat;
+    const roster = container ? container.querySelector(".agent-roster") : null;
+    const conclusion = container ? container.querySelector(".agent-conclusion") : null;
+    const turns = Array.from(chat.querySelectorAll(".agent-turn"));
+    if (!turns.length) return;
+    const avatars = roster ? Array.from(roster.querySelectorAll(".agent-avatar-card")) : [];
+    chat.classList.add("js-debate");
+    chat.dataset.debateLive = "1";
+
+    // Fresh run token for this specific chat; cancel any prior run on the same element.
+    const prev = debateRunStates.get(chat);
+    if (prev) prev.timers.forEach((id) => window.clearTimeout(id));
+    const state = { token: (prev?.token || 0) + 1, timers: [] };
+    debateRunStates.set(chat, state);
+    const token = state.token;
+    const alive = () => debateRunStates.get(chat)?.token === token;
+    const schedule = (fn, delay) => { const id = window.setTimeout(fn, delay); state.timers.push(id); return id; };
+
+    const turnName = (turn) => (turn.querySelector(".speech-meta strong")?.textContent || "").trim();
+    const cardByName = new Map();
+    avatars.forEach((card) => {
+      const name = (card.querySelector("span")?.textContent || "").trim();
+      if (name && !cardByName.has(name)) cardByName.set(name, card);
+      // Inject typing dots if a template didn't include them.
+      const person = card.querySelector(".agent-person");
+      if (person && !person.querySelector(".agent-typing")) {
+        const u = document.createElement("u");
+        u.className = "agent-typing";
+        u.setAttribute("aria-hidden", "true");
+        u.innerHTML = "<s></s><s></s><s></s>";
+        person.appendChild(u);
+      }
+    });
+    const setCard = (name, st) => {
+      const card = cardByName.get(name);
+      if (!card) return;
+      card.classList.remove("speaking", "next", "done");
+      if (st) card.classList.add(st);
     };
 
+    // Snapshot each bubble's text (templates may or may not pre-set data-say).
+    turns.forEach((turn) => {
+      const p = turn.querySelector("p");
+      if (p && p.dataset.say == null) p.dataset.say = p.textContent;
+    });
+
+    const reduceMotion = window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
     if (reduceMotion) {
-      turns.forEach((turn, i) => {
+      turns.forEach((turn) => {
         turn.classList.remove("pending");
         turn.classList.add("done");
-        const p = turn.querySelector("p[data-say]");
+        const p = turn.querySelector("p");
         if (p) p.textContent = p.dataset.say || "";
-        setAvatarState(i, "done");
       });
-      if (conclusion) conclusion.classList.remove("pending");
+      avatars.forEach((card) => card.classList.add("done"));
+      if (conclusion) conclusion.classList.remove("pending", "reveal");
       return;
     }
 
@@ -4205,58 +4255,53 @@
     turns.forEach((turn) => {
       turn.classList.add("pending");
       turn.classList.remove("speaking", "done");
-      const p = turn.querySelector("p[data-say]");
+      const p = turn.querySelector("p");
       if (p) p.textContent = "";
     });
-    avatars.forEach((el) => el.classList.remove("speaking", "next", "done"));
-    if (conclusion) conclusion.classList.add("pending");
+    avatars.forEach((card) => card.classList.remove("speaking", "next", "done"));
+    if (conclusion) { conclusion.classList.remove("reveal"); conclusion.classList.add("pending"); }
 
     const typeMessage = (p, done) => {
       const text = p ? p.dataset.say || "" : "";
       if (!p || !text) { done(); return; }
       // Fill the whole message in ~0.9s regardless of length so long rebuttals stay snappy.
       const totalMs = 900;
-      const steps = 26;
-      const step = Math.max(1, Math.ceil(text.length / steps));
+      const step = Math.max(1, Math.ceil(text.length / 26));
       const tick = Math.max(18, Math.round(totalMs / Math.ceil(text.length / step)));
       let shown = 0;
       const advance = () => {
-        if (token !== cLevelCouncilRunToken) return;
+        if (!alive()) return;
         shown = Math.min(text.length, shown + step);
         p.textContent = text.slice(0, shown);
         if (shown >= text.length) { done(); return; }
-        scheduleCouncilStep(advance, tick);
+        schedule(advance, tick);
       };
       advance();
     };
 
     const speak = (i) => {
-      if (token !== cLevelCouncilRunToken) return;
+      if (!alive()) return;
       if (i >= turns.length) {
-        if (conclusion) scheduleCouncilStep(() => {
-          if (token === cLevelCouncilRunToken) conclusion.classList.remove("pending");
-        }, 260);
+        if (conclusion) schedule(() => { if (alive()) conclusion.classList.remove("pending"); }, 260);
         return;
       }
       const turn = turns[i];
       turn.classList.remove("pending");
       turn.classList.add("speaking");
       turn.querySelector(".speech-bubble")?.classList.add("live");
-      setAvatarState(i, "speaking");
-      setAvatarState(i + 1, "next");
-      const p = turn.querySelector("p[data-say]");
-      typeMessage(p, () => {
-        if (token !== cLevelCouncilRunToken) return;
+      setCard(turnName(turn), "speaking");
+      if (turns[i + 1]) setCard(turnName(turns[i + 1]), "next");
+      typeMessage(turn.querySelector("p"), () => {
+        if (!alive()) return;
         turn.classList.remove("speaking");
         turn.classList.add("done");
         turn.querySelector(".speech-bubble")?.classList.remove("live");
-        setAvatarState(i, "done");
-        scheduleCouncilStep(() => speak(i + 1), 320);
+        setCard(turnName(turn), "done");
+        schedule(() => speak(i + 1), 300);
       });
     };
 
-    // Let the roster finish its stagger-in, then start the exchange.
-    scheduleCouncilStep(() => speak(0), Math.min(900, avatars.length * 90 + 360));
+    schedule(() => speak(0), Math.min(900, avatars.length * 80 + 320));
   }
 
   function memoryMarketNodes() {
@@ -7260,6 +7305,16 @@
         message: `Risk 게이트: ${profile.risk} ${scenario.policy} 하방 조건은 "${active.downside}"입니다. ${flipKpis.slice(0, 3).map((item) => item.label).join(" · ")} 중 2개 이상 악화되면 결론을 낮춥니다.`,
       },
       {
+        id: "devil",
+        initials: "DA",
+        name: "Devil's Advocate",
+        title: "Red Team · 반론 전담",
+        role: "합의 반박·역백테스트",
+        color: "#111827",
+        stance: "일부러 반대",
+        message: `일부러 반대합니다: 이 백테스트가 "지나간 판단을 지금 근거로 정당화"하는 사후확증(hindsight)일 수 있습니다. ① 사전 모멘텀 ${prior}와 이후 실측 ${actual}가 우연히 맞았을 가능성을 배제했습니까? ② 같은 신호로 반대 결론을 내면 어디서 깨집니까? ③ 표본이 ${fmtNum(active.observations?.length || 0)}개면 통계적으로 유의합니까? 승리 사례만 세지 말고 같은 규칙으로 틀린 시점도 제시하십시오.`,
+      },
+      {
         id: "audit",
         initials: "AUD",
         name: "Auditor",
@@ -7375,7 +7430,7 @@
         ` : `
           <div class="agent-waiting">
             <strong>안건을 선택한 뒤 토론 실행을 누르세요.</strong>
-            <p>실행 전에는 전문가를 호출하지 않습니다. 실행 후 CEO, Data, China, CFO, CTO, COO, Market, Risk, Auditor, Strategy가 순차 말풍선으로 토론합니다.</p>
+            <p>실행 전에는 전문가를 호출하지 않습니다. 실행 후 CEO·Data·China·CFO·CTO·COO·Market·Risk·반론(Devil's Advocate)·Auditor·Strategy가 순차 말풍선으로 토론하며, 반론 전담이 백테스트 결론을 의도적으로 반박합니다.</p>
           </div>
         `}
       </div>
@@ -7496,6 +7551,7 @@
           <button type="button" data-decision-prices>가격표 보기</button>
         </div>
       `;
+      if (execDecisionCouncilRan) activateDebatesIn(focus);
       focus.querySelector("#execDecisionCouncilSelect")?.addEventListener("change", (event) => {
         execDecisionFocusId = event.target.value;
         execDecisionCouncilRan = false;
@@ -8665,6 +8721,7 @@
         <button type="button" data-agent-copy>답변 복사</button>
       </div>
     `;
+    activateDebatesIn(answerWrap);
     answerWrap.querySelector("[data-agent-copy]")?.addEventListener("click", (event) => {
       copyPayload({
         type: "CEO 챌린지 전문가 답변",
@@ -8990,11 +9047,11 @@
 
   function projectionCaseWeight(segmentId) {
     const weights = {
-      "ai-server": { neutral: .35, best: 3.8, worst: -3.2, signal: .95, price: .42, china: -.3 },
-      "dc-storage": { neutral: .15, best: 2.1, worst: -1.7, signal: .58, price: .36, china: -.55 },
-      "mobile-pc": { neutral: -.2, best: -1.2, worst: 1.4, signal: .18, price: .18, china: .52 },
-      "auto-edge": { neutral: .05, best: .55, worst: .75, signal: .22, price: .14, china: .12 },
-      legacy: { neutral: -.45, best: -2.7, worst: 3.2, signal: .22, price: .24, china: .88 },
+      "ai-server": { neutral: .35, best: 7.2, worst: -5.6, signal: .95, price: .42, china: -.3 },
+      "dc-storage": { neutral: .15, best: 3.9, worst: -3.1, signal: .58, price: .36, china: -.55 },
+      "mobile-pc": { neutral: -.2, best: -2.2, worst: 2.6, signal: .18, price: .18, china: .52 },
+      "auto-edge": { neutral: .05, best: 1.1, worst: 1.3, signal: .22, price: .14, china: .12 },
+      legacy: { neutral: -.45, best: -5.0, worst: 5.8, signal: .22, price: .24, china: .88 },
     };
     return weights[segmentId] || { neutral: 0, best: .5, worst: -.5, signal: .2, price: .2, china: 0 };
   }
@@ -10962,7 +11019,11 @@
       changePct,
       direction,
       rangeLabel: `${shortKstDate(start.time)}-${shortKstDate(end.time)}`,
-      rangeMode: priceUsesFullTrend() ? "수집 전체 추세" : `${activePricePeriod().label} 기준`,
+      // 분기/1년은 실제 수집 기간(최대 window)만큼 과거 포인트를 창으로 잡아 추세를 계산.
+      // 아직 수집 이력이 window보다 짧으면 확보된 구간만 표시(정직한 라벨).
+      rangeMode: priceUsesFullTrend()
+        ? `${activePricePeriod().label} 추세 · ${shortKstDate(start.time)}~${shortKstDate(end.time)}`
+        : `${activePricePeriod().label} 기준`,
       pointCount: scoped.length,
       startTime: start.time,
       endTime: end.time,
