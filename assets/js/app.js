@@ -258,7 +258,7 @@
         { name: "Outbound investment", role: "중국 관련 투자 제한/신고", note: "미국인·미국 controlled foreign entity 거래 검토 필요" },
       ],
       rules: [
-        { axis: "CHIPS Act", status: "O", title: "미국 내 제조·R&D 인센티브", evidence: "CHIPS Act 법안 총액은 NGA 개요 기준 $52.7B입니다. NIST가 설명하는 DOC CHIPS for America 집행분은 $50B이며, 이 중 제조 인센티브 $39B와 R&D $11B로 구성됩니다. 법안 총액과 DOC 집행 프로그램을 같은 숫자로 혼용하지 않습니다.", implication: "미국 고객·패키징·R&D 협력은 중국 사업과 분리된 투자 트랙으로 관리하고, 투자 검토에서는 법안 총액 $52.7B와 DOC 집행분 $50B를 분리 표기합니다.", source: "NIST / NGA", sourceUrl: "https://www.nist.gov/chips" },
+        { axis: "CHIPS Act", status: "O", title: "미국 내 제조·R&D 인센티브", evidence: "CHIPS and Science Act 법안 총액은 $52.7B입니다. 이 중 DOC 집행 프로그램은 $50B이며, 제조 인센티브 $39B와 R&D $11B로 구성됩니다. 나머지 $2.7B은 국방부·국무부 등 기타 부처 집행분입니다.", implication: "미국 고객·패키징·R&D 협력은 중국 사업과 분리된 투자 트랙으로 관리하고, 법안 총액 $52.7B와 DOC 집행분 $50B를 같은 숫자로 혼용하지 않습니다.", source: "NIST / NGA", sourceUrl: "https://www.nist.gov/chips" },
         { axis: "BIS/VEU", status: "X", title: "중국 fab 캐파 확대·기술 업그레이드", evidence: "BIS는 VEU 특례 종료 후 기존 fab 운영 라이선스는 의도하되, 중국 내 캐파 확대나 기술 업그레이드 라이선스는 의도하지 않는다고 밝혔습니다.", implication: "Wuxi/Dalian/Chongqing 장비·소프트웨어 반입은 운영 유지와 업그레이드를 분리해 증빙해야 합니다.", source: "BIS", sourceUrl: "https://www.bis.gov/press-release/department-commerce-closes-export-controls-loophole-foreign-owned-semiconductor-fabs-china" },
         { axis: "Outbound investment", status: "Watch", title: "중국 첨단기술 투자 신고/금지", evidence: "미 재무부 규칙은 반도체·마이크로일렉트로닉스, 양자, AI를 대상으로 하고 PRC/HK/Macau를 country of concern으로 지정합니다.", implication: "미국인·미국 계열사가 연결된 중국 JV/지분투자/기술협력은 사전 심사가 필요합니다.", source: "U.S. Treasury", sourceUrl: "https://home.treasury.gov/policy-issues/international/outbound-investment-program" },
         { axis: "환경/인허가", status: "Watch", title: "NEPA와 대형 투자 인허가", evidence: "CHIPS 프로그램은 NEPA 항목을 별도 운영하고, 대형 투자 환경검토는 일정 리스크가 될 수 있습니다.", implication: "미국 내 신규 시설·패키징·R&D 투자는 환경 검토 일정을 의사결정 모델에 넣습니다.", source: "CHIPS.gov / NIST", sourceUrl: "https://www.chips.gov/" },
@@ -3904,12 +3904,12 @@
 
   function memoryMarketNodes() {
     return [
-      { id: "skhy", name: "SKHY", role: "HBM·DRAM·NAND 중심", metric: "HBM 58%", category: "hbm", x: 50, y: 50, scale: 104 },
+      { id: "skhy", name: "SKHY", role: "HBM·DRAM·NAND 중심", metric: "HBM 53~62%", category: "hbm", x: 50, y: 50, scale: 104 },
       { id: "nvidia-ai", name: "NVIDIA·AI 고객", role: "HBM 수요·매출", metric: "AI demand", category: "aidemand", x: 52, y: 10, scale: 94 },
       { id: "tsmc", name: "TSMC", role: "HBM4 base die", metric: "CoWoS", category: "packaging", x: 24, y: 22, scale: 80 },
       { id: "samsung", name: "Samsung", role: "HBM·DRAM 경쟁", metric: "HBM 21%", category: "hbm", x: 13, y: 46, scale: 88 },
       { id: "micron", name: "Micron", role: "HBM·DRAM 경쟁", metric: "DRAM 22%", category: "dram", x: 86, y: 38, scale: 82 },
-      { id: "cxmt", name: "CXMT", role: "중국 DRAM 가격 압력", metric: "DRAM 8%", category: "dram", x: 16, y: 70, scale: 90 },
+      { id: "cxmt", name: "CXMT", role: "중국 DRAM 가격 압력", metric: "8% rev / ~10% cap", category: "dram", x: 16, y: 70, scale: 90 },
       { id: "ymtc", name: "YMTC", role: "중국 NAND·eSSD", metric: "NAND 13%", category: "nand", x: 72, y: 76, scale: 88 },
       { id: "kioxia-sandisk", name: "Kioxia·SanDisk", role: "NAND peer", metric: "BiCS", category: "nand", x: 90, y: 64, scale: 74 },
       { id: "solidigm", name: "Solidigm", role: "eSSD·Dalian 방어", metric: "eSSD", category: "operations", x: 56, y: 72, scale: 74 },
