@@ -3617,6 +3617,9 @@
       : selected?.verdict === "Watch"
         ? "조건부 재검토"
         : "보류";
+    const relationCount = relatedRelations.length;
+    const moneyLabel = moneyRelations.length ? `${fmtNum(moneyRelations.length)}개 흐름` : "직접 현금흐름 부족";
+    const competitiveLabel = competitiveRelations.length ? `${fmtNum(competitiveRelations.length)}개 관계` : "직접 경쟁관계 부족";
     return [
       {
         id: "ceo",
@@ -3626,7 +3629,7 @@
         role: "우선순위·최종 안건화",
         color: "#2D6BFF",
         stance: scenarioDecisionLabel(scenarioVerdictValue),
-        message: `경영진 질문: ${profile.question} 기준 결론은 ${selected?.verdict || "Watch"}(${verdictMeaning})입니다. 이번 재실행 가정은 ${scenario.label}: ${scenario.ceo} 따라서 토론 결론은 ${scenarioVerdictValue}(${scenarioDecisionLabel(scenarioVerdictValue)})로 조정합니다. 근거 ${fmtNum(totalEvidence)}개, 신뢰도 ${fmtNum(confidence)}/100, 핵심 관계 ${topRelationText}.`,
+        message: `CEO 질문: ${profile.question} 현재 결론은 ${selected?.verdict || "Watch"}(${verdictMeaning})입니다. ${scenario.label} 가정에서는 ${scenario.ceo} 결론은 ${scenarioVerdictValue}(${scenarioDecisionLabel(scenarioVerdictValue)})로 조정합니다. 근거 ${fmtNum(totalEvidence)}개, 신뢰도 ${fmtNum(confidence)}/100, 핵심 관계 ${topRelationText}.`,
       },
       {
         id: "cfo",
@@ -3636,7 +3639,7 @@
         role: "수익성·자본배분",
         color: "#00C2A8",
         stance: "투자/매출 분리",
-        message: `재무 관점: ${profile.cfo} ${scenario.cfo} Money Flow 근거 ${fmtNum(moneyRelations.length)}개와 가격 row ${fmtNum(priceRows)}개를 확인했습니다. ${priceFlip.label} 기준(${priceFlip.trigger})을 넘으면 자본배분안을 다시 냅니다.`,
+        message: `CFO 반박: 이 안건은 재무 ROI 확정치가 아니라 자본배분 후보입니다. ${profile.cfo} ${scenario.cfo} Money Flow는 ${moneyLabel}, 가격 row는 ${fmtNum(priceRows)}개입니다. ${priceFlip.label} 기준(${priceFlip.trigger})을 넘으면 예산안을 다시 냅니다.`,
       },
       {
         id: "cto",
@@ -3646,7 +3649,27 @@
         role: "기술·제품 로드맵",
         color: "#8B5CF6",
         stance: "병목 분리",
-        message: `기술 관점: ${profile.cto} ${scenario.cto} 경쟁 관계 ${fmtNum(competitiveRelations.length)}개 중 제품 실행에 연결된 병목만 남깁니다. 확인 순서는 ${flipKpis.map((item) => item.label).slice(0, 3).join(" · ")}입니다.`,
+        message: `CTO 검토: ${profile.cto} ${scenario.cto} 경쟁 관계는 ${competitiveLabel}이며, 제품 실행과 무관한 뉴스는 제외합니다. 확인 순서는 ${flipKpis.map((item) => item.label).slice(0, 3).join(" · ")}입니다.`,
+      },
+      {
+        id: "cso",
+        initials: "CS",
+        name: "CSO Agent",
+        title: "Corporate Strategy Officer",
+        role: "전략 옵션·우선순위",
+        color: "#7C3AED",
+        stance: "옵션 분리",
+        message: `전략 판단: ${profile.next} 선택지는 즉시 실행, 조건부 실사, 옵션 유지로 나눕니다. 관계선 ${fmtNum(relationCount)}개 중 근거가 없는 축은 경영진 안건에서 제외합니다.`,
+      },
+      {
+        id: "coo",
+        initials: "CO",
+        name: "COO Agent",
+        title: "Operations & Supply Lead",
+        role: "운영·공급 실행성",
+        color: "#0EA5E9",
+        stance: "실행 가능성",
+        message: `운영 관점: 공급, Fab, 고객 인증, 재고 전환 가능성이 동시에 맞아야 실행합니다. 현재 가격 row ${fmtNum(priceRows)}개와 링크/KPI ${fmtNum(linkCount)}개를 실행 체크리스트의 최소 근거로 사용합니다.`,
       },
       {
         id: "policy",
@@ -3656,7 +3679,7 @@
         role: "규제·Fab·정책자금",
         color: "#F59E0B",
         stance: "라이선스 게이트",
-        message: `정책/Fab 관점: ${profile.policy} ${scenario.policy} 운영 유지, 캐파 확대, 기술 업그레이드를 분리해 승인합니다. ${policyFlip.label} 기준은 ${policyFlip.trigger}; 규제 원문이 없으면 Go가 아니라 Watch입니다.`,
+        message: `Policy 게이트: ${profile.policy} ${scenario.policy} 운영 유지, 캐파 확대, 기술 업그레이드는 같은 결재선에 두지 않습니다. ${policyFlip.label} 기준은 ${policyFlip.trigger}; 규제 원문이 없으면 Go가 아니라 Watch입니다.`,
       },
       {
         id: "market",
@@ -3666,7 +3689,27 @@
         role: "가격·고객·계약",
         color: "#10B981",
         stance: "가격 전이 확인",
-        message: `시장 관점: ${profile.market} ${scenario.market} 현재 가격 row ${fmtNum(priceRows)}개, 링크/KPI ${fmtNum(linkCount)}개, 비교축 ${contrast?.label || "비교 안건"}을 확인했습니다.`,
+        message: `Market 검토: ${profile.market} ${scenario.market} 현재 가격 row ${fmtNum(priceRows)}개, 링크/KPI ${fmtNum(linkCount)}개, 비교축은 ${contrast?.label || "비교 안건"}입니다. 가격과 고객 신호가 같은 방향일 때만 결론을 높입니다.`,
+      },
+      {
+        id: "china",
+        initials: "CN",
+        name: "China Agent",
+        title: "China Memory Lead",
+        role: "중국 경쟁 신호",
+        color: "#DB2777",
+        stance: "중국 압력",
+        message: `중국 관점: CXMT·YMTC·XMC·JCET·Naura·AMEC 신호는 한 묶음이 아니라 DRAM 가격, NAND/eSSD, 패키징, 장비 내재화로 분리합니다. ${scenario.label}에서는 ${scenario.id === "china-pressure" ? "범용 가격 방어 강도를 높입니다." : "현재 리스크 overlay로만 반영합니다."}`,
+      },
+      {
+        id: "risk",
+        initials: "RK",
+        name: "Risk Agent",
+        title: "Downside & Reversal Gate",
+        role: "판단 변경 KPI",
+        color: "#F43F5E",
+        stance: "KPI 게이트",
+        message: `리스크 반박: 결론을 고정하지 않습니다. ${primaryFlip.label}이 ${primaryFlip.trigger} 조건에 닿거나, 핵심 KPI 2개 이상이 악화되면 ${primaryFlip.flip}로 낮춰 재상정합니다.`,
       },
       {
         id: "audit",
@@ -3676,7 +3719,7 @@
         role: "팩트 검증·중복 제거",
         color: "#EF4444",
         stance: "근거 게이트",
-        message: `${cLevelAuditMessage(selected, profile, relatedRelations)} 시나리오 감사: ${scenario.audit}`,
+        message: `${cLevelAuditMessage(selected, profile, relatedRelations)} 감사 결론: ${scenario.audit}`,
       },
     ];
   }
@@ -3695,8 +3738,8 @@
         : "의사결정 보류";
     return {
       title: `${verdict} · ${direction} · ${scenario.label}`,
-      body: `경영진 결론: "${profile.question}"에 대해 ${scenario.label}을 적용하면 검증 근거 ${fmtNum(evidence)}개, 신뢰도 ${fmtNum(confidence)}/100 기준으로 ${direction}.`,
-      next: `다음 액션: ${scenario.conclusion} 중심으로 ${action}. 재검토 KPI: ${primaryFlip.label}(${primaryFlip.trigger}). ${profile.next}`,
+      body: `컨설팅 결론: "${profile.question}"에 대해 ${scenario.label}을 적용하면 검증 근거 ${fmtNum(evidence)}개, 신뢰도 ${fmtNum(confidence)}/100 기준으로 ${direction}.`,
+      next: `실행 조건: ${scenario.conclusion} 중심으로 ${action}. 결론을 바꿀 KPI는 ${primaryFlip.label}(${primaryFlip.trigger}). ${profile.next}`,
     };
   }
 
@@ -3809,7 +3852,7 @@
         ` : `
           <div class="agent-waiting">
             <strong>안건을 선택한 뒤 에이전트 실행을 누르세요.</strong>
-            <p>실행 전에는 에이전트를 호출하지 않습니다. 실행 후 실제 연결 근거 기준으로 CEO, CFO, CTO, 정책, 시장, 감사 에이전트가 순서대로 발언합니다.</p>
+            <p>실행 전에는 에이전트를 호출하지 않습니다. 실행 후 CEO, CFO, CTO, 전략, 운영, 정책, 시장, 중국, 리스크, 감사 에이전트가 실제 연결 근거 기준으로 순차 발언합니다.</p>
           </div>
         `}
       </div>
@@ -3850,20 +3893,20 @@
 
   function memoryMarketNodes() {
     return [
-      { id: "skhy", name: "SKHY", role: "HBM·DRAM·NAND 중심", category: "hbm", x: 50, y: 50 },
-      { id: "nvidia-ai", name: "NVIDIA·AI 고객", role: "HBM 수요/매출", category: "aidemand", x: 50, y: 12 },
-      { id: "tsmc", name: "TSMC", role: "HBM4 base die", category: "packaging", x: 24, y: 24 },
-      { id: "samsung", name: "Samsung", role: "HBM·DRAM 경쟁", category: "hbm", x: 16, y: 48 },
-      { id: "micron", name: "Micron", role: "HBM·DRAM 경쟁", category: "dram", x: 84, y: 42 },
-      { id: "cxmt", name: "CXMT", role: "중국 DRAM 가격 압력", category: "dram", x: 18, y: 72 },
-      { id: "ymtc", name: "YMTC", role: "중국 NAND/eSSD", category: "nand", x: 70, y: 78 },
-      { id: "kioxia-sandisk", name: "Kioxia·SanDisk", role: "NAND peer", category: "nand", x: 90, y: 68 },
-      { id: "solidigm", name: "Solidigm", role: "eSSD·Dalian 방어", category: "operations", x: 60, y: 68 },
-      { id: "jcet-xmc", name: "JCET·XMC", role: "첨단 패키징 우회", category: "packaging", x: 46, y: 88 },
-      { id: "naura-amec", name: "Naura·AMEC", role: "장비 국산화", category: "equipment", x: 16, y: 88 },
-      { id: "china-fund", name: "Big Fund·지방정부", role: "정책 자본", category: "geopolitics", x: 84, y: 92 },
-      { id: "china-cloud", name: "중국 클라우드/OEM", role: "내수 고객", category: "china", x: 86, y: 16 },
-      { id: "cxl-startups", name: "CXL·Photonics 후보", role: "Post-HBM 옵션", category: "cxl", x: 30, y: 8 },
+      { id: "skhy", name: "SKHY", role: "HBM·DRAM·NAND 중심", metric: "HBM 58%", category: "hbm", x: 50, y: 50, scale: 98 },
+      { id: "nvidia-ai", name: "NVIDIA·AI 고객", role: "HBM 수요/매출", metric: "AI demand", category: "aidemand", x: 50, y: 12, scale: 92 },
+      { id: "tsmc", name: "TSMC", role: "HBM4 base die", metric: "CoWoS", category: "packaging", x: 24, y: 24, scale: 78 },
+      { id: "samsung", name: "Samsung", role: "HBM·DRAM 경쟁", metric: "HBM 21%", category: "hbm", x: 16, y: 48, scale: 86 },
+      { id: "micron", name: "Micron", role: "HBM·DRAM 경쟁", metric: "DRAM 22%", category: "dram", x: 84, y: 42, scale: 80 },
+      { id: "cxmt", name: "CXMT", role: "중국 DRAM 가격 압력", metric: "DRAM 10%+", category: "dram", x: 18, y: 72, scale: 88 },
+      { id: "ymtc", name: "YMTC", role: "중국 NAND/eSSD", metric: "NAND 13%", category: "nand", x: 70, y: 78, scale: 86 },
+      { id: "kioxia-sandisk", name: "Kioxia·SanDisk", role: "NAND peer", metric: "BiCS", category: "nand", x: 90, y: 68, scale: 74 },
+      { id: "solidigm", name: "Solidigm", role: "eSSD·Dalian 방어", metric: "eSSD", category: "operations", x: 60, y: 68, scale: 72 },
+      { id: "jcet-xmc", name: "JCET·XMC", role: "첨단 패키징 우회", metric: "OSAT", category: "packaging", x: 46, y: 88, scale: 78 },
+      { id: "naura-amec", name: "Naura·AMEC", role: "장비 국산화", metric: "Etch/Depo", category: "equipment", x: 16, y: 88, scale: 76 },
+      { id: "china-fund", name: "Big Fund·지방정부", role: "정책 자본", metric: "Capital", category: "geopolitics", x: 84, y: 92, scale: 82 },
+      { id: "china-cloud", name: "중국 클라우드/OEM", role: "내수 고객", metric: "Demand", category: "china", x: 86, y: 16, scale: 84 },
+      { id: "cxl-startups", name: "CXL·Photonics 후보", role: "Post-HBM 옵션", metric: "Option", category: "cxl", x: 30, y: 8, scale: 68 },
     ];
   }
 
@@ -3952,6 +3995,20 @@
         categories: ["hbm", "packaging"],
         weight: 72,
         interpretation: "SKHY-TSMC 협력은 HBM4 베이스 다이와 패키징 병목을 푸는 파트너십입니다.",
+      },
+      {
+        id: "skhy-cxl-startups-partnership",
+        mode: "competitive",
+        from: "skhy",
+        to: "cxl-startups",
+        type: "파트너십",
+        label: "CXL·포토닉스·PIM 옵션 제휴",
+        terms: ["cxl", "photonics", "pim", "xconn", "xcena", "celestial", "ayar", "lightmatter", "startup", "sk hynix", "skhy"],
+        match: [["cxl", "photonics", "pim", "xconn", "xcena", "celestial", "ayar", "lightmatter", "startup"]],
+        priceTerms: [],
+        categories: ["cxl", "packaging", "aidemand"],
+        weight: 64,
+        interpretation: "SKHY는 Post-HBM 병목에 대해 즉시 인수보다 PoC·소수지분·후속투자권 옵션을 우선 검토합니다.",
       },
       {
         id: "skhy-nvidia-supply",
@@ -4080,6 +4137,34 @@
         interpretation: "정책자본에서 YMTC로 가는 선은 우한 증설과 장비 내재화 자금축입니다.",
       },
       {
+        id: "fund-equipment-competitive",
+        mode: "competitive",
+        from: "china-fund",
+        to: "naura-amec",
+        type: "투자",
+        label: "장비 국산화 자금 지원",
+        terms: ["big fund", "china fund", "naura", "amec", "acm", "equipment", "localization", "etch", "deposition"],
+        match: [["naura", "amec", "acm", "equipment"], ["fund", "investment", "localization", "big fund"]],
+        priceTerms: [],
+        categories: ["equipment", "geopolitics", "china"],
+        weight: 70,
+        interpretation: "정책자본에서 장비 업체로 가는 선은 중국 메모리의 제재 내성과 증설 지속성을 높이는 투자축입니다.",
+      },
+      {
+        id: "fund-packaging-competitive",
+        mode: "competitive",
+        from: "china-fund",
+        to: "jcet-xmc",
+        type: "투자",
+        label: "첨단 패키징 우회로 자금",
+        terms: ["big fund", "china fund", "jcet", "xmc", "packaging", "hbm", "tsv", "advanced packaging"],
+        match: [["jcet", "xmc", "packaging", "tsv"], ["fund", "investment", "advanced packaging", "big fund"]],
+        priceTerms: [],
+        categories: ["packaging", "geopolitics", "china"],
+        weight: 68,
+        interpretation: "정책자본에서 패키징 축으로 가는 선은 선단 공정 제약을 후공정으로 보완하려는 중국형 우회 전략입니다.",
+      },
+      {
         id: "skhy-ai-revenue",
         mode: "money",
         from: "nvidia-ai",
@@ -4093,6 +4178,36 @@
         weight: 94,
         flowIndex: 92,
         interpretation: "NVIDIA/AI 고객에서 SKHY로 가는 선은 HBM 매출과 고객 락인 현금흐름입니다.",
+      },
+      {
+        id: "ai-samsung-revenue",
+        mode: "money",
+        from: "nvidia-ai",
+        to: "samsung",
+        type: "매출",
+        label: "HBM 추격 매출 옵션",
+        terms: ["nvidia", "samsung", "hbm", "hbm4", "hbm3e", "ai server", "customer"],
+        match: [["samsung"], ["nvidia", "hbm", "hbm4", "hbm3e", "ai server"]],
+        priceTerms: ["dram", "ddr5"],
+        categories: ["hbm", "aidemand"],
+        weight: 74,
+        flowIndex: 70,
+        interpretation: "AI 고객에서 Samsung으로 가는 선은 SKHY의 프리미엄 고객 락인을 압박할 수 있는 추격 매출 옵션입니다.",
+      },
+      {
+        id: "ai-micron-revenue",
+        mode: "money",
+        from: "nvidia-ai",
+        to: "micron",
+        type: "매출",
+        label: "HBM·서버 DRAM 추격 매출",
+        terms: ["nvidia", "micron", "hbm", "ddr5", "server dram", "ai server", "customer"],
+        match: [["micron"], ["hbm", "ddr5", "server dram", "ai server"]],
+        priceTerms: ["dram", "ddr5"],
+        categories: ["hbm", "dram", "aidemand"],
+        weight: 70,
+        flowIndex: 66,
+        interpretation: "AI 고객에서 Micron으로 가는 선은 HBM ramp와 서버 DDR5 매출 전환을 감시하는 비교축입니다.",
       },
       {
         id: "china-cloud-cxmt-revenue",
@@ -4153,6 +4268,36 @@
         weight: 80,
         flowIndex: 78,
         interpretation: "정책자본에서 YMTC로 가는 선은 우한 Phase 3와 장비 내재화 투자입니다.",
+      },
+      {
+        id: "fund-equipment-money",
+        mode: "money",
+        from: "china-fund",
+        to: "naura-amec",
+        type: "투자",
+        label: "Naura·AMEC 장비 내재화 투자",
+        terms: ["big fund", "china fund", "naura", "amec", "acm", "semiconductor equipment", "localization", "investment"],
+        match: [["naura", "amec", "acm", "equipment"], ["fund", "investment", "localization", "big fund"]],
+        priceTerms: [],
+        categories: ["equipment", "china", "geopolitics"],
+        weight: 72,
+        flowIndex: 70,
+        interpretation: "정책자본에서 장비 업체로 가는 돈은 CXMT·YMTC 캐파 확대의 지속성을 높이는 비용 축입니다.",
+      },
+      {
+        id: "fund-packaging-money",
+        mode: "money",
+        from: "china-fund",
+        to: "jcet-xmc",
+        type: "투자",
+        label: "JCET·XMC 패키징 투자",
+        terms: ["big fund", "china fund", "jcet", "xmc", "advanced packaging", "hbm", "tsv", "investment"],
+        match: [["jcet", "xmc", "packaging", "tsv"], ["fund", "investment", "advanced packaging", "big fund"]],
+        priceTerms: [],
+        categories: ["packaging", "china", "geopolitics"],
+        weight: 70,
+        flowIndex: 68,
+        interpretation: "정책자본에서 패키징 축으로 가는 돈은 중국이 EUV 제약을 후공정으로 우회하려는 투자 흐름입니다.",
       },
       {
         id: "skhy-wuxi-dalian-invest",
@@ -4222,14 +4367,14 @@
       ? {
           id: "money",
           title: "Money Flow · 돈의 흐름",
-          subtitle: "투자와 매출 노출을 분리해 현금이 들어오는 축과 방어 비용이 나가는 축을 추적",
+          subtitle: "투자 · 매출",
           types: ["투자", "매출"],
           accent: "#F59E0B",
         }
       : {
           id: "competitive",
           title: "Competitive Dynamics",
-          subtitle: "",
+          subtitle: "경쟁 · 파트너십 · 투자 · 공급",
           types: ["경쟁", "파트너십", "투자", "공급"],
           accent: "#38BDF8",
         };
@@ -4357,8 +4502,8 @@
     const x = Number(saved.x);
     const y = Number(saved.y);
     return {
-      x: clamp(Number.isFinite(x) ? x : fallbackX, 6, 94),
-      y: clamp(Number.isFinite(y) ? y : fallbackY, 7, 93),
+      x: clamp(Number.isFinite(x) ? x : fallbackX, 8, 92),
+      y: clamp(Number.isFinite(y) ? y : fallbackY, 10, 84),
     };
   }
 
@@ -4375,8 +4520,8 @@
     const positions = new Map();
     graph.querySelectorAll(".memory-node[data-memory-node]").forEach((node) => {
       const id = node.dataset.memoryNode;
-      const x = clamp(Number(node.dataset.nodeX), 6, 94);
-      const y = clamp(Number(node.dataset.nodeY), 7, 93);
+      const x = clamp(Number(node.dataset.nodeX), 8, 92);
+      const y = clamp(Number(node.dataset.nodeY), 10, 84);
       if (!id || !Number.isFinite(x) || !Number.isFinite(y)) return;
       positions.set(id, { x, y });
       node.style.setProperty("--node-x", `${x}%`);
@@ -4435,8 +4580,8 @@
         if (!dragState || dragState.node !== node) return;
         const rect = network.getBoundingClientRect();
         if (!rect.width || !rect.height) return;
-        const x = clamp(((event.clientX - rect.left) / rect.width) * 100, 6, 94);
-        const y = clamp(((event.clientY - rect.top) / rect.height) * 100, 7, 93);
+        const x = clamp(((event.clientX - rect.left) / rect.width) * 100, 8, 92);
+        const y = clamp(((event.clientY - rect.top) / rect.height) * 100, 10, 84);
         const movedDistance = Math.abs(event.clientX - dragState.startX) + Math.abs(event.clientY - dragState.startY);
         dragState.moved = dragState.moved || movedDistance > 3;
         node.dataset.nodeX = x.toFixed(2);
@@ -4506,9 +4651,9 @@
         </div>
         <div class="metric-row">
           ${metricCards([
+            { label: "전략 지표", value: node.metric || "-" },
             { label: "관계", value: fmtNum(node.related.length) },
             { label: "근거", value: fmtNum(node.signal) },
-            { label: "점수", value: fmtNum(Math.round(node.score)) },
           ], 3)}
         </div>
         <div class="memory-relation-list">
@@ -4657,12 +4802,13 @@
         </div>
         ${nodes.map((node, index) => {
           const active = selected?.kind === "node" && selected.node.id === node.id;
-          const nodeSize = Math.round(clamp(74 + (node.score || 0) * .54, 82, 134));
+          const nodeSize = Math.round(clamp((node.scale || 74) + Math.min(node.signal || 0, 36) * .42 + (node.score || 0) * .24, 84, 148));
+          const nodeMetric = node.metric || `${fmtNum(node.signal)}건`;
           return `
             <button class="memory-node ${active ? "active" : ""}" type="button" draggable="false" data-memory-node="${escapeHTML(node.id)}" data-node-x="${Number(node.x).toFixed(2)}" data-node-y="${Number(node.y).toFixed(2)}" aria-label="${escapeHTML(node.name)} 관계 노드. 드래그하여 이동" title="드래그하여 이동 · 클릭하여 상세 보기" style="--node-x:${node.x}%; --node-y:${node.y}%; --node-size:${nodeSize}px; --local-accent:${categoryAccent(node.category)}; --delay:${index * 45}ms">
               <b>${escapeHTML(node.name)}</b>
               <span>${escapeHTML(node.role)}</span>
-              <em>${fmtNum(node.signal)}</em>
+              <em>${escapeHTML(nodeMetric)}</em>
             </button>
           `;
         }).join("")}
@@ -6174,7 +6320,7 @@
 
   function agentDebateHTML({ mode = "default", title = "Agent debate", subtitle = "", metrics = [], turns = [], kpis = [], accent = "" } = {}) {
     const colors = ["#06B6D4", "#8B5CF6", "#22C55E", "#F59E0B", "#EF4444", "#0EA5E9"];
-    const normalizedTurns = turns.filter((turn) => turn?.message).slice(0, 7).map((turn, index) => ({
+    const normalizedTurns = turns.filter((turn) => turn?.message).slice(0, 10).map((turn, index) => ({
       ...turn,
       color: turn.color || colors[index % colors.length],
       side: turn.side || (index % 2 ? "right" : "left"),
@@ -6212,9 +6358,12 @@
           </div>
         ` : ""}
         <div class="agent-roster" aria-label="토론 참여 전문가">
-          ${agents.slice(0, 6).map((agent, index) => `
+          ${agents.slice(0, 10).map((agent, index) => `
             <div class="agent-avatar-card" style="--agent-color:${escapeHTML(agent.color)};--delay:${index * rosterStepDelay}ms">
-              <b>${escapeHTML(agent.avatar)}</b>
+              <div class="agent-person">
+                <b>${escapeHTML(agent.avatar)}</b>
+                <i aria-hidden="true"></i>
+              </div>
               <span>${escapeHTML(agent.name)}</span>
               <small>${escapeHTML(agent.role || "Expert")}</small>
             </div>
@@ -6503,7 +6652,7 @@
         role: "의사결정 질문",
         color: "#111827",
         stance: scenario.conclusion,
-        message: `경영진 질문: ${profile.question} 현재 결론은 ${active.decision.label}입니다. 이번 재실행 가정은 ${scenario.label}: ${scenario.ceo} 실행 판단은 ${scenario.conclusion}으로 조정합니다. 재검토 기준(${primaryFlip.label}: ${primaryFlip.trigger})이 충족되면 판단을 재상정합니다.`,
+        message: `CEO 질문: ${profile.question} 현재 결론은 ${active.decision.label}입니다. ${scenario.label} 가정에서는 ${scenario.ceo} 실행 판단은 ${scenario.conclusion}으로 조정합니다. ${primaryFlip.label}(${primaryFlip.trigger})이 충족되면 판단을 재상정합니다.`,
       },
       {
         id: "data",
@@ -6513,7 +6662,7 @@
         role: "가격·백테스트",
         color: "#06B6D4",
         stance: "실측 검증",
-        message: `근거: ${profile.data} ${point} 기준 가격 series ${fmtNum(selectedSeriesCount)}개 중 관측 ${fmtNum(active.observations.length)}개만 계산했습니다. 사전 모멘텀 ${prior}, 이후 실측 ${actual}. ${scenario.label}에서는 ${scenario.market}`,
+        message: `Data 검증: ${profile.data} ${point} 기준 가격 series ${fmtNum(selectedSeriesCount)}개 중 관측 ${fmtNum(active.observations.length)}개만 계산했습니다. 사전 모멘텀 ${prior}, 이후 실측 ${actual}. ${scenario.label}에서는 ${scenario.market}`,
       },
       {
         id: "china",
@@ -6523,7 +6672,7 @@
         role: "중국 신호",
         color: "#8B5CF6",
         stance: "현재 리스크",
-        message: `중국 overlay: ${profile.china} 연결 신호 ${fmtNum(active.chinaSignalCount)}건은 과거 백테스트에 소급 반영하지 않습니다. ${scenario.label}에서는 ${scenario.id === "china-pressure" ? "중국 신호를 Bear case로 상향 반영합니다." : "중국 신호를 현재 리스크 overlay로만 유지합니다."} ${chinaFlip.label} 기준이 충족되면 판단을 '${chinaFlip.flip}'로 재분류합니다.`,
+        message: `중국 반론: ${profile.china} 연결 신호 ${fmtNum(active.chinaSignalCount)}건은 과거 백테스트에 소급 반영하지 않습니다. ${scenario.label}에서는 ${scenario.id === "china-pressure" ? "중국 신호를 Bear case로 상향 반영합니다." : "중국 신호를 현재 리스크 overlay로만 유지합니다."} ${chinaFlip.label} 기준이 충족되면 판단을 '${chinaFlip.flip}'로 재분류합니다.`,
       },
       {
         id: "cfo",
@@ -6533,7 +6682,37 @@
         role: "수익성·자본배분",
         color: "#F59E0B",
         stance: "자본 효율",
-        message: `자본배분: ${profile.cfo} ${scenario.cfo} 이 판단은 IRR/NPV가 아니라 실사 우선순위입니다. 실행 문구는 '${active.decision.action}'로 제한하고, 재검토 기준이 충족되면 예산안을 다시 냅니다.`,
+        message: `CFO 판단: ${profile.cfo} ${scenario.cfo} 이 판단은 IRR/NPV가 아니라 실사 우선순위입니다. 실행 문구는 '${active.decision.action}'로 제한하고, 재검토 기준이 충족되면 예산안을 다시 냅니다.`,
+      },
+      {
+        id: "cto",
+        initials: "CTO",
+        name: "CTO Agent",
+        title: "Product & Technology",
+        role: "제품·기술 병목",
+        color: "#7C3AED",
+        stance: "제품군 분리",
+        message: `CTO 검토: HBM, 서버 DDR5, NAND/eSSD, 단말향 DRAM은 같은 결론으로 묶지 않습니다. 대상 제품군 ${(active.products || []).slice(0, 4).join(" · ") || productLabel}에서 수율, 인증, 패키징 병목이 풀릴 때만 확대 판단을 유지합니다.`,
+      },
+      {
+        id: "coo",
+        initials: "COO",
+        name: "COO Agent",
+        title: "Operations & Supply",
+        role: "공급·운영 실행",
+        color: "#0EA5E9",
+        stance: "실행 조건",
+        message: `COO 실행조건: 선택 시점 이후 실측이 ${actual}이고 관측 ${fmtNum(active.observations.length)}개입니다. 공급 배분, 재고 회전, Fab continuity가 동시에 맞지 않으면 Go를 단계 집행으로 낮춥니다.`,
+      },
+      {
+        id: "market",
+        initials: "MKT",
+        name: "Market Agent",
+        title: "Customer & Pricing",
+        role: "가격·고객",
+        color: "#10B981",
+        stance: "수요 검증",
+        message: `Market 검토: ${profile.data} 가격은 사전 모멘텀 ${prior}와 이후 실측 ${actual}로 나눠 봅니다. ${priceFlip.label}(${priceFlip.trigger})이 충족되지 않으면 고객·가격 결론을 과도하게 올리지 않습니다.`,
       },
       {
         id: "risk",
@@ -6543,7 +6722,17 @@
         role: "하방 리스크",
         color: "#EF4444",
         stance: "No-Go 조건",
-        message: `리스크 게이트: ${profile.risk} ${scenario.policy} 하방 조건은 "${active.downside}"입니다. ${flipKpis.slice(0, 3).map((item) => item.label).join(" · ")} 중 2개 이상 악화되면 결론을 낮춥니다.`,
+        message: `Risk 게이트: ${profile.risk} ${scenario.policy} 하방 조건은 "${active.downside}"입니다. ${flipKpis.slice(0, 3).map((item) => item.label).join(" · ")} 중 2개 이상 악화되면 결론을 낮춥니다.`,
+      },
+      {
+        id: "audit",
+        initials: "AUD",
+        name: "Data Auditor",
+        title: "Evidence & Method",
+        role: "근거 감사",
+        color: "#475569",
+        stance: "팩트 게이트",
+        message: `Auditor 확인: 선택 시점 이후 실제 수집 가격만 백테스트에 씁니다. 중국 신호 ${fmtNum(active.chinaSignalCount)}건은 현재 overlay이며, 원문·가격 row가 없는 해석은 결론 강도를 올리지 않습니다.`,
       },
       {
         id: "strategy",
@@ -6651,7 +6840,7 @@
         ` : `
           <div class="agent-waiting">
             <strong>안건을 선택한 뒤 에이전트 실행을 누르세요.</strong>
-            <p>실행 전에는 에이전트를 호출하지 않습니다. 실행 후 가격·백테스트·중국 신호·수익성·리스크 관점이 순차 말풍선으로 나타납니다.</p>
+            <p>실행 전에는 에이전트를 호출하지 않습니다. 실행 후 CEO, Data, China, CFO, CTO, COO, Market, Risk, Auditor, Strategy가 순차 말풍선으로 토론합니다.</p>
           </div>
         `}
       </div>
@@ -7763,7 +7952,7 @@
         action: "SKHY 액션: Fab·패키징 확장 채용은 Hold, IP·접근권 통제와 운영 continuity 인력은 Maintain으로 분류합니다.",
       },
       "kpi-reversal": {
-        verdict: "결정을 바꾸는 KPI를 먼저 정해야 합니다.",
+        verdict: "결정을 바꿀 KPI를 사전에 정해야 합니다.",
         logic: `${targetLabel}의 1순위 KPI는 ${primaryFlip.label}입니다. 현재 ${primaryFlip.current}; 재검토 기준은 "${primaryFlip.trigger}"입니다.`,
         counter: "가장 큰 리스크는 한 번 승인한 투자가 데이터 변화와 무관하게 관성으로 계속되는 것입니다.",
         action: `SKHY 액션: ROI 지수 ${fmtNum(Math.max(40, model.roi - 12))}점 이하, X 게이트 ${fmtNum(gates.noGo + 1)}개 이상, 또는 핵심 KPI 2개 악화 시 Watch/Hold로 낮춥니다.`,
@@ -7818,11 +8007,25 @@
           message: response.counter,
         },
         {
+          name: "Policy Agent",
+          role: "규제·컴플라이언스",
+          avatar: "POL",
+          color: "#DB2777",
+          message: "중국 운영, 인재 확보, IP 접근권은 운영 유지와 기술 이전을 분리해 승인합니다. 규제 원문이나 내부 승인 조건이 없으면 확대형 실행은 Watch로 둡니다.",
+        },
+        {
           name: "CFO Agent",
           role: "재무 조건",
           avatar: "CFO",
           color: "#F59E0B",
           message: `${targetLabel} 안건은 승인 전 단계에서 수익성, 비용, 리스크를 분리해 봅니다. 재무 집행은 원문 계약, 가격, 투자비가 붙은 뒤 NPV/IRR로 재검증합니다.`,
+        },
+        {
+          name: "Data Auditor",
+          role: "근거 감사",
+          avatar: "AUD",
+          color: "#475569",
+          message: "근거 없는 추정은 결론 강도를 올리지 않습니다. sourceUrl, 기사 링크, 가격 row, O/X 게이트 중 확인 가능한 항목만 에이전트 답변의 기준으로 사용합니다.",
         },
         {
           name: "Execution Agent",

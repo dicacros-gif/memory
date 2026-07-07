@@ -1976,6 +1976,30 @@ body.sidebar-collapsed .sb-ico {
   border-radius: 10px;
   background: color-mix(in srgb, var(--local-accent, var(--accent)) 6%, var(--panel-2));
   padding: 12px;
+  transition: transform .18s ease, border-color .18s ease, background .18s ease, box-shadow .18s ease, color .18s ease;
+}
+
+.agent-selected-brief:hover,
+.agent-waiting:hover,
+.agent-conclusion:hover {
+  transform: translateY(-2px);
+  border-color: var(--local-accent, var(--accent));
+  background: linear-gradient(135deg, var(--local-accent, var(--accent)), color-mix(in srgb, var(--local-accent, var(--accent)) 58%, #0d1424));
+  color: #fff;
+  box-shadow: 0 14px 32px color-mix(in srgb, var(--local-accent, var(--accent)) 18%, transparent);
+}
+
+.agent-selected-brief:hover span,
+.agent-selected-brief:hover strong,
+.agent-selected-brief:hover p,
+.agent-selected-brief:hover small,
+.agent-waiting:hover strong,
+.agent-waiting:hover p,
+.agent-conclusion:hover span,
+.agent-conclusion:hover strong,
+.agent-conclusion:hover p,
+.agent-conclusion:hover small {
+  color: #fff;
 }
 
 .agent-selected-brief strong,
@@ -3627,9 +3651,17 @@ body.sidebar-collapsed .sb-ico {
 .memory-map-kpi:hover,
 .memory-map-type-filter:hover {
   transform: translateY(-2px);
-  border-color: color-mix(in srgb, var(--accent) 42%, var(--line));
-  background: color-mix(in srgb, var(--accent) 6%, var(--panel));
-  box-shadow: 0 10px 24px color-mix(in srgb, var(--accent) 12%, transparent);
+  border-color: var(--accent);
+  background: linear-gradient(135deg, var(--accent), color-mix(in srgb, var(--accent) 58%, #00c2a8));
+  color: #fff;
+  box-shadow: 0 14px 34px color-mix(in srgb, var(--accent) 22%, transparent);
+}
+
+.memory-map-kpi:hover span,
+.memory-map-kpi:hover strong,
+.memory-map-kpi:hover small,
+.memory-map-type-filter:hover > span {
+  color: #fff;
 }
 
 .memory-map-kpi span,
@@ -5027,7 +5059,7 @@ body.sidebar-collapsed .sb-ico {
 .agent-roster {
   position: relative;
   display: grid;
-  grid-template-columns: repeat(6, minmax(0, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(84px, 1fr));
   gap: 7px;
 }
 
@@ -5368,8 +5400,20 @@ body.sidebar-collapsed .sb-ico {
 .agent-turn:hover .speech-bubble {
   transform: translateY(-2px);
   border-color: var(--agent-color);
-  background: color-mix(in srgb, var(--agent-color) 10%, var(--panel));
+  background: linear-gradient(135deg, var(--agent-color), color-mix(in srgb, var(--agent-color) 58%, #0d1424));
+  color: #fff;
   box-shadow: 0 14px 32px color-mix(in srgb, var(--agent-color) 18%, transparent);
+}
+
+.agent-turn:hover .speech-bubble::before {
+  background: var(--agent-color);
+  border-color: color-mix(in srgb, var(--agent-color) 62%, #fff);
+}
+
+.agent-turn:hover .speech-meta strong,
+.agent-turn:hover .speech-meta span,
+.agent-turn:hover .speech-bubble p {
+  color: #fff;
 }
 
 .speech-bubble::before {
