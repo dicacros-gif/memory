@@ -4347,6 +4347,7 @@
     const turns = Array.from(chat.querySelectorAll(".agent-turn"));
     if (!turns.length) return;
     const avatars = roster ? Array.from(roster.querySelectorAll(".agent-avatar-card")) : [];
+    if (container) container.classList.add("is-live-debate");
     chat.classList.add("js-debate");
     chat.dataset.debateLive = "1";
 
@@ -4377,7 +4378,7 @@
     const setCard = (name, st) => {
       const card = cardByName.get(name);
       if (!card) return;
-      card.classList.remove("speaking", "next", "done");
+      card.classList.remove("pending", "speaking", "next", "done");
       if (st) card.classList.add(st);
     };
 
@@ -4397,7 +4398,10 @@
         const p = turn.querySelector("p");
         if (p) p.innerHTML = p.dataset.rich || escapeReadableHTML(p.dataset.say || "");
       });
-      avatars.forEach((card) => card.classList.add("done"));
+      avatars.forEach((card) => {
+        card.classList.remove("pending", "speaking", "next");
+        card.classList.add("done");
+      });
       if (conclusion) conclusion.classList.remove("pending", "reveal");
       return;
     }
@@ -4409,7 +4413,10 @@
       const p = turn.querySelector("p");
       if (p) p.textContent = "";
     });
-    avatars.forEach((card) => card.classList.remove("speaking", "next", "done"));
+    avatars.forEach((card) => {
+      card.classList.remove("speaking", "next", "done");
+      card.classList.add("pending");
+    });
     if (conclusion) { conclusion.classList.remove("reveal"); conclusion.classList.add("pending"); }
 
     const typeMessage = (p, done) => {
@@ -8762,60 +8769,25 @@
       metrics: response.metrics || [],
       turns: [
         {
-          name: "CEO",
-          role: "경영진 질문",
-          avatar: "CEO",
-          color: "#111827",
-          message: challenge.question,
-        },
-        {
-          name: "Strategy",
-          role: "권고",
+          name: "Strategy Agent",
+          role: "판단·권고",
           avatar: "STR",
           color: "#22C55E",
-          message: response.verdict,
+          message: `의사결정 질문: ${challenge.question} 권고: ${response.verdict}`,
         },
         {
-          name: "Data",
-          role: "근거",
-          avatar: "DATA",
+          name: "Data Auditor",
+          role: "근거·팩트 검증",
+          avatar: "AUD",
           color: "#06B6D4",
-          message: response.logic,
+          message: `검증 근거: ${response.logic} 원문 링크, 가격 데이터, O/X 게이트 중 확인 가능한 항목만 판단 근거로 사용합니다.`,
         },
         {
-          name: "Risk",
-          role: "리스크",
+          name: "Risk Agent",
+          role: "반론·실행 조건",
           avatar: "RISK",
           color: "#8B5CF6",
-          message: response.counter,
-        },
-        {
-          name: "Policy",
-          role: "규제·컴플라이언스",
-          avatar: "POL",
-          color: "#DB2777",
-          message: "중국 운영, 인재 확보, IP 접근권은 운영 유지와 기술 이전을 분리해 승인합니다. 규제 원문이나 내부 승인 조건이 없으면 확대형 실행은 Watch로 둡니다.",
-        },
-        {
-          name: "CFO",
-          role: "재무 조건",
-          avatar: "CFO",
-          color: "#F59E0B",
-          message: `${targetLabel} 안건은 승인 전 단계에서 수익성, 비용, 리스크를 분리해 봅니다. 재무 집행은 원문 계약, 가격, 투자비가 붙은 뒤 NPV/IRR로 재검증합니다.`,
-        },
-        {
-          name: "Auditor",
-          role: "근거 감사",
-          avatar: "AUD",
-          color: "#475569",
-        message: "근거 없는 추정은 결론 강도를 올리지 않습니다. 원문 링크, 기사 링크, 가격 데이터, O/X 게이트 중 확인 가능한 항목만 답변 기준으로 사용합니다.",
-        },
-        {
-          name: "Execution",
-          role: "다음 액션",
-          avatar: "OPS",
-          color: "#0EA5E9",
-          message: response.action,
+          message: `반론: ${response.counter} 실행 조건: ${response.action}`,
         },
       ],
       kpis: [],
@@ -8900,7 +8872,7 @@
       answerWrap.innerHTML = `
         <div class="agent-waiting">
           <strong>Agent 실행 대기</strong>
-          <p>CEO 챌린지를 선택한 뒤 Agent 실행을 누르면 Strategy, Data, Risk, Policy, CFO, Auditor가 순차 토론하고 결론을 제시합니다.</p>
+          <p>CEO 챌린지를 선택한 뒤 Agent 실행을 누르면 Strategy Agent, Data Auditor, Risk Agent 3명이 한 명씩 등장하고 말풍선으로 순차 답변합니다.</p>
         </div>
       `;
       return;

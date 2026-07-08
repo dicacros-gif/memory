@@ -5669,6 +5669,40 @@ body.sidebar-collapsed .sb-ico {
   animation: none;
 }
 
+.agent-debate.is-live-debate .agent-avatar-card {
+  animation: none;
+  opacity: 0;
+  transform: translateY(14px) scale(.94);
+  transition:
+    opacity .42s ease,
+    transform .48s cubic-bezier(.2, .8, .2, 1),
+    filter .35s ease,
+    border-color .18s,
+    box-shadow .18s,
+    background .18s;
+}
+
+.agent-debate.is-live-debate .agent-avatar-card.pending {
+  opacity: 0;
+  transform: translateY(16px) scale(.93);
+  pointer-events: none;
+}
+
+.agent-debate.is-live-debate .agent-avatar-card.next,
+.agent-debate.is-live-debate .agent-avatar-card.done {
+  opacity: 1;
+  transform: translateY(0) scale(1);
+}
+
+.agent-debate.is-live-debate .agent-avatar-card.speaking {
+  opacity: 1;
+  transform: translateY(-4px) scale(1.05);
+}
+
+.agent-debate.is-live-debate .agent-avatar-card::after {
+  animation: none;
+}
+
 /* three bouncing "typing" dots, only visible on the active speaker */
 .agent-person .agent-typing {
   position: absolute;
