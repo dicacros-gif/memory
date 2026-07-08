@@ -4031,7 +4031,7 @@
         role: "우선순위·최종 안건화",
         color: "#2D6BFF",
         stance: scenarioDecisionLabel(scenarioVerdictValue),
-        message: `의사결정 질문은 "${profile.question}" ${profile.ceo} ${scenario.ceo} 저는 이 안건을 **${selected?.verdict || "Watch"}**(${verdictMeaning})로 보고, ${scenario.label}에서는 ==${scenarioVerdictValue}==(${scenarioDecisionLabel(scenarioVerdictValue)})로 조정합니다.`,
+        message: `SKHY 경영진 질문은 "${profile.question}"입니다. ${profile.ceo} ${scenario.ceo} 현재 안건은 **${selected?.verdict || "Watch"}**(${verdictMeaning})이고, ${scenario.label} 가정에서는 ==${scenarioVerdictValue}==(${scenarioDecisionLabel(scenarioVerdictValue)})로 조정합니다.`,
       },
       {
         id: "cfo",
@@ -4041,7 +4041,7 @@
         role: "수익성·자본배분",
         color: "#00C2A8",
         stance: "투자/매출 분리",
-        message: `재무 반박: 이건 확정 ROI가 아니라 **자본배분 후보**입니다. ${profile.cfo} ${scenario.cfo} ==${priceFlip.label}(${priceFlip.trigger})==를 넘기 전까지 예산 확정은 보류하고, 저수익 SKU부터 회수 우선순위를 봅니다.`,
+        message: `재무 관점에서는 이 안건을 확정 ROI가 아니라 **자본배분 후보**로 봅니다. ${profile.cfo} ${scenario.cfo} ==${priceFlip.label}(${priceFlip.trigger})==를 넘기 전까지 예산 확정은 보류하고, 저수익 SKU부터 회수 우선순위를 정합니다.`,
       },
       {
         id: "cto",
@@ -4051,7 +4051,7 @@
         role: "기술·제품 로드맵",
         color: "#8B5CF6",
         stance: "병목 분리",
-        message: `기술 검토: ${profile.cto} ${scenario.cto} 제품 실행과 무관한 뉴스는 빼고 **${flipKpis.map((item) => item.label).slice(0, 3).join(" · ")}** 순서로 병목을 검증합니다. 수율·인증이 안 서면 수요가 있어도 물량 약속으로 연결하지 않습니다.`,
+        message: `기술 관점에서는 ${profile.cto} ${scenario.cto} 제품 실행과 무관한 신호는 제외하고 **${flipKpis.map((item) => item.label).slice(0, 3).join(" · ")}** 순서로 병목을 검증합니다. 수율·인증이 확인되지 않으면 수요가 있어도 물량 약속으로 연결하지 않습니다.`,
       },
       {
         id: "cso",
@@ -4061,7 +4061,7 @@
         role: "전략 옵션·우선순위",
         color: "#7C3AED",
         stance: "옵션 분리",
-        message: `전략 판단: ${profile.next} 선택지를 **즉시 실행 · 조건부 실사 · 옵션 유지**로 나누고, 가격·고객·정책 근거가 약한 축은 결론 강도를 낮춥니다. 우리가 이길 수 있는 축에만 자원을 집중합니다.`,
+        message: `전략 선택지는 **즉시 실행 · 조건부 실사 · 옵션 유지**로 나눕니다. ${profile.next} 가격·고객·정책 근거가 약한 축은 결론 강도를 낮추고, SKHY가 이길 수 있는 축에만 자원을 집중합니다.`,
       },
       {
         id: "coo",
@@ -4071,7 +4071,7 @@
         role: "운영·공급 실행성",
         color: "#0EA5E9",
         stance: "실행 가능성",
-        message: `운영 반박: **공급 · Fab · 고객 인증 · 재고 전환**이 동시에 맞아야 실행할 수 있습니다. 인증·출하 일정이 서지 않으면 수요가 있어도 ==단계 집행==으로 낮춰 CAPEX를 milestone로 쪼갭니다.`,
+        message: `운영 실행은 **공급 · Fab · 고객 인증 · 재고 전환**이 동시에 맞아야 가능합니다. 인증·출하 일정이 서지 않으면 수요가 있어도 ==단계 집행==으로 낮춰 CAPEX를 milestone로 쪼갭니다.`,
       },
       {
         id: "policy",
@@ -4081,7 +4081,7 @@
         role: "규제·Fab·정책자금",
         color: "#F59E0B",
         stance: "라이선스 게이트",
-        message: `Policy 게이트: ${profile.policy} ${scenario.policy} **운영 유지 · 캐파 확대 · 기술 업그레이드**는 같은 결재선에 두지 않습니다. ==규제 원문이 확인되지 않으면 Go가 아니라 Watch==입니다.`,
+        message: `정책 관점에서는 ${profile.policy} ${scenario.policy} **운영 유지 · 캐파 확대 · 기술 업그레이드**를 같은 결재선에 두지 않습니다. ==규제 원문이 확인되지 않으면 Go가 아니라 Watch==입니다.`,
       },
       {
         id: "market",
@@ -4091,7 +4091,7 @@
         role: "가격·고객·계약",
         color: "#10B981",
         stance: "가격 전이 확인",
-        message: `Market 검토: ${profile.market} ${scenario.market} **가격과 고객 신호가 같은 방향**일 때만 결론을 높입니다. spot만 흔들리면 확대가 아니라 ==재고 조정·계약 재협상==부터 검토합니다.`,
+        message: `시장 관점에서는 ${profile.market} ${scenario.market} **가격과 고객 신호가 같은 방향**일 때만 결론을 높입니다. spot만 흔들리면 확대가 아니라 ==재고 조정·계약 재협상==부터 검토합니다.`,
       },
       {
         id: "china",
@@ -4101,7 +4101,7 @@
         role: "중국 경쟁 신호",
         color: "#DB2777",
         stance: "중국 압력",
-        message: `중국 반박: CXMT·YMTC·XMC·JCET·Naura·AMEC를 한 묶음으로 보면 판단이 흐려집니다. **DRAM 가격 · NAND/eSSD · 패키징 · 장비 내재화**로 나눠 보고, ${scenario.label}에서는 ${scenario.id === "china-pressure" ? "==범용 가격 방어==를 최우선에 둡니다." : "현재 리스크로만 반영합니다."}`,
+        message: `중국 경쟁은 CXMT·YMTC·XMC·JCET·Naura·AMEC를 한 묶음으로 보지 않습니다. **DRAM 가격 · NAND/eSSD · 패키징 · 장비 내재화**로 분해하고, ${scenario.label}에서는 ${scenario.id === "china-pressure" ? "==범용 가격 방어==를 최우선에 둡니다." : "현재 리스크로만 반영합니다."}`,
       },
       {
         id: "risk",
@@ -4111,7 +4111,7 @@
         role: "판단 변경 KPI",
         color: "#F43F5E",
         stance: "KPI 게이트",
-        message: `Risk 게이트: 결론을 고정하지 않습니다. ==${primaryFlip.label}==이 ${primaryFlip.trigger}에 닿거나 핵심 KPI 2개 이상이 악화되면 **${primaryFlip.flip}**로 낮춰 즉시 재상정합니다.`,
+        message: `판단은 고정하지 않습니다. ==${primaryFlip.label}==이 ${primaryFlip.trigger}에 닿거나 핵심 KPI 2개 이상이 악화되면 **${primaryFlip.flip}**로 낮춰 즉시 재상정합니다.`,
       },
       {
         id: "devil",
@@ -4120,8 +4120,8 @@
         title: "Red Team · 반론 전담",
         role: "합의 반박·프리모템",
         color: "#111827",
-        stance: "일부러 반대",
-        message: `일부러 반대합니다(Pre-mortem): 12개월 뒤 이 **${selected?.verdict || "Watch"}** 결론이 틀렸다면 원인은 무엇입니까? ① 유리한 근거만 골랐을 수 있습니다(==확증편향==). ② ${topRelationText} 관계는 상관일 뿐 인과가 아닐 수 있습니다. ③ ${scenario.label}만 보고 반대 시나리오를 과소평가했을 수 있습니다. ==반증부터 제시하십시오==. 반증이 안 나오면 그게 오히려 위험 신호입니다.`,
+        stance: "레드팀",
+        message: `레드팀 질문입니다. 12개월 뒤 이 **${selected?.verdict || "Watch"}** 결론이 틀렸다면 원인은 무엇입니까? ① 유리한 근거만 골랐을 수 있습니다(==확증편향==). ② ${topRelationText} 관계는 상관일 뿐 인과가 아닐 수 있습니다. ③ ${scenario.label}만 보고 반대 시나리오를 과소평가했을 수 있습니다. 반증 조건이 명확하지 않으면 결론 강도를 낮춥니다.`,
       },
       {
         id: "audit",
@@ -4131,7 +4131,7 @@
         role: "팩트 검증·중복 제거",
         color: "#EF4444",
         stance: "근거 게이트",
-        message: `Auditor 확인: **원문과 가격 근거가 함께 붙은 항목**만 사실로 승격합니다. 수치와 해석을 분리하고, ${scenario.audit} ==근거가 부족하면 Go가 아니라 Watch/Hold==로 제한합니다.`,
+        message: `검증 기준은 **원문과 가격 근거가 함께 붙은 항목**입니다. 수치와 해석을 분리하고, ${scenario.audit} ==근거가 부족하면 Go가 아니라 Watch/Hold==로 제한합니다.`,
       },
     ];
   }
@@ -4423,9 +4423,9 @@
     const typeMessage = (p, done) => {
       const text = p ? p.dataset.say || "" : "";
       if (!p || !text) { done(); return; }
-      // Fill the whole message in ~0.9s regardless of length so long rebuttals stay snappy.
-      const totalMs = 900;
-      const step = Math.max(1, Math.ceil(text.length / 26));
+      // Keep the council readable: each expert types slowly enough to feel like a real exchange.
+      const totalMs = 1550;
+      const step = Math.max(1, Math.ceil(text.length / 42));
       const tick = Math.max(18, Math.round(totalMs / Math.ceil(text.length / step)));
       let shown = 0;
       const advance = () => {
@@ -4458,11 +4458,11 @@
         turn.classList.add("done");
         turn.querySelector(".speech-bubble")?.classList.remove("live");
         setCard(turnName(turn), "done");
-        schedule(() => speak(i + 1), 300);
+        schedule(() => speak(i + 1), 520);
       });
     };
 
-    schedule(() => speak(0), Math.min(900, avatars.length * 80 + 320));
+    schedule(() => speak(0), Math.min(1400, avatars.length * 115 + 480));
   }
 
   function memoryMarketNodes() {
@@ -5389,6 +5389,11 @@
       const edge = edges.find((item) => `edge:${item.id}` === memoryMarketFocusId);
       if (edge) return { kind: "edge", edge };
     }
+    const fallbackNode = nodes.find((item) => item.id === "skhy") || nodes[0];
+    if (fallbackNode) {
+      memoryMarketFocusId = `node:${fallbackNode.id}`;
+      return { kind: "node", node: fallbackNode };
+    }
     const fallback = edges[0];
     memoryMarketFocusId = fallback ? `edge:${fallback.id}` : "";
     return fallback ? { kind: "edge", edge: fallback } : null;
@@ -5507,9 +5512,20 @@
 
     const config = memoryMarketModeConfig(memoryMarketMode);
     const allModeEdges = memoryMarketRelations(memoryMarketMode, "all");
-    const edges = memoryMarketRelations(memoryMarketMode, memoryMarketEdgeType);
-    const nodes = memoryMarketNodesFor(edges);
-    const selected = memoryMarketSelected(edges, nodes);
+    const filteredEdges = memoryMarketRelations(memoryMarketMode, memoryMarketEdgeType);
+    const allNodes = memoryMarketNodesFor(allModeEdges);
+    const selected = memoryMarketSelected(filteredEdges, allNodes);
+    const focusedEdges = selected?.kind === "node"
+      ? filteredEdges.filter((edge) => edge.from === selected.node.id || edge.to === selected.node.id)
+      : selected?.kind === "edge"
+        ? filteredEdges.filter((edge) => edge.id === selected.edge.id)
+        : filteredEdges;
+    const edges = focusedEdges.length ? focusedEdges : filteredEdges;
+    const visibleNodeIds = new Set(edges.flatMap((edge) => [edge.from, edge.to]));
+    const nodes = allNodes.map((node) => ({
+      ...node,
+      dimmed: visibleNodeIds.size > 0 && !visibleNodeIds.has(node.id),
+    }));
     const totalEvidence = edges.reduce((sum, edge) => sum + edge.evidenceCount, 0);
     const totalPriceRows = edges.reduce((sum, edge) => sum + edge.priceRows, 0);
     if (meta) meta.textContent = `${config.title} · 관계 ${fmtNum(edges.length)}개 · 근거 ${fmtNum(totalEvidence)}개`;
@@ -5557,7 +5573,7 @@
       </article>
     `;
 
-    if (!edges.length) {
+    if (!filteredEdges.length) {
       graph.innerHTML = `<div class="empty">선택한 조건에 연결된 근거 있는 관계가 없습니다.</div>`;
       renderMemoryMarketDetail(null, edges);
       return;
@@ -5614,7 +5630,7 @@
           const nodeSize = Math.round(clamp(70 + nodeScore * .54 + Math.min(node.signal || 0, 34) * .36, 86, 154));
           const nodeMetric = node.metric || `${fmtNum(node.signal)}건`;
           return `
-            <button class="memory-node ${active ? "active" : ""}" type="button" draggable="false" data-memory-node="${escapeHTML(node.id)}" data-node-x="${Number(node.x).toFixed(2)}" data-node-y="${Number(node.y).toFixed(2)}" aria-label="${escapeHTML(node.name)} 관계 노드. 드래그하여 이동" title="드래그하여 이동 · 클릭하여 상세 보기" style="--node-x:${node.x}%; --node-y:${node.y}%; --node-size:${nodeSize}px; --node-score:${nodeScore}; --node-score-pct:${nodeScore}%; --local-accent:${categoryAccent(node.category)}; --delay:${index * 45}ms">
+            <button class="memory-node ${active ? "active" : ""}${node.dimmed ? " dimmed" : ""}" type="button" draggable="false" data-memory-node="${escapeHTML(node.id)}" data-node-x="${Number(node.x).toFixed(2)}" data-node-y="${Number(node.y).toFixed(2)}" aria-label="${escapeHTML(node.name)} 관계 노드. 드래그하여 이동" title="드래그하여 이동 · 클릭하여 상세 보기" style="--node-x:${node.x}%; --node-y:${node.y}%; --node-size:${nodeSize}px; --node-score:${nodeScore}; --node-score-pct:${nodeScore}%; --local-accent:${categoryAccent(node.category)}; --delay:${index * 45}ms">
               <b>${escapeHTML(node.name)}</b>
               <span>${escapeHTML(node.role)}</span>
               <em>${escapeHTML(nodeMetric)}</em>
@@ -7461,7 +7477,7 @@
         role: "의사결정 질문",
         color: "#111827",
         stance: scenario.conclusion,
-        message: `의사결정 질문: ${profile.question} 현재 결론은 ${active.decision.label}입니다. ${scenario.label} 가정에서는 ${scenario.ceo} 실행 판단: ${scenario.conclusion}. ${primaryFlip.label}(${primaryFlip.trigger})이 충족되면 판단을 재상정합니다.`,
+        message: `${profile.question} 현재 결론은 ${active.decision.label}입니다. ${scenario.label} 가정에서는 ${scenario.ceo} 실행 판단은 ${scenario.conclusion}입니다. ${primaryFlip.label}(${primaryFlip.trigger})이 충족되면 판단을 재상정합니다.`,
       },
       {
         id: "data",
@@ -7471,7 +7487,7 @@
         role: "가격·백테스트",
         color: "#06B6D4",
         stance: "실측 검증",
-        message: `근거 검증: ${profile.data} ${point} 기준 가격 series ${fmtNum(selectedSeriesCount)}개 중 관측 ${fmtNum(active.observations.length)}개만 계산했습니다. 사전 모멘텀 ${prior}, 이후 실측 ${actual}. ${scenario.label}에서는 ${scenario.market}`,
+        message: `${profile.data} ${point} 기준 가격 series ${fmtNum(selectedSeriesCount)}개 중 관측 ${fmtNum(active.observations.length)}개만 계산했습니다. 사전 모멘텀은 ${prior}, 이후 실측은 ${actual}입니다. ${scenario.label}에서는 ${scenario.market}`,
       },
       {
         id: "china",
@@ -7481,7 +7497,7 @@
         role: "중국 신호",
         color: "#8B5CF6",
         stance: "현재 리스크",
-        message: `중국 반론: ${profile.china} 연결 신호 ${fmtNum(active.chinaSignalCount)}건은 과거 판단에 소급 반영하지 않습니다. ${scenario.label}에서는 ${scenario.id === "china-pressure" ? "중국 신호를 Bear case로 상향 반영합니다." : "중국 신호를 현재 리스크로만 유지합니다."} ${chinaFlip.label} 기준이 충족되면 판단을 '${chinaFlip.flip}'로 재분류합니다.`,
+        message: `${profile.china} 연결 신호 ${fmtNum(active.chinaSignalCount)}건은 과거 판단에 소급 반영하지 않습니다. ${scenario.label}에서는 ${scenario.id === "china-pressure" ? "중국 신호를 Bear case로 상향 반영합니다." : "중국 신호를 현재 리스크로만 유지합니다."} ${chinaFlip.label} 기준이 충족되면 판단을 '${chinaFlip.flip}'로 재분류합니다.`,
       },
       {
         id: "cfo",
@@ -7491,7 +7507,7 @@
         role: "수익성·자본배분",
         color: "#F59E0B",
         stance: "자본 효율",
-        message: `CFO 판단: ${profile.cfo} ${scenario.cfo} 이 판단은 IRR/NPV가 아니라 실사 우선순위입니다. 실행 문구는 '${active.decision.action}'로 제한하고, 재검토 기준이 충족되면 예산안을 다시 냅니다.`,
+        message: `${profile.cfo} ${scenario.cfo} 이 판단은 IRR/NPV가 아니라 실사 우선순위입니다. 실행 문구는 '${active.decision.action}'로 제한하고, 재검토 기준이 충족되면 예산안을 다시 냅니다.`,
       },
       {
         id: "cto",
@@ -7501,7 +7517,7 @@
         role: "제품·기술 병목",
         color: "#7C3AED",
         stance: "제품군 분리",
-        message: `CTO 검토: HBM, 서버 DDR5, NAND/eSSD, 단말향 DRAM은 같은 결론으로 묶지 않습니다. 대상 제품군 ${(active.products || []).slice(0, 4).join(" · ") || productLabel}에서 수율, 인증, 패키징 병목이 풀릴 때만 확대 판단을 유지합니다.`,
+        message: `HBM, 서버 DDR5, NAND/eSSD, 단말향 DRAM은 같은 결론으로 묶지 않습니다. 대상 제품군 ${(active.products || []).slice(0, 4).join(" · ") || productLabel}에서 수율, 인증, 패키징 병목이 풀릴 때만 확대 판단을 유지합니다.`,
       },
       {
         id: "coo",
@@ -7511,7 +7527,7 @@
         role: "공급·운영 실행",
         color: "#0EA5E9",
         stance: "실행 조건",
-        message: `COO 실행조건: 선택 시점 이후 실측이 ${actual}이고 관측 ${fmtNum(active.observations.length)}개입니다. 공급 배분, 재고 회전, Fab continuity가 동시에 맞지 않으면 Go를 단계 집행으로 낮춥니다.`,
+        message: `선택 시점 이후 실측은 ${actual}, 관측은 ${fmtNum(active.observations.length)}개입니다. 공급 배분, 재고 회전, Fab continuity가 동시에 맞지 않으면 Go를 단계 집행으로 낮춥니다.`,
       },
       {
         id: "market",
@@ -7521,7 +7537,7 @@
         role: "가격·고객",
         color: "#10B981",
         stance: "수요 검증",
-        message: `Market 검토: ${profile.data} 가격은 사전 모멘텀 ${prior}와 이후 실측 ${actual}로 나눠 봅니다. ${priceFlip.label}(${priceFlip.trigger})이 충족되지 않으면 고객·가격 결론을 과도하게 올리지 않습니다.`,
+        message: `${profile.data} 가격은 사전 모멘텀 ${prior}와 이후 실측 ${actual}로 나눠 봅니다. ${priceFlip.label}(${priceFlip.trigger})이 충족되지 않으면 고객·가격 결론을 과도하게 올리지 않습니다.`,
       },
       {
         id: "risk",
@@ -7531,7 +7547,7 @@
         role: "하방 리스크",
         color: "#EF4444",
         stance: "No-Go 조건",
-        message: `Risk 게이트: ${profile.risk} ${scenario.policy} 하방 조건은 "${active.downside}"입니다. ${flipKpis.slice(0, 3).map((item) => item.label).join(" · ")} 중 2개 이상 악화되면 결론을 낮춥니다.`,
+        message: `${profile.risk} ${scenario.policy} 하방 조건은 "${active.downside}"입니다. ${flipKpis.slice(0, 3).map((item) => item.label).join(" · ")} 중 2개 이상 악화되면 결론을 낮춥니다.`,
       },
       {
         id: "devil",
@@ -7540,8 +7556,8 @@
         title: "Red Team · 반론 전담",
         role: "합의 반박·역백테스트",
         color: "#111827",
-        stance: "일부러 반대",
-        message: `일부러 반대합니다: 이 백테스트가 "지나간 판단을 지금 근거로 정당화"하는 사후확증(hindsight)일 수 있습니다. ① 사전 모멘텀 ${prior}와 이후 실측 ${actual}가 우연히 맞았을 가능성을 배제했습니까? ② 같은 신호로 반대 결론을 내면 어디서 깨집니까? ③ 표본이 ${fmtNum(active.observations?.length || 0)}개면 통계적으로 유의합니까? 승리 사례만 세지 말고 같은 규칙으로 틀린 시점도 제시하십시오.`,
+        stance: "레드팀",
+        message: `레드팀 질문입니다. 이 백테스트가 "지나간 판단을 지금 근거로 정당화"하는 사후확증일 수 있습니다. ① 사전 모멘텀 ${prior}와 이후 실측 ${actual}가 우연히 맞았을 가능성을 배제했습니까? ② 같은 신호로 반대 결론을 내면 어디서 깨집니까? ③ 표본이 ${fmtNum(active.observations?.length || 0)}개면 통계적으로 충분합니까? 같은 규칙으로 틀린 시점도 비교해야 합니다.`,
       },
       {
         id: "audit",
@@ -7551,7 +7567,7 @@
         role: "근거 감사",
         color: "#475569",
         stance: "팩트 게이트",
-        message: `Auditor 확인: 선택 시점 이후 실제 수집 가격만 백테스트에 씁니다. 중국 신호 ${fmtNum(active.chinaSignalCount)}건은 현재 overlay이며, 원문·가격 row가 없는 해석은 결론 강도를 올리지 않습니다.`,
+        message: `선택 시점 이후 실제 가격만 백테스트에 씁니다. 중국 신호 ${fmtNum(active.chinaSignalCount)}건은 현재 리스크이며, 원문·가격 row가 없는 해석은 결론 강도를 올리지 않습니다.`,
       },
       {
         id: "strategy",
@@ -8774,21 +8790,21 @@
           role: "판단·권고",
           avatar: "STR",
           color: "#22C55E",
-          message: `의사결정 질문: ${challenge.question} 권고: ${response.verdict}`,
+          message: `${challenge.question} 권고는 ${response.verdict}입니다. SKHY 관점에서는 고객·제품·정책 리스크 중 어느 축이 결론을 바꾸는지 먼저 정해야 합니다.`,
         },
         {
           name: "Data Auditor",
           role: "근거·팩트 검증",
           avatar: "AUD",
           color: "#06B6D4",
-          message: `검증 근거: ${response.logic} 원문 링크, 가격 데이터, O/X 게이트 중 확인 가능한 항목만 판단 근거로 사용합니다.`,
+          message: `${response.logic} 확인 가능한 원문 링크, 가격 데이터, O/X 게이트만 판단 근거로 사용하고 해석은 별도로 분리합니다.`,
         },
         {
           name: "Risk Agent",
           role: "반론·실행 조건",
           avatar: "RISK",
           color: "#8B5CF6",
-          message: `반론: ${response.counter} 실행 조건: ${response.action}`,
+          message: `${response.counter} 실행 조건은 ${response.action}`,
         },
       ],
       kpis: [],
@@ -11178,6 +11194,28 @@
     return pricePeriod !== "week";
   }
 
+  function priceObservationText(trend = {}) {
+    const period = activePricePeriod();
+    const points = Number(trend.pointCount || 0);
+    const days = Number(trend.coverageDays || 0);
+    if (points <= 0) {
+      return {
+        main: "히스토리 전",
+        sub: `선택 ${period.label} · 실제 누적 0개`,
+      };
+    }
+    const observed = points <= 1
+      ? "관측 1개"
+      : `관측 ${fmtNum(Math.max(1, Math.round(days)))}일`;
+    const start = trend.startTime ? shortKstDate(trend.startTime) : "";
+    const end = trend.endTime ? shortKstDate(trend.endTime) : "";
+    const range = start && end ? ` · ${start}~${end}` : "";
+    return {
+      main: observed,
+      sub: `선택 ${period.label} · 실제 누적 ${fmtNum(points)}개${range}`,
+    };
+  }
+
   function priceTrendEndEntry() {
     return priceUsesFullTrend() ? latestPriceDateEntry() || activePriceDateEntry() : activePriceDateEntry();
   }
@@ -11224,9 +11262,9 @@
     const coverageDays = start && end ? Math.max(0, (end.time - start.time) / 86400000) : 0;
     const coverageLabel = priceUsesFullTrend()
       ? coverageDays >= period.days
-        ? `${period.label} 과거 추세`
-        : `${period.label} 공개 누적 ${fmtNum(coverageDays)}일`
-      : `${period.label} 기준`;
+        ? `선택 ${period.label} 전체 관측`
+        : `선택 ${period.label} · 실제 관측 ${fmtNum(Math.round(coverageDays))}일`
+      : `선택 ${period.label}`;
     return {
       points: scoped.map((point) => Number(point.average)).filter((value) => !Number.isNaN(value)),
       average: end.average,
@@ -11342,7 +11380,7 @@
             <span>${escapeHTML(`${activePricePeriod().label} 가격 트렌드`)}</span>
             <strong>${escapeHTML(shortKstDate(rangeStart))} - ${escapeHTML(shortKstDate(rangeEnd))}</strong>
           </div>
-          <em>${escapeHTML(activePricePeriod().label)} · ${escapeHTML(filterLabel)}</em>
+          <em>${escapeHTML(activePricePeriod().label)} · ${escapeHTML(filterLabel)} · 실제 누적</em>
         </div>
         ${priceTrendSvg(visible)}
         <div class="price-trend-legend">
@@ -11428,7 +11466,7 @@
       const tr = el("tr");
       const trend = priceTrendForRow(row);
       const change = formatChange(trend);
-      const observedDays = Number.isFinite(Number(trend.coverageDays)) ? `${fmtNum(trend.coverageDays)}일` : "-";
+      const observation = priceObservationText(trend);
       tr.innerHTML = `
         <td><span class="source-tag">${escapeHTML(row.priceCategoryLabel || row.group || "")}</span></td>
         <td><span class="price-main">${escapeHTML(row.item)}</span></td>
@@ -11436,7 +11474,7 @@
         <td>${escapeHTML(trend.startRaw || formatPrice(trend.startAverage ?? trend.average))}</td>
         <td>${escapeHTML(trend.latestRaw || trend.averageRaw || formatPrice(trend.latestAverage ?? trend.average))}</td>
         <td><span class="change ${escapeHTML(trend.direction || "flat")}">${escapeHTML(change)}</span></td>
-        <td><span class="price-main">${escapeHTML(observedDays)}</span><span class="price-sub">${escapeHTML(trend.rangeMode || `${activePricePeriod().label} 기준`)}</span></td>
+        <td><span class="price-main">${escapeHTML(observation.main)}</span><span class="price-sub">${escapeHTML(observation.sub)}</span></td>
         <td></td>
       `;
       tr.children[7].appendChild(sparkline(trend.points, trend.direction));

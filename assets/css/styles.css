@@ -3965,6 +3965,17 @@ body.sidebar-collapsed .sb-ico {
     inset 0 1px 0 rgba(255, 255, 255, .42);
 }
 
+.memory-node.dimmed {
+  opacity: .46;
+  filter: saturate(.62) grayscale(.08);
+}
+
+.memory-node.dimmed:hover,
+.memory-node.dimmed.active {
+  opacity: 1;
+  filter: none;
+}
+
 .memory-node:hover::before,
 .memory-node.active::before {
   opacity: 1;
