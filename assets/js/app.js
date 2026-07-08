@@ -11215,12 +11215,19 @@
       };
     }
     const { scoped, start, end } = scopedPricePoints(points);
+    const period = activePricePeriod();
     const startValue = Number(start?.average);
     const endValue = Number(end?.average);
     const changePct = start && end && start.time !== end.time && startValue
       ? ((endValue - startValue) / startValue) * 100
       : Number(end.changePct || 0);
     const direction = changePct > 0 ? "up" : changePct < 0 ? "down" : "flat";
+    const coverageDays = start && end ? Math.max(1, Math.round((end.time - start.time) / 86400000) + 1) : 1;
+    const coverageLabel = priceUsesFullTrend()
+      ? coverageDays >= period.days
+        ? `${period.label} 과거 추세`
+        : `${period.label} 공개 누적 ${coverageDays}일`
+      : `${period.label} 기준`;
     return {
       points: scoped.map((point) => Number(point.average)).filter((value) => !Number.isNaN(value)),
       average: end.average,
@@ -11228,12 +11235,9 @@
       changePct,
       direction,
       rangeLabel: `${shortKstDate(start.time)}-${shortKstDate(end.time)}`,
-      // 분기/1년은 실제 수집 기간(최대 window)만큼 과거 포인트를 창으로 잡아 추세를 계산.
-      // 아직 수집 이력이 window보다 짧으면 확보된 구간만 표시(정직한 라벨).
-      rangeMode: priceUsesFullTrend()
-        ? `${activePricePeriod().label} 추세 · ${shortKstDate(start.time)}~${shortKstDate(end.time)}`
-        : `${activePricePeriod().label} 기준`,
+      rangeMode: `${coverageLabel} · ${shortKstDate(start.time)}~${shortKstDate(end.time)}`,
       pointCount: scoped.length,
+      coverageDays,
       startTime: start.time,
       endTime: end.time,
       plotPoints: scoped.map((point) => ({ time: point.time, value: Number(point.average) })).filter((point) => !Number.isNaN(point.value)),
@@ -11333,7 +11337,7 @@
       <article class="price-trend-card price-trend-wide">
         <div class="price-trend-head">
           <div>
-            <span>${escapeHTML(priceUsesFullTrend() ? "전체 트렌드" : "주간 트렌드")}</span>
+            <span>${escapeHTML(`${activePricePeriod().label} 가격 트렌드`)}</span>
             <strong>${escapeHTML(shortKstDate(rangeStart))} - ${escapeHTML(shortKstDate(rangeEnd))}</strong>
           </div>
           <em>${escapeHTML(activePricePeriod().label)} · ${escapeHTML(priceFilter === "all" ? "Spot+Contract" : priceFilter)}</em>
@@ -11350,7 +11354,7 @@
       <article class="price-trend-card">
         <span>상승/하락</span>
         <strong>${escapeHTML(`${up}/${down}`)}</strong>
-        <small>${escapeHTML(trends.length)}개 품목 · 실제 수집 히스토리</small>
+        <small>${escapeHTML(trends.length)}개 품목 · 공개 수집 히스토리</small>
       </article>
       <article class="price-trend-card">
         <span>최대 변동</span>

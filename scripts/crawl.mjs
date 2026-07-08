@@ -13,6 +13,8 @@ import { fileURLToPath } from "node:url";
 const __dirname = dirname(fileURLToPath(import.meta.url));
 const OUT = resolve(__dirname, "..", "data", "live.json");
 const HISTORY_OUT = resolve(__dirname, "..", "data", "price-history.json");
+const TRENDFORCE_ORIGIN = "https://www.trendforce.com";
+const PRICE_HISTORY_LOOKBACK_DAYS = 365;
 
 const BROWSER_UA =
   "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124.0.0.0 Safari/537.36";
@@ -580,6 +582,114 @@ function priceHistoryKey(section, row) {
   return `${section.id}::${row.item}`.toLowerCase();
 }
 
+function absoluteTrendForceUrl(url) {
+  if (!url) return "";
+  try {
+    return new URL(decodeEntities(url), TRENDFORCE_ORIGIN).toString();
+  } catch {
+    return "";
+  }
+}
+
+function priceChartUrlWithDays(url, days = PRICE_HISTORY_LOOKBACK_DAYS) {
+  const absolute = absoluteTrendForceUrl(url);
+  if (!absolute) return "";
+  try {
+    const parsed = new URL(absolute);
+    parsed.searchParams.set("days", String(days));
+    return parsed.toString();
+  } catch {
+    return absolute;
+  }
+}
+
+function extractHistoryUrl(html) {
+  const match = String(html || "").match(/openDxiChart\('([^']+)'\)/i);
+  return match ? absoluteTrendForceUrl(match[1]) : "";
+}
+
+function parseRemoteChartPoints(text, row = {}) {
+  const points = [];
+  const seen = new Set();
+  const add = (dateText, valueText) => {
+    const value = Number(String(valueText || "").replace(/,/g, ""));
+    if (!Number.isFinite(value)) return;
+    const date = new Date(dateText);
+    if (Number.isNaN(date.getTime())) return;
+    const key = `${date.toISOString().slice(0, 10)}::${value}`;
+    if (seen.has(key)) return;
+    seen.add(key);
+    points.push({
+      source: "TrendForce price chart",
+      sourceUpdate: date.toISOString().slice(0, 10),
+      date: date.toISOString(),
+      average: value,
+      averageRaw: value >= 100 ? value.toFixed(2) : value.toFixed(3).replace(/0+$/, "").replace(/\.$/, ""),
+      changePct: null,
+      changeRaw: "",
+      direction: row.direction || "flat",
+    });
+  };
+
+  // Common chart encodings: ["2026-07-01", 47.067], ["2026/07/01", 47.067]
+  for (const match of String(text || "").matchAll(/["'](\d{4}[-/]\d{1,2}[-/]\d{1,2})["']\s*,\s*["']?(-?\d+(?:\.\d+)?)["']?/g)) {
+    add(match[1].replace(/\//g, "-"), match[2]);
+  }
+
+  // Some chart libraries encode Date.UTC(2026, 6, 1), 47.067
+  for (const match of String(text || "").matchAll(/Date\.UTC\(\s*(\d{4})\s*,\s*(\d{1,2})\s*,\s*(\d{1,2})\s*\)\s*,\s*["']?(-?\d+(?:\.\d+)?)["']?/g)) {
+    const year = Number(match[1]);
+    const month = Number(match[2]) + 1;
+    const day = Number(match[3]);
+    add(`${year}-${String(month).padStart(2, "0")}-${String(day).padStart(2, "0")}`, match[4]);
+  }
+
+  return points.sort((a, b) => new Date(a.date).getTime() - new Date(b.date).getTime());
+}
+
+function mergePricePoints(existing = [], incoming = []) {
+  const byKey = new Map();
+  const keyFor = (point) => {
+    const rawTime = point.date || point.crawledAt || point.updatedAt || point.sourceUpdate || "";
+    const dateKey = rawTime ? String(rawTime).slice(0, 10) : "";
+    return `${dateKey}::${point.sourceUpdate || ""}`;
+  };
+  existing.forEach((point) => byKey.set(keyFor(point), point));
+  incoming.forEach((point) => byKey.set(keyFor(point), point));
+  return Array.from(byKey.values())
+    .sort((a, b) => new Date(a.date || a.crawledAt || a.sourceUpdate || 0).getTime() - new Date(b.date || b.crawledAt || b.sourceUpdate || 0).getTime())
+    .slice(-365);
+}
+
+async function fetchRemotePriceHistory(row, chartState) {
+  if (!row.historyUrl) return { status: "no-url", points: [] };
+  if (chartState.blocked) return { status: chartState.status || "login_required", points: [] };
+  const url = priceChartUrlWithDays(row.historyUrl, PRICE_HISTORY_LOOKBACK_DAYS);
+  if (!url) return { status: "no-url", points: [] };
+  try {
+    const res = await fetch(url, {
+      redirect: "manual",
+      headers: {
+        "User-Agent": BROWSER_UA,
+        Accept: "text/html,application/xhtml+xml,application/json,*/*;q=0.8",
+        Referer: row.sourceUrl || TRENDFORCE_ORIGIN,
+      },
+    });
+    const buf = await res.arrayBuffer();
+    const text = new TextDecoder("utf-8").decode(buf);
+    if (res.status === 401 || res.status === 403 || /\/login\?redirect=|Gold\+\s*Members|login/i.test(text.slice(0, 6000))) {
+      chartState.blocked = true;
+      chartState.status = res.status === 401 || res.status === 403 ? `login_required:${res.status}` : "login_required";
+      return { status: chartState.status, points: [], url };
+    }
+    if (!res.ok) return { status: `http:${res.status}`, points: [], url };
+    const points = parseRemoteChartPoints(text, row);
+    return { status: points.length ? "ok" : "empty", points, url };
+  } catch (error) {
+    return { status: `error:${error.message}`, points: [], url };
+  }
+}
+
 /* ---------- prices ---------- */
 function parsePriceTables(html, page) {
   const sections = [];
@@ -606,10 +716,11 @@ function parsePriceTables(html, page) {
     const rowRe = /<tr[^>]*>([\s\S]*?)<\/tr>/gi;
     let rowMatch;
     while ((rowMatch = rowRe.exec(table)) !== null) {
-      const cells = [...rowMatch[1].matchAll(/<td[^>]*>([\s\S]*?)<\/td>/gi)]
-        .map((match) => stripHTML(match[1]))
-        .filter(Boolean);
-      if (cells.length < 3) continue;
+      const rawCells = [...rowMatch[1].matchAll(/<td[^>]*>([\s\S]*?)<\/td>/gi)]
+        .map((match) => match[1]);
+      const cells = rawCells.map((cell) => stripHTML(cell));
+      if (rawCells.length < 3 || !cells[0]) continue;
+      const historyUrl = extractHistoryUrl(rowMatch[1]);
 
       const fields = headers.slice(1).map((label, index) => ({
         key: headerKey(label),
@@ -630,6 +741,8 @@ function parsePriceTables(html, page) {
         changePct: parseNumber(changeText),
         changeRaw: changeText,
         direction: directionFrom(changeText),
+        historyUrl,
+        historyDays: historyUrl ? parseNumber(new URL(historyUrl).searchParams.get("days")) : null,
         fields,
       });
     }
@@ -679,6 +792,8 @@ async function collectPrices() {
       changePct: row.changePct,
       changeRaw: row.changeRaw,
       direction: row.direction,
+      historyUrl: row.historyUrl,
+      historyDays: row.historyDays,
       fields: row.fields,
       lastUpdate: section.lastUpdate,
       sourceUrl: section.sourceUrl,
@@ -711,6 +826,10 @@ async function updatePriceHistory(prices) {
   const history = await loadPriceHistory();
   let changed = false;
   const crawledAt = new Date().toISOString();
+  const chartState = { blocked: false, status: "not_checked" };
+  let chartRows = 0;
+  let chartPoints = 0;
+  let chartStatus = "not_checked";
 
   for (const section of prices.sections || []) {
     for (const row of section.rows || []) {
@@ -730,6 +849,39 @@ async function updatePriceHistory(prices) {
       current.sectionTitle = section.title;
       current.group = section.group;
       current.sourceUrl = section.sourceUrl;
+      current.historyUrl = row.historyUrl || current.historyUrl || "";
+      current.historyDays = row.historyDays || current.historyDays || null;
+
+      if (row.historyUrl) {
+        const remote = await fetchRemotePriceHistory({ ...row, sourceUrl: section.sourceUrl }, chartState);
+        chartStatus = remote.status || chartStatus;
+        if (remote.points.length) {
+          chartRows += 1;
+          chartPoints += remote.points.length;
+          const merged = mergePricePoints(current.points, remote.points);
+          if (JSON.stringify(merged) !== JSON.stringify(current.points)) {
+            current.points = merged;
+            changed = true;
+          }
+          current.remoteHistory = {
+            status: "ok",
+            source: "TrendForce priceChart",
+            sourceUrl: remote.url,
+            pointCount: remote.points.length,
+            lookbackDays: PRICE_HISTORY_LOOKBACK_DAYS,
+          };
+        } else if (!current.remoteHistory || current.remoteHistory.status !== remote.status) {
+          current.remoteHistory = {
+            status: remote.status,
+            source: "TrendForce priceChart",
+            sourceUrl: remote.url || priceChartUrlWithDays(row.historyUrl, PRICE_HISTORY_LOOKBACK_DAYS),
+            pointCount: 0,
+            lookbackDays: PRICE_HISTORY_LOOKBACK_DAYS,
+            fallback: "public-table daily accumulation",
+          };
+          changed = true;
+        }
+      }
 
       const point = {
         sourceUpdate: section.lastUpdate || "",
@@ -749,7 +901,7 @@ async function updatePriceHistory(prices) {
 
       if (isNewPoint) {
         current.points.push(point);
-        current.points = current.points.slice(-180);
+        current.points = mergePricePoints(current.points, []).slice(-365);
         changed = true;
       }
       history.items[key] = current;
@@ -763,6 +915,11 @@ async function updatePriceHistory(prices) {
     note("가격히스토리", true, "신규 포인트 저장");
   } else {
     note("가격히스토리", true, "변경 없음");
+  }
+  if (chartRows) {
+    note("TrendForce차트", true, `${chartRows}개 품목 · ${chartPoints}개 과거 포인트 병합`);
+  } else if (chartStatus !== "not_checked") {
+    note("TrendForce차트", true, `${chartStatus} · 공개 테이블 일일 누적 사용`);
   }
 
   return history;
