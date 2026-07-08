@@ -3791,8 +3791,8 @@ body.sidebar-collapsed .sb-ico {
 
 .memory-network {
   position: relative;
-  min-height: 320px;
-  height: clamp(360px, 39vw, 520px);
+  min-height: 440px;
+  height: clamp(460px, 46vw, 640px);
   overflow: hidden;
   border: 1px solid color-mix(in srgb, var(--ink) 8%, var(--line));
   border-radius: 12px;
@@ -3907,7 +3907,7 @@ body.sidebar-collapsed .sb-ico {
     radial-gradient(circle at 50% 62%, color-mix(in srgb, var(--local-accent, var(--accent)) 42%, transparent), transparent 62%),
     linear-gradient(145deg, color-mix(in srgb, var(--local-accent, var(--accent)) 92%, #fff), color-mix(in srgb, var(--local-accent, var(--accent)) 84%, #08111f));
   color: var(--ink);
-  padding: 14px 12px;
+  padding: 10px 9px;
   text-align: center;
   transform: translate(-50%, -50%) scale(.94);
   opacity: 0;
@@ -3959,7 +3959,7 @@ body.sidebar-collapsed .sb-ico {
     radial-gradient(circle at 35% 22%, rgba(255,255,255,.62), transparent 24%),
     linear-gradient(145deg, color-mix(in srgb, var(--local-accent, var(--accent)) 82%, #fff), var(--local-accent, var(--accent)));
   color: #fff;
-  transform: translate(-50%, -50%) scale(1.09);
+  transform: translate(-50%, -50%) scale(1.06);
   box-shadow:
     0 24px 56px color-mix(in srgb, var(--local-accent, var(--accent)) 40%, transparent),
     0 0 0 8px color-mix(in srgb, var(--local-accent, var(--accent)) 12%, transparent),
@@ -8360,6 +8360,51 @@ body.sidebar-collapsed .sb-ico {
   font-weight: 950;
 }
 
+.market-peer-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 8px;
+  margin-top: 10px;
+}
+
+.market-peer-card {
+  min-width: 0;
+  display: grid;
+  gap: 3px;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  background: var(--panel-2);
+  color: var(--ink);
+  padding: 10px;
+  text-decoration: none;
+  transition: background .18s ease, color .18s ease, border-color .18s ease, transform .18s ease;
+}
+
+.market-peer-card:hover {
+  transform: translateY(-1px);
+  border-color: var(--accent);
+  background: var(--accent);
+  color: var(--accent-contrast);
+}
+
+.market-peer-card span,
+.market-peer-card small {
+  color: var(--muted);
+  font-size: 10px;
+  font-weight: 850;
+}
+
+.market-peer-card strong {
+  color: inherit;
+  font-size: 16px;
+  font-weight: 950;
+}
+
+.market-peer-card:hover span,
+.market-peer-card:hover small {
+  color: color-mix(in srgb, var(--accent-contrast) 82%, transparent);
+}
+
 .price-trend-card {
   min-width: 0;
   border: 1px solid var(--line);
@@ -9299,6 +9344,10 @@ body.sidebar-collapsed .sb-ico {
     grid-template-columns: repeat(2, minmax(0, 1fr));
   }
 
+  .market-peer-grid {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+
   .price-trend-wide {
     grid-column: span 2;
   }
@@ -9814,7 +9863,8 @@ body.sidebar-collapsed .sb-ico {
   }
 
   .price-mece-summary,
-  .market-index-readout {
+  .market-index-readout,
+  .market-peer-grid {
     grid-template-columns: 1fr;
   }
 

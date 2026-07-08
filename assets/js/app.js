@@ -4504,26 +4504,35 @@
 
   function memoryMarketNodes() {
     return [
-      { id: "skhy", name: "SKHY", role: "HBM·DRAM·NAND 중심", metric: "HBM 53~62%", category: "hbm", x: 50, y: 50, scale: 104 },
-      { id: "nvidia-ai", name: "NVIDIA·AI 고객", role: "HBM 수요·매출", metric: "AI demand", category: "aidemand", x: 52, y: 10, scale: 94 },
-      { id: "tsmc", name: "TSMC", role: "HBM4 base die", metric: "CoWoS", category: "packaging", x: 24, y: 22, scale: 80 },
-      { id: "samsung", name: "Samsung", role: "HBM·DRAM 경쟁", metric: "HBM 21%", category: "hbm", x: 13, y: 46, scale: 88 },
-      { id: "micron", name: "Micron", role: "HBM·DRAM 경쟁", metric: "DRAM 22%", category: "dram", x: 86, y: 38, scale: 82 },
-      { id: "cxmt", name: "CXMT", role: "중국 DRAM 가격 압력", metric: "8% rev / ~10% cap", category: "dram", x: 16, y: 70, scale: 90 },
-      { id: "ymtc", name: "YMTC", role: "중국 NAND·eSSD", metric: "NAND 13%", category: "nand", x: 72, y: 76, scale: 88 },
-      { id: "kioxia-sandisk", name: "Kioxia·SanDisk", role: "NAND peer", metric: "BiCS", category: "nand", x: 90, y: 64, scale: 74 },
-      { id: "solidigm", name: "Solidigm", role: "eSSD·Dalian 방어", metric: "eSSD", category: "operations", x: 56, y: 72, scale: 74 },
-      { id: "jcet-xmc", name: "JCET·XMC·TFME", role: "첨단 패키징 우회", metric: "OSAT", category: "packaging", x: 42, y: 90, scale: 78 },
-      { id: "naura-amec", name: "Naura·AMEC·ACM", role: "장비 국산화", metric: "Etch/Depo/세정", category: "equipment", x: 14, y: 90, scale: 76 },
-      { id: "smic", name: "SMIC", role: "중국 파운드리·base die", metric: "Foundry", category: "china", x: 28, y: 72, scale: 74 },
-      { id: "china-fund", name: "Big Fund·지방정부", role: "정책 자본", metric: "Capital", category: "geopolitics", x: 86, y: 90, scale: 84 },
-      { id: "china-cloud", name: "중국 클라우드/OEM", role: "내수 고객", metric: "Demand", category: "china", x: 87, y: 15, scale: 86 },
-      { id: "cxl-startups", name: "CXL·Photonics", role: "Post-HBM 옵션", metric: "Option", category: "cxl", x: 30, y: 8, scale: 70 },
-      { id: "global-equip", name: "ASML·AMAT·Lam·TEL", role: "글로벌 前공정 장비", metric: "EUV·Etch·Depo", category: "equipment", x: 8, y: 22, scale: 80 },
-      { id: "kr-supply", name: "한미·주성·원익IPS", role: "국내 소부장", metric: "TC본더·장비", category: "equipment", x: 33, y: 38, scale: 72 },
-      { id: "materials", name: "소재·전구체·PR", role: "소재·소모품", metric: "전구체·포토레지스트", category: "operations", x: 8, y: 52, scale: 68 },
-      { id: "eda-ip", name: "Synopsys·Cadence·Arm", role: "설계 IP·EDA", metric: "Base die·컨트롤러 IP", category: "cxl", x: 46, y: 16, scale: 68 },
-      { id: "substrate", name: "기판·인터포저", role: "ABF·2.5D 기판", metric: "Substrate", category: "packaging", x: 70, y: 52, scale: 68 },
+      { id: "skhy", name: "SKHY", role: "HBM·DRAM·NAND 중심", metric: "HBM 53~62%", category: "hbm", x: 50, y: 45, scale: 100 },
+      { id: "nvidia-ai", name: "NVIDIA·AI 고객", role: "HBM 수요·매출", metric: "AI demand", category: "aidemand", x: 55, y: 10, scale: 90 },
+      { id: "tsmc", name: "TSMC", role: "HBM4 base die", metric: "CoWoS", category: "packaging", x: 22, y: 30, scale: 76 },
+      { id: "samsung", name: "Samsung", role: "HBM·DRAM 경쟁", metric: "HBM 21%", category: "hbm", x: 15, y: 57, scale: 84 },
+      { id: "micron", name: "Micron", role: "HBM·DRAM 경쟁", metric: "DRAM 22%", category: "dram", x: 68, y: 58, scale: 80 },
+      { id: "cxmt", name: "CXMT", role: "중국 DRAM 가격 압력", metric: "8% rev / ~10% cap", category: "dram", x: 31, y: 63, scale: 86 },
+      { id: "ymtc", name: "YMTC", role: "중국 NAND·eSSD", metric: "NAND 13%", category: "nand", x: 84, y: 77, scale: 84 },
+      { id: "kioxia-sandisk", name: "Kioxia·SanDisk", role: "NAND peer", metric: "BiCS", category: "nand", x: 86, y: 56, scale: 70 },
+      { id: "solidigm", name: "Solidigm", role: "eSSD·Dalian 방어", metric: "eSSD", category: "operations", x: 70, y: 79, scale: 70 },
+      { id: "jcet-xmc", name: "JCET·XMC·TFME", role: "첨단 패키징 우회", metric: "OSAT", category: "packaging", x: 59, y: 93, scale: 70 },
+      { id: "jcet", name: "JCET", role: "XDFOI·OSAT", metric: "Packaging", category: "packaging", x: 31, y: 92, scale: 62 },
+      { id: "xmc", name: "XMC", role: "우한 패키징·HBM 후보", metric: "Wuhan", category: "packaging", x: 44, y: 92, scale: 64 },
+      { id: "tfme", name: "TFME", role: "중국 OSAT 보완축", metric: "OSAT", category: "packaging", x: 7, y: 92, scale: 58 },
+      { id: "naura-amec", name: "Naura·AMEC·ACM", role: "장비 국산화", metric: "Etch/Depo/세정", category: "equipment", x: 18, y: 92, scale: 66 },
+      { id: "naura", name: "Naura", role: "증착·식각·세정 장비", metric: "Equipment", category: "equipment", x: 21, y: 80, scale: 64 },
+      { id: "amec", name: "AMEC", role: "식각 장비", metric: "Etch", category: "equipment", x: 34, y: 82, scale: 62 },
+      { id: "acm", name: "ACM Research", role: "세정·도금 장비", metric: "Clean", category: "equipment", x: 8, y: 78, scale: 60 },
+      { id: "smic", name: "SMIC", role: "중국 파운드리·base die", metric: "Foundry", category: "china", x: 45, y: 66, scale: 68 },
+      { id: "china-fund", name: "Big Fund·지방정부", role: "정책 자본", metric: "Capital", category: "geopolitics", x: 94, y: 88, scale: 78 },
+      { id: "china-cloud", name: "중국 클라우드/OEM", role: "내수 고객", metric: "Demand", category: "china", x: 86, y: 12, scale: 80 },
+      { id: "tencent", name: "Tencent", role: "서버 DRAM 장기계약", metric: "Customer", category: "china", x: 72, y: 11, scale: 68 },
+      { id: "alibaba-bytedance", name: "Alibaba·ByteDance", role: "중국 AI/클라우드 수요", metric: "Demand", category: "china", x: 93, y: 32, scale: 66 },
+      { id: "huawei-ascend", name: "Huawei Ascend", role: "중국 AI 가속기", metric: "AI stack", category: "china", x: 80, y: 33, scale: 72 },
+      { id: "cxl-startups", name: "CXL·Photonics", role: "Post-HBM 옵션", metric: "Option", category: "cxl", x: 22, y: 10, scale: 64 },
+      { id: "global-equip", name: "ASML·AMAT·Lam·TEL", role: "글로벌 前공정 장비", metric: "EUV·Etch·Depo", category: "equipment", x: 8, y: 15, scale: 72 },
+      { id: "kr-supply", name: "한미·주성·원익IPS", role: "국내 소부장", metric: "TC본더·장비", category: "equipment", x: 36, y: 32, scale: 66 },
+      { id: "materials", name: "소재·전구체·PR", role: "소재·소모품", metric: "전구체·포토레지스트", category: "operations", x: 8, y: 36, scale: 62 },
+      { id: "eda-ip", name: "Synopsys·Cadence·Arm", role: "설계 IP·EDA", metric: "Base die·컨트롤러 IP", category: "cxl", x: 38, y: 13, scale: 62 },
+      { id: "substrate", name: "기판·인터포저", role: "ABF·2.5D 기판", metric: "Substrate", category: "packaging", x: 65, y: 34, scale: 62 },
     ];
   }
 
@@ -5163,6 +5172,118 @@
         match: [["samsung"], ["equipment", "euv", "capex"]], priceTerms: [], categories: ["equipment", "hbm"], weight: 60, flowIndex: 60,
         interpretation: "삼성에서 글로벌 장비사로 나가는 선도 같은 상류로, 장비 할당 경쟁을 만듭니다.",
       },
+      {
+        id: "ymtc-xmc-packaging", mode: "competitive", from: "ymtc", to: "xmc", type: "파트너십", structural: true,
+        label: "Xtacking·우한 패키징 결합",
+        terms: ["ymtc", "xmc", "wuhan xinxin", "xtacking", "packaging", "hbm"],
+        match: [["ymtc", "yangtze", "xmc", "wuhan xinxin"], ["xtacking", "packaging", "hbm", "nand"]],
+        priceTerms: ["nand", "ssd", "wafer"], categories: ["nand", "packaging", "china"], weight: 74,
+        interpretation: "YMTC-XMC 관계는 NAND와 패키징을 묶어 중국형 IDM 구조로 확장되는 축입니다.",
+      },
+      {
+        id: "jcet-china-ai-packaging", mode: "competitive", from: "jcet", to: "huawei-ascend", type: "공급", structural: true,
+        label: "중국 AI 가속기 패키징 공급",
+        terms: ["jcet", "xdfi", "xdfoi", "huawei", "ascend", "advanced packaging", "hbm"],
+        match: [["jcet", "xdfi", "xdfoi", "packaging"], ["huawei", "ascend", "ai"]],
+        priceTerms: [], categories: ["packaging", "china", "aidemand"], weight: 70,
+        interpretation: "JCET는 중국 AI 가속기 후공정 우회로를 제공하는 OSAT 축으로 봅니다.",
+      },
+      {
+        id: "tfme-osat-option", mode: "competitive", from: "tfme", to: "china-cloud", type: "공급", structural: true,
+        label: "중국 OSAT 보완 공급",
+        terms: ["tfme", "advanced packaging", "china cloud", "ai accelerator", "osat"],
+        match: [["tfme", "osat", "packaging"], ["china", "cloud", "ai"]],
+        priceTerms: [], categories: ["packaging", "china"], weight: 56,
+        interpretation: "TFME는 JCET·XMC와 함께 중국 OSAT 병목을 완화하는 보완 옵션입니다.",
+      },
+      {
+        id: "naura-ymtc-equipment", mode: "competitive", from: "naura", to: "ymtc", type: "공급", structural: true,
+        label: "증착·식각·세정 장비 내재화",
+        terms: ["naura", "ymtc", "equipment", "deposition", "etch", "cleaning", "localization"],
+        match: [["naura"], ["ymtc", "nand", "equipment", "localization"]],
+        priceTerms: ["nand", "wafer"], categories: ["equipment", "nand", "china"], weight: 78,
+        interpretation: "Naura는 YMTC NAND 장비 국산화의 넓은 장비 포트폴리오 축입니다.",
+      },
+      {
+        id: "amec-ymtc-etch", mode: "competitive", from: "amec", to: "ymtc", type: "공급", structural: true,
+        label: "고종횡비 식각 장비 공급",
+        terms: ["amec", "ymtc", "etch", "nand", "3d nand", "equipment"],
+        match: [["amec"], ["ymtc", "etch", "3d nand", "equipment"]],
+        priceTerms: ["nand", "wafer"], categories: ["equipment", "nand", "china"], weight: 76,
+        interpretation: "AMEC는 3D NAND 고종횡비 식각 병목에서 중국 내재화 속도를 좌우합니다.",
+      },
+      {
+        id: "acm-ymtc-clean", mode: "competitive", from: "acm", to: "ymtc", type: "공급", structural: true,
+        label: "세정·도금 공정 장비 공급",
+        terms: ["acm research", "ymtc", "cleaning", "plating", "equipment", "entity list"],
+        match: [["acm", "acm research"], ["ymtc", "cleaning", "plating", "equipment"]],
+        priceTerms: ["nand", "wafer"], categories: ["equipment", "nand", "china"], weight: 68,
+        interpretation: "ACM Research는 세정·도금 축이지만 Entity List 리스크와 함께 봅니다.",
+      },
+      {
+        id: "cxmt-tencent-server-dram", mode: "competitive", from: "cxmt", to: "tencent", type: "공급", structural: true,
+        label: "서버 DRAM 장기 공급계약",
+        terms: ["cxmt", "tencent", "server dram", "20 billion yuan", "supply deal", "contract"],
+        match: [["cxmt", "changxin"], ["tencent", "server dram", "contract"]],
+        priceTerms: ["dram", "ddr5"], categories: ["dram", "china", "aidemand"], weight: 88,
+        interpretation: "CXMT-Tencent 관계는 중국 서버 DRAM 가격 협상력 변화의 확정 고객 신호입니다.",
+      },
+      {
+        id: "cxmt-alibaba-bytedance-watch", mode: "competitive", from: "cxmt", to: "alibaba-bytedance", type: "공급", structural: true,
+        label: "추가 빅테크 승인 Watch",
+        terms: ["cxmt", "alibaba", "bytedance", "server dram", "approved vendor"],
+        match: [["cxmt", "changxin"], ["alibaba", "bytedance", "server dram", "approved vendor"]],
+        priceTerms: ["dram", "ddr5"], categories: ["dram", "china", "aidemand"], weight: 72,
+        interpretation: "Alibaba·ByteDance 추가 승인 여부는 Tencent 이후 CXMT 침투율을 판단하는 Watch 관계입니다.",
+      },
+      {
+        id: "huawei-ymtc-memory-stack", mode: "competitive", from: "huawei-ascend", to: "ymtc", type: "공급", structural: true,
+        label: "중국 AI 가속기 NAND·스토리지 수요",
+        terms: ["huawei", "ascend", "ymtc", "nand", "essd", "ai accelerator"],
+        match: [["huawei", "ascend"], ["ymtc", "nand", "essd", "storage"]],
+        priceTerms: ["nand", "ssd"], categories: ["nand", "china", "aidemand"], weight: 64,
+        interpretation: "Huawei Ascend 수요는 YMTC eSSD·스토리지 침투를 높이는 중국 내수 수요 축입니다.",
+      },
+      {
+        id: "china-fund-cxmt-money", mode: "money", from: "china-fund", to: "cxmt", type: "투자", structural: true,
+        label: "IPO·정책자본 기반 DRAM 증설",
+        terms: ["cxmt", "ipo", "star market", "big fund", "capital", "capacity"],
+        match: [["cxmt", "changxin"], ["ipo", "capital", "capacity", "fund"]],
+        priceTerms: ["dram", "ddr5"], categories: ["dram", "china", "geopolitics"], weight: 82, flowIndex: 82,
+        interpretation: "중국 정책자본에서 CXMT로 들어가는 선은 DRAM 캐파 확대와 가격 하방 압력으로 전이됩니다.",
+      },
+      {
+        id: "china-fund-ymtc-money", mode: "money", from: "china-fund", to: "ymtc", type: "투자", structural: true,
+        label: "우한 Fab·Xtacking 증설 자본",
+        terms: ["ymtc", "wuhan", "phase 3", "big fund", "capital", "nand"],
+        match: [["ymtc", "yangtze"], ["wuhan", "phase 3", "capital", "fund", "nand"]],
+        priceTerms: ["nand", "wafer", "ssd"], categories: ["nand", "china", "geopolitics"], weight: 78, flowIndex: 78,
+        interpretation: "중국 정책자본에서 YMTC로 들어가는 선은 NAND 공급량과 eSSD 침투의 선행 신호입니다.",
+      },
+      {
+        id: "china-fund-equipment-money", mode: "money", from: "china-fund", to: "naura", type: "투자", structural: true,
+        label: "장비 국산화 자본 투입",
+        terms: ["big fund", "naura", "amec", "acm", "equipment localization", "capital"],
+        match: [["big fund", "capital", "localization"], ["naura", "amec", "acm", "equipment"]],
+        priceTerms: [], categories: ["equipment", "china", "geopolitics"], weight: 74, flowIndex: 74,
+        interpretation: "정책자본이 Naura·AMEC·ACM으로 흘러가면 제재 내성이 높아지고 YMTC/CXMT ramp 리스크가 커집니다.",
+      },
+      {
+        id: "tencent-cxmt-money", mode: "money", from: "tencent", to: "cxmt", type: "매출", structural: true,
+        label: "서버 DRAM 매출 락인",
+        terms: ["tencent", "cxmt", "server dram", "revenue", "contract"],
+        match: [["tencent"], ["cxmt", "server dram", "contract", "revenue"]],
+        priceTerms: ["dram", "ddr5"], categories: ["dram", "china", "aidemand"], weight: 86, flowIndex: 86,
+        interpretation: "Tencent에서 CXMT로 들어가는 매출선은 중국 서버 DRAM 고객 락인을 의미합니다.",
+      },
+      {
+        id: "huawei-osat-money", mode: "money", from: "huawei-ascend", to: "jcet", type: "매출", structural: true,
+        label: "AI 가속기 후공정 매출",
+        terms: ["huawei", "ascend", "jcet", "packaging", "revenue"],
+        match: [["huawei", "ascend"], ["jcet", "packaging", "revenue"]],
+        priceTerms: [], categories: ["packaging", "china", "aidemand"], weight: 62, flowIndex: 62,
+        interpretation: "Huawei Ascend에서 JCET로 흐르는 매출선은 중국 AI 후공정 내재화의 수익화 축입니다.",
+      },
     ];
   }
 
@@ -5418,6 +5539,7 @@
   }
 
   function memoryMarketSelected(edges = [], nodes = []) {
+    if (!memoryMarketFocusId) return null;
     if (memoryMarketFocusId.startsWith("node:")) {
       const node = nodes.find((item) => `node:${item.id}` === memoryMarketFocusId);
       if (node) return { kind: "node", node };
@@ -5426,14 +5548,8 @@
       const edge = edges.find((item) => `edge:${item.id}` === memoryMarketFocusId);
       if (edge) return { kind: "edge", edge };
     }
-    const fallbackNode = nodes.find((item) => item.id === "skhy") || nodes[0];
-    if (fallbackNode) {
-      memoryMarketFocusId = `node:${fallbackNode.id}`;
-      return { kind: "node", node: fallbackNode };
-    }
-    const fallback = edges[0];
-    memoryMarketFocusId = fallback ? `edge:${fallback.id}` : "";
-    return fallback ? { kind: "edge", edge: fallback } : null;
+    memoryMarketFocusId = "";
+    return null;
   }
 
   function memoryMarketEvidenceLinks(edge = {}, limit = 4) {
@@ -5463,7 +5579,12 @@
     const detail = $("#memoryMarketDetail");
     if (!detail) return;
     if (!selected) {
-      detail.innerHTML = `<div class="empty">관계 신호가 없습니다.</div>`;
+      detail.innerHTML = `
+        <div class="empty">
+          <strong>업체 원을 선택하세요.</strong><br>
+          전체 밸류체인 노드를 먼저 보여주고, 원을 클릭하면 해당 업체의 경쟁·파트너십·투자·공급·매출 관계선만 표시합니다.
+        </div>
+      `;
       return;
     }
 
@@ -5556,16 +5677,17 @@
       ? filteredEdges.filter((edge) => edge.from === selected.node.id || edge.to === selected.node.id)
       : selected?.kind === "edge"
         ? filteredEdges.filter((edge) => edge.id === selected.edge.id)
-        : filteredEdges;
-    const edges = focusedEdges.length ? focusedEdges : filteredEdges;
+        : [];
+    const edges = focusedEdges;
     const visibleNodeIds = new Set(edges.flatMap((edge) => [edge.from, edge.to]));
     const nodes = allNodes.map((node) => ({
       ...node,
       dimmed: visibleNodeIds.size > 0 && !visibleNodeIds.has(node.id),
     }));
-    const totalEvidence = edges.reduce((sum, edge) => sum + edge.evidenceCount, 0);
-    const totalPriceRows = edges.reduce((sum, edge) => sum + edge.priceRows, 0);
-    if (meta) meta.textContent = `${config.title} · 관계 ${fmtNum(edges.length)}개 · 근거 ${fmtNum(totalEvidence)}개`;
+    const totalEvidence = filteredEdges.reduce((sum, edge) => sum + edge.evidenceCount, 0);
+    const totalPriceRows = filteredEdges.reduce((sum, edge) => sum + edge.priceRows, 0);
+    const selectedEvidence = edges.reduce((sum, edge) => sum + edge.evidenceCount, 0);
+    if (meta) meta.textContent = `${config.title} · 전체 관계 ${fmtNum(filteredEdges.length)}개 · 선택 관계 ${fmtNum(edges.length)}개 · 근거 ${fmtNum(totalEvidence)}개`;
     tabs.style.setProperty("--mode-accent", config.accent);
     summary.style.setProperty("--mode-accent", config.accent);
     graph.style.setProperty("--mode-accent", config.accent);
@@ -5588,8 +5710,8 @@
     summary.innerHTML = `
       <article class="memory-map-kpi">
         <span>${escapeHTML(config.title)}</span>
-        <strong>${countHTML(edges.length)}</strong>
-        <small>선택 조건 관계</small>
+        <strong>${countHTML(filteredEdges.length)}</strong>
+        <small>전체 관계</small>
       </article>
       <article class="memory-map-kpi">
         <span>근거</span>
@@ -5600,6 +5722,11 @@
         <span>가격 rows</span>
         <strong>${countHTML(totalPriceRows)}</strong>
         <small>Spot/Contract 연결</small>
+      </article>
+      <article class="memory-map-kpi">
+        <span>선택 노드</span>
+        <strong>${countHTML(edges.length)}</strong>
+        <small>${selected ? `선택 근거 ${fmtNum(selectedEvidence)}개` : "원을 클릭하면 선 표시"}</small>
       </article>
       <article class="memory-map-type-filter">
         <span>관계 필터</span>
@@ -5624,7 +5751,7 @@
           ${config.subtitle ? `<strong>${escapeHTML(config.subtitle)}</strong>` : ""}
         </div>
         <div class="memory-map-intro-actions">
-          <em>노드를 드래그하여 이동 · 클릭하면 상세 관계 보기</em>
+          <em>원을 클릭하면 연결선 표시 · 드래그로 배치 조정</em>
           <button type="button" data-memory-reset>배치 초기화</button>
         </div>
       </div>
@@ -5664,7 +5791,7 @@
         ${nodes.map((node, index) => {
           const active = selected?.kind === "node" && selected.node.id === node.id;
           const nodeScore = clamp(node.score || node.scale || 60, 10, 100);
-          const nodeSize = Math.round(clamp(70 + nodeScore * .54 + Math.min(node.signal || 0, 34) * .36, 86, 154));
+          const nodeSize = Math.round(clamp(48 + nodeScore * .36 + Math.min(node.signal || 0, 34) * .18, 58, 118));
           const nodeMetric = node.metric || `${fmtNum(node.signal)}건`;
           return `
             <button class="memory-node ${active ? "active" : ""}${node.dimmed ? " dimmed" : ""}" type="button" draggable="false" data-memory-node="${escapeHTML(node.id)}" data-node-x="${Number(node.x).toFixed(2)}" data-node-y="${Number(node.y).toFixed(2)}" aria-label="${escapeHTML(node.name)} 관계 노드. 드래그하여 이동" title="드래그하여 이동 · 클릭하여 상세 보기" style="--node-x:${node.x}%; --node-y:${node.y}%; --node-size:${nodeSize}px; --node-score:${nodeScore}; --node-score-pct:${nodeScore}%; --local-accent:${categoryAccent(node.category)}; --delay:${index * 45}ms">
@@ -5677,7 +5804,7 @@
         <div class="memory-drag-hint">노드 드래그 · 관계선 클릭 · 원 크기 = 연결 신뢰도</div>
       </div>
       <div class="memory-relation-strip">
-        ${edges.slice(0, 8).map((edge, index) => `
+        ${(edges.length ? edges : filteredEdges).slice(0, 8).map((edge, index) => `
           <button class="${selected?.kind === "edge" && selected.edge.id === edge.id ? "active" : ""}" type="button" data-memory-edge="${escapeHTML(edge.id)}" style="--edge-color:${memoryMarketEdgeColor(edge.type)}; animation-delay:${index * 45}ms">
             <span>${escapeHTML(edge.type)}</span>
             <strong>${escapeHTML(memoryMarketRelationTitle(edge))}</strong>
@@ -11557,6 +11684,10 @@
     }
     const period = activePricePeriod();
     const observation = priceObservationText(trend);
+    const peers = ["skhy-stock", "samsung-stock", "micron-stock"]
+      .map((id) => ({ id, index: marketIndexData(id) }))
+      .map((item) => ({ ...item, trend: marketIndexTrend(item.index || {}) }))
+      .filter((item) => item.index && item.trend && (item.trend.plotPoints || []).length >= 2);
     panel.hidden = false;
     panel.innerHTML = `
       <article class="market-index-card">
@@ -11578,6 +11709,20 @@
           <span>${escapeHTML(index.source || "Yahoo Finance chart API")}</span>
           ${index.sourceUrl ? `<a href="${escapeHTML(index.sourceUrl)}" target="_blank" rel="noopener">SOX 원문</a>` : ""}
         </div>
+        ${peers.length ? `
+          <div class="market-peer-grid">
+            ${peers.map((item) => {
+              const peerObs = priceObservationText(item.trend);
+              return `
+                <a class="market-peer-card" href="${escapeHTML(item.index.sourceUrl || "#")}" target="_blank" rel="noopener">
+                  <span>${escapeHTML(item.index.labelKo || item.index.label || item.index.symbol)}</span>
+                  <strong>${escapeHTML(formatChange(item.trend))}</strong>
+                  <small>${escapeHTML(formatPrice(item.trend.latestAverage))} · ${escapeHTML(peerObs.sub)}</small>
+                </a>
+              `;
+            }).join("")}
+          </div>
+        ` : ""}
       </article>
     `;
   }

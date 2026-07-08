@@ -5,6 +5,7 @@
   "type": "module",
   "scripts": {
     "crawl": "node scripts/crawl.mjs",
-    "check": "node --check scripts/crawl.mjs && node --check assets/js/app.js"
+    "audit": "node scripts/audit-content.mjs",
+    "check": "node --check scripts/crawl.mjs && node --check assets/js/app.js && node --check scripts/audit-content.mjs && node scripts/audit-content.mjs"
   }
 }
