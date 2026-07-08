@@ -868,7 +868,6 @@
       serverLift: 0,
       storageLift: 0,
       terminalLift: 0,
-      legacyLift: 0,
       riskLabel: "기준",
     },
     {
@@ -880,7 +879,6 @@
       serverLift: 4.6,
       storageLift: 2.5,
       terminalLift: -1.3,
-      legacyLift: -2.2,
       riskLabel: "상방",
     },
     {
@@ -892,16 +890,15 @@
       serverLift: -4.8,
       storageLift: -3.0,
       terminalLift: 3.4,
-      legacyLift: 3.8,
       riskLabel: "하방",
     },
   ];
   const SKHYNIX_PRODUCT_PROJECTION = [
     {
       id: "ai-server",
-      label: "AI 서버향",
+      label: "AI서버·하이퍼스케일러",
       short: "AI 서버",
-      demand: "Server",
+      demand: "AI Server",
       title: "HBM·DDR5·CXL 중심 프리미엄 서버 포트폴리오",
       startShare: 48,
       endShare: 58,
@@ -919,9 +916,9 @@
     },
     {
       id: "dc-storage",
-      label: "데이터센터 스토리지향",
+      label: "데이터센터 스토리지",
       short: "eSSD",
-      demand: "Server",
+      demand: "Data Center",
       title: "eSSD·QLC·Solidigm 기반 서버 스토리지 포트폴리오",
       startShare: 21,
       endShare: 22,
@@ -938,30 +935,50 @@
       risk: "YMTC가 eSSD 고객 인증과 내수 보조금을 동시에 확보하면 가격보다 고객 침투 속도가 더 큰 변수입니다.",
     },
     {
-      id: "mobile-pc",
-      label: "모바일·PC 단말향",
-      short: "단말",
-      demand: "Terminal",
-      title: "LPDDR·UFS·Client SSD 중심 단말 포트폴리오",
-      startShare: 21,
-      endShare: 12,
+      id: "mobile-smartphone",
+      label: "모바일·스마트폰",
+      short: "모바일",
+      demand: "Mobile",
+      title: "LPDDR·UFS·Mobile NAND 중심 스마트폰 포트폴리오",
+      startShare: 14,
+      endShare: 8,
       baseScore: 61,
-      sensitivity: .82,
+      sensitivity: .78,
       linkedCategories: ["dram", "nand", "china"],
-      products: ["LPDDR5X/LPDDR6", "UFS", "Client SSD", "Mobile NAND"],
-      keywords: ["lpddr", "lpddr5x", "lpddr6", "ufs", "client ssd", "pc ssd", "smartphone", "mobile", "pc", "notebook", "terminal"],
-      priceTerms: ["nand", "ssd", "module", "dram", "lpddr"],
-      thesis: "단말향은 절대 수요가 남아 있지만, AI 서버 우선 투자와 중국 범용 메모리 물량 공세로 비중이 낮아지는 방어형 축입니다.",
-      assumptions: ["스마트폰/PC 교체 수요는 완만", "LPDDR·UFS는 원가 경쟁 압력 확대", "서버향 캐파 우선 배분 지속"],
-      triggers: ["LPDDR5X/6 고객 인증", "client SSD contract 가격", "CXMT DDR5/LPDDR 뉴스", "YMTC 모바일 NAND 공급"],
-      actions: ["고부가 모바일 제품 선별", "범용 단말 제품 cash-cost floor 관리", "중국 가격 하방에 대한 빠른 믹스 조정"],
-      risk: "CXMT와 YMTC의 범용 제품 공급이 늘면 단말향 ASP는 구조적으로 압박받을 가능성이 큽니다.",
+      products: ["LPDDR5X/LPDDR6", "UFS", "Mobile NAND", "On-device AI Memory"],
+      keywords: ["lpddr", "lpddr5x", "lpddr6", "ufs", "smartphone", "mobile", "on-device ai", "terminal"],
+      priceTerms: ["module", "dram", "lpddr", "nand", "ufs"],
+      thesis: "모바일은 온디바이스 AI로 대당 탑재량은 늘지만, AI 서버와 데이터센터 스토리지에 캐파가 우선 배분되며 전체 믹스 비중은 낮아지는 축입니다.",
+      assumptions: ["스마트폰 출하는 완만", "온디바이스 AI로 기본 DRAM/UFS 용량 상향", "CXMT·YMTC 범용 단말 제품 가격 압력 지속"],
+      triggers: ["LPDDR5X/6 고객 인증", "UFS/NAND 가격", "CXMT LPDDR 뉴스", "YMTC 모바일 NAND 공급"],
+      actions: ["고부가 모바일 제품 선별", "범용 모바일 SKU cash-cost floor 관리", "중국 가격 하방에 대한 빠른 믹스 조정"],
+      risk: "CXMT와 YMTC가 범용 모바일 제품 공급을 늘리면 LPDDR/UFS ASP가 구조적으로 압박받을 수 있습니다.",
+    },
+    {
+      id: "pc-appliance",
+      label: "PC·가전",
+      short: "PC/가전",
+      demand: "Terminal",
+      title: "AI PC·Client SSD·가전 엣지 메모리 방어 포트폴리오",
+      startShare: 12,
+      endShare: 7,
+      baseScore: 55,
+      sensitivity: .72,
+      linkedCategories: ["dram", "nand", "aidemand", "china"],
+      products: ["DDR5/LPCAMM", "Client SSD", "Embedded NAND", "Appliance Edge Memory"],
+      keywords: ["pc", "notebook", "ai pc", "client ssd", "lpcamm", "appliance", "edge ai", "embedded", "terminal"],
+      priceTerms: ["ssd", "module", "dram", "client", "pc-client"],
+      thesis: "PC·가전은 AI PC와 엣지 AI가 상방을 만들지만, 교체주기와 가격 민감도가 커서 방어적 현금흐름 관리가 우선입니다.",
+      assumptions: ["AI PC 침투율은 점진 상승", "client SSD·DDR5 가격 민감도 높음", "가전 엣지 AI는 아직 저용량 중심"],
+      triggers: ["AI PC 출하", "client SSD contract 가격", "LPCAMM 채택", "PC OEM 재고"],
+      actions: ["AI PC용 고부가 SKU 선별", "client SSD 재고·가격 floor 관리", "가전 엣지 메모리는 옵션형으로 유지"],
+      risk: "PC 교체 사이클이 지연되면 출하와 탑재량 상향이 동시에 둔화되어 믹스 개선 속도가 낮아질 수 있습니다.",
     },
     {
       id: "auto-edge",
-      label: "오토·엣지향",
+      label: "오토·엣지",
       short: "오토/엣지",
-      demand: "Terminal",
+      demand: "Auto/Edge",
       title: "차량·엣지 AI용 고신뢰 메모리 옵션",
       startShare: 5,
       endShare: 5,
@@ -976,26 +993,6 @@
       triggers: ["차량용 메모리 인증", "엣지 AI SoC 채택", "산업용 장기계약", "온디바이스 AI 수요"],
       actions: ["장기공급 계약", "고신뢰 제품 포트폴리오", "엣지 AI 고객 개발"],
       risk: "인증 주기가 길어 단기 매출 기여는 제한적이며, 범용 단말과 섞어 보면 성장성이 과소평가될 수 있습니다.",
-    },
-    {
-      id: "legacy",
-      label: "레거시·범용 방어",
-      short: "레거시",
-      demand: "Commodity",
-      title: "DDR4·범용 NAND·가격 하방 방어 포트폴리오",
-      startShare: 5,
-      endShare: 3,
-      baseScore: 48,
-      sensitivity: .65,
-      linkedCategories: ["dram", "nand", "china", "geopolitics"],
-      products: ["DDR4", "Commodity DRAM", "Retail SSD", "Wafer/Legacy NAND"],
-      keywords: ["ddr4", "legacy", "commodity", "spot price", "contract price", "cxmt", "ymtc", "oversupply", "wafer"],
-      priceTerms: ["dram", "nand", "wafer", "spot", "contract"],
-      thesis: "레거시는 성장 축이 아니라 현금흐름과 고객 유지 방어 축입니다. 중국 물량 공세가 가장 먼저 가격을 흔드는 영역입니다.",
-      assumptions: ["중국 보조금 물량 확대", "범용 DRAM/NAND 가격 변동성 확대", "고마진 서버향 캐파 우선 배분"],
-      triggers: ["CXMT 캐파 증설", "YMTC wafer/SSD 가격", "Spot-contract spread", "BIS/수출통제 반작용"],
-      actions: ["cash-cost floor", "재고 회전 관리", "저수익 SKU 축소"],
-      risk: "가격 방어가 실패하면 서버향 성장에도 전사 믹스 개선 속도가 둔화될 수 있습니다.",
     },
   ];
   const EXEC_DECISION_PRODUCTS = [
@@ -1683,7 +1680,7 @@
       desc: "백테스트, 경영전략, 제품군 프로젝션, ROI 시나리오",
       cadence: "Decision lab",
       jump: "executive-decision",
-      sections: ["executive-decision", "management-strategy", "strategic-investment-decision", "numbers", "projection"],
+      sections: ["executive-decision", "management-strategy", "strategic-investment-decision", "numbers", "projection", "hyperscaler-demand"],
     },
     {
       id: "market",
@@ -1691,7 +1688,7 @@
       desc: "가격·수급 변화와 기사 흐름",
       cadence: "Market data",
       jump: "prices",
-      sections: ["prices", "hyperscaler-demand", "news"],
+      sections: ["prices", "news"],
     },
     {
       id: "competitors",
@@ -1851,6 +1848,7 @@
     "china-talent-strategy": "중국 인력 전략",
     numbers: "정량 분석",
     projection: "제품군 프로젝션",
+    "hyperscaler-demand": "메모리 수요 예측",
     "memory-market-map": "경쟁·돈의 흐름",
     "ai-matrix": "AI 메모리 매트릭스",
     "china-dynamics": "중국 반도체 다이내믹스",
@@ -1873,6 +1871,7 @@
     "strategic-investment-decision",
     "numbers",
     "projection",
+    "hyperscaler-demand",
     "prices",
     "news",
     "policy-makers",
@@ -1904,6 +1903,7 @@
     "strategic-investment-decision": "executive-decision",
     numbers: "executive-decision",
     projection: "executive-decision",
+    "hyperscaler-demand": "executive-decision",
     response: "executive-decision",
     categories: "china-nand",
   };
@@ -2071,7 +2071,7 @@
       ],
     },
     {
-      id: "auto", label: "자동차", accent: "#0EA5E9",
+      id: "auto", label: "오토·엣지", accent: "#0EA5E9",
       units: 93, unitLabel: "백만 대", unitStep: "차량 생산", unitNote: "글로벌 신차 2026E (EV+ICE)",
       memPerUnit: 6, memLabel: "GB/대", memName: "차량용 DRAM+NAND", memNote: "ADAS L2+·IVI·존아키텍처 평균",
       skhyShare: 26, shareNote: "오토향 점유율 가정",
@@ -2156,6 +2156,15 @@
       ],
     },
   ];
+  const FORECAST_CATEGORY_ORDER = ["hyperscaler", "datacenter", "mobile", "pc", "auto"];
+
+  function orderedForecastCategories() {
+    return FORECAST_CATEGORIES.slice().sort((a, b) => {
+      const ai = FORECAST_CATEGORY_ORDER.indexOf(a.id);
+      const bi = FORECAST_CATEGORY_ORDER.indexOf(b.id);
+      return (ai === -1 ? 999 : ai) - (bi === -1 ? 999 : bi);
+    });
+  }
 
   function forecastCategoryData(id = forecastCategory) {
     return FORECAST_CATEGORIES.find((c) => c.id === id) || FORECAST_CATEGORIES[0];
@@ -2205,7 +2214,7 @@
     if (panelMeta) panelMeta.textContent = `${category.driverLabel} · ${category.techLabel} · ${category.pullLabel}`;
 
     if (catTabs) {
-      catTabs.innerHTML = FORECAST_CATEGORIES.map((c) => `
+      catTabs.innerHTML = orderedForecastCategories().map((c) => `
         <button type="button" class="${c.id === forecastCategory ? "active" : ""}" data-forecast-cat="${escapeHTML(c.id)}" style="--cat-accent:${c.accent}">
           <strong>${escapeHTML(c.label)}</strong>
         </button>
@@ -5843,11 +5852,11 @@
       {
         id: "projection-server-share",
         kind: "Projection",
-        title: "5년차 서버향 제품 믹스",
+        title: "5년차 AI·데이터센터 제품 믹스",
         value: projectionGroupShare(projectionRows, ["ai-server", "dc-storage"]),
         suffix: "%",
         decimals: 1,
-        note: "AI 서버향 HBM/DDR5/CXL과 데이터센터 eSSD를 합산한 지수형 믹스",
+        note: "AI서버·하이퍼스케일러와 데이터센터 스토리지를 합산한 지수형 믹스",
         badge: "30M+5Y",
         statusClass: "watch",
         source: "evidence-based projection",
@@ -5857,11 +5866,11 @@
       {
         id: "projection-terminal-share",
         kind: "Projection",
-        title: "5년차 단말향 제품 믹스",
-        value: projectionGroupShare(projectionRows, ["mobile-pc", "auto-edge"]),
+        title: "5년차 단말·오토 제품 믹스",
+        value: projectionGroupShare(projectionRows, ["mobile-smartphone", "pc-appliance", "auto-edge"]),
         suffix: "%",
         decimals: 1,
-        note: "모바일/PC 단말과 오토·엣지 고신뢰 제품을 합산한 방어형 수요처",
+        note: "모바일·스마트폰, PC·가전, 오토·엣지 제품군을 합산한 방어형 수요처",
         badge: "30M+5Y",
         statusClass: "watch",
         source: "evidence-based projection",
@@ -9218,7 +9227,7 @@
     return SKHYNIX_PRODUCT_PROJECTION.map((segment) => {
       const signals = projectionSignalCount(segment);
       const priceMomentum = projectionPriceMomentum(segment);
-      const chinaPenalty = segment.id === "legacy" || segment.id === "mobile-pc" ? Math.min(chinaPressure, 100) * .06 : 0;
+      const chinaPenalty = ["mobile-smartphone", "pc-appliance"].includes(segment.id) ? Math.min(chinaPressure, 100) * .06 : 0;
       const storageChinaWatch = segment.id === "dc-storage" ? Math.min(axisSignalCount(CHINA_DYNAMIC_AXES.find((axis) => axis.id === "equipment")), 60) * .05 : 0;
       const score = clamp(segment.baseScore + Math.min(signals, 160) * .08 + priceMomentum * 2 - chinaPenalty + storageChinaWatch);
       return {
@@ -9248,9 +9257,9 @@
     const weights = {
       "ai-server": { neutral: .35, best: 7.2, worst: -5.6, signal: .95, price: .42, china: -.3 },
       "dc-storage": { neutral: .15, best: 3.9, worst: -3.1, signal: .58, price: .36, china: -.55 },
-      "mobile-pc": { neutral: -.2, best: -2.2, worst: 2.6, signal: .18, price: .18, china: .52 },
+      "mobile-smartphone": { neutral: -.16, best: -1.8, worst: 2.2, signal: .18, price: .18, china: .46 },
+      "pc-appliance": { neutral: -.28, best: -2.6, worst: 3.0, signal: .16, price: .2, china: .62 },
       "auto-edge": { neutral: .05, best: 1.1, worst: 1.3, signal: .22, price: .14, china: .12 },
-      legacy: { neutral: -.45, best: -5.0, worst: 5.8, signal: .22, price: .24, china: .88 },
     };
     return weights[segmentId] || { neutral: 0, best: .5, worst: -.5, signal: .2, price: .2, china: 0 };
   }
@@ -9259,8 +9268,7 @@
     if (!segment || !scenario) return 0;
     if (segment.id === "ai-server") return scenario.serverLift || 0;
     if (segment.id === "dc-storage") return scenario.storageLift || 0;
-    if (segment.id === "mobile-pc" || segment.id === "auto-edge") return scenario.terminalLift || 0;
-    if (segment.id === "legacy") return scenario.legacyLift || 0;
+    if (["mobile-smartphone", "pc-appliance", "auto-edge"].includes(segment.id)) return scenario.terminalLift || 0;
     return 0;
   }
 
@@ -9366,7 +9374,9 @@
 
   function projectionDriverCards(segments, series, scenario = projectionScenarioData()) {
     const serverScore = (segments.find((item) => item.id === "ai-server")?.score || 0) * .58 + (segments.find((item) => item.id === "dc-storage")?.score || 0) * .42;
-    const terminalScore = (segments.find((item) => item.id === "mobile-pc")?.score || 0) * .72 + (segments.find((item) => item.id === "auto-edge")?.score || 0) * .28;
+    const terminalScore = (segments.find((item) => item.id === "mobile-smartphone")?.score || 0) * .42
+      + (segments.find((item) => item.id === "pc-appliance")?.score || 0) * .34
+      + (segments.find((item) => item.id === "auto-edge")?.score || 0) * .24;
     const chinaSignals = axisSignalCount(CHINA_DYNAMIC_AXES.find((axis) => axis.id === "capacity")) + axisSignalCount(CHINA_DYNAMIC_AXES.find((axis) => axis.id === "equipment")) + rawNews().filter(isChinaArticle).length;
     const nandMomentum = projectionPriceMomentum(segments.find((item) => item.id === "dc-storage") || {});
     return [
@@ -9377,18 +9387,18 @@
         note: scenario.tone,
       },
       {
-        label: "서버향 프리미엄",
+        label: "AI·데이터센터 프리미엄",
         value: projectionGroupShare(series, ["ai-server", "dc-storage"]),
         suffix: "%",
         score: clamp(serverScore),
         note: "HBM·서버 DRAM·eSSD가 전사 믹스를 끌어올리는 축",
       },
       {
-        label: "단말향 방어",
-        value: projectionGroupShare(series, ["mobile-pc", "auto-edge"]),
+        label: "단말·오토 방어",
+        value: projectionGroupShare(series, ["mobile-smartphone", "pc-appliance", "auto-edge"]),
         suffix: "%",
         score: clamp(terminalScore),
-        note: "LPDDR·UFS·client SSD는 가격 방어와 고부가 선별이 핵심",
+        note: "모바일·PC·가전·오토/엣지의 가격 방어와 고부가 선별이 핵심",
       },
       {
         label: "중국 가격 압력",
@@ -9466,7 +9476,7 @@
     if (!segments.some((item) => item.id === projectionFocusId)) projectionFocusId = segments[0]?.id || "ai-server";
     const selected = segments.find((item) => item.id === projectionFocusId) || segments[0];
     const serverShare = projectionGroupShare(series, ["ai-server", "dc-storage"]);
-    const terminalShare = projectionGroupShare(series, ["mobile-pc", "auto-edge"]);
+    const terminalShare = projectionGroupShare(series, ["mobile-smartphone", "pc-appliance", "auto-edge"]);
     const bestServerShare = projectionGroupShare(scenarioMap.best || series, ["ai-server", "dc-storage"]);
     const worstServerShare = projectionGroupShare(scenarioMap.worst || series, ["ai-server", "dc-storage"]);
     const totalSignals = segments.reduce((sum, segment) => sum + segment.signals, 0);
@@ -9476,9 +9486,9 @@
 
     const summaryCards = [
       { label: "선택 케이스", value: scenario.label, note: scenario.tone },
-      { label: "서버향 믹스", value: serverShare, note: "모델 산출 · AI 서버 + 데이터센터 스토리지", suffix: "%", decimals: 1 },
-      { label: "단말향 믹스", value: terminalShare, note: "모델 산출 · 모바일/PC + 오토/엣지", suffix: "%", decimals: 1 },
-      { label: "서버향 3-case 범위", value: `${fmtNum(worstServerShare, 1)}~${fmtNum(bestServerShare, 1)}%`, note: "Worst~Best 5Y 민감도 · 실측 아님" },
+      { label: "AI·데이터센터 믹스", value: serverShare, note: "모델 산출 · AI서버·하이퍼스케일러 + 데이터센터 스토리지", suffix: "%", decimals: 1 },
+      { label: "단말·오토 믹스", value: terminalShare, note: "모델 산출 · 모바일 + PC/가전 + 오토/엣지", suffix: "%", decimals: 1 },
+      { label: "AI·데이터센터 3-case 범위", value: `${fmtNum(worstServerShare, 1)}~${fmtNum(bestServerShare, 1)}%`, note: "Worst~Best 5Y 민감도 · 실측 아님" },
     ];
     summary.innerHTML = summaryCards.map((card) => `
       <article class="projection-stat reveal">
@@ -9503,7 +9513,7 @@
     scenarioChart.innerHTML = projectionTrajectorySVG(scenarioMap, selected, horizon) + PROJECTION_SCENARIOS.map((item, index) => {
       const itemSeries = scenarioMap[item.id] || series;
       const itemServer = projectionGroupShare(itemSeries, ["ai-server", "dc-storage"]);
-      const itemTerminal = projectionGroupShare(itemSeries, ["mobile-pc", "auto-edge"]);
+      const itemTerminal = projectionGroupShare(itemSeries, ["mobile-smartphone", "pc-appliance", "auto-edge"]);
       const itemSelected = selected ? projectionShare(itemSeries, selected.id, -1) : 0;
       return `
         <button class="scenario-card reveal${item.id === scenario.id ? " active" : ""}" type="button" data-projection-scenario="${escapeHTML(item.id)}" style="animation-delay:${index * 35}ms">
@@ -9514,12 +9524,12 @@
           <p>${escapeHTML(item.tone)} · 모델 산출값</p>
           <div class="scenario-bars">
             <div class="scenario-bar-row">
-              <span>서버향</span>
+              <span>AI·데이터센터</span>
               <i><b data-fill-to="${clamp(itemServer)}" style="width:0%"></b></i>
               <em>${fmtNum(itemServer, 1)}%</em>
             </div>
             <div class="scenario-bar-row">
-              <span>단말향</span>
+              <span>단말·오토</span>
               <i><b data-fill-to="${clamp(itemTerminal)}" style="width:0%"></b></i>
               <em>${fmtNum(itemTerminal, 1)}%</em>
             </div>
