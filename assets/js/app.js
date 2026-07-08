@@ -1940,6 +1940,7 @@
   let chinaInfraSite = "wuxi";
   let chinaTalentScenarioId = "operate";
   let ceoChallengeId = "roi-credibility";
+  let ceoChallengeAgentRan = false;
   let ceoChallengeTargetId = "scenario";
   let cLevelCouncilDecisionId = "";
   let cLevelCouncilRan = false;
@@ -8876,42 +8877,54 @@
     tabs.querySelectorAll("[data-talent-scenario]").forEach((btn) => {
       btn.addEventListener("click", () => {
         chinaTalentScenarioId = btn.dataset.talentScenario;
+        ceoChallengeAgentRan = false;
         renderChinaTalentStrategy();
       });
     });
   }
 
   function renderCeoChallengeAgent(scenario = activeChinaTalentScenario()) {
-    const targetSelect = $("#ceoChallengeTarget");
     const challengeSelect = $("#ceoChallengeSelect");
+    const runButton = $("#ceoChallengeRun");
     const answerWrap = $("#ceoAgentAnswer");
     const meta = $("#ceoChallengeMeta");
-    if (!targetSelect || !challengeSelect || !answerWrap) return;
+    if (!challengeSelect || !answerWrap) return;
 
     const targets = chinaTalentChallengeTargets(scenario);
-    const target = activeCeoChallengeTarget(scenario);
+    const target = targets.find((item) => item.id === "scenario") || targets[0];
+    ceoChallengeTargetId = target.id;
     const challenge = activeCeoChallenge();
     const response = buildCeoAgentAnswer(scenario, target, challenge);
     const accent = categoryAccent(scenario.accentCategory);
 
-    targetSelect.innerHTML = targets.map((item) => `
-      <option value="${escapeHTML(item.id)}"${item.id === target.id ? " selected" : ""}>${escapeHTML(item.type)} · ${escapeHTML(item.label)}</option>
-    `).join("");
     challengeSelect.innerHTML = CEO_CHALLENGES.map((item) => `
       <option value="${escapeHTML(item.id)}"${item.id === challenge.id ? " selected" : ""}>${escapeReadableHTML(item.label)}</option>
     `).join("");
-    if (meta) meta.textContent = `${scenario.label} · ${target.label} · ${challenge.angle}`;
+    if (meta) meta.textContent = `${scenario.label} · ${challenge.angle}`;
 
-    targetSelect.onchange = (event) => {
-      ceoChallengeTargetId = event.target.value;
-      renderChinaTalentStrategy();
-    };
     challengeSelect.onchange = (event) => {
       ceoChallengeId = event.target.value;
+      ceoChallengeAgentRan = false;
       renderChinaTalentStrategy();
     };
+    if (runButton) {
+      runButton.textContent = ceoChallengeAgentRan ? "토론 다시 실행" : "Agent 실행";
+      runButton.onclick = () => {
+        ceoChallengeAgentRan = true;
+        renderChinaTalentStrategy();
+      };
+    }
 
     answerWrap.style.setProperty("--local-accent", accent);
+    if (!ceoChallengeAgentRan) {
+      answerWrap.innerHTML = `
+        <div class="agent-waiting">
+          <strong>Agent 실행 대기</strong>
+          <p>CEO 챌린지를 선택한 뒤 Agent 실행을 누르면 Strategy, Data, Risk, Policy, CFO, Auditor가 순차 토론하고 결론을 제시합니다.</p>
+        </div>
+      `;
+      return;
+    }
     answerWrap.innerHTML = `
       ${decisionFlipKpiHTML(response.flipSubject || {
         id: "talent-ip",

@@ -4665,7 +4665,8 @@ body.sidebar-collapsed .sb-ico {
 
 .ceo-challenge-controls {
   display: grid;
-  grid-template-columns: minmax(0, .85fr) minmax(0, 1.15fr);
+  grid-template-columns: minmax(0, 1fr) auto;
+  align-items: end;
   gap: 10px;
 }
 
@@ -4694,6 +4695,34 @@ body.sidebar-collapsed .sb-ico {
   padding: 0 10px;
   font-size: 12px;
   font-weight: 850;
+}
+
+.ceo-challenge-controls button {
+  min-width: 112px;
+  min-height: 40px;
+  border: 1px solid color-mix(in srgb, var(--local-accent, var(--accent)) 34%, var(--line));
+  border-radius: 8px;
+  background: var(--local-accent, var(--accent));
+  color: #fff;
+  padding: 0 14px;
+  font-size: 12px;
+  font-weight: 950;
+  box-shadow: 0 12px 28px color-mix(in srgb, var(--local-accent, var(--accent)) 22%, transparent);
+  transition:
+    transform .16s,
+    background .16s,
+    color .16s,
+    border-color .16s,
+    box-shadow .16s;
+}
+
+.ceo-challenge-controls button:hover,
+.ceo-challenge-controls button:focus-visible {
+  transform: translateY(-1px);
+  border-color: var(--ink);
+  background: var(--ink);
+  color: var(--panel);
+  box-shadow: 0 16px 34px color-mix(in srgb, var(--ink) 18%, transparent);
 }
 
 .ceo-agent-answer {
