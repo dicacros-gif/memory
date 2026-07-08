@@ -14,7 +14,8 @@ const __dirname = dirname(fileURLToPath(import.meta.url));
 const OUT = resolve(__dirname, "..", "data", "live.json");
 const HISTORY_OUT = resolve(__dirname, "..", "data", "price-history.json");
 const TRENDFORCE_ORIGIN = "https://www.trendforce.com";
-const PRICE_HISTORY_LOOKBACK_DAYS = 365;
+const PRICE_HISTORY_LOOKBACK_DAYS = 365 * 5;
+const PRICE_HISTORY_RETENTION_POINTS = 365 * 5 + 60;
 
 const BROWSER_UA =
   "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124.0.0.0 Safari/537.36";
@@ -658,7 +659,7 @@ function mergePricePoints(existing = [], incoming = []) {
   incoming.forEach((point) => byKey.set(keyFor(point), point));
   return Array.from(byKey.values())
     .sort((a, b) => new Date(a.date || a.crawledAt || a.sourceUpdate || 0).getTime() - new Date(b.date || b.crawledAt || b.sourceUpdate || 0).getTime())
-    .slice(-365);
+    .slice(-PRICE_HISTORY_RETENTION_POINTS);
 }
 
 async function fetchRemotePriceHistory(row, chartState) {
@@ -870,7 +871,12 @@ async function updatePriceHistory(prices) {
             pointCount: remote.points.length,
             lookbackDays: PRICE_HISTORY_LOOKBACK_DAYS,
           };
-        } else if (!current.remoteHistory || current.remoteHistory.status !== remote.status) {
+        } else if (
+          !current.remoteHistory ||
+          current.remoteHistory.status !== remote.status ||
+          current.remoteHistory.lookbackDays !== PRICE_HISTORY_LOOKBACK_DAYS ||
+          current.remoteHistory.sourceUrl !== (remote.url || priceChartUrlWithDays(row.historyUrl, PRICE_HISTORY_LOOKBACK_DAYS))
+        ) {
           current.remoteHistory = {
             status: remote.status,
             source: "TrendForce priceChart",
@@ -901,7 +907,7 @@ async function updatePriceHistory(prices) {
 
       if (isNewPoint) {
         current.points.push(point);
-        current.points = mergePricePoints(current.points, []).slice(-365);
+        current.points = mergePricePoints(current.points, []);
         changed = true;
       }
       history.items[key] = current;
@@ -928,7 +934,7 @@ async function updatePriceHistory(prices) {
 function attachPriceHistory(prices, history) {
   const attach = (row) => {
     const series = history.items[row.historyKey];
-    row.history = series ? series.points.slice(-24) : [];
+    row.history = series ? series.points.slice(-PRICE_HISTORY_RETENTION_POINTS) : [];
   };
 
   for (const section of prices.sections || []) {

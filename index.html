@@ -273,7 +273,10 @@
                   <span>기준 날짜</span>
                   <select id="priceDateSelect" aria-label="가격 기준 날짜 선택"></select>
                 </label>
-                <div class="segmented" id="pricePeriodTabs" aria-label="가격 추이 기간 선택"></div>
+                <label for="pricePeriodSelect">
+                  <span>관측 기간</span>
+                  <select id="pricePeriodSelect" aria-label="가격 추이 기간 선택"></select>
+                </label>
               </div>
             </div>
           </div>
@@ -284,10 +287,12 @@
                 <tr>
                   <th>구분</th>
                   <th>품목</th>
-                  <th>평균가</th>
-                  <th>변동</th>
+                  <th>가격표</th>
+                  <th>기준점 가격</th>
+                  <th>최신 가격</th>
+                  <th>실제 변화</th>
+                  <th>관측 기간</th>
                   <th>Trend</th>
-                  <th>업데이트</th>
                 </tr>
               </thead>
               <tbody id="priceRows"></tbody>

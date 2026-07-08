@@ -1909,8 +1909,20 @@
   };
   const PRICE_PERIODS = [
     { id: "week", label: "주", days: 7 },
-    { id: "quarter", label: "분기", days: 92 },
     { id: "year", label: "1년", days: 365 },
+    { id: "year2", label: "2년", days: 365 * 2 },
+    { id: "year3", label: "3년", days: 365 * 3 },
+    { id: "year4", label: "4년", days: 365 * 4 },
+    { id: "year5", label: "5년", days: 365 * 5 },
+  ];
+  const PRICE_CATEGORY_FILTERS = [
+    { id: "all", label: "전체", test: () => true },
+    { id: "dram-chip", label: "DRAM 칩", test: (row) => row.priceCategoryId === "dram-chip" },
+    { id: "dram-module", label: "모듈·서버 DIMM", test: (row) => row.priceCategoryId === "dram-module" },
+    { id: "graphics", label: "그래픽 메모리", test: (row) => row.priceCategoryId === "graphics" },
+    { id: "nand-flash", label: "NAND 플래시", test: (row) => row.priceCategoryId === "nand-flash" },
+    { id: "nand-wafer", label: "NAND 웨이퍼", test: (row) => row.priceCategoryId === "nand-wafer" },
+    { id: "storage", label: "스토리지·SSD", test: (row) => row.priceCategoryId === "storage" },
   ];
 
   let BASE = null;
@@ -7783,40 +7795,8 @@
       focus.querySelector("[data-decision-inspector]")?.addEventListener("click", () => openInspector(payload));
       focus.querySelector("[data-decision-prices]")?.addEventListener("click", () => jumpTo("prices"));
 
-      if (active.observations.length) {
-        evidence.hidden = false;
-        evidence.innerHTML = `
-          <div class="decision-table-wrap">
-            <table class="decision-table">
-              <thead>
-                <tr>
-                  <th>품목</th>
-                  <th>가격표</th>
-                  <th>기준점 가격</th>
-                  <th>최신 가격</th>
-                  <th>실제 변화</th>
-                  <th>관측 기간</th>
-                </tr>
-              </thead>
-              <tbody>
-                ${active.observations.slice(0, 16).map((obs) => `
-                  <tr>
-                    <td>${escapeHTML(obs.item)}</td>
-                    <td>${escapeHTML(obs.sectionTitle || obs.group)}</td>
-                    <td>${fmtNum(obs.startAvg, 3)}</td>
-                    <td>${fmtNum(obs.latestAvg, 3)}</td>
-                    <td><span class="change ${obs.actualChange > 0 ? "up" : obs.actualChange < 0 ? "down" : "flat"}">${obs.actualChange > 0 ? "+" : ""}${fmtNum(obs.actualChange, 2)}%</span></td>
-                    <td>${fmtNum(obs.days, 1)}일</td>
-                  </tr>
-                `).join("")}
-              </tbody>
-            </table>
-          </div>
-        `;
-      } else {
-        evidence.hidden = true;
-        evidence.innerHTML = "";
-      }
+      evidence.hidden = true;
+      evidence.innerHTML = "";
     } else {
       focus.innerHTML = `<div class="empty">제품군을 선택하면 의사결정 근거가 열립니다.</div>`;
       evidence.hidden = true;
@@ -11115,12 +11095,43 @@
     }));
   }
 
+  function priceCategoryFor(row = {}) {
+    const hay = `${row.sectionTitle || ""} ${row.item || ""}`.toLowerCase();
+    if (/gddr|graphics/.test(hay)) return { id: "graphics", label: "그래픽 메모리" };
+    if (/module|udimm|rdimm|so-dimm|sodimm/.test(hay)) return { id: "dram-module", label: "모듈·서버 DIMM" };
+    if (/wafer/.test(hay)) return { id: "nand-wafer", label: "NAND 웨이퍼" };
+    if (/nand|flash|slc|mlc|tlc/.test(hay)) return { id: "nand-flash", label: "NAND 플래시" };
+    if (/ssd|memory card|microsd|emmc|ufs|storage|pc-client|street/.test(hay)) return { id: "storage", label: "스토리지·SSD" };
+    if (/dram|ddr|lpddr|ett/.test(hay)) return { id: "dram-chip", label: "DRAM 칩" };
+    return { id: "other", label: "기타" };
+  }
+
+  function priceTypeLabel(row = {}) {
+    const title = row.sectionTitle || "";
+    if (/contract/i.test(title)) return "Contract";
+    if (/spot|street/i.test(title)) return "Spot";
+    return "기타";
+  }
+
+  function enrichedPriceRows(categoryId = activeCategory) {
+    let rows = allPriceRows().map((row) => {
+      const category = priceCategoryFor(row);
+      return {
+        ...row,
+        priceCategoryId: category.id,
+        priceCategoryLabel: category.label,
+        priceTypeLabel: priceTypeLabel(row),
+      };
+    });
+    if (categoryId === "dram") rows = rows.filter((row) => ["dram-chip", "dram-module", "graphics"].includes(row.priceCategoryId));
+    if (categoryId === "nand") rows = rows.filter((row) => ["nand-flash", "nand-wafer", "storage"].includes(row.priceCategoryId));
+    return rows;
+  }
+
   function priceRowsFor(categoryId = activeCategory) {
-    let rows = allPriceRows();
-    if (categoryId === "dram") rows = rows.filter((row) => /dram|ddr|lpddr|gddr/i.test(`${row.group} ${row.sectionTitle} ${row.item}`));
-    if (categoryId === "nand") rows = rows.filter((row) => /nand|ssd|flash|wafer|ufs|emmc/i.test(`${row.group} ${row.sectionTitle} ${row.item}`));
-    if (priceFilter === "spot") rows = rows.filter((row) => /spot|street/i.test(row.sectionTitle || ""));
-    if (priceFilter === "contract") rows = rows.filter((row) => /contract/i.test(row.sectionTitle || ""));
+    let rows = enrichedPriceRows(categoryId);
+    const filter = PRICE_CATEGORY_FILTERS.find((item) => item.id === priceFilter) || PRICE_CATEGORY_FILTERS[0];
+    rows = rows.filter((row) => filter.test(row));
     return rows;
   }
 
@@ -11220,6 +11231,8 @@
     if (!points.length) {
       return {
         points: (row.history || []).map((point) => Number(point.average)).filter((value) => !Number.isNaN(value)),
+        startAverage: row.average,
+        latestAverage: row.average,
         average: row.average,
         averageRaw: row.averageRaw,
         changePct: Number(row.changePct),
@@ -11235,16 +11248,20 @@
       ? ((endValue - startValue) / startValue) * 100
       : Number(end.changePct || 0);
     const direction = changePct > 0 ? "up" : changePct < 0 ? "down" : "flat";
-    const coverageDays = start && end ? Math.max(1, Math.round((end.time - start.time) / 86400000) + 1) : 1;
+    const coverageDays = start && end ? Math.max(0, (end.time - start.time) / 86400000) : 0;
     const coverageLabel = priceUsesFullTrend()
       ? coverageDays >= period.days
         ? `${period.label} 과거 추세`
-        : `${period.label} 공개 누적 ${coverageDays}일`
+        : `${period.label} 공개 누적 ${fmtNum(coverageDays)}일`
       : `${period.label} 기준`;
     return {
       points: scoped.map((point) => Number(point.average)).filter((value) => !Number.isNaN(value)),
       average: end.average,
       averageRaw: end.averageRaw || formatPrice(end.average),
+      startAverage: startValue,
+      latestAverage: endValue,
+      startRaw: start?.averageRaw || formatPrice(startValue),
+      latestRaw: end?.averageRaw || formatPrice(endValue),
       changePct,
       direction,
       rangeLabel: `${shortKstDate(start.time)}-${shortKstDate(end.time)}`,
@@ -11261,7 +11278,7 @@
 
   function renderPriceControls() {
     const dateSelect = $("#priceDateSelect");
-    const periodTabs = $("#pricePeriodTabs");
+    const periodSelect = $("#pricePeriodSelect");
     const entries = priceDateEntries();
     if (dateSelect) {
       if (!entries.length) {
@@ -11279,28 +11296,26 @@
         };
       }
     }
-    if (periodTabs) {
-      periodTabs.innerHTML = PRICE_PERIODS.map((period) => `
-        <button type="button" class="${period.id === pricePeriod ? "active" : ""}" data-price-period="${escapeHTML(period.id)}">${escapeHTML(period.label)}</button>
+    if (periodSelect) {
+      periodSelect.innerHTML = PRICE_PERIODS.map((period) => `
+        <option value="${escapeHTML(period.id)}"${period.id === pricePeriod ? " selected" : ""}>${escapeHTML(period.label)}</option>
       `).join("");
-      periodTabs.querySelectorAll("[data-price-period]").forEach((btn) => {
-        btn.addEventListener("click", () => {
-          pricePeriod = btn.dataset.pricePeriod || "week";
-          renderPrices();
-        });
-      });
+      periodSelect.onchange = (event) => {
+        pricePeriod = event.target.value || "week";
+        renderPrices();
+      };
     }
   }
 
   function renderPrices() {
     const tabs = $("#priceTabs");
     tabs.innerHTML = "";
-    [
-      ["all", "전체"],
-      ["spot", "Spot"],
-      ["contract", "Contract"],
-    ].forEach(([id, label]) => {
-      const btn = el("button", id === priceFilter ? "active" : "", label);
+    const tabRows = enrichedPriceRows(activeCategory);
+    PRICE_CATEGORY_FILTERS.forEach(({ id, label }) => {
+      const count = id === "all"
+        ? tabRows.length
+        : tabRows.filter((row) => row.priceCategoryId === id).length;
+      const btn = el("button", id === priceFilter ? "active" : "", `${label}${count ? ` · ${fmtNum(count)}` : ""}`);
       btn.type = "button";
       btn.addEventListener("click", () => {
         priceFilter = id;
@@ -11345,6 +11360,7 @@
       .sort((a, b) => Math.abs(Number(b.trend.changePct || 0)) - Math.abs(Number(a.trend.changePct || 0)))[0] || trends[0];
     const rangeStart = Math.min(...visible.map((item) => item.trend.startTime).filter(Number.isFinite));
     const rangeEnd = Math.max(...visible.map((item) => item.trend.endTime).filter(Number.isFinite));
+    const filterLabel = (PRICE_CATEGORY_FILTERS.find((item) => item.id === priceFilter) || PRICE_CATEGORY_FILTERS[0]).label;
     summary.hidden = false;
     summary.innerHTML = `
       <article class="price-trend-card price-trend-wide">
@@ -11353,7 +11369,7 @@
             <span>${escapeHTML(`${activePricePeriod().label} 가격 트렌드`)}</span>
             <strong>${escapeHTML(shortKstDate(rangeStart))} - ${escapeHTML(shortKstDate(rangeEnd))}</strong>
           </div>
-          <em>${escapeHTML(activePricePeriod().label)} · ${escapeHTML(priceFilter === "all" ? "Spot+Contract" : priceFilter)}</em>
+          <em>${escapeHTML(activePricePeriod().label)} · ${escapeHTML(filterLabel)}</em>
         </div>
         ${priceTrendSvg(visible)}
         <div class="price-trend-legend">
@@ -11431,23 +11447,26 @@
       const entries = healthEntries(["가격:"]);
       const failed = entries.filter((entry) => !entry.ok).map((entry) => entry.msg).filter(Boolean).join(" · ");
       const msg = failed || "TrendForce 공개 테이블 구조 변경, 접근 실패, 또는 아직 수집된 rows가 없습니다.";
-      tbody.appendChild(el("tr", null, `<td colspan="6" class="empty"><span class="data-state fail">오류 발생 · 가격 데이터 없음</span><br>${escapeHTML(msg)}<br>다음 행동: 전일 가격 히스토리 폴백 여부를 점검하세요.<br>마지막 시도: ${escapeHTML(fmtDate(LIVE.prices?.updatedAt || LIVE.updatedAt))}</td>`));
+      tbody.appendChild(el("tr", null, `<td colspan="8" class="empty"><span class="data-state fail">오류 발생 · 가격 데이터 없음</span><br>${escapeHTML(msg)}<br>다음 행동: 전일 가격 히스토리 폴백 여부를 점검하세요.<br>마지막 시도: ${escapeHTML(fmtDate(LIVE.prices?.updatedAt || LIVE.updatedAt))}</td>`));
       return;
     }
 
-    rows.slice(0, 22).forEach((row) => {
+    rows.forEach((row) => {
       const tr = el("tr");
       const trend = priceTrendForRow(row);
       const change = formatChange(trend);
+      const observedDays = Number.isFinite(Number(trend.coverageDays)) ? `${fmtNum(trend.coverageDays)}일` : "-";
       tr.innerHTML = `
-        <td><span class="source-tag">${escapeHTML(row.group || "")}</span></td>
-        <td><span class="price-main">${escapeHTML(row.item)}</span><span class="price-sub">${escapeHTML(row.sectionTitle || "")}</span></td>
-        <td>${escapeHTML(trend.averageRaw || formatPrice(trend.average))}</td>
-        <td><span class="change ${escapeHTML(trend.direction || "flat")}">${escapeHTML(change)}</span><span class="price-sub">${escapeHTML(trend.rangeMode || `${activePricePeriod().label} 기준`)} · ${escapeHTML(String(trend.pointCount || trend.points?.length || 0))}개</span></td>
+        <td><span class="source-tag">${escapeHTML(row.priceCategoryLabel || row.group || "")}</span></td>
+        <td><span class="price-main">${escapeHTML(row.item)}</span></td>
+        <td><span class="price-main">${escapeHTML(row.priceTypeLabel || "")}</span><span class="price-sub">${escapeHTML(row.sectionTitle || "")}</span></td>
+        <td>${escapeHTML(trend.startRaw || formatPrice(trend.startAverage ?? trend.average))}</td>
+        <td>${escapeHTML(trend.latestRaw || trend.averageRaw || formatPrice(trend.latestAverage ?? trend.average))}</td>
+        <td><span class="change ${escapeHTML(trend.direction || "flat")}">${escapeHTML(change)}</span></td>
+        <td><span class="price-main">${escapeHTML(observedDays)}</span><span class="price-sub">${escapeHTML(trend.rangeMode || `${activePricePeriod().label} 기준`)}</span></td>
         <td></td>
-        <td><a class="rainbow" href="${escapeHTML(row.sourceUrl || "#")}" target="_blank" rel="noopener">${escapeHTML(trend.rangeLabel || row.lastUpdate || "TrendForce")}</a></td>
       `;
-      tr.children[4].appendChild(sparkline(trend.points, trend.direction));
+      tr.children[7].appendChild(sparkline(trend.points, trend.direction));
       tbody.appendChild(tr);
     });
   }
