@@ -26,6 +26,11 @@
     timezone: "Asia/Seoul",
     items: {},
   };
+  const emptyMarketHistory = {
+    updatedAt: null,
+    timezone: "Asia/Seoul",
+    indexes: {},
+  };
 
   const KOREAN_SOURCE_RE = new RegExp(
     [
@@ -1959,11 +1964,12 @@
   let BASE = null;
   let LIVE = emptyLive;
   let HISTORY = emptyHistory;
+  let MARKET_HISTORY = emptyMarketHistory;
   let activeCategory = "all";
   let categoryRenderToken = 0;
   let categoryRenderFrame = 0;
   let priceFilter = "all";
-  let pricePeriod = "week";
+  let pricePeriod = "year5";
   let priceAsOfDate = "";
   let newsCategory = "all";
   let newsSearch = "";
@@ -2029,10 +2035,11 @@
   }
 
   async function init() {
-    [BASE, LIVE, HISTORY] = await Promise.all([
+    [BASE, LIVE, HISTORY, MARKET_HISTORY] = await Promise.all([
       loadJSON("data/baseline.json", null),
       loadJSON("data/live.json", emptyLive),
       loadJSON("data/price-history.json", emptyHistory),
+      loadJSON("data/market-history.json", emptyMarketHistory),
     ]);
     LIVE = normalizeLiveData(LIVE);
 
@@ -11118,9 +11125,9 @@
     const hay = `${row.sectionTitle || ""} ${row.item || ""}`.toLowerCase();
     if (/gddr|graphics/.test(hay)) return { id: "graphics", label: "그래픽 메모리" };
     if (/module|udimm|rdimm|so-dimm|sodimm/.test(hay)) return { id: "dram-module", label: "모듈·서버 DIMM" };
+    if (/ssd|memory card|microsd|emmc|ufs|storage|pc-client|street|m\.2|msata/.test(hay)) return { id: "storage", label: "스토리지·SSD" };
     if (/wafer/.test(hay)) return { id: "nand-wafer", label: "NAND 웨이퍼" };
     if (/nand|flash|slc|mlc|tlc/.test(hay)) return { id: "nand-flash", label: "NAND 플래시" };
-    if (/ssd|memory card|microsd|emmc|ufs|storage|pc-client|street/.test(hay)) return { id: "storage", label: "스토리지·SSD" };
     if (/dram|ddr|lpddr|ett/.test(hay)) return { id: "dram-chip", label: "DRAM 칩" };
     return { id: "other", label: "기타" };
   }
@@ -11183,6 +11190,17 @@
     });
   }
 
+  function shortKstDateWithYear(value) {
+    const date = value instanceof Date ? value : new Date(value);
+    if (Number.isNaN(date.getTime())) return "";
+    return date.toLocaleDateString("ko-KR", {
+      timeZone: "Asia/Seoul",
+      year: "2-digit",
+      month: "numeric",
+      day: "numeric",
+    });
+  }
+
   function priceHistoryFor(row = {}) {
     const key = row.historyKey || row.key || `${row.sectionTitle || ""}::${row.item || ""}`.toLowerCase();
     const points = HISTORY?.items?.[key]?.points || row.history || [];
@@ -11237,8 +11255,9 @@
     const observed = points <= 1
       ? "관측 1개"
       : `관측 ${fmtNum(Math.max(1, Math.round(days)))}일`;
-    const start = trend.startTime ? shortKstDate(trend.startTime) : "";
-    const end = trend.endTime ? shortKstDate(trend.endTime) : "";
+    const dateLabel = days > 370 ? shortKstDateWithYear : shortKstDate;
+    const start = trend.startTime ? dateLabel(trend.startTime) : "";
+    const end = trend.endTime ? dateLabel(trend.endTime) : "";
     const range = start && end ? ` · ${start}~${end}` : "";
     return {
       main: observed,
@@ -11367,6 +11386,8 @@
 
     renderPriceControls();
     renderPriceSummary();
+    renderPriceMeceSummary();
+    renderMarketIndexPanel();
     renderPriceRows();
     setFreshness("#priceFreshness", {
       label: "가격",
@@ -11434,6 +11455,133 @@
     `;
   }
 
+  function renderPriceMeceSummary() {
+    const panel = $("#priceMeceSummary");
+    if (!panel) return;
+    const rows = enrichedPriceRows(activeCategory);
+    if (!rows.length) {
+      panel.hidden = true;
+      panel.innerHTML = "";
+      return;
+    }
+
+    const cards = PRICE_CATEGORY_FILTERS
+      .filter((filter) => filter.id !== "all")
+      .map((filter) => {
+        const scoped = rows.filter((row) => row.priceCategoryId === filter.id);
+        const trends = scoped.map((row) => priceTrendForRow(row));
+        const spot = scoped.filter((row) => row.priceTypeLabel === "Spot").length;
+        const contract = scoped.filter((row) => row.priceTypeLabel === "Contract").length;
+        const points = Math.max(0, ...trends.map((trend) => Number(trend.pointCount || 0)));
+        const coverage = Math.max(0, ...trends.map((trend) => Number(trend.coverageDays || 0)));
+        const bestMove = trends
+          .filter((trend) => Number.isFinite(Number(trend.changePct)))
+          .sort((a, b) => Math.abs(Number(b.changePct || 0)) - Math.abs(Number(a.changePct || 0)))[0];
+        return { ...filter, count: scoped.length, spot, contract, points, coverage, bestMove };
+      })
+      .filter((card) => card.count > 0);
+
+    if (!cards.length) {
+      panel.hidden = true;
+      panel.innerHTML = "";
+      return;
+    }
+
+    panel.hidden = false;
+    panel.innerHTML = cards.map((card) => `
+      <article class="price-mece-card" data-price-group="${escapeHTML(card.id)}">
+        <div>
+          <strong>${escapeHTML(card.label)}</strong>
+          <span>${escapeHTML(fmtNum(card.count))} rows · Spot ${escapeHTML(fmtNum(card.spot))} · Contract ${escapeHTML(fmtNum(card.contract))}</span>
+        </div>
+        <em>${escapeHTML(card.points ? `누적 ${fmtNum(card.points)}개 · ${fmtNum(Math.round(card.coverage))}일` : "누적 전")}</em>
+        <small>${escapeHTML(card.bestMove ? `최대 변동 ${formatChange(card.bestMove)}` : "변동 없음")}</small>
+      </article>
+    `).join("");
+  }
+
+  function marketIndexData(id = "sox") {
+    return MARKET_HISTORY?.indexes?.[id] || LIVE.marketHistory?.indexes?.[id] || null;
+  }
+
+  function marketIndexPoints(index = {}) {
+    return (index.points || [])
+      .map((point) => {
+        const time = Number(point.time || new Date(point.date || 0).getTime());
+        const value = Number(point.close ?? point.value);
+        return Number.isFinite(time) && Number.isFinite(value) ? { time, value, close: value } : null;
+      })
+      .filter(Boolean)
+      .sort((a, b) => a.time - b.time);
+  }
+
+  function marketIndexTrend(index = {}) {
+    const points = marketIndexPoints(index);
+    const period = activePricePeriod();
+    const end = points[points.length - 1] || null;
+    if (!end) return null;
+    const startMs = end.time - period.days * 86400000;
+    const scoped = points.filter((point) => point.time >= startMs);
+    const plot = scoped.length ? scoped : points;
+    const start = plot[0] || end;
+    const changePct = start.close
+      ? ((end.close - start.close) / start.close) * 100
+      : 0;
+    return {
+      points: plot.map((point) => point.close),
+      plotPoints: plot.map((point) => ({ time: point.time, value: point.close })),
+      startAverage: start.close,
+      latestAverage: end.close,
+      average: end.close,
+      averageRaw: formatPrice(end.close),
+      startRaw: formatPrice(start.close),
+      latestRaw: formatPrice(end.close),
+      changePct,
+      direction: changePct > 0 ? "up" : changePct < 0 ? "down" : "flat",
+      pointCount: plot.length,
+      coverageDays: Math.max(0, (end.time - start.time) / 86400000),
+      startTime: start.time,
+      endTime: end.time,
+    };
+  }
+
+  function renderMarketIndexPanel() {
+    const panel = $("#marketIndexPanel");
+    if (!panel) return;
+    const index = marketIndexData("sox");
+    const trend = marketIndexTrend(index || {});
+    if (!index || !trend || (trend.plotPoints || []).length < 2) {
+      panel.hidden = true;
+      panel.innerHTML = "";
+      return;
+    }
+    const period = activePricePeriod();
+    const observation = priceObservationText(trend);
+    panel.hidden = false;
+    panel.innerHTML = `
+      <article class="market-index-card">
+        <div class="price-trend-head">
+          <div>
+            <span>Semiconductor equity index</span>
+            <strong>${escapeHTML(index.labelKo || "필라델피아 반도체 지수")} · SOX</strong>
+          </div>
+          <em>${escapeHTML(period.label)} · ${escapeHTML(shortKstDateWithYear(trend.startTime))}-${escapeHTML(shortKstDateWithYear(trend.endTime))}</em>
+        </div>
+        ${priceTrendSvg([{ row: { item: "SOX" }, trend }])}
+        <div class="market-index-readout">
+          <span><b>${escapeHTML(formatPrice(trend.startAverage))}</b><small>시작</small></span>
+          <span><b>${escapeHTML(formatPrice(trend.latestAverage))}</b><small>최신</small></span>
+          <span><b class="change ${escapeHTML(trend.direction)}">${escapeHTML(formatChange(trend))}</b><small>누적 변화</small></span>
+          <span><b>${escapeHTML(observation.main)}</b><small>${escapeHTML(observation.sub)}</small></span>
+        </div>
+        <div class="market-index-source">
+          <span>${escapeHTML(index.source || "Yahoo Finance chart API")}</span>
+          ${index.sourceUrl ? `<a href="${escapeHTML(index.sourceUrl)}" target="_blank" rel="noopener">SOX 원문</a>` : ""}
+        </div>
+      </article>
+    `;
+  }
+
   function priceSeriesColor(index = 0) {
     return ["#22C55E", "#3C82FF", "#FFB830", "#A050FF", "#EF4444", "#00C8A0"][index % 6];
   }
@@ -11446,6 +11594,7 @@
     const minTime = Math.min(...allTimes);
     const maxTime = Math.max(...allTimes);
     const timeRange = maxTime - minTime || 1;
+    const axisDate = timeRange > 370 * 86400000 ? shortKstDateWithYear : shortKstDate;
     const paths = items.map((item, index) => {
       const points = item.trend.plotPoints || [];
       const values = points.map((point) => point.value);
@@ -11474,8 +11623,8 @@
         <line x1="${pad.left}" y1="${height - pad.bottom}" x2="${width - pad.right}" y2="${height - pad.bottom}" class="price-grid-line"></line>
         <line x1="${pad.left}" y1="${pad.top + (height - pad.top - pad.bottom) / 2}" x2="${width - pad.right}" y2="${pad.top + (height - pad.top - pad.bottom) / 2}" class="price-grid-line faint"></line>
         ${paths}
-        <text x="${pad.left}" y="${height - 3}" class="price-axis-label">${escapeHTML(shortKstDate(minTime))}</text>
-        <text x="${width - pad.right}" y="${height - 3}" text-anchor="end" class="price-axis-label">${escapeHTML(shortKstDate(maxTime))}</text>
+        <text x="${pad.left}" y="${height - 3}" class="price-axis-label">${escapeHTML(axisDate(minTime))}</text>
+        <text x="${width - pad.right}" y="${height - 3}" text-anchor="end" class="price-axis-label">${escapeHTML(axisDate(maxTime))}</text>
       </svg>
     `;
   }

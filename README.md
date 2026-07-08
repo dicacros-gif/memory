@@ -40,6 +40,7 @@
 | `data/baseline.json` | 중국 벤치마킹 정적 데이터 모델 |
 | `data/live.json` | daily crawler가 갱신하는 가격·뉴스 데이터 |
 | `data/price-history.json` | TrendForce 가격 이력 |
+| `data/market-history.json` | SOX 등 시장지수 장기 이력 |
 | `scripts/crawl.mjs` | TrendForce 가격, 외신 뉴스, 경쟁사 신호 수집 |
 | `.github/workflows/pages.yml` | GitHub Actions 배포 |
 

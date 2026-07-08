@@ -13,9 +13,12 @@ import { fileURLToPath } from "node:url";
 const __dirname = dirname(fileURLToPath(import.meta.url));
 const OUT = resolve(__dirname, "..", "data", "live.json");
 const HISTORY_OUT = resolve(__dirname, "..", "data", "price-history.json");
+const MARKET_HISTORY_OUT = resolve(__dirname, "..", "data", "market-history.json");
 const TRENDFORCE_ORIGIN = "https://www.trendforce.com";
 const PRICE_HISTORY_LOOKBACK_DAYS = 365 * 5;
 const PRICE_HISTORY_RETENTION_POINTS = 365 * 5 + 60;
+const MARKET_HISTORY_LOOKBACK_DAYS = 365 * 5;
+const MARKET_HISTORY_RETENTION_POINTS = 365 * 5 + 60;
 
 const BROWSER_UA =
   "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124.0.0.0 Safari/537.36";
@@ -26,6 +29,17 @@ const TICKERS = [
   { id: "samsung", label: "삼성전자", symbol: "005930.KS" },
   { id: "skhynix", label: "SKHY", symbol: "000660.KS" },
   { id: "micron", label: "Micron", symbol: "MU" },
+];
+
+const MARKET_INDEXES = [
+  {
+    id: "sox",
+    symbol: "^SOX",
+    label: "PHLX Semiconductor Index",
+    labelKo: "필라델피아 반도체 지수",
+    source: "Yahoo Finance chart API",
+    sourceUrl: "https://finance.yahoo.com/quote/%5ESOX/",
+  },
 ];
 
 const PRICE_PAGES = [
@@ -995,6 +1009,157 @@ async function collectStocks() {
   return stocks;
 }
 
+async function fetchYahooChartResult(symbol, range = "5y", interval = "1d") {
+  const path = `/v8/finance/chart/${encodeURIComponent(symbol)}?range=${encodeURIComponent(range)}&interval=${encodeURIComponent(interval)}`;
+  const hosts = ["query2.finance.yahoo.com", "query1.finance.yahoo.com"];
+  let lastErr;
+
+  for (const host of hosts) {
+    try {
+      const txt = await fetchText(`https://${host}${path}`);
+      const json = JSON.parse(txt);
+      const result = json?.chart?.result?.[0];
+      if (!result) throw new Error("empty yahoo chart result");
+      return result;
+    } catch (error) {
+      lastErr = error;
+    }
+    await sleep(350);
+  }
+
+  throw lastErr || new Error("yahoo chart fetch failed");
+}
+
+function yahooHistoryPoints(result = {}) {
+  const timestamps = Array.isArray(result.timestamp) ? result.timestamp : [];
+  const closes = result.indicators?.quote?.[0]?.close || [];
+  const points = timestamps
+    .map((ts, index) => {
+      const close = Number(closes[index]);
+      if (!Number.isFinite(close)) return null;
+      const time = Number(ts) * 1000;
+      return {
+        date: new Date(time).toISOString(),
+        time,
+        close: Number(close.toFixed(2)),
+        value: Number(close.toFixed(2)),
+      };
+    })
+    .filter(Boolean)
+    .sort((a, b) => a.time - b.time);
+  return points;
+}
+
+function mergeMarketPoints(existing = [], incoming = []) {
+  const byDay = new Map();
+  const add = (point = {}) => {
+    const time = Number(point.time || new Date(point.date || 0).getTime());
+    const close = Number(point.close ?? point.value);
+    if (!Number.isFinite(time) || !Number.isFinite(close)) return;
+    const day = new Date(time).toISOString().slice(0, 10);
+    byDay.set(day, {
+      date: new Date(time).toISOString(),
+      time,
+      close: Number(close.toFixed(2)),
+      value: Number(close.toFixed(2)),
+    });
+  };
+  existing.forEach(add);
+  incoming.forEach(add);
+  return Array.from(byDay.values())
+    .sort((a, b) => a.time - b.time)
+    .slice(-MARKET_HISTORY_RETENTION_POINTS);
+}
+
+async function loadMarketHistory() {
+  try {
+    const raw = await readFile(MARKET_HISTORY_OUT, "utf8");
+    const parsed = JSON.parse(raw);
+    return {
+      updatedAt: parsed.updatedAt || null,
+      timezone: parsed.timezone || "Asia/Seoul",
+      source: parsed.source || "Yahoo Finance chart API",
+      indexes: parsed.indexes && typeof parsed.indexes === "object" ? parsed.indexes : {},
+    };
+  } catch {
+    return { updatedAt: null, timezone: "Asia/Seoul", source: "Yahoo Finance chart API", indexes: {} };
+  }
+}
+
+async function updateMarketHistory() {
+  const history = await loadMarketHistory();
+  let changed = false;
+  const crawledAt = new Date().toISOString();
+
+  for (const index of MARKET_INDEXES) {
+    try {
+      const result = await fetchYahooChartResult(index.symbol, "5y", "1d");
+      const incoming = yahooHistoryPoints(result);
+      const previous = history.indexes[index.id]?.points || [];
+      const merged = mergeMarketPoints(previous, incoming);
+      const latest = merged[merged.length - 1] || null;
+      const previousPoint = merged.length > 1 ? merged[merged.length - 2] : null;
+      const first = merged[0] || null;
+      const dailyChangePct = latest && previousPoint?.close
+        ? ((latest.close - previousPoint.close) / previousPoint.close) * 100
+        : null;
+      const cumulativeChangePct = latest && first?.close
+        ? ((latest.close - first.close) / first.close) * 100
+        : null;
+      const next = {
+        ...index,
+        updatedAt: crawledAt,
+        range: "5y",
+        interval: "1d",
+        currency: result.meta?.currency || "USD",
+        exchangeName: result.meta?.exchangeName || null,
+        regularMarketTime: result.meta?.regularMarketTime ? new Date(result.meta.regularMarketTime * 1000).toISOString() : null,
+        latest,
+        dailyChangePct: dailyChangePct == null ? null : Number(dailyChangePct.toFixed(2)),
+        cumulativeChangePct: cumulativeChangePct == null ? null : Number(cumulativeChangePct.toFixed(2)),
+        pointCount: merged.length,
+        points: merged,
+      };
+      if (JSON.stringify(history.indexes[index.id]) !== JSON.stringify(next)) changed = true;
+      history.indexes[index.id] = next;
+      note(`market:${index.symbol}`, true, `${merged.length} points`);
+    } catch (error) {
+      const current = history.indexes[index.id] || { ...index, points: [] };
+      history.indexes[index.id] = {
+        ...current,
+        ...index,
+        lastError: error.message,
+        lastErrorAt: crawledAt,
+      };
+      note(`market:${index.symbol}`, false, error.message);
+      changed = true;
+    }
+    await sleep(350);
+  }
+
+  if (changed) {
+    history.updatedAt = crawledAt;
+    await mkdir(dirname(MARKET_HISTORY_OUT), { recursive: true });
+    await writeFile(MARKET_HISTORY_OUT, JSON.stringify(history, null, 2) + "\n", { encoding: "utf8" });
+  }
+
+  return history;
+}
+
+function summarizeMarketHistory(history = {}) {
+  const indexes = {};
+  for (const [id, index] of Object.entries(history.indexes || {})) {
+    const { points, ...summary } = index || {};
+    indexes[id] = summary;
+  }
+  return {
+    updatedAt: history.updatedAt || null,
+    timezone: history.timezone || "Asia/Seoul",
+    source: history.source || "Yahoo Finance chart API",
+    indexes,
+  };
+}
+
 /* ---------- news ---------- */
 function parseRSS(xml) {
   const items = [];
@@ -1421,6 +1586,7 @@ async function main() {
   ]);
   const priceHistory = await updatePriceHistory(prices);
   attachPriceHistory(prices, priceHistory);
+  const marketHistory = await updateMarketHistory();
 
   const { categories, news, trending, newsStats: stats } = newsPayload;
 
@@ -1445,6 +1611,7 @@ async function main() {
     stocks,
     prices,
     priceHistory,
+    marketHistory: summarizeMarketHistory(marketHistory),
     competitors,
     startups,
     benchmarkSignals,
