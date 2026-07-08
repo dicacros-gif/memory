@@ -95,6 +95,7 @@
   const LOW_CONFIDENCE_NEWS_RE =
     /(ad hoc news|asia business outlook|indexbox|36\s*kr|36kr|borncity|mjengo|blockchain\.news|odaily|zamin\.uz|finance\.biggo|crypto briefing|weex|fortrinawwer|siliconanalysts|nand-research|reddit|facebook|linkedin\.com|x\.com|twitter\.com)/i;
   const SKHYNIX_NEWSROOM_RE = /news\.skhynix\.com|sk\s*hynix\s*newsroom|skhy\s*newsroom/i;
+  const FALSE_MEMORY_NEWS_RE = /(?:sk\s*hynix|skhy|sk\s*海力士|海力士).*?(?:u\.?s\.?\s*ipo|us\s*ipo|u\.?s\.?\s*stock\s*ipo|us\s*stock\s*ipo|nasdaq\s*(?:listing|ipo)|28\s*billion|28\s*b|\$28\s*b|280\s*억|280억|280\s*[亿億]|미국\s*(?:주식\s*)?ipo|나스닥\s*상장|美国\s*ipo|美股\s*ipo)|(?:u\.?s\.?\s*ipo|us\s*ipo|u\.?s\.?\s*stock\s*ipo|us\s*stock\s*ipo|nasdaq\s*(?:listing|ipo)|28\s*billion|28\s*b|\$28\s*b|280\s*억|280억|280\s*[亿億]|미국\s*(?:주식\s*)?ipo|나스닥\s*상장|美国\s*ipo|美股\s*ipo).*?(?:sk\s*hynix|skhy|sk\s*海力士|海力士)/i;
   const AUTHORITATIVE_NEWS_RE =
     /(reuters|bloomberg|financial times|ft\.com|nikkei|cnbc|trendforce|dramexchange|techinsights|yole|counterpoint|tom'?s hardware|tomshardware|south china morning post|scmp|digitimes|ee times|eetimes|semianalysis|techwire asia|the register|business insider|network world|evertiq|technode|techspot|japan times|electronics weekly|businesswire|pr newswire|solidigm|intel|u\.s\. bis|bis\.gov|wsts|acm research ir|cxmt|shanghai stock exchange|财新|caixin|第一财经|yicai|21财经|21世纪经济报道|证券时报|stcn|中国经营报|cb\.com\.cn|新浪财经|新浪科技|finance\.sina|电子工程专辑|eet-china|集微网|ijiwei|经济观察网|eeo\.com\.cn|techweb|chinaflashmarket)/i;
   const MEMORY_NEWS_RE =
@@ -692,7 +693,7 @@
       keywords: ["ymtc", "yangtze", "xtacking", "essd", "wuhan phase 3", "nand", "flash"],
       metrics: [
         { label: "NAND 점유율", value: "13%" },
-        { label: "현재 캐파", value: "~200k wpm" },
+        { label: "현재 캐파", value: "160~200k wpm" },
         { label: "Phase 3", value: "+50k→100k" },
         { label: "공식 밀도", value: "12.66Gb/mm²" },
         { label: "제품 축", value: "eSSD" },
@@ -11580,7 +11581,7 @@
   function isLowConfidenceNews(item) {
     if (item?.curated) return false;
     const hay = `${item?.source || ""} ${item?.title || ""} ${item?.summary || ""} ${item?.link || ""}`;
-    return LOW_CONFIDENCE_NEWS_RE.test(hay);
+    return LOW_CONFIDENCE_NEWS_RE.test(hay) || FALSE_MEMORY_NEWS_RE.test(hay);
   }
 
   function isMemoryRelevant(item) {

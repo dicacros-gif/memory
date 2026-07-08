@@ -22,16 +22,17 @@
     },
     {
       "label": "메모리 성장률",
-      "value": "296",
-      "suffix": "%",
-      "note": "TrendForce 2026년 5월 29일 최신 전망 기준 글로벌 메모리 시장은 2026년 $889.3B로 상향 조정됐고, 2025년 대비 약 +296% 성장이 제시됐습니다.",
-      "alt": "WSTS는 전체 반도체 시장 전망, TrendForce는 메모리 세그먼트 전망으로 범위가 다르므로 분리 표기합니다.",
-      "badge": "TrendForce 최신",
+      "value": "250",
+      "suffix": "%+",
+      "note": "WSTS Spring 2026 기준 2026년 메모리 세그먼트는 약 +250% YoY, $800B+로 전망됩니다. TrendForce 2026-05-29는 별도 산업 모델에서 2026년 메모리 시장 $889.3B, DRAM +303%, NAND +280.7%를 제시합니다.",
+      "alt": "WSTS는 반도체 제품군 전망, TrendForce는 메모리 산업 모델 전망입니다. DRAM/NAND 개별 성장률을 전체 메모리 성장률처럼 합산하지 않습니다.",
+      "badge": "WSTS 최신",
       "status": "OK",
       "statusClass": "ok",
-      "source": "TrendForce",
-      "sourceDate": "2026-05-29",
-      "sourceUrl": "https://www.trendforce.com/presscenter/news/20260529-13068.html"
+      "source": "WSTS / TrendForce",
+      "sourceDate": "Spring 2026 / 2026-05-29",
+      "sourceUrl": "https://www.wsts.org/76/103/Global-Semiconductor-Market-Surges-Beyond-15T-2026",
+      "showInKpiStrip": true
     },
     {
       "label": "메모리 시장 규모",
@@ -50,15 +51,15 @@
     },
     {
       "label": "SKHY HBM 점유율",
-      "value": "53",
+      "value": "57",
       "suffix": "~62%",
-      "note": "HBM 점유율은 측정 기관·시점·기준이 달라 2025~Q1 2026 공개 근거에서 53~62% 범위로 병기합니다. 예: Counterpoint Q2 2025 shipment 62%, Q1 2026 revenue 58%, 2025년 연간 추정 53%.",
-      "alt": "단일 고정값이 아니라 출처·시점·shipment/revenue 기준을 함께 확인해야 합니다.",
+      "note": "HBM 점유율은 기관·시점·출하/매출 기준에 따라 달라집니다. 공개 Counterpoint 기반 근거는 2025년 Q2 62%, 2025년 Q3 57% 등으로 확인되며, Q1 2026 58% 표기는 별도 Watch로 관리합니다.",
+      "alt": "단일 고정값 대신 기준 시점과 측정 방식을 함께 표시합니다.",
       "badge": "범위 병기",
       "status": "Watch",
       "statusClass": "watch",
-      "source": "Counterpoint / Silicon Analysts",
-      "sourceDate": "2025~Q1 2026",
+      "source": "Counterpoint Research",
+      "sourceDate": "2025~Q1 2026 Watch",
       "sourceUrl": "https://counterpointresearch.com/en/insights/global-dram-and-hbm-market-share"
     },
     {
@@ -168,17 +169,20 @@
       "sourceUrl": "https://www.tomshardware.com/tech-industry/semiconductors/ymtcs-third-wuhan-fab-clears-beijings-50-percent-domestic-tooling-threshold-as-two-more-are-planned"
     },
     {
-      "label": "NAND 시장 규모",
-      "value": "46",
+      "label": "NAND 2026 전망",
+      "value": "270.6",
       "prefix": "$",
       "suffix": "B",
-      "note": "분기 NAND 매출/응용별 비중은 시장조사 원문 확인 전까지 Watch. eSSD 비중과 계약가 회복을 분리 추적",
-      "badge": "출처 보강",
-      "status": "Watch",
-      "statusClass": "watch",
-      "source": "TrendForce / Omdia 원문 확인 필요",
-      "sourceDate": "2026 Q1",
-      "sourceUrl": "https://www.trendforce.com/"
+      "note": "TrendForce 2026-05-29 기준 NAND Flash 2026년 시장 전망은 $270.6B, YoY +280.7%입니다. 2027년은 약 $379.4B, +40.2% 전망입니다.",
+      "badge": "TrendForce",
+      "status": "OK",
+      "statusClass": "ok",
+      "source": "TrendForce",
+      "sourceDate": "2026-05-29",
+      "sourceUrl": "https://www.trendforce.com/presscenter/news/20260529-13068.html",
+      "decimals": 1,
+      "alt": "분기별 NAND 실적·응용별 비중은 별도 원문 기준으로 관리합니다.",
+      "showInKpiStrip": true
     },
     {
       "label": "빅펀드 3기",
@@ -1773,8 +1777,8 @@
           "value": "295억 위안"
         },
         {
-          "label": "DDR5 수율",
-          "value": "80%대"
+          "label": "수율·원가",
+          "value": "Watch"
         }
       ],
       "watch": [

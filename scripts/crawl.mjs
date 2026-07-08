@@ -410,6 +410,7 @@ const KOREAN_SOURCE_RE = new RegExp(
 const EXCLUDED_NEWS_RE = /\b(apple|applem|aapl|iphone|ipad|macbook|9to5mac|applemagazine)\b|애플|아이폰|아이패드|맥북/i;
 const LOW_CONFIDENCE_NEWS_RE = /(ad hoc news|indexbox|36\s*kr|36kr|borncity|mjengo|blockchain\.news|odaily|zamin\.uz|finance\.biggo|crypto briefing|weex|fortrinawwer|siliconanalysts|nand-research|reddit|facebook|linkedin\.com|x\.com|twitter\.com)/i;
 const SKHYNIX_NEWSROOM_RE = /news\.skhynix\.com|sk\s*hynix\s*newsroom|skhy\s*newsroom/i;
+const FALSE_MEMORY_NEWS_RE = /(?:sk\s*hynix|skhy|sk\s*海力士|海力士).*?(?:u\.?s\.?\s*ipo|us\s*ipo|u\.?s\.?\s*stock\s*ipo|us\s*stock\s*ipo|nasdaq\s*(?:listing|ipo)|28\s*billion|28\s*b|\$28\s*b|280\s*억|280억|280\s*[亿億]|미국\s*(?:주식\s*)?ipo|나스닥\s*상장|美国\s*ipo|美股\s*ipo)|(?:u\.?s\.?\s*ipo|us\s*ipo|u\.?s\.?\s*stock\s*ipo|us\s*stock\s*ipo|nasdaq\s*(?:listing|ipo)|28\s*billion|28\s*b|\$28\s*b|280\s*억|280억|280\s*[亿億]|미국\s*(?:주식\s*)?ipo|나스닥\s*상장|美国\s*ipo|美股\s*ipo).*?(?:sk\s*hynix|skhy|sk\s*海力士|海力士)/i;
 const AUTHORITATIVE_EN_NEWS_RE =
   /(reuters|bloomberg|financial times|ft\.com|nikkei|cnbc|trendforce|dramexchange|techinsights|yole|counterpoint|tom'?s hardware|tomshardware|south china morning post|scmp|digitimes|ee times|eetimes|semianalysis|techwire asia|the register|business insider|network world|evertiq|technode|techspot|japan times|electronics weekly|businesswire|pr newswire|solidigm|intel|u\.s\. bis|bis\.gov|wsts|acm research ir|cxmt|shanghai stock exchange)/i;
 const AUTHORITATIVE_CN_NEWS_RE =
@@ -481,6 +482,7 @@ function isForeignItem(item) {
   const src = `${item.source || ""} ${item.title || ""} ${item.link || ""}`.toLowerCase();
   if (KOREAN_SOURCE_RE.test(src)) return false;
   if (SKHYNIX_NEWSROOM_RE.test(src)) return false;
+  if (FALSE_MEMORY_NEWS_RE.test(src)) return false;
   if (EXCLUDED_NEWS_RE.test(`${item.title || ""} ${item.source || ""} ${item.link || ""}`)) return false;
   if (LOW_CONFIDENCE_NEWS_RE.test(`${item.title || ""} ${item.source || ""} ${item.link || ""}`)) return false;
   const authority = `${publisherText(item)} ${item.link || ""}`;
