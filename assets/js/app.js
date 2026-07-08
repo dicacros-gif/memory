@@ -161,6 +161,7 @@
     "china-talent-strategy": "#F0ABFC",
     numbers: "#FDE68A",
     projection: "#FBBF24",
+    "hyperscaler-demand": "#34D399",
     workbench: "#B9A7FF",
     "memory-market-map": "#38BDF8",
     "ai-matrix": "#C4B5FD",
@@ -1678,10 +1679,10 @@
     {
       id: "analysis",
       label: "전략·백테스트",
-      desc: "백테스트, 경영전략, 제품군 프로젝션, ROI 시나리오",
+      desc: "백테스트, 경영전략, 정량 분석, ROI 시나리오",
       cadence: "Decision lab",
       jump: "executive-decision",
-      sections: ["executive-decision", "management-strategy", "strategic-investment-decision", "numbers", "projection", "hyperscaler-demand"],
+      sections: ["executive-decision", "management-strategy", "strategic-investment-decision", "numbers"],
     },
     {
       id: "market",
@@ -1743,6 +1744,22 @@
       jump: "memory-market-map",
       sections: ["memory-market-map"],
     },
+    {
+      id: "projection",
+      label: "제품군 프로젝션",
+      desc: "서버향·단말향·30개월+5년 제품 믹스",
+      cadence: "SKHY projection",
+      jump: "projection",
+      sections: ["projection"],
+    },
+    {
+      id: "hyperscaler-demand",
+      label: "수요 예측",
+      desc: "AI서버·스토리지·모바일·PC·오토",
+      cadence: "Scenario planning",
+      jump: "hyperscaler-demand",
+      sections: ["hyperscaler-demand"],
+    },
     ...MECE_GROUPS.filter((route) => ["analysis", "market", "policy", "competitors", "talent"].includes(route.id)),
   ];
   const ROUTE_DISPLAY = {
@@ -1766,9 +1783,19 @@
       desc: "경쟁·파트너십·투자·공급·매출",
       cadence: "Dynamics",
     },
+    projection: {
+      label: "제품군 프로젝션",
+      desc: "서버향·단말향 제품 믹스 전망",
+      cadence: "Projection",
+    },
+    "hyperscaler-demand": {
+      label: "수요 예측",
+      desc: "AI서버·스토리지·모바일·PC·오토",
+      cadence: "Scenario",
+    },
     analysis: {
       label: "전략·백테스트",
-      desc: "백테스트·경영전략·프로젝션·ROI",
+      desc: "백테스트·경영전략·정량분석·ROI",
       cadence: "Decision lab",
     },
     market: {
@@ -1807,6 +1834,7 @@
   };
   const SIDE_NAV_GROUPS = [
     { label: "요약·의사결정", routes: ["home", "c-level", "workbench", "market-map", "analysis"] },
+    { label: "제품·수요 전망", routes: ["projection", "hyperscaler-demand"] },
     { label: "시장·정책", routes: ["market", "policy"] },
     { label: "중국·인재", routes: ["competitors", "talent"] },
   ];
@@ -1815,6 +1843,8 @@
     "c-level": "E",
     workbench: "W",
     "market-map": "F",
+    projection: "P",
+    "hyperscaler-demand": "D",
     analysis: "A",
     market: "M",
     competitors: "C",
@@ -1903,8 +1933,8 @@
     "management-strategy": "executive-decision",
     "strategic-investment-decision": "executive-decision",
     numbers: "executive-decision",
-    projection: "executive-decision",
-    "hyperscaler-demand": "executive-decision",
+    projection: "projection",
+    "hyperscaler-demand": "hyperscaler-demand",
     response: "executive-decision",
     categories: "china-nand",
   };
@@ -2296,7 +2326,7 @@
           <span><b>${fmtNum(pull)}/100</b><small>${escapeHTML(category.pullLabel)}</small></span>
         </div>
         <p>${escapeHTML(account.note)}</p>
-        <small class="hs-focus-note">${escapeHTML(scenario.label)} 기준 · SKHY 함의로 해석</small>
+        <small class="hs-focus-note">${escapeHTML(scenario.label)} · SKHY 함의로 해석</small>
       `;
     }
 
