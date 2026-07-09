@@ -472,6 +472,16 @@ function cleanLocalizedTitle(value, locale = "en") {
   return cleanTitle(value);
 }
 
+function cleanKoNewsText(value) {
+  return String(value || "")
+    .replace(/^\s*(?:\[[^\]]*뉴스[^\]]*\]|뉴스)\s*[:：]?\s*/i, "")
+    .replace(/\s*(?:\[[^\]]*뉴스[^\]]*\])\s*/gi, " ")
+    .replace(/SK\s*하이닉스/g, "SKHY")
+    .replace(/SK하이닉스/g, "SKHY")
+    .replace(/\s{2,}/g, " ")
+    .trim();
+}
+
 function canonicalNewsKey(item = {}) {
   const title = String(item.title || "")
     .replace(/\s[-–—]\s[^-–—|]+$/g, "")
@@ -1257,7 +1267,8 @@ async function addKoTitles(arr, limit) {
     if (_trCount >= TR_CAP) break;
     if (!item || !item.title || item.titleKo) continue;
     const ko = await translateKo(item.title);
-    if (ko && ko !== item.title) item.titleKo = ko;
+    const cleanKo = cleanKoNewsText(ko);
+    if (cleanKo && cleanKo !== item.title) item.titleKo = cleanKo;
     _trCount += 1;
     await sleep(120);
   }

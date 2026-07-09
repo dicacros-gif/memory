@@ -12206,6 +12206,8 @@
   function cleanKoreanTitle(title) {
     return String(title || "")
       .replace(SOURCE_SUFFIX_RE, "")
+      .replace(/^\s*(?:\[[^\]]*뉴스[^\]]*\]|뉴스)\s*[:：]?\s*/i, "")
+      .replace(/\s*(?:\[[^\]]*뉴스[^\]]*\])\s*/gi, " ")
       .replace(/\bSamsung\b/g, "삼성")
       .replace(/\bMicron\b/g, "마이크론")
       .replace(/\bNVIDIA\b/g, "엔비디아")
@@ -12253,13 +12255,30 @@
 
     const placement = cleanInsightText(String(item.placement || "").replace(/[·|/]+/g, " · "));
     if (placement && !sameInsightText(placement, cleanedCategory)) {
-      return `${cleanedTitle ? `${cleanedTitle}: ` : ""}${placement}`;
+      return placement;
     }
 
-    if (cleanedTitle) {
-      return `${cleanedTitle} 관련 가격·고객·공급망 신호 확인`;
+    return newsGeneratedSummary(item, cleanedCategory);
+  }
+
+  function newsGeneratedSummary(item = {}, category = "") {
+    const hay = `${item.title || ""} ${item.titleKo || ""} ${item.summary || ""} ${item.category || ""}`.toLowerCase();
+    if (/hbm|high bandwidth|rubin|cowos|base die/.test(hay)) {
+      return "HBM 고객 인증, 패키징 할당, 서버향 프리미엄 메모리 공급 변화 점검 필요.";
     }
-    return cleanedCategory || "메모리 업계 신호를 가격·고객·공급망 관점에서 확인";
+    if (/dram|ddr|lpddr|cxmt|price|contract|spot|담합|가격/.test(hay)) {
+      return "DRAM 가격, 고객 계약, 범용 메모리 공급 압력이 SKHY 가격 방어에 미치는 영향 점검 필요.";
+    }
+    if (/nand|ssd|essd|ymtc|solidigm|kioxia|sandisk/.test(hay)) {
+      return "NAND/eSSD 수요, 고객 인증, 중국 NAND 공급 확대가 수익성에 미치는 영향 점검 필요.";
+    }
+    if (/packag|bonding|tsv|jcet|xmc|interposer|photon/.test(hay)) {
+      return "첨단 패키징과 인터커넥트 병목이 HBM·AI 메모리 공급 우위에 미치는 영향 점검 필요.";
+    }
+    if (/policy|bis|chips|export|license|tariff|규제|정책/.test(hay)) {
+      return "정책·수출통제·인허가 변화가 중국 운영과 투자 승인 조건에 미치는 영향 점검 필요.";
+    }
+    return category || "메모리 업계 가격, 고객, 공급망 변화를 SKHY 의사결정 관점에서 점검 필요.";
   }
 
   function newsImpactLine(item, category) {
