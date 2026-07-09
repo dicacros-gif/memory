@@ -4312,7 +4312,7 @@
     `).join("");
 
     const councilScenario = agentFutureScenario(cLevelCouncilScenarioRun);
-    const strategicAgentIds = new Set(["ceo", "cfo", "cto", "cso", "policy", "market", "china", "devil", "audit"]);
+    const strategicAgentIds = new Set(["ceo", "cfo", "cto", "cso", "coo", "policy", "market", "china", "risk", "devil", "audit"]);
     const agentItems = cLevelAgentItems(selectedDecision, decisions, councilScenario).filter((agent) => strategicAgentIds.has(agent.id));
     const conclusion = cLevelCouncilConclusion(selectedDecision, councilScenario);
     const selectedProfile = cLevelDecisionProfile(selectedDecision);
@@ -4379,7 +4379,7 @@
         ` : `
           <div class="agent-waiting">
             <strong>안건을 선택한 뒤 토론 실행을 누르세요.</strong>
-            <p>실행 후 CEO, CFO, CTO, Strategy, Policy, Market, China, Devil's Advocate, Auditor가 순차 등장해 컨설팅 방식으로 질문, 반론, 결론을 정리합니다.</p>
+            <p>실행 후 CEO, CFO, CTO, CSO, COO, Policy, Market, China, Risk, Devil's Advocate, Auditor가 순차 등장해 안건을 질문, 반론, 실행 조건, 결론으로 정리합니다.</p>
           </div>
         `}
       </div>
@@ -4538,8 +4538,8 @@
       const text = p ? p.dataset.say || "" : "";
       if (!p || !text) { done(); return; }
       // Keep the council readable: each expert types slowly enough to feel like a real exchange.
-      const totalMs = 1550;
-      const step = Math.max(1, Math.ceil(text.length / 42));
+      const totalMs = 1900;
+      const step = Math.max(1, Math.ceil(text.length / 48));
       const tick = Math.max(18, Math.round(totalMs / Math.ceil(text.length / step)));
       let shown = 0;
       const advance = () => {
@@ -7384,9 +7384,9 @@
       .toUpperCase() || "A";
   }
 
-  function agentDebateHTML({ mode = "default", title = "Expert debate", subtitle = "", metrics = [], turns = [], kpis = [], accent = "" } = {}) {
+  function agentDebateHTML({ mode = "default", title = "Expert debate", subtitle = "", metrics = [], turns = [], kpis = [], accent = "", conclusion = null } = {}) {
     const colors = ["#06B6D4", "#8B5CF6", "#22C55E", "#F59E0B", "#EF4444", "#0EA5E9"];
-    const normalizedTurns = turns.filter((turn) => turn?.message).slice(0, 8).map((turn, index) => ({
+    const normalizedTurns = turns.filter((turn) => turn?.message).slice(0, 12).map((turn, index) => ({
       ...turn,
       color: turn.color || colors[index % colors.length],
       side: turn.side || (index % 2 ? "right" : "left"),
@@ -7424,7 +7424,7 @@
           </div>
         ` : ""}
         <div class="agent-roster" aria-label="토론 참여 전문가">
-          ${agents.slice(0, 8).map((agent, index) => `
+          ${agents.slice(0, 12).map((agent, index) => `
             <div class="agent-avatar-card" style="--agent-color:${escapeHTML(agent.color)};--delay:${index * rosterStepDelay}ms">
               <div class="agent-person">
                 <b>${escapeHTML(agent.avatar)}</b>
@@ -7453,6 +7453,14 @@
           <div class="agent-kpi-row">
             <strong>추적 KPI</strong>
             ${kpis.slice(0, 5).map((kpi) => `<span>${escapeHTML(kpi)}</span>`).join("")}
+          </div>
+        ` : ""}
+        ${conclusion ? `
+          <div class="agent-conclusion pending" style="--local-accent:${escapeHTML(accent || colors[0])}">
+            <span>결론</span>
+            <strong>${escapeHTML(conclusion.title || "경영진 결론")}</strong>
+            <p>${escapeHTML(conclusion.body || "")}</p>
+            ${conclusion.next ? `<small>${escapeHTML(conclusion.next)}</small>` : ""}
           </div>
         ` : ""}
       </div>
@@ -7936,7 +7944,7 @@
     const actual = active.actualChange == null ? "NA" : `${active.actualChange > 0 ? "+" : ""}${fmtNum(active.actualChange, 2)}%`;
     const prior = active.priorMomentum == null ? "NA" : `${active.priorMomentum > 0 ? "+" : ""}${fmtNum(active.priorMomentum, 2)}%`;
     const yearLabel = selectedYearOption?.label || "선택 시점 없음";
-    const agentItems = compactExecutiveDecisionAgentItems(active, selectedYearOption, productLabel, selectedIso, selectedSeriesCount, scenario);
+    const agentItems = executiveDecisionAgentItems(active, selectedYearOption, productLabel, selectedIso, selectedSeriesCount, scenario);
     const conclusion = executiveDecisionCouncilConclusion(active, selectedYearOption, selectedIso, scenario);
     const profile = executiveDecisionProfile(active, selectedYearOption, productLabel);
     const rosterStepDelay = 120;
@@ -8000,7 +8008,7 @@
               </article>
             `).join("")}
           </div>
-          <div class="agent-conclusion reveal" style="--local-accent:${escapeHTML(accent)}; --delay:${councilConclusionDelay}ms">
+          <div class="agent-conclusion pending" style="--local-accent:${escapeHTML(accent)}; --delay:${councilConclusionDelay}ms">
             <span>결론</span>
             <strong>${escapeHTML(conclusion.title)}</strong>
             <p>${escapeHTML(conclusion.body)}</p>
@@ -8009,7 +8017,7 @@
         ` : `
           <div class="agent-waiting">
             <strong>안건을 선택한 뒤 토론 실행을 누르세요.</strong>
-            <p>실행 후 CEO, CFO, CTO, Market, China/Policy, Data Auditor, Devil's Advocate, Strategy가 순차 등장해 가격·고객·기술·규제·반증 조건을 검토합니다.</p>
+            <p>실행 후 CEO, Data, China, CFO, CTO, COO, Market, Risk, Devil's Advocate, Auditor, Strategy가 순차 등장해 가격·고객·기술·규제·반증 조건을 검토합니다.</p>
           </div>
         `}
       </div>
@@ -9172,6 +9180,27 @@
           message: `정책 관점에서는 운영 유지, 기술 업그레이드, 캐파 확대를 같은 결론으로 묶지 않습니다. 중국 관련 안건은 BIS·VEU·현지 인허가·고객 계약을 분리해 O/X 게이트로 판단합니다.`,
         },
         {
+          name: "Market/Sales",
+          role: "고객·가격 전이",
+          avatar: "MKT",
+          color: "#10B981",
+          message: `고객 관점에서는 가격 하방 신호만으로 결론을 내리지 않습니다. CXMT·YMTC 신호가 실제 고객 전환, 장기계약, spot-contract spread로 이어질 때만 방어 가격, 물량 배분, 고객 락인 안건으로 올립니다.`,
+        },
+        {
+          name: "Operations",
+          role: "실행 가능성",
+          avatar: "OPS",
+          color: "#0EA5E9",
+          message: `실행 관점에서는 HBM ramp, 서버 DRAM, NAND/eSSD, 중국 Fab 운영을 하나의 CAPEX 문장으로 묶지 않습니다. 공급 배분, 인증 일정, 재고 회전, Fab continuity가 동시에 맞는 항목만 단계 집행합니다.`,
+        },
+        {
+          name: "IP/Risk",
+          role: "기술보호·하방 게이트",
+          avatar: "IP",
+          color: "#F43F5E",
+          message: `리스크 관점에서는 인력·수율 레시피·고객 데이터 접근권을 별도 게이트로 둡니다. 핵심 인력 이동, IP 소송, 수율 병목, 규제 이벤트 중 2개 이상 악화되면 확대보다 방어와 리텐션을 우선합니다.`,
+        },
+        {
           name: "Devil's Advocate",
           role: "반론·프리모템",
           avatar: "DA",
@@ -9194,6 +9223,11 @@
         },
       ],
       kpis: [],
+      conclusion: {
+        title: `${response.verdict} · SKHY 경영진 권고`,
+        body: `${targetLabel} 안건은 고객 전환, 수익성, 기술 병목, 정책 게이트를 분리해 판단합니다. 현재 결론은 ${response.action}입니다.`,
+        next: `다음 회의에서는 ${response.kpis?.slice(0, 3).join(", ") || "결정을 뒤집는 KPI"}만 업데이트해 유지, 확대, 보류 중 하나로 재판단합니다.`,
+      },
     });
   }
 
@@ -9275,7 +9309,7 @@
       answerWrap.innerHTML = `
         <div class="agent-waiting">
           <strong>Agent 실행 대기</strong>
-          <p>CEO 챌린지를 선택한 뒤 Agent 실행을 누르면 CEO, CFO, CTO, Policy/China, Devil's Advocate, Data Auditor, Strategy가 순차 등장해 질문, 반론, 검증, 결론을 정리합니다.</p>
+          <p>CEO 챌린지를 선택한 뒤 Agent 실행을 누르면 CEO, CFO, CTO, Policy/China, Market/Sales, Operations, IP/Risk, Devil's Advocate, Data Auditor, Strategy가 순차 등장해 질문, 반론, 실행 조건, 결론을 정리합니다.</p>
         </div>
       `;
       return;
