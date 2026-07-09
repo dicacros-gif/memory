@@ -4192,6 +4192,58 @@
     };
   }
 
+  function compactCLevelAgentItems(decision = {}, decisions = [], scenario = agentFutureScenario()) {
+    const selected = decision || decisions[0] || {};
+    const profile = cLevelDecisionProfile(selected);
+    const totalEvidence = selected?.evidenceCount || 0;
+    const priceRows = selected?.priceRows || 0;
+    const linkCount = selected?.linkCount || 0;
+    const flipKpis = decisionFlipKpis(selected);
+    const primaryFlip = primaryDecisionFlipKpi(selected);
+    const priceFlip = flipKpis.find((item) => item.id === "price-turn") || primaryFlip;
+    const relatedRelations = memoryMarketRelationsForTerms(selected?.terms || []);
+    const moneyRelations = relatedRelations.filter((item) => item.mode === "money");
+    const competitiveRelations = relatedRelations.filter((item) => item.mode === "competitive");
+    const topRelation = relatedRelations[0];
+    const scenarioVerdictValue = scenarioVerdict(selected?.verdict || "Watch", scenario);
+    const topRelationText = topRelation
+      ? `${memoryMarketNodeName(topRelation.from)} → ${memoryMarketNodeName(topRelation.to)}`
+      : "직접 연결 관계 없음";
+    const action = selected?.action || profile.next || "추가 검증 후 경영진 안건화";
+    return [
+      {
+        id: "ceo",
+        initials: "CEO",
+        name: "CEO",
+        title: "Chief Executive Officer",
+        role: "최종 의사결정",
+        color: "#111827",
+        stance: scenarioDecisionLabel(scenarioVerdictValue),
+        message: `질문은 "${profile.question}"입니다. 현재 판단은 **${selected?.verdict || "Watch"}**이고 ${scenario.label}에서는 ==${scenarioVerdictValue}==로 조정합니다. SKHY는 ${action}만 경영진 안건으로 올립니다.`,
+      },
+      {
+        id: "cfo",
+        initials: "CFO",
+        name: "CFO",
+        title: "Chief Financial Officer",
+        role: "수익성·자본배분",
+        color: "#00A896",
+        stance: "재무 게이트",
+        message: `근거 ${fmtNum(totalEvidence)}개, 가격 row ${fmtNum(priceRows)}개, 원문/KPI ${fmtNum(linkCount)}개입니다. ${profile.cfo} ==${priceFlip.label}== 기준을 넘기 전에는 예산 확정이 아니라 실사 우선순위로 둡니다.`,
+      },
+      {
+        id: "audit",
+        initials: "AUD",
+        name: "Data Auditor",
+        title: "Evidence Gatekeeper",
+        role: "근거 검증",
+        color: "#EF4444",
+        stance: "검증 기준",
+        message: `대표 관계는 ${topRelationText}입니다. 경쟁 관계 ${fmtNum(competitiveRelations.length)}개, 자금·매출 관계 ${fmtNum(moneyRelations.length)}개만 해석에 사용합니다. 원문 링크나 가격 row가 없으면 결론 강도를 올리지 않고, ==${primaryFlip.label}== 기준이 깨지면 Go를 Watch/Hold로 낮춥니다.`,
+      },
+    ];
+  }
+
   function renderCLevelCockpit() {
     const grid = $("#cLevelDecisionGrid");
     const agents = $("#cLevelAgentGrid");
@@ -4236,7 +4288,7 @@
     `).join("");
 
     const councilScenario = agentFutureScenario(cLevelCouncilScenarioRun);
-    const agentItems = cLevelAgentItems(selectedDecision, decisions, councilScenario);
+    const agentItems = compactCLevelAgentItems(selectedDecision, decisions, councilScenario);
     const conclusion = cLevelCouncilConclusion(selectedDecision, councilScenario);
     const selectedProfile = cLevelDecisionProfile(selectedDecision);
     const rosterStepDelay = 120;
@@ -4262,9 +4314,9 @@
         ${decisionFlipKpiHTML(selectedDecision)}
         ${scenarioBriefHTML(councilScenario)}
         <div class="agent-selected-brief">
-          <span>선택 안건</span>
-          <strong>${escapeHTML(selectedDecision?.label || "안건")}</strong>
-          <p>${escapeHTML(`질문: "${selectedProfile.question}"`)}</p>
+          <span>요약</span>
+          <strong>${escapeHTML(`${selectedDecision?.verdict || "Hold"} · ${selectedDecision?.tone || "검토"}`)}</strong>
+          <p>${escapeHTML(`인사이트: ${selectedDecision?.action || selectedProfile.next}`)}</p>
           <small>${escapeHTML(selectedDecision?.verdict || "Hold")} · 근거 ${fmtNum(selectedDecision?.evidenceCount || 0)}개 · 신뢰도 ${fmtNum(Math.round(selectedDecision?.confidence || 0))}/100</small>
         </div>
         ${cLevelCouncilRan ? `
@@ -4287,7 +4339,7 @@
               <div class="agent-turn pending${index % 2 ? " right" : ""}" data-agent-slot="${index}" style="--agent-color:${escapeHTML(agent.color)}">
                 <span class="agent-badge-wrap"><span class="agent-badge">${escapeHTML(agent.initials || agent.id.toUpperCase().slice(0, 2))}</span><small class="agent-badge-name">${escapeHTML(agent.name)}</small></span>
                 <div class="speech-bubble">
-                  <div class="speech-meta"><strong>${escapeHTML(agent.name)}</strong><span>${escapeHTML(agent.role)}</span></div>
+                  <div class="speech-meta"><strong>${escapeHTML(agent.role)}</strong><span>${escapeHTML(agent.stance || agent.name)}</span></div>
                   <p>${renderAgentSpeech(agent.message)}</p>
                 </div>
               </div>
@@ -4302,7 +4354,7 @@
         ` : `
           <div class="agent-waiting">
             <strong>안건을 선택한 뒤 토론 실행을 누르세요.</strong>
-            <p>실행 전에는 전문가를 호출하지 않습니다. 실행 후 CEO·CFO·CTO·전략·운영·정책·시장·중국·리스크·반론(Devil's Advocate)·감사가 근거 기준으로 한 명씩 순차 발언하며, 반론 전담이 합의를 의도적으로 반박합니다.</p>
+            <p>실행 후 CEO, CFO, Data Auditor 3명이 근거 기준으로 한 명씩 등장하고 말풍선으로 결론을 압축합니다.</p>
           </div>
         `}
       </div>
@@ -4398,7 +4450,7 @@
     const alive = () => debateRunStates.get(chat)?.token === token;
     const schedule = (fn, delay) => { const id = window.setTimeout(fn, delay); state.timers.push(id); return id; };
 
-    const turnName = (turn) => (turn.querySelector(".speech-meta strong")?.textContent || "").trim();
+    const turnName = (turn) => (turn.querySelector(".agent-badge-name")?.textContent || turn.querySelector(".speech-meta strong")?.textContent || "").trim();
     const cardByName = new Map();
     avatars.forEach((card) => {
       const name = (card.querySelector("span")?.textContent || "").trim();
@@ -7309,7 +7361,7 @@
 
   function agentDebateHTML({ mode = "default", title = "Expert debate", subtitle = "", metrics = [], turns = [], kpis = [], accent = "" } = {}) {
     const colors = ["#06B6D4", "#8B5CF6", "#22C55E", "#F59E0B", "#EF4444", "#0EA5E9"];
-    const normalizedTurns = turns.filter((turn) => turn?.message).slice(0, 10).map((turn, index) => ({
+    const normalizedTurns = turns.filter((turn) => turn?.message).slice(0, 3).map((turn, index) => ({
       ...turn,
       color: turn.color || colors[index % colors.length],
       side: turn.side || (index % 2 ? "right" : "left"),
@@ -7347,7 +7399,7 @@
           </div>
         ` : ""}
         <div class="agent-roster" aria-label="토론 참여 전문가">
-          ${agents.slice(0, 10).map((agent, index) => `
+          ${agents.slice(0, 3).map((agent, index) => `
             <div class="agent-avatar-card" style="--agent-color:${escapeHTML(agent.color)};--delay:${index * rosterStepDelay}ms">
               <div class="agent-person">
                 <b>${escapeHTML(agent.avatar)}</b>
@@ -7358,14 +7410,14 @@
             </div>
           `).join("")}
         </div>
-        <div class="agent-chat" aria-label="전문가 토론 말풍선" style="--chat-delay:${chatStartDelay}ms">
+        <div class="agent-chat js-debate" aria-label="전문가 토론 말풍선" style="--chat-delay:${chatStartDelay}ms">
           ${normalizedTurns.map((turn, index) => `
-            <article class="agent-turn ${escapeHTML(turn.side)}" style="--agent-color:${escapeHTML(turn.color)};--delay:${chatStartDelay + index * chatStepDelay}ms">
+            <article class="agent-turn pending ${escapeHTML(turn.side)}" style="--agent-color:${escapeHTML(turn.color)};--delay:${chatStartDelay + index * chatStepDelay}ms">
               <div class="agent-badge-wrap"><div class="agent-badge">${escapeHTML(turn.avatar || agentInitials(turn.name))}</div><small class="agent-badge-name">${escapeHTML(turn.name)}</small></div>
               <div class="speech-bubble">
                 <div class="speech-meta">
-                  <strong>${escapeHTML(turn.name)}</strong>
-                  <span>${escapeHTML(turn.role || "Expert")}</span>
+                  <strong>${escapeHTML(turn.role || "Expert")}</strong>
+                  <span>${escapeHTML(turn.stance || turn.name)}</span>
                 </div>
                 <p>${renderAgentSpeech(turn.message)}</p>
               </div>
@@ -7760,13 +7812,56 @@
     };
   }
 
+  function compactExecutiveDecisionAgentItems(active, selectedYearOption, productLabel, selectedIso, selectedSeriesCount, scenario = agentFutureScenario()) {
+    if (!active) return [];
+    const actual = active.actualChange == null ? "실측 부족" : `${active.actualChange > 0 ? "+" : ""}${fmtNum(active.actualChange, 2)}%`;
+    const prior = active.priorMomentum == null ? "NA" : `${active.priorMomentum > 0 ? "+" : ""}${fmtNum(active.priorMomentum, 2)}%`;
+    const profile = executiveDecisionProfile(active, selectedYearOption, productLabel);
+    const point = selectedIso ? pointDateLabel(selectedIso) : "기준점 없음";
+    const flipKpis = decisionFlipKpis(active, { label: productLabel });
+    const primaryFlip = primaryDecisionFlipKpi(active, { label: productLabel });
+    const priceFlip = flipKpis.find((item) => item.id === "price-turn") || primaryFlip;
+    return [
+      {
+        id: "ceo",
+        initials: "CEO",
+        name: "CEO",
+        title: "Chief Executive Officer",
+        role: "의사결정 질문",
+        color: "#111827",
+        stance: scenario.conclusion,
+        message: `${profile.question} 현재 결론은 **${active.decision.label}**입니다. ${scenario.label}에서는 ==${scenario.conclusion}==을 우선 결론으로 두고, ${primaryFlip.label} 기준이 깨지면 즉시 재상정합니다.`,
+      },
+      {
+        id: "cfo",
+        initials: "CFO",
+        name: "CFO",
+        title: "Chief Financial Officer",
+        role: "수익성·자본배분",
+        color: "#00A896",
+        stance: "가격·자본 게이트",
+        message: `${point} 기준 관측 ${fmtNum(active.observations.length)}개, 사전 모멘텀 ${prior}, 이후 실측 ${actual}입니다. ${profile.cfo} ${priceFlip.label} 기준이 충족되기 전에는 CAPEX나 가격 정책을 확정하지 않습니다.`,
+      },
+      {
+        id: "audit",
+        initials: "AUD",
+        name: "Data Auditor",
+        title: "Evidence Gatekeeper",
+        role: "근거 검증",
+        color: "#EF4444",
+        stance: "데이터 한계",
+        message: `가격 series ${fmtNum(selectedSeriesCount)}개 중 실제 관측 ${fmtNum(active.observations.length)}개만 판단에 사용했습니다. 중국 신호 ${fmtNum(active.chinaSignalCount)}건은 현재 리스크로만 반영하고, 원문·가격 row가 없는 해석은 결론 강도를 올리지 않습니다.`,
+      },
+    ];
+  }
+
   function executiveDecisionDebateHTML(active, selectedYearOption, productLabel, selectedIso, selectedSeriesCount, items = [], scenario = agentFutureScenario()) {
     if (!active) return "";
     const accent = categoryAccent(active.category);
     const actual = active.actualChange == null ? "NA" : `${active.actualChange > 0 ? "+" : ""}${fmtNum(active.actualChange, 2)}%`;
     const prior = active.priorMomentum == null ? "NA" : `${active.priorMomentum > 0 ? "+" : ""}${fmtNum(active.priorMomentum, 2)}%`;
     const yearLabel = selectedYearOption?.label || "선택 시점 없음";
-    const agentItems = executiveDecisionAgentItems(active, selectedYearOption, productLabel, selectedIso, selectedSeriesCount, scenario);
+    const agentItems = compactExecutiveDecisionAgentItems(active, selectedYearOption, productLabel, selectedIso, selectedSeriesCount, scenario);
     const conclusion = executiveDecisionCouncilConclusion(active, selectedYearOption, selectedIso, scenario);
     const profile = executiveDecisionProfile(active, selectedYearOption, productLabel);
     const rosterStepDelay = 120;
@@ -7790,9 +7885,9 @@
           <button type="button" id="execDecisionRunCouncil">${execDecisionCouncilRan ? "토론 다시 실행" : "토론 실행"}</button>
         </div>
         <div class="agent-selected-brief">
-          <span>선택 안건</span>
-          <strong>${escapeHTML(active.label)} · ${escapeHTML(active.decision.label)} · 관측 ${fmtNum(active.observations.length)}개</strong>
-          <p>${escapeHTML(`질문: "${profile.question}"`)}</p>
+          <span>요약</span>
+          <strong>${escapeHTML(`${active.decision.label} · ${active.outcome.label}`)}</strong>
+          <p>${escapeHTML(`인사이트: ${active.rationale}`)}</p>
           <small>${escapeHTML(yearLabel)} · ${escapeHTML(productLabel)} · 기준점 ${selectedIso ? escapeHTML(pointDateLabel(selectedIso)) : "없음"}</small>
         </div>
         ${scenarioBriefHTML(scenario)}
@@ -7816,14 +7911,14 @@
               </div>
             `).join("")}
           </div>
-          <div class="agent-chat" aria-label="제품군 전문가 토론 말풍선" style="--chat-delay:${chatStartDelay}ms">
+          <div class="agent-chat js-debate" aria-label="제품군 전문가 토론 말풍선" style="--chat-delay:${chatStartDelay}ms">
             ${agentItems.map((agent, index) => `
-              <article class="agent-turn${index % 2 ? " right" : ""}" style="--agent-color:${escapeHTML(agent.color)}; --delay:${chatStartDelay + index * councilStepDelay}ms">
+              <article class="agent-turn pending${index % 2 ? " right" : ""}" style="--agent-color:${escapeHTML(agent.color)}; --delay:${chatStartDelay + index * councilStepDelay}ms">
                 <div class="agent-badge-wrap"><div class="agent-badge">${escapeHTML(agent.initials)}</div><small class="agent-badge-name">${escapeHTML(agent.name)}</small></div>
                 <div class="speech-bubble">
                   <div class="speech-meta">
-                    <strong>${escapeHTML(agent.name)}</strong>
-                    <span>${escapeHTML(agent.role)}</span>
+                    <strong>${escapeHTML(agent.role)}</strong>
+                    <span>${escapeHTML(agent.stance || agent.name)}</span>
                   </div>
                   <p>${renderAgentSpeech(agent.message)}</p>
                 </div>
@@ -7839,7 +7934,7 @@
         ` : `
           <div class="agent-waiting">
             <strong>안건을 선택한 뒤 토론 실행을 누르세요.</strong>
-            <p>실행 전에는 전문가를 호출하지 않습니다. 실행 후 CEO·Data·China·CFO·CTO·COO·Market·Risk·반론(Devil's Advocate)·Auditor·Strategy가 순차 말풍선으로 토론하며, 반론 전담이 백테스트 결론을 의도적으로 반박합니다.</p>
+            <p>실행 후 CEO, CFO, Data Auditor 3명이 순차적으로 등장하고 가격·자본·근거 기준으로 결론을 압축합니다.</p>
           </div>
         `}
       </div>
@@ -8950,25 +9045,25 @@
       metrics: response.metrics || [],
       turns: [
         {
-          name: "Strategy Agent",
-          role: "판단·권고",
-          avatar: "STR",
-          color: "#22C55E",
-          message: `${challenge.question} 권고는 ${response.verdict}입니다. SKHY 관점에서는 고객·제품·정책 리스크 중 어느 축이 결론을 바꾸는지 먼저 정해야 합니다.`,
+          name: "CEO",
+          role: "의사결정 질문",
+          avatar: "CEO",
+          color: "#111827",
+          message: `${challenge.question} 결론은 **${response.verdict}**입니다. SKHY 관점에서는 고객, 제품, 정책 리스크 중 결정을 바꾸는 핵심 조건부터 정합니다.`,
+        },
+        {
+          name: "CFO",
+          role: "수익성·자본배분",
+          avatar: "CFO",
+          color: "#00A896",
+          message: `${response.logic} 재무 결론은 확정 ROI가 아니라 실사 우선순위로 사용하고, 비용·고객 방어·하방 리스크가 같이 충족될 때만 예산 안건으로 올립니다.`,
         },
         {
           name: "Data Auditor",
-          role: "근거·팩트 검증",
+          role: "근거 검증",
           avatar: "AUD",
-          color: "#06B6D4",
-          message: `${response.logic} 확인 가능한 원문 링크, 가격 데이터, O/X 게이트만 판단 근거로 사용하고 해석은 별도로 분리합니다.`,
-        },
-        {
-          name: "Risk Agent",
-          role: "반론·실행 조건",
-          avatar: "RISK",
-          color: "#8B5CF6",
-          message: `${response.counter} 실행 조건은 ${response.action}`,
+          color: "#EF4444",
+          message: `${response.counter} 실행 조건은 ${response.action} 원문·가격 row·O/X 게이트가 없는 문장은 결론 강도를 올리지 않습니다.`,
         },
       ],
       kpis: [],
@@ -9053,7 +9148,7 @@
       answerWrap.innerHTML = `
         <div class="agent-waiting">
           <strong>Agent 실행 대기</strong>
-          <p>CEO 챌린지를 선택한 뒤 Agent 실행을 누르면 Strategy Agent, Data Auditor, Risk Agent 3명이 한 명씩 등장하고 말풍선으로 순차 답변합니다.</p>
+          <p>CEO 챌린지를 선택한 뒤 Agent 실행을 누르면 CEO, CFO, Data Auditor 3명이 한 명씩 등장하고 말풍선으로 순차 답변합니다.</p>
         </div>
       `;
       return;
@@ -11550,15 +11645,22 @@
     const rangeStart = Math.min(...visible.map((item) => item.trend.startTime).filter(Number.isFinite));
     const rangeEnd = Math.max(...visible.map((item) => item.trend.endTime).filter(Number.isFinite));
     const filterLabel = (PRICE_CATEGORY_FILTERS.find((item) => item.id === priceFilter) || PRICE_CATEGORY_FILTERS[0]).label;
+    const period = activePricePeriod();
+    const coverageDays = Number.isFinite(rangeStart) && Number.isFinite(rangeEnd)
+      ? Math.max(0, Math.round((rangeEnd - rangeStart) / (24 * 60 * 60 * 1000)))
+      : 0;
+    const coverageLabel = coverageDays + 2 < period.days
+      ? `공개 누적 ${fmtNum(coverageDays)}일`
+      : "선택 기간 충족";
     summary.hidden = false;
     summary.innerHTML = `
       <article class="price-trend-card price-trend-wide">
         <div class="price-trend-head">
           <div>
-            <span>${escapeHTML(`${activePricePeriod().label} 가격 트렌드`)}</span>
+            <span>${escapeHTML(`${period.label} 선택 · 가격 누적 트렌드`)}</span>
             <strong>${escapeHTML(shortKstDate(rangeStart))} - ${escapeHTML(shortKstDate(rangeEnd))}</strong>
           </div>
-          <em>${escapeHTML(activePricePeriod().label)} · ${escapeHTML(filterLabel)} · 실제 누적</em>
+          <em>${escapeHTML(`${filterLabel} · ${coverageLabel}`)}</em>
         </div>
         ${priceTrendSvg(visible)}
         <div class="price-trend-legend">
