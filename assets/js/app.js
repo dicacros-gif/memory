@@ -724,7 +724,7 @@
       metrics: [
         { label: "NAND 점유율", value: "13%" },
         { label: "현재 캐파", value: "160~200k wpm" },
-        { label: "Phase 3", value: "+50k→100k" },
+        { label: "Phase 3", value: "30k→50k→100k" },
         { label: "공식 밀도", value: "12.66Gb/mm²" },
         { label: "제품 축", value: "eSSD" },
       ],
@@ -1538,12 +1538,12 @@
       tag: "우한 3공장",
       title: "YMTC 우한 Phase 3 장비 설치와 2026년 하반기 양산",
       thesis: "YMTC 우한 Phase 3는 단순 모니터링 신호가 아니라 장비 설치와 2026년 하반기 양산 개시 타임라인이 보도된 NAND 캐파 확장 이벤트입니다",
-      facts: ["기존 Wuhan 운영 기준선은 Line 1 약 100,000 wpm + Line 2 약 60,000 wpm = 약 160,000 wpm", "Reuters/Tom's Hardware의 기존 두 팹 합산 약 200,000 wpm 보도는 명목·확장 기준 가능성이 있어 Watch 범위로 분리", "Fab 3는 2026년 하반기 양산 개시와 2027년 50,000 wpm ramp-up 시나리오를 별도 추적"],
+      facts: ["기존 Wuhan 운영 기준선은 Line 1 약 100,000 wpm + Line 2 약 60,000 wpm = 약 160,000 wpm", "Sokatec은 Fab 2-A 50,000 wpm + Fab 2-B 50,000 wpm 확장까지 포함해 200,000 wpm 구조를 제시", "Fab 3는 2026년 하반기 초기 30,000 wpm ramp, 2027년 50,000 wpm 목표, full capacity 100,000 wpm으로 단계 추적"],
       risk: "국산 장비 qual과 공정 recipe 안정화가 지연되면 계획된 ramp 속도와 수율은 다시 Watch로 낮춰야 합니다",
       implication: "YMTC는 단순 NAND 경쟁사가 아니라 NAND 캐파, eSSD 고객, XMC 패키징, 국산 장비 qual을 묶는 중국형 IDM 후보로 추적해야 합니다",
       linkedCategories: ["nand", "dram", "equipment", "packaging"],
       source: "Tom's Hardware / Reuters / Sokatec",
-      sourceUrl: "https://www.tomshardware.com/tech-industry/semiconductors/ymtc-planms-two-additional-wuhan-fabs",
+      sourceUrl: "https://www.tomshardware.com/tech-industry/semiconductors/ymtcs-third-wuhan-fab-clears-beijings-50-percent-domestic-tooling-threshold-as-two-more-are-planned",
     },
     {
       id: "advanced-packaging",
@@ -4581,7 +4581,7 @@
 
   function memoryMarketNodes() {
     return [
-      { id: "skhy", name: "SKHY", role: "HBM·DRAM·NAND 중심", metric: "HBM 53~62%", category: "hbm", x: 50, y: 45, scale: 100 },
+      { id: "skhy", name: "SKHY", role: "HBM·DRAM·NAND 중심", metric: "HBM 58%", category: "hbm", x: 50, y: 45, scale: 100 },
       { id: "nvidia-ai", name: "NVIDIA·AI 고객", role: "HBM 수요·매출", metric: "AI demand", category: "aidemand", x: 55, y: 10, scale: 90 },
       { id: "tsmc", name: "TSMC", role: "HBM4 base die", metric: "CoWoS", category: "packaging", x: 22, y: 30, scale: 76 },
       { id: "samsung", name: "Samsung", role: "HBM·DRAM 경쟁", metric: "HBM 21%", category: "hbm", x: 15, y: 57, scale: 84 },
