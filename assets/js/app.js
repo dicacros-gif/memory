@@ -4228,7 +4228,7 @@
         title: "Chief Financial Officer",
         role: "수익성·자본배분",
         color: "#00A896",
-        stance: "재무 게이트",
+        stance: "Capital Allocation",
         message: `근거 ${fmtNum(totalEvidence)}개, 가격 row ${fmtNum(priceRows)}개, 원문/KPI ${fmtNum(linkCount)}개입니다. ${profile.cfo} ==${priceFlip.label}== 기준을 넘기 전에는 예산 확정이 아니라 실사 우선순위로 둡니다.`,
       },
       {
@@ -4238,7 +4238,7 @@
         title: "Evidence Gatekeeper",
         role: "근거 검증",
         color: "#EF4444",
-        stance: "검증 기준",
+        stance: "근거 정합성",
         message: `대표 관계는 ${topRelationText}입니다. 경쟁 관계 ${fmtNum(competitiveRelations.length)}개, 자금·매출 관계 ${fmtNum(moneyRelations.length)}개만 해석에 사용합니다. 원문 링크나 가격 row가 없으면 결론 강도를 올리지 않고, ==${primaryFlip.label}== 기준이 깨지면 Go를 Watch/Hold로 낮춥니다.`,
       },
     ];
@@ -5807,7 +5807,7 @@
           <button type="button" data-memory-reset>배치 초기화</button>
         </div>
       </div>
-      <div class="memory-network">
+      <div class="memory-network" data-mode="${escapeHTML(memoryMarketMode)}">
         <svg class="memory-network-svg" viewBox="0 0 100 100" preserveAspectRatio="none" aria-hidden="true">
           <defs>
             <marker id="memory-arrow-end" markerWidth="5.5" markerHeight="5.5" refX="4.8" refY="2.75" orient="auto" markerUnits="strokeWidth">
@@ -5846,7 +5846,7 @@
           const nodeSize = Math.round(clamp(48 + nodeScore * .36 + Math.min(node.signal || 0, 34) * .18, 58, 118));
           const nodeMetric = node.metric || `${fmtNum(node.signal)}건`;
           return `
-            <button class="memory-node ${active ? "active" : ""}${node.dimmed ? " dimmed" : ""}" type="button" draggable="false" data-memory-node="${escapeHTML(node.id)}" data-node-x="${Number(node.x).toFixed(2)}" data-node-y="${Number(node.y).toFixed(2)}" aria-label="${escapeHTML(node.name)} 관계 노드. 드래그하여 이동" title="드래그하여 이동 · 클릭하여 상세 보기" style="--node-x:${node.x}%; --node-y:${node.y}%; --node-size:${nodeSize}px; --node-score:${nodeScore}; --node-score-pct:${nodeScore}%; --local-accent:${categoryAccent(node.category)}; --delay:${index * 45}ms">
+            <button class="memory-node ${active ? "active" : ""}${node.dimmed ? " dimmed" : ""}" type="button" draggable="false" data-memory-node="${escapeHTML(node.id)}" data-node-x="${Number(node.x).toFixed(2)}" data-node-y="${Number(node.y).toFixed(2)}" aria-label="${escapeHTML(node.name)} 관계 노드. 드래그하여 이동" title="드래그하여 이동 · 클릭하여 상세 보기" style="--node-x:${node.x}%; --node-y:${node.y}%; --node-size:${nodeSize}px; --node-score:${nodeScore}; --node-score-pct:${nodeScore}%; --local-accent:${categoryAccent(node.category)}; --delay:${index * 45}ms; --float-dur:${(6.4 + (index % 5) * 0.9).toFixed(1)}s; --float-x:${3 + (index % 3)}px; --float-y:${4 + (index % 4)}px; --float-delay:${index * 130}ms">
               <b>${escapeHTML(node.name)}</b>
               <span>${escapeHTML(node.role)}</span>
               <em>${escapeHTML(nodeMetric)}</em>
@@ -7702,7 +7702,7 @@
         title: "Backtest & Price Series",
         role: "가격·백테스트",
         color: "#06B6D4",
-        stance: "실측 검증",
+        stance: "Base-rate 검증",
         message: `${profile.data} ${point} 기준 가격 series ${fmtNum(selectedSeriesCount)}개 중 관측 ${fmtNum(active.observations.length)}개만 계산했습니다. 사전 모멘텀은 ${prior}, 이후 실측은 ${actual}입니다. ${scenario.label}에서는 ${scenario.market}`,
       },
       {
@@ -7712,7 +7712,7 @@
         title: "China Risk Overlay",
         role: "중국 신호",
         color: "#8B5CF6",
-        stance: "현재 리스크",
+        stance: "시나리오 오버레이",
         message: `${profile.china} 연결 신호 ${fmtNum(active.chinaSignalCount)}건은 과거 판단에 소급 반영하지 않습니다. ${scenario.label}에서는 ${scenario.id === "china-pressure" ? "중국 신호를 Bear case로 상향 반영합니다." : "중국 신호를 현재 리스크로만 유지합니다."} ${chinaFlip.label} 기준이 충족되면 판단을 '${chinaFlip.flip}'로 재분류합니다.`,
       },
       {
@@ -7722,7 +7722,7 @@
         title: "Capital Allocation",
         role: "수익성·자본배분",
         color: "#F59E0B",
-        stance: "자본 효율",
+        stance: "Capital Allocation",
         message: `${profile.cfo} ${scenario.cfo} 이 판단은 IRR/NPV가 아니라 실사 우선순위입니다. 실행 문구는 '${active.decision.action}'로 제한하고, 재검토 기준이 충족되면 예산안을 다시 냅니다.`,
       },
       {
@@ -7732,7 +7732,7 @@
         title: "Product & Technology",
         role: "제품·기술 병목",
         color: "#7C3AED",
-        stance: "제품군 분리",
+        stance: "MECE 분해",
         message: `HBM, 서버 DDR5, NAND/eSSD, 단말향 DRAM은 같은 결론으로 묶지 않습니다. 대상 제품군 ${(active.products || []).slice(0, 4).join(" · ") || productLabel}에서 수율, 인증, 패키징 병목이 풀릴 때만 확대 판단을 유지합니다.`,
       },
       {
@@ -7752,7 +7752,7 @@
         title: "Customer & Pricing",
         role: "가격·고객",
         color: "#10B981",
-        stance: "수요 검증",
+        stance: "Lead-Lag 신호",
         message: `${profile.data} 가격은 사전 모멘텀 ${prior}와 이후 실측 ${actual}로 나눠 봅니다. ${priceFlip.label}(${priceFlip.trigger})이 충족되지 않으면 고객·가격 결론을 과도하게 올리지 않습니다.`,
       },
       {
@@ -7762,18 +7762,18 @@
         title: "Downside Gate",
         role: "하방 리스크",
         color: "#EF4444",
-        stance: "No-Go 조건",
+        stance: "Reversal Trigger",
         message: `${profile.risk} ${scenario.policy} 하방 조건은 "${active.downside}"입니다. ${flipKpis.slice(0, 3).map((item) => item.label).join(" · ")} 중 2개 이상 악화되면 결론을 낮춥니다.`,
       },
       {
         id: "devil",
         initials: "DA",
         name: "Devil's Advocate",
-        title: "Red Team · 반론 전담",
-        role: "합의 반박·역백테스트",
+        title: "Pre-mortem · 반론 전담",
+        role: "일부러 반대·반증 설계",
         color: "#111827",
-        stance: "레드팀",
-        message: `레드팀 질문입니다. 이 백테스트가 "지나간 판단을 지금 근거로 정당화"하는 사후확증일 수 있습니다. ① 사전 모멘텀 ${prior}와 이후 실측 ${actual}가 우연히 맞았을 가능성을 배제했습니까? ② 같은 신호로 반대 결론을 내면 어디서 깨집니까? ③ 표본이 ${fmtNum(active.observations?.length || 0)}개면 통계적으로 충분합니까? 같은 규칙으로 틀린 시점도 비교해야 합니다.`,
+        stance: "Pre-mortem",
+        message: `Pre-mortem: 12개월 뒤 이 결론이 틀렸다고 가정하고 실패 원인부터 적습니다. 이 백테스트가 "지나간 판단을 지금 근거로 정당화"하는 사후확증일 수 있습니다. ① 사전 모멘텀 ${prior}와 이후 실측 ${actual}가 우연히 맞았을 가능성을 배제했습니까? ② 같은 신호로 반대 결론을 내면 어디서 깨집니까? ③ 표본이 ${fmtNum(active.observations?.length || 0)}개면 통계적으로 충분합니까? 같은 규칙으로 틀린 시점도 비교해야 합니다.`,
       },
       {
         id: "audit",
@@ -7782,7 +7782,7 @@
         title: "Evidence & Method",
         role: "근거 감사",
         color: "#475569",
-        stance: "팩트 게이트",
+        stance: "근거 정합성",
         message: `선택 시점 이후 실제 가격만 백테스트에 씁니다. 중국 신호 ${fmtNum(active.chinaSignalCount)}건은 현재 리스크이며, 원문·가격 row가 없는 해석은 결론 강도를 올리지 않습니다.`,
       },
       {
@@ -7839,7 +7839,7 @@
         title: "Chief Financial Officer",
         role: "수익성·자본배분",
         color: "#00A896",
-        stance: "가격·자본 게이트",
+        stance: "Capital Allocation",
         message: `${point} 기준 관측 ${fmtNum(active.observations.length)}개, 사전 모멘텀 ${prior}, 이후 실측 ${actual}입니다. ${profile.cfo} ${priceFlip.label} 기준이 충족되기 전에는 CAPEX나 가격 정책을 확정하지 않습니다.`,
       },
       {
@@ -7849,8 +7849,28 @@
         title: "Evidence Gatekeeper",
         role: "근거 검증",
         color: "#EF4444",
-        stance: "데이터 한계",
+        stance: "근거 정합성",
         message: `가격 series ${fmtNum(selectedSeriesCount)}개 중 실제 관측 ${fmtNum(active.observations.length)}개만 판단에 사용했습니다. 중국 신호 ${fmtNum(active.chinaSignalCount)}건은 현재 리스크로만 반영하고, 원문·가격 row가 없는 해석은 결론 강도를 올리지 않습니다.`,
+      },
+      {
+        id: "devil",
+        initials: "DA",
+        name: "Devil's Advocate",
+        title: "Pre-mortem · 반론 전담",
+        role: "일부러 반대·반증 설계",
+        color: "#111827",
+        stance: "Pre-mortem",
+        message: `Pre-mortem: 이 백테스트가 **지나간 판단을 지금 근거로 정당화**하는 사후확증일 수 있습니다. ① 사전 모멘텀 ${prior}와 이후 실측 ${actual}가 우연히 맞았을 가능성을 배제했습니까? ② 관측 ${fmtNum(active.observations.length)}개는 통계적으로 충분합니까? ③ ${primaryFlip.label}이 반대로 움직이면 이 결론은 어디서 깨집니까? 반증 조건이 없으면 결론 강도를 낮춥니다.`,
+      },
+      {
+        id: "strategy",
+        initials: "STR",
+        name: "Strategy",
+        title: "Corporate Strategy",
+        role: "최종 종합",
+        color: "#22C55E",
+        stance: scenario.conclusion,
+        message: `종합하면 ${active.decision.label} 안건은 ${scenario.label}에서 ==${scenario.conclusion}==입니다. ${profile.strategy || "이길 수 있는 제품군에 자원을 집중하고 나머지는 옵션으로 둡니다."} 세 명의 반론(자본·근거·Pre-mortem)을 통과한 항목만 경영진 안건으로 상정합니다.`,
       },
     ];
   }

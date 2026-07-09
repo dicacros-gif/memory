@@ -3911,8 +3911,11 @@ body.sidebar-collapsed .sb-ico {
   text-align: center;
   transform: translate(-50%, -50%) scale(.94);
   opacity: 0;
-  animation: agentPop .48s cubic-bezier(.2, .8, .2, 1) forwards;
-  animation-delay: var(--delay, 0ms);
+  /* Idle "movement": the individual `translate` property composes with the
+     centering `transform` above, so circles drift gently without breaking drag. */
+  animation:
+    agentPop .48s cubic-bezier(.2, .8, .2, 1) var(--delay, 0ms) forwards,
+    memoryNodeFloat var(--float-dur, 8s) ease-in-out calc(560ms + var(--float-delay, 0ms)) infinite;
   isolation: isolate;
   box-shadow:
     0 18px 42px color-mix(in srgb, var(--local-accent, var(--accent)) 22%, transparent),
@@ -3989,6 +3992,20 @@ body.sidebar-collapsed .sb-ico {
   opacity: 1;
   transform: translate(-50%, -50%) scale(1.12);
   transition: none;
+}
+
+/* Freeze the idle drift while dragging or while any node is being moved so the
+   pointer stays locked to the circle. */
+.memory-node.dragging,
+.memory-network.drag-active .memory-node {
+  animation-play-state: paused;
+  translate: 0 0;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .memory-node {
+    animation: agentPop .48s cubic-bezier(.2, .8, .2, 1) var(--delay, 0ms) forwards;
+  }
 }
 
 .memory-node:hover b,
@@ -4179,6 +4196,29 @@ body.sidebar-collapsed .sb-ico {
 
 @keyframes memoryNodeRing {
   to { transform: rotate(338deg); }
+}
+
+/* Gentle floating orbit for the relationship circles ("원과 움직임"). Uses the
+   individual `translate` property so it stacks on top of the centering transform. */
+@keyframes memoryNodeFloat {
+  0%, 100% { translate: 0 0; }
+  30% { translate: var(--float-x, 4px) calc(-1 * var(--float-y, 6px)); }
+  60% { translate: calc(-1 * var(--float-x, 4px)) calc(var(--float-y, 6px) * .5); }
+}
+
+/* Money Flow mode: cash marches faster along the wire and the line glows, so a
+   selected arrow literally reads as "돈이 이 방향으로 흐른다". */
+.memory-network[data-mode="money"] .memory-edge {
+  animation-duration: 1.5s, .6s;
+  filter: drop-shadow(0 0 2.5px color-mix(in srgb, var(--edge-color) 45%, transparent));
+}
+.memory-network[data-mode="money"] .memory-edge.active,
+.memory-network[data-mode="money"] .memory-edge:hover {
+  filter: drop-shadow(0 0 9px var(--edge-color));
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .memory-edge { animation: memoryEdgeIn .6s ease forwards; }
 }
 
 .china-business-brief,
