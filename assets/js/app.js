@@ -635,6 +635,30 @@
       angle: "Strategic fit",
       question: "이 안건이 HBM·NAND/eSSD·중국 운영·IP 방어 중 어느 경영 목표에 기여하나?",
     },
+    {
+      id: "china-dram-defense",
+      label: "중국 DRAM 가격 압력에 어떻게 대응하나?",
+      angle: "China DRAM",
+      question: "CXMT 범용 DRAM 가격 압력이 커질 때 SKHY는 고객 락인, 믹스 전환, 감산 중 무엇을 먼저 실행해야 하나?",
+    },
+    {
+      id: "hbm4-lockin",
+      label: "HBM4 고객 락인을 더 강화할까?",
+      angle: "HBM4",
+      question: "HBM4 수요가 강할 때 SKHY는 수율 안정, CoWoS/패키징, 장기 공급계약 중 어느 병목에 자본을 먼저 배분해야 하나?",
+    },
+    {
+      id: "solidigm-dalian",
+      label: "Solidigm·Dalian은 방어인가 옵션인가?",
+      angle: "NAND/eSSD",
+      question: "NAND/eSSD 가격과 YMTC 신호가 엇갈릴 때 Solidigm·Dalian은 현금흐름 방어, 매각 옵션, 추가 투자 중 어디에 두어야 하나?",
+    },
+    {
+      id: "china-fab-license",
+      label: "중국 Fab 투자는 어디까지 허용하나?",
+      angle: "Fab policy",
+      question: "BIS·CHIPS·중국 지방정부 정책이 충돌할 때 Wuxi·Dalian은 운영 유지, 기술 업그레이드, 캐파 확대를 어떻게 분리 승인해야 하나?",
+    },
   ];
   const CHINA_DYNAMIC_AXES = [
     {
@@ -4288,7 +4312,8 @@
     `).join("");
 
     const councilScenario = agentFutureScenario(cLevelCouncilScenarioRun);
-    const agentItems = compactCLevelAgentItems(selectedDecision, decisions, councilScenario);
+    const strategicAgentIds = new Set(["ceo", "cfo", "cto", "cso", "policy", "market", "china", "devil", "audit"]);
+    const agentItems = cLevelAgentItems(selectedDecision, decisions, councilScenario).filter((agent) => strategicAgentIds.has(agent.id));
     const conclusion = cLevelCouncilConclusion(selectedDecision, councilScenario);
     const selectedProfile = cLevelDecisionProfile(selectedDecision);
     const rosterStepDelay = 120;
@@ -4354,7 +4379,7 @@
         ` : `
           <div class="agent-waiting">
             <strong>안건을 선택한 뒤 토론 실행을 누르세요.</strong>
-            <p>실행 후 CEO, CFO, Data Auditor 3명이 근거 기준으로 한 명씩 등장하고 말풍선으로 결론을 압축합니다.</p>
+            <p>실행 후 CEO, CFO, CTO, Strategy, Policy, Market, China, Devil's Advocate, Auditor가 순차 등장해 컨설팅 방식으로 질문, 반론, 결론을 정리합니다.</p>
           </div>
         `}
       </div>
@@ -7361,7 +7386,7 @@
 
   function agentDebateHTML({ mode = "default", title = "Expert debate", subtitle = "", metrics = [], turns = [], kpis = [], accent = "" } = {}) {
     const colors = ["#06B6D4", "#8B5CF6", "#22C55E", "#F59E0B", "#EF4444", "#0EA5E9"];
-    const normalizedTurns = turns.filter((turn) => turn?.message).slice(0, 3).map((turn, index) => ({
+    const normalizedTurns = turns.filter((turn) => turn?.message).slice(0, 8).map((turn, index) => ({
       ...turn,
       color: turn.color || colors[index % colors.length],
       side: turn.side || (index % 2 ? "right" : "left"),
@@ -7399,7 +7424,7 @@
           </div>
         ` : ""}
         <div class="agent-roster" aria-label="토론 참여 전문가">
-          ${agents.slice(0, 3).map((agent, index) => `
+          ${agents.slice(0, 8).map((agent, index) => `
             <div class="agent-avatar-card" style="--agent-color:${escapeHTML(agent.color)};--delay:${index * rosterStepDelay}ms">
               <div class="agent-person">
                 <b>${escapeHTML(agent.avatar)}</b>
@@ -7843,6 +7868,36 @@
         message: `${point} 기준 관측 ${fmtNum(active.observations.length)}개, 사전 모멘텀 ${prior}, 이후 실측 ${actual}입니다. ${profile.cfo} ${priceFlip.label} 기준이 충족되기 전에는 CAPEX나 가격 정책을 확정하지 않습니다.`,
       },
       {
+        id: "cto",
+        initials: "CTO",
+        name: "CTO",
+        title: "Chief Technology Officer",
+        role: "제품·기술 병목",
+        color: "#7C3AED",
+        stance: "제품군 분해",
+        message: `제품군은 HBM, 서버 DRAM, NAND/eSSD, 단말, 오토·엣지를 같은 결론으로 묶지 않습니다. ${profile.cto || "수율, 인증, 패키징, 고객 qualification을 분리해 검증합니다."} 기술 병목이 풀리지 않으면 수요가 강해도 물량 약속은 단계 집행으로 낮춥니다.`,
+      },
+      {
+        id: "market",
+        initials: "MKT",
+        name: "Market",
+        title: "Market & Customer Lead",
+        role: "가격·고객 전이",
+        color: "#10B981",
+        stance: "수요 검증",
+        message: `${profile.data} 가격은 사전 ${prior}, 이후 ${actual}입니다. ${profile.market || "spot과 contract, 고객 계약 신호가 같은 방향일 때만 결론 강도를 높입니다."} 고객 신호 없이 가격만 움직이면 재고·믹스 조정 안건으로 둡니다.`,
+      },
+      {
+        id: "china",
+        initials: "CN",
+        name: "China/Policy",
+        title: "China & Policy Lead",
+        role: "중국·규제 리스크",
+        color: "#DB2777",
+        stance: "리스크 오버레이",
+        message: `${profile.china} 중국 신호 ${fmtNum(active.chinaSignalCount)}건은 과거 가격 판단을 바꾸지 않고 현재 리스크로만 반영합니다. ${scenario.policy} Wuxi·Dalian·중국 고객 노출은 운영 유지, 기술 업그레이드, 캐파 확대를 분리 승인해야 합니다.`,
+      },
+      {
         id: "audit",
         initials: "AUD",
         name: "Data Auditor",
@@ -7860,7 +7915,7 @@
         role: "일부러 반대·반증 설계",
         color: "#111827",
         stance: "Pre-mortem",
-        message: `Pre-mortem: 이 백테스트가 **지나간 판단을 지금 근거로 정당화**하는 사후확증일 수 있습니다. ① 사전 모멘텀 ${prior}와 이후 실측 ${actual}가 우연히 맞았을 가능성을 배제했습니까? ② 관측 ${fmtNum(active.observations.length)}개는 통계적으로 충분합니까? ③ ${primaryFlip.label}이 반대로 움직이면 이 결론은 어디서 깨집니까? 반증 조건이 없으면 결론 강도를 낮춥니다.`,
+        message: `Pre-mortem: 이 판단이 12개월 뒤 틀렸다면 원인은 세 가지입니다. ① 사전 모멘텀 ${prior}와 이후 실측 ${actual}를 사후적으로 해석했습니다. ② 관측 ${fmtNum(active.observations.length)}개가 제품군 전체를 대표하지 못했습니다. ③ ${primaryFlip.label}이 반대로 움직여도 결론을 고집했습니다. 반증 조건이 없으면 결론 강도를 낮춥니다.`,
       },
       {
         id: "strategy",
@@ -7954,7 +8009,7 @@
         ` : `
           <div class="agent-waiting">
             <strong>안건을 선택한 뒤 토론 실행을 누르세요.</strong>
-            <p>실행 후 CEO, CFO, Data Auditor 3명이 순차적으로 등장하고 가격·자본·근거 기준으로 결론을 압축합니다.</p>
+            <p>실행 후 CEO, CFO, CTO, Market, China/Policy, Data Auditor, Devil's Advocate, Strategy가 순차 등장해 가격·고객·기술·규제·반증 조건을 검토합니다.</p>
           </div>
         `}
       </div>
@@ -9049,6 +9104,30 @@
         counter: "중국 인력 확보를 독립 프로젝트로 보면 비용입니다. 제품군, 고객, IP 방어와 연결될 때 옵션 가치가 생깁니다.",
         action: "SKHY 액션: 모든 채용 요청을 HBM 수율, eSSD 고객 방어, 중국 운영 안정, IP 리스크 중 하나에 매핑합니다.",
       },
+      "china-dram-defense": {
+        verdict: "가격 방어는 감산부터가 아니라 고객·믹스·계약 재가격화 순서로 검토합니다.",
+        logic: `중국 신호 ${fmtNum(signals)}건과 O/X ${fmtNum(gates.ok)}/${fmtNum(gates.noGo)}를 기준으로, 범용 DRAM은 HBM·서버 DRAM과 별도 손익 게이트로 봅니다.`,
+        counter: "CXMT 압력을 이유로 일괄 감산하면 고객 락인과 서버향 믹스 기회를 동시에 잃을 수 있습니다.",
+        action: "SKHY 액션: DDR5/LPDDR spot-contract spread, 중국 고객 계약, 재고 회전율을 동시에 보며 가격 방어·믹스 전환·감산 후보를 분리합니다.",
+      },
+      "hbm4-lockin": {
+        verdict: "HBM4는 고객 락인 강화가 우선이지만 수율·패키징 병목을 통과한 물량만 약속합니다.",
+        logic: `ROI ${fmtNum(model.roi)}와 수익성 ${fmtNum(model.profitability)}는 프리미엄 제품군에 자본을 먼저 배분하되, 병목 KPI가 깨지면 단계 집행으로 낮추는 구조입니다.`,
+        counter: "고객 수요가 강해도 CoWoS/패키징, base die, 수율 병목이 닫히지 않으면 약속 물량이 마진 리스크로 바뀝니다.",
+        action: "SKHY 액션: HBM4/HBM4E 고객별 ramp, 수율, 패키징 할당을 한 묶음으로 승인하고 범용 캐파와 분리합니다.",
+      },
+      "solidigm-dalian": {
+        verdict: "Solidigm·Dalian은 단일 결론이 아니라 현금흐름 방어, value-up, 옵션가치로 분리합니다.",
+        logic: `수익성 ${fmtNum(model.profitability)}, 리스크 ${fmtNum(model.risk)}, 하방 ${fmtNum(model.downside)}를 기준으로 eSSD 고객 방어와 NAND 가격 하방을 같이 봅니다.`,
+        counter: "NAND 약세만 보고 철수하면 eSSD 고객·QLC 로드맵 옵션을 잃고, 강세만 보고 추가 투자하면 YMTC 가격 압력을 과소평가합니다.",
+        action: "SKHY 액션: eSSD 고객 인증과 NAND contract 회복이 같이 확인될 때 value-up, 둘 중 하나만 확인되면 옵션 유지로 둡니다.",
+      },
+      "china-fab-license": {
+        verdict: "중국 Fab 투자는 운영 유지, 기술 업그레이드, 캐파 확대를 분리 승인해야 합니다.",
+        logic: `${noGoText} 정책 리스크는 수익성 지수 ${fmtNum(model.profitability)}보다 먼저 통과해야 하는 게이트입니다.`,
+        counter: "운영 유지 인력과 기술 업그레이드 투자까지 같은 승인선에 올리면 BIS·VEU 리스크와 중국 운영 continuity를 모두 흐립니다.",
+        action: "SKHY 액션: Wuxi·Dalian 안건은 운영 유지=Maintain, 기술 업그레이드=License Watch, 캐파 확대=Board approval로 분리합니다.",
+      },
     };
 
     return { ...common, ...(answers[challenge.id] || answers["roi-credibility"]) };
@@ -9079,11 +9158,39 @@
           message: `${response.logic} 재무 결론은 확정 ROI가 아니라 실사 우선순위로 사용하고, 비용·고객 방어·하방 리스크가 같이 충족될 때만 예산 안건으로 올립니다.`,
         },
         {
+          name: "CTO",
+          role: "제품·기술 병목",
+          avatar: "CTO",
+          color: "#7C3AED",
+          message: `${targetLabel}은 기술·제품 병목을 먼저 분리해야 합니다. HBM 수율, NAND/eSSD 고객 인증, 중국 Fab 운영, IP 접근권 중 어느 축이 막히는지 확인한 뒤 물량·채용·투자 약속을 단계화합니다.`,
+        },
+        {
+          name: "Policy/China",
+          role: "규제·중국 노출",
+          avatar: "POL",
+          color: "#F59E0B",
+          message: `정책 관점에서는 운영 유지, 기술 업그레이드, 캐파 확대를 같은 결론으로 묶지 않습니다. 중국 관련 안건은 BIS·VEU·현지 인허가·고객 계약을 분리해 O/X 게이트로 판단합니다.`,
+        },
+        {
+          name: "Devil's Advocate",
+          role: "반론·프리모템",
+          avatar: "DA",
+          color: "#111827",
+          message: `${response.counter} 반대로 12개월 뒤 실패했다면 원인은 확증편향, 고객 전환 과소평가, 규제 리스크 누락입니다. 이 세 가지를 반증하지 못하면 결론은 Go가 아니라 Watch입니다.`,
+        },
+        {
           name: "Data Auditor",
           role: "근거 검증",
           avatar: "AUD",
           color: "#EF4444",
-          message: `${response.counter} 실행 조건은 ${response.action} 원문·가격 row·O/X 게이트가 없는 문장은 결론 강도를 올리지 않습니다.`,
+          message: `실행 조건은 ${response.action}입니다. 원문·가격 row·O/X 게이트가 없는 문장은 결론 강도를 올리지 않고, 수치와 해석을 분리해 다음 회의에서 같은 기준으로 재검증합니다.`,
+        },
+        {
+          name: "Strategy",
+          role: "최종 종합",
+          avatar: "STR",
+          color: "#22C55E",
+          message: `종합하면 ${targetLabel}은 ${response.action}로 정리합니다. 다음 회의에서는 ${response.kpis?.slice(0, 3).join(", ") || "핵심 KPI"}가 바뀌었는지만 보고 결정을 유지, 확대, 보류 중 하나로 갱신합니다.`,
         },
       ],
       kpis: [],
@@ -9168,7 +9275,7 @@
       answerWrap.innerHTML = `
         <div class="agent-waiting">
           <strong>Agent 실행 대기</strong>
-          <p>CEO 챌린지를 선택한 뒤 Agent 실행을 누르면 CEO, CFO, Data Auditor 3명이 한 명씩 등장하고 말풍선으로 순차 답변합니다.</p>
+          <p>CEO 챌린지를 선택한 뒤 Agent 실행을 누르면 CEO, CFO, CTO, Policy/China, Devil's Advocate, Data Auditor, Strategy가 순차 등장해 질문, 반론, 검증, 결론을 정리합니다.</p>
         </div>
       `;
       return;
