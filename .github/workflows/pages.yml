@@ -8,8 +8,8 @@ on:
       - "data/price-history.json"
       - "data/market-history.json"
   schedule:
-    # Refresh foreign/China news, TrendForce prices, and memory peer data
-    # twice a day: 06:00 and 18:00 KST.
+    # Refresh foreign/China news, public China community/hiring signals,
+    # TrendForce prices, and memory peer data twice a day: 06:00 and 18:00 KST.
     - cron: "0 21 * * *"
     - cron: "0 9 * * *"
   workflow_dispatch:

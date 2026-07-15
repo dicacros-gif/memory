@@ -15,6 +15,7 @@
     timezone: "Asia/Seoul",
     prices: { sections: [], watchedItems: [] },
     news: [],
+    communitySignals: { updatedAt: null, total: 0, typeCounts: {}, platformCounts: {}, items: [] },
     categories: [],
     benchmarkSignals: { stream: [] },
     chinaInfra: { sources: [], signals: [] },
@@ -1722,7 +1723,7 @@
       desc: "가격·수급 변화와 기사 흐름",
       cadence: "Market data",
       jump: "prices",
-      sections: ["prices", "news"],
+      sections: ["prices", "news", "china-community"],
     },
     {
       id: "competitors",
@@ -1832,7 +1833,7 @@
     },
     market: {
       label: "시장",
-      desc: "가격·외신/중국 기사·수급",
+      desc: "가격·기사·중국 현장 신호",
       cadence: "Market data",
     },
     competitors: {
@@ -1894,6 +1895,13 @@
     { id: "english", label: "영어권 기사", countId: "foreignNewsCount", bucketId: "foreignNewsBucket", listId: "foreignNewsList" },
     { id: "chinese", label: "중국어 기사", countId: "chinaNewsCount", bucketId: "chinaNewsBucket", listId: "chinaNewsList" },
   ];
+  const COMMUNITY_TYPE_TABS = [
+    { id: "all", label: "전체" },
+    { id: "workplace", label: "직장·채용" },
+    { id: "technology", label: "기술·제품" },
+    { id: "market", label: "투자·산업" },
+    { id: "consumer", label: "소비자 체감" },
+  ];
   const QUANT_LENSES = [
     { id: "all", label: "전체", sub: "All KPI", categories: [] },
     { id: "market", label: "시장/가격", sub: "Spot · Contract · WSTS", categories: ["dram", "nand", "aidemand"], keywords: ["가격", "spot", "contract", "wsts", "market", "성장", "매출", "규모"] },
@@ -1922,6 +1930,7 @@
     response: "대응 전략",
     categories: "메모리 카테고리",
     news: "중국·외신 기사",
+    "china-community": "중국 반도체 현장 신호",
     prices: "TrendForce 가격",
   };
   const SECTION_ORDER = [
@@ -1937,6 +1946,7 @@
     "hyperscaler-demand",
     "prices",
     "news",
+    "china-community",
     "policy-makers",
     "china-fab-infra",
     "china-nand",
@@ -1953,6 +1963,7 @@
     "memory-market-map": "memory-market-map",
     prices: "prices",
     news: "prices",
+    "china-community": "prices",
     "policy-makers": "policy-makers",
     "china-fab-infra": "policy-makers",
     "china-nand": "china-nand",
@@ -2002,6 +2013,8 @@
   let newsSearch = "";
   let newsCompany = "all";
   let newsSource = "english";
+  let communityType = "all";
+  let communityPlatform = "all";
   let workbenchMode = "executive";
   let selectedInsightId = null;
   let memoryMarketMode = "competitive";
@@ -2095,6 +2108,7 @@
     renderArchitectureMatrix();
     renderPrices();
     renderNews();
+    renderChinaCommunity();
     renderChinaNandBusiness();
     renderChinaDynamics();
     renderTalentRadar();
@@ -2600,6 +2614,13 @@
   function normalizeLiveData(data = emptyLive) {
     const next = { ...emptyLive, ...(data || {}) };
     next.categories = (next.categories || []).filter(hasPositiveCount);
+    next.communitySignals = {
+      ...(next.communitySignals || {}),
+      typeCounts: next.communitySignals?.typeCounts || {},
+      platformCounts: next.communitySignals?.platformCounts || {},
+      items: Array.isArray(next.communitySignals?.items) ? next.communitySignals.items.filter((item) => item?.id && item?.sourceUrl) : [],
+    };
+    next.communitySignals.total = next.communitySignals.items.length;
     next.benchmarkSignals = {
       ...(next.benchmarkSignals || {}),
       themes: (next.benchmarkSignals?.themes || []).filter(hasPositiveCount),
@@ -3194,6 +3215,7 @@
       renderNumberAnalysis,
       renderProductProjection,
       renderNews,
+      renderChinaCommunity,
       renderArchitectureMatrix,
       renderMemoryMarketMap,
       renderChinaDeepDive,
@@ -11404,6 +11426,11 @@
       renderNews();
     });
 
+    $("#communityPlatformSelect")?.addEventListener("change", (event) => {
+      communityPlatform = event.target.value;
+      renderChinaCommunity();
+    });
+
     document.addEventListener("keydown", (event) => {
       if (event.key === "Escape") closeInspector();
     });
@@ -12989,6 +13016,156 @@
       card.insertBefore(a, card.querySelector(".news-insights"));
       li.appendChild(card);
       list.appendChild(li);
+    });
+  }
+
+  /* ---------------- China public community and hiring signals ---------------- */
+  function rawCommunitySignals() {
+    const byKey = new Map();
+    (LIVE.communitySignals?.items || []).forEach((item) => {
+      const key = String(item.sourceUrl || item.link || item.id || "").replace(/\/$/, "").toLowerCase();
+      if (!key) return;
+      const current = byKey.get(key);
+      if (!current || String(item.summary || item.summaryOriginal || "").length > String(current.summary || current.summaryOriginal || "").length) {
+        byKey.set(key, item);
+      }
+    });
+    return Array.from(byKey.values());
+  }
+
+  function communityMatchesCategory(item = {}, categoryId = activeCategory) {
+    if (!categoryId || categoryId === "all") return true;
+    const hay = `${item.title || ""} ${item.titleKo || ""} ${item.summary || ""} ${(item.entities || []).join(" ")} ${(item.topics || []).join(" ")}`.toLowerCase();
+    const tests = {
+      dram: /dram|ddr|lpddr|cxmt|长鑫/,
+      nand: /nand|ssd|xtacking|ymtc|xmc|长江存储|长存|新芯/,
+      hbm: /hbm|tsv|고대역|高带宽/,
+      cxl: /cxl|메모리 풀|内存池/,
+      packaging: /패키징|封装|tsv|적층|堆叠/,
+      equipment: /장비|소재|设备|材料|naura|amec|北方华创|中微/,
+      talent: /채용|직장|招聘|校招|岗位|工程师|良率/,
+      geopolitics: /정책|규제|ipo|基金|政策|出口|制裁/,
+      operations: /fab|공장|产能|晶圆|良率|工艺/,
+      aidemand: /ai|서버|服务器|数据中心|ssd|hbm/,
+    };
+    return tests[categoryId]?.test(hay) ?? true;
+  }
+
+  function communityBaseItems() {
+    const all = rawCommunitySignals();
+    const filtered = all.filter((item) => communityMatchesCategory(item));
+    return filtered.length ? filtered : all;
+  }
+
+  function communityTimestamp(item = {}) {
+    const value = item.date || item.publishedAt || "";
+    const time = new Date(value).getTime();
+    return Number.isFinite(time) ? time : 0;
+  }
+
+  function renderCommunityPlatformSelect(base = []) {
+    const select = $("#communityPlatformSelect");
+    if (!select) return;
+    const byPlatform = new Map();
+    base.forEach((item) => {
+      const id = item.platformId || "unknown";
+      const current = byPlatform.get(id) || { id, label: item.platform || "기타", count: 0 };
+      current.count += 1;
+      byPlatform.set(id, current);
+    });
+    const options = [{ id: "all", label: "전체 채널", count: base.length }]
+      .concat(Array.from(byPlatform.values()).sort((a, b) => b.count - a.count || a.label.localeCompare(b.label, "ko")));
+    if (!options.some((option) => option.id === communityPlatform)) communityPlatform = "all";
+    select.innerHTML = options.map((option) => `<option value="${escapeHTML(option.id)}">${escapeHTML(option.label)} · ${fmtNum(option.count)}건</option>`).join("");
+    select.value = communityPlatform;
+  }
+
+  function communityItemsForView(base = []) {
+    const platformFiltered = communityPlatform === "all" ? base : base.filter((item) => item.platformId === communityPlatform);
+    const typed = communityType === "all" ? platformFiltered : platformFiltered.filter((item) => item.type === communityType);
+    const sorted = typed.slice().sort((a, b) => communityTimestamp(b) - communityTimestamp(a) || Number(b.score || 0) - Number(a.score || 0));
+    const recent = sorted.slice(0, 30);
+    const importantHistory = typed
+      .filter((item) => item.historical && Number(item.importance || item.score || 0) >= 75)
+      .sort((a, b) => Number(b.importance || b.score || 0) - Number(a.importance || a.score || 0))
+      .slice(0, 6);
+    const unique = new Map();
+    [...recent, ...importantHistory].forEach((item) => unique.set(item.id || item.sourceUrl, item));
+    return Array.from(unique.values()).sort((a, b) => communityTimestamp(b) - communityTimestamp(a) || Number(b.score || 0) - Number(a.score || 0));
+  }
+
+  function setCommunityFreshness(total = 0) {
+    const badge = $("#communityFreshness");
+    if (!badge) return;
+    const updatedAt = LIVE.communitySignals?.updatedAt || LIVE.updatedAt;
+    const stale = hoursSince(updatedAt) > 36;
+    badge.className = `freshness-badge ${total && !stale ? "ok" : "stale"}`;
+    badge.textContent = `${stale ? "수집 지연" : "업데이트"} · ${fmtDate(updatedAt)} · 공개 채널 ${fmtNum(LIVE.communitySignals?.sourceCount || 0)}개`;
+  }
+
+  function renderChinaCommunity() {
+    const section = $("#china-community");
+    const tabs = $("#communityTabs");
+    const grid = $("#communityGrid");
+    const stats = $("#communityStats");
+    if (!section || !tabs || !grid || !stats) return;
+    const base = communityBaseItems();
+    if (!base.length) {
+      section.hidden = true;
+      return;
+    }
+    section.hidden = false;
+    renderCommunityPlatformSelect(base);
+    const platformBase = communityPlatform === "all" ? base : base.filter((item) => item.platformId === communityPlatform);
+    const tabOptions = COMMUNITY_TYPE_TABS.map((tab) => ({
+      ...tab,
+      count: tab.id === "all" ? platformBase.length : platformBase.filter((item) => item.type === tab.id).length,
+    })).filter((tab) => tab.id === "all" || tab.count > 0);
+    if (!tabOptions.some((tab) => tab.id === communityType)) communityType = "all";
+    tabs.innerHTML = "";
+    tabOptions.forEach((tab) => {
+      const button = el("button", tab.id === communityType ? "active" : "", `${escapeHTML(tab.label)} ${fmtNum(tab.count)}`);
+      button.type = "button";
+      button.dataset.communityType = tab.id;
+      button.setAttribute("aria-pressed", tab.id === communityType ? "true" : "false");
+      button.addEventListener("click", () => {
+        communityType = tab.id;
+        renderChinaCommunity();
+      });
+      tabs.appendChild(button);
+    });
+
+    const items = communityItemsForView(base);
+    const statParts = [
+      LIVE.communitySignals?.recent30d > 0 ? `최근 30일 ${fmtNum(LIVE.communitySignals.recent30d)}건` : "",
+      LIVE.communitySignals?.historicalCount > 0 ? `중요 과거 ${fmtNum(LIVE.communitySignals.historicalCount)}건` : "",
+      LIVE.communitySignals?.sourceCount > 0 ? `공개 채널 ${fmtNum(LIVE.communitySignals.sourceCount)}개` : "",
+    ].filter(Boolean);
+    stats.innerHTML = statParts.map((part) => `<span>${escapeHTML(part)}</span>`).join("");
+    setCommunityFreshness(base.length);
+    grid.innerHTML = "";
+    items.forEach((item) => {
+      const card = el("article", `community-card community-${escapeHTML(item.type || "market")}`);
+      const title = cleanKoreanTitle(item.titleKo || item.title || "중국 반도체 현장 신호");
+      const summary = clipText(item.summary || item.summaryOriginal || "", 250);
+      const insight = clipText(item.insight || "", 180);
+      const dateLabel = item.period || formatNewsDate(item.date || item.publishedAt) || "공개 페이지";
+      const evidenceClass = item.sourceClass === "official-career" || item.sourceClass === "job-board" ? "listing" : "unverified";
+      const tags = Array.from(new Set([...(item.entities || []), ...(item.topics || [])])).slice(0, 5);
+      card.innerHTML = `
+        <div class="community-card-head">
+          <span class="community-platform">${escapeHTML(item.platform || "공개 커뮤니티")}</span>
+          <span class="community-type">${escapeHTML(item.typeLabel || "현장 신호")}</span>
+          <span class="community-evidence ${escapeHTML(evidenceClass)}">${escapeHTML(item.evidenceLevel || "커뮤니티 신호")}</span>
+          ${item.historical ? '<span class="community-history">중요 과거</span>' : ""}
+          <time>${escapeHTML(dateLabel)}</time>
+        </div>
+        <a class="community-title" href="${escapeHTML(item.sourceUrl || item.link || "#")}" target="_blank" rel="noopener">${escapeHTML(title)}</a>
+        <p class="community-summary">${escapeHTML(summary)}</p>
+        <div class="community-insight"><strong>SKHY 시사점</strong><span>${escapeHTML(insight)}</span></div>
+        <div class="community-tags">${tags.map((tag) => `<span>${escapeHTML(tag)}</span>`).join("")}</div>
+      `;
+      grid.appendChild(card);
     });
   }
 

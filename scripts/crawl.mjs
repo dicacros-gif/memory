@@ -21,6 +21,8 @@ const MARKET_HISTORY_LOOKBACK_DAYS = 365 * 5;
 const MARKET_HISTORY_RETENTION_POINTS = 365 * 5 + 60;
 const NEWS_ENRICH_LIMIT = 60;
 const NEWS_ENRICH_CONCURRENCY = 4;
+const COMMUNITY_MAX_ITEMS = 96;
+const COMMUNITY_RETENTION_DAYS = 365 * 5;
 
 const BROWSER_UA =
   "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124.0.0.0 Safari/537.36";
@@ -113,6 +115,153 @@ const CHINESE_CATEGORIES = [
   { id: "nand", label: "NAND·YMTC 중국어", queries: ["长江存储 武汉 三期 2026 下半年 量产", "长江存储 A股 IPO NAND 产能", "长江存储 Xtacking 企业级 SSD"] },
   { id: "equipment", label: "장비 국산화 중국어", queries: ["长江存储 长鑫存储 国产设备 扩产", "北方华创 中微公司 长江存储 长鑫存储", "半导体设备 国产化 存储 长江 长鑫"] },
   { id: "china", label: "중국 메모리 정책 중국어", queries: ["中国 存储 芯片 供应链 大基金 长江 长鑫", "两存 扩产 半导体 存储 IPO", "长鑫 长江 存储 超级周期"] },
+];
+
+// Public China field signals are collected separately from reported news.
+// Community posts remain unverified, are never promoted into the fact layer,
+// and retain no author/profile identifiers. Login-gated pages are not scraped.
+const COMMUNITY_PLATFORM_RULES = [
+  { id: "xueqiu", label: "雪球", domains: ["xueqiu.com"], sourceClass: "community", defaultType: "market" },
+  { id: "zhihu", label: "知乎", domains: ["zhihu.com"], sourceClass: "community", defaultType: "technology" },
+  { id: "eastmoney", label: "东方财富股吧", domains: ["guba.eastmoney.com", "caifuhao.eastmoney.com"], sourceClass: "community", defaultType: "market" },
+  { id: "v2ex", label: "V2EX", domains: ["v2ex.com"], sourceClass: "community", defaultType: "consumer" },
+  { id: "chiphell", label: "Chiphell", domains: ["chiphell.com"], sourceClass: "community", defaultType: "consumer" },
+  { id: "maimai", label: "脉脉", domains: ["maimai.cn"], sourceClass: "workplace-community", defaultType: "workplace" },
+  { id: "boss", label: "BOSS直聘", domains: ["zhipin.com"], sourceClass: "job-board", defaultType: "workplace" },
+  { id: "liepin", label: "猎聘", domains: ["liepin.com"], sourceClass: "job-board", defaultType: "workplace" },
+  { id: "zhaopin", label: "智联招聘", domains: ["zhaopin.com"], sourceClass: "job-board", defaultType: "workplace" },
+  { id: "cxmt-careers", label: "CXMT 채용", domains: ["cxmt.zhiye.com", "cxmt.com"], sourceClass: "official-career", defaultType: "workplace" },
+  { id: "xmc-careers", label: "XMC 채용", domains: ["whxmc.zhiye.com"], sourceClass: "official-career", defaultType: "workplace" },
+  { id: "campus-career", label: "대학 취업센터", domains: ["jy.xmu.edu.cn", "zjc.sasu.edu.cn", "eie.scu.edu.cn"], sourceClass: "official-career", defaultType: "workplace" },
+];
+
+const COMMUNITY_DISCOVERY_QUERIES = [
+  { query: "site:xueqiu.com 长鑫存储 DRAM DDR5", platformId: "xueqiu" },
+  { query: "site:xueqiu.com 长江存储 NAND Xtacking", platformId: "xueqiu" },
+  { query: "site:zhihu.com 长鑫存储 DDR5 HBM", platformId: "zhihu" },
+  { query: "site:zhihu.com 长江存储 NAND SSD", platformId: "zhihu" },
+  { query: "site:zhihu.com 长鑫存储 招聘 良率 工艺", platformId: "zhihu" },
+  { query: "site:guba.eastmoney.com 长鑫存储 长江存储 半导体", platformId: "eastmoney" },
+  { query: "site:v2ex.com 长鑫存储 长江存储 内存", platformId: "v2ex" },
+  { query: "site:chiphell.com 长鑫存储 DDR5 内存", platformId: "chiphell" },
+  { query: "site:maimai.cn 长鑫存储 招聘 良率", platformId: "maimai" },
+  { query: "site:zhipin.com 长鑫存储 良率 工艺 招聘", platformId: "boss" },
+  { query: "site:zhaopin.com 长鑫存储 良率 工艺 招聘", platformId: "zhaopin" },
+  { query: "site:cxmt.zhiye.com 长鑫存储 校园招聘", platformId: "cxmt-careers" },
+  { query: "site:whxmc.zhiye.com 新芯 校园招聘", platformId: "xmc-careers" },
+];
+
+const COMMUNITY_HISTORY_SEEDS = [
+  {
+    platformId: "xueqiu",
+    type: "market",
+    title: "长鑫存储与长江存储的供应链分工讨论",
+    titleKo: "CXMT·YMTC 공급망 역할을 나눠 본 커뮤니티 토론",
+    summary: "투자자들은 CXMT를 DRAM, YMTC를 NAND 축으로 구분하고 장비·소재 수혜 연결고리를 토론했습니다. 개별 수치보다 어떤 공급망 기업이 반복해서 언급되는지 보는 자료입니다.",
+    link: "https://xueqiu.com/2786522622/397346597",
+    date: "2026-06-29",
+    historical: true,
+    importance: 86,
+  },
+  {
+    platformId: "xueqiu",
+    type: "market",
+    title: "长鑫存储IPO与半导体设备讨论",
+    titleKo: "CXMT IPO 기대와 중국 장비주 연결 토론",
+    summary: "커뮤니티는 CXMT의 자금 조달 기대를 국산 장비·소재 수요와 연결했습니다. 실제 조달액과 자금 사용처는 거래소 공시로 별도 검증해야 합니다.",
+    link: "https://www.xueqiu.com/6600079272/390606880/408163672",
+    date: "2026-05-24",
+    historical: true,
+    importance: 82,
+  },
+  {
+    platformId: "xueqiu",
+    type: "market",
+    title: "国产存储扩产与设备材料讨论",
+    titleKo: "중국 메모리 증설과 장비·소재 파급 토론",
+    summary: "중국 메모리 증설이 식각·증착·세정·소재 업체에 미칠 영향을 논의한 과거 글입니다. 장비 qualification이나 발주 수치는 공식 자료와 교차 확인할 때만 사용합니다.",
+    link: "https://xueqiu.com/1980283165/386139941",
+    date: "2026-04-28",
+    historical: true,
+    importance: 79,
+  },
+  {
+    platformId: "xueqiu",
+    type: "market",
+    title: "长鑫存储与长江存储战略角色讨论",
+    titleKo: "CXMT·YMTC의 전략적 역할과 지배구조 토론",
+    summary: "투자자들이 두 메모리 기업의 역할과 자본 관계를 토론한 글입니다. 지분·지배구조 주장은 확인되지 않은 커뮤니티 의견으로 두고 거래소·기업 공시가 나올 때만 사실로 사용합니다.",
+    link: "https://www.xueqiu.com/3668938448/389331999/407841840",
+    date: "2026-05-22",
+    historical: true,
+    importance: 78,
+  },
+  {
+    platformId: "xueqiu",
+    type: "market",
+    title: "国产存储材料供应链讨论",
+    titleKo: "중국 메모리 소재 공급망 관심 변화",
+    summary: "커뮤니티에서 메모리 증설과 소재 공급업체의 연결 가능성을 논의했습니다. 특정 공급 관계는 미검증이므로 반복 언급 빈도만 관찰하고 고객·납품 사실은 공시로 확인합니다.",
+    link: "https://www.xueqiu.com/4481940052/389654930/407619465",
+    date: "2026-05-20",
+    historical: true,
+    importance: 75,
+  },
+  {
+    platformId: "zhihu",
+    type: "workplace",
+    title: "长鑫存储2027届校园招聘信息",
+    titleKo: "CXMT 2027 캠퍼스 채용 직무·근무지 공개",
+    summary: "공개 채용 안내는 연구개발·공정·장비 등 모집 축과 근무지 변화를 보여줍니다. 채용 방향은 기술 우선순위의 선행 신호지만 실제 인원과 프로젝트 규모를 뜻하지는 않습니다.",
+    link: "https://zhuanlan.zhihu.com/p/2046257095788574179",
+    date: "2026-06-05",
+    historical: true,
+    importance: 88,
+  },
+  {
+    platformId: "zhihu",
+    type: "consumer",
+    title: "DDR5价格与消费者装机体验讨论",
+    titleKo: "DDR5 가격 조정과 소비자 체감 토론",
+    summary: "사용자들이 DDR5 소매가격과 구매 시점을 논의했습니다. 소비자 체감은 유통 재고의 약한 선행 신호로만 보고 TrendForce Spot·Contract 흐름과 함께 비교합니다.",
+    link: "https://www.zhihu.com/tardis/jm/ans/2031120811633927844",
+    date: "2026-04-24",
+    historical: true,
+    importance: 76,
+  },
+  {
+    platformId: "zhaopin",
+    type: "workplace",
+    title: "长鑫存储良率工程师招聘",
+    titleKo: "CXMT 수율 엔지니어 공개 채용 공고",
+    summary: "공개 채용 공고에서 수율 개선 직무 수요를 확인할 수 있습니다. 공고 존재는 공정 안정화 우선순위의 신호지만 채용 인원이나 실제 수율 수준을 의미하지는 않습니다.",
+    link: "https://www.zhaopin.com/jobdetail/CC604839930J40810641007.htm",
+    period: "공개 채용",
+    historical: true,
+    importance: 90,
+  },
+  {
+    platformId: "v2ex",
+    type: "technology",
+    title: "长鑫DRAM与长江存储NAND的区别讨论",
+    titleKo: "개발자 커뮤니티의 CXMT DRAM·YMTC NAND 구분 토론",
+    summary: "개발자 커뮤니티가 CXMT의 DRAM과 YMTC의 NAND 사업을 구분해 설명한 과거 토론입니다. 오래된 글이므로 현재 기술·점유율 근거가 아니라 용어와 시장 인식 변화의 기준점으로만 보존합니다.",
+    link: "https://global.v2ex.com/t/983732",
+    period: "2023년 10월",
+    historical: true,
+    importance: 72,
+  },
+  {
+    platformId: "campus-career",
+    type: "workplace",
+    title: "武汉新芯2026届校园招聘简章",
+    titleKo: "XMC 2026 캠퍼스 채용 공개 자료",
+    summary: "대학 취업센터에 공개된 XMC 채용 자료는 공정·장비·제품·지원 직무의 채용 방향을 확인하는 출발점입니다. 채용 직무는 기술 우선순위 신호이며 채용 규모로 확대 해석하지 않습니다.",
+    link: "https://jy.xmu.edu.cn/attachment/xdu/ueditor/file/20250822/4368_%E6%96%B0%E8%8A%AF%E8%82%A1%E4%BB%BD2026%E5%B1%8A%E6%A0%A1%E5%9B%AD%E6%8B%9B%E8%81%98%E7%AE%80%E7%AB%A0.pdf",
+    date: "2025-08-22",
+    historical: true,
+    importance: 84,
+  },
 ];
 
 const COMPETITORS = [
@@ -1445,7 +1594,7 @@ async function enrichNewsItems(items = [], previousItems = []) {
 
 /* ---------- best-effort EN->KO headline translation (no API key) ---------- */
 let _trCount = 0;
-const TR_CAP = 150;
+const TR_CAP = 210;
 
 async function translateKo(text) {
   if (!text) return "";
@@ -1595,6 +1744,298 @@ async function collectNews(previousNews = []) {
     trending: extractTrending(all),
     newsStats: newsStats(all),
     allNews: all,
+  };
+}
+
+/* ---------- China public community and hiring signals ---------- */
+const COMMUNITY_ENTITY_RE = /(长鑫(?:存储)?|长江存储|长存|武汉新芯|新芯|北方华创|中微公司|华为海思|CXMT|YMTC|XMC|NAURA|AMEC)/i;
+const COMMUNITY_MEMORY_RE = /(存储芯片|存储器|内存|半导体|DRAM|DDR[345]|LPDDR|HBM|NAND|SSD|Xtacking|晶圆|良率|制程|工艺|TSV|封装|光刻|刻蚀|设备|材料|校招|招聘|工程师)/i;
+const COMMUNITY_WORKPLACE_RE = /(招聘|校招|社招|岗位|职位|薪资|面试|员工|工程师|工艺整合|良率|人才|跳槽|入职|career|job|hiring|yield engineer)/i;
+const COMMUNITY_CONSUMER_RE = /(装机|消费者|价格|涨价|降价|颗粒|内存条|固态硬盘|零售|购买|兼容|超频|玩家|retail|consumer|price)/i;
+const COMMUNITY_TECH_RE = /(DDR[345]|LPDDR|HBM|NAND|SSD|Xtacking|TSV|封装|工艺|制程|良率|晶圆|光刻|刻蚀|技术|架构|性能|带宽|yield|process|technology)/i;
+const COMMUNITY_BLOCKED_URLS = new Set([
+  "https://www.zhihu.com/question/1976016436326581047/answer/2005694488211907035",
+]);
+
+function communityPlatform(id = "") {
+  return COMMUNITY_PLATFORM_RULES.find((rule) => rule.id === id) || null;
+}
+
+function domainMatches(hostname = "", domain = "") {
+  const host = String(hostname || "").toLowerCase().replace(/^www\./, "");
+  const target = String(domain || "").toLowerCase().replace(/^www\./, "");
+  return host === target || host.endsWith(`.${target}`);
+}
+
+function communityPlatformForUrl(value = "", preferredId = "") {
+  try {
+    const host = new URL(value).hostname;
+    const preferred = communityPlatform(preferredId);
+    if (preferred?.domains.some((domain) => domainMatches(host, domain))) return preferred;
+    return COMMUNITY_PLATFORM_RULES.find((rule) => rule.domains.some((domain) => domainMatches(host, domain))) || null;
+  } catch {
+    return null;
+  }
+}
+
+function cleanCommunityTitle(value = "", platformLabel = "") {
+  let title = stripNewsLabel(stripHTML(value)).replace(/\s+/g, " ").trim();
+  const labels = [platformLabel, "雪球", "知乎", "东方财富股吧", "东方财富", "V2EX", "Chiphell", "脉脉", "BOSS直聘", "智联招聘"]
+    .filter(Boolean)
+    .map((label) => label.replace(/[.*+?^${}()|[\]\\]/g, "\\$&"));
+  if (labels.length) title = title.replace(new RegExp(`\\s*(?:[-–—|·]|\\|)\\s*(?:${labels.join("|")})\\s*$`, "i"), "").trim();
+  return title.slice(0, 220);
+}
+
+function cleanCommunitySummary(value = "", title = "") {
+  let summary = stripHTML(value)
+    .replace(/\b(?:cached|similar pages?|translate this result)\b/gi, " ")
+    .replace(/\s+/g, " ")
+    .trim();
+  const normalizedTitle = String(title || "").replace(/\s+/g, " ").trim();
+  if (normalizedTitle && summary.toLowerCase().startsWith(normalizedTitle.toLowerCase())) {
+    summary = summary.slice(normalizedTitle.length).replace(/^\s*[-–—:：|·]+\s*/, "").trim();
+  }
+  return summary.slice(0, 520);
+}
+
+function communityTypeFor(text = "", fallback = "market") {
+  if (COMMUNITY_WORKPLACE_RE.test(text)) return "workplace";
+  if (COMMUNITY_CONSUMER_RE.test(text)) return "consumer";
+  if (COMMUNITY_TECH_RE.test(text)) return "technology";
+  return fallback || "market";
+}
+
+function communityTypeLabel(type = "") {
+  return ({
+    workplace: "직장·채용",
+    technology: "기술·제품",
+    market: "투자·산업",
+    consumer: "소비자 체감",
+  })[type] || "현장 신호";
+}
+
+function communityEntities(text = "") {
+  const entities = [];
+  const add = (label, re) => { if (re.test(text) && !entities.includes(label)) entities.push(label); };
+  add("CXMT", /长鑫(?:存储)?|CXMT/i);
+  add("YMTC", /长江存储|长存|YMTC/i);
+  add("XMC", /武汉新芯|新芯|XMC/i);
+  add("Naura", /北方华创|NAURA/i);
+  add("AMEC", /中微公司|AMEC/i);
+  add("Huawei", /华为|海思|Huawei|HiSilicon/i);
+  return entities;
+}
+
+function communityTopics(text = "", type = "market") {
+  const topics = [];
+  const add = (label, re) => { if (re.test(text) && !topics.includes(label)) topics.push(label); };
+  add("DRAM", /DRAM|DDR[345]|LPDDR|长鑫/i);
+  add("NAND", /NAND|SSD|Xtacking|长江存储|长存/i);
+  add("HBM", /HBM|TSV|高带宽/i);
+  add("패키징", /封装|TSV|堆叠|hybrid bonding/i);
+  add("장비·소재", /设备|材料|光刻|刻蚀|北方华创|中微公司/i);
+  if (type === "workplace") topics.push("채용");
+  if (type === "consumer") topics.push("가격·가용성");
+  return Array.from(new Set(topics)).slice(0, 4);
+}
+
+function communityInsight(type = "market") {
+  return ({
+    workplace: "직무·공정 키워드의 반복 빈도로 기술 병목을 추적하되, 실제 채용 인원과 프로젝트 규모는 공식 공시로 확인합니다.",
+    technology: "사용자 기술 논쟁은 제품 인식과 병목의 약한 신호로만 사용하고 수율·성능 수치는 공식 자료로 교차 검증합니다.",
+    market: "반복 언급되는 기업·장비·자금 흐름을 관심 변화로 추적하되 계약·캐파·점유율은 사실 근거로 승격하지 않습니다.",
+    consumer: "소비자 가격·가용성 체감은 유통 재고의 보조 신호로 보고 실제 Spot·Contract 시계열과 함께 판단합니다.",
+  })[type] || "반복 빈도와 방향만 현장 신호로 사용하고 수치·사실은 공식 원문으로 검증합니다.";
+}
+
+function communityScore(item = {}) {
+  const ageDays = item.ts ? Math.max(0, (Date.now() - item.ts) / 864e5) : COMMUNITY_RETENTION_DAYS;
+  const recency = Math.max(0, 24 - Math.min(24, ageDays / 15));
+  const sourceWeight = item.sourceClass === "official-career" ? 18 : item.sourceClass === "job-board" ? 10 : 4;
+  const entityWeight = Math.min(12, (item.entities || []).length * 4);
+  const contentWeight = Math.min(16, Math.floor(String(item.summaryOriginal || item.summary || "").length / 28));
+  return Math.round(Math.min(100, 38 + recency + sourceWeight + entityWeight + contentWeight));
+}
+
+function communityStableId(value = "") {
+  let hash = 2166136261;
+  for (const char of String(value)) {
+    hash ^= char.codePointAt(0);
+    hash = Math.imul(hash, 16777619);
+  }
+  return `cn-${(hash >>> 0).toString(36)}`;
+}
+
+function communityKey(item = {}) {
+  const url = sanitizeSourceUrl(item.link || item.sourceUrl || "");
+  if (url) return `url:${url.replace(/\/$/, "").toLowerCase()}`;
+  return `title:${String(item.title || item.titleKo || "").toLowerCase().replace(/[^a-z0-9一-鿿가-힣]+/g, "").slice(0, 120)}`;
+}
+
+function communityEvidence(rule = {}) {
+  if (rule.sourceClass === "official-career") return { evidenceLevel: "공개 채용", verification: "Public listing" };
+  if (rule.sourceClass === "job-board") return { evidenceLevel: "공개 채용", verification: "Listing signal" };
+  return { evidenceLevel: "커뮤니티 신호", verification: "Unverified" };
+}
+
+function normalizeCommunityItem(item = {}, preferredPlatformId = "") {
+  const sourceUrl = sanitizeSourceUrl(item.link || item.sourceUrl || "");
+  if (COMMUNITY_BLOCKED_URLS.has(sourceUrl.replace(/\/$/, ""))) return null;
+  const rule = communityPlatformForUrl(sourceUrl, preferredPlatformId || item.platformId);
+  if (!sourceUrl || !rule) return null;
+  const title = cleanCommunityTitle(item.title, rule.label);
+  const summaryOriginal = cleanCommunitySummary(item.rssDescription || item.summaryOriginal || "", title);
+  const combined = `${title} ${summaryOriginal}`;
+  const path = new URL(sourceUrl).pathname.replace(/\/$/, "");
+  const genericCareerPortal = rule.sourceClass === "official-career" && /\/(?:join\.html|social|campus|campus\/jobs)$/i.test(path);
+  if (genericCareerPortal && !/(工程师|工艺|设备|研发|良率|岗位|职位|engineer|process|yield)/i.test(combined)) return null;
+  if (!COMMUNITY_ENTITY_RE.test(combined) || !COMMUNITY_MEMORY_RE.test(combined)) return null;
+  if (summaryOriginal.length < 28) return null;
+  const type = communityTypeFor(combined, rule.defaultType);
+  const ts = new Date(item.pubDate || item.date || item.publishedAt || 0).getTime() || 0;
+  const evidence = communityEvidence(rule);
+  const normalized = {
+    id: communityStableId(sourceUrl || title),
+    platformId: rule.id,
+    platform: rule.label,
+    sourceClass: rule.sourceClass,
+    type,
+    typeLabel: communityTypeLabel(type),
+    title,
+    titleKo: item.titleKo || "",
+    summaryOriginal,
+    summary: item.summary || "",
+    insight: item.insight || communityInsight(type),
+    link: sourceUrl,
+    sourceUrl,
+    date: ymd(item.pubDate || item.date || item.publishedAt),
+    ts,
+    crawledAt: new Date().toISOString(),
+    entities: communityEntities(combined),
+    topics: communityTopics(combined, type),
+    historical: Boolean(item.historical || (ts && Date.now() - ts > 90 * 864e5)),
+    importance: Number(item.importance || 0),
+    ...evidence,
+  };
+  normalized.score = communityScore(normalized);
+  return normalized;
+}
+
+function normalizeCommunitySeed(seed = {}) {
+  const rule = communityPlatform(seed.platformId);
+  const sourceUrl = sanitizeSourceUrl(seed.link || seed.sourceUrl || "");
+  if (!rule || !sourceUrl) return null;
+  const type = seed.type || rule.defaultType;
+  const combined = `${seed.title || ""} ${seed.titleKo || ""} ${seed.summary || ""}`;
+  const ts = new Date(seed.date || 0).getTime() || 0;
+  const evidence = communityEvidence(rule);
+  const item = {
+    id: communityStableId(sourceUrl),
+    platformId: rule.id,
+    platform: rule.label,
+    sourceClass: rule.sourceClass,
+    type,
+    typeLabel: communityTypeLabel(type),
+    title: seed.title || seed.titleKo || "",
+    titleKo: seed.titleKo || "",
+    summaryOriginal: "",
+    summary: seed.summary || "",
+    insight: seed.insight || communityInsight(type),
+    link: sourceUrl,
+    sourceUrl,
+    date: seed.date || "",
+    period: seed.period || "",
+    ts,
+    crawledAt: new Date().toISOString(),
+    entities: communityEntities(combined),
+    topics: communityTopics(combined, type),
+    historical: seed.historical !== false,
+    importance: Number(seed.importance || 75),
+    ...evidence,
+  };
+  item.score = Math.max(communityScore(item), item.importance);
+  return item;
+}
+
+function mergeCommunityItems(first = {}, second = {}) {
+  const firstContent = String(first.summary || first.summaryOriginal || "").length + (first.titleKo ? 80 : 0);
+  const secondContent = String(second.summary || second.summaryOriginal || "").length + (second.titleKo ? 80 : 0);
+  const primary = secondContent > firstContent ? second : first;
+  const other = primary === first ? second : first;
+  return {
+    ...other,
+    ...primary,
+    titleKo: primary.titleKo || other.titleKo || "",
+    summary: primary.summary || other.summary || "",
+    summaryOriginal: primary.summaryOriginal || other.summaryOriginal || "",
+    date: primary.date || other.date || "",
+    period: primary.period || other.period || "",
+    ts: Math.max(Number(primary.ts || 0), Number(other.ts || 0)),
+    historical: Boolean(primary.historical || other.historical),
+    importance: Math.max(Number(primary.importance || 0), Number(other.importance || 0)),
+    score: Math.max(Number(primary.score || 0), Number(other.score || 0)),
+  };
+}
+
+async function fetchBingCommunity(query = "") {
+  const url = `https://www.bing.com/search?format=rss&setlang=zh-Hans&mkt=zh-CN&count=20&q=${encodeURIComponent(query)}`;
+  const xml = await fetchText(url);
+  return parseRSS(xml);
+}
+
+async function collectCommunitySignals(previousItems = []) {
+  const discovered = [];
+  for (const target of COMMUNITY_DISCOVERY_QUERIES) {
+    try {
+      const results = await fetchBingCommunity(target.query);
+      results.forEach((result) => {
+        const item = normalizeCommunityItem(result, target.platformId);
+        if (item) discovered.push(item);
+      });
+    } catch (error) {
+      console.log(`- 중국현장:${target.platformId} 검색 지연 — ${error.message}`);
+    }
+    await sleep(180);
+  }
+
+  const previous = (previousItems || []).map((item) => normalizeCommunityItem({
+    ...item,
+    rssDescription: item.summaryOriginal || item.summary || "",
+    pubDate: item.date || item.publishedAt || "",
+  }, item.platformId)).filter(Boolean);
+  const seeds = COMMUNITY_HISTORY_SEEDS.map(normalizeCommunitySeed).filter(Boolean);
+  const byKey = new Map();
+  [...seeds, ...previous, ...discovered].forEach((item) => {
+    const key = communityKey(item);
+    if (!key) return;
+    byKey.set(key, byKey.has(key) ? mergeCommunityItems(byKey.get(key), item) : item);
+  });
+
+  const retentionCutoff = Date.now() - COMMUNITY_RETENTION_DAYS * 864e5;
+  const items = Array.from(byKey.values())
+    .filter((item) => !item.ts || item.ts >= retentionCutoff || item.importance >= 70)
+    .sort((a, b) => Number(b.ts || 0) - Number(a.ts || 0) || Number(b.score || 0) - Number(a.score || 0))
+    .slice(0, COMMUNITY_MAX_ITEMS);
+  const typeCounts = Object.fromEntries(["workplace", "technology", "market", "consumer"]
+    .map((type) => [type, items.filter((item) => item.type === type).length])
+    .filter(([, count]) => count > 0));
+  const platformCounts = Object.fromEntries(COMMUNITY_PLATFORM_RULES
+    .map((rule) => [rule.id, items.filter((item) => item.platformId === rule.id).length])
+    .filter(([, count]) => count > 0));
+  const latestAt = items.reduce((latest, item) => Math.max(latest, Number(item.ts || 0)), 0);
+  note("중국현장신호", items.length > 0, `${items.length}건 · ${Object.keys(platformCounts).length}개 공개 채널`);
+  return {
+    updatedAt: new Date().toISOString(),
+    latestPublishedAt: latestAt ? new Date(latestAt).toISOString() : null,
+    source: "Public community pages · public hiring listings · Bing Web Search RSS discovery",
+    total: items.length,
+    recent30d: items.filter((item) => item.ts && Date.now() - item.ts <= 30 * 864e5).length,
+    historicalCount: items.filter((item) => item.historical).length,
+    sourceCount: Object.keys(platformCounts).length,
+    typeCounts,
+    platformCounts,
+    items,
   };
 }
 
@@ -1827,12 +2268,15 @@ function buildSignals({ prices, competitors, startups, newsStats: stats }) {
 }
 
 /* ---------- main ---------- */
-async function loadPreviousNews() {
+async function loadPreviousData() {
   try {
     const previous = JSON.parse(await readFile(OUT, "utf8"));
-    return Array.isArray(previous.news) ? previous.news : [];
+    return {
+      news: Array.isArray(previous.news) ? previous.news : [],
+      communityItems: Array.isArray(previous.communitySignals?.items) ? previous.communitySignals.items : [],
+    };
   } catch {
-    return [];
+    return { news: [], communityItems: [] };
   }
 }
 
@@ -2122,11 +2566,12 @@ function buildIntelligence({ news = [], prices = {}, stats = {}, chinaInfra = {}
 }
 
 async function main() {
-  const previousNews = await loadPreviousNews();
-  const [prices, stocks, newsPayload, competitors, startups, benchmarkSignals, chinaInfra] = await Promise.all([
+  const previous = await loadPreviousData();
+  const [prices, stocks, newsPayload, communitySignals, competitors, startups, benchmarkSignals, chinaInfra] = await Promise.all([
     collectPrices(),
     collectStocks(),
-    collectNews(previousNews),
+    collectNews(previous.news),
+    collectCommunitySignals(previous.communityItems),
     collectCompetitors(),
     collectStartups(),
     collectBenchmarkSignals(),
@@ -2142,6 +2587,8 @@ async function main() {
   try {
     await addKoTitles(news, 42);
     await addKoSummaries(news, 42);
+    await addKoTitles(communitySignals.items, 30);
+    await addKoSummaries(communitySignals.items, 30);
     await addKoTitles(benchmarkSignals.stream, 24);
     for (const competitor of competitors.competitors) await addKoTitles(competitor.recentNews, 2);
     for (const startup of startups.candidates) await addKoTitles(startup.recentNews, 2);
@@ -2153,7 +2600,7 @@ async function main() {
   const signals = buildSignals({ prices, competitors, startups, newsStats: stats });
   const intelligence = buildIntelligence({ news, prices, stats, chinaInfra });
   const okCount = health.filter((item) => item.ok).length;
-  console.log(`\n수집 완료: ${okCount}/${health.length} 단계 성공, 외신 뉴스 ${news.length}건, 벤치마킹 신호 ${benchmarkSignals.stream.length}건, 가격표 ${prices.sections.length}개`);
+  console.log(`\n수집 완료: ${okCount}/${health.length} 단계 성공, 외신 뉴스 ${news.length}건, 중국 현장 신호 ${communitySignals.items.length}건, 벤치마킹 신호 ${benchmarkSignals.stream.length}건, 가격표 ${prices.sections.length}개`);
 
   const payload = {
     updatedAt: new Date().toISOString(),
@@ -2166,6 +2613,7 @@ async function main() {
     startups,
     benchmarkSignals,
     chinaInfra,
+    communitySignals,
     signals,
     intelligence,
     categories,

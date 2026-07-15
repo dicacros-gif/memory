@@ -160,6 +160,68 @@ if (news.length && directNews.length / news.length < 0.5) {
   addIssue("warn", "data/live.json", "fewer than half of news items resolve to direct source URLs", `${directNews.length}/${news.length}`);
 }
 
+const community = live.communitySignals || {};
+const communityItems = Array.isArray(community.items) ? community.items : [];
+const communityAllowedDomains = [
+  "xueqiu.com",
+  "zhihu.com",
+  "guba.eastmoney.com",
+  "caifuhao.eastmoney.com",
+  "v2ex.com",
+  "chiphell.com",
+  "maimai.cn",
+  "zhipin.com",
+  "liepin.com",
+  "zhaopin.com",
+  "cxmt.zhiye.com",
+  "cxmt.com",
+  "whxmc.zhiye.com",
+  "jy.xmu.edu.cn",
+  "zjc.sasu.edu.cn",
+  "eie.scu.edu.cn",
+];
+const communityTypes = new Set(["workplace", "technology", "market", "consumer"]);
+const communityKeys = new Set();
+if (!communityItems.length) addIssue("error", "data/live.json", "China community signal board has no items");
+for (const item of communityItems) {
+  const url = String(item.sourceUrl || item.link || "");
+  let allowed = false;
+  try {
+    const host = new URL(url).hostname.toLowerCase().replace(/^www\./, "");
+    allowed = communityAllowedDomains.some((domain) => host === domain || host.endsWith(`.${domain}`));
+  } catch {
+    allowed = false;
+  }
+  if (!allowed) addIssue("error", "data/live.json", "community item uses a non-allowlisted source URL", url || item.id || "missing");
+  if (!communityTypes.has(String(item.type || ""))) {
+    addIssue("error", "data/live.json", "community item has an invalid type", `${item.id}:${item.type || "missing"}`);
+  }
+  if (!String(item.titleKo || item.title || "").trim()) {
+    addIssue("error", "data/live.json", "community item has no title", item.id || url);
+  }
+  if (String(item.summary || item.summaryOriginal || "").trim().length < 28) {
+    addIssue("error", "data/live.json", "community item has no substantive summary", item.id || url);
+  }
+  if (!String(item.insight || "").trim()) {
+    addIssue("error", "data/live.json", "community item has no decision insight", item.id || url);
+  }
+  if (!["커뮤니티 신호", "공개 채용"].includes(String(item.evidenceLevel || ""))) {
+    addIssue("error", "data/live.json", "community item has an invalid evidence label", `${item.id}:${item.evidenceLevel || "missing"}`);
+  }
+  for (const forbidden of ["author", "authorName", "username", "userId", "profile", "displayName"]) {
+    if (Object.prototype.hasOwnProperty.call(item, forbidden)) {
+      addIssue("error", "data/live.json", "community item retains a personal-identifier field", `${item.id}:${forbidden}`);
+    }
+  }
+  const key = url.replace(/\/$/, "").toLowerCase();
+  if (key && communityKeys.has(key)) addIssue("error", "data/live.json", "duplicate community source URL", url);
+  if (key) communityKeys.add(key);
+}
+if (Number(community.total || 0) !== communityItems.length) {
+  addIssue("error", "data/live.json", "community total count mismatch", `${community.total} != ${communityItems.length}`);
+}
+const communityHostPattern = /(?:xueqiu\.com|zhihu\.com|guba\.eastmoney\.com|v2ex\.com|chiphell\.com|maimai\.cn|zhipin\.com|liepin\.com|zhaopin\.com)/i;
+
 const intelligence = live.intelligence || {};
 const briefs = Array.isArray(intelligence.briefs) ? intelligence.briefs : [];
 const briefIds = new Set();
@@ -201,6 +263,9 @@ for (const brief of briefs) {
   if (brief.price && !/^https?:\/\//i.test(String(brief.price.sourceUrl || ""))) {
     addIssue("error", "data/live.json", "intelligence price evidence lacks source URL", brief.id || "unknown");
   }
+  if (communityHostPattern.test(String(brief.latest?.url || ""))) {
+    addIssue("error", "data/live.json", "community signal was promoted into an intelligence fact brief", brief.id || "unknown");
+  }
 }
 const validation = intelligence.validation || {};
 if (Number(validation.displayedNews) !== news.length) {
@@ -219,6 +284,7 @@ console.log(JSON.stringify({
   priceRows: priceRows.length,
   stockSeries: stocks.length,
   summarizedNews: `${summarizedNews.length}/${news.length}`,
+  communitySignals: communityItems.length,
   intelligenceBriefs: briefs.length,
   errors,
   warnings,
