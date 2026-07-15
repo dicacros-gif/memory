@@ -5136,7 +5136,15 @@ body.sidebar-collapsed .sb-ico {
 
 .agent-debate-title {
   display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  align-items: center;
   gap: 4px;
+}
+
+.agent-debate-title > span,
+.agent-debate-title > strong,
+.agent-debate-title > small {
+  grid-column: 1;
 }
 
 .agent-debate-title span {
@@ -10198,6 +10206,84 @@ body.sidebar-collapsed .sb-ico {
 }
 
 /* ---------------- Agent speech highlights + name-under-icon ---------------- */
+.agent-debate-title .agent-tts-toggle {
+  grid-column: 2;
+  grid-row: 1 / -1;
+  display: inline-flex;
+  justify-self: end;
+  align-items: center;
+  gap: 7px;
+  width: auto;
+  max-width: 132px;
+  min-height: 32px;
+  margin-left: auto;
+  padding: 5px 9px;
+  border: 1px solid var(--line);
+  border-radius: 7px;
+  background: var(--panel-2);
+  color: var(--ink-2);
+  cursor: pointer;
+  transition: background .18s ease, border-color .18s ease, color .18s ease, transform .18s ease;
+}
+
+.agent-tts-toggle b {
+  display: grid;
+  place-items: center;
+  min-width: 29px;
+  height: 20px;
+  border-radius: 4px;
+  background: color-mix(in srgb, var(--ink) 8%, transparent);
+  font-family: var(--display);
+  font-size: 9px;
+  letter-spacing: 0;
+}
+
+.agent-tts-toggle small {
+  color: inherit;
+  font-size: 10px;
+  font-weight: 900;
+  white-space: nowrap;
+}
+
+.agent-debate-title .agent-tts-toggle:hover,
+.agent-debate-title .agent-tts-toggle.is-on {
+  border-color: var(--local-accent, var(--accent));
+  background: var(--local-accent, var(--accent));
+  color: #fff;
+  transform: translateY(-1px);
+}
+
+.agent-debate-title .agent-tts-toggle:disabled {
+  cursor: not-allowed;
+  opacity: .5;
+  transform: none;
+}
+
+@media (max-width: 620px) {
+  .agent-debate-title .agent-tts-toggle {
+    min-height: 30px;
+    padding: 4px 7px;
+  }
+
+  .agent-debate-title .agent-tts-toggle small {
+    display: none;
+  }
+}
+
+.agent-turn.tts-speaking .speech-bubble {
+  box-shadow: 0 0 0 2px color-mix(in srgb, var(--agent-color) 55%, transparent),
+    0 14px 34px color-mix(in srgb, var(--agent-color) 20%, transparent);
+}
+
+.agent-turn.tts-speaking .agent-badge {
+  animation: agentVoicePulse 1.1s ease-in-out infinite;
+}
+
+@keyframes agentVoicePulse {
+  0%, 100% { transform: scale(1); box-shadow: 0 0 0 0 color-mix(in srgb, var(--agent-color) 35%, transparent); }
+  50% { transform: scale(1.08); box-shadow: 0 0 0 7px color-mix(in srgb, var(--agent-color) 0%, transparent); }
+}
+
 /* accent keyword */
 .speech-bubble .ag-key {
   color: var(--agent-color);

@@ -65,6 +65,19 @@ for (const file of textFiles) {
 }
 
 const baseline = JSON.parse(await readFile(resolve(root, "data/baseline.json"), "utf8"));
+const baselineText = await readFile(resolve(root, "data/baseline.json"), "utf8");
+const appText = await readFile(resolve(root, "assets/js/app.js"), "utf8");
+for (const phrase of ["기존 SKHY 전망의 약 $975B", "60~70% 배분", "MATCH Act 위원회 표결 44:0"]) {
+  if (baselineText.includes(phrase) || appText.includes(phrase)) {
+    addIssue("error", phrase === "기존 SKHY 전망의 약 $975B" ? "data/baseline.json" : "assets/js/app.js", "known fact-label conflict remains", phrase);
+  }
+}
+if (/FALSE_MEMORY_NEWS_RE/.test(appText)) {
+  addIssue("error", "assets/js/app.js", "legacy false-memory filter can suppress verified events", "FALSE_MEMORY_NEWS_RE");
+}
+if (!/SpeechSynthesisUtterance/.test(appText) || !/speechSynthesis/.test(appText)) {
+  addIssue("error", "assets/js/app.js", "agent TTS engine is missing");
+}
 const numericKpis = (baseline.kpis || []).filter((item) => /\d/.test(String(item.value || "")));
 const missingKpiSources = numericKpis.filter((item) => !String(item.sourceUrl || "").trim());
 for (const item of missingKpiSources) {
@@ -181,6 +194,9 @@ for (const brief of briefs) {
   }
   if (!String(brief.decision || "").trim() || !String(brief.reversalKpi || "").trim()) {
     addIssue("error", "data/live.json", "intelligence brief lacks decision or reversal KPI", brief.id || "unknown");
+  }
+  if (String(brief.latest?.language || "").toLowerCase() === "chinese" && brief.latest?.evidenceLevel === "Confirmed") {
+    addIssue("error", "data/live.json", "Chinese-only article was promoted to Confirmed evidence", brief.id || "unknown");
   }
   if (brief.price && !/^https?:\/\//i.test(String(brief.price.sourceUrl || ""))) {
     addIssue("error", "data/live.json", "intelligence price evidence lacks source URL", brief.id || "unknown");

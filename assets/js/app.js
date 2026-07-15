@@ -1549,12 +1549,14 @@
     {
       id: "advanced-packaging",
       tag: "첨단 패키징",
-      title: "JCET·XMC의 패키징 우회로",
-      thesis: "중국은 7nm 이하 선단 공정 제약을 2.5D/3D 이종 집적과 하이브리드 본딩 기반 첨단 패키징으로 우회하려 합니다",
-      facts: ["JCET 2025년 첨단 패키징 매출 270억 위안 확인", "XMC 월 3,000장 HBM 패키징 장비 보도"],
-      risk: "CXMT·YMTC 베이스 다이를 XMC가 고대역폭 패키징으로 묶는 구조가 자리 잡을 수 있지만, 장비 반입·고객 인증·실제 양산량을 각각 검증해야 합니다",
-      implication: "SKHY는 HBM 다이 경쟁뿐 아니라 OSAT·인터포저·언더필·테스트 병목을 함께 보는 패키징 레이더가 필요합니다",
+      title: "JCET·XMC의 패키징 우회로와 XMC 지배구조 재편",
+      thesis: "중국은 선단 공정 제약을 2.5D/3D 이종 집적과 하이브리드 본딩 기반 첨단 패키징으로 우회하고 있습니다. XMC는 YMTC 지배 자회사로 고정해 보지 않고 별도 거버넌스 축으로 추적합니다",
+      facts: ["JCET 2025년 첨단 패키징 매출 270억 위안 확인", "Caixin Global은 YMTC가 XMC 지분 39%를 매각해 보유율을 68.2%에서 29.2%로 낮추는 거래를 보도", "국유 매수자 측은 공동행동자와 XMC 지분 47.9%를 관리할 예정"],
+      risk: "XMC 지배구조 변경이 완료되면 YMTC 단독 전략보다 우한 국유 플랫폼의 파운드리·패키징 우선순위가 커질 수 있습니다. 거래 종결, 이사회 구성, 고객·설비 계획을 따로 검증해야 합니다",
+      implication: "SKHY는 XMC를 YMTC의 단순 자회사로 묶지 않고 JCET·TFME와 함께 독립된 OSAT·파운드리 경쟁축으로 봅니다",
       linkedCategories: ["packaging", "hbm", "geopolitics"],
+      source: "Caixin Global",
+      sourceUrl: "https://www.caixinglobal.com/2026-06-19/chipmaker-ymtc-cedes-control-of-foundry-unit-ahead-of-mega-ipo-102455661.html",
     },
     {
       id: "big-fund-equipment",
@@ -2142,6 +2144,7 @@
       ],
       assume: [
         "가속기 6.5백만 대는 외부 shipment tracker의 NVIDIA·AMD·커스텀 ASIC 합산 모델이며 확정 출하량이 아님",
+        "TrendForce는 2026년 NVIDIA 고급 GPU 출하에서 Rubin 비중을 29%에서 22%로 낮춤; 공급사별 HBM4 배분과 혼용하지 않음",
         "총 HBM 수요(PB) = 출하(백만 대) × HBM(GB/대); SKHY 점유율은 HBM 리더십 유지 가정",
         "커스텀 ASIC이 HBM 대신 저용량 구성을 택하면 탑재량·총수요 동시 하향(반증)",
         "전력·부지·CoWoS 병목이 실제 출하 상한 → Bull 지연(반증)",
@@ -4113,7 +4116,7 @@
     const livePrice = liveBrief?.price;
     const livePeriodChange = Number(livePrice?.periodChangePct);
     const latestEvidence = liveBrief
-      ? `최신 근거는 "${liveBrief.latest?.title || liveBrief.label}"(${liveBrief.latest?.source || "원문"}, ${shortKstDate(liveBrief.latest?.publishedAt || liveBrief.generatedAt)})입니다.`
+      ? `최신 근거는 "${liveBrief.latest?.title || liveBrief.label}"(${liveBrief.latest?.source || "원문"}, ${shortKstDate(liveBrief.latest?.publishedAt || liveBrief.generatedAt)})이며, ${liveBrief.latest?.evidenceLevel || "Watch"} · ${liveBrief.latest?.claimType || "사실"}로 분류합니다.`
       : "원문이 연결된 최신 근거만 결론에 반영합니다.";
     const priceEvidence = livePrice
       ? `${livePrice.item}은 공개 누적 ${fmtNum(livePrice.observedPoints)}개 관측에서 ${Number.isFinite(livePeriodChange) ? `${livePeriodChange >= 0 ? "+" : ""}${fmtNum(livePeriodChange, 2)}%` : livePrice.latestRaw || "변화 확인 중"}${livePrice.isProxy ? "이며 직접 가격이 아닌 proxy입니다" : "입니다"}.`
@@ -4231,7 +4234,7 @@
         initials: "DA",
         name: "Devil's Advocate",
         title: "Red Team · 반론 전담",
-        role: "합의 반박·프리모템",
+        role: "합의 반박·Devil's Advocate",
         color: "#111827",
         stance: "레드팀",
         message: `레드팀 질문입니다. 12개월 뒤 이 **${selected?.verdict || "Watch"}** 결론이 틀렸다면 원인은 무엇입니까? ① 유리한 근거만 골랐을 수 있습니다(==확증편향==). ② ${topRelationText} 관계는 상관일 뿐 인과가 아닐 수 있습니다. ③ ${scenario.label}만 보고 반대 시나리오를 과소평가했을 수 있습니다. 반증 조건이 명확하지 않으면 결론 강도를 낮춥니다.`,
@@ -4494,6 +4497,165 @@
 
   // Per-debate run state (token + timers) so multiple councils animate independently.
   const debateRunStates = new WeakMap();
+  const AGENT_TTS_STORAGE_KEY = "memory-agent-tts";
+  const AGENT_TTS_PROFILES = [
+    { match: /ceo|chief executive|최종 의사결정|우선순위/i, pitch: 0.82, rate: 0.92, volume: 1 },
+    { match: /cfo|finance|재무|수익성|자본배분/i, pitch: 0.94, rate: 0.96, volume: 0.98 },
+    { match: /cto|technology|기술|제품 로드맵/i, pitch: 1.08, rate: 0.94, volume: 0.98 },
+    { match: /cso|strategy|전략/i, pitch: 0.9, rate: 1, volume: 0.98 },
+    { match: /coo|operations|운영|공급 실행/i, pitch: 0.86, rate: 1.03, volume: 0.98 },
+    { match: /policy|규제|정책/i, pitch: 1.02, rate: 0.9, volume: 0.96 },
+    { match: /market|시장|가격|고객/i, pitch: 1.14, rate: 1.02, volume: 0.96 },
+    { match: /china|중국/i, pitch: 0.88, rate: 0.95, volume: 0.98 },
+    { match: /risk|하방|판단 변경/i, pitch: 0.76, rate: 0.89, volume: 1 },
+    { match: /devil|red team|레드팀|반론/i, pitch: 0.7, rate: 0.86, volume: 1 },
+    { match: /audit|auditor|evidence|근거 검증|팩트/i, pitch: 1, rate: 0.91, volume: 0.96 },
+    { match: /data|데이터|백테스트/i, pitch: 1.16, rate: 1.04, volume: 0.94 },
+  ];
+  let agentTtsEnabled = (() => {
+    try {
+      return window.localStorage.getItem(AGENT_TTS_STORAGE_KEY) !== "off";
+    } catch {
+      return true;
+    }
+  })();
+  let agentVoices = [];
+  let activeAgentSpeech = null;
+  let activeAgentDebateChat = null;
+
+  function agentSpeechSupported() {
+    return "speechSynthesis" in window && "SpeechSynthesisUtterance" in window;
+  }
+
+  function refreshAgentVoices() {
+    if (!agentSpeechSupported()) return [];
+    agentVoices = window.speechSynthesis.getVoices() || [];
+    return agentVoices;
+  }
+
+  function agentVoiceProfile(name = "", role = "", index = 0) {
+    const hay = `${name} ${role}`;
+    const profile = AGENT_TTS_PROFILES.find((item) => item.match.test(hay))
+      || AGENT_TTS_PROFILES[index % AGENT_TTS_PROFILES.length];
+    const voices = agentVoices.length ? agentVoices : refreshAgentVoices();
+    const korean = voices.filter((voice) => /^ko(?:-|$)/i.test(voice.lang || ""));
+    const pool = korean.length ? korean : voices;
+    const voice = pool.length ? pool[index % pool.length] : null;
+    return { ...profile, voice };
+  }
+
+  function agentSpeechText(value = "") {
+    return String(value || "")
+      .replace(/SKHY/gi, "에스케이 하이닉스")
+      .replace(/HBM4E/gi, "에이치비엠 포 이")
+      .replace(/HBM4/gi, "에이치비엠 포")
+      .replace(/HBM3E/gi, "에이치비엠 쓰리 이")
+      .replace(/HBM3/gi, "에이치비엠 쓰리")
+      .replace(/DRAM/gi, "디램")
+      .replace(/NAND/gi, "낸드")
+      .replace(/CXMT/gi, "씨 엑스 엠 티")
+      .replace(/YMTC/gi, "와이 엠 티 씨")
+      .replace(/XMC/gi, "엑스 엠 씨")
+      .replace(/QoQ/gi, "전 분기 대비")
+      .replace(/YoY/gi, "전년 동기 대비")
+      .replace(/wpm/gi, "웨이퍼 퍼 먼스")
+      .replace(/\s+/g, " ")
+      .trim();
+  }
+
+  function stopAgentSpeech() {
+    const active = activeAgentSpeech;
+    activeAgentSpeech = null;
+    if (active?.finish) active.finish();
+    if (agentSpeechSupported()) window.speechSynthesis.cancel();
+    document.querySelectorAll(".agent-turn.tts-speaking").forEach((node) => node.classList.remove("tts-speaking"));
+  }
+
+  function syncAgentTtsButtons() {
+    document.querySelectorAll("[data-agent-tts-toggle]").forEach((button) => {
+      const supported = agentSpeechSupported();
+      button.disabled = !supported;
+      button.classList.toggle("is-on", supported && agentTtsEnabled);
+      button.setAttribute("aria-pressed", supported && agentTtsEnabled ? "true" : "false");
+      button.setAttribute("title", supported
+        ? `에이전트 음성 ${agentTtsEnabled ? "끄기" : "켜기"}`
+        : "이 브라우저는 음성 합성을 지원하지 않습니다");
+      button.setAttribute("aria-label", supported
+        ? `에이전트 음성 ${agentTtsEnabled ? "끄기" : "켜기"}`
+        : "에이전트 음성 미지원");
+      const state = button.querySelector("small");
+      if (state) state.textContent = supported ? (agentTtsEnabled ? "음성 켜짐" : "음성 꺼짐") : "음성 미지원";
+    });
+  }
+
+  function ensureAgentTtsControl(container) {
+    if (!container) return;
+    const heading = container.querySelector(".agent-debate-title");
+    if (!heading || heading.querySelector("[data-agent-tts-toggle]")) return;
+    const button = document.createElement("button");
+    button.type = "button";
+    button.className = "agent-tts-toggle";
+    button.dataset.agentTtsToggle = "";
+    button.innerHTML = '<b aria-hidden="true">TTS</b><small></small>';
+    button.addEventListener("click", () => {
+      agentTtsEnabled = !agentTtsEnabled;
+      try {
+        window.localStorage.setItem(AGENT_TTS_STORAGE_KEY, agentTtsEnabled ? "on" : "off");
+      } catch {
+        // Local storage is optional; the control still works for this session.
+      }
+      if (!agentTtsEnabled) stopAgentSpeech();
+      else refreshAgentVoices();
+      syncAgentTtsButtons();
+    });
+    heading.appendChild(button);
+    syncAgentTtsButtons();
+  }
+
+  function speakAgentTurn(turn, index = 0) {
+    return new Promise((resolve) => {
+      const text = agentSpeechText(turn?.querySelector("p")?.dataset.say || turn?.querySelector("p")?.textContent || "");
+      if (!agentTtsEnabled || !agentSpeechSupported() || !text) {
+        resolve();
+        return;
+      }
+      stopAgentSpeech();
+      const name = (turn.querySelector(".agent-badge-name")?.textContent || "").trim();
+      const role = (turn.querySelector(".speech-meta strong")?.textContent || "").trim();
+      const profile = agentVoiceProfile(name, role, index);
+      const utterance = new SpeechSynthesisUtterance(text);
+      utterance.lang = profile.voice?.lang || "ko-KR";
+      utterance.voice = profile.voice || null;
+      utterance.pitch = profile.pitch;
+      utterance.rate = profile.rate;
+      utterance.volume = profile.volume;
+      let settled = false;
+      const timeout = window.setTimeout(() => finish(), Math.max(9000, Math.min(30000, text.length * 115)));
+      const finish = () => {
+        if (settled) return;
+        settled = true;
+        window.clearTimeout(timeout);
+        turn.classList.remove("tts-speaking");
+        if (activeAgentSpeech?.utterance === utterance) activeAgentSpeech = null;
+        resolve();
+      };
+      utterance.onstart = () => turn.classList.add("tts-speaking");
+      utterance.onend = finish;
+      utterance.onerror = finish;
+      activeAgentSpeech = { utterance, finish };
+      try {
+        window.speechSynthesis.speak(utterance);
+      } catch {
+        finish();
+      }
+    });
+  }
+
+  if (agentSpeechSupported()) {
+    refreshAgentVoices();
+    window.speechSynthesis.addEventListener?.("voiceschanged", refreshAgentVoices);
+    window.addEventListener("pagehide", stopAgentSpeech);
+  }
 
   // C-level entry point (kept for compatibility): find the chat in scope and drive it.
   function animateCouncilDebate(scope) {
@@ -4524,8 +4686,17 @@
     const turns = Array.from(chat.querySelectorAll(".agent-turn"));
     if (!turns.length) return;
     const avatars = roster ? Array.from(roster.querySelectorAll(".agent-avatar-card")) : [];
+    if (activeAgentDebateChat && activeAgentDebateChat !== chat) {
+      const priorState = debateRunStates.get(activeAgentDebateChat);
+      priorState?.timers?.forEach((id) => window.clearTimeout(id));
+      if (priorState) debateRunStates.set(activeAgentDebateChat, { token: priorState.token + 1, timers: [] });
+    }
+    activeAgentDebateChat = chat;
+    stopAgentSpeech();
+    ensureAgentTtsControl(container);
     if (container) container.classList.add("is-live-debate");
     chat.classList.add("js-debate");
+    chat.setAttribute("aria-live", "polite");
     chat.dataset.debateLive = "1";
 
     // Fresh run token for this specific chat; cancel any prior run on the same element.
@@ -4627,15 +4798,31 @@
       setCard(turnName(turn), "speaking");
       if (turns[i + 1]) setCard(turnName(turns[i + 1]), "next");
       const p = turn.querySelector("p");
-      typeMessage(p, () => {
-        if (!alive()) return;
+      let typed = false;
+      let voiced = !agentTtsEnabled || !agentSpeechSupported();
+      let completed = false;
+      const completeTurn = () => {
+        if (!typed || !voiced || completed || !alive()) return;
+        completed = true;
         if (p && p.dataset.rich) p.innerHTML = p.dataset.rich;
-        turn.classList.remove("speaking");
+        turn.classList.remove("speaking", "tts-speaking");
         turn.classList.add("done");
         turn.querySelector(".speech-bubble")?.classList.remove("live");
         setCard(turnName(turn), "done");
         schedule(() => speak(i + 1), 720);
+      };
+      typeMessage(p, () => {
+        if (!alive()) return;
+        typed = true;
+        completeTurn();
       });
+      if (!voiced) {
+        speakAgentTurn(turn, i).finally(() => {
+          if (!alive()) return;
+          voiced = true;
+          completeTurn();
+        });
+      }
     };
 
     const rosterStepMs = 230;
@@ -5321,11 +5508,11 @@
       },
       {
         id: "ymtc-xmc-packaging", mode: "competitive", from: "ymtc", to: "xmc", type: "파트너십", structural: true,
-        label: "Xtacking·우한 패키징 결합",
+        label: "Xtacking 협력·지배구조 재편",
         terms: ["ymtc", "xmc", "wuhan xinxin", "xtacking", "packaging", "hbm"],
         match: [["ymtc", "yangtze", "xmc", "wuhan xinxin"], ["xtacking", "packaging", "hbm", "nand"]],
         priceTerms: ["nand", "ssd", "wafer"], categories: ["nand", "packaging", "china"], weight: 74,
-        interpretation: "YMTC-XMC 관계는 NAND와 패키징을 묶어 중국형 IDM 구조로 확장되는 축입니다.",
+        interpretation: "YMTC-XMC는 기술 협력축이지만 지배 자회사 관계로 단정하지 않습니다. 2026년 6월 보도된 39% 지분 매각이 종결되면 YMTC 보유율은 68.2%에서 29.2%로 낮아지고 우한 국유 측의 의사결정 비중이 커집니다.",
       },
       {
         id: "jcet-china-ai-packaging", mode: "competitive", from: "jcet", to: "huawei-ascend", type: "공급", structural: true,
@@ -7872,11 +8059,11 @@
         id: "devil",
         initials: "DA",
         name: "Devil's Advocate",
-        title: "Pre-mortem · 반론 전담",
+        title: "Devil's Advocate · 반론 전담",
         role: "Devil's Advocate",
         color: "#111827",
-        stance: "Pre-mortem",
-        message: `Pre-mortem: 12개월 뒤 이 결론이 틀렸다고 가정하고 실패 원인부터 적습니다. 이 백테스트가 "지나간 판단을 지금 근거로 정당화"하는 사후확증일 수 있습니다. ① 사전 모멘텀 ${prior}와 이후 실측 ${actual}가 우연히 맞았을 가능성을 배제했습니까? ② 같은 신호로 반대 결론을 내면 어디서 깨집니까? ③ 표본이 ${fmtNum(active.observations?.length || 0)}개면 통계적으로 충분합니까? 같은 규칙으로 틀린 시점도 비교해야 합니다.`,
+        stance: "Devil's Advocate",
+        message: `Devil's Advocate: 12개월 뒤 이 결론이 틀렸다고 가정하고 실패 원인부터 적습니다. 이 백테스트가 "지나간 판단을 지금 근거로 정당화"하는 사후확증일 수 있습니다. ① 사전 모멘텀 ${prior}와 이후 실측 ${actual}가 우연히 맞았을 가능성을 배제했습니까? ② 같은 신호로 반대 결론을 내면 어디서 깨집니까? ③ 표본이 ${fmtNum(active.observations?.length || 0)}개면 통계적으로 충분합니까? 같은 규칙으로 틀린 시점도 비교해야 합니다.`,
       },
       {
         id: "audit",
@@ -7989,11 +8176,11 @@
         id: "devil",
         initials: "DA",
         name: "Devil's Advocate",
-        title: "Pre-mortem · 반론 전담",
+        title: "Devil's Advocate · 반론 전담",
         role: "Devil's Advocate",
         color: "#111827",
-        stance: "Pre-mortem",
-        message: `Pre-mortem: 이 판단이 12개월 뒤 틀렸다면 원인은 세 가지입니다. ① 사전 모멘텀 ${prior}와 이후 실측 ${actual}를 사후적으로 해석했습니다. ② 관측 ${fmtNum(active.observations.length)}개가 제품군 전체를 대표하지 못했습니다. ③ ${primaryFlip.label}이 반대로 움직여도 결론을 고집했습니다. 반증 조건이 없으면 결론 강도를 낮춥니다.`,
+        stance: "Devil's Advocate",
+        message: `Devil's Advocate: 이 판단이 12개월 뒤 틀렸다면 원인은 세 가지입니다. ① 사전 모멘텀 ${prior}와 이후 실측 ${actual}를 사후적으로 해석했습니다. ② 관측 ${fmtNum(active.observations.length)}개가 제품군 전체를 대표하지 못했습니다. ③ ${primaryFlip.label}이 반대로 움직여도 결론을 고집했습니다. 반증 조건이 없으면 결론 강도를 낮춥니다.`,
       },
       {
         id: "strategy",
@@ -8003,7 +8190,7 @@
         role: "최종 종합",
         color: "#22C55E",
         stance: scenario.conclusion,
-        message: `종합하면 ${active.decision.label} 안건은 ${scenario.label}에서 ==${scenario.conclusion}==입니다. ${profile.strategy || "이길 수 있는 제품군에 자원을 집중하고 나머지는 옵션으로 둡니다."} 세 명의 반론(자본·근거·Pre-mortem)을 통과한 항목만 경영진 안건으로 상정합니다.`,
+        message: `종합하면 ${active.decision.label} 안건은 ${scenario.label}에서 ==${scenario.conclusion}==입니다. ${profile.strategy || "이길 수 있는 제품군에 자원을 집중하고 나머지는 옵션으로 둡니다."} 자본·근거·Devil's Advocate 반론을 통과한 항목만 경영진 안건으로 상정합니다.`,
       },
     ];
   }
@@ -9291,7 +9478,7 @@
         },
         {
           name: "Devil's Advocate",
-          role: "반론·프리모템",
+          role: "반론·Devil's Advocate",
           avatar: "DA",
           color: "#111827",
           message: `${response.counter} 반대로 12개월 뒤 실패했다면 원인은 확증편향, 고객 전환 과소평가, 규제 리스크 누락입니다. 이 세 가지를 반증하지 못하면 결론은 Go가 아니라 Watch입니다.`,
