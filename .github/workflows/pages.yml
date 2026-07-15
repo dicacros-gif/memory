@@ -34,7 +34,10 @@ jobs:
           node-version: "20"
 
       - name: Run intelligence agent
-        run: node scripts/crawl.mjs || echo "Crawler failed - keeping existing live.json"
+        run: npm run crawl
+
+      - name: Validate refreshed intelligence
+        run: npm run audit
 
       - name: Commit refreshed intelligence data
         if: github.ref == 'refs/heads/main'

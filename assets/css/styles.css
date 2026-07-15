@@ -10287,3 +10287,143 @@ body.sidebar-collapsed .sb-ico {
   box-shadow: 0 12px 26px color-mix(in srgb, var(--cat-accent, #10B981) 20%, transparent);
 }
 .hs-logic-step:hover strong { color: var(--cat-accent, #10B981); }
+/* Evidence brief shared by natural-language Q&A and executive agents. */
+.qa-current-brief {
+  display: grid;
+  gap: 10px;
+  margin: 0 0 18px;
+  padding: 16px;
+  border: 1px solid color-mix(in srgb, var(--answer-accent, var(--accent)) 38%, var(--line));
+  border-left: 4px solid var(--answer-accent, var(--accent));
+  background: color-mix(in srgb, var(--answer-accent, var(--accent)) 7%, var(--surface));
+  border-radius: 8px;
+}
+
+.qa-current-brief-head,
+.qa-current-price,
+.qa-current-decision,
+.qa-current-reversal {
+  display: flex;
+  align-items: center;
+  gap: 9px;
+  min-width: 0;
+}
+
+.qa-current-brief-head {
+  justify-content: space-between;
+  color: var(--muted);
+  font-size: 12px;
+  font-weight: 800;
+  text-transform: uppercase;
+}
+
+.qa-current-brief-head small {
+  margin-right: auto;
+  color: var(--muted);
+  font-size: 11px;
+  font-weight: 700;
+  text-transform: none;
+}
+
+.qa-current-brief-head em {
+  padding: 3px 7px;
+  border: 1px solid currentColor;
+  border-radius: 999px;
+  font-style: normal;
+}
+
+.qa-current-brief-head .confirmed { color: #087f5b; }
+.qa-current-brief-head .watch { color: #b45309; }
+
+.qa-current-brief > strong {
+  color: var(--text);
+  font-size: 17px;
+  line-height: 1.35;
+}
+
+.qa-current-brief > p {
+  margin: 0;
+  color: var(--text-soft, var(--text));
+  line-height: 1.65;
+}
+
+.qa-current-price,
+.qa-current-decision,
+.qa-current-reversal {
+  flex-wrap: wrap;
+  padding-top: 9px;
+  border-top: 1px solid var(--line);
+  font-size: 13px;
+}
+
+.qa-current-price span,
+.qa-current-decision b,
+.qa-current-reversal b {
+  flex: 0 0 auto;
+  color: var(--muted);
+  font-size: 11px;
+  text-transform: uppercase;
+}
+
+.qa-current-price b,
+.qa-current-decision span,
+.qa-current-reversal span {
+  min-width: 0;
+  color: var(--text);
+}
+
+.qa-current-price em {
+  margin-left: auto;
+  color: var(--answer-accent, var(--accent));
+  font-style: normal;
+  font-weight: 800;
+}
+
+.qa-current-brief > a {
+  width: fit-content;
+  color: var(--answer-accent, var(--accent));
+  font-size: 12px;
+  font-weight: 800;
+  text-decoration: none;
+}
+
+.qa-current-brief:hover {
+  color: #fff;
+  background: var(--answer-accent, var(--accent));
+  border-color: var(--answer-accent, var(--accent));
+}
+
+.qa-current-brief:hover > strong,
+.qa-current-brief:hover > p,
+.qa-current-brief:hover .qa-current-price *,
+.qa-current-brief:hover .qa-current-decision *,
+.qa-current-brief:hover .qa-current-reversal *,
+.qa-current-brief:hover > a,
+.qa-current-brief:hover .qa-current-brief-head,
+.qa-current-brief:hover .qa-current-brief-head em {
+  color: #fff;
+}
+
+@media (max-width: 640px) {
+  .qa-current-price em { margin-left: 0; }
+}
+
+.news-evidence {
+  padding: 2px 6px;
+  border: 1px solid currentColor;
+  border-radius: 999px;
+  font-size: 10px;
+  font-weight: 800;
+  line-height: 1.2;
+}
+
+.news-evidence.confirmed { color: #087f5b; }
+.news-evidence.reported { color: #2563eb; }
+.news-evidence.analysis { color: #7c3aed; }
+.news-evidence.watch { color: #b45309; }
+
+.news-card:hover .news-evidence,
+.news-card:focus-within .news-evidence {
+  color: currentColor;
+  border-color: currentColor;
+}

@@ -18,6 +18,7 @@
     categories: [],
     benchmarkSignals: { stream: [] },
     chinaInfra: { sources: [], signals: [] },
+    intelligence: { generatedAt: null, validation: {}, briefs: [], executive: [] },
     newsStats: {},
     health: [],
   };
@@ -229,7 +230,8 @@
         { name: "China subsidiaries", role: "해외법인 리스크", note: "본사 기준 IP/인력/규제 통제" },
       ],
       rules: [
-        { axis: "세제", status: "O", title: "K-Chips 투자세액공제 확대", evidence: "MOEF 공식 영문자료 기준 대기업·중견기업은 15%에서 20%, 중소기업은 25%에서 30%로 5%p 확대됐습니다.", implication: "한국 내 HBM/선단 공정/환경설비 투자를 우선 검토하되, 실제 적용은 기업 규모와 투자 유형별 세법 검토를 별도로 둡니다.", source: "MOEF", sourceUrl: "https://english.moef.go.kr/pc/selectTbPressCenterDtl.do?boardCd=N0001&seq=6117" },
+        { axis: "세제", status: "O", title: "K-Chips 투자세액공제 확대", evidence: "2023년 국가전략기술 시설공제는 대기업 8%→15%, 중소기업 16%→25%로 확대됐고, 2025년 2월 개정은 대기업·중견기업 15%→20%, 중소기업 25%→30%로 다시 높였습니다.", implication: "한국 내 HBM/선단 공정/환경설비 투자를 우선 검토하되, 적용 연도·기업 규모·투자 유형별 세법 검토를 별도로 둡니다.", source: "MOEF", sourceUrl: "https://english.moef.go.kr/pc/selectTbPressCenterDtl.do?boardCd=N0001&seq=6117" },
+        { axis: "산업 투자", status: "Watch", title: "2035년까지 800조원 민관 투자 계획", evidence: "2026년 6월 발표 계획은 삼성전자·SKHY 등 기업 투자와 정부 지원 방향을 합친 약 800조원 규모이며, 4개 메모리 팹과 충청권 약 81조원 HBM 패키징 클러스터 구상을 포함합니다. 800조원 전액을 정부 보조금으로 해석하지 않습니다.", implication: "SKHY는 국내 HBM·패키징 캐파와 중국 Fab 운영 투자를 분리하고, 실제 기업별 CAPEX·인허가·전력·용수 확정분만 재무 모델에 반영합니다.", source: "Tom's Hardware", sourceUrl: "https://www.tomshardware.com/tech-industry/semiconductors/south-korea-unveils-usd520-billion-investment-plan-with-samsung-and-sk-hynix-to-expand-memory-chip-dominance-plan-includes-four-new-fabs-and-hbm-facilities-amid-strong-government-support" },
         { axis: "금융", status: "O", title: "26조원 생태계 지원 패키지", evidence: "26조원 패키지 중 18.1조원(+α)은 금융지원 프로그램이며, 그 안에 17조원 저리대출과 최대 8천억원 생태계 펀드가 포함됩니다. 2025~2027년 약 5조원 R&D·사업화·인력 투자는 별도 축입니다.", implication: "17조원 대출과 8천억원 펀드를 18.1조원에 중복 가산하지 않고, 금융·R&D·인프라 축을 분리해 투자 후보를 연결합니다.", source: "MOEF", sourceUrl: "https://english.moef.go.kr/pc/selectTbPressCenterDtl.do?boardCd=N0001&seq=5899" },
         { axis: "인프라", status: "O", title: "용수·전력·도로 패키지", evidence: "용인 클러스터 용수 이중관로와 3GW 전력 공급 등 인프라 지원 방향이 공표됐습니다.", implication: "국내 첨단 캐파 병목을 중국 리스크 완충장치로 봅니다.", source: "MOEF", sourceUrl: "https://english.moef.go.kr/pc/selectTbPressCenterDtl.do?boardCd=N0001&seq=5899" },
         { axis: "환경법", status: "Watch", title: "화학물질 규제 합리화", evidence: "환경부는 첨단산업 규제 개선과 2030년까지 8.8조원 이상 경제효과를 언급했습니다.", implication: "화학물질·폐수·온실가스 투자는 인허가 속도와 사회적 수용성을 동시에 관리합니다.", source: "Korea Ministry of Environment", sourceUrl: "https://www.me.go.kr/eng/web/board/read.do%3Bjsessionid%3DbQgYIwaC9B0IXC1md7cW0H3MX3-7KITTl5QdwSO8.mehome1?boardCategoryId=&boardId=1620870&boardMasterId=522&decorator=&maxIndexPages=10&maxPageItems=10&menuId=&orgCd=&pagerOffset=480&searchKey=&searchValue=" },
@@ -811,17 +813,17 @@
       linkedCategories: ["dram", "nand", "china"],
       keywords: ["cxmt", "changxin", "dram", "ddr5", "lpddr5x", "ipo", "capacity"],
       metrics: [
-        { label: "매출", value: "~$8B" },
-        { label: "캐파", value: "290k wpm" },
-        { label: "DRAM 점유", value: "~8%" },
-        { label: "가격", value: "15%+↓" },
+        { label: "2025 매출", value: "¥61.8B" },
+        { label: "캐파 추정", value: "265~290k" },
+        { label: "DRAM 매출점유", value: "8% · Q1" },
+        { label: "HBM3 수율", value: "~25% 모델" },
       ],
       strategy: [
         "2025년 매출과 월 DRAM wafer 캐파가 급증하며 DDR5·LPDDR 물량 기반의 가격 협상력을 확대",
         "NAND 직접 경쟁사는 아니지만 메모리 업황 전반의 ASP와 고객 협상력을 흔듦",
         "HBM 위협보다 레거시 DRAM 가격 하방, IPO 자금의 생산라인 업그레이드, 중국 고객 장기계약이 우선 감시 대상",
       ],
-      crawl: ["CXMT IPO capacity", "CXMT DDR5 customer", "China DRAM contract", "Tencent supply agreement", "CXMT wafer capacity 290000"],
+      crawl: ["CXMT IPO capacity filing", "CXMT DDR5 customer", "China DRAM contract", "Tencent supply agreement", "CXMT wafer capacity source date"],
       decisions: ["DRAM/NAND 가격 전이", "고객 협상력", "범용 제품 원가 방어", "중국 내수 보조금"],
       risk: "DRAM 가격 하방이 NAND 믹스 개선 효과를 상쇄할 수 있어 메모리 포트폴리오 단위로 봐야 합니다.",
     },
@@ -986,22 +988,22 @@
     },
     {
       id: "pc-appliance",
-      label: "PC·가전",
-      short: "PC/가전",
+      label: "PC",
+      short: "PC",
       demand: "Terminal",
-      title: "AI PC·Client SSD·가전 엣지 메모리 방어 포트폴리오",
+      title: "AI PC·Client SSD 메모리 방어 포트폴리오",
       startShare: 12,
       endShare: 7,
       baseScore: 55,
       sensitivity: .72,
       linkedCategories: ["dram", "nand", "aidemand", "china"],
-      products: ["DDR5/LPCAMM", "Client SSD", "Embedded NAND", "Appliance Edge Memory"],
-      keywords: ["pc", "notebook", "ai pc", "client ssd", "lpcamm", "appliance", "edge ai", "embedded", "terminal"],
+      products: ["DDR5/LPCAMM", "Client SSD", "PC DRAM", "Client NAND"],
+      keywords: ["pc", "notebook", "ai pc", "client ssd", "lpcamm", "client dram", "client nand", "terminal"],
       priceTerms: ["ssd", "module", "dram", "client", "pc-client"],
-      thesis: "PC·가전은 AI PC와 엣지 AI가 상방을 만들지만, 교체주기와 가격 민감도가 커서 방어적 현금흐름 관리가 우선입니다.",
-      assumptions: ["AI PC 침투율은 점진 상승", "client SSD·DDR5 가격 민감도 높음", "가전 엣지 AI는 아직 저용량 중심"],
+      thesis: "PC는 AI PC의 대당 메모리 탑재량이 상방을 만들지만, 교체주기와 가격 민감도가 커서 방어적 현금흐름 관리가 우선입니다.",
+      assumptions: ["IDC 2026E PC 출하 약 2억 5,300만 대(-11.3% YoY)", "AI PC 침투율은 점진 상승", "client SSD·DDR5 가격 민감도 높음"],
       triggers: ["AI PC 출하", "client SSD contract 가격", "LPCAMM 채택", "PC OEM 재고"],
-      actions: ["AI PC용 고부가 SKU 선별", "client SSD 재고·가격 floor 관리", "가전 엣지 메모리는 옵션형으로 유지"],
+      actions: ["AI PC용 고부가 SKU 선별", "client SSD 재고·가격 floor 관리", "PC OEM별 탑재량과 재고를 분리 관리"],
       risk: "PC 교체 사이클이 지연되면 출하와 탑재량 상향이 동시에 둔화되어 믹스 개선 속도가 낮아질 수 있습니다.",
     },
     {
@@ -1512,13 +1514,13 @@
       id: "dram-euv-duv",
       tag: "DRAM 공정",
       title: "CXMT DDR5 원가 병목과 HBM3 양산 지연",
-      thesis: "CXMT의 범용 DRAM 위협은 점유율·고객계약에서 오지만, DDR5 수율 숫자는 확정 성과로 쓰지 않습니다. 다이 면적과 cost-per-bit 격차가 남아 있고 HBM3는 양산급 소재·부품 주문 부재로 2026년 의미 있는 양산 가능성을 낮게 봅니다",
-      facts: ["DDR5 수율 80%+는 Confirmed로 승격하지 않고, Q1 2026 수율·원가 병목 신호를 Watch로 둠", "삼성 대비 약 40% 큰 DDR5 다이는 Tom's Hardware의 2024년 12월 비교값으로, 2026년 현재 격차로 재사용하지 않음", "HBM3는 2026년 4월 기준 양산급 소재·부품 주문 부재와 2026년 양산 가능성 낮음 보도를 Watch 하방으로 반영"],
+      thesis: "CXMT의 범용 DRAM 위협은 점유율·고객계약에서 오지만, DDR5 수율과 HBM3 수율은 분석 모델을 회사 확정치처럼 쓰지 않습니다. IPO 투자계획은 범용 DRAM 라인과 선행 DRAM R&D에 집중돼 있어 단기 HBM보다 DDR5·LPDDR 가격 압력이 우선입니다",
+      facts: ["DDR5 수율 80%+는 Confirmed로 승격하지 않고, Q1 2026 수율·원가 병목 신호를 Watch로 둠", "삼성 대비 약 40% 큰 DDR5 다이는 Tom's Hardware의 2024년 12월 비교값으로, 2026년 현재 격차로 재사용하지 않음", "SemiAnalysis의 HBM3 8단 결합 수율 약 25%와 2026년 말 30k wpm 배정은 분석 모델이며 회사 실적이 아님", "IPO 계획의 조달금 사용처에는 전용 HBM 프로젝트가 없고 범용 DRAM 생산라인 업그레이드와 선행 DRAM R&D가 중심"],
       risk: "DUV 반복 노광은 공정 스텝·마스크 비용·변동성을 키웁니다. 단기 HBM 위협보다 DDR5·LPDDR·레거시 DRAM 가격 하방 압력이 더 빠르게 나타날 가능성이 큽니다",
       implication: "HBM 격차는 3년+로 좁혀진 상태로 보고, CXMT의 즉시 위협은 IPO 자금·Tencent 장기계약·DDR5 점유율 상승이 만드는 범용 DRAM 가격 협상력 약화입니다",
       linkedCategories: ["dram", "packaging", "equipment"],
-      source: "TrendForce Insights / Tom's Hardware / Digitimes",
-      sourceUrl: "https://www.tomshardware.com/pc-components/dram/chinas-cxmt-reportedly-delays-mass-production-of-ddr5-chips-to-late-2025-state-backed-manufacturer-could-still-be-disruptive-market-force",
+      source: "SemiAnalysis / Tom's Hardware",
+      sourceUrl: "https://newsletter.semianalysis.com/p/chinas-cxmt-is-set-to-challenge-dram",
     },
     {
       id: "ymtc-xtacking",
@@ -1571,7 +1573,7 @@
       tag: "규제 리스크",
       title: "MATCH Act: DUV 제한 유지, 극저온 식각 전국 금지 삭제",
       thesis: "MATCH Act는 2026년 7월 15일 기준 확정 법률이 아닙니다. H.R.8170의 최신 공식 이력은 2026년 4월 22일 하원 외교위 36:8 의결이며, S.4281은 4월 13일 Senate Banking, Housing, and Urban Affairs Committee 회부 상태입니다",
-      facts: ["Cryogenic etch blanket ban removed, Reuters 2026-04-16", "DUV restriction retained", "H.R.8170: 2026-04-22 House Foreign Affairs Committee 36:8", "S.4281: 2026-04-13 Senate Banking, Housing, and Urban Affairs Committee referred", "전체 하원·상원 통과 및 제정은 공식 기록상 미확인"],
+      facts: ["Cryogenic etch blanket ban removed, Reuters 2026-04-16", "DUV restriction retained", "기존 BIS의 선단 로직·sub-18nm DRAM·128단+ NAND 통제가 남아 있어 blanket ban 삭제를 실질 규제 해제로 해석하지 않음", "H.R.8170: 2026-04-22 House Foreign Affairs Committee 36:8", "S.4281: 2026-04-13 Senate Banking, Housing, and Urban Affairs Committee referred", "전체 하원·상원 통과 및 제정은 공식 기록상 미확인"],
       risk: "법률 확정 전에는 실행 규제로 오인하면 안 됩니다. 다만 통과 시 CXMT·YMTC·SMIC 장비 교체와 우회 조달 타임라인을 늦출 수 있습니다",
       implication: "MATCH Act는 현행 규제가 아니라 정책 Watch로 두고, BIS/VEU·네덜란드·일본 동참 여부와 함께 YMTC Phase 3 이후 팹 일정에 연결합니다",
       linkedCategories: ["geopolitics", "equipment", "china"],
@@ -2123,7 +2125,8 @@
   const FORECAST_CATEGORIES = [
     {
       id: "hyperscaler", label: "AI서버·하이퍼스케일러", accent: "#2D6BFF",
-      units: 6.5, unitLabel: "백만 대", unitStep: "가속기 출하", unitNote: "NVIDIA+AMD+커스텀 ASIC 2026E",
+      units: 6.5, unitLabel: "백만 대", unitStep: "가속기 출하", unitNote: "외부 shipment model 2026E · 확정치 아님",
+      source: "Presenc AI GPU Shipment Tracker", sourceUrl: "https://presenc.ai/research/gpu-shipment-tracker-blackwell-rubin-2026",
       memPerUnit: 210, memLabel: "GB/대", memName: "HBM", memNote: "B200 192 · GB300 288 가중 평균",
       skhyShare: 55, shareNote: "HBM 리더십 가정",
       dramYoY: 15, dramLabel: "서버 DRAM", nandYoY: 18, nandLabel: "eSSD NAND",
@@ -2138,7 +2141,7 @@
         { id: "china", name: "중국(Alibaba·Tencent·ByteDance)", region: "CN", driver: "↑ 제한", tech: "자체·H20·국산", pull: 58, note: "수출통제로 SKHY 직접 노출 제한. CXMT/국산 HBM 대체 압력을 별도 경보로 관리." },
       ],
       assume: [
-        "가속기 출하는 NVIDIA·AMD·커스텀 ASIC 합산, HBM/대는 세대 믹스 가중 평균",
+        "가속기 6.5백만 대는 외부 shipment tracker의 NVIDIA·AMD·커스텀 ASIC 합산 모델이며 확정 출하량이 아님",
         "총 HBM 수요(PB) = 출하(백만 대) × HBM(GB/대); SKHY 점유율은 HBM 리더십 유지 가정",
         "커스텀 ASIC이 HBM 대신 저용량 구성을 택하면 탑재량·총수요 동시 하향(반증)",
         "전력·부지·CoWoS 병목이 실제 출하 상한 → Bull 지연(반증)",
@@ -2189,30 +2192,31 @@
       ],
     },
     {
-      id: "pc", label: "PC·가전", accent: "#F59E0B",
-      units: 260, unitLabel: "백만 대", unitStep: "PC·가전 출하", unitNote: "PC 교체 사이클 + AI PC 2026E",
-      memPerUnit: 18, memLabel: "GB/대", memName: "DDR5/LPCAMM+SSD", memNote: "AI PC 16GB 기본화·LPCAMM 채택",
+      id: "pc", label: "PC", accent: "#F59E0B",
+      units: 253, unitLabel: "백만 대", unitStep: "PC 출하", unitNote: "IDC 2026E · -11.3% YoY",
+      source: "IDC 2026 forecast", sourceUrl: "https://www.idc.com/wp-content/uploads/2026/04/IDC-Directions-AI-Supercycle-Whalen.pdf",
+      memPerUnit: 18, memLabel: "GB/대", memName: "PC DRAM", memNote: "AI PC 16GB 기본화·고용량 믹스 가정",
       skhyShare: 28, shareNote: "PC DRAM 점유율 가정",
       dramYoY: 7, dramLabel: "PC DRAM", nandYoY: 9, nandLabel: "클라이언트 SSD",
-      driverLabel: "출하 방향", techLabel: "AI PC/엣지", pullLabel: "메모리 견인도", panelTitle: "PC·가전 브랜드 수요 풀",
+      driverLabel: "출하 방향", techLabel: "AI PC", pullLabel: "메모리 견인도", panelTitle: "PC OEM 수요 풀",
       accounts: [
         { id: "lenovo", name: "Lenovo", region: "CN", driver: "↑ 강", tech: "Copilot+ AI PC", pull: 80, note: "AI PC 전환 = 16GB 기본화, LPCAMM 채택 선도." },
         { id: "dell", name: "Dell", region: "US", driver: "↑ 강", tech: "AI PC+엣지서버", pull: 76, note: "상용 AI PC + 엣지 서버 동반 수요." },
         { id: "hp", name: "HP", region: "US", driver: "↑ 교체", tech: "AI PC", pull: 74, note: "상용 교체 수요, Win 전환 겹침." },
         { id: "apple-mac", name: "Apple Mac", region: "US", driver: "→ 견조", tech: "M-series 통합메모리", pull: 72, note: "통합메모리 고용량, 자체 SoC 조달." },
-        { id: "appliance", name: "가전(Samsung·LG)", region: "KR", driver: "→ 초기", tech: "On-device 가전 AI", pull: 44, note: "가전 엣지 AI 초기 단계, 저용량 중심." },
       ],
       assume: [
-        "총수요 = PC·가전 출하 × 대당 메모리",
+        "IDC 2026E PC 출하 약 2억 5,300만 대(-11.3% YoY)를 기준선으로 사용하며 가전 출하는 포함하지 않음",
+        "총수요 = PC 출하 × 대당 PC DRAM; 클라이언트 SSD는 별도 성장률로 표시",
         "AI PC 침투율과 대당 기본 용량 상향이 상방 동력",
         "PC 교체 사이클 지연 시 출하·총수요 동시 하향(반증)",
-        "가전 엣지 AI는 아직 저용량 → 견인도 제한적",
       ],
     },
     {
       id: "datacenter", label: "데이터센터 스토리지", accent: "#10B981",
-      units: 14, unitLabel: "백만 대", unitStep: "서버 출하", unitNote: "글로벌 서버 + AI 노드 2026E",
-      memPerUnit: 480, memLabel: "GB/대", memName: "서버DRAM+eSSD", memNote: "고용량 RDIMM·QLC eSSD 평균",
+      units: 16.8, unitLabel: "백만 대", unitStep: "서버 출하", unitNote: "Frost & Sullivan 2026E · 전체 서버",
+      source: "Frost & Sullivan via HKEX", sourceUrl: "https://www.hkexnews.hk/listedco/listconews/sehk/2026/0312/12048944/2026031200024.pdf",
+      memPerUnit: 480, memLabel: "GB/대", memName: "서버 DRAM", memNote: "고용량 RDIMM 믹스 가정; eSSD는 별도",
       skhyShare: 24, shareNote: "서버 DRAM/eSSD 점유율 가정",
       dramYoY: 16, dramLabel: "서버 DRAM", nandYoY: 28, nandLabel: "eSSD NAND",
       driverLabel: "증설 방향", techLabel: "스토리지 사양", pullLabel: "메모리 견인도", panelTitle: "데이터센터·스토리지 수요 풀",
@@ -2224,7 +2228,8 @@
         { id: "china-dc", name: "중국 클라우드 스토리지", region: "CN", driver: "↑ 국산", tech: "국산 eSSD", pull: 60, note: "수출통제로 국산 NAND 대체 압력, SKHY 직접 노출 제한." },
       ],
       assume: [
-        "총수요 = 서버 출하 × 노드당 메모리(서버 DRAM+eSSD)",
+        "전체 서버 1,680만 대는 Frost & Sullivan 2026E 기준선이며 TrendForce의 2026 출하 성장률 약 13%와 방향을 교차 확인",
+        "총수요 = 서버 출하 × 노드당 서버 DRAM; eSSD NAND는 별도 성장률로 표시",
         "AI 데이터 증가가 eSSD 용량을 비선형으로 견인",
         "QLC 전환·고용량 eSSD 채택이 늦으면 NAND 총수요 하향(반증)",
         "eSSD는 SKHY·Solidigm 직접 수혜 축으로 별도 추적",
@@ -2363,7 +2368,7 @@
 
     if (assumptions) {
       assumptions.innerHTML = `
-        <div class="intel-panel-head"><h3>모델 가정 · 반증 조건</h3><span>${escapeHTML(category.label)} · 공개 데이터 기반 논리 추정 (확정치 아님)</span></div>
+        <div class="intel-panel-head"><h3>모델 가정 · 반증 조건</h3><span>${escapeHTML(category.label)} · 공개 데이터 기반 논리 추정 (확정치 아님)${category.sourceUrl ? ` · <a href="${escapeHTML(category.sourceUrl)}" target="_blank" rel="noopener">${escapeHTML(category.source || "원문")}</a>` : ""}</span></div>
         <ul class="hs-assume-list">
           ${category.assume.map((line, i) => `<li><b>${i < 2 ? "가정" : "반증"}</b> ${escapeHTML(line)}</li>`).join("")}
         </ul>
@@ -2610,7 +2615,45 @@
       const msg = String(entry?.msg || "");
       return !isZeroCountMessage(msg);
     });
+    next.intelligence = {
+      generatedAt: next.intelligence?.generatedAt || next.updatedAt || null,
+      methodologyVersion: next.intelligence?.methodologyVersion || "",
+      validation: next.intelligence?.validation || {},
+      briefs: (next.intelligence?.briefs || []).filter((brief) => brief?.id && brief?.latest?.url),
+      executive: next.intelligence?.executive || [],
+    };
     return next;
+  }
+
+  function liveIntelligenceBrief(id = "") {
+    return (LIVE.intelligence?.briefs || []).find((brief) => brief.id === id) || null;
+  }
+
+  function intelligenceTopicId(text = "") {
+    const value = String(text || "").toLowerCase();
+    const topics = [
+      { id: "policy", terms: ["policy", "정책", "bis", "chips", "match act", "license", "veu", "fab", "규제"] },
+      { id: "hbm", terms: ["hbm", "rubin", "cowos", "base die", "ai server", "ai 서버"] },
+      { id: "nand", terms: ["nand", "ssd", "essd", "ymtc", "xtacking", "solidigm"] },
+      { id: "dram", terms: ["dram", "ddr", "lpddr", "spot", "contract", "가격"] },
+      { id: "china", terms: ["china", "중국", "cxmt", "xmc", "jcet", "naura", "amec"] },
+      { id: "demand", terms: ["demand", "수요", "출하", "고객", "hyperscaler", "스마트폰", "pc", "서버"] },
+    ];
+    const ranked = topics
+      .map((topic) => ({ ...topic, score: topic.terms.reduce((sum, term) => sum + (value.includes(term) ? 1 : 0), 0) }))
+      .sort((a, b) => b.score - a.score);
+    return ranked[0]?.score ? ranked[0].id : "china";
+  }
+
+  function intelligenceBriefForDecision(decision = {}) {
+    const text = [
+      decision.id,
+      decision.label,
+      decision.category,
+      decision.owner,
+      ...(decision.terms || []),
+    ].filter(Boolean).join(" ");
+    return liveIntelligenceBrief(intelligenceTopicId(text));
   }
 
   function hoursSince(value) {
@@ -3949,7 +3992,7 @@
       label: "기준 시나리오",
       horizon: "30개월",
       tilt: "base",
-      premise: "현재 수집된 가격, 기사, 정책, 벤치마킹 근거가 큰 충격 없이 이어지는 경우",
+      premise: "현재 확인된 가격, 기사, 정책, 경쟁 근거가 큰 충격 없이 이어지는 경우",
       ceo: "현 결론은 유지하되 판단 변경 KPI를 선제 정의합니다.",
       cfo: "재무 집행은 보류하고 가격 row와 고객 계약 근거가 쌓인 안건부터 실사합니다.",
       cto: "제품군별 기술 병목은 현재 확인된 근거 범위에서만 판단합니다.",
@@ -4066,6 +4109,16 @@
     const priceRows = selected?.priceRows || 0;
     const linkCount = selected?.linkCount || 0;
     const confidence = Math.round(selected?.confidence || 0);
+    const liveBrief = intelligenceBriefForDecision(selected);
+    const chinaBrief = liveIntelligenceBrief("china");
+    const livePrice = liveBrief?.price;
+    const livePeriodChange = Number(livePrice?.periodChangePct);
+    const latestEvidence = liveBrief
+      ? `최신 근거는 "${liveBrief.latest?.title || liveBrief.label}"(${liveBrief.latest?.source || "원문"}, ${shortKstDate(liveBrief.latest?.publishedAt || liveBrief.generatedAt)})입니다.`
+      : "원문이 연결된 최신 근거만 결론에 반영합니다.";
+    const priceEvidence = livePrice
+      ? `${livePrice.item}은 공개 누적 ${fmtNum(livePrice.observedPoints)}개 관측에서 ${Number.isFinite(livePeriodChange) ? `${livePeriodChange >= 0 ? "+" : ""}${fmtNum(livePeriodChange, 2)}%` : livePrice.latestRaw || "변화 확인 중"}${livePrice.isProxy ? "이며 직접 가격이 아닌 proxy입니다" : "입니다"}.`
+      : "직접 연결된 공개 가격이 없는 안건은 물량·고객·규제 원문으로 판단합니다.";
     const topRelationText = topRelation
       ? `${memoryMarketNodeName(topRelation.from)} → ${memoryMarketNodeName(topRelation.to)}`
       : "근거가 붙은 관계선 없음";
@@ -4092,7 +4145,7 @@
         role: "우선순위·최종 안건화",
         color: "#2D6BFF",
         stance: scenarioDecisionLabel(scenarioVerdictValue),
-        message: `SKHY 경영진 질문은 "${profile.question}"입니다. ${profile.ceo} ${scenario.ceo} 현재 안건은 **${selected?.verdict || "Watch"}**(${verdictMeaning})이고, ${scenario.label} 가정에서는 ==${scenarioVerdictValue}==(${scenarioDecisionLabel(scenarioVerdictValue)})로 조정합니다.`,
+        message: `SKHY 경영진 질문은 "${profile.question}"입니다. ${latestEvidence} ${profile.ceo} ${scenario.ceo} 현재 안건은 **${selected?.verdict || "Watch"}**(${verdictMeaning})이고, ${scenario.label} 가정에서는 ==${scenarioVerdictValue}==(${scenarioDecisionLabel(scenarioVerdictValue)})로 조정합니다.`,
       },
       {
         id: "cfo",
@@ -4102,7 +4155,7 @@
         role: "수익성·자본배분",
         color: "#00C2A8",
         stance: "투자/매출 분리",
-        message: `재무 관점에서는 이 안건을 확정 ROI가 아니라 **자본배분 후보**로 봅니다. ${profile.cfo} ${scenario.cfo} ==${priceFlip.label}(${priceFlip.trigger})==를 넘기 전까지 예산 확정은 보류하고, 저수익 SKU부터 회수 우선순위를 정합니다.`,
+        message: `재무 관점에서는 이 안건을 확정 ROI가 아니라 **자본배분 후보**로 봅니다. ${priceEvidence} ${profile.cfo} ${scenario.cfo} ==${priceFlip.label}(${priceFlip.trigger})==를 넘기 전까지 예산 확정은 보류하고, 저수익 SKU부터 회수 우선순위를 정합니다.`,
       },
       {
         id: "cto",
@@ -4152,7 +4205,7 @@
         role: "가격·고객·계약",
         color: "#10B981",
         stance: "가격 전이 확인",
-        message: `시장 관점에서는 ${profile.market} ${scenario.market} **가격과 고객 신호가 같은 방향**일 때만 결론을 높입니다. spot만 흔들리면 확대가 아니라 ==재고 조정·계약 재협상==부터 검토합니다.`,
+        message: `시장 관점에서는 ${priceEvidence} ${profile.market} ${scenario.market} **가격과 고객 신호가 같은 방향**일 때만 결론을 높입니다. Spot만 흔들리면 확대가 아니라 ==재고 조정·계약 재협상==부터 검토합니다.`,
       },
       {
         id: "china",
@@ -4162,7 +4215,7 @@
         role: "중국 경쟁 신호",
         color: "#DB2777",
         stance: "중국 압력",
-        message: `중국 경쟁은 CXMT·YMTC·XMC·JCET·Naura·AMEC를 한 묶음으로 보지 않습니다. **DRAM 가격 · NAND/eSSD · 패키징 · 장비 내재화**로 분해하고, ${scenario.label}에서는 ${scenario.id === "china-pressure" ? "==범용 가격 방어==를 최우선에 둡니다." : "현재 리스크로만 반영합니다."}`,
+        message: `${chinaBrief ? `최신 중국 근거는 "${chinaBrief.latest?.title || "중국 경쟁 신호"}"(${chinaBrief.latest?.source || "원문"})입니다. ` : ""}중국 경쟁은 CXMT·YMTC·XMC·JCET·Naura·AMEC를 한 묶음으로 보지 않습니다. **DRAM 가격 · NAND/eSSD · 패키징 · 장비 내재화**로 분해하고, ${scenario.label}에서는 ${scenario.id === "china-pressure" ? "==범용 가격 방어==를 최우선에 둡니다." : "현재 리스크로만 반영합니다."}`,
       },
       {
         id: "risk",
@@ -4192,7 +4245,7 @@
         role: "팩트 검증·중복 제거",
         color: "#EF4444",
         stance: "근거 게이트",
-        message: `검증 기준은 **원문과 가격 근거가 함께 붙은 항목**입니다. 수치와 해석을 분리하고, ${scenario.audit} ==근거가 부족하면 Go가 아니라 Watch/Hold==로 제한합니다.`,
+        message: `${liveBrief ? `${liveBrief.latest?.evidenceLevel || "Watch"} · ${liveBrief.latest?.sourceType || "분석"} · ${liveBrief.latest?.claimType || "사실"} · ${liveBrief.latest?.source || "원문"}을 기준으로 검토했습니다. ` : ""}수치와 해석을 분리하고, ${scenario.audit} ==근거가 부족하면 Go가 아니라 Watch/Hold==로 제한합니다.`,
       },
     ];
   }
@@ -4201,9 +4254,10 @@
     const evidence = decision.evidenceCount || 0;
     const confidence = Math.round(decision.confidence || 0);
     const verdict = scenarioVerdict(decision.verdict || "Hold", scenario);
-    const action = decision.action || "추가 근거 수집";
+    const action = decision.action || "추가 근거 확인";
     const profile = cLevelDecisionProfile(decision);
     const primaryFlip = primaryDecisionFlipKpi(decision);
+    const liveBrief = intelligenceBriefForDecision(decision);
     const direction = verdict === "Go"
       ? "경영진 안건으로 상정"
       : verdict === "Watch"
@@ -4211,8 +4265,8 @@
         : "의사결정 보류";
     return {
       title: `${verdict} · ${direction} · ${scenario.label}`,
-      body: `경영진 결론: "${profile.question}" ${scenario.label}에서는 ${direction}이 맞습니다. ${profile.ceo}`,
-      next: `실행 조건: ${scenario.conclusion}을 중심으로 ${action}. 판단 변경 트리거는 ${primaryFlip.label}(${primaryFlip.trigger})이며, 이 선이 깨지면 즉시 재상정합니다.`,
+      body: `경영진 결론: "${profile.question}" ${scenario.label}에서는 ${direction}이 맞습니다. ${liveBrief ? `${liveBrief.latest?.source || "원문"}의 최신 근거와 ${liveBrief.evidenceCount || 0}개 연결 근거를 반영했습니다. ` : ""}${profile.ceo}`,
+      next: `실행 조건: ${scenario.conclusion}을 중심으로 ${action}. 판단 변경 트리거는 ${liveBrief?.reversalKpi || `${primaryFlip.label}(${primaryFlip.trigger})`}이며, 이 선이 깨지면 즉시 재상정합니다.`,
     };
   }
 
@@ -4234,6 +4288,15 @@
       ? `${memoryMarketNodeName(topRelation.from)} → ${memoryMarketNodeName(topRelation.to)}`
       : "직접 연결 관계 없음";
     const action = selected?.action || profile.next || "추가 검증 후 경영진 안건화";
+    const liveBrief = intelligenceBriefForDecision(selected);
+    const livePrice = liveBrief?.price;
+    const liveChange = Number(livePrice?.periodChangePct);
+    const liveEvidenceText = liveBrief
+      ? `"${liveBrief.latest?.title || liveBrief.label}"(${liveBrief.latest?.source || "원문"}, ${shortKstDate(liveBrief.latest?.publishedAt || liveBrief.generatedAt)})`
+      : "원문이 연결된 근거";
+    const livePriceText = livePrice
+      ? `${livePrice.item} ${Number.isFinite(liveChange) ? `${liveChange >= 0 ? "+" : ""}${fmtNum(liveChange, 2)}%` : livePrice.latestRaw || ""}${livePrice.isProxy ? " proxy" : ""}`
+      : "직접 가격 없음";
     return [
       {
         id: "ceo",
@@ -4243,7 +4306,7 @@
         role: "최종 의사결정",
         color: "#111827",
         stance: scenarioDecisionLabel(scenarioVerdictValue),
-        message: `질문은 "${profile.question}"입니다. 현재 판단은 **${selected?.verdict || "Watch"}**이고 ${scenario.label}에서는 ==${scenarioVerdictValue}==로 조정합니다. SKHY는 ${action}만 경영진 안건으로 올립니다.`,
+        message: `질문은 "${profile.question}"입니다. 최신 근거 ${liveEvidenceText}를 반영한 현재 판단은 **${selected?.verdict || "Watch"}**이고 ${scenario.label}에서는 ==${scenarioVerdictValue}==로 조정합니다. SKHY는 ${action}만 경영진 안건으로 올립니다.`,
       },
       {
         id: "cfo",
@@ -4253,7 +4316,7 @@
         role: "수익성·자본배분",
         color: "#00A896",
         stance: "Capital Allocation",
-        message: `근거 ${fmtNum(totalEvidence)}개, 가격 row ${fmtNum(priceRows)}개, 원문/KPI ${fmtNum(linkCount)}개입니다. ${profile.cfo} ==${priceFlip.label}== 기준을 넘기 전에는 예산 확정이 아니라 실사 우선순위로 둡니다.`,
+        message: `근거 ${fmtNum(totalEvidence)}개, 가격 ${livePriceText}, 원문/KPI ${fmtNum(linkCount)}개입니다. ${profile.cfo} ==${priceFlip.label}== 기준을 넘기 전에는 예산 확정이 아니라 실사 우선순위로 둡니다.`,
       },
       {
         id: "audit",
@@ -4263,7 +4326,7 @@
         role: "근거 검증",
         color: "#EF4444",
         stance: "근거 정합성",
-        message: `대표 관계는 ${topRelationText}입니다. 경쟁 관계 ${fmtNum(competitiveRelations.length)}개, 자금·매출 관계 ${fmtNum(moneyRelations.length)}개만 해석에 사용합니다. 원문 링크나 가격 row가 없으면 결론 강도를 올리지 않고, ==${primaryFlip.label}== 기준이 깨지면 Go를 Watch/Hold로 낮춥니다.`,
+        message: `${liveEvidenceText}의 증거 수준은 ${liveBrief?.latest?.evidenceLevel || "Watch"}, 출처 유형은 ${liveBrief?.latest?.sourceType || "분석"}입니다. 대표 관계 ${topRelationText}와 경쟁 관계 ${fmtNum(competitiveRelations.length)}개, 자금·매출 관계 ${fmtNum(moneyRelations.length)}개를 교차 확인했습니다. ==${liveBrief?.reversalKpi || primaryFlip.label}==이 바뀌면 Go를 Watch/Hold로 낮춥니다.`,
       },
     ];
   }
@@ -4594,7 +4657,7 @@
       { id: "tsmc", name: "TSMC", role: "HBM4 base die", metric: "CoWoS", category: "packaging", x: 22, y: 30, scale: 76 },
       { id: "samsung", name: "Samsung", role: "HBM·DRAM 경쟁", metric: "HBM 21%", category: "hbm", x: 15, y: 57, scale: 84 },
       { id: "micron", name: "Micron", role: "HBM·DRAM 경쟁", metric: "DRAM 22%", category: "dram", x: 68, y: 58, scale: 80 },
-      { id: "cxmt", name: "CXMT", role: "중국 DRAM 가격 압력", metric: "8% rev / ~10% cap", category: "dram", x: 31, y: 63, scale: 86 },
+      { id: "cxmt", name: "CXMT", role: "중국 DRAM 가격 압력", metric: "8% revenue · Q1 2026", category: "dram", x: 31, y: 63, scale: 86 },
       { id: "ymtc", name: "YMTC", role: "중국 NAND·eSSD", metric: "NAND 13%", category: "nand", x: 84, y: 77, scale: 84 },
       { id: "kioxia-sandisk", name: "Kioxia·SanDisk", role: "NAND peer", metric: "BiCS", category: "nand", x: 86, y: 56, scale: 70 },
       { id: "solidigm", name: "Solidigm", role: "eSSD·Dalian 방어", metric: "eSSD", category: "operations", x: 70, y: 79, scale: 70 },
@@ -6156,7 +6219,7 @@
         value: projectionGroupShare(projectionRows, ["mobile-smartphone", "pc-appliance", "auto-edge"]),
         suffix: "%",
         decimals: 1,
-        note: "모바일·스마트폰, PC·가전, 오토·엣지 제품군을 합산한 방어형 수요처",
+        note: "모바일·스마트폰, PC, 오토·엣지 제품군을 합산한 방어형 수요처",
         badge: "30M+5Y",
         statusClass: "watch",
         source: "evidence-based projection",
@@ -7705,7 +7768,7 @@
     const fallback = {
       question: `${yearLabel} 기준 ${active?.label || productLabel}을 어떤 실행 판단으로 올릴 것인가?`,
       ceo: "제품군별로 확대, 방어, 유지, 데이터 부족을 분리합니다.",
-      data: "선택 시점 이후 실제 수집된 가격 관측만 백테스트에 사용합니다.",
+      data: "선택 시점 이후 실제 관측된 가격만 백테스트에 사용합니다.",
       china: "중국 신호는 현재 리스크 overlay로만 반영합니다.",
       cfo: "확정 재무 ROI가 아니라 실사 우선순위로만 사용합니다.",
       risk: "하방 조건이 확인되면 보수적으로 재검토합니다.",
@@ -9058,6 +9121,11 @@
     };
     const flipKpis = decisionFlipKpis(flipSubject);
     const primaryFlip = primaryDecisionFlipKpi(flipSubject);
+    const liveBrief = intelligenceBriefForDecision(flipSubject);
+    const liveSummary = String(liveBrief?.latest?.summary || "");
+    const liveEvidence = liveBrief
+      ? `${liveBrief.latest?.source || "원문"}(${shortKstDate(liveBrief.latest?.publishedAt || liveBrief.generatedAt)}): ${liveSummary.length > 180 ? `${liveSummary.slice(0, 177)}...` : liveSummary}`
+      : "";
 
     const common = {
       title: `${challenge.angle} · ${targetLabel}`,
@@ -9080,7 +9148,7 @@
       },
       "budget-cut": {
         verdict: top?.investment ? `예산 축소 시 '${top.investment.label}'만 1순위로 남깁니다.` : `${targetLabel}는 옵션 유지가 적절합니다.`,
-        logic: `시나리오 평균 ROI ${fmtNum(chinaTalentScenarioRoi(scenario).roi)}, 최상위 투자안 ROI ${fmtNum(top?.model?.roi || model.roi)}입니다. 낮은 ROI 항목은 다음 수집일까지 보류합니다.`,
+        logic: `시나리오 평균 ROI ${fmtNum(chinaTalentScenarioRoi(scenario).roi)}, 최상위 투자안 ROI ${fmtNum(top?.model?.roi || model.roi)}입니다. 낮은 ROI 항목은 현금흐름 근거와 투자 허들이 충족될 때까지 보류합니다.`,
         counter: "모든 항목을 얇게 집행하면 보안, 품질, 리텐션 모두 임계치에 도달하지 못합니다.",
         action: "SKHY 액션: 1순위만 승인하고 나머지는 KPI 경보 발생 시 자동 재상정합니다.",
       },
@@ -9146,7 +9214,21 @@
       },
     };
 
-    return { ...common, ...(answers[challenge.id] || answers["roi-credibility"]) };
+    const selectedAnswer = answers[challenge.id] || answers["roi-credibility"];
+    return {
+      ...common,
+      ...selectedAnswer,
+      logic: [liveEvidence, selectedAnswer.logic].filter(Boolean).join(" "),
+      evidence: liveBrief ? {
+        source: liveBrief.latest?.source || "원문",
+        sourceType: liveBrief.latest?.sourceType || "분석",
+        claimType: liveBrief.latest?.claimType || "사실",
+        evidenceLevel: liveBrief.latest?.evidenceLevel || "Watch",
+        title: liveBrief.latest?.title || liveBrief.label,
+        url: liveBrief.latest?.url || "",
+        reversalKpi: liveBrief.reversalKpi || primaryFlip.label,
+      } : null,
+    };
   }
 
   function ceoChallengeDebateHTML(scenario, target, challenge, response) {
@@ -9220,7 +9302,7 @@
           role: "근거 검증",
           avatar: "AUD",
           color: "#EF4444",
-          message: `실행 조건은 ${response.action}입니다. 원문·가격 row·O/X 게이트가 없는 문장은 결론 강도를 올리지 않고, 수치와 해석을 분리해 다음 회의에서 같은 기준으로 재검증합니다.`,
+          message: `${response.evidence ? `근거는 **${response.evidence.title}**(${response.evidence.source} · ${response.evidence.sourceType} · ${response.evidence.claimType || "사실"} · ${response.evidence.evidenceLevel})입니다. ` : ""}실행 조건은 ${response.action}입니다. ==${response.evidence?.reversalKpi || "핵심 판단 변경 KPI"}==가 달라지면 같은 기준으로 결론을 다시 계산합니다.`,
         },
         {
           name: "Strategy",
@@ -9808,7 +9890,7 @@
         value: projectionGroupShare(series, ["mobile-smartphone", "pc-appliance", "auto-edge"]),
         suffix: "%",
         score: clamp(terminalScore),
-        note: "모바일·PC·가전·오토/엣지의 가격 방어와 고부가 선별이 핵심",
+        note: "모바일·PC·오토/엣지의 가격 방어와 고부가 선별이 핵심",
       },
       {
         label: "중국 가격 압력",
@@ -9897,7 +9979,7 @@
     const summaryCards = [
       { label: "선택 케이스", value: scenario.label, note: scenario.tone },
       { label: "AI·데이터센터 믹스", value: serverShare, note: "모델 산출 · AI서버·하이퍼스케일러 + 데이터센터 스토리지", suffix: "%", decimals: 1 },
-      { label: "단말·오토 믹스", value: terminalShare, note: "모델 산출 · 모바일 + PC/가전 + 오토/엣지", suffix: "%", decimals: 1 },
+      { label: "단말·오토 믹스", value: terminalShare, note: "모델 산출 · 모바일 + PC + 오토/엣지", suffix: "%", decimals: 1 },
       { label: "AI·데이터센터 3-case 범위", value: `${fmtNum(worstServerShare, 1)}~${fmtNum(bestServerShare, 1)}%`, note: "Worst~Best 5Y 민감도 · 실측 아님" },
     ];
     summary.innerHTML = summaryCards.map((card) => `
@@ -11221,9 +11303,40 @@
     });
   }
 
+  function currentQAData() {
+    const base = BASE.qa || { cats: [], pairs: [] };
+    const topicMeta = {
+      hbm: { cat: "hbm", nav: "ai-matrix" },
+      dram: { cat: "price", nav: "prices" },
+      nand: { cat: "china", nav: "china-nand" },
+      china: { cat: "threat", nav: "china-dynamics" },
+      policy: { cat: "policy", nav: "policy" },
+      demand: { cat: "strategy", nav: "projection" },
+    };
+    const livePairs = (LIVE.intelligence?.briefs || [])
+      .filter((brief) => brief?.id && brief?.latest?.url && brief?.latest?.summary)
+      .map((brief) => {
+        const meta = topicMeta[brief.id] || { cat: "strategy", nav: "overview" };
+        return {
+          cat: meta.cat,
+          q: `${brief.label}의 최신 변화가 SKHY 의사결정에 미치는 영향은?`,
+          a: "",
+          preview: brief.latest.summary,
+          keywords: [brief.id, brief.label, brief.latest.title, brief.latest.source].filter(Boolean),
+          nav: meta.nav,
+          liveTopic: brief.id,
+          dynamic: true,
+        };
+      });
+    return {
+      ...base,
+      pairs: [...livePairs, ...(base.pairs || [])],
+    };
+  }
+
   function renderQADrop(filter = "") {
     const drop = $("#qaDrop");
-    const data = BASE.qa || { cats: [], pairs: [] };
+    const data = currentQAData();
     const q = String(filter || "").trim();
     const cats = data.cats || [];
     const scored = (data.pairs || []).map((pair) => ({ pair, score: qaMatchScore(pair, q) }));
@@ -11242,7 +11355,7 @@
       const btn = el("button", `qa-option${active ? " active" : ""}`, `
         <span class="qa-option-kicker">${escapeHTML(cat.name)} · ${escapeHTML(SECTION_LABELS[pair.nav] || "Intelligence")}</span>
         <strong>${escapeHTML(pair.q)}</strong>
-        <small>${escapeHTML(qaPreview(pair.a))}</small>
+        <small>${escapeHTML(qaPreview(pair.preview || pair.a))}</small>
       `);
       btn.type = "button";
       btn.setAttribute("aria-pressed", active ? "true" : "false");
@@ -11284,7 +11397,7 @@
   }
 
   function answerQuestion(query, forcedPair) {
-    const data = BASE.qa || { pairs: [] };
+    const data = currentQAData();
     const q = String(query || "").trim();
     if (!q) return;
 
@@ -11338,7 +11451,7 @@
   }
 
   function qaCat(pair = {}) {
-    return (BASE.qa?.cats || []).find((cat) => cat.id === pair.cat) || { name: "Intelligence", color: "var(--accent)" };
+    return (currentQAData().cats || []).find((cat) => cat.id === pair.cat) || { name: "Intelligence", color: "var(--accent)" };
   }
 
   function intelligenceFallbackPair(query) {
@@ -11396,8 +11509,46 @@
     return benchmarkSignalTotal();
   }
 
+  function qaIntelligenceBrief(pair = {}, query = "") {
+    if (pair.liveTopic) return liveIntelligenceBrief(pair.liveTopic);
+    const topic = intelligenceTopicId([
+      pair.cat,
+      pair.nav,
+      pair.q,
+      query,
+      ...(pair.keywords || []),
+    ].filter(Boolean).join(" "));
+    return liveIntelligenceBrief(topic);
+  }
+
+  function qaCurrentBriefHTML(pair = {}, query = "") {
+    const brief = qaIntelligenceBrief(pair, query);
+    if (!brief?.latest?.url) return "";
+    const price = brief.price;
+    const periodChange = Number(price?.periodChangePct);
+    return `
+      <section class="qa-current-brief">
+        <div class="qa-current-brief-head">
+          <span>${escapeHTML(brief.label || "최신 근거")}</span>
+          <small>${escapeHTML([brief.latest.sourceType, brief.latest.claimType].filter(Boolean).join(" · "))}</small>
+          <em class="${brief.latest.evidenceLevel === "Confirmed" ? "confirmed" : "watch"}">${escapeHTML(brief.latest.evidenceLevel || "Watch")}</em>
+        </div>
+        <strong>${escapeHTML(brief.latest.title || "")}</strong>
+        <p>${escapeHTML(brief.latest.summary || "")}</p>
+        ${price ? `<div class="qa-current-price"><span>${price.isProxy ? "가격 proxy" : "연결 가격"}</span><b>${escapeHTML(price.item || "")}</b><em>${Number.isFinite(periodChange) ? `${periodChange >= 0 ? "+" : ""}${fmtNum(periodChange, 2)}% · ${fmtNum(price.observedPoints)}개 관측` : escapeHTML(price.latestRaw || "")}</em></div>` : ""}
+        <div class="qa-current-decision"><b>경영 판단</b><span>${escapeHTML(brief.decision || "")}</span></div>
+        <div class="qa-current-reversal"><b>판단 변경 KPI</b><span>${escapeHTML(brief.reversalKpi || "")}</span></div>
+        <a href="${escapeHTML(brief.latest.url)}" target="_blank" rel="noopener">${escapeHTML(brief.latest.source || "원문")} · ${escapeHTML(shortKstDate(brief.latest.publishedAt || brief.generatedAt) || "")}</a>
+      </section>
+    `;
+  }
+
   function qaLiveContextHTML(pair = {}, query = "") {
-    const relatedNews = qaRelatedNews(pair, query, 4);
+    const brief = qaIntelligenceBrief(pair, query);
+    const briefUrl = String(brief?.latest?.url || "");
+    const relatedNews = qaRelatedNews(pair, query, 5)
+      .filter((item) => String(item.sourceUrl || item.link || "") !== briefUrl)
+      .slice(0, 4);
     const relatedPrices = qaRelatedPrices(pair, query, 4);
     if (!relatedPrices.length && !relatedNews.length) return "";
     return `
@@ -11411,7 +11562,7 @@
         ${relatedNews.length ? `
           <div class="qa-live-block">
             <h4>연결 기사</h4>
-            <ul>${relatedNews.map((item) => `<li><span>${escapeHTML(item.source || "News")}</span><a href="${escapeHTML(item.link || item.sourceUrl || "#")}" target="_blank" rel="noopener">${escapeHTML(newsTitle(item) || item.title || "기사")}</a><em>${escapeHTML(shortKstDate(item.date || item.publishedAt || item.crawledAt || LIVE.updatedAt) || "")}</em></li>`).join("")}</ul>
+            <ul>${relatedNews.map((item) => `<li><span>${escapeHTML(item.source || "News")}</span><a href="${escapeHTML(item.sourceUrl || item.link || "#")}" target="_blank" rel="noopener">${escapeHTML(newsTitle(item) || item.title || "기사")}</a><em>${escapeHTML(shortKstDate(item.date || item.publishedAt || item.crawledAt || LIVE.updatedAt) || "")}</em></li>`).join("")}</ul>
           </div>
         ` : ""}
       </section>
@@ -11463,8 +11614,12 @@
   function typeAnswer(text, pair = {}, query = "") {
     const body = $("#answerBody");
     const highlighted = highlight(text);
+    const currentBriefHTML = qaCurrentBriefHTML(pair, query);
     const liveHTML = qaLiveContextHTML(pair, query);
-    const plain = text;
+    const brief = qaIntelligenceBrief(pair, query);
+    const plain = brief
+      ? `${brief.latest?.summary || ""}\n\n경영 판단: ${brief.decision || ""}\n\n${text}`
+      : text;
     let i = 0;
     if (typeTimer) clearInterval(typeTimer);
     typeTimer = setInterval(() => {
@@ -11472,7 +11627,7 @@
       if (i >= plain.length) {
         clearInterval(typeTimer);
         typeTimer = null;
-        body.innerHTML = `${highlighted}${liveHTML}`;
+        body.innerHTML = `${currentBriefHTML}${highlighted}${liveHTML}`;
         return;
       }
       body.textContent = plain.slice(0, i) + "▋";
@@ -12224,6 +12379,15 @@
     return AUTHORITATIVE_NEWS_RE.test(hay);
   }
 
+  function newsEvidenceMeta(item = {}) {
+    const hay = `${item.source || ""} ${item.title || ""} ${item.titleKo || ""} ${item.summary || ""} ${item.sourceUrl || item.link || ""}`.toLowerCase();
+    if (/\badata\b/.test(hay)) return { label: "업체 전망", className: "watch" };
+    if (/trendforce\.com\/presscenter|\btrendforce\b/.test(hay)) return { label: "시장 전망", className: "analysis" };
+    if (/reuters|bloomberg|financial times|ft\.com|nikkei|cnbc/.test(hay)) return { label: "외신", className: "reported" };
+    if (/\.gov|govinfo|congress\.gov|sec\.gov|investors?\.|counterpoint|techinsights|wsts/.test(hay)) return { label: "원문·분석", className: "confirmed" };
+    return { label: "Watch", className: "watch" };
+  }
+
   function isLowConfidenceNews(item) {
     if (item?.curated) return false;
     const hay = `${item?.source || ""} ${item?.title || ""} ${item?.summary || ""} ${item?.link || ""}`;
@@ -12311,6 +12475,16 @@
   }
 
   function newsSummaryLine(item, title, summary, category) {
+    const hay = `${item.title || ""} ${item.titleKo || ""} ${item.summary || ""}`.toLowerCase();
+    if (/\badata\b/.test(hay) && /(dram|nand)/.test(hay) && /(20|30|35|40)/.test(hay)) {
+      return "ADATA 경영진의 3Q26 체감 전망은 DRAM +20~30%, NAND +35~40%이며, TrendForce 공식 시장 전망(DRAM +13~18%, NAND +10~15%)과 분리해 상방 시나리오로만 봅니다.";
+    }
+    if (/hbm/.test(hay) && /2027/.test(hay) && /(double|2배|4~5|4-5)/.test(hay)) {
+      return "Digitimes의 가격 상승 전망은 전체 HBM이 아니라 HBM4 기준이며, 2026년 하반기 약 $2/Gb에서 2027년 $4~5/Gb 이상 가능성을 제시한 업계 추정입니다.";
+    }
+    if (/samsung|삼성/.test(hay) && /(19-fold|19배)/.test(hay) && /(profit|이익)/.test(hay)) {
+      return "삼성의 약 19배 영업이익 증가는 2Q26 가이던스를 2Q25와 비교한 YoY 수치이며, 다른 분기 성장률과 혼용하지 않습니다.";
+    }
     const cleanedTitle = cleanInsightText(title);
     const cleanedCategory = cleanInsightText(category);
     if (summary && !sameInsightText(summary, cleanedTitle) && !sameInsightText(summary, cleanedCategory)) {
@@ -12611,10 +12785,12 @@
       a.target = "_blank";
       a.rel = "noopener";
       const insights = insightLines(item);
+      const evidence = newsEvidenceMeta(item);
       a.textContent = newsTitle(item);
       card.innerHTML = `
         <div class="news-card-head">
           <span class="source-tag">${escapeHTML(item.source || "Foreign source")}</span>
+          <span class="news-evidence ${escapeHTML(evidence.className)}">${escapeHTML(evidence.label)}</span>
           <span class="news-meta">${escapeHTML(formatNewsDate(item.date || item.published))}</span>
         </div>
         <div class="news-insights">

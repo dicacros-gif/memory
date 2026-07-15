@@ -148,11 +148,11 @@ const COMPETITORS = [
   },
   {
     id: "kioxia",
-    label: "Kioxia / Western Digital",
-    shortLabel: "Kioxia·WD",
+    label: "Kioxia / SanDisk",
+    shortLabel: "Kioxia·SanDisk",
     segment: "NAND · 엔터프라이즈 SSD",
     baseline: "NAND 공급 조절, SSD 계약가, 일본·미국 자본 지출 동향이 하이닉스 NAND 전략에 직접 영향.",
-    queries: ["Kioxia Western Digital NAND SSD IPO"],
+    queries: ["Kioxia SanDisk NAND SSD BiCS investment"],
     watchWords: ["NAND", "SSD", "enterprise", "wafer", "capacity", "IPO"],
     pressureBase: 20,
   },
@@ -1744,6 +1744,7 @@ async function collectChinaInfra() {
     try {
       const html = await fetchText(source.url);
       const text = stripHTML(html).slice(0, 240000);
+      const description = articleMetaDescription(html, source.label);
       const markers = (source.markers || []).map((marker) => ({
         marker,
         hit: text.toLowerCase().includes(String(marker).toLowerCase()),
@@ -1757,7 +1758,7 @@ async function collectChinaInfra() {
         ok: true,
         markerHits: hitCount,
         markers,
-        excerpt: text.slice(0, 360),
+        excerpt: description || text.slice(0, 360),
         crawledAt: new Date().toISOString(),
       });
       note(`중국Fab인프라:${source.label}`, hitCount > 0, `${hitCount}/${markers.length} markers`);
@@ -1832,6 +1833,262 @@ async function loadPreviousNews() {
   }
 }
 
+const INTELLIGENCE_TOPICS = [
+  {
+    id: "hbm",
+    label: "HBM·AI 서버",
+    terms: ["hbm", "hbm4", "hbm4e", "rubin", "high bandwidth memory", "cowos", "base die"],
+    priceTerms: ["ddr5", "rdimm", "gddr6"],
+    priceProxy: true,
+    decision: "고객 인증·공급 일정·베이스 다이·패키징 병목을 함께 확인한 뒤 프리미엄 캐파를 배분합니다.",
+    reversal: "고객별 HBM4 인증 일정, 패키징 할당 또는 양산 수율의 공식 변경",
+  },
+  {
+    id: "dram",
+    label: "DRAM·범용 가격",
+    terms: ["dram", "ddr5", "ddr4", "lpddr", "cxmt", "changxin", "server memory"],
+    priceTerms: ["ddr5 16gb", "ddr4 16gb", "rdimm"],
+    decision: "Spot 방향이 계약가로 전이되는지와 CXMT 고객·캐파 신호를 함께 확인해 범용 DRAM 가격 방어 강도를 정합니다.",
+    reversal: "DDR5 Spot 누적 하락 뒤 계약가 하락이 확인되거나 CXMT 매출 점유율이 2%p 이상 변동",
+  },
+  {
+    id: "nand",
+    label: "NAND·eSSD",
+    terms: ["nand", "ssd", "essd", "ymtc", "xtacking", "solidigm", "flash"],
+    priceTerms: ["nand", "tlc", "mlc", "ssd"],
+    decision: "NAND 계약가·웨이퍼 가격·eSSD 고객 신호를 분리해 Dalian/Solidigm의 제품 믹스와 가격 방어를 결정합니다.",
+    reversal: "NAND 계약가와 웨이퍼 가격이 동시에 반전하거나 YMTC 고객 인증·가동률이 공식 확인",
+  },
+  {
+    id: "china",
+    label: "중국 경쟁",
+    terms: ["cxmt", "ymtc", "xmc", "jcet", "naura", "amec", "china memory", "중국", "长鑫", "长江存储"],
+    priceTerms: ["ddr5", "nand", "tlc"],
+    priceProxy: true,
+    decision: "DRAM 가격, NAND·eSSD, 패키징, 장비 내재화를 별도 축으로 보고 공식 투자·고객·양산 신호가 겹칠 때만 경보를 높입니다.",
+    reversal: "공식 공시·고객 계약·장비 반입·양산 램프 가운데 두 개 이상의 독립 근거가 같은 방향으로 확인",
+  },
+  {
+    id: "policy",
+    label: "정책·Fab",
+    terms: ["bis", "chips act", "match act", "export control", "license", "policy", "regulation", "veu"],
+    priceTerms: [],
+    decision: "법안, 시행 규칙, 라이선스 조건을 구분하고 중국 Fab 안건을 운영 유지·캐파 확대·기술 업그레이드로 나눠 결재합니다.",
+    reversal: "정부 원문에서 법적 상태·적용 품목·라이선스 조건이 변경",
+  },
+  {
+    id: "demand",
+    label: "수요·고객",
+    terms: ["ai demand", "server shipment", "smartphone shipment", "pc shipment", "hyperscaler", "accelerator", "data center"],
+    priceTerms: ["rdimm", "ddr5", "ssd"],
+    priceProxy: true,
+    decision: "출하량과 대당 탑재량을 분리하고 고객 CapEx·전력·패키징 제약을 반영해 제품군 시나리오를 갱신합니다.",
+    reversal: "공식 출하 전망 또는 고객 CapEx가 기준 시나리오 대비 10% 이상 변경",
+  },
+];
+
+const OFFICIAL_SOURCE_RE = /(?:\.gov(?:\/|$)|govinfo\.gov|congress\.gov|sec\.gov|hkexnews\.hk|investors?\.|ir\.|newsroom\.|company\/(?:news|press))/i;
+const ANALYSIS_SOURCE_RE = /(?:trendforce\.com\/(?:presscenter|price|news)|counterpointresearch\.com|techinsights\.com|wsts\.org|yolegroup\.com)/i;
+const AUTHORITATIVE_MEDIA_RE = /(?:reuters|bloomberg|ft\.com|financial times|nikkei|cnbc|south china morning post|scmp|digitimes|ee times|tom's hardware)/i;
+const ESTIMATE_RE = /(?:forecast|estimate|reportedly|sources? (?:said|say)|could|may |might|expected|projection|전망|추정|보도|소식통)/i;
+
+function directNewsUrl(item = {}) {
+  for (const value of [item.sourceUrl, item.link]) {
+    const url = String(value || "").trim();
+    if (/^https?:\/\//i.test(url) && !/news\.google\.com/i.test(url)) return url;
+  }
+  return "";
+}
+
+function intelligenceSource(item = {}) {
+  const url = directNewsUrl(item);
+  const sourceText = `${item.source || ""} ${url}`;
+  const content = `${item.title || ""} ${item.titleKo || ""} ${item.summary || item.summaryOriginal || ""}`;
+  const isOfficial = OFFICIAL_SOURCE_RE.test(sourceText);
+  const isAnalysis = ANALYSIS_SOURCE_RE.test(sourceText);
+  const isMedia = AUTHORITATIVE_MEDIA_RE.test(sourceText);
+  const companyView = /\badata\b/i.test(content);
+  const estimated = ESTIMATE_RE.test(content);
+  return {
+    sourceType: isOfficial ? "공식" : isMedia ? "외신" : isAnalysis ? "분석" : "내부추정",
+    claimType: companyView ? "업체전망" : estimated ? "전망·추정" : "사실",
+    evidenceLevel: url && (isOfficial || isMedia || isAnalysis) && !estimated && !companyView ? "Confirmed" : "Watch",
+    sourceScore: isOfficial ? 5 : isMedia ? 4 : isAnalysis ? 4 : url ? 2 : 0,
+  };
+}
+
+function intelligenceText(item = {}) {
+  return `${item.titleKo || ""} ${item.title || ""} ${item.summary || ""} ${item.summaryOriginal || ""} ${item.category || ""}`.toLowerCase();
+}
+
+function intelligenceNewsScore(item, topic) {
+  const title = `${item.titleKo || ""} ${item.title || ""}`.toLowerCase();
+  const body = intelligenceText(item);
+  const matches = topic.terms.reduce((sum, term) => {
+    const key = term.toLowerCase();
+    return sum + (title.includes(key) ? 4 : body.includes(key) ? 1 : 0);
+  }, 0);
+  if (!matches || !directNewsUrl(item)) return 0;
+  const ageDays = Math.max(0, (Date.now() - new Date(item.date || item.publishedAt || 0).getTime()) / 864e5);
+  const recency = Number.isFinite(ageDays) ? Math.max(0, 4 - ageDays / 14) : 0;
+  const summaryBonus = String(item.summary || item.summaryOriginal || "").trim().length >= 45 ? 5 : -6;
+  return matches + intelligenceSource(item).sourceScore + recency + summaryBonus;
+}
+
+function intelligencePriceRows(prices = {}) {
+  return (prices.sections || []).flatMap((section) => (section.rows || []).map((row) => ({
+    ...row,
+    group: section.group,
+    sectionTitle: section.title,
+    lastUpdate: section.lastUpdate,
+    sourceUrl: section.sourceUrl,
+  })));
+}
+
+function priceEvidenceForTopic(rows, topic) {
+  if (!topic.priceTerms.length) return null;
+  const ranked = rows
+    .map((row) => {
+      const text = `${row.group || ""} ${row.sectionTitle || ""} ${row.item || ""}`.toLowerCase();
+      const score = topic.priceTerms.reduce((sum, term) => sum + (text.includes(term.toLowerCase()) ? 1 : 0), 0);
+      const history = Array.isArray(row.history) ? row.history : [];
+      return { row, score, history };
+    })
+    .filter(({ score }) => score > 0)
+    .sort((a, b) => b.score - a.score || b.history.length - a.history.length);
+  if (!ranked.length) return null;
+  const { row, history } = ranked[0];
+  const first = Number(history[0]?.average);
+  const latest = Number(row.average);
+  const periodChangePct = Number.isFinite(first) && first > 0 && Number.isFinite(latest)
+    ? Number((((latest - first) / first) * 100).toFixed(2))
+    : null;
+  return {
+    item: row.item,
+    group: row.group,
+    table: row.sectionTitle,
+    latest,
+    latestRaw: row.averageRaw || String(row.average || ""),
+    dailyChangePct: Number.isFinite(Number(row.changePct)) ? Number(row.changePct) : null,
+    periodChangePct,
+    observedPoints: history.length,
+    firstObservedAt: history[0]?.crawledAt || null,
+    lastUpdate: row.lastUpdate || null,
+    sourceUrl: row.sourceUrl || "",
+    isProxy: Boolean(topic.priceProxy),
+  };
+}
+
+function compactArticleSummary(item = {}) {
+  const hay = `${item.title || ""} ${item.titleKo || ""} ${item.summary || item.summaryOriginal || ""}`.toLowerCase();
+  if (/\badata\b/.test(hay) && /(dram|nand)/.test(hay) && /(20|30|35|40)/.test(hay)) {
+    return "ADATA 경영진의 3Q26 체감 전망은 DRAM +20~30%, NAND +35~40%이며, TrendForce 공식 시장 전망(DRAM +13~18%, NAND +10~15%)과 분리해 상방 시나리오로만 봅니다.";
+  }
+  if (/hbm/.test(hay) && /2027/.test(hay) && /(double|2배|4~5|4-5)/.test(hay)) {
+    return "Digitimes의 가격 상승 전망은 전체 HBM이 아니라 HBM4 기준이며, 2026년 하반기 약 $2/Gb에서 2027년 $4~5/Gb 이상 가능성을 제시한 업계 추정입니다.";
+  }
+  const value = cleanKoNewsText(item.summary || item.summaryOriginal || "");
+  if (!value) return "";
+  return value.length > 260 ? `${value.slice(0, 257).trim()}...` : value;
+}
+
+function intelligenceTitle(item = {}) {
+  let title = cleanKoNewsText(item.titleKo || item.title || "");
+  const source = cleanKoNewsText(item.source || "");
+  if (!title || !source) return title;
+  for (const separator of [" - ", " – ", " — ", " | "]) {
+    const suffix = `${separator}${source}`;
+    if (title.toLowerCase().endsWith(suffix.toLowerCase())) {
+      title = title.slice(0, -suffix.length).trim();
+      break;
+    }
+  }
+  return title;
+}
+
+function buildIntelligence({ news = [], prices = {}, stats = {}, chinaInfra = {} }) {
+  const generatedAt = new Date().toISOString();
+  const priceRows = intelligencePriceRows(prices);
+  const policyFallbacks = (chinaInfra.sources || [])
+    .filter((source) => source.ok && /bis|veu|export/i.test(`${source.id || ""} ${source.label || ""}`) && /^https?:\/\//i.test(source.url || ""))
+    .map((source) => {
+      const summary = source.id === "bis-veu"
+        ? "BIS는 중국 내 외국계 반도체 팹의 기존 운영을 위한 연간 라이선스는 허용하되, 캐파 확대나 기술 업그레이드는 허용하지 않는 방향을 명시했습니다."
+        : source.excerpt || "";
+      return {
+        title: `${source.label} official update`,
+        titleKo: `${source.label} 공식 원문 업데이트`,
+        summaryOriginal: summary,
+        summary,
+        source: "U.S. BIS",
+        sourceUrl: source.url,
+        date: String(source.crawledAt || generatedAt).slice(0, 10),
+        category: "policy",
+      };
+    });
+  const newsCandidates = news.concat(policyFallbacks);
+  const directItems = news.filter((item) => directNewsUrl(item));
+  const summarized = news.filter((item) => String(item.summary || item.summaryOriginal || "").trim());
+  const briefs = INTELLIGENCE_TOPICS.map((topic) => {
+    const ranked = newsCandidates
+      .map((item) => ({ item, score: intelligenceNewsScore(item, topic) }))
+      .filter(({ item, score }) => score > 0 && compactArticleSummary(item))
+      .sort((a, b) => b.score - a.score || new Date(b.item.date || 0) - new Date(a.item.date || 0));
+    const top = ranked[0]?.item;
+    if (!top) return null;
+    const sourceMeta = intelligenceSource(top);
+    const price = priceEvidenceForTopic(priceRows, topic);
+    const priceSentence = price && price.periodChangePct != null
+      ? `${price.item}은 공개 누적 ${price.observedPoints}개 관측에서 ${price.periodChangePct >= 0 ? "+" : ""}${price.periodChangePct.toFixed(2)}% 변했습니다${price.isProxy ? "(직접 가격이 아닌 proxy)" : ""}.`
+      : "";
+    return {
+      id: topic.id,
+      label: topic.label,
+      generatedAt,
+      evidenceCount: ranked.length + (price ? 1 : 0),
+      latest: {
+        title: intelligenceTitle(top),
+        originalTitle: top.title,
+        summary: compactArticleSummary(top),
+        source: top.source || "Unknown",
+        url: directNewsUrl(top),
+        publishedAt: top.date || top.publishedAt || null,
+        sourceType: sourceMeta.sourceType,
+        claimType: sourceMeta.claimType,
+        evidenceLevel: sourceMeta.evidenceLevel,
+      },
+      price,
+      insight: [compactArticleSummary(top), priceSentence].filter(Boolean).join(" "),
+      decision: topic.decision,
+      reversalKpi: topic.reversal,
+    };
+  }).filter(Boolean);
+  const directSourceRatio = news.length ? directItems.length / news.length : 0;
+  const summaryRatio = news.length ? summarized.length / news.length : 0;
+  const validationStatus = briefs.length >= 4 && priceRows.length > 0 && directSourceRatio >= 0.5 ? "OK" : "Watch";
+  return {
+    generatedAt,
+    methodologyVersion: "2.0-evidence-gated",
+    validation: {
+      status: validationStatus,
+      newsItems: Number(stats.total || news.length),
+      displayedNews: news.length,
+      directSources: directItems.length,
+      directSourceRatio: Number(directSourceRatio.toFixed(3)),
+      summarizedItems: summarized.length,
+      summaryRatio: Number(summaryRatio.toFixed(3)),
+      priceRows: priceRows.length,
+      briefCount: briefs.length,
+    },
+    briefs,
+    executive: briefs
+      .slice()
+      .sort((a, b) => new Date(b.latest.publishedAt || 0) - new Date(a.latest.publishedAt || 0) || b.evidenceCount - a.evidenceCount)
+      .slice(0, 3)
+      .map((brief) => brief.id),
+  };
+}
+
 async function main() {
   const previousNews = await loadPreviousNews();
   const [prices, stocks, newsPayload, competitors, startups, benchmarkSignals, chinaInfra] = await Promise.all([
@@ -1862,6 +2119,7 @@ async function main() {
   }
 
   const signals = buildSignals({ prices, competitors, startups, newsStats: stats });
+  const intelligence = buildIntelligence({ news, prices, stats, chinaInfra });
   const okCount = health.filter((item) => item.ok).length;
   console.log(`\n수집 완료: ${okCount}/${health.length} 단계 성공, 외신 뉴스 ${news.length}건, 벤치마킹 신호 ${benchmarkSignals.stream.length}건, 가격표 ${prices.sections.length}개`);
 
@@ -1877,6 +2135,7 @@ async function main() {
     benchmarkSignals,
     chinaInfra,
     signals,
+    intelligence,
     categories,
     news,
     trending,

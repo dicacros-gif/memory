@@ -142,6 +142,46 @@ if (news.length && directNews.length / news.length < 0.5) {
   addIssue("warn", "data/live.json", "fewer than half of news items resolve to direct source URLs", `${directNews.length}/${news.length}`);
 }
 
+const intelligence = live.intelligence || {};
+const briefs = Array.isArray(intelligence.briefs) ? intelligence.briefs : [];
+const briefIds = new Set();
+if (!intelligence.generatedAt || Number.isNaN(new Date(intelligence.generatedAt).getTime())) {
+  addIssue("error", "data/live.json", "intelligence generatedAt is missing or invalid");
+} else {
+  const ageHours = (Date.now() - new Date(intelligence.generatedAt).getTime()) / 36e5;
+  if (ageHours > 36) addIssue("error", "data/live.json", "intelligence is older than 36 hours", `${ageHours.toFixed(1)}h`);
+}
+if (briefs.length < 6) addIssue("error", "data/live.json", "fewer than six evidence-backed intelligence briefs", String(briefs.length));
+for (const brief of briefs) {
+  if (briefIds.has(brief.id)) addIssue("error", "data/live.json", "duplicate intelligence brief id", brief.id);
+  briefIds.add(brief.id);
+  if (!/^https?:\/\//i.test(String(brief.latest?.url || "")) || /news\.google\.com/i.test(String(brief.latest?.url || ""))) {
+    addIssue("error", "data/live.json", "intelligence brief lacks a direct source URL", brief.id || "unknown");
+  }
+  if (!String(brief.latest?.summary || "").trim()) {
+    addIssue("error", "data/live.json", "intelligence brief lacks an article summary", brief.id || "unknown");
+  }
+  if (!["공식", "외신", "분석", "내부추정"].includes(String(brief.latest?.sourceType || ""))) {
+    addIssue("error", "data/live.json", "intelligence brief has an invalid source type", `${brief.id || "unknown"}:${brief.latest?.sourceType || "missing"}`);
+  }
+  if (!["Confirmed", "Watch", "Inferred", "Stale"].includes(String(brief.latest?.evidenceLevel || ""))) {
+    addIssue("error", "data/live.json", "intelligence brief has an invalid evidence level", `${brief.id || "unknown"}:${brief.latest?.evidenceLevel || "missing"}`);
+  }
+  if (!String(brief.decision || "").trim() || !String(brief.reversalKpi || "").trim()) {
+    addIssue("error", "data/live.json", "intelligence brief lacks decision or reversal KPI", brief.id || "unknown");
+  }
+  if (brief.price && !/^https?:\/\//i.test(String(brief.price.sourceUrl || ""))) {
+    addIssue("error", "data/live.json", "intelligence price evidence lacks source URL", brief.id || "unknown");
+  }
+}
+const validation = intelligence.validation || {};
+if (Number(validation.displayedNews) !== news.length) {
+  addIssue("error", "data/live.json", "intelligence displayedNews count mismatch", `${validation.displayedNews} != ${news.length}`);
+}
+if (Number(validation.priceRows) !== priceRows.length) {
+  addIssue("error", "data/live.json", "intelligence priceRows count mismatch", `${validation.priceRows} != ${priceRows.length}`);
+}
+
 const errors = checks.filter((item) => item.level === "error");
 const warnings = checks.filter((item) => item.level === "warn");
 console.log(JSON.stringify({
@@ -151,6 +191,7 @@ console.log(JSON.stringify({
   priceRows: priceRows.length,
   stockSeries: stocks.length,
   summarizedNews: `${summarizedNews.length}/${news.length}`,
+  intelligenceBriefs: briefs.length,
   errors,
   warnings,
 }, null, 2));
