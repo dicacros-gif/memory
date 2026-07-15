@@ -100,9 +100,8 @@
   const LOW_CONFIDENCE_NEWS_RE =
     /(ad hoc news|asia business outlook|indexbox|36\s*kr|36kr|borncity|mjengo|blockchain\.news|odaily|zamin\.uz|finance\.biggo|crypto briefing|weex|fortrinawwer|siliconanalysts|nand-research|reddit|facebook|linkedin\.com|x\.com|twitter\.com)/i;
   const SKHYNIX_NEWSROOM_RE = /news\.skhynix\.com|sk\s*hynix\s*newsroom|skhy\s*newsroom/i;
-  const FALSE_MEMORY_NEWS_RE = /(?:sk\s*hynix|skhy|sk\s*海力士|海力士).*?(?:u\.?s\.?\s*ipo|us\s*ipo|u\.?s\.?\s*stock\s*ipo|us\s*stock\s*ipo|nasdaq\s*(?:listing|ipo)|28\s*billion|28\s*b|\$28\s*b|280\s*억|280억|280\s*[亿億]|미국\s*(?:주식\s*)?ipo|나스닥\s*상장|美国\s*ipo|美股\s*ipo)|(?:u\.?s\.?\s*ipo|us\s*ipo|u\.?s\.?\s*stock\s*ipo|us\s*stock\s*ipo|nasdaq\s*(?:listing|ipo)|28\s*billion|28\s*b|\$28\s*b|280\s*억|280억|280\s*[亿億]|미국\s*(?:주식\s*)?ipo|나스닥\s*상장|美国\s*ipo|美股\s*ipo).*?(?:sk\s*hynix|skhy|sk\s*海力士|海力士)/i;
   const AUTHORITATIVE_NEWS_RE =
-    /(reuters|bloomberg|financial times|ft\.com|nikkei|cnbc|trendforce|dramexchange|techinsights|yole|counterpoint|tom'?s hardware|tomshardware|south china morning post|scmp|digitimes|ee times|eetimes|semianalysis|techwire asia|the register|business insider|network world|evertiq|technode|techspot|japan times|electronics weekly|businesswire|pr newswire|solidigm|intel|u\.s\. bis|bis\.gov|wsts|acm research ir|cxmt|shanghai stock exchange|财新|caixin|第一财经|yicai|21财经|21世纪经济报道|证券时报|stcn|中国经营报|cb\.com\.cn|新浪财经|新浪科技|finance\.sina|电子工程专辑|eet-china|集微网|ijiwei|经济观察网|eeo\.com\.cn|techweb|chinaflashmarket)/i;
+    /(reuters|bloomberg|financial times|ft\.com|nikkei|cnbc|associated press|apnews|sec\.gov|nasdaq|trendforce|dramexchange|techinsights|yole|counterpoint|tom'?s hardware|tomshardware|south china morning post|scmp|digitimes|ee times|eetimes|semianalysis|techwire asia|the register|business insider|network world|evertiq|technode|techspot|japan times|electronics weekly|businesswire|pr newswire|solidigm|intel|u\.s\. bis|bis\.gov|govinfo|wsts|acm research ir|cxmt|shanghai stock exchange|财新|caixin|第一财经|yicai|21财经|21世纪经济报道|证券时报|stcn|中国经营报|cb\.com\.cn|新浪财经|新浪科技|finance\.sina|电子工程专辑|eet-china|集微网|ijiwei|经济观察网|eeo\.com\.cn|techweb|chinaflashmarket)/i;
   const MEMORY_NEWS_RE =
     /(memory|dram|nand|hbm|ddr|lpddr|gddr|ssd|semiconductor|chip|wafer|foundry|packaging|interconnect|cxl|trendforce|dramexchange|micron|samsung|sk hynix|hynix|kioxia|western digital|sandisk|cxmt|changxin|ymtc|yangtze|jcet|tfme|xmc|wuhan xinxin|naura|amec|acm research|techinsights|yole|big fund|export control|china chip|chinese chip)/i;
   const CHINA_NEWS_RE =
@@ -265,7 +264,7 @@
         { name: "Outbound investment", role: "중국 관련 투자 제한/신고", note: "미국인·미국 controlled foreign entity 거래 검토 필요" },
       ],
       rules: [
-        { axis: "CHIPS Act", status: "O", title: "미국 내 제조·R&D 인센티브", evidence: "CHIPS and Science Act 법안 총액은 $52.7B입니다. 이 중 DOC 집행 프로그램은 $50B이며, 제조 인센티브 $39B와 R&D $11B로 구성됩니다. 나머지 $2.7B은 국방부·국무부 등 기타 부처 집행분입니다.", implication: "미국 고객·패키징·R&D 협력은 중국 사업과 분리된 투자 트랙으로 관리하고, 법안 총액 $52.7B와 DOC 집행분 $50B를 같은 숫자로 혼용하지 않습니다.", source: "NIST / NGA", sourceUrl: "https://www.nist.gov/chips" },
+        { axis: "CHIPS Act", status: "O", title: "미국 내 제조·R&D 인센티브", evidence: "CHIPS and Science Act 반도체 지원 총액은 $52.7B입니다. DOC 집행분 $50B는 제조 인센티브 $39B와 R&D $11B로 구성되며, 나머지 $2.7B는 국방부 $2B·국무부 $0.5B·NSF 인력·교육 $0.2B입니다.", implication: "미국 고객·패키징·R&D 협력은 중국 사업과 분리된 투자 트랙으로 관리하고, 법안 총액 $52.7B와 DOC 집행분 $50B를 혼용하지 않습니다.", source: "NIST", sourceUrl: "https://www.nist.gov/chips" },
         { axis: "BIS/VEU", status: "X", title: "중국 fab 캐파 확대·기술 업그레이드", evidence: "BIS는 VEU 특례 종료 후 기존 fab 운영 라이선스는 의도하되, 중국 내 캐파 확대나 기술 업그레이드 라이선스는 의도하지 않는다고 밝혔습니다.", implication: "Wuxi/Dalian/Chongqing 장비·소프트웨어 반입은 운영 유지와 업그레이드를 분리해 증빙해야 합니다.", source: "BIS", sourceUrl: "https://www.bis.gov/press-release/department-commerce-closes-export-controls-loophole-foreign-owned-semiconductor-fabs-china" },
         { axis: "Outbound investment", status: "Watch", title: "중국 첨단기술 투자 신고/금지", evidence: "미 재무부 규칙은 반도체·마이크로일렉트로닉스, 양자, AI를 대상으로 하고 PRC/HK/Macau를 country of concern으로 지정합니다.", implication: "미국인·미국 계열사가 연결된 중국 JV/지분투자/기술협력은 사전 심사가 필요합니다.", source: "U.S. Treasury", sourceUrl: "https://home.treasury.gov/policy-issues/international/outbound-investment-program" },
         { axis: "환경/인허가", status: "Watch", title: "NEPA와 대형 투자 인허가", evidence: "CHIPS 프로그램은 NEPA 항목을 별도 운영하고, 대형 투자 환경검토는 일정 리스크가 될 수 있습니다.", implication: "미국 내 신규 시설·패키징·R&D 투자는 환경 검토 일정을 의사결정 모델에 넣습니다.", source: "CHIPS.gov / NIST", sourceUrl: "https://www.chips.gov/" },
@@ -389,7 +388,7 @@
       ],
       channels: ["로컬 경력 채용", "고객 품질/FAE 추천 채용", "대학 펌웨어·스토리지 랩", "중국 서버 고객 공동 품질 워룸"],
       gates: [
-        { axis: "사업 필요성", status: "O", title: "Dalian/Solidigm 스토리지 운영과 연결", evidence: "Intel NAND 거래는 총 약 $8.85B 규모로 봅니다. Phase 1은 2021년 SSD 사업과 Dalian 팹 인수($6.61B), Phase 2는 2025년 3월 27일 NAND 기술·제조 사업 최종 취득과 조정 후 최종 지급 약 $1.9B입니다. 일부 보도에서 언급된 Phase 2 예상금액 $2.24B는 최종 지급액과 분리합니다.", implication: "eSSD 고객 품질·검증 인력은 중국 사업 방어에 직접 필요하며, Dalian/Solidigm은 최종 클로징 이후 통합 운영 자산으로 봅니다.", source: "Intel 8-K", sourceUrl: "https://www.intc.com/filings-reports/all-sec-filings/content/0000050863-25-000060/0000050863-25-000060.pdf" },
+        { axis: "사업 필요성", status: "O", title: "Dalian/Solidigm 스토리지 운영과 연결", evidence: "SKHY 공시의 총 거래금액은 약 $8.844B이며 보도에서는 약 $8.85B·$9B로 반올림됩니다. Phase 1 거래가는 약 $6.61B, Phase 2 계약금액은 약 $2.235B입니다. Intel 8-K의 2025년 3월 27일 실제 순유입액 약 $1.9B는 조정 후 현금 기준이므로 총 거래가와 더하지 않습니다.", implication: "eSSD 고객 품질·검증 인력은 중국 사업 방어에 직접 필요하며, Dalian/Solidigm은 최종 클로징 이후 통합 운영 자산으로 봅니다.", source: "SKHY offering circular / Intel 8-K", sourceUrl: "https://www.intc.com/filings-reports/all-sec-filings/content/0000050863-25-000060/0000050863-25-000060.pdf" },
         { axis: "IP 통제", status: "Watch", title: "펌웨어·컨트롤러 IP 접근 분리", evidence: "NAND 사업 강화는 고객 대응 인력과 핵심 IP 접근 인력을 분리해야 합니다.", implication: "현지 인력은 검증·품질·고객 대응 중심, 핵심 펌웨어 소스는 본사 통제 중심으로 둡니다.", source: "Internal control logic", sourceUrl: "https://www.skhynix.com/company/UI-FR-CP06/" },
         { axis: "금지선", status: "X", title: "경쟁사 고객 비공개 인증자료 활용 금지", evidence: "YMTC 등 경쟁사 동향은 공개 기사·로컬 채용·특허·가격 신호로만 수집해야 합니다.", implication: "고객 NDA 자료나 경쟁사 비공개 테스트 데이터를 채용 조건으로 요구하지 않습니다.", source: "Compliance rule", sourceUrl: "https://www.skhynix.com/company/UI-FR-CP06/" },
       ],
@@ -980,7 +979,7 @@
       keywords: ["lpddr", "lpddr5x", "lpddr6", "ufs", "smartphone", "mobile", "on-device ai", "terminal"],
       priceTerms: ["module", "dram", "lpddr", "nand", "ufs"],
       thesis: "모바일은 온디바이스 AI로 대당 탑재량은 늘지만, AI 서버와 데이터센터 스토리지에 캐파가 우선 배분되며 전체 믹스 비중은 낮아지는 축입니다.",
-      assumptions: ["스마트폰 출하는 완만", "온디바이스 AI로 기본 DRAM/UFS 용량 상향", "CXMT·YMTC 범용 단말 제품 가격 압력 지속"],
+      assumptions: ["IDC 2026E 스마트폰 출하 10.9억 대(-13.9% YoY)", "온디바이스 AI로 기본 DRAM/UFS 용량 상향", "CXMT·YMTC 범용 단말 제품 가격 압력 지속"],
       triggers: ["LPDDR5X/6 고객 인증", "UFS/NAND 가격", "CXMT LPDDR 뉴스", "YMTC 모바일 NAND 공급"],
       actions: ["고부가 모바일 제품 선별", "범용 모바일 SKU cash-cost floor 관리", "중국 가격 하방에 대한 빠른 믹스 조정"],
       risk: "CXMT와 YMTC가 범용 모바일 제품 공급을 늘리면 LPDDR/UFS ASP가 구조적으로 압박받을 수 있습니다.",
@@ -1514,7 +1513,7 @@
       tag: "DRAM 공정",
       title: "CXMT DDR5 원가 병목과 HBM3 양산 지연",
       thesis: "CXMT의 범용 DRAM 위협은 점유율·고객계약에서 오지만, DDR5 수율 숫자는 확정 성과로 쓰지 않습니다. 다이 면적과 cost-per-bit 격차가 남아 있고 HBM3는 양산급 소재·부품 주문 부재로 2026년 의미 있는 양산 가능성을 낮게 봅니다",
-      facts: ["DDR5 수율 80%+는 Confirmed로 승격하지 않고, Q1 2026 수율·원가 병목 신호를 Watch로 둠", "Tom's Hardware/DigiTimes는 CXMT 16GB DDR5 다이가 삼성 대비 약 40% 크고 비트 원가가 불리하다고 보도", "HBM3는 2026년 4월 기준 양산급 소재·부품 주문 부재와 2026년 양산 가능성 낮음 보도를 Watch 하방으로 반영"],
+      facts: ["DDR5 수율 80%+는 Confirmed로 승격하지 않고, Q1 2026 수율·원가 병목 신호를 Watch로 둠", "삼성 대비 약 40% 큰 DDR5 다이는 Tom's Hardware의 2024년 12월 비교값으로, 2026년 현재 격차로 재사용하지 않음", "HBM3는 2026년 4월 기준 양산급 소재·부품 주문 부재와 2026년 양산 가능성 낮음 보도를 Watch 하방으로 반영"],
       risk: "DUV 반복 노광은 공정 스텝·마스크 비용·변동성을 키웁니다. 단기 HBM 위협보다 DDR5·LPDDR·레거시 DRAM 가격 하방 압력이 더 빠르게 나타날 가능성이 큽니다",
       implication: "HBM 격차는 3년+로 좁혀진 상태로 보고, CXMT의 즉시 위협은 IPO 자금·Tencent 장기계약·DDR5 점유율 상승이 만드는 범용 DRAM 가격 협상력 약화입니다",
       linkedCategories: ["dram", "packaging", "equipment"],
@@ -1550,8 +1549,8 @@
       tag: "첨단 패키징",
       title: "JCET·XMC의 패키징 우회로",
       thesis: "중국은 7nm 이하 선단 공정 제약을 2.5D/3D 이종 집적과 하이브리드 본딩 기반 첨단 패키징으로 우회하려 합니다",
-      facts: ["JCET 2025년 첨단 패키징 매출 270억 위안 확인", "XMC 월 3,000장 HBM 패키징 장비 보도", "XMC 2,600억 위안 투자 수치는 검증 미완료"],
-      risk: "CXMT·YMTC 베이스 다이를 XMC가 고대역폭 패키징으로 묶는 구조가 자리 잡을 수 있지만, 투자 규모 수치는 확인/미확인을 분리해야 합니다",
+      facts: ["JCET 2025년 첨단 패키징 매출 270억 위안 확인", "XMC 월 3,000장 HBM 패키징 장비 보도"],
+      risk: "CXMT·YMTC 베이스 다이를 XMC가 고대역폭 패키징으로 묶는 구조가 자리 잡을 수 있지만, 장비 반입·고객 인증·실제 양산량을 각각 검증해야 합니다",
       implication: "SKHY는 HBM 다이 경쟁뿐 아니라 OSAT·인터포저·언더필·테스트 병목을 함께 보는 패키징 레이더가 필요합니다",
       linkedCategories: ["packaging", "hbm", "geopolitics"],
     },
@@ -1560,8 +1559,8 @@
       tag: "소부장",
       title: "빅펀드 3기와 장비·소재 국산화",
       thesis: "빅펀드 3기는 단순 팹 증설보다 EUV·EDA·첨단 화학 소재 같은 초크포인트에 자본을 집중하고 있습니다",
-      facts: ["빅펀드 3기 3,440억 위안·약 $47.5B", "Yole 장비 국산화율 전망은 최신 2026년 7월 보고서 기준 2030년 39%, 2025년 11월 이전 보고서 기준 52%로 충돌하므로 Watch로 병기", "ACM Research FY2025 매출 $901.3M, Q1 2026 매출 $231.263M·출하 $240.7M은 ACM IR 원문 기준으로 추적"],
-      risk: "집계 기준에 따라 국산화율 수치가 달라집니다. AMEC 식각, Naura 종합장비, ACM 세정이 서방 장비를 대체하지만 Entity List와 미국 원산 부품 조달 리스크가 장비 ramp의 새로운 병목입니다",
+      facts: ["빅펀드 3기 3,440억 위안·약 $47.5B", "Yole 'Mainland China Semiconductor Equipment Industry 2026'은 2030년 39%, 'China Semiconductor Industry 2025'는 52%를 제시해 Watch로 병기", "ACM Research FY2025 매출 $901.3M, Q1 2026 매출 $231.3M·출하 $240.7M은 ACM IR 최종 실적 기준"],
+      risk: "Yole의 39%와 52%는 보고서 범위·정의가 다른 전망이며 공개 자료만으로 차이의 원인을 확정할 수 없습니다. AMEC 식각, Naura 종합장비, ACM 세정의 대체 속도와 Entity List·미국 원산 부품 조달 리스크를 함께 봅니다",
       implication: "한국 소부장 파트너의 JV 제안, 소재 recipe 이전, 중국 내수 우선 공급권 요구를 조기 탐지해야 합니다",
       linkedCategories: ["equipment", "geopolitics", "talent"],
       source: "Reuters / Yole Group / ACM Research IR",
@@ -1571,13 +1570,13 @@
       id: "match-act",
       tag: "규제 리스크",
       title: "MATCH Act: DUV 제한 유지, 극저온 식각 전국 금지 삭제",
-      thesis: "MATCH Act는 아직 법률로 확정되지 않은 입법 Watch입니다. 하원 외교위 통과는 확인됐지만, 하원 본회의 통과 보도는 공식 tracker 확인 전까지 Watch로 분리합니다. S.4281은 GovInfo 기준 Senate Banking, Housing, and Urban Affairs Committee 회부 상태입니다",
-      facts: ["Cryogenic etch blanket ban removed, Reuters 2026-04-16", "DUV restriction retained", "HR 8170은 2026-04-22 하원 외교위 36:8 통과", "하원 본회의 통과 보도는 공식 tracker 확인 전 Watch", "S.4281은 GovInfo 기준 Senate Banking, Housing, and Urban Affairs Committee 회부"],
+      thesis: "MATCH Act는 2026년 7월 15일 기준 확정 법률이 아닙니다. H.R.8170의 최신 공식 이력은 2026년 4월 22일 하원 외교위 36:8 의결이며, S.4281은 4월 13일 Senate Banking, Housing, and Urban Affairs Committee 회부 상태입니다",
+      facts: ["Cryogenic etch blanket ban removed, Reuters 2026-04-16", "DUV restriction retained", "H.R.8170: 2026-04-22 House Foreign Affairs Committee 36:8", "S.4281: 2026-04-13 Senate Banking, Housing, and Urban Affairs Committee referred", "전체 하원·상원 통과 및 제정은 공식 기록상 미확인"],
       risk: "법률 확정 전에는 실행 규제로 오인하면 안 됩니다. 다만 통과 시 CXMT·YMTC·SMIC 장비 교체와 우회 조달 타임라인을 늦출 수 있습니다",
       implication: "MATCH Act는 현행 규제가 아니라 정책 Watch로 두고, BIS/VEU·네덜란드·일본 동참 여부와 함께 YMTC Phase 3 이후 팹 일정에 연결합니다",
       linkedCategories: ["geopolitics", "equipment", "china"],
-      source: "Reuters / Congress trackers",
-      sourceUrl: "https://finance.yahoo.com/sectors/technology/articles/us-lawmakers-amend-restrictions-chinese-180025088.html",
+      source: "Reuters / GovInfo",
+      sourceUrl: "https://www.govinfo.gov/app/details/BILLS-119s4281is",
     },
     {
       id: "talent-ip",
@@ -2169,8 +2168,9 @@
     },
     {
       id: "mobile", label: "모바일·스마트폰", accent: "#8B5CF6",
-      units: 1200, unitLabel: "백만 대", unitStep: "스마트폰 출하", unitNote: "글로벌 스마트폰 2026E",
-      memPerUnit: 9, memLabel: "GB/대", memName: "LPDDR+UFS", memNote: "온디바이스 AI로 8→12GB 상향",
+      units: 1090, unitLabel: "백만 대", unitStep: "스마트폰 출하", unitNote: "IDC 2026E · -13.9% YoY",
+      source: "IDC", sourceUrl: "https://www.idc.com/resource-center/blog/worldwide-smartphone-market-to-decline-13-9-in-2026-as-memory-crisis-and-us-iran-war-constrain-growth/",
+      memPerUnit: 9, memLabel: "GB/대", memName: "모바일 DRAM", memNote: "온디바이스 AI 믹스 기반 LPDDR 가정",
       skhyShare: 30, shareNote: "모바일 DRAM 점유율 가정",
       dramYoY: 8, dramLabel: "LPDDR", nandYoY: 11, nandLabel: "UFS NAND",
       driverLabel: "출하 방향", techLabel: "온디바이스 AI", pullLabel: "메모리 견인도", panelTitle: "스마트폰 브랜드 수요 풀",
@@ -2182,8 +2182,8 @@
         { id: "transsion", name: "Transsion", region: "CN", driver: "↑ 신흥", tech: "엔트리", pull: 46, note: "신흥시장 저용량 중심 → 견인도 낮음." },
       ],
       assume: [
-        "총수요 = 스마트폰 출하 × 대당 메모리(LPDDR+UFS)",
-        "온디바이스 AI가 기본 탑재량을 끌어올리는 것이 상방의 핵심",
+        "IDC 2026E 출하 10.9억 대(-13.9% YoY)를 기준선으로 사용",
+        "총수요 = 스마트폰 출하 × 대당 LPDDR 용량; 온디바이스 AI 상향을 반영하고 UFS NAND는 별도 성장률로 표시",
         "교체 주기 장기화·엔트리 비중 확대 시 탑재량 상향 둔화(반증)",
         "LPDDR ASP 프리미엄이 유지될 때만 믹스 전환이 수익성 개선",
       ],
@@ -12130,7 +12130,7 @@
     const live = LIVE.news || [];
     const curated = BASE.curatedNews || [];
     const clean = dedupeNews(curated.concat(live)
-      .filter((item) => hasMeaningfulArticleSummary(item) && isForeignNews(item) && isAuthoritativeNews(item) && isMemoryRelevant(item) && !isAppleContent(item) && !isLowConfidenceNews(item) && !isSkhynixNewsroom(item)));
+      .filter((item) => hasMeaningfulArticleSummary(item) && isForeignNews(item) && isAuthoritativeNews(item) && isMemoryRelevant(item) && !isAppleContent(item) && !isLowConfidenceNews(item) && !isSkhynixNewsroom(item) && !isSupersededCxmtIpoNews(item)));
     return clean.length ? clean : (BASE.fallbackNews || []);
   }
 
@@ -12227,7 +12227,17 @@
   function isLowConfidenceNews(item) {
     if (item?.curated) return false;
     const hay = `${item?.source || ""} ${item?.title || ""} ${item?.summary || ""} ${item?.link || ""}`;
-    return LOW_CONFIDENCE_NEWS_RE.test(hay) || FALSE_MEMORY_NEWS_RE.test(hay);
+    return LOW_CONFIDENCE_NEWS_RE.test(hay);
+  }
+
+  function isSupersededCxmtIpoNews(item = {}) {
+    if (item.curated) return false;
+    const hay = `${item.title || ""} ${item.titleKo || ""} ${item.summary || ""}`.toLowerCase();
+    const date = String(item.date || item.publishedAt || "").slice(0, 10);
+    return /cxmt|changxin/.test(hay)
+      && /ipo|listing|offering|공모|상장/.test(hay)
+      && Boolean(date)
+      && date <= "2026-07-14";
   }
 
   function isMemoryRelevant(item) {
