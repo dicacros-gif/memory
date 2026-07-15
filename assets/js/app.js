@@ -2453,8 +2453,8 @@
       [/줄어듭니다/g, "축소"],
       [/흔들립니다/g, "변동"],
       [/됩니다/g, "됨"],
-      [/합니다/g, ""],
-      [/입니다/g, ""],
+      [/합니다/g, "함"],
+      [/입니다/g, "임"],
       [/습니다/g, "음"],
     ].forEach(([pattern, replacement]) => {
       text = text.replace(pattern, replacement);
@@ -2462,7 +2462,6 @@
 
     return text
       .replace(/([가-힣)])\.(?=\s|$)/g, "$1 ·")
-      .replace(/([가-힣)])다(?=[.!?。]|$)/g, "$1")
       .replace(/[!?。](?=\s|$)/g, " ·")
       .replace(/\s*·\s*/g, " · ")
       .replace(/\s{2,}/g, " ")
@@ -11475,6 +11474,9 @@
       }))
       .filter(({ item, score }) => {
         const key = canonicalNewsKey(item);
+        const directUrl = String(item.sourceUrl || item.link || "");
+        if (String(item.language || "").toLowerCase() === "chinese") return false;
+        if (!/^https?:\/\//i.test(directUrl) || /news\.google\.com/i.test(directUrl)) return false;
         if (!key || seen.has(key) || score <= 0) return false;
         seen.add(key);
         return true;

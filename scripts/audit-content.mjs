@@ -46,9 +46,14 @@ for (const file of textFiles) {
   for (const phrase of [
     "가격 · 수요 · 고객 수치를 원문 기준으로 확인",
     "업체 · 캐파 · 정책 수치를 원문 기준으로 분리 검증",
+    "공급파 경보",
   ]) {
     const index = text.indexOf(phrase);
     if (index >= 0) addIssue("error", file, `repeated news boilerplate at line ${lineFor(text, index)}`, phrase);
+  }
+
+  if (file === "assets/js/app.js" && /\[\/입니다\/g,\s*""\]|\[\/합니다\/g,\s*""\]/.test(text)) {
+    addIssue("error", file, "destructive Korean ending normalization can truncate words");
   }
 
   const placeholderPattern = file.endsWith(".js")
@@ -160,6 +165,13 @@ for (const brief of briefs) {
   }
   if (!String(brief.latest?.summary || "").trim()) {
     addIssue("error", "data/live.json", "intelligence brief lacks an article summary", brief.id || "unknown");
+  }
+  const briefSummary = String(brief.latest?.summary || "").trim();
+  if ((briefSummary.match(/[가-힣]/g) || []).length < 10) {
+    addIssue("error", "data/live.json", "intelligence brief summary is not a substantive Korean summary", brief.id || "unknown");
+  }
+  if (/중국 최대의 삼성전자/.test(briefSummary)) {
+    addIssue("error", "data/live.json", "intelligence brief contains a known malformed translation", brief.id || "unknown");
   }
   if (!["공식", "외신", "분석", "내부추정"].includes(String(brief.latest?.sourceType || ""))) {
     addIssue("error", "data/live.json", "intelligence brief has an invalid source type", `${brief.id || "unknown"}:${brief.latest?.sourceType || "missing"}`);

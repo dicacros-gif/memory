@@ -367,6 +367,7 @@ const CHINA_INFRA_SOURCE_PAGES = [
     site: "all",
     label: "BIS VEU China fabs",
     url: "https://www.bis.gov/press-release/department-commerce-closes-export-controls-loophole-foreign-owned-semiconductor-fabs-china",
+    publishedAt: "2025-08-29",
     markers: ["foreign-owned semiconductor fabs", "China", "license"],
   },
 ];
@@ -1755,6 +1756,7 @@ async function collectChinaInfra() {
         site: source.site,
         label: source.label,
         url: source.url,
+        publishedAt: source.publishedAt || null,
         ok: true,
         markerHits: hitCount,
         markers,
@@ -1768,6 +1770,7 @@ async function collectChinaInfra() {
         site: source.site,
         label: source.label,
         url: source.url,
+        publishedAt: source.publishedAt || null,
         ok: false,
         error: error.message,
         crawledAt: new Date().toISOString(),
@@ -1891,6 +1894,7 @@ const OFFICIAL_SOURCE_RE = /(?:\.gov(?:\/|$)|govinfo\.gov|congress\.gov|sec\.gov
 const ANALYSIS_SOURCE_RE = /(?:trendforce\.com\/(?:presscenter|price|news)|counterpointresearch\.com|techinsights\.com|wsts\.org|yolegroup\.com)/i;
 const AUTHORITATIVE_MEDIA_RE = /(?:reuters|bloomberg|ft\.com|financial times|nikkei|cnbc|south china morning post|scmp|digitimes|ee times|tom's hardware)/i;
 const ESTIMATE_RE = /(?:forecast|estimate|reportedly|sources? (?:said|say)|could|may |might|expected|projection|전망|추정|보도|소식통)/i;
+const LOW_VALUE_INTELLIGENCE_RE = /(?:ram price tracking|lowest price on ddr|best (?:ram|ssd)|buying guide|deal tracker)/i;
 
 function directNewsUrl(item = {}) {
   for (const value of [item.sourceUrl, item.link]) {
@@ -1924,6 +1928,8 @@ function intelligenceText(item = {}) {
 function intelligenceNewsScore(item, topic) {
   const title = `${item.titleKo || ""} ${item.title || ""}`.toLowerCase();
   const body = intelligenceText(item);
+  if (LOW_VALUE_INTELLIGENCE_RE.test(title)) return 0;
+  if (topic.id === "dram" && /(?:cxmt|changxin|长鑫)/i.test(body) && /(?:ipo|fundrais|listing|공모|상장)/i.test(body)) return 0;
   const matches = topic.terms.reduce((sum, term) => {
     const key = term.toLowerCase();
     return sum + (title.includes(key) ? 4 : body.includes(key) ? 1 : 0);
@@ -1931,7 +1937,7 @@ function intelligenceNewsScore(item, topic) {
   if (!matches || !directNewsUrl(item)) return 0;
   const ageDays = Math.max(0, (Date.now() - new Date(item.date || item.publishedAt || 0).getTime()) / 864e5);
   const recency = Number.isFinite(ageDays) ? Math.max(0, 4 - ageDays / 14) : 0;
-  const summaryBonus = String(item.summary || item.summaryOriginal || "").trim().length >= 45 ? 5 : -6;
+  const summaryBonus = compactArticleSummary(item).length >= 45 ? 5 : -6;
   return matches + intelligenceSource(item).sourceScore + recency + summaryBonus;
 }
 
@@ -1981,6 +1987,15 @@ function priceEvidenceForTopic(rows, topic) {
 
 function compactArticleSummary(item = {}) {
   const hay = `${item.title || ""} ${item.titleKo || ""} ${item.summary || item.summaryOriginal || ""}`.toLowerCase();
+  if (/cxmt|changxin/.test(hay) && /(?:8\.5|8\.54|57\.9).{0,24}(?:bn|billion|달러|위안)|largest chinese chip ipo/.test(hay)) {
+    return "Nikkei Asia와 Reuters는 CXMT의 확정 공모 규모가 579억 위안(약 $8.5B)이라고 보도했습니다. 초기 계획액 295억 위안과 최종 공모액을 분리해 봐야 합니다.";
+  }
+  if (/lenovo/.test(hay) && /ymtc/.test(hay) && /(?:outside china|overseas|shipping|notebook|laptop)/.test(hay)) {
+    return "DigiTimes는 중국 외 지역에서 판매되는 Lenovo 노트북 일부에 YMTC SSD가 탑재됐다고 보도했습니다. 중국 NAND의 해외 OEM 채택이 확인된 사례입니다.";
+  }
+  if (/sk hynix|skhy/.test(hay) && /(?:memory shortage|worst year)/.test(hay) && /2030/.test(hay)) {
+    return "SKHY 경영진은 메모리 공급 부족이 2027년에 가장 심해지고 2030년까지 이어질 수 있다고 전망했습니다. 이는 회사 전망이므로 수요·캐파 실측과 분리해 봐야 합니다.";
+  }
   if (/\badata\b/.test(hay) && /(dram|nand)/.test(hay) && /(20|30|35|40)/.test(hay)) {
     return "ADATA 경영진의 3Q26 체감 전망은 DRAM +20~30%, NAND +35~40%이며, TrendForce 공식 시장 전망(DRAM +13~18%, NAND +10~15%)과 분리해 상방 시나리오로만 봅니다.";
   }
@@ -1989,6 +2004,9 @@ function compactArticleSummary(item = {}) {
   }
   const value = cleanKoNewsText(item.summary || item.summaryOriginal || "");
   if (!value) return "";
+  if (/중국 최대의 삼성전자/.test(value)) return "";
+  const hangulCount = (value.match(/[가-힣]/g) || []).length;
+  if (hangulCount < 10) return "";
   return value.length > 260 ? `${value.slice(0, 257).trim()}...` : value;
 }
 
@@ -2013,7 +2031,7 @@ function buildIntelligence({ news = [], prices = {}, stats = {}, chinaInfra = {}
     .filter((source) => source.ok && /bis|veu|export/i.test(`${source.id || ""} ${source.label || ""}`) && /^https?:\/\//i.test(source.url || ""))
     .map((source) => {
       const summary = source.id === "bis-veu"
-        ? "BIS는 중국 내 외국계 반도체 팹의 기존 운영을 위한 연간 라이선스는 허용하되, 캐파 확대나 기술 업그레이드는 허용하지 않는 방향을 명시했습니다."
+        ? "BIS는 기존 VEU 참여사가 중국 내 기존 팹을 운영하기 위한 수출 라이선스 신청은 허용할 의향이 있지만, 캐파 확대나 기술 업그레이드 목적의 라이선스는 허용하지 않겠다고 밝혔습니다."
         : source.excerpt || "";
       return {
         title: `${source.label} official update`,
@@ -2022,7 +2040,7 @@ function buildIntelligence({ news = [], prices = {}, stats = {}, chinaInfra = {}
         summary,
         source: "U.S. BIS",
         sourceUrl: source.url,
-        date: String(source.crawledAt || generatedAt).slice(0, 10),
+        date: source.publishedAt || String(source.crawledAt || generatedAt).slice(0, 10),
         category: "policy",
       };
     });
