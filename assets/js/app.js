@@ -4537,10 +4537,10 @@
     const typeMessage = (p, done) => {
       const text = p ? p.dataset.say || "" : "";
       if (!p || !text) { done(); return; }
-      // Keep the council readable: each expert types slowly enough to feel like a real exchange.
-      const totalMs = 1900;
-      const step = Math.max(1, Math.ceil(text.length / 48));
-      const tick = Math.max(18, Math.round(totalMs / Math.ceil(text.length / step)));
+      // Keep every council on the same deliberate cadence: roster first, then one speaker at a time.
+      const totalMs = Math.max(2400, Math.min(5200, text.length * 30));
+      const step = text.length > 150 ? 2 : 1;
+      const tick = Math.max(24, Math.round(totalMs / Math.ceil(text.length / step)));
       let shown = 0;
       const advance = () => {
         if (!alive()) return;
@@ -4572,11 +4572,19 @@
         turn.classList.add("done");
         turn.querySelector(".speech-bubble")?.classList.remove("live");
         setCard(turnName(turn), "done");
-        schedule(() => speak(i + 1), 520);
+        schedule(() => speak(i + 1), 720);
       });
     };
 
-    schedule(() => speak(0), Math.min(1400, avatars.length * 115 + 480));
+    const rosterStepMs = 230;
+    avatars.forEach((card, index) => {
+      schedule(() => {
+        if (!alive()) return;
+        card.classList.remove("pending");
+        card.classList.add("next");
+      }, index * rosterStepMs);
+    });
+    schedule(() => speak(0), avatars.length * rosterStepMs + 720);
   }
 
   function memoryMarketNodes() {
@@ -11899,7 +11907,7 @@
       .map((point) => {
         const time = Number(point.time || new Date(point.date || 0).getTime());
         const value = Number(point.close ?? point.value);
-        return Number.isFinite(time) && Number.isFinite(value) ? { time, value, close: value } : null;
+        return Number.isFinite(time) && Number.isFinite(value) && value > 0 ? { time, value, close: value } : null;
       })
       .filter(Boolean)
       .sort((a, b) => a.time - b.time);
@@ -11969,8 +11977,8 @@
           <span><b>${escapeHTML(observation.main)}</b><small>${escapeHTML(observation.sub)}</small></span>
         </div>
         <div class="market-index-source">
-          <span>${escapeHTML(index.source || "Yahoo Finance chart API")}</span>
-          ${index.sourceUrl ? `<a href="${escapeHTML(index.sourceUrl)}" target="_blank" rel="noopener">SOX 원문</a>` : ""}
+          <span>${escapeHTML(index.latestSource || index.source || "Yahoo Finance history")}</span>
+          ${(index.latestSourceUrl || index.sourceUrl) ? `<a href="${escapeHTML(index.latestSourceUrl || index.sourceUrl)}" target="_blank" rel="noopener">SOX 원문</a>` : ""}
         </div>
         ${peers.length ? `
           <div class="market-peer-grid">
@@ -12107,11 +12115,22 @@
   }
 
   /* ---------------- News ---------------- */
+  function hasMeaningfulArticleSummary(item = {}) {
+    const summary = String(item.summaryKo || item.summary || item.summaryOriginal || "").replace(/\s+/g, " ").trim();
+    const title = String(item.titleKo || item.title || "").replace(/\s+/g, " ").trim();
+    if (summary.length < 32) return false;
+    const normalize = (value) => cleanKoreanTitle(value).toLowerCase().replace(/[^a-z0-9가-힣一-鿿]+/g, "");
+    const summaryKey = normalize(summary);
+    const titleKey = normalize(title);
+    if (!summaryKey || summaryKey === titleKey) return false;
+    return !(summaryKey.startsWith(titleKey) && summaryKey.length - titleKey.length < 32);
+  }
+
   function rawNews() {
     const live = LIVE.news || [];
     const curated = BASE.curatedNews || [];
     const clean = dedupeNews(curated.concat(live)
-      .filter((item) => isForeignNews(item) && isAuthoritativeNews(item) && isMemoryRelevant(item) && !isAppleContent(item) && !isLowConfidenceNews(item) && !isSkhynixNewsroom(item)));
+      .filter((item) => hasMeaningfulArticleSummary(item) && isForeignNews(item) && isAuthoritativeNews(item) && isMemoryRelevant(item) && !isAppleContent(item) && !isLowConfidenceNews(item) && !isSkhynixNewsroom(item)));
     return clean.length ? clean : (BASE.fallbackNews || []);
   }
 
@@ -12161,6 +12180,8 @@
       titleKo: stripTrailingSource(base.titleKo || other.titleKo || "", base.source || other.source),
       title: stripTrailingSource(base.title || other.title || "", base.source || other.source),
       summary: base.summary || other.summary,
+      summaryOriginal: base.summaryOriginal || other.summaryOriginal,
+      summarySource: base.summarySource || other.summarySource,
       category: base.category || other.category,
       date: base.date || other.date,
       language: base.language || other.language,
@@ -12240,8 +12261,8 @@
   function cleanKoreanTitle(title) {
     return String(title || "")
       .replace(SOURCE_SUFFIX_RE, "")
-      .replace(/^\s*(?:\[[^\]]*뉴스[^\]]*\]|뉴스)\s*[:：]?\s*/i, "")
-      .replace(/\s*(?:\[[^\]]*뉴스[^\]]*\])\s*/gi, " ")
+      .replace(/^\s*(?:\[(?:news|뉴스)\]|(?:news|뉴스))\s*[:：-]?\s*/i, "")
+      .replace(/\s*\[(?:news|뉴스)\]\s*/gi, " ")
       .replace(/\bSamsung\b/g, "삼성")
       .replace(/\bMicron\b/g, "마이크론")
       .replace(/\bNVIDIA\b/g, "엔비디아")
@@ -12263,12 +12284,11 @@
 
   function insightLines(item) {
     const title = newsTitle(item);
-    const summary = cleanInsightText(item.summary || "");
+    const summary = cleanInsightText(item.summaryKo || item.summary || item.summaryOriginal || "");
     const category = CATEGORY_INSIGHTS[item.category] || "메모리 업계 가격·고객·공급망 변화를 함께 점검";
     const rows = [
-      { label: "요약", text: newsSummaryLine(item, title, summary, category) },
-      { label: "인사이트", text: newsImpactLine(item, category) },
-      { label: "확인 포인트", text: newsCheckLine(item) },
+      newsSummaryLine(item, title, summary, category),
+      newsImpactLine(item, category),
     ];
     return uniqueInsightRows(rows);
   }
@@ -12296,26 +12316,44 @@
   }
 
   function newsGeneratedSummary(item = {}, category = "") {
-    const hay = `${item.title || ""} ${item.titleKo || ""} ${item.summary || ""} ${item.category || ""}`.toLowerCase();
-    if (/hbm|high bandwidth|rubin|cowos|base die/.test(hay)) {
-      return "HBM 고객 인증, 패키징 할당, 서버향 프리미엄 메모리 공급 변화 점검 필요.";
+    const localized = stripTrailingSource(cleanInsightText(item.titleKo || ""), item.source || "");
+    const clauses = localized.split(/\s(?:—|–|:)\s|[。；;]/).map((part) => part.trim()).filter(Boolean);
+    if (clauses.length > 1) {
+      const detail = clauses.slice(1).join(" · ");
+      if (detail.length >= 24) return detail;
     }
-    if (/dram|ddr|lpddr|cxmt|price|contract|spot|담합|가격/.test(hay)) {
-      return "DRAM 가격, 고객 계약, 범용 메모리 공급 압력이 SKHY 가격 방어에 미치는 영향 점검 필요.";
-    }
-    if (/nand|ssd|essd|ymtc|solidigm|kioxia|sandisk/.test(hay)) {
-      return "NAND/eSSD 수요, 고객 인증, 중국 NAND 공급 확대가 수익성에 미치는 영향 점검 필요.";
-    }
-    if (/packag|bonding|tsv|jcet|xmc|interposer|photon/.test(hay)) {
-      return "첨단 패키징과 인터커넥트 병목이 HBM·AI 메모리 공급 우위에 미치는 영향 점검 필요.";
-    }
-    if (/policy|bis|chips|export|license|tariff|규제|정책/.test(hay)) {
-      return "정책·수출통제·인허가 변화가 중국 운영과 투자 승인 조건에 미치는 영향 점검 필요.";
-    }
-    return category || "메모리 업계 가격, 고객, 공급망 변화를 SKHY 의사결정 관점에서 점검 필요.";
+    return "";
   }
 
   function newsImpactLine(item, category) {
+    const hay = `${item.title || ""} ${item.titleKo || ""} ${item.summaryOriginal || ""} ${item.summary || ""}`.toLowerCase();
+    if (/lenovo/.test(hay) && /ymtc/.test(hay) && /(do not|does not|not use|미사용|사용하지)/.test(hay)) {
+      return "YMTC SSD 채택은 미국향과 비미국향 모델을 분리해 판단해야 하며, 미국 PC 공급망 진입 신호로 확대 해석하지 않습니다.";
+    }
+    if (/cxmt/.test(hay) && /(ipo|listing|상장|공모)/.test(hay)) {
+      return "공모 자금의 실제 사용처와 장비 발주가 DDR5 캐파 확대 속도와 범용 DRAM 가격 압력을 결정합니다.";
+    }
+    if (/cxmt/.test(hay) && /(tencent|alibaba|bytedance|customer|contract|텐센트|계약)/.test(hay)) {
+      return "중국 빅테크의 서버 DRAM 승인과 장기계약 확산은 SKHY의 중국 고객 가격 협상력에 직접 영향을 줍니다.";
+    }
+    if (/ymtc/.test(hay) && /(ssd|essd|lenovo|server|customer|고객)/.test(hay)) {
+      return "YMTC의 고객 채택 범위를 내수·유럽·미국으로 나눠 eSSD와 client SSD 방어 강도를 조정합니다.";
+    }
+    if (/hbm/.test(hay) && /(heat|thermal|cool|열|냉각)/.test(hay)) {
+      return "열·전력 병목을 낮추는 적층 구조가 검증되면 HBM 세대 전환의 수율·패키징 투자 우선순위가 바뀝니다.";
+    }
+    if (/hbm4|rubin|base die|cowos/.test(hay)) {
+      return "HBM4 속도·베이스다이·고객 인증 일정을 함께 봐야 SKHY의 공급 선점과 패키징 배분을 판단할 수 있습니다.";
+    }
+    if (/price|contract|spot|asp|가격/.test(hay)) {
+      return "기사의 제품군·기준 분기·변동 범위를 분리해 실제 Spot/Contract 시계열과 일치할 때만 ASP 시나리오에 반영합니다.";
+    }
+    if (/bis|chips act|match act|export control|license|tariff|수출통제|규제/.test(hay)) {
+      return "시행일과 적용 장비를 Wuxi·Dalian의 운영 유지, 공정 전환, 캐파 확대 게이트로 나눠 판단합니다.";
+    }
+    if (/micron|samsung|earnings|revenue|profit|guidance|실적/.test(hay)) {
+      return "경쟁사의 매출보다 HBM 믹스, ASP, CAPEX, 고객 인증 가이던스가 SKHY의 공급·가격 전략을 바꾸는 핵심입니다.";
+    }
     const impacts = {
       hbm: "HBM4/HBM4E 고객 ramp와 패키징 병목이 프리미엄 메모리 공급 우위 좌우",
       dram: "DDR5·LPDDR 물량 확대는 범용 DRAM spot/contract 하방 압력의 선행 신호",
@@ -12329,28 +12367,17 @@
       talent: "수율 엔지니어·채용 JD 증가는 공정 병목과 IP 리스크 조기 신호",
       operations: "Wuxi·Dalian·Solidigm 운영 변화는 중국 노출과 NAND 방어 전략 변수",
     };
-    return impacts[item.category] || category || "가격·고객·공급망 변화가 다음 의사결정 우선순위 변화 요인";
-  }
-
-  function newsCheckLine(item) {
-    return isChinaArticle(item)
-      ? "업체·캐파·정책 수치를 원문 기준으로 분리 검증"
-      : "가격·수요·고객 수치를 원문 기준으로 확인";
+    return impacts[item.category] || category || "해당 변화가 가격·고객·공급망 중 어느 축을 바꾸는지 다음 의사결정에서 검토합니다.";
   }
 
   function uniqueInsightRows(rows) {
     const seen = new Set();
-    const fallback = [
-      "원문 제목과 요약을 분리해 같은 문장이 반복되지 않도록 정리했습니다.",
-      "사업 영향은 가격·고객·공급망 중 어느 축이 움직이는지로 판단합니다.",
-      "원문 링크·발표일·수치 출처를 확인한 뒤 의사결정 보드에 연결합니다.",
-    ];
     return rows.map((row, index) => {
-      let text = cleanInsightText(row.text);
-      if (!text || seen.has(insightKey(text))) text = fallback[index] || fallback[fallback.length - 1];
+      const text = cleanInsightText(row);
+      if (!text || seen.has(insightKey(text))) return "";
       seen.add(insightKey(text));
       return clipText(text, index === 0 ? 92 : 88);
-    });
+    }).filter(Boolean);
   }
 
   function newsTimestamp(item = {}) {
@@ -12570,7 +12597,7 @@
       const li = el("li", "news-card-item");
       const card = el("article", "news-card");
       const a = el("a", "news-title");
-      a.href = item.link || "#";
+      a.href = item.sourceUrl || item.link || "#";
       a.target = "_blank";
       a.rel = "noopener";
       const insights = insightLines(item);

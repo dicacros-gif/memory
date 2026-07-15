@@ -19,6 +19,8 @@ const PRICE_HISTORY_LOOKBACK_DAYS = 365 * 5;
 const PRICE_HISTORY_RETENTION_POINTS = 365 * 5 + 60;
 const MARKET_HISTORY_LOOKBACK_DAYS = 365 * 5;
 const MARKET_HISTORY_RETENTION_POINTS = 365 * 5 + 60;
+const NEWS_ENRICH_LIMIT = 60;
+const NEWS_ENRICH_CONCURRENCY = 4;
 
 const BROWSER_UA =
   "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124.0.0.0 Safari/537.36";
@@ -37,8 +39,8 @@ const MARKET_INDEXES = [
     symbol: "^SOX",
     label: "PHLX Semiconductor Index",
     labelKo: "필라델피아 반도체 지수",
-    source: "Yahoo Finance chart API",
-    sourceUrl: "https://finance.yahoo.com/quote/%5ESOX/",
+    source: "Yahoo Finance history · Nasdaq official latest",
+    sourceUrl: "https://indexes.nasdaq.com/Index/Overview/SOX",
   },
   {
     id: "skhy-stock",
@@ -467,15 +469,21 @@ function cleanTitle(value) {
     .trim();
 }
 
+function stripNewsLabel(value = "") {
+  return String(value)
+    .replace(/^\s*(?:\[(?:news|뉴스)\]|(?:news|뉴스))\s*[:：-]?\s*/i, "")
+    .trim();
+}
+
 function cleanLocalizedTitle(value, locale = "en") {
-  if (locale === "zh") return stripHTML(value).replace(/\s{2,}/g, " ").trim();
-  return cleanTitle(value);
+  if (locale === "zh") return stripNewsLabel(stripHTML(value).replace(/\s{2,}/g, " ").trim());
+  return stripNewsLabel(cleanTitle(value));
 }
 
 function cleanKoNewsText(value) {
   return String(value || "")
-    .replace(/^\s*(?:\[[^\]]*뉴스[^\]]*\]|뉴스)\s*[:：]?\s*/i, "")
-    .replace(/\s*(?:\[[^\]]*뉴스[^\]]*\])\s*/gi, " ")
+    .replace(/^\s*(?:\[(?:news|뉴스)\]|(?:news|뉴스))\s*[:：-]?\s*/i, "")
+    .replace(/\s*\[(?:news|뉴스)\]\s*/gi, " ")
     .replace(/SK\s*하이닉스/g, "SKHY")
     .replace(/SK하이닉스/g, "SKHY")
     .replace(/\s{2,}/g, " ")
@@ -1005,7 +1013,9 @@ async function fetchStock(symbol) {
       const json = JSON.parse(txt);
       const result = json?.chart?.result?.[0];
       if (!result) throw new Error("빈 결과");
-      const closes = (result.indicators?.quote?.[0]?.close || []).filter((value) => value != null);
+      const closes = (result.indicators?.quote?.[0]?.close || [])
+        .map(Number)
+        .filter((value) => Number.isFinite(value) && value > 0);
       if (closes.length < 2) throw new Error("종가 부족");
       const latestClose = closes[closes.length - 1];
       const prevClose = closes[closes.length - 2];
@@ -1070,7 +1080,7 @@ function yahooHistoryPoints(result = {}) {
   const points = timestamps
     .map((ts, index) => {
       const close = Number(closes[index]);
-      if (!Number.isFinite(close)) return null;
+      if (!Number.isFinite(close) || close <= 0) return null;
       const time = Number(ts) * 1000;
       return {
         date: new Date(time).toISOString(),
@@ -1089,7 +1099,7 @@ function mergeMarketPoints(existing = [], incoming = []) {
   const add = (point = {}) => {
     const time = Number(point.time || new Date(point.date || 0).getTime());
     const close = Number(point.close ?? point.value);
-    if (!Number.isFinite(time) || !Number.isFinite(close)) return;
+    if (!Number.isFinite(time) || !Number.isFinite(close) || close <= 0) return;
     const day = new Date(time).toISOString().slice(0, 10);
     byDay.set(day, {
       date: new Date(time).toISOString(),
@@ -1103,6 +1113,31 @@ function mergeMarketPoints(existing = [], incoming = []) {
   return Array.from(byDay.values())
     .sort((a, b) => a.time - b.time)
     .slice(-MARKET_HISTORY_RETENTION_POINTS);
+}
+
+async function fetchNasdaqSoxLatest() {
+  const sourceUrl = "https://indexes.nasdaq.com/Index/Overview/SOX";
+  const html = await fetchText(sourceUrl);
+  const dateRaw = html.match(/DATA\s+AS\s+OF\s+(\d{1,2}\/\d{1,2}\/\d{4})/i)?.[1] || "";
+  const valueRaw = html.match(/data-current-value=["']([\d,.]+)["']/i)?.[1] || "";
+  const close = Number(valueRaw.replace(/,/g, ""));
+  const parts = dateRaw.split("/").map(Number);
+  if (parts.length !== 3 || !parts.every(Number.isFinite) || !Number.isFinite(close) || close <= 0) {
+    throw new Error("Nasdaq SOX official latest parse failed");
+  }
+  const [month, day, year] = parts;
+  const time = Date.UTC(year, month - 1, day, 20, 0, 0);
+  return {
+    point: {
+      date: new Date(time).toISOString(),
+      time,
+      close: Number(close.toFixed(2)),
+      value: Number(close.toFixed(2)),
+    },
+    source: "Nasdaq Global Indexes",
+    sourceUrl,
+    asOf: `${year}-${String(month).padStart(2, "0")}-${String(day).padStart(2, "0")}`,
+  };
 }
 
 async function loadMarketHistory() {
@@ -1128,7 +1163,20 @@ async function updateMarketHistory() {
   for (const index of MARKET_INDEXES) {
     try {
       const result = await fetchYahooChartResult(index.symbol, "5y", "1d");
-      const incoming = yahooHistoryPoints(result);
+      let incoming = yahooHistoryPoints(result);
+      let latestSource = "Yahoo Finance chart API";
+      let latestSourceUrl = index.sourceUrl;
+      if (index.id === "sox") {
+        try {
+          const official = await fetchNasdaqSoxLatest();
+          incoming = mergeMarketPoints(incoming, [official.point]);
+          latestSource = official.source;
+          latestSourceUrl = official.sourceUrl;
+          note("market:SOX official", true, `${official.asOf} · ${official.point.close}`);
+        } catch (error) {
+          note("market:SOX official", false, error.message);
+        }
+      }
       const previous = history.indexes[index.id]?.points || [];
       const merged = mergeMarketPoints(previous, incoming);
       const latest = merged[merged.length - 1] || null;
@@ -1147,6 +1195,8 @@ async function updateMarketHistory() {
         interval: "1d",
         currency: result.meta?.currency || "USD",
         exchangeName: result.meta?.exchangeName || null,
+        latestSource,
+        latestSourceUrl,
         regularMarketTime: result.meta?.regularMarketTime ? new Date(result.meta.regularMarketTime * 1000).toISOString() : null,
         latest,
         dailyChangePct: dailyChangePct == null ? null : Number(dailyChangePct.toFixed(2)),
@@ -1212,6 +1262,7 @@ function parseRSS(xml) {
       link: stripHTML(pick("link")),
       pubDate: pick("pubDate").trim(),
       source: stripHTML(pick("source")),
+      rssDescription: stripHTML(pick("description")),
     });
   }
   return items;
@@ -1242,6 +1293,157 @@ async function fetchGoogleNews(query, category = "", locale = "en") {
     .filter(isForeignItem);
 }
 
+function htmlAttributes(tag = "") {
+  const attrs = {};
+  for (const match of String(tag).matchAll(/([:\w-]+)\s*=\s*(?:"([^"]*)"|'([^']*)'|([^\s>]+))/g)) {
+    attrs[String(match[1] || "").toLowerCase()] = decodeEntities(match[2] ?? match[3] ?? match[4] ?? "");
+  }
+  return attrs;
+}
+
+function isCompleteArticleSummary(value = "") {
+  const clean = stripHTML(value).replace(/\s+/g, " ").trim();
+  if (!clean) return false;
+  if (/(?:\.{3,}|…|[-–—])\s*$/u.test(clean)) return false;
+  if (/\b(?:a|an|the|to|of|for|with|and|or|by|from|at|in|on)$/i.test(clean) && clean.length >= 120) return false;
+  return true;
+}
+
+function articleMetaDescription(html = "", title = "") {
+  const candidates = [];
+  for (const match of String(html).matchAll(/<meta\b[^>]*>/gi)) {
+    const attrs = htmlAttributes(match[0]);
+    const key = String(attrs.name || attrs.property || "").toLowerCase();
+    if (["description", "og:description", "twitter:description"].includes(key) && attrs.content) {
+      candidates.push(attrs.content);
+    }
+  }
+  const normalizedTitle = stripHTML(title).toLowerCase().replace(/\s+/g, " ").trim();
+  return candidates
+    .map((value) => stripHTML(value).replace(/\s+/g, " ").trim())
+    .find((value) => {
+      const lower = value.toLowerCase();
+      if (value.length < 45 || lower === normalizedTitle) return false;
+      if (/^(subscribe|sign in|log in|access denied|enable javascript|latest news|breaking news)/i.test(value)) return false;
+      return isCompleteArticleSummary(value);
+    }) || "";
+}
+
+function sanitizeSourceUrl(value = "") {
+  try {
+    const parsed = new URL(value);
+    if (!/^https?:$/i.test(parsed.protocol)) return "";
+    parsed.hash = "";
+    const allow = new Set(["id", "article", "story", "p", "page"]);
+    for (const [key, paramValue] of Array.from(parsed.searchParams.entries())) {
+      if (!allow.has(key.toLowerCase()) || paramValue.length > 80 || /(?:电话|微信|上门|模特|兼职|escort|telegram|whatsapp)/i.test(paramValue)) {
+        parsed.searchParams.delete(key);
+      }
+    }
+    return parsed.toString();
+  } catch {
+    return "";
+  }
+}
+
+function articleCanonicalUrl(html = "", fallback = "") {
+  for (const match of String(html).matchAll(/<link\b[^>]*>/gi)) {
+    const attrs = htmlAttributes(match[0]);
+    if (String(attrs.rel || "").toLowerCase() === "canonical" && /^https?:\/\//i.test(attrs.href || "")) {
+      return sanitizeSourceUrl(attrs.href);
+    }
+  }
+  return sanitizeSourceUrl(fallback);
+}
+
+async function resolveGoogleNewsUrl(link = "") {
+  if (!/news\.google\.com\/(?:rss\/)?articles\//i.test(link)) return link;
+  const articleId = new URL(link).pathname.split("/").filter(Boolean).at(-1) || "";
+  if (!articleId) return "";
+  const landingUrl = new URL(link);
+  landingUrl.searchParams.set("hl", "en-US");
+  landingUrl.searchParams.set("gl", "US");
+  landingUrl.searchParams.set("ceid", "US:en");
+  const landing = await fetchText(landingUrl.toString());
+  const timestamp = landing.match(/data-n-a-ts=["']([^"']+)["']/i)?.[1] || "";
+  const signature = landing.match(/data-n-a-sg=["']([^"']+)["']/i)?.[1] || "";
+  if (!timestamp || !signature) return "";
+
+  const request = JSON.stringify([
+    "garturlreq",
+    [["X", "X", ["X", "X"], null, null, 1, 1, "US:en", null, 1, null, null, null, null, null, 0, 1], "X", "X", 1, [1, 1, 1], 1, 1, null, 0, 0, null, 0],
+    articleId,
+    Number(timestamp),
+    signature,
+  ]);
+  const body = new URLSearchParams({ "f.req": JSON.stringify([[["Fbv4je", request]]]) }).toString();
+  const response = await fetch("https://news.google.com/_/DotsSplashUi/data/batchexecute", {
+    method: "POST",
+    headers: {
+      "User-Agent": BROWSER_UA,
+      "Content-Type": "application/x-www-form-urlencoded;charset=UTF-8",
+    },
+    body,
+  });
+  if (!response.ok) throw new Error(`Google News decode HTTP ${response.status}`);
+  const text = await response.text();
+  const payload = JSON.parse(text.replace(/^\)\]\}'\s*/, ""));
+  const decoded = JSON.parse(payload?.[0]?.[2] || "[]")?.[1] || "";
+  return /^https?:\/\//i.test(decoded) ? decoded : "";
+}
+
+async function enrichNewsItem(item = {}, cached = null) {
+  const cachedSummary = String(cached?.summaryOriginal || "").trim();
+  const cachedSourceUrl = sanitizeSourceUrl(cached?.sourceUrl || "");
+  if (isCompleteArticleSummary(cachedSummary) && cachedSourceUrl) {
+    return {
+      ...item,
+      sourceUrl: cachedSourceUrl,
+      summaryOriginal: cached.summaryOriginal,
+      summary: cached.summary || "",
+      summarySource: cached.summarySource || "source-meta",
+    };
+  }
+  let resolvedUrl = cachedSourceUrl;
+  try {
+    resolvedUrl ||= await resolveGoogleNewsUrl(item.link || "");
+    if (!resolvedUrl) return { ...item, summarySource: "headline" };
+    const html = await fetchText(resolvedUrl);
+    const summaryOriginal = articleMetaDescription(html, item.title).slice(0, 620);
+    return {
+      ...item,
+      sourceUrl: articleCanonicalUrl(html, resolvedUrl) || resolvedUrl,
+      summaryOriginal,
+      summarySource: summaryOriginal ? "source-meta" : "headline",
+    };
+  } catch {
+    return {
+      ...item,
+      ...(resolvedUrl ? { sourceUrl: sanitizeSourceUrl(resolvedUrl) } : {}),
+      summarySource: "headline",
+    };
+  }
+}
+
+async function enrichNewsItems(items = [], previousItems = []) {
+  const previousByKey = new Map(previousItems.map((item) => [canonicalNewsKey(item), item]));
+  const output = items.slice();
+  let cursor = 0;
+  const worker = async () => {
+    while (cursor < output.length) {
+      const index = cursor;
+      cursor += 1;
+      const item = output[index];
+      output[index] = await enrichNewsItem(item, previousByKey.get(canonicalNewsKey(item)) || null);
+      await sleep(120);
+    }
+  };
+  await Promise.all(Array.from({ length: Math.min(NEWS_ENRICH_CONCURRENCY, output.length) }, worker));
+  const sourceCount = output.filter((item) => item.summaryOriginal && item.sourceUrl).length;
+  note("뉴스원문요약", sourceCount > 0, `${sourceCount}/${output.length}건 원문 메타 확보`);
+  return output;
+}
+
 /* ---------- best-effort EN->KO headline translation (no API key) ---------- */
 let _trCount = 0;
 const TR_CAP = 150;
@@ -1269,6 +1471,19 @@ async function addKoTitles(arr, limit) {
     const ko = await translateKo(item.title);
     const cleanKo = cleanKoNewsText(ko);
     if (cleanKo && cleanKo !== item.title) item.titleKo = cleanKo;
+    _trCount += 1;
+    await sleep(120);
+  }
+}
+
+async function addKoSummaries(arr, limit) {
+  const items = (arr || []).slice(0, limit || (arr || []).length);
+  for (const item of items) {
+    if (_trCount >= TR_CAP) break;
+    if (!item?.summaryOriginal || item.summary) continue;
+    const ko = await translateKo(item.summaryOriginal);
+    const cleanKo = cleanKoNewsText(ko);
+    item.summary = cleanKo || item.summaryOriginal;
     _trCount += 1;
     await sleep(120);
   }
@@ -1338,7 +1553,7 @@ function extractTrending(allNews) {
     .slice(0, 16);
 }
 
-async function collectNews() {
+async function collectNews(previousNews = []) {
   const seen = new Set();
   const categories = [];
   let all = [];
@@ -1374,9 +1589,10 @@ async function collectNews() {
   }
 
   all.sort((a, b) => b.ts - a.ts);
+  const latestNews = await enrichNewsItems(all.slice(0, NEWS_ENRICH_LIMIT), previousNews);
   return {
     categories,
-    news: all.slice(0, 60).map(({ ts, ...rest }) => rest),
+    news: latestNews.map(({ ts, ...rest }) => rest),
     trending: extractTrending(all),
     newsStats: newsStats(all),
     allNews: all,
@@ -1609,11 +1825,21 @@ function buildSignals({ prices, competitors, startups, newsStats: stats }) {
 }
 
 /* ---------- main ---------- */
+async function loadPreviousNews() {
+  try {
+    const previous = JSON.parse(await readFile(OUT, "utf8"));
+    return Array.isArray(previous.news) ? previous.news : [];
+  } catch {
+    return [];
+  }
+}
+
 async function main() {
+  const previousNews = await loadPreviousNews();
   const [prices, stocks, newsPayload, competitors, startups, benchmarkSignals, chinaInfra] = await Promise.all([
     collectPrices(),
     collectStocks(),
-    collectNews(),
+    collectNews(previousNews),
     collectCompetitors(),
     collectStartups(),
     collectBenchmarkSignals(),
@@ -1628,6 +1854,7 @@ async function main() {
   // Best-effort Korean headlines (no API key; English fallback on any failure).
   try {
     await addKoTitles(news, 42);
+    await addKoSummaries(news, 42);
     await addKoTitles(benchmarkSignals.stream, 24);
     for (const competitor of competitors.competitors) await addKoTitles(competitor.recentNews, 2);
     for (const startup of startups.candidates) await addKoTitles(startup.recentNews, 2);
