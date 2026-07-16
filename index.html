@@ -11,7 +11,7 @@
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard/dist/web/static/pretendard.css" />
   <link rel="stylesheet" as="style" crossorigin href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css" />
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@500;700&family=Noto+Sans+KR:wght@400;500;700;800;900&family=Space+Grotesk:wght@500;600;700&display=swap" />
-  <link rel="stylesheet" href="assets/css/styles.css?v=china-community-20260716" />
+  <link rel="stylesheet" href="assets/css/styles.css?v=media-experience-20260717" />
 </head>
 <body>
   <div class="scroll-prog" id="scrollProg" aria-hidden="true"></div>
@@ -61,7 +61,24 @@
       </header>
 
       <main class="main" id="main">
-        <section class="executive-summary" id="overview" aria-label="Executive Summary">
+        <section class="memory-video-hero" id="overview" aria-labelledby="memoryHeroTitle">
+          <video class="memory-hero-video" id="memoryHeroVideo" autoplay muted loop playsinline preload="metadata" poster="assets/media/memory-hero-poster.webp" aria-hidden="true">
+            <source src="assets/media/memory-hero.mp4" type="video/mp4" />
+          </video>
+          <div class="memory-hero-shade" aria-hidden="true"></div>
+          <div class="memory-hero-content">
+            <p class="memory-hero-kicker">Executive memory intelligence</p>
+            <h2 id="memoryHeroTitle">Memory Intelligence</h2>
+            <p>가격·수요·중국 경쟁 신호를 연결해 경영전략과 의사결정의 우선순위를 선명하게 제시합니다.</p>
+            <div class="memory-hero-actions">
+              <button type="button" data-hero-jump="c-level-cockpit">경영진 안건</button>
+              <button type="button" data-hero-jump="prices">가격 추이</button>
+            </div>
+          </div>
+          <button class="memory-hero-toggle" id="memoryHeroToggle" type="button" aria-label="배경 영상 일시정지" title="배경 영상 일시정지"><span aria-hidden="true">Ⅱ</span></button>
+        </section>
+
+        <section class="executive-summary" id="overview-content" aria-label="Executive Summary">
           <div class="exec-layout">
             <section class="exec-brief" id="execBrief"></section>
             <section class="exec-strategy" id="execStrategy"></section>
@@ -177,6 +194,44 @@
             <aside class="investment-focus" id="strategicDecisionFocus"></aside>
           </div>
           <div class="investment-evidence" id="strategicDecisionEvidence"></div>
+        </section>
+
+        <section class="memory-visual-story" id="memory-visual-story" aria-label="메모리 산업 시각화" aria-roledescription="carousel" tabindex="0">
+          <div class="memory-story-viewport">
+            <div class="memory-story-track" id="memoryStoryTrack">
+              <figure class="memory-story-slide active" data-memory-slide="0" aria-hidden="false">
+                <img src="assets/media/memory-fabric.webp" alt="메모리 칩과 데이터 연결망을 표현한 시각화" loading="lazy" decoding="async" />
+                <figcaption>
+                  <span>Memory Fabric</span>
+                  <h2>데이터 경로가 메모리 경쟁력을 결정</h2>
+                  <p>대역폭·지연·패키징을 하나의 시스템 관점으로 연결합니다.</p>
+                </figcaption>
+              </figure>
+              <figure class="memory-story-slide" data-memory-slide="1" aria-hidden="true">
+                <img src="assets/media/hbm-system.webp" alt="GPU와 HBM 적층 구조를 표현한 시각화" loading="lazy" decoding="async" />
+                <figcaption>
+                  <span>HBM System</span>
+                  <h2>제품보다 시스템 병목을 먼저 판단</h2>
+                  <p>베이스 다이·적층·수율·고객 인증을 함께 검토합니다.</p>
+                </figcaption>
+              </figure>
+              <figure class="memory-story-slide" data-memory-slide="2" aria-hidden="true">
+                <img src="assets/media/memory-scale.webp" alt="대규모 메모리 생산 생태계를 표현한 시각화" loading="lazy" decoding="async" />
+                <figcaption>
+                  <span>Memory Scale</span>
+                  <h2>용량 확대는 공급망 실행력의 함수</h2>
+                  <p>장비·소재·전력·인력 신호를 캐파 계획과 교차 확인합니다.</p>
+                </figcaption>
+              </figure>
+            </div>
+          </div>
+          <button class="memory-story-arrow prev" id="memoryStoryPrev" type="button" aria-label="이전 이미지" title="이전 이미지"><span aria-hidden="true">‹</span></button>
+          <button class="memory-story-arrow next" id="memoryStoryNext" type="button" aria-label="다음 이미지" title="다음 이미지"><span aria-hidden="true">›</span></button>
+          <div class="memory-story-controls">
+            <span class="memory-story-count" id="memoryStoryCount">01 / 03</span>
+            <div class="memory-story-dots" id="memoryStoryDots" aria-label="이미지 선택"></div>
+            <button class="memory-story-toggle" id="memoryStoryToggle" type="button" aria-label="자동 전환 일시정지" title="자동 전환 일시정지"><span aria-hidden="true">Ⅱ</span></button>
+          </div>
         </section>
 
         <section class="board policy-board" id="policy-makers">
@@ -594,6 +649,6 @@
   <div class="qa-answer" id="qaAnswer" hidden></div>
   <div class="inspector" id="inspector" hidden></div>
   <div class="backdrop" id="backdrop"></div>
-  <script src="assets/js/app.js?v=china-community-20260716" defer></script>
+  <script src="assets/js/app.js?v=media-experience-20260717" defer></script>
 </body>
 </html>

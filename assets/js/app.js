@@ -2074,7 +2074,158 @@
     }
   }
 
+  function setupMediaExperience() {
+    const video = $("#memoryHeroVideo");
+    const videoToggle = $("#memoryHeroToggle");
+    if (video && videoToggle && videoToggle.dataset.ready !== "1") {
+      videoToggle.dataset.ready = "1";
+      video.muted = true;
+      const syncVideoControl = () => {
+        const paused = video.paused;
+        videoToggle.querySelector("span").textContent = paused ? "▶" : "Ⅱ";
+        videoToggle.setAttribute("aria-label", paused ? "배경 영상 재생" : "배경 영상 일시정지");
+        videoToggle.setAttribute("title", paused ? "배경 영상 재생" : "배경 영상 일시정지");
+      };
+      videoToggle.addEventListener("click", async () => {
+        if (video.paused) {
+          try { await video.play(); } catch { /* The play control remains available. */ }
+        } else {
+          video.pause();
+        }
+        syncVideoControl();
+      });
+      video.addEventListener("play", syncVideoControl);
+      video.addEventListener("pause", syncVideoControl);
+      video.play().catch(syncVideoControl);
+      syncVideoControl();
+    }
+
+    document.querySelectorAll("[data-hero-jump]").forEach((button) => {
+      if (button.dataset.ready === "1") return;
+      button.dataset.ready = "1";
+      button.addEventListener("click", () => jumpTo(button.dataset.heroJump));
+    });
+
+    const story = $("#memory-visual-story");
+    const track = $("#memoryStoryTrack");
+    const slides = story ? Array.from(story.querySelectorAll(".memory-story-slide")) : [];
+    const dots = $("#memoryStoryDots");
+    const count = $("#memoryStoryCount");
+    const prev = $("#memoryStoryPrev");
+    const next = $("#memoryStoryNext");
+    const toggle = $("#memoryStoryToggle");
+    if (!story || !track || !slides.length || !dots || !count || !prev || !next || !toggle || story.dataset.ready === "1") return;
+    story.dataset.ready = "1";
+
+    let activeIndex = 0;
+    let autoTimer = 0;
+    let userPaused = false;
+    let pointerInside = false;
+    let focusInside = false;
+    let pointerStartX = null;
+    const autoDelay = 6500;
+
+    const stopAuto = () => {
+      if (autoTimer) window.clearTimeout(autoTimer);
+      autoTimer = 0;
+    };
+    const canAutoPlay = () => !userPaused && !pointerInside && !focusInside && !document.hidden;
+    const scheduleAuto = () => {
+      stopAuto();
+      if (!canAutoPlay()) return;
+      autoTimer = window.setTimeout(() => {
+        showSlide(activeIndex + 1);
+      }, autoDelay);
+    };
+    const syncStoryToggle = () => {
+      toggle.querySelector("span").textContent = userPaused ? "▶" : "Ⅱ";
+      toggle.setAttribute("aria-label", userPaused ? "자동 전환 재생" : "자동 전환 일시정지");
+      toggle.setAttribute("title", userPaused ? "자동 전환 재생" : "자동 전환 일시정지");
+      toggle.setAttribute("aria-pressed", userPaused ? "true" : "false");
+    };
+    const showSlide = (nextIndex, { restart = true } = {}) => {
+      activeIndex = (Number(nextIndex) + slides.length) % slides.length;
+      track.style.transform = `translate3d(-${activeIndex * 100}%, 0, 0)`;
+      slides.forEach((slide, index) => {
+        const active = index === activeIndex;
+        slide.classList.toggle("active", active);
+        slide.setAttribute("aria-hidden", active ? "false" : "true");
+        const image = slide.querySelector("img");
+        if (active && image) image.loading = "eager";
+      });
+      dots.querySelectorAll("button").forEach((dot, index) => {
+        const active = index === activeIndex;
+        dot.classList.toggle("active", active);
+        dot.setAttribute("aria-current", active ? "true" : "false");
+      });
+      count.textContent = `${String(activeIndex + 1).padStart(2, "0")} / ${String(slides.length).padStart(2, "0")}`;
+      if (restart) scheduleAuto();
+    };
+
+    slides.forEach((_, index) => {
+      const dot = document.createElement("button");
+      dot.type = "button";
+      dot.setAttribute("aria-label", `${index + 1}번 이미지 보기`);
+      dot.addEventListener("click", () => showSlide(index));
+      dots.appendChild(dot);
+    });
+    prev.addEventListener("click", () => showSlide(activeIndex - 1));
+    next.addEventListener("click", () => showSlide(activeIndex + 1));
+    toggle.addEventListener("click", () => {
+      userPaused = !userPaused;
+      syncStoryToggle();
+      scheduleAuto();
+    });
+    story.addEventListener("pointerenter", () => {
+      pointerInside = true;
+      stopAuto();
+    });
+    story.addEventListener("pointerleave", () => {
+      pointerInside = false;
+      scheduleAuto();
+    });
+    story.addEventListener("focusin", () => {
+      focusInside = true;
+      stopAuto();
+    });
+    story.addEventListener("focusout", (event) => {
+      if (story.contains(event.relatedTarget)) return;
+      focusInside = false;
+      scheduleAuto();
+    });
+    story.addEventListener("keydown", (event) => {
+      if (event.key === "ArrowLeft") {
+        event.preventDefault();
+        showSlide(activeIndex - 1);
+      } else if (event.key === "ArrowRight") {
+        event.preventDefault();
+        showSlide(activeIndex + 1);
+      } else if (event.key === " " && event.target === story) {
+        event.preventDefault();
+        userPaused = !userPaused;
+        syncStoryToggle();
+        scheduleAuto();
+      }
+    });
+    story.addEventListener("pointerdown", (event) => {
+      if (event.pointerType === "mouse") return;
+      pointerStartX = event.clientX;
+    }, { passive: true });
+    story.addEventListener("pointerup", (event) => {
+      if (pointerStartX == null) return;
+      const delta = event.clientX - pointerStartX;
+      pointerStartX = null;
+      if (Math.abs(delta) < 45) return;
+      showSlide(activeIndex + (delta < 0 ? 1 : -1));
+    }, { passive: true });
+    document.addEventListener("visibilitychange", scheduleAuto);
+    window.addEventListener("pagehide", stopAuto, { once: true });
+    syncStoryToggle();
+    showSlide(0);
+  }
+
   async function init() {
+    setupMediaExperience();
     [BASE, LIVE, HISTORY, MARKET_HISTORY] = await Promise.all([
       loadJSON("data/baseline.json", null),
       loadJSON("data/live.json", emptyLive),
@@ -4403,10 +4554,10 @@
     const agentItems = cLevelAgentItems(selectedDecision, decisions, councilScenario).filter((agent) => strategicAgentIds.has(agent.id));
     const conclusion = cLevelCouncilConclusion(selectedDecision, councilScenario);
     const selectedProfile = cLevelDecisionProfile(selectedDecision);
-    const rosterStepDelay = 120;
-    const chatStartDelay = agentItems.length * rosterStepDelay + 720;
-    const councilStepDelay = 820;
-    const councilConclusionDelay = chatStartDelay + agentItems.length * councilStepDelay + 760;
+    const rosterStepDelay = AGENT_DEBATE_TIMING.rosterStepMs;
+    const chatStartDelay = agentItems.length * rosterStepDelay + AGENT_DEBATE_TIMING.rosterSettleMs;
+    const councilStepDelay = AGENT_DEBATE_TIMING.turnGapMs;
+    const councilConclusionDelay = chatStartDelay + agentItems.length * councilStepDelay + AGENT_DEBATE_TIMING.conclusionDelayMs;
     agents.innerHTML = `
       <div class="agent-debate c-level-agent-debate" style="--local-accent:${categoryAccent(selectedDecision?.category || "hbm")}">
         <div class="agent-debate-title">
@@ -4519,6 +4670,18 @@
 
   // Per-debate run state (token + timers) so multiple councils animate independently.
   const debateRunStates = new WeakMap();
+  // One immutable cadence for every agent surface. Board-specific renderers must not
+  // override this sequence: roster first, then one slowly typed turn at a time.
+  const AGENT_DEBATE_TIMING = Object.freeze({
+    rosterStepMs: 320,
+    rosterSettleMs: 1080,
+    speakerLeadMs: 420,
+    charMs: 48,
+    commaPauseMs: 90,
+    sentencePauseMs: 220,
+    turnGapMs: 980,
+    conclusionDelayMs: 760,
+  });
   const AGENT_TTS_STORAGE_KEY = "memory-agent-tts";
   const AGENT_TTS_PROFILES = [
     { match: /ceo|chief executive|최종 의사결정|우선순위/i, pitch: 0.82, rate: 0.92, volume: 1 },
@@ -4716,7 +4879,10 @@
     activeAgentDebateChat = chat;
     stopAgentSpeech();
     ensureAgentTtsControl(container);
-    if (container) container.classList.add("is-live-debate");
+    if (container) {
+      container.classList.add("is-live-debate");
+      container.dataset.agentCadence = "locked";
+    }
     chat.classList.add("js-debate");
     chat.setAttribute("aria-live", "polite");
     chat.dataset.debateLive = "1";
@@ -4760,22 +4926,6 @@
       if (p && p.dataset.say == null) p.dataset.say = p.textContent;
     });
 
-    const reduceMotion = window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-    if (reduceMotion) {
-      turns.forEach((turn) => {
-        turn.classList.remove("pending");
-        turn.classList.add("done");
-        const p = turn.querySelector("p");
-        if (p) p.innerHTML = p.dataset.rich || escapeReadableHTML(p.dataset.say || "");
-      });
-      avatars.forEach((card) => {
-        card.classList.remove("pending", "speaking", "next");
-        card.classList.add("done");
-      });
-      if (conclusion) conclusion.classList.remove("pending", "reveal");
-      return;
-    }
-
     // Reset to a clean pre-run state so re-running restarts the whole exchange.
     turns.forEach((turn) => {
       turn.classList.add("pending");
@@ -4792,25 +4942,27 @@
     const typeMessage = (p, done) => {
       const text = p ? p.dataset.say || "" : "";
       if (!p || !text) { done(); return; }
-      // Keep every council on the same deliberate cadence: roster first, then one speaker at a time.
-      const totalMs = Math.max(2400, Math.min(5200, text.length * 30));
-      const step = text.length > 150 ? 2 : 1;
-      const tick = Math.max(24, Math.round(totalMs / Math.ceil(text.length / step)));
       let shown = 0;
       const advance = () => {
         if (!alive()) return;
-        shown = Math.min(text.length, shown + step);
+        shown = Math.min(text.length, shown + 1);
         p.textContent = text.slice(0, shown);
         if (shown >= text.length) { done(); return; }
-        schedule(advance, tick);
+        const typedChar = text.charAt(shown - 1);
+        const punctuationPause = /[.!?。！？]/.test(typedChar)
+          ? AGENT_DEBATE_TIMING.sentencePauseMs
+          : /[,;:，、]/.test(typedChar)
+            ? AGENT_DEBATE_TIMING.commaPauseMs
+            : 0;
+        schedule(advance, AGENT_DEBATE_TIMING.charMs + punctuationPause);
       };
-      advance();
+      schedule(advance, AGENT_DEBATE_TIMING.speakerLeadMs);
     };
 
     const speak = (i) => {
       if (!alive()) return;
       if (i >= turns.length) {
-        if (conclusion) schedule(() => { if (alive()) conclusion.classList.remove("pending"); }, 260);
+        if (conclusion) schedule(() => { if (alive()) conclusion.classList.remove("pending"); }, AGENT_DEBATE_TIMING.conclusionDelayMs);
         return;
       }
       const turn = turns[i];
@@ -4831,7 +4983,7 @@
         turn.classList.add("done");
         turn.querySelector(".speech-bubble")?.classList.remove("live");
         setCard(turnName(turn), "done");
-        schedule(() => speak(i + 1), 720);
+        schedule(() => speak(i + 1), AGENT_DEBATE_TIMING.turnGapMs);
       };
       typeMessage(p, () => {
         if (!alive()) return;
@@ -4847,7 +4999,7 @@
       }
     };
 
-    const rosterStepMs = 230;
+    const rosterStepMs = AGENT_DEBATE_TIMING.rosterStepMs;
     avatars.forEach((card, index) => {
       schedule(() => {
         if (!alive()) return;
@@ -4855,7 +5007,7 @@
         card.classList.add("next");
       }, index * rosterStepMs);
     });
-    schedule(() => speak(0), avatars.length * rosterStepMs + 720);
+    schedule(() => speak(0), avatars.length * rosterStepMs + AGENT_DEBATE_TIMING.rosterSettleMs);
   }
 
   function memoryMarketNodes() {
@@ -7681,9 +7833,9 @@
         });
       }
     });
-    const rosterStepDelay = 100;
-    const chatStartDelay = agents.length * rosterStepDelay + 620;
-    const chatStepDelay = 620;
+    const rosterStepDelay = AGENT_DEBATE_TIMING.rosterStepMs;
+    const chatStartDelay = agents.length * rosterStepDelay + AGENT_DEBATE_TIMING.rosterSettleMs;
+    const chatStepDelay = AGENT_DEBATE_TIMING.turnGapMs;
 
     return `
       <div class="agent-debate agent-debate-${escapeHTML(mode)}" style="--local-accent:${escapeHTML(accent || colors[0])}">
@@ -8226,10 +8378,10 @@
     const agentItems = executiveDecisionAgentItems(active, selectedYearOption, productLabel, selectedIso, selectedSeriesCount, scenario);
     const conclusion = executiveDecisionCouncilConclusion(active, selectedYearOption, selectedIso, scenario);
     const profile = executiveDecisionProfile(active, selectedYearOption, productLabel);
-    const rosterStepDelay = 120;
-    const chatStartDelay = agentItems.length * rosterStepDelay + 720;
-    const councilStepDelay = 820;
-    const councilConclusionDelay = chatStartDelay + agentItems.length * councilStepDelay + 760;
+    const rosterStepDelay = AGENT_DEBATE_TIMING.rosterStepMs;
+    const chatStartDelay = agentItems.length * rosterStepDelay + AGENT_DEBATE_TIMING.rosterSettleMs;
+    const councilStepDelay = AGENT_DEBATE_TIMING.turnGapMs;
+    const councilConclusionDelay = chatStartDelay + agentItems.length * councilStepDelay + AGENT_DEBATE_TIMING.conclusionDelayMs;
     return `
       <div class="agent-debate agent-debate-decision decision-agent-council" style="--local-accent:${escapeHTML(accent)}">
         <div class="agent-debate-title">
