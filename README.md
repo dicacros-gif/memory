@@ -41,8 +41,15 @@
 | `data/live.json` | daily crawler가 갱신하는 가격·뉴스 데이터 |
 | `data/price-history.json` | TrendForce 가격 이력 |
 | `data/market-history.json` | SOX 등 시장지수 장기 이력 |
+| `data/crawl-exclusions.json` | 재수집·재노출을 막는 기사·현장 신호·가격 품목 식별 키 |
 | `scripts/crawl.mjs` | TrendForce 가격, 외신 뉴스, 경쟁사 신호 수집 |
 | `.github/workflows/pages.yml` | GitHub Actions 배포 |
+
+## 수집 제외
+
+기사 카드, 중국 현장 신호 카드, 가격 행에 마우스를 올리면 `×`가 나타납니다. 확인 비밀번호 입력 후 삭제하면 브라우저의 차단 목록에 URL·제목·품목 식별 키가 저장되어 다음 데이터 갱신에도 다시 표시되지 않습니다.
+
+정적 GitHub Pages는 저장소를 직접 수정할 수 없으므로 전체 사용자와 daily crawler에 공통 적용할 항목은 같은 식별 키를 `data/crawl-exclusions.json`에 추가합니다. 크롤러는 뉴스, 경쟁사 레이더, 벤치마킹, 중국 현장 신호, 가격 표를 만들기 전에 이 파일을 읽어 제외합니다.
 
 ## 로컬 실행
 

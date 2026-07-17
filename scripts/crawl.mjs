@@ -14,6 +14,7 @@ const __dirname = dirname(fileURLToPath(import.meta.url));
 const OUT = resolve(__dirname, "..", "data", "live.json");
 const HISTORY_OUT = resolve(__dirname, "..", "data", "price-history.json");
 const MARKET_HISTORY_OUT = resolve(__dirname, "..", "data", "market-history.json");
+const CRAWL_EXCLUSIONS_OUT = resolve(__dirname, "..", "data", "crawl-exclusions.json");
 const TRENDFORCE_ORIGIN = "https://www.trendforce.com";
 const PRICE_HISTORY_LOOKBACK_DAYS = 365 * 5;
 const PRICE_HISTORY_RETENTION_POINTS = 365 * 5 + 60;
@@ -28,6 +29,78 @@ const BROWSER_UA =
   "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124.0.0.0 Safari/537.36";
 
 const sleep = (ms) => new Promise((resolveSleep) => setTimeout(resolveSleep, ms));
+let crawlExclusionKeys = new Set();
+
+function normalizeCrawlExclusionUrl(value = "") {
+  const raw = String(value || "").trim();
+  if (!raw) return "";
+  try {
+    const parsed = new URL(raw);
+    parsed.hash = "";
+    for (const key of ["utm_source", "utm_medium", "utm_campaign", "utm_term", "utm_content"]) {
+      parsed.searchParams.delete(key);
+    }
+    return parsed.toString().replace(/\/$/, "").toLowerCase();
+  } catch {
+    return raw.replace(/#.*$/, "").replace(/\/$/, "").toLowerCase();
+  }
+}
+
+function normalizeCrawlExclusionText(value = "") {
+  return String(value || "")
+    .toLowerCase()
+    .replace(/[^a-z0-9가-힣一-鿿]+/g, " ")
+    .replace(/\s+/g, " ")
+    .trim()
+    .slice(0, 180);
+}
+
+function crawlModerationKeys(type = "data", item = {}) {
+  const prefix = String(type || "data").toLowerCase();
+  const keys = [];
+  const add = (kind, value) => {
+    const clean = String(value || "").trim();
+    if (clean) keys.push(`${prefix}:${kind}:${clean}`);
+  };
+
+  if (prefix === "price") {
+    add("history", item.historyKey);
+    const signature = [item.sectionTitle || item.group, item.item]
+      .map(normalizeCrawlExclusionText)
+      .filter(Boolean)
+      .join("|");
+    add("item", signature);
+  } else {
+    [item.sourceUrl, item.link, item.url].forEach((value) => add("url", normalizeCrawlExclusionUrl(value)));
+    add("id", normalizeCrawlExclusionText(item.id));
+    const signature = [item.title || item.titleKo, item.source || item.platform]
+      .map(normalizeCrawlExclusionText)
+      .filter(Boolean)
+      .join("|");
+    add("title", signature);
+  }
+  return Array.from(new Set(keys));
+}
+
+function isCrawlerExcluded(type, item = {}) {
+  return crawlModerationKeys(type, item).some((key) => crawlExclusionKeys.has(key));
+}
+
+async function loadCrawlExclusions() {
+  try {
+    const parsed = JSON.parse(await readFile(CRAWL_EXCLUSIONS_OUT, "utf8"));
+    const records = Array.isArray(parsed) ? parsed : (Array.isArray(parsed?.items) ? parsed.items : []);
+    crawlExclusionKeys = new Set(records.flatMap((record) => {
+      if (typeof record === "string") return [record];
+      if (Array.isArray(record?.keys)) return record.keys;
+      return record?.key ? [record.key] : [];
+    }).map((key) => String(key || "").trim()).filter(Boolean));
+    console.log(`크롤 제외 목록: ${crawlExclusionKeys.size}개 식별 키`);
+  } catch (error) {
+    crawlExclusionKeys = new Set();
+    console.log(`크롤 제외 목록 없음: ${error.message}`);
+  }
+}
 
 const TICKERS = [
   { id: "samsung", label: "삼성전자", symbol: "005930.KS" },
@@ -985,9 +1058,17 @@ async function collectPrices() {
     for (const row of section.rows) {
       row.historyKey = priceHistoryKey(section, row);
     }
+    section.rows = section.rows.filter((row) => !isCrawlerExcluded("price", {
+      ...row,
+      sectionTitle: section.title,
+      group: section.group,
+      sourceUrl: section.sourceUrl,
+    }));
   }
 
-  const watchedItems = sections.flatMap((section) =>
+  const activeSections = sections.filter((section) => section.rows.length > 0);
+
+  const watchedItems = activeSections.flatMap((section) =>
     section.rows.slice(0, 4).map((row) => ({
       historyKey: row.historyKey,
       sectionId: section.id,
@@ -1010,7 +1091,7 @@ async function collectPrices() {
   return {
     updatedAt: new Date().toISOString(),
     source: "TrendForce Price Trends / DRAMeXchange public tables",
-    sections,
+    sections: activeSections,
     watchedItems,
   };
 }
@@ -1707,7 +1788,7 @@ async function collectNews(previousNews = []) {
   let all = [];
 
   for (const cat of CATEGORIES) {
-    const items = await fetchCategory(cat, seen);
+    const items = (await fetchCategory(cat, seen)).filter((item) => !isCrawlerExcluded("news", item));
     all = all.concat(items);
     if (!items.length) continue;
     categories.push({
@@ -1719,7 +1800,7 @@ async function collectNews(previousNews = []) {
   }
 
   for (const cat of CHINESE_CATEGORIES) {
-    const items = await fetchCategory(cat, seen, "zh");
+    const items = (await fetchCategory(cat, seen, "zh")).filter((item) => !isCrawlerExcluded("news", item));
     all = all.concat(items);
     if (!items.length) continue;
     const existing = categories.find((entry) => entry.id === cat.id);
@@ -1737,7 +1818,8 @@ async function collectNews(previousNews = []) {
   }
 
   all.sort((a, b) => b.ts - a.ts);
-  const latestNews = await enrichNewsItems(all.slice(0, NEWS_ENRICH_LIMIT), previousNews);
+  const latestNews = (await enrichNewsItems(all.slice(0, NEWS_ENRICH_LIMIT), previousNews))
+    .filter((item) => !isCrawlerExcluded("news", item));
   return {
     categories,
     news: latestNews.map(({ ts, ...rest }) => rest),
@@ -2014,6 +2096,7 @@ async function collectCommunitySignals(previousItems = []) {
 
   const retentionCutoff = Date.now() - COMMUNITY_RETENTION_DAYS * 864e5;
   const items = Array.from(byKey.values())
+    .filter((item) => !isCrawlerExcluded("community", item))
     .filter((item) => !item.ts || item.ts >= retentionCutoff || item.importance >= 70)
     .sort((a, b) => Number(b.ts || 0) - Number(a.ts || 0) || Number(b.score || 0) - Number(a.score || 0))
     .slice(0, COMMUNITY_MAX_ITEMS);
@@ -2058,6 +2141,7 @@ async function collectEntityItems(entity) {
     try {
       const queryItems = await fetchGoogleNews(query, entity.id);
       for (const item of queryItems) {
+        if (isCrawlerExcluded("news", item)) continue;
         const key = item.title.replace(/\s+/g, " ").toLowerCase();
         if (seen.has(key)) continue;
         seen.add(key);
@@ -2146,6 +2230,7 @@ async function collectBenchmarkSignals() {
       try {
         const queryItems = await fetchGoogleNews(query, theme.id);
         for (const item of queryItems) {
+          if (isCrawlerExcluded("news", item)) continue;
           const key = canonicalNewsKey(item);
           if (seen.has(key)) continue;
           seen.add(key);
@@ -2566,6 +2651,7 @@ function buildIntelligence({ news = [], prices = {}, stats = {}, chinaInfra = {}
 }
 
 async function main() {
+  await loadCrawlExclusions();
   const previous = await loadPreviousData();
   const [prices, stocks, newsPayload, communitySignals, competitors, startups, benchmarkSignals, chinaInfra] = await Promise.all([
     collectPrices(),

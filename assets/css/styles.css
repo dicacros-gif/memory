@@ -10186,6 +10186,12 @@ body.sidebar-collapsed .sb-ico {
   font-weight: 650;
 }
 
+.price-table td.crawl-remove-host {
+  position: relative;
+  min-width: 74px;
+  padding-right: 42px;
+}
+
 .price-main {
   display: block;
   font-weight: 850;
@@ -10349,6 +10355,7 @@ body.sidebar-collapsed .sb-ico {
 
 .news-card {
   --news-accent: var(--local-accent, var(--accent));
+  position: relative;
   display: flex;
   flex-direction: column;
   width: 100%;
@@ -12365,6 +12372,256 @@ body.sidebar-collapsed .sb-ico {
 .news-card:focus-within .news-evidence {
   color: currentColor;
   border-color: currentColor;
+}
+
+/* Password-gated exclusions for live crawl items. */
+.crawl-moderatable,
+.crawl-remove-host {
+  --crawl-remove-y: 0%;
+}
+
+.crawl-remove-host {
+  position: relative;
+}
+
+.price-table td.crawl-remove-host {
+  --crawl-remove-y: -50%;
+}
+
+.crawl-remove-button {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  z-index: 8;
+  display: inline-grid;
+  width: 30px;
+  height: 30px;
+  place-items: center;
+  border: 1px solid color-mix(in srgb, var(--ink) 28%, transparent);
+  border-radius: 50%;
+  background: color-mix(in srgb, var(--panel) 54%, transparent);
+  color: color-mix(in srgb, var(--ink) 76%, transparent);
+  box-shadow: 0 8px 22px rgba(15, 23, 42, .12);
+  opacity: 0;
+  transform: translateY(var(--crawl-remove-y)) scale(.78);
+  backdrop-filter: blur(9px);
+  cursor: pointer;
+  transition: opacity .16s ease, transform .16s ease, color .16s ease, background .16s ease, border-color .16s ease;
+}
+
+.price-table .crawl-remove-button {
+  top: 50%;
+  right: 8px;
+}
+
+.crawl-remove-button span {
+  font-size: 20px;
+  font-weight: 500;
+  line-height: 1;
+  transform: translateY(-1px);
+}
+
+.crawl-moderatable:hover .crawl-remove-button,
+.crawl-moderatable:focus-within .crawl-remove-button,
+.crawl-remove-button:focus-visible {
+  opacity: .68;
+  transform: translateY(var(--crawl-remove-y)) scale(1);
+}
+
+.crawl-remove-button:hover,
+.crawl-remove-button:focus-visible {
+  border-color: #fff;
+  background: #111827;
+  color: #fff;
+  opacity: 1;
+  outline: 2px solid color-mix(in srgb, var(--accent) 55%, transparent);
+  outline-offset: 2px;
+}
+
+.crawl-removing {
+  opacity: 0 !important;
+  transform: translateY(-7px) scale(.985) !important;
+  pointer-events: none;
+  transition: opacity .2s ease, transform .2s ease !important;
+}
+
+body.crawl-moderation-open {
+  overflow: hidden;
+}
+
+.crawl-moderation-dialog {
+  position: fixed;
+  inset: 0;
+  z-index: 4000;
+  display: grid;
+  place-items: center;
+  padding: 22px;
+  background: rgba(5, 10, 22, .68);
+  backdrop-filter: blur(12px);
+}
+
+.crawl-moderation-dialog[hidden] {
+  display: none;
+}
+
+.crawl-moderation-panel {
+  width: min(430px, 100%);
+  border: 1px solid color-mix(in srgb, var(--accent) 46%, var(--line));
+  border-radius: 10px;
+  background: color-mix(in srgb, var(--panel) 94%, #071120);
+  color: var(--ink);
+  padding: 22px;
+  box-shadow: 0 28px 90px rgba(0, 0, 0, .36);
+  animation: crawl-dialog-in .2s ease both;
+}
+
+.crawl-moderation-head {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.crawl-moderation-head > span {
+  display: grid;
+  width: 38px;
+  height: 38px;
+  place-items: center;
+  border-radius: 50%;
+  background: color-mix(in srgb, var(--accent) 16%, transparent);
+  color: var(--accent);
+  font-size: 26px;
+}
+
+.crawl-moderation-head div {
+  display: grid;
+  gap: 2px;
+}
+
+.crawl-moderation-head small {
+  color: var(--accent);
+  font-family: "JetBrains Mono", monospace;
+  font-size: 9px;
+  font-weight: 800;
+  letter-spacing: .08em;
+}
+
+.crawl-moderation-head strong {
+  font-size: 19px;
+}
+
+.crawl-moderation-panel p {
+  margin: 16px 0;
+  color: var(--muted);
+  font-size: 13px;
+  line-height: 1.6;
+}
+
+.crawl-moderation-panel label {
+  display: block;
+  margin-bottom: 7px;
+  font-size: 11px;
+  font-weight: 850;
+}
+
+.crawl-moderation-panel input {
+  width: 100%;
+  height: 46px;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  background: var(--panel-2);
+  color: var(--ink);
+  padding: 0 14px;
+  font: 800 20px/1 "JetBrains Mono", monospace;
+  letter-spacing: .32em;
+  outline: 0;
+}
+
+.crawl-moderation-panel input:focus {
+  border-color: var(--accent);
+  box-shadow: 0 0 0 3px color-mix(in srgb, var(--accent) 18%, transparent);
+}
+
+.crawl-moderation-panel em {
+  display: block;
+  min-height: 18px;
+  margin-top: 6px;
+  color: #ef4444;
+  font-size: 11px;
+  font-style: normal;
+  font-weight: 800;
+}
+
+.crawl-moderation-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 8px;
+  margin-top: 8px;
+}
+
+.crawl-moderation-actions button {
+  min-height: 38px;
+  border: 1px solid var(--line);
+  border-radius: 7px;
+  background: var(--panel-2);
+  color: var(--ink);
+  padding: 0 16px;
+  font: inherit;
+  font-size: 12px;
+  font-weight: 850;
+  cursor: pointer;
+}
+
+.crawl-moderation-actions button[type="submit"] {
+  border-color: var(--accent);
+  background: var(--accent);
+  color: #fff;
+}
+
+.crawl-moderation-toast {
+  position: fixed;
+  right: 22px;
+  bottom: 22px;
+  z-index: 4100;
+  max-width: min(420px, calc(100vw - 44px));
+  border: 1px solid color-mix(in srgb, var(--accent) 45%, var(--line));
+  border-radius: 8px;
+  background: #111827;
+  color: #fff;
+  padding: 12px 15px;
+  box-shadow: 0 18px 48px rgba(0, 0, 0, .28);
+  font-size: 12px;
+  font-weight: 800;
+  opacity: 0;
+  transform: translateY(12px);
+  pointer-events: none;
+  transition: opacity .2s ease, transform .2s ease;
+}
+
+.crawl-moderation-toast.show {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+@keyframes crawl-dialog-in {
+  from { opacity: 0; transform: translateY(10px) scale(.98); }
+  to { opacity: 1; transform: translateY(0) scale(1); }
+}
+
+@media (hover: none), (pointer: coarse) {
+  .crawl-remove-button {
+    opacity: .52;
+    transform: translateY(var(--crawl-remove-y)) scale(.92);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .crawl-remove-button,
+  .crawl-removing,
+  .crawl-moderation-panel,
+  .crawl-moderation-toast {
+    animation: none !important;
+    transition-duration: .01ms !important;
+  }
 }
 
 @media (max-width: 720px) {

@@ -16,6 +16,7 @@ const textFiles = [
   "assets/js/app.js",
   "data/baseline.json",
   "data/live.json",
+  "data/crawl-exclusions.json",
 ];
 
 const checks = [];
@@ -65,6 +66,25 @@ for (const file of textFiles) {
 }
 
 const baseline = JSON.parse(await readFile(resolve(root, "data/baseline.json"), "utf8"));
+const crawlExclusions = JSON.parse(await readFile(resolve(root, "data/crawl-exclusions.json"), "utf8"));
+const crawlExclusionItems = Array.isArray(crawlExclusions) ? crawlExclusions : crawlExclusions.items;
+if (!Array.isArray(crawlExclusionItems)) {
+  addIssue("error", "data/crawl-exclusions.json", "crawl exclusion items must be an array");
+} else {
+  const exclusionKeys = new Set();
+  for (const record of crawlExclusionItems) {
+    const keys = typeof record === "string" ? [record] : (Array.isArray(record?.keys) ? record.keys : [record?.key]);
+    const cleanKeys = keys.map((key) => String(key || "").trim()).filter(Boolean);
+    if (!cleanKeys.length) addIssue("error", "data/crawl-exclusions.json", "crawl exclusion record has no key", JSON.stringify(record));
+    for (const key of cleanKeys) {
+      if (!/^(?:news|community|price):(?:url|id|title|history|item):/.test(key)) {
+        addIssue("error", "data/crawl-exclusions.json", "crawl exclusion key has an invalid format", key);
+      }
+      if (exclusionKeys.has(key)) addIssue("error", "data/crawl-exclusions.json", "duplicate crawl exclusion key", key);
+      exclusionKeys.add(key);
+    }
+  }
+}
 const baselineText = await readFile(resolve(root, "data/baseline.json"), "utf8");
 const appText = await readFile(resolve(root, "assets/js/app.js"), "utf8");
 for (const phrase of ["기존 SKHY 전망의 약 $975B", "60~70% 배분", "MATCH Act 위원회 표결 44:0"]) {

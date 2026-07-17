@@ -33,6 +33,13 @@
     timezone: "Asia/Seoul",
     indexes: {},
   };
+  const emptyCrawlExclusions = {
+    version: 1,
+    updatedAt: null,
+    items: [],
+  };
+  const CRAWL_EXCLUSION_STORAGE_KEY = "memory-crawl-exclusions-v1";
+  const ADMIN_DELETE_PASSWORD = "000";
 
   const KOREAN_SOURCE_RE = new RegExp(
     [
@@ -2003,6 +2010,9 @@
   let LIVE = emptyLive;
   let HISTORY = emptyHistory;
   let MARKET_HISTORY = emptyMarketHistory;
+  let REPO_CRAWL_EXCLUSIONS = emptyCrawlExclusions;
+  let localCrawlExclusions = [];
+  let crawlExclusionKeys = new Set();
   let activeCategory = "all";
   let categoryRenderToken = 0;
   let categoryRenderFrame = 0;
@@ -2072,6 +2082,212 @@
       console.warn(error.message);
       return fallback;
     }
+  }
+
+  function normalizeCrawlExclusionUrl(value = "") {
+    const raw = String(value || "").trim();
+    if (!raw) return "";
+    try {
+      const parsed = new URL(raw, window.location.href);
+      parsed.hash = "";
+      ["utm_source", "utm_medium", "utm_campaign", "utm_term", "utm_content"].forEach((key) => parsed.searchParams.delete(key));
+      return parsed.toString().replace(/\/$/, "").toLowerCase();
+    } catch {
+      return raw.replace(/#.*$/, "").replace(/\/$/, "").toLowerCase();
+    }
+  }
+
+  function normalizeCrawlExclusionText(value = "") {
+    return String(value || "")
+      .toLowerCase()
+      .replace(/[^a-z0-9가-힣一-鿿]+/g, " ")
+      .replace(/\s+/g, " ")
+      .trim()
+      .slice(0, 180);
+  }
+
+  function crawlModerationKeys(type = "data", item = {}) {
+    const prefix = String(type || "data").toLowerCase();
+    const keys = [];
+    const add = (kind, value) => {
+      const clean = String(value || "").trim();
+      if (clean) keys.push(`${prefix}:${kind}:${clean}`);
+    };
+
+    if (prefix === "price") {
+      add("history", item.historyKey);
+      const signature = [item.sectionTitle || item.group, item.item]
+        .map(normalizeCrawlExclusionText)
+        .filter(Boolean)
+        .join("|");
+      add("item", signature);
+    } else {
+      [item.sourceUrl, item.link, item.url].forEach((value) => add("url", normalizeCrawlExclusionUrl(value)));
+      add("id", normalizeCrawlExclusionText(item.id));
+      const signature = [item.title || item.titleKo, item.source || item.platform]
+        .map(normalizeCrawlExclusionText)
+        .filter(Boolean)
+        .join("|");
+      add("title", signature);
+    }
+    return Array.from(new Set(keys));
+  }
+
+  function crawlExclusionRecords(payload = {}) {
+    if (Array.isArray(payload)) return payload;
+    return Array.isArray(payload?.items) ? payload.items : [];
+  }
+
+  function loadLocalCrawlExclusions() {
+    try {
+      const parsed = JSON.parse(window.localStorage.getItem(CRAWL_EXCLUSION_STORAGE_KEY) || "[]");
+      return Array.isArray(parsed) ? parsed : [];
+    } catch {
+      return [];
+    }
+  }
+
+  function refreshCrawlExclusionKeys() {
+    localCrawlExclusions = loadLocalCrawlExclusions();
+    const records = crawlExclusionRecords(REPO_CRAWL_EXCLUSIONS).concat(localCrawlExclusions);
+    crawlExclusionKeys = new Set(records.flatMap((record) => {
+      if (typeof record === "string") return [record];
+      if (Array.isArray(record?.keys)) return record.keys;
+      return record?.key ? [record.key] : [];
+    }).map((key) => String(key || "").trim()).filter(Boolean));
+  }
+
+  function isCrawlExcluded(type, item = {}) {
+    return crawlModerationKeys(type, item).some((key) => crawlExclusionKeys.has(key));
+  }
+
+  function saveLocalCrawlExclusion(type, item = {}, label = "") {
+    const keys = crawlModerationKeys(type, item);
+    if (!keys.length) return false;
+    const records = loadLocalCrawlExclusions().filter((record) => !Array.isArray(record?.keys) || !record.keys.some((key) => keys.includes(key)));
+    records.push({
+      type,
+      keys,
+      label: String(label || item.titleKo || item.title || item.item || item.id || "수집 항목").slice(0, 180),
+      sourceUrl: String(item.sourceUrl || item.link || item.url || ""),
+      blockedAt: new Date().toISOString(),
+    });
+    try {
+      window.localStorage.setItem(CRAWL_EXCLUSION_STORAGE_KEY, JSON.stringify(records));
+    } catch {
+      return false;
+    }
+    refreshCrawlExclusionKeys();
+    return true;
+  }
+
+  function ensureCrawlModerationDialog() {
+    let overlay = $("#crawlModerationDialog");
+    if (overlay) return overlay;
+    overlay = el("div", "crawl-moderation-dialog");
+    overlay.id = "crawlModerationDialog";
+    overlay.hidden = true;
+    overlay.innerHTML = `
+      <form class="crawl-moderation-panel" role="dialog" aria-modal="true" aria-labelledby="crawlModerationTitle">
+        <div class="crawl-moderation-head">
+          <span aria-hidden="true">×</span>
+          <div>
+            <small>ADMIN EXCLUSION</small>
+            <strong id="crawlModerationTitle">수집 항목 삭제</strong>
+          </div>
+        </div>
+        <p id="crawlModerationLabel"></p>
+        <label for="crawlModerationPassword">관리자 비밀번호</label>
+        <input id="crawlModerationPassword" type="password" inputmode="numeric" maxlength="3" autocomplete="off" placeholder="•••" />
+        <em id="crawlModerationError" aria-live="polite"></em>
+        <div class="crawl-moderation-actions">
+          <button type="button" data-crawl-cancel>취소</button>
+          <button type="submit">삭제</button>
+        </div>
+      </form>
+    `;
+    document.body.appendChild(overlay);
+    return overlay;
+  }
+
+  function requestCrawlModerationPassword(label = "") {
+    const overlay = ensureCrawlModerationDialog();
+    const form = overlay.querySelector("form");
+    const input = overlay.querySelector("input");
+    const error = $("#crawlModerationError", overlay);
+    const labelNode = $("#crawlModerationLabel", overlay);
+    labelNode.textContent = `${String(label || "선택 항목").slice(0, 90)} · 이 브라우저의 이후 갱신 결과에서도 제외됩니다.`;
+    input.value = "";
+    error.textContent = "";
+    overlay.hidden = false;
+    document.body.classList.add("crawl-moderation-open");
+
+    return new Promise((resolve) => {
+      const finish = (approved) => {
+        overlay.hidden = true;
+        document.body.classList.remove("crawl-moderation-open");
+        form.onsubmit = null;
+        overlay.onclick = null;
+        overlay.querySelector("[data-crawl-cancel]").onclick = null;
+        resolve(approved);
+      };
+      form.onsubmit = (event) => {
+        event.preventDefault();
+        if (input.value !== ADMIN_DELETE_PASSWORD) {
+          input.value = "";
+          error.textContent = "비밀번호가 맞지 않습니다.";
+          input.focus();
+          return;
+        }
+        finish(true);
+      };
+      overlay.querySelector("[data-crawl-cancel]").onclick = () => finish(false);
+      overlay.onclick = (event) => {
+        if (event.target === overlay) finish(false);
+      };
+      window.setTimeout(() => input.focus(), 30);
+    });
+  }
+
+  function showCrawlModerationToast(message) {
+    let toast = $("#crawlModerationToast");
+    if (!toast) {
+      toast = el("div", "crawl-moderation-toast");
+      toast.id = "crawlModerationToast";
+      toast.setAttribute("role", "status");
+      document.body.appendChild(toast);
+    }
+    toast.textContent = message;
+    toast.classList.remove("show");
+    window.requestAnimationFrame(() => toast.classList.add("show"));
+    window.clearTimeout(Number(toast.dataset.timer || 0));
+    toast.dataset.timer = String(window.setTimeout(() => toast.classList.remove("show"), 2800));
+  }
+
+  function attachCrawlModerationControl(container, type, item, label, rerender, controlHost = container) {
+    if (!container || isCrawlExcluded(type, item)) return;
+    container.classList.add("crawl-moderatable");
+    controlHost?.classList.add("crawl-remove-host");
+    const button = el("button", "crawl-remove-button", '<span aria-hidden="true">×</span>');
+    button.type = "button";
+    button.setAttribute("aria-label", `${label || "수집 항목"} 삭제`);
+    button.setAttribute("title", "수집 제외");
+    button.addEventListener("click", async (event) => {
+      event.preventDefault();
+      event.stopPropagation();
+      const approved = await requestCrawlModerationPassword(label);
+      if (!approved) return;
+      if (!saveLocalCrawlExclusion(type, item, label)) {
+        showCrawlModerationToast("삭제 정보를 저장하지 못했습니다.");
+        return;
+      }
+      container.classList.add("crawl-removing");
+      window.setTimeout(() => {
+        rerender?.();
+        showCrawlModerationToast("화면에서 삭제됨 · 이후 갱신에서도 재노출 차단");
+      }, 220);
+    });
+    (controlHost || container).appendChild(button);
   }
 
   function setupMediaExperience() {
@@ -2503,11 +2719,13 @@
     setupChinaBenchmarkVideoStory();
     setupStrategyCapitalSlider();
     setupMemoryScrollStory();
-    [BASE, LIVE] = await Promise.all([
+    [BASE, LIVE, REPO_CRAWL_EXCLUSIONS] = await Promise.all([
       loadJSON("data/baseline.json", null),
       loadJSON("data/live.json", emptyLive),
+      loadJSON("data/crawl-exclusions.json", emptyCrawlExclusions),
     ]);
     LIVE = normalizeLiveData(LIVE);
+    refreshCrawlExclusionKeys();
 
     if (!BASE) {
       document.body.innerHTML = "<main class=\"empty\">baseline.json을 불러오지 못했습니다.</main>";
@@ -12730,7 +12948,7 @@
       lastUpdate: section.lastUpdate,
       sourceUrl: section.sourceUrl,
     })));
-    if (rows.length) return rows;
+    if (rows.length) return rows.filter((row) => !isCrawlExcluded("price", row));
     return (LIVE.prices?.watchedItems || []).map((row) => ({
       ...row,
       sectionTitle: row.sectionTitle,
@@ -12738,7 +12956,7 @@
       lastUpdate: row.lastUpdate,
       sourceUrl: row.sourceUrl,
       fallback: true,
-    }));
+    })).filter((row) => !isCrawlExcluded("price", row));
   }
 
   function priceCategoryFor(row = {}) {
@@ -13302,6 +13520,7 @@
         <td></td>
       `;
       tr.children[7].appendChild(sparkline(trend.points, trend.direction));
+      attachCrawlModerationControl(tr, "price", row, row.item, renderPrices, tr.children[7]);
       tbody.appendChild(tr);
     });
   }
@@ -13359,8 +13578,8 @@
     const live = LIVE.news || [];
     const curated = BASE.curatedNews || [];
     const clean = dedupeNews(curated.concat(live)
-      .filter((item) => hasMeaningfulArticleSummary(item) && isForeignNews(item) && isAuthoritativeNews(item) && isMemoryRelevant(item) && !isAppleContent(item) && !isLowConfidenceNews(item) && !isSkhynixNewsroom(item) && !isSupersededCxmtIpoNews(item)));
-    return clean.length ? clean : (BASE.fallbackNews || []);
+      .filter((item) => !isCrawlExcluded("news", item) && hasMeaningfulArticleSummary(item) && isForeignNews(item) && isAuthoritativeNews(item) && isMemoryRelevant(item) && !isAppleContent(item) && !isLowConfidenceNews(item) && !isSkhynixNewsroom(item) && !isSupersededCxmtIpoNews(item)));
+    return clean.length ? clean : (BASE.fallbackNews || []).filter((item) => !isCrawlExcluded("news", item));
   }
 
   function canonicalNewsKey(item = {}) {
@@ -13872,6 +14091,7 @@
         </div>
       `;
       card.insertBefore(a, card.querySelector(".news-insights"));
+      attachCrawlModerationControl(card, "news", item, newsTitle(item), renderNews);
       li.appendChild(card);
       list.appendChild(li);
     });
@@ -13880,7 +14100,7 @@
   /* ---------------- China public community and hiring signals ---------------- */
   function rawCommunitySignals() {
     const byKey = new Map();
-    (LIVE.communitySignals?.items || []).forEach((item) => {
+    (LIVE.communitySignals?.items || []).filter((item) => !isCrawlExcluded("community", item)).forEach((item) => {
       const key = String(item.sourceUrl || item.link || item.id || "").replace(/\/$/, "").toLowerCase();
       if (!key) return;
       const current = byKey.get(key);
@@ -14023,6 +14243,7 @@
         <div class="community-insight"><strong>SKHY 시사점</strong><span>${escapeHTML(insight)}</span></div>
         <div class="community-tags">${tags.map((tag) => `<span>${escapeHTML(tag)}</span>`).join("")}</div>
       `;
+      attachCrawlModerationControl(card, "community", item, title, renderChinaCommunity);
       grid.appendChild(card);
     });
   }
