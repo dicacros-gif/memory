@@ -2718,6 +2718,7 @@
     setupMediaExperience();
     setupChinaBenchmarkVideoStory();
     setupStrategyCapitalSlider();
+    setupExecutiveBacktestSlider();
     setupMemoryScrollStory();
     [BASE, LIVE, REPO_CRAWL_EXCLUSIONS] = await Promise.all([
       loadJSON("data/baseline.json", null),
@@ -2750,23 +2751,54 @@
   }
 
   function setupStrategyCapitalSlider() {
-    const slider = $("#chinaCapitalSlider");
+    setupDynamicImageSlider({
+      sliderSelector: "#chinaCapitalSlider",
+      dotsSelector: "#chinaCapitalDots",
+      countSelector: "#chinaCapitalCount",
+      prevSelector: "#chinaCapitalPrev",
+      nextSelector: "#chinaCapitalNext",
+      toggleSelector: "#chinaCapitalToggle",
+    });
+  }
+
+  function setupExecutiveBacktestSlider() {
+    setupDynamicImageSlider({
+      sliderSelector: "#executiveBacktestSlider",
+      dotsSelector: "#executiveBacktestDots",
+      countSelector: "#executiveBacktestCount",
+      prevSelector: "#executiveBacktestPrev",
+      nextSelector: "#executiveBacktestNext",
+      toggleSelector: "#executiveBacktestToggle",
+      autoDelay: 5800,
+    });
+  }
+
+  function setupDynamicImageSlider({
+    sliderSelector,
+    dotsSelector,
+    countSelector,
+    prevSelector,
+    nextSelector,
+    toggleSelector,
+    autoDelay = 6200,
+  }) {
+    const slider = $(sliderSelector);
     if (!slider || slider.dataset.ready === "1") return;
     const slides = Array.from(slider.querySelectorAll(".china-capital-slide"));
-    const dots = $("#chinaCapitalDots");
-    const count = $("#chinaCapitalCount");
-    const prev = $("#chinaCapitalPrev");
-    const next = $("#chinaCapitalNext");
-    const toggle = $("#chinaCapitalToggle");
+    const dots = $(dotsSelector);
+    const count = $(countSelector);
+    const prev = $(prevSelector);
+    const next = $(nextSelector);
+    const toggle = $(toggleSelector);
     if (!slides.length || !dots || !count || !prev || !next || !toggle) return;
     slider.dataset.ready = "1";
 
-    const transitionModes = ["fade", "sweep", "depth", "slide"];
-    const autoDelay = 6200;
+    const transitionModes = ["fade", "sweep", "depth", "slide", "iris", "shutter"];
     let activeIndex = 0;
     let autoTimer = 0;
     let transitionTimer = 0;
     let lastTransition = "";
+    let lastZoom = "out";
     let userPaused = false;
     let inView = false;
     let pointerStartX = null;
@@ -2791,11 +2823,21 @@
       lastTransition = choices[Math.floor(Math.random() * choices.length)] || transitionModes[0];
       return lastTransition;
     };
+    const nextZoom = () => {
+      lastZoom = lastZoom === "in" ? "out" : "in";
+      return lastZoom;
+    };
     const showSlide = (targetIndex, { restart = true, initial = false } = {}) => {
       const nextIndex = (Number(targetIndex) + slides.length) % slides.length;
       const previousIndex = activeIndex;
       activeIndex = nextIndex;
       slider.dataset.transition = initial ? "fade" : nextTransition();
+      if (initial) {
+        lastZoom = "in";
+        slider.dataset.zoom = lastZoom;
+      } else {
+        slider.dataset.zoom = nextZoom();
+      }
       if (transitionTimer) window.clearTimeout(transitionTimer);
       slides.forEach((slide, index) => {
         const active = index === activeIndex;
@@ -2804,7 +2846,12 @@
         slide.classList.toggle("entering", active && !initial && previousIndex !== activeIndex);
         slide.classList.toggle("leaving", leaving);
         slide.setAttribute("aria-hidden", active ? "false" : "true");
-        if (active) slide.querySelector("img")?.setAttribute("loading", "eager");
+        if (active) {
+          const image = slide.querySelector("img");
+          image?.setAttribute("loading", "eager");
+          image?.style.setProperty("--pan-x", `${(Math.random() * 3.2 - 1.6).toFixed(2)}%`);
+          image?.style.setProperty("--pan-y", `${(Math.random() * 2.4 - 1.2).toFixed(2)}%`);
+        }
       });
       transitionTimer = window.setTimeout(() => {
         slides.forEach((slide) => slide.classList.remove("entering", "leaving"));

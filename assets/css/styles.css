@@ -4485,6 +4485,12 @@ body.sidebar-collapsed .sb-ico {
   isolation: isolate;
 }
 
+.executive-backtest-slider {
+  --slider-accent: #7c3aed;
+  margin: 14px 0 4px;
+  box-shadow: 0 24px 64px rgba(20, 14, 52, .24);
+}
+
 .china-capital-slider::after {
   content: "";
   position: absolute;
@@ -4540,8 +4546,12 @@ body.sidebar-collapsed .sb-ico {
   will-change: transform;
 }
 
-.china-capital-slide.active img {
-  animation: chinaCapitalZoom 6.8s cubic-bezier(.16, .78, .22, 1) both;
+.china-capital-slider[data-zoom="in"] .china-capital-slide.active img {
+  animation: chinaCapitalZoomIn 6.8s cubic-bezier(.16, .78, .22, 1) both;
+}
+
+.china-capital-slider[data-zoom="out"] .china-capital-slide.active img {
+  animation: chinaCapitalZoomOut 6.8s cubic-bezier(.16, .78, .22, 1) both;
 }
 
 .china-capital-slider[data-transition="fade"] .china-capital-slide.entering {
@@ -4558,6 +4568,14 @@ body.sidebar-collapsed .sb-ico {
 
 .china-capital-slider[data-transition="slide"] .china-capital-slide.entering {
   animation: chinaCapitalSlide 1s cubic-bezier(.2, .8, .2, 1) both;
+}
+
+.china-capital-slider[data-transition="iris"] .china-capital-slide.entering {
+  animation: chinaCapitalIris 1.05s cubic-bezier(.2, .8, .2, 1) both;
+}
+
+.china-capital-slider[data-transition="shutter"] .china-capital-slide.entering {
+  animation: chinaCapitalShutter 1.05s cubic-bezier(.2, .8, .2, 1) both;
 }
 
 .china-capital-slider-controls {
@@ -4632,9 +4650,14 @@ body.sidebar-collapsed .sb-ico {
   text-align: center;
 }
 
-@keyframes chinaCapitalZoom {
+@keyframes chinaCapitalZoomIn {
   from { transform: scale(1.02) translate3d(0, 0, 0); }
-  to { transform: scale(1.14) translate3d(-1.2%, -1%, 0); }
+  to { transform: scale(1.18) translate3d(var(--pan-x, -1.2%), var(--pan-y, -1%), 0); }
+}
+
+@keyframes chinaCapitalZoomOut {
+  from { transform: scale(1.2) translate3d(var(--pan-x, 1.2%), var(--pan-y, 1%), 0); }
+  to { transform: scale(1.03) translate3d(0, 0, 0); }
 }
 
 @keyframes chinaCapitalFade {
@@ -4655,6 +4678,16 @@ body.sidebar-collapsed .sb-ico {
 @keyframes chinaCapitalSlide {
   from { opacity: 0; transform: translate3d(7%, 0, 0); }
   to { opacity: 1; transform: translate3d(0, 0, 0); }
+}
+
+@keyframes chinaCapitalIris {
+  from { opacity: .2; clip-path: circle(5% at 50% 50%); transform: scale(1.06); }
+  to { opacity: 1; clip-path: circle(75% at 50% 50%); transform: scale(1); }
+}
+
+@keyframes chinaCapitalShutter {
+  from { opacity: .25; clip-path: inset(49% 0 49% 0); transform: scale(1.04); }
+  to { opacity: 1; clip-path: inset(0); transform: scale(1); }
 }
 
 @keyframes chinaCapitalLeave {
