@@ -31,7 +31,7 @@
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard/dist/web/static/pretendard.css" />
   <link rel="stylesheet" as="style" crossorigin href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css" />
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@500;700&family=Noto+Sans+KR:wght@400;500;700;800;900&family=Space+Grotesk:wght@500;600;700&display=swap" />
-  <link rel="stylesheet" href="assets/css/styles.css?v=map-video-1-20260717" />
+  <link rel="stylesheet" href="assets/css/styles.css?v=capital-slider-1-20260717" />
 </head>
 <body>
   <div class="scroll-prog" id="scrollProg" aria-hidden="true"></div>
@@ -183,13 +183,35 @@
           <div class="investment-flow" id="managementStrategyFlow"></div>
           <div class="china-business-map" id="chinaBusinessMap"></div>
           <div class="investment-layout">
-            <section class="investment-panel">
-              <div class="intel-panel-head">
-                <h3>중국 사업 방향 · 자본 배분</h3>
-                <span>고객 · NAND/eSSD · 패키징 · 장비 · 규제 · 인재/IP</span>
-              </div>
-              <div class="investment-grid" id="managementStrategyGrid"></div>
-            </section>
+            <div class="investment-primary">
+              <section class="investment-panel">
+                <div class="intel-panel-head">
+                  <h3>중국 사업 방향 · 자본 배분</h3>
+                  <span>고객 · NAND/eSSD · 패키징 · 장비 · 규제 · 인재/IP</span>
+                </div>
+                <div class="investment-grid" id="managementStrategyGrid"></div>
+              </section>
+              <section class="china-capital-slider" id="chinaCapitalSlider" aria-label="중국 사업 방향 이미지 슬라이드" tabindex="0">
+                <div class="china-capital-stage">
+                  <figure class="china-capital-slide active" aria-hidden="false">
+                    <img src="assets/media/china-capital-ai.webp" alt="AI 메모리와 반도체 자본 배분을 상징하는 AI 칩" width="1920" height="1080" loading="lazy" decoding="async" />
+                  </figure>
+                  <figure class="china-capital-slide" aria-hidden="true">
+                    <img src="assets/media/china-capital-hbm.webp" alt="HBM과 메모리 생태계 연결을 시각화한 시스템 보드" width="1920" height="1080" loading="lazy" decoding="async" />
+                  </figure>
+                  <figure class="china-capital-slide" aria-hidden="true">
+                    <img src="assets/media/china-capital-packaging.webp" alt="첨단 패키징과 자동화 공정을 시각화한 반도체 생산 장면" width="1920" height="1080" loading="lazy" decoding="async" />
+                  </figure>
+                </div>
+                <div class="china-capital-slider-controls">
+                  <button type="button" id="chinaCapitalPrev" aria-label="이전 이미지" title="이전 이미지">←</button>
+                  <div class="china-capital-dots" id="chinaCapitalDots" aria-label="이미지 선택"></div>
+                  <span id="chinaCapitalCount" aria-live="polite">01 / 03</span>
+                  <button type="button" id="chinaCapitalToggle" aria-label="자동 전환 일시정지" title="자동 전환 일시정지"><span aria-hidden="true">Ⅱ</span></button>
+                  <button type="button" id="chinaCapitalNext" aria-label="다음 이미지" title="다음 이미지">→</button>
+                </div>
+              </section>
+            </div>
             <aside class="investment-focus" id="managementStrategyFocus"></aside>
           </div>
         </section>
@@ -811,6 +833,6 @@
   <div class="qa-answer" id="qaAnswer" hidden></div>
   <div class="inspector" id="inspector" hidden></div>
   <div class="backdrop" id="backdrop"></div>
-  <script src="assets/js/app.js?v=map-video-1-20260717" defer></script>
+  <script src="assets/js/app.js?v=capital-slider-1-20260717" defer></script>
 </body>
 </html>

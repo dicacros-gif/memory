@@ -2366,6 +2366,7 @@
 
   async function init() {
     setupMediaExperience();
+    setupStrategyCapitalSlider();
     setupMemoryScrollStory();
     [BASE, LIVE] = await Promise.all([
       loadJSON("data/baseline.json", null),
@@ -2394,6 +2395,133 @@
     setupAgentDebateBackdrops();
     setupMemoryMapShowcaseVideo();
     setupDeferredSections();
+  }
+
+  function setupStrategyCapitalSlider() {
+    const slider = $("#chinaCapitalSlider");
+    if (!slider || slider.dataset.ready === "1") return;
+    const slides = Array.from(slider.querySelectorAll(".china-capital-slide"));
+    const dots = $("#chinaCapitalDots");
+    const count = $("#chinaCapitalCount");
+    const prev = $("#chinaCapitalPrev");
+    const next = $("#chinaCapitalNext");
+    const toggle = $("#chinaCapitalToggle");
+    if (!slides.length || !dots || !count || !prev || !next || !toggle) return;
+    slider.dataset.ready = "1";
+
+    const transitionModes = ["fade", "sweep", "depth", "slide"];
+    const autoDelay = 6200;
+    let activeIndex = 0;
+    let autoTimer = 0;
+    let transitionTimer = 0;
+    let lastTransition = "";
+    let userPaused = false;
+    let inView = false;
+    let pointerStartX = null;
+
+    const stopAuto = () => {
+      if (autoTimer) window.clearTimeout(autoTimer);
+      autoTimer = 0;
+    };
+    const scheduleAuto = () => {
+      stopAuto();
+      if (userPaused || !inView || document.hidden) return;
+      autoTimer = window.setTimeout(() => showSlide(activeIndex + 1), autoDelay);
+    };
+    const syncToggle = () => {
+      toggle.querySelector("span").textContent = userPaused ? "▶" : "Ⅱ";
+      toggle.setAttribute("aria-label", userPaused ? "자동 전환 재생" : "자동 전환 일시정지");
+      toggle.setAttribute("title", userPaused ? "자동 전환 재생" : "자동 전환 일시정지");
+      toggle.setAttribute("aria-pressed", userPaused ? "true" : "false");
+    };
+    const nextTransition = () => {
+      const choices = transitionModes.filter((mode) => mode !== lastTransition);
+      lastTransition = choices[Math.floor(Math.random() * choices.length)] || transitionModes[0];
+      return lastTransition;
+    };
+    const showSlide = (targetIndex, { restart = true, initial = false } = {}) => {
+      const nextIndex = (Number(targetIndex) + slides.length) % slides.length;
+      const previousIndex = activeIndex;
+      activeIndex = nextIndex;
+      slider.dataset.transition = initial ? "fade" : nextTransition();
+      if (transitionTimer) window.clearTimeout(transitionTimer);
+      slides.forEach((slide, index) => {
+        const active = index === activeIndex;
+        const leaving = !initial && index === previousIndex && previousIndex !== activeIndex;
+        slide.classList.toggle("active", active);
+        slide.classList.toggle("entering", active && !initial && previousIndex !== activeIndex);
+        slide.classList.toggle("leaving", leaving);
+        slide.setAttribute("aria-hidden", active ? "false" : "true");
+        if (active) slide.querySelector("img")?.setAttribute("loading", "eager");
+      });
+      transitionTimer = window.setTimeout(() => {
+        slides.forEach((slide) => slide.classList.remove("entering", "leaving"));
+      }, 1100);
+      dots.querySelectorAll("button").forEach((dot, index) => {
+        const active = index === activeIndex;
+        dot.classList.toggle("active", active);
+        dot.setAttribute("aria-current", active ? "true" : "false");
+      });
+      count.textContent = `${String(activeIndex + 1).padStart(2, "0")} / ${String(slides.length).padStart(2, "0")}`;
+      if (restart) scheduleAuto();
+    };
+
+    slides.forEach((_, index) => {
+      const dot = document.createElement("button");
+      dot.type = "button";
+      dot.setAttribute("aria-label", `${index + 1}번 이미지 보기`);
+      dot.addEventListener("click", () => showSlide(index));
+      dots.appendChild(dot);
+    });
+    prev.addEventListener("click", () => showSlide(activeIndex - 1));
+    next.addEventListener("click", () => showSlide(activeIndex + 1));
+    toggle.addEventListener("click", () => {
+      userPaused = !userPaused;
+      syncToggle();
+      scheduleAuto();
+    });
+    slider.addEventListener("keydown", (event) => {
+      if (event.key === "ArrowLeft") {
+        event.preventDefault();
+        showSlide(activeIndex - 1);
+      } else if (event.key === "ArrowRight") {
+        event.preventDefault();
+        showSlide(activeIndex + 1);
+      } else if (event.key === " ") {
+        event.preventDefault();
+        userPaused = !userPaused;
+        syncToggle();
+        scheduleAuto();
+      }
+    });
+    slider.addEventListener("pointerdown", (event) => {
+      if (event.pointerType === "mouse") return;
+      pointerStartX = event.clientX;
+    }, { passive: true });
+    slider.addEventListener("pointerup", (event) => {
+      if (pointerStartX == null) return;
+      const delta = event.clientX - pointerStartX;
+      pointerStartX = null;
+      if (Math.abs(delta) >= 45) showSlide(activeIndex + (delta < 0 ? 1 : -1));
+    }, { passive: true });
+    document.addEventListener("visibilitychange", scheduleAuto);
+
+    if ("IntersectionObserver" in window) {
+      const observer = new IntersectionObserver((entries) => {
+        inView = entries.some((entry) => entry.isIntersecting);
+        scheduleAuto();
+      }, { rootMargin: "120px 0px", threshold: 0.12 });
+      observer.observe(slider);
+      window.addEventListener("pagehide", () => observer.disconnect(), { once: true });
+    } else {
+      inView = true;
+    }
+    window.addEventListener("pagehide", () => {
+      stopAuto();
+      if (transitionTimer) window.clearTimeout(transitionTimer);
+    }, { once: true });
+    syncToggle();
+    showSlide(0, { initial: true });
   }
 
   let secondaryDataPromise = null;

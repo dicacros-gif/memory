@@ -4146,6 +4146,223 @@ body.sidebar-collapsed .sb-ico {
   align-items: start;
 }
 
+.investment-primary {
+  min-width: 0;
+  display: grid;
+  gap: 12px;
+}
+
+.china-capital-slider {
+  --slider-accent: #16b8a6;
+  position: relative;
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  margin: 0;
+  overflow: hidden;
+  border: 1px solid color-mix(in srgb, var(--slider-accent) 38%, var(--line));
+  border-radius: 10px;
+  background: #050b14;
+  box-shadow: 0 20px 50px rgba(2, 8, 23, .2);
+  isolation: isolate;
+}
+
+.china-capital-slider::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 3;
+  pointer-events: none;
+  background:
+    linear-gradient(180deg, rgba(3, 9, 18, .08), transparent 55%, rgba(3, 9, 18, .58)),
+    linear-gradient(90deg, rgba(3, 9, 18, .14), transparent 24%, transparent 76%, rgba(3, 9, 18, .14));
+}
+
+.china-capital-stage,
+.china-capital-slide,
+.china-capital-slide img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+}
+
+.china-capital-stage {
+  z-index: 1;
+}
+
+.china-capital-slide {
+  margin: 0;
+  opacity: 0;
+  visibility: hidden;
+  transform: translateZ(0);
+  pointer-events: none;
+}
+
+.china-capital-slide.active,
+.china-capital-slide.leaving {
+  visibility: visible;
+}
+
+.china-capital-slide.active {
+  z-index: 2;
+  opacity: 1;
+}
+
+.china-capital-slide.leaving {
+  z-index: 1;
+  opacity: 1;
+  animation: chinaCapitalLeave .9s ease forwards;
+}
+
+.china-capital-slide img {
+  object-fit: cover;
+  object-position: center;
+  transform: scale(1.02);
+  will-change: transform;
+}
+
+.china-capital-slide.active img {
+  animation: chinaCapitalZoom 6.8s cubic-bezier(.16, .78, .22, 1) both;
+}
+
+.china-capital-slider[data-transition="fade"] .china-capital-slide.entering {
+  animation: chinaCapitalFade .92s ease both;
+}
+
+.china-capital-slider[data-transition="sweep"] .china-capital-slide.entering {
+  animation: chinaCapitalSweep 1s cubic-bezier(.2, .8, .2, 1) both;
+}
+
+.china-capital-slider[data-transition="depth"] .china-capital-slide.entering {
+  animation: chinaCapitalDepth 1s cubic-bezier(.2, .8, .2, 1) both;
+}
+
+.china-capital-slider[data-transition="slide"] .china-capital-slide.entering {
+  animation: chinaCapitalSlide 1s cubic-bezier(.2, .8, .2, 1) both;
+}
+
+.china-capital-slider-controls {
+  position: absolute;
+  right: 14px;
+  bottom: 14px;
+  z-index: 5;
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  border: 1px solid rgba(255, 255, 255, .28);
+  border-radius: 9px;
+  background: rgba(3, 9, 18, .7);
+  color: #fff;
+  padding: 7px;
+  box-shadow: 0 12px 30px rgba(0, 0, 0, .24);
+  backdrop-filter: blur(12px);
+}
+
+.china-capital-slider-controls > button,
+.china-capital-dots button {
+  display: grid;
+  place-items: center;
+  border: 1px solid rgba(255, 255, 255, .28);
+  background: rgba(255, 255, 255, .08);
+  color: #fff;
+  padding: 0;
+  transition: transform .16s, background .16s, border-color .16s;
+}
+
+.china-capital-slider-controls > button {
+  width: 34px;
+  height: 34px;
+  border-radius: 7px;
+  font-size: 14px;
+  font-weight: 950;
+}
+
+.china-capital-slider-controls > button:hover,
+.china-capital-slider-controls > button:focus-visible,
+.china-capital-dots button:hover,
+.china-capital-dots button:focus-visible,
+.china-capital-dots button.active {
+  outline: none;
+  transform: translateY(-1px);
+  border-color: #fff;
+  background: var(--slider-accent);
+}
+
+.china-capital-dots {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+
+.china-capital-dots button {
+  width: 8px;
+  height: 8px;
+  border-radius: 999px;
+}
+
+.china-capital-dots button.active {
+  width: 22px;
+}
+
+.china-capital-slider-controls > span {
+  min-width: 45px;
+  color: rgba(255, 255, 255, .9);
+  font-family: var(--mono);
+  font-size: 10px;
+  font-weight: 900;
+  text-align: center;
+}
+
+@keyframes chinaCapitalZoom {
+  from { transform: scale(1.02) translate3d(0, 0, 0); }
+  to { transform: scale(1.14) translate3d(-1.2%, -1%, 0); }
+}
+
+@keyframes chinaCapitalFade {
+  from { opacity: 0; filter: blur(8px); }
+  to { opacity: 1; filter: blur(0); }
+}
+
+@keyframes chinaCapitalSweep {
+  from { opacity: .35; clip-path: inset(0 100% 0 0); }
+  to { opacity: 1; clip-path: inset(0); }
+}
+
+@keyframes chinaCapitalDepth {
+  from { opacity: 0; transform: scale(.94) rotate(.5deg); }
+  to { opacity: 1; transform: scale(1) rotate(0); }
+}
+
+@keyframes chinaCapitalSlide {
+  from { opacity: 0; transform: translate3d(7%, 0, 0); }
+  to { opacity: 1; transform: translate3d(0, 0, 0); }
+}
+
+@keyframes chinaCapitalLeave {
+  to { opacity: 0; transform: scale(1.035); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .china-capital-slide,
+  .china-capital-slide img {
+    animation: none !important;
+  }
+}
+
+@media (max-width: 680px) {
+  .china-capital-slider-controls {
+    right: 9px;
+    bottom: 9px;
+    gap: 5px;
+    padding: 5px;
+  }
+
+  .china-capital-slider-controls > button {
+    width: 32px;
+    height: 32px;
+  }
+}
+
 .investment-panel {
   display: grid;
   gap: 12px;
