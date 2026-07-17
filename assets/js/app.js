@@ -2788,7 +2788,6 @@
   async function init() {
     setupMediaExperience();
     setupChinaBenchmarkVideoStory();
-    setupStrategyCapitalSlider();
     setupChinaDecisionVideo();
     setupMemoryScrollStory();
     [BASE, LIVE, REPO_CRAWL_EXCLUSIONS] = await Promise.all([
@@ -2804,6 +2803,7 @@
       return;
     }
 
+    setupStrategyCapitalSlider();
     hideDisabledSections();
     renderChrome();
     renderSidebarNav();
@@ -2822,6 +2822,36 @@
   }
 
   function setupStrategyCapitalSlider() {
+    const insight = $("#strategyCapitalInsight");
+    const kicker = $("#strategyCapitalInsightKicker");
+    const title = $("#strategyCapitalInsightTitle");
+    const body = $("#strategyCapitalInsightBody");
+    const link = $("#strategyCapitalInsightLink");
+    const insights = strategyCapitalInsightPool();
+    const positions = ["top-left", "top-right", "bottom-left"];
+    let lastInsight = -1;
+    let lastPosition = "top-left";
+
+    const rotateInsight = ({ slider, initial = false } = {}) => {
+      if (!insight || !kicker || !title || !body || !link || !insights.length || !slider) return;
+      const choices = insights.map((_, index) => index).filter((index) => index !== lastInsight);
+      const nextIndex = choices[Math.floor(Math.random() * choices.length)] ?? 0;
+      const positionChoices = positions.filter((position) => position !== lastPosition);
+      const nextPosition = initial ? lastPosition : (positionChoices[Math.floor(Math.random() * positionChoices.length)] || positions[0]);
+      const item = insights[nextIndex];
+      lastInsight = nextIndex;
+      lastPosition = nextPosition;
+      slider.dataset.insightPosition = nextPosition;
+      insight.classList.remove("is-changing");
+      void insight.offsetWidth;
+      kicker.textContent = item.kicker;
+      title.textContent = item.title;
+      body.textContent = item.body;
+      link.href = item.href;
+      link.textContent = `${item.source || "근거 원문"} ↗`;
+      insight.classList.add("is-changing");
+    };
+
     setupDynamicImageSlider({
       sliderSelector: "#chinaCapitalSlider",
       dotsSelector: "#chinaCapitalDots",
@@ -2829,7 +2859,81 @@
       prevSelector: "#chinaCapitalPrev",
       nextSelector: "#chinaCapitalNext",
       toggleSelector: "#chinaCapitalToggle",
+      autoDelay: 5600,
+      motionProfile: "cinematic",
+      transitionModes: ["sweep", "depth", "iris", "shutter", "tilt", "split", "zoom-blur", "parallax"],
+      onSlideChange: rotateInsight,
     });
+  }
+
+  function strategyCapitalInsightPool() {
+    const strategyTerms = /cxmt|ymtc|xmc|jcet|naura|amec|acm research|china|chinese|dram|nand|essd|packag|equipment|customer|policy|talent|ip|중국|창신|양쯔|우한|낸드|패키징|장비|고객|인재/i;
+    const trustedSourceTerms = /reuters|bloomberg|financial times|ft\.com|nikkei|cnbc|scmp|caixin global|caixinglobal|digitimes|trendforce|techinsights|counterpoint|wsts|yole|semianalysis|tom's hardware|tomshardware|bis\.gov|commerce\.gov|congress\.gov|sec\.gov|sse\.com|english\.sse|investors?\.|ir\.|company official/i;
+    const dynamic = rawNews()
+      .filter((item) => {
+        const href = String(item.link || item.sourceUrl || "").trim();
+        const hay = `${item.category || ""} ${item.title || ""} ${item.titleKo || ""} ${item.summary || ""}`;
+        const sourceHay = `${newsPublisherText(item)} ${href}`;
+        return href && strategyTerms.test(hay) && trustedSourceTerms.test(sourceHay);
+      })
+      .map((item) => {
+        const lines = insightLines(item);
+        const source = newsPublisherText(item) || "Authoritative source";
+        const date = formatNewsDate(item.date || item.publishedAt || item.crawledAt || "");
+        return {
+          kicker: [source, date].filter(Boolean).join(" · "),
+          title: lines[0] || newsTitle(item),
+          body: lines[1] || "중국 고객·가격·공급망의 변화가 SKHY 자본 배분에 미치는 영향을 별도로 검토합니다.",
+          href: String(item.link || item.sourceUrl || "").trim(),
+          source,
+        };
+      })
+      .filter((item) => item.title && item.body && item.href);
+
+    const fallback = [
+      {
+        kicker: "DRAM share · Q1 2026",
+        title: "CXMT 8% 진입은 범용 DRAM 가격 방어의 경보선",
+        body: "SKHY는 점유율 단일값보다 DDR5 Spot·Contract 전환과 중국 빅테크 고객 승인 확산을 함께 봐야 합니다.",
+        href: "https://counterpointresearch.com/en/insights/global-dram-and-hbm-market-share",
+        source: "Counterpoint Research",
+      },
+      {
+        kicker: "Customer lock-in · Server DRAM",
+        title: "중국 장기계약의 핵심은 금액보다 고객 승인 확산",
+        body: "텐센트 이후 다른 빅테크로 승인 범위가 넓어지는지를 중국 서버 DRAM 고객 방어의 선행 KPI로 둡니다.",
+        href: "https://finance.yahoo.com/technology/articles/exclusive-chinas-cxmt-wins-3-070237888.html",
+        source: "Reuters / Yahoo Finance",
+      },
+      {
+        kicker: "NAND · Xtacking 4.0",
+        title: "YMTC 위협은 가격·eSSD·패키징 구조로 분해",
+        body: "Xtacking 실측치와 우한 증설, eSSD 채택이 함께 확인될 때 Solidigm 고객 전략과 NAND 투자 강도를 조정합니다.",
+        href: "https://www.techinsights.com/blog/ymtc-xtacking40-breaking-new-ground-in-3d-nand-technology",
+        source: "TechInsights",
+      },
+      {
+        kicker: "Policy capital · China semiconductor",
+        title: "정책자본은 단기 수익성보다 국산 장비 채택 속도를 바꿈",
+        body: "Big Fund 집행은 CXMT·YMTC 캐파뿐 아니라 Naura·AMEC의 장비 검증 속도와 공급망 대체율로 연결해 판단합니다.",
+        href: "https://www.reuters.com/technology/china-sets-up-475-bln-state-fund-boost-semiconductor-industry-2024-05-27/",
+        source: "Reuters",
+      },
+      {
+        kicker: "Wuhan ecosystem · Phase III",
+        title: "우한 증설은 NAND 캐파와 XMC 패키징 의사결정을 분리해 추적",
+        body: "팹 가동률과 장비 반입, 지분·거버넌스 변화가 동시에 확인될 때 중국 NAND 공급 압력으로 승격합니다.",
+        href: "https://www.trendforce.com/news/2025/09/09/news-chinas-ymtc-launches-3b-wuhan-phase-iii-venture-signaling-nand-expansion-ambitions/",
+        source: "TrendForce",
+      },
+    ];
+
+    const unique = new Map();
+    dynamic.concat(fallback).forEach((item) => {
+      const key = item.href || item.title;
+      if (!unique.has(key)) unique.set(key, item);
+    });
+    return Array.from(unique.values()).slice(0, 16);
   }
 
   function setupExecutiveBacktestSlider() {
@@ -3093,6 +3197,8 @@
     toggleSelector,
     autoDelay = 6200,
     zoomMode = "alternate",
+    motionProfile = "standard",
+    transitionModes = null,
     onSlideChange = null,
   }) {
     const slider = $(sliderSelector);
@@ -3106,7 +3212,10 @@
     if (!slides.length || !dots || !count || !prev || !next || !toggle) return;
     slider.dataset.ready = "1";
 
-    const transitionModes = ["fade", "sweep", "depth", "slide", "iris", "shutter"];
+    const availableTransitions = Array.isArray(transitionModes) && transitionModes.length
+      ? transitionModes
+      : ["fade", "sweep", "depth", "slide", "iris", "shutter"];
+    slider.dataset.motion = motionProfile;
     let activeIndex = 0;
     let autoTimer = 0;
     let transitionTimer = 0;
@@ -3132,8 +3241,8 @@
       toggle.setAttribute("aria-pressed", userPaused ? "true" : "false");
     };
     const nextTransition = () => {
-      const choices = transitionModes.filter((mode) => mode !== lastTransition);
-      lastTransition = choices[Math.floor(Math.random() * choices.length)] || transitionModes[0];
+      const choices = availableTransitions.filter((mode) => mode !== lastTransition);
+      lastTransition = choices[Math.floor(Math.random() * choices.length)] || availableTransitions[0];
       return lastTransition;
     };
     const nextZoom = () => {
@@ -3165,9 +3274,20 @@
         slide.setAttribute("aria-hidden", active ? "false" : "true");
         if (active) {
           const image = slide.querySelector("img");
+          const cinematic = motionProfile === "cinematic";
+          const startX = cinematic ? (Math.random() * 12 - 6) : 0;
+          const startY = cinematic ? (Math.random() * 9 - 4.5) : 0;
+          const endX = cinematic ? (Math.random() * 14 - 7) : (Math.random() * 3.2 - 1.6);
+          const endY = cinematic ? (Math.random() * 11 - 5.5) : (Math.random() * 2.4 - 1.2);
           image?.setAttribute("loading", "eager");
-          image?.style.setProperty("--pan-x", `${(Math.random() * 3.2 - 1.6).toFixed(2)}%`);
-          image?.style.setProperty("--pan-y", `${(Math.random() * 2.4 - 1.2).toFixed(2)}%`);
+          image?.style.setProperty("--pan-x", `${endX.toFixed(2)}%`);
+          image?.style.setProperty("--pan-y", `${endY.toFixed(2)}%`);
+          image?.style.setProperty("--pan-start-x", `${startX.toFixed(2)}%`);
+          image?.style.setProperty("--pan-start-y", `${startY.toFixed(2)}%`);
+          image?.style.setProperty("--pan-end-x", `${endX.toFixed(2)}%`);
+          image?.style.setProperty("--pan-end-y", `${endY.toFixed(2)}%`);
+          image?.style.setProperty("--motion-origin-x", `${(36 + Math.random() * 28).toFixed(1)}%`);
+          image?.style.setProperty("--motion-origin-y", `${(34 + Math.random() * 32).toFixed(1)}%`);
         }
       });
       transitionTimer = window.setTimeout(() => {
