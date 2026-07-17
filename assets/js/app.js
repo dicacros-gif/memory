@@ -2392,6 +2392,7 @@
     setupMouseDrivenMetrics();
     setupAgentSpeechGestures();
     setupAgentDebateBackdrops();
+    setupMemoryMapShowcaseVideo();
     setupDeferredSections();
   }
 
@@ -5186,6 +5187,64 @@
       observer.disconnect();
       agentVideoVisibilityObserver?.disconnect();
     }, { once: true });
+  }
+
+  function setupMemoryMapShowcaseVideo() {
+    const video = $("#memoryMarketVideo");
+    const toggle = $("#memoryMarketVideoToggle");
+    if (!video || !toggle || video.dataset.ready === "1") return;
+    video.dataset.ready = "1";
+    video.muted = true;
+
+    const hydrate = () => {
+      if (video.dataset.hydrated === "1") return;
+      const source = document.createElement("source");
+      source.src = AGENT_DEBATE_VIDEO.src;
+      source.type = "video/mp4";
+      video.appendChild(source);
+      video.dataset.hydrated = "1";
+      video.load();
+    };
+    const syncControl = () => {
+      const paused = video.paused;
+      toggle.querySelector("span").textContent = paused ? "▶" : "Ⅱ";
+      toggle.setAttribute("aria-label", paused ? "영상 재생" : "영상 일시정지");
+      toggle.setAttribute("title", paused ? "영상 재생" : "영상 일시정지");
+    };
+    const play = async () => {
+      hydrate();
+      if (video.dataset.userPaused === "1") return;
+      try { await video.play(); } catch { /* The play control remains available. */ }
+      syncControl();
+    };
+
+    toggle.addEventListener("click", async () => {
+      hydrate();
+      if (video.paused) {
+        video.dataset.userPaused = "0";
+        await play();
+      } else {
+        video.dataset.userPaused = "1";
+        video.pause();
+      }
+      syncControl();
+    });
+    video.addEventListener("play", syncControl);
+    video.addEventListener("pause", syncControl);
+    syncControl();
+
+    if (!("IntersectionObserver" in window)) {
+      play();
+      return;
+    }
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) play();
+        else video.pause();
+      });
+    }, { rootMargin: "320px 0px", threshold: 0.05 });
+    observer.observe(video);
+    window.addEventListener("pagehide", () => observer.disconnect(), { once: true });
   }
 
   // C-level entry point (kept for compatibility): find the chat in scope and drive it.
