@@ -11,8 +11,10 @@
   };
 
   const emptyLive = {
+    schemaVersion: "3.0",
     updatedAt: null,
     timezone: "Asia/Seoul",
+    quality: { status: "rejected", checks: [], failures: ["missing_verified_payload"], metrics: {}, channels: {} },
     prices: { sections: [], watchedItems: [] },
     news: [],
     communitySignals: { updatedAt: null, total: 0, typeCounts: {}, platformCounts: {}, items: [] },
@@ -39,6 +41,7 @@
     items: [],
   };
   const CRAWL_EXCLUSION_STORAGE_KEY = "memory-crawl-exclusions-v1";
+  const VERIFIED_LIVE_CACHE_KEY = "memory-last-verified-live-v3";
   const ADMIN_DELETE_PASSWORD = "000";
 
   const KOREAN_SOURCE_RE = new RegExp(
@@ -2840,6 +2843,7 @@
       loadJSON("data/live.json", emptyLive),
       loadJSON("data/crawl-exclusions.json", emptyCrawlExclusions),
     ]);
+    LIVE = selectVerifiedLiveData(LIVE);
     LIVE = normalizeLiveData(LIVE);
     refreshCrawlExclusionKeys();
 
@@ -3998,8 +4002,42 @@
     return /(^|[\s/])0(\uAC74|\uAC1C)(?=$|[\s/])/.test(String(msg || ""));
   }
 
+  function isVerifiedLiveData(data = {}, maxAgeHours = 36) {
+    if (!data || data.quality?.status !== "verified") return false;
+    if ((data.quality?.failures || []).length) return false;
+    if ((data.quality?.checks || []).some((check) => check?.critical && !check?.passed)) return false;
+    const timestamp = data.quality?.verifiedAt || data.updatedAt;
+    if (!timestamp) return false;
+    const age = (Date.now() - new Date(timestamp).getTime()) / 36e5;
+    return Number.isFinite(age) && age >= 0 && age <= maxAgeHours;
+  }
+
+  function selectVerifiedLiveData(data = emptyLive) {
+    if (isVerifiedLiveData(data, 36)) {
+      try {
+        localStorage.setItem(VERIFIED_LIVE_CACHE_KEY, JSON.stringify(data));
+      } catch {
+        // Storage is best-effort; deployment quality gates remain authoritative.
+      }
+      return data;
+    }
+    try {
+      const cached = JSON.parse(localStorage.getItem(VERIFIED_LIVE_CACHE_KEY) || "null");
+      if (isVerifiedLiveData(cached, 48)) return cached;
+    } catch {
+      // Ignore an unreadable local cache and keep unverified data off the UI.
+    }
+    return emptyLive;
+  }
+
   function normalizeLiveData(data = emptyLive) {
     const next = { ...emptyLive, ...(data || {}) };
+    next.news = (next.news || []).filter((item) => (
+      item?.title
+      && ["english", "chinese"].includes(String(item.streamLanguage || item.language || "").toLowerCase())
+      && /^https?:\/\//i.test(String(item.sourceUrl || item.link || ""))
+      && !/news\.google\.com/i.test(String(item.sourceUrl || ""))
+    ));
     next.categories = (next.categories || []).filter(hasPositiveCount);
     next.communitySignals = {
       ...(next.communitySignals || {}),
@@ -4037,6 +4075,7 @@
   }
 
   function liveIntelligenceBrief(id = "") {
+    if (!isVerifiedLiveData(LIVE, 48)) return null;
     return (LIVE.intelligence?.briefs || []).find((brief) => brief.id === id) || null;
   }
 
@@ -14368,11 +14407,10 @@
 
   function rawNews() {
     const live = LIVE.news || [];
-    const curated = BASE.curatedNews || [];
-    const clean = dedupeNews(curated.concat(live)
+    const clean = dedupeNews(live
       .filter((item) => articleStreamLanguage(item))
       .filter((item) => !isCrawlExcluded("news", item) && hasMeaningfulArticleSummary(item) && isForeignNews(item) && isAuthoritativeNews(item) && isMemoryRelevant(item) && !isAppleContent(item) && !isLowConfidenceNews(item) && !isSkhynixNewsroom(item) && !isSupersededCxmtIpoNews(item)));
-    return clean.length ? clean : (BASE.fallbackNews || []).filter((item) => !isCrawlExcluded("news", item));
+    return clean;
   }
 
   function canonicalNewsKey(item = {}) {
@@ -14546,6 +14584,21 @@
     if (han >= 2 && han >= Math.ceil(latin * 0.12)) return "chinese";
     if (han === 0 && latin >= 6) return "english";
     return "";
+  }
+
+  function isChinaArticle(item = {}) {
+    if (articleStreamLanguage(item) === "chinese") return true;
+    const haystack = [
+      item.category,
+      item.source,
+      item.title,
+      item.titleKo,
+      item.summary,
+      item.summaryOriginal,
+      item.sourceUrl,
+      item.link,
+    ].filter(Boolean).join(" ");
+    return CHINA_NEWS_RE.test(haystack) || /(?:^|[-_])china(?:$|[-_])/i.test(String(item.category || ""));
   }
 
   function newsAuthorityScore(item = {}) {

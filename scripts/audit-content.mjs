@@ -96,6 +96,9 @@ for (const phrase of ["기존 SKHY 전망의 약 $975B", "60~70% 배분", "MATCH
 if (/FALSE_MEMORY_NEWS_RE/.test(appText)) {
   addIssue("error", "assets/js/app.js", "legacy false-memory filter can suppress verified events", "FALSE_MEMORY_NEWS_RE");
 }
+if (/filter\(isChinaArticle\)/.test(appText) && !/function\s+isChinaArticle\s*\(/.test(appText)) {
+  addIssue("error", "assets/js/app.js", "China article predicate is referenced but not defined", "isChinaArticle");
+}
 if (!/SpeechSynthesisUtterance/.test(appText) || !/speechSynthesis/.test(appText)) {
   addIssue("error", "assets/js/app.js", "agent TTS engine is missing");
 }
@@ -103,6 +106,17 @@ const numericKpis = (baseline.kpis || []).filter((item) => /\d/.test(String(item
 const missingKpiSources = numericKpis.filter((item) => !String(item.sourceUrl || "").trim());
 for (const item of missingKpiSources) {
   addIssue("error", "data/baseline.json", "numeric KPI without sourceUrl", item.label || item.id || "");
+}
+for (const item of numericKpis) {
+  if (!/^https?:\/\//i.test(String(item.sourceUrl || "")) || /dicacros-gif\.github\.io/i.test(String(item.sourceUrl || ""))) {
+    addIssue("error", "data/baseline.json", "numeric KPI has a non-verifiable sourceUrl", item.label || item.id || "");
+  }
+  if (!String(item.sourceDate || "").trim()) {
+    addIssue("error", "data/baseline.json", "numeric KPI has no sourceDate", item.label || item.id || "");
+  }
+  if (!["OK", "Watch"].includes(String(item.status || ""))) {
+    addIssue("error", "data/baseline.json", "numeric KPI has an invalid evidence status", `${item.label || item.id || ""}:${item.status || "missing"}`);
+  }
 }
 
 const marketHistory = JSON.parse(await readFile(resolve(root, "data/market-history.json"), "utf8"));
@@ -164,6 +178,26 @@ for (const [key, item] of Object.entries(priceHistory.items || {})) {
 }
 
 const live = JSON.parse(await readFile(resolve(root, "data/live.json"), "utf8"));
+const quality = live.quality || {};
+if (live.schemaVersion !== "3.0") {
+  addIssue("error", "data/live.json", "live schemaVersion is not current", String(live.schemaVersion || "missing"));
+}
+if (quality.status !== "verified") {
+  addIssue("error", "data/live.json", "crawl quality gate did not verify the payload", String(quality.status || "missing"));
+}
+if ((quality.failures || []).length) {
+  addIssue("error", "data/live.json", "crawl quality report contains failures", (quality.failures || []).join(", "));
+}
+for (const check of quality.checks || []) {
+  if (check?.critical && !check?.passed) {
+    addIssue("error", "data/live.json", "critical crawl quality check failed", check.id || "unknown");
+  }
+}
+const liveUpdatedAt = new Date(quality.verifiedAt || live.updatedAt || 0);
+const liveAgeHours = (Date.now() - liveUpdatedAt.getTime()) / 36e5;
+if (!Number.isFinite(liveAgeHours) || liveAgeHours < 0 || liveAgeHours > 36) {
+  addIssue("error", "data/live.json", "verified live payload is outside the 36-hour freshness window", `${liveAgeHours.toFixed(1)}h`);
+}
 const stocks = Object.entries(live.stocks || {});
 for (const [id, stock] of stocks) {
   const latest = Number(stock.latestClose);
@@ -203,6 +237,7 @@ const news = Array.isArray(live.news) ? live.news : [];
 const summarizedNews = news.filter((item) => String(item.summary || item.summaryOriginal || "").trim());
 const directNews = news.filter((item) => /^https?:\/\//i.test(String(item.sourceUrl || "")) && !/news\.google\.com/i.test(item.sourceUrl));
 const newsTitleKeys = new Set();
+const newsUrlKeys = new Set();
 const hanCount = (value = "") => (String(value).match(/[㐀-䶿一-鿿豈-﫿]/g) || []).length;
 const latinCount = (value = "") => (String(value).match(/[A-Za-z]/g) || []).length;
 const languageCounts = { english: 0, chinese: 0 };
@@ -221,15 +256,31 @@ for (const item of news) {
   if (languageCounts[language] != null) languageCounts[language] += 1;
   if (key && newsTitleKeys.has(key)) addIssue("error", "data/live.json", "duplicate news title", title);
   if (key) newsTitleKeys.add(key);
+  const sourceUrl = String(item.sourceUrl || "").trim();
+  if (!/^https?:\/\//i.test(sourceUrl) || /news\.google\.com/i.test(sourceUrl)) {
+    addIssue("error", "data/live.json", "news item lacks a direct source URL", title);
+  } else {
+    let canonicalUrl = sourceUrl.toLowerCase().replace(/#.*$/, "").replace(/\/$/, "");
+    try {
+      const parsed = new URL(sourceUrl);
+      parsed.hash = "";
+      for (const param of ["utm_source", "utm_medium", "utm_campaign", "utm_term", "utm_content", "oc"]) parsed.searchParams.delete(param);
+      canonicalUrl = parsed.toString().replace(/\/$/, "").toLowerCase();
+    } catch {
+      // The direct URL format check above already reports malformed values.
+    }
+    if (newsUrlKeys.has(canonicalUrl)) addIssue("error", "data/live.json", "duplicate canonical news URL", sourceUrl);
+    newsUrlKeys.add(canonicalUrl);
+  }
 }
 if (news.length && (!languageCounts.english || !languageCounts.chinese)) {
   addIssue("error", "data/live.json", "one article language stream is empty", JSON.stringify(languageCounts));
 }
-if (news.length && summarizedNews.length / news.length < 0.5) {
-  addIssue("warn", "data/live.json", "fewer than half of news items have article-specific summaries", `${summarizedNews.length}/${news.length}`);
+if (news.length && summarizedNews.length / news.length < 0.55) {
+  addIssue("error", "data/live.json", "fewer than 55% of news items have article-specific summaries", `${summarizedNews.length}/${news.length}`);
 }
-if (news.length && directNews.length / news.length < 0.5) {
-  addIssue("warn", "data/live.json", "fewer than half of news items resolve to direct source URLs", `${directNews.length}/${news.length}`);
+if (news.length && directNews.length / news.length < 0.9) {
+  addIssue("error", "data/live.json", "fewer than 90% of news items resolve to direct source URLs", `${directNews.length}/${news.length}`);
 }
 
 const community = live.communitySignals || {};
@@ -362,6 +413,29 @@ if (Number(validation.displayedNews) !== news.length) {
 if (Number(validation.priceRows) !== priceRows.length) {
   addIssue("error", "data/live.json", "intelligence priceRows count mismatch", `${validation.priceRows} != ${priceRows.length}`);
 }
+const qualityMetrics = quality.metrics || {};
+const expectedQualityMetrics = {
+  priceRows: priceRows.length,
+  newsItems: news.length,
+  englishNews: languageCounts.english,
+  chineseNews: languageCounts.chinese,
+  duplicateCount: 0,
+  communitySignals: communityItems.length,
+  decisionBriefs: briefs.length,
+  marketIndexes: Object.values(live.marketHistory?.indexes || {}).filter((item) => Number(item?.latest?.close ?? item?.latest?.value) > 0).length,
+  peerStocks: stocks.filter(([, stock]) => Number(stock.latestClose) > 0).length,
+};
+for (const [metric, expected] of Object.entries(expectedQualityMetrics)) {
+  if (Number(qualityMetrics[metric]) !== Number(expected)) {
+    addIssue("error", "data/live.json", "crawl quality metric does not match payload", `${metric}: ${qualityMetrics[metric]} != ${expected}`);
+  }
+}
+if (Number(qualityMetrics.directSourceRatio) < 0.9 || Number(qualityMetrics.summaryRatio) < 0.55) {
+  addIssue("error", "data/live.json", "crawl quality ratios are below deployment thresholds", JSON.stringify({
+    directSourceRatio: qualityMetrics.directSourceRatio,
+    summaryRatio: qualityMetrics.summaryRatio,
+  }));
+}
 
 const errors = checks.filter((item) => item.level === "error");
 const warnings = checks.filter((item) => item.level === "warn");
@@ -375,6 +449,7 @@ console.log(JSON.stringify({
   summarizedNews: `${summarizedNews.length}/${news.length}`,
   communitySignals: communityItems.length,
   intelligenceBriefs: briefs.length,
+  qualityStatus: quality.status,
   errors,
   warnings,
 }, null, 2));

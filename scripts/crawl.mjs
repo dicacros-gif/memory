@@ -6,7 +6,7 @@
  * competitor signals, and startup radar data for the static dashboard.
  * Node 18+ only; no external dependencies.
  */
-import { readFile, writeFile, mkdir } from "node:fs/promises";
+import { readFile, writeFile, mkdir, rename, rm } from "node:fs/promises";
 import { dirname, resolve } from "node:path";
 import { fileURLToPath } from "node:url";
 
@@ -36,6 +36,20 @@ const BROWSER_UA =
 
 const sleep = (ms) => new Promise((resolveSleep) => setTimeout(resolveSleep, ms));
 let crawlExclusionKeys = new Set();
+
+async function writeJsonSafely(path, value) {
+  await mkdir(dirname(path), { recursive: true });
+  const body = `${JSON.stringify(value, null, 2)}\n`;
+  const temporary = `${path}.${process.pid}.${Date.now()}.tmp`;
+  await writeFile(temporary, body, { encoding: "utf8" });
+  try {
+    await rename(temporary, path);
+  } catch (error) {
+    if (!["EEXIST", "EPERM", "EACCES"].includes(error?.code)) throw error;
+    await writeFile(path, body, { encoding: "utf8" });
+    await rm(temporary, { force: true });
+  }
+}
 
 function normalizeCrawlExclusionUrl(value = "") {
   const raw = String(value || "").trim();
@@ -1445,8 +1459,7 @@ async function updatePriceHistory(prices) {
 
   if (changed) {
     history.updatedAt = crawledAt;
-    await mkdir(dirname(HISTORY_OUT), { recursive: true });
-    await writeFile(HISTORY_OUT, JSON.stringify(history, null, 2) + "\n", { encoding: "utf8" });
+    await writeJsonSafely(HISTORY_OUT, history);
     note("가격히스토리", true, "신규 포인트 저장");
   } else {
     note("가격히스토리", true, "변경 없음");
@@ -1694,8 +1707,7 @@ async function updateMarketHistory() {
 
   if (changed) {
     history.updatedAt = crawledAt;
-    await mkdir(dirname(MARKET_HISTORY_OUT), { recursive: true });
-    await writeFile(MARKET_HISTORY_OUT, JSON.stringify(history, null, 2) + "\n", { encoding: "utf8" });
+    await writeJsonSafely(MARKET_HISTORY_OUT, history);
   }
 
   return history;
@@ -2987,6 +2999,90 @@ function buildIntelligence({ news = [], prices = {}, stats = {}, chinaInfra = {}
   };
 }
 
+function qualityCanonicalUrl(item = {}) {
+  const raw = directNewsUrl(item) || item.sourceUrl || item.url || "";
+  if (!raw) return "";
+  try {
+    const parsed = new URL(raw);
+    parsed.hash = "";
+    for (const key of ["utm_source", "utm_medium", "utm_campaign", "utm_term", "utm_content", "oc"]) {
+      parsed.searchParams.delete(key);
+    }
+    return parsed.toString().replace(/\/$/, "").toLowerCase();
+  } catch {
+    return String(raw).replace(/#.*$/, "").replace(/\/$/, "").toLowerCase();
+  }
+}
+
+function buildQualityReport(payload = {}) {
+  const news = Array.isArray(payload.news) ? payload.news : [];
+  const community = Array.isArray(payload.communitySignals?.items) ? payload.communitySignals.items : [];
+  const briefs = Array.isArray(payload.intelligence?.briefs) ? payload.intelligence.briefs : [];
+  const priceRows = (payload.prices?.sections || []).flatMap((section) => section.rows || []);
+  const marketIndexes = Object.values(payload.marketHistory?.indexes || {});
+  const stocks = Object.values(payload.stocks || {});
+  const directNews = news.filter((item) => /^https?:\/\//i.test(directNewsUrl(item)) && !/news\.google\.com/i.test(directNewsUrl(item)));
+  const summarizedNews = news.filter((item) => String(item.summary || item.summaryOriginal || "").trim().length >= 20);
+  const languageCounts = news.reduce((counts, item) => {
+    const language = verifiedNewsLanguage(item);
+    if (language === "english" || language === "chinese") counts[language] += 1;
+    return counts;
+  }, { english: 0, chinese: 0 });
+  const canonicalUrls = news.map(qualityCanonicalUrl).filter(Boolean);
+  const duplicateCount = canonicalUrls.length - new Set(canonicalUrls).size;
+  const validMarkets = marketIndexes.filter((item) => Number(item?.latest?.close ?? item?.latest?.value) > 0);
+  const validStocks = stocks.filter((item) => Number(item?.latestClose) > 0);
+  const validBriefs = briefs.filter((brief) => (
+    /^https?:\/\//i.test(String(brief.latest?.url || ""))
+    && !/news\.google\.com/i.test(String(brief.latest?.url || ""))
+    && String(brief.latest?.summary || "").trim().length >= 20
+    && String(brief.decision || "").trim()
+    && String(brief.reversalKpi || "").trim()
+  ));
+  const directSourceRatio = news.length ? directNews.length / news.length : 0;
+  const summaryRatio = news.length ? summarizedNews.length / news.length : 0;
+  const checks = [
+    { id: "price_rows", critical: true, passed: priceRows.length >= 10, observed: priceRows.length, threshold: 10 },
+    { id: "news_total", critical: true, passed: news.length >= 24, observed: news.length, threshold: 24 },
+    { id: "news_english", critical: true, passed: languageCounts.english >= 12, observed: languageCounts.english, threshold: 12 },
+    { id: "news_chinese", critical: true, passed: languageCounts.chinese >= 4, observed: languageCounts.chinese, threshold: 4 },
+    { id: "news_direct_sources", critical: true, passed: directSourceRatio >= 0.9, observed: Number(directSourceRatio.toFixed(3)), threshold: 0.9 },
+    { id: "news_summaries", critical: true, passed: summaryRatio >= 0.55, observed: Number(summaryRatio.toFixed(3)), threshold: 0.55 },
+    { id: "news_duplicates", critical: true, passed: duplicateCount === 0, observed: duplicateCount, threshold: 0 },
+    { id: "community_signals", critical: true, passed: community.length >= 5, observed: community.length, threshold: 5 },
+    { id: "decision_briefs", critical: true, passed: validBriefs.length >= 6, observed: validBriefs.length, threshold: 6 },
+    { id: "market_indexes", critical: true, passed: validMarkets.length >= 3, observed: validMarkets.length, threshold: 3 },
+    { id: "peer_stocks", critical: true, passed: validStocks.length >= 2, observed: validStocks.length, threshold: 2 },
+  ];
+  const failures = checks.filter((check) => check.critical && !check.passed);
+  return {
+    status: failures.length ? "rejected" : "verified",
+    verifiedAt: failures.length ? null : payload.updatedAt,
+    methodologyVersion: "3.0-evidence-gated",
+    checks,
+    failures: failures.map((check) => check.id),
+    metrics: {
+      priceRows: priceRows.length,
+      newsItems: news.length,
+      englishNews: languageCounts.english,
+      chineseNews: languageCounts.chinese,
+      directSourceRatio: Number(directSourceRatio.toFixed(3)),
+      summaryRatio: Number(summaryRatio.toFixed(3)),
+      duplicateCount,
+      communitySignals: community.length,
+      decisionBriefs: validBriefs.length,
+      marketIndexes: validMarkets.length,
+      peerStocks: validStocks.length,
+    },
+    channels: {
+      prices: payload.prices?.updatedAt || payload.updatedAt,
+      news: payload.updatedAt,
+      community: payload.communitySignals?.updatedAt || payload.updatedAt,
+      markets: payload.marketHistory?.updatedAt || payload.updatedAt,
+    },
+  };
+}
+
 async function main() {
   await loadCrawlExclusions();
   const previous = await loadPreviousData();
@@ -3030,6 +3126,8 @@ async function main() {
   console.log(`\n수집 완료: ${okCount}/${health.length} 단계 성공, 기사 ${news.length}건(영문 ${languageCounts.english || 0} / 중문 ${languageCounts.chinese || 0}), 중국 현장 신호 ${communitySignals.items.length}건, 벤치마킹 신호 ${benchmarkSignals.stream.length}건, 가격표 ${prices.sections.length}개`);
 
   const payload = {
+    schemaVersion: "3.0",
+    runId: process.env.GITHUB_RUN_ID || `local-${Date.now()}`,
     updatedAt: new Date().toISOString(),
     timezone: "Asia/Seoul",
     stocks,
@@ -3050,8 +3148,12 @@ async function main() {
     health,
   };
 
-  await mkdir(dirname(OUT), { recursive: true });
-  await writeFile(OUT, JSON.stringify(payload, null, 2) + "\n", { encoding: "utf8" });
+  payload.quality = buildQualityReport(payload);
+  if (payload.quality.status !== "verified") {
+    throw new Error(`quality gate rejected crawl: ${payload.quality.failures.join(", ")}`);
+  }
+
+  await writeJsonSafely(OUT, payload);
   console.log(`저장: ${OUT}`);
 }
 

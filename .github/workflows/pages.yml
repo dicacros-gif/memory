@@ -24,6 +24,7 @@ concurrency:
 jobs:
   agent:
     runs-on: ubuntu-latest
+    timeout-minutes: 25
     steps:
       - name: Checkout
         uses: actions/checkout@v4
@@ -34,10 +35,27 @@ jobs:
           node-version: "20"
 
       - name: Run intelligence agent
-        run: npm run crawl
+        shell: bash
+        run: |
+          success=0
+          for attempt in 1 2 3; do
+            echo "Verified crawl attempt ${attempt}/3"
+            if npm run crawl; then
+              success=1
+              break
+            fi
+            sleep $((attempt * 30))
+          done
+          test "$success" = "1"
 
       - name: Validate refreshed intelligence
-        run: npm run audit
+        run: npm run check
+
+      - name: Reject malformed generated files
+        shell: bash
+        run: |
+          git diff --check
+          test ! -n "$(find data -maxdepth 1 -name '*.tmp' -print -quit)"
 
       - name: Commit refreshed intelligence data
         if: github.ref == 'refs/heads/main'
