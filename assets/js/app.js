@@ -2225,48 +2225,54 @@
   }
 
   function setupMemoryScrollStory() {
-    const story = $("#memory-scroll-story");
-    if (!story || story.dataset.ready === "1") return;
-    const chapters = Array.from(story.querySelectorAll("[data-scroll-chapter]"));
-    const count = $("#memoryScrollCount");
-    const progress = $("#memoryScrollProgress");
-    if (!chapters.length || !count || !progress) return;
-    story.dataset.ready = "1";
+    const records = Array.from(document.querySelectorAll("[data-scroll-story]"))
+      .filter((story) => story.dataset.ready !== "1")
+      .map((story) => ({
+        story,
+        chapters: Array.from(story.querySelectorAll("[data-scroll-chapter]")),
+        count: story.querySelector("[data-scroll-count]"),
+        progress: story.querySelector("[data-scroll-progress]"),
+        activeIndex: -1,
+      }))
+      .filter((record) => record.chapters.length && record.count && record.progress);
+    if (!records.length) return;
+    records.forEach((record) => { record.story.dataset.ready = "1"; });
 
-    let activeIndex = -1;
     let frame = 0;
-    const setActive = (index) => {
-      const nextIndex = Math.max(0, Math.min(chapters.length - 1, index));
-      if (nextIndex === activeIndex) return;
-      activeIndex = nextIndex;
-      chapters.forEach((chapter, chapterIndex) => {
-        const active = chapterIndex === activeIndex;
+    const setActive = (record, index) => {
+      const nextIndex = Math.max(0, Math.min(record.chapters.length - 1, index));
+      if (nextIndex === record.activeIndex) return;
+      record.activeIndex = nextIndex;
+      record.chapters.forEach((chapter, chapterIndex) => {
+        const active = chapterIndex === record.activeIndex;
         chapter.classList.toggle("active", active);
         chapter.setAttribute("aria-current", active ? "step" : "false");
       });
-      count.textContent = `${String(activeIndex + 1).padStart(2, "0")} / ${String(chapters.length).padStart(2, "0")}`;
+      record.count.textContent = `${String(record.activeIndex + 1).padStart(2, "0")} / ${String(record.chapters.length).padStart(2, "0")}`;
     };
     const sync = () => {
       frame = 0;
       const viewportCenter = window.innerHeight * .52;
-      let closestIndex = 0;
-      let closestDistance = Number.POSITIVE_INFINITY;
-      chapters.forEach((chapter, index) => {
-        const rect = chapter.getBoundingClientRect();
-        const distance = Math.abs((rect.top + rect.height / 2) - viewportCenter);
-        if (distance < closestDistance) {
-          closestDistance = distance;
-          closestIndex = index;
-        }
-      });
-      setActive(closestIndex);
-
-      const storyRect = story.getBoundingClientRect();
       const topOffset = parseFloat(getComputedStyle(document.documentElement).getPropertyValue("--topbar-h")) || 48;
-      const travel = Math.max(1, storyRect.height - (window.innerHeight - topOffset));
-      const travelled = Math.min(travel, Math.max(0, topOffset - storyRect.top));
-      progress.style.width = `${Math.max(4, (travelled / travel) * 100)}%`;
-      story.classList.toggle("in-view", storyRect.bottom > topOffset && storyRect.top < window.innerHeight);
+      records.forEach((record) => {
+        let closestIndex = 0;
+        let closestDistance = Number.POSITIVE_INFINITY;
+        record.chapters.forEach((chapter, index) => {
+          const rect = chapter.getBoundingClientRect();
+          const distance = Math.abs((rect.top + rect.height / 2) - viewportCenter);
+          if (distance < closestDistance) {
+            closestDistance = distance;
+            closestIndex = index;
+          }
+        });
+        setActive(record, closestIndex);
+
+        const storyRect = record.story.getBoundingClientRect();
+        const travel = Math.max(1, storyRect.height - (window.innerHeight - topOffset));
+        const travelled = Math.min(travel, Math.max(0, topOffset - storyRect.top));
+        record.progress.style.width = `${Math.max(4, (travelled / travel) * 100)}%`;
+        record.story.classList.toggle("in-view", storyRect.bottom > topOffset && storyRect.top < window.innerHeight);
+      });
     };
     const scheduleSync = () => {
       if (frame) return;

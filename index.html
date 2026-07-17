@@ -30,7 +30,7 @@
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard/dist/web/static/pretendard.css" />
   <link rel="stylesheet" as="style" crossorigin href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css" />
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@500;700&family=Noto+Sans+KR:wght@400;500;700;800;900&family=Space+Grotesk:wght@500;600;700&display=swap" />
-  <link rel="stylesheet" href="assets/css/styles.css?v=scroll-story-20260717" />
+  <link rel="stylesheet" href="assets/css/styles.css?v=scroll-stories-20260717" />
 </head>
 <body>
   <div class="scroll-prog" id="scrollProg" aria-hidden="true"></div>
@@ -333,13 +333,13 @@
           </div>
         </section>
 
-        <section class="memory-scroll-story" id="memory-scroll-story" aria-label="AI 메모리 전략 스크롤 스토리">
+        <section class="memory-scroll-story" id="memory-scroll-story" data-scroll-story aria-label="AI 메모리 전략 스크롤 스토리">
           <div class="memory-scroll-sticky">
             <img src="assets/media/hbm-scroll-story.webp" alt="HBM 적층 구조와 인터포저를 시각화한 AI 메모리 시스템" loading="lazy" decoding="async" />
             <div class="memory-scroll-shade" aria-hidden="true"></div>
             <div class="memory-scroll-status" aria-hidden="true">
-              <span id="memoryScrollCount">01 / 04</span>
-              <i><b id="memoryScrollProgress"></b></i>
+              <span id="memoryScrollCount" data-scroll-count>01 / 04</span>
+              <i><b id="memoryScrollProgress" data-scroll-progress></b></i>
             </div>
           </div>
           <div class="memory-scroll-copy">
@@ -622,6 +622,51 @@
           </div>
         </section>
 
+        <section class="memory-scroll-story competitive-scroll-story" id="competitive-scroll-story" data-scroll-story aria-label="메모리 경쟁 다이나믹스 스크롤 스토리">
+          <div class="memory-scroll-sticky">
+            <img src="assets/media/competitive-dynamics-scroll.webp" alt="메모리 칩과 반도체 밸류체인 연결을 시각화한 경쟁 다이나믹스" loading="lazy" decoding="async" />
+            <div class="memory-scroll-shade" aria-hidden="true"></div>
+            <div class="memory-scroll-status" aria-hidden="true">
+              <span data-scroll-count>01 / 04</span>
+              <i><b data-scroll-progress></b></i>
+            </div>
+          </div>
+          <div class="memory-scroll-copy">
+            <article class="memory-scroll-chapter active" data-scroll-chapter="0">
+              <div class="memory-scroll-panel">
+                <span>01 · COMPETITIVE SYSTEM</span>
+                <h2>경쟁은 제품이 아니라<br />밸류체인 전체에서 전개</h2>
+                <p>메모리 다이, 파운드리, 첨단 패키징, 장비와 고객 인증이 하나의 경쟁 시스템을 형성. 단일 점유율보다 연결 구조의 변화가 선행 신호.</p>
+                <div><em>Memory</em><em>Foundry</em><em>Packaging</em><em>Equipment</em></div>
+              </div>
+            </article>
+            <article class="memory-scroll-chapter align-right" data-scroll-chapter="1">
+              <div class="memory-scroll-panel">
+                <span>02 · PARTNERSHIP LEVERAGE</span>
+                <h2>파트너십은 기술보다<br />출하 속도를 결정</h2>
+                <p>베이스 다이, 패키징 할당, 가속기 인증을 연결한 협업 구조가 고객 램프 속도를 좌우. 제휴의 가치는 발표보다 실제 양산 연결성으로 평가.</p>
+                <div><em>Base die</em><em>Packaging allocation</em><em>Customer ramp</em></div>
+              </div>
+            </article>
+            <article class="memory-scroll-chapter" data-scroll-chapter="2">
+              <div class="memory-scroll-panel">
+                <span>03 · CHINA SUPPLY NETWORK</span>
+                <h2>중국 생태계는<br />역할 분업으로 추격</h2>
+                <p>CXMT의 DRAM, YMTC의 NAND, JCET·XMC의 후공정, Naura·AMEC의 장비 역량을 분리 추적. 개별 기업보다 자국 내 연결 강도가 핵심 위험 변수.</p>
+                <div><em>CXMT</em><em>YMTC</em><em>JCET · XMC</em><em>Naura · AMEC</em></div>
+              </div>
+            </article>
+            <article class="memory-scroll-chapter align-right" data-scroll-chapter="3">
+              <div class="memory-scroll-panel">
+                <span>04 · MONEY FLOW</span>
+                <h2>돈의 흐름을<br />실행 신호로 전환</h2>
+                <p>장기 공급계약, 설비 발주, 정책자금, 고객 인증의 순서를 함께 확인. 자금 유입이 캐파와 출하로 연결될 때 경쟁 관계도를 실행 우선순위로 전환.</p>
+                <div><em>Supply contract</em><em>CapEx</em><em>Policy capital</em><em>Qualification</em></div>
+              </div>
+            </article>
+          </div>
+        </section>
+
         <section class="board ai-matrix-board" id="ai-matrix">
           <div class="board-head">
             <div>
@@ -713,6 +758,6 @@
   <div class="qa-answer" id="qaAnswer" hidden></div>
   <div class="inspector" id="inspector" hidden></div>
   <div class="backdrop" id="backdrop"></div>
-  <script src="assets/js/app.js?v=scroll-story-20260717" defer></script>
+  <script src="assets/js/app.js?v=scroll-stories-20260717" defer></script>
 </body>
 </html>
