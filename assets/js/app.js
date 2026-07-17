@@ -2561,13 +2561,79 @@
     const video = $("#chinaBenchmarkStoryVideo");
     const toggle = $("#chinaBenchmarkStoryToggle");
     const source = video?.querySelector("source[data-src]");
-    if (!story || !video || !toggle || !source || story.dataset.ready === "1") return;
+    const copy = story?.querySelector(".china-benchmark-video-copy");
+    const kicker = copy?.querySelector("[data-benchmark-kicker]");
+    const title = copy?.querySelector("[data-benchmark-title]");
+    const summary = copy?.querySelector("[data-benchmark-summary]");
+    const status = copy?.querySelector("[data-benchmark-status]");
+    if (!story || !video || !toggle || !source || !copy || !kicker || !title || !summary || !status || story.dataset.ready === "1") return;
     story.dataset.ready = "1";
     video.muted = true;
 
+    const leadInsight = {
+      id: "structure",
+      kicker: "China memory benchmark",
+      title: "중국 메모리의 기술 격차를 구조로 읽습니다",
+      summary: "공정 · 낸드 · 패키징 · 소부장 · 인재/IP",
+    };
+    const shuffledInsights = [
+      {
+        id: "dram-pressure",
+        kicker: "DRAM · PRICE PRESSURE",
+        title: "CXMT는 HBM보다 범용 DRAM 가격을 먼저 압박합니다",
+        summary: "매출 점유율 · 고객 장기계약 · Spot/Contract 스프레드를 함께 검토",
+      },
+      {
+        id: "nand-system",
+        kicker: "NAND · ECOSYSTEM",
+        title: "YMTC의 위협은 층수보다 Xtacking과 eSSD 확장 속도입니다",
+        summary: "비트 밀도 · 고객 인증 · 우한 증설 · 국산 장비 Qualification을 분리 추적",
+      },
+      {
+        id: "localization",
+        kicker: "EQUIPMENT · PACKAGING",
+        title: "패키징과 장비 내재화가 제재 대응 경로를 넓힙니다",
+        summary: "XMC · JCET · Naura · AMEC를 공정·후공정·장비 축으로 연결",
+      },
+      {
+        id: "cost",
+        kicker: "YIELD · COST PER BIT",
+        title: "수율보다 비트 원가와 실제 출하를 우선 확인합니다",
+        summary: "공식 사양 · 역분석 추정 · 양산 수율 · 고객 채택을 증거 수준별로 분리",
+      },
+      {
+        id: "talent",
+        kicker: "TALENT · IP SIGNAL",
+        title: "인재 이동은 공정 로드맵보다 빠른 선행 신호입니다",
+        summary: "TSV · 수율 · 패키징 채용과 핵심 인력 이동을 IP 리스크와 함께 검토",
+      },
+    ];
+    for (let index = shuffledInsights.length - 1; index > 0; index -= 1) {
+      const swapIndex = Math.floor(Math.random() * (index + 1));
+      [shuffledInsights[index], shuffledInsights[swapIndex]] = [shuffledInsights[swapIndex], shuffledInsights[index]];
+    }
+    const insights = [leadInsight, ...shuffledInsights];
+
     let hydrated = false;
     let frame = 0;
+    let insightIndex = -1;
     const reducedMotion = window.matchMedia?.("(prefers-reduced-motion: reduce)")?.matches;
+    const setInsight = (nextIndex) => {
+      const boundedIndex = Math.max(0, Math.min(insights.length - 1, nextIndex));
+      if (boundedIndex === insightIndex) return;
+      insightIndex = boundedIndex;
+      const insight = insights[insightIndex];
+      kicker.textContent = insight.kicker;
+      title.textContent = insight.title;
+      summary.textContent = insight.summary;
+      status.textContent = `${String(insightIndex + 1).padStart(2, "0")} / ${String(insights.length).padStart(2, "0")}`;
+      copy.dataset.insight = insight.id;
+      copy.classList.remove("insight-changing");
+      if (!reducedMotion) {
+        void copy.offsetWidth;
+        copy.classList.add("insight-changing");
+      }
+    };
     const hydrate = () => {
       if (hydrated) return;
       hydrated = true;
@@ -2592,10 +2658,12 @@
       const travel = Math.max(1, story.offsetHeight - viewportHeight);
       const rect = story.getBoundingClientRect();
       const progress = clamp((topbar - rect.top) / travel, 0, 1);
-      const motion = clamp((progress - 0.08) / 0.72, 0, 1);
-      const opacity = reducedMotion ? 1 : clamp(1 - motion * 1.2, 0, 1);
-      const shift = reducedMotion ? 0 : -Math.round(motion * Math.min(240, viewportHeight * 0.28));
+      const nextInsight = Math.min(insights.length - 1, Math.floor(progress * insights.length));
+      const exit = clamp((progress - 0.94) / 0.06, 0, 1);
+      const opacity = reducedMotion ? 1 : 1 - exit;
+      const shift = reducedMotion ? 0 : -Math.round(progress * Math.min(24, viewportHeight * 0.03));
       const scale = reducedMotion ? 1 : 1.045 - progress * 0.045;
+      setInsight(nextInsight);
       story.style.setProperty("--benchmark-progress", progress.toFixed(4));
       story.style.setProperty("--benchmark-copy-opacity", opacity.toFixed(3));
       story.style.setProperty("--benchmark-copy-shift", `${shift}px`);
@@ -2639,6 +2707,7 @@
     const resizeObserver = "ResizeObserver" in window ? new ResizeObserver(scheduleScroll) : null;
     resizeObserver?.observe(story);
     syncControl();
+    setInsight(0);
     syncScroll();
 
     window.addEventListener("pagehide", () => {

@@ -1402,7 +1402,7 @@ body.sidebar-collapsed .sb-ico {
   width: calc(100% + 48px);
   min-width: calc(100% + 48px);
   max-width: none;
-  min-height: 178svh;
+  min-height: 320svh;
   margin-left: -24px;
   margin-right: -24px;
   overflow: clip;
@@ -1459,6 +1459,31 @@ body.sidebar-collapsed .sb-ico {
   pointer-events: none;
 }
 
+.china-benchmark-video-copy.insight-changing > * {
+  animation: benchmarkInsightSwap .48s cubic-bezier(.2, .8, .2, 1) both;
+}
+
+.china-benchmark-video-copy.insight-changing > :nth-child(2) {
+  animation-delay: .035s;
+}
+
+.china-benchmark-video-copy.insight-changing > :nth-child(3) {
+  animation-delay: .07s;
+}
+
+@keyframes benchmarkInsightSwap {
+  0% {
+    opacity: 0;
+    transform: translate3d(0, 18px, 0);
+    filter: blur(5px);
+  }
+  100% {
+    opacity: 1;
+    transform: translate3d(0, 0, 0);
+    filter: blur(0);
+  }
+}
+
 .china-benchmark-video-copy > p {
   width: fit-content;
   margin: 0;
@@ -1490,6 +1515,20 @@ body.sidebar-collapsed .sb-ico {
   font-weight: 750;
   line-height: 1.6;
   text-shadow: 0 3px 18px rgba(0, 0, 0, .74);
+}
+
+.china-benchmark-video-copy > small {
+  width: fit-content;
+  border: 1px solid rgba(142, 244, 236, .32);
+  border-radius: 999px;
+  background: rgba(3, 10, 20, .58);
+  color: #c8fffb;
+  padding: 5px 9px;
+  font-family: var(--mono);
+  font-size: 10px;
+  font-weight: 800;
+  line-height: 1;
+  backdrop-filter: blur(8px);
 }
 
 .china-benchmark-scroll-cue {
@@ -12978,7 +13017,7 @@ body.crawl-moderation-open {
   .china-benchmark-video-story {
     width: calc(100% + 28px);
     min-width: calc(100% + 28px);
-    min-height: 168svh;
+    min-height: 290svh;
     margin-left: -14px;
     margin-right: -14px;
   }
