@@ -5029,6 +5029,7 @@
         color: "#2D6BFF",
         stance: scenarioDecisionLabel(scenarioVerdictValue),
         message: `SKHY 경영진 질문은 "${profile.question}"입니다. ${latestEvidence} ${profile.ceo} ${scenario.ceo} 현재 안건은 **${selected?.verdict || "Watch"}**(${verdictMeaning})이고, ${scenario.label} 가정에서는 ==${scenarioVerdictValue}==(${scenarioDecisionLabel(scenarioVerdictValue)})로 조정합니다.`,
+        speechEn: `The executive question is whether this agenda creates a defensible advantage for SK hynix. The current recommendation is ${selected?.verdict || "Watch"}. Under scenario ${scenario.id}, it changes to ${scenarioVerdictValue}. We will approve only when the reversal KPI and execution conditions are explicit.`,
       },
       {
         id: "cfo",
@@ -5039,6 +5040,7 @@
         color: "#00C2A8",
         stance: "투자/매출 분리",
         message: `재무 관점에서는 이 안건을 확정 ROI가 아니라 **자본배분 후보**로 봅니다. ${priceEvidence} ${profile.cfo} ${scenario.cfo} ==${priceFlip.label}(${priceFlip.trigger})==를 넘기 전까지 예산 확정은 보류하고, 저수익 SKU부터 회수 우선순위를 정합니다.`,
+        speechEn: `From a finance perspective, this is a capital allocation candidate, not a confirmed return on investment. We should hold final budget approval until the primary price reversal threshold is met, and prioritize the recovery of low-return product lines.`,
       },
       {
         id: "cto",
@@ -5049,6 +5051,7 @@
         color: "#8B5CF6",
         stance: "병목 분리",
         message: `기술 관점에서는 ${profile.cto} ${scenario.cto} 제품 실행과 무관한 신호는 제외하고 **${flipKpis.map((item) => item.label).slice(0, 3).join(" · ")}** 순서로 병목을 검증합니다. 수율·인증이 확인되지 않으면 수요가 있어도 물량 약속으로 연결하지 않습니다.`,
+        speechEn: `Technology readiness must be separated from market enthusiasm. We will test the three primary technical and commercial gates in order. Without verified yield and customer qualification, demand must not be converted into a firm volume commitment.`,
       },
       {
         id: "cso",
@@ -5059,6 +5062,7 @@
         color: "#7C3AED",
         stance: "옵션 분리",
         message: `전략 선택지는 **즉시 실행 · 조건부 실사 · 옵션 유지**로 나눕니다. ${profile.next} 가격·고객·정책 근거가 약한 축은 결론 강도를 낮추고, SKHY가 이길 수 있는 축에만 자원을 집중합니다.`,
+        speechEn: `The strategic options are immediate execution, conditional diligence, and option preservation. We should reduce conviction where price, customer, or policy evidence is weak, and concentrate resources only where SK hynix has a credible right to win.`,
       },
       {
         id: "coo",
@@ -5069,6 +5073,7 @@
         color: "#0EA5E9",
         stance: "실행 가능성",
         message: `운영 실행은 **공급 · Fab · 고객 인증 · 재고 전환**이 동시에 맞아야 가능합니다. 인증·출하 일정이 서지 않으면 수요가 있어도 ==단계 집행==으로 낮춰 CAPEX를 milestone로 쪼갭니다.`,
+        speechEn: `Execution requires supply, fab readiness, customer qualification, and inventory conversion to align. If qualification and shipment schedules are not firm, capital expenditure should be staged against milestones instead of approved in full.`,
       },
       {
         id: "policy",
@@ -5079,6 +5084,7 @@
         color: "#F59E0B",
         stance: "라이선스 게이트",
         message: `정책 관점에서는 ${profile.policy} ${scenario.policy} **운영 유지 · 캐파 확대 · 기술 업그레이드**를 같은 결재선에 두지 않습니다. ==규제 원문이 확인되지 않으면 Go가 아니라 Watch==입니다.`,
+        speechEn: `Policy review separates operational continuity, capacity expansion, and technology upgrades. Without primary regulatory evidence, the recommendation remains Watch rather than Go.`,
       },
       {
         id: "market",
@@ -5089,6 +5095,7 @@
         color: "#10B981",
         stance: "가격 전이 확인",
         message: `시장 관점에서는 ${priceEvidence} ${profile.market} ${scenario.market} **가격과 고객 신호가 같은 방향**일 때만 결론을 높입니다. Spot만 흔들리면 확대가 아니라 ==재고 조정·계약 재협상==부터 검토합니다.`,
+        speechEn: `Market conviction rises only when pricing and customer signals move in the same direction. If only spot pricing changes, the first response should be inventory adjustment and contract renegotiation, not capacity expansion.`,
       },
       {
         id: "china",
@@ -5099,6 +5106,7 @@
         color: "#DB2777",
         stance: "중국 압력",
         message: `${chinaBrief ? `최신 중국 근거는 "${chinaBrief.latest?.title || "중국 경쟁 신호"}"(${chinaBrief.latest?.source || "원문"})입니다. ` : ""}중국 경쟁은 CXMT·YMTC·XMC·JCET·Naura·AMEC를 한 묶음으로 보지 않습니다. **DRAM 가격 · NAND/eSSD · 패키징 · 장비 내재화**로 분해하고, ${scenario.label}에서는 ${scenario.id === "china-pressure" ? "==범용 가격 방어==를 최우선에 둡니다." : "현재 리스크로만 반영합니다."}`,
+        speechEn: `China exposure must not be treated as one block. We separate C X M T in D RAM pricing, Y M T C in NAND and enterprise S S D, packaging players, and domestic equipment suppliers. Under scenario ${scenario.id}, ${scenario.id === "china-pressure" ? "commodity price defense becomes the first priority" : "these signals remain a current-risk overlay"}.`,
       },
       {
         id: "risk",
@@ -5109,6 +5117,7 @@
         color: "#F43F5E",
         stance: "KPI 게이트",
         message: `판단은 고정하지 않습니다. ==${primaryFlip.label}==이 ${primaryFlip.trigger}에 닿거나 핵심 KPI 2개 이상이 악화되면 **${primaryFlip.flip}**로 낮춰 즉시 재상정합니다.`,
+        speechEn: `The recommendation is not permanent. If the primary reversal indicator reaches its threshold, or if two critical indicators deteriorate, we will downgrade the decision and return it to the executive committee.`,
       },
       {
         id: "devil",
@@ -5119,6 +5128,7 @@
         color: "#111827",
         stance: "레드팀",
         message: `레드팀 질문입니다. 12개월 뒤 이 **${selected?.verdict || "Watch"}** 결론이 틀렸다면 원인은 무엇입니까? ① 유리한 근거만 골랐을 수 있습니다(==확증편향==). ② ${topRelationText} 관계는 상관일 뿐 인과가 아닐 수 있습니다. ③ ${scenario.label}만 보고 반대 시나리오를 과소평가했을 수 있습니다. 반증 조건이 명확하지 않으면 결론 강도를 낮춥니다.`,
+        speechEn: `Assume this ${selected?.verdict || "Watch"} recommendation is wrong twelve months from now. We may have selected only favorable evidence, confused correlation with causation in the highlighted relationship, or underweighted the opposite scenario. Unless the falsification test is explicit, conviction should be reduced.`,
       },
       {
         id: "audit",
@@ -5129,6 +5139,7 @@
         color: "#EF4444",
         stance: "근거 게이트",
         message: `${liveBrief ? `${liveBrief.latest?.evidenceLevel || "Watch"} · ${liveBrief.latest?.sourceType || "분석"} · ${liveBrief.latest?.claimType || "사실"} · ${liveBrief.latest?.source || "원문"}을 기준으로 검토했습니다. ` : ""}수치와 해석을 분리하고, ${scenario.audit} ==근거가 부족하면 Go가 아니라 Watch/Hold==로 제한합니다.`,
+        speechEn: `The evidence gate separates verified figures from interpretation and removes duplicate reporting. If the supporting evidence is insufficient, the decision is limited to Watch or Hold rather than Go.`,
       },
     ];
   }
@@ -5307,11 +5318,11 @@
           </div>
           <div class="agent-chat js-debate" data-council-chat>
             ${agentItems.map((agent, index) => `
-              <div class="agent-turn pending${index % 2 ? " right" : ""}" data-agent-slot="${index}" style="--agent-color:${escapeHTML(agent.color)}">
+              <div class="agent-turn pending${index % 2 ? " right" : ""}" data-agent-slot="${index}" data-tts-language="${agentUsesKoreanTts(agent.name, agent.role) ? "ko" : "en"}" style="--agent-color:${escapeHTML(agent.color)}">
                 <span class="agent-badge-wrap"><span class="agent-badge">${escapeHTML(agent.initials || agent.id.toUpperCase().slice(0, 2))}</span><small class="agent-badge-name">${escapeHTML(agent.name)}</small></span>
                 <div class="speech-bubble">
                   <div class="speech-meta"><strong>${escapeHTML(agent.role)}</strong><span>${escapeHTML(agent.stance || agent.name)}</span></div>
-                  <p>${renderAgentSpeech(agent.message)}</p>
+                  <p data-say-en="${escapeHTML(agent.speechEn || "")}">${renderAgentSpeech(agent.message)}</p>
                 </div>
               </div>
             `).join("")}
@@ -5391,6 +5402,7 @@
     conclusionDelayMs: 760,
   });
   const AGENT_TTS_STORAGE_KEY = "memory-agent-tts";
+  const AGENT_KOREAN_TTS_ROLE_RE = /(?:규제\s*[·/&]\s*fab\s*[·/&]\s*정책자금)|(?:팩트\s*검증\s*[·/&]\s*중복\s*제거)/i;
   const AGENT_TTS_PROFILES = [
     { id: "ceo", match: /ceo|chief executive|최종 의사결정|우선순위/i, gender: "male", tone: "decisive", voiceSlot: 0, pitch: 0.9, rate: 1.02, volume: 1 },
     { id: "cfo", match: /cfo|finance|재무|수익성|자본배분/i, gender: "female", tone: "analytical", voiceSlot: 0, pitch: 1.05, rate: 1.06, volume: 0.98 },
@@ -5406,8 +5418,8 @@
     { id: "data", match: /data|데이터|백테스트/i, gender: "male", tone: "analytical", voiceSlot: 5, pitch: 0.98, rate: 1.08, volume: 0.96 },
   ];
   const AGENT_VOICE_HINTS = Object.freeze({
-    female: /female|woman|여성|heami|sunhi|yuna|seoyeon|soyoung|jiyoung|sora|jiyeon|eunji|hyejin|hyemi|혜미|선희|유나|서연|소영|지영|소라|지연|은지|혜진/i,
-    male: /male|man|남성|injoon|hyunsu|minsu|junwoo|jiho|woosung|taeho|인준|현수|민수|준우|지호|우성|태호/i,
+    female: /female|woman|여성|aria|jenny|samantha|susan|zira|hazel|emma|ava|heami|sunhi|yuna|seoyeon|soyoung|jiyoung|sora|jiyeon|eunji|hyejin|hyemi|혜미|선희|유나|서연|소영|지영|소라|지연|은지|혜진/i,
+    male: /male|man|남성|guy|david|mark|daniel|george|james|ryan|injoon|hyunsu|minsu|junwoo|jiho|woosung|taeho|인준|현수|민수|준우|지호|우성|태호/i,
   });
   const AGENT_NATURAL_VOICE_HINT = /natural|neural|premium|enhanced|online/i;
   let agentTtsEnabled = (() => {
@@ -5431,9 +5443,16 @@
     return agentVoices;
   }
 
-  function agentVoiceScore(voice, gender) {
+  function agentUsesKoreanTts(name = "", role = "") {
+    return AGENT_KOREAN_TTS_ROLE_RE.test(`${name} ${role}`);
+  }
+
+  function agentVoiceScore(voice, gender, language = "en") {
     const descriptor = `${voice?.name || ""} ${voice?.voiceURI || ""}`;
-    let score = /^ko(?:-|$)/i.test(voice?.lang || "") ? 50 : 0;
+    const languageMatch = language === "ko"
+      ? /^ko(?:-|$)/i.test(voice?.lang || "")
+      : /^en(?:-|$)/i.test(voice?.lang || "");
+    let score = languageMatch ? 50 : 0;
     if (AGENT_NATURAL_VOICE_HINT.test(descriptor)) score += 18;
     if (AGENT_VOICE_HINTS[gender]?.test(descriptor)) score += 26;
     if (voice?.localService) score += 3;
@@ -5446,19 +5465,22 @@
     const profile = AGENT_TTS_PROFILES.find((item) => item.match.test(hay))
       || AGENT_TTS_PROFILES[index % AGENT_TTS_PROFILES.length];
     const voices = agentVoices.length ? agentVoices : refreshAgentVoices();
-    const korean = voices.filter((voice) => /^ko(?:-|$)/i.test(voice.lang || ""));
-    const pool = (korean.length ? korean : voices).slice().sort((a, b) => {
-      const scoreDelta = agentVoiceScore(b, profile.gender) - agentVoiceScore(a, profile.gender);
+    const language = agentUsesKoreanTts(name, role) ? "ko" : "en";
+    const languageVoices = voices.filter((voice) => language === "ko"
+      ? /^ko(?:-|$)/i.test(voice.lang || "")
+      : /^en(?:-|$)/i.test(voice.lang || ""));
+    const pool = languageVoices.slice().sort((a, b) => {
+      const scoreDelta = agentVoiceScore(b, profile.gender, language) - agentVoiceScore(a, profile.gender, language);
       return scoreDelta || String(a.name).localeCompare(String(b.name));
     });
     const genderPool = pool.filter((voice) => AGENT_VOICE_HINTS[profile.gender]?.test(`${voice.name || ""} ${voice.voiceURI || ""}`));
     const fallbackPool = pool.filter((_, voiceIndex) => voiceIndex % 2 === (profile.gender === "female" ? 0 : 1));
     const preferredPool = genderPool.length ? genderPool : (fallbackPool.length ? fallbackPool : pool);
     const voice = preferredPool.length ? preferredPool[profile.voiceSlot % preferredPool.length] : null;
-    return { ...profile, voice };
+    return { ...profile, language, voice };
   }
 
-  function agentSpeechText(value = "", tone = "measured") {
+  function agentKoreanSpeechText(value = "", tone = "measured") {
     const challengeLead = tone === "challenging" ? "반대 관점에서 보겠습니다. " : "";
     return String(value || "")
       .replace(/SKHY/gi, "에스케이 하이닉스")
@@ -5476,6 +5498,31 @@
       .replace(/wpm/gi, "웨이퍼 퍼 먼스")
       .replace(/\s*[·•]\s*/g, ", ")
       .replace(/\s*→\s*/g, ". 따라서, ")
+      .replace(/([.!?])(?=\S)/g, "$1 ")
+      .replace(/\s+/g, " ")
+      .trim()
+      .replace(/^/, challengeLead)
+      .replace(/([^.!?])$/, "$1.");
+  }
+
+  function agentEnglishSpeechText(value = "", tone = "measured") {
+    const challengeLead = tone === "challenging" ? "Let me challenge that assumption. " : "";
+    return String(value || "")
+      .replace(/SKHY/gi, "S K hynix")
+      .replace(/HBM4E/gi, "H B M four E")
+      .replace(/HBM4/gi, "H B M four")
+      .replace(/HBM3E/gi, "H B M three E")
+      .replace(/HBM3/gi, "H B M three")
+      .replace(/DRAM/gi, "D RAM")
+      .replace(/NAND/gi, "NAND")
+      .replace(/CXMT/gi, "C X M T")
+      .replace(/YMTC/gi, "Y M T C")
+      .replace(/XMC/gi, "X M C")
+      .replace(/QoQ/gi, "quarter over quarter")
+      .replace(/YoY/gi, "year over year")
+      .replace(/wpm/gi, "wafers per month")
+      .replace(/\s*[·•]\s*/g, ", ")
+      .replace(/\s*→\s*/g, ". Therefore, ")
       .replace(/([.!?])(?=\S)/g, "$1 ")
       .replace(/\s+/g, " ")
       .trim()
@@ -5562,18 +5609,23 @@
 
   function speakAgentTurn(turn, index = 0) {
     return new Promise((resolve) => {
-      const rawText = turn?.querySelector("p")?.dataset.say || turn?.querySelector("p")?.textContent || "";
-      if (!agentTtsEnabled || !agentSpeechSupported() || !rawText.trim()) {
+      const paragraph = turn?.querySelector("p");
+      const rawText = paragraph?.dataset.say || paragraph?.textContent || "";
+      const name = (turn.querySelector(".agent-badge-name")?.textContent || "").trim();
+      const role = (turn.querySelector(".speech-meta strong")?.textContent || "").trim();
+      const profile = agentVoiceProfile(name, role, index);
+      const englishText = paragraph?.dataset.sayEn || "";
+      const speechSource = profile.language === "ko" ? rawText : englishText;
+      if (!agentTtsEnabled || !agentSpeechSupported() || !speechSource.trim()) {
         resolve();
         return;
       }
       stopAgentSpeech();
-      const name = (turn.querySelector(".agent-badge-name")?.textContent || "").trim();
-      const role = (turn.querySelector(".speech-meta strong")?.textContent || "").trim();
-      const profile = agentVoiceProfile(name, role, index);
-      const text = agentSpeechText(rawText, profile.tone);
+      const text = profile.language === "ko"
+        ? agentKoreanSpeechText(speechSource, profile.tone)
+        : agentEnglishSpeechText(speechSource, profile.tone);
       const utterance = new SpeechSynthesisUtterance(text);
-      utterance.lang = profile.voice?.lang || "ko-KR";
+      utterance.lang = profile.voice?.lang || (profile.language === "ko" ? "ko-KR" : "en-US");
       utterance.voice = profile.voice || null;
       utterance.pitch = Math.max(0.72, Math.min(1.28, profile.pitch + (/\?$/.test(text) ? 0.04 : 0)));
       utterance.rate = Math.max(0.96, Math.min(1.12, profile.rate + (text.length > 180 ? 0.02 : 0)));
@@ -5596,8 +5648,9 @@
         turn.dataset.ttsVoice = profile.id;
         turn.dataset.ttsGender = profile.gender;
         turn.dataset.ttsTone = profile.tone;
+        turn.dataset.ttsLanguage = profile.language;
         document.querySelectorAll("[data-agent-tts-toggle] small").forEach((state) => {
-          state.textContent = `${name || role || "Agent"} · ${profile.gender === "female" ? "여성" : "남성"} 음성`;
+          state.textContent = `${name || role || "Agent"} · ${profile.language === "ko" ? "한국어" : "English"} ${profile.gender === "female" ? "여성" : "남성"} 음성`;
         });
       };
       utterance.onend = finish;
@@ -8791,14 +8844,14 @@
         </div>
         <div class="agent-chat js-debate" aria-label="전문가 토론 말풍선" style="--chat-delay:${chatStartDelay}ms">
           ${normalizedTurns.map((turn, index) => `
-            <article class="agent-turn pending ${escapeHTML(turn.side)}" style="--agent-color:${escapeHTML(turn.color)};--delay:${chatStartDelay + index * chatStepDelay}ms">
+            <article class="agent-turn pending ${escapeHTML(turn.side)}" data-tts-language="${agentUsesKoreanTts(turn.name, turn.role) ? "ko" : "en"}" style="--agent-color:${escapeHTML(turn.color)};--delay:${chatStartDelay + index * chatStepDelay}ms">
               <div class="agent-badge-wrap"><div class="agent-badge">${escapeHTML(turn.avatar || agentInitials(turn.name))}</div><small class="agent-badge-name">${escapeHTML(turn.name)}</small></div>
               <div class="speech-bubble">
                 <div class="speech-meta">
                   <strong>${escapeHTML(turn.role || "Expert")}</strong>
                   <span>${escapeHTML(turn.stance || turn.name)}</span>
                 </div>
-                <p>${renderAgentSpeech(turn.message)}</p>
+                <p data-say-en="${escapeHTML(turn.speechEn || "")}">${renderAgentSpeech(turn.message)}</p>
               </div>
             </article>
           `).join("")}
@@ -9063,6 +9116,7 @@
   function executiveDecisionAgentItems(active, selectedYearOption, productLabel, selectedIso, selectedSeriesCount, scenario = agentFutureScenario()) {
     if (!active) return "";
     const actual = active.actualChange == null ? "선택 시점 이후 실측 데이터 부족" : `${active.actualChange > 0 ? "+" : ""}${fmtNum(active.actualChange, 2)}%`;
+    const actualEn = active.actualChange == null ? "not available" : `${active.actualChange > 0 ? "+" : ""}${fmtNum(active.actualChange, 2)} percent`;
     const prior = active.priorMomentum == null ? "NA" : `${active.priorMomentum > 0 ? "+" : ""}${fmtNum(active.priorMomentum, 2)}%`;
     const yearLabel = selectedYearOption?.label || "선택 시점 없음";
     const profile = executiveDecisionProfile(active, selectedYearOption, productLabel);
@@ -9081,6 +9135,7 @@
         color: "#111827",
         stance: scenario.conclusion,
         message: `${profile.question} 현재 결론은 ${active.decision.label}입니다. ${scenario.label} 가정에서는 ${scenario.ceo} 실행 판단은 ${scenario.conclusion}입니다. ${primaryFlip.label}(${primaryFlip.trigger})이 충족되면 판단을 재상정합니다.`,
+        speechEn: `The executive decision is conditional. Under scenario ${scenario.id}, we will maintain the current recommendation. We will reopen the decision when the primary reversal threshold is reached.`,
       },
       {
         id: "data",
@@ -9091,6 +9146,7 @@
         color: "#06B6D4",
         stance: "Base-rate 검증",
         message: `${profile.data} ${point} 기준 가격 series ${fmtNum(selectedSeriesCount)}개 중 관측 ${fmtNum(active.observations.length)}개만 계산했습니다. 사전 모멘텀은 ${prior}, 이후 실측은 ${actual}입니다. ${scenario.label}에서는 ${scenario.market}`,
+        speechEn: `The backtest uses ${fmtNum(active.observations.length)} observed points from ${fmtNum(selectedSeriesCount)} matched price series. Prior momentum was ${prior}, and the subsequent observed result was ${actualEn}. This is the base rate for scenario ${scenario.id}.`,
       },
       {
         id: "china",
@@ -9101,6 +9157,7 @@
         color: "#8B5CF6",
         stance: "시나리오 오버레이",
         message: `${profile.china} 연결 신호 ${fmtNum(active.chinaSignalCount)}건은 과거 판단에 소급 반영하지 않습니다. ${scenario.label}에서는 ${scenario.id === "china-pressure" ? "중국 신호를 Bear case로 상향 반영합니다." : "중국 신호를 현재 리스크로만 유지합니다."} ${chinaFlip.label} 기준이 충족되면 판단을 '${chinaFlip.flip}'로 재분류합니다.`,
+        speechEn: `${fmtNum(active.chinaSignalCount)} China-related signals are treated as a current risk overlay and are not applied retroactively to the historical test. Under scenario ${scenario.id}, ${scenario.id === "china-pressure" ? "China pressure is moved into the downside case" : "China pressure remains a current-risk overlay"}. If the China reversal threshold is triggered, the decision is downgraded.`,
       },
       {
         id: "cfo",
@@ -9111,6 +9168,7 @@
         color: "#F59E0B",
         stance: "Capital Allocation",
         message: `${profile.cfo} ${scenario.cfo} 이 판단은 IRR/NPV가 아니라 실사 우선순위입니다. 실행 문구는 '${active.decision.action}'로 제한하고, 재검토 기준이 충족되면 예산안을 다시 냅니다.`,
+        speechEn: `This result is a diligence priority, not an I R R or N P V. The authorized action remains limited and conditional. A capital request should be resubmitted only after the reversal conditions are satisfied.`,
       },
       {
         id: "cto",
@@ -9121,6 +9179,7 @@
         color: "#7C3AED",
         stance: "MECE 분해",
         message: `HBM, 서버 DDR5, NAND/eSSD, 단말향 DRAM은 같은 결론으로 묶지 않습니다. 대상 제품군 ${(active.products || []).slice(0, 4).join(" · ") || productLabel}에서 수율, 인증, 패키징 병목이 풀릴 때만 확대 판단을 유지합니다.`,
+        speechEn: `H B M, server D D R five, NAND and enterprise S S D, and device D RAM require separate decisions. For the selected product family, expansion remains valid only after yield, qualification, and packaging bottlenecks are cleared.`,
       },
       {
         id: "coo",
@@ -9131,6 +9190,7 @@
         color: "#0EA5E9",
         stance: "실행 조건",
         message: `선택 시점 이후 실측은 ${actual}, 관측은 ${fmtNum(active.observations.length)}개입니다. 공급 배분, 재고 회전, Fab continuity가 동시에 맞지 않으면 Go를 단계 집행으로 낮춥니다.`,
+        speechEn: `The subsequent observed result is ${actualEn}, based on ${fmtNum(active.observations.length)} observations. If supply allocation, inventory turns, and fab continuity do not align, a Go decision must be reduced to staged execution.`,
       },
       {
         id: "market",
@@ -9141,6 +9201,7 @@
         color: "#10B981",
         stance: "Lead-Lag 신호",
         message: `${profile.data} 가격은 사전 모멘텀 ${prior}와 이후 실측 ${actual}로 나눠 봅니다. ${priceFlip.label}(${priceFlip.trigger})이 충족되지 않으면 고객·가격 결론을 과도하게 올리지 않습니다.`,
+        speechEn: `Pricing is separated into prior momentum of ${prior} and a subsequent observed result of ${actualEn}. Until the primary price reversal threshold is met, we should not raise the customer or pricing conclusion.`,
       },
       {
         id: "risk",
@@ -9151,6 +9212,7 @@
         color: "#EF4444",
         stance: "Reversal Trigger",
         message: `${profile.risk} ${scenario.policy} 하방 조건은 "${active.downside}"입니다. ${flipKpis.slice(0, 3).map((item) => item.label).join(" · ")} 중 2개 이상 악화되면 결론을 낮춥니다.`,
+        speechEn: `The downside case requires a hard reversal gate. If at least two of the three primary indicators deteriorate, the recommendation must be downgraded.`,
       },
       {
         id: "devil",
@@ -9161,6 +9223,7 @@
         color: "#111827",
         stance: "Devil's Advocate",
         message: `Devil's Advocate: 12개월 뒤 이 결론이 틀렸다고 가정하고 실패 원인부터 적습니다. 이 백테스트가 "지나간 판단을 지금 근거로 정당화"하는 사후확증일 수 있습니다. ① 사전 모멘텀 ${prior}와 이후 실측 ${actual}가 우연히 맞았을 가능성을 배제했습니까? ② 같은 신호로 반대 결론을 내면 어디서 깨집니까? ③ 표본이 ${fmtNum(active.observations?.length || 0)}개면 통계적으로 충분합니까? 같은 규칙으로 틀린 시점도 비교해야 합니다.`,
+        speechEn: `Assume this conclusion fails in twelve months. The backtest may be post-hoc confirmation. Have we ruled out that prior momentum of ${prior} and the subsequent result of ${actualEn} aligned by chance? Where would the opposite conclusion fail, and are ${fmtNum(active.observations?.length || 0)} observations sufficient? We must test losing periods with the same rule.`,
       },
       {
         id: "audit",
@@ -9171,6 +9234,7 @@
         color: "#475569",
         stance: "근거 정합성",
         message: `선택 시점 이후 실제 가격만 백테스트에 씁니다. 중국 신호 ${fmtNum(active.chinaSignalCount)}건은 현재 리스크이며, 원문·가격 row가 없는 해석은 결론 강도를 올리지 않습니다.`,
+        speechEn: `Only prices observed after the selected date are used in the backtest. The ${fmtNum(active.chinaSignalCount)} China signals are current risks, and interpretations without a primary source or price row cannot increase conviction.`,
       },
       {
         id: "strategy",
@@ -9181,6 +9245,7 @@
         color: "#22C55E",
         stance: scenario.conclusion,
         message: `권고: ${profile.strategy} 대상 제품군은 ${(active.products || []).slice(0, 4).join(" · ") || productLabel}입니다. ${scenario.label}에서는 ${scenario.conclusion}을 우선 결론으로 두고, 위 KPI가 기준선을 넘으면 다음 검토에서 재판단합니다.`,
+        speechEn: `The recommendation for the selected product family remains conditional under scenario ${scenario.id}. The decision should be updated at the next review if any reversal indicator crosses its threshold.`,
       },
     ].filter((agent) => agent.message);
   }
@@ -9350,14 +9415,14 @@
           </div>
           <div class="agent-chat js-debate" aria-label="제품군 전문가 토론 말풍선" style="--chat-delay:${chatStartDelay}ms">
             ${agentItems.map((agent, index) => `
-              <article class="agent-turn pending${index % 2 ? " right" : ""}" style="--agent-color:${escapeHTML(agent.color)}; --delay:${chatStartDelay + index * councilStepDelay}ms">
+              <article class="agent-turn pending${index % 2 ? " right" : ""}" data-tts-language="${agentUsesKoreanTts(agent.name, agent.role) ? "ko" : "en"}" style="--agent-color:${escapeHTML(agent.color)}; --delay:${chatStartDelay + index * councilStepDelay}ms">
                 <div class="agent-badge-wrap"><div class="agent-badge">${escapeHTML(agent.initials)}</div><small class="agent-badge-name">${escapeHTML(agent.name)}</small></div>
                 <div class="speech-bubble">
                   <div class="speech-meta">
                     <strong>${escapeHTML(agent.role)}</strong>
                     <span>${escapeHTML(agent.stance || agent.name)}</span>
                   </div>
-                  <p>${renderAgentSpeech(agent.message)}</p>
+                  <p data-say-en="${escapeHTML(agent.speechEn || "")}">${renderAgentSpeech(agent.message)}</p>
                 </div>
               </article>
             `).join("")}
@@ -9386,6 +9451,7 @@
     const meta = $("#execDecisionMeta");
     const coverage = $("#backtestCoverage");
     if (!summary || !grid || !focus || !evidence) return;
+    if (!$("#ceoChallengeSelect")?.options.length) renderCeoChallengeAgent(activeChinaTalentScenario());
 
     renderBacktestControls();
     const selectedYearOption = selectedBacktestYearOption();
@@ -10530,6 +10596,7 @@
           avatar: "CEO",
           color: "#111827",
           message: `${challenge.question} 결론은 **${response.verdict}**입니다. SKHY 관점에서는 고객, 제품, 정책 리스크 중 결정을 바꾸는 핵심 조건부터 정합니다.`,
+          speechEn: `The executive challenge is to test whether the current recommendation can survive a customer, product, and policy stress test. From the SK hynix perspective, we must define the conditions that would reverse the decision before we approve action.`,
         },
         {
           name: "CFO",
@@ -10537,6 +10604,7 @@
           avatar: "CFO",
           color: "#00A896",
           message: `${response.logic} 재무 결론은 확정 ROI가 아니라 실사 우선순위로 사용하고, 비용·고객 방어·하방 리스크가 같이 충족될 때만 예산 안건으로 올립니다.`,
+          speechEn: `Finance treats this as a diligence priority, not a confirmed financial return. The budget should reach the executive agenda only when cost discipline, customer defense, and downside protection are satisfied together.`,
         },
         {
           name: "CTO",
@@ -10544,6 +10612,7 @@
           avatar: "CTO",
           color: "#7C3AED",
           message: `${targetLabel}은 기술·제품 병목을 먼저 분리해야 합니다. HBM 수율, NAND/eSSD 고객 인증, 중국 Fab 운영, IP 접근권 중 어느 축이 막히는지 확인한 뒤 물량·채용·투자 약속을 단계화합니다.`,
+          speechEn: `We must isolate the technical bottleneck first. H B M yield, NAND and enterprise S S D qualification, China fab operations, and intellectual-property access require separate gates before volume, hiring, or investment commitments are staged.`,
         },
         {
           name: "Policy/China",
@@ -10551,6 +10620,7 @@
           avatar: "POL",
           color: "#F59E0B",
           message: `정책 관점에서는 운영 유지, 기술 업그레이드, 캐파 확대를 같은 결론으로 묶지 않습니다. 중국 관련 안건은 BIS·VEU·현지 인허가·고객 계약을 분리해 O/X 게이트로 판단합니다.`,
+          speechEn: `Policy review separates operational continuity, technology upgrades, and capacity expansion. China-related decisions require independent gates for B I S, V E U status, local permits, and customer contracts.`,
         },
         {
           name: "Market/Sales",
@@ -10558,6 +10628,7 @@
           avatar: "MKT",
           color: "#10B981",
           message: `고객 관점에서는 가격 하방 신호만으로 결론을 내리지 않습니다. CXMT·YMTC 신호가 실제 고객 전환, 장기계약, spot-contract spread로 이어질 때만 방어 가격, 물량 배분, 고객 락인 안건으로 올립니다.`,
+          speechEn: `A downside price signal alone is not enough. C X M T and Y M T C become actionable only when they lead to customer switching, long-term contracts, or a material spot-to-contract spread. Then we can consider defensive pricing, volume allocation, and customer lock-in.`,
         },
         {
           name: "Operations",
@@ -10565,6 +10636,7 @@
           avatar: "OPS",
           color: "#0EA5E9",
           message: `실행 관점에서는 HBM ramp, 서버 DRAM, NAND/eSSD, 중국 Fab 운영을 하나의 CAPEX 문장으로 묶지 않습니다. 공급 배분, 인증 일정, 재고 회전, Fab continuity가 동시에 맞는 항목만 단계 집행합니다.`,
+          speechEn: `Execution must not combine the H B M ramp, server D RAM, NAND and enterprise S S D, and China fab operations in one capital request. Only initiatives with aligned supply allocation, qualification timing, inventory turns, and fab continuity should proceed in stages.`,
         },
         {
           name: "IP/Risk",
@@ -10572,6 +10644,7 @@
           avatar: "IP",
           color: "#F43F5E",
           message: `리스크 관점에서는 인력·수율 레시피·고객 데이터 접근권을 별도 게이트로 둡니다. 핵심 인력 이동, IP 소송, 수율 병목, 규제 이벤트 중 2개 이상 악화되면 확대보다 방어와 리텐션을 우선합니다.`,
+          speechEn: `Risk review sets separate gates for talent, yield recipes, and customer-data access. If two or more of key-person movement, intellectual-property litigation, yield bottlenecks, or regulatory events deteriorate, defense and retention take priority over expansion.`,
         },
         {
           name: "Devil's Advocate",
@@ -10579,6 +10652,7 @@
           avatar: "DA",
           color: "#111827",
           message: `${response.counter} 반대로 12개월 뒤 실패했다면 원인은 확증편향, 고객 전환 과소평가, 규제 리스크 누락입니다. 이 세 가지를 반증하지 못하면 결론은 Go가 아니라 Watch입니다.`,
+          speechEn: `Assume this decision fails in twelve months. The likely causes are confirmation bias, underestimating customer switching, and missing regulatory risk. Unless those three failure modes are disproved, the recommendation should remain Watch rather than Go.`,
         },
         {
           name: "Data Auditor",
@@ -10586,6 +10660,7 @@
           avatar: "AUD",
           color: "#EF4444",
           message: `${response.evidence ? `근거는 **${response.evidence.title}**(${response.evidence.source} · ${response.evidence.sourceType} · ${response.evidence.claimType || "사실"} · ${response.evidence.evidenceLevel})입니다. ` : ""}실행 조건은 ${response.action}입니다. ==${response.evidence?.reversalKpi || "핵심 판단 변경 KPI"}==가 달라지면 같은 기준으로 결론을 다시 계산합니다.`,
+          speechEn: `The evidence level is ${/^(Confirmed|Watch|Inferred|Stale)$/i.test(response.evidence?.evidenceLevel || "") ? response.evidence.evidenceLevel : "Watch"}. The execution condition remains conditional. If the primary reversal indicator changes, the conclusion must be recalculated using the same evidence standard.`,
         },
         {
           name: "Strategy",
@@ -10593,6 +10668,7 @@
           avatar: "STR",
           color: "#22C55E",
           message: `종합하면 ${targetLabel}은 ${response.action}로 정리합니다. 다음 회의에서는 ${response.kpis?.slice(0, 3).join(", ") || "핵심 KPI"}가 바뀌었는지만 보고 결정을 유지, 확대, 보류 중 하나로 갱신합니다.`,
+          speechEn: `In summary, the action remains conditional. At the next meeting, we will review only the key reversal indicators and update the decision to maintain, expand, or hold.`,
         },
       ],
       kpis: [],
@@ -10667,13 +10743,13 @@
     challengeSelect.onchange = (event) => {
       ceoChallengeId = event.target.value;
       ceoChallengeAgentRan = false;
-      renderChinaTalentStrategy();
+      renderCeoChallengeAgent(activeChinaTalentScenario());
     };
     if (runButton) {
       runButton.textContent = ceoChallengeAgentRan ? "토론 다시 실행" : "Agent 실행";
       runButton.onclick = () => {
         ceoChallengeAgentRan = true;
-        renderChinaTalentStrategy();
+        renderCeoChallengeAgent(activeChinaTalentScenario());
       };
     }
 
