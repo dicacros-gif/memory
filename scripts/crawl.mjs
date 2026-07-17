@@ -792,13 +792,6 @@ const CHINA_INFRA_SOURCE_PAGES = [
     markers: ["3.49 square kilometers", "SK hynix", "1.11 square kilometers", "$10 billion"],
   },
   {
-    id: "skhynix-china-offices",
-    site: "all",
-    label: "SKHY China offices",
-    url: "https://www.skhynix.com/company/UI-FR-CP06/",
-    markers: ["Wuxi", "Chongqing", "Dalian"],
-  },
-  {
     id: "bis-veu",
     site: "all",
     label: "BIS VEU China fabs",
