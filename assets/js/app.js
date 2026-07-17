@@ -2416,18 +2416,45 @@
       toggle.setAttribute("title", userPaused ? "자동 전환 재생" : "자동 전환 일시정지");
       toggle.setAttribute("aria-pressed", userPaused ? "true" : "false");
     };
-    const transitionModes = ["fade", "sweep", "reveal", "depth", "shutter", "glide"];
+    const transitionModes = ["fade", "sweep", "reveal", "depth", "shutter", "glide", "diagonal", "iris", "prism", "flash"];
     const transitionClasses = transitionModes.map((mode) => `transition-${mode}`);
     const captionPositions = ["left-bottom", "left-top", "right-top", "right-bottom"];
     const zoomPresets = [
-      { startScale: 1.04, endScale: 1.34, startX: "-2%", startY: "1%", endX: "3%", endY: "-2%", focusX: "47%", focusY: "50%" },
-      { startScale: 1.06, endScale: 1.39, startX: "2%", startY: "-1%", endX: "-3%", endY: "2%", focusX: "55%", focusY: "48%" },
-      { startScale: 1.03, endScale: 1.31, startX: "0%", startY: "2%", endX: "1%", endY: "-4%", focusX: "50%", focusY: "56%" },
-      { startScale: 1.08, endScale: 1.43, startX: "-1%", startY: "-2%", endX: "3%", endY: "3%", focusX: "51%", focusY: "46%" },
-      { startScale: 1.05, endScale: 1.36, startX: "3%", startY: "1%", endX: "-3%", endY: "-2%", focusX: "58%", focusY: "52%" }
+      { startScale: 1.01, endScale: 1.56, startX: "-4%", startY: "3%", endX: "6%", endY: "-5%", focusX: "45%", focusY: "48%" },
+      { startScale: 1.55, endScale: 1.08, startX: "6%", startY: "-5%", endX: "-4%", endY: "3%", focusX: "58%", focusY: "45%" },
+      { startScale: 1.07, endScale: 1.49, startX: "1%", startY: "6%", endX: "-3%", endY: "-6%", focusX: "50%", focusY: "58%" },
+      { startScale: 1.47, endScale: 1.04, startX: "-5%", startY: "-4%", endX: "4%", endY: "4%", focusX: "48%", focusY: "43%" },
+      { startScale: 1.11, endScale: 1.61, startX: "5%", startY: "3%", endX: "-7%", endY: "-4%", focusX: "60%", focusY: "52%" },
+      { startScale: 1.62, endScale: 1.09, startX: "-2%", startY: "-6%", endX: "3%", endY: "5%", focusX: "52%", focusY: "44%" },
+      { startScale: 1.03, endScale: 1.53, startX: "-7%", startY: "0%", endX: "4%", endY: "2%", focusX: "43%", focusY: "52%" },
+      { startScale: 1.52, endScale: 1.06, startX: "4%", startY: "4%", endX: "-6%", endY: "-3%", focusX: "57%", focusY: "55%" }
+    ];
+    const insightPools = [
+      [
+        { kicker: "SYSTEM ECONOMICS", title: "대역폭보다 병목 제거가 고객 가치를 결정", body: "HBM·베이스 다이·인터포저·네트워크를 함께 최적화해야 시스템당 비용 우위를 확보합니다." },
+        { kicker: "CUSTOMER LOCK-IN", title: "제품 공급을 고객 로드맵 공동설계로 전환", body: "인증 일정과 패키징 용량을 장기계약에 묶어 점유율보다 전환비용을 높입니다." },
+        { kicker: "DATA MOVEMENT", title: "AI 비용의 핵심은 연산보다 데이터 이동", body: "HBM 대역폭, CXL 확장, 광 연결을 하나의 메모리 계층으로 설계해야 합니다." },
+        { kicker: "PORTFOLIO EDGE", title: "HBM 단품 우위를 서버 메모리 전체 믹스로 확장", body: "HBM·DDR5·eSSD·CXL을 고객 워크로드별 번들로 제안해 지갑 점유율을 높입니다." },
+        { kicker: "DECISION GATE", title: "고객 인증 지연을 캐파 확대보다 먼저 확인", body: "양산 준비보다 실제 램프와 패키징 할당이 수익화 시점을 결정합니다." }
+      ],
+      [
+        { kicker: "HBM4 EXECUTION", title: "HBM4 경쟁은 속도보다 양산 안정성에서 갈림", body: "베이스 다이 수율, 열, 적층, 고객 인증을 하나의 실행 게이트로 관리합니다." },
+        { kicker: "FOUNDRY ALLIANCE", title: "파운드리 동맹이 HBM 원가와 맞춤화를 좌우", body: "첨단 로직 공정과 패키징 배정이 고객별 제품 차별화와 공급 탄력성을 결정합니다." },
+        { kicker: "YIELD ECONOMICS", title: "수율 개선이 프리미엄 메모리의 실현 이익을 바꿈", body: "다이 수율과 패키징 수율을 분리 측정해 고객별 램프 속도와 캐파를 배분합니다." },
+        { kicker: "PLATFORM RAMP", title: "고객 플랫폼 전환 속도가 HBM4 수요 상단을 결정", body: "세대 전환 믹스와 인증 일정을 캐파 선배분 기준에 직접 반영합니다." },
+        { kicker: "POST-HBM", title: "다음 경쟁은 HBM과 CXL의 역할 분담", body: "용량 확장은 CXL, 초고속 경로는 HBM으로 워크로드별 아키텍처를 분리합니다." }
+      ],
+      [
+        { kicker: "CAPACITY DISCIPLINE", title: "캐파보다 판매 가능한 비트가 투자 기준", body: "전력·장비·수율·고객 계약이 동시에 확보된 물량만 증설 대상으로 올립니다." },
+        { kicker: "CHINA ASYMMETRY", title: "중국의 위협은 최선단보다 범용 가격에서 먼저 현실화", body: "CXMT 점유율, 장기계약, DRAM spot-contract spread를 선행 경보로 봅니다." },
+        { kicker: "NAND DEFENSE", title: "NAND 방어는 층수보다 eSSD 고객과 원가 곡선", body: "YMTC 캐파, Xtacking, 엔터프라이즈 인증을 가격 회복과 함께 판단합니다." },
+        { kicker: "SUPPLY RESILIENCE", title: "공급망 내재화가 중국 캐파의 지속성을 높임", body: "장비 qualification과 소재 대체 속도가 실제 생산 램프의 상단을 결정합니다." },
+        { kicker: "CAPITAL ALLOCATION", title: "레거시 CAPEX는 점유율보다 현금흐름 방어가 우선", body: "범용 수요 하방에서는 옵션을 유지하고 프리미엄 전환에 선별 투자합니다." }
+      ]
     ];
     let lastCaptionPosition = "";
     let lastZoomPreset = -1;
+    let lastInsightTitle = "";
     const chooseDifferent = (values, previous) => {
       const choices = values.filter((value) => value !== previous);
       return choices[Math.floor(Math.random() * choices.length)] ?? values[0];
@@ -2455,6 +2482,21 @@
       story.dataset.captionPosition = captionPosition;
       story.dataset.zoomPreset = String(presetIndex + 1);
     };
+    const applyDynamicInsight = (slide, slideIndex) => {
+      const caption = slide.querySelector("figcaption");
+      const kicker = caption?.querySelector("span");
+      const title = caption?.querySelector("h2");
+      const body = caption?.querySelector("p");
+      const pool = insightPools[slideIndex] || insightPools[0];
+      const choices = pool.filter((item) => item.title !== lastInsightTitle);
+      const insight = choices[Math.floor(Math.random() * choices.length)] || pool[0];
+      if (!caption || !kicker || !title || !body || !insight) return;
+      lastInsightTitle = insight.title;
+      kicker.textContent = insight.kicker;
+      title.textContent = insight.title;
+      body.textContent = insight.body;
+      caption.dataset.insight = insight.kicker.toLowerCase().replace(/\s+/g, "-");
+    };
     const nextTransition = () => {
       const choices = transitionModes.filter((mode) => mode !== lastTransition);
       lastTransition = choices[Math.floor(Math.random() * choices.length)] || transitionModes[0];
@@ -2468,6 +2510,7 @@
       if (transitionTimer) window.clearTimeout(transitionTimer);
       story.dataset.transition = transition;
       applyDynamicLayout(slides[activeIndex]);
+      applyDynamicInsight(slides[activeIndex], activeIndex);
       slides.forEach((slide, index) => {
         const active = index === activeIndex;
         const leaving = index === previousIndex && previousIndex !== activeIndex;

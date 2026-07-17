@@ -1709,7 +1709,7 @@ body.sidebar-collapsed .sb-ico {
 }
 
 .memory-story-slide.active img {
-  animation: memoryStoryZoomIn 7.4s cubic-bezier(.16, .72, .2, 1) both;
+  animation: memoryStoryZoomIn 7.2s cubic-bezier(.12, .68, .16, 1) both;
   filter: saturate(1.04) contrast(1.06);
 }
 
@@ -1739,6 +1739,22 @@ body.sidebar-collapsed .sb-ico {
 
 .memory-story-slide.active.transition-glide {
   animation: memoryStoryGlide 1.05s cubic-bezier(.16, .82, .22, 1) both;
+}
+
+.memory-story-slide.active.transition-diagonal {
+  animation: memoryStoryDiagonal 1.12s cubic-bezier(.16, .84, .18, 1) both;
+}
+
+.memory-story-slide.active.transition-iris {
+  animation: memoryStoryIris 1.16s cubic-bezier(.18, .8, .16, 1) both;
+}
+
+.memory-story-slide.active.transition-prism {
+  animation: memoryStoryPrism 1.08s cubic-bezier(.14, .82, .2, 1) both;
+}
+
+.memory-story-slide.active.transition-flash {
+  animation: memoryStoryFlash 1s cubic-bezier(.18, .78, .18, 1) both;
 }
 
 @keyframes memoryStoryZoomIn {
@@ -1783,6 +1799,28 @@ body.sidebar-collapsed .sb-ico {
 @keyframes memoryStoryGlide {
   from { opacity: .25; transform: translate3d(-9%, 3%, 0) scale(1.08); filter: blur(7px); }
   to { opacity: 1; transform: translate3d(0, 0, 0) scale(1); filter: blur(0); }
+}
+
+@keyframes memoryStoryDiagonal {
+  from { opacity: .18; clip-path: polygon(0 0, 0 0, 0 100%, 0 100%); transform: translate3d(7%, -4%, 0) rotate(.8deg) scale(1.08); }
+  to { opacity: 1; clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%); transform: translate3d(0, 0, 0) rotate(0) scale(1); }
+}
+
+@keyframes memoryStoryIris {
+  from { opacity: .3; clip-path: circle(4% at 50% 50%); filter: brightness(1.35) saturate(1.2); }
+  to { opacity: 1; clip-path: circle(76% at 50% 50%); filter: brightness(1) saturate(1); }
+}
+
+@keyframes memoryStoryPrism {
+  0% { opacity: .12; clip-path: polygon(0 0, 30% 0, 12% 100%, 0 100%); transform: scale(1.12); filter: hue-rotate(22deg) brightness(1.28); }
+  58% { opacity: .82; clip-path: polygon(0 0, 82% 0, 66% 100%, 0 100%); }
+  100% { opacity: 1; clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%); transform: scale(1); filter: hue-rotate(0) brightness(1); }
+}
+
+@keyframes memoryStoryFlash {
+  0% { opacity: 0; transform: scale(1.18); filter: blur(10px) brightness(1.8); }
+  38% { opacity: .9; filter: blur(2px) brightness(1.28); }
+  100% { opacity: 1; transform: scale(1); filter: blur(0) brightness(1); }
 }
 
 .memory-story-slide figcaption {
