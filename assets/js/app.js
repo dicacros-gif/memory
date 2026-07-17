@@ -5107,6 +5107,69 @@
     return (evidence.news || []).length + (evidence.benchmark || []).length + (evidence.prices || []).length + (evidence.kpis || []).length;
   }
 
+  function evidenceItemUrl(item = {}) {
+    return String(item.link || item.sourceUrl || item.url || "").trim();
+  }
+
+  function evidenceItemTimestamp(item = {}) {
+    const raw = item.publishedAt || item.date || item.sourceDate || item.crawledAt || item.updatedAt || item.lastUpdate || "";
+    const timestamp = Date.parse(raw);
+    return Number.isFinite(timestamp) ? timestamp : 0;
+  }
+
+  function evidenceFreshnessWeight(item = {}) {
+    const timestamp = evidenceItemTimestamp(item);
+    if (!timestamp) return 0.45;
+    const ageDays = Math.max(0, (Date.now() - timestamp) / 86400000);
+    if (ageDays <= 30) return 1;
+    if (ageDays <= 90) return 0.82;
+    if (ageDays <= 365) return 0.58;
+    return 0.3;
+  }
+
+  function evidenceAuthorityWeight(item = {}) {
+    const sourceType = String(item.sourceType || item.publisherType || item.type || "").toLowerCase();
+    const url = evidenceItemUrl(item).toLowerCase();
+    if (/공식|official|policy|regulator|government/.test(sourceType) || /\.(?:gov|go\.kr|gov\.cn)(?:\/|$)|congress\.gov|nist\.gov|bis\.gov/.test(url)) return 1;
+    if (/reuters|bloomberg|ft\.com|nikkei|counterpoint|trendforce|techinsights|wsts/.test(url)) return 0.9;
+    if (/외신|media|analysis|분석|research/.test(sourceType)) return 0.78;
+    return 0.62;
+  }
+
+  function canonicalEvidenceItems(evidence = {}) {
+    const linked = []
+      .concat(evidence.news || [])
+      .concat(evidence.benchmark || [])
+      .concat(evidence.kpis || [])
+      .filter((item) => evidenceItemUrl(item));
+    const canonical = new Map();
+    linked.forEach((item) => {
+      const key = canonicalNewsKey(item) || evidenceItemUrl(item).toLowerCase() || String(item.label || item.title || "").toLowerCase();
+      if (!key) return;
+      const current = canonical.get(key);
+      if (!current || evidenceItemTimestamp(item) > evidenceItemTimestamp(current)) canonical.set(key, item);
+    });
+    return Array.from(canonical.values());
+  }
+
+  function evidenceQualityStats(evidence = {}) {
+    const rawLinkedCount = []
+      .concat(evidence.news || [])
+      .concat(evidence.benchmark || [])
+      .concat(evidence.kpis || [])
+      .filter((item) => evidenceItemUrl(item)).length;
+    const linked = canonicalEvidenceItems(evidence);
+    const weightedLinks = linked.reduce((sum, item) => sum + evidenceFreshnessWeight(item) * evidenceAuthorityWeight(item), 0);
+    const officialPolicyLinks = linked.filter((item) => evidenceAuthorityWeight(item) >= 0.99 && evidenceFreshnessWeight(item) >= 0.58).length;
+    return {
+      linked,
+      canonicalLinkCount: linked.length,
+      duplicateCount: Math.max(0, rawLinkedCount - linked.length),
+      weightedLinks,
+      officialPolicyLinks,
+    };
+  }
+
   function cLevelPriceMomentum(rows = []) {
     const changes = rows.map((row) => Number(row.changePct)).filter(Number.isFinite);
     if (!changes.length) return 0;
@@ -5115,16 +5178,23 @@
 
   function cLevelDecisionItem(axis) {
     const evidence = cLevelEvidenceFor(axis);
-    const evidenceCount = cLevelEvidenceCount(evidence);
-    const linkCount = evidence.news.length + evidence.benchmark.length + evidence.kpis.length;
+    const quality = evidenceQualityStats(evidence);
+    const linkCount = quality.canonicalLinkCount;
     const priceRows = evidence.prices.length;
+    const evidenceCount = linkCount + priceRows;
     const priceMomentum = cLevelPriceMomentum(evidence.prices);
-    const confidence = clamp(linkCount * 9 + priceRows * 5 + Math.min(20, Math.abs(priceMomentum) * 6), 0, 100);
+    const positiveMomentum = Math.max(0, priceMomentum);
+    const negativeMomentum = Math.max(0, -priceMomentum);
+    const confidence = clamp(
+      quality.weightedLinks * 9 + Math.min(25, priceRows * 4) + Math.min(14, positiveMomentum * 5) - Math.min(18, negativeMomentum * 6),
+      0,
+      100,
+    );
     let verdict = "Hold";
-    if (confidence >= 68) verdict = axis.id === "policy-fab" || axis.id === "talent-ip" || priceMomentum < -0.35 ? "Watch" : "Go";
+    if (confidence >= 68) verdict = axis.id === "policy-fab" || axis.id === "talent-ip" || priceMomentum <= -0.45 ? "Watch" : "Go";
     else if (confidence >= 34) verdict = "Watch";
     const tone = verdict === "Go" ? axis.go : verdict === "Watch" ? axis.watch : axis.hold;
-    return { ...axis, evidence, evidenceCount, linkCount, priceRows, priceMomentum, confidence, verdict, tone };
+    return { ...axis, evidence, evidenceCount, linkCount, priceRows, priceMomentum, confidence, verdict, tone, evidenceQuality: quality };
   }
 
   function cLevelDecisionItems() {
@@ -5519,21 +5589,94 @@
     return AGENT_FUTURE_SCENARIOS[index];
   }
 
-  function scenarioVerdict(baseVerdict = "Watch", scenario = agentFutureScenario()) {
+  function decisionObservedChanges(subject = {}) {
+    const observations = subject.observations || [];
+    const priceRows = subject.evidence?.prices || [];
+    return observations.concat(priceRows).map((item) => {
+      const candidates = [item.actualChange, item.changePct, item.periodChangePct, item.change, item.latestChangePct];
+      const value = candidates.map(Number).find(Number.isFinite);
+      return Number.isFinite(value) ? value : null;
+    }).filter(Number.isFinite);
+  }
+
+  function decisionCounterEvidence(subject = {}) {
+    const changes = decisionObservedChanges(subject);
+    const descriptor = `${subject.id || ""} ${subject.label || ""} ${subject.action || ""} ${subject.decision?.label || ""} ${subject.decision?.action || ""}`;
+    const defensive = /방어|축소|보수|감산|리스크|경보|no-go|policy|talent|china-exposure/i.test(descriptor);
+    const neutral = /유지|hold|watch|관찰/i.test(descriptor);
+    let opposing = 0;
+    if (changes.length) {
+      if (neutral) opposing = changes.filter((value) => Math.abs(value) >= 0.55).length;
+      else if (defensive) opposing = changes.filter((value) => value >= 0.55).length;
+      else opposing = changes.filter((value) => value <= -0.45).length;
+    }
+    const ratio = changes.length ? opposing / changes.length : null;
+    const baseConfidence = Number.isFinite(Number(subject.confidence)) ? Number(subject.confidence) : 62;
+    const confidence = clamp(baseConfidence - (ratio == null ? 18 : ratio * 38), 0, 100);
+    return {
+      count: opposing,
+      total: changes.length,
+      ratio,
+      confidence,
+      wrongRisk: Math.round(100 - confidence),
+      text: ratio == null
+        ? "반대 방향 가격 표본이 없어 오판 위험을 정량화할 수 없음"
+        : `반대 방향 관측 ${fmtNum(opposing)}/${fmtNum(changes.length)}개(${fmtNum(ratio * 100, 0)}%)`,
+    };
+  }
+
+  function decisionRiskGate(subject = {}, context = {}) {
+    const kpis = decisionFlipKpis(subject, context);
+    const idText = `${subject.id || context.id || ""} ${subject.category || context.category || ""} ${subject.label || context.label || ""}`;
+    const failed = kpis.filter((item) => item.tone === "fail");
+    let rule = "핵심 KPI 2개 이상 악화 시 결론 하향";
+    let threshold = 2;
+    if (/hbm|server|rubin|foundry/i.test(idText)) rule = "고객 인증 지연과 패키징/base die 병목이 동시 발생하거나 서버 가격이 -0.45% 이하이면 확대 보류";
+    else if (/cxmt|china-dram|legacy|commodity/i.test(idText)) rule = "CXMT 점유율 10%+ 또는 장기계약과 DDR5/LPDDR 약세가 동시 발생하면 가격 방어";
+    else if (/ymtc|nand|ssd|solidigm|essd/i.test(idText)) rule = "eSSD 고객 인증, 우한 ramp, NAND contract 약세 중 2개 이상이면 고객 방어";
+    else if (/policy|fab|bis|veu|chips|match/i.test(idText)) {
+      rule = "공식 라이선스·인허가 원문이 없거나 제한이 확인되면 확대 금지";
+      threshold = 1;
+    } else if (/talent|ip|hiring|yield/i.test(idText)) {
+      rule = "핵심 인력 이동 또는 IP 사건 1건, 혹은 채용·수율 경보 2개가 겹치면 방어 예산 우선";
+      threshold = 1;
+    }
+    return { kpis, failed, threshold, rule, downgrade: failed.length >= threshold };
+  }
+
+  function scenarioVerdictAssessment(baseVerdict = "Watch", scenario = agentFutureScenario(), subject = {}) {
     const verdict = baseVerdict || "Watch";
-    if (scenario.tilt === "base") return verdict;
+    const metrics = decisionEvidenceMetrics(subject);
+    const risk = decisionRiskGate(subject);
+    const confidence = Number(subject.confidence || 0);
+    if (scenario.tilt === "base") return { verdict, reason: "현재 근거 기준선이므로 등급을 기계적으로 바꾸지 않음" };
+    const scenarioKpi = risk.kpis.find((item) => {
+      if (scenario.id === "china-pressure") return item.id === "cxmt-pressure" || item.id === "ymtc-essd";
+      if (scenario.id === "policy-tightening") return item.id === "policy-license";
+      if (scenario.id === "execution-bottleneck") return /hbm-ramp|ymtc-essd|talent-ip/.test(item.id);
+      return false;
+    });
     if (scenario.tilt === "up") {
-      if (verdict === "Hold") return "Watch";
-      if (verdict === "Watch") return "Go";
-      return "Go";
+      const supported = metrics.priceMove != null && metrics.priceMove >= 0.55 && confidence >= 68 && !risk.downgrade;
+      if (!supported) return { verdict, reason: "상방 가정은 존재하지만 +0.55% 이상 가격·충분한 근거·리스크 게이트를 동시에 통과하지 못함" };
+      return { verdict: verdict === "Hold" ? "Watch" : "Go", reason: "상방 가격과 근거 신뢰도, 리스크 게이트가 함께 충족됨" };
     }
     if (scenario.tilt === "down") {
-      if (verdict === "Go") return "Watch";
-      if (verdict === "Watch") return "Hold";
-      return "Hold";
+      const supported = Boolean(scenarioKpi?.tone === "fail" || risk.downgrade || (metrics.priceMove != null && metrics.priceMove <= -0.45));
+      if (!supported) return { verdict, reason: "하방 가정만 있고 실제 가격·정책·경쟁 트리거가 확인되지 않아 현 등급 유지" };
+      return { verdict: verdict === "Go" ? "Watch" : "Hold", reason: `${scenarioKpi?.label || "하방 게이트"}의 실측 조건이 충족됨` };
     }
-    if (scenario.tilt === "watch") return verdict === "Go" ? "Watch" : verdict;
-    return verdict;
+    if (scenario.tilt === "watch") {
+      const supported = Boolean(scenarioKpi?.tone === "fail" || risk.downgrade || confidence < 68);
+      return supported
+        ? { verdict: verdict === "Go" ? "Watch" : verdict, reason: "실행 병목 또는 근거 신뢰도 조건이 확인됨" }
+        : { verdict, reason: "실행 병목 가정의 확인 근거가 없어 현 등급 유지" };
+    }
+    return { verdict, reason: "판정 가능한 시나리오 조건 없음" };
+  }
+
+  function scenarioVerdict(baseVerdict = "Watch", scenario = agentFutureScenario(), subject = {}) {
+    return scenarioVerdictAssessment(baseVerdict, scenario, subject).verdict;
   }
 
   function scenarioDecisionLabel(verdict = "Watch") {
@@ -5582,7 +5725,8 @@
     const primaryFlip = primaryDecisionFlipKpi(selected);
     const priceFlip = flipKpis.find((item) => item.id === "price-turn") || primaryFlip;
     const policyFlip = flipKpis.find((item) => item.id === "policy-license") || primaryFlip;
-    const scenarioVerdictValue = scenarioVerdict(selected?.verdict || "Watch", scenario);
+    const scenarioAssessment = scenarioVerdictAssessment(selected?.verdict || "Watch", scenario, selected);
+    const scenarioVerdictValue = scenarioAssessment.verdict;
     const verdictMeaning = selected?.verdict === "Go"
       ? "즉시 상정"
       : selected?.verdict === "Watch"
@@ -5591,7 +5735,11 @@
     const relationCount = relatedRelations.length;
     const moneyLabel = moneyRelations.length ? `${fmtNum(moneyRelations.length)}개 흐름` : "직접 현금흐름 부족";
     const competitiveLabel = competitiveRelations.length ? `${fmtNum(competitiveRelations.length)}개 관계` : "직접 경쟁관계 부족";
-    return [
+    const counterEvidence = decisionCounterEvidence(selected);
+    const riskGate = decisionRiskGate(selected);
+    const priceSpread = decisionPriceSpread(selected);
+    const primarySource = liveBrief?.latest?.url ? { url: liveBrief.latest.url, title: liveBrief.latest.title || liveBrief.latest.source || "원문 근거" } : null;
+    const agents = [
       {
         id: "ceo",
         initials: "CEO",
@@ -5600,8 +5748,8 @@
         role: "우선순위·최종 안건화",
         color: "#2D6BFF",
         stance: scenarioDecisionLabel(scenarioVerdictValue),
-        message: `SKHY 경영진 질문은 "${profile.question}"입니다. ${latestEvidence} ${profile.ceo} ${scenario.ceo} 현재 안건은 **${selected?.verdict || "Watch"}**(${verdictMeaning})이고, ${scenario.label} 가정에서는 ==${scenarioVerdictValue}==(${scenarioDecisionLabel(scenarioVerdictValue)})로 조정합니다.`,
-        speechEn: `The executive question is whether this agenda creates a defensible advantage for SK hynix. The current recommendation is ${selected?.verdict || "Watch"}. Under scenario ${scenario.id}, it changes to ${scenarioVerdictValue}. We will approve only when the reversal KPI and execution conditions are explicit.`,
+        message: `감사·시장·기술·정책·리스크·반증 검토를 종합합니다. 질문은 "${profile.question}"입니다. 현재 판단은 **${selected?.verdict || "Watch"}**(${verdictMeaning}), ${scenario.label} 적용 판단은 ==${scenarioVerdictValue}==입니다. ${scenarioAssessment.reason}. ${counterEvidence.text}까지 반영해 ${profile.ceo}`,
+        speechEn: `After evidence, market, technology, policy, risk, and red-team review, the current recommendation is ${selected?.verdict || "Watch"}. Under scenario ${scenario.id}, the evidence-gated recommendation is ${scenarioVerdictValue}. The scenario premise alone does not change the grade.`,
       },
       {
         id: "cfo",
@@ -5666,8 +5814,8 @@
         role: "가격·고객·계약",
         color: "#10B981",
         stance: "가격 전이 확인",
-        message: `시장 관점에서는 ${priceEvidence} ${profile.market} ${scenario.market} **가격과 고객 신호가 같은 방향**일 때만 결론을 높입니다. Spot만 흔들리면 확대가 아니라 ==재고 조정·계약 재협상==부터 검토합니다.`,
-        speechEn: `Market conviction rises only when pricing and customer signals move in the same direction. If only spot pricing changes, the first response should be inventory adjustment and contract renegotiation, not capacity expansion.`,
+        message: `시장 관점에서는 ${priceEvidence} ${profile.market} ${scenario.market} Spot과 contract 변화율 차이가 **±5%p 이내**이고 고객 계약이 같은 방향일 때만 결론을 높입니다. ${priceSpread.text} Spot만 움직이면 ==재고 조정·계약 재협상==부터 검토합니다.`,
+        speechEn: `Market conviction rises only when spot and contract changes are within five percentage points and customer contracts move in the same direction. Otherwise, inventory adjustment and contract renegotiation come before capacity expansion.`,
       },
       {
         id: "china",
@@ -5688,8 +5836,8 @@
         role: "판단 변경 KPI",
         color: "#F43F5E",
         stance: "KPI 게이트",
-        message: `판단은 고정하지 않습니다. ==${primaryFlip.label}==이 ${primaryFlip.trigger}에 닿거나 핵심 KPI 2개 이상이 악화되면 **${primaryFlip.flip}**로 낮춰 즉시 재상정합니다.`,
-        speechEn: `The recommendation is not permanent. If the primary reversal indicator reaches its threshold, or if two critical indicators deteriorate, we will downgrade the decision and return it to the executive committee.`,
+        message: `판단은 고정하지 않습니다. 이 안건의 하향 규칙은 ==${riskGate.rule}==입니다. 현재 실패 게이트는 ${fmtNum(riskGate.failed.length)}개이며, ${primaryFlip.label}(${primaryFlip.trigger})을 함께 추적합니다.`,
+        speechEn: `The risk gate is category specific. The recommendation is downgraded only when the defined product, customer, policy, or pricing combination is actually triggered.`,
       },
       {
         id: "devil",
@@ -5699,8 +5847,8 @@
         role: "합의 반박·Devil's Advocate",
         color: "#111827",
         stance: "레드팀",
-        message: `레드팀 질문입니다. 12개월 뒤 이 **${selected?.verdict || "Watch"}** 결론이 틀렸다면 원인은 무엇입니까? ① 유리한 근거만 골랐을 수 있습니다(==확증편향==). ② ${topRelationText} 관계는 상관일 뿐 인과가 아닐 수 있습니다. ③ ${scenario.label}만 보고 반대 시나리오를 과소평가했을 수 있습니다. 반증 조건이 명확하지 않으면 결론 강도를 낮춥니다.`,
-        speechEn: `Assume this ${selected?.verdict || "Watch"} recommendation is wrong twelve months from now. We may have selected only favorable evidence, confused correlation with causation in the highlighted relationship, or underweighted the opposite scenario. Unless the falsification test is explicit, conviction should be reduced.`,
+        message: `12개월 뒤 이 **${selected?.verdict || "Watch"}** 결론이 틀렸다고 가정합니다. ${counterEvidence.text}. 이 비율은 결론 신뢰도에서 차감했습니다. ${topRelationText}는 인과가 검증되지 않아 **Watch 전용 관계**이며 등급을 직접 올리지 않습니다. 반대 시나리오에서도 같은 임계값으로 재검증해야 합니다.`,
+        speechEn: `Assume the recommendation is wrong in twelve months. Opposing observations are explicitly deducted from conviction. The highlighted relationship is correlation only and remains Watch-only until causality is verified.`,
       },
       {
         id: "audit",
@@ -5710,16 +5858,34 @@
         role: "팩트 검증·중복 제거",
         color: "#EF4444",
         stance: "근거 게이트",
-        message: `${liveBrief ? `${liveBrief.latest?.evidenceLevel || "Watch"} · ${liveBrief.latest?.sourceType || "분석"} · ${liveBrief.latest?.claimType || "사실"} · ${liveBrief.latest?.source || "원문"}을 기준으로 검토했습니다. ` : ""}수치와 해석을 분리하고, ${scenario.audit} ==근거가 부족하면 Go가 아니라 Watch/Hold==로 제한합니다.`,
-        speechEn: `The evidence gate separates verified figures from interpretation and removes duplicate reporting. If the supporting evidence is insufficient, the decision is limited to Watch or Hold rather than Go.`,
+        message: `${liveBrief ? `${liveBrief.latest?.evidenceLevel || "Watch"} · ${liveBrief.latest?.sourceType || "분석"} · ${liveBrief.latest?.claimType || "사실"} · ${liveBrief.latest?.source || "원문"}을 기준으로 검토했습니다. ` : ""}canonical 기준 원문/KPI ${fmtNum(linkCount)}건, 중복 제외 ${fmtNum(selected.evidenceQuality?.duplicateCount || 0)}건입니다. 최신성·출처 권위를 가중하고 ${scenario.audit} ==근거가 부족하면 Go가 아니라 Watch/Hold==로 제한합니다.`,
+        speechEn: `The evidence gate uses canonical deduplication, recency decay, and source-authority weighting. Insufficient evidence limits the decision to Watch or Hold.`,
       },
     ];
+    const order = ["audit", "market", "cto", "policy", "china", "coo", "cfo", "cso", "risk", "devil", "ceo"];
+    return agents
+      .sort((a, b) => order.indexOf(a.id) - order.indexOf(b.id))
+      .map((agent) => {
+        let agentConfidence = counterEvidence.confidence;
+        if (agent.id === "market" && !priceSpread.hasBoth) agentConfidence -= 10;
+        if (agent.id === "policy" && !(selected.evidenceQuality?.currentOfficialPolicyLinks > 0)) agentConfidence -= 12;
+        if (agent.id === "cto" && priceRows === 0) agentConfidence -= 8;
+        if (agent.id === "china" && !chinaBrief?.latest?.url) agentConfidence -= 10;
+        agentConfidence = Math.round(clamp(agentConfidence, 0, 100));
+        return {
+          ...agent,
+          confidence: agentConfidence,
+          wrongRisk: 100 - agentConfidence,
+          source: ["audit", "market", "policy", "china", "ceo"].includes(agent.id) ? primarySource : null,
+        };
+      });
   }
 
   function cLevelCouncilConclusion(decision = {}, scenario = agentFutureScenario()) {
     const evidence = decision.evidenceCount || 0;
     const confidence = Math.round(decision.confidence || 0);
-    const verdict = scenarioVerdict(decision.verdict || "Hold", scenario);
+    const assessment = scenarioVerdictAssessment(decision.verdict || "Hold", scenario, decision);
+    const verdict = assessment.verdict;
     const action = decision.action || "추가 근거 확인";
     const profile = cLevelDecisionProfile(decision);
     const primaryFlip = primaryDecisionFlipKpi(decision);
@@ -5731,7 +5897,7 @@
         : "의사결정 보류";
     return {
       title: `${verdict} · ${direction} · ${scenario.label}`,
-      body: `경영진 결론: "${profile.question}" ${scenario.label}에서는 ${direction}이 맞습니다. ${liveBrief ? `${liveBrief.latest?.source || "원문"}의 최신 근거와 ${liveBrief.evidenceCount || 0}개 연결 근거를 반영했습니다. ` : ""}${profile.ceo}`,
+      body: `경영진 결론: "${profile.question}" ${scenario.label}에서는 ${direction}이 맞습니다. 판정 근거: ${assessment.reason}. ${liveBrief ? `${liveBrief.latest?.source || "원문"}의 최신 근거와 ${liveBrief.evidenceCount || 0}개 연결 근거를 반영했습니다. ` : ""}${profile.ceo}`,
       next: `실행 조건: ${scenario.conclusion}을 중심으로 ${action}. 판단 변경 트리거는 ${liveBrief?.reversalKpi || `${primaryFlip.label}(${primaryFlip.trigger})`}이며, 이 선이 깨지면 즉시 재상정합니다.`,
     };
   }
@@ -5749,7 +5915,7 @@
     const moneyRelations = relatedRelations.filter((item) => item.mode === "money");
     const competitiveRelations = relatedRelations.filter((item) => item.mode === "competitive");
     const topRelation = relatedRelations[0];
-    const scenarioVerdictValue = scenarioVerdict(selected?.verdict || "Watch", scenario);
+    const scenarioVerdictValue = scenarioVerdict(selected?.verdict || "Watch", scenario, selected);
     const topRelationText = topRelation
       ? `${memoryMarketNodeName(topRelation.from)} → ${memoryMarketNodeName(topRelation.to)}`
       : "직접 연결 관계 없음";
@@ -5836,7 +6002,7 @@
           <span><b>${countHTML(item.priceRows)}</b><small>가격 rows</small></span>
         </div>
         <div class="c-level-meter" data-fill-to="${item.confidence}"><i style="width:0"></i></div>
-        <small>${escapeHTML(item.tone)} · 신뢰도 ${fmtNum(Math.round(item.confidence))}/100</small>
+        <small>${escapeHTML(item.tone)} · 근거 신뢰도 ${fmtNum(Math.round(item.confidence))}/100 · 오판 위험 ${fmtNum(Math.round(100 - item.confidence))}/100</small>
       </button>
     `).join("");
 
@@ -5892,9 +6058,10 @@
               <div class="agent-turn pending${index % 2 ? " right" : ""}" data-agent-slot="${index}" data-tts-language="${agentUsesKoreanTts(agent.name, agent.role) ? "ko" : "en"}" style="--agent-color:${escapeHTML(agent.color)}">
                 <span class="agent-badge-wrap"><span class="agent-badge">${escapeHTML(agent.initials || agent.id.toUpperCase().slice(0, 2))}</span><small class="agent-badge-name">${escapeHTML(agent.name)}</small></span>
                 <div class="speech-bubble">
-                  <div class="speech-meta"><strong>${escapeHTML(agent.role)}</strong><span>${escapeHTML(agent.stance || agent.name)}</span></div>
-                  <p data-say-en="${escapeHTML(agent.speechEn || "")}">${renderAgentSpeech(agent.message)}</p>
-                </div>
+                   <div class="speech-meta"><strong>${escapeHTML(agent.role)}</strong><span>${escapeHTML(agent.stance || agent.name)}</span></div>
+                   <p data-say-en="${escapeHTML(agent.speechEn || "")}">${renderAgentSpeech(agent.message)}</p>
+                   ${agentEvidenceMetaHTML(agent)}
+                 </div>
               </div>
             `).join("")}
           </div>
@@ -5907,7 +6074,7 @@
         ` : `
           <div class="agent-waiting">
             <strong>안건을 선택한 뒤 토론 실행을 누르세요.</strong>
-            <p>실행 후 CEO, CFO, CTO, CSO, COO, Policy, Market, China, Risk, Devil's Advocate, Auditor가 순차 등장해 안건을 질문, 반론, 실행 조건, 결론으로 정리합니다.</p>
+            <p>실행 후 Auditor, Market, CTO, Policy, China, COO, CFO, CSO, Risk, Devil's Advocate가 검증하고 CEO가 마지막에 결론을 냅니다.</p>
           </div>
         `}
       </div>
@@ -9700,10 +9867,31 @@
       .toUpperCase() || "A";
   }
 
-  function agentDebateHTML({ mode = "default", title = "Expert debate", subtitle = "", metrics = [], turns = [], kpis = [], accent = "", conclusion = null, ttsLanguage = "" } = {}) {
+  function agentEvidenceMetaHTML(agent = {}) {
+    const confidence = Number(agent.confidence);
+    const hasConfidence = Number.isFinite(confidence);
+    const wrongRisk = Number.isFinite(Number(agent.wrongRisk)) ? Number(agent.wrongRisk) : (hasConfidence ? 100 - confidence : null);
+    const sourceUrl = String(agent.source?.url || agent.sourceUrl || "").trim();
+    const safeSource = /^https?:\/\//i.test(sourceUrl) ? sourceUrl : "";
+    if (!hasConfidence && !safeSource) return "";
+    return `
+      <div class="agent-evidence-meta">
+        ${hasConfidence ? `<span title="근거 품질·최신성·반증 비율로 계산한 운영 지수이며 통계적 확률이 아닙니다">근거 신뢰도 ${fmtNum(Math.round(confidence))}/100</span>` : ""}
+        ${Number.isFinite(wrongRisk) ? `<span title="100-근거 신뢰도 운영 지수이며 통계적 확률이 아닙니다">오판 위험 ${fmtNum(Math.round(wrongRisk))}/100</span>` : ""}
+        ${safeSource ? `<a href="${escapeHTML(safeSource)}" target="_blank" rel="noopener noreferrer">${escapeHTML(agent.source?.title || "원문 근거")}</a>` : ""}
+      </div>
+    `;
+  }
+
+  function agentDebateHTML({ mode = "default", title = "Expert debate", subtitle = "", metrics = [], turns = [], kpis = [], accent = "", conclusion = null, ttsLanguage = "", defaultConfidence = null, defaultSource = null } = {}) {
     const colors = ["#06B6D4", "#8B5CF6", "#22C55E", "#F59E0B", "#EF4444", "#0EA5E9"];
     const forcedTtsLanguage = /^(?:ko|en)$/.test(ttsLanguage) ? ttsLanguage : "";
-    const normalizedTurns = turns.filter((turn) => turn?.message).slice(0, 12).map((turn, index) => {
+    const challengeOrder = ["Data Auditor", "Market/Sales", "CTO", "Policy/China", "Operations", "CFO", "IP/Risk", "Devil's Advocate", "Strategy", "CEO"];
+    const orderedTurns = turns.filter((turn) => turn?.message).slice(0, 12).sort((a, b) => {
+      if (mode !== "ceo-challenge") return 0;
+      return challengeOrder.indexOf(a.name) - challengeOrder.indexOf(b.name);
+    });
+    const normalizedTurns = orderedTurns.map((turn, index) => {
       const turnLanguage = /^(?:ko|en)$/.test(turn.ttsLanguage || "")
         ? turn.ttsLanguage
         : (forcedTtsLanguage || (agentUsesKoreanTts(turn.name, turn.role) ? "ko" : "en"));
@@ -9712,6 +9900,9 @@
         color: turn.color || colors[index % colors.length],
         side: turn.side || (index % 2 ? "right" : "left"),
         ttsLanguage: turnLanguage,
+        confidence: Number.isFinite(Number(turn.confidence)) ? Number(turn.confidence) : (Number.isFinite(Number(defaultConfidence)) ? Number(defaultConfidence) : null),
+        wrongRisk: Number.isFinite(Number(turn.wrongRisk)) ? Number(turn.wrongRisk) : (Number.isFinite(Number(defaultConfidence)) ? 100 - Number(defaultConfidence) : null),
+        source: turn.source || (["Data Auditor", "Market/Sales", "CEO"].includes(turn.name) ? defaultSource : null),
       };
     });
     const agents = [];
@@ -9766,9 +9957,10 @@
                 <div class="speech-meta">
                   <strong>${escapeHTML(turn.role || "Expert")}</strong>
                   <span>${escapeHTML(turn.stance || turn.name)}</span>
-                </div>
-                <p data-say-en="${escapeHTML(turn.speechEn || "")}">${renderAgentSpeech(turn.message)}</p>
-              </div>
+                 </div>
+                 <p data-say-en="${escapeHTML(turn.speechEn || "")}">${renderAgentSpeech(turn.message)}</p>
+                 ${agentEvidenceMetaHTML(turn)}
+               </div>
             </article>
           `).join("")}
         </div>
@@ -9798,11 +9990,13 @@
 
   function decisionEvidenceMetrics(subject = {}) {
     const evidence = subject.evidence || {};
-    const newsLinks = (evidence.news || []).filter((item) => String(item.link || item.sourceUrl || "").trim()).length;
-    const benchmarkLinks = (evidence.benchmark || []).filter((item) => String(item.link || item.sourceUrl || "").trim()).length;
-    const kpiLinks = (evidence.kpis || []).filter((item) => String(item.sourceUrl || item.link || "").trim()).length;
+    const quality = evidenceQualityStats(evidence);
+    const newsLinks = (evidence.news || []).filter((item) => evidenceItemUrl(item)).length;
+    const benchmarkLinks = (evidence.benchmark || []).filter((item) => evidenceItemUrl(item)).length;
+    const kpiLinks = (evidence.kpis || []).filter((item) => evidenceItemUrl(item)).length;
     const priceRows = Number(subject.priceRows ?? subject.observations?.length ?? evidence.prices?.length ?? 0) || 0;
-    const linkCount = Number(subject.linkCount ?? (newsLinks + benchmarkLinks + kpiLinks)) || 0;
+    const hasEvidenceArrays = Boolean((evidence.news || []).length || (evidence.benchmark || []).length || (evidence.kpis || []).length);
+    const linkCount = hasEvidenceArrays ? quality.canonicalLinkCount : (Number(subject.linkCount ?? (newsLinks + benchmarkLinks + kpiLinks)) || 0);
     const evidenceCount = Number(subject.evidenceCount ?? (linkCount + priceRows)) || 0;
     const priceMove = Number.isFinite(Number(subject.actualChange))
       ? Number(subject.actualChange)
@@ -9813,7 +10007,46 @@
           : null;
     const priorMove = Number.isFinite(Number(subject.priorMomentum)) ? Number(subject.priorMomentum) : null;
     const chinaSignals = Number(subject.chinaSignalCount ?? 0) || 0;
-    return { newsLinks, benchmarkLinks, kpiLinks, priceRows, linkCount, evidenceCount, priceMove, priorMove, chinaSignals };
+    const evidenceText = []
+      .concat(evidence.news || [])
+      .concat(evidence.benchmark || [])
+      .concat(evidence.kpis || [])
+      .map((item) => `${item.title || ""} ${item.titleKo || ""} ${item.summary || ""} ${item.note || ""} ${item.source || ""}`)
+      .join(" ");
+    return {
+      newsLinks,
+      benchmarkLinks,
+      kpiLinks,
+      priceRows,
+      linkCount,
+      evidenceCount,
+      priceMove,
+      priorMove,
+      chinaSignals,
+      evidenceText,
+      duplicateCount: quality.duplicateCount,
+      weightedLinks: quality.weightedLinks,
+      officialPolicyLinks: quality.officialPolicyLinks,
+    };
+  }
+
+  function decisionPriceSpread(subject = {}) {
+    const rows = subject.evidence?.prices || [];
+    const changesFor = (kind) => rows
+      .filter((row) => new RegExp(kind, "i").test(`${row.priceType || ""} ${row.sectionTitle || ""} ${row.group || ""}`))
+      .map((row) => Number(row.changePct))
+      .filter(Number.isFinite);
+    const spot = changesFor("spot");
+    const contract = changesFor("contract");
+    if (!spot.length || !contract.length) return { aligned: false, spread: null, text: "Spot·contract 동시 관측이 없어 가격 전이 판단은 Watch입니다." };
+    const spotAvg = spot.reduce((sum, value) => sum + value, 0) / spot.length;
+    const contractAvg = contract.reduce((sum, value) => sum + value, 0) / contract.length;
+    const spread = Math.abs(spotAvg - contractAvg);
+    return {
+      aligned: spread <= 5 && Math.sign(spotAvg) === Math.sign(contractAvg),
+      spread,
+      text: `Spot ${signedPercent(spotAvg)} · contract ${signedPercent(contractAvg)} · 차이 ${fmtNum(spread, 2)}%p입니다.`,
+    };
   }
 
   function decisionFlipKpis(subject = {}, context = {}) {
@@ -9827,7 +10060,7 @@
     const evidenceGate = {
       id: "evidence-gate",
       label: "근거 게이트",
-      current: hasEvidence ? (metrics.priceRows > 0 ? `링크/KPI ${fmtNum(metrics.linkCount)} · 가격 ${fmtNum(metrics.priceRows)} rows` : `링크/KPI ${fmtNum(metrics.linkCount)}`) : "검증 근거 부족",
+      current: hasEvidence ? (metrics.priceRows > 0 ? `canonical 링크/KPI ${fmtNum(metrics.linkCount)} · 가격 ${fmtNum(metrics.priceRows)} rows` : `canonical 링크/KPI ${fmtNum(metrics.linkCount)}`) : "검증 근거 부족",
       trigger: "원문 link, sourceUrl, 가격 row가 모두 없으면 Go 금지",
       flip: hasEvidence ? "근거 충족: 판단 유지 가능" : "근거 없음: Watch/Hold",
       tone: hasEvidence ? "ok" : "fail",
@@ -9845,13 +10078,17 @@
     }
 
     if (/cxmt|dram|legacy|commodity|china-exposure|china-dram/i.test(`${id} ${category} ${label}`)) {
+      const shareTrigger = /cxmt.{0,80}(?:10\s*%|10%\+)/i.test(metrics.evidenceText) || /(?:10\s*%|10%\+).{0,80}cxmt/i.test(metrics.evidenceText);
+      const contractTrigger = /cxmt.{0,120}(?:long.?term|장기.?계약|tencent|텐센트|supply agreement)/i.test(metrics.evidenceText);
+      const priceWeakness = metrics.priceMove != null && metrics.priceMove <= -0.45;
+      const compoundTriggered = shareTrigger || (contractTrigger && priceWeakness);
       rows.push({
         id: "cxmt-pressure",
         label: "CXMT 가격 압력",
-        current: `중국 신호 ${fmtNum(metrics.chinaSignals || subject.evidenceCount || 0)}건`,
+        current: `점유율 10%+ ${shareTrigger ? "확인" : "미확인"} · 장기계약 ${contractTrigger ? "확인" : "미확인"} · 가격약세 ${priceWeakness ? "확인" : "미확인"}`,
         trigger: "CXMT 점유율 10%+ 또는 고객 장기계약 + DDR5/LPDDR 가격 약세 동시 발생. 수율 80%+ 단독 신호는 트리거에서 제외",
         flip: "동시 확인: 가격 방어",
-        tone: (metrics.chinaSignals || subject.evidenceCount || 0) >= 40 ? "fail" : (metrics.chinaSignals || subject.evidenceCount || 0) ? "watch" : "check",
+        tone: compoundTriggered ? "fail" : (shareTrigger || contractTrigger || priceWeakness) ? "watch" : "check",
       });
     }
 
@@ -9870,10 +10107,10 @@
       rows.push({
         id: "policy-license",
         label: "정책/Fab 라이선스",
-        current: `정책 근거 ${fmtNum(metrics.linkCount)}개`,
-        trigger: "BIS/VEU/CHIPS/MATCH 원문 또는 인허가 근거 없으면 캐파 확대 승인 금지",
+        current: `최신 공식 원문 ${fmtNum(metrics.officialPolicyLinks)}개 · canonical 근거 ${fmtNum(metrics.linkCount)}개`,
+        trigger: "최신 BIS/VEU/CHIPS/MATCH 기관 원문 또는 인허가 근거 없으면 캐파 확대 승인 금지",
         flip: "근거 없음: 운영 유지/No-Go",
-        tone: metrics.linkCount ? "watch" : "fail",
+        tone: metrics.officialPolicyLinks ? "ok" : metrics.linkCount ? "watch" : "fail",
       });
     }
 
@@ -9921,6 +10158,10 @@
           <span>Decision review KPI</span>
           <strong>의사결정 재검토 KPI</strong>
           <small>아래 기준선을 넘으면 전문가 결론을 Go/Watch/Hold로 다시 판단합니다.</small>
+          <details class="decision-logic-details">
+            <summary>판정 로직 보기</summary>
+            <p>canonical URL 중복 제거 → 최신성 감쇠(30일 100%, 90일 82%, 1년 58%) → 출처 권위 가중 → 가격 방향성·반대 근거 차감 순서로 계산합니다. 가격 약세 기준은 -0.45%, 선별 확대 기준은 +0.55%, Spot/Contract 전이 허용 차이는 ±5%p입니다.</p>
+          </details>
         </div>
         <div class="decision-flip-grid">
           ${items.map((item, index) => `
@@ -10041,17 +10282,23 @@
     const primaryFlip = primaryDecisionFlipKpi(active, { label: productLabel });
     const priceFlip = flipKpis.find((item) => item.id === "price-turn") || primaryFlip;
     const chinaFlip = flipKpis.find((item) => /cxmt|ymtc|china/i.test(item.id)) || primaryFlip;
-    return [
+    const counterEvidence = decisionCounterEvidence(active);
+    const riskGate = decisionRiskGate(active, { label: productLabel });
+    const priceSpread = decisionPriceSpread(active);
+    const sourceItem = (active.observations || []).find((item) => evidenceItemUrl(item));
+    const source = sourceItem ? { url: evidenceItemUrl(sourceItem), title: sourceItem.item || sourceItem.title || "가격 원문" } : null;
+    const baseConfidence = Math.round(Number(active.confidence || counterEvidence.confidence || 0));
+    const agents = [
       {
         id: "ceo",
         initials: "CEO",
         name: "CEO",
         title: "Executive Chair",
-        role: "의사결정 질문",
+        role: "최종 의사결정",
         color: "#111827",
         stance: scenario.conclusion,
-        message: `${profile.question} 현재 결론은 ${active.decision.label}입니다. ${scenario.label} 가정에서는 ${scenario.ceo} 실행 판단은 ${scenario.conclusion}입니다. ${primaryFlip.label}(${primaryFlip.trigger})이 충족되면 판단을 재상정합니다.`,
-        speechEn: `The executive decision is conditional. Under scenario ${scenario.id}, we will maintain the current recommendation. We will reopen the decision when the primary reversal threshold is reached.`,
+        message: `근거·시장·기술·중국·운영·재무·리스크·반증 검토를 종합합니다. ${profile.question} 최종 판단은 **${active.decision.label}**이며, ${scenario.label}은 가정만으로 등급을 바꾸지 않습니다. ${counterEvidence.text}. ${riskGate.rule}을 통과할 때만 ${active.decision.action}을 실행합니다.`,
+        speechEn: `After evidence, market, technology, China, operations, finance, risk, and red-team review, the final recommendation is ${active.decision.label}. A scenario premise alone does not change the grade. Execution requires the defined reversal gate.`,
       },
       {
         id: "data",
@@ -10116,8 +10363,8 @@
         role: "가격·고객",
         color: "#10B981",
         stance: "Lead-Lag 신호",
-        message: `${profile.data} 가격은 사전 모멘텀 ${prior}와 이후 실측 ${actual}로 나눠 봅니다. ${priceFlip.label}(${priceFlip.trigger})이 충족되지 않으면 고객·가격 결론을 과도하게 올리지 않습니다.`,
-        speechEn: `Pricing is separated into prior momentum of ${prior} and a subsequent observed result of ${actualEn}. Until the primary price reversal threshold is met, we should not raise the customer or pricing conclusion.`,
+        message: `${profile.data} 가격은 사전 모멘텀 ${prior}와 이후 실측 ${actual}로 나눠 봅니다. Spot과 contract 변화율 차이가 **±5%p 이내**이고 고객 신호가 같은 방향일 때만 전이로 인정합니다. ${priceSpread.text} ${priceFlip.label} 기준 전에는 결론을 높이지 않습니다.`,
+        speechEn: `Pricing is separated into prior and subsequent observations. Spot and contract changes must be within five percentage points and align with customer evidence before conviction can rise.`,
       },
       {
         id: "risk",
@@ -10127,8 +10374,8 @@
         role: "하방 리스크",
         color: "#EF4444",
         stance: "Reversal Trigger",
-        message: `${profile.risk} ${scenario.policy} 하방 조건은 "${active.downside}"입니다. ${flipKpis.slice(0, 3).map((item) => item.label).join(" · ")} 중 2개 이상 악화되면 결론을 낮춥니다.`,
-        speechEn: `The downside case requires a hard reversal gate. If at least two of the three primary indicators deteriorate, the recommendation must be downgraded.`,
+        message: `${profile.risk} ${scenario.policy} 하방 조건은 "${active.downside}"입니다. 이 제품군의 하향 규칙은 ==${riskGate.rule}==이며 현재 실패 게이트는 ${fmtNum(riskGate.failed.length)}개입니다.`,
+        speechEn: `The downside gate is category specific. The recommendation changes only when the defined customer, product, policy, or pricing combination is actually triggered.`,
       },
       {
         id: "devil",
@@ -10138,8 +10385,8 @@
         role: "Devil's Advocate",
         color: "#111827",
         stance: "Devil's Advocate",
-        message: `Devil's Advocate: 12개월 뒤 이 결론이 틀렸다고 가정하고 실패 원인부터 적습니다. 이 백테스트가 "지나간 판단을 지금 근거로 정당화"하는 사후확증일 수 있습니다. ① 사전 모멘텀 ${prior}와 이후 실측 ${actual}가 우연히 맞았을 가능성을 배제했습니까? ② 같은 신호로 반대 결론을 내면 어디서 깨집니까? ③ 표본이 ${fmtNum(active.observations?.length || 0)}개면 통계적으로 충분합니까? 같은 규칙으로 틀린 시점도 비교해야 합니다.`,
-        speechEn: `Assume this conclusion fails in twelve months. The backtest may be post-hoc confirmation. Have we ruled out that prior momentum of ${prior} and the subsequent result of ${actualEn} aligned by chance? Where would the opposite conclusion fail, and are ${fmtNum(active.observations?.length || 0)} observations sufficient? We must test losing periods with the same rule.`,
+        message: `12개월 뒤 결론이 틀렸다고 가정합니다. ${counterEvidence.text}. 반대 방향 관측 비율을 결론 신뢰도에서 차감했고, 표본 ${fmtNum(active.observations?.length || 0)}개가 충분하지 않으면 같은 규칙으로 손실 구간까지 비교해야 합니다. 반증이 끝나기 전에는 등급을 올리지 않습니다.`,
+        speechEn: `Assume the conclusion fails in twelve months. Opposing observations are explicitly deducted from conviction. The same rule must be tested on losing periods before the grade can increase.`,
       },
       {
         id: "audit",
@@ -10149,8 +10396,8 @@
         role: "근거 감사",
         color: "#475569",
         stance: "근거 정합성",
-        message: `선택 시점 이후 실제 가격만 백테스트에 씁니다. 중국 신호 ${fmtNum(active.chinaSignalCount)}건은 현재 리스크이며, 원문·가격 row가 없는 해석은 결론 강도를 올리지 않습니다.`,
-        speechEn: `Only prices observed after the selected date are used in the backtest. The ${fmtNum(active.chinaSignalCount)} China signals are current risks, and interpretations without a primary source or price row cannot increase conviction.`,
+        message: `선택 시점 이후 실제 가격만 백테스트에 씁니다. 중국 신호 ${fmtNum(active.chinaSignalCount)}건은 현재 리스크이며, 원문·가격 row가 없는 해석은 결론 강도를 올리지 않습니다. ${counterEvidence.text}.`,
+        speechEn: `Only observed post-selection prices are used. Current China signals are not applied retroactively, and interpretations without a primary source or price row cannot increase conviction.`,
       },
       {
         id: "strategy",
@@ -10164,6 +10411,21 @@
         speechEn: `The recommendation for the selected product family remains conditional under scenario ${scenario.id}. The decision should be updated at the next review if any reversal indicator crosses its threshold.`,
       },
     ].filter((agent) => agent.message);
+    const order = ["audit", "data", "market", "cto", "china", "coo", "cfo", "risk", "devil", "strategy", "ceo"];
+    return agents
+      .sort((a, b) => order.indexOf(a.id) - order.indexOf(b.id))
+      .map((agent) => {
+        let agentConfidence = Math.min(baseConfidence, counterEvidence.confidence);
+        if (agent.id === "market" && !priceSpread.hasBoth) agentConfidence -= 10;
+        if (agent.id === "cto" && !(active.observations?.length > 0)) agentConfidence -= 8;
+        agentConfidence = Math.round(clamp(agentConfidence, 0, 100));
+        return {
+          ...agent,
+          confidence: agentConfidence,
+          wrongRisk: 100 - agentConfidence,
+          source: ["audit", "data", "market", "ceo"].includes(agent.id) ? source : null,
+        };
+      });
   }
 
   function executiveDecisionCouncilConclusion(active, selectedYearOption, selectedIso, scenario = agentFutureScenario()) {
@@ -10337,9 +10599,10 @@
                   <div class="speech-meta">
                     <strong>${escapeHTML(agent.role)}</strong>
                     <span>${escapeHTML(agent.stance || agent.name)}</span>
-                  </div>
-                  <p data-say-en="${escapeHTML(agent.speechEn || "")}">${renderAgentSpeech(agent.message)}</p>
-                </div>
+                   </div>
+                   <p data-say-en="${escapeHTML(agent.speechEn || "")}">${renderAgentSpeech(agent.message)}</p>
+                   ${agentEvidenceMetaHTML(agent)}
+                 </div>
               </article>
             `).join("")}
           </div>
@@ -10352,7 +10615,7 @@
         ` : `
           <div class="agent-waiting">
             <strong>안건을 선택한 뒤 토론 실행을 누르세요.</strong>
-            <p>실행 후 CEO, Data, China, CFO, CTO, COO, Market, Risk, Devil's Advocate, Auditor, Strategy가 순차 등장해 가격·고객·기술·규제·반증 조건을 검토합니다.</p>
+            <p>실행 후 Auditor, Data, Market, CTO, China, COO, CFO, Risk, Devil's Advocate, Strategy가 검증하고 CEO가 마지막에 결론을 냅니다.</p>
           </div>
         `}
       </div>
@@ -11521,20 +11784,31 @@
     const signalMetric = metricValue("신호");
     const gateMetric = metricValue("O/X");
     const isRoiChallenge = challenge.id === "roi-credibility";
+    const evidenceLevel = String(response.evidence?.evidenceLevel || "Watch");
+    const challengeConfidence = evidenceLevel === "Confirmed" ? 82 : evidenceLevel === "Inferred" ? 48 : evidenceLevel === "Stale" ? 28 : 62;
+    const challengeSource = response.evidence?.url ? { url: response.evidence.url, title: response.evidence.title || "원문 근거" } : null;
+    const riskGate = decisionRiskGate({
+      id: `${challenge.id}-${scenario.id}`,
+      category: scenario.accentCategory,
+      label: targetLabel,
+      evidence: { news: response.evidence ? [{ ...response.evidence, link: response.evidence.url }] : [] },
+    });
     return agentDebateHTML({
       mode: "ceo-challenge",
       title: `${challenge.angle} 챌린지 토론`,
       subtitle: `${scenario.label} · ${targetLabel}`,
       accent,
       ttsLanguage: "en",
+      defaultConfidence: challengeConfidence,
+      defaultSource: challengeSource,
       metrics: response.metrics || [],
       turns: [
         {
           name: "CEO",
-          role: "의사결정 질문",
+          role: "최종 의사결정",
           avatar: "CEO",
           color: "#111827",
-          message: `${challenge.question} 현재 결론은 **${response.verdict}** SKHY 관점에서는 고객, 제품, 정책 리스크 중 결정을 바꾸는 핵심 조건부터 정합니다.`,
+          message: `앞선 근거·시장·기술·정책·실행·재무·리스크·반증 검토를 종합합니다. 질문은 "${challenge.question}"입니다. 최종 권고는 **${response.verdict}**이며, 실행 범위는 ${response.action}로 제한합니다. ${riskGate.rule}을 통과하지 못하면 결론을 낮춥니다.`,
           speechEn: isRoiChallenge
             ? `Why should this item be used only to prioritize diligence, rather than as a C F O grade financial return? The answer is that the score is a relative decision index, not an audited return. S K hynix must define the customer, product, and policy conditions that would reverse the decision before approving action.`
             : `The executive challenge is to test whether the current recommendation can survive a customer, product, and policy stress test. From the S K hynix perspective, we must define the conditions that would reverse the decision before we approve action.`,
@@ -11570,8 +11844,8 @@
           role: "고객·가격 전이",
           avatar: "MKT",
           color: "#10B981",
-          message: `고객 관점에서는 가격 하방 신호만으로 결론을 내리지 않습니다. CXMT·YMTC 신호가 실제 고객 전환, 장기계약, spot-contract spread로 이어질 때만 방어 가격, 물량 배분, 고객 락인 안건으로 올립니다.`,
-          speechEn: `A downside price signal alone is not enough. C X M T and Y M T C become actionable only when they lead to customer switching, long-term contracts, or a material spot-to-contract spread. Then we can consider defensive pricing, volume allocation, and customer lock-in.`,
+          message: `가격 하방만으로 결론을 내리지 않습니다. Spot과 contract 변화율 차이가 **±5%p 이내**이고 고객 전환·장기계약이 같은 방향일 때만 방어 가격, 물량 배분, 고객 락인 안건으로 올립니다.`,
+          speechEn: `A downside price signal alone is insufficient. Spot and contract changes must be within five percentage points and align with customer switching or long-term contracts before defensive pricing or allocation changes are approved.`,
         },
         {
           name: "Operations",
@@ -11586,23 +11860,23 @@
           role: "기술보호·하방 게이트",
           avatar: "IP",
           color: "#F43F5E",
-          message: `리스크 관점에서는 인력·수율 레시피·고객 데이터 접근권을 별도 게이트로 둡니다. 핵심 인력 이동, IP 소송, 수율 병목, 규제 이벤트 중 2개 이상 악화되면 확대보다 방어와 리텐션을 우선합니다.`,
-          speechEn: `Risk review sets separate gates for talent, yield recipes, and customer-data access. If two or more of key-person movement, intellectual-property litigation, yield bottlenecks, or regulatory events deteriorate, defense and retention take priority over expansion.`,
+          message: `이 안건의 하향 규칙은 ==${riskGate.rule}==입니다. 모든 안건에 같은 '2개 악화' 규칙을 적용하지 않고 제품·고객·정책·인재별 조합으로 판단합니다.`,
+          speechEn: `The downside rule is category specific. We do not apply one generic two-indicator rule to every agenda; product, customer, policy, and talent risks use separate combinations.`,
         },
         {
           name: "Devil's Advocate",
           role: "반론·Devil's Advocate",
           avatar: "DA",
           color: "#111827",
-          message: `${response.counter} 반대로 12개월 뒤 실패했다면 원인은 확증편향, 고객 전환 과소평가, 규제 리스크 누락입니다. 이 세 가지를 반증하지 못하면 결론은 Go가 아니라 Watch입니다.`,
-          speechEn: `Assume this decision fails in twelve months. The likely causes are confirmation bias, underestimating customer switching, and missing regulatory risk. Unless those three failure modes are disproved, the recommendation should remain Watch rather than Go.`,
+          message: `${response.counter} 12개월 뒤 실패했다고 가정합니다. 현재 연결된 반대 방향 정량 표본이 없으므로 확증편향을 계산으로 배제할 수 없습니다. 고객 전환, 가격 반대 움직임, 규제 완화·강화의 반대 근거를 같은 임계값으로 수집하기 전에는 Go로 올리지 않습니다.`,
+          speechEn: `Assume the decision fails in twelve months. There is no linked quantitative counter-evidence sample, so confirmation bias cannot be ruled out. The recommendation cannot move to Go until opposing customer, price, and policy evidence is tested with the same thresholds.`,
         },
         {
           name: "Data Auditor",
           role: "근거 검증",
           avatar: "AUD",
           color: "#EF4444",
-          message: `${response.evidence ? `근거는 **${response.evidence.title}**(${response.evidence.source} · ${response.evidence.sourceType} · ${response.evidence.claimType || "사실"} · ${response.evidence.evidenceLevel})입니다. ` : ""}실행 조건은 ${response.action}입니다. ==${response.evidence?.reversalKpi || "핵심 판단 변경 KPI"}==가 달라지면 같은 기준으로 결론을 다시 계산합니다.`,
+          message: `${response.evidence ? `대표 원문은 **${response.evidence.title}**(${response.evidence.source} · ${response.evidence.sourceType} · ${response.evidence.claimType || "사실"} · ${response.evidence.evidenceLevel})입니다. ` : "대표 원문이 없어 결론 강도를 Watch 이하로 제한합니다. "}정확 중복은 canonical URL로 제거하고 최신성·출처 권위를 가중합니다. ==${response.evidence?.reversalKpi || "핵심 판단 변경 KPI"}==가 달라지면 같은 기준으로 재계산합니다.`,
           speechEn: isRoiChallenge
             ? `The model currently uses ${signalMetric} evidence signals and an O X gate of ${gateMetric}. Its evidence level is ${/^(Confirmed|Watch|Inferred|Stale)$/i.test(response.evidence?.evidenceLevel || "") ? response.evidence.evidenceLevel : "Watch"}. The score must not be promoted to a financial fact. If the primary reversal indicator changes, the conclusion must be recalculated with the same source and evidence rules.`
             : `The evidence level is ${/^(Confirmed|Watch|Inferred|Stale)$/i.test(response.evidence?.evidenceLevel || "") ? response.evidence.evidenceLevel : "Watch"}. The execution condition remains conditional. If the primary reversal indicator changes, the conclusion must be recalculated using the same evidence standard.`,
@@ -11612,7 +11886,7 @@
           role: "최종 종합",
           avatar: "STR",
           color: "#22C55E",
-          message: `종합하면 ${targetLabel}은 ${response.action}로 정리합니다. 다음 회의에서는 ${response.kpis?.slice(0, 3).join(", ") || "핵심 KPI"}가 바뀌었는지만 보고 결정을 유지, 확대, 보류 중 하나로 갱신합니다.`,
+          message: `선택지는 즉시 실행, 조건부 실사, 옵션 유지로 나눕니다. ${targetLabel}은 현재 ${response.action} 후보이며, 다음 회의에서는 ${response.kpis?.slice(0, 3).join(", ") || "핵심 KPI"}와 반대 방향 근거를 함께 갱신한 뒤 CEO가 최종 결정합니다.`,
           speechEn: isRoiChallenge
             ? `The recommendation is to use the R O I score only to rank diligence. It must not be reported as a financial return. At the next executive review, update the reversal indicators first, then choose to maintain, expand, or hold.`
             : `In summary, the action remains conditional. At the next meeting, we will review only the key reversal indicators and update the decision to maintain, expand, or hold.`,
