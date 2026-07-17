@@ -283,6 +283,43 @@ if (news.length && directNews.length / news.length < 0.9) {
   addIssue("error", "data/live.json", "fewer than 90% of news items resolve to direct source URLs", `${directNews.length}/${news.length}`);
 }
 
+const preservedNews = news.filter((item) => item?.preservedSeed);
+const preservedByLanguage = {
+  english: preservedNews.filter((item) => item.streamLanguage === "english"),
+  chinese: preservedNews.filter((item) => item.streamLanguage === "chinese"),
+};
+if (preservedByLanguage.english.length < 8) {
+  addIssue("error", "data/live.json", "fewer than eight preserved English authority articles", String(preservedByLanguage.english.length));
+}
+if (preservedByLanguage.chinese.length < 7) {
+  addIssue("error", "data/live.json", "fewer than seven preserved Chinese-language articles", String(preservedByLanguage.chinese.length));
+}
+const requiredPreservedNewsIds = [
+  "the-register-china-memory-ban",
+  "reuters-cxmt-tencent",
+  "tomshardware-cxmt-capacity",
+  "trendforce-hybrid-bonding",
+  "sina-ymtc-ipo",
+  "technews-cxmt-pricing",
+  "sina-ddr4-contract",
+];
+for (const id of requiredPreservedNewsIds) {
+  if (!preservedNews.some((item) => item.id === id)) {
+    addIssue("error", "data/live.json", "required preserved news article is missing", id);
+  }
+}
+for (const item of preservedNews) {
+  if (!String(item.summary || "").trim() || !String(item.summaryOriginal || "").trim()) {
+    addIssue("error", "data/live.json", "preserved news article lacks source-specific summaries", item.id || item.title || "unknown");
+  }
+  if (item.streamLanguage === "chinese" && item.evidenceLevel !== "Watch") {
+    addIssue("error", "data/live.json", "Chinese-language preserved article was promoted beyond Watch", item.id || item.title || "unknown");
+  }
+  if (item.streamLanguage === "english" && item.evidenceLevel !== "Reported") {
+    addIssue("error", "data/live.json", "English preserved article does not use Reported evidence", item.id || item.title || "unknown");
+  }
+}
+
 const community = live.communitySignals || {};
 const communityItems = Array.isArray(community.items) ? community.items : [];
 const communityAllowedDomains = [

@@ -272,6 +272,26 @@ const ENGLISH_AUTHORITY_MONITORS = [
       "site:asia.nikkei.com CXMT YMTC semiconductor",
       "site:semiengineering.com China semiconductor equipment memory",
       "site:semi.org China memory semiconductor equipment",
+      "site:theregister.com Chinese memory ban CXMT YMTC supply",
+      "site:newsletter.semianalysis.com CXMT DRAM capacity HBM",
+      "site:technode.com YMTC NAND market share",
+    ],
+  },
+  {
+    id: "cxl",
+    label: "CXL·차세대 메모리 원문",
+    queries: [
+      "site:semiconductor.samsung.com CXL memory pooling KV cache",
+      "site:panmnesia.com CXL memory ISCA",
+      "site:sandisk.com 10th-generation 3D flash Kioxia",
+    ],
+  },
+  {
+    id: "packaging",
+    label: "패키징 권위 소스",
+    queries: [
+      "site:trendforce.com hybrid bonding HBM4E",
+      "site:newsletter.semianalysis.com ECTC HBM packaging",
     ],
   },
 ];
@@ -287,6 +307,9 @@ const CHINESE_AUTHORITY_MONITORS = [
       "site:laoyaoba.com 长鑫存储",
       "site:ijiwei.com 长鑫存储",
       "site:eet-china.com 长鑫存储 DDR5",
+      "site:technews.tw 长鑫存储 DRAM",
+      "site:finance.technews.tw 长鑫存储 扩产",
+      "site:solidot.org 长鑫存储 DRAM",
     ],
   },
   {
@@ -299,6 +322,8 @@ const CHINESE_AUTHORITY_MONITORS = [
       "site:seminews.com.cn 长江存储 NAND",
       "site:21jingji.com 长江存储 存储芯片",
       "site:huxiu.com 长江存储 NAND",
+      "site:finance.sina.com.cn 长江存储 IPO",
+      "site:cnyes.com 长江存储 NAND",
     ],
   },
   {
@@ -311,7 +336,253 @@ const CHINESE_AUTHORITY_MONITORS = [
       "site:china.semi.org.cn 半导体设备 存储",
       "site:csia.net.cn 存储芯片 半导体设备",
       "site:eet-china.com 北方华创 中微公司",
+      "site:finance.sina.com.cn HBM 测试设备 存储",
+      "site:finance.sina.com.cn DDR4 合约价 存储",
     ],
+  },
+];
+
+// High-value source articles remain available when a daily search result rolls
+// out of the RSS window. They still pass the same language, authority, direct
+// URL, duplicate, and evidence gates as newly discovered articles.
+const PRESERVED_NEWS_SEEDS = [
+  {
+    id: "the-register-china-memory-ban",
+    category: "china",
+    language: "english",
+    title: "Chinese memory ban would cut off RAMpocalypse relief",
+    titleKo: "중국 메모리 금지가 공급 부족 완화를 막을 수 있다는 분석",
+    source: "The Register",
+    sourceType: "외신",
+    evidenceLevel: "Reported",
+    date: "2026-07-17",
+    link: "https://www.theregister.com/2026/07/17/chinese_memory_ban_would_cut_off_rampocalypse_relief/",
+    summaryOriginal: "Proposed restrictions on Chinese memory suppliers could remove an alternative source of DRAM and NAND while global memory supply remains tight.",
+    summary: "중국 메모리 조달 제한이 공급 대안을 줄여 가격 압력을 키울 수 있다는 정책·수급 분석. 규제 강화 효과와 고객의 대체 조달 비용을 함께 판단해야 함.",
+  },
+  {
+    id: "reuters-cxmt-tencent",
+    category: "dram",
+    language: "english",
+    title: "China's CXMT wins server DRAM supply deal with Tencent",
+    titleKo: "CXMT, 텐센트 서버 DRAM 장기 공급계약 확보",
+    source: "Reuters",
+    sourceType: "외신",
+    evidenceLevel: "Reported",
+    date: "2026-06-29",
+    link: "https://www.reuters.com/world/china/chinas-cxmt-wins-3-billion-memory-supply-deal-with-tencent-sources-say-2026-06-29/",
+    summaryOriginal: "Reuters reported a server DRAM supply agreement worth more than CNY 20 billion, about USD 2.94 billion, while sources differed on whether the term was three or five years.",
+    summary: "계약 규모는 200억 위안 초과(약 $2.94B)로 보도됐고 기간은 소식통별 3년 또는 5년으로 엇갈림. 고객 승인 확대는 확정 공시 전까지 Reported로 관리.",
+  },
+  {
+    id: "tomshardware-cxmt-capacity",
+    category: "dram",
+    language: "english",
+    title: "CXMT close to matching Micron's memory capacity in 2026, research claims",
+    titleKo: "연구 모델, CXMT의 2026년 DRAM 캐파가 Micron에 근접할 가능성 제시",
+    source: "Tom's Hardware",
+    sourceType: "외신",
+    evidenceLevel: "Reported",
+    date: "2026-07-15",
+    link: "https://www.tomshardware.com/pc-components/dram/cxmt-close-to-matching-microns-memory-capacity-in-2026-research-claims-would-put-china-on-track-to-become-worlds-second-largest-dram-producer",
+    summaryOriginal: "The article reports a Citrini Research capacity model, not audited wafer output, and notes that CXMT could approach Micron's wafer capacity if the modeled expansion is completed.",
+    summary: "Citrini Research의 캐파 모델을 소개한 기사로 실제 비트 아웃풋 확정치가 아님. 웨이퍼 캐파와 수율·다이 크기·비트 원가를 분리해 범용 DRAM 압력을 판단.",
+  },
+  {
+    id: "semianalysis-cxmt-dram",
+    category: "dram",
+    language: "english",
+    title: "China's CXMT Is Set to Challenge DRAM Incumbents",
+    titleKo: "SemiAnalysis, CXMT의 범용 DRAM 확장과 HBM 제약 분석",
+    source: "SemiAnalysis",
+    sourceType: "분석",
+    evidenceLevel: "Reported",
+    date: "2026-06-23",
+    link: "https://newsletter.semianalysis.com/p/chinas-cxmt-is-set-to-challenge-dram",
+    summaryOriginal: "SemiAnalysis models CXMT's commodity DRAM expansion while separating modeled wafer capacity from HBM yield, equipment, and packaging constraints.",
+    summary: "CXMT의 IPO 이후 범용 DRAM 확장과 HBM 병목을 분리한 분석. SKHY는 HBM 추격보다 DDR5·LPDDR 고객 승인과 비트 원가 변화를 우선 감시.",
+  },
+  {
+    id: "technode-ymtc-share",
+    category: "nand",
+    language: "english",
+    title: "YMTC NAND market share climbs to 13% as global competition intensifies",
+    titleKo: "YMTC NAND 점유율 13% 보도, 상위권 경쟁 심화",
+    source: "TechNode",
+    sourceType: "외신",
+    evidenceLevel: "Reported",
+    date: "2026-06-22",
+    link: "https://technode.com/2026/06/22/ymtc-nand-market-share-climbs-to-13-as-global-competition-intensifies/",
+    summaryOriginal: "TechNode reports that YMTC's NAND share reached 13 percent, citing market research as competition in client and enterprise storage intensified.",
+    summary: "YMTC의 NAND 점유율 13% 보도를 시장조사 기준으로 추적. 점유율 산식과 기준 분기를 확인한 뒤 eSSD 고객 침투와 가격 영향을 분리해 반영.",
+  },
+  {
+    id: "trendforce-hybrid-bonding",
+    category: "packaging",
+    language: "english",
+    title: "Samsung and SK hynix Reportedly Reconsider Hybrid Bonding Timeline",
+    titleKo: "삼성·SKHY, 하이브리드 본딩 적용 시점 재검토",
+    source: "TrendForce",
+    sourceType: "분석",
+    evidenceLevel: "Reported",
+    date: "2026-07-07",
+    link: "https://www.trendforce.com/news/2026/07/07/news-samsung-sk-hynix-reportedly-reconsider-hybrid-bonding-timeline-16-high-hbm4e-may-be-earliest-adoption/",
+    summaryOriginal: "TrendForce reports that 16-high HBM4E may become the earliest hybrid-bonding adoption point as suppliers continue thermocompression bonding for HBM4.",
+    summary: "하이브리드 본딩 도입이 16단 HBM4E까지 늦춰질 수 있다는 업계 보도. 본딩 장비 CAPEX보다 HBM4 수율과 고객 인증 일정에 우선순위를 둘 필요.",
+  },
+  {
+    id: "samsung-cxl-pooling",
+    category: "cxl",
+    language: "english",
+    title: "Breaking AI Memory Limits with CXL Memory Pooling",
+    titleKo: "삼성, CXL 메모리 풀링 기반 AI 추론 평가 공개",
+    source: "Samsung Semiconductor",
+    sourceType: "기업 공식",
+    evidenceLevel: "Reported",
+    date: "2026-07-09",
+    link: "https://semiconductor.samsung.com/news-events/tech-blog/breaking-ai-memory-limits-with-cxl-memory-pooling/",
+    summaryOriginal: "Samsung evaluated a 1 TB CXL memory pool for KV cache offloading and reported near-DRAM performance in its disclosed test environment.",
+    summary: "1TB CXL 메모리 풀을 KV 캐시 오프로딩에 적용한 기업 공개 평가. 특정 테스트 환경 결과이므로 독립 재현 전까지 Post-HBM 제품 옵션의 검증 신호로 사용.",
+  },
+  {
+    id: "sandisk-kioxia-bics10",
+    category: "nand",
+    language: "english",
+    title: "Kioxia and Sandisk Begin Production of 10th-Generation 3D Flash Memory",
+    titleKo: "Kioxia·Sandisk, 10세대 3D NAND 생산 개시",
+    source: "Sandisk",
+    sourceType: "기업 공식",
+    evidenceLevel: "Reported",
+    date: "2026-07-02",
+    link: "https://www.sandisk.com/company/newsroom/press-releases/2026/2026-07-02-kioxia-sandisk-begin-production-10th-gen-3d-flash-memory-kitakami",
+    summaryOriginal: "Kioxia and Sandisk announced the start of production for their 10th-generation 3D flash technology at Kitakami Fab2.",
+    summary: "Kitakami Fab2에서 10세대 3D NAND 생산을 시작했다는 기업 공식 발표. 실제 출하량·수율·eSSD 믹스가 확인될 때 NAND 공급 시나리오에 반영.",
+  },
+  {
+    id: "panmnesia-isca-cxl",
+    category: "cxl",
+    language: "english",
+    title: "Panmnesia Unveils Silicon-Proven CXL Results at ISCA 2026",
+    titleKo: "Panmnesia, ISCA 2026에서 실리콘 검증 CXL 결과 공개",
+    source: "Panmnesia",
+    sourceType: "기업 공식",
+    evidenceLevel: "Reported",
+    date: "2026-07-03",
+    link: "https://panmnesia.com/news/en/2026-07-03-panmnesia-isca2026-eng/",
+    summaryOriginal: "Panmnesia presented silicon-proven CXL results at ISCA 2026, providing an implementation signal for memory expansion and pooling architectures.",
+    summary: "실리콘 검증 CXL 결과를 공개한 기업 발표. 상용 배포 규모와 고객 검증을 별도로 확인해 CXL 메모리 풀링 투자 우선순위를 판단.",
+  },
+  {
+    id: "sina-ymtc-ipo",
+    category: "nand",
+    language: "chinese",
+    title: "长江存储IPO辅导披露重要进展",
+    titleKo: "YMTC IPO 지도 절차의 진행 상황 공개",
+    source: "新浪财经",
+    sourceType: "중국어권 보도",
+    evidenceLevel: "Watch",
+    date: "2026-07-16",
+    link: "https://finance.sina.com.cn/wm/2026-07-16/doc-inihzfcy1427559.shtml",
+    summaryOriginal: "报道披露长江存储IPO辅导进展，并将融资预期与AI存储需求周期联系起来。",
+    summary: "YMTC IPO 지도 절차의 진행을 다룬 중국어 보도. 공모 규모·일정·자금 용도는 거래소 문서로 교차검증하기 전까지 Watch로 유지.",
+  },
+  {
+    id: "technews-china-memory-capex",
+    category: "china",
+    language: "chinese",
+    title: "中国记忆体双雄扩产设备支出升温",
+    titleKo: "CXMT·YMTC 확장에 따른 장비 지출 확대 보도",
+    source: "科技新报 财经",
+    sourceType: "중국어권 보도",
+    evidenceLevel: "Watch",
+    date: "2026-07-14",
+    link: "https://finance.technews.tw/2026/07/14/chinas-two-memory-chip-giants-are-spending-heavily-to-expand-production/",
+    summaryOriginal: "报道汇总长鑫存储与长江存储的扩产和设备支出预期，相关产能数字仍需用公司或设备订单交叉验证。",
+    summary: "중국 메모리 양사의 확장·장비 지출 전망을 정리한 보도. 예상 캐파는 실제 장비 발주와 wafer start로 확인될 때만 공급 전망에 반영.",
+  },
+  {
+    id: "cnyes-nand-cycle",
+    category: "nand",
+    language: "chinese",
+    title: "AI需求与消费库存推动NAND周期分化",
+    titleKo: "AI 수요와 소비 재고가 만드는 NAND 사이클 분화",
+    source: "钜亨网",
+    sourceType: "중국어권 보도",
+    evidenceLevel: "Watch",
+    date: "2026-07-10",
+    link: "https://hao.cnyes.com/post/258401",
+    summaryOriginal: "文章讨论AI服务器需求与消费电子库存之间的分化，并引用机构观点分析NAND供需拐点。",
+    summary: "AI 서버용 NAND 강세와 모바일·PC 재고 부담의 분화를 다룬 분석. eSSD와 client NAND를 한 방향으로 합산하지 않고 별도 가격 시나리오로 관리.",
+  },
+  {
+    id: "sina-cxmt-decade",
+    category: "dram",
+    language: "chinese",
+    title: "长鑫存储十年投入后的盈利与扩张观察",
+    titleKo: "CXMT의 수익 전환과 확장 속도에 대한 중국어권 관찰",
+    source: "新浪财经",
+    sourceType: "중국어권 보도",
+    evidenceLevel: "Watch",
+    date: "2026-07-08",
+    link: "https://finance.sina.com.cn/roll/2026-07-08/doc-inihaicz1520241.shtml",
+    summaryOriginal: "报道回顾长鑫存储长期投入、盈利变化与扩产预期，财务数字仍需以上交所文件为准。",
+    summary: "CXMT의 장기 투자와 수익 전환을 다룬 보도. 분기·연간 단위 혼용을 피하고 SSE 공시와 일치하는 수치만 경영 지표로 승격.",
+  },
+  {
+    id: "solidot-china-fabs",
+    category: "china",
+    language: "chinese",
+    title: "长鑫与长江存储新工厂扩产计划观察",
+    titleKo: "CXMT·YMTC 신규 팹 확장 계획 관찰",
+    source: "Solidot 奇客",
+    sourceType: "중국어권 보도",
+    evidenceLevel: "Watch",
+    date: "2026-07-08",
+    link: "https://www.solidot.org/story?sid=84783",
+    summaryOriginal: "文章汇总长鑫与长江存储新工厂建设和投产时间表，计划值不等同于实际月产能。",
+    summary: "신규 팹 건설·가동 일정을 요약한 보도. 계획 캐파를 실제 생산량으로 보지 않고 장비 설치·qualification·wafer start를 순차 확인.",
+  },
+  {
+    id: "technews-cxmt-pricing",
+    category: "dram",
+    language: "chinese",
+    title: "长鑫存储DRAM价格策略转向盈利优先",
+    titleKo: "CXMT DRAM 가격 전략이 저가 침투에서 수익성 중심으로 이동",
+    source: "科技新报",
+    sourceType: "중국어권 보도",
+    evidenceLevel: "Watch",
+    date: "2026-07-06",
+    link: "https://technews.tw/2026/07/06/changxin-memory-technologies-co-ltd-abandons-its-strategy-of-low-price-promotions-to-seize-market-share/",
+    summaryOriginal: "报道认为长鑫存储的DRAM定价差距收窄，并讨论成本与盈利策略变化。",
+    summary: "CXMT의 ASP 격차 축소와 수익성 우선 전략을 다룬 보도. 실제 고객 계약가와 비트 원가를 확인해 저가 공세 여부를 재판단.",
+  },
+  {
+    id: "sina-hbm-test-equipment",
+    category: "equipment",
+    language: "chinese",
+    title: "HBM需求带动存储测试设备新机会",
+    titleKo: "HBM 수요가 중국 테스트 장비 기회를 확대한다는 보도",
+    source: "新浪财经",
+    sourceType: "중국어권 보도",
+    evidenceLevel: "Watch",
+    date: "2026-07-02",
+    link: "https://finance.sina.com.cn/jjxw/2026-07-02/doc-inifmmmu2634865.shtml",
+    summaryOriginal: "报道讨论HBM需求对测试设备的拉动，但设备订单不等同于客户qualification或量产份额。",
+    summary: "HBM 테스트 장비 수요 확대를 다룬 중국어 보도. 장비 채용·개발 신호는 고객 qualification과 반복 발주가 확인되기 전까지 보조 지표로만 사용.",
+  },
+  {
+    id: "sina-ddr4-contract",
+    category: "dram",
+    language: "chinese",
+    title: "DDR4 8Gb合约价第三季度上涨预期",
+    titleKo: "DDR4 8Gb 3분기 계약가 상승 전망",
+    source: "新浪财经",
+    sourceType: "중국어권 보도",
+    evidenceLevel: "Watch",
+    date: "2026-07-09",
+    link: "https://finance.sina.com.cn/tech/roll/2026-07-09/doc-inihesky8304032.shtml",
+    summaryOriginal: "报道引用市场预测讨论DDR4 8Gb第三季度合约价上涨，仍需与TrendForce公开价格区间交叉验证。",
+    summary: "DDR4 8Gb 계약가 상승 전망을 다룬 보도. 단일 상단값을 확정치로 쓰지 않고 TrendForce 공개 시계열과 일치할 때 레거시 방어 판단에 반영.",
   },
 ];
 
@@ -1066,15 +1337,14 @@ const KOREAN_SOURCE_RE = new RegExp(
   ].join("|"),
   "i"
 );
-const EXCLUDED_NEWS_RE = /\b(apple|applem|aapl|iphone|ipad|macbook|9to5mac|applemagazine)\b|애플|아이폰|아이패드|맥북/i;
 const LOW_CONFIDENCE_NEWS_RE = /(ad hoc news|indexbox|36\s*kr|36kr|borncity|mjengo|blockchain\.news|odaily|zamin\.uz|finance\.biggo|crypto briefing|weex|fortrinawwer|siliconanalysts|nand-research|reddit|facebook|linkedin\.com|x\.com|twitter\.com)/i;
 const SKHYNIX_NEWSROOM_RE = /news\.skhynix\.com|sk\s*hynix\s*newsroom|skhy\s*newsroom/i;
 const AUTHORITATIVE_EN_NEWS_RE =
-  /(reuters|bloomberg|financial times|ft\.com|nikkei|cnbc|associated press|apnews|sec\.gov|nasdaq|trendforce|dramexchange|techinsights|yole|counterpoint|tom'?s hardware|tomshardware|south china morning post|scmp|caixin global|caixinglobal|digitimes|ee times|eetimes|semianalysis|techwire asia|the register|business insider|network world|evertiq|technode|techspot|japan times|electronics weekly|semiconductor engineering|semiengineering|semiconductor digest|solid state technology|ieee spectrum|jedec|semi\.org|businesswire|pr newswire|solidigm|intel|u\.s\. bis|bis\.gov|govinfo|wsts|acm research ir|cxmt|shanghai stock exchange)/i;
+  /(reuters|bloomberg|financial times|ft\.com|nikkei|cnbc|associated press|apnews|sec\.gov|nasdaq|trendforce|dramexchange|techinsights|yole|counterpoint|tom'?s hardware|tomshardware|south china morning post|scmp|caixin global|caixinglobal|digitimes|ee times|eetimes|semianalysis|techwire asia|the register|business insider|network world|evertiq|technode|techspot|japan times|electronics weekly|semiconductor engineering|semiengineering|semiconductor digest|solid state technology|ieee spectrum|jedec|semi\.org|businesswire|pr newswire|solidigm|intel|u\.s\. bis|bis\.gov|govinfo|wsts|acm research ir|cxmt|shanghai stock exchange|samsung semiconductor|semiconductor\.samsung\.com|sandisk|panmnesia)/i;
 const AUTHORITATIVE_CN_NEWS_RE =
-  /(财新|caixin|第一财经|yicai|21财经|21世纪经济报道|21jingji|证券时报|stcn|中国经营报|cb\.com\.cn|东方财富|eastmoney|新浪财经|sina finance|澎湃新闻|the paper|虎嗅|huxiu|电子工程专辑|eet-china|集微网|爱集微|ijiwei|laoyaoba|半导体新闻网|seminews|经济观察网|eeo\.com\.cn|techweb|chinaflashmarket|闪存市场|semi china|中国半导体行业协会|csia)/i;
+  /(财新|caixin|第一财经|yicai|21财经|21世纪经济报道|21jingji|证券时报|stcn|中国经营报|cb\.com\.cn|东方财富|eastmoney|新浪财经|sina finance|澎湃新闻|the paper|虎嗅|huxiu|电子工程专辑|eet-china|集微网|爱集微|ijiwei|laoyaoba|半导体新闻网|seminews|经济观察网|eeo\.com\.cn|techweb|chinaflashmarket|闪存市场|semi china|中国半导体行业协会|csia|科技新报|technews\.tw|钜亨网|cnyes\.com|solidot|奇客|xinhuanet)/i;
 const MEMORY_NEWS_RE =
-  /(memory|dram|nand|hbm|ddr[345]?|lpddr|gddr|ssd|solidigm|cxl|wafer|memory chip|sk hynix|skhy|micron|kioxia|sandisk|cxmt|changxin|ymtc|yangtze memory|xmc|wuhan xinxin|存储|内存|闪存|固态|晶圆|长鑫|长江存储|长存|武汉新芯)/i;
+  /(memory|dram|nand|hbm|ddr[345]?|lpddr|gddr|ssd|solidigm|cxl|wafer|memory chip|sk hynix|skhy|micron|kioxia|sandisk|cxmt|changxin|ymtc|yangtze memory|xmc|wuhan xinxin|存储|存儲|内存|记忆体|記憶體|闪存|固态|晶圆|长鑫|長鑫|长江存储|長江存儲|长存|武汉新芯)/i;
 const NEWS_MARKET_NOISE_RE =
   /\bETF\b|指数|领涨|领跌|净买入|净卖出|吸金|中签|打新|牛股|涨停|跌停|股价|个股|股票行情|认购|申购|抽签|赚钱|热度观测日志/i;
 
@@ -1183,7 +1453,6 @@ function isForeignItem(item) {
   if (NEWS_MARKET_NOISE_RE.test(item.originalTitle || item.title || "")) return false;
   if (KOREAN_SOURCE_RE.test(src)) return false;
   if (SKHYNIX_NEWSROOM_RE.test(src)) return false;
-  if (EXCLUDED_NEWS_RE.test(`${item.title || ""} ${item.source || ""} ${item.link || ""}`)) return false;
   if (LOW_CONFIDENCE_NEWS_RE.test(`${item.title || ""} ${item.source || ""} ${item.link || ""}`)) return false;
   const authority = `${publisherText(item)} ${item.link || ""}`;
   if (language === "chinese") return AUTHORITATIVE_CN_NEWS_RE.test(authority);
@@ -1963,6 +2232,26 @@ async function fetchGoogleNews(query, category = "", locale = "en") {
     .filter(isForeignItem);
 }
 
+function normalizePreservedNewsSeed(seed = {}) {
+  const language = seed.language === "chinese" ? "chinese" : "english";
+  const title = cleanLocalizedTitle(seed.title, language === "chinese" ? "zh" : "en");
+  const sourceUrl = sanitizeSourceUrl(seed.link || seed.sourceUrl || "");
+  return {
+    ...seed,
+    title,
+    originalTitle: title,
+    sourceUrl,
+    link: sourceUrl,
+    ts: new Date(`${seed.date || "1970-01-01"}T00:00:00Z`).getTime() || 0,
+    language,
+    streamLanguage: language,
+    languageVerified: true,
+    summarySource: "curated-source",
+    preservedSeed: true,
+    curated: true,
+  };
+}
+
 function htmlAttributes(tag = "") {
   const attrs = {};
   for (const match of String(tag).matchAll(/([:\w-]+)\s*=\s*(?:"([^"]*)"|'([^']*)'|([^\s>]+))/g)) {
@@ -2067,6 +2356,16 @@ async function resolveGoogleNewsUrl(link = "") {
 }
 
 async function enrichNewsItem(item = {}, cached = null) {
+  const preservedSummary = String(item.summaryOriginal || "").trim();
+  const preservedSourceUrl = sanitizeSourceUrl(item.sourceUrl || item.link || "");
+  if (item.preservedSeed && isCompleteArticleSummary(preservedSummary) && preservedSourceUrl) {
+    return {
+      ...item,
+      sourceUrl: preservedSourceUrl,
+      link: preservedSourceUrl,
+      summarySource: "curated-source",
+    };
+  }
   const cachedSummary = String(cached?.summaryOriginal || "").trim();
   const cachedSourceUrl = sanitizeSourceUrl(cached?.sourceUrl || "");
   if (isCompleteArticleSummary(cachedSummary) && cachedSourceUrl) {
@@ -2218,6 +2517,20 @@ function mergeNewsCategory(categories, cat, items, sampleLimit = 12) {
   categories.push({ id: cat.id, label: cat.label, count: items.length, items: sample });
 }
 
+function dedupeEnrichedNews(items = []) {
+  const selected = new Map();
+  for (const item of items) {
+    const directUrl = sanitizeSourceUrl(item.sourceUrl || "");
+    const key = directUrl
+      ? `url:${directUrl.toLowerCase().replace(/\/$/, "")}`
+      : canonicalNewsKey(item);
+    if (!key) continue;
+    const existing = selected.get(key);
+    if (!existing || (!existing.preservedSeed && item.preservedSeed)) selected.set(key, item);
+  }
+  return [...selected.values()];
+}
+
 function extractTrending(allNews) {
   const counts = new Map();
   for (const item of allNews) {
@@ -2249,7 +2562,11 @@ function extractTrending(allNews) {
 async function collectNews(previousNews = []) {
   const seen = new Set();
   const categories = [];
-  let all = [];
+  const preserved = PRESERVED_NEWS_SEEDS
+    .map(normalizePreservedNewsSeed)
+    .filter((item) => isForeignItem(item) && !isCrawlerExcluded("news", item));
+  let all = preserved.slice();
+  preserved.forEach((item) => seen.add(canonicalNewsKey(item)));
 
   for (const cat of CATEGORIES.concat(ENGLISH_AUTHORITY_MONITORS)) {
     const items = (await fetchCategory(cat, seen)).filter((item) => !isCrawlerExcluded("news", item));
@@ -2263,13 +2580,28 @@ async function collectNews(previousNews = []) {
     mergeNewsCategory(categories, cat, items, 10);
   }
 
+  for (const language of ["english", "chinese"]) {
+    const languageSeeds = preserved.filter((item) => item.language === language);
+    for (const categoryId of new Set(languageSeeds.map((item) => item.category))) {
+      const cat = CATEGORIES.concat(CHINESE_CATEGORIES).find((item) => item.id === categoryId)
+        || { id: categoryId, label: categoryId };
+      mergeNewsCategory(categories, cat, languageSeeds.filter((item) => item.category === categoryId), 20);
+    }
+  }
+
   all = all.filter((item) => verifiedNewsLanguage(item));
   all.sort((a, b) => b.ts - a.ts);
   const selected = ["english", "chinese"]
-    .flatMap((language) => all.filter((item) => verifiedNewsLanguage(item) === language).slice(0, NEWS_STREAM_LIMIT))
+    .flatMap((language) => {
+      const languageItems = all.filter((item) => verifiedNewsLanguage(item) === language);
+      const fixed = languageItems.filter((item) => item.preservedSeed);
+      const discovered = languageItems.filter((item) => !item.preservedSeed);
+      return fixed.concat(discovered.slice(0, Math.max(0, NEWS_STREAM_LIMIT - fixed.length)));
+    })
     .sort((a, b) => b.ts - a.ts);
-  const latestNews = (await enrichNewsItems(selected, previousNews))
-    .filter((item) => !isCrawlerExcluded("news", item));
+  const latestNews = dedupeEnrichedNews(await enrichNewsItems(selected, previousNews))
+    .filter((item) => !isCrawlerExcluded("news", item))
+    .sort((a, b) => (b.ts || 0) - (a.ts || 0));
   return {
     categories,
     news: latestNews.map(({ ts, ...rest }) => rest),
