@@ -2744,7 +2744,6 @@
     animateCounts();
     animateMeters();
     setupMouseDrivenMetrics();
-    setupAgentSpeechGestures();
     setupAgentDebateBackdrops();
     setupMemoryMapShowcaseVideo();
     setupDeferredSections();
@@ -5288,7 +5287,7 @@
           <label>
             <span>안건 선택</span>
             <select id="cLevelCouncilSelect" aria-label="전문가 토론 안건 선택">
-              ${decisions.map((item) => `<option value="${escapeHTML(item.id)}"${item.id === selectedDecision.id ? " selected" : ""}>${escapeHTML(item.label)} · ${escapeHTML(item.verdict)} · 근거 ${fmtNum(item.evidenceCount)}개</option>`).join("")}
+              ${decisions.map((item) => `<option value="${escapeHTML(item.id)}"${item.id === selectedDecision.id ? " selected" : ""}>${escapeHTML(item.label)} · ${escapeHTML(item.verdict)}</option>`).join("")}
             </select>
           </label>
           <button type="button" id="cLevelRunCouncil">${cLevelCouncilRan ? "토론 다시 실행" : "토론 실행"}</button>
@@ -5299,7 +5298,6 @@
           <span>요약</span>
           <strong>${escapeHTML(`${selectedDecision?.verdict || "Hold"} · ${selectedDecision?.tone || "검토"}`)}</strong>
           <p>${escapeHTML(`인사이트: ${selectedDecision?.action || selectedProfile.next}`)}</p>
-          <small>${escapeHTML(selectedDecision?.verdict || "Hold")} · 근거 ${fmtNum(selectedDecision?.evidenceCount || 0)}개 · 신뢰도 ${fmtNum(Math.round(selectedDecision?.confidence || 0))}/100</small>
         </div>
         ${cLevelCouncilRan ? `
           <div class="agent-roster" data-council-roster>
@@ -5360,6 +5358,7 @@
         else cLevelCouncilScenarioRun = 0;
         cLevelCouncilRan = true;
         renderCLevelCockpit();
+        prepareAgentSpeechFromGesture($("#cLevelRunCouncil"));
       });
     }
     grid.querySelectorAll("[data-council-pick]").forEach((btn) => {
@@ -5401,7 +5400,7 @@
     turnGapMs: 980,
     conclusionDelayMs: 760,
   });
-  const AGENT_TTS_STORAGE_KEY = "memory-agent-tts";
+  const AGENT_TTS_STORAGE_KEY = "memory-agent-tts-v2";
   const AGENT_KOREAN_TTS_ROLE_RE = /(?:규제\s*[·/&]\s*fab\s*[·/&]\s*정책자금)|(?:팩트\s*검증\s*[·/&]\s*중복\s*제거)/i;
   const AGENT_TTS_PROFILES = [
     { id: "ceo", match: /ceo|chief executive|최종 의사결정|우선순위/i, gender: "male", tone: "decisive", voiceSlot: 0, pitch: 0.9, rate: 1.02, volume: 1 },
@@ -5431,7 +5430,9 @@
   })();
   let agentVoices = [];
   let activeAgentSpeech = null;
+  let agentSpeechPrimer = null;
   let activeAgentDebateChat = null;
+  const primedAgentSpeech = new WeakMap();
 
   function agentSpeechSupported() {
     return "speechSynthesis" in window && "SpeechSynthesisUtterance" in window;
@@ -5538,39 +5539,47 @@
     document.querySelectorAll(".agent-turn.tts-speaking").forEach((node) => node.classList.remove("tts-speaking"));
   }
 
-  function prepareAgentSpeechFromGesture() {
+  function prepareAgentSpeechFromGesture(trigger = null) {
     if (!agentTtsEnabled || !agentSpeechSupported()) return;
     stopAgentSpeech();
     refreshAgentVoices();
     window.speechSynthesis.resume?.();
+    const turnSelector = trigger?.id === "cLevelRunCouncil"
+      ? "#cLevelAgentGrid .agent-turn"
+      : trigger?.id === "execDecisionRunCouncil"
+        ? "#execDecisionFocus .agent-turn"
+        : trigger?.id === "ceoChallengeRun"
+          ? "#ceoAgentAnswer .agent-turn"
+          : "";
+    const firstTurn = turnSelector ? document.querySelector(turnSelector) : null;
+    if (firstTurn) {
+      // Speak the real first statement while the click still owns browser audio
+      // permission. The debate reuses this promise instead of speaking it twice.
+      speakAgentTurn(firstTurn, 0, { gestureStart: true });
+      return;
+    }
     try {
-      // A silent utterance inside the click gesture unlocks delayed speech on
-      // browsers that otherwise block TTS after the roster animation finishes.
-      const primer = new SpeechSynthesisUtterance(" ");
-      primer.lang = "ko-KR";
+      const primer = new SpeechSynthesisUtterance(".");
+      primer.lang = "en-US";
+      primer.rate = 2;
       primer.volume = 0;
+      primer.onend = primer.onerror = () => {
+        if (agentSpeechPrimer === primer) agentSpeechPrimer = null;
+      };
+      agentSpeechPrimer = primer;
       window.speechSynthesis.speak(primer);
     } catch {
       // The visible debate still runs when speech synthesis is unavailable.
     }
   }
 
-  function setupAgentSpeechGestures() {
-    if (document.body.dataset.agentSpeechGestures === "1") return;
-    document.body.dataset.agentSpeechGestures = "1";
-    document.addEventListener("click", (event) => {
-      const trigger = event.target instanceof Element
-        ? event.target.closest("#cLevelRunCouncil, #execDecisionRunCouncil, #ceoChallengeRun")
-        : null;
-      if (trigger && !trigger.hasAttribute("disabled")) prepareAgentSpeechFromGesture();
-    }, true);
-  }
-
   function syncAgentTtsButtons() {
     document.querySelectorAll("[data-agent-tts-toggle]").forEach((button) => {
       const supported = agentSpeechSupported();
+      const blocked = Boolean(button.closest(".agent-debate")?.querySelector('.agent-turn[data-tts-status="error-not-allowed"]'));
       button.disabled = !supported;
       button.classList.toggle("is-on", supported && agentTtsEnabled);
+      button.classList.toggle("needs-gesture", supported && agentTtsEnabled && blocked);
       button.setAttribute("aria-pressed", supported && agentTtsEnabled ? "true" : "false");
       button.setAttribute("title", supported
         ? `에이전트 음성 ${agentTtsEnabled ? "끄기" : "켜기"}`
@@ -5579,7 +5588,9 @@
         ? `에이전트 음성 ${agentTtsEnabled ? "끄기" : "켜기"}`
         : "에이전트 음성 미지원");
       const state = button.querySelector("small");
-      if (state) state.textContent = supported ? (agentTtsEnabled ? "음성 켜짐" : "음성 꺼짐") : "음성 미지원";
+      if (state) state.textContent = supported
+        ? (agentTtsEnabled ? (blocked ? "음성 시작" : "음성 켜짐") : "음성 꺼짐")
+        : "음성 미지원";
     });
   }
 
@@ -5591,8 +5602,17 @@
     button.type = "button";
     button.className = "agent-tts-toggle";
     button.dataset.agentTtsToggle = "";
-    button.innerHTML = '<b aria-hidden="true">TTS</b><small></small>';
+      button.innerHTML = '<b aria-hidden="true">TTS</b><small></small>';
       button.addEventListener("click", () => {
+        const debate = button.closest(".agent-debate");
+        const blockedTurn = debate?.querySelector('.agent-turn[data-tts-status="error-not-allowed"]');
+        if (agentTtsEnabled && blockedTurn) {
+          primedAgentSpeech.delete(blockedTurn);
+          blockedTurn.dataset.ttsStatus = "queued";
+          const turnIndex = Array.from(debate.querySelectorAll(".agent-turn")).indexOf(blockedTurn);
+          speakAgentTurn(blockedTurn, Math.max(0, turnIndex), { gestureStart: true });
+          return;
+        }
         agentTtsEnabled = !agentTtsEnabled;
       try {
         window.localStorage.setItem(AGENT_TTS_STORAGE_KEY, agentTtsEnabled ? "on" : "off");
@@ -5607,8 +5627,15 @@
     syncAgentTtsButtons();
   }
 
-  function speakAgentTurn(turn, index = 0) {
-    return new Promise((resolve) => {
+  function speakAgentTurn(turn, index = 0, options = {}) {
+    const primed = primedAgentSpeech.get(turn);
+    if (primed && !options.gestureStart) {
+      primed.resume?.();
+      return primed.promise;
+    }
+    const gestureStart = options.gestureStart === true;
+    let resumeGestureSpeech = null;
+    const speechPromise = new Promise((resolve) => {
       const paragraph = turn?.querySelector("p");
       const rawText = paragraph?.dataset.say || paragraph?.textContent || "";
       const name = (turn.querySelector(".agent-badge-name")?.textContent || "").trim();
@@ -5617,10 +5644,13 @@
       const englishText = paragraph?.dataset.sayEn || "";
       const speechSource = profile.language === "ko" ? rawText : englishText;
       if (!agentTtsEnabled || !agentSpeechSupported() || !speechSource.trim()) {
+        if (turn) turn.dataset.ttsStatus = !agentTtsEnabled ? "off" : (!agentSpeechSupported() ? "unsupported" : "missing-text");
         resolve();
         return;
       }
-      stopAgentSpeech();
+      turn.dataset.ttsStatus = "queued";
+      if (activeAgentSpeech && activeAgentSpeech.turn !== turn) stopAgentSpeech();
+      else window.speechSynthesis.resume?.();
       const text = profile.language === "ko"
         ? agentKoreanSpeechText(speechSource, profile.tone)
         : agentEnglishSpeechText(speechSource, profile.tone);
@@ -5631,19 +5661,32 @@
       utterance.rate = Math.max(0.96, Math.min(1.12, profile.rate + (text.length > 180 ? 0.02 : 0)));
       utterance.volume = profile.volume;
       let settled = false;
+      let started = false;
+      let gestureReleased = !gestureStart;
+      let resumePulse = 0;
+      let startWatchdog = 0;
       const timeout = window.setTimeout(() => finish(), Math.max(8000, Math.min(28000, text.length * (104 / utterance.rate))));
       const finish = () => {
         if (settled) return;
         settled = true;
         window.clearTimeout(timeout);
+        window.clearTimeout(startWatchdog);
+        window.clearInterval(resumePulse);
         turn.classList.remove("tts-speaking");
+        if (!turn.dataset.ttsStatus.startsWith("error-")) {
+          turn.dataset.ttsStatus = started ? "done" : "stalled";
+        }
+        if (turn.dataset.ttsStatus.startsWith("error-") && primedAgentSpeech.get(turn)?.utterance === utterance) {
+          primedAgentSpeech.delete(turn);
+        }
         if (activeAgentSpeech?.utterance === utterance) {
           activeAgentSpeech = null;
           syncAgentTtsButtons();
         }
         resolve();
       };
-      utterance.onstart = () => {
+      const markSpeaking = () => {
+        turn.dataset.ttsStatus = "speaking";
         turn.classList.add("tts-speaking");
         turn.dataset.ttsVoice = profile.id;
         turn.dataset.ttsGender = profile.gender;
@@ -5652,16 +5695,68 @@
         document.querySelectorAll("[data-agent-tts-toggle] small").forEach((state) => {
           state.textContent = `${name || role || "Agent"} · ${profile.language === "ko" ? "한국어" : "English"} ${profile.gender === "female" ? "여성" : "남성"} 음성`;
         });
+        if (!resumePulse) resumePulse = window.setInterval(() => window.speechSynthesis.resume?.(), 4000);
+      };
+      utterance.onstart = () => {
+        started = true;
+        if (!gestureReleased) {
+          turn.dataset.ttsStatus = "primed";
+          window.speechSynthesis.pause?.();
+          return;
+        }
+        markSpeaking();
+      };
+      utterance.onresume = markSpeaking;
+      utterance.onpause = () => {
+        if (gestureReleased) window.speechSynthesis.resume?.();
       };
       utterance.onend = finish;
-      utterance.onerror = finish;
-      activeAgentSpeech = { utterance, finish };
+      utterance.onerror = (event) => {
+        turn.dataset.ttsStatus = `error-${event.error || "unknown"}`;
+        if (event.error === "not-allowed") {
+          document.querySelectorAll("[data-agent-tts-toggle] small").forEach((state) => {
+            state.textContent = "음성 시작";
+          });
+        }
+        finish();
+      };
+      const armStartWatchdog = () => {
+        window.clearTimeout(startWatchdog);
+        startWatchdog = window.setTimeout(() => {
+          if (started || settled) return;
+          turn.dataset.ttsStatus = window.speechSynthesis.pending ? "pending" : "retrying";
+          window.speechSynthesis.resume?.();
+          if (!window.speechSynthesis.speaking && !window.speechSynthesis.pending) {
+            utterance.voice = null;
+            utterance.lang = profile.language === "ko" ? "ko-KR" : "en-US";
+            window.speechSynthesis.speak(utterance);
+          }
+        }, 1200);
+      };
+      resumeGestureSpeech = () => {
+        if (settled) return;
+        gestureReleased = true;
+        turn.dataset.ttsStatus = "starting";
+        window.speechSynthesis.resume?.();
+        if (started) markSpeaking();
+      };
+      activeAgentSpeech = { utterance, finish, turn };
       try {
+        window.speechSynthesis.resume?.();
         window.speechSynthesis.speak(utterance);
+        armStartWatchdog();
       } catch {
         finish();
       }
     });
+    if (gestureStart && !turn.dataset.ttsStatus.startsWith("error-")) {
+      primedAgentSpeech.set(turn, {
+        utterance: activeAgentSpeech?.utterance,
+        promise: speechPromise,
+        resume: resumeGestureSpeech,
+      });
+    }
+    return speechPromise;
   }
 
   if (agentSpeechSupported()) {
@@ -5850,7 +5945,6 @@
       if (priorState) debateRunStates.set(activeAgentDebateChat, { token: priorState.token + 1, timers: [] });
     }
     activeAgentDebateChat = chat;
-    stopAgentSpeech();
     ensureAgentTtsControl(container);
     if (container) {
       container.classList.add("is-live-debate");
@@ -9576,6 +9670,7 @@
         else execDecisionCouncilScenarioRun = 0;
         execDecisionCouncilRan = true;
         renderExecutiveDecision();
+        prepareAgentSpeechFromGesture($("#execDecisionRunCouncil"));
       });
       focus.querySelector("[data-decision-copy]")?.addEventListener("click", (event) => copyPayload(payload, event.currentTarget));
       focus.querySelector("[data-decision-inspector]")?.addEventListener("click", () => openInspector(payload));
@@ -10750,6 +10845,7 @@
       runButton.onclick = () => {
         ceoChallengeAgentRan = true;
         renderCeoChallengeAgent(activeChinaTalentScenario());
+        prepareAgentSpeechFromGesture($("#ceoChallengeRun"));
       };
     }
 
