@@ -12497,7 +12497,81 @@ body.sidebar-collapsed .sb-ico {
   }
 }
 
+@media (hover: hover) and (pointer: fine) {
+  .main :where(
+    [class$="-card"],
+    [class*="-card "],
+    [class$="-panel"],
+    [class*="-panel "],
+    [class$="-metric"],
+    [class*="-metric "],
+    [class$="-tile"],
+    [class*="-tile "],
+    [class$="-stat"],
+    [class*="-stat "],
+    [class$="-lane"],
+    [class*="-lane "],
+    [class$="-gate"],
+    [class*="-gate "],
+    .panel,
+    .metric,
+    .kpi
+  ):not(.agent-avatar-card):not(.memory-scroll-panel) {
+    transition-property: translate, border-color, box-shadow, background-color;
+    transition-duration: .22s;
+    transition-timing-function: cubic-bezier(.2, .8, .2, 1);
+    will-change: translate;
+  }
+
+  .main :where(
+    [class$="-card"],
+    [class*="-card "],
+    [class$="-panel"],
+    [class*="-panel "],
+    [class$="-metric"],
+    [class*="-metric "],
+    [class$="-tile"],
+    [class*="-tile "],
+    [class$="-stat"],
+    [class*="-stat "],
+    [class$="-lane"],
+    [class*="-lane "],
+    [class$="-gate"],
+    [class*="-gate "],
+    .panel,
+    .metric,
+    .kpi
+  ):not(.agent-avatar-card):not(.memory-scroll-panel):is(:hover, :focus-visible, :focus-within) {
+    translate: 0 -3px;
+    border-color: color-mix(in srgb, var(--local-accent, var(--accent)) 48%, var(--line));
+    box-shadow: 0 12px 28px rgba(2, 8, 23, .16), 0 0 0 1px color-mix(in srgb, var(--local-accent, var(--accent)) 12%, transparent);
+  }
+}
+
 @media (prefers-reduced-motion: reduce) {
+  .main :where(
+    [class$="-card"],
+    [class*="-card "],
+    [class$="-panel"],
+    [class*="-panel "],
+    [class$="-metric"],
+    [class*="-metric "],
+    [class$="-tile"],
+    [class*="-tile "],
+    [class$="-stat"],
+    [class*="-stat "],
+    [class$="-lane"],
+    [class*="-lane "],
+    [class$="-gate"],
+    [class*="-gate "],
+    .panel,
+    .metric,
+    .kpi
+  ) {
+    translate: none !important;
+    transition-duration: .01ms !important;
+  }
+
   .china-benchmark-story-video,
   .china-benchmark-video-copy,
   .china-benchmark-scroll-cue span {
