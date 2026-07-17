@@ -7734,6 +7734,29 @@ body.sidebar-collapsed .sb-ico {
     var(--panel);
 }
 
+.workbench-board > .board-head {
+  border: 1px solid color-mix(in srgb, var(--accent) 22%, var(--line));
+  border-radius: 9px;
+  background: color-mix(in srgb, var(--accent) 5%, var(--panel-2));
+  padding: 12px 14px;
+  transition: transform .2s cubic-bezier(.2, .8, .2, 1), border-color .2s, background .2s, box-shadow .2s, color .2s;
+}
+
+.workbench-board > .board-head:hover,
+.workbench-board > .board-head:focus-within {
+  transform: translateY(-2px);
+  border-color: var(--accent);
+  background:
+    linear-gradient(135deg, color-mix(in srgb, var(--accent) 92%, #111827), color-mix(in srgb, var(--accent) 68%, #0f172a));
+  color: #fff;
+  box-shadow: 0 14px 34px color-mix(in srgb, var(--accent) 25%, transparent);
+}
+
+.workbench-board > .board-head:hover :is(.eyebrow, h2, .board-meta),
+.workbench-board > .board-head:focus-within :is(.eyebrow, h2, .board-meta) {
+  color: #fff;
+}
+
 .workbench-mece {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(170px, 1fr));
@@ -7927,10 +7950,25 @@ body.sidebar-collapsed .sb-ico {
 }
 
 .workbench-tabs button:hover,
-.workbench-tabs button.active {
+.workbench-tabs button:focus-visible {
+  outline: none;
+  border-color: var(--accent);
+  background:
+    linear-gradient(135deg, color-mix(in srgb, var(--accent) 92%, #111827), color-mix(in srgb, var(--accent) 68%, #0f172a));
+  color: #fff;
+  box-shadow: 0 12px 28px color-mix(in srgb, var(--accent) 22%, transparent);
+  transform: translateY(-2px);
+}
+
+.workbench-tabs button.active:not(:hover):not(:focus-visible) {
   border-color: var(--accent);
   background: color-mix(in srgb, var(--accent) 9%, var(--panel));
   transform: translateY(-1px);
+}
+
+.workbench-tabs button:hover small,
+.workbench-tabs button:focus-visible small {
+  color: rgba(255, 255, 255, .78);
 }
 
 .workbench-tabs strong,
@@ -7981,16 +8019,44 @@ body.sidebar-collapsed .sb-ico {
 }
 
 .work-card:hover,
-.work-card:focus-visible,
-.work-card.selected {
+.work-card:focus-visible {
+  outline: none;
+  transform: translateY(-2px);
+  border-color: var(--local-accent, var(--accent));
+  background:
+    linear-gradient(135deg, color-mix(in srgb, var(--local-accent, var(--accent)) 90%, #111827), color-mix(in srgb, var(--local-accent, var(--accent)) 64%, #0f172a));
+  color: #fff;
+  box-shadow: 0 16px 36px color-mix(in srgb, var(--local-accent, var(--accent)) 24%, transparent);
+}
+
+.work-card.selected:not(:hover):not(:focus-visible) {
   outline: none;
   transform: translateY(-2px);
   border-color: var(--local-accent, var(--accent));
   box-shadow: var(--shadow-lg);
 }
 
-.work-card.selected {
+.work-card.selected:not(:hover):not(:focus-visible) {
   background: color-mix(in srgb, var(--local-accent, var(--accent)) 7%, var(--panel));
+}
+
+.work-card:hover :is(h3, p, .work-card-section),
+.work-card:focus-visible :is(h3, p, .work-card-section) {
+  color: #fff;
+}
+
+.work-card:hover .chip,
+.work-card:focus-visible .chip {
+  border-color: rgba(255, 255, 255, .72);
+  background: #fff;
+  color: color-mix(in srgb, var(--local-accent, var(--accent)) 76%, #111827);
+}
+
+.work-card:hover .work-card-foot span,
+.work-card:focus-visible .work-card-foot span {
+  border-color: rgba(255, 255, 255, .28);
+  background: rgba(255, 255, 255, .12);
+  color: #fff;
 }
 
 .work-card-head {
@@ -8049,6 +8115,28 @@ body.sidebar-collapsed .sb-ico {
   background: var(--panel);
   padding: 14px;
   box-shadow: var(--shadow);
+  transition: transform .2s cubic-bezier(.2, .8, .2, 1), border-color .2s, background .2s, box-shadow .2s, color .2s;
+}
+
+.workbench-detail:hover,
+.workbench-detail:focus-within {
+  transform: translateY(-3px);
+  border-color: var(--local-accent, var(--accent));
+  background:
+    linear-gradient(145deg, color-mix(in srgb, var(--local-accent, var(--accent)) 88%, #111827), color-mix(in srgb, var(--local-accent, var(--accent)) 58%, #0f172a));
+  color: #fff;
+  box-shadow: 0 18px 40px color-mix(in srgb, var(--local-accent, var(--accent)) 24%, transparent);
+}
+
+.workbench-detail:hover :is(h3, p, li, .work-detail-block > strong, .metric strong, .metric span, .work-link-list a),
+.workbench-detail:focus-within :is(h3, p, li, .work-detail-block > strong, .metric strong, .metric span, .work-link-list a) {
+  color: #fff;
+}
+
+.workbench-detail:hover .metric,
+.workbench-detail:focus-within .metric {
+  border-color: rgba(255, 255, 255, .24);
+  background: rgba(255, 255, 255, .1);
 }
 
 .work-detail-head h3 {
@@ -12549,6 +12637,14 @@ body.sidebar-collapsed .sb-ico {
 }
 
 @media (prefers-reduced-motion: reduce) {
+  .workbench-board > .board-head,
+  .workbench-tabs button,
+  .work-card,
+  .workbench-detail {
+    transform: none !important;
+    transition-duration: .01ms !important;
+  }
+
   .main :where(
     [class$="-card"],
     [class*="-card "],
