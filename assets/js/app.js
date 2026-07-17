@@ -6033,12 +6033,14 @@
     return score;
   }
 
-  function agentVoiceProfile(name = "", role = "", index = 0) {
+  function agentVoiceProfile(name = "", role = "", index = 0, languageOverride = "") {
     const hay = `${name} ${role}`;
     const profile = AGENT_TTS_PROFILES.find((item) => item.match.test(hay))
       || AGENT_TTS_PROFILES[index % AGENT_TTS_PROFILES.length];
     const voices = agentVoices.length ? agentVoices : refreshAgentVoices();
-    const language = agentUsesKoreanTts(name, role) ? "ko" : "en";
+    const language = /^(?:ko|en)$/.test(languageOverride)
+      ? languageOverride
+      : (agentUsesKoreanTts(name, role) ? "ko" : "en");
     const languageVoices = voices.filter((voice) => language === "ko"
       ? /^ko(?:-|$)/i.test(voice.lang || "")
       : /^en(?:-|$)/i.test(voice.lang || ""));
@@ -6148,7 +6150,11 @@
   function syncAgentTtsButtons() {
     document.querySelectorAll("[data-agent-tts-toggle]").forEach((button) => {
       const supported = agentSpeechSupported();
-      const blocked = Boolean(button.closest(".agent-debate")?.querySelector('.agent-turn[data-tts-status="error-not-allowed"]'));
+      const debate = button.closest(".agent-debate");
+      const blocked = Boolean(debate?.querySelector('.agent-turn[data-tts-status="error-not-allowed"]'));
+      const forcedLanguage = debate?.dataset.ttsMode || "";
+      const enabledLabel = forcedLanguage === "en" ? "English 음성 켜짐" : "음성 켜짐";
+      const startLabel = forcedLanguage === "en" ? "English 음성 시작" : "음성 시작";
       button.disabled = !supported;
       button.classList.toggle("is-on", supported && agentTtsEnabled);
       button.classList.toggle("needs-gesture", supported && agentTtsEnabled && blocked);
@@ -6161,9 +6167,19 @@
         : "에이전트 음성 미지원");
       const state = button.querySelector("small");
       if (state) state.textContent = supported
-        ? (agentTtsEnabled ? (blocked ? "음성 시작" : "음성 켜짐") : "음성 꺼짐")
+        ? (agentTtsEnabled ? (blocked ? startLabel : enabledLabel) : "음성 꺼짐")
         : "음성 미지원";
     });
+  }
+
+  function enableAgentTtsFromGesture() {
+    agentTtsEnabled = true;
+    try {
+      window.localStorage.setItem(AGENT_TTS_STORAGE_KEY, "on");
+    } catch {
+      // Local storage is optional; this session still starts with speech enabled.
+    }
+    syncAgentTtsButtons();
   }
 
   function ensureAgentTtsControl(container) {
@@ -6212,7 +6228,10 @@
       const rawText = paragraph?.dataset.say || paragraph?.textContent || "";
       const name = (turn.querySelector(".agent-badge-name")?.textContent || "").trim();
       const role = (turn.querySelector(".speech-meta strong")?.textContent || "").trim();
-      const profile = agentVoiceProfile(name, role, index);
+      const requestedLanguage = /^(?:ko|en)$/.test(turn?.dataset.ttsLanguage || "")
+        ? turn.dataset.ttsLanguage
+        : "";
+      const profile = agentVoiceProfile(name, role, index, requestedLanguage);
       const englishText = paragraph?.dataset.sayEn || "";
       const speechSource = profile.language === "ko" ? rawText : englishText;
       if (!agentTtsEnabled || !agentSpeechSupported() || !speechSource.trim()) {
@@ -9680,13 +9699,20 @@
       .toUpperCase() || "A";
   }
 
-  function agentDebateHTML({ mode = "default", title = "Expert debate", subtitle = "", metrics = [], turns = [], kpis = [], accent = "", conclusion = null } = {}) {
+  function agentDebateHTML({ mode = "default", title = "Expert debate", subtitle = "", metrics = [], turns = [], kpis = [], accent = "", conclusion = null, ttsLanguage = "" } = {}) {
     const colors = ["#06B6D4", "#8B5CF6", "#22C55E", "#F59E0B", "#EF4444", "#0EA5E9"];
-    const normalizedTurns = turns.filter((turn) => turn?.message).slice(0, 12).map((turn, index) => ({
-      ...turn,
-      color: turn.color || colors[index % colors.length],
-      side: turn.side || (index % 2 ? "right" : "left"),
-    }));
+    const forcedTtsLanguage = /^(?:ko|en)$/.test(ttsLanguage) ? ttsLanguage : "";
+    const normalizedTurns = turns.filter((turn) => turn?.message).slice(0, 12).map((turn, index) => {
+      const turnLanguage = /^(?:ko|en)$/.test(turn.ttsLanguage || "")
+        ? turn.ttsLanguage
+        : (forcedTtsLanguage || (agentUsesKoreanTts(turn.name, turn.role) ? "ko" : "en"));
+      return {
+        ...turn,
+        color: turn.color || colors[index % colors.length],
+        side: turn.side || (index % 2 ? "right" : "left"),
+        ttsLanguage: turnLanguage,
+      };
+    });
     const agents = [];
     normalizedTurns.forEach((turn) => {
       if (!agents.some((agent) => agent.name === turn.name)) {
@@ -9703,7 +9729,7 @@
     const chatStepDelay = AGENT_DEBATE_TIMING.turnGapMs;
 
     return `
-      <div class="agent-debate agent-debate-${escapeHTML(mode)}" style="--local-accent:${escapeHTML(accent || colors[0])}">
+      <div class="agent-debate agent-debate-${escapeHTML(mode)}" data-tts-mode="${escapeHTML(forcedTtsLanguage || "role")}" style="--local-accent:${escapeHTML(accent || colors[0])}">
         <div class="agent-debate-title">
           <span>EXPERT COUNCIL</span>
           <strong>${escapeHTML(title)}</strong>
@@ -9733,7 +9759,7 @@
         </div>
         <div class="agent-chat js-debate" aria-label="전문가 토론 말풍선" style="--chat-delay:${chatStartDelay}ms">
           ${normalizedTurns.map((turn, index) => `
-            <article class="agent-turn pending ${escapeHTML(turn.side)}" data-tts-language="${agentUsesKoreanTts(turn.name, turn.role) ? "ko" : "en"}" style="--agent-color:${escapeHTML(turn.color)};--delay:${chatStartDelay + index * chatStepDelay}ms">
+            <article class="agent-turn pending ${escapeHTML(turn.side)}" data-tts-language="${escapeHTML(turn.ttsLanguage)}" style="--agent-color:${escapeHTML(turn.color)};--delay:${chatStartDelay + index * chatStepDelay}ms">
               <div class="agent-badge-wrap"><div class="agent-badge">${escapeHTML(turn.avatar || agentInitials(turn.name))}</div><small class="agent-badge-name">${escapeHTML(turn.name)}</small></div>
               <div class="speech-bubble">
                 <div class="speech-meta">
@@ -11488,11 +11514,18 @@
   function ceoChallengeDebateHTML(scenario, target, challenge, response) {
     const accent = categoryAccent(scenario.accentCategory || "talent");
     const targetLabel = target?.label || scenario.label;
+    const metricValue = (label) => response.metrics?.find((metric) => metric.label === label)?.value || "-";
+    const roiMetric = metricValue("ROI");
+    const profitabilityMetric = metricValue("수익성");
+    const signalMetric = metricValue("신호");
+    const gateMetric = metricValue("O/X");
+    const isRoiChallenge = challenge.id === "roi-credibility";
     return agentDebateHTML({
       mode: "ceo-challenge",
       title: `${challenge.angle} 챌린지 토론`,
       subtitle: `${scenario.label} · ${targetLabel}`,
       accent,
+      ttsLanguage: "en",
       metrics: response.metrics || [],
       turns: [
         {
@@ -11500,8 +11533,10 @@
           role: "의사결정 질문",
           avatar: "CEO",
           color: "#111827",
-          message: `${challenge.question} 결론은 **${response.verdict}**입니다. SKHY 관점에서는 고객, 제품, 정책 리스크 중 결정을 바꾸는 핵심 조건부터 정합니다.`,
-          speechEn: `The executive challenge is to test whether the current recommendation can survive a customer, product, and policy stress test. From the SK hynix perspective, we must define the conditions that would reverse the decision before we approve action.`,
+          message: `${challenge.question} 현재 결론은 **${response.verdict}** SKHY 관점에서는 고객, 제품, 정책 리스크 중 결정을 바꾸는 핵심 조건부터 정합니다.`,
+          speechEn: isRoiChallenge
+            ? `Why should this item be used only to prioritize diligence, rather than as a C F O grade financial return? The answer is that the score is a relative decision index, not an audited return. S K hynix must define the customer, product, and policy conditions that would reverse the decision before approving action.`
+            : `The executive challenge is to test whether the current recommendation can survive a customer, product, and policy stress test. From the S K hynix perspective, we must define the conditions that would reverse the decision before we approve action.`,
         },
         {
           name: "CFO",
@@ -11509,7 +11544,9 @@
           avatar: "CFO",
           color: "#00A896",
           message: `${response.logic} 재무 결론은 확정 ROI가 아니라 실사 우선순위로 사용하고, 비용·고객 방어·하방 리스크가 같이 충족될 때만 예산 안건으로 올립니다.`,
-          speechEn: `Finance treats this as a diligence priority, not a confirmed financial return. The budget should reach the executive agenda only when cost discipline, customer defense, and downside protection are satisfied together.`,
+          speechEn: isRoiChallenge
+            ? `The current relative R O I score is ${roiMetric}, profitability is ${profitabilityMetric}, the model uses ${signalMetric} evidence signals, and the O X gate is ${gateMetric}. These are normalized operating indicators, not contractual cash flows. Net present value and internal rate of return require verified price, volume, capital expenditure, and timing before this reaches the budget agenda.`
+            : `Finance treats this as a diligence priority, not a confirmed financial return. The budget should reach the executive agenda only when cost discipline, customer defense, and downside protection are satisfied together.`,
         },
         {
           name: "CTO",
@@ -11565,7 +11602,9 @@
           avatar: "AUD",
           color: "#EF4444",
           message: `${response.evidence ? `근거는 **${response.evidence.title}**(${response.evidence.source} · ${response.evidence.sourceType} · ${response.evidence.claimType || "사실"} · ${response.evidence.evidenceLevel})입니다. ` : ""}실행 조건은 ${response.action}입니다. ==${response.evidence?.reversalKpi || "핵심 판단 변경 KPI"}==가 달라지면 같은 기준으로 결론을 다시 계산합니다.`,
-          speechEn: `The evidence level is ${/^(Confirmed|Watch|Inferred|Stale)$/i.test(response.evidence?.evidenceLevel || "") ? response.evidence.evidenceLevel : "Watch"}. The execution condition remains conditional. If the primary reversal indicator changes, the conclusion must be recalculated using the same evidence standard.`,
+          speechEn: isRoiChallenge
+            ? `The model currently uses ${signalMetric} evidence signals and an O X gate of ${gateMetric}. Its evidence level is ${/^(Confirmed|Watch|Inferred|Stale)$/i.test(response.evidence?.evidenceLevel || "") ? response.evidence.evidenceLevel : "Watch"}. The score must not be promoted to a financial fact. If the primary reversal indicator changes, the conclusion must be recalculated with the same source and evidence rules.`
+            : `The evidence level is ${/^(Confirmed|Watch|Inferred|Stale)$/i.test(response.evidence?.evidenceLevel || "") ? response.evidence.evidenceLevel : "Watch"}. The execution condition remains conditional. If the primary reversal indicator changes, the conclusion must be recalculated using the same evidence standard.`,
         },
         {
           name: "Strategy",
@@ -11573,7 +11612,9 @@
           avatar: "STR",
           color: "#22C55E",
           message: `종합하면 ${targetLabel}은 ${response.action}로 정리합니다. 다음 회의에서는 ${response.kpis?.slice(0, 3).join(", ") || "핵심 KPI"}가 바뀌었는지만 보고 결정을 유지, 확대, 보류 중 하나로 갱신합니다.`,
-          speechEn: `In summary, the action remains conditional. At the next meeting, we will review only the key reversal indicators and update the decision to maintain, expand, or hold.`,
+          speechEn: isRoiChallenge
+            ? `The recommendation is to use the R O I score only to rank diligence. It must not be reported as a financial return. At the next executive review, update the reversal indicators first, then choose to maintain, expand, or hold.`
+            : `In summary, the action remains conditional. At the next meeting, we will review only the key reversal indicators and update the decision to maintain, expand, or hold.`,
         },
       ],
       kpis: [],
@@ -11653,6 +11694,7 @@
     if (runButton) {
       runButton.textContent = ceoChallengeAgentRan ? "토론 다시 실행" : "Agent 실행";
       runButton.onclick = () => {
+        enableAgentTtsFromGesture();
         ceoChallengeAgentRan = true;
         renderCeoChallengeAgent(activeChinaTalentScenario());
         prepareAgentSpeechFromGesture($("#ceoChallengeRun"));
