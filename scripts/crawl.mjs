@@ -20,8 +20,8 @@ const PRICE_HISTORY_LOOKBACK_DAYS = 365 * 5;
 const PRICE_HISTORY_RETENTION_POINTS = 365 * 5 + 60;
 const MARKET_HISTORY_LOOKBACK_DAYS = 365 * 5;
 const MARKET_HISTORY_RETENTION_POINTS = 365 * 5 + 60;
-const NEWS_ENRICH_LIMIT = 60;
-const NEWS_ENRICH_CONCURRENCY = 4;
+const NEWS_STREAM_LIMIT = 48;
+const NEWS_ENRICH_CONCURRENCY = 5;
 const COMMUNITY_MAX_ITEMS = 96;
 const COMMUNITY_RETENTION_DAYS = 365 * 5;
 const KST_DAY_FORMATTER = new Intl.DateTimeFormat("en-CA", {
@@ -194,6 +194,71 @@ const CHINESE_CATEGORIES = [
   { id: "nand", label: "NAND·YMTC 중국어", queries: ["长江存储 武汉 三期 2026 下半年 量产", "长江存储 A股 IPO NAND 产能", "长江存储 Xtacking 企业级 SSD"] },
   { id: "equipment", label: "장비 국산화 중국어", queries: ["长江存储 长鑫存储 国产设备 扩产", "北方华创 中微公司 长江存储 长鑫存储", "半导体设备 国产化 存储 长江 长鑫"] },
   { id: "china", label: "중국 메모리 정책 중국어", queries: ["中国 存储 芯片 供应链 大基金 长江 长鑫", "两存 扩产 半导体 存储 IPO", "长鑫 长江 存储 超级周期"] },
+];
+
+// High-authority monitors run in addition to the broad topic queries. Keeping
+// them separate makes source coverage explicit without mixing language and
+// subject classification.
+const ENGLISH_AUTHORITY_MONITORS = [
+  {
+    id: "hbm",
+    label: "HBM 권위 소스",
+    queries: [
+      "HBM4 memory source:Reuters",
+      "HBM4 memory source:Bloomberg",
+      "HBM4 memory source:Nikkei Asia",
+      "HBM4 memory source:TrendForce",
+      "HBM memory source:EE Times",
+    ],
+  },
+  {
+    id: "dram",
+    label: "DRAM 권위 소스",
+    queries: [
+      "DRAM memory market source:Reuters",
+      "DRAM memory market source:Financial Times",
+      "DRAM memory market source:TrendForce",
+      "DRAM market share source:Counterpoint Research",
+    ],
+  },
+  {
+    id: "nand",
+    label: "NAND 권위 소스",
+    queries: [
+      "NAND enterprise SSD source:Reuters",
+      "NAND enterprise SSD source:TrendForce",
+      "NAND technology source:TechInsights",
+      "NAND memory source:Nikkei Asia",
+    ],
+  },
+  {
+    id: "china",
+    label: "중국 메모리 영문 권위 소스",
+    queries: [
+      "CXMT YMTC memory source:Reuters",
+      "CXMT YMTC memory source:Caixin Global",
+      "CXMT YMTC memory source:South China Morning Post",
+      "CXMT YMTC memory source:Nikkei Asia",
+    ],
+  },
+];
+
+const CHINESE_AUTHORITY_MONITORS = [
+  {
+    id: "dram",
+    label: "DRAM 중국어 권위 소스",
+    queries: ["财新 长鑫存储 DRAM", "第一财经 长鑫存储 DDR5", "集微网 长鑫存储"],
+  },
+  {
+    id: "nand",
+    label: "NAND 중국어 권위 소스",
+    queries: ["财新 长江存储 NAND", "第一财经 长江存储 Xtacking", "集微网 长江存储"],
+  },
+  {
+    id: "equipment",
+    label: "장비 중국어 권위 소스",
+    queries: ["证券时报 半导体设备 存储芯片", "经济观察网 半导体设备 存储", "集微网 北方华创 中微公司"],
+  },
 ];
 
 // Public China field signals are collected separately from reported news.
@@ -682,13 +747,19 @@ const SKHYNIX_NEWSROOM_RE = /news\.skhynix\.com|sk\s*hynix\s*newsroom|skhy\s*new
 const AUTHORITATIVE_EN_NEWS_RE =
   /(reuters|bloomberg|financial times|ft\.com|nikkei|cnbc|associated press|apnews|sec\.gov|nasdaq|trendforce|dramexchange|techinsights|yole|counterpoint|tom'?s hardware|tomshardware|south china morning post|scmp|caixin global|caixinglobal|digitimes|ee times|eetimes|semianalysis|techwire asia|the register|business insider|network world|evertiq|technode|techspot|japan times|electronics weekly|businesswire|pr newswire|solidigm|intel|u\.s\. bis|bis\.gov|govinfo|wsts|acm research ir|cxmt|shanghai stock exchange)/i;
 const AUTHORITATIVE_CN_NEWS_RE =
-  /(财新|caixin|第一财经|yicai|21财经|21世纪经济报道|证券时报|stcn|中国经营报|cb\.com\.cn|新浪财经|新浪科技|finance\.sina|电子工程专辑|eet-china|集微网|ijiwei|经济观察网|eeo\.com\.cn|techweb|chinaflashmarket)/i;
+  /(财新|caixin|第一财经|yicai|21财经|21世纪经济报道|证券时报|stcn|中国经营报|cb\.com\.cn|电子工程专辑|eet-china|集微网|ijiwei|经济观察网|eeo\.com\.cn|techweb|chinaflashmarket)/i;
+const MEMORY_NEWS_RE =
+  /(memory|dram|nand|hbm|ddr[345]?|lpddr|gddr|ssd|solidigm|cxl|wafer|memory chip|sk hynix|skhy|micron|kioxia|sandisk|cxmt|changxin|ymtc|yangtze memory|xmc|wuhan xinxin|存储|内存|闪存|固态|晶圆|长鑫|长江存储|长存|武汉新芯)/i;
+const NEWS_MARKET_NOISE_RE =
+  /\bETF\b|指数|领涨|领跌|净买入|净卖出|吸金|中签|打新|牛股|涨停|跌停|股价|个股|股票行情|认购|申购|抽签|赚钱|热度观测日志/i;
 
 // Hangul / Hangul Jamo / kana / CJK / surrogate / specials. Stripped from
 // titles so a Latin headline stays clean even if a multibyte char mis-decoded,
 // and a genuinely Korean/CJK headline collapses to a short fragment we drop.
 const NON_LATIN_RE = /[ᄀ-ᇿ　-ヿ㐀-䶿一-鿿가-힣\uD800-\uDFFF豈-﫿￹-￿]/g;
 const CJK_RE = /[一-鿿]/;
+const HAN_RE = /[㐀-䶿一-鿿豈-﫿]/g;
+const LATIN_RE = /[A-Za-z]/g;
 
 function cleanTitle(value) {
   return String(value || "")
@@ -706,6 +777,22 @@ function stripNewsLabel(value = "") {
 function cleanLocalizedTitle(value, locale = "en") {
   if (locale === "zh") return stripNewsLabel(stripHTML(value).replace(/\s{2,}/g, " ").trim());
   return stripNewsLabel(cleanTitle(value));
+}
+
+function scriptCount(value = "", re) {
+  return (String(value).match(re) || []).length;
+}
+
+function verifiedNewsLanguage(item = {}) {
+  const title = String(item.originalTitle || item.title || "").trim();
+  const declared = String(item.streamLanguage || item.language || "").toLowerCase();
+  const han = scriptCount(title, HAN_RE);
+  const latin = scriptCount(title, LATIN_RE);
+  if (declared === "chinese" && han >= 2) return "chinese";
+  if (declared === "english" && han === 0 && latin >= 6) return "english";
+  if (han >= 2 && han >= Math.ceil(latin * 0.12)) return "chinese";
+  if (han === 0 && latin >= 6) return "english";
+  return "";
 }
 
 function cleanKoNewsText(value) {
@@ -729,7 +816,8 @@ function canonicalNewsKey(item = {}) {
   const titleKey = /[一-鿿가-힣]/.test(title)
     ? title.slice(0, 96)
     : title.split(" ").slice(0, 10).join(" ");
-  if (titleKey) return `title:${titleKey}|${publisherText(item).toLowerCase().trim()}`;
+  const language = verifiedNewsLanguage(item) || "unknown";
+  if (titleKey) return `${language}|title:${titleKey}|${publisherText(item).toLowerCase().trim()}`;
   const url = String(item.link || item.sourceUrl || "").trim();
   if (url && !/news\.google\.com\/(?:rss\/)?articles/i.test(url)) {
     try {
@@ -738,9 +826,9 @@ function canonicalNewsKey(item = {}) {
       for (const key of ["utm_source", "utm_medium", "utm_campaign", "utm_term", "utm_content"]) {
         parsed.searchParams.delete(key);
       }
-      return `url:${parsed.toString().replace(/\/$/, "").toLowerCase()}`;
+      return `${language}|url:${parsed.toString().replace(/\/$/, "").toLowerCase()}`;
     } catch {
-      return `url:${url.replace(/#.*$/, "").replace(/\/$/, "").toLowerCase()}`;
+      return `${language}|url:${url.replace(/#.*$/, "").replace(/\/$/, "").toLowerCase()}`;
     }
   }
   return "";
@@ -755,21 +843,25 @@ function publisherText(item = {}) {
 
 function isForeignItem(item) {
   if (!item || !item.title) return false;
+  const language = verifiedNewsLanguage(item);
+  if (!language) return false;
   // After cleanTitle, a real Korean/CJK headline collapses to a tiny Latin
   // fragment - drop those, and drop Korean-origin outlets. Keeps a clean
   // Latin-script international (foreign-press) feed.
-  if (item.language === "chinese") {
+  if (language === "chinese") {
     if (!CJK_RE.test(item.title)) return false;
   } else if (item.title.replace(/[^A-Za-z]/g, "").length < 6) {
     return false;
   }
   const src = `${item.source || ""} ${item.title || ""} ${item.link || ""}`.toLowerCase();
+  if (!MEMORY_NEWS_RE.test(`${item.originalTitle || item.title || ""} ${item.source || ""}`)) return false;
+  if (NEWS_MARKET_NOISE_RE.test(item.originalTitle || item.title || "")) return false;
   if (KOREAN_SOURCE_RE.test(src)) return false;
   if (SKHYNIX_NEWSROOM_RE.test(src)) return false;
   if (EXCLUDED_NEWS_RE.test(`${item.title || ""} ${item.source || ""} ${item.link || ""}`)) return false;
   if (LOW_CONFIDENCE_NEWS_RE.test(`${item.title || ""} ${item.source || ""} ${item.link || ""}`)) return false;
   const authority = `${publisherText(item)} ${item.link || ""}`;
-  if (item.language === "chinese") return AUTHORITATIVE_CN_NEWS_RE.test(authority);
+  if (language === "chinese") return AUTHORITATIVE_CN_NEWS_RE.test(authority);
   return AUTHORITATIVE_EN_NEWS_RE.test(authority);
 }
 
@@ -1533,12 +1625,15 @@ async function fetchGoogleNews(query, category = "", locale = "en") {
   return parseRSS(xml)
     .map((item) => ({
       title: cleanLocalizedTitle(item.title, locale),
+      originalTitle: cleanLocalizedTitle(item.title, locale),
       link: item.link,
       source: cleanLocalizedTitle(item.source, locale),
       date: ymd(item.pubDate),
       ts: new Date(item.pubDate).getTime() || 0,
       category,
       language: isChinese ? "chinese" : "english",
+      streamLanguage: isChinese ? "chinese" : "english",
+      languageVerified: true,
     }))
     .filter(isForeignItem);
 }
@@ -1772,7 +1867,23 @@ function newsStats(items) {
     total24h: within(24 * 3600e3),
     "7d": within(7 * 24 * 3600e3),
     "30d": within(30 * 24 * 3600e3),
+    languages: {
+      english: items.filter((item) => verifiedNewsLanguage(item) === "english").length,
+      chinese: items.filter((item) => verifiedNewsLanguage(item) === "chinese").length,
+    },
   };
+}
+
+function mergeNewsCategory(categories, cat, items, sampleLimit = 12) {
+  if (!items.length) return;
+  const sample = items.slice(0, sampleLimit).map(({ ts, category, ...rest }) => rest);
+  const existing = categories.find((entry) => entry.id === cat.id);
+  if (existing) {
+    existing.count += items.length;
+    existing.items = existing.items.concat(sample).slice(0, 16);
+    return;
+  }
+  categories.push({ id: cat.id, label: cat.label, count: items.length, items: sample });
 }
 
 function extractTrending(allNews) {
@@ -1808,38 +1919,24 @@ async function collectNews(previousNews = []) {
   const categories = [];
   let all = [];
 
-  for (const cat of CATEGORIES) {
+  for (const cat of CATEGORIES.concat(ENGLISH_AUTHORITY_MONITORS)) {
     const items = (await fetchCategory(cat, seen)).filter((item) => !isCrawlerExcluded("news", item));
     all = all.concat(items);
-    if (!items.length) continue;
-    categories.push({
-      id: cat.id,
-      label: cat.label,
-      count: items.length,
-      items: items.slice(0, 12).map(({ ts, category, ...rest }) => rest),
-    });
+    mergeNewsCategory(categories, cat, items);
   }
 
-  for (const cat of CHINESE_CATEGORIES) {
+  for (const cat of CHINESE_CATEGORIES.concat(CHINESE_AUTHORITY_MONITORS)) {
     const items = (await fetchCategory(cat, seen, "zh")).filter((item) => !isCrawlerExcluded("news", item));
     all = all.concat(items);
-    if (!items.length) continue;
-    const existing = categories.find((entry) => entry.id === cat.id);
-    if (existing) {
-      existing.count += items.length;
-      existing.items = existing.items.concat(items.slice(0, 8).map(({ ts, category, ...rest }) => rest)).slice(0, 12);
-    } else {
-      categories.push({
-        id: cat.id,
-        label: cat.label,
-        count: items.length,
-        items: items.slice(0, 12).map(({ ts, category, ...rest }) => rest),
-      });
-    }
+    mergeNewsCategory(categories, cat, items, 10);
   }
 
+  all = all.filter((item) => verifiedNewsLanguage(item));
   all.sort((a, b) => b.ts - a.ts);
-  const latestNews = (await enrichNewsItems(all.slice(0, NEWS_ENRICH_LIMIT), previousNews))
+  const selected = ["english", "chinese"]
+    .flatMap((language) => all.filter((item) => verifiedNewsLanguage(item) === language).slice(0, NEWS_STREAM_LIMIT))
+    .sort((a, b) => b.ts - a.ts);
+  const latestNews = (await enrichNewsItems(selected, previousNews))
     .filter((item) => !isCrawlerExcluded("news", item));
   return {
     categories,
@@ -2692,8 +2789,8 @@ async function main() {
 
   // Best-effort Korean headlines (no API key; English fallback on any failure).
   try {
-    await addKoTitles(news, 42);
-    await addKoSummaries(news, 42);
+    await addKoTitles(news, 72);
+    await addKoSummaries(news, 72);
     await addKoTitles(communitySignals.items, 30);
     await addKoSummaries(communitySignals.items, 30);
     await addKoTitles(benchmarkSignals.stream, 24);
@@ -2707,7 +2804,11 @@ async function main() {
   const signals = buildSignals({ prices, competitors, startups, newsStats: stats });
   const intelligence = buildIntelligence({ news, prices, stats, chinaInfra });
   const okCount = health.filter((item) => item.ok).length;
-  console.log(`\n수집 완료: ${okCount}/${health.length} 단계 성공, 외신 뉴스 ${news.length}건, 중국 현장 신호 ${communitySignals.items.length}건, 벤치마킹 신호 ${benchmarkSignals.stream.length}건, 가격표 ${prices.sections.length}개`);
+  const languageCounts = {
+    english: news.filter((item) => verifiedNewsLanguage(item) === "english").length,
+    chinese: news.filter((item) => verifiedNewsLanguage(item) === "chinese").length,
+  };
+  console.log(`\n수집 완료: ${okCount}/${health.length} 단계 성공, 기사 ${news.length}건(영문 ${languageCounts.english || 0} / 중문 ${languageCounts.chinese || 0}), 중국 현장 신호 ${communitySignals.items.length}건, 벤치마킹 신호 ${benchmarkSignals.stream.length}건, 가격표 ${prices.sections.length}개`);
 
   const payload = {
     updatedAt: new Date().toISOString(),

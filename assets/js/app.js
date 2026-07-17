@@ -110,13 +110,15 @@
     /(ad hoc news|asia business outlook|indexbox|36\s*kr|36kr|borncity|mjengo|blockchain\.news|odaily|zamin\.uz|finance\.biggo|crypto briefing|weex|fortrinawwer|siliconanalysts|nand-research|reddit|facebook|linkedin\.com|x\.com|twitter\.com)/i;
   const SKHYNIX_NEWSROOM_RE = /news\.skhynix\.com|sk\s*hynix\s*newsroom|skhy\s*newsroom/i;
   const AUTHORITATIVE_NEWS_RE =
-    /(reuters|bloomberg|financial times|ft\.com|nikkei|cnbc|associated press|apnews|sec\.gov|nasdaq|trendforce|dramexchange|techinsights|yole|counterpoint|tom'?s hardware|tomshardware|south china morning post|scmp|digitimes|ee times|eetimes|semianalysis|techwire asia|the register|business insider|network world|evertiq|technode|techspot|japan times|electronics weekly|businesswire|pr newswire|solidigm|intel|u\.s\. bis|bis\.gov|govinfo|wsts|acm research ir|cxmt|shanghai stock exchange|财新|caixin|第一财经|yicai|21财经|21世纪经济报道|证券时报|stcn|中国经营报|cb\.com\.cn|新浪财经|新浪科技|finance\.sina|电子工程专辑|eet-china|集微网|ijiwei|经济观察网|eeo\.com\.cn|techweb|chinaflashmarket)/i;
+    /(reuters|bloomberg|financial times|ft\.com|nikkei|cnbc|associated press|apnews|sec\.gov|nasdaq|trendforce|dramexchange|techinsights|yole|counterpoint|tom'?s hardware|tomshardware|south china morning post|scmp|digitimes|ee times|eetimes|semianalysis|techwire asia|the register|business insider|network world|evertiq|technode|techspot|japan times|electronics weekly|businesswire|pr newswire|solidigm|intel|u\.s\. bis|bis\.gov|govinfo|wsts|acm research ir|cxmt|shanghai stock exchange|财新|caixin|第一财经|yicai|21财经|21世纪经济报道|证券时报|stcn|中国经营报|cb\.com\.cn|电子工程专辑|eet-china|集微网|ijiwei|经济观察网|eeo\.com\.cn|techweb|chinaflashmarket)/i;
   const MEMORY_NEWS_RE =
-    /(memory|dram|nand|hbm|ddr|lpddr|gddr|ssd|semiconductor|chip|wafer|foundry|packaging|interconnect|cxl|trendforce|dramexchange|micron|samsung|sk hynix|hynix|kioxia|western digital|sandisk|cxmt|changxin|ymtc|yangtze|jcet|tfme|xmc|wuhan xinxin|naura|amec|acm research|techinsights|yole|big fund|export control|china chip|chinese chip)/i;
+    /(memory|dram|nand|hbm|ddr|lpddr|gddr|ssd|solidigm|wafer|packaging|interconnect|cxl|trendforce|dramexchange|micron|sk hynix|hynix|kioxia|western digital|sandisk|cxmt|changxin|ymtc|yangtze memory|jcet|tfme|xmc|wuhan xinxin|naura|amec|acm research|techinsights|yole|memory chip|存储|内存|闪存|固态|晶圆|长鑫|长江存储|长存|武汉新芯)/i;
   const CHINA_NEWS_RE =
     /(china|chinese|cxmt|changxin|ymtc|yangtze|jcet|tfme|xmc|wuhan|naura|amec|huawei|tencent|alibaba|baidu|lenovo|big fund|pandaily|caixin|yicai|scmp|kraneshares|sina|sohu|eastmoney|huxiu|jiwei|c114|digitimes asia)/i;
   const APPLE_CONTENT_RE =
     /\b(apple|applem|aapl|iphone|ipad|macbook|9to5mac|applemagazine)\b|애플|아이폰|아이패드|맥북/i;
+  const NEWS_MARKET_NOISE_RE =
+    /\bETF\b|指数|领涨|领跌|净买入|净卖出|吸金|中签|打新|牛股|涨停|跌停|股价|个股|股票行情|认购|申购|抽签|赚钱|热度观测日志/i;
   const SOURCE_SUFFIX_RE = /\s[-–—]\s(?:[A-Za-z0-9가-힣 .·&]+)$/;
   const HIDDEN_SECTIONS = new Set(["corpdev", "categories", "response"]);
   const HIDDEN_CATEGORY_IDS = new Set(["corpdev"]);
@@ -14367,6 +14369,7 @@
     const live = LIVE.news || [];
     const curated = BASE.curatedNews || [];
     const clean = dedupeNews(curated.concat(live)
+      .filter((item) => articleStreamLanguage(item))
       .filter((item) => !isCrawlExcluded("news", item) && hasMeaningfulArticleSummary(item) && isForeignNews(item) && isAuthoritativeNews(item) && isMemoryRelevant(item) && !isAppleContent(item) && !isLowConfidenceNews(item) && !isSkhynixNewsroom(item) && !isSupersededCxmtIpoNews(item)));
     return clean.length ? clean : (BASE.fallbackNews || []).filter((item) => !isCrawlExcluded("news", item));
   }
@@ -14384,7 +14387,8 @@
       ? title.slice(0, 96)
       : title.split(" ").slice(0, 10).join(" ");
     const source = newsPublisherText(item).toLowerCase().trim();
-    if (titleKey) return `title:${titleKey}|${source}`;
+    const language = articleStreamLanguage(item) || "unknown";
+    if (titleKey) return `${language}|title:${titleKey}|${source}`;
     const url = String(item.link || item.sourceUrl || "").trim();
     if (url) {
       try {
@@ -14395,9 +14399,9 @@
         parsed.searchParams.delete("utm_campaign");
         parsed.searchParams.delete("utm_term");
         parsed.searchParams.delete("utm_content");
-        return `url:${parsed.toString().replace(/\/$/, "").toLowerCase()}`;
+        return `${language}|url:${parsed.toString().replace(/\/$/, "").toLowerCase()}`;
       } catch {
-        return `url:${url.replace(/#.*$/, "").replace(/\/$/, "").toLowerCase()}`;
+        return `${language}|url:${url.replace(/#.*$/, "").replace(/\/$/, "").toLowerCase()}`;
       }
     }
     return "";
@@ -14487,9 +14491,9 @@
   }
 
   function isMemoryRelevant(item) {
-    if (item.curated || item.category) return true;
+    if (item.curated) return true;
     const hay = `${item.title || ""} ${item.titleKo || ""} ${item.summary || ""} ${item.source || ""}`.toLowerCase();
-    return MEMORY_NEWS_RE.test(hay);
+    return MEMORY_NEWS_RE.test(hay) && !NEWS_MARKET_NOISE_RE.test(item.originalTitle || item.title || "");
   }
 
   function isAppleContent(item) {
@@ -14531,11 +14535,35 @@
       .trim();
   }
 
-  function isChinaArticle(item) {
-    if (item.language === "chinese") return true;
-    if (item.category === "china") return true;
-    const hay = `${item.category || ""} ${item.source || ""} ${item.link || ""} ${item.title || ""} ${item.titleKo || ""} ${item.summary || ""}`;
-    return CHINA_NEWS_RE.test(hay);
+  function articleStreamLanguage(item = {}) {
+    const title = String(item.originalTitle || item.title || "").trim();
+    const declared = String(item.streamLanguage || item.language || "").toLowerCase();
+    const han = (title.match(/[㐀-䶿一-鿿豈-﫿]/g) || []).length;
+    const latin = (title.match(/[A-Za-z]/g) || []).length;
+    if (declared === "chinese" && han >= 2) return "chinese";
+    if (declared === "english" && han === 0 && latin >= 6) return "english";
+    if (han >= 2 && han >= Math.ceil(latin * 0.12)) return "chinese";
+    if (han === 0 && latin >= 6) return "english";
+    return "";
+  }
+
+  function newsAuthorityScore(item = {}) {
+    const hay = `${item.source || ""} ${item.sourceUrl || ""} ${item.link || ""}`.toLowerCase();
+    let score = 0;
+    if (/reuters|bloomberg|financial times|ft\.com|nikkei|associated press|apnews/.test(hay)) score = 6;
+    else if (/sec\.gov|bis\.gov|govinfo|congress\.gov|wsts|trendforce|techinsights|counterpoint|yole/.test(hay)) score = 6;
+    else if (/cnbc|caixin global|caixinglobal|south china morning post|scmp|digitimes|ee times|eetimes/.test(hay)) score = 5;
+    else if (/财新|第一财经|yicai|集微网|ijiwei|证券时报|stcn|经济观察网|eeo\.com\.cn/.test(hay)) score = 5;
+    else if (/tom'?s hardware|the register|electronics weekly|businesswire|pr newswire/.test(hay)) score = 3;
+    if (/^https?:\/\//i.test(String(item.sourceUrl || "")) && !/news\.google\.com/i.test(item.sourceUrl)) score += 1;
+    if (String(item.summaryOriginal || item.summary || "").trim().length >= 60) score += 1;
+    return score;
+  }
+
+  function compareNewsItems(a, b) {
+    const delta = newsTimestamp(b) - newsTimestamp(a);
+    if (Math.abs(delta) >= 24 * 3600e3) return delta;
+    return newsAuthorityScore(b) - newsAuthorityScore(a) || delta;
   }
 
   function insightLines(item) {
@@ -14733,7 +14761,7 @@
   }
 
   function newsMatchesSource(item, sourceId = newsSource) {
-    return sourceId === "chinese" ? isChinaArticle(item) : item.language === "english" || !isChinaArticle(item);
+    return articleStreamLanguage(item) === sourceId;
   }
 
   function newsBaseForCategory(categoryId = newsCategory) {
@@ -14744,7 +14772,7 @@
     return newsBaseForCategory(categoryId)
       .filter((item) => newsMatchesCompany(item, companyId))
       .filter((item) => newsMatchesSource(item, sourceId))
-      .sort((a, b) => newsTimestamp(b) - newsTimestamp(a));
+      .sort(compareNewsItems);
   }
 
   function renderNewsCompanySelect() {
@@ -14859,7 +14887,7 @@
       return;
     }
 
-    items.slice().sort((a, b) => newsTimestamp(b) - newsTimestamp(a)).slice(0, 42).forEach((item) => {
+    items.slice().sort(compareNewsItems).slice(0, 42).forEach((item) => {
       const li = el("li", "news-card-item");
       const card = el("article", "news-card");
       const a = el("a", "news-title");

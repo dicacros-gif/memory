@@ -203,12 +203,27 @@ const news = Array.isArray(live.news) ? live.news : [];
 const summarizedNews = news.filter((item) => String(item.summary || item.summaryOriginal || "").trim());
 const directNews = news.filter((item) => /^https?:\/\//i.test(String(item.sourceUrl || "")) && !/news\.google\.com/i.test(item.sourceUrl));
 const newsTitleKeys = new Set();
+const hanCount = (value = "") => (String(value).match(/[㐀-䶿一-鿿豈-﫿]/g) || []).length;
+const latinCount = (value = "") => (String(value).match(/[A-Za-z]/g) || []).length;
+const languageCounts = { english: 0, chinese: 0 };
 for (const item of news) {
   const title = String(item.title || "").trim();
+  const language = String(item.streamLanguage || item.language || "").toLowerCase();
   const key = title.toLowerCase().replace(/\s[-–—]\s[^-–—|]+$/g, "").replace(/[^a-z0-9가-힣一-鿿]+/g, "");
   if (/^\s*\[(?:news|뉴스)\]/i.test(title)) addIssue("error", "data/live.json", "news title contains forbidden prefix", title);
+  if (!new Set(["english", "chinese"]).has(language)) {
+    addIssue("error", "data/live.json", "news item has no verified stream language", title);
+  } else if (language === "english" && (hanCount(title) > 0 || latinCount(title) < 6)) {
+    addIssue("error", "data/live.json", "Chinese-script title leaked into English stream", title);
+  } else if (language === "chinese" && hanCount(title) < 2) {
+    addIssue("error", "data/live.json", "non-Chinese title leaked into Chinese stream", title);
+  }
+  if (languageCounts[language] != null) languageCounts[language] += 1;
   if (key && newsTitleKeys.has(key)) addIssue("error", "data/live.json", "duplicate news title", title);
   if (key) newsTitleKeys.add(key);
+}
+if (news.length && (!languageCounts.english || !languageCounts.chinese)) {
+  addIssue("error", "data/live.json", "one article language stream is empty", JSON.stringify(languageCounts));
 }
 if (news.length && summarizedNews.length / news.length < 0.5) {
   addIssue("warn", "data/live.json", "fewer than half of news items have article-specific summaries", `${summarizedNews.length}/${news.length}`);
