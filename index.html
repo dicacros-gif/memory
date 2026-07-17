@@ -31,7 +31,7 @@
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard/dist/web/static/pretendard.css" />
   <link rel="stylesheet" as="style" crossorigin href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css" />
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@500;700&family=Noto+Sans+KR:wght@400;500;700;800;900&family=Space+Grotesk:wght@500;600;700&display=swap" />
-  <link rel="stylesheet" href="assets/css/styles.css?v=exec-slider-1-20260717" />
+  <link rel="stylesheet" href="assets/css/styles.css?v=china-decision-video-1-20260717" />
 </head>
 <body>
   <div class="scroll-prog" id="scrollProg" aria-hidden="true"></div>
@@ -256,6 +256,19 @@
             </section>
             <aside class="investment-focus" id="strategicDecisionFocus"></aside>
           </div>
+          <figure class="china-decision-video-panel" id="chinaDecisionVideoPanel" aria-label="중국 사업 실행 판단 영상">
+            <video class="china-decision-video" id="chinaDecisionVideo" autoplay muted loop playsinline preload="none" disablepictureinpicture poster="assets/media/china-decision-options-poster.webp" aria-hidden="true">
+              <source data-src="assets/media/china-decision-options.mp4" type="video/mp4" />
+            </video>
+            <div class="china-decision-video-shade" aria-hidden="true"></div>
+            <figcaption class="china-decision-video-copy" id="chinaDecisionVideoCopy">
+              <small id="chinaDecisionVideoKicker">Customer lock-in</small>
+              <strong id="chinaDecisionVideoTitle">핵심 고객은 가격보다 공급 안정성과 공동개발로 락인</strong>
+              <p id="chinaDecisionVideoBody">장기계약, 인증 지원, 제품 번들을 하나의 협상안으로 설계</p>
+              <span id="chinaDecisionVideoCount">01 / 07</span>
+            </figcaption>
+            <button class="china-decision-video-toggle" id="chinaDecisionVideoToggle" type="button" aria-label="영상 일시정지" title="영상 일시정지"><span aria-hidden="true">Ⅱ</span></button>
+          </figure>
           <div class="investment-evidence" id="strategicDecisionEvidence"></div>
         </section>
 
@@ -869,6 +882,6 @@
   <div class="qa-answer" id="qaAnswer" hidden></div>
   <div class="inspector" id="inspector" hidden></div>
   <div class="backdrop" id="backdrop"></div>
-  <script src="assets/js/app.js?v=exec-slider-1-20260717" defer></script>
+  <script src="assets/js/app.js?v=china-decision-video-1-20260717" defer></script>
 </body>
 </html>

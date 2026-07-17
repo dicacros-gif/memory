@@ -2719,6 +2719,7 @@
     setupChinaBenchmarkVideoStory();
     setupStrategyCapitalSlider();
     setupExecutiveBacktestSlider();
+    setupChinaDecisionVideo();
     setupMemoryScrollStory();
     [BASE, LIVE, REPO_CRAWL_EXCLUSIONS] = await Promise.all([
       loadJSON("data/baseline.json", null),
@@ -2771,6 +2772,168 @@
       toggleSelector: "#executiveBacktestToggle",
       autoDelay: 5800,
     });
+  }
+
+  function setupChinaDecisionVideo() {
+    const panel = $("#chinaDecisionVideoPanel");
+    const video = $("#chinaDecisionVideo");
+    const source = video?.querySelector("source[data-src]");
+    const copy = $("#chinaDecisionVideoCopy");
+    const kicker = $("#chinaDecisionVideoKicker");
+    const title = $("#chinaDecisionVideoTitle");
+    const body = $("#chinaDecisionVideoBody");
+    const count = $("#chinaDecisionVideoCount");
+    const toggle = $("#chinaDecisionVideoToggle");
+    if (!panel || !video || !source || !copy || !kicker || !title || !body || !count || !toggle || panel.dataset.ready === "1") return;
+    panel.dataset.ready = "1";
+    video.muted = true;
+    video.defaultMuted = true;
+    video.volume = 0;
+
+    const messages = [
+      {
+        kicker: "Customer lock-in",
+        title: "핵심 고객은 가격보다 공급 안정성과 공동개발로 락인",
+        body: "장기계약, 인증 지원, 제품 번들을 하나의 협상안으로 설계",
+      },
+      {
+        kicker: "NAND · eSSD defense",
+        title: "eSSD 방어는 가격·인증·공급 안정성을 함께 제시",
+        body: "고객별 제품 믹스와 장기 공급 조건을 단일 실행안으로 관리",
+      },
+      {
+        kicker: "Packaging option",
+        title: "패키징 대응은 제휴·소수지분·공급권 옵션으로 분리",
+        body: "고객 인증과 IP 보호 조건이 충족될 때만 다음 단계로 전환",
+      },
+      {
+        kicker: "Equipment gate",
+        title: "소부장 협력은 기술성보다 규제와 IP 게이트를 우선 검토",
+        body: "수출통제, 정보 접근권, 대체 공급망 조건을 선행 검토",
+      },
+      {
+        kicker: "Operating switch",
+        title: "생산·재고·고객 전환 조건으로 운영 시나리오 조정",
+        body: "가격 하방과 공급 차질에 따라 유지·전환·방어 모드를 즉시 재배치",
+      },
+      {
+        kicker: "Talent · IP defense",
+        title: "핵심 인재 방어는 보상·법무·보안을 동시에 집행",
+        body: "수율과 패키징 경험이 집중된 직무를 우선 보호",
+      },
+      {
+        kicker: "CAPEX discipline",
+        title: "레거시 CAPEX는 현금원가와 고객 수요 확인 후 확대",
+        body: "범용 가격 압력이 커지면 증설보다 SKU·재고·원가 방어를 우선",
+      },
+    ];
+    const positions = ["left-bottom", "left-top", "right-top", "right-bottom"];
+    const effects = ["rise", "sweep", "focus", "slide"];
+    let hydrated = false;
+    let activeIndex = 0;
+    let timer = 0;
+    let transitionTimer = 0;
+    let inView = false;
+    let userPaused = false;
+    let lastPosition = "left-bottom";
+    let lastEffect = "";
+
+    const chooseDifferent = (items, previous) => {
+      const choices = items.filter((item) => item !== previous);
+      return choices[Math.floor(Math.random() * choices.length)] || items[0];
+    };
+    const hydrate = () => {
+      if (hydrated) return;
+      hydrated = true;
+      source.src = source.dataset.src;
+      video.load();
+    };
+    const stopRotation = () => {
+      if (timer) window.clearTimeout(timer);
+      timer = 0;
+    };
+    const scheduleRotation = () => {
+      stopRotation();
+      if (!inView || userPaused || document.hidden) return;
+      timer = window.setTimeout(() => showMessage(activeIndex + 1), 4700);
+    };
+    const showMessage = (targetIndex, { initial = false } = {}) => {
+      activeIndex = (Number(targetIndex) + messages.length) % messages.length;
+      const message = messages[activeIndex];
+      const position = initial ? lastPosition : chooseDifferent(positions, lastPosition);
+      const effect = initial ? "rise" : chooseDifferent(effects, lastEffect);
+      lastPosition = position;
+      lastEffect = effect;
+      panel.dataset.copyPosition = position;
+      panel.dataset.copyEffect = effect;
+      copy.classList.remove("is-entering");
+      kicker.textContent = message.kicker;
+      title.textContent = message.title;
+      body.textContent = message.body;
+      count.textContent = `${String(activeIndex + 1).padStart(2, "0")} / ${String(messages.length).padStart(2, "0")}`;
+      void copy.offsetWidth;
+      copy.classList.add("is-entering");
+      if (transitionTimer) window.clearTimeout(transitionTimer);
+      transitionTimer = window.setTimeout(() => copy.classList.remove("is-entering"), 950);
+      scheduleRotation();
+    };
+    const syncToggle = () => {
+      toggle.querySelector("span").textContent = userPaused ? "▶" : "Ⅱ";
+      toggle.setAttribute("aria-label", userPaused ? "영상 재생" : "영상 일시정지");
+      toggle.setAttribute("title", userPaused ? "영상 재생" : "영상 일시정지");
+      toggle.setAttribute("aria-pressed", userPaused ? "true" : "false");
+    };
+    const play = async () => {
+      hydrate();
+      if (userPaused || !inView) return;
+      try { await video.play(); } catch { /* The play control remains available. */ }
+      syncToggle();
+    };
+
+    toggle.addEventListener("click", async () => {
+      userPaused = !userPaused;
+      if (userPaused) {
+        video.pause();
+        stopRotation();
+      } else {
+        await play();
+        scheduleRotation();
+      }
+      syncToggle();
+    });
+    document.addEventListener("visibilitychange", () => {
+      if (document.hidden) {
+        video.pause();
+        stopRotation();
+      } else if (inView && !userPaused) {
+        play();
+        scheduleRotation();
+      }
+    });
+
+    if ("IntersectionObserver" in window) {
+      const observer = new IntersectionObserver((entries) => {
+        inView = entries.some((entry) => entry.isIntersecting);
+        if (inView) {
+          play();
+          scheduleRotation();
+        } else {
+          video.pause();
+          stopRotation();
+        }
+      }, { rootMargin: "320px 0px", threshold: 0.08 });
+      observer.observe(panel);
+      window.addEventListener("pagehide", () => observer.disconnect(), { once: true });
+    } else {
+      inView = true;
+      play();
+    }
+    window.addEventListener("pagehide", () => {
+      stopRotation();
+      if (transitionTimer) window.clearTimeout(transitionTimer);
+    }, { once: true });
+    syncToggle();
+    showMessage(0, { initial: true });
   }
 
   function setupDynamicImageSlider({

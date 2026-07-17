@@ -4465,6 +4465,227 @@ body.sidebar-collapsed .sb-ico {
   align-items: start;
 }
 
+.china-decision-video-panel {
+  --decision-video-accent: #f05bd7;
+  position: relative;
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  margin: 14px 0 0;
+  overflow: hidden;
+  border: 1px solid color-mix(in srgb, var(--decision-video-accent) 38%, var(--line));
+  border-radius: 10px;
+  background: #030914;
+  box-shadow: 0 24px 64px rgba(15, 8, 39, .26);
+  isolation: isolate;
+  transition: transform .22s ease, border-color .22s ease, box-shadow .22s ease;
+}
+
+.china-decision-video-panel:hover {
+  transform: translateY(-2px);
+  border-color: color-mix(in srgb, var(--decision-video-accent) 68%, #fff);
+  box-shadow: 0 30px 74px rgba(15, 8, 39, .34);
+}
+
+.china-decision-video,
+.china-decision-video-shade {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+}
+
+.china-decision-video {
+  z-index: 1;
+  object-fit: cover;
+  object-position: center;
+  transform: scale(1.035);
+  animation: chinaDecisionVideoDrift 12s ease-in-out infinite alternate;
+}
+
+.china-decision-video-shade {
+  z-index: 2;
+  pointer-events: none;
+  background:
+    linear-gradient(180deg, rgba(2, 7, 16, .08), rgba(2, 7, 16, .16) 46%, rgba(2, 7, 16, .66)),
+    linear-gradient(90deg, rgba(2, 7, 16, .52), transparent 48%, rgba(2, 7, 16, .18));
+}
+
+.china-decision-video-copy {
+  position: absolute;
+  z-index: 4;
+  display: grid;
+  gap: 9px;
+  width: min(620px, calc(100% - 56px));
+  border: 1px solid rgba(255, 255, 255, .24);
+  border-left: 4px solid var(--decision-video-accent);
+  border-radius: 9px;
+  background: rgba(3, 9, 20, .72);
+  color: #fff;
+  padding: clamp(15px, 2.2vw, 24px);
+  box-shadow: 0 18px 54px rgba(0, 0, 0, .34);
+  backdrop-filter: blur(14px);
+  transition: inset .5s cubic-bezier(.2, .8, .2, 1);
+}
+
+.china-decision-video-panel[data-copy-position="left-bottom"] .china-decision-video-copy {
+  left: 24px;
+  bottom: 24px;
+}
+
+.china-decision-video-panel[data-copy-position="left-top"] .china-decision-video-copy {
+  left: 24px;
+  top: 24px;
+}
+
+.china-decision-video-panel[data-copy-position="right-top"] .china-decision-video-copy {
+  top: 24px;
+  right: 24px;
+}
+
+.china-decision-video-panel[data-copy-position="right-bottom"] .china-decision-video-copy {
+  right: 24px;
+  bottom: 24px;
+}
+
+.china-decision-video-copy small,
+.china-decision-video-copy > span {
+  color: #8ef4ec;
+  font-family: var(--mono);
+  font-size: 10px;
+  font-weight: 900;
+  letter-spacing: .08em;
+  text-transform: uppercase;
+}
+
+.china-decision-video-copy strong {
+  max-width: 19ch;
+  color: #fff;
+  font-size: clamp(21px, 3vw, 38px);
+  line-height: 1.16;
+  font-weight: 950;
+  letter-spacing: 0;
+}
+
+.china-decision-video-copy p {
+  max-width: 54ch;
+  color: rgba(255, 255, 255, .82);
+  font-size: clamp(12px, 1.4vw, 15px);
+  line-height: 1.52;
+  font-weight: 760;
+}
+
+.china-decision-video-copy > span {
+  justify-self: end;
+  color: rgba(255, 255, 255, .68);
+}
+
+.china-decision-video-panel[data-copy-effect="rise"] .china-decision-video-copy.is-entering {
+  animation: chinaDecisionCopyRise .86s cubic-bezier(.2, .8, .2, 1) both;
+}
+
+.china-decision-video-panel[data-copy-effect="sweep"] .china-decision-video-copy.is-entering {
+  animation: chinaDecisionCopySweep .86s cubic-bezier(.2, .8, .2, 1) both;
+}
+
+.china-decision-video-panel[data-copy-effect="focus"] .china-decision-video-copy.is-entering {
+  animation: chinaDecisionCopyFocus .86s ease both;
+}
+
+.china-decision-video-panel[data-copy-effect="slide"] .china-decision-video-copy.is-entering {
+  animation: chinaDecisionCopySlide .86s cubic-bezier(.2, .8, .2, 1) both;
+}
+
+.china-decision-video-toggle {
+  position: absolute;
+  right: 14px;
+  bottom: 14px;
+  z-index: 6;
+  display: grid;
+  width: 38px;
+  height: 38px;
+  place-items: center;
+  border: 1px solid rgba(255, 255, 255, .3);
+  border-radius: 8px;
+  background: rgba(3, 9, 18, .72);
+  color: #fff;
+  padding: 0;
+  font-size: 13px;
+  font-weight: 950;
+  box-shadow: 0 12px 30px rgba(0, 0, 0, .28);
+  backdrop-filter: blur(12px);
+  transition: transform .16s, border-color .16s, background .16s;
+}
+
+.china-decision-video-panel[data-copy-position^="right"] .china-decision-video-toggle {
+  right: auto;
+  left: 14px;
+}
+
+.china-decision-video-toggle:hover,
+.china-decision-video-toggle:focus-visible {
+  outline: none;
+  transform: translateY(-2px);
+  border-color: #fff;
+  background: var(--decision-video-accent);
+}
+
+@keyframes chinaDecisionVideoDrift {
+  from { transform: scale(1.035) translate3d(-.4%, 0, 0); }
+  to { transform: scale(1.085) translate3d(.5%, -.4%, 0); }
+}
+
+@keyframes chinaDecisionCopyRise {
+  from { opacity: 0; transform: translate3d(0, 26px, 0); }
+  to { opacity: 1; transform: translate3d(0, 0, 0); }
+}
+
+@keyframes chinaDecisionCopySweep {
+  from { opacity: .2; clip-path: inset(0 100% 0 0); }
+  to { opacity: 1; clip-path: inset(0); }
+}
+
+@keyframes chinaDecisionCopyFocus {
+  from { opacity: 0; filter: blur(12px); transform: scale(.96); }
+  to { opacity: 1; filter: blur(0); transform: scale(1); }
+}
+
+@keyframes chinaDecisionCopySlide {
+  from { opacity: 0; transform: translate3d(34px, 0, 0); }
+  to { opacity: 1; transform: translate3d(0, 0, 0); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .china-decision-video,
+  .china-decision-video-copy {
+    animation: none !important;
+  }
+}
+
+@media (max-width: 680px) {
+  .china-decision-video-panel {
+    min-height: 330px;
+    aspect-ratio: 4 / 5;
+  }
+
+  .china-decision-video-panel .china-decision-video-copy {
+    inset: auto 12px 12px 12px !important;
+    width: auto;
+    padding: 15px;
+  }
+
+  .china-decision-video-copy strong {
+    max-width: none;
+    font-size: 21px;
+  }
+
+  .china-decision-video-toggle {
+    top: 10px;
+    right: 10px;
+    bottom: auto;
+    left: auto !important;
+  }
+}
+
 .investment-primary {
   min-width: 0;
   display: grid;
