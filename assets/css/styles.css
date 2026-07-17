@@ -9812,6 +9812,30 @@ body.sidebar-collapsed .sb-ico {
     var(--panel);
 }
 
+.china-dynamics-board > .board-head {
+  border: 1px solid color-mix(in srgb, var(--accent) 24%, var(--line));
+  border-radius: 9px;
+  background: color-mix(in srgb, var(--accent) 6%, var(--panel-2));
+  padding: 12px 14px;
+  transition: transform .24s cubic-bezier(.2, .8, .2, 1), border-color .24s, background .24s, box-shadow .24s, color .24s;
+}
+
+.china-dynamics-board > .board-head:hover,
+.china-dynamics-board > .board-head:focus-within {
+  transform: translateY(-6px) scale(1.008);
+  border-color: color-mix(in srgb, var(--accent) 82%, #fff);
+  background:
+    radial-gradient(circle at 92% 8%, color-mix(in srgb, var(--accent) 58%, transparent), transparent 34%),
+    linear-gradient(145deg, color-mix(in srgb, var(--accent) 76%, #101827), #07101f 76%);
+  color: #fff;
+  box-shadow: 0 20px 42px color-mix(in srgb, var(--accent) 28%, transparent);
+}
+
+.china-dynamics-board > .board-head:hover :is(.eyebrow, h2, .board-meta),
+.china-dynamics-board > .board-head:focus-within :is(.eyebrow, h2, .board-meta) {
+  color: #fff;
+}
+
 .china-dynamics-overview {
   display: grid;
   grid-template-columns: repeat(4, minmax(0, 1fr));
@@ -9827,6 +9851,25 @@ body.sidebar-collapsed .sb-ico {
   background: color-mix(in srgb, var(--accent) 6%, var(--panel));
   margin-bottom: 12px;
   padding: 13px 14px;
+  transition: transform .24s cubic-bezier(.2, .8, .2, 1), border-color .24s, background .24s, box-shadow .24s;
+}
+
+.china-dynamics-summary:hover,
+.china-dynamics-summary:focus-within {
+  transform: translateY(-6px) scale(1.008);
+  border-color: color-mix(in srgb, var(--accent) 78%, #fff);
+  background: linear-gradient(145deg, color-mix(in srgb, var(--accent) 72%, #111827), #07101f 78%);
+  box-shadow: 0 20px 42px color-mix(in srgb, var(--accent) 24%, transparent);
+}
+
+.china-dynamics-summary:hover p,
+.china-dynamics-summary:focus-within p {
+  color: #fff;
+}
+
+.china-dynamics-summary:hover p::before,
+.china-dynamics-summary:focus-within p::before {
+  background: #fff;
 }
 
 .china-dynamics-summary p {
@@ -9858,6 +9901,20 @@ body.sidebar-collapsed .sb-ico {
   border-radius: 10px;
   background: var(--panel-2);
   padding: 14px;
+  transition: transform .24s cubic-bezier(.2, .8, .2, 1), border-color .24s, background .24s, box-shadow .24s;
+}
+
+.dyn-stat:hover,
+.dyn-stat:focus-within {
+  transform: translateY(-6px) scale(1.012);
+  border-color: color-mix(in srgb, var(--accent) 74%, #fff);
+  background: linear-gradient(145deg, color-mix(in srgb, var(--accent) 70%, #111827), #07101f 78%);
+  box-shadow: 0 18px 36px color-mix(in srgb, var(--accent) 22%, transparent);
+}
+
+.dyn-stat:hover :is(span, strong, small),
+.dyn-stat:focus-within :is(span, strong, small) {
+  color: #fff;
 }
 
 .dyn-stat > span,
@@ -9889,6 +9946,32 @@ body.sidebar-collapsed .sb-ico {
   background: var(--panel);
   padding: 14px;
   box-shadow: var(--shadow);
+  transition: transform .24s cubic-bezier(.2, .8, .2, 1), border-color .24s, background .24s, box-shadow .24s;
+}
+
+.china-dyn-card:hover,
+.china-dyn-card:focus-visible,
+.china-dyn-card:focus-within {
+  transform: translateY(-7px) scale(1.014);
+  border-color: color-mix(in srgb, var(--local-accent, var(--accent)) 78%, #fff);
+  background:
+    radial-gradient(circle at 92% 8%, color-mix(in srgb, var(--local-accent, var(--accent)) 54%, transparent), transparent 36%),
+    linear-gradient(145deg, color-mix(in srgb, var(--local-accent, var(--accent)) 68%, #111827), #07101f 80%);
+  color: #fff;
+  box-shadow: 0 22px 46px color-mix(in srgb, var(--local-accent, var(--accent)) 24%, transparent);
+}
+
+.china-dyn-card:hover :is(h3, p, .dyn-level, strong, span, small),
+.china-dyn-card:focus-visible :is(h3, p, .dyn-level, strong, span, small),
+.china-dyn-card:focus-within :is(h3, p, .dyn-level, strong, span, small) {
+  color: #fff;
+}
+
+.china-dyn-card:hover .dyn-level,
+.china-dyn-card:focus-visible .dyn-level,
+.china-dyn-card:focus-within .dyn-level {
+  border: 1px solid rgba(255, 255, 255, .28);
+  background: rgba(255, 255, 255, .14);
 }
 
 .dyn-card-head {
@@ -13898,10 +13981,10 @@ body.crawl-moderation-open {
     .metric,
     .kpi
   ):not(.agent-avatar-card):not(.memory-scroll-panel) {
-    transition-property: translate, border-color, box-shadow, background-color;
-    transition-duration: .22s;
+    transition-property: translate, scale, border-color, box-shadow, background-color;
+    transition-duration: .26s;
     transition-timing-function: cubic-bezier(.2, .8, .2, 1);
-    will-change: translate;
+    will-change: translate, scale;
   }
 
   .main :where(
@@ -13923,9 +14006,10 @@ body.crawl-moderation-open {
     .metric,
     .kpi
   ):not(.agent-avatar-card):not(.memory-scroll-panel):is(:hover, :focus-visible, :focus-within) {
-    translate: 0 -3px;
-    border-color: color-mix(in srgb, var(--local-accent, var(--accent)) 48%, var(--line));
-    box-shadow: 0 12px 28px rgba(2, 8, 23, .16), 0 0 0 1px color-mix(in srgb, var(--local-accent, var(--accent)) 12%, transparent);
+    translate: 0 -5px;
+    scale: 1.008;
+    border-color: color-mix(in srgb, var(--local-accent, var(--accent)) 58%, var(--line));
+    box-shadow: 0 18px 38px rgba(2, 8, 23, .2), 0 0 0 1px color-mix(in srgb, var(--local-accent, var(--accent)) 16%, transparent);
   }
 }
 
@@ -13958,6 +14042,7 @@ body.crawl-moderation-open {
     .kpi
   ) {
     translate: none !important;
+    scale: none !important;
     transition-duration: .01ms !important;
   }
 
