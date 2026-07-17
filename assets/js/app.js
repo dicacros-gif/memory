@@ -7725,6 +7725,227 @@
     return `${memoryMarketNodeName(edge.from)} ${memoryMarketRelationSymbol(edge)} ${memoryMarketNodeName(edge.to)}`;
   }
 
+  function memoryMarketNodeStrategy(node = {}) {
+    const strategies = {
+      skhy: {
+        title: "HBM 리더십을 시스템 수율과 고객 락인으로 전환",
+        body: "점유율 방어보다 HBM4 인증, base die, 패키징 수율과 고객별 배정을 하나의 실행 체계로 묶는 것이 우선입니다.",
+        action: "고객별 HBM4 배정과 패키징 병목을 동시에 승인",
+      },
+      "nvidia-ai": {
+        title: "AI 고객 집중을 장기 수요 가시성으로 전환",
+        body: "가속기 세대 전환, HBM 탑재량과 패키징 상한을 분리해 고객 수요를 검증해야 과잉 배정을 피할 수 있습니다.",
+        action: "고객 인증 일정과 실출하 기준으로 캐파를 단계 배정",
+      },
+      tsmc: {
+        title: "HBM4 경쟁력은 base die와 CoWoS 확보에서 갈림",
+        body: "메모리 다이 성능만이 아니라 로직 base die 수율과 패키징 할당을 장기 계약 조건에 함께 넣어야 공급 안정성이 높아집니다.",
+        action: "공정·패키징 할당과 고객 인증을 하나의 게이트로 관리",
+      },
+      samsung: {
+        title: "턴키 HBM4 반격은 인증 속도와 총수율로 판별",
+        body: "단일 스펙 비교보다 DRAM, base die, 패키징을 합친 고객 인증 속도와 총원가가 실제 경쟁력의 기준입니다.",
+        action: "고객별 인증·전력·총수율 격차를 분기 단위로 재평가",
+      },
+      micron: {
+        title: "HBM 점유율보다 서버 메모리 묶음 경쟁을 경계",
+        body: "HBM과 서버 DDR5를 함께 제안하는 공급 전략이 고객 협상력을 바꿀 수 있어 제품별 대응만으로는 부족합니다.",
+        action: "HBM·서버 DRAM 통합 계약의 가격과 물량 조건을 비교",
+      },
+      cxmt: {
+        title: "CXMT의 핵심 위협은 HBM보다 범용 DRAM 가격",
+        body: "중국 고객 락인과 DDR5 물량 확대가 spot 가격과 계약 협상력에 미치는 영향을 먼저 방어해야 합니다.",
+        action: "가격 민감 고객을 분리하고 장기계약·제품 믹스로 마진 방어",
+      },
+      ymtc: {
+        title: "YMTC 대응은 NAND 가격과 eSSD 고객을 함께 봐야 함",
+        body: "Xtacking 세대만 비교하면 고객 침투 속도를 놓칩니다. 기업용 SSD 인증과 중국 내수 채널 확장을 함께 추적해야 합니다.",
+        action: "Solidigm 고객 방어와 eSSD 인증 우선순위를 동시 조정",
+      },
+      "kioxia-sandisk": {
+        title: "NAND 경쟁은 적층 수보다 비트 원가와 고객 인증",
+        body: "BiCS 세대 전환, 수율과 데이터센터 고객 인증을 묶어 비교해야 NAND 공급 경쟁의 실질 강도를 판단할 수 있습니다.",
+        action: "선단 NAND 원가와 eSSD 인증 속도를 같은 보드에서 비교",
+      },
+      solidigm: {
+        title: "Solidigm은 eSSD 방어와 중국 운영 현금흐름의 축",
+        body: "제품 수익성, 고객 인증과 Dalian 운영 조건을 분리해 보되 자본 배분은 하나의 포트폴리오로 결정해야 합니다.",
+        action: "고객별 eSSD 수익성과 Dalian 전환 비용을 함께 심사",
+      },
+      "jcet-xmc": {
+        title: "중국 패키징 우회로는 고객 인증 전까지 옵션으로 관리",
+        body: "OSAT 증설 신호만으로 위협을 확정하지 않고 HBM 조립 수율, 고객 인증과 IP 경계를 확인해야 합니다.",
+        action: "패키징 수율·고객 인증·IP 노출을 세 개의 게이트로 설정",
+      },
+      jcet: {
+        title: "JCET는 중국 AI 후공정의 상용화 속도를 보여주는 지표",
+        body: "설비 발표보다 첨단 패키징 처리량, 수율과 실제 고객 매출이 늘어나는지를 중심으로 판단해야 합니다.",
+        action: "처리량·수율·고객 매출이 동시에 확인될 때 위협 상향",
+      },
+      xmc: {
+        title: "XMC는 우한 메모리 생태계의 패키징 연결점",
+        body: "지배구조 변화와 YMTC 연계, HBM 패키징 투자를 분리해 추적해야 의사결정 주체와 기술 진척을 혼동하지 않습니다.",
+        action: "지배구조·장비 반입·고객 인증을 별도 신호로 관리",
+      },
+      tfme: {
+        title: "TFME는 중국 OSAT 공급망의 보완 능력을 측정",
+        body: "대체 공급선의 가치는 설비 규모가 아니라 메모리 패키징 인증과 안정적 양산 수율에서 결정됩니다.",
+        action: "고객 인증 전에는 공급망 중복성 옵션으로만 평가",
+      },
+      "naura-amec": {
+        title: "장비 국산화는 주문보다 라인 qualification이 핵심",
+        body: "식각, 증착과 세정 장비가 실제 메모리 라인에서 반복 수율을 확보할 때 수출통제 내성이 구조적으로 높아집니다.",
+        action: "장비 주문과 양산 qualification을 분리해 경보 단계 설정",
+      },
+      naura: {
+        title: "Naura의 확장은 공정별 채택률과 반복 수율로 검증",
+        body: "장비 포트폴리오 확대보다 CXMT·YMTC 라인에서의 공정 채택과 유지보수 자립도가 공급망 변화를 결정합니다.",
+        action: "공정별 채택·수율·서비스 내재화를 월별 추적",
+      },
+      amec: {
+        title: "AMEC 식각 역량은 고적층 NAND 수율에서 판별",
+        body: "장비 출하보다 고종횡비 식각의 양산 안정성과 고객 라인 qualification이 기술 추격 속도를 보여줍니다.",
+        action: "고적층 NAND의 식각 수율과 장비 재주문을 함께 확인",
+      },
+      acm: {
+        title: "ACM은 세정·도금 공정의 국산 대체 속도를 보여줌",
+        body: "매출 성장과 별개로 핵심 부품 조달, 고객 집중과 메모리 라인 qualification을 함께 봐야 지속 가능성을 판단할 수 있습니다.",
+        action: "부품 조달·고객 집중·양산 채택을 분리 검증",
+      },
+      smic: {
+        title: "SMIC는 중국형 base die 공급망의 연결 가능성",
+        body: "파운드리 노드만 비교하지 않고 메모리 설계, 패키징과 고객 인증을 연결할 수 있는지를 봐야 HBM 영향도를 판단할 수 있습니다.",
+        action: "base die 설계·패키징·고객 인증의 연결 여부를 추적",
+      },
+      "china-fund": {
+        title: "정책자본은 양산 성과가 아니라 자금 방향의 선행지표",
+        body: "투자 발표를 기술 진척으로 해석하지 말고 자금 사용처가 DRAM 캐파, NAND 장비와 패키징 중 어디로 이동하는지 구분해야 합니다.",
+        action: "자금 집행을 장비 반입과 양산 qualification으로 재검증",
+      },
+      "china-cloud": {
+        title: "중국 내수 고객 락인이 글로벌 가격 협상력을 바꿈",
+        body: "고객 승인과 장기계약이 누적되면 CXMT·YMTC의 가동률 방어력이 높아져 범용 메모리 가격 하방이 커질 수 있습니다.",
+        action: "고객별 승인·계약기간·물량·가격을 분리 추적",
+      },
+      tencent: {
+        title: "Tencent 계약은 CXMT의 서버 DRAM 검증 신호",
+        body: "계약 총액보다 실제 납품 기간, 제품 규격과 후속 고객 승인 여부가 중국 서버 DRAM 가격 압력의 크기를 결정합니다.",
+        action: "후속 고객 승인과 계약가 전이를 가격 방어 트리거로 설정",
+      },
+      "alibaba-bytedance": {
+        title: "두 번째 빅테크 승인이 CXMT 확장의 변곡점",
+        body: "추가 고객 인증이 확인되면 내수 수요 기반이 넓어져 캐파 확대와 DDR5 가격 압력이 동시에 강화될 수 있습니다.",
+        action: "승인 여부 확인 전에는 추정 물량을 계획에 반영하지 않음",
+      },
+      "huawei-ascend": {
+        title: "Huawei AI 스택은 중국 메모리 수요의 통합 축",
+        body: "가속기, 패키징과 메모리 조달이 결합되면 중국 내수 생태계의 외부 의존도가 낮아질 수 있어 공급망 전체를 봐야 합니다.",
+        action: "가속기 출하와 메모리·OSAT 조달을 하나의 수요 신호로 연결",
+      },
+      "cxl-startups": {
+        title: "Post-HBM 투자는 고객 PoC와 표준 인증이 먼저",
+        body: "CXL과 포토닉스는 기술 시연보다 서버 OEM PoC, 호환성 인증과 반복 주문이 상용화의 선행지표입니다.",
+        action: "직접 투자보다 공동 PoC·공급권 옵션을 우선 확보",
+      },
+      "global-equip": {
+        title: "글로벌 장비 공급은 중국 Fab 운영의 핵심 게이트",
+        body: "신규 장비뿐 아니라 부품, 서비스와 업그레이드 허가가 중국 생산라인의 장기 가동성과 공정 전환을 좌우합니다.",
+        action: "운영 유지·캐파 확대·기술 업그레이드 허가를 분리 판단",
+      },
+      "kr-supply": {
+        title: "국내 소부장은 HBM 병목 완화와 IP 방어를 동시에 담당",
+        body: "공급 다변화는 필요하지만 핵심 공정 레시피와 고객 정보가 경쟁 생태계로 이동하지 않도록 계약 구조를 함께 설계해야 합니다.",
+        action: "이원화 공급과 IP·인력 보호 조건을 같은 계약에 반영",
+      },
+      materials: {
+        title: "소재 경쟁력은 공정 recipe와 전환 비용에서 결정",
+        body: "단가보다 고객 공정에 묶인 qualification 기간과 대체 소재 전환 비용이 실제 협상력과 공급 리스크를 좌우합니다.",
+        action: "핵심 소재별 대체 qualification과 안전재고를 차등 운영",
+      },
+      "eda-ip": {
+        title: "HBM4 맞춤화는 EDA·IP 접근성이 숨은 병목",
+        body: "base die와 컨트롤러 공동설계 역량이 고객 맞춤형 HBM의 개발 속도와 전환 비용을 결정합니다.",
+        action: "핵심 IP 접근권과 고객 공동설계 범위를 장기 계약화",
+      },
+      substrate: {
+        title: "기판·인터포저가 HBM 출하 상한을 결정할 수 있음",
+        body: "명목 캐파보다 고사양 기판의 수율, warpage와 고객 인증이 실제 패키징 처리량을 제한합니다.",
+        action: "기판 수율과 패키징 투입 가능량을 HBM 배정 계획에 반영",
+      },
+    };
+    const categoryFallback = {
+      hbm: { title: "HBM 경쟁은 고객 인증과 시스템 수율로 판별", body: "제품 스펙보다 고객 인증, 패키징과 양산 안정성을 함께 비교해야 합니다.", action: "인증·수율·공급능력을 하나의 의사결정 게이트로 관리" },
+      dram: { title: "DRAM은 가격과 고객 믹스 방어가 우선", body: "spot과 contract 가격, 고객별 물량 변화를 함께 봐야 마진 하방을 조기에 확인할 수 있습니다.", action: "가격 민감 고객과 프리미엄 고객의 계약 전략을 분리" },
+      nand: { title: "NAND는 비트 원가와 eSSD 인증을 함께 판단", body: "공급량 변화와 기업용 SSD 고객 인증이 수익성 전환의 핵심입니다.", action: "원가·재고·고객 인증을 묶어 투자 우선순위 결정" },
+      packaging: { title: "패키징은 처리량보다 수율과 고객 인증이 핵심", body: "장비 캐파만으로 실질 공급능력을 판단하지 않습니다.", action: "양산 수율과 인증 완료 물량을 기준으로 공급능력 산정" },
+      equipment: { title: "장비 신호는 양산 qualification으로 검증", body: "발주와 설치보다 반복 수율 확보가 실제 기술 진척을 의미합니다.", action: "공정 채택과 재주문을 확인한 뒤 위협 단계 상향" },
+      china: { title: "중국 생태계는 고객·자본·공급망을 함께 판단", body: "단일 기업이 아니라 내수 고객과 정책자본의 연결 구조가 경쟁 압력을 만듭니다.", action: "고객 승인과 양산 신호가 겹칠 때 대응 투자 실행" },
+      cxl: { title: "차세대 메모리는 고객 PoC가 상용화의 기준", body: "표준 호환성과 반복 주문 전에는 옵션 가치로 관리해야 합니다.", action: "공동 PoC와 공급권을 우선 확보" },
+      operations: { title: "운영 판단은 현금흐름과 전환 비용으로 검증", body: "설비 규모보다 고객 매출과 공정 전환 비용을 함께 봅니다.", action: "운영 유지와 신규 투자를 분리 승인" },
+      geopolitics: { title: "정책 신호는 실제 집행과 허가로 검증", body: "발표와 법안보다 자금 집행, 허가와 장비 반입이 경영 판단의 근거입니다.", action: "정책 발표를 실행 데이터로 교차 확인" },
+      aidemand: { title: "AI 수요는 출하량과 메모리 탑재량으로 분해", body: "고객 CapEx를 곧바로 HBM 수요로 환산하지 않습니다.", action: "가속기 출하·탑재량·패키징 상한을 각각 검증" },
+    };
+    return strategies[node.id] || categoryFallback[node.category] || categoryFallback.operations;
+  }
+
+  function renderMemoryMarketShowcaseInsight(selected) {
+    const panel = $("#memoryMarketVideoInsight");
+    const showcase = panel?.closest(".memory-map-showcase");
+    if (!panel || !showcase) return;
+
+    let insight = {
+      key: "overview",
+      accent: memoryMarketModeConfig().accent,
+      tag: "EXECUTIVE LENS",
+      title: "업체 원을 선택하면 전략 판단이 바뀝니다",
+      body: "선택한 업체의 고객, 기술, 공급망과 자금 관계를 연결해 SKHY가 먼저 결정할 실행 항목을 보여줍니다.",
+      action: "좌측 관계도에서 업체 원 선택",
+      meta: "선택 대기",
+    };
+
+    if (selected?.kind === "node") {
+      const node = selected.node;
+      const strategy = memoryMarketNodeStrategy(node);
+      const topEdge = [...(node.related || [])].sort((a, b) => b.score - a.score || b.evidenceCount - a.evidenceCount)[0];
+      insight = {
+        key: `node:${node.id}`,
+        accent: categoryAccent(node.category),
+        tag: `${node.name} · ${node.role}`,
+        title: strategy.title,
+        body: strategy.body,
+        action: strategy.action,
+        meta: `${fmtNum(node.related.length)}개 관계 · 근거 ${fmtNum(node.signal)}건${topEdge ? ` · 우선 연결 ${memoryMarketRelationTitle(topEdge)}` : ""}`,
+      };
+    } else if (selected?.kind === "edge") {
+      const edge = selected.edge;
+      insight = {
+        key: `edge:${edge.id}`,
+        accent: memoryMarketEdgeColor(edge.type),
+        tag: `${edge.type} · ${memoryMarketRelationTitle(edge)}`,
+        title: edge.label,
+        body: edge.interpretation || "가격, 고객, 캐파와 정책 근거가 연결된 경우에만 경영 안건으로 상향합니다.",
+        action: edge.mode === "money" ? "실제 계약·매출 전환 조건을 CFO 검토 대상으로 상정" : "경쟁 우위와 반증 조건을 함께 경영진 안건으로 상정",
+        meta: `근거 ${fmtNum(edge.evidenceCount)}건 · 링크 ${fmtNum(edge.linkCount)}개 · 가격 ${fmtNum(edge.priceRows)} rows`,
+      };
+    }
+
+    panel.style.setProperty("--insight-accent", insight.accent);
+    showcase.style.setProperty("--insight-accent", insight.accent);
+    if (panel.dataset.insightKey === insight.key) return;
+    panel.dataset.insightKey = insight.key;
+    panel.classList.remove("insight-entering");
+    panel.innerHTML = `
+      <span>${escapeHTML(insight.tag)}</span>
+      <h3>${escapeHTML(insight.title)}</h3>
+      <p>${escapeHTML(insight.body)}</p>
+      <footer>
+        <strong>${escapeHTML(insight.action)}</strong>
+        <small>${escapeHTML(insight.meta)}</small>
+      </footer>
+    `;
+    requestAnimationFrame(() => panel.classList.add("insight-entering"));
+  }
+
   function renderMemoryMarketDetail(selected, edges = []) {
     const detail = $("#memoryMarketDetail");
     if (!detail) return;
@@ -7890,6 +8111,7 @@
     if (!filteredEdges.length) {
       graph.innerHTML = `<div class="empty">선택한 조건에 연결된 근거 있는 관계가 없습니다.</div>`;
       renderMemoryMarketDetail(null, edges);
+      renderMemoryMarketShowcaseInsight(null);
       return;
     }
 
@@ -8001,6 +8223,7 @@
     });
 
     renderMemoryMarketDetail(selected, edges);
+    renderMemoryMarketShowcaseInsight(selected);
     animateCounts(summary);
     animateCounts(graph);
     animateMeters(graph);

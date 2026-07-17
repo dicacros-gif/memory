@@ -6050,6 +6050,7 @@ body.sidebar-collapsed .sb-ico {
 
 .memory-map-showcase {
   position: relative;
+  container-type: inline-size;
   min-width: 0;
   aspect-ratio: 16 / 9;
   margin: 0;
@@ -6071,7 +6072,7 @@ body.sidebar-collapsed .sb-ico {
   inset: 0;
   z-index: 1;
   pointer-events: none;
-  background: linear-gradient(180deg, transparent 62%, rgba(3, 9, 18, .34));
+  background: linear-gradient(180deg, transparent 38%, rgba(3, 9, 18, .76));
 }
 
 .memory-map-showcase:hover {
@@ -6088,6 +6089,170 @@ body.sidebar-collapsed .sb-ico {
   object-fit: cover;
   object-position: center;
   background: #050b14;
+}
+
+.memory-map-showcase-insight {
+  position: absolute;
+  left: 16px;
+  right: 58px;
+  bottom: 16px;
+  z-index: 2;
+  display: grid;
+  gap: 7px;
+  min-width: 0;
+  border: 1px solid rgba(255, 255, 255, .2);
+  border-left: 4px solid var(--insight-accent, var(--mode-accent, #54e5d4));
+  border-radius: 8px;
+  background: rgba(3, 9, 18, .82);
+  color: #fff;
+  padding: 13px 14px;
+  box-shadow: 0 18px 40px rgba(0, 0, 0, .28);
+  backdrop-filter: blur(14px) saturate(1.2);
+  transform-origin: left bottom;
+}
+
+.memory-map-showcase-insight.insight-entering {
+  animation: memoryMapInsightEnter .5s cubic-bezier(.2, .8, .2, 1) both;
+}
+
+.memory-map-showcase-insight > span {
+  color: color-mix(in srgb, var(--insight-accent, #79f0e4) 70%, #fff);
+  font-family: "JetBrains Mono", monospace;
+  font-size: 10px;
+  font-weight: 900;
+  letter-spacing: 0;
+  text-transform: uppercase;
+}
+
+.memory-map-showcase-insight h3 {
+  margin: 0;
+  color: #fff;
+  font-size: clamp(16px, 1.45vw, 21px);
+  font-weight: 950;
+  line-height: 1.22;
+}
+
+.memory-map-showcase-insight p {
+  margin: 0;
+  color: rgba(255, 255, 255, .84);
+  font-size: 11px;
+  font-weight: 720;
+  line-height: 1.5;
+}
+
+.memory-map-showcase-insight footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  min-width: 0;
+  padding-top: 2px;
+}
+
+.memory-map-showcase-insight footer strong {
+  overflow: hidden;
+  color: #fff;
+  font-size: 10px;
+  font-weight: 900;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.memory-map-showcase-insight footer small {
+  flex: 0 0 auto;
+  color: rgba(255, 255, 255, .66);
+  font-size: 9px;
+  font-weight: 800;
+}
+
+@keyframes memoryMapInsightEnter {
+  0% {
+    opacity: 0;
+    transform: translate3d(-22px, 12px, 0) scale(.96);
+    filter: blur(8px);
+  }
+  62% {
+    opacity: 1;
+    transform: translate3d(4px, -2px, 0) scale(1.012);
+    filter: blur(0);
+  }
+  100% {
+    opacity: 1;
+    transform: translate3d(0, 0, 0) scale(1);
+    filter: blur(0);
+  }
+}
+
+@media (max-width: 720px) {
+  .memory-map-showcase-insight {
+    left: 10px;
+    right: 50px;
+    bottom: 10px;
+    gap: 4px;
+    padding: 9px 10px;
+  }
+
+  .memory-map-showcase-insight > span {
+    font-size: 8px;
+  }
+
+  .memory-map-showcase-insight h3 {
+    font-size: 14px;
+    line-height: 1.18;
+  }
+
+  .memory-map-showcase-insight p {
+    display: -webkit-box;
+    overflow: hidden;
+    font-size: 9px;
+    line-height: 1.35;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 2;
+  }
+
+  .memory-map-showcase-insight footer strong {
+    font-size: 8px;
+  }
+
+  .memory-map-showcase-insight footer small {
+    display: none;
+  }
+}
+
+@container (max-width: 420px) {
+  .memory-map-showcase-insight {
+    left: 10px;
+    right: 50px;
+    bottom: 10px;
+    gap: 4px;
+    padding: 9px 10px;
+  }
+
+  .memory-map-showcase-insight > span {
+    font-size: 8px;
+  }
+
+  .memory-map-showcase-insight h3 {
+    font-size: 14px;
+    line-height: 1.18;
+  }
+
+  .memory-map-showcase-insight p {
+    display: -webkit-box;
+    overflow: hidden;
+    font-size: 9px;
+    line-height: 1.35;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 2;
+  }
+
+  .memory-map-showcase-insight footer strong {
+    font-size: 8px;
+  }
+
+  .memory-map-showcase-insight footer small {
+    display: none;
+  }
 }
 
 .memory-map-video-toggle {
@@ -6180,6 +6345,7 @@ body.sidebar-collapsed .sb-ico {
 
 @media (prefers-reduced-motion: reduce) {
   .memory-edge { animation: memoryEdgeIn .6s ease forwards; }
+  .memory-map-showcase-insight.insight-entering { animation: none; }
 }
 
 .china-business-brief,
