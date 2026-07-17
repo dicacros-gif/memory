@@ -2299,6 +2299,101 @@
     showSlide(0);
   }
 
+  function setupChinaBenchmarkVideoStory() {
+    const story = $("#china-benchmark-video-story");
+    const video = $("#chinaBenchmarkStoryVideo");
+    const toggle = $("#chinaBenchmarkStoryToggle");
+    const source = video?.querySelector("source[data-src]");
+    if (!story || !video || !toggle || !source || story.dataset.ready === "1") return;
+    story.dataset.ready = "1";
+    video.muted = true;
+
+    let hydrated = false;
+    let frame = 0;
+    const reducedMotion = window.matchMedia?.("(prefers-reduced-motion: reduce)")?.matches;
+    const hydrate = () => {
+      if (hydrated) return;
+      hydrated = true;
+      source.src = source.dataset.src;
+      video.load();
+    };
+    const syncControl = () => {
+      const paused = video.paused;
+      toggle.querySelector("span").textContent = paused ? "▶" : "Ⅱ";
+      toggle.setAttribute("aria-label", paused ? "배경 영상 재생" : "배경 영상 일시정지");
+      toggle.setAttribute("title", paused ? "배경 영상 재생" : "배경 영상 일시정지");
+    };
+    const play = async () => {
+      hydrate();
+      if (video.dataset.userPaused === "1") return;
+      try { await video.play(); } catch { syncControl(); }
+    };
+    const syncScroll = () => {
+      frame = 0;
+      const topbar = Number.parseFloat(getComputedStyle(document.documentElement).getPropertyValue("--topbar-h")) || 64;
+      const viewportHeight = Math.max(1, window.innerHeight - topbar);
+      const travel = Math.max(1, story.offsetHeight - viewportHeight);
+      const rect = story.getBoundingClientRect();
+      const progress = clamp((topbar - rect.top) / travel, 0, 1);
+      const motion = clamp((progress - 0.08) / 0.72, 0, 1);
+      const opacity = reducedMotion ? 1 : clamp(1 - motion * 1.2, 0, 1);
+      const shift = reducedMotion ? 0 : -Math.round(motion * Math.min(240, viewportHeight * 0.28));
+      const scale = reducedMotion ? 1 : 1.045 - progress * 0.045;
+      story.style.setProperty("--benchmark-progress", progress.toFixed(4));
+      story.style.setProperty("--benchmark-copy-opacity", opacity.toFixed(3));
+      story.style.setProperty("--benchmark-copy-shift", `${shift}px`);
+      story.style.setProperty("--benchmark-video-scale", scale.toFixed(4));
+      story.classList.toggle("copy-hidden", opacity < 0.08);
+    };
+    const scheduleScroll = () => {
+      if (frame) return;
+      frame = window.requestAnimationFrame(syncScroll);
+    };
+
+    toggle.addEventListener("click", async () => {
+      if (video.paused) {
+        video.dataset.userPaused = "0";
+        await play();
+      } else {
+        video.dataset.userPaused = "1";
+        video.pause();
+      }
+      syncControl();
+    });
+    video.addEventListener("play", syncControl);
+    video.addEventListener("pause", syncControl);
+    window.addEventListener("scroll", scheduleScroll, { passive: true });
+    window.addEventListener("resize", scheduleScroll, { passive: true });
+
+    const lazyObserver = "IntersectionObserver" in window ? new IntersectionObserver((entries, observer) => {
+      if (!entries.some((entry) => entry.isIntersecting)) return;
+      hydrate();
+      observer.disconnect();
+    }, { rootMargin: "360px 0px" }) : null;
+    const visibilityObserver = "IntersectionObserver" in window ? new IntersectionObserver((entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) play();
+        else video.pause();
+      });
+    }, { threshold: 0.08 }) : null;
+    lazyObserver?.observe(story);
+    visibilityObserver?.observe(story);
+    if (!lazyObserver) hydrate();
+    const resizeObserver = "ResizeObserver" in window ? new ResizeObserver(scheduleScroll) : null;
+    resizeObserver?.observe(story);
+    syncControl();
+    syncScroll();
+
+    window.addEventListener("pagehide", () => {
+      if (frame) window.cancelAnimationFrame(frame);
+      window.removeEventListener("scroll", scheduleScroll);
+      window.removeEventListener("resize", scheduleScroll);
+      lazyObserver?.disconnect();
+      visibilityObserver?.disconnect();
+      resizeObserver?.disconnect();
+    }, { once: true });
+  }
+
   function setupMemoryScrollStory() {
     const records = Array.from(document.querySelectorAll("[data-scroll-story]"))
       .filter((story) => story.dataset.ready !== "1")
@@ -2366,6 +2461,7 @@
 
   async function init() {
     setupMediaExperience();
+    setupChinaBenchmarkVideoStory();
     setupStrategyCapitalSlider();
     setupMemoryScrollStory();
     [BASE, LIVE] = await Promise.all([

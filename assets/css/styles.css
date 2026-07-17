@@ -1179,13 +1179,14 @@ body.sidebar-collapsed .sb-ico {
 #china-dynamics { order: 17; }
 #competitors { order: 18; }
 #ai-matrix { order: 19; }
-#china-deep-dive { order: 20; }
-#talent-radar { order: 21; }
-#china-talent-strategy { order: 22; }
-#dynamics { order: 23; }
-#monetization { order: 24; }
-#response { order: 25; }
-#categories { order: 26; }
+#china-benchmark-video-story { order: 20; }
+#china-deep-dive { order: 21; }
+#talent-radar { order: 22; }
+#china-talent-strategy { order: 23; }
+#dynamics { order: 24; }
+#monetization { order: 25; }
+#response { order: 26; }
+#categories { order: 27; }
 
 .main > *,
 .board,
@@ -1389,6 +1390,160 @@ body.sidebar-collapsed .sb-ico {
 }
 
 .memory-video-hero.hero-copy-hidden .memory-hero-content {
+  pointer-events: none;
+}
+
+.china-benchmark-video-story {
+  --benchmark-copy-shift: 0px;
+  --benchmark-copy-opacity: 1;
+  --benchmark-video-scale: 1.045;
+  position: relative;
+  isolation: isolate;
+  width: calc(100% + 48px);
+  min-width: calc(100% + 48px);
+  max-width: none;
+  min-height: 178svh;
+  margin-left: -24px;
+  margin-right: -24px;
+  overflow: clip;
+  background: #030812;
+  color: #fff;
+}
+
+.china-benchmark-video-sticky {
+  position: sticky;
+  top: var(--topbar-h);
+  width: 100%;
+  height: calc(100svh - var(--topbar-h));
+  min-height: 520px;
+  overflow: hidden;
+  background: #030812;
+}
+
+.china-benchmark-story-video,
+.china-benchmark-video-shade {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+}
+
+.china-benchmark-story-video {
+  z-index: 0;
+  object-fit: cover;
+  object-position: center;
+  filter: saturate(.88) contrast(1.08) brightness(.82);
+  transform: scale(var(--benchmark-video-scale));
+  transition: filter .3s ease;
+  will-change: transform;
+}
+
+.china-benchmark-video-shade {
+  z-index: 1;
+  background:
+    linear-gradient(90deg, rgba(2, 8, 17, .9) 0%, rgba(2, 8, 17, .64) 42%, rgba(2, 8, 17, .2) 75%, rgba(2, 8, 17, .34) 100%),
+    linear-gradient(0deg, rgba(2, 8, 17, .72) 0%, transparent 54%, rgba(2, 8, 17, .26) 100%);
+}
+
+.china-benchmark-video-copy {
+  position: absolute;
+  z-index: 2;
+  top: 50%;
+  left: clamp(38px, 7vw, 112px);
+  width: min(690px, calc(100% - 92px));
+  display: grid;
+  gap: 15px;
+  opacity: var(--benchmark-copy-opacity);
+  transform: translate3d(0, calc(-50% + var(--benchmark-copy-shift)), 0);
+  will-change: transform, opacity;
+  pointer-events: none;
+}
+
+.china-benchmark-video-copy > p {
+  width: fit-content;
+  margin: 0;
+  border-left: 3px solid #62e6dd;
+  padding-left: 11px;
+  color: #a8fff8;
+  font-size: 11px;
+  font-weight: 900;
+  letter-spacing: .08em;
+  text-transform: uppercase;
+}
+
+.china-benchmark-video-copy h2 {
+  max-width: 680px;
+  margin: 0;
+  color: #fff;
+  font-family: var(--display);
+  font-size: 46px;
+  font-weight: 800;
+  line-height: 1.08;
+  letter-spacing: 0;
+  text-wrap: balance;
+  text-shadow: 0 4px 24px rgba(0, 0, 0, .7);
+}
+
+.china-benchmark-video-copy > span {
+  color: rgba(241, 245, 249, .9);
+  font-size: 15px;
+  font-weight: 750;
+  line-height: 1.6;
+  text-shadow: 0 3px 18px rgba(0, 0, 0, .74);
+}
+
+.china-benchmark-scroll-cue {
+  position: absolute;
+  z-index: 2;
+  left: clamp(38px, 7vw, 112px);
+  bottom: 34px;
+  width: 28px;
+  height: 54px;
+  border: 1px solid rgba(255, 255, 255, .46);
+  border-radius: 18px;
+  opacity: var(--benchmark-copy-opacity);
+}
+
+.china-benchmark-scroll-cue span {
+  position: absolute;
+  top: 9px;
+  left: 50%;
+  width: 3px;
+  height: 10px;
+  border-radius: 3px;
+  background: #8ef4ec;
+  transform: translateX(-50%);
+  animation: memoryHeroScrollCue 1.55s ease-in-out infinite;
+}
+
+.china-benchmark-video-toggle {
+  position: absolute;
+  z-index: 3;
+  top: 16px;
+  right: 16px;
+  display: grid;
+  place-items: center;
+  width: 40px;
+  height: 40px;
+  border: 1px solid rgba(255, 255, 255, .38);
+  border-radius: 50%;
+  background: rgba(3, 10, 20, .68);
+  color: #fff;
+  font-size: 14px;
+  backdrop-filter: blur(9px);
+  transition: background .18s, border-color .18s, color .18s, transform .18s;
+}
+
+.china-benchmark-video-toggle:hover,
+.china-benchmark-video-toggle:focus-visible {
+  border-color: #8ef4ec;
+  background: #e6fffb;
+  color: #07101a;
+  transform: scale(1.06);
+}
+
+.china-benchmark-video-story.copy-hidden .china-benchmark-video-copy,
+.china-benchmark-video-story.copy-hidden .china-benchmark-scroll-cue {
   pointer-events: none;
 }
 
@@ -11986,6 +12141,19 @@ body.sidebar-collapsed .sb-ico {
 }
 
 @media (max-width: 900px) {
+  .china-benchmark-video-copy {
+    left: 34px;
+    width: min(610px, calc(100% - 68px));
+  }
+
+  .china-benchmark-video-copy h2 {
+    font-size: 38px;
+  }
+
+  .china-benchmark-scroll-cue {
+    left: 34px;
+  }
+
   .memory-scroll-panel {
     width: min(500px, 68vw);
   }
@@ -12028,6 +12196,61 @@ body.sidebar-collapsed .sb-ico {
 }
 
 @media (max-width: 640px) {
+  .china-benchmark-video-story {
+    width: calc(100% + 28px);
+    min-width: calc(100% + 28px);
+    min-height: 168svh;
+    margin-left: -14px;
+    margin-right: -14px;
+  }
+
+  .china-benchmark-video-sticky {
+    min-height: calc(100svh - var(--topbar-h));
+  }
+
+  .china-benchmark-story-video {
+    object-position: 54% center;
+    filter: saturate(.86) contrast(1.08) brightness(.72);
+  }
+
+  .china-benchmark-video-shade {
+    background:
+      linear-gradient(90deg, rgba(2, 8, 17, .9) 0%, rgba(2, 8, 17, .62) 78%, rgba(2, 8, 17, .42) 100%),
+      linear-gradient(0deg, rgba(2, 8, 17, .8) 0%, rgba(2, 8, 17, .18) 68%, rgba(2, 8, 17, .3) 100%);
+  }
+
+  .china-benchmark-video-copy {
+    top: 48%;
+    left: 22px;
+    width: calc(100% - 44px);
+    gap: 12px;
+  }
+
+  .china-benchmark-video-copy h2 {
+    max-width: 276px;
+    font-size: 27px;
+    line-height: 1.12;
+    text-wrap: wrap;
+    word-break: keep-all;
+  }
+
+  .china-benchmark-video-copy > span {
+    max-width: 360px;
+    font-size: 13px;
+  }
+
+  .china-benchmark-scroll-cue {
+    left: 22px;
+    bottom: 24px;
+  }
+
+  .china-benchmark-video-toggle {
+    top: 12px;
+    right: 12px;
+    width: 36px;
+    height: 36px;
+  }
+
   .memory-scroll-story {
     width: calc(100% + 28px);
     margin-left: -14px;
@@ -12178,6 +12401,13 @@ body.sidebar-collapsed .sb-ico {
 }
 
 @media (prefers-reduced-motion: reduce) {
+  .china-benchmark-story-video,
+  .china-benchmark-video-copy,
+  .china-benchmark-scroll-cue span {
+    animation: none !important;
+    transition-duration: .01ms;
+  }
+
   .memory-scroll-panel,
   .memory-scroll-status b {
     transition-duration: .01ms;
