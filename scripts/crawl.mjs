@@ -33,6 +33,11 @@ const KST_DAY_FORMATTER = new Intl.DateTimeFormat("en-CA", {
 
 const BROWSER_UA =
   "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124.0.0.0 Safari/537.36";
+const FETCH_TIMEOUT_MS = 12_000;
+
+function fetchSignal() {
+  return AbortSignal.timeout(FETCH_TIMEOUT_MS);
+}
 
 const sleep = (ms) => new Promise((resolveSleep) => setTimeout(resolveSleep, ms));
 let crawlExclusionKeys = new Set();
@@ -1082,6 +1087,7 @@ function note(step, ok, msg = "") {
 
 async function fetchText(url) {
   const res = await fetch(url, {
+    signal: fetchSignal(),
     headers: {
       "User-Agent": BROWSER_UA,
       Accept: "text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8",
@@ -1260,6 +1266,7 @@ async function fetchRemotePriceHistory(row, chartState) {
   if (!url) return { status: "no-url", points: [] };
   try {
     const res = await fetch(url, {
+      signal: fetchSignal(),
       redirect: "manual",
       headers: {
         "User-Agent": BROWSER_UA,
@@ -1929,6 +1936,7 @@ async function resolveGoogleNewsUrl(link = "") {
   ]);
   const body = new URLSearchParams({ "f.req": JSON.stringify([[["Fbv4je", request]]]) }).toString();
   const response = await fetch("https://news.google.com/_/DotsSplashUi/data/batchexecute", {
+    signal: fetchSignal(),
     method: "POST",
     headers: {
       "User-Agent": BROWSER_UA,
@@ -2003,7 +2011,10 @@ async function translateKo(text) {
   if (!text) return "";
   try {
     const url = `https://translate.googleapis.com/translate_a/single?client=gtx&sl=auto&tl=ko&dt=t&q=${encodeURIComponent(text)}`;
-    const res = await fetch(url, { headers: { "User-Agent": BROWSER_UA, Accept: "application/json" } });
+    const res = await fetch(url, {
+      signal: fetchSignal(),
+      headers: { "User-Agent": BROWSER_UA, Accept: "application/json" },
+    });
     if (!res.ok) return "";
     const buf = await res.arrayBuffer();
     const json = JSON.parse(new TextDecoder("utf-8").decode(buf));
