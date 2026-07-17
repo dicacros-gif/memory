@@ -2189,12 +2189,109 @@ body.sidebar-collapsed .sb-ico {
 }
 
 .kpi {
+  --kpi-hover-accent: #2563eb;
+  position: relative;
+  isolation: isolate;
   min-height: 118px;
   display: grid;
   align-content: start;
   gap: 8px;
   border-right: 1px solid var(--line-2);
   padding: 15px;
+  transition: background .22s ease, border-color .22s ease, box-shadow .22s ease, color .22s ease;
+}
+
+.kpi:nth-child(2) { --kpi-hover-accent: #0f766e; }
+.kpi:nth-child(3) { --kpi-hover-accent: #7c3aed; }
+.kpi:nth-child(4) { --kpi-hover-accent: #be185d; }
+.kpi:nth-child(5) { --kpi-hover-accent: #b45309; }
+.kpi:nth-child(6) { --kpi-hover-accent: #047857; }
+
+.kpi::before {
+  content: "";
+  position: absolute;
+  inset: 0 0 auto;
+  z-index: -1;
+  height: 3px;
+  background: var(--kpi-hover-accent);
+  opacity: .72;
+  transition: height .22s ease, opacity .22s ease;
+}
+
+.kpi:hover,
+.kpi:focus-visible,
+.kpi:focus-within {
+  border-color: color-mix(in srgb, var(--kpi-hover-accent) 76%, #fff);
+  background:
+    radial-gradient(circle at 92% 4%, color-mix(in srgb, var(--kpi-hover-accent) 58%, transparent), transparent 38%),
+    linear-gradient(145deg, color-mix(in srgb, var(--kpi-hover-accent) 74%, #0b1324), #07101f 78%);
+  color: #fff;
+  box-shadow: inset 0 0 0 1px rgba(255, 255, 255, .08), 0 14px 30px rgba(2, 8, 23, .2);
+}
+
+.kpi:focus-visible {
+  outline: 2px solid rgba(255, 255, 255, .94);
+  outline-offset: -3px;
+}
+
+.kpi:hover::before,
+.kpi:focus-visible::before,
+.kpi:focus-within::before {
+  height: 100%;
+  opacity: .16;
+}
+
+.kpi:hover > span,
+.kpi:hover > strong,
+.kpi:hover > small,
+.kpi:hover .kpi-alt,
+.kpi:hover .source-tag,
+.kpi:focus-visible > span,
+.kpi:focus-visible > strong,
+.kpi:focus-visible > small,
+.kpi:focus-visible .kpi-alt,
+.kpi:focus-visible .source-tag,
+.kpi:focus-within > span,
+.kpi:focus-within > strong,
+.kpi:focus-within > small,
+.kpi:focus-within .kpi-alt,
+.kpi:focus-within .source-tag {
+  color: #fff;
+}
+
+.kpi:hover > small,
+.kpi:hover .kpi-alt,
+.kpi:focus-visible > small,
+.kpi:focus-visible .kpi-alt,
+.kpi:focus-within > small,
+.kpi:focus-within .kpi-alt {
+  opacity: .92;
+}
+
+.kpi:hover .fact-badge,
+.kpi:hover .claim-badge,
+.kpi:hover .source-tag,
+.kpi:hover .source-link,
+.kpi:focus-visible .fact-badge,
+.kpi:focus-visible .claim-badge,
+.kpi:focus-visible .source-tag,
+.kpi:focus-visible .source-link,
+.kpi:focus-within .fact-badge,
+.kpi:focus-within .claim-badge,
+.kpi:focus-within .source-tag,
+.kpi:focus-within .source-link {
+  border-color: rgba(255, 255, 255, .38);
+  background: rgba(255, 255, 255, .14);
+  color: #fff;
+}
+
+.kpi:hover .source-link:hover,
+.kpi:hover a.source-tag:hover,
+.kpi:focus-visible a.source-tag:focus-visible,
+.kpi:focus-within .source-link:focus-visible {
+  border-color: #fff;
+  background: #fff;
+  color: #07101f;
 }
 
 .kpi .kpi-meta {

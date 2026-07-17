@@ -3990,6 +3990,8 @@
     });
     kpis.slice(0, 6).forEach((kpi, index) => {
       const node = el("article", "kpi reveal");
+      node.tabIndex = 0;
+      node.setAttribute("aria-label", `${kpi.label} ${kpi.prefix || ""}${kpi.value}${kpi.suffix || ""}`);
       node.style.animationDelay = `${index * 35}ms`;
       const hasSourceUrl = String(kpi.sourceUrl || "").trim();
       const statusClass = hasSourceUrl ? (kpi.statusClass || kpi.status || "ok") : "fail";
