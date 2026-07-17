@@ -778,13 +778,6 @@ const BENCHMARK_SIGNAL_THEMES = [
 
 const CHINA_INFRA_SOURCE_PAGES = [
   {
-    id: "wuxi-k7-eia",
-    site: "wuxi",
-    label: "Wuxi K7 EIA",
-    url: "https://www.wnd.gov.cn/doc/2017/02/28/2386281.shtml",
-    markers: ["K7", "现有厂区", "CleanRoom", "121K", "废水", "中水回用", "MBR", "新城污水处理厂"],
-  },
-  {
     id: "wuxi-bonded-zone",
     site: "wuxi",
     label: "Wuxi bonded zone expansion",
