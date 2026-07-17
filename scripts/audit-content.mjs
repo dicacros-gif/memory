@@ -88,7 +88,7 @@ if (!Array.isArray(crawlExclusionItems)) {
 }
 const baselineText = await readFile(resolve(root, "data/baseline.json"), "utf8");
 const appText = await readFile(resolve(root, "assets/js/app.js"), "utf8");
-for (const phrase of ["기존 SKHY 전망의 약 $975B", "60~70% 배분", "MATCH Act 위원회 표결 44:0"]) {
+for (const phrase of ["기존 SKHY 전망의 약 $975B", "60~70% 배분", "MATCH Act 위원회 표결 44:0", "하원 외교위 36:8", "약 $3.0B"]) {
   if (baselineText.includes(phrase) || appText.includes(phrase)) {
     addIssue("error", phrase === "기존 SKHY 전망의 약 $975B" ? "data/baseline.json" : "assets/js/app.js", "known fact-label conflict remains", phrase);
   }

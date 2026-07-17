@@ -198,7 +198,7 @@ const CATEGORIES = [
   { id: "packaging", label: "Packaging·Photonics", queries: ["advanced packaging HBM hybrid bonding", "silicon photonics interconnect memory", "HBM TC bonder equipment supply chain", "JCET XDFOI advanced packaging HBM", "XMC Wuhan HBM packaging", "YMTC sells 39 percent XMC stake Caixin Global 68.2 29.2", "TFME advanced packaging memory", "Huawei Ascend HBM packaging China"] },
   { id: "aidemand", label: "AI Demand", queries: ["AI memory demand data center", "AI accelerator memory bandwidth", "TrendForce global memory market 2027 1.28 trillion 2026 889.3 billion Agentic AI", "TrendForce DRAM 618.7 NAND 270.6 2026 memory market"] },
   { id: "benchmark", label: "China Benchmark", queries: ["China memory benchmark CXMT YMTC", "Chinese semiconductor equipment localization memory"] },
-  { id: "china", label: "China·Geopolitics", queries: ["CXMT YMTC China memory", "China DRAM NAND export control", "CXMT revenue 2025 DRAM capacity", "YMTC Wuhan Phase 3 domestic equipment Naura AMEC", "YMTC existing Wuhan fabs 160000 200000 wpm source discrepancy", "YMTC sells XMC stake state-backed buyer Caixin Global June 2026", "BIS China memory export control VEU", "US VEU revocation SK hynix Samsung Intel China fabs annual license 2026", "MATCH Act DUV restriction cryogenic etch blanket ban removed Reuters", "HR 8170 MATCH Act House Foreign Affairs Committee 36-8 latest official action", "S.4281 MATCH Act Senate Banking Housing Urban Affairs latest official action", "CXMT IPO final offering 57.9 billion yuan July 2026", "CXMT IPO 15 percent overallotment 66.6 billion yuan", "CXMT HBM3 mass production order materials components unlikely 2026", "CXMT DDR5 yield cost per bit die size Samsung 40 percent December 2024", "CXMT yield engineer HBM TSV recruitment", "YMTC Xtacking eSSD engineer recruitment", "Huawei Ascend memory supply YMTC CXMT", "Tencent Alibaba ByteDance CXMT DRAM supply", "Tsinghua career CXMT YMTC semiconductor recruitment", "Nvidia H20 export controls China HBM memory demand The Diplomat"] },
+  { id: "china", label: "China·Geopolitics", queries: ["CXMT YMTC China memory", "China DRAM NAND export control", "CXMT revenue 2025 DRAM capacity", "YMTC Wuhan Phase 3 domestic equipment Naura AMEC", "YMTC existing Wuhan fabs 160000 200000 wpm source discrepancy", "YMTC sells XMC stake state-backed buyer Caixin Global June 2026", "XMC STAR Market review withdrawn May 2026", "BIS China memory export control VEU", "US VEU revocation SK hynix Samsung Intel China fabs annual license 2026", "MATCH Act DUV restriction cryogenic etch blanket ban removed Reuters", "HR 8170 MATCH Act House Foreign Affairs Committee latest official action", "S.4281 MATCH Act Senate Banking Housing Urban Affairs latest official action", "CXMT IPO final offering 57.9 billion yuan July 2026", "CXMT IPO 15 percent overallotment 66.6 billion yuan", "Apple seeks approval buy CXMT memory China devices Reuters", "CXMT HBM3 mass production order materials components unlikely 2026", "CXMT DDR5 yield cost per bit die size Samsung 40 percent December 2024", "CXMT yield engineer HBM TSV recruitment", "YMTC Xtacking eSSD engineer recruitment", "Huawei Ascend memory supply YMTC CXMT", "Tencent Alibaba ByteDance CXMT DRAM supply", "Tsinghua career CXMT YMTC semiconductor recruitment", "Nvidia H20 export controls China HBM memory demand The Diplomat"] },
   { id: "china_infra", label: "China Fab Infra", queries: ["SK hynix Wuxi fab water power land expansion", "SK hynix Wuxi K7 environmental impact assessment cleanroom expansion", "Wuxi high-tech bonded zone SK hynix land water electricity", "SK hynix Wuxi C2F additional cleanroom equipment installation", "BIS VEU SK hynix Wuxi fab capacity upgrade"] },
   { id: "china_talent_strategy", label: "China Talent Strategy", queries: ["SK hynix China hiring Wuxi Dalian Chongqing semiconductor", "China memory talent retention IP compliance semiconductor", "CXMT YMTC hiring yield TSV HBM engineer", "China enterprise SSD firmware FAE hiring memory", "Wuxi semiconductor EHS facility utilities hiring fab"] },
 ];
@@ -568,7 +568,7 @@ const COMPETITORS = [
     shortLabel: "Micron",
     segment: "DRAM · HBM · 미국 AI 고객",
     baseline: "미국 상장 프리미엄과 HBM 고객 다변화가 강점. 선급계약·CAPEX·HBM4 로드맵 확인.",
-    queries: ["Micron HBM AI memory DRAM guidance"],
+    queries: ["Micron HBM AI memory DRAM guidance", "Micron FY2026 capex above 25 billion SEC", "Micron strategic customer agreements 100 billion minimum revenue"],
     watchWords: ["HBM", "HBM4", "guidance", "AI", "contract", "capacity", "earnings"],
     pressureBase: 30,
   },
@@ -588,7 +588,7 @@ const COMPETITORS = [
     shortLabel: "Kioxia·SanDisk",
     segment: "NAND · 엔터프라이즈 SSD",
     baseline: "NAND 공급 조절, SSD 계약가, 일본·미국 자본 지출 동향이 하이닉스 NAND 전략에 직접 영향.",
-    queries: ["Kioxia SanDisk NAND SSD BiCS investment"],
+    queries: ["Kioxia SanDisk NAND SSD BiCS investment", "Kioxia SanDisk Yokkaichi joint venture 2034 1.165 billion", "Kioxia 10th generation BiCS Kitakami production July 2026"],
     watchWords: ["NAND", "SSD", "enterprise", "wafer", "capacity", "IPO"],
     pressureBase: 20,
   },
@@ -2856,7 +2856,7 @@ function compactArticleSummary(item = {}) {
     return "Nikkei Asia와 Reuters는 CXMT의 확정 공모 규모가 579억 위안(약 $8.5B)이라고 보도했습니다. 초기 계획액 295억 위안과 최종 공모액을 분리해 봐야 합니다.";
   }
   if (/(?:ymtc|yangtze).{0,80}(?:xmc|wuhan xinxin)|(?:xmc|wuhan xinxin).{0,80}(?:ymtc|yangtze)/.test(hay) && /(?:39%|39 percent|stake|지분|control)/.test(hay)) {
-    return "Caixin Global은 YMTC가 XMC 지분 39%를 매각해 보유율을 68.2%에서 29.2%로 낮추는 거래를 보도했습니다. 거래 종결 전까지 XMC 거버넌스 변경은 Watch로 관리합니다.";
+    return "Caixin Global은 YMTC가 XMC 지분 39%를 매각해 보유율을 68.2%에서 29.2%로 낮추는 거래를 보도했습니다. 완전한 지분 exit가 아니라 지배권 이전이며, 거래 종결과 이사회 구성이 확인될 때까지 Watch로 관리합니다.";
   }
   if (/rubin/.test(hay) && /(?:29%|29 percent)/.test(hay) && /(?:22%|22 percent)/.test(hay)) {
     return "TrendForce는 2026년 NVIDIA 고급 GPU 출하에서 Rubin 비중 전망을 29%에서 22%로 낮췄습니다. 공급사별 HBM4 배분과는 다른 제품 믹스 전망입니다.";

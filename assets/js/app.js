@@ -1587,8 +1587,8 @@
       id: "match-act",
       tag: "규제 리스크",
       title: "MATCH Act: DUV 제한 유지, 극저온 식각 전국 금지 삭제",
-      thesis: "MATCH Act는 2026년 7월 15일 기준 확정 법률이 아닙니다. H.R.8170의 최신 공식 이력은 2026년 4월 22일 하원 외교위 36:8 의결이며, S.4281은 4월 13일 Senate Banking, Housing, and Urban Affairs Committee 회부 상태입니다",
-      facts: ["Cryogenic etch blanket ban removed, Reuters 2026-04-16", "DUV restriction retained", "기존 BIS의 선단 로직·sub-18nm DRAM·128단+ NAND 통제가 남아 있어 blanket ban 삭제를 실질 규제 해제로 해석하지 않음", "H.R.8170: 2026-04-22 House Foreign Affairs Committee 36:8", "S.4281: 2026-04-13 Senate Banking, Housing, and Urban Affairs Committee referred", "전체 하원·상원 통과 및 제정은 공식 기록상 미확인"],
+      thesis: "MATCH Act는 2026년 7월 17일 기준 확정 법률이 아닙니다. H.R.8170은 2026년 4월 22일 하원 외교위원회에서 수정안 형태로 보고 명령됐고, S.4281은 4월 13일 Senate Banking, Housing, and Urban Affairs Committee 회부 상태입니다",
+      facts: ["Cryogenic etch blanket ban removed, Reuters 2026-04-16", "DUV restriction retained", "기존 BIS의 선단 로직·sub-18nm DRAM·128단+ NAND 통제가 남아 있어 blanket ban 삭제를 실질 규제 해제로 해석하지 않음", "H.R.8170: 2026-04-22 ordered reported as amended", "S.4281: 2026-04-13 Senate Banking, Housing, and Urban Affairs Committee referred", "제정 여부와 최종 규제 문구는 공식 이력으로 계속 검증"],
       risk: "법률 확정 전에는 실행 규제로 오인하면 안 됩니다. 다만 통과 시 CXMT·YMTC·SMIC 장비 교체와 우회 조달 타임라인을 늦출 수 있습니다",
       implication: "MATCH Act는 현행 규제가 아니라 정책 Watch로 두고, BIS/VEU·네덜란드·일본 동참 여부와 함께 YMTC Phase 3 이후 팹 일정에 연결합니다",
       linkedCategories: ["geopolitics", "equipment", "china"],
@@ -2067,6 +2067,7 @@
   let paletteIndex = 0;
   let typeTimer = null;
   let selectedQaQuestion = "";
+  let selectedQaCategory = "all";
   let numberOrder = [];
   let numberFolded = {};
   let draggedNumberId = null;
@@ -13576,6 +13577,7 @@
     if (!input || !toggle || !drop || !box) return;
     input.placeholder = QA_PLACEHOLDER;
     toggle.setAttribute("aria-expanded", "false");
+    toggle.setAttribute("aria-controls", "qaDrop");
 
     const openDrop = () => {
       renderQADrop(input.value);
@@ -13598,6 +13600,7 @@
     input.addEventListener("focus", openDrop);
     input.addEventListener("input", () => {
       selectedQaQuestion = "";
+      selectedQaCategory = "all";
       if (!drop.hidden) renderQADrop(input.value);
     });
     input.addEventListener("keydown", (event) => {
@@ -13608,6 +13611,11 @@
         answerQuestion(query);
         input.value = "";
         input.placeholder = QA_PLACEHOLDER;
+      }
+      if (event.key === "ArrowDown") {
+        event.preventDefault();
+        if (drop.hidden) openDrop();
+        drop.querySelector(".qa-option")?.focus();
       }
       if (event.key === "Escape") closeDrop();
     });
@@ -13653,20 +13661,57 @@
     const q = String(filter || "").trim();
     const cats = data.cats || [];
     const scored = (data.pairs || []).map((pair) => ({ pair, score: qaMatchScore(pair, q) }));
-    const pairs = q
+    const matchedPairs = q
       ? scored.filter((item) => item.score > 0).sort((a, b) => b.score - a.score).map((item) => item.pair)
       : (data.pairs || []);
+    const pairs = !q && selectedQaCategory !== "all"
+      ? matchedPairs.filter((pair) => pair.cat === selectedQaCategory)
+      : matchedPairs;
     const bestQuestion = q ? scored.sort((a, b) => b.score - a.score)[0]?.pair?.q : selectedQaQuestion;
 
     drop.innerHTML = "";
-    drop.appendChild(el("div", "qa-drop-head", `
-      <span>${escapeHTML(data.intro || "질문을 선택하거나 자연어로 입력하세요.")}</span>
-      <strong>${fmtNum(pairs.length)}개 질문</strong>
+    drop.setAttribute("role", "dialog");
+    drop.setAttribute("aria-label", "Memory Intelligence 질문 라이브러리");
+    const tools = el("div", "qa-drop-tools");
+    tools.appendChild(el("div", "qa-drop-head", `
+      <div><strong>질문 라이브러리</strong><span>${escapeHTML(data.intro || "질문을 선택하거나 자연어로 검색하세요.")}</span></div>
+      <em>${fmtNum(pairs.length)}개</em>
     `));
+    const categoryStrip = el("div", "qa-category-strip");
+    [{ id: "all", name: "전체", color: "var(--accent)" }, ...cats].forEach((cat) => {
+      const count = cat.id === "all"
+        ? matchedPairs.length
+        : matchedPairs.filter((pair) => pair.cat === cat.id).length;
+      if (!count) return;
+      const categoryButton = el("button", `qa-category-chip${selectedQaCategory === cat.id ? " active" : ""}`, `
+        <span>${escapeHTML(cat.name)}</span><em>${fmtNum(count)}</em>
+      `);
+      categoryButton.type = "button";
+      categoryButton.style.setProperty("--qa", cat.color || "var(--accent)");
+      categoryButton.setAttribute("aria-pressed", selectedQaCategory === cat.id ? "true" : "false");
+      categoryButton.addEventListener("click", () => {
+        selectedQaCategory = cat.id;
+        renderQADrop("");
+      });
+      categoryStrip.appendChild(categoryButton);
+    });
+    tools.appendChild(categoryStrip);
+    drop.appendChild(tools);
     const appendOption = (group, pair, cat) => {
       const active = pair.q === selectedQaQuestion || (q && pair.q === bestQuestion);
+      const status = pair.status || (pair.dynamic ? "Live signal" : "Evidence brief");
+      const statusTone = /confirmed|확정/i.test(status)
+        ? "confirmed"
+        : /watch|reported|보도/i.test(status)
+          ? "watch"
+          : /forecast|전망/i.test(status)
+            ? "forecast"
+            : "brief";
       const btn = el("button", `qa-option${active ? " active" : ""}`, `
-        <span class="qa-option-kicker">${escapeHTML(cat.name)} · ${escapeHTML(SECTION_LABELS[pair.nav] || "Intelligence")}</span>
+        <span class="qa-option-meta">
+          <span class="qa-option-kicker">${escapeHTML(cat.name)} · ${escapeHTML(SECTION_LABELS[pair.nav] || "Intelligence")}</span>
+          <em class="qa-option-status ${statusTone}">${escapeHTML(status)}</em>
+        </span>
         <strong>${escapeHTML(pair.q)}</strong>
         <small>${escapeHTML(qaPreview(pair.preview || pair.a))}</small>
       `);
@@ -13682,14 +13727,28 @@
         $("#qaToggle").setAttribute("aria-expanded", "false");
         answerQuestion(pair.q, pair);
       });
+      btn.addEventListener("keydown", (event) => {
+        if (!["ArrowDown", "ArrowUp"].includes(event.key)) return;
+        event.preventDefault();
+        const options = Array.from(drop.querySelectorAll(".qa-option"));
+        const index = options.indexOf(btn);
+        const next = event.key === "ArrowDown" ? index + 1 : index - 1;
+        options[(next + options.length) % options.length]?.focus();
+      });
       group.appendChild(btn);
     };
     if (q && pairs.length) {
       const group = el("div", "qa-group qa-search-results");
       group.style.setProperty("--qa", "var(--accent)");
       group.appendChild(el("div", "qa-group-title", `<span>검색 결과</span><em>관련도순</em>`));
-      pairs.forEach((pair) => appendOption(group, pair, qaCat(pair)));
+      const grid = el("div", "qa-options-grid");
+      pairs.forEach((pair) => appendOption(grid, pair, qaCat(pair)));
+      group.appendChild(grid);
       drop.appendChild(group);
+      return;
+    }
+    if (q && !pairs.length) {
+      drop.appendChild(el("div", "empty qa-empty", "일치하는 질문이 없습니다. Enter를 누르면 입력한 문장을 기준으로 가장 가까운 근거를 찾아 답변합니다."));
       return;
     }
     cats.forEach((cat) => {
@@ -13698,13 +13757,15 @@
       const group = el("div", "qa-group");
       group.style.setProperty("--qa", cat.color || "var(--accent)");
       group.appendChild(el("div", "qa-group-title", `<span>${escapeHTML(cat.name)}</span><em>${fmtNum(groupPairs.length)}</em>`));
+      const grid = el("div", "qa-options-grid");
       groupPairs.forEach((pair) => {
-        appendOption(group, pair, cat);
+        appendOption(grid, pair, cat);
       });
+      group.appendChild(grid);
       drop.appendChild(group);
     });
 
-    if (!drop.children.length) {
+    if (!drop.querySelector(".qa-group")) {
       drop.appendChild(el("div", "empty", "일치하는 질문이 없습니다. Enter를 누르면 가장 가까운 답변을 찾습니다."));
     }
   }
@@ -13745,13 +13806,22 @@
     return terms.reduce((score, term) => score + (hay.includes(term) ? Math.min(8, Math.max(2, term.length)) : 0), 0);
   }
 
+  function qaQueryTerms(query = "") {
+    const stop = new Set(["무엇인가", "무엇", "왜", "어떻게", "하나", "해야", "되나", "있나", "시장", "memory", "메모리", "대해"]);
+    return Array.from(new Set(
+      qaNormalize(query).split(" ").filter((term) => term.length > 1 && !stop.has(term)),
+    )).slice(0, 16);
+  }
+
   function qaMatchScore(pair = {}, query = "") {
     const q = qaNormalize(query);
     if (!q) return 0;
-    const terms = qaTerms(pair, query);
+    const terms = qaQueryTerms(query);
     const pairHay = `${pair.q || ""} ${pair.a || ""} ${(pair.keywords || []).join(" ")}`;
+    const pairQuestion = qaNormalize(pair.q);
     let score = qaScoreText(pairHay, terms);
-    if (qaNormalize(pair.q).includes(q)) score += 18;
+    if (pairQuestion === q) score += 1000;
+    else if (pairQuestion.includes(q) || q.includes(pairQuestion)) score += 100;
     (pair.keywords || []).forEach((keyword) => {
       const key = qaNormalize(keyword);
       if (key && q.includes(key)) score += 10;
@@ -13760,7 +13830,7 @@
   }
 
   function qaPreview(text = "") {
-    return String(text || "").replace(/\s+/g, " ").trim().slice(0, 108);
+    return String(text || "").replace(/\s+/g, " ").trim().slice(0, 96);
   }
 
   function qaCat(pair = {}) {
