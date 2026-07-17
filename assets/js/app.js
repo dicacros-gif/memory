@@ -2789,7 +2789,6 @@
     setupMediaExperience();
     setupChinaBenchmarkVideoStory();
     setupStrategyCapitalSlider();
-    setupExecutiveBacktestSlider();
     setupChinaDecisionVideo();
     setupMemoryScrollStory();
     [BASE, LIVE, REPO_CRAWL_EXCLUSIONS] = await Promise.all([
@@ -2834,6 +2833,30 @@
   }
 
   function setupExecutiveBacktestSlider() {
+    const insight = $("#executiveBacktestInsight");
+    const kicker = $("#executiveBacktestInsightKicker");
+    const title = $("#executiveBacktestInsightTitle");
+    const body = $("#executiveBacktestInsightBody");
+    const link = $("#executiveBacktestInsightLink");
+    const insights = executiveBacktestInsightPool();
+    let lastInsight = -1;
+
+    const rotateInsight = () => {
+      if (!insight || !kicker || !title || !body || !link || !insights.length) return;
+      const choices = insights.map((_, index) => index).filter((index) => index !== lastInsight);
+      const nextIndex = choices[Math.floor(Math.random() * choices.length)] ?? 0;
+      const item = insights[nextIndex];
+      lastInsight = nextIndex;
+      insight.classList.remove("is-changing");
+      void insight.offsetWidth;
+      kicker.textContent = item.kicker;
+      title.textContent = item.title;
+      body.textContent = item.body;
+      link.href = item.href;
+      link.textContent = `${item.source || "근거 원문"} ↗`;
+      insight.classList.add("is-changing");
+    };
+
     setupDynamicImageSlider({
       sliderSelector: "#executiveBacktestSlider",
       dotsSelector: "#executiveBacktestDots",
@@ -2842,7 +2865,61 @@
       nextSelector: "#executiveBacktestNext",
       toggleSelector: "#executiveBacktestToggle",
       autoDelay: 5800,
+      zoomMode: "out",
+      onSlideChange: rotateInsight,
     });
+  }
+
+  function executiveBacktestInsightPool() {
+    const chinaTerms = /cxmt|ymtc|xmc|jcet|naura|amec|china|chinese|중국|창신|양쯔|우한|wuhan/i;
+    const dynamic = rawNews()
+      .filter((item) => {
+        const href = String(item.link || item.sourceUrl || "").trim();
+        const hay = `${item.category || ""} ${item.title || ""} ${item.titleKo || ""} ${item.summary || ""}`;
+        return href && chinaTerms.test(hay);
+      })
+      .map((item) => {
+        const lines = insightLines(item);
+        return {
+          kicker: `${newsPublisherText(item) || "Authoritative source"} · ${String(item.category || "China").toUpperCase()}`,
+          title: newsTitle(item),
+          body: lines[1] || lines[0] || "중국 메모리 신호가 SKHY의 가격·고객·공급망 판단에 미치는 영향을 검토합니다.",
+          href: String(item.link || item.sourceUrl || "").trim(),
+          source: newsPublisherText(item) || "원문 보기",
+        };
+      })
+      .filter((item) => item.title && item.href);
+
+    const fallback = [
+      {
+        kicker: "DRAM share · Q1 2026",
+        title: "CXMT 8% 진입은 범용 DRAM 가격 협상력의 경보",
+        body: "Counterpoint 매출 기준 CXMT 점유율과 DDR5 Spot·Contract 전환을 함께 봐야 중국 고객의 가격 압력을 과대·과소평가하지 않습니다.",
+        href: "https://counterpointresearch.com/en/insights/global-dram-and-hbm-market-share",
+        source: "Counterpoint Research",
+      },
+      {
+        kicker: "Customer lock-in · Server DRAM",
+        title: "중국 빅테크 장기계약은 가격보다 고객 승인 확산이 핵심",
+        body: "CXMT의 텐센트 공급 계약은 계약 금액만이 아니라 Alibaba·ByteDance로 승인 범위가 확장되는지를 SKHY 중국 고객 방어의 선행 KPI로 봅니다.",
+        href: "https://finance.yahoo.com/technology/articles/exclusive-chinas-cxmt-wins-3-070237888.html",
+        source: "Reuters / Yahoo Finance",
+      },
+      {
+        kicker: "NAND · Xtacking 4.0",
+        title: "YMTC 위협은 가격과 eSSD 고객, 패키징 구조를 분리해 판단",
+        body: "Xtacking 실측치와 우한 증설, eSSD 채택이 동시에 확인될 때 NAND 가격 방어와 Solidigm 고객 전략을 함께 조정합니다.",
+        href: "https://www.techinsights.com/blog/ymtc-xtacking40-breaking-new-ground-in-3d-nand-technology",
+        source: "TechInsights",
+      },
+    ];
+
+    const unique = new Map();
+    dynamic.concat(fallback).forEach((item) => {
+      const key = item.href || item.title;
+      if (!unique.has(key)) unique.set(key, item);
+    });
+    return Array.from(unique.values()).slice(0, 12);
   }
 
   function setupChinaDecisionVideo() {
@@ -3015,6 +3092,8 @@
     nextSelector,
     toggleSelector,
     autoDelay = 6200,
+    zoomMode = "alternate",
+    onSlideChange = null,
   }) {
     const slider = $(sliderSelector);
     if (!slider || slider.dataset.ready === "1") return;
@@ -3066,11 +3145,15 @@
       const previousIndex = activeIndex;
       activeIndex = nextIndex;
       slider.dataset.transition = initial ? "fade" : nextTransition();
-      if (initial) {
-        lastZoom = "in";
-        slider.dataset.zoom = lastZoom;
+      if (zoomMode === "alternate") {
+        if (initial) {
+          lastZoom = "in";
+          slider.dataset.zoom = lastZoom;
+        } else {
+          slider.dataset.zoom = nextZoom();
+        }
       } else {
-        slider.dataset.zoom = nextZoom();
+        slider.dataset.zoom = zoomMode === "in" ? "in" : "out";
       }
       if (transitionTimer) window.clearTimeout(transitionTimer);
       slides.forEach((slide, index) => {
@@ -3096,6 +3179,7 @@
         dot.setAttribute("aria-current", active ? "true" : "false");
       });
       count.textContent = `${String(activeIndex + 1).padStart(2, "0")} / ${String(slides.length).padStart(2, "0")}`;
+      if (typeof onSlideChange === "function") onSlideChange({ activeIndex, previousIndex, initial, slider });
       if (restart) scheduleAuto();
     };
 
@@ -9857,23 +9941,38 @@
     summary.innerHTML = "";
     renderCategoryDecisionMatrix(items);
 
+    const executiveSlider = $("#executiveBacktestSlider");
+    const executiveSliderDock = $("#executiveBacktestSliderDock");
+    if (executiveSlider && executiveSliderDock && executiveSlider.parentElement !== executiveSliderDock) {
+      executiveSliderDock.appendChild(executiveSlider);
+    }
+
     grid.innerHTML = items.map((item, index) => `
-      <button class="decision-card reveal${item.id === active?.id ? " active" : ""}" type="button" data-decision-product="${escapeHTML(item.id)}" style="--local-accent:${categoryAccent(item.category)}; animation-delay:${index * 25}ms">
-        <div class="decision-card-top">
-          ${scoreRingHTML(item.confidence, "Data")}
-          <span>
-            <small>${escapeHTML(item.demand)}</small>
-            <strong>${escapeHTML(item.label)}</strong>
-            <em>${escapeHTML(item.decision.label)} · ${escapeHTML(item.outcome.label)}</em>
-          </span>
-        </div>
-        <div class="decision-card-metrics">
-          <span>당시 ${item.priorMomentum == null ? "NA" : `${fmtNum(item.priorMomentum, 2)}%`}</span>
-          <span>이후 ${item.actualChange == null ? "NA" : `${fmtNum(item.actualChange, 2)}%`}</span>
-          <span>${escapeHTML(decisionClassLabel(item))}</span>
-        </div>
-      </button>
+      <div class="decision-card-stack${item.id === "china-exposure" ? " has-executive-slider" : ""}">
+        <button class="decision-card reveal${item.id === active?.id ? " active" : ""}" type="button" data-decision-product="${escapeHTML(item.id)}" style="--local-accent:${categoryAccent(item.category)}; animation-delay:${index * 25}ms">
+          <div class="decision-card-top">
+            ${scoreRingHTML(item.confidence, "Data")}
+            <span>
+              <small>${escapeHTML(item.demand)}</small>
+              <strong>${escapeHTML(item.label)}</strong>
+              <em>${escapeHTML(item.decision.label)} · ${escapeHTML(item.outcome.label)}</em>
+            </span>
+          </div>
+          <div class="decision-card-metrics">
+            <span>당시 ${item.priorMomentum == null ? "NA" : `${fmtNum(item.priorMomentum, 2)}%`}</span>
+            <span>이후 ${item.actualChange == null ? "NA" : `${fmtNum(item.actualChange, 2)}%`}</span>
+            <span>${escapeHTML(decisionClassLabel(item))}</span>
+          </div>
+        </button>
+        ${item.id === "china-exposure" ? `<div class="decision-card-media-slot" data-executive-backtest-slot></div>` : ""}
+      </div>
     `).join("") || `<div class="empty">선택한 카테고리에 연결된 경영진 의사결정 항목이 없습니다.</div>`;
+
+    const executiveSliderSlot = grid.querySelector("[data-executive-backtest-slot]");
+    if (executiveSlider && executiveSliderSlot) {
+      executiveSliderSlot.appendChild(executiveSlider);
+      setupExecutiveBacktestSlider();
+    }
 
     if (active) {
       const payload = {
