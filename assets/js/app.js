@@ -3036,6 +3036,8 @@
     const body = $("#chinaDecisionVideoBody");
     const count = $("#chinaDecisionVideoCount");
     const toggle = $("#chinaDecisionVideoToggle");
+    const primary = document.querySelector("#strategic-investment-decision .strategic-decision-primary");
+    if (panel && primary && panel.parentElement !== primary) primary.append(panel);
     if (!panel || !video || !source || !copy || !kicker || !title || !body || !count || !toggle || panel.dataset.ready === "1") return;
     panel.dataset.ready = "1";
     video.muted = true;
