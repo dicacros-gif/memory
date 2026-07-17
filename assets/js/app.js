@@ -2198,7 +2198,45 @@
       toggle.setAttribute("title", userPaused ? "자동 전환 재생" : "자동 전환 일시정지");
       toggle.setAttribute("aria-pressed", userPaused ? "true" : "false");
     };
-    const transitionModes = ["fade", "sweep", "reveal", "depth"];
+    const transitionModes = ["fade", "sweep", "reveal", "depth", "shutter", "glide"];
+    const transitionClasses = transitionModes.map((mode) => `transition-${mode}`);
+    const captionPositions = ["left-bottom", "left-top", "right-top", "right-bottom"];
+    const zoomPresets = [
+      { startScale: 1.04, endScale: 1.34, startX: "-2%", startY: "1%", endX: "3%", endY: "-2%", focusX: "47%", focusY: "50%" },
+      { startScale: 1.06, endScale: 1.39, startX: "2%", startY: "-1%", endX: "-3%", endY: "2%", focusX: "55%", focusY: "48%" },
+      { startScale: 1.03, endScale: 1.31, startX: "0%", startY: "2%", endX: "1%", endY: "-4%", focusX: "50%", focusY: "56%" },
+      { startScale: 1.08, endScale: 1.43, startX: "-1%", startY: "-2%", endX: "3%", endY: "3%", focusX: "51%", focusY: "46%" },
+      { startScale: 1.05, endScale: 1.36, startX: "3%", startY: "1%", endX: "-3%", endY: "-2%", focusX: "58%", focusY: "52%" }
+    ];
+    let lastCaptionPosition = "";
+    let lastZoomPreset = -1;
+    const chooseDifferent = (values, previous) => {
+      const choices = values.filter((value) => value !== previous);
+      return choices[Math.floor(Math.random() * choices.length)] ?? values[0];
+    };
+    const applyDynamicLayout = (slide) => {
+      const captionPosition = chooseDifferent(captionPositions, lastCaptionPosition);
+      lastCaptionPosition = captionPosition;
+      slide.classList.remove(...captionPositions.map((position) => `caption-${position}`));
+      slide.classList.add(`caption-${captionPosition}`);
+      slide.dataset.captionPosition = captionPosition;
+
+      const presetIndexes = zoomPresets.map((_, index) => index);
+      const presetIndex = chooseDifferent(presetIndexes, lastZoomPreset);
+      const preset = zoomPresets[presetIndex];
+      lastZoomPreset = presetIndex;
+      slide.dataset.zoomPreset = String(presetIndex + 1);
+      slide.style.setProperty("--story-start-scale", String(preset.startScale));
+      slide.style.setProperty("--story-end-scale", String(preset.endScale));
+      slide.style.setProperty("--story-start-x", preset.startX);
+      slide.style.setProperty("--story-start-y", preset.startY);
+      slide.style.setProperty("--story-end-x", preset.endX);
+      slide.style.setProperty("--story-end-y", preset.endY);
+      slide.style.setProperty("--story-focus-x", preset.focusX);
+      slide.style.setProperty("--story-focus-y", preset.focusY);
+      story.dataset.captionPosition = captionPosition;
+      story.dataset.zoomPreset = String(presetIndex + 1);
+    };
     const nextTransition = () => {
       const choices = transitionModes.filter((mode) => mode !== lastTransition);
       lastTransition = choices[Math.floor(Math.random() * choices.length)] || transitionModes[0];
@@ -2211,10 +2249,11 @@
       activeIndex = normalizedIndex;
       if (transitionTimer) window.clearTimeout(transitionTimer);
       story.dataset.transition = transition;
+      applyDynamicLayout(slides[activeIndex]);
       slides.forEach((slide, index) => {
         const active = index === activeIndex;
         const leaving = index === previousIndex && previousIndex !== activeIndex;
-        slide.classList.remove("transition-fade", "transition-sweep", "transition-reveal", "transition-depth", "leaving");
+        slide.classList.remove(...transitionClasses, "leaving");
         slide.classList.toggle("active", active);
         if (active) slide.classList.add(`transition-${transition}`);
         if (leaving) slide.classList.add("leaving");
