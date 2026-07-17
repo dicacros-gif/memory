@@ -2337,6 +2337,7 @@
     animateCounts();
     animateMeters();
     setupMouseDrivenMetrics();
+    setupAgentSpeechGestures();
     setupAgentDebateBackdrops();
     setupDeferredSections();
   }
@@ -4854,18 +4855,18 @@
   });
   const AGENT_TTS_STORAGE_KEY = "memory-agent-tts";
   const AGENT_TTS_PROFILES = [
-    { match: /ceo|chief executive|최종 의사결정|우선순위/i, pitch: 0.82, rate: 0.92, volume: 1 },
-    { match: /cfo|finance|재무|수익성|자본배분/i, pitch: 0.94, rate: 0.96, volume: 0.98 },
-    { match: /cto|technology|기술|제품 로드맵/i, pitch: 1.08, rate: 0.94, volume: 0.98 },
-    { match: /cso|strategy|전략/i, pitch: 0.9, rate: 1, volume: 0.98 },
-    { match: /coo|operations|운영|공급 실행/i, pitch: 0.86, rate: 1.03, volume: 0.98 },
-    { match: /policy|규제|정책/i, pitch: 1.02, rate: 0.9, volume: 0.96 },
-    { match: /market|시장|가격|고객/i, pitch: 1.14, rate: 1.02, volume: 0.96 },
-    { match: /china|중국/i, pitch: 0.88, rate: 0.95, volume: 0.98 },
-    { match: /risk|하방|판단 변경/i, pitch: 0.76, rate: 0.89, volume: 1 },
-    { match: /devil|red team|레드팀|반론/i, pitch: 0.7, rate: 0.86, volume: 1 },
-    { match: /audit|auditor|evidence|근거 검증|팩트/i, pitch: 1, rate: 0.91, volume: 0.96 },
-    { match: /data|데이터|백테스트/i, pitch: 1.16, rate: 1.04, volume: 0.94 },
+    { id: "ceo", match: /ceo|chief executive|최종 의사결정|우선순위/i, voiceSlot: 0, pitch: 0.78, rate: 0.88, volume: 1 },
+    { id: "cfo", match: /cfo|finance|재무|수익성|자본배분/i, voiceSlot: 1, pitch: 0.94, rate: 0.92, volume: 0.98 },
+    { id: "cto", match: /cto|technology|기술|제품 로드맵/i, voiceSlot: 2, pitch: 1.12, rate: 0.93, volume: 0.98 },
+    { id: "cso", match: /cso|strategy|전략/i, voiceSlot: 3, pitch: 0.86, rate: 0.98, volume: 0.98 },
+    { id: "coo", match: /coo|operations|운영|공급 실행/i, voiceSlot: 4, pitch: 0.72, rate: 1.02, volume: 0.98 },
+    { id: "policy", match: /policy|규제|정책/i, voiceSlot: 5, pitch: 1.05, rate: 0.88, volume: 0.96 },
+    { id: "market", match: /market|시장|가격|고객/i, voiceSlot: 6, pitch: 1.18, rate: 1, volume: 0.96 },
+    { id: "china", match: /china|중국/i, voiceSlot: 7, pitch: 0.9, rate: 0.92, volume: 0.98 },
+    { id: "risk", match: /risk|하방|판단 변경/i, voiceSlot: 8, pitch: 0.68, rate: 0.85, volume: 1 },
+    { id: "devil", match: /devil|red team|레드팀|반론/i, voiceSlot: 9, pitch: 0.76, rate: 0.82, volume: 1 },
+    { id: "auditor", match: /audit|auditor|evidence|근거 검증|팩트/i, voiceSlot: 10, pitch: 1, rate: 0.89, volume: 0.96 },
+    { id: "data", match: /data|데이터|백테스트/i, voiceSlot: 11, pitch: 1.2, rate: 1.02, volume: 0.94 },
   ];
   let agentTtsEnabled = (() => {
     try {
@@ -4894,8 +4895,8 @@
       || AGENT_TTS_PROFILES[index % AGENT_TTS_PROFILES.length];
     const voices = agentVoices.length ? agentVoices : refreshAgentVoices();
     const korean = voices.filter((voice) => /^ko(?:-|$)/i.test(voice.lang || ""));
-    const pool = korean.length ? korean : voices;
-    const voice = pool.length ? pool[index % pool.length] : null;
+    const pool = (korean.length ? korean : voices).slice().sort((a, b) => String(a.name).localeCompare(String(b.name)));
+    const voice = pool.length ? pool[profile.voiceSlot % pool.length] : null;
     return { ...profile, voice };
   }
 
@@ -4926,6 +4927,34 @@
     document.querySelectorAll(".agent-turn.tts-speaking").forEach((node) => node.classList.remove("tts-speaking"));
   }
 
+  function prepareAgentSpeechFromGesture() {
+    if (!agentTtsEnabled || !agentSpeechSupported()) return;
+    stopAgentSpeech();
+    refreshAgentVoices();
+    window.speechSynthesis.resume?.();
+    try {
+      // A silent utterance inside the click gesture unlocks delayed speech on
+      // browsers that otherwise block TTS after the roster animation finishes.
+      const primer = new SpeechSynthesisUtterance(" ");
+      primer.lang = "ko-KR";
+      primer.volume = 0;
+      window.speechSynthesis.speak(primer);
+    } catch {
+      // The visible debate still runs when speech synthesis is unavailable.
+    }
+  }
+
+  function setupAgentSpeechGestures() {
+    if (document.body.dataset.agentSpeechGestures === "1") return;
+    document.body.dataset.agentSpeechGestures = "1";
+    document.addEventListener("click", (event) => {
+      const trigger = event.target instanceof Element
+        ? event.target.closest("#cLevelRunCouncil, #execDecisionRunCouncil, #ceoChallengeRun")
+        : null;
+      if (trigger && !trigger.hasAttribute("disabled")) prepareAgentSpeechFromGesture();
+    }, true);
+  }
+
   function syncAgentTtsButtons() {
     document.querySelectorAll("[data-agent-tts-toggle]").forEach((button) => {
       const supported = agentSpeechSupported();
@@ -4952,17 +4981,17 @@
     button.className = "agent-tts-toggle";
     button.dataset.agentTtsToggle = "";
     button.innerHTML = '<b aria-hidden="true">TTS</b><small></small>';
-    button.addEventListener("click", () => {
-      agentTtsEnabled = !agentTtsEnabled;
+      button.addEventListener("click", () => {
+        agentTtsEnabled = !agentTtsEnabled;
       try {
         window.localStorage.setItem(AGENT_TTS_STORAGE_KEY, agentTtsEnabled ? "on" : "off");
       } catch {
         // Local storage is optional; the control still works for this session.
       }
-      if (!agentTtsEnabled) stopAgentSpeech();
-      else refreshAgentVoices();
-      syncAgentTtsButtons();
-    });
+        if (!agentTtsEnabled) stopAgentSpeech();
+        else prepareAgentSpeechFromGesture();
+        syncAgentTtsButtons();
+      });
     heading.appendChild(button);
     syncAgentTtsButtons();
   }
@@ -4991,10 +5020,19 @@
         settled = true;
         window.clearTimeout(timeout);
         turn.classList.remove("tts-speaking");
-        if (activeAgentSpeech?.utterance === utterance) activeAgentSpeech = null;
+        if (activeAgentSpeech?.utterance === utterance) {
+          activeAgentSpeech = null;
+          syncAgentTtsButtons();
+        }
         resolve();
       };
-      utterance.onstart = () => turn.classList.add("tts-speaking");
+      utterance.onstart = () => {
+        turn.classList.add("tts-speaking");
+        turn.dataset.ttsVoice = profile.id;
+        document.querySelectorAll("[data-agent-tts-toggle] small").forEach((state) => {
+          state.textContent = `${name || role || "Agent"} 발언`;
+        });
+      };
       utterance.onend = finish;
       utterance.onerror = finish;
       activeAgentSpeech = { utterance, finish };
@@ -5248,11 +5286,14 @@
         completeTurn();
       });
       if (!voiced) {
-        speakAgentTurn(turn, i).finally(() => {
+        schedule(() => {
           if (!alive()) return;
-          voiced = true;
-          completeTurn();
-        });
+          speakAgentTurn(turn, i).finally(() => {
+            if (!alive()) return;
+            voiced = true;
+            completeTurn();
+          });
+        }, AGENT_DEBATE_TIMING.speakerLeadMs);
       }
     };
 

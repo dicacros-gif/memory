@@ -11350,9 +11350,30 @@ body.sidebar-collapsed .sb-ico {
   animation: agentVoicePulse 1.1s ease-in-out infinite;
 }
 
+.agent-turn.tts-speaking .speech-meta::after {
+  content: "VOICE";
+  display: inline-flex;
+  align-items: center;
+  min-height: 18px;
+  margin-left: auto;
+  padding: 2px 6px;
+  border-radius: 4px;
+  background: var(--agent-color);
+  color: #fff;
+  font-size: 8px;
+  font-weight: 950;
+  letter-spacing: 0;
+  animation: agentVoiceLabel .72s ease-in-out infinite alternate;
+}
+
 @keyframes agentVoicePulse {
   0%, 100% { transform: scale(1); box-shadow: 0 0 0 0 color-mix(in srgb, var(--agent-color) 35%, transparent); }
   50% { transform: scale(1.08); box-shadow: 0 0 0 7px color-mix(in srgb, var(--agent-color) 0%, transparent); }
+}
+
+@keyframes agentVoiceLabel {
+  from { opacity: .62; transform: translateY(1px); }
+  to { opacity: 1; transform: translateY(-1px); }
 }
 
 /* accent keyword */
