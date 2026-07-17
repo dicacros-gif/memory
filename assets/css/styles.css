@@ -1127,6 +1127,21 @@ body.sidebar-collapsed .sb-ico {
   scroll-margin-top: calc(var(--topbar-h) + 18px);
 }
 
+.deferred-section {
+  content-visibility: auto;
+  contain-intrinsic-size: auto 720px;
+}
+
+.deferred-section[data-deferred-state="waiting"],
+.deferred-section[data-deferred-state="loading"] {
+  min-height: clamp(420px, 64vh, 720px);
+}
+
+.deferred-section[data-deferred-state="ready"],
+.deferred-section[data-deferred-state="error"] {
+  min-height: 0;
+}
+
 .page-status-footer {
   order: 99;
   display: flex;

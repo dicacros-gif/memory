@@ -2065,7 +2065,7 @@
 
   async function loadJSON(path, fallback) {
     try {
-      const res = await fetch(path, { cache: "no-store" });
+      const res = await fetch(path, { cache: "no-cache" });
       if (!res.ok) throw new Error(`${path} ${res.status}`);
       return await res.json();
     } catch (error) {
@@ -2314,11 +2314,9 @@
   async function init() {
     setupMediaExperience();
     setupMemoryScrollStory();
-    [BASE, LIVE, HISTORY, MARKET_HISTORY] = await Promise.all([
+    [BASE, LIVE] = await Promise.all([
       loadJSON("data/baseline.json", null),
       loadJSON("data/live.json", emptyLive),
-      loadJSON("data/price-history.json", emptyHistory),
-      loadJSON("data/market-history.json", emptyMarketHistory),
     ]);
     LIVE = normalizeLiveData(LIVE);
 
@@ -2332,36 +2330,118 @@
     renderSidebarNav();
     renderSidebarCategories();
     renderKpis();
-    renderCLevelCockpit();
-    renderExecutiveDecision();
-    renderManagementStrategy();
-    renderStrategicInvestmentDecision();
-    renderPolicyMakers();
-    renderChinaFabInfra();
-    renderChinaTalentStrategy();
-    renderNumberAnalysis();
-    renderProductProjection();
-    renderHyperscalerDemand();
-    renderCategories();
-    renderResponses();
-    renderArchitectureMatrix();
-    renderPrices();
-    renderNews();
-    renderChinaCommunity();
-    renderChinaNandBusiness();
-    renderChinaDynamics();
-    renderTalentRadar();
-    renderChinaDeepDive();
-    renderMemoryMarketMap();
-    renderWorkbench();
     setupQA();
     setupInteractions();
     setupScrollSpy();
-    normalizeBriefCopy(document.body);
+    normalizeBriefCopy($("#overview-content") || document.body);
     animateCounts();
     animateMeters();
     setupMouseDrivenMetrics();
     setupAgentDebateBackdrops();
+    setupDeferredSections();
+  }
+
+  let secondaryDataPromise = null;
+  const deferredSectionRuns = new Map();
+  const deferredRenderedSections = new Set(["overview", "overview-content"]);
+
+  function deferredSectionDefinitions() {
+    return [
+      { id: "c-level-cockpit", render: renderCLevelCockpit },
+      { id: "executive-decision", render: renderExecutiveDecision, history: true },
+      { id: "management-strategy", render: renderManagementStrategy },
+      { id: "strategic-investment-decision", render: renderStrategicInvestmentDecision },
+      { id: "policy-makers", render: renderPolicyMakers },
+      { id: "china-fab-infra", render: renderChinaFabInfra },
+      { id: "china-talent-strategy", render: renderChinaTalentStrategy },
+      { id: "prices", render: renderPrices, history: true },
+      { id: "news", render: renderNews },
+      { id: "china-community", render: renderChinaCommunity },
+      { id: "china-nand", render: renderChinaNandBusiness },
+      { id: "china-dynamics", render: renderChinaDynamics },
+      { id: "talent-radar", render: renderTalentRadar },
+      { id: "numbers", render: renderNumberAnalysis },
+      { id: "projection", render: renderProductProjection, history: true },
+      { id: "hyperscaler-demand", render: renderHyperscalerDemand },
+      { id: "workbench", render: renderWorkbench },
+      { id: "memory-market-map", render: renderMemoryMarketMap },
+      { id: "ai-matrix", render: renderArchitectureMatrix },
+      { id: "china-deep-dive", render: renderChinaDeepDive },
+    ];
+  }
+
+  function loadSecondaryData() {
+    if (!secondaryDataPromise) {
+      secondaryDataPromise = Promise.all([
+        loadJSON("data/price-history.json", emptyHistory),
+        loadJSON("data/market-history.json", emptyMarketHistory),
+      ]).then(([history, marketHistory]) => {
+        HISTORY = history || emptyHistory;
+        MARKET_HISTORY = marketHistory || emptyMarketHistory;
+      });
+    }
+    return secondaryDataPromise;
+  }
+
+  function deferredDefinition(id) {
+    return deferredSectionDefinitions().find((item) => item.id === id) || null;
+  }
+
+  function ensureDeferredSection(id) {
+    const definition = deferredDefinition(id);
+    if (!definition || deferredRenderedSections.has(id)) return Promise.resolve();
+    if (deferredSectionRuns.has(id)) return deferredSectionRuns.get(id);
+    const section = document.getElementById(id);
+    if (!section) return Promise.resolve();
+
+    const run = (async () => {
+      section.dataset.deferredState = "loading";
+      section.setAttribute("aria-busy", "true");
+      if (definition.history) await loadSecondaryData();
+      definition.render();
+      deferredRenderedSections.add(id);
+      section.dataset.deferredState = "ready";
+      section.removeAttribute("aria-busy");
+      normalizeBriefCopy(section);
+      animateCounts(section);
+      animateMeters(section);
+    })().catch((error) => {
+      section.dataset.deferredState = "error";
+      section.removeAttribute("aria-busy");
+      console.warn(`Deferred section failed: ${id}`, error);
+    });
+    deferredSectionRuns.set(id, run);
+    return run;
+  }
+
+  function setupDeferredSections() {
+    const definitions = deferredSectionDefinitions();
+    const sections = definitions
+      .map((definition) => document.getElementById(definition.id))
+      .filter(Boolean);
+    sections.forEach((section) => {
+      section.classList.add("deferred-section");
+      section.dataset.deferredState = "waiting";
+      section.setAttribute("aria-busy", "true");
+    });
+
+    if (!("IntersectionObserver" in window)) {
+      definitions.reduce(
+        (chain, definition) => chain.then(() => ensureDeferredSection(definition.id)),
+        Promise.resolve()
+      );
+      return;
+    }
+
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach((entry) => {
+        if (!entry.isIntersecting) return;
+        observer.unobserve(entry.target);
+        ensureDeferredSection(entry.target.id);
+      });
+    }, { rootMargin: "900px 0px", threshold: 0.01 });
+    sections.forEach((section) => observer.observe(section));
+    window.addEventListener("pagehide", () => observer.disconnect(), { once: true });
   }
 
   /* ---------------- Hyperscaler memory demand · scenario planning ---------------- */
@@ -3448,21 +3528,22 @@
 
   function categoryRenderSteps() {
     return [
-      renderExecutiveSummary,
-      renderCLevelCockpit,
-      renderCategories,
-      renderExecutiveDecision,
-      renderNumberAnalysis,
-      renderProductProjection,
-      renderNews,
-      renderChinaCommunity,
-      renderArchitectureMatrix,
-      renderMemoryMarketMap,
-      renderChinaDeepDive,
-      renderTalentRadar,
-      renderChinaNandBusiness,
-      renderWorkbench,
-    ];
+      { id: "overview-content", render: renderExecutiveSummary, always: true },
+      { id: "c-level-cockpit", render: renderCLevelCockpit },
+      { id: "executive-decision", render: renderExecutiveDecision },
+      { id: "numbers", render: renderNumberAnalysis },
+      { id: "projection", render: renderProductProjection },
+      { id: "news", render: renderNews },
+      { id: "china-community", render: renderChinaCommunity },
+      { id: "ai-matrix", render: renderArchitectureMatrix },
+      { id: "memory-market-map", render: renderMemoryMarketMap },
+      { id: "china-deep-dive", render: renderChinaDeepDive },
+      { id: "talent-radar", render: renderTalentRadar },
+      { id: "china-nand", render: renderChinaNandBusiness },
+      { id: "workbench", render: renderWorkbench },
+    ]
+      .filter((item) => item.always || deferredRenderedSections.has(item.id))
+      .map((item) => item.render);
   }
 
   function finishCategoryRender(token) {
@@ -4936,36 +5017,69 @@
     poster: "assets/media/agent-council-poster.webp",
   });
 
+  let agentVideoVisibilityObserver = null;
+
+  function hydrateAgentDebateVideo(container) {
+    const video = container?.querySelector(":scope > .agent-debate-video");
+    if (!video) return;
+    if (video.dataset.hydrated !== "1") {
+      const source = document.createElement("source");
+      source.src = AGENT_DEBATE_VIDEO.src;
+      source.type = "video/mp4";
+      video.appendChild(source);
+      video.dataset.hydrated = "1";
+      video.load();
+    }
+    video.play().catch(() => {});
+  }
+
+  function observeAgentDebateVideo(container) {
+    if (!container) return;
+    if (agentVideoVisibilityObserver) {
+      agentVideoVisibilityObserver.observe(container);
+      return;
+    }
+    hydrateAgentDebateVideo(container);
+  }
+
   function ensureAgentDebateBackdrop(root = document) {
     const base = root instanceof Element || root === document ? root : document;
     const debates = [];
     if (base instanceof Element && base.matches(".agent-debate")) debates.push(base);
     debates.push(...base.querySelectorAll(".agent-debate"));
     debates.forEach((container) => {
-      if (container.querySelector(":scope > .agent-debate-video")) return;
+      if (container.querySelector(":scope > .agent-debate-video")) {
+        observeAgentDebateVideo(container);
+        return;
+      }
       const video = document.createElement("video");
       video.className = "agent-debate-video";
       video.autoplay = true;
       video.muted = true;
       video.loop = true;
       video.playsInline = true;
-      video.preload = "metadata";
+      video.preload = "none";
       video.poster = AGENT_DEBATE_VIDEO.poster;
       video.setAttribute("aria-hidden", "true");
-      const source = document.createElement("source");
-      source.src = AGENT_DEBATE_VIDEO.src;
-      source.type = "video/mp4";
-      video.appendChild(source);
       container.prepend(video);
       container.classList.add("agent-debate-has-video");
-      video.play().catch(() => {});
+      observeAgentDebateVideo(container);
     });
   }
 
   function setupAgentDebateBackdrops() {
-    ensureAgentDebateBackdrop(document);
     if (document.body.dataset.agentVideoObserver === "1") return;
     document.body.dataset.agentVideoObserver = "1";
+    if ("IntersectionObserver" in window) {
+      agentVideoVisibilityObserver = new IntersectionObserver((entries) => {
+        entries.forEach((entry) => {
+          const video = entry.target.querySelector(":scope > .agent-debate-video");
+          if (entry.isIntersecting) hydrateAgentDebateVideo(entry.target);
+          else video?.pause();
+        });
+      }, { rootMargin: "280px 0px", threshold: 0.01 });
+    }
+    ensureAgentDebateBackdrop(document);
     const observer = new MutationObserver((mutations) => {
       mutations.forEach((mutation) => {
         mutation.addedNodes.forEach((node) => {
@@ -4977,7 +5091,10 @@
       });
     });
     observer.observe(document.body, { childList: true, subtree: true });
-    window.addEventListener("pagehide", () => observer.disconnect(), { once: true });
+    window.addEventListener("pagehide", () => {
+      observer.disconnect();
+      agentVideoVisibilityObserver?.disconnect();
+    }, { once: true });
   }
 
   // C-level entry point (kept for compatibility): find the chat in scope and drive it.
@@ -11731,6 +11848,7 @@
   function jumpTo(id) {
     const target = document.getElementById(id);
     if (!target) return;
+    void ensureDeferredSection(id);
     document.body.classList.remove("menu-open");
     const y = Math.max(0, target.getBoundingClientRect().top + window.scrollY - chromeOffset());
     window.scrollTo({ top: y, behavior: "smooth" });
