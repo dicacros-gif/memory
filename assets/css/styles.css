@@ -1211,45 +1211,69 @@ body.sidebar-collapsed .sb-ico {
 }
 
 .memory-video-hero {
+  --hero-copy-shift: 0px;
+  --hero-copy-opacity: 1;
   position: relative;
   isolation: isolate;
-  min-height: 410px;
-  overflow: hidden;
-  border: 1px solid rgba(148, 163, 184, .26);
-  border-radius: 8px;
+  display: grid;
+  width: calc(100% + 48px);
+  min-width: calc(100% + 48px);
+  max-width: none;
+  justify-self: start;
+  min-height: 168svh;
+  margin-top: -20px;
+  margin-left: -24px;
+  margin-right: -24px;
+  overflow: clip;
+  border: 0;
+  border-radius: 0;
   background: #07101a;
   color: #fff;
 }
 
 .memory-hero-video,
 .memory-hero-shade {
-  position: absolute;
-  inset: 0;
+  position: sticky;
+  top: var(--topbar-h);
+  grid-area: 1 / 1;
+  align-self: start;
   width: 100%;
-  height: 100%;
+  height: calc(100svh - var(--topbar-h));
 }
 
 .memory-hero-video {
-  z-index: -3;
+  z-index: 0;
   object-fit: cover;
   object-position: center center;
   filter: saturate(.92) contrast(1.04);
 }
 
 .memory-hero-shade {
-  z-index: -2;
+  z-index: 1;
   background:
     linear-gradient(90deg, rgba(2, 8, 17, .96) 0%, rgba(2, 8, 17, .86) 31%, rgba(2, 8, 17, .48) 58%, rgba(2, 8, 17, .18) 100%),
     linear-gradient(0deg, rgba(2, 8, 17, .66) 0%, transparent 48%);
 }
 
 .memory-hero-content {
-  min-height: 410px;
-  max-width: 650px;
+  position: relative;
+  z-index: 2;
+  grid-area: 1 / 1;
+  min-height: 168svh;
+  width: 100%;
   display: grid;
-  align-content: center;
+  align-content: start;
   gap: 13px;
-  padding: 44px 48px;
+  padding: clamp(120px, 25svh, 240px) clamp(48px, 7vw, 104px) 44svh;
+  opacity: var(--hero-copy-opacity);
+  transform: translate3d(0, var(--hero-copy-shift), 0);
+  transform-origin: left center;
+  transition: opacity .12s linear;
+  will-change: transform, opacity;
+}
+
+.memory-hero-content > * {
+  max-width: 650px;
 }
 
 .memory-hero-kicker {
@@ -1311,6 +1335,33 @@ body.sidebar-collapsed .sb-ico {
   transform: translateY(-2px);
 }
 
+.memory-hero-scroll-cue {
+  position: relative;
+  width: 28px;
+  height: 54px;
+  margin-top: clamp(30px, 7svh, 72px);
+  border: 1px solid rgba(255, 255, 255, .42);
+  border-radius: 18px;
+}
+
+.memory-hero-scroll-cue span {
+  position: absolute;
+  top: 9px;
+  left: 50%;
+  width: 3px;
+  height: 10px;
+  border-radius: 3px;
+  background: #8ef4ec;
+  transform: translateX(-50%);
+  animation: memoryHeroScrollCue 1.55s ease-in-out infinite;
+}
+
+@keyframes memoryHeroScrollCue {
+  0% { opacity: 0; transform: translate(-50%, 0); }
+  35% { opacity: 1; }
+  100% { opacity: 0; transform: translate(-50%, 24px); }
+}
+
 .memory-hero-toggle,
 .memory-story-arrow,
 .memory-story-toggle {
@@ -1325,13 +1376,20 @@ body.sidebar-collapsed .sb-ico {
 }
 
 .memory-hero-toggle {
-  position: absolute;
-  top: 16px;
-  right: 16px;
+  position: sticky;
+  top: calc(var(--topbar-h) + 16px);
+  z-index: 3;
+  grid-area: 1 / 1;
+  align-self: start;
+  justify-self: end;
   width: 40px;
   height: 40px;
+  margin: 16px;
   font-size: 14px;
-  z-index: 3;
+}
+
+.memory-video-hero.hero-copy-hidden .memory-hero-content {
+  pointer-events: none;
 }
 
 .memory-hero-toggle:hover,
@@ -11642,12 +11700,11 @@ body.sidebar-collapsed .sb-ico {
 
   .memory-video-hero,
   .memory-hero-content {
-    min-height: 370px;
+    min-height: 160svh;
   }
 
   .memory-hero-content {
-    max-width: 590px;
-    padding: 38px 34px;
+    padding: clamp(112px, 23svh, 190px) 34px 40svh;
   }
 
   .memory-video-hero h2 {
@@ -11729,7 +11786,14 @@ body.sidebar-collapsed .sb-ico {
 
   .memory-video-hero,
   .memory-hero-content {
-    min-height: 390px;
+    min-height: 156svh;
+  }
+
+  .memory-video-hero {
+    width: calc(100% + 28px);
+    min-width: calc(100% + 28px);
+    margin-left: -14px;
+    margin-right: -14px;
   }
 
   .memory-hero-video {
@@ -11743,8 +11807,8 @@ body.sidebar-collapsed .sb-ico {
   }
 
   .memory-hero-content {
-    align-content: end;
-    padding: 68px 22px 30px;
+    align-content: start;
+    padding: clamp(104px, 20svh, 170px) 22px 38svh;
   }
 
   .memory-video-hero h2 {
@@ -11764,10 +11828,10 @@ body.sidebar-collapsed .sb-ico {
   }
 
   .memory-hero-toggle {
-    top: 12px;
-    right: 12px;
+    top: calc(var(--topbar-h) + 12px);
     width: 36px;
     height: 36px;
+    margin: 12px;
   }
 
   .memory-visual-story,

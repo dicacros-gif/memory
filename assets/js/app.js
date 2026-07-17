@@ -2088,8 +2088,10 @@
       };
       videoToggle.addEventListener("click", async () => {
         if (video.paused) {
+          video.dataset.userPaused = "0";
           try { await video.play(); } catch { /* The play control remains available. */ }
         } else {
+          video.dataset.userPaused = "1";
           video.pause();
         }
         syncVideoControl();
@@ -2105,6 +2107,57 @@
       button.dataset.ready = "1";
       button.addEventListener("click", () => jumpTo(button.dataset.heroJump));
     });
+
+    const hero = $("#overview");
+    if (hero && hero.dataset.scrollMotion !== "1") {
+      hero.dataset.scrollMotion = "1";
+      const reducedMotion = window.matchMedia?.("(prefers-reduced-motion: reduce)")?.matches;
+      let frame = 0;
+      const syncHeroScroll = () => {
+        frame = 0;
+        const topbar = Number.parseFloat(getComputedStyle(document.documentElement).getPropertyValue("--topbar-h")) || 64;
+        const viewportHeight = Math.max(1, window.innerHeight - topbar);
+        const travel = Math.max(1, hero.offsetHeight - viewportHeight);
+        const rect = hero.getBoundingClientRect();
+        const progress = clamp((topbar - rect.top) / travel, 0, 1);
+        const opacity = reducedMotion ? 1 : clamp(1 - progress * 1.25, 0, 1);
+        const shift = reducedMotion ? 0 : -Math.round(progress * Math.min(180, viewportHeight * 0.22));
+        hero.style.setProperty("--hero-progress", progress.toFixed(4));
+        hero.style.setProperty("--hero-copy-opacity", opacity.toFixed(3));
+        hero.style.setProperty("--hero-copy-shift", `${shift}px`);
+        hero.classList.toggle("hero-copy-hidden", opacity < 0.08);
+      };
+      const scheduleHeroScroll = () => {
+        if (frame) return;
+        frame = window.requestAnimationFrame(syncHeroScroll);
+      };
+      window.addEventListener("scroll", scheduleHeroScroll, { passive: true });
+      window.addEventListener("resize", scheduleHeroScroll, { passive: true });
+      const heroResizeObserver = "ResizeObserver" in window ? new ResizeObserver(scheduleHeroScroll) : null;
+      heroResizeObserver?.observe(hero);
+      syncHeroScroll();
+
+      if (video && "IntersectionObserver" in window) {
+        const heroVideoObserver = new IntersectionObserver((entries) => {
+          entries.forEach((entry) => {
+            if (entry.isIntersecting) {
+              if (video.dataset.userPaused !== "1") video.play().catch(() => {});
+            } else {
+              video.pause();
+            }
+          });
+        }, { threshold: 0.02 });
+        heroVideoObserver.observe(hero);
+        window.addEventListener("pagehide", () => heroVideoObserver.disconnect(), { once: true });
+      }
+
+      window.addEventListener("pagehide", () => {
+        if (frame) window.cancelAnimationFrame(frame);
+        window.removeEventListener("scroll", scheduleHeroScroll);
+        window.removeEventListener("resize", scheduleHeroScroll);
+        heroResizeObserver?.disconnect();
+      }, { once: true });
+    }
 
     const story = $("#memory-visual-story");
     const track = $("#memoryStoryTrack");
