@@ -14449,13 +14449,11 @@
   function priceObservationText(trend = {}) {
     const period = activePricePeriod();
     const points = Number(trend.pointCount || 0);
-    const days = Number(trend.coverageDays || 0);
     const basis = priceTrendEndEntry() || activePriceDateEntry();
     const basisTime = Number(basis?.time || trend.endTime || 0);
-    const basisLabel = basisTime ? shortKstDate(basisTime) : "수집 전";
     if (points <= 0) {
       return {
-        main: `기준일 ${basisLabel}`,
+        main: "수집 전",
         sub: `${period.label} · 실제 이력 없음`,
       };
     }
@@ -14468,8 +14466,8 @@
       : 0;
     const lag = lagDays > 1 ? ` · ${fmtNum(lagDays)}일 지연` : "";
     return {
-      main: `기준일 ${basisLabel}`,
-      sub: `${period.label} · 실제 이력 ${fmtNum(points)}개${range}${lag}`,
+      main: `관측 ${fmtNum(points)}회`,
+      sub: `${period.label}${range}${lag}`,
     };
   }
 
@@ -14878,9 +14876,6 @@
     const groups = categoryFilters
       .map((filter) => ({ ...filter, rows: rows.filter((row) => row.priceCategoryId === filter.id) }))
       .filter((group) => group.rows.length > 0);
-    const basis = priceTrendEndEntry() || activePriceDateEntry();
-    const basisLabel = basis?.time ? shortKstDate(basis.time) : "수집 전";
-
     groups.forEach((group, groupIndex) => {
       if (groupIndex) {
         tbody.appendChild(el("tr", "price-group-spacer", '<td colspan="7" aria-hidden="true"></td>'));
@@ -14905,7 +14900,6 @@
             <span>Spot ${escapeHTML(fmtNum(spot))}</span>
             <span>Contract ${escapeHTML(fmtNum(contract))}</span>
             <span>실제 이력 최대 ${escapeHTML(fmtNum(maxPoints))}개</span>
-            <strong>기준일 ${escapeHTML(basisLabel)}</strong>
           </div>
           <div class="price-category-chart">
             <span>카테고리 추세</span>

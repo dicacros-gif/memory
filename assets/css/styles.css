@@ -10325,10 +10325,11 @@ body.sidebar-collapsed .sb-ico {
   box-shadow: 0 22px 46px color-mix(in srgb, var(--local-accent, var(--accent)) 24%, transparent);
 }
 
-.china-dyn-card:hover :is(h3, p, .dyn-level, strong, span, small),
-.china-dyn-card:focus-visible :is(h3, p, .dyn-level, strong, span, small),
-.china-dyn-card:focus-within :is(h3, p, .dyn-level, strong, span, small) {
+.china-dyn-card:hover :is(h3, p, .dyn-level, strong, small, .dyn-feed span, .dyn-feed a, .dyn-feed em),
+.china-dyn-card:focus-visible :is(h3, p, .dyn-level, strong, small, .dyn-feed span, .dyn-feed a, .dyn-feed em),
+.china-dyn-card:focus-within :is(h3, p, .dyn-level, strong, small, .dyn-feed span, .dyn-feed a, .dyn-feed em) {
   color: #fff;
+  text-shadow: 0 1px 2px rgba(0, 0, 0, .42);
 }
 
 .china-dyn-card:hover .dyn-level,
@@ -10336,6 +10337,42 @@ body.sidebar-collapsed .sb-ico {
 .china-dyn-card:focus-within .dyn-level {
   border: 1px solid rgba(255, 255, 255, .28);
   background: rgba(255, 255, 255, .14);
+}
+
+.china-dyn-card:hover :is(.chip, .tag),
+.china-dyn-card:focus-visible :is(.chip, .tag),
+.china-dyn-card:focus-within :is(.chip, .tag) {
+  border-color: rgba(255, 255, 255, .34);
+  background: rgba(3, 12, 24, .42);
+  color: #fff;
+  text-shadow: none;
+}
+
+.china-dyn-card:hover .dyn-feed li,
+.china-dyn-card:focus-visible .dyn-feed li,
+.china-dyn-card:focus-within .dyn-feed li {
+  border-color: rgba(255, 255, 255, .24);
+}
+
+.china-dyn-card:hover .dyn-feed span,
+.china-dyn-card:focus-visible .dyn-feed span,
+.china-dyn-card:focus-within .dyn-feed span {
+  color: #bfdbfe;
+}
+
+.china-dyn-card:hover .dyn-feed a,
+.china-dyn-card:focus-visible .dyn-feed a,
+.china-dyn-card:focus-within .dyn-feed a {
+  color: #fff;
+  text-decoration: underline;
+  text-decoration-color: rgba(255, 255, 255, .42);
+  text-underline-offset: 3px;
+}
+
+.china-dyn-card:hover .dyn-feed a:hover,
+.china-dyn-card:focus-within .dyn-feed a:hover {
+  color: #fef08a;
+  text-decoration-color: currentColor;
 }
 
 .dyn-card-head {
