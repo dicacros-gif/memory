@@ -2119,6 +2119,8 @@
 
     let activeIndex = 0;
     let autoTimer = 0;
+    let transitionTimer = 0;
+    let lastTransition = "";
     let userPaused = false;
     let pointerInside = false;
     let focusInside = false;
@@ -2143,16 +2145,33 @@
       toggle.setAttribute("title", userPaused ? "자동 전환 재생" : "자동 전환 일시정지");
       toggle.setAttribute("aria-pressed", userPaused ? "true" : "false");
     };
+    const transitionModes = ["fade", "sweep", "reveal", "depth"];
+    const nextTransition = () => {
+      const choices = transitionModes.filter((mode) => mode !== lastTransition);
+      lastTransition = choices[Math.floor(Math.random() * choices.length)] || transitionModes[0];
+      return lastTransition;
+    };
     const showSlide = (nextIndex, { restart = true } = {}) => {
-      activeIndex = (Number(nextIndex) + slides.length) % slides.length;
-      track.style.transform = `translate3d(-${activeIndex * 100}%, 0, 0)`;
+      const previousIndex = activeIndex;
+      const normalizedIndex = (Number(nextIndex) + slides.length) % slides.length;
+      const transition = nextTransition();
+      activeIndex = normalizedIndex;
+      if (transitionTimer) window.clearTimeout(transitionTimer);
+      story.dataset.transition = transition;
       slides.forEach((slide, index) => {
         const active = index === activeIndex;
+        const leaving = index === previousIndex && previousIndex !== activeIndex;
+        slide.classList.remove("transition-fade", "transition-sweep", "transition-reveal", "transition-depth", "leaving");
         slide.classList.toggle("active", active);
+        if (active) slide.classList.add(`transition-${transition}`);
+        if (leaving) slide.classList.add("leaving");
         slide.setAttribute("aria-hidden", active ? "false" : "true");
         const image = slide.querySelector("img");
         if (active && image) image.loading = "eager";
       });
+      transitionTimer = window.setTimeout(() => {
+        slides.forEach((slide) => slide.classList.remove("leaving"));
+      }, 1100);
       dots.querySelectorAll("button").forEach((dot, index) => {
         const active = index === activeIndex;
         dot.classList.toggle("active", active);
@@ -2219,7 +2238,10 @@
       showSlide(activeIndex + (delta < 0 ? 1 : -1));
     }, { passive: true });
     document.addEventListener("visibilitychange", scheduleAuto);
-    window.addEventListener("pagehide", stopAuto, { once: true });
+    window.addEventListener("pagehide", () => {
+      stopAuto();
+      if (transitionTimer) window.clearTimeout(transitionTimer);
+    }, { once: true });
     syncStoryToggle();
     showSlide(0);
   }
@@ -2339,6 +2361,7 @@
     animateCounts();
     animateMeters();
     setupMouseDrivenMetrics();
+    setupAgentDebateBackdrops();
   }
 
   /* ---------------- Hyperscaler memory demand · scenario planning ---------------- */
@@ -4908,6 +4931,55 @@
     window.addEventListener("pagehide", stopAgentSpeech);
   }
 
+  const AGENT_DEBATE_VIDEO = Object.freeze({
+    src: "assets/media/agent-council-bg.mp4",
+    poster: "assets/media/agent-council-poster.webp",
+  });
+
+  function ensureAgentDebateBackdrop(root = document) {
+    const base = root instanceof Element || root === document ? root : document;
+    const debates = [];
+    if (base instanceof Element && base.matches(".agent-debate")) debates.push(base);
+    debates.push(...base.querySelectorAll(".agent-debate"));
+    debates.forEach((container) => {
+      if (container.querySelector(":scope > .agent-debate-video")) return;
+      const video = document.createElement("video");
+      video.className = "agent-debate-video";
+      video.autoplay = true;
+      video.muted = true;
+      video.loop = true;
+      video.playsInline = true;
+      video.preload = "metadata";
+      video.poster = AGENT_DEBATE_VIDEO.poster;
+      video.setAttribute("aria-hidden", "true");
+      const source = document.createElement("source");
+      source.src = AGENT_DEBATE_VIDEO.src;
+      source.type = "video/mp4";
+      video.appendChild(source);
+      container.prepend(video);
+      container.classList.add("agent-debate-has-video");
+      video.play().catch(() => {});
+    });
+  }
+
+  function setupAgentDebateBackdrops() {
+    ensureAgentDebateBackdrop(document);
+    if (document.body.dataset.agentVideoObserver === "1") return;
+    document.body.dataset.agentVideoObserver = "1";
+    const observer = new MutationObserver((mutations) => {
+      mutations.forEach((mutation) => {
+        mutation.addedNodes.forEach((node) => {
+          if (!(node instanceof Element)) return;
+          if (node.matches(".agent-debate") || node.querySelector(".agent-debate")) {
+            ensureAgentDebateBackdrop(node);
+          }
+        });
+      });
+    });
+    observer.observe(document.body, { childList: true, subtree: true });
+    window.addEventListener("pagehide", () => observer.disconnect(), { once: true });
+  }
+
   // C-level entry point (kept for compatibility): find the chat in scope and drive it.
   function animateCouncilDebate(scope) {
     const root = scope || document;
@@ -4918,6 +4990,7 @@
   // by boards that re-render their own council on interaction).
   function activateDebatesIn(root = document) {
     const base = root instanceof Element || root === document ? root : document;
+    ensureAgentDebateBackdrop(base);
     base.querySelectorAll(".agent-chat").forEach((chat) => {
       if (!chat.querySelector(".agent-turn")) return;
       if (chat.dataset.debateLive === "1") return;
@@ -4932,6 +5005,7 @@
   function activateDebate(chat) {
     if (!chat) return;
     const container = chat.closest(".agent-debate") || chat.parentElement || chat;
+    ensureAgentDebateBackdrop(container);
     const roster = container ? container.querySelector(".agent-roster") : null;
     const conclusion = container ? container.querySelector(".agent-conclusion") : null;
     const turns = Array.from(chat.querySelectorAll(".agent-turn"));
