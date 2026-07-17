@@ -13801,22 +13801,26 @@
     const period = activePricePeriod();
     const points = Number(trend.pointCount || 0);
     const days = Number(trend.coverageDays || 0);
+    const basis = priceTrendEndEntry() || activePriceDateEntry();
+    const basisTime = Number(basis?.time || trend.endTime || 0);
+    const basisLabel = basisTime ? shortKstDate(basisTime) : "수집 전";
     if (points <= 0) {
       return {
-        main: "히스토리 전",
-        sub: `선택 ${period.label} · 실제 누적 0개`,
+        main: `기준일 ${basisLabel}`,
+        sub: `${period.label} · 실제 이력 없음`,
       };
     }
-    const observed = points <= 1
-      ? "관측 1개"
-      : `관측 ${fmtNum(Math.max(1, Math.round(days)))}일`;
-    const dateLabel = days > 370 ? shortKstDateWithYear : shortKstDate;
+    const dateLabel = period.days > 370 ? shortKstDateWithYear : shortKstDate;
     const start = trend.startTime ? dateLabel(trend.startTime) : "";
     const end = trend.endTime ? dateLabel(trend.endTime) : "";
     const range = start && end ? ` · ${start}~${end}` : "";
+    const lagDays = basisTime && trend.endTime
+      ? Math.max(0, Math.floor((basisTime - Number(trend.endTime)) / 86400000))
+      : 0;
+    const lag = lagDays > 1 ? ` · ${fmtNum(lagDays)}일 지연` : "";
     return {
-      main: observed,
-      sub: `선택 ${period.label} · 실제 누적 ${fmtNum(points)}개${range}`,
+      main: `기준일 ${basisLabel}`,
+      sub: `${period.label} · 실제 이력 ${fmtNum(points)}개${range}${lag}`,
     };
   }
 
@@ -14217,29 +14221,97 @@
       const entries = healthEntries(["가격:"]);
       const failed = entries.filter((entry) => !entry.ok).map((entry) => entry.msg).filter(Boolean).join(" · ");
       const msg = failed || "TrendForce 공개 테이블 구조 변경, 접근 실패, 또는 아직 수집된 rows가 없습니다.";
-      tbody.appendChild(el("tr", null, `<td colspan="8" class="empty"><span class="data-state fail">오류 발생 · 가격 데이터 없음</span><br>${escapeHTML(msg)}<br>다음 행동: 전일 가격 히스토리 폴백 여부를 점검하세요.<br>마지막 시도: ${escapeHTML(fmtDate(LIVE.prices?.updatedAt || LIVE.updatedAt))}</td>`));
+      tbody.appendChild(el("tr", null, `<td colspan="7" class="empty"><span class="data-state fail">오류 발생 · 가격 데이터 없음</span><br>${escapeHTML(msg)}<br>다음 행동: 전일 가격 히스토리 폴백 여부를 점검하세요.<br>마지막 시도: ${escapeHTML(fmtDate(LIVE.prices?.updatedAt || LIVE.updatedAt))}</td>`));
       return;
     }
 
-    rows.forEach((row) => {
-      const tr = el("tr");
-      const trend = priceTrendForRow(row);
-      const change = formatChange(trend);
-      const observation = priceObservationText(trend);
-      tr.innerHTML = `
-        <td><span class="source-tag">${escapeHTML(row.priceCategoryLabel || row.group || "")}</span></td>
-        <td><span class="price-main">${escapeHTML(row.item)}</span></td>
-        <td><span class="price-main">${escapeHTML(row.priceTypeLabel || "")}</span><span class="price-sub">${escapeHTML(row.sectionTitle || "")}</span></td>
-        <td>${escapeHTML(trend.startRaw || formatPrice(trend.startAverage ?? trend.average))}</td>
-        <td>${escapeHTML(trend.latestRaw || trend.averageRaw || formatPrice(trend.latestAverage ?? trend.average))}</td>
-        <td><span class="change ${escapeHTML(trend.direction || "flat")}">${escapeHTML(change)}</span></td>
-        <td><span class="price-main">${escapeHTML(observation.main)}</span><span class="price-sub">${escapeHTML(observation.sub)}</span></td>
-        <td></td>
+    const categoryFilters = PRICE_CATEGORY_FILTERS.filter((filter) => filter.id !== "all");
+    const groups = categoryFilters
+      .map((filter) => ({ ...filter, rows: rows.filter((row) => row.priceCategoryId === filter.id) }))
+      .filter((group) => group.rows.length > 0);
+    const basis = priceTrendEndEntry() || activePriceDateEntry();
+    const basisLabel = basis?.time ? shortKstDate(basis.time) : "수집 전";
+
+    groups.forEach((group, groupIndex) => {
+      if (groupIndex) {
+        tbody.appendChild(el("tr", "price-group-spacer", '<td colspan="7" aria-hidden="true"></td>'));
+      }
+
+      const trends = group.rows.map((row) => priceTrendForRow(row));
+      const aggregate = aggregatePriceTrend(trends);
+      const spot = group.rows.filter((row) => row.priceTypeLabel === "Spot").length;
+      const contract = group.rows.filter((row) => row.priceTypeLabel === "Contract").length;
+      const maxPoints = Math.max(0, ...trends.map((trend) => Number(trend.pointCount || 0)));
+      const groupRow = el("tr", "price-category-row");
+      groupRow.dataset.priceGroup = group.id;
+      const groupCell = el("td", "price-category-cell");
+      groupCell.colSpan = 7;
+      groupCell.innerHTML = `
+        <div class="price-category-heading">
+          <div class="price-category-title">
+            <span>${escapeHTML(group.label)}</span>
+            <strong>${escapeHTML(fmtNum(group.rows.length))}개 품목</strong>
+          </div>
+          <div class="price-category-meta">
+            <span>Spot ${escapeHTML(fmtNum(spot))}</span>
+            <span>Contract ${escapeHTML(fmtNum(contract))}</span>
+            <span>실제 이력 최대 ${escapeHTML(fmtNum(maxPoints))}개</span>
+            <strong>기준일 ${escapeHTML(basisLabel)}</strong>
+          </div>
+          <div class="price-category-chart">
+            <span>카테고리 추세</span>
+            <strong class="${escapeHTML(aggregate.direction)}">${escapeHTML(formatChange(aggregate))}</strong>
+            <i aria-hidden="true"></i>
+          </div>
+        </div>
       `;
-      tr.children[7].appendChild(sparkline(trend.points, trend.direction));
-      attachCrawlModerationControl(tr, "price", row, row.item, renderPrices, tr.children[7]);
-      tbody.appendChild(tr);
+      const chartHost = groupCell.querySelector(".price-category-chart i");
+      chartHost.appendChild(sparkline(aggregate.points, aggregate.direction));
+      groupRow.appendChild(groupCell);
+      tbody.appendChild(groupRow);
+
+      group.rows.forEach((row, rowIndex) => {
+        const tr = el("tr", "price-data-row");
+        tr.dataset.priceGroup = group.id;
+        if (rowIndex === group.rows.length - 1) tr.classList.add("price-data-row-last");
+        const trend = priceTrendForRow(row);
+        const change = formatChange(trend);
+        const observation = priceObservationText(trend);
+        tr.innerHTML = `
+          <td><span class="price-main">${escapeHTML(row.item)}</span></td>
+          <td><span class="price-main">${escapeHTML(row.priceTypeLabel || "")}</span><span class="price-sub">${escapeHTML(row.sectionTitle || "")}</span></td>
+          <td>${escapeHTML(trend.startRaw || formatPrice(trend.startAverage ?? trend.average))}</td>
+          <td>${escapeHTML(trend.latestRaw || trend.averageRaw || formatPrice(trend.latestAverage ?? trend.average))}</td>
+          <td><span class="change ${escapeHTML(trend.direction || "flat")}">${escapeHTML(change)}</span></td>
+          <td><span class="price-main">${escapeHTML(observation.main)}</span><span class="price-sub">${escapeHTML(observation.sub)}</span></td>
+          <td></td>
+        `;
+        tr.children[6].appendChild(sparkline(trend.points, trend.direction));
+        attachCrawlModerationControl(tr, "price", row, row.item, renderPrices, tr.children[6]);
+        tbody.appendChild(tr);
+      });
     });
+  }
+
+  function aggregatePriceTrend(trends = []) {
+    const series = trends
+      .map((trend) => (trend.points || []).map(Number).filter(Number.isFinite))
+      .filter((points) => points.length >= 2 && Number(points[0]) !== 0);
+    if (!series.length) return { points: [], changePct: 0, direction: "flat" };
+    const sampleCount = Math.min(36, Math.max(...series.map((points) => points.length)));
+    const points = Array.from({ length: sampleCount }, (_, sampleIndex) => {
+      const values = series.map((source) => {
+        const sourceIndex = Math.round((sampleIndex / Math.max(1, sampleCount - 1)) * (source.length - 1));
+        return ((source[sourceIndex] / source[0]) - 1) * 100;
+      }).filter(Number.isFinite);
+      return values.reduce((sum, value) => sum + value, 0) / Math.max(1, values.length);
+    });
+    const changePct = points[points.length - 1] - points[0];
+    return {
+      points,
+      changePct,
+      direction: changePct > 0.01 ? "up" : changePct < -0.01 ? "down" : "flat",
+    };
   }
 
   function formatPrice(value) {

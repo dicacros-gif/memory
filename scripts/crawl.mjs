@@ -24,6 +24,12 @@ const NEWS_ENRICH_LIMIT = 60;
 const NEWS_ENRICH_CONCURRENCY = 4;
 const COMMUNITY_MAX_ITEMS = 96;
 const COMMUNITY_RETENTION_DAYS = 365 * 5;
+const KST_DAY_FORMATTER = new Intl.DateTimeFormat("en-CA", {
+  timeZone: "Asia/Seoul",
+  year: "numeric",
+  month: "2-digit",
+  day: "2-digit",
+});
 
 const BROWSER_UA =
   "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124.0.0.0 Safari/537.36";
@@ -927,12 +933,21 @@ function parseRemoteChartPoints(text, row = {}) {
   return points.sort((a, b) => new Date(a.date).getTime() - new Date(b.date).getTime());
 }
 
+function kstPriceDayKey(value = "") {
+  const parsed = value ? new Date(value) : null;
+  if (!parsed || !Number.isFinite(parsed.getTime())) return "";
+  const parts = KST_DAY_FORMATTER.formatToParts(parsed).reduce((acc, part) => {
+    if (part.type !== "literal") acc[part.type] = part.value;
+    return acc;
+  }, {});
+  return `${parts.year}-${parts.month}-${parts.day}`;
+}
+
 function mergePricePoints(existing = [], incoming = []) {
   const byKey = new Map();
   const keyFor = (point) => {
-    const rawTime = point.date || point.crawledAt || point.updatedAt || point.sourceUpdate || "";
-    const dateKey = rawTime ? String(rawTime).slice(0, 10) : "";
-    return `${dateKey}::${point.sourceUpdate || ""}`;
+    const rawTime = point.date || point.crawledAt || point.updatedAt || "";
+    return kstPriceDayKey(rawTime) || String(point.sourceUpdate || rawTime || "unknown").slice(0, 10);
   };
   existing.forEach((point) => byKey.set(keyFor(point), point));
   incoming.forEach((point) => byKey.set(keyFor(point), point));
@@ -1177,6 +1192,7 @@ async function updatePriceHistory(prices) {
       }
 
       const point = {
+        date: crawledAt,
         sourceUpdate: section.lastUpdate || "",
         crawledAt,
         average: row.average,
@@ -1185,16 +1201,21 @@ async function updatePriceHistory(prices) {
         changeRaw: row.changeRaw || "",
         direction: row.direction || "flat",
       };
+      const normalizedPoints = mergePricePoints(current.points, []);
+      if (JSON.stringify(normalizedPoints) !== JSON.stringify(current.points)) {
+        current.points = normalizedPoints;
+        changed = true;
+      }
       const last = current.points[current.points.length - 1];
       const isNewPoint =
         !last ||
+        kstPriceDayKey(last.date || last.crawledAt) !== kstPriceDayKey(point.date) ||
         last.sourceUpdate !== point.sourceUpdate ||
         last.average !== point.average ||
         last.changeRaw !== point.changeRaw;
 
       if (isNewPoint) {
-        current.points.push(point);
-        current.points = mergePricePoints(current.points, []);
+        current.points = mergePricePoints(current.points, [point]);
         changed = true;
       }
       history.items[key] = current;

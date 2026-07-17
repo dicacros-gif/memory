@@ -10805,8 +10805,9 @@ body.sidebar-collapsed .sb-ico {
 
 .price-table {
   width: 100%;
-  min-width: 1120px;
-  border-collapse: collapse;
+  min-width: 1060px;
+  border-collapse: separate;
+  border-spacing: 0;
 }
 
 .price-table th,
@@ -10827,6 +10828,171 @@ body.sidebar-collapsed .sb-ico {
 .price-table td {
   font-size: 12.5px;
   font-weight: 650;
+}
+
+.price-group-spacer td {
+  height: 12px;
+  padding: 0;
+  border: 0;
+  background: transparent;
+}
+
+.price-category-cell {
+  border: 1px solid color-mix(in srgb, var(--accent) 36%, var(--line));
+  border-bottom: 0 !important;
+  border-radius: 8px 8px 0 0;
+  background:
+    linear-gradient(115deg, color-mix(in srgb, var(--accent) 12%, transparent), transparent 58%),
+    var(--panel-2);
+  color: var(--ink);
+  transition: background .2s ease, border-color .2s ease, color .2s ease, transform .2s ease, box-shadow .2s ease;
+}
+
+.price-category-row:hover .price-category-cell {
+  border-color: var(--accent);
+  background: color-mix(in srgb, var(--ink) 91%, var(--accent));
+  color: var(--panel);
+  box-shadow: 0 12px 28px color-mix(in srgb, var(--accent) 22%, transparent);
+  transform: translateY(-2px);
+}
+
+.price-category-heading {
+  display: grid;
+  grid-template-columns: minmax(170px, .72fr) minmax(360px, 1.55fr) minmax(210px, .73fr);
+  align-items: center;
+  gap: 16px;
+}
+
+.price-category-title,
+.price-category-meta,
+.price-category-chart {
+  min-width: 0;
+}
+
+.price-category-title span,
+.price-category-title strong,
+.price-category-chart span,
+.price-category-chart strong {
+  display: block;
+}
+
+.price-category-title span {
+  color: var(--accent);
+  font-size: 15px;
+  font-weight: 950;
+}
+
+.price-category-title strong {
+  margin-top: 3px;
+  font-size: 11px;
+  font-weight: 850;
+}
+
+.price-category-meta {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 6px;
+}
+
+.price-category-meta span,
+.price-category-meta strong {
+  border: 1px solid color-mix(in srgb, currentColor 18%, transparent);
+  border-radius: 999px;
+  padding: 5px 8px;
+  font-size: 10px;
+  font-weight: 850;
+}
+
+.price-category-meta strong {
+  color: var(--accent);
+}
+
+.price-category-chart {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  align-items: center;
+  column-gap: 8px;
+}
+
+.price-category-chart span {
+  color: var(--muted);
+  font-size: 9px;
+  font-weight: 850;
+  text-transform: uppercase;
+}
+
+.price-category-chart strong {
+  font-size: 12px;
+  font-weight: 950;
+}
+
+.price-category-chart strong.up { color: var(--red); }
+.price-category-chart strong.down { color: var(--blue); }
+.price-category-chart strong.flat { color: var(--muted); }
+
+.price-category-chart i {
+  grid-column: 1 / -1;
+  display: block;
+  margin-top: 4px;
+}
+
+.price-category-chart .spark {
+  width: 100%;
+  height: 34px;
+}
+
+.price-category-row:hover .price-category-title span,
+.price-category-row:hover .price-category-meta strong,
+.price-category-row:hover .price-category-chart span,
+.price-category-row:hover .price-category-chart strong {
+  color: var(--panel);
+}
+
+.price-category-row:hover .spark path,
+.price-data-row:hover .spark path {
+  stroke: currentColor !important;
+}
+
+.price-data-row {
+  position: relative;
+  transition: transform .18s ease, filter .18s ease;
+}
+
+.price-data-row td:first-child {
+  border-left: 1px solid color-mix(in srgb, var(--accent) 22%, var(--line));
+}
+
+.price-data-row td:last-child {
+  border-right: 1px solid color-mix(in srgb, var(--accent) 22%, var(--line));
+}
+
+.price-data-row-last td {
+  border-bottom: 1px solid color-mix(in srgb, var(--accent) 28%, var(--line));
+}
+
+.price-data-row-last td:first-child { border-radius: 0 0 0 8px; }
+.price-data-row-last td:last-child { border-radius: 0 0 8px 0; }
+
+.price-data-row:hover {
+  z-index: 2;
+  transform: translateX(4px) translateY(-1px);
+  filter: drop-shadow(0 10px 16px rgba(15, 23, 42, .14));
+}
+
+.price-data-row:hover td {
+  border-color: color-mix(in srgb, var(--accent) 68%, transparent);
+  background: color-mix(in srgb, var(--ink) 92%, var(--accent));
+  color: var(--panel);
+}
+
+.price-data-row:hover .price-sub {
+  color: color-mix(in srgb, var(--panel) 76%, transparent);
+}
+
+.price-data-row:hover .change {
+  background: var(--panel);
+  color: color-mix(in srgb, var(--ink) 82%, var(--accent));
 }
 
 .price-table td.crawl-remove-host {

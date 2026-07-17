@@ -16,6 +16,7 @@ const textFiles = [
   "assets/js/app.js",
   "data/baseline.json",
   "data/live.json",
+  "data/price-history.json",
   "data/crawl-exclusions.json",
 ];
 
@@ -123,6 +124,42 @@ for (const [id, index] of Object.entries(marketHistory.indexes || {})) {
   }
   if (Number(index.pointCount || 0) !== points.length) {
     addIssue("error", "data/market-history.json", "market pointCount mismatch", `${id}: ${index.pointCount} != ${points.length}`);
+  }
+}
+
+const priceHistory = JSON.parse(await readFile(resolve(root, "data/price-history.json"), "utf8"));
+const priceDayFormatter = new Intl.DateTimeFormat("en-CA", {
+  timeZone: "Asia/Seoul",
+  year: "numeric",
+  month: "2-digit",
+  day: "2-digit",
+});
+for (const [key, item] of Object.entries(priceHistory.items || {})) {
+  const points = Array.isArray(item.points) ? item.points : [];
+  const dayKeys = new Set();
+  let previousTime = 0;
+  for (const point of points) {
+    const value = Number(point.average);
+    const time = new Date(point.date || point.crawledAt || point.updatedAt || 0).getTime();
+    if (!Number.isFinite(value) || value <= 0) {
+      addIssue("error", "data/price-history.json", "price history contains a non-positive value", `${key}: ${point.average}`);
+    }
+    if (!Number.isFinite(time) || time <= 0) {
+      addIssue("error", "data/price-history.json", "price history contains an invalid timestamp", key);
+      continue;
+    }
+    const dayKey = priceDayFormatter.format(new Date(time));
+    if (dayKeys.has(dayKey)) {
+      addIssue("error", "data/price-history.json", "price history contains duplicate KST dates", `${key}: ${dayKey}`);
+    }
+    dayKeys.add(dayKey);
+    if (previousTime && time < previousTime) {
+      addIssue("error", "data/price-history.json", "price history is not chronological", key);
+    }
+    previousTime = time;
+  }
+  if (points.length > 365 * 5 + 60) {
+    addIssue("error", "data/price-history.json", "price history exceeds the five-year retention limit", `${key}: ${points.length}`);
   }
 }
 
@@ -302,6 +339,7 @@ console.log(JSON.stringify({
   files: textFiles.length,
   numericKpis: numericKpis.length,
   priceRows: priceRows.length,
+  priceHistoryItems: Object.keys(priceHistory.items || {}).length,
   stockSeries: stocks.length,
   summarizedNews: `${summarizedNews.length}/${news.length}`,
   communitySignals: communityItems.length,
