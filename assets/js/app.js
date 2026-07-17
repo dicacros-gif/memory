@@ -5135,19 +5135,24 @@
   });
   const AGENT_TTS_STORAGE_KEY = "memory-agent-tts";
   const AGENT_TTS_PROFILES = [
-    { id: "ceo", match: /ceo|chief executive|최종 의사결정|우선순위/i, voiceSlot: 0, pitch: 0.78, rate: 0.88, volume: 1 },
-    { id: "cfo", match: /cfo|finance|재무|수익성|자본배분/i, voiceSlot: 1, pitch: 0.94, rate: 0.92, volume: 0.98 },
-    { id: "cto", match: /cto|technology|기술|제품 로드맵/i, voiceSlot: 2, pitch: 1.12, rate: 0.93, volume: 0.98 },
-    { id: "cso", match: /cso|strategy|전략/i, voiceSlot: 3, pitch: 0.86, rate: 0.98, volume: 0.98 },
-    { id: "coo", match: /coo|operations|운영|공급 실행/i, voiceSlot: 4, pitch: 0.72, rate: 1.02, volume: 0.98 },
-    { id: "policy", match: /policy|규제|정책/i, voiceSlot: 5, pitch: 1.05, rate: 0.88, volume: 0.96 },
-    { id: "market", match: /market|시장|가격|고객/i, voiceSlot: 6, pitch: 1.18, rate: 1, volume: 0.96 },
-    { id: "china", match: /china|중국/i, voiceSlot: 7, pitch: 0.9, rate: 0.92, volume: 0.98 },
-    { id: "risk", match: /risk|하방|판단 변경/i, voiceSlot: 8, pitch: 0.68, rate: 0.85, volume: 1 },
-    { id: "devil", match: /devil|red team|레드팀|반론/i, voiceSlot: 9, pitch: 0.76, rate: 0.82, volume: 1 },
-    { id: "auditor", match: /audit|auditor|evidence|근거 검증|팩트/i, voiceSlot: 10, pitch: 1, rate: 0.89, volume: 0.96 },
-    { id: "data", match: /data|데이터|백테스트/i, voiceSlot: 11, pitch: 1.2, rate: 1.02, volume: 0.94 },
+    { id: "ceo", match: /ceo|chief executive|최종 의사결정|우선순위/i, gender: "male", tone: "decisive", voiceSlot: 0, pitch: 0.9, rate: 1.02, volume: 1 },
+    { id: "cfo", match: /cfo|finance|재무|수익성|자본배분/i, gender: "female", tone: "analytical", voiceSlot: 0, pitch: 1.05, rate: 1.06, volume: 0.98 },
+    { id: "cto", match: /cto|technology|기술|제품 로드맵/i, gender: "male", tone: "technical", voiceSlot: 1, pitch: 0.96, rate: 1.05, volume: 0.98 },
+    { id: "cso", match: /cso|strategy|전략/i, gender: "female", tone: "strategic", voiceSlot: 1, pitch: 1.08, rate: 1.07, volume: 0.98 },
+    { id: "coo", match: /coo|operations|운영|공급 실행/i, gender: "male", tone: "operational", voiceSlot: 2, pitch: 0.88, rate: 1.08, volume: 0.98 },
+    { id: "policy", match: /policy|규제|정책/i, gender: "female", tone: "composed", voiceSlot: 2, pitch: 1.03, rate: 1.02, volume: 0.97 },
+    { id: "market", match: /market|시장|가격|고객/i, gender: "female", tone: "energetic", voiceSlot: 3, pitch: 1.1, rate: 1.08, volume: 0.97 },
+    { id: "china", match: /china|중국/i, gender: "male", tone: "measured", voiceSlot: 3, pitch: 0.92, rate: 1.04, volume: 0.98 },
+    { id: "risk", match: /risk|하방|판단 변경/i, gender: "male", tone: "cautious", voiceSlot: 4, pitch: 0.86, rate: 1, volume: 1 },
+    { id: "devil", match: /devil|red team|레드팀|반론/i, gender: "female", tone: "challenging", voiceSlot: 4, pitch: 1.12, rate: 1.03, volume: 1 },
+    { id: "auditor", match: /audit|auditor|evidence|근거 검증|팩트/i, gender: "female", tone: "precise", voiceSlot: 5, pitch: 1.02, rate: 1.03, volume: 0.97 },
+    { id: "data", match: /data|데이터|백테스트/i, gender: "male", tone: "analytical", voiceSlot: 5, pitch: 0.98, rate: 1.08, volume: 0.96 },
   ];
+  const AGENT_VOICE_HINTS = Object.freeze({
+    female: /female|woman|여성|heami|sunhi|yuna|seoyeon|soyoung|jiyoung|sora|jiyeon|eunji|hyejin|hyemi|혜미|선희|유나|서연|소영|지영|소라|지연|은지|혜진/i,
+    male: /male|man|남성|injoon|hyunsu|minsu|junwoo|jiho|woosung|taeho|인준|현수|민수|준우|지호|우성|태호/i,
+  });
+  const AGENT_NATURAL_VOICE_HINT = /natural|neural|premium|enhanced|online/i;
   let agentTtsEnabled = (() => {
     try {
       return window.localStorage.getItem(AGENT_TTS_STORAGE_KEY) !== "off";
@@ -5169,18 +5174,35 @@
     return agentVoices;
   }
 
+  function agentVoiceScore(voice, gender) {
+    const descriptor = `${voice?.name || ""} ${voice?.voiceURI || ""}`;
+    let score = /^ko(?:-|$)/i.test(voice?.lang || "") ? 50 : 0;
+    if (AGENT_NATURAL_VOICE_HINT.test(descriptor)) score += 18;
+    if (AGENT_VOICE_HINTS[gender]?.test(descriptor)) score += 26;
+    if (voice?.localService) score += 3;
+    if (voice?.default) score += 2;
+    return score;
+  }
+
   function agentVoiceProfile(name = "", role = "", index = 0) {
     const hay = `${name} ${role}`;
     const profile = AGENT_TTS_PROFILES.find((item) => item.match.test(hay))
       || AGENT_TTS_PROFILES[index % AGENT_TTS_PROFILES.length];
     const voices = agentVoices.length ? agentVoices : refreshAgentVoices();
     const korean = voices.filter((voice) => /^ko(?:-|$)/i.test(voice.lang || ""));
-    const pool = (korean.length ? korean : voices).slice().sort((a, b) => String(a.name).localeCompare(String(b.name)));
-    const voice = pool.length ? pool[profile.voiceSlot % pool.length] : null;
+    const pool = (korean.length ? korean : voices).slice().sort((a, b) => {
+      const scoreDelta = agentVoiceScore(b, profile.gender) - agentVoiceScore(a, profile.gender);
+      return scoreDelta || String(a.name).localeCompare(String(b.name));
+    });
+    const genderPool = pool.filter((voice) => AGENT_VOICE_HINTS[profile.gender]?.test(`${voice.name || ""} ${voice.voiceURI || ""}`));
+    const fallbackPool = pool.filter((_, voiceIndex) => voiceIndex % 2 === (profile.gender === "female" ? 0 : 1));
+    const preferredPool = genderPool.length ? genderPool : (fallbackPool.length ? fallbackPool : pool);
+    const voice = preferredPool.length ? preferredPool[profile.voiceSlot % preferredPool.length] : null;
     return { ...profile, voice };
   }
 
-  function agentSpeechText(value = "") {
+  function agentSpeechText(value = "", tone = "measured") {
+    const challengeLead = tone === "challenging" ? "반대 관점에서 보겠습니다. " : "";
     return String(value || "")
       .replace(/SKHY/gi, "에스케이 하이닉스")
       .replace(/HBM4E/gi, "에이치비엠 포 이")
@@ -5195,8 +5217,13 @@
       .replace(/QoQ/gi, "전 분기 대비")
       .replace(/YoY/gi, "전년 동기 대비")
       .replace(/wpm/gi, "웨이퍼 퍼 먼스")
+      .replace(/\s*[·•]\s*/g, ", ")
+      .replace(/\s*→\s*/g, ". 따라서, ")
+      .replace(/([.!?])(?=\S)/g, "$1 ")
       .replace(/\s+/g, " ")
-      .trim();
+      .trim()
+      .replace(/^/, challengeLead)
+      .replace(/([^.!?])$/, "$1.");
   }
 
   function stopAgentSpeech() {
@@ -5278,8 +5305,8 @@
 
   function speakAgentTurn(turn, index = 0) {
     return new Promise((resolve) => {
-      const text = agentSpeechText(turn?.querySelector("p")?.dataset.say || turn?.querySelector("p")?.textContent || "");
-      if (!agentTtsEnabled || !agentSpeechSupported() || !text) {
+      const rawText = turn?.querySelector("p")?.dataset.say || turn?.querySelector("p")?.textContent || "";
+      if (!agentTtsEnabled || !agentSpeechSupported() || !rawText.trim()) {
         resolve();
         return;
       }
@@ -5287,14 +5314,15 @@
       const name = (turn.querySelector(".agent-badge-name")?.textContent || "").trim();
       const role = (turn.querySelector(".speech-meta strong")?.textContent || "").trim();
       const profile = agentVoiceProfile(name, role, index);
+      const text = agentSpeechText(rawText, profile.tone);
       const utterance = new SpeechSynthesisUtterance(text);
       utterance.lang = profile.voice?.lang || "ko-KR";
       utterance.voice = profile.voice || null;
-      utterance.pitch = profile.pitch;
-      utterance.rate = profile.rate;
+      utterance.pitch = Math.max(0.72, Math.min(1.28, profile.pitch + (/\?$/.test(text) ? 0.04 : 0)));
+      utterance.rate = Math.max(0.96, Math.min(1.12, profile.rate + (text.length > 180 ? 0.02 : 0)));
       utterance.volume = profile.volume;
       let settled = false;
-      const timeout = window.setTimeout(() => finish(), Math.max(9000, Math.min(30000, text.length * 115)));
+      const timeout = window.setTimeout(() => finish(), Math.max(8000, Math.min(28000, text.length * (104 / utterance.rate))));
       const finish = () => {
         if (settled) return;
         settled = true;
@@ -5309,8 +5337,10 @@
       utterance.onstart = () => {
         turn.classList.add("tts-speaking");
         turn.dataset.ttsVoice = profile.id;
+        turn.dataset.ttsGender = profile.gender;
+        turn.dataset.ttsTone = profile.tone;
         document.querySelectorAll("[data-agent-tts-toggle] small").forEach((state) => {
-          state.textContent = `${name || role || "Agent"} 발언`;
+          state.textContent = `${name || role || "Agent"} · ${profile.gender === "female" ? "여성" : "남성"} 음성`;
         });
       };
       utterance.onend = finish;
