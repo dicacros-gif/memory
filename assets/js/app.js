@@ -4005,6 +4005,7 @@
       ...(next.communitySignals || {}),
       typeCounts: next.communitySignals?.typeCounts || {},
       platformCounts: next.communitySignals?.platformCounts || {},
+      briefs: Array.isArray(next.communitySignals?.briefs) ? next.communitySignals.briefs.filter((item) => item?.id && Number(item?.count || 0) > 0) : [],
       items: Array.isArray(next.communitySignals?.items) ? next.communitySignals.items.filter((item) => item?.id && item?.sourceUrl) : [],
     };
     next.communitySignals.total = next.communitySignals.items.length;
@@ -15003,7 +15004,8 @@
     const tabs = $("#communityTabs");
     const grid = $("#communityGrid");
     const stats = $("#communityStats");
-    if (!section || !tabs || !grid || !stats) return;
+    const briefs = $("#communityBriefs");
+    if (!section || !tabs || !grid || !stats || !briefs) return;
     const base = communityBaseItems();
     if (!base.length) {
       section.hidden = true;
@@ -15031,6 +15033,19 @@
     });
 
     const items = communityItemsForView(base);
+    const briefItems = communityPlatform === "all" && communityType === "all" ? (LIVE.communitySignals?.briefs || []) : [];
+    briefs.hidden = !briefItems.length;
+    briefs.innerHTML = briefItems.map((brief) => `
+      <article class="community-brief">
+        <div class="community-brief-head">
+          <strong>${escapeHTML(brief.title || "현장 신호")}</strong>
+          <span>${fmtNum(brief.count || 0)}건 · ${fmtNum(brief.sourceCount || 0)}개 채널</span>
+        </div>
+        <p>${escapeHTML(brief.signal || "")}</p>
+        <div class="community-brief-decision"><strong>경영 판단</strong><span>${escapeHTML(brief.implication || "")}</span></div>
+        <small>확인 KPI · ${escapeHTML(brief.validation || "")}</small>
+      </article>
+    `).join("");
     const statParts = [
       LIVE.communitySignals?.recent30d > 0 ? `최근 30일 ${fmtNum(LIVE.communitySignals.recent30d)}건` : "",
       LIVE.communitySignals?.historicalCount > 0 ? `중요 과거 ${fmtNum(LIVE.communitySignals.historicalCount)}건` : "",
@@ -15044,6 +15059,7 @@
       const title = cleanKoreanTitle(item.titleKo || item.title || "중국 반도체 현장 신호");
       const summary = clipText(item.summary || item.summaryOriginal || "", 250);
       const insight = clipText(item.insight || "", 180);
+      const validation = clipText(item.validation || "", 140);
       const dateLabel = item.period || formatNewsDate(item.date || item.publishedAt) || "공개 페이지";
       const evidenceClass = item.sourceClass === "official-career" || item.sourceClass === "job-board" ? "listing" : "unverified";
       const tags = Array.from(new Set([...(item.entities || []), ...(item.topics || [])])).slice(0, 5);
@@ -15058,6 +15074,7 @@
         <a class="community-title" href="${escapeHTML(item.sourceUrl || item.link || "#")}" target="_blank" rel="noopener">${escapeHTML(title)}</a>
         <p class="community-summary">${escapeHTML(summary)}</p>
         <div class="community-insight"><strong>SKHY 시사점</strong><span>${escapeHTML(insight)}</span></div>
+        ${validation ? `<div class="community-validation"><strong>확인 KPI</strong><span>${escapeHTML(validation)}</span></div>` : ""}
         <div class="community-tags">${tags.map((tag) => `<span>${escapeHTML(tag)}</span>`).join("")}</div>
       `;
       attachCrawlModerationControl(card, "community", item, title, renderChinaCommunity);

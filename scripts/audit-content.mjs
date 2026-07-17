@@ -241,7 +241,11 @@ const communityAllowedDomains = [
   "caifuhao.eastmoney.com",
   "v2ex.com",
   "chiphell.com",
+  "smzdm.com",
+  "nga.cn",
   "maimai.cn",
+  "nowcoder.com",
+  "kanzhun.com",
   "zhipin.com",
   "liepin.com",
   "zhaopin.com",
@@ -277,6 +281,9 @@ for (const item of communityItems) {
   if (!String(item.insight || "").trim()) {
     addIssue("error", "data/live.json", "community item has no decision insight", item.id || url);
   }
+  if (!String(item.validation || "").trim()) {
+    addIssue("error", "data/live.json", "community item has no validation KPI", item.id || url);
+  }
   if (!["커뮤니티 신호", "공개 채용"].includes(String(item.evidenceLevel || ""))) {
     addIssue("error", "data/live.json", "community item has an invalid evidence label", `${item.id}:${item.evidenceLevel || "missing"}`);
   }
@@ -292,7 +299,16 @@ for (const item of communityItems) {
 if (Number(community.total || 0) !== communityItems.length) {
   addIssue("error", "data/live.json", "community total count mismatch", `${community.total} != ${communityItems.length}`);
 }
-const communityHostPattern = /(?:xueqiu\.com|zhihu\.com|guba\.eastmoney\.com|v2ex\.com|chiphell\.com|maimai\.cn|zhipin\.com|liepin\.com|zhaopin\.com)/i;
+const communityBriefs = Array.isArray(community.briefs) ? community.briefs : [];
+if (communityItems.length && communityBriefs.length < 3) {
+  addIssue("error", "data/live.json", "fewer than three community decision briefs", String(communityBriefs.length));
+}
+for (const brief of communityBriefs) {
+  if (!brief.id || Number(brief.count || 0) < 1 || !brief.signal || !brief.implication || !brief.validation) {
+    addIssue("error", "data/live.json", "community decision brief is incomplete", brief.id || "missing");
+  }
+}
+const communityHostPattern = /(?:xueqiu\.com|zhihu\.com|guba\.eastmoney\.com|v2ex\.com|chiphell\.com|smzdm\.com|nga\.cn|maimai\.cn|nowcoder\.com|kanzhun\.com|zhipin\.com|liepin\.com|zhaopin\.com)/i;
 
 const intelligence = live.intelligence || {};
 const briefs = Array.isArray(intelligence.briefs) ? intelligence.briefs : [];

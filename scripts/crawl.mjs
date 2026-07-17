@@ -270,7 +270,11 @@ const COMMUNITY_PLATFORM_RULES = [
   { id: "eastmoney", label: "东方财富股吧", domains: ["guba.eastmoney.com", "caifuhao.eastmoney.com"], sourceClass: "community", defaultType: "market" },
   { id: "v2ex", label: "V2EX", domains: ["v2ex.com"], sourceClass: "community", defaultType: "consumer" },
   { id: "chiphell", label: "Chiphell", domains: ["chiphell.com"], sourceClass: "community", defaultType: "consumer" },
+  { id: "smzdm", label: "什么值得买", domains: ["smzdm.com"], sourceClass: "community", defaultType: "consumer" },
+  { id: "nga", label: "NGA", domains: ["nga.cn", "bbs.nga.cn"], sourceClass: "community", defaultType: "technology" },
   { id: "maimai", label: "脉脉", domains: ["maimai.cn"], sourceClass: "workplace-community", defaultType: "workplace" },
+  { id: "nowcoder", label: "牛客", domains: ["nowcoder.com"], sourceClass: "workplace-community", defaultType: "workplace" },
+  { id: "kanzhun", label: "看准", domains: ["kanzhun.com"], sourceClass: "workplace-community", defaultType: "workplace" },
   { id: "boss", label: "BOSS直聘", domains: ["zhipin.com"], sourceClass: "job-board", defaultType: "workplace" },
   { id: "liepin", label: "猎聘", domains: ["liepin.com"], sourceClass: "job-board", defaultType: "workplace" },
   { id: "zhaopin", label: "智联招聘", domains: ["zhaopin.com"], sourceClass: "job-board", defaultType: "workplace" },
@@ -282,14 +286,28 @@ const COMMUNITY_PLATFORM_RULES = [
 const COMMUNITY_DISCOVERY_QUERIES = [
   { query: "site:xueqiu.com 长鑫存储 DRAM DDR5", platformId: "xueqiu" },
   { query: "site:xueqiu.com 长江存储 NAND Xtacking", platformId: "xueqiu" },
+  { query: "site:xueqiu.com 北方华创 中微公司 存储 设备 验证", platformId: "xueqiu" },
   { query: "site:zhihu.com 长鑫存储 DDR5 HBM", platformId: "zhihu" },
   { query: "site:zhihu.com 长江存储 NAND SSD", platformId: "zhihu" },
   { query: "site:zhihu.com 长鑫存储 招聘 良率 工艺", platformId: "zhihu" },
-  { query: "site:guba.eastmoney.com 长鑫存储 长江存储 半导体", platformId: "eastmoney" },
   { query: "site:v2ex.com 长鑫存储 长江存储 内存", platformId: "v2ex" },
   { query: "site:chiphell.com 长鑫存储 DDR5 内存", platformId: "chiphell" },
+  { query: "site:chiphell.com 长江存储 SSD Xtacking", platformId: "chiphell" },
+  { query: "site:smzdm.com 长鑫存储 DDR5 兼容 评测", platformId: "smzdm" },
+  { query: "site:smzdm.com 长江存储 企业级 SSD Xtacking", platformId: "smzdm" },
+  { query: "site:nga.cn 长鑫存储 DDR5 长江存储 SSD", platformId: "nga" },
   { query: "site:maimai.cn 长鑫存储 招聘 良率", platformId: "maimai" },
+  { query: "site:maimai.cn 长江存储 封装 测试 招聘", platformId: "maimai" },
+  { query: "site:nowcoder.com 长鑫存储 工艺 良率 面试", platformId: "nowcoder" },
+  { query: "site:nowcoder.com 长江存储 封装 测试 校招", platformId: "nowcoder" },
+  { query: "site:kanzhun.com 长鑫存储 工艺 工程师 面试", platformId: "kanzhun" },
+  { query: "site:kanzhun.com 长江存储 工艺 封装 招聘", platformId: "kanzhun" },
   { query: "site:zhipin.com 长鑫存储 良率 工艺 招聘", platformId: "boss" },
+  { query: "site:zhipin.com 长江存储 封装 测试 产品 招聘", platformId: "boss" },
+  { query: "site:zhipin.com 中微公司 刻蚀 TSV 招聘", platformId: "boss" },
+  { query: "site:zhipin.com 北方华创 薄膜 刻蚀 招聘", platformId: "boss" },
+  { query: "site:liepin.com 长鑫存储 工艺 良率 招聘", platformId: "liepin" },
+  { query: "site:liepin.com 长江存储 封装 测试 招聘", platformId: "liepin" },
   { query: "site:zhaopin.com 长鑫存储 良率 工艺 招聘", platformId: "zhaopin" },
   { query: "site:cxmt.zhiye.com 长鑫存储 校园招聘", platformId: "cxmt-careers" },
   { query: "site:whxmc.zhiye.com 新芯 校园招聘", platformId: "xmc-careers" },
@@ -405,6 +423,117 @@ const COMMUNITY_HISTORY_SEEDS = [
     date: "2025-08-22",
     historical: true,
     importance: 84,
+  },
+  {
+    platformId: "boss",
+    type: "workplace",
+    title: "长鑫存储公开岗位出现失效分析、量测与厂务气体方向",
+    titleKo: "CXMT 공개 채용에 불량 분석·계측·Fab 유틸리티 직무 노출",
+    summary: "BOSS直聘의 CXMT 공개 기업 페이지에서 불량 분석, 계측 공정, 반도체 제품, Fab 가스 설비 관련 직무가 함께 확인됩니다. 공정 안정화와 생산 운영 역량을 동시에 보강하는 신호로 보되 실제 채용 인원은 공개되지 않았습니다.",
+    insight: "SKHY는 중국 DRAM의 제품 발표보다 불량 분석·계측·유틸리티 직무가 반복되는 기간을 추적해 양산 안정화 병목이 이동하는지 판단해야 합니다.",
+    validation: "직무별 활성 공고 수 · 근무지 · 재게시 주기 · 공정/유틸리티 비중",
+    link: "https://m.zhipin.com/companys/380a8a617d34f3501HFz3dm8EVU~.html",
+    observedAt: "2026-07-17",
+    period: "2026년 7월 공개 확인",
+    historical: false,
+    importance: 94,
+  },
+  {
+    platformId: "liepin",
+    type: "workplace",
+    title: "长鑫存储公开职位覆盖AI架构、后端成本与供应链职能",
+    titleKo: "CXMT 채용 직무가 AI 아키텍처·후단 원가·공급망으로 확장",
+    summary: "猎聘의 CXMT 공개 채용 페이지에는 AI 아키텍처, 후단 원가 전략, 구매·통관 등 기술과 운영 직무가 함께 노출됩니다. 단일 직무 수보다 제품 개발과 원가·공급망 기능이 동시에 나타나는지를 관찰합니다.",
+    insight: "SKHY는 CXMT의 위협을 웨이퍼 캐파만으로 보지 말고 설계·원가·조달을 묶는 운영 체계 구축 신호로 평가해야 합니다.",
+    validation: "활성 직무군 · 기술/운영 직무 비중 · 근무지 · 동일 직무 재게시 주기",
+    link: "https://www.liepin.com/company-jobs/9728935/",
+    observedAt: "2026-07-17",
+    period: "2026년 7월 공개 확인",
+    historical: false,
+    importance: 91,
+  },
+  {
+    platformId: "nowcoder",
+    type: "workplace",
+    title: "长鑫存储2027提前批覆盖工艺、硬件与技术支持",
+    titleKo: "CXMT 2027 조기 채용에서 공정·하드웨어·기술지원 직무 확인",
+    summary: "牛客의 공개 기업 채용 페이지는 2026년 4월 갱신된 CXMT 조기 채용 일정과 허페이·시안·베이징·상하이 근무지를 제시합니다. 채용 분야는 전자·반도체, 하드웨어, 기계, 화공, 기술지원으로 분산되어 있습니다.",
+    insight: "지역별 직무 배치는 Fab 운영과 R&D 기능의 분업 방향을 보여주는 선행 신호입니다. SKHY는 핵심 수율 인력의 이동보다 먼저 캠퍼스 인재 파이프라인의 직무 믹스 변화를 봐야 합니다.",
+    validation: "채용 도시 · 직무군 · 지원 기간 · 공식 채용 페이지 일치 여부",
+    link: "https://www.nowcoder.com/enterprise/5758/?page=1&recruitType=0",
+    date: "2026-04-23",
+    period: "2026년 4월 갱신",
+    historical: false,
+    importance: 89,
+  },
+  {
+    platformId: "nowcoder",
+    type: "workplace",
+    title: "长鑫存储PE面试集中在CVD、工艺认知与产线适配",
+    titleKo: "CXMT 공정 면접에서 CVD·공정 이해·교대 적응을 반복 확인",
+    summary: "牛客의 공개 면접 경험에는 CVD 원리, 공정 엔지니어 역할, 소재 연구와 공정 통합의 연결, 24시간 생산 라인 교대 적응 질문이 반복됩니다. 개인 경험담이므로 채용 정책 확정값이 아니라 직무 요구 역량의 보조 신호입니다.",
+    insight: "SKHY는 경쟁사의 양산 역량을 추정할 때 채용 공고 수보다 공정 기초·라인 안정성·교대 운영을 묻는 면접 패턴이 장기간 반복되는지 확인해야 합니다.",
+    validation: "동일 질문 반복 빈도 · 공정 직무 비중 · 게시 시점 · 공식 JD와의 일치",
+    link: "https://www.nowcoder.com/enterprise/5758/interview",
+    observedAt: "2026-07-17",
+    period: "2026년 7월 공개 확인",
+    historical: false,
+    importance: 92,
+  },
+  {
+    platformId: "zhihu",
+    type: "technology",
+    title: "微星验证长鑫DDR5在AMD平台达到8000至8200MT/s",
+    titleKo: "MSI가 CXMT DDR5의 AMD 플랫폼 8000~8200MT/s 구동을 공개",
+    summary: "知乎 공개 글은 MSI의 BIOS 튜닝으로 CXMT 16Gb DDR5가 AMD AM5 플랫폼에서 8000MT/s 이상 구동된 사례를 다룹니다. 플랫폼 호환성 개선 신호지만 DRAM 수율, 비트 원가, 대규모 OEM 인증을 의미하지는 않습니다.",
+    insight: "SKHY는 고클럭 시연 자체보다 메인보드 지원 범위, 모듈 ASP, OEM 인증, 반품률이 함께 개선되는지를 가격 방어 판단의 반증 KPI로 둬야 합니다.",
+    validation: "지원 메인보드 수 · OEM 인증 · 모듈 ASP · 장기 안정성/반품률",
+    link: "https://zhuanlan.zhihu.com/p/2057735650443636764",
+    date: "2026-07-07",
+    historical: false,
+    importance: 93,
+  },
+  {
+    platformId: "zhihu",
+    type: "technology",
+    title: "长江存储TiPro9000 PCIe 5.0与Xtacking 4.0讨论",
+    titleKo: "YMTC TiPro9000과 Xtacking 4.0의 소비자 SSD 적용 논의",
+    summary: "知乎 공개 답변은 TiPro9000 PCIe 5.0 SSD와 Xtacking 4.0 기반 NAND의 성능·발열·플랫폼 구성을 논의합니다. 개별 사용자 평가이므로 기업용 SSD 인증이나 출하 점유율로 확대 해석하지 않습니다.",
+    insight: "SKHY는 YMTC의 기술 위협을 층수만으로 비교하지 말고 컨트롤러 조합, 채널 재고, 펌웨어 안정성, 기업용 고객 인증으로 분해해야 합니다.",
+    validation: "NAND/컨트롤러 세대 · 채널 재고 · 펌웨어 업데이트 · eSSD 고객 인증",
+    link: "https://www.zhihu.com/question/7719659161/answer/68573401830",
+    observedAt: "2026-07-17",
+    period: "2026년 7월 공개 확인",
+    historical: false,
+    importance: 88,
+  },
+  {
+    platformId: "smzdm",
+    type: "technology",
+    title: "长江存储PE501企业级QLC SSD公开评测",
+    titleKo: "YMTC PE501 기업용 QLC SSD의 공개 제품 평가",
+    summary: "什么值得买의 공개 글은 YMTC PE501 PCIe 5.0 기업용 SSD와 Xtacking 4.0 기반 QLC 구성을 다룹니다. 제품 노출은 eSSD 진입 의지의 신호지만 실제 하이퍼스케일러 인증과 출하 물량은 별도 근거가 필요합니다.",
+    insight: "SKHY는 공개 벤치마크보다 고객 qualification 기간, 펌웨어 검증, 보증 정책, 반복 수주가 확인되는 시점을 eSSD 방어 투자 게이트로 삼아야 합니다.",
+    validation: "기업 고객 인증 · 반복 수주 · 펌웨어 검증 · 보증/내구성 조건",
+    link: "https://post.smzdm.com/p/a5rzwqe7/",
+    observedAt: "2026-07-17",
+    period: "2026년 6월 공개 글",
+    historical: false,
+    importance: 90,
+  },
+  {
+    platformId: "boss",
+    type: "workplace",
+    title: "中微公司公开岗位覆盖刻蚀设备与TSV应用",
+    titleKo: "AMEC 공개 채용에서 식각 장비·TSV 응용 직무 확인",
+    summary: "BOSS直聘의 AMEC 공개 기업 페이지에는 CCP·ICP 식각 장비와 TSV 응용에 연결되는 기술·장비 직무가 노출됩니다. 채용 정보는 고객 qualification 완료나 양산 장비 점유율을 뜻하지 않습니다.",
+    insight: "SKHY는 중국 장비 내재화 위험을 채용 건수로 확정하지 말고 TSV·식각 응용 인력, 고객 반복 발주, 공정 qualification 기간을 함께 추적해야 합니다.",
+    validation: "TSV/식각 직무 비중 · 고객 반복 발주 · 공정 qualification · 서비스 거점",
+    link: "https://m.zhipin.com/companys/66a2d4d6cefbca221XZ63dq6FVs~.html",
+    observedAt: "2026-07-17",
+    period: "2026년 7월 공개 확인",
+    historical: false,
+    importance: 90,
   },
 ];
 
@@ -1980,7 +2109,7 @@ function communityPlatformForUrl(value = "", preferredId = "") {
 
 function cleanCommunityTitle(value = "", platformLabel = "") {
   let title = stripNewsLabel(stripHTML(value)).replace(/\s+/g, " ").trim();
-  const labels = [platformLabel, "雪球", "知乎", "东方财富股吧", "东方财富", "V2EX", "Chiphell", "脉脉", "BOSS直聘", "智联招聘"]
+  const labels = [platformLabel, "雪球", "知乎", "东方财富股吧", "东方财富", "V2EX", "Chiphell", "什么值得买", "NGA", "脉脉", "牛客", "看准", "BOSS直聘", "猎聘", "智联招聘"]
     .filter(Boolean)
     .map((label) => label.replace(/[.*+?^${}()|[\]\\]/g, "\\$&"));
   if (labels.length) title = title.replace(new RegExp(`\\s*(?:[-–—|·]|\\|)\\s*(?:${labels.join("|")})\\s*$`, "i"), "").trim();
@@ -2040,13 +2169,41 @@ function communityTopics(text = "", type = "market") {
   return Array.from(new Set(topics)).slice(0, 4);
 }
 
-function communityInsight(type = "market") {
+function communityInsight(type = "market", text = "") {
+  if (type === "workplace" && /(良率|工艺整合|失效分析|量测|CVD|制程|yield|process)/i.test(text)) {
+    return "공정 통합·불량 분석·계측 직무의 반복은 양산 안정화 병목이 어디에 남아 있는지 보여주는 보조 신호입니다. 실제 수율은 공시·제품 원가·고객 인증으로 별도 검증합니다.";
+  }
+  if (type === "workplace" && /(封装|测试|TSV|混合键合|hybrid bonding)/i.test(text)) {
+    return "패키징·테스트 직무가 장기간 함께 늘어나는지 확인해 NAND·HBM 후공정 내재화 방향을 판단합니다. 공개 채용만으로 설비 캐파나 양산 진입을 확정하지 않습니다.";
+  }
+  if (type === "workplace" && /(设备|厂务|气体|刻蚀|薄膜|北方华创|中微公司)/i.test(text)) {
+    return "장비·Fab 유틸리티 직무는 생산 운영과 현장 서비스 역량의 보조 신호입니다. 고객 반복 발주와 qualification 근거가 붙을 때만 장비 대체 위험을 상향합니다.";
+  }
+  if (type === "technology" && /(长鑫|CXMT).*(DDR5|LPDDR)|(?:DDR5|LPDDR).*(长鑫|CXMT)/i.test(text)) {
+    return "플랫폼 호환성과 고클럭 시연은 제품 인식 개선 신호지만 수율·비트 원가를 증명하지 않습니다. OEM 인증, 모듈 ASP, 반품률이 함께 개선되는지 확인합니다.";
+  }
+  if (type === "technology" && /(长江存储|长存|YMTC).*(SSD|NAND|Xtacking)|(?:SSD|NAND|Xtacking).*(长江存储|长存|YMTC)/i.test(text)) {
+    return "YMTC 제품 신호는 컨트롤러·NAND 세대, 펌웨어 안정성, 채널 재고, 기업 고객 인증으로 분해해 SKHY eSSD 방어 우선순위에 반영합니다.";
+  }
+  if (/(北方华创|中微公司|NAURA|AMEC)/i.test(text)) {
+    return "중국 장비 업체의 기술·인력 신호는 반복 발주와 고객 qualification을 확인하기 전까지 공급망 관심 변화로만 사용합니다.";
+  }
   return ({
     workplace: "직무·공정 키워드의 반복 빈도로 기술 병목을 추적하되, 실제 채용 인원과 프로젝트 규모는 공식 공시로 확인합니다.",
     technology: "사용자 기술 논쟁은 제품 인식과 병목의 약한 신호로만 사용하고 수율·성능 수치는 공식 자료로 교차 검증합니다.",
     market: "반복 언급되는 기업·장비·자금 흐름을 관심 변화로 추적하되 계약·캐파·점유율은 사실 근거로 승격하지 않습니다.",
     consumer: "소비자 가격·가용성 체감은 유통 재고의 보조 신호로 보고 실제 Spot·Contract 시계열과 함께 판단합니다.",
   })[type] || "반복 빈도와 방향만 현장 신호로 사용하고 수치·사실은 공식 원문으로 검증합니다.";
+}
+
+function communityValidation(type = "market", text = "") {
+  if (type === "workplace") return "활성 직무 수 · 직무 믹스 · 근무지 · 재게시 주기";
+  if (type === "market") return "공식 CAPEX·투자 공시 · 고객 계약 · 캐파 · 매출·점유율";
+  if (/(长鑫|CXMT).*(DDR5|LPDDR)|(?:DDR5|LPDDR).*(长鑫|CXMT)/i.test(text)) return "OEM 인증 · 모듈 ASP · 장기 안정성 · 반품률";
+  if (/(长江存储|长存|YMTC).*(SSD|NAND|Xtacking)|(?:SSD|NAND|Xtacking).*(长江存储|长存|YMTC)/i.test(text)) return "NAND/컨트롤러 세대 · 채널 재고 · 펌웨어 · 고객 인증";
+  if (/(北方华创|中微公司|NAURA|AMEC)/i.test(text)) return "고객 qualification · 반복 발주 · 서비스 거점 · 국산 장비 비중";
+  if (type === "consumer") return "소매가 · 재고 · 후기 반복 빈도 · Spot/Contract spread";
+  return "공식 공시 · 설비 발주 · 고객 계약 · 동일 신호 반복 여부";
 }
 
 function communityScore(item = {}) {
@@ -2093,7 +2250,8 @@ function normalizeCommunityItem(item = {}, preferredPlatformId = "") {
   if (!COMMUNITY_ENTITY_RE.test(combined) || !COMMUNITY_MEMORY_RE.test(combined)) return null;
   if (summaryOriginal.length < 28) return null;
   const type = communityTypeFor(combined, rule.defaultType);
-  const ts = new Date(item.pubDate || item.date || item.publishedAt || 0).getTime() || 0;
+  const observedAt = item.observedAt || "";
+  const ts = new Date(item.pubDate || item.date || item.publishedAt || observedAt || 0).getTime() || 0;
   const evidence = communityEvidence(rule);
   const normalized = {
     id: communityStableId(sourceUrl || title),
@@ -2106,10 +2264,13 @@ function normalizeCommunityItem(item = {}, preferredPlatformId = "") {
     titleKo: item.titleKo || "",
     summaryOriginal,
     summary: item.summary || "",
-    insight: item.insight || communityInsight(type),
+    insight: item.insight || communityInsight(type, combined),
+    validation: item.validation || communityValidation(type, combined),
     link: sourceUrl,
     sourceUrl,
-    date: ymd(item.pubDate || item.date || item.publishedAt),
+    date: ymd(item.pubDate || item.date || item.publishedAt || observedAt),
+    observedAt: observedAt ? ymd(observedAt) : "",
+    period: item.period || "",
     ts,
     crawledAt: new Date().toISOString(),
     entities: communityEntities(combined),
@@ -2128,7 +2289,8 @@ function normalizeCommunitySeed(seed = {}) {
   if (!rule || !sourceUrl) return null;
   const type = seed.type || rule.defaultType;
   const combined = `${seed.title || ""} ${seed.titleKo || ""} ${seed.summary || ""}`;
-  const ts = new Date(seed.date || 0).getTime() || 0;
+  const observedAt = seed.observedAt || "";
+  const ts = new Date(seed.date || observedAt || 0).getTime() || 0;
   const evidence = communityEvidence(rule);
   const item = {
     id: communityStableId(sourceUrl),
@@ -2141,10 +2303,12 @@ function normalizeCommunitySeed(seed = {}) {
     titleKo: seed.titleKo || "",
     summaryOriginal: "",
     summary: seed.summary || "",
-    insight: seed.insight || communityInsight(type),
+    insight: seed.insight || communityInsight(type, combined),
+    validation: seed.validation || communityValidation(type, combined),
     link: sourceUrl,
     sourceUrl,
     date: seed.date || "",
+    observedAt: observedAt ? ymd(observedAt) : "",
     period: seed.period || "",
     ts,
     crawledAt: new Date().toISOString(),
@@ -2171,6 +2335,8 @@ function mergeCommunityItems(first = {}, second = {}) {
     summaryOriginal: primary.summaryOriginal || other.summaryOriginal || "",
     date: primary.date || other.date || "",
     period: primary.period || other.period || "",
+    observedAt: primary.observedAt || other.observedAt || "",
+    validation: primary.validation || other.validation || "",
     ts: Math.max(Number(primary.ts || 0), Number(other.ts || 0)),
     historical: Boolean(primary.historical || other.historical),
     importance: Math.max(Number(primary.importance || 0), Number(other.importance || 0)),
@@ -2182,6 +2348,58 @@ async function fetchBingCommunity(query = "") {
   const url = `https://www.bing.com/search?format=rss&setlang=zh-Hans&mkt=zh-CN&count=20&q=${encodeURIComponent(query)}`;
   const xml = await fetchText(url);
   return parseRSS(xml);
+}
+
+function buildCommunityBriefs(items = []) {
+  const definitions = [
+    {
+      id: "yield-talent",
+      title: "공정·수율 인력",
+      match: (item) => item.type === "workplace" && /(良率|工艺|失效|量测|CVD|制程|공정|수율)/i.test(`${item.title} ${item.summary} ${(item.topics || []).join(" ")}`),
+      signal: "공정 통합·불량 분석·계측·라인 운영 직무가 반복되는지 관찰",
+      implication: "SKHY는 핵심 수율 인력 리텐션과 중국 DRAM 양산 안정화 속도를 같은 인력 리스크 보드에서 검토",
+      validation: "활성 JD 수 · 직무 믹스 · 지역 · 재게시 주기",
+    },
+    {
+      id: "product-validation",
+      title: "제품·호환성 검증",
+      match: (item) => item.type === "technology" || item.type === "consumer",
+      signal: "DDR5 플랫폼 호환성과 NAND·eSSD 제품 노출을 구분해 관찰",
+      implication: "SKHY는 시연 성능보다 OEM 인증·가격·펌웨어·반복 수주가 붙는 시점을 경쟁 강도 상향 조건으로 사용",
+      validation: "OEM 인증 · ASP · 펌웨어 · 반품률 · 반복 수주",
+    },
+    {
+      id: "equipment-localization",
+      title: "장비·현장 서비스",
+      match: (item) => /(北方华创|中微公司|NAURA|AMEC|设备|刻蚀|薄膜|TSV|장비|식각)/i.test(`${item.title} ${item.summary} ${(item.entities || []).join(" ")} ${(item.topics || []).join(" ")}`),
+      signal: "식각·TSV·Fab 유틸리티 인력과 장비 토론의 동시 증가 여부를 관찰",
+      implication: "SKHY는 채용 신호를 장비 대체율로 환산하지 않고 고객 qualification·반복 발주가 확인될 때 공급망 시나리오를 변경",
+      validation: "고객 qualification · 반복 발주 · 서비스 거점 · 장비 비중",
+    },
+    {
+      id: "capital-attention",
+      title: "자본·산업 관심",
+      match: (item) => item.type === "market",
+      signal: "IPO·증설·공급망 기업의 반복 언급으로 시장 관심의 방향만 관찰",
+      implication: "SKHY는 커뮤니티 기대를 캐파 사실로 승격하지 않고 거래소 공시와 장비 발주로 교차 확인",
+      validation: "거래소 공시 · 자금 용도 · 설비 발주 · 고객 계약",
+    },
+  ];
+  return definitions.map((definition) => {
+    const matched = items.filter(definition.match);
+    const latestAt = matched.reduce((latest, item) => Math.max(latest, Number(item.ts || 0)), 0);
+    return {
+      id: definition.id,
+      title: definition.title,
+      count: matched.length,
+      sourceCount: new Set(matched.map((item) => item.platformId).filter(Boolean)).size,
+      recent30d: matched.filter((item) => item.ts && Date.now() - item.ts <= 30 * 864e5).length,
+      latestAt: latestAt ? new Date(latestAt).toISOString() : null,
+      signal: definition.signal,
+      implication: definition.implication,
+      validation: definition.validation,
+    };
+  }).filter((brief) => brief.count > 0);
 }
 
 async function collectCommunitySignals(previousItems = []) {
@@ -2236,6 +2454,7 @@ async function collectCommunitySignals(previousItems = []) {
     sourceCount: Object.keys(platformCounts).length,
     typeCounts,
     platformCounts,
+    briefs: buildCommunityBriefs(items),
     items,
   };
 }

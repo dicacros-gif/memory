@@ -11355,6 +11355,106 @@ body.sidebar-collapsed .sb-ico {
   white-space: nowrap;
 }
 
+.community-brief-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
+  gap: 10px;
+  margin-bottom: 12px;
+}
+
+.community-brief-grid[hidden] {
+  display: none !important;
+}
+
+.community-brief {
+  --brief-accent: var(--teal);
+  display: grid;
+  min-width: 0;
+  gap: 8px;
+  border: 1px solid var(--line);
+  border-left: 4px solid var(--brief-accent);
+  border-radius: 8px;
+  background: var(--panel-2);
+  padding: 12px;
+  transition: transform .2s ease, color .2s ease, background .2s ease, border-color .2s ease, box-shadow .2s ease;
+}
+
+.community-brief:nth-child(2) { --brief-accent: #3b82f6; }
+.community-brief:nth-child(3) { --brief-accent: #f59e0b; }
+.community-brief:nth-child(4) { --brief-accent: #a855f7; }
+
+.community-brief:hover,
+.community-brief:focus-within {
+  transform: translateY(-3px);
+  border-color: var(--brief-accent);
+  background: color-mix(in srgb, var(--brief-accent) 88%, #111827);
+  color: #fff;
+  box-shadow: 0 18px 34px color-mix(in srgb, var(--brief-accent) 24%, rgba(15, 23, 42, .2));
+}
+
+.community-brief-head {
+  display: flex;
+  align-items: start;
+  justify-content: space-between;
+  gap: 8px;
+}
+
+.community-brief-head strong {
+  color: var(--ink);
+  font-size: 12.5px;
+  font-weight: 950;
+}
+
+.community-brief-head span {
+  flex: 0 0 auto;
+  color: var(--brief-accent);
+  font-size: 10px;
+  font-weight: 900;
+}
+
+.community-brief p,
+.community-brief-decision span,
+.community-brief small {
+  color: var(--muted);
+  font-size: 10.5px;
+  line-height: 1.5;
+  font-weight: 700;
+}
+
+.community-brief-decision {
+  display: grid;
+  gap: 3px;
+  border-top: 1px solid var(--line);
+  padding-top: 7px;
+}
+
+.community-brief-decision strong {
+  color: var(--brief-accent);
+  font-size: 9.5px;
+  font-weight: 950;
+  text-transform: uppercase;
+}
+
+.community-brief:hover .community-brief-head strong,
+.community-brief:focus-within .community-brief-head strong,
+.community-brief:hover .community-brief-head span,
+.community-brief:focus-within .community-brief-head span,
+.community-brief:hover p,
+.community-brief:focus-within p,
+.community-brief:hover .community-brief-decision strong,
+.community-brief:focus-within .community-brief-decision strong,
+.community-brief:hover .community-brief-decision span,
+.community-brief:focus-within .community-brief-decision span,
+.community-brief:hover small,
+.community-brief:focus-within small {
+  color: #fff;
+}
+
+.community-brief:hover .community-brief-decision,
+.community-brief:focus-within .community-brief-decision {
+  border-color: rgba(255, 255, 255, .28);
+}
+
 .community-stats {
   display: flex;
   flex-wrap: wrap;
@@ -11505,6 +11605,27 @@ body.sidebar-collapsed .sb-ico {
   -webkit-line-clamp: 3;
 }
 
+.community-validation {
+  display: grid;
+  gap: 3px;
+  border-top: 1px dashed var(--line);
+  padding-top: 7px;
+}
+
+.community-validation strong {
+  color: var(--muted);
+  font-size: 9px;
+  font-weight: 950;
+  text-transform: uppercase;
+}
+
+.community-validation span {
+  color: var(--ink-2);
+  font-size: 9.5px;
+  line-height: 1.42;
+  font-weight: 750;
+}
+
 .community-tags {
   display: flex;
   flex-wrap: wrap;
@@ -11529,7 +11650,11 @@ body.sidebar-collapsed .sb-ico {
 .community-card:hover .community-insight span,
 .community-card:focus-within .community-insight span,
 .community-card:hover .community-tags span,
-.community-card:focus-within .community-tags span {
+.community-card:focus-within .community-tags span,
+.community-card:hover .community-validation strong,
+.community-card:focus-within .community-validation strong,
+.community-card:hover .community-validation span,
+.community-card:focus-within .community-validation span {
   color: #fff;
 }
 
