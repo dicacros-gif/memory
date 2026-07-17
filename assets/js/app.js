@@ -15652,6 +15652,43 @@
     return Array.from(unique.values()).sort((a, b) => communityTimestamp(b) - communityTimestamp(a) || Number(b.score || 0) - Number(a.score || 0));
   }
 
+  function communityVerificationItems() {
+    const targetThemes = new Set(["capacity", "china_talent_strategy"]);
+    const benchmarkItems = (LIVE.benchmarkSignals?.themes || [])
+      .filter((theme) => targetThemes.has(theme.id))
+      .flatMap((theme) => (theme.items || []).map((item) => ({
+        id: `benchmark-${theme.id}-${item.sourceUrl || item.link || item.title}`,
+        kind: theme.id === "capacity" ? "외신 · 캐파/계약" : "외신 · 인재/조직",
+        evidence: item.evidenceLevel || "Reported",
+        title: cleanKoreanTitle(item.titleKo || item.title || "외신 벤치마크"),
+        summary: clipText(item.summary || item.insight || "원문 보도에 포함된 수치와 시점을 공식 공시·실제 출하로 교차 확인합니다.", 190),
+        source: item.source || item.sourceType || "Foreign source",
+        date: item.date || item.publishedAt || "",
+        url: item.sourceUrl || item.link || "",
+      })));
+    const infraItems = (LIVE.chinaInfra?.sources || []).filter((item) => item.ok && item.url).map((item) => {
+      const isBis = item.id === "bis-veu";
+      return {
+        id: `infra-${item.id}`,
+        kind: "공식 원문 · 인프라/규제",
+        evidence: "공식 원문",
+        title: isBis ? "BIS가 중국 내 외국계 반도체 팹의 VEU 예외를 종료" : "우시 보세구역 확장 승인과 SKHY 사업 접점 확인",
+        summary: isBis
+          ? "기존 운영에는 개별 라이선스를 검토하되 캐파 확대와 기술 업그레이드는 지원하지 않는다는 정책 방향을 확인합니다."
+          : "국무원 승인으로 보세구역이 1.11km² 확대돼 3.49km²가 됐으며, 공식 문서에서 SKHY와 신규 투자 계획을 함께 확인합니다.",
+        source: isBis ? "U.S. Department of Commerce · BIS" : "Wuxi Municipal Government",
+        date: item.publishedAt || item.crawledAt || "",
+        url: item.url,
+      };
+    });
+    const byUrl = new Map();
+    [...benchmarkItems, ...infraItems].forEach((item) => {
+      const key = String(item.url || item.id).replace(/\/$/, "").toLowerCase();
+      if (key && !byUrl.has(key)) byUrl.set(key, item);
+    });
+    return Array.from(byUrl.values()).sort((a, b) => communityTimestamp(b) - communityTimestamp(a));
+  }
+
   function setCommunityFreshness(total = 0) {
     const badge = $("#communityFreshness");
     if (!badge) return;
@@ -15667,7 +15704,8 @@
     const grid = $("#communityGrid");
     const stats = $("#communityStats");
     const briefs = $("#communityBriefs");
-    if (!section || !tabs || !grid || !stats || !briefs) return;
+    const verification = $("#communityVerification");
+    if (!section || !tabs || !grid || !stats || !briefs || !verification) return;
     const base = communityBaseItems();
     if (!base.length) {
       section.hidden = true;
@@ -15708,6 +15746,24 @@
         <small>확인 KPI · ${escapeHTML(brief.validation || "")}</small>
       </article>
     `).join("");
+    const verificationItems = communityPlatform === "all" && communityType === "all" ? communityVerificationItems() : [];
+    verification.hidden = !verificationItems.length;
+    verification.innerHTML = verificationItems.length ? `
+      <div class="community-verification-head">
+        <strong>교차검증 근거</strong>
+        <span>외신 보도와 정부 원문을 채용·커뮤니티 신호와 분리</span>
+      </div>
+      <div class="community-verification-grid">
+        ${verificationItems.map((item) => `
+          <a class="community-verification-card" href="${escapeHTML(item.url)}" target="_blank" rel="noopener">
+            <div><span>${escapeHTML(item.kind)}</span><em>${escapeHTML(item.evidence)}</em></div>
+            <strong>${escapeHTML(item.title)}</strong>
+            <p>${escapeHTML(item.summary)}</p>
+            <small>${escapeHTML(item.source)}${item.date ? ` · ${escapeHTML(formatNewsDate(item.date) || item.date)}` : ""}</small>
+          </a>
+        `).join("")}
+      </div>
+    ` : "";
     const statParts = [
       LIVE.communitySignals?.recent30d > 0 ? `최근 30일 ${fmtNum(LIVE.communitySignals.recent30d)}건` : "",
       LIVE.communitySignals?.historicalCount > 0 ? `중요 과거 ${fmtNum(LIVE.communitySignals.historicalCount)}건` : "",

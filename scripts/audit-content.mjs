@@ -379,6 +379,30 @@ for (const brief of communityBriefs) {
 }
 const communityHostPattern = /(?:xueqiu\.com|zhihu\.com|guba\.eastmoney\.com|v2ex\.com|chiphell\.com|smzdm\.com|nga\.cn|maimai\.cn|nowcoder\.com|kanzhun\.com|zhipin\.com|liepin\.com|zhaopin\.com)/i;
 
+const benchmarkThemes = live.benchmarkSignals?.themes || {};
+const benchmarkItems = Object.values(benchmarkThemes).flatMap((theme) =>
+  Array.isArray(theme?.items) ? theme.items : [],
+);
+const preservedBenchmarkItems = benchmarkItems.filter((item) => item?.preservedSeed);
+if (preservedBenchmarkItems.length < 7) {
+  addIssue("error", "data/live.json", "fewer than seven preserved foreign benchmark signals", String(preservedBenchmarkItems.length));
+}
+for (const item of preservedBenchmarkItems) {
+  const sourceUrl = String(item.sourceUrl || item.link || "");
+  if (!/^https?:\/\//i.test(sourceUrl)) {
+    addIssue("error", "data/live.json", "preserved benchmark signal lacks a source URL", item.id || item.title || "unknown");
+  }
+  if (String(item.summary || "").trim().length < 28) {
+    addIssue("error", "data/live.json", "preserved benchmark signal lacks a substantive summary", item.id || sourceUrl);
+  }
+  if (!String(item.validation || "").trim()) {
+    addIssue("error", "data/live.json", "preserved benchmark signal lacks a validation condition", item.id || sourceUrl);
+  }
+  if (String(item.evidenceLevel || "") !== "Reported") {
+    addIssue("error", "data/live.json", "preserved benchmark signal was promoted beyond Reported", item.id || sourceUrl);
+  }
+}
+
 const intelligence = live.intelligence || {};
 const briefs = Array.isArray(intelligence.briefs) ? intelligence.briefs : [];
 const briefIds = new Set();

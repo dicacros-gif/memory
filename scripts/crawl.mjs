@@ -368,6 +368,7 @@ const COMMUNITY_DISCOVERY_QUERIES = [
   { query: "site:maimai.cn 长鑫存储 招聘 良率", platformId: "maimai" },
   { query: "site:maimai.cn 长江存储 封装 测试 招聘", platformId: "maimai" },
   { query: "site:nowcoder.com 长鑫存储 工艺 良率 面试", platformId: "nowcoder" },
+  { query: "site:nowcoder.com/enterprise/5758 长鑫存储 2027 提前批 工艺", platformId: "nowcoder" },
   { query: "site:nowcoder.com 长江存储 封装 测试 校招", platformId: "nowcoder" },
   { query: "site:kanzhun.com 长鑫存储 工艺 工程师 面试", platformId: "kanzhun" },
   { query: "site:kanzhun.com 长江存储 工艺 封装 招聘", platformId: "kanzhun" },
@@ -378,6 +379,9 @@ const COMMUNITY_DISCOVERY_QUERIES = [
   { query: "site:liepin.com 长鑫存储 工艺 良率 招聘", platformId: "liepin" },
   { query: "site:liepin.com 长江存储 封装 测试 招聘", platformId: "liepin" },
   { query: "site:zhaopin.com 长鑫存储 良率 工艺 招聘", platformId: "zhaopin" },
+  { query: "site:zhaopin.com/companydetail/jobs-CZ604839930 长鑫存储 良率 失效 分析", platformId: "zhaopin" },
+  { query: "site:zhihu.com/p/2046257095788574179 长鑫存储 2027 校园招聘", platformId: "zhihu" },
+  { query: "site:jy.xmu.edu.cn 新芯股份 2026 校园招聘", platformId: "campus-career" },
   { query: "site:cxmt.zhiye.com 长鑫存储 校园招聘", platformId: "cxmt-careers" },
   { query: "site:whxmc.zhiye.com 新芯 校园招聘", platformId: "xmc-careers" },
   { query: "site:search.iczhiku.com 长鑫存储 长江存储 半导体", platformId: "csf-public" },
@@ -496,6 +500,20 @@ const COMMUNITY_HISTORY_SEEDS = [
     period: "공개 채용",
     historical: true,
     importance: 90,
+  },
+  {
+    platformId: "zhaopin",
+    type: "workplace",
+    title: "长鑫存储公开职位覆盖良率、失效分析、测试与生产",
+    titleKo: "CXMT 공개 채용이 수율·불량 분석·테스트·생산으로 확장",
+    summary: "2026년 7월 17일 공개 페이지 스냅샷에는 207개 직무가 표시되고, FT 수율 개선·전기적 불량 분석·어레이/ATE 테스트·생산 직무가 함께 노출됩니다. 페이지 수는 수시로 바뀌며 실제 채용 인원이나 수율 수준을 뜻하지 않습니다.",
+    insight: "SKHY는 총 공고 수보다 수율·불량 분석·테스트 직무의 재게시 기간과 지역 분포를 추적해 CXMT의 양산 안정화 병목이 어디에 남아 있는지 판단해야 합니다.",
+    validation: "활성 공고 수의 일별 스냅샷 · 수율/FA/테스트 비중 · 근무지 · 재게시 주기",
+    link: "https://www.zhaopin.com/companydetail/jobs-CZ604839930/",
+    observedAt: "2026-07-17",
+    period: "2026년 7월 17일 공개 확인",
+    historical: false,
+    importance: 94,
   },
   {
     platformId: "v2ex",
@@ -851,10 +869,107 @@ const BENCHMARK_SIGNAL_THEMES = [
   { id: "skhynix_product_projection", label: "SKHY Product Projection", queries: ["SK hynix HBM4 DDR5 CXL server roadmap", "SK hynix Solidigm enterprise SSD AI server demand", "SK hynix LPDDR UFS client SSD product mix", "memory AI server product mix projection DRAM NAND HBM", "automotive edge AI memory SK hynix"] },
   { id: "equipment", label: "Equipment Localization", queries: ["China semiconductor equipment localization NAURA Technology Group AMEC", "Chinese chip equipment localization memory", "China semiconductor equipment localization rate paid research source verification", "Yole 2026 39 percent 2030 localization 2025 52 percent China semiconductor equipment", "MATCH Act DUV lithography cryogenic etching China removed blanket ban", "YMTC homegrown NAND production line NAURA AMEC ACM", "Naura Qomola HPD30 hybrid bonding SEMICON China 2026", "ACM Research IR first quarter 2026 results revenue 231.263 shipments 240.7", "ACM Research Entity List 2025 China revenue concentration"] },
   { id: "china_infra", label: "China Fab Infrastructure", queries: ["SK hynix Wuxi K7 plot water power fab expansion", "SK hynix Wuxi environmental impact assessment wastewater reuse", "Wuxi bonded zone SK hynix comprehensive bonded zone expansion", "BIS VEU SK hynix China fab capacity upgrade", "Wuxi semiconductor fab water electricity land use"] },
-  { id: "china_talent_strategy", label: "China Talent Strategy", queries: ["SK hynix China workforce strategy Wuxi Dalian Chongqing", "China memory hiring strategy IP retention compliance", "CXMT YMTC Boss Zhipin yield engineer hiring", "China semiconductor campus recruiting Tsinghua memory engineer", "China fab EHS facility water power engineer hiring"] },
+  { id: "china_talent_strategy", label: "China Talent Strategy", queries: ["SK hynix China workforce strategy Wuxi Dalian Chongqing", "China memory hiring strategy IP retention compliance", "CXMT YMTC Boss Zhipin yield engineer hiring", "China semiconductor campus recruiting Tsinghua memory engineer", "China fab EHS facility water power engineer hiring", "CXMT Zhu Yiming engineer DIGITIMES SCMP"] },
   { id: "packaging", label: "Advanced Packaging", queries: ["JCET advanced packaging AI memory", "JCET XDFOI HBM AI packaging", "XMC HBM packaging China", "TFME advanced packaging memory China", "Huawei Ascend HBM packaging supply chain", "HBM TC bonder patent equipment"] },
   { id: "cxl", label: "CXL and PIM Value Chain", queries: ["CXL memory tester Exicon Neosem", "CXL controller IP memory pooling PIM", "CXL 3.1 module substrate TLB", "Openedges CXL controller IP", "FADU CXL memory controller"] },
   { id: "talent", label: "Talent and IP Signals", queries: ["China semiconductor talent hiring memory", "CXMT engineer hiring DRAM", "CXMT TSV yield engineer recruitment", "YMTC Xtacking eSSD engineer recruitment", "ijiwei CXMT YMTC recruitment engineer", "Tsinghua career CXMT YMTC semiconductor recruitment", "Boss Zhipin CXMT YMTC yield engineer", "Liepin CXMT YMTC semiconductor engineer", "Maimai CXMT YMTC memory engineer", "CNIPA CXMT YMTC HBM TSV patent", "China memory IP litigation Korean engineer CXMT YMTC"] },
+];
+
+// Preserve decision-relevant foreign reporting even when a daily search result
+// temporarily drops out. These seeds are merged with fresh search results and
+// deduplicated by canonical title; reported estimates never become confirmed facts.
+const BENCHMARK_SIGNAL_SEEDS = [
+  {
+    themeId: "capacity",
+    title: "CXMT close to matching Micron's memory capacity in 2026, research claims — would put China on track to become world's second-largest DRAM producer - Tom's Hardware",
+    titleKo: "연구 모델은 CXMT의 2026년 DRAM 캐파가 Micron에 근접할 수 있다고 추정",
+    source: "Tom's Hardware",
+    sourceType: "외신",
+    evidenceLevel: "Reported",
+    date: "2026-07-15",
+    link: "https://www.tomshardware.com/pc-components/dram/cxmt-close-to-matching-microns-memory-capacity-in-2026-research-claims-would-put-china-on-track-to-become-worlds-second-largest-dram-producer",
+    summary: "Tom's Hardware가 인용한 연구는 CXMT의 2026년 월 투입 캐파가 Micron에 근접할 가능성을 제시합니다. 이는 연구 모델 기반 전망이며 실제 웨이퍼 투입, 비트 생산량, 수율을 확정하지 않습니다.",
+    insight: "SKHY는 명목 캐파보다 양품 비트 출하와 DDR5 계약가 전이를 확인한 뒤 범용 DRAM 방어 강도를 높여야 합니다.",
+    validation: "월 웨이퍼 투입 · 양품 비트 출하 · DDR5 수율 · 고객 출하 · Spot/Contract spread",
+  },
+  {
+    themeId: "capacity",
+    title: "Can China’s memory chip giant CXMT keep thriving after IPO and AI boom? - South China Morning Post",
+    titleKo: "SCMP가 CXMT의 IPO 이후 성장 지속성과 AI 수요 의존도를 분석",
+    source: "South China Morning Post",
+    sourceType: "외신",
+    evidenceLevel: "Reported",
+    date: "2026-07-02",
+    link: "https://news.google.com/rss/articles/CBMi0gFBVV95cUxNVEVjX2d6NWNyZzhCcTZjb21GbVVwam9oOEs4aHBxdU91SlE3SlBYWjlSenBGWjRkS2Q4bFNkQnZ1LXF3TDltVmpjWWYwQ2Vybkx0SHFMMnlMUkFrOVFBUkhNUWtscUJ1YVRKSnpEbVNuckRZR2ptekRVSU1Ec0xheW1kOEJIWm8zVU5TSFI0ZEFtRnlMc2lNTmwzVUJ6UEVkYzF6aWJQbjFZOVdDMzJOdXBnaDNnMmx6MVpSTUhfTW1Jc18xallZNkplOE43Rk05OUHSAdIBQVVfeXFMTTAwU1B3bDZSUHNTblNrdWpicGtfWTF4S2l5N2YwREhsSVdFOWlmZjVsOXdkT1dJYnNGWWQtYVZHQ1I2UE1VY3p2aTJFZ1N2NHBQLXpCMjk1TlJoUjRKTEFwQk05TzYtZ2psM3Frb3pST0dNZ2NWTG80UkotRGMxQTV6ZTRRajN6cHNKbjlhOXJkLXFVTEpSd2g5NWtmMWpVZS1Oa3ZUREp4dVo3dDhtc2Q3V0ZDU3FsSXFDQjJrbVZTenF5TFJ4eU05dTEySGJlalRB?oc=5",
+    summary: "SCMP는 IPO 자금, AI 수요, 중국 내 고객 기반이 CXMT 성장의 지속성을 얼마나 뒷받침하는지 분석합니다. 기사 분석은 고객 주문과 실제 출하를 분리해 읽어야 합니다.",
+    insight: "SKHY는 IPO 규모 자체보다 자금 집행이 범용 DRAM 캐파와 고객 승인으로 전환되는 속도를 추적해야 합니다.",
+    validation: "IPO 자금 집행 · 장비 반입 · 고객 승인 · 실제 출하 · ASP",
+  },
+  {
+    themeId: "capacity",
+    title: "EXCLUSIVE: China's CXMT wins $3 billion memory supply deal with Tencent, sources say - Reuters",
+    titleKo: "Reuters가 CXMT-텐센트 200억 위안 이상 메모리 공급계약을 보도",
+    source: "Reuters",
+    sourceType: "외신",
+    evidenceLevel: "Reported",
+    date: "2026-06-29",
+    link: "https://www.reuters.com/world/china/chinas-cxmt-wins-3-billion-memory-supply-deal-with-tencent-sources-say-2026-06-29/",
+    summary: "Reuters는 익명 소식통을 인용해 계약 규모를 200억 위안 이상, 약 $2.94B로 보도했습니다. 계약 기간은 소식통별 3년 또는 5년으로 엇갈려 회사 공시 전까지 Reported로 유지합니다.",
+    insight: "SKHY에는 금액보다 중국 서버 DRAM 승인 공급사 진입과 장기 물량이 가격 협상력에 미치는 영향이 핵심입니다.",
+    validation: "회사 공시 · 계약 기간 · 연간 출하 물량 · 제품 믹스 · 실제 매출 인식",
+  },
+  {
+    themeId: "capacity",
+    title: "China’s CXMT Is Set to Challenge DRAM Incumbents - SemiAnalysis",
+    titleKo: "SemiAnalysis가 CXMT의 DRAM 공급 확대와 원가·사이클 영향을 분석",
+    source: "SemiAnalysis",
+    sourceType: "분석",
+    evidenceLevel: "Reported",
+    date: "2026-06-23",
+    link: "https://newsletter.semianalysis.com/p/chinas-cxmt-is-set-to-challenge-dram",
+    summary: "SemiAnalysis는 CXMT의 캐파 확대뿐 아니라 메모리 가격 사이클과 ASP가 실적 개선을 크게 좌우한다고 분석합니다. 모델 수치는 공시와 실제 출하로 교차 확인해야 합니다.",
+    insight: "SKHY는 CXMT의 점유율 상승과 업황 상승 효과를 분리해 범용 DRAM의 구조적 위협을 과대평가하지 않아야 합니다.",
+    validation: "양품 비트 출하 · ASP · 제품별 원가 · 공시 매출 · 고객 믹스",
+  },
+  {
+    themeId: "capacity",
+    title: "YMTC NAND share rises to 13%, alarming South Korean rivals - digitimes",
+    titleKo: "DigiTimes가 YMTC NAND 점유율 13% 상승을 보도",
+    source: "DigiTimes",
+    sourceType: "외신",
+    evidenceLevel: "Reported",
+    date: "2026-06-22",
+    link: "https://news.google.com/rss/articles/CBMihgFBVV95cUxPRUlBc1FMUndzdlVLa0IzNHZPUG5vM29xSDlWS1J1TXBYSG9QT0NfYWZDMXhPa3M1cm5GNkxSZi11X2RWQVVHdXc1VnBZSXRsSmJ6dTVTTjhUSUlwTzF0R1hpRzRrajBHME1IcmxDbzVuNXdrbm1sYU5WR29aLW8wNlgzeFFqUQ?oc=5",
+    summary: "DigiTimes는 YMTC의 NAND 점유율이 13%까지 상승했다고 보도합니다. 점유율은 조사기관·분기·매출 또는 출하 기준에 따라 달라질 수 있어 기준 확인 전 Reported로 둡니다.",
+    insight: "SKHY는 단일 점유율보다 eSSD 고객 인증, 중국 내수 흡수, 계약가와 실제 출하의 동행 여부를 방어 투자 기준으로 봐야 합니다.",
+    validation: "조사기관·기준 분기 · 매출/출하 기준 · eSSD 고객 인증 · 계약가",
+  },
+  {
+    themeId: "china_talent_strategy",
+    title: "Meet CXMT’s Zhu Yiming: the man building China’s memory-chip giant - South China Morning Post",
+    titleKo: "SCMP가 CXMT 창업자 Zhu Yiming의 기술·조직 전략을 조명",
+    source: "South China Morning Post",
+    sourceType: "외신",
+    evidenceLevel: "Reported",
+    date: "2026-07-13",
+    link: "https://www.scmp.com/tech/article/3360285/meet-cxmts-zhu-yiming-engineer-building-chinas-answer-global-memory-chip-giants",
+    summary: "SCMP 프로필은 Zhu Yiming을 중심으로 CXMT의 기술 축적과 조직 구축 경로를 설명합니다. 인물 기사는 조직 역량의 맥락이며 채용 인원이나 수율을 증명하지 않습니다.",
+    insight: "SKHY는 개인 이력보다 핵심 엔지니어의 장기 재직, 공정 통합 리더십, 후계 구조가 기술 격차 축소에 미치는 영향을 추적해야 합니다.",
+    validation: "핵심 리더 재직 · 조직 개편 · 공정 책임자 이동 · 특허·제품 출시",
+  },
+  {
+    themeId: "china_talent_strategy",
+    title: "The low-profile engineer who built CXMT into a DRAM heavyweight - DIGITIMES",
+    titleKo: "DigiTimes가 CXMT를 DRAM 강자로 키운 핵심 엔지니어를 분석",
+    source: "DigiTimes",
+    sourceType: "외신",
+    evidenceLevel: "Reported",
+    date: "2026-07-17",
+    link: "https://www.digitimes.com/news/a20260717VL207/cxmt-dram-ipo-manufacturing-samsung.html?chid=10",
+    summary: "DigiTimes는 CXMT의 제조 역량 형성 과정과 핵심 엔지니어의 역할을 분석합니다. 인물 서사는 기술 조직을 이해하는 보조 근거이며 수율·캐파 확정값으로 사용하지 않습니다.",
+    insight: "SKHY는 경쟁사 인재 위험을 개인 스카우트 건수보다 공정 통합·수율·제품화 리더십이 한 조직에 결집되는지로 평가해야 합니다.",
+    validation: "핵심 인력 재직 · 공정 책임 범위 · 제품 전환 · 특허 · 고객 인증",
+  },
 ];
 
 const CHINA_INFRA_SOURCE_PAGES = [
@@ -2711,6 +2826,34 @@ async function collectStartups() {
 }
 
 /* ---------- benchmark signal stream (foreign press) ---------- */
+function normalizeBenchmarkSeed(seed = {}) {
+  const link = String(seed.link || seed.sourceUrl || "").trim();
+  const date = ymd(seed.date || seed.publishedAt || "");
+  if (!seed.themeId || !seed.title || !link || !date) return null;
+  return {
+    themeId: seed.themeId,
+    title: seed.title,
+    originalTitle: seed.title,
+    titleKo: seed.titleKo || "",
+    summary: seed.summary || "",
+    insight: seed.insight || "",
+    validation: seed.validation || "",
+    source: seed.source || "",
+    sourceType: seed.sourceType || "외신",
+    evidenceLevel: seed.evidenceLevel || "Reported",
+    claimType: "보도·분석",
+    link,
+    sourceUrl: link,
+    date,
+    ts: new Date(`${date}T00:00:00Z`).getTime() || 0,
+    category: seed.themeId,
+    language: "english",
+    streamLanguage: "english",
+    languageVerified: true,
+    preservedSeed: true,
+  };
+}
+
 async function collectBenchmarkSignals() {
   const seen = new Set();
   const themes = [];
@@ -2718,6 +2861,14 @@ async function collectBenchmarkSignals() {
 
   for (const theme of BENCHMARK_SIGNAL_THEMES) {
     const items = [];
+    for (const seed of BENCHMARK_SIGNAL_SEEDS.filter((item) => item.themeId === theme.id)) {
+      const item = normalizeBenchmarkSeed(seed);
+      if (!item || isCrawlerExcluded("news", item)) continue;
+      const key = canonicalNewsKey(item);
+      if (!key || seen.has(key)) continue;
+      seen.add(key);
+      items.push(item);
+    }
     for (const query of theme.queries) {
       try {
         const queryItems = await fetchGoogleNews(query, theme.id);
