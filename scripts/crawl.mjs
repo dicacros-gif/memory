@@ -223,6 +223,9 @@ const ENGLISH_AUTHORITY_MONITORS = [
       "HBM4 memory source:Nikkei Asia",
       "HBM4 memory source:TrendForce",
       "HBM memory source:EE Times",
+      "site:jedec.org HBM memory standard",
+      "site:spectrum.ieee.org HBM semiconductor memory",
+      "site:semiengineering.com HBM advanced packaging memory",
     ],
   },
   {
@@ -233,6 +236,9 @@ const ENGLISH_AUTHORITY_MONITORS = [
       "DRAM memory market source:Financial Times",
       "DRAM memory market source:TrendForce",
       "DRAM market share source:Counterpoint Research",
+      "site:semiengineering.com DRAM memory manufacturing",
+      "site:semiconductor-digest.com DRAM memory semiconductor",
+      "site:eetimes.com DRAM memory technology",
     ],
   },
   {
@@ -243,6 +249,9 @@ const ENGLISH_AUTHORITY_MONITORS = [
       "NAND enterprise SSD source:TrendForce",
       "NAND technology source:TechInsights",
       "NAND memory source:Nikkei Asia",
+      "site:electronicsweekly.com NAND memory SSD",
+      "site:theregister.com NAND SSD memory",
+      "site:digitimes.com NAND memory storage",
     ],
   },
   {
@@ -253,6 +262,11 @@ const ENGLISH_AUTHORITY_MONITORS = [
       "CXMT YMTC memory source:Caixin Global",
       "CXMT YMTC memory source:South China Morning Post",
       "CXMT YMTC memory source:Nikkei Asia",
+      "site:scmp.com CXMT YMTC semiconductor memory",
+      "site:caixinglobal.com CXMT YMTC memory",
+      "site:asia.nikkei.com CXMT YMTC semiconductor",
+      "site:semiengineering.com China semiconductor equipment memory",
+      "site:semi.org China memory semiconductor equipment",
     ],
   },
 ];
@@ -261,17 +275,38 @@ const CHINESE_AUTHORITY_MONITORS = [
   {
     id: "dram",
     label: "DRAM 중국어 권위 소스",
-    queries: ["财新 长鑫存储 DRAM", "第一财经 长鑫存储 DDR5", "集微网 长鑫存储"],
+    queries: [
+      "财新 长鑫存储 DRAM",
+      "site:yicai.com 长鑫存储 DDR5",
+      "site:stcn.com 长鑫存储 DRAM",
+      "site:laoyaoba.com 长鑫存储",
+      "site:ijiwei.com 长鑫存储",
+      "site:eet-china.com 长鑫存储 DDR5",
+    ],
   },
   {
     id: "nand",
     label: "NAND 중국어 권위 소스",
-    queries: ["财新 长江存储 NAND", "第一财经 长江存储 Xtacking", "集微网 长江存储"],
+    queries: [
+      "财新 长江存储 NAND",
+      "site:yicai.com 长江存储 Xtacking",
+      "site:chinaflashmarket.com 长江存储 NAND SSD",
+      "site:seminews.com.cn 长江存储 NAND",
+      "site:21jingji.com 长江存储 存储芯片",
+      "site:huxiu.com 长江存储 NAND",
+    ],
   },
   {
     id: "equipment",
     label: "장비 중국어 권위 소스",
-    queries: ["证券时报 半导体设备 存储芯片", "经济观察网 半导体设备 存储", "集微网 北方华创 中微公司"],
+    queries: [
+      "site:stcn.com 半导体设备 存储芯片",
+      "经济观察网 半导体设备 存储",
+      "site:ijiwei.com 北方华创 中微公司 存储",
+      "site:china.semi.org.cn 半导体设备 存储",
+      "site:csia.net.cn 存储芯片 半导体设备",
+      "site:eet-china.com 北方华创 中微公司",
+    ],
   },
 ];
 
@@ -295,6 +330,21 @@ const COMMUNITY_PLATFORM_RULES = [
   { id: "cxmt-careers", label: "CXMT 채용", domains: ["cxmt.zhiye.com", "cxmt.com"], sourceClass: "official-career", defaultType: "workplace" },
   { id: "xmc-careers", label: "XMC 채용", domains: ["whxmc.zhiye.com"], sourceClass: "official-career", defaultType: "workplace" },
   { id: "campus-career", label: "대학 취업센터", domains: ["jy.xmu.edu.cn", "zjc.sasu.edu.cn", "eie.scu.edu.cn"], sourceClass: "official-career", defaultType: "workplace" },
+  { id: "csf-public", label: "中国半导体论坛 공개글", domains: ["search.iczhiku.com", "picture.iczhiku.com", "eet-china.com"], sourceClass: "community", defaultType: "technology" },
+  { id: "eeworld", label: "EEWorld论坛", domains: ["bbs.eeworld.com.cn", "eeworld.com.cn"], sourceClass: "expert-community", defaultType: "technology" },
+  { id: "21ic", label: "21ic论坛", domains: ["bbs.21ic.com"], sourceClass: "expert-community", defaultType: "technology" },
+  { id: "mbb", label: "面包板论坛", domains: ["mbb.eet-china.com"], sourceClass: "expert-community", defaultType: "technology" },
+  { id: "wechat-public", label: "반도체 공개 위챗", domains: ["mp.weixin.qq.com"], sourceClass: "community", defaultType: "technology" },
+  { id: "icjob", label: "创芯人才网", domains: ["icjob.top"], sourceClass: "job-board", defaultType: "workplace" },
+  { id: "xinjiangic", label: "芯匠人才网", domains: ["xinjiangic.com"], sourceClass: "job-board", defaultType: "workplace" },
+  { id: "51icjob", label: "高芯圈", domains: ["51icjob.com"], sourceClass: "job-board", defaultType: "workplace" },
+  { id: "bdtlietou", label: "优仕达", domains: ["bdtlietou.com"], sourceClass: "job-board", defaultType: "workplace" },
+  { id: "hewa", label: "禾蛙", domains: ["hewa.cn"], sourceClass: "job-board", defaultType: "workplace" },
+  { id: "semiwiki", label: "SemiWiki Forum", domains: ["semiwiki.com"], sourceClass: "expert-community", defaultType: "technology" },
+  { id: "servethehome", label: "ServeTheHome Forums", domains: ["forums.servethehome.com"], sourceClass: "expert-community", defaultType: "technology" },
+  { id: "anandtech", label: "AnandTech Forums", domains: ["forums.anandtech.com"], sourceClass: "expert-community", defaultType: "technology" },
+  { id: "reddit-semiconductor", label: "Reddit 반도체", domains: ["reddit.com"], sourceClass: "community", defaultType: "technology" },
+  { id: "borecraft", label: "NewMaxx SSD", domains: ["borecraft.com"], sourceClass: "expert-community", defaultType: "technology" },
 ];
 
 const COMMUNITY_DISCOVERY_QUERIES = [
@@ -325,6 +375,32 @@ const COMMUNITY_DISCOVERY_QUERIES = [
   { query: "site:zhaopin.com 长鑫存储 良率 工艺 招聘", platformId: "zhaopin" },
   { query: "site:cxmt.zhiye.com 长鑫存储 校园招聘", platformId: "cxmt-careers" },
   { query: "site:whxmc.zhiye.com 新芯 校园招聘", platformId: "xmc-careers" },
+  { query: "site:search.iczhiku.com 长鑫存储 长江存储 半导体", platformId: "csf-public" },
+  { query: "site:bbs.eeworld.com.cn 长鑫存储 DDR5 长江存储 NAND", platformId: "eeworld" },
+  { query: "site:bbs.21ic.com 长鑫存储 长江存储 存储芯片", platformId: "21ic" },
+  { query: "site:mbb.eet-china.com 长鑫存储 长江存储 半导体", platformId: "mbb" },
+  { query: "site:mp.weixin.qq.com 半导体行业观察 长鑫存储 长江存储", platformId: "wechat-public" },
+  { query: "site:icjob.top 长鑫存储 长江存储 工艺 良率 招聘", platformId: "icjob" },
+  { query: "site:xinjiangic.com 长鑫存储 长江存储 半导体 招聘", platformId: "xinjiangic" },
+  { query: "site:51icjob.com 长鑫存储 长江存储 工艺 封装", platformId: "51icjob" },
+  { query: "site:bdtlietou.com 长鑫存储 长江存储 半导体 人才", platformId: "bdtlietou" },
+  { query: "site:hewa.cn 长鑫存储 长江存储 半导体 招聘", platformId: "hewa" },
+  { query: "site:semiwiki.com/forum CXMT YMTC memory", platformId: "semiwiki", locale: "en" },
+  { query: "site:forums.servethehome.com YMTC SSD CXMT DDR5", platformId: "servethehome", locale: "en" },
+  { query: "site:forums.anandtech.com CXMT DDR5 YMTC SSD", platformId: "anandtech", locale: "en" },
+  { query: "site:reddit.com/r/Semiconductors CXMT YMTC memory", platformId: "reddit-semiconductor", locale: "en" },
+  { query: "site:reddit.com/r/hardware CXMT DDR5 YMTC SSD", platformId: "reddit-semiconductor", locale: "en" },
+  { query: "site:borecraft.com YMTC SSD CXMT memory", platformId: "borecraft", locale: "en" },
+];
+
+// XenForo exposes public search result pages without requiring a member login.
+// Only the thread title, matched excerpt, timestamp, and thread URL are kept;
+// author/profile data is deliberately discarded.
+const COMMUNITY_DIRECT_SEARCHES = [
+  { url: "https://semiwiki.com/forum/search/1/?q=CXMT&o=date", platformId: "semiwiki" },
+  { url: "https://semiwiki.com/forum/search/1/?q=YMTC&o=date", platformId: "semiwiki" },
+  { url: "https://forums.servethehome.com/index.php?search/1/&q=CXMT&o=date", platformId: "servethehome" },
+  { url: "https://forums.servethehome.com/index.php?search/1/&q=YMTC&o=date", platformId: "servethehome" },
 ];
 
 const COMMUNITY_HISTORY_SEEDS = [
@@ -874,9 +950,9 @@ const EXCLUDED_NEWS_RE = /\b(apple|applem|aapl|iphone|ipad|macbook|9to5mac|apple
 const LOW_CONFIDENCE_NEWS_RE = /(ad hoc news|indexbox|36\s*kr|36kr|borncity|mjengo|blockchain\.news|odaily|zamin\.uz|finance\.biggo|crypto briefing|weex|fortrinawwer|siliconanalysts|nand-research|reddit|facebook|linkedin\.com|x\.com|twitter\.com)/i;
 const SKHYNIX_NEWSROOM_RE = /news\.skhynix\.com|sk\s*hynix\s*newsroom|skhy\s*newsroom/i;
 const AUTHORITATIVE_EN_NEWS_RE =
-  /(reuters|bloomberg|financial times|ft\.com|nikkei|cnbc|associated press|apnews|sec\.gov|nasdaq|trendforce|dramexchange|techinsights|yole|counterpoint|tom'?s hardware|tomshardware|south china morning post|scmp|caixin global|caixinglobal|digitimes|ee times|eetimes|semianalysis|techwire asia|the register|business insider|network world|evertiq|technode|techspot|japan times|electronics weekly|businesswire|pr newswire|solidigm|intel|u\.s\. bis|bis\.gov|govinfo|wsts|acm research ir|cxmt|shanghai stock exchange)/i;
+  /(reuters|bloomberg|financial times|ft\.com|nikkei|cnbc|associated press|apnews|sec\.gov|nasdaq|trendforce|dramexchange|techinsights|yole|counterpoint|tom'?s hardware|tomshardware|south china morning post|scmp|caixin global|caixinglobal|digitimes|ee times|eetimes|semianalysis|techwire asia|the register|business insider|network world|evertiq|technode|techspot|japan times|electronics weekly|semiconductor engineering|semiengineering|semiconductor digest|solid state technology|ieee spectrum|jedec|semi\.org|businesswire|pr newswire|solidigm|intel|u\.s\. bis|bis\.gov|govinfo|wsts|acm research ir|cxmt|shanghai stock exchange)/i;
 const AUTHORITATIVE_CN_NEWS_RE =
-  /(财新|caixin|第一财经|yicai|21财经|21世纪经济报道|证券时报|stcn|中国经营报|cb\.com\.cn|电子工程专辑|eet-china|集微网|ijiwei|经济观察网|eeo\.com\.cn|techweb|chinaflashmarket)/i;
+  /(财新|caixin|第一财经|yicai|21财经|21世纪经济报道|21jingji|证券时报|stcn|中国经营报|cb\.com\.cn|东方财富|eastmoney|新浪财经|sina finance|澎湃新闻|the paper|虎嗅|huxiu|电子工程专辑|eet-china|集微网|爱集微|ijiwei|laoyaoba|半导体新闻网|seminews|经济观察网|eeo\.com\.cn|techweb|chinaflashmarket|闪存市场|semi china|中国半导体行业协会|csia)/i;
 const MEMORY_NEWS_RE =
   /(memory|dram|nand|hbm|ddr[345]?|lpddr|gddr|ssd|solidigm|cxl|wafer|memory chip|sk hynix|skhy|micron|kioxia|sandisk|cxmt|changxin|ymtc|yangtze memory|xmc|wuhan xinxin|存储|内存|闪存|固态|晶圆|长鑫|长江存储|长存|武汉新芯)/i;
 const NEWS_MARKET_NOISE_RE =
@@ -946,7 +1022,7 @@ function canonicalNewsKey(item = {}) {
     ? title.slice(0, 96)
     : title.split(" ").slice(0, 10).join(" ");
   const language = verifiedNewsLanguage(item) || "unknown";
-  if (titleKey) return `${language}|title:${titleKey}|${publisherText(item).toLowerCase().trim()}`;
+  if (titleKey) return `${language}|title:${titleKey}`;
   const url = String(item.link || item.sourceUrl || "").trim();
   if (url && !/news\.google\.com\/(?:rss\/)?articles/i.test(url)) {
     try {
@@ -1806,10 +1882,13 @@ function sanitizeSourceUrl(value = "") {
     const parsed = new URL(value);
     if (!/^https?:$/i.test(parsed.protocol)) return "";
     parsed.hash = "";
+    const xenForoThreadQuery = /(?:^|\.)servethehome\.com$/i.test(parsed.hostname) && /^\?threads\//i.test(parsed.search);
     const allow = new Set(["id", "article", "story", "p", "page"]);
-    for (const [key, paramValue] of Array.from(parsed.searchParams.entries())) {
-      if (!allow.has(key.toLowerCase()) || paramValue.length > 80 || /(?:电话|微信|上门|模特|兼职|escort|telegram|whatsapp)/i.test(paramValue)) {
-        parsed.searchParams.delete(key);
+    if (!xenForoThreadQuery) {
+      for (const [key, paramValue] of Array.from(parsed.searchParams.entries())) {
+        if (!allow.has(key.toLowerCase()) || paramValue.length > 80 || /(?:电话|微信|上门|模特|兼职|escort|telegram|whatsapp)/i.test(paramValue)) {
+          parsed.searchParams.delete(key);
+        }
       }
     }
     return parsed.toString();
@@ -2080,6 +2159,7 @@ const COMMUNITY_MEMORY_RE = /(存储芯片|存储器|内存|半导体|DRAM|DDR[3
 const COMMUNITY_WORKPLACE_RE = /(招聘|校招|社招|岗位|职位|薪资|面试|员工|工程师|工艺整合|良率|人才|跳槽|入职|career|job|hiring|yield engineer)/i;
 const COMMUNITY_CONSUMER_RE = /(装机|消费者|价格|涨价|降价|颗粒|内存条|固态硬盘|零售|购买|兼容|超频|玩家|retail|consumer|price)/i;
 const COMMUNITY_TECH_RE = /(DDR[345]|LPDDR|HBM|NAND|SSD|Xtacking|TSV|封装|工艺|制程|良率|晶圆|光刻|刻蚀|技术|架构|性能|带宽|yield|process|technology)/i;
+const COMMUNITY_FORUM_NOISE_RE = /\b(?:expired|for sale|sold|shipping|coupon|deal thread)\b|\$\s*\d+(?:\.\d+)?/i;
 const COMMUNITY_BLOCKED_URLS = new Set([
   "https://www.zhihu.com/question/1976016436326581047/answer/2005694488211907035",
 ]);
@@ -2107,7 +2187,7 @@ function communityPlatformForUrl(value = "", preferredId = "") {
 
 function cleanCommunityTitle(value = "", platformLabel = "") {
   let title = stripNewsLabel(stripHTML(value)).replace(/\s+/g, " ").trim();
-  const labels = [platformLabel, "雪球", "知乎", "东方财富股吧", "东方财富", "V2EX", "Chiphell", "什么值得买", "NGA", "脉脉", "牛客", "看准", "BOSS直聘", "猎聘", "智联招聘"]
+  const labels = [platformLabel, "雪球", "知乎", "东方财富股吧", "东方财富", "V2EX", "Chiphell", "什么值得买", "NGA", "脉脉", "牛客", "看准", "BOSS直聘", "猎聘", "智联招聘", "EEWorld论坛", "21ic论坛", "面包板论坛", "SemiWiki Forum", "ServeTheHome Forums", "AnandTech Forums", "Reddit"]
     .filter(Boolean)
     .map((label) => label.replace(/[.*+?^${}()|[\]\\]/g, "\\$&"));
   if (labels.length) title = title.replace(new RegExp(`\\s*(?:[-–—|·]|\\|)\\s*(?:${labels.join("|")})\\s*$`, "i"), "").trim();
@@ -2207,7 +2287,7 @@ function communityValidation(type = "market", text = "") {
 function communityScore(item = {}) {
   const ageDays = item.ts ? Math.max(0, (Date.now() - item.ts) / 864e5) : COMMUNITY_RETENTION_DAYS;
   const recency = Math.max(0, 24 - Math.min(24, ageDays / 15));
-  const sourceWeight = item.sourceClass === "official-career" ? 18 : item.sourceClass === "job-board" ? 10 : 4;
+  const sourceWeight = item.sourceClass === "official-career" ? 18 : item.sourceClass === "job-board" ? 10 : item.sourceClass === "expert-community" ? 7 : 4;
   const entityWeight = Math.min(12, (item.entities || []).length * 4);
   const contentWeight = Math.min(16, Math.floor(String(item.summaryOriginal || item.summary || "").length / 28));
   return Math.round(Math.min(100, 38 + recency + sourceWeight + entityWeight + contentWeight));
@@ -2223,9 +2303,22 @@ function communityStableId(value = "") {
 }
 
 function communityKey(item = {}) {
+  const normalizedTitle = String(item.title || item.titleKo || "").toLowerCase().replace(/[^a-z0-9一-鿿가-힣]+/g, "").slice(0, 140);
+  if (item.sourceClass === "expert-community" && normalizedTitle) {
+    return `expert-title:${item.platformId || "forum"}:${normalizedTitle}`;
+  }
   const url = sanitizeSourceUrl(item.link || item.sourceUrl || "");
-  if (url) return `url:${url.replace(/\/$/, "").toLowerCase()}`;
-  return `title:${String(item.title || item.titleKo || "").toLowerCase().replace(/[^a-z0-9一-鿿가-힣]+/g, "").slice(0, 120)}`;
+  if (url) {
+    try {
+      const parsed = new URL(url);
+      parsed.hash = "";
+      parsed.pathname = parsed.pathname.replace(/\/post-\d+\/?$/i, "").replace(/\/$/, "");
+      return `url:${parsed.toString().toLowerCase()}`;
+    } catch {
+      return `url:${url.replace(/\/$/, "").toLowerCase()}`;
+    }
+  }
+  return `title:${normalizedTitle.slice(0, 120)}`;
 }
 
 function communityEvidence(rule = {}) {
@@ -2242,9 +2335,12 @@ function normalizeCommunityItem(item = {}, preferredPlatformId = "") {
   const title = cleanCommunityTitle(item.title, rule.label);
   const summaryOriginal = cleanCommunitySummary(item.rssDescription || item.summaryOriginal || "", title);
   const combined = `${title} ${summaryOriginal}`;
+  if (rule.sourceClass === "expert-community" && COMMUNITY_FORUM_NOISE_RE.test(title)) return null;
   const path = new URL(sourceUrl).pathname.replace(/\/$/, "");
   const genericCareerPortal = rule.sourceClass === "official-career" && /\/(?:join\.html|social|campus|campus\/jobs)$/i.test(path);
+  const hasCareerSignal = /(招聘|校招|社招|岗位|职位|工程师|研发|工艺|设备|良率|career|careers|job|jobs|hiring|engineer|process|yield)/i.test(combined);
   if (genericCareerPortal && !/(工程师|工艺|设备|研发|良率|岗位|职位|engineer|process|yield)/i.test(combined)) return null;
+  if (rule.sourceClass === "official-career" && !hasCareerSignal) return null;
   if (!COMMUNITY_ENTITY_RE.test(combined) || !COMMUNITY_MEMORY_RE.test(combined)) return null;
   if (summaryOriginal.length < 28) return null;
   const type = communityTypeFor(combined, rule.defaultType);
@@ -2342,10 +2438,48 @@ function mergeCommunityItems(first = {}, second = {}) {
   };
 }
 
-async function fetchBingCommunity(query = "") {
-  const url = `https://www.bing.com/search?format=rss&setlang=zh-Hans&mkt=zh-CN&count=20&q=${encodeURIComponent(query)}`;
+async function fetchBingCommunity(query = "", locale = "zh") {
+  const edition = locale === "en"
+    ? { setlang: "en-US", mkt: "en-US" }
+    : { setlang: "zh-Hans", mkt: "zh-CN" };
+  const url = `https://www.bing.com/search?format=rss&setlang=${edition.setlang}&mkt=${edition.mkt}&count=20&q=${encodeURIComponent(query)}`;
   const xml = await fetchText(url);
   return parseRSS(xml);
+}
+
+function parseXenForoCommunitySearch(html = "", baseUrl = "") {
+  const items = [];
+  const source = String(html);
+  const starts = Array.from(source.matchAll(/<li\b[^>]*class=["'][^"']*block-row[^"']*["'][^>]*>/gi));
+  const rows = starts.map((match, index) => source.slice(match.index, starts[index + 1]?.index ?? source.length));
+  for (const row of rows) {
+    const titleBlock = row.match(/<h3\b[^>]*class=["'][^"']*contentRow-title[^"']*["'][^>]*>([\s\S]*?)<\/h3>/i)?.[1] || "";
+    const anchor = titleBlock.match(/<a\b[^>]*href=["']([^"']+)["'][^>]*>([\s\S]*?)<\/a>/i);
+    if (!anchor) continue;
+    const title = stripHTML(anchor[2]).replace(/\s+/g, " ").trim();
+    const summary = stripHTML(row.match(/<div\b[^>]*class=["'][^"']*contentRow-snippet[^"']*["'][^>]*>([\s\S]*?)<\/div>/i)?.[1] || "")
+      .replace(/\s+/g, " ")
+      .trim();
+    const epoch = Number(row.match(/<time\b[^>]*data-time=["'](\d+)["']/i)?.[1] || 0);
+    let link = "";
+    try {
+      link = new URL(anchor[1], baseUrl).toString();
+    } catch {
+      continue;
+    }
+    items.push({
+      title,
+      link,
+      rssDescription: summary,
+      pubDate: epoch ? new Date(epoch * 1000).toISOString() : "",
+    });
+  }
+  return items;
+}
+
+async function fetchDirectCommunitySearch(target = {}) {
+  const html = await fetchText(target.url);
+  return parseXenForoCommunitySearch(html, target.url);
 }
 
 function buildCommunityBriefs(items = []) {
@@ -2402,9 +2536,21 @@ function buildCommunityBriefs(items = []) {
 
 async function collectCommunitySignals(previousItems = []) {
   const discovered = [];
+  for (const target of COMMUNITY_DIRECT_SEARCHES) {
+    try {
+      const results = await fetchDirectCommunitySearch(target);
+      results.forEach((result) => {
+        const item = normalizeCommunityItem(result, target.platformId);
+        if (item) discovered.push(item);
+      });
+    } catch (error) {
+      console.log(`- 중국현장:${target.platformId} 직접 수집 지연 — ${error.message}`);
+    }
+    await sleep(180);
+  }
   for (const target of COMMUNITY_DISCOVERY_QUERIES) {
     try {
-      const results = await fetchBingCommunity(target.query);
+      const results = await fetchBingCommunity(target.query, target.locale || "zh");
       results.forEach((result) => {
         const item = normalizeCommunityItem(result, target.platformId);
         if (item) discovered.push(item);
@@ -2445,7 +2591,7 @@ async function collectCommunitySignals(previousItems = []) {
   return {
     updatedAt: new Date().toISOString(),
     latestPublishedAt: latestAt ? new Date(latestAt).toISOString() : null,
-    source: "Public community pages · public hiring listings · Bing Web Search RSS discovery",
+    source: "Public Chinese forums · expert communities · public hiring listings · Bing Web Search RSS discovery",
     total: items.length,
     recent30d: items.filter((item) => item.ts && Date.now() - item.ts <= 30 * 864e5).length,
     historicalCount: items.filter((item) => item.historical).length,
