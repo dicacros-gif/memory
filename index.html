@@ -30,7 +30,7 @@
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard/dist/web/static/pretendard.css" />
   <link rel="stylesheet" as="style" crossorigin href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css" />
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@500;700&family=Noto+Sans+KR:wght@400;500;700;800;900&family=Space+Grotesk:wght@500;600;700&display=swap" />
-  <link rel="stylesheet" href="assets/css/styles.css?v=scroll-stories-20260717" />
+  <link rel="stylesheet" href="assets/css/styles.css?v=scroll-stories-3-20260717" />
 </head>
 <body>
   <div class="scroll-prog" id="scrollProg" aria-hidden="true"></div>
@@ -591,6 +591,51 @@
           <div class="hs-assumptions" id="hyperscalerAssumptions"></div>
         </section>
 
+        <section class="memory-scroll-story ai-demand-scroll-story" id="ai-demand-scroll-story" data-scroll-story aria-label="AI 수요와 메모리 제품 믹스 스크롤 스토리">
+          <div class="memory-scroll-sticky">
+            <img src="assets/media/ai-demand-scroll.webp" alt="AI 가속기와 HBM·DRAM·NAND 메모리 계층을 연결한 시스템" loading="lazy" decoding="async" />
+            <div class="memory-scroll-shade" aria-hidden="true"></div>
+            <div class="memory-scroll-status" aria-hidden="true">
+              <span data-scroll-count>01 / 04</span>
+              <i><b data-scroll-progress></b></i>
+            </div>
+          </div>
+          <div class="memory-scroll-copy">
+            <article class="memory-scroll-chapter active" data-scroll-chapter="0">
+              <div class="memory-scroll-panel">
+                <span>01 · MEMORY HIERARCHY</span>
+                <h2>AI 수요는 HBM만<br />확대하지 않음</h2>
+                <p>가속기 HBM, 호스트 서버 DRAM, 데이터센터 eSSD, 메모리 확장 계층이 함께 움직임. 제품별 수요를 분리하되 하나의 시스템 용량으로 검토.</p>
+                <div><em>HBM</em><em>Server DRAM</em><em>eSSD</em><em>CXL Memory</em></div>
+              </div>
+            </article>
+            <article class="memory-scroll-chapter align-right" data-scroll-chapter="1">
+              <div class="memory-scroll-panel">
+                <span>02 · WORKLOAD MIX</span>
+                <h2>학습과 추론은<br />서로 다른 메모리를 요구</h2>
+                <p>학습은 대역폭과 대용량 적층, 추론은 지연시간·전력·비용 효율이 중요. 워크로드 믹스 변화가 HBM 세대와 서버 DRAM·eSSD 구성을 결정.</p>
+                <div><em>Training</em><em>Inference</em><em>Bandwidth</em><em>Efficiency</em></div>
+              </div>
+            </article>
+            <article class="memory-scroll-chapter" data-scroll-chapter="2">
+              <div class="memory-scroll-panel">
+                <span>03 · CUSTOMER POOLS</span>
+                <h2>고객별 수요를<br />하나의 성장률로 보지 않음</h2>
+                <p>하이퍼스케일러, 엔터프라이즈, 국가 AI 인프라, 엣지는 도입 속도와 메모리 구성이 다름. 고객 인증과 실제 발주를 수요 전망보다 우선 확인.</p>
+                <div><em>Hyperscaler</em><em>Enterprise</em><em>Sovereign AI</em><em>Edge</em></div>
+              </div>
+            </article>
+            <article class="memory-scroll-chapter align-right" data-scroll-chapter="3">
+              <div class="memory-scroll-panel">
+                <span>04 · PRODUCT MIX</span>
+                <h2>수요 신호를<br />제품 배분으로 전환</h2>
+                <p>검증된 고객 주문, 패키징 여력, 가격 스프레드, 중국 공급 신호를 함께 반영. HBM·서버 DRAM·eSSD의 캐파 배분과 범용 제품 방어 수준을 조정.</p>
+                <div><em>Capacity allocation</em><em>Customer order</em><em>Price spread</em><em>China supply</em></div>
+              </div>
+            </article>
+          </div>
+        </section>
+
         <section class="board workbench-board" id="workbench">
           <div class="board-head">
             <div>
@@ -758,6 +803,6 @@
   <div class="qa-answer" id="qaAnswer" hidden></div>
   <div class="inspector" id="inspector" hidden></div>
   <div class="backdrop" id="backdrop"></div>
-  <script src="assets/js/app.js?v=scroll-stories-20260717" defer></script>
+  <script src="assets/js/app.js?v=scroll-stories-3-20260717" defer></script>
 </body>
 </html>

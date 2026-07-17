@@ -1153,6 +1153,7 @@ body.sidebar-collapsed .sb-ico {
 #numbers { order: 8; }
 #projection { order: 9; }
 #hyperscaler-demand { order: 10; }
+#ai-demand-scroll-story { order: 10; }
 #memory-scroll-story { order: 11; }
 #prices { order: 11; }
 #news { order: 12; }
@@ -1711,6 +1712,41 @@ body.sidebar-collapsed .sb-ico {
 .competitive-scroll-story .memory-scroll-status b {
   background: linear-gradient(90deg, #58dcff, #ff66dc);
   box-shadow: 0 0 16px rgba(255, 102, 220, .7);
+}
+
+.ai-demand-scroll-story .memory-scroll-sticky img {
+  filter: saturate(.88) contrast(1.08) brightness(.66);
+}
+
+.ai-demand-scroll-story .memory-scroll-shade {
+  background:
+    linear-gradient(90deg, rgba(8, 8, 16, .74) 0%, rgba(8, 8, 16, .18) 48%, rgba(8, 8, 16, .54) 100%),
+    linear-gradient(0deg, rgba(5, 9, 18, .8) 0%, transparent 40%, rgba(5, 9, 18, .32) 100%);
+}
+
+.ai-demand-scroll-story .memory-scroll-panel {
+  border-color: rgba(118, 225, 238, .26);
+  border-left-color: #ffc277;
+}
+
+.ai-demand-scroll-story .memory-scroll-chapter.active .memory-scroll-panel {
+  border-color: rgba(255, 194, 119, .72);
+  border-left-color: #ffc277;
+}
+
+.ai-demand-scroll-story .memory-scroll-panel > span {
+  color: #ffd39c;
+}
+
+.ai-demand-scroll-story .memory-scroll-panel em {
+  border-color: rgba(99, 225, 238, .36);
+  background: rgba(13, 21, 35, .82);
+  color: #d9fbff;
+}
+
+.ai-demand-scroll-story .memory-scroll-status b {
+  background: linear-gradient(90deg, #ffc277, #62e4ef);
+  box-shadow: 0 0 16px rgba(255, 194, 119, .66);
 }
 
 .hero {
