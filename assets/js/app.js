@@ -13559,6 +13559,7 @@
     grid.innerHTML = "";
     items.forEach((item, index) => {
       const card = el("article", "china-deep-card reveal");
+      if (index >= 9) card.classList.add("china-deep-after-video");
       const numericFacts = (item.facts || []).filter((fact) => /\d/.test(String(fact || "")));
       const sourceState = item.sourceUrl ? "ok" : numericFacts.length ? "fail" : "watch";
       const sourceLabel = item.sourceUrl ? "출처 연결" : numericFacts.length ? "출처 URL 필요" : "정성 분석";
@@ -13594,6 +13595,9 @@
       });
       grid.appendChild(card);
     });
+
+    const strategyScenario = activeChinaTalentScenario();
+    renderChinaTalentStrategyVideo(strategyScenario, chinaTalentLiveItems(strategyScenario, 6));
 
     if (!items.length) grid.appendChild(el("div", "empty", "선택한 카테고리의 심층 벤치마킹 항목이 없습니다."));
   }

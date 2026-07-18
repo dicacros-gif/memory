@@ -11429,10 +11429,30 @@ body.sidebar-collapsed .sb-ico {
   background: var(--teal);
 }
 
-.china-deep-grid {
+.china-deep-layout {
   display: grid;
   grid-template-columns: repeat(4, minmax(0, 1fr));
   gap: 12px;
+}
+
+.china-deep-grid {
+  display: contents;
+}
+
+.china-deep-video-dock {
+  min-width: 0;
+  grid-column: span 3;
+  align-self: start;
+  order: 1;
+}
+
+.china-deep-after-video {
+  order: 2;
+}
+
+.china-deep-video-dock .talent-strategy-video {
+  width: 100%;
+  min-height: 0;
 }
 
 .china-deep-card {
@@ -13585,8 +13605,12 @@ body.sidebar-collapsed .sb-ico {
     grid-template-columns: repeat(3, minmax(0, 1fr));
   }
 
-  .china-deep-grid {
+  .china-deep-layout {
     grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+
+  .china-deep-video-dock {
+    grid-column: span 3;
   }
 }
 
@@ -13915,7 +13939,7 @@ body.sidebar-collapsed .sb-ico {
 
   .china-dynamics-overview,
   .china-dynamics-grid,
-  .china-deep-grid,
+  .china-deep-layout,
   .talent-summary,
   .talent-company-grid,
   .talent-source-grid,
@@ -13929,6 +13953,10 @@ body.sidebar-collapsed .sb-ico {
   .corpdev-grid,
   .claim-grid {
     grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .china-deep-video-dock {
+    grid-column: span 2;
   }
 
   .talent-split {
@@ -14065,10 +14093,10 @@ body.sidebar-collapsed .sb-ico {
 .platform-module-grid,
 .corpdev-summary,
 .corpdev-grid,
-.claim-grid,
-.china-dynamics-overview,
-.china-dynamics-grid,
-    .china-deep-grid,
+  .claim-grid,
+  .china-dynamics-overview,
+  .china-dynamics-grid,
+    .china-deep-layout,
     .talent-summary,
     .talent-roi-grid,
     .talent-planning-map,
@@ -14086,6 +14114,10 @@ body.sidebar-collapsed .sb-ico {
     .news-columns,
   .price-summary {
     grid-template-columns: 1fr;
+  }
+
+  .china-deep-video-dock {
+    grid-column: span 1;
   }
 
   .price-mece-summary,
