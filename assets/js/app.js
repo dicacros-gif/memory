@@ -13442,7 +13442,7 @@
     const customerEvents = new Set();
     const customerNews = latestChinaDeepDiveNews([
       ["cxmt", "changxin", "창신", "长鑫"],
-    ], 120).filter((item) => /tencent|apple|lenovo|dell|\bhp\b|customer|contract|order|supply deal|텐센트|애플|레노버|고객|계약|주문|腾讯|苹果|客户|订单/i.test(`${item.title || ""} ${item.titleKo || ""}`)).filter((item) => {
+    ], 120).filter((item) => /tencent|apple|lenovo|dell|\bhp\b|텐센트|애플|레노버|腾讯|苹果/i.test(`${item.title || ""} ${item.titleKo || ""}`)).filter((item) => {
       const title = `${item.title || ""} ${item.titleKo || ""}`.toLowerCase();
       const eventKey = /tencent|텐센트|腾讯/.test(title)
         ? "cxmt-tencent-contract"
