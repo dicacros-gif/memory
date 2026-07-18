@@ -18,6 +18,7 @@
     prices: { sections: [], watchedItems: [] },
     news: [],
     communitySignals: { updatedAt: null, total: 0, typeCounts: {}, platformCounts: {}, items: [] },
+    brokerResearch: { updatedAt: null, reportCount: 0, citationCount: 0, institutions: [], items: [] },
     categories: [],
     benchmarkSignals: { stream: [] },
     chinaInfra: { sources: [], signals: [] },
@@ -4871,23 +4872,153 @@
         value: nandRows,
         unit: "rows",
       },
+    ];
+  }
+
+  function brokerResearchFallback() {
+    return [
       {
-        label: "제품군 프로젝션",
-        title: "30개월 후부터 5년간 서버향·단말향 믹스 변화를 추적",
-        body: "현재 HBM, NAND/eSSD, 단말, 중국 캐파 신호를 반영해 SKHY 제품군의 수요처별 시나리오를 매일 갱신합니다.",
-        jump: "projection",
-        value: projectionTotalSignals(),
-        unit: "signals",
+        label: "SYSTEM BOTTLENECK",
+        title: "메모리 병목은 HBM 캐파를 넘어 시스템 효율 문제로 확장",
+        body: "Morgan Stanley는 AI 메모리 병목을 용량, 대역폭, 비용의 동시 제약으로 봅니다. 공정·설계·패키징·주변장치·연산 통합·소재를 함께 개선해야 한다는 판단입니다.",
+        metrics: ["2027 클라우드 CapEx 중 메모리 40%", "2030 클라우드 메모리 지출 $418B"],
+        implication: "SKHY는 HBM4 수율과 패키징을 우선하되 HBF, CXL, MRDIMM을 후속 성장 옵션으로 관리해야 합니다.",
+        reversal: "AI 수익화 둔화, 소프트웨어 효율 개선에 따른 하드웨어 집약도 하락, 신규 규격 인증 지연",
+        source: "Morgan Stanley Research, Global Technology: Innovating the Next-Generation Memory (2026.07.16), pp.2, 8-13",
+        sourceRef: "Global Technology: Innovating the Next-Generation Memory (2026.07.16), pp.2, 8-13",
+        institution: "Morgan Stanley",
+        evidenceType: "direct-report",
+        publishedAt: "2026-07-16",
+        accent: "#00a98f",
       },
       {
-        label: "필요 업무",
-        title: "기회 발굴·전략 수립·포트폴리오·실사·수익성 관리",
-        body: "첨부 이미지의 사업개발 업무 항목은 중국 NAND 관점에서 후보 발굴, 제휴/계약 구조, 모델링, value-up, 리스크 대응 체크리스트로 반영했습니다.",
-        jump: "china-nand",
-        value: NAND_BUSINESS_WORKFLOWS.length,
-        unit: "checks",
+        label: "CYCLE CHECK",
+        title: "3Q26 가격 강세 뒤 4Q26 모멘텀 둔화 가능성에 대비",
+        body: "Morgan Stanley의 하우스 뷰는 3Q26 DRAM 가격 +20~30% 이후 4Q26부터 전년 대비 가격 모멘텀이 정체될 수 있다는 것입니다. 이는 TrendForce 공개 전망과 분리해 상방 시나리오로 봅니다.",
+        metrics: ["3Q26 DRAM +20~30%", "공급 부족 전망 2028년까지"],
+        implication: "가격 상승 구간에서는 프리미엄 믹스와 고객 계약을 잠그고, 2028년 공급 가시성이 생기기 전 범용 증설은 단계별 게이트를 적용해야 합니다.",
+        reversal: "재고 재축적 종료, 소비자 수요 파괴, 경쟁사 공급의 예상보다 빠른 회복",
+        source: "Morgan Stanley Research, Global Technology: Innovating the Next-Generation Memory (2026.07.16), pp.14, 16-17",
+        sourceRef: "Global Technology: Innovating the Next-Generation Memory (2026.07.16), pp.14, 16-17",
+        institution: "Morgan Stanley",
+        evidenceType: "direct-report",
+        publishedAt: "2026-07-16",
+        accent: "#ef8d22",
+      },
+      {
+        label: "NEXT-GEN TAM",
+        title: "2030년 차세대 메모리 TAM은 HBM 포함 Base $276B",
+        body: "보고서의 2030년 Base 시나리오는 HBM 포함 $276B, HBM 제외 $23B입니다. HBM 제외 시장은 Bull $41.4B, Bear $16.9B로 범위가 넓어 기술 발표보다 고객 인증과 양산 주문을 봐야 합니다.",
+        metrics: ["HBM 포함 Base $276B", "HBM 제외 Base $23B"],
+        implication: "HBF는 HBM 대체재가 아니라 고용량 보완재로 검증하고, 2027년 샘플 이후 고객 피드백과 표준화 진척을 투자 게이트로 둡니다.",
+        reversal: "샘플 성능 미달, 표준화 지연, 시스템 업체의 채택 경제성 부족",
+        source: "Morgan Stanley Research, Global Technology: Innovating the Next-Generation Memory (2026.07.16), pp.13, 18",
+        sourceRef: "Global Technology: Innovating the Next-Generation Memory (2026.07.16), pp.13, 18",
+        institution: "Morgan Stanley",
+        evidenceType: "direct-report",
+        publishedAt: "2026-07-16",
+        accent: "#5b67d8",
+      },
+      {
+        label: "LTA & VISIBILITY",
+        title: "장기계약은 이익 가시성을 높이지만 재협상 가능성을 반증 조건으로 관리",
+        body: "첨부 브리핑은 메모리 LTA가 3~5년, 가격 공식, 선급금 구조로 진화해 사이클 변동을 완화할 수 있다고 정리합니다. 다만 밸류에이션 재평가는 회사 가이던스가 아닌 증권사 시나리오입니다.",
+        metrics: ["LTA 3~5년", "HBM 시장 2027E $94B"],
+        implication: "SKHY는 물량보다 가격 공식, 최소 구매, 선급금, 재협상 조항을 고객별로 비교해 계약의 질을 경영 지표로 관리해야 합니다.",
+        reversal: "가격 급락 시 재협상 선례, 고객 집중도 상승, take-or-pay 조항의 실효성 약화",
+        source: "Morgan Stanley Research, Global Technology: Key Debates: AI, Memory, Substrates & MLCC (2026.07.17), 첨부 브리핑",
+        sourceRef: "Global Technology: Key Debates: AI, Memory, Substrates & MLCC (2026.07.17)",
+        institution: "Morgan Stanley",
+        evidenceType: "direct-report",
+        publishedAt: "2026-07-17",
+        accent: "#9a4fd4",
       },
     ];
+  }
+
+  const BROKER_CLIENT_RULES = [
+    { institution: "Morgan Stanley", aliases: ["morgan stanley", "모건스탠리", "大摩"], accent: "#00a98f" },
+    { institution: "Goldman Sachs", aliases: ["goldman sachs", "골드만삭스", "高盛"], accent: "#d6a428" },
+    { institution: "JPMorgan", aliases: ["jpmorgan", "jp morgan", "j.p. morgan", "jp모건", "摩根大通"], accent: "#2563eb" },
+    { institution: "UBS", aliases: ["ubs", "瑞银"], accent: "#e11d48" },
+    { institution: "Bernstein", aliases: ["bernstein", "伯恩斯坦"], accent: "#7c3aed" },
+    { institution: "Citi", aliases: ["citigroup", "citi research", "씨티", "花旗"], accent: "#0284c7" },
+    { institution: "BofA Securities", aliases: ["bofa securities", "bank of america", "뱅크오브아메리카", "美银"], accent: "#dc2626" },
+    { institution: "Jefferies", aliases: ["jefferies", "杰富瑞"], accent: "#0f766e" },
+    { institution: "Barclays", aliases: ["barclays", "巴克莱"], accent: "#0891b2" },
+    { institution: "Nomura", aliases: ["nomura", "노무라", "野村"], accent: "#ef4444" },
+  ];
+
+  function brokerClientRule(item = {}) {
+    const text = `${item.title || ""} ${item.titleKo || ""} ${item.summary || ""} ${item.summaryOriginal || ""} ${item.source || ""}`.toLowerCase();
+    return BROKER_CLIENT_RULES.find((rule) => rule.aliases.some((alias) => text.includes(alias.toLowerCase()))) || null;
+  }
+
+  function brokerClientFrame(item = {}) {
+    const text = `${item.title || ""} ${item.titleKo || ""} ${item.summary || ""} ${item.summaryOriginal || ""}`.toLowerCase();
+    if (/cxmt|ymtc|changxin|yangtze memory|长鑫|长江存储/.test(text)) {
+      return { label: "CHINA COMPETITION", implication: "중국 업체의 전망을 범용 DRAM·NAND 가격 방어와 고객 승인 변화에 연결해 봅니다.", reversal: "공식 캐파, 고객 인증, contract 가격" };
+    }
+    if (/hbm|rubin|cowos|packaging|tsv/.test(text)) {
+      return { label: "HBM & PACKAGING", implication: "점유율 전망보다 고객 인증, HBM4 수율과 패키징 처리량의 실제 개선 속도를 확인합니다.", reversal: "고객 인증, HBM4 수율, 패키징 처리량" };
+    }
+    if (/nand|ssd|solidigm|flash/.test(text)) {
+      return { label: "NAND & eSSD", implication: "NAND 전망을 eSSD 고객 믹스, Solidigm 수익성과 contract 가격으로 검증합니다.", reversal: "eSSD 고객 믹스, NAND contract 가격, 재고일수" };
+    }
+    return { label: "CYCLE CHECK", implication: "증권사 전망을 공개 Spot·Contract 가격과 고객 재고에 대조해 사용합니다.", reversal: "contract·spot spread, 고객 재고, 수요 전망" };
+  }
+
+  function brokerArticleMetrics(item = {}) {
+    const text = `${item.titleKo || item.title || ""} ${item.summary || item.summaryOriginal || ""}`;
+    const matches = [
+      ...text.matchAll(/(?:US\$|\$)\s?\d+(?:\.\d+)?\s?(?:T|B|bn|billion|trillion)\b/gi),
+      ...text.matchAll(/\b\d+(?:\.\d+)?\s?(?:~|-|to)\s?\d+(?:\.\d+)?\s?%|\b\d+(?:\.\d+)?\s?%/gi),
+    ].map((match) => match[0].replace(/\s+/g, " ").trim());
+    return [...new Set(matches)].slice(0, 2);
+  }
+
+  function brokerResearchSummaries() {
+    const liveItems = Array.isArray(LIVE.brokerResearch?.items) ? LIVE.brokerResearch.items : [];
+    const normalizedLive = liveItems.map((item) => ({
+      ...item,
+      body: item.summary || item.body || "",
+      implication: item.insight || item.implication || "",
+      reversal: item.reversalKpi || item.reversal || "",
+      metrics: Array.isArray(item.metrics) ? item.metrics : [],
+    })).filter((item) => item.title && item.body && item.implication && item.reversal);
+    if (normalizedLive.length) return normalizedLive.slice(0, 8);
+
+    const citations = rawNews().map((item) => {
+      const rule = brokerClientRule(item);
+      const url = String(item.sourceUrl || item.link || "");
+      if (!rule || !/^https?:\/\//i.test(url) || /news\.google\.com/i.test(url)) return null;
+      const title = newsTitle(item);
+      const body = newsSummaryLine(item, title, cleanInsightText(item.summaryKo || item.summary || item.summaryOriginal || ""), "");
+      if (!title || body.length < 32) return null;
+      const frame = brokerClientFrame(item);
+      return {
+        label: frame.label,
+        title,
+        body,
+        metrics: brokerArticleMetrics(item),
+        implication: frame.implication,
+        reversal: frame.reversal,
+        source: `${item.source || "외신"} · ${rule.institution} 인용`,
+        sourceUrl: url,
+        institution: rule.institution,
+        evidenceType: "news-citation",
+        publishedAt: item.date || item.publishedAt || LIVE.updatedAt,
+        accent: rule.accent,
+      };
+    }).filter(Boolean);
+
+    const seen = new Set();
+    return citations.concat(brokerResearchFallback()).filter((item) => {
+      const key = String(item.sourceUrl || `${item.institution}:${item.title}`).toLowerCase().replace(/[?#].*$/, "");
+      if (seen.has(key)) return false;
+      seen.add(key);
+      return true;
+    }).slice(0, 8);
   }
 
   function routeAccent(routeId) {
@@ -4925,7 +5056,8 @@
   function renderExecutiveSummary() {
     const brief = $("#execBrief");
     const strategy = $("#execStrategy");
-    if (!brief || !strategy) return;
+    const research = $("#execResearch");
+    if (!brief || !strategy || !research) return;
 
     renderTodayHub();
 
@@ -4949,6 +5081,44 @@
       </button>
     `).join("");
 
+    const researchItems = brokerResearchSummaries();
+    const researchUpdatedAt = LIVE.brokerResearch?.updatedAt || LIVE.updatedAt;
+    const directReportCount = researchItems.filter((item) => item.evidenceType === "direct-report").length;
+    const citationCount = researchItems.filter((item) => item.evidenceType === "news-citation").length;
+    research.innerHTML = `
+      <header class="exec-research-head">
+        <div>
+          <span>BROKER RESEARCH · DAILY EVIDENCE</span>
+          <h3>증권사 리서치 핵심 요약</h3>
+        </div>
+        <p>직접 리포트 ${fmtNum(directReportCount)}건 · 기사 인용 ${fmtNum(citationCount)}건 · ${escapeHTML(fmtDate(researchUpdatedAt))}</p>
+      </header>
+      <div class="exec-research-grid">
+        ${researchItems.map((item, index) => `
+          <article class="exec-research-card reveal" tabindex="0" style="--local-accent:${escapeHTML(item.accent)}; animation-delay:${index * 35}ms">
+            <div class="exec-research-meta">
+              <span class="exec-research-label">${escapeHTML(item.label)}</span>
+              <span>${escapeHTML(item.institution || "Broker Research")}</span>
+              <span>${item.evidenceType === "direct-report" ? "직접 리포트" : "기사 인용"}</span>
+              <time datetime="${escapeHTML(String(item.publishedAt || "").slice(0, 10))}">${escapeHTML(shortKstDate(item.publishedAt || researchUpdatedAt) || "")}</time>
+            </div>
+            <h4>${escapeHTML(item.title)}</h4>
+            <p>${escapeHTML(item.body)}</p>
+            ${item.metrics?.length ? `<div class="exec-research-metrics">
+              ${item.metrics.map((metric) => `<strong>${escapeHTML(metric)}</strong>`).join("")}
+            </div>` : ""}
+            <dl>
+              <div><dt>SKHY 함의</dt><dd>${escapeHTML(item.implication)}</dd></div>
+              <div><dt>판단 전환 조건</dt><dd>${escapeHTML(item.reversal)}</dd></div>
+            </dl>
+            ${item.sourceUrl
+              ? `<a class="exec-research-source" href="${escapeHTML(item.sourceUrl)}" target="_blank" rel="noopener noreferrer">${escapeHTML(item.source || item.institution || "원문")} 원문 보기</a>`
+              : `<cite>${escapeHTML(item.source || item.sourceRef || "첨부 리포트")}</cite>`}
+          </article>
+        `).join("")}
+      </div>
+    `;
+
     brief.querySelectorAll("[data-jump]").forEach((btn) => btn.addEventListener("click", () => jumpTo(btn.dataset.jump)));
     strategy.querySelectorAll("[data-exec-nand]").forEach((btn) => {
       btn.addEventListener("click", () => {
@@ -4964,6 +5134,38 @@
     renderExecutiveSummary();
     const strip = $("#kpiStrip") || $("#overview");
     strip.innerHTML = "";
+    const kpiOutlines = {
+      "2026 글로벌 반도체 시장": [
+        { label: "최신", text: "$1.51T · WSTS Spring 2026" },
+        { label: "이전", text: "$975.46B · WSTS Autumn 2025" },
+        { label: "기준", text: "같은 기관의 전망 개정이며 SKHY 자체 전망이 아님" },
+      ],
+      "메모리 성장률": [
+        { label: "WSTS", text: "메모리 $800B+ · 약 +250% YoY" },
+        { label: "TrendForce", text: "시장 $889.3B · DRAM +303% · NAND +280.7%" },
+        { label: "해석", text: "서로 다른 모델이며 개별 성장률을 합산하지 않음" },
+      ],
+      "메모리 시장 규모": [
+        { label: "2026", text: "$551.6B → $889.3B로 상향" },
+        { label: "2027", text: "$842.7B → $1.28T+로 상향" },
+        { label: "구성", text: "2026 DRAM $618.7B · NAND $270.6B" },
+      ],
+      "SKHY HBM 점유율": [
+        { label: "최신", text: "SKHY 58% · 2026 Q1 매출 기준" },
+        { label: "경쟁", text: "Samsung 21% · Micron 21%" },
+        { label: "추이", text: "2025 Q2 62% → Q3 57% → 2026 Q1 58%" },
+      ],
+      "DRAM Top3 점유율": [
+        { label: "구성", text: "Samsung 38% · SKHY 29% · Micron 22%" },
+        { label: "합계", text: "Top3 89% · 2026 Q1 매출 기준" },
+        { label: "판단", text: "SKHY 36%→29%와 CXMT 8% 진입을 함께 점검" },
+      ],
+      "범용 DRAM CXMT 점유율": [
+        { label: "최신", text: "CXMT 8% · 2026 Q1 매출 기준" },
+        { label: "구분", text: "매출 점유율이며 wafer 캐파 추정치와 분리" },
+        { label: "판단", text: "10% 경보선 · 장기계약 · DDR5/LPDDR spread 추적" },
+      ],
+    };
     const kpis = (BASE.kpis || []).filter((kpi) => {
       const status = `${kpi.status || ""} ${kpi.statusClass || ""}`.toLowerCase();
       return kpi.showInKpiStrip !== false && !status.includes("stale");
@@ -4976,6 +5178,7 @@
       const hasSourceUrl = String(kpi.sourceUrl || "").trim();
       const statusClass = hasSourceUrl ? (kpi.statusClass || kpi.status || "ok") : "fail";
       const badgeLabel = hasSourceUrl ? (kpi.badge || kpi.status || "출처 있음") : "출처 미첨부";
+      const outline = kpiOutlines[kpi.label] || [];
       node.innerHTML = `
         <span>${escapeHTML(kpi.label)}</span>
         <strong>${countHTML(kpi.value, {
@@ -4988,8 +5191,16 @@
           ${kpi.sourceDate ? `<span class="source-tag">${escapeHTML(kpi.sourceDate)}</span>` : ""}
           ${sourceLinkHTML(kpi.sourceUrl, kpi.source || "원문")}
         </div>
-        <small>${escapeHTML(kpi.note)}</small>
-        ${kpi.alt ? `<em class="kpi-alt">${escapeHTML(kpi.alt)}</em>` : ""}
+        ${outline.length ? `
+          <ul class="kpi-points">
+            ${outline.map((point) => `
+              <li><b>${escapeHTML(point.label)}</b><span>${escapeHTML(point.text)}</span></li>
+            `).join("")}
+          </ul>
+        ` : `
+          <small>${escapeHTML(kpi.note)}</small>
+          ${kpi.alt ? `<em class="kpi-alt">${escapeHTML(kpi.alt)}</em>` : ""}
+        `}
       `;
       strip.appendChild(node);
     });
@@ -8289,14 +8500,13 @@
     const detail = $("#memoryMarketDetail");
     if (!detail) return;
     if (!selected) {
-      detail.innerHTML = `
-        <div class="empty">
-          <strong>업체 원을 선택하세요.</strong><br>
-          전체 밸류체인 노드를 먼저 보여주고, 원을 클릭하면 해당 업체의 경쟁·파트너십·투자·공급·매출 관계선만 표시합니다.
-        </div>
-      `;
+      detail.innerHTML = "";
+      detail.hidden = true;
+      detail.style.display = "none";
       return;
     }
+    detail.hidden = false;
+    detail.style.removeProperty("display");
 
     if (selected.kind === "node") {
       const node = selected.node;
@@ -8394,10 +8604,10 @@
       ...node,
       dimmed: visibleNodeIds.size > 0 && !visibleNodeIds.has(node.id),
     }));
-    const totalEvidence = filteredEdges.reduce((sum, edge) => sum + edge.evidenceCount, 0);
-    const totalPriceRows = filteredEdges.reduce((sum, edge) => sum + edge.priceRows, 0);
-    const selectedEvidence = edges.reduce((sum, edge) => sum + edge.evidenceCount, 0);
-    if (meta) meta.textContent = `${config.title} · 전체 관계 ${fmtNum(filteredEdges.length)}개 · 선택 관계 ${fmtNum(edges.length)}개 · 근거 ${fmtNum(totalEvidence)}개`;
+    if (meta) {
+      meta.textContent = "";
+      meta.hidden = true;
+    }
     tabs.style.setProperty("--mode-accent", config.accent);
     summary.style.setProperty("--mode-accent", config.accent);
     graph.style.setProperty("--mode-accent", config.accent);
@@ -8418,26 +8628,6 @@
     }));
 
     summary.innerHTML = `
-      <article class="memory-map-kpi">
-        <span>${escapeHTML(config.title)}</span>
-        <strong>${countHTML(filteredEdges.length)}</strong>
-        <small>전체 관계</small>
-      </article>
-      <article class="memory-map-kpi">
-        <span>근거</span>
-        <strong>${countHTML(totalEvidence)}</strong>
-        <small>뉴스·벤치마킹·가격 rows</small>
-      </article>
-      <article class="memory-map-kpi">
-        <span>가격 rows</span>
-        <strong>${countHTML(totalPriceRows)}</strong>
-        <small>Spot/Contract 연결</small>
-      </article>
-      <article class="memory-map-kpi">
-        <span>선택 노드</span>
-        <strong>${countHTML(edges.length)}</strong>
-        <small>${selected ? `선택 근거 ${fmtNum(selectedEvidence)}개` : "원을 클릭하면 선 표시"}</small>
-      </article>
       <article class="memory-map-type-filter">
         <span>관계 필터</span>
         <div>
@@ -10806,7 +10996,6 @@
     if (coverage) coverage.textContent = `${yearLabel} 첫 수집점 ${selected ? pointDateLabel(selected) : "없음"} · 전체 가격 series ${fmtNum(historyCount)}개 · 제품군 매칭 ${fmtNum(selectedSeriesCount)}개`;
     summary.hidden = true;
     summary.innerHTML = "";
-    renderCategoryDecisionMatrix(items);
 
     const executiveSlider = $("#executiveBacktestSlider");
     const executiveSliderDock = $("#executiveBacktestSliderDock");
@@ -11184,13 +11373,12 @@
 
   function renderManagementStrategy() {
     const summary = $("#managementStrategySummary");
-    const flow = $("#managementStrategyFlow");
     const brief = $("#chinaBusinessBrief");
     const map = $("#chinaBusinessMap");
     const grid = $("#managementStrategyGrid");
     const focus = $("#managementStrategyFocus");
     const meta = $("#managementStrategyMeta");
-    if (!summary || !flow || !grid || !focus) return;
+    if (!summary || !grid || !focus) return;
 
     const items = managementStrategyItems();
     if (!items.some((item) => item.id === managementStrategyFocusId)) managementStrategyFocusId = items[0]?.id || "china-key-account";
@@ -11199,19 +11387,6 @@
     if (meta) meta.textContent = `${fmtNum(items.length)}개 사업 방향 · ${fmtDate(LIVE.updatedAt)}`;
     summary.hidden = true;
     summary.innerHTML = "";
-
-    const flowSteps = [
-      { label: "1. 중국 신호 수집", note: "가격·뉴스·채용·정책·팹/패키징" },
-      { label: "2. 사업 영향 분류", note: "고객 방어, NAND/eSSD, 운영 리스크" },
-      { label: "3. 사업 방향 선택", note: "계약, 제품 믹스, 제휴, 보안/법무" },
-      { label: "4. 의사결정 이관", note: "2번 탭의 Go/Defend/Watch/Hold 안건" },
-    ];
-    flow.innerHTML = flowSteps.map((step, index) => `
-      <article class="investment-flow-step reveal" style="animation-delay:${index * 30}ms">
-        <strong>${escapeHTML(step.label)}</strong>
-        <span>${escapeHTML(step.note)}</span>
-      </article>
-    `).join("");
 
     grid.innerHTML = items.map((item, index) => `
       <button class="investment-card reveal${item.id === selected?.id ? " active" : ""}" type="button" data-management-strategy="${escapeHTML(item.id)}" style="--local-accent:${categoryAccent((item.linkedCategories || [])[0])}; animation-delay:${index * 25}ms">
@@ -13631,7 +13806,7 @@
       .slice(0, 5);
   }
 
-  function workbenchItems(mode = workbenchMode) {
+  function workbenchItems(mode = workbenchMode, options = {}) {
     let items = [];
     if (mode === "executive") {
       items = executiveBacktests().map((item) => ({
@@ -13994,11 +14169,31 @@
       }));
     }
 
-    return visibleItems(items).filter((item) => {
-      if (activeCategory === "all") return true;
+    const allItems = visibleItems(items);
+    if (options.ignoreCategory || activeCategory === "all") return allItems;
+    const categoryItems = allItems.filter((item) => {
       if (!item.categories || !item.categories.length) return true;
       return item.categories.includes(activeCategory);
     });
+    return categoryItems.length || !options.fallbackToAll ? categoryItems : allItems;
+  }
+
+  function availableWorkbenchModes() {
+    return WORKBENCH_MODES
+      .map((mode) => {
+        const allItems = workbenchItems(mode.id, { ignoreCategory: true });
+        const categoryItems = activeCategory === "all"
+          ? allItems
+          : allItems.filter((item) => !item.categories?.length || item.categories.includes(activeCategory));
+        return {
+          ...mode,
+          allItems,
+          categoryItems,
+          items: categoryItems.length ? categoryItems : allItems,
+          usingAllEvidence: activeCategory !== "all" && !categoryItems.length && allItems.length > 0,
+        };
+      })
+      .filter((mode) => mode.allItems.length > 0);
   }
 
   function renderWorkbenchMece() {
@@ -14062,16 +14257,22 @@
     const detail = $("#workbenchDetail");
     if (!tabs || !stage || !detail) return;
 
+    const availableModes = availableWorkbenchModes();
+    if (!availableModes.some((mode) => mode.id === workbenchMode)) {
+      workbenchMode = availableModes[0]?.id || "";
+      selectedInsightId = null;
+    }
+
     renderWorkbenchMece();
     tabs.innerHTML = "";
-    WORKBENCH_MODES.forEach((mode) => {
-      const count = workbenchItems(mode.id).length;
+    availableModes.forEach((mode) => {
+      const count = mode.items.length;
       const btn = el("button", mode.id === workbenchMode ? "active" : "");
       btn.type = "button";
       btn.dataset.workMode = mode.id;
       btn.innerHTML = `
         <strong>${escapeHTML(mode.label)}</strong>
-        <small>${escapeHTML(mode.sub)} · ${fmtNum(count)}</small>
+        <small>${escapeHTML(mode.sub)} · ${fmtNum(count)}${mode.usingAllEvidence ? " · 전체 근거" : ""}</small>
       `;
       btn.addEventListener("click", () => {
         workbenchMode = mode.id;
@@ -14081,17 +14282,24 @@
       tabs.appendChild(btn);
     });
 
-    const mode = WORKBENCH_MODES.find((item) => item.id === workbenchMode) || WORKBENCH_MODES[0];
-    const items = workbenchItems(workbenchMode);
+    const mode = availableModes.find((item) => item.id === workbenchMode);
+    const items = mode?.items || [];
+    if (!mode) {
+      stage.innerHTML = "";
+      detail.innerHTML = "";
+      $("#workbenchMeta").textContent = "";
+      return;
+    }
     if (!items.some((item) => item.id === selectedInsightId)) {
       selectedInsightId = items[0]?.id || null;
     }
     const selected = items.find((item) => item.id === selectedInsightId) || items[0];
-    $("#workbenchMeta").textContent = `${mode.label} · ${activeCategoryData().label} · ${fmtNum(items.length)}개 객체`;
+    $("#workbenchMeta").textContent = mode.usingAllEvidence
+      ? `${mode.label} · 전체 근거 ${fmtNum(items.length)}개`
+      : `${mode.label} · ${activeCategoryData().label} · ${fmtNum(items.length)}개 객체`;
 
     stage.innerHTML = "";
     if (!items.length) {
-      stage.appendChild(el("div", "empty", "선택한 카테고리에 연결된 인터랙티브 객체가 없습니다."));
       renderWorkbenchDetail(null);
       return;
     }

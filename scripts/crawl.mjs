@@ -303,6 +303,119 @@ const ENGLISH_AUTHORITY_MONITORS = [
   },
 ];
 
+// Brokerage research is collected as a separate evidence class. Search results
+// may be either a broker's own publication or an authoritative article quoting
+// a named house; the two are kept distinct in buildBrokerResearch().
+const BROKER_RESEARCH_MONITORS = [
+  {
+    id: "broker-research",
+    label: "글로벌 증권사 메모리 리서치",
+    queries: [
+      'memory semiconductor outlook "Morgan Stanley"',
+      'DRAM NAND HBM outlook "Goldman Sachs"',
+      'memory chip cycle forecast "JPMorgan"',
+      'DRAM NAND price forecast "UBS"',
+      'memory semiconductor outlook "Bernstein"',
+      'DRAM HBM forecast "Citi"',
+      'memory semiconductor outlook "BofA Securities"',
+      'memory chip outlook "Jefferies"',
+      'DRAM NAND forecast "Barclays"',
+      'memory semiconductor outlook "Nomura"',
+      'site:ubs.com memory semiconductor research',
+      'site:jpmorgan.com insights semiconductor memory',
+      'site:goldmansachs.com insights memory semiconductor',
+      'site:morganstanley.com insights memory semiconductor',
+    ],
+  },
+];
+
+const BROKER_RULES = [
+  { id: "morgan-stanley", name: "Morgan Stanley", aliases: ["morgan stanley", "大摩", "모건스탠리"], accent: "#00a98f" },
+  { id: "goldman-sachs", name: "Goldman Sachs", aliases: ["goldman sachs", "高盛", "골드만삭스"], accent: "#d6a428" },
+  { id: "jpmorgan", name: "JPMorgan", aliases: ["jpmorgan", "jp morgan", "j.p. morgan", "摩根大通", "jp모건"], accent: "#2563eb" },
+  { id: "ubs", name: "UBS", aliases: ["ubs", "瑞银"], accent: "#e11d48" },
+  { id: "bernstein", name: "Bernstein", aliases: ["bernstein", "伯恩斯坦"], accent: "#7c3aed" },
+  { id: "citi", name: "Citi", aliases: ["citigroup", "citi research", "花旗", "씨티"], accent: "#0284c7" },
+  { id: "bofa", name: "BofA Securities", aliases: ["bofa securities", "bank of america", "美银", "뱅크오브아메리카"], accent: "#dc2626" },
+  { id: "jefferies", name: "Jefferies", aliases: ["jefferies", "杰富瑞"], accent: "#0f766e" },
+  { id: "barclays", name: "Barclays", aliases: ["barclays", "巴克莱"], accent: "#0891b2" },
+  { id: "nomura", name: "Nomura", aliases: ["nomura", "野村", "노무라"], accent: "#ef4444" },
+  { id: "daiwa", name: "Daiwa", aliases: ["daiwa", "大和证券", "다이와"], accent: "#f97316" },
+  { id: "macquarie", name: "Macquarie", aliases: ["macquarie", "麦格理", "맥쿼리"], accent: "#14b8a6" },
+  { id: "mizuho", name: "Mizuho", aliases: ["mizuho", "瑞穗", "미즈호"], accent: "#1d4ed8" },
+  { id: "hsbc", name: "HSBC", aliases: ["hsbc", "汇丰", "홍콩상하이은행"], accent: "#e31b23" },
+];
+
+// These report extracts were supplied as source documents and serve as a
+// continuity baseline. Fresh crawled citations rank ahead of them; report
+// metadata is never presented as a public URL when the document is private.
+const BROKER_REPORT_SEEDS = [
+  {
+    id: "ms-memory-wall-20260716",
+    institution: "Morgan Stanley",
+    institutionId: "morgan-stanley",
+    evidenceType: "direct-report",
+    label: "SYSTEM BOTTLENECK",
+    title: "메모리 병목은 HBM 캐파를 넘어 시스템 효율 문제로 확장",
+    summary: "AI 메모리 병목을 용량·대역폭·비용의 동시 제약으로 보고 공정, 설계, 패키징, 주변장치와 연산 통합을 함께 개선해야 한다는 분석입니다.",
+    metrics: ["2027 클라우드 CapEx 중 메모리 40%", "2030 클라우드 메모리 지출 $418B"],
+    insight: "SKHY는 HBM4 수율과 패키징을 우선하되 HBF, CXL, MRDIMM을 후속 성장 옵션으로 관리해야 합니다.",
+    reversalKpi: "AI 수익화, 하드웨어 집약도, 신규 규격 고객 인증",
+    publishedAt: "2026-07-16",
+    source: "Morgan Stanley Research",
+    sourceRef: "Global Technology: Innovating the Next-Generation Memory (2026.07.16), pp.2, 8-13",
+    accent: "#00a98f",
+  },
+  {
+    id: "ms-memory-cycle-20260716",
+    institution: "Morgan Stanley",
+    institutionId: "morgan-stanley",
+    evidenceType: "direct-report",
+    label: "CYCLE CHECK",
+    title: "3Q26 가격 강세 뒤 모멘텀 둔화 가능성도 함께 관리",
+    summary: "3Q26 DRAM 가격 상승 뒤 4Q26부터 전년 대비 가격 모멘텀이 정체될 수 있다는 하우스 전망입니다. 공개 가격 컨센서스와 분리한 상방 시나리오로 사용합니다.",
+    metrics: ["3Q26 DRAM +20~30%", "공급 부족 전망 2028년까지"],
+    insight: "가격 상승 구간에는 프리미엄 믹스와 고객 계약을 잠그고 범용 증설은 공급 가시성에 따라 단계별로 집행해야 합니다.",
+    reversalKpi: "소비자 수요, 고객 재고, 경쟁사 bit growth",
+    publishedAt: "2026-07-16",
+    source: "Morgan Stanley Research",
+    sourceRef: "Global Technology: Innovating the Next-Generation Memory (2026.07.16), pp.14, 16-17",
+    accent: "#ef8d22",
+  },
+  {
+    id: "ms-next-memory-tam-20260716",
+    institution: "Morgan Stanley",
+    institutionId: "morgan-stanley",
+    evidenceType: "direct-report",
+    label: "NEXT-GEN TAM",
+    title: "2030년 차세대 메모리 TAM은 고객 인증에 따라 범위가 큼",
+    summary: "2030년 Base 시나리오는 HBM 포함 $276B, HBM 제외 $23B입니다. HBM 제외 시장은 Bull $41.4B, Bear $16.9B로 범위가 넓습니다.",
+    metrics: ["HBM 포함 Base $276B", "HBM 제외 Base $23B"],
+    insight: "HBF와 CXL은 HBM 대체 확정안이 아니라 고객 샘플, 표준화, 양산 주문을 통과해야 하는 포트폴리오 옵션으로 봅니다.",
+    reversalKpi: "샘플 성능, 표준 채택, 고객 양산 주문",
+    publishedAt: "2026-07-16",
+    source: "Morgan Stanley Research",
+    sourceRef: "Global Technology: Innovating the Next-Generation Memory (2026.07.16), pp.13, 18",
+    accent: "#5b67d8",
+  },
+  {
+    id: "ms-lta-visibility-20260717",
+    institution: "Morgan Stanley",
+    institutionId: "morgan-stanley",
+    evidenceType: "direct-report",
+    label: "LTA & VISIBILITY",
+    title: "장기계약은 물량보다 가격 공식과 재협상 조항이 중요",
+    summary: "메모리 LTA가 3~5년, 가격 공식, 선급금 구조로 진화해 사이클 변동을 완화할 수 있다는 분석입니다. 회사 가이던스가 아닌 증권사 시나리오입니다.",
+    metrics: ["LTA 3~5년", "HBM 시장 2027E $94B"],
+    insight: "SKHY는 최소 구매, 선급금, 가격 공식과 재협상 조항을 고객별로 비교해 계약의 질을 경영 지표로 관리해야 합니다.",
+    reversalKpi: "재협상 선례, 고객 집중도, take-or-pay 실효성",
+    publishedAt: "2026-07-17",
+    source: "Morgan Stanley Research",
+    sourceRef: "Global Technology: Key Debates: AI, Memory, Substrates & MLCC (2026.07.17)",
+    accent: "#9a4fd4",
+  },
+];
+
 const CHINESE_AUTHORITY_MONITORS = [
   {
     id: "dram",
@@ -1430,7 +1543,7 @@ const KOREAN_SOURCE_RE = new RegExp(
 const LOW_CONFIDENCE_NEWS_RE = /(ad hoc news|indexbox|36\s*kr|36kr|borncity|mjengo|blockchain\.news|odaily|zamin\.uz|finance\.biggo|crypto briefing|weex|fortrinawwer|siliconanalysts|nand-research|reddit|facebook|linkedin\.com|x\.com|twitter\.com)/i;
 const SKHYNIX_NEWSROOM_RE = /news\.skhynix\.com|sk\s*hynix\s*newsroom|skhy\s*newsroom/i;
 const AUTHORITATIVE_EN_NEWS_RE =
-  /(reuters|bloomberg|financial times|ft\.com|nikkei|cnbc|associated press|apnews|sec\.gov|nasdaq|trendforce|dramexchange|techinsights|yole|counterpoint|tom'?s hardware|tomshardware|south china morning post|scmp|caixin global|caixinglobal|digitimes|ee times|eetimes|semianalysis|techwire asia|the register|business insider|network world|evertiq|technode|techspot|japan times|electronics weekly|semiconductor engineering|semiengineering|semiconductor digest|solid state technology|ieee spectrum|jedec|semi\.org|businesswire|pr newswire|solidigm|intel|micron|tsmc|open compute project|opencompute\.org|u\.s\. bis|bis\.gov|govinfo|wsts|acm research ir|cxmt|shanghai stock exchange|samsung|samsung semiconductor|semiconductor\.samsung\.com|sandisk|panmnesia)/i;
+  /(reuters|bloomberg|financial times|ft\.com|nikkei|cnbc|associated press|apnews|sec\.gov|nasdaq|trendforce|dramexchange|techinsights|yole|counterpoint|tom'?s hardware|tomshardware|south china morning post|scmp|caixin global|caixinglobal|digitimes|ee times|eetimes|semianalysis|techwire asia|the register|business insider|network world|evertiq|technode|techspot|japan times|electronics weekly|semiconductor engineering|semiengineering|semiconductor digest|solid state technology|ieee spectrum|jedec|semi\.org|businesswire|pr newswire|solidigm|intel|micron|tsmc|open compute project|opencompute\.org|u\.s\. bis|bis\.gov|govinfo|wsts|acm research ir|cxmt|shanghai stock exchange|samsung|samsung semiconductor|semiconductor\.samsung\.com|sandisk|panmnesia|morganstanley\.com|goldmansachs\.com|jpmorgan\.com|ubs\.com|citigroup\.com|bofa\.com|bankofamerica\.com|barclays\.com|nomura\.com|jefferies\.com|mizuho)/i;
 const AUTHORITATIVE_CN_NEWS_RE =
   /(财新|caixin|第一财经|yicai|21财经|21世纪经济报道|21jingji|证券时报|stcn|中国经营报|cb\.com\.cn|东方财富|eastmoney|新浪财经|sina finance|澎湃新闻|the paper|虎嗅|huxiu|电子工程专辑|eet-china|集微网|爱集微|ijiwei|laoyaoba|半导体新闻网|seminews|经济观察网|eeo\.com\.cn|techweb|chinaflashmarket|闪存市场|semi china|中国半导体行业协会|csia|科技新报|technews\.tw|钜亨网|cnyes\.com|solidot|奇客|xinhuanet)/i;
 const MEMORY_NEWS_RE =
@@ -2728,7 +2841,7 @@ async function collectNews(previousNews = []) {
   let all = preserved.slice();
   preserved.forEach((item) => seen.add(canonicalNewsKey(item)));
 
-  for (const cat of CATEGORIES.concat(ENGLISH_AUTHORITY_MONITORS)) {
+  for (const cat of CATEGORIES.concat(ENGLISH_AUTHORITY_MONITORS, BROKER_RESEARCH_MONITORS)) {
     const items = (await fetchCategory(cat, seen)).filter((item) => !isCrawlerExcluded("news", item));
     all = all.concat(items);
     mergeNewsCategory(categories, cat, items);
@@ -2787,6 +2900,169 @@ async function collectNews(previousNews = []) {
     trending: extractTrending(all),
     newsStats: newsStats(latestNews),
     allNews: all,
+  };
+}
+
+const BROKER_OFFICIAL_DOMAINS = {
+  "morgan-stanley": ["morganstanley.com"],
+  "goldman-sachs": ["goldmansachs.com"],
+  jpmorgan: ["jpmorgan.com"],
+  ubs: ["ubs.com"],
+  citi: ["citigroup.com", "citi.com"],
+  bofa: ["bofa.com", "bankofamerica.com"],
+  jefferies: ["jefferies.com"],
+  barclays: ["barclays.com"],
+  nomura: ["nomura.com"],
+  mizuho: ["mizuho.com"],
+  hsbc: ["hsbc.com"],
+};
+
+const BROKER_MEMORY_TOPIC_RE = /(?:memory|semiconductor|dram|ddr[345]?|lpddr|hbm|nand|ssd|cxl|pim|hbf|cowos|wafer|메모리|반도체|디램|낸드|存储|記憶體|半导体|半導體|内存|記憶體)/i;
+const BROKER_AUTHORITY_RE = /(?:reuters|bloomberg|ft\.com|financial times|nikkei|cnbc|wall street journal|wsj|associated press|apnews|south china morning post|scmp|caixin|digitimes|trendforce|tom's hardware|techinsights)/i;
+
+function brokerText(item = {}) {
+  return [item.title, item.titleKo, item.summary, item.summaryOriginal, item.source, item.sourceUrl, item.link]
+    .map((value) => String(value || ""))
+    .join(" ");
+}
+
+function brokerRuleFor(item = {}) {
+  const text = brokerText(item).toLowerCase();
+  return BROKER_RULES.find((rule) => rule.aliases.some((alias) => {
+    const key = alias.toLowerCase();
+    if (/^[a-z0-9 .&-]+$/.test(key)) {
+      const escaped = key.replace(/[.*+?^${}()|[\]\\]/g, "\\$&").replace(/\s+/g, "\\s+");
+      return new RegExp(`(?:^|[^a-z0-9])${escaped}(?:$|[^a-z0-9])`, "i").test(text);
+    }
+    return text.includes(key);
+  })) || null;
+}
+
+function brokerOfficialSource(rule, value = "") {
+  if (!rule) return false;
+  try {
+    const host = new URL(value).hostname.toLowerCase().replace(/^www\./, "");
+    return (BROKER_OFFICIAL_DOMAINS[rule.id] || []).some((domain) => host === domain || host.endsWith(`.${domain}`));
+  } catch {
+    return false;
+  }
+}
+
+function brokerTopic(item = {}) {
+  const text = brokerText(item).toLowerCase();
+  if (/(?:cxmt|ymtc|changxin|yangtze memory|china memory|长鑫|長鑫|长江存储|中國記憶體|中国存储)/i.test(text)) return "china";
+  if (/(?:hbm|rubin|cowos|advanced packaging|hybrid bonding|tsv)/i.test(text)) return "hbm";
+  if (/(?:nand|ssd|solidigm|hbf|flash)/i.test(text)) return "nand";
+  if (/(?:cxl|pim|mrdimm|next-generation memory|next generation memory)/i.test(text)) return "next-memory";
+  if (/(?:capex|capacity|wafer|fab|equipment|supply growth|bit growth)/i.test(text)) return "capacity";
+  if (/(?:price|pricing|asp|contract|spot|shortage|inventory|cycle|revenue forecast|market forecast)/i.test(text)) return "cycle";
+  return "strategy";
+}
+
+function brokerTopicFrame(topic) {
+  return {
+    china: {
+      label: "CHINA COMPETITION",
+      insight: "SKHY는 중국 업체의 매출·캐파 전망을 범용 DRAM과 NAND 가격 방어, 고객 승인 변화에 연결해 봐야 합니다.",
+      reversalKpi: "공식 캐파, 고객 인증, contract 가격",
+    },
+    hbm: {
+      label: "HBM & PACKAGING",
+      insight: "SKHY는 점유율 전망보다 고객 인증, HBM4 수율, 베이스 다이와 패키징 병목의 실제 개선 속도를 우선 확인해야 합니다.",
+      reversalKpi: "고객 인증, HBM4 수율, 패키징 처리량",
+    },
+    nand: {
+      label: "NAND & eSSD",
+      insight: "SKHY는 NAND 전망을 eSSD 고객 믹스, Solidigm 수익성, wafer·contract 가격의 동행 여부로 검증해야 합니다.",
+      reversalKpi: "eSSD 고객 믹스, NAND contract 가격, 재고일수",
+    },
+    "next-memory": {
+      label: "NEXT MEMORY",
+      insight: "SKHY는 차세대 메모리를 확정 매출이 아닌 고객 샘플, 표준화, 양산 주문을 통과해야 하는 옵션 포트폴리오로 관리해야 합니다.",
+      reversalKpi: "표준 채택, 고객 샘플, 양산 주문",
+    },
+    capacity: {
+      label: "CAPACITY & CAPEX",
+      insight: "SKHY는 투자액 자체보다 경쟁사의 wafer 투입, 장비 반입, 수율 안정화가 실제 bit growth로 이어지는 시점을 봐야 합니다.",
+      reversalKpi: "wafer 투입, 장비 반입, bit growth",
+    },
+    cycle: {
+      label: "CYCLE CHECK",
+      insight: "SKHY는 증권사 가격 전망을 공개 contract·spot 가격, 고객 재고와 대조하고 상방·하방 시나리오를 분리해 사용해야 합니다.",
+      reversalKpi: "contract·spot spread, 고객 재고, 수요 전망",
+    },
+    strategy: {
+      label: "SECTOR VIEW",
+      insight: "SKHY는 증권사 전망을 회사 가이던스와 분리하고 고객, 가격, 공급의 실측 지표가 같은 방향인지 확인해야 합니다.",
+      reversalKpi: "고객 주문, 가격, 공급 실측",
+    },
+  }[topic];
+}
+
+function brokerMetrics(item = {}) {
+  const text = `${item.titleKo || item.title || ""} ${item.summary || item.summaryOriginal || ""}`;
+  const matches = [
+    ...text.matchAll(/(?:US\$|\$)\s?\d+(?:\.\d+)?\s?(?:T|B|bn|billion|trillion)\b/gi),
+    ...text.matchAll(/\b\d+(?:\.\d+)?\s?(?:~|\-|to)\s?\d+(?:\.\d+)?\s?%|\b\d+(?:\.\d+)?\s?%/gi),
+    ...text.matchAll(/\b\d+(?:\.\d+)?\s?(?:조|억)\s?(?:원|위안|달러)/g),
+  ].map((match) => match[0].replace(/\s+/g, " ").trim());
+  return [...new Set(matches)].slice(0, 2);
+}
+
+function buildBrokerResearch(news = []) {
+  const generatedAt = new Date().toISOString();
+  const citations = news.map((item) => {
+    const rule = brokerRuleFor(item);
+    const sourceUrl = directNewsUrl(item);
+    const text = brokerText(item);
+    if (!rule || !sourceUrl || !BROKER_MEMORY_TOPIC_RE.test(text)) return null;
+    const official = brokerOfficialSource(rule, sourceUrl);
+    const authoritativeCitation = BROKER_AUTHORITY_RE.test(`${item.source || ""} ${sourceUrl}`);
+    if (!official && !authoritativeCitation) return null;
+    const summary = compactArticleSummary(item);
+    const title = intelligenceTitle(item);
+    if (!title || summary.length < 35) return null;
+    const topic = brokerTopic(item);
+    const frame = brokerTopicFrame(topic);
+    const publishedAt = item.date || item.publishedAt || null;
+    const evidenceType = official ? "direct-report" : "news-citation";
+    return {
+      id: `broker-${rule.id}-${slug(title).slice(0, 72)}`,
+      institution: rule.name,
+      institutionId: rule.id,
+      evidenceType,
+      label: frame.label,
+      title,
+      summary,
+      metrics: brokerMetrics(item),
+      insight: frame.insight,
+      reversalKpi: frame.reversalKpi,
+      publishedAt,
+      source: item.source || rule.name,
+      sourceRef: evidenceType === "direct-report" ? `${rule.name} 공식 발간물` : `${rule.name} 인용 기사`,
+      sourceUrl,
+      accent: rule.accent,
+    };
+  }).filter(Boolean);
+
+  const deduped = [];
+  const seen = new Set();
+  for (const item of citations.sort((a, b) => new Date(b.publishedAt || 0) - new Date(a.publishedAt || 0)).concat(BROKER_REPORT_SEEDS)) {
+    const key = item.sourceUrl
+      ? item.sourceUrl.toLowerCase().replace(/[?#].*$/, "").replace(/\/$/, "")
+      : `${item.institutionId}:${slug(item.title)}`;
+    if (seen.has(key)) continue;
+    seen.add(key);
+    deduped.push(item);
+  }
+  const items = deduped.slice(0, 8);
+  return {
+    updatedAt: generatedAt,
+    methodology: "증권사 공식 발간물과 권위 매체의 증권사 인용을 분리하고, 원문 URL과 메모리 산업 연관성이 있는 항목만 승격함.",
+    institutions: [...new Set(items.map((item) => item.institution))],
+    reportCount: items.filter((item) => item.evidenceType === "direct-report").length,
+    citationCount: items.filter((item) => item.evidenceType === "news-citation").length,
+    items,
   };
 }
 
@@ -3823,6 +4099,7 @@ function buildQualityReport(payload = {}) {
   const news = Array.isArray(payload.news) ? payload.news : [];
   const community = Array.isArray(payload.communitySignals?.items) ? payload.communitySignals.items : [];
   const briefs = Array.isArray(payload.intelligence?.briefs) ? payload.intelligence.briefs : [];
+  const brokerItems = Array.isArray(payload.brokerResearch?.items) ? payload.brokerResearch.items : [];
   const priceRows = (payload.prices?.sections || []).flatMap((section) => section.rows || []);
   const marketIndexes = Object.values(payload.marketHistory?.indexes || {});
   const stocks = Object.values(payload.stocks || {});
@@ -3844,6 +4121,17 @@ function buildQualityReport(payload = {}) {
     && String(brief.decision || "").trim()
     && String(brief.reversalKpi || "").trim()
   ));
+  const validBrokerItems = brokerItems.filter((item) => {
+    const linkedEvidence = item.evidenceType === "direct-report"
+      ? String(item.sourceRef || "").trim()
+      : /^https?:\/\//i.test(String(item.sourceUrl || "")) && !/news\.google\.com/i.test(String(item.sourceUrl || ""));
+    return linkedEvidence
+      && String(item.institution || "").trim()
+      && String(item.title || "").trim()
+      && String(item.summary || "").trim().length >= 35
+      && String(item.insight || "").trim()
+      && String(item.reversalKpi || "").trim();
+  });
   const directSourceRatio = news.length ? directNews.length / news.length : 0;
   const summaryRatio = news.length ? summarizedNews.length / news.length : 0;
   const checks = [
@@ -3856,6 +4144,7 @@ function buildQualityReport(payload = {}) {
     { id: "news_duplicates", critical: true, passed: duplicateCount === 0, observed: duplicateCount, threshold: 0 },
     { id: "community_signals", critical: true, passed: community.length >= 5, observed: community.length, threshold: 5 },
     { id: "decision_briefs", critical: true, passed: validBriefs.length >= 6, observed: validBriefs.length, threshold: 6 },
+    { id: "broker_research", critical: true, passed: validBrokerItems.length >= 4, observed: validBrokerItems.length, threshold: 4 },
     { id: "market_indexes", critical: true, passed: validMarkets.length >= 3, observed: validMarkets.length, threshold: 3 },
     { id: "peer_stocks", critical: true, passed: validStocks.length >= 2, observed: validStocks.length, threshold: 2 },
   ];
@@ -3876,6 +4165,8 @@ function buildQualityReport(payload = {}) {
       duplicateCount,
       communitySignals: community.length,
       decisionBriefs: validBriefs.length,
+      brokerResearch: validBrokerItems.length,
+      brokerNewsCitations: validBrokerItems.filter((item) => item.evidenceType === "news-citation").length,
       marketIndexes: validMarkets.length,
       peerStocks: validStocks.length,
     },
@@ -3883,6 +4174,7 @@ function buildQualityReport(payload = {}) {
       prices: payload.prices?.updatedAt || payload.updatedAt,
       news: payload.updatedAt,
       community: payload.communitySignals?.updatedAt || payload.updatedAt,
+      brokerResearch: payload.brokerResearch?.updatedAt || payload.updatedAt,
       markets: payload.marketHistory?.updatedAt || payload.updatedAt,
     },
   };
@@ -3923,6 +4215,8 @@ async function main() {
 
   const signals = buildSignals({ prices, competitors, startups, newsStats: stats });
   const intelligence = buildIntelligence({ news, prices, stats, chinaInfra });
+  const brokerResearch = buildBrokerResearch(news);
+  note("증권사 리서치", brokerResearch.items.length >= 4, `직접 리포트 ${brokerResearch.reportCount}건 · 기사 인용 ${brokerResearch.citationCount}건`);
   const okCount = health.filter((item) => item.ok).length;
   const languageCounts = {
     english: news.filter((item) => verifiedNewsLanguage(item) === "english").length,
@@ -3946,6 +4240,7 @@ async function main() {
     communitySignals,
     signals,
     intelligence,
+    brokerResearch,
     categories,
     news,
     trending,

@@ -283,6 +283,39 @@ if (news.length && directNews.length / news.length < 0.9) {
   addIssue("error", "data/live.json", "fewer than 90% of news items resolve to direct source URLs", `${directNews.length}/${news.length}`);
 }
 
+const brokerResearch = live.brokerResearch || null;
+const brokerItems = Array.isArray(brokerResearch?.items) ? brokerResearch.items : [];
+if (brokerResearch) {
+  if (brokerItems.length < 4) {
+    addIssue("error", "data/live.json", "fewer than four broker research evidence cards", String(brokerItems.length));
+  }
+  const brokerKeys = new Set();
+  for (const item of brokerItems) {
+    const evidenceType = String(item.evidenceType || "");
+    const hasEvidence = evidenceType === "direct-report"
+      ? Boolean(String(item.sourceRef || "").trim())
+      : /^https?:\/\//i.test(String(item.sourceUrl || "")) && !/news\.google\.com/i.test(String(item.sourceUrl || ""));
+    if (!new Set(["direct-report", "news-citation"]).has(evidenceType)) {
+      addIssue("error", "data/live.json", "broker research item has an invalid evidence type", `${item.id || item.title}:${evidenceType || "missing"}`);
+    }
+    if (!hasEvidence) addIssue("error", "data/live.json", "broker research item lacks linked evidence", item.id || item.title || "unknown");
+    if (!String(item.institution || "").trim()) addIssue("error", "data/live.json", "broker research item has no institution", item.id || item.title || "unknown");
+    if (String(item.summary || "").trim().length < 35) addIssue("error", "data/live.json", "broker research summary is not substantive", item.id || item.title || "unknown");
+    if (!String(item.insight || "").trim() || !String(item.reversalKpi || "").trim()) {
+      addIssue("error", "data/live.json", "broker research item lacks SKHY implication or reversal KPI", item.id || item.title || "unknown");
+    }
+    const key = String(item.sourceUrl || `${item.institution}:${item.title}`).toLowerCase().replace(/[?#].*$/, "");
+    if (brokerKeys.has(key)) addIssue("error", "data/live.json", "duplicate broker research evidence", key);
+    brokerKeys.add(key);
+  }
+  if (Number(brokerResearch.reportCount || 0) !== brokerItems.filter((item) => item.evidenceType === "direct-report").length) {
+    addIssue("error", "data/live.json", "broker direct-report count mismatch", String(brokerResearch.reportCount));
+  }
+  if (Number(brokerResearch.citationCount || 0) !== brokerItems.filter((item) => item.evidenceType === "news-citation").length) {
+    addIssue("error", "data/live.json", "broker news-citation count mismatch", String(brokerResearch.citationCount));
+  }
+}
+
 const preservedNews = news.filter((item) => item?.preservedSeed);
 const preservedByLanguage = {
   english: preservedNews.filter((item) => item.streamLanguage === "english"),
@@ -503,6 +536,10 @@ const expectedQualityMetrics = {
   decisionBriefs: briefs.length,
   marketIndexes: Object.values(live.marketHistory?.indexes || {}).filter((item) => Number(item?.latest?.close ?? item?.latest?.value) > 0).length,
   peerStocks: stocks.filter(([, stock]) => Number(stock.latestClose) > 0).length,
+  ...(brokerResearch ? {
+    brokerResearch: brokerItems.length,
+    brokerNewsCitations: brokerItems.filter((item) => item.evidenceType === "news-citation").length,
+  } : {}),
 };
 for (const [metric, expected] of Object.entries(expectedQualityMetrics)) {
   if (Number(qualityMetrics[metric]) !== Number(expected)) {
@@ -528,6 +565,7 @@ console.log(JSON.stringify({
   summarizedNews: `${summarizedNews.length}/${news.length}`,
   communitySignals: communityItems.length,
   intelligenceBriefs: briefs.length,
+  brokerResearch: brokerItems.length,
   qualityStatus: quality.status,
   errors,
   warnings,
