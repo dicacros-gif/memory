@@ -13401,13 +13401,140 @@
     `;
   }
 
+  function latestChinaDeepDiveNews(termGroups = [], limit = 3) {
+    const groups = termGroups
+      .map((group) => (Array.isArray(group) ? group : [group]).map((term) => String(term).toLowerCase()))
+      .filter((group) => group.length);
+    const evidenceFeed = dedupeNews([
+      ...(Array.isArray(LIVE.news) ? LIVE.news : []),
+      ...(Array.isArray(BASE?.curatedNews) ? BASE.curatedNews : []),
+    ].filter((item) => (item.sourceUrl || item.link)
+      && !isCrawlExcluded("news", item)
+      && !isLowConfidenceNews(item)
+      && !isSkhynixNewsroom(item)));
+    return evidenceFeed
+      .filter((item) => {
+        const hay = `${item.title || ""} ${item.titleKo || ""} ${item.summary || ""} ${item.summaryOriginal || ""}`.toLowerCase();
+        return groups.every((group) => group.some((term) => hay.includes(term)));
+      })
+      .sort(compareNewsItems)
+      .slice(0, limit);
+  }
+
+  function collectedPriceTrend(row = {}) {
+    const points = priceHistoryFor(row);
+    const start = points[0];
+    const end = points[points.length - 1];
+    if (!start || !end) return null;
+    const startValue = Number(start.average);
+    const endValue = Number(end.average);
+    if (!Number.isFinite(startValue) || !Number.isFinite(endValue) || startValue === 0) return null;
+    return {
+      ...row,
+      startValue,
+      endValue,
+      changePct: ((endValue - startValue) / startValue) * 100,
+      pointCount: points.length,
+    };
+  }
+
+  function liveChinaDeepDiveItems() {
+    const customerEvents = new Set();
+    const customerNews = latestChinaDeepDiveNews([
+      ["cxmt", "changxin", "창신", "长鑫"],
+    ], 120).filter((item) => /tencent|apple|lenovo|dell|\bhp\b|customer|contract|order|supply deal|텐센트|애플|레노버|고객|계약|주문|腾讯|苹果|客户|订单/i.test(`${item.title || ""} ${item.titleKo || ""}`)).filter((item) => {
+      const title = `${item.title || ""} ${item.titleKo || ""}`.toLowerCase();
+      const eventKey = /tencent|텐센트|腾讯/.test(title)
+        ? "cxmt-tencent-contract"
+        : /apple|lenovo|dell|\bhp\b|애플|레노버|苹果/.test(title)
+          ? "cxmt-global-oem-orders"
+          : String(item.sourceUrl || item.link || title).replace(/[?#].*$/, "");
+      if (customerEvents.has(eventKey)) return false;
+      customerEvents.add(eventKey);
+      return true;
+    }).slice(0, 3);
+    const priceTrends = allPriceRows()
+      .map(collectedPriceTrend)
+      .filter(Boolean)
+      .sort((a, b) => Math.abs(b.changePct) - Math.abs(a.changePct));
+    const dramTrend = priceTrends.find((row) => /dram|ddr|lpddr|gddr|module/i.test(`${row.group || ""} ${row.sectionTitle || ""} ${row.item || ""}`));
+    const nandTrend = priceTrends.find((row) => {
+      const hay = `${row.group || ""} ${row.sectionTitle || ""} ${row.item || ""}`;
+      return /nand|flash|wafer/i.test(hay) && !/street|memory card|microsd|adata|kimtigo|pny|silicon power/i.test(hay);
+    });
+    const fieldSignals = (LIVE.communitySignals?.items || [])
+      .filter((item) => item.sourceUrl && !item.historical && !isCrawlExcluded("community", item))
+      .sort((a, b) => Number(b.ts || 0) - Number(a.ts || 0) || String(b.observedAt || b.date || "").localeCompare(String(a.observedAt || a.date || "")))
+      .slice(0, 3);
+    const customerSource = customerNews[0]?.sourceUrl || customerNews[0]?.link || "";
+    const priceSource = dramTrend?.sourceUrl || nandTrend?.sourceUrl || "";
+    const fieldSource = fieldSignals[0]?.sourceUrl || priceSource || customerSource;
+    const priceFact = (row) => row
+      ? `${row.item}: ${formatPrice(row.startValue)} → ${formatPrice(row.endValue)} (${signedPercent(row.changePct)}) · 실제 누적 ${fmtNum(row.pointCount)}회`
+      : "공개 가격 이력이 충분히 누적된 품목을 수집 중";
+    const customerFacts = customerNews.length
+      ? customerNews.map((item) => `${item.date || "날짜 확인"} · ${item.source || "외신"} · ${newsTitle(item)}`)
+      : ["고객 계약·승인 관련 권위 매체 보도를 수집 중"];
+    const latestFieldDate = fieldSignals[0]?.observedAt || fieldSignals[0]?.date || "";
+
+    return [
+      {
+        id: "live-customer-conversion",
+        tag: "고객·계약",
+        title: "중국 DRAM 고객 잠금과 글로벌 승인 경계",
+        thesis: "CXMT의 위협은 기술 발표보다 서버 DRAM 장기계약과 글로벌 세트 고객의 승인 범위가 실제 매출로 전환되는지에서 먼저 확인합니다.",
+        facts: customerFacts,
+        risk: "익명 소식통 계약 보도, 테스트, 승인 공급사 등록을 같은 단계로 묶으면 침투 속도를 과대평가할 수 있습니다. 계약 기간·제품군·고객 승인 상태를 분리합니다.",
+        implication: "SKHY는 중국 빅테크 장기계약, Apple 등 글로벌 고객의 qualification, DDR5·LPDDR 고객별 가격 차이를 하나의 고객 방어 게이트로 관리해야 합니다.",
+        linkedCategories: ["dram", "china", "aidemand"],
+        source: customerNews[0]?.source || "최신 권위 매체",
+        sourceUrl: customerSource,
+        liveEvidence: true,
+      },
+      {
+        id: "live-price-transmission",
+        tag: "가격·수요",
+        title: "가격 전이: DRAM과 NAND의 방향을 분리 확인",
+        thesis: "메모리 가격은 단일 헤드라인이 아니라 품목별 공개 이력과 고객 계약가 전이를 함께 봐야 합니다. Spot 선행과 Contract 후행이 어긋나면 제품 믹스와 수요 파괴를 별도로 점검합니다.",
+        facts: [
+          priceFact(dramTrend),
+          priceFact(nandTrend),
+          `TrendForce 공개 가격 ${fmtNum(allPriceRows().length)} rows · ${fmtDate(LIVE.prices?.updatedAt || LIVE.updatedAt)}`,
+        ],
+        risk: "공개 가격표의 일부 품목 급등락을 전체 DRAM·NAND ASP로 확대 해석하면 CAPEX와 고객 가격 전략이 왜곡될 수 있습니다.",
+        implication: "SKHY는 DDR5·서버 DIMM·NAND wafer·eSSD를 MECE하게 분리하고, Spot→Contract 전이와 고객 수요 감소가 결정을 뒤집는 시점을 함께 봐야 합니다.",
+        linkedCategories: ["dram", "nand", "aidemand"],
+        source: "TrendForce 공개 가격표",
+        sourceUrl: priceSource,
+        liveEvidence: true,
+      },
+      {
+        id: "live-decision-reversal",
+        tag: "실행 게이트",
+        title: "결정을 뒤집는 KPI와 교차검증 순서",
+        thesis: "기사·가격·공개 채용 신호를 같은 사실 등급으로 합산하지 않고, 고객 승인·가격 전이·장비 qualification·정책 시행 여부가 확인될 때만 실행 판단을 바꿉니다.",
+        facts: [
+          `고객·계약 원문 ${fmtNum(customerNews.length)}건 연결`,
+          `TrendForce 공개 가격 ${fmtNum(allPriceRows().length)} rows · DRAM/NAND 분리`,
+          `현장·채용 공개 신호 ${fmtNum(fieldSignals.length)}건${latestFieldDate ? ` · 최신 ${latestFieldDate}` : ""}`,
+        ],
+        risk: "크롤링 건수와 채용 공고는 근거의 양이지 수율·점유율·매출 확정치가 아닙니다. 원문 링크와 반증 조건이 없으면 Watch를 유지합니다.",
+        implication: "SKHY 경영진은 고객 qualification, Spot→Contract 전이, 반복 발주·장비 qual, BIS 시행 문구 중 하나가 기준선을 넘을 때만 가격·CAPEX·고객 배분 결정을 재검토합니다.",
+        linkedCategories: ["operations", "geopolitics", "talent"],
+        source: "일일 수집 교차검증",
+        sourceUrl: fieldSource,
+        liveEvidence: true,
+      },
+    ];
+  }
+
   function renderChinaDeepDive() {
     const grid = $("#chinaDeepGrid");
     const summary = $("#chinaDeepSummary");
     const meta = $("#chinaDeepMeta");
     if (!grid) return;
 
-    const items = CHINA_DEEP_DIVE.filter(relatedToActive);
+    const items = CHINA_DEEP_DIVE.concat(liveChinaDeepDiveItems()).filter(relatedToActive);
     if (meta) meta.textContent = `${fmtNum(items.length)}개 심층 항목 · ${activeCategoryData().label}`;
     if (summary) {
       const lines = [
