@@ -2044,6 +2044,12 @@
   let policyMakerTab = "china";
   let chinaInfraSite = "wuxi";
   let chinaTalentScenarioId = "operate";
+  let chinaTalentVideoPool = [];
+  let chinaTalentVideoIndex = -1;
+  let chinaTalentVideoLastTitle = "";
+  let chinaTalentVideoLastPosition = "bottom-left";
+  let chinaTalentVideoTimer = 0;
+  let chinaTalentVideoInView = false;
   let ceoChallengeId = "roi-credibility";
   let ceoChallengeAgentRan = false;
   let ceoChallengeTargetId = "scenario";
@@ -11633,6 +11639,156 @@
     }).slice(0, limit);
   }
 
+  function chinaTalentVideoInsightPoolFor(scenario, liveItems = []) {
+    const shorten = (value, max = 176) => {
+      const text = String(value || "").replace(/\s+/g, " ").trim();
+      return text.length > max ? `${text.slice(0, max - 1).trim()}…` : text;
+    };
+    const trustedSourceTerms = /reuters|bloomberg|financial times|nikkei|cnbc|scmp|caixin|digitimes|trendforce|techinsights|counterpoint|wsts|yole|semianalysis|tom'?s hardware|bis\.gov|commerce\.gov|congress\.gov|sec\.gov|sse\.com|government|official/i;
+    const decisionTitle = (item) => {
+      const hay = `${item.title || ""} ${item.titleKo || ""} ${item.summary || ""} ${item.source || ""}`.toLowerCase();
+      if (/ymtc|nand|essd|enterprise ssd|xtacking/.test(hay)) return "YMTC 침투는 eSSD 고객 품질·펌웨어 검증 속도로 방어";
+      if (/cxmt|dram|ddr5|lpddr/.test(hay)) return "CXMT 가격 압력은 고객 믹스와 계약 재가격화로 대응";
+      if (/hiring|talent|recruit|engineer|채용|인재/.test(hay)) return "채용 공고는 양산 확정값이 아니라 병목의 선행 신호";
+      if (/bis|export|veu|regulat|수출통제|규제/.test(hay)) return "운영 유지·기술 업그레이드·캐파 확대를 별도 승인";
+      if (/packag|chongqing|osat|후공정|패키징/.test(hay)) return "후공정 확대는 고객 인증·수율·납기 KPI로 검증";
+      return "중국 사업은 고객·운영·규제·IP를 분리해 판단";
+    };
+    const priorityGate = (scenario.gates || []).find((gate) => policyStatusClass(gate.status) !== "ok") || (scenario.gates || [])[0] || {};
+    const roleNames = (scenario.roles || []).map((role) => role.name).join(" · ");
+    const base = [
+      {
+        kicker: `${scenario.en} · EXECUTIVE DIRECTION`,
+        title: scenario.decision,
+        body: shorten(scenario.direction),
+        href: priorityGate.sourceUrl || "https://www.skhynix.com/company/UI-FR-CP06/",
+        source: priorityGate.source || "SK hynix",
+      },
+      {
+        kicker: "OPERATING CONTINUITY · ACCESS CONTROL",
+        title: "현지 운영 인력과 핵심 recipe 접근권을 분리",
+        body: shorten(`${roleNames}. 필요한 운영 역량은 현지에서 확보하되 수율·recipe·고객 비공개 데이터는 역할별 최소 권한으로 통제합니다.`),
+        href: "https://www.bis.gov/press-release/department-commerce-closes-export-controls-loophole-foreign-owned-semiconductor-fabs-china",
+        source: "BIS",
+      },
+      {
+        kicker: `${priorityGate.axis || "EXECUTION GATE"} · O/X`,
+        title: priorityGate.title || "중국 사업은 승인 조건을 먼저 고정",
+        body: shorten(`${priorityGate.evidence || "공개 근거를 확인합니다."} ${priorityGate.implication || "근거가 약하면 단계 집행으로 낮춥니다."}`),
+        href: priorityGate.sourceUrl || "https://www.bis.gov/",
+        source: priorityGate.source || "Official source",
+      },
+      {
+        kicker: "SKHY STRATEGY · TALENT / IP",
+        title: "채용 확대보다 역할 분리·접근권·퇴직자 통제를 먼저 설계",
+        body: shorten((scenario.actions || []).join(" · ")),
+        href: "https://www.skhynix.com/company/UI-FR-CP06/",
+        source: "SK hynix",
+      },
+    ];
+    const dynamic = liveItems.map((item) => {
+      const href = item.link || item.url || item.sourceUrl || "";
+      const source = item.source || item.publisher || "";
+      const sourceHay = `${source} ${href}`;
+      if (!/^https?:\/\//i.test(href) || !trustedSourceTerms.test(sourceHay)) return null;
+      const published = item.publishedAt || item.date || "";
+      return {
+        kicker: `${source || "VERIFIED SOURCE"}${published ? ` · ${shortKstDate(published)}` : ""}`,
+        title: decisionTitle(item),
+        body: shorten(item.summaryKo || item.summary || item.description || item.titleKo || item.title),
+        href,
+        source: source || "원문",
+      };
+    }).filter(Boolean);
+    const unique = new Map();
+    base.concat(dynamic).forEach((item) => {
+      const key = `${item.title}|${item.href}`;
+      if (item.title && !unique.has(key)) unique.set(key, item);
+    });
+    return Array.from(unique.values()).slice(0, 10);
+  }
+
+  function scheduleChinaTalentVideoRotation() {
+    if (chinaTalentVideoTimer) window.clearTimeout(chinaTalentVideoTimer);
+    chinaTalentVideoTimer = 0;
+    if (!chinaTalentVideoInView || document.hidden || chinaTalentVideoPool.length < 2) return;
+    chinaTalentVideoTimer = window.setTimeout(() => {
+      rotateChinaTalentVideoInsight();
+      scheduleChinaTalentVideoRotation();
+    }, 5800);
+  }
+
+  function rotateChinaTalentVideoInsight() {
+    const panel = $("#talentStrategyVideo");
+    const copy = $("#talentStrategyVideoCopy");
+    const kicker = $("#talentStrategyVideoKicker");
+    const title = $("#talentStrategyVideoTitle");
+    const body = $("#talentStrategyVideoBody");
+    const link = $("#talentStrategyVideoLink");
+    if (!panel || !copy || !kicker || !title || !body || !link || !chinaTalentVideoPool.length) return;
+    const distinct = chinaTalentVideoPool
+      .map((_, index) => index)
+      .filter((index) => index !== chinaTalentVideoIndex && chinaTalentVideoPool[index].title !== chinaTalentVideoLastTitle);
+    const choices = distinct.length ? distinct : chinaTalentVideoPool.map((_, index) => index).filter((index) => index !== chinaTalentVideoIndex);
+    const nextIndex = choices[Math.floor(Math.random() * choices.length)] ?? 0;
+    const positions = ["bottom-left", "top-left", "top-right"].filter((position) => position !== chinaTalentVideoLastPosition);
+    const nextPosition = positions[Math.floor(Math.random() * positions.length)] || "bottom-left";
+    const item = chinaTalentVideoPool[nextIndex];
+    chinaTalentVideoIndex = nextIndex;
+    chinaTalentVideoLastTitle = item.title;
+    chinaTalentVideoLastPosition = nextPosition;
+    panel.dataset.insightPosition = nextPosition;
+    copy.classList.remove("is-changing");
+    void copy.offsetWidth;
+    kicker.textContent = item.kicker;
+    title.textContent = item.title;
+    body.textContent = item.body;
+    link.href = item.href;
+    link.textContent = `${item.source || "원문"} 원문 ↗`;
+    copy.classList.add("is-changing");
+  }
+
+  function renderChinaTalentStrategyVideo(scenario, liveItems = []) {
+    const panel = $("#talentStrategyVideo");
+    const video = $("#talentStrategyVideoMedia");
+    const next = $("#talentStrategyVideoNext");
+    if (!panel || !video || !next) return;
+    const scenarioChanged = panel.dataset.scenario !== scenario.id;
+    panel.dataset.scenario = scenario.id;
+    panel.style.setProperty("--local-accent", categoryAccent(scenario.accentCategory));
+    chinaTalentVideoPool = chinaTalentVideoInsightPoolFor(scenario, liveItems);
+    if (scenarioChanged) {
+      chinaTalentVideoIndex = -1;
+      chinaTalentVideoLastTitle = "";
+    }
+    rotateChinaTalentVideoInsight();
+    next.onclick = () => {
+      rotateChinaTalentVideoInsight();
+      scheduleChinaTalentVideoRotation();
+    };
+    if (panel.dataset.ready !== "1") {
+      panel.dataset.ready = "1";
+      document.addEventListener("visibilitychange", scheduleChinaTalentVideoRotation);
+      if ("IntersectionObserver" in window) {
+        const observer = new IntersectionObserver((entries) => {
+          chinaTalentVideoInView = entries.some((entry) => entry.isIntersecting);
+          if (chinaTalentVideoInView) video.play().catch(() => {});
+          else video.pause();
+          scheduleChinaTalentVideoRotation();
+        }, { rootMargin: "120px 0px", threshold: .12 });
+        observer.observe(panel);
+        window.addEventListener("pagehide", () => observer.disconnect(), { once: true });
+      } else {
+        chinaTalentVideoInView = true;
+        video.play().catch(() => {});
+      }
+      window.addEventListener("pagehide", () => {
+        if (chinaTalentVideoTimer) window.clearTimeout(chinaTalentVideoTimer);
+      }, { once: true });
+    }
+    scheduleChinaTalentVideoRotation();
+  }
+
   function chinaTalentSignalCount(scenario = activeChinaTalentScenario()) {
     const theme = chinaTalentTheme();
     const themeCount = Number(theme?.count ?? theme?.items?.length ?? 0) || 0;
@@ -12148,6 +12304,7 @@
     }
     if (roiMeta) roiMeta.textContent = `ROI 지수 ${fmtNum(scenarioRoi.roi)} · 수익성 ${fmtNum(scenarioRoi.profitability)} · ${scenarioRoi.top?.investment?.label || "투자안 확인"}`;
     renderChinaTalentTabs(scenario);
+    renderChinaTalentStrategyVideo(scenario, liveItems);
     renderCeoChallengeAgent(scenario);
 
     summary.style.setProperty("--local-accent", accent);
