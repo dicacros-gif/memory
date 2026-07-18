@@ -5771,7 +5771,7 @@
       confidence,
       wrongRisk: Math.round(100 - confidence),
       text: ratio == null
-        ? "반대 방향 가격 표본이 없어 오판 위험을 정량화할 수 없음"
+        ? "반대 방향 가격 표본이 없어 반증 강도를 정량화할 수 없음"
         : `반대 방향 관측 ${fmtNum(opposing)}/${fmtNum(changes.length)}개(${fmtNum(ratio * 100, 0)}%)`,
     };
   }
@@ -5810,7 +5810,7 @@
     if (scenario.tilt === "up") {
       const supported = metrics.priceMove != null && metrics.priceMove >= 0.55 && confidence >= 68 && !risk.downgrade;
       if (!supported) return { verdict, reason: "상방 가정은 존재하지만 +0.55% 이상 가격·충분한 근거·리스크 게이트를 동시에 통과하지 못함" };
-      return { verdict: verdict === "Hold" ? "Watch" : "Go", reason: "상방 가격과 근거 신뢰도, 리스크 게이트가 함께 충족됨" };
+      return { verdict: verdict === "Hold" ? "Watch" : "Go", reason: "상방 가격과 실행 근거, 리스크 게이트가 함께 충족됨" };
     }
     if (scenario.tilt === "down") {
       const supported = Boolean(scenarioKpi?.tone === "fail" || risk.downgrade || (metrics.priceMove != null && metrics.priceMove <= -0.45));
@@ -5820,7 +5820,7 @@
     if (scenario.tilt === "watch") {
       const supported = Boolean(scenarioKpi?.tone === "fail" || risk.downgrade || confidence < 68);
       return supported
-        ? { verdict: verdict === "Go" ? "Watch" : verdict, reason: "실행 병목 또는 근거 신뢰도 조건이 확인됨" }
+        ? { verdict: verdict === "Go" ? "Watch" : verdict, reason: "실행 병목 또는 근거 조건이 확인됨" }
         : { verdict, reason: "실행 병목 가정의 확인 근거가 없어 현 등급 유지" };
     }
     return { verdict, reason: "판정 가능한 시나리오 조건 없음" };
@@ -6153,7 +6153,7 @@
           <span><b>${countHTML(item.priceRows)}</b><small>가격 rows</small></span>
         </div>
         <div class="c-level-meter" data-fill-to="${item.confidence}"><i style="width:0"></i></div>
-        <small>${escapeHTML(item.tone)} · 근거 신뢰도 ${fmtNum(Math.round(item.confidence))}/100 · 오판 위험 ${fmtNum(Math.round(100 - item.confidence))}/100</small>
+        <small>${escapeHTML(item.tone)}</small>
       </button>
     `).join("");
 
@@ -10020,17 +10020,12 @@
   }
 
   function agentEvidenceMetaHTML(agent = {}) {
-    const confidence = Number(agent.confidence);
-    const hasConfidence = Number.isFinite(confidence);
-    const wrongRisk = Number.isFinite(Number(agent.wrongRisk)) ? Number(agent.wrongRisk) : (hasConfidence ? 100 - confidence : null);
     const sourceUrl = String(agent.source?.url || agent.sourceUrl || "").trim();
     const safeSource = /^https?:\/\//i.test(sourceUrl) ? sourceUrl : "";
-    if (!hasConfidence && !safeSource) return "";
+    if (!safeSource) return "";
     return `
       <div class="agent-evidence-meta">
-        ${hasConfidence ? `<span title="근거 품질·최신성·반증 비율로 계산한 운영 지수이며 통계적 확률이 아닙니다">근거 신뢰도 ${fmtNum(Math.round(confidence))}/100</span>` : ""}
-        ${Number.isFinite(wrongRisk) ? `<span title="100-근거 신뢰도 운영 지수이며 통계적 확률이 아닙니다">오판 위험 ${fmtNum(Math.round(wrongRisk))}/100</span>` : ""}
-        ${safeSource ? `<a href="${escapeHTML(safeSource)}" target="_blank" rel="noopener noreferrer">${escapeHTML(agent.source?.title || "원문 근거")}</a>` : ""}
+        <a href="${escapeHTML(safeSource)}" target="_blank" rel="noopener noreferrer">${escapeHTML(agent.source?.title || "원문 근거")}</a>
       </div>
     `;
   }
