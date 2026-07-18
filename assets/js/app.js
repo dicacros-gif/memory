@@ -13817,7 +13817,7 @@
     void ensureDeferredSection(id);
     document.body.classList.remove("menu-open");
     const y = Math.max(0, target.getBoundingClientRect().top + window.scrollY - chromeOffset());
-    window.scrollTo({ top: y, behavior: "smooth" });
+    window.scrollTo({ top: y, behavior: "auto" });
   }
 
   function setupScrollSpy() {

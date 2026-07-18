@@ -425,10 +425,40 @@ button {
 }
 
 .sb-item:hover {
-  border-color: rgba(255, 255, 255, .18);
-  background: rgba(255, 255, 255, .1);
+  border-color: rgba(255, 255, 255, .9);
+  background: rgba(255, 255, 255, .97);
+  color: #121826;
+  box-shadow: 0 13px 26px rgba(3, 7, 18, .24);
+  animation: sb-tab-lift .46s cubic-bezier(.2, .8, .25, 1) both;
+}
+
+.sb-item:hover .sb-ico {
+  background: #151b2a;
   color: #fff;
-  transform: translateX(2px);
+}
+
+.sb-item:hover .sb-label {
+  animation: sb-label-bounce .4s cubic-bezier(.2, .8, .25, 1) both;
+}
+
+.sb-item:hover .sb-label small {
+  color: #596275;
+}
+
+.sb-item.active:hover {
+  border-color: rgba(255, 255, 255, .52);
+  background: #151b2a;
+  color: #fff;
+  box-shadow: 0 14px 28px rgba(3, 7, 18, .3);
+}
+
+.sb-item.active:hover .sb-ico {
+  background: #fff;
+  color: #151b2a;
+}
+
+.sb-item.active:hover .sb-label small {
+  color: rgba(255, 255, 255, .72);
 }
 
 .sb-item.active {
@@ -444,17 +474,28 @@ button {
   box-shadow: none;
 }
 
-.sb-item:hover .sb-label small {
-  color: rgba(255, 255, 255, .82);
-}
-
 .sb-item.active .sb-label small {
   color: #586174;
 }
 
 .sb-item:not(.active):hover .sb-ico {
-  background: rgba(255, 255, 255, .16);
+  background: #151b2a;
   color: #fff;
+}
+
+@keyframes sb-tab-lift {
+  0% { transform: translateY(0) scale(1); }
+  38% { transform: translateY(-7px) scale(1.012); }
+  64% { transform: translateY(-1px) scale(.998); }
+  82% { transform: translateY(-4px) scale(1.004); }
+  100% { transform: translateY(-3px) scale(1); }
+}
+
+@keyframes sb-label-bounce {
+  0% { transform: translateY(0); }
+  42% { transform: translateY(-3px); }
+  68% { transform: translateY(1px); }
+  100% { transform: translateY(0); }
 }
 
 .sidebar:hover .sb-fold {
@@ -490,12 +531,26 @@ button {
   background: rgba(255, 255, 255, .95);
   color: #121826;
   box-shadow: 0 8px 20px rgba(3, 7, 18, .18);
-  transform: translateX(2px);
+}
+
+.sb-cat:hover {
+  animation: sb-tab-lift .46s cubic-bezier(.2, .8, .25, 1) both;
+}
+
+.sb-cat.active:hover {
+  border-color: rgba(255, 255, 255, .52);
+  background: #151b2a;
+  color: #fff;
+  box-shadow: 0 14px 28px rgba(3, 7, 18, .3);
 }
 
 .sb-cat:hover small,
 .sb-cat.active small {
   color: #596275;
+}
+
+.sb-cat.active:hover small {
+  color: rgba(255, 255, 255, .72);
 }
 
 .sb-cat.is-pending::after {
@@ -528,6 +583,9 @@ body.category-updating .sb-cat.active {
 }
 
 @media (prefers-reduced-motion: reduce) {
+  .sb-item:hover,
+  .sb-item:hover .sb-label,
+  .sb-cat:hover,
   .sb-cat.is-pending::after,
   .agent-avatar-card,
   .agent-turn {
