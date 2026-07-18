@@ -201,7 +201,7 @@ const CATEGORIES = [
   { id: "china_nand", label: "China NAND Business", queries: ["YMTC eSSD Xtacking customer", "YMTC Wuhan Phase 3 NAND domestic equipment", "XMC Wuhan Xinxin NAND packaging", "JCET TFME advanced packaging NAND controller", "JCET XDFOI HBM AI packaging", "TFME advanced packaging China memory", "Naura AMEC ACM Research YMTC NAND equipment", "AMEC etch YMTC NAND", "ACM Research cleaning YMTC NAND", "YMTC controller firmware enterprise SSD", "China NAND subsidy server SSD procurement", "Chinese memory chips 15 percent cheaper YMTC CXMT", "China memory capacity expansion 2027 YMTC CXMT"] },
   { id: "skhynix_projection", label: "SKHY Product Projection", queries: ["SK hynix HBM4 server DRAM product mix", "SK hynix enterprise SSD Solidigm AI server storage", "SK hynix LPDDR UFS mobile memory demand", "SK hynix CXL memory module server roadmap", "SK hynix automotive memory edge AI", "SK hynix Nasdaq ADR SKHY 26.5 billion July 2026 SEC Reuters", "memory product mix AI server terminal NAND DRAM"] },
   { id: "cxl", label: "CXL·Next Memory", queries: ["CXL memory pooling", "CXL switch memory expansion", "CXL memory tester module", "CXL 3.1 memory module CMM-D", "Pangea v3 CXL 3.2", "4F2 vertical gate 3D DRAM SK hynix"] },
-  { id: "packaging", label: "Packaging·Photonics", queries: ["advanced packaging HBM hybrid bonding", "silicon photonics interconnect memory", "HBM TC bonder equipment supply chain", "JCET XDFOI advanced packaging HBM", "XMC Wuhan HBM packaging", "YMTC sells 39 percent XMC stake Caixin Global 68.2 29.2", "TFME advanced packaging memory", "Huawei Ascend HBM packaging China"] },
+  { id: "packaging", label: "Packaging·Photonics", queries: ["advanced packaging HBM hybrid bonding", "TSMC CoWoS HBM 3DFabric official", "CoWoS interposer HBM allocation advanced packaging", "High Bandwidth Flash HBF Sandisk SK hynix Open Compute Project", "HBF flash AI inference high bandwidth memory", "silicon photonics interconnect memory", "HBM TC bonder equipment supply chain", "JCET XDFOI advanced packaging HBM", "XMC Wuhan HBM packaging", "YMTC sells 39 percent XMC stake Caixin Global 68.2 29.2", "TFME advanced packaging memory", "Huawei Ascend HBM packaging China"] },
   { id: "aidemand", label: "AI Demand", queries: ["AI memory demand data center", "AI accelerator memory bandwidth", "TrendForce global memory market 2027 1.28 trillion 2026 889.3 billion Agentic AI", "TrendForce DRAM 618.7 NAND 270.6 2026 memory market"] },
   { id: "benchmark", label: "China Benchmark", queries: ["China memory benchmark CXMT YMTC", "Chinese semiconductor equipment localization memory"] },
   { id: "china", label: "China·Geopolitics", queries: ["CXMT YMTC China memory", "China DRAM NAND export control", "CXMT revenue 2025 DRAM capacity", "YMTC Wuhan Phase 3 domestic equipment Naura AMEC", "YMTC existing Wuhan fabs 160000 200000 wpm source discrepancy", "YMTC sells XMC stake state-backed buyer Caixin Global June 2026", "XMC STAR Market review withdrawn May 2026", "BIS China memory export control VEU", "Reuters H200 China shipments CXMT Entity List held off July 2026", "US VEU revocation SK hynix Samsung Intel China fabs annual license 2026", "MATCH Act DUV restriction cryogenic etch blanket ban removed Reuters", "HR 8170 MATCH Act House Foreign Affairs Committee latest official action", "S.4281 MATCH Act Senate Banking Housing Urban Affairs latest official action", "CXMT IPO final offering 57.9 billion yuan July 2026", "CXMT IPO 15 percent overallotment 66.6 billion yuan", "Apple seeks approval buy CXMT memory China devices Reuters", "CXMT HBM3 mass production order materials components unlikely 2026", "CXMT DDR5 yield cost per bit die size Samsung 40 percent December 2024", "CXMT yield engineer HBM TSV recruitment", "YMTC Xtacking eSSD engineer recruitment", "Huawei Ascend memory supply YMTC CXMT", "Tencent Alibaba ByteDance CXMT DRAM supply", "Tsinghua career CXMT YMTC semiconductor recruitment", "Nvidia H20 export controls China HBM memory demand The Diplomat"] },
@@ -293,6 +293,12 @@ const ENGLISH_AUTHORITY_MONITORS = [
     queries: [
       "site:trendforce.com hybrid bonding HBM4E",
       "site:newsletter.semianalysis.com ECTC HBM packaging",
+      "site:tsmc.com CoWoS HBM 3DFabric",
+      "site:investor.tsmc.com annual report CoWoS advanced packaging",
+      "site:sandisk.com High Bandwidth Flash HBF SK hynix",
+      "site:opencompute.org High Bandwidth Flash HBF",
+      "site:micron.com HBM4 NVIDIA Vera Rubin production",
+      "site:news.samsung.com HBM4 commercial shipment",
     ],
   },
 ];
@@ -347,6 +353,76 @@ const CHINESE_AUTHORITY_MONITORS = [
 // out of the RSS window. They still pass the same language, authority, direct
 // URL, duplicate, and evidence gates as newly discovered articles.
 const PRESERVED_NEWS_SEEDS = [
+  {
+    id: "sse-cxmt-final-offering",
+    category: "dram",
+    language: "english",
+    title: "CXMT prices STAR Market offering at CNY 57.9 billion before greenshoe",
+    titleKo: "CXMT, 초과배정 전 기본 공모액 579억 위안 확정",
+    source: "Shanghai Stock Exchange",
+    sourceType: "거래소 공시",
+    evidenceLevel: "Reported",
+    date: "2026-07-16",
+    link: "https://english.sse.com.cn/news/newsrelease/voice/c/c_20260716_10825660.shtml",
+    summaryOriginal: "The Shanghai Stock Exchange reported base proceeds of CNY 57.9 billion before a 15 percent greenshoe, compared with the earlier CNY 29.5 billion investment-project plan.",
+    summary: "초과배정 전 기본 공모액은 579억 위안. 기존 295억 위안은 투자 프로젝트 계획액이므로 최종 발행가·주식수 기준 공모액과 분리해 자금 집행을 추적함.",
+  },
+  {
+    id: "scmp-cxmt-ipo-oversubscription",
+    category: "dram",
+    language: "english",
+    title: "CXMT oversubscribed about 212 times in Shanghai IPO",
+    titleKo: "CXMT IPO, 최종 배정 기준 약 212배 초과청약",
+    source: "South China Morning Post",
+    sourceType: "외신",
+    evidenceLevel: "Reported",
+    date: "2026-07-17",
+    link: "https://www.scmp.com/tech/article/3360892/chinese-memory-giant-cxmt-oversubscribed-212-times-mega-shanghai-ipo",
+    summaryOriginal: "The final retail allocation implied roughly 212-times oversubscription, while the online tranche before claw-back was reported at 243.93 times.",
+    summary: "최종 배정률 약 0.47%에서 역산한 약 212배와 claw-back 전 온라인 트랜치 243.93배는 산식·단계가 다른 값. 최근 일부 중국 대형 IPO보다 낮았다는 시장 맥락도 함께 봄.",
+  },
+  {
+    id: "sandisk-skhynix-hbf-standardization",
+    category: "packaging",
+    language: "english",
+    title: "Sandisk and SK hynix begin global standardization of High Bandwidth Flash",
+    titleKo: "Sandisk·SKHY, HBF 글로벌 표준화 착수",
+    source: "Sandisk",
+    sourceType: "기업 공식",
+    evidenceLevel: "Reported",
+    date: "2026-02-25",
+    link: "https://www.sandisk.com/company/newsroom/press-releases/2026/2026-02-25-sandisk-and-sk-hynix-begin-global-standardization-of-next-generation-memory-solution-high-bandwidth-flash-hbf",
+    summaryOriginal: "Sandisk and SK hynix announced joint HBF standardization work under the Open Compute Project for high-capacity AI inference memory tiers.",
+    summary: "HBF를 AI 추론용 고용량 메모리 계층으로 표준화하는 공동 작업을 시작한 기업 발표. HBM 대체 확정이 아니라 표준·샘플·고객 채택을 순서대로 검증함.",
+  },
+  {
+    id: "micron-hbm4-volume-production",
+    category: "hbm",
+    language: "english",
+    title: "Micron begins high-volume production of HBM4 for NVIDIA Vera Rubin",
+    titleKo: "Micron, NVIDIA Vera Rubin용 HBM4 대량생산 발표",
+    source: "Micron",
+    sourceType: "기업 공식",
+    evidenceLevel: "Reported",
+    date: "2026-03-16",
+    link: "https://investors.micron.com/news-releases/news-release-details/micron-high-volume-production-hbm4-designed-nvidia-vera-rubin",
+    summaryOriginal: "Micron announced volume shipments of 36GB 12-high HBM4 designed for NVIDIA Vera Rubin, with 48GB 16-high samples also disclosed.",
+    summary: "36GB 12단 HBM4의 Vera Rubin용 대량생산·출하를 발표. 회사 발표와 NVIDIA의 공급사별 확정 물량 배분은 서로 다른 근거로 관리함.",
+  },
+  {
+    id: "samsung-hbm4-commercial-shipment",
+    category: "hbm",
+    language: "english",
+    title: "Samsung ships commercial HBM4 for AI computing",
+    titleKo: "삼성, AI 컴퓨팅용 HBM4 상업 출하 발표",
+    source: "Samsung",
+    sourceType: "기업 공식",
+    evidenceLevel: "Reported",
+    date: "2026-02-11",
+    link: "https://news.samsung.com/global/samsung-ships-industry-first-commercial-hbm4-with-ultimate-performance-for-ai-computing",
+    summaryOriginal: "Samsung announced commercial HBM4 shipments with a 4nm logic base die and transfer speeds of 11.7Gbps, scalable up to 13Gbps.",
+    summary: "4nm 로직 베이스 다이와 11.7Gbps HBM4 상업 출하를 발표. 실제 고객별 인증·반복 발주·배정 물량은 별도 증거로 확인함.",
+  },
   {
     id: "the-register-china-memory-ban",
     category: "china",
@@ -1354,7 +1430,7 @@ const KOREAN_SOURCE_RE = new RegExp(
 const LOW_CONFIDENCE_NEWS_RE = /(ad hoc news|indexbox|36\s*kr|36kr|borncity|mjengo|blockchain\.news|odaily|zamin\.uz|finance\.biggo|crypto briefing|weex|fortrinawwer|siliconanalysts|nand-research|reddit|facebook|linkedin\.com|x\.com|twitter\.com)/i;
 const SKHYNIX_NEWSROOM_RE = /news\.skhynix\.com|sk\s*hynix\s*newsroom|skhy\s*newsroom/i;
 const AUTHORITATIVE_EN_NEWS_RE =
-  /(reuters|bloomberg|financial times|ft\.com|nikkei|cnbc|associated press|apnews|sec\.gov|nasdaq|trendforce|dramexchange|techinsights|yole|counterpoint|tom'?s hardware|tomshardware|south china morning post|scmp|caixin global|caixinglobal|digitimes|ee times|eetimes|semianalysis|techwire asia|the register|business insider|network world|evertiq|technode|techspot|japan times|electronics weekly|semiconductor engineering|semiengineering|semiconductor digest|solid state technology|ieee spectrum|jedec|semi\.org|businesswire|pr newswire|solidigm|intel|u\.s\. bis|bis\.gov|govinfo|wsts|acm research ir|cxmt|shanghai stock exchange|samsung semiconductor|semiconductor\.samsung\.com|sandisk|panmnesia)/i;
+  /(reuters|bloomberg|financial times|ft\.com|nikkei|cnbc|associated press|apnews|sec\.gov|nasdaq|trendforce|dramexchange|techinsights|yole|counterpoint|tom'?s hardware|tomshardware|south china morning post|scmp|caixin global|caixinglobal|digitimes|ee times|eetimes|semianalysis|techwire asia|the register|business insider|network world|evertiq|technode|techspot|japan times|electronics weekly|semiconductor engineering|semiengineering|semiconductor digest|solid state technology|ieee spectrum|jedec|semi\.org|businesswire|pr newswire|solidigm|intel|micron|tsmc|open compute project|opencompute\.org|u\.s\. bis|bis\.gov|govinfo|wsts|acm research ir|cxmt|shanghai stock exchange|samsung|samsung semiconductor|semiconductor\.samsung\.com|sandisk|panmnesia)/i;
 const AUTHORITATIVE_CN_NEWS_RE =
   /(财新|caixin|第一财经|yicai|21财经|21世纪经济报道|21jingji|证券时报|stcn|中国经营报|cb\.com\.cn|东方财富|eastmoney|新浪财经|sina finance|澎湃新闻|the paper|虎嗅|huxiu|电子工程专辑|eet-china|集微网|爱集微|ijiwei|laoyaoba|半导体新闻网|seminews|经济观察网|eeo\.com\.cn|techweb|chinaflashmarket|闪存市场|semi china|中国半导体行业协会|csia|科技新报|technews\.tw|钜亨网|cnyes\.com|solidot|奇客|xinhuanet)/i;
 const MEMORY_NEWS_RE =
