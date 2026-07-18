@@ -13969,9 +13969,13 @@
       categoryButton.type = "button";
       categoryButton.style.setProperty("--qa", cat.color || "var(--accent)");
       categoryButton.setAttribute("aria-pressed", selectedQaCategory === cat.id ? "true" : "false");
-      categoryButton.addEventListener("click", () => {
+      categoryButton.addEventListener("click", (event) => {
+        event.stopPropagation();
         selectedQaCategory = cat.id;
         renderQADrop("");
+        drop.hidden = false;
+        $("#qaBox")?.classList.add("open");
+        $("#qaToggle")?.setAttribute("aria-expanded", "true");
       });
       categoryStrip.appendChild(categoryButton);
     });
