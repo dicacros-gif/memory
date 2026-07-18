@@ -5178,6 +5178,142 @@
     `;
   }
 
+  function renderBrokerInsightReport(researchItems, researchUpdatedAt) {
+    const framework = brokerResearchFrameworkData();
+    const scenarios = framework.scenarios || [];
+    const baseScenario = scenarios.find((item) => item.id === "base") || scenarios[0] || {};
+    const directReportCount = researchItems.filter((item) => item.evidenceType === "direct-report").length;
+    const citationCount = researchItems.filter((item) => item.evidenceType === "news-citation").length;
+    const institutions = [...new Set(researchItems.map((item) => item.institution).filter(Boolean))];
+    const reportMetrics = (framework.demand || []).slice(0, 3).map((item) => ({
+      value: item.metric,
+      label: item.label,
+      detail: item.detail,
+    }));
+    if (Number.isFinite(Number(baseScenario.includingHbm))) {
+      reportMetrics.push({
+        value: `$${Number(baseScenario.includingHbm).toFixed(0)}B`,
+        label: "2030 차세대 메모리 TAM",
+        detail: "HBM 포함 Base 시나리오",
+      });
+    }
+    const frameworkRows = Array.from({
+      length: Math.max((framework.bottlenecks || []).length, (framework.options || []).length),
+    }, (_, index) => ({
+      bottleneck: (framework.bottlenecks || [])[index],
+      option: (framework.options || [])[index],
+    }));
+    const conclusion = (framework.decisions || []).slice(0, 2).map((item) => item.action).filter(Boolean).join(" · ") || framework.subtitle;
+
+    return `
+      <article class="exec-report reveal" aria-labelledby="execReportTitle">
+        <header class="exec-report-masthead">
+          <div class="exec-report-title">
+            <span>IB RESEARCH BRIEFING</span>
+            <h3 id="execReportTitle">${escapeHTML(framework.title || "증권사 리서치 핵심 요약")}</h3>
+          </div>
+          <dl class="exec-report-meta">
+            <div><dt>Source</dt><dd>${escapeHTML(institutions.join(" · ") || "Broker Research")}</dd></div>
+            <div><dt>Updated</dt><dd>${escapeHTML(fmtDate(researchUpdatedAt))}</dd></div>
+            <div><dt>Evidence</dt><dd>직접 리포트 ${fmtNum(directReportCount)}건 · 기사 인용 ${fmtNum(citationCount)}건</dd></div>
+          </dl>
+        </header>
+
+        <section class="exec-report-thesis" aria-label="한 줄 논지">
+          <span>ONE-LINE THESIS</span>
+          <p>${escapeHTML(framework.subtitle)}</p>
+        </section>
+
+        <div class="exec-report-body">
+          <section class="exec-report-insights" aria-labelledby="execReportInsights">
+            <h4 id="execReportInsights">1. 핵심 인사이트</h4>
+            ${researchItems.map((item, index) => `
+              <article class="exec-report-insight" style="--report-accent:${escapeHTML(item.accent || "#00a98f")}">
+                <span class="exec-report-number">${String(index + 1).padStart(2, "0")}</span>
+                <div class="exec-report-insight-copy">
+                  <div class="exec-report-kicker">
+                    <strong>${escapeHTML(item.label)}</strong>
+                    <span>${escapeHTML(item.institution || "Broker Research")}</span>
+                    <time datetime="${escapeHTML(String(item.publishedAt || "").slice(0, 10))}">${escapeHTML(shortKstDate(item.publishedAt || researchUpdatedAt) || "")}</time>
+                  </div>
+                  <h5>${strategicHighlightHTML(item.title)}</h5>
+                  <p>${strategicHighlightHTML(item.body)}</p>
+                  ${item.metrics?.length ? `<p class="exec-report-inline-metrics">${item.metrics.map((metric) => `<strong>${strategicHighlightHTML(metric)}</strong>`).join("<span>·</span>")}</p>` : ""}
+                  <dl>
+                    <div><dt>Insight</dt><dd>${strategicHighlightHTML(item.implication)}</dd></div>
+                    <div><dt>판단 전환 조건</dt><dd>${strategicHighlightHTML(item.reversal)}</dd></div>
+                  </dl>
+                  ${item.sourceUrl
+                    ? `<a class="exec-report-source" href="${escapeHTML(item.sourceUrl)}" target="_blank" rel="noopener noreferrer">${escapeHTML(item.source || item.institution || "원문")} 원문 보기</a>`
+                    : `<cite>${escapeHTML(item.source || item.sourceRef || "첨부 리포트")}</cite>`}
+                </div>
+              </article>
+            `).join("")}
+          </section>
+
+          <aside class="exec-report-analysis" aria-label="정량 분석과 실행 판단">
+            <section class="exec-report-section exec-report-demand">
+              <h4>2. AI 메모리 수요 확장</h4>
+              <div class="exec-report-metric-grid">
+                ${reportMetrics.slice(0, 4).map((item) => `
+                  <div class="exec-report-metric">
+                    <strong>${escapeHTML(item.value)}</strong>
+                    <span>${escapeHTML(item.label)}</span>
+                    <small>${escapeHTML(item.detail)}</small>
+                  </div>
+                `).join("")}
+              </div>
+              <p>AI 수요가 HBM 단일 품목을 넘어 <strong>DRAM·차세대 메모리·패키징</strong>으로 확장되는 경로를 분리해 봅니다.</p>
+            </section>
+
+            <section class="exec-report-section exec-report-system">
+              <h4>3. 병목과 기술 옵션</h4>
+              <div class="exec-report-table-wrap">
+                <table class="exec-report-table">
+                  <thead><tr><th>시스템 병목</th><th>대응 옵션</th><th>투자 게이트</th></tr></thead>
+                  <tbody>
+                    ${frameworkRows.map(({ bottleneck, option }) => `
+                      <tr>
+                        <td><strong>${escapeHTML(bottleneck?.label || "-")}</strong><span>${escapeHTML(bottleneck?.detail || "-")}</span></td>
+                        <td><strong>${escapeHTML(option?.label || "-")}</strong><span>${escapeHTML(option?.metric || "-")}</span></td>
+                        <td>${escapeHTML(option?.gate || "-")}</td>
+                      </tr>
+                    `).join("")}
+                  </tbody>
+                </table>
+              </div>
+            </section>
+
+            <section class="exec-report-section exec-report-scenarios">
+              <h4>4. 2030 TAM 시나리오</h4>
+              <div class="exec-report-scenario-grid">
+                ${brokerScenarioChart(scenarios, "includingHbm", "HBM 포함", "전체 차세대 메모리")}
+                ${brokerScenarioChart(scenarios, "excludingHbm", "HBM 제외", "HBF·CXL·MRDIMM·WoW")}
+              </div>
+            </section>
+
+            <section class="exec-report-section exec-report-actions">
+              <h4>5. SKHY 실행 우선순위</h4>
+              <ol>
+                ${(framework.decisions || []).map((item) => `<li><strong>${escapeHTML(item.label)}</strong><p>${escapeHTML(item.action)}</p></li>`).join("")}
+              </ol>
+            </section>
+          </aside>
+        </div>
+
+        <section class="exec-report-conclusion">
+          <span>EXECUTIVE TAKEAWAY</span>
+          <p>${escapeHTML(conclusion)}</p>
+        </section>
+        <footer class="exec-report-footnote">
+          <span>Source note</span>
+          <cite>${escapeHTML(framework.sourceRef)}</cite>
+          <small>${escapeHTML(framework.disclaimer)}</small>
+        </footer>
+      </article>
+    `;
+  }
+
   function routeAccent(routeId) {
     return {
       home: "#3C82FF",
@@ -5240,42 +5376,7 @@
 
     const researchItems = brokerResearchSummaries();
     const researchUpdatedAt = LIVE.brokerResearch?.updatedAt || LIVE.updatedAt;
-    const directReportCount = researchItems.filter((item) => item.evidenceType === "direct-report").length;
-    const citationCount = researchItems.filter((item) => item.evidenceType === "news-citation").length;
-    research.innerHTML = `
-      <header class="exec-research-head">
-        <div>
-          <span>BROKER RESEARCH · DAILY EVIDENCE</span>
-          <h3>증권사 리서치 핵심 요약</h3>
-        </div>
-        <p>직접 리포트 ${fmtNum(directReportCount)}건 · 기사 인용 ${fmtNum(citationCount)}건 · ${escapeHTML(fmtDate(researchUpdatedAt))}</p>
-      </header>
-      <div class="exec-research-grid">
-        ${researchItems.map((item, index) => `
-          <article class="exec-research-card reveal" tabindex="0" style="--local-accent:${escapeHTML(item.accent)}; animation-delay:${index * 35}ms">
-            <div class="exec-research-meta">
-              <span class="exec-research-label">${escapeHTML(item.label)}</span>
-              <span>${escapeHTML(item.institution || "Broker Research")}</span>
-              <span>${item.evidenceType === "direct-report" ? "직접 리포트" : "기사 인용"}</span>
-              <time datetime="${escapeHTML(String(item.publishedAt || "").slice(0, 10))}">${escapeHTML(shortKstDate(item.publishedAt || researchUpdatedAt) || "")}</time>
-            </div>
-            <h4>${strategicHighlightHTML(item.title)}</h4>
-            <p>${strategicHighlightHTML(item.body)}</p>
-            ${item.metrics?.length ? `<div class="exec-research-metrics">
-              ${item.metrics.map((metric) => `<strong>${strategicHighlightHTML(metric)}</strong>`).join("")}
-            </div>` : ""}
-            <dl>
-              <div><dt>Insight</dt><dd>${strategicHighlightHTML(item.implication)}</dd></div>
-              <div><dt>판단 전환 조건</dt><dd>${strategicHighlightHTML(item.reversal)}</dd></div>
-            </dl>
-            ${item.sourceUrl
-              ? `<a class="exec-research-source" href="${escapeHTML(item.sourceUrl)}" target="_blank" rel="noopener noreferrer">${escapeHTML(item.source || item.institution || "원문")} 원문 보기</a>`
-              : `<cite>${escapeHTML(item.source || item.sourceRef || "첨부 리포트")}</cite>`}
-          </article>
-        `).join("")}
-      </div>
-      ${renderBrokerResearchFramework()}
-    `;
+    research.innerHTML = renderBrokerInsightReport(researchItems, researchUpdatedAt);
 
     brief.querySelectorAll("[data-jump]").forEach((btn) => btn.addEventListener("click", () => jumpTo(btn.dataset.jump)));
     strategy.querySelectorAll("[data-exec-nand]").forEach((btn) => {
