@@ -414,7 +414,73 @@ const BROKER_REPORT_SEEDS = [
     sourceRef: "Global Technology: Key Debates: AI, Memory, Substrates & MLCC (2026.07.17)",
     accent: "#9a4fd4",
   },
+  {
+    id: "ms-agentic-ai-demand-20260716",
+    institution: "Morgan Stanley",
+    institutionId: "morgan-stanley",
+    evidenceType: "direct-report",
+    label: "AGENTIC AI DEMAND",
+    title: "Agentic AI는 GPU를 넘어 CPU·DRAM 수요의 상방 변수를 만듦",
+    summary: "에이전트가 작업을 분해하고 도구를 호출하는 과정에서 CPU 오케스트레이션과 메모리 접근이 늘어, 2030년 DRAM 수요가 기준 전망보다 26~77% 증가할 수 있다는 시나리오입니다.",
+    metrics: ["2030 DRAM +26~77%", "Bull 시나리오 221EB"],
+    insight: "SKHY는 GPU 출하만 보지 말고 CPU 소켓, 서버당 DRAM 탑재량, 추론 토큰과 메모리 대역폭을 함께 고객 수요 지표로 관리해야 합니다.",
+    reversalKpi: "에이전트당 토큰, CPU utilization, 서버당 DRAM 탑재량",
+    publishedAt: "2026-07-16",
+    source: "Morgan Stanley Research",
+    sourceRef: "Global Technology: Innovating the Next-Generation Memory (2026.07.16), pp.2, 5, 10-11",
+    accent: "#0e7490",
+  },
+  {
+    id: "ms-memory-architecture-options-20260716",
+    institution: "Morgan Stanley",
+    institutionId: "morgan-stanley",
+    evidenceType: "direct-report",
+    label: "ARCHITECTURE OPTIONS",
+    title: "HBF·MRDIMM·CXL은 서로 다른 병목을 푸는 보완 옵션",
+    summary: "HBF는 HBM급 대역폭과 8~16배 용량을 목표로 하고, MRDIMM은 DDR5 부품으로 유효 12,800MT/s를 구현하며, CXL은 저활용 메모리를 풀링하는 구조로 제시됩니다.",
+    metrics: ["HBF 용량 8~16x", "MRDIMM 12,800MT/s"],
+    insight: "SKHY는 HBF 표준화·샘플, MRDIMM 고객 인증, CXL 지연시간과 서버 절감 효과를 각각 분리해 단계별 투자 옵션으로 관리해야 합니다.",
+    reversalKpi: "표준화, 샘플 성능, 고객 PoC, 시스템 경제성",
+    publishedAt: "2026-07-16",
+    source: "Morgan Stanley Research",
+    sourceRef: "Global Technology: Innovating the Next-Generation Memory (2026.07.16), pp.18-19, 34-40",
+    accent: "#2563eb",
+  },
 ];
+
+const BROKER_RESEARCH_FRAMEWORK = {
+  title: "AI 메모리 수요에서 투자 게이트까지",
+  subtitle: "수요 증가가 실제 매출로 전환되려면 대역폭·용량·전력·패키징 병목과 고객 인증을 순서대로 통과해야 함",
+  asOf: "2026-07-17",
+  disclaimer: "Morgan Stanley 추정·시나리오이며 SKHY 회사 가이던스가 아님",
+  sourceRef: "Morgan Stanley Research, Innovating the Next-Generation Memory (2026.07.16), pp.2, 10-19, 34-40; Key Debates (2026.07.17)",
+  demand: [
+    { label: "Agentic AI", metric: "2030 DRAM +26~77%", detail: "CPU 오케스트레이션과 메모리 접근량 증가 시나리오" },
+    { label: "Cloud memory", metric: "2030E $418B", detail: "클라우드 메모리 지출, 2026년 이후 연평균 8%" },
+    { label: "CapEx mix", metric: "2027E 40%", detail: "클라우드 CapEx 내 메모리 비중 추정" },
+  ],
+  bottlenecks: [
+    { label: "대역폭", detail: "토큰 증가 속도가 범용 메모리 대역폭 개선보다 빠름" },
+    { label: "용량·전력", detail: "추론 KV cache와 데이터 이동 비용이 시스템 효율을 제한" },
+    { label: "패키징·부품", detail: "CoWoS·TSV·ABF·MLCC 처리량과 수율이 출하 상한을 결정" },
+  ],
+  options: [
+    { label: "HBM4 · HBF · H3", metric: "HBF 용량 8~16x", gate: "수율 · 샘플 · 표준화" },
+    { label: "MRDIMM · CXL", metric: "12,800MT/s · 2030E $4.0B", gate: "지연시간 · 고객 PoC · 경제성" },
+    { label: "WoW · iHBM", metric: "WoW 2030 Base $9.8B", gate: "열 · 전력 · 양산성" },
+  ],
+  decisions: [
+    { label: "우선 배분", action: "HBM4 수율·패키징 처리량·핵심 고객 인증에 캐파 선배분" },
+    { label: "계약 잠금", action: "LTA의 가격 공식·선급금·최소구매·재협상 조항을 고객별 비교" },
+    { label: "옵션 투자", action: "HBF·CXL·MRDIMM은 샘플과 고객 PoC 통과 뒤 단계 집행" },
+    { label: "증설 보류", action: "4Q26 가격 모멘텀·재고·경쟁사 bit growth가 꺾이면 범용 증설 재검토" },
+  ],
+  scenarios: [
+    { id: "bear", label: "Bear", excludingHbm: 16.9, includingHbm: 160 },
+    { id: "base", label: "Base", excludingHbm: 23.0, includingHbm: 276 },
+    { id: "bull", label: "Bull", excludingHbm: 41.4, includingHbm: 342 },
+  ],
+};
 
 const CHINESE_AUTHORITY_MONITORS = [
   {
@@ -3055,13 +3121,17 @@ function buildBrokerResearch(news = []) {
     seen.add(key);
     deduped.push(item);
   }
-  const items = deduped.slice(0, 8);
+  const directReports = deduped.filter((item) => item.evidenceType === "direct-report").slice(0, 6);
+  const newsCitations = deduped.filter((item) => item.evidenceType === "news-citation").slice(0, 2);
+  const items = newsCitations.concat(directReports)
+    .sort((a, b) => new Date(b.publishedAt || 0) - new Date(a.publishedAt || 0));
   return {
     updatedAt: generatedAt,
     methodology: "증권사 공식 발간물과 권위 매체의 증권사 인용을 분리하고, 원문 URL과 메모리 산업 연관성이 있는 항목만 승격함.",
     institutions: [...new Set(items.map((item) => item.institution))],
     reportCount: items.filter((item) => item.evidenceType === "direct-report").length,
     citationCount: items.filter((item) => item.evidenceType === "news-citation").length,
+    framework: BROKER_RESEARCH_FRAMEWORK,
     items,
   };
 }
@@ -4100,6 +4170,7 @@ function buildQualityReport(payload = {}) {
   const community = Array.isArray(payload.communitySignals?.items) ? payload.communitySignals.items : [];
   const briefs = Array.isArray(payload.intelligence?.briefs) ? payload.intelligence.briefs : [];
   const brokerItems = Array.isArray(payload.brokerResearch?.items) ? payload.brokerResearch.items : [];
+  const brokerFramework = payload.brokerResearch?.framework || null;
   const priceRows = (payload.prices?.sections || []).flatMap((section) => section.rows || []);
   const marketIndexes = Object.values(payload.marketHistory?.indexes || {});
   const stocks = Object.values(payload.stocks || {});
@@ -4132,6 +4203,15 @@ function buildQualityReport(payload = {}) {
       && String(item.insight || "").trim()
       && String(item.reversalKpi || "").trim();
   });
+  const validBrokerFramework = Boolean(
+    brokerFramework
+    && String(brokerFramework.sourceRef || "").trim()
+    && Array.isArray(brokerFramework.demand) && brokerFramework.demand.length >= 3
+    && Array.isArray(brokerFramework.bottlenecks) && brokerFramework.bottlenecks.length >= 3
+    && Array.isArray(brokerFramework.options) && brokerFramework.options.length >= 3
+    && Array.isArray(brokerFramework.decisions) && brokerFramework.decisions.length >= 4
+    && Array.isArray(brokerFramework.scenarios) && brokerFramework.scenarios.length === 3
+  );
   const directSourceRatio = news.length ? directNews.length / news.length : 0;
   const summaryRatio = news.length ? summarizedNews.length / news.length : 0;
   const checks = [
@@ -4144,7 +4224,8 @@ function buildQualityReport(payload = {}) {
     { id: "news_duplicates", critical: true, passed: duplicateCount === 0, observed: duplicateCount, threshold: 0 },
     { id: "community_signals", critical: true, passed: community.length >= 5, observed: community.length, threshold: 5 },
     { id: "decision_briefs", critical: true, passed: validBriefs.length >= 6, observed: validBriefs.length, threshold: 6 },
-    { id: "broker_research", critical: true, passed: validBrokerItems.length >= 4, observed: validBrokerItems.length, threshold: 4 },
+    { id: "broker_research", critical: true, passed: validBrokerItems.length >= 6, observed: validBrokerItems.length, threshold: 6 },
+    { id: "broker_framework", critical: true, passed: validBrokerFramework, observed: validBrokerFramework ? 1 : 0, threshold: 1 },
     { id: "market_indexes", critical: true, passed: validMarkets.length >= 3, observed: validMarkets.length, threshold: 3 },
     { id: "peer_stocks", critical: true, passed: validStocks.length >= 2, observed: validStocks.length, threshold: 2 },
   ];
@@ -4166,6 +4247,7 @@ function buildQualityReport(payload = {}) {
       communitySignals: community.length,
       decisionBriefs: validBriefs.length,
       brokerResearch: validBrokerItems.length,
+      brokerFramework: validBrokerFramework ? 1 : 0,
       brokerNewsCitations: validBrokerItems.filter((item) => item.evidenceType === "news-citation").length,
       marketIndexes: validMarkets.length,
       peerStocks: validStocks.length,
@@ -4216,7 +4298,7 @@ async function main() {
   const signals = buildSignals({ prices, competitors, startups, newsStats: stats });
   const intelligence = buildIntelligence({ news, prices, stats, chinaInfra });
   const brokerResearch = buildBrokerResearch(news);
-  note("증권사 리서치", brokerResearch.items.length >= 4, `직접 리포트 ${brokerResearch.reportCount}건 · 기사 인용 ${brokerResearch.citationCount}건`);
+  note("증권사 리서치", brokerResearch.items.length >= 6 && Boolean(brokerResearch.framework), `직접 리포트 ${brokerResearch.reportCount}건 · 기사 인용 ${brokerResearch.citationCount ? `${brokerResearch.citationCount}건` : "없음"} · 시스템 도식 ${brokerResearch.framework ? 1 : 0}개`);
   const okCount = health.filter((item) => item.ok).length;
   const languageCounts = {
     english: news.filter((item) => verifiedNewsLanguage(item) === "english").length,

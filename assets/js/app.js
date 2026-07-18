@@ -18,7 +18,7 @@
     prices: { sections: [], watchedItems: [] },
     news: [],
     communitySignals: { updatedAt: null, total: 0, typeCounts: {}, platformCounts: {}, items: [] },
-    brokerResearch: { updatedAt: null, reportCount: 0, citationCount: 0, institutions: [], items: [] },
+    brokerResearch: { updatedAt: null, reportCount: 0, citationCount: 0, institutions: [], framework: null, items: [] },
     categories: [],
     benchmarkSignals: { stream: [] },
     chinaInfra: { sources: [], signals: [] },
@@ -4933,6 +4933,34 @@
         publishedAt: "2026-07-17",
         accent: "#9a4fd4",
       },
+      {
+        label: "AGENTIC AI DEMAND",
+        title: "Agentic AI는 GPU를 넘어 CPU·DRAM 수요의 상방 변수를 만듦",
+        body: "에이전트가 작업을 분해하고 도구를 호출하는 과정에서 CPU 오케스트레이션과 메모리 접근이 늘어, 2030년 DRAM 수요가 기준 전망보다 26~77% 증가할 수 있다는 시나리오입니다.",
+        metrics: ["2030 DRAM +26~77%", "Bull 시나리오 221EB"],
+        implication: "GPU 출하뿐 아니라 CPU 소켓, 서버당 DRAM 탑재량, 추론 토큰과 메모리 대역폭을 고객 수요 지표로 관리합니다.",
+        reversal: "에이전트당 토큰, CPU utilization, 서버당 DRAM 탑재량",
+        source: "Morgan Stanley Research, Global Technology: Innovating the Next-Generation Memory (2026.07.16), pp.2, 5, 10-11",
+        sourceRef: "Global Technology: Innovating the Next-Generation Memory (2026.07.16), pp.2, 5, 10-11",
+        institution: "Morgan Stanley",
+        evidenceType: "direct-report",
+        publishedAt: "2026-07-16",
+        accent: "#0e7490",
+      },
+      {
+        label: "ARCHITECTURE OPTIONS",
+        title: "HBF·MRDIMM·CXL은 서로 다른 병목을 푸는 보완 옵션",
+        body: "HBF는 HBM급 대역폭과 8~16배 용량을 목표로 하고, MRDIMM은 DDR5 부품으로 유효 12,800MT/s를 구현하며, CXL은 저활용 메모리를 풀링하는 구조로 제시됩니다.",
+        metrics: ["HBF 용량 8~16x", "MRDIMM 12,800MT/s"],
+        implication: "HBF 표준화·샘플, MRDIMM 고객 인증, CXL 지연시간과 서버 절감 효과를 각각 분리해 투자 게이트로 관리합니다.",
+        reversal: "표준화, 샘플 성능, 고객 PoC, 시스템 경제성",
+        source: "Morgan Stanley Research, Global Technology: Innovating the Next-Generation Memory (2026.07.16), pp.18-19, 34-40",
+        sourceRef: "Global Technology: Innovating the Next-Generation Memory (2026.07.16), pp.18-19, 34-40",
+        institution: "Morgan Stanley",
+        evidenceType: "direct-report",
+        publishedAt: "2026-07-16",
+        accent: "#2563eb",
+      },
     ];
   }
 
@@ -5019,6 +5047,129 @@
       seen.add(key);
       return true;
     }).slice(0, 8);
+  }
+
+  function brokerResearchFrameworkFallback() {
+    return {
+      title: "AI 메모리 수요에서 투자 게이트까지",
+      subtitle: "수요 증가가 실제 매출로 전환되려면 대역폭·용량·전력·패키징 병목과 고객 인증을 순서대로 통과해야 함",
+      asOf: "2026-07-17",
+      disclaimer: "Morgan Stanley 추정·시나리오이며 SKHY 회사 가이던스가 아님",
+      sourceRef: "Morgan Stanley Research, Innovating the Next-Generation Memory (2026.07.16), pp.2, 10-19, 34-40; Key Debates (2026.07.17)",
+      demand: [
+        { label: "Agentic AI", metric: "2030 DRAM +26~77%", detail: "CPU 오케스트레이션과 메모리 접근량 증가 시나리오" },
+        { label: "Cloud memory", metric: "2030E $418B", detail: "클라우드 메모리 지출, 2026년 이후 연평균 8%" },
+        { label: "CapEx mix", metric: "2027E 40%", detail: "클라우드 CapEx 내 메모리 비중 추정" },
+      ],
+      bottlenecks: [
+        { label: "대역폭", detail: "토큰 증가 속도가 범용 메모리 대역폭 개선보다 빠름" },
+        { label: "용량·전력", detail: "추론 KV cache와 데이터 이동 비용이 시스템 효율을 제한" },
+        { label: "패키징·부품", detail: "CoWoS·TSV·ABF·MLCC 처리량과 수율이 출하 상한을 결정" },
+      ],
+      options: [
+        { label: "HBM4 · HBF · H3", metric: "HBF 용량 8~16x", gate: "수율 · 샘플 · 표준화" },
+        { label: "MRDIMM · CXL", metric: "12,800MT/s · 2030E $4.0B", gate: "지연시간 · 고객 PoC · 경제성" },
+        { label: "WoW · iHBM", metric: "WoW 2030 Base $9.8B", gate: "열 · 전력 · 양산성" },
+      ],
+      decisions: [
+        { label: "우선 배분", action: "HBM4 수율·패키징 처리량·핵심 고객 인증에 캐파 선배분" },
+        { label: "계약 잠금", action: "LTA의 가격 공식·선급금·최소구매·재협상 조항을 고객별 비교" },
+        { label: "옵션 투자", action: "HBF·CXL·MRDIMM은 샘플과 고객 PoC 통과 뒤 단계 집행" },
+        { label: "증설 보류", action: "4Q26 가격 모멘텀·재고·경쟁사 bit growth가 꺾이면 범용 증설 재검토" },
+      ],
+      scenarios: [
+        { id: "bear", label: "Bear", excludingHbm: 16.9, includingHbm: 160 },
+        { id: "base", label: "Base", excludingHbm: 23.0, includingHbm: 276 },
+        { id: "bull", label: "Bull", excludingHbm: 41.4, includingHbm: 342 },
+      ],
+    };
+  }
+
+  function brokerResearchFrameworkData() {
+    const live = LIVE.brokerResearch?.framework;
+    const valid = live
+      && Array.isArray(live.demand) && live.demand.length >= 3
+      && Array.isArray(live.bottlenecks) && live.bottlenecks.length >= 3
+      && Array.isArray(live.options) && live.options.length >= 3
+      && Array.isArray(live.decisions) && live.decisions.length >= 4
+      && Array.isArray(live.scenarios) && live.scenarios.length === 3;
+    return valid ? live : brokerResearchFrameworkFallback();
+  }
+
+  function brokerScenarioChart(scenarios, key, title, note) {
+    const values = scenarios.map((item) => Number(item[key])).filter(Number.isFinite);
+    const max = Math.max(...values, 1);
+    return `
+      <div class="exec-scenario-chart">
+        <header><strong>${escapeHTML(title)}</strong><span>${escapeHTML(note)}</span></header>
+        ${scenarios.map((item) => {
+          const value = Number(item[key]);
+          const width = Number.isFinite(value) ? clamp((value / max) * 100, 4, 100) : 4;
+          const displayValue = Number.isFinite(value)
+            ? (Number.isInteger(value) ? value.toFixed(0) : value.toFixed(1))
+            : "-";
+          return `
+            <div class="exec-scenario-row" data-scenario="${escapeHTML(item.id || "base")}">
+              <span>${escapeHTML(item.label)}</span>
+              <div class="exec-scenario-track"><i style="--scenario-width:${width.toFixed(2)}%"></i></div>
+              <strong>$${escapeHTML(displayValue)}B</strong>
+            </div>
+          `;
+        }).join("")}
+      </div>
+    `;
+  }
+
+  function renderBrokerResearchFramework() {
+    const framework = brokerResearchFrameworkData();
+    const scenarios = framework.scenarios || [];
+    const flowColumn = (step, title, items, renderer) => `
+      <section class="exec-framework-column">
+        <header><span>${escapeHTML(step)}</span><strong>${escapeHTML(title)}</strong></header>
+        <div>${items.map(renderer).join("")}</div>
+      </section>
+    `;
+    return `
+      <section class="exec-research-framework reveal" aria-labelledby="execFrameworkTitle">
+        <header class="exec-framework-head">
+          <div>
+            <span>MEMORY SYSTEM MAP · MORGAN STANLEY SCENARIO</span>
+            <h4 id="execFrameworkTitle">${escapeHTML(framework.title)}</h4>
+            <p>${escapeHTML(framework.subtitle)}</p>
+          </div>
+          <strong>${escapeHTML(framework.disclaimer)}</strong>
+        </header>
+        <div class="exec-framework-flow">
+          ${flowColumn("01", "수요", framework.demand || [], (item) => `
+            <article><span>${escapeHTML(item.label)}</span><strong>${escapeHTML(item.metric)}</strong><p>${escapeHTML(item.detail)}</p></article>
+          `)}
+          <span class="exec-framework-arrow" aria-hidden="true">→</span>
+          ${flowColumn("02", "시스템 병목", framework.bottlenecks || [], (item) => `
+            <article><strong>${escapeHTML(item.label)}</strong><p>${escapeHTML(item.detail)}</p></article>
+          `)}
+          <span class="exec-framework-arrow" aria-hidden="true">→</span>
+          ${flowColumn("03", "기술 옵션", framework.options || [], (item) => `
+            <article><span>${escapeHTML(item.label)}</span><strong>${escapeHTML(item.metric)}</strong><p>Gate · ${escapeHTML(item.gate)}</p></article>
+          `)}
+        </div>
+        <div class="exec-framework-bottom">
+          <div class="exec-scenario-panel">
+            <header><span>2030 TAM SCENARIO</span><h5>HBM 포함·제외 시장을 분리해 비교</h5></header>
+            <div class="exec-scenario-grid">
+              ${brokerScenarioChart(scenarios, "includingHbm", "HBM 포함", "각 시나리오 내 전체 차세대 메모리")}
+              ${brokerScenarioChart(scenarios, "excludingHbm", "HBM 제외", "HBF·CXL·MRDIMM·WoW 등 옵션 시장")}
+            </div>
+          </div>
+          <div class="exec-decision-gates">
+            <header><span>SKHY DECISION GATES</span><h5>실행 순서</h5></header>
+            <ol>
+              ${(framework.decisions || []).map((item) => `<li><strong>${escapeHTML(item.label)}</strong><p>${escapeHTML(item.action)}</p></li>`).join("")}
+            </ol>
+          </div>
+        </div>
+        <footer><span>출처</span><cite>${escapeHTML(framework.sourceRef)}</cite></footer>
+      </section>
+    `;
   }
 
   function routeAccent(routeId) {
@@ -5117,6 +5268,7 @@
           </article>
         `).join("")}
       </div>
+      ${renderBrokerResearchFramework()}
     `;
 
     brief.querySelectorAll("[data-jump]").forEach((btn) => btn.addEventListener("click", () => jumpTo(btn.dataset.jump)));
@@ -5128,6 +5280,7 @@
       });
     });
     animateCounts(brief);
+    animateCounts(research);
   }
 
   function renderKpis() {

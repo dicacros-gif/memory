@@ -286,8 +286,8 @@ if (news.length && directNews.length / news.length < 0.9) {
 const brokerResearch = live.brokerResearch || null;
 const brokerItems = Array.isArray(brokerResearch?.items) ? brokerResearch.items : [];
 if (brokerResearch) {
-  if (brokerItems.length < 4) {
-    addIssue("error", "data/live.json", "fewer than four broker research evidence cards", String(brokerItems.length));
+  if (brokerItems.length < 6) {
+    addIssue("error", "data/live.json", "fewer than six broker research evidence cards", String(brokerItems.length));
   }
   const brokerKeys = new Set();
   for (const item of brokerItems) {
@@ -313,6 +313,25 @@ if (brokerResearch) {
   }
   if (Number(brokerResearch.citationCount || 0) !== brokerItems.filter((item) => item.evidenceType === "news-citation").length) {
     addIssue("error", "data/live.json", "broker news-citation count mismatch", String(brokerResearch.citationCount));
+  }
+  const framework = brokerResearch.framework || null;
+  if (!framework || !String(framework.sourceRef || "").trim()) {
+    addIssue("error", "data/live.json", "broker research framework lacks its report source", "missing sourceRef");
+  } else {
+    const requiredArrays = { demand: 3, bottlenecks: 3, options: 3, decisions: 4, scenarios: 3 };
+    for (const [key, minimum] of Object.entries(requiredArrays)) {
+      const values = Array.isArray(framework[key]) ? framework[key] : [];
+      if (values.length < minimum) addIssue("error", "data/live.json", `broker framework ${key} is incomplete`, `${values.length}/${minimum}`);
+    }
+    const scenarioById = new Map((framework.scenarios || []).map((item) => [item.id, item]));
+    for (const key of ["excludingHbm", "includingHbm"]) {
+      const bear = Number(scenarioById.get("bear")?.[key]);
+      const base = Number(scenarioById.get("base")?.[key]);
+      const bull = Number(scenarioById.get("bull")?.[key]);
+      if (![bear, base, bull].every(Number.isFinite) || !(bear < base && base < bull)) {
+        addIssue("error", "data/live.json", `broker framework ${key} scenarios are not ordered Bear < Base < Bull`, `${bear}/${base}/${bull}`);
+      }
+    }
   }
 }
 

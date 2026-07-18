@@ -3898,6 +3898,378 @@ body.sidebar-collapsed .sb-ico {
   background: rgba(255, 255, 255, .12);
 }
 
+.exec-research-framework {
+  min-width: 0;
+  display: grid;
+  gap: 14px;
+  margin-top: 4px;
+  border-top: 1px solid color-mix(in srgb, var(--accent) 28%, var(--line));
+  border-bottom: 1px solid color-mix(in srgb, #e6a23c 24%, var(--line));
+  background:
+    linear-gradient(115deg, color-mix(in srgb, #00a98f 7%, transparent), transparent 34%),
+    linear-gradient(295deg, color-mix(in srgb, #e6a23c 6%, transparent), transparent 38%);
+  padding: 15px 0;
+}
+
+.exec-framework-head {
+  min-width: 0;
+  display: flex;
+  align-items: start;
+  justify-content: space-between;
+  gap: 20px;
+}
+
+.exec-framework-head > div {
+  display: grid;
+  gap: 4px;
+}
+
+.exec-framework-head span,
+.exec-scenario-panel > header span,
+.exec-decision-gates > header span {
+  color: #008f79;
+  font-size: 9.5px;
+  line-height: 1.2;
+  font-weight: 950;
+}
+
+.exec-framework-head h4 {
+  color: var(--ink);
+  font-size: 19px;
+  line-height: 1.25;
+  font-weight: 950;
+}
+
+.exec-framework-head p {
+  max-width: 760px;
+  color: var(--ink-2);
+  font-size: 11px;
+  line-height: 1.5;
+  font-weight: 750;
+}
+
+.exec-framework-head > strong {
+  flex: 0 0 auto;
+  max-width: 280px;
+  border: 1px solid color-mix(in srgb, #e6a23c 44%, var(--line));
+  border-radius: 6px;
+  background: color-mix(in srgb, #e6a23c 9%, var(--panel));
+  color: color-mix(in srgb, #aa6800 82%, var(--ink));
+  padding: 7px 9px;
+  font-size: 9.5px;
+  line-height: 1.4;
+  font-weight: 900;
+  text-align: right;
+}
+
+.exec-framework-flow {
+  min-width: 0;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 24px minmax(0, 1fr) 24px minmax(0, 1fr);
+  align-items: stretch;
+  gap: 7px;
+}
+
+.exec-framework-column {
+  min-width: 0;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  background: color-mix(in srgb, var(--panel) 94%, #fff);
+  overflow: hidden;
+  transition: transform .2s ease, border-color .2s ease, box-shadow .2s ease;
+}
+
+.exec-framework-column:hover {
+  transform: translateY(-3px);
+  border-color: color-mix(in srgb, #00a98f 58%, var(--line));
+  box-shadow: var(--shadow-md);
+}
+
+.exec-framework-column > header {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  border-bottom: 1px solid var(--line);
+  background: color-mix(in srgb, #071a2d 96%, #00a98f);
+  color: #fff;
+  padding: 8px 10px;
+}
+
+.exec-framework-column > header span {
+  color: #72f0dc;
+  font-size: 9px;
+  font-weight: 950;
+}
+
+.exec-framework-column > header strong {
+  font-size: 11px;
+  font-weight: 950;
+}
+
+.exec-framework-column > div {
+  display: grid;
+}
+
+.exec-framework-column article {
+  min-width: 0;
+  min-height: 70px;
+  display: grid;
+  align-content: start;
+  gap: 3px;
+  border-bottom: 1px solid var(--line);
+  padding: 9px 10px;
+  transition: background .18s ease, color .18s ease, transform .18s ease;
+}
+
+.exec-framework-column article:last-child {
+  border-bottom: 0;
+}
+
+.exec-framework-column article:hover {
+  transform: translateX(3px);
+  background: color-mix(in srgb, #00a98f 12%, var(--panel));
+}
+
+.exec-framework-column article span {
+  color: #008f79;
+  font-size: 9px;
+  line-height: 1.25;
+  font-weight: 900;
+}
+
+.exec-framework-column article strong {
+  color: var(--ink);
+  font-size: 11.5px;
+  line-height: 1.3;
+  font-weight: 950;
+}
+
+.exec-framework-column article p {
+  color: var(--muted);
+  font-size: 9.5px;
+  line-height: 1.45;
+  font-weight: 720;
+}
+
+.exec-framework-arrow {
+  align-self: center;
+  color: color-mix(in srgb, #00a98f 76%, #2563eb);
+  font-size: 22px;
+  font-weight: 950;
+  text-align: center;
+}
+
+.exec-framework-bottom {
+  min-width: 0;
+  display: grid;
+  grid-template-columns: minmax(0, 1.45fr) minmax(300px, .8fr);
+  gap: 12px;
+  border-top: 1px solid var(--line);
+  padding-top: 13px;
+}
+
+.exec-scenario-panel,
+.exec-decision-gates {
+  min-width: 0;
+  display: grid;
+  align-content: start;
+  gap: 9px;
+}
+
+.exec-scenario-panel > header,
+.exec-decision-gates > header {
+  display: grid;
+  gap: 2px;
+}
+
+.exec-scenario-panel h5,
+.exec-decision-gates h5 {
+  color: var(--ink);
+  font-size: 13px;
+  line-height: 1.3;
+  font-weight: 950;
+}
+
+.exec-scenario-grid {
+  min-width: 0;
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 10px;
+}
+
+.exec-scenario-chart {
+  min-width: 0;
+  display: grid;
+  gap: 8px;
+  border: 1px solid var(--line);
+  border-radius: 7px;
+  background: var(--panel);
+  padding: 10px;
+}
+
+.exec-scenario-chart > header {
+  display: flex;
+  align-items: start;
+  justify-content: space-between;
+  gap: 8px;
+}
+
+.exec-scenario-chart > header strong {
+  color: var(--ink);
+  font-size: 11px;
+  font-weight: 950;
+}
+
+.exec-scenario-chart > header span {
+  max-width: 180px;
+  color: var(--muted);
+  font-size: 8.5px;
+  line-height: 1.35;
+  font-weight: 700;
+  text-align: right;
+}
+
+.exec-scenario-row {
+  min-width: 0;
+  display: grid;
+  grid-template-columns: 34px minmax(0, 1fr) 48px;
+  align-items: center;
+  gap: 7px;
+}
+
+.exec-scenario-row > span,
+.exec-scenario-row > strong {
+  color: var(--ink-2);
+  font-size: 9px;
+  line-height: 1;
+  font-weight: 900;
+}
+
+.exec-scenario-row > strong {
+  text-align: right;
+}
+
+.exec-scenario-track {
+  height: 9px;
+  border-radius: 2px;
+  background: color-mix(in srgb, var(--line) 70%, var(--panel-2));
+  overflow: hidden;
+}
+
+.exec-scenario-track i {
+  display: block;
+  width: var(--scenario-width, 10%);
+  height: 100%;
+  border-radius: inherit;
+  background: #6b7280;
+  transform-origin: left;
+  animation: execScenarioGrow .85s cubic-bezier(.2, .8, .2, 1) both;
+}
+
+.exec-scenario-row[data-scenario="base"] .exec-scenario-track i {
+  background: #00a98f;
+}
+
+.exec-scenario-row[data-scenario="bull"] .exec-scenario-track i {
+  background: #e6a23c;
+}
+
+@keyframes execScenarioGrow {
+  from { transform: scaleX(0); }
+  to { transform: scaleX(1); }
+}
+
+.exec-decision-gates ol {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 7px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  counter-reset: decision-gate;
+}
+
+.exec-decision-gates li {
+  min-width: 0;
+  min-height: 72px;
+  display: grid;
+  align-content: start;
+  gap: 4px;
+  border: 1px solid var(--line);
+  border-radius: 7px;
+  background: var(--panel);
+  padding: 9px 9px 9px 31px;
+  position: relative;
+  counter-increment: decision-gate;
+  transition: transform .18s ease, background .18s ease, border-color .18s ease;
+}
+
+.exec-decision-gates li::before {
+  content: counter(decision-gate, decimal-leading-zero);
+  position: absolute;
+  top: 9px;
+  left: 9px;
+  color: #008f79;
+  font-size: 9px;
+  font-weight: 950;
+}
+
+.exec-decision-gates li:hover {
+  transform: translateY(-3px);
+  border-color: color-mix(in srgb, #e6a23c 58%, var(--line));
+  background: color-mix(in srgb, #e6a23c 9%, var(--panel));
+}
+
+.exec-decision-gates li strong {
+  color: var(--ink);
+  font-size: 10.5px;
+  line-height: 1.25;
+  font-weight: 950;
+}
+
+.exec-decision-gates li p {
+  color: var(--muted);
+  font-size: 9.5px;
+  line-height: 1.45;
+  font-weight: 720;
+}
+
+.exec-research-framework > footer {
+  display: grid;
+  grid-template-columns: 40px minmax(0, 1fr);
+  gap: 7px;
+  border-top: 1px solid var(--line);
+  padding-top: 9px;
+}
+
+.exec-research-framework > footer span {
+  color: #008f79;
+  font-size: 9px;
+  font-weight: 950;
+}
+
+.exec-research-framework > footer cite {
+  color: var(--muted);
+  font-size: 9px;
+  line-height: 1.45;
+  font-style: normal;
+  font-weight: 700;
+}
+
+@media (max-width: 1080px) {
+  .exec-framework-flow {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+
+  .exec-framework-arrow {
+    display: none;
+  }
+
+  .exec-framework-bottom {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}
+
 @media (max-width: 720px) {
   .exec-research-head {
     align-items: start;
@@ -3911,6 +4283,26 @@ body.sidebar-collapsed .sb-ico {
 
   .exec-research-grid {
     grid-template-columns: minmax(0, 1fr);
+  }
+
+  .exec-framework-head {
+    flex-direction: column;
+    gap: 8px;
+  }
+
+  .exec-framework-head > strong {
+    max-width: none;
+    text-align: left;
+  }
+
+  .exec-framework-flow,
+  .exec-scenario-grid,
+  .exec-decision-gates ol {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .exec-framework-column article {
+    min-height: auto;
   }
 }
 
