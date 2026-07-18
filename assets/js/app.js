@@ -11647,10 +11647,11 @@
     const trustedSourceTerms = /reuters|bloomberg|financial times|nikkei|cnbc|scmp|caixin|digitimes|trendforce|techinsights|counterpoint|wsts|yole|semianalysis|tom'?s hardware|bis\.gov|commerce\.gov|congress\.gov|sec\.gov|sse\.com|government|official/i;
     const decisionTitle = (item) => {
       const hay = `${item.title || ""} ${item.titleKo || ""} ${item.summary || ""} ${item.source || ""}`.toLowerCase();
+      if (/trade secret|former employee|engineer move|employee move|전직|직원|엔지니어|기술유출|영업비밀|recipe/.test(hay)) return "핵심 인력 이동은 접근권·퇴직자 통제로 방어";
+      if (/hiring|talent|recruit|campus|채용|인재|캠퍼스/.test(hay)) return "채용 공고는 양산 확정값이 아니라 병목의 선행 신호";
+      if (/bis|export|veu|regulat|수출통제|규제/.test(hay)) return "운영 유지·기술 업그레이드·캐파 확대를 별도 승인";
       if (/ymtc|nand|essd|enterprise ssd|xtacking/.test(hay)) return "YMTC 침투는 eSSD 고객 품질·펌웨어 검증 속도로 방어";
       if (/cxmt|dram|ddr5|lpddr/.test(hay)) return "CXMT 가격 압력은 고객 믹스와 계약 재가격화로 대응";
-      if (/hiring|talent|recruit|engineer|채용|인재/.test(hay)) return "채용 공고는 양산 확정값이 아니라 병목의 선행 신호";
-      if (/bis|export|veu|regulat|수출통제|규제/.test(hay)) return "운영 유지·기술 업그레이드·캐파 확대를 별도 승인";
       if (/packag|chongqing|osat|후공정|패키징/.test(hay)) return "후공정 확대는 고객 인증·수율·납기 KPI로 검증";
       return "중국 사업은 고객·운영·규제·IP를 분리해 판단";
     };
