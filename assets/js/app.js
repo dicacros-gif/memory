@@ -6899,7 +6899,7 @@
         priceTerms: ["dram", "ddr5"],
         categories: ["hbm", "dram"],
         weight: 76,
-        interpretation: "Micron은 HBM ramp와 서버 DDR5 물량으로 AI 서버 메모리 경쟁을 압박합니다.",
+        interpretation: "Micron은 HBM4 ramp, 16개 SCA와 Anthropic 공동설계로 서버 메모리 물량과 고객 아키텍처를 함께 선점합니다.",
       },
       {
         id: "skhy-cxmt-dram",

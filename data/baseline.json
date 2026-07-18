@@ -962,7 +962,7 @@
       {
         "cat": "strategy",
         "q": "Micron의 FY2026 캐파 투자는 SKHY에 무엇을 의미하나?",
-        "a": "Micron의 SEC 공시 기준 FY2026 설비투자는 정부 인센티브 차감 후 $25B를 웃돌 것으로 예상됩니다. 이는 미국 장기 투자계획 $250B와 기간·범위가 다른 연간 설비투자 지표입니다. Micron의 2026년 6월 자료는 16개 Strategic Customer Agreement를 체결했고, 그중 14개의 최소가격 기준 누적 매출이 잔여 계약기간 약 $100B라고 설명합니다.\n\n경쟁 의미는 단순 캐파 증가보다 고객 수요가 장기계약으로 먼저 잠겼다는 점입니다. SKHY의 HBM·서버 DRAM 물량 우위가 유지돼도 Micron의 장기계약, 미국 생산 인센티브, HBM4 양산이 결합되면 고객별 배분 경쟁이 강해질 수 있습니다.\n\n판단 변경 KPI는 Micron 웨이퍼 투입, HBM4 qualification, SCA 적용 물량·가격 범위, 실제 bit shipment와 공급 증가 시점입니다.",
+        "a": "Micron의 SEC 공시 기준 FY2026 설비투자는 정부 인센티브 차감 후 $25B를 웃돌 것으로 예상됩니다. 이는 미국 장기 투자계획 $250B와 기간·범위가 다른 연간 설비투자 지표입니다. Micron의 2026년 6월 공식 자료는 16개 Strategic Customer Agreement를 체결했고, 그중 14개의 최소가격 기준 잔여 계약 매출이 약 $100B이며 예치금·재무약정은 약 $22B라고 설명합니다. 공개 자료는 DRAM·HBM·NAND를 포괄한다고만 밝히므로 'DRAM 20%·NAND 3분의 1' 같은 제품별 커버 비율은 확인값으로 쓰지 않습니다.\n\nMicron은 Anthropic과 메모리·스토리지 아키텍처 공동설계, 장기 공급계획, Claude의 Micron 내부 활용, 전략적 투자를 묶은 협약도 발표했습니다. 경쟁 의미는 단순 캐파 증가보다 고객 수요와 아키텍처 설계가 장기계약으로 먼저 잠긴다는 점입니다. SKHY의 HBM·서버 DRAM 물량 우위가 유지돼도 Micron의 SCA, 미국 생산 인센티브, HBM4 양산, AI 고객 공동설계가 결합되면 고객별 배분 경쟁이 강해질 수 있습니다.\n\n판단 변경 KPI는 Micron 웨이퍼 투입, HBM4 qualification, SCA 적용 물량·가격 범위, Anthropic 공동설계의 실제 제품 채택, bit shipment와 공급 증가 시점입니다.",
         "status": "Confirmed",
         "asOf": "2026-06-24",
         "keywords": [
@@ -971,6 +971,7 @@
           "25b",
           "strategic customer agreement",
           "sca",
+          "anthropic",
           "hbm4",
           "미국 투자"
         ],
@@ -993,6 +994,41 @@
           "essd"
         ],
         "nav": "china-nand"
+      },
+      {
+        "cat": "strategy",
+        "q": "TSMC와 ASML의 증설이 SKHY HBM 전략에 주는 신호는 무엇인가?",
+        "a": "TSMC는 2026년 7월 미국 투자 약정을 $165B에서 총 $265B로 높이고, 2nm 이하를 중심으로 애리조나에 팹 4곳을 추가할 계획이라고 밝혔습니다. 같은 발표에서 2026년 연간 설비투자 범위를 $60B~$64B로 상향했습니다. 이는 AI 로직·베이스 다이·첨단 패키징 공급망이 다년간 확장되는 신호지만, 미국 팹 건설 일정과 실제 양산은 투자 약정액과 분리해 봐야 합니다.\n\nASML의 2026년 AGM 자료는 EUV 생산능력이 30% 이상 증가했다고 설명합니다. 이는 '매년 30% 증설'이라는 뜻이 아닙니다. NXE:3800E 처리량 230 wafers/hour와 High-NA 고객 양산 투입 목표 2027~2028년을 함께 추적해야 합니다.\n\nSKHY의 경영 판단은 HBM4 수요만으로 캐파를 정하지 않고 TSMC 고객별 로직·CoWoS 할당, ASML 장비 인도와 가격, 베이스 다이 수율, 미국 투자 프로젝트의 실제 가동 시점을 같은 게이트로 묶는 것입니다.",
+        "status": "Confirmed / Execution Watch",
+        "asOf": "2026-07-16",
+        "keywords": [
+          "tsmc",
+          "asml",
+          "265b",
+          "euv",
+          "high-na",
+          "cowos",
+          "base die",
+          "미국 투자"
+        ],
+        "nav": "management-strategy"
+      },
+      {
+        "cat": "policy",
+        "q": "H200 중국 출하와 CXMT Entity List 보류를 어떻게 해석해야 하나?",
+        "a": "Reuters는 2026년 7월 14일 미국 상무부 고위 당국자의 의회 증언을 인용해 소수의 NVIDIA H200이 중국에 출하됐다고 보도했습니다. 같은 보도는 상무부가 DeepSeek·CXMT 등 100여 개 기업의 Entity List 추가를 보류했다고 전했습니다. 이는 CXMT가 Entity List에서 영구 제외됐다는 뜻이 아니라, 미중 협상 과정에서 규제 집행 시점이 유동적이라는 정책 신호입니다.\n\nSKHY에는 두 방향의 영향이 있습니다. 중국 CSP의 H200 접근이 늘면 HBM·서버 DRAM 수요가 커질 수 있지만, CXMT 규제 보류는 중국 내수 DRAM 증설과 고객 승인의 시간을 벌어줄 수 있습니다. 따라서 수요 상방과 경쟁 압력을 한 방향으로 합산하지 않습니다.\n\n판단 변경 KPI는 BIS의 실제 Entity List 공고, H200 허가·출하량, 중국 당국의 수입 승인, Tencent·Alibaba·ByteDance 서버 메모리 조달, CXMT의 후속 캐파 집행입니다.",
+        "status": "Reported / Policy Watch",
+        "asOf": "2026-07-14",
+        "keywords": [
+          "h200",
+          "nvidia",
+          "cxmt",
+          "entity list",
+          "bis",
+          "export control",
+          "중국 출하"
+        ],
+        "nav": "policy"
       }
     ]
   },
@@ -2404,6 +2440,66 @@
     ]
   },
   "curatedNews": [
+    {
+      "language": "english",
+      "curated": true,
+      "category": "aidemand",
+      "source": "Associated Press / TSMC",
+      "date": "2026-07-16",
+      "title": "TSMC adds $100 billion to US expansion, lifting total commitment to $265 billion",
+      "titleKo": "TSMC, 미국 투자 약정 총액 $265B로 확대",
+      "summary": "TSMC는 미국 투자 약정을 $165B에서 $265B로 높이고 2nm 이하 애리조나 팹 4곳을 추가할 계획입니다. 2026년 설비투자 범위도 $60B~$64B로 상향했습니다. SKHY는 이를 HBM 수요 확정치가 아니라 로직 베이스 다이·첨단 패키징 공급망의 다년간 확장 신호로 봅니다.",
+      "placement": "AI supply chain / TSMC / US capacity",
+      "link": "https://apnews.com/article/taiwan-tsmc-chipmaking-ai-arizona-fab-ba05b1b952257d371acb9d070e7914ff"
+    },
+    {
+      "language": "english",
+      "curated": true,
+      "category": "equipment",
+      "source": "ASML",
+      "date": "2026-04-22",
+      "title": "ASML says EUV capacity has grown more than 30 percent",
+      "titleKo": "ASML, EUV 생산능력 누적 30% 이상 증가",
+      "summary": "ASML의 AGM 자료는 EUV 생산능력이 30% 이상 증가했고 NXE:3800E가 230 wafers/hour 처리량을 달성했다고 설명합니다. 이는 연간 30% 증설이 아닙니다. High-NA 고객 양산 투입 목표는 2027~2028년으로 제시됐습니다.",
+      "placement": "equipment / EUV / AI supply chain",
+      "link": "https://ourbrand.asml.com/asset/d5e933d7-78d0-406c-aed7-a46626e63381/2026_-AGM-_presentation.pdf"
+    },
+    {
+      "language": "english",
+      "curated": true,
+      "category": "dram",
+      "source": "Micron IR",
+      "date": "2026-06-24",
+      "title": "Micron signs 16 Strategic Customer Agreements",
+      "titleKo": "Micron, 16개 SCA로 장기 고객 수요 선점",
+      "summary": "Micron은 16개 SCA 중 14개의 최소가격 기준 잔여 계약 매출이 약 $100B이고 예치금·재무약정이 약 $22B라고 밝혔습니다. 계약은 DRAM·HBM·NAND를 포괄하지만 제품별 물량 비중은 공개되지 않았습니다.",
+      "placement": "DRAM / customer contracts / Micron",
+      "link": "https://investors.micron.com/static-files/2354ecda-77a0-4ddd-8462-a631eb491356"
+    },
+    {
+      "language": "english",
+      "curated": true,
+      "category": "aidemand",
+      "source": "Micron IR",
+      "date": "2026-06-22",
+      "title": "Micron and Anthropic announce strategic AI infrastructure agreement",
+      "titleKo": "Micron–Anthropic, 메모리·스토리지 아키텍처 공동설계",
+      "summary": "양사는 차세대 AI 인프라의 메모리·스토리지 아키텍처 공동설계, 장기 공급계획, Claude의 Micron 내부 활용과 전략적 투자를 발표했습니다. SKHY에는 단순 공급계약보다 앞선 고객 아키텍처 선점 신호입니다.",
+      "placement": "AI demand / customer co-design / Micron",
+      "link": "https://investors.micron.com/news-releases/news-release-details/micron-and-anthropic-announce-strategic-agreement-scale-next"
+    },
+    {
+      "language": "english",
+      "curated": true,
+      "category": "china",
+      "source": "Reuters",
+      "date": "2026-07-14",
+      "title": "US official says Nvidia has begun limited H200 shipments to China",
+      "titleKo": "Reuters, 중국 H200 소량 출하와 CXMT Entity List 보류 보도",
+      "summary": "미 상무부 당국자는 소수의 H200이 중국에 출하됐다고 밝혔습니다. Reuters는 상무부가 CXMT 등 100여 개 기업의 Entity List 추가를 보류했다고 함께 전했습니다. 영구 면제나 규제 해제가 아니라 정책 집행 시점의 유동성으로 해석합니다.",
+      "placement": "China / export controls / AI demand",
+      "link": "https://www.investing.com/news/stock-market-news/us-official-says-shipments-of-h200-chips-to-china-have-begun-4791235"
+    },
     {
       "language": "english",
       "curated": true,
