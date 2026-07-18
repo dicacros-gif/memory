@@ -13428,10 +13428,6 @@
           <div class="metric"><strong>${fmtNum(endShare, 1)}%</strong><span>5년차 모델</span></div>
           <div class="metric"><strong>${fmtNum(selected.signals)}</strong><span>실제 신호 건수</span></div>
         </div>
-        <div class="projection-focus-block scenario-note">
-          <strong>검증 기준</strong>
-          <p>이 탭의 비중은 실측 판매 전망이 아니라 price-history/live.json의 가격 데이터, 기사 링크, 벤치마킹 신호를 정규화한 모델 산출값입니다. 실제 숫자는 신호 건수와 가격 데이터로만 표시합니다.</p>
-        </div>
         <div class="projection-focus-block">
           <strong>제품군</strong>
           <div class="tag-row">${(selected.products || []).map((product) => `<span class="tag">${escapeHTML(product)}</span>`).join("")}</div>
