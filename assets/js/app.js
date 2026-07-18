@@ -1574,11 +1574,11 @@
       tag: "소부장",
       title: "빅펀드 3기와 장비·소재 국산화",
       thesis: "빅펀드 3기는 단순 팹 증설보다 EUV·EDA·첨단 화학 소재 같은 초크포인트에 자본을 집중하고 있습니다",
-      facts: ["빅펀드 3기 3,440억 위안·약 $47.5B", "Yole 'Mainland China Semiconductor Equipment Industry 2026'은 2030년 39%, 'China Semiconductor Industry 2025'는 52%를 제시해 Watch로 병기", "ACM Research FY2025 매출 $901.3M, Q1 2026 매출 $231.3M·출하 $240.7M은 ACM IR 최종 실적 기준"],
-      risk: "Yole의 39%와 52%는 보고서 범위·정의가 다른 전망이며 공개 자료만으로 차이의 원인을 확정할 수 없습니다. AMEC 식각, Naura 종합장비, ACM 세정의 대체 속도와 Entity List·미국 원산 부품 조달 리스크를 함께 봅니다",
+      facts: ["빅펀드 3기 3,440억 위안·약 $47.5B", "Yole 'Mainland China Semiconductor Equipment Industry 2026'은 2030년 39%, 'China Semiconductor Industry 2025'는 52%를 제시해 Watch로 병기", "Naura 2025년 매출 393.53억 위안(+30.85%)·지배주주 순이익 55.22억 위안(-1.77%)", "ACM Q1 2026 매출 $231.3M·출하 $240.7M, ECP·퍼니스·기타 매출 $84.2M(+204.9%), 세정 매출 $122.5M(-5.5%)"],
+      risk: "Yole의 39%와 52%는 보고서 범위·정의가 다른 전망이며 공개 자료만으로 차이의 원인을 확정할 수 없습니다. AMEC 식각, Naura 종합장비, ACM ECP·퍼니스·세정의 고객 qualification과 이익·마진, Entity List·미국 원산 부품 조달 리스크를 함께 봅니다",
       implication: "한국 소부장 파트너의 JV 제안, 소재 recipe 이전, 중국 내수 우선 공급권 요구를 조기 탐지해야 합니다",
       linkedCategories: ["equipment", "geopolitics", "talent"],
-      source: "Reuters / Yole Group / ACM Research IR",
+      source: "Reuters / Yole Group / Naura Annual Report / ACM Research IR",
       sourceUrl: "https://www.yolegroup.com/press-release/chinas-semiconductor-equipment-localization-enters-a-new-growth-phase/",
     },
     {
@@ -6855,7 +6855,7 @@
       { id: "naura-amec", name: "Naura·AMEC·ACM", role: "장비 국산화", metric: "Etch/Depo/세정", category: "equipment", x: 18, y: 92, scale: 66 },
       { id: "naura", name: "Naura", role: "증착·식각·세정 장비", metric: "Equipment", category: "equipment", x: 21, y: 80, scale: 64 },
       { id: "amec", name: "AMEC", role: "식각 장비", metric: "Etch", category: "equipment", x: 34, y: 82, scale: 62 },
-      { id: "acm", name: "ACM Research", role: "세정·도금 장비", metric: "Clean", category: "equipment", x: 8, y: 78, scale: 60 },
+      { id: "acm", name: "ACM Research", role: "세정·ECP·퍼니스", metric: "ECP/Furnace", category: "equipment", x: 8, y: 78, scale: 60 },
       { id: "smic", name: "SMIC", role: "중국 파운드리·base die", metric: "Foundry", category: "china", x: 45, y: 66, scale: 68 },
       { id: "china-fund", name: "Big Fund·지방정부", role: "정책 자본", metric: "Capital", category: "geopolitics", x: 94, y: 88, scale: 78 },
       { id: "china-cloud", name: "중국 클라우드/OEM", role: "내수 고객", metric: "Demand", category: "china", x: 86, y: 12, scale: 80 },
@@ -7549,11 +7549,11 @@
       },
       {
         id: "acm-ymtc-clean", mode: "competitive", from: "acm", to: "ymtc", type: "공급", structural: true,
-        label: "세정·도금 공정 장비 공급",
-        terms: ["acm research", "ymtc", "cleaning", "plating", "equipment", "entity list"],
-        match: [["acm", "acm research"], ["ymtc", "cleaning", "plating", "equipment"]],
+        label: "세정·ECP·퍼니스 공정 장비 공급",
+        terms: ["acm research", "ymtc", "cleaning", "plating", "ecp", "furnace", "equipment", "entity list"],
+        match: [["acm", "acm research"], ["ymtc", "cleaning", "plating", "ecp", "furnace", "equipment"]],
         priceTerms: ["nand", "wafer"], categories: ["equipment", "nand", "china"], weight: 68,
-        interpretation: "ACM Research는 세정·도금 축이지만 Entity List 리스크와 함께 봅니다.",
+        interpretation: "ACM은 ECP·퍼니스·기타 장비가 Q1 2026 성장 엔진으로 부상했습니다. 세정 매출 감소와 Entity List 리스크를 함께 봅니다.",
       },
       {
         id: "cxmt-tencent-server-dram", mode: "competitive", from: "cxmt", to: "tencent", type: "공급", structural: true,
@@ -7561,7 +7561,7 @@
         terms: ["cxmt", "tencent", "server dram", "20 billion yuan", "supply deal", "contract"],
         match: [["cxmt", "changxin"], ["tencent", "server dram", "contract"]],
         priceTerms: ["dram", "ddr5"], categories: ["dram", "china", "aidemand"], weight: 88,
-        interpretation: "CXMT-Tencent 관계는 중국 서버 DRAM 가격 협상력 변화의 확정 고객 신호입니다.",
+        interpretation: "Reuters가 보도한 CXMT-Tencent 관계는 서버 DRAM 고객 검증 신호입니다. 계약 기간은 3년·5년으로 엇갈리고 HBM 공급은 확인되지 않아 Reported/Watch로 둡니다.",
       },
       {
         id: "cxmt-alibaba-bytedance-watch", mode: "competitive", from: "cxmt", to: "alibaba-bytedance", type: "공급", structural: true,
@@ -7983,9 +7983,9 @@
         action: "장비 주문과 양산 qualification을 분리해 경보 단계 설정",
       },
       naura: {
-        title: "Naura의 확장은 공정별 채택률과 반복 수율로 검증",
-        body: "장비 포트폴리오 확대보다 CXMT·YMTC 라인에서의 공정 채택과 유지보수 자립도가 공급망 변화를 결정합니다.",
-        action: "공정별 채택·수율·서비스 내재화를 월별 추적",
+        title: "Naura 매출 성장과 이익 전환을 분리해 검증",
+        body: "2025년 매출은 30.85% 늘었지만 지배주주 순이익은 1.77% 감소했습니다. 장비 국산화의 질은 CXMT·YMTC 채택률, 제품 믹스와 반복 수율로 판단해야 합니다.",
+        action: "공정별 채택·수율·마진·서비스 내재화를 월별 추적",
       },
       amec: {
         title: "AMEC 식각 역량은 고적층 NAND 수율에서 판별",
@@ -7993,9 +7993,9 @@
         action: "고적층 NAND의 식각 수율과 장비 재주문을 함께 확인",
       },
       acm: {
-        title: "ACM은 세정·도금 공정의 국산 대체 속도를 보여줌",
-        body: "매출 성장과 별개로 핵심 부품 조달, 고객 집중과 메모리 라인 qualification을 함께 봐야 지속 가능성을 판단할 수 있습니다.",
-        action: "부품 조달·고객 집중·양산 채택을 분리 검증",
+        title: "ACM 성장축은 세정에서 ECP·퍼니스로 넓어짐",
+        body: "Q1 2026 ECP·퍼니스·기타 매출은 204.9% 늘었지만 세정 매출은 5.5% 줄었습니다. 장비 믹스 전환과 핵심 부품 조달, 고객 qualification을 함께 봐야 합니다.",
+        action: "ECP·퍼니스 매출 믹스·마진·양산 채택을 분리 검증",
       },
       smic: {
         title: "SMIC는 중국형 base die 공급망의 연결 가능성",
@@ -8014,7 +8014,7 @@
       },
       tencent: {
         title: "Tencent 계약은 CXMT의 서버 DRAM 검증 신호",
-        body: "계약 총액보다 실제 납품 기간, 제품 규격과 후속 고객 승인 여부가 중국 서버 DRAM 가격 압력의 크기를 결정합니다.",
+        body: "Reuters 보도 범위는 서버 DRAM이며 HBM 공급은 확인되지 않았습니다. 계약 총액보다 실제 납품 기간, 제품 규격과 후속 고객 승인 여부가 가격 압력의 크기를 결정합니다.",
         action: "후속 고객 승인과 계약가 전이를 가격 방어 트리거로 설정",
       },
       "alibaba-bytedance": {
@@ -15007,7 +15007,10 @@
   }
 
   function rawNews() {
-    const live = LIVE.news || [];
+    const live = [
+      ...(Array.isArray(LIVE.news) ? LIVE.news : []),
+      ...(Array.isArray(BASE?.curatedNews) ? BASE.curatedNews : []),
+    ];
     const clean = dedupeNews(live
       .filter((item) => articleStreamLanguage(item))
       .filter((item) => !isCrawlExcluded("news", item) && hasMeaningfulArticleSummary(item) && isForeignNews(item) && isAuthoritativeNews(item) && isMemoryRelevant(item) && !isLowConfidenceNews(item) && !isSkhynixNewsroom(item) && !isSupersededCxmtIpoNews(item)));
@@ -15102,7 +15105,7 @@
   function isAuthoritativeNews(item) {
     if (!item) return false;
     const hay = `${newsPublisherText(item)} ${item.link || ""} ${item.sourceUrl || ""}`;
-    return AUTHORITATIVE_NEWS_RE.test(hay);
+    return AUTHORITATIVE_NEWS_RE.test(hay) || /naura annual report|cninfo/i.test(hay);
   }
 
   function newsEvidenceMeta(item = {}) {
