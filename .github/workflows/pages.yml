@@ -24,7 +24,7 @@ concurrency:
 jobs:
   agent:
     runs-on: ubuntu-latest
-    timeout-minutes: 25
+    timeout-minutes: 35
     steps:
       - name: Checkout
         uses: actions/checkout@v7
@@ -35,18 +35,7 @@ jobs:
           node-version: "24"
 
       - name: Run intelligence agent
-        shell: bash
-        run: |
-          success=0
-          for attempt in 1 2 3; do
-            echo "Verified crawl attempt ${attempt}/3"
-            if npm run crawl; then
-              success=1
-              break
-            fi
-            sleep $((attempt * 30))
-          done
-          test "$success" = "1"
+        run: npm run crawl
 
       - name: Validate refreshed intelligence
         run: npm run check

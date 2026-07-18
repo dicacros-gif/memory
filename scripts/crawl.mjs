@@ -22,6 +22,7 @@ const MARKET_HISTORY_LOOKBACK_DAYS = 365 * 5;
 const MARKET_HISTORY_RETENTION_POINTS = 365 * 5 + 60;
 const NEWS_STREAM_LIMIT = 48;
 const NEWS_ENRICH_CONCURRENCY = 5;
+const NEWS_PROVIDER_FAILURE_LIMIT = 3;
 const COMMUNITY_MAX_ITEMS = 96;
 const COMMUNITY_RETENTION_DAYS = 365 * 5;
 const KST_DAY_FORMATTER = new Intl.DateTimeFormat("en-CA", {
@@ -2209,13 +2210,66 @@ function ymd(dateStr) {
   return Number.isNaN(date.getTime()) ? "" : date.toISOString().slice(0, 10);
 }
 
+let googleNewsFailureStreak = 0;
+let googleNewsCircuitOpen = false;
+
+async function fetchBingNews(query, category = "", locale = "en") {
+  const isChinese = locale === "zh";
+  const edition = isChinese
+    ? { setlang: "zh-Hans", mkt: "zh-CN" }
+    : { setlang: "en-US", mkt: "en-US" };
+  const url = `https://www.bing.com/search?format=rss&setlang=${edition.setlang}&mkt=${edition.mkt}&count=20&q=${encodeURIComponent(query)}`;
+  const xml = await fetchText(url);
+  return parseRSS(xml)
+    .map((item) => {
+      const link = sanitizeSourceUrl(item.link || "");
+      let source = "Bing RSS";
+      try {
+        source = new URL(link).hostname.replace(/^www\./, "");
+      } catch {
+        // Keep the provider label when a result has no usable direct URL.
+      }
+      return {
+        title: cleanLocalizedTitle(item.title, locale),
+        originalTitle: cleanLocalizedTitle(item.title, locale),
+        link,
+        sourceUrl: link,
+        source,
+        date: ymd(item.pubDate),
+        ts: new Date(item.pubDate).getTime() || 0,
+        category,
+        language: isChinese ? "chinese" : "english",
+        streamLanguage: isChinese ? "chinese" : "english",
+        languageVerified: true,
+        discoveryProvider: "bing-rss",
+      };
+    })
+    .filter(isForeignItem);
+}
+
 async function fetchGoogleNews(query, category = "", locale = "en") {
   const isChinese = locale === "zh";
   const edition = isChinese
     ? { hl: "zh-CN", gl: "CN", ceid: "CN:zh-Hans" }
     : { hl: "en-US", gl: "US", ceid: "US:en" };
+  if (googleNewsCircuitOpen) return fetchBingNews(query, category, locale);
   const url = `https://news.google.com/rss/search?q=${encodeURIComponent(query + " when:30d")}&hl=${edition.hl}&gl=${edition.gl}&ceid=${edition.ceid}`;
-  const xml = await fetchText(url);
+  let xml = "";
+  try {
+    xml = await fetchText(url);
+    googleNewsFailureStreak = 0;
+  } catch (error) {
+    googleNewsFailureStreak += 1;
+    if (googleNewsFailureStreak >= NEWS_PROVIDER_FAILURE_LIMIT) {
+      googleNewsCircuitOpen = true;
+      console.warn(`Google News RSS 연속 실패 ${googleNewsFailureStreak}회: 남은 검색을 Bing RSS로 전환`);
+    }
+    try {
+      return await fetchBingNews(query, category, locale);
+    } catch (fallbackError) {
+      throw new Error(`Google News ${error.message}; Bing RSS ${fallbackError.message}`);
+    }
+  }
   return parseRSS(xml)
     .map((item) => ({
       title: cleanLocalizedTitle(item.title, locale),
@@ -2531,6 +2585,23 @@ function dedupeEnrichedNews(items = []) {
   return [...selected.values()];
 }
 
+function normalizePreviousNewsFallback(item = {}) {
+  const language = verifiedNewsLanguage(item);
+  const sourceUrl = sanitizeSourceUrl(directNewsUrl(item) || item.sourceUrl || item.link || "");
+  if (!language || !sourceUrl || /news\.google\.com/i.test(sourceUrl)) return null;
+  const ts = new Date(item.date || item.publishedAt || item.crawledAt || 0).getTime() || 0;
+  return {
+    ...item,
+    sourceUrl,
+    link: sourceUrl,
+    ts,
+    language,
+    streamLanguage: language,
+    languageVerified: true,
+    continuityFallback: true,
+  };
+}
+
 function extractTrending(allNews) {
   const counts = new Map();
   for (const item of allNews) {
@@ -2599,14 +2670,33 @@ async function collectNews(previousNews = []) {
       return fixed.concat(discovered.slice(0, Math.max(0, NEWS_STREAM_LIMIT - fixed.length)));
     })
     .sort((a, b) => b.ts - a.ts);
-  const latestNews = dedupeEnrichedNews(await enrichNewsItems(selected, previousNews))
+  let latestNews = dedupeEnrichedNews(await enrichNewsItems(selected, previousNews))
     .filter((item) => !isCrawlerExcluded("news", item))
     .sort((a, b) => (b.ts || 0) - (a.ts || 0));
+
+  const freshLanguageCounts = {
+    english: latestNews.filter((item) => verifiedNewsLanguage(item) === "english").length,
+    chinese: latestNews.filter((item) => verifiedNewsLanguage(item) === "chinese").length,
+  };
+  if (latestNews.length < 24 || freshLanguageCounts.english < 12 || freshLanguageCounts.chinese < 4) {
+    const continuity = previousNews
+      .map(normalizePreviousNewsFallback)
+      .filter(Boolean)
+      .filter((item) => !isCrawlerExcluded("news", item));
+    latestNews = dedupeEnrichedNews(latestNews.concat(continuity))
+      .sort((a, b) => (b.ts || 0) - (a.ts || 0));
+    latestNews = ["english", "chinese"]
+      .flatMap((language) => latestNews
+        .filter((item) => verifiedNewsLanguage(item) === language)
+        .slice(0, NEWS_STREAM_LIMIT))
+      .sort((a, b) => (b.ts || 0) - (a.ts || 0));
+    note("뉴스연속성", latestNews.length >= 24, `신규 ${freshLanguageCounts.english + freshLanguageCounts.chinese}건 + 직전 검증 기사 보강 → ${latestNews.length}건`);
+  }
   return {
     categories,
     news: latestNews.map(({ ts, ...rest }) => rest),
     trending: extractTrending(all),
-    newsStats: newsStats(all),
+    newsStats: newsStats(latestNews),
     allNews: all,
   };
 }
