@@ -2853,6 +2853,7 @@
     }
 
     setupStrategyCapitalSlider();
+    setupChinaNandSlider();
     hideDisabledSections();
     renderChrome();
     renderSidebarNav();
@@ -2913,6 +2914,110 @@
       transitionModes: ["sweep", "depth", "iris", "shutter", "tilt", "split", "zoom-blur", "parallax"],
       onSlideChange: rotateInsight,
     });
+  }
+
+  function setupChinaNandSlider() {
+    const insight = $("#chinaNandSliderInsight");
+    const kicker = $("#chinaNandSliderInsightKicker");
+    const title = $("#chinaNandSliderInsightTitle");
+    const body = $("#chinaNandSliderInsightBody");
+    const link = $("#chinaNandSliderInsightLink");
+    const insights = chinaNandSliderInsightPool();
+    const positions = ["top-left", "top-right", "bottom-left"];
+    let lastInsight = -1;
+    let lastTitle = "";
+    let lastPosition = "top-left";
+
+    const rotateInsight = ({ slider, initial = false } = {}) => {
+      if (!insight || !kicker || !title || !body || !link || !insights.length || !slider) return;
+      const distinctChoices = insights
+        .map((_, index) => index)
+        .filter((index) => index !== lastInsight && insights[index].title !== lastTitle);
+      const choices = distinctChoices.length
+        ? distinctChoices
+        : insights.map((_, index) => index).filter((index) => index !== lastInsight);
+      const nextIndex = choices[Math.floor(Math.random() * choices.length)] ?? 0;
+      const positionChoices = positions.filter((position) => position !== lastPosition);
+      const nextPosition = initial ? lastPosition : (positionChoices[Math.floor(Math.random() * positionChoices.length)] || positions[0]);
+      const item = insights[nextIndex];
+      lastInsight = nextIndex;
+      lastTitle = item.title;
+      lastPosition = nextPosition;
+      slider.dataset.insightPosition = nextPosition;
+      insight.classList.remove("is-changing");
+      void insight.offsetWidth;
+      kicker.textContent = item.kicker;
+      title.textContent = item.title;
+      body.textContent = item.body;
+      link.href = item.href;
+      link.textContent = `${item.source || "근거 원문"} ↗`;
+      insight.classList.add("is-changing");
+    };
+
+    setupDynamicImageSlider({
+      sliderSelector: "#chinaNandSlider",
+      dotsSelector: "#chinaNandSliderDots",
+      countSelector: "#chinaNandSliderCount",
+      prevSelector: "#chinaNandSliderPrev",
+      nextSelector: "#chinaNandSliderNext",
+      toggleSelector: "#chinaNandSliderToggle",
+      autoDelay: 5400,
+      motionProfile: "cinematic",
+      transitionModes: ["sweep", "depth", "iris", "shutter", "tilt", "split", "zoom-blur", "parallax"],
+      onSlideChange: rotateInsight,
+    });
+  }
+
+  function chinaNandSliderInsightPool() {
+    const topicTerms = /cxmt|ymtc|xmc|jcet|naura|amec|acm|dram|nand|essd|xtacking|equipment|packag|capacity|wuhan|customer|price|중국|장비|패키징|캐파|가격/i;
+    const shorten = (value, max = 168) => {
+      const text = String(value || "").replace(/\s+/g, " ").trim();
+      return text.length > max ? `${text.slice(0, max - 1).trim()}…` : text;
+    };
+    const decisionTitle = (item) => {
+      const hay = `${item.kicker || ""} ${item.title || ""} ${item.body || ""}`.toLowerCase();
+      if (/ymtc|xtacking|nand|essd|flash/.test(hay)) return "YMTC 램프업은 eSSD 고객 인증과 실제 비트 출하로 검증";
+      if (/naura|amec|acm|equipment|etch|clean|deposition|장비/.test(hay)) return "중국 장비 내재화는 qualification과 반복 발주가 전환점";
+      if (/xmc|jcet|packag|osat|hbm|패키징/.test(hay)) return "후공정 우회는 고객 인증·수율·열 병목 통과 여부가 핵심";
+      if (/talent|engineer|recruit|non-compete|ip|인재|채용/.test(hay)) return "수율·장비 인력 이동은 기술격차 단축의 선행 신호";
+      return "CXMT 고객·캐파 확대가 범용 DRAM 가격 협상력을 압박";
+    };
+    const dynamic = strategyCapitalInsightPool()
+      .filter((item) => topicTerms.test(`${item.kicker || ""} ${item.title || ""} ${item.body || ""}`))
+      .map((item) => ({
+        ...item,
+        title: decisionTitle(item),
+        body: shorten(item.body || item.title),
+      }));
+    const fallback = [
+      {
+        kicker: "DRAM share · Q1 2026",
+        title: "CXMT 8% 진입은 범용 DRAM 가격 방어의 경보",
+        body: "Counterpoint 매출 점유율과 고객 장기계약, DDR5 Spot·Contract 전이를 함께 보며 SKHY의 고객별 가격 하한을 조정합니다.",
+        href: "https://counterpointresearch.com/en/insights/global-dram-and-hbm-market-share",
+        source: "Counterpoint Research",
+      },
+      {
+        kicker: "NAND technology · measured evidence",
+        title: "YMTC 위협은 적층 수보다 eSSD 채택과 수율로 판별",
+        body: "Xtacking 4.0 실측치와 우한 램프업, 기업용 SSD 고객 인증이 동시에 확인될 때 Solidigm 방어와 NAND 믹스를 재조정합니다.",
+        href: "https://www.techinsights.com/blog/ymtc-xtacking40-breaking-new-ground-3d-nand-technology",
+        source: "TechInsights",
+      },
+      {
+        kicker: "Equipment · qualification gate",
+        title: "장비 내재화는 발표 건수보다 고객 qualification이 핵심",
+        body: "Naura·AMEC·ACM의 반복 발주와 공정 승인, YMTC·CXMT 램프업이 연결될 때 중국 캐파의 실제 제재 내성을 높게 평가합니다.",
+        href: "https://www.reuters.com/technology/china-sets-up-475-bln-state-fund-boost-semiconductor-industry-2024-05-27/",
+        source: "Reuters",
+      },
+    ];
+    const unique = new Map();
+    dynamic.concat(fallback).forEach((item) => {
+      const key = item.href || item.title;
+      if (key && !unique.has(key)) unique.set(key, item);
+    });
+    return Array.from(unique.values()).slice(0, 12);
   }
 
   function strategyCapitalInsightPool() {

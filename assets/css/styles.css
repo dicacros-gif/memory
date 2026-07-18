@@ -5501,6 +5501,11 @@ body.sidebar-collapsed .sb-ico {
     aspect-ratio: 4 / 3;
   }
 
+  .china-nand-slider {
+    min-height: 360px;
+    aspect-ratio: 4 / 5;
+  }
+
   .executive-backtest-insight {
     top: 9px;
     left: 9px;
@@ -5527,6 +5532,10 @@ body.sidebar-collapsed .sb-ico {
     width: auto;
     gap: 5px;
     padding: 10px 11px;
+  }
+
+  .china-nand-slider .china-nand-slider-insight {
+    width: auto;
   }
 
   .strategy-capital-insight strong {
@@ -10056,10 +10065,64 @@ body.sidebar-collapsed .sb-ico {
   align-items: start;
 }
 
+.china-nand-primary {
+  min-width: 0;
+  display: grid;
+  gap: 12px;
+}
+
 .china-nand-map {
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
   gap: 10px;
+}
+
+.china-nand-slider {
+  --slider-accent: #08a68f;
+  min-height: 310px;
+  aspect-ratio: 2.15 / 1;
+  box-shadow: 0 22px 50px rgba(2, 29, 28, .2);
+  transition: transform .28s cubic-bezier(.2, .8, .2, 1), box-shadow .28s ease, border-color .28s ease;
+}
+
+.china-nand-slider:hover,
+.china-nand-slider:focus-within {
+  transform: translateY(-3px) scale(1.004);
+  border-color: color-mix(in srgb, var(--slider-accent) 78%, #fff);
+  box-shadow: 0 30px 66px rgba(2, 29, 28, .3);
+}
+
+.china-nand-slider .china-nand-slider-insight {
+  width: min(58%, 470px);
+  gap: 6px;
+  padding: 12px 14px;
+}
+
+.china-nand-slider .china-nand-slider-insight strong {
+  font-size: clamp(15px, 1.2vw, 21px);
+}
+
+.china-nand-slider .china-nand-slider-insight p {
+  font-size: clamp(10px, .72vw, 12px);
+  -webkit-line-clamp: 2;
+}
+
+.china-nand-slider[data-motion="cinematic"][data-zoom="in"] .china-capital-slide.active img {
+  animation: chinaNandSliderZoomIn 5.6s cubic-bezier(.12, .72, .16, 1) both;
+}
+
+.china-nand-slider[data-motion="cinematic"][data-zoom="out"] .china-capital-slide.active img {
+  animation: chinaNandSliderZoomOut 5.6s cubic-bezier(.12, .72, .16, 1) both;
+}
+
+@keyframes chinaNandSliderZoomIn {
+  0% { transform: scale(1.04) translate3d(var(--pan-start-x, -3%), var(--pan-start-y, 2%), 0); }
+  100% { transform: scale(1.42) translate3d(var(--pan-end-x, 4%), var(--pan-end-y, -3%), 0); }
+}
+
+@keyframes chinaNandSliderZoomOut {
+  0% { transform: scale(1.44) translate3d(var(--pan-start-x, 4%), var(--pan-start-y, -3%), 0); }
+  100% { transform: scale(1.03) translate3d(var(--pan-end-x, -2%), var(--pan-end-y, 2%), 0); }
 }
 
 .nand-node {

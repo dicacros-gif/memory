@@ -605,7 +605,35 @@
           </div>
           <div class="china-nand-summary" id="chinaNandSummary"></div>
           <div class="china-nand-cockpit">
-            <div class="china-nand-map" id="chinaNandMap"></div>
+            <div class="china-nand-primary">
+              <div class="china-nand-map" id="chinaNandMap"></div>
+              <section class="china-capital-slider strategy-capital-slider china-nand-slider" id="chinaNandSlider" aria-label="중국 메모리 사업 인사이트 이미지 슬라이드" aria-roledescription="carousel" tabindex="0">
+                <div class="china-capital-stage">
+                  <figure class="china-capital-slide active" aria-hidden="false">
+                    <img src="assets/media/china-nand-capacity.webp" alt="중국 메모리 생산능력과 공급 확대를 상징하는 반도체 칩" width="1920" height="1072" loading="lazy" decoding="async" />
+                  </figure>
+                  <figure class="china-capital-slide" aria-hidden="true">
+                    <img src="assets/media/china-nand-supplychain.webp" alt="중국 반도체 공급망과 장비 내재화를 상징하는 회로 기판" width="1920" height="1072" loading="lazy" decoding="async" />
+                  </figure>
+                  <figure class="china-capital-slide" aria-hidden="true">
+                    <img src="assets/media/china-nand-fab-ai.webp" alt="AI 기반 반도체 제조와 팹 운영을 상징하는 생산라인" width="1920" height="1072" loading="lazy" decoding="async" />
+                  </figure>
+                </div>
+                <div class="strategy-capital-insight china-nand-slider-insight" id="chinaNandSliderInsight" aria-live="polite">
+                  <span id="chinaNandSliderInsightKicker">China memory · strategic signal</span>
+                  <strong id="chinaNandSliderInsightTitle">캐파 확대는 고객 계약과 장비 검증으로 확인</strong>
+                  <p id="chinaNandSliderInsightBody">생산능력 발표보다 실제 고객 채택, 장비 qualification, 가격 전이를 함께 판단합니다.</p>
+                  <a id="chinaNandSliderInsightLink" href="https://counterpointresearch.com/en/insights/global-dram-and-hbm-market-share" target="_blank" rel="noopener noreferrer">근거 원문 ↗</a>
+                </div>
+                <div class="china-capital-slider-controls">
+                  <button type="button" id="chinaNandSliderPrev" aria-label="이전 이미지" title="이전 이미지">←</button>
+                  <div class="china-capital-dots" id="chinaNandSliderDots" aria-label="이미지 선택"></div>
+                  <span id="chinaNandSliderCount" aria-live="polite">01 / 03</span>
+                  <button type="button" id="chinaNandSliderToggle" aria-label="자동 전환 일시정지" title="자동 전환 일시정지"><span aria-hidden="true">Ⅱ</span></button>
+                  <button type="button" id="chinaNandSliderNext" aria-label="다음 이미지" title="다음 이미지">→</button>
+                </div>
+              </section>
+            </div>
             <aside class="china-nand-focus" id="chinaNandFocus"></aside>
           </div>
           <div class="china-nand-playbook" id="chinaNandPlaybook"></div>
@@ -901,6 +929,6 @@
   <div class="qa-answer" id="qaAnswer" hidden></div>
   <div class="inspector" id="inspector" hidden></div>
   <div class="backdrop" id="backdrop"></div>
-  <script src="assets/js/app.js?v=qa-library-2-20260717" defer></script>
+  <script src="assets/js/app.js?v=china-nand-slider-20260718" defer></script>
 </body>
 </html>
