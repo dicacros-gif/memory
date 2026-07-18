@@ -3761,8 +3761,7 @@ body.sidebar-collapsed .sb-ico {
   display: grid;
   align-content: start;
   gap: 8px;
-  border: 1px solid var(--line);
-  border-top: 3px solid var(--local-accent, var(--accent));
+  border: 2px solid color-mix(in srgb, var(--local-accent, var(--accent)) 72%, var(--line));
   border-radius: 8px;
   background: color-mix(in srgb, var(--panel-2) 96%, var(--local-accent, var(--accent)));
   padding: 12px;
@@ -3807,7 +3806,27 @@ body.sidebar-collapsed .sb-ico {
   color: var(--ink-2);
   font-size: 11.5px;
   line-height: 1.55;
-  font-weight: 720;
+  font-weight: 760;
+}
+
+.strategy-highlight {
+  display: inline;
+  border-radius: 2px;
+  background: linear-gradient(transparent 48%, rgba(255, 221, 87, .88) 48%, rgba(255, 221, 87, .88) 91%, transparent 91%);
+  color: color-mix(in srgb, var(--ink) 82%, #7a4700);
+  font-weight: 950;
+  text-decoration: underline;
+  text-decoration-color: rgba(217, 156, 0, .82);
+  text-decoration-thickness: 2px;
+  text-underline-offset: 3px;
+  box-decoration-break: clone;
+  -webkit-box-decoration-break: clone;
+}
+
+:is(.exec-research-card, .investment-focus, .policy-card, .policy-rule-card, .news-card, .community-card, .community-brief):hover .strategy-highlight,
+:is(.exec-research-card, .investment-focus, .policy-card, .policy-rule-card, .news-card, .community-card, .community-brief):focus-within .strategy-highlight {
+  color: #16120a;
+  background: linear-gradient(transparent 42%, #ffe46b 42%, #ffe46b 94%, transparent 94%);
 }
 
 .exec-research-metrics {
@@ -5251,6 +5270,7 @@ body.sidebar-collapsed .sb-ico {
   align-content: start;
   gap: 8px;
   min-height: 122px;
+  border: 2px solid color-mix(in srgb, var(--local-accent, var(--accent)) 48%, var(--line));
   padding: 12px;
 }
 
@@ -5670,7 +5690,7 @@ body.sidebar-collapsed .sb-ico {
   display: grid;
   gap: 9px;
   padding: 12px;
-  border-color: color-mix(in srgb, var(--local-accent, var(--accent)) 18%, var(--line));
+  border: 2px solid color-mix(in srgb, var(--local-accent, var(--accent)) 42%, var(--line));
   transition: transform .16s, border-color .16s, background .16s;
 }
 
@@ -6749,7 +6769,7 @@ body.sidebar-collapsed .sb-ico {
   top: calc(var(--topbar-h) + 16px);
   display: grid;
   gap: 12px;
-  border-color: color-mix(in srgb, var(--local-accent, var(--accent)) 26%, var(--line));
+  border: 2px solid color-mix(in srgb, var(--local-accent, var(--accent)) 58%, var(--line));
   background: var(--panel);
   padding: 14px;
 }
@@ -6758,6 +6778,43 @@ body.sidebar-collapsed .sb-ico {
 .investment-focus-block {
   display: grid;
   gap: 8px;
+}
+
+.investment-focus-block {
+  border: 1px solid color-mix(in srgb, var(--local-accent, var(--accent)) 30%, var(--line));
+  border-radius: 8px;
+  background: color-mix(in srgb, var(--local-accent, var(--accent)) 4%, var(--panel-2));
+  padding: 11px 12px;
+}
+
+.investment-focus-block.is-priority,
+.investment-focus-block.is-action,
+.investment-focus-block.is-formula {
+  border-color: color-mix(in srgb, var(--local-accent, var(--accent)) 64%, var(--line));
+}
+
+.investment-focus-block > strong {
+  color: var(--local-accent, var(--accent));
+  font-size: 11px;
+}
+
+.investment-focus-head p,
+.investment-focus-block p,
+.investment-focus-block li,
+.investment-focus-block a {
+  font-size: 13px;
+  line-height: 1.58;
+  font-weight: 780;
+}
+
+.investment-focus-block .work-link-list {
+  gap: 7px;
+}
+
+.investment-focus-block .work-link-list a {
+  color: var(--ink);
+  font-weight: 850;
+  text-underline-offset: 3px;
 }
 
 .investment-focus-head h3 {
@@ -7741,6 +7798,7 @@ body.sidebar-collapsed .sb-ico {
   display: grid;
   gap: 9px;
   min-height: 148px;
+  border: 2px solid color-mix(in srgb, var(--accent) 45%, var(--line));
   padding: 13px;
 }
 
@@ -7768,12 +7826,6 @@ body.sidebar-collapsed .sb-ico {
   color: var(--ink);
   font-size: 14px;
   line-height: 1.25;
-  font-weight: 950;
-}
-
-.china-business-brief-card em {
-  color: var(--accent);
-  font-style: normal;
   font-weight: 950;
 }
 
@@ -12658,7 +12710,7 @@ body.sidebar-collapsed .sb-ico {
 
 .market-peer-grid {
   display: grid;
-  grid-template-columns: repeat(3, minmax(0, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(155px, 1fr));
   gap: 8px;
   margin-top: 10px;
 }
@@ -13210,7 +13262,7 @@ body.sidebar-collapsed .sb-ico {
   min-width: 0;
   min-height: 196px;
   gap: 8px;
-  border: 1px solid var(--line);
+  border: 2px solid color-mix(in srgb, var(--news-accent) 40%, var(--line));
   border-radius: 10px;
   background:
     linear-gradient(145deg, color-mix(in srgb, var(--news-accent) 7%, transparent), transparent 42%),
@@ -13410,8 +13462,7 @@ body.sidebar-collapsed .sb-ico {
   display: grid;
   min-width: 0;
   gap: 8px;
-  border: 1px solid var(--line);
-  border-left: 4px solid var(--brief-accent);
+  border: 2px solid color-mix(in srgb, var(--brief-accent) 62%, var(--line));
   border-radius: 8px;
   background: var(--panel-2);
   padding: 12px;
@@ -13636,8 +13687,7 @@ body.sidebar-collapsed .sb-ico {
   min-width: 0;
   min-height: 260px;
   gap: 10px;
-  border: 1px solid var(--line);
-  border-top: 4px solid var(--community-card-accent);
+  border: 2px solid color-mix(in srgb, var(--community-card-accent) 68%, var(--line));
   border-radius: 8px;
   background:
     linear-gradient(145deg, color-mix(in srgb, var(--community-card-accent) 7%, transparent), transparent 44%),
@@ -15140,7 +15190,9 @@ body.sidebar-collapsed .sb-ico {
 .hs-assumptions { margin-top: 16px; }
 .hs-assume-list { display: grid; gap: 6px; margin: 8px 0 0; padding: 0; list-style: none; }
 .hs-assume-list li {
-  font-size: 11.5px;
+  display: flex;
+  align-items: flex-start;
+  font-size: 12.5px;
   line-height: 1.5;
   color: var(--ink-2);
   font-weight: 700;
@@ -15159,6 +15211,7 @@ body.sidebar-collapsed .sb-ico {
   font-weight: 950;
   color: #F59E0B;
 }
+.hs-assume-list span { min-width: 0; font-weight: 760; }
 @media (max-width: 900px) {
   .hs-summary { grid-template-columns: repeat(2, 1fr); }
   .hs-layout { grid-template-columns: 1fr; }

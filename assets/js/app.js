@@ -3926,7 +3926,7 @@
           <span><b>${fmtNum(pull)}/100</b><small>${escapeHTML(category.pullLabel)}</small></span>
         </div>
         <p>${escapeHTML(account.note)}</p>
-        <small class="hs-focus-note">${escapeHTML(scenario.label)} · SKHY 함의로 해석</small>
+        <small class="hs-focus-note">${escapeHTML(scenario.label)} · Insight</small>
       `;
     }
 
@@ -3934,7 +3934,7 @@
       assumptions.innerHTML = `
         <div class="intel-panel-head"><h3>모델 가정 · 반증 조건</h3><span>${escapeHTML(category.label)} · 공개 데이터 기반 논리 추정 (확정치 아님)${category.sourceUrl ? ` · <a href="${escapeHTML(category.sourceUrl)}" target="_blank" rel="noopener">${escapeHTML(category.source || "원문")}</a>` : ""}</span></div>
         <ul class="hs-assume-list">
-          ${category.assume.map((line, i) => `<li><b>${i < 2 ? "가정" : "반증"}</b> ${escapeHTML(line)}</li>`).join("")}
+          ${category.assume.map((line, i) => `<li><b>${i < 2 ? "가정" : "반증"}</b><span>${strategicHighlightHTML(line)}</span></li>`).join("")}
         </ul>
       `;
     }
@@ -4088,6 +4088,12 @@
       return `<b class="ag-verdict ag-${cls}">${m}</b>`;
     });
     return html;
+  }
+
+  const STRATEGIC_HIGHLIGHT_RE = /(장기\s*공급계약|공동\s*로드맵|고객\s*인증|가격\s*spread|가격\s*방어|수출통제|자본\s*배분|우선\s*집행|판단\s*전환|패키징\s*병목|공급망|수율|캐파|HBM4|HBM|eSSD|DDR5|CXMT|YMTC|SKHY|BIS|VEU|CoWoS|Go|Watch|Action|\+?\d+(?:\.\d+)?(?:~\d+(?:\.\d+)?)?(?:%|B|T|Gbps|PB|억\s*위안|조\s*원))/gi;
+
+  function strategicHighlightHTML(value) {
+    return escapeHTML(value).replace(STRATEGIC_HIGHLIGHT_RE, '<mark class="strategy-highlight">$1</mark>');
   }
 
   function fmtDate(iso) {
@@ -5253,14 +5259,14 @@
               <span>${item.evidenceType === "direct-report" ? "직접 리포트" : "기사 인용"}</span>
               <time datetime="${escapeHTML(String(item.publishedAt || "").slice(0, 10))}">${escapeHTML(shortKstDate(item.publishedAt || researchUpdatedAt) || "")}</time>
             </div>
-            <h4>${escapeHTML(item.title)}</h4>
-            <p>${escapeHTML(item.body)}</p>
+            <h4>${strategicHighlightHTML(item.title)}</h4>
+            <p>${strategicHighlightHTML(item.body)}</p>
             ${item.metrics?.length ? `<div class="exec-research-metrics">
-              ${item.metrics.map((metric) => `<strong>${escapeHTML(metric)}</strong>`).join("")}
+              ${item.metrics.map((metric) => `<strong>${strategicHighlightHTML(metric)}</strong>`).join("")}
             </div>` : ""}
             <dl>
-              <div><dt>SKHY 함의</dt><dd>${escapeHTML(item.implication)}</dd></div>
-              <div><dt>판단 전환 조건</dt><dd>${escapeHTML(item.reversal)}</dd></div>
+              <div><dt>Insight</dt><dd>${strategicHighlightHTML(item.implication)}</dd></div>
+              <div><dt>판단 전환 조건</dt><dd>${strategicHighlightHTML(item.reversal)}</dd></div>
             </dl>
             ${item.sourceUrl
               ? `<a class="exec-research-source" href="${escapeHTML(item.sourceUrl)}" target="_blank" rel="noopener noreferrer">${escapeHTML(item.source || item.institution || "원문")} 원문 보기</a>`
@@ -11421,11 +11427,10 @@
         <span>${escapeHTML(card.title)}</span>
         <div>
           <strong>${escapeHTML(card.label)}</strong>
-          <em>모델 ${fmtNum(card.score)}%</em>
         </div>
         <div class="evidence-row">${card.proof}</div>
-        <p>${escapeHTML(card.body)}</p>
-        <small>${escapeHTML(card.action || "")}</small>
+        <p>${strategicHighlightHTML(card.body)}</p>
+        <small>${strategicHighlightHTML(card.action || "")}</small>
       </article>
     `).join("");
   }
@@ -11444,7 +11449,7 @@
           <strong>${escapeHTML(top?.label || axis)}</strong>
           <p>${escapeHTML(top?.capital || "근거 보강을 기다리는 축")}</p>
           <div class="lane-meter" aria-hidden="true"><i data-fill-to="${clamp(score)}" style="width:0%"></i></div>
-          <small>${fmtNum(signals || top?.signals || 0)} signals · 근거지수 ${fmtNum(score)}% · 근거 ${fmtNum(top?.evidenceCount || 0)}건</small>
+          <small>${fmtNum(signals || top?.signals || 0)} signals · 우선순위 ${fmtNum(score)}/100 · 근거 ${fmtNum(top?.evidenceCount || 0)}건</small>
         </button>
       `;
     }).join("");
@@ -11460,15 +11465,44 @@
           <strong>${escapeHTML(item.label)}</strong>
           <p>${escapeHTML(item.action || item.logic || "")}</p>
           <div class="gate-meter" aria-hidden="true"><i data-fill-to="${clamp(item.score)}" style="width:0%"></i></div>
-          <small>${fmtNum(item.signals)} signals · 모델 ${fmtNum(item.score)}% · 근거 ${fmtNum(item.evidenceCount || 0)}건</small>
+          <small>${fmtNum(item.signals)} signals · 근거지수 ${fmtNum(item.score)} · 근거 ${fmtNum(item.evidenceCount || 0)}건</small>
         </button>
       `;
     }).join("");
   }
 
+  function strategyLinkPriority(link = {}) {
+    const url = String(link.sourceUrl || link.link || "").toLowerCase();
+    if (/reuters\.com|trendforce\.com|sandisk\.com|counterpointresearch\.com/.test(url)) return 0;
+    if (/finance\.yahoo\.com|scmp\.com|digitimes\.com/.test(url)) return 1;
+    if (/news\.google\.com/.test(url)) return 4;
+    return 2;
+  }
+
+  function strategyLinkEventKey(link = {}) {
+    const title = `${newsTitle(link) || link.title || ""} ${link.source || ""}`.toLowerCase();
+    if (/(cxmt|창신|长鑫)/.test(title) && /(tencent|텐센트|腾讯)/.test(title)) return "cxmt-tencent-contract";
+    if (/(kioxia|키옥시아)/.test(title) && /(sandisk|샌디스크)/.test(title)) return "kioxia-sandisk-production";
+    return String(link.sourceUrl || link.link || title).replace(/[?#].*$/, "").replace(/\s+/g, " ").trim();
+  }
+
+  function investmentStrategyLinks(item = {}) {
+    const candidates = (item.links || [])
+      .filter((link) => !/(7700x3d|5800x3d|메모리를 선택|single\s+ddr5|dual\s+ddr4)/i.test(newsTitle(link) || link.title || ""))
+      .sort((a, b) => strategyLinkPriority(a) - strategyLinkPriority(b));
+    const seen = new Set();
+    return candidates.filter((link) => {
+      const key = strategyLinkEventKey(link);
+      if (!key || seen.has(key)) return false;
+      seen.add(key);
+      return true;
+    }).slice(0, 6);
+  }
+
   function renderInvestmentFocus(target, item, section) {
     if (!target || !item) return;
     const payload = investmentPayload(item, section);
+    const relatedLinks = investmentStrategyLinks(item);
     target.style.setProperty("--local-accent", categoryAccent((item.linkedCategories || [])[0]));
     target.innerHTML = `
       <div class="investment-focus-head">
@@ -11478,34 +11512,34 @@
         <div class="evidence-row">${proofBadgeHTML(item)}</div>
       </div>
       <div class="metric-row">
-        <div class="metric"><strong>${fmtNum(item.score)}</strong><span>모델점수</span></div>
+        <div class="metric"><strong>${fmtNum(item.score)}</strong><span>근거지수</span></div>
         <div class="metric"><strong>${fmtNum(item.evidenceCount || sourceUrlItems(item.links || []).length)}</strong><span>출처/기사 근거</span></div>
         <div class="metric"><strong>${fmtNum(item.priceRows || 0)}</strong><span>가격 데이터</span></div>
       </div>
-      <div class="investment-focus-block">
-        <strong>${item.allocation ? "전략 가중치(모델)" : "판단 상태"}</strong>
-        <p>${item.allocation ? `${escapeHTML(item.allocation)} · 실제 자본 배분 확정값이 아니라, 현재 수집 신호 기반 우선순위입니다.` : escapeHTML(item.stage || "Gate")}</p>
+      <div class="investment-focus-block is-priority">
+        <strong>${item.allocation ? "전략 가중치" : "판단 상태"}</strong>
+        <p>${item.allocation ? `${strategicHighlightHTML(item.allocation)} · 실제 자본 배분 확정값이 아니라, 현재 수집 신호 기반 우선순위입니다.` : strategicHighlightHTML(item.stage || "Gate")}</p>
       </div>
-      <div class="investment-focus-block">
+      <div class="investment-focus-block is-action">
         <strong>실행 관점</strong>
-        <p>${escapeHTML(item.capital || item.action || "")}</p>
+        <p>${strategicHighlightHTML(item.capital || item.action || "")}</p>
       </div>
-      <div class="investment-focus-block">
-        <strong>숫자 산식</strong>
-        <p>모델점수 = 기준점수 + 가격·뉴스·정책 근거 + 가격 모멘텀 + 연결 전략 점수. 실측값은 가격 데이터와 원문 링크 수만 별도 집계합니다.</p>
+      <div class="investment-focus-block is-formula">
+        <strong>우선순위 산식</strong>
+        <p>${strategicHighlightHTML("근거지수 = 기준점수 + 가격·뉴스·정책 근거 + 가격 모멘텀 + 연결 전략 점수. 실측값은 가격 데이터와 원문 링크 수만 별도 집계합니다.")}</p>
       </div>
       <div class="investment-focus-block">
         <strong>${section === "management-strategy" ? "전략 실행" : "의사결정 게이트"}</strong>
-        <ul class="watch-list">${(item.actions || item.gate || []).map((line) => `<li>${escapeHTML(line)}</li>`).join("")}</ul>
+        <ul class="watch-list">${(item.actions || item.gate || []).map((line) => `<li>${strategicHighlightHTML(line)}</li>`).join("")}</ul>
       </div>
       <div class="investment-focus-block">
         <strong>매일 확인할 신호</strong>
-        <ul class="watch-list">${(item.triggers || item.gate || []).map((line) => `<li>${escapeHTML(line)}</li>`).join("")}</ul>
+        <ul class="watch-list">${(item.triggers || item.gate || []).map((line) => `<li>${strategicHighlightHTML(line)}</li>`).join("")}</ul>
       </div>
-      ${item.links?.length ? `
+      ${relatedLinks.length ? `
         <div class="investment-focus-block">
           <strong>관련 최신 기사/신호</strong>
-          <ul class="work-link-list">${item.links.map((link) => `<li><a href="${escapeHTML(link.link || "#")}" target="_blank" rel="noopener">${escapeHTML(newsTitle(link) || link.title || "Signal")}</a></li>`).join("")}</ul>
+          <ul class="work-link-list">${relatedLinks.map((link) => `<li><a href="${escapeHTML(link.sourceUrl || link.link || "#")}" target="_blank" rel="noopener">${strategicHighlightHTML(newsTitle(link) || link.title || "Signal")}</a></li>`).join("")}</ul>
         </div>
       ` : ""}
       <div class="focus-actions">
@@ -11709,8 +11743,8 @@
     ].map((card, index) => `
       <article class="policy-card reveal" style="animation-delay:${index * 25}ms">
         <span>${escapeHTML(card.label)}</span>
-        <strong>${escapeHTML(card.value)}</strong>
-        <p>${escapeHTML(card.note)}</p>
+        <strong>${strategicHighlightHTML(card.value)}</strong>
+        <p>${strategicHighlightHTML(card.note)}</p>
       </article>
     `).join("");
 
@@ -11722,9 +11756,9 @@
             <span class="policy-status ${cls}">${escapeHTML(rule.status)}</span>
             <small>${escapeHTML(rule.axis)}</small>
           </div>
-          <h3>${escapeHTML(rule.title)}</h3>
-          <p>${escapeHTML(rule.evidence)}</p>
-          <em>${escapeHTML(rule.implication)}</em>
+          <h3>${strategicHighlightHTML(rule.title)}</h3>
+          <p>${strategicHighlightHTML(rule.evidence)}</p>
+          <em>${strategicHighlightHTML(rule.implication)}</em>
           <div class="policy-rule-foot">${sourceLinkHTML(rule.sourceUrl, rule.source || "출처")}</div>
         </article>
       `;
@@ -11734,16 +11768,16 @@
     focus.innerHTML = `
       <div class="policy-focus-head">
         <span class="chip accent">${escapeHTML(lens.en)} · ${escapeHTML(lens.status)}</span>
-        <h3>${escapeHTML(lens.label)} Policy Maker 방향성</h3>
-        <p>${escapeHTML(lens.direction)}</p>
+        <h3>${strategicHighlightHTML(lens.label)} Policy Maker 방향성</h3>
+        <p>${strategicHighlightHTML(lens.direction)}</p>
       </div>
       <div class="policy-verdict ${policyStatusClass(lens.status)}">
-        <strong>${escapeHTML(lens.verdict)}</strong>
-        <span>${escapeHTML(lens.skImpact)}</span>
+        <strong>${strategicHighlightHTML(lens.verdict)}</strong>
+        <span>${strategicHighlightHTML(lens.skImpact)}</span>
       </div>
       <div class="policy-focus-block">
         <strong>SKHY 전략 방향</strong>
-        <p>${escapeHTML(lens.strategy)}</p>
+        <p>${strategicHighlightHTML(lens.strategy)}</p>
       </div>
       <div class="policy-focus-block">
         <strong>${escapeHTML(lens.id === "china" ? "SK 중국 법인·공장" : lens.id === "korea" ? "SKHY 적용 거점" : "SKHY 규제 적용 범위")}</strong>
@@ -13163,7 +13197,7 @@
         { label: "5Y 모델", value: `${fmtNum(end, 1)}%` },
         { label: "Case", value: scenario.label },
         { label: "실제 신호", value: fmtNum(segment.signals) },
-        { label: "모델점수", value: fmtNum(segment.score) },
+        { label: "근거지수", value: fmtNum(segment.score) },
       ],
     };
   }
@@ -13370,7 +13404,7 @@
         <button class="projection-tab reveal${segment.id === selected?.id ? " active" : ""}" type="button" data-projection-tab="${escapeHTML(segment.id)}" style="--local-accent:${categoryAccent((segment.linkedCategories || [])[0])}; animation-delay:${index * 25}ms">
           ${scoreRingHTML(segment.score, "Score")}
           <span>
-          <small>${escapeHTML(segment.demand)} · 모델점수</small>
+          <small>${escapeHTML(segment.demand)} · 근거지수</small>
           <strong>${escapeHTML(segment.label)}</strong>
           <em>5Y 모델 ${fmtNum(endShare, 1)}% · 실제 신호 ${fmtNum(segment.signals)}건</em>
           </span>
@@ -13804,7 +13838,7 @@
     const priceSource = dramTrend?.sourceUrl || nandTrend?.sourceUrl || "";
     const fieldSource = fieldSignals[0]?.sourceUrl || priceSource || customerSource;
     const priceFact = (row) => row
-      ? `${row.item}: ${formatPrice(row.startValue)} → ${formatPrice(row.endValue)} (${signedPercent(row.changePct)}) · 실제 누적 ${fmtNum(row.pointCount)}회`
+      ? `${row.item}: ${formatPrice(row.startValue)} → ${formatPrice(row.endValue)} (${signedPercent(row.changePct)})`
       : "공개 가격 이력이 충분히 누적된 품목을 수집 중";
     const customerFacts = customerNews.length
       ? customerNews.map((item) => `${item.date || "날짜 확인"} · ${item.source || "외신"} · ${newsTitle(item)}`)
@@ -13993,7 +14027,7 @@
         categories: item.linkedCategories || [],
         watch: (item.triggers || []).concat(item.actions || []),
         metrics: [
-          { label: "모델점수", value: fmtNum(item.score) },
+          { label: "근거지수", value: fmtNum(item.score) },
           { label: "실제 신호", value: fmtNum(item.signals) },
           { label: "근거 링크", value: fmtNum(item.evidenceCount || 0) },
           { label: "가격 데이터", value: fmtNum(item.priceRows || 0) },
@@ -14015,7 +14049,7 @@
         categories: item.linkedCategories || [],
         watch: (item.gate || []).concat(item.action || []),
         metrics: [
-          { label: "모델점수", value: fmtNum(item.score) },
+          { label: "근거지수", value: fmtNum(item.score) },
           { label: "실제 신호", value: fmtNum(item.signals) },
           { label: "근거 링크", value: fmtNum(item.evidenceCount || 0) },
           { label: "가격 데이터", value: fmtNum(item.priceRows || 0) },
@@ -15458,7 +15492,7 @@
       : 0;
     const lag = lagDays > 1 ? ` · ${fmtNum(lagDays)}일 지연` : "";
     return {
-      main: `관측 ${fmtNum(points)}회`,
+      main: "가격 추이",
       sub: `${period.label}${range}${lag}`,
     };
   }
@@ -15762,7 +15796,7 @@
     }
     const period = activePricePeriod();
     const observation = priceObservationText(trend);
-    const peers = ["skhy-stock", "samsung-stock", "micron-stock"]
+    const peers = ["skhy-stock", "samsung-stock", "micron-stock", "sandisk-stock", "wdc-stock", "kioxia-stock"]
       .map((id) => ({ id, index: marketIndexData(id) }))
       .map((item) => ({ ...item, trend: marketIndexTrend(item.index || {}) }))
       .filter((item) => item.index && item.trend && (item.trend.plotPoints || []).length >= 2);
@@ -16541,7 +16575,7 @@
       a.rel = "noopener";
       const insights = insightLines(item);
       const evidence = newsEvidenceMeta(item);
-      a.textContent = newsTitle(item);
+      a.innerHTML = strategicHighlightHTML(newsTitle(item));
       card.innerHTML = `
         <div class="news-card-head">
           <span class="source-tag">${escapeHTML(item.source || "Foreign source")}</span>
@@ -16549,7 +16583,7 @@
           <span class="news-meta">${escapeHTML(formatNewsDate(item.date || item.published))}</span>
         </div>
         <div class="news-insights">
-          ${insights.map((line) => `<span>${escapeHTML(line)}</span>`).join("")}
+          ${insights.map((line) => `<span>${strategicHighlightHTML(line)}</span>`).join("")}
         </div>
       `;
       card.insertBefore(a, card.querySelector(".news-insights"));
@@ -16720,12 +16754,12 @@
     briefs.innerHTML = briefItems.map((brief) => `
       <article class="community-brief">
         <div class="community-brief-head">
-          <strong>${escapeHTML(brief.title || "현장 신호")}</strong>
+          <strong>${strategicHighlightHTML(brief.title || "현장 신호")}</strong>
           <span>${fmtNum(brief.count || 0)}건 · ${fmtNum(brief.sourceCount || 0)}개 채널</span>
         </div>
-        <p>${escapeHTML(brief.signal || "")}</p>
-        <div class="community-brief-decision"><strong>경영 판단</strong><span>${escapeHTML(brief.implication || "")}</span></div>
-        <small>확인 KPI · ${escapeHTML(brief.validation || "")}</small>
+        <p>${strategicHighlightHTML(brief.signal || "")}</p>
+        <div class="community-brief-decision"><strong>경영 판단</strong><span>${strategicHighlightHTML(brief.implication || "")}</span></div>
+        <small>확인 KPI · ${strategicHighlightHTML(brief.validation || "")}</small>
       </article>
     `).join("");
     const verificationItems = communityPlatform === "all" && communityType === "all" ? communityVerificationItems() : [];
@@ -16739,8 +16773,8 @@
         ${verificationItems.map((item) => `
           <a class="community-verification-card" href="${escapeHTML(item.url)}" target="_blank" rel="noopener">
             <div><span>${escapeHTML(item.kind)}</span><em>${escapeHTML(item.evidence)}</em></div>
-            <strong>${escapeHTML(item.title)}</strong>
-            <p>${escapeHTML(item.summary)}</p>
+            <strong>${strategicHighlightHTML(item.title)}</strong>
+            <p>${strategicHighlightHTML(item.summary)}</p>
             <small>${escapeHTML(item.source)}${item.date ? ` · ${escapeHTML(formatNewsDate(item.date) || item.date)}` : ""}</small>
           </a>
         `).join("")}
@@ -16771,10 +16805,10 @@
           ${item.historical ? '<span class="community-history">중요 과거</span>' : ""}
           <time>${escapeHTML(dateLabel)}</time>
         </div>
-        <a class="community-title" href="${escapeHTML(item.sourceUrl || item.link || "#")}" target="_blank" rel="noopener">${escapeHTML(title)}</a>
-        <p class="community-summary">${escapeHTML(summary)}</p>
-        <div class="community-insight"><strong>SKHY 시사점</strong><span>${escapeHTML(insight)}</span></div>
-        ${validation ? `<div class="community-validation"><strong>확인 KPI</strong><span>${escapeHTML(validation)}</span></div>` : ""}
+        <a class="community-title" href="${escapeHTML(item.sourceUrl || item.link || "#")}" target="_blank" rel="noopener">${strategicHighlightHTML(title)}</a>
+        <p class="community-summary">${strategicHighlightHTML(summary)}</p>
+        <div class="community-insight"><strong>SKHY 시사점</strong><span>${strategicHighlightHTML(insight)}</span></div>
+        ${validation ? `<div class="community-validation"><strong>확인 KPI</strong><span>${strategicHighlightHTML(validation)}</span></div>` : ""}
         <div class="community-tags">${tags.map((tag) => `<span>${escapeHTML(tag)}</span>`).join("")}</div>
       `;
       attachCrawlModerationControl(card, "community", item, title, renderChinaCommunity);

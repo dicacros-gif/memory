@@ -167,6 +167,30 @@ const MARKET_INDEXES = [
     source: "Yahoo Finance chart API",
     sourceUrl: "https://finance.yahoo.com/quote/MU/",
   },
+  {
+    id: "sandisk-stock",
+    symbol: "SNDK",
+    label: "SanDisk",
+    labelKo: "SanDisk 주가",
+    source: "Yahoo Finance chart API",
+    sourceUrl: "https://finance.yahoo.com/quote/SNDK/",
+  },
+  {
+    id: "wdc-stock",
+    symbol: "WDC",
+    label: "Western Digital",
+    labelKo: "Western Digital 주가",
+    source: "Yahoo Finance chart API",
+    sourceUrl: "https://finance.yahoo.com/quote/WDC/",
+  },
+  {
+    id: "kioxia-stock",
+    symbol: "285A.T",
+    label: "Kioxia Holdings",
+    labelKo: "Kioxia 주가",
+    source: "Yahoo Finance chart API",
+    sourceUrl: "https://finance.yahoo.com/quote/285A.T/",
+  },
 ];
 
 const PRICE_PAGES = [
