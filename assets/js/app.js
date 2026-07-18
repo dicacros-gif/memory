@@ -2050,6 +2050,39 @@
   let chinaTalentVideoLastPosition = "bottom-left";
   let chinaTalentVideoTimer = 0;
   let chinaTalentVideoInView = false;
+  const CHINA_TALENT_GALLERY_SLIDES = [
+    {
+      id: "wuxi-operations",
+      scenarioIds: ["operate"],
+      kicker: "01 · WUXI OPERATIONS",
+      title: "운영 인력은 현지화하고 핵심 공정 접근권은 분리",
+      body: "장비 PM·utility·EHS 인력은 상시 풀로 확보하되 recipe·수율 데이터는 역할별 최소 권한과 본사 승인 체계로 통제합니다.",
+      source: "BIS",
+      href: "https://www.bis.gov/press-release/department-commerce-closes-export-controls-loophole-foreign-owned-semiconductor-fabs-china",
+    },
+    {
+      id: "dalian-quality",
+      scenarioIds: ["nand-essd"],
+      kicker: "02 · DALIAN CUSTOMER QUALITY",
+      title: "eSSD 방어력은 고객 품질 응답 속도에서 결정",
+      body: "FA·reliability·customer quality를 한 운영 셀로 묶고, 핵심 펌웨어 소스와 보안키 접근은 지역·직무별로 분리합니다.",
+      source: "Intel 8-K",
+      href: "https://www.intc.com/filings-reports/all-sec-filings/content/0000050863-25-000060/0000050863-25-000060.pdf",
+    },
+    {
+      id: "chongqing-packaging",
+      scenarioIds: ["infra-packaging", "defense"],
+      kicker: "03 · CHONGQING BACK-END",
+      title: "후공정 확대는 인허가·통관·IP 통제가 선행",
+      body: "패키징·테스트 인력은 고객 인증과 납기 대응에 집중하고, 전공정 recipe·수율 데이터는 별도 보안 경계 안에 둡니다.",
+      source: "SK hynix Offices",
+      href: "https://www.skhynix.com/company/UI-FR-CP06/",
+    },
+  ];
+  let chinaTalentGalleryIndex = 0;
+  let chinaTalentGalleryTimer = 0;
+  let chinaTalentGalleryInView = false;
+  let chinaTalentGalleryPaused = false;
   let ceoChallengeId = "roi-credibility";
   let ceoChallengeAgentRan = false;
   let ceoChallengeTargetId = "scenario";
@@ -11790,6 +11823,100 @@
     scheduleChinaTalentVideoRotation();
   }
 
+  function scheduleChinaTalentGalleryRotation() {
+    if (chinaTalentGalleryTimer) window.clearTimeout(chinaTalentGalleryTimer);
+    chinaTalentGalleryTimer = 0;
+    if (!chinaTalentGalleryInView || chinaTalentGalleryPaused || document.hidden) return;
+    chinaTalentGalleryTimer = window.setTimeout(() => {
+      showChinaTalentGallerySlide(chinaTalentGalleryIndex + 1);
+    }, 6400);
+  }
+
+  function showChinaTalentGallerySlide(nextIndex, immediate = false) {
+    const panel = $("#talentStrategyGallery");
+    const copy = $("#talentStrategyGalleryCopy");
+    const kicker = $("#talentStrategyGalleryKicker");
+    const title = $("#talentStrategyGalleryTitle");
+    const body = $("#talentStrategyGalleryBody");
+    const link = $("#talentStrategyGalleryLink");
+    const count = $("#talentStrategyGalleryCount");
+    if (!panel || !copy || !kicker || !title || !body || !link) return;
+    const images = $$("[data-talent-gallery-slide]", panel);
+    const dots = $$("[data-talent-gallery-dot]", panel);
+    if (!images.length) return;
+    const total = CHINA_TALENT_GALLERY_SLIDES.length;
+    const normalized = ((Number(nextIndex) % total) + total) % total;
+    const item = CHINA_TALENT_GALLERY_SLIDES[normalized];
+    const transitions = ["zoom-pan", "wipe", "focus-shift"];
+    chinaTalentGalleryIndex = normalized;
+    panel.dataset.transition = transitions[(normalized + Math.floor(Date.now() / 1000)) % transitions.length];
+    images.forEach((image, index) => image.classList.toggle("is-active", index === normalized));
+    dots.forEach((dot, index) => {
+      dot.classList.toggle("is-active", index === normalized);
+      dot.setAttribute("aria-current", index === normalized ? "true" : "false");
+    });
+    copy.classList.remove("is-changing");
+    if (!immediate) void copy.offsetWidth;
+    kicker.textContent = item.kicker;
+    title.textContent = item.title;
+    body.textContent = item.body;
+    link.href = item.href;
+    link.textContent = `${item.source} 원문 ↗`;
+    if (count) count.textContent = `${String(normalized + 1).padStart(2, "0")} / ${String(total).padStart(2, "0")}`;
+    if (!immediate) copy.classList.add("is-changing");
+    scheduleChinaTalentGalleryRotation();
+  }
+
+  function renderChinaTalentStrategyGallery(scenario) {
+    const panel = $("#talentStrategyGallery");
+    const dots = $("#talentStrategyGalleryDots");
+    const prev = $("#talentStrategyGalleryPrev");
+    const next = $("#talentStrategyGalleryNext");
+    const pause = $("#talentStrategyGalleryPause");
+    if (!panel || !dots || !prev || !next || !pause) return;
+    panel.style.setProperty("--local-accent", categoryAccent(scenario.accentCategory));
+    if (!dots.childElementCount) {
+      dots.innerHTML = CHINA_TALENT_GALLERY_SLIDES.map((slide, index) => `
+        <button type="button" data-talent-gallery-dot="${index}" aria-label="${index + 1}번 이미지: ${escapeHTML(slide.title)}"></button>
+      `).join("");
+      $$("[data-talent-gallery-dot]", dots).forEach((dot) => {
+        dot.addEventListener("click", () => showChinaTalentGallerySlide(Number(dot.dataset.talentGalleryDot)));
+      });
+    }
+    const scenarioIndex = CHINA_TALENT_GALLERY_SLIDES.findIndex((slide) => slide.scenarioIds.includes(scenario.id));
+    const scenarioChanged = panel.dataset.scenario !== scenario.id;
+    panel.dataset.scenario = scenario.id;
+    if (scenarioChanged && scenarioIndex >= 0) chinaTalentGalleryIndex = scenarioIndex;
+    showChinaTalentGallerySlide(chinaTalentGalleryIndex, true);
+    if (panel.dataset.ready !== "1") {
+      panel.dataset.ready = "1";
+      prev.addEventListener("click", () => showChinaTalentGallerySlide(chinaTalentGalleryIndex - 1));
+      next.addEventListener("click", () => showChinaTalentGallerySlide(chinaTalentGalleryIndex + 1));
+      pause.addEventListener("click", () => {
+        chinaTalentGalleryPaused = !chinaTalentGalleryPaused;
+        pause.textContent = chinaTalentGalleryPaused ? "▶" : "Ⅱ";
+        pause.setAttribute("aria-label", chinaTalentGalleryPaused ? "자동 재생 시작" : "자동 재생 일시정지");
+        pause.title = chinaTalentGalleryPaused ? "자동 재생 시작" : "자동 재생 일시정지";
+        scheduleChinaTalentGalleryRotation();
+      });
+      document.addEventListener("visibilitychange", scheduleChinaTalentGalleryRotation);
+      if ("IntersectionObserver" in window) {
+        const observer = new IntersectionObserver((entries) => {
+          chinaTalentGalleryInView = entries.some((entry) => entry.isIntersecting);
+          scheduleChinaTalentGalleryRotation();
+        }, { rootMargin: "120px 0px", threshold: .16 });
+        observer.observe(panel);
+        window.addEventListener("pagehide", () => observer.disconnect(), { once: true });
+      } else {
+        chinaTalentGalleryInView = true;
+      }
+      window.addEventListener("pagehide", () => {
+        if (chinaTalentGalleryTimer) window.clearTimeout(chinaTalentGalleryTimer);
+      }, { once: true });
+    }
+    scheduleChinaTalentGalleryRotation();
+  }
+
   function chinaTalentSignalCount(scenario = activeChinaTalentScenario()) {
     const theme = chinaTalentTheme();
     const themeCount = Number(theme?.count ?? theme?.items?.length ?? 0) || 0;
@@ -12306,6 +12433,7 @@
     if (roiMeta) roiMeta.textContent = `ROI 지수 ${fmtNum(scenarioRoi.roi)} · 수익성 ${fmtNum(scenarioRoi.profitability)} · ${scenarioRoi.top?.investment?.label || "투자안 확인"}`;
     renderChinaTalentTabs(scenario);
     renderChinaTalentStrategyVideo(scenario, liveItems);
+    renderChinaTalentStrategyGallery(scenario);
     renderCeoChallengeAgent(scenario);
 
     summary.style.setProperty("--local-accent", accent);
