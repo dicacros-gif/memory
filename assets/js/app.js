@@ -1812,8 +1812,8 @@
       cadence: "Daily",
     },
     "c-level": {
-      label: "경영진",
-      desc: "전략 회의·의사결정 안건",
+      label: "경영진 의사결정",
+      desc: "C-level 안건·토론·결론",
       cadence: "C-level",
     },
     workbench: {
@@ -1842,12 +1842,12 @@
       cadence: "Decision lab",
     },
     market: {
-      label: "시장",
-      desc: "가격·기사·중국 현장 신호",
+      label: "시장·가격·기사",
+      desc: "가격 추이·외신·중국 현장 신호",
       cadence: "Market data",
     },
     competitors: {
-      label: "경쟁사",
+      label: "중국 경쟁사",
       desc: "CXMT·YMTC·JCET·Naura·AMEC",
       cadence: "China benchmark",
     },
@@ -1876,23 +1876,24 @@
     talent: { label: "인재 · IP", en: "Talent / IP", desc: "채용, 핵심 수율 인력 이동, IP 방어 신호" },
   };
   const SIDE_NAV_GROUPS = [
-    { label: "요약·의사결정", routes: ["home", "c-level", "workbench", "market-map", "analysis"] },
+    { label: "핵심 브리핑", routes: ["home"] },
+    { label: "의사결정·분석", routes: ["c-level", "workbench", "market-map", "analysis"] },
     { label: "제품·수요 전망", routes: ["projection", "hyperscaler-demand"] },
     { label: "시장·정책", routes: ["market", "policy"] },
-    { label: "중국·인재", routes: ["competitors", "talent"] },
+    { label: "중국 경쟁·인재", routes: ["competitors", "talent"] },
   ];
   const SIDE_NAV_ICONS = {
-    home: "H",
-    "c-level": "E",
-    workbench: "W",
-    "market-map": "F",
-    projection: "P",
-    "hyperscaler-demand": "D",
-    analysis: "A",
-    market: "M",
-    competitors: "C",
-    policy: "P",
-    talent: "T",
+    home: "01",
+    "c-level": "02",
+    workbench: "03",
+    "market-map": "04",
+    analysis: "05",
+    projection: "06",
+    "hyperscaler-demand": "07",
+    market: "08",
+    policy: "09",
+    competitors: "10",
+    talent: "11",
   };
   const TOPIC_FILTER_GROUPS = [
     { label: "전체", hint: "All", categories: ["all"] },
@@ -4521,9 +4522,6 @@
 
   function decorateSidebarItems() {
     $$(".sb-item").forEach((btn) => {
-      const id = btn.dataset.route || btn.dataset.jump || "";
-      const accent = routeAccent(id) || NAV_ACCENTS[btn.dataset.jump] || "rgba(255,255,255,.92)";
-      btn.style.setProperty("--nav-active", accent);
       const label = btn.querySelector(".sb-label strong")?.textContent?.trim();
       if (label) btn.title = label;
     });
@@ -4552,9 +4550,9 @@
           <div class="sb-nav-group-label">${escapeHTML(group.label)}</div>
           ${items.map((routeSource) => {
             const route = routeDisplay(routeSource);
-            const accent = routeAccent(routeSource.id);
+            const isActive = routeSource.jump === "overview";
             return `
-              <button class="sb-item${routeSource.jump === "overview" ? " active" : ""}" type="button" data-jump="${escapeHTML(routeSource.jump)}" data-route="${escapeHTML(routeSource.id)}" style="--nav-active:${escapeHTML(accent)}" title="${escapeHTML(route.desc)}">
+              <button class="sb-item${isActive ? " active" : ""}" type="button" data-jump="${escapeHTML(routeSource.jump)}" data-route="${escapeHTML(routeSource.id)}"${isActive ? ' aria-current="page"' : ""} title="${escapeHTML(route.desc)}">
                 <span class="sb-ico" aria-hidden="true">${escapeHTML(SIDE_NAV_ICONS[routeSource.id] || route.label.slice(0, 1))}</span>
                 <span class="sb-label">
                   <strong>${escapeHTML(route.label)}</strong>
@@ -13779,7 +13777,12 @@
     $$("[data-jump]").forEach((btn) => {
       btn.addEventListener("click", () => {
         if (btn.classList.contains("sb-item")) {
-          $$(".sb-item").forEach((item) => item.classList.toggle("active", item === btn));
+          $$(".sb-item").forEach((item) => {
+            const isActive = item === btn;
+            item.classList.toggle("active", isActive);
+            if (isActive) item.setAttribute("aria-current", "page");
+            else item.removeAttribute("aria-current");
+          });
         }
         jumpTo(btn.dataset.jump);
       });
@@ -13834,7 +13837,12 @@
         active = sections[sections.length - 1];
       }
       const navTarget = NAV_SECTION_TARGETS[active] || active;
-      $$(".sb-item").forEach((btn) => btn.classList.toggle("active", btn.dataset.jump === navTarget));
+      $$(".sb-item").forEach((btn) => {
+        const isActive = btn.dataset.jump === navTarget;
+        btn.classList.toggle("active", isActive);
+        if (isActive) btn.setAttribute("aria-current", "page");
+        else btn.removeAttribute("aria-current");
+      });
     };
     window.addEventListener("scroll", update, { passive: true });
     update();
