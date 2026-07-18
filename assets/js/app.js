@@ -200,8 +200,9 @@
       accentCategory: "china",
       verdict: "조건부 O",
       status: "Watch",
+      verifiedAt: "2026. 7. 18.",
       direction: "반도체 자립, 지방정부 펀드, 공급망 내재화, 외자 안정화가 동시에 움직입니다. SKHY 중국 법인은 현지 운영 연속성과 기술/IP 방어를 분리해 관리해야 합니다.",
-      law: "회사법상 당조직 활동 조건 제공 의무, 지방 IC 펀드, 환경 고품질 발전 기조",
+      law: "2023년 개정 회사법, 지방 IC 펀드, 2026년 환경 리스크 관리",
       skImpact: "Wuxi DRAM, Chongqing 후공정, Dalian/Solidigm 스토리지 거점은 중국 산업정책과 미국 수출통제 사이에서 기존 운영 중심으로 관리해야 합니다.",
       strategy: "중국 내 고객 대응은 유지하되, 선단 공정 업그레이드·핵심 recipe 이전·JV 구조는 공식 출처와 법무 검토가 충족될 때만 조건부 진행합니다.",
       partyNote: "공개 확인 필요: 공개 출처로 확인되는 것은 중국 회사법의 당조직 조항입니다. SKHY 중국 법인 내부 당서기 성명은 공개 출처로 확인되지 않아 추정하지 않습니다.",
@@ -212,14 +213,20 @@
       ],
       rules: [
         { axis: "산업정책", status: "O", title: "Shenzhen 2025년 50억 위안 IC 펀드", evidence: "Shenzhen은 2025년 5월 50억 위안 반도체·IC 펀드 등록을 발표했습니다. 같은 공식 발표는 2024년 10월 100억 위안급 시 펀드 계획과 38개 IC 관련 펀드·합산 1000억 위안+ 기존 운용 배경도 함께 설명합니다.", implication: "50억 위안 펀드는 신규 단독 빅펀드처럼 과대평가하지 않고, Shenzhen 기존 IC 펀드 생태계의 추가 실행 신호로 추적합니다.", source: "Shenzhen Government", sourceUrl: "https://www.sz.gov.cn/en_szgov/news/latest/content/post_12177837.html" },
-        { axis: "당조직", status: "Watch", title: "회사법상 당조직 활동 조건 제공", evidence: "중국 회사법은 회사 내 공산당 조직 설치와 활동 조건 제공을 규정합니다.", implication: "법정 일반 조항과 특정 법인의 내부 당서기 정보는 분리 표기해야 합니다.", source: "PRC Company Law", sourceUrl: "https://natlex.ilo.org/dyn/natlex2/natlex2/files/download/92643/CHN92643%20Eng.pdf" },
+        { axis: "당조직", status: "Watch", title: "2023년 개정 회사법상 활동 조건 제공", evidence: "2024년 7월 1일 시행된 2023년 개정 회사법도 회사 내 당조직 설치·활동과 회사의 필요 조건 제공 의무를 유지합니다.", implication: "모든 회사에 적용되는 일반 조항과 특정 법인의 내부 당서기·의사결정 구조는 분리해 판단합니다.", source: "NPC Company Law revision", sourceUrl: "https://www.npc.gov.cn/npc/c2/c30834/202312/t20231229_433993.html" },
         { axis: "SK 중국 법인", status: "확인필요", title: "법인 내부 당서기 공개 확인", evidence: "SKHY 공식/뉴스룸 공개자료에서 내부 당서기 성명은 확인되지 않았습니다.", implication: "공개 확인 전까지 실명/조직 직책을 추정하지 않고, 현지 정부 접점과 별도 관리합니다.", source: "SKHY Offices", sourceUrl: "https://www.skhynix.com/company/UI-FR-CP06/" },
-        { axis: "환경/인허가", status: "Watch", title: "고수준 보호와 고품질 발전 병행", evidence: "중국 환경정책은 신규 오염물질·POPs 관리와 산업 고도화를 동시에 압박합니다.", implication: "Wuxi/Dalian/Chongqing 인허가·폐수·화학물질 이슈를 생산 연속성 리스크로 별도 추적합니다.", source: "China MEE", sourceUrl: "https://english.mee.gov.cn/News_service/news_release/202405/P020240529333532299021.pdf" },
+        { axis: "환경/인허가", status: "Watch", title: "2026년 신규 오염물질 리스크 통제 강화", evidence: "중국 생태환경부는 2026년 신규 오염물질 관리 계획에서 법규·표준 정비, 환경위험 원천 통제, 기술개발과 중점 사업 추진을 제시했습니다.", implication: "Wuxi/Dalian/Chongqing의 화학물질·폐수·폐기물 인허가는 생산 연속성과 공정 업그레이드의 독립 게이트로 관리합니다.", source: "China MEE", sourceUrl: "https://www.mee.gov.cn/ywdt/hjywnews/202606/t20260612_1159184.shtml" },
       ],
       actions: [
         "중국 내 증설/업그레이드 요청은 '운영 유지', '캐파 확대', '기술 업그레이드'로 분리해 승인합니다.",
         "당조직/노조/지방정부 접점은 법무·컴플라이언스 로그로 남기고 내부 직책은 공개 확인 전 추정하지 않습니다.",
         "현지 환경 인허가와 미국 수출통제 이벤트를 같은 리스크 캘린더에 올립니다.",
+      ],
+      sources: [
+        { label: "Shenzhen IC fund", url: "https://www.sz.gov.cn/en_szgov/news/latest/content/post_12177837.html" },
+        { label: "NPC Company Law revision", url: "https://www.npc.gov.cn/npc/c2/c30834/202312/t20231229_433993.html" },
+        { label: "China MEE 2026 plan", url: "https://www.mee.gov.cn/ywdt/hjywnews/202606/t20260612_1159184.shtml" },
+        { label: "SKHY offices", url: "https://www.skhynix.com/company/UI-FR-CP06/" },
       ],
     },
     {
@@ -230,6 +237,7 @@
       accentCategory: "operations",
       verdict: "O",
       status: "OK",
+      verifiedAt: "2026. 7. 18.",
       direction: "한국 정부는 세액공제, 정책금융, R&D·인력, 용수·전력 인프라를 묶어 국내 첨단 반도체 생태계 경쟁력을 높이는 방향입니다.",
       law: "K-Chips 세액공제, 26조원 반도체 생태계 지원 패키지, 화학물질 규제 합리화",
       skImpact: "HBM·선단 DRAM·차세대 패키징·핵심 인력 방어는 한국 내 투자와 연결하고, 중국 법인 리스크는 본사 통제 로그로 끌어올려야 합니다.",
@@ -242,7 +250,7 @@
       ],
       rules: [
         { axis: "세제", status: "O", title: "K-Chips 투자세액공제 확대", evidence: "2023년 국가전략기술 시설공제는 대기업 8%→15%, 중소기업 16%→25%로 확대됐고, 2025년 2월 개정은 대기업·중견기업 15%→20%, 중소기업 25%→30%로 다시 높였습니다.", implication: "한국 내 HBM/선단 공정/환경설비 투자를 우선 검토하되, 적용 연도·기업 규모·투자 유형별 세법 검토를 별도로 둡니다.", source: "MOEF", sourceUrl: "https://english.moef.go.kr/pc/selectTbPressCenterDtl.do?boardCd=N0001&seq=6117" },
-        { axis: "산업 투자", status: "Watch", title: "2035년까지 800조원 민관 투자 계획", evidence: "2026년 6월 발표 계획은 삼성전자·SKHY 등 기업 투자와 정부 지원 방향을 합친 약 800조원 규모이며, 4개 메모리 팹과 충청권 약 81조원 HBM 패키징 클러스터 구상을 포함합니다. 800조원 전액을 정부 보조금으로 해석하지 않습니다.", implication: "SKHY는 국내 HBM·패키징 캐파와 중국 Fab 운영 투자를 분리하고, 실제 기업별 CAPEX·인허가·전력·용수 확정분만 재무 모델에 반영합니다.", source: "Tom's Hardware", sourceUrl: "https://www.tomshardware.com/tech-industry/semiconductors/south-korea-unveils-usd520-billion-investment-plan-with-samsung-and-sk-hynix-to-expand-memory-chip-dominance-plan-includes-four-new-fabs-and-hbm-facilities-amid-strong-government-support" },
+        { axis: "산업 투자", status: "Reported", title: "800조원 민관 투자 보도 · 공식 원문 확인 전", evidence: "2026년 6월 외신은 기업 투자와 정부 지원 방향을 합친 약 800조원 구상을 보도했습니다. 정부 보조금 확정액이나 기업별 승인 CAPEX로 볼 수 있는 공식 원문은 현재 연결되지 않았습니다.", implication: "4개 팹·HBM 패키징 구상은 Watch로 두고, 기업별 이사회 승인·인허가·전력·용수 계약이 확인된 금액만 재무 모델에 반영합니다.", source: "Tom's Hardware · reported", sourceUrl: "https://www.tomshardware.com/tech-industry/semiconductors/south-korea-unveils-usd520-billion-investment-plan-with-samsung-and-sk-hynix-to-expand-memory-chip-dominance-plan-includes-four-new-fabs-and-hbm-facilities-amid-strong-government-support" },
         { axis: "금융", status: "O", title: "26조원 생태계 지원 패키지", evidence: "26조원 패키지 중 18.1조원(+α)은 금융지원 프로그램이며, 그 안에 17조원 저리대출과 최대 8천억원 생태계 펀드가 포함됩니다. 2025~2027년 약 5조원 R&D·사업화·인력 투자는 별도 축입니다.", implication: "17조원 대출과 8천억원 펀드를 18.1조원에 중복 가산하지 않고, 금융·R&D·인프라 축을 분리해 투자 후보를 연결합니다.", source: "MOEF", sourceUrl: "https://english.moef.go.kr/pc/selectTbPressCenterDtl.do?boardCd=N0001&seq=5899" },
         { axis: "인프라", status: "O", title: "용수·전력·도로 패키지", evidence: "용인 클러스터 용수 이중관로와 3GW 전력 공급 등 인프라 지원 방향이 공표됐습니다.", implication: "국내 첨단 캐파 병목을 중국 리스크 완충장치로 봅니다.", source: "MOEF", sourceUrl: "https://english.moef.go.kr/pc/selectTbPressCenterDtl.do?boardCd=N0001&seq=5899" },
         { axis: "환경법", status: "Watch", title: "화학물질 규제 합리화", evidence: "환경부는 첨단산업 규제 개선과 2030년까지 8.8조원 이상 경제효과를 언급했습니다.", implication: "화학물질·폐수·온실가스 투자는 인허가 속도와 사회적 수용성을 동시에 관리합니다.", source: "Korea Ministry of Environment", sourceUrl: "https://www.me.go.kr/eng/web/board/read.do%3Bjsessionid%3DbQgYIwaC9B0IXC1md7cW0H3MX3-7KITTl5QdwSO8.mehome1?boardCategoryId=&boardId=1620870&boardMasterId=522&decorator=&maxIndexPages=10&maxPageItems=10&menuId=&orgCd=&pagerOffset=480&searchKey=&searchValue=" },
@@ -256,6 +264,7 @@
         { label: "MOEF support package", url: "https://english.moef.go.kr/pc/selectTbPressCenterDtl.do?boardCd=N0001&seq=5899" },
         { label: "MOEF K-Chips", url: "https://english.moef.go.kr/pc/selectTbPressCenterDtl.do?boardCd=N0001&seq=6117" },
         { label: "Korea Ministry of Environment", url: "https://www.me.go.kr/eng/web/board/read.do%3Bjsessionid%3DbQgYIwaC9B0IXC1md7cW0H3MX3-7KITTl5QdwSO8.mehome1?boardCategoryId=&boardId=1620870&boardMasterId=522&decorator=&maxIndexPages=10&maxPageItems=10&menuId=&orgCd=&pagerOffset=480&searchKey=&searchValue=" },
+        { label: "800T plan · reported", url: "https://www.tomshardware.com/tech-industry/semiconductors/south-korea-unveils-usd520-billion-investment-plan-with-samsung-and-sk-hynix-to-expand-memory-chip-dominance-plan-includes-four-new-fabs-and-hbm-facilities-amid-strong-government-support" },
       ],
     },
     {
@@ -264,10 +273,11 @@
       en: "United States",
       subtitle: "CHIPS Act · BIS export control · outbound investment · NEPA",
       accentCategory: "geopolitics",
-      verdict: "조건부 O / 업그레이드 X",
-      status: "Watch",
+      verdict: "운영 유지 조건부 O / 확대·업그레이드 X",
+      status: "규제 시행중",
+      verifiedAt: "2026. 7. 18.",
       direction: "미국은 CHIPS 보조금으로 자국 내 제조·R&D를 키우고, 중국 내 선단 반도체 역량 확대를 수출통제와 투자심사로 제한하는 방향입니다.",
-      law: "CHIPS and Science Act, BIS VEU 변경, Outbound Investment Program, NEPA",
+      law: "CHIPS Act, BIS VEU 변경, 31 CFR part 850, COINS Act, NEPA",
       skImpact: "SKHY 중국 공장은 기존 운영 유지와 기술 업그레이드·캐파 확대를 분리해 BIS 라이선스 리스크를 관리해야 합니다.",
       strategy: "중국 공장은 기존 fab 운영 연속성, 고객 서비스, 규제 증빙을 우선합니다. 미국/한국 투자와 HBM·AI 메모리 로드맵은 중국 내 업그레이드와 법적으로 분리합니다.",
       partyNote: "미국 탭의 핵심은 중국 내부 정치조직 자체가 아니라, 중국 법인·고객·장비 흐름이 미국 수출통제상 최종용도·최종사용자 리스크로 어떻게 보이는지입니다.",
@@ -279,7 +289,7 @@
       rules: [
         { axis: "CHIPS Act", status: "O", title: "미국 내 제조·R&D 인센티브", evidence: "CHIPS and Science Act 반도체 지원 총액은 $52.7B입니다. DOC 집행분 $50B는 제조 인센티브 $39B와 R&D $11B로 구성되며, 나머지 $2.7B는 국방부 $2B·국무부 $0.5B·NSF 인력·교육 $0.2B입니다.", implication: "미국 고객·패키징·R&D 협력은 중국 사업과 분리된 투자 트랙으로 관리하고, 법안 총액 $52.7B와 DOC 집행분 $50B를 혼용하지 않습니다.", source: "NIST", sourceUrl: "https://www.nist.gov/chips" },
         { axis: "BIS/VEU", status: "X", title: "중국 fab 캐파 확대·기술 업그레이드", evidence: "BIS는 VEU 특례 종료 후 기존 fab 운영 라이선스는 의도하되, 중국 내 캐파 확대나 기술 업그레이드 라이선스는 의도하지 않는다고 밝혔습니다.", implication: "Wuxi/Dalian/Chongqing 장비·소프트웨어 반입은 운영 유지와 업그레이드를 분리해 증빙해야 합니다.", source: "BIS", sourceUrl: "https://www.bis.gov/press-release/department-commerce-closes-export-controls-loophole-foreign-owned-semiconductor-fabs-china" },
-        { axis: "Outbound investment", status: "Watch", title: "중국 첨단기술 투자 신고/금지", evidence: "미 재무부 규칙은 반도체·마이크로일렉트로닉스, 양자, AI를 대상으로 하고 PRC/HK/Macau를 country of concern으로 지정합니다.", implication: "미국인·미국 계열사가 연결된 중국 JV/지분투자/기술협력은 사전 심사가 필요합니다.", source: "U.S. Treasury", sourceUrl: "https://home.treasury.gov/policy-issues/international/outbound-investment-program" },
+        { axis: "Outbound investment", status: "시행중", title: "31 CFR part 850 시행 · COINS 후속 규정 대기", evidence: "현행 Outbound Rules는 2025년 1월 2일부터 시행 중입니다. 2025년 12월 18일 COINS Act가 법률이 됐지만, 재무부 후속 규정이 나오기 전까지 기존 31 CFR part 850의 금지·신고 의무가 계속 적용됩니다.", implication: "미국인·미국 계열사가 관여하는 중국 JV·지분투자·기술협력은 현행 규칙으로 우선 심사하고, COINS 후속 규정이 나오면 범위를 재평가합니다.", source: "U.S. Treasury FAQ", sourceUrl: "https://home.treasury.gov/policy-issues/international/outbound-investment-program/frequently-asked-questions" },
         { axis: "환경/인허가", status: "Watch", title: "NEPA와 대형 투자 인허가", evidence: "CHIPS 프로그램은 NEPA 항목을 별도 운영하고, 대형 투자 환경검토는 일정 리스크가 될 수 있습니다.", implication: "미국 내 신규 시설·패키징·R&D 투자는 환경 검토 일정을 의사결정 모델에 넣습니다.", source: "CHIPS.gov / NIST", sourceUrl: "https://www.chips.gov/" },
       ],
       actions: [
@@ -291,6 +301,7 @@
         { label: "BIS VEU change", url: "https://www.bis.gov/press-release/department-commerce-closes-export-controls-loophole-foreign-owned-semiconductor-fabs-china" },
         { label: "CHIPS for America", url: "https://www.chips.gov/" },
         { label: "Treasury outbound investment", url: "https://home.treasury.gov/policy-issues/international/outbound-investment-program" },
+        { label: "Treasury COINS FAQ", url: "https://home.treasury.gov/policy-issues/international/outbound-investment-program/frequently-asked-questions" },
       ],
     },
   ];
@@ -11310,7 +11321,7 @@
     if (text.includes("확인")) return "check";
     if (text === "x" || text.includes("fail") || text.includes("금지")) return "fail";
     if (text.includes("watch") || text.includes("조건")) return "watch";
-    if (text === "o" || text.includes("ok")) return "ok";
+    if (text === "o" || text.includes("ok") || text === "시행중") return "ok";
     return "watch";
   }
 
@@ -11363,7 +11374,7 @@
     const accent = categoryAccent(lens.accentCategory);
     const payload = policyPayload(lens);
     if (meta) meta.textContent = `${lens.label} · ${fmtNum((lens.rules || []).length)}개 체크포인트`;
-    if (sourceMeta) sourceMeta.textContent = `${lens.law} · ${fmtDate(LIVE.updatedAt)}`;
+    if (sourceMeta) sourceMeta.textContent = `공식 원문 검증 · ${lens.verifiedAt || "2026. 7. 18."}`;
     renderPolicyTabs(lens);
 
     summary.style.setProperty("--local-accent", accent);
@@ -11412,7 +11423,7 @@
         <p>${escapeHTML(lens.strategy)}</p>
       </div>
       <div class="policy-focus-block">
-        <strong>SK 중국 법인·공장</strong>
+        <strong>${escapeHTML(lens.id === "china" ? "SK 중국 법인·공장" : lens.id === "korea" ? "SKHY 적용 거점" : "SKHY 규제 적용 범위")}</strong>
         <ul class="policy-site-list">
           ${(lens.sites || []).map((site) => `
             <li>
@@ -11424,7 +11435,7 @@
         </ul>
       </div>
       <div class="policy-focus-block">
-        <strong>당서기/정치조직 해석</strong>
+        <strong>${escapeHTML(lens.id === "china" ? "당서기·정치조직 해석" : "통제 해석 원칙")}</strong>
         <p>${escapeHTML(lens.partyNote)}</p>
       </div>
       <div class="policy-focus-block">
