@@ -11103,6 +11103,294 @@ body.sidebar-collapsed .sb-ico {
   --local-accent: var(--green);
 }
 
+.talent-latest-panel {
+  align-self: stretch;
+  background:
+    linear-gradient(145deg, color-mix(in srgb, var(--purple) 6%, transparent), transparent 34%),
+    var(--panel);
+}
+
+.talent-latest-head {
+  align-items: end;
+  margin-bottom: 8px;
+}
+
+.talent-latest-head > div {
+  min-width: 0;
+}
+
+.talent-latest-head .eyebrow {
+  margin: 0 0 3px;
+}
+
+.talent-latest-head h3 {
+  margin: 0;
+  font-size: 16px;
+  line-height: 1.3;
+}
+
+.talent-latest-note {
+  margin: 0 0 10px;
+  padding: 10px 11px;
+  border: 1px solid color-mix(in srgb, var(--purple) 20%, var(--line));
+  border-radius: 7px;
+  background: color-mix(in srgb, var(--purple) 5%, var(--panel));
+  color: var(--ink-2);
+  font-size: 11px;
+  font-weight: 700;
+  line-height: 1.55;
+}
+
+.talent-live-stats {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 7px;
+}
+
+.talent-live-stat {
+  display: grid;
+  min-width: 0;
+  gap: 2px;
+  padding: 9px;
+  border: 1px solid var(--line);
+  border-radius: 7px;
+  background: var(--panel-2);
+  transition: transform .2s ease, border-color .2s ease, background .2s ease, color .2s ease;
+}
+
+.talent-live-stat:hover {
+  z-index: 1;
+  transform: translateY(-3px);
+  border-color: var(--purple);
+  background: color-mix(in srgb, var(--purple) 82%, #101828);
+  color: #fff;
+}
+
+.talent-live-stat span,
+.talent-live-stat small {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.talent-live-stat span {
+  color: var(--ink-2);
+  font-size: 10px;
+  font-weight: 800;
+}
+
+.talent-live-stat strong {
+  font-family: var(--display);
+  font-size: 19px;
+  line-height: 1.1;
+}
+
+.talent-live-stat small {
+  color: var(--muted);
+  font-size: 9px;
+  font-weight: 700;
+}
+
+.talent-live-stat:hover span,
+.talent-live-stat:hover small {
+  color: rgba(255, 255, 255, .84);
+}
+
+.talent-feed-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  margin: 14px 0 7px;
+}
+
+.talent-feed-head strong {
+  font-size: 12px;
+}
+
+.talent-feed-head span {
+  color: var(--muted);
+  font-size: 10px;
+  font-weight: 750;
+}
+
+.talent-latest-feed,
+.talent-crosscheck-list {
+  display: grid;
+  gap: 7px;
+}
+
+.talent-latest-item {
+  display: grid;
+  min-width: 0;
+  gap: 7px;
+  padding: 10px;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  background: var(--panel);
+  overflow-wrap: anywhere;
+  transition: transform .22s ease, border-color .22s ease, background .22s ease, box-shadow .22s ease;
+}
+
+.talent-latest-item:hover,
+.talent-latest-item:focus-within {
+  z-index: 1;
+  transform: translateY(-3px);
+  border-color: color-mix(in srgb, var(--purple) 72%, white);
+  background: color-mix(in srgb, var(--purple) 82%, #101828);
+  box-shadow: 0 12px 26px rgba(76, 29, 149, .18);
+}
+
+.talent-latest-item-head,
+.talent-latest-validation {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+}
+
+.talent-latest-item-head time {
+  color: var(--muted);
+  font-size: 9px;
+  font-weight: 750;
+}
+
+.talent-latest-item h4 {
+  margin: 0;
+  color: var(--ink);
+  font-size: 12px;
+  line-height: 1.4;
+}
+
+.talent-latest-item > p {
+  display: -webkit-box;
+  margin: 0;
+  overflow: hidden;
+  color: var(--ink-2);
+  font-size: 10px;
+  font-weight: 650;
+  line-height: 1.5;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 3;
+}
+
+.talent-latest-insight {
+  padding-left: 8px;
+  border-left: 3px solid var(--purple);
+  color: var(--ink-2);
+  font-size: 10px;
+  font-weight: 700;
+  line-height: 1.5;
+}
+
+.talent-latest-insight span {
+  display: block;
+  margin-bottom: 2px;
+  color: var(--purple);
+  font-size: 9px;
+  font-weight: 900;
+  text-transform: uppercase;
+}
+
+.talent-latest-validation {
+  color: var(--muted);
+  font-size: 9px;
+  font-weight: 700;
+}
+
+.talent-latest-validation span {
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.talent-latest-validation a {
+  flex: 0 0 auto;
+  color: var(--purple);
+  font-weight: 900;
+  text-decoration: underline;
+  text-underline-offset: 2px;
+}
+
+.talent-latest-item:hover h4,
+.talent-latest-item:hover > p,
+.talent-latest-item:hover .talent-latest-insight,
+.talent-latest-item:hover .talent-latest-item-head time,
+.talent-latest-item:hover .talent-latest-validation,
+.talent-latest-item:hover .talent-latest-validation a,
+.talent-latest-item:focus-within h4,
+.talent-latest-item:focus-within > p,
+.talent-latest-item:focus-within .talent-latest-insight,
+.talent-latest-item:focus-within .talent-latest-item-head time,
+.talent-latest-item:focus-within .talent-latest-validation,
+.talent-latest-item:focus-within .talent-latest-validation a {
+  color: #fff;
+}
+
+.talent-latest-item:hover .talent-latest-insight,
+.talent-latest-item:focus-within .talent-latest-insight {
+  border-left-color: #fef08a;
+}
+
+.talent-latest-item:hover .talent-latest-insight span,
+.talent-latest-item:focus-within .talent-latest-insight span {
+  color: #fef08a;
+}
+
+.talent-crosscheck-head {
+  padding-top: 2px;
+  border-top: 1px solid var(--line);
+}
+
+.talent-crosscheck-item {
+  display: grid;
+  gap: 3px;
+  padding: 9px 10px;
+  border: 1px solid var(--line);
+  border-radius: 7px;
+  background: var(--panel-2);
+  color: inherit;
+  text-decoration: none;
+  transition: transform .2s ease, border-color .2s ease, background .2s ease;
+}
+
+.talent-crosscheck-item:hover,
+.talent-crosscheck-item:focus-visible {
+  transform: translateY(-3px);
+  border-color: var(--teal);
+  background: color-mix(in srgb, var(--teal) 84%, #082f49);
+  color: #fff;
+  outline: none;
+}
+
+.talent-crosscheck-item span,
+.talent-crosscheck-item small {
+  color: var(--muted);
+  font-size: 9px;
+  font-weight: 700;
+}
+
+.talent-crosscheck-item strong {
+  font-size: 11px;
+  line-height: 1.4;
+}
+
+.talent-crosscheck-item small {
+  display: -webkit-box;
+  overflow: hidden;
+  line-height: 1.45;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
+}
+
+.talent-crosscheck-item:hover span,
+.talent-crosscheck-item:hover small,
+.talent-crosscheck-item:focus-visible span,
+.talent-crosscheck-item:focus-visible small {
+  color: rgba(255, 255, 255, .84);
+}
+
 .china-deep-board {
   border-color: color-mix(in srgb, var(--teal) 24%, var(--line));
   background:

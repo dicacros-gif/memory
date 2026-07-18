@@ -13236,14 +13236,24 @@
     return !cats.length || cats.includes(activeCategory);
   }
 
+  function talentSignalDate(item = {}) {
+    const raw = String(item.observedAt || item.date || "").trim();
+    if (/^\d{4}-\d{2}-\d{2}$/.test(raw)) {
+      const [year, month, day] = raw.split("-").map(Number);
+      return `${year}. ${month}. ${day}. 공개 확인`;
+    }
+    return String(item.period || "공개 페이지 확인");
+  }
+
   function renderTalentRadar() {
     const data = talentRadarData();
     const summary = $("#talentSummary");
     const companies = $("#talentCompanyGrid");
     const keywords = $("#talentKeywordGrid");
     const rules = $("#talentRuleGrid");
+    const latestPanel = $("#talentLatestPanel");
     const meta = $("#talentRadarMeta");
-    if (!summary || !companies || !keywords || !rules) return;
+    if (!summary || !companies || !keywords || !rules || !latestPanel) return;
 
     const companyItems = (data.companySignals || []).filter(talentRelated);
     const keywordItems = data.keywordTaxonomy || [];
@@ -13309,6 +13319,86 @@
         <p>${escapeHTML(item.rule || "")}</p>
       </article>
     `).join("");
+
+    const community = LIVE.communitySignals || {};
+    const latestItems = (community.items || [])
+      .filter((item) => item.type === "workplace" && item.sourceUrl && !item.historical && !isCrawlExcluded("community", item))
+      .sort((a, b) => Number(b.ts || 0) - Number(a.ts || 0) || Number(b.score || 0) - Number(a.score || 0))
+      .slice(0, 5);
+    const priorityBriefIds = new Set(["yield-talent", "equipment-localization", "product-validation"]);
+    const briefItems = (community.briefs || [])
+      .filter((item) => priorityBriefIds.has(item.id))
+      .slice(0, 3);
+    const externalCheckKeys = new Set();
+    const externalChecks = (LIVE.benchmarkSignals?.stream || [])
+      .filter((item) => (item.themeId || item.theme) === "china_talent_strategy" && (item.sourceUrl || item.link))
+      .sort((a, b) => String(b.date || "").localeCompare(String(a.date || "")))
+      .filter((item) => {
+        const key = String(item.originalTitle || item.title || item.titleKo || item.sourceUrl || item.link)
+          .toLowerCase()
+          .replace(/\s+-\s+(digitimes|south china morning post|scmp)$/i, "")
+          .replace(/[^a-z0-9가-힣]+/g, " ")
+          .trim();
+        if (!key || externalCheckKeys.has(key)) return false;
+        externalCheckKeys.add(key);
+        return true;
+      })
+      .slice(0, 3);
+    const updatedAt = community.updatedAt || LIVE.updatedAt;
+
+    latestPanel.innerHTML = `
+      <div class="intel-panel-head talent-latest-head">
+        <div>
+          <p class="eyebrow">Live talent brief</p>
+          <h3 id="talentLatestTitle">최신 인재·채용 동향</h3>
+        </div>
+        <span>${escapeHTML(fmtDate(updatedAt))}</span>
+      </div>
+      <p class="talent-latest-note">공개 채용·면접 신호는 조직 수요의 선행지표입니다. 실제 채용 인원·수율·양산 성과는 원문 공시와 외신으로 별도 검증합니다.</p>
+      <div class="talent-live-stats">
+        ${briefItems.map((item) => `
+          <article class="talent-live-stat">
+            <span>${escapeHTML(item.title || "채용 신호")}</span>
+            <strong>${fmtNum(item.recent30d || 0)}건</strong>
+            <small>최근 30일 · ${fmtNum(item.sourceCount || 0)}개 채널</small>
+          </article>
+        `).join("")}
+      </div>
+      <div class="talent-feed-head">
+        <strong>최신 공개 신호</strong>
+        <span>${fmtNum(latestItems.length)}건 · 날짜순</span>
+      </div>
+      <div class="talent-latest-feed">
+        ${latestItems.map((item, index) => `
+          <article class="talent-latest-item reveal" style="animation-delay:${index * 30}ms">
+            <div class="talent-latest-item-head">
+              <span class="chip accent">${escapeHTML(item.platform || item.evidenceLevel || "공개 채널")}</span>
+              <time datetime="${escapeHTML(item.observedAt || item.date || "")}">${escapeHTML(talentSignalDate(item))}</time>
+            </div>
+            <h4>${escapeHTML(item.titleKo || item.title || "채용 신호")}</h4>
+            <p>${escapeHTML(item.summary || "")}</p>
+            <div class="talent-latest-insight"><span>SKHY 판단</span>${escapeHTML(item.insight || "직무 재게시와 공식 공시를 함께 확인합니다.")}</div>
+            <div class="talent-latest-validation">
+              <span>검증 조건 · ${escapeHTML(item.validation || "공식 공시 · 실제 채용 · 제품 인증")}</span>
+              <a href="${escapeHTML(item.sourceUrl)}" target="_blank" rel="noopener noreferrer">원문</a>
+            </div>
+          </article>
+        `).join("") || `<div class="empty">검증 가능한 최신 공개 채용 신호가 없습니다.</div>`}
+      </div>
+      <div class="talent-feed-head talent-crosscheck-head">
+        <strong>외신 교차검증</strong>
+        <span>조직 역량 · Reported</span>
+      </div>
+      <div class="talent-crosscheck-list">
+        ${externalChecks.map((item) => `
+          <a class="talent-crosscheck-item" href="${escapeHTML(item.sourceUrl || item.link)}" target="_blank" rel="noopener noreferrer">
+            <span>${escapeHTML(item.source || "외신")} · ${escapeHTML(item.date || "")}</span>
+            <strong>${escapeHTML(item.titleKo || item.title || "인재 전략 교차검증")}</strong>
+            <small>${escapeHTML(item.insight || item.summary || "")}</small>
+          </a>
+        `).join("") || `<div class="empty">외신 교차검증 신호를 수집 중입니다.</div>`}
+      </div>
+    `;
   }
 
   function renderChinaDeepDive() {

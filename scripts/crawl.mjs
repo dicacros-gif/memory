@@ -206,7 +206,7 @@ const CATEGORIES = [
   { id: "benchmark", label: "China Benchmark", queries: ["China memory benchmark CXMT YMTC", "Chinese semiconductor equipment localization memory"] },
   { id: "china", label: "China·Geopolitics", queries: ["CXMT YMTC China memory", "China DRAM NAND export control", "CXMT revenue 2025 DRAM capacity", "YMTC Wuhan Phase 3 domestic equipment Naura AMEC", "YMTC existing Wuhan fabs 160000 200000 wpm source discrepancy", "YMTC sells XMC stake state-backed buyer Caixin Global June 2026", "XMC STAR Market review withdrawn May 2026", "BIS China memory export control VEU", "Reuters H200 China shipments CXMT Entity List held off July 2026", "US VEU revocation SK hynix Samsung Intel China fabs annual license 2026", "MATCH Act DUV restriction cryogenic etch blanket ban removed Reuters", "HR 8170 MATCH Act House Foreign Affairs Committee latest official action", "S.4281 MATCH Act Senate Banking Housing Urban Affairs latest official action", "CXMT IPO final offering 57.9 billion yuan July 2026", "CXMT IPO 15 percent overallotment 66.6 billion yuan", "Apple seeks approval buy CXMT memory China devices Reuters", "CXMT HBM3 mass production order materials components unlikely 2026", "CXMT DDR5 yield cost per bit die size Samsung 40 percent December 2024", "CXMT yield engineer HBM TSV recruitment", "YMTC Xtacking eSSD engineer recruitment", "Huawei Ascend memory supply YMTC CXMT", "Tencent Alibaba ByteDance CXMT DRAM supply", "Tsinghua career CXMT YMTC semiconductor recruitment", "Nvidia H20 export controls China HBM memory demand The Diplomat"] },
   { id: "china_infra", label: "China Fab Infra", queries: ["SK hynix Wuxi fab water power land expansion", "SK hynix Wuxi K7 environmental impact assessment cleanroom expansion", "Wuxi high-tech bonded zone SK hynix land water electricity", "SK hynix Wuxi C2F additional cleanroom equipment installation", "BIS VEU SK hynix Wuxi fab capacity upgrade"] },
-  { id: "china_talent_strategy", label: "China Talent Strategy", queries: ["SK hynix China hiring Wuxi Dalian Chongqing semiconductor", "China memory talent retention IP compliance semiconductor", "CXMT YMTC hiring yield TSV HBM engineer", "China enterprise SSD firmware FAE hiring memory", "Wuxi semiconductor EHS facility utilities hiring fab"] },
+  { id: "china_talent_strategy", label: "China Talent Strategy", queries: ["SK hynix China hiring Wuxi Dalian Chongqing semiconductor", "China memory talent retention IP compliance semiconductor", "CXMT YMTC hiring yield TSV HBM engineer", "China enterprise SSD firmware FAE hiring memory", "Wuxi semiconductor EHS facility utilities hiring fab", "CXMT IPO filing Micron Samsung alumni international talent base DIGITIMES"] },
 ];
 
 const CHINESE_CATEGORIES = [
@@ -1141,7 +1141,7 @@ const BENCHMARK_SIGNAL_THEMES = [
   { id: "skhynix_product_projection", label: "SKHY Product Projection", queries: ["SK hynix HBM4 DDR5 CXL server roadmap", "SK hynix Solidigm enterprise SSD AI server demand", "SK hynix LPDDR UFS client SSD product mix", "memory AI server product mix projection DRAM NAND HBM", "automotive edge AI memory SK hynix"] },
   { id: "equipment", label: "Equipment Localization", queries: ["China semiconductor equipment localization NAURA Technology Group AMEC", "Chinese chip equipment localization memory", "China semiconductor equipment localization rate paid research source verification", "Yole 2026 39 percent 2030 localization 2025 52 percent China semiconductor equipment", "MATCH Act DUV lithography cryogenic etching China removed blanket ban", "YMTC homegrown NAND production line NAURA AMEC ACM", "Naura Qomola HPD30 hybrid bonding SEMICON China 2026", "ACM Research IR first quarter 2026 results revenue 231.263 shipments 240.7", "ACM Research Entity List 2025 China revenue concentration"] },
   { id: "china_infra", label: "China Fab Infrastructure", queries: ["SK hynix Wuxi K7 plot water power fab expansion", "SK hynix Wuxi environmental impact assessment wastewater reuse", "Wuxi bonded zone SK hynix comprehensive bonded zone expansion", "BIS VEU SK hynix China fab capacity upgrade", "Wuxi semiconductor fab water electricity land use"] },
-  { id: "china_talent_strategy", label: "China Talent Strategy", queries: ["SK hynix China workforce strategy Wuxi Dalian Chongqing", "China memory hiring strategy IP retention compliance", "CXMT YMTC Boss Zhipin yield engineer hiring", "China semiconductor campus recruiting Tsinghua memory engineer", "China fab EHS facility water power engineer hiring", "CXMT Zhu Yiming engineer DIGITIMES SCMP"] },
+  { id: "china_talent_strategy", label: "China Talent Strategy", queries: ["SK hynix China workforce strategy Wuxi Dalian Chongqing", "China memory hiring strategy IP retention compliance", "CXMT YMTC Boss Zhipin yield engineer hiring", "China semiconductor campus recruiting Tsinghua memory engineer", "China fab EHS facility water power engineer hiring", "CXMT Zhu Yiming engineer DIGITIMES SCMP", "CXMT IPO filing Micron Samsung alumni international talent base DIGITIMES"] },
   { id: "packaging", label: "Advanced Packaging", queries: ["JCET advanced packaging AI memory", "JCET XDFOI HBM AI packaging", "XMC HBM packaging China", "TFME advanced packaging memory China", "Huawei Ascend HBM packaging supply chain", "HBM TC bonder patent equipment"] },
   { id: "cxl", label: "CXL and PIM Value Chain", queries: ["CXL memory tester Exicon Neosem", "CXL controller IP memory pooling PIM", "CXL 3.1 module substrate TLB", "Openedges CXL controller IP", "FADU CXL memory controller"] },
   { id: "talent", label: "Talent and IP Signals", queries: ["China semiconductor talent hiring memory", "CXMT engineer hiring DRAM", "CXMT TSV yield engineer recruitment", "YMTC Xtacking eSSD engineer recruitment", "ijiwei CXMT YMTC recruitment engineer", "Tsinghua career CXMT YMTC semiconductor recruitment", "Boss Zhipin CXMT YMTC yield engineer", "Liepin CXMT YMTC semiconductor engineer", "Maimai CXMT YMTC memory engineer", "CNIPA CXMT YMTC HBM TSV patent", "China memory IP litigation Korean engineer CXMT YMTC"] },
@@ -1241,6 +1241,19 @@ const BENCHMARK_SIGNAL_SEEDS = [
     summary: "DigiTimes는 CXMT의 제조 역량 형성 과정과 핵심 엔지니어의 역할을 분석합니다. 인물 서사는 기술 조직을 이해하는 보조 근거이며 수율·캐파 확정값으로 사용하지 않습니다.",
     insight: "SKHY는 경쟁사 인재 위험을 개인 스카우트 건수보다 공정 통합·수율·제품화 리더십이 한 조직에 결집되는지로 평가해야 합니다.",
     validation: "핵심 인력 재직 · 공정 책임 범위 · 제품 전환 · 특허 · 고객 인증",
+  },
+  {
+    themeId: "china_talent_strategy",
+    title: "CXMT IPO filing reveals Micron and Samsung alumni at heart of China's DRAM push - DIGITIMES",
+    titleKo: "CXMT IPO 공시에서 Micron·Samsung 출신 인재 기반이 확인됐다는 분석",
+    source: "DigiTimes",
+    sourceType: "외신",
+    evidenceLevel: "Reported",
+    date: "2026-07-16",
+    link: "https://www.digitimes.com/news/a20260716VL215/cxmt-ipo-micron-samsung-dram.html?mod=3&q=cxmt",
+    summary: "DigiTimes는 CXMT IPO 공시가 글로벌 DRAM 경쟁을 위해 구축한 국제 인재 기반을 드러낸다고 보도합니다. 공개 기사와 공시 맥락만 사용하며 개인별 경력·인원은 원문 확인 전 확정하지 않습니다.",
+    insight: "SKHY는 스카우트 건수보다 경쟁사의 공정 통합·수율·제품화 책임자가 어떤 기능 조합으로 배치되는지를 핵심 인재 방어 기준으로 봐야 합니다.",
+    validation: "IPO 공시 · 핵심 인력 이력 · 조직 책임 범위 · 특허 · 제품 인증",
   },
 ];
 
