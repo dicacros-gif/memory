@@ -6137,6 +6137,7 @@
     conclusionDelayMs: 760,
   });
   const AGENT_TTS_STORAGE_KEY = "memory-agent-tts-v2";
+  const AGENT_TTS_RATE_BOOST = 0.06;
   const AGENT_KOREAN_TTS_ROLE_RE = /(?:규제\s*[·/&]\s*fab\s*[·/&]\s*정책자금)|(?:팩트\s*검증\s*[·/&]\s*중복\s*제거)/i;
   const AGENT_TTS_PROFILES = [
     { id: "ceo", match: /ceo|chief executive|최종 의사결정|우선순위/i, gender: "male", tone: "decisive", voiceSlot: 0, pitch: 0.9, rate: 1.02, volume: 1 },
@@ -6413,7 +6414,7 @@
       utterance.lang = profile.voice?.lang || (profile.language === "ko" ? "ko-KR" : "en-US");
       utterance.voice = profile.voice || null;
       utterance.pitch = Math.max(0.72, Math.min(1.28, profile.pitch + (/\?$/.test(text) ? 0.04 : 0)));
-      utterance.rate = Math.max(0.96, Math.min(1.12, profile.rate + (text.length > 180 ? 0.02 : 0)));
+      utterance.rate = Math.max(1.02, Math.min(1.18, profile.rate + AGENT_TTS_RATE_BOOST + (text.length > 180 ? 0.02 : 0)));
       utterance.volume = profile.volume;
       let settled = false;
       let started = false;
