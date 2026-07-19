@@ -215,6 +215,7 @@ const CATEGORIES = [
   { id: "nand", label: "NAND·SSD", queries: ["NAND flash enterprise SSD price", "SSD memory demand", "YMTC Xtacking 4.0 12.66 Gb/mm2 TechInsights 512Gb", "YMTC 1Tb 294 layer 20.5 Gb/mm2 estimate", "YMTC enterprise SSD customer China", "NAND contract price China eSSD", "YMTC NAND market share 2026 HSBC Qianhai 13 percent", "NAND contract price Q2 2026 70 75 TrendForce", "YMTC homegrown NAND production line US sanctions"] },
   { id: "china_nand", label: "China NAND Business", queries: ["YMTC eSSD Xtacking customer", "YMTC Wuhan Phase 3 NAND domestic equipment", "XMC Wuhan Xinxin NAND packaging", "JCET TFME advanced packaging NAND controller", "JCET XDFOI HBM AI packaging", "TFME advanced packaging China memory", "Naura AMEC ACM Research YMTC NAND equipment", "AMEC etch YMTC NAND", "ACM Research cleaning YMTC NAND", "YMTC controller firmware enterprise SSD", "China NAND subsidy server SSD procurement", "Chinese memory chips 15 percent cheaper YMTC CXMT", "China memory capacity expansion 2027 YMTC CXMT"] },
   { id: "skhynix_projection", label: "SKHY Product Projection", queries: ["SK hynix HBM4 server DRAM product mix", "SK hynix enterprise SSD Solidigm AI server storage", "SK hynix LPDDR UFS mobile memory demand", "SK hynix CXL memory module server roadmap", "SK hynix automotive memory edge AI", "SK hynix Nasdaq ADR SKHY 26.5 billion July 2026 SEC Reuters", "memory product mix AI server terminal NAND DRAM"] },
+  { id: "capital", label: "Capital Markets·Investment", queries: ["site:sec.gov/Archives/edgar/data/2120882 SK hynix ADS Nasdaq prospectus", "site:english.sse.com.cn CXMT final offering 57.9 billion yuan", "CXMT STAR Market registration plan 29.5 billion yuan final offering 57.9 billion yuan", "Micron strategic customer agreements 16 customers official", "memory semiconductor capital expenditure long term agreement"] },
   { id: "cxl", label: "CXL·Next Memory", queries: ["CXL memory pooling", "CXL switch memory expansion", "CXL memory tester module", "CXL 3.1 memory module CMM-D", "Pangea v3 CXL 3.2", "4F2 vertical gate 3D DRAM SK hynix"] },
   { id: "packaging", label: "Packaging·Photonics", queries: ["advanced packaging HBM hybrid bonding", "TSMC CoWoS HBM 3DFabric official", "CoWoS interposer HBM allocation advanced packaging", "High Bandwidth Flash HBF Sandisk SK hynix Open Compute Project", "HBF flash AI inference high bandwidth memory", "silicon photonics interconnect memory", "HBM TC bonder equipment supply chain", "JCET XDFOI advanced packaging HBM", "XMC Wuhan HBM packaging", "YMTC sells 39 percent XMC stake Caixin Global 68.2 29.2", "TFME advanced packaging memory", "Huawei Ascend HBM packaging China"] },
   { id: "aidemand", label: "AI Demand", queries: ["AI memory demand data center", "AI accelerator memory bandwidth", "TrendForce global memory market 2027 1.28 trillion 2026 889.3 billion Agentic AI", "TrendForce DRAM 618.7 NAND 270.6 2026 memory market"] },
@@ -291,6 +292,20 @@ const ENGLISH_AUTHORITY_MONITORS = [
       "site:theregister.com Chinese memory ban CXMT YMTC supply",
       "site:newsletter.semianalysis.com CXMT DRAM capacity HBM",
       "site:technode.com YMTC NAND market share",
+    ],
+  },
+  {
+    id: "capital",
+    label: "자본시장·공식 공시 원문",
+    queries: [
+      "site:sec.gov/Archives/edgar/data/2120882 424B4 SK hynix ADS",
+      "site:sec.gov/Archives/edgar/data/2120882 F-6 SK hynix",
+      "site:english.sse.com.cn CXMT offering 57.9 billion yuan 8.66",
+      "site:english.sse.com.cn CXMT investment plan 29.5 billion yuan",
+      "site:investors.micron.com strategic customer agreements Micron",
+      "site:bis.gov foreign-owned semiconductor fabs China VEU",
+      "site:wsts.org 2026 global semiconductor market forecast",
+      "site:trendforce.com/presscenter 2026 memory market 889.3",
     ],
   },
   {
@@ -559,6 +574,90 @@ const PRESERVED_NEWS_SEEDS = [
     link: "https://english.sse.com.cn/news/newsrelease/voice/c/c_20260716_10825660.shtml",
     summaryOriginal: "The Shanghai Stock Exchange reported base proceeds of CNY 57.9 billion before a 15 percent greenshoe, compared with the earlier CNY 29.5 billion investment-project plan.",
     summary: "초과배정 전 기본 공모액은 579억 위안. 기존 295억 위안은 투자 프로젝트 계획액이므로 최종 발행가·주식수 기준 공모액과 분리해 자금 집행을 추적함.",
+  },
+  {
+    id: "sse-cxmt-registration-plan",
+    category: "capital",
+    language: "english",
+    title: "CXMT receives STAR Market registration approval with CNY 29.5 billion investment plan",
+    titleKo: "CXMT, 295억 위안 투자 프로젝트 계획으로 상장 등록 승인",
+    source: "Shanghai Stock Exchange",
+    sourceType: "거래소 공시",
+    evidenceLevel: "Reported",
+    date: "2026-06-15",
+    link: "https://english.sse.com.cn/news/newsrelease/voice/c/c_20260615_10821916.shtml",
+    summaryOriginal: "The Shanghai Stock Exchange reported registration approval and a prospectus plan to raise CNY 29.5 billion for investment projects before final pricing.",
+    summary: "상장 등록 단계 증권신고서의 295억 위안은 투자 프로젝트 계획액임. 7월 최종 발행가와 주식수로 확정된 기본 공모액 579억 위안보다 앞선 단계이므로 현재 조달액으로 표시하지 않음.",
+  },
+  {
+    id: "sec-skhynix-nasdaq-ads",
+    category: "capital",
+    language: "english",
+    title: "SK hynix prices Nasdaq ADS offering at USD 149 per ADS",
+    titleKo: "SKHY, Nasdaq ADS 공모가를 주당 149달러로 확정",
+    source: "U.S. SEC",
+    sourceType: "정부 공시",
+    evidenceLevel: "Reported",
+    date: "2026-07-10",
+    link: "https://www.sec.gov/Archives/edgar/data/2120882/000119312526299963/d32785d424b4.htm",
+    summaryOriginal: "SK hynix's final prospectus states that 177.9 million ADSs were offered at USD 149 each and approved for Nasdaq listing under the symbol SKHY.",
+    summary: "SEC 최종 투자설명서 기준 1억 7,790만 ADS를 주당 149달러에 공모했고 Nasdaq 종목코드는 SKHY임. 공모 규모는 두 수치의 곱인 약 265억 달러이며 시장가치나 후속 주가 성과와 분리해 관리함.",
+  },
+  {
+    id: "bis-china-fab-veu-revocation",
+    category: "policy",
+    language: "english",
+    title: "BIS revokes VEU authorizations for foreign-owned semiconductor fabs in China",
+    titleKo: "BIS, 중국 내 외국계 반도체 Fab의 VEU 특례 종료",
+    source: "U.S. Bureau of Industry and Security",
+    sourceType: "정부 공시",
+    evidenceLevel: "Reported",
+    date: "2025-08-29",
+    link: "https://www.bis.gov/press-release/department-commerce-closes-export-controls-loophole-foreign-owned-semiconductor-fabs-china",
+    summaryOriginal: "BIS ended VEU license-free treatment for foreign-owned semiconductor fabs in China, while stating an intent to license existing operations but not capacity expansion or technology upgrades.",
+    summary: "BIS는 중국 내 외국계 반도체 Fab의 VEU 무허가 특례를 종료함. 기존 Fab 운영을 위한 허가는 의도하지만 캐파 확대나 기술 업그레이드 허가는 의도하지 않는다고 밝혀 운영 유지와 증설을 분리해야 함.",
+  },
+  {
+    id: "micron-sixteen-sca",
+    category: "dram",
+    language: "english",
+    title: "Micron expands strategic customer agreements to sixteen customers",
+    titleKo: "Micron, 전략 고객 계약을 16개로 확대",
+    source: "Micron",
+    sourceType: "기업 공식",
+    evidenceLevel: "Reported",
+    date: "2026-07-01",
+    link: "https://investors.micron.com/news-releases/news-release-details/micron-and-general-motors-sign-strategic-agreement-secure-supply",
+    summaryOriginal: "Micron said its agreement with General Motors was one of sixteen Strategic Customer Agreements discussed on its fiscal third-quarter 2026 earnings call.",
+    summary: "Micron 공식 발표는 GM 계약이 FY2026 3분기 실적발표에서 언급한 16개 Strategic Customer Agreement 중 하나라고 확인함. 제품별 물량 비중과 총 계약액은 별도 공시가 없는 한 추정하지 않음.",
+  },
+  {
+    id: "wsts-spring-2026-forecast",
+    category: "demand",
+    language: "english",
+    title: "WSTS raises 2026 semiconductor market forecast above USD 1.5 trillion",
+    titleKo: "WSTS, 2026년 반도체 시장 전망을 1.5조 달러 이상으로 상향",
+    source: "WSTS",
+    sourceType: "산업 통계",
+    evidenceLevel: "Reported",
+    date: "2026-06-02",
+    link: "https://www.wsts.org/76/103/Global-Semiconductor-Market-Surges-Beyond-15T-2026",
+    summaryOriginal: "WSTS Spring 2026 forecasts the global semiconductor market above USD 1.5 trillion in 2026, with memory above USD 800 billion and growth around 250 percent year over year.",
+    summary: "WSTS Spring 2026은 2026년 세계 반도체 시장을 1.5조 달러 이상, 메모리를 8,000억 달러 이상으로 전망함. 이전 전망과 최신 전망은 같은 기관의 개정 시계열로 관리하며 실적과 혼용하지 않음.",
+  },
+  {
+    id: "trendforce-memory-market-revision-2026",
+    category: "demand",
+    language: "english",
+    title: "TrendForce raises 2026 memory market forecast to USD 889.3 billion",
+    titleKo: "TrendForce, 2026년 메모리 시장 전망을 8,893억 달러로 상향",
+    source: "TrendForce",
+    sourceType: "산업 분석",
+    evidenceLevel: "Reported",
+    date: "2026-05-29",
+    link: "https://www.trendforce.com/presscenter/news/20260529-13068.html",
+    summaryOriginal: "TrendForce raised its 2026 memory market forecast from USD 551.6 billion to USD 889.3 billion and its 2027 forecast from USD 842.7 billion to more than USD 1.28 trillion.",
+    summary: "TrendForce는 2026년 메모리 시장 전망을 5,516억 달러에서 8,893억 달러로, 2027년 전망을 8,427억 달러에서 1.28조 달러 이상으로 상향함. WSTS 전체 반도체 전망과 범위를 구분함.",
   },
   {
     id: "scmp-cxmt-ipo-oversubscription",
@@ -1628,6 +1727,15 @@ const AUTHORITATIVE_CN_NEWS_RE =
   /(财新|caixin|第一财经|yicai|21财经|21世纪经济报道|21jingji|证券时报|stcn|中国经营报|cb\.com\.cn|东方财富|eastmoney|新浪财经|sina finance|澎湃新闻|the paper|虎嗅|huxiu|电子工程专辑|eet-china|集微网|爱集微|ijiwei|laoyaoba|半导体新闻网|seminews|经济观察网|eeo\.com\.cn|techweb|chinaflashmarket|闪存市场|semi china|中国半导体行业协会|csia|科技新报|technews\.tw|钜亨网|cnyes\.com|solidot|奇客|xinhuanet)/i;
 const MEMORY_NEWS_RE =
   /(memory|dram|nand|hbm|ddr[345]?|lpddr|gddr|ssd|solidigm|cxl|wafer|memory chip|sk hynix|skhy|micron|kioxia|sandisk|cxmt|changxin|ymtc|yangtze memory|xmc|wuhan xinxin|存储|存儲|内存|记忆体|記憶體|闪存|固态|晶圆|长鑫|長鑫|长江存储|長江存儲|长存|武汉新芯)/i;
+const FACT_EVENT_SEED_IDS = new Set([
+  "sse-cxmt-final-offering",
+  "sse-cxmt-registration-plan",
+  "sec-skhynix-nasdaq-ads",
+  "bis-china-fab-veu-revocation",
+  "micron-sixteen-sca",
+  "wsts-spring-2026-forecast",
+  "trendforce-memory-market-revision-2026",
+]);
 const NEWS_MARKET_NOISE_RE =
   /\bETF\b|指数|领涨|领跌|净买入|净卖出|吸金|中签|打新|牛股|涨停|跌停|股价|个股|股票行情|认购|申购|抽签|赚钱|热度观测日志/i;
 
@@ -1732,7 +1840,8 @@ function isForeignItem(item) {
     return false;
   }
   const src = `${item.source || ""} ${item.title || ""} ${item.link || ""}`.toLowerCase();
-  if (!MEMORY_NEWS_RE.test(`${item.originalTitle || item.title || ""} ${item.source || ""}`)) return false;
+  if (!MEMORY_NEWS_RE.test(`${item.originalTitle || item.title || ""} ${item.source || ""}`)
+    && !FACT_EVENT_SEED_IDS.has(item.id)) return false;
   if (NEWS_MARKET_NOISE_RE.test(item.originalTitle || item.title || "")) return false;
   if (KOREAN_SOURCE_RE.test(src)) return false;
   if (SKHYNIX_NEWSROOM_RE.test(src)) return false;
@@ -3902,6 +4011,140 @@ async function loadPreviousData() {
   }
 }
 
+const FACT_EVENT_DEFINITIONS = [
+  {
+    id: "cxmt-ipo-offering",
+    entity: "CXMT",
+    label: "CXMT STAR Market 공모",
+    topicIds: ["capital", "china", "policy"],
+    match: /(?:cxmt|changxin|长鑫).*(?:ipo|offering|listing|공모|상장)/i,
+    stages: [
+      {
+        id: "final-base-offering",
+        label: "발행가·기본 공모액 확정",
+        rank: 30,
+        match: /(?:20260716_10825660|57\.9\s*billion|579억|8\.66\s*yuan)/i,
+        metrics: { baseOfferingCnyB: 57.9, offerPriceCny: 8.66, greenshoe: "15% conditional" },
+      },
+      {
+        id: "registration-plan",
+        label: "상장 등록·투자 프로젝트 계획",
+        rank: 10,
+        match: /(?:20260615_10821916|29\.5\s*billion|295억|4\.3\s*billion|4\.33\s*billion)/i,
+        metrics: { investmentPlanCnyB: 29.5 },
+      },
+    ],
+  },
+  {
+    id: "skhynix-nasdaq-ads",
+    entity: "SK hynix",
+    label: "SKHY Nasdaq ADS 공모",
+    topicIds: ["capital"],
+    match: /(?:sk hynix|skhy).*(?:ads|adr|nasdaq|american depositary)/i,
+    stages: [
+      {
+        id: "final-prospectus",
+        label: "최종 투자설명서·공모가 확정",
+        rank: 30,
+        match: /(?:d32785d424b4|177\.9\s*million|149(?:\.00)?\s*per ads|주당 149달러)/i,
+        metrics: { adsM: 177.9, offerPriceUsd: 149, grossProceedsUsdB: 26.5071 },
+      },
+      {
+        id: "registration",
+        label: "ADS 등록",
+        rank: 10,
+        match: /(?:form f-6|registration|등록)/i,
+        metrics: {},
+      },
+    ],
+  },
+  {
+    id: "bis-china-fab-licensing",
+    entity: "BIS",
+    label: "중국 내 외국계 Fab 라이선스",
+    topicIds: ["policy", "china"],
+    match: /(?:bis|bureau of industry and security|veu).*(?:china|fab|semiconductor|중국)/i,
+    stages: [
+      {
+        id: "veu-revoked-individual-license",
+        label: "VEU 특례 종료·개별 라이선스 전환",
+        rank: 20,
+        match: /(?:closes-export-controls-loophole|90fr-42321|revok|특례 종료|license-free treatment)/i,
+        metrics: { existingOperations: "license intended", expansionOrUpgrade: "license not intended" },
+      },
+      {
+        id: "veu-general-authorization",
+        label: "VEU 일반승인",
+        rank: 10,
+        match: /(?:2023\.10\.13|general authorization|일반승인)/i,
+        metrics: {},
+      },
+    ],
+  },
+  {
+    id: "micron-strategic-customer-agreements",
+    entity: "Micron",
+    label: "Micron 장기 전략고객계약",
+    topicIds: ["dram", "demand", "capital"],
+    match: /(?:micron).*(?:strategic customer agreement|\bsca\b|전략 고객 계약)/i,
+    stages: [
+      {
+        id: "sixteen-sca",
+        label: "16개 SCA 확인",
+        rank: 20,
+        match: /(?:sixteen|16개)/i,
+        metrics: { agreements: 16 },
+      },
+      {
+        id: "first-five-year-sca",
+        label: "첫 5년 SCA 체결",
+        rank: 10,
+        match: /(?:first five-year|첫 5년)/i,
+        metrics: { termYears: 5 },
+      },
+    ],
+  },
+  {
+    id: "wsts-2026-market-forecast",
+    entity: "WSTS",
+    label: "WSTS 2026 반도체 시장 전망 개정",
+    topicIds: ["demand", "capital"],
+    match: /(?:wsts).*(?:2026|semiconductor market|반도체 시장)/i,
+    stages: [
+      {
+        id: "spring-2026",
+        label: "Spring 2026 전망",
+        rank: 20,
+        match: /(?:spring 2026|1\.5\s*trillion|1\.51t|1\.5조)/i,
+        metrics: { semiconductorMarketUsdT: 1.51, memoryMarketUsdB: "800+" },
+      },
+      {
+        id: "autumn-2025",
+        label: "Autumn 2025 전망",
+        rank: 10,
+        match: /(?:autumn 2025|975\.46|975\s*billion)/i,
+        metrics: { semiconductorMarketUsdB: 975.46 },
+      },
+    ],
+  },
+  {
+    id: "trendforce-memory-market-revision",
+    entity: "TrendForce",
+    label: "TrendForce 메모리 시장 전망 개정",
+    topicIds: ["demand", "dram", "nand"],
+    match: /(?:trendforce).*(?:memory market|메모리 시장)/i,
+    stages: [
+      {
+        id: "may-2026-revision",
+        label: "2026년 5월 개정",
+        rank: 20,
+        match: /(?:20260529-13068|889\.3|8,893억|1\.28\s*trillion|1\.28조)/i,
+        metrics: { market2026UsdB: 889.3, market2027UsdT: "1.28+" },
+      },
+    ],
+  },
+];
+
 const INTELLIGENCE_TOPICS = [
   {
     id: "hbm",
@@ -3944,6 +4187,7 @@ const INTELLIGENCE_TOPICS = [
     priceTerms: [],
     decision: "법안, 시행 규칙, 라이선스 조건을 구분하고 중국 Fab 안건을 운영 유지·캐파 확대·기술 업그레이드로 나눠 결재합니다.",
     reversal: "정부 원문에서 법적 상태·적용 품목·라이선스 조건이 변경",
+    primaryFactIds: ["bis-china-fab-licensing"],
   },
   {
     id: "demand",
@@ -3954,9 +4198,18 @@ const INTELLIGENCE_TOPICS = [
     decision: "출하량과 대당 탑재량을 분리하고 고객 CapEx·전력·패키징 제약을 반영해 제품군 시나리오를 갱신합니다.",
     reversal: "공식 출하 전망 또는 고객 CapEx가 기준 시나리오 대비 10% 이상 변경",
   },
+  {
+    id: "capital",
+    label: "자본시장·CAPEX",
+    terms: ["ipo", "offering", "ads", "adr", "nasdaq", "capex", "fundraising", "공모", "상장", "설비투자"],
+    priceTerms: [],
+    decision: "공모 계획액, 확정 조달액, 조건부 초과배정과 연간 CAPEX를 같은 숫자로 합치지 않고 자금 용도와 공급 증가 시점을 따로 판단합니다.",
+    reversal: "최종 투자설명서, 거래소 공시, 이사회 CAPEX 가이던스 또는 실제 자금 집행 일정 변경",
+    primaryFactIds: ["cxmt-ipo-offering", "skhynix-nasdaq-ads"],
+  },
 ];
 
-const OFFICIAL_SOURCE_RE = /(?:\.gov(?:\/|$)|govinfo\.gov|congress\.gov|sec\.gov|hkexnews\.hk|investors?\.|ir\.|newsroom\.|company\/(?:news|press))/i;
+const OFFICIAL_SOURCE_RE = /(?:\.gov(?:\/|$)|govinfo\.gov|congress\.gov|sec\.gov|english\.sse\.com\.cn|hkexnews\.hk|investors?\.|ir\.|newsroom\.|company\/(?:news|press))/i;
 const ANALYSIS_SOURCE_RE = /(?:trendforce\.com\/(?:presscenter|price|news)|counterpointresearch\.com|techinsights\.com|wsts\.org|yolegroup\.com)/i;
 const AUTHORITATIVE_MEDIA_RE = /(?:reuters|bloomberg|ft\.com|financial times|nikkei|cnbc|associated press|apnews|south china morning post|scmp|caixin global|caixinglobal|digitimes|ee times|tom's hardware)/i;
 const ESTIMATE_RE = /(?:forecast|estimate|reportedly|sources? (?:said|say)|could|may |might|expected|projection|전망|추정|보도|소식통)/i;
@@ -4080,10 +4333,102 @@ function intelligenceTitle(item = {}) {
   return title;
 }
 
-function buildIntelligence({ news = [], prices = {}, stats = {}, chinaInfra = {} }) {
+function factEventText(item = {}) {
+  return `${item.id || ""} ${item.title || ""} ${item.titleKo || ""} ${item.summaryOriginal || ""} ${item.summary || ""} ${directNewsUrl(item)}`;
+}
+
+function factSourcePriority(sourceClass = "") {
+  return sourceClass === "official" ? 4 : sourceClass === "research" ? 3 : sourceClass === "authoritative-media" ? 2 : 1;
+}
+
+function buildFactTimeline(news = [], generatedAt = new Date().toISOString()) {
+  const events = FACT_EVENT_DEFINITIONS.map((definition) => {
+    const observations = [];
+    for (const item of news) {
+      const text = factEventText(item);
+      if (!definition.match.test(text)) continue;
+      const stage = definition.stages.find((candidate) => candidate.match.test(text));
+      if (!stage) continue;
+      const sourceClass = item.verification?.sourceClass || newsSourceClass(item);
+      if (!['official', 'research', 'authoritative-media'].includes(sourceClass)) continue;
+      observations.push({
+        stageId: stage.id,
+        stageLabel: stage.label,
+        stageRank: stage.rank,
+        metrics: stage.metrics,
+        title: intelligenceTitle(item),
+        summary: compactArticleSummary(item),
+        source: item.source || "Unknown",
+        sourceUrl: directNewsUrl(item),
+        publishedAt: item.date || item.publishedAt || null,
+        provenanceId: item.verification?.id || null,
+        sourceClass,
+        evidenceOrigin: item.verification?.origin || newsEvidenceOrigin(item),
+      });
+    }
+    observations.sort((a, b) => (
+      b.stageRank - a.stageRank
+      || factSourcePriority(b.sourceClass) - factSourcePriority(a.sourceClass)
+      || new Date(b.publishedAt || 0) - new Date(a.publishedAt || 0)
+    ));
+    if (!observations.length) return null;
+    const current = observations[0];
+    return {
+      id: definition.id,
+      entity: definition.entity,
+      label: definition.label,
+      topicIds: definition.topicIds,
+      status: current.sourceClass === "official" ? "Confirmed" : "Reported",
+      current,
+      history: observations,
+      supersededStages: [...new Set(observations.slice(1).map((item) => item.stageId).filter((id) => id !== current.stageId))],
+    };
+  }).filter(Boolean);
+
+  const currentFacts = events.map((event) => event.current);
+  return {
+    generatedAt,
+    methodology: "event-stage-resolution-v1",
+    eventCount: events.length,
+    currentFactCount: currentFacts.length,
+    officialCurrentFacts: events.filter((event) => event.current.sourceClass === "official").length,
+    events,
+  };
+}
+
+function buildSourceRegistry({ prices = {}, news = [], communitySignals = {}, brokerResearch = {}, facts = {}, marketHistory = {} }) {
+  const priceTables = Array.isArray(prices.sections) ? prices.sections.length : 0;
+  const communityItems = Array.isArray(communitySignals.items) ? communitySignals.items.length : 0;
+  const brokerItems = Array.isArray(brokerResearch.items) ? brokerResearch.items.length : 0;
+  const factEvents = Array.isArray(facts.events) ? facts.events.length : 0;
+  const marketSeries = Object.values(marketHistory.indexes || {}).length
+    + Object.values(marketHistory.stocks || {}).length;
+  return {
+    version: "1.0-crawl-channel-registry",
+    generatedAt: new Date().toISOString(),
+    promotionPolicy: [
+      "direct canonical URL required",
+      "published date and source summary required",
+      "community and hiring observations remain signal-only",
+      "event stage and source authority resolve conflicting numbers",
+    ],
+    channels: [
+      { id: "prices", mode: "structured-daily", sources: priceTables, records: intelligencePriceRows(prices).length },
+      { id: "english-news", mode: "authority-monitor-and-search", sources: ENGLISH_AUTHORITY_MONITORS.length, records: news.filter((item) => verifiedNewsLanguage(item) === "english").length },
+      { id: "chinese-news", mode: "authority-monitor-and-search", sources: CHINESE_AUTHORITY_MONITORS.length, records: news.filter((item) => verifiedNewsLanguage(item) === "chinese").length },
+      { id: "broker-research", mode: "direct-report-and-citation", sources: BROKER_RESEARCH_MONITORS.length, records: brokerItems },
+      { id: "community-hiring", mode: "public-signal-monitor", sources: Object.keys(COMMUNITY_PLATFORM_RULES).length, records: communityItems, promotion: "signal-only" },
+      { id: "market-history", mode: "daily-time-series", sources: marketSeries, records: marketSeries },
+      { id: "fact-timeline", mode: "event-stage-resolution", sources: FACT_EVENT_DEFINITIONS.length, records: factEvents },
+    ],
+  };
+}
+
+function buildIntelligence({ news = [], prices = {}, stats = {}, chinaInfra = {}, facts = {} }) {
   const generatedAt = new Date().toISOString();
   const priceRows = intelligencePriceRows(prices);
   const newsCandidates = news;
+  const factEvents = Array.isArray(facts.events) ? facts.events : [];
   const directItems = news.filter((item) => directNewsUrl(item));
   const summarized = news.filter((item) => String(item.summary || item.summaryOriginal || "").trim());
   const briefs = INTELLIGENCE_TOPICS.map((topic) => {
@@ -4095,7 +4440,14 @@ function buildIntelligence({ news = [], prices = {}, stats = {}, chinaInfra = {}
         && ["공식", "외신", "분석"].includes(sourceMeta.sourceType)
       ))
       .sort((a, b) => b.score - a.score || new Date(b.item.date || 0) - new Date(a.item.date || 0));
-    const top = ranked[0]?.item;
+    const relatedFacts = factEvents
+      .filter((event) => event.topicIds.includes(topic.id))
+      .sort((a, b) => new Date(b.current.publishedAt || 0) - new Date(a.current.publishedAt || 0));
+    const primaryFact = relatedFacts.find((event) => (topic.primaryFactIds || []).includes(event.id));
+    const factTop = primaryFact
+      ? news.find((item) => item.verification?.id === primaryFact.current.provenanceId)
+      : null;
+    const top = factTop || ranked[0]?.item;
     if (!top) return null;
     const sourceMeta = intelligenceSource(top);
     const price = priceEvidenceForTopic(priceRows, topic);
@@ -4106,7 +4458,7 @@ function buildIntelligence({ news = [], prices = {}, stats = {}, chinaInfra = {}
       id: topic.id,
       label: topic.label,
       generatedAt,
-      evidenceCount: ranked.length + (price ? 1 : 0),
+      evidenceCount: ranked.length + relatedFacts.length + (price ? 1 : 0),
       latest: {
         title: intelligenceTitle(top),
         originalTitle: top.title,
@@ -4119,8 +4471,19 @@ function buildIntelligence({ news = [], prices = {}, stats = {}, chinaInfra = {}
         evidenceLevel: sourceMeta.evidenceLevel,
         provenanceId: top.verification?.id || null,
         sourceClass: top.verification?.sourceClass || newsSourceClass(top),
+        factId: primaryFact?.id || null,
+        factStage: primaryFact?.current.stageId || null,
       },
       price,
+      factReferences: relatedFacts.map((event) => ({
+        id: event.id,
+        label: event.label,
+        status: event.status,
+        stage: event.current.stageId,
+        metrics: event.current.metrics,
+        sourceUrl: event.current.sourceUrl,
+        publishedAt: event.current.publishedAt,
+      })),
       insight: [compactArticleSummary(top), priceSentence].filter(Boolean).join(" "),
       decision: topic.decision,
       reversalKpi: topic.reversal,
@@ -4142,6 +4505,7 @@ function buildIntelligence({ news = [], prices = {}, stats = {}, chinaInfra = {}
       summaryRatio: Number(summaryRatio.toFixed(3)),
       priceRows: priceRows.length,
       briefCount: briefs.length,
+      factEvents: factEvents.length,
     },
     briefs,
     executive: briefs
@@ -4341,6 +4705,8 @@ function buildCrawlAudit(payload = {}, quarantine = {}) {
       priceRows: payload.quality?.metrics?.priceRows || 0,
       communitySignals: payload.communitySignals?.items?.length || 0,
       intelligenceBriefs: payload.intelligence?.briefs?.length || 0,
+      factEvents: payload.facts?.events?.length || 0,
+      sourceChannels: payload.sourceRegistry?.channels?.length || 0,
     },
     quarantined: {
       news: quarantine.total || 0,
@@ -4358,6 +4724,8 @@ function buildQualityReport(payload = {}) {
   const briefs = Array.isArray(payload.intelligence?.briefs) ? payload.intelligence.briefs : [];
   const brokerItems = Array.isArray(payload.brokerResearch?.items) ? payload.brokerResearch.items : [];
   const brokerFramework = payload.brokerResearch?.framework || null;
+  const factEvents = Array.isArray(payload.facts?.events) ? payload.facts.events : [];
+  const sourceChannels = Array.isArray(payload.sourceRegistry?.channels) ? payload.sourceRegistry.channels : [];
   const priceRows = (payload.prices?.sections || []).flatMap((section) => section.rows || []);
   const marketIndexes = Object.values(payload.marketHistory?.indexes || {});
   const stocks = Object.values(payload.stocks || {});
@@ -4379,6 +4747,18 @@ function buildQualityReport(payload = {}) {
   const duplicateCount = canonicalUrls.length - new Set(canonicalUrls).size;
   const validMarkets = marketIndexes.filter((item) => Number(item?.latest?.close ?? item?.latest?.value) > 0);
   const validStocks = stocks.filter((item) => Number(item?.latestClose) > 0);
+  const promotedEvidenceIds = new Set(news.map((item) => item.verification?.id).filter(Boolean));
+  const validFacts = factEvents.filter((event) => (
+    event.current?.provenanceId
+    && promotedEvidenceIds.has(event.current.provenanceId)
+    && /^https?:\/\//i.test(String(event.current?.sourceUrl || ""))
+    && ["official", "research", "authoritative-media"].includes(String(event.current?.sourceClass || ""))
+  ));
+  const cxmtOffering = factEvents.find((event) => event.id === "cxmt-ipo-offering");
+  const cxmtOfferingResolved = Boolean(
+    cxmtOffering?.current?.stageId === "final-base-offering"
+    && Number(cxmtOffering.current.metrics?.baseOfferingCnyB) === 57.9
+  );
   const validBriefs = briefs.filter((brief) => (
     /^https?:\/\//i.test(String(brief.latest?.url || ""))
     && !/news\.google\.com/i.test(String(brief.latest?.url || ""))
@@ -4423,6 +4803,15 @@ function buildQualityReport(payload = {}) {
     { id: "news_duplicates", critical: true, passed: duplicateCount === 0, observed: duplicateCount, threshold: 0 },
     { id: "community_signals", critical: true, passed: community.length >= 5, observed: community.length, threshold: 5 },
     { id: "decision_briefs", critical: true, passed: validBriefs.length >= 6, observed: validBriefs.length, threshold: 6 },
+    { id: "fact_timeline", critical: true, passed: validFacts.length >= 6, observed: validFacts.length, threshold: 6 },
+    { id: "cxmt_offering_stage", critical: true, passed: cxmtOfferingResolved, observed: cxmtOffering?.current?.stageId || "missing", threshold: "final-base-offering" },
+    {
+      id: "source_registry",
+      critical: true,
+      passed: sourceChannels.length >= 7 && sourceChannels.every((channel) => Number(channel.records || 0) > 0),
+      observed: sourceChannels.filter((channel) => Number(channel.records || 0) > 0).length,
+      threshold: 7,
+    },
     { id: "broker_research", critical: true, passed: validBrokerItems.length >= 6, observed: validBrokerItems.length, threshold: 6 },
     { id: "broker_framework", critical: true, passed: validBrokerFramework, observed: validBrokerFramework ? 1 : 0, threshold: 1 },
     { id: "market_indexes", critical: true, passed: validMarkets.length >= 3, observed: validMarkets.length, threshold: 3 },
@@ -4448,6 +4837,8 @@ function buildQualityReport(payload = {}) {
       duplicateCount,
       communitySignals: community.length,
       decisionBriefs: validBriefs.length,
+      factEvents: validFacts.length,
+      sourceChannels: sourceChannels.length,
       brokerResearch: validBrokerItems.length,
       brokerFramework: validBrokerFramework ? 1 : 0,
       brokerNewsCitations: validBrokerItems.filter((item) => item.evidenceType === "news-citation").length,
@@ -4509,8 +4900,10 @@ async function main() {
   }
 
   const signals = buildSignals({ prices, competitors, startups, newsStats: stats });
-  const intelligence = buildIntelligence({ news, prices, stats, chinaInfra });
+  const facts = buildFactTimeline(news, evidenceValidatedAt);
+  const intelligence = buildIntelligence({ news, prices, stats, chinaInfra, facts });
   const brokerResearch = buildBrokerResearch(news);
+  const sourceRegistry = buildSourceRegistry({ prices, news, communitySignals, brokerResearch, facts, marketHistory });
   note("증권사 리서치", brokerResearch.items.length >= 6 && Boolean(brokerResearch.framework), "리서치 요약과 시스템 도식 갱신 완료");
   const okCount = health.filter((item) => item.ok).length;
   const languageCounts = {
@@ -4534,6 +4927,8 @@ async function main() {
     chinaInfra,
     communitySignals,
     signals,
+    facts,
+    sourceRegistry,
     intelligence,
     brokerResearch,
     categories,
@@ -4550,6 +4945,14 @@ async function main() {
 
   payload.quality = buildQualityReport(payload);
   if (payload.quality.status !== "verified") {
+    if (payload.quality.failures.includes("fact_timeline") || payload.quality.failures.includes("cxmt_offering_stage")) {
+      console.error("사실 타임라인 진단:", JSON.stringify((facts.events || []).map((event) => ({
+        id: event.id,
+        stage: event.current?.stageId,
+        source: event.current?.source,
+        provenanceId: event.current?.provenanceId,
+      })), null, 2));
+    }
     throw new Error(`quality gate rejected crawl: ${payload.quality.failures.join(", ")}`);
   }
 

@@ -1,30 +1,32 @@
 {
   "schemaVersion": "1.0",
-  "runId": "29676547722",
-  "generatedAt": "2026-07-19T06:32:52.672Z",
+  "runId": "local-1784445465090",
+  "generatedAt": "2026-07-19T07:20:46.101Z",
   "status": "verified",
   "methodologyVersion": "4.0-source-provenance",
   "promoted": {
-    "news": 66,
+    "news": 67,
     "priceRows": 41,
     "communitySignals": 37,
-    "intelligenceBriefs": 6
+    "intelligenceBriefs": 7,
+    "factEvents": 6,
+    "sourceChannels": 7
   },
   "quarantined": {
-    "news": 28,
+    "news": 27,
     "reasonCounts": {
-      "source_summary_missing": 28
+      "source_summary_missing": 27
     }
   },
   "sourceClasses": {
-    "general-media": 41,
-    "authoritative-media": 19,
-    "official": 5,
-    "research": 1
+    "general-media": 40,
+    "authoritative-media": 15,
+    "official": 9,
+    "research": 3
   },
   "origins": {
-    "live-crawl": 44,
-    "curated-seed": 22
+    "live-crawl": 39,
+    "curated-seed": 28
   },
   "checks": [
     {
@@ -38,14 +40,14 @@
       "id": "news_total",
       "critical": true,
       "passed": true,
-      "observed": 66,
+      "observed": 67,
       "threshold": 24
     },
     {
       "id": "news_english",
       "critical": true,
       "passed": true,
-      "observed": 34,
+      "observed": 35,
       "threshold": 12
     },
     {
@@ -101,8 +103,29 @@
       "id": "decision_briefs",
       "critical": true,
       "passed": true,
+      "observed": 7,
+      "threshold": 6
+    },
+    {
+      "id": "fact_timeline",
+      "critical": true,
+      "passed": true,
       "observed": 6,
       "threshold": 6
+    },
+    {
+      "id": "cxmt_offering_stage",
+      "critical": true,
+      "passed": true,
+      "observed": "final-base-offering",
+      "threshold": "final-base-offering"
+    },
+    {
+      "id": "source_registry",
+      "critical": true,
+      "passed": true,
+      "observed": 7,
+      "threshold": 7
     },
     {
       "id": "broker_research",

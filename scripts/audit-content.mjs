@@ -505,6 +505,73 @@ for (const brief of communityBriefs) {
 }
 const communityHostPattern = /(?:xueqiu\.com|zhihu\.com|guba\.eastmoney\.com|v2ex\.com|chiphell\.com|smzdm\.com|nga\.cn|maimai\.cn|nowcoder\.com|kanzhun\.com|zhipin\.com|liepin\.com|zhaopin\.com)/i;
 
+const facts = live.facts || {};
+const factEvents = Array.isArray(facts.events) ? facts.events : [];
+if (facts.methodology !== "event-stage-resolution-v1") {
+  addIssue("error", "data/live.json", "fact timeline methodology is missing or obsolete", String(facts.methodology || "missing"));
+}
+if (factEvents.length < 6) {
+  addIssue("error", "data/live.json", "fewer than six resolved fact events", String(factEvents.length));
+}
+for (const event of factEvents) {
+  const history = Array.isArray(event.history) ? event.history : [];
+  const current = event.current || {};
+  const highestRank = Math.max(...history.map((item) => Number(item.stageRank || 0)), 0);
+  if (!event.id || !current.stageId || !history.length) {
+    addIssue("error", "data/live.json", "fact event is incomplete", event.id || "missing");
+  }
+  if (Number(current.stageRank || 0) !== highestRank) {
+    addIssue("error", "data/live.json", "fact event current stage is not the highest resolved stage", `${event.id}:${current.stageId}`);
+  }
+  if (!/^https?:\/\//i.test(String(current.sourceUrl || "")) || /news\.google\.com/i.test(String(current.sourceUrl || ""))) {
+    addIssue("error", "data/live.json", "fact event current stage lacks a direct source URL", event.id || "unknown");
+  }
+  if (!String(current.provenanceId || "").trim() || !evidenceIds.has(current.provenanceId)) {
+    addIssue("error", "data/live.json", "fact event current stage does not resolve to promoted evidence", event.id || "unknown");
+  }
+  if (!["official", "research", "authoritative-media"].includes(String(current.sourceClass || ""))) {
+    addIssue("error", "data/live.json", "fact event uses a non-authoritative current source", `${event.id}:${current.sourceClass || "missing"}`);
+  }
+  if (communityHostPattern.test(String(current.sourceUrl || ""))) {
+    addIssue("error", "data/live.json", "community signal was promoted into a resolved fact event", event.id || "unknown");
+  }
+}
+
+const cxmtOfferingFact = factEvents.find((event) => event.id === "cxmt-ipo-offering");
+if (cxmtOfferingFact?.current?.stageId !== "final-base-offering") {
+  addIssue("error", "data/live.json", "CXMT offering did not resolve to the final base offering stage", cxmtOfferingFact?.current?.stageId || "missing");
+}
+if (Number(cxmtOfferingFact?.current?.metrics?.baseOfferingCnyB) !== 57.9) {
+  addIssue("error", "data/live.json", "CXMT final base offering amount is not CNY 57.9B", String(cxmtOfferingFact?.current?.metrics?.baseOfferingCnyB || "missing"));
+}
+const cxmtOfferingStages = new Set((cxmtOfferingFact?.history || []).map((item) => item.stageId));
+for (const requiredStage of ["registration-plan", "final-base-offering"]) {
+  if (!cxmtOfferingStages.has(requiredStage)) {
+    addIssue("error", "data/live.json", "CXMT offering timeline is missing a required stage", requiredStage);
+  }
+}
+
+const sourceRegistry = live.sourceRegistry || {};
+const sourceChannels = Array.isArray(sourceRegistry.channels) ? sourceRegistry.channels : [];
+const sourceChannelIds = new Set(sourceChannels.map((channel) => channel.id));
+if (sourceRegistry.version !== "1.0-crawl-channel-registry") {
+  addIssue("error", "data/live.json", "source registry version is missing or obsolete", String(sourceRegistry.version || "missing"));
+}
+for (const requiredChannel of ["prices", "english-news", "chinese-news", "broker-research", "community-hiring", "market-history", "fact-timeline"]) {
+  if (!sourceChannelIds.has(requiredChannel)) {
+    addIssue("error", "data/live.json", "source registry is missing a required crawl channel", requiredChannel);
+  }
+}
+for (const channel of sourceChannels) {
+  if (Number(channel.records || 0) < 1) {
+    addIssue("error", "data/live.json", "source registry channel has no crawl records", channel.id || "unknown");
+  }
+}
+const communityChannel = sourceChannels.find((channel) => channel.id === "community-hiring");
+if (communityChannel?.promotion !== "signal-only") {
+  addIssue("error", "data/live.json", "community and hiring channel is not restricted to signal-only promotion", String(communityChannel?.promotion || "missing"));
+}
+
 const benchmarkThemes = live.benchmarkSignals?.themes || {};
 const benchmarkItems = Object.values(benchmarkThemes).flatMap((theme) =>
   Array.isArray(theme?.items) ? theme.items : [],
@@ -591,6 +658,9 @@ if (Number(validation.displayedNews) !== news.length) {
 if (Number(validation.priceRows) !== priceRows.length) {
   addIssue("error", "data/live.json", "intelligence priceRows count mismatch", `${validation.priceRows} != ${priceRows.length}`);
 }
+if (Number(validation.factEvents) !== factEvents.length) {
+  addIssue("error", "data/live.json", "intelligence factEvents count mismatch", `${validation.factEvents} != ${factEvents.length}`);
+}
 const qualityMetrics = quality.metrics || {};
 const expectedQualityMetrics = {
   priceRows: priceRows.length,
@@ -600,6 +670,8 @@ const expectedQualityMetrics = {
   duplicateCount: 0,
   communitySignals: communityItems.length,
   decisionBriefs: briefs.length,
+  factEvents: factEvents.length,
+  sourceChannels: sourceChannels.length,
   provenanceCoverage: 1,
   currentNews: news.filter((item) => item.verification?.freshness === "current").length,
   quarantinedNews: crawlQuarantine.total,

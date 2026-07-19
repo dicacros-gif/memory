@@ -4377,6 +4377,7 @@
   function intelligenceTopicId(text = "") {
     const value = String(text || "").toLowerCase();
     const topics = [
+      { id: "capital", terms: ["capital", "ipo", "ads", "adr", "nasdaq", "offering", "capex", "공모", "조달", "자본시장"] },
       { id: "policy", terms: ["policy", "정책", "bis", "chips", "match act", "license", "veu", "fab", "규제"] },
       { id: "hbm", terms: ["hbm", "rubin", "cowos", "base die", "ai server", "ai 서버"] },
       { id: "nand", terms: ["nand", "ssd", "essd", "ymtc", "xtacking", "solidigm"] },
@@ -6458,8 +6459,12 @@
     const chinaBrief = liveIntelligenceBrief("china");
     const livePrice = liveBrief?.price;
     const livePeriodChange = Number(livePrice?.periodChangePct);
+    const resolvedFact = liveBrief?.factReferences?.[0] || null;
+    const resolvedFactText = resolvedFact
+      ? ` 현재 단계는 ${resolvedFact.label} · ${resolvedFact.stage}입니다.`
+      : "";
     const latestEvidence = liveBrief
-      ? `최신 근거는 "${liveBrief.latest?.title || liveBrief.label}"(${liveBrief.latest?.source || "원문"}, ${shortKstDate(liveBrief.latest?.publishedAt || liveBrief.generatedAt)})이며, ${liveBrief.latest?.evidenceLevel || "Watch"} · ${liveBrief.latest?.claimType || "사실"}로 분류합니다.`
+      ? `최신 근거는 "${liveBrief.latest?.title || liveBrief.label}"(${liveBrief.latest?.source || "원문"}, ${shortKstDate(liveBrief.latest?.publishedAt || liveBrief.generatedAt)})이며, ${liveBrief.latest?.evidenceLevel || "Watch"} · ${liveBrief.latest?.claimType || "사실"}로 분류합니다.${resolvedFactText}`
       : "원문이 연결된 최신 근거만 결론에 반영합니다.";
     const priceEvidence = livePrice
       ? `${livePrice.item}은 공개 누적 ${fmtNum(livePrice.observedPoints)}개 관측에서 ${Number.isFinite(livePeriodChange) ? `${livePeriodChange >= 0 ? "+" : ""}${fmtNum(livePeriodChange, 2)}%` : livePrice.latestRaw || "변화 확인 중"}${livePrice.isProxy ? "이며 직접 가격이 아닌 proxy입니다" : "입니다"}.`
@@ -6670,8 +6675,10 @@
     const liveBrief = intelligenceBriefForDecision(selected);
     const livePrice = liveBrief?.price;
     const liveChange = Number(livePrice?.periodChangePct);
+    const liveFact = liveBrief?.factReferences?.[0] || null;
+    const liveFactText = liveFact ? ` · ${liveFact.label}/${liveFact.stage}` : "";
     const liveEvidenceText = liveBrief
-      ? `"${liveBrief.latest?.title || liveBrief.label}"(${liveBrief.latest?.source || "원문"}, ${shortKstDate(liveBrief.latest?.publishedAt || liveBrief.generatedAt)})`
+      ? `"${liveBrief.latest?.title || liveBrief.label}"(${liveBrief.latest?.source || "원문"}, ${shortKstDate(liveBrief.latest?.publishedAt || liveBrief.generatedAt)})${liveFactText}`
       : "원문이 연결된 근거";
     const livePriceText = livePrice
       ? `${livePrice.item} ${Number.isFinite(liveChange) ? `${liveChange >= 0 ? "+" : ""}${fmtNum(liveChange, 2)}%` : livePrice.latestRaw || ""}${livePrice.isProxy ? " proxy" : ""}`
@@ -12700,6 +12707,52 @@
     return selected.concat(fallback);
   }
 
+  function ceoChallengeLiveFacts(scenario = {}, target = {}, challenge = {}, limit = 4) {
+    const terms = ceoChallengeSearchTerms(scenario, target, challenge);
+    const events = Array.isArray(LIVE.facts?.events) ? LIVE.facts.events : [];
+    const ranked = events.map((event) => {
+      const current = event.current || {};
+      const haystack = [
+        event.entity,
+        event.label,
+        ...(event.topicIds || []),
+        current.stageLabel,
+        current.title,
+        current.summary,
+        current.source,
+      ].join(" ").toLowerCase();
+      const relevance = terms.reduce((score, term) => score + (haystack.includes(term) ? 4 : 0), 0);
+      const authority = current.sourceClass === "official" ? 3 : current.sourceClass === "research" ? 2 : 1;
+      return {
+        relevance,
+        authority,
+        timestamp: Date.parse(current.publishedAt || "") || 0,
+        item: {
+          id: event.id,
+          entity: event.entity,
+          label: event.label,
+          title: current.title || event.label,
+          summary: current.summary || "",
+          stage: current.stageLabel || current.stageId || "현재 단계",
+          stageId: current.stageId || "",
+          status: event.status || "Reported",
+          source: current.source || "원문",
+          sourceUrl: current.sourceUrl || "",
+          link: current.sourceUrl || "",
+          publishedAt: current.publishedAt || "",
+          date: current.publishedAt || "",
+          sourceType: current.sourceClass === "official" ? "official" : "research",
+          claimType: "단계 해소 팩트",
+          evidenceLevel: event.status === "Confirmed" ? "Confirmed" : "Reported",
+          topicIds: event.topicIds || [],
+          supersededStages: event.supersededStages || [],
+        },
+      };
+    }).filter((entry) => entry.item.sourceUrl && entry.relevance > 0);
+    ranked.sort((a, b) => b.relevance - a.relevance || b.authority - a.authority || b.timestamp - a.timestamp);
+    return ranked.slice(0, limit).map((entry) => entry.item);
+  }
+
   function median(values = []) {
     const sorted = values.map(Number).filter(Number.isFinite).sort((a, b) => a - b);
     if (!sorted.length) return null;
@@ -12752,6 +12805,7 @@
 
   function ceoChallengeLiveContext(scenario = {}, target = {}, challenge = {}) {
     const news = ceoChallengeLiveNews(scenario, target, challenge, 4);
+    const facts = ceoChallengeLiveFacts(scenario, target, challenge, 4);
     const prices = ceoChallengeLivePrices(challenge, 4);
     const moves = prices.map((row) => row.historyMove).filter(Number.isFinite);
     const spotMoves = prices.filter((row) => priceTypeLabel(row) === "Spot").map((row) => row.historyMove).filter(Number.isFinite);
@@ -12763,6 +12817,7 @@
     const newestNewsAt = Math.max(0, ...news.map(newsTimestamp));
     const newestPriceAt = Math.max(0, ...prices.map((row) => Number(row.latestAt || 0)));
     const primaryNews = news[0] || null;
+    const primaryFact = facts[0] || null;
     const primaryTitle = primaryNews ? newsTitle(primaryNews) : "";
     const primarySummary = cleanInsightText(primaryNews?.summary || primaryNews?.summaryOriginal || "");
     const priceNarrative = prices.length
@@ -12771,10 +12826,15 @@
     const newsNarrative = primaryNews
       ? `${primaryNews.source || "원문"}(${shortKstDateWithYear(primaryNews.publishedAt || primaryNews.date)}): ${primaryTitle}${primarySummary ? ` · ${primarySummary}` : ""}`
       : "안건 키워드와 연결된 최신 권위 소스 기사가 없습니다.";
+    const factNarrative = primaryFact
+      ? `${primaryFact.source} 공식 팩트: ${primaryFact.title} · 현재 단계 ${primaryFact.stage}`
+      : "안건과 직접 연결된 단계 해소 팩트가 없습니다.";
     return {
       news,
+      facts,
       prices,
       primaryNews,
+      primaryFact,
       priceMomentum,
       spotMomentum,
       contractMomentum,
@@ -12783,6 +12843,7 @@
       newestPriceAt,
       priceNarrative,
       newsNarrative,
+      factNarrative,
       fetchedAt: ceoChallengeLiveRefresh.fetchedAt,
       liveUpdatedAt: ceoChallengeLiveRefresh.liveUpdatedAt || LIVE.updatedAt,
       priceUpdatedAt: ceoChallengeLiveRefresh.priceUpdatedAt || HISTORY.updatedAt || LIVE.prices?.updatedAt,
@@ -12838,6 +12899,25 @@
   function ceoChallengeLiveContextHTML(context = {}) {
     const syncedAt = context.fetchedAt || context.liveUpdatedAt || context.priceUpdatedAt;
     const syncLabel = context.refreshStatus === "synced" ? "최신 시장 근거 동기화" : context.refreshStatus === "partial" ? "일부 시장 근거 갱신" : "현재 보유 근거 사용";
+    const evidenceUrlKey = (item = {}) => {
+      const raw = String(item.sourceUrl || item.link || "").trim();
+      if (!raw) return "";
+      try {
+        const parsed = new URL(raw);
+        return `${parsed.origin}${parsed.pathname}`.replace(/\/$/, "").toLowerCase();
+      } catch {
+        return raw.split(/[?#]/)[0].replace(/\/$/, "").toLowerCase();
+      }
+    };
+    const factItems = (context.facts || []).slice(0, 4);
+    const factUrls = new Set(factItems.map(evidenceUrlKey).filter(Boolean));
+    const seenNewsUrls = new Set();
+    const newsItems = (context.news || []).filter((item) => {
+      const url = evidenceUrlKey(item);
+      if (!url || factUrls.has(url) || seenNewsUrls.has(url)) return false;
+      seenNewsUrls.add(url);
+      return true;
+    }).slice(0, 4);
     return `
       <section class="ceo-live-context" aria-label="CEO 챌린지 최신 시장 근거">
         <div class="ceo-live-context-head">
@@ -12855,7 +12935,12 @@
             <span>${escapeHTML(priceTypeLabel(row))}</span><strong>${escapeHTML(row.item || "가격 품목")}</strong><em>${signedPercent(row.historyMove)}</em>
           </a>`).join("")}</div>` : ""}
         <div class="ceo-live-news-list">
-          ${(context.news || []).slice(0, 4).map((item) => `
+          ${factItems.map((item) => `
+            <a class="ceo-live-fact" href="${escapeHTML(item.sourceUrl || item.link)}" target="_blank" rel="noopener noreferrer">
+              <span>${escapeHTML(item.source || "공식 원문")} · ${escapeHTML(item.stage || "현재 단계")}</span>
+              <strong>${escapeHTML(item.title || item.label || "확정 팩트")}</strong>
+            </a>`).join("")}
+          ${newsItems.map((item) => `
             <a href="${escapeHTML(item.sourceUrl || item.link)}" target="_blank" rel="noopener noreferrer">
               <span>${escapeHTML(item.source || "원문")} · ${escapeHTML(shortKstDateWithYear(item.publishedAt || item.date))}</span>
               <strong>${escapeHTML(newsTitle(item))}</strong>
@@ -12880,27 +12965,34 @@
       link: item.sourceUrl || item.link,
       sourceUrl: item.sourceUrl || item.link,
     }));
+    const liveFactEvidence = liveContext.facts.map((item) => ({
+      ...item,
+      link: item.sourceUrl || item.link,
+      sourceUrl: item.sourceUrl || item.link,
+    }));
     const flipSubject = {
       id: `talent-ip-${challenge.id || "challenge"}`,
       label: targetLabel,
       category: scenario.accentCategory || "talent",
-      evidenceCount: signals + gates.total + liveNewsEvidence.length + liveContext.prices.length,
-      linkCount: liveNewsEvidence.length,
+      evidenceCount: signals + gates.total + liveNewsEvidence.length + liveFactEvidence.length + liveContext.prices.length,
+      linkCount: liveNewsEvidence.length + liveFactEvidence.length,
       priceRows: liveContext.prices.length,
       chinaSignalCount: signals,
       verdict: model.decision,
       actualChange: liveContext.priceMomentum,
       priceMomentum: liveContext.priceMomentum,
-      evidence: { news: liveNewsEvidence, prices: liveContext.prices },
+      evidence: { news: liveNewsEvidence, benchmark: liveFactEvidence, prices: liveContext.prices },
     };
     const primaryFlip = primaryDecisionFlipKpi(flipSubject);
     const primaryNews = liveContext.primaryNews;
+    const primaryFact = liveContext.primaryFact;
 
     const common = {
       title: `${challenge.angle} · ${targetLabel}`,
       metrics: [
         { label: "ROI", value: fmtNum(model.roi) },
         { label: "가격", value: liveContext.priceMomentum == null ? "-" : signedPercent(liveContext.priceMomentum) },
+        { label: "공식 팩트", value: fmtNum(liveContext.facts.length) },
         { label: "기사", value: fmtNum(liveContext.news.length) },
         { label: "O/X", value: `${fmtNum(gates.ok)}/${fmtNum(gates.noGo)}` },
       ],
@@ -12995,16 +13087,17 @@
     return {
       ...common,
       ...selectedAnswer,
-      logic: [liveContext.newsNarrative, liveContext.priceNarrative, selectedAnswer.logic].filter(Boolean).join(" "),
+      logic: [liveContext.factNarrative, liveContext.newsNarrative, liveContext.priceNarrative, selectedAnswer.logic].filter(Boolean).join(" "),
       action: [selectedAnswer.action, liveAction].filter(Boolean).join(" "),
-      evidence: primaryNews ? {
-        source: primaryNews.source || "원문",
-        sourceType: primaryNews.sourceType || newsEvidenceMeta(primaryNews).label,
-        claimType: primaryNews.claimType || "기사",
-        evidenceLevel: primaryNews.evidenceLevel || "Watch",
-        title: newsTitle(primaryNews),
-        url: primaryNews.sourceUrl || primaryNews.link || "",
-        reversalKpi: primaryNews.reversalKpi || primaryFlip.label,
+      evidence: (primaryFact || primaryNews) ? {
+        source: primaryFact?.source || primaryNews?.source || "원문",
+        sourceType: primaryFact?.sourceType || primaryNews?.sourceType || newsEvidenceMeta(primaryNews).label,
+        claimType: primaryFact?.claimType || primaryNews?.claimType || "기사",
+        evidenceLevel: primaryFact?.evidenceLevel || primaryNews?.evidenceLevel || "Watch",
+        title: primaryFact?.title || newsTitle(primaryNews),
+        url: primaryFact?.sourceUrl || primaryNews?.sourceUrl || primaryNews?.link || "",
+        stage: primaryFact?.stage || "",
+        reversalKpi: primaryNews?.reversalKpi || primaryFlip.label,
       } : null,
     };
   }
@@ -13016,6 +13109,7 @@
     const metricValue = (label) => response.metrics?.find((metric) => metric.label === label)?.value || "-";
     const roiMetric = metricValue("ROI");
     const priceMetric = metricValue("가격");
+    const factMetric = metricValue("공식 팩트");
     const articleMetric = metricValue("기사");
     const gateMetric = metricValue("O/X");
     const topPriceRows = (liveContext.prices || []).slice(0, 2).map((row) => `${row.item} ${signedPercent(row.historyMove)}`).join(" · ");
@@ -13033,6 +13127,8 @@
         prices: liveContext.prices || [],
       },
     });
+    const verdictTitle = String(response.verdict || "조건부 판단").replace(/[·.。!\s]+$/, "");
+    const actionSummary = String(response.action || "실행 조건을 재검토합니다").replace(/[.。\s]+$/, "");
     return agentDebateHTML({
       mode: "ceo-challenge",
       title: `${challenge.angle} 챌린지 토론`,
@@ -13116,10 +13212,10 @@
           role: "근거 검증",
           avatar: "AUD",
           color: "#EF4444",
-          message: `${response.evidence ? `대표 원문은 **${response.evidence.title}**(${response.evidence.source} · ${response.evidence.sourceType} · ${response.evidence.claimType || "기사"})입니다. ` : "안건에 직접 연결된 권위 원문이 없습니다. "}실행 시점에 기사 ${fmtNum(liveContext.news?.length || 0)}건과 가격 ${fmtNum(liveContext.prices?.length || 0)}개를 다시 불러왔고, canonical URL 중복을 제거했습니다. ==${response.evidence?.reversalKpi || "핵심 판단 변경 KPI"}==가 달라지면 같은 기준으로 재계산합니다.`,
+          message: `${response.evidence ? `대표 원문은 **${response.evidence.title}**(${response.evidence.source} · ${response.evidence.sourceType} · ${response.evidence.claimType || "기사"}${response.evidence.stage ? ` · ${response.evidence.stage}` : ""})입니다. ` : "안건에 직접 연결된 권위 원문이 없습니다. "}실행 시점에 공식 팩트 ${fmtNum(liveContext.facts?.length || 0)}건, 기사 ${fmtNum(liveContext.news?.length || 0)}건, 가격 ${fmtNum(liveContext.prices?.length || 0)}개를 다시 불러왔고, canonical URL 중복을 제거했습니다. ==${response.evidence?.reversalKpi || "핵심 판단 변경 KPI"}==가 달라지면 같은 기준으로 재계산합니다.`,
           speechEn: isRoiChallenge
-            ? `At execution time, the model refreshed ${liveContext.news?.length || 0} linked articles and ${liveContext.prices?.length || 0} price rows, and removed canonical U R L duplicates. The score must not be promoted to a financial fact. If the primary reversal indicator changes, the conclusion must be recalculated with the same source rules.`
-            : `At execution time, the model refreshed ${liveContext.news?.length || 0} linked articles and ${liveContext.prices?.length || 0} price rows. If the primary reversal indicator changes, the conclusion must be recalculated using the same source rules.`,
+            ? `At execution time, the model refreshed ${liveContext.facts?.length || 0} resolved official facts, ${liveContext.news?.length || 0} linked articles, and ${liveContext.prices?.length || 0} price rows, and removed canonical U R L duplicates. The score must not be promoted to a financial fact. If the primary reversal indicator changes, the conclusion must be recalculated with the same source rules.`
+            : `At execution time, the model refreshed ${liveContext.facts?.length || 0} resolved official facts, ${liveContext.news?.length || 0} linked articles, and ${liveContext.prices?.length || 0} price rows. If the primary reversal indicator changes, the conclusion must be recalculated using the same source rules.`,
         },
         {
           name: "Strategy",
@@ -13134,8 +13230,8 @@
       ],
       kpis: [],
       conclusion: {
-        title: `${response.verdict} · SKHY 경영진 권고`,
-        body: `${targetLabel} 안건은 고객 전환, 수익성, 기술 병목, 정책 게이트를 분리해 판단합니다. ${liveContext.priceNarrative || ""} 현재 결론은 ${response.action}입니다.`,
+        title: `${verdictTitle} · SKHY 경영진 권고`,
+        body: `${targetLabel} 안건은 고객 전환, 수익성, 기술 병목, 정책 게이트를 분리해 판단합니다. ${liveContext.priceNarrative || ""} 현재 실행안: ${actionSummary}.`,
         next: `다음 회의에서는 ${response.kpis?.slice(0, 3).join(", ") || "결정을 뒤집는 KPI"}만 업데이트해 유지, 확대, 보류 중 하나로 재판단합니다.`,
       },
     });
