@@ -1,6 +1,6 @@
 {
   "schemaVersion": "2.0",
-  "updatedAt": "2026-07-19T14:06:09.840Z",
+  "updatedAt": "2026-07-19T14:51:03.819Z",
   "timezone": "Asia/Seoul",
   "fx": {
     "usdkrw": {
@@ -9,14 +9,14 @@
       "symbol": "KRW=X",
       "value": 1487.46,
       "currency": "KRW",
-      "asOf": "2026-07-17",
-      "changePct30d": -1.56,
-      "changePct90d": 0.65,
+      "asOf": "2026-07-19",
+      "changePct30d": -3.26,
+      "changePct90d": 1.52,
       "source": "Yahoo Finance chart API",
       "sourceUrl": "https://finance.yahoo.com/quote/KRW=X/",
       "status": "live",
-      "lastSuccessAt": "2026-07-19T14:06:09.841Z",
-      "lastAttemptAt": "2026-07-19T14:06:09.841Z",
+      "lastSuccessAt": "2026-07-19T14:51:03.820Z",
+      "lastAttemptAt": "2026-07-19T14:51:03.820Z",
       "failureStreak": 0
     },
     "usdtwd": {
@@ -25,14 +25,14 @@
       "symbol": "TWD=X",
       "value": 32.37,
       "currency": "TWD",
-      "asOf": "2026-07-17",
-      "changePct30d": 2.57,
-      "changePct90d": 2.57,
+      "asOf": "2026-07-19",
+      "changePct30d": 2.31,
+      "changePct90d": 2.86,
       "source": "Yahoo Finance chart API",
       "sourceUrl": "https://finance.yahoo.com/quote/TWD=X/",
       "status": "live",
-      "lastSuccessAt": "2026-07-19T14:06:10.432Z",
-      "lastAttemptAt": "2026-07-19T14:06:10.432Z",
+      "lastSuccessAt": "2026-07-19T14:51:04.190Z",
+      "lastAttemptAt": "2026-07-19T14:51:04.190Z",
       "failureStreak": 0
     }
   },
@@ -49,8 +49,8 @@
       "source": "Yahoo Finance chart API",
       "sourceUrl": "https://finance.yahoo.com/quote/NVDA/",
       "status": "live",
-      "lastSuccessAt": "2026-07-19T14:06:10.903Z",
-      "lastAttemptAt": "2026-07-19T14:06:10.903Z",
+      "lastSuccessAt": "2026-07-19T14:51:04.555Z",
+      "lastAttemptAt": "2026-07-19T14:51:04.555Z",
       "failureStreak": 0
     },
     "amd": {
@@ -65,8 +65,8 @@
       "source": "Yahoo Finance chart API",
       "sourceUrl": "https://finance.yahoo.com/quote/AMD/",
       "status": "live",
-      "lastSuccessAt": "2026-07-19T14:06:11.403Z",
-      "lastAttemptAt": "2026-07-19T14:06:11.403Z",
+      "lastSuccessAt": "2026-07-19T14:51:04.929Z",
+      "lastAttemptAt": "2026-07-19T14:51:04.929Z",
       "failureStreak": 0
     }
   },
@@ -103,8 +103,8 @@
       "source": "SEC EDGAR companyfacts (10-Q/10-K XBRL)",
       "sourceUrl": "https://www.sec.gov/cgi-bin/browse-edgar?action=getcompany&CIK=0000723125&type=10-Q",
       "status": "live",
-      "lastSuccessAt": "2026-07-19T14:06:11.874Z",
-      "lastAttemptAt": "2026-07-19T14:06:11.874Z",
+      "lastSuccessAt": "2026-07-19T14:51:05.320Z",
+      "lastAttemptAt": "2026-07-19T14:51:05.320Z",
       "failureStreak": 0
     }
   },
@@ -120,8 +120,8 @@
       "source": "TWSE OpenAPI 月營業收入 (official disclosure)",
       "sourceUrl": "https://openapi.twse.com.tw/v1/opendata/t187ap05_L",
       "status": "live",
-      "lastSuccessAt": "2026-07-19T14:06:12.166Z",
-      "lastAttemptAt": "2026-07-19T14:06:12.166Z",
+      "lastSuccessAt": "2026-07-19T14:51:05.633Z",
+      "lastAttemptAt": "2026-07-19T14:51:05.633Z",
       "failureStreak": 0
     }
   },
@@ -322,10 +322,10 @@
         }
       }
     },
-    "updatedAt": "2026-07-19T14:06:13.523Z"
+    "updatedAt": "2026-07-19T14:51:07.173Z"
   },
   "liveFigures": {
-    "updatedAt": "2026-07-19T14:06:13.525Z",
+    "updatedAt": "2026-07-19T14:51:07.176Z",
     "total": 9,
     "topicCounts": {
       "capital": 2,
@@ -475,7 +475,7 @@
     "method": "authority-gated verbatim extraction · 원문 문장·출처·날짜·주장 레이어 보존"
   },
   "marketStructure": {
-    "updatedAt": "2026-07-19T14:06:13.526Z",
+    "updatedAt": "2026-07-19T14:51:07.177Z",
     "kpis": [
       {
         "id": "kpi-0",
@@ -791,7 +791,7 @@
     ]
   },
   "scenarioCalibration": {
-    "updatedAt": "2026-07-19T14:06:13.527Z",
+    "updatedAt": "2026-07-19T14:51:07.178Z",
     "method": "bounded-ewma-v1",
     "smoothingAlpha": 0.22,
     "strength": 17.31,
@@ -805,65 +805,65 @@
     },
     "scenarios": {
       "bear": {
-        "unitsMul": 0.8515,
-        "memMul": 0.9244,
+        "unitsMul": 0.85,
+        "memMul": 0.9233,
         "shareMul": 0.92,
-        "demandMul": 0.5733
+        "demandMul": 0.5699
       },
       "base": {
-        "unitsMul": 1.022,
-        "memMul": 1.0184,
+        "unitsMul": 1.021,
+        "memMul": 1.0175,
         "shareMul": 0.98,
-        "demandMul": 1.044
+        "demandMul": 1.0419
       },
       "bull": {
-        "unitsMul": 1.264,
-        "memMul": 1.1715,
+        "unitsMul": 1.2619,
+        "memMul": 1.17,
         "shareMul": 1.015,
-        "demandMul": 1.5801
+        "demandMul": 1.5754
       }
     }
   },
   "projectionCalibration": {
-    "updatedAt": "2026-07-19T14:06:13.527Z",
+    "updatedAt": "2026-07-19T14:51:07.179Z",
     "method": "bounded-ewma-v1",
     "caseWeights": {
       "ai-server": {
-        "neutral": 0.3802,
-        "best": 7.4352,
-        "worst": -5.6806,
+        "neutral": 0.383,
+        "best": 7.4646,
+        "worst": -5.6907,
         "signal": 0.95,
         "price": 0.42,
         "china": -0.3
       },
       "dc-storage": {
-        "neutral": 0.1604,
-        "best": 4.1352,
-        "worst": -3.1806,
+        "neutral": 0.1599,
+        "best": 4.1646,
+        "worst": -3.1907,
         "signal": 0.58,
         "price": 0.36,
         "china": -0.55
       },
       "mobile-smartphone": {
-        "neutral": -0.0698,
-        "best": -1.7166,
-        "worst": 2.3622,
+        "neutral": -0.057,
+        "best": -1.7125,
+        "worst": 2.3926,
         "signal": 0.18,
         "price": 0.18,
         "china": 0.46
       },
       "pc-appliance": {
-        "neutral": -0.1772,
-        "best": -2.5694,
-        "worst": 3.2468,
+        "neutral": -0.1623,
+        "best": -2.5741,
+        "worst": 3.2913,
         "signal": 0.16,
         "price": 0.2,
         "china": 0.62
       },
       "auto-edge": {
-        "neutral": 0.1132,
-        "best": 1.2956,
-        "worst": 1.2828,
+        "neutral": 0.1215,
+        "best": 1.3184,
+        "worst": 1.2833,
         "signal": 0.22,
         "price": 0.14,
         "china": 0.12
@@ -871,15 +871,15 @@
     },
     "scenarios": {
       "neutral": {
-        "scoreBias": 0.9407,
-        "serverLift": 0.2614,
-        "storageLift": 0.183,
+        "scoreBias": 0.8997,
+        "serverLift": 0.2459,
+        "storageLift": 0.1721,
         "terminalLift": -0.4
       },
       "best": {
-        "scoreBias": 8.0454,
-        "serverLift": 4.6795,
-        "storageLift": 2.8227,
+        "scoreBias": 7.9833,
+        "serverLift": 4.6391,
+        "storageLift": 2.7916,
         "terminalLift": -0.7
       },
       "worst": {
@@ -891,10 +891,12 @@
     }
   },
   "sourceHealth": {
-    "updatedAt": "2026-07-19T14:06:13.527Z",
-    "ok": 17,
+    "updatedAt": "2026-07-19T14:51:07.179Z",
+    "ok": 16,
     "total": 17,
-    "failed": [],
+    "failed": [
+      "가격백필"
+    ],
     "alerts": [],
     "sources": {
       "주가": {
@@ -903,18 +905,8 @@
         "attempts": 3,
         "errors": [],
         "failureStreak": 0,
-        "lastAttemptAt": "2026-07-19T14:06:13.527Z",
-        "lastSuccessAt": "2026-07-19T14:06:13.527Z",
-        "alert": false
-      },
-      "가격": {
-        "id": "가격",
-        "ok": true,
-        "attempts": 2,
-        "errors": [],
-        "failureStreak": 0,
-        "lastAttemptAt": "2026-07-19T14:06:13.527Z",
-        "lastSuccessAt": "2026-07-19T14:06:13.527Z",
+        "lastAttemptAt": "2026-07-19T14:51:07.179Z",
+        "lastSuccessAt": "2026-07-19T14:51:07.179Z",
         "alert": false
       },
       "경쟁사": {
@@ -923,8 +915,18 @@
         "attempts": 5,
         "errors": [],
         "failureStreak": 0,
-        "lastAttemptAt": "2026-07-19T14:06:13.527Z",
-        "lastSuccessAt": "2026-07-19T14:06:13.527Z",
+        "lastAttemptAt": "2026-07-19T14:51:07.179Z",
+        "lastSuccessAt": "2026-07-19T14:51:07.179Z",
+        "alert": false
+      },
+      "가격": {
+        "id": "가격",
+        "ok": true,
+        "attempts": 2,
+        "errors": [],
+        "failureStreak": 0,
+        "lastAttemptAt": "2026-07-19T14:51:07.179Z",
+        "lastSuccessAt": "2026-07-19T14:51:07.179Z",
         "alert": false
       },
       "스타트업": {
@@ -933,18 +935,8 @@
         "attempts": 3,
         "errors": [],
         "failureStreak": 0,
-        "lastAttemptAt": "2026-07-19T14:06:13.527Z",
-        "lastSuccessAt": "2026-07-19T14:06:13.527Z",
-        "alert": false
-      },
-      "중국Fab인프라": {
-        "id": "중국Fab인프라",
-        "ok": true,
-        "attempts": 3,
-        "errors": [],
-        "failureStreak": 0,
-        "lastAttemptAt": "2026-07-19T14:06:13.527Z",
-        "lastSuccessAt": "2026-07-19T14:06:13.527Z",
+        "lastAttemptAt": "2026-07-19T14:51:07.179Z",
+        "lastSuccessAt": "2026-07-19T14:51:07.179Z",
         "alert": false
       },
       "벤치마킹": {
@@ -953,8 +945,18 @@
         "attempts": 6,
         "errors": [],
         "failureStreak": 0,
-        "lastAttemptAt": "2026-07-19T14:06:13.527Z",
-        "lastSuccessAt": "2026-07-19T14:06:13.527Z",
+        "lastAttemptAt": "2026-07-19T14:51:07.179Z",
+        "lastSuccessAt": "2026-07-19T14:51:07.179Z",
+        "alert": false
+      },
+      "중국Fab인프라": {
+        "id": "중국Fab인프라",
+        "ok": true,
+        "attempts": 3,
+        "errors": [],
+        "failureStreak": 0,
+        "lastAttemptAt": "2026-07-19T14:51:07.179Z",
+        "lastSuccessAt": "2026-07-19T14:51:07.179Z",
         "alert": false
       },
       "뉴스": {
@@ -963,8 +965,8 @@
         "attempts": 24,
         "errors": [],
         "failureStreak": 0,
-        "lastAttemptAt": "2026-07-19T14:06:13.527Z",
-        "lastSuccessAt": "2026-07-19T14:06:13.527Z",
+        "lastAttemptAt": "2026-07-19T14:51:07.179Z",
+        "lastSuccessAt": "2026-07-19T14:51:07.179Z",
         "alert": false
       },
       "중국현장신호": {
@@ -973,8 +975,8 @@
         "attempts": 1,
         "errors": [],
         "failureStreak": 0,
-        "lastAttemptAt": "2026-07-19T14:06:13.527Z",
-        "lastSuccessAt": "2026-07-19T14:06:13.527Z",
+        "lastAttemptAt": "2026-07-19T14:51:07.179Z",
+        "lastSuccessAt": "2026-07-19T14:51:07.179Z",
         "alert": false
       },
       "뉴스원문요약": {
@@ -983,8 +985,8 @@
         "attempts": 1,
         "errors": [],
         "failureStreak": 0,
-        "lastAttemptAt": "2026-07-19T14:06:13.527Z",
-        "lastSuccessAt": "2026-07-19T14:06:13.527Z",
+        "lastAttemptAt": "2026-07-19T14:51:07.179Z",
+        "lastSuccessAt": "2026-07-19T14:51:07.179Z",
         "alert": false
       },
       "가격히스토리": {
@@ -993,8 +995,8 @@
         "attempts": 1,
         "errors": [],
         "failureStreak": 0,
-        "lastAttemptAt": "2026-07-19T14:06:13.527Z",
-        "lastSuccessAt": "2026-07-19T14:06:13.527Z",
+        "lastAttemptAt": "2026-07-19T14:51:07.179Z",
+        "lastSuccessAt": "2026-07-19T14:51:07.179Z",
         "alert": false
       },
       "TrendForce차트": {
@@ -1003,17 +1005,21 @@
         "attempts": 1,
         "errors": [],
         "failureStreak": 0,
-        "lastAttemptAt": "2026-07-19T14:06:13.527Z",
-        "lastSuccessAt": "2026-07-19T14:06:13.527Z",
+        "lastAttemptAt": "2026-07-19T14:51:07.179Z",
+        "lastSuccessAt": "2026-07-19T14:51:07.179Z",
         "alert": false
       },
       "가격백필": {
         "id": "가격백필",
-        "ok": true,
+        "ok": false,
         "attempts": 6,
-        "errors": [],
-        "failureStreak": 0,
-        "lastAttemptAt": "2026-07-19T14:06:13.527Z",
+        "errors": [
+          "fetch failed",
+          "HTTP 503",
+          "The operation was aborted due to timeout"
+        ],
+        "failureStreak": 1,
+        "lastAttemptAt": "2026-07-19T14:51:07.179Z",
         "lastSuccessAt": "2026-07-19T14:06:13.527Z",
         "alert": false
       },
@@ -1023,8 +1029,8 @@
         "attempts": 14,
         "errors": [],
         "failureStreak": 0,
-        "lastAttemptAt": "2026-07-19T14:06:13.527Z",
-        "lastSuccessAt": "2026-07-19T14:06:13.527Z",
+        "lastAttemptAt": "2026-07-19T14:51:07.179Z",
+        "lastSuccessAt": "2026-07-19T14:51:07.179Z",
         "alert": false
       },
       "뉴스증거게이트": {
@@ -1033,8 +1039,8 @@
         "attempts": 1,
         "errors": [],
         "failureStreak": 0,
-        "lastAttemptAt": "2026-07-19T14:06:13.527Z",
-        "lastSuccessAt": "2026-07-19T14:06:13.527Z",
+        "lastAttemptAt": "2026-07-19T14:51:07.179Z",
+        "lastSuccessAt": "2026-07-19T14:51:07.179Z",
         "alert": false
       },
       "번역": {
@@ -1043,8 +1049,8 @@
         "attempts": 1,
         "errors": [],
         "failureStreak": 0,
-        "lastAttemptAt": "2026-07-19T14:06:13.527Z",
-        "lastSuccessAt": "2026-07-19T14:06:13.527Z",
+        "lastAttemptAt": "2026-07-19T14:51:07.179Z",
+        "lastSuccessAt": "2026-07-19T14:51:07.179Z",
         "alert": false
       },
       "증권사 리서치": {
@@ -1053,8 +1059,8 @@
         "attempts": 1,
         "errors": [],
         "failureStreak": 0,
-        "lastAttemptAt": "2026-07-19T14:06:13.527Z",
-        "lastSuccessAt": "2026-07-19T14:06:13.527Z",
+        "lastAttemptAt": "2026-07-19T14:51:07.179Z",
+        "lastSuccessAt": "2026-07-19T14:51:07.179Z",
         "alert": false
       },
       "quant": {
@@ -1063,14 +1069,14 @@
         "attempts": 7,
         "errors": [],
         "failureStreak": 0,
-        "lastAttemptAt": "2026-07-19T14:06:13.527Z",
-        "lastSuccessAt": "2026-07-19T14:06:13.527Z",
+        "lastAttemptAt": "2026-07-19T14:51:07.179Z",
+        "lastSuccessAt": "2026-07-19T14:51:07.179Z",
         "alert": false
       }
     }
   },
   "historyCoverage": {
-    "updatedAt": "2026-07-19T14:06:13.528Z",
+    "updatedAt": "2026-07-19T14:51:07.180Z",
     "priceSeries": 41,
     "pricePoints": 443,
     "marketSeries": 13,
