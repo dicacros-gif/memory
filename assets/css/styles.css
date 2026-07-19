@@ -12049,6 +12049,54 @@ body.sidebar-collapsed .sb-ico {
   gap: 10px;
 }
 
+.share-card {
+  --share-accent: var(--local-accent, var(--purple));
+  border: 2px solid color-mix(in srgb, var(--share-accent) 58%, var(--line));
+  background: linear-gradient(145deg, color-mix(in srgb, var(--share-accent) 7%, var(--panel)), var(--panel) 70%);
+  transition: transform .24s cubic-bezier(.2, .8, .2, 1), border-color .2s ease, background .2s ease, box-shadow .2s ease;
+}
+
+.share-card.share-tone-0 { --share-accent: #087f72; }
+.share-card.share-tone-1 { --share-accent: #2563eb; }
+.share-card.share-tone-2 { --share-accent: #d05c0b; }
+.share-card.share-tone-3 { --share-accent: #7c3aed; }
+.share-card.share-tone-4 { --share-accent: #0f766e; }
+
+.share-card .chip,
+.share-card .share-hbm {
+  border-color: color-mix(in srgb, var(--share-accent) 55%, var(--line));
+  background: color-mix(in srgb, var(--share-accent) 13%, var(--panel));
+  color: var(--share-accent);
+}
+
+.share-card .strategy-highlight {
+  text-decoration-color: #f3a712;
+  text-decoration-thickness: .21em;
+}
+
+.share-card:hover,
+.share-card:focus-within {
+  transform: translateY(-6px) scale(1.006);
+  border-color: var(--share-accent);
+  background:
+    radial-gradient(circle at 9% 9%, rgba(255, 255, 255, .2), transparent 30%),
+    linear-gradient(135deg, color-mix(in srgb, var(--share-accent) 91%, #14213d), color-mix(in srgb, var(--share-accent) 62%, #07111f));
+  box-shadow: 0 19px 40px color-mix(in srgb, var(--share-accent) 30%, transparent);
+}
+
+.share-card:is(:hover, :focus-within) :is(h3, p, li, .share-hbm, .chip, .strategy-highlight, .share-metrics strong, .share-metrics span) {
+  color: #fff;
+}
+
+.share-card:is(:hover, :focus-within) :is(.share-hbm, .chip, .share-metrics div) {
+  border-color: rgba(255, 255, 255, .5);
+  background: rgba(255, 255, 255, .12);
+}
+
+.share-card:is(:hover, :focus-within) .strategy-highlight {
+  text-decoration-color: #ffe56b;
+}
+
 .share-hbm {
   flex: 0 0 auto;
   min-width: 56px;
@@ -12099,24 +12147,31 @@ body.sidebar-collapsed .sb-ico {
 }
 
 .roadmap-card {
+  --roadmap-accent: var(--purple);
   position: relative;
-  padding-left: 18px;
-  background: var(--panel);
+  border: 2px solid color-mix(in srgb, var(--roadmap-accent) 58%, var(--line));
+  background: linear-gradient(145deg, color-mix(in srgb, var(--roadmap-accent) 7%, var(--panel)), var(--panel) 72%);
+  padding: 14px;
+  transition: transform .24s cubic-bezier(.2, .8, .2, 1), border-color .2s ease, background .2s ease, box-shadow .2s ease;
 }
 
+.roadmap-card.roadmap-tone-0 { --roadmap-accent: #087f72; }
+.roadmap-card.roadmap-tone-1 { --roadmap-accent: #2563eb; }
+.roadmap-card.roadmap-tone-2 { --roadmap-accent: #7c3aed; }
+.roadmap-card.roadmap-tone-3 { --roadmap-accent: #d05c0b; }
+
 .roadmap-card::before {
-  content: "";
-  position: absolute;
-  left: 8px;
-  top: 16px;
-  bottom: 16px;
-  width: 3px;
-  border-radius: 999px;
-  background: var(--purple);
+  content: none;
 }
 
 .roadmap-card > span {
-  color: var(--purple);
+  display: inline-flex;
+  width: fit-content;
+  border: 1px solid color-mix(in srgb, var(--roadmap-accent) 48%, var(--line));
+  border-radius: 999px;
+  background: color-mix(in srgb, var(--roadmap-accent) 10%, var(--panel-2));
+  color: var(--roadmap-accent);
+  padding: 4px 7px;
   font-size: 10.5px;
   font-weight: 900;
 }
@@ -12127,6 +12182,36 @@ body.sidebar-collapsed .sb-ico {
   font-size: 13.5px;
   line-height: 1.35;
   font-weight: 900;
+}
+
+.roadmap-card .strategy-highlight {
+  text-decoration-color: #f3a712;
+  text-decoration-thickness: .21em;
+}
+
+.roadmap-card:hover,
+.roadmap-card:focus-within {
+  transform: translateY(-6px) scale(1.006);
+  border-color: var(--roadmap-accent);
+  background:
+    radial-gradient(circle at 9% 9%, rgba(255, 255, 255, .2), transparent 30%),
+    linear-gradient(135deg, color-mix(in srgb, var(--roadmap-accent) 91%, #14213d), color-mix(in srgb, var(--roadmap-accent) 62%, #07111f));
+  box-shadow: 0 19px 40px color-mix(in srgb, var(--roadmap-accent) 30%, transparent);
+}
+
+.roadmap-card:is(:hover, :focus-within) > span,
+.roadmap-card:is(:hover, :focus-within) :is(h4, p, .tag, .strategy-highlight) {
+  color: #fff;
+}
+
+.roadmap-card:is(:hover, :focus-within) > span,
+.roadmap-card:is(:hover, :focus-within) .tag {
+  border-color: rgba(255, 255, 255, .5);
+  background: rgba(255, 255, 255, .12);
+}
+
+.roadmap-card:is(:hover, :focus-within) .strategy-highlight {
+  text-decoration-color: #ffe56b;
 }
 
 .value-chain-map {

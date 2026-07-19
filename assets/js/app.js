@@ -10128,14 +10128,14 @@
 
     shareWrap.innerHTML = "";
     shareRows.forEach((row, index) => {
-      const card = el("article", "share-card reveal");
+      const card = el("article", `share-card share-tone-${index % 5} reveal`);
       card.style.animationDelay = `${index * 25}ms`;
       card.style.setProperty("--local-accent", categoryAccent((row.linkedCategories || [])[0]));
       card.innerHTML = `
         <div class="share-head">
           <div>
             <span class="chip accent">${escapeHTML(row.type || "Benchmark")}</span>
-            <h3>${escapeHTML(row.company)}</h3>
+            <h3>${strategicHighlightHTML(row.company)}</h3>
           </div>
           <span class="share-hbm">${escapeHTML(row.hbmShare || "-")}</span>
         </div>
@@ -10144,8 +10144,8 @@
           <div><strong>${escapeHTML(row.dramShare2026 || "-")}</strong><span>2026 DRAM</span></div>
           <div><strong>${escapeHTML(row.nandShare2026 || "-")}</strong><span>2026 NAND</span></div>
         </div>
-        <p>${escapeHTML(row.position || "")}</p>
-        <ul class="watch-list">${(row.watch || []).slice(0, 4).map((item) => `<li>${escapeHTML(item)}</li>`).join("")}</ul>
+        <p>${strategicHighlightHTML(row.position || "")}</p>
+        <ul class="watch-list">${(row.watch || []).slice(0, 4).map((item) => `<li>${strategicHighlightHTML(item)}</li>`).join("")}</ul>
       `;
       makeInspectable(card, {
         type: "경쟁사 벤치마크",
@@ -10166,11 +10166,11 @@
     if (!shareWrap.children.length) shareWrap.appendChild(el("div", "empty", "선택한 카테고리의 경쟁사 매트릭스가 없습니다."));
 
     roadmapWrap.innerHTML = roadmap.map((item, index) => `
-      <article class="roadmap-card reveal" style="animation-delay:${index * 25}ms">
+      <article class="roadmap-card roadmap-tone-${index % 4} reveal" style="animation-delay:${index * 25}ms">
         <span>${escapeHTML(item.period)}</span>
-        <h4>${escapeHTML(item.title)}</h4>
-        <p>${escapeHTML(item.detail)}</p>
-        <div class="tag-row">${(item.checkpoints || []).map((point) => `<span class="tag">${escapeHTML(point)}</span>`).join("")}</div>
+        <h4>${strategicHighlightHTML(item.title)}</h4>
+        <p>${strategicHighlightHTML(item.detail)}</p>
+        <div class="tag-row">${(item.checkpoints || []).map((point) => `<span class="tag">${strategicHighlightHTML(point)}</span>`).join("")}</div>
       </article>
     `).join("");
 
