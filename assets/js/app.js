@@ -6830,20 +6830,20 @@
     const selectedDecision = decisions.find((item) => item.id === cLevelCouncilDecisionId) || decisions[0];
 
     grid.innerHTML = decisions.map((item, index) => `
-      <button class="c-level-card ${escapeHTML(item.verdict.toLowerCase())}${item.id === selectedDecision.id ? " council-active" : ""} reveal" type="button" data-council-pick="${escapeHTML(item.id)}" style="--local-accent:${categoryAccent(item.category)}; animation-delay:${index * 35}ms">
+      <button class="c-level-card c-level-tone-${index % 6} ${escapeHTML(item.verdict.toLowerCase())}${item.id === selectedDecision.id ? " council-active" : ""} reveal" type="button" data-council-pick="${escapeHTML(item.id)}" style="animation-delay:${index * 35}ms">
         <span class="c-level-card-top">
           <em>${escapeHTML(item.owner)}</em>
           ${factBadge(item.verdict, item.verdict === "Go" ? "ok" : item.verdict === "Watch" ? "watch" : "fail")}
         </span>
-        <strong>${escapeHTML(item.label)}</strong>
-        <p>${escapeHTML(item.action)}</p>
+        <strong>${strategicHighlightHTML(item.label)}</strong>
+        <p>${strategicHighlightHTML(item.action)}</p>
         <div class="c-level-card-metrics">
           <span><b>${countHTML(item.evidenceCount)}</b><small>근거</small></span>
           <span><b>${countHTML(item.linkCount)}</b><small>링크/KPI</small></span>
           <span><b>${countHTML(item.priceRows)}</b><small>가격 rows</small></span>
         </div>
         <div class="c-level-meter" data-fill-to="${item.confidence}"><i style="width:0"></i></div>
-        <small>${escapeHTML(item.tone)}</small>
+        <small>${strategicHighlightHTML(item.tone)}</small>
       </button>
     `).join("");
 

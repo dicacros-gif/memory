@@ -162,7 +162,7 @@ body::before {
   border-color: var(--accent-2);
   background: color-mix(in srgb, var(--accent-2) 12%, var(--panel));
   box-shadow: 0 0 32px var(--glow), var(--shadow-lg);
-  transform: translateY(-2px);
+  transform: translateY(-5px) scale(1.006);
 }
 
 a {
@@ -1026,7 +1026,7 @@ body.sidebar-collapsed .sb-ico {
 .palette-btn,
 .theme-btn,
 .mobile-menu {
-  border: 1px solid var(--line);
+  border: 1px solid color-mix(in srgb, var(--c-level-accent) 42%, var(--line));
   background: var(--panel-2);
   color: var(--ink-2);
 }
@@ -3236,6 +3236,8 @@ body.sidebar-collapsed .sb-ico {
 }
 
 .c-level-card {
+  --c-level-accent: var(--accent);
+  --local-accent: var(--c-level-accent);
   min-width: 0;
   display: grid;
   gap: 9px;
@@ -3244,6 +3246,9 @@ body.sidebar-collapsed .sb-ico {
   text-align: left;
   padding: 12px;
   color: var(--ink);
+  border: 2px solid color-mix(in srgb, var(--c-level-accent) 58%, var(--line));
+  background: linear-gradient(145deg, color-mix(in srgb, var(--c-level-accent) 8%, var(--panel)), var(--panel-2) 66%);
+  box-shadow: 0 8px 20px color-mix(in srgb, var(--c-level-accent) 8%, transparent);
   transition:
     transform .18s cubic-bezier(.34, 1.56, .64, 1),
     border-color .16s,
@@ -3317,6 +3322,19 @@ body.sidebar-collapsed .sb-ico {
   font-weight: 950;
 }
 
+.c-level-card .strategy-highlight {
+  color: color-mix(in srgb, var(--c-level-accent) 84%, var(--ink));
+  text-decoration-color: #f0a51a;
+  text-decoration-thickness: 3px;
+  text-underline-offset: 3px;
+}
+
+.c-level-card:is(:hover, :focus-visible, .council-active) .strategy-highlight {
+  color: #fff8c5;
+  background: rgba(255, 210, 74, .14);
+  text-decoration-color: #ffd24a;
+}
+
 .c-level-card-metrics {
   display: grid;
   grid-template-columns: repeat(3, minmax(0, 1fr));
@@ -3329,7 +3347,7 @@ body.sidebar-collapsed .sb-ico {
   gap: 3px;
   border: 1px solid var(--line);
   border-radius: 8px;
-  background: color-mix(in srgb, var(--panel) 72%, transparent);
+  background: color-mix(in srgb, var(--c-level-accent) 7%, var(--panel));
   padding: 8px;
 }
 
@@ -3340,7 +3358,7 @@ body.sidebar-collapsed .sb-ico {
 }
 
 .c-level-card-metrics b {
-  color: var(--ink);
+  color: color-mix(in srgb, var(--c-level-accent) 78%, var(--ink));
   font-family: var(--display);
   font-size: 18px;
   line-height: 1;
@@ -3835,6 +3853,13 @@ body.sidebar-collapsed .sb-ico {
     linear-gradient(145deg, color-mix(in srgb, var(--exec-strategy-accent) 9%, var(--panel)), var(--panel-2) 64%);
   box-shadow: 0 9px 22px color-mix(in srgb, var(--exec-strategy-accent) 8%, transparent);
 }
+
+.c-level-tone-0 { --c-level-accent: #7c3aed; }
+.c-level-tone-1 { --c-level-accent: #2563eb; }
+.c-level-tone-2 { --c-level-accent: #087f72; }
+.c-level-tone-3 { --c-level-accent: #d05c0b; }
+.c-level-tone-4 { --c-level-accent: #0f766e; }
+.c-level-tone-5 { --c-level-accent: #c2415d; }
 
 .exec-strategy-tone-0 { --exec-strategy-accent: #087f72; --local-accent: #087f72; }
 .exec-strategy-tone-1 { --exec-strategy-accent: #2563eb; --local-accent: #2563eb; }
