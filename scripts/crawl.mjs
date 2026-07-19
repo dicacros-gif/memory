@@ -18,6 +18,7 @@ const MARKET_HISTORY_OUT = resolve(__dirname, "..", "data", "market-history.json
 const CRAWL_EXCLUSIONS_OUT = resolve(__dirname, "..", "data", "crawl-exclusions.json");
 const CRAWL_AUDIT_OUT = resolve(__dirname, "..", "data", "crawl-audit.json");
 const CRAWL_QUARANTINE_OUT = resolve(__dirname, "..", "data", "crawl-quarantine.json");
+const QUANT_OUT = resolve(__dirname, "..", "data", "quant.json");
 const LIVE_SCHEMA_VERSION = "4.0";
 const EVIDENCE_METHODOLOGY_VERSION = "4.0-source-provenance";
 const TRENDFORCE_ORIGIN = "https://www.trendforce.com";
@@ -4855,6 +4856,350 @@ function buildQualityReport(payload = {}) {
   };
 }
 
+/* ---------------- Quantitative metrics pipeline (data/quant.json) ----------------
+ * Live numbers that replace hardcoded UI constants: FX, AI-demand stock proxies,
+ * Micron fundamentals (SEC EDGAR), TSMC monthly revenue (TWSE OpenAPI), and
+ * memory price momentum derived from our own accumulated price history.
+ * Every metric carries value + asOf + source so the UI can show provenance. */
+
+const QUANT_FX = [
+  { id: "usdkrw", symbol: "KRW=X", label: "USD/KRW", sourceUrl: "https://finance.yahoo.com/quote/KRW=X/" },
+  { id: "usdtwd", symbol: "TWD=X", label: "USD/TWD", sourceUrl: "https://finance.yahoo.com/quote/TWD=X/" },
+];
+
+const QUANT_AI_PROXIES = [
+  { id: "nvda", symbol: "NVDA", label: "NVIDIA", sourceUrl: "https://finance.yahoo.com/quote/NVDA/" },
+  { id: "amd", symbol: "AMD", label: "AMD", sourceUrl: "https://finance.yahoo.com/quote/AMD/" },
+];
+
+function quantSeriesChangePct(points = [], daysAgo = 30) {
+  const latest = points[points.length - 1];
+  if (!latest) return null;
+  const target = latest.time - daysAgo * 86400000;
+  let base = points[0];
+  for (const point of points) {
+    if (point.time <= target) base = point;
+    else break;
+  }
+  if (!base || !Number.isFinite(base.close) || base.close <= 0) return null;
+  return Number((((latest.close - base.close) / base.close) * 100).toFixed(2));
+}
+
+async function collectQuantSeries(entry) {
+  const result = await fetchYahooChartResult(entry.symbol, "1y", "1d");
+  const points = yahooHistoryPoints(result);
+  const latest = points[points.length - 1];
+  if (!latest) throw new Error("empty series");
+  return {
+    id: entry.id,
+    label: entry.label,
+    symbol: entry.symbol,
+    value: latest.close,
+    currency: result.meta?.currency || null,
+    asOf: latest.date.slice(0, 10),
+    changePct30d: quantSeriesChangePct(points, 30),
+    changePct90d: quantSeriesChangePct(points, 90),
+    source: "Yahoo Finance chart API",
+    sourceUrl: entry.sourceUrl,
+  };
+}
+
+// SEC EDGAR companyfacts: filed 10-Q/10-K XBRL values, no key required.
+async function fetchEdgarMicronFundamentals() {
+  const url = "https://data.sec.gov/api/xbrl/companyfacts/CIK0000723125.json";
+  const res = await fetch(url, {
+    signal: fetchSignal(),
+    headers: { "User-Agent": "memory-intelligence-dashboard admin@dicacros.dev", Accept: "application/json" },
+  });
+  if (!res.ok) throw new Error(`HTTP ${res.status}`);
+  const json = await res.json();
+  const gaap = json?.facts?.["us-gaap"] || {};
+  const pickQuarterly = (tags) => {
+    for (const tag of tags) {
+      const units = gaap[tag]?.units?.USD;
+      if (!Array.isArray(units)) continue;
+      const row = units
+        .filter((r) => (r.form === "10-Q" || r.form === "10-K") && r.start && r.end)
+        .filter((r) => new Date(r.end) - new Date(r.start) < 130 * 86400000)
+        .sort((a, b) => new Date(b.end) - new Date(a.end))[0];
+      if (row) return { tag, value: row.val, start: row.start, end: row.end, form: row.form, fy: row.fy, fp: row.fp };
+    }
+    return null;
+  };
+  const pickInstant = (tag) => {
+    const units = gaap[tag]?.units?.USD || [];
+    const row = units
+      .filter((r) => r.end && (r.form === "10-Q" || r.form === "10-K"))
+      .sort((a, b) => new Date(b.end) - new Date(a.end))[0];
+    return row ? { tag, value: row.val, end: row.end, form: row.form, fy: row.fy, fp: row.fp } : null;
+  };
+  const revenue = pickQuarterly(["RevenueFromContractWithCustomerExcludingAssessedTax", "Revenues", "SalesRevenueNet"]);
+  const inventory = pickInstant("InventoryNet");
+  const grossProfit = pickQuarterly(["GrossProfit"]);
+  if (!revenue && !inventory) throw new Error("EDGAR facts empty");
+  return {
+    company: "Micron Technology",
+    cik: "0000723125",
+    revenue,
+    grossProfit,
+    inventory,
+    source: "SEC EDGAR companyfacts (10-Q/10-K XBRL)",
+    sourceUrl: "https://www.sec.gov/cgi-bin/browse-edgar?action=getcompany&CIK=0000723125&type=10-Q",
+  };
+}
+
+// TWSE OpenAPI: official monthly revenue disclosures for TWSE-listed companies.
+async function fetchTsmcMonthlyRevenue() {
+  const url = "https://openapi.twse.com.tw/v1/opendata/t187ap05_L";
+  const res = await fetch(url, {
+    signal: fetchSignal(),
+    headers: { "User-Agent": BROWSER_UA, Accept: "application/json" },
+  });
+  if (!res.ok) throw new Error(`HTTP ${res.status}`);
+  const rows = await res.json();
+  if (!Array.isArray(rows) || !rows.length) throw new Error("empty TWSE payload");
+  const keys = Object.keys(rows[0]);
+  const codeKey = keys.find((k) => /代號|Code/i.test(k));
+  const monthKey = keys.find((k) => /資料年月/.test(k));
+  const revenueKey = keys.find((k) => /當月營收/.test(k) && !/累計|上月|去年/.test(k));
+  const yoyKey = keys.find((k) => /去年同月增減/.test(k));
+  const momKey = keys.find((k) => /上月比較增減/.test(k));
+  const row = rows.find((r) => String(r[codeKey] ?? "") === "2330");
+  if (!row || !revenueKey) throw new Error("TSMC row/fields missing");
+  const num = (v) => {
+    const n = Number(String(v ?? "").replace(/,/g, ""));
+    return Number.isFinite(n) ? n : null;
+  };
+  const roc = String(row[monthKey] || "");
+  const rocMatch = roc.match(/^(\d{3})(\d{2})$/);
+  const month = rocMatch ? `${1911 + Number(rocMatch[1])}-${rocMatch[2]}` : null;
+  const value = num(row[revenueKey]);
+  if (!Number.isFinite(value)) throw new Error("TSMC revenue parse failed");
+  return {
+    company: "TSMC (2330)",
+    month,
+    revenueThousandTwd: value,
+    revenueBillionTwd: Number((value / 1e6).toFixed(1)),
+    yoyPct: num(row[yoyKey]),
+    momPct: num(row[momKey]),
+    note: String(row["備註"] || "").slice(0, 120) || null,
+    source: "TWSE OpenAPI 月營業收入 (official disclosure)",
+    sourceUrl: "https://openapi.twse.com.tw/v1/opendata/t187ap05_L",
+  };
+}
+
+// Memory price momentum from our own accumulated TrendForce history.
+function quantMemoryMomentum(priceHistory = {}) {
+  const calc = (prefix, daysAgo) => {
+    const changes = [];
+    for (const item of Object.values(priceHistory.items || {})) {
+      if (!String(item.key || "").startsWith(prefix)) continue;
+      const points = (item.points || [])
+        .map((p) => ({ time: new Date(p.date || p.crawledAt || 0).getTime(), average: Number(p.average) }))
+        .filter((p) => Number.isFinite(p.time) && p.time > 0 && Number.isFinite(p.average) && p.average > 0)
+        .sort((a, b) => a.time - b.time);
+      if (points.length < 2) continue;
+      const latest = points[points.length - 1];
+      const target = latest.time - daysAgo * 86400000;
+      let base = points[0];
+      for (const p of points) {
+        if (p.time <= target) base = p;
+        else break;
+      }
+      if (base.time === latest.time) continue;
+      changes.push(((latest.average - base.average) / base.average) * 100);
+    }
+    if (!changes.length) return null;
+    return Number((changes.reduce((sum, v) => sum + v, 0) / changes.length).toFixed(2));
+  };
+  return {
+    dramSpot30dPct: calc("dram-", 30),
+    dramSpot90dPct: calc("dram-", 90),
+    nandSpot30dPct: calc("nand-", 30),
+    nandSpot90dPct: calc("nand-", 90),
+    source: "TrendForce 공개 테이블 자체 축적 히스토리",
+    asOf: new Date().toISOString().slice(0, 10),
+  };
+}
+
+async function collectQuantMetrics(priceHistory) {
+  const quant = {
+    schemaVersion: "1.0",
+    updatedAt: new Date().toISOString(),
+    timezone: "Asia/Seoul",
+    fx: {},
+    aiDemandProxy: {},
+    fundamentals: {},
+    foundry: {},
+    memoryMomentum: null,
+  };
+  for (const entry of QUANT_FX) {
+    try {
+      quant.fx[entry.id] = await collectQuantSeries(entry);
+      note(`quant:FX ${entry.label}`, true, `${quant.fx[entry.id].value} (${quant.fx[entry.id].asOf})`);
+    } catch (error) {
+      quant.fx[entry.id] = null;
+      note(`quant:FX ${entry.label}`, false, error.message);
+    }
+    await sleep(320);
+  }
+  for (const entry of QUANT_AI_PROXIES) {
+    try {
+      quant.aiDemandProxy[entry.id] = await collectQuantSeries(entry);
+      note(`quant:AI ${entry.label}`, true, `${quant.aiDemandProxy[entry.id].value} · 90d ${quant.aiDemandProxy[entry.id].changePct90d}%`);
+    } catch (error) {
+      quant.aiDemandProxy[entry.id] = null;
+      note(`quant:AI ${entry.label}`, false, error.message);
+    }
+    await sleep(320);
+  }
+  try {
+    quant.fundamentals.micron = await fetchEdgarMicronFundamentals();
+    const rev = quant.fundamentals.micron.revenue;
+    note("quant:Micron EDGAR", true, rev ? `분기매출 $${(rev.value / 1e9).toFixed(2)}B (${rev.end})` : "재고만 수집");
+  } catch (error) {
+    quant.fundamentals.micron = null;
+    note("quant:Micron EDGAR", false, error.message);
+  }
+  try {
+    quant.foundry.tsmcMonthly = await fetchTsmcMonthlyRevenue();
+    const t = quant.foundry.tsmcMonthly;
+    note("quant:TSMC 월매출", true, `${t.month} · ${t.revenueBillionTwd}B TWD · YoY ${t.yoyPct != null ? t.yoyPct.toFixed(1) : "?"}%`);
+  } catch (error) {
+    quant.foundry.tsmcMonthly = null;
+    note("quant:TSMC 월매출", false, error.message);
+  }
+  quant.memoryMomentum = quantMemoryMomentum(priceHistory);
+  return quant;
+}
+
+/* ---------------- Wayback Machine price-history backfill ----------------
+ * TrendForce's own priceChart API is login-only (403), so quarterly/1y/5y
+ * history is reconstructed from public web.archive.org snapshots of the same
+ * price pages, parsed with the same table parser. Points are tagged with
+ * origin=web.archive.org and only merged into series we already track. */
+
+const ARCHIVE_BACKFILL_ERAS = [
+  { id: "1q", daysAgo: 92, windowDays: 24 },
+  { id: "2q", daysAgo: 183, windowDays: 30 },
+  { id: "1y", daysAgo: 365, windowDays: 45 },
+  { id: "2y", daysAgo: 730, windowDays: 60 },
+  { id: "3y", daysAgo: 1095, windowDays: 75 },
+  { id: "5y", daysAgo: 1825, windowDays: 90 },
+];
+const ARCHIVE_BACKFILL_MAX_SNAPSHOTS_PER_RUN = 4;
+
+function cdxDayStamp(time) {
+  return new Date(time).toISOString().slice(0, 10).replace(/-/g, "");
+}
+
+// Wayback needs patience: slower responses than 12s default and transient 503s.
+async function fetchArchiveText(url, tries = 3) {
+  let lastErr;
+  for (let attempt = 0; attempt < tries; attempt += 1) {
+    try {
+      const res = await fetch(url, {
+        signal: AbortSignal.timeout(30000),
+        headers: { "User-Agent": BROWSER_UA, Accept: "text/html,application/json,*/*;q=0.8" },
+      });
+      if (res.status === 503 || res.status === 429) throw new Error(`HTTP ${res.status}`);
+      if (!res.ok) throw new Error(`HTTP ${res.status}`);
+      const buf = await res.arrayBuffer();
+      return new TextDecoder("utf-8").decode(buf);
+    } catch (error) {
+      lastErr = error;
+      await sleep(4000 * (attempt + 1));
+    }
+  }
+  throw lastErr || new Error("archive fetch failed");
+}
+
+function cdxTimestampToIso(ts = "") {
+  const m = String(ts).match(/^(\d{4})(\d{2})(\d{2})(\d{2})?(\d{2})?(\d{2})?/);
+  if (!m) return null;
+  return new Date(Date.UTC(+m[1], +m[2] - 1, +m[3], +(m[4] || 12), +(m[5] || 0), +(m[6] || 0))).toISOString();
+}
+
+// TrendForce renamed items over the years (e.g. "16G" -> "16Gb"), so archived
+// rows are matched to today's series via a normalized key.
+function normalizedHistoryKey(key = "") {
+  return String(key)
+    .toLowerCase()
+    .replace(/(\d)\s*gb\b/g, "$1g") // fold 16gb -> 16g so both eras collide
+    .replace(/\s+/g, ""); // whitespace-insensitive: "(2gx8)3200" == "(2gx8) 3200"
+}
+
+async function backfillPriceHistoryFromArchive(history) {
+  let snapshotsFetched = 0;
+  let pointsAdded = 0;
+  const normalizedIndex = new Map();
+  for (const item of Object.values(history.items || {})) {
+    const norm = normalizedHistoryKey(item.key);
+    if (norm && !normalizedIndex.has(norm)) normalizedIndex.set(norm, item);
+  }
+  for (const page of PRICE_PAGES) {
+    for (const era of ARCHIVE_BACKFILL_ERAS) {
+      if (snapshotsFetched >= ARCHIVE_BACKFILL_MAX_SNAPSHOTS_PER_RUN) break;
+      const target = Date.now() - era.daysAgo * 86400000;
+      const windowMs = era.windowDays * 86400000;
+      const covered = Object.values(history.items || {}).some((item) =>
+        String(item.key || "").startsWith(`${page.id}-`) &&
+        (item.points || []).some((p) => Math.abs(new Date(p.date || p.crawledAt || 0).getTime() - target) <= windowMs));
+      if (covered) continue;
+      try {
+        const cdxUrl = `https://web.archive.org/cdx/search/cdx?url=${encodeURIComponent(page.url)}&output=json&from=${cdxDayStamp(target - windowMs)}&to=${cdxDayStamp(target + windowMs)}&filter=statuscode:200&limit=4`;
+        const cdxRows = JSON.parse(await fetchArchiveText(cdxUrl));
+        const snapshots = (Array.isArray(cdxRows) ? cdxRows.slice(1) : []).map((r) => r[1]).filter(Boolean);
+        if (!snapshots.length) {
+          note(`가격백필:${page.id}·${era.id}`, true, "아카이브 스냅샷 없음 (skip)");
+          continue;
+        }
+        // Pick the snapshot closest to the target date.
+        const best = snapshots
+          .map((ts) => ({ ts, diff: Math.abs(new Date(cdxTimestampToIso(ts)).getTime() - target) }))
+          .sort((a, b) => a.diff - b.diff)[0].ts;
+        snapshotsFetched += 1;
+        const html = await fetchArchiveText(`https://web.archive.org/web/${best}id_/${page.url}`);
+        const parsedSections = parsePriceTables(html, page); // returns an array of sections
+        const snapIso = cdxTimestampToIso(best);
+        let merged = 0;
+        for (const section of parsedSections || []) {
+          for (const row of section.rows || []) {
+            if (row.average == null && row.changePct == null) continue;
+            const key = row.historyKey || priceHistoryKey(section, row);
+            const current = history.items[key] || normalizedIndex.get(normalizedHistoryKey(key));
+            if (!current) continue; // only enrich series we track today
+            const point = {
+              date: snapIso,
+              sourceUpdate: section.lastUpdate || "",
+              crawledAt: snapIso,
+              average: row.average,
+              averageRaw: row.averageRaw || "",
+              changePct: row.changePct,
+              changeRaw: row.changeRaw || "",
+              direction: row.direction || "flat",
+              origin: "web.archive.org",
+              archiveUrl: `https://web.archive.org/web/${best}/${page.url}`,
+            };
+            const next = mergePricePoints(current.points, [point]);
+            if (next.length !== current.points.length) {
+              current.points = next;
+              merged += 1;
+              pointsAdded += 1;
+            }
+          }
+        }
+        note(`가격백필:${page.id}·${era.id}`, merged > 0, `${best.slice(0, 8)} 스냅샷 · ${merged}개 시리즈에 과거점 추가`);
+      } catch (error) {
+        note(`가격백필:${page.id}·${era.id}`, false, error.message);
+      }
+      await sleep(900);
+    }
+  }
+  if (pointsAdded > 0) history.updatedAt = new Date().toISOString();
+  return pointsAdded;
+}
+
 async function main() {
   await loadCrawlExclusions();
   const runId = process.env.GITHUB_RUN_ID || `local-${Date.now()}`;
@@ -4870,8 +5215,15 @@ async function main() {
     collectChinaInfra(),
   ]);
   const priceHistory = await updatePriceHistory(prices);
+  try {
+    const backfilled = await backfillPriceHistoryFromArchive(priceHistory);
+    if (backfilled > 0) note("가격백필:합계", true, `아카이브 과거점 ${backfilled}개 병합`);
+  } catch (error) {
+    note("가격백필:합계", false, error.message);
+  }
   attachPriceHistory(prices, priceHistory);
   const marketHistory = await updateMarketHistory();
+  const quant = await collectQuantMetrics(priceHistory);
 
   const evidenceValidatedAt = new Date().toISOString();
   const evidenceGate = validateNewsEvidence(newsPayload.news, evidenceValidatedAt);
@@ -4918,6 +5270,7 @@ async function main() {
     updatedAt: new Date().toISOString(),
     timezone: "Asia/Seoul",
     stocks,
+    quant,
     prices,
     priceHistory,
     marketHistory: summarizeMarketHistory(marketHistory),
@@ -4966,11 +5319,32 @@ async function main() {
   await writeVerifiedBundle([
     [HISTORY_OUT, priceHistory],
     [MARKET_HISTORY_OUT, marketHistory],
+    [QUANT_OUT, quant],
     [CRAWL_QUARANTINE_OUT, quarantineReport],
     [CRAWL_AUDIT_OUT, crawlAudit],
     [OUT, payload],
   ]);
   console.log(`검증 데이터 묶음 저장: ${OUT}`);
+}
+
+if (process.env.BACKFILL_DEBUG) {
+  const history = await loadPriceHistory();
+  const page = PRICE_PAGES[0];
+  const ts = process.env.BACKFILL_TS || "20250811165422";
+  const html = process.env.BACKFILL_FILE
+    ? await readFile(process.env.BACKFILL_FILE, "utf8")
+    : await fetchArchiveText(`https://web.archive.org/web/${ts}id_/${page.url}`);
+  const parsed = parsePriceTables(html, page);
+  console.log("sections:", (parsed || []).map((s) => `${s.id} (${s.rows?.length} rows)`));
+  for (const section of (parsed || []).slice(0, 2)) {
+    for (const row of (section.rows || []).slice(0, 4)) {
+      const key = row.historyKey || priceHistoryKey(section, row);
+      const hit = history.items[key] ? "EXACT" : (normalizedHistoryKey(key) && Object.values(history.items).some((i) => normalizedHistoryKey(i.key) === normalizedHistoryKey(key)) ? "NORM" : "MISS");
+      console.log(`[${hit}] key=${key} · avg=${row.average}`);
+    }
+  }
+  console.log("today keys sample:", Object.keys(history.items).slice(0, 6));
+  process.exit(0);
 }
 
 main().catch((error) => {

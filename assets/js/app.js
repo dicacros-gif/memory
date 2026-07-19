@@ -1736,7 +1736,7 @@
       desc: "백테스트, 경영전략, 정량 분석, ROI 시나리오",
       cadence: "Decision lab",
       jump: "executive-decision",
-      sections: ["executive-decision", "management-strategy", "strategic-investment-decision", "numbers"],
+      sections: ["executive-decision", "management-strategy", "strategic-investment-decision", "memory-visual-story", "numbers"],
     },
     {
       id: "market",
@@ -1752,7 +1752,7 @@
       desc: "CXMT, YMTC, XMC, JCET, Naura, AMEC의 기술·캐파·공급망 변화",
       cadence: "China benchmark",
       jump: "china-nand",
-      sections: ["china-nand", "china-dynamics", "ai-matrix", "china-deep-dive"],
+      sections: ["china-nand", "china-dynamics", "ai-matrix", "china-benchmark-video-story", "china-deep-dive"],
     },
     {
       id: "policy",
@@ -1760,7 +1760,7 @@
       desc: "중국·한국·미국 정책 방향, CHIPS/BIS, 중국 Fab 인프라 판단",
       cadence: "Policy watch",
       jump: "policy-makers",
-      sections: ["policy-makers", "china-fab-infra"],
+      sections: ["policy-makers", "ai-demand-scroll-story", "china-fab-infra"],
     },
     {
       id: "talent",
@@ -1777,7 +1777,7 @@
     {
       id: "c-level",
       label: "경영진 의사결정",
-      desc: "전략 회의·의사결정 안건",
+      desc: "안건·에이전트 토론·결론",
       cadence: "C-level cockpit",
       jump: "c-level-cockpit",
       sections: ["c-level-cockpit"],
@@ -1785,91 +1785,92 @@
     {
       id: "workbench",
       label: "분석실",
-      desc: "워크벤치, 정량 분석, 전문가 토론",
+      desc: "워크벤치·정량 모델·토론",
       cadence: "Decision lab",
       jump: "workbench",
       sections: ["workbench"],
     },
     {
       id: "market-map",
-      label: "경쟁·돈흐름",
-      desc: "Competitive Dynamics, Money Flow",
+      label: "경쟁·자본 흐름",
+      desc: "경쟁·파트너십·투자·공급",
       cadence: "Dynamics",
       jump: "memory-market-map",
-      sections: ["memory-market-map"],
+      sections: ["memory-market-map", "competitive-scroll-story"],
     },
+    ...MECE_GROUPS.filter((route) => route.id === "analysis"),
     {
       id: "projection",
-      label: "제품군 프로젝션",
-      desc: "서버향·단말향·30개월+5년 제품 믹스",
+      label: "제품군 전망",
+      desc: "서버·단말 제품 믹스",
       cadence: "SKHY projection",
       jump: "projection",
       sections: ["projection"],
     },
     {
       id: "hyperscaler-demand",
-      label: "수요 예측",
-      desc: "AI서버·스토리지·모바일·PC·오토",
+      label: "메모리 수요 예측",
+      desc: "AI서버·스토리지·단말",
       cadence: "Scenario planning",
       jump: "hyperscaler-demand",
-      sections: ["hyperscaler-demand"],
+      sections: ["hyperscaler-demand", "memory-scroll-story"],
     },
-    ...MECE_GROUPS.filter((route) => ["analysis", "market", "policy", "competitors", "talent"].includes(route.id)),
+    ...MECE_GROUPS.filter((route) => ["market", "policy", "competitors", "talent"].includes(route.id)),
   ];
   const ROUTE_DISPLAY = {
     home: {
       label: "Executive Summary",
-      desc: "일일 인텔리전스",
+      desc: "핵심 변화·증권사 리서치",
       cadence: "Daily",
     },
     "c-level": {
       label: "경영진 의사결정",
-      desc: "C-level 안건·토론·결론",
+      desc: "안건·에이전트 토론·결론",
       cadence: "C-level",
     },
     workbench: {
       label: "분석실",
-      desc: "워크벤치·정량분석·전문가 토론",
+      desc: "워크벤치·정량 모델·토론",
       cadence: "Decision lab",
     },
     "market-map": {
-      label: "경쟁·돈흐름",
-      desc: "경쟁·파트너십·투자·공급·매출",
+      label: "경쟁·자본 흐름",
+      desc: "경쟁·파트너십·투자·공급",
       cadence: "Dynamics",
     },
     projection: {
-      label: "제품군 프로젝션",
-      desc: "서버향·단말향 제품 믹스 전망",
+      label: "제품군 전망",
+      desc: "서버·단말 제품 믹스",
       cadence: "Projection",
     },
     "hyperscaler-demand": {
-      label: "수요 예측",
-      desc: "AI서버·스토리지·모바일·PC·오토",
+      label: "메모리 수요 예측",
+      desc: "AI서버·스토리지·단말",
       cadence: "Scenario",
     },
     analysis: {
       label: "전략·백테스트",
-      desc: "백테스트·경영전략·정량분석·ROI",
+      desc: "과거 판단·ROI 시나리오",
       cadence: "Decision lab",
     },
     market: {
       label: "시장·가격·기사",
-      desc: "가격 추이·외신·중국 현장 신호",
+      desc: "현물·계약 가격·권위 기사",
       cadence: "Market data",
     },
     competitors: {
-      label: "중국 경쟁사",
-      desc: "CXMT·YMTC·JCET·Naura·AMEC",
+      label: "중국 메모리 경쟁",
+      desc: "CXMT·YMTC·장비·패키징",
       cadence: "China benchmark",
     },
     policy: {
-      label: "정책/Fab",
-      desc: "중·한·미 정책·중국 Fab 인프라",
+      label: "정책·팹 리스크",
+      desc: "중국·한국·미국·팹 운영",
       cadence: "Policy watch",
     },
     talent: {
-      label: "인재/IP",
-      desc: "채용·수율 인력·IP 리스크",
+      label: "인재·IP 리스크",
+      desc: "채용·수율 인력·IP 방어",
       cadence: "Hiring watch",
     },
   };
@@ -1887,11 +1888,10 @@
     talent: { label: "인재 · IP", en: "Talent / IP", desc: "채용, 핵심 수율 인력 이동, IP 방어 신호" },
   };
   const SIDE_NAV_GROUPS = [
-    { label: "핵심 브리핑", routes: ["home"] },
-    { label: "의사결정·분석", routes: ["c-level", "workbench", "market-map", "analysis"] },
-    { label: "제품·수요 전망", routes: ["projection", "hyperscaler-demand"] },
-    { label: "시장·정책", routes: ["market", "policy"] },
-    { label: "중국 경쟁·인재", routes: ["competitors", "talent"] },
+    { label: "핵심·의사결정", routes: ["home", "c-level"] },
+    { label: "분석·전망", routes: ["workbench", "market-map", "analysis", "projection", "hyperscaler-demand"] },
+    { label: "시장·리스크", routes: ["market", "policy"] },
+    { label: "중국 인텔리전스", routes: ["competitors", "talent"] },
   ];
   const SIDE_NAV_ICONS = {
     home: "01",
@@ -1955,56 +1955,10 @@
     "china-community": "중국 반도체 현장 신호",
     prices: "TrendForce 가격",
   };
-  const SECTION_ORDER = [
-    "overview",
-    "c-level-cockpit",
-    "workbench",
-    "memory-market-map",
-    "executive-decision",
-    "management-strategy",
-    "strategic-investment-decision",
-    "numbers",
-    "projection",
-    "hyperscaler-demand",
-    "prices",
-    "news",
-    "china-community",
-    "policy-makers",
-    "ai-demand-scroll-story",
-    "china-fab-infra",
-    "china-nand",
-    "china-dynamics",
-    "ai-matrix",
-    "china-deep-dive",
-    "talent-radar",
-    "china-talent-strategy",
-  ];
-  const NAV_SECTION_TARGETS = {
-    overview: "overview",
-    "c-level-cockpit": "c-level-cockpit",
-    workbench: "workbench",
-    "memory-market-map": "memory-market-map",
-    prices: "prices",
-    news: "prices",
-    "china-community": "prices",
-    "policy-makers": "policy-makers",
-    "ai-demand-scroll-story": "policy-makers",
-    "china-fab-infra": "policy-makers",
-    "china-nand": "china-nand",
-    "china-dynamics": "china-nand",
-    "ai-matrix": "china-nand",
-    "china-deep-dive": "china-nand",
-    "talent-radar": "talent-radar",
-    "china-talent-strategy": "talent-radar",
-    "executive-decision": "executive-decision",
-    "management-strategy": "executive-decision",
-    "strategic-investment-decision": "executive-decision",
-    numbers: "executive-decision",
-    projection: "projection",
-    "hyperscaler-demand": "hyperscaler-demand",
-    response: "executive-decision",
-    categories: "china-nand",
-  };
+  const SECTION_ORDER = SIDE_NAV_ROUTES.flatMap((route) => route.sections || []);
+  const NAV_SECTION_TARGETS = Object.fromEntries(
+    SIDE_NAV_ROUTES.flatMap((route) => (route.sections || []).map((section) => [section, route.jump])),
+  );
   const PRICE_PERIODS = [
     { id: "week", label: "주", days: 7 },
     { id: "year", label: "1년", days: 365 },
@@ -2025,6 +1979,7 @@
 
   let BASE = null;
   let LIVE = emptyLive;
+  let QUANT = null;
   let HISTORY = emptyHistory;
   let MARKET_HISTORY = emptyMarketHistory;
   let REPO_CRAWL_EXCLUSIONS = emptyCrawlExclusions;
@@ -2885,16 +2840,59 @@
     sync();
   }
 
+  // Crawl heartbeat: proves the site is alive — last run age, stage success
+  // ratio, failed stages, and headline live metrics from quant.json.
+  function renderCrawlHeartbeat() {
+    const host = $("#overview-content");
+    if (!host) return;
+    let strip = $("#crawlHeartbeat");
+    if (!strip) {
+      strip = el("div", "crawl-heartbeat");
+      strip.id = "crawlHeartbeat";
+      host.insertBefore(strip, host.firstChild);
+    }
+    const updatedAt = LIVE?.updatedAt ? new Date(LIVE.updatedAt) : null;
+    const ageHours = updatedAt ? (Date.now() - updatedAt.getTime()) / 3600000 : null;
+    const stale = ageHours == null || ageHours > 26;
+    const health = Array.isArray(LIVE?.health) ? LIVE.health : [];
+    const okCount = health.filter((item) => item && item.ok).length;
+    const failed = health.filter((item) => item && !item.ok).map((item) => item.step);
+    const ageLabel = ageHours == null
+      ? "수집 기록 없음"
+      : ageHours < 1
+        ? `${Math.max(1, Math.round(ageHours * 60))}분 전`
+        : `${fmtNum(ageHours, ageHours < 10 ? 1 : 0)}시간 전`;
+    const q = QUANT || {};
+    const chips = [];
+    if (Number.isFinite(q.fx?.usdkrw?.value)) chips.push(`USD/KRW ${fmtNum(q.fx.usdkrw.value, 0)}`);
+    if (Number.isFinite(q.aiDemandProxy?.nvda?.changePct90d)) chips.push(`NVDA 90d ${q.aiDemandProxy.nvda.changePct90d > 0 ? "+" : ""}${fmtNum(q.aiDemandProxy.nvda.changePct90d, 1)}%`);
+    if (Number.isFinite(q.foundry?.tsmcMonthly?.yoyPct)) chips.push(`TSMC 월매출 YoY ${q.foundry.tsmcMonthly.yoyPct > 0 ? "+" : ""}${fmtNum(q.foundry.tsmcMonthly.yoyPct, 1)}%`);
+    if (Number.isFinite(q.memoryMomentum?.dramSpot30dPct)) chips.push(`DRAM spot 30d ${q.memoryMomentum.dramSpot30dPct > 0 ? "+" : ""}${fmtNum(q.memoryMomentum.dramSpot30dPct, 1)}%`);
+    if (Number.isFinite(q.fundamentals?.micron?.revenue?.value)) chips.push(`Micron 분기매출 $${fmtNum(q.fundamentals.micron.revenue.value / 1e9, 1)}B`);
+    strip.className = `crawl-heartbeat${stale ? " stale" : ""}`;
+    strip.innerHTML = `
+      <span class="hb-dot" aria-hidden="true"></span>
+      <b>${stale ? "크롤링 지연" : "LIVE"}</b>
+      <span class="hb-item">마지막 수집 ${escapeHTML(ageLabel)}</span>
+      ${health.length ? `<span class="hb-item">단계 ${fmtNum(okCount)}/${fmtNum(health.length)} 성공</span>` : ""}
+      ${failed.length ? `<span class="hb-item fail" title="${escapeHTML(failed.slice(0, 6).join(", "))}">실패 ${fmtNum(failed.length)}건</span>` : ""}
+      ${chips.map((chip) => `<span class="hb-chip">${escapeHTML(chip)}</span>`).join("")}
+      <span class="hb-item">매일 06·18시 KST 자동 크롤링</span>
+    `;
+  }
+
   async function init() {
     setupMediaExperience();
     setupChinaBenchmarkVideoStory();
     setupChinaDecisionVideo();
     setupMemoryScrollStory();
-    [BASE, LIVE, REPO_CRAWL_EXCLUSIONS] = await Promise.all([
+    [BASE, LIVE, REPO_CRAWL_EXCLUSIONS, QUANT] = await Promise.all([
       loadJSON("data/baseline.json", null),
       loadJSON("data/live.json", emptyLive),
       loadJSON("data/crawl-exclusions.json", emptyCrawlExclusions),
+      loadJSON("data/quant.json", null),
     ]);
+    if (!QUANT && LIVE && LIVE.quant) QUANT = LIVE.quant;
     LIVE = selectVerifiedLiveData(LIVE);
     LIVE = normalizeLiveData(LIVE);
     refreshCrawlExclusionKeys();
@@ -2910,6 +2908,7 @@
     renderChrome();
     renderSidebarNav();
     renderSidebarCategories();
+    renderCrawlHeartbeat();
     renderKpis();
     setupQA();
     setupInteractions();
@@ -3787,6 +3786,18 @@
     }, { rootMargin: "900px 0px", threshold: 0.01 });
     sections.forEach((section) => observer.observe(section));
     window.addEventListener("pagehide", () => observer.disconnect(), { once: true });
+
+    // Safety net: some browsers/webviews throttle IntersectionObserver, which
+    // would leave sections as skeletons forever. Shortly after first paint,
+    // progressively render whatever is still waiting during idle time.
+    const renderRemaining = () => {
+      definitions.reduce((chain, definition) => chain.then(() => new Promise((done) => {
+        const run = () => ensureDeferredSection(definition.id).then(done, done);
+        if ("requestIdleCallback" in window) window.requestIdleCallback(run, { timeout: 2500 });
+        else window.setTimeout(run, 120);
+      })), Promise.resolve());
+    };
+    window.setTimeout(renderRemaining, 2500);
   }
 
   /* ---------------- Hyperscaler memory demand · scenario planning ---------------- */
@@ -3936,16 +3947,76 @@
     return FORECAST_SCENARIOS.find((s) => s.id === id) || FORECAST_SCENARIOS[1];
   }
 
-  // Scenario-adjusted driver values for a category.
-  function forecastDrivers(category = forecastCategoryData(), scenario = forecastScenarioData()) {
-    const units = category.units * scenario.unitsMul;
+  // Live calibration from crawled quant metrics (data/quant.json).
+  // Bounded nudges (±8% units, ±6pt demand) so daily noise adjusts the model
+  // without whipsawing it; every factor is listed with its as-of date.
+  function forecastLiveCalibration(category = forecastCategoryData()) {
+    const q = QUANT || {};
+    const mom = q.memoryMomentum || {};
+    const factors = [];
+    let unitsTiltPct = 0;
+    let demandTiltPt = 0;
+
+    const signed = (v, d = 1) => `${v > 0 ? "+" : ""}${fmtNum(v, d)}`;
+    const aiVals = [q.aiDemandProxy?.nvda?.changePct90d, q.aiDemandProxy?.amd?.changePct90d].filter((v) => Number.isFinite(v));
+    const aiAvg = aiVals.length ? aiVals.reduce((s, v) => s + v, 0) / aiVals.length : null;
+    const tsmcYoY = Number.isFinite(q.foundry?.tsmcMonthly?.yoyPct) ? q.foundry.tsmcMonthly.yoyPct : null;
+    const dram90 = Number.isFinite(mom.dramSpot90dPct) ? mom.dramSpot90dPct : (Number.isFinite(mom.dramSpot30dPct) ? mom.dramSpot30dPct : null);
+    const nand90 = Number.isFinite(mom.nandSpot90dPct) ? mom.nandSpot90dPct : (Number.isFinite(mom.nandSpot30dPct) ? mom.nandSpot30dPct : null);
+
+    const aiSensitive = category.id === "hyperscaler" || category.id === "datacenter";
+    if (aiSensitive) {
+      if (aiAvg != null) {
+        unitsTiltPct += clamp(aiAvg / 25, -5, 5);
+        factors.push(`NVDA·AMD 90d ${signed(aiAvg)}% (${q.aiDemandProxy?.nvda?.asOf || ""})`);
+      }
+      if (tsmcYoY != null) {
+        // TSMC monthly YoY above trend(+20%) reads as accelerator upside.
+        unitsTiltPct += clamp((tsmcYoY - 20) / 15, -4, 4);
+        factors.push(`TSMC 월매출 YoY ${signed(tsmcYoY)}% (${q.foundry?.tsmcMonthly?.month || ""})`);
+      }
+      if (dram90 != null) {
+        demandTiltPt += clamp(dram90 / 3, -4, 4);
+        factors.push(`DRAM spot ${signed(dram90)}%`);
+      }
+      if (nand90 != null) demandTiltPt += clamp(nand90 / 5, -2, 2);
+    } else {
+      if (dram90 != null) {
+        unitsTiltPct += clamp(dram90 / 8, -3, 3);
+        demandTiltPt += clamp(dram90 / 4, -3, 3);
+        factors.push(`DRAM spot ${signed(dram90)}%`);
+      }
+      if (nand90 != null) {
+        demandTiltPt += clamp(nand90 / 4, -3, 3);
+        factors.push(`NAND spot ${signed(nand90)}%`);
+      }
+    }
+    const micron = q.fundamentals?.micron;
+    if (micron?.revenue?.value) {
+      factors.push(`Micron 분기매출 $${fmtNum(micron.revenue.value / 1e9, 1)}B (${micron.revenue.end || ""})`);
+    }
+    unitsTiltPct = clamp(unitsTiltPct, -8, 8);
+    demandTiltPt = clamp(demandTiltPt, -6, 6);
+    return {
+      live: factors.length > 0,
+      unitsTiltPct,
+      demandTiltPt,
+      factors,
+      asOf: q.updatedAt ? String(q.updatedAt).slice(0, 10) : null,
+    };
+  }
+
+  // Scenario-adjusted driver values for a category, nudged by live quant data.
+  function forecastDrivers(category = forecastCategoryData(), scenario = forecastScenarioData(), calibration = forecastLiveCalibration(category)) {
+    const liveUnitsMul = 1 + (calibration?.unitsTiltPct || 0) / 100;
+    const units = category.units * scenario.unitsMul * liveUnitsMul;
     const memPerUnit = category.memPerUnit * scenario.memMul;
     const skhyShare = clamp(category.skhyShare * scenario.shareMul, 5, 80);
     const totalPb = Math.round(units * memPerUnit);
     const skhyPb = Math.round(totalPb * skhyShare / 100);
-    const dramYoY = Math.round(category.dramYoY * scenario.demandMul);
-    const nandYoY = Math.round(category.nandYoY * scenario.demandMul);
-    return { units, memPerUnit, skhyShare, totalPb, skhyPb, dramYoY, nandYoY };
+    const dramYoY = Math.round(category.dramYoY * scenario.demandMul + (calibration?.demandTiltPt || 0));
+    const nandYoY = Math.round(category.nandYoY * scenario.demandMul + (calibration?.demandTiltPt || 0));
+    return { units, memPerUnit, skhyShare, totalPb, skhyPb, dramYoY, nandYoY, calibration };
   }
 
   function forecastAccountPull(account, scenario = forecastScenarioData()) {
@@ -3991,13 +4062,21 @@
         { k: "④ SKHY 점유율", v: `${fmtNum(d.skhyShare)}%`, s: category.shareNote },
         { k: "⑤ SKHY 물량", v: `${fmtNum(d.skhyPb)} PB`, s: "③×④ 논리 추정" },
       ];
+      const calib = d.calibration;
+      const calibHTML = calib?.live
+        ? `<div class="hs-live-calib" style="--cat-accent:${category.accent}">
+            <b>LIVE 보정</b>
+            <span>출하 ${calib.unitsTiltPct > 0 ? "+" : ""}${fmtNum(calib.unitsTiltPct, 1)}% · 동반수요 ${calib.demandTiltPt > 0 ? "+" : ""}${fmtNum(calib.demandTiltPt, 1)}pt</span>
+            <small>${escapeHTML(calib.factors.slice(0, 4).join(" · "))}${calib.asOf ? ` · as of ${escapeHTML(calib.asOf)}` : ""}</small>
+          </div>`
+        : `<div class="hs-live-calib idle"><b>LIVE 보정</b><span>quant.json 수집 대기 · 다음 크롤링(06/18시 KST)부터 지표 보정 적용</span></div>`;
       logic.innerHTML = steps.map((step, i) => `
         <article class="hs-logic-step reveal" style="--delay:${i * 60}ms; --cat-accent:${category.accent}">
           <span>${escapeHTML(step.k)}</span>
           <strong>${escapeHTML(step.v)}</strong>
           <small>${escapeHTML(step.s)}</small>
         </article>
-      `).join(`<i class="hs-logic-arrow" aria-hidden="true">→</i>`);
+      `).join(`<i class="hs-logic-arrow" aria-hidden="true">→</i>`) + calibHTML;
     }
 
     tabs.innerHTML = FORECAST_SCENARIOS.map((s) => {
@@ -4720,15 +4799,6 @@
       event.stopPropagation();
       toggleSidebarCollapsed();
     });
-    $("#sidebar")?.addEventListener("click", (event) => {
-      if (event.target.closest("button, a, input, select")) return;
-      if (window.matchMedia?.("(max-width: 980px)")?.matches) {
-        document.body.classList.remove("menu-open");
-        cyclePalette();
-        return;
-      }
-      toggleSidebarCollapsed();
-    });
   }
 
   function updateScrollProgress() {
@@ -4913,6 +4983,8 @@
     const cat = activeCategoryData() || { label: "All", desc: "" };
     const meta = $("#categoryMeta");
     if (meta) meta.textContent = `${cat.label} \u00b7 ${cat.desc}`;
+    const sideFilterCurrent = $("#sideFilterCurrent");
+    if (sideFilterCurrent) sideFilterCurrent.textContent = cat.label;
     $$(".sb-cat").forEach((btn) => {
       const isActive = btn.dataset.category === activeCategory;
       btn.classList.toggle("active", isActive);
@@ -13902,11 +13974,16 @@
     if (meta) meta.textContent = `${scenario.label} case · 모델 산출 · ${horizon.detail} · ${fmtNum(totalSignals)}개 신호 · ${fmtDate(LIVE.updatedAt)}`;
     if (windowNode) windowNode.textContent = `${horizon.rangeLabel} · 현재 수집일 +${PROJECTION_START_MONTHS}개월부터`;
 
+    const liveInputBits = [`신호 ${fmtNum(totalSignals)}개`, `중국압력지수 ${fmtNum(projectionChinaPressureIndex() * 100, 0)}/100`];
+    const qm = QUANT?.memoryMomentum || {};
+    if (Number.isFinite(qm.dramSpot30dPct)) liveInputBits.push(`DRAM spot 30d ${qm.dramSpot30dPct > 0 ? "+" : ""}${fmtNum(qm.dramSpot30dPct, 1)}%`);
+    if (Number.isFinite(qm.nandSpot30dPct)) liveInputBits.push(`NAND spot 30d ${qm.nandSpot30dPct > 0 ? "+" : ""}${fmtNum(qm.nandSpot30dPct, 1)}%`);
     const summaryCards = [
       { label: "선택 케이스", value: scenario.label, note: scenario.tone },
       { label: "AI·데이터센터 믹스", value: serverShare, note: "모델 산출 · AI서버·하이퍼스케일러 + 데이터센터 스토리지", suffix: "%", decimals: 1 },
       { label: "단말·오토 믹스", value: terminalShare, note: "모델 산출 · 모바일 + PC + 오토/엣지", suffix: "%", decimals: 1 },
       { label: "AI·데이터센터 3-case 범위", value: `${fmtNum(worstServerShare, 1)}~${fmtNum(bestServerShare, 1)}%`, note: "Worst~Best 5Y 민감도 · 실측 아님" },
+      { label: "라이브 입력", value: "매일 재계산", note: liveInputBits.join(" · ") },
     ];
     summary.innerHTML = summaryCards.map((card) => `
       <article class="projection-stat reveal">
@@ -15443,13 +15520,35 @@
     });
   }
 
-  function jumpTo(id) {
+  let jumpNavigationToken = 0;
+
+  async function jumpTo(id) {
+    const token = ++jumpNavigationToken;
     const target = document.getElementById(id);
     if (!target) return;
-    void ensureDeferredSection(id);
+    await ensureDeferredSection(id);
+    if (token !== jumpNavigationToken) return;
     document.body.classList.remove("menu-open");
-    const y = Math.max(0, target.getBoundingClientRect().top + window.scrollY - chromeOffset());
-    window.scrollTo({ top: y, behavior: "auto" });
+
+    const alignTarget = () => {
+      const y = Math.max(0, target.getBoundingClientRect().top + window.scrollY - chromeOffset());
+      window.scrollTo({ top: y, behavior: "auto" });
+    };
+
+    alignTarget();
+    await new Promise((resolve) => requestAnimationFrame(resolve));
+    await Promise.allSettled(Array.from(deferredSectionRuns.values()));
+    await new Promise((resolve) => requestAnimationFrame(() => requestAnimationFrame(resolve)));
+    if (token !== jumpNavigationToken) return;
+
+    alignTarget();
+    const routeTarget = NAV_SECTION_TARGETS[id] || id;
+    $$(".sb-item").forEach((item) => {
+      const isActive = item.dataset.jump === routeTarget;
+      item.classList.toggle("active", isActive);
+      if (isActive) item.setAttribute("aria-current", "page");
+      else item.removeAttribute("aria-current");
+    });
   }
 
   function setupScrollSpy() {

@@ -1,0 +1,112 @@
+{
+  "schemaVersion": "1.0",
+  "updatedAt": "2026-07-19T09:00:22.731Z",
+  "timezone": "Asia/Seoul",
+  "fx": {
+    "usdkrw": {
+      "id": "usdkrw",
+      "label": "USD/KRW",
+      "symbol": "KRW=X",
+      "value": 1487.46,
+      "currency": "KRW",
+      "asOf": "2026-07-17",
+      "changePct30d": -1.56,
+      "changePct90d": 0.65,
+      "source": "Yahoo Finance chart API",
+      "sourceUrl": "https://finance.yahoo.com/quote/KRW=X/"
+    },
+    "usdtwd": {
+      "id": "usdtwd",
+      "label": "USD/TWD",
+      "symbol": "TWD=X",
+      "value": 32.37,
+      "currency": "TWD",
+      "asOf": "2026-07-17",
+      "changePct30d": 2.57,
+      "changePct90d": 2.57,
+      "source": "Yahoo Finance chart API",
+      "sourceUrl": "https://finance.yahoo.com/quote/TWD=X/"
+    }
+  },
+  "aiDemandProxy": {
+    "nvda": {
+      "id": "nvda",
+      "label": "NVIDIA",
+      "symbol": "NVDA",
+      "value": 202.81,
+      "currency": "USD",
+      "asOf": "2026-07-17",
+      "changePct30d": -0.9,
+      "changePct90d": 0.56,
+      "source": "Yahoo Finance chart API",
+      "sourceUrl": "https://finance.yahoo.com/quote/NVDA/"
+    },
+    "amd": {
+      "id": "amd",
+      "label": "AMD",
+      "symbol": "AMD",
+      "value": 495.76,
+      "currency": "USD",
+      "asOf": "2026-07-17",
+      "changePct30d": -3.26,
+      "changePct90d": 78.08,
+      "source": "Yahoo Finance chart API",
+      "sourceUrl": "https://finance.yahoo.com/quote/AMD/"
+    }
+  },
+  "fundamentals": {
+    "micron": {
+      "company": "Micron Technology",
+      "cik": "0000723125",
+      "revenue": {
+        "tag": "RevenueFromContractWithCustomerExcludingAssessedTax",
+        "value": 41456000000,
+        "start": "2026-02-27",
+        "end": "2026-05-28",
+        "form": "10-Q",
+        "fy": 2026,
+        "fp": "Q3"
+      },
+      "grossProfit": {
+        "tag": "GrossProfit",
+        "value": 35056000000,
+        "start": "2026-02-27",
+        "end": "2026-05-28",
+        "form": "10-Q",
+        "fy": 2026,
+        "fp": "Q3"
+      },
+      "inventory": {
+        "tag": "InventoryNet",
+        "value": 8567000000,
+        "end": "2026-05-28",
+        "form": "10-Q",
+        "fy": 2026,
+        "fp": "Q3"
+      },
+      "source": "SEC EDGAR companyfacts (10-Q/10-K XBRL)",
+      "sourceUrl": "https://www.sec.gov/cgi-bin/browse-edgar?action=getcompany&CIK=0000723125&type=10-Q"
+    }
+  },
+  "foundry": {
+    "tsmcMonthly": {
+      "company": "TSMC (2330)",
+      "month": "2026-06",
+      "revenueThousandTwd": 442679969,
+      "revenueBillionTwd": 442.7,
+      "yoyPct": 67.86685548491262,
+      "momPct": 6.164589232380731,
+      "note": "因先進製程產品需求增加所致。",
+      "source": "TWSE OpenAPI 月營業收入 (official disclosure)",
+      "sourceUrl": "https://openapi.twse.com.tw/v1/opendata/t187ap05_L"
+    }
+  },
+  "memoryMomentum": {
+    "dramSpot30dPct": 7.29,
+    "dramSpot90dPct": 7.29,
+    "nandSpot30dPct": 0.04,
+    "nandSpot90dPct": 0.04,
+    "source": "TrendForce 공개 테이블 자체 축적 히스토리",
+    "asOf": "2026-07-19"
+  }
+}
