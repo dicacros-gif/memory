@@ -3594,6 +3594,7 @@
     let userPaused = false;
     let inView = false;
     let pointerStartX = null;
+    let observer = null;
 
     const stopAuto = () => {
       if (autoTimer) window.clearTimeout(autoTimer);
@@ -3720,21 +3721,29 @@
     document.addEventListener("visibilitychange", scheduleAuto);
 
     if ("IntersectionObserver" in window) {
-      const observer = new IntersectionObserver((entries) => {
+      observer = new IntersectionObserver((entries) => {
         inView = entries.some((entry) => entry.isIntersecting);
         scheduleAuto();
       }, { rootMargin: "120px 0px", threshold: 0.12 });
       observer.observe(slider);
-      window.addEventListener("pagehide", () => observer.disconnect(), { once: true });
     } else {
       inView = true;
     }
-    window.addEventListener("pagehide", () => {
+
+    const cleanup = () => {
       stopAuto();
       if (transitionTimer) window.clearTimeout(transitionTimer);
-    }, { once: true });
+      transitionTimer = 0;
+      observer?.disconnect();
+      observer = null;
+      document.removeEventListener("visibilitychange", scheduleAuto);
+      window.removeEventListener("pagehide", cleanup);
+      delete slider.dataset.ready;
+    };
+    window.addEventListener("pagehide", cleanup, { once: true });
     syncToggle();
     showSlide(0, { initial: true });
+    return cleanup;
   }
 
   let secondaryDataPromise = null;
@@ -10262,6 +10271,78 @@
     return !cats.length || cats.includes(activeCategory);
   }
 
+  let postHbmContextSliderCleanup = null;
+
+  function architectureModuleSource(module, labelFragment) {
+    const sources = Array.isArray(module?.sources) ? module.sources : [];
+    return sources.find((source) => String(source?.label || "").includes(labelFragment)) || sources[0] || {};
+  }
+
+  function postHbmContextSlides(matrix) {
+    const modules = Array.isArray(matrix?.advancedModules) ? matrix.advancedModules : [];
+    const postHbm = modules.find((module) => module.id === "post-hbm-architecture") || {};
+    const hbf = modules.find((module) => module.id === "hbf-inference-tier") || {};
+    return [
+      {
+        image: "assets/media/post-hbm-cxl-pooling.webp",
+        alt: "CPU와 가속기, 공유 메모리 풀이 패브릭으로 연결된 CXL 구조",
+        kicker: "01 · CXL MEMORY FABRIC",
+        title: "CXL은 표준보다 서버 OEM PoC가 먼저",
+        body: "CXL 3.1/3.2 기반 메모리 풀링은 표준 인증과 고객 PoC가 함께 확인될 때 투자 우선순위를 높입니다.",
+        source: architectureModuleSource(postHbm, "CXL 3.1"),
+      },
+      {
+        image: "assets/media/post-hbm-3d-dram.webp",
+        alt: "수직 게이트와 웨이퍼 본딩으로 적층된 차세대 3D DRAM 구조",
+        kicker: "02 · 3D DRAM STACK",
+        title: "3D DRAM은 본딩·열·테스트가 함께 결정",
+        body: "4F² VG 로드맵과 wafer bonding, 셀 효율, 장비 주문을 함께 추적해 단일 기술 발표를 양산 신호로 오인하지 않습니다.",
+        source: architectureModuleSource(postHbm, "SKHY 4F² VG"),
+      },
+      {
+        image: "assets/media/post-hbm-option-ecosystem.webp",
+        alt: "가속기 중심으로 HBF와 PIM, 인터페이스 IP, 테스터가 연결된 생태계",
+        kicker: "03 · OPTION ECOSYSTEM",
+        title: "HBF·PIM은 고객 채택 전까지 옵션으로 관리",
+        body: "표준→샘플→고객 qualification→반복 발주를 통과한 뒤 생산·패키징 투자안으로 전환합니다.",
+        source: architectureModuleSource(hbf, "HBF standardization"),
+      },
+    ];
+  }
+
+  function createPostHbmContextSlider(matrix) {
+    const slides = postHbmContextSlides(matrix);
+    const first = slides[0];
+    const slider = el("section", "china-capital-slider strategy-capital-slider post-hbm-context-slider reveal");
+    slider.id = "postHbmContextSlider";
+    slider.tabIndex = 0;
+    slider.setAttribute("aria-label", "Post-HBM 컨텍스트 인사이트 도식 슬라이드");
+    slider.setAttribute("aria-roledescription", "carousel");
+    slider.innerHTML = `
+      <div class="china-capital-stage">
+        ${slides.map((slide, index) => `
+          <figure class="china-capital-slide${index === 0 ? " active" : ""}" aria-hidden="${index === 0 ? "false" : "true"}">
+            <img src="${escapeHTML(slide.image)}" alt="${escapeHTML(slide.alt)}" loading="lazy" decoding="async">
+          </figure>
+        `).join("")}
+      </div>
+      <div class="strategy-capital-insight post-hbm-context-insight" id="postHbmContextInsight" aria-live="polite">
+        <span id="postHbmContextKicker">${escapeHTML(first.kicker)}</span>
+        <strong id="postHbmContextTitle">${escapeHTML(first.title)}</strong>
+        <p id="postHbmContextBody">${escapeHTML(first.body)}</p>
+        <a id="postHbmContextLink" href="${escapeHTML(first.source?.url || "#")}" target="_blank" rel="noopener">${escapeHTML(first.source?.label || "관련 원문")}</a>
+      </div>
+      <div class="china-capital-slider-controls" aria-label="슬라이드 제어">
+        <button id="postHbmContextPrev" type="button" aria-label="이전 슬라이드">←</button>
+        <div class="china-capital-dots" id="postHbmContextDots" aria-label="슬라이드 선택"></div>
+        <span id="postHbmContextCount">01 / ${String(slides.length).padStart(2, "0")}</span>
+        <button id="postHbmContextToggle" type="button" aria-label="자동 전환 일시정지"><span>Ⅱ</span></button>
+        <button id="postHbmContextNext" type="button" aria-label="다음 슬라이드">→</button>
+      </div>
+    `;
+    return { slider, slides };
+  }
+
   function renderArchitectureMatrix() {
     const matrix = architectureMatrix();
     const summary = $("#architectureSummary");
@@ -10321,6 +10402,8 @@
     });
     if (!tracksWrap.children.length) tracksWrap.appendChild(el("div", "empty", "선택한 카테고리의 AI 메모리 트랙이 없습니다."));
 
+    postHbmContextSliderCleanup?.();
+    postHbmContextSliderCleanup = null;
     advancedWrap.innerHTML = "";
     advancedModules.forEach((module, index) => {
       const payload = {
@@ -10369,6 +10452,41 @@
       makeInspectable(card, payload);
       advancedWrap.appendChild(card);
     });
+    if (advancedModules.some((module) => module.id === "post-hbm-architecture")) {
+      const { slider, slides } = createPostHbmContextSlider(matrix);
+      advancedWrap.appendChild(slider);
+      const insight = slider.querySelector("#postHbmContextInsight");
+      const kicker = slider.querySelector("#postHbmContextKicker");
+      const title = slider.querySelector("#postHbmContextTitle");
+      const body = slider.querySelector("#postHbmContextBody");
+      const link = slider.querySelector("#postHbmContextLink");
+      postHbmContextSliderCleanup = setupDynamicImageSlider({
+        sliderSelector: "#postHbmContextSlider",
+        dotsSelector: "#postHbmContextDots",
+        countSelector: "#postHbmContextCount",
+        prevSelector: "#postHbmContextPrev",
+        nextSelector: "#postHbmContextNext",
+        toggleSelector: "#postHbmContextToggle",
+        autoDelay: 6400,
+        zoomMode: "alternate",
+        motionProfile: "cinematic",
+        transitionModes: ["sweep", "depth", "iris", "shutter", "tilt", "parallax"],
+        onSlideChange: ({ activeIndex, initial }) => {
+          const active = slides[activeIndex] || slides[0];
+          if (!active) return;
+          kicker.textContent = active.kicker;
+          title.textContent = active.title;
+          body.textContent = active.body;
+          link.textContent = active.source?.label || "관련 원문";
+          link.href = active.source?.url || "#";
+          if (!initial && insight) {
+            insight.classList.remove("is-changing");
+            void insight.offsetWidth;
+            insight.classList.add("is-changing");
+          }
+        },
+      });
+    }
     if (!advancedWrap.children.length) advancedWrap.appendChild(el("div", "empty", "선택한 카테고리의 고도화 인사이트 모듈이 없습니다."));
 
     shareWrap.innerHTML = "";
