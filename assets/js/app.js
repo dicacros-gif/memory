@@ -10041,15 +10041,15 @@
     }
 
     summary.innerHTML = (matrix.summary || []).map((line, index) => `
-      <article class="ai-summary-line">
+      <article class="ai-summary-line ai-summary-tone-${index % 4}">
         <span>${String(index + 1).padStart(2, "0")}</span>
-        <p>${escapeHTML(line)}</p>
+        <p>${strategicHighlightHTML(line)}</p>
       </article>
     `).join("");
 
     tracksWrap.innerHTML = "";
     tracks.forEach((track, index) => {
-      const card = el("article", "arch-track-card reveal");
+      const card = el("article", `arch-track-card arch-track-tone-${index % 2} reveal`);
       card.style.animationDelay = `${index * 35}ms`;
       card.style.setProperty("--local-accent", categoryAccent((track.linkedCategories || [])[0]));
       card.innerHTML = `
@@ -10057,10 +10057,10 @@
           <span class="chip accent">${escapeHTML(track.label)}</span>
           ${factBadge("Watch", "watch")}
         </div>
-        <h3>${escapeHTML(track.title)}</h3>
-        <p>${escapeHTML(track.thesis)}</p>
+        <h3>${strategicHighlightHTML(track.title)}</h3>
+        <p>${strategicHighlightHTML(track.thesis)}</p>
         <div class="metric-row">${metricCards(track.metrics || [], 3)}</div>
-        <div class="tag-row">${(track.watch || []).map((item) => `<span class="tag">${escapeHTML(item)}</span>`).join("")}</div>
+        <div class="tag-row">${(track.watch || []).map((item) => `<span class="tag">${strategicHighlightHTML(item)}</span>`).join("")}</div>
       `;
       makeInspectable(card, {
         type: "AI 메모리 트랙",

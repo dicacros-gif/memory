@@ -11773,25 +11773,40 @@ body.sidebar-collapsed .sb-ico {
 
 .ai-matrix-summary {
   display: grid;
-  grid-template-columns: repeat(3, minmax(0, 1fr));
+  grid-template-columns: repeat(4, minmax(0, 1fr));
   gap: 10px;
   margin-bottom: 12px;
 }
 
 .ai-summary-line {
+  --ai-summary-accent: var(--purple);
   min-width: 0;
   display: grid;
   grid-template-columns: auto 1fr;
   gap: 10px;
   align-items: start;
-  border: 1px solid color-mix(in srgb, var(--purple) 18%, var(--line));
+  border: 1px solid color-mix(in srgb, var(--ai-summary-accent) 42%, var(--line));
   border-radius: 10px;
-  background: color-mix(in srgb, var(--purple) 5%, var(--panel));
+  background: color-mix(in srgb, var(--ai-summary-accent) 7%, var(--panel));
   padding: 12px;
+  box-shadow: inset 0 3px 0 var(--ai-summary-accent);
+  transition: transform .24s cubic-bezier(.2, .8, .2, 1), background .2s ease, box-shadow .2s ease;
+}
+
+.ai-summary-line.ai-summary-tone-0 { --ai-summary-accent: #2563eb; }
+.ai-summary-line.ai-summary-tone-1 { --ai-summary-accent: #087f72; }
+.ai-summary-line.ai-summary-tone-2 { --ai-summary-accent: #d05c0b; }
+.ai-summary-line.ai-summary-tone-3 { --ai-summary-accent: #7c3aed; }
+
+.ai-summary-line:hover,
+.ai-summary-line:focus-within {
+  transform: translateY(-6px) scale(1.012);
+  background: color-mix(in srgb, var(--ai-summary-accent) 90%, #071426);
+  box-shadow: 0 17px 36px color-mix(in srgb, var(--ai-summary-accent) 30%, transparent);
 }
 
 .ai-summary-line span {
-  color: var(--purple);
+  color: var(--ai-summary-accent);
   font-family: var(--display);
   font-size: 17px;
   font-weight: 900;
@@ -11803,6 +11818,19 @@ body.sidebar-collapsed .sb-ico {
   font-size: 12.5px;
   line-height: 1.55;
   font-weight: 720;
+}
+
+.ai-summary-line .strategy-highlight {
+  text-decoration-color: #f3a712;
+  text-decoration-thickness: .21em;
+}
+
+.ai-summary-line:is(:hover, :focus-within) :is(span, p, .strategy-highlight) {
+  color: #fff;
+}
+
+.ai-summary-line:is(:hover, :focus-within) .strategy-highlight {
+  text-decoration-color: #ffe56b;
 }
 
 .architecture-track-grid {
@@ -11941,18 +11969,29 @@ body.sidebar-collapsed .sb-ico {
 }
 
 .arch-track-card {
+  --track-accent: var(--local-accent, var(--purple));
   display: grid;
   gap: 10px;
   background:
-    linear-gradient(180deg, color-mix(in srgb, var(--local-accent, var(--purple)) 6%, transparent), transparent 44%),
+    linear-gradient(180deg, color-mix(in srgb, var(--track-accent) 9%, transparent), transparent 44%),
     var(--panel);
   box-shadow: var(--shadow);
+  border-top: 4px solid var(--track-accent);
+  transition: transform .24s cubic-bezier(.2, .8, .2, 1), border-color .2s ease, box-shadow .2s ease, background .2s ease;
+}
+
+.arch-track-card.arch-track-tone-0 { --track-accent: #087f72; }
+.arch-track-card.arch-track-tone-1 { --track-accent: #d05c0b; }
+
+.arch-track-card .strategy-highlight {
+  text-decoration-color: #f3a712;
+  text-decoration-thickness: .21em;
 }
 
 .arch-track-card:hover,
 .share-card:hover,
 .value-node:hover {
-  transform: translateY(-2px);
+  transform: translateY(-5px);
   border-color: var(--local-accent, var(--accent));
   box-shadow: var(--shadow-lg);
 }
@@ -12364,6 +12403,28 @@ body.sidebar-collapsed .sb-ico {
   font-weight: 950;
   letter-spacing: .04em;
   text-transform: uppercase;
+}
+
+.arch-track-card:hover,
+.arch-track-card:focus-within {
+  border-color: var(--track-accent);
+  background:
+    radial-gradient(circle at 8% 10%, rgba(255, 255, 255, .2), transparent 32%),
+    linear-gradient(135deg, color-mix(in srgb, var(--track-accent) 92%, #14213d), color-mix(in srgb, var(--track-accent) 62%, #07111f));
+  box-shadow: 0 20px 42px color-mix(in srgb, var(--track-accent) 30%, transparent);
+}
+
+.arch-track-card:is(:hover, :focus-within) :is(h3, p, .tag, .metric strong, .metric span, .strategy-highlight) {
+  color: #fff;
+}
+
+.arch-track-card:is(:hover, :focus-within) :is(.tag, .metric) {
+  border-color: rgba(255, 255, 255, .5);
+  background: rgba(255, 255, 255, .12);
+}
+
+.arch-track-card:is(:hover, :focus-within) .strategy-highlight {
+  text-decoration-color: #ffe56b;
 }
 
 /* Policy-capital focus: distinguish capital, regulation and localization. */
