@@ -12474,6 +12474,125 @@ body.sidebar-collapsed .sb-ico {
   grid-template-columns: 1fr;
 }
 
+.talent-radar-slider-slot {
+  min-width: 0;
+  margin-top: 12px;
+}
+
+.talent-radar-slider {
+  --slider-accent: #a855f7;
+  min-height: clamp(420px, 31vw, 680px);
+  aspect-ratio: 16 / 9;
+  border-color: color-mix(in srgb, var(--slider-accent) 56%, var(--line));
+  box-shadow: 0 22px 52px rgba(76, 29, 149, .22);
+  transition: transform .28s cubic-bezier(.2, .8, .2, 1), box-shadow .28s ease, border-color .28s ease;
+}
+
+.talent-radar-slider:hover,
+.talent-radar-slider:focus-within {
+  transform: translateY(-4px) scale(1.006);
+  border-color: color-mix(in srgb, var(--slider-accent) 82%, white);
+  box-shadow: 0 30px 66px rgba(76, 29, 149, .3);
+}
+
+.talent-radar-slider::after {
+  background:
+    linear-gradient(180deg, rgba(3, 9, 18, .08), transparent 46%, rgba(3, 9, 18, .74)),
+    linear-gradient(90deg, rgba(3, 9, 18, .38), transparent 52%, rgba(3, 9, 18, .12));
+}
+
+.talent-radar-slider .talent-radar-slider-insight {
+  width: min(72%, 610px);
+  border-color: rgba(216, 180, 254, .58);
+  border-left-color: #d8b4fe;
+  background: rgba(5, 8, 20, .86);
+  box-shadow: 0 20px 48px rgba(0, 0, 0, .36);
+}
+
+.talent-radar-slider .talent-radar-slider-insight span,
+.talent-radar-slider .talent-radar-slider-insight a {
+  color: #e9d5ff;
+}
+
+.talent-radar-slider .talent-radar-slider-insight strong {
+  font-size: clamp(18px, 1.38vw, 25px);
+}
+
+.talent-radar-slider .talent-radar-slider-insight p {
+  font-size: clamp(11px, .76vw, 13px);
+  -webkit-line-clamp: 3;
+}
+
+.talent-radar-slider .talent-radar-slider-insight.is-changing > * {
+  animation: talentRadarInsightPass .78s cubic-bezier(.16, .84, .2, 1) both;
+}
+
+.talent-radar-slider .talent-radar-slider-insight.is-changing > :nth-child(2) { animation-delay: 70ms; }
+.talent-radar-slider .talent-radar-slider-insight.is-changing > :nth-child(3) { animation-delay: 135ms; }
+.talent-radar-slider .talent-radar-slider-insight.is-changing > :nth-child(4) { animation-delay: 195ms; }
+
+.talent-radar-slider[data-motion="cinematic"][data-zoom="in"] .china-capital-slide.active img {
+  animation: talentRadarZoomIn 5.15s cubic-bezier(.12, .72, .16, 1) both;
+}
+
+.talent-radar-slider[data-motion="cinematic"][data-zoom="out"] .china-capital-slide.active img {
+  animation: talentRadarZoomOut 5.15s cubic-bezier(.12, .72, .16, 1) both;
+}
+
+@keyframes talentRadarZoomIn {
+  0% { transform: scale(1.01) translate3d(var(--pan-start-x, -4%), var(--pan-start-y, 3%), 0); }
+  46% { transform: scale(1.25) translate3d(0, 0, 0); }
+  100% { transform: scale(1.5) translate3d(var(--pan-end-x, 6%), var(--pan-end-y, -5%), 0); }
+}
+
+@keyframes talentRadarZoomOut {
+  0% { transform: scale(1.52) translate3d(var(--pan-start-x, 6%), var(--pan-start-y, -4%), 0); }
+  50% { transform: scale(1.25) translate3d(var(--pan-end-x, -5%), 0, 0); }
+  100% { transform: scale(1.02) translate3d(var(--pan-end-x, -2%), var(--pan-end-y, 2%), 0); }
+}
+
+@keyframes talentRadarInsightPass {
+  0% { opacity: 0; transform: translate3d(-34px, 16px, 0); filter: blur(8px); }
+  58% { opacity: 1; transform: translate3d(4px, 0, 0); filter: blur(1px); }
+  100% { opacity: 1; transform: translate3d(0, 0, 0); filter: blur(0); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .talent-radar-slider,
+  .talent-radar-slider .china-capital-slide img,
+  .talent-radar-slider .talent-radar-slider-insight > * {
+    animation: none !important;
+    transition: none !important;
+  }
+}
+
+@media (max-width: 680px) {
+  .talent-radar-slider {
+    min-height: 360px;
+    aspect-ratio: 4 / 5;
+  }
+
+  .talent-radar-slider .talent-radar-slider-insight,
+  .talent-radar-slider[data-insight-position="top-right"] .talent-radar-slider-insight,
+  .talent-radar-slider[data-insight-position="bottom-left"] .talent-radar-slider-insight {
+    top: 10px;
+    right: 10px;
+    bottom: auto;
+    left: 10px;
+    width: auto;
+    padding: 11px 12px;
+  }
+
+  .talent-radar-slider .talent-radar-slider-insight strong {
+    font-size: 17px;
+  }
+
+  .talent-radar-slider .talent-radar-slider-insight p {
+    font-size: 10px;
+    -webkit-line-clamp: 3;
+  }
+}
+
 .talent-rule-card {
   grid-template-columns: 74px minmax(0, 1fr);
   align-items: start;

@@ -3018,6 +3018,116 @@
     });
   }
 
+  function talentRadarSliderInsightPool() {
+    const dynamic = (LIVE.communitySignals?.items || [])
+      .filter((item) => item.type === "workplace" && item.sourceUrl && !item.historical && !isCrawlExcluded("community", item))
+      .sort((a, b) => Number(b.ts || 0) - Number(a.ts || 0) || Number(b.score || 0) - Number(a.score || 0))
+      .map((item) => ({
+        kicker: `${item.platform || "공개 채용 채널"} · ${item.observedAt || item.date || "날짜 확인"}`,
+        title: item.insight || item.titleKo || item.title || "중국 메모리 공개 채용 신호",
+        body: item.summary || "직무·거점·재게시 패턴을 보조 신호로 사용하고 실제 채용과 양산 성과는 별도 확인합니다.",
+        href: item.sourceUrl,
+        source: item.platform || "원문",
+      }));
+    const fallback = [
+      {
+        kicker: "Wuxi · operating continuity",
+        title: "우시 운영은 선단 이전보다 설비·유틸리티 인력의 연속성이 우선입니다",
+        body: "장비 PM, facility, EHS, 품질 인력의 공백은 생산 안정성과 직결됩니다. 수출통제 변화와 현지 핵심 직무 vacancy를 같은 운영 캘린더에서 봅니다.",
+        href: "https://www.bis.gov/press-release/department-commerce-closes-export-controls-loophole-foreign-owned-semiconductor-fabs-china",
+        source: "BIS",
+      },
+      {
+        kicker: "Dalian · customer quality",
+        title: "다롄 인력의 우선순위는 eSSD 고객 품질과 장애 대응 시간입니다",
+        body: "FA, 신뢰성, 펌웨어, 물류 직무의 반복 공고를 고객 품질 병목의 보조 신호로 보고 실제 고객 인증과 출하 데이터로 교차검증합니다.",
+        href: "https://www.skhynix.com/company/UI-FR-CP06/",
+        source: "SKHY Offices",
+      },
+      {
+        kicker: "Chongqing · packaging operations",
+        title: "충칭은 패키징·테스트와 보세구 운영 역량을 함께 지켜야 합니다",
+        body: "후공정 기술 인력뿐 아니라 통관·EHS·고객 납기 인력을 묶어 봐야 중국 거점의 실제 운영 연속성을 판단할 수 있습니다.",
+        href: "https://www.skhynix.com/company/UI-FR-CP06/",
+        source: "SKHY Offices",
+      },
+      {
+        kicker: "CXMT · interview signal",
+        title: "CVD·공정 통합·교대 적응 질문은 현장 직무 요구의 선행 신호입니다",
+        body: "개인 면접 후기는 정책이나 수율의 확정 근거가 아닙니다. 동일 직무의 반복성과 공식 채용 공고가 함께 나타날 때만 조직 수요로 해석합니다.",
+        href: "https://www.nowcoder.com/enterprise/5758/interview",
+        source: "NowCoder",
+      },
+      {
+        kicker: "CXMT · yield engineering",
+        title: "수율·불량 분석 채용의 반복은 양산 안정화 병목의 위치를 보여줍니다",
+        body: "공정 통합·계측·불량 분석 공고를 보조 신호로 사용하되, 채용 건수를 수율 개선이나 생산량 증가로 승격하지 않습니다.",
+        href: "https://www.zhaopin.com/companydetail/jobs-CZ604839930/",
+        source: "Zhaopin",
+      },
+      {
+        kicker: "AMEC · equipment talent",
+        title: "식각·TSV 응용 인력 확대는 장비 내재화의 준비 신호입니다",
+        body: "CCP·ICP·TSV 직무 공고만으로 고객 qualification을 확정하지 않습니다. 반복 발주, 설치 대수, 승인 기간이 함께 확인돼야 위협 단계를 올립니다.",
+        href: "https://m.zhipin.com/companys/66a2d4d6cefbca221XZ63dq6FVs~.html",
+        source: "BOSS Zhipin",
+      },
+    ];
+    const unique = new Map();
+    dynamic.concat(fallback).forEach((item) => {
+      const key = `${item.href || ""}|${item.title || ""}`;
+      if (item.href && item.title && !unique.has(key)) unique.set(key, item);
+    });
+    return Array.from(unique.values()).slice(0, 12);
+  }
+
+  function setupTalentRadarSlider() {
+    const insight = $("#talentRadarSliderInsight");
+    const kicker = $("#talentRadarSliderKicker");
+    const title = $("#talentRadarSliderTitle");
+    const body = $("#talentRadarSliderBody");
+    const link = $("#talentRadarSliderLink");
+    const insights = talentRadarSliderInsightPool();
+    const positions = ["top-left", "top-right", "bottom-left"];
+    let lastInsight = -1;
+    let lastPosition = "top-left";
+
+    const rotateInsight = ({ slider, initial = false } = {}) => {
+      if (!insight || !kicker || !title || !body || !link || !insights.length || !slider) return;
+      const choices = insights.map((_, index) => index).filter((index) => index !== lastInsight);
+      const nextIndex = choices[Math.floor(Math.random() * choices.length)] ?? 0;
+      const positionChoices = positions.filter((position) => position !== lastPosition);
+      const nextPosition = initial ? lastPosition : (positionChoices[Math.floor(Math.random() * positionChoices.length)] || positions[0]);
+      const item = insights[nextIndex];
+      lastInsight = nextIndex;
+      lastPosition = nextPosition;
+      slider.dataset.insightPosition = nextPosition;
+      insight.classList.remove("is-changing");
+      void insight.offsetWidth;
+      kicker.textContent = item.kicker;
+      title.textContent = item.title;
+      body.textContent = item.body;
+      link.href = item.href;
+      link.textContent = `${item.source || "근거 원문"} ↗`;
+      insight.classList.add("is-changing");
+    };
+
+    setupDynamicImageSlider({
+      sliderSelector: "#talentRadarSlider",
+      dotsSelector: "#talentRadarSliderDots",
+      countSelector: "#talentRadarSliderCount",
+      prevSelector: "#talentRadarSliderPrev",
+      nextSelector: "#talentRadarSliderNext",
+      toggleSelector: "#talentRadarSliderToggle",
+      autoDelay: 5200,
+      zoomMode: "alternate",
+      motionProfile: "cinematic",
+      advanceMode: "random",
+      transitionModes: ["sweep", "depth", "iris", "shutter", "tilt", "split", "zoom-blur", "parallax"],
+      onSlideChange: rotateInsight,
+    });
+  }
+
   function chinaNandSliderInsightPool() {
     const topicTerms = /cxmt|ymtc|xmc|jcet|naura|amec|acm|dram|nand|essd|xtacking|equipment|packag|capacity|wuhan|customer|price|중국|장비|패키징|캐파|가격/i;
     const shorten = (value, max = 168) => {
@@ -3405,6 +3515,7 @@
     zoomMode = "alternate",
     motionProfile = "standard",
     transitionModes = null,
+    advanceMode = "sequence",
     onSlideChange = null,
   }) {
     const slider = $(sliderSelector);
@@ -3438,7 +3549,13 @@
     const scheduleAuto = () => {
       stopAuto();
       if (userPaused || !inView || document.hidden) return;
-      autoTimer = window.setTimeout(() => showSlide(activeIndex + 1), autoDelay);
+      const nextIndex = advanceMode === "random" && slides.length > 1
+        ? (() => {
+            const choices = slides.map((_, index) => index).filter((index) => index !== activeIndex);
+            return choices[Math.floor(Math.random() * choices.length)] ?? activeIndex + 1;
+          })()
+        : activeIndex + 1;
+      autoTimer = window.setTimeout(() => showSlide(nextIndex), autoDelay);
     };
     const syncToggle = () => {
       toggle.querySelector("span").textContent = userPaused ? "▶" : "Ⅱ";
@@ -13722,9 +13839,10 @@
     const companies = $("#talentCompanyGrid");
     const keywords = $("#talentKeywordGrid");
     const rules = $("#talentRuleGrid");
+    const sliderSlot = $("#talentRadarSliderSlot");
     const latestPanel = $("#talentLatestPanel");
     const meta = $("#talentRadarMeta");
-    if (!summary || !companies || !keywords || !rules || !latestPanel) return;
+    if (!summary || !companies || !keywords || !rules || !sliderSlot || !latestPanel) return;
 
     const companyItems = (data.companySignals || []).filter(talentRelated);
     const keywordItems = data.keywordTaxonomy || [];
@@ -13790,6 +13908,39 @@
         <p>${escapeHTML(item.rule || "")}</p>
       </article>
     `).join("");
+
+    if (sliderSlot.dataset.rendered !== "1") {
+      sliderSlot.dataset.rendered = "1";
+      sliderSlot.innerHTML = `
+        <section class="china-capital-slider strategy-capital-slider talent-radar-slider" id="talentRadarSlider" aria-label="중국 메모리 인재·운영 인사이트 슬라이드" aria-roledescription="carousel" tabindex="0">
+          <div class="china-capital-stage">
+            <figure class="china-capital-slide active" aria-hidden="false">
+              <img src="assets/media/talent-strategy-wuxi-operations.webp" alt="우시 반도체 생산시설의 현지 운영 및 설비 유지 인력" width="1536" height="1024" loading="lazy" decoding="async" />
+            </figure>
+            <figure class="china-capital-slide" aria-hidden="true">
+              <img src="assets/media/talent-strategy-dalian-quality.webp" alt="다롄 엔터프라이즈 SSD 고객 품질 및 신뢰성 검증 현장" width="1536" height="1024" loading="lazy" decoding="async" />
+            </figure>
+            <figure class="china-capital-slide" aria-hidden="true">
+              <img src="assets/media/talent-strategy-chongqing-packaging.webp" alt="충칭 반도체 후공정 및 패키징 품질 검증 현장" width="1536" height="1024" loading="lazy" decoding="async" />
+            </figure>
+          </div>
+          <div class="strategy-capital-insight talent-radar-slider-insight" id="talentRadarSliderInsight" aria-live="polite">
+            <span id="talentRadarSliderKicker">Talent signal · operating continuity</span>
+            <strong id="talentRadarSliderTitle">채용 신호는 조직 병목의 위치를 먼저 보여줍니다</strong>
+            <p id="talentRadarSliderBody">공개 공고의 직무·거점·재게시 패턴을 보되 실제 채용 인원과 양산 성과는 별도 검증합니다.</p>
+            <a id="talentRadarSliderLink" href="https://www.bis.gov/press-release/department-commerce-closes-export-controls-loophole-foreign-owned-semiconductor-fabs-china" target="_blank" rel="noopener noreferrer">BIS 원문 ↗</a>
+          </div>
+          <div class="china-capital-slider-controls">
+            <button type="button" id="talentRadarSliderPrev" aria-label="이전 이미지" title="이전 이미지">←</button>
+            <div class="china-capital-dots" id="talentRadarSliderDots" aria-label="이미지 선택"></div>
+            <span id="talentRadarSliderCount" aria-live="polite">01 / 03</span>
+            <button type="button" id="talentRadarSliderToggle" aria-label="자동 전환 일시정지" title="자동 전환 일시정지"><span aria-hidden="true">Ⅱ</span></button>
+            <button type="button" id="talentRadarSliderNext" aria-label="다음 이미지" title="다음 이미지">→</button>
+          </div>
+        </section>
+      `;
+      setupTalentRadarSlider();
+    }
 
     const community = LIVE.communitySignals || {};
     const latestItems = (community.items || [])
