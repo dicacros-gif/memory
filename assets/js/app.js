@@ -4095,6 +4095,12 @@
     return escapeHTML(value).replace(STRATEGIC_HIGHLIGHT_RE, '<mark class="strategy-highlight">$1</mark>');
   }
 
+  const KPI_HIGHLIGHT_RE = /(WSTS|TrendForce|Counterpoint|Samsung|Micron|Top3|SKHY|CXMT|DRAM|NAND|HBM|Spring\s*2026|Autumn\s*2025|(?:2025|2026|2027)\s*Q[1-4]|Q[1-4]\s*(?:2025|2026|2027)|[+$]?\d+(?:\.\d+)?(?:%|B|T))/gi;
+
+  function kpiHighlightHTML(value) {
+    return escapeHTML(value).replace(KPI_HIGHLIGHT_RE, '<mark class="strategy-highlight">$1</mark>');
+  }
+
   function fmtDate(iso) {
     if (!iso) return "아직 수집 전";
     const date = new Date(iso);
@@ -5123,7 +5129,7 @@
     return `
       <div class="exec-scenario-chart">
         <header><strong>${escapeHTML(title)}</strong><span>${escapeHTML(note)}</span></header>
-        ${scenarios.map((item) => {
+        ${scenarios.map((item, index) => {
           const value = Number(item[key]);
           const width = Number.isFinite(value) ? clamp((value / max) * 100, 4, 100) : 4;
           const displayValue = Number.isFinite(value)
@@ -5132,7 +5138,9 @@
           return `
             <div class="exec-scenario-row" data-scenario="${escapeHTML(item.id || "base")}">
               <span>${escapeHTML(item.label)}</span>
-              <div class="exec-scenario-track"><i style="--scenario-width:${width.toFixed(2)}%"></i></div>
+              <div class="exec-scenario-track" role="progressbar" aria-label="${escapeHTML(`${item.label} ${title}`)}" aria-valuemin="0" aria-valuemax="100" aria-valuenow="${Math.round(width)}">
+                <i style="--scenario-width:${width.toFixed(2)}%;--scenario-delay:${index * 130}ms"></i>
+              </div>
               <strong>$${escapeHTML(displayValue)}B</strong>
             </div>
           `;
@@ -5436,6 +5444,7 @@
       const statusClass = hasSourceUrl ? (kpi.statusClass || kpi.status || "ok") : "fail";
       const badgeLabel = hasSourceUrl ? (kpi.badge || kpi.status || "출처 있음") : "출처 미첨부";
       const outline = kpiOutlines[kpi.label] || [];
+      if (outline.length) node.classList.add("kpi-evidence");
       node.innerHTML = `
         <span>${escapeHTML(kpi.label)}</span>
         <strong>${countHTML(kpi.value, {
@@ -5451,7 +5460,7 @@
         ${outline.length ? `
           <ul class="kpi-points">
             ${outline.map((point) => `
-              <li><b>${escapeHTML(point.label)}</b><span>${escapeHTML(point.text)}</span></li>
+              <li><b>${escapeHTML(point.label)}</b><span>${kpiHighlightHTML(point.text)}</span></li>
             `).join("")}
           </ul>
         ` : `
