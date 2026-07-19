@@ -15881,6 +15881,59 @@
     };
   }
 
+  function marketPeerBrandMeta(id = "") {
+    return {
+      "skhy-stock": {
+        name: "SK hynix",
+        logo: "assets/img/brands/sk-hynix.svg",
+        color: "#f05a28",
+        deep: "#bd3217",
+        onColor: "#ffffff",
+      },
+      "samsung-stock": {
+        name: "Samsung",
+        logo: "assets/img/brands/samsung.svg",
+        color: "#1428a0",
+        deep: "#08176f",
+        onColor: "#ffffff",
+      },
+      "micron-stock": {
+        name: "Micron",
+        logo: "assets/img/brands/micron.svg",
+        color: "#0057b8",
+        deep: "#003977",
+        onColor: "#ffffff",
+      },
+      "sandisk-stock": {
+        name: "SanDisk",
+        logo: "assets/img/brands/sandisk.svg",
+        color: "#ed1c24",
+        deep: "#a80e15",
+        onColor: "#ffffff",
+      },
+      "wdc-stock": {
+        name: "Western Digital",
+        logo: "assets/img/brands/western-digital.svg",
+        color: "#0067b1",
+        deep: "#004478",
+        onColor: "#ffffff",
+      },
+      "kioxia-stock": {
+        name: "Kioxia",
+        logo: "assets/img/brands/kioxia.svg",
+        color: "#171717",
+        deep: "#000000",
+        onColor: "#ffffff",
+      },
+    }[id] || {
+      name: "Memory peer",
+      logo: "",
+      color: "#3c82ff",
+      deep: "#1e4db7",
+      onColor: "#ffffff",
+    };
+  }
+
   function renderMarketIndexPanel() {
     const panel = $("#marketIndexPanel");
     if (!panel) return;
@@ -15922,9 +15975,14 @@
           <div class="market-peer-grid">
             ${peers.map((item) => {
               const peerObs = priceObservationText(item.trend);
+              const brand = marketPeerBrandMeta(item.id);
               return `
-                <a class="market-peer-card" href="${escapeHTML(item.index.sourceUrl || "#")}" target="_blank" rel="noopener">
-                  <span>${escapeHTML(item.index.labelKo || item.index.label || item.index.symbol)}</span>
+                <a class="market-peer-card" href="${escapeHTML(item.index.sourceUrl || "#")}" target="_blank" rel="noopener"
+                  style="--peer-brand:${escapeHTML(brand.color)};--peer-brand-deep:${escapeHTML(brand.deep)};--peer-on-brand:${escapeHTML(brand.onColor)}">
+                  <span class="market-peer-brand">
+                    <span class="market-peer-logo"><img src="${escapeHTML(brand.logo)}" alt="${escapeHTML(brand.name)} 로고" loading="lazy" decoding="async"></span>
+                    <span class="market-peer-stock-label">${escapeHTML(item.index.labelKo || item.index.label || item.index.symbol)}</span>
+                  </span>
                   <strong>${escapeHTML(formatChange(item.trend))}</strong>
                   <small>${escapeHTML(formatPrice(item.trend.latestAverage))} · ${escapeHTML(peerObs.sub)}</small>
                 </a>
