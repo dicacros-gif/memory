@@ -6602,6 +6602,41 @@ body.sidebar-collapsed .sb-ico {
   background: color-mix(in srgb, var(--talent-card-accent) 13%, var(--panel));
 }
 
+/* Keep nested surfaces legible when the talent detail panel is inverted. */
+#china-talent-strategy .policy-focus:is(:hover, :focus-within) {
+  --talent-invert-surface: color-mix(in srgb, var(--talent-card-accent) 20%, #0a1628);
+  --talent-invert-line: color-mix(in srgb, var(--talent-card-accent) 54%, rgba(255, 255, 255, .34));
+}
+
+#china-talent-strategy .policy-focus:is(:hover, :focus-within) .chip.accent {
+  border-color: rgba(255, 255, 255, .48);
+  background: color-mix(in srgb, var(--talent-card-accent) 72%, #10203a);
+  color: #fff;
+}
+
+#china-talent-strategy .policy-focus:is(:hover, :focus-within)
+  :is(.policy-verdict, .metric, .policy-site-list li) {
+  border-color: var(--talent-invert-line);
+  background: var(--talent-invert-surface);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, .08);
+}
+
+#china-talent-strategy .policy-focus:is(:hover, :focus-within)
+  :is(.policy-verdict, .metric, .policy-site-list li)
+  :is(strong, span, b, small, .strategy-highlight) {
+  color: #f7fbff;
+}
+
+#china-talent-strategy .policy-focus:is(:hover, :focus-within) .metric span,
+#china-talent-strategy .policy-focus:is(:hover, :focus-within) .policy-site-list small {
+  color: #cbd8e8;
+}
+
+#china-talent-strategy .policy-focus:is(:hover, :focus-within) .policy-site-list li:hover {
+  border-color: color-mix(in srgb, var(--talent-card-accent) 78%, #fff);
+  background: color-mix(in srgb, var(--talent-card-accent) 42%, #091525);
+}
+
 .policy-source-grid {
   grid-template-columns: repeat(4, minmax(0, 1fr));
   margin-top: 12px;
