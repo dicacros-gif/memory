@@ -6683,7 +6683,7 @@
         color: "#EF4444",
         stance: "근거 게이트",
         message: `${liveBrief ? `${liveBrief.latest?.evidenceLevel || "Watch"} · ${liveBrief.latest?.sourceType || "분석"} · ${liveBrief.latest?.claimType || "사실"} · ${liveBrief.latest?.source || "원문"}을 기준으로 검토했습니다. ` : ""}canonical 기준 원문/KPI ${fmtNum(linkCount)}건, 중복 제외 ${fmtNum(selected.evidenceQuality?.duplicateCount || 0)}건입니다. 최신성·출처 권위를 가중하고 ${scenario.audit} ==근거가 부족하면 Go가 아니라 Watch/Hold==로 제한합니다.`,
-        speechEn: `The evidence gate uses canonical deduplication, recency decay, and source-authority weighting. Insufficient evidence limits the decision to Watch or Hold.`,
+        speechEn: `The evidence gate reviewed ${liveBrief?.latest?.evidenceLevel || "Watch"} level ${liveBrief?.latest?.sourceType || "external"} factual reporting from ${liveBrief?.latest?.source || "the primary source"}. The canonical evidence set contains ${fmtNum(linkCount)} primary-source and K P I records after excluding ${fmtNum(selected.evidenceQuality?.duplicateCount || 0)} duplicates. We weight recency and source authority, use the current scenario as the baseline, and keep facts separate from assumptions. When evidence is insufficient, the recommendation is limited to Watch or Hold, never Go.`,
       },
     ];
     const order = ["audit", "market", "cto", "policy", "china", "coo", "cfo", "cso", "risk", "devil", "ceo"];
@@ -6968,7 +6968,7 @@
   });
   const AGENT_TTS_STORAGE_KEY = "memory-agent-tts-v2";
   const AGENT_TTS_RATE_BOOST = 0.06;
-  const AGENT_KOREAN_TTS_ROLE_RE = /(?:규제\s*[·/&]\s*fab\s*[·/&]\s*정책자금)|(?:팩트\s*검증\s*[·/&]\s*중복\s*제거)/i;
+  const AGENT_KOREAN_TTS_ROLE_RE = /(?:규제\s*[·/&]\s*fab\s*[·/&]\s*정책자금)/i;
   const AGENT_TTS_PROFILES = [
     { id: "ceo", match: /ceo|chief executive|최종 의사결정|우선순위/i, gender: "male", tone: "decisive", voiceSlot: 0, pitch: 0.9, rate: 1.02, volume: 1 },
     { id: "cfo", match: /cfo|finance|재무|수익성|자본배분/i, gender: "female", tone: "analytical", voiceSlot: 0, pitch: 1.05, rate: 1.06, volume: 0.98 },
@@ -6980,7 +6980,7 @@
     { id: "china", match: /china|중국/i, gender: "male", tone: "measured", voiceSlot: 3, pitch: 0.92, rate: 1.04, volume: 0.98 },
     { id: "risk", match: /risk|하방|판단 변경/i, gender: "male", tone: "cautious", voiceSlot: 4, pitch: 0.86, rate: 1, volume: 1 },
     { id: "devil", match: /devil|red team|레드팀|반론/i, gender: "female", tone: "challenging", voiceSlot: 4, pitch: 1.12, rate: 1.03, volume: 1 },
-    { id: "auditor", match: /audit|auditor|evidence|근거 검증|팩트/i, gender: "female", tone: "precise", voiceSlot: 5, pitch: 1.02, rate: 1.03, volume: 0.97 },
+    { id: "auditor", match: /audit|auditor|evidence|근거 검증|팩트/i, gender: "female", tone: "precise", voiceSlot: 5, pitch: 1.02, rate: 1.12, volume: 0.97 },
     { id: "data", match: /data|데이터|백테스트/i, gender: "male", tone: "analytical", voiceSlot: 5, pitch: 0.98, rate: 1.08, volume: 0.96 },
   ];
   const AGENT_VOICE_HINTS = Object.freeze({
@@ -7244,7 +7244,7 @@
       utterance.lang = profile.voice?.lang || (profile.language === "ko" ? "ko-KR" : "en-US");
       utterance.voice = profile.voice || null;
       utterance.pitch = Math.max(0.72, Math.min(1.28, profile.pitch + (/\?$/.test(text) ? 0.04 : 0)));
-      utterance.rate = Math.max(1.02, Math.min(1.18, profile.rate + AGENT_TTS_RATE_BOOST + (text.length > 180 ? 0.02 : 0)));
+      utterance.rate = Math.max(1.02, Math.min(1.24, profile.rate + AGENT_TTS_RATE_BOOST + (text.length > 180 ? 0.02 : 0)));
       utterance.volume = profile.volume;
       let settled = false;
       let started = false;
