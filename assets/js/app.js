@@ -16820,7 +16820,21 @@
     return clean;
   }
 
-  function canonicalNewsKey(item = {}) {
+  function canonicalNewsUrlKey(item = {}) {
+    const url = String(item.link || item.sourceUrl || "").trim();
+    if (!url) return "";
+    const language = articleStreamLanguage(item) || "unknown";
+    try {
+      const parsed = new URL(url);
+      parsed.hash = "";
+      ["utm_source", "utm_medium", "utm_campaign", "utm_term", "utm_content"].forEach((param) => parsed.searchParams.delete(param));
+      return `${language}|url:${parsed.toString().replace(/\/$/, "").toLowerCase()}`;
+    } catch {
+      return `${language}|url:${url.replace(/#.*$/, "").replace(/\/$/, "").toLowerCase()}`;
+    }
+  }
+
+  function canonicalNewsTitleKey(item = {}) {
     const title = cleanKoreanTitle(item.title || item.titleKo || "")
       .toLowerCase()
       .replace(/^(핵심|벤치마킹|체크포인트)\s*:\s*/, "")
@@ -16835,22 +16849,11 @@
     const source = newsPublisherText(item).toLowerCase().trim();
     const language = articleStreamLanguage(item) || "unknown";
     if (titleKey) return `${language}|title:${titleKey}|${source}`;
-    const url = String(item.link || item.sourceUrl || "").trim();
-    if (url) {
-      try {
-        const parsed = new URL(url);
-        parsed.hash = "";
-        parsed.searchParams.delete("utm_source");
-        parsed.searchParams.delete("utm_medium");
-        parsed.searchParams.delete("utm_campaign");
-        parsed.searchParams.delete("utm_term");
-        parsed.searchParams.delete("utm_content");
-        return `${language}|url:${parsed.toString().replace(/\/$/, "").toLowerCase()}`;
-      } catch {
-        return `${language}|url:${url.replace(/#.*$/, "").replace(/\/$/, "").toLowerCase()}`;
-      }
-    }
     return "";
+  }
+
+  function canonicalNewsKey(item = {}) {
+    return canonicalNewsUrlKey(item) || canonicalNewsTitleKey(item);
   }
 
   function mergeNewsDuplicate(prev = {}, next = {}) {
@@ -16876,13 +16879,28 @@
   }
 
   function dedupeNews(items = []) {
-    const byKey = new Map();
+    const selected = [];
+    const byUrl = new Map();
+    const byTitle = new Map();
     items.forEach((item) => {
-      const key = canonicalNewsKey(item);
-      if (!key) return;
-      byKey.set(key, byKey.has(key) ? mergeNewsDuplicate(byKey.get(key), item) : item);
+      const urlKey = canonicalNewsUrlKey(item);
+      const titleKey = canonicalNewsTitleKey(item);
+      const urlIndex = urlKey ? byUrl.get(urlKey) : undefined;
+      const titleIndex = titleKey ? byTitle.get(titleKey) : undefined;
+      const index = urlIndex ?? titleIndex;
+      if (index !== undefined) {
+        selected[index] = mergeNewsDuplicate(selected[index], item);
+        if (urlKey) byUrl.set(urlKey, index);
+        if (titleKey) byTitle.set(titleKey, index);
+        return;
+      }
+      if (!urlKey && !titleKey) return;
+      const nextIndex = selected.length;
+      selected.push(item);
+      if (urlKey) byUrl.set(urlKey, nextIndex);
+      if (titleKey) byTitle.set(titleKey, nextIndex);
     });
-    return Array.from(byKey.values());
+    return selected;
   }
 
   function isForeignNews(item) {
