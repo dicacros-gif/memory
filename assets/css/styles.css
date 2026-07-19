@@ -18497,6 +18497,28 @@ body.crawl-moderation-open {
   text-shadow: 0 1px 2px rgba(2, 8, 23, .55);
 }
 
+/* The policy-news block uses a dark inverted surface. Keep nested links and
+   semantic emphasis legible regardless of visited state or term category. */
+.china-nand-focus[data-nand-focus="policy"]
+  .nand-focus-block:is(:hover, :focus-within)
+  .work-link-list :is(a, a:visited, a:hover, a:focus-visible) {
+  color: #fff !important;
+  -webkit-text-fill-color: #fff;
+  text-shadow: 0 1px 2px rgba(2, 8, 23, .46);
+}
+
+.china-nand-focus[data-nand-focus="policy"]
+  .nand-focus-block:is(:hover, :focus-within)
+  .work-link-list :is(a, a:visited, a:hover, a:focus-visible)
+  :is(.strategy-highlight, .answer-term) {
+  --term-color: #fff4b8;
+  --term-hover: #fff4b8;
+  color: #fff4b8 !important;
+  -webkit-text-fill-color: #fff4b8;
+  text-decoration-color: #facc15 !important;
+  text-shadow: 0 1px 2px rgba(2, 8, 23, .58);
+}
+
 .kpi > strong {
   background: transparent;
   color: var(--kpi-hover-accent);
