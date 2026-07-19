@@ -16738,7 +16738,7 @@
                 <a class="market-peer-card" href="${escapeHTML(item.index.sourceUrl || "#")}" target="_blank" rel="noopener"
                   style="--peer-brand:${escapeHTML(brand.color)};--peer-brand-deep:${escapeHTML(brand.deep)};--peer-on-brand:${escapeHTML(brand.onColor)}">
                   <span class="market-peer-brand">
-                    <span class="market-peer-logo"><img src="${escapeHTML(brand.logo)}" alt="${escapeHTML(brand.name)} 로고" loading="lazy" decoding="async"></span>
+                    <span class="market-peer-logo${item.id === "skhy-stock" ? " is-skhy" : ""}"><img src="${escapeHTML(brand.logo)}" alt="${escapeHTML(brand.name)} 로고" loading="lazy" decoding="async"></span>
                     <span class="market-peer-stock-label">${escapeHTML(item.index.labelKo || item.index.label || item.index.symbol)}</span>
                   </span>
                   <strong>${escapeHTML(formatChange(item.trend))}</strong>
