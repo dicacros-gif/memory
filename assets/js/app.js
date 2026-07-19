@@ -5566,10 +5566,10 @@
     `;
 
     strategy.innerHTML = CHINA_NAND_BUSINESS_LAYERS.slice(0, 6).map((item, index) => `
-      <button class="exec-strategy-card reveal" type="button" data-exec-nand="${escapeHTML(item.id)}" style="--local-accent:${categoryAccent((item.linkedCategories || [])[0])}; animation-delay:${index * 30}ms">
-        <span>${escapeHTML(item.label)}</span>
-        <strong>${escapeHTML(item.role)}</strong>
-        <small>${escapeHTML(item.strategy[0] || item.title)}</small>
+      <button class="exec-strategy-card exec-strategy-tone-${index % 6} reveal" type="button" data-exec-nand="${escapeHTML(item.id)}" style="animation-delay:${index * 30}ms">
+        <span>${strategicHighlightHTML(item.label)}</span>
+        <strong>${strategicHighlightHTML(item.role)}</strong>
+        <small>${strategicHighlightHTML(item.strategy[0] || item.title)}</small>
       </button>
     `).join("");
 

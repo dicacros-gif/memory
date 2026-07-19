@@ -3825,10 +3825,45 @@ body.sidebar-collapsed .sb-ico {
 }
 
 .exec-strategy-card {
+  --exec-strategy-accent: var(--local-accent, var(--accent));
   min-height: 112px;
   display: grid;
-  gap: 6px;
+  gap: 8px;
   align-content: start;
+  border: 2px solid color-mix(in srgb, var(--exec-strategy-accent) 58%, var(--line));
+  background:
+    linear-gradient(145deg, color-mix(in srgb, var(--exec-strategy-accent) 9%, var(--panel)), var(--panel-2) 64%);
+  box-shadow: 0 9px 22px color-mix(in srgb, var(--exec-strategy-accent) 8%, transparent);
+}
+
+.exec-strategy-tone-0 { --exec-strategy-accent: #087f72; --local-accent: #087f72; }
+.exec-strategy-tone-1 { --exec-strategy-accent: #2563eb; --local-accent: #2563eb; }
+.exec-strategy-tone-2 { --exec-strategy-accent: #d05c0b; --local-accent: #d05c0b; }
+.exec-strategy-tone-3 { --exec-strategy-accent: #0f766e; --local-accent: #0f766e; }
+.exec-strategy-tone-4 { --exec-strategy-accent: #7c3aed; --local-accent: #7c3aed; }
+.exec-strategy-tone-5 { --exec-strategy-accent: #b45309; --local-accent: #b45309; }
+
+.exec-strategy-card > span {
+  color: var(--exec-strategy-accent);
+}
+
+.exec-strategy-card .strategy-highlight {
+  color: color-mix(in srgb, var(--exec-strategy-accent) 84%, var(--ink));
+  text-decoration-color: #f0a51a;
+  text-decoration-thickness: 3px;
+  text-underline-offset: 3px;
+}
+
+.exec-strategy-card:is(:hover, :focus-visible) {
+  transform: translateY(-5px) scale(1.006);
+  border-color: var(--exec-strategy-accent);
+  box-shadow: 0 20px 40px color-mix(in srgb, var(--exec-strategy-accent) 25%, transparent);
+}
+
+.exec-strategy-card:is(:hover, :focus-visible) .strategy-highlight {
+  color: #fff8c5;
+  text-decoration-color: #ffd24a;
+  background: rgba(255, 210, 74, .14);
 }
 
 .exec-research {
