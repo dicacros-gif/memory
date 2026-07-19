@@ -4886,6 +4886,14 @@
         value: nandRows,
         unit: "rows",
       },
+      {
+        label: "중요 인사이트",
+        title: "가격 방어의 선행 신호는 CXMT 캐파보다 고객 인증과 장기계약",
+        bodyLead: "SKHY 판단",
+        body: "서버 DRAM·eSSD의 고객별 승인, spot/contract spread, 패키징 병목을 함께 확인한 뒤 범용 캐파와 가격 방어 강도를 조정합니다.",
+        jump: "c-level-cockpit",
+        priority: true,
+      },
     ];
   }
 
@@ -5347,10 +5355,10 @@
     brief.innerHTML = `
       <div class="exec-bullets">
         ${executiveStrategyLines().map((item) => `
-          <button class="exec-line reveal" type="button" data-jump="${escapeHTML(item.jump)}">
+          <button class="exec-line reveal${item.priority ? " exec-line-priority" : ""}" type="button" data-jump="${escapeHTML(item.jump)}">
             <span>${escapeHTML(item.label)}</span>
             <strong>${escapeHTML(item.title)}</strong>
-            <p>${escapeHTML(item.body)}</p>
+            <p>${item.bodyLead ? `<mark>${escapeHTML(item.bodyLead)}</mark>` : ""}${escapeHTML(item.body)}</p>
           </button>
         `).join("")}
       </div>

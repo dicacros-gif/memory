@@ -3694,6 +3694,58 @@ body.sidebar-collapsed .sb-ico {
   font-weight: 700;
 }
 
+.exec-line-priority {
+  --local-accent: #f97316;
+  position: relative;
+  overflow: hidden;
+  border-color: color-mix(in srgb, #f97316 44%, var(--line));
+  background:
+    linear-gradient(90deg, color-mix(in srgb, #f97316 10%, transparent), transparent 56%),
+    var(--panel-2);
+}
+
+.exec-line-priority::before {
+  content: "";
+  position: absolute;
+  inset: 0 auto 0 0;
+  width: 4px;
+  background: linear-gradient(#fb923c, #f97316);
+}
+
+.exec-line-priority > span {
+  color: #c2410c;
+}
+
+.exec-line-priority > strong {
+  width: fit-content;
+  color: color-mix(in srgb, #c2410c 48%, var(--ink));
+  background: linear-gradient(transparent 64%, rgba(251, 146, 60, .42) 64%, rgba(251, 146, 60, .42) 91%, transparent 91%);
+  text-decoration-line: underline;
+  text-decoration-color: #f97316;
+  text-decoration-thickness: 2px;
+  text-underline-offset: 4px;
+}
+
+.exec-line-priority mark {
+  display: inline-block;
+  margin-right: 6px;
+  padding: 0 2px;
+  border-radius: 2px;
+  background: linear-gradient(transparent 35%, rgba(251, 146, 60, .48) 35%, rgba(251, 146, 60, .48) 92%, transparent 92%);
+  color: #9a3412;
+  font: inherit;
+  font-weight: 950;
+  text-decoration: underline 2px #f97316;
+  text-underline-offset: 3px;
+}
+
+.exec-line-priority:hover mark,
+.exec-line-priority:focus-visible mark {
+  background: rgba(255, 255, 255, .2);
+  color: #fff;
+  text-decoration-color: #fdba74;
+}
+
 .exec-strategy {
   grid-template-columns: repeat(2, minmax(0, 1fr));
   gap: 12px;
