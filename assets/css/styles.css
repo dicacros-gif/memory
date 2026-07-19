@@ -6488,6 +6488,165 @@ body.sidebar-collapsed .sb-ico {
   font-size: 13px;
 }
 
+/* China fab infrastructure: color communicates evidence state and utility axis. */
+#china-fab-infra {
+  --infra-blue: #2563eb;
+  --infra-teal: #087f72;
+  --infra-green: #15803d;
+  --infra-amber: #c45a08;
+  --infra-violet: #7c3aed;
+  --infra-red: #c6283d;
+}
+
+#china-fab-infra .board-head h2 {
+  text-decoration-line: underline;
+  text-decoration-color: color-mix(in srgb, #f5a524 78%, transparent);
+  text-decoration-thickness: .26em;
+  text-underline-offset: -.12em;
+  text-decoration-skip-ink: none;
+}
+
+#china-fab-infra .policy-tab:nth-child(1) { --infra-card-accent: var(--infra-blue); }
+#china-fab-infra .policy-tab:nth-child(2) { --infra-card-accent: var(--infra-teal); }
+#china-fab-infra .policy-tab:nth-child(3) { --infra-card-accent: var(--infra-violet); }
+
+#china-fab-infra .policy-tab {
+  border-top: 4px solid var(--infra-card-accent);
+  background: color-mix(in srgb, var(--infra-card-accent) 7%, var(--panel-2));
+}
+
+#china-fab-infra .policy-tab:hover,
+#china-fab-infra .policy-tab:focus-visible,
+#china-fab-infra .policy-tab.active {
+  border-color: var(--infra-card-accent);
+  background: var(--infra-card-accent);
+  color: #fff;
+  box-shadow: 0 14px 32px color-mix(in srgb, var(--infra-card-accent) 28%, transparent);
+}
+
+#china-fab-infra .policy-tab:is(:hover, :focus-visible, .active) strong,
+#china-fab-infra .policy-tab:is(:hover, :focus-visible, .active) span {
+  color: #fff;
+}
+
+#china-fab-infra .infra-summary-card.infra-tone-0 { --infra-card-accent: var(--infra-blue); }
+#china-fab-infra .infra-summary-card.infra-tone-1 { --infra-card-accent: var(--infra-teal); }
+#china-fab-infra .infra-summary-card.infra-tone-2 { --infra-card-accent: var(--infra-amber); }
+#china-fab-infra .infra-summary-card.infra-tone-3 { --infra-card-accent: var(--infra-violet); }
+
+#china-fab-infra .infra-summary-card {
+  border-color: color-mix(in srgb, var(--infra-card-accent) 65%, var(--line));
+  background: linear-gradient(145deg, color-mix(in srgb, var(--infra-card-accent) 11%, var(--panel-2)), var(--panel-2) 72%);
+  box-shadow: inset 0 4px 0 var(--infra-card-accent);
+  transition: transform .24s cubic-bezier(.2, .8, .2, 1), background .2s ease, box-shadow .2s ease;
+}
+
+#china-fab-infra .infra-summary-card:hover,
+#china-fab-infra .infra-summary-card:focus-within {
+  transform: translateY(-6px) scale(1.012);
+  background: var(--infra-card-accent);
+  box-shadow: 0 18px 38px color-mix(in srgb, var(--infra-card-accent) 30%, transparent);
+}
+
+#china-fab-infra .infra-summary-card strong {
+  text-decoration-line: underline;
+  text-decoration-color: #f5a524;
+  text-decoration-thickness: .22em;
+  text-underline-offset: -.08em;
+  text-decoration-skip-ink: none;
+}
+
+#china-fab-infra .infra-summary-card:is(:hover, :focus-within) :is(span, strong, p) {
+  color: #fff;
+}
+
+#china-fab-infra .infra-summary-card:is(:hover, :focus-within) strong {
+  text-decoration-color: #ffe56b;
+}
+
+#china-fab-infra .infra-rule-card.infra-tone-0 { --infra-card-accent: var(--infra-teal); }
+#china-fab-infra .infra-rule-card.infra-tone-1 { --infra-card-accent: var(--infra-blue); }
+#china-fab-infra .infra-rule-card.infra-tone-2 { --infra-card-accent: var(--infra-amber); }
+#china-fab-infra .infra-rule-card.infra-tone-3 { --infra-card-accent: #0891b2; }
+#china-fab-infra .infra-rule-card.infra-tone-4 { --infra-card-accent: var(--infra-violet); }
+#china-fab-infra .infra-rule-card.infra-tone-5 { --infra-card-accent: var(--infra-green); }
+#china-fab-infra .infra-rule-card.ok { --infra-status-accent: var(--infra-green); }
+#china-fab-infra .infra-rule-card.watch { --infra-status-accent: var(--infra-amber); }
+#china-fab-infra .infra-rule-card.check { --infra-status-accent: var(--infra-blue); }
+#china-fab-infra .infra-rule-card.fail { --infra-status-accent: var(--infra-red); }
+
+#china-fab-infra .infra-rule-card {
+  --local-accent: var(--infra-card-accent) !important;
+  border-color: color-mix(in srgb, var(--infra-card-accent) 56%, var(--line));
+  background: linear-gradient(145deg, color-mix(in srgb, var(--infra-card-accent) 8%, var(--panel-2)), var(--panel-2) 76%);
+  box-shadow: inset 4px 0 0 var(--infra-status-accent, var(--infra-card-accent));
+  transition: transform .24s cubic-bezier(.2, .8, .2, 1), background .2s ease, box-shadow .2s ease;
+}
+
+#china-fab-infra .infra-rule-card:hover,
+#china-fab-infra .infra-rule-card:focus-within {
+  transform: translateY(-7px) scale(1.01);
+  border-color: var(--infra-card-accent);
+  background: color-mix(in srgb, var(--infra-card-accent) 88%, #071426);
+  box-shadow: 0 20px 42px color-mix(in srgb, var(--infra-card-accent) 32%, transparent);
+}
+
+#china-fab-infra .infra-rule-card em {
+  color: color-mix(in srgb, var(--infra-card-accent) 86%, var(--ink));
+  text-decoration-line: underline;
+  text-decoration-color: #f5a524;
+  text-decoration-thickness: .2em;
+  text-underline-offset: -.05em;
+  text-decoration-skip-ink: none;
+}
+
+#china-fab-infra .infra-rule-card:is(:hover, :focus-within) :is(h3, p, em, small, a) {
+  color: #fff;
+}
+
+#china-fab-infra .infra-rule-card:is(:hover, :focus-within) em {
+  text-decoration-color: #ffe56b;
+}
+
+#china-fab-infra .infra-rule-card:is(:hover, :focus-within) .policy-status {
+  border-color: #fff;
+  background: rgba(255, 255, 255, .15);
+  color: #fff;
+}
+
+#china-fab-infra .policy-focus {
+  border-top: 4px solid var(--infra-blue);
+  background: linear-gradient(160deg, color-mix(in srgb, var(--infra-blue) 7%, var(--panel)), var(--panel) 45%);
+}
+
+#china-fab-infra .policy-focus-head h3,
+#china-fab-infra .policy-verdict strong,
+#china-fab-infra .policy-focus-block > strong {
+  text-decoration-line: underline;
+  text-decoration-color: #f5a524;
+  text-decoration-thickness: .2em;
+  text-underline-offset: -.06em;
+  text-decoration-skip-ink: none;
+}
+
+#china-fab-infra .policy-site-list li {
+  transition: transform .2s ease, color .2s ease, background .2s ease, border-color .2s ease;
+}
+
+#china-fab-infra .policy-site-list li:nth-child(1) { --infra-site-accent: var(--infra-blue); }
+#china-fab-infra .policy-site-list li:nth-child(2) { --infra-site-accent: var(--infra-teal); }
+#china-fab-infra .policy-site-list li:nth-child(3) { --infra-site-accent: var(--infra-violet); }
+
+#china-fab-infra .policy-site-list li:hover {
+  transform: translateX(5px);
+  border-color: var(--infra-site-accent);
+  background: var(--infra-site-accent);
+}
+
+#china-fab-infra .policy-site-list li:hover :is(b, span, small) {
+  color: #fff;
+}
+
 .investment-summary,
 .investment-flow {
   display: grid;

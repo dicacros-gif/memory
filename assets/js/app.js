@@ -12365,7 +12365,7 @@
       { label: "최종 판단", value: site.verdict, note: site.decision },
       ...verifiedInfraCards,
     ].map((card, index) => `
-      <article class="policy-card reveal" style="animation-delay:${index * 25}ms">
+      <article class="policy-card infra-summary-card infra-tone-${index % 4} reveal" style="animation-delay:${index * 25}ms">
         <span>${escapeHTML(card.label)}</span>
         <strong>${escapeHTML(card.value)}</strong>
         <p>${escapeHTML(card.note)}</p>
@@ -12375,7 +12375,7 @@
     grid.innerHTML = (site.checks || []).map((check, index) => {
       const cls = policyStatusClass(check.status);
       return `
-        <article class="policy-rule-card reveal" style="--local-accent:${accent}; animation-delay:${index * 25}ms">
+        <article class="policy-rule-card infra-rule-card ${cls} infra-tone-${index % 6} reveal" style="--local-accent:${accent}; animation-delay:${index * 25}ms">
           <div class="policy-rule-top">
             <span class="policy-status ${cls}">${escapeHTML(check.status)}</span>
             <small>${escapeHTML(check.axis)}</small>
