@@ -4420,11 +4420,11 @@
 
   // Render an agent line to highlighted HTML:
   //   **key**  -> accent-colored keyword
-  //   ==text== -> yellow highlight + underline (most important)
+  //   ==text== -> restrained key-line emphasis
   // and auto-color Go / Watch / Hold / No-Go verdicts by tone.
   function renderAgentSpeech(value) {
     let html = escapeReadableHTML(String(value ?? ""));
-    html = html.replace(/==([^=]+)==/g, '<mark class="ag-hl">$1</mark>');
+    html = html.replace(/==([^=]+)==/g, '<span class="ag-hl">$1</span>');
     html = html.replace(/\*\*([^*]+)\*\*/g, '<b class="ag-key">$1</b>');
     html = html.replace(/(No-Go|Go|Watch|Hold)/g, (m) => {
       const cls = m === "Go" ? "go" : m === "Watch" ? "watch" : "hold";
@@ -4435,14 +4435,41 @@
 
   const STRATEGIC_HIGHLIGHT_RE = /(장기\s*공급계약|공동\s*로드맵|고객\s*인증|가격\s*spread|가격\s*방어|수출통제|자본\s*배분|우선\s*집행|판단\s*전환|패키징\s*병목|공급망|수율|캐파|HBM4|HBM|eSSD|DDR5|CXMT|YMTC|SKHY|BIS|VEU|C79|H-prefix|CoWoS|Go|Watch|Action|\+?\d+(?:\.\d+)?(?:~\d+(?:\.\d+)?)?(?:%|B|T|Gbps|PB|억\s*위안|조\s*원))/gi;
 
+  const EMPHASIS_COMPANY_RE = /^(?:SKHY|CXMT|YMTC|XMC|JCET|Naura|AMEC|ACM|Samsung|Micron|Nvidia|TSMC)$/i;
+  const EMPHASIS_SOURCE_RE = /^(?:WSTS|TrendForce|Counterpoint|Reuters|TechInsights|Yole)$/i;
+  const EMPHASIS_POLICY_RE = /^(?:BIS|VEU|C79|H-prefix|Big Fund|수출통제|공급망)$/i;
+  const EMPHASIS_TECH_RE = /^(?:HBM4|HBM|eSSD|DDR5|DRAM|NAND|CXL|PIM|CoWoS|TSV|EUV|DUV|Xtacking)$/i;
+  const EMPHASIS_ACTION_RE = /^(?:Go|Watch|Hold|No-Go|Action|우선\s*집행|판단\s*전환|가격\s*방어|자본\s*배분|고객\s*인증|장기\s*공급계약|공동\s*로드맵)$/i;
+
+  function emphasisClassForToken(value) {
+    const token = String(value ?? "").trim();
+    if (/[$+]?\d/.test(token)) return "term-metric";
+    if (EMPHASIS_COMPANY_RE.test(token)) return "term-company";
+    if (EMPHASIS_SOURCE_RE.test(token)) return "term-source";
+    if (EMPHASIS_POLICY_RE.test(token)) return "term-policy";
+    if (EMPHASIS_TECH_RE.test(token)) return "term-tech";
+    if (EMPHASIS_ACTION_RE.test(token)) return "term-action";
+    return "term-key";
+  }
+
+  function emphasizeEscapedHTML(html, pattern, limit = 4, baseClass = "strategy-highlight") {
+    let count = 0;
+    const regex = new RegExp(pattern.source, pattern.flags);
+    return html.replace(regex, (token) => {
+      if (count >= limit) return token;
+      count += 1;
+      return `<span class="${baseClass} ${emphasisClassForToken(token)}">${token}</span>`;
+    });
+  }
+
   function strategicHighlightHTML(value) {
-    return escapeHTML(value).replace(STRATEGIC_HIGHLIGHT_RE, '<mark class="strategy-highlight">$1</mark>');
+    return emphasizeEscapedHTML(escapeHTML(value), STRATEGIC_HIGHLIGHT_RE, 4);
   }
 
   const KPI_HIGHLIGHT_RE = /(WSTS|TrendForce|Counterpoint|Samsung|Micron|Top3|SKHY|CXMT|DRAM|NAND|HBM|Spring\s*2026|Autumn\s*2025|(?:2025|2026|2027)\s*Q[1-4]|Q[1-4]\s*(?:2025|2026|2027)|[+$]?\d+(?:\.\d+)?(?:%|B|T))/gi;
 
   function kpiHighlightHTML(value) {
-    return escapeHTML(value).replace(KPI_HIGHLIGHT_RE, '<mark class="strategy-highlight">$1</mark>');
+    return emphasizeEscapedHTML(escapeHTML(value), KPI_HIGHLIGHT_RE, 4);
   }
 
   function fmtDate(iso) {
@@ -5704,7 +5731,7 @@
           <button class="exec-line reveal${item.priority ? " exec-line-priority" : ""}" type="button" data-jump="${escapeHTML(item.jump)}">
             <span>${escapeHTML(item.label)}</span>
             <strong>${escapeHTML(item.title)}</strong>
-            <p>${item.bodyLead ? `<mark>${escapeHTML(item.bodyLead)}</mark>` : ""}${escapeHTML(item.body)}</p>
+            <p>${item.bodyLead ? `<strong class="exec-line-lead">${escapeHTML(item.bodyLead)}</strong>` : ""}${escapeHTML(item.body)}</p>
           </button>
         `).join("")}
       </div>
@@ -16383,14 +16410,19 @@
 
   function highlight(text) {
     const importantSegment = /(핵심|판단 포인트|의사결정 포인트|전략 검토|운영 기준|SKHY 관점|리스크|따라서|최신 기준|확정 근거|Watch|P1|경보선|검토 필요|상향|전망|분리|섞지 않음|봐야)/;
-    const emphasized = escapeHTML(text)
+    const answerTermPattern = /(CXMT|YMTC|XMC|JCET|Naura|AMEC|ACM|TrendForce|Reuters|Counterpoint|TechInsights|Yole|Nvidia|TSMC|CoWoS|Rubin|HBM4?E?|HBM5|DRAM|NAND|DDR5|LPDDR|CXL|PIM|IP|TSV|EUV|DUV|BIS|VEU|IPO|STAR|Big Fund|빅펀드|텐센트|메기|비대칭|마이크로데이터|Xtacking|eSSD)/g;
+    let keyLineUsed = false;
+    return escapeHTML(text)
       .split(/( · |\n\n)/)
-      .map((part) => importantSegment.test(part) ? `<mark class="answer-highlight"><strong>${part}</strong></mark>` : part)
+      .map((part) => {
+        const decorated = emphasizeEscapedHTML(part, answerTermPattern, 3, "answer-term");
+        if (!keyLineUsed && importantSegment.test(part)) {
+          keyLineUsed = true;
+          return `<strong class="answer-keyline">${decorated}</strong>`;
+        }
+        return decorated;
+      })
       .join("");
-    return emphasized.replace(
-      /(CXMT|YMTC|XMC|JCET|Naura|AMEC|ACM|TrendForce|Reuters|Counterpoint|TechInsights|Yole|Nvidia|TSMC|CoWoS|Rubin|HBM4?E?|HBM5|DRAM|NAND|DDR5|LPDDR|CXL|PIM|IP|TSV|EUV|DUV|BIS|VEU|IPO|STAR|Big Fund|빅펀드|텐센트|메기|비대칭|마이크로데이터|Xtacking|eSSD)/g,
-      "<b>$1</b>",
-    );
   }
 
   /* ---------------- Prices ---------------- */

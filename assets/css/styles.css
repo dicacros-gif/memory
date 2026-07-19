@@ -18216,3 +18216,139 @@ body.crawl-moderation-open {
 .live-figures-note { margin-top: 8px; font-size: 10px; color: var(--muted, var(--ink-2)); font-weight: 700; }
 .lf-context { font-size: 10px; font-weight: 800; color: var(--ink); line-height: 1.35; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
 .lf-snippet { color: var(--ink-2); opacity: .92; }
+
+/* ---------------- Semantic emphasis: color first, marker sparingly ---------------- */
+.strategy-highlight,
+.answer-term {
+  --term-color: #334155;
+  --term-line: #94a3b8;
+  --term-hover: #f8fafc;
+  display: inline;
+  padding: 0;
+  border-radius: 0;
+  background: transparent !important;
+  color: var(--term-color) !important;
+  font-weight: 920;
+  text-decoration-line: underline !important;
+  text-decoration-color: color-mix(in srgb, var(--term-line) 72%, transparent) !important;
+  text-decoration-thickness: 1.5px !important;
+  text-underline-offset: .2em !important;
+  text-decoration-skip-ink: auto !important;
+  box-decoration-break: clone;
+  -webkit-box-decoration-break: clone;
+}
+
+.term-company {
+  --term-color: #6d28d9;
+  --term-line: #8b5cf6;
+  --term-hover: #ddd6fe;
+}
+
+.term-source {
+  --term-color: #1d4ed8;
+  --term-line: #3b82f6;
+  --term-hover: #bfdbfe;
+}
+
+.term-policy {
+  --term-color: #b45309;
+  --term-line: #f97316;
+  --term-hover: #fed7aa;
+}
+
+.term-tech {
+  --term-color: #087f72;
+  --term-line: #14b8a6;
+  --term-hover: #99f6e4;
+}
+
+.term-metric {
+  --term-color: #b42318;
+  --term-line: #ef4444;
+  --term-hover: #fecaca;
+}
+
+.term-action {
+  --term-color: #047857;
+  --term-line: #10b981;
+  --term-hover: #a7f3d0;
+}
+
+.term-key {
+  --term-color: #9d174d;
+  --term-line: #ec4899;
+  --term-hover: #fbcfe8;
+}
+
+/* Names and technologies are identified by color alone; reserve underlines for
+   figures, policy gates, and decision words that merit a second visual cue. */
+.term-company,
+.term-source,
+.term-tech {
+  text-decoration-line: none !important;
+}
+
+:is(button, a, .kpi, [class*="-card"], [class*="-brief"], [class*="-focus"], [class*="-line"]):is(:hover, :focus-visible, :focus-within) :is(.strategy-highlight, .answer-term) {
+  --term-color: var(--term-hover);
+  background: transparent !important;
+  text-decoration-color: color-mix(in srgb, var(--term-hover) 72%, transparent) !important;
+  text-shadow: 0 1px 2px rgba(2, 8, 23, .55);
+}
+
+.kpi > strong {
+  background: transparent;
+  color: var(--kpi-hover-accent);
+  text-decoration-color: color-mix(in srgb, var(--kpi-hover-accent) 72%, transparent);
+}
+
+.kpi:is(:hover, :focus-visible, :focus-within) > strong {
+  color: #fff;
+  text-decoration-color: rgba(255, 255, 255, .72);
+}
+
+.exec-line-lead {
+  display: inline;
+  margin-right: .35em;
+  color: #c2410c;
+  font: inherit;
+  font-weight: 950;
+  text-decoration: underline 2px color-mix(in srgb, #f97316 72%, transparent);
+  text-underline-offset: .18em;
+}
+
+.exec-line:is(:hover, :focus-visible) .exec-line-lead {
+  color: #fed7aa;
+  text-decoration-color: #fb923c;
+}
+
+.answer-keyline {
+  color: color-mix(in srgb, var(--answer-accent, var(--accent)) 76%, var(--ink));
+  font-weight: 900;
+  text-decoration-line: underline;
+  text-decoration-color: color-mix(in srgb, var(--answer-accent, var(--accent)) 52%, transparent);
+  text-decoration-thickness: 1.5px;
+  text-underline-offset: .2em;
+}
+
+.answer-highlight {
+  padding: 0;
+  background: transparent;
+  color: color-mix(in srgb, var(--answer-accent, var(--accent)) 76%, var(--ink));
+  text-decoration-color: color-mix(in srgb, var(--answer-accent, var(--accent)) 52%, transparent);
+  text-decoration-thickness: 1.5px;
+}
+
+.speech-bubble .ag-hl {
+  padding: 0;
+  background: transparent !important;
+  color: color-mix(in srgb, var(--agent-color) 82%, var(--ink));
+  font-weight: 920;
+  text-decoration: underline 2px color-mix(in srgb, var(--agent-color) 70%, transparent);
+  text-underline-offset: .18em;
+}
+
+.agent-turn:hover .speech-bubble .ag-hl {
+  background: transparent !important;
+  color: #fff3c4;
+  text-decoration-color: color-mix(in srgb, var(--agent-color) 68%, #fff);
+}
