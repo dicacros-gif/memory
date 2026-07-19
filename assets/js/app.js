@@ -961,7 +961,7 @@
       linkedCategories: ["hbm", "dram", "cxl", "aidemand", "packaging"],
       products: ["HBM3E/HBM4", "DDR5 RDIMM/MRDIMM", "CXL Memory", "Custom HBM"],
       keywords: ["hbm", "hbm4", "hbm3e", "nvidia", "rubin", "ai accelerator", "data center", "server", "cxl", "ddr5", "rdimm", "mrdimm", "tsmc", "cowos"],
-      priceTerms: ["dram", "ddr5", "gddr", "module"],
+      priceTerms: [],
       thesis: "AI 서버는 30개월 뒤에도 SKHY 제품 믹스의 최우선 축입니다. HBM4 베이스 다이, DDR5 고용량 모듈, CXL 확장 메모리가 함께 서버 ASP를 방어합니다.",
       assumptions: ["HBM4/Custom HBM 고객 인증 유지", "NVIDIA·ASIC 고객의 대역폭 요구 지속", "DDR5 고용량 모듈과 CXL이 서버당 메모리 탑재량 확대"],
       triggers: ["HBM4 Rubin ramp", "CoWoS/패키징 할당량", "DDR5 contract 가격", "CXL 서버 PoC"],
@@ -1055,13 +1055,14 @@
       label: "HBM·AI 서버",
       demand: "서버향",
       category: "hbm",
-      products: ["HBM3E/HBM4", "Custom HBM", "서버 DDR5", "CXL Memory"],
-      priceTerms: ["ddr5", "gddr", "module", "dram contract", "dram spot"],
+      products: ["HBM3E/HBM4", "Custom HBM", "Base Die", "Advanced Packaging"],
+      priceTerms: [],
       chinaTerms: ["cxmt", "hbm", "ddr5", "ai server", "rubin"],
+      directSignalModel: "hbm",
       decisionBias: "growth",
-      rationale: "AI 서버향은 HBM 직접 가격표가 없으므로 DDR5/GDDR/모듈 가격을 프리미엄 메모리 proxy로 사용합니다.",
-      upside: "가격 모멘텀이 양수이고 중국 HBM 실질 양산 신호가 약하면 증설·고객 락인이 우선입니다.",
-      downside: "HBM4 고객별 ramp 지연, CoWoS/패키징 병목, 서버 DRAM 가격 약세가 확인되면 고객별 할당과 수율 리스크를 보수적으로 봅니다.",
+      rationale: "HBM은 범용 메모리 가격으로 대체 계산하지 않고 고객 인증·공급 계약, HBM4 양산 출하, AI 가속기 수요와 패키징 실행 여력을 직접 평가합니다.",
+      upside: "고객 인증과 양산 출하가 함께 확인되고 패키징·베이스 다이 병목이 통제되면 고객별 캐파 선배분을 단계적으로 확대합니다.",
+      downside: "고객 인증 지연, HBM4 수율 저하 또는 CoWoS·TSV·베이스 다이 병목이 겹치면 증설보다 고객별 할당과 실행 안정성을 우선합니다.",
     },
     {
       id: "server-dram",
@@ -6163,7 +6164,7 @@
         cfo: "프리미엄 ASP와 고객 선급·장기계약 근거가 붙기 전까지는 CAPEX 집행안을 NPV/IRR로 확정하지 않습니다.",
         cto: "HBM4 ramp, 베이스 다이, CoWoS·패키징 할당, 수율 안정화가 같은 방향인지 분리 점검합니다.",
         policy: "미국 고객·첨단 패키징·중국 노출을 분리해 수출통제나 end-use 리스크가 붙는 구간은 별도 승인 게이트로 둡니다.",
-        market: "HBM 직접 가격표가 없으면 DDR5/GDDR/모듈 가격과 고객 인증 뉴스를 proxy로 쓰되, proxy임을 명시합니다.",
+        market: "HBM은 범용 메모리 가격으로 환산하지 않고 고객 인증·공급계약·양산 출하와 패키징 할당을 직접 비교합니다.",
         audit: "HBM 점유율은 Counterpoint/WSTS 등 분석 원문, HBM4 양산·고객 인증은 회사 발표와 외신 보도를 분리해 표시합니다.",
         next: "고객별 HBM4 ramp, 패키징 병목, 서버 DRAM 가격 약세를 2주 단위로 재검토",
       },
@@ -6420,6 +6421,17 @@
   }
 
   function decisionCounterEvidence(subject = {}) {
+    if (subject.directSignalModel === "hbm") {
+      const metrics = subject.directMetrics || {};
+      return {
+        count: metrics.risk || 0,
+        total: metrics.evidenceCount || 0,
+        ratio: metrics.evidenceCount ? (metrics.risk || 0) / metrics.evidenceCount : null,
+        confidence: metrics.score || 0,
+        wrongRisk: Math.max(0, 100 - (metrics.score || 0)),
+        text: `HBM 실행 리스크 ${fmtNum(metrics.risk || 0)}건 · 고객 ${fmtNum(metrics.customer || 0)}건 · 양산/출하 ${fmtNum(metrics.production || 0)}건`,
+      };
+    }
     const changes = decisionObservedChanges(subject);
     const descriptor = `${subject.id || ""} ${subject.label || ""} ${subject.action || ""} ${subject.decision?.label || ""} ${subject.decision?.action || ""}`;
     const defensive = /방어|축소|보수|감산|리스크|경보|no-go|policy|talent|china-exposure/i.test(descriptor);
@@ -6451,7 +6463,8 @@
     const failed = kpis.filter((item) => item.tone === "fail");
     let rule = "핵심 KPI 2개 이상 악화 시 결론 하향";
     let threshold = 2;
-    if (/hbm|server|rubin|foundry/i.test(idText)) rule = "고객 인증 지연과 패키징/base die 병목이 동시 발생하거나 서버 가격이 -0.45% 이하이면 확대 보류";
+    if (/hbm|rubin/i.test(idText)) rule = "고객 인증 지연과 HBM4 양산·패키징/base die 병목이 동시에 확인되면 확대 보류";
+    else if (/server|foundry/i.test(idText)) rule = "고객 인증 지연과 패키징/base die 병목이 동시 발생하거나 서버 가격이 -0.45% 이하이면 확대 보류";
     else if (/cxmt|china-dram|legacy|commodity/i.test(idText)) rule = "CXMT 점유율 10%+ 또는 장기계약과 DDR5/LPDDR 약세가 동시 발생하면 가격 방어";
     else if (/ymtc|nand|ssd|solidigm|essd/i.test(idText)) rule = "eSSD 고객 인증, 우한 ramp, NAND contract 약세 중 2개 이상이면 고객 방어";
     else if (/policy|fab|bis|veu|chips|match/i.test(idText)) {
@@ -6477,9 +6490,11 @@
       return false;
     });
     if (scenario.tilt === "up") {
-      const supported = metrics.priceMove != null && metrics.priceMove >= 0.55 && confidence >= 68 && !risk.downgrade;
-      if (!supported) return { verdict, reason: "상방 가정은 존재하지만 +0.55% 이상 가격·충분한 근거·리스크 게이트를 동시에 통과하지 못함" };
-      return { verdict: verdict === "Hold" ? "Watch" : "Go", reason: "상방 가격과 실행 근거, 리스크 게이트가 함께 충족됨" };
+      const supported = subject.directSignalModel === "hbm"
+        ? (subject.directMetrics?.customer || 0) > 0 && (subject.directMetrics?.production || 0) > 0 && confidence >= 68 && !risk.downgrade
+        : metrics.priceMove != null && metrics.priceMove >= 0.55 && confidence >= 68 && !risk.downgrade;
+      if (!supported) return { verdict, reason: subject.directSignalModel === "hbm" ? "상방 가정은 존재하지만 고객 확정·양산 출하·실행 게이트를 동시에 통과하지 못함" : "상방 가정은 존재하지만 +0.55% 이상 가격·충분한 근거·리스크 게이트를 동시에 통과하지 못함" };
+      return { verdict: verdict === "Hold" ? "Watch" : "Go", reason: subject.directSignalModel === "hbm" ? "고객 확정과 양산 출하, 실행 게이트가 함께 충족됨" : "상방 가격과 실행 근거, 리스크 게이트가 함께 충족됨" };
     }
     if (scenario.tilt === "down") {
       const supported = Boolean(scenarioKpi?.tone === "fail" || risk.downgrade || (metrics.priceMove != null && metrics.priceMove <= -0.45));
@@ -7711,7 +7726,7 @@
         label: "HBM4·HBM3E 고객 인증 경쟁",
         terms: ["sk hynix", "skhy", "samsung", "hbm", "hbm4", "hbm3e", "ai memory"],
         match: [["samsung"], ["hbm", "hbm4", "hbm3e", "ai memory"]],
-        priceTerms: ["dram", "ddr5", "gddr"],
+        priceTerms: [],
         categories: ["hbm", "aidemand"],
         weight: 82,
         interpretation: "Samsung은 HBM4 턴키와 HBM3E 인증으로 SKHY 프리미엄 고객 락인에 도전하는 축입니다.",
@@ -7725,7 +7740,7 @@
         label: "HBM·서버 DRAM 공급 경쟁",
         terms: ["sk hynix", "skhy", "micron", "hbm", "ddr5", "server dram"],
         match: [["micron"], ["hbm", "ddr5", "server dram"]],
-        priceTerms: ["dram", "ddr5"],
+        priceTerms: [],
         categories: ["hbm", "dram"],
         weight: 76,
         interpretation: "Micron은 HBM4 ramp, 16개 SCA와 Anthropic 공동설계로 서버 메모리 물량과 고객 아키텍처를 함께 선점합니다.",
@@ -10578,7 +10593,55 @@
     return Math.abs(actualChange) <= 0.6 ? { label: "유지 적중", cls: "hit", hit: true } : { label: "유지 재검토", cls: "watch", hit: null };
   }
 
+  function directHbmEvidence() {
+    const terms = /(?:\bhbm(?:3e|4|4e)?\b|high bandwidth memory|vera rubin|\brubin\b|cowos|base die|tsv|advanced packaging)/i;
+    const seen = new Set();
+    return rawNews().filter((item) => {
+      const url = canonicalNewsKey(item);
+      const text = `${item.title || ""} ${item.titleKo || ""} ${item.summary || ""}`;
+      if (!url || !terms.test(text) || seen.has(url)) return false;
+      seen.add(url);
+      return true;
+    });
+  }
+
+  function directHbmAssessment(product) {
+    const evidence = directHbmEvidence();
+    const count = (pattern) => evidence.filter((item) => pattern.test(`${item.title || ""} ${item.titleKo || ""} ${item.summary || ""}`)).length;
+    const customer = count(/(?:customer|고객|qualification|certif|인증|supply agreement|공급계약|order|주문|nvidia|rubin)/i);
+    const production = count(/(?:mass production|high.volume production|shipment|shipping|양산|출하|supply begins|공급 시작)/i);
+    const demand = count(/(?:accelerator|hyperscaler|capex|ai server|data center|가속기|하이퍼스케일러|데이터센터|ai 수요)/i);
+    const packaging = count(/(?:cowos|tsv|base die|advanced packaging|package|패키징|베이스.?다이)/i);
+    const risk = count(/(?:delay|bottleneck|shortage|yield (?:issue|low)|qualification delay|지연|병목|부족|수율 저하|인증 실패)/i);
+    const score = Math.round(clamp(20 + Math.min(customer, 5) * 7 + Math.min(production, 4) * 7 + Math.min(demand, 4) * 4 + Math.min(packaging, 4) * 3 - Math.min(risk, 4) * 6, 0, 100));
+    const enough = evidence.length >= 3 && customer + production >= 2;
+    const decision = !enough
+      ? { label: "Watch", cls: "insufficient", action: "직접 근거 보강", logic: "HBM 고객·양산 직접 근거가 부족해 범용 메모리 가격으로 판단을 대체하지 않습니다." }
+      : score >= 68 && risk < 2
+        ? { label: "선별 확대", cls: "expand", action: "고객별 캐파 선배분", logic: "고객·양산·수요 신호가 겹치고 실행 병목이 제한적인 구간입니다." }
+        : score >= 48
+          ? { label: "단계 집행", cls: "hold", action: "인증·패키징 게이트 연동", logic: "수요는 확인되지만 고객 인증과 패키징 실행 조건을 함께 통과해야 합니다." }
+          : { label: "Watch", cls: "defend", action: "증설 보류·병목 해소", logic: "직접 수요 신호보다 실행 리스크가 커 선행 증설을 보류합니다." };
+    return {
+      ...product,
+      directSignalModel: "hbm",
+      directEvidence: evidence,
+      directMetrics: { customer, production, demand, packaging, risk, score, evidenceCount: evidence.length },
+      observations: [],
+      matchedCount: evidence.length,
+      priorMomentum: null,
+      actualChange: null,
+      avgDays: 0,
+      chinaSignalCount: evidence.filter((item) => /(?:china|chinese|cxmt|중국|长鑫)/i.test(`${item.title || ""} ${item.titleKo || ""} ${item.summary || ""}`)).length,
+      decision,
+      outcome: { label: "직접 KPI 추적", cls: enough ? "watch" : "insufficient", hit: null },
+      confidence: score,
+      latestAt: evidence.reduce((latest, item) => Math.max(latest, new Date(item.date || item.publishedAt || 0).getTime() || 0), 0),
+    };
+  }
+
   function productBacktest(product, selectedIso = selectedBacktestIso()) {
+    if (product.directSignalModel === "hbm") return directHbmAssessment(product);
     const selectedTime = selectedIso ? new Date(selectedIso).getTime() : 0;
     const matched = productHistorySeries(product);
     const observations = matched.map((series) => backtestObservation(series, selectedTime)).filter(Boolean);
@@ -10616,6 +10679,7 @@
   }
 
   function decisionClassLabel(item) {
+    if (item.directSignalModel === "hbm") return `직접 근거 ${fmtNum(item.directMetrics?.evidenceCount || 0)}건 · ${fmtNum(item.directMetrics?.score || 0)}점`;
     if (!item.observations.length) return "데이터 부족";
     return `${fmtNum(item.observations.length)}개 품목 · ${fmtNum(item.confidence)}점`;
   }
@@ -10790,6 +10854,25 @@
   }
 
   function decisionEvidenceMetrics(subject = {}) {
+    if (subject.directSignalModel === "hbm") {
+      const direct = subject.directMetrics || {};
+      const items = subject.directEvidence || [];
+      return {
+        newsLinks: items.length,
+        benchmarkLinks: 0,
+        kpiLinks: 0,
+        priceRows: 0,
+        linkCount: items.length,
+        evidenceCount: direct.evidenceCount || items.length,
+        priceMove: null,
+        priorMove: null,
+        chinaSignals: Number(subject.chinaSignalCount || 0),
+        evidenceText: items.map((item) => `${item.title || ""} ${item.titleKo || ""} ${item.summary || ""}`).join(" "),
+        duplicateCount: 0,
+        weightedLinks: items.length,
+        officialPolicyLinks: 0,
+      };
+    }
     const evidence = subject.evidence || {};
     const quality = evidenceQualityStats(evidence);
     const newsLinks = (evidence.news || []).filter((item) => evidenceItemUrl(item)).length;
@@ -10862,12 +10945,36 @@
       id: "evidence-gate",
       label: "근거 게이트",
       current: hasEvidence ? (metrics.priceRows > 0 ? `canonical 링크/KPI ${fmtNum(metrics.linkCount)} · 가격 ${fmtNum(metrics.priceRows)} rows` : `canonical 링크/KPI ${fmtNum(metrics.linkCount)}`) : "검증 근거 부족",
-      trigger: "원문 link, sourceUrl, 가격 row가 모두 없으면 Go 금지",
+      trigger: subject.directSignalModel === "hbm" ? "고객·양산·수요·패키징 직접 원문이 없으면 확대 금지" : "원문 link, sourceUrl, 가격 row가 모두 없으면 Go 금지",
       flip: hasEvidence ? "근거 충족: 판단 유지 가능" : "근거 없음: Watch/Hold",
       tone: hasEvidence ? "ok" : "fail",
     };
 
-    if (/hbm|server|ai|rubin|foundry/i.test(`${id} ${category} ${label}`)) {
+    if (subject.directSignalModel === "hbm") {
+      const direct = subject.directMetrics || {};
+      rows.push({
+        id: "hbm-customer",
+        label: "고객·공급 확정",
+        current: `고객/계약 ${fmtNum(direct.customer || 0)}건 · 양산/출하 ${fmtNum(direct.production || 0)}건`,
+        trigger: "고객 인증 또는 공급 확정과 양산 출하가 함께 확인될 때만 캐파 선배분",
+        flip: direct.customer && direct.production ? "동시 확인: 단계 확대" : "미충족: Watch",
+        tone: direct.customer && direct.production ? "ok" : "fail",
+      }, {
+        id: "hbm-execution",
+        label: "패키징 실행력",
+        current: `패키징 ${fmtNum(direct.packaging || 0)}건 · 병목/지연 ${fmtNum(direct.risk || 0)}건`,
+        trigger: "CoWoS·TSV·베이스 다이·수율 병목 2건 이상이면 증설 보류",
+        flip: (direct.risk || 0) >= 2 ? "병목 확인: 보류" : "병목 제한: 유지",
+        tone: (direct.risk || 0) >= 2 ? "fail" : "watch",
+      }, {
+        id: "hbm-demand",
+        label: "AI 수요",
+        current: `가속기·고객 CapEx 직접 신호 ${fmtNum(direct.demand || 0)}건`,
+        trigger: "가속기 출하·하이퍼스케일러 CapEx 하향 시 HBM 수요 시나리오 재산정",
+        flip: direct.demand ? "수요 확인: 유지" : "직접 신호 부족",
+        tone: direct.demand ? "ok" : "check",
+      });
+    } else if (/hbm|server|ai|rubin|foundry/i.test(`${id} ${category} ${label}`)) {
       rows.push({
         id: "hbm-ramp",
         label: "HBM 고객 ramp",
@@ -10926,7 +11033,7 @@
       });
     }
 
-    if (productLike || metrics.priceRows || /dram|nand|legacy|server|terminal|china|commodity|ssd/i.test(`${id} ${category} ${label}`)) {
+    if (subject.directSignalModel !== "hbm" && (productLike || metrics.priceRows || /dram|nand|legacy|server|terminal|china|commodity|ssd/i.test(`${id} ${category} ${label}`))) {
       const moveText = metrics.priceMove == null ? `가격 row ${fmtNum(metrics.priceRows)}개` : signedPercent(metrics.priceMove);
       const bearish = metrics.priceMove != null && metrics.priceMove <= -0.45;
       const bullish = metrics.priceMove != null && metrics.priceMove >= 0.55;
@@ -10998,11 +11105,11 @@
       "hbm-ai-server": {
         question: `${yearLabel} 기준 HBM·AI 서버 제품군을 증설·고객 락인 안건으로 확대할 것인가?`,
         ceo: "AI 서버향은 가격표보다 고객 인증, HBM4 ramp, 패키징 병목이 먼저 의사결정을 좌우합니다.",
-        data: "HBM 직접 가격이 없으면 DDR5/GDDR/모듈 가격을 proxy로 쓰고, proxy 여부를 결론에 남깁니다.",
+        data: "HBM은 범용 DRAM·GDDR·모듈 가격으로 대체하지 않고 고객 인증, 공급 계약, 양산 출하와 패키징 실행 신호를 직접 점수화합니다.",
         china: "중국 HBM 신호는 과거 가격을 바꾸지 않고 현재 리스크 overlay로만 둡니다.",
         cfo: "고객 장기계약과 프리미엄 ASP 근거가 붙기 전에는 CAPEX를 확정 재무 ROI로 처리하지 않습니다.",
-        risk: "HBM4 고객별 ramp 지연, CoWoS/패키징 병목, 서버 DRAM 약세가 동시에 나오면 확대가 아니라 보수 재검토입니다.",
-        strategy: "가격 모멘텀이 양수이고 중국 HBM 실질 양산 신호가 약하면 증설·고객 락인을 우선합니다.",
+        risk: "HBM4 고객별 ramp 지연과 CoWoS·TSV·베이스 다이 병목이 겹치면 확대가 아니라 보수 재검토입니다.",
+        strategy: "고객 인증·양산 출하가 함께 확인되고 패키징 병목이 통제될 때 고객별 캐파 선배분을 단계적으로 확대합니다.",
       },
       "server-dram": {
         question: `${yearLabel} 기준 서버 DRAM 캐파를 장기계약 중심으로 확대할 것인가?`,
@@ -11271,7 +11378,9 @@
         role: "수익성·자본배분",
         color: "#00A896",
         stance: "Capital Allocation",
-        message: `${point} 기준 관측 ${fmtNum(active.observations.length)}개, 사전 모멘텀 ${prior}, 이후 실측 ${actual}입니다. ${profile.cfo} ${priceFlip.label} 기준이 충족되기 전에는 CAPEX나 가격 정책을 확정하지 않습니다.`,
+        message: active.directSignalModel === "hbm"
+          ? `HBM 직접 근거 ${fmtNum(active.directMetrics?.evidenceCount || 0)}건에서 고객·계약 ${fmtNum(active.directMetrics?.customer || 0)}건, 양산·출하 ${fmtNum(active.directMetrics?.production || 0)}건을 확인했습니다. ${profile.cfo} 고객 확정과 패키징 실행 조건이 함께 충족되기 전에는 CAPEX를 확정하지 않습니다.`
+          : `${point} 기준 관측 ${fmtNum(active.observations.length)}개, 사전 모멘텀 ${prior}, 이후 실측 ${actual}입니다. ${profile.cfo} ${priceFlip.label} 기준이 충족되기 전에는 CAPEX나 가격 정책을 확정하지 않습니다.`,
       },
       {
         id: "cto",
@@ -11291,7 +11400,9 @@
         role: "가격·고객 전이",
         color: "#10B981",
         stance: "수요 검증",
-        message: `${profile.data} 가격은 사전 ${prior}, 이후 ${actual}입니다. ${profile.market || "spot과 contract, 고객 계약 신호가 같은 방향일 때만 결론 강도를 높입니다."} 고객 신호 없이 가격만 움직이면 재고·믹스 조정 안건으로 둡니다.`,
+        message: active.directSignalModel === "hbm"
+          ? `${profile.data} AI 가속기·하이퍼스케일러 수요 신호 ${fmtNum(active.directMetrics?.demand || 0)}건을 고객 인증 및 공급 계약과 대조했습니다. 범용 메모리 가격 변화는 HBM 수요의 증거로 사용하지 않습니다.`
+          : `${profile.data} 가격은 사전 ${prior}, 이후 ${actual}입니다. ${profile.market || "spot과 contract, 고객 계약 신호가 같은 방향일 때만 결론 강도를 높입니다."} 고객 신호 없이 가격만 움직이면 재고·믹스 조정 안건으로 둡니다.`,
       },
       {
         id: "china",
@@ -11311,7 +11422,9 @@
         role: "근거 검증",
         color: "#EF4444",
         stance: "근거 정합성",
-        message: `가격 series ${fmtNum(selectedSeriesCount)}개 중 실제 관측 ${fmtNum(active.observations.length)}개만 판단에 사용했습니다. 중국 신호 ${fmtNum(active.chinaSignalCount)}건은 현재 리스크로만 반영하고, 원문·가격 row가 없는 해석은 결론 강도를 올리지 않습니다.`,
+        message: active.directSignalModel === "hbm"
+          ? `HBM 판단에서는 DDR5·GDDR·모듈 가격 row를 제외했습니다. canonical 원문 ${fmtNum(active.directMetrics?.evidenceCount || 0)}건에서 고객·양산·수요·패키징·병목 신호만 분류해 계산했습니다.`
+          : `가격 series ${fmtNum(selectedSeriesCount)}개 중 실제 관측 ${fmtNum(active.observations.length)}개만 판단에 사용했습니다. 중국 신호 ${fmtNum(active.chinaSignalCount)}건은 현재 리스크로만 반영하고, 원문·가격 row가 없는 해석은 결론 강도를 올리지 않습니다.`,
       },
       {
         id: "devil",
@@ -11342,6 +11455,11 @@
     const actual = active.actualChange == null ? "NA" : `${active.actualChange > 0 ? "+" : ""}${fmtNum(active.actualChange, 2)}%`;
     const prior = active.priorMomentum == null ? "NA" : `${active.priorMomentum > 0 ? "+" : ""}${fmtNum(active.priorMomentum, 2)}%`;
     const yearLabel = selectedYearOption?.label || "선택 시점 없음";
+    const direct = active.directSignalModel === "hbm" ? active.directMetrics || {} : null;
+    const metricTwo = direct ? `${fmtNum(direct.customer || 0)}건` : prior;
+    const metricThree = direct ? `${fmtNum(direct.production || 0)}건` : actual;
+    const metricTwoLabel = direct ? "고객·계약" : "사전 모멘텀";
+    const metricThreeLabel = direct ? "양산·출하" : "이후 실측";
     const agentItems = executiveDecisionAgentItems(active, selectedYearOption, productLabel, selectedIso, selectedSeriesCount, scenario);
     const conclusion = executiveDecisionCouncilConclusion(active, selectedYearOption, selectedIso, scenario);
     const profile = executiveDecisionProfile(active, selectedYearOption, productLabel);
@@ -11360,7 +11478,7 @@
           <label>
             <span>안건 선택</span>
             <select id="execDecisionCouncilSelect" aria-label="제품군 전문가 토론 안건 선택">
-              ${items.map((item) => `<option value="${escapeHTML(item.id)}"${item.id === active.id ? " selected" : ""}>${escapeHTML(item.label)} · ${escapeHTML(item.decision.label)} · ${fmtNum(item.observations.length)}개 관측</option>`).join("")}
+              ${items.map((item) => `<option value="${escapeHTML(item.id)}"${item.id === active.id ? " selected" : ""}>${escapeHTML(item.label)} · ${escapeHTML(item.decision.label)} · ${fmtNum(item.directMetrics?.evidenceCount ?? item.observations.length)}개 근거</option>`).join("")}
             </select>
           </label>
           <button type="button" id="execDecisionRunCouncil">${execDecisionCouncilRan ? "토론 다시 실행" : "토론 실행"}</button>
@@ -11374,8 +11492,8 @@
         ${scenarioBriefHTML(scenario)}
         <div class="agent-debate-metrics">
           <div><strong>${escapeHTML(active.decision.label)}</strong><span>판단</span></div>
-          <div><strong>${escapeHTML(prior)}</strong><span>사전 모멘텀</span></div>
-          <div><strong>${escapeHTML(actual)}</strong><span>이후 실측</span></div>
+          <div><strong>${escapeHTML(metricTwo)}</strong><span>${escapeHTML(metricTwoLabel)}</span></div>
+          <div><strong>${escapeHTML(metricThree)}</strong><span>${escapeHTML(metricThreeLabel)}</span></div>
           <div><strong>${fmtNum(active.chinaSignalCount)}</strong><span>중국 신호</span></div>
         </div>
         ${execDecisionCouncilRan ? `
@@ -11456,8 +11574,12 @@
     });
     const selectedSeriesCount = selectedSeriesKeys.size;
     const executiveScenario = agentFutureScenario(execDecisionCouncilScenarioRun);
-    if (meta) meta.textContent = `${yearLabel} 기준 · ${productLabel} · ${fmtNum(selectedSeriesCount)}개 매칭 series · ${latestAt ? pointDateLabel(latestAt) : "최신 결과 없음"}까지 검증`;
-    if (coverage) coverage.textContent = `${yearLabel} 첫 수집점 ${selected ? pointDateLabel(selected) : "없음"} · 전체 가격 series ${fmtNum(historyCount)}개 · 제품군 매칭 ${fmtNum(selectedSeriesCount)}개`;
+    if (meta) meta.textContent = active?.directSignalModel === "hbm"
+      ? `${productLabel} · HBM 직접 근거 ${fmtNum(active.directMetrics?.evidenceCount || 0)}건 · 고객·계약 ${fmtNum(active.directMetrics?.customer || 0)}건 · 양산·출하 ${fmtNum(active.directMetrics?.production || 0)}건`
+      : `${yearLabel} 기준 · ${productLabel} · ${fmtNum(selectedSeriesCount)}개 매칭 series · ${latestAt ? pointDateLabel(latestAt) : "최신 결과 없음"}까지 검증`;
+    if (coverage) coverage.textContent = active?.directSignalModel === "hbm"
+      ? `직접 신호 모델 · AI 수요 ${fmtNum(active.directMetrics?.demand || 0)}건 · 패키징 실행 ${fmtNum(active.directMetrics?.packaging || 0)}건 · 위험 신호 ${fmtNum(active.directMetrics?.risk || 0)}건`
+      : `${yearLabel} 첫 수집점 ${selected ? pointDateLabel(selected) : "없음"} · 전체 가격 series ${fmtNum(historyCount)}개 · 제품군 매칭 ${fmtNum(selectedSeriesCount)}개`;
     summary.hidden = true;
     summary.innerHTML = "";
 
@@ -11467,6 +11589,16 @@
       executiveSliderDock.appendChild(executiveSlider);
     }
 
+    const cardMetric = (item, side) => {
+      if (item.directSignalModel === "hbm") {
+        return side === "first"
+          ? `고객·계약 ${fmtNum(item.directMetrics?.customer || 0)}건`
+          : `양산·출하 ${fmtNum(item.directMetrics?.production || 0)}건`;
+      }
+      return side === "first"
+        ? `당시 ${item.priorMomentum == null ? "NA" : `${fmtNum(item.priorMomentum, 2)}%`}`
+        : `이후 ${item.actualChange == null ? "NA" : `${fmtNum(item.actualChange, 2)}%`}`;
+    };
     grid.innerHTML = items.map((item, index) => `
       <div class="decision-card-stack${item.id === "china-exposure" ? " has-executive-slider" : ""}">
         <button class="decision-card reveal${item.id === active?.id ? " active" : ""}" type="button" data-decision-product="${escapeHTML(item.id)}" style="--local-accent:${categoryAccent(item.category)}; animation-delay:${index * 25}ms">
@@ -11479,8 +11611,8 @@
             </span>
           </div>
           <div class="decision-card-metrics">
-            <span>당시 ${item.priorMomentum == null ? "NA" : `${fmtNum(item.priorMomentum, 2)}%`}</span>
-            <span>이후 ${item.actualChange == null ? "NA" : `${fmtNum(item.actualChange, 2)}%`}</span>
+            <span>${escapeHTML(cardMetric(item, "first"))}</span>
+            <span>${escapeHTML(cardMetric(item, "second"))}</span>
             <span>${escapeHTML(decisionClassLabel(item))}</span>
           </div>
         </button>
@@ -11499,15 +11631,17 @@
         type: "경영진 의사결정 백테스트",
         tag: active.demand,
         title: active.label,
-        body: `${active.rationale} 기준일 판단: ${active.decision.label}. 이후 실제 변화: ${active.actualChange == null ? "데이터 부족" : `${fmtNum(active.actualChange, 2)}%`}.`,
+        body: active.directSignalModel === "hbm"
+          ? `${active.rationale} 현재 판단: ${active.decision.label}. 직접 신호 점수 ${fmtNum(active.directMetrics?.score || 0)}점.`
+          : `${active.rationale} 기준일 판단: ${active.decision.label}. 이후 실제 변화: ${active.actualChange == null ? "데이터 부족" : `${fmtNum(active.actualChange, 2)}%`}.`,
         section: "executive-decision",
         categories: [active.category],
         watch: [active.decision.logic, active.upside, active.downside],
         tags: active.products || [],
         metrics: [
-          { label: "당시 모멘텀", value: active.priorMomentum == null ? "NA" : `${fmtNum(active.priorMomentum, 2)}%` },
-          { label: "이후 실제 변화", value: active.actualChange == null ? "NA" : `${fmtNum(active.actualChange, 2)}%` },
-          { label: "관측 품목", value: fmtNum(active.observations.length) },
+          { label: active.directSignalModel === "hbm" ? "고객·계약" : "당시 모멘텀", value: active.directSignalModel === "hbm" ? fmtNum(active.directMetrics?.customer || 0) : active.priorMomentum == null ? "NA" : `${fmtNum(active.priorMomentum, 2)}%` },
+          { label: active.directSignalModel === "hbm" ? "양산·출하" : "이후 실제 변화", value: active.directSignalModel === "hbm" ? fmtNum(active.directMetrics?.production || 0) : active.actualChange == null ? "NA" : `${fmtNum(active.actualChange, 2)}%` },
+          { label: active.directSignalModel === "hbm" ? "직접 근거" : "관측 품목", value: fmtNum(active.directMetrics?.evidenceCount ?? active.observations.length) },
           { label: "중국 신호", value: fmtNum(active.chinaSignalCount) },
         ],
       };
@@ -11526,9 +11660,9 @@
         </div>
         ${executiveDecisionDebateHTML(active, selectedYearOption, productLabel, selected, selectedSeriesCount, items, executiveScenario)}
         <div class="metric-row">
-          <div class="metric"><strong>${active.priorMomentum == null ? "NA" : `${fmtNum(active.priorMomentum, 2)}%`}</strong><span>직전 모멘텀</span></div>
-          <div class="metric"><strong>${active.actualChange == null ? "NA" : `${fmtNum(active.actualChange, 2)}%`}</strong><span>이후 실제</span></div>
-          <div class="metric"><strong>${fmtNum(active.observations.length)}</strong><span>관측 품목</span></div>
+          <div class="metric"><strong>${active.directSignalModel === "hbm" ? fmtNum(active.directMetrics?.customer || 0) : active.priorMomentum == null ? "NA" : `${fmtNum(active.priorMomentum, 2)}%`}</strong><span>${active.directSignalModel === "hbm" ? "고객·계약" : "직전 모멘텀"}</span></div>
+          <div class="metric"><strong>${active.directSignalModel === "hbm" ? fmtNum(active.directMetrics?.production || 0) : active.actualChange == null ? "NA" : `${fmtNum(active.actualChange, 2)}%`}</strong><span>${active.directSignalModel === "hbm" ? "양산·출하" : "이후 실제"}</span></div>
+          <div class="metric"><strong>${fmtNum(active.directMetrics?.evidenceCount ?? active.observations.length)}</strong><span>${active.directSignalModel === "hbm" ? "직접 근거" : "관측 품목"}</span></div>
         </div>
         <div class="decision-outcome ${escapeHTML(active.outcome.cls)}">
           <strong>${escapeHTML(active.outcome.label)}</strong>
@@ -14697,14 +14831,16 @@
         type: "경영진 의사결정 백테스트",
         tag: `${item.demand} · ${item.decision.label}`,
         title: item.label,
-        body: `${item.rationale} 이후 실제 변화 ${item.actualChange == null ? "데이터 부족" : `${fmtNum(item.actualChange, 2)}%`} · ${item.outcome.label}`,
+        body: item.directSignalModel === "hbm"
+          ? `${item.rationale} 직접 신호 점수 ${fmtNum(item.directMetrics?.score || 0)}점 · ${item.outcome.label}`
+          : `${item.rationale} 이후 실제 변화 ${item.actualChange == null ? "데이터 부족" : `${fmtNum(item.actualChange, 2)}%`} · ${item.outcome.label}`,
         section: "executive-decision",
         categories: [item.category],
         watch: [item.decision.logic, item.upside, item.downside],
         metrics: [
-          { label: "당시", value: item.priorMomentum == null ? "NA" : `${fmtNum(item.priorMomentum, 2)}%` },
-          { label: "이후", value: item.actualChange == null ? "NA" : `${fmtNum(item.actualChange, 2)}%` },
-          { label: "품목", value: fmtNum(item.observations.length) },
+          { label: item.directSignalModel === "hbm" ? "고객·계약" : "당시", value: item.directSignalModel === "hbm" ? fmtNum(item.directMetrics?.customer || 0) : item.priorMomentum == null ? "NA" : `${fmtNum(item.priorMomentum, 2)}%` },
+          { label: item.directSignalModel === "hbm" ? "양산·출하" : "이후", value: item.directSignalModel === "hbm" ? fmtNum(item.directMetrics?.production || 0) : item.actualChange == null ? "NA" : `${fmtNum(item.actualChange, 2)}%` },
+          { label: item.directSignalModel === "hbm" ? "직접 근거" : "품목", value: fmtNum(item.directMetrics?.evidenceCount ?? item.observations.length) },
         ],
         tags: item.products || [],
       }));

@@ -91,6 +91,21 @@ if (!Array.isArray(crawlExclusionItems)) {
 }
 const baselineText = await readFile(resolve(root, "data/baseline.json"), "utf8");
 const appText = await readFile(resolve(root, "assets/js/app.js"), "utf8");
+const crawlText = await readFile(resolve(root, "scripts/crawl.mjs"), "utf8");
+
+const hbmDecisionBlock = appText.match(/id:\s*"hbm-ai-server"[\s\S]{0,1800}/)?.[0] || "";
+if (!/directSignalModel:\s*"hbm"/.test(hbmDecisionBlock) || !/priceTerms:\s*\[\s*\]/.test(hbmDecisionBlock)) {
+  addIssue("error", "assets/js/app.js", "HBM decision model must use direct evidence without commodity-memory price proxies");
+}
+const hbmCrawlBlock = crawlText.match(/id:\s*"hbm",\s*\r?\n\s*label:\s*"HBM·AI 서버"[\s\S]{0,1000}/)?.[0] || "";
+if (!/priceTerms:\s*\[\s*\]/.test(hbmCrawlBlock) || !/priceProxy:\s*false/.test(hbmCrawlBlock)) {
+  addIssue("error", "scripts/crawl.mjs", "HBM crawler topic must not attach DRAM, GDDR, or module price rows");
+}
+for (const phrase of ["프리미엄 메모리 proxy", "DDR5/GDDR/모듈 가격을 프리미엄 메모리", "HBM 직접 가격표가 없으므로"]) {
+  if (appText.includes(phrase) || crawlText.includes(phrase)) {
+    addIssue("error", "assets/js/app.js", "legacy HBM price-proxy wording remains", phrase);
+  }
+}
 for (const phrase of ["기존 SKHY 전망의 약 $975B", "60~70% 배분", "MATCH Act 위원회 표결 44:0", "하원 외교위 36:8", "약 $3.0B"]) {
   if (baselineText.includes(phrase) || appText.includes(phrase)) {
     addIssue("error", phrase === "기존 SKHY 전망의 약 $975B" ? "data/baseline.json" : "assets/js/app.js", "known fact-label conflict remains", phrase);
