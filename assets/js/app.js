@@ -15552,7 +15552,9 @@
   }
 
   function setupScrollSpy() {
-    const sections = SECTION_ORDER;
+    // The sidebar represents top-level boards. Tracking nested/deferred
+    // sections here can highlight a previous route after a direct jump.
+    const sections = SIDE_NAV_ROUTES.map((route) => route.jump);
     const update = () => {
       const y = window.scrollY + chromeOffset() + 22;
       let active = "overview";
