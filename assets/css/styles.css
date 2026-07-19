@@ -6471,6 +6471,68 @@ body.sidebar-collapsed .sb-ico {
   font-weight: 850;
 }
 
+/* China talent strategy: use complete card borders instead of one-sided accents. */
+#china-talent-strategy .policy-card,
+#china-talent-strategy .policy-rule-card,
+#china-talent-strategy .policy-focus {
+  --talent-card-accent: var(--local-accent, var(--accent));
+  border: 2px solid color-mix(in srgb, var(--talent-card-accent) 62%, var(--line));
+  background:
+    linear-gradient(145deg, color-mix(in srgb, var(--talent-card-accent) 8%, var(--panel)), var(--panel) 58%);
+  box-shadow: 0 10px 24px color-mix(in srgb, var(--talent-card-accent) 9%, transparent);
+  transition: transform .22s cubic-bezier(.2, .8, .2, 1), border-color .22s ease, background .22s ease, box-shadow .22s ease;
+}
+
+#china-talent-strategy .talent-summary-tone-0 { --talent-card-accent: #0f766e; }
+#china-talent-strategy .talent-summary-tone-1 { --talent-card-accent: #2563eb; }
+#china-talent-strategy .talent-summary-tone-2 { --talent-card-accent: #16a36f; }
+#china-talent-strategy .talent-summary-tone-3 { --talent-card-accent: #dc4b5a; }
+
+#china-talent-strategy .talent-gate-ok { --talent-card-accent: #0f9f73; }
+#china-talent-strategy .talent-gate-watch { --talent-card-accent: #d97706; }
+#china-talent-strategy .talent-gate-fail { --talent-card-accent: #dc3545; }
+#china-talent-strategy .talent-gate-check { --talent-card-accent: #2563eb; }
+
+#china-talent-strategy :is(.policy-card, .policy-rule-card, .policy-focus):is(:hover, :focus-within) {
+  transform: translateY(-5px);
+  border-color: var(--talent-card-accent);
+  background: linear-gradient(135deg, color-mix(in srgb, var(--talent-card-accent) 90%, #13213b), color-mix(in srgb, var(--talent-card-accent) 62%, #07111f));
+  box-shadow: 0 20px 42px color-mix(in srgb, var(--talent-card-accent) 24%, transparent);
+}
+
+#china-talent-strategy :is(.policy-card, .policy-rule-card, .policy-focus):is(:hover, :focus-within)
+  :is(span, strong, h3, p, em, small, b, li, a) {
+  color: #fff;
+}
+
+#china-talent-strategy .strategy-highlight {
+  color: color-mix(in srgb, var(--talent-card-accent, var(--accent)) 84%, var(--ink));
+  text-decoration-color: #f0a51a;
+  text-decoration-thickness: 3px;
+  text-underline-offset: 3px;
+}
+
+#china-talent-strategy :is(.policy-card, .policy-rule-card, .policy-focus):is(:hover, :focus-within) .strategy-highlight {
+  color: #fff8c5;
+  text-decoration-color: #ffd24a;
+  background: rgba(255, 210, 74, .14);
+}
+
+#china-talent-strategy .policy-focus .metric {
+  border: 1px solid color-mix(in srgb, var(--talent-card-accent) 34%, var(--line));
+  background: color-mix(in srgb, var(--talent-card-accent) 10%, var(--panel-2));
+}
+
+#china-talent-strategy .policy-site-list li {
+  border-color: color-mix(in srgb, var(--talent-card-accent) 30%, var(--line));
+}
+
+#china-talent-strategy .policy-site-list li:hover {
+  transform: translateX(4px);
+  border-color: var(--talent-card-accent);
+  background: color-mix(in srgb, var(--talent-card-accent) 13%, var(--panel));
+}
+
 .policy-source-grid {
   grid-template-columns: repeat(4, minmax(0, 1fr));
   margin-top: 12px;

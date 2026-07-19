@@ -13606,24 +13606,24 @@
       { label: "O 게이트", value: `${fmtNum(okGates)}개`, note: "즉시 실행 가능한 합법적 채용/리텐션 항목" },
       { label: "X 게이트", value: `${fmtNum(noGoGates)}개`, note: "영업비밀·recipe·승인 없는 업그레이드 금지선" },
     ].map((card, index) => `
-      <article class="policy-card reveal" style="animation-delay:${index * 25}ms">
+      <article class="policy-card talent-summary-tone-${index % 4} reveal" style="animation-delay:${index * 25}ms">
         <span>${escapeHTML(card.label)}</span>
-        <strong>${escapeHTML(card.value)}</strong>
-        <p>${escapeHTML(card.note)}</p>
+        <strong>${strategicHighlightHTML(card.value)}</strong>
+        <p>${strategicHighlightHTML(card.note)}</p>
       </article>
     `).join("");
 
     grid.innerHTML = (scenario.gates || []).map((gate, index) => {
       const cls = policyStatusClass(gate.status);
       return `
-        <article class="policy-rule-card reveal" style="--local-accent:${accent}; animation-delay:${index * 25}ms">
+        <article class="policy-rule-card talent-gate-${cls} reveal" style="--local-accent:${accent}; animation-delay:${index * 25}ms">
           <div class="policy-rule-top">
             <span class="policy-status ${cls}">${escapeHTML(gate.status)}</span>
             <small>${escapeHTML(gate.axis)}</small>
           </div>
-          <h3>${escapeHTML(gate.title)}</h3>
-          <p>${escapeHTML(gate.evidence)}</p>
-          <em>${escapeHTML(gate.implication)}</em>
+          <h3>${strategicHighlightHTML(gate.title)}</h3>
+          <p>${strategicHighlightHTML(gate.evidence)}</p>
+          <em>${strategicHighlightHTML(gate.implication)}</em>
           <div class="policy-rule-foot">${sourceLinkHTML(gate.sourceUrl, gate.source || "출처")}</div>
         </article>
       `;
@@ -13633,12 +13633,12 @@
     focus.innerHTML = `
       <div class="policy-focus-head">
         <span class="chip accent">${escapeHTML(scenario.en)} · ${escapeHTML(scenario.status)}</span>
-        <h3>${escapeHTML(scenario.label)} 인력 확보 계획</h3>
-        <p>${escapeHTML(scenario.direction)}</p>
+        <h3>${strategicHighlightHTML(scenario.label)} 인력 확보 계획</h3>
+        <p>${strategicHighlightHTML(scenario.direction)}</p>
       </div>
       <div class="policy-verdict ${policyStatusClass(scenario.status)}">
-        <strong>${escapeHTML(scenario.verdict)}</strong>
-        <span>${escapeHTML(scenario.decision)}</span>
+        <strong>${strategicHighlightHTML(scenario.verdict)}</strong>
+        <span>${strategicHighlightHTML(scenario.decision)}</span>
       </div>
       <div class="metric-row">
         <div class="metric"><strong>${fmtNum(scenarioRoi.roi)}</strong><span>ROI 지수</span></div>
@@ -13655,7 +13655,7 @@
         <ul class="policy-site-list">
           ${(scenario.roles || []).map((role) => `
             <li>
-              <b>${escapeHTML(role.name)}</b>
+              <b>${strategicHighlightHTML(role.name)}</b>
               <span>${escapeHTML(role.target)}</span>
               <small>${escapeHTML(role.plan)}</small>
             </li>
