@@ -17409,7 +17409,7 @@
                 <span class="market-peer-logo${item.id === "skhy-stock" ? " is-skhy" : ""}">${logoHTML}</span>
                 <span class="market-peer-stock-label">${escapeHTML(item.index.labelKo || item.index.label || item.index.symbol)}</span>
               </span>
-              <strong>${escapeHTML(formatChange(item.trend))}</strong>
+              <strong class="market-peer-change ${escapeHTML(item.trend.direction || "flat")}">${escapeHTML(formatChange(item.trend))}</strong>
               <small>${escapeHTML(formatPrice(item.trend.latestAverage))} · ${escapeHTML(peerObs.sub)}</small>
             </a>
           `;
@@ -17479,8 +17479,14 @@
     `;
   }
 
-  function priceSeriesColor(index = 0) {
-    return ["#22C55E", "#3C82FF", "#FFB830", "#A050FF", "#EF4444", "#00C8A0"][index % 6];
+  function priceSeriesColor(index = 0, direction = "flat") {
+    const palettes = {
+      up: ["#0b8f62", "#16a374", "#047857", "#2bbf88"],
+      down: ["#dc3545", "#ef5362", "#be123c", "#f43f5e"],
+      flat: ["#6d7891", "#8791a4", "#596579", "#9aa3b3"],
+    };
+    const palette = palettes[direction] || palettes.flat;
+    return palette[index % palette.length];
   }
 
   function priceTrendSvg(items = []) {
@@ -17508,7 +17514,8 @@
       const lastX = last ? pad.left + ((last.time - minTime) / timeRange) * (width - pad.left - pad.right) : 0;
       const lastNorm = last ? (last.value - min) / range : 0;
       const lastY = pad.top + (1 - lastNorm) * (height - pad.top - pad.bottom);
-      const color = priceSeriesColor(index);
+      const direction = item.trend.direction || (values.at(-1) > values[0] ? "up" : values.at(-1) < values[0] ? "down" : "flat");
+      const color = priceSeriesColor(index, direction);
       return `
         <path d="${escapeHTML(d)}" fill="none" stroke="${escapeHTML(color)}" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"></path>
         <circle cx="${lastX.toFixed(1)}" cy="${lastY.toFixed(1)}" r="3.4" fill="${escapeHTML(color)}"></circle>
@@ -17635,28 +17642,87 @@
     return String(row.changeRaw || "-").replace(/\?\?/g, "");
   }
 
+  let sparklineSequence = 0;
+
   function sparkline(vals, direction = "flat") {
     if (!vals || vals.length < 2) return el("span", "price-sub", "히스토리 누적 전");
-    const min = Math.min(...vals);
-    const max = Math.max(...vals);
+    const numeric = vals.map(Number).filter(Number.isFinite);
+    if (numeric.length < 2) return el("span", "price-sub", "-");
+    const baselineValue = numeric[0];
+    const rawMin = Math.min(...numeric, baselineValue);
+    const rawMax = Math.max(...numeric, baselineValue);
+    const rawRange = rawMax - rawMin;
+    const valuePad = rawRange > 0 ? rawRange * .12 : Math.max(Math.abs(baselineValue) * .01, 1);
+    const min = rawMin - valuePad;
+    const max = rawMax + valuePad;
     const range = max - min || 1;
-    const w = 96;
-    const h = 30;
-    const step = w / (vals.length - 1);
-    const d = vals.map((v, i) => `${i ? "L" : "M"}${(i * step).toFixed(1)},${(h - ((v - min) / range) * h).toFixed(1)}`).join(" ");
-    const color = direction === "down" ? "#2563eb" : direction === "up" ? "#dc2626" : "#6f7b90";
+    const w = 112;
+    const h = 42;
+    const pad = { x: 2, top: 3, bottom: 5 };
+    const plotHeight = h - pad.top - pad.bottom;
+    const step = (w - pad.x * 2) / (numeric.length - 1);
+    const yFor = (value) => pad.top + (1 - ((value - min) / range)) * plotHeight;
+    const points = numeric.map((value, index) => ({ x: pad.x + index * step, y: yFor(value) }));
+    const d = points.map((point, index) => `${index ? "L" : "M"}${point.x.toFixed(1)},${point.y.toFixed(1)}`).join(" ");
+    const baselineY = yFor(baselineValue);
+    const first = points[0];
+    const last = points[points.length - 1];
+    const areaD = `${d} L${last.x.toFixed(1)},${baselineY.toFixed(1)} L${first.x.toFixed(1)},${baselineY.toFixed(1)} Z`;
+    const color = direction === "up" ? "#0b8f62" : direction === "down" ? "#dc3545" : "#6d7891";
+    const gradientId = `spark-gradient-${++sparklineSequence}`;
     const svg = document.createElementNS("http://www.w3.org/2000/svg", "svg");
     svg.setAttribute("class", "spark");
     svg.setAttribute("viewBox", `0 0 ${w} ${h}`);
-    svg.setAttribute("preserveAspectRatio", "none");
+    svg.setAttribute("preserveAspectRatio", "xMidYMid meet");
+    svg.setAttribute("role", "img");
+    svg.setAttribute("aria-label", direction === "up" ? "상승 추세" : direction === "down" ? "하락 추세" : "보합 추세");
+    svg.style.setProperty("--spark-color", color);
+
+    const defs = document.createElementNS("http://www.w3.org/2000/svg", "defs");
+    const gradient = document.createElementNS("http://www.w3.org/2000/svg", "linearGradient");
+    gradient.setAttribute("id", gradientId);
+    gradient.setAttribute("x1", "0");
+    gradient.setAttribute("y1", "0");
+    gradient.setAttribute("x2", "0");
+    gradient.setAttribute("y2", "1");
+    const topStop = document.createElementNS("http://www.w3.org/2000/svg", "stop");
+    topStop.setAttribute("offset", "0%");
+    topStop.setAttribute("stop-color", color);
+    topStop.setAttribute("stop-opacity", ".62");
+    const bottomStop = document.createElementNS("http://www.w3.org/2000/svg", "stop");
+    bottomStop.setAttribute("offset", "100%");
+    bottomStop.setAttribute("stop-color", color);
+    bottomStop.setAttribute("stop-opacity", ".04");
+    gradient.append(topStop, bottomStop);
+    defs.appendChild(gradient);
+    svg.appendChild(defs);
+
+    const baseline = document.createElementNS("http://www.w3.org/2000/svg", "line");
+    baseline.setAttribute("class", "spark-baseline");
+    baseline.setAttribute("x1", String(pad.x));
+    baseline.setAttribute("x2", String(w - pad.x));
+    baseline.setAttribute("y1", baselineY.toFixed(1));
+    baseline.setAttribute("y2", baselineY.toFixed(1));
+    svg.appendChild(baseline);
+
+    const area = document.createElementNS("http://www.w3.org/2000/svg", "path");
+    area.setAttribute("class", "spark-area");
+    area.setAttribute("d", areaD);
+    area.setAttribute("fill", `url(#${gradientId})`);
+    area.setAttribute("stroke", "none");
+    svg.appendChild(area);
+
     const path = document.createElementNS("http://www.w3.org/2000/svg", "path");
+    path.setAttribute("class", "spark-line");
     path.setAttribute("d", d);
-    path.setAttribute("fill", "none");
-    path.setAttribute("stroke", color);
-    path.setAttribute("stroke-width", "2");
-    path.setAttribute("stroke-linecap", "round");
-    path.setAttribute("stroke-linejoin", "round");
     svg.appendChild(path);
+
+    const endpoint = document.createElementNS("http://www.w3.org/2000/svg", "circle");
+    endpoint.setAttribute("class", "spark-end");
+    endpoint.setAttribute("cx", last.x.toFixed(1));
+    endpoint.setAttribute("cy", last.y.toFixed(1));
+    endpoint.setAttribute("r", "2.4");
+    svg.appendChild(endpoint);
     return svg;
   }
 

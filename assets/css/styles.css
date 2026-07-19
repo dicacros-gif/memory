@@ -26,6 +26,11 @@
   --amber: #b45309;
   --red: #d23b3b;
   --green: #0e8a50;
+  --trend-up: #0b8f62;
+  --trend-up-soft: rgba(11, 143, 98, .14);
+  --trend-down: #dc3545;
+  --trend-down-soft: rgba(220, 53, 69, .13);
+  --trend-flat: #6d7891;
   --accent-1: #3c82ff;
   --accent-2: #00c8ff;
   --accent-3: #a050ff;
@@ -14649,6 +14654,32 @@ body.sidebar-collapsed .sb-ico {
   font-weight: 950;
 }
 
+.market-peer-card .market-peer-change {
+  width: max-content;
+  border-radius: 999px;
+  padding: 2px 7px;
+}
+
+.market-peer-card .market-peer-change.up {
+  color: var(--trend-up);
+  background: var(--trend-up-soft);
+}
+
+.market-peer-card .market-peer-change.down {
+  color: var(--trend-down);
+  background: var(--trend-down-soft);
+}
+
+.market-peer-card .market-peer-change.flat {
+  color: var(--trend-flat);
+  background: color-mix(in srgb, var(--trend-flat) 10%, transparent);
+}
+
+.market-peer-card:hover .market-peer-change,
+.market-peer-card:focus-visible .market-peer-change {
+  background: rgba(255, 255, 255, .94);
+}
+
 .market-peer-card:hover .market-peer-stock-label,
 .market-peer-card:hover small,
 .market-peer-card:focus-visible .market-peer-stock-label,
@@ -14939,8 +14970,8 @@ body.sidebar-collapsed .sb-ico {
   font-weight: 950;
 }
 
-.price-category-chart strong.up { color: var(--red); }
-.price-category-chart strong.down { color: var(--blue); }
+.price-category-chart strong.up { color: var(--trend-up); }
+.price-category-chart strong.down { color: var(--trend-down); }
 .price-category-chart strong.flat { color: var(--muted); }
 
 .price-category-chart i {
@@ -14951,20 +14982,24 @@ body.sidebar-collapsed .sb-ico {
 
 .price-category-chart .spark {
   width: 100%;
-  height: 34px;
+  height: 42px;
 }
 
 .price-category-row:hover .price-category-title span,
 .price-category-row:hover .price-category-meta strong,
-.price-category-row:hover .price-category-chart span,
-.price-category-row:hover .price-category-chart strong {
+.price-category-row:hover .price-category-chart span {
   color: var(--panel);
 }
 
-.price-category-row:hover .spark path,
-.price-data-row:hover .spark path {
-  stroke: currentColor !important;
-}
+.price-category-row:hover .price-category-chart strong.up { color: #6ee7b7; }
+.price-category-row:hover .price-category-chart strong.down { color: #fda4af; }
+.price-category-row:hover .price-category-chart strong.flat { color: #d7deea; }
+
+.price-category-row:hover .spark-area,
+.price-data-row:hover .spark-area { opacity: .30; }
+
+.price-category-row:hover .spark-line,
+.price-data-row:hover .spark-line { stroke-width: 2.35; }
 
 .price-data-row {
   position: relative;
@@ -15007,6 +15042,16 @@ body.sidebar-collapsed .sb-ico {
   color: color-mix(in srgb, var(--ink) 82%, var(--accent));
 }
 
+.price-data-row:hover .change.up {
+  color: #047857;
+  background: #d1fae5;
+}
+
+.price-data-row:hover .change.down {
+  color: #be123c;
+  background: #ffe4e6;
+}
+
 .price-table td.crawl-remove-host {
   position: relative;
   min-width: 74px;
@@ -15037,13 +15082,13 @@ body.sidebar-collapsed .sb-ico {
 }
 
 .change.up {
-  color: var(--red);
-  background: rgba(220, 38, 38, .08);
+  color: var(--trend-up);
+  background: var(--trend-up-soft);
 }
 
 .change.down {
-  color: var(--blue);
-  background: rgba(37, 99, 235, .08);
+  color: var(--trend-down);
+  background: var(--trend-down-soft);
 }
 
 .change.flat {
@@ -15053,8 +15098,39 @@ body.sidebar-collapsed .sb-ico {
 
 .spark {
   display: block;
-  width: 96px;
-  height: 30px;
+  width: 112px;
+  height: 42px;
+  overflow: visible;
+}
+
+.spark-line {
+  fill: none;
+  stroke: var(--spark-color, var(--trend-flat));
+  stroke-width: 1.9;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  vector-effect: non-scaling-stroke;
+  transition: stroke-width .18s ease;
+}
+
+.spark-area {
+  opacity: .22;
+  transition: opacity .18s ease;
+}
+
+.spark-baseline {
+  stroke: var(--spark-color, var(--trend-flat));
+  stroke-width: .8;
+  stroke-dasharray: 2 2;
+  opacity: .5;
+  vector-effect: non-scaling-stroke;
+}
+
+.spark-end {
+  fill: var(--spark-color, var(--trend-flat));
+  stroke: var(--panel);
+  stroke-width: 1.4;
+  vector-effect: non-scaling-stroke;
 }
 
 .news-title-row {
