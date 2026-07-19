@@ -12368,8 +12368,8 @@
     ].map((card, index) => `
       <article class="policy-card infra-summary-card infra-tone-${index % 4} reveal" style="animation-delay:${index * 25}ms">
         <span>${escapeHTML(card.label)}</span>
-        <strong>${escapeHTML(card.value)}</strong>
-        <p>${escapeHTML(card.note)}</p>
+        <strong>${strategicHighlightHTML(card.value)}</strong>
+        <p>${strategicHighlightHTML(card.note)}</p>
       </article>
     `).join("");
 
@@ -12381,9 +12381,9 @@
             <span class="policy-status ${cls}">${escapeHTML(check.status)}</span>
             <small>${escapeHTML(check.axis)}</small>
           </div>
-          <h3>${escapeHTML(check.title)}</h3>
-          <p>${escapeHTML(check.evidence)}</p>
-          <em>${escapeHTML(check.implication)}</em>
+          <h3>${strategicHighlightHTML(check.title)}</h3>
+          <p>${strategicHighlightHTML(check.evidence)}</p>
+          <em>${strategicHighlightHTML(check.implication)}</em>
           <div class="policy-rule-foot">${sourceLinkHTML(check.sourceUrl, check.source || "출처")}</div>
         </article>
       `;
@@ -12393,12 +12393,12 @@
     focus.innerHTML = `
       <div class="policy-focus-head">
         <span class="chip accent">${escapeHTML(site.en)} · ${escapeHTML(site.status)}</span>
-        <h3>${escapeHTML(site.label)} 확장성 판단</h3>
-        <p>${escapeHTML(site.direction)}</p>
+        <h3>${strategicHighlightHTML(site.label)} 확장성 판단</h3>
+        <p>${strategicHighlightHTML(site.direction)}</p>
       </div>
       <div class="policy-verdict ${policyStatusClass(site.status)}">
-        <strong>${escapeHTML(site.verdict)}</strong>
-        <span>${escapeHTML(site.decision)}</span>
+        <strong>${strategicHighlightHTML(site.verdict)}</strong>
+        <span>${strategicHighlightHTML(site.decision)}</span>
       </div>
       <div class="metric-row">
         <div class="metric"><strong>${fmtNum(signalCount)}</strong><span>근거 신호</span></div>

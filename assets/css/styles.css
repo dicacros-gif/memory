@@ -6657,7 +6657,7 @@ body.sidebar-collapsed .sb-ico {
 #china-fab-infra .infra-summary-card.infra-tone-3 { --infra-card-accent: var(--infra-violet); }
 
 #china-fab-infra .infra-summary-card {
-  border-color: color-mix(in srgb, var(--infra-card-accent) 65%, var(--line));
+  border: 2px solid color-mix(in srgb, var(--infra-card-accent) 72%, var(--line));
   background: linear-gradient(145deg, color-mix(in srgb, var(--infra-card-accent) 11%, var(--panel-2)), var(--panel-2) 72%);
   box-shadow: inset 0 4px 0 var(--infra-card-accent);
   transition: transform .24s cubic-bezier(.2, .8, .2, 1), background .2s ease, box-shadow .2s ease;
@@ -6699,9 +6699,9 @@ body.sidebar-collapsed .sb-ico {
 
 #china-fab-infra .infra-rule-card {
   --local-accent: var(--infra-card-accent) !important;
-  border-color: color-mix(in srgb, var(--infra-card-accent) 56%, var(--line));
+  border: 2px solid color-mix(in srgb, var(--infra-status-accent, var(--infra-card-accent)) 72%, var(--line));
   background: linear-gradient(145deg, color-mix(in srgb, var(--infra-card-accent) 8%, var(--panel-2)), var(--panel-2) 76%);
-  box-shadow: inset 4px 0 0 var(--infra-status-accent, var(--infra-card-accent));
+  box-shadow: inset 0 4px 0 var(--infra-card-accent), 0 8px 20px color-mix(in srgb, var(--infra-card-accent) 9%, transparent);
   transition: transform .24s cubic-bezier(.2, .8, .2, 1), background .2s ease, box-shadow .2s ease;
 }
 
@@ -6722,6 +6722,16 @@ body.sidebar-collapsed .sb-ico {
   text-decoration-skip-ink: none;
 }
 
+#china-fab-infra .infra-rule-card h3,
+#china-fab-infra .infra-rule-card .strategy-highlight {
+  color: color-mix(in srgb, var(--infra-card-accent) 84%, var(--ink));
+  text-decoration-line: underline;
+  text-decoration-color: #f5a524;
+  text-decoration-thickness: 3px;
+  text-underline-offset: 3px;
+  text-decoration-skip-ink: none;
+}
+
 #china-fab-infra .infra-rule-card:is(:hover, :focus-within) :is(h3, p, em, small, a) {
   color: #fff;
 }
@@ -6736,9 +6746,44 @@ body.sidebar-collapsed .sb-ico {
   color: #fff;
 }
 
+#china-fab-infra .infra-rule-card:is(:hover, :focus-within) .strategy-highlight {
+  color: #fff8c5;
+  background: rgba(255, 229, 107, .13);
+  text-decoration-color: #ffe56b;
+}
+
 #china-fab-infra .policy-focus {
-  border-top: 4px solid var(--infra-blue);
+  border: 2px solid color-mix(in srgb, var(--local-accent, var(--infra-blue)) 68%, var(--line));
   background: linear-gradient(160deg, color-mix(in srgb, var(--infra-blue) 7%, var(--panel)), var(--panel) 45%);
+  box-shadow: inset 0 4px 0 var(--local-accent, var(--infra-blue)), 0 10px 26px color-mix(in srgb, var(--infra-blue) 10%, transparent);
+}
+
+#china-fab-infra .policy-focus .metric-row .metric {
+  border: 1px solid color-mix(in srgb, var(--infra-blue) 42%, var(--line));
+  background: color-mix(in srgb, var(--infra-blue) 9%, var(--panel-2));
+}
+
+#china-fab-infra .policy-focus .metric-row .metric:nth-child(2) {
+  border-color: color-mix(in srgb, var(--infra-amber) 52%, var(--line));
+  background: color-mix(in srgb, var(--infra-amber) 8%, var(--panel-2));
+}
+
+#china-fab-infra .policy-focus .metric strong {
+  color: var(--infra-blue);
+  font-size: 20px;
+  text-decoration: underline 3px #f5a524;
+  text-underline-offset: 4px;
+}
+
+#china-fab-infra .policy-focus .metric-row .metric:nth-child(2) strong {
+  color: var(--infra-amber);
+}
+
+#china-fab-infra .policy-focus .strategy-highlight {
+  color: color-mix(in srgb, var(--local-accent, var(--infra-blue)) 82%, var(--ink));
+  text-decoration-color: #f5a524;
+  text-decoration-thickness: 3px;
+  text-underline-offset: 3px;
 }
 
 #china-fab-infra .policy-focus-head h3,
