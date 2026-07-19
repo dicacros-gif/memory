@@ -15282,6 +15282,10 @@
       selectedInsightId = null;
     }
 
+    tabs.dataset.activeMode = workbenchMode;
+    stage.dataset.workbenchMode = workbenchMode;
+    detail.dataset.workbenchMode = workbenchMode;
+
     renderWorkbenchMece();
     tabs.innerHTML = "";
     availableModes.forEach((mode) => {
@@ -15324,7 +15328,8 @@
     }
 
     items.forEach((item, index) => {
-      const card = el("article", `work-card reveal${item.id === selected?.id ? " selected" : ""}`);
+      const isStartup = workbenchMode === "startup-radar";
+      const card = el("article", `work-card${isStartup ? ` startup-candidate-card startup-tone-${index % 3}` : ""} reveal${item.id === selected?.id ? " selected" : ""}`);
       card.style.animationDelay = `${index * 25}ms`;
       card.style.setProperty("--local-accent", categoryAccent((item.categories || [])[0]));
       card.dataset.workItem = item.id;
@@ -15333,10 +15338,10 @@
           <span class="chip accent">${escapeHTML(item.tag || item.type)}</span>
           <span class="work-card-section">${escapeHTML(SECTION_LABELS[item.section] || item.section)}</span>
         </div>
-        <h3>${escapeHTML(item.title)}</h3>
-        <p>${escapeHTML(clipText(item.body, 116))}</p>
+        <h3>${isStartup ? strategicHighlightHTML(item.title) : escapeHTML(item.title)}</h3>
+        <p>${isStartup ? strategicHighlightHTML(clipText(item.body, 116)) : escapeHTML(clipText(item.body, 116))}</p>
         <div class="work-card-foot">
-          ${(item.metrics || []).slice(0, 2).map((metric) => `<span>${escapeHTML(metric.label)}: ${escapeHTML(metric.value)}</span>`).join("")}
+          ${(item.metrics || []).slice(0, 2).map((metric) => `<span>${isStartup ? `<b>${escapeHTML(metric.value)}</b> ${escapeHTML(metric.label)}` : `${escapeHTML(metric.label)}: ${escapeHTML(metric.value)}`}</span>`).join("")}
         </div>
       `;
       card.tabIndex = 0;
@@ -15377,11 +15382,12 @@
     }
     const categories = (item.categories || []).map(categoryName).filter(Boolean);
     detail.style.setProperty("--local-accent", categoryAccent((item.categories || [])[0]));
+    const isStartup = item.mode === "startup-radar";
     detail.innerHTML = `
       <div class="work-detail-head">
         <span class="chip accent">${escapeHTML(item.type || "Insight")}</span>
-        <h3>${escapeHTML(item.title)}</h3>
-        <p>${escapeHTML(item.body)}</p>
+        <h3>${isStartup ? strategicHighlightHTML(item.title) : escapeHTML(item.title)}</h3>
+        <p>${isStartup ? strategicHighlightHTML(item.body) : escapeHTML(item.body)}</p>
       </div>
       <div class="metric-row">${metricCards(item.metrics || [], 3)}</div>
       <div class="work-detail-block">

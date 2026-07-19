@@ -11505,6 +11505,52 @@ body.sidebar-collapsed .sb-ico {
   font-weight: 850;
 }
 
+.workbench-stage[data-workbench-mode="startup-radar"] .work-card-foot b {
+  color: var(--local-accent, var(--accent));
+  font-family: var(--display);
+  font-size: 12px;
+  text-decoration: underline 2px #f0a51a;
+  text-underline-offset: 3px;
+}
+
+.workbench-stage[data-workbench-mode="startup-radar"] .startup-candidate-card {
+  --startup-accent: #087f72;
+  min-height: 168px;
+  border: 2px solid color-mix(in srgb, var(--startup-accent) 62%, var(--line));
+  background: linear-gradient(145deg, color-mix(in srgb, var(--startup-accent) 8%, var(--panel)), var(--panel) 64%);
+  box-shadow: 0 9px 24px color-mix(in srgb, var(--startup-accent) 10%, transparent);
+}
+
+.workbench-stage[data-workbench-mode="startup-radar"] .startup-tone-0 { --startup-accent: #087f72; }
+.workbench-stage[data-workbench-mode="startup-radar"] .startup-tone-1 { --startup-accent: #2563eb; }
+.workbench-stage[data-workbench-mode="startup-radar"] .startup-tone-2 { --startup-accent: #c2415d; }
+
+.workbench-stage[data-workbench-mode="startup-radar"] .startup-candidate-card:is(:hover, :focus-visible) {
+  transform: translateY(-5px) scale(1.006);
+  border-color: var(--startup-accent);
+  background: linear-gradient(135deg, color-mix(in srgb, var(--startup-accent) 90%, #111827), color-mix(in srgb, var(--startup-accent) 62%, #0f172a));
+  box-shadow: 0 18px 38px color-mix(in srgb, var(--startup-accent) 26%, transparent);
+}
+
+.workbench-stage[data-workbench-mode="startup-radar"] .startup-candidate-card.selected:not(:hover):not(:focus-visible) {
+  border-color: var(--startup-accent);
+  background: color-mix(in srgb, var(--startup-accent) 10%, var(--panel));
+  box-shadow: inset 0 0 0 1px color-mix(in srgb, var(--startup-accent) 30%, transparent), 0 12px 28px color-mix(in srgb, var(--startup-accent) 16%, transparent);
+}
+
+.workbench-stage[data-workbench-mode="startup-radar"] .strategy-highlight,
+.workbench-detail[data-workbench-mode="startup-radar"] .strategy-highlight {
+  color: color-mix(in srgb, var(--local-accent, #087f72) 82%, var(--ink));
+  text-decoration-color: #f0a51a;
+  text-decoration-thickness: 3px;
+  text-underline-offset: 3px;
+}
+
+.workbench-stage[data-workbench-mode="startup-radar"] .startup-candidate-card:is(:hover, :focus-visible) :is(.strategy-highlight, .work-card-foot b) {
+  color: #fff8c5;
+  text-decoration-color: #ffd24a;
+}
+
 .workbench-detail {
   position: sticky;
   top: 82px;
@@ -11913,6 +11959,24 @@ body.sidebar-collapsed .sb-ico {
   padding: 12px;
   box-shadow: inset 0 3px 0 var(--ai-summary-accent);
   transition: transform .24s cubic-bezier(.2, .8, .2, 1), background .2s ease, box-shadow .2s ease;
+}
+
+.workbench-detail[data-workbench-mode="startup-radar"] {
+  border: 2px solid color-mix(in srgb, var(--local-accent, #087f72) 62%, var(--line));
+  border-left-width: 2px;
+  background: linear-gradient(145deg, color-mix(in srgb, var(--local-accent, #087f72) 6%, var(--panel)), var(--panel));
+}
+
+.workbench-detail[data-workbench-mode="startup-radar"] .metric {
+  border: 1px solid color-mix(in srgb, var(--local-accent, #087f72) 38%, var(--line));
+  background: color-mix(in srgb, var(--local-accent, #087f72) 9%, var(--panel-2));
+}
+
+.workbench-detail[data-workbench-mode="startup-radar"] .metric strong {
+  color: color-mix(in srgb, var(--local-accent, #087f72) 82%, var(--ink));
+  font-size: 18px;
+  text-decoration: underline 3px #f0a51a;
+  text-underline-offset: 4px;
 }
 
 .ai-summary-line.ai-summary-tone-0 { --ai-summary-accent: #2563eb; }
