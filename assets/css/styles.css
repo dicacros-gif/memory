@@ -14326,19 +14326,24 @@ body.sidebar-collapsed .sb-ico {
 }
 
 .price-mece-card {
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
   min-width: 0;
   border: 1px solid var(--line);
   border-radius: 8px;
   background: var(--panel);
   padding: 11px 12px;
-  transition: background .18s ease, border-color .18s ease, color .18s ease, transform .18s ease;
+  transition: background .18s ease, border-color .18s ease, color .18s ease, transform .18s ease, box-shadow .18s ease;
 }
 
 .price-mece-card:hover {
-  transform: translateY(-1px);
-  border-color: var(--accent);
-  background: var(--accent);
-  color: var(--accent-contrast);
+  transform: translateY(-3px);
+  border-color: color-mix(in srgb, var(--accent) 76%, #ffffff);
+  background:
+    linear-gradient(135deg, color-mix(in srgb, var(--accent) 34%, #0f172a) 0%, #0f172a 78%);
+  color: #ffffff;
+  box-shadow: 0 12px 26px rgba(15, 23, 42, .22);
 }
 
 .price-mece-card strong,
@@ -14364,10 +14369,27 @@ body.sidebar-collapsed .sb-ico {
   font-weight: 800;
 }
 
+.price-mece-card:hover strong {
+  color: #ffffff;
+  text-shadow: 0 1px 2px rgba(0, 0, 0, .45);
+}
+
+.price-mece-card:hover span {
+  color: #f8fafc;
+}
+
+.price-mece-card:hover em {
+  color: #dbeafe;
+}
+
+.price-mece-card:hover small {
+  color: #fef3c7;
+}
+
 .price-mece-card:hover span,
 .price-mece-card:hover em,
 .price-mece-card:hover small {
-  color: color-mix(in srgb, var(--accent-contrast) 82%, transparent);
+  text-shadow: 0 1px 2px rgba(0, 0, 0, .48);
 }
 
 .market-index-panel {
