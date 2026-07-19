@@ -12476,6 +12476,136 @@
     return POLICY_MAKER_LENSES.find((lens) => lens.id === policyMakerTab) || POLICY_MAKER_LENSES[0];
   }
 
+  let policyContextSliderCleanup = null;
+
+  function policyContextRule(lens, terms, fallbackIndex = 0) {
+    const normalizedTerms = terms.map((term) => String(term).toLowerCase());
+    return (lens.rules || []).find((rule) => {
+      const haystack = `${rule.axis || ""} ${rule.title || ""}`.toLowerCase();
+      return normalizedTerms.some((term) => haystack.includes(term));
+    }) || (lens.rules || [])[fallbackIndex] || (lens.rules || [])[0] || {};
+  }
+
+  function policyContextSource(lens, rule, fallbackIndex = 0) {
+    const fallback = (lens.sources || [])[fallbackIndex] || (lens.sources || [])[0] || {};
+    return {
+      label: rule?.source || fallback.label || "정책 원문",
+      url: rule?.sourceUrl || fallback.url || "#",
+    };
+  }
+
+  function policyContextSlides(lens) {
+    const capitalRule = policyContextRule(lens, ["산업정책", "금융", "세제", "chips act", "지원"], 0);
+    const operationsRule = policyContextRule(lens, lens.id === "china"
+      ? ["sk 중국 법인"]
+      : lens.id === "korea"
+        ? ["인프라", "산업 투자"]
+        : ["bis/veu", "aes c79"], 1);
+    const gateRule = policyContextRule(lens, lens.id === "usa"
+      ? ["outbound investment", "환경/인허가"]
+      : ["환경/인허가", "환경법"], Math.max(0, (lens.rules || []).length - 1));
+    const countryCopy = {
+      china: [
+        {
+          kicker: "01 · POLICY CAPITAL",
+          title: "정책자본은 Fab보다 공급망 내재화 속도를 바꿉니다",
+          body: capitalRule.implication || lens.direction,
+        },
+        {
+          kicker: "02 · OPERATING NETWORK",
+          title: "Wuxi·Chongqing·Dalian은 운영과 기술 이전을 분리합니다",
+          body: lens.skImpact,
+        },
+        {
+          kicker: "03 · DECISION GATES",
+          title: "증설은 수출통제·인허가·IP 세 게이트를 통과해야 합니다",
+          body: lens.actions?.[0] || lens.strategy,
+        },
+      ],
+      korea: [
+        {
+          kicker: "01 · POLICY CAPITAL",
+          title: "세제·금융·인프라를 하나의 국내 투자 조건으로 봅니다",
+          body: capitalRule.implication || lens.direction,
+        },
+        {
+          kicker: "02 · OPERATING NETWORK",
+          title: "첨단 캐파와 해외법인 통제를 서로 다른 투자 트랙으로 둡니다",
+          body: lens.skImpact,
+        },
+        {
+          kicker: "03 · DECISION GATES",
+          title: "지원 규모보다 실제 세법 적용과 인허가 해소를 확인합니다",
+          body: gateRule.implication || lens.strategy,
+        },
+      ],
+      usa: [
+        {
+          kicker: "01 · POLICY CAPITAL",
+          title: "CHIPS 인센티브와 중국 규제는 서로 다른 자본 배분 축입니다",
+          body: capitalRule.implication || lens.direction,
+        },
+        {
+          kicker: "02 · OPERATING NETWORK",
+          title: "기존 Fab 운영과 캐파 확대·기술 업그레이드를 분리합니다",
+          body: operationsRule.implication || lens.skImpact,
+        },
+        {
+          kicker: "03 · DECISION GATES",
+          title: "수출통제·투자심사·환경검토를 계약 전에 통과시킵니다",
+          body: gateRule.implication || lens.strategy,
+        },
+      ],
+    };
+    const copy = countryCopy[lens.id] || countryCopy.china;
+    const rules = [capitalRule, operationsRule, gateRule];
+    const images = [
+      "assets/media/policy-capital-flow.webp",
+      "assets/media/policy-operations-network.webp",
+      "assets/media/policy-decision-gates.webp",
+    ];
+    return copy.map((item, index) => ({
+      ...item,
+      image: images[index],
+      alt: `${lens.label} ${item.title} 도식`,
+      source: policyContextSource(lens, rules[index], index),
+    }));
+  }
+
+  function createPolicyContextSlider(lens) {
+    const slides = policyContextSlides(lens);
+    const first = slides[0];
+    const slider = el("section", "china-capital-slider strategy-capital-slider policy-context-slider reveal");
+    slider.id = "policyContextSlider";
+    slider.tabIndex = 0;
+    slider.style.setProperty("--slider-accent", categoryAccent(lens.accentCategory));
+    slider.setAttribute("aria-label", `${lens.label} 정책 인사이트 도식 슬라이드`);
+    slider.setAttribute("aria-roledescription", "carousel");
+    slider.innerHTML = `
+      <div class="china-capital-stage">
+        ${slides.map((slide, index) => `
+          <figure class="china-capital-slide${index === 0 ? " active" : ""}" aria-hidden="${index === 0 ? "false" : "true"}">
+            <img src="${escapeHTML(slide.image)}" alt="${escapeHTML(slide.alt)}" loading="lazy" decoding="async">
+          </figure>
+        `).join("")}
+      </div>
+      <div class="strategy-capital-insight policy-context-insight" id="policyContextInsight" aria-live="polite">
+        <span id="policyContextKicker">${escapeHTML(first.kicker)}</span>
+        <strong id="policyContextTitle">${escapeHTML(first.title)}</strong>
+        <p id="policyContextBody">${escapeHTML(first.body)}</p>
+        <a id="policyContextLink" href="${escapeHTML(first.source.url)}" target="_blank" rel="noopener noreferrer">${escapeHTML(first.source.label)}</a>
+      </div>
+      <div class="china-capital-slider-controls" aria-label="정책 인사이트 슬라이드 제어">
+        <button id="policyContextPrev" type="button" aria-label="이전 슬라이드">←</button>
+        <div class="china-capital-dots" id="policyContextDots" aria-label="슬라이드 선택"></div>
+        <span id="policyContextCount">01 / ${String(slides.length).padStart(2, "0")}</span>
+        <button id="policyContextToggle" type="button" aria-label="자동 전환 일시정지"><span>Ⅱ</span></button>
+        <button id="policyContextNext" type="button" aria-label="다음 슬라이드">→</button>
+      </div>
+    `;
+    return { slider, slides };
+  }
+
   function policyStatusClass(status) {
     const text = String(status || "").toLowerCase();
     if (text.includes("확인")) return "check";
@@ -12525,6 +12655,7 @@
   function renderPolicyMakers() {
     const summary = $("#policySummary");
     const grid = $("#policyRuleGrid");
+    const contextMount = $("#policyContextSliderMount");
     const focus = $("#policyFocus");
     const meta = $("#policyMakerMeta");
     const sourceMeta = $("#policySourceMeta");
@@ -12566,6 +12697,46 @@
         </article>
       `;
     }).join("");
+
+    policyContextSliderCleanup?.();
+    policyContextSliderCleanup = null;
+    if (contextMount) {
+      contextMount.innerHTML = "";
+      const { slider, slides } = createPolicyContextSlider(lens);
+      contextMount.appendChild(slider);
+      const insight = slider.querySelector("#policyContextInsight");
+      const kicker = slider.querySelector("#policyContextKicker");
+      const title = slider.querySelector("#policyContextTitle");
+      const body = slider.querySelector("#policyContextBody");
+      const link = slider.querySelector("#policyContextLink");
+      policyContextSliderCleanup = setupDynamicImageSlider({
+        sliderSelector: "#policyContextSlider",
+        dotsSelector: "#policyContextDots",
+        countSelector: "#policyContextCount",
+        prevSelector: "#policyContextPrev",
+        nextSelector: "#policyContextNext",
+        toggleSelector: "#policyContextToggle",
+        autoDelay: 6500,
+        zoomMode: "alternate",
+        motionProfile: "cinematic",
+        advanceMode: "random",
+        transitionModes: ["sweep", "depth", "iris", "shutter", "tilt", "parallax"],
+        onSlideChange: ({ activeIndex, initial }) => {
+          const active = slides[activeIndex] || slides[0];
+          if (!active) return;
+          kicker.textContent = active.kicker;
+          title.textContent = active.title;
+          body.textContent = active.body;
+          link.textContent = active.source.label;
+          link.href = active.source.url;
+          if (!initial && insight) {
+            insight.classList.remove("is-changing");
+            void insight.offsetWidth;
+            insight.classList.add("is-changing");
+          }
+        },
+      }) || null;
+    }
 
     focus.style.setProperty("--local-accent", accent);
     focus.innerHTML = `
