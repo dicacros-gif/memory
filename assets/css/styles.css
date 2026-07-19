@@ -6604,8 +6604,11 @@ body.sidebar-collapsed .sb-ico {
 
 /* Keep nested surfaces legible when the talent detail panel is inverted. */
 #china-talent-strategy .policy-focus:is(:hover, :focus-within) {
-  --talent-invert-surface: color-mix(in srgb, var(--talent-card-accent) 20%, #0a1628);
-  --talent-invert-line: color-mix(in srgb, var(--talent-card-accent) 54%, rgba(255, 255, 255, .34));
+  --talent-invert-surface: #f8fafc;
+  --talent-invert-surface-soft: #eef2f7;
+  --talent-invert-ink: #111827;
+  --talent-invert-muted: #475569;
+  --talent-invert-line: var(--talent-card-accent);
 }
 
 #china-talent-strategy .policy-focus:is(:hover, :focus-within) .chip.accent {
@@ -6618,23 +6621,36 @@ body.sidebar-collapsed .sb-ico {
   :is(.policy-verdict, .metric, .policy-site-list li) {
   border-color: var(--talent-invert-line);
   background: var(--talent-invert-surface);
-  box-shadow: inset 0 1px 0 rgba(255, 255, 255, .08);
+  color: var(--talent-invert-ink);
+  box-shadow: inset 0 1px 0 #fff, 0 8px 20px rgba(15, 23, 42, .12);
+}
+
+#china-talent-strategy .policy-focus:is(:hover, :focus-within) .metric {
+  background: var(--talent-invert-surface-soft);
 }
 
 #china-talent-strategy .policy-focus:is(:hover, :focus-within)
   :is(.policy-verdict, .metric, .policy-site-list li)
-  :is(strong, span, b, small, .strategy-highlight) {
-  color: #f7fbff;
+  :is(strong, span, b, small, p, .strategy-highlight) {
+  color: var(--talent-invert-ink);
+  -webkit-text-fill-color: currentColor;
 }
 
 #china-talent-strategy .policy-focus:is(:hover, :focus-within) .metric span,
 #china-talent-strategy .policy-focus:is(:hover, :focus-within) .policy-site-list small {
-  color: #cbd8e8;
+  color: var(--talent-invert-muted);
+}
+
+#china-talent-strategy .policy-focus:is(:hover, :focus-within)
+  :is(.policy-verdict, .metric, .policy-site-list li) .strategy-highlight {
+  color: var(--talent-invert-ink);
+  background: linear-gradient(transparent 56%, rgba(250, 204, 21, .52) 56%);
+  text-decoration-color: #d97706;
 }
 
 #china-talent-strategy .policy-focus:is(:hover, :focus-within) .policy-site-list li:hover {
-  border-color: color-mix(in srgb, var(--talent-card-accent) 78%, #fff);
-  background: color-mix(in srgb, var(--talent-card-accent) 42%, #091525);
+  border-color: var(--talent-card-accent);
+  background: #fff;
 }
 
 .policy-source-grid {
