@@ -2097,6 +2097,8 @@
   let ceoChallengeId = "roi-credibility";
   let ceoChallengeAgentRan = false;
   let ceoChallengeTargetId = "scenario";
+  let ceoChallengeLiveRefresh = { status: "idle", fetchedAt: null, liveUpdatedAt: null, priceUpdatedAt: null };
+  let ceoChallengeRefreshPromise = null;
   let cLevelCouncilDecisionId = "";
   let cLevelCouncilRan = false;
   let cLevelCouncilScenarioRun = 0;
@@ -12622,6 +12624,247 @@
     };
   }
 
+  function ceoChallengeMarketProfile(challenge = {}) {
+    const profiles = {
+      "roi-credibility": { priceMode: "all", terms: ["memory", "메모리", "dram", "nand", "hbm", "price", "가격", "contract", "supply", "demand"] },
+      "budget-cut": { priceMode: "all", terms: ["capex", "investment", "투자", "memory", "dram", "nand", "hbm", "customer", "고객"] },
+      "no-go": { priceMode: "none", terms: ["bis", "veu", "entity list", "export control", "수출통제", "policy", "규제", "ip"] },
+      "ip-risk": { priceMode: "none", terms: ["talent", "hiring", "engineer", "채용", "인재", "ip", "recipe", "yield", "수율"] },
+      outsourcing: { priceMode: "all", terms: ["outsourcing", "supply chain", "fab", "packaging", "equipment", "외주", "공급망", "패키징", "장비"] },
+      "bis-shock": { priceMode: "none", terms: ["bis", "veu", "entity list", "export control", "match act", "수출통제", "중국 fab"] },
+      "kpi-reversal": { priceMode: "all", terms: ["memory", "dram", "nand", "hbm", "price", "가격", "capacity", "customer", "contract"] },
+      "strategic-fit": { priceMode: "all", terms: ["hbm", "nand", "essd", "china", "중국", "customer", "고객", "ip"] },
+      "china-dram-defense": { priceMode: "dram", terms: ["cxmt", "changxin", "长鑫", "dram", "ddr5", "lpddr", "tencent", "capacity", "contract"] },
+      "hbm4-lockin": { priceMode: "hbm", terms: ["hbm4", "hbm4e", "rubin", "cowos", "base die", "packaging", "nvidia", "customer"] },
+      "solidigm-dalian": { priceMode: "nand", terms: ["solidigm", "dalian", "nand", "essd", "ssd", "ymtc", "xtacking", "contract"] },
+      "china-fab-license": { priceMode: "none", terms: ["wuxi", "dalian", "china fab", "bis", "veu", "chips act", "match act", "license", "permit"] },
+    };
+    return profiles[challenge.id] || profiles["roi-credibility"];
+  }
+
+  function ceoChallengeSearchTerms(scenario = {}, target = {}, challenge = {}) {
+    const profile = ceoChallengeMarketProfile(challenge);
+    const values = [
+      ...profile.terms,
+      scenario.label,
+      scenario.subtitle,
+      scenario.direction,
+      target.label,
+      target.type,
+      target.investment?.label,
+      target.investment?.type,
+      target.investment?.investment,
+      ...(target.investment?.kpis || []),
+    ];
+    const stop = new Set(["전체", "전략", "시나리오", "유지", "운영", "투자", "관리", "확보", "option", "watch"]);
+    return Array.from(new Set(values
+      .flatMap((value) => String(value || "").toLowerCase().split(/[\s·/(),:+]+/))
+      .map((term) => term.trim())
+      .filter((term) => term.length >= 2 && !stop.has(term))));
+  }
+
+  function ceoChallengeLiveNews(scenario = {}, target = {}, challenge = {}, limit = 4) {
+    const terms = ceoChallengeSearchTerms(scenario, target, challenge);
+    const briefItems = (LIVE.intelligence?.briefs || []).map((brief) => ({
+      ...(brief.latest || {}),
+      title: brief.latest?.title || brief.label,
+      titleKo: brief.latest?.title || brief.label,
+      sourceUrl: brief.latest?.url || "",
+      link: brief.latest?.url || "",
+      date: brief.latest?.publishedAt || brief.generatedAt,
+      publishedAt: brief.latest?.publishedAt || brief.generatedAt,
+      summary: brief.latest?.summary || "",
+      evidenceLevel: brief.latest?.evidenceLevel || "Watch",
+      sourceType: brief.latest?.sourceType || "분석",
+      claimType: brief.latest?.claimType || "사실",
+      reversalKpi: brief.reversalKpi || "",
+      curated: true,
+    }));
+    const candidates = dedupeNews([...(LIVE.news || []), ...briefItems])
+      .filter((item) => /^https?:\/\//i.test(String(item.sourceUrl || item.link || "")))
+      .filter((item) => !isCrawlExcluded("news", item) && !isSkhynixNewsroom(item) && !isLowConfidenceNews(item));
+    const ranked = candidates.map((item) => {
+      const title = `${item.title || ""} ${item.titleKo || ""}`.toLowerCase();
+      const summary = `${item.summary || ""} ${item.summaryOriginal || ""}`.toLowerCase();
+      const relevance = terms.reduce((score, term) => score + (title.includes(term) ? 5 : 0) + (summary.includes(term) ? 2 : 0), 0);
+      return { item, relevance, authority: newsAuthorityScore(item), timestamp: newsTimestamp(item) };
+    }).filter((entry) => entry.relevance > 0 && entry.authority >= 4);
+    ranked.sort((a, b) => b.relevance - a.relevance || b.authority - a.authority || b.timestamp - a.timestamp);
+    const selected = ranked.slice(0, limit).map((entry) => entry.item);
+    if (selected.length >= Math.min(2, limit)) return selected;
+    const selectedKeys = new Set(selected.map(canonicalNewsKey));
+    const fallback = candidates
+      .filter((item) => newsAuthorityScore(item) >= 5 && !selectedKeys.has(canonicalNewsKey(item)))
+      .sort(compareNewsItems)
+      .slice(0, limit - selected.length);
+    return selected.concat(fallback);
+  }
+
+  function median(values = []) {
+    const sorted = values.map(Number).filter(Number.isFinite).sort((a, b) => a - b);
+    if (!sorted.length) return null;
+    const middle = Math.floor(sorted.length / 2);
+    return sorted.length % 2 ? sorted[middle] : (sorted[middle - 1] + sorted[middle]) / 2;
+  }
+
+  function ceoChallengeLivePrices(challenge = {}, limit = 4) {
+    const mode = ceoChallengeMarketProfile(challenge).priceMode;
+    if (mode === "none") return [];
+    const rows = enrichedPriceRows("all").filter((row) => {
+      const hay = `${row.priceCategoryId || ""} ${row.sectionTitle || ""} ${row.item || ""}`.toLowerCase();
+      if (/memory card|microsd|street price|adata|kimtigo|pny|silicon power/.test(hay)) return false;
+      if (mode === "dram") return ["dram-chip", "dram-module", "graphics"].includes(row.priceCategoryId);
+      if (mode === "hbm") return ["dram-chip", "dram-module", "graphics"].includes(row.priceCategoryId) && /ddr5|rdimm|gddr|module/.test(hay);
+      if (mode === "nand") return ["nand-flash", "nand-wafer", "storage"].includes(row.priceCategoryId);
+      return ["dram-chip", "dram-module", "graphics", "nand-flash", "nand-wafer", "storage"].includes(row.priceCategoryId);
+    }).map((row) => {
+      const points = priceHistoryFor(row);
+      const start = points[0];
+      const end = points[points.length - 1];
+      const startValue = Number(start?.average);
+      const endValue = Number(end?.average ?? row.average);
+      const historyMove = Number.isFinite(startValue) && startValue !== 0 && Number.isFinite(endValue)
+        ? ((endValue - startValue) / startValue) * 100
+        : Number(row.changePct);
+      const relevance = mode === "hbm"
+        ? (/rdimm|ddr5/.test(`${row.item}`.toLowerCase()) ? 8 : 4)
+        : (/contract/i.test(row.sectionTitle || "") ? 5 : 4);
+      return {
+        ...row,
+        historyMove: Number.isFinite(historyMove) ? historyMove : null,
+        pointCount: points.length,
+        firstAt: start?.time || 0,
+        latestAt: end?.time || 0,
+        relevance,
+      };
+    }).filter((row) => row.historyMove != null || Number.isFinite(Number(row.changePct)));
+    rows.sort((a, b) => b.relevance - a.relevance || Math.abs(b.historyMove || 0) - Math.abs(a.historyMove || 0));
+    const selected = [];
+    ["Spot", "Contract"].forEach((kind) => {
+      const row = rows.find((item) => priceTypeLabel(item) === kind && !selected.includes(item));
+      if (row) selected.push(row);
+    });
+    rows.forEach((row) => {
+      if (selected.length < limit && !selected.includes(row)) selected.push(row);
+    });
+    return selected.slice(0, limit);
+  }
+
+  function ceoChallengeLiveContext(scenario = {}, target = {}, challenge = {}) {
+    const news = ceoChallengeLiveNews(scenario, target, challenge, 4);
+    const prices = ceoChallengeLivePrices(challenge, 4);
+    const moves = prices.map((row) => row.historyMove).filter(Number.isFinite);
+    const spotMoves = prices.filter((row) => priceTypeLabel(row) === "Spot").map((row) => row.historyMove).filter(Number.isFinite);
+    const contractMoves = prices.filter((row) => priceTypeLabel(row) === "Contract").map((row) => row.historyMove).filter(Number.isFinite);
+    const priceMomentum = median(moves);
+    const spotMomentum = median(spotMoves);
+    const contractMomentum = median(contractMoves);
+    const spread = spotMomentum != null && contractMomentum != null ? Math.abs(spotMomentum - contractMomentum) : null;
+    const newestNewsAt = Math.max(0, ...news.map(newsTimestamp));
+    const newestPriceAt = Math.max(0, ...prices.map((row) => Number(row.latestAt || 0)));
+    const primaryNews = news[0] || null;
+    const primaryTitle = primaryNews ? newsTitle(primaryNews) : "";
+    const primarySummary = cleanInsightText(primaryNews?.summary || primaryNews?.summaryOriginal || "");
+    const priceNarrative = prices.length
+      ? `가격 ${fmtNum(prices.length)}개 품목의 수집 구간 중앙값은 ${signedPercent(priceMomentum)}${spread != null ? `, Spot·Contract 차이는 ${fmtNum(spread, 2)}%p` : ""}입니다.`
+      : "이 안건은 직접 연결할 공개 가격 품목이 없어 기사·정책 근거로만 판단합니다.";
+    const newsNarrative = primaryNews
+      ? `${primaryNews.source || "원문"}(${shortKstDateWithYear(primaryNews.publishedAt || primaryNews.date)}): ${primaryTitle}${primarySummary ? ` · ${primarySummary}` : ""}`
+      : "안건 키워드와 연결된 최신 권위 소스 기사가 없습니다.";
+    return {
+      news,
+      prices,
+      primaryNews,
+      priceMomentum,
+      spotMomentum,
+      contractMomentum,
+      spread,
+      newestNewsAt,
+      newestPriceAt,
+      priceNarrative,
+      newsNarrative,
+      fetchedAt: ceoChallengeLiveRefresh.fetchedAt,
+      liveUpdatedAt: ceoChallengeLiveRefresh.liveUpdatedAt || LIVE.updatedAt,
+      priceUpdatedAt: ceoChallengeLiveRefresh.priceUpdatedAt || HISTORY.updatedAt || LIVE.prices?.updatedAt,
+      refreshStatus: ceoChallengeLiveRefresh.status,
+    };
+  }
+
+  async function refreshCeoChallengeLiveData() {
+    if (ceoChallengeRefreshPromise) return ceoChallengeRefreshPromise;
+    ceoChallengeRefreshPromise = (async () => {
+      const stamp = Date.now();
+      const fetchJSON = async (path) => {
+        const response = await fetch(`${path}?agent=${stamp}`, { cache: "no-store" });
+        if (!response.ok) throw new Error(`${path} ${response.status}`);
+        return response.json();
+      };
+      const [liveResult, historyResult] = await Promise.allSettled([
+        fetchJSON("data/live.json"),
+        fetchJSON("data/price-history.json"),
+      ]);
+      let liveUpdated = false;
+      let historyUpdated = false;
+      if (liveResult.status === "fulfilled" && isVerifiedLiveData(liveResult.value, 48)) {
+        LIVE = normalizeLiveData(liveResult.value);
+        liveUpdated = true;
+      }
+      if (historyResult.status === "fulfilled" && historyResult.value?.items && typeof historyResult.value.items === "object") {
+        HISTORY = historyResult.value;
+        historyUpdated = true;
+      }
+      ceoChallengeLiveRefresh = {
+        status: liveUpdated && historyUpdated ? "synced" : (liveUpdated || historyUpdated ? "partial" : "fallback"),
+        fetchedAt: new Date().toISOString(),
+        liveUpdatedAt: LIVE.updatedAt || null,
+        priceUpdatedAt: HISTORY.updatedAt || LIVE.prices?.updatedAt || null,
+      };
+      return ceoChallengeLiveRefresh;
+    })().catch((error) => {
+      console.warn(`CEO challenge live refresh: ${error.message}`);
+      ceoChallengeLiveRefresh = {
+        status: "fallback",
+        fetchedAt: new Date().toISOString(),
+        liveUpdatedAt: LIVE.updatedAt || null,
+        priceUpdatedAt: HISTORY.updatedAt || LIVE.prices?.updatedAt || null,
+      };
+      return ceoChallengeLiveRefresh;
+    }).finally(() => {
+      ceoChallengeRefreshPromise = null;
+    });
+    return ceoChallengeRefreshPromise;
+  }
+
+  function ceoChallengeLiveContextHTML(context = {}) {
+    const syncedAt = context.fetchedAt || context.liveUpdatedAt || context.priceUpdatedAt;
+    const syncLabel = context.refreshStatus === "synced" ? "최신 시장 근거 동기화" : context.refreshStatus === "partial" ? "일부 시장 근거 갱신" : "현재 보유 근거 사용";
+    return `
+      <section class="ceo-live-context" aria-label="CEO 챌린지 최신 시장 근거">
+        <div class="ceo-live-context-head">
+          <div><span>LIVE MARKET INPUT</span><strong>${escapeHTML(syncLabel)}</strong></div>
+          <time datetime="${escapeHTML(syncedAt || "")}">${escapeHTML(syncedAt ? fmtDate(syncedAt) : "기준 시각 없음")}</time>
+        </div>
+        <div class="ceo-live-price-strip">
+          <div><span>가격 중앙값</span><strong>${context.priceMomentum == null ? "직접 가격 없음" : signedPercent(context.priceMomentum)}</strong></div>
+          <div><span>Spot</span><strong>${context.spotMomentum == null ? "-" : signedPercent(context.spotMomentum)}</strong></div>
+          <div><span>Contract</span><strong>${context.contractMomentum == null ? "-" : signedPercent(context.contractMomentum)}</strong></div>
+          <div><span>연결 품목</span><strong>${fmtNum(context.prices?.length || 0)}개</strong></div>
+        </div>
+        ${context.prices?.length ? `<div class="ceo-live-price-list">${context.prices.slice(0, 4).map((row) => `
+          <a href="${escapeHTML(row.sourceUrl || "#")}" target="_blank" rel="noopener noreferrer">
+            <span>${escapeHTML(priceTypeLabel(row))}</span><strong>${escapeHTML(row.item || "가격 품목")}</strong><em>${signedPercent(row.historyMove)}</em>
+          </a>`).join("")}</div>` : ""}
+        <div class="ceo-live-news-list">
+          ${(context.news || []).slice(0, 4).map((item) => `
+            <a href="${escapeHTML(item.sourceUrl || item.link)}" target="_blank" rel="noopener noreferrer">
+              <span>${escapeHTML(item.source || "원문")} · ${escapeHTML(shortKstDateWithYear(item.publishedAt || item.date))}</span>
+              <strong>${escapeHTML(newsTitle(item))}</strong>
+            </a>`).join("") || `<p>안건과 직접 연결된 최신 권위 소스 기사가 없습니다.</p>`}
+        </div>
+      </section>
+    `;
+  }
+
   function buildCeoAgentAnswer(scenario, target, challenge) {
     const model = ceoTargetModel(scenario, target);
     const gates = chinaTalentGateStats(scenario);
@@ -12629,36 +12872,41 @@
     const targetLabel = target?.label || scenario.label;
     const investment = target?.investment;
     const top = chinaTalentScenarioRoi(scenario).top;
+    const liveContext = ceoChallengeLiveContext(scenario, target, challenge);
     const kpis = investment?.kpis || top?.investment?.kpis || ["근거 신호", "O/X 게이트", "ROI 지수"];
     const noGoText = gates.noGo ? `X 게이트 ${fmtNum(gates.noGo)}개가 있어 전면 집행이 아니라 통제 조건부 집행입니다.` : "현재 선택 시나리오에는 즉시 중단형 X 게이트가 낮습니다.";
+    const liveNewsEvidence = liveContext.news.map((item) => ({
+      ...item,
+      link: item.sourceUrl || item.link,
+      sourceUrl: item.sourceUrl || item.link,
+    }));
     const flipSubject = {
       id: `talent-ip-${challenge.id || "challenge"}`,
       label: targetLabel,
       category: scenario.accentCategory || "talent",
-      evidenceCount: signals + gates.total,
-      linkCount: gates.ok,
-      priceRows: 0,
+      evidenceCount: signals + gates.total + liveNewsEvidence.length + liveContext.prices.length,
+      linkCount: liveNewsEvidence.length,
+      priceRows: liveContext.prices.length,
       chinaSignalCount: signals,
       verdict: model.decision,
+      actualChange: liveContext.priceMomentum,
+      priceMomentum: liveContext.priceMomentum,
+      evidence: { news: liveNewsEvidence, prices: liveContext.prices },
     };
-    const flipKpis = decisionFlipKpis(flipSubject);
     const primaryFlip = primaryDecisionFlipKpi(flipSubject);
-    const liveBrief = intelligenceBriefForDecision(flipSubject);
-    const liveSummary = String(liveBrief?.latest?.summary || "");
-    const liveEvidence = liveBrief
-      ? `${liveBrief.latest?.source || "원문"}(${shortKstDate(liveBrief.latest?.publishedAt || liveBrief.generatedAt)}): ${liveSummary.length > 180 ? `${liveSummary.slice(0, 177)}...` : liveSummary}`
-      : "";
+    const primaryNews = liveContext.primaryNews;
 
     const common = {
       title: `${challenge.angle} · ${targetLabel}`,
       metrics: [
         { label: "ROI", value: fmtNum(model.roi) },
-        { label: "수익성", value: fmtNum(model.profitability) },
-        { label: "신호", value: fmtNum(signals) },
+        { label: "가격", value: liveContext.priceMomentum == null ? "-" : signedPercent(liveContext.priceMomentum) },
+        { label: "기사", value: fmtNum(liveContext.news.length) },
         { label: "O/X", value: `${fmtNum(gates.ok)}/${fmtNum(gates.noGo)}` },
       ],
       kpis: decisionFlipKpiLabels(flipSubject).slice(0, 3).concat(kpis).slice(0, 5),
       flipSubject,
+      liveContext,
     };
 
     const answers = {
@@ -12737,18 +12985,26 @@
     };
 
     const selectedAnswer = answers[challenge.id] || answers["roi-credibility"];
+    const liveAction = liveContext.priceMomentum == null
+      ? "직접 가격이 없는 안건은 최신 기사·정책 원문이 바뀔 때 재검토합니다."
+      : liveContext.priceMomentum <= -0.45
+        ? `가격 중앙값 ${signedPercent(liveContext.priceMomentum)}를 반영해 고객·재고 방어 조건을 강화합니다.`
+        : liveContext.priceMomentum >= 0.55
+          ? `가격 중앙값 ${signedPercent(liveContext.priceMomentum)}를 반영해 고객 확약이 있는 품목만 선별 확대합니다.`
+          : `가격 중앙값 ${signedPercent(liveContext.priceMomentum)}는 중립 구간이므로 현재 실행 범위를 유지합니다.`;
     return {
       ...common,
       ...selectedAnswer,
-      logic: [liveEvidence, selectedAnswer.logic].filter(Boolean).join(" "),
-      evidence: liveBrief ? {
-        source: liveBrief.latest?.source || "원문",
-        sourceType: liveBrief.latest?.sourceType || "분석",
-        claimType: liveBrief.latest?.claimType || "사실",
-        evidenceLevel: liveBrief.latest?.evidenceLevel || "Watch",
-        title: liveBrief.latest?.title || liveBrief.label,
-        url: liveBrief.latest?.url || "",
-        reversalKpi: liveBrief.reversalKpi || primaryFlip.label,
+      logic: [liveContext.newsNarrative, liveContext.priceNarrative, selectedAnswer.logic].filter(Boolean).join(" "),
+      action: [selectedAnswer.action, liveAction].filter(Boolean).join(" "),
+      evidence: primaryNews ? {
+        source: primaryNews.source || "원문",
+        sourceType: primaryNews.sourceType || newsEvidenceMeta(primaryNews).label,
+        claimType: primaryNews.claimType || "기사",
+        evidenceLevel: primaryNews.evidenceLevel || "Watch",
+        title: newsTitle(primaryNews),
+        url: primaryNews.sourceUrl || primaryNews.link || "",
+        reversalKpi: primaryNews.reversalKpi || primaryFlip.label,
       } : null,
     };
   }
@@ -12756,11 +13012,14 @@
   function ceoChallengeDebateHTML(scenario, target, challenge, response) {
     const accent = categoryAccent(scenario.accentCategory || "talent");
     const targetLabel = target?.label || scenario.label;
+    const liveContext = response.liveContext || {};
     const metricValue = (label) => response.metrics?.find((metric) => metric.label === label)?.value || "-";
     const roiMetric = metricValue("ROI");
-    const profitabilityMetric = metricValue("수익성");
-    const signalMetric = metricValue("신호");
+    const priceMetric = metricValue("가격");
+    const articleMetric = metricValue("기사");
     const gateMetric = metricValue("O/X");
+    const topPriceRows = (liveContext.prices || []).slice(0, 2).map((row) => `${row.item} ${signedPercent(row.historyMove)}`).join(" · ");
+    const topNews = (liveContext.news || []).slice(0, 2).map((item) => `${item.source || "원문"}: ${newsTitle(item)}`).join(" · ");
     const isRoiChallenge = challenge.id === "roi-credibility";
     const evidenceLevel = String(response.evidence?.evidenceLevel || "Watch");
     const challengeConfidence = evidenceLevel === "Confirmed" ? 82 : evidenceLevel === "Inferred" ? 48 : evidenceLevel === "Stale" ? 28 : 62;
@@ -12769,7 +13028,10 @@
       id: `${challenge.id}-${scenario.id}`,
       category: scenario.accentCategory,
       label: targetLabel,
-      evidence: { news: response.evidence ? [{ ...response.evidence, link: response.evidence.url }] : [] },
+      evidence: {
+        news: (liveContext.news || []).map((item) => ({ ...item, link: item.sourceUrl || item.link })),
+        prices: liveContext.prices || [],
+      },
     });
     return agentDebateHTML({
       mode: "ceo-challenge",
@@ -12798,15 +13060,15 @@
           color: "#00A896",
           message: `${response.logic} 재무 결론은 확정 ROI가 아니라 실사 우선순위로 사용하고, 비용·고객 방어·하방 리스크가 같이 충족될 때만 예산 안건으로 올립니다.`,
           speechEn: isRoiChallenge
-            ? `The current relative R O I score is ${roiMetric}, profitability is ${profitabilityMetric}, the model uses ${signalMetric} evidence signals, and the O X gate is ${gateMetric}. These are normalized operating indicators, not contractual cash flows. Net present value and internal rate of return require verified price, volume, capital expenditure, and timing before this reaches the budget agenda.`
-            : `Finance treats this as a diligence priority, not a confirmed financial return. The budget should reach the executive agenda only when cost discipline, customer defense, and downside protection are satisfied together.`,
+            ? `The current relative R O I score is ${roiMetric}. The latest linked price signal is ${priceMetric}, with ${articleMetric} authoritative articles and an O X gate of ${gateMetric}. These are operating indicators, not contractual cash flows. Net present value and internal rate of return still require verified price, volume, capital expenditure, and timing.`
+            : `Finance sees a latest linked price signal of ${priceMetric} and ${articleMetric} authoritative articles. The budget should reach the executive agenda only when cost discipline, customer defense, and downside protection are satisfied together.`,
         },
         {
           name: "CTO",
           role: "제품·기술 병목",
           avatar: "CTO",
           color: "#7C3AED",
-          message: `${targetLabel}은 기술·제품 병목을 먼저 분리해야 합니다. HBM 수율, NAND/eSSD 고객 인증, 중국 Fab 운영, IP 접근권 중 어느 축이 막히는지 확인한 뒤 물량·채용·투자 약속을 단계화합니다.`,
+          message: `${targetLabel}은 기술·제품 병목을 먼저 분리해야 합니다. ${topNews || "최신 원문 연결이 없는 기술 주장은 승격하지 않습니다."} HBM 수율, NAND/eSSD 고객 인증, 중국 Fab 운영, IP 접근권 중 어느 축이 막히는지 확인한 뒤 물량·채용·투자 약속을 단계화합니다.`,
           speechEn: `We must isolate the technical bottleneck first. H B M yield, NAND and enterprise S S D qualification, China fab operations, and intellectual-property access require separate gates before volume, hiring, or investment commitments are staged.`,
         },
         {
@@ -12822,8 +13084,8 @@
           role: "고객·가격 전이",
           avatar: "MKT",
           color: "#10B981",
-          message: `가격 하방만으로 결론을 내리지 않습니다. Spot과 contract 변화율 차이가 **±5%p 이내**이고 고객 전환·장기계약이 같은 방향일 때만 방어 가격, 물량 배분, 고객 락인 안건으로 올립니다.`,
-          speechEn: `A downside price signal alone is insufficient. Spot and contract changes must be within five percentage points and align with customer switching or long-term contracts before defensive pricing or allocation changes are approved.`,
+          message: `${liveContext.priceNarrative || "직접 연결 가격이 없습니다."}${topPriceRows ? ` 대표 품목은 **${topPriceRows}**입니다.` : ""} 가격과 고객 전환·장기계약이 같은 방향일 때만 방어 가격, 물량 배분, 고객 락인 안건으로 올립니다.`,
+          speechEn: `The latest linked price signal is ${priceMetric}. ${liveContext.spread == null ? "There is no comparable spot and contract spread for this agenda." : `The current spot and contract spread is ${fmtNum(liveContext.spread, 2)} percentage points.`} Pricing, customer switching, and long-term contracts must point in the same direction before allocation changes are approved.`,
         },
         {
           name: "Operations",
@@ -12846,7 +13108,7 @@
           role: "반론·Devil's Advocate",
           avatar: "DA",
           color: "#111827",
-          message: `${response.counter} 12개월 뒤 실패했다고 가정합니다. 현재 연결된 반대 방향 정량 표본이 없으므로 확증편향을 계산으로 배제할 수 없습니다. 고객 전환, 가격 반대 움직임, 규제 완화·강화의 반대 근거를 같은 임계값으로 수집하기 전에는 Go로 올리지 않습니다.`,
+          message: `${response.counter} 12개월 뒤 실패했다고 가정합니다. 최신 가격 ${priceMetric}와 기사 ${articleMetric}건이 현재 결론과 반대로 움직일 경우를 함께 검토합니다. 고객 전환, 가격 반대 움직임, 규제 완화·강화의 반대 근거를 같은 임계값으로 확인하기 전에는 실행 범위를 넓히지 않습니다.`,
           speechEn: `Assume the decision fails in twelve months. There is no linked quantitative counter-evidence sample, so confirmation bias cannot be ruled out. The recommendation cannot move to Go until opposing customer, price, and policy evidence is tested with the same thresholds.`,
         },
         {
@@ -12854,10 +13116,10 @@
           role: "근거 검증",
           avatar: "AUD",
           color: "#EF4444",
-          message: `${response.evidence ? `대표 원문은 **${response.evidence.title}**(${response.evidence.source} · ${response.evidence.sourceType} · ${response.evidence.claimType || "사실"} · ${response.evidence.evidenceLevel})입니다. ` : "대표 원문이 없어 결론 강도를 Watch 이하로 제한합니다. "}정확 중복은 canonical URL로 제거하고 최신성·출처 권위를 가중합니다. ==${response.evidence?.reversalKpi || "핵심 판단 변경 KPI"}==가 달라지면 같은 기준으로 재계산합니다.`,
+          message: `${response.evidence ? `대표 원문은 **${response.evidence.title}**(${response.evidence.source} · ${response.evidence.sourceType} · ${response.evidence.claimType || "기사"})입니다. ` : "안건에 직접 연결된 권위 원문이 없습니다. "}실행 시점에 기사 ${fmtNum(liveContext.news?.length || 0)}건과 가격 ${fmtNum(liveContext.prices?.length || 0)}개를 다시 불러왔고, canonical URL 중복을 제거했습니다. ==${response.evidence?.reversalKpi || "핵심 판단 변경 KPI"}==가 달라지면 같은 기준으로 재계산합니다.`,
           speechEn: isRoiChallenge
-            ? `The model currently uses ${signalMetric} evidence signals and an O X gate of ${gateMetric}. Its evidence level is ${/^(Confirmed|Watch|Inferred|Stale)$/i.test(response.evidence?.evidenceLevel || "") ? response.evidence.evidenceLevel : "Watch"}. The score must not be promoted to a financial fact. If the primary reversal indicator changes, the conclusion must be recalculated with the same source and evidence rules.`
-            : `The evidence level is ${/^(Confirmed|Watch|Inferred|Stale)$/i.test(response.evidence?.evidenceLevel || "") ? response.evidence.evidenceLevel : "Watch"}. The execution condition remains conditional. If the primary reversal indicator changes, the conclusion must be recalculated using the same evidence standard.`,
+            ? `At execution time, the model refreshed ${liveContext.news?.length || 0} linked articles and ${liveContext.prices?.length || 0} price rows, and removed canonical U R L duplicates. The score must not be promoted to a financial fact. If the primary reversal indicator changes, the conclusion must be recalculated with the same source rules.`
+            : `At execution time, the model refreshed ${liveContext.news?.length || 0} linked articles and ${liveContext.prices?.length || 0} price rows. If the primary reversal indicator changes, the conclusion must be recalculated using the same source rules.`,
         },
         {
           name: "Strategy",
@@ -12873,7 +13135,7 @@
       kpis: [],
       conclusion: {
         title: `${response.verdict} · SKHY 경영진 권고`,
-        body: `${targetLabel} 안건은 고객 전환, 수익성, 기술 병목, 정책 게이트를 분리해 판단합니다. 현재 결론은 ${response.action}입니다.`,
+        body: `${targetLabel} 안건은 고객 전환, 수익성, 기술 병목, 정책 게이트를 분리해 판단합니다. ${liveContext.priceNarrative || ""} 현재 결론은 ${response.action}입니다.`,
         next: `다음 회의에서는 ${response.kpis?.slice(0, 3).join(", ") || "결정을 뒤집는 KPI"}만 업데이트해 유지, 확대, 보류 중 하나로 재판단합니다.`,
       },
     });
@@ -12946,8 +13208,13 @@
     };
     if (runButton) {
       runButton.textContent = ceoChallengeAgentRan ? "토론 다시 실행" : "Agent 실행";
-      runButton.onclick = () => {
+      runButton.disabled = ceoChallengeLiveRefresh.status === "loading";
+      runButton.onclick = async () => {
         enableAgentTtsFromGesture();
+        ceoChallengeLiveRefresh.status = "loading";
+        runButton.disabled = true;
+        runButton.textContent = "시장 근거 갱신 중";
+        await refreshCeoChallengeLiveData();
         ceoChallengeAgentRan = true;
         renderCeoChallengeAgent(activeChinaTalentScenario());
         prepareAgentSpeechFromGesture($("#ceoChallengeRun"));
@@ -12965,6 +13232,7 @@
       return;
     }
     answerWrap.innerHTML = `
+      ${ceoChallengeLiveContextHTML(response.liveContext)}
       ${decisionFlipKpiHTML(response.flipSubject || {
         id: "talent-ip",
         label: target.label,
@@ -12987,7 +13255,7 @@
         type: "CEO 챌린지 전문가 답변",
         tag: challenge.angle,
         title: challenge.question,
-        body: `${response.verdict}\n\n논리: ${response.logic}\n\n반론 답변: ${response.counter}\n\n실행 조건: ${response.action}`,
+        body: `${response.verdict}\n\n최신 기사: ${response.liveContext?.newsNarrative || "연결 기사 없음"}\n\n최신 가격: ${response.liveContext?.priceNarrative || "연결 가격 없음"}\n\n논리: ${response.logic}\n\n반론 답변: ${response.counter}\n\n실행 조건: ${response.action}`,
         section: "executive-decision",
         categories: [scenario.accentCategory || "talent"],
         metrics: response.metrics || [],
