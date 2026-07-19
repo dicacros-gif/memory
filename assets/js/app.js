@@ -10351,17 +10351,18 @@
         metrics: selected.metrics || [],
         links,
       };
+      focus.dataset.nandFocus = selected.id;
       focus.style.setProperty("--local-accent", categoryAccent((selected.linkedCategories || [])[0]));
       focus.innerHTML = `
         <div class="nand-focus-head">
           <span class="chip accent">${escapeHTML(selected.role)}</span>
-          <h3>${escapeHTML(selected.title)}</h3>
-          <p>${escapeHTML(selected.risk)}</p>
+          <h3>${strategicHighlightHTML(selected.title)}</h3>
+          <p>${strategicHighlightHTML(selected.risk)}</p>
         </div>
         <div class="metric-row">${metricCards(selected.metrics || [], 3)}</div>
         <div class="nand-focus-block">
           <strong>업체 전략</strong>
-          <ul class="watch-list">${(selected.strategy || []).map((line) => `<li>${escapeHTML(line)}</li>`).join("")}</ul>
+          <ul class="watch-list">${(selected.strategy || []).map((line) => `<li>${strategicHighlightHTML(line)}</li>`).join("")}</ul>
         </div>
         <div class="nand-focus-block">
           <strong>매일 확인할 핵심 키워드</strong>
@@ -10369,12 +10370,12 @@
         </div>
         <div class="nand-focus-block">
           <strong>사업 판단 포인트</strong>
-          <ul class="watch-list">${(selected.decisions || []).map((line) => `<li>${escapeHTML(line)}</li>`).join("")}</ul>
+          <ul class="watch-list">${(selected.decisions || []).map((line) => `<li>${strategicHighlightHTML(line)}</li>`).join("")}</ul>
         </div>
         ${links.length ? `
           <div class="nand-focus-block">
             <strong>관련 최신 기사</strong>
-            <ul class="work-link-list">${links.map((link) => `<li><a href="${escapeHTML(link.link || "#")}" target="_blank" rel="noopener">${escapeHTML(newsTitle(link) || link.title || "Signal")}</a></li>`).join("")}</ul>
+            <ul class="work-link-list">${links.map((link) => `<li><a href="${escapeHTML(link.link || "#")}" target="_blank" rel="noopener">${strategicHighlightHTML(newsTitle(link) || link.title || "Signal")}</a></li>`).join("")}</ul>
           </div>
         ` : ""}
         <div class="focus-actions">
