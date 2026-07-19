@@ -911,18 +911,12 @@
       linkedCategories: ["nand", "dram", "talent"],
     },
   ];
-  const PROJECTION_START_MONTHS = 30;
-  const PROJECTION_YEAR_COUNT = 5;
   const PROJECTION_SCENARIOS = [
     {
       id: "neutral",
       label: "중립",
       sub: "Base case",
       tone: "현재 가격·뉴스·중국 벤치마크 신호를 반영한 기준 케이스",
-      scoreBias: 0,
-      serverLift: 0,
-      storageLift: 0,
-      terminalLift: 0,
       riskLabel: "기준",
     },
     {
@@ -930,10 +924,6 @@
       label: "Best",
       sub: "Upside case",
       tone: "HBM·서버 DRAM·eSSD 수요가 강하고 중국 범용 가격 압력이 완화되는 상방 케이스",
-      scoreBias: 8,
-      serverLift: 4.6,
-      storageLift: 2.5,
-      terminalLift: -1.3,
       riskLabel: "상방",
     },
     {
@@ -941,10 +931,6 @@
       label: "Worst",
       sub: "Downside case",
       tone: "HBM4 ramp·패키징 병목, 중국 캐파 확대, 범용 DRAM/NAND 가격 하방을 크게 반영한 방어 케이스",
-      scoreBias: -10,
-      serverLift: -4.8,
-      storageLift: -3.0,
-      terminalLift: 3.4,
       riskLabel: "하방",
     },
   ];
@@ -955,15 +941,11 @@
       short: "AI 서버",
       demand: "AI Server",
       title: "HBM·DDR5·CXL 중심 프리미엄 서버 포트폴리오",
-      startShare: 48,
-      endShare: 58,
-      baseScore: 91,
-      sensitivity: 1.18,
       linkedCategories: ["hbm", "dram", "cxl", "aidemand", "packaging"],
       products: ["HBM3E/HBM4", "DDR5 RDIMM/MRDIMM", "CXL Memory", "Custom HBM"],
       keywords: ["hbm", "hbm4", "hbm3e", "nvidia", "rubin", "ai accelerator", "data center", "server", "cxl", "ddr5", "rdimm", "mrdimm", "tsmc", "cowos"],
       priceTerms: [],
-      thesis: "AI 서버는 30개월 뒤에도 SKHY 제품 믹스의 최우선 축입니다. HBM4 베이스 다이, DDR5 고용량 모듈, CXL 확장 메모리가 함께 서버 ASP를 방어합니다.",
+      thesis: "AI 서버는 예측 시작 시점 이후 SKHY 제품 믹스의 최우선 축입니다. HBM4 베이스 다이, DDR5 고용량 모듈, CXL 확장 메모리가 함께 서버 ASP를 방어합니다.",
       assumptions: ["HBM4/Custom HBM 고객 인증 유지", "NVIDIA·ASIC 고객의 대역폭 요구 지속", "DDR5 고용량 모듈과 CXL이 서버당 메모리 탑재량 확대"],
       triggers: ["HBM4 Rubin ramp", "CoWoS/패키징 할당량", "DDR5 contract 가격", "CXL 서버 PoC"],
       actions: ["HBM 고객 락인", "서버 DRAM 원가·수율 개선", "CXL 컨트롤러/IP 옵션 확보"],
@@ -975,10 +957,6 @@
       short: "eSSD",
       demand: "Data Center",
       title: "eSSD·QLC·Solidigm 기반 서버 스토리지 포트폴리오",
-      startShare: 21,
-      endShare: 22,
-      baseScore: 78,
-      sensitivity: 1.05,
       linkedCategories: ["nand", "aidemand", "operations", "china"],
       products: ["Enterprise SSD", "QLC NAND", "Solidigm", "PCIe Gen5/Gen6 SSD"],
       keywords: ["essd", "enterprise ssd", "solidigm", "qlc", "nand", "data center ssd", "server ssd", "pcie", "storage"],
@@ -995,16 +973,12 @@
       short: "모바일",
       demand: "Mobile",
       title: "LPDDR·UFS·Mobile NAND 중심 스마트폰 포트폴리오",
-      startShare: 14,
-      endShare: 8,
-      baseScore: 61,
-      sensitivity: .78,
       linkedCategories: ["dram", "nand", "china"],
       products: ["LPDDR5X/LPDDR6", "UFS", "Mobile NAND", "On-device AI Memory"],
       keywords: ["lpddr", "lpddr5x", "lpddr6", "ufs", "smartphone", "mobile", "on-device ai", "terminal"],
       priceTerms: ["module", "dram", "lpddr", "nand", "ufs"],
       thesis: "모바일은 온디바이스 AI로 대당 탑재량은 늘지만, AI 서버와 데이터센터 스토리지에 캐파가 우선 배분되며 전체 믹스 비중은 낮아지는 축입니다.",
-      assumptions: ["IDC 2026E 스마트폰 출하 10.9억 대(-13.9% YoY)", "온디바이스 AI로 기본 DRAM/UFS 용량 상향", "CXMT·YMTC 범용 단말 제품 가격 압력 지속"],
+      assumptions: ["스마트폰 출하는 출처·기준일이 검증된 최신 quant 입력만 반영", "온디바이스 AI로 기본 DRAM/UFS 용량 상향", "CXMT·YMTC 범용 단말 제품 가격 압력 지속"],
       triggers: ["LPDDR5X/6 고객 인증", "UFS/NAND 가격", "CXMT LPDDR 뉴스", "YMTC 모바일 NAND 공급"],
       actions: ["고부가 모바일 제품 선별", "범용 모바일 SKU cash-cost floor 관리", "중국 가격 하방에 대한 빠른 믹스 조정"],
       risk: "CXMT와 YMTC가 범용 모바일 제품 공급을 늘리면 LPDDR/UFS ASP가 구조적으로 압박받을 수 있습니다.",
@@ -1015,16 +989,12 @@
       short: "PC",
       demand: "Terminal",
       title: "AI PC·Client SSD 메모리 방어 포트폴리오",
-      startShare: 12,
-      endShare: 7,
-      baseScore: 55,
-      sensitivity: .72,
       linkedCategories: ["dram", "nand", "aidemand", "china"],
       products: ["DDR5/LPCAMM", "Client SSD", "PC DRAM", "Client NAND"],
       keywords: ["pc", "notebook", "ai pc", "client ssd", "lpcamm", "client dram", "client nand", "terminal"],
       priceTerms: ["ssd", "module", "dram", "client", "pc-client"],
       thesis: "PC는 AI PC의 대당 메모리 탑재량이 상방을 만들지만, 교체주기와 가격 민감도가 커서 방어적 현금흐름 관리가 우선입니다.",
-      assumptions: ["IDC 2026E PC 출하 약 2억 5,300만 대(-11.3% YoY)", "AI PC 침투율은 점진 상승", "client SSD·DDR5 가격 민감도 높음"],
+      assumptions: ["PC 출하는 출처·기준일이 검증된 최신 quant 입력만 반영", "AI PC 침투율은 점진 상승", "client SSD·DDR5 가격 민감도 높음"],
       triggers: ["AI PC 출하", "client SSD contract 가격", "LPCAMM 채택", "PC OEM 재고"],
       actions: ["AI PC용 고부가 SKU 선별", "client SSD 재고·가격 floor 관리", "PC OEM별 탑재량과 재고를 분리 관리"],
       risk: "PC 교체 사이클이 지연되면 출하와 탑재량 상향이 동시에 둔화되어 믹스 개선 속도가 낮아질 수 있습니다.",
@@ -1035,10 +1005,6 @@
       short: "오토/엣지",
       demand: "Auto/Edge",
       title: "차량·엣지 AI용 고신뢰 메모리 옵션",
-      startShare: 5,
-      endShare: 5,
-      baseScore: 64,
-      sensitivity: .75,
       linkedCategories: ["dram", "nand", "aidemand"],
       products: ["Automotive DRAM", "Industrial NAND", "Edge AI Memory", "Embedded SSD"],
       keywords: ["automotive memory", "vehicle", "edge ai", "industrial", "embedded", "adas", "on-device ai", "inference"],
@@ -2882,6 +2848,10 @@
     if (Number.isFinite(q.memoryMomentum?.dramSpot30dPct)) chips.push(`DRAM spot 30d ${q.memoryMomentum.dramSpot30dPct > 0 ? "+" : ""}${fmtNum(q.memoryMomentum.dramSpot30dPct, 1)}%`);
     if (Number.isFinite(q.fundamentals?.micron?.revenue?.value)) chips.push(`Micron 분기매출 $${fmtNum(q.fundamentals.micron.revenue.value / 1e9, 1)}B`);
     if (Number(q.liveFigures?.total) > 0) chips.push(`원문 정량수치 ${fmtNum(q.liveFigures.total)}건`);
+    const forecastChecks = q.forecastInputs?.sourceChecks || {};
+    if (Number(forecastChecks.total) > 0) {
+      chips.push(`수요 원문 ${fmtNum(forecastChecks.ok)}/${fmtNum(forecastChecks.total)} 확인`);
+    }
     const coverage = q.historyCoverage || {};
     if (Number(coverage.priceSeries) > 0) chips.push(`가격 ${fmtNum(coverage.priceSeries)}개·${fmtNum(coverage.pricePoints)}점`);
     if (Number(coverage.marketSeries) > 0) chips.push(`시장 ${fmtNum(coverage.marketSeries)}개·${fmtNum(coverage.marketPoints)}점`);
@@ -3883,15 +3853,14 @@
   }
 
   /* ---------------- Hyperscaler memory demand · scenario planning ---------------- */
-  // Logic: AI 가속기 출하(대) × HBM GB/대 → 총 HBM 수요(PB) × SKHY 점유율 → SKHY 물량.
-  // 범용 서버 DRAM·eSSD NAND는 동반 수요로 YoY 지표로 병기. 모두 공개 데이터 기반 논리 추정.
-  // Scenario tilts are multipliers so they apply across every demand category.
+  // Presentation metadata only. Every numeric input and scenario multiplier is
+  // loaded from data/quant.json after provenance validation.
   const FORECAST_SCENARIOS = [
-    { id: "bear", label: "Bear · 소화 국면", tone: "watch", unitsMul: 0.82, memMul: 0.9, shareMul: 0.96, demandMul: 0.5,
+    { id: "bear", label: "Bear · 소화 국면", tone: "watch",
       premise: "수요 소화·거시 둔화로 출하 감소, 메모리 재고 조정", readout: "범용 가격 방어 우선, CAPEX는 milestone tranche로 제한" },
-    { id: "base", label: "Base · 기준", tone: "ok", unitsMul: 1, memMul: 1, shareMul: 1, demandMul: 1,
+    { id: "base", label: "Base · 기준", tone: "ok",
       premise: "출하·믹스 견조, 세대 전환 완만 진행", readout: "프리미엄 인증 일정에 캐파 선배분, 범용은 현금흐름 방어" },
-    { id: "bull", label: "Bull · 상방", tone: "ok", unitsMul: 1.28, memMul: 1.18, shareMul: 1.04, demandMul: 1.6,
+    { id: "bull", label: "Bull · 상방", tone: "ok",
       premise: "AI·온디바이스 수요 상방, 대당 탑재량 상향과 조기 세대 전환", readout: "선제 증설·장기계약 락인, 범용 캐파 잠식 트레이드오프 관리" },
   ];
 
@@ -3899,11 +3868,11 @@
   const FORECAST_CATEGORIES = [
     {
       id: "hyperscaler", label: "AI서버·하이퍼스케일러", accent: "#2D6BFF",
-      units: 6.5, unitLabel: "백만 대", unitStep: "가속기 출하", unitNote: "외부 shipment model 2026E · 확정치 아님",
+      unitLabel: "백만 대", unitStep: "가속기 출하", unitNote: "날짜·원문이 검증된 외부 shipment 관측값",
       source: "Presenc AI GPU Shipment Tracker", sourceUrl: "https://presenc.ai/research/gpu-shipment-tracker-blackwell-rubin-2026",
-      memPerUnit: 210, memLabel: "GB/대", memName: "HBM", memNote: "B200 192 · GB300 288 가중 평균",
-      skhyShare: 55, shareNote: "HBM 리더십 가정",
-      dramYoY: 15, dramLabel: "서버 DRAM", nandYoY: 18, nandLabel: "eSSD NAND",
+      memLabel: "GB/대", memName: "HBM", memNote: "제품 믹스 모델",
+      shareNote: "검증값과 계획 모델을 분리",
+      dramLabel: "서버 DRAM", nandLabel: "eSSD NAND",
       driverLabel: "CapEx 방향", techLabel: "자체 가속기", pullLabel: "HBM 견인도", panelTitle: "하이퍼스케일러별 수요 풀",
       accounts: [
         { id: "azure", name: "Microsoft · Azure", region: "US", driver: "↑↑ 최상", tech: "Maia 200", pull: 96, note: "OpenAI 학습·추론 동시 확장. HBM4 최우선 고객군, 서버 DRAM 동반 최대." },
@@ -3915,19 +3884,19 @@
         { id: "china", name: "중국(Alibaba·Tencent·ByteDance)", region: "CN", driver: "↑ 제한", tech: "자체·H20·국산", pull: 58, note: "수출통제로 SKHY 직접 노출 제한. CXMT/국산 HBM 대체 압력을 별도 경보로 관리." },
       ],
       assume: [
-        "가속기 6.5백만 대는 외부 shipment tracker의 NVIDIA·AMD·커스텀 ASIC 합산 모델이며 확정 출하량이 아님",
-        "TrendForce는 2026년 NVIDIA 고급 GPU 출하에서 Rubin 비중을 29%에서 22%로 낮춤; 공급사별 HBM4 배분과 혼용하지 않음",
-        "총 HBM 수요(PB) = 출하(백만 대) × HBM(GB/대); SKHY 점유율은 HBM 리더십 유지 가정",
+        "가속기 출하 기준선은 quant.json의 날짜·원문이 검증된 외부 관측값을 사용하며 확정 출하량으로 간주하지 않음",
+        "가속기 세대별 출하 믹스와 공급사별 HBM4 배분은 서로 다른 지표로 분리",
+        "총 HBM 수요는 검증 출하량과 버전이 명시된 제품 믹스 모델로 계산하고 점유율 가정은 별도 표시",
         "커스텀 ASIC이 HBM 대신 저용량 구성을 택하면 탑재량·총수요 동시 하향(반증)",
         "전력·부지·CoWoS 병목이 실제 출하 상한 → Bull 지연(반증)",
       ],
     },
     {
       id: "auto", label: "오토·엣지", accent: "#0EA5E9",
-      units: 93, unitLabel: "백만 대", unitStep: "차량 생산", unitNote: "글로벌 신차 2026E (EV+ICE)",
-      memPerUnit: 6, memLabel: "GB/대", memName: "차량용 DRAM+NAND", memNote: "ADAS L2+·IVI·존아키텍처 평균",
-      skhyShare: 26, shareNote: "오토향 점유율 가정",
-      dramYoY: 12, dramLabel: "차량 DRAM", nandYoY: 22, nandLabel: "차량 NAND",
+      unitLabel: "백만 대", unitStep: "차량 생산", unitNote: "검증 가능한 글로벌 신차 출하 관측값",
+      memLabel: "GB/대", memName: "차량용 DRAM+NAND", memNote: "ADAS·IVI·존아키텍처 믹스 모델",
+      shareNote: "오토향 계획 모델",
+      dramLabel: "차량 DRAM", nandLabel: "차량 NAND",
       driverLabel: "생산 방향", techLabel: "ADAS/SDV", pullLabel: "메모리 견인도", panelTitle: "완성차·Tier1 수요 풀",
       accounts: [
         { id: "tesla", name: "Tesla", region: "US", driver: "↑ 강", tech: "FSD HW5", pull: 88, note: "FSD·추론용 고용량 메모리. 차량당 DRAM 최상위 견인." },
@@ -3946,11 +3915,11 @@
     },
     {
       id: "mobile", label: "모바일·스마트폰", accent: "#8B5CF6",
-      units: 1090, unitLabel: "백만 대", unitStep: "스마트폰 출하", unitNote: "IDC 2026E · -13.9% YoY",
+      unitLabel: "백만 대", unitStep: "스마트폰 출하", unitNote: "IDC 최신 검증 출하 관측값",
       source: "IDC", sourceUrl: "https://www.idc.com/resource-center/blog/worldwide-smartphone-market-to-decline-13-9-in-2026-as-memory-crisis-and-us-iran-war-constrain-growth/",
-      memPerUnit: 9, memLabel: "GB/대", memName: "모바일 DRAM", memNote: "온디바이스 AI 믹스 기반 LPDDR 가정",
-      skhyShare: 30, shareNote: "모바일 DRAM 점유율 가정",
-      dramYoY: 8, dramLabel: "LPDDR", nandYoY: 11, nandLabel: "UFS NAND",
+      memLabel: "GB/대", memName: "모바일 DRAM", memNote: "온디바이스 AI 기반 LPDDR 믹스 모델",
+      shareNote: "모바일 DRAM 계획 모델",
+      dramLabel: "LPDDR", nandLabel: "UFS NAND",
       driverLabel: "출하 방향", techLabel: "온디바이스 AI", pullLabel: "메모리 견인도", panelTitle: "스마트폰 브랜드 수요 풀",
       accounts: [
         { id: "apple", name: "Apple", region: "US", driver: "→ 견조", tech: "Apple Intelligence", pull: 82, note: "온디바이스 AI로 기본 DRAM 8→12GB 상향 견인." },
@@ -3960,7 +3929,7 @@
         { id: "transsion", name: "Transsion", region: "CN", driver: "↑ 신흥", tech: "엔트리", pull: 46, note: "신흥시장 저용량 중심 → 견인도 낮음." },
       ],
       assume: [
-        "IDC 2026E 출하 10.9억 대(-13.9% YoY)를 기준선으로 사용",
+        "IDC의 날짜·원문이 검증된 최신 출하 관측값을 기준선으로 사용",
         "총수요 = 스마트폰 출하 × 대당 LPDDR 용량; 온디바이스 AI 상향을 반영하고 UFS NAND는 별도 성장률로 표시",
         "교체 주기 장기화·엔트리 비중 확대 시 탑재량 상향 둔화(반증)",
         "LPDDR ASP 프리미엄이 유지될 때만 믹스 전환이 수익성 개선",
@@ -3968,11 +3937,11 @@
     },
     {
       id: "pc", label: "PC", accent: "#F59E0B",
-      units: 253, unitLabel: "백만 대", unitStep: "PC 출하", unitNote: "IDC 2026E · -11.3% YoY",
+      unitLabel: "백만 대", unitStep: "PC 출하", unitNote: "IDC 최신 검증 출하 관측값",
       source: "IDC 2026 forecast", sourceUrl: "https://www.idc.com/wp-content/uploads/2026/04/IDC-Directions-AI-Supercycle-Whalen.pdf",
-      memPerUnit: 18, memLabel: "GB/대", memName: "PC DRAM", memNote: "AI PC 16GB 기본화·고용량 믹스 가정",
-      skhyShare: 28, shareNote: "PC DRAM 점유율 가정",
-      dramYoY: 7, dramLabel: "PC DRAM", nandYoY: 9, nandLabel: "클라이언트 SSD",
+      memLabel: "GB/대", memName: "PC DRAM", memNote: "AI PC 고용량 믹스 모델",
+      shareNote: "PC DRAM 계획 모델",
+      dramLabel: "PC DRAM", nandLabel: "클라이언트 SSD",
       driverLabel: "출하 방향", techLabel: "AI PC", pullLabel: "메모리 견인도", panelTitle: "PC OEM 수요 풀",
       accounts: [
         { id: "lenovo", name: "Lenovo", region: "CN", driver: "↑ 강", tech: "Copilot+ AI PC", pull: 80, note: "AI PC 전환 = 16GB 기본화, LPCAMM 채택 선도." },
@@ -3981,7 +3950,7 @@
         { id: "apple-mac", name: "Apple Mac", region: "US", driver: "→ 견조", tech: "M-series 통합메모리", pull: 72, note: "통합메모리 고용량, 자체 SoC 조달." },
       ],
       assume: [
-        "IDC 2026E PC 출하 약 2억 5,300만 대(-11.3% YoY)를 기준선으로 사용하며 가전 출하는 포함하지 않음",
+        "IDC의 날짜·원문이 검증된 최신 PC 출하 관측값을 기준선으로 사용하며 가전 출하는 포함하지 않음",
         "총수요 = PC 출하 × 대당 PC DRAM; 클라이언트 SSD는 별도 성장률로 표시",
         "AI PC 침투율과 대당 기본 용량 상향이 상방 동력",
         "PC 교체 사이클 지연 시 출하·총수요 동시 하향(반증)",
@@ -3989,11 +3958,11 @@
     },
     {
       id: "datacenter", label: "데이터센터 스토리지", accent: "#10B981",
-      units: 16.8, unitLabel: "백만 대", unitStep: "서버 출하", unitNote: "Frost & Sullivan 2026E · 전체 서버",
-      source: "Frost & Sullivan via HKEX", sourceUrl: "https://www.hkexnews.hk/listedco/listconews/sehk/2026/0312/12048944/2026031200024.pdf",
-      memPerUnit: 480, memLabel: "GB/대", memName: "서버 DRAM", memNote: "고용량 RDIMM 믹스 가정; eSSD는 별도",
-      skhyShare: 24, shareNote: "서버 DRAM/eSSD 점유율 가정",
-      dramYoY: 16, dramLabel: "서버 DRAM", nandYoY: 28, nandLabel: "eSSD NAND",
+      unitLabel: "백만 대", unitStep: "서버 출하", unitNote: "검증 가능한 전체 서버 출하 관측값",
+      source: "Frost & Sullivan via HKEX", sourceUrl: "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0320/sehk26022702191.pdf",
+      memLabel: "GB/대", memName: "서버 DRAM", memNote: "고용량 RDIMM 믹스 모델; eSSD는 별도",
+      shareNote: "서버 DRAM/eSSD 계획 모델",
+      dramLabel: "서버 DRAM", nandLabel: "eSSD NAND",
       driverLabel: "증설 방향", techLabel: "스토리지 사양", pullLabel: "메모리 견인도", panelTitle: "데이터센터·스토리지 수요 풀",
       accounts: [
         { id: "azure-st", name: "Azure Storage", region: "US", driver: "↑↑ 최상", tech: "QLC eSSD", pull: 90, note: "AI 데이터레이크·체크포인트 = eSSD 대량, 서버 DRAM 동반." },
@@ -4003,7 +3972,7 @@
         { id: "china-dc", name: "중국 클라우드 스토리지", region: "CN", driver: "↑ 국산", tech: "국산 eSSD", pull: 60, note: "수출통제로 국산 NAND 대체 압력, SKHY 직접 노출 제한." },
       ],
       assume: [
-        "전체 서버 1,680만 대는 Frost & Sullivan 2026E 기준선이며 TrendForce의 2026 출하 성장률 약 13%와 방향을 교차 확인",
+        "전체 서버 출하는 날짜·원문이 검증된 최신 관측값을 기준선으로 사용하고 보조 출처로 방향성을 교차 확인",
         "총수요 = 서버 출하 × 노드당 서버 DRAM; eSSD NAND는 별도 성장률로 표시",
         "AI 데이터 증가가 eSSD 용량을 비선형으로 견인",
         "QLC 전환·고용량 eSSD 채택이 늦으면 NAND 총수요 하향(반증)",
@@ -4013,9 +3982,27 @@
   ];
   const FORECAST_CATEGORY_ORDER = ["hyperscaler", "datacenter", "mobile", "pc", "auto"];
 
-  function quantInputValue(input, fallback) {
-    const value = Number(input && typeof input === "object" ? input.value : input);
-    return Number.isFinite(value) ? value : fallback;
+  function quantInputValue(input) {
+    const raw = input && typeof input === "object" ? input.value : input;
+    if (raw == null || String(raw).trim() === "") return null;
+    const value = Number(raw);
+    return Number.isFinite(value) ? value : null;
+  }
+
+  function quantInputReady(input, { allowModel = false } = {}) {
+    if (!Number.isFinite(quantInputValue(input))) return false;
+    const status = String(input?.status || "").toLowerCase();
+    if (status === "model") return allowModel && Boolean(String(input?.source || "").trim());
+    if (!["live-observed", "last-verified"].includes(status)) return false;
+    const exactDate = String(input?.asOf || "").match(/\b20\d{2}-\d{2}-\d{2}\b/)?.[0];
+    if (!exactDate) return false;
+    try {
+      const url = new URL(String(input?.sourceUrl || ""));
+      return ["http:", "https:"].includes(url.protocol)
+        && url.hostname !== "news.google.com";
+    } catch {
+      return false;
+    }
   }
 
   function liveForecastCategories() {
@@ -4023,18 +4010,33 @@
     return FORECAST_CATEGORIES.map((category) => {
       const live = inputs[category.id] || {};
       const unitInput = live.units;
-      const statuses = [live.units, live.memPerUnit, live.skhyShare]
+      const statuses = [live.units, live.memPerUnit, live.skhyShare, live.dramYoY, live.nandYoY]
         .map((item) => item?.status)
         .filter(Boolean);
+      const values = {
+        units: quantInputValue(live.units),
+        memPerUnit: quantInputValue(live.memPerUnit),
+        skhyShare: quantInputValue(live.skhyShare),
+        dramYoY: quantInputValue(live.dramYoY),
+        nandYoY: quantInputValue(live.nandYoY),
+      };
+      const ready = {
+        units: quantInputReady(live.units),
+        memPerUnit: quantInputReady(live.memPerUnit, { allowModel: true }),
+        skhyShare: quantInputReady(live.skhyShare, { allowModel: true }),
+        dramYoY: quantInputReady(live.dramYoY, { allowModel: true }),
+        nandYoY: quantInputReady(live.nandYoY, { allowModel: true }),
+      };
       const asOf = unitInput?.asOf || QUANT?.forecastInputs?.updatedAt?.slice?.(0, 10) || "";
       const source = unitInput?.source || category.source;
       return {
         ...category,
-        units: quantInputValue(live.units, category.units),
-        memPerUnit: quantInputValue(live.memPerUnit, category.memPerUnit),
-        skhyShare: quantInputValue(live.skhyShare, category.skhyShare),
-        dramYoY: quantInputValue(live.dramYoY, category.dramYoY),
-        nandYoY: quantInputValue(live.nandYoY, category.nandYoY),
+        ...values,
+        available: Object.values(values).every(Number.isFinite) && Object.values(ready).every(Boolean),
+        inputReadiness: ready,
+        observedInputCount: [live.units, live.memPerUnit, live.skhyShare, live.dramYoY, live.nandYoY]
+          .filter((item) => ["live-observed", "last-verified"].includes(String(item?.status || "").toLowerCase())).length,
+        modelInputCount: statuses.filter((status) => String(status).toLowerCase() === "model").length,
         source,
         sourceUrl: unitInput?.sourceUrl || category.sourceUrl,
         liveAsOf: asOf,
@@ -4046,12 +4048,20 @@
 
   function liveForecastScenarios() {
     const calibration = QUANT?.scenarioCalibration?.scenarios || {};
-    return FORECAST_SCENARIOS.map((scenario) => ({
-      ...scenario,
-      ...(calibration[scenario.id] || {}),
-      calibratedAt: QUANT?.scenarioCalibration?.updatedAt || null,
-      calibrationMethod: QUANT?.scenarioCalibration?.method || "fallback",
-    }));
+    return FORECAST_SCENARIOS.map((scenario) => {
+      const live = calibration[scenario.id] || {};
+      const available = [live.unitsMul, live.memMul, live.shareMul, live.demandMul].every((value) => Number.isFinite(Number(value)));
+      return {
+        ...scenario,
+        unitsMul: available ? Number(live.unitsMul) : null,
+        memMul: available ? Number(live.memMul) : null,
+        shareMul: available ? Number(live.shareMul) : null,
+        demandMul: available ? Number(live.demandMul) : null,
+        available,
+        calibratedAt: QUANT?.scenarioCalibration?.updatedAt || null,
+        calibrationMethod: QUANT?.scenarioCalibration?.method || "unavailable",
+      };
+    });
   }
 
   function orderedForecastCategories() {
@@ -4154,6 +4164,16 @@
 
   // Scenario-adjusted driver values for a category, nudged by live quant data.
   function forecastDrivers(category = forecastCategoryData(), scenario = forecastScenarioData(), calibration = forecastLiveCalibration(category)) {
+    if (!category?.available || !scenario?.available) {
+      return {
+        available: false,
+        missing: [
+          !category?.available ? "forecastInputs" : null,
+          !scenario?.available ? "scenarioCalibration" : null,
+        ].filter(Boolean),
+        calibration,
+      };
+    }
     const liveUnitsMul = 1 + (calibration?.unitsTiltPct || 0) / 100;
     const units = category.units * scenario.unitsMul * liveUnitsMul;
     const memPerUnit = category.memPerUnit * scenario.memMul;
@@ -4162,7 +4182,7 @@
     const skhyPb = Math.round(totalPb * skhyShare / 100);
     const dramYoY = Math.round(category.dramYoY * scenario.demandMul + (calibration?.demandTiltPt || 0));
     const nandYoY = Math.round(category.nandYoY * scenario.demandMul + (calibration?.demandTiltPt || 0));
-    return { units, memPerUnit, skhyShare, totalPb, skhyPb, dramYoY, nandYoY, calibration };
+    return { available: true, units, memPerUnit, skhyShare, totalPb, skhyPb, dramYoY, nandYoY, calibration };
   }
 
   function forecastAccountPull(account, scenario = forecastScenarioData()) {
@@ -4188,6 +4208,17 @@
     const scenario = forecastScenarioData();
     const d = forecastDrivers(category, scenario);
     const accounts = category.accounts;
+    if (!d.available) {
+      if (meta) meta.textContent = `${category.label} · 검증 가능한 정량 입력 수집 중`;
+      if (panelTitle) panelTitle.textContent = category.panelTitle;
+      if (panelMeta) panelMeta.textContent = "출처·관측일·단위 검증 후 시나리오를 표시합니다.";
+      if (logic) logic.innerHTML = `<div class="empty">필수 입력(${esc(d.missing.join(", "))})이 아직 검증되지 않아 수요량을 계산하지 않습니다.</div>`;
+      summary.innerHTML = `<div class="empty">확인되지 않은 상수로 빈 값을 대체하지 않습니다.</div>`;
+      grid.innerHTML = "";
+      if (focus) focus.innerHTML = "";
+      if (assumptions) assumptions.innerHTML = "";
+      return;
+    }
     if (meta) meta.textContent = `${category.label} · ${scenario.label} · ${fmtNum(d.units, d.units < 20 ? 1 : 0)}${category.unitLabel} × ${fmtNum(d.memPerUnit)}${category.memLabel}`;
     if (panelTitle) panelTitle.textContent = category.panelTitle;
     if (panelMeta) panelMeta.textContent = `${category.driverLabel} · ${category.techLabel} · ${category.pullLabel}`;
@@ -7867,26 +7898,25 @@
     schedule(() => speak(0), avatars.length * rosterStepMs + AGENT_DEBATE_TIMING.rosterSettleMs);
   }
 
-  // Pull a competitor's share straight from the centralized marketStructure so
-  // the map, KPI strip, and share matrix all read one source (no duplicated
-  // hardcoded % scattered per board). Falls back to the static label offline.
-  function memoryMarketLiveMetric(company, field, prefix, fallback) {
+  // Pull a competitor's share from the centralized, source-gated marketStructure.
+  // Missing evidence stays unavailable instead of falling back to a static number.
+  function memoryMarketLiveMetric(company, field, prefix) {
     const row = (QUANT?.marketStructure?.companies || [])
       .find((c) => String(c.company || "").toLowerCase() === String(company).toLowerCase());
     const raw = row && row[field];
     if (raw && raw !== "-" && raw !== "0%") return `${prefix}${raw}`;
-    return fallback;
+    return "검증값 대기";
   }
 
   function memoryMarketNodes() {
     return [
-      { id: "skhy", name: "SKHY", role: "HBM·DRAM·NAND 중심", metric: memoryMarketLiveMetric("SKHY", "hbmShare", "HBM ", "HBM 58%"), category: "hbm", x: 50, y: 45, scale: 100 },
+      { id: "skhy", name: "SKHY", role: "HBM·DRAM·NAND 중심", metric: memoryMarketLiveMetric("SKHY", "hbmShare", "HBM "), category: "hbm", x: 50, y: 45, scale: 100 },
       { id: "nvidia-ai", name: "NVIDIA·AI 고객", role: "HBM 수요·매출", metric: "AI demand", category: "aidemand", x: 55, y: 10, scale: 90 },
       { id: "tsmc", name: "TSMC", role: "HBM4 base die", metric: "CoWoS", category: "packaging", x: 22, y: 30, scale: 76 },
-      { id: "samsung", name: "Samsung", role: "HBM·DRAM 경쟁", metric: memoryMarketLiveMetric("삼성전자", "hbmShare", "HBM ", "HBM 21%"), category: "hbm", x: 15, y: 57, scale: 84 },
-      { id: "micron", name: "Micron", role: "HBM·DRAM 경쟁", metric: memoryMarketLiveMetric("마이크론", "dramShare2026", "DRAM ", "DRAM 22%"), category: "dram", x: 68, y: 58, scale: 80 },
-      { id: "cxmt", name: "CXMT", role: "중국 DRAM 가격 압력", metric: memoryMarketLiveMetric("CXMT", "dramShare2026", "DRAM ", "8% revenue · Q1 2026"), category: "dram", x: 31, y: 63, scale: 86 },
-      { id: "ymtc", name: "YMTC", role: "중국 NAND·eSSD", metric: memoryMarketLiveMetric("YMTC", "nandShare2026", "NAND ", "NAND 13%"), category: "nand", x: 84, y: 77, scale: 84 },
+      { id: "samsung", name: "Samsung", role: "HBM·DRAM 경쟁", metric: memoryMarketLiveMetric("삼성전자", "hbmShare", "HBM "), category: "hbm", x: 15, y: 57, scale: 84 },
+      { id: "micron", name: "Micron", role: "HBM·DRAM 경쟁", metric: memoryMarketLiveMetric("마이크론", "dramShare2026", "DRAM "), category: "dram", x: 68, y: 58, scale: 80 },
+      { id: "cxmt", name: "CXMT", role: "중국 DRAM 가격 압력", metric: memoryMarketLiveMetric("CXMT", "dramShare2026", "DRAM "), category: "dram", x: 31, y: 63, scale: 86 },
+      { id: "ymtc", name: "YMTC", role: "중국 NAND·eSSD", metric: memoryMarketLiveMetric("YMTC", "nandShare2026", "NAND "), category: "nand", x: 84, y: 77, scale: 84 },
       { id: "kioxia-sandisk", name: "Kioxia·SanDisk", role: "NAND peer", metric: "BiCS", category: "nand", x: 86, y: 56, scale: 70 },
       { id: "solidigm", name: "Solidigm", role: "eSSD·Dalian 방어", metric: "eSSD", category: "operations", x: 70, y: 79, scale: 70 },
       { id: "jcet-xmc", name: "JCET·XMC·TFME", role: "첨단 패키징 우회", metric: "OSAT", category: "packaging", x: 59, y: 93, scale: 70 },
@@ -9631,12 +9661,12 @@
       {
         id: "projection-server-share",
         kind: "Projection",
-        title: "5년차 AI·데이터센터 제품 믹스",
+        title: "중장기 AI·데이터센터 제품 믹스",
         value: projectionGroupShare(projectionRows, ["ai-server", "dc-storage"]),
         suffix: "%",
         decimals: 1,
         note: "AI서버·하이퍼스케일러와 데이터센터 스토리지를 합산한 지수형 믹스",
-        badge: "30M+5Y",
+        badge: "Live model",
         statusClass: "watch",
         source: "evidence-based projection",
         sourceDate: fmtDate(LIVE.updatedAt),
@@ -9645,12 +9675,12 @@
       {
         id: "projection-terminal-share",
         kind: "Projection",
-        title: "5년차 단말·오토 제품 믹스",
+        title: "중장기 단말·오토 제품 믹스",
         value: projectionGroupShare(projectionRows, ["mobile-smartphone", "pc-appliance", "auto-edge"]),
         suffix: "%",
         decimals: 1,
         note: "모바일·스마트폰, PC, 오토·엣지 제품군을 합산한 방어형 수요처",
-        badge: "30M+5Y",
+        badge: "Live model",
         statusClass: "watch",
         source: "evidence-based projection",
         sourceDate: fmtDate(LIVE.updatedAt),
@@ -10207,20 +10237,21 @@
       platformModules: [],
     };
     const companies = QUANT?.marketStructure?.companies || [];
-    if (!companies.length || !Array.isArray(matrix.shareMatrix)) return matrix;
+    if (!Array.isArray(matrix.shareMatrix)) return matrix;
     const liveByCompany = new Map(companies.map((item) => [String(item.company || "").toLowerCase(), item]));
     return {
       ...matrix,
       shareMatrix: matrix.shareMatrix.map((item) => {
         const live = liveByCompany.get(String(item.company || "").toLowerCase());
-        return live ? {
+        return {
           ...item,
-          hbmShare: live.hbmShare ?? item.hbmShare,
-          dramShare2025: live.dramShare2025 ?? item.dramShare2025,
-          dramShare2026: live.dramShare2026 ?? item.dramShare2026,
-          nandShare2026: live.nandShare2026 ?? item.nandShare2026,
-          liveAsOf: live.asOf || QUANT?.marketStructure?.updatedAt,
-        } : item;
+          hbmShare: live?.hbmShare || null,
+          dramShare2025: live?.dramShare2025 || null,
+          dramShare2026: live?.dramShare2026 || null,
+          nandShare2026: live?.nandShare2026 || null,
+          liveAsOf: live?.asOf || QUANT?.marketStructure?.updatedAt || null,
+          dataStatus: live ? "source-gated" : "unavailable",
+        };
       }),
     };
   }
@@ -13993,18 +14024,31 @@
     return copy;
   }
 
+  function projectionModelConfig() {
+    return QUANT?.projectionCalibration?.model || {};
+  }
+
   function projectionWindowData() {
+    const config = projectionModelConfig().horizon || {};
+    const startMonths = Number(config.startMonths);
+    const yearCount = Number(config.yearCount);
+    if (!Number.isInteger(startMonths) || startMonths < 0 || !Number.isInteger(yearCount) || yearCount < 2) {
+      return { available: false, anchor: null, start: null, end: null, years: [], rangeLabel: "검증값 대기", detail: "모델 기간 설정 대기", startMonths: null, yearCount: null };
+    }
     const anchor = projectionAnchorDate();
-    const start = addMonths(anchor, PROJECTION_START_MONTHS);
-    const years = Array.from({ length: PROJECTION_YEAR_COUNT }, (_, index) => String(start.getFullYear() + index));
-    const end = addMonths(start, PROJECTION_YEAR_COUNT * 12 - 1);
+    const start = addMonths(anchor, startMonths);
+    const years = Array.from({ length: yearCount }, (_, index) => String(start.getFullYear() + index));
+    const end = addMonths(start, yearCount * 12 - 1);
     return {
+      available: true,
       anchor,
       start,
       end,
       years,
       rangeLabel: `${start.getFullYear()}~${end.getFullYear()}`,
-      detail: `${start.getFullYear()}.${start.getMonth() + 1} 시작 · ${PROJECTION_YEAR_COUNT}년`,
+      detail: `${start.getFullYear()}.${start.getMonth() + 1} 시작 · ${yearCount}년`,
+      startMonths,
+      yearCount,
     };
   }
 
@@ -14062,31 +14106,55 @@
   }
 
   function productProjectionSegments() {
+    const model = projectionModelConfig();
+    const segmentModel = model.segments || {};
+    const scoring = model.segmentScoring || {};
+    const requiredScoring = ["signalCap", "signalWeight", "priceWeight", "chinaPressureCap", "chinaPenaltyWeight", "equipmentSignalCap", "storageEquipmentWeight"];
+    const scoringReady = requiredScoring.every((key) => Number.isFinite(Number(scoring[key])));
     const chinaPressure = axisSignalCount(CHINA_DYNAMIC_AXES.find((axis) => axis.id === "capacity")) + axisSignalCount(CHINA_DYNAMIC_AXES.find((axis) => axis.id === "policy"));
-    return SKHYNIX_PRODUCT_PROJECTION.map((segment) => {
+    return SKHYNIX_PRODUCT_PROJECTION.flatMap((segment) => {
+      const parameters = segmentModel[segment.id] || {};
+      const parameterKeys = ["startShare", "endShare", "baseScore", "sensitivity"];
+      if (!scoringReady || !parameterKeys.every((key) => Number.isFinite(Number(parameters[key])))) return [];
       const signals = projectionSignalCount(segment);
       const priceMomentum = projectionPriceMomentum(segment);
-      const chinaPenalty = ["mobile-smartphone", "pc-appliance"].includes(segment.id) ? Math.min(chinaPressure, 100) * .06 : 0;
-      const storageChinaWatch = segment.id === "dc-storage" ? Math.min(axisSignalCount(CHINA_DYNAMIC_AXES.find((axis) => axis.id === "equipment")), 60) * .05 : 0;
-      const score = clamp(segment.baseScore + Math.min(signals, 160) * .08 + priceMomentum * 2 - chinaPenalty + storageChinaWatch);
-      return {
+      const chinaPenalty = ["mobile-smartphone", "pc-appliance"].includes(segment.id)
+        ? Math.min(chinaPressure, Number(scoring.chinaPressureCap)) * Number(scoring.chinaPenaltyWeight)
+        : 0;
+      const storageChinaWatch = segment.id === "dc-storage"
+        ? Math.min(axisSignalCount(CHINA_DYNAMIC_AXES.find((axis) => axis.id === "equipment")), Number(scoring.equipmentSignalCap)) * Number(scoring.storageEquipmentWeight)
+        : 0;
+      const score = clamp(
+        Number(parameters.baseScore)
+          + Math.min(signals, Number(scoring.signalCap)) * Number(scoring.signalWeight)
+          + priceMomentum * Number(scoring.priceWeight)
+          - chinaPenalty
+          + storageChinaWatch,
+      );
+      return [{
         ...segment,
+        ...parameters,
         signals,
         priceRows: projectionPriceRows(segment).length,
         priceMomentum,
         score,
         links: projectionNewsLinks(segment, 4),
-      };
+      }];
     });
   }
 
   function liveProjectionScenarios() {
     const calibration = QUANT?.projectionCalibration?.scenarios || {};
-    return PROJECTION_SCENARIOS.map((scenario) => ({
-      ...scenario,
-      ...(calibration[scenario.id] || {}),
-      calibratedAt: QUANT?.projectionCalibration?.updatedAt || null,
-    }));
+    const required = ["scoreBias", "serverLift", "storageLift", "terminalLift"];
+    return PROJECTION_SCENARIOS.flatMap((scenario) => {
+      const values = calibration[scenario.id] || {};
+      if (!required.every((key) => Number.isFinite(Number(values[key])))) return [];
+      return [{
+        ...scenario,
+        ...values,
+        calibratedAt: QUANT?.projectionCalibration?.updatedAt || null,
+      }];
+    });
   }
 
   function projectionScenarioData(id = projectionScenario) {
@@ -14097,24 +14165,13 @@
   function projectionChinaPressureIndex() {
     const live = Number(QUANT?.scenarioCalibration?.drivers?.chinaPressure);
     if (Number.isFinite(live)) return clamp(live, 0, 100) / 100;
-    const capacity = axisSignalCount(CHINA_DYNAMIC_AXES.find((axis) => axis.id === "capacity"));
-    const equipment = axisSignalCount(CHINA_DYNAMIC_AXES.find((axis) => axis.id === "equipment"));
-    const policy = axisSignalCount(CHINA_DYNAMIC_AXES.find((axis) => axis.id === "policy"));
-    const chinaNews = rawNews().filter(isChinaArticle).length;
-    return clamp(capacity * .45 + equipment * .28 + policy * .18 + chinaNews * .08, 0, 100) / 100;
+    return null;
   }
 
   function projectionCaseWeight(segmentId) {
     const calibrated = QUANT?.projectionCalibration?.caseWeights?.[segmentId];
-    if (calibrated && typeof calibrated === "object") return calibrated;
-    const weights = {
-      "ai-server": { neutral: .35, best: 7.2, worst: -5.6, signal: .95, price: .42, china: -.3 },
-      "dc-storage": { neutral: .15, best: 3.9, worst: -3.1, signal: .58, price: .36, china: -.55 },
-      "mobile-smartphone": { neutral: -.16, best: -1.8, worst: 2.2, signal: .18, price: .18, china: .46 },
-      "pc-appliance": { neutral: -.28, best: -2.6, worst: 3.0, signal: .16, price: .2, china: .62 },
-      "auto-edge": { neutral: .05, best: 1.1, worst: 1.3, signal: .22, price: .14, china: .12 },
-    };
-    return weights[segmentId] || { neutral: 0, best: .5, worst: -.5, signal: .2, price: .2, china: 0 };
+    const required = ["neutral", "best", "worst", "signal", "price", "china"];
+    return calibrated && required.every((key) => Number.isFinite(Number(calibrated[key]))) ? calibrated : null;
   }
 
   function projectionScenarioLift(segment, scenario) {
@@ -14128,31 +14185,35 @@
   function projectionScenarioDelta(segment, scenario, ratio) {
     if (!segment || !scenario) return 0;
     const weight = projectionCaseWeight(segment.id);
-    const signalIndex = clamp((segment.signals || 0) / 180, 0, 1.25);
-    const priceIndex = clamp((segment.priceMomentum || 0) / 6, -1.2, 1.2);
+    const formula = projectionModelConfig().deltaFormula || {};
+    const required = ["signalDivisor", "signalMax", "priceDivisor", "priceMin", "priceMax", "modelLiftWeight"];
+    if (!weight || !required.every((key) => Number.isFinite(Number(formula[key])))) return null;
+    const signalIndex = clamp((segment.signals || 0) / Number(formula.signalDivisor), 0, Number(formula.signalMax));
+    const priceIndex = clamp((segment.priceMomentum || 0) / Number(formula.priceDivisor), Number(formula.priceMin), Number(formula.priceMax));
     const positivePrice = Math.max(priceIndex, 0);
     const negativePrice = Math.max(-priceIndex, 0);
     const chinaIndex = projectionChinaPressureIndex();
+    if (!Number.isFinite(chinaIndex)) return null;
     const chinaExposure = weight.china || 0;
-    const modelLift = projectionScenarioLift(segment, scenario) * .35;
+    const modelLift = projectionScenarioLift(segment, scenario) * Number(formula.modelLiftWeight);
     const baseCase = weight[scenario.id] || 0;
     let evidenceDelta = 0;
 
     if (scenario.id === "best") {
       evidenceDelta += signalIndex * weight.signal;
       evidenceDelta += positivePrice * weight.price;
-      evidenceDelta -= Math.max(chinaExposure, 0) * chinaIndex * .8;
-      evidenceDelta += Math.min(chinaExposure, 0) * chinaIndex * .35;
+      evidenceDelta += Math.max(chinaExposure, 0) * chinaIndex * Number(formula.best?.positiveChina || 0);
+      evidenceDelta += Math.min(chinaExposure, 0) * chinaIndex * Number(formula.best?.negativeChina || 0);
     } else if (scenario.id === "worst") {
-      evidenceDelta -= positivePrice * weight.price * .45;
-      evidenceDelta -= negativePrice * weight.price * .25;
-      evidenceDelta += Math.max(chinaExposure, 0) * chinaIndex;
-      evidenceDelta += Math.min(chinaExposure, 0) * chinaIndex * .85;
-      evidenceDelta -= signalIndex * weight.signal * .2;
+      evidenceDelta += positivePrice * weight.price * Number(formula.worst?.positivePrice || 0);
+      evidenceDelta += negativePrice * weight.price * Number(formula.worst?.negativePrice || 0);
+      evidenceDelta += Math.max(chinaExposure, 0) * chinaIndex * Number(formula.worst?.positiveChina || 0);
+      evidenceDelta += Math.min(chinaExposure, 0) * chinaIndex * Number(formula.worst?.negativeChina || 0);
+      evidenceDelta += signalIndex * weight.signal * Number(formula.worst?.signal || 0);
     } else {
-      evidenceDelta += signalIndex * weight.signal * .16;
-      evidenceDelta += priceIndex * weight.price * .28;
-      evidenceDelta += chinaExposure * chinaIndex * .28;
+      evidenceDelta += signalIndex * weight.signal * Number(formula.neutral?.signal || 0);
+      evidenceDelta += priceIndex * weight.price * Number(formula.neutral?.price || 0);
+      evidenceDelta += chinaExposure * chinaIndex * Number(formula.neutral?.china || 0);
     }
 
     return (baseCase + modelLift + evidenceDelta) * ratio;
@@ -14161,17 +14222,23 @@
   function projectionSeries(segments = productProjectionSegments(), scenarioId = projectionScenario) {
     const scenario = projectionScenarioData(scenarioId);
     const horizon = projectionWindowData();
+    const formula = projectionModelConfig().seriesFormula || {};
+    const required = ["scoreReference", "scoreWeight", "priceWeight", "minimumRawShare"];
+    if (!scenario || !horizon.available || !segments.length || !required.every((key) => Number.isFinite(Number(formula[key])))) return [];
     return horizon.years.map((year, index) => {
       const ratio = horizon.years.length <= 1 ? 0 : index / (horizon.years.length - 1);
-      const raw = segments.map((segment) => {
+      const raw = segments.flatMap((segment) => {
         const base = segment.startShare + (segment.endShare - segment.startShare) * ratio;
-        const liveBoost = (segment.score + scenario.scoreBias - 75) * segment.sensitivity * .09 * ratio;
-        const priceBoost = segment.priceMomentum * .18 * ratio;
-        return {
+        const liveBoost = (segment.score + scenario.scoreBias - Number(formula.scoreReference)) * segment.sensitivity * Number(formula.scoreWeight) * ratio;
+        const priceBoost = segment.priceMomentum * Number(formula.priceWeight) * ratio;
+        const scenarioDelta = projectionScenarioDelta(segment, scenario, ratio);
+        if (!Number.isFinite(scenarioDelta)) return [];
+        return [{
           segment,
-          raw: Math.max(1, base + liveBoost + priceBoost + projectionScenarioDelta(segment, scenario, ratio)),
-        };
+          raw: Math.max(Number(formula.minimumRawShare), base + liveBoost + priceBoost + scenarioDelta),
+        }];
       });
+      if (!raw.length) return null;
       const total = raw.reduce((sum, item) => sum + item.raw, 0) || 1;
       return {
         year,
@@ -14182,7 +14249,7 @@
           share: item.raw / total * 100,
         })),
       };
-    });
+    }).filter(Boolean);
   }
 
   function projectionScenarioSeriesMap(segments = productProjectionSegments()) {
@@ -14193,7 +14260,8 @@
   }
 
   function projectionShare(series, segmentId, point = -1) {
-    const row = series.at(point) || series[series.length - 1];
+    const rows = Array.isArray(series) ? series : [];
+    const row = rows.at(point) || rows[rows.length - 1];
     const found = row?.items?.find((item) => item.segment.id === segmentId);
     return found ? found.share : 0;
   }
@@ -14203,6 +14271,7 @@
   }
 
   function projectionSegmentPayload(segment, series, scenario = projectionScenarioData()) {
+    const horizon = projectionWindowData();
     const start = projectionShare(series, segment.id, 0);
     const end = projectionShare(series, segment.id, -1);
     return {
@@ -14216,8 +14285,8 @@
       tags: segment.products || [],
       links: segment.links || [],
       metrics: [
-        { label: "T+30M 모델", value: `${fmtNum(start, 1)}%` },
-        { label: "5Y 모델", value: `${fmtNum(end, 1)}%` },
+        { label: `T+${horizon.startMonths}M 모델`, value: `${fmtNum(start, 1)}%` },
+        { label: `${horizon.yearCount}Y 모델`, value: `${fmtNum(end, 1)}%` },
         { label: "Case", value: scenario.label },
         { label: "실제 신호", value: fmtNum(segment.signals) },
         { label: "근거지수", value: fmtNum(segment.score) },
@@ -14226,17 +14295,42 @@
   }
 
   function projectionDriverCards(segments, series, scenario = projectionScenarioData()) {
-    const serverScore = (segments.find((item) => item.id === "ai-server")?.score || 0) * .58 + (segments.find((item) => item.id === "dc-storage")?.score || 0) * .42;
-    const terminalScore = (segments.find((item) => item.id === "mobile-smartphone")?.score || 0) * .42
-      + (segments.find((item) => item.id === "pc-appliance")?.score || 0) * .34
-      + (segments.find((item) => item.id === "auto-edge")?.score || 0) * .24;
+    const config = projectionModelConfig().driverCards || {};
+    const serverWeights = config.serverWeights || {};
+    const terminalWeights = config.terminalWeights || {};
+    const required = [
+      config.scenarioReference,
+      config.scenarioBiasWeight,
+      config.chinaSignalWeight,
+      config.chinaScoreMin,
+      config.nandReference,
+      config.nandPriceWeight,
+      config.nandSignalWeight,
+      serverWeights["ai-server"],
+      serverWeights["dc-storage"],
+      terminalWeights["mobile-smartphone"],
+      terminalWeights["pc-appliance"],
+      terminalWeights["auto-edge"],
+      scenario?.scoreBias,
+    ];
+    if (!Array.isArray(segments) || !segments.length || !Array.isArray(series) || !series.length || !scenario || !required.every((value) => Number.isFinite(Number(value)))) {
+      return [];
+    }
+    const segmentScore = (id) => Number(segments.find((item) => item.id === id)?.score);
+    const weightedScore = (weights) => Object.entries(weights).reduce((sum, [id, weight]) => {
+      const score = segmentScore(id);
+      return Number.isFinite(score) ? sum + score * Number(weight) : sum;
+    }, 0);
+    const serverScore = weightedScore(serverWeights);
+    const terminalScore = weightedScore(terminalWeights);
     const chinaSignals = axisSignalCount(CHINA_DYNAMIC_AXES.find((axis) => axis.id === "capacity")) + axisSignalCount(CHINA_DYNAMIC_AXES.find((axis) => axis.id === "equipment")) + rawNews().filter(isChinaArticle).length;
-    const nandMomentum = projectionPriceMomentum(segments.find((item) => item.id === "dc-storage") || {});
+    const storageSegment = segments.find((item) => item.id === "dc-storage");
+    const nandMomentum = projectionPriceMomentum(storageSegment || {});
     return [
       {
         label: "선택 시나리오",
         value: scenario.label,
-        score: clamp(70 + (scenario.id === "best" ? 16 : scenario.id === "worst" ? -12 : 0)),
+        score: clamp(Number(config.scenarioReference) + Number(scenario.scoreBias) * Number(config.scenarioBiasWeight)),
         note: scenario.tone,
       },
       {
@@ -14257,7 +14351,7 @@
         label: "중국 가격 압력",
         value: chinaSignals,
         suffix: "건",
-        score: clamp(chinaSignals * 1.15, 20, 100),
+        score: clamp(chinaSignals * Number(config.chinaSignalWeight), Number(config.chinaScoreMin), 100),
         note: "CXMT·YMTC 캐파, 장비 국산화, 정책자본 신호를 반영",
       },
       {
@@ -14265,7 +14359,7 @@
         value: nandMomentum,
         suffix: "%",
         decimals: 2,
-        score: clamp(58 + nandMomentum * 8 + (segments.find((item) => item.id === "dc-storage")?.signals || 0) * .22),
+        score: clamp(Number(config.nandReference) + nandMomentum * Number(config.nandPriceWeight) + Number(storageSegment?.signals || 0) * Number(config.nandSignalWeight)),
         note: "TrendForce NAND/SSD 가격 데이터와 eSSD 기사 신호 기반",
       },
     ];
@@ -14306,7 +14400,7 @@
       return `<path d="${d}" fill="none" stroke="${l.color}" stroke-width="2.2" stroke-linejoin="round" stroke-linecap="round"/>${dots}`;
     }).join("");
     const legend = lines.map((l) => `<span><i style="background:${l.color}"></i>${l.label}</span>`).join("");
-    return `<div class="proj-line-wrap"><div class="proj-line-head"><span class="proj-line-title">${escapeHTML(selected.title || selected.short || "제품군")} · 점유율 궤적 T+30M→5Y</span><span class="proj-line-legend">${legend}</span></div><svg viewBox="0 0 ${W} ${H}" class="proj-line-chart" preserveAspectRatio="none" role="img" aria-label="제품군 점유율 3-case 궤적">${grid}${xlabels}${paths}</svg></div>`;
+    return `<div class="proj-line-wrap"><div class="proj-line-head"><span class="proj-line-title">${escapeHTML(selected.title || selected.short || "제품군")} · 점유율 궤적 T+${horizon.startMonths}M→${horizon.yearCount}Y</span><span class="proj-line-legend">${legend}</span></div><svg viewBox="0 0 ${W} ${H}" class="proj-line-chart" preserveAspectRatio="none" role="img" aria-label="제품군 점유율 3-case 궤적">${grid}${xlabels}${paths}</svg></div>`;
   }
 
   function renderProductProjection() {
@@ -14323,9 +14417,36 @@
 
     const horizon = projectionWindowData();
     const segments = productProjectionSegments();
+    const scenarios = liveProjectionScenarios();
     const scenario = projectionScenarioData();
+    if (!horizon.available || !segments.length || !scenario || !scenarios.length) {
+      summary.innerHTML = `
+        <article class="projection-stat projection-unavailable">
+          <span>정량 모델</span>
+          <strong>검증값 대기</strong>
+          <small>출처·기준일·모델 버전이 모두 확인된 입력만 표시합니다.</small>
+        </article>
+      `;
+      [stack, tabs, scenarioTabs, scenarioChart, focus, drivers].forEach((node) => { node.innerHTML = ""; });
+      if (meta) meta.textContent = "정량 모델 입력 검증 중";
+      if (windowNode) windowNode.textContent = horizon.detail || "모델 기간 설정 대기";
+      return;
+    }
     const scenarioMap = projectionScenarioSeriesMap(segments);
     const series = scenarioMap[scenario.id] || projectionSeries(segments, scenario.id);
+    if (!series.length) {
+      summary.innerHTML = `
+        <article class="projection-stat projection-unavailable">
+          <span>시나리오 산출</span>
+          <strong>검증값 대기</strong>
+          <small>필수 가격·뉴스·중국 압력 입력이 확인되면 자동 계산됩니다.</small>
+        </article>
+      `;
+      [stack, tabs, scenarioTabs, scenarioChart, focus, drivers].forEach((node) => { node.innerHTML = ""; });
+      if (meta) meta.textContent = "시나리오 입력 검증 중";
+      if (windowNode) windowNode.textContent = `${horizon.rangeLabel} · 현재 수집일 +${horizon.startMonths}개월부터`;
+      return;
+    }
     if (!segments.some((item) => item.id === projectionFocusId)) projectionFocusId = segments[0]?.id || "ai-server";
     const selected = segments.find((item) => item.id === projectionFocusId) || segments[0];
     const serverShare = projectionGroupShare(series, ["ai-server", "dc-storage"]);
@@ -14335,7 +14456,7 @@
     const totalSignals = segments.reduce((sum, segment) => sum + segment.signals, 0);
 
     if (meta) meta.textContent = `${scenario.label} case · 모델 산출 · ${horizon.detail} · ${fmtNum(totalSignals)}개 신호 · ${fmtDate(LIVE.updatedAt)}`;
-    if (windowNode) windowNode.textContent = `${horizon.rangeLabel} · 현재 수집일 +${PROJECTION_START_MONTHS}개월부터`;
+    if (windowNode) windowNode.textContent = `${horizon.rangeLabel} · 현재 수집일 +${horizon.startMonths}개월부터`;
 
     const liveInputBits = [`신호 ${fmtNum(totalSignals)}개`, `중국압력지수 ${fmtNum(projectionChinaPressureIndex() * 100, 0)}/100`];
     const qm = QUANT?.memoryMomentum || {};
@@ -14345,7 +14466,7 @@
       { label: "선택 케이스", value: scenario.label, note: scenario.tone },
       { label: "AI·데이터센터 믹스", value: serverShare, note: "모델 산출 · AI서버·하이퍼스케일러 + 데이터센터 스토리지", suffix: "%", decimals: 1 },
       { label: "단말·오토 믹스", value: terminalShare, note: "모델 산출 · 모바일 + PC + 오토/엣지", suffix: "%", decimals: 1 },
-      { label: "AI·데이터센터 3-case 범위", value: `${fmtNum(worstServerShare, 1)}~${fmtNum(bestServerShare, 1)}%`, note: "Worst~Best 5Y 민감도 · 실측 아님" },
+      { label: "AI·데이터센터 3-case 범위", value: `${fmtNum(worstServerShare, 1)}~${fmtNum(bestServerShare, 1)}%`, note: `Worst~Best ${horizon.yearCount}Y 민감도 · 실측 아님` },
       { label: "라이브 입력", value: "매일 재계산", note: liveInputBits.join(" · ") },
     ];
     summary.innerHTML = summaryCards.map((card) => `
@@ -14356,19 +14477,19 @@
       </article>
     `).join("");
 
-    scenarioTabs.innerHTML = liveProjectionScenarios().map((item) => {
+    scenarioTabs.innerHTML = scenarios.map((item) => {
       const itemSeries = scenarioMap[item.id] || series;
       const selectedShare = selected ? projectionShare(itemSeries, selected.id, -1) : 0;
       return `
         <button class="projection-scenario-tab reveal${item.id === scenario.id ? " active" : ""}" type="button" data-projection-scenario="${escapeHTML(item.id)}">
           <span>${escapeHTML(item.label)}</span>
           <strong>${escapeHTML(item.sub)}</strong>
-          <em>${selected ? escapeHTML(selected.short) : "Product"} 5Y 모델 ${fmtNum(selectedShare, 1)}%</em>
+          <em>${selected ? escapeHTML(selected.short) : "Product"} ${horizon.yearCount}Y 모델 ${fmtNum(selectedShare, 1)}%</em>
         </button>
       `;
     }).join("");
 
-    scenarioChart.innerHTML = projectionTrajectorySVG(scenarioMap, selected, horizon) + liveProjectionScenarios().map((item, index) => {
+    scenarioChart.innerHTML = projectionTrajectorySVG(scenarioMap, selected, horizon) + scenarios.map((item, index) => {
       const itemSeries = scenarioMap[item.id] || series;
       const itemServer = projectionGroupShare(itemSeries, ["ai-server", "dc-storage"]);
       const itemTerminal = projectionGroupShare(itemSeries, ["mobile-smartphone", "pc-appliance", "auto-edge"]);
@@ -14405,7 +14526,7 @@
       <article class="projection-year reveal" style="animation-delay:${rowIndex * 30}ms">
         <div class="projection-year-head">
           <strong>${escapeHTML(row.year)}</strong>
-          <span>${rowIndex === 0 ? "T+30M" : `Y+${rowIndex}`}</span>
+          <span>${rowIndex === 0 ? `T+${horizon.startMonths}M` : `Y+${rowIndex}`}</span>
         </div>
         <div class="projection-bar" aria-label="${escapeHTML(row.year)} 제품군 믹스">
           ${row.items.map((item) => `
@@ -14434,7 +14555,7 @@
           <span>
           <small>${escapeHTML(segment.demand)} · 근거지수</small>
           <strong>${escapeHTML(segment.label)}</strong>
-          <em>5Y 모델 ${fmtNum(endShare, 1)}% · 실제 신호 ${fmtNum(segment.signals)}건</em>
+          <em>${horizon.yearCount}Y 모델 ${fmtNum(endShare, 1)}% · 실제 신호 ${fmtNum(segment.signals)}건</em>
           </span>
         </button>
       `;
@@ -14452,8 +14573,8 @@
           <p>${escapeHTML(selected.thesis)}</p>
         </div>
         <div class="metric-row">
-          <div class="metric"><strong>${fmtNum(startShare, 1)}%</strong><span>T+30개월 모델</span></div>
-          <div class="metric"><strong>${fmtNum(endShare, 1)}%</strong><span>5년차 모델</span></div>
+          <div class="metric"><strong>${fmtNum(startShare, 1)}%</strong><span>T+${horizon.startMonths}개월 모델</span></div>
+          <div class="metric"><strong>${fmtNum(endShare, 1)}%</strong><span>${horizon.yearCount}년차 모델</span></div>
           <div class="metric"><strong>${fmtNum(selected.signals)}</strong><span>실제 신호 건수</span></div>
         </div>
         <div class="projection-focus-block">
@@ -15371,6 +15492,7 @@
     }
 
     if (mode === "projection") {
+      const horizon = projectionWindowData();
       const segments = productProjectionSegments();
       const series = projectionSeries(segments);
       items = segments.map((segment) => {
@@ -15387,8 +15509,8 @@
           categories: segment.linkedCategories || [],
           watch: (segment.triggers || []).concat(segment.actions || []),
           metrics: [
-            { label: "T+30M", value: `${fmtNum(startShare, 1)}%` },
-            { label: "5Y", value: `${fmtNum(endShare, 1)}%` },
+            { label: `T+${horizon.startMonths}M`, value: `${fmtNum(startShare, 1)}%` },
+            { label: `${horizon.yearCount}Y`, value: `${fmtNum(endShare, 1)}%` },
             { label: "Signal", value: fmtNum(segment.signals) },
           ],
           tags: segment.products || [],

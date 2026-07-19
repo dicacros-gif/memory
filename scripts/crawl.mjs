@@ -19,6 +19,7 @@ const CRAWL_EXCLUSIONS_OUT = resolve(__dirname, "..", "data", "crawl-exclusions.
 const CRAWL_AUDIT_OUT = resolve(__dirname, "..", "data", "crawl-audit.json");
 const CRAWL_QUARANTINE_OUT = resolve(__dirname, "..", "data", "crawl-quarantine.json");
 const QUANT_OUT = resolve(__dirname, "..", "data", "quant.json");
+const QUANT_MODEL_IN = resolve(__dirname, "..", "data", "quant-model.json");
 const BASELINE_IN = resolve(__dirname, "..", "data", "baseline.json");
 const LIVE_SCHEMA_VERSION = "4.0";
 const EVIDENCE_METHODOLOGY_VERSION = "4.0-source-provenance";
@@ -4102,16 +4103,18 @@ async function loadPreviousData() {
       return fallback;
     }
   };
-  const [previous, quant, baseline] = await Promise.all([
+  const [previous, quant, baseline, quantModel] = await Promise.all([
     readJson(OUT, {}),
     readJson(QUANT_OUT, {}),
     readJson(BASELINE_IN, {}),
+    readJson(QUANT_MODEL_IN, {}),
   ]);
   return {
     news: Array.isArray(previous.news) ? previous.news : [],
     communityItems: Array.isArray(previous.communitySignals?.items) ? previous.communitySignals.items : [],
     quant: quant && typeof quant === "object" ? quant : {},
     baseline: baseline && typeof baseline === "object" ? baseline : {},
+    quantModel: quantModel && typeof quantModel === "object" ? quantModel : {},
   };
 }
 
@@ -4127,15 +4130,35 @@ const FACT_EVENT_DEFINITIONS = [
         id: "final-base-offering",
         label: "발행가·기본 공모액 확정",
         rank: 30,
-        match: /(?:20260716_10825660|57\.9\s*billion|579억|8\.66\s*yuan)/i,
-        metrics: { baseOfferingCnyB: 57.9, offerPriceCny: 8.66, greenshoe: "15% conditional" },
+        sourceMatch: /(?:20260716_10825660|sets-shanghai-ipo-price)/i,
+        match: /(?:sets shanghai ipo price|offer price|base offering|기본 공모액|발행가)/i,
+        metricRules: {
+          baseOfferingCnyB: [
+            { match: /(\d+(?:\.\d+)?)\s*billion\s*yuan/i },
+            { match: /(\d+(?:\.\d+)?)\s*억\s*위안/i, scale: 0.1 },
+          ],
+          offerPriceCny: [
+            { match: /(?:offer price(?: at)?|발행가(?:는)?)\s*(?:of\s*)?(\d+(?:\.\d+)?)\s*(?:yuan|위안)/i },
+          ],
+          greenshoePct: [
+            { match: /(\d+(?:\.\d+)?)\s*percent\s*(?:overallotment|greenshoe)/i },
+            { match: /(?:overallotment|greenshoe)[^\d]{0,30}(\d+(?:\.\d+)?)\s*percent/i },
+            { match: /(\d+(?:\.\d+)?)\s*%[^.]{0,30}(?:초과배정|greenshoe)/i },
+          ],
+        },
       },
       {
         id: "registration-plan",
         label: "상장 등록·투자 프로젝트 계획",
         rank: 10,
-        match: /(?:20260615_10821916|29\.5\s*billion|295억|4\.3\s*billion|4\.33\s*billion)/i,
-        metrics: { investmentPlanCnyB: 29.5 },
+        sourceMatch: /(?:20260615_10821916|greenlights-ipo-registration)/i,
+        match: /(?:ipo registration|plans? to raise|investment plan|투자 프로젝트 계획|상장 등록)/i,
+        metricRules: {
+          investmentPlanCnyB: [
+            { match: /(\d+(?:\.\d+)?)\s*billion\s*yuan/i },
+            { match: /(\d+(?:\.\d+)?)\s*억\s*위안/i, scale: 0.1 },
+          ],
+        },
       },
     ],
   },
@@ -4150,15 +4173,25 @@ const FACT_EVENT_DEFINITIONS = [
         id: "final-prospectus",
         label: "최종 투자설명서·공모가 확정",
         rank: 30,
-        match: /(?:d32785d424b4|177\.9\s*million|149(?:\.00)?\s*per ads|주당 149달러)/i,
-        metrics: { adsM: 177.9, offerPriceUsd: 149, grossProceedsUsdB: 26.5071 },
+        sourceMatch: /d32785d424b4/i,
+        match: /(?:final prospectus|american depositary shares?|per ads|최종 투자설명서)/i,
+        metricRules: {
+          adsM: [
+            { match: /(\d+(?:\.\d+)?)\s*million\s*(?:american depositary shares?|ads)/i },
+            { match: /(\d+(?:\.\d+)?)\s*백만\s*(?:ads|주)/i },
+          ],
+          offerPriceUsd: [
+            { match: /(?:\$|usd\s*)(\d+(?:\.\d+)?)\s*(?:per\s*ads|per\s*share)/i },
+            { match: /(?:주당|ads당)\s*(\d+(?:\.\d+)?)\s*달러/i },
+          ],
+        },
       },
       {
         id: "registration",
         label: "ADS 등록",
         rank: 10,
         match: /(?:form f-6|registration|등록)/i,
-        metrics: {},
+        metricRules: {},
       },
     ],
   },
@@ -4174,14 +4207,14 @@ const FACT_EVENT_DEFINITIONS = [
         label: "VEU 특례 종료·개별 라이선스 전환",
         rank: 20,
         match: /(?:closes-export-controls-loophole|90fr-42321|revok|특례 종료|license-free treatment)/i,
-        metrics: { existingOperations: "license intended", expansionOrUpgrade: "license not intended" },
+        metricRules: {},
       },
       {
         id: "veu-general-authorization",
         label: "VEU 일반승인",
         rank: 10,
         match: /(?:2023\.10\.13|general authorization|일반승인)/i,
-        metrics: {},
+        metricRules: {},
       },
     ],
   },
@@ -4197,14 +4230,25 @@ const FACT_EVENT_DEFINITIONS = [
         label: "16개 SCA 확인",
         rank: 20,
         match: /(?:sixteen|16개)/i,
-        metrics: { agreements: 16 },
+        metricRules: {
+          agreements: [
+            { match: /(\d+)\s*(?:key\s*)?(?:strategic\s*)?customers?/i },
+            { match: /(?:agreements? with|expanded to)\s*(\d+)\s*customers?/i },
+            { match: /(\d+)\s*개[^.]{0,40}(?:strategic\s*)?customer agreements?/i },
+          ],
+        },
       },
       {
         id: "first-five-year-sca",
         label: "첫 5년 SCA 체결",
         rank: 10,
         match: /(?:first five-year|첫 5년)/i,
-        metrics: { termYears: 5 },
+        metricRules: {
+          termYears: [
+            { match: /(\d+)[-\s]*year\s*(?:strategic\s*)?customer agreement/i },
+            { match: /(\d+)년(?:짜리|간)?\s*(?:전략적\s*)?고객계약/i },
+          ],
+        },
       },
     ],
   },
@@ -4220,14 +4264,27 @@ const FACT_EVENT_DEFINITIONS = [
         label: "Spring 2026 전망",
         rank: 20,
         match: /(?:spring 2026|1\.5\s*trillion|1\.51t|1\.5조)/i,
-        metrics: { semiconductorMarketUsdT: 1.51, memoryMarketUsdB: "800+" },
+        metricRules: {
+          semiconductorMarketUsdT: [
+            { match: /(?:semiconductor market|market)[^\d$]{0,80}(?:usd\s*|\$)(\d+(?:\.\d+)?)\s*trillion/i },
+            { match: /(?:usd\s*|\$)(\d+(?:\.\d+)?)\s*trillion[^.]{0,80}(?:semiconductor|market)/i },
+          ],
+          memoryMarketUsdB: [
+            { match: /memory[^.]{0,100}(?:usd\s*|\$)(\d+(?:\.\d+)?)\s*billion/i },
+            { match: /(?:usd\s*|\$)(\d+(?:\.\d+)?)\s*billion[^.]{0,80}memory/i },
+          ],
+        },
       },
       {
         id: "autumn-2025",
         label: "Autumn 2025 전망",
         rank: 10,
         match: /(?:autumn 2025|975\.46|975\s*billion)/i,
-        metrics: { semiconductorMarketUsdB: 975.46 },
+        metricRules: {
+          semiconductorMarketUsdB: [
+            { match: /(?:usd\s*|\$)(\d+(?:\.\d+)?)\s*billion/i },
+          ],
+        },
       },
     ],
   },
@@ -4243,7 +4300,16 @@ const FACT_EVENT_DEFINITIONS = [
         label: "2026년 5월 개정",
         rank: 20,
         match: /(?:20260529-13068|889\.3|8,893억|1\.28\s*trillion|1\.28조)/i,
-        metrics: { market2026UsdB: 889.3, market2027UsdT: "1.28+" },
+        metricRules: {
+          market2026UsdB: [
+            { match: /2026[^.]{0,120}(?:usd\s*|\$)(\d+(?:\.\d+)?)\s*billion/i },
+            { match: /(?:usd\s*|\$)(\d+(?:\.\d+)?)\s*billion[^.]{0,120}2026/i },
+          ],
+          market2027UsdT: [
+            { match: /2027[^\n]{0,160}?(?:usd\s*|\$)(\d+(?:\.\d+)?)\s*trillion/i },
+            { match: /(?:usd\s*|\$)(\d+(?:\.\d+)?)\s*trillion[^\n]{0,160}?2027/i },
+          ],
+        },
       },
     ],
   },
@@ -4441,6 +4507,30 @@ function factEventText(item = {}) {
   return `${item.id || ""} ${item.title || ""} ${item.titleKo || ""} ${item.summaryOriginal || ""} ${item.summary || ""} ${directNewsUrl(item)}`;
 }
 
+function factStageText(item = {}) {
+  return `${item.id || ""} ${item.title || ""} ${item.originalTitle || ""} ${item.titleKo || ""} ${directNewsUrl(item)}`;
+}
+
+function extractStageMetrics(text = "", metricRules = {}) {
+  const metrics = {};
+  for (const [key, rules] of Object.entries(metricRules || {})) {
+    for (const rule of rules || []) {
+      const match = String(text).match(rule.match);
+      if (!match) continue;
+      const rawValue = Number(String(match[1] || "").replace(/,/g, ""));
+      if (!Number.isFinite(rawValue)) continue;
+      const scale = Number.isFinite(Number(rule.scale)) ? Number(rule.scale) : 1;
+      const precision = Number.isInteger(rule.precision) ? rule.precision : 4;
+      metrics[key] = Number((rawValue * scale).toFixed(precision));
+      break;
+    }
+  }
+  if (Number.isFinite(metrics.adsM) && Number.isFinite(metrics.offerPriceUsd)) {
+    metrics.grossProceedsUsdB = Number(((metrics.adsM * metrics.offerPriceUsd) / 1000).toFixed(4));
+  }
+  return metrics;
+}
+
 function factSourcePriority(sourceClass = "") {
   return sourceClass === "official" ? 4 : sourceClass === "research" ? 3 : sourceClass === "authoritative-media" ? 2 : 1;
 }
@@ -4451,7 +4541,10 @@ function buildFactTimeline(news = [], generatedAt = new Date().toISOString()) {
     for (const item of news) {
       const text = factEventText(item);
       if (!definition.match.test(text)) continue;
-      const stage = definition.stages.find((candidate) => candidate.match.test(text));
+      const stageText = factStageText(item);
+      const stage = definition.stages.find((candidate) => candidate.sourceMatch?.test(stageText))
+        || definition.stages.find((candidate) => candidate.match.test(stageText))
+        || definition.stages.find((candidate) => candidate.match.test(text));
       if (!stage) continue;
       const sourceClass = item.verification?.sourceClass || newsSourceClass(item);
       if (!['official', 'research', 'authoritative-media'].includes(sourceClass)) continue;
@@ -4459,7 +4552,7 @@ function buildFactTimeline(news = [], generatedAt = new Date().toISOString()) {
         stageId: stage.id,
         stageLabel: stage.label,
         stageRank: stage.rank,
-        metrics: stage.metrics,
+        metrics: extractStageMetrics(text, stage.metricRules),
         title: intelligenceTitle(item),
         summary: compactArticleSummary(item),
         source: item.source || "Unknown",
@@ -4860,9 +4953,12 @@ function buildQualityReport(payload = {}) {
     && ["official", "research", "authoritative-media"].includes(String(event.current?.sourceClass || ""))
   ));
   const cxmtOffering = factEvents.find((event) => event.id === "cxmt-ipo-offering");
+  const cxmtBaseOffering = Number(cxmtOffering?.current?.metrics?.baseOfferingCnyB);
   const cxmtOfferingResolved = Boolean(
     cxmtOffering?.current?.stageId === "final-base-offering"
-    && Number(cxmtOffering.current.metrics?.baseOfferingCnyB) === 57.9
+    && Number.isFinite(cxmtBaseOffering)
+    && cxmtBaseOffering > 0
+    && /^https?:\/\//i.test(String(cxmtOffering.current.sourceUrl || ""))
   );
   const validBriefs = briefs.filter((brief) => (
     /^https?:\/\//i.test(String(brief.latest?.url || ""))
@@ -5197,108 +5293,291 @@ function quantMetric(value, { asOf = null, source = "Model seed", sourceUrl = nu
   return { value, asOf, source, sourceUrl, status };
 }
 
-function defaultForecastInputs() {
+function defaultForecastInputs(model = {}) {
+  const configured = model.forecastInputs || {};
   return {
-    version: "1.0",
-    categories: {
-      hyperscaler: {
-        units: quantMetric(6.5, { asOf: "2026", source: "Presenc AI GPU Shipment Tracker", sourceUrl: "https://presenc.ai/research/gpu-shipment-tracker-blackwell-rubin-2026" }),
-        memPerUnit: quantMetric(210, { asOf: "2026", source: "Product-mix model", status: "model" }),
-        skhyShare: quantMetric(55, { asOf: "2026-Q1", source: "Planning assumption", status: "model" }),
-        dramYoY: quantMetric(15, { asOf: "2026", source: "Planning assumption", status: "model" }),
-        nandYoY: quantMetric(18, { asOf: "2026", source: "Planning assumption", status: "model" }),
-      },
-      auto: {
-        units: quantMetric(93, { asOf: "2026", source: "Global vehicle production outlook", status: "reported" }),
-        memPerUnit: quantMetric(6, { asOf: "2026", source: "ADAS/IVI mix model", status: "model" }),
-        skhyShare: quantMetric(26, { asOf: "2026", source: "Planning assumption", status: "model" }),
-        dramYoY: quantMetric(12, { asOf: "2026", source: "Planning assumption", status: "model" }),
-        nandYoY: quantMetric(22, { asOf: "2026", source: "Planning assumption", status: "model" }),
-      },
-      mobile: {
-        units: quantMetric(1090, { asOf: "2026", source: "IDC", sourceUrl: "https://www.idc.com/resource-center/blog/worldwide-smartphone-market-to-decline-13-9-in-2026-as-memory-crisis-and-us-iran-war-constrain-growth/", status: "reported" }),
-        memPerUnit: quantMetric(9, { asOf: "2026", source: "LPDDR mix model", status: "model" }),
-        skhyShare: quantMetric(30, { asOf: "2026", source: "Planning assumption", status: "model" }),
-        dramYoY: quantMetric(8, { asOf: "2026", source: "Planning assumption", status: "model" }),
-        nandYoY: quantMetric(11, { asOf: "2026", source: "Planning assumption", status: "model" }),
-      },
-      pc: {
-        units: quantMetric(253, { asOf: "2026", source: "IDC", sourceUrl: "https://www.idc.com/wp-content/uploads/2026/04/IDC-Directions-AI-Supercycle-Whalen.pdf", status: "reported" }),
-        memPerUnit: quantMetric(18, { asOf: "2026", source: "AI PC mix model", status: "model" }),
-        skhyShare: quantMetric(28, { asOf: "2026", source: "Planning assumption", status: "model" }),
-        dramYoY: quantMetric(7, { asOf: "2026", source: "Planning assumption", status: "model" }),
-        nandYoY: quantMetric(9, { asOf: "2026", source: "Planning assumption", status: "model" }),
-      },
-      datacenter: {
-        units: quantMetric(16.8, { asOf: "2026", source: "Frost & Sullivan via HKEX", sourceUrl: "https://www.hkexnews.hk/listedco/listconews/sehk/2026/0312/12048944/2026031200024.pdf", status: "reported" }),
-        memPerUnit: quantMetric(480, { asOf: "2026", source: "Server RDIMM mix model", status: "model" }),
-        skhyShare: quantMetric(24, { asOf: "2026", source: "Planning assumption", status: "model" }),
-        dramYoY: quantMetric(16, { asOf: "2026", source: "Planning assumption", status: "model" }),
-        nandYoY: quantMetric(28, { asOf: "2026", source: "Planning assumption", status: "model" }),
-      },
-    },
+    version: configured.version || "2.0",
+    categories: structuredClone(configured.categories || {}),
+    modelUpdatedAt: model.updatedAt || null,
+    methodology: model.methodology || null,
   };
 }
 
-function defaultProjectionExposure() {
-  return {
-    "ai-server": { neutral: .35, best: 7.2, worst: -5.6, signal: .95, price: .42, china: -.3 },
-    "dc-storage": { neutral: .15, best: 3.9, worst: -3.1, signal: .58, price: .36, china: -.55 },
-    "mobile-smartphone": { neutral: -.16, best: -1.8, worst: 2.2, signal: .18, price: .18, china: .46 },
-    "pc-appliance": { neutral: -.28, best: -2.6, worst: 3.0, signal: .16, price: .2, china: .62 },
-    "auto-edge": { neutral: .05, best: 1.1, worst: 1.3, signal: .22, price: .14, china: .12 },
-  };
+function defaultProjectionExposure(model = {}) {
+  return structuredClone(model.projectionModel?.caseWeights || {});
 }
 
-function mergeForecastInputs(previous = {}) {
-  const seed = defaultForecastInputs();
+function mergeForecastInputs(previous = {}, model = {}) {
+  const seed = defaultForecastInputs(model);
   const categories = {};
   for (const [id, values] of Object.entries(seed.categories)) {
-    categories[id] = { ...values, ...(previous.categories?.[id] || {}) };
+    categories[id] = {};
+    for (const [field, configured] of Object.entries(values || {})) {
+      const prior = previous.categories?.[id]?.[field];
+      const priorDate = String(prior?.asOf || "").match(/\b20\d{2}-\d{2}-\d{2}\b/)?.[0] || null;
+      const configuredDate = String(configured?.asOf || "").match(/\b20\d{2}-\d{2}-\d{2}\b/)?.[0] || null;
+      const priorIsValidObservation = prior?.status === "live-observed"
+        && Boolean(priorDate)
+        && validHttpUrl(prior?.sourceUrl)
+        && Number.isFinite(Number(prior?.value));
+      const priorIsNewer = priorIsValidObservation
+        && (!configuredDate || String(priorDate).localeCompare(configuredDate) >= 0);
+      categories[id][field] = priorIsNewer ? prior : configured;
+    }
   }
-  return { ...seed, ...previous, categories };
+  return {
+    ...seed,
+    categories,
+    updatedAt: previous.updatedAt || null,
+    acceptedObservations: [],
+  };
 }
 
 function evidenceText(item = {}) {
-  return [item.title, item.koTitle, item.summary, item.koSummary, item.description, item.note]
+  return [
+    item.originalTitle,
+    item.title,
+    item.titleKo,
+    item.koTitle,
+    item.summaryOriginal,
+    item.summary,
+    item.koSummary,
+    item.description,
+    item.note,
+  ]
     .filter(Boolean).join(" ");
 }
 
-function directEvidenceItems(context = {}) {
-  const pools = [
-    ...(context.news || []),
-    ...(context.communitySignals?.items || []),
-    ...(context.benchmarkSignals?.stream || []),
-    ...(context.brokerResearch?.items || []),
-    ...((context.facts?.events || []).map((event) => event.current)),
-  ];
-  return pools.filter((item) => item && (item.sourceUrl || item.url || item.link));
+function validHttpUrl(value = "") {
+  try {
+    const url = new URL(String(value));
+    return ["http:", "https:"].includes(url.protocol) && url.hostname !== "news.google.com";
+  } catch {
+    return false;
+  }
 }
 
-function refreshForecastInputs(previous = {}, context = {}) {
-  const output = mergeForecastInputs(previous);
-  const evidence = directEvidenceItems(context);
-  const rules = [
-    { category: "hyperscaler", field: "units", match: /(?:accelerator|gpu|가속기).{0,80}(?:shipment|출하)/i, parse: /(?:6\.5|6,?500,?000)\s*(?:m|million|백만)?/i, scale: (v) => v > 100 ? v / 1e6 : v },
-    { category: "mobile", field: "units", match: /(?:smartphone|스마트폰).{0,100}(?:shipment|출하)/i, parse: /(?:1\.09\s*(?:b|billion)|1,?090\s*(?:m|million|백만))/i, fixed: 1090 },
-    { category: "pc", field: "units", match: /(?:pc|personal computer).{0,100}(?:shipment|출하)/i, parse: /(?:252|253)\s*(?:m|million|백만)/i },
-    { category: "auto", field: "units", match: /(?:vehicle|automotive|차량|자동차).{0,100}(?:production|생산)/i, parse: /(?:93(?:\.\d+)?)\s*(?:m|million|백만)/i },
-    { category: "datacenter", field: "units", match: /(?:server|서버).{0,100}(?:shipment|출하)/i, parse: /(?:16\.8)\s*(?:m|million|백만)/i },
+function exactEvidenceDate(item = {}) {
+  for (const candidate of [item.date, item.publishedAt, item.updatedAt, item.sourceDate]) {
+    const match = String(candidate || "").match(/\b(20\d{2}-\d{2}-\d{2})\b/);
+    if (match) return match[1];
+  }
+  return null;
+}
+
+function directEvidenceItems(context = {}) {
+  const news = (context.news || []).map((item) => ({
+    ...item,
+    evidenceText: `${item.originalTitle || item.title || ""}. ${item.summaryOriginal || item.summary || ""}`,
+    evidenceUrl: directNewsUrl(item),
+    evidenceDate: exactEvidenceDate(item),
+    evidenceSourceClass: newsSourceClass(item),
+  }));
+  const facts = (context.facts?.events || []).map((event) => event.current).filter(Boolean).map((item) => ({
+    ...item,
+    evidenceText: evidenceText(item),
+    evidenceUrl: item.sourceUrl || item.url || item.link || "",
+    evidenceDate: exactEvidenceDate(item),
+    evidenceSourceClass: "official",
+  }));
+  return [...news, ...facts]
+    .filter((item) => ["official", "research", "authoritative-media"].includes(item.evidenceSourceClass))
+    .filter((item) => validHttpUrl(item.evidenceUrl) && Boolean(item.evidenceDate));
+}
+
+function compileQuantRule(rule = {}) {
+  try {
+    return {
+      ...rule,
+      subjectRe: new RegExp(rule.subject, "i"),
+      measureRe: new RegExp(rule.measure, "i"),
+      valueRe: new RegExp(rule.value, "i"),
+    };
+  } catch {
+    return null;
+  }
+}
+
+function parsedRuleValue(match, rule = {}) {
+  const raw = Number(String(match?.[1] || "").replace(/,/g, ""));
+  if (!Number.isFinite(raw) || raw <= 0) return null;
+  const unit = String(match?.[2] || "").toLowerCase();
+  const unitScale = Number(rule.unitScale?.[unit]);
+  const scale = Number.isFinite(unitScale) ? unitScale : Number(rule.scale ?? 1);
+  return Number((raw * (Number.isFinite(scale) ? scale : 1)).toFixed(4));
+}
+
+function findQuantRuleObservation(text = "", rule = {}, expectedValue = null) {
+  const normalized = String(text).replace(/\s+/g, " ").trim();
+  if (!normalized || !rule.valueRe || !rule.subjectRe || !rule.measureRe) return null;
+
+  const valueFlags = `${rule.valueRe.flags.replace(/g/g, "")}g`;
+  const valuePattern = new RegExp(rule.valueRe.source, valueFlags);
+  const expected = Number(expectedValue);
+  const hasExpected = Number.isFinite(expected);
+
+  for (const match of normalized.matchAll(valuePattern)) {
+    const value = parsedRuleValue(match, rule);
+    if (value == null) continue;
+    if (hasExpected && Math.abs(value - expected) > Math.max(0.01, Math.abs(expected) * 0.002)) continue;
+
+    const matchIndex = Number(match.index) || 0;
+    const start = Math.max(0, matchIndex - 520);
+    const end = Math.min(normalized.length, matchIndex + match[0].length + 220);
+    const context = normalized.slice(start, end).trim();
+    rule.subjectRe.lastIndex = 0;
+    rule.measureRe.lastIndex = 0;
+    if (!rule.subjectRe.test(context) || !rule.measureRe.test(context)) continue;
+    const excerptStart = Math.max(0, matchIndex - 170);
+    const excerptEnd = Math.min(normalized.length, matchIndex + match[0].length + 140);
+    return { value, clause: normalized.slice(excerptStart, excerptEnd).trim(), context };
+  }
+  return null;
+}
+
+function documentPublicationDate(html = "", url = "") {
+  const candidates = [
+    /(?:article:published_time|datePublished)[^>\n]{0,180}?(20\d{2}-\d{2}-\d{2})/i,
+    /"datePublished"\s*:\s*"(20\d{2}-\d{2}-\d{2})/i,
+    /<time[^>]+datetime=["'](20\d{2}-\d{2}-\d{2})/i,
+    /\b(20\d{2}-\d{2}-\d{2})\b/,
   ];
-  for (const rule of rules) {
-    const item = evidence.find((candidate) => rule.match.test(evidenceText(candidate)) && rule.parse.test(evidenceText(candidate)));
-    if (!item) continue;
-    const raw = rule.fixed ?? Number(evidenceText(item).match(rule.parse)?.[0]?.replace(/[^\d.]/g, ""));
-    const value = rule.scale ? rule.scale(raw) : raw;
-    if (!Number.isFinite(value) || value <= 0) continue;
-    output.categories[rule.category][rule.field] = quantMetric(value, {
-      asOf: String(item.date || item.publishedAt || item.updatedAt || new Date().toISOString()).slice(0, 10),
-      source: item.source || item.publisher || "Crawled evidence",
-      sourceUrl: item.sourceUrl || item.url || item.link,
-      status: "reported",
+  for (const pattern of candidates) {
+    const match = String(html).match(pattern);
+    if (match?.[1]) return match[1];
+  }
+  const pathDate = String(url).match(/\/(20\d{2})\/(0[1-9]|1[0-2])\/(0[1-9]|[12]\d|3[01])\//);
+  return pathDate ? `${pathDate[1]}-${pathDate[2]}-${pathDate[3]}` : null;
+}
+
+async function probeDocumentReachability(url) {
+  const headers = {
+    "User-Agent": BROWSER_UA,
+    Accept: "application/pdf,text/html,application/xhtml+xml,*/*;q=0.8",
+  };
+  let response = await fetch(url, { method: "HEAD", signal: fetchSignal(), headers });
+  if (!response.ok && [403, 405, 501].includes(response.status)) {
+    response = await fetch(url, {
+      signal: fetchSignal(),
+      headers: { ...headers, Range: "bytes=0-4095" },
     });
+    if (response.body) await response.body.cancel();
+  }
+  if (!response.ok) throw new Error(`HTTP ${response.status}`);
+  return {
+    contentType: response.headers.get("content-type") || "",
+    contentLength: Number(response.headers.get("content-length")) || null,
+  };
+}
+
+async function checkForecastSource(category, input = {}, compiledRule = null) {
+  const checkedAt = new Date().toISOString();
+  const sourceUrl = String(input.sourceUrl || "");
+  const expectedValue = Number(input.value);
+  const base = {
+    category,
+    field: "units",
+    source: input.source || null,
+    sourceUrl,
+    sourceDate: exactEvidenceDate({ sourceDate: input.asOf }),
+    expectedValue: Number.isFinite(expectedValue) ? expectedValue : null,
+    checkedAt,
+  };
+  if (!validHttpUrl(sourceUrl)) return { ...base, ok: false, status: "invalid-source", message: "direct source URL missing" };
+  try {
+    const isPdf = /\.pdf(?:$|[?#])/i.test(sourceUrl);
+    if (isPdf) {
+      const metadata = await probeDocumentReachability(sourceUrl);
+      return {
+        ...base,
+        ...metadata,
+        ok: true,
+        reachable: true,
+        valueVerified: false,
+        status: "source-reachable",
+        validation: "dated source and locator; document reachability rechecked",
+        locator: input.locator || null,
+      };
+    }
+    const html = await fetchText(sourceUrl);
+    const observed = compiledRule ? findQuantRuleObservation(stripHTML(html), compiledRule, expectedValue) : null;
+    const sourceDate = documentPublicationDate(html, sourceUrl) || base.sourceDate;
+    const valueVerified = Boolean(observed)
+      && Number.isFinite(expectedValue)
+      && Math.abs(observed.value - expectedValue) <= Math.max(0.01, Math.abs(expectedValue) * 0.002);
+    return {
+      ...base,
+      sourceDate,
+      ok: valueVerified,
+      reachable: true,
+      valueVerified,
+      observedValue: observed?.value ?? null,
+      snippet: observed?.clause?.slice(0, 220) || null,
+      status: valueVerified ? "source-value-verified" : "source-value-mismatch",
+      validation: "source text, subject, measure and numeric value matched in one clause",
+      message: valueVerified ? null : "configured value was not found with its subject and measure",
+    };
+  } catch (error) {
+    return { ...base, ok: false, reachable: false, valueVerified: false, status: "source-unavailable", message: error.message };
+  }
+}
+
+async function collectForecastSourceChecks(model = {}) {
+  const configured = model.forecastInputs || {};
+  const compiledRules = new Map((configured.extractionRules || [])
+    .map(compileQuantRule)
+    .filter(Boolean)
+    .map((rule) => [`${rule.category}:${rule.field}`, rule]));
+  const entries = Object.entries(configured.categories || {})
+    .map(([category, fields]) => ({ category, input: fields?.units }))
+    .filter(({ input }) => validHttpUrl(input?.sourceUrl));
+  const settled = await Promise.all(entries.map(({ category, input }) => checkForecastSource(
+    category,
+    input,
+    compiledRules.get(`${category}:units`) || null,
+  )));
+  for (const item of settled) {
+    note(`forecast-${item.category}`, item.ok, item.ok ? `${item.status} · ${item.sourceDate || "날짜 미확인"}` : item.message || item.status);
+  }
+  return {
+    updatedAt: new Date().toISOString(),
+    total: settled.length,
+    ok: settled.filter((item) => item.ok).length,
+    reachable: settled.filter((item) => item.reachable).length,
+    valueVerified: settled.filter((item) => item.valueVerified).length,
+    items: Object.fromEntries(settled.map((item) => [item.category, item])),
+  };
+}
+
+function refreshForecastInputs(previous = {}, context = {}, model = {}) {
+  const output = mergeForecastInputs(previous, model);
+  const evidence = directEvidenceItems(context)
+    .sort((a, b) => String(b.evidenceDate).localeCompare(String(a.evidenceDate)));
+  const rules = (model.forecastInputs?.extractionRules || []).map(compileQuantRule).filter(Boolean);
+  const accepted = [];
+  for (const rule of rules) {
+    const matches = [];
+    for (const item of evidence) {
+      const observation = findQuantRuleObservation(item.evidenceText || evidenceText(item), rule);
+      if (observation) matches.push({ item, ...observation });
+    }
+    const hit = matches[0];
+    if (!hit || !output.categories?.[rule.category]) continue;
+    output.categories[rule.category][rule.field] = {
+      value: hit.value,
+      asOf: hit.item.evidenceDate,
+      source: hit.item.source || hit.item.publisher || "Crawled evidence",
+      sourceUrl: hit.item.evidenceUrl,
+      status: "live-observed",
+      sourceClass: hit.item.evidenceSourceClass,
+      snippet: hit.clause.slice(0, 220),
+      capturedAt: new Date().toISOString(),
+    };
+    accepted.push({ category: rule.category, field: rule.field, sourceUrl: hit.item.evidenceUrl });
   }
   output.updatedAt = new Date().toISOString();
+  output.acceptedObservations = accepted;
+  output.methodology = model.methodology || output.methodology || null;
   return output;
 }
 
@@ -5313,10 +5592,52 @@ const LIVE_FIGURE_DOMAIN_RE = /(hbm|dram|nand|ddr|lpddr|ssd|wafer|메모리|memo
 // Value patterns (multilingual). Each capture keeps the source's exact wording.
 const LIVE_FIGURE_VALUE_RES = [
   { kind: "usd", re: /(?:US)?\$\s?\d[\d,]*(?:\.\d+)?\s*(?:trillion|billion|million|bn|B\b|M\b)?/g },
+  { kind: "cny", re: /\d[\d,]*(?:\.\d+)?\s*(?:trillion|billion|million|bn|B\b|M\b)\s*(?:yuan|CNY|RMB)/gi },
   { kind: "cjk-money", re: /\d[\d,]*(?:\.\d+)?\s*(?:万亿|兆|亿|億|억|조|만억)\s*(?:美元|美金|美刀|元|人民币|위안|달러|원)?/g },
   { kind: "percent", re: /[-+]?\d+(?:\.\d+)?\s*%/g },
+  { kind: "speed", re: /\d+(?:\.\d+)?\s*(?:Gbps|Gb\/s)/gi },
+  { kind: "density", re: /\d+(?:\.\d+)?\s*Gb\s*\/\s*mm(?:²|2)/gi },
   { kind: "multiple", re: /\d+(?:\.\d+)?\s*(?:倍|배|times|x)\b/gi },
 ];
+
+function canonicalFigureValue(raw = "", explicitKind = "") {
+  const text = String(raw).replace(/,/g, "").trim();
+  const number = Number(text.match(/[-+]?\d+(?:\.\d+)?/)?.[0]);
+  if (!Number.isFinite(number)) return null;
+  const lower = text.toLowerCase();
+  if (explicitKind === "percent" || /%/.test(text)) return { number, family: "percent", displayUnit: "%" };
+  if (explicitKind === "multiple" || /(?:倍|배|times|x)\b/i.test(text)) return { number, family: "multiple", displayUnit: "x" };
+  if (explicitKind === "speed" || /gbps|gb\/s/i.test(text)) return { number, family: "speed-gbps", displayUnit: "Gbps" };
+  if (explicitKind === "density" || /gb\s*\/\s*mm/i.test(text)) return { number, family: "density-gb-mm2", displayUnit: "Gb/mm2" };
+
+  const isUsd = explicitKind === "usd" || /\$|usd|美元|美金|美刀|달러/i.test(text);
+  const isCny = explicitKind === "cny" || /yuan|cny|rmb|人民币|위안|元|亿|億/i.test(text);
+  const isKrw = /(?:억원|조원|\bkrw\b)/i.test(text);
+  if (isUsd || isCny || explicitKind === "cjk-money") {
+    let multiplier = 1;
+    if (/trillion|\bT\b|万亿|조/i.test(text)) multiplier = 1e12;
+    else if (/billion|\bbn\b|\bB\b/i.test(text)) multiplier = 1e9;
+    else if (/million|\bM\b/i.test(text)) multiplier = 1e6;
+    else if (/亿|億|억/i.test(text)) multiplier = 1e8;
+    const family = isUsd ? "currency-usd" : isCny ? "currency-cny" : isKrw ? "currency-krw" : "currency-unspecified";
+    return { number: number * multiplier, family, displayUnit: family };
+  }
+  return { number, family: "number", displayUnit: "" };
+}
+
+function canonicalBaselineValue(item = {}) {
+  const text = `${item.prefix || ""}${item.value ?? ""}${item.suffix || item.unit || ""}`;
+  return canonicalFigureValue(text);
+}
+
+function figureValuesEquivalent(baseline, observed) {
+  if (!baseline || !observed || baseline.family !== observed.family) return false;
+  const difference = Math.abs(baseline.number - observed.number);
+  if (["percent", "speed-gbps", "density-gb-mm2"].includes(baseline.family)) {
+    return difference <= Math.max(0.2, Math.abs(baseline.number) * 0.006);
+  }
+  return difference <= Math.max(1e-9, Math.abs(baseline.number) * 0.02);
+}
 
 function classifyLiveFigure(text) {
   if (/(点유|점유|share|份额)/i.test(text)) return { id: "share", label: "점유율" };
@@ -5351,22 +5672,31 @@ function extractLiveFigures(context = {}) {
         textKo: `${n.titleKo || n.title || ""}`,
         source: n.source || "News",
         url: directNewsUrl(n),
-        date: String(n.date || n.publishedAt || "").slice(0, 10),
+        date: exactEvidenceDate(n),
         sourceClass,
         claimLayer,
-        allowed: ["official", "research", "authoritative-media"].includes(sourceClass) && Boolean(directNewsUrl(n)),
+        extractionMode: "web-verbatim",
+        sourceLocator: directNewsUrl(n),
+        allowed: ["official", "research", "authoritative-media"].includes(sourceClass)
+          && validHttpUrl(directNewsUrl(n))
+          && Boolean(exactEvidenceDate(n)),
       };
     }),
-    ...(context.brokerResearch?.items || []).map((b) => ({
-      text: `${b.title || ""}. ${b.summary || ""} ${b.insight || ""}`,
-      textKo: b.title || "",
-      source: b.institution || b.source || "Broker",
-      url: b.sourceUrl || b.url || b.sourceRef || "",
-      date: String(b.publishedAt || "").slice(0, 10),
-      sourceClass: "research",
-      claimLayer: "research-model",
-      allowed: true,
-    })),
+    ...(context.brokerResearch?.items || []).map((b) => {
+      const locator = b.sourceUrl || b.url || b.sourceRef || b.reportTitle || "";
+      return {
+        text: `${b.title || ""}. ${b.summary || ""} ${b.insight || ""}`,
+        textKo: b.title || "",
+        source: b.institution || b.source || "Broker",
+        url: validHttpUrl(locator) ? locator : "",
+        date: exactEvidenceDate(b),
+        sourceClass: "research",
+        claimLayer: "research-model",
+        extractionMode: "report-extract",
+        sourceLocator: locator,
+        allowed: Boolean(exactEvidenceDate(b) && locator),
+      };
+    }),
   ].filter((a) => a.allowed && a.text && LIVE_FIGURE_DOMAIN_RE.test(a.text));
 
   const seen = new Set();
@@ -5388,7 +5718,9 @@ function extractLiveFigures(context = {}) {
           }
           const normValue = raw.replace(/[,\s元]/g, "");
           if (perArticleValues.has(normValue)) continue; // one figure per distinct value per article
-          const key = `${article.source}::${raw}::${clause.slice(0, 24)}`.toLowerCase();
+          const canonical = canonicalFigureValue(raw, kind);
+          if (!canonical) continue;
+          const key = `${article.sourceLocator || article.url}::${canonical.family}::${canonical.number}::${clause.slice(0, 40)}`.toLowerCase();
           if (seen.has(key)) continue;
           seen.add(key);
           perArticleValues.add(normValue);
@@ -5405,6 +5737,9 @@ function extractLiveFigures(context = {}) {
             date: article.date || null,
             sourceClass: article.sourceClass,
             claimLayer: article.claimLayer,
+            canonical,
+            extractionMode: article.extractionMode,
+            sourceLocator: article.sourceLocator,
           });
         }
       }
@@ -5422,72 +5757,123 @@ function extractLiveFigures(context = {}) {
     total: figures.length,
     topicCounts,
     items: figures.slice(0, 60),
-    method: "authority-gated verbatim extraction · 원문 문장·출처·날짜·주장 레이어 보존",
+    method: "authority-gated extraction · 웹 원문과 리포트 추출문을 구분하고 출처·날짜·단위를 보존",
   };
 }
 
-// Find a live figure whose snippet corroborates a KPI concept, so a hardcoded
-// baseline number gets a fresh dated source attached (never silently replaced).
-function corroborateKpi(label = "", liveFigures = {}) {
-  const items = liveFigures.items || [];
+function kpiCorroborationRule(item = {}) {
+  const label = String(item.label || "");
+  const source = String(item.source || "");
   const rules = [
-    { test: /HBM.*점유|HBM.*share/i, want: /hbm/i, topic: "share" },
-    { test: /메모리.*시장.*규모|memory.*market/i, want: /(memory|메모리|存储).*(市场|시장|market|规모|규모)/i, topic: "market" },
-    { test: /반도체.*시장|semiconductor.*market/i, want: /(半导体|반도체|semiconductor).*(市场|시장|market)/i, topic: "market" },
-    { test: /CXMT|长鑫/i, want: /(cxmt|长鑫)/i },
-    { test: /가격|price/i, want: /(price|가격|价格|spot)/i, topic: "price" },
+    { test: /글로벌.*반도체.*시장|semiconductor.*market/i, subject: /(semiconductor|반도체|半导体)/i, measure: /(market|시장|市场)/i },
+    { test: /메모리.*성장률|memory.*growth/i, subject: /(memory|메모리|存储)/i, measure: /(growth|성장|增长|yoy)/i },
+    { test: /메모리.*시장.*규모|memory.*market.*size/i, subject: /(memory|메모리|存储)/i, measure: /(market|시장|市场|size|규모)/i },
+    { test: /SKHY.*HBM.*점유|SK hynix.*HBM.*share/i, subject: /(sk hynix|skhy|하이닉스)/i, measure: /(hbm).*(share|점유|份额)|(share|점유|份额).*(hbm)/i },
+    { test: /DRAM.*Top3.*점유/i, subject: /(dram)/i, measure: /(top\s*3|삼성|samsung).*(share|점유|份额)|(share|점유|份额).*(top\s*3)/i },
+    { test: /HBM4.*속도|HBM4.*speed/i, subject: /(hbm4)/i, measure: /(gbps|gb\/s|speed|속도)/i },
+    { test: /범용.*DRAM.*CXMT.*점유|CXMT.*DRAM.*share/i, subject: /(cxmt|长鑫)/i, measure: /(dram).*(share|점유|份额)|(share|점유|份额).*(dram)/i },
+    { test: /중국.*메모리.*가격.*할인/i, subject: /(china|chinese|중국|中国).*(memory|메모리|存储)/i, measure: /(discount|할인|折价|price|가격|价格)/i },
+    { test: /CXMT.*2025.*매출/i, subject: /(cxmt|长鑫)/i, measure: /(2025).*(revenue|매출|营收)|(revenue|매출|营收).*(2025)/i },
+    { test: /CXMT.*IPO.*공모/i, subject: /(cxmt|长鑫)/i, measure: /(ipo|offering|공모|募资|发行)/i },
+    { test: /YMTC.*Phase\s*3.*장비/i, subject: /(ymtc|长江存储).*(phase\s*3|3기|三期)/i, measure: /(equipment|장비|设备|domestic|국산|国产)/i },
+    { test: /NAND.*2026.*전망/i, subject: /(nand)/i, measure: /(2026).*(market|시장|revenue|매출|forecast|전망)|(forecast|전망).*(2026)/i },
+    { test: /빅펀드.*3기|big fund.*3/i, subject: /(big fund|빅펀드|大基金)/i, measure: /(3|iii|三期).*(capital|fund|자본|基金)|(capital|fund|자본|基金).*(3|iii|三期)/i },
+    { test: /YMTC.*NAND.*점유/i, subject: /(ymtc|长江存储)/i, measure: /(nand).*(share|점유|份额)|(share|점유|份额).*(nand)/i },
+    { test: /YMTC.*NAND.*밀도/i, subject: /(ymtc|长江存储)/i, measure: /(density|밀도|密度|gb\s*\/\s*mm)/i },
+    { test: /중국.*장비.*국산화율/i, subject: /(china|중국|中国).*(equipment|장비|设备)/i, measure: /(localization|국산화|国产化)/i },
+    { test: /CXMT.*R&D.*인력/i, subject: /(cxmt|长鑫)/i, measure: /(r&d|research|연구|研发).*(staff|headcount|인력|人员)/i },
   ];
-  const rule = rules.find((r) => r.test.test(label));
-  if (!rule) return null;
-  const hit = items.find((figure) =>
-    figure.claimLayer !== "research-model" &&
-    rule.want.test(`${figure.snippet} ${figure.snippetKo}`) &&
-    (!rule.topic || figure.topic?.id === rule.topic));
+  return rules.find((rule) => rule.test.test(`${label} ${source}`)) || null;
+}
+
+// A baseline KPI is corroborated only when subject, measure, unit family and
+// numeric value all agree in the same dated, directly linked source sentence.
+function corroborateKpi(item = {}, liveFigures = {}) {
+  const items = liveFigures.items || [];
+  const rule = kpiCorroborationRule(item);
+  const baselineValue = canonicalBaselineValue(item);
+  if (!rule || !baselineValue) return null;
+  const hit = items.find((figure) => {
+    const text = `${figure.snippet || ""} ${figure.contextKo || ""}`;
+    return figure.claimLayer !== "research-model"
+      && figure.extractionMode === "web-verbatim"
+      && validHttpUrl(figure.url)
+      && Boolean(figure.date)
+      && rule.subject.test(text)
+      && rule.measure.test(text)
+      && figureValuesEquivalent(baselineValue, figure.canonical);
+  });
   return hit || null;
 }
 
 function buildMarketStructure(previous = {}, baseline = {}, liveFigures = {}) {
   const kpis = (baseline.kpis || []).map((item, index) => {
-    const corroboration = corroborateKpi(item.label || "", liveFigures);
+    const corroboration = corroborateKpi(item, liveFigures);
+    const sourceUrl = item.sourceUrl || item.url || null;
+    const isWatch = /watch|확인/i.test(`${item.status || ""} ${item.source || ""}`);
     return {
       id: item.id || `kpi-${index}`,
       baselineIndex: index,
       label: item.label,
       value: item.value,
-      unit: item.unit || "",
-      // Honest dating: baseline research figures are assumptions until a fresh
-      // crawled source corroborates them — then we surface that source + date.
-      asOf: corroboration?.date || item.date || item.period || baseline.meta?.updatedAt || null,
-      source: item.source || null,
-      sourceUrl: item.sourceUrl || item.url || null,
-      basis: corroboration ? "baseline+live" : "baseline",
+      prefix: item.prefix || "",
+      unit: item.unit || item.suffix || "",
+      asOf: corroboration?.date || item.sourceDate || item.date || item.period || baseline.meta?.updatedAt || null,
+      source: corroboration?.source || item.source || null,
+      sourceUrl: corroboration?.url || sourceUrl,
+      basis: corroboration ? "source-observation" : "source-baseline",
+      dataStatus: corroboration ? "live-verified" : isWatch ? "watch" : "last-verified",
       liveCorroboration: corroboration
-        ? { value: corroboration.value, snippet: corroboration.snippet, source: corroboration.source, url: corroboration.url, date: corroboration.date }
+        ? { value: corroboration.value, canonical: corroboration.canonical, snippet: corroboration.snippet, source: corroboration.source, url: corroboration.url, date: corroboration.date }
         : null,
-      status: /watch|확인/i.test(`${item.status || ""} ${item.source || ""}`) ? "watch" : "reported",
+      status: isWatch ? "watch" : "reported",
     };
   });
-  const companies = (baseline.architectureMatrix?.shareMatrix || []).map((item) => ({
-    company: item.company,
-    hbmShare: item.hbmShare,
-    dramShare2025: item.dramShare2025,
-    dramShare2026: item.dramShare2026,
-    nandShare2026: item.nandShare2026,
-    asOf: baseline.meta?.updatedAt || null,
-    source: "baseline evidence layer",
-  }));
-  const previousKpis = new Map((previous.kpis || []).map((item) => [Number(item.baselineIndex), item]));
-  const previousCompanies = new Map((previous.companies || []).map((item) => [String(item.company || "").toLowerCase(), item]));
+  const findKpi = (pattern) => kpis.find((item) => pattern.test(String(item.label || "")));
+  const hbmKpi = findKpi(/SKHY.*HBM.*점유/i);
+  const dramKpi = findKpi(/DRAM.*Top3.*점유/i);
+  const cxmtKpi = findKpi(/CXMT.*점유/i);
+  const ymtcKpi = findKpi(/YMTC.*NAND.*점유/i);
+  const provenanceFromKpi = (kpi) => kpi ? {
+    asOf: kpi.asOf,
+    source: kpi.source,
+    sourceUrl: kpi.sourceUrl,
+    basis: kpi.basis,
+    dataStatus: kpi.dataStatus,
+  } : null;
+  const companies = (baseline.architectureMatrix?.shareMatrix || []).map((item) => {
+    const company = String(item.company || "");
+    const isGlobalDramVendor = /skhy|samsung|micron|삼성|마이크론/i.test(company);
+    const fieldProvenance = {
+      hbmShare: isGlobalDramVendor ? provenanceFromKpi(hbmKpi) : null,
+      dramShare2025: isGlobalDramVendor ? {
+        ...provenanceFromKpi(dramKpi),
+        asOf: "2025 Q1",
+      } : null,
+      dramShare2026: isGlobalDramVendor
+        ? provenanceFromKpi(dramKpi)
+        : /cxmt/i.test(company) ? provenanceFromKpi(cxmtKpi) : null,
+      nandShare2026: /ymtc/i.test(company) ? provenanceFromKpi(ymtcKpi) : null,
+    };
+    const reference = Object.values(fieldProvenance).find(Boolean) || null;
+    return {
+      company: item.company,
+      hbmShare: fieldProvenance.hbmShare ? item.hbmShare : null,
+      dramShare2025: fieldProvenance.dramShare2025 ? item.dramShare2025 : null,
+      dramShare2026: fieldProvenance.dramShare2026 ? item.dramShare2026 : null,
+      nandShare2026: fieldProvenance.nandShare2026 ? item.nandShare2026 : null,
+      fieldProvenance,
+      asOf: reference?.asOf || null,
+      source: reference?.source || null,
+      sourceUrl: reference?.sourceUrl || null,
+      basis: "source-baseline",
+      dataStatus: reference?.dataStatus || "last-verified",
+    };
+  });
   return {
     updatedAt: new Date().toISOString(),
-    kpis: kpis.map((item) => {
-      const before = previousKpis.get(item.baselineIndex);
-      return before?.status === "live" ? before : item;
-    }),
-    companies: companies.map((item) => {
-      const before = previousCompanies.get(String(item.company || "").toLowerCase());
-      return before?.status === "live" ? before : item;
-    }),
+    kpis,
+    companies,
   };
 }
 
@@ -5517,51 +5903,126 @@ function smoothValue(previous, next, alpha = .22) {
     : Number(Number(next).toFixed(4));
 }
 
-function buildScenarioCalibration(previous = {}, drivers = {}) {
-  const strength = quantClamp((drivers.priceMomentum || 0) * 1.15 + (drivers.aiMarketMomentum || 0) * .08 + ((drivers.tsmcRevenueYoY || 20) - 20) * .18 - (drivers.chinaPressure || 0) * .12, -30, 30);
-  const target = {
-    bear: { unitsMul: quantClamp(.82 + strength / 700, .72, .92), memMul: quantClamp(.90 + strength / 900, .82, .97), shareMul: quantClamp(.96 - (drivers.chinaPressure || 0) / 2500, .90, .99), demandMul: quantClamp(.50 + strength / 300, .35, .72) },
-    base: { unitsMul: quantClamp(1 + strength / 1000, .96, 1.04), memMul: quantClamp(1 + strength / 1200, .97, 1.04), shareMul: quantClamp(1 - (drivers.chinaPressure || 0) / 5000, .97, 1.01), demandMul: quantClamp(1 + strength / 500, .92, 1.08) },
-    bull: { unitsMul: quantClamp(1.22 + strength / 500, 1.12, 1.38), memMul: quantClamp(1.14 + strength / 700, 1.08, 1.25), shareMul: quantClamp(1.04 - (drivers.chinaPressure || 0) / 4000, .99, 1.07), demandMul: quantClamp(1.48 + strength / 220, 1.25, 1.78) },
-  };
+function buildScenarioCalibration(previous = {}, drivers = {}, model = {}) {
+  const config = model.scenarioModel || {};
+  const strengthConfig = config.strength || {};
+  const referenceTsmcYoY = Number(strengthConfig.tsmcReferenceYoY ?? 20);
+  const strength = quantClamp(
+    (drivers.priceMomentum || 0) * Number(strengthConfig.priceMomentum ?? 0)
+      + (drivers.aiMarketMomentum || 0) * Number(strengthConfig.aiMarketMomentum ?? 0)
+      + ((drivers.tsmcRevenueYoY ?? referenceTsmcYoY) - referenceTsmcYoY) * Number(strengthConfig.tsmcRevenueYoY ?? 0)
+      + (drivers.chinaPressure || 0) * Number(strengthConfig.chinaPressure ?? 0),
+    Number(strengthConfig.min ?? -30),
+    Number(strengthConfig.max ?? 30),
+  );
+  const target = {};
+  for (const [scenarioId, fields] of Object.entries(config.scenarios || {})) {
+    target[scenarioId] = {};
+    for (const [field, rule] of Object.entries(fields || {})) {
+      const base = Number(rule.base ?? 0);
+      const strengthAdjustment = Number(rule.strengthDivisor)
+        ? strength / Number(rule.strengthDivisor)
+        : 0;
+      const chinaAdjustment = Number(rule.chinaDivisor)
+        ? (drivers.chinaPressure || 0) / Number(rule.chinaDivisor)
+        : 0;
+      target[scenarioId][field] = quantClamp(
+        base + strengthAdjustment + chinaAdjustment,
+        Number(rule.min ?? -Infinity),
+        Number(rule.max ?? Infinity),
+      );
+    }
+  }
+  const alpha = Number(config.smoothingAlpha ?? .22);
   const scenarios = {};
   for (const [id, values] of Object.entries(target)) {
-    scenarios[id] = Object.fromEntries(Object.entries(values).map(([key, value]) => [key, smoothValue(previous.scenarios?.[id]?.[key], value)]));
+    scenarios[id] = Object.fromEntries(Object.entries(values).map(([key, value]) => [key, smoothValue(previous.scenarios?.[id]?.[key], value, alpha)]));
   }
   return {
     updatedAt: new Date().toISOString(),
-    method: "bounded-ewma-v1",
-    smoothingAlpha: .22,
+    method: config.method || "unconfigured",
+    smoothingAlpha: alpha,
     strength: Number(strength.toFixed(2)),
     drivers,
     scenarios,
   };
 }
 
-function buildProjectionCalibration(previous = {}, scenarioCalibration = {}) {
+function buildProjectionCalibration(previous = {}, scenarioCalibration = {}, model = {}) {
+  const config = model.projectionModel || {};
   const drivers = scenarioCalibration.drivers || {};
-  const base = previous.caseWeights || defaultProjectionExposure();
-  const pressure = (drivers.chinaPressure || 0) / 100;
-  const price = quantClamp(drivers.priceMomentum || 0, -40, 40) / 40;
+  const base = defaultProjectionExposure(model);
+  const normalization = config.driverNormalization || {};
+  const pressure = (drivers.chinaPressure || 0) / Number(normalization.chinaPressureDivisor || 100);
+  const price = quantClamp(
+    drivers.priceMomentum || 0,
+    Number(normalization.priceMin ?? -40),
+    Number(normalization.priceMax ?? 40),
+  ) / Number(normalization.priceDivisor || 40);
+  const adjustment = config.caseAdjustment || {};
+  const alpha = Number(config.smoothingAlpha ?? .22);
   const weights = {};
   for (const [id, values] of Object.entries(base)) {
     const exposure = Number(values.china || 0);
+    const neutralTarget = Number(values.neutral || 0)
+      + price * Number(adjustment.neutral?.price || 0)
+      + exposure * pressure * Number(adjustment.neutral?.exposurePressure || 0);
+    const bestTarget = Number(values.best || 0)
+      + Math.max(price, 0) * Number(adjustment.best?.positivePrice || 0)
+      + Math.max(exposure, 0) * pressure * Number(adjustment.best?.exposurePressure || 0);
+    const worstTarget = Number(values.worst || 0)
+      + Math.max(price, 0) * Number(adjustment.worst?.positivePrice || 0)
+      + Math.max(exposure, 0) * pressure * Number(adjustment.worst?.exposurePressure || 0);
     weights[id] = {
       ...values,
-      neutral: smoothValue(values.neutral, Number(values.neutral || 0) + price * .08 + exposure * pressure * .06),
-      best: smoothValue(values.best, Number(values.best || 0) + Math.max(price, 0) * .35 - Math.max(exposure, 0) * pressure * .25),
-      worst: smoothValue(values.worst, Number(values.worst || 0) + Math.max(exposure, 0) * pressure * .4 - Math.max(price, 0) * .12),
+      neutral: smoothValue(previous.caseWeights?.[id]?.neutral, neutralTarget, alpha),
+      best: smoothValue(previous.caseWeights?.[id]?.best, bestTarget, alpha),
+      worst: smoothValue(previous.caseWeights?.[id]?.worst, worstTarget, alpha),
     };
   }
   const calibrated = scenarioCalibration.scenarios || {};
+  const output = config.scenarioOutputs || {};
+  const neutralTarget = {
+    scoreBias: (calibrated.base?.demandMul - 1) * Number(output.neutral?.scoreBiasDemand || 0) || 0,
+    serverLift: price * Number(output.neutral?.serverPrice || 0),
+    storageLift: price * Number(output.neutral?.storagePrice || 0),
+    terminalLift: pressure * Number(output.neutral?.terminalPressure || 0),
+  };
+  const bestTarget = {
+    scoreBias: Number(output.best?.scoreBiasBase || 0) + Math.max(price, 0) * Number(output.best?.scoreBiasPrice || 0),
+    serverLift: Number(output.best?.serverBase || 0) + Math.max(price, 0) * Number(output.best?.serverPrice || 0),
+    storageLift: Number(output.best?.storageBase || 0) + Math.max(price, 0) * Number(output.best?.storagePrice || 0),
+    terminalLift: Number(output.best?.terminalBase || 0) + pressure * Number(output.best?.terminalPressure || 0),
+  };
+  const worstTarget = {
+    scoreBias: Number(output.worst?.scoreBiasBase || 0) + pressure * Number(output.worst?.scoreBiasPressure || 0),
+    serverLift: Number(output.worst?.serverBase || 0) + pressure * Number(output.worst?.serverPressure || 0),
+    storageLift: Number(output.worst?.storageBase || 0) + pressure * Number(output.worst?.storagePressure || 0),
+    terminalLift: Number(output.worst?.terminalBase || 0) + pressure * Number(output.worst?.terminalPressure || 0),
+  };
+  const smoothScenario = (id, target) => Object.fromEntries(
+    Object.entries(target).map(([key, value]) => [key, smoothValue(previous.scenarios?.[id]?.[key], value, alpha)]),
+  );
   return {
     updatedAt: new Date().toISOString(),
-    method: "bounded-ewma-v1",
+    method: config.method || "unconfigured",
+    modelVersion: model.schemaVersion || null,
+    modelUpdatedAt: model.updatedAt || null,
+    smoothingAlpha: alpha,
+    drivers: { price, pressure },
+    model: {
+      horizon: structuredClone(config.horizon || {}),
+      segments: structuredClone(config.segments || {}),
+      segmentScoring: structuredClone(config.segmentScoring || {}),
+      deltaFormula: structuredClone(config.deltaFormula || {}),
+      seriesFormula: structuredClone(config.seriesFormula || {}),
+      driverCards: structuredClone(config.driverCards || {}),
+    },
     caseWeights: weights,
     scenarios: {
-      neutral: { scoreBias: smoothValue(previous.scenarios?.neutral?.scoreBias, (calibrated.base?.demandMul - 1) * 18 || 0), serverLift: smoothValue(previous.scenarios?.neutral?.serverLift, price * .5), storageLift: smoothValue(previous.scenarios?.neutral?.storageLift, price * .35), terminalLift: smoothValue(previous.scenarios?.neutral?.terminalLift, -pressure * .4) },
-      best: { scoreBias: smoothValue(previous.scenarios?.best?.scoreBias, 7 + Math.max(price, 0) * 2), serverLift: smoothValue(previous.scenarios?.best?.serverLift, 4 + Math.max(price, 0) * 1.3), storageLift: smoothValue(previous.scenarios?.best?.storageLift, 2.3 + Math.max(price, 0)), terminalLift: smoothValue(previous.scenarios?.best?.terminalLift, -1.1 + pressure * .4) },
-      worst: { scoreBias: smoothValue(previous.scenarios?.worst?.scoreBias, -9 - pressure * 2), serverLift: smoothValue(previous.scenarios?.worst?.serverLift, -4.2 - pressure), storageLift: smoothValue(previous.scenarios?.worst?.storageLift, -2.7 - pressure), terminalLift: smoothValue(previous.scenarios?.worst?.terminalLift, 2.8 + pressure) },
+      neutral: smoothScenario("neutral", neutralTarget),
+      best: smoothScenario("best", bestTarget),
+      worst: smoothScenario("worst", worstTarget),
     },
   };
 }
@@ -5618,37 +6079,113 @@ function quantHistoryCoverage(priceHistory = {}, marketHistory = {}) {
   };
 }
 
+function normalizeObservationDate(value = "") {
+  const text = String(value || "");
+  const exactDates = [...text.matchAll(/\b(20\d{2}-\d{2}-\d{2})\b/g)].map((match) => match[1]);
+  if (exactDates.length) return exactDates.at(-1);
+  const quarter = text.match(/\b(20\d{2})\s*[- ]?Q([1-4])\b/i);
+  if (quarter) {
+    const year = Number(quarter[1]);
+    const quarterNumber = Number(quarter[2]);
+    const month = quarterNumber * 3;
+    const lastDay = new Date(Date.UTC(year, month, 0)).getUTCDate();
+    return `${year}-${String(month).padStart(2, "0")}-${String(lastDay).padStart(2, "0")}`;
+  }
+  const month = text.match(/\b(20\d{2})-(0[1-9]|1[0-2])\b/);
+  if (month) {
+    const year = Number(month[1]);
+    const monthNumber = Number(month[2]);
+    const lastDay = new Date(Date.UTC(year, monthNumber, 0)).getUTCDate();
+    return `${year}-${month[2]}-${String(lastDay).padStart(2, "0")}`;
+  }
+  return null;
+}
+
 function appendQuantHistory(marketHistory = {}, quant = {}) {
   marketHistory.metrics ||= {};
   marketHistory.metricDefinitions ||= {};
-  const day = String(quant.updatedAt || new Date().toISOString()).slice(0, 10);
+  const capturedAt = quant.updatedAt || new Date().toISOString();
+  const validMetricPoint = (point = {}) => Number.isFinite(Number(point.value))
+    && normalizeObservationDate(point.date) === point.date
+    && validHttpUrl(point.sourceUrl)
+    && ["live-verified", "last-verified"].includes(point.dataStatus);
+
+  // Earlier builds copied baseline values onto every crawl date. Keep only
+  // observations that carry their own source date and direct source URL.
+  for (const [id, metric] of Object.entries(marketHistory.metrics)) {
+    const points = (Array.isArray(metric?.points) ? metric.points : []).filter(validMetricPoint);
+    if (!points.length) {
+      delete marketHistory.metrics[id];
+      delete marketHistory.metricDefinitions[id];
+      continue;
+    }
+    marketHistory.metrics[id] = { ...metric, points };
+  }
   const candidates = [];
   for (const item of quant.marketStructure?.kpis || []) {
     const numeric = Number(item.value);
-    if (Number.isFinite(numeric)) candidates.push({
+    const observationDate = normalizeObservationDate(item.asOf);
+    if (Number.isFinite(numeric)
+      && observationDate
+      && validHttpUrl(item.sourceUrl)
+      && ["live-verified", "last-verified"].includes(item.dataStatus)) candidates.push({
       id: `kpi-${item.baselineIndex}`,
       label: item.label,
       value: numeric,
       unit: item.unit || "",
       source: item.source,
+      sourceUrl: item.sourceUrl,
       asOf: item.asOf,
+      observationDate,
+      dataStatus: item.dataStatus,
     });
   }
   for (const company of quant.marketStructure?.companies || []) {
-    for (const field of ["hbmShare", "dramShare2026", "nandShare2026"]) {
+    for (const field of ["hbmShare", "dramShare2025", "dramShare2026", "nandShare2026"]) {
+      const provenance = company.fieldProvenance?.[field];
       const numeric = Number(String(company[field] || "").replace(/[^\d.-]/g, ""));
-      if (Number.isFinite(numeric)) candidates.push({ id: `share-${String(company.company).toLowerCase()}-${field}`, label: `${company.company} ${field}`, value: numeric, unit: "%", source: company.source, asOf: company.asOf });
+      const observationDate = normalizeObservationDate(provenance?.asOf);
+      if (Number.isFinite(numeric)
+        && observationDate
+        && validHttpUrl(provenance?.sourceUrl)
+        && ["live-verified", "last-verified"].includes(provenance?.dataStatus)) candidates.push({
+        id: `share-${String(company.company).toLowerCase()}-${field}`,
+        label: `${company.company} ${field}`,
+        value: numeric,
+        unit: "%",
+        source: provenance.source,
+        sourceUrl: provenance.sourceUrl,
+        asOf: provenance.asOf,
+        observationDate,
+        dataStatus: provenance.dataStatus,
+      });
     }
   }
   for (const point of candidates) {
     const current = marketHistory.metrics[point.id] || { id: point.id, label: point.label, unit: point.unit || "", points: [] };
-    const points = Array.isArray(current.points) ? current.points.filter((item) => item.date !== day) : [];
-    points.push({ date: day, value: point.value, source: point.source || null, asOf: point.asOf || day });
+    const points = Array.isArray(current.points)
+      ? current.points.filter((item) => item.date !== point.observationDate && validMetricPoint(item))
+      : [];
+    points.push({
+      date: point.observationDate,
+      value: point.value,
+      source: point.source || null,
+      sourceUrl: point.sourceUrl,
+      asOf: point.asOf,
+      dataStatus: point.dataStatus,
+      capturedAt,
+    });
     points.sort((a, b) => String(a.date).localeCompare(String(b.date)));
-    marketHistory.metrics[point.id] = { ...current, unit: point.unit || current.unit || "", updatedAt: quant.updatedAt, points: points.slice(-2200) };
-    marketHistory.metricDefinitions[point.id] = { label: point.label, unit: point.unit || "", provenance: point.source || null };
+    marketHistory.metrics[point.id] = { ...current, unit: point.unit || current.unit || "", updatedAt: capturedAt, points: points.slice(-2200) };
+    marketHistory.metricDefinitions[point.id] = {
+      label: point.label,
+      unit: point.unit || "",
+      provenance: point.source || null,
+      sourceUrl: point.sourceUrl,
+      policy: "source observation date only; no daily interpolation",
+    };
   }
-  marketHistory.updatedAt = quant.updatedAt;
+  marketHistory.updatedAt = capturedAt;
 }
 
 async function collectLastGood(fetcher, previous, step, successMessage) {
@@ -5667,6 +6204,7 @@ async function collectLastGood(fetcher, previous, step, successMessage) {
 
 async function collectQuantMetrics(priceHistory, context = {}) {
   const previous = context.previousQuant || {};
+  const model = context.quantModel || {};
   const quant = {
     schemaVersion: "2.0",
     updatedAt: new Date().toISOString(),
@@ -5676,6 +6214,13 @@ async function collectQuantMetrics(priceHistory, context = {}) {
     fundamentals: {},
     foundry: {},
     memoryMomentum: quantMemoryMomentum(priceHistory),
+    model: {
+      schemaVersion: model.schemaVersion || null,
+      updatedAt: model.updatedAt || null,
+      methodology: model.methodology || null,
+      scenarioMethod: model.scenarioModel?.method || null,
+      projectionMethod: model.projectionModel?.method || null,
+    },
   };
   for (const entry of QUANT_FX) {
     quant.fx[entry.id] = await collectLastGood(
@@ -5699,13 +6244,22 @@ async function collectQuantMetrics(priceHistory, context = {}) {
     fetchTsmcMonthlyRevenue, previous.foundry?.tsmcMonthly, "quant:TSMC 월매출",
     (value) => `${value.month} · ${value.revenueBillionTwd}B TWD · YoY ${value.yoyPct != null ? Number(value.yoyPct).toFixed(1) : "?"}%`,
   );
-  quant.forecastInputs = refreshForecastInputs(previous.forecastInputs, context);
+  quant.forecastInputs = refreshForecastInputs(previous.forecastInputs, context, model);
+  quant.forecastInputs.sourceChecks = await collectForecastSourceChecks(model);
+  for (const [category, check] of Object.entries(quant.forecastInputs.sourceChecks.items || {})) {
+    const input = quant.forecastInputs.categories?.[category]?.units;
+    if (!input) continue;
+    input.lastCheckedAt = check.checkedAt;
+    input.sourceReachable = Boolean(check.reachable);
+    input.sourceValueVerified = Boolean(check.valueVerified);
+    if (check.snippet) input.sourceSnippet = check.snippet;
+  }
   quant.liveFigures = extractLiveFigures(context);
   note("quant:라이브 수치", quant.liveFigures.total > 0, `원문 정량 수치 ${quant.liveFigures.total}건 추출`);
   quant.marketStructure = buildMarketStructure(previous.marketStructure, context.baseline, quant.liveFigures);
   const drivers = buildQuantDrivers(quant, context);
-  quant.scenarioCalibration = buildScenarioCalibration(previous.scenarioCalibration, drivers);
-  quant.projectionCalibration = buildProjectionCalibration(previous.projectionCalibration, quant.scenarioCalibration);
+  quant.scenarioCalibration = buildScenarioCalibration(previous.scenarioCalibration, drivers, model);
+  quant.projectionCalibration = buildProjectionCalibration(previous.projectionCalibration, quant.scenarioCalibration, model);
   quant.sourceHealth = sourceHealthSnapshot(previous.sourceHealth);
   quant.historyCoverage = quantHistoryCoverage(priceHistory, context.marketHistory);
   return quant;
@@ -5897,6 +6451,7 @@ async function main() {
   quant = await collectQuantMetrics(priceHistory, {
     previousQuant: previous.quant,
     baseline: previous.baseline,
+    quantModel: previous.quantModel,
     news,
     communitySignals,
     benchmarkSignals,

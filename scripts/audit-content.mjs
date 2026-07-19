@@ -17,6 +17,7 @@ const textFiles = [
   "data/baseline.json",
   "data/live.json",
   "data/quant.json",
+  "data/quant-model.json",
   "data/price-history.json",
   "data/market-history.json",
   "data/crawl-audit.json",
@@ -138,6 +139,16 @@ for (const item of numericKpis) {
   }
 }
 
+const isDirectSourceUrl = (value = "") => {
+  try {
+    const url = new URL(String(value));
+    return ["http:", "https:"].includes(url.protocol) && url.hostname !== "news.google.com";
+  } catch {
+    return false;
+  }
+};
+const exactSourceDate = (value = "") => /^20\d{2}-\d{2}-\d{2}$/.test(String(value));
+
 const marketHistory = JSON.parse(await readFile(resolve(root, "data/market-history.json"), "utf8"));
 for (const [id, index] of Object.entries(marketHistory.indexes || {})) {
   const points = Array.isArray(index.points) ? index.points : [];
@@ -165,6 +176,18 @@ for (const [id, metric] of Object.entries(marketHistory.metrics || {})) {
   if (!points.length) addIssue("error", "data/market-history.json", "quant metric has no history points", id);
   if (points.some((point) => !Number.isFinite(Number(point.value)))) {
     addIssue("error", "data/market-history.json", "quant metric contains a non-numeric value", id);
+  }
+  if (points.some((point) => !exactSourceDate(point.date)
+    || !isDirectSourceUrl(point.sourceUrl)
+    || !["live-verified", "last-verified"].includes(point.dataStatus))) {
+    addIssue("error", "data/market-history.json", "quant history contains a crawl-date copy or unprovenanced point", id);
+  }
+  if (new Set(points.map((point) => point.date)).size !== points.length) {
+    addIssue("error", "data/market-history.json", "quant history contains duplicate observation dates", id);
+  }
+  const definition = marketHistory.metricDefinitions?.[id];
+  if (!definition || !isDirectSourceUrl(definition.sourceUrl)) {
+    addIssue("error", "data/market-history.json", "quant metric definition lacks a direct source URL", id);
   }
 }
 
@@ -206,6 +229,7 @@ for (const [key, item] of Object.entries(priceHistory.items || {})) {
 
 const live = JSON.parse(await readFile(resolve(root, "data/live.json"), "utf8"));
 const quant = JSON.parse(await readFile(resolve(root, "data/quant.json"), "utf8"));
+const quantModel = JSON.parse(await readFile(resolve(root, "data/quant-model.json"), "utf8"));
 const crawlAudit = JSON.parse(await readFile(resolve(root, "data/crawl-audit.json"), "utf8"));
 const crawlQuarantine = JSON.parse(await readFile(resolve(root, "data/crawl-quarantine.json"), "utf8"));
 const quality = live.quality || {};
@@ -215,17 +239,146 @@ if (live.schemaVersion !== "4.0") {
 if (quant.schemaVersion !== "2.0") {
   addIssue("error", "data/quant.json", "quant schemaVersion is not current", String(quant.schemaVersion || "missing"));
 }
-const forecastCategories = Object.values(quant.forecastInputs?.categories || {});
-if (forecastCategories.length < 5) {
-  addIssue("error", "data/quant.json", "forecast input contract has fewer than five categories", String(forecastCategories.length));
+if (quantModel.schemaVersion !== "1.0") {
+  addIssue("error", "data/quant-model.json", "quant model schemaVersion is not current", String(quantModel.schemaVersion || "missing"));
 }
-for (const category of forecastCategories) {
+if (quantModel.methodology?.name !== "source-gated-ewma") {
+  addIssue("error", "data/quant-model.json", "quant model methodology is not source-gated", String(quantModel.methodology?.name || "missing"));
+}
+const forecastCategoryEntries = Object.entries(quant.forecastInputs?.categories || {});
+if (forecastCategoryEntries.length < 5) {
+  addIssue("error", "data/quant.json", "forecast input contract has fewer than five categories", String(forecastCategoryEntries.length));
+}
+for (const [categoryId, category] of forecastCategoryEntries) {
   for (const field of ["units", "memPerUnit", "skhyShare", "dramYoY", "nandYoY"]) {
     if (!Number.isFinite(Number(category?.[field]?.value))) {
-      addIssue("error", "data/quant.json", "forecast input is not numeric", `${category.id || "unknown"}:${field}`);
+      addIssue("error", "data/quant.json", "forecast input is not numeric", `${categoryId}:${field}`);
     }
     if (!String(category?.[field]?.source || "").trim() || !String(category?.[field]?.asOf || "").trim()) {
-      addIssue("error", "data/quant.json", "forecast input lacks source or as-of provenance", `${category.id || "unknown"}:${field}`);
+      addIssue("error", "data/quant.json", "forecast input lacks source or as-of provenance", `${categoryId}:${field}`);
+    }
+    const input = category?.[field] || {};
+    if (["live-observed", "last-verified"].includes(input.status)
+      && (!exactSourceDate(input.asOf) || !isDirectSourceUrl(input.sourceUrl))) {
+      addIssue("error", "data/quant.json", "verified forecast input lacks an exact date or direct URL", `${categoryId}:${field}`);
+    }
+    if (input.status === "watch" && input.sourceUrl && !isDirectSourceUrl(input.sourceUrl)) {
+      addIssue("error", "data/quant.json", "watch forecast input has a non-direct source URL", `${categoryId}:${field}`);
+    }
+  }
+}
+const forecastChecks = quant.forecastInputs?.sourceChecks || {};
+const expectedForecastChecks = forecastCategoryEntries
+  .filter(([, category]) => isDirectSourceUrl(category?.units?.sourceUrl))
+  .map(([categoryId]) => categoryId);
+if (Number(forecastChecks.total) !== expectedForecastChecks.length) {
+  addIssue("error", "data/quant.json", "forecast source-check count does not match direct sources", `${forecastChecks.total || 0}/${expectedForecastChecks.length}`);
+}
+for (const categoryId of expectedForecastChecks) {
+  const check = forecastChecks.items?.[categoryId];
+  if (!check || !isDirectSourceUrl(check.sourceUrl) || !exactSourceDate(String(check.checkedAt || "").slice(0, 10))) {
+    addIssue("error", "data/quant.json", "forecast source check lacks URL or timestamp", categoryId);
+    continue;
+  }
+  if (!check.ok) {
+    addIssue("warn", "data/quant.json", "forecast source was not revalidated in the latest crawl", `${categoryId}: ${check.message || check.status || "unknown"}`);
+  }
+  if (check.status === "source-value-verified" && !check.valueVerified) {
+    addIssue("error", "data/quant.json", "forecast source check status contradicts value verification", categoryId);
+  }
+}
+if (quant.forecastInputs?.version !== quantModel.forecastInputs?.version) {
+  addIssue("error", "data/quant.json", "forecast input contract does not match quant-model.json", `${quant.forecastInputs?.version || "missing"}/${quantModel.forecastInputs?.version || "missing"}`);
+}
+if (quant.scenarioCalibration?.method !== quantModel.scenarioModel?.method) {
+  addIssue("error", "data/quant.json", "scenario calibration method does not match quant-model.json", String(quant.scenarioCalibration?.method || "missing"));
+}
+if (quant.projectionCalibration?.method !== quantModel.projectionModel?.method) {
+  addIssue("error", "data/quant.json", "projection calibration method does not match quant-model.json", String(quant.projectionCalibration?.method || "missing"));
+}
+if (quant.projectionCalibration?.modelVersion !== quantModel.schemaVersion) {
+  addIssue("error", "data/quant.json", "projection model version does not match quant-model.json", `${quant.projectionCalibration?.modelVersion || "missing"}/${quantModel.schemaVersion || "missing"}`);
+}
+const projectionModel = quant.projectionCalibration?.model || {};
+const expectedSegments = Object.keys(quantModel.projectionModel?.segments || {}).sort();
+const actualSegments = Object.keys(projectionModel.segments || {}).sort();
+if (expectedSegments.join("|") !== actualSegments.join("|")) {
+  addIssue("error", "data/quant.json", "projection segment model does not match quant-model.json", actualSegments.join(", "));
+}
+const horizon = projectionModel.horizon || {};
+if (!Number.isInteger(Number(horizon.startMonths)) || Number(horizon.startMonths) < 0
+  || !Number.isInteger(Number(horizon.yearCount)) || Number(horizon.yearCount) < 2) {
+  addIssue("error", "data/quant.json", "projection horizon is invalid", JSON.stringify(horizon));
+}
+for (const [segment, parameters] of Object.entries(projectionModel.segments || {})) {
+  for (const key of ["startShare", "endShare", "baseScore", "sensitivity"]) {
+    if (!Number.isFinite(Number(parameters?.[key]))) {
+      addIssue("error", "data/quant.json", "projection segment parameter is invalid", `${segment}:${key}`);
+    }
+  }
+}
+const driverCards = projectionModel.driverCards || {};
+for (const key of ["scenarioReference", "scenarioBiasWeight", "chinaSignalWeight", "chinaScoreMin", "nandReference", "nandPriceWeight", "nandSignalWeight"]) {
+  if (!Number.isFinite(Number(driverCards[key]))) {
+    addIssue("error", "data/quant.json", "projection driver-card parameter is invalid", key);
+  }
+}
+for (const [group, weights] of Object.entries({ serverWeights: driverCards.serverWeights, terminalWeights: driverCards.terminalWeights })) {
+  const values = Object.values(weights || {}).map(Number);
+  if (!values.length || !values.every(Number.isFinite) || Math.abs(values.reduce((sum, value) => sum + value, 0) - 1) > 0.001) {
+    addIssue("error", "data/quant.json", "projection driver weights must be finite and sum to one", group);
+  }
+}
+const projectionScenarioBlock = appText.match(/const PROJECTION_SCENARIOS = \[[\s\S]*?\n  \];\n  const SKHYNIX_PRODUCT_PROJECTION/)?.[0] || "";
+if (/(?:scoreBias|serverLift|storageLift|terminalLift)\s*:/.test(projectionScenarioBlock)) {
+  addIssue("error", "assets/js/app.js", "projection scenario coefficients must come from quant.json");
+}
+const projectionPresentationBlock = appText.match(/const SKHYNIX_PRODUCT_PROJECTION = \[[\s\S]*?\n  \];\n  const EXEC_DECISION_PRODUCTS/)?.[0] || "";
+if (/(?:startShare|endShare|baseScore|sensitivity)\s*:/.test(projectionPresentationBlock)) {
+  addIssue("error", "assets/js/app.js", "projection numeric parameters must come from quant.json");
+}
+if (/PROJECTION_START_MONTHS|PROJECTION_YEAR_COUNT/.test(appText)) {
+  addIssue("error", "assets/js/app.js", "projection horizon must come from quant.json");
+}
+for (const figure of quant.liveFigures?.items || []) {
+  const mode = String(figure.extractionMode || "");
+  if (!figure.canonical || !Number.isFinite(Number(figure.canonical.number)) || !String(figure.canonical.family || "").trim()) {
+    addIssue("error", "data/quant.json", "live figure lacks a canonical value and unit family", String(figure.value || "unknown"));
+  }
+  if (mode === "web-verbatim" && (!exactSourceDate(figure.date) || !isDirectSourceUrl(figure.url))) {
+    addIssue("error", "data/quant.json", "web live figure lacks an exact date or direct URL", String(figure.value || "unknown"));
+  }
+  if (mode === "report-extract" && (!exactSourceDate(figure.date) || !String(figure.sourceLocator || "").trim())) {
+    addIssue("error", "data/quant.json", "report figure lacks an exact date or report locator", String(figure.value || "unknown"));
+  }
+  if (!["web-verbatim", "report-extract"].includes(mode)) {
+    addIssue("error", "data/quant.json", "live figure has an unsupported extraction mode", mode || "missing");
+  }
+}
+for (const item of quant.marketStructure?.kpis || []) {
+  if (/\d/.test(String(item.value ?? "")) && item.dataStatus !== "watch") {
+    if (!String(item.asOf || "").trim() || !isDirectSourceUrl(item.sourceUrl)) {
+      addIssue("error", "data/quant.json", "market KPI lacks dated direct-source provenance", item.label || item.id || "unknown");
+    }
+  }
+  const liveEvidence = item.liveCorroboration;
+  if (liveEvidence && (!exactSourceDate(liveEvidence.date)
+    || !isDirectSourceUrl(liveEvidence.url)
+    || !liveEvidence.canonical
+    || !Number.isFinite(Number(liveEvidence.canonical.number)))) {
+    addIssue("error", "data/quant.json", "KPI live corroboration violates the value/date/source contract", item.label || item.id || "unknown");
+  }
+}
+for (const company of quant.marketStructure?.companies || []) {
+  for (const field of ["hbmShare", "dramShare2025", "dramShare2026", "nandShare2026"]) {
+    const value = Number(String(company?.[field] ?? "").replace(/[^\d.-]/g, ""));
+    if (!Number.isFinite(value) || value <= 0) continue;
+    const provenance = company.fieldProvenance?.[field];
+    if (!provenance
+      || !String(provenance.asOf || "").trim()
+      || !isDirectSourceUrl(provenance.sourceUrl)
+      || !["live-verified", "last-verified"].includes(provenance.dataStatus)) {
+      addIssue("error", "data/quant.json", "company share lacks field-specific provenance", `${company.company || "unknown"}:${field}`);
     }
   }
 }
@@ -620,8 +773,12 @@ const cxmtOfferingFact = factEvents.find((event) => event.id === "cxmt-ipo-offer
 if (cxmtOfferingFact?.current?.stageId !== "final-base-offering") {
   addIssue("error", "data/live.json", "CXMT offering did not resolve to the final base offering stage", cxmtOfferingFact?.current?.stageId || "missing");
 }
-if (Number(cxmtOfferingFact?.current?.metrics?.baseOfferingCnyB) !== 57.9) {
-  addIssue("error", "data/live.json", "CXMT final base offering amount is not CNY 57.9B", String(cxmtOfferingFact?.current?.metrics?.baseOfferingCnyB || "missing"));
+const cxmtBaseOffering = Number(cxmtOfferingFact?.current?.metrics?.baseOfferingCnyB);
+if (!Number.isFinite(cxmtBaseOffering) || cxmtBaseOffering <= 0) {
+  addIssue("error", "data/live.json", "CXMT final base offering amount was not extracted from its source", String(cxmtOfferingFact?.current?.metrics?.baseOfferingCnyB || "missing"));
+}
+if (!/^https?:\/\//i.test(String(cxmtOfferingFact?.current?.sourceUrl || ""))) {
+  addIssue("error", "data/live.json", "CXMT final base offering is missing its direct source", String(cxmtOfferingFact?.current?.sourceUrl || "missing"));
 }
 const cxmtOfferingStages = new Set((cxmtOfferingFact?.history || []).map((item) => item.stageId));
 for (const requiredStage of ["registration-plan", "final-base-offering"]) {

@@ -1,6 +1,6 @@
 {
   "schemaVersion": "2.0",
-  "updatedAt": "2026-07-19T14:51:03.819Z",
+  "updatedAt": "2026-07-19T17:43:28.221Z",
   "timezone": "Asia/Seoul",
   "fx": {
     "usdkrw": {
@@ -15,8 +15,8 @@
       "source": "Yahoo Finance chart API",
       "sourceUrl": "https://finance.yahoo.com/quote/KRW=X/",
       "status": "live",
-      "lastSuccessAt": "2026-07-19T14:51:03.820Z",
-      "lastAttemptAt": "2026-07-19T14:51:03.820Z",
+      "lastSuccessAt": "2026-07-19T17:43:28.222Z",
+      "lastAttemptAt": "2026-07-19T17:43:28.222Z",
       "failureStreak": 0
     },
     "usdtwd": {
@@ -31,8 +31,8 @@
       "source": "Yahoo Finance chart API",
       "sourceUrl": "https://finance.yahoo.com/quote/TWD=X/",
       "status": "live",
-      "lastSuccessAt": "2026-07-19T14:51:04.190Z",
-      "lastAttemptAt": "2026-07-19T14:51:04.190Z",
+      "lastSuccessAt": "2026-07-19T17:43:28.813Z",
+      "lastAttemptAt": "2026-07-19T17:43:28.813Z",
       "failureStreak": 0
     }
   },
@@ -49,8 +49,8 @@
       "source": "Yahoo Finance chart API",
       "sourceUrl": "https://finance.yahoo.com/quote/NVDA/",
       "status": "live",
-      "lastSuccessAt": "2026-07-19T14:51:04.555Z",
-      "lastAttemptAt": "2026-07-19T14:51:04.555Z",
+      "lastSuccessAt": "2026-07-19T17:43:29.268Z",
+      "lastAttemptAt": "2026-07-19T17:43:29.268Z",
       "failureStreak": 0
     },
     "amd": {
@@ -65,8 +65,8 @@
       "source": "Yahoo Finance chart API",
       "sourceUrl": "https://finance.yahoo.com/quote/AMD/",
       "status": "live",
-      "lastSuccessAt": "2026-07-19T14:51:04.929Z",
-      "lastAttemptAt": "2026-07-19T14:51:04.929Z",
+      "lastSuccessAt": "2026-07-19T17:43:29.755Z",
+      "lastAttemptAt": "2026-07-19T17:43:29.755Z",
       "failureStreak": 0
     }
   },
@@ -103,8 +103,8 @@
       "source": "SEC EDGAR companyfacts (10-Q/10-K XBRL)",
       "sourceUrl": "https://www.sec.gov/cgi-bin/browse-edgar?action=getcompany&CIK=0000723125&type=10-Q",
       "status": "live",
-      "lastSuccessAt": "2026-07-19T14:51:05.320Z",
-      "lastAttemptAt": "2026-07-19T14:51:05.320Z",
+      "lastSuccessAt": "2026-07-19T17:43:30.214Z",
+      "lastAttemptAt": "2026-07-19T17:43:30.214Z",
       "failureStreak": 0
     }
   },
@@ -120,8 +120,8 @@
       "source": "TWSE OpenAPI 月營業收入 (official disclosure)",
       "sourceUrl": "https://openapi.twse.com.tw/v1/opendata/t187ap05_L",
       "status": "live",
-      "lastSuccessAt": "2026-07-19T14:51:05.633Z",
-      "lastAttemptAt": "2026-07-19T14:51:05.633Z",
+      "lastSuccessAt": "2026-07-19T17:43:31.170Z",
+      "lastAttemptAt": "2026-07-19T17:43:31.170Z",
       "failureStreak": 0
     }
   },
@@ -133,204 +133,319 @@
     "source": "TrendForce 공개 테이블 자체 축적 히스토리",
     "asOf": "2026-07-19"
   },
+  "model": {
+    "schemaVersion": "1.0",
+    "updatedAt": "2026-07-19",
+    "methodology": {
+      "name": "source-gated-ewma",
+      "description": "Observed values require a dated source URL. Model parameters are versioned separately and are never presented as reported facts.",
+      "reviewAfterDays": 90
+    },
+    "scenarioMethod": "bounded-ewma-v2",
+    "projectionMethod": "bounded-ewma-v2"
+  },
   "forecastInputs": {
-    "version": "1.0",
+    "version": "2.0",
     "categories": {
       "hyperscaler": {
         "units": {
           "value": 6.5,
-          "asOf": "2026",
+          "asOf": "2026-05-22",
           "source": "Presenc AI GPU Shipment Tracker",
           "sourceUrl": "https://presenc.ai/research/gpu-shipment-tracker-blackwell-rubin-2026",
-          "status": "assumption"
+          "status": "last-verified",
+          "locator": "2026 shipment tracker summary",
+          "lastCheckedAt": "2026-07-19T17:43:31.928Z",
+          "sourceReachable": true,
+          "sourceValueVerified": true,
+          "sourceSnippet": "ccelerator unit shipments across NVIDIA, AMD, Intel, plus hyperscaler custom silicon (Google TPU, AWS Trainium, Microsoft Maia, Meta MTIA) are estimated at approximately 6.5 million units in 2026, a slight decline from 2"
         },
         "memPerUnit": {
           "value": 210,
           "asOf": "2026",
           "source": "Product-mix model",
-          "sourceUrl": null,
           "status": "model"
         },
         "skhyShare": {
           "value": 55,
           "asOf": "2026-Q1",
-          "source": "Planning assumption",
-          "sourceUrl": null,
+          "source": "Planning model",
           "status": "model"
         },
         "dramYoY": {
           "value": 15,
           "asOf": "2026",
-          "source": "Planning assumption",
-          "sourceUrl": null,
+          "source": "Demand model",
           "status": "model"
         },
         "nandYoY": {
           "value": 18,
           "asOf": "2026",
-          "source": "Planning assumption",
-          "sourceUrl": null,
+          "source": "Demand model",
           "status": "model"
         }
       },
       "auto": {
         "units": {
-          "value": 93,
-          "asOf": "2026",
-          "source": "Global vehicle production outlook",
-          "sourceUrl": null,
-          "status": "reported"
+          "value": 93.69,
+          "asOf": "2026-04-30",
+          "source": "GlobalData via MarkLines",
+          "sourceUrl": "https://www.marklines.com/en/report/forecastprod_202604?rf=latest-contents",
+          "status": "last-verified",
+          "locator": "Global light vehicle production forecast for 2026",
+          "lastCheckedAt": "2026-07-19T17:43:31.928Z",
+          "sourceReachable": true,
+          "sourceValueVerified": true,
+          "sourceSnippet": "ta Forecast Search Close Specify your report search criteria Search by these criteria &times; Global Top 10 OEMs Production Forecast (Q1 2026) Global production to reach 93.69M units in 2026, 95.13M units in 2027 2026/04"
         },
         "memPerUnit": {
           "value": 6,
           "asOf": "2026",
           "source": "ADAS/IVI mix model",
-          "sourceUrl": null,
           "status": "model"
         },
         "skhyShare": {
           "value": 26,
           "asOf": "2026",
-          "source": "Planning assumption",
-          "sourceUrl": null,
+          "source": "Planning model",
           "status": "model"
         },
         "dramYoY": {
           "value": 12,
           "asOf": "2026",
-          "source": "Planning assumption",
-          "sourceUrl": null,
+          "source": "Demand model",
           "status": "model"
         },
         "nandYoY": {
           "value": 22,
           "asOf": "2026",
-          "source": "Planning assumption",
-          "sourceUrl": null,
+          "source": "Demand model",
           "status": "model"
         }
       },
       "mobile": {
         "units": {
           "value": 1090,
-          "asOf": "2026",
+          "asOf": "2026-05-26",
           "source": "IDC",
           "sourceUrl": "https://www.idc.com/resource-center/blog/worldwide-smartphone-market-to-decline-13-9-in-2026-as-memory-crisis-and-us-iran-war-constrain-growth/",
-          "status": "reported"
+          "status": "last-verified",
+          "locator": "Worldwide smartphone shipments forecast for 2026",
+          "lastCheckedAt": "2026-07-19T17:43:31.929Z",
+          "sourceReachable": true,
+          "sourceValueVerified": true,
+          "sourceSnippet": "worst year on record. According to IDC’s Worldwide Quarterly Mobile Phone Tracker , worldwide smartphone shipments are forecast to decline 13.9% year-on-year in 2026 to 1.09 billion units. That is a further downward revi"
         },
         "memPerUnit": {
           "value": 9,
           "asOf": "2026",
           "source": "LPDDR mix model",
-          "sourceUrl": null,
           "status": "model"
         },
         "skhyShare": {
           "value": 30,
           "asOf": "2026",
-          "source": "Planning assumption",
-          "sourceUrl": null,
+          "source": "Planning model",
           "status": "model"
         },
         "dramYoY": {
           "value": 8,
           "asOf": "2026",
-          "source": "Planning assumption",
-          "sourceUrl": null,
+          "source": "Demand model",
           "status": "model"
         },
         "nandYoY": {
           "value": 11,
           "asOf": "2026",
-          "source": "Planning assumption",
-          "sourceUrl": null,
+          "source": "Demand model",
           "status": "model"
         }
       },
       "pc": {
         "units": {
           "value": 253,
-          "asOf": "2026",
+          "asOf": "2026-03-31",
           "source": "IDC",
           "sourceUrl": "https://www.idc.com/wp-content/uploads/2026/04/IDC-Directions-AI-Supercycle-Whalen.pdf",
-          "status": "reported"
+          "status": "last-verified",
+          "locator": "p. 8, IDC Worldwide Black Book 31-March-2026 forecast",
+          "lastCheckedAt": "2026-07-19T17:43:31.929Z",
+          "sourceReachable": true,
+          "sourceValueVerified": false
         },
         "memPerUnit": {
           "value": 18,
           "asOf": "2026",
           "source": "AI PC mix model",
-          "sourceUrl": null,
           "status": "model"
         },
         "skhyShare": {
           "value": 28,
           "asOf": "2026",
-          "source": "Planning assumption",
-          "sourceUrl": null,
+          "source": "Planning model",
           "status": "model"
         },
         "dramYoY": {
           "value": 7,
           "asOf": "2026",
-          "source": "Planning assumption",
-          "sourceUrl": null,
+          "source": "Demand model",
           "status": "model"
         },
         "nandYoY": {
           "value": 9,
           "asOf": "2026",
-          "source": "Planning assumption",
-          "sourceUrl": null,
+          "source": "Demand model",
           "status": "model"
         }
       },
       "datacenter": {
         "units": {
           "value": 16.8,
-          "asOf": "2026",
+          "asOf": "2026-03-20",
           "source": "Frost & Sullivan via HKEX",
-          "sourceUrl": "https://www.hkexnews.hk/listedco/listconews/sehk/2026/0312/12048944/2026031200024.pdf",
-          "status": "reported"
+          "sourceUrl": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0320/sehk26022702191.pdf",
+          "status": "last-verified",
+          "locator": "Global high-performance server shipments table, 2026E total",
+          "lastCheckedAt": "2026-07-19T17:43:31.929Z",
+          "sourceReachable": true,
+          "sourceValueVerified": false
         },
         "memPerUnit": {
           "value": 480,
           "asOf": "2026",
           "source": "Server RDIMM mix model",
-          "sourceUrl": null,
           "status": "model"
         },
         "skhyShare": {
           "value": 24,
           "asOf": "2026",
-          "source": "Planning assumption",
-          "sourceUrl": null,
+          "source": "Planning model",
           "status": "model"
         },
         "dramYoY": {
           "value": 16,
           "asOf": "2026",
-          "source": "Planning assumption",
-          "sourceUrl": null,
+          "source": "Demand model",
           "status": "model"
         },
         "nandYoY": {
           "value": 28,
           "asOf": "2026",
-          "source": "Planning assumption",
-          "sourceUrl": null,
+          "source": "Demand model",
           "status": "model"
         }
       }
     },
-    "updatedAt": "2026-07-19T14:51:07.173Z"
+    "modelUpdatedAt": "2026-07-19",
+    "methodology": {
+      "name": "source-gated-ewma",
+      "description": "Observed values require a dated source URL. Model parameters are versioned separately and are never presented as reported facts.",
+      "reviewAfterDays": 90
+    },
+    "updatedAt": "2026-07-19T17:43:31.927Z",
+    "acceptedObservations": [],
+    "sourceChecks": {
+      "updatedAt": "2026-07-19T17:43:33.368Z",
+      "total": 5,
+      "ok": 5,
+      "reachable": 5,
+      "valueVerified": 3,
+      "items": {
+        "hyperscaler": {
+          "category": "hyperscaler",
+          "field": "units",
+          "source": "Presenc AI GPU Shipment Tracker",
+          "sourceUrl": "https://presenc.ai/research/gpu-shipment-tracker-blackwell-rubin-2026",
+          "sourceDate": "2026-05-22",
+          "expectedValue": 6.5,
+          "checkedAt": "2026-07-19T17:43:31.928Z",
+          "ok": true,
+          "reachable": true,
+          "valueVerified": true,
+          "observedValue": 6.5,
+          "snippet": "ccelerator unit shipments across NVIDIA, AMD, Intel, plus hyperscaler custom silicon (Google TPU, AWS Trainium, Microsoft Maia, Meta MTIA) are estimated at approximately 6.5 million units in 2026, a slight decline from 2",
+          "status": "source-value-verified",
+          "validation": "source text, subject, measure and numeric value matched in one clause",
+          "message": null
+        },
+        "auto": {
+          "category": "auto",
+          "field": "units",
+          "source": "GlobalData via MarkLines",
+          "sourceUrl": "https://www.marklines.com/en/report/forecastprod_202604?rf=latest-contents",
+          "sourceDate": "2026-04-30",
+          "expectedValue": 93.69,
+          "checkedAt": "2026-07-19T17:43:31.928Z",
+          "ok": true,
+          "reachable": true,
+          "valueVerified": true,
+          "observedValue": 93.69,
+          "snippet": "ta Forecast Search Close Specify your report search criteria Search by these criteria &times; Global Top 10 OEMs Production Forecast (Q1 2026) Global production to reach 93.69M units in 2026, 95.13M units in 2027 2026/04",
+          "status": "source-value-verified",
+          "validation": "source text, subject, measure and numeric value matched in one clause",
+          "message": null
+        },
+        "mobile": {
+          "category": "mobile",
+          "field": "units",
+          "source": "IDC",
+          "sourceUrl": "https://www.idc.com/resource-center/blog/worldwide-smartphone-market-to-decline-13-9-in-2026-as-memory-crisis-and-us-iran-war-constrain-growth/",
+          "sourceDate": "2026-05-26",
+          "expectedValue": 1090,
+          "checkedAt": "2026-07-19T17:43:31.929Z",
+          "ok": true,
+          "reachable": true,
+          "valueVerified": true,
+          "observedValue": 1090,
+          "snippet": "worst year on record. According to IDC’s Worldwide Quarterly Mobile Phone Tracker , worldwide smartphone shipments are forecast to decline 13.9% year-on-year in 2026 to 1.09 billion units. That is a further downward revi",
+          "status": "source-value-verified",
+          "validation": "source text, subject, measure and numeric value matched in one clause",
+          "message": null
+        },
+        "pc": {
+          "category": "pc",
+          "field": "units",
+          "source": "IDC",
+          "sourceUrl": "https://www.idc.com/wp-content/uploads/2026/04/IDC-Directions-AI-Supercycle-Whalen.pdf",
+          "sourceDate": "2026-03-31",
+          "expectedValue": 253,
+          "checkedAt": "2026-07-19T17:43:31.929Z",
+          "contentType": "application/pdf",
+          "contentLength": 2359481,
+          "ok": true,
+          "reachable": true,
+          "valueVerified": false,
+          "status": "source-reachable",
+          "validation": "dated source and locator; document reachability rechecked",
+          "locator": "p. 8, IDC Worldwide Black Book 31-March-2026 forecast"
+        },
+        "datacenter": {
+          "category": "datacenter",
+          "field": "units",
+          "source": "Frost & Sullivan via HKEX",
+          "sourceUrl": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0320/sehk26022702191.pdf",
+          "sourceDate": "2026-03-20",
+          "expectedValue": 16.8,
+          "checkedAt": "2026-07-19T17:43:31.929Z",
+          "contentType": "application/pdf",
+          "contentLength": 2703835,
+          "ok": true,
+          "reachable": true,
+          "valueVerified": false,
+          "status": "source-reachable",
+          "validation": "dated source and locator; document reachability rechecked",
+          "locator": "Global high-performance server shipments table, 2026E total"
+        }
+      }
+    }
   },
   "liveFigures": {
-    "updatedAt": "2026-07-19T14:51:07.176Z",
-    "total": 9,
+    "updatedAt": "2026-07-19T17:43:33.370Z",
+    "total": 11,
     "topicCounts": {
       "capital": 2,
       "capex": 2,
-      "other": 2,
+      "other": 4,
       "price": 1,
       "market": 1,
       "capacity": 1
@@ -349,7 +464,14 @@
         "url": "https://www.scmp.com/tech/article/3360892/chinese-memory-giant-cxmt-oversubscribed-212-times-mega-shanghai-ipo",
         "date": "2026-07-17",
         "sourceClass": "authoritative-media",
-        "claimLayer": "reported-fact"
+        "claimLayer": "reported-fact",
+        "canonical": {
+          "number": 212,
+          "family": "multiple",
+          "displayUnit": "x"
+        },
+        "extractionMode": "web-verbatim",
+        "sourceLocator": "https://www.scmp.com/tech/article/3360892/chinese-memory-giant-cxmt-oversubscribed-212-times-mega-shanghai-ipo"
       },
       {
         "value": "40%",
@@ -361,10 +483,17 @@
         "snippet": "2027년 클라우드 CapEx에서 메모리 비중은 40%로 높아지지만, 2024~2026년 범용 메모리 대역폭 개선은 14%에 그쳐 토큰 증가 속도와의 격차가 커진다는 분석입니다.",
         "contextKo": "메모리 병목은 HBM 캐파를 넘어 시스템 효율 문제로 확장",
         "source": "Morgan Stanley",
-        "url": "Global Technology: Innovating the Next-Generation Memory",
+        "url": "",
         "date": "2026-07-16",
         "sourceClass": "research",
-        "claimLayer": "research-model"
+        "claimLayer": "research-model",
+        "canonical": {
+          "number": 40,
+          "family": "percent",
+          "displayUnit": "%"
+        },
+        "extractionMode": "report-extract",
+        "sourceLocator": "Global Technology: Innovating the Next-Generation Memory"
       },
       {
         "value": "14%",
@@ -376,10 +505,17 @@
         "snippet": "2027년 클라우드 CapEx에서 메모리 비중은 40%로 높아지지만, 2024~2026년 범용 메모리 대역폭 개선은 14%에 그쳐 토큰 증가 속도와의 격차가 커진다는 분석입니다.",
         "contextKo": "메모리 병목은 HBM 캐파를 넘어 시스템 효율 문제로 확장",
         "source": "Morgan Stanley",
-        "url": "Global Technology: Innovating the Next-Generation Memory",
+        "url": "",
         "date": "2026-07-16",
         "sourceClass": "research",
-        "claimLayer": "research-model"
+        "claimLayer": "research-model",
+        "canonical": {
+          "number": 14,
+          "family": "percent",
+          "displayUnit": "%"
+        },
+        "extractionMode": "report-extract",
+        "sourceLocator": "Global Technology: Innovating the Next-Generation Memory"
       },
       {
         "value": "77%",
@@ -391,10 +527,17 @@
         "snippet": "에이전트의 작업 분해와 도구 호출이 CPU 오케스트레이션과 메모리 접근량을 늘려 2030년 DRAM 수요를 기준 전망보다 26~77% 높일 수 있다는 시나리오입니다.",
         "contextKo": "Agentic AI가 서버 DRAM·스토리지까지 수요 범위를 넓힘",
         "source": "Morgan Stanley",
-        "url": "Global Technology: Innovating the Next-Generation Memory",
+        "url": "",
         "date": "2026-07-16",
         "sourceClass": "research",
-        "claimLayer": "research-model"
+        "claimLayer": "research-model",
+        "canonical": {
+          "number": 77,
+          "family": "percent",
+          "displayUnit": "%"
+        },
+        "extractionMode": "report-extract",
+        "sourceLocator": "Global Technology: Innovating the Next-Generation Memory"
       },
       {
         "value": "$22B",
@@ -406,10 +549,17 @@
         "snippet": "Micron은 16개 전략고객계약에서 $22B의 재무 약정을 확보했습니다.",
         "contextKo": "3Q26 가격 상방 뒤 4Q26 모멘텀 둔화 가능성",
         "source": "Morgan Stanley",
-        "url": "Global Technology: Innovating the Next-Generation Memory",
+        "url": "",
         "date": "2026-07-16",
         "sourceClass": "research",
-        "claimLayer": "research-model"
+        "claimLayer": "research-model",
+        "canonical": {
+          "number": 22,
+          "family": "currency-usd",
+          "displayUnit": "currency-usd"
+        },
+        "extractionMode": "report-extract",
+        "sourceLocator": "Global Technology: Innovating the Next-Generation Memory"
       },
       {
         "value": "30%",
@@ -421,10 +571,17 @@
         "snippet": "3Q26 DRAM 가격은 20~30% 이상 오를 수 있지만 전년 대비 가격 모멘텀은 4Q26에 정체될 수 있습니다.",
         "contextKo": "3Q26 가격 상방 뒤 4Q26 모멘텀 둔화 가능성",
         "source": "Morgan Stanley",
-        "url": "Global Technology: Innovating the Next-Generation Memory",
+        "url": "",
         "date": "2026-07-16",
         "sourceClass": "research",
-        "claimLayer": "research-model"
+        "claimLayer": "research-model",
+        "canonical": {
+          "number": 30,
+          "family": "percent",
+          "displayUnit": "%"
+        },
+        "extractionMode": "report-extract",
+        "sourceLocator": "Global Technology: Innovating the Next-Generation Memory"
       },
       {
         "value": "$4.0B",
@@ -436,10 +593,17 @@
         "snippet": "MRDIMM은 DDR5 부품으로 유효 12,800MT/s를 구현하고, CXL MXC·스위치 시장은 2030년 $4.0B로 전망됩니다.",
         "contextKo": "CXL·MRDIMM은 증설 없이 서버당 메모리 효율을 높이는 축",
         "source": "Morgan Stanley",
-        "url": "Global Technology: Innovating the Next-Generation Memory",
+        "url": "",
         "date": "2026-07-16",
         "sourceClass": "research",
-        "claimLayer": "research-model"
+        "claimLayer": "research-model",
+        "canonical": {
+          "number": 4,
+          "family": "currency-usd",
+          "displayUnit": "currency-usd"
+        },
+        "extractionMode": "report-extract",
+        "sourceLocator": "Global Technology: Innovating the Next-Generation Memory"
       },
       {
         "value": "US$4.3B",
@@ -454,7 +618,14 @@
         "url": "https://www.digitimes.com/news/a20260713VL220/cxmt-hbm-samsung-ipo-micron.html",
         "date": "2026-07-15",
         "sourceClass": "authoritative-media",
-        "claimLayer": "reported-fact"
+        "claimLayer": "reported-fact",
+        "canonical": {
+          "number": 4.3,
+          "family": "currency-usd",
+          "displayUnit": "currency-usd"
+        },
+        "extractionMode": "web-verbatim",
+        "sourceLocator": "https://www.digitimes.com/news/a20260713VL220/cxmt-hbm-samsung-ipo-micron.html"
       },
       {
         "value": "25%",
@@ -469,24 +640,77 @@
         "url": "https://newsletter.semianalysis.com/p/chinas-cxmt-is-set-to-challenge-dram",
         "date": "2026-06-23",
         "sourceClass": "research",
-        "claimLayer": "research-model"
+        "claimLayer": "research-model",
+        "canonical": {
+          "number": 25,
+          "family": "percent",
+          "displayUnit": "%"
+        },
+        "extractionMode": "web-verbatim",
+        "sourceLocator": "https://newsletter.semianalysis.com/p/chinas-cxmt-is-set-to-challenge-dram"
+      },
+      {
+        "value": "11.7Gbps",
+        "kind": "speed",
+        "topic": {
+          "id": "other",
+          "label": "지표"
+        },
+        "snippet": "Samsung announced commercial HBM4 shipments with a 4nm logic base die and transfer speeds of 11.7Gbps, scalable up to 13Gbps.",
+        "contextKo": "삼성, AI 컴퓨팅용 HBM4 상업 출하 발표",
+        "source": "Samsung",
+        "url": "https://news.samsung.com/global/samsung-ships-industry-first-commercial-hbm4-with-ultimate-performance-for-ai-computing",
+        "date": "2026-02-11",
+        "sourceClass": "official",
+        "claimLayer": "official-fact",
+        "canonical": {
+          "number": 11.7,
+          "family": "speed-gbps",
+          "displayUnit": "Gbps"
+        },
+        "extractionMode": "web-verbatim",
+        "sourceLocator": "https://news.samsung.com/global/samsung-ships-industry-first-commercial-hbm4-with-ultimate-performance-for-ai-computing"
+      },
+      {
+        "value": "13Gbps",
+        "kind": "speed",
+        "topic": {
+          "id": "other",
+          "label": "지표"
+        },
+        "snippet": "Samsung announced commercial HBM4 shipments with a 4nm logic base die and transfer speeds of 11.7Gbps, scalable up to 13Gbps.",
+        "contextKo": "삼성, AI 컴퓨팅용 HBM4 상업 출하 발표",
+        "source": "Samsung",
+        "url": "https://news.samsung.com/global/samsung-ships-industry-first-commercial-hbm4-with-ultimate-performance-for-ai-computing",
+        "date": "2026-02-11",
+        "sourceClass": "official",
+        "claimLayer": "official-fact",
+        "canonical": {
+          "number": 13,
+          "family": "speed-gbps",
+          "displayUnit": "Gbps"
+        },
+        "extractionMode": "web-verbatim",
+        "sourceLocator": "https://news.samsung.com/global/samsung-ships-industry-first-commercial-hbm4-with-ultimate-performance-for-ai-computing"
       }
     ],
-    "method": "authority-gated verbatim extraction · 원문 문장·출처·날짜·주장 레이어 보존"
+    "method": "authority-gated extraction · 웹 원문과 리포트 추출문을 구분하고 출처·날짜·단위를 보존"
   },
   "marketStructure": {
-    "updatedAt": "2026-07-19T14:51:07.177Z",
+    "updatedAt": "2026-07-19T17:43:33.373Z",
     "kpis": [
       {
         "id": "kpi-0",
         "baselineIndex": 0,
         "label": "2026 글로벌 반도체 시장",
         "value": "1.5",
-        "unit": "",
-        "asOf": null,
+        "prefix": "$",
+        "unit": "T+",
+        "asOf": "Spring 2026",
         "source": "WSTS",
         "sourceUrl": "https://www.wsts.org/76/103/Global-Semiconductor-Market-Surges-Beyond-15T-2026",
-        "basis": "baseline",
+        "basis": "source-baseline",
+        "dataStatus": "last-verified",
         "liveCorroboration": null,
         "status": "reported"
       },
@@ -495,11 +719,13 @@
         "baselineIndex": 1,
         "label": "메모리 성장률",
         "value": "250",
-        "unit": "",
-        "asOf": null,
+        "prefix": "",
+        "unit": "%+",
+        "asOf": "Spring 2026 / 2026-05-29",
         "source": "WSTS / TrendForce",
         "sourceUrl": "https://www.wsts.org/76/103/Global-Semiconductor-Market-Surges-Beyond-15T-2026",
-        "basis": "baseline",
+        "basis": "source-baseline",
+        "dataStatus": "last-verified",
         "liveCorroboration": null,
         "status": "reported"
       },
@@ -508,11 +734,13 @@
         "baselineIndex": 2,
         "label": "메모리 시장 규모",
         "value": "889.3",
-        "unit": "",
-        "asOf": null,
+        "prefix": "$",
+        "unit": "B",
+        "asOf": "2026-05-29",
         "source": "TrendForce",
         "sourceUrl": "https://www.trendforce.com/presscenter/news/20260529-13068.html",
-        "basis": "baseline",
+        "basis": "source-baseline",
+        "dataStatus": "last-verified",
         "liveCorroboration": null,
         "status": "reported"
       },
@@ -521,11 +749,13 @@
         "baselineIndex": 3,
         "label": "SKHY HBM 점유율",
         "value": "58",
-        "unit": "",
-        "asOf": null,
+        "prefix": "",
+        "unit": "%",
+        "asOf": "2026 Q1",
         "source": "Counterpoint Research",
         "sourceUrl": "https://counterpointresearch.com/en/insights/global-dram-and-hbm-market-share",
-        "basis": "baseline",
+        "basis": "source-baseline",
+        "dataStatus": "last-verified",
         "liveCorroboration": null,
         "status": "reported"
       },
@@ -534,11 +764,13 @@
         "baselineIndex": 4,
         "label": "DRAM Top3 점유율",
         "value": "89",
-        "unit": "",
-        "asOf": null,
+        "prefix": "",
+        "unit": "%",
+        "asOf": "2026 Q1",
         "source": "Counterpoint Research",
         "sourceUrl": "https://counterpointresearch.com/en/insights/global-dram-and-hbm-market-share",
-        "basis": "baseline",
+        "basis": "source-baseline",
+        "dataStatus": "last-verified",
         "liveCorroboration": null,
         "status": "reported"
       },
@@ -547,12 +779,25 @@
         "baselineIndex": 5,
         "label": "HBM4 Rubin 요구 속도",
         "value": "11.7",
-        "unit": "",
-        "asOf": null,
-        "source": "SKHY / Micron IR",
-        "sourceUrl": "https://news.skhynix.com/sk-hynix-showcases-next-generation-ai-memory-innovations-at-ces-2026/",
-        "basis": "baseline",
-        "liveCorroboration": null,
+        "prefix": "",
+        "unit": "Gbps",
+        "asOf": "2026-02-11",
+        "source": "Samsung",
+        "sourceUrl": "https://news.samsung.com/global/samsung-ships-industry-first-commercial-hbm4-with-ultimate-performance-for-ai-computing",
+        "basis": "source-observation",
+        "dataStatus": "live-verified",
+        "liveCorroboration": {
+          "value": "11.7Gbps",
+          "canonical": {
+            "number": 11.7,
+            "family": "speed-gbps",
+            "displayUnit": "Gbps"
+          },
+          "snippet": "Samsung announced commercial HBM4 shipments with a 4nm logic base die and transfer speeds of 11.7Gbps, scalable up to 13Gbps.",
+          "source": "Samsung",
+          "url": "https://news.samsung.com/global/samsung-ships-industry-first-commercial-hbm4-with-ultimate-performance-for-ai-computing",
+          "date": "2026-02-11"
+        },
         "status": "reported"
       },
       {
@@ -560,18 +805,14 @@
         "baselineIndex": 6,
         "label": "범용 DRAM CXMT 점유율",
         "value": "8",
-        "unit": "",
-        "asOf": "2026-07-17",
+        "prefix": "",
+        "unit": "%",
+        "asOf": "2026 Q1",
         "source": "Counterpoint Research",
         "sourceUrl": "https://counterpointresearch.com/en/insights/global-dram-and-hbm-market-share",
-        "basis": "baseline+live",
-        "liveCorroboration": {
-          "value": "212 times",
-          "snippet": "CXMT oversubscribed about 212 times in Shanghai IPO.",
-          "source": "South China Morning Post",
-          "url": "https://www.scmp.com/tech/article/3360892/chinese-memory-giant-cxmt-oversubscribed-212-times-mega-shanghai-ipo",
-          "date": "2026-07-17"
-        },
+        "basis": "source-baseline",
+        "dataStatus": "last-verified",
+        "liveCorroboration": null,
         "status": "reported"
       },
       {
@@ -579,11 +820,13 @@
         "baselineIndex": 7,
         "label": "중국 메모리 가격 할인",
         "value": "15",
-        "unit": "",
-        "asOf": null,
+        "prefix": "",
+        "unit": "%+",
+        "asOf": "2026-04-09",
         "source": "TechWire Asia / Taiwan Industry Economics Services",
         "sourceUrl": "https://techwireasia.com/2026/04/chinese-memory-chips-ymtc-cxmt-nand-dram-expansion/",
-        "basis": "baseline",
+        "basis": "source-baseline",
+        "dataStatus": "watch",
         "liveCorroboration": null,
         "status": "watch"
       },
@@ -592,18 +835,14 @@
         "baselineIndex": 8,
         "label": "CXMT 2025 매출",
         "value": "61.8",
-        "unit": "",
-        "asOf": "2026-07-17",
+        "prefix": "",
+        "unit": "B CNY",
+        "asOf": "2026-05-28",
         "source": "Shanghai Stock Exchange",
         "sourceUrl": "https://english.sse.com.cn/news/newsrelease/voice/c/c_20260528_10819990.shtml",
-        "basis": "baseline+live",
-        "liveCorroboration": {
-          "value": "212 times",
-          "snippet": "CXMT oversubscribed about 212 times in Shanghai IPO.",
-          "source": "South China Morning Post",
-          "url": "https://www.scmp.com/tech/article/3360892/chinese-memory-giant-cxmt-oversubscribed-212-times-mega-shanghai-ipo",
-          "date": "2026-07-17"
-        },
+        "basis": "source-baseline",
+        "dataStatus": "last-verified",
+        "liveCorroboration": null,
         "status": "reported"
       },
       {
@@ -611,18 +850,14 @@
         "baselineIndex": 9,
         "label": "CXMT IPO 공모액",
         "value": "579",
-        "unit": "",
-        "asOf": "2026-07-17",
+        "prefix": "",
+        "unit": "억 위안",
+        "asOf": "2026-07-16",
         "source": "Shanghai Stock Exchange",
         "sourceUrl": "https://english.sse.com.cn/news/newsrelease/voice/c/c_20260716_10825660.shtml",
-        "basis": "baseline+live",
-        "liveCorroboration": {
-          "value": "212 times",
-          "snippet": "CXMT oversubscribed about 212 times in Shanghai IPO.",
-          "source": "South China Morning Post",
-          "url": "https://www.scmp.com/tech/article/3360892/chinese-memory-giant-cxmt-oversubscribed-212-times-mega-shanghai-ipo",
-          "date": "2026-07-17"
-        },
+        "basis": "source-baseline",
+        "dataStatus": "last-verified",
+        "liveCorroboration": null,
         "status": "reported"
       },
       {
@@ -630,18 +865,14 @@
         "baselineIndex": 10,
         "label": "CXMT DDR5 수율·원가",
         "value": "Watch",
+        "prefix": "",
         "unit": "",
-        "asOf": "2026-07-17",
+        "asOf": "2026 Watch / 2024-12-31",
         "source": "TrendForce Insights / Tom's Hardware",
         "sourceUrl": "https://www.tomshardware.com/pc-components/dram/china-made-ddr5-memory-chips-are-nearly-40-percent-larger-than-samsungs-ddr5-due-to-less-advanced-chipmaking-technology",
-        "basis": "baseline+live",
-        "liveCorroboration": {
-          "value": "212 times",
-          "snippet": "CXMT oversubscribed about 212 times in Shanghai IPO.",
-          "source": "South China Morning Post",
-          "url": "https://www.scmp.com/tech/article/3360892/chinese-memory-giant-cxmt-oversubscribed-212-times-mega-shanghai-ipo",
-          "date": "2026-07-17"
-        },
+        "basis": "source-baseline",
+        "dataStatus": "watch",
+        "liveCorroboration": null,
         "status": "watch"
       },
       {
@@ -649,11 +880,13 @@
         "baselineIndex": 11,
         "label": "YMTC Phase 3 국산 장비",
         "value": "50",
-        "unit": "",
-        "asOf": null,
+        "prefix": "",
+        "unit": "%+",
+        "asOf": "2026-04",
         "source": "Reuters / Tom's Hardware",
         "sourceUrl": "https://www.tomshardware.com/tech-industry/semiconductors/ymtcs-third-wuhan-fab-clears-beijings-50-percent-domestic-tooling-threshold-as-two-more-are-planned",
-        "basis": "baseline",
+        "basis": "source-baseline",
+        "dataStatus": "watch",
         "liveCorroboration": null,
         "status": "watch"
       },
@@ -662,11 +895,13 @@
         "baselineIndex": 12,
         "label": "NAND 2026 전망",
         "value": "270.6",
-        "unit": "",
-        "asOf": null,
+        "prefix": "$",
+        "unit": "B",
+        "asOf": "2026-05-29",
         "source": "TrendForce",
         "sourceUrl": "https://www.trendforce.com/presscenter/news/20260529-13068.html",
-        "basis": "baseline",
+        "basis": "source-baseline",
+        "dataStatus": "last-verified",
         "liveCorroboration": null,
         "status": "reported"
       },
@@ -675,11 +910,13 @@
         "baselineIndex": 13,
         "label": "빅펀드 3기",
         "value": "344",
-        "unit": "",
-        "asOf": null,
+        "prefix": "",
+        "unit": "B 위안",
+        "asOf": "2024-05",
         "source": "Reuters",
         "sourceUrl": "https://www.reuters.com/technology/china-sets-up-475-bln-state-fund-boost-semiconductor-industry-2024-05-27/",
-        "basis": "baseline",
+        "basis": "source-baseline",
+        "dataStatus": "last-verified",
         "liveCorroboration": null,
         "status": "reported"
       },
@@ -688,11 +925,13 @@
         "baselineIndex": 14,
         "label": "YMTC NAND 출하 점유율",
         "value": "13",
-        "unit": "",
-        "asOf": null,
+        "prefix": "",
+        "unit": "%",
+        "asOf": "2026 Q1",
         "source": "Counterpoint Research",
         "sourceUrl": "https://counterpointresearch.com/en/insights/nand-revenues-record-high-q1-2026-from-ai-demand",
-        "basis": "baseline",
+        "basis": "source-baseline",
+        "dataStatus": "last-verified",
         "liveCorroboration": null,
         "status": "reported"
       },
@@ -701,11 +940,13 @@
         "baselineIndex": 15,
         "label": "YMTC NAND 셀 밀도",
         "value": "12.66",
-        "unit": "",
-        "asOf": null,
+        "prefix": "",
+        "unit": "Gb/mm²",
+        "asOf": "2026",
         "source": "TechInsights",
         "sourceUrl": "https://www.techinsights.com/blog/ymtc-xtacking40-breaking-new-ground-3d-nand-technology",
-        "basis": "baseline",
+        "basis": "source-baseline",
+        "dataStatus": "last-verified",
         "liveCorroboration": null,
         "status": "reported"
       },
@@ -714,11 +955,13 @@
         "baselineIndex": 16,
         "label": "중국 장비 국산화율",
         "value": "23.2",
-        "unit": "",
-        "asOf": null,
+        "prefix": "",
+        "unit": "%",
+        "asOf": "2026-06 / 2025-11",
         "source": "Yole Group",
         "sourceUrl": "https://www.yolegroup.com/press-release/chinas-semiconductor-equipment-localization-enters-a-new-growth-phase/",
-        "basis": "baseline",
+        "basis": "source-baseline",
+        "dataStatus": "watch",
         "liveCorroboration": null,
         "status": "watch"
       },
@@ -727,18 +970,14 @@
         "baselineIndex": 17,
         "label": "CXMT R&D 인력",
         "value": "4653",
-        "unit": "",
-        "asOf": "2026-07-17",
+        "prefix": "",
+        "unit": "명",
+        "asOf": "2026 Watch",
         "source": "CXMT IPO prospectus context (Watch)",
         "sourceUrl": "https://english.sse.com.cn/news/newsrelease/voice/c/c_20260528_10819990.shtml",
-        "basis": "baseline+live",
-        "liveCorroboration": {
-          "value": "212 times",
-          "snippet": "CXMT oversubscribed about 212 times in Shanghai IPO.",
-          "source": "South China Morning Post",
-          "url": "https://www.scmp.com/tech/article/3360892/chinese-memory-giant-cxmt-oversubscribed-212-times-mega-shanghai-ipo",
-          "date": "2026-07-17"
-        },
+        "basis": "source-baseline",
+        "dataStatus": "watch",
+        "liveCorroboration": null,
         "status": "watch"
       }
     ],
@@ -748,51 +987,162 @@
         "hbmShare": "58%",
         "dramShare2025": "36%",
         "dramShare2026": "29%",
-        "nandShare2026": "18%",
-        "asOf": null,
-        "source": "baseline evidence layer"
+        "nandShare2026": null,
+        "fieldProvenance": {
+          "hbmShare": {
+            "asOf": "2026 Q1",
+            "source": "Counterpoint Research",
+            "sourceUrl": "https://counterpointresearch.com/en/insights/global-dram-and-hbm-market-share",
+            "basis": "source-baseline",
+            "dataStatus": "last-verified"
+          },
+          "dramShare2025": {
+            "asOf": "2025 Q1",
+            "source": "Counterpoint Research",
+            "sourceUrl": "https://counterpointresearch.com/en/insights/global-dram-and-hbm-market-share",
+            "basis": "source-baseline",
+            "dataStatus": "last-verified"
+          },
+          "dramShare2026": {
+            "asOf": "2026 Q1",
+            "source": "Counterpoint Research",
+            "sourceUrl": "https://counterpointresearch.com/en/insights/global-dram-and-hbm-market-share",
+            "basis": "source-baseline",
+            "dataStatus": "last-verified"
+          },
+          "nandShare2026": null
+        },
+        "asOf": "2026 Q1",
+        "source": "Counterpoint Research",
+        "sourceUrl": "https://counterpointresearch.com/en/insights/global-dram-and-hbm-market-share",
+        "basis": "source-baseline",
+        "dataStatus": "last-verified"
       },
       {
         "company": "삼성전자",
         "hbmShare": "21%",
         "dramShare2025": "34%",
         "dramShare2026": "38%",
-        "nandShare2026": "29%",
-        "asOf": null,
-        "source": "baseline evidence layer"
+        "nandShare2026": null,
+        "fieldProvenance": {
+          "hbmShare": {
+            "asOf": "2026 Q1",
+            "source": "Counterpoint Research",
+            "sourceUrl": "https://counterpointresearch.com/en/insights/global-dram-and-hbm-market-share",
+            "basis": "source-baseline",
+            "dataStatus": "last-verified"
+          },
+          "dramShare2025": {
+            "asOf": "2025 Q1",
+            "source": "Counterpoint Research",
+            "sourceUrl": "https://counterpointresearch.com/en/insights/global-dram-and-hbm-market-share",
+            "basis": "source-baseline",
+            "dataStatus": "last-verified"
+          },
+          "dramShare2026": {
+            "asOf": "2026 Q1",
+            "source": "Counterpoint Research",
+            "sourceUrl": "https://counterpointresearch.com/en/insights/global-dram-and-hbm-market-share",
+            "basis": "source-baseline",
+            "dataStatus": "last-verified"
+          },
+          "nandShare2026": null
+        },
+        "asOf": "2026 Q1",
+        "source": "Counterpoint Research",
+        "sourceUrl": "https://counterpointresearch.com/en/insights/global-dram-and-hbm-market-share",
+        "basis": "source-baseline",
+        "dataStatus": "last-verified"
       },
       {
         "company": "마이크론",
         "hbmShare": "21%",
         "dramShare2025": "25%",
         "dramShare2026": "22%",
-        "nandShare2026": "13%",
-        "asOf": null,
-        "source": "baseline evidence layer"
+        "nandShare2026": null,
+        "fieldProvenance": {
+          "hbmShare": {
+            "asOf": "2026 Q1",
+            "source": "Counterpoint Research",
+            "sourceUrl": "https://counterpointresearch.com/en/insights/global-dram-and-hbm-market-share",
+            "basis": "source-baseline",
+            "dataStatus": "last-verified"
+          },
+          "dramShare2025": {
+            "asOf": "2025 Q1",
+            "source": "Counterpoint Research",
+            "sourceUrl": "https://counterpointresearch.com/en/insights/global-dram-and-hbm-market-share",
+            "basis": "source-baseline",
+            "dataStatus": "last-verified"
+          },
+          "dramShare2026": {
+            "asOf": "2026 Q1",
+            "source": "Counterpoint Research",
+            "sourceUrl": "https://counterpointresearch.com/en/insights/global-dram-and-hbm-market-share",
+            "basis": "source-baseline",
+            "dataStatus": "last-verified"
+          },
+          "nandShare2026": null
+        },
+        "asOf": "2026 Q1",
+        "source": "Counterpoint Research",
+        "sourceUrl": "https://counterpointresearch.com/en/insights/global-dram-and-hbm-market-share",
+        "basis": "source-baseline",
+        "dataStatus": "last-verified"
       },
       {
         "company": "CXMT",
-        "hbmShare": "0%",
-        "dramShare2025": "3%",
+        "hbmShare": null,
+        "dramShare2025": null,
         "dramShare2026": "8%",
-        "nandShare2026": "-",
-        "asOf": null,
-        "source": "baseline evidence layer"
+        "nandShare2026": null,
+        "fieldProvenance": {
+          "hbmShare": null,
+          "dramShare2025": null,
+          "dramShare2026": {
+            "asOf": "2026 Q1",
+            "source": "Counterpoint Research",
+            "sourceUrl": "https://counterpointresearch.com/en/insights/global-dram-and-hbm-market-share",
+            "basis": "source-baseline",
+            "dataStatus": "last-verified"
+          },
+          "nandShare2026": null
+        },
+        "asOf": "2026 Q1",
+        "source": "Counterpoint Research",
+        "sourceUrl": "https://counterpointresearch.com/en/insights/global-dram-and-hbm-market-share",
+        "basis": "source-baseline",
+        "dataStatus": "last-verified"
       },
       {
         "company": "YMTC",
-        "hbmShare": "0%",
-        "dramShare2025": "-",
-        "dramShare2026": "-",
+        "hbmShare": null,
+        "dramShare2025": null,
+        "dramShare2026": null,
         "nandShare2026": "13%",
-        "asOf": null,
-        "source": "baseline evidence layer"
+        "fieldProvenance": {
+          "hbmShare": null,
+          "dramShare2025": null,
+          "dramShare2026": null,
+          "nandShare2026": {
+            "asOf": "2026 Q1",
+            "source": "Counterpoint Research",
+            "sourceUrl": "https://counterpointresearch.com/en/insights/nand-revenues-record-high-q1-2026-from-ai-demand",
+            "basis": "source-baseline",
+            "dataStatus": "last-verified"
+          }
+        },
+        "asOf": "2026 Q1",
+        "source": "Counterpoint Research",
+        "sourceUrl": "https://counterpointresearch.com/en/insights/nand-revenues-record-high-q1-2026-from-ai-demand",
+        "basis": "source-baseline",
+        "dataStatus": "last-verified"
       }
     ]
   },
   "scenarioCalibration": {
-    "updatedAt": "2026-07-19T14:51:07.178Z",
-    "method": "bounded-ewma-v1",
+    "updatedAt": "2026-07-19T17:43:33.373Z",
+    "method": "bounded-ewma-v2",
     "smoothingAlpha": 0.22,
     "strength": 17.31,
     "drivers": {
@@ -801,69 +1151,171 @@
       "tsmcRevenueYoY": 67.87,
       "chinaPressure": 100,
       "authorityEvidence": 6,
-      "chinaEvidence": 74
+      "chinaEvidence": 78
     },
     "scenarios": {
       "bear": {
-        "unitsMul": 0.85,
-        "memMul": 0.9233,
+        "unitsMul": 0.8453,
+        "memMul": 0.9197,
         "shareMul": 0.92,
-        "demandMul": 0.5699
+        "demandMul": 0.5589
       },
       "base": {
-        "unitsMul": 1.021,
-        "memMul": 1.0175,
+        "unitsMul": 1.0177,
+        "memMul": 1.0148,
         "shareMul": 0.98,
-        "demandMul": 1.0419
+        "demandMul": 1.0354
       },
       "bull": {
-        "unitsMul": 1.2619,
-        "memMul": 1.17,
+        "unitsMul": 1.2554,
+        "memMul": 1.1653,
         "shareMul": 1.015,
-        "demandMul": 1.5754
+        "demandMul": 1.5605
       }
     }
   },
   "projectionCalibration": {
-    "updatedAt": "2026-07-19T14:51:07.179Z",
-    "method": "bounded-ewma-v1",
+    "updatedAt": "2026-07-19T17:43:33.373Z",
+    "method": "bounded-ewma-v2",
+    "modelVersion": "1.0",
+    "modelUpdatedAt": "2026-07-19",
+    "smoothingAlpha": 0.22,
+    "drivers": {
+      "price": 0.3815,
+      "pressure": 1
+    },
+    "model": {
+      "horizon": {
+        "startMonths": 30,
+        "yearCount": 5
+      },
+      "segments": {
+        "ai-server": {
+          "startShare": 48,
+          "endShare": 58,
+          "baseScore": 91,
+          "sensitivity": 1.18
+        },
+        "dc-storage": {
+          "startShare": 21,
+          "endShare": 22,
+          "baseScore": 78,
+          "sensitivity": 1.05
+        },
+        "mobile-smartphone": {
+          "startShare": 14,
+          "endShare": 8,
+          "baseScore": 61,
+          "sensitivity": 0.78
+        },
+        "pc-appliance": {
+          "startShare": 12,
+          "endShare": 7,
+          "baseScore": 55,
+          "sensitivity": 0.72
+        },
+        "auto-edge": {
+          "startShare": 5,
+          "endShare": 5,
+          "baseScore": 64,
+          "sensitivity": 0.75
+        }
+      },
+      "segmentScoring": {
+        "signalCap": 160,
+        "signalWeight": 0.08,
+        "priceWeight": 2,
+        "chinaPressureCap": 100,
+        "chinaPenaltyWeight": 0.06,
+        "equipmentSignalCap": 60,
+        "storageEquipmentWeight": 0.05
+      },
+      "deltaFormula": {
+        "signalDivisor": 180,
+        "signalMax": 1.25,
+        "priceDivisor": 6,
+        "priceMin": -1.2,
+        "priceMax": 1.2,
+        "modelLiftWeight": 0.35,
+        "best": {
+          "positiveChina": -0.8,
+          "negativeChina": 0.35
+        },
+        "worst": {
+          "positivePrice": -0.45,
+          "negativePrice": -0.25,
+          "positiveChina": 1,
+          "negativeChina": 0.85,
+          "signal": -0.2
+        },
+        "neutral": {
+          "signal": 0.16,
+          "price": 0.28,
+          "china": 0.28
+        }
+      },
+      "seriesFormula": {
+        "scoreReference": 75,
+        "scoreWeight": 0.09,
+        "priceWeight": 0.18,
+        "minimumRawShare": 1
+      },
+      "driverCards": {
+        "serverWeights": {
+          "ai-server": 0.58,
+          "dc-storage": 0.42
+        },
+        "terminalWeights": {
+          "mobile-smartphone": 0.42,
+          "pc-appliance": 0.34,
+          "auto-edge": 0.24
+        },
+        "scenarioReference": 70,
+        "scenarioBiasWeight": 1.8,
+        "chinaSignalWeight": 1.15,
+        "chinaScoreMin": 20,
+        "nandReference": 58,
+        "nandPriceWeight": 8,
+        "nandSignalWeight": 0.22
+      }
+    },
     "caseWeights": {
       "ai-server": {
-        "neutral": 0.383,
-        "best": 7.4646,
-        "worst": -5.6907,
+        "neutral": 0.3647,
+        "best": 7.3475,
+        "worst": -5.6506,
         "signal": 0.95,
         "price": 0.42,
         "china": -0.3
       },
       "dc-storage": {
-        "neutral": 0.1599,
-        "best": 4.1646,
-        "worst": -3.1907,
+        "neutral": 0.1488,
+        "best": 4.0475,
+        "worst": -3.1506,
         "signal": 0.58,
         "price": 0.36,
         "china": -0.55
       },
       "mobile-smartphone": {
-        "neutral": -0.057,
-        "best": -1.7125,
-        "worst": 2.3926,
+        "neutral": -0.0971,
+        "best": -1.7741,
+        "worst": 2.3441,
         "signal": 0.18,
         "price": 0.18,
         "china": 0.46
       },
       "pc-appliance": {
-        "neutral": -0.1623,
-        "best": -2.5741,
-        "worst": 3.2913,
+        "neutral": -0.207,
+        "best": -2.6163,
+        "worst": 3.2118,
         "signal": 0.16,
         "price": 0.2,
         "china": 0.62
       },
       "auto-edge": {
-        "neutral": 0.1215,
-        "best": 1.3184,
-        "worst": 1.2833,
+        "neutral": 0.0913,
+        "best": 1.2158,
+        "worst": 1.3002,
         "signal": 0.22,
         "price": 0.14,
         "china": 0.12
@@ -871,15 +1323,15 @@
     },
     "scenarios": {
       "neutral": {
-        "scoreBias": 0.8997,
-        "serverLift": 0.2459,
-        "storageLift": 0.1721,
+        "scoreBias": 0.6803,
+        "serverLift": 0.1966,
+        "storageLift": 0.1376,
         "terminalLift": -0.4
       },
       "best": {
-        "scoreBias": 7.9833,
-        "serverLift": 4.6391,
-        "storageLift": 2.7916,
+        "scoreBias": 7.7866,
+        "serverLift": 4.5113,
+        "storageLift": 2.6933,
         "terminalLift": -0.7
       },
       "worst": {
@@ -891,12 +1343,10 @@
     }
   },
   "sourceHealth": {
-    "updatedAt": "2026-07-19T14:51:07.179Z",
-    "ok": 16,
-    "total": 17,
-    "failed": [
-      "가격백필"
-    ],
+    "updatedAt": "2026-07-19T17:43:33.374Z",
+    "ok": 22,
+    "total": 22,
+    "failed": [],
     "alerts": [],
     "sources": {
       "주가": {
@@ -905,18 +1355,8 @@
         "attempts": 3,
         "errors": [],
         "failureStreak": 0,
-        "lastAttemptAt": "2026-07-19T14:51:07.179Z",
-        "lastSuccessAt": "2026-07-19T14:51:07.179Z",
-        "alert": false
-      },
-      "경쟁사": {
-        "id": "경쟁사",
-        "ok": true,
-        "attempts": 5,
-        "errors": [],
-        "failureStreak": 0,
-        "lastAttemptAt": "2026-07-19T14:51:07.179Z",
-        "lastSuccessAt": "2026-07-19T14:51:07.179Z",
+        "lastAttemptAt": "2026-07-19T17:43:33.373Z",
+        "lastSuccessAt": "2026-07-19T17:43:33.373Z",
         "alert": false
       },
       "가격": {
@@ -925,28 +1365,18 @@
         "attempts": 2,
         "errors": [],
         "failureStreak": 0,
-        "lastAttemptAt": "2026-07-19T14:51:07.179Z",
-        "lastSuccessAt": "2026-07-19T14:51:07.179Z",
+        "lastAttemptAt": "2026-07-19T17:43:33.373Z",
+        "lastSuccessAt": "2026-07-19T17:43:33.373Z",
         "alert": false
       },
-      "스타트업": {
-        "id": "스타트업",
+      "경쟁사": {
+        "id": "경쟁사",
         "ok": true,
-        "attempts": 3,
+        "attempts": 5,
         "errors": [],
         "failureStreak": 0,
-        "lastAttemptAt": "2026-07-19T14:51:07.179Z",
-        "lastSuccessAt": "2026-07-19T14:51:07.179Z",
-        "alert": false
-      },
-      "벤치마킹": {
-        "id": "벤치마킹",
-        "ok": true,
-        "attempts": 6,
-        "errors": [],
-        "failureStreak": 0,
-        "lastAttemptAt": "2026-07-19T14:51:07.179Z",
-        "lastSuccessAt": "2026-07-19T14:51:07.179Z",
+        "lastAttemptAt": "2026-07-19T17:43:33.373Z",
+        "lastSuccessAt": "2026-07-19T17:43:33.373Z",
         "alert": false
       },
       "중국Fab인프라": {
@@ -955,8 +1385,28 @@
         "attempts": 3,
         "errors": [],
         "failureStreak": 0,
-        "lastAttemptAt": "2026-07-19T14:51:07.179Z",
-        "lastSuccessAt": "2026-07-19T14:51:07.179Z",
+        "lastAttemptAt": "2026-07-19T17:43:33.373Z",
+        "lastSuccessAt": "2026-07-19T17:43:33.373Z",
+        "alert": false
+      },
+      "스타트업": {
+        "id": "스타트업",
+        "ok": true,
+        "attempts": 3,
+        "errors": [],
+        "failureStreak": 0,
+        "lastAttemptAt": "2026-07-19T17:43:33.373Z",
+        "lastSuccessAt": "2026-07-19T17:43:33.373Z",
+        "alert": false
+      },
+      "벤치마킹": {
+        "id": "벤치마킹",
+        "ok": true,
+        "attempts": 6,
+        "errors": [],
+        "failureStreak": 0,
+        "lastAttemptAt": "2026-07-19T17:43:33.373Z",
+        "lastSuccessAt": "2026-07-19T17:43:33.373Z",
         "alert": false
       },
       "뉴스": {
@@ -965,8 +1415,8 @@
         "attempts": 24,
         "errors": [],
         "failureStreak": 0,
-        "lastAttemptAt": "2026-07-19T14:51:07.179Z",
-        "lastSuccessAt": "2026-07-19T14:51:07.179Z",
+        "lastAttemptAt": "2026-07-19T17:43:33.373Z",
+        "lastSuccessAt": "2026-07-19T17:43:33.373Z",
         "alert": false
       },
       "중국현장신호": {
@@ -975,8 +1425,8 @@
         "attempts": 1,
         "errors": [],
         "failureStreak": 0,
-        "lastAttemptAt": "2026-07-19T14:51:07.179Z",
-        "lastSuccessAt": "2026-07-19T14:51:07.179Z",
+        "lastAttemptAt": "2026-07-19T17:43:33.373Z",
+        "lastSuccessAt": "2026-07-19T17:43:33.373Z",
         "alert": false
       },
       "뉴스원문요약": {
@@ -985,8 +1435,8 @@
         "attempts": 1,
         "errors": [],
         "failureStreak": 0,
-        "lastAttemptAt": "2026-07-19T14:51:07.179Z",
-        "lastSuccessAt": "2026-07-19T14:51:07.179Z",
+        "lastAttemptAt": "2026-07-19T17:43:33.373Z",
+        "lastSuccessAt": "2026-07-19T17:43:33.373Z",
         "alert": false
       },
       "가격히스토리": {
@@ -995,8 +1445,8 @@
         "attempts": 1,
         "errors": [],
         "failureStreak": 0,
-        "lastAttemptAt": "2026-07-19T14:51:07.179Z",
-        "lastSuccessAt": "2026-07-19T14:51:07.179Z",
+        "lastAttemptAt": "2026-07-19T17:43:33.373Z",
+        "lastSuccessAt": "2026-07-19T17:43:33.373Z",
         "alert": false
       },
       "TrendForce차트": {
@@ -1005,22 +1455,18 @@
         "attempts": 1,
         "errors": [],
         "failureStreak": 0,
-        "lastAttemptAt": "2026-07-19T14:51:07.179Z",
-        "lastSuccessAt": "2026-07-19T14:51:07.179Z",
+        "lastAttemptAt": "2026-07-19T17:43:33.373Z",
+        "lastSuccessAt": "2026-07-19T17:43:33.373Z",
         "alert": false
       },
       "가격백필": {
         "id": "가격백필",
-        "ok": false,
+        "ok": true,
         "attempts": 6,
-        "errors": [
-          "fetch failed",
-          "HTTP 503",
-          "The operation was aborted due to timeout"
-        ],
-        "failureStreak": 1,
-        "lastAttemptAt": "2026-07-19T14:51:07.179Z",
-        "lastSuccessAt": "2026-07-19T14:06:13.527Z",
+        "errors": [],
+        "failureStreak": 0,
+        "lastAttemptAt": "2026-07-19T17:43:33.373Z",
+        "lastSuccessAt": "2026-07-19T17:43:33.373Z",
         "alert": false
       },
       "market": {
@@ -1029,8 +1475,8 @@
         "attempts": 14,
         "errors": [],
         "failureStreak": 0,
-        "lastAttemptAt": "2026-07-19T14:51:07.179Z",
-        "lastSuccessAt": "2026-07-19T14:51:07.179Z",
+        "lastAttemptAt": "2026-07-19T17:43:33.373Z",
+        "lastSuccessAt": "2026-07-19T17:43:33.373Z",
         "alert": false
       },
       "뉴스증거게이트": {
@@ -1039,8 +1485,8 @@
         "attempts": 1,
         "errors": [],
         "failureStreak": 0,
-        "lastAttemptAt": "2026-07-19T14:51:07.179Z",
-        "lastSuccessAt": "2026-07-19T14:51:07.179Z",
+        "lastAttemptAt": "2026-07-19T17:43:33.373Z",
+        "lastSuccessAt": "2026-07-19T17:43:33.373Z",
         "alert": false
       },
       "번역": {
@@ -1049,8 +1495,8 @@
         "attempts": 1,
         "errors": [],
         "failureStreak": 0,
-        "lastAttemptAt": "2026-07-19T14:51:07.179Z",
-        "lastSuccessAt": "2026-07-19T14:51:07.179Z",
+        "lastAttemptAt": "2026-07-19T17:43:33.373Z",
+        "lastSuccessAt": "2026-07-19T17:43:33.373Z",
         "alert": false
       },
       "증권사 리서치": {
@@ -1059,8 +1505,8 @@
         "attempts": 1,
         "errors": [],
         "failureStreak": 0,
-        "lastAttemptAt": "2026-07-19T14:51:07.179Z",
-        "lastSuccessAt": "2026-07-19T14:51:07.179Z",
+        "lastAttemptAt": "2026-07-19T17:43:33.373Z",
+        "lastSuccessAt": "2026-07-19T17:43:33.373Z",
         "alert": false
       },
       "quant": {
@@ -1069,20 +1515,70 @@
         "attempts": 7,
         "errors": [],
         "failureStreak": 0,
-        "lastAttemptAt": "2026-07-19T14:51:07.179Z",
-        "lastSuccessAt": "2026-07-19T14:51:07.179Z",
+        "lastAttemptAt": "2026-07-19T17:43:33.373Z",
+        "lastSuccessAt": "2026-07-19T17:43:33.373Z",
+        "alert": false
+      },
+      "forecast-hyperscaler": {
+        "id": "forecast-hyperscaler",
+        "ok": true,
+        "attempts": 1,
+        "errors": [],
+        "failureStreak": 0,
+        "lastAttemptAt": "2026-07-19T17:43:33.373Z",
+        "lastSuccessAt": "2026-07-19T17:43:33.373Z",
+        "alert": false
+      },
+      "forecast-auto": {
+        "id": "forecast-auto",
+        "ok": true,
+        "attempts": 1,
+        "errors": [],
+        "failureStreak": 0,
+        "lastAttemptAt": "2026-07-19T17:43:33.373Z",
+        "lastSuccessAt": "2026-07-19T17:43:33.373Z",
+        "alert": false
+      },
+      "forecast-mobile": {
+        "id": "forecast-mobile",
+        "ok": true,
+        "attempts": 1,
+        "errors": [],
+        "failureStreak": 0,
+        "lastAttemptAt": "2026-07-19T17:43:33.373Z",
+        "lastSuccessAt": "2026-07-19T17:43:33.373Z",
+        "alert": false
+      },
+      "forecast-pc": {
+        "id": "forecast-pc",
+        "ok": true,
+        "attempts": 1,
+        "errors": [],
+        "failureStreak": 0,
+        "lastAttemptAt": "2026-07-19T17:43:33.373Z",
+        "lastSuccessAt": "2026-07-19T17:43:33.373Z",
+        "alert": false
+      },
+      "forecast-datacenter": {
+        "id": "forecast-datacenter",
+        "ok": true,
+        "attempts": 1,
+        "errors": [],
+        "failureStreak": 0,
+        "lastAttemptAt": "2026-07-19T17:43:33.373Z",
+        "lastSuccessAt": "2026-07-19T17:43:33.373Z",
         "alert": false
       }
     }
   },
   "historyCoverage": {
-    "updatedAt": "2026-07-19T14:51:07.180Z",
+    "updatedAt": "2026-07-19T17:43:33.374Z",
     "priceSeries": 41,
-    "pricePoints": 443,
+    "pricePoints": 484,
     "marketSeries": 13,
     "marketPoints": 14137,
-    "metricSeries": 30,
-    "metricPoints": 30,
+    "metricSeries": 22,
+    "metricPoints": 22,
     "disclaimer": "Public observations only; unavailable historical observations are never interpolated or fabricated."
   }
 }

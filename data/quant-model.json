@@ -1,0 +1,222 @@
+{
+  "schemaVersion": "1.0",
+  "updatedAt": "2026-07-19",
+  "methodology": {
+    "name": "source-gated-ewma",
+    "description": "Observed values require a dated source URL. Model parameters are versioned separately and are never presented as reported facts.",
+    "reviewAfterDays": 90
+  },
+  "forecastInputs": {
+    "version": "2.0",
+    "categories": {
+      "hyperscaler": {
+        "units": {
+          "value": 6.5,
+          "asOf": "2026-05-22",
+          "source": "Presenc AI GPU Shipment Tracker",
+          "sourceUrl": "https://presenc.ai/research/gpu-shipment-tracker-blackwell-rubin-2026",
+          "status": "last-verified",
+          "locator": "2026 shipment tracker summary"
+        },
+        "memPerUnit": { "value": 210, "asOf": "2026", "source": "Product-mix model", "status": "model" },
+        "skhyShare": { "value": 55, "asOf": "2026-Q1", "source": "Planning model", "status": "model" },
+        "dramYoY": { "value": 15, "asOf": "2026", "source": "Demand model", "status": "model" },
+        "nandYoY": { "value": 18, "asOf": "2026", "source": "Demand model", "status": "model" }
+      },
+      "auto": {
+        "units": {
+          "value": 93.69,
+          "asOf": "2026-04-30",
+          "source": "GlobalData via MarkLines",
+          "sourceUrl": "https://www.marklines.com/en/report/forecastprod_202604?rf=latest-contents",
+          "status": "last-verified",
+          "locator": "Global light vehicle production forecast for 2026"
+        },
+        "memPerUnit": { "value": 6, "asOf": "2026", "source": "ADAS/IVI mix model", "status": "model" },
+        "skhyShare": { "value": 26, "asOf": "2026", "source": "Planning model", "status": "model" },
+        "dramYoY": { "value": 12, "asOf": "2026", "source": "Demand model", "status": "model" },
+        "nandYoY": { "value": 22, "asOf": "2026", "source": "Demand model", "status": "model" }
+      },
+      "mobile": {
+        "units": {
+          "value": 1090,
+          "asOf": "2026-05-26",
+          "source": "IDC",
+          "sourceUrl": "https://www.idc.com/resource-center/blog/worldwide-smartphone-market-to-decline-13-9-in-2026-as-memory-crisis-and-us-iran-war-constrain-growth/",
+          "status": "last-verified",
+          "locator": "Worldwide smartphone shipments forecast for 2026"
+        },
+        "memPerUnit": { "value": 9, "asOf": "2026", "source": "LPDDR mix model", "status": "model" },
+        "skhyShare": { "value": 30, "asOf": "2026", "source": "Planning model", "status": "model" },
+        "dramYoY": { "value": 8, "asOf": "2026", "source": "Demand model", "status": "model" },
+        "nandYoY": { "value": 11, "asOf": "2026", "source": "Demand model", "status": "model" }
+      },
+      "pc": {
+        "units": {
+          "value": 253,
+          "asOf": "2026-03-31",
+          "source": "IDC",
+          "sourceUrl": "https://www.idc.com/wp-content/uploads/2026/04/IDC-Directions-AI-Supercycle-Whalen.pdf",
+          "status": "last-verified",
+          "locator": "p. 8, IDC Worldwide Black Book 31-March-2026 forecast"
+        },
+        "memPerUnit": { "value": 18, "asOf": "2026", "source": "AI PC mix model", "status": "model" },
+        "skhyShare": { "value": 28, "asOf": "2026", "source": "Planning model", "status": "model" },
+        "dramYoY": { "value": 7, "asOf": "2026", "source": "Demand model", "status": "model" },
+        "nandYoY": { "value": 9, "asOf": "2026", "source": "Demand model", "status": "model" }
+      },
+      "datacenter": {
+        "units": {
+          "value": 16.8,
+          "asOf": "2026-03-20",
+          "source": "Frost & Sullivan via HKEX",
+          "sourceUrl": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0320/sehk26022702191.pdf",
+          "status": "last-verified",
+          "locator": "Global high-performance server shipments table, 2026E total"
+        },
+        "memPerUnit": { "value": 480, "asOf": "2026", "source": "Server RDIMM mix model", "status": "model" },
+        "skhyShare": { "value": 24, "asOf": "2026", "source": "Planning model", "status": "model" },
+        "dramYoY": { "value": 16, "asOf": "2026", "source": "Demand model", "status": "model" },
+        "nandYoY": { "value": 28, "asOf": "2026", "source": "Demand model", "status": "model" }
+      }
+    },
+    "extractionRules": [
+      { "category": "hyperscaler", "field": "units", "subject": "(?:accelerator|gpu)", "measure": "(?:shipment|shipments)", "value": "(\\d+(?:\\.\\d+)?)\\s*(?:m|million)", "scale": 1 },
+      { "category": "mobile", "field": "units", "subject": "smartphone", "measure": "(?:shipment|shipments)", "value": "(\\d+(?:\\.\\d+)?)\\s*(b|billion|m|million)", "unitScale": { "b": 1000, "billion": 1000, "m": 1, "million": 1 } },
+      { "category": "pc", "field": "units", "subject": "(?:pc|personal computer)", "measure": "(?:shipment|shipments)", "value": "(\\d+(?:\\.\\d+)?)\\s*(?:m|million)", "scale": 1 },
+      { "category": "auto", "field": "units", "subject": "(?:vehicle|automotive)", "measure": "(?:production|shipments)", "value": "(\\d+(?:\\.\\d+)?)\\s*(?:m|mn|million)", "scale": 1 },
+      { "category": "datacenter", "field": "units", "subject": "server", "measure": "(?:shipment|shipments)", "value": "(\\d+(?:\\.\\d+)?)\\s*(?:m|million)", "scale": 1 }
+    ]
+  },
+  "scenarioModel": {
+    "method": "bounded-ewma-v2",
+    "smoothingAlpha": 0.22,
+    "strength": {
+      "priceMomentum": 1.15,
+      "aiMarketMomentum": 0.08,
+      "tsmcRevenueYoY": 0.18,
+      "tsmcReferenceYoY": 20,
+      "chinaPressure": -0.12,
+      "min": -30,
+      "max": 30
+    },
+    "scenarios": {
+      "bear": {
+        "unitsMul": { "base": 0.82, "strengthDivisor": 700, "min": 0.72, "max": 0.92 },
+        "memMul": { "base": 0.90, "strengthDivisor": 900, "min": 0.82, "max": 0.97 },
+        "shareMul": { "base": 0.96, "chinaDivisor": -2500, "min": 0.90, "max": 0.99 },
+        "demandMul": { "base": 0.50, "strengthDivisor": 300, "min": 0.35, "max": 0.72 }
+      },
+      "base": {
+        "unitsMul": { "base": 1.00, "strengthDivisor": 1000, "min": 0.96, "max": 1.04 },
+        "memMul": { "base": 1.00, "strengthDivisor": 1200, "min": 0.97, "max": 1.04 },
+        "shareMul": { "base": 1.00, "chinaDivisor": -5000, "min": 0.97, "max": 1.01 },
+        "demandMul": { "base": 1.00, "strengthDivisor": 500, "min": 0.92, "max": 1.08 }
+      },
+      "bull": {
+        "unitsMul": { "base": 1.22, "strengthDivisor": 500, "min": 1.12, "max": 1.38 },
+        "memMul": { "base": 1.14, "strengthDivisor": 700, "min": 1.08, "max": 1.25 },
+        "shareMul": { "base": 1.04, "chinaDivisor": -4000, "min": 0.99, "max": 1.07 },
+        "demandMul": { "base": 1.48, "strengthDivisor": 220, "min": 1.25, "max": 1.78 }
+      }
+    }
+  },
+  "projectionModel": {
+    "method": "bounded-ewma-v2",
+    "smoothingAlpha": 0.22,
+    "horizon": {
+      "startMonths": 30,
+      "yearCount": 5
+    },
+    "segments": {
+      "ai-server": { "startShare": 48, "endShare": 58, "baseScore": 91, "sensitivity": 1.18 },
+      "dc-storage": { "startShare": 21, "endShare": 22, "baseScore": 78, "sensitivity": 1.05 },
+      "mobile-smartphone": { "startShare": 14, "endShare": 8, "baseScore": 61, "sensitivity": 0.78 },
+      "pc-appliance": { "startShare": 12, "endShare": 7, "baseScore": 55, "sensitivity": 0.72 },
+      "auto-edge": { "startShare": 5, "endShare": 5, "baseScore": 64, "sensitivity": 0.75 }
+    },
+    "segmentScoring": {
+      "signalCap": 160,
+      "signalWeight": 0.08,
+      "priceWeight": 2,
+      "chinaPressureCap": 100,
+      "chinaPenaltyWeight": 0.06,
+      "equipmentSignalCap": 60,
+      "storageEquipmentWeight": 0.05
+    },
+    "deltaFormula": {
+      "signalDivisor": 180,
+      "signalMax": 1.25,
+      "priceDivisor": 6,
+      "priceMin": -1.2,
+      "priceMax": 1.2,
+      "modelLiftWeight": 0.35,
+      "best": { "positiveChina": -0.8, "negativeChina": 0.35 },
+      "worst": { "positivePrice": -0.45, "negativePrice": -0.25, "positiveChina": 1, "negativeChina": 0.85, "signal": -0.2 },
+      "neutral": { "signal": 0.16, "price": 0.28, "china": 0.28 }
+    },
+    "seriesFormula": {
+      "scoreReference": 75,
+      "scoreWeight": 0.09,
+      "priceWeight": 0.18,
+      "minimumRawShare": 1
+    },
+    "driverCards": {
+      "serverWeights": { "ai-server": 0.58, "dc-storage": 0.42 },
+      "terminalWeights": { "mobile-smartphone": 0.42, "pc-appliance": 0.34, "auto-edge": 0.24 },
+      "scenarioReference": 70,
+      "scenarioBiasWeight": 1.8,
+      "chinaSignalWeight": 1.15,
+      "chinaScoreMin": 20,
+      "nandReference": 58,
+      "nandPriceWeight": 8,
+      "nandSignalWeight": 0.22
+    },
+    "driverNormalization": {
+      "chinaPressureDivisor": 100,
+      "priceMin": -40,
+      "priceMax": 40,
+      "priceDivisor": 40
+    },
+    "caseAdjustment": {
+      "neutral": { "price": 0.08, "exposurePressure": 0.06 },
+      "best": { "positivePrice": 0.35, "exposurePressure": -0.25 },
+      "worst": { "positivePrice": -0.12, "exposurePressure": 0.40 }
+    },
+    "scenarioOutputs": {
+      "neutral": {
+        "scoreBiasDemand": 18,
+        "serverPrice": 0.50,
+        "storagePrice": 0.35,
+        "terminalPressure": -0.40
+      },
+      "best": {
+        "scoreBiasBase": 7,
+        "scoreBiasPrice": 2,
+        "serverBase": 4,
+        "serverPrice": 1.30,
+        "storageBase": 2.30,
+        "storagePrice": 1,
+        "terminalBase": -1.10,
+        "terminalPressure": 0.40
+      },
+      "worst": {
+        "scoreBiasBase": -9,
+        "scoreBiasPressure": -2,
+        "serverBase": -4.20,
+        "serverPressure": -1,
+        "storageBase": -2.70,
+        "storagePressure": -1,
+        "terminalBase": 2.80,
+        "terminalPressure": 1
+      }
+    },
+    "caseWeights": {
+      "ai-server": { "neutral": 0.35, "best": 7.2, "worst": -5.6, "signal": 0.95, "price": 0.42, "china": -0.30 },
+      "dc-storage": { "neutral": 0.15, "best": 3.9, "worst": -3.1, "signal": 0.58, "price": 0.36, "china": -0.55 },
+      "mobile-smartphone": { "neutral": -0.16, "best": -1.8, "worst": 2.2, "signal": 0.18, "price": 0.18, "china": 0.46 },
+      "pc-appliance": { "neutral": -0.28, "best": -2.6, "worst": 3.0, "signal": 0.16, "price": 0.20, "china": 0.62 },
+      "auto-edge": { "neutral": 0.05, "best": 1.1, "worst": 1.3, "signal": 0.22, "price": 0.14, "china": 0.12 }
+    }
+  }
+}
