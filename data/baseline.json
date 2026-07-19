@@ -118,9 +118,9 @@
     {
       "label": "CXMT 2025 매출",
       "value": "61.8",
-      "suffix": "B 위안",
+      "suffix": "B CNY",
       "decimals": 1,
-      "note": "기간을 분리합니다. FY2025 연간 매출은 61.799B 위안(617.99억 위안, +155.60% YoY), Q1 2026 분기 매출은 50.8B 위안(508억 위안, +719.13% YoY)입니다.",
+      "note": "SSE 공식 공시의 통화 단위인 CNY를 1차값으로 표시합니다. FY2025 연간 매출은 CNY 61.799B(617.99억 위안, +155.60% YoY), Q1 2026 분기 매출은 CNY 50.8B(508억 위안, +719.13% YoY)이며 기간을 분리합니다.",
       "alt": "상하이·허페이 캐파 확대, DDR5 전환, 중국 빅테크 장기계약이 2026년 실적 가속 변수",
       "badge": "SSE 공식",
       "status": "OK",
@@ -159,8 +159,8 @@
       "label": "YMTC Phase 3 국산 장비",
       "value": "50",
       "suffix": "%+",
-      "note": "Reuters/Tom's Hardware 기준 우한 Phase 3는 국산 장비 50%+ 조달과 2026년 하반기 가동 시작을 분리 추적합니다. Sokatec 기준 초기 ramp는 30,000 wpm, Tom's/Reuters 기준 2027년 50,000 wpm, full capacity 100,000 wpm 시나리오입니다.",
-      "alt": "가동 시작과 캐파 목표를 분리해 초기 30k → 2027년 50k → full 100k로 단계화합니다.",
+      "note": "Tom's Hardware가 인용한 업계 보도 기준 우한 Phase 3는 국산 장비 50%+와 2026년 하반기 가동 계획, 2027년 50,000 wpm 및 full capacity 100,000 wpm 목표를 제시합니다. 실제 장비 설치·양산 ramp는 공개 확인 전까지 Watch입니다.",
+      "alt": "보도된 가동 계획과 실제 장비 반입·양산 실적을 분리하고, 2027년 50k → full 100k는 목표 시나리오로 관리합니다.",
       "badge": "조기경보",
       "status": "Watch",
       "statusClass": "watch",
@@ -538,7 +538,7 @@
       {
         "cat": "china",
         "q": "중국 잉여 캐파 경보는 어떤 신호로 판단하나?",
-        "a": "중국 캐파 경보는 CXMT wafer start, YMTC 우한 Phase 3, 국산 장비 qual, TrendForce spot/contract spread, BIS/MATCH Act 이벤트를 함께 봐야 합니다.\n\nCXMT 월 캐파는 소스와 기준 시점에 따라 2025년 말 약 265k wpm(SemiAnalysis 모델)에서 2026년 중반 약 290k wpm(보도 추정)까지 차이가 있습니다. 단일 확정값 대신 기준일이 붙은 범위로 관리합니다. Counterpoint Q1 2026 DRAM 매출 점유율 8%는 확정 데이터지만, 캐파 점유율은 같은 지표가 아니므로 분리합니다. YMTC 기존 Wuhan 운영 캐파도 160k~200k wpm으로 보도가 엇갈려 범위값으로 둡니다. Phase 3는 2026년 하반기 초기 약 30k wpm ramp, 2027년 50k wpm 목표를 Watch로 추적합니다.\n\n운영 기준은 CXMT 매출 점유율의 2%p 이상 변화, Tencent 같은 장기계약, YMTC Phase 3 장비 반입과 양산 ramp, DDR5·NAND 가격 전이, DUV 규제 이벤트가 동시에 켜지는지입니다.",
+        "a": "중국 캐파 경보는 CXMT wafer start, YMTC 우한 Phase 3, 국산 장비 qual, TrendForce spot/contract spread, BIS/MATCH Act 이벤트를 함께 봐야 합니다.\n\nCXMT의 실제 월 생산능력은 회사가 공식 공시하지 않았습니다. SemiAnalysis의 2026년 6월 23일 연구 모델은 연말 캐파를 2026년 350k wpm, 2027년 420k wpm, 2028년 500k wpm으로 추정합니다. 과거 265k·290k 수치는 시점과 정의가 다른 보도·모델이므로 현재 확정 캐파 범위로 합치지 않습니다. Counterpoint Q1 2026 DRAM 매출 점유율 8%도 캐파 점유율과 분리합니다. YMTC 기존 Wuhan 운영 캐파는 보도별 160k~200k wpm으로 차이가 있고, Phase 3의 2026년 하반기 가동 및 2027년 50k wpm은 보도된 계획입니다. 실제 장비 반입과 양산 ramp가 확인될 때까지 Watch로 둡니다.\n\n운영 기준은 CXMT 매출 점유율 변화, Tencent 같은 장기계약, YMTC Phase 3 실제 장비 반입·양산, DDR5·NAND 가격 전이, DUV 규제 이벤트가 동시에 켜지는지입니다.",
         "keywords": [
           "중국 캐파",
           "capacity",
@@ -591,7 +591,7 @@
       {
         "cat": "threat",
         "q": "CXMT DDR5 수율과 HBM3 일정은 어떻게 업데이트됐나?",
-        "a": "CXMT DDR5 수율은 80%+ 돌파 확정값으로 쓰지 않습니다. Q1 2026에도 수율·원가 병목이 남아 있다는 분석 신호가 있습니다. 16Gb DDR5 다이가 삼성 대비 약 40% 컸다는 수치는 Tom's Hardware의 2024년 12월 비교값이므로 2026년 현재 격차로 재사용하지 않습니다.\n\n공정 노드는 분리해서 봅니다. CXMT 공식 공개는 DDR5 제품 사양까지로 제한하고, 16nm·17nm 공정 노드는 teardown·모델 추정값으로 관리합니다. 경쟁력은 수율 단일값이 아니라 최신 die size, cost-per-bit, 고객 인증, spot/contract 가격으로 판단합니다.\n\nSemiAnalysis가 IPO 자료와 장비사 신호를 바탕으로 제시한 HBM3 8단 결합 수율 약 25%, 2026년 말 HBM 할당 30k wpm은 회사 확정 실적이 아닌 분석 모델입니다. IPO 조달금 사용계획에는 전용 HBM 프로젝트가 없고 범용 DRAM 라인 업그레이드와 선행 DRAM R&D가 중심입니다. 따라서 SKHY 대응은 단기 HBM보다 DDR5·LPDDR·서버 DRAM 가격 하방에 먼저 초점을 둡니다.",
+        "a": "CXMT DDR5 수율은 80%+ 돌파 확정값으로 쓰지 않습니다. Q1 2026에도 수율·원가 병목이 남아 있다는 분석 신호가 있습니다. 16Gb DDR5 다이가 삼성 대비 약 40% 컸다는 수치는 Tom's Hardware의 2024년 12월 비교값이므로 2026년 현재 격차로 재사용하지 않습니다.\n\n공정 노드는 분리해서 봅니다. CXMT 공식 공개는 DDR5 제품 사양까지로 제한하고, 16nm·17nm 공정 노드는 teardown·모델 추정값으로 관리합니다. 경쟁력은 수율 단일값이 아니라 최신 die size, cost-per-bit, 고객 인증, spot/contract 가격으로 판단합니다.\n\nSemiAnalysis가 2026년 6월 23일 공개한 HBM3 8단 결합 수율 약 25%는 회사 가이던스가 아닌 연구 모델입니다. SSE의 IPO 투자 프로젝트 계획액 CNY 29.5B에는 전용 HBM 프로젝트가 없고 범용 DRAM 라인 업그레이드와 선행 DRAM R&D가 중심입니다. 최종 기본 공모액 CNY 57.9B는 투자 프로젝트 계획액과 별도입니다. 따라서 SKHY 대응은 단기 HBM 추격보다 DDR5·LPDDR·서버 DRAM의 고객 침투와 가격 하방에 먼저 초점을 둡니다.",
         "keywords": [
           "cxmt",
           "ddr5",
@@ -608,7 +608,7 @@
       {
         "cat": "china",
         "q": "YMTC Wuhan Fab 3이 가동되면 글로벌 NAND 순위는 어떻게 바뀌나?",
-        "a": "YMTC 우한 Fab 3은 NAND 순위 경쟁의 변곡점입니다. 기존 Wuhan 운영 기준선은 Line 1 약 100k wpm + Line 2 약 60k wpm = 약 160k wpm으로 둡니다. Reuters/Tom's Hardware의 기존 두 팹 합산 200k wpm 보도는 명목·확장 기준 가능성이 있어 단일 확정값이 아니라 Watch 범위로 표시합니다.\n\nFab 3는 2026년 하반기 가동 시작과 초기 30k~50k wpm ramp-up을 분리해 봅니다. Fab 3가 안정화되고 추가 2개 우한 팹 계획이 실제 장비 발주로 이어지면, YMTC는 출하량 기준 글로벌 NAND 3위권 진입을 노릴 수 있습니다. 다만 200k wpm 단일값, 3위 진입 시점, 글로벌 고객 인증은 모두 출처별 차이가 있어 Watch로 둡니다.\n\n따라서 Fab 3은 단순 캐파 숫자가 아니라 Xtacking, eSSD 고객, XMC 패키징, 국산 장비 qual과 함께 봐야 합니다.",
+        "a": "YMTC 우한 Fab 3은 NAND 순위 경쟁의 변곡점입니다. 기존 Wuhan 운영 기준선은 Line 1 약 100k wpm + Line 2 약 60k wpm = 약 160k wpm으로 둡니다. Reuters/Tom's Hardware의 기존 두 팹 합산 200k wpm 보도는 명목·확장 기준 가능성이 있어 단일 확정값이 아니라 Watch 범위로 표시합니다.\n\nTom's Hardware가 인용한 업계 보도는 Fab 3의 2026년 하반기 가동 계획, 2027년 50k wpm 및 full capacity 100k wpm 목표를 제시합니다. 이는 실제 장비 설치·양산 실적이 아니라 계획이므로 공개 근거가 확인될 때까지 Reported/Watch로 둡니다. Fab 3가 안정화되고 추가 우한 팹 계획이 실제 발주로 이어지면 순위 변화 가능성이 커지지만, 3위 진입 시점과 글로벌 고객 인증은 아직 확정하지 않습니다.\n\n따라서 Fab 3은 단순 캐파 숫자가 아니라 Xtacking, eSSD 고객, XMC 패키징, 국산 장비 qual과 함께 봐야 합니다.",
         "keywords": [
           "ymtc",
           "wuhan",
@@ -675,7 +675,7 @@
       {
         "cat": "policy",
         "q": "BIS 수출통제가 SKHY에 미치는 영향은?",
-        "a": "BIS 수출통제는 중국 내 캐파 확대와 기술 업그레이드의 승인 리스크를 키웁니다. PRC VEU 목록 변화는 SKHY China, Samsung China, Intel Dalian 같은 중국 내 외국계 팹에 대한 장비 반입과 업그레이드 허용 범위가 더 좁아질 수 있다는 신호입니다.\n\n운영 원칙은 중국 내 요청을 운영 유지, 캐파 확대, 기술 업그레이드로 분리해 승인하는 것입니다. Wuxi DRAM 투자와 Dalian/Solidigm 자산은 환경 인허가, 전력·용수, BIS 라이선스 이벤트를 같은 리스크 캘린더에 올려야 합니다.\n\n전략 검토는 미국 BIS, 중국 지방정부, 한국 전략물자·기술보호 규정을 분리 탭으로 보여줍니다.",
+        "a": "BIS 수출통제는 중국 내 캐파 확대와 기술 업그레이드의 승인 리스크를 키웁니다. BIS는 2025년 8월 중국 내 외국계 반도체 Fab의 VEU 무허가 특례를 종료하면서 기존 운영용 라이선스는 검토하되 캐파 확대나 기술 업그레이드 허가는 의도하지 않는다고 밝혔습니다.\n\n미국 Census의 2026년 1월 5일 공지에 따르면 이전 VEU Fab은 2025년 12월 31일부터 기존 AES 코드 C57 대신 BIS가 발급한 H-prefix 개별 Fab 라이선스를 AES 코드 C79로 신고합니다. C79는 수출 신고용 라이선스 코드이지 새로운 blanket ban 자체가 아닙니다.\n\n운영 원칙은 중국 내 요청을 운영 유지, 캐파 확대, 기술 업그레이드로 분리해 승인하는 것입니다. Wuxi DRAM과 Dalian/Solidigm은 환경 인허가, 전력·용수, H-prefix 라이선스 조건과 C79 신고를 같은 리스크 캘린더에 올립니다.",
         "keywords": [
           "bis",
           "veu",
@@ -877,7 +877,7 @@
       {
         "cat": "threat",
         "q": "CXMT HBM 위협은 어떻게 봐야 하나?",
-        "a": "단기 HBM 위협은 과장하지 않는 편이 맞습니다.\n\nCXMT는 DDR5 제품 사양과 16nm·17nm급 teardown 추정으로 기술 격차 축소 신호를 보이지만, 공정 노드를 공식 발표값처럼 쓰지 않습니다. SemiAnalysis의 HBM3 8단 결합 수율 약 25%와 2026년 말 30k wpm 할당은 분석 모델이며, IPO 조달금 사용계획에는 전용 HBM 프로젝트가 없습니다.\n\n따라서 SKHY의 HBM4 우위는 고객 인증·수율·패키징 기준으로 유지하되, CXMT의 즉시 위협은 DDR5·LPDDR·범용 DRAM 가격 하방과 중국 빅테크 장기계약입니다. 텐센트 계약은 Reuters의 익명 소식통 보도이므로 금액 약 $2.94B와 계약 기간을 Reported/Watch로 관리합니다.",
+        "a": "단기 HBM 위협은 과장하지 않는 편이 맞습니다.\n\nCXMT는 DDR5 제품 사양과 16nm·17nm급 teardown 추정으로 기술 격차 축소 신호를 보이지만, 공정 노드를 공식 발표값처럼 쓰지 않습니다. SemiAnalysis의 HBM3 8단 결합 수율 약 25%는 2026년 6월 23일 연구 모델이며 회사 가이던스가 아닙니다. SSE가 공개한 IPO 투자 프로젝트 CNY 29.5B에도 전용 HBM 프로젝트는 없고 범용 DRAM 생산라인과 선행 DRAM R&D가 중심입니다.\n\n따라서 SKHY의 HBM4 우위는 고객 인증·수율·패키징 기준으로 관리하되, CXMT의 즉시 위협은 DDR5·LPDDR·서버 DRAM 가격 하방과 중국 빅테크 장기계약입니다. 텐센트 계약은 Reuters의 익명 소식통 보도이므로 CNY 20B 초과(약 $2.94B)와 계약 기간을 Reported/Watch로 관리합니다.",
         "keywords": [
           "cxmt",
           "hbm",
@@ -1302,8 +1302,8 @@
           },
           {
             "label": "YMTC Phase 3",
-            "value": "30k→50k",
-            "note": "국산 장비 50%+·2026년 하반기 가동 시작, 초기 30,000 wpm → 2027년 50,000 wpm 목표."
+            "value": "50k 목표",
+            "note": "국산 장비 50%+와 2026년 하반기 가동은 보도된 계획이며, 2027년 50,000 wpm 목표와 실제 장비 반입·양산 실적을 분리해 Watch."
           },
           {
             "label": "장비 기준",
@@ -2780,8 +2780,8 @@
       "source": "电子工程专辑 EE Times China",
       "date": "2026-02-02",
       "title": "长江存储三期项目提速，2026下半年量产",
-      "titleKo": "YMTC 우한 3공장, 2026년 하반기 양산 가속",
-      "summary": "YMTC Phase 3는 NAND 캐파와 국산 장비 qual을 동시에 보여주는 현장 신호. SKHY NAND 방어는 eSSD 고객과 가격 rows로 검증.",
+      "titleKo": "YMTC 우한 3공장, 2026년 하반기 가동 계획 보도",
+      "summary": "중국어 전문매체가 전한 Phase 3 가동 계획이며 실제 장비 설치·양산 실적은 공개 확인 전까지 Watch. SKHY NAND 방어는 eSSD 고객, 가격 rows, 장비 qual로 교차검증.",
       "placement": "중국어 기사 / YMTC / Wuhan Phase 3",
       "link": "https://www.eet-china.com/news/202602022037.html"
     },
@@ -2997,7 +2997,7 @@
       "date": "2026-04-09",
       "title": "Chinese memory giants are scaling fast, and the AI boom is giving them cover",
       "titleKo": "CXMT·YMTC 증설과 2027년 중국 메모리 공급 과잉 경보",
-      "summary": "CXMT FY2025 연간 매출은 61.799B 위안, Q1 2026 분기 매출은 50.8B 위안으로 기간을 분리해 봅니다. 월 캐파는 출처·시점별 265k~290k wpm 추정 범위로 관리하고, 장기 600k wpm 목표는 전망으로 분리합니다.",
+      "summary": "CXMT FY2025 연간 매출 CNY 61.799B와 Q1 2026 분기 매출 CNY 50.8B는 SSE 공식값입니다. 실제 월 캐파는 미공개이며 SemiAnalysis의 연말 2026년 350k, 2027년 420k, 2028년 500k wpm은 연구 모델로 분리합니다.",
       "placement": "china-nand · price pressure · capacity early warning",
       "link": "https://techwireasia.com/2026/04/chinese-memory-chips-ymtc-cxmt-nand-dram-expansion/"
     },
@@ -3056,8 +3056,8 @@
       "source": "电子工程专辑 EE Times China",
       "date": "2026-02-02",
       "title": "长江存储三期项目提速，2026下半年量产",
-      "titleKo": "YMTC 우한 3기 프로젝트 가속, 2026년 하반기 양산 전망",
-      "summary": "YMTC 우한 3기 프로젝트와 NAND 캐파 확장 타임라인을 보강.",
+      "titleKo": "YMTC 우한 3기 프로젝트 가속·가동 계획 보도",
+      "summary": "중국어 전문매체가 제시한 NAND 캐파 확장 계획입니다. 실제 장비 반입·양산 ramp는 공식 자료나 복수 권위 소스로 확인될 때까지 Watch로 분리합니다.",
       "placement": "YMTC 카드 · NAND/eSSD 회복 사이클",
       "link": "https://www.eet-china.com/news/202602022037.html"
     },
@@ -3153,7 +3153,7 @@
       "date": "2026-03-30",
       "title": "SKHY Eyes Dalian Upgrade Amid Tight Supply",
       "titleKo": "SKHY Dalian Phase 2 장비 설치 검토",
-      "summary": "Dalian Phase 2가 2026년 하반기 장비 설치 후보로 거론됩니다. Dalian Phase 1 생산 세대는 단정하지 않고 Intel 계열 floating-gate legacy 공정과 200-layer급 전환 가능성을 분리 검증합니다.",
+      "summary": "Dalian 업그레이드 가능성이 보도됐지만 2026년 하반기 장비 설치 시점은 확정되지 않았습니다. 기존 운영 효율화, 공정 전환 가능성, 실제 장비 반입을 분리 검증합니다.",
       "placement": "china-fab-infra · Dalian Storage · NAND/Solidigm",
       "link": "https://www.trendforce.com/news/2026/03/30/news-samsung-reportedly-advances-xian-to-236-layer-nand-sk-hynix-eyes-dalian-upgrade-amid-tight-supply/"
     },
@@ -3165,7 +3165,7 @@
       "date": "2026-04-08",
       "title": "Are Chinese Memory Chips About to Reshape Global NAND and DRAM Supply?",
       "titleKo": "CXMT 매출·캐파 급증과 중국 메모리 공급 재편",
-      "summary": "CXMT FY2025 연간 매출은 61.799B 위안, Q1 2026 분기 매출은 50.8B 위안으로 기간을 분리해 봅니다. 월 캐파는 출처·시점별 265k~290k wpm 추정 범위로 관리하고, 고객 계약·가격 전이와 함께 경쟁 압력을 판단합니다.",
+      "summary": "CXMT FY2025 연간 매출 CNY 61.799B와 Q1 2026 분기 매출 CNY 50.8B는 기간을 분리합니다. 실제 월 캐파는 미공개이며 SemiAnalysis의 연말 캐파 경로는 연구 모델로 표시하고, 고객 계약·가격 전이와 함께 경쟁 압력을 판단합니다.",
       "placement": "china-nand · CXMT · china-dynamics",
       "link": "https://techwireasia.com/2026/04/chinese-memory-chips-ymtc-cxmt-nand-dram-expansion/"
     },

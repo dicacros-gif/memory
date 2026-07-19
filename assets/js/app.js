@@ -282,13 +282,14 @@
       strategy: "중국 공장은 기존 fab 운영 연속성, 고객 서비스, 규제 증빙을 우선합니다. 미국/한국 투자와 HBM·AI 메모리 로드맵은 중국 내 업그레이드와 법적으로 분리합니다.",
       partyNote: "미국 탭의 핵심은 중국 내부 정치조직 자체가 아니라, 중국 법인·고객·장비 흐름이 미국 수출통제상 최종용도·최종사용자 리스크로 어떻게 보이는지입니다.",
       sites: [
-        { name: "Former VEU China fabs", role: "기존 운영 라이선스", note: "BIS는 기존 fab 운영 허용 취지와 확대/업그레이드 제한 취지를 분리했습니다." },
+        { name: "Former VEU China fabs", role: "H-prefix 개별 라이선스 · AES C79 신고", note: "BIS의 개별 Fab 라이선스 조건과 AES 신고 코드를 분리합니다. C79는 신고 코드이며 허용 범위 자체는 H-prefix 라이선스가 결정합니다." },
         { name: "US CHIPS ecosystem", role: "미국 내 R&D·제조 인센티브", note: "미국 내 시설·장비 투자 인센티브와 R&D 프로그램" },
         { name: "Outbound investment", role: "중국 관련 투자 제한/신고", note: "미국인·미국 controlled foreign entity 거래 검토 필요" },
       ],
       rules: [
         { axis: "CHIPS Act", status: "O", title: "미국 내 제조·R&D 인센티브", evidence: "CHIPS and Science Act 반도체 지원 총액은 $52.7B입니다. DOC 집행분 $50B는 제조 인센티브 $39B와 R&D $11B로 구성되며, 나머지 $2.7B는 국방부 $2B·국무부 $0.5B·NSF 인력·교육 $0.2B입니다.", implication: "미국 고객·패키징·R&D 협력은 중국 사업과 분리된 투자 트랙으로 관리하고, 법안 총액 $52.7B와 DOC 집행분 $50B를 혼용하지 않습니다.", source: "NIST", sourceUrl: "https://www.nist.gov/chips" },
         { axis: "BIS/VEU", status: "X", title: "중국 fab 캐파 확대·기술 업그레이드", evidence: "BIS는 VEU 특례 종료 후 기존 fab 운영 라이선스는 의도하되, 중국 내 캐파 확대나 기술 업그레이드 라이선스는 의도하지 않는다고 밝혔습니다.", implication: "Wuxi/Dalian/Chongqing 장비·소프트웨어 반입은 운영 유지와 업그레이드를 분리해 증빙해야 합니다.", source: "BIS", sourceUrl: "https://www.bis.gov/press-release/department-commerce-closes-export-controls-loophole-foreign-owned-semiconductor-fabs-china" },
+        { axis: "AES C79", status: "시행중", title: "H-prefix 개별 Fab 라이선스 신고", evidence: "미국 Census는 2025년 12월 31일부터 이전 VEU Fab의 H-prefix BIS 라이선스 수출 신고에 기존 C57 대신 AES 코드 C79를 사용한다고 2026년 1월 5일 공지했습니다.", implication: "C79는 새로운 blanket ban이 아니라 수출 신고용 라이선스 코드입니다. 실제 허용 품목과 용도는 개별 H-prefix 라이선스 조건으로 판단합니다.", source: "U.S. Census Bureau", sourceUrl: "https://content.govdelivery.com/accounts/USCENSUS/bulletins/4008e2b" },
         { axis: "Outbound investment", status: "시행중", title: "31 CFR part 850 시행 · COINS 후속 규정 대기", evidence: "현행 Outbound Rules는 2025년 1월 2일부터 시행 중입니다. 2025년 12월 18일 COINS Act가 법률이 됐지만, 재무부 후속 규정이 나오기 전까지 기존 31 CFR part 850의 금지·신고 의무가 계속 적용됩니다.", implication: "미국인·미국 계열사가 관여하는 중국 JV·지분투자·기술협력은 현행 규칙으로 우선 심사하고, COINS 후속 규정이 나오면 범위를 재평가합니다.", source: "U.S. Treasury FAQ", sourceUrl: "https://home.treasury.gov/policy-issues/international/outbound-investment-program/frequently-asked-questions" },
         { axis: "환경/인허가", status: "Watch", title: "NEPA와 대형 투자 인허가", evidence: "CHIPS 프로그램은 NEPA 항목을 별도 운영하고, 대형 투자 환경검토는 일정 리스크가 될 수 있습니다.", implication: "미국 내 신규 시설·패키징·R&D 투자는 환경 검토 일정을 의사결정 모델에 넣습니다.", source: "CHIPS.gov / NIST", sourceUrl: "https://www.chips.gov/" },
       ],
@@ -747,7 +748,7 @@
       metrics: [
         { label: "NAND 점유율", value: "13%" },
         { label: "현재 캐파", value: "160~200k wpm" },
-        { label: "Phase 3", value: "30k→50k→100k" },
+        { label: "Phase 3 계획", value: "2027 50k → full 100k" },
         { label: "공식 밀도", value: "12.66Gb/mm²" },
         { label: "제품 축", value: "eSSD" },
       ],
@@ -835,10 +836,10 @@
       linkedCategories: ["dram", "nand", "china"],
       keywords: ["cxmt", "changxin", "dram", "ddr5", "lpddr5x", "ipo", "capacity"],
       metrics: [
-        { label: "2025 매출", value: "¥61.8B" },
-        { label: "캐파 추정", value: "265~290k" },
-        { label: "DRAM 매출점유", value: "8% · Q1" },
-        { label: "HBM3 수율", value: "~25% 모델" },
+        { label: "FY2025 매출", value: "CNY 61.8B" },
+        { label: "연말 캐파 모델", value: "350k · 2026E" },
+        { label: "DRAM 매출점유", value: "8% · 2026 Q1" },
+        { label: "HBM3 수율 모델", value: "~25% · 연구" },
       ],
       strategy: [
         "2025년 매출과 월 DRAM wafer 캐파가 급증하며 DDR5·LPDDR 물량 기반의 가격 협상력을 확대",
@@ -1536,13 +1537,13 @@
     {
       id: "dram-euv-duv",
       tag: "DRAM 공정",
-      title: "CXMT DDR5 원가 병목과 HBM3 양산 지연",
-      thesis: "CXMT의 범용 DRAM 위협은 점유율·고객계약에서 오지만, DDR5 수율과 HBM3 수율은 분석 모델을 회사 확정치처럼 쓰지 않습니다. IPO 투자계획은 범용 DRAM 라인과 선행 DRAM R&D에 집중돼 있어 단기 HBM보다 DDR5·LPDDR 가격 압력이 우선입니다",
-      facts: ["DDR5 수율 80%+는 Confirmed로 승격하지 않고, Q1 2026 수율·원가 병목 신호를 Watch로 둠", "삼성 대비 약 40% 큰 DDR5 다이는 Tom's Hardware의 2024년 12월 비교값으로, 2026년 현재 격차로 재사용하지 않음", "SemiAnalysis의 HBM3 8단 결합 수율 약 25%와 2026년 말 30k wpm 배정은 분석 모델이며 회사 실적이 아님", "IPO 계획의 조달금 사용처에는 전용 HBM 프로젝트가 없고 범용 DRAM 생산라인 업그레이드와 선행 DRAM R&D가 중심"],
+      title: "CXMT 범용 DRAM 확장과 HBM 연구모델 분리",
+      thesis: "CXMT의 즉시 경쟁 압력은 HBM 동등성이 아니라 DDR5·LPDDR·서버 DRAM의 물량과 가격에서 옵니다. SSE 공식 공시, 권위 매체 보도, SemiAnalysis 연구모델을 서로 다른 근거 층으로 표시합니다.",
+      facts: ["DDR5 수율 80%+는 Confirmed로 승격하지 않고, Q1 2026 수율·원가 병목 신호를 Watch로 둠", "삼성 대비 약 40% 큰 DDR5 다이는 Tom's Hardware의 2024년 12월 비교값으로, 2026년 현재 격차로 재사용하지 않음", "HBM3 8단 결합 수율 약 25%는 SemiAnalysis의 2026년 6월 23일 연구모델이며 회사 가이던스가 아님", "SSE의 CNY 29.5B 투자 프로젝트 계획에는 전용 HBM 프로젝트가 없고 범용 DRAM 라인 업그레이드와 선행 DRAM R&D가 중심", "SemiAnalysis의 연말 캐파 2026년 350k·2027년 420k·2028년 500k wpm은 연구모델이며 실제 월 생산능력은 회사가 공개하지 않음"],
       risk: "DUV 반복 노광은 공정 스텝·마스크 비용·변동성을 키웁니다. 단기 HBM 위협보다 DDR5·LPDDR·레거시 DRAM 가격 하방 압력이 더 빠르게 나타날 가능성이 큽니다",
-      implication: "HBM 격차는 3년+로 좁혀진 상태로 보고, CXMT의 즉시 위협은 IPO 자금·Tencent 장기계약·DDR5 점유율 상승이 만드는 범용 DRAM 가격 협상력 약화입니다",
+      implication: "SKHY는 미공개 HBM 배분을 숫자로 단정하지 않고, CXMT의 DDR5·LPDDR 고객 인증, 서버 DRAM 장기계약, 비트 원가와 가격 전이를 우선 추적합니다.",
       linkedCategories: ["dram", "packaging", "equipment"],
-      source: "SemiAnalysis / Tom's Hardware",
+      source: "SemiAnalysis / Shanghai Stock Exchange / Tom's Hardware",
       sourceUrl: "https://newsletter.semianalysis.com/p/chinas-cxmt-is-set-to-challenge-dram",
     },
     {
@@ -1560,11 +1561,11 @@
     {
       id: "wuhan-phase3",
       tag: "우한 3공장",
-      title: "YMTC 우한 Phase 3 장비 설치와 2026년 하반기 양산",
-      thesis: "YMTC 우한 Phase 3는 단순 모니터링 신호가 아니라 장비 설치와 2026년 하반기 양산 개시 타임라인이 보도된 NAND 캐파 확장 이벤트입니다",
-      facts: ["기존 Wuhan 운영 기준선은 Line 1 약 100,000 wpm + Line 2 약 60,000 wpm = 약 160,000 wpm", "Sokatec은 Fab 2-A 50,000 wpm + Fab 2-B 50,000 wpm 확장까지 포함해 200,000 wpm 구조를 제시", "Fab 3는 2026년 하반기 초기 30,000 wpm ramp, 2027년 50,000 wpm 목표, full capacity 100,000 wpm으로 단계 추적"],
-      risk: "국산 장비 qual과 공정 recipe 안정화가 지연되면 계획된 ramp 속도와 수율은 다시 Watch로 낮춰야 합니다",
-      implication: "YMTC는 단순 NAND 경쟁사가 아니라 NAND 캐파, eSSD 고객, XMC 패키징, 국산 장비 qual을 묶는 중국형 IDM 후보로 추적해야 합니다",
+      title: "YMTC 우한 Phase 3 가동 계획과 실제 ramp 분리",
+      thesis: "YMTC 우한 Phase 3는 NAND 캐파 확대의 중요한 선행 신호지만, 공개된 내용은 가동·캐파 목표를 전한 업계 보도입니다. 실제 장비 반입과 양산 실적은 확인 전까지 Reported/Watch로 둡니다.",
+      facts: ["기존 Wuhan 운영 캐파는 보도별 160,000~200,000 wpm으로 차이가 있어 단일 확정값으로 합치지 않음", "보도된 계획은 국산 장비 50%+, 2026년 하반기 가동, 2027년 50,000 wpm, full capacity 100,000 wpm", "장비 설치 완료·초기 양산·수율 안정화는 공식 자료나 복수 권위 소스로 확인될 때 별도 승격"],
+      risk: "계획 수치가 실제 장비 반입·양품 비트 출하보다 먼저 움직일 수 있어 캐파를 과대평가할 위험이 있습니다.",
+      implication: "SKHY는 Phase 3 계획을 eSSD 고객 인증, 실제 장비 발주, 국산 장비 qualification, NAND 가격 전이와 함께 검증합니다.",
       linkedCategories: ["nand", "dram", "equipment", "packaging"],
       source: "Tom's Hardware / Reuters / Sokatec",
       sourceUrl: "https://www.tomshardware.com/tech-industry/semiconductors/ymtcs-third-wuhan-fab-clears-beijings-50-percent-domestic-tooling-threshold-as-two-more-are-planned",
@@ -2880,6 +2881,7 @@
     if (Number.isFinite(q.foundry?.tsmcMonthly?.yoyPct)) chips.push(`TSMC 월매출 YoY ${q.foundry.tsmcMonthly.yoyPct > 0 ? "+" : ""}${fmtNum(q.foundry.tsmcMonthly.yoyPct, 1)}%`);
     if (Number.isFinite(q.memoryMomentum?.dramSpot30dPct)) chips.push(`DRAM spot 30d ${q.memoryMomentum.dramSpot30dPct > 0 ? "+" : ""}${fmtNum(q.memoryMomentum.dramSpot30dPct, 1)}%`);
     if (Number.isFinite(q.fundamentals?.micron?.revenue?.value)) chips.push(`Micron 분기매출 $${fmtNum(q.fundamentals.micron.revenue.value / 1e9, 1)}B`);
+    if (Number(q.liveFigures?.total) > 0) chips.push(`원문 정량수치 ${fmtNum(q.liveFigures.total)}건`);
     const coverage = q.historyCoverage || {};
     if (Number(coverage.priceSeries) > 0) chips.push(`가격 ${fmtNum(coverage.priceSeries)}개·${fmtNum(coverage.pricePoints)}점`);
     if (Number(coverage.marketSeries) > 0) chips.push(`시장 ${fmtNum(coverage.marketSeries)}개·${fmtNum(coverage.marketPoints)}점`);
@@ -2896,6 +2898,68 @@
       ${chips.map((chip) => `<span class="hb-chip">${escapeHTML(chip)}</span>`).join("")}
       <span class="hb-item">매일 06·18시 KST 자동 크롤링</span>
     `;
+  }
+
+  // Live quantitative figures: verbatim numbers pulled from today's crawled
+  // articles, each with its source sentence + link. Filterable by topic.
+  let liveFiguresTopic = "all";
+  function renderLiveFigures() {
+    const host = $("#liveFigures");
+    if (!host) return;
+    const lf = QUANT?.liveFigures;
+    const items = Array.isArray(lf?.items) ? lf.items : [];
+    if (!items.length) {
+      host.innerHTML = "";
+      host.hidden = true;
+      return;
+    }
+    host.hidden = false;
+    const topics = [{ id: "all", label: "전체" }].concat(
+      Object.entries(lf.topicCounts || {})
+        .sort((a, b) => b[1] - a[1])
+        .map(([id]) => ({ id, label: (items.find((i) => i.topic?.id === id)?.topic?.label) || id }))
+    );
+    if (!topics.some((t) => t.id === liveFiguresTopic)) liveFiguresTopic = "all";
+    const shown = items.filter((item) => liveFiguresTopic === "all" || item.topic?.id === liveFiguresTopic).slice(0, 18);
+    const asOf = lf.updatedAt ? String(lf.updatedAt).slice(0, 10) : "";
+    const sourceLabels = { official: "공식 원문", "authoritative-media": "권위 매체", research: "리서치" };
+    const layerLabels = { "official-fact": "공식 사실", "reported-fact": "보도 사실", "research-model": "연구모델" };
+    host.innerHTML = `
+      <div class="live-figures-head">
+        <div>
+          <p class="eyebrow">Live figures · 권위 소스 정량 근거</p>
+          <h3>라이브 정량 수치 <span>${fmtNum(lf.total || items.length)}건</span></h3>
+        </div>
+        <div class="live-figures-tabs">
+          ${topics.map((t) => `<button type="button" class="${t.id === liveFiguresTopic ? "active" : ""}" data-lf-topic="${escapeHTML(t.id)}">${escapeHTML(t.label)}</button>`).join("")}
+        </div>
+      </div>
+      <div class="live-figures-grid">
+        ${shown.map((item) => {
+          const sourceClass = ["official", "authoritative-media", "research"].includes(item.sourceClass) ? item.sourceClass : "research";
+          const claimLayer = ["official-fact", "reported-fact", "research-model"].includes(item.claimLayer) ? item.claimLayer : "research-model";
+          return `
+            <article class="lf-card">
+              <div class="lf-top"><span class="lf-topic">${escapeHTML(item.topic?.label || "지표")}</span><b class="lf-value">${escapeHTML(item.value)}</b></div>
+              <div class="lf-meta"><span class="lf-badge ${sourceClass}">${sourceLabels[sourceClass]}</span><span class="lf-badge ${claimLayer}">${layerLabels[claimLayer]}</span></div>
+              ${item.contextKo && /[가-힣]/.test(item.contextKo) ? `<span class="lf-context">${escapeHTML(item.contextKo)}</span>` : ""}
+              <p class="lf-snippet" title="원문 문장">${escapeHTML(item.snippet)}</p>
+              <div class="lf-foot">
+                ${item.url ? `<a href="${escapeHTML(item.url)}" target="_blank" rel="noopener">${escapeHTML(item.source || "출처")} ↗</a>` : `<span>${escapeHTML(item.source || "출처")}</span>`}
+                <small>${escapeHTML(item.date || "")}</small>
+              </div>
+            </article>
+          `;
+        }).join("")}
+      </div>
+      <p class="live-figures-note">권위 소스 게이트를 통과한 원문에서 추출 · 공식 사실/보도 사실/연구모델 분리 · 모델 수치는 회사 가이던스가 아님 · 갱신 ${escapeHTML(asOf)}</p>
+    `;
+    host.querySelectorAll("[data-lf-topic]").forEach((btn) => {
+      btn.addEventListener("click", () => {
+        liveFiguresTopic = btn.dataset.lfTopic;
+        renderLiveFigures();
+      });
+    });
   }
 
   async function init() {
@@ -2927,6 +2991,7 @@
     renderSidebarCategories();
     renderCrawlHeartbeat();
     renderKpis();
+    renderLiveFigures();
     setupQA();
     setupInteractions();
     setupScrollSpy();
@@ -4368,7 +4433,7 @@
     return html;
   }
 
-  const STRATEGIC_HIGHLIGHT_RE = /(장기\s*공급계약|공동\s*로드맵|고객\s*인증|가격\s*spread|가격\s*방어|수출통제|자본\s*배분|우선\s*집행|판단\s*전환|패키징\s*병목|공급망|수율|캐파|HBM4|HBM|eSSD|DDR5|CXMT|YMTC|SKHY|BIS|VEU|CoWoS|Go|Watch|Action|\+?\d+(?:\.\d+)?(?:~\d+(?:\.\d+)?)?(?:%|B|T|Gbps|PB|억\s*위안|조\s*원))/gi;
+  const STRATEGIC_HIGHLIGHT_RE = /(장기\s*공급계약|공동\s*로드맵|고객\s*인증|가격\s*spread|가격\s*방어|수출통제|자본\s*배분|우선\s*집행|판단\s*전환|패키징\s*병목|공급망|수율|캐파|HBM4|HBM|eSSD|DDR5|CXMT|YMTC|SKHY|BIS|VEU|C79|H-prefix|CoWoS|Go|Watch|Action|\+?\d+(?:\.\d+)?(?:~\d+(?:\.\d+)?)?(?:%|B|T|Gbps|PB|억\s*위안|조\s*원))/gi;
 
   function strategicHighlightHTML(value) {
     return escapeHTML(value).replace(STRATEGIC_HIGHLIGHT_RE, '<mark class="strategy-highlight">$1</mark>');
@@ -6357,9 +6422,9 @@
         ceo: "중국 Fab 안건은 운영 유지, 캐파 확대, 기술 업그레이드를 반드시 분리해 결재합니다.",
         cfo: "운영 유지 CAPEX와 신규 증설 CAPEX의 리스크 할인율을 다르게 둡니다.",
         cto: "Wuxi/Dalian 공정 전환은 수율·장비 반입·고객 인증 가능성을 동시에 확인해야 합니다.",
-        policy: "BIS VEU, CHIPS, MATCH, EAR 조건이 확인되지 않은 업그레이드는 No-Go 또는 Watch입니다.",
+        policy: "BIS H-prefix 라이선스, AES C79 신고, CHIPS, MATCH, EAR 조건이 확인되지 않은 업그레이드는 No-Go 또는 Watch입니다.",
         market: "중국 내 운영 리스크가 가격 프리미엄을 상쇄하면 고객 배분을 재검토합니다.",
-        audit: "Fab 안건은 BIS/VEU, 환경 인허가, 토지·용수·전력 숫자가 동시에 확인될 때만 확대 판단에 반영합니다.",
+        audit: "Fab 안건은 BIS H-prefix 라이선스 조건, AES C79 신고, 환경 인허가, 토지·용수·전력 숫자가 동시에 확인될 때만 확대 판단에 반영합니다.",
         next: "운영 유지와 기술 업그레이드의 승인 문서·환경 인허가·수출통제 조건을 분리",
       },
       "packaging-equipment": {
@@ -7775,15 +7840,26 @@
     schedule(() => speak(0), avatars.length * rosterStepMs + AGENT_DEBATE_TIMING.rosterSettleMs);
   }
 
+  // Pull a competitor's share straight from the centralized marketStructure so
+  // the map, KPI strip, and share matrix all read one source (no duplicated
+  // hardcoded % scattered per board). Falls back to the static label offline.
+  function memoryMarketLiveMetric(company, field, prefix, fallback) {
+    const row = (QUANT?.marketStructure?.companies || [])
+      .find((c) => String(c.company || "").toLowerCase() === String(company).toLowerCase());
+    const raw = row && row[field];
+    if (raw && raw !== "-" && raw !== "0%") return `${prefix}${raw}`;
+    return fallback;
+  }
+
   function memoryMarketNodes() {
     return [
-      { id: "skhy", name: "SKHY", role: "HBM·DRAM·NAND 중심", metric: "HBM 58%", category: "hbm", x: 50, y: 45, scale: 100 },
+      { id: "skhy", name: "SKHY", role: "HBM·DRAM·NAND 중심", metric: memoryMarketLiveMetric("SKHY", "hbmShare", "HBM ", "HBM 58%"), category: "hbm", x: 50, y: 45, scale: 100 },
       { id: "nvidia-ai", name: "NVIDIA·AI 고객", role: "HBM 수요·매출", metric: "AI demand", category: "aidemand", x: 55, y: 10, scale: 90 },
       { id: "tsmc", name: "TSMC", role: "HBM4 base die", metric: "CoWoS", category: "packaging", x: 22, y: 30, scale: 76 },
-      { id: "samsung", name: "Samsung", role: "HBM·DRAM 경쟁", metric: "HBM 21%", category: "hbm", x: 15, y: 57, scale: 84 },
-      { id: "micron", name: "Micron", role: "HBM·DRAM 경쟁", metric: "DRAM 22%", category: "dram", x: 68, y: 58, scale: 80 },
-      { id: "cxmt", name: "CXMT", role: "중국 DRAM 가격 압력", metric: "8% revenue · Q1 2026", category: "dram", x: 31, y: 63, scale: 86 },
-      { id: "ymtc", name: "YMTC", role: "중국 NAND·eSSD", metric: "NAND 13%", category: "nand", x: 84, y: 77, scale: 84 },
+      { id: "samsung", name: "Samsung", role: "HBM·DRAM 경쟁", metric: memoryMarketLiveMetric("삼성전자", "hbmShare", "HBM ", "HBM 21%"), category: "hbm", x: 15, y: 57, scale: 84 },
+      { id: "micron", name: "Micron", role: "HBM·DRAM 경쟁", metric: memoryMarketLiveMetric("마이크론", "dramShare2026", "DRAM ", "DRAM 22%"), category: "dram", x: 68, y: 58, scale: 80 },
+      { id: "cxmt", name: "CXMT", role: "중국 DRAM 가격 압력", metric: memoryMarketLiveMetric("CXMT", "dramShare2026", "DRAM ", "8% revenue · Q1 2026"), category: "dram", x: 31, y: 63, scale: 86 },
+      { id: "ymtc", name: "YMTC", role: "중국 NAND·eSSD", metric: memoryMarketLiveMetric("YMTC", "nandShare2026", "NAND ", "NAND 13%"), category: "nand", x: 84, y: 77, scale: 84 },
       { id: "kioxia-sandisk", name: "Kioxia·SanDisk", role: "NAND peer", metric: "BiCS", category: "nand", x: 86, y: 56, scale: 70 },
       { id: "solidigm", name: "Solidigm", role: "eSSD·Dalian 방어", metric: "eSSD", category: "operations", x: 70, y: 79, scale: 70 },
       { id: "jcet-xmc", name: "JCET·XMC·TFME", role: "첨단 패키징 우회", metric: "OSAT", category: "packaging", x: 59, y: 93, scale: 70 },

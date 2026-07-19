@@ -1,7 +1,7 @@
 {
   "schemaVersion": "4.0",
-  "runId": "29687365049",
-  "updatedAt": "2026-07-19T12:42:10.797Z",
+  "runId": "local-1784467820575",
+  "updatedAt": "2026-07-19T13:34:21.423Z",
   "timezone": "Asia/Seoul",
   "stocks": {
     "samsung": {
@@ -101,7 +101,7 @@
   },
   "quant": {
     "schemaVersion": "2.0",
-    "updatedAt": "2026-07-19T12:42:07.299Z",
+    "updatedAt": "2026-07-19T13:34:17.185Z",
     "timezone": "Asia/Seoul",
     "fx": {
       "usdkrw": {
@@ -116,8 +116,8 @@
         "source": "Yahoo Finance chart API",
         "sourceUrl": "https://finance.yahoo.com/quote/KRW=X/",
         "status": "live",
-        "lastSuccessAt": "2026-07-19T12:42:07.301Z",
-        "lastAttemptAt": "2026-07-19T12:42:07.301Z",
+        "lastSuccessAt": "2026-07-19T13:34:17.186Z",
+        "lastAttemptAt": "2026-07-19T13:34:17.186Z",
         "failureStreak": 0
       },
       "usdtwd": {
@@ -132,8 +132,8 @@
         "source": "Yahoo Finance chart API",
         "sourceUrl": "https://finance.yahoo.com/quote/TWD=X/",
         "status": "live",
-        "lastSuccessAt": "2026-07-19T12:42:07.817Z",
-        "lastAttemptAt": "2026-07-19T12:42:07.817Z",
+        "lastSuccessAt": "2026-07-19T13:34:18.501Z",
+        "lastAttemptAt": "2026-07-19T13:34:18.501Z",
         "failureStreak": 0
       }
     },
@@ -150,8 +150,8 @@
         "source": "Yahoo Finance chart API",
         "sourceUrl": "https://finance.yahoo.com/quote/NVDA/",
         "status": "live",
-        "lastSuccessAt": "2026-07-19T12:42:08.264Z",
-        "lastAttemptAt": "2026-07-19T12:42:08.264Z",
+        "lastSuccessAt": "2026-07-19T13:34:18.968Z",
+        "lastAttemptAt": "2026-07-19T13:34:18.968Z",
         "failureStreak": 0
       },
       "amd": {
@@ -166,8 +166,8 @@
         "source": "Yahoo Finance chart API",
         "sourceUrl": "https://finance.yahoo.com/quote/AMD/",
         "status": "live",
-        "lastSuccessAt": "2026-07-19T12:42:08.762Z",
-        "lastAttemptAt": "2026-07-19T12:42:08.762Z",
+        "lastSuccessAt": "2026-07-19T13:34:19.443Z",
+        "lastAttemptAt": "2026-07-19T13:34:19.443Z",
         "failureStreak": 0
       }
     },
@@ -204,8 +204,8 @@
         "source": "SEC EDGAR companyfacts (10-Q/10-K XBRL)",
         "sourceUrl": "https://www.sec.gov/cgi-bin/browse-edgar?action=getcompany&CIK=0000723125&type=10-Q",
         "status": "live",
-        "lastSuccessAt": "2026-07-19T12:42:09.214Z",
-        "lastAttemptAt": "2026-07-19T12:42:09.214Z",
+        "lastSuccessAt": "2026-07-19T13:34:19.902Z",
+        "lastAttemptAt": "2026-07-19T13:34:19.902Z",
         "failureStreak": 0
       }
     },
@@ -221,8 +221,8 @@
         "source": "TWSE OpenAPI 月營業收入 (official disclosure)",
         "sourceUrl": "https://openapi.twse.com.tw/v1/opendata/t187ap05_L",
         "status": "live",
-        "lastSuccessAt": "2026-07-19T12:42:09.600Z",
-        "lastAttemptAt": "2026-07-19T12:42:09.600Z",
+        "lastSuccessAt": "2026-07-19T13:34:21.029Z",
+        "lastAttemptAt": "2026-07-19T13:34:21.029Z",
         "failureStreak": 0
       }
     },
@@ -423,10 +423,160 @@
           }
         }
       },
-      "updatedAt": "2026-07-19T12:42:10.795Z"
+      "updatedAt": "2026-07-19T13:34:21.419Z"
+    },
+    "liveFigures": {
+      "updatedAt": "2026-07-19T13:34:21.421Z",
+      "total": 9,
+      "topicCounts": {
+        "capital": 2,
+        "capex": 2,
+        "other": 2,
+        "price": 1,
+        "market": 1,
+        "capacity": 1
+      },
+      "items": [
+        {
+          "value": "212 times",
+          "kind": "multiple",
+          "topic": {
+            "id": "capital",
+            "label": "IPO·자본"
+          },
+          "snippet": "CXMT oversubscribed about 212 times in Shanghai IPO.",
+          "contextKo": "CXMT IPO, 최종 배정 기준 약 212배 초과청약",
+          "source": "South China Morning Post",
+          "url": "https://www.scmp.com/tech/article/3360892/chinese-memory-giant-cxmt-oversubscribed-212-times-mega-shanghai-ipo",
+          "date": "2026-07-17",
+          "sourceClass": "authoritative-media",
+          "claimLayer": "reported-fact"
+        },
+        {
+          "value": "40%",
+          "kind": "percent",
+          "topic": {
+            "id": "capex",
+            "label": "투자"
+          },
+          "snippet": "2027년 클라우드 CapEx에서 메모리 비중은 40%로 높아지지만, 2024~2026년 범용 메모리 대역폭 개선은 14%에 그쳐 토큰 증가 속도와의 격차가 커진다는 분석입니다.",
+          "contextKo": "메모리 병목은 HBM 캐파를 넘어 시스템 효율 문제로 확장",
+          "source": "Morgan Stanley",
+          "url": "Global Technology: Innovating the Next-Generation Memory",
+          "date": "2026-07-16",
+          "sourceClass": "research",
+          "claimLayer": "research-model"
+        },
+        {
+          "value": "14%",
+          "kind": "percent",
+          "topic": {
+            "id": "capex",
+            "label": "투자"
+          },
+          "snippet": "2027년 클라우드 CapEx에서 메모리 비중은 40%로 높아지지만, 2024~2026년 범용 메모리 대역폭 개선은 14%에 그쳐 토큰 증가 속도와의 격차가 커진다는 분석입니다.",
+          "contextKo": "메모리 병목은 HBM 캐파를 넘어 시스템 효율 문제로 확장",
+          "source": "Morgan Stanley",
+          "url": "Global Technology: Innovating the Next-Generation Memory",
+          "date": "2026-07-16",
+          "sourceClass": "research",
+          "claimLayer": "research-model"
+        },
+        {
+          "value": "77%",
+          "kind": "percent",
+          "topic": {
+            "id": "other",
+            "label": "지표"
+          },
+          "snippet": "에이전트의 작업 분해와 도구 호출이 CPU 오케스트레이션과 메모리 접근량을 늘려 2030년 DRAM 수요를 기준 전망보다 26~77% 높일 수 있다는 시나리오입니다.",
+          "contextKo": "Agentic AI가 서버 DRAM·스토리지까지 수요 범위를 넓힘",
+          "source": "Morgan Stanley",
+          "url": "Global Technology: Innovating the Next-Generation Memory",
+          "date": "2026-07-16",
+          "sourceClass": "research",
+          "claimLayer": "research-model"
+        },
+        {
+          "value": "$22B",
+          "kind": "usd",
+          "topic": {
+            "id": "other",
+            "label": "지표"
+          },
+          "snippet": "Micron은 16개 전략고객계약에서 $22B의 재무 약정을 확보했습니다.",
+          "contextKo": "3Q26 가격 상방 뒤 4Q26 모멘텀 둔화 가능성",
+          "source": "Morgan Stanley",
+          "url": "Global Technology: Innovating the Next-Generation Memory",
+          "date": "2026-07-16",
+          "sourceClass": "research",
+          "claimLayer": "research-model"
+        },
+        {
+          "value": "30%",
+          "kind": "percent",
+          "topic": {
+            "id": "price",
+            "label": "가격"
+          },
+          "snippet": "3Q26 DRAM 가격은 20~30% 이상 오를 수 있지만 전년 대비 가격 모멘텀은 4Q26에 정체될 수 있습니다.",
+          "contextKo": "3Q26 가격 상방 뒤 4Q26 모멘텀 둔화 가능성",
+          "source": "Morgan Stanley",
+          "url": "Global Technology: Innovating the Next-Generation Memory",
+          "date": "2026-07-16",
+          "sourceClass": "research",
+          "claimLayer": "research-model"
+        },
+        {
+          "value": "$4.0B",
+          "kind": "usd",
+          "topic": {
+            "id": "market",
+            "label": "시장규모"
+          },
+          "snippet": "MRDIMM은 DDR5 부품으로 유효 12,800MT/s를 구현하고, CXL MXC·스위치 시장은 2030년 $4.0B로 전망됩니다.",
+          "contextKo": "CXL·MRDIMM은 증설 없이 서버당 메모리 효율을 높이는 축",
+          "source": "Morgan Stanley",
+          "url": "Global Technology: Innovating the Next-Generation Memory",
+          "date": "2026-07-16",
+          "sourceClass": "research",
+          "claimLayer": "research-model"
+        },
+        {
+          "value": "US$4.3B",
+          "kind": "usd",
+          "topic": {
+            "id": "capital",
+            "label": "IPO·자본"
+          },
+          "snippet": "CXMT's US$4.3B IPO powers China's HBM challenge to global memory giants - digitimes.",
+          "contextKo": "CXMT의 43억 달러 IPO로 글로벌 메모리 거대 기업에 대한 중국의 HBM 도전 - digittimes",
+          "source": "digitimes",
+          "url": "https://www.digitimes.com/news/a20260713VL220/cxmt-hbm-samsung-ipo-micron.html",
+          "date": "2026-07-15",
+          "sourceClass": "authoritative-media",
+          "claimLayer": "reported-fact"
+        },
+        {
+          "value": "25%",
+          "kind": "percent",
+          "topic": {
+            "id": "capacity",
+            "label": "캐파"
+          },
+          "snippet": "SemiAnalysis models CXMT wafer capacity at about 350 kwspm by end-2026, 420 kwspm by end-2027, and 500 kwspm by end-2028, while estimating roughly 25% yield for 8-high HBM3 and des",
+          "contextKo": "SemiAnalysis, CXMT의 범용 DRAM 확장과 HBM 제약 분석",
+          "source": "SemiAnalysis",
+          "url": "https://newsletter.semianalysis.com/p/chinas-cxmt-is-set-to-challenge-dram",
+          "date": "2026-06-23",
+          "sourceClass": "research",
+          "claimLayer": "research-model"
+        }
+      ],
+      "method": "authority-gated verbatim extraction · 원문 문장·출처·날짜·주장 레이어 보존"
     },
     "marketStructure": {
-      "updatedAt": "2026-07-19T12:42:10.795Z",
+      "updatedAt": "2026-07-19T13:34:21.422Z",
       "kpis": [
         {
           "id": "kpi-0",
@@ -437,6 +587,8 @@
           "asOf": null,
           "source": "WSTS",
           "sourceUrl": "https://www.wsts.org/76/103/Global-Semiconductor-Market-Surges-Beyond-15T-2026",
+          "basis": "baseline",
+          "liveCorroboration": null,
           "status": "reported"
         },
         {
@@ -448,6 +600,8 @@
           "asOf": null,
           "source": "WSTS / TrendForce",
           "sourceUrl": "https://www.wsts.org/76/103/Global-Semiconductor-Market-Surges-Beyond-15T-2026",
+          "basis": "baseline",
+          "liveCorroboration": null,
           "status": "reported"
         },
         {
@@ -459,6 +613,8 @@
           "asOf": null,
           "source": "TrendForce",
           "sourceUrl": "https://www.trendforce.com/presscenter/news/20260529-13068.html",
+          "basis": "baseline",
+          "liveCorroboration": null,
           "status": "reported"
         },
         {
@@ -470,6 +626,8 @@
           "asOf": null,
           "source": "Counterpoint Research",
           "sourceUrl": "https://counterpointresearch.com/en/insights/global-dram-and-hbm-market-share",
+          "basis": "baseline",
+          "liveCorroboration": null,
           "status": "reported"
         },
         {
@@ -481,6 +639,8 @@
           "asOf": null,
           "source": "Counterpoint Research",
           "sourceUrl": "https://counterpointresearch.com/en/insights/global-dram-and-hbm-market-share",
+          "basis": "baseline",
+          "liveCorroboration": null,
           "status": "reported"
         },
         {
@@ -492,6 +652,8 @@
           "asOf": null,
           "source": "SKHY / Micron IR",
           "sourceUrl": "https://news.skhynix.com/sk-hynix-showcases-next-generation-ai-memory-innovations-at-ces-2026/",
+          "basis": "baseline",
+          "liveCorroboration": null,
           "status": "reported"
         },
         {
@@ -500,9 +662,17 @@
           "label": "범용 DRAM CXMT 점유율",
           "value": "8",
           "unit": "",
-          "asOf": null,
+          "asOf": "2026-07-17",
           "source": "Counterpoint Research",
           "sourceUrl": "https://counterpointresearch.com/en/insights/global-dram-and-hbm-market-share",
+          "basis": "baseline+live",
+          "liveCorroboration": {
+            "value": "212 times",
+            "snippet": "CXMT oversubscribed about 212 times in Shanghai IPO.",
+            "source": "South China Morning Post",
+            "url": "https://www.scmp.com/tech/article/3360892/chinese-memory-giant-cxmt-oversubscribed-212-times-mega-shanghai-ipo",
+            "date": "2026-07-17"
+          },
           "status": "reported"
         },
         {
@@ -514,6 +684,8 @@
           "asOf": null,
           "source": "TechWire Asia / Taiwan Industry Economics Services",
           "sourceUrl": "https://techwireasia.com/2026/04/chinese-memory-chips-ymtc-cxmt-nand-dram-expansion/",
+          "basis": "baseline",
+          "liveCorroboration": null,
           "status": "watch"
         },
         {
@@ -522,9 +694,17 @@
           "label": "CXMT 2025 매출",
           "value": "61.8",
           "unit": "",
-          "asOf": null,
+          "asOf": "2026-07-17",
           "source": "Shanghai Stock Exchange",
           "sourceUrl": "https://english.sse.com.cn/news/newsrelease/voice/c/c_20260528_10819990.shtml",
+          "basis": "baseline+live",
+          "liveCorroboration": {
+            "value": "212 times",
+            "snippet": "CXMT oversubscribed about 212 times in Shanghai IPO.",
+            "source": "South China Morning Post",
+            "url": "https://www.scmp.com/tech/article/3360892/chinese-memory-giant-cxmt-oversubscribed-212-times-mega-shanghai-ipo",
+            "date": "2026-07-17"
+          },
           "status": "reported"
         },
         {
@@ -533,9 +713,17 @@
           "label": "CXMT IPO 공모액",
           "value": "579",
           "unit": "",
-          "asOf": null,
+          "asOf": "2026-07-17",
           "source": "Shanghai Stock Exchange",
           "sourceUrl": "https://english.sse.com.cn/news/newsrelease/voice/c/c_20260716_10825660.shtml",
+          "basis": "baseline+live",
+          "liveCorroboration": {
+            "value": "212 times",
+            "snippet": "CXMT oversubscribed about 212 times in Shanghai IPO.",
+            "source": "South China Morning Post",
+            "url": "https://www.scmp.com/tech/article/3360892/chinese-memory-giant-cxmt-oversubscribed-212-times-mega-shanghai-ipo",
+            "date": "2026-07-17"
+          },
           "status": "reported"
         },
         {
@@ -544,9 +732,17 @@
           "label": "CXMT DDR5 수율·원가",
           "value": "Watch",
           "unit": "",
-          "asOf": null,
+          "asOf": "2026-07-17",
           "source": "TrendForce Insights / Tom's Hardware",
           "sourceUrl": "https://www.tomshardware.com/pc-components/dram/china-made-ddr5-memory-chips-are-nearly-40-percent-larger-than-samsungs-ddr5-due-to-less-advanced-chipmaking-technology",
+          "basis": "baseline+live",
+          "liveCorroboration": {
+            "value": "212 times",
+            "snippet": "CXMT oversubscribed about 212 times in Shanghai IPO.",
+            "source": "South China Morning Post",
+            "url": "https://www.scmp.com/tech/article/3360892/chinese-memory-giant-cxmt-oversubscribed-212-times-mega-shanghai-ipo",
+            "date": "2026-07-17"
+          },
           "status": "watch"
         },
         {
@@ -558,6 +754,8 @@
           "asOf": null,
           "source": "Reuters / Tom's Hardware",
           "sourceUrl": "https://www.tomshardware.com/tech-industry/semiconductors/ymtcs-third-wuhan-fab-clears-beijings-50-percent-domestic-tooling-threshold-as-two-more-are-planned",
+          "basis": "baseline",
+          "liveCorroboration": null,
           "status": "watch"
         },
         {
@@ -569,6 +767,8 @@
           "asOf": null,
           "source": "TrendForce",
           "sourceUrl": "https://www.trendforce.com/presscenter/news/20260529-13068.html",
+          "basis": "baseline",
+          "liveCorroboration": null,
           "status": "reported"
         },
         {
@@ -580,6 +780,8 @@
           "asOf": null,
           "source": "Reuters",
           "sourceUrl": "https://www.reuters.com/technology/china-sets-up-475-bln-state-fund-boost-semiconductor-industry-2024-05-27/",
+          "basis": "baseline",
+          "liveCorroboration": null,
           "status": "reported"
         },
         {
@@ -591,6 +793,8 @@
           "asOf": null,
           "source": "Counterpoint Research",
           "sourceUrl": "https://counterpointresearch.com/en/insights/nand-revenues-record-high-q1-2026-from-ai-demand",
+          "basis": "baseline",
+          "liveCorroboration": null,
           "status": "reported"
         },
         {
@@ -602,6 +806,8 @@
           "asOf": null,
           "source": "TechInsights",
           "sourceUrl": "https://www.techinsights.com/blog/ymtc-xtacking40-breaking-new-ground-3d-nand-technology",
+          "basis": "baseline",
+          "liveCorroboration": null,
           "status": "reported"
         },
         {
@@ -613,6 +819,8 @@
           "asOf": null,
           "source": "Yole Group",
           "sourceUrl": "https://www.yolegroup.com/press-release/chinas-semiconductor-equipment-localization-enters-a-new-growth-phase/",
+          "basis": "baseline",
+          "liveCorroboration": null,
           "status": "watch"
         },
         {
@@ -621,9 +829,17 @@
           "label": "CXMT R&D 인력",
           "value": "4653",
           "unit": "",
-          "asOf": null,
+          "asOf": "2026-07-17",
           "source": "CXMT IPO prospectus context (Watch)",
           "sourceUrl": "https://english.sse.com.cn/news/newsrelease/voice/c/c_20260528_10819990.shtml",
+          "basis": "baseline+live",
+          "liveCorroboration": {
+            "value": "212 times",
+            "snippet": "CXMT oversubscribed about 212 times in Shanghai IPO.",
+            "source": "South China Morning Post",
+            "url": "https://www.scmp.com/tech/article/3360892/chinese-memory-giant-cxmt-oversubscribed-212-times-mega-shanghai-ipo",
+            "date": "2026-07-17"
+          },
           "status": "watch"
         }
       ],
@@ -676,7 +892,7 @@
       ]
     },
     "scenarioCalibration": {
-      "updatedAt": "2026-07-19T12:42:10.796Z",
+      "updatedAt": "2026-07-19T13:34:21.422Z",
       "method": "bounded-ewma-v1",
       "smoothingAlpha": 0.22,
       "strength": 17.31,
@@ -686,69 +902,69 @@
         "tsmcRevenueYoY": 67.87,
         "chinaPressure": 100,
         "authorityEvidence": 6,
-        "chinaEvidence": 73
+        "chinaEvidence": 74
       },
       "scenarios": {
         "bear": {
-          "unitsMul": 0.8589,
-          "memMul": 0.9302,
+          "unitsMul": 0.8534,
+          "memMul": 0.9259,
           "shareMul": 0.92,
-          "demandMul": 0.5907
+          "demandMul": 0.5777
         },
         "base": {
-          "unitsMul": 1.0272,
-          "memMul": 1.0227,
+          "unitsMul": 1.0233,
+          "memMul": 1.0195,
           "shareMul": 0.98,
-          "demandMul": 1.0544
+          "demandMul": 1.0466
         },
         "bull": {
-          "unitsMul": 1.2744,
-          "memMul": 1.1789,
+          "unitsMul": 1.2666,
+          "memMul": 1.1734,
           "shareMul": 1.015,
-          "demandMul": 1.6037
+          "demandMul": 1.5861
         }
       }
     },
     "projectionCalibration": {
-      "updatedAt": "2026-07-19T12:42:10.796Z",
+      "updatedAt": "2026-07-19T13:34:21.422Z",
       "method": "bounded-ewma-v1",
       "caseWeights": {
         "ai-server": {
-          "neutral": 0.3718,
-          "best": 7.347,
-          "worst": -5.6503,
+          "neutral": 0.3774,
+          "best": 7.4058,
+          "worst": -5.6705,
           "signal": 0.95,
           "price": 0.42,
           "china": -0.3
         },
         "dc-storage": {
-          "neutral": 0.1619,
-          "best": 4.047,
-          "worst": -3.1503,
+          "neutral": 0.1609,
+          "best": 4.1058,
+          "worst": -3.1705,
           "signal": 0.58,
           "price": 0.36,
           "china": -0.55
         },
         "mobile-smartphone": {
-          "neutral": -0.1082,
-          "best": -1.7289,
-          "worst": 2.271,
+          "neutral": -0.0826,
+          "best": -1.7207,
+          "worst": 2.3318,
           "signal": 0.18,
           "price": 0.18,
           "china": 0.46
         },
         "pc-appliance": {
-          "neutral": -0.2219,
-          "best": -2.5553,
-          "worst": 3.1133,
+          "neutral": -0.1921,
+          "best": -2.5647,
+          "worst": 3.2023,
           "signal": 0.16,
           "price": 0.2,
           "china": 0.62
         },
         "auto-edge": {
-          "neutral": 0.0883,
-          "best": 1.2272,
-          "worst": 1.2813,
+          "neutral": 0.1049,
+          "best": 1.2728,
+          "worst": 1.2823,
           "signal": 0.22,
           "price": 0.14,
           "china": 0.12
@@ -756,15 +972,15 @@
       },
       "scenarios": {
         "neutral": {
-          "scoreBias": 1.0578,
-          "serverLift": 0.3395,
-          "storageLift": 0.2377,
+          "scoreBias": 0.9826,
+          "serverLift": 0.2813,
+          "storageLift": 0.1969,
           "terminalLift": -0.4
         },
         "best": {
-          "scoreBias": 8.3581,
-          "serverLift": 4.8828,
-          "storageLift": 2.9791,
+          "scoreBias": 8.1251,
+          "serverLift": 4.7313,
+          "storageLift": 2.8625,
           "terminalLift": -0.7
         },
         "worst": {
@@ -776,7 +992,7 @@
       }
     },
     "sourceHealth": {
-      "updatedAt": "2026-07-19T12:42:10.796Z",
+      "updatedAt": "2026-07-19T13:34:21.422Z",
       "ok": 17,
       "total": 17,
       "failed": [],
@@ -788,18 +1004,8 @@
           "attempts": 3,
           "errors": [],
           "failureStreak": 0,
-          "lastAttemptAt": "2026-07-19T12:42:10.796Z",
-          "lastSuccessAt": "2026-07-19T12:42:10.796Z",
-          "alert": false
-        },
-        "경쟁사": {
-          "id": "경쟁사",
-          "ok": true,
-          "attempts": 5,
-          "errors": [],
-          "failureStreak": 0,
-          "lastAttemptAt": "2026-07-19T12:42:10.796Z",
-          "lastSuccessAt": "2026-07-19T12:42:10.796Z",
+          "lastAttemptAt": "2026-07-19T13:34:21.422Z",
+          "lastSuccessAt": "2026-07-19T13:34:21.422Z",
           "alert": false
         },
         "가격": {
@@ -808,8 +1014,18 @@
           "attempts": 2,
           "errors": [],
           "failureStreak": 0,
-          "lastAttemptAt": "2026-07-19T12:42:10.796Z",
-          "lastSuccessAt": "2026-07-19T12:42:10.796Z",
+          "lastAttemptAt": "2026-07-19T13:34:21.422Z",
+          "lastSuccessAt": "2026-07-19T13:34:21.422Z",
+          "alert": false
+        },
+        "경쟁사": {
+          "id": "경쟁사",
+          "ok": true,
+          "attempts": 5,
+          "errors": [],
+          "failureStreak": 0,
+          "lastAttemptAt": "2026-07-19T13:34:21.422Z",
+          "lastSuccessAt": "2026-07-19T13:34:21.422Z",
           "alert": false
         },
         "스타트업": {
@@ -818,18 +1034,18 @@
           "attempts": 3,
           "errors": [],
           "failureStreak": 0,
-          "lastAttemptAt": "2026-07-19T12:42:10.796Z",
-          "lastSuccessAt": "2026-07-19T12:42:10.796Z",
+          "lastAttemptAt": "2026-07-19T13:34:21.422Z",
+          "lastSuccessAt": "2026-07-19T13:34:21.422Z",
           "alert": false
         },
         "중국Fab인프라": {
           "id": "중국Fab인프라",
           "ok": true,
-          "attempts": 2,
+          "attempts": 3,
           "errors": [],
           "failureStreak": 0,
-          "lastAttemptAt": "2026-07-19T12:42:10.796Z",
-          "lastSuccessAt": "2026-07-19T12:42:10.796Z",
+          "lastAttemptAt": "2026-07-19T13:34:21.422Z",
+          "lastSuccessAt": "2026-07-19T13:34:21.422Z",
           "alert": false
         },
         "벤치마킹": {
@@ -838,8 +1054,8 @@
           "attempts": 6,
           "errors": [],
           "failureStreak": 0,
-          "lastAttemptAt": "2026-07-19T12:42:10.796Z",
-          "lastSuccessAt": "2026-07-19T12:42:10.796Z",
+          "lastAttemptAt": "2026-07-19T13:34:21.422Z",
+          "lastSuccessAt": "2026-07-19T13:34:21.422Z",
           "alert": false
         },
         "뉴스": {
@@ -848,8 +1064,8 @@
           "attempts": 24,
           "errors": [],
           "failureStreak": 0,
-          "lastAttemptAt": "2026-07-19T12:42:10.796Z",
-          "lastSuccessAt": "2026-07-19T12:42:10.796Z",
+          "lastAttemptAt": "2026-07-19T13:34:21.422Z",
+          "lastSuccessAt": "2026-07-19T13:34:21.422Z",
           "alert": false
         },
         "중국현장신호": {
@@ -858,8 +1074,8 @@
           "attempts": 1,
           "errors": [],
           "failureStreak": 0,
-          "lastAttemptAt": "2026-07-19T12:42:10.796Z",
-          "lastSuccessAt": "2026-07-19T12:42:10.796Z",
+          "lastAttemptAt": "2026-07-19T13:34:21.422Z",
+          "lastSuccessAt": "2026-07-19T13:34:21.422Z",
           "alert": false
         },
         "뉴스원문요약": {
@@ -868,8 +1084,8 @@
           "attempts": 1,
           "errors": [],
           "failureStreak": 0,
-          "lastAttemptAt": "2026-07-19T12:42:10.796Z",
-          "lastSuccessAt": "2026-07-19T12:42:10.796Z",
+          "lastAttemptAt": "2026-07-19T13:34:21.422Z",
+          "lastSuccessAt": "2026-07-19T13:34:21.422Z",
           "alert": false
         },
         "가격히스토리": {
@@ -878,8 +1094,8 @@
           "attempts": 1,
           "errors": [],
           "failureStreak": 0,
-          "lastAttemptAt": "2026-07-19T12:42:10.796Z",
-          "lastSuccessAt": "2026-07-19T12:42:10.796Z",
+          "lastAttemptAt": "2026-07-19T13:34:21.422Z",
+          "lastSuccessAt": "2026-07-19T13:34:21.422Z",
           "alert": false
         },
         "TrendForce차트": {
@@ -888,8 +1104,8 @@
           "attempts": 1,
           "errors": [],
           "failureStreak": 0,
-          "lastAttemptAt": "2026-07-19T12:42:10.796Z",
-          "lastSuccessAt": "2026-07-19T12:42:10.796Z",
+          "lastAttemptAt": "2026-07-19T13:34:21.422Z",
+          "lastSuccessAt": "2026-07-19T13:34:21.422Z",
           "alert": false
         },
         "가격백필": {
@@ -898,8 +1114,8 @@
           "attempts": 6,
           "errors": [],
           "failureStreak": 0,
-          "lastAttemptAt": "2026-07-19T12:42:10.796Z",
-          "lastSuccessAt": "2026-07-19T12:42:10.796Z",
+          "lastAttemptAt": "2026-07-19T13:34:21.422Z",
+          "lastSuccessAt": "2026-07-19T13:34:21.422Z",
           "alert": false
         },
         "market": {
@@ -908,8 +1124,8 @@
           "attempts": 14,
           "errors": [],
           "failureStreak": 0,
-          "lastAttemptAt": "2026-07-19T12:42:10.796Z",
-          "lastSuccessAt": "2026-07-19T12:42:10.796Z",
+          "lastAttemptAt": "2026-07-19T13:34:21.422Z",
+          "lastSuccessAt": "2026-07-19T13:34:21.422Z",
           "alert": false
         },
         "뉴스증거게이트": {
@@ -918,8 +1134,8 @@
           "attempts": 1,
           "errors": [],
           "failureStreak": 0,
-          "lastAttemptAt": "2026-07-19T12:42:10.796Z",
-          "lastSuccessAt": "2026-07-19T12:42:10.796Z",
+          "lastAttemptAt": "2026-07-19T13:34:21.422Z",
+          "lastSuccessAt": "2026-07-19T13:34:21.422Z",
           "alert": false
         },
         "번역": {
@@ -928,8 +1144,8 @@
           "attempts": 1,
           "errors": [],
           "failureStreak": 0,
-          "lastAttemptAt": "2026-07-19T12:42:10.796Z",
-          "lastSuccessAt": "2026-07-19T12:42:10.796Z",
+          "lastAttemptAt": "2026-07-19T13:34:21.422Z",
+          "lastSuccessAt": "2026-07-19T13:34:21.422Z",
           "alert": false
         },
         "증권사 리서치": {
@@ -938,24 +1154,24 @@
           "attempts": 1,
           "errors": [],
           "failureStreak": 0,
-          "lastAttemptAt": "2026-07-19T12:42:10.796Z",
-          "lastSuccessAt": "2026-07-19T12:42:10.796Z",
+          "lastAttemptAt": "2026-07-19T13:34:21.422Z",
+          "lastSuccessAt": "2026-07-19T13:34:21.422Z",
           "alert": false
         },
         "quant": {
           "id": "quant",
           "ok": true,
-          "attempts": 6,
+          "attempts": 7,
           "errors": [],
           "failureStreak": 0,
-          "lastAttemptAt": "2026-07-19T12:42:10.796Z",
-          "lastSuccessAt": "2026-07-19T12:42:10.796Z",
+          "lastAttemptAt": "2026-07-19T13:34:21.422Z",
+          "lastSuccessAt": "2026-07-19T13:34:21.422Z",
           "alert": false
         }
       }
     },
     "historyCoverage": {
-      "updatedAt": "2026-07-19T12:42:10.797Z",
+      "updatedAt": "2026-07-19T13:34:21.423Z",
       "priceSeries": 41,
       "pricePoints": 443,
       "marketSeries": 13,
@@ -966,7 +1182,7 @@
     }
   },
   "prices": {
-    "updatedAt": "2026-07-19T12:38:35.355Z",
+    "updatedAt": "2026-07-19T13:30:21.982Z",
     "source": "TrendForce Price Trends / DRAMeXchange public tables",
     "sections": [
       {
@@ -18048,11 +18264,11 @@
         "historyDays": null
       }
     },
-    "runId": "29687365049",
-    "validatedAt": "2026-07-19T12:42:10.797Z"
+    "runId": "local-1784467820575",
+    "validatedAt": "2026-07-19T13:34:21.423Z"
   },
   "marketHistory": {
-    "updatedAt": "2026-07-19T12:42:07.299Z",
+    "updatedAt": "2026-07-19T13:34:17.185Z",
     "timezone": "Asia/Seoul",
     "source": "Yahoo Finance chart API",
     "indexes": {
@@ -18063,7 +18279,7 @@
         "labelKo": "필라델피아 반도체 지수",
         "source": "Yahoo Finance history · Nasdaq official latest",
         "sourceUrl": "https://indexes.nasdaq.com/Index/Overview/SOX",
-        "updatedAt": "2026-07-19T12:41:25.747Z",
+        "updatedAt": "2026-07-19T13:33:52.156Z",
         "range": "5y",
         "interval": "1d",
         "currency": "USD",
@@ -18088,7 +18304,7 @@
         "labelKo": "SKHY 주가",
         "source": "Yahoo Finance chart API",
         "sourceUrl": "https://finance.yahoo.com/quote/000660.KS/",
-        "updatedAt": "2026-07-19T12:41:25.747Z",
+        "updatedAt": "2026-07-19T13:33:52.156Z",
         "range": "5y",
         "interval": "1d",
         "currency": "KRW",
@@ -18113,7 +18329,7 @@
         "labelKo": "삼성전자 주가",
         "source": "Yahoo Finance chart API",
         "sourceUrl": "https://finance.yahoo.com/quote/005930.KS/",
-        "updatedAt": "2026-07-19T12:41:25.747Z",
+        "updatedAt": "2026-07-19T13:33:52.156Z",
         "range": "5y",
         "interval": "1d",
         "currency": "KRW",
@@ -18138,7 +18354,7 @@
         "labelKo": "Micron 주가",
         "source": "Yahoo Finance chart API",
         "sourceUrl": "https://finance.yahoo.com/quote/MU/",
-        "updatedAt": "2026-07-19T12:41:25.747Z",
+        "updatedAt": "2026-07-19T13:33:52.156Z",
         "range": "5y",
         "interval": "1d",
         "currency": "USD",
@@ -18163,7 +18379,7 @@
         "labelKo": "SanDisk 주가",
         "source": "Yahoo Finance chart API",
         "sourceUrl": "https://finance.yahoo.com/quote/SNDK/",
-        "updatedAt": "2026-07-19T12:41:25.747Z",
+        "updatedAt": "2026-07-19T13:33:52.156Z",
         "range": "5y",
         "interval": "1d",
         "currency": "USD",
@@ -18188,7 +18404,7 @@
         "labelKo": "Western Digital 주가",
         "source": "Yahoo Finance chart API",
         "sourceUrl": "https://finance.yahoo.com/quote/WDC/",
-        "updatedAt": "2026-07-19T12:41:25.747Z",
+        "updatedAt": "2026-07-19T13:33:52.156Z",
         "range": "5y",
         "interval": "1d",
         "currency": "USD",
@@ -18213,7 +18429,7 @@
         "labelKo": "Kioxia 주가",
         "source": "Yahoo Finance chart API",
         "sourceUrl": "https://finance.yahoo.com/quote/285A.T/",
-        "updatedAt": "2026-07-19T12:41:25.747Z",
+        "updatedAt": "2026-07-19T13:33:52.156Z",
         "range": "5y",
         "interval": "1d",
         "currency": "JPY",
@@ -18238,7 +18454,7 @@
         "labelKo": "NAURA 주가",
         "source": "Yahoo Finance chart API",
         "sourceUrl": "https://finance.yahoo.com/quote/002371.SZ/",
-        "updatedAt": "2026-07-19T12:41:25.747Z",
+        "updatedAt": "2026-07-19T13:33:52.156Z",
         "range": "5y",
         "interval": "1d",
         "currency": "CNY",
@@ -18263,7 +18479,7 @@
         "labelKo": "AMEC 주가",
         "source": "Yahoo Finance chart API",
         "sourceUrl": "https://finance.yahoo.com/quote/688012.SS/",
-        "updatedAt": "2026-07-19T12:41:25.747Z",
+        "updatedAt": "2026-07-19T13:33:52.156Z",
         "range": "5y",
         "interval": "1d",
         "currency": "CNY",
@@ -18288,7 +18504,7 @@
         "labelKo": "ACM Shanghai 주가",
         "source": "Yahoo Finance chart API",
         "sourceUrl": "https://finance.yahoo.com/quote/688082.SS/",
-        "updatedAt": "2026-07-19T12:41:25.747Z",
+        "updatedAt": "2026-07-19T13:33:52.156Z",
         "range": "5y",
         "interval": "1d",
         "currency": "CNY",
@@ -18313,7 +18529,7 @@
         "labelKo": "JCET 주가",
         "source": "Yahoo Finance chart API",
         "sourceUrl": "https://finance.yahoo.com/quote/600584.SS/",
-        "updatedAt": "2026-07-19T12:41:25.747Z",
+        "updatedAt": "2026-07-19T13:33:52.156Z",
         "range": "5y",
         "interval": "1d",
         "currency": "CNY",
@@ -18338,7 +18554,7 @@
         "labelKo": "GigaDevice 주가",
         "source": "Yahoo Finance chart API",
         "sourceUrl": "https://finance.yahoo.com/quote/603986.SS/",
-        "updatedAt": "2026-07-19T12:41:25.747Z",
+        "updatedAt": "2026-07-19T13:33:52.156Z",
         "range": "5y",
         "interval": "1d",
         "currency": "CNY",
@@ -18363,7 +18579,7 @@
         "labelKo": "SMIC 주가",
         "source": "Yahoo Finance chart API",
         "sourceUrl": "https://finance.yahoo.com/quote/688981.SS/",
-        "updatedAt": "2026-07-19T12:41:25.747Z",
+        "updatedAt": "2026-07-19T13:33:52.156Z",
         "range": "5y",
         "interval": "1d",
         "currency": "CNY",
@@ -18387,7 +18603,7 @@
         "id": "kpi-0",
         "label": "2026 글로벌 반도체 시장",
         "unit": "",
-        "updatedAt": "2026-07-19T12:42:07.299Z",
+        "updatedAt": "2026-07-19T13:34:17.185Z",
         "pointCount": 1,
         "first": {
           "date": "2026-07-19",
@@ -18406,7 +18622,7 @@
         "id": "kpi-1",
         "label": "메모리 성장률",
         "unit": "",
-        "updatedAt": "2026-07-19T12:42:07.299Z",
+        "updatedAt": "2026-07-19T13:34:17.185Z",
         "pointCount": 1,
         "first": {
           "date": "2026-07-19",
@@ -18425,7 +18641,7 @@
         "id": "kpi-2",
         "label": "메모리 시장 규모",
         "unit": "",
-        "updatedAt": "2026-07-19T12:42:07.299Z",
+        "updatedAt": "2026-07-19T13:34:17.185Z",
         "pointCount": 1,
         "first": {
           "date": "2026-07-19",
@@ -18444,7 +18660,7 @@
         "id": "kpi-3",
         "label": "SKHY HBM 점유율",
         "unit": "",
-        "updatedAt": "2026-07-19T12:42:07.299Z",
+        "updatedAt": "2026-07-19T13:34:17.185Z",
         "pointCount": 1,
         "first": {
           "date": "2026-07-19",
@@ -18463,7 +18679,7 @@
         "id": "kpi-4",
         "label": "DRAM Top3 점유율",
         "unit": "",
-        "updatedAt": "2026-07-19T12:42:07.299Z",
+        "updatedAt": "2026-07-19T13:34:17.185Z",
         "pointCount": 1,
         "first": {
           "date": "2026-07-19",
@@ -18482,7 +18698,7 @@
         "id": "kpi-5",
         "label": "HBM4 Rubin 요구 속도",
         "unit": "",
-        "updatedAt": "2026-07-19T12:42:07.299Z",
+        "updatedAt": "2026-07-19T13:34:17.185Z",
         "pointCount": 1,
         "first": {
           "date": "2026-07-19",
@@ -18501,26 +18717,26 @@
         "id": "kpi-6",
         "label": "범용 DRAM CXMT 점유율",
         "unit": "",
-        "updatedAt": "2026-07-19T12:42:07.299Z",
+        "updatedAt": "2026-07-19T13:34:17.185Z",
         "pointCount": 1,
         "first": {
           "date": "2026-07-19",
           "value": 8,
           "source": "Counterpoint Research",
-          "asOf": "2026-07-19"
+          "asOf": "2026-07-17"
         },
         "latest": {
           "date": "2026-07-19",
           "value": 8,
           "source": "Counterpoint Research",
-          "asOf": "2026-07-19"
+          "asOf": "2026-07-17"
         }
       },
       "kpi-7": {
         "id": "kpi-7",
         "label": "중국 메모리 가격 할인",
         "unit": "",
-        "updatedAt": "2026-07-19T12:42:07.299Z",
+        "updatedAt": "2026-07-19T13:34:17.185Z",
         "pointCount": 1,
         "first": {
           "date": "2026-07-19",
@@ -18539,45 +18755,45 @@
         "id": "kpi-8",
         "label": "CXMT 2025 매출",
         "unit": "",
-        "updatedAt": "2026-07-19T12:42:07.299Z",
+        "updatedAt": "2026-07-19T13:34:17.185Z",
         "pointCount": 1,
         "first": {
           "date": "2026-07-19",
           "value": 61.8,
           "source": "Shanghai Stock Exchange",
-          "asOf": "2026-07-19"
+          "asOf": "2026-07-17"
         },
         "latest": {
           "date": "2026-07-19",
           "value": 61.8,
           "source": "Shanghai Stock Exchange",
-          "asOf": "2026-07-19"
+          "asOf": "2026-07-17"
         }
       },
       "kpi-9": {
         "id": "kpi-9",
         "label": "CXMT IPO 공모액",
         "unit": "",
-        "updatedAt": "2026-07-19T12:42:07.299Z",
+        "updatedAt": "2026-07-19T13:34:17.185Z",
         "pointCount": 1,
         "first": {
           "date": "2026-07-19",
           "value": 579,
           "source": "Shanghai Stock Exchange",
-          "asOf": "2026-07-19"
+          "asOf": "2026-07-17"
         },
         "latest": {
           "date": "2026-07-19",
           "value": 579,
           "source": "Shanghai Stock Exchange",
-          "asOf": "2026-07-19"
+          "asOf": "2026-07-17"
         }
       },
       "kpi-11": {
         "id": "kpi-11",
         "label": "YMTC Phase 3 국산 장비",
         "unit": "",
-        "updatedAt": "2026-07-19T12:42:07.299Z",
+        "updatedAt": "2026-07-19T13:34:17.185Z",
         "pointCount": 1,
         "first": {
           "date": "2026-07-19",
@@ -18596,7 +18812,7 @@
         "id": "kpi-12",
         "label": "NAND 2026 전망",
         "unit": "",
-        "updatedAt": "2026-07-19T12:42:07.299Z",
+        "updatedAt": "2026-07-19T13:34:17.185Z",
         "pointCount": 1,
         "first": {
           "date": "2026-07-19",
@@ -18615,7 +18831,7 @@
         "id": "kpi-13",
         "label": "빅펀드 3기",
         "unit": "",
-        "updatedAt": "2026-07-19T12:42:07.299Z",
+        "updatedAt": "2026-07-19T13:34:17.185Z",
         "pointCount": 1,
         "first": {
           "date": "2026-07-19",
@@ -18634,7 +18850,7 @@
         "id": "kpi-14",
         "label": "YMTC NAND 출하 점유율",
         "unit": "",
-        "updatedAt": "2026-07-19T12:42:07.299Z",
+        "updatedAt": "2026-07-19T13:34:17.185Z",
         "pointCount": 1,
         "first": {
           "date": "2026-07-19",
@@ -18653,7 +18869,7 @@
         "id": "kpi-15",
         "label": "YMTC NAND 셀 밀도",
         "unit": "",
-        "updatedAt": "2026-07-19T12:42:07.299Z",
+        "updatedAt": "2026-07-19T13:34:17.185Z",
         "pointCount": 1,
         "first": {
           "date": "2026-07-19",
@@ -18672,7 +18888,7 @@
         "id": "kpi-16",
         "label": "중국 장비 국산화율",
         "unit": "",
-        "updatedAt": "2026-07-19T12:42:07.299Z",
+        "updatedAt": "2026-07-19T13:34:17.185Z",
         "pointCount": 1,
         "first": {
           "date": "2026-07-19",
@@ -18691,26 +18907,26 @@
         "id": "kpi-17",
         "label": "CXMT R&D 인력",
         "unit": "",
-        "updatedAt": "2026-07-19T12:42:07.299Z",
+        "updatedAt": "2026-07-19T13:34:17.185Z",
         "pointCount": 1,
         "first": {
           "date": "2026-07-19",
           "value": 4653,
           "source": "CXMT IPO prospectus context (Watch)",
-          "asOf": "2026-07-19"
+          "asOf": "2026-07-17"
         },
         "latest": {
           "date": "2026-07-19",
           "value": 4653,
           "source": "CXMT IPO prospectus context (Watch)",
-          "asOf": "2026-07-19"
+          "asOf": "2026-07-17"
         }
       },
       "share-skhy-hbmShare": {
         "id": "share-skhy-hbmShare",
         "label": "SKHY hbmShare",
         "unit": "%",
-        "updatedAt": "2026-07-19T12:42:07.299Z",
+        "updatedAt": "2026-07-19T13:34:17.185Z",
         "pointCount": 1,
         "first": {
           "date": "2026-07-19",
@@ -18729,7 +18945,7 @@
         "id": "share-skhy-dramShare2026",
         "label": "SKHY dramShare2026",
         "unit": "%",
-        "updatedAt": "2026-07-19T12:42:07.299Z",
+        "updatedAt": "2026-07-19T13:34:17.185Z",
         "pointCount": 1,
         "first": {
           "date": "2026-07-19",
@@ -18748,7 +18964,7 @@
         "id": "share-skhy-nandShare2026",
         "label": "SKHY nandShare2026",
         "unit": "%",
-        "updatedAt": "2026-07-19T12:42:07.299Z",
+        "updatedAt": "2026-07-19T13:34:17.185Z",
         "pointCount": 1,
         "first": {
           "date": "2026-07-19",
@@ -18767,7 +18983,7 @@
         "id": "share-삼성전자-hbmShare",
         "label": "삼성전자 hbmShare",
         "unit": "%",
-        "updatedAt": "2026-07-19T12:42:07.299Z",
+        "updatedAt": "2026-07-19T13:34:17.185Z",
         "pointCount": 1,
         "first": {
           "date": "2026-07-19",
@@ -18786,7 +19002,7 @@
         "id": "share-삼성전자-dramShare2026",
         "label": "삼성전자 dramShare2026",
         "unit": "%",
-        "updatedAt": "2026-07-19T12:42:07.299Z",
+        "updatedAt": "2026-07-19T13:34:17.185Z",
         "pointCount": 1,
         "first": {
           "date": "2026-07-19",
@@ -18805,7 +19021,7 @@
         "id": "share-삼성전자-nandShare2026",
         "label": "삼성전자 nandShare2026",
         "unit": "%",
-        "updatedAt": "2026-07-19T12:42:07.299Z",
+        "updatedAt": "2026-07-19T13:34:17.185Z",
         "pointCount": 1,
         "first": {
           "date": "2026-07-19",
@@ -18824,7 +19040,7 @@
         "id": "share-마이크론-hbmShare",
         "label": "마이크론 hbmShare",
         "unit": "%",
-        "updatedAt": "2026-07-19T12:42:07.299Z",
+        "updatedAt": "2026-07-19T13:34:17.185Z",
         "pointCount": 1,
         "first": {
           "date": "2026-07-19",
@@ -18843,7 +19059,7 @@
         "id": "share-마이크론-dramShare2026",
         "label": "마이크론 dramShare2026",
         "unit": "%",
-        "updatedAt": "2026-07-19T12:42:07.299Z",
+        "updatedAt": "2026-07-19T13:34:17.185Z",
         "pointCount": 1,
         "first": {
           "date": "2026-07-19",
@@ -18862,7 +19078,7 @@
         "id": "share-마이크론-nandShare2026",
         "label": "마이크론 nandShare2026",
         "unit": "%",
-        "updatedAt": "2026-07-19T12:42:07.299Z",
+        "updatedAt": "2026-07-19T13:34:17.185Z",
         "pointCount": 1,
         "first": {
           "date": "2026-07-19",
@@ -18881,7 +19097,7 @@
         "id": "share-cxmt-hbmShare",
         "label": "CXMT hbmShare",
         "unit": "%",
-        "updatedAt": "2026-07-19T12:42:07.299Z",
+        "updatedAt": "2026-07-19T13:34:17.185Z",
         "pointCount": 1,
         "first": {
           "date": "2026-07-19",
@@ -18900,7 +19116,7 @@
         "id": "share-cxmt-dramShare2026",
         "label": "CXMT dramShare2026",
         "unit": "%",
-        "updatedAt": "2026-07-19T12:42:07.299Z",
+        "updatedAt": "2026-07-19T13:34:17.185Z",
         "pointCount": 1,
         "first": {
           "date": "2026-07-19",
@@ -18919,7 +19135,7 @@
         "id": "share-ymtc-hbmShare",
         "label": "YMTC hbmShare",
         "unit": "%",
-        "updatedAt": "2026-07-19T12:42:07.299Z",
+        "updatedAt": "2026-07-19T13:34:17.185Z",
         "pointCount": 1,
         "first": {
           "date": "2026-07-19",
@@ -18938,7 +19154,7 @@
         "id": "share-ymtc-nandShare2026",
         "label": "YMTC nandShare2026",
         "unit": "%",
-        "updatedAt": "2026-07-19T12:42:07.299Z",
+        "updatedAt": "2026-07-19T13:34:17.185Z",
         "pointCount": 1,
         "first": {
           "date": "2026-07-19",
@@ -19106,11 +19322,11 @@
         "provenance": "baseline evidence layer"
       }
     },
-    "runId": "29687365049",
-    "validatedAt": "2026-07-19T12:42:10.797Z"
+    "runId": "local-1784467820575",
+    "validatedAt": "2026-07-19T13:34:21.423Z"
   },
   "competitors": {
-    "updatedAt": "2026-07-19T12:38:40.214Z",
+    "updatedAt": "2026-07-19T13:30:28.753Z",
     "competitors": [
       {
         "id": "micron",
@@ -19179,7 +19395,7 @@
             "language": "english",
             "streamLanguage": "english",
             "languageVerified": true,
-            "titleKo": "마이크론, 중국의 메모리 경쟁업체가 입지를 굳히면서 AI 급증으로 기록적인 매출 기록 - South China Morning Post"
+            "titleKo": "마이크론, 중국 메모리 경쟁업체의 입지 강화로 AI 급증으로 기록적인 매출 기록 - South China Morning Post"
           },
           {
             "title": "Investor Outlook: Micron guidance boosts broader AI chip stocks - BNN Bloomberg",
@@ -19422,7 +19638,7 @@
             "language": "english",
             "streamLanguage": "english",
             "languageVerified": true,
-            "titleKo": "마이크론, 중국의 메모리 경쟁업체가 입지를 굳히면서 AI 급증으로 기록적인 매출 기록 - South China Morning Post"
+            "titleKo": "마이크론, 중국 메모리 경쟁업체의 입지 강화로 AI 급증으로 기록적인 매출 기록 - South China Morning Post"
           },
           {
             "title": "YMTC NAND share rises to 13%, alarming South Korean rivals - digitimes",
@@ -19478,14 +19694,14 @@
             "language": "english",
             "streamLanguage": "english",
             "languageVerified": true,
-            "titleKo": "Kioxia, AI 붐으로 드라마틱한 복귀에 힘입어 차세대 메모리 샘플 출시 - Reuters"
+            "titleKo": "Kioxia, AI 붐으로 극적인 복귀를 촉진하면서 차세대 메모리 샘플 출시 - Reuters"
           }
         ]
       }
     ]
   },
   "startups": {
-    "updatedAt": "2026-07-19T12:38:39.477Z",
+    "updatedAt": "2026-07-19T13:30:27.903Z",
     "candidates": [
       {
         "id": "celestial-ai",
@@ -19651,7 +19867,7 @@
     "methodology": "정적 전략 적합도에 최근 30일 뉴스 모멘텀을 더한 내부 검토용 점수입니다."
   },
   "benchmarkSignals": {
-    "updatedAt": "2026-07-19T12:39:10.024Z",
+    "updatedAt": "2026-07-19T13:31:04.101Z",
     "themes": [
       {
         "id": "capacity",
@@ -19810,7 +20026,7 @@
       {
         "id": "skhynix_product_projection",
         "label": "SKHY Product Projection",
-        "count": 3,
+        "count": 4,
         "items": [
           {
             "title": "AI Inference Pushes Memory Beyond DRAM and HBM - EE Times Asia",
@@ -19828,6 +20044,16 @@
             "link": "https://news.google.com/rss/articles/CBMikwJBVV95cUxPbjB0NlFYY1g3X3pkX1FWd0xJcjJJMUVuQlBZb01XQXhxUUoxVGZscDFVenZsQ2Uwa0UtRWgyVzVaTUthUnFsRkhGc3VWV2pjRDFTVDNZUlFUVDFkLTdzZnZrVDMxcG9UMVl6T1NiQ0N2d1VWbjYxakpVY2RKS1dWNldnTzVTWmpvMUxpamxTTUZQYmg1Y0lLd3paZXc3ZkhiczVydTFUNHdOS3ZRZVdFeEpVckJ1RVQ5RWowVGNrUHFoR0E1V21rRWpLdTdyUnJwLWVaeFg0WmxLRUI3UFJzUmI1VDZOVzExbEp6SzRrM0c2cV95eUsxS0VkQUNZa2dyZ0NYN01rNXYwdVNEbE82NzM2WQ?oc=5",
             "source": "Tom's Hardware",
             "date": "2026-07-04",
+            "language": "english",
+            "streamLanguage": "english",
+            "languageVerified": true
+          },
+          {
+            "title": "How SK Hynix's bet on a niche memory chip made it more valuable than Samsung - Reuters",
+            "originalTitle": "How SK Hynix's bet on a niche memory chip made it more valuable than Samsung - Reuters",
+            "link": "https://news.google.com/rss/articles/CBMiwwFBVV95cUxPUzZyMHVEbFBPMjFsTEx3UG01MUF3MnduN2RTbGlhQkdHM1pNYWJtbkNUb0JIc3VfdTMwNFRfOVo2MWhTc09HLTBqdUJjX1NKYnVWbDh1WEdVZ2JBZG5VcW15Yk9hWHpDWHh5UmlwM3VySFk1YzIzX1FzUHlldUJlSklUODJFMnotelN1UVZwbVMyR1YxNXM1LUtTY09Dd0ZscWF2RXk4RFhWaXhqUmZwb01Eb0FtMVdVVXRKTUZUSmhNbEE?oc=5",
+            "source": "Reuters",
+            "date": "2026-06-24",
             "language": "english",
             "streamLanguage": "english",
             "languageVerified": true
@@ -20089,7 +20315,7 @@
         "streamLanguage": "english",
         "languageVerified": true,
         "theme": "china_nand_business",
-        "titleKo": "JEDEC, AI 메모리 비용 절감을 위한 새로운 SPHBM4 표준 출시 - 좁은 512비트 인터페이스로 유기 기판용 고가의 인터포저 제거 가능 - Tom's Hardware"
+        "titleKo": "JEDEC, AI 메모리 비용 절감을 위한 새로운 SPHBM4 표준 출시 - 좁은 512비트 인터페이스로 유기 기판용 값비싼 인터포저 제거 가능 - Tom's Hardware"
       },
       {
         "title": "Apple interest thrusts China’s CXMT into memory chip spotlight - Financial Times",
@@ -20170,6 +20396,18 @@
         "theme": "capacity"
       },
       {
+        "title": "How SK Hynix's bet on a niche memory chip made it more valuable than Samsung - Reuters",
+        "originalTitle": "How SK Hynix's bet on a niche memory chip made it more valuable than Samsung - Reuters",
+        "link": "https://news.google.com/rss/articles/CBMiwwFBVV95cUxPUzZyMHVEbFBPMjFsTEx3UG01MUF3MnduN2RTbGlhQkdHM1pNYWJtbkNUb0JIc3VfdTMwNFRfOVo2MWhTc09HLTBqdUJjX1NKYnVWbDh1WEdVZ2JBZG5VcW15Yk9hWHpDWHh5UmlwM3VySFk1YzIzX1FzUHlldUJlSklUODJFMnotelN1UVZwbVMyR1YxNXM1LUtTY09Dd0ZscWF2RXk4RFhWaXhqUmZwb01Eb0FtMVdVVXRKTUZUSmhNbEE?oc=5",
+        "source": "Reuters",
+        "date": "2026-06-24",
+        "language": "english",
+        "streamLanguage": "english",
+        "languageVerified": true,
+        "theme": "skhynix_product_projection",
+        "titleKo": "틈새 메모리 칩에 대한 SKHY의 투자가 어떻게 삼성보다 더 가치있게 만들었는가 - Reuters"
+      },
+      {
         "themeId": "capacity",
         "title": "China’s CXMT Is Set to Challenge DRAM Incumbents - SemiAnalysis",
         "originalTitle": "China’s CXMT Is Set to Challenge DRAM Incumbents - SemiAnalysis",
@@ -20200,7 +20438,7 @@
         "streamLanguage": "english",
         "languageVerified": true,
         "theme": "skhynix_product_projection",
-        "titleKo": "메모리 시장이 여전히 타이트한 이유: 다음 단계는 무엇인가 - IDC | 신뢰할 수 있는 기술 인텔리전스"
+        "titleKo": "메모리 시장이 여전히 타이트한 이유: 다음 단계는 무엇입니까? - IDC | 신뢰할 수 있는 기술 인텔리전스"
       },
       {
         "themeId": "capacity",
@@ -20225,18 +20463,18 @@
       }
     ],
     "stats": {
-      "total": 17,
+      "total": 18,
       "total24h": 0,
       "7d": 8,
-      "30d": 17,
+      "30d": 18,
       "languages": {
-        "english": 17,
+        "english": 18,
         "chinese": 0
       }
     }
   },
   "chinaInfra": {
-    "updatedAt": "2026-07-19T12:38:35.762Z",
+    "updatedAt": "2026-07-19T13:30:24.701Z",
     "sources": [
       {
         "id": "wuxi-bonded-zone",
@@ -20265,7 +20503,7 @@
           }
         ],
         "excerpt": "The State Council approved on July 11 an application to adjust the area of the Comprehensive Bonded Zone in the Wuxi National Hi-Tech District (WND).",
-        "crawledAt": "2026-07-19T12:38:35.024Z"
+        "crawledAt": "2026-07-19T13:30:22.008Z"
       },
       {
         "id": "bis-veu",
@@ -20290,7 +20528,36 @@
           }
         ],
         "excerpt": "An official website of the United States government Here's how you know Official websites use .gov A .gov website belongs to an official government organization in the United States. Secure .gov websites use HTTPS A lock ( Lock Locked padlock ) or https:// means you’ve safely connected to the .gov website. Share sensitive information only on official, secure",
-        "crawledAt": "2026-07-19T12:38:35.511Z"
+        "crawledAt": "2026-07-19T13:30:23.646Z"
+      },
+      {
+        "id": "census-bis-c79",
+        "site": "all",
+        "label": "AES C79 former VEU fab license reporting",
+        "url": "https://content.govdelivery.com/accounts/USCENSUS/bulletins/4008e2b",
+        "publishedAt": "2026-01-05",
+        "ok": true,
+        "markerHits": 2,
+        "markers": [
+          {
+            "marker": "C79",
+            "hit": true
+          },
+          {
+            "marker": "C57",
+            "hit": true
+          },
+          {
+            "marker": "H-prefix",
+            "hit": false
+          },
+          {
+            "marker": "individual fab license",
+            "hit": false
+          }
+        ],
+        "excerpt": "NEW BIS LICENSE TYPE C79 NEW BIS LICENSE TYPE C79 NEW BIS LICENSE TYPE C79 - Fab License January 5, 2026 On September 2, 2025, the Department of Commerce, Bureau of Industry and Security (BIS) published a final rule “Revocation of Validated End-User Authorizations in the People's Republic of China” ( https://www.federalregister.gov/documents/2025/09/02/2025-",
+        "crawledAt": "2026-07-19T13:30:24.446Z"
       }
     ],
     "signals": [
@@ -20321,7 +20588,7 @@
           }
         ],
         "excerpt": "The State Council approved on July 11 an application to adjust the area of the Comprehensive Bonded Zone in the Wuxi National Hi-Tech District (WND).",
-        "crawledAt": "2026-07-19T12:38:35.024Z"
+        "crawledAt": "2026-07-19T13:30:22.008Z"
       },
       {
         "id": "bis-veu",
@@ -20346,13 +20613,42 @@
           }
         ],
         "excerpt": "An official website of the United States government Here's how you know Official websites use .gov A .gov website belongs to an official government organization in the United States. Secure .gov websites use HTTPS A lock ( Lock Locked padlock ) or https:// means you’ve safely connected to the .gov website. Share sensitive information only on official, secure",
-        "crawledAt": "2026-07-19T12:38:35.511Z"
+        "crawledAt": "2026-07-19T13:30:23.646Z"
+      },
+      {
+        "id": "census-bis-c79",
+        "site": "all",
+        "label": "AES C79 former VEU fab license reporting",
+        "url": "https://content.govdelivery.com/accounts/USCENSUS/bulletins/4008e2b",
+        "publishedAt": "2026-01-05",
+        "ok": true,
+        "markerHits": 2,
+        "markers": [
+          {
+            "marker": "C79",
+            "hit": true
+          },
+          {
+            "marker": "C57",
+            "hit": true
+          },
+          {
+            "marker": "H-prefix",
+            "hit": false
+          },
+          {
+            "marker": "individual fab license",
+            "hit": false
+          }
+        ],
+        "excerpt": "NEW BIS LICENSE TYPE C79 NEW BIS LICENSE TYPE C79 NEW BIS LICENSE TYPE C79 - Fab License January 5, 2026 On September 2, 2025, the Department of Commerce, Bureau of Industry and Security (BIS) published a final rule “Revocation of Validated End-User Authorizations in the People's Republic of China” ( https://www.federalregister.gov/documents/2025/09/02/2025-",
+        "crawledAt": "2026-07-19T13:30:24.446Z"
       }
     ],
     "methodology": "Official/source pages are fetched daily. Marker hits are used only as freshness and availability checks; land ownership, water allocation, and power quota require primary permits before a Go decision."
   },
   "communitySignals": {
-    "updatedAt": "2026-07-19T12:38:52.505Z",
+    "updatedAt": "2026-07-19T13:30:37.978Z",
     "latestPublishedAt": "2026-07-18T00:00:00.000Z",
     "source": "Public Chinese forums · expert communities · public hiring listings · Bing Web Search RSS discovery",
     "total": 37,
@@ -20446,7 +20742,7 @@
         "observedAt": "",
         "period": "",
         "ts": 1784332800000,
-        "crawledAt": "2026-07-19T12:38:52.498Z",
+        "crawledAt": "2026-07-19T13:30:37.973Z",
         "entities": [
           "CXMT",
           "YMTC"
@@ -20481,7 +20777,7 @@
         "observedAt": "",
         "period": "",
         "ts": 1784332800000,
-        "crawledAt": "2026-07-19T12:38:52.499Z",
+        "crawledAt": "2026-07-19T13:30:37.973Z",
         "entities": [
           "CXMT"
         ],
@@ -20513,7 +20809,7 @@
         "observedAt": "",
         "period": "",
         "ts": 1784332800000,
-        "crawledAt": "2026-07-19T12:38:52.499Z",
+        "crawledAt": "2026-07-19T13:30:37.973Z",
         "entities": [
           "CXMT"
         ],
@@ -20545,7 +20841,7 @@
         "observedAt": "",
         "period": "",
         "ts": 1784332800000,
-        "crawledAt": "2026-07-19T12:38:52.499Z",
+        "crawledAt": "2026-07-19T13:30:37.973Z",
         "entities": [
           "CXMT"
         ],
@@ -20577,7 +20873,7 @@
         "observedAt": "2026-07-17",
         "period": "2026년 7월 17일 공개 확인",
         "ts": 1784246400000,
-        "crawledAt": "2026-07-19T12:38:52.502Z",
+        "crawledAt": "2026-07-19T13:30:37.976Z",
         "entities": [
           "CXMT"
         ],
@@ -20610,7 +20906,7 @@
         "observedAt": "2026-07-17",
         "period": "2026년 7월 공개 확인",
         "ts": 1784246400000,
-        "crawledAt": "2026-07-19T12:38:52.503Z",
+        "crawledAt": "2026-07-19T13:30:37.976Z",
         "entities": [
           "CXMT"
         ],
@@ -20643,7 +20939,7 @@
         "observedAt": "2026-07-17",
         "period": "2026년 7월 공개 확인",
         "ts": 1784246400000,
-        "crawledAt": "2026-07-19T12:38:52.503Z",
+        "crawledAt": "2026-07-19T13:30:37.977Z",
         "entities": [
           "CXMT"
         ],
@@ -20676,7 +20972,7 @@
         "observedAt": "2026-07-17",
         "period": "2026년 7월 공개 확인",
         "ts": 1784246400000,
-        "crawledAt": "2026-07-19T12:38:52.503Z",
+        "crawledAt": "2026-07-19T13:30:37.976Z",
         "entities": [
           "CXMT"
         ],
@@ -20709,7 +21005,7 @@
         "observedAt": "2026-07-17",
         "period": "2026년 6월 공개 글",
         "ts": 1784246400000,
-        "crawledAt": "2026-07-19T12:38:52.503Z",
+        "crawledAt": "2026-07-19T13:30:37.977Z",
         "entities": [
           "YMTC"
         ],
@@ -20741,7 +21037,7 @@
         "observedAt": "2026-07-17",
         "period": "2026년 7월 공개 확인",
         "ts": 1784246400000,
-        "crawledAt": "2026-07-19T12:38:52.503Z",
+        "crawledAt": "2026-07-19T13:30:37.977Z",
         "entities": [
           "AMEC"
         ],
@@ -20776,7 +21072,7 @@
         "observedAt": "2026-07-17",
         "period": "2026년 7월 공개 확인",
         "ts": 1784246400000,
-        "crawledAt": "2026-07-19T12:38:52.503Z",
+        "crawledAt": "2026-07-19T13:30:37.977Z",
         "entities": [
           "YMTC"
         ],
@@ -20808,7 +21104,7 @@
         "observedAt": "",
         "period": "",
         "ts": 1784246400000,
-        "crawledAt": "2026-07-19T12:38:52.500Z",
+        "crawledAt": "2026-07-19T13:30:37.974Z",
         "entities": [
           "CXMT"
         ],
@@ -20840,7 +21136,7 @@
         "observedAt": "",
         "period": "",
         "ts": 1783382400000,
-        "crawledAt": "2026-07-19T12:38:52.503Z",
+        "crawledAt": "2026-07-19T13:30:37.977Z",
         "entities": [
           "CXMT"
         ],
@@ -20872,7 +21168,7 @@
         "observedAt": "",
         "period": "",
         "ts": 1782691200000,
-        "crawledAt": "2026-07-19T12:38:52.502Z",
+        "crawledAt": "2026-07-19T13:30:37.976Z",
         "entities": [
           "CXMT",
           "YMTC"
@@ -20906,7 +21202,7 @@
         "observedAt": "",
         "period": "",
         "ts": 1780617600000,
-        "crawledAt": "2026-07-19T12:38:52.502Z",
+        "crawledAt": "2026-07-19T13:30:37.976Z",
         "entities": [
           "CXMT"
         ],
@@ -20939,7 +21235,7 @@
         "observedAt": "",
         "period": "",
         "ts": 1779580800000,
-        "crawledAt": "2026-07-19T12:38:52.502Z",
+        "crawledAt": "2026-07-19T13:30:37.976Z",
         "entities": [
           "CXMT"
         ],
@@ -20972,7 +21268,7 @@
         "observedAt": "",
         "period": "",
         "ts": 1779408000000,
-        "crawledAt": "2026-07-19T12:38:52.502Z",
+        "crawledAt": "2026-07-19T13:30:37.976Z",
         "entities": [
           "CXMT",
           "YMTC"
@@ -21006,7 +21302,7 @@
         "observedAt": "",
         "period": "",
         "ts": 1779235200000,
-        "crawledAt": "2026-07-19T12:38:52.502Z",
+        "crawledAt": "2026-07-19T13:30:37.976Z",
         "entities": [],
         "topics": [
           "장비·소재"
@@ -21036,7 +21332,7 @@
         "observedAt": "",
         "period": "",
         "ts": 1777334400000,
-        "crawledAt": "2026-07-19T12:38:52.502Z",
+        "crawledAt": "2026-07-19T13:30:37.976Z",
         "entities": [],
         "topics": [
           "장비·소재"
@@ -21066,7 +21362,7 @@
         "observedAt": "",
         "period": "",
         "ts": 1776988800000,
-        "crawledAt": "2026-07-19T12:38:52.502Z",
+        "crawledAt": "2026-07-19T13:30:37.976Z",
         "entities": [],
         "topics": [
           "DRAM",
@@ -21097,7 +21393,7 @@
         "observedAt": "",
         "period": "2026년 4월 갱신",
         "ts": 1776902400000,
-        "crawledAt": "2026-07-19T12:38:52.503Z",
+        "crawledAt": "2026-07-19T13:30:37.977Z",
         "entities": [
           "CXMT"
         ],
@@ -21130,7 +21426,7 @@
         "observedAt": "",
         "period": "",
         "ts": 1756857600000,
-        "crawledAt": "2026-07-19T12:38:52.501Z",
+        "crawledAt": "2026-07-19T13:30:37.974Z",
         "entities": [
           "CXMT",
           "YMTC"
@@ -21165,7 +21461,7 @@
         "observedAt": "",
         "period": "",
         "ts": 1755820800000,
-        "crawledAt": "2026-07-19T12:38:52.503Z",
+        "crawledAt": "2026-07-19T13:30:37.976Z",
         "entities": [
           "XMC"
         ],
@@ -21197,7 +21493,7 @@
         "observedAt": "",
         "period": "",
         "ts": 1739586772000,
-        "crawledAt": "2026-07-19T12:38:52.501Z",
+        "crawledAt": "2026-07-19T13:30:37.975Z",
         "entities": [
           "YMTC"
         ],
@@ -21229,7 +21525,7 @@
         "observedAt": "",
         "period": "",
         "ts": 1698508367000,
-        "crawledAt": "2026-07-19T12:38:52.501Z",
+        "crawledAt": "2026-07-19T13:30:37.975Z",
         "entities": [
           "YMTC"
         ],
@@ -21261,7 +21557,7 @@
         "observedAt": "",
         "period": "",
         "ts": 1694361168000,
-        "crawledAt": "2026-07-19T12:38:52.501Z",
+        "crawledAt": "2026-07-19T13:30:37.975Z",
         "entities": [
           "YMTC"
         ],
@@ -21293,7 +21589,7 @@
         "observedAt": "",
         "period": "",
         "ts": 1692904359000,
-        "crawledAt": "2026-07-19T12:38:52.501Z",
+        "crawledAt": "2026-07-19T13:30:37.975Z",
         "entities": [
           "YMTC"
         ],
@@ -21325,7 +21621,7 @@
         "observedAt": "",
         "period": "",
         "ts": 1679345632000,
-        "crawledAt": "2026-07-19T12:38:37.950Z",
+        "crawledAt": "2026-07-19T13:30:24.768Z",
         "entities": [
           "YMTC"
         ],
@@ -21357,7 +21653,7 @@
         "observedAt": "",
         "period": "공개 채용",
         "ts": 0,
-        "crawledAt": "2026-07-19T12:38:52.502Z",
+        "crawledAt": "2026-07-19T13:30:37.976Z",
         "entities": [
           "CXMT"
         ],
@@ -21390,7 +21686,7 @@
         "observedAt": "",
         "period": "2023년 10월",
         "ts": 0,
-        "crawledAt": "2026-07-19T12:38:52.502Z",
+        "crawledAt": "2026-07-19T13:30:37.976Z",
         "entities": [
           "CXMT",
           "YMTC"
@@ -21424,7 +21720,7 @@
         "observedAt": "",
         "period": "",
         "ts": 0,
-        "crawledAt": "2026-07-19T12:38:52.502Z",
+        "crawledAt": "2026-07-19T13:30:37.975Z",
         "entities": [
           "XMC"
         ],
@@ -21457,7 +21753,7 @@
         "observedAt": "",
         "period": "",
         "ts": 0,
-        "crawledAt": "2026-07-19T12:38:37.026Z",
+        "crawledAt": "2026-07-19T13:30:22.969Z",
         "entities": [
           "CXMT",
           "YMTC"
@@ -21491,7 +21787,7 @@
         "observedAt": "",
         "period": "",
         "ts": 0,
-        "crawledAt": "2026-07-19T12:38:37.026Z",
+        "crawledAt": "2026-07-19T13:30:22.969Z",
         "entities": [
           "CXMT",
           "YMTC"
@@ -21524,7 +21820,7 @@
         "observedAt": "",
         "period": "",
         "ts": 0,
-        "crawledAt": "2026-07-19T12:38:37.027Z",
+        "crawledAt": "2026-07-19T13:30:22.970Z",
         "entities": [
           "CXMT",
           "YMTC"
@@ -21559,7 +21855,7 @@
         "observedAt": "",
         "period": "",
         "ts": 0,
-        "crawledAt": "2026-07-19T12:38:35.474Z",
+        "crawledAt": "2026-07-19T13:30:22.044Z",
         "entities": [
           "CXMT"
         ],
@@ -21591,7 +21887,7 @@
         "observedAt": "",
         "period": "",
         "ts": 0,
-        "crawledAt": "2026-07-19T12:38:35.475Z",
+        "crawledAt": "2026-07-19T13:30:22.045Z",
         "entities": [
           "CXMT"
         ],
@@ -21623,7 +21919,7 @@
         "observedAt": "",
         "period": "",
         "ts": 0,
-        "crawledAt": "2026-07-19T12:38:37.027Z",
+        "crawledAt": "2026-07-19T13:30:22.970Z",
         "entities": [
           "YMTC"
         ],
@@ -22337,14 +22633,14 @@
       "area": "광 인터커넥트 · chip-to-memory fabric"
     },
     "observations": [
-      "최근 30일 메모리 뉴스 58건, 24시간 신규 1건.",
+      "최근 30일 메모리 뉴스 58건, 24시간 신규 2건.",
       "ADATA 가격 변동 ▼ -26.79 %.",
       "Micron 경쟁 압력 59/100.",
       "Celestial AI 우선 검토 후보, 전략 적합도 92/100."
     ]
   },
   "facts": {
-    "generatedAt": "2026-07-19T12:41:33.840Z",
+    "generatedAt": "2026-07-19T13:34:01.172Z",
     "methodology": "event-stage-resolution-v1",
     "eventCount": 6,
     "currentFactCount": 6,
@@ -22692,7 +22988,7 @@
   },
   "sourceRegistry": {
     "version": "2.0-crawl-channel-registry",
-    "generatedAt": "2026-07-19T12:42:10.797Z",
+    "generatedAt": "2026-07-19T13:34:21.423Z",
     "promotionPolicy": [
       "direct canonical URL required",
       "published date and source summary required",
@@ -22716,7 +23012,7 @@
         "id": "chinese-news",
         "mode": "authority-monitor-and-search",
         "sources": 3,
-        "records": 30
+        "records": 31
       },
       {
         "id": "broker-research",
@@ -22752,15 +23048,15 @@
     ]
   },
   "intelligence": {
-    "generatedAt": "2026-07-19T12:42:07.286Z",
+    "generatedAt": "2026-07-19T13:34:17.177Z",
     "methodologyVersion": "4.0-source-provenance",
     "validation": {
       "status": "OK",
-      "newsItems": 65,
-      "displayedNews": 65,
-      "directSources": 65,
+      "newsItems": 66,
+      "displayedNews": 66,
+      "directSources": 66,
       "directSourceRatio": 1,
-      "summarizedItems": 65,
+      "summarizedItems": 66,
       "summaryRatio": 1,
       "priceRows": 41,
       "briefCount": 7,
@@ -22770,8 +23066,8 @@
       {
         "id": "hbm",
         "label": "HBM·AI 서버",
-        "generatedAt": "2026-07-19T12:42:07.286Z",
-        "evidenceCount": 6,
+        "generatedAt": "2026-07-19T13:34:17.177Z",
+        "evidenceCount": 7,
         "latest": {
           "title": "Micron, NVIDIA Vera Rubin용 HBM4 대량생산 발표",
           "originalTitle": "Micron begins high-volume production of HBM4 for NVIDIA Vera Rubin",
@@ -22796,20 +23092,20 @@
       {
         "id": "dram",
         "label": "DRAM·범용 가격",
-        "generatedAt": "2026-07-19T12:42:07.286Z",
-        "evidenceCount": 9,
+        "generatedAt": "2026-07-19T13:34:17.177Z",
+        "evidenceCount": 10,
         "latest": {
-          "title": "연구 모델, CXMT의 2026년 DRAM 캐파가 Micron에 근접할 가능성 제시",
-          "originalTitle": "CXMT close to matching Micron's memory capacity in 2026, research claims",
-          "summary": "Citrini Research의 캐파 모델을 소개한 기사로 실제 비트 아웃풋 확정치가 아님. 웨이퍼 캐파와 수율·다이 크기·비트 원가를 분리해 범용 DRAM 압력을 판단.",
-          "source": "Tom's Hardware",
-          "url": "https://www.tomshardware.com/pc-components/dram/cxmt-close-to-matching-microns-memory-capacity-in-2026-research-claims-would-put-china-on-track-to-become-worlds-second-largest-dram-producer",
-          "publishedAt": "2026-07-15",
-          "sourceType": "외신",
-          "claimType": "사실",
-          "evidenceLevel": "Reported",
-          "provenanceId": "801d502dad901b494d79",
-          "sourceClass": "authoritative-media",
+          "title": "SemiAnalysis, CXMT의 범용 DRAM 확장과 HBM 제약 분석",
+          "originalTitle": "China's CXMT Is Set to Challenge DRAM Incumbents",
+          "summary": "SemiAnalysis 연구모델은 CXMT 캐파를 2026년 말 350K, 2027년 말 420K, 2028년 말 500K wpm으로 추정하고 8단 HBM3 수율을 약 25%로 모델링함. 회사 가이던스나 실측값이 아니며, 현재 핵심 위협은 HBM 동급화보다 DDR5·LPDDR·서버 DRAM 물량과 비트 원가 압력임.",
+          "source": "SemiAnalysis",
+          "url": "https://newsletter.semianalysis.com/p/chinas-cxmt-is-set-to-challenge-dram",
+          "publishedAt": "2026-06-23",
+          "sourceType": "분석",
+          "claimType": "전망·추정",
+          "evidenceLevel": "Watch",
+          "provenanceId": "bd53e666a5f5a3743c24",
+          "sourceClass": "research",
           "factId": null,
           "factStage": null
         },
@@ -22852,14 +23148,14 @@
             "publishedAt": "2026-05-29"
           }
         ],
-        "insight": "Citrini Research의 캐파 모델을 소개한 기사로 실제 비트 아웃풋 확정치가 아님. 웨이퍼 캐파와 수율·다이 크기·비트 원가를 분리해 범용 DRAM 압력을 판단. DDR5 16Gb (2Gx8) 4800/5600은 공개 누적 22개 관측에서 +701.08% 변했습니다.",
+        "insight": "SemiAnalysis 연구모델은 CXMT 캐파를 2026년 말 350K, 2027년 말 420K, 2028년 말 500K wpm으로 추정하고 8단 HBM3 수율을 약 25%로 모델링함. 회사 가이던스나 실측값이 아니며, 현재 핵심 위협은 HBM 동급화보다 DDR5·LPDDR·서버 DRAM 물량과 비트 원가 압력임. DDR5 16Gb (2Gx8) 4800/5600은 공개 누적 22개 관측에서 +701.08% 변했습니다.",
         "decision": "Spot 방향이 계약가로 전이되는지와 CXMT 고객·캐파 신호를 함께 확인해 범용 DRAM 가격 방어 강도를 정합니다.",
         "reversalKpi": "DDR5 Spot 누적 하락 뒤 계약가 하락이 확인되거나 CXMT 매출 점유율이 2%p 이상 변동"
       },
       {
         "id": "nand",
         "label": "NAND·eSSD",
-        "generatedAt": "2026-07-19T12:42:07.286Z",
+        "generatedAt": "2026-07-19T13:34:17.177Z",
         "evidenceCount": 12,
         "latest": {
           "title": "Kioxia·Sandisk, 10세대 3D NAND 생산 개시",
@@ -22911,10 +23207,10 @@
       {
         "id": "china",
         "label": "중국 경쟁",
-        "generatedAt": "2026-07-19T12:42:07.286Z",
-        "evidenceCount": 16,
+        "generatedAt": "2026-07-19T13:34:17.177Z",
+        "evidenceCount": 18,
         "latest": {
-          "title": "CXMT IPO 신청으로 중국 DRAM 추진의 중심에 마이크론과 삼성 동문이 있음 - digittimes",
+          "title": "CXMT IPO 제출로 중국 DRAM 추진의 중심에 마이크론과 삼성 동문이 있음",
           "originalTitle": "CXMT IPO filing reveals Micron and Samsung alumni at heart of China's DRAM push - digitimes",
           "summary": "상하이 STAR 시장 상장을 앞두고 제출된 Changxin Memory Technologies(CXMT)의 IPO 안내서는 회사가 글로벌 DRAM 업계의 확고한 리더들과 경쟁하기 위해 모은 국제 인재 기반을 공개하고 창업자의 거주 계획에 대한 미묘한 질문을 제기합니다.",
           "source": "digitimes",
@@ -22976,8 +23272,8 @@
       {
         "id": "policy",
         "label": "정책·Fab",
-        "generatedAt": "2026-07-19T12:42:07.286Z",
-        "evidenceCount": 4,
+        "generatedAt": "2026-07-19T13:34:17.177Z",
+        "evidenceCount": 5,
         "latest": {
           "title": "BIS, 중국 내 외국계 반도체 Fab의 VEU 특례 종료",
           "originalTitle": "BIS revokes VEU authorizations for foreign-owned semiconductor fabs in China",
@@ -23028,10 +23324,10 @@
       {
         "id": "demand",
         "label": "수요·고객",
-        "generatedAt": "2026-07-19T12:42:07.286Z",
+        "generatedAt": "2026-07-19T13:34:17.177Z",
         "evidenceCount": 7,
         "latest": {
-          "title": "AI 수요 중심의 메모리 위기로 인해 스마트 자동차가 노출됩니다 - digittimes",
+          "title": "AI 수요 중심의 메모리 위기로 인해 스마트 자동차가 노출됨 - digittimes",
           "originalTitle": "AI demand-driven memory crunch leaves smart cars exposed - digitimes",
           "summary": "AI 중심 수요는 DRAM과 NAND 플래시 용량이 데이터 센터로 전환되면서 글로벌 메모리 공급을 긴축하고 스마트폰, PC, 차량을 밀어내고 있습니다. 스마트 자동차는 가장 큰 타격을 입은 자동차 중 하나이며, 스마트 자동차 채택이 빠르게 증가하고 있는 중국에서는 자동차 제조업체가 더 심각한 부족, 더 비싼 부품 및 마진 압박에 직면해 있습니다.",
           "source": "digitimes",
@@ -23103,7 +23399,7 @@
       {
         "id": "capital",
         "label": "자본시장·CAPEX",
-        "generatedAt": "2026-07-19T12:42:07.286Z",
+        "generatedAt": "2026-07-19T13:34:17.177Z",
         "evidenceCount": 12,
         "latest": {
           "title": "CXMT, 초과배정 전 기본 공모액 579억 위안 확정",
@@ -23180,11 +23476,11 @@
     "executive": [
       "china",
       "capital",
-      "dram"
+      "demand"
     ]
   },
   "brokerResearch": {
-    "updatedAt": "2026-07-19T12:42:07.295Z",
+    "updatedAt": "2026-07-19T13:34:17.183Z",
     "methodology": "증권사 공식 발간물과 권위 매체의 증권사 인용을 분리하고, 원문 URL과 메모리 산업 연관성이 있는 항목만 승격함.",
     "institutions": [
       "Morgan Stanley"
@@ -23404,8 +23700,45 @@
     {
       "id": "dram",
       "label": "DRAM·DDR",
-      "count": 27,
+      "count": 28,
       "items": [
+        {
+          "title": "大厂吃肉小厂喝西北风！长鑫存储产能被预订一空：中小PC厂商恐遭灭顶之灾 - 电子工程专辑",
+          "originalTitle": "大厂吃肉小厂喝西北风！长鑫存储产能被预订一空：中小PC厂商恐遭灭顶之灾 - 电子工程专辑",
+          "link": "https://www.eet-china.com/mp/a510970.html",
+          "source": "电子工程专辑",
+          "date": "2026-07-19",
+          "category": "dram",
+          "language": "chinese",
+          "streamLanguage": "chinese",
+          "languageVerified": true,
+          "sourceUrl": "https://www.eet-china.com/mp/a510970.html",
+          "summaryOriginal": "全球DRAM内存供应持续吃紧，三星、SK海力士和美光等传统巨头产能趋于饱和。各大PC厂商正争相转向国产内存制造商长鑫存储寻求合作。由于需求过于强劲，长鑫存储的产能已被预订一空，订单排期延伸至2027年",
+          "summary": "DRAM 메모리의 글로벌 공급이 계속 부족하고 삼성, SKHY, 마이크론과 같은 전통적인 거대 기업의 생산 능력이 포화 상태에 이르렀습니다. 주요 PC 제조사들이 국내 메모리 제조사 창신메모리에 협력을 요청하고 있다. 수요가 많기 때문에 Changxin Storage의 생산 능력은 완전히 예약되었으며 주문 일정은 2027년까지 연장되었습니다.",
+          "summarySource": "source-meta",
+          "verification": {
+            "id": "165b0c608890b9f58fb0",
+            "status": "promoted",
+            "validatedAt": "2026-07-19T13:34:01.172Z",
+            "canonicalUrl": "https://www.eet-china.com/mp/a510970.html",
+            "sourceClass": "general-media",
+            "origin": "live-crawl",
+            "observedThisRun": true,
+            "freshness": "current",
+            "ageDays": 0,
+            "checks": {
+              "directSource": true,
+              "canonicalUrl": true,
+              "language": true,
+              "sourceSummary": true,
+              "publishedDate": true,
+              "retention": true,
+              "moderation": true,
+              "duplicate": true
+            }
+          },
+          "titleKo": "큰 공장은 고기를 먹고, 작은 공장은 북서풍을 마신다! 창신 저장용량 꽉 차서 중소 PC 제조사 몰락할 수도 - 전자공학앨범"
+        },
         {
           "title": "记者调查：从300元到1000元，华强北内存暴涨下的消费电子困局 - 电子工程专辑",
           "originalTitle": "记者调查：从300元到1000元，华强北内存暴涨下的消费电子困局 - 电子工程专辑",
@@ -23423,7 +23756,7 @@
           "verification": {
             "id": "d47d70fae3c3e1a8cefc",
             "status": "promoted",
-            "validatedAt": "2026-07-19T12:41:33.840Z",
+            "validatedAt": "2026-07-19T13:34:01.172Z",
             "canonicalUrl": "https://www.eet-china.com/mp/a510936.html",
             "sourceClass": "general-media",
             "origin": "live-crawl",
@@ -23441,7 +23774,7 @@
               "duplicate": true
             }
           },
-          "titleKo": "기자 조사 : 300위안에서 1000위안으로 치솟는 메모리 가격에 화창베이 가전제품 딜레마 - 전자공학이슈"
+          "titleKo": "기자 조사: 300위안에서 1000위안으로, 치솟는 메모리 가격에 화강베이 가전제품 딜레마 - 전자공학이슈"
         },
         {
           "title": "长鑫存储产能激增 正逐步逼近美光科技 - 集微网",
@@ -23460,7 +23793,7 @@
           "verification": {
             "id": "fcbc9b4188507f619c27",
             "status": "promoted",
-            "validatedAt": "2026-07-19T12:41:33.840Z",
+            "validatedAt": "2026-07-19T13:34:01.172Z",
             "canonicalUrl": "http://laoyaoba.com/n/1066121",
             "sourceClass": "general-media",
             "origin": "live-crawl",
@@ -23497,7 +23830,7 @@
           "verification": {
             "id": "c7769d4637a62444eac1",
             "status": "promoted",
-            "validatedAt": "2026-07-19T12:41:33.840Z",
+            "validatedAt": "2026-07-19T13:34:01.172Z",
             "canonicalUrl": "https://www.eet-china.com/mp/a510825.html",
             "sourceClass": "general-media",
             "origin": "live-crawl",
@@ -23534,7 +23867,7 @@
           "verification": {
             "id": "e81e1e30e55f25080f36",
             "status": "promoted",
-            "validatedAt": "2026-07-19T12:41:33.840Z",
+            "validatedAt": "2026-07-19T13:34:01.172Z",
             "canonicalUrl": "https://www.eet-china.com/mp/a510828.html",
             "sourceClass": "general-media",
             "origin": "live-crawl",
@@ -23571,7 +23904,7 @@
           "verification": {
             "id": "ee717fd08f8af3252c6e",
             "status": "promoted",
-            "validatedAt": "2026-07-19T12:41:33.840Z",
+            "validatedAt": "2026-07-19T13:34:01.172Z",
             "canonicalUrl": "https://www.eet-china.com/mp/a510817.html",
             "sourceClass": "general-media",
             "origin": "live-crawl",
@@ -23589,7 +23922,7 @@
               "duplicate": true
             }
           },
-          "titleKo": "창신 발주는 2027년 말까지 예정돼 있지만 미국 국회, 미국 기업에 발주 금지 요구 - 전자공학이슈"
+          "titleKo": "창신 주문은 2027년 말까지 예정됐으나 미국 국회, 미국 기업에 금지 요구 - 전자공학 이슈"
         },
         {
           "title": "长鑫科技科创板IPO估值5792亿 海外投资者借加密合约爆炒隐含市值近4万亿 - 虎嗅",
@@ -23608,7 +23941,7 @@
           "verification": {
             "id": "2c271fe414dfc762ed0f",
             "status": "promoted",
-            "validatedAt": "2026-07-19T12:41:33.840Z",
+            "validatedAt": "2026-07-19T13:34:01.172Z",
             "canonicalUrl": "https://www.huxiu.com/article/4876344.html",
             "sourceClass": "general-media",
             "origin": "live-crawl",
@@ -23645,7 +23978,7 @@
           "verification": {
             "id": "e9e8827baef3bc41bef5",
             "status": "promoted",
-            "validatedAt": "2026-07-19T12:41:33.840Z",
+            "validatedAt": "2026-07-19T13:34:01.172Z",
             "canonicalUrl": "http://laoyaoba.com/n/1065215",
             "sourceClass": "general-media",
             "origin": "live-crawl",
@@ -23682,7 +24015,7 @@
           "verification": {
             "id": "bd16a3957a775d0adb99",
             "status": "promoted",
-            "validatedAt": "2026-07-19T12:41:33.840Z",
+            "validatedAt": "2026-07-19T13:34:01.172Z",
             "canonicalUrl": "http://laoyaoba.com/n/1065924",
             "sourceClass": "general-media",
             "origin": "live-crawl",
@@ -23719,7 +24052,7 @@
           "verification": {
             "id": "ce325b3645db1fd7153c",
             "status": "promoted",
-            "validatedAt": "2026-07-19T12:41:33.840Z",
+            "validatedAt": "2026-07-19T13:34:01.172Z",
             "canonicalUrl": "http://laoyaoba.com/n/1065632",
             "sourceClass": "general-media",
             "origin": "live-crawl",
@@ -23756,7 +24089,7 @@
           "verification": {
             "id": "7756755ef29b8d3d42ea",
             "status": "promoted",
-            "validatedAt": "2026-07-19T12:41:33.840Z",
+            "validatedAt": "2026-07-19T13:34:01.172Z",
             "canonicalUrl": "https://www.eet-china.com/mp/a510697.html",
             "sourceClass": "general-media",
             "origin": "live-crawl",
@@ -23793,7 +24126,7 @@
           "verification": {
             "id": "691fd7a3bf066cf3c5b1",
             "status": "promoted",
-            "validatedAt": "2026-07-19T12:41:33.840Z",
+            "validatedAt": "2026-07-19T13:34:01.172Z",
             "canonicalUrl": "https://www.eet-china.com/mp/a510698.html",
             "sourceClass": "general-media",
             "origin": "live-crawl",
@@ -23830,7 +24163,7 @@
           "verification": {
             "id": "39752d71decf5638b990",
             "status": "promoted",
-            "validatedAt": "2026-07-19T12:41:33.840Z",
+            "validatedAt": "2026-07-19T13:34:01.172Z",
             "canonicalUrl": "https://www.eet-china.com/mp/a510689.html",
             "sourceClass": "general-media",
             "origin": "live-crawl",
@@ -23867,7 +24200,7 @@
           "verification": {
             "id": "27a3440773dea968a005",
             "status": "promoted",
-            "validatedAt": "2026-07-19T12:41:33.840Z",
+            "validatedAt": "2026-07-19T13:34:01.172Z",
             "canonicalUrl": "http://laoyaoba.com/n/1065423",
             "sourceClass": "general-media",
             "origin": "live-crawl",
@@ -23904,7 +24237,7 @@
           "verification": {
             "id": "a5b600a97567d3c978ce",
             "status": "promoted",
-            "validatedAt": "2026-07-19T12:41:33.840Z",
+            "validatedAt": "2026-07-19T13:34:01.172Z",
             "canonicalUrl": "http://laoyaoba.com/n/1062607",
             "sourceClass": "general-media",
             "origin": "live-crawl",
@@ -23941,7 +24274,7 @@
           "verification": {
             "id": "54a2e8e76c27323cc363",
             "status": "promoted",
-            "validatedAt": "2026-07-19T12:41:33.840Z",
+            "validatedAt": "2026-07-19T13:34:01.172Z",
             "canonicalUrl": "https://www.laoyaoba.com/n/1063946",
             "sourceClass": "general-media",
             "origin": "live-crawl",
@@ -23960,43 +24293,6 @@
             }
           },
           "titleKo": "스토리지 반도체 주가가 종합적인 조정을 내렸고 숨겨진 세 가지 주요 우려 사항이 표면화되었습니다 - Jiwei.com"
-        },
-        {
-          "title": "美光与高通、哈曼等公司签署协议，供应AI汽车存储芯片 - 集微网",
-          "originalTitle": "美光与高通、哈曼等公司签署协议，供应AI汽车存储芯片 - 集微网",
-          "link": "http://laoyaoba.com/n/1065230",
-          "source": "集微网",
-          "date": "2026-07-17",
-          "category": "dram",
-          "language": "chinese",
-          "streamLanguage": "chinese",
-          "languageVerified": true,
-          "sourceUrl": "http://laoyaoba.com/n/1065230",
-          "summaryOriginal": "美光科技与包括芯片设计公司高通和音频产品制造商哈曼在内的汽车供应商签署长期协议，以确保为人工智能汽车提供所需的内存和存储组件。",
-          "summary": "마이크론 테크놀로지(Micron Technology)는 인공지능 자동차에 필요한 메모리 및 스토리지 부품 공급을 보장하기 위해 칩 설계자 퀄컴(Qualcomm), 오디오 제품 제조업체 하만(Harman) 등 자동차 공급업체와 장기 계약을 체결했습니다.",
-          "summarySource": "source-meta",
-          "verification": {
-            "id": "ad6447dd296041d3ea63",
-            "status": "promoted",
-            "validatedAt": "2026-07-19T12:41:33.840Z",
-            "canonicalUrl": "http://laoyaoba.com/n/1065230",
-            "sourceClass": "general-media",
-            "origin": "live-crawl",
-            "observedThisRun": true,
-            "freshness": "current",
-            "ageDays": 2,
-            "checks": {
-              "directSource": true,
-              "canonicalUrl": true,
-              "language": true,
-              "sourceSummary": true,
-              "publishedDate": true,
-              "retention": true,
-              "moderation": true,
-              "duplicate": true
-            }
-          },
-          "titleKo": "마이크론, 퀄컴, 하만 및 기타 기업과 AI 자동차 메모리 칩 공급 계약 체결 - Jiwei.com"
         }
       ]
     },
@@ -24022,7 +24318,7 @@
           "verification": {
             "id": "60c10c5fa437cf69f733",
             "status": "promoted",
-            "validatedAt": "2026-07-19T12:41:33.840Z",
+            "validatedAt": "2026-07-19T13:34:01.172Z",
             "canonicalUrl": "https://www.huxiu.com/article/4876081.html",
             "sourceClass": "general-media",
             "origin": "live-crawl",
@@ -24059,7 +24355,7 @@
           "verification": {
             "id": "48085c5d091ce507813c",
             "status": "promoted",
-            "validatedAt": "2026-07-19T12:41:33.840Z",
+            "validatedAt": "2026-07-19T13:34:01.172Z",
             "canonicalUrl": "https://www.digitimes.com/news/a20260716pd214/electronics-dram-capacity-ddr4-nand.html",
             "sourceClass": "authoritative-media",
             "origin": "live-crawl",
@@ -24096,7 +24392,7 @@
           "verification": {
             "id": "c94479ea6b7eb214cbbb",
             "status": "promoted",
-            "validatedAt": "2026-07-19T12:41:33.840Z",
+            "validatedAt": "2026-07-19T13:34:01.172Z",
             "canonicalUrl": "https://finance.sina.com.cn/wm/2026-07-16/doc-inihzmmx8155372.shtml",
             "sourceClass": "general-media",
             "origin": "live-crawl",
@@ -24133,7 +24429,7 @@
           "verification": {
             "id": "5ddb54c509153cb3729d",
             "status": "promoted",
-            "validatedAt": "2026-07-19T12:41:33.840Z",
+            "validatedAt": "2026-07-19T13:34:01.172Z",
             "canonicalUrl": "https://www.huxiu.com/article/4875948.html",
             "sourceClass": "general-media",
             "origin": "live-crawl",
@@ -24151,7 +24447,7 @@
               "duplicate": true
             }
           },
-          "titleKo": "창신기술과학기술혁신위원회 IPO: DRAM 하락 사이클이 여전히 숨겨진 위험이라며 2025년 손실 71억 이익으로 전환 - Huxiu"
+          "titleKo": "창신기술과학기술혁신위원회 IPO: DRAM 하락 사이클은 여전히 ​​숨겨진 위험이라며 2025년 손실 71억 이익으로 전환 - Huxiu"
         },
         {
           "id": "sina-ymtc-ipo",
@@ -24176,7 +24472,7 @@
           "verification": {
             "id": "ecf2f300d720d2a48c3f",
             "status": "promoted",
-            "validatedAt": "2026-07-19T12:41:33.840Z",
+            "validatedAt": "2026-07-19T13:34:01.172Z",
             "canonicalUrl": "https://finance.sina.com.cn/wm/2026-07-16/doc-inihzfcy1427559.shtml",
             "sourceClass": "general-media",
             "origin": "curated-seed",
@@ -24212,7 +24508,7 @@
           "verification": {
             "id": "b56acaeaa20a6b537bca",
             "status": "promoted",
-            "validatedAt": "2026-07-19T12:41:33.840Z",
+            "validatedAt": "2026-07-19T13:34:01.172Z",
             "canonicalUrl": "https://www.digitimes.com/news/a20260715pd208/demand-dram-data-automakers-nand.html",
             "sourceClass": "authoritative-media",
             "origin": "live-crawl",
@@ -24230,7 +24526,7 @@
               "duplicate": true
             }
           },
-          "titleKo": "AI 수요 중심의 메모리 위기로 인해 스마트 자동차가 노출됩니다 - digittimes"
+          "titleKo": "AI 수요 중심의 메모리 위기로 인해 스마트 자동차가 노출됨 - digittimes"
         },
         {
           "title": "South Korean court bars former Samsung NAND designers from working for SK Hynix - digitimes",
@@ -24249,7 +24545,7 @@
           "verification": {
             "id": "01b9bd1b97bd21080a5c",
             "status": "promoted",
-            "validatedAt": "2026-07-19T12:41:33.840Z",
+            "validatedAt": "2026-07-19T13:34:01.172Z",
             "canonicalUrl": "https://www.digitimes.com/news/a20260715vl214/samsung-sk-hynix-nand-flash-design-talent-poaching-legal.html",
             "sourceClass": "authoritative-media",
             "origin": "live-crawl",
@@ -24267,7 +24563,7 @@
               "duplicate": true
             }
           },
-          "titleKo": "법원, 삼성 낸드 출신 디자이너 SKHY 입사 금지 - 디지털타임스"
+          "titleKo": "법원, 삼성 낸드 출신 디자이너 SKHY 입사 금지 - 디지타임스"
         },
         {
           "title": "Taiwan's memory sector in June delivers standout performance by a wide margin - digitimes",
@@ -24286,7 +24582,7 @@
           "verification": {
             "id": "671cbfcca08883386115",
             "status": "promoted",
-            "validatedAt": "2026-07-19T12:41:33.840Z",
+            "validatedAt": "2026-07-19T13:34:01.172Z",
             "canonicalUrl": "https://www.digitimes.com/news/a20260714vl222/taiwan-monthly-tracker-dram-revenue-supply-chain-2026.html",
             "sourceClass": "authoritative-media",
             "origin": "live-crawl",
@@ -24323,7 +24619,7 @@
           "verification": {
             "id": "98740020a18ea5b2f2db",
             "status": "promoted",
-            "validatedAt": "2026-07-19T12:41:33.840Z",
+            "validatedAt": "2026-07-19T13:34:01.172Z",
             "canonicalUrl": "https://www.digitimes.com/news/a20260714vl211/shanghai-hbm-14nm-ai-chip-performance.html",
             "sourceClass": "authoritative-media",
             "origin": "live-crawl",
@@ -24360,7 +24656,7 @@
           "verification": {
             "id": "cbd5015bd7c9dd98e313",
             "status": "promoted",
-            "validatedAt": "2026-07-19T12:41:33.840Z",
+            "validatedAt": "2026-07-19T13:34:01.172Z",
             "canonicalUrl": "https://www.digitimes.com/news/a20260713vl220/cxmt-hbm-samsung-ipo-micron.html",
             "sourceClass": "authoritative-media",
             "origin": "live-crawl",
@@ -24403,7 +24699,7 @@
           "verification": {
             "id": "1d31f5f12cc072b22142",
             "status": "promoted",
-            "validatedAt": "2026-07-19T12:41:33.840Z",
+            "validatedAt": "2026-07-19T13:34:01.172Z",
             "canonicalUrl": "https://hao.cnyes.com/post/258401",
             "sourceClass": "general-media",
             "origin": "curated-seed",
@@ -24445,7 +24741,7 @@
           "verification": {
             "id": "3382de61464f12e67044",
             "status": "promoted",
-            "validatedAt": "2026-07-19T12:41:33.840Z",
+            "validatedAt": "2026-07-19T13:34:01.172Z",
             "canonicalUrl": "https://www.sandisk.com/company/newsroom/press-releases/2026/2026-07-02-kioxia-sandisk-begin-production-10th-gen-3d-flash-memory-kitakami",
             "sourceClass": "official",
             "origin": "curated-seed",
@@ -24487,7 +24783,7 @@
           "verification": {
             "id": "2cb36b6116c0859adca8",
             "status": "promoted",
-            "validatedAt": "2026-07-19T12:41:33.840Z",
+            "validatedAt": "2026-07-19T13:34:01.172Z",
             "canonicalUrl": "https://technode.com/2026/06/22/ymtc-nand-market-share-climbs-to-13-as-global-competition-intensifies",
             "sourceClass": "general-media",
             "origin": "curated-seed",
@@ -24536,7 +24832,7 @@
           "verification": {
             "id": "11a68d1b48f3f756d4cb",
             "status": "promoted",
-            "validatedAt": "2026-07-19T12:41:33.840Z",
+            "validatedAt": "2026-07-19T13:34:01.172Z",
             "canonicalUrl": "https://www.theregister.com/2026/07/17/chinese_memory_ban_would_cut_off_rampocalypse_relief",
             "sourceClass": "general-media",
             "origin": "curated-seed",
@@ -24572,7 +24868,7 @@
           "verification": {
             "id": "7826f078364304b6b2a8",
             "status": "promoted",
-            "validatedAt": "2026-07-19T12:41:33.840Z",
+            "validatedAt": "2026-07-19T13:34:01.172Z",
             "canonicalUrl": "https://www.scmp.com/tech/article/3360822/cxmts-mega-ipo-draws-frenzy-retail-investors-deepseek-founders-fund",
             "sourceClass": "authoritative-media",
             "origin": "live-crawl",
@@ -24590,7 +24886,7 @@
               "duplicate": true
             }
           },
-          "titleKo": "CXMT의 대규모 IPO로 개인 투자자들부터 DeepSeek 창업자 펀드까지 열광"
+          "titleKo": "CXMT의 대규모 IPO로 개인 투자자들로부터 DeepSeek 창업자 펀드로 열광"
         },
         {
           "id": "technews-china-memory-capex",
@@ -24615,7 +24911,7 @@
           "verification": {
             "id": "213af8b09fe13ad8789e",
             "status": "promoted",
-            "validatedAt": "2026-07-19T12:41:33.840Z",
+            "validatedAt": "2026-07-19T13:34:01.172Z",
             "canonicalUrl": "https://finance.technews.tw/2026/07/14/chinas-two-memory-chip-giants-are-spending-heavily-to-expand-production",
             "sourceClass": "general-media",
             "origin": "curated-seed",
@@ -24657,7 +24953,7 @@
           "verification": {
             "id": "d387acc6e60832519985",
             "status": "promoted",
-            "validatedAt": "2026-07-19T12:41:33.840Z",
+            "validatedAt": "2026-07-19T13:34:01.172Z",
             "canonicalUrl": "https://www.solidot.org/story",
             "sourceClass": "general-media",
             "origin": "curated-seed",
@@ -24700,7 +24996,7 @@
           "verification": {
             "id": "0a499e7726b01f9b383e",
             "status": "promoted",
-            "validatedAt": "2026-07-19T12:41:33.840Z",
+            "validatedAt": "2026-07-19T13:34:01.172Z",
             "canonicalUrl": "https://semiengineering.com/new-nonvolatile-memory-winners-emerge",
             "sourceClass": "general-media",
             "origin": "live-crawl",
@@ -24732,11 +25028,12 @@
           "languageVerified": true,
           "sourceUrl": "https://spectrum.ieee.org/high-bandwidth-flash",
           "summaryOriginal": "High Bandwidth Flash offers efficient storage for model weights",
+          "summary": "고대역폭 플래시는 모델 가중치에 대한 효율적인 저장을 제공합니다.",
           "summarySource": "source-meta",
           "verification": {
             "id": "f9133cd2e1eaa1062d74",
             "status": "promoted",
-            "validatedAt": "2026-07-19T12:41:33.840Z",
+            "validatedAt": "2026-07-19T13:34:01.172Z",
             "canonicalUrl": "https://spectrum.ieee.org/high-bandwidth-flash",
             "sourceClass": "general-media",
             "origin": "live-crawl",
@@ -24754,8 +25051,7 @@
               "duplicate": true
             }
           },
-          "titleKo": "썸 드라이브의 메모리로 AI의 큰 문제를 해결할 수 있습니다 - IEEE Spectrum",
-          "summary": "고대역폭 플래시는 모델 가중치에 대한 효율적인 저장을 제공합니다."
+          "titleKo": "썸 드라이브의 메모리로 AI의 큰 문제를 해결할 수 있습니다 - IEEE Spectrum"
         },
         {
           "id": "micron-hbm4-volume-production",
@@ -24780,7 +25076,7 @@
           "verification": {
             "id": "32ab9c0e98b59b4dd84e",
             "status": "promoted",
-            "validatedAt": "2026-07-19T12:41:33.840Z",
+            "validatedAt": "2026-07-19T13:34:01.172Z",
             "canonicalUrl": "https://investors.micron.com/news-releases/news-release-details/micron-high-volume-production-hbm4-designed-nvidia-vera-rubin",
             "sourceClass": "official",
             "origin": "curated-seed",
@@ -24822,7 +25118,7 @@
           "verification": {
             "id": "186c68705961dd112212",
             "status": "promoted",
-            "validatedAt": "2026-07-19T12:41:33.840Z",
+            "validatedAt": "2026-07-19T13:34:01.172Z",
             "canonicalUrl": "https://news.samsung.com/global/samsung-ships-industry-first-commercial-hbm4-with-ultimate-performance-for-ai-computing",
             "sourceClass": "official",
             "origin": "curated-seed",
@@ -24865,7 +25161,7 @@
           "verification": {
             "id": "250f9b7cee9a0b5628d4",
             "status": "promoted",
-            "validatedAt": "2026-07-19T12:41:33.840Z",
+            "validatedAt": "2026-07-19T13:34:01.172Z",
             "canonicalUrl": "https://www.digitimes.com/news/a20260717pd227/micron-supply-chain-automotive-auto-industry-production.html",
             "sourceClass": "authoritative-media",
             "origin": "live-crawl",
@@ -24908,7 +25204,7 @@
           "verification": {
             "id": "4047784bbd7777f4b056",
             "status": "promoted",
-            "validatedAt": "2026-07-19T12:41:33.840Z",
+            "validatedAt": "2026-07-19T13:34:01.172Z",
             "canonicalUrl": "https://www.sec.gov/archives/edgar/data/2120882/000119312526299963/d32785d424b4.htm",
             "sourceClass": "official",
             "origin": "curated-seed",
@@ -24950,7 +25246,7 @@
           "verification": {
             "id": "e9622c0b3a42896eabc4",
             "status": "promoted",
-            "validatedAt": "2026-07-19T12:41:33.840Z",
+            "validatedAt": "2026-07-19T13:34:01.172Z",
             "canonicalUrl": "https://english.sse.com.cn/news/newsrelease/voice/c/c_20260615_10821916.shtml",
             "sourceClass": "official",
             "origin": "curated-seed",
@@ -24972,34 +25268,34 @@
       ]
     },
     {
-      "id": "packaging",
-      "label": "Packaging·Photonics",
-      "count": 3,
+      "id": "equipment",
+      "label": "장비 국산화 중국어",
+      "count": 2,
       "items": [
         {
-          "title": "UMC shipping Sipho wafers - Electronics Weekly",
-          "originalTitle": "UMC shipping Sipho wafers - Electronics Weekly",
-          "link": "https://www.electronicsweekly.com/news/business/umc-ships-sipho-2026-07/",
-          "source": "Electronics Weekly",
-          "date": "2026-07-15",
-          "category": "packaging",
-          "language": "english",
-          "streamLanguage": "english",
+          "title": "午后，PCB、存储芯片跳水！ - 证券时报",
+          "originalTitle": "午后，PCB、存储芯片跳水！ - 证券时报",
+          "link": "https://stcn.com/article/detail/4001943.html",
+          "source": "证券时报",
+          "date": "2026-07-18",
+          "category": "equipment",
+          "language": "chinese",
+          "streamLanguage": "chinese",
           "languageVerified": true,
-          "sourceUrl": "https://www.electronicsweekly.com/news/business/umc-ships-sipho-2026-07/",
-          "summaryOriginal": "SILITH Technology, a silicon photonics fabless company, and UMC have announced the first mass-production wafer delivery of photonic ICs from UMC’s",
-          "summary": "실리콘 포토닉스 팹리스 기업인 SILITH Technology와 UMC는 UMC로부터 최초로 포토닉 IC 대량 생산 웨이퍼 납품을 발표했습니다.",
+          "sourceUrl": "https://stcn.com/article/detail/4001943.html",
+          "summaryOriginal": "证券时报，证券时报网，由人民日报社主管主办，是证券市场权威信息披露媒体，也是中国资本市场的重要信息披露平台。提供全天候7*24小时财经证券类资讯，内容丰富，包括时报快讯、股市新闻、财经资讯、基金净值、债券、期货、上市公司公告等，为用户提供全方位、最新鲜的财经信息。打造了",
+          "summary": "인민일보가 주최하는 증권시보, 증권시보 네트워크는 증권시장의 권위 있는 정보 공개 매체이자 중국 자본시장의 중요한 정보 공개 플랫폼입니다. 타임스익스프레스, 주식시장 뉴스, 금융정보, 펀드순자산, 채권, 선물, 상장회사 공지사항 등 풍부한 컨텐츠로 금융 및 증권정보를 24시간 365일 제공하여 사용자에게 종합적이고 최신의 금융정보를 제공합니다. 세워짐",
           "summarySource": "source-meta",
           "verification": {
-            "id": "a697455e06c28a120e39",
+            "id": "c6a1912a8655d9c2d08e",
             "status": "promoted",
-            "validatedAt": "2026-07-19T12:41:33.840Z",
-            "canonicalUrl": "https://www.electronicsweekly.com/news/business/umc-ships-sipho-2026-07",
+            "validatedAt": "2026-07-19T13:34:01.172Z",
+            "canonicalUrl": "https://stcn.com/article/detail/4001943.html",
             "sourceClass": "general-media",
             "origin": "live-crawl",
             "observedThisRun": true,
             "freshness": "current",
-            "ageDays": 4,
+            "ageDays": 1,
             "checks": {
               "directSource": true,
               "canonicalUrl": true,
@@ -25011,80 +25307,38 @@
               "duplicate": true
             }
           },
-          "titleKo": "UMC, Sipho 웨이퍼 배송 - Electronics Weekly"
+          "titleKo": "오후에는 PCB와 메모리칩이 다이빙합니다! - 증권 타임즈"
         },
         {
-          "id": "trendforce-hybrid-bonding",
-          "category": "packaging",
-          "language": "english",
-          "title": "Samsung and SK hynix Reportedly Reconsider Hybrid Bonding Timeline",
-          "titleKo": "삼성·SKHY, 하이브리드 본딩 적용 시점 재검토",
-          "source": "TrendForce",
-          "sourceType": "분석",
-          "evidenceLevel": "Reported",
-          "date": "2026-07-07",
-          "link": "https://www.trendforce.com/news/2026/07/07/news-samsung-sk-hynix-reportedly-reconsider-hybrid-bonding-timeline-16-high-hbm4e-may-be-earliest-adoption/",
-          "summaryOriginal": "TrendForce reports that 16-high HBM4E may become the earliest hybrid-bonding adoption point as suppliers continue thermocompression bonding for HBM4.",
-          "summary": "하이브리드 본딩 도입이 16단 HBM4E까지 늦춰질 수 있다는 업계 보도. 본딩 장비 CAPEX보다 HBM4 수율과 고객 인증 일정에 우선순위를 둘 필요.",
-          "originalTitle": "Samsung and SK hynix Reportedly Reconsider Hybrid Bonding Timeline",
-          "sourceUrl": "https://www.trendforce.com/news/2026/07/07/news-samsung-sk-hynix-reportedly-reconsider-hybrid-bonding-timeline-16-high-hbm4e-may-be-earliest-adoption/",
-          "streamLanguage": "english",
+          "id": "sina-hbm-test-equipment",
+          "category": "equipment",
+          "language": "chinese",
+          "title": "HBM需求带动存储测试设备新机会",
+          "titleKo": "HBM 수요가 중국 테스트 장비 기회를 확대한다는 보도",
+          "source": "新浪财经",
+          "sourceType": "중국어권 보도",
+          "evidenceLevel": "Watch",
+          "date": "2026-07-02",
+          "link": "https://finance.sina.com.cn/jjxw/2026-07-02/doc-inifmmmu2634865.shtml",
+          "summaryOriginal": "报道讨论HBM需求对测试设备的拉动，但设备订单不等同于客户qualification或量产份额。",
+          "summary": "HBM 테스트 장비 수요 확대를 다룬 중국어 보도. 장비 채용·개발 신호는 고객 qualification과 반복 발주가 확인되기 전까지 보조 지표로만 사용.",
+          "originalTitle": "HBM需求带动存储测试设备新机会",
+          "sourceUrl": "https://finance.sina.com.cn/jjxw/2026-07-02/doc-inifmmmu2634865.shtml",
+          "streamLanguage": "chinese",
           "languageVerified": true,
           "summarySource": "curated-source",
           "preservedSeed": true,
           "curated": true,
           "verification": {
-            "id": "307fa1fedec819221f3d",
+            "id": "74e2af2bc8dda7426ddc",
             "status": "promoted",
-            "validatedAt": "2026-07-19T12:41:33.840Z",
-            "canonicalUrl": "https://www.trendforce.com/news/2026/07/07/news-samsung-sk-hynix-reportedly-reconsider-hybrid-bonding-timeline-16-high-hbm4e-may-be-earliest-adoption",
-            "sourceClass": "research",
+            "validatedAt": "2026-07-19T13:34:01.172Z",
+            "canonicalUrl": "https://finance.sina.com.cn/jjxw/2026-07-02/doc-inifmmmu2634865.shtml",
+            "sourceClass": "general-media",
             "origin": "curated-seed",
             "observedThisRun": false,
             "freshness": "current",
-            "ageDays": 12,
-            "checks": {
-              "directSource": true,
-              "canonicalUrl": true,
-              "language": true,
-              "sourceSummary": true,
-              "publishedDate": true,
-              "retention": true,
-              "moderation": true,
-              "duplicate": true
-            }
-          }
-        },
-        {
-          "id": "sandisk-skhynix-hbf-standardization",
-          "category": "packaging",
-          "language": "english",
-          "title": "Sandisk and SK hynix begin global standardization of High Bandwidth Flash",
-          "titleKo": "Sandisk·SKHY, HBF 글로벌 표준화 착수",
-          "source": "Sandisk",
-          "sourceType": "기업 공식",
-          "evidenceLevel": "Reported",
-          "date": "2026-02-25",
-          "link": "https://www.sandisk.com/company/newsroom/press-releases/2026/2026-02-25-sandisk-and-sk-hynix-begin-global-standardization-of-next-generation-memory-solution-high-bandwidth-flash-hbf",
-          "summaryOriginal": "Sandisk and SK hynix announced joint HBF standardization work under the Open Compute Project for high-capacity AI inference memory tiers.",
-          "summary": "HBF를 AI 추론용 고용량 메모리 계층으로 표준화하는 공동 작업을 시작한 기업 발표. HBM 대체 확정이 아니라 표준·샘플·고객 채택을 순서대로 검증함.",
-          "originalTitle": "Sandisk and SK hynix begin global standardization of High Bandwidth Flash",
-          "sourceUrl": "https://www.sandisk.com/company/newsroom/press-releases/2026/2026-02-25-sandisk-and-sk-hynix-begin-global-standardization-of-next-generation-memory-solution-high-bandwidth-flash-hbf",
-          "streamLanguage": "english",
-          "languageVerified": true,
-          "summarySource": "curated-source",
-          "preservedSeed": true,
-          "curated": true,
-          "verification": {
-            "id": "1de258b1b494b83998ad",
-            "status": "promoted",
-            "validatedAt": "2026-07-19T12:41:33.840Z",
-            "canonicalUrl": "https://www.sandisk.com/company/newsroom/press-releases/2026/2026-02-25-sandisk-and-sk-hynix-begin-global-standardization-of-next-generation-memory-solution-high-bandwidth-flash-hbf",
-            "sourceClass": "official",
-            "origin": "curated-seed",
-            "observedThisRun": false,
-            "freshness": "archive",
-            "ageDays": 144,
+            "ageDays": 17,
             "checks": {
               "directSource": true,
               "canonicalUrl": true,
@@ -25121,7 +25375,7 @@
           "verification": {
             "id": "6cff9a4e32dee5972fde",
             "status": "promoted",
-            "validatedAt": "2026-07-19T12:41:33.840Z",
+            "validatedAt": "2026-07-19T13:34:01.172Z",
             "canonicalUrl": "https://www.digitimes.com/news/a20260715vl210/3d-chips-technology-ai-chip-performance.html",
             "sourceClass": "authoritative-media",
             "origin": "live-crawl",
@@ -25158,7 +25412,7 @@
           "verification": {
             "id": "87e6961b29bab305a9bb",
             "status": "promoted",
-            "validatedAt": "2026-07-19T12:41:33.840Z",
+            "validatedAt": "2026-07-19T13:34:01.172Z",
             "canonicalUrl": "https://www.digitimes.com/news/a20260716vl229/tsmc-c.-c.-wei-emib-wafer-packaging-earnings-business.html",
             "sourceClass": "authoritative-media",
             "origin": "live-crawl",
@@ -25208,7 +25462,7 @@
           "verification": {
             "id": "c7bc6ea1167a76c29cff",
             "status": "promoted",
-            "validatedAt": "2026-07-19T12:41:33.840Z",
+            "validatedAt": "2026-07-19T13:34:01.172Z",
             "canonicalUrl": "https://semiconductor.samsung.com/news-events/tech-blog/breaking-ai-memory-limits-with-cxl-memory-pooling",
             "sourceClass": "general-media",
             "origin": "curated-seed",
@@ -25250,7 +25504,7 @@
           "verification": {
             "id": "13251963aa39a3a25ab4",
             "status": "promoted",
-            "validatedAt": "2026-07-19T12:41:33.840Z",
+            "validatedAt": "2026-07-19T13:34:01.172Z",
             "canonicalUrl": "https://panmnesia.com/news/en/2026-07-03-panmnesia-isca2026-eng",
             "sourceClass": "general-media",
             "origin": "curated-seed",
@@ -25299,7 +25553,7 @@
           "verification": {
             "id": "9d2ddafec6daac487623",
             "status": "promoted",
-            "validatedAt": "2026-07-19T12:41:33.840Z",
+            "validatedAt": "2026-07-19T13:34:01.172Z",
             "canonicalUrl": "https://www.wsts.org/76/103/global-semiconductor-market-surges-beyond-15t-2026",
             "sourceClass": "research",
             "origin": "curated-seed",
@@ -25341,7 +25595,7 @@
           "verification": {
             "id": "853b5c5f52f4b178a5be",
             "status": "promoted",
-            "validatedAt": "2026-07-19T12:41:33.840Z",
+            "validatedAt": "2026-07-19T13:34:01.172Z",
             "canonicalUrl": "https://www.trendforce.com/presscenter/news/20260529-13068.html",
             "sourceClass": "research",
             "origin": "curated-seed",
@@ -25363,34 +25617,40 @@
       ]
     },
     {
-      "id": "equipment",
-      "label": "장비 국산화 중국어",
+      "id": "packaging",
+      "label": "Packaging·Photonics",
       "count": 2,
       "items": [
         {
-          "title": "午后，PCB、存储芯片跳水！ - 证券时报",
-          "originalTitle": "午后，PCB、存储芯片跳水！ - 证券时报",
-          "link": "https://stcn.com/article/detail/4001943.html",
-          "source": "证券时报",
-          "date": "2026-07-18",
-          "category": "equipment",
-          "language": "chinese",
-          "streamLanguage": "chinese",
+          "id": "trendforce-hybrid-bonding",
+          "category": "packaging",
+          "language": "english",
+          "title": "Samsung and SK hynix Reportedly Reconsider Hybrid Bonding Timeline",
+          "titleKo": "삼성·SKHY, 하이브리드 본딩 적용 시점 재검토",
+          "source": "TrendForce",
+          "sourceType": "분석",
+          "evidenceLevel": "Reported",
+          "date": "2026-07-07",
+          "link": "https://www.trendforce.com/news/2026/07/07/news-samsung-sk-hynix-reportedly-reconsider-hybrid-bonding-timeline-16-high-hbm4e-may-be-earliest-adoption/",
+          "summaryOriginal": "TrendForce reports that 16-high HBM4E may become the earliest hybrid-bonding adoption point as suppliers continue thermocompression bonding for HBM4.",
+          "summary": "하이브리드 본딩 도입이 16단 HBM4E까지 늦춰질 수 있다는 업계 보도. 본딩 장비 CAPEX보다 HBM4 수율과 고객 인증 일정에 우선순위를 둘 필요.",
+          "originalTitle": "Samsung and SK hynix Reportedly Reconsider Hybrid Bonding Timeline",
+          "sourceUrl": "https://www.trendforce.com/news/2026/07/07/news-samsung-sk-hynix-reportedly-reconsider-hybrid-bonding-timeline-16-high-hbm4e-may-be-earliest-adoption/",
+          "streamLanguage": "english",
           "languageVerified": true,
-          "sourceUrl": "https://stcn.com/article/detail/4001943.html",
-          "summaryOriginal": "证券时报，证券时报网，由人民日报社主管主办，是证券市场权威信息披露媒体，也是中国资本市场的重要信息披露平台。提供全天候7*24小时财经证券类资讯，内容丰富，包括时报快讯、股市新闻、财经资讯、基金净值、债券、期货、上市公司公告等，为用户提供全方位、最新鲜的财经信息。打造了",
-          "summary": "인민일보가 주최하는 증권시보, 증권시보 네트워크는 증권시장의 권위 있는 정보 공개 매체이자 중국 자본시장의 중요한 정보 공개 플랫폼입니다. 타임스익스프레스, 주식시장 뉴스, 금융정보, 펀드순자산, 채권, 선물, 상장회사 공지사항 등 풍부한 컨텐츠로 금융 및 증권정보를 24시간 365일 제공하여 사용자에게 종합적이고 최신의 금융정보를 제공합니다. 세워짐",
-          "summarySource": "source-meta",
+          "summarySource": "curated-source",
+          "preservedSeed": true,
+          "curated": true,
           "verification": {
-            "id": "c6a1912a8655d9c2d08e",
+            "id": "307fa1fedec819221f3d",
             "status": "promoted",
-            "validatedAt": "2026-07-19T12:41:33.840Z",
-            "canonicalUrl": "https://stcn.com/article/detail/4001943.html",
-            "sourceClass": "general-media",
-            "origin": "live-crawl",
-            "observedThisRun": true,
+            "validatedAt": "2026-07-19T13:34:01.172Z",
+            "canonicalUrl": "https://www.trendforce.com/news/2026/07/07/news-samsung-sk-hynix-reportedly-reconsider-hybrid-bonding-timeline-16-high-hbm4e-may-be-earliest-adoption",
+            "sourceClass": "research",
+            "origin": "curated-seed",
+            "observedThisRun": false,
             "freshness": "current",
-            "ageDays": 1,
+            "ageDays": 12,
             "checks": {
               "directSource": true,
               "canonicalUrl": true,
@@ -25401,39 +25661,129 @@
               "moderation": true,
               "duplicate": true
             }
-          },
-          "titleKo": "오후에는 PCB와 메모리칩이 다이빙합니다! - 증권 타임즈"
+          }
         },
         {
-          "id": "sina-hbm-test-equipment",
-          "category": "equipment",
-          "language": "chinese",
-          "title": "HBM需求带动存储测试设备新机会",
-          "titleKo": "HBM 수요가 중국 테스트 장비 기회를 확대한다는 보도",
-          "source": "新浪财经",
-          "sourceType": "중국어권 보도",
-          "evidenceLevel": "Watch",
-          "date": "2026-07-02",
-          "link": "https://finance.sina.com.cn/jjxw/2026-07-02/doc-inifmmmu2634865.shtml",
-          "summaryOriginal": "报道讨论HBM需求对测试设备的拉动，但设备订单不等同于客户qualification或量产份额。",
-          "summary": "HBM 테스트 장비 수요 확대를 다룬 중국어 보도. 장비 채용·개발 신호는 고객 qualification과 반복 발주가 확인되기 전까지 보조 지표로만 사용.",
-          "originalTitle": "HBM需求带动存储测试设备新机会",
-          "sourceUrl": "https://finance.sina.com.cn/jjxw/2026-07-02/doc-inifmmmu2634865.shtml",
-          "streamLanguage": "chinese",
+          "id": "sandisk-skhynix-hbf-standardization",
+          "category": "packaging",
+          "language": "english",
+          "title": "Sandisk and SK hynix begin global standardization of High Bandwidth Flash",
+          "titleKo": "Sandisk·SKHY, HBF 글로벌 표준화 착수",
+          "source": "Sandisk",
+          "sourceType": "기업 공식",
+          "evidenceLevel": "Reported",
+          "date": "2026-02-25",
+          "link": "https://www.sandisk.com/company/newsroom/press-releases/2026/2026-02-25-sandisk-and-sk-hynix-begin-global-standardization-of-next-generation-memory-solution-high-bandwidth-flash-hbf",
+          "summaryOriginal": "Sandisk and SK hynix announced joint HBF standardization work under the Open Compute Project for high-capacity AI inference memory tiers.",
+          "summary": "HBF를 AI 추론용 고용량 메모리 계층으로 표준화하는 공동 작업을 시작한 기업 발표. HBM 대체 확정이 아니라 표준·샘플·고객 채택을 순서대로 검증함.",
+          "originalTitle": "Sandisk and SK hynix begin global standardization of High Bandwidth Flash",
+          "sourceUrl": "https://www.sandisk.com/company/newsroom/press-releases/2026/2026-02-25-sandisk-and-sk-hynix-begin-global-standardization-of-next-generation-memory-solution-high-bandwidth-flash-hbf",
+          "streamLanguage": "english",
           "languageVerified": true,
           "summarySource": "curated-source",
           "preservedSeed": true,
           "curated": true,
           "verification": {
-            "id": "74e2af2bc8dda7426ddc",
+            "id": "1de258b1b494b83998ad",
             "status": "promoted",
-            "validatedAt": "2026-07-19T12:41:33.840Z",
-            "canonicalUrl": "https://finance.sina.com.cn/jjxw/2026-07-02/doc-inifmmmu2634865.shtml",
-            "sourceClass": "general-media",
+            "validatedAt": "2026-07-19T13:34:01.172Z",
+            "canonicalUrl": "https://www.sandisk.com/company/newsroom/press-releases/2026/2026-02-25-sandisk-and-sk-hynix-begin-global-standardization-of-next-generation-memory-solution-high-bandwidth-flash-hbf",
+            "sourceClass": "official",
             "origin": "curated-seed",
             "observedThisRun": false,
-            "freshness": "current",
-            "ageDays": 17,
+            "freshness": "archive",
+            "ageDays": 144,
+            "checks": {
+              "directSource": true,
+              "canonicalUrl": true,
+              "language": true,
+              "sourceSummary": true,
+              "publishedDate": true,
+              "retention": true,
+              "moderation": true,
+              "duplicate": true
+            }
+          }
+        }
+      ]
+    },
+    {
+      "id": "policy",
+      "label": "policy",
+      "count": 2,
+      "items": [
+        {
+          "id": "census-bis-c79-fab-license",
+          "category": "policy",
+          "language": "english",
+          "title": "AES adds C79 code for exports under BIS H-prefix fab licenses",
+          "titleKo": "미 Census, 중국 내 전 VEU Fab의 H-prefix 라이선스 신고코드 C79 시행",
+          "source": "U.S. Census Bureau",
+          "sourceType": "정부 공지",
+          "evidenceLevel": "Reported",
+          "date": "2026-01-05",
+          "link": "https://content.govdelivery.com/accounts/USCENSUS/bulletins/4008e2b",
+          "summaryOriginal": "Effective December 31, 2025, AES license code C79 replaced C57 for exports under BIS H-prefix individual fab licenses issued to former VEU semiconductor fabs in China.",
+          "summary": "C79는 중국 내 전 VEU 반도체 Fab에 발급된 BIS H-prefix 개별 Fab 라이선스의 AES 신고코드임. 2025년 12월 31일부터 C57을 대체했으며, 새로운 blanket ban으로 해석하지 않음.",
+          "originalTitle": "AES adds C79 code for exports under BIS H-prefix fab licenses",
+          "sourceUrl": "https://content.govdelivery.com/accounts/USCENSUS/bulletins/4008e2b",
+          "streamLanguage": "english",
+          "languageVerified": true,
+          "summarySource": "curated-source",
+          "preservedSeed": true,
+          "curated": true,
+          "verification": {
+            "id": "7e24c61fe180fddd2182",
+            "status": "promoted",
+            "validatedAt": "2026-07-19T13:34:01.172Z",
+            "canonicalUrl": "https://content.govdelivery.com/accounts/uscensus/bulletins/4008e2b",
+            "sourceClass": "official",
+            "origin": "curated-seed",
+            "observedThisRun": false,
+            "freshness": "archive",
+            "ageDays": 195,
+            "checks": {
+              "directSource": true,
+              "canonicalUrl": true,
+              "language": true,
+              "sourceSummary": true,
+              "publishedDate": true,
+              "retention": true,
+              "moderation": true,
+              "duplicate": true
+            }
+          }
+        },
+        {
+          "id": "bis-china-fab-veu-revocation",
+          "category": "policy",
+          "language": "english",
+          "title": "BIS revokes VEU authorizations for foreign-owned semiconductor fabs in China",
+          "titleKo": "BIS, 중국 내 외국계 반도체 Fab의 VEU 특례 종료",
+          "source": "U.S. Bureau of Industry and Security",
+          "sourceType": "정부 공시",
+          "evidenceLevel": "Reported",
+          "date": "2025-08-29",
+          "link": "https://www.bis.gov/press-release/department-commerce-closes-export-controls-loophole-foreign-owned-semiconductor-fabs-china",
+          "summaryOriginal": "BIS ended VEU license-free treatment for foreign-owned semiconductor fabs in China, while stating an intent to license existing operations but not capacity expansion or technology upgrades.",
+          "summary": "BIS는 중국 내 외국계 반도체 Fab의 VEU 무허가 특례를 종료함. 기존 Fab 운영을 위한 허가는 의도하지만 캐파 확대나 기술 업그레이드 허가는 의도하지 않는다고 밝혀 운영 유지와 증설을 분리해야 함.",
+          "originalTitle": "BIS revokes VEU authorizations for foreign-owned semiconductor fabs in China",
+          "sourceUrl": "https://www.bis.gov/press-release/department-commerce-closes-export-controls-loophole-foreign-owned-semiconductor-fabs-china",
+          "streamLanguage": "english",
+          "languageVerified": true,
+          "summarySource": "curated-source",
+          "preservedSeed": true,
+          "curated": true,
+          "verification": {
+            "id": "d57a2bd5d49a443ed90d",
+            "status": "promoted",
+            "validatedAt": "2026-07-19T13:34:01.172Z",
+            "canonicalUrl": "https://www.bis.gov/press-release/department-commerce-closes-export-controls-loophole-foreign-owned-semiconductor-fabs-china",
+            "sourceClass": "official",
+            "origin": "curated-seed",
+            "observedThisRun": false,
+            "freshness": "archive",
+            "ageDays": 324,
             "checks": {
               "directSource": true,
               "canonicalUrl": true,
@@ -25470,7 +25820,7 @@
           "verification": {
             "id": "edd81844cc538ea6e164",
             "status": "promoted",
-            "validatedAt": "2026-07-19T12:41:33.840Z",
+            "validatedAt": "2026-07-19T13:34:01.172Z",
             "canonicalUrl": "https://www.tomshardware.com/pc-components/dram/lawmakers-want-us-government-to-ban-memory-chips-from-china-even-in-allied-supply-chains-citing-unacceptable-risk-to-national-economic-and-supply-chain-security",
             "sourceClass": "authoritative-media",
             "origin": "live-crawl",
@@ -25514,7 +25864,7 @@
           "verification": {
             "id": "e1841210678b479817e4",
             "status": "promoted",
-            "validatedAt": "2026-07-19T12:41:33.840Z",
+            "validatedAt": "2026-07-19T13:34:01.172Z",
             "canonicalUrl": "https://www.digitimes.com/news/a20260716vl215/cxmt-ipo-micron-samsung-dram.html",
             "sourceClass": "authoritative-media",
             "origin": "live-crawl",
@@ -25532,61 +25882,49 @@
               "duplicate": true
             }
           },
-          "titleKo": "CXMT IPO 신청으로 중국 DRAM 추진의 중심에 마이크론과 삼성 동문이 있음 - digittimes"
-        }
-      ]
-    },
-    {
-      "id": "policy",
-      "label": "policy",
-      "count": 1,
-      "items": [
-        {
-          "id": "bis-china-fab-veu-revocation",
-          "category": "policy",
-          "language": "english",
-          "title": "BIS revokes VEU authorizations for foreign-owned semiconductor fabs in China",
-          "titleKo": "BIS, 중국 내 외국계 반도체 Fab의 VEU 특례 종료",
-          "source": "U.S. Bureau of Industry and Security",
-          "sourceType": "정부 공시",
-          "evidenceLevel": "Reported",
-          "date": "2025-08-29",
-          "link": "https://www.bis.gov/press-release/department-commerce-closes-export-controls-loophole-foreign-owned-semiconductor-fabs-china",
-          "summaryOriginal": "BIS ended VEU license-free treatment for foreign-owned semiconductor fabs in China, while stating an intent to license existing operations but not capacity expansion or technology upgrades.",
-          "summary": "BIS는 중국 내 외국계 반도체 Fab의 VEU 무허가 특례를 종료함. 기존 Fab 운영을 위한 허가는 의도하지만 캐파 확대나 기술 업그레이드 허가는 의도하지 않는다고 밝혀 운영 유지와 증설을 분리해야 함.",
-          "originalTitle": "BIS revokes VEU authorizations for foreign-owned semiconductor fabs in China",
-          "sourceUrl": "https://www.bis.gov/press-release/department-commerce-closes-export-controls-loophole-foreign-owned-semiconductor-fabs-china",
-          "streamLanguage": "english",
-          "languageVerified": true,
-          "summarySource": "curated-source",
-          "preservedSeed": true,
-          "curated": true,
-          "verification": {
-            "id": "d57a2bd5d49a443ed90d",
-            "status": "promoted",
-            "validatedAt": "2026-07-19T12:41:33.840Z",
-            "canonicalUrl": "https://www.bis.gov/press-release/department-commerce-closes-export-controls-loophole-foreign-owned-semiconductor-fabs-china",
-            "sourceClass": "official",
-            "origin": "curated-seed",
-            "observedThisRun": false,
-            "freshness": "archive",
-            "ageDays": 324,
-            "checks": {
-              "directSource": true,
-              "canonicalUrl": true,
-              "language": true,
-              "sourceSummary": true,
-              "publishedDate": true,
-              "retention": true,
-              "moderation": true,
-              "duplicate": true
-            }
-          }
+          "titleKo": "CXMT IPO 제출로 중국 DRAM 추진의 중심에 마이크론과 삼성 동문이 있음 - digitimes"
         }
       ]
     }
   ],
   "news": [
+    {
+      "title": "大厂吃肉小厂喝西北风！长鑫存储产能被预订一空：中小PC厂商恐遭灭顶之灾 - 电子工程专辑",
+      "originalTitle": "大厂吃肉小厂喝西北风！长鑫存储产能被预订一空：中小PC厂商恐遭灭顶之灾 - 电子工程专辑",
+      "link": "https://www.eet-china.com/mp/a510970.html",
+      "source": "电子工程专辑",
+      "date": "2026-07-19",
+      "category": "dram",
+      "language": "chinese",
+      "streamLanguage": "chinese",
+      "languageVerified": true,
+      "sourceUrl": "https://www.eet-china.com/mp/a510970.html",
+      "summaryOriginal": "全球DRAM内存供应持续吃紧，三星、SK海力士和美光等传统巨头产能趋于饱和。各大PC厂商正争相转向国产内存制造商长鑫存储寻求合作。由于需求过于强劲，长鑫存储的产能已被预订一空，订单排期延伸至2027年",
+      "summary": "DRAM 메모리의 글로벌 공급이 계속 부족하고 삼성, SKHY, 마이크론과 같은 전통적인 거대 기업의 생산 능력이 포화 상태에 이르렀습니다. 주요 PC 제조사들이 국내 메모리 제조사 창신메모리에 협력을 요청하고 있다. 수요가 많기 때문에 Changxin Storage의 생산 능력은 완전히 예약되었으며 주문 일정은 2027년까지 연장되었습니다.",
+      "summarySource": "source-meta",
+      "verification": {
+        "id": "165b0c608890b9f58fb0",
+        "status": "promoted",
+        "validatedAt": "2026-07-19T13:34:01.172Z",
+        "canonicalUrl": "https://www.eet-china.com/mp/a510970.html",
+        "sourceClass": "general-media",
+        "origin": "live-crawl",
+        "observedThisRun": true,
+        "freshness": "current",
+        "ageDays": 0,
+        "checks": {
+          "directSource": true,
+          "canonicalUrl": true,
+          "language": true,
+          "sourceSummary": true,
+          "publishedDate": true,
+          "retention": true,
+          "moderation": true,
+          "duplicate": true
+        }
+      },
+      "titleKo": "큰 공장은 고기를 먹고, 작은 공장은 북서풍을 마신다! 창신 저장용량 꽉 차서 중소 PC 제조사 몰락할 수도 - 전자공학앨범"
+    },
     {
       "title": "记者调查：从300元到1000元，华强北内存暴涨下的消费电子困局 - 电子工程专辑",
       "originalTitle": "记者调查：从300元到1000元，华强北内存暴涨下的消费电子困局 - 电子工程专辑",
@@ -25604,7 +25942,7 @@
       "verification": {
         "id": "d47d70fae3c3e1a8cefc",
         "status": "promoted",
-        "validatedAt": "2026-07-19T12:41:33.840Z",
+        "validatedAt": "2026-07-19T13:34:01.172Z",
         "canonicalUrl": "https://www.eet-china.com/mp/a510936.html",
         "sourceClass": "general-media",
         "origin": "live-crawl",
@@ -25622,7 +25960,7 @@
           "duplicate": true
         }
       },
-      "titleKo": "기자 조사 : 300위안에서 1000위안으로 치솟는 메모리 가격에 화창베이 가전제품 딜레마 - 전자공학이슈"
+      "titleKo": "기자 조사: 300위안에서 1000위안으로, 치솟는 메모리 가격에 화강베이 가전제품 딜레마 - 전자공학이슈"
     },
     {
       "title": "长鑫存储产能激增 正逐步逼近美光科技 - 集微网",
@@ -25641,7 +25979,7 @@
       "verification": {
         "id": "fcbc9b4188507f619c27",
         "status": "promoted",
-        "validatedAt": "2026-07-19T12:41:33.840Z",
+        "validatedAt": "2026-07-19T13:34:01.172Z",
         "canonicalUrl": "http://laoyaoba.com/n/1066121",
         "sourceClass": "general-media",
         "origin": "live-crawl",
@@ -25678,7 +26016,7 @@
       "verification": {
         "id": "c7769d4637a62444eac1",
         "status": "promoted",
-        "validatedAt": "2026-07-19T12:41:33.840Z",
+        "validatedAt": "2026-07-19T13:34:01.172Z",
         "canonicalUrl": "https://www.eet-china.com/mp/a510825.html",
         "sourceClass": "general-media",
         "origin": "live-crawl",
@@ -25715,7 +26053,7 @@
       "verification": {
         "id": "e81e1e30e55f25080f36",
         "status": "promoted",
-        "validatedAt": "2026-07-19T12:41:33.840Z",
+        "validatedAt": "2026-07-19T13:34:01.172Z",
         "canonicalUrl": "https://www.eet-china.com/mp/a510828.html",
         "sourceClass": "general-media",
         "origin": "live-crawl",
@@ -25752,7 +26090,7 @@
       "verification": {
         "id": "ee717fd08f8af3252c6e",
         "status": "promoted",
-        "validatedAt": "2026-07-19T12:41:33.840Z",
+        "validatedAt": "2026-07-19T13:34:01.172Z",
         "canonicalUrl": "https://www.eet-china.com/mp/a510817.html",
         "sourceClass": "general-media",
         "origin": "live-crawl",
@@ -25770,7 +26108,7 @@
           "duplicate": true
         }
       },
-      "titleKo": "창신 발주는 2027년 말까지 예정돼 있지만 미국 국회, 미국 기업에 발주 금지 요구 - 전자공학이슈"
+      "titleKo": "창신 주문은 2027년 말까지 예정됐으나 미국 국회, 미국 기업에 금지 요구 - 전자공학 이슈"
     },
     {
       "title": "长鑫科技科创板IPO估值5792亿 海外投资者借加密合约爆炒隐含市值近4万亿 - 虎嗅",
@@ -25789,7 +26127,7 @@
       "verification": {
         "id": "2c271fe414dfc762ed0f",
         "status": "promoted",
-        "validatedAt": "2026-07-19T12:41:33.840Z",
+        "validatedAt": "2026-07-19T13:34:01.172Z",
         "canonicalUrl": "https://www.huxiu.com/article/4876344.html",
         "sourceClass": "general-media",
         "origin": "live-crawl",
@@ -25826,7 +26164,7 @@
       "verification": {
         "id": "e9e8827baef3bc41bef5",
         "status": "promoted",
-        "validatedAt": "2026-07-19T12:41:33.840Z",
+        "validatedAt": "2026-07-19T13:34:01.172Z",
         "canonicalUrl": "http://laoyaoba.com/n/1065215",
         "sourceClass": "general-media",
         "origin": "live-crawl",
@@ -25863,7 +26201,7 @@
       "verification": {
         "id": "bd16a3957a775d0adb99",
         "status": "promoted",
-        "validatedAt": "2026-07-19T12:41:33.840Z",
+        "validatedAt": "2026-07-19T13:34:01.172Z",
         "canonicalUrl": "http://laoyaoba.com/n/1065924",
         "sourceClass": "general-media",
         "origin": "live-crawl",
@@ -25900,7 +26238,7 @@
       "verification": {
         "id": "c6a1912a8655d9c2d08e",
         "status": "promoted",
-        "validatedAt": "2026-07-19T12:41:33.840Z",
+        "validatedAt": "2026-07-19T13:34:01.172Z",
         "canonicalUrl": "https://stcn.com/article/detail/4001943.html",
         "sourceClass": "general-media",
         "origin": "live-crawl",
@@ -25937,7 +26275,7 @@
       "verification": {
         "id": "ce325b3645db1fd7153c",
         "status": "promoted",
-        "validatedAt": "2026-07-19T12:41:33.840Z",
+        "validatedAt": "2026-07-19T13:34:01.172Z",
         "canonicalUrl": "http://laoyaoba.com/n/1065632",
         "sourceClass": "general-media",
         "origin": "live-crawl",
@@ -25974,7 +26312,7 @@
       "verification": {
         "id": "edd81844cc538ea6e164",
         "status": "promoted",
-        "validatedAt": "2026-07-19T12:41:33.840Z",
+        "validatedAt": "2026-07-19T13:34:01.172Z",
         "canonicalUrl": "https://www.tomshardware.com/pc-components/dram/lawmakers-want-us-government-to-ban-memory-chips-from-china-even-in-allied-supply-chains-citing-unacceptable-risk-to-national-economic-and-supply-chain-security",
         "sourceClass": "authoritative-media",
         "origin": "live-crawl",
@@ -26011,7 +26349,7 @@
       "verification": {
         "id": "7756755ef29b8d3d42ea",
         "status": "promoted",
-        "validatedAt": "2026-07-19T12:41:33.840Z",
+        "validatedAt": "2026-07-19T13:34:01.172Z",
         "canonicalUrl": "https://www.eet-china.com/mp/a510697.html",
         "sourceClass": "general-media",
         "origin": "live-crawl",
@@ -26048,7 +26386,7 @@
       "verification": {
         "id": "691fd7a3bf066cf3c5b1",
         "status": "promoted",
-        "validatedAt": "2026-07-19T12:41:33.840Z",
+        "validatedAt": "2026-07-19T13:34:01.172Z",
         "canonicalUrl": "https://www.eet-china.com/mp/a510698.html",
         "sourceClass": "general-media",
         "origin": "live-crawl",
@@ -26085,7 +26423,7 @@
       "verification": {
         "id": "39752d71decf5638b990",
         "status": "promoted",
-        "validatedAt": "2026-07-19T12:41:33.840Z",
+        "validatedAt": "2026-07-19T13:34:01.172Z",
         "canonicalUrl": "https://www.eet-china.com/mp/a510689.html",
         "sourceClass": "general-media",
         "origin": "live-crawl",
@@ -26122,7 +26460,7 @@
       "verification": {
         "id": "27a3440773dea968a005",
         "status": "promoted",
-        "validatedAt": "2026-07-19T12:41:33.840Z",
+        "validatedAt": "2026-07-19T13:34:01.172Z",
         "canonicalUrl": "http://laoyaoba.com/n/1065423",
         "sourceClass": "general-media",
         "origin": "live-crawl",
@@ -26159,7 +26497,7 @@
       "verification": {
         "id": "250f9b7cee9a0b5628d4",
         "status": "promoted",
-        "validatedAt": "2026-07-19T12:41:33.840Z",
+        "validatedAt": "2026-07-19T13:34:01.172Z",
         "canonicalUrl": "https://www.digitimes.com/news/a20260717pd227/micron-supply-chain-automotive-auto-industry-production.html",
         "sourceClass": "authoritative-media",
         "origin": "live-crawl",
@@ -26196,7 +26534,7 @@
       "verification": {
         "id": "a5b600a97567d3c978ce",
         "status": "promoted",
-        "validatedAt": "2026-07-19T12:41:33.840Z",
+        "validatedAt": "2026-07-19T13:34:01.172Z",
         "canonicalUrl": "http://laoyaoba.com/n/1062607",
         "sourceClass": "general-media",
         "origin": "live-crawl",
@@ -26233,7 +26571,7 @@
       "verification": {
         "id": "60c10c5fa437cf69f733",
         "status": "promoted",
-        "validatedAt": "2026-07-19T12:41:33.840Z",
+        "validatedAt": "2026-07-19T13:34:01.172Z",
         "canonicalUrl": "https://www.huxiu.com/article/4876081.html",
         "sourceClass": "general-media",
         "origin": "live-crawl",
@@ -26270,7 +26608,7 @@
       "verification": {
         "id": "54a2e8e76c27323cc363",
         "status": "promoted",
-        "validatedAt": "2026-07-19T12:41:33.840Z",
+        "validatedAt": "2026-07-19T13:34:01.172Z",
         "canonicalUrl": "https://www.laoyaoba.com/n/1063946",
         "sourceClass": "general-media",
         "origin": "live-crawl",
@@ -26307,7 +26645,7 @@
       "verification": {
         "id": "ad6447dd296041d3ea63",
         "status": "promoted",
-        "validatedAt": "2026-07-19T12:41:33.840Z",
+        "validatedAt": "2026-07-19T13:34:01.172Z",
         "canonicalUrl": "http://laoyaoba.com/n/1065230",
         "sourceClass": "general-media",
         "origin": "live-crawl",
@@ -26344,7 +26682,7 @@
       "verification": {
         "id": "0ae871ad17b1a942ec65",
         "status": "promoted",
-        "validatedAt": "2026-07-19T12:41:33.840Z",
+        "validatedAt": "2026-07-19T13:34:01.172Z",
         "canonicalUrl": "https://www.stcn.com/article/detail/4024442.html",
         "sourceClass": "general-media",
         "origin": "live-crawl",
@@ -26387,7 +26725,7 @@
       "verification": {
         "id": "43220e22a62e684bb64f",
         "status": "promoted",
-        "validatedAt": "2026-07-19T12:41:33.840Z",
+        "validatedAt": "2026-07-19T13:34:01.172Z",
         "canonicalUrl": "https://www.scmp.com/tech/article/3360892/chinese-memory-giant-cxmt-oversubscribed-212-times-mega-shanghai-ipo",
         "sourceClass": "authoritative-media",
         "origin": "curated-seed",
@@ -26429,7 +26767,7 @@
       "verification": {
         "id": "11a68d1b48f3f756d4cb",
         "status": "promoted",
-        "validatedAt": "2026-07-19T12:41:33.840Z",
+        "validatedAt": "2026-07-19T13:34:01.172Z",
         "canonicalUrl": "https://www.theregister.com/2026/07/17/chinese_memory_ban_would_cut_off_rampocalypse_relief",
         "sourceClass": "general-media",
         "origin": "curated-seed",
@@ -26465,7 +26803,7 @@
       "verification": {
         "id": "48085c5d091ce507813c",
         "status": "promoted",
-        "validatedAt": "2026-07-19T12:41:33.840Z",
+        "validatedAt": "2026-07-19T13:34:01.172Z",
         "canonicalUrl": "https://www.digitimes.com/news/a20260716pd214/electronics-dram-capacity-ddr4-nand.html",
         "sourceClass": "authoritative-media",
         "origin": "live-crawl",
@@ -26502,7 +26840,7 @@
       "verification": {
         "id": "6cff9a4e32dee5972fde",
         "status": "promoted",
-        "validatedAt": "2026-07-19T12:41:33.840Z",
+        "validatedAt": "2026-07-19T13:34:01.172Z",
         "canonicalUrl": "https://www.digitimes.com/news/a20260715vl210/3d-chips-technology-ai-chip-performance.html",
         "sourceClass": "authoritative-media",
         "origin": "live-crawl",
@@ -26539,7 +26877,7 @@
       "verification": {
         "id": "8d9be44d345bbc7c5f75",
         "status": "promoted",
-        "validatedAt": "2026-07-19T12:41:33.840Z",
+        "validatedAt": "2026-07-19T13:34:01.172Z",
         "canonicalUrl": "https://www.stcn.com/article/detail/4024438.html",
         "sourceClass": "general-media",
         "origin": "live-crawl",
@@ -26576,7 +26914,7 @@
       "verification": {
         "id": "c94479ea6b7eb214cbbb",
         "status": "promoted",
-        "validatedAt": "2026-07-19T12:41:33.840Z",
+        "validatedAt": "2026-07-19T13:34:01.172Z",
         "canonicalUrl": "https://finance.sina.com.cn/wm/2026-07-16/doc-inihzmmx8155372.shtml",
         "sourceClass": "general-media",
         "origin": "live-crawl",
@@ -26613,7 +26951,7 @@
       "verification": {
         "id": "5ddb54c509153cb3729d",
         "status": "promoted",
-        "validatedAt": "2026-07-19T12:41:33.840Z",
+        "validatedAt": "2026-07-19T13:34:01.172Z",
         "canonicalUrl": "https://www.huxiu.com/article/4875948.html",
         "sourceClass": "general-media",
         "origin": "live-crawl",
@@ -26631,7 +26969,7 @@
           "duplicate": true
         }
       },
-      "titleKo": "창신기술과학기술혁신위원회 IPO: DRAM 하락 사이클이 여전히 숨겨진 위험이라며 2025년 손실 71억 이익으로 전환 - Huxiu"
+      "titleKo": "창신기술과학기술혁신위원회 IPO: DRAM 하락 사이클은 여전히 ​​숨겨진 위험이라며 2025년 손실 71억 이익으로 전환 - Huxiu"
     },
     {
       "title": "CXMT’s mega IPO draws frenzy from retail investors to DeepSeek founder’s fund - South China Morning Post",
@@ -26650,7 +26988,7 @@
       "verification": {
         "id": "7826f078364304b6b2a8",
         "status": "promoted",
-        "validatedAt": "2026-07-19T12:41:33.840Z",
+        "validatedAt": "2026-07-19T13:34:01.172Z",
         "canonicalUrl": "https://www.scmp.com/tech/article/3360822/cxmts-mega-ipo-draws-frenzy-retail-investors-deepseek-founders-fund",
         "sourceClass": "authoritative-media",
         "origin": "live-crawl",
@@ -26668,7 +27006,7 @@
           "duplicate": true
         }
       },
-      "titleKo": "CXMT의 대규모 IPO로 개인 투자자들부터 DeepSeek 창업자 펀드까지 열광"
+      "titleKo": "CXMT의 대규모 IPO로 개인 투자자들로부터 DeepSeek 창업자 펀드로 열광"
     },
     {
       "title": "C.C. Wei on EMIB, memory envy, and why TSMC won't squeeze its customers - digitimes",
@@ -26687,7 +27025,7 @@
       "verification": {
         "id": "87e6961b29bab305a9bb",
         "status": "promoted",
-        "validatedAt": "2026-07-19T12:41:33.840Z",
+        "validatedAt": "2026-07-19T13:34:01.172Z",
         "canonicalUrl": "https://www.digitimes.com/news/a20260716vl229/tsmc-c.-c.-wei-emib-wafer-packaging-earnings-business.html",
         "sourceClass": "authoritative-media",
         "origin": "live-crawl",
@@ -26724,7 +27062,7 @@
       "verification": {
         "id": "0a499e7726b01f9b383e",
         "status": "promoted",
-        "validatedAt": "2026-07-19T12:41:33.840Z",
+        "validatedAt": "2026-07-19T13:34:01.172Z",
         "canonicalUrl": "https://semiengineering.com/new-nonvolatile-memory-winners-emerge",
         "sourceClass": "general-media",
         "origin": "live-crawl",
@@ -26761,7 +27099,7 @@
       "verification": {
         "id": "e1841210678b479817e4",
         "status": "promoted",
-        "validatedAt": "2026-07-19T12:41:33.840Z",
+        "validatedAt": "2026-07-19T13:34:01.172Z",
         "canonicalUrl": "https://www.digitimes.com/news/a20260716vl215/cxmt-ipo-micron-samsung-dram.html",
         "sourceClass": "authoritative-media",
         "origin": "live-crawl",
@@ -26779,7 +27117,7 @@
           "duplicate": true
         }
       },
-      "titleKo": "CXMT IPO 신청으로 중국 DRAM 추진의 중심에 마이크론과 삼성 동문이 있음 - digittimes"
+      "titleKo": "CXMT IPO 제출로 중국 DRAM 추진의 중심에 마이크론과 삼성 동문이 있음 - digitimes"
     },
     {
       "id": "sina-ymtc-ipo",
@@ -26804,7 +27142,7 @@
       "verification": {
         "id": "ecf2f300d720d2a48c3f",
         "status": "promoted",
-        "validatedAt": "2026-07-19T12:41:33.840Z",
+        "validatedAt": "2026-07-19T13:34:01.172Z",
         "canonicalUrl": "https://finance.sina.com.cn/wm/2026-07-16/doc-inihzfcy1427559.shtml",
         "sourceClass": "general-media",
         "origin": "curated-seed",
@@ -26846,7 +27184,7 @@
       "verification": {
         "id": "c550270acfa54a08756c",
         "status": "promoted",
-        "validatedAt": "2026-07-19T12:41:33.840Z",
+        "validatedAt": "2026-07-19T13:34:01.172Z",
         "canonicalUrl": "https://english.sse.com.cn/news/newsrelease/voice/c/c_20260716_10825660.shtml",
         "sourceClass": "official",
         "origin": "curated-seed",
@@ -26882,7 +27220,7 @@
       "verification": {
         "id": "b56acaeaa20a6b537bca",
         "status": "promoted",
-        "validatedAt": "2026-07-19T12:41:33.840Z",
+        "validatedAt": "2026-07-19T13:34:01.172Z",
         "canonicalUrl": "https://www.digitimes.com/news/a20260715pd208/demand-dram-data-automakers-nand.html",
         "sourceClass": "authoritative-media",
         "origin": "live-crawl",
@@ -26900,44 +27238,7 @@
           "duplicate": true
         }
       },
-      "titleKo": "AI 수요 중심의 메모리 위기로 인해 스마트 자동차가 노출됩니다 - digittimes"
-    },
-    {
-      "title": "UMC shipping Sipho wafers - Electronics Weekly",
-      "originalTitle": "UMC shipping Sipho wafers - Electronics Weekly",
-      "link": "https://www.electronicsweekly.com/news/business/umc-ships-sipho-2026-07/",
-      "source": "Electronics Weekly",
-      "date": "2026-07-15",
-      "category": "packaging",
-      "language": "english",
-      "streamLanguage": "english",
-      "languageVerified": true,
-      "sourceUrl": "https://www.electronicsweekly.com/news/business/umc-ships-sipho-2026-07/",
-      "summaryOriginal": "SILITH Technology, a silicon photonics fabless company, and UMC have announced the first mass-production wafer delivery of photonic ICs from UMC’s",
-      "summary": "실리콘 포토닉스 팹리스 기업인 SILITH Technology와 UMC는 UMC로부터 최초로 포토닉 IC 대량 생산 웨이퍼 납품을 발표했습니다.",
-      "summarySource": "source-meta",
-      "verification": {
-        "id": "a697455e06c28a120e39",
-        "status": "promoted",
-        "validatedAt": "2026-07-19T12:41:33.840Z",
-        "canonicalUrl": "https://www.electronicsweekly.com/news/business/umc-ships-sipho-2026-07",
-        "sourceClass": "general-media",
-        "origin": "live-crawl",
-        "observedThisRun": true,
-        "freshness": "current",
-        "ageDays": 4,
-        "checks": {
-          "directSource": true,
-          "canonicalUrl": true,
-          "language": true,
-          "sourceSummary": true,
-          "publishedDate": true,
-          "retention": true,
-          "moderation": true,
-          "duplicate": true
-        }
-      },
-      "titleKo": "UMC, Sipho 웨이퍼 배송 - Electronics Weekly"
+      "titleKo": "AI 수요 중심의 메모리 위기로 인해 스마트 자동차가 노출됨 - digittimes"
     },
     {
       "title": "South Korean court bars former Samsung NAND designers from working for SK Hynix - digitimes",
@@ -26956,7 +27257,7 @@
       "verification": {
         "id": "01b9bd1b97bd21080a5c",
         "status": "promoted",
-        "validatedAt": "2026-07-19T12:41:33.840Z",
+        "validatedAt": "2026-07-19T13:34:01.172Z",
         "canonicalUrl": "https://www.digitimes.com/news/a20260715vl214/samsung-sk-hynix-nand-flash-design-talent-poaching-legal.html",
         "sourceClass": "authoritative-media",
         "origin": "live-crawl",
@@ -26974,7 +27275,7 @@
           "duplicate": true
         }
       },
-      "titleKo": "법원, 삼성 낸드 출신 디자이너 SKHY 입사 금지 - 디지털타임스"
+      "titleKo": "법원, 삼성 낸드 출신 디자이너 SKHY 입사 금지 - 디지타임스"
     },
     {
       "title": "Taiwan's memory sector in June delivers standout performance by a wide margin - digitimes",
@@ -26993,7 +27294,7 @@
       "verification": {
         "id": "671cbfcca08883386115",
         "status": "promoted",
-        "validatedAt": "2026-07-19T12:41:33.840Z",
+        "validatedAt": "2026-07-19T13:34:01.172Z",
         "canonicalUrl": "https://www.digitimes.com/news/a20260714vl222/taiwan-monthly-tracker-dram-revenue-supply-chain-2026.html",
         "sourceClass": "authoritative-media",
         "origin": "live-crawl",
@@ -27030,7 +27331,7 @@
       "verification": {
         "id": "98740020a18ea5b2f2db",
         "status": "promoted",
-        "validatedAt": "2026-07-19T12:41:33.840Z",
+        "validatedAt": "2026-07-19T13:34:01.172Z",
         "canonicalUrl": "https://www.digitimes.com/news/a20260714vl211/shanghai-hbm-14nm-ai-chip-performance.html",
         "sourceClass": "authoritative-media",
         "origin": "live-crawl",
@@ -27067,7 +27368,7 @@
       "verification": {
         "id": "cbd5015bd7c9dd98e313",
         "status": "promoted",
-        "validatedAt": "2026-07-19T12:41:33.840Z",
+        "validatedAt": "2026-07-19T13:34:01.172Z",
         "canonicalUrl": "https://www.digitimes.com/news/a20260713vl220/cxmt-hbm-samsung-ipo-micron.html",
         "sourceClass": "authoritative-media",
         "origin": "live-crawl",
@@ -27110,7 +27411,7 @@
       "verification": {
         "id": "801d502dad901b494d79",
         "status": "promoted",
-        "validatedAt": "2026-07-19T12:41:33.840Z",
+        "validatedAt": "2026-07-19T13:34:01.172Z",
         "canonicalUrl": "https://www.tomshardware.com/pc-components/dram/cxmt-close-to-matching-microns-memory-capacity-in-2026-research-claims-would-put-china-on-track-to-become-worlds-second-largest-dram-producer",
         "sourceClass": "authoritative-media",
         "origin": "curated-seed",
@@ -27141,11 +27442,12 @@
       "languageVerified": true,
       "sourceUrl": "https://spectrum.ieee.org/high-bandwidth-flash",
       "summaryOriginal": "High Bandwidth Flash offers efficient storage for model weights",
+      "summary": "고대역폭 플래시는 모델 가중치에 대한 효율적인 저장을 제공합니다.",
       "summarySource": "source-meta",
       "verification": {
         "id": "f9133cd2e1eaa1062d74",
         "status": "promoted",
-        "validatedAt": "2026-07-19T12:41:33.840Z",
+        "validatedAt": "2026-07-19T13:34:01.172Z",
         "canonicalUrl": "https://spectrum.ieee.org/high-bandwidth-flash",
         "sourceClass": "general-media",
         "origin": "live-crawl",
@@ -27163,8 +27465,7 @@
           "duplicate": true
         }
       },
-      "titleKo": "썸 드라이브의 메모리로 AI의 큰 문제를 해결할 수 있습니다 - IEEE Spectrum",
-      "summary": "고대역폭 플래시는 모델 가중치에 대한 효율적인 저장을 제공합니다."
+      "titleKo": "썸 드라이브의 메모리로 AI의 큰 문제를 해결할 수 있습니다 - IEEE Spectrum"
     },
     {
       "id": "technews-china-memory-capex",
@@ -27189,7 +27490,7 @@
       "verification": {
         "id": "213af8b09fe13ad8789e",
         "status": "promoted",
-        "validatedAt": "2026-07-19T12:41:33.840Z",
+        "validatedAt": "2026-07-19T13:34:01.172Z",
         "canonicalUrl": "https://finance.technews.tw/2026/07/14/chinas-two-memory-chip-giants-are-spending-heavily-to-expand-production",
         "sourceClass": "general-media",
         "origin": "curated-seed",
@@ -27231,7 +27532,7 @@
       "verification": {
         "id": "4047784bbd7777f4b056",
         "status": "promoted",
-        "validatedAt": "2026-07-19T12:41:33.840Z",
+        "validatedAt": "2026-07-19T13:34:01.172Z",
         "canonicalUrl": "https://www.sec.gov/archives/edgar/data/2120882/000119312526299963/d32785d424b4.htm",
         "sourceClass": "official",
         "origin": "curated-seed",
@@ -27273,7 +27574,7 @@
       "verification": {
         "id": "1d31f5f12cc072b22142",
         "status": "promoted",
-        "validatedAt": "2026-07-19T12:41:33.840Z",
+        "validatedAt": "2026-07-19T13:34:01.172Z",
         "canonicalUrl": "https://hao.cnyes.com/post/258401",
         "sourceClass": "general-media",
         "origin": "curated-seed",
@@ -27315,7 +27616,7 @@
       "verification": {
         "id": "c7bc6ea1167a76c29cff",
         "status": "promoted",
-        "validatedAt": "2026-07-19T12:41:33.840Z",
+        "validatedAt": "2026-07-19T13:34:01.172Z",
         "canonicalUrl": "https://semiconductor.samsung.com/news-events/tech-blog/breaking-ai-memory-limits-with-cxl-memory-pooling",
         "sourceClass": "general-media",
         "origin": "curated-seed",
@@ -27357,7 +27658,7 @@
       "verification": {
         "id": "4b537bf05cec5ec9c693",
         "status": "promoted",
-        "validatedAt": "2026-07-19T12:41:33.840Z",
+        "validatedAt": "2026-07-19T13:34:01.172Z",
         "canonicalUrl": "https://finance.sina.com.cn/tech/roll/2026-07-09/doc-inihesky8304032.shtml",
         "sourceClass": "general-media",
         "origin": "curated-seed",
@@ -27399,7 +27700,7 @@
       "verification": {
         "id": "520b09f38b0ee4f51607",
         "status": "promoted",
-        "validatedAt": "2026-07-19T12:41:33.840Z",
+        "validatedAt": "2026-07-19T13:34:01.172Z",
         "canonicalUrl": "https://finance.sina.com.cn/roll/2026-07-08/doc-inihaicz1520241.shtml",
         "sourceClass": "general-media",
         "origin": "curated-seed",
@@ -27441,7 +27742,7 @@
       "verification": {
         "id": "d387acc6e60832519985",
         "status": "promoted",
-        "validatedAt": "2026-07-19T12:41:33.840Z",
+        "validatedAt": "2026-07-19T13:34:01.172Z",
         "canonicalUrl": "https://www.solidot.org/story",
         "sourceClass": "general-media",
         "origin": "curated-seed",
@@ -27483,7 +27784,7 @@
       "verification": {
         "id": "307fa1fedec819221f3d",
         "status": "promoted",
-        "validatedAt": "2026-07-19T12:41:33.840Z",
+        "validatedAt": "2026-07-19T13:34:01.172Z",
         "canonicalUrl": "https://www.trendforce.com/news/2026/07/07/news-samsung-sk-hynix-reportedly-reconsider-hybrid-bonding-timeline-16-high-hbm4e-may-be-earliest-adoption",
         "sourceClass": "research",
         "origin": "curated-seed",
@@ -27525,7 +27826,7 @@
       "verification": {
         "id": "8ba3df9a18384e9080ac",
         "status": "promoted",
-        "validatedAt": "2026-07-19T12:41:33.840Z",
+        "validatedAt": "2026-07-19T13:34:01.172Z",
         "canonicalUrl": "https://technews.tw/2026/07/06/changxin-memory-technologies-co-ltd-abandons-its-strategy-of-low-price-promotions-to-seize-market-share",
         "sourceClass": "general-media",
         "origin": "curated-seed",
@@ -27567,7 +27868,7 @@
       "verification": {
         "id": "13251963aa39a3a25ab4",
         "status": "promoted",
-        "validatedAt": "2026-07-19T12:41:33.840Z",
+        "validatedAt": "2026-07-19T13:34:01.172Z",
         "canonicalUrl": "https://panmnesia.com/news/en/2026-07-03-panmnesia-isca2026-eng",
         "sourceClass": "general-media",
         "origin": "curated-seed",
@@ -27609,7 +27910,7 @@
       "verification": {
         "id": "3382de61464f12e67044",
         "status": "promoted",
-        "validatedAt": "2026-07-19T12:41:33.840Z",
+        "validatedAt": "2026-07-19T13:34:01.172Z",
         "canonicalUrl": "https://www.sandisk.com/company/newsroom/press-releases/2026/2026-07-02-kioxia-sandisk-begin-production-10th-gen-3d-flash-memory-kitakami",
         "sourceClass": "official",
         "origin": "curated-seed",
@@ -27651,7 +27952,7 @@
       "verification": {
         "id": "74e2af2bc8dda7426ddc",
         "status": "promoted",
-        "validatedAt": "2026-07-19T12:41:33.840Z",
+        "validatedAt": "2026-07-19T13:34:01.172Z",
         "canonicalUrl": "https://finance.sina.com.cn/jjxw/2026-07-02/doc-inifmmmu2634865.shtml",
         "sourceClass": "general-media",
         "origin": "curated-seed",
@@ -27693,7 +27994,7 @@
       "verification": {
         "id": "093017f8c5782cb41e2f",
         "status": "promoted",
-        "validatedAt": "2026-07-19T12:41:33.840Z",
+        "validatedAt": "2026-07-19T13:34:01.172Z",
         "canonicalUrl": "https://investors.micron.com/news-releases/news-release-details/micron-and-general-motors-sign-strategic-agreement-secure-supply",
         "sourceClass": "official",
         "origin": "curated-seed",
@@ -27735,7 +28036,7 @@
       "verification": {
         "id": "bbcb3f0a261a19ced492",
         "status": "promoted",
-        "validatedAt": "2026-07-19T12:41:33.840Z",
+        "validatedAt": "2026-07-19T13:34:01.172Z",
         "canonicalUrl": "https://www.reuters.com/world/china/chinas-cxmt-wins-3-billion-memory-supply-deal-with-tencent-sources-say-2026-06-29",
         "sourceClass": "authoritative-media",
         "origin": "curated-seed",
@@ -27761,12 +28062,12 @@
       "title": "China's CXMT Is Set to Challenge DRAM Incumbents",
       "titleKo": "SemiAnalysis, CXMT의 범용 DRAM 확장과 HBM 제약 분석",
       "source": "SemiAnalysis",
-      "sourceType": "분석",
-      "evidenceLevel": "Reported",
+      "sourceType": "산업 리서치",
+      "evidenceLevel": "Research model",
       "date": "2026-06-23",
       "link": "https://newsletter.semianalysis.com/p/chinas-cxmt-is-set-to-challenge-dram",
-      "summaryOriginal": "SemiAnalysis models CXMT's commodity DRAM expansion while separating modeled wafer capacity from HBM yield, equipment, and packaging constraints.",
-      "summary": "CXMT의 IPO 이후 범용 DRAM 확장과 HBM 병목을 분리한 분석. SKHY는 HBM 추격보다 DDR5·LPDDR 고객 승인과 비트 원가 변화를 우선 감시.",
+      "summaryOriginal": "SemiAnalysis models CXMT wafer capacity at about 350 kwspm by end-2026, 420 kwspm by end-2027, and 500 kwspm by end-2028, while estimating roughly 25% yield for 8-high HBM3 and describing HBM as a minimal contributor to output.",
+      "summary": "SemiAnalysis 연구모델은 CXMT 캐파를 2026년 말 350K, 2027년 말 420K, 2028년 말 500K wpm으로 추정하고 8단 HBM3 수율을 약 25%로 모델링함. 회사 가이던스나 실측값이 아니며, 현재 핵심 위협은 HBM 동급화보다 DDR5·LPDDR·서버 DRAM 물량과 비트 원가 압력임.",
       "originalTitle": "China's CXMT Is Set to Challenge DRAM Incumbents",
       "sourceUrl": "https://newsletter.semianalysis.com/p/chinas-cxmt-is-set-to-challenge-dram",
       "streamLanguage": "english",
@@ -27777,9 +28078,9 @@
       "verification": {
         "id": "bd53e666a5f5a3743c24",
         "status": "promoted",
-        "validatedAt": "2026-07-19T12:41:33.840Z",
+        "validatedAt": "2026-07-19T13:34:01.172Z",
         "canonicalUrl": "https://newsletter.semianalysis.com/p/chinas-cxmt-is-set-to-challenge-dram",
-        "sourceClass": "general-media",
+        "sourceClass": "research",
         "origin": "curated-seed",
         "observedThisRun": false,
         "freshness": "current",
@@ -27819,7 +28120,7 @@
       "verification": {
         "id": "2cb36b6116c0859adca8",
         "status": "promoted",
-        "validatedAt": "2026-07-19T12:41:33.840Z",
+        "validatedAt": "2026-07-19T13:34:01.172Z",
         "canonicalUrl": "https://technode.com/2026/06/22/ymtc-nand-market-share-climbs-to-13-as-global-competition-intensifies",
         "sourceClass": "general-media",
         "origin": "curated-seed",
@@ -27861,7 +28162,7 @@
       "verification": {
         "id": "e9622c0b3a42896eabc4",
         "status": "promoted",
-        "validatedAt": "2026-07-19T12:41:33.840Z",
+        "validatedAt": "2026-07-19T13:34:01.172Z",
         "canonicalUrl": "https://english.sse.com.cn/news/newsrelease/voice/c/c_20260615_10821916.shtml",
         "sourceClass": "official",
         "origin": "curated-seed",
@@ -27903,7 +28204,7 @@
       "verification": {
         "id": "9d2ddafec6daac487623",
         "status": "promoted",
-        "validatedAt": "2026-07-19T12:41:33.840Z",
+        "validatedAt": "2026-07-19T13:34:01.172Z",
         "canonicalUrl": "https://www.wsts.org/76/103/global-semiconductor-market-surges-beyond-15t-2026",
         "sourceClass": "research",
         "origin": "curated-seed",
@@ -27945,7 +28246,7 @@
       "verification": {
         "id": "853b5c5f52f4b178a5be",
         "status": "promoted",
-        "validatedAt": "2026-07-19T12:41:33.840Z",
+        "validatedAt": "2026-07-19T13:34:01.172Z",
         "canonicalUrl": "https://www.trendforce.com/presscenter/news/20260529-13068.html",
         "sourceClass": "research",
         "origin": "curated-seed",
@@ -27987,7 +28288,7 @@
       "verification": {
         "id": "32ab9c0e98b59b4dd84e",
         "status": "promoted",
-        "validatedAt": "2026-07-19T12:41:33.840Z",
+        "validatedAt": "2026-07-19T13:34:01.172Z",
         "canonicalUrl": "https://investors.micron.com/news-releases/news-release-details/micron-high-volume-production-hbm4-designed-nvidia-vera-rubin",
         "sourceClass": "official",
         "origin": "curated-seed",
@@ -28029,7 +28330,7 @@
       "verification": {
         "id": "1de258b1b494b83998ad",
         "status": "promoted",
-        "validatedAt": "2026-07-19T12:41:33.840Z",
+        "validatedAt": "2026-07-19T13:34:01.172Z",
         "canonicalUrl": "https://www.sandisk.com/company/newsroom/press-releases/2026/2026-02-25-sandisk-and-sk-hynix-begin-global-standardization-of-next-generation-memory-solution-high-bandwidth-flash-hbf",
         "sourceClass": "official",
         "origin": "curated-seed",
@@ -28071,13 +28372,55 @@
       "verification": {
         "id": "186c68705961dd112212",
         "status": "promoted",
-        "validatedAt": "2026-07-19T12:41:33.840Z",
+        "validatedAt": "2026-07-19T13:34:01.172Z",
         "canonicalUrl": "https://news.samsung.com/global/samsung-ships-industry-first-commercial-hbm4-with-ultimate-performance-for-ai-computing",
         "sourceClass": "official",
         "origin": "curated-seed",
         "observedThisRun": false,
         "freshness": "archive",
         "ageDays": 158,
+        "checks": {
+          "directSource": true,
+          "canonicalUrl": true,
+          "language": true,
+          "sourceSummary": true,
+          "publishedDate": true,
+          "retention": true,
+          "moderation": true,
+          "duplicate": true
+        }
+      }
+    },
+    {
+      "id": "census-bis-c79-fab-license",
+      "category": "policy",
+      "language": "english",
+      "title": "AES adds C79 code for exports under BIS H-prefix fab licenses",
+      "titleKo": "미 Census, 중국 내 전 VEU Fab의 H-prefix 라이선스 신고코드 C79 시행",
+      "source": "U.S. Census Bureau",
+      "sourceType": "정부 공지",
+      "evidenceLevel": "Reported",
+      "date": "2026-01-05",
+      "link": "https://content.govdelivery.com/accounts/USCENSUS/bulletins/4008e2b",
+      "summaryOriginal": "Effective December 31, 2025, AES license code C79 replaced C57 for exports under BIS H-prefix individual fab licenses issued to former VEU semiconductor fabs in China.",
+      "summary": "C79는 중국 내 전 VEU 반도체 Fab에 발급된 BIS H-prefix 개별 Fab 라이선스의 AES 신고코드임. 2025년 12월 31일부터 C57을 대체했으며, 새로운 blanket ban으로 해석하지 않음.",
+      "originalTitle": "AES adds C79 code for exports under BIS H-prefix fab licenses",
+      "sourceUrl": "https://content.govdelivery.com/accounts/USCENSUS/bulletins/4008e2b",
+      "streamLanguage": "english",
+      "languageVerified": true,
+      "summarySource": "curated-source",
+      "preservedSeed": true,
+      "curated": true,
+      "verification": {
+        "id": "7e24c61fe180fddd2182",
+        "status": "promoted",
+        "validatedAt": "2026-07-19T13:34:01.172Z",
+        "canonicalUrl": "https://content.govdelivery.com/accounts/uscensus/bulletins/4008e2b",
+        "sourceClass": "official",
+        "origin": "curated-seed",
+        "observedThisRun": false,
+        "freshness": "archive",
+        "ageDays": 195,
         "checks": {
           "directSource": true,
           "canonicalUrl": true,
@@ -28113,7 +28456,7 @@
       "verification": {
         "id": "d57a2bd5d49a443ed90d",
         "status": "promoted",
-        "validatedAt": "2026-07-19T12:41:33.840Z",
+        "validatedAt": "2026-07-19T13:34:01.172Z",
         "canonicalUrl": "https://www.bis.gov/press-release/department-commerce-closes-export-controls-loophole-foreign-owned-semiconductor-fabs-china",
         "sourceClass": "official",
         "origin": "curated-seed",
@@ -28200,20 +28543,31 @@
     }
   ],
   "newsStats": {
-    "total": 65,
-    "total24h": 1,
+    "total": 66,
+    "total24h": 2,
     "7d": 43,
     "30d": 58,
     "languages": {
       "english": 35,
-      "chinese": 30
+      "chinese": 31
     }
   },
   "evidence": {
     "methodologyVersion": "4.0-source-provenance",
-    "generatedAt": "2026-07-19T12:41:33.840Z",
-    "promotedCount": 65,
+    "generatedAt": "2026-07-19T13:34:01.172Z",
+    "promotedCount": 66,
     "items": [
+      {
+        "id": "165b0c608890b9f58fb0",
+        "canonicalUrl": "https://www.eet-china.com/mp/a510970.html",
+        "sourceClass": "general-media",
+        "origin": "live-crawl",
+        "observedThisRun": true,
+        "freshness": "current",
+        "language": "chinese",
+        "publishedAt": "2026-07-19",
+        "validatedAt": "2026-07-19T13:34:01.172Z"
+      },
       {
         "id": "d47d70fae3c3e1a8cefc",
         "canonicalUrl": "https://www.eet-china.com/mp/a510936.html",
@@ -28223,7 +28577,7 @@
         "freshness": "current",
         "language": "chinese",
         "publishedAt": "2026-07-19",
-        "validatedAt": "2026-07-19T12:41:33.840Z"
+        "validatedAt": "2026-07-19T13:34:01.172Z"
       },
       {
         "id": "fcbc9b4188507f619c27",
@@ -28234,7 +28588,7 @@
         "freshness": "current",
         "language": "chinese",
         "publishedAt": "2026-07-18",
-        "validatedAt": "2026-07-19T12:41:33.840Z"
+        "validatedAt": "2026-07-19T13:34:01.172Z"
       },
       {
         "id": "c7769d4637a62444eac1",
@@ -28245,7 +28599,7 @@
         "freshness": "current",
         "language": "chinese",
         "publishedAt": "2026-07-18",
-        "validatedAt": "2026-07-19T12:41:33.840Z"
+        "validatedAt": "2026-07-19T13:34:01.172Z"
       },
       {
         "id": "e81e1e30e55f25080f36",
@@ -28256,7 +28610,7 @@
         "freshness": "current",
         "language": "chinese",
         "publishedAt": "2026-07-18",
-        "validatedAt": "2026-07-19T12:41:33.840Z"
+        "validatedAt": "2026-07-19T13:34:01.172Z"
       },
       {
         "id": "ee717fd08f8af3252c6e",
@@ -28267,7 +28621,7 @@
         "freshness": "current",
         "language": "chinese",
         "publishedAt": "2026-07-18",
-        "validatedAt": "2026-07-19T12:41:33.840Z"
+        "validatedAt": "2026-07-19T13:34:01.172Z"
       },
       {
         "id": "2c271fe414dfc762ed0f",
@@ -28278,7 +28632,7 @@
         "freshness": "current",
         "language": "chinese",
         "publishedAt": "2026-07-18",
-        "validatedAt": "2026-07-19T12:41:33.840Z"
+        "validatedAt": "2026-07-19T13:34:01.172Z"
       },
       {
         "id": "e9e8827baef3bc41bef5",
@@ -28289,7 +28643,7 @@
         "freshness": "current",
         "language": "chinese",
         "publishedAt": "2026-07-18",
-        "validatedAt": "2026-07-19T12:41:33.840Z"
+        "validatedAt": "2026-07-19T13:34:01.172Z"
       },
       {
         "id": "bd16a3957a775d0adb99",
@@ -28300,7 +28654,7 @@
         "freshness": "current",
         "language": "chinese",
         "publishedAt": "2026-07-18",
-        "validatedAt": "2026-07-19T12:41:33.840Z"
+        "validatedAt": "2026-07-19T13:34:01.172Z"
       },
       {
         "id": "c6a1912a8655d9c2d08e",
@@ -28311,7 +28665,7 @@
         "freshness": "current",
         "language": "chinese",
         "publishedAt": "2026-07-18",
-        "validatedAt": "2026-07-19T12:41:33.840Z"
+        "validatedAt": "2026-07-19T13:34:01.172Z"
       },
       {
         "id": "ce325b3645db1fd7153c",
@@ -28322,7 +28676,7 @@
         "freshness": "current",
         "language": "chinese",
         "publishedAt": "2026-07-17",
-        "validatedAt": "2026-07-19T12:41:33.840Z"
+        "validatedAt": "2026-07-19T13:34:01.172Z"
       },
       {
         "id": "edd81844cc538ea6e164",
@@ -28333,7 +28687,7 @@
         "freshness": "current",
         "language": "english",
         "publishedAt": "2026-07-17",
-        "validatedAt": "2026-07-19T12:41:33.840Z"
+        "validatedAt": "2026-07-19T13:34:01.172Z"
       },
       {
         "id": "7756755ef29b8d3d42ea",
@@ -28344,7 +28698,7 @@
         "freshness": "current",
         "language": "chinese",
         "publishedAt": "2026-07-17",
-        "validatedAt": "2026-07-19T12:41:33.840Z"
+        "validatedAt": "2026-07-19T13:34:01.172Z"
       },
       {
         "id": "691fd7a3bf066cf3c5b1",
@@ -28355,7 +28709,7 @@
         "freshness": "current",
         "language": "chinese",
         "publishedAt": "2026-07-17",
-        "validatedAt": "2026-07-19T12:41:33.840Z"
+        "validatedAt": "2026-07-19T13:34:01.172Z"
       },
       {
         "id": "39752d71decf5638b990",
@@ -28366,7 +28720,7 @@
         "freshness": "current",
         "language": "chinese",
         "publishedAt": "2026-07-17",
-        "validatedAt": "2026-07-19T12:41:33.840Z"
+        "validatedAt": "2026-07-19T13:34:01.172Z"
       },
       {
         "id": "27a3440773dea968a005",
@@ -28377,7 +28731,7 @@
         "freshness": "current",
         "language": "chinese",
         "publishedAt": "2026-07-17",
-        "validatedAt": "2026-07-19T12:41:33.840Z"
+        "validatedAt": "2026-07-19T13:34:01.172Z"
       },
       {
         "id": "250f9b7cee9a0b5628d4",
@@ -28388,7 +28742,7 @@
         "freshness": "current",
         "language": "english",
         "publishedAt": "2026-07-17",
-        "validatedAt": "2026-07-19T12:41:33.840Z"
+        "validatedAt": "2026-07-19T13:34:01.172Z"
       },
       {
         "id": "a5b600a97567d3c978ce",
@@ -28399,7 +28753,7 @@
         "freshness": "current",
         "language": "chinese",
         "publishedAt": "2026-07-17",
-        "validatedAt": "2026-07-19T12:41:33.840Z"
+        "validatedAt": "2026-07-19T13:34:01.172Z"
       },
       {
         "id": "60c10c5fa437cf69f733",
@@ -28410,7 +28764,7 @@
         "freshness": "current",
         "language": "chinese",
         "publishedAt": "2026-07-17",
-        "validatedAt": "2026-07-19T12:41:33.840Z"
+        "validatedAt": "2026-07-19T13:34:01.172Z"
       },
       {
         "id": "54a2e8e76c27323cc363",
@@ -28421,7 +28775,7 @@
         "freshness": "current",
         "language": "chinese",
         "publishedAt": "2026-07-17",
-        "validatedAt": "2026-07-19T12:41:33.840Z"
+        "validatedAt": "2026-07-19T13:34:01.172Z"
       },
       {
         "id": "ad6447dd296041d3ea63",
@@ -28432,7 +28786,7 @@
         "freshness": "current",
         "language": "chinese",
         "publishedAt": "2026-07-17",
-        "validatedAt": "2026-07-19T12:41:33.840Z"
+        "validatedAt": "2026-07-19T13:34:01.172Z"
       },
       {
         "id": "0ae871ad17b1a942ec65",
@@ -28443,7 +28797,7 @@
         "freshness": "current",
         "language": "chinese",
         "publishedAt": "2026-07-17",
-        "validatedAt": "2026-07-19T12:41:33.840Z"
+        "validatedAt": "2026-07-19T13:34:01.172Z"
       },
       {
         "id": "43220e22a62e684bb64f",
@@ -28454,7 +28808,7 @@
         "freshness": "current",
         "language": "english",
         "publishedAt": "2026-07-17",
-        "validatedAt": "2026-07-19T12:41:33.840Z"
+        "validatedAt": "2026-07-19T13:34:01.172Z"
       },
       {
         "id": "11a68d1b48f3f756d4cb",
@@ -28465,7 +28819,7 @@
         "freshness": "current",
         "language": "english",
         "publishedAt": "2026-07-17",
-        "validatedAt": "2026-07-19T12:41:33.840Z"
+        "validatedAt": "2026-07-19T13:34:01.172Z"
       },
       {
         "id": "48085c5d091ce507813c",
@@ -28476,7 +28830,7 @@
         "freshness": "current",
         "language": "english",
         "publishedAt": "2026-07-16",
-        "validatedAt": "2026-07-19T12:41:33.840Z"
+        "validatedAt": "2026-07-19T13:34:01.172Z"
       },
       {
         "id": "6cff9a4e32dee5972fde",
@@ -28487,7 +28841,7 @@
         "freshness": "current",
         "language": "english",
         "publishedAt": "2026-07-16",
-        "validatedAt": "2026-07-19T12:41:33.840Z"
+        "validatedAt": "2026-07-19T13:34:01.172Z"
       },
       {
         "id": "8d9be44d345bbc7c5f75",
@@ -28498,7 +28852,7 @@
         "freshness": "current",
         "language": "chinese",
         "publishedAt": "2026-07-16",
-        "validatedAt": "2026-07-19T12:41:33.840Z"
+        "validatedAt": "2026-07-19T13:34:01.172Z"
       },
       {
         "id": "c94479ea6b7eb214cbbb",
@@ -28509,7 +28863,7 @@
         "freshness": "current",
         "language": "chinese",
         "publishedAt": "2026-07-16",
-        "validatedAt": "2026-07-19T12:41:33.840Z"
+        "validatedAt": "2026-07-19T13:34:01.172Z"
       },
       {
         "id": "5ddb54c509153cb3729d",
@@ -28520,7 +28874,7 @@
         "freshness": "current",
         "language": "chinese",
         "publishedAt": "2026-07-16",
-        "validatedAt": "2026-07-19T12:41:33.840Z"
+        "validatedAt": "2026-07-19T13:34:01.172Z"
       },
       {
         "id": "7826f078364304b6b2a8",
@@ -28531,7 +28885,7 @@
         "freshness": "current",
         "language": "english",
         "publishedAt": "2026-07-16",
-        "validatedAt": "2026-07-19T12:41:33.840Z"
+        "validatedAt": "2026-07-19T13:34:01.172Z"
       },
       {
         "id": "87e6961b29bab305a9bb",
@@ -28542,7 +28896,7 @@
         "freshness": "current",
         "language": "english",
         "publishedAt": "2026-07-16",
-        "validatedAt": "2026-07-19T12:41:33.840Z"
+        "validatedAt": "2026-07-19T13:34:01.172Z"
       },
       {
         "id": "0a499e7726b01f9b383e",
@@ -28553,7 +28907,7 @@
         "freshness": "current",
         "language": "english",
         "publishedAt": "2026-07-16",
-        "validatedAt": "2026-07-19T12:41:33.840Z"
+        "validatedAt": "2026-07-19T13:34:01.172Z"
       },
       {
         "id": "e1841210678b479817e4",
@@ -28564,7 +28918,7 @@
         "freshness": "current",
         "language": "english",
         "publishedAt": "2026-07-16",
-        "validatedAt": "2026-07-19T12:41:33.840Z"
+        "validatedAt": "2026-07-19T13:34:01.172Z"
       },
       {
         "id": "ecf2f300d720d2a48c3f",
@@ -28575,7 +28929,7 @@
         "freshness": "current",
         "language": "chinese",
         "publishedAt": "2026-07-16",
-        "validatedAt": "2026-07-19T12:41:33.840Z"
+        "validatedAt": "2026-07-19T13:34:01.172Z"
       },
       {
         "id": "c550270acfa54a08756c",
@@ -28586,7 +28940,7 @@
         "freshness": "current",
         "language": "english",
         "publishedAt": "2026-07-16",
-        "validatedAt": "2026-07-19T12:41:33.840Z"
+        "validatedAt": "2026-07-19T13:34:01.172Z"
       },
       {
         "id": "b56acaeaa20a6b537bca",
@@ -28597,18 +28951,7 @@
         "freshness": "current",
         "language": "english",
         "publishedAt": "2026-07-15",
-        "validatedAt": "2026-07-19T12:41:33.840Z"
-      },
-      {
-        "id": "a697455e06c28a120e39",
-        "canonicalUrl": "https://www.electronicsweekly.com/news/business/umc-ships-sipho-2026-07",
-        "sourceClass": "general-media",
-        "origin": "live-crawl",
-        "observedThisRun": true,
-        "freshness": "current",
-        "language": "english",
-        "publishedAt": "2026-07-15",
-        "validatedAt": "2026-07-19T12:41:33.840Z"
+        "validatedAt": "2026-07-19T13:34:01.172Z"
       },
       {
         "id": "01b9bd1b97bd21080a5c",
@@ -28619,7 +28962,7 @@
         "freshness": "current",
         "language": "english",
         "publishedAt": "2026-07-15",
-        "validatedAt": "2026-07-19T12:41:33.840Z"
+        "validatedAt": "2026-07-19T13:34:01.172Z"
       },
       {
         "id": "671cbfcca08883386115",
@@ -28630,7 +28973,7 @@
         "freshness": "current",
         "language": "english",
         "publishedAt": "2026-07-15",
-        "validatedAt": "2026-07-19T12:41:33.840Z"
+        "validatedAt": "2026-07-19T13:34:01.172Z"
       },
       {
         "id": "98740020a18ea5b2f2db",
@@ -28641,7 +28984,7 @@
         "freshness": "current",
         "language": "english",
         "publishedAt": "2026-07-15",
-        "validatedAt": "2026-07-19T12:41:33.840Z"
+        "validatedAt": "2026-07-19T13:34:01.172Z"
       },
       {
         "id": "cbd5015bd7c9dd98e313",
@@ -28652,7 +28995,7 @@
         "freshness": "current",
         "language": "english",
         "publishedAt": "2026-07-15",
-        "validatedAt": "2026-07-19T12:41:33.840Z"
+        "validatedAt": "2026-07-19T13:34:01.172Z"
       },
       {
         "id": "801d502dad901b494d79",
@@ -28663,7 +29006,7 @@
         "freshness": "current",
         "language": "english",
         "publishedAt": "2026-07-15",
-        "validatedAt": "2026-07-19T12:41:33.840Z"
+        "validatedAt": "2026-07-19T13:34:01.172Z"
       },
       {
         "id": "f9133cd2e1eaa1062d74",
@@ -28674,7 +29017,7 @@
         "freshness": "current",
         "language": "english",
         "publishedAt": "2026-07-14",
-        "validatedAt": "2026-07-19T12:41:33.840Z"
+        "validatedAt": "2026-07-19T13:34:01.172Z"
       },
       {
         "id": "213af8b09fe13ad8789e",
@@ -28685,7 +29028,7 @@
         "freshness": "current",
         "language": "chinese",
         "publishedAt": "2026-07-14",
-        "validatedAt": "2026-07-19T12:41:33.840Z"
+        "validatedAt": "2026-07-19T13:34:01.172Z"
       },
       {
         "id": "4047784bbd7777f4b056",
@@ -28696,7 +29039,7 @@
         "freshness": "current",
         "language": "english",
         "publishedAt": "2026-07-10",
-        "validatedAt": "2026-07-19T12:41:33.840Z"
+        "validatedAt": "2026-07-19T13:34:01.172Z"
       },
       {
         "id": "1d31f5f12cc072b22142",
@@ -28707,7 +29050,7 @@
         "freshness": "current",
         "language": "chinese",
         "publishedAt": "2026-07-10",
-        "validatedAt": "2026-07-19T12:41:33.840Z"
+        "validatedAt": "2026-07-19T13:34:01.172Z"
       },
       {
         "id": "c7bc6ea1167a76c29cff",
@@ -28718,7 +29061,7 @@
         "freshness": "current",
         "language": "english",
         "publishedAt": "2026-07-09",
-        "validatedAt": "2026-07-19T12:41:33.840Z"
+        "validatedAt": "2026-07-19T13:34:01.172Z"
       },
       {
         "id": "4b537bf05cec5ec9c693",
@@ -28729,7 +29072,7 @@
         "freshness": "current",
         "language": "chinese",
         "publishedAt": "2026-07-09",
-        "validatedAt": "2026-07-19T12:41:33.840Z"
+        "validatedAt": "2026-07-19T13:34:01.172Z"
       },
       {
         "id": "520b09f38b0ee4f51607",
@@ -28740,7 +29083,7 @@
         "freshness": "current",
         "language": "chinese",
         "publishedAt": "2026-07-08",
-        "validatedAt": "2026-07-19T12:41:33.840Z"
+        "validatedAt": "2026-07-19T13:34:01.172Z"
       },
       {
         "id": "d387acc6e60832519985",
@@ -28751,7 +29094,7 @@
         "freshness": "current",
         "language": "chinese",
         "publishedAt": "2026-07-08",
-        "validatedAt": "2026-07-19T12:41:33.840Z"
+        "validatedAt": "2026-07-19T13:34:01.172Z"
       },
       {
         "id": "307fa1fedec819221f3d",
@@ -28762,7 +29105,7 @@
         "freshness": "current",
         "language": "english",
         "publishedAt": "2026-07-07",
-        "validatedAt": "2026-07-19T12:41:33.840Z"
+        "validatedAt": "2026-07-19T13:34:01.172Z"
       },
       {
         "id": "8ba3df9a18384e9080ac",
@@ -28773,7 +29116,7 @@
         "freshness": "current",
         "language": "chinese",
         "publishedAt": "2026-07-06",
-        "validatedAt": "2026-07-19T12:41:33.840Z"
+        "validatedAt": "2026-07-19T13:34:01.172Z"
       },
       {
         "id": "13251963aa39a3a25ab4",
@@ -28784,7 +29127,7 @@
         "freshness": "current",
         "language": "english",
         "publishedAt": "2026-07-03",
-        "validatedAt": "2026-07-19T12:41:33.840Z"
+        "validatedAt": "2026-07-19T13:34:01.172Z"
       },
       {
         "id": "3382de61464f12e67044",
@@ -28795,7 +29138,7 @@
         "freshness": "current",
         "language": "english",
         "publishedAt": "2026-07-02",
-        "validatedAt": "2026-07-19T12:41:33.840Z"
+        "validatedAt": "2026-07-19T13:34:01.172Z"
       },
       {
         "id": "74e2af2bc8dda7426ddc",
@@ -28806,7 +29149,7 @@
         "freshness": "current",
         "language": "chinese",
         "publishedAt": "2026-07-02",
-        "validatedAt": "2026-07-19T12:41:33.840Z"
+        "validatedAt": "2026-07-19T13:34:01.172Z"
       },
       {
         "id": "093017f8c5782cb41e2f",
@@ -28817,7 +29160,7 @@
         "freshness": "current",
         "language": "english",
         "publishedAt": "2026-07-01",
-        "validatedAt": "2026-07-19T12:41:33.840Z"
+        "validatedAt": "2026-07-19T13:34:01.172Z"
       },
       {
         "id": "bbcb3f0a261a19ced492",
@@ -28828,18 +29171,18 @@
         "freshness": "current",
         "language": "english",
         "publishedAt": "2026-06-29",
-        "validatedAt": "2026-07-19T12:41:33.840Z"
+        "validatedAt": "2026-07-19T13:34:01.172Z"
       },
       {
         "id": "bd53e666a5f5a3743c24",
         "canonicalUrl": "https://newsletter.semianalysis.com/p/chinas-cxmt-is-set-to-challenge-dram",
-        "sourceClass": "general-media",
+        "sourceClass": "research",
         "origin": "curated-seed",
         "observedThisRun": false,
         "freshness": "current",
         "language": "english",
         "publishedAt": "2026-06-23",
-        "validatedAt": "2026-07-19T12:41:33.840Z"
+        "validatedAt": "2026-07-19T13:34:01.172Z"
       },
       {
         "id": "2cb36b6116c0859adca8",
@@ -28850,7 +29193,7 @@
         "freshness": "current",
         "language": "english",
         "publishedAt": "2026-06-22",
-        "validatedAt": "2026-07-19T12:41:33.840Z"
+        "validatedAt": "2026-07-19T13:34:01.172Z"
       },
       {
         "id": "e9622c0b3a42896eabc4",
@@ -28861,7 +29204,7 @@
         "freshness": "current",
         "language": "english",
         "publishedAt": "2026-06-15",
-        "validatedAt": "2026-07-19T12:41:33.840Z"
+        "validatedAt": "2026-07-19T13:34:01.172Z"
       },
       {
         "id": "9d2ddafec6daac487623",
@@ -28872,7 +29215,7 @@
         "freshness": "current",
         "language": "english",
         "publishedAt": "2026-06-02",
-        "validatedAt": "2026-07-19T12:41:33.840Z"
+        "validatedAt": "2026-07-19T13:34:01.172Z"
       },
       {
         "id": "853b5c5f52f4b178a5be",
@@ -28883,7 +29226,7 @@
         "freshness": "current",
         "language": "english",
         "publishedAt": "2026-05-29",
-        "validatedAt": "2026-07-19T12:41:33.840Z"
+        "validatedAt": "2026-07-19T13:34:01.172Z"
       },
       {
         "id": "32ab9c0e98b59b4dd84e",
@@ -28894,7 +29237,7 @@
         "freshness": "archive",
         "language": "english",
         "publishedAt": "2026-03-16",
-        "validatedAt": "2026-07-19T12:41:33.840Z"
+        "validatedAt": "2026-07-19T13:34:01.172Z"
       },
       {
         "id": "1de258b1b494b83998ad",
@@ -28905,7 +29248,7 @@
         "freshness": "archive",
         "language": "english",
         "publishedAt": "2026-02-25",
-        "validatedAt": "2026-07-19T12:41:33.840Z"
+        "validatedAt": "2026-07-19T13:34:01.172Z"
       },
       {
         "id": "186c68705961dd112212",
@@ -28916,7 +29259,18 @@
         "freshness": "archive",
         "language": "english",
         "publishedAt": "2026-02-11",
-        "validatedAt": "2026-07-19T12:41:33.840Z"
+        "validatedAt": "2026-07-19T13:34:01.172Z"
+      },
+      {
+        "id": "7e24c61fe180fddd2182",
+        "canonicalUrl": "https://content.govdelivery.com/accounts/uscensus/bulletins/4008e2b",
+        "sourceClass": "official",
+        "origin": "curated-seed",
+        "observedThisRun": false,
+        "freshness": "archive",
+        "language": "english",
+        "publishedAt": "2026-01-05",
+        "validatedAt": "2026-07-19T13:34:01.172Z"
       },
       {
         "id": "d57a2bd5d49a443ed90d",
@@ -28927,14 +29281,14 @@
         "freshness": "archive",
         "language": "english",
         "publishedAt": "2025-08-29",
-        "validatedAt": "2026-07-19T12:41:33.840Z"
+        "validatedAt": "2026-07-19T13:34:01.172Z"
       }
     ]
   },
   "quarantineSummary": {
-    "total": 30,
+    "total": 29,
     "reasonCounts": {
-      "source_summary_missing": 30
+      "source_summary_missing": 29
     }
   },
   "health": [
@@ -28944,9 +29298,9 @@
       "msg": "255000 (-8.77%)"
     },
     {
-      "step": "주가:SKHY",
+      "step": "가격:DRAM",
       "ok": true,
-      "msg": "1842000 (-11.53%)"
+      "msg": "4개 표"
     },
     {
       "step": "경쟁사:Samsung",
@@ -28954,14 +29308,14 @@
       "msg": "1건 / score 30"
     },
     {
-      "step": "가격:DRAM",
+      "step": "주가:SKHY",
       "ok": true,
-      "msg": "4개 표"
+      "msg": "1842000 (-11.53%)"
     },
     {
-      "step": "주가:Micron",
+      "step": "가격:NAND / Storage",
       "ok": true,
-      "msg": "848.95 (-0.5%)"
+      "msg": "6개 표"
     },
     {
       "step": "스타트업:Celestial AI",
@@ -28969,9 +29323,9 @@
       "msg": "1건 / score 92"
     },
     {
-      "step": "가격:NAND / Storage",
+      "step": "주가:Micron",
       "ok": true,
-      "msg": "6개 표"
+      "msg": "848.95 (-0.5%)"
     },
     {
       "step": "중국Fab인프라:Wuxi bonded zone expansion",
@@ -28992,6 +29346,11 @@
       "step": "경쟁사:Micron",
       "ok": true,
       "msg": "7건 / score 59"
+    },
+    {
+      "step": "중국Fab인프라:AES C79 former VEU fab license reporting",
+      "ok": true,
+      "msg": "2/4 markers"
     },
     {
       "step": "경쟁사:CXMT",
@@ -29031,12 +29390,7 @@
     {
       "step": "벤치마킹:SKHY Product Projection",
       "ok": true,
-      "msg": "3건"
-    },
-    {
-      "step": "뉴스:DRAM·DDR",
-      "ok": true,
-      "msg": "16건"
+      "msg": "4건"
     },
     {
       "step": "중국현장신호",
@@ -29044,9 +29398,14 @@
       "msg": "37건 · 13개 공개 채널"
     },
     {
+      "step": "뉴스:DRAM·DDR",
+      "ok": true,
+      "msg": "16건"
+    },
+    {
       "step": "뉴스:NAND·SSD",
       "ok": true,
-      "msg": "7건"
+      "msg": "8건"
     },
     {
       "step": "벤치마킹:China Talent Strategy",
@@ -29066,12 +29425,7 @@
     {
       "step": "뉴스:SKHY Product Projection",
       "ok": true,
-      "msg": "2건"
-    },
-    {
-      "step": "뉴스:Capital Markets·Investment",
-      "ok": true,
-      "msg": "5건"
+      "msg": "3건"
     },
     {
       "step": "벤치마킹:Talent and IP Signals",
@@ -29079,9 +29433,14 @@
       "msg": "1건"
     },
     {
+      "step": "뉴스:Capital Markets·Investment",
+      "ok": true,
+      "msg": "5건"
+    },
+    {
       "step": "뉴스:Packaging·Photonics",
       "ok": true,
-      "msg": "2건"
+      "msg": "1건"
     },
     {
       "step": "뉴스:AI Demand",
@@ -29131,17 +29490,17 @@
     {
       "step": "뉴스:CXL·차세대 메모리 원문",
       "ok": true,
-      "msg": "1건"
+      "msg": "2건"
     },
     {
       "step": "뉴스:DRAM·CXMT 중국어",
       "ok": true,
-      "msg": "5건"
+      "msg": "6건"
     },
     {
       "step": "뉴스:NAND·YMTC 중국어",
       "ok": true,
-      "msg": "6건"
+      "msg": "5건"
     },
     {
       "step": "뉴스:장비 국산화 중국어",
@@ -29156,22 +29515,22 @@
     {
       "step": "뉴스:DRAM 중국어 권위 소스",
       "ok": true,
-      "msg": "78건"
+      "msg": "82건"
     },
     {
       "step": "뉴스:NAND 중국어 권위 소스",
       "ok": true,
-      "msg": "57건"
+      "msg": "55건"
     },
     {
       "step": "뉴스:장비 중국어 권위 소스",
       "ok": true,
-      "msg": "38건"
+      "msg": "39건"
     },
     {
       "step": "뉴스원문요약",
       "ok": true,
-      "msg": "65/96건 원문 메타 확보"
+      "msg": "66/96건 원문 메타 확보"
     },
     {
       "step": "가격히스토리",
@@ -29286,7 +29645,7 @@
     {
       "step": "뉴스증거게이트",
       "ok": true,
-      "msg": "승격 65건 · 격리 30건"
+      "msg": "승격 66건 · 격리 29건"
     },
     {
       "step": "번역:KO",
@@ -29327,11 +29686,16 @@
       "step": "quant:TSMC 월매출",
       "ok": true,
       "msg": "2026-06 · 442.7B TWD · YoY 67.9%"
+    },
+    {
+      "step": "quant:라이브 수치",
+      "ok": true,
+      "msg": "원문 정량 수치 9건 추출"
     }
   ],
   "quality": {
     "status": "verified",
-    "verifiedAt": "2026-07-19T12:42:10.797Z",
+    "verifiedAt": "2026-07-19T13:34:21.423Z",
     "methodologyVersion": "4.0-source-provenance",
     "checks": [
       {
@@ -29345,7 +29709,7 @@
         "id": "news_total",
         "critical": true,
         "passed": true,
-        "observed": 65,
+        "observed": 66,
         "threshold": 24
       },
       {
@@ -29359,7 +29723,7 @@
         "id": "news_chinese",
         "critical": true,
         "passed": true,
-        "observed": 30,
+        "observed": 31,
         "threshold": 4
       },
       {
@@ -29464,14 +29828,14 @@
     "failures": [],
     "metrics": {
       "priceRows": 41,
-      "newsItems": 65,
+      "newsItems": 66,
       "englishNews": 35,
-      "chineseNews": 30,
+      "chineseNews": 31,
       "directSourceRatio": 1,
       "summaryRatio": 1,
       "provenanceCoverage": 1,
       "currentNews": 61,
-      "quarantinedNews": 30,
+      "quarantinedNews": 29,
       "duplicateCount": 0,
       "communitySignals": 37,
       "decisionBriefs": 7,
@@ -29484,11 +29848,11 @@
       "peerStocks": 3
     },
     "channels": {
-      "prices": "2026-07-19T12:38:35.355Z",
-      "news": "2026-07-19T12:42:10.797Z",
-      "community": "2026-07-19T12:38:52.505Z",
-      "brokerResearch": "2026-07-19T12:42:07.295Z",
-      "markets": "2026-07-19T12:42:07.299Z"
+      "prices": "2026-07-19T13:30:21.982Z",
+      "news": "2026-07-19T13:34:21.423Z",
+      "community": "2026-07-19T13:30:37.978Z",
+      "brokerResearch": "2026-07-19T13:34:17.183Z",
+      "markets": "2026-07-19T13:34:17.185Z"
     }
   }
 }

@@ -478,8 +478,13 @@ for (const item of preservedNews) {
   if (item.streamLanguage === "chinese" && item.evidenceLevel !== "Watch") {
     addIssue("error", "data/live.json", "Chinese-language preserved article was promoted beyond Watch", item.id || item.title || "unknown");
   }
-  if (item.streamLanguage === "english" && item.evidenceLevel !== "Reported") {
-    addIssue("error", "data/live.json", "English preserved article does not use Reported evidence", item.id || item.title || "unknown");
+  if (item.streamLanguage === "english") {
+    const sourceClass = String(item.verification?.sourceClass || "");
+    const usesReportedEvidence = item.evidenceLevel === "Reported";
+    const usesResearchModel = sourceClass === "research" && item.evidenceLevel === "Research model";
+    if (!usesReportedEvidence && !usesResearchModel) {
+      addIssue("error", "data/live.json", "English preserved article has an invalid evidence layer", item.id || item.title || "unknown");
+    }
   }
 }
 

@@ -668,6 +668,20 @@ const PRESERVED_NEWS_SEEDS = [
     summary: "BIS는 중국 내 외국계 반도체 Fab의 VEU 무허가 특례를 종료함. 기존 Fab 운영을 위한 허가는 의도하지만 캐파 확대나 기술 업그레이드 허가는 의도하지 않는다고 밝혀 운영 유지와 증설을 분리해야 함.",
   },
   {
+    id: "census-bis-c79-fab-license",
+    category: "policy",
+    language: "english",
+    title: "AES adds C79 code for exports under BIS H-prefix fab licenses",
+    titleKo: "미 Census, 중국 내 전 VEU Fab의 H-prefix 라이선스 신고코드 C79 시행",
+    source: "U.S. Census Bureau",
+    sourceType: "정부 공지",
+    evidenceLevel: "Reported",
+    date: "2026-01-05",
+    link: "https://content.govdelivery.com/accounts/USCENSUS/bulletins/4008e2b",
+    summaryOriginal: "Effective December 31, 2025, AES license code C79 replaced C57 for exports under BIS H-prefix individual fab licenses issued to former VEU semiconductor fabs in China.",
+    summary: "C79는 중국 내 전 VEU 반도체 Fab에 발급된 BIS H-prefix 개별 Fab 라이선스의 AES 신고코드임. 2025년 12월 31일부터 C57을 대체했으며, 새로운 blanket ban으로 해석하지 않음.",
+  },
+  {
     id: "micron-sixteen-sca",
     category: "dram",
     language: "english",
@@ -814,12 +828,12 @@ const PRESERVED_NEWS_SEEDS = [
     title: "China's CXMT Is Set to Challenge DRAM Incumbents",
     titleKo: "SemiAnalysis, CXMT의 범용 DRAM 확장과 HBM 제약 분석",
     source: "SemiAnalysis",
-    sourceType: "분석",
-    evidenceLevel: "Reported",
+    sourceType: "산업 리서치",
+    evidenceLevel: "Research model",
     date: "2026-06-23",
     link: "https://newsletter.semianalysis.com/p/chinas-cxmt-is-set-to-challenge-dram",
-    summaryOriginal: "SemiAnalysis models CXMT's commodity DRAM expansion while separating modeled wafer capacity from HBM yield, equipment, and packaging constraints.",
-    summary: "CXMT의 IPO 이후 범용 DRAM 확장과 HBM 병목을 분리한 분석. SKHY는 HBM 추격보다 DDR5·LPDDR 고객 승인과 비트 원가 변화를 우선 감시.",
+    summaryOriginal: "SemiAnalysis models CXMT wafer capacity at about 350 kwspm by end-2026, 420 kwspm by end-2027, and 500 kwspm by end-2028, while estimating roughly 25% yield for 8-high HBM3 and describing HBM as a minimal contributor to output.",
+    summary: "SemiAnalysis 연구모델은 CXMT 캐파를 2026년 말 350K, 2027년 말 420K, 2028년 말 500K wpm으로 추정하고 8단 HBM3 수율을 약 25%로 모델링함. 회사 가이던스나 실측값이 아니며, 현재 핵심 위협은 HBM 동급화보다 DDR5·LPDDR·서버 DRAM 물량과 비트 원가 압력임.",
   },
   {
     id: "technode-ymtc-share",
@@ -1691,6 +1705,14 @@ const CHINA_INFRA_SOURCE_PAGES = [
     publishedAt: "2025-08-29",
     markers: ["foreign-owned semiconductor fabs", "China", "license"],
   },
+  {
+    id: "census-bis-c79",
+    site: "all",
+    label: "AES C79 former VEU fab license reporting",
+    url: "https://content.govdelivery.com/accounts/USCENSUS/bulletins/4008e2b",
+    publishedAt: "2026-01-05",
+    markers: ["C79", "C57", "H-prefix", "individual fab license"],
+  },
 ];
 
 const STOPWORDS = new Set([
@@ -1772,7 +1794,7 @@ const KOREAN_SOURCE_RE = new RegExp(
 const LOW_CONFIDENCE_NEWS_RE = /(ad hoc news|indexbox|36\s*kr|36kr|borncity|mjengo|blockchain\.news|odaily|zamin\.uz|finance\.biggo|crypto briefing|weex|fortrinawwer|siliconanalysts|nand-research|reddit|facebook|linkedin\.com|x\.com|twitter\.com)/i;
 const SKHYNIX_NEWSROOM_RE = /news\.skhynix\.com|sk\s*hynix\s*newsroom|skhy\s*newsroom/i;
 const AUTHORITATIVE_EN_NEWS_RE =
-  /(reuters|bloomberg|financial times|ft\.com|nikkei|cnbc|associated press|apnews|sec\.gov|nasdaq|trendforce|dramexchange|techinsights|yole|counterpoint|tom'?s hardware|tomshardware|south china morning post|scmp|caixin global|caixinglobal|digitimes|ee times|eetimes|semianalysis|techwire asia|the register|business insider|network world|evertiq|technode|techspot|japan times|electronics weekly|semiconductor engineering|semiengineering|semiconductor digest|solid state technology|ieee spectrum|jedec|semi\.org|businesswire|pr newswire|solidigm|intel|micron|tsmc|open compute project|opencompute\.org|u\.s\. bis|bis\.gov|govinfo|wsts|acm research ir|cxmt|shanghai stock exchange|samsung|samsung semiconductor|semiconductor\.samsung\.com|sandisk|panmnesia|morganstanley\.com|goldmansachs\.com|jpmorgan\.com|ubs\.com|citigroup\.com|bofa\.com|bankofamerica\.com|barclays\.com|nomura\.com|jefferies\.com|mizuho)/i;
+  /(reuters|bloomberg|financial times|ft\.com|nikkei|cnbc|associated press|apnews|sec\.gov|nasdaq|trendforce|dramexchange|techinsights|yole|counterpoint|tom'?s hardware|tomshardware|south china morning post|scmp|caixin global|caixinglobal|digitimes|ee times|eetimes|semianalysis|techwire asia|the register|business insider|network world|evertiq|technode|techspot|japan times|electronics weekly|semiconductor engineering|semiengineering|semiconductor digest|solid state technology|ieee spectrum|jedec|semi\.org|businesswire|pr newswire|solidigm|intel|micron|tsmc|open compute project|opencompute\.org|u\.s\. bis|bis\.gov|govinfo|census\.gov|content\.govdelivery\.com\/accounts\/USCENSUS|wsts|acm research ir|cxmt|shanghai stock exchange|samsung|samsung semiconductor|semiconductor\.samsung\.com|sandisk|panmnesia|morganstanley\.com|goldmansachs\.com|jpmorgan\.com|ubs\.com|citigroup\.com|bofa\.com|bankofamerica\.com|barclays\.com|nomura\.com|jefferies\.com|mizuho)/i;
 const AUTHORITATIVE_CN_NEWS_RE =
   /(财新|caixin|第一财经|yicai|21财经|21世纪经济报道|21jingji|证券时报|stcn|中国经营报|cb\.com\.cn|东方财富|eastmoney|新浪财经|sina finance|澎湃新闻|the paper|虎嗅|huxiu|电子工程专辑|eet-china|集微网|爱集微|ijiwei|laoyaoba|半导体新闻网|seminews|经济观察网|eeo\.com\.cn|techweb|chinaflashmarket|闪存市场|semi china|中国半导体行业协会|csia|科技新报|technews\.tw|钜亨网|cnyes\.com|solidot|奇客|xinhuanet)/i;
 const MEMORY_NEWS_RE =
@@ -1782,6 +1804,7 @@ const FACT_EVENT_SEED_IDS = new Set([
   "sse-cxmt-registration-plan",
   "sec-skhynix-nasdaq-ads",
   "bis-china-fab-veu-revocation",
+  "census-bis-c79-fab-license",
   "micron-sixteen-sca",
   "wsts-spring-2026-forecast",
   "trendforce-memory-market-revision-2026",
@@ -4290,8 +4313,8 @@ const INTELLIGENCE_TOPICS = [
   },
 ];
 
-const OFFICIAL_SOURCE_RE = /(?:\.gov(?:\/|$)|govinfo\.gov|congress\.gov|sec\.gov|english\.sse\.com\.cn|hkexnews\.hk|investors?\.|ir\.|newsroom\.|company\/(?:news|press))/i;
-const ANALYSIS_SOURCE_RE = /(?:trendforce\.com\/(?:presscenter|price|news)|counterpointresearch\.com|techinsights\.com|wsts\.org|yolegroup\.com)/i;
+const OFFICIAL_SOURCE_RE = /(?:\.gov(?:\/|$)|govinfo\.gov|congress\.gov|sec\.gov|census\.gov|content\.govdelivery\.com\/accounts\/USCENSUS|english\.sse\.com\.cn|hkexnews\.hk|investors?\.|ir\.|newsroom\.|company\/(?:news|press))/i;
+const ANALYSIS_SOURCE_RE = /(?:trendforce\.com\/(?:presscenter|price|news)|counterpointresearch\.com|techinsights\.com|wsts\.org|yolegroup\.com|newsletter\.semianalysis\.com)/i;
 const AUTHORITATIVE_MEDIA_RE = /(?:reuters|bloomberg|ft\.com|financial times|nikkei|cnbc|associated press|apnews|south china morning post|scmp|caixin global|caixinglobal|digitimes|ee times|tom's hardware)/i;
 const ESTIMATE_RE = /(?:forecast|estimate|reportedly|sources? (?:said|say)|could|may |might|expected|projection|전망|추정|보도|소식통)/i;
 const LOW_VALUE_INTELLIGENCE_RE = /(?:ram price tracking|lowest price on ddr|best (?:ram|ssd)|buying guide|deal tracker)/i;
@@ -5279,18 +5302,171 @@ function refreshForecastInputs(previous = {}, context = {}) {
   return output;
 }
 
-function buildMarketStructure(previous = {}, baseline = {}) {
-  const kpis = (baseline.kpis || []).map((item, index) => ({
-    id: item.id || `kpi-${index}`,
-    baselineIndex: index,
-    label: item.label,
-    value: item.value,
-    unit: item.unit || "",
-    asOf: item.date || item.period || baseline.meta?.updatedAt || null,
-    source: item.source || null,
-    sourceUrl: item.sourceUrl || item.url || null,
-    status: /watch|확인/i.test(`${item.status || ""} ${item.source || ""}`) ? "watch" : "reported",
-  }));
+/* ---------------- Live quantitative figure extractor ----------------
+ * Mines the freshly crawled article corpus for numeric claims and keeps them
+ * verbatim (value + the source's own sentence + link + date). No number is
+ * invented or reinterpreted, so the "live figures" layer is hallucination-safe:
+ * every figure is exactly what a dated, named source published today. */
+
+const LIVE_FIGURE_DOMAIN_RE = /(hbm|dram|nand|ddr|lpddr|ssd|wafer|메모리|memory|存储|内存|점유|share|시장|market|市场|ipo|공모|募|증설|capacity|캐파|产能|매출|revenue|营收|营业|이익|profit|利润|盈|가격|price|spot|수율|yield|良率|capex|投资|투자|估值|valuation|市值|hynix|하이닉스|삼성|samsung|micron|마이크론|cxmt|长鑫|ymtc|长江|tsmc|台积)/i;
+
+// Value patterns (multilingual). Each capture keeps the source's exact wording.
+const LIVE_FIGURE_VALUE_RES = [
+  { kind: "usd", re: /(?:US)?\$\s?\d[\d,]*(?:\.\d+)?\s*(?:trillion|billion|million|bn|B\b|M\b)?/g },
+  { kind: "cjk-money", re: /\d[\d,]*(?:\.\d+)?\s*(?:万亿|兆|亿|億|억|조|만억)\s*(?:美元|美金|美刀|元|人民币|위안|달러|원)?/g },
+  { kind: "percent", re: /[-+]?\d+(?:\.\d+)?\s*%/g },
+  { kind: "multiple", re: /\d+(?:\.\d+)?\s*(?:倍|배|times|x)\b/gi },
+];
+
+function classifyLiveFigure(text) {
+  if (/(点유|점유|share|份额)/i.test(text)) return { id: "share", label: "점유율" };
+  if (/(ipo|공모|募|估值|valuation|市值|超额|초과청약|배정)/i.test(text)) return { id: "capital", label: "IPO·자본" };
+  if (/(市场|시장|market|tam|规模|규모)/i.test(text)) return { id: "market", label: "시장규모" };
+  if (/(가격|价格|price|spot|上涨|暴涨|하락|상승)/i.test(text)) return { id: "price", label: "가격" };
+  if (/(增设|증설|产能|capacity|캐파|wafer|晶圆|扩产)/i.test(text)) return { id: "capacity", label: "캐파" };
+  if (/(매출|营收|营业|revenue|利润|profit|이익|盈|扭亏)/i.test(text)) return { id: "earnings", label: "실적" };
+  if (/(capex|投资|투자|资本)/i.test(text)) return { id: "capex", label: "투자" };
+  return { id: "other", label: "지표" };
+}
+
+function splitClauses(text = "") {
+  return String(text)
+    .split(/(?<=[.。!?！？;；])\s+|[\n\r]+|(?<=다)\s+(?=[A-Z가-힣])/)
+    .map((s) => s.replace(/\s+/g, " ").trim())
+    .filter((s) => s.length >= 8 && s.length <= 260);
+}
+
+function extractLiveFigures(context = {}) {
+  const articles = [
+    ...(context.news || []).map((n) => {
+      const sourceClass = newsSourceClass(n);
+      const sourceMeta = intelligenceSource(n);
+      const claimLayer = sourceClass === "research" || sourceMeta.claimType === "전망·추정"
+        ? "research-model"
+        : sourceClass === "official"
+          ? "official-fact"
+          : "reported-fact";
+      return {
+        text: `${n.originalTitle || n.title || ""}. ${n.summaryOriginal || n.summary || ""}`,
+        textKo: `${n.titleKo || n.title || ""}`,
+        source: n.source || "News",
+        url: directNewsUrl(n),
+        date: String(n.date || n.publishedAt || "").slice(0, 10),
+        sourceClass,
+        claimLayer,
+        allowed: ["official", "research", "authoritative-media"].includes(sourceClass) && Boolean(directNewsUrl(n)),
+      };
+    }),
+    ...(context.brokerResearch?.items || []).map((b) => ({
+      text: `${b.title || ""}. ${b.summary || ""} ${b.insight || ""}`,
+      textKo: b.title || "",
+      source: b.institution || b.source || "Broker",
+      url: b.sourceUrl || b.url || b.sourceRef || "",
+      date: String(b.publishedAt || "").slice(0, 10),
+      sourceClass: "research",
+      claimLayer: "research-model",
+      allowed: true,
+    })),
+  ].filter((a) => a.allowed && a.text && LIVE_FIGURE_DOMAIN_RE.test(a.text));
+
+  const seen = new Set();
+  const figures = [];
+  for (const article of articles) {
+    const perArticle = [];
+    const perArticleValues = new Set();
+    for (const clause of splitClauses(article.text)) {
+      if (!LIVE_FIGURE_DOMAIN_RE.test(clause)) continue;
+      for (const { kind, re } of LIVE_FIGURE_VALUE_RES) {
+        re.lastIndex = 0;
+        let match;
+        while ((match = re.exec(clause)) !== null) {
+          const raw = match[0].replace(/\s+/g, " ").trim();
+          // Reject bare years / dates masquerading as figures.
+          if (/^\+?\d{4}\s*%?$/.test(raw) && /^(19|20)\d{2}$/.test(raw.replace(/[^\d]/g, ""))) continue;
+          if (/^\d{1,2}\s*%$/.test(raw) && /\b(20\d{2})\b/.test(clause) && /月|년|年|일|월/.test(clause) && Number(raw.replace(/[^\d]/g, "")) <= 31) {
+            if (!/(점유|share|가격|price|上涨|증가|하락|성장|growth|yoy|증감)/i.test(clause)) continue;
+          }
+          const normValue = raw.replace(/[,\s元]/g, "");
+          if (perArticleValues.has(normValue)) continue; // one figure per distinct value per article
+          const key = `${article.source}::${raw}::${clause.slice(0, 24)}`.toLowerCase();
+          if (seen.has(key)) continue;
+          seen.add(key);
+          perArticleValues.add(normValue);
+          perArticle.push({
+            value: raw,
+            kind,
+            topic: classifyLiveFigure(clause),
+            // Verbatim source sentence (original language) = ground truth, no
+            // translation-introduced drift. Korean title kept as a context label.
+            snippet: clause.slice(0, 180),
+            contextKo: article.textKo.slice(0, 90),
+            source: article.source,
+            url: article.url,
+            date: article.date || null,
+            sourceClass: article.sourceClass,
+            claimLayer: article.claimLayer,
+          });
+        }
+      }
+    }
+    // Keep the two most substantive figures per article (currency/market over
+    // bare percents) to avoid one story flooding the panel.
+    perArticle.sort((a, b) => (b.kind === "percent" ? 0 : 2) - (a.kind === "percent" ? 0 : 2) || b.value.length - a.value.length);
+    figures.push(...perArticle.slice(0, 2));
+  }
+  figures.sort((a, b) => String(b.date || "").localeCompare(String(a.date || "")));
+  const topicCounts = {};
+  for (const figure of figures) topicCounts[figure.topic.id] = (topicCounts[figure.topic.id] || 0) + 1;
+  return {
+    updatedAt: new Date().toISOString(),
+    total: figures.length,
+    topicCounts,
+    items: figures.slice(0, 60),
+    method: "authority-gated verbatim extraction · 원문 문장·출처·날짜·주장 레이어 보존",
+  };
+}
+
+// Find a live figure whose snippet corroborates a KPI concept, so a hardcoded
+// baseline number gets a fresh dated source attached (never silently replaced).
+function corroborateKpi(label = "", liveFigures = {}) {
+  const items = liveFigures.items || [];
+  const rules = [
+    { test: /HBM.*점유|HBM.*share/i, want: /hbm/i, topic: "share" },
+    { test: /메모리.*시장.*규모|memory.*market/i, want: /(memory|메모리|存储).*(市场|시장|market|规모|규모)/i, topic: "market" },
+    { test: /반도체.*시장|semiconductor.*market/i, want: /(半导体|반도체|semiconductor).*(市场|시장|market)/i, topic: "market" },
+    { test: /CXMT|长鑫/i, want: /(cxmt|长鑫)/i },
+    { test: /가격|price/i, want: /(price|가격|价格|spot)/i, topic: "price" },
+  ];
+  const rule = rules.find((r) => r.test.test(label));
+  if (!rule) return null;
+  const hit = items.find((figure) =>
+    figure.claimLayer !== "research-model" &&
+    rule.want.test(`${figure.snippet} ${figure.snippetKo}`) &&
+    (!rule.topic || figure.topic?.id === rule.topic));
+  return hit || null;
+}
+
+function buildMarketStructure(previous = {}, baseline = {}, liveFigures = {}) {
+  const kpis = (baseline.kpis || []).map((item, index) => {
+    const corroboration = corroborateKpi(item.label || "", liveFigures);
+    return {
+      id: item.id || `kpi-${index}`,
+      baselineIndex: index,
+      label: item.label,
+      value: item.value,
+      unit: item.unit || "",
+      // Honest dating: baseline research figures are assumptions until a fresh
+      // crawled source corroborates them — then we surface that source + date.
+      asOf: corroboration?.date || item.date || item.period || baseline.meta?.updatedAt || null,
+      source: item.source || null,
+      sourceUrl: item.sourceUrl || item.url || null,
+      basis: corroboration ? "baseline+live" : "baseline",
+      liveCorroboration: corroboration
+        ? { value: corroboration.value, snippet: corroboration.snippet, source: corroboration.source, url: corroboration.url, date: corroboration.date }
+        : null,
+      status: /watch|확인/i.test(`${item.status || ""} ${item.source || ""}`) ? "watch" : "reported",
+    };
+  });
   const companies = (baseline.architectureMatrix?.shareMatrix || []).map((item) => ({
     company: item.company,
     hbmShare: item.hbmShare,
@@ -5524,7 +5700,9 @@ async function collectQuantMetrics(priceHistory, context = {}) {
     (value) => `${value.month} · ${value.revenueBillionTwd}B TWD · YoY ${value.yoyPct != null ? Number(value.yoyPct).toFixed(1) : "?"}%`,
   );
   quant.forecastInputs = refreshForecastInputs(previous.forecastInputs, context);
-  quant.marketStructure = buildMarketStructure(previous.marketStructure, context.baseline);
+  quant.liveFigures = extractLiveFigures(context);
+  note("quant:라이브 수치", quant.liveFigures.total > 0, `원문 정량 수치 ${quant.liveFigures.total}건 추출`);
+  quant.marketStructure = buildMarketStructure(previous.marketStructure, context.baseline, quant.liveFigures);
   const drivers = buildQuantDrivers(quant, context);
   quant.scenarioCalibration = buildScenarioCalibration(previous.scenarioCalibration, drivers);
   quant.projectionCalibration = buildProjectionCalibration(previous.projectionCalibration, quant.scenarioCalibration);

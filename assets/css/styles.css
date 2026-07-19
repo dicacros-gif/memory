@@ -17808,8 +17808,21 @@ body.crawl-moderation-open {
     padding: clamp(104px, 20svh, 170px) 22px 38svh;
   }
 
+  .memory-hero-content > * {
+    max-width: min(100%, 520px);
+  }
+
+  .memory-hero-kicker {
+    max-width: 100%;
+    line-height: 1.35;
+    white-space: normal;
+  }
+
   .memory-video-hero h2 {
-    font-size: 31px;
+    max-width: 100%;
+    font-size: 29px;
+    line-height: 1.08;
+    overflow-wrap: anywhere;
   }
 
   .memory-hero-content > p:not(.memory-hero-kicker) {
@@ -18157,3 +18170,49 @@ body.crawl-moderation-open {
 .hs-live-calib span { font-size: 11.5px; font-weight: 900; color: var(--ink); }
 .hs-live-calib small { font-size: 10px; font-weight: 750; color: var(--ink-2); }
 .hs-live-calib.idle { border-style: dotted; opacity: .8; }
+
+/* ---------------- Live figures (verbatim crawled numbers) ---------------- */
+.live-figures { margin-top: 14px; }
+.live-figures-head {
+  display: flex; align-items: flex-end; justify-content: space-between;
+  gap: 12px; flex-wrap: wrap; margin-bottom: 10px;
+}
+.live-figures-head h3 { font-size: 15px; font-weight: 950; color: var(--ink); display: flex; align-items: baseline; gap: 6px; }
+.live-figures-head h3 span { font-size: 11px; font-weight: 800; color: #16a34a; }
+.live-figures-tabs { display: flex; gap: 6px; flex-wrap: wrap; }
+.live-figures-tabs button {
+  padding: 4px 10px; border: 1px solid var(--line); border-radius: 999px;
+  background: var(--panel-2, var(--panel)); color: var(--ink-2);
+  font-size: 10.5px; font-weight: 800; cursor: pointer; transition: all .15s;
+}
+.live-figures-tabs button:hover { border-color: #16a34a; color: var(--ink); }
+.live-figures-tabs button.active { border-color: #16a34a; background: color-mix(in srgb, #16a34a 16%, var(--panel)); color: #16a34a; }
+.live-figures-grid {
+  display: grid; grid-template-columns: repeat(auto-fill, minmax(240px, 1fr)); gap: 8px;
+}
+.lf-card {
+  display: grid; gap: 6px; padding: 11px 12px;
+  border: 1px solid var(--line); border-radius: 12px; background: var(--panel-2, var(--panel));
+  transition: border-color .16s, transform .16s, box-shadow .16s;
+}
+.lf-card:hover { border-color: #16a34a; transform: translateY(-2px); box-shadow: 0 10px 24px color-mix(in srgb, #16a34a 16%, transparent); }
+.lf-top { display: flex; align-items: center; justify-content: space-between; gap: 8px; }
+.lf-meta { display: flex; flex-wrap: wrap; gap: 5px; }
+.lf-badge {
+  display: inline-flex; align-items: center; min-height: 20px; padding: 2px 7px;
+  border: 1px solid currentColor; border-radius: 999px; font-size: 9px; font-weight: 900;
+  line-height: 1; background: color-mix(in srgb, currentColor 8%, var(--panel));
+}
+.lf-badge.official, .lf-badge.official-fact { color: #047857; }
+.lf-badge.authoritative-media, .lf-badge.reported-fact { color: #1d4ed8; }
+.lf-badge.research, .lf-badge.research-model { color: #b45309; }
+.lf-topic { font-size: 9.5px; font-weight: 900; color: var(--ink-2); padding: 2px 7px; border-radius: 999px; background: color-mix(in srgb, var(--ink) 8%, var(--panel)); }
+.lf-value { font-size: 16px; font-weight: 950; font-family: var(--display); color: #15803d; letter-spacing: -.01em; }
+.lf-snippet { font-size: 11px; line-height: 1.5; color: var(--ink-2); font-weight: 650; display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden; }
+.lf-foot { display: flex; align-items: baseline; justify-content: space-between; gap: 8px; }
+.lf-foot a, .lf-foot span { font-size: 10px; font-weight: 850; color: var(--accent, #4322A8); text-decoration: none; }
+.lf-foot a:hover { text-decoration: underline; }
+.lf-foot small { font-size: 9.5px; color: var(--muted, var(--ink-2)); font-weight: 750; font-family: var(--display); }
+.live-figures-note { margin-top: 8px; font-size: 10px; color: var(--muted, var(--ink-2)); font-weight: 700; }
+.lf-context { font-size: 10px; font-weight: 800; color: var(--ink); line-height: 1.35; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
+.lf-snippet { color: var(--ink-2); opacity: .92; }
