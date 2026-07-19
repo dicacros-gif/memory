@@ -19,6 +19,7 @@ const CRAWL_EXCLUSIONS_OUT = resolve(__dirname, "..", "data", "crawl-exclusions.
 const CRAWL_AUDIT_OUT = resolve(__dirname, "..", "data", "crawl-audit.json");
 const CRAWL_QUARANTINE_OUT = resolve(__dirname, "..", "data", "crawl-quarantine.json");
 const QUANT_OUT = resolve(__dirname, "..", "data", "quant.json");
+const BASELINE_IN = resolve(__dirname, "..", "data", "baseline.json");
 const LIVE_SCHEMA_VERSION = "4.0";
 const EVIDENCE_METHODOLOGY_VERSION = "4.0-source-provenance";
 const TRENDFORCE_ORIGIN = "https://www.trendforce.com";
@@ -182,6 +183,54 @@ const MARKET_INDEXES = [
     labelKo: "Kioxia 주가",
     source: "Yahoo Finance chart API",
     sourceUrl: "https://finance.yahoo.com/quote/285A.T/",
+  },
+  {
+    id: "naura-stock",
+    symbol: "002371.SZ",
+    label: "NAURA Technology",
+    labelKo: "NAURA 주가",
+    source: "Yahoo Finance chart API",
+    sourceUrl: "https://finance.yahoo.com/quote/002371.SZ/",
+  },
+  {
+    id: "amec-stock",
+    symbol: "688012.SS",
+    label: "AMEC",
+    labelKo: "AMEC 주가",
+    source: "Yahoo Finance chart API",
+    sourceUrl: "https://finance.yahoo.com/quote/688012.SS/",
+  },
+  {
+    id: "acm-shanghai-stock",
+    symbol: "688082.SS",
+    label: "ACM Research Shanghai",
+    labelKo: "ACM Shanghai 주가",
+    source: "Yahoo Finance chart API",
+    sourceUrl: "https://finance.yahoo.com/quote/688082.SS/",
+  },
+  {
+    id: "jcet-stock",
+    symbol: "600584.SS",
+    label: "JCET Group",
+    labelKo: "JCET 주가",
+    source: "Yahoo Finance chart API",
+    sourceUrl: "https://finance.yahoo.com/quote/600584.SS/",
+  },
+  {
+    id: "gigadevice-stock",
+    symbol: "603986.SS",
+    label: "GigaDevice",
+    labelKo: "GigaDevice 주가",
+    source: "Yahoo Finance chart API",
+    sourceUrl: "https://finance.yahoo.com/quote/603986.SS/",
+  },
+  {
+    id: "smic-stock",
+    symbol: "688981.SS",
+    label: "SMIC",
+    labelKo: "SMIC 주가",
+    source: "Yahoo Finance chart API",
+    sourceUrl: "https://finance.yahoo.com/quote/688981.SS/",
   },
 ];
 
@@ -2478,9 +2527,20 @@ async function loadMarketHistory() {
       timezone: parsed.timezone || "Asia/Seoul",
       source: parsed.source || "Yahoo Finance chart API",
       indexes: parsed.indexes && typeof parsed.indexes === "object" ? parsed.indexes : {},
+      metrics: parsed.metrics && typeof parsed.metrics === "object" ? parsed.metrics : {},
+      metricDefinitions: parsed.metricDefinitions && typeof parsed.metricDefinitions === "object"
+        ? parsed.metricDefinitions
+        : {},
     };
   } catch {
-    return { updatedAt: null, timezone: "Asia/Seoul", source: "Yahoo Finance chart API", indexes: {} };
+    return {
+      updatedAt: null,
+      timezone: "Asia/Seoul",
+      source: "Yahoo Finance chart API",
+      indexes: {},
+      metrics: {},
+      metricDefinitions: {},
+    };
   }
 }
 
@@ -2566,6 +2626,17 @@ function summarizeMarketHistory(history = {}) {
     timezone: history.timezone || "Asia/Seoul",
     source: history.source || "Yahoo Finance chart API",
     indexes,
+    metrics: Object.fromEntries(Object.entries(history.metrics || {}).map(([id, metric]) => {
+      const points = Array.isArray(metric?.points) ? metric.points : [];
+      return [id, {
+        ...(metric || {}),
+        points: undefined,
+        pointCount: points.length,
+        first: points[0] || null,
+        latest: points[points.length - 1] || null,
+      }];
+    })),
+    metricDefinitions: history.metricDefinitions || {},
   };
 }
 
@@ -4001,15 +4072,24 @@ function buildSignals({ prices, competitors, startups, newsStats: stats }) {
 
 /* ---------- main ---------- */
 async function loadPreviousData() {
-  try {
-    const previous = JSON.parse(await readFile(OUT, "utf8"));
-    return {
-      news: Array.isArray(previous.news) ? previous.news : [],
-      communityItems: Array.isArray(previous.communitySignals?.items) ? previous.communitySignals.items : [],
-    };
-  } catch {
-    return { news: [], communityItems: [] };
-  }
+  const readJson = async (path, fallback) => {
+    try {
+      return JSON.parse(await readFile(path, "utf8"));
+    } catch {
+      return fallback;
+    }
+  };
+  const [previous, quant, baseline] = await Promise.all([
+    readJson(OUT, {}),
+    readJson(QUANT_OUT, {}),
+    readJson(BASELINE_IN, {}),
+  ]);
+  return {
+    news: Array.isArray(previous.news) ? previous.news : [],
+    communityItems: Array.isArray(previous.communitySignals?.items) ? previous.communitySignals.items : [],
+    quant: quant && typeof quant === "object" ? quant : {},
+    baseline: baseline && typeof baseline === "object" ? baseline : {},
+  };
 }
 
 const FACT_EVENT_DEFINITIONS = [
@@ -4397,7 +4477,7 @@ function buildFactTimeline(news = [], generatedAt = new Date().toISOString()) {
   };
 }
 
-function buildSourceRegistry({ prices = {}, news = [], communitySignals = {}, brokerResearch = {}, facts = {}, marketHistory = {} }) {
+function buildSourceRegistry({ prices = {}, news = [], communitySignals = {}, brokerResearch = {}, facts = {}, marketHistory = {}, quant = {} }) {
   const priceTables = Array.isArray(prices.sections) ? prices.sections.length : 0;
   const communityItems = Array.isArray(communitySignals.items) ? communitySignals.items.length : 0;
   const brokerItems = Array.isArray(brokerResearch.items) ? brokerResearch.items.length : 0;
@@ -4405,7 +4485,7 @@ function buildSourceRegistry({ prices = {}, news = [], communitySignals = {}, br
   const marketSeries = Object.values(marketHistory.indexes || {}).length
     + Object.values(marketHistory.stocks || {}).length;
   return {
-    version: "1.0-crawl-channel-registry",
+    version: "2.0-crawl-channel-registry",
     generatedAt: new Date().toISOString(),
     promotionPolicy: [
       "direct canonical URL required",
@@ -4420,6 +4500,7 @@ function buildSourceRegistry({ prices = {}, news = [], communitySignals = {}, br
       { id: "broker-research", mode: "direct-report-and-citation", sources: BROKER_RESEARCH_MONITORS.length, records: brokerItems },
       { id: "community-hiring", mode: "public-signal-monitor", sources: Object.keys(COMMUNITY_PLATFORM_RULES).length, records: communityItems, promotion: "signal-only" },
       { id: "market-history", mode: "daily-time-series", sources: marketSeries, records: marketSeries },
+      { id: "quantitative-metrics", mode: "last-good-with-provenance", sources: quant.sourceHealth?.total || 0, records: (quant.marketStructure?.kpis?.length || 0) + (quant.marketStructure?.companies?.length || 0) },
       { id: "fact-timeline", mode: "event-stage-resolution", sources: FACT_EVENT_DEFINITIONS.length, records: factEvents },
     ],
   };
@@ -5007,6 +5088,11 @@ function quantMemoryMomentum(priceHistory = {}) {
         else break;
       }
       if (base.time === latest.time) continue;
+      // Honest labeling: only report an N-day change when the base point is
+      // actually near N days old. Sparse history (e.g. an archive point from
+      // 3 months ago standing in for "30d") must not overstate momentum.
+      const spanDays = (latest.time - base.time) / 86400000;
+      if (spanDays < daysAgo * 0.5 || spanDays > daysAgo * 1.8) continue;
       changes.push(((latest.average - base.average) / base.average) * 100);
     }
     if (!changes.length) return null;
@@ -5022,7 +5108,7 @@ function quantMemoryMomentum(priceHistory = {}) {
   };
 }
 
-async function collectQuantMetrics(priceHistory) {
+async function collectQuantMetricsLegacy(priceHistory) {
   const quant = {
     schemaVersion: "1.0",
     updatedAt: new Date().toISOString(),
@@ -5070,6 +5156,380 @@ async function collectQuantMetrics(priceHistory) {
     note("quant:TSMC 월매출", false, error.message);
   }
   quant.memoryMomentum = quantMemoryMomentum(priceHistory);
+  return quant;
+}
+
+function quantClamp(value, min = 0, max = 100) {
+  const number = Number(value);
+  if (!Number.isFinite(number)) return min;
+  return Math.min(max, Math.max(min, number));
+}
+
+function quantMean(values = []) {
+  const valid = values.map(Number).filter(Number.isFinite);
+  return valid.length ? valid.reduce((sum, value) => sum + value, 0) / valid.length : null;
+}
+
+function quantMetric(value, { asOf = null, source = "Model seed", sourceUrl = null, status = "assumption" } = {}) {
+  return { value, asOf, source, sourceUrl, status };
+}
+
+function defaultForecastInputs() {
+  return {
+    version: "1.0",
+    categories: {
+      hyperscaler: {
+        units: quantMetric(6.5, { asOf: "2026", source: "Presenc AI GPU Shipment Tracker", sourceUrl: "https://presenc.ai/research/gpu-shipment-tracker-blackwell-rubin-2026" }),
+        memPerUnit: quantMetric(210, { asOf: "2026", source: "Product-mix model", status: "model" }),
+        skhyShare: quantMetric(55, { asOf: "2026-Q1", source: "Planning assumption", status: "model" }),
+        dramYoY: quantMetric(15, { asOf: "2026", source: "Planning assumption", status: "model" }),
+        nandYoY: quantMetric(18, { asOf: "2026", source: "Planning assumption", status: "model" }),
+      },
+      auto: {
+        units: quantMetric(93, { asOf: "2026", source: "Global vehicle production outlook", status: "reported" }),
+        memPerUnit: quantMetric(6, { asOf: "2026", source: "ADAS/IVI mix model", status: "model" }),
+        skhyShare: quantMetric(26, { asOf: "2026", source: "Planning assumption", status: "model" }),
+        dramYoY: quantMetric(12, { asOf: "2026", source: "Planning assumption", status: "model" }),
+        nandYoY: quantMetric(22, { asOf: "2026", source: "Planning assumption", status: "model" }),
+      },
+      mobile: {
+        units: quantMetric(1090, { asOf: "2026", source: "IDC", sourceUrl: "https://www.idc.com/resource-center/blog/worldwide-smartphone-market-to-decline-13-9-in-2026-as-memory-crisis-and-us-iran-war-constrain-growth/", status: "reported" }),
+        memPerUnit: quantMetric(9, { asOf: "2026", source: "LPDDR mix model", status: "model" }),
+        skhyShare: quantMetric(30, { asOf: "2026", source: "Planning assumption", status: "model" }),
+        dramYoY: quantMetric(8, { asOf: "2026", source: "Planning assumption", status: "model" }),
+        nandYoY: quantMetric(11, { asOf: "2026", source: "Planning assumption", status: "model" }),
+      },
+      pc: {
+        units: quantMetric(253, { asOf: "2026", source: "IDC", sourceUrl: "https://www.idc.com/wp-content/uploads/2026/04/IDC-Directions-AI-Supercycle-Whalen.pdf", status: "reported" }),
+        memPerUnit: quantMetric(18, { asOf: "2026", source: "AI PC mix model", status: "model" }),
+        skhyShare: quantMetric(28, { asOf: "2026", source: "Planning assumption", status: "model" }),
+        dramYoY: quantMetric(7, { asOf: "2026", source: "Planning assumption", status: "model" }),
+        nandYoY: quantMetric(9, { asOf: "2026", source: "Planning assumption", status: "model" }),
+      },
+      datacenter: {
+        units: quantMetric(16.8, { asOf: "2026", source: "Frost & Sullivan via HKEX", sourceUrl: "https://www.hkexnews.hk/listedco/listconews/sehk/2026/0312/12048944/2026031200024.pdf", status: "reported" }),
+        memPerUnit: quantMetric(480, { asOf: "2026", source: "Server RDIMM mix model", status: "model" }),
+        skhyShare: quantMetric(24, { asOf: "2026", source: "Planning assumption", status: "model" }),
+        dramYoY: quantMetric(16, { asOf: "2026", source: "Planning assumption", status: "model" }),
+        nandYoY: quantMetric(28, { asOf: "2026", source: "Planning assumption", status: "model" }),
+      },
+    },
+  };
+}
+
+function defaultProjectionExposure() {
+  return {
+    "ai-server": { neutral: .35, best: 7.2, worst: -5.6, signal: .95, price: .42, china: -.3 },
+    "dc-storage": { neutral: .15, best: 3.9, worst: -3.1, signal: .58, price: .36, china: -.55 },
+    "mobile-smartphone": { neutral: -.16, best: -1.8, worst: 2.2, signal: .18, price: .18, china: .46 },
+    "pc-appliance": { neutral: -.28, best: -2.6, worst: 3.0, signal: .16, price: .2, china: .62 },
+    "auto-edge": { neutral: .05, best: 1.1, worst: 1.3, signal: .22, price: .14, china: .12 },
+  };
+}
+
+function mergeForecastInputs(previous = {}) {
+  const seed = defaultForecastInputs();
+  const categories = {};
+  for (const [id, values] of Object.entries(seed.categories)) {
+    categories[id] = { ...values, ...(previous.categories?.[id] || {}) };
+  }
+  return { ...seed, ...previous, categories };
+}
+
+function evidenceText(item = {}) {
+  return [item.title, item.koTitle, item.summary, item.koSummary, item.description, item.note]
+    .filter(Boolean).join(" ");
+}
+
+function directEvidenceItems(context = {}) {
+  const pools = [
+    ...(context.news || []),
+    ...(context.communitySignals?.items || []),
+    ...(context.benchmarkSignals?.stream || []),
+    ...(context.brokerResearch?.items || []),
+    ...((context.facts?.events || []).map((event) => event.current)),
+  ];
+  return pools.filter((item) => item && (item.sourceUrl || item.url || item.link));
+}
+
+function refreshForecastInputs(previous = {}, context = {}) {
+  const output = mergeForecastInputs(previous);
+  const evidence = directEvidenceItems(context);
+  const rules = [
+    { category: "hyperscaler", field: "units", match: /(?:accelerator|gpu|가속기).{0,80}(?:shipment|출하)/i, parse: /(?:6\.5|6,?500,?000)\s*(?:m|million|백만)?/i, scale: (v) => v > 100 ? v / 1e6 : v },
+    { category: "mobile", field: "units", match: /(?:smartphone|스마트폰).{0,100}(?:shipment|출하)/i, parse: /(?:1\.09\s*(?:b|billion)|1,?090\s*(?:m|million|백만))/i, fixed: 1090 },
+    { category: "pc", field: "units", match: /(?:pc|personal computer).{0,100}(?:shipment|출하)/i, parse: /(?:252|253)\s*(?:m|million|백만)/i },
+    { category: "auto", field: "units", match: /(?:vehicle|automotive|차량|자동차).{0,100}(?:production|생산)/i, parse: /(?:93(?:\.\d+)?)\s*(?:m|million|백만)/i },
+    { category: "datacenter", field: "units", match: /(?:server|서버).{0,100}(?:shipment|출하)/i, parse: /(?:16\.8)\s*(?:m|million|백만)/i },
+  ];
+  for (const rule of rules) {
+    const item = evidence.find((candidate) => rule.match.test(evidenceText(candidate)) && rule.parse.test(evidenceText(candidate)));
+    if (!item) continue;
+    const raw = rule.fixed ?? Number(evidenceText(item).match(rule.parse)?.[0]?.replace(/[^\d.]/g, ""));
+    const value = rule.scale ? rule.scale(raw) : raw;
+    if (!Number.isFinite(value) || value <= 0) continue;
+    output.categories[rule.category][rule.field] = quantMetric(value, {
+      asOf: String(item.date || item.publishedAt || item.updatedAt || new Date().toISOString()).slice(0, 10),
+      source: item.source || item.publisher || "Crawled evidence",
+      sourceUrl: item.sourceUrl || item.url || item.link,
+      status: "reported",
+    });
+  }
+  output.updatedAt = new Date().toISOString();
+  return output;
+}
+
+function buildMarketStructure(previous = {}, baseline = {}) {
+  const kpis = (baseline.kpis || []).map((item, index) => ({
+    id: item.id || `kpi-${index}`,
+    baselineIndex: index,
+    label: item.label,
+    value: item.value,
+    unit: item.unit || "",
+    asOf: item.date || item.period || baseline.meta?.updatedAt || null,
+    source: item.source || null,
+    sourceUrl: item.sourceUrl || item.url || null,
+    status: /watch|확인/i.test(`${item.status || ""} ${item.source || ""}`) ? "watch" : "reported",
+  }));
+  const companies = (baseline.architectureMatrix?.shareMatrix || []).map((item) => ({
+    company: item.company,
+    hbmShare: item.hbmShare,
+    dramShare2025: item.dramShare2025,
+    dramShare2026: item.dramShare2026,
+    nandShare2026: item.nandShare2026,
+    asOf: baseline.meta?.updatedAt || null,
+    source: "baseline evidence layer",
+  }));
+  const previousKpis = new Map((previous.kpis || []).map((item) => [Number(item.baselineIndex), item]));
+  const previousCompanies = new Map((previous.companies || []).map((item) => [String(item.company || "").toLowerCase(), item]));
+  return {
+    updatedAt: new Date().toISOString(),
+    kpis: kpis.map((item) => {
+      const before = previousKpis.get(item.baselineIndex);
+      return before?.status === "live" ? before : item;
+    }),
+    companies: companies.map((item) => {
+      const before = previousCompanies.get(String(item.company || "").toLowerCase());
+      return before?.status === "live" ? before : item;
+    }),
+  };
+}
+
+function buildQuantDrivers(quant = {}, context = {}) {
+  const momentum = quant.memoryMomentum || {};
+  const priceMomentum = quantMean([momentum.dramSpot30dPct, momentum.dramSpot90dPct, momentum.nandSpot30dPct, momentum.nandSpot90dPct]) || 0;
+  const aiMarket = quantMean([quant.aiDemandProxy?.nvda?.changePct90d, quant.aiDemandProxy?.amd?.changePct90d]) || 0;
+  const chinaItems = [
+    ...(context.news || []),
+    ...(context.communitySignals?.items || []),
+    ...(context.benchmarkSignals?.stream || []),
+  ].filter((item) => /(?:cxmt|ymtc|xmc|china|chinese|中国|长鑫|长江)/i.test(evidenceText(item)));
+  const authoritative = (context.news || []).filter((item) => /(?:reuters|bloomberg|financial times|nikkei|trendforce|counterpoint|techinsights|official|sec|wsts)/i.test(`${item.source || ""} ${item.publisher || ""}`));
+  return {
+    priceMomentum: Number(priceMomentum.toFixed(2)),
+    aiMarketMomentum: Number(aiMarket.toFixed(2)),
+    tsmcRevenueYoY: Number.isFinite(quant.foundry?.tsmcMonthly?.yoyPct) ? Number(quant.foundry.tsmcMonthly.yoyPct.toFixed(2)) : null,
+    chinaPressure: quantClamp(chinaItems.length * 1.4, 0, 100),
+    authorityEvidence: authoritative.length,
+    chinaEvidence: chinaItems.length,
+  };
+}
+
+function smoothValue(previous, next, alpha = .22) {
+  return Number.isFinite(Number(previous))
+    ? Number((Number(previous) * (1 - alpha) + Number(next) * alpha).toFixed(4))
+    : Number(Number(next).toFixed(4));
+}
+
+function buildScenarioCalibration(previous = {}, drivers = {}) {
+  const strength = quantClamp((drivers.priceMomentum || 0) * 1.15 + (drivers.aiMarketMomentum || 0) * .08 + ((drivers.tsmcRevenueYoY || 20) - 20) * .18 - (drivers.chinaPressure || 0) * .12, -30, 30);
+  const target = {
+    bear: { unitsMul: quantClamp(.82 + strength / 700, .72, .92), memMul: quantClamp(.90 + strength / 900, .82, .97), shareMul: quantClamp(.96 - (drivers.chinaPressure || 0) / 2500, .90, .99), demandMul: quantClamp(.50 + strength / 300, .35, .72) },
+    base: { unitsMul: quantClamp(1 + strength / 1000, .96, 1.04), memMul: quantClamp(1 + strength / 1200, .97, 1.04), shareMul: quantClamp(1 - (drivers.chinaPressure || 0) / 5000, .97, 1.01), demandMul: quantClamp(1 + strength / 500, .92, 1.08) },
+    bull: { unitsMul: quantClamp(1.22 + strength / 500, 1.12, 1.38), memMul: quantClamp(1.14 + strength / 700, 1.08, 1.25), shareMul: quantClamp(1.04 - (drivers.chinaPressure || 0) / 4000, .99, 1.07), demandMul: quantClamp(1.48 + strength / 220, 1.25, 1.78) },
+  };
+  const scenarios = {};
+  for (const [id, values] of Object.entries(target)) {
+    scenarios[id] = Object.fromEntries(Object.entries(values).map(([key, value]) => [key, smoothValue(previous.scenarios?.[id]?.[key], value)]));
+  }
+  return {
+    updatedAt: new Date().toISOString(),
+    method: "bounded-ewma-v1",
+    smoothingAlpha: .22,
+    strength: Number(strength.toFixed(2)),
+    drivers,
+    scenarios,
+  };
+}
+
+function buildProjectionCalibration(previous = {}, scenarioCalibration = {}) {
+  const drivers = scenarioCalibration.drivers || {};
+  const base = previous.caseWeights || defaultProjectionExposure();
+  const pressure = (drivers.chinaPressure || 0) / 100;
+  const price = quantClamp(drivers.priceMomentum || 0, -40, 40) / 40;
+  const weights = {};
+  for (const [id, values] of Object.entries(base)) {
+    const exposure = Number(values.china || 0);
+    weights[id] = {
+      ...values,
+      neutral: smoothValue(values.neutral, Number(values.neutral || 0) + price * .08 + exposure * pressure * .06),
+      best: smoothValue(values.best, Number(values.best || 0) + Math.max(price, 0) * .35 - Math.max(exposure, 0) * pressure * .25),
+      worst: smoothValue(values.worst, Number(values.worst || 0) + Math.max(exposure, 0) * pressure * .4 - Math.max(price, 0) * .12),
+    };
+  }
+  const calibrated = scenarioCalibration.scenarios || {};
+  return {
+    updatedAt: new Date().toISOString(),
+    method: "bounded-ewma-v1",
+    caseWeights: weights,
+    scenarios: {
+      neutral: { scoreBias: smoothValue(previous.scenarios?.neutral?.scoreBias, (calibrated.base?.demandMul - 1) * 18 || 0), serverLift: smoothValue(previous.scenarios?.neutral?.serverLift, price * .5), storageLift: smoothValue(previous.scenarios?.neutral?.storageLift, price * .35), terminalLift: smoothValue(previous.scenarios?.neutral?.terminalLift, -pressure * .4) },
+      best: { scoreBias: smoothValue(previous.scenarios?.best?.scoreBias, 7 + Math.max(price, 0) * 2), serverLift: smoothValue(previous.scenarios?.best?.serverLift, 4 + Math.max(price, 0) * 1.3), storageLift: smoothValue(previous.scenarios?.best?.storageLift, 2.3 + Math.max(price, 0)), terminalLift: smoothValue(previous.scenarios?.best?.terminalLift, -1.1 + pressure * .4) },
+      worst: { scoreBias: smoothValue(previous.scenarios?.worst?.scoreBias, -9 - pressure * 2), serverLift: smoothValue(previous.scenarios?.worst?.serverLift, -4.2 - pressure), storageLift: smoothValue(previous.scenarios?.worst?.storageLift, -2.7 - pressure), terminalLift: smoothValue(previous.scenarios?.worst?.terminalLift, 2.8 + pressure) },
+    },
+  };
+}
+
+function sourceHealthSnapshot(previous = {}) {
+  const grouped = new Map();
+  for (const item of health) {
+    const id = String(item.step || item.name || "unknown").split(":")[0];
+    const current = grouped.get(id) || { id, ok: true, attempts: 0, errors: [] };
+    current.attempts += 1;
+    current.ok = current.ok && Boolean(item.ok);
+    if (!item.ok && item.msg) current.errors.push(item.msg);
+    grouped.set(id, current);
+  }
+  const sources = {};
+  for (const [id, item] of grouped.entries()) {
+    const before = previous.sources?.[id] || {};
+    const failureStreak = item.ok ? 0 : Number(before.failureStreak || 0) + 1;
+    sources[id] = {
+      ...item,
+      failureStreak,
+      lastAttemptAt: new Date().toISOString(),
+      lastSuccessAt: item.ok ? new Date().toISOString() : before.lastSuccessAt || null,
+      alert: failureStreak >= 3,
+    };
+  }
+  const values = Object.values(sources);
+  return {
+    updatedAt: new Date().toISOString(),
+    ok: values.filter((item) => item.ok).length,
+    total: values.length,
+    failed: values.filter((item) => !item.ok).map((item) => item.id),
+    alerts: values.filter((item) => item.alert).map((item) => item.id),
+    sources,
+  };
+}
+
+function quantHistoryCoverage(priceHistory = {}, marketHistory = {}) {
+  const priceSeries = Object.values(priceHistory.items || {});
+  const pricePoints = priceSeries.reduce((sum, item) => sum + (item.points?.length || 0), 0);
+  const marketSeries = Object.values(marketHistory.indexes || {});
+  const marketPoints = marketSeries.reduce((sum, item) => sum + (item.points?.length || 0), 0);
+  const metricSeries = Object.values(marketHistory.metrics || {});
+  const metricPoints = metricSeries.reduce((sum, item) => sum + (item.points?.length || 0), 0);
+  return {
+    updatedAt: new Date().toISOString(),
+    priceSeries: priceSeries.length,
+    pricePoints,
+    marketSeries: marketSeries.length,
+    marketPoints,
+    metricSeries: metricSeries.length,
+    metricPoints,
+    disclaimer: "Public observations only; unavailable historical observations are never interpolated or fabricated.",
+  };
+}
+
+function appendQuantHistory(marketHistory = {}, quant = {}) {
+  marketHistory.metrics ||= {};
+  marketHistory.metricDefinitions ||= {};
+  const day = String(quant.updatedAt || new Date().toISOString()).slice(0, 10);
+  const candidates = [];
+  for (const item of quant.marketStructure?.kpis || []) {
+    const numeric = Number(item.value);
+    if (Number.isFinite(numeric)) candidates.push({
+      id: `kpi-${item.baselineIndex}`,
+      label: item.label,
+      value: numeric,
+      unit: item.unit || "",
+      source: item.source,
+      asOf: item.asOf,
+    });
+  }
+  for (const company of quant.marketStructure?.companies || []) {
+    for (const field of ["hbmShare", "dramShare2026", "nandShare2026"]) {
+      const numeric = Number(String(company[field] || "").replace(/[^\d.-]/g, ""));
+      if (Number.isFinite(numeric)) candidates.push({ id: `share-${String(company.company).toLowerCase()}-${field}`, label: `${company.company} ${field}`, value: numeric, unit: "%", source: company.source, asOf: company.asOf });
+    }
+  }
+  for (const point of candidates) {
+    const current = marketHistory.metrics[point.id] || { id: point.id, label: point.label, unit: point.unit || "", points: [] };
+    const points = Array.isArray(current.points) ? current.points.filter((item) => item.date !== day) : [];
+    points.push({ date: day, value: point.value, source: point.source || null, asOf: point.asOf || day });
+    points.sort((a, b) => String(a.date).localeCompare(String(b.date)));
+    marketHistory.metrics[point.id] = { ...current, unit: point.unit || current.unit || "", updatedAt: quant.updatedAt, points: points.slice(-2200) };
+    marketHistory.metricDefinitions[point.id] = { label: point.label, unit: point.unit || "", provenance: point.source || null };
+  }
+  marketHistory.updatedAt = quant.updatedAt;
+}
+
+async function collectLastGood(fetcher, previous, step, successMessage) {
+  const attemptedAt = new Date().toISOString();
+  try {
+    const value = await fetcher();
+    const next = { ...value, status: "live", lastSuccessAt: attemptedAt, lastAttemptAt: attemptedAt, failureStreak: 0 };
+    note(step, true, successMessage(next));
+    return next;
+  } catch (error) {
+    const failureStreak = Number(previous?.failureStreak || 0) + 1;
+    note(step, false, error.message);
+    return previous ? { ...previous, status: "stale", lastAttemptAt: attemptedAt, lastError: error.message, failureStreak } : { status: "unavailable", lastAttemptAt: attemptedAt, lastError: error.message, failureStreak };
+  }
+}
+
+async function collectQuantMetrics(priceHistory, context = {}) {
+  const previous = context.previousQuant || {};
+  const quant = {
+    schemaVersion: "2.0",
+    updatedAt: new Date().toISOString(),
+    timezone: "Asia/Seoul",
+    fx: {},
+    aiDemandProxy: {},
+    fundamentals: {},
+    foundry: {},
+    memoryMomentum: quantMemoryMomentum(priceHistory),
+  };
+  for (const entry of QUANT_FX) {
+    quant.fx[entry.id] = await collectLastGood(
+      () => collectQuantSeries(entry), previous.fx?.[entry.id], `quant:FX ${entry.label}`,
+      (value) => `${value.value} (${value.asOf})`,
+    );
+    await sleep(320);
+  }
+  for (const entry of QUANT_AI_PROXIES) {
+    quant.aiDemandProxy[entry.id] = await collectLastGood(
+      () => collectQuantSeries(entry), previous.aiDemandProxy?.[entry.id], `quant:AI ${entry.label}`,
+      (value) => `${value.value} · 90d ${value.changePct90d}%`,
+    );
+    await sleep(320);
+  }
+  quant.fundamentals.micron = await collectLastGood(
+    fetchEdgarMicronFundamentals, previous.fundamentals?.micron, "quant:Micron EDGAR",
+    (value) => value.revenue ? `분기매출 $${(value.revenue.value / 1e9).toFixed(2)}B (${value.revenue.end})` : "재고만 수집",
+  );
+  quant.foundry.tsmcMonthly = await collectLastGood(
+    fetchTsmcMonthlyRevenue, previous.foundry?.tsmcMonthly, "quant:TSMC 월매출",
+    (value) => `${value.month} · ${value.revenueBillionTwd}B TWD · YoY ${value.yoyPct != null ? Number(value.yoyPct).toFixed(1) : "?"}%`,
+  );
+  quant.forecastInputs = refreshForecastInputs(previous.forecastInputs, context);
+  quant.marketStructure = buildMarketStructure(previous.marketStructure, context.baseline);
+  const drivers = buildQuantDrivers(quant, context);
+  quant.scenarioCalibration = buildScenarioCalibration(previous.scenarioCalibration, drivers);
+  quant.projectionCalibration = buildProjectionCalibration(previous.projectionCalibration, quant.scenarioCalibration);
+  quant.sourceHealth = sourceHealthSnapshot(previous.sourceHealth);
+  quant.historyCoverage = quantHistoryCoverage(priceHistory, context.marketHistory);
   return quant;
 }
 
@@ -5223,7 +5683,7 @@ async function main() {
   }
   attachPriceHistory(prices, priceHistory);
   const marketHistory = await updateMarketHistory();
-  const quant = await collectQuantMetrics(priceHistory);
+  let quant = null;
 
   const evidenceValidatedAt = new Date().toISOString();
   const evidenceGate = validateNewsEvidence(newsPayload.news, evidenceValidatedAt);
@@ -5255,8 +5715,20 @@ async function main() {
   const facts = buildFactTimeline(news, evidenceValidatedAt);
   const intelligence = buildIntelligence({ news, prices, stats, chinaInfra, facts });
   const brokerResearch = buildBrokerResearch(news);
-  const sourceRegistry = buildSourceRegistry({ prices, news, communitySignals, brokerResearch, facts, marketHistory });
   note("증권사 리서치", brokerResearch.items.length >= 6 && Boolean(brokerResearch.framework), "리서치 요약과 시스템 도식 갱신 완료");
+  quant = await collectQuantMetrics(priceHistory, {
+    previousQuant: previous.quant,
+    baseline: previous.baseline,
+    news,
+    communitySignals,
+    benchmarkSignals,
+    brokerResearch,
+    facts,
+    marketHistory,
+  });
+  appendQuantHistory(marketHistory, quant);
+  quant.historyCoverage = quantHistoryCoverage(priceHistory, marketHistory);
+  const sourceRegistry = buildSourceRegistry({ prices, news, communitySignals, brokerResearch, facts, marketHistory, quant });
   const okCount = health.filter((item) => item.ok).length;
   const languageCounts = {
     english: news.filter((item) => verifiedNewsLanguage(item) === "english").length,

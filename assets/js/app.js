@@ -2852,12 +2852,22 @@
       strip.id = "crawlHeartbeat";
       host.insertBefore(strip, host.firstChild);
     }
-    const updatedAt = LIVE?.updatedAt ? new Date(LIVE.updatedAt) : null;
+    const updatedAtRaw = QUANT?.updatedAt || LIVE?.updatedAt;
+    const updatedAt = updatedAtRaw ? new Date(updatedAtRaw) : null;
     const ageHours = updatedAt ? (Date.now() - updatedAt.getTime()) / 3600000 : null;
     const stale = ageHours == null || ageHours > 26;
     const health = Array.isArray(LIVE?.health) ? LIVE.health : [];
-    const okCount = health.filter((item) => item && item.ok).length;
-    const failed = health.filter((item) => item && !item.ok).map((item) => item.step);
+    const quantHealth = QUANT?.sourceHealth || {};
+    const okCount = Number.isFinite(Number(quantHealth.ok))
+      ? Number(quantHealth.ok)
+      : health.filter((item) => item && item.ok).length;
+    const totalCount = Number.isFinite(Number(quantHealth.total))
+      ? Number(quantHealth.total)
+      : health.length;
+    const failed = Array.isArray(quantHealth.failed)
+      ? quantHealth.failed
+      : health.filter((item) => item && !item.ok).map((item) => item.step);
+    const alerts = Array.isArray(quantHealth.alerts) ? quantHealth.alerts : [];
     const ageLabel = ageHours == null
       ? "수집 기록 없음"
       : ageHours < 1
@@ -2870,13 +2880,19 @@
     if (Number.isFinite(q.foundry?.tsmcMonthly?.yoyPct)) chips.push(`TSMC 월매출 YoY ${q.foundry.tsmcMonthly.yoyPct > 0 ? "+" : ""}${fmtNum(q.foundry.tsmcMonthly.yoyPct, 1)}%`);
     if (Number.isFinite(q.memoryMomentum?.dramSpot30dPct)) chips.push(`DRAM spot 30d ${q.memoryMomentum.dramSpot30dPct > 0 ? "+" : ""}${fmtNum(q.memoryMomentum.dramSpot30dPct, 1)}%`);
     if (Number.isFinite(q.fundamentals?.micron?.revenue?.value)) chips.push(`Micron 분기매출 $${fmtNum(q.fundamentals.micron.revenue.value / 1e9, 1)}B`);
-    strip.className = `crawl-heartbeat${stale ? " stale" : ""}`;
+    const coverage = q.historyCoverage || {};
+    if (Number(coverage.priceSeries) > 0) chips.push(`가격 ${fmtNum(coverage.priceSeries)}개·${fmtNum(coverage.pricePoints)}점`);
+    if (Number(coverage.marketSeries) > 0) chips.push(`시장 ${fmtNum(coverage.marketSeries)}개·${fmtNum(coverage.marketPoints)}점`);
+    if (Number(coverage.metricSeries) > 0) chips.push(`정량 ${fmtNum(coverage.metricSeries)}개·${fmtNum(coverage.metricPoints)}점`);
+    const delayed = stale || alerts.length > 0;
+    strip.className = `crawl-heartbeat${delayed ? " stale" : ""}`;
     strip.innerHTML = `
       <span class="hb-dot" aria-hidden="true"></span>
-      <b>${stale ? "크롤링 지연" : "LIVE"}</b>
+      <b>${delayed ? "확인 필요" : "LIVE"}</b>
       <span class="hb-item">마지막 수집 ${escapeHTML(ageLabel)}</span>
-      ${health.length ? `<span class="hb-item">단계 ${fmtNum(okCount)}/${fmtNum(health.length)} 성공</span>` : ""}
+      ${totalCount ? `<span class="hb-item">소스 ${fmtNum(okCount)}/${fmtNum(totalCount)} 정상</span>` : ""}
       ${failed.length ? `<span class="hb-item fail" title="${escapeHTML(failed.slice(0, 6).join(", "))}">실패 ${fmtNum(failed.length)}건</span>` : ""}
+      ${alerts.length ? `<span class="hb-item fail" title="${escapeHTML(alerts.join(", "))}">3회 연속 실패 ${fmtNum(alerts.length)}건</span>` : ""}
       ${chips.map((chip) => `<span class="hb-chip">${escapeHTML(chip)}</span>`).join("")}
       <span class="hb-item">매일 06·18시 KST 자동 크롤링</span>
     `;
@@ -3932,8 +3948,49 @@
   ];
   const FORECAST_CATEGORY_ORDER = ["hyperscaler", "datacenter", "mobile", "pc", "auto"];
 
+  function quantInputValue(input, fallback) {
+    const value = Number(input && typeof input === "object" ? input.value : input);
+    return Number.isFinite(value) ? value : fallback;
+  }
+
+  function liveForecastCategories() {
+    const inputs = QUANT?.forecastInputs?.categories || {};
+    return FORECAST_CATEGORIES.map((category) => {
+      const live = inputs[category.id] || {};
+      const unitInput = live.units;
+      const statuses = [live.units, live.memPerUnit, live.skhyShare]
+        .map((item) => item?.status)
+        .filter(Boolean);
+      const asOf = unitInput?.asOf || QUANT?.forecastInputs?.updatedAt?.slice?.(0, 10) || "";
+      const source = unitInput?.source || category.source;
+      return {
+        ...category,
+        units: quantInputValue(live.units, category.units),
+        memPerUnit: quantInputValue(live.memPerUnit, category.memPerUnit),
+        skhyShare: quantInputValue(live.skhyShare, category.skhyShare),
+        dramYoY: quantInputValue(live.dramYoY, category.dramYoY),
+        nandYoY: quantInputValue(live.nandYoY, category.nandYoY),
+        source,
+        sourceUrl: unitInput?.sourceUrl || category.sourceUrl,
+        liveAsOf: asOf,
+        liveStatus: statuses.includes("stale") ? "stale" : (statuses.includes("model") || statuses.includes("assumption") ? "model" : "live"),
+        unitNote: [category.unitNote, source, asOf].filter(Boolean).join(" · "),
+      };
+    });
+  }
+
+  function liveForecastScenarios() {
+    const calibration = QUANT?.scenarioCalibration?.scenarios || {};
+    return FORECAST_SCENARIOS.map((scenario) => ({
+      ...scenario,
+      ...(calibration[scenario.id] || {}),
+      calibratedAt: QUANT?.scenarioCalibration?.updatedAt || null,
+      calibrationMethod: QUANT?.scenarioCalibration?.method || "fallback",
+    }));
+  }
+
   function orderedForecastCategories() {
-    return FORECAST_CATEGORIES.slice().sort((a, b) => {
+    return liveForecastCategories().sort((a, b) => {
       const ai = FORECAST_CATEGORY_ORDER.indexOf(a.id);
       const bi = FORECAST_CATEGORY_ORDER.indexOf(b.id);
       return (ai === -1 ? 999 : ai) - (bi === -1 ? 999 : bi);
@@ -3941,11 +3998,13 @@
   }
 
   function forecastCategoryData(id = forecastCategory) {
-    return FORECAST_CATEGORIES.find((c) => c.id === id) || FORECAST_CATEGORIES[0];
+    const categories = liveForecastCategories();
+    return categories.find((c) => c.id === id) || categories[0];
   }
 
   function forecastScenarioData(id = hyperscalerScenario) {
-    return FORECAST_SCENARIOS.find((s) => s.id === id) || FORECAST_SCENARIOS[1];
+    const scenarios = liveForecastScenarios();
+    return scenarios.find((s) => s.id === id) || scenarios[1];
   }
 
   // Live calibration from crawled quant metrics (data/quant.json).
@@ -3959,6 +4018,27 @@
     let demandTiltPt = 0;
 
     const signed = (v, d = 1) => `${v > 0 ? "+" : ""}${fmtNum(v, d)}`;
+    const pipelineDrivers = q.scenarioCalibration?.drivers;
+    if (pipelineDrivers && Object.values(pipelineDrivers).some((value) => Number.isFinite(Number(value)))) {
+      const driverLabels = [
+        ["가격 모멘텀", pipelineDrivers.priceMomentum],
+        ["AI 시장 모멘텀", pipelineDrivers.aiMarketMomentum],
+        ["TSMC 월매출 YoY", pipelineDrivers.tsmcRevenueYoY],
+        ["중국 공급 압력", pipelineDrivers.chinaPressure],
+      ];
+      return {
+        live: true,
+        embedded: true,
+        unitsTiltPct: 0,
+        demandTiltPt: 0,
+        factors: driverLabels
+          .filter(([, value]) => Number.isFinite(Number(value)))
+          .map(([label, value]) => `${label} ${signed(Number(value))}${label.includes("YoY") ? "%" : "/100"}`),
+        asOf: q.scenarioCalibration?.updatedAt
+          ? String(q.scenarioCalibration.updatedAt).slice(0, 10)
+          : (q.updatedAt ? String(q.updatedAt).slice(0, 10) : null),
+      };
+    }
     const aiVals = [q.aiDemandProxy?.nvda?.changePct90d, q.aiDemandProxy?.amd?.changePct90d].filter((v) => Number.isFinite(v));
     const aiAvg = aiVals.length ? aiVals.reduce((s, v) => s + v, 0) / aiVals.length : null;
     const tsmcYoY = Number.isFinite(q.foundry?.tsmcMonthly?.yoyPct) ? q.foundry.tsmcMonthly.yoyPct : null;
@@ -4067,7 +4147,7 @@
       const calibHTML = calib?.live
         ? `<div class="hs-live-calib" style="--cat-accent:${category.accent}">
             <b>LIVE 보정</b>
-            <span>출하 ${calib.unitsTiltPct > 0 ? "+" : ""}${fmtNum(calib.unitsTiltPct, 1)}% · 동반수요 ${calib.demandTiltPt > 0 ? "+" : ""}${fmtNum(calib.demandTiltPt, 1)}pt</span>
+            <span>${calib.embedded ? "일일 신호가 시나리오 배수에 반영됨" : `출하 ${calib.unitsTiltPct > 0 ? "+" : ""}${fmtNum(calib.unitsTiltPct, 1)}% · 동반수요 ${calib.demandTiltPt > 0 ? "+" : ""}${fmtNum(calib.demandTiltPt, 1)}pt`}</span>
             <small>${escapeHTML(calib.factors.slice(0, 4).join(" · "))}${calib.asOf ? ` · as of ${escapeHTML(calib.asOf)}` : ""}</small>
           </div>`
         : `<div class="hs-live-calib idle"><b>LIVE 보정</b><span>quant.json 수집 대기 · 다음 크롤링(06/18시 KST)부터 지표 보정 적용</span></div>`;
@@ -4080,7 +4160,7 @@
       `).join(`<i class="hs-logic-arrow" aria-hidden="true">→</i>`) + calibHTML;
     }
 
-    tabs.innerHTML = FORECAST_SCENARIOS.map((s) => {
+    tabs.innerHTML = liveForecastScenarios().map((s) => {
       const sd = forecastDrivers(category, s);
       return `
         <button type="button" class="${s.id === hyperscalerScenario ? "active" : ""}" data-hs-scenario="${escapeHTML(s.id)}" style="--tab-tone:${s.tone === "watch" ? "#F59E0B" : "#10B981"}">
@@ -5624,7 +5704,20 @@
         { label: "판단", text: "10% 경보선 · 장기계약 · DDR5/LPDDR spread 추적" },
       ],
     };
-    const kpis = (BASE.kpis || []).filter((kpi) => {
+    const liveKpiByIndex = new Map((QUANT?.marketStructure?.kpis || []).map((item) => [Number(item.baselineIndex), item]));
+    const kpis = (BASE.kpis || []).map((kpi, index) => {
+      const live = liveKpiByIndex.get(index);
+      if (!live) return kpi;
+      return {
+        ...kpi,
+        value: live.value ?? kpi.value,
+        unit: live.unit ?? kpi.unit,
+        source: live.source || kpi.source,
+        sourceUrl: live.sourceUrl || kpi.sourceUrl,
+        sourceDate: live.asOf || kpi.sourceDate,
+        status: live.status || kpi.status,
+      };
+    }).filter((kpi) => {
       const status = `${kpi.status || ""} ${kpi.statusClass || ""}`.toLowerCase();
       return kpi.showInKpiStrip !== false && !status.includes("stale");
     });
@@ -5663,6 +5756,7 @@
       `;
       strip.appendChild(node);
     });
+    animateCounts(strip);
   }
 
   function cLevelDecisionAxes() {
@@ -10000,7 +10094,7 @@
   }
 
   function architectureMatrix() {
-    return BASE.architectureMatrix || {
+    const matrix = BASE.architectureMatrix || {
       summary: [],
       tracks: [],
       advancedModules: [],
@@ -10008,6 +10102,23 @@
       roadmap: [],
       valueChain: [],
       platformModules: [],
+    };
+    const companies = QUANT?.marketStructure?.companies || [];
+    if (!companies.length || !Array.isArray(matrix.shareMatrix)) return matrix;
+    const liveByCompany = new Map(companies.map((item) => [String(item.company || "").toLowerCase(), item]));
+    return {
+      ...matrix,
+      shareMatrix: matrix.shareMatrix.map((item) => {
+        const live = liveByCompany.get(String(item.company || "").toLowerCase());
+        return live ? {
+          ...item,
+          hbmShare: live.hbmShare ?? item.hbmShare,
+          dramShare2025: live.dramShare2025 ?? item.dramShare2025,
+          dramShare2026: live.dramShare2026 ?? item.dramShare2026,
+          nandShare2026: live.nandShare2026 ?? item.nandShare2026,
+          liveAsOf: live.asOf || QUANT?.marketStructure?.updatedAt,
+        } : item;
+      }),
     };
   }
 
@@ -13866,11 +13977,23 @@
     });
   }
 
+  function liveProjectionScenarios() {
+    const calibration = QUANT?.projectionCalibration?.scenarios || {};
+    return PROJECTION_SCENARIOS.map((scenario) => ({
+      ...scenario,
+      ...(calibration[scenario.id] || {}),
+      calibratedAt: QUANT?.projectionCalibration?.updatedAt || null,
+    }));
+  }
+
   function projectionScenarioData(id = projectionScenario) {
-    return PROJECTION_SCENARIOS.find((scenario) => scenario.id === id) || PROJECTION_SCENARIOS[0];
+    const scenarios = liveProjectionScenarios();
+    return scenarios.find((scenario) => scenario.id === id) || scenarios[0];
   }
 
   function projectionChinaPressureIndex() {
+    const live = Number(QUANT?.scenarioCalibration?.drivers?.chinaPressure);
+    if (Number.isFinite(live)) return clamp(live, 0, 100) / 100;
     const capacity = axisSignalCount(CHINA_DYNAMIC_AXES.find((axis) => axis.id === "capacity"));
     const equipment = axisSignalCount(CHINA_DYNAMIC_AXES.find((axis) => axis.id === "equipment"));
     const policy = axisSignalCount(CHINA_DYNAMIC_AXES.find((axis) => axis.id === "policy"));
@@ -13879,6 +14002,8 @@
   }
 
   function projectionCaseWeight(segmentId) {
+    const calibrated = QUANT?.projectionCalibration?.caseWeights?.[segmentId];
+    if (calibrated && typeof calibrated === "object") return calibrated;
     const weights = {
       "ai-server": { neutral: .35, best: 7.2, worst: -5.6, signal: .95, price: .42, china: -.3 },
       "dc-storage": { neutral: .15, best: 3.9, worst: -3.1, signal: .58, price: .36, china: -.55 },
@@ -13958,7 +14083,7 @@
   }
 
   function projectionScenarioSeriesMap(segments = productProjectionSegments()) {
-    return PROJECTION_SCENARIOS.reduce((map, scenario) => {
+    return liveProjectionScenarios().reduce((map, scenario) => {
       map[scenario.id] = projectionSeries(segments, scenario.id);
       return map;
     }, {});
@@ -14128,7 +14253,7 @@
       </article>
     `).join("");
 
-    scenarioTabs.innerHTML = PROJECTION_SCENARIOS.map((item) => {
+    scenarioTabs.innerHTML = liveProjectionScenarios().map((item) => {
       const itemSeries = scenarioMap[item.id] || series;
       const selectedShare = selected ? projectionShare(itemSeries, selected.id, -1) : 0;
       return `
@@ -14140,7 +14265,7 @@
       `;
     }).join("");
 
-    scenarioChart.innerHTML = projectionTrajectorySVG(scenarioMap, selected, horizon) + PROJECTION_SCENARIOS.map((item, index) => {
+    scenarioChart.innerHTML = projectionTrajectorySVG(scenarioMap, selected, horizon) + liveProjectionScenarios().map((item, index) => {
       const itemSeries = scenarioMap[item.id] || series;
       const itemServer = projectionGroupShare(itemSeries, ["ai-server", "dc-storage"]);
       const itemTerminal = projectionGroupShare(itemSeries, ["mobile-smartphone", "pc-appliance", "auto-edge"]);
@@ -16690,13 +16815,88 @@
         deep: "#000000",
         onColor: "#ffffff",
       },
+      "naura-stock": {
+        name: "NAURA Technology",
+        abbr: "NAURA",
+        logo: "",
+        color: "#d71920",
+        deep: "#8f1117",
+        onColor: "#ffffff",
+      },
+      "amec-stock": {
+        name: "AMEC",
+        abbr: "AMEC",
+        logo: "",
+        color: "#008c95",
+        deep: "#005c63",
+        onColor: "#ffffff",
+      },
+      "acm-shanghai-stock": {
+        name: "ACM Research Shanghai",
+        abbr: "ACM",
+        logo: "",
+        color: "#0b63ce",
+        deep: "#073e84",
+        onColor: "#ffffff",
+      },
+      "jcet-stock": {
+        name: "JCET Group",
+        abbr: "JCET",
+        logo: "",
+        color: "#e65a24",
+        deep: "#963813",
+        onColor: "#ffffff",
+      },
+      "gigadevice-stock": {
+        name: "GigaDevice",
+        abbr: "GigaDevice",
+        logo: "",
+        color: "#6a4cff",
+        deep: "#3c279f",
+        onColor: "#ffffff",
+      },
+      "smic-stock": {
+        name: "SMIC",
+        abbr: "SMIC",
+        logo: "",
+        color: "#146b52",
+        deep: "#0a3f30",
+        onColor: "#ffffff",
+      },
     }[id] || {
       name: "Memory peer",
+      abbr: "Peer",
       logo: "",
       color: "#3c82ff",
       deep: "#1e4db7",
       onColor: "#ffffff",
     };
+  }
+
+  function marketPeerCardsHTML(peers = [], className = "") {
+    if (!peers.length) return "";
+    return `
+      <div class="market-peer-grid ${escapeHTML(className)}">
+        ${peers.map((item) => {
+          const peerObs = priceObservationText(item.trend);
+          const brand = marketPeerBrandMeta(item.id);
+          const logoHTML = brand.logo
+            ? `<img src="${escapeHTML(brand.logo)}" alt="${escapeHTML(brand.name)} 로고" loading="lazy" decoding="async">`
+            : `<span class="market-peer-monogram">${escapeHTML(brand.abbr || brand.name)}</span>`;
+          return `
+            <a class="market-peer-card" href="${escapeHTML(item.index.sourceUrl || "#")}" target="_blank" rel="noopener"
+              style="--peer-brand:${escapeHTML(brand.color)};--peer-brand-deep:${escapeHTML(brand.deep)};--peer-on-brand:${escapeHTML(brand.onColor)}">
+              <span class="market-peer-brand">
+                <span class="market-peer-logo${item.id === "skhy-stock" ? " is-skhy" : ""}">${logoHTML}</span>
+                <span class="market-peer-stock-label">${escapeHTML(item.index.labelKo || item.index.label || item.index.symbol)}</span>
+              </span>
+              <strong>${escapeHTML(formatChange(item.trend))}</strong>
+              <small>${escapeHTML(formatPrice(item.trend.latestAverage))} · ${escapeHTML(peerObs.sub)}</small>
+            </a>
+          `;
+        }).join("")}
+      </div>
+    `;
   }
 
   function renderMarketIndexPanel() {
@@ -16711,10 +16911,12 @@
     }
     const period = activePricePeriod();
     const observation = priceObservationText(trend);
-    const peers = ["skhy-stock", "samsung-stock", "micron-stock", "sandisk-stock", "wdc-stock", "kioxia-stock"]
+    const peerData = (ids) => ids
       .map((id) => ({ id, index: marketIndexData(id) }))
       .map((item) => ({ ...item, trend: marketIndexTrend(item.index || {}) }))
       .filter((item) => item.index && item.trend && (item.trend.plotPoints || []).length >= 2);
+    const peers = peerData(["skhy-stock", "samsung-stock", "micron-stock", "sandisk-stock", "wdc-stock", "kioxia-stock"]);
+    const chinaPeers = peerData(["naura-stock", "amec-stock", "acm-shanghai-stock", "jcet-stock", "gigadevice-stock", "smic-stock"]);
     panel.hidden = false;
     panel.innerHTML = `
       <article class="market-index-card">
@@ -16737,23 +16939,22 @@
           ${(index.latestSourceUrl || index.sourceUrl) ? `<a href="${escapeHTML(index.latestSourceUrl || index.sourceUrl)}" target="_blank" rel="noopener">SOX 원문</a>` : ""}
         </div>
         ${peers.length ? `
-          <div class="market-peer-grid">
-            ${peers.map((item) => {
-              const peerObs = priceObservationText(item.trend);
-              const brand = marketPeerBrandMeta(item.id);
-              return `
-                <a class="market-peer-card" href="${escapeHTML(item.index.sourceUrl || "#")}" target="_blank" rel="noopener"
-                  style="--peer-brand:${escapeHTML(brand.color)};--peer-brand-deep:${escapeHTML(brand.deep)};--peer-on-brand:${escapeHTML(brand.onColor)}">
-                  <span class="market-peer-brand">
-                    <span class="market-peer-logo${item.id === "skhy-stock" ? " is-skhy" : ""}"><img src="${escapeHTML(brand.logo)}" alt="${escapeHTML(brand.name)} 로고" loading="lazy" decoding="async"></span>
-                    <span class="market-peer-stock-label">${escapeHTML(item.index.labelKo || item.index.label || item.index.symbol)}</span>
-                  </span>
-                  <strong>${escapeHTML(formatChange(item.trend))}</strong>
-                  <small>${escapeHTML(formatPrice(item.trend.latestAverage))} · ${escapeHTML(peerObs.sub)}</small>
-                </a>
-              `;
-            }).join("")}
-          </div>
+          <section class="market-peer-section">
+            <div class="market-peer-section-head">
+              <strong>Global memory peers</strong>
+              <small>${escapeHTML(period.label)} 실제 종가 누적</small>
+            </div>
+            ${marketPeerCardsHTML(peers)}
+          </section>
+        ` : ""}
+        ${chinaPeers.length ? `
+          <section class="market-peer-section market-peer-section-china">
+            <div class="market-peer-section-head">
+              <strong>중국 반도체 상장사 6</strong>
+              <small>장비 · 세정/ECP · OSAT · 메모리 · 파운드리</small>
+            </div>
+            ${marketPeerCardsHTML(chinaPeers, "market-peer-grid-china")}
+          </section>
         ` : ""}
       </article>
     `;

@@ -16,6 +16,7 @@ const textFiles = [
   "assets/js/app.js",
   "data/baseline.json",
   "data/live.json",
+  "data/quant.json",
   "data/price-history.json",
   "data/market-history.json",
   "data/crawl-audit.json",
@@ -159,6 +160,14 @@ for (const [id, index] of Object.entries(marketHistory.indexes || {})) {
   }
 }
 
+for (const [id, metric] of Object.entries(marketHistory.metrics || {})) {
+  const points = Array.isArray(metric.points) ? metric.points : [];
+  if (!points.length) addIssue("error", "data/market-history.json", "quant metric has no history points", id);
+  if (points.some((point) => !Number.isFinite(Number(point.value)))) {
+    addIssue("error", "data/market-history.json", "quant metric contains a non-numeric value", id);
+  }
+}
+
 const priceHistory = JSON.parse(await readFile(resolve(root, "data/price-history.json"), "utf8"));
 const priceDayFormatter = new Intl.DateTimeFormat("en-CA", {
   timeZone: "Asia/Seoul",
@@ -196,11 +205,61 @@ for (const [key, item] of Object.entries(priceHistory.items || {})) {
 }
 
 const live = JSON.parse(await readFile(resolve(root, "data/live.json"), "utf8"));
+const quant = JSON.parse(await readFile(resolve(root, "data/quant.json"), "utf8"));
 const crawlAudit = JSON.parse(await readFile(resolve(root, "data/crawl-audit.json"), "utf8"));
 const crawlQuarantine = JSON.parse(await readFile(resolve(root, "data/crawl-quarantine.json"), "utf8"));
 const quality = live.quality || {};
 if (live.schemaVersion !== "4.0") {
   addIssue("error", "data/live.json", "live schemaVersion is not current", String(live.schemaVersion || "missing"));
+}
+if (quant.schemaVersion !== "2.0") {
+  addIssue("error", "data/quant.json", "quant schemaVersion is not current", String(quant.schemaVersion || "missing"));
+}
+const forecastCategories = Object.values(quant.forecastInputs?.categories || {});
+if (forecastCategories.length < 5) {
+  addIssue("error", "data/quant.json", "forecast input contract has fewer than five categories", String(forecastCategories.length));
+}
+for (const category of forecastCategories) {
+  for (const field of ["units", "memPerUnit", "skhyShare", "dramYoY", "nandYoY"]) {
+    if (!Number.isFinite(Number(category?.[field]?.value))) {
+      addIssue("error", "data/quant.json", "forecast input is not numeric", `${category.id || "unknown"}:${field}`);
+    }
+    if (!String(category?.[field]?.source || "").trim() || !String(category?.[field]?.asOf || "").trim()) {
+      addIssue("error", "data/quant.json", "forecast input lacks source or as-of provenance", `${category.id || "unknown"}:${field}`);
+    }
+  }
+}
+const calibratedScenarios = quant.scenarioCalibration?.scenarios || {};
+for (const key of ["unitsMul", "memMul", "shareMul", "demandMul"]) {
+  const values = ["bear", "base", "bull"].map((id) => Number(calibratedScenarios[id]?.[key]));
+  if (!values.every(Number.isFinite) || !(values[0] < values[1] && values[1] < values[2])) {
+    addIssue("error", "data/quant.json", `calibrated ${key} scenarios are not ordered Bear < Base < Bull`, values.join("/"));
+  }
+}
+const caseWeights = quant.projectionCalibration?.caseWeights || {};
+if (!Object.keys(caseWeights).length) {
+  addIssue("error", "data/quant.json", "projection case weights are missing");
+}
+for (const [segment, weights] of Object.entries(caseWeights)) {
+  for (const key of ["neutral", "best", "worst", "signal", "price", "china"]) {
+    const value = Number(weights?.[key]);
+    if (!Number.isFinite(value) || Math.abs(value) > 25) {
+      addIssue("error", "data/quant.json", "projection calibration is invalid", `${segment}:${key}=${weights?.[key]}`);
+    }
+  }
+}
+for (const [scenario, calibration] of Object.entries(quant.projectionCalibration?.scenarios || {})) {
+  for (const key of ["scoreBias", "serverLift", "storageLift", "terminalLift"]) {
+    if (!Number.isFinite(Number(calibration?.[key]))) {
+      addIssue("error", "data/quant.json", "projection scenario calibration is invalid", `${scenario}:${key}`);
+    }
+  }
+}
+if (!Number.isFinite(Number(quant.sourceHealth?.total)) || Number(quant.sourceHealth.total) < 1) {
+  addIssue("error", "data/quant.json", "source health heartbeat is missing");
+}
+if (!Number.isFinite(Number(quant.historyCoverage?.pricePoints)) || Number(quant.historyCoverage.pricePoints) < 1) {
+  addIssue("error", "data/quant.json", "price history coverage is missing");
 }
 if (!String(live.runId || "").trim()) {
   addIssue("error", "data/live.json", "live runId is missing");
@@ -569,10 +628,10 @@ for (const requiredStage of ["registration-plan", "final-base-offering"]) {
 const sourceRegistry = live.sourceRegistry || {};
 const sourceChannels = Array.isArray(sourceRegistry.channels) ? sourceRegistry.channels : [];
 const sourceChannelIds = new Set(sourceChannels.map((channel) => channel.id));
-if (sourceRegistry.version !== "1.0-crawl-channel-registry") {
+if (sourceRegistry.version !== "2.0-crawl-channel-registry") {
   addIssue("error", "data/live.json", "source registry version is missing or obsolete", String(sourceRegistry.version || "missing"));
 }
-for (const requiredChannel of ["prices", "english-news", "chinese-news", "broker-research", "community-hiring", "market-history", "fact-timeline"]) {
+for (const requiredChannel of ["prices", "english-news", "chinese-news", "broker-research", "community-hiring", "market-history", "quantitative-metrics", "fact-timeline"]) {
   if (!sourceChannelIds.has(requiredChannel)) {
     addIssue("error", "data/live.json", "source registry is missing a required crawl channel", requiredChannel);
   }

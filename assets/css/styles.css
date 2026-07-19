@@ -2794,7 +2794,7 @@ body.sidebar-collapsed .sb-ico {
 .kpi strong {
   width: fit-content;
   font-family: var(--display);
-  font-size: 26px;
+  font-size: 38px;
   line-height: 1.05;
   background: linear-gradient(transparent 68%, color-mix(in srgb, var(--kpi-hover-accent) 36%, transparent) 68%);
   text-decoration: underline;
@@ -3276,7 +3276,8 @@ body.sidebar-collapsed .sb-ico {
 }
 
 .c-level-card:hover::before,
-.c-level-card:focus-visible::before {
+.c-level-card:focus-visible::before,
+.c-level-card.council-active::before {
   opacity: .9;
 }
 
@@ -3298,7 +3299,14 @@ body.sidebar-collapsed .sb-ico {
 .c-level-card:focus-visible small,
 .c-level-card:focus-visible .c-level-card-top em,
 .c-level-card:focus-visible .c-level-card-metrics b,
-.c-level-card:focus-visible .c-level-card-metrics small {
+.c-level-card:focus-visible .c-level-card-metrics small,
+.c-level-card.council-active,
+.c-level-card.council-active strong,
+.c-level-card.council-active p,
+.c-level-card.council-active small,
+.c-level-card.council-active .c-level-card-top em,
+.c-level-card.council-active .c-level-card-metrics b,
+.c-level-card.council-active .c-level-card-metrics small {
   color: #fff;
 }
 
@@ -3352,7 +3360,8 @@ body.sidebar-collapsed .sb-ico {
 }
 
 .c-level-card:hover .c-level-card-metrics span,
-.c-level-card:focus-visible .c-level-card-metrics span {
+.c-level-card:focus-visible .c-level-card-metrics span,
+.c-level-card.council-active .c-level-card-metrics span {
   border-color: rgba(255, 255, 255, .38);
   background: rgba(255, 255, 255, .14);
 }
@@ -14280,7 +14289,40 @@ body.sidebar-collapsed .sb-ico {
   display: grid;
   grid-template-columns: repeat(6, minmax(0, 1fr));
   gap: 8px;
-  margin-top: 10px;
+}
+
+.market-peer-section {
+  display: grid;
+  gap: 8px;
+  margin-top: 13px;
+  padding-top: 12px;
+  border-top: 1px solid color-mix(in srgb, var(--accent) 20%, var(--line));
+}
+
+.market-peer-section-head {
+  min-width: 0;
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+.market-peer-section-head strong {
+  color: var(--ink);
+  font-size: 12px;
+  font-weight: 950;
+}
+
+.market-peer-section-head small {
+  color: var(--muted);
+  font-size: 10px;
+  font-weight: 800;
+  text-align: right;
+}
+
+.market-peer-section-china {
+  --accent: #d71920;
+  border-top-color: color-mix(in srgb, #d71920 28%, var(--line));
 }
 
 .market-peer-card {
@@ -14369,6 +14411,19 @@ body.sidebar-collapsed .sb-ico {
   height: 72%;
   max-width: 58px;
   max-height: 18px;
+}
+
+.market-peer-monogram {
+  display: block;
+  max-width: 100%;
+  overflow: hidden;
+  color: var(--peer-brand-deep);
+  font-family: var(--display);
+  font-size: 11px;
+  line-height: 1;
+  font-weight: 950;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 }
 
 .market-peer-stock-label {
@@ -16879,6 +16934,57 @@ body.sidebar-collapsed .sb-ico {
 @media (max-width: 900px) {
   .hs-summary { grid-template-columns: repeat(2, 1fr); }
   .hs-layout { grid-template-columns: 1fr; }
+}
+
+@media (max-width: 560px) {
+  .hyperscaler-board .board-head {
+    align-items: flex-start;
+    flex-direction: column;
+  }
+
+  .hyperscaler-board .board-head > div,
+  .hyperscaler-board .board-meta {
+    width: 100%;
+    min-width: 0;
+    max-width: 100%;
+  }
+
+  .hyperscaler-board .board-head h2,
+  .hyperscaler-board .board-meta {
+    overflow-wrap: anywhere;
+    white-space: normal;
+    text-align: left;
+  }
+
+  .forecast-cat-tabs {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .forecast-cat-tabs button {
+    min-width: 0;
+    padding: 8px 9px;
+    text-align: center;
+  }
+
+  .hs-logic,
+  .hs-scenario-tabs,
+  .hs-summary,
+  .hs-grid,
+  .hs-focus-metrics {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .hs-logic-step,
+  .hs-scenario-tabs button {
+    width: 100%;
+    min-width: 0;
+  }
+
+  .hs-logic-arrow {
+    display: none;
+  }
 }
 
 /* ---------------- Agent speech highlights + name-under-icon ---------------- */

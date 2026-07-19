@@ -1,6 +1,6 @@
 {
-  "schemaVersion": "1.0",
-  "updatedAt": "2026-07-19T11:09:40.399Z",
+  "schemaVersion": "2.0",
+  "updatedAt": "2026-07-19T12:30:57.841Z",
   "timezone": "Asia/Seoul",
   "fx": {
     "usdkrw": {
@@ -13,7 +13,11 @@
       "changePct30d": -1.56,
       "changePct90d": 0.65,
       "source": "Yahoo Finance chart API",
-      "sourceUrl": "https://finance.yahoo.com/quote/KRW=X/"
+      "sourceUrl": "https://finance.yahoo.com/quote/KRW=X/",
+      "status": "live",
+      "lastSuccessAt": "2026-07-19T12:30:57.842Z",
+      "lastAttemptAt": "2026-07-19T12:30:57.842Z",
+      "failureStreak": 0
     },
     "usdtwd": {
       "id": "usdtwd",
@@ -25,7 +29,11 @@
       "changePct30d": 2.57,
       "changePct90d": 2.57,
       "source": "Yahoo Finance chart API",
-      "sourceUrl": "https://finance.yahoo.com/quote/TWD=X/"
+      "sourceUrl": "https://finance.yahoo.com/quote/TWD=X/",
+      "status": "live",
+      "lastSuccessAt": "2026-07-19T12:30:58.454Z",
+      "lastAttemptAt": "2026-07-19T12:30:58.454Z",
+      "failureStreak": 0
     }
   },
   "aiDemandProxy": {
@@ -39,7 +47,11 @@
       "changePct30d": -0.9,
       "changePct90d": 0.56,
       "source": "Yahoo Finance chart API",
-      "sourceUrl": "https://finance.yahoo.com/quote/NVDA/"
+      "sourceUrl": "https://finance.yahoo.com/quote/NVDA/",
+      "status": "live",
+      "lastSuccessAt": "2026-07-19T12:30:58.922Z",
+      "lastAttemptAt": "2026-07-19T12:30:58.922Z",
+      "failureStreak": 0
     },
     "amd": {
       "id": "amd",
@@ -51,7 +63,11 @@
       "changePct30d": -3.26,
       "changePct90d": 78.08,
       "source": "Yahoo Finance chart API",
-      "sourceUrl": "https://finance.yahoo.com/quote/AMD/"
+      "sourceUrl": "https://finance.yahoo.com/quote/AMD/",
+      "status": "live",
+      "lastSuccessAt": "2026-07-19T12:30:59.406Z",
+      "lastAttemptAt": "2026-07-19T12:30:59.406Z",
+      "failureStreak": 0
     }
   },
   "fundamentals": {
@@ -85,7 +101,11 @@
         "fp": "Q3"
       },
       "source": "SEC EDGAR companyfacts (10-Q/10-K XBRL)",
-      "sourceUrl": "https://www.sec.gov/cgi-bin/browse-edgar?action=getcompany&CIK=0000723125&type=10-Q"
+      "sourceUrl": "https://www.sec.gov/cgi-bin/browse-edgar?action=getcompany&CIK=0000723125&type=10-Q",
+      "status": "live",
+      "lastSuccessAt": "2026-07-19T12:30:59.873Z",
+      "lastAttemptAt": "2026-07-19T12:30:59.873Z",
+      "failureStreak": 0
     }
   },
   "foundry": {
@@ -98,7 +118,11 @@
       "momPct": 6.164589232380731,
       "note": "因先進製程產品需求增加所致。",
       "source": "TWSE OpenAPI 月營業收入 (official disclosure)",
-      "sourceUrl": "https://openapi.twse.com.tw/v1/opendata/t187ap05_L"
+      "sourceUrl": "https://openapi.twse.com.tw/v1/opendata/t187ap05_L",
+      "status": "live",
+      "lastSuccessAt": "2026-07-19T12:31:01.104Z",
+      "lastAttemptAt": "2026-07-19T12:31:01.104Z",
+      "failureStreak": 0
     }
   },
   "memoryMomentum": {
@@ -108,5 +132,735 @@
     "nandSpot90dPct": 32.05,
     "source": "TrendForce 공개 테이블 자체 축적 히스토리",
     "asOf": "2026-07-19"
+  },
+  "forecastInputs": {
+    "version": "1.0",
+    "categories": {
+      "hyperscaler": {
+        "units": {
+          "value": 6.5,
+          "asOf": "2026",
+          "source": "Presenc AI GPU Shipment Tracker",
+          "sourceUrl": "https://presenc.ai/research/gpu-shipment-tracker-blackwell-rubin-2026",
+          "status": "assumption"
+        },
+        "memPerUnit": {
+          "value": 210,
+          "asOf": "2026",
+          "source": "Product-mix model",
+          "sourceUrl": null,
+          "status": "model"
+        },
+        "skhyShare": {
+          "value": 55,
+          "asOf": "2026-Q1",
+          "source": "Planning assumption",
+          "sourceUrl": null,
+          "status": "model"
+        },
+        "dramYoY": {
+          "value": 15,
+          "asOf": "2026",
+          "source": "Planning assumption",
+          "sourceUrl": null,
+          "status": "model"
+        },
+        "nandYoY": {
+          "value": 18,
+          "asOf": "2026",
+          "source": "Planning assumption",
+          "sourceUrl": null,
+          "status": "model"
+        }
+      },
+      "auto": {
+        "units": {
+          "value": 93,
+          "asOf": "2026",
+          "source": "Global vehicle production outlook",
+          "sourceUrl": null,
+          "status": "reported"
+        },
+        "memPerUnit": {
+          "value": 6,
+          "asOf": "2026",
+          "source": "ADAS/IVI mix model",
+          "sourceUrl": null,
+          "status": "model"
+        },
+        "skhyShare": {
+          "value": 26,
+          "asOf": "2026",
+          "source": "Planning assumption",
+          "sourceUrl": null,
+          "status": "model"
+        },
+        "dramYoY": {
+          "value": 12,
+          "asOf": "2026",
+          "source": "Planning assumption",
+          "sourceUrl": null,
+          "status": "model"
+        },
+        "nandYoY": {
+          "value": 22,
+          "asOf": "2026",
+          "source": "Planning assumption",
+          "sourceUrl": null,
+          "status": "model"
+        }
+      },
+      "mobile": {
+        "units": {
+          "value": 1090,
+          "asOf": "2026",
+          "source": "IDC",
+          "sourceUrl": "https://www.idc.com/resource-center/blog/worldwide-smartphone-market-to-decline-13-9-in-2026-as-memory-crisis-and-us-iran-war-constrain-growth/",
+          "status": "reported"
+        },
+        "memPerUnit": {
+          "value": 9,
+          "asOf": "2026",
+          "source": "LPDDR mix model",
+          "sourceUrl": null,
+          "status": "model"
+        },
+        "skhyShare": {
+          "value": 30,
+          "asOf": "2026",
+          "source": "Planning assumption",
+          "sourceUrl": null,
+          "status": "model"
+        },
+        "dramYoY": {
+          "value": 8,
+          "asOf": "2026",
+          "source": "Planning assumption",
+          "sourceUrl": null,
+          "status": "model"
+        },
+        "nandYoY": {
+          "value": 11,
+          "asOf": "2026",
+          "source": "Planning assumption",
+          "sourceUrl": null,
+          "status": "model"
+        }
+      },
+      "pc": {
+        "units": {
+          "value": 253,
+          "asOf": "2026",
+          "source": "IDC",
+          "sourceUrl": "https://www.idc.com/wp-content/uploads/2026/04/IDC-Directions-AI-Supercycle-Whalen.pdf",
+          "status": "reported"
+        },
+        "memPerUnit": {
+          "value": 18,
+          "asOf": "2026",
+          "source": "AI PC mix model",
+          "sourceUrl": null,
+          "status": "model"
+        },
+        "skhyShare": {
+          "value": 28,
+          "asOf": "2026",
+          "source": "Planning assumption",
+          "sourceUrl": null,
+          "status": "model"
+        },
+        "dramYoY": {
+          "value": 7,
+          "asOf": "2026",
+          "source": "Planning assumption",
+          "sourceUrl": null,
+          "status": "model"
+        },
+        "nandYoY": {
+          "value": 9,
+          "asOf": "2026",
+          "source": "Planning assumption",
+          "sourceUrl": null,
+          "status": "model"
+        }
+      },
+      "datacenter": {
+        "units": {
+          "value": 16.8,
+          "asOf": "2026",
+          "source": "Frost & Sullivan via HKEX",
+          "sourceUrl": "https://www.hkexnews.hk/listedco/listconews/sehk/2026/0312/12048944/2026031200024.pdf",
+          "status": "reported"
+        },
+        "memPerUnit": {
+          "value": 480,
+          "asOf": "2026",
+          "source": "Server RDIMM mix model",
+          "sourceUrl": null,
+          "status": "model"
+        },
+        "skhyShare": {
+          "value": 24,
+          "asOf": "2026",
+          "source": "Planning assumption",
+          "sourceUrl": null,
+          "status": "model"
+        },
+        "dramYoY": {
+          "value": 16,
+          "asOf": "2026",
+          "source": "Planning assumption",
+          "sourceUrl": null,
+          "status": "model"
+        },
+        "nandYoY": {
+          "value": 28,
+          "asOf": "2026",
+          "source": "Planning assumption",
+          "sourceUrl": null,
+          "status": "model"
+        }
+      }
+    },
+    "updatedAt": "2026-07-19T12:31:01.763Z"
+  },
+  "marketStructure": {
+    "updatedAt": "2026-07-19T12:31:01.764Z",
+    "kpis": [
+      {
+        "id": "kpi-0",
+        "baselineIndex": 0,
+        "label": "2026 글로벌 반도체 시장",
+        "value": "1.5",
+        "unit": "",
+        "asOf": null,
+        "source": "WSTS",
+        "sourceUrl": "https://www.wsts.org/76/103/Global-Semiconductor-Market-Surges-Beyond-15T-2026",
+        "status": "reported"
+      },
+      {
+        "id": "kpi-1",
+        "baselineIndex": 1,
+        "label": "메모리 성장률",
+        "value": "250",
+        "unit": "",
+        "asOf": null,
+        "source": "WSTS / TrendForce",
+        "sourceUrl": "https://www.wsts.org/76/103/Global-Semiconductor-Market-Surges-Beyond-15T-2026",
+        "status": "reported"
+      },
+      {
+        "id": "kpi-2",
+        "baselineIndex": 2,
+        "label": "메모리 시장 규모",
+        "value": "889.3",
+        "unit": "",
+        "asOf": null,
+        "source": "TrendForce",
+        "sourceUrl": "https://www.trendforce.com/presscenter/news/20260529-13068.html",
+        "status": "reported"
+      },
+      {
+        "id": "kpi-3",
+        "baselineIndex": 3,
+        "label": "SKHY HBM 점유율",
+        "value": "58",
+        "unit": "",
+        "asOf": null,
+        "source": "Counterpoint Research",
+        "sourceUrl": "https://counterpointresearch.com/en/insights/global-dram-and-hbm-market-share",
+        "status": "reported"
+      },
+      {
+        "id": "kpi-4",
+        "baselineIndex": 4,
+        "label": "DRAM Top3 점유율",
+        "value": "89",
+        "unit": "",
+        "asOf": null,
+        "source": "Counterpoint Research",
+        "sourceUrl": "https://counterpointresearch.com/en/insights/global-dram-and-hbm-market-share",
+        "status": "reported"
+      },
+      {
+        "id": "kpi-5",
+        "baselineIndex": 5,
+        "label": "HBM4 Rubin 요구 속도",
+        "value": "11.7",
+        "unit": "",
+        "asOf": null,
+        "source": "SKHY / Micron IR",
+        "sourceUrl": "https://news.skhynix.com/sk-hynix-showcases-next-generation-ai-memory-innovations-at-ces-2026/",
+        "status": "reported"
+      },
+      {
+        "id": "kpi-6",
+        "baselineIndex": 6,
+        "label": "범용 DRAM CXMT 점유율",
+        "value": "8",
+        "unit": "",
+        "asOf": null,
+        "source": "Counterpoint Research",
+        "sourceUrl": "https://counterpointresearch.com/en/insights/global-dram-and-hbm-market-share",
+        "status": "reported"
+      },
+      {
+        "id": "kpi-7",
+        "baselineIndex": 7,
+        "label": "중국 메모리 가격 할인",
+        "value": "15",
+        "unit": "",
+        "asOf": null,
+        "source": "TechWire Asia / Taiwan Industry Economics Services",
+        "sourceUrl": "https://techwireasia.com/2026/04/chinese-memory-chips-ymtc-cxmt-nand-dram-expansion/",
+        "status": "watch"
+      },
+      {
+        "id": "kpi-8",
+        "baselineIndex": 8,
+        "label": "CXMT 2025 매출",
+        "value": "61.8",
+        "unit": "",
+        "asOf": null,
+        "source": "Shanghai Stock Exchange",
+        "sourceUrl": "https://english.sse.com.cn/news/newsrelease/voice/c/c_20260528_10819990.shtml",
+        "status": "reported"
+      },
+      {
+        "id": "kpi-9",
+        "baselineIndex": 9,
+        "label": "CXMT IPO 공모액",
+        "value": "579",
+        "unit": "",
+        "asOf": null,
+        "source": "Shanghai Stock Exchange",
+        "sourceUrl": "https://english.sse.com.cn/news/newsrelease/voice/c/c_20260716_10825660.shtml",
+        "status": "reported"
+      },
+      {
+        "id": "kpi-10",
+        "baselineIndex": 10,
+        "label": "CXMT DDR5 수율·원가",
+        "value": "Watch",
+        "unit": "",
+        "asOf": null,
+        "source": "TrendForce Insights / Tom's Hardware",
+        "sourceUrl": "https://www.tomshardware.com/pc-components/dram/china-made-ddr5-memory-chips-are-nearly-40-percent-larger-than-samsungs-ddr5-due-to-less-advanced-chipmaking-technology",
+        "status": "watch"
+      },
+      {
+        "id": "kpi-11",
+        "baselineIndex": 11,
+        "label": "YMTC Phase 3 국산 장비",
+        "value": "50",
+        "unit": "",
+        "asOf": null,
+        "source": "Reuters / Tom's Hardware",
+        "sourceUrl": "https://www.tomshardware.com/tech-industry/semiconductors/ymtcs-third-wuhan-fab-clears-beijings-50-percent-domestic-tooling-threshold-as-two-more-are-planned",
+        "status": "watch"
+      },
+      {
+        "id": "kpi-12",
+        "baselineIndex": 12,
+        "label": "NAND 2026 전망",
+        "value": "270.6",
+        "unit": "",
+        "asOf": null,
+        "source": "TrendForce",
+        "sourceUrl": "https://www.trendforce.com/presscenter/news/20260529-13068.html",
+        "status": "reported"
+      },
+      {
+        "id": "kpi-13",
+        "baselineIndex": 13,
+        "label": "빅펀드 3기",
+        "value": "344",
+        "unit": "",
+        "asOf": null,
+        "source": "Reuters",
+        "sourceUrl": "https://www.reuters.com/technology/china-sets-up-475-bln-state-fund-boost-semiconductor-industry-2024-05-27/",
+        "status": "reported"
+      },
+      {
+        "id": "kpi-14",
+        "baselineIndex": 14,
+        "label": "YMTC NAND 출하 점유율",
+        "value": "13",
+        "unit": "",
+        "asOf": null,
+        "source": "Counterpoint Research",
+        "sourceUrl": "https://counterpointresearch.com/en/insights/nand-revenues-record-high-q1-2026-from-ai-demand",
+        "status": "reported"
+      },
+      {
+        "id": "kpi-15",
+        "baselineIndex": 15,
+        "label": "YMTC NAND 셀 밀도",
+        "value": "12.66",
+        "unit": "",
+        "asOf": null,
+        "source": "TechInsights",
+        "sourceUrl": "https://www.techinsights.com/blog/ymtc-xtacking40-breaking-new-ground-3d-nand-technology",
+        "status": "reported"
+      },
+      {
+        "id": "kpi-16",
+        "baselineIndex": 16,
+        "label": "중국 장비 국산화율",
+        "value": "23.2",
+        "unit": "",
+        "asOf": null,
+        "source": "Yole Group",
+        "sourceUrl": "https://www.yolegroup.com/press-release/chinas-semiconductor-equipment-localization-enters-a-new-growth-phase/",
+        "status": "watch"
+      },
+      {
+        "id": "kpi-17",
+        "baselineIndex": 17,
+        "label": "CXMT R&D 인력",
+        "value": "4653",
+        "unit": "",
+        "asOf": null,
+        "source": "CXMT IPO prospectus context (Watch)",
+        "sourceUrl": "https://english.sse.com.cn/news/newsrelease/voice/c/c_20260528_10819990.shtml",
+        "status": "watch"
+      }
+    ],
+    "companies": [
+      {
+        "company": "SKHY",
+        "hbmShare": "58%",
+        "dramShare2025": "36%",
+        "dramShare2026": "29%",
+        "nandShare2026": "18%",
+        "asOf": null,
+        "source": "baseline evidence layer"
+      },
+      {
+        "company": "삼성전자",
+        "hbmShare": "21%",
+        "dramShare2025": "34%",
+        "dramShare2026": "38%",
+        "nandShare2026": "29%",
+        "asOf": null,
+        "source": "baseline evidence layer"
+      },
+      {
+        "company": "마이크론",
+        "hbmShare": "21%",
+        "dramShare2025": "25%",
+        "dramShare2026": "22%",
+        "nandShare2026": "13%",
+        "asOf": null,
+        "source": "baseline evidence layer"
+      },
+      {
+        "company": "CXMT",
+        "hbmShare": "0%",
+        "dramShare2025": "3%",
+        "dramShare2026": "8%",
+        "nandShare2026": "-",
+        "asOf": null,
+        "source": "baseline evidence layer"
+      },
+      {
+        "company": "YMTC",
+        "hbmShare": "0%",
+        "dramShare2025": "-",
+        "dramShare2026": "-",
+        "nandShare2026": "13%",
+        "asOf": null,
+        "source": "baseline evidence layer"
+      }
+    ]
+  },
+  "scenarioCalibration": {
+    "updatedAt": "2026-07-19T12:31:01.764Z",
+    "method": "bounded-ewma-v1",
+    "smoothingAlpha": 0.22,
+    "strength": 30,
+    "drivers": {
+      "priceMomentum": 30.52,
+      "aiMarketMomentum": 39.32,
+      "tsmcRevenueYoY": 67.87,
+      "chinaPressure": 100,
+      "authorityEvidence": 6,
+      "chinaEvidence": 73
+    },
+    "scenarios": {
+      "bear": {
+        "unitsMul": 0.8629,
+        "memMul": 0.9333,
+        "shareMul": 0.92,
+        "demandMul": 0.6
+      },
+      "base": {
+        "unitsMul": 1.03,
+        "memMul": 1.025,
+        "shareMul": 0.98,
+        "demandMul": 1.06
+      },
+      "bull": {
+        "unitsMul": 1.28,
+        "memMul": 1.1829,
+        "shareMul": 1.015,
+        "demandMul": 1.6164
+      }
+    }
+  },
+  "projectionCalibration": {
+    "updatedAt": "2026-07-19T12:31:01.764Z",
+    "method": "bounded-ewma-v1",
+    "caseWeights": {
+      "ai-server": {
+        "neutral": 0.369,
+        "best": 7.3176,
+        "worst": -5.6402,
+        "signal": 0.95,
+        "price": 0.42,
+        "china": -0.3
+      },
+      "dc-storage": {
+        "neutral": 0.1624,
+        "best": 4.0176,
+        "worst": -3.1402,
+        "signal": 0.58,
+        "price": 0.36,
+        "china": -0.55
+      },
+      "mobile-smartphone": {
+        "neutral": -0.121,
+        "best": -1.733,
+        "worst": 2.2406,
+        "signal": 0.18,
+        "price": 0.18,
+        "china": 0.46
+      },
+      "pc-appliance": {
+        "neutral": -0.2368,
+        "best": -2.5506,
+        "worst": 3.0688,
+        "signal": 0.16,
+        "price": 0.2,
+        "china": 0.62
+      },
+      "auto-edge": {
+        "neutral": 0.08,
+        "best": 1.2044,
+        "worst": 1.2808,
+        "signal": 0.22,
+        "price": 0.14,
+        "china": 0.12
+      }
+    },
+    "scenarios": {
+      "neutral": {
+        "scoreBias": 1.08,
+        "serverLift": 0.3815,
+        "storageLift": 0.2671,
+        "terminalLift": -0.4
+      },
+      "best": {
+        "scoreBias": 8.526,
+        "serverLift": 4.9919,
+        "storageLift": 3.063,
+        "terminalLift": -0.7
+      },
+      "worst": {
+        "scoreBias": -11,
+        "serverLift": -5.2,
+        "storageLift": -3.7,
+        "terminalLift": 3.8
+      }
+    }
+  },
+  "sourceHealth": {
+    "updatedAt": "2026-07-19T12:31:01.765Z",
+    "ok": 17,
+    "total": 17,
+    "failed": [],
+    "alerts": [],
+    "sources": {
+      "주가": {
+        "id": "주가",
+        "ok": true,
+        "attempts": 3,
+        "errors": [],
+        "failureStreak": 0,
+        "lastAttemptAt": "2026-07-19T12:31:01.765Z",
+        "lastSuccessAt": "2026-07-19T12:31:01.765Z",
+        "alert": false
+      },
+      "가격": {
+        "id": "가격",
+        "ok": true,
+        "attempts": 2,
+        "errors": [],
+        "failureStreak": 0,
+        "lastAttemptAt": "2026-07-19T12:31:01.765Z",
+        "lastSuccessAt": "2026-07-19T12:31:01.765Z",
+        "alert": false
+      },
+      "경쟁사": {
+        "id": "경쟁사",
+        "ok": true,
+        "attempts": 5,
+        "errors": [],
+        "failureStreak": 0,
+        "lastAttemptAt": "2026-07-19T12:31:01.765Z",
+        "lastSuccessAt": "2026-07-19T12:31:01.765Z",
+        "alert": false
+      },
+      "스타트업": {
+        "id": "스타트업",
+        "ok": true,
+        "attempts": 3,
+        "errors": [],
+        "failureStreak": 0,
+        "lastAttemptAt": "2026-07-19T12:31:01.765Z",
+        "lastSuccessAt": "2026-07-19T12:31:01.765Z",
+        "alert": false
+      },
+      "중국Fab인프라": {
+        "id": "중국Fab인프라",
+        "ok": true,
+        "attempts": 2,
+        "errors": [],
+        "failureStreak": 0,
+        "lastAttemptAt": "2026-07-19T12:31:01.765Z",
+        "lastSuccessAt": "2026-07-19T12:31:01.765Z",
+        "alert": false
+      },
+      "벤치마킹": {
+        "id": "벤치마킹",
+        "ok": true,
+        "attempts": 6,
+        "errors": [],
+        "failureStreak": 0,
+        "lastAttemptAt": "2026-07-19T12:31:01.765Z",
+        "lastSuccessAt": "2026-07-19T12:31:01.765Z",
+        "alert": false
+      },
+      "뉴스": {
+        "id": "뉴스",
+        "ok": true,
+        "attempts": 24,
+        "errors": [],
+        "failureStreak": 0,
+        "lastAttemptAt": "2026-07-19T12:31:01.765Z",
+        "lastSuccessAt": "2026-07-19T12:31:01.765Z",
+        "alert": false
+      },
+      "중국현장신호": {
+        "id": "중국현장신호",
+        "ok": true,
+        "attempts": 1,
+        "errors": [],
+        "failureStreak": 0,
+        "lastAttemptAt": "2026-07-19T12:31:01.765Z",
+        "lastSuccessAt": "2026-07-19T12:31:01.765Z",
+        "alert": false
+      },
+      "뉴스원문요약": {
+        "id": "뉴스원문요약",
+        "ok": true,
+        "attempts": 1,
+        "errors": [],
+        "failureStreak": 0,
+        "lastAttemptAt": "2026-07-19T12:31:01.765Z",
+        "lastSuccessAt": "2026-07-19T12:31:01.765Z",
+        "alert": false
+      },
+      "가격히스토리": {
+        "id": "가격히스토리",
+        "ok": true,
+        "attempts": 1,
+        "errors": [],
+        "failureStreak": 0,
+        "lastAttemptAt": "2026-07-19T12:31:01.765Z",
+        "lastSuccessAt": "2026-07-19T12:31:01.765Z",
+        "alert": false
+      },
+      "TrendForce차트": {
+        "id": "TrendForce차트",
+        "ok": true,
+        "attempts": 1,
+        "errors": [],
+        "failureStreak": 0,
+        "lastAttemptAt": "2026-07-19T12:31:01.765Z",
+        "lastSuccessAt": "2026-07-19T12:31:01.765Z",
+        "alert": false
+      },
+      "가격백필": {
+        "id": "가격백필",
+        "ok": true,
+        "attempts": 6,
+        "errors": [],
+        "failureStreak": 0,
+        "lastAttemptAt": "2026-07-19T12:31:01.765Z",
+        "lastSuccessAt": "2026-07-19T12:31:01.765Z",
+        "alert": false
+      },
+      "market": {
+        "id": "market",
+        "ok": true,
+        "attempts": 14,
+        "errors": [],
+        "failureStreak": 0,
+        "lastAttemptAt": "2026-07-19T12:31:01.765Z",
+        "lastSuccessAt": "2026-07-19T12:31:01.765Z",
+        "alert": false
+      },
+      "뉴스증거게이트": {
+        "id": "뉴스증거게이트",
+        "ok": true,
+        "attempts": 1,
+        "errors": [],
+        "failureStreak": 0,
+        "lastAttemptAt": "2026-07-19T12:31:01.765Z",
+        "lastSuccessAt": "2026-07-19T12:31:01.765Z",
+        "alert": false
+      },
+      "번역": {
+        "id": "번역",
+        "ok": true,
+        "attempts": 1,
+        "errors": [],
+        "failureStreak": 0,
+        "lastAttemptAt": "2026-07-19T12:31:01.765Z",
+        "lastSuccessAt": "2026-07-19T12:31:01.765Z",
+        "alert": false
+      },
+      "증권사 리서치": {
+        "id": "증권사 리서치",
+        "ok": true,
+        "attempts": 1,
+        "errors": [],
+        "failureStreak": 0,
+        "lastAttemptAt": "2026-07-19T12:31:01.765Z",
+        "lastSuccessAt": "2026-07-19T12:31:01.765Z",
+        "alert": false
+      },
+      "quant": {
+        "id": "quant",
+        "ok": true,
+        "attempts": 6,
+        "errors": [],
+        "failureStreak": 0,
+        "lastAttemptAt": "2026-07-19T12:31:01.765Z",
+        "lastSuccessAt": "2026-07-19T12:31:01.765Z",
+        "alert": false
+      }
+    }
+  },
+  "historyCoverage": {
+    "updatedAt": "2026-07-19T12:31:01.765Z",
+    "priceSeries": 41,
+    "pricePoints": 443,
+    "marketSeries": 13,
+    "marketPoints": 14137,
+    "metricSeries": 30,
+    "metricPoints": 30,
+    "disclaimer": "Public observations only; unavailable historical observations are never interpolated or fabricated."
   }
 }
