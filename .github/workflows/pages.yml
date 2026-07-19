@@ -7,6 +7,8 @@ on:
       - "data/live.json"
       - "data/price-history.json"
       - "data/market-history.json"
+      - "data/crawl-audit.json"
+      - "data/crawl-quarantine.json"
   schedule:
     # Refresh foreign/China news, public China community/hiring signals,
     # TrendForce prices, and memory peer data twice a day: 06:00 and 18:00 KST.
@@ -52,7 +54,7 @@ jobs:
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add data/live.json data/price-history.json data/market-history.json
+          git add data/live.json data/price-history.json data/market-history.json data/crawl-audit.json data/crawl-quarantine.json
           if git diff --cached --quiet; then
             echo "No data changes to commit."
           else

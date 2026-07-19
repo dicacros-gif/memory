@@ -17,6 +17,9 @@ const textFiles = [
   "data/baseline.json",
   "data/live.json",
   "data/price-history.json",
+  "data/market-history.json",
+  "data/crawl-audit.json",
+  "data/crawl-quarantine.json",
   "data/crawl-exclusions.json",
 ];
 
@@ -178,9 +181,17 @@ for (const [key, item] of Object.entries(priceHistory.items || {})) {
 }
 
 const live = JSON.parse(await readFile(resolve(root, "data/live.json"), "utf8"));
+const crawlAudit = JSON.parse(await readFile(resolve(root, "data/crawl-audit.json"), "utf8"));
+const crawlQuarantine = JSON.parse(await readFile(resolve(root, "data/crawl-quarantine.json"), "utf8"));
 const quality = live.quality || {};
-if (live.schemaVersion !== "3.0") {
+if (live.schemaVersion !== "4.0") {
   addIssue("error", "data/live.json", "live schemaVersion is not current", String(live.schemaVersion || "missing"));
+}
+if (!String(live.runId || "").trim()) {
+  addIssue("error", "data/live.json", "live runId is missing");
+}
+if (quality.methodologyVersion !== "4.0-source-provenance") {
+  addIssue("error", "data/live.json", "live methodologyVersion is not current", String(quality.methodologyVersion || "missing"));
 }
 if (quality.status !== "verified") {
   addIssue("error", "data/live.json", "crawl quality gate did not verify the payload", String(quality.status || "missing"));
@@ -272,15 +283,41 @@ for (const item of news) {
     if (newsUrlKeys.has(canonicalUrl)) addIssue("error", "data/live.json", "duplicate canonical news URL", sourceUrl);
     newsUrlKeys.add(canonicalUrl);
   }
+  const verification = item.verification || {};
+  if (verification.status !== "promoted" || !verification.id || !verification.canonicalUrl) {
+    addIssue("error", "data/live.json", "news item lacks promoted provenance", item.title || sourceUrl || "unknown");
+  }
+  const verificationChecks = Object.values(verification.checks || {});
+  if (verificationChecks.length < 8 || verificationChecks.some((passed) => !passed)) {
+    addIssue("error", "data/live.json", "news item has incomplete provenance checks", verification.id || item.title || "unknown");
+  }
+  if (!["official", "research", "authoritative-media", "general-media"].includes(String(verification.sourceClass || ""))) {
+    addIssue("error", "data/live.json", "news item has invalid source class", `${verification.id || "unknown"}:${verification.sourceClass || "missing"}`);
+  }
 }
 if (news.length && (!languageCounts.english || !languageCounts.chinese)) {
   addIssue("error", "data/live.json", "one article language stream is empty", JSON.stringify(languageCounts));
 }
-if (news.length && summarizedNews.length / news.length < 0.55) {
-  addIssue("error", "data/live.json", "fewer than 55% of news items have article-specific summaries", `${summarizedNews.length}/${news.length}`);
+if (news.length && summarizedNews.length !== news.length) {
+  addIssue("error", "data/live.json", "not every promoted news item has an article-specific summary", `${summarizedNews.length}/${news.length}`);
 }
-if (news.length && directNews.length / news.length < 0.9) {
-  addIssue("error", "data/live.json", "fewer than 90% of news items resolve to direct source URLs", `${directNews.length}/${news.length}`);
+if (news.length && directNews.length !== news.length) {
+  addIssue("error", "data/live.json", "not every promoted news item resolves to a direct source URL", `${directNews.length}/${news.length}`);
+}
+
+const evidenceItems = Array.isArray(live.evidence?.items) ? live.evidence.items : [];
+if (live.evidence?.methodologyVersion !== "4.0-source-provenance") {
+  addIssue("error", "data/live.json", "evidence ledger methodology is not current", String(live.evidence?.methodologyVersion || "missing"));
+}
+if (Number(live.evidence?.promotedCount) !== news.length || evidenceItems.length !== news.length) {
+  addIssue("error", "data/live.json", "evidence ledger count does not match promoted news", `${live.evidence?.promotedCount}/${evidenceItems.length}/${news.length}`);
+}
+const evidenceIds = new Set(evidenceItems.map((item) => item.id).filter(Boolean));
+const promotedNewsById = new Map(news.map((item) => [item.verification?.id, item]));
+for (const item of news) {
+  if (!evidenceIds.has(item.verification?.id)) {
+    addIssue("error", "data/live.json", "promoted news is missing from evidence ledger", item.verification?.id || item.title || "unknown");
+  }
 }
 
 const brokerResearch = live.brokerResearch || null;
@@ -521,11 +558,21 @@ for (const brief of briefs) {
   if (!["공식", "외신", "분석", "내부추정"].includes(String(brief.latest?.sourceType || ""))) {
     addIssue("error", "data/live.json", "intelligence brief has an invalid source type", `${brief.id || "unknown"}:${brief.latest?.sourceType || "missing"}`);
   }
-  if (!["Confirmed", "Watch", "Inferred", "Stale"].includes(String(brief.latest?.evidenceLevel || ""))) {
+  if (!["Confirmed", "Reported", "Watch", "Inferred", "Stale"].includes(String(brief.latest?.evidenceLevel || ""))) {
     addIssue("error", "data/live.json", "intelligence brief has an invalid evidence level", `${brief.id || "unknown"}:${brief.latest?.evidenceLevel || "missing"}`);
   }
   if (!String(brief.decision || "").trim() || !String(brief.reversalKpi || "").trim()) {
     addIssue("error", "data/live.json", "intelligence brief lacks decision or reversal KPI", brief.id || "unknown");
+  }
+  if (!String(brief.latest?.provenanceId || "").trim() || !evidenceIds.has(brief.latest?.provenanceId)) {
+    addIssue("error", "data/live.json", "intelligence brief does not resolve to promoted evidence", brief.id || "unknown");
+  }
+  if (!["official", "research", "authoritative-media"].includes(String(brief.latest?.sourceClass || ""))) {
+    addIssue("error", "data/live.json", "intelligence brief uses a non-authoritative source class", `${brief.id || "unknown"}:${brief.latest?.sourceClass || "missing"}`);
+  }
+  const provenanceNews = promotedNewsById.get(brief.latest?.provenanceId);
+  if (brief.latest?.evidenceLevel === "Confirmed" && !provenanceNews?.verification?.observedThisRun) {
+    addIssue("error", "data/live.json", "Confirmed brief was not observed from source metadata in this run", brief.id || "unknown");
   }
   if (String(brief.latest?.language || "").toLowerCase() === "chinese" && brief.latest?.evidenceLevel === "Confirmed") {
     addIssue("error", "data/live.json", "Chinese-only article was promoted to Confirmed evidence", brief.id || "unknown");
@@ -553,6 +600,9 @@ const expectedQualityMetrics = {
   duplicateCount: 0,
   communitySignals: communityItems.length,
   decisionBriefs: briefs.length,
+  provenanceCoverage: 1,
+  currentNews: news.filter((item) => item.verification?.freshness === "current").length,
+  quarantinedNews: crawlQuarantine.total,
   marketIndexes: Object.values(live.marketHistory?.indexes || {}).filter((item) => Number(item?.latest?.close ?? item?.latest?.value) > 0).length,
   peerStocks: stocks.filter(([, stock]) => Number(stock.latestClose) > 0).length,
   ...(brokerResearch ? {
@@ -565,11 +615,47 @@ for (const [metric, expected] of Object.entries(expectedQualityMetrics)) {
     addIssue("error", "data/live.json", "crawl quality metric does not match payload", `${metric}: ${qualityMetrics[metric]} != ${expected}`);
   }
 }
-if (Number(qualityMetrics.directSourceRatio) < 0.9 || Number(qualityMetrics.summaryRatio) < 0.55) {
+if (Number(qualityMetrics.directSourceRatio) !== 1 || Number(qualityMetrics.summaryRatio) !== 1 || Number(qualityMetrics.provenanceCoverage) !== 1) {
   addIssue("error", "data/live.json", "crawl quality ratios are below deployment thresholds", JSON.stringify({
     directSourceRatio: qualityMetrics.directSourceRatio,
     summaryRatio: qualityMetrics.summaryRatio,
+    provenanceCoverage: qualityMetrics.provenanceCoverage,
   }));
+}
+
+if (crawlAudit.runId !== live.runId || crawlQuarantine.runId !== live.runId) {
+  addIssue("error", "data/crawl-audit.json", "generated artifacts do not share the verified live runId", `${crawlAudit.runId}/${crawlQuarantine.runId}/${live.runId}`);
+}
+if (crawlAudit.status !== "verified" || crawlAudit.methodologyVersion !== "4.0-source-provenance") {
+  addIssue("error", "data/crawl-audit.json", "crawl audit is not a verified current-methodology run", `${crawlAudit.status}/${crawlAudit.methodologyVersion}`);
+}
+if (Number(crawlAudit.promoted?.news) !== news.length || Number(crawlAudit.quarantined?.news) !== Number(crawlQuarantine.total)) {
+  addIssue("error", "data/crawl-audit.json", "crawl audit counts do not match generated data", JSON.stringify({
+    promoted: crawlAudit.promoted?.news,
+    news: news.length,
+    quarantined: crawlAudit.quarantined?.news,
+    quarantineFile: crawlQuarantine.total,
+  }));
+}
+if (!Array.isArray(crawlQuarantine.items) || Number(crawlQuarantine.total) !== crawlQuarantine.items.length) {
+  addIssue("error", "data/crawl-quarantine.json", "quarantine total does not match metadata items", `${crawlQuarantine.total}/${crawlQuarantine.items?.length}`);
+}
+const promotedCanonicalUrls = new Set(news.map((item) => item.verification?.canonicalUrl).filter(Boolean));
+for (const item of crawlQuarantine.items || []) {
+  if (!Array.isArray(item.reasons) || !item.reasons.length) {
+    addIssue("error", "data/crawl-quarantine.json", "quarantined item has no rejection reason", item.id || item.title || "unknown");
+  }
+  if (item.canonicalUrl && promotedCanonicalUrls.has(item.canonicalUrl)) {
+    addIssue("error", "data/crawl-quarantine.json", "same canonical URL appears in promoted and quarantined data", item.canonicalUrl);
+  }
+  for (const forbidden of ["summary", "summaryOriginal", "body", "content", "author", "username", "userId"]) {
+    if (Object.prototype.hasOwnProperty.call(item, forbidden)) {
+      addIssue("error", "data/crawl-quarantine.json", "quarantine retains prohibited content or identity field", `${item.id || "unknown"}:${forbidden}`);
+    }
+  }
+}
+if (priceHistory.runId !== live.runId || marketHistory.runId !== live.runId) {
+  addIssue("error", "data/live.json", "history artifacts do not share the verified live runId", `${priceHistory.runId}/${marketHistory.runId}/${live.runId}`);
 }
 
 const errors = checks.filter((item) => item.level === "error");

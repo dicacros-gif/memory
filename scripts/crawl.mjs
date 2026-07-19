@@ -7,6 +7,7 @@
  * Node 18+ only; no external dependencies.
  */
 import { readFile, writeFile, mkdir, rename, rm } from "node:fs/promises";
+import { createHash } from "node:crypto";
 import { dirname, resolve } from "node:path";
 import { fileURLToPath } from "node:url";
 
@@ -15,6 +16,10 @@ const OUT = resolve(__dirname, "..", "data", "live.json");
 const HISTORY_OUT = resolve(__dirname, "..", "data", "price-history.json");
 const MARKET_HISTORY_OUT = resolve(__dirname, "..", "data", "market-history.json");
 const CRAWL_EXCLUSIONS_OUT = resolve(__dirname, "..", "data", "crawl-exclusions.json");
+const CRAWL_AUDIT_OUT = resolve(__dirname, "..", "data", "crawl-audit.json");
+const CRAWL_QUARANTINE_OUT = resolve(__dirname, "..", "data", "crawl-quarantine.json");
+const LIVE_SCHEMA_VERSION = "4.0";
+const EVIDENCE_METHODOLOGY_VERSION = "4.0-source-provenance";
 const TRENDFORCE_ORIGIN = "https://www.trendforce.com";
 const PRICE_HISTORY_LOOKBACK_DAYS = 365 * 5;
 const PRICE_HISTORY_RETENTION_POINTS = 365 * 5 + 60;
@@ -42,20 +47,6 @@ function fetchSignal() {
 
 const sleep = (ms) => new Promise((resolveSleep) => setTimeout(resolveSleep, ms));
 let crawlExclusionKeys = new Set();
-
-async function writeJsonSafely(path, value) {
-  await mkdir(dirname(path), { recursive: true });
-  const body = `${JSON.stringify(value, null, 2)}\n`;
-  const temporary = `${path}.${process.pid}.${Date.now()}.tmp`;
-  await writeFile(temporary, body, { encoding: "utf8" });
-  try {
-    await rename(temporary, path);
-  } catch (error) {
-    if (!["EEXIST", "EPERM", "EACCES"].includes(error?.code)) throw error;
-    await writeFile(path, body, { encoding: "utf8" });
-    await rm(temporary, { force: true });
-  }
-}
 
 function normalizeCrawlExclusionUrl(value = "") {
   const raw = String(value || "").trim();
@@ -2205,8 +2196,7 @@ async function updatePriceHistory(prices) {
 
   if (changed) {
     history.updatedAt = crawledAt;
-    await writeJsonSafely(HISTORY_OUT, history);
-    note("가격히스토리", true, "신규 포인트 저장");
+    note("가격히스토리", true, "신규 포인트 검증 대기");
   } else {
     note("가격히스토리", true, "변경 없음");
   }
@@ -2451,10 +2441,7 @@ async function updateMarketHistory() {
     await sleep(350);
   }
 
-  if (changed) {
-    history.updatedAt = crawledAt;
-    await writeJsonSafely(MARKET_HISTORY_OUT, history);
-  }
+  if (changed) history.updatedAt = crawledAt;
 
   return history;
 }
@@ -2991,6 +2978,33 @@ async function collectNews(previousNews = []) {
     newsStats: newsStats(latestNews),
     allNews: all,
   };
+}
+
+async function writeVerifiedBundle(entries = []) {
+  const staged = [];
+  try {
+    for (const [path, value] of entries) {
+      await mkdir(dirname(path), { recursive: true });
+      const temporary = `${path}.${process.pid}.${Date.now()}.${staged.length}.tmp`;
+      await writeFile(temporary, `${JSON.stringify(value, null, 2)}\n`, { encoding: "utf8" });
+      staged.push({ path, temporary });
+    }
+    // live.json is the public commit marker and is promoted last.
+    staged.sort((a, b) => Number(a.path === OUT) - Number(b.path === OUT));
+    for (const entry of staged) {
+      try {
+        await rename(entry.temporary, entry.path);
+      } catch (error) {
+        if (!["EEXIST", "EPERM", "EACCES"].includes(error?.code)) throw error;
+        const body = await readFile(entry.temporary, "utf8");
+        await writeFile(entry.path, body, { encoding: "utf8" });
+        await rm(entry.temporary, { force: true });
+      }
+    }
+  } catch (error) {
+    await Promise.all(staged.map(({ temporary }) => rm(temporary, { force: true })));
+    throw error;
+  }
 }
 
 const BROKER_OFFICIAL_DOMAINS = {
@@ -3967,10 +3981,15 @@ function intelligenceSource(item = {}) {
   const companyView = /\badata\b/i.test(content);
   const estimated = ESTIMATE_RE.test(content);
   const chineseOnly = String(item.language || "").toLowerCase() === "chinese";
+  const observedThisRun = wasSourceObservedThisRun(item);
   return {
     sourceType: chineseOnly ? "중국어 보도" : isOfficial ? "공식" : isMedia ? "외신" : isAnalysis ? "분석" : "내부추정",
     claimType: companyView ? "업체전망" : estimated ? "전망·추정" : "사실",
-    evidenceLevel: !chineseOnly && url && (isOfficial || isMedia || isAnalysis) && !estimated && !companyView ? "Confirmed" : "Watch",
+    evidenceLevel: !chineseOnly && url && isOfficial && observedThisRun && !estimated && !companyView
+      ? "Confirmed"
+      : !chineseOnly && url && (isMedia || isAnalysis) && !estimated && !companyView
+        ? "Reported"
+        : "Watch",
     sourceScore: chineseOnly ? (url ? 2 : 0) : isOfficial ? 5 : isMedia ? 4 : isAnalysis ? 4 : url ? 2 : 0,
   };
 }
@@ -4040,31 +4059,6 @@ function priceEvidenceForTopic(rows, topic) {
 }
 
 function compactArticleSummary(item = {}) {
-  const hay = `${item.title || ""} ${item.titleKo || ""} ${item.summary || item.summaryOriginal || ""}`.toLowerCase();
-  if (/cxmt|changxin/.test(hay) && /(?:8\.5|8\.54|57\.9).{0,24}(?:bn|billion|달러|위안)|largest chinese chip ipo/.test(hay)) {
-    return "Nikkei Asia와 Reuters는 CXMT의 확정 공모 규모가 579억 위안(약 $8.5B)이라고 보도했습니다. 초기 계획액 295억 위안과 최종 공모액을 분리해 봐야 합니다.";
-  }
-  if (/(?:ymtc|yangtze).{0,80}(?:xmc|wuhan xinxin)|(?:xmc|wuhan xinxin).{0,80}(?:ymtc|yangtze)/.test(hay) && /(?:39%|39 percent|stake|지분|control)/.test(hay)) {
-    return "Caixin Global은 YMTC가 XMC 지분 39%를 매각해 보유율을 68.2%에서 29.2%로 낮추는 거래를 보도했습니다. 완전한 지분 exit가 아니라 지배권 이전이며, 거래 종결과 이사회 구성이 확인될 때까지 Watch로 관리합니다.";
-  }
-  if (/rubin/.test(hay) && /(?:29%|29 percent)/.test(hay) && /(?:22%|22 percent)/.test(hay)) {
-    return "TrendForce는 2026년 NVIDIA 고급 GPU 출하에서 Rubin 비중 전망을 29%에서 22%로 낮췄습니다. 공급사별 HBM4 배분과는 다른 제품 믹스 전망입니다.";
-  }
-  if (/\bubs\b/.test(hay) && /(dram|ddr)/.test(hay) && /nand/.test(hay) && /(32|30)/.test(hay)) {
-    return "UBS의 3Q26 DRAM +32%, NAND +30% 전망은 TrendForce 기준선보다 높은 애널리스트 상방 시나리오입니다. 실제 contract 가격과 전제를 분리해 추적합니다.";
-  }
-  if (/lenovo/.test(hay) && /ymtc/.test(hay) && /(?:outside china|overseas|shipping|notebook|laptop)/.test(hay)) {
-    return "DigiTimes는 중국 외 지역에서 판매되는 Lenovo 노트북 일부에 YMTC SSD가 탑재됐다고 보도했습니다. 중국 NAND의 해외 OEM 채택이 확인된 사례입니다.";
-  }
-  if (/sk hynix|skhy/.test(hay) && /(?:memory shortage|worst year)/.test(hay) && /2030/.test(hay)) {
-    return "SKHY 경영진은 메모리 공급 부족이 2027년에 가장 심해지고 2030년까지 이어질 수 있다고 전망했습니다. 이는 회사 전망이므로 수요·캐파 실측과 분리해 봐야 합니다.";
-  }
-  if (/\badata\b/.test(hay) && /(dram|nand)/.test(hay) && /(20|30|35|40)/.test(hay)) {
-    return "ADATA 경영진의 3Q26 체감 전망은 DRAM +20~30%, NAND +35~40%이며, TrendForce 공식 시장 전망(DRAM +13~18%, NAND +10~15%)과 분리해 상방 시나리오로만 봅니다.";
-  }
-  if (/hbm/.test(hay) && /2027/.test(hay) && /(double|2배|4~5|4-5)/.test(hay)) {
-    return "Digitimes의 가격 상승 전망은 전체 HBM이 아니라 HBM4 기준이며, 2026년 하반기 약 $2/Gb에서 2027년 $4~5/Gb 이상 가능성을 제시한 업계 추정입니다.";
-  }
   const value = cleanKoNewsText(item.summary || item.summaryOriginal || "");
   if (!value) return "";
   if (/중국 최대의 삼성전자/.test(value)) return "";
@@ -4090,24 +4084,7 @@ function intelligenceTitle(item = {}) {
 function buildIntelligence({ news = [], prices = {}, stats = {}, chinaInfra = {} }) {
   const generatedAt = new Date().toISOString();
   const priceRows = intelligencePriceRows(prices);
-  const policyFallbacks = (chinaInfra.sources || [])
-    .filter((source) => source.ok && /bis|veu|export/i.test(`${source.id || ""} ${source.label || ""}`) && /^https?:\/\//i.test(source.url || ""))
-    .map((source) => {
-      const summary = source.id === "bis-veu"
-        ? "BIS는 기존 VEU 참여사가 중국 내 기존 팹을 운영하기 위한 수출 라이선스 신청은 허용할 의향이 있지만, 캐파 확대나 기술 업그레이드 목적의 라이선스는 허용하지 않겠다고 밝혔습니다."
-        : source.excerpt || "";
-      return {
-        title: `${source.label} official update`,
-        titleKo: `${source.label} 공식 원문 업데이트`,
-        summaryOriginal: summary,
-        summary,
-        source: "U.S. BIS",
-        sourceUrl: source.url,
-        date: source.publishedAt || String(source.crawledAt || generatedAt).slice(0, 10),
-        category: "policy",
-      };
-    });
-  const newsCandidates = news.concat(policyFallbacks);
+  const newsCandidates = news;
   const directItems = news.filter((item) => directNewsUrl(item));
   const summarized = news.filter((item) => String(item.summary || item.summaryOriginal || "").trim());
   const briefs = INTELLIGENCE_TOPICS.map((topic) => {
@@ -4141,6 +4118,8 @@ function buildIntelligence({ news = [], prices = {}, stats = {}, chinaInfra = {}
         sourceType: sourceMeta.sourceType,
         claimType: sourceMeta.claimType,
         evidenceLevel: sourceMeta.evidenceLevel,
+        provenanceId: top.verification?.id || null,
+        sourceClass: top.verification?.sourceClass || newsSourceClass(top),
       },
       price,
       insight: [compactArticleSummary(top), priceSentence].filter(Boolean).join(" "),
@@ -4153,7 +4132,7 @@ function buildIntelligence({ news = [], prices = {}, stats = {}, chinaInfra = {}
   const validationStatus = briefs.length >= 4 && priceRows.length > 0 && directSourceRatio >= 0.5 ? "OK" : "Watch";
   return {
     generatedAt,
-    methodologyVersion: "2.0-evidence-gated",
+    methodologyVersion: EVIDENCE_METHODOLOGY_VERSION,
     validation: {
       status: validationStatus,
       newsItems: Number(stats.total || news.length),
@@ -4189,6 +4168,191 @@ function qualityCanonicalUrl(item = {}) {
   }
 }
 
+function evidenceId(value = "") {
+  return createHash("sha256").update(String(value || "")).digest("hex").slice(0, 20);
+}
+
+function newsSourceClass(item = {}) {
+  const sourceText = `${item.source || ""} ${directNewsUrl(item)}`;
+  if (OFFICIAL_SOURCE_RE.test(sourceText)
+    || /(?:news\.samsung\.com|news\.skhynix\.com|investors\.micron\.com|sandisk\.com\/company\/newsroom|english\.sse\.com\.cn)/i.test(sourceText)) {
+    return "official";
+  }
+  if (ANALYSIS_SOURCE_RE.test(sourceText)) return "research";
+  if (AUTHORITATIVE_MEDIA_RE.test(sourceText)) return "authoritative-media";
+  return "general-media";
+}
+
+function newsEvidenceOrigin(item = {}) {
+  if (item.preservedSeed) return "curated-seed";
+  if (item.continuityFallback) return "previous-verified-run";
+  return "live-crawl";
+}
+
+function wasSourceObservedThisRun(item = {}) {
+  return newsEvidenceOrigin(item) === "live-crawl" && item.summarySource === "source-meta";
+}
+
+function validateNewsEvidence(items = [], validatedAt = new Date().toISOString()) {
+  const promoted = [];
+  const quarantined = [];
+  const seen = new Set();
+  const now = new Date(validatedAt).getTime();
+  const maxAgeMs = 365 * 5 * 864e5;
+
+  for (const item of items) {
+    const sourceUrl = directNewsUrl(item);
+    const canonicalUrl = qualityCanonicalUrl(item);
+    const language = verifiedNewsLanguage(item);
+    const summary = String(item.summaryOriginal || item.summary || "").replace(/\s+/g, " ").trim();
+    const publishedAt = new Date(item.date || item.publishedAt || 0).getTime();
+    const reasons = [];
+
+    if (!sourceUrl || /news\.google\.com/i.test(sourceUrl)) reasons.push("direct_source_missing");
+    if (!canonicalUrl) reasons.push("canonical_url_missing");
+    if (!language) reasons.push("language_unverified");
+    if (summary.length < 20 || !isCompleteArticleSummary(summary)) reasons.push("source_summary_missing");
+    if (!Number.isFinite(publishedAt) || publishedAt <= 0) reasons.push("published_date_invalid");
+    if (Number.isFinite(publishedAt) && publishedAt > now + 48 * 3600e3) reasons.push("published_date_future");
+    if (Number.isFinite(publishedAt) && now - publishedAt > maxAgeMs) reasons.push("published_date_outside_retention");
+    if (canonicalUrl && seen.has(canonicalUrl)) reasons.push("canonical_duplicate");
+    if (isCrawlerExcluded("news", item)) reasons.push("moderation_excluded");
+
+    const id = evidenceId(canonicalUrl || `${item.title || ""}|${item.date || ""}`);
+    if (reasons.length) {
+      quarantined.push({
+        id,
+        title: String(item.title || "").slice(0, 240),
+        source: String(item.source || "").slice(0, 120),
+        sourceUrl: sourceUrl || "",
+        canonicalUrl: canonicalUrl || "",
+        publishedAt: item.date || item.publishedAt || null,
+        language: language || String(item.streamLanguage || item.language || "unknown"),
+        category: item.category || "uncategorized",
+        origin: newsEvidenceOrigin(item),
+        reasons: [...new Set(reasons)],
+        quarantinedAt: validatedAt,
+      });
+      continue;
+    }
+
+    seen.add(canonicalUrl);
+    const ageDays = Math.max(0, Math.floor((now - publishedAt) / 864e5));
+    const checks = {
+      directSource: true,
+      canonicalUrl: true,
+      language: true,
+      sourceSummary: true,
+      publishedDate: true,
+      retention: true,
+      moderation: true,
+      duplicate: true,
+    };
+    promoted.push({
+      ...item,
+      sourceUrl,
+      link: sourceUrl,
+      language,
+      streamLanguage: language,
+      languageVerified: true,
+      verification: {
+        id,
+        status: "promoted",
+        validatedAt,
+        canonicalUrl,
+        sourceClass: newsSourceClass(item),
+        origin: newsEvidenceOrigin(item),
+        observedThisRun: wasSourceObservedThisRun(item),
+        freshness: ageDays <= 120 ? "current" : "archive",
+        ageDays,
+        checks,
+      },
+    });
+  }
+
+  return { promoted, quarantined };
+}
+
+function rebuildNewsCategories(news = [], previousCategories = []) {
+  const labels = new Map(previousCategories.map((item) => [item.id, item.label]));
+  const grouped = new Map();
+  for (const item of news) {
+    const id = item.category || "uncategorized";
+    const current = grouped.get(id) || { id, label: labels.get(id) || id, count: 0, items: [] };
+    current.count += 1;
+    if (current.items.length < 16) current.items.push(item);
+    grouped.set(id, current);
+  }
+  return [...grouped.values()].sort((a, b) => b.count - a.count || a.label.localeCompare(b.label));
+}
+
+function buildEvidenceLedger(news = [], validatedAt = new Date().toISOString()) {
+  const items = news.map((item) => ({
+    id: item.verification?.id,
+    canonicalUrl: item.verification?.canonicalUrl,
+    sourceClass: item.verification?.sourceClass,
+    origin: item.verification?.origin,
+    observedThisRun: Boolean(item.verification?.observedThisRun),
+    freshness: item.verification?.freshness,
+    language: item.streamLanguage || item.language,
+    publishedAt: item.date || item.publishedAt || null,
+    validatedAt: item.verification?.validatedAt || validatedAt,
+  }));
+  return {
+    methodologyVersion: EVIDENCE_METHODOLOGY_VERSION,
+    generatedAt: validatedAt,
+    promotedCount: items.length,
+    items,
+  };
+}
+
+function buildQuarantineReport(runId, items = [], generatedAt = new Date().toISOString()) {
+  const reasonCounts = {};
+  for (const item of items) {
+    for (const reason of item.reasons || []) reasonCounts[reason] = (reasonCounts[reason] || 0) + 1;
+  }
+  return {
+    schemaVersion: "1.0",
+    runId,
+    generatedAt,
+    retention: "latest-200-metadata-only",
+    total: items.length,
+    reasonCounts,
+    items: items.slice(0, 200),
+  };
+}
+
+function buildCrawlAudit(payload = {}, quarantine = {}) {
+  const sourceClasses = {};
+  const origins = {};
+  for (const item of payload.news || []) {
+    const sourceClass = item.verification?.sourceClass || "missing";
+    const origin = item.verification?.origin || "missing";
+    sourceClasses[sourceClass] = (sourceClasses[sourceClass] || 0) + 1;
+    origins[origin] = (origins[origin] || 0) + 1;
+  }
+  return {
+    schemaVersion: "1.0",
+    runId: payload.runId,
+    generatedAt: payload.updatedAt,
+    status: payload.quality?.status || "rejected",
+    methodologyVersion: EVIDENCE_METHODOLOGY_VERSION,
+    promoted: {
+      news: payload.news?.length || 0,
+      priceRows: payload.quality?.metrics?.priceRows || 0,
+      communitySignals: payload.communitySignals?.items?.length || 0,
+      intelligenceBriefs: payload.intelligence?.briefs?.length || 0,
+    },
+    quarantined: {
+      news: quarantine.total || 0,
+      reasonCounts: quarantine.reasonCounts || {},
+    },
+    sourceClasses,
+    origins,
+    checks: payload.quality?.checks || [],
+  };
+}
+
 function buildQualityReport(payload = {}) {
   const news = Array.isArray(payload.news) ? payload.news : [];
   const community = Array.isArray(payload.communitySignals?.items) ? payload.communitySignals.items : [];
@@ -4200,6 +4364,13 @@ function buildQualityReport(payload = {}) {
   const stocks = Object.values(payload.stocks || {});
   const directNews = news.filter((item) => /^https?:\/\//i.test(directNewsUrl(item)) && !/news\.google\.com/i.test(directNewsUrl(item)));
   const summarizedNews = news.filter((item) => String(item.summary || item.summaryOriginal || "").trim().length >= 20);
+  const provenanceNews = news.filter((item) => (
+    item.verification?.status === "promoted"
+    && item.verification?.id
+    && item.verification?.canonicalUrl
+    && Object.values(item.verification?.checks || {}).every(Boolean)
+  ));
+  const currentNews = provenanceNews.filter((item) => item.verification?.freshness === "current");
   const languageCounts = news.reduce((counts, item) => {
     const language = verifiedNewsLanguage(item);
     if (language === "english" || language === "chinese") counts[language] += 1;
@@ -4215,6 +4386,8 @@ function buildQualityReport(payload = {}) {
     && String(brief.latest?.summary || "").trim().length >= 20
     && String(brief.decision || "").trim()
     && String(brief.reversalKpi || "").trim()
+    && String(brief.latest?.provenanceId || "").trim()
+    && ["official", "research", "authoritative-media"].includes(String(brief.latest?.sourceClass || ""))
   ));
   const validBrokerItems = brokerItems.filter((item) => {
     const linkedEvidence = item.evidenceType === "direct-report"
@@ -4238,13 +4411,16 @@ function buildQualityReport(payload = {}) {
   );
   const directSourceRatio = news.length ? directNews.length / news.length : 0;
   const summaryRatio = news.length ? summarizedNews.length / news.length : 0;
+  const provenanceCoverage = news.length ? provenanceNews.length / news.length : 0;
   const checks = [
     { id: "price_rows", critical: true, passed: priceRows.length >= 10, observed: priceRows.length, threshold: 10 },
     { id: "news_total", critical: true, passed: news.length >= 24, observed: news.length, threshold: 24 },
     { id: "news_english", critical: true, passed: languageCounts.english >= 12, observed: languageCounts.english, threshold: 12 },
     { id: "news_chinese", critical: true, passed: languageCounts.chinese >= 4, observed: languageCounts.chinese, threshold: 4 },
-    { id: "news_direct_sources", critical: true, passed: directSourceRatio >= 0.9, observed: Number(directSourceRatio.toFixed(3)), threshold: 0.9 },
-    { id: "news_summaries", critical: true, passed: summaryRatio >= 0.55, observed: Number(summaryRatio.toFixed(3)), threshold: 0.55 },
+    { id: "news_direct_sources", critical: true, passed: directSourceRatio === 1, observed: Number(directSourceRatio.toFixed(3)), threshold: 1 },
+    { id: "news_summaries", critical: true, passed: summaryRatio === 1, observed: Number(summaryRatio.toFixed(3)), threshold: 1 },
+    { id: "news_provenance", critical: true, passed: provenanceCoverage === 1, observed: Number(provenanceCoverage.toFixed(3)), threshold: 1 },
+    { id: "news_current", critical: true, passed: currentNews.length >= 12, observed: currentNews.length, threshold: 12 },
     { id: "news_duplicates", critical: true, passed: duplicateCount === 0, observed: duplicateCount, threshold: 0 },
     { id: "community_signals", critical: true, passed: community.length >= 5, observed: community.length, threshold: 5 },
     { id: "decision_briefs", critical: true, passed: validBriefs.length >= 6, observed: validBriefs.length, threshold: 6 },
@@ -4257,7 +4433,7 @@ function buildQualityReport(payload = {}) {
   return {
     status: failures.length ? "rejected" : "verified",
     verifiedAt: failures.length ? null : payload.updatedAt,
-    methodologyVersion: "3.0-evidence-gated",
+    methodologyVersion: EVIDENCE_METHODOLOGY_VERSION,
     checks,
     failures: failures.map((check) => check.id),
     metrics: {
@@ -4267,6 +4443,9 @@ function buildQualityReport(payload = {}) {
       chineseNews: languageCounts.chinese,
       directSourceRatio: Number(directSourceRatio.toFixed(3)),
       summaryRatio: Number(summaryRatio.toFixed(3)),
+      provenanceCoverage: Number(provenanceCoverage.toFixed(3)),
+      currentNews: currentNews.length,
+      quarantinedNews: Number(payload.quarantineSummary?.total || 0),
       duplicateCount,
       communitySignals: community.length,
       decisionBriefs: validBriefs.length,
@@ -4288,6 +4467,7 @@ function buildQualityReport(payload = {}) {
 
 async function main() {
   await loadCrawlExclusions();
+  const runId = process.env.GITHUB_RUN_ID || `local-${Date.now()}`;
   const previous = await loadPreviousData();
   const [prices, stocks, newsPayload, communitySignals, competitors, startups, benchmarkSignals, chinaInfra] = await Promise.all([
     collectPrices(),
@@ -4303,7 +4483,17 @@ async function main() {
   attachPriceHistory(prices, priceHistory);
   const marketHistory = await updateMarketHistory();
 
-  const { categories, news, trending, newsStats: stats } = newsPayload;
+  const evidenceValidatedAt = new Date().toISOString();
+  const evidenceGate = validateNewsEvidence(newsPayload.news, evidenceValidatedAt);
+  const news = evidenceGate.promoted;
+  const categories = rebuildNewsCategories(news, newsPayload.categories);
+  const trending = extractTrending(news);
+  const stats = newsStats(news.map((item) => ({
+    ...item,
+    ts: new Date(item.date || item.publishedAt || 0).getTime() || 0,
+  })));
+  const quarantineReport = buildQuarantineReport(runId, evidenceGate.quarantined, evidenceValidatedAt);
+  note("뉴스증거게이트", news.length >= 24, `승격 ${news.length}건 · 격리 ${quarantineReport.total}건`);
 
   // Best-effort Korean headlines (no API key; English fallback on any failure).
   try {
@@ -4331,8 +4521,8 @@ async function main() {
   console.log(`\n수집 완료: ${okCount}/${health.length} 단계 성공, 기사 ${news.length}건(영문 ${languageCounts.english || 0} / 중문 ${languageCounts.chinese || 0}), 중국 현장 신호 ${communitySignals.items.length}건, 벤치마킹 신호 ${benchmarkSignals.stream.length}건, 가격표 ${prices.sections.length}개`);
 
   const payload = {
-    schemaVersion: "3.0",
-    runId: process.env.GITHUB_RUN_ID || `local-${Date.now()}`,
+    schemaVersion: LIVE_SCHEMA_VERSION,
+    runId,
     updatedAt: new Date().toISOString(),
     timezone: "Asia/Seoul",
     stocks,
@@ -4351,6 +4541,11 @@ async function main() {
     news,
     trending,
     newsStats: stats,
+    evidence: buildEvidenceLedger(news, evidenceValidatedAt),
+    quarantineSummary: {
+      total: quarantineReport.total,
+      reasonCounts: quarantineReport.reasonCounts,
+    },
     health,
   };
 
@@ -4359,8 +4554,21 @@ async function main() {
     throw new Error(`quality gate rejected crawl: ${payload.quality.failures.join(", ")}`);
   }
 
-  await writeJsonSafely(OUT, payload);
-  console.log(`저장: ${OUT}`);
+  priceHistory.runId = runId;
+  priceHistory.validatedAt = payload.updatedAt;
+  marketHistory.runId = runId;
+  marketHistory.validatedAt = payload.updatedAt;
+  payload.marketHistory.runId = runId;
+  payload.marketHistory.validatedAt = payload.updatedAt;
+  const crawlAudit = buildCrawlAudit(payload, quarantineReport);
+  await writeVerifiedBundle([
+    [HISTORY_OUT, priceHistory],
+    [MARKET_HISTORY_OUT, marketHistory],
+    [CRAWL_QUARANTINE_OUT, quarantineReport],
+    [CRAWL_AUDIT_OUT, crawlAudit],
+    [OUT, payload],
+  ]);
+  console.log(`검증 데이터 묶음 저장: ${OUT}`);
 }
 
 main().catch((error) => {

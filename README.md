@@ -1,5 +1,18 @@
 # Memory Intelligence
 
+## Data reliability pipeline
+
+The published dashboard is generated through a fail-closed evidence pipeline:
+
+1. Collect public price, market, news, policy, hiring, and community candidates.
+2. Normalize canonical URLs, dates, languages, and source summaries.
+3. Promote only records that pass every evidence check; place rejected candidates in `data/crawl-quarantine.json`.
+4. Build management briefs only from promoted official, research, or authoritative-media evidence.
+5. Run `scripts/audit-content.mjs` and publish the JSON bundle atomically only when every critical check passes.
+6. Reject stale, incomplete, or mismatched bundles in the browser instead of falling back to unverified cached data.
+
+`data/crawl-audit.json` records each run and `data/live.json` contains the promoted evidence ledger. Curated or previous-run records can preserve continuity, but only sources observed during the current run can receive the `Confirmed` label. This pipeline reduces unsupported claims; it does not turn estimates or reported claims into facts.
+
 중국 메모리 경쟁사와 공급망을 추적하는 정적 대시보드입니다. `bizdevelopment1-max/ai` 스타일을 참고해 좌측 카테고리, 상단 자연어 Q&A, 보드형 카드, 글꼴 애니메이션, 드롭다운 질문/답변 인터랙션으로 구성했습니다.
 
 ## 주요 구성

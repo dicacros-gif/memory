@@ -11,7 +11,7 @@
   };
 
   const emptyLive = {
-    schemaVersion: "3.0",
+    schemaVersion: "4.0",
     updatedAt: null,
     timezone: "Asia/Seoul",
     quality: { status: "rejected", checks: [], failures: ["missing_verified_payload"], metrics: {}, channels: {} },
@@ -42,7 +42,6 @@
     items: [],
   };
   const CRAWL_EXCLUSION_STORAGE_KEY = "memory-crawl-exclusions-v1";
-  const VERIFIED_LIVE_CACHE_KEY = "memory-last-verified-live-v3";
   const ADMIN_DELETE_PASSWORD = "000";
 
   const KOREAN_SOURCE_RE = new RegExp(
@@ -4166,8 +4165,21 @@
 
   function isVerifiedLiveData(data = {}, maxAgeHours = 36) {
     if (!data || data.quality?.status !== "verified") return false;
+    if (data.schemaVersion !== "4.0" || !String(data.runId || "").trim()) return false;
+    if (data.quality?.methodologyVersion !== "4.0-source-provenance") return false;
     if ((data.quality?.failures || []).length) return false;
     if ((data.quality?.checks || []).some((check) => check?.critical && !check?.passed)) return false;
+    if (Number(data.quality?.metrics?.provenanceCoverage) !== 1) return false;
+    const news = Array.isArray(data.news) ? data.news : [];
+    if (Number(data.evidence?.promotedCount) !== news.length) return false;
+    if (news.some((item) => {
+      const checks = Object.values(item?.verification?.checks || {});
+      return item?.verification?.status !== "promoted"
+        || !item?.verification?.id
+        || !item?.verification?.canonicalUrl
+        || checks.length < 8
+        || checks.some((passed) => !passed);
+    })) return false;
     const timestamp = data.quality?.verifiedAt || data.updatedAt;
     if (!timestamp) return false;
     const age = (Date.now() - new Date(timestamp).getTime()) / 36e5;
@@ -4176,30 +4188,26 @@
 
   function selectVerifiedLiveData(data = emptyLive) {
     if (isVerifiedLiveData(data, 36)) {
-      try {
-        localStorage.setItem(VERIFIED_LIVE_CACHE_KEY, JSON.stringify(data));
-      } catch {
-        // Storage is best-effort; deployment quality gates remain authoritative.
-      }
+      document.body.dataset.liveDataState = "verified";
       return data;
     }
-    try {
-      const cached = JSON.parse(localStorage.getItem(VERIFIED_LIVE_CACHE_KEY) || "null");
-      if (isVerifiedLiveData(cached, 48)) return cached;
-    } catch {
-      // Ignore an unreadable local cache and keep unverified data off the UI.
-    }
+    document.body.dataset.liveDataState = "rejected";
     return emptyLive;
   }
 
   function normalizeLiveData(data = emptyLive) {
     const next = { ...emptyLive, ...(data || {}) };
-    next.news = (next.news || []).filter((item) => (
-      item?.title
-      && ["english", "chinese"].includes(String(item.streamLanguage || item.language || "").toLowerCase())
-      && /^https?:\/\//i.test(String(item.sourceUrl || item.link || ""))
-      && !/news\.google\.com/i.test(String(item.sourceUrl || ""))
-    ));
+    next.news = (next.news || []).filter((item) => {
+      const checks = Object.values(item?.verification?.checks || {});
+      return item?.title
+        && ["english", "chinese"].includes(String(item.streamLanguage || item.language || "").toLowerCase())
+        && /^https?:\/\//i.test(String(item.sourceUrl || item.link || ""))
+        && !/news\.google\.com/i.test(String(item.sourceUrl || ""))
+        && item?.verification?.status === "promoted"
+        && item?.verification?.id
+        && checks.length >= 8
+        && checks.every(Boolean);
+    });
     next.categories = (next.categories || []).filter(hasPositiveCount);
     next.communitySignals = {
       ...(next.communitySignals || {}),
