@@ -3230,6 +3230,7 @@
     normalizeBriefCopy($("#overview-content") || document.body);
     animateCounts();
     animateMeters();
+    setupKpiCountReplay();
     setupMouseDrivenMetrics();
     setupAgentDebateBackdrops();
     setupMemoryMapShowcaseVideo();
@@ -5134,8 +5135,9 @@
     node.dataset.countToken = token;
     node.classList.add("is-counting");
     node.style.setProperty("--count-duration", `${dur}ms`);
-    const start = performance.now();
     const origin = Number.isFinite(Number(from)) ? Number(from) : 0;
+    setCountValue(node, origin);
+    const start = performance.now();
     const step = (now) => {
       if (node.dataset.countToken !== token) return;
       const k = Math.min((now - start) / dur, 1);
@@ -5212,6 +5214,32 @@
       });
     }, { threshold: 0.3 });
     counts.forEach((node) => io.observe(node));
+  }
+
+  function replayKpiCount(scope) {
+    scopedMetricNodes(scope, ".count").forEach((node) => {
+      animateCountNode(node, {
+        from: 0,
+        to: countTarget(node),
+        dur: Number(node.dataset.duration || 850),
+      });
+    });
+  }
+
+  let kpiCountReplayBound = false;
+  function setupKpiCountReplay() {
+    if (kpiCountReplayBound) return;
+    kpiCountReplayBound = true;
+    const replayOnEntry = (event) => {
+      if (!(event.target instanceof Element)) return;
+      const scope = event.target.closest('.kpi[data-count-replay="hover"]');
+      if (!scope) return;
+      const previous = event.relatedTarget;
+      if (previous instanceof Node && scope.contains(previous)) return;
+      replayKpiCount(scope);
+    };
+    document.addEventListener("pointerover", replayOnEntry, { passive: true });
+    document.addEventListener("focusin", replayOnEntry);
   }
 
   function animateMeters(root = document) {
@@ -6278,11 +6306,12 @@
     kpis.slice(0, 6).forEach((kpi, index) => {
       const isSecondRow = index >= 3;
       const targetValue = Number(kpi.value);
-      const countDuration = isSecondRow && Number.isFinite(targetValue)
-        ? Math.max(700, Math.min(1800, targetValue * 18))
+      const countDuration = Number.isFinite(targetValue)
+        ? Math.max(700, Math.min(1800, Math.abs(targetValue) * 18))
         : 850;
-      const node = el("article", `kpi reveal${isSecondRow ? " kpi-share-card" : ""}`);
+      const node = el("article", `kpi kpi-value-card reveal${isSecondRow ? " kpi-share-card" : ""}`);
       node.tabIndex = 0;
+      node.dataset.countReplay = "hover";
       node.setAttribute("aria-label", `${kpi.label} ${kpi.prefix || ""}${kpi.value}${kpi.suffix || ""}`);
       node.style.animationDelay = `${index * 35}ms`;
       const hasSourceUrl = String(kpi.sourceUrl || "").trim();
@@ -6296,7 +6325,7 @@
           prefix: kpi.prefix || "",
           suffix: kpi.suffix || "",
           decimals: kpi.decimals || 0,
-          from: isSecondRow ? 1 : 0,
+          from: 0,
           duration: countDuration,
         })}</strong>
         <div class="kpi-meta">

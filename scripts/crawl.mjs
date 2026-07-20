@@ -7258,6 +7258,8 @@ export function archiveMonthlyTargets(months = 60, now = new Date()) {
   return targets;
 }
 const ARCHIVE_BACKFILL_MAX_SNAPSHOTS_PER_RUN = 8;
+// Sunday (KST) runs get a bigger budget so exact monthly coverage converges faster.
+const ARCHIVE_BACKFILL_SUNDAY_CAP = 12;
 
 function cdxDayStamp(time) {
   return new Date(time).toISOString().slice(0, 10).replace(/-/g, "");
@@ -7356,7 +7358,10 @@ function parseLegacyPriceTables(html, source) {
 async function backfillPriceHistoryFromArchive(history) {
   let attemptsThisRun = 0;
   let pointsAdded = 0;
-  const backfillCap = Number(process.env.BACKFILL_MAX) > 0 ? Number(process.env.BACKFILL_MAX) : ARCHIVE_BACKFILL_MAX_SNAPSHOTS_PER_RUN;
+  const kstDay = new Date(Date.now() + 9 * 3600000).getUTCDay();
+  const backfillCap = Number(process.env.BACKFILL_MAX) > 0
+    ? Number(process.env.BACKFILL_MAX)
+    : (kstDay === 0 ? ARCHIVE_BACKFILL_SUNDAY_CAP : ARCHIVE_BACKFILL_MAX_SNAPSHOTS_PER_RUN);
   const attemptedAt = new Date().toISOString();
   const manifest = history.archiveBackfill && typeof history.archiveBackfill === "object"
     ? history.archiveBackfill
@@ -7367,6 +7372,7 @@ async function backfillPriceHistoryFromArchive(history) {
   const monthlyTargets = archiveMonthlyTargets();
   const targetMonthIds = new Set(monthlyTargets.map((period) => period.id));
   const cdxCache = new Map();
+  let skippedByRetryThisRun = 0;
   const normalizedIndex = new Map();
   for (const item of Object.values(history.items || {})) {
     const norm = normalizedHistoryKey(item.key);
@@ -7444,8 +7450,11 @@ async function backfillPriceHistoryFromArchive(history) {
 
     const jobId = `${page.id}:${period.id}`;
     const priorAttempt = manifest.attempts[jobId];
-    const retryDays = priorAttempt?.status === "merged" ? 30 : 7;
-    if (priorAttempt?.attemptedAt && Date.now() - Date.parse(priorAttempt.attemptedAt) < retryDays * 864e5) continue;
+    const retryDays = ["no-snapshot", "empty", "target-miss", "merged"].includes(priorAttempt?.status) ? 30 : 7;
+    if (priorAttempt?.attemptedAt && Date.now() - Date.parse(priorAttempt.attemptedAt) < retryDays * 864e5) {
+      skippedByRetryThisRun += 1;
+      continue;
+    }
 
     attemptsThisRun += 1;
     try {
@@ -7491,6 +7500,7 @@ async function backfillPriceHistoryFromArchive(history) {
   manifest.updatedAt = attemptedAt;
   manifest.attemptsThisRun = attemptsThisRun;
   manifest.pointsAddedThisRun = pointsAdded;
+  manifest.skippedByRetryThisRun = skippedByRetryThisRun;
   const coverageSeries = Object.fromEntries(Object.entries(history.items || {}).map(([key, item]) => {
     const months = new Set((item.points || []).map((point) => {
       const time = Date.parse(priceObservationTime(point));
@@ -7517,7 +7527,10 @@ async function backfillPriceHistoryFromArchive(history) {
     series: coverageSeries,
   };
   history.archiveBackfill = manifest;
-  if (pointsAdded > 0 || attemptsThisRun > 0) history.updatedAt = attemptedAt;
+  if (skippedByRetryThisRun > 0) {
+    note("가격백필:재시도캐시", true, `최근 시도 ${skippedByRetryThisRun}개 작업 건너뜀 (실패 7일 · 그 외 30일)`);
+  }
+  if (pointsAdded > 0) history.updatedAt = attemptedAt;
   return pointsAdded;
 }
 
