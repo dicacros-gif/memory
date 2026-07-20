@@ -1973,6 +1973,10 @@ function note(step, ok, msg = "") {
   console.log(`${ok ? "✓" : "✗"} ${step}${msg ? " — " + msg : ""}`);
 }
 
+function noteSkipped(step, msg = "") {
+  console.log(`- ${step}${msg ? " — " + msg : ""} → 미관측`);
+}
+
 async function fetchText(url) {
   const res = await fetch(url, {
     signal: fetchSignal(),
@@ -2586,6 +2590,7 @@ async function loadMarketHistory() {
     const parsed = JSON.parse(raw);
     return {
       updatedAt: parsed.updatedAt || null,
+      metricsUpdatedAt: parsed.metricsUpdatedAt || null,
       timezone: parsed.timezone || "Asia/Seoul",
       source: parsed.source || "Yahoo Finance chart API",
       indexes: parsed.indexes && typeof parsed.indexes === "object" ? parsed.indexes : {},
@@ -2597,6 +2602,7 @@ async function loadMarketHistory() {
   } catch {
     return {
       updatedAt: null,
+      metricsUpdatedAt: null,
       timezone: "Asia/Seoul",
       source: "Yahoo Finance chart API",
       indexes: {},
@@ -2667,7 +2673,6 @@ async function updateMarketHistory() {
         lastErrorAt: crawledAt,
       };
       note(`market:${index.symbol}`, false, error.message);
-      changed = true;
     }
     await sleep(350);
   }
@@ -2685,6 +2690,7 @@ function summarizeMarketHistory(history = {}) {
   }
   return {
     updatedAt: history.updatedAt || null,
+    metricsUpdatedAt: history.metricsUpdatedAt || null,
     timezone: history.timezone || "Asia/Seoul",
     source: history.source || "Yahoo Finance chart API",
     indexes,
@@ -3355,9 +3361,10 @@ function brokerMetrics(item = {}) {
   return [...new Set(matches)].slice(0, 2);
 }
 
-function buildBrokerResearch(news = []) {
+export function buildBrokerResearch(news = []) {
   const generatedAt = new Date().toISOString();
   const citations = news.map((item) => {
+    if (item.verification?.origin !== "live-crawl" || item.verification?.observedThisRun !== true) return null;
     const rule = brokerRuleFor(item);
     const sourceUrl = directNewsUrl(item);
     const text = brokerText(item);
@@ -3387,31 +3394,43 @@ function buildBrokerResearch(news = []) {
       source: item.source || rule.name,
       sourceRef: evidenceType === "direct-report" ? `${rule.name} 공식 발간물` : `${rule.name} 인용 기사`,
       sourceUrl,
+      origin: "live-crawl",
+      observedThisRun: true,
+      validatedAt: item.verification?.validatedAt || generatedAt,
       accent: rule.accent,
     };
   }).filter(Boolean);
 
   const deduped = [];
   const seen = new Set();
-  for (const item of citations.sort((a, b) => new Date(b.publishedAt || 0) - new Date(a.publishedAt || 0)).concat(BROKER_REPORT_SEEDS)) {
-    const key = item.sourceUrl
-      ? item.sourceUrl.toLowerCase().replace(/[?#].*$/, "").replace(/\/$/, "")
-      : `${item.institutionId}:${slug(item.title)}`;
+  for (const item of citations.sort((a, b) => new Date(b.publishedAt || 0) - new Date(a.publishedAt || 0))) {
+    const key = item.sourceUrl.toLowerCase().replace(/[?#].*$/, "").replace(/\/$/, "");
     if (seen.has(key)) continue;
     seen.add(key);
     deduped.push(item);
   }
-  const directReports = deduped.filter((item) => item.evidenceType === "direct-report").slice(0, 6);
-  const newsCitations = deduped.filter((item) => item.evidenceType === "news-citation").slice(0, 2);
-  const items = newsCitations.concat(directReports)
-    .sort((a, b) => new Date(b.publishedAt || 0) - new Date(a.publishedAt || 0));
+  const items = deduped.slice(0, 8);
   return {
+    schemaVersion: "2.0",
     updatedAt: generatedAt,
-    methodology: "증권사 공식 발간물과 권위 매체의 증권사 인용을 분리하고, 원문 URL과 메모리 산업 연관성이 있는 항목만 승격함.",
+    methodology: "이번 실행에서 직접 관측한 증권사 공식 발간물·권위 매체 인용만 승격하며, URL 없는 제공 문서는 baseline으로 분리함.",
     institutions: [...new Set(items.map((item) => item.institution))],
     reportCount: items.filter((item) => item.evidenceType === "direct-report").length,
     citationCount: items.filter((item) => item.evidenceType === "news-citation").length,
-    framework: BROKER_RESEARCH_FRAMEWORK,
+    baseline: {
+      status: "revalidation-required",
+      itemCount: BROKER_REPORT_SEEDS.length,
+      asOf: BROKER_RESEARCH_FRAMEWORK.asOf,
+      sourceRef: BROKER_RESEARCH_FRAMEWORK.sourceRef,
+      lastCheckedAt: null,
+      reason: "공개 원문 URL과 이번 실행 관측 기록이 없어 라이브 카드에서 제외",
+    },
+    framework: {
+      ...BROKER_RESEARCH_FRAMEWORK,
+      dataStatus: "baseline",
+      lastCheckedAt: null,
+      revalidationRequired: true,
+    },
     items,
   };
 }
@@ -4962,6 +4981,7 @@ function buildQualityReport(payload = {}) {
   const brokerFramework = payload.brokerResearch?.framework || null;
   const factEvents = Array.isArray(payload.facts?.events) ? payload.facts.events : [];
   const sourceChannels = Array.isArray(payload.sourceRegistry?.channels) ? payload.sourceRegistry.channels : [];
+  const essentialSourceChannels = sourceChannels.filter((channel) => channel.id !== "broker-research");
   const priceRows = (payload.prices?.sections || []).flatMap((section) => section.rows || []);
   const marketIndexes = Object.values(payload.marketHistory?.indexes || {});
   const stocks = Object.values(payload.stocks || {});
@@ -4974,6 +4994,15 @@ function buildQualityReport(payload = {}) {
     && Object.values(item.verification?.checks || {}).every(Boolean)
   ));
   const currentNews = provenanceNews.filter((item) => item.verification?.freshness === "current");
+  const observedNews = currentNews.filter((item) => (
+    item.verification?.origin === "live-crawl"
+    && item.verification?.observedThisRun === true
+  ));
+  const observedLanguageCounts = observedNews.reduce((counts, item) => {
+    const language = verifiedNewsLanguage(item);
+    if (language === "english" || language === "chinese") counts[language] += 1;
+    return counts;
+  }, { english: 0, chinese: 0 });
   const languageCounts = news.reduce((counts, item) => {
     const language = verifiedNewsLanguage(item);
     if (language === "english" || language === "chinese") counts[language] += 1;
@@ -5008,10 +5037,10 @@ function buildQualityReport(payload = {}) {
     && ["official", "research", "authoritative-media"].includes(String(brief.latest?.sourceClass || ""))
   ));
   const validBrokerItems = brokerItems.filter((item) => {
-    const linkedEvidence = item.evidenceType === "direct-report"
-      ? String(item.sourceRef || "").trim()
-      : /^https?:\/\//i.test(String(item.sourceUrl || "")) && !/news\.google\.com/i.test(String(item.sourceUrl || ""));
+    const linkedEvidence = /^https?:\/\//i.test(String(item.sourceUrl || "")) && !/news\.google\.com/i.test(String(item.sourceUrl || ""));
     return linkedEvidence
+      && item.origin === "live-crawl"
+      && item.observedThisRun === true
       && String(item.institution || "").trim()
       && String(item.title || "").trim()
       && String(item.summary || "").trim().length >= 35
@@ -5020,6 +5049,8 @@ function buildQualityReport(payload = {}) {
   });
   const validBrokerFramework = Boolean(
     brokerFramework
+    && brokerFramework.dataStatus === "live-observed"
+    && String(brokerFramework.lastCheckedAt || "").match(/^20\d{2}-\d{2}-\d{2}$/)
     && String(brokerFramework.sourceRef || "").trim()
     && Array.isArray(brokerFramework.demand) && brokerFramework.demand.length >= 3
     && Array.isArray(brokerFramework.bottlenecks) && brokerFramework.bottlenecks.length >= 3
@@ -5039,6 +5070,9 @@ function buildQualityReport(payload = {}) {
     { id: "news_summaries", critical: true, passed: summaryRatio === 1, observed: Number(summaryRatio.toFixed(3)), threshold: 1 },
     { id: "news_provenance", critical: true, passed: provenanceCoverage === 1, observed: Number(provenanceCoverage.toFixed(3)), threshold: 1 },
     { id: "news_current", critical: true, passed: currentNews.length >= 12, observed: currentNews.length, threshold: 12 },
+    { id: "news_observed_this_run", critical: true, passed: observedNews.length >= 12, observed: observedNews.length, threshold: 12 },
+    { id: "news_observed_english", critical: true, passed: observedLanguageCounts.english >= 6, observed: observedLanguageCounts.english, threshold: 6 },
+    { id: "news_observed_chinese", critical: true, passed: observedLanguageCounts.chinese >= 2, observed: observedLanguageCounts.chinese, threshold: 2 },
     { id: "news_duplicates", critical: true, passed: duplicateCount === 0, observed: duplicateCount, threshold: 0 },
     { id: "community_signals", critical: true, passed: community.length >= 5, observed: community.length, threshold: 5 },
     { id: "decision_briefs", critical: true, passed: validBriefs.length >= 6, observed: validBriefs.length, threshold: 6 },
@@ -5047,12 +5081,12 @@ function buildQualityReport(payload = {}) {
     {
       id: "source_registry",
       critical: true,
-      passed: sourceChannels.length >= 7 && sourceChannels.every((channel) => Number(channel.records || 0) > 0),
-      observed: sourceChannels.filter((channel) => Number(channel.records || 0) > 0).length,
+      passed: sourceChannels.length >= 7 && essentialSourceChannels.every((channel) => Number(channel.records || 0) > 0),
+      observed: essentialSourceChannels.filter((channel) => Number(channel.records || 0) > 0).length,
       threshold: 7,
     },
-    { id: "broker_research", critical: true, passed: validBrokerItems.length >= 6, observed: validBrokerItems.length, threshold: 6 },
-    { id: "broker_framework", critical: true, passed: validBrokerFramework, observed: validBrokerFramework ? 1 : 0, threshold: 1 },
+    { id: "broker_research", critical: false, passed: validBrokerItems.length >= 1, observed: validBrokerItems.length, threshold: 1 },
+    { id: "broker_framework", critical: false, passed: validBrokerFramework, observed: validBrokerFramework ? 1 : 0, threshold: 1 },
     { id: "market_indexes", critical: true, passed: validMarkets.length >= 3, observed: validMarkets.length, threshold: 3 },
     { id: "peer_stocks", critical: true, passed: validStocks.length >= 2, observed: validStocks.length, threshold: 2 },
   ];
@@ -5072,6 +5106,9 @@ function buildQualityReport(payload = {}) {
       summaryRatio: Number(summaryRatio.toFixed(3)),
       provenanceCoverage: Number(provenanceCoverage.toFixed(3)),
       currentNews: currentNews.length,
+      observedThisRunNews: observedNews.length,
+      observedThisRunEnglish: observedLanguageCounts.english,
+      observedThisRunChinese: observedLanguageCounts.chinese,
       quarantinedNews: Number(payload.quarantineSummary?.total || 0),
       duplicateCount,
       communitySignals: community.length,
@@ -5738,7 +5775,7 @@ function splitClauses(text = "") {
     .filter((s) => s.length >= 8);
 }
 
-function extractLiveFigures(context = {}) {
+export function extractLiveFigures(context = {}) {
   const articles = [
     ...(context.news || []).map((n) => {
       const sourceClass = newsSourceClass(n);
@@ -5759,9 +5796,13 @@ function extractLiveFigures(context = {}) {
         date: exactEvidenceDate(n),
         sourceClass,
         claimLayer,
+        origin: n.verification?.origin || "",
+        observedThisRun: n.verification?.observedThisRun === true,
         extractionMode: "web-verbatim",
         sourceLocator: directNewsUrl(n),
         allowed: ["official", "research", "authoritative-media"].includes(sourceClass)
+          && n.verification?.origin === "live-crawl"
+          && n.verification?.observedThisRun === true
           && validHttpUrl(directNewsUrl(n))
           && Boolean(exactEvidenceDate(n)),
       };
@@ -5779,9 +5820,11 @@ function extractLiveFigures(context = {}) {
         date: exactEvidenceDate(b),
         sourceClass: "research",
         claimLayer: "research-model",
+        origin: b.origin || "",
+        observedThisRun: b.observedThisRun === true,
         extractionMode: "report-extract",
         sourceLocator: locator,
-        allowed: Boolean(exactEvidenceDate(b) && locator),
+        allowed: Boolean(b.origin === "live-crawl" && b.observedThisRun === true && exactEvidenceDate(b) && validHttpUrl(locator)),
       };
     }),
   ].filter((a) => a.allowed && a.text && LIVE_FIGURE_DOMAIN_RE.test(a.text));
@@ -5827,6 +5870,8 @@ function extractLiveFigures(context = {}) {
             date: article.date || null,
             sourceClass: article.sourceClass,
             claimLayer: article.claimLayer,
+            origin: article.origin,
+            observedThisRun: article.observedThisRun,
             canonical,
             extractionMode: article.extractionMode,
             sourceLocator: article.sourceLocator,
@@ -5854,7 +5899,7 @@ function extractLiveFigures(context = {}) {
     total: figures.length,
     topicCounts,
     items: figures.slice(0, 60),
-    method: "authority-gated extraction · 웹 원문과 리포트 추출문을 구분하고 출처·날짜·단위를 보존",
+    method: "current-run authority-gated extraction · curated/previous-run seeds excluded · 웹 원문과 리포트 추출문을 구분하고 출처·날짜·단위를 보존",
   };
 }
 
@@ -6177,12 +6222,15 @@ export function sourceHealthSnapshot(previous = {}, observations = health) {
     };
   }
   const values = Object.values(sources);
+  const attemptedValues = values.filter((item) => item.attempted);
   return {
     schemaVersion: "2.0",
     updatedAt: attemptedAt,
-    ok: values.filter((item) => item.ok).length,
-    total: values.length,
-    failed: values.filter((item) => !item.ok).map((item) => item.id),
+    ok: attemptedValues.filter((item) => item.ok).length,
+    total: attemptedValues.length,
+    catalogTotal: values.length,
+    unattempted: values.filter((item) => !item.attempted).map((item) => item.id),
+    failed: attemptedValues.filter((item) => !item.ok).map((item) => item.id),
     alerts: values.filter((item) => item.alert).map((item) => item.id),
     sources,
   };
@@ -6233,6 +6281,7 @@ function appendQuantHistory(marketHistory = {}, quant = {}) {
   marketHistory.metrics ||= {};
   marketHistory.metricDefinitions ||= {};
   const capturedAt = quant.updatedAt || new Date().toISOString();
+  let metricsChanged = false;
   const validMetricPoint = (point = {}) => Number.isFinite(Number(point.value))
     && normalizeObservationDate(point.date) === point.date
     && validHttpUrl(point.sourceUrl)
@@ -6305,6 +6354,7 @@ function appendQuantHistory(marketHistory = {}, quant = {}) {
     });
     points.sort((a, b) => String(a.date).localeCompare(String(b.date)));
     marketHistory.metrics[point.id] = { ...current, unit: point.unit || current.unit || "", updatedAt: capturedAt, points: points.slice(-2200) };
+    metricsChanged = true;
     marketHistory.metricDefinitions[point.id] = {
       label: point.label,
       unit: point.unit || "",
@@ -6326,6 +6376,7 @@ function appendQuantHistory(marketHistory = {}, quant = {}) {
     const nextPoints = [...merged.values()].sort((a, b) => String(a.date).localeCompare(String(b.date))).slice(-2200);
     if (!nextPoints.length) return;
     marketHistory.metrics[id] = { ...current, id, label, unit, updatedAt: capturedAt, points: nextPoints };
+    metricsChanged = true;
     marketHistory.metricDefinitions[id] = { label, unit, provenance: source, sourceUrl, policy: "source observation date only; no interpolation" };
   };
   appendSeries({
@@ -6352,20 +6403,51 @@ function appendQuantHistory(marketHistory = {}, quant = {}) {
     sourceUrl: quant.foundry?.tsmcMonthly?.sourceUrl,
     points: quant.foundry?.tsmcMonthly?.yoyHistory?.points,
   });
-  marketHistory.updatedAt = capturedAt;
+  if (metricsChanged) marketHistory.metricsUpdatedAt = capturedAt;
 }
 
-async function collectLastGood(fetcher, previous, step, successMessage) {
+export async function collectLastGood(fetcher, previous, step, successMessage, { maxStaleDays = 3, report = true } = {}) {
   const attemptedAt = new Date().toISOString();
   try {
     const value = await fetcher();
-    const next = { ...value, status: "live", lastSuccessAt: attemptedAt, lastAttemptAt: attemptedAt, failureStreak: 0 };
-    note(step, true, successMessage(next));
+    const next = {
+      ...value,
+      status: "live",
+      lastSuccessAt: attemptedAt,
+      lastAttemptAt: attemptedAt,
+      staleAfterDays: maxStaleDays,
+      expiresAt: new Date(Date.parse(attemptedAt) + maxStaleDays * 864e5).toISOString(),
+      failureStreak: 0,
+    };
+    if (report) note(step, true, successMessage(next));
     return next;
   } catch (error) {
     const failureStreak = Number(previous?.failureStreak || 0) + 1;
-    note(step, false, error.message);
-    return previous ? { ...previous, status: "stale", lastAttemptAt: attemptedAt, lastError: error.message, failureStreak } : { status: "unavailable", lastAttemptAt: attemptedAt, lastError: error.message, failureStreak };
+    const previousSuccessAt = Date.parse(String(previous?.lastSuccessAt || previous?.updatedAt || previous?.asOf || ""));
+    const staleAgeDays = Number.isFinite(previousSuccessAt) ? Math.max(0, (Date.parse(attemptedAt) - previousSuccessAt) / 864e5) : Infinity;
+    if (report) note(step, false, error.message);
+    if (previous && staleAgeDays <= maxStaleDays) {
+      return {
+        ...previous,
+        status: "stale",
+        lastAttemptAt: attemptedAt,
+        lastError: error.message,
+        staleAgeDays: Number(staleAgeDays.toFixed(2)),
+        staleAfterDays: maxStaleDays,
+        expiresAt: new Date(previousSuccessAt + maxStaleDays * 864e5).toISOString(),
+        failureStreak,
+      };
+    }
+    return {
+      status: "unavailable",
+      lastAttemptAt: attemptedAt,
+      lastSuccessAt: Number.isFinite(previousSuccessAt) ? new Date(previousSuccessAt).toISOString() : null,
+      lastError: error.message,
+      staleAgeDays: Number.isFinite(staleAgeDays) ? Number(staleAgeDays.toFixed(2)) : null,
+      staleAfterDays: maxStaleDays,
+      expiredPrevious: Boolean(previous),
+      failureStreak,
+    };
   }
 }
 
@@ -6394,6 +6476,7 @@ async function collectQuantMetrics(priceHistory, context = {}) {
     quant.fx[entry.id] = await collectLastGood(
       () => collectQuantSeries(entry), previous.fx?.[entry.id], `quant:FX ${entry.label}`,
       (value) => `${value.value} (${value.asOf})`,
+      { maxStaleDays: 3 },
     );
     await sleep(320);
   }
@@ -6401,16 +6484,19 @@ async function collectQuantMetrics(priceHistory, context = {}) {
     quant.aiDemandProxy[entry.id] = await collectLastGood(
       () => collectQuantSeries(entry), previous.aiDemandProxy?.[entry.id], `quant:AI ${entry.label}`,
       (value) => `${value.value} · 90d ${value.changePct90d}%`,
+      { maxStaleDays: 3 },
     );
     await sleep(320);
   }
   quant.fundamentals.micron = await collectLastGood(
     fetchEdgarMicronFundamentals, previous.fundamentals?.micron, "quant:Micron EDGAR",
     (value) => value.revenue ? `분기매출 $${(value.revenue.value / 1e9).toFixed(2)}B (${value.revenue.end})` : "재고만 수집",
+    { maxStaleDays: 130 },
   );
   quant.foundry.tsmcMonthly = await collectLastGood(
     fetchTsmcMonthlyRevenue, previous.foundry?.tsmcMonthly, "quant:TSMC 월매출",
     (value) => `${value.month} · ${value.revenueBillionTwd}B TWD · YoY ${value.yoyPct != null ? Number(value.yoyPct).toFixed(1) : "?"}%`,
+    { maxStaleDays: 50 },
   );
   {
     const current = quant.foundry.tsmcMonthly;
@@ -6649,12 +6735,12 @@ async function backfillPriceHistoryFromArchive(history) {
         // sections map to today's series (older markup, identical item names).
         const legacy = ARCHIVE_LEGACY_SOURCES.find((src) => src.pageId === page.id);
         if (!legacy) {
-          note(`가격백필:${page.id}·${era.id}`, true, "아카이브 스냅샷 없음 (skip)");
+          noteSkipped(`가격백필:${page.id}·${era.id}`, "아카이브 스냅샷 없음");
           continue;
         }
         const legacySnapshots = await cdxSnapshots(legacy.url, target, windowMs);
         if (!legacySnapshots.length) {
-          note(`가격백필:${page.id}·${era.id}`, true, "현행·레거시 URL 모두 스냅샷 없음 (skip)");
+          noteSkipped(`가격백필:${page.id}·${era.id}`, "현행·레거시 URL 모두 스냅샷 없음");
           continue;
         }
         const bestLegacy = pickClosest(legacySnapshots, target);
@@ -6727,7 +6813,7 @@ async function main() {
   const facts = buildFactTimeline(news, evidenceValidatedAt);
   const intelligence = buildIntelligence({ news, prices, stats, chinaInfra, facts });
   const brokerResearch = buildBrokerResearch(news);
-  note("증권사 리서치", brokerResearch.items.length >= 6 && Boolean(brokerResearch.framework), "리서치 요약과 시스템 도식 갱신 완료");
+  note("증권사 리서치", true, `이번 실행 공개 원문 ${brokerResearch.items.length}건 · URL 없는 baseline ${brokerResearch.baseline.itemCount}건 분리`);
   quant = await collectQuantMetrics(priceHistory, {
     runId,
     previousQuant: previous.quant,

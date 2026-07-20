@@ -9,6 +9,7 @@
 import { readFile } from "node:fs/promises";
 import { dirname, resolve } from "node:path";
 import { fileURLToPath } from "node:url";
+import { DEMAND_ACCOUNT_REGISTRY, RELATION_ENTITY_REGISTRY } from "./live-pipeline.mjs";
 
 const root = resolve(dirname(fileURLToPath(import.meta.url)), "..");
 const textFiles = [
@@ -93,7 +94,27 @@ if (!Array.isArray(crawlExclusionItems)) {
 }
 const baselineText = await readFile(resolve(root, "data/baseline.json"), "utf8");
 const appText = await readFile(resolve(root, "assets/js/app.js"), "utf8");
+const stylesText = await readFile(resolve(root, "assets/css/styles.css"), "utf8");
 const crawlText = await readFile(resolve(root, "scripts/crawl.mjs"), "utf8");
+
+const liveFigureStyles = stylesText.match(/\/\* ---------------- Live figures[\s\S]*?\/\* ---------------- Semantic emphasis/)?.[0] || "";
+if (!/const groupedItems = groupLiveFigures\(items\)/.test(appText)) {
+  addIssue("error", "assets/js/app.js", "live figures must group observations into story cards");
+}
+if (/\.(?:lf-snippet|lf-context)\s*\{[^}]*?(?:line-clamp|overflow:\s*hidden)/s.test(liveFigureStyles)) {
+  addIssue("error", "assets/css/styles.css", "live figure titles and summaries must not be line-clamped or hidden");
+}
+if (/snippet:\s*clause\.slice|contextKo:\s*article\.textKo\.slice/.test(crawlText)) {
+  addIssue("error", "scripts/crawl.mjs", "live figure source text must not be cut at a fixed character count");
+}
+for (const checkId of ["news_observed_this_run", "news_observed_english", "news_observed_chinese"]) {
+  if (!crawlText.includes(`id: "${checkId}"`)) {
+    addIssue("error", "scripts/crawl.mjs", "quality gate must require current-run crawled news instead of curated seeds", checkId);
+  }
+}
+if (/citations\.concat\(brokerResearchFallback\(\)\)/.test(appText) || /citations[^\n]*\.concat\(BROKER_REPORT_SEEDS\)/.test(crawlText)) {
+  addIssue("error", "assets/js/app.js", "URL-less broker baselines must not be injected into live research cards");
+}
 
 const hbmDecisionBlock = appText.match(/id:\s*"hbm-ai-server"[\s\S]{0,1800}/)?.[0] || "";
 if (!/directSignalModel:\s*"hbm"/.test(hbmDecisionBlock) || !/priceTerms:\s*\[\s*\]/.test(hbmDecisionBlock)) {
@@ -233,6 +254,105 @@ const quantModel = JSON.parse(await readFile(resolve(root, "data/quant-model.jso
 const crawlAudit = JSON.parse(await readFile(resolve(root, "data/crawl-audit.json"), "utf8"));
 const crawlQuarantine = JSON.parse(await readFile(resolve(root, "data/crawl-quarantine.json"), "utf8"));
 const quality = live.quality || {};
+
+if (DEMAND_ACCOUNT_REGISTRY.length !== 27 || new Set(DEMAND_ACCOUNT_REGISTRY.map((item) => item.id)).size !== 27) {
+  addIssue("error", "scripts/live-pipeline.mjs", "demand account registry must contain 27 unique ids");
+}
+const accountSignals = quant.accountSignals || {};
+const accountEntries = Object.entries(accountSignals.accounts || {});
+const expectedAccountCount = Number(accountSignals.expectedCount || DEMAND_ACCOUNT_REGISTRY.length);
+if (expectedAccountCount !== DEMAND_ACCOUNT_REGISTRY.length || Number(accountSignals.accountCount) !== expectedAccountCount || accountEntries.length !== expectedAccountCount) {
+  addIssue("error", "data/quant.json", "account signals must emit the complete versioned registry", `${accountSignals.accountCount || 0}/${accountEntries.length}/${expectedAccountCount}`);
+}
+for (const [id, account] of accountEntries) {
+  if (!DEMAND_ACCOUNT_REGISTRY.some((item) => item.id === id)) addIssue("error", "data/quant.json", "orphan account signal", id);
+  if (account.status === "insufficient" && account.pullScore != null) addIssue("error", "data/quant.json", "insufficient account has a fallback score", id);
+  if (accountSignals.schemaVersion === "2.1") {
+    const qualifies = Number(account.independentSourceCount) >= 2 || Number(account.officialEvidenceCount) >= 1;
+    if (Boolean(account.minEvidenceMet) !== qualifies || (account.status === "live") !== qualifies) {
+      addIssue("error", "data/quant.json", "account evidence quality/status mismatch", id);
+    }
+  }
+  for (const evidence of account.evidence || []) {
+    if (!isDirectSourceUrl(evidence.url) || !exactSourceDate(evidence.date)) addIssue("error", "data/quant.json", "account evidence needs direct URL and exact date", id);
+  }
+}
+const accountDefinitionBlock = appText.match(/const FORECAST_CATEGORIES = \[[\s\S]*?const FORECAST_CATEGORY_ORDER/)?.[0] || "";
+if (/\b(?:driver|pull|note)\s*:/.test(accountDefinitionBlock)) {
+  addIssue("error", "assets/js/app.js", "demand account presentation contains static direction, pull, or narrative fallback");
+}
+if (/\baccounts\s*:/.test(accountDefinitionBlock) || /account\.(?:tech|region)\b/.test(appText)) {
+  addIssue("error", "assets/js/app.js", "demand account identity or technology is duplicated outside the generated live registry");
+}
+
+const briefingRoles = Object.entries(quant.agentBriefing?.roles || {});
+if (!briefingRoles.length) addIssue("error", "data/quant.json", "daily agent briefing roles are missing");
+for (const [role, item] of briefingRoles) {
+  if (item.status === "live" && (!isDirectSourceUrl(item.sourceUrl) || !exactSourceDate(item.date) || !String(item.quote || "").trim())) {
+    addIssue("error", "data/quant.json", "live agent evidence needs quote, direct URL, and date", role);
+  }
+  if (item.status === "live" && !String(item.quoteQuality || "").trim()) {
+    addIssue("error", "data/quant.json", "live agent evidence lacks quote-completeness status", role);
+  }
+  if (item.status === "live" && /(?:\.\.\.|…|打造了)$/u.test(String(item.quote || "").trim())) {
+    addIssue("error", "data/quant.json", "live agent evidence is visibly truncated", role);
+  }
+}
+
+for (const [key, schemaVersions] of Object.entries({ accountSignals: ["2.1", "2.0"], agentBriefing: ["1.1", "1.0"], relationCandidates: ["1.1", "1.0"], baselineFreshness: ["2.3", "2.2"], industryPulse: ["1.1", "1.0"] })) {
+  const contract = quant[key] || {};
+  const contractExpiry = Date.parse(String(contract.expiresAt || ""));
+  if (!schemaVersions.includes(contract.schemaVersion) || contract.runId !== quant.runId || contract.expiresAt !== quant.expiresAt || !Number.isFinite(contractExpiry)) {
+    addIssue("error", "data/quant.json", "derived live contract schema/run/expiry mismatch", key);
+  }
+}
+
+const relationThreshold = Number(quant.relationCandidates?.promotionThreshold || 3);
+const relationEntityIds = new Set(RELATION_ENTITY_REGISTRY.map((item) => item.id));
+for (const item of quant.relationCandidates?.items || []) {
+  const urls = (item.evidence || []).map((evidence) => evidence.url).filter(Boolean);
+  if (new Set(urls).size !== urls.length || Number(item.evidenceCount) !== urls.length) {
+    addIssue("error", "data/quant.json", "relationship candidate evidence must be canonical-unique", item.id);
+  }
+  const qualityReady = quant.relationCandidates?.schemaVersion === "1.1"
+    ? Number(item.relationEvidenceCount) >= 1 && (Number(item.independentSourceCount) >= 2 || Number(item.officialEvidenceCount) >= 1)
+    : true;
+  const expected = Number(item.evidenceCount) >= relationThreshold && qualityReady ? "promotion-review" : "candidate";
+  if (item.status !== expected) addIssue("error", "data/quant.json", "relationship candidate threshold/status mismatch", item.id);
+  if (!relationEntityIds.has(item.from) || !relationEntityIds.has(item.to) || item.from === item.to) {
+    addIssue("error", "data/quant.json", "relationship candidate has an unknown or identical endpoint", item.id);
+  }
+  for (const evidence of item.evidence || []) {
+    if (!isDirectSourceUrl(evidence.url) || !exactSourceDate(evidence.date)) {
+      addIssue("error", "data/quant.json", "relationship evidence needs a direct URL and exact date", item.id);
+    }
+  }
+}
+
+if (Number(quant.baselineFreshness?.total || 0) < 1 || Number(quant.baselineFreshness?.staleAfterDays) !== 14) {
+  addIssue("error", "data/quant.json", "baseline freshness audit is missing");
+}
+for (const item of Object.values(quant.baselineFreshness?.items || {})) {
+  if (!exactSourceDate(item.lastCheckedAt)) addIssue("error", "data/quant.json", "baseline audit run date is missing", item.id);
+  if (item.status === "current" && (!exactSourceDate(item.lastEvidenceAt) || Number(item.ageDays) > 14)) {
+    addIssue("error", "data/quant.json", "current baseline lacks evidence within 14 days", item.id);
+  }
+  if (item.status === "revalidate" && exactSourceDate(item.lastEvidenceAt) && Number(item.ageDays) <= 14) {
+    addIssue("error", "data/quant.json", "fresh baseline evidence is incorrectly marked for revalidation", item.id);
+  }
+  if (item.status === "conflict-candidate" && (!isDirectSourceUrl(item.conflictEvidence?.url) || !exactSourceDate(item.conflictEvidence?.date))) {
+    addIssue("error", "data/quant.json", "conflict badge lacks its actual opposing evidence", item.id);
+  }
+}
+if (quant.sourceHealth?.schemaVersion !== "2.0") addIssue("error", "data/quant.json", "source health must use stable-id schema v2");
+if (Object.prototype.hasOwnProperty.call(quant.sourceHealth?.sources || {}, "quant")) addIssue("error", "data/quant.json", "quant providers must not share one failure streak");
+const sourceHealthIds = Object.keys(quant.sourceHealth?.sources || {});
+if (new Set(sourceHealthIds.map((id) => id.toLowerCase())).size !== sourceHealthIds.length) {
+  addIssue("error", "data/quant.json", "source health contains case-colliding ids that break case-insensitive JSON consumers");
+}
+if (!crawlText.includes("site:wsts.org/76/Recent-News-Release") || !crawlText.includes("site:semiconductors.org/global-semiconductor-sales")) {
+  addIssue("error", "scripts/crawl.mjs", "WSTS and SIA official monitors must both be connected");
+}
 if (live.schemaVersion !== "4.0") {
   addIssue("error", "data/live.json", "live schemaVersion is not current", String(live.schemaVersion || "missing"));
 }
@@ -342,6 +462,14 @@ if (/PROJECTION_START_MONTHS|PROJECTION_YEAR_COUNT/.test(appText)) {
 }
 for (const figure of quant.liveFigures?.items || []) {
   const mode = String(figure.extractionMode || "");
+  if (String(quant.liveFigures?.method || "").includes("current-run")
+    && (figure.origin !== "live-crawl" || figure.observedThisRun !== true || !isDirectSourceUrl(figure.url))) {
+    addIssue("error", "data/quant.json", "live figure was not observed in the current crawl", String(figure.value || "unknown"));
+  }
+  const storyFields = [figure.storyId, figure.storyTitle, figure.storySummary].filter((value) => String(value || "").trim());
+  if (storyFields.length > 0 && storyFields.length < 3) {
+    addIssue("error", "data/quant.json", "live figure has incomplete story metadata", String(figure.value || "unknown"));
+  }
   if (!figure.canonical || !Number.isFinite(Number(figure.canonical.number)) || !String(figure.canonical.family || "").trim()) {
     addIssue("error", "data/quant.json", "live figure lacks a canonical value and unit family", String(figure.value || "unknown"));
   }
@@ -550,19 +678,25 @@ for (const item of news) {
 const brokerResearch = live.brokerResearch || null;
 const brokerItems = Array.isArray(brokerResearch?.items) ? brokerResearch.items : [];
 if (brokerResearch) {
-  if (brokerItems.length < 6) {
+  const brokerLiveSchema = brokerResearch.schemaVersion === "2.0";
+  if (!brokerLiveSchema && brokerItems.length < 6) {
     addIssue("error", "data/live.json", "fewer than six broker research evidence cards", String(brokerItems.length));
   }
   const brokerKeys = new Set();
   for (const item of brokerItems) {
     const evidenceType = String(item.evidenceType || "");
-    const hasEvidence = evidenceType === "direct-report"
+    const hasEvidence = brokerLiveSchema
+      ? /^https?:\/\//i.test(String(item.sourceUrl || "")) && !/news\.google\.com/i.test(String(item.sourceUrl || ""))
+      : evidenceType === "direct-report"
       ? Boolean(String(item.sourceRef || "").trim())
       : /^https?:\/\//i.test(String(item.sourceUrl || "")) && !/news\.google\.com/i.test(String(item.sourceUrl || ""));
     if (!new Set(["direct-report", "news-citation"]).has(evidenceType)) {
       addIssue("error", "data/live.json", "broker research item has an invalid evidence type", `${item.id || item.title}:${evidenceType || "missing"}`);
     }
     if (!hasEvidence) addIssue("error", "data/live.json", "broker research item lacks linked evidence", item.id || item.title || "unknown");
+    if (brokerLiveSchema && (item.origin !== "live-crawl" || item.observedThisRun !== true || !exactSourceDate(item.publishedAt))) {
+      addIssue("error", "data/live.json", "broker live item was not observed in the current crawl with an exact date", item.id || item.title || "unknown");
+    }
     if (!String(item.institution || "").trim()) addIssue("error", "data/live.json", "broker research item has no institution", item.id || item.title || "unknown");
     if (String(item.summary || "").trim().length < 35) addIssue("error", "data/live.json", "broker research summary is not substantive", item.id || item.title || "unknown");
     if (!String(item.insight || "").trim() || !String(item.reversalKpi || "").trim()) {
@@ -596,6 +730,9 @@ if (brokerResearch) {
         addIssue("error", "data/live.json", `broker framework ${key} scenarios are not ordered Bear < Base < Bull`, `${bear}/${base}/${bull}`);
       }
     }
+  }
+  if (brokerLiveSchema && (brokerResearch.baseline?.status !== "revalidation-required" || brokerResearch.framework?.dataStatus !== "baseline")) {
+    addIssue("error", "data/live.json", "URL-less broker material must be separated as a revalidation baseline");
   }
 }
 
@@ -799,7 +936,7 @@ for (const requiredChannel of ["prices", "english-news", "chinese-news", "broker
   }
 }
 for (const channel of sourceChannels) {
-  if (Number(channel.records || 0) < 1) {
+  if (Number(channel.records || 0) < 1 && !(channel.id === "broker-research" && brokerResearch?.schemaVersion === "2.0")) {
     addIssue("error", "data/live.json", "source registry channel has no crawl records", channel.id || "unknown");
   }
 }

@@ -2883,9 +2883,10 @@
     });
     if (Number.isFinite(q.memoryMomentum?.dramSpot30dPct)) chips.push(`DRAM spot 30d ${q.memoryMomentum.dramSpot30dPct > 0 ? "+" : ""}${fmtNum(q.memoryMomentum.dramSpot30dPct, 1)}%`);
     if (Number.isFinite(q.fundamentals?.micron?.revenue?.value)) chips.push(`Micron 분기매출 $${fmtNum(q.fundamentals.micron.revenue.value / 1e9, 1)}B`);
-    if (Number(q.liveFigures?.total) > 0) chips.push(`원문 정량수치 ${fmtNum(q.liveFigures.total)}건`);
-    const industryPulse = verifiedDerivedContract("industryPulse", "1.0");
-    const baselineFreshness = verifiedDerivedContract("baselineFreshness", "2.2");
+    const currentRunFigureCount = (q.liveFigures?.items || []).filter((item) => item.origin === "live-crawl" && item.observedThisRun === true).length;
+    if (currentRunFigureCount > 0) chips.push(`원문 정량수치 ${fmtNum(currentRunFigureCount)}건`);
+    const industryPulse = verifiedDerivedContract("industryPulse", "1.1");
+    const baselineFreshness = verifiedDerivedContract("baselineFreshness", "2.3");
     if (Number(industryPulse?.total) > 0) chips.push(`WSTS·SIA 연결 ${fmtNum(industryPulse.connected)}/${fmtNum(industryPulse.total)} · 최신 관측 ${fmtNum(industryPulse.observed)}`);
     if (Number(baselineFreshness?.total) > 0) chips.push(`기준 재검증 ${fmtNum(baselineFreshness.revalidate)} · 모순후보 ${fmtNum(baselineFreshness.conflictCandidates)}`);
     const forecastChecks = q.forecastInputs?.sourceChecks || {};
@@ -2896,7 +2897,12 @@
     if (Number(coverage.priceSeries) > 0) chips.push(`가격 ${fmtNum(coverage.priceSeries)}개·${fmtNum(coverage.pricePoints)}점`);
     if (Number(coverage.marketSeries) > 0) chips.push(`시장 ${fmtNum(coverage.marketSeries)}개·${fmtNum(coverage.marketPoints)}점`);
     if (Number(coverage.metricSeries) > 0) chips.push(`정량 ${fmtNum(coverage.metricSeries)}개·${fmtNum(coverage.metricPoints)}점`);
-    const delayed = stale || alerts.length > 0;
+    const delayedQuant = [q.fx?.usdkrw, q.aiDemandProxy?.nvda, q.aiDemandProxy?.amd, q.fundamentals?.micron, q.foundry?.tsmcMonthly]
+      .filter((item) => ["stale", "unavailable"].includes(String(item?.status || "")));
+    if (delayedQuant.length) chips.push(`정량 지연 ${fmtNum(delayedQuant.length)}건`);
+    const verifiedRun = document.body.dataset.liveDataState === "verified"
+      && Boolean(QUANT?.runId && LIVE?.runId && QUANT.runId === LIVE.runId);
+    const delayed = !verifiedRun || stale || alerts.length > 0 || delayedQuant.length > 0;
     strip.className = `crawl-heartbeat${delayed ? " stale" : ""}`;
     strip.innerHTML = `
       <span class="hb-dot" aria-hidden="true"></span>
@@ -3047,7 +3053,12 @@
     const host = $("#liveFigures");
     if (!host) return;
     const lf = QUANT?.liveFigures;
-    const items = Array.isArray(lf?.items) ? lf.items : [];
+    const items = Array.isArray(lf?.items) ? lf.items.filter((item) => (
+      item.origin === "live-crawl"
+      && item.observedThisRun === true
+      && /^https?:\/\//i.test(String(item.url || ""))
+      && !/news\.google\.com/i.test(String(item.url || ""))
+    )) : [];
     if (!items.length) {
       host.innerHTML = "";
       host.hidden = true;
@@ -4163,16 +4174,18 @@
 
   function verifiedDerivedContract(key, schemaVersion) {
     const contract = QUANT?.[key];
+    const acceptedVersions = Array.isArray(schemaVersion) ? schemaVersion : [schemaVersion];
     const sameRun = Boolean(QUANT?.runId && LIVE?.runId && QUANT.runId === LIVE.runId);
     const expiresAt = Date.parse(String(contract?.expiresAt || QUANT?.expiresAt || ""));
-    const fresh = !Number.isFinite(expiresAt) || Date.now() <= expiresAt;
-    if (!contract || contract.schemaVersion !== schemaVersion || contract.runId !== QUANT?.runId || !sameRun || !fresh) return null;
+    const fresh = Number.isFinite(expiresAt) && Date.now() <= expiresAt;
+    if (!contract || !acceptedVersions.includes(contract.schemaVersion) || contract.runId !== QUANT?.runId || !sameRun || !fresh) return null;
     return contract;
   }
 
   function verifiedDemandAccounts(categoryId) {
-    const signals = verifiedDerivedContract("accountSignals", "2.0");
-    if (!signals || Number(signals.accountCount) !== 27) return [];
+    const signals = verifiedDerivedContract("accountSignals", "2.1");
+    const expectedCount = Number(signals?.expectedCount || signals?.accountCount || 0);
+    if (!signals || !expectedCount || Number(signals.accountCount) !== expectedCount) return [];
     return Object.values(signals?.accounts || {})
       .filter((account) => account?.category === categoryId)
       .filter((account) => account?.id && account?.name)
@@ -4362,7 +4375,7 @@
 
   // Today's crawled mention/direction signal for a demand-pool account.
   function forecastAccountSignal(account) {
-    return verifiedDerivedContract("accountSignals", "2.0")?.accounts?.[account?.id] || null;
+    return verifiedDerivedContract("accountSignals", "2.1")?.accounts?.[account?.id] || null;
   }
 
   function forecastAccountPull(account, scenario = forecastScenarioData()) {
@@ -4390,20 +4403,24 @@
     const scenario = forecastScenarioData();
     const d = forecastDrivers(category, scenario);
     const accounts = category.accounts || [];
+    const accountSignals = accounts.map((account) => forecastAccountSignal(account)).filter(Boolean);
+    const liveAccountCount = accountSignals.filter((signal) => signal.status === "live").length;
+    const reviewAccountCount = accountSignals.filter((signal) => signal.status !== "live" && Number(signal.evidenceCount) > 0).length;
+    const evidenceCoverage = `라이브 ${fmtNum(liveAccountCount)}/${fmtNum(accounts.length)}${reviewAccountCount ? ` · 검토 ${fmtNum(reviewAccountCount)}` : ""}`;
     if (!d.available) {
       if (meta) meta.textContent = `${category.label} · 검증 가능한 정량 입력 수집 중`;
       if (panelTitle) panelTitle.textContent = category.panelTitle;
       if (panelMeta) panelMeta.textContent = "출처·관측일·단위 검증 후 시나리오를 표시합니다.";
-      if (logic) logic.innerHTML = `<div class="empty">필수 입력(${esc(d.missing.join(", "))})이 아직 검증되지 않아 수요량을 계산하지 않습니다.</div>`;
+      if (logic) logic.innerHTML = `<div class="empty">필수 입력(${escapeHTML(d.missing.join(", "))})이 아직 검증되지 않아 수요량을 계산하지 않습니다.</div>`;
       summary.innerHTML = `<div class="empty">확인되지 않은 상수로 빈 값을 대체하지 않습니다.</div>`;
       grid.innerHTML = "";
       if (focus) focus.innerHTML = "";
       if (assumptions) assumptions.innerHTML = "";
       return;
     }
-    if (meta) meta.textContent = `${category.label} · ${scenario.label} · ${fmtNum(d.units, d.units < 20 ? 1 : 0)}${category.unitLabel} × ${fmtNum(d.memPerUnit)}${category.memLabel}`;
+    if (meta) meta.textContent = `${category.label} · ${scenario.label} · ${fmtNum(d.units, d.units < 20 ? 1 : 0)}${category.unitLabel} × ${fmtNum(d.memPerUnit)}${category.memLabel} · ${evidenceCoverage}`;
     if (panelTitle) panelTitle.textContent = category.panelTitle;
-    if (panelMeta) panelMeta.textContent = `${category.driverLabel} · ${category.techLabel} · ${category.pullLabel}`;
+    if (panelMeta) panelMeta.textContent = `${category.driverLabel} · ${category.techLabel} · ${category.pullLabel} · ${evidenceCoverage}`;
 
     if (catTabs) {
       catTabs.innerHTML = orderedForecastCategories().map((c) => `
@@ -4469,10 +4486,12 @@
       const hasPull = Number.isFinite(pull);
       const signalBadge = signal?.status === "live"
         ? `<span class="hs-signal ${escapeHTML(signal.direction)}">${signal.direction === "up" ? "▲" : signal.direction === "down" ? "▼" : "•"} 오늘 뉴스 ${fmtNum(signal.mentions)}건</span>`
-        : `<span class="hs-signal insufficient">최근 30일 근거 없음</span>`;
+        : signal?.evidenceCount
+          ? `<span class="hs-signal insufficient">근거 품질 미달 · ${fmtNum(signal.evidenceCount)}건</span>`
+          : `<span class="hs-signal insufficient">최근 30일 근거 없음</span>`;
       return `
         <button class="hs-card ${account.id === focusId ? "active" : ""} reveal${hasPull ? "" : " insufficient"}" type="button" data-hs-account="${escapeHTML(account.id)}" style="--delay:${i * 40}ms; --pull:${hasPull ? pull : 0}%">
-          <span class="hs-card-top"><em>${signal?.status === "live" ? `${fmtNum(signal.sourceCount)}개 출처` : "30D"}</em><b>${escapeHTML(category.driverLabel)} ${escapeHTML(signal?.driverLabel || "근거 부족")}</b></span>
+          <span class="hs-card-top"><em>${signal?.evidenceCount ? `${fmtNum(signal.independentSourceCount || signal.sourceCount)}개 독립 출처` : "30D"}</em><b>${escapeHTML(category.driverLabel)} ${escapeHTML(signal?.driverLabel || "근거 부족")}</b></span>
           <strong>${escapeHTML(account.name)}</strong>
           <small>${signal?.latest ? `${escapeHTML(signal.latest.source)} · ${escapeHTML(signal.latest.date || "날짜 미상")}` : "직접 연결 근거 대기"}</small>
           <div class="hs-pull"><i style="width:${hasPull ? pull : 0}%"></i></div>
@@ -4489,10 +4508,12 @@
       const signalHTML = signal?.status === "live"
         ? `<div class="hs-focus-signal">
             <b>오늘 크롤링 신호</b>
-            <span>언급 ${fmtNum(signal.mentions)}건 · 확장어 ${fmtNum(signal.up)} · 축소어 ${fmtNum(signal.down)} · 방향 ${signal.direction === "up" ? "▲ 확대" : signal.direction === "down" ? "▼ 축소" : "→ 중립"}</span>
+            <span>언급 ${fmtNum(signal.mentions)}건 · 독립 출처 ${fmtNum(signal.independentSourceCount || signal.sourceCount)}개 · 확장어 ${fmtNum(signal.up)} · 축소어 ${fmtNum(signal.down)} · 방향 ${signal.direction === "up" ? "▲ 확대" : signal.direction === "down" ? "▼ 축소" : "→ 중립"}</span>
             ${(signal.evidence || []).map((item) => `<a href="${escapeHTML(item.url)}" target="_blank" rel="noopener">${escapeHTML(item.title)} — ${escapeHTML(item.source)} ${escapeHTML(item.date || "")} ↗</a>`).join("")}
           </div>`
-        : `<div class="hs-focus-signal idle"><b>라이브 근거 대기</b><span>최근 30일 직접 근거 없음 · 고정 방향·고정 점수로 대체하지 않음</span></div>`;
+        : signal?.evidenceCount
+          ? `<div class="hs-focus-signal idle"><b>근거 품질 미달</b><span>독립 출처 2개 또는 공식·공시 원문 1건 확인 전까지 점수 산출 보류</span>${(signal.evidence || []).map((item) => `<a href="${escapeHTML(item.url)}" target="_blank" rel="noopener">${escapeHTML(item.title)} — ${escapeHTML(item.source)} ${escapeHTML(item.date || "")} ↗</a>`).join("")}</div>`
+          : `<div class="hs-focus-signal idle"><b>라이브 근거 대기</b><span>최근 30일 직접 근거 없음 · 고정 방향·고정 점수로 대체하지 않음</span></div>`;
       focus.innerHTML = `
         <span class="hs-focus-tag">${escapeHTML(category.label)} · 수요 심층</span>
         <strong>${escapeHTML(account.name)}</strong>
@@ -5655,10 +5676,17 @@
       implication: item.insight || item.implication || "",
       reversal: item.reversalKpi || item.reversal || "",
       metrics: Array.isArray(item.metrics) ? item.metrics : [],
-    })).filter((item) => item.title && item.body && item.implication && item.reversal);
+    })).filter((item) => (
+      item.title && item.body && item.implication && item.reversal
+      && item.origin === "live-crawl"
+      && item.observedThisRun === true
+      && /^https?:\/\//i.test(String(item.sourceUrl || ""))
+      && !/news\.google\.com/i.test(String(item.sourceUrl || ""))
+    ));
     if (normalizedLive.length) return normalizedLive.slice(0, 8);
 
     const citations = rawNews().map((item) => {
+      if (item.verification?.origin !== "live-crawl" || item.verification?.observedThisRun !== true) return null;
       const rule = brokerClientRule(item);
       const url = String(item.sourceUrl || item.link || "");
       if (!rule || !/^https?:\/\//i.test(url) || /news\.google\.com/i.test(url)) return null;
@@ -5683,7 +5711,7 @@
     }).filter(Boolean);
 
     const seen = new Set();
-    return citations.concat(brokerResearchFallback()).filter((item) => {
+    return citations.filter((item) => {
       const key = String(item.sourceUrl || `${item.institution}:${item.title}`).toLowerCase().replace(/[?#].*$/, "");
       if (seen.has(key)) return false;
       seen.add(key);
@@ -5814,6 +5842,42 @@
   }
 
   function renderBrokerInsightReport(researchItems) {
+    const frameworkIsLive = LIVE.brokerResearch?.framework?.dataStatus === "live-observed"
+      && /^20\d{2}-\d{2}-\d{2}$/.test(String(LIVE.brokerResearch?.framework?.lastCheckedAt || ""));
+    if (!frameworkIsLive) {
+      const updatedAt = String(LIVE.brokerResearch?.updatedAt || LIVE.updatedAt || "").slice(0, 10);
+      const baseline = LIVE.brokerResearch?.baseline || {};
+      return `
+        <article class="exec-report reveal" aria-labelledby="execReportTitle">
+          <header class="exec-report-masthead">
+            <div class="exec-report-title">
+              <span>LIVE BROKER MONITOR · ${escapeHTML(updatedAt || "수집 대기")}</span>
+              <h3 id="execReportTitle">증권사 공개 원문·인용 브리핑</h3>
+            </div>
+          </header>
+          <section class="exec-report-thesis" aria-label="라이브 근거 상태">
+            <span>${researchItems.length ? `이번 실행 ${fmtNum(researchItems.length)}건` : "검증 가능한 공개 원문 수집 중"}</span>
+            <p>${researchItems.length ? "이번 크롤링에서 직접 확인한 공개 URL과 날짜가 있는 항목만 표시합니다." : "URL 없는 제공 리포트 수치나 이전 실행 기사를 라이브 카드로 대체하지 않습니다."}</p>
+          </section>
+          <section class="exec-report-insights" aria-label="증권사 라이브 인용">
+            ${researchItems.length ? researchItems.map((item, index) => `
+              <article class="exec-report-insight" style="--report-accent:${escapeHTML(item.accent || "#00a98f")}">
+                <span class="exec-report-number">${String(index + 1).padStart(2, "0")}</span>
+                <div class="exec-report-insight-copy">
+                  <div class="exec-report-kicker"><strong>${escapeHTML(item.institution || item.label)}</strong><span>${escapeHTML(item.publishedAt || "")}</span></div>
+                  <h5>${strategicHighlightHTML(item.title)}</h5>
+                  <p>${strategicHighlightHTML(item.body)}</p>
+                  ${item.metrics?.length ? `<p class="exec-report-inline-metrics">${item.metrics.map((metric) => `<strong>${strategicHighlightHTML(metric)}</strong>`).join("<span>·</span>")}</p>` : ""}
+                  <dl><div><dt>Insight</dt><dd>${strategicHighlightHTML(item.implication)}</dd></div><div><dt>판단 전환 조건</dt><dd>${strategicHighlightHTML(item.reversal)}</dd></div></dl>
+                  <a class="exec-report-source" href="${escapeHTML(item.sourceUrl)}" target="_blank" rel="noopener noreferrer">출처 원문 보기</a>
+                </div>
+              </article>
+            `).join("") : `<div class="empty">이번 실행에서 메모리 산업과 직접 연결되는 증권사 공개 원문·권위 매체 인용을 확인하지 못했습니다.</div>`}
+          </section>
+          ${baseline.status === "revalidation-required" ? `<section class="exec-report-conclusion"><span>BASELINE 분리</span><p>${fmtNum(baseline.itemCount || 0)}개 제공 리포트는 공개 원문 URL과 대조일이 없어 재검증 대상으로 분리했습니다.</p></section>` : ""}
+        </article>
+      `;
+    }
     const framework = brokerResearchFrameworkData();
     const scenarios = framework.scenarios || [];
     const baseScenario = scenarios.find((item) => item.id === "base") || scenarios[0] || {};
@@ -6995,7 +7059,7 @@
   function withDailyAgentEvidence(agent = {}) {
     if (agent.dailyGrounded) return agent;
     const roleKey = dailyAgentRoleKey(agent);
-    const evidence = verifiedDerivedContract("agentBriefing", "1.0")?.roles?.[roleKey];
+    const evidence = verifiedDerivedContract("agentBriefing", "1.1")?.roles?.[roleKey];
     const roleLens = {
       ceo: "이 근거가 오늘 안건의 최종 의사결정 조건을 충족하는지 판단합니다.",
       cfo: "재무 관점에서는 가격·매출·투자 약정의 현금흐름 영향을 다시 계산해야 합니다.",
@@ -7046,7 +7110,9 @@
     }
     // Agenda-relevant verbatim figures from today's articles.
     const terms = (selected?.terms || []).map((t) => String(t).toLowerCase());
-    const figures = Array.isArray(q.liveFigures?.items) ? q.liveFigures.items : [];
+    const figures = Array.isArray(q.liveFigures?.items) ? q.liveFigures.items.filter((item) => (
+      item.origin === "live-crawl" && item.observedThisRun === true && /^https?:\/\//i.test(String(item.url || ""))
+    )) : [];
     const relevant = figures.filter((f) => {
       const hay = `${f.snippet || ""} ${f.contextKo || ""}`.toLowerCase();
       return terms.some((t) => t.length > 2 && hay.includes(t));
@@ -9024,7 +9090,7 @@
   function memoryMarketCandidateEdges(manualEdges = []) {
     const nodes = new Map(memoryMarketNodes().map((node) => [node.id, node]));
     const manualPairs = new Set(manualEdges.map((edge) => [edge.from, edge.to].sort().join("--")));
-    return (verifiedDerivedContract("relationCandidates", "1.0")?.items || [])
+    return (verifiedDerivedContract("relationCandidates", "1.1")?.items || [])
       .filter((item) => nodes.has(item.from) && nodes.has(item.to))
       .filter((item) => !manualPairs.has([item.from, item.to].sort().join("--")))
       .map((item) => ({
@@ -9049,7 +9115,7 @@
 
   function memoryMarketAllEdges() {
     const manual = memoryMarketEdges();
-    const livePairs = new Map((verifiedDerivedContract("relationCandidates", "1.0")?.items || []).map((item) => [[item.from, item.to].sort().join("--"), item]));
+    const livePairs = new Map((verifiedDerivedContract("relationCandidates", "1.1")?.items || []).map((item) => [[item.from, item.to].sort().join("--"), item]));
     const auditedManual = manual.map((edge) => {
       const livePair = livePairs.get([edge.from, edge.to].sort().join("--"));
       if (!livePair) return edge;
@@ -9800,7 +9866,7 @@
           <button class="${selected?.kind === "edge" && selected.edge.id === edge.id ? "active" : ""}" type="button" data-memory-edge="${escapeHTML(edge.id)}" style="--edge-color:${memoryMarketEdgeColor(edge.type)}; animation-delay:${index * 45}ms">
             <span>${escapeHTML(edge.type)}</span>
             <strong>${escapeHTML(memoryMarketRelationTitle(edge))}</strong>
-            <small>${escapeHTML(edge.label)} · 근거 ${fmtNum(edge.evidenceCount)}${edge.candidate ? ` · ${edge.evidenceState === "promotion-review" ? "승격 제안" : `후보 ${fmtNum(edge.evidenceCount)}/${fmtNum(verifiedDerivedContract("relationCandidates", "1.0")?.promotionThreshold || 3)}`}` : edge.livePairEvidenceCount ? ` · 관계 재검증 ${fmtNum(edge.livePairEvidenceCount)}건` : edge.mode === "money" ? ` · 흐름지수 ${fmtNum(Math.round(edge.flowIndex))}` : ""}</small>
+            <small>${escapeHTML(edge.label)} · 근거 ${fmtNum(edge.evidenceCount)}${edge.candidate ? ` · ${edge.evidenceState === "promotion-review" ? "승격 제안" : `후보 ${fmtNum(edge.evidenceCount)}/${fmtNum(verifiedDerivedContract("relationCandidates", "1.1")?.promotionThreshold || 3)}`}` : edge.livePairEvidenceCount ? ` · 관계 재검증 ${fmtNum(edge.livePairEvidenceCount)}건` : edge.mode === "money" ? ` · 흐름지수 ${fmtNum(Math.round(edge.flowIndex))}` : ""}</small>
           </button>
         `).join("")}
       </div>
@@ -10656,7 +10722,7 @@
   }
 
   function baselineFreshnessBadgeHTML(item = {}) {
-    const audit = verifiedDerivedContract("baselineFreshness", "2.2")?.items?.[baselineFreshnessKey(item)];
+    const audit = verifiedDerivedContract("baselineFreshness", "2.3")?.items?.[baselineFreshnessKey(item)];
     if (!audit) return `<span class="baseline-freshness revalidate">감사 미연결</span>`;
     const label = audit.status === "conflict-candidate"
       ? `모순 후보 · 근거일 ${audit.conflictEvidence?.date || audit.lastEvidenceAt || "미상"}`

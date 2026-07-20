@@ -8357,6 +8357,16 @@ body.sidebar-collapsed .sb-ico {
     filter .16s;
 }
 
+.memory-edge.candidate {
+  stroke-dasharray: 2 7;
+  opacity: .58;
+}
+
+.memory-edge.candidate.promotion-review {
+  opacity: .84;
+  filter: drop-shadow(0 0 4px color-mix(in srgb, #06B6D4 55%, transparent));
+}
+
 .memory-edge.directed {
   stroke-dasharray: var(--edge-dash, 9 6);
 }
@@ -8406,6 +8416,15 @@ body.sidebar-collapsed .sb-ico {
   border-radius: 999px;
   background: var(--edge-color, var(--accent));
   box-shadow: 0 0 0 3px color-mix(in srgb, var(--edge-color, var(--accent)) 14%, transparent);
+}
+
+.memory-network-legend span.candidate i {
+  width: 18px;
+  height: 0;
+  border-radius: 0;
+  border-top: 2px dashed var(--edge-color);
+  background: transparent;
+  box-shadow: none;
 }
 
 .memory-node {
@@ -18611,6 +18630,52 @@ body.crawl-moderation-open {
   font-family: var(--display);
   font-size: 10px;
 }
+.crawl-heartbeat .hb-trend {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  min-height: 27px;
+}
+.crawl-heartbeat .hb-trend .hb-spark.spark {
+  width: 58px;
+  height: 22px;
+  flex: 0 0 58px;
+}
+.crawl-heartbeat .hb-trend .hb-spark.price-sub {
+  font-size: 8px;
+  color: var(--muted);
+}
+
+.baseline-freshness {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  padding: 3px 7px;
+  border: 1px solid color-mix(in srgb, #10B981 38%, var(--line));
+  border-radius: 999px;
+  background: color-mix(in srgb, #10B981 9%, var(--panel));
+  color: #07835e;
+  font-size: 9px;
+  font-weight: 900;
+  white-space: nowrap;
+}
+.baseline-freshness.revalidate,
+.baseline-freshness.conflict-candidate {
+  border-color: color-mix(in srgb, #F59E0B 50%, var(--line));
+  background: color-mix(in srgb, #F59E0B 10%, var(--panel));
+  color: #b45309;
+}
+.baseline-freshness.conflict-candidate {
+  border-color: color-mix(in srgb, #EF4444 50%, var(--line));
+  background: color-mix(in srgb, #EF4444 9%, var(--panel));
+  color: #dc2626;
+}
+.baseline-freshness a { color: inherit; text-decoration: underline; }
+.talent-card-actions { display: flex; align-items: center; gap: 7px; flex-wrap: wrap; justify-content: flex-end; }
+
+.hs-card.insufficient { border-style: dashed; }
+.hs-card.insufficient .hs-pull i { background: transparent; }
+.hs-signal.insufficient { color: var(--muted); background: var(--panel); }
 .crawl-heartbeat.stale {
   border-color: color-mix(in srgb, #F59E0B 45%, var(--line));
   background: color-mix(in srgb, #F59E0B 10%, var(--panel));
