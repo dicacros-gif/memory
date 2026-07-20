@@ -31,7 +31,7 @@
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard/dist/web/static/pretendard.css" />
   <link rel="stylesheet" as="style" crossorigin href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css" />
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@500;700&family=Noto+Sans+KR:wght@400;500;700;800;900&family=Space+Grotesk:wght@500;600;700&display=swap" />
-  <link rel="stylesheet" href="assets/css/styles.css?v=semantic-trend-charts-20260720-1" />
+  <link rel="stylesheet" href="assets/css/styles.css?v=china-semiconductor-slides-20260720-1" />
 </head>
 <body>
   <div class="scroll-prog" id="scrollProg" aria-hidden="true"></div>
@@ -482,16 +482,24 @@
                 <span id="talentStrategySourceMeta">채용·캠퍼스·리텐션·컴플라이언스 신호</span>
               </div>
               <div class="policy-rule-grid" id="talentStrategyRuleGrid"></div>
-              <article class="talent-strategy-gallery" id="talentStrategyGallery" aria-label="중국 거점별 인력 전략 이미지 슬라이드">
+              <article class="talent-strategy-gallery" id="talentStrategyGallery" data-slide-id="wuxi-operations" aria-label="중국 거점별 인력 전략 이미지 슬라이드">
                 <div class="talent-strategy-gallery-stage">
-                  <img class="talent-strategy-gallery-image is-active" data-talent-gallery-slide="0" src="assets/media/talent-strategy-wuxi-operations.webp" alt="우시 반도체 생산시설의 현지 운영 및 설비 유지 인력" loading="lazy" decoding="async" />
-                  <img class="talent-strategy-gallery-image" data-talent-gallery-slide="1" src="assets/media/talent-strategy-dalian-quality.webp" alt="다롄 엔터프라이즈 SSD 고객 품질 및 신뢰성 검증 현장" loading="lazy" decoding="async" />
-                  <img class="talent-strategy-gallery-image" data-talent-gallery-slide="2" src="assets/media/talent-strategy-chongqing-packaging.webp" alt="충칭 반도체 후공정 및 패키징 품질 검증 현장" loading="lazy" decoding="async" />
+                  <img class="talent-strategy-gallery-image is-active" data-talent-gallery-slide="0" src="assets/media/talent-strategy-v3-wuxi-dram.webp" alt="우시 DRAM 팹에서 현장 엔지니어들이 300mm 웨이퍼 장비와 예방 정비 상태를 점검하는 모습" width="1672" height="941" aria-hidden="false" loading="lazy" decoding="async" />
+                  <img class="talent-strategy-gallery-image" data-talent-gallery-slide="1" src="assets/media/talent-strategy-v3-dalian-nand.webp" alt="다롄 NAND와 엔터프라이즈 SSD 품질 센터에서 엔지니어들이 서버 랙과 신뢰성 시험 장비를 운용하는 모습" width="1672" height="941" aria-hidden="true" loading="lazy" decoding="async" />
+                  <img class="talent-strategy-gallery-image" data-talent-gallery-slide="2" src="assets/media/talent-strategy-v3-chongqing-package.webp" alt="충칭 반도체 후공정 라인에서 엔지니어들이 패키지 자동광학검사와 lot 추적 공정을 확인하는 모습" width="1672" height="941" aria-hidden="true" loading="lazy" decoding="async" />
                   <div class="talent-strategy-gallery-shade" aria-hidden="true"></div>
+                  <div class="talent-strategy-gallery-brandbar" aria-label="중국 메모리 반도체 생태계 브랜드">
+                    <span id="talentStrategyGalleryBrandLabel">CHINA MEMORY ECOSYSTEM · 无锡 CLUSTER</span>
+                    <div class="talent-strategy-gallery-brands" id="talentStrategyGalleryBrands">
+                      <b class="talent-gallery-brand is-primary"><i>SK</i><span>SK hynix <small>无锡</small></span></b>
+                      <b class="talent-gallery-brand"><i>CX</i><span>CXMT <small>长鑫存储</small></span></b>
+                      <b class="talent-gallery-brand"><i>北</i><span>NAURA <small>北方华创</small></span></b>
+                    </div>
+                  </div>
                   <div class="talent-strategy-gallery-copy" id="talentStrategyGalleryCopy" aria-live="polite">
-                    <span id="talentStrategyGalleryKicker">01 · WUXI OPERATIONS</span>
-                    <strong id="talentStrategyGalleryTitle">운영 인력은 현지화하고 핵심 공정 접근권은 분리</strong>
-                    <p id="talentStrategyGalleryBody">장비 PM·utility·EHS 인력은 상시 풀로 확보하되 recipe·수율 데이터는 역할별 최소 권한으로 통제합니다.</p>
+                    <span id="talentStrategyGalleryKicker">01 · 无锡 · DRAM FAB OPERATIONS</span>
+                    <strong id="talentStrategyGalleryTitle">우시 DRAM은 현장 대응과 공정 변경 권한을 분리</strong>
+                    <p id="talentStrategyGalleryBody">장비 PM·유틸리티·EHS는 현지 대응 속도를 높이고, recipe·수율·설비 변경은 최소 권한과 이중 승인으로 통제합니다.</p>
                     <a id="talentStrategyGalleryLink" href="https://www.bis.gov/press-release/department-commerce-closes-export-controls-loophole-foreign-owned-semiconductor-fabs-china" target="_blank" rel="noopener noreferrer">BIS 원문 ↗</a>
                   </div>
                   <div class="talent-strategy-gallery-controls" aria-label="이미지 슬라이드 제어">
@@ -981,6 +989,6 @@
   <div class="qa-answer" id="qaAnswer" hidden></div>
   <div class="inspector" id="inspector" hidden></div>
   <div class="backdrop" id="backdrop"></div>
-  <script src="assets/js/app.js?v=semantic-trend-charts-20260720-1" defer></script>
+  <script src="assets/js/app.js?v=china-semiconductor-slides-20260720-1" defer></script>
 </body>
 </html>
