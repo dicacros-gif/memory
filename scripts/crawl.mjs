@@ -10,6 +10,13 @@ import { readFile, writeFile, mkdir, rename, rm } from "node:fs/promises";
 import { createHash } from "node:crypto";
 import { dirname, resolve } from "node:path";
 import { fileURLToPath } from "node:url";
+import {
+  buildAgentBriefing,
+  buildBaselineFreshness,
+  buildDemandAccountSignals,
+  buildIndustryPulse,
+  buildRelationCandidates,
+} from "./live-pipeline.mjs";
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
 const OUT = resolve(__dirname, "..", "data", "live.json");
@@ -287,6 +294,16 @@ const CHINESE_CATEGORIES = [
 // them separate makes source coverage explicit without mixing language and
 // subject classification.
 const ENGLISH_AUTHORITY_MONITORS = [
+  {
+    id: "industry",
+    label: "WSTS·SIA 공식 산업 통계",
+    queries: [
+      "site:wsts.org/76/Recent-News-Release semiconductor market forecast",
+      "site:wsts.org/76/103 semiconductor market WSTS",
+      "site:semiconductors.org/global-semiconductor-sales WSTS monthly sales",
+      "site:semiconductors.org/news-events/latest-news semiconductor sales",
+    ],
+  },
   {
     id: "hbm",
     label: "HBM 권위 소스",
@@ -5099,6 +5116,15 @@ async function collectQuantSeries(entry) {
     asOf: latest.date.slice(0, 10),
     changePct30d: quantSeriesChangePct(points, 30),
     changePct90d: quantSeriesChangePct(points, 90),
+    history30d: {
+      cadence: "daily",
+      unit: result.meta?.currency || null,
+      status: points.length >= 2 ? "live" : "accumulating",
+      sourceUrl: entry.sourceUrl,
+      points: points
+        .filter((point) => latest.time - point.time <= 35 * 86400000)
+        .map((point) => ({ date: point.date.slice(0, 10), value: point.close })),
+    },
     source: "Yahoo Finance chart API",
     sourceUrl: entry.sourceUrl,
   };
@@ -5192,6 +5218,7 @@ async function fetchTsmcMonthlyRevenue() {
 function quantMemoryMomentum(priceHistory = {}) {
   const calc = (prefix, daysAgo) => {
     const changes = [];
+    const spans = [];
     for (const item of Object.values(priceHistory.items || {})) {
       if (!String(item.key || "").startsWith(prefix)) continue;
       const points = (item.points || [])
@@ -5200,28 +5227,39 @@ function quantMemoryMomentum(priceHistory = {}) {
         .sort((a, b) => a.time - b.time);
       if (points.length < 2) continue;
       const latest = points[points.length - 1];
-      const target = latest.time - daysAgo * 86400000;
-      let base = points[0];
-      for (const p of points) {
-        if (p.time <= target) base = p;
-        else break;
-      }
-      if (base.time === latest.time) continue;
-      // Honest labeling: only report an N-day change when the base point is
-      // actually near N days old. Sparse history (e.g. an archive point from
-      // 3 months ago standing in for "30d") must not overstate momentum.
-      const spanDays = (latest.time - base.time) / 86400000;
-      if (spanDays < daysAgo * 0.5 || spanDays > daysAgo * 1.8) continue;
+      // Use the observation nearest the requested horizon. Requiring a point
+      // to be older than the exact target skipped valid 25-day observations
+      // and incorrectly fell back to much older archive points.
+      const selected = points.slice(0, -1).map((point) => ({
+        point,
+        spanDays: (latest.time - point.time) / 86400000,
+      })).filter((candidate) => candidate.spanDays >= daysAgo * 0.5 && candidate.spanDays <= daysAgo * 1.8)
+        .sort((a, b) => Math.abs(a.spanDays - daysAgo) - Math.abs(b.spanDays - daysAgo))[0];
+      if (!selected) continue;
+      const base = selected.point;
+      const spanDays = selected.spanDays;
       changes.push(((latest.average - base.average) / base.average) * 100);
+      spans.push(spanDays);
     }
-    if (!changes.length) return null;
-    return Number((changes.reduce((sum, v) => sum + v, 0) / changes.length).toFixed(2));
+    if (!changes.length) return { value: null, spanDays: null, seriesCount: 0 };
+    changes.sort((a, b) => a - b);
+    spans.sort((a, b) => a - b);
+    return {
+      value: Number(changes[Math.floor(changes.length / 2)].toFixed(2)),
+      spanDays: Number(spans[Math.floor(spans.length / 2)].toFixed(1)),
+      seriesCount: changes.length,
+    };
   };
+  const dram30 = calc("dram-dram-spot-price::", 30);
+  const dram90 = calc("dram-dram-spot-price::", 90);
+  const nand30 = calc("nand-nand-flash-spot-price::", 30);
+  const nand90 = calc("nand-nand-flash-spot-price::", 90);
   return {
-    dramSpot30dPct: calc("dram-", 30),
-    dramSpot90dPct: calc("dram-", 90),
-    nandSpot30dPct: calc("nand-", 30),
-    nandSpot90dPct: calc("nand-", 90),
+    dramSpot30dPct: dram30.value,
+    dramSpot90dPct: dram90.value,
+    nandSpot30dPct: nand30.value,
+    nandSpot90dPct: nand90.value,
+    coverage: { dram30, dram90, nand30, nand90 },
     source: "TrendForce 공개 테이블 자체 축적 히스토리",
     asOf: new Date().toISOString().slice(0, 10),
   };
@@ -5822,84 +5860,8 @@ function corroborateKpi(item = {}, liveFigures = {}) {
   return hit || null;
 }
 
-/* ---------------- Live account signals (forecast demand pools) ----------------
- * Counts how often each demand-pool account appears in today's crawled corpus
- * and detects expansion/contraction wording. The UI blends this into the
- * account cards as a bounded nudge with the latest source article attached —
- * nothing invented: mentions, direction words, and links are all verbatim. */
-
-const ACCOUNT_SIGNAL_ALIASES = {
-  azure: /(microsoft|azure|openai(?!.*stargate)|maia)/i,
-  aws: /(amazon|aws|trainium)/i,
-  google: /(google|alphabet|tpu|ironwood)/i,
-  meta: /(\bmeta\b|mtia|instagram)/i,
-  oracle: /(oracle|stargate)/i,
-  xai: /(\bxai\b|colossus|grok)/i,
-  china: /(alibaba|tencent|bytedance|阿里|腾讯|字节)/i,
-  tesla: /(tesla|테슬라|fsd)/i,
-  byd: /(\bbyd\b|比亚迪)/i,
-  hyundai: /(hyundai|kia|현대차|기아)/i,
-  tier1: /(bosch|continental|denso)/i,
-  vw: /(volkswagen|폭스바겐)/i,
-  toyota: /(toyota|도요타|토요타)/i,
-  apple: /(apple(?!\s*mac)|iphone|아이폰)/i,
-  "samsung-mx": /(galaxy|갤럭시)/i,
-  xiaomi: /(xiaomi|샤오미|小米)/i,
-  "oppo-vivo": /(\boppo\b|\bvivo\b)/i,
-  transsion: /(transsion|tecno|infinix)/i,
-  lenovo: /(lenovo|联想|레노버)/i,
-  dell: /(\bdell\b|델)/i,
-  hp: /(\bhp\b|hewlett)/i,
-  "apple-mac": /(macbook|\bmac\b.*m\d|m\d.*\bmac\b)/i,
-  appliance: /(home appliance|가전|白电)/i,
-  "azure-st": /(azure.{0,40}(storage|data)|blob storage)/i,
-  "aws-st": /(aws.{0,40}(storage|s3)|\bs3\b)/i,
-  "solidigm-dc": /(solidigm|솔리다임)/i,
-  "google-st": /(google.{0,40}storage|gcs)/i,
-  "china-dc": /((alibaba|tencent|bytedance|中国).{0,50}(存储|storage|云)|国产.{0,20}(ssd|存储))/i,
-};
-const ACCOUNT_UP_RE = /(expand|expansion|increase|surge|ramp|accelerat|record|invest|order|확대|증가|급증|증설|상향|투자|발주|扩产|增设|加码|投资|上调|抢购|激增)/i;
-const ACCOUNT_DOWN_RE = /(cut|delay|pause|halt|cancel|slowdown|shortfall|축소|지연|보류|중단|하향|감산|취소|减产|下调|推迟|放缓|叫停)/i;
-
-function buildAccountSignals(context = {}) {
-  const corpus = [
-    ...(context.news || []),
-    ...(context.communitySignals?.items || []),
-    ...(context.benchmarkSignals?.stream || []),
-  ].map((item) => ({
-    text: `${item.originalTitle || item.title || ""} ${item.summaryOriginal || item.summary || ""}`,
-    title: item.titleKo || item.title || "",
-    source: item.source || item.platform || "News",
-    url: item.link || item.sourceUrl || item.url || "",
-    date: String(item.date || item.publishedAt || "").slice(0, 10),
-  })).filter((item) => item.text.trim());
-
-  const accounts = {};
-  for (const [id, alias] of Object.entries(ACCOUNT_SIGNAL_ALIASES)) {
-    const hits = corpus.filter((item) => alias.test(item.text));
-    if (!hits.length) continue;
-    let up = 0;
-    let down = 0;
-    for (const hit of hits) {
-      if (ACCOUNT_UP_RE.test(hit.text)) up += 1;
-      if (ACCOUNT_DOWN_RE.test(hit.text)) down += 1;
-    }
-    const latest = hits.slice().sort((a, b) => String(b.date).localeCompare(String(a.date)))[0];
-    accounts[id] = {
-      mentions: hits.length,
-      up,
-      down,
-      direction: up > down ? "up" : down > up ? "down" : "flat",
-      latest: latest ? { title: String(latest.title).slice(0, 110), source: latest.source, url: latest.url, date: latest.date } : null,
-    };
-  }
-  return {
-    updatedAt: new Date().toISOString(),
-    accountCount: Object.keys(accounts).length,
-    accounts,
-    method: "alias mention count + direction wording · 원문 링크 보존",
-  };
-}
+/* Account, council, relationship, freshness, and official-industry transforms
+ * live in scripts/live-pipeline.mjs so fixtures can test them without network. */
 
 function buildMarketStructure(previous = {}, baseline = {}, liveFigures = {}) {
   const kpis = (baseline.kpis || []).map((item, index) => {
@@ -6122,31 +6084,56 @@ function buildProjectionCalibration(previous = {}, scenarioCalibration = {}, mod
   };
 }
 
+function sourceHealthId(step = "unknown") {
+  const value = String(step || "unknown");
+  const exact = [
+    [/^quant:FX USD\/KRW/i, "yahoo:usdkrw"],
+    [/^quant:AI NVIDIA/i, "yahoo:nvda"],
+    [/^quant:AI AMD/i, "yahoo:amd"],
+    [/^quant:Micron EDGAR/i, "sec:micron"],
+    [/^quant:TSMC/i, "twse:tsmc-monthly"],
+    [/^official-industry:wsts-sia/i, "official:wsts-sia"],
+  ].find(([pattern]) => pattern.test(value));
+  if (exact) return exact[1];
+  if (value.startsWith("가격백필:")) return `wayback:${value.slice("가격백필:".length).replace(/[^a-z0-9가-힣]+/gi, ":").replace(/^:|:$/g, "").toLowerCase()}`;
+  return value.replace(/\s+/g, "-").replace(/[^a-z0-9가-힣:_-]/gi, "").toLowerCase() || "unknown";
+}
+
 function sourceHealthSnapshot(previous = {}) {
   const grouped = new Map();
   for (const item of health) {
-    const id = String(item.step || item.name || "unknown").split(":")[0];
-    const current = grouped.get(id) || { id, ok: true, attempts: 0, errors: [] };
+    const id = sourceHealthId(item.step || item.name || "unknown");
+    const current = grouped.get(id) || { id, label: item.step || item.name || id, ok: true, attempts: 0, errors: [] };
     current.attempts += 1;
     current.ok = current.ok && Boolean(item.ok);
-    if (!item.ok && item.msg) current.errors.push(item.msg);
+    if (!item.ok && item.msg) current.errors.push(String(item.msg).replace(/[\u0000-\u001f\u007f]/g, " ").slice(0, 400));
     grouped.set(id, current);
   }
-  const sources = {};
+  const attemptedAt = new Date().toISOString();
+  const sources = Object.fromEntries(Object.entries(previous.sources || {}).map(([id, item]) => [id, {
+    ...item,
+    id,
+    attempted: false,
+    attempts: 0,
+  }]));
   for (const [id, item] of grouped.entries()) {
     const before = previous.sources?.[id] || {};
     const failureStreak = item.ok ? 0 : Number(before.failureStreak || 0) + 1;
     sources[id] = {
       ...item,
+      attempted: true,
+      status: item.ok ? "ok" : "failed",
       failureStreak,
-      lastAttemptAt: new Date().toISOString(),
-      lastSuccessAt: item.ok ? new Date().toISOString() : before.lastSuccessAt || null,
+      alertThreshold: 3,
+      lastAttemptAt: attemptedAt,
+      lastSuccessAt: item.ok ? attemptedAt : before.lastSuccessAt || null,
       alert: failureStreak >= 3,
     };
   }
   const values = Object.values(sources);
   return {
-    updatedAt: new Date().toISOString(),
+    schemaVersion: "2.0",
+    updatedAt: attemptedAt,
     ok: values.filter((item) => item.ok).length,
     total: values.length,
     failed: values.filter((item) => !item.ok).map((item) => item.id),
@@ -6302,6 +6289,7 @@ async function collectQuantMetrics(priceHistory, context = {}) {
   const model = context.quantModel || {};
   const quant = {
     schemaVersion: "2.0",
+    runId: context.runId || null,
     updatedAt: new Date().toISOString(),
     timezone: "Asia/Seoul",
     fx: {},
@@ -6339,6 +6327,24 @@ async function collectQuantMetrics(priceHistory, context = {}) {
     fetchTsmcMonthlyRevenue, previous.foundry?.tsmcMonthly, "quant:TSMC 월매출",
     (value) => `${value.month} · ${value.revenueBillionTwd}B TWD · YoY ${value.yoyPct != null ? Number(value.yoyPct).toFixed(1) : "?"}%`,
   );
+  {
+    const current = quant.foundry.tsmcMonthly;
+    const previousPoints = previous.foundry?.tsmcMonthly?.yoyHistory?.points || [];
+    const points = previousPoints
+      .filter((point) => /^20\d{2}-\d{2}$/.test(String(point.date)) && Number.isFinite(Number(point.value)))
+      .filter((point) => point.date !== current?.month);
+    if (/^20\d{2}-\d{2}$/.test(String(current?.month)) && Number.isFinite(Number(current?.yoyPct))) {
+      points.push({ date: current.month, value: Number(current.yoyPct) });
+    }
+    points.sort((a, b) => String(a.date).localeCompare(String(b.date)));
+    if (current) current.yoyHistory = {
+      cadence: "monthly",
+      unit: "% YoY",
+      status: points.length >= 2 ? "live" : "accumulating",
+      sourceUrl: current.sourceUrl || previous.foundry?.tsmcMonthly?.sourceUrl || null,
+      points: points.slice(-36),
+    };
+  }
   quant.forecastInputs = refreshForecastInputs(previous.forecastInputs, context, model);
   quant.forecastInputs.sourceChecks = await collectForecastSourceChecks(model);
   for (const [category, check] of Object.entries(quant.forecastInputs.sourceChecks.items || {})) {
@@ -6351,8 +6357,16 @@ async function collectQuantMetrics(priceHistory, context = {}) {
   }
   quant.liveFigures = extractLiveFigures(context);
   note("quant:라이브 수치", quant.liveFigures.total > 0, `원문 정량 수치 ${quant.liveFigures.total}건 추출`);
-  quant.accountSignals = buildAccountSignals(context);
-  note("quant:계정 신호", quant.accountSignals.accountCount > 0, `수요처 ${quant.accountSignals.accountCount}개 계정 신호 감지`);
+  quant.accountSignals = buildDemandAccountSignals(context, previous.accountSignals);
+  note("derived:account-signals", quant.accountSignals.accountCount === 27, `수요처 27개 전수 · 직접 근거 ${quant.accountSignals.evidencedAccountCount}개`);
+  quant.relationCandidates = buildRelationCandidates(context);
+  note("derived:relation-candidates", true, `신규 관계 후보 ${quant.relationCandidates.candidateCount}개 · 승격 검토 ${quant.relationCandidates.promotionReviewCount}개`);
+  quant.baselineFreshness = buildBaselineFreshness(context.baseline, context, previous.baselineFreshness);
+  note("derived:baseline-freshness", true, `기준 서술 ${quant.baselineFreshness.total}개 · 재검증 ${quant.baselineFreshness.revalidate}개`);
+  quant.industryPulse = buildIndustryPulse(context);
+  note("official-industry:wsts-sia", quant.industryPulse.connected > 0, `공식 산업 통계 ${quant.industryPulse.connected}/${quant.industryPulse.total} 연결`);
+  quant.agentBriefing = buildAgentBriefing(context, quant);
+  note("derived:agent-briefing", quant.agentBriefing.sourceCount > 0, `역할별 최신 근거 ${quant.agentBriefing.sourceCount}개 출처`);
   quant.marketStructure = buildMarketStructure(previous.marketStructure, context.baseline, quant.liveFigures);
   const drivers = buildQuantDrivers(quant, context);
   quant.scenarioCalibration = buildScenarioCalibration(previous.scenarioCalibration, drivers, model);
@@ -6546,6 +6560,7 @@ async function main() {
   const brokerResearch = buildBrokerResearch(news);
   note("증권사 리서치", brokerResearch.items.length >= 6 && Boolean(brokerResearch.framework), "리서치 요약과 시스템 도식 갱신 완료");
   quant = await collectQuantMetrics(priceHistory, {
+    runId,
     previousQuant: previous.quant,
     baseline: previous.baseline,
     quantModel: previous.quantModel,
@@ -6557,6 +6572,8 @@ async function main() {
     marketHistory,
   });
   appendQuantHistory(marketHistory, quant);
+  quant.validatedAt = new Date().toISOString();
+  quant.expiresAt = new Date(Date.now() + 26 * 60 * 60 * 1000).toISOString();
   quant.historyCoverage = quantHistoryCoverage(priceHistory, marketHistory);
   const sourceRegistry = buildSourceRegistry({ prices, news, communitySignals, brokerResearch, facts, marketHistory, quant });
   const okCount = health.filter((item) => item.ok).length;

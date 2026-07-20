@@ -1996,7 +1996,7 @@
     },
     {
       id: "dalian-quality",
-      scenarioIds: ["nand-essd"],
+      scenarioIds: ["nand-essd", "defense"],
       kicker: "02 · RECIPE & IP CONTROL",
       title: "NAND·eSSD 운영을 이어가되 핵심 IP 접근은 분리",
       body: "FA·reliability·customer quality는 현장 대응을 강화하고, 펌웨어·recipe·수율 분석 권한은 승인 기반으로 분리합니다.",
@@ -2005,7 +2005,7 @@
     },
     {
       id: "chongqing-packaging",
-      scenarioIds: ["infra-packaging", "defense"],
+      scenarioIds: ["infra-packaging"],
       kicker: "03 · QUALITY & TRACEABILITY",
       title: "고객 품질 대응은 계측·lot 추적·변경관리로 연결",
       body: "패키징·테스트 인력은 현장 문제 해결에 집중하고, 불량 분석·lot 이력·변경 승인 증빙을 하나의 대응 흐름으로 남깁니다.",
@@ -6964,8 +6964,14 @@
     });
     const quoted = (relevant.length ? relevant : figures).slice(0, 2);
     for (const fig of quoted) {
-      const label = fig.contextKo && /[가-힣]/.test(fig.contextKo) ? fig.contextKo : (fig.snippet || "").slice(0, 60);
-      parts.push(`원문 수치 ==${fig.value}== — "${String(label).slice(0, 70)}" (${fig.source || "출처"}${fig.date ? ` ${fig.date}` : ""})`);
+      // Quote the sentence that actually contains the number (never the article
+      // title) so the figure is never attributed to a different claim.
+      const snippet = String(fig.snippet || "");
+      const idx = snippet.indexOf(fig.value);
+      const label = idx >= 0
+        ? snippet.slice(Math.max(0, idx - 34), idx + String(fig.value).length + 36).trim()
+        : snippet.slice(0, 70);
+      parts.push(`원문 수치 ==${fig.value}== — "…${String(label).slice(0, 80)}…" (${fig.source || "출처"}${fig.date ? ` ${fig.date}` : ""})`);
     }
     if (!parts.length) return null;
     const asOf = q.updatedAt ? String(q.updatedAt).slice(0, 10) : (LIVE?.updatedAt ? String(LIVE.updatedAt).slice(0, 10) : "");
@@ -13433,7 +13439,11 @@
     const transitions = ["zoom-pan", "wipe", "focus-shift"];
     chinaTalentGalleryIndex = normalized;
     panel.dataset.transition = transitions[(normalized + Math.floor(Date.now() / 1000)) % transitions.length];
-    images.forEach((image, index) => image.classList.toggle("is-active", index === normalized));
+    images.forEach((image, index) => {
+      const active = index === normalized;
+      image.classList.toggle("is-active", active);
+      image.setAttribute("aria-hidden", active ? "false" : "true");
+    });
     dots.forEach((dot, index) => {
       dot.classList.toggle("is-active", index === normalized);
       dot.setAttribute("aria-current", index === normalized ? "true" : "false");
