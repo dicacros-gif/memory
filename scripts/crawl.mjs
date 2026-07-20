@@ -651,9 +651,10 @@ const CHINESE_AUTHORITY_MONITORS = [
   },
 ];
 
-// High-value source articles remain available when a daily search result rolls
-// out of the RSS window. They still pass the same language, authority, direct
-// URL, duplicate, and evidence gates as newly discovered articles.
+// High-value source articles remain available as a reference archive when a
+// daily search result rolls out of the RSS window. They are intentionally kept
+// out of the live stream and its quality counts: the summaries below are
+// curated metadata, not evidence that the source was observed in this run.
 const PRESERVED_NEWS_SEEDS = [
   {
     id: "sse-cxmt-final-offering",
@@ -2750,7 +2751,13 @@ async function updateMarketHistory() {
         latest,
         dailyChangePct: dailyChangePct == null ? null : Number(dailyChangePct.toFixed(2)),
         cumulativeChangePct: cumulativeChangePct == null ? null : Number(cumulativeChangePct.toFixed(2)),
-        periods: calculateAllHorizonStats(merged, { cadence: "daily", asOf: crawledAt }),
+        periods: calculateAllHorizonStats(merged, {
+          cadence: "daily",
+          seriesKind: "price",
+          asOf: crawledAt,
+          source: index.source || history.source || "Yahoo Finance chart API",
+          sourceUrl: index.sourceUrl,
+        }),
         pointCount: merged.length,
         points: merged,
       };
@@ -3040,17 +3047,7 @@ async function enrichNewsItem(item = {}, cached = null) {
       summarySource: "curated-source",
     };
   }
-  const cachedSummary = String(cached?.summaryOriginal || "").trim();
   const cachedSourceUrl = sanitizeSourceUrl(cached?.sourceUrl || "");
-  if (isCompleteArticleSummary(cachedSummary) && cachedSourceUrl) {
-    return {
-      ...item,
-      sourceUrl: cachedSourceUrl,
-      summaryOriginal: cached.summaryOriginal,
-      summary: cached.summary || "",
-      summarySource: cached.summarySource || "source-meta",
-    };
-  }
   let resolvedUrl = cachedSourceUrl;
   try {
     resolvedUrl ||= await resolveGoogleNewsUrl(item.link || "");
@@ -3193,6 +3190,7 @@ function mergeNewsCategory(categories, cat, items, sampleLimit = 12) {
 
 function dedupeEnrichedNews(items = []) {
   const selected = new Map();
+  const observationRank = (item = {}) => item.preservedSeed ? 0 : item.continuityFallback ? 1 : 2;
   for (const item of items) {
     const directUrl = sanitizeSourceUrl(item.sourceUrl || "");
     const key = directUrl
@@ -3200,7 +3198,9 @@ function dedupeEnrichedNews(items = []) {
       : canonicalNewsKey(item);
     if (!key) continue;
     const existing = selected.get(key);
-    if (!existing || (!existing.preservedSeed && item.preservedSeed)) selected.set(key, item);
+    // A source fetched/discovered in the current run must win over both a
+    // previous-run continuity copy and a curated reference seed.
+    if (!existing || observationRank(item) > observationRank(existing)) selected.set(key, item);
   }
   return [...selected.values()];
 }
@@ -3256,8 +3256,22 @@ async function collectNews(previousNews = []) {
   const preserved = PRESERVED_NEWS_SEEDS
     .map(normalizePreservedNewsSeed)
     .filter((item) => isForeignItem(item) && !isCrawlerExcluded("news", item));
-  let all = preserved.slice();
-  preserved.forEach((item) => seen.add(canonicalNewsKey(item)));
+  const previousReferences = previousNews
+    .map(normalizePreviousNewsFallback)
+    .filter(Boolean)
+    .filter((item) => !isCrawlerExcluded("news", item));
+  const referenceNews = dedupeEnrichedNews(preserved.concat(previousReferences))
+    .sort((a, b) => Number(b.ts || 0) - Number(a.ts || 0))
+    .slice(0, NEWS_STREAM_LIMIT * 4)
+    .map(({ ts, verification: _verification, ...item }) => ({
+      ...item,
+      referenceOnly: true,
+      referenceOrigin: item.preservedSeed ? "curated-seed" : "previous-verified-run",
+      origin: "reference-archive",
+      observedThisRun: false,
+      dataStatus: "reference-only",
+    }));
+  let all = [];
 
   for (const cat of CATEGORIES.concat(ENGLISH_AUTHORITY_MONITORS, BROKER_RESEARCH_MONITORS)) {
     const items = (await fetchCategory(cat, seen)).filter((item) => !isCrawlerExcluded("news", item));
@@ -3271,21 +3285,12 @@ async function collectNews(previousNews = []) {
     mergeNewsCategory(categories, cat, items, 10);
   }
 
-  for (const language of ["english", "chinese"]) {
-    const languageSeeds = preserved.filter((item) => item.language === language);
-    for (const categoryId of new Set(languageSeeds.map((item) => item.category))) {
-      const cat = CATEGORIES.concat(CHINESE_CATEGORIES).find((item) => item.id === categoryId)
-        || { id: categoryId, label: categoryId };
-      mergeNewsCategory(categories, cat, languageSeeds.filter((item) => item.category === categoryId), 20);
-    }
-  }
-
   all = all.filter((item) => verifiedNewsLanguage(item));
   all.sort((a, b) => b.ts - a.ts);
   const selected = ["english", "chinese"]
     .flatMap((language) => {
       const languageItems = all.filter((item) => verifiedNewsLanguage(item) === language);
-      const fixed = languageItems.filter((item) => item.preservedSeed || ["account-demand", "industry"].includes(item.category));
+      const fixed = languageItems.filter((item) => ["account-demand", "industry"].includes(item.category));
       const discovered = languageItems.filter((item) => !fixed.includes(item));
       return fixed.concat(discovered.slice(0, Math.max(0, NEWS_STREAM_LIMIT - fixed.length)));
     })
@@ -3299,22 +3304,14 @@ async function collectNews(previousNews = []) {
     chinese: latestNews.filter((item) => verifiedNewsLanguage(item) === "chinese").length,
   };
   if (latestNews.length < 24 || freshLanguageCounts.english < 12 || freshLanguageCounts.chinese < 4) {
-    const continuity = previousNews
-      .map(normalizePreviousNewsFallback)
-      .filter(Boolean)
-      .filter((item) => !isCrawlerExcluded("news", item));
-    latestNews = dedupeEnrichedNews(latestNews.concat(continuity))
-      .sort((a, b) => (b.ts || 0) - (a.ts || 0));
-    latestNews = ["english", "chinese"]
-      .flatMap((language) => latestNews
-        .filter((item) => verifiedNewsLanguage(item) === language)
-        .slice(0, NEWS_STREAM_LIMIT))
-      .sort((a, b) => (b.ts || 0) - (a.ts || 0));
-    note("뉴스연속성", latestNews.length >= 24, `신규 ${freshLanguageCounts.english + freshLanguageCounts.chinese}건 + 직전 검증 기사 보강 → ${latestNews.length}건`);
+    // Fail closed instead of allowing previous-run rows to satisfy a live-news
+    // threshold. Continuity copies remain available through referenceNews.
+    note("뉴스연속성", false, `이번 실행 직접 수집 ${freshLanguageCounts.english + freshLanguageCounts.chinese}건 · 참조 전용 ${referenceNews.length}건은 라이브 집계에서 제외`);
   }
   return {
     categories,
     news: latestNews.map(({ ts, ...rest }) => rest),
+    referenceNews,
     trending: extractTrending(all),
     newsStats: newsStats(latestNews),
     allNews: all,
@@ -3785,10 +3782,32 @@ function normalizeCommunitySeed(seed = {}) {
     topics: communityTopics(combined, type),
     historical: seed.historical !== false,
     importance: Number(seed.importance || 75),
+    origin: "curated-seed",
+    observedThisRun: false,
+    dataStatus: "reference-only",
     ...evidence,
   };
   item.score = Math.max(communityScore(item), item.importance);
   return item;
+}
+
+function communitySignalProvenance(item = {}, origin = "unclassified", observedThisRun = false) {
+  const isLive = origin === "live-crawl" && observedThisRun === true;
+  return {
+    ...item,
+    origin,
+    observedThisRun: isLive,
+    dataStatus: isLive ? "live-observed" : "reference-only",
+  };
+}
+
+function isVerifiedCommunityLiveItem(item = {}) {
+  const sourceUrl = sanitizeSourceUrl(item.sourceUrl || item.link || "");
+  return item.origin === "live-crawl"
+    && item.observedThisRun === true
+    && item.dataStatus === "live-observed"
+    && validHttpUrl(sourceUrl)
+    && !/news\.google\.com/i.test(sourceUrl);
 }
 
 function mergeCommunityItems(first = {}, second = {}) {
@@ -3916,7 +3935,7 @@ async function collectCommunitySignals(previousItems = []) {
       const results = await fetchDirectCommunitySearch(target);
       results.forEach((result) => {
         const item = normalizeCommunityItem(result, target.platformId);
-        if (item) discovered.push(item);
+        if (item) discovered.push(communitySignalProvenance(item, "live-crawl", true));
       });
     } catch (error) {
       console.log(`- 중국현장:${target.platformId} 직접 수집 지연 — ${error.message}`);
@@ -3928,7 +3947,7 @@ async function collectCommunitySignals(previousItems = []) {
       const results = await fetchBingCommunity(target.query, target.locale || "zh");
       results.forEach((result) => {
         const item = normalizeCommunityItem(result, target.platformId);
-        if (item) discovered.push(item);
+        if (item) discovered.push(communitySignalProvenance(item, "live-crawl", true));
       });
     } catch (error) {
       console.log(`- 중국현장:${target.platformId} 검색 지연 — ${error.message}`);
@@ -3936,21 +3955,45 @@ async function collectCommunitySignals(previousItems = []) {
     await sleep(180);
   }
 
-  const previous = (previousItems || []).map((item) => normalizeCommunityItem({
-    ...item,
-    rssDescription: item.summaryOriginal || item.summary || "",
-    pubDate: item.date || item.publishedAt || "",
-  }, item.platformId)).filter(Boolean);
+  const previous = (previousItems || []).map((item) => {
+    const normalized = normalizeCommunityItem({
+      ...item,
+      rssDescription: item.summaryOriginal || item.summary || "",
+      pubDate: item.date || item.publishedAt || "",
+    }, item.platformId);
+    return normalized ? communitySignalProvenance(normalized, "previous-run", false) : null;
+  }).filter(Boolean);
   const seeds = COMMUNITY_HISTORY_SEEDS.map(normalizeCommunitySeed).filter(Boolean);
-  const byKey = new Map();
-  [...seeds, ...previous, ...discovered].forEach((item) => {
+  const liveByKey = new Map();
+  discovered.forEach((item) => {
     const key = communityKey(item);
     if (!key) return;
-    byKey.set(key, byKey.has(key) ? mergeCommunityItems(byKey.get(key), item) : item);
+    const merged = liveByKey.has(key) ? mergeCommunityItems(liveByKey.get(key), item) : item;
+    liveByKey.set(key, communitySignalProvenance(merged, "live-crawl", true));
+  });
+  const referenceByKey = new Map();
+  [...seeds, ...previous].forEach((item) => {
+    const key = communityKey(item);
+    if (!key) return;
+    const existing = referenceByKey.get(key);
+    const merged = existing ? mergeCommunityItems(existing, item) : item;
+    const origins = Array.from(new Set([
+      ...(existing?.referenceOrigins || [existing?.origin]),
+      ...(item.referenceOrigins || [item.origin]),
+    ].filter(Boolean)));
+    referenceByKey.set(key, {
+      ...communitySignalProvenance(merged, origins.includes("previous-run") ? "previous-run" : "curated-seed", false),
+      referenceOrigins: origins,
+    });
   });
 
   const retentionCutoff = Date.now() - COMMUNITY_RETENTION_DAYS * 864e5;
-  const items = Array.from(byKey.values())
+  const items = Array.from(liveByKey.values())
+    .filter((item) => !isCrawlerExcluded("community", item))
+    .filter((item) => !item.ts || item.ts >= retentionCutoff || item.importance >= 70)
+    .sort((a, b) => Number(b.ts || 0) - Number(a.ts || 0) || Number(b.score || 0) - Number(a.score || 0))
+    .slice(0, COMMUNITY_MAX_ITEMS);
+  const referenceItems = Array.from(referenceByKey.values())
     .filter((item) => !isCrawlerExcluded("community", item))
     .filter((item) => !item.ts || item.ts >= retentionCutoff || item.importance >= 70)
     .sort((a, b) => Number(b.ts || 0) - Number(a.ts || 0) || Number(b.score || 0) - Number(a.score || 0))
@@ -3962,8 +4005,10 @@ async function collectCommunitySignals(previousItems = []) {
     .map((rule) => [rule.id, items.filter((item) => item.platformId === rule.id).length])
     .filter(([, count]) => count > 0));
   const latestAt = items.reduce((latest, item) => Math.max(latest, Number(item.ts || 0)), 0);
-  note("중국현장신호", items.length > 0, `${items.length}건 · ${Object.keys(platformCounts).length}개 공개 채널`);
+  note("중국현장신호", items.length >= 5, `이번 실행 ${items.length}건 · ${Object.keys(platformCounts).length}개 공개 채널 · 참고 아카이브 ${referenceItems.length}건`);
   return {
+    schemaVersion: "2.0-live-observed-only",
+    mode: "live-observed-only",
     updatedAt: new Date().toISOString(),
     latestPublishedAt: latestAt ? new Date(latestAt).toISOString() : null,
     source: "Public Chinese forums · expert communities · public hiring listings · Bing Web Search RSS discovery",
@@ -3975,6 +4020,13 @@ async function collectCommunitySignals(previousItems = []) {
     platformCounts,
     briefs: buildCommunityBriefs(items),
     items,
+    referenceArchive: {
+      schemaVersion: "1.0",
+      mode: "reference-only",
+      itemCount: referenceItems.length,
+      methodology: "curated seeds and previous-run continuity copies; excluded from live counts, briefs, quality thresholds, and quantitative drivers",
+      items: referenceItems,
+    },
   };
 }
 
@@ -4100,32 +4152,64 @@ function normalizeBenchmarkSeed(seed = {}) {
     streamLanguage: "english",
     languageVerified: true,
     preservedSeed: true,
+    origin: "curated-seed",
+    observedThisRun: false,
+    dataStatus: "reference-only",
+  };
+}
+
+function benchmarkDirectSourceUrl(item = {}) {
+  const sourceUrl = sanitizeSourceUrl(item.sourceUrl || item.link || "");
+  return sourceUrl && !/news\.google\.com/i.test(sourceUrl) ? sourceUrl : "";
+}
+
+function isVerifiedBenchmarkLiveItem(item = {}) {
+  return item.origin === "live-crawl"
+    && item.observedThisRun === true
+    && item.dataStatus === "live-observed"
+    && item.summarySource === "source-meta"
+    && Boolean(benchmarkDirectSourceUrl(item))
+    && isCompleteArticleSummary(item.summaryOriginal || "");
+}
+
+function benchmarkDiscoveryOnly(item = {}, reason = "source-not-revalidated") {
+  return {
+    ...item,
+    origin: "search-discovery",
+    observedThisRun: false,
+    discoveredThisRun: true,
+    dataStatus: "discovery-only",
+    discoveryReason: reason,
   };
 }
 
 async function collectBenchmarkSignals() {
-  const seen = new Set();
+  const candidateSeen = new Set();
+  const referenceSeen = new Set();
   const themes = [];
   let stream = [];
+  const referenceItems = [];
+  const discoveryItems = [];
+
+  for (const seed of BENCHMARK_SIGNAL_SEEDS) {
+    const item = normalizeBenchmarkSeed(seed);
+    if (!item || isCrawlerExcluded("news", item)) continue;
+    const key = canonicalNewsKey(item);
+    if (!key || referenceSeen.has(key)) continue;
+    referenceSeen.add(key);
+    referenceItems.push(item);
+  }
 
   for (const theme of BENCHMARK_SIGNAL_THEMES) {
     const items = [];
-    for (const seed of BENCHMARK_SIGNAL_SEEDS.filter((item) => item.themeId === theme.id)) {
-      const item = normalizeBenchmarkSeed(seed);
-      if (!item || isCrawlerExcluded("news", item)) continue;
-      const key = canonicalNewsKey(item);
-      if (!key || seen.has(key)) continue;
-      seen.add(key);
-      items.push(item);
-    }
     for (const query of theme.queries) {
       try {
         const queryItems = await fetchGoogleNews(query, theme.id);
         for (const item of queryItems) {
           if (isCrawlerExcluded("news", item)) continue;
           const key = canonicalNewsKey(item);
-          if (seen.has(key)) continue;
-          seen.add(key);
+          if (!key || candidateSeen.has(key)) continue;
+          candidateSeen.add(key);
           items.push(item);
         }
       } catch (error) {
@@ -4134,26 +4218,71 @@ async function collectBenchmarkSignals() {
       await sleep(320);
     }
     items.sort((a, b) => b.ts - a.ts);
-    if (items.length > 0) {
+    const enrichmentLimit = Math.min(18, items.length);
+    const enriched = await enrichNewsItems(items.slice(0, enrichmentLimit), []);
+    const validatedItems = [];
+    for (const item of enriched) {
+      const sourceUrl = benchmarkDirectSourceUrl(item);
+      const hasCurrentSourceSummary = item.summarySource === "source-meta"
+        && sourceUrl
+        && isCompleteArticleSummary(item.summaryOriginal || "");
+      if (!hasCurrentSourceSummary) {
+        discoveryItems.push(benchmarkDiscoveryOnly(item, sourceUrl ? "source-summary-unavailable" : "indirect-source-url"));
+        continue;
+      }
+      validatedItems.push({
+        ...item,
+        sourceUrl,
+        link: sourceUrl,
+        origin: "live-crawl",
+        observedThisRun: true,
+        dataStatus: "live-observed",
+        preservedSeed: false,
+        crawledAt: new Date().toISOString(),
+      });
+    }
+    for (const item of items.slice(enrichmentLimit)) {
+      discoveryItems.push(benchmarkDiscoveryOnly(item, "not-source-revalidated"));
+    }
+    if (validatedItems.length > 0) {
       themes.push({
         id: theme.id,
         label: theme.label,
-        count: items.length,
-        items: items.slice(0, 10).map(({ ts, category, ...rest }) => rest),
+        count: validatedItems.length,
+        items: validatedItems.slice(0, 10).map(({ ts, category, ...rest }) => rest),
       });
-      stream = stream.concat(items);
-      note(`벤치마킹:${theme.label}`, true, `${items.length}건`);
+      stream = stream.concat(validatedItems);
+      note(`벤치마킹:${theme.label}`, true, `원문 재검증 ${validatedItems.length}건 · 발견 전용 ${items.length - validatedItems.length}건`);
     } else {
-      console.log(`- 벤치마킹:${theme.label} 결과 없음 → 테마 제외`);
+      note(`벤치마킹:${theme.label}`, false, `원문 재검증 0건 · 발견 전용 ${items.length}건`);
     }
   }
 
   stream.sort((a, b) => b.ts - a.ts);
   return {
+    schemaVersion: "2.0-live-observed-only",
+    mode: "live-observed-only",
     updatedAt: new Date().toISOString(),
     themes,
     stream: stream.slice(0, 40).map(({ ts, category, ...rest }) => ({ ...rest, theme: category || "" })),
     stats: newsStats(stream),
+    referenceArchive: {
+      schemaVersion: "1.0",
+      mode: "reference-only",
+      itemCount: referenceItems.length,
+      methodology: "curated benchmark seeds; excluded from live stream, theme counts, stats, briefs, quality thresholds, and quantitative drivers",
+      items: referenceItems.map(({ ts, category, ...rest }) => ({ ...rest, theme: category || "" })),
+    },
+    discoveryArchive: {
+      schemaVersion: "1.0",
+      mode: "discovery-only",
+      itemCount: discoveryItems.length,
+      methodology: "current-run search results whose direct source page and source summary were not both revalidated; excluded from live stream, theme counts, stats, briefs, quality thresholds, and quantitative drivers",
+      items: discoveryItems
+        .sort((a, b) => Number(b.ts || 0) - Number(a.ts || 0))
+        .slice(0, 120)
+        .map(({ ts, category, ...rest }) => ({ ...rest, theme: category || "" })),
+    },
   };
 }
 
@@ -4261,7 +4390,10 @@ async function loadPreviousData() {
   ]);
   return {
     news: Array.isArray(previous.news) ? previous.news : [],
-    communityItems: Array.isArray(previous.communitySignals?.items) ? previous.communitySignals.items : [],
+    communityItems: [
+      ...(Array.isArray(previous.communitySignals?.items) ? previous.communitySignals.items : []),
+      ...(Array.isArray(previous.communitySignals?.referenceArchive?.items) ? previous.communitySignals.referenceArchive.items : []),
+    ],
     quant: quant && typeof quant === "object" ? quant : {},
     baseline: baseline && typeof baseline === "object" ? baseline : {},
     quantModel: quantModel && typeof quantModel === "object" ? quantModel : {},
@@ -5051,10 +5183,17 @@ function buildCrawlAudit(payload = {}, quarantine = {}) {
     promoted: {
       news: payload.news?.length || 0,
       priceRows: payload.quality?.metrics?.priceRows || 0,
-      communitySignals: payload.communitySignals?.items?.length || 0,
+      communitySignals: payload.quality?.metrics?.communitySignals || 0,
+      benchmarkSignals: payload.quality?.metrics?.benchmarkSignals || 0,
       intelligenceBriefs: payload.intelligence?.briefs?.length || 0,
       factEvents: payload.facts?.events?.length || 0,
       sourceChannels: payload.sourceRegistry?.channels?.length || 0,
+    },
+    referenceOnly: {
+      news: Number(payload.referenceNews?.itemCount || 0),
+      communitySignals: Number(payload.communitySignals?.referenceArchive?.itemCount || 0),
+      benchmarkSignals: Number(payload.benchmarkSignals?.referenceArchive?.itemCount || 0),
+      benchmarkDiscoveries: Number(payload.benchmarkSignals?.discoveryArchive?.itemCount || 0),
     },
     quarantined: {
       news: quarantine.total || 0,
@@ -5069,12 +5208,15 @@ function buildCrawlAudit(payload = {}, quarantine = {}) {
 function buildQualityReport(payload = {}) {
   const news = Array.isArray(payload.news) ? payload.news : [];
   const community = Array.isArray(payload.communitySignals?.items) ? payload.communitySignals.items : [];
+  const benchmark = Array.isArray(payload.benchmarkSignals?.stream) ? payload.benchmarkSignals.stream : [];
+  const liveCommunity = community.filter(isVerifiedCommunityLiveItem);
+  const liveBenchmark = benchmark.filter(isVerifiedBenchmarkLiveItem);
   const briefs = Array.isArray(payload.intelligence?.briefs) ? payload.intelligence.briefs : [];
   const brokerItems = Array.isArray(payload.brokerResearch?.items) ? payload.brokerResearch.items : [];
   const brokerFramework = payload.brokerResearch?.framework || null;
   const factEvents = Array.isArray(payload.facts?.events) ? payload.facts.events : [];
   const sourceChannels = Array.isArray(payload.sourceRegistry?.channels) ? payload.sourceRegistry.channels : [];
-  const essentialSourceChannels = sourceChannels.filter((channel) => channel.id !== "broker-research");
+  const essentialSourceChannels = sourceChannels.filter((channel) => !["broker-research", "fact-timeline"].includes(channel.id));
   const priceRows = (payload.prices?.sections || []).flatMap((section) => section.rows || []);
   const marketIndexes = Object.values(payload.marketHistory?.indexes || {});
   const stocks = Object.values(payload.stocks || {});
@@ -5088,6 +5230,10 @@ function buildQualityReport(payload = {}) {
   ));
   const currentNews = provenanceNews.filter((item) => item.verification?.freshness === "current");
   const observedNews = currentNews.filter((item) => (
+    item.verification?.origin === "live-crawl"
+    && item.verification?.observedThisRun === true
+  ));
+  const liveOnlyNews = provenanceNews.filter((item) => (
     item.verification?.origin === "live-crawl"
     && item.verification?.observedThisRun === true
   ));
@@ -5162,21 +5308,24 @@ function buildQualityReport(payload = {}) {
     { id: "news_direct_sources", critical: true, passed: directSourceRatio === 1, observed: Number(directSourceRatio.toFixed(3)), threshold: 1 },
     { id: "news_summaries", critical: true, passed: summaryRatio === 1, observed: Number(summaryRatio.toFixed(3)), threshold: 1 },
     { id: "news_provenance", critical: true, passed: provenanceCoverage === 1, observed: Number(provenanceCoverage.toFixed(3)), threshold: 1 },
+    { id: "news_live_only", critical: true, passed: liveOnlyNews.length === news.length, observed: liveOnlyNews.length, threshold: news.length },
     { id: "news_current", critical: true, passed: currentNews.length >= 12, observed: currentNews.length, threshold: 12 },
     { id: "news_observed_this_run", critical: true, passed: observedNews.length >= 12, observed: observedNews.length, threshold: 12 },
     { id: "news_observed_english", critical: true, passed: observedLanguageCounts.english >= 6, observed: observedLanguageCounts.english, threshold: 6 },
     { id: "news_observed_chinese", critical: true, passed: observedLanguageCounts.chinese >= 2, observed: observedLanguageCounts.chinese, threshold: 2 },
     { id: "news_duplicates", critical: true, passed: duplicateCount === 0, observed: duplicateCount, threshold: 0 },
-    { id: "community_signals", critical: true, passed: community.length >= 5, observed: community.length, threshold: 5 },
+    { id: "community_signals", critical: true, passed: liveCommunity.length >= 5, observed: liveCommunity.length, threshold: 5 },
+    { id: "community_live_only", critical: true, passed: liveCommunity.length === community.length, observed: liveCommunity.length, threshold: community.length },
+    { id: "benchmark_live_only", critical: true, passed: liveBenchmark.length === benchmark.length, observed: liveBenchmark.length, threshold: benchmark.length },
     { id: "decision_briefs", critical: true, passed: validBriefs.length >= 6, observed: validBriefs.length, threshold: 6 },
-    { id: "fact_timeline", critical: true, passed: validFacts.length >= 6, observed: validFacts.length, threshold: 6 },
-    { id: "cxmt_offering_stage", critical: true, passed: cxmtOfferingResolved, observed: cxmtOffering?.current?.stageId || "missing", threshold: "final-base-offering" },
+    { id: "fact_timeline_integrity", critical: true, passed: validFacts.length === factEvents.length, observed: validFacts.length, threshold: factEvents.length },
+    { id: "cxmt_offering_stage", critical: false, passed: !cxmtOffering || cxmtOfferingResolved, observed: cxmtOffering?.current?.stageId || "not-observed-this-run", threshold: "final-base-offering when observed" },
     {
       id: "source_registry",
       critical: true,
       passed: sourceChannels.length >= 7 && essentialSourceChannels.every((channel) => Number(channel.records || 0) > 0),
       observed: essentialSourceChannels.filter((channel) => Number(channel.records || 0) > 0).length,
-      threshold: 7,
+      threshold: essentialSourceChannels.length,
     },
     { id: "broker_research", critical: false, passed: validBrokerItems.length >= 1, observed: validBrokerItems.length, threshold: 1 },
     { id: "broker_framework", critical: false, passed: validBrokerFramework, observed: validBrokerFramework ? 1 : 0, threshold: 1 },
@@ -5198,13 +5347,18 @@ function buildQualityReport(payload = {}) {
       directSourceRatio: Number(directSourceRatio.toFixed(3)),
       summaryRatio: Number(summaryRatio.toFixed(3)),
       provenanceCoverage: Number(provenanceCoverage.toFixed(3)),
+      liveOnlyNews: liveOnlyNews.length,
       currentNews: currentNews.length,
       observedThisRunNews: observedNews.length,
       observedThisRunEnglish: observedLanguageCounts.english,
       observedThisRunChinese: observedLanguageCounts.chinese,
       quarantinedNews: Number(payload.quarantineSummary?.total || 0),
       duplicateCount,
-      communitySignals: community.length,
+      communitySignals: liveCommunity.length,
+      communityReferenceSignals: Number(payload.communitySignals?.referenceArchive?.itemCount || 0),
+      benchmarkSignals: liveBenchmark.length,
+      benchmarkReferenceSignals: Number(payload.benchmarkSignals?.referenceArchive?.itemCount || 0),
+      benchmarkDiscoverySignals: Number(payload.benchmarkSignals?.discoveryArchive?.itemCount || 0),
       decisionBriefs: validBriefs.length,
       factEvents: validFacts.length,
       sourceChannels: sourceChannels.length,
@@ -5294,24 +5448,35 @@ async function collectQuantSeries(entry) {
   }
   const latest = points[points.length - 1];
   if (!latest) throw new Error("empty series");
-  const periods = calculateAllHorizonStats(points, { cadence: "daily", asOf: latest.date });
+  const evaluatedAt = new Date().toISOString();
+  const maxEndLagDays = 14;
+  const endLagDays = Math.max(0, (Date.parse(evaluatedAt) - Number(latest.time || Date.parse(latest.date))) / 864e5);
+  const staleEnd = !Number.isFinite(endLagDays) || endLagDays > maxEndLagDays;
+  // Anchor eligibility to the crawl clock, not to the series' own last row.
+  // Otherwise a feed that stopped months ago would always appear current.
+  const periods = calculateAllHorizonStats(points, { cadence: "daily", asOf: evaluatedAt });
   return {
     id: entry.id,
     label: entry.label,
     symbol: entry.symbol,
-    value: latest.close,
+    status: staleEnd ? "stale" : "live",
+    value: staleEnd ? null : latest.close,
     currency,
     asOf: latest.date.slice(0, 10),
-    changePct30d: quantSeriesChangePct(points, 30),
-    changePct90d: quantSeriesChangePct(points, 90),
-    changePct1y: periods["1y"].cumulativePct,
-    changePct3y: periods["3y"].cumulativePct,
-    changePct5y: periods["5y"].cumulativePct,
+    evaluatedAt,
+    latestObservationAt: latest.date.slice(0, 10),
+    endLagDays: Number.isFinite(endLagDays) ? Number(endLagDays.toFixed(2)) : null,
+    maxEndLagDays,
+    changePct30d: staleEnd ? null : quantSeriesChangePct(points, 30),
+    changePct90d: staleEnd ? null : quantSeriesChangePct(points, 90),
+    changePct1y: staleEnd ? null : periods["1y"].cumulativePct,
+    changePct3y: staleEnd ? null : periods["3y"].cumulativePct,
+    changePct5y: staleEnd ? null : periods["5y"].cumulativePct,
     periods,
     history5y: {
       cadence: "daily",
       unit: currency,
-      status: points.length >= 2 ? "live" : "accumulating",
+      status: staleEnd ? "stale" : points.length >= 2 ? "live" : "accumulating",
       sourceUrl,
       usesAdjustedClose: points.some((point) => point.adjusted),
       points: points.map((point) => ({ date: point.date.slice(0, 10), value: point.close })),
@@ -5319,7 +5484,7 @@ async function collectQuantSeries(entry) {
     history30d: {
       cadence: "daily",
       unit: currency,
-      status: points.length >= 2 ? "live" : "accumulating",
+      status: staleEnd ? "stale" : points.length >= 2 ? "live" : "accumulating",
       sourceUrl,
       points: points
         .filter((point) => latest.time - point.time <= 35 * 86400000)
@@ -5693,6 +5858,7 @@ function defaultProjectionExposure(model = {}) {
 function mergeForecastInputs(previous = {}, model = {}) {
   const seed = defaultForecastInputs(model);
   const categories = {};
+  const priorObservations = [];
   for (const [id, values] of Object.entries(seed.categories)) {
     categories[id] = {};
     for (const [field, configured] of Object.entries(values || {})) {
@@ -5705,7 +5871,21 @@ function mergeForecastInputs(previous = {}, model = {}) {
         && Number.isFinite(Number(prior?.value));
       const priorIsNewer = priorIsValidObservation
         && (!configuredDate || String(priorDate).localeCompare(configuredDate) >= 0);
-      categories[id][field] = priorIsNewer ? prior : configured;
+      if (priorIsNewer) {
+        priorObservations.push({
+          category: id,
+          field,
+          ...prior,
+          status: "previous-observation",
+          claimType: "prior-run-observation",
+          period: prior.period || priorDate,
+          observed: false,
+          observedThisRun: false,
+        });
+      }
+      // A previous run can be inspected as provenance, but it cannot become a
+      // current live input merely because no newer article was found today.
+      categories[id][field] = configured;
     }
   }
   return {
@@ -5713,6 +5893,7 @@ function mergeForecastInputs(previous = {}, model = {}) {
     categories,
     updatedAt: previous.updatedAt || null,
     acceptedObservations: [],
+    priorObservations,
   };
 }
 
@@ -5874,11 +6055,13 @@ async function checkForecastSource(category, input = {}, compiledRule = null) {
       return {
         ...base,
         ...metadata,
-        ok: true,
+        // Reachability alone does not verify the configured numeric value.
+        ok: false,
         reachable: true,
         valueVerified: false,
-        status: "source-reachable",
-        validation: "dated source and locator; document reachability rechecked",
+        status: "source-reachable-value-unverified",
+        validation: "document reachability rechecked; configured numeric value was not machine-verified",
+        message: "source reachable but configured numeric value remains unverified",
         locator: input.locator || null,
       };
     }
@@ -5920,7 +6103,12 @@ async function collectForecastSourceChecks(model = {}) {
     compiledRules.get(`${category}:units`) || null,
   )));
   for (const item of settled) {
-    note(`forecast-${item.category}`, item.ok, item.ok ? `${item.status} · ${item.sourceDate || "날짜 미확인"}` : item.message || item.status);
+    const detail = item.valueVerified
+      ? `${item.status} · ${item.sourceDate || "날짜 미확인"}`
+      : item.reachable
+        ? `${item.status} · 접근 가능 / 값 미검증`
+        : item.message || item.status;
+    note(`forecast-${item.category}`, item.valueVerified, detail);
   }
   return {
     updatedAt: new Date().toISOString(),
@@ -5952,6 +6140,9 @@ function refreshForecastInputs(previous = {}, context = {}, model = {}) {
       source: hit.item.source || hit.item.publisher || "Crawled evidence",
       sourceUrl: hit.item.evidenceUrl,
       status: "live-observed",
+      claimType: "current-run-observation",
+      period: hit.item.evidenceDate,
+      observed: true,
       sourceClass: hit.item.evidenceSourceClass,
       snippet: hit.clause.slice(0, 220),
       capturedAt: new Date().toISOString(),
@@ -6291,12 +6482,28 @@ function buildQuantDrivers(quant = {}, context = {}) {
   const momentum = quant.memoryMomentum || {};
   const priceMomentum = quantMean([momentum.dramSpot30dPct, momentum.dramSpot90dPct, momentum.nandSpot30dPct, momentum.nandSpot90dPct]) || 0;
   const aiMarket = quantMean([quant.aiDemandProxy?.nvda?.changePct90d, quant.aiDemandProxy?.amd?.changePct90d]) || 0;
-  const chinaItems = [
-    ...(context.news || []),
-    ...(context.communitySignals?.items || []),
-    ...(context.benchmarkSignals?.stream || []),
-  ].filter((item) => /(?:cxmt|ymtc|xmc|china|chinese|中国|长鑫|长江)/i.test(evidenceText(item)));
-  const authoritative = (context.news || []).filter((item) => /(?:reuters|bloomberg|financial times|nikkei|trendforce|counterpoint|techinsights|official|sec|wsts)/i.test(`${item.source || ""} ${item.publisher || ""}`));
+  const isLiveObserved = (item = {}) => item.verification
+    ? item.verification.origin === "live-crawl"
+      && item.verification.observedThisRun === true
+      && item.verification.status === "promoted"
+    : item.origin === "live-crawl"
+      && item.observedThisRun === true
+      && item.dataStatus === "live-observed";
+  const liveNews = (context.news || []).filter(isLiveObserved);
+  const liveCommunity = (context.communitySignals?.items || []).filter(isVerifiedCommunityLiveItem);
+  const liveBenchmark = (context.benchmarkSignals?.stream || []).filter(isVerifiedBenchmarkLiveItem);
+  const chinaCandidates = [
+    ...liveNews,
+    ...liveCommunity,
+    ...liveBenchmark,
+  ]
+    .filter((item) => /(?:cxmt|ymtc|xmc|china|chinese|中国|长鑫|长江)/i.test(evidenceText(item)));
+  const chinaItems = Array.from(new Map(chinaCandidates.map((item) => [
+    qualityCanonicalUrl(item) || canonicalNewsKey(item),
+    item,
+  ]).filter(([key]) => key)).values());
+  const authoritative = liveNews
+    .filter((item) => /(?:reuters|bloomberg|financial times|nikkei|trendforce|counterpoint|techinsights|official|sec|wsts)/i.test(`${item.source || ""} ${item.publisher || ""}`));
   return {
     priceMomentum: Number(priceMomentum.toFixed(2)),
     aiMarketMomentum: Number(aiMarket.toFixed(2)),
@@ -6564,9 +6771,21 @@ function normalizeObservationDate(value = "") {
   return null;
 }
 
-function appendQuantHistory(marketHistory = {}, quant = {}) {
+export function quantMetricSeriesIdentity(id = "", label = "", unit = "") {
+  const canonical = [id, label, unit]
+    .map((value) => String(value || "").normalize("NFKC").toLowerCase().replace(/\s+/g, " ").trim())
+    .join("|");
+  return createHash("sha256").update(canonical).digest("hex").slice(0, 16);
+}
+
+function stableKpiSeriesId(label = "", unit = "") {
+  return `kpi-${quantMetricSeriesIdentity("baseline-kpi", label, unit)}`;
+}
+
+export function appendQuantHistory(marketHistory = {}, quant = {}) {
   marketHistory.metrics ||= {};
   marketHistory.metricDefinitions ||= {};
+  marketHistory.quarantinedMetrics ||= [];
   const capturedAt = quant.updatedAt || new Date().toISOString();
   let metricsChanged = false;
   const validMetricPoint = (point = {}) => Number.isFinite(Number(point.value))
@@ -6577,13 +6796,32 @@ function appendQuantHistory(marketHistory = {}, quant = {}) {
   // Earlier builds copied baseline values onto every crawl date. Keep only
   // observations that carry their own source date and direct source URL.
   for (const [id, metric] of Object.entries(marketHistory.metrics)) {
+    if (/^kpi-\d+$/.test(id)) {
+      marketHistory.quarantinedMetrics.push({
+        id,
+        label: metric?.label || null,
+        unit: metric?.unit || null,
+        pointCount: Array.isArray(metric?.points) ? metric.points.length : 0,
+        reason: "unstable-index-series-id",
+        quarantinedAt: capturedAt,
+      });
+      delete marketHistory.metrics[id];
+      delete marketHistory.metricDefinitions[id];
+      metricsChanged = true;
+      continue;
+    }
     const points = (Array.isArray(metric?.points) ? metric.points : []).filter(validMetricPoint);
     if (!points.length) {
       delete marketHistory.metrics[id];
       delete marketHistory.metricDefinitions[id];
+      metricsChanged = true;
       continue;
     }
-    marketHistory.metrics[id] = { ...metric, points };
+    marketHistory.metrics[id] = {
+      ...metric,
+      seriesIdentity: metric.seriesIdentity || quantMetricSeriesIdentity(id, metric.label, metric.unit),
+      points,
+    };
   }
   const candidates = [];
   for (const item of quant.marketStructure?.kpis || []) {
@@ -6593,7 +6831,7 @@ function appendQuantHistory(marketHistory = {}, quant = {}) {
       && observationDate
       && validHttpUrl(item.sourceUrl)
       && ["live-verified", "last-verified"].includes(item.dataStatus)) candidates.push({
-      id: `kpi-${item.baselineIndex}`,
+      id: stableKpiSeriesId(item.label, item.unit || ""),
       label: item.label,
       value: numeric,
       unit: item.unit || "",
@@ -6626,7 +6864,26 @@ function appendQuantHistory(marketHistory = {}, quant = {}) {
     }
   }
   for (const point of candidates) {
-    const current = marketHistory.metrics[point.id] || { id: point.id, label: point.label, unit: point.unit || "", points: [] };
+    const expectedIdentity = quantMetricSeriesIdentity(point.id, point.label, point.unit || "");
+    const existing = marketHistory.metrics[point.id] || null;
+    const existingIdentity = existing
+      ? existing.seriesIdentity || quantMetricSeriesIdentity(point.id, existing.label, existing.unit || "")
+      : null;
+    if (existing && existingIdentity !== expectedIdentity) {
+      marketHistory.quarantinedMetrics.push({
+        id: point.id,
+        label: existing.label || null,
+        unit: existing.unit || null,
+        seriesIdentity: existingIdentity,
+        expectedIdentity,
+        pointCount: Array.isArray(existing.points) ? existing.points.length : 0,
+        reason: "series-identity-mismatch",
+        quarantinedAt: capturedAt,
+      });
+    }
+    const current = existing && existingIdentity === expectedIdentity
+      ? existing
+      : { id: point.id, label: point.label, unit: point.unit || "", points: [] };
     const points = Array.isArray(current.points)
       ? current.points.filter((item) => item.date !== point.observationDate && validMetricPoint(item))
       : [];
@@ -6640,19 +6897,50 @@ function appendQuantHistory(marketHistory = {}, quant = {}) {
       capturedAt,
     });
     points.sort((a, b) => String(a.date).localeCompare(String(b.date)));
-    marketHistory.metrics[point.id] = { ...current, unit: point.unit || current.unit || "", updatedAt: capturedAt, points: points.slice(-2200) };
+    marketHistory.metrics[point.id] = {
+      ...current,
+      id: point.id,
+      label: point.label,
+      unit: point.unit || current.unit || "",
+      seriesIdentity: expectedIdentity,
+      source: point.source || current.source || null,
+      sourceUrl: point.sourceUrl,
+      asOf: point.asOf || point.observationDate,
+      updatedAt: capturedAt,
+      points: points.slice(-2200),
+    };
     metricsChanged = true;
     marketHistory.metricDefinitions[point.id] = {
       label: point.label,
       unit: point.unit || "",
       provenance: point.source || null,
       sourceUrl: point.sourceUrl,
+      seriesIdentity: expectedIdentity,
       policy: "source observation date only; no daily interpolation",
     };
   }
-  const appendSeries = ({ id, label, unit, cadence, source, sourceUrl, points = [] }) => {
+  const appendSeries = ({ id, label, unit, cadence, source, sourceUrl, asOf = null, points = [] }) => {
     if (!validHttpUrl(sourceUrl)) return;
-    const current = marketHistory.metrics[id] || { id, label, unit, points: [] };
+    const expectedIdentity = quantMetricSeriesIdentity(id, label, unit);
+    const existing = marketHistory.metrics[id] || null;
+    const existingIdentity = existing
+      ? existing.seriesIdentity || quantMetricSeriesIdentity(id, existing.label, existing.unit)
+      : null;
+    if (existing && existingIdentity !== expectedIdentity) {
+      marketHistory.quarantinedMetrics.push({
+        id,
+        label: existing.label || null,
+        unit: existing.unit || null,
+        seriesIdentity: existingIdentity,
+        expectedIdentity,
+        pointCount: Array.isArray(existing.points) ? existing.points.length : 0,
+        reason: "series-identity-mismatch",
+        quarantinedAt: capturedAt,
+      });
+    }
+    const current = existing && existingIdentity === expectedIdentity
+      ? existing
+      : { id, label, unit, points: [] };
     const merged = new Map((current.points || []).filter(validMetricPoint).map((point) => [point.date, point]));
     for (const point of points) {
       const date = normalizeObservationDate(point.date);
@@ -6662,9 +6950,22 @@ function appendQuantHistory(marketHistory = {}, quant = {}) {
     }
     const nextPoints = [...merged.values()].sort((a, b) => String(a.date).localeCompare(String(b.date))).slice(-2200);
     if (!nextPoints.length) return;
-    marketHistory.metrics[id] = { ...current, id, label, unit, ...(cadence ? { cadence } : {}), updatedAt: capturedAt, points: nextPoints };
+    const metricAsOf = asOf || nextPoints.at(-1)?.asOf || nextPoints.at(-1)?.date || null;
+    marketHistory.metrics[id] = {
+      ...current,
+      id,
+      label,
+      unit,
+      seriesIdentity: expectedIdentity,
+      ...(cadence ? { cadence } : {}),
+      source: source || current.source || null,
+      sourceUrl,
+      asOf: metricAsOf,
+      updatedAt: capturedAt,
+      points: nextPoints,
+    };
     metricsChanged = true;
-    marketHistory.metricDefinitions[id] = { label, unit, provenance: source, sourceUrl, policy: "source observation date only; no interpolation" };
+    marketHistory.metricDefinitions[id] = { label, unit, provenance: source, sourceUrl, seriesIdentity: expectedIdentity, policy: "source observation date only; no interpolation" };
   };
   appendSeries({
     id: "quant-usdkrw",
@@ -6673,6 +6974,7 @@ function appendQuantHistory(marketHistory = {}, quant = {}) {
     cadence: "daily",
     source: quant.fx?.usdkrw?.source,
     sourceUrl: quant.fx?.usdkrw?.sourceUrl,
+    asOf: quant.fx?.usdkrw?.asOf,
     points: quant.fx?.usdkrw?.history5y?.points || quant.fx?.usdkrw?.history30d?.points,
   });
   appendSeries({
@@ -6682,6 +6984,7 @@ function appendQuantHistory(marketHistory = {}, quant = {}) {
     cadence: "daily",
     source: quant.fx?.usdtwd?.source,
     sourceUrl: quant.fx?.usdtwd?.sourceUrl,
+    asOf: quant.fx?.usdtwd?.asOf,
     points: quant.fx?.usdtwd?.history5y?.points || quant.fx?.usdtwd?.history30d?.points,
   });
   appendSeries({
@@ -6691,6 +6994,7 @@ function appendQuantHistory(marketHistory = {}, quant = {}) {
     cadence: "daily",
     source: quant.aiDemandProxy?.nvda?.source,
     sourceUrl: quant.aiDemandProxy?.nvda?.sourceUrl,
+    asOf: quant.aiDemandProxy?.nvda?.asOf,
     points: quant.aiDemandProxy?.nvda?.history5y?.points || quant.aiDemandProxy?.nvda?.history30d?.points,
   });
   appendSeries({
@@ -6700,6 +7004,7 @@ function appendQuantHistory(marketHistory = {}, quant = {}) {
     cadence: "daily",
     source: quant.aiDemandProxy?.amd?.source,
     sourceUrl: quant.aiDemandProxy?.amd?.sourceUrl,
+    asOf: quant.aiDemandProxy?.amd?.asOf,
     points: quant.aiDemandProxy?.amd?.history5y?.points || quant.aiDemandProxy?.amd?.history30d?.points,
   });
   appendSeries({
@@ -6709,6 +7014,7 @@ function appendQuantHistory(marketHistory = {}, quant = {}) {
     cadence: "monthly",
     source: quant.foundry?.tsmcMonthly?.source,
     sourceUrl: quant.foundry?.tsmcMonthly?.sourceUrl,
+    asOf: quant.foundry?.tsmcMonthly?.month,
     points: quant.foundry?.tsmcMonthly?.yoyHistory?.points,
   });
   appendSeries({
@@ -6718,6 +7024,7 @@ function appendQuantHistory(marketHistory = {}, quant = {}) {
     cadence: "monthly",
     source: quant.foundry?.tsmcMonthly?.source,
     sourceUrl: quant.foundry?.tsmcMonthly?.sourceUrl,
+    asOf: quant.foundry?.tsmcMonthly?.month,
     points: quant.foundry?.tsmcMonthly?.revenueHistory?.points,
   });
   const micronHistory = quant.fundamentals?.micron?.history || {};
@@ -6731,9 +7038,13 @@ function appendQuantHistory(marketHistory = {}, quant = {}) {
       cadence: "quarterly",
       source: micronSource,
       sourceUrl: micronSourceUrl,
+      asOf: (micronHistory[field] || []).at(-1)?.date || null,
       points: (micronHistory[field] || []).map((point) => ({ ...point, value: Number((Number(point.value) / 1e9).toFixed(3)) })),
     });
   }
+  marketHistory.quarantinedMetrics = marketHistory.quarantinedMetrics
+    .filter((item) => item?.id && item?.reason)
+    .slice(-100);
   if (metricsChanged) marketHistory.metricsUpdatedAt = capturedAt;
 }
 
@@ -6741,6 +7052,20 @@ export async function collectLastGood(fetcher, previous, step, successMessage, {
   const attemptedAt = new Date().toISOString();
   try {
     const value = await fetcher();
+    if (value?.status === "stale") {
+      const next = {
+        ...value,
+        status: "stale",
+        lastSuccessAt: previous?.lastSuccessAt || null,
+        lastFetchSucceededAt: attemptedAt,
+        lastAttemptAt: attemptedAt,
+        staleAfterDays: maxStaleDays,
+        expiresAt: null,
+        failureStreak: Number(previous?.failureStreak || 0),
+      };
+      if (report) note(step, false, `source series stale · latest ${value.latestObservationAt || value.asOf || "unknown"} · lag ${value.endLagDays ?? "?"}d`);
+      return next;
+    }
     const next = {
       ...value,
       status: "live",
@@ -6876,9 +7201,20 @@ async function collectQuantMetrics(priceHistory, context = {}) {
   for (const [category, check] of Object.entries(quant.forecastInputs.sourceChecks.items || {})) {
     const input = quant.forecastInputs.categories?.[category]?.units;
     if (!input) continue;
+    const sameSource = String(input.sourceUrl || "").replace(/\/$/, "") === String(check.sourceUrl || "").replace(/\/$/, "");
+    const sameValue = Number.isFinite(Number(input.value))
+      && Number.isFinite(Number(check.expectedValue))
+      && Math.abs(Number(input.value) - Number(check.expectedValue)) <= Math.max(0.01, Math.abs(Number(check.expectedValue)) * 0.002);
+    // A configured-model source check must not be attached to a different
+    // current-run observation that happened to replace that category input.
+    if (!sameSource || !sameValue) continue;
     input.lastCheckedAt = check.checkedAt;
     input.sourceReachable = Boolean(check.reachable);
     input.sourceValueVerified = Boolean(check.valueVerified);
+    input.sourceCheckStatus = check.status;
+    input.status = check.valueVerified
+      ? "live-verified"
+      : check.reachable ? "source-reachable-value-unverified" : "source-unavailable";
     if (check.snippet) input.sourceSnippet = check.snippet;
   }
   quant.liveFigures = extractLiveFigures(context);
@@ -7285,6 +7621,7 @@ async function main() {
     schemaVersion: LIVE_SCHEMA_VERSION,
     runId,
     updatedAt: new Date().toISOString(),
+    expiresAt: quant.expiresAt,
     timezone: "Asia/Seoul",
     stocks,
     quant,
@@ -7309,6 +7646,14 @@ async function main() {
     brokerResearch,
     categories,
     news,
+    referenceNews: {
+      schemaVersion: "1.0",
+      mode: "reference-only",
+      generatedAt: evidenceValidatedAt,
+      itemCount: newsPayload.referenceNews?.length || 0,
+      methodology: "curated seeds and previous-run continuity copies; excluded from live news, evidence promotion, derived signals, and quality counts",
+      items: newsPayload.referenceNews || [],
+    },
     trending,
     newsStats: stats,
     evidence: buildEvidenceLedger(news, evidenceValidatedAt),
@@ -7321,7 +7666,7 @@ async function main() {
 
   payload.quality = buildQualityReport(payload);
   if (payload.quality.status !== "verified") {
-    if (payload.quality.failures.includes("fact_timeline") || payload.quality.failures.includes("cxmt_offering_stage")) {
+    if (payload.quality.failures.includes("fact_timeline_integrity")) {
       console.error("사실 타임라인 진단:", JSON.stringify((facts.events || []).map((event) => ({
         id: event.id,
         stage: event.current?.stageId,
@@ -7334,11 +7679,19 @@ async function main() {
 
   priceHistory.runId = runId;
   priceHistory.validatedAt = payload.updatedAt;
+  priceHistory.expiresAt = quant.expiresAt;
   marketHistory.runId = runId;
   marketHistory.validatedAt = payload.updatedAt;
+  marketHistory.expiresAt = quant.expiresAt;
   quantBacktest.validatedAt = payload.updatedAt;
+  quantBacktest.expiresAt = quant.expiresAt;
   payload.marketHistory.runId = runId;
   payload.marketHistory.validatedAt = payload.updatedAt;
+  payload.marketHistory.expiresAt = quant.expiresAt;
+  payload.priceHistory.validatedAt = payload.updatedAt;
+  payload.priceHistory.expiresAt = quant.expiresAt;
+  payload.quantBacktest.validatedAt = payload.updatedAt;
+  payload.quantBacktest.expiresAt = quant.expiresAt;
   const crawlAudit = buildCrawlAudit(payload, quarantineReport);
   await writeVerifiedBundle([
     [HISTORY_OUT, priceHistory],

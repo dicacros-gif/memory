@@ -2,11 +2,13 @@
 
 import assert from "node:assert/strict";
 import {
+  appendQuantHistory,
   archiveMonthlyTargets,
   mergeMarketPoints,
   mergePricePoints,
   parseTsmcAnnualRevenueHtml,
   pricePointCoversMonth,
+  quantMetricSeriesIdentity,
   trendForceObservationIso,
 } from "./crawl.mjs";
 
@@ -74,6 +76,53 @@ assert.deepEqual(tsmc.map((point) => [point.date, point.revenueBillionTwd, point
   ["2025-02", 260, 43.1],
 ]);
 
+const metricSourceUrl = "https://example.com/source";
+const metricHistory = {
+  metrics: {
+    "kpi-0": { id: "kpi-0", label: "Legacy positional KPI", unit: "%", points: [] },
+  },
+  metricDefinitions: {},
+};
+const metricQuant = (kpis) => ({
+  updatedAt: "2026-07-20T00:00:00.000Z",
+  marketStructure: { kpis, companies: [] },
+});
+const kpiA = { label: "Stable A", value: 10, unit: "%", source: "Example", sourceUrl: metricSourceUrl, asOf: "2026-06-30", dataStatus: "live-verified" };
+const kpiB = { label: "Stable B", value: 20, unit: "B", source: "Example", sourceUrl: metricSourceUrl, asOf: "2026-06-30", dataStatus: "live-verified" };
+appendQuantHistory(metricHistory, metricQuant([kpiA, kpiB]));
+const stableKpiIds = Object.keys(metricHistory.metrics).filter((id) => id.startsWith("kpi-")).sort();
+assert.equal(stableKpiIds.length, 2);
+assert.ok(stableKpiIds.every((id) => !/^kpi-\d+$/.test(id)), "positional KPI IDs must be quarantined");
+appendQuantHistory(metricHistory, metricQuant([kpiB, kpiA]));
+assert.deepEqual(Object.keys(metricHistory.metrics).filter((id) => id.startsWith("kpi-")).sort(), stableKpiIds,
+  "reordering baseline KPIs must not change or cross-merge their series IDs");
+for (const id of stableKpiIds) {
+  const metric = metricHistory.metrics[id];
+  assert.equal(metric.seriesIdentity, quantMetricSeriesIdentity(id, metric.label, metric.unit));
+}
+
+const unitHistory = { metrics: {}, metricDefinitions: {} };
+const proxyQuant = (currency, date, value) => ({
+  updatedAt: `${date}T00:00:00.000Z`,
+  marketStructure: { kpis: [], companies: [] },
+  aiDemandProxy: {
+    nvda: {
+      currency,
+      source: "Example FX",
+      sourceUrl: metricSourceUrl,
+      asOf: date,
+      history5y: { points: [{ date, value }] },
+    },
+  },
+});
+appendQuantHistory(unitHistory, proxyQuant("USD", "2026-06-30", 130));
+const firstProxyIdentity = unitHistory.metrics["quant-nvda"].seriesIdentity;
+appendQuantHistory(unitHistory, proxyQuant("EUR", "2026-07-01", 120));
+assert.notEqual(unitHistory.metrics["quant-nvda"].seriesIdentity, firstProxyIdentity,
+  "a unit change must create a new identity instead of merging incompatible observations");
+assert.ok(unitHistory.quarantinedMetrics.some((item) => item.id === "quant-nvda" && item.reason === "series-identity-mismatch"));
+assert.equal(unitHistory.metrics["quant-nvda"].points.length, 1);
+
 console.log(JSON.stringify({
   ok: true,
   sourceObservedAt: observedAt,
@@ -81,4 +130,6 @@ console.log(JSON.stringify({
   archiveMonths: targets.length,
   archiveRange: [targets[0].id, targets.at(-1).id],
   tsmcMonths: tsmc.length,
+  stableKpiIds: stableKpiIds.length,
+  metricQuarantines: unitHistory.quarantinedMetrics.length,
 }, null, 2));

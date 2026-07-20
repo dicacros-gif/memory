@@ -475,7 +475,17 @@ export function buildRelationCandidates(context = {}, nowInput = new Date(), thr
   };
 }
 
-const BASELINE_STOP_WORDS = new Set(["memory", "메모리", "시장", "추적", "확인", "기준", "확대", "경쟁", "공급", "track", "watch", "signal", "signals", "action", "actions", "linkedcategories", "합니다", "입니다", "있습니다", "위한", "함께", "아니라", "보다", "제품", "고객", "기술", "후보", "목표", "architecture"]);
+const BASELINE_STOP_WORDS = new Set([
+  "a", "an", "and", "are", "as", "at", "be", "been", "being", "but", "by", "can", "could", "did", "do", "does",
+  "for", "from", "had", "has", "have", "how", "if", "in", "into", "is", "it", "its", "may", "might", "more", "most",
+  "no", "not", "of", "on", "or", "our", "out", "over", "should", "than", "that", "the", "their", "these", "they", "this",
+  "those", "to", "under", "was", "we", "were", "what", "when", "where", "which", "while", "will", "with", "would", "you",
+  "about", "across", "after", "before", "between", "current", "latest", "new", "using", "based", "per", "versus", "via",
+  "memory", "market", "track", "tracking", "watch", "signal", "signals", "action", "actions", "linkedcategories", "architecture",
+  "메모리", "시장", "추적", "확인", "기준", "확대", "경쟁", "공급", "합니다", "입니다", "있습니다", "위한", "함께", "아니라",
+  "보다", "제품", "고객", "기술", "후보", "목표", "대한", "관련", "통해", "따라", "현재", "최신", "별도", "경우", "관리",
+  "사용", "판단", "필요", "해당", "자료", "근거", "전망", "정도", "수준", "대비", "기반", "표시", "검토", "분리",
+]);
 
 function baselineTargets(baseline = {}) {
   const targets = [];
@@ -529,19 +539,26 @@ function baselineTargets(baseline = {}) {
 }
 
 function baselineKeywords(item = {}) {
-  const raw = [item.id, item.company, item.title, item.label, item.thesis]
+  const raw = [item.id, item.company, item.title, item.label, item.source, item.publisher, item.badge, item.thesis]
     .concat(item.facts || [], item.signals || [], item.watch || [], item.linkedCategories || [])
     .join(" ")
     .normalize("NFKC")
     .toLowerCase();
-  return [...new Set(raw.split(/[^a-z0-9가-힣²³]+/).map((word) => word.trim()).filter((word) => word.length >= 3 && !BASELINE_STOP_WORDS.has(word)))].slice(0, 24);
+  return [...new Set(raw
+    .split(/[^a-z0-9가-힣²³]+/)
+    .map((word) => word.trim())
+    .filter((word) => word.length >= 3
+      && !/^20\d{2}$/.test(word)
+      && !/^q[1-4]$/.test(word)
+      && !BASELINE_STOP_WORDS.has(word)))]
+    .slice(0, 40);
 }
 
-const BASELINE_ENTITY_ANCHOR_RE = /^(?:cxmt|ymtc|tsmc|micron|samsung|skhy|hynix|solidigm|hbf|panmnesia|pangea|china|chinese|중국)$/i;
+const BASELINE_ENTITY_ANCHOR_RE = /^(?:cxmt|ymtc|tsmc|micron|samsung|skhy|hynix|solidigm|hbf|panmnesia|pangea|china|chinese|중국|wsts|sia|trendforce|counterpoint|techinsights|yole|semianalysis|reuters|digitimes|idc)$/i;
 const BASELINE_TECH_ANCHOR_RE = /^(?:hbm3e?|hbm4e?|dram|nand|xtacking|cowos|cxl|lpddr5x|ddr6|essd|hybrid|bonding|base|die)$/i;
 
 function baselineAnchorKeywords(item = {}, keywords = []) {
-  const identity = [item.id, item.company, item.title, item.label]
+  const identity = [item.id, item.company, item.title, item.label, item.source, item.publisher, item.badge]
     .join(" ")
     .normalize("NFKC")
     .toLowerCase()
@@ -550,6 +567,69 @@ function baselineAnchorKeywords(item = {}, keywords = []) {
   const entityAnchors = [...new Set(identity.filter((word) => BASELINE_ENTITY_ANCHOR_RE.test(word)))];
   if (entityAnchors.length) return entityAnchors;
   return keywords.filter((word) => BASELINE_TECH_ANCHOR_RE.test(word)).slice(0, 8);
+}
+
+function baselineQuantTokens(text = "") {
+  const unitPattern = "%|percentage\\s*points?|bps?|gb\\s*\\/\\s*s|gbps|gb\\s*\\/\\s*mm[²2]|gb|tb|mb|kb|wpm|wafers?|layers?|nm|mm[²2]|cny|rmb|yuan|dollars?|trillion|billion|million|thousand|[kmbt](?:\\+)?|억\\s*위안|억|조|만|명|장|개|배|층";
+  const pattern = new RegExp(`(?:[$€£¥₩]\\s*)?[+\\-]?\\d+(?:,\\d{3})*(?:\\.\\d+)?\\s*(?:${unitPattern})`, "giu");
+  return [...new Set((String(text || "").normalize("NFKC").match(pattern) || []).map((token) => token
+    .toLowerCase()
+    .replace(/\s+/g, "")
+    .replace(/,/g, "")
+    .replace(/^\+/, "")
+    .replace(/percentagepoints?/g, "%p")
+    .replace(/gb\/s/g, "gbps")
+    .replace(/gb\/mm2/g, "gb/mm²")
+    .replace(/mm2/g, "mm²")
+    .replace(/trillion/g, "t")
+    .replace(/billion/g, "b")
+    .replace(/million/g, "m")
+    .replace(/thousand/g, "k")
+    .replace(/dollars?/g, "usd")
+    .replace(/yuan|rmb/g, "cny")
+    .replace(/\+$/g, "")))];
+}
+
+function baselinePeriodTokens(text = "") {
+  const normalized = String(text || "").normalize("NFKC").toLowerCase();
+  const years = normalized.match(/\b20\d{2}\b/g) || [];
+  const quarters = normalized.match(/(?:\bq[1-4]\s*20\d{2}\b|\b20\d{2}\s*(?:년\s*)?q[1-4]\b)/g) || [];
+  return [...new Set(quarters.concat(years).map((value) => value.replace(/년|\s+/g, "")))];
+}
+
+function baselineClaimMatch(target = {}, item = {}) {
+  const keywords = baselineKeywords(target.value);
+  const anchors = baselineAnchorKeywords(target.value, keywords);
+  const claimKeywords = keywords.filter((keyword) => !anchors.includes(keyword));
+  const matchedAnchors = anchors.filter((keyword) => exactTermMatch(item.text, keyword));
+  const matchedClaims = claimKeywords.filter((keyword) => exactTermMatch(item.text, keyword));
+  const targetQuant = baselineQuantTokens(target.text);
+  const articleQuant = baselineQuantTokens(item.text);
+  const matchedQuant = targetQuant.filter((token) => articleQuant.includes(token));
+  const targetPeriods = baselinePeriodTokens(target.text);
+  const articlePeriods = baselinePeriodTokens(item.text);
+  const matchedPeriods = targetPeriods.filter((token) => articlePeriods.includes(token));
+  const anchorReady = matchedAnchors.length >= 1;
+  const claimReady = matchedClaims.length >= 2;
+  const periodReady = !targetPeriods.length || matchedPeriods.length >= 1;
+  const quantReady = !targetQuant.length || matchedQuant.length === targetQuant.length;
+  const related = anchorReady && claimReady && periodReady;
+  return {
+    item,
+    keywords,
+    matchedAnchors,
+    matchedClaims,
+    targetQuant,
+    matchedQuant,
+    targetPeriods,
+    matchedPeriods,
+    related,
+    exact: related && quantReady,
+    score: matchedAnchors.length * 20
+      + matchedClaims.reduce((sum, keyword) => sum + Math.min(8, keyword.length), 0)
+      + matchedQuant.length * 24
+      + matchedPeriods.length * 10,
+  };
 }
 
 function directionPolarity(text = "") {
@@ -561,27 +641,31 @@ function directionPolarity(text = "") {
 
 export function buildBaselineFreshness(baseline = {}, context = {}, previous = {}, nowInput = new Date()) {
   const now = new Date(nowInput);
-  const methodologyVersion = "2.3";
+  const methodologyVersion = "3.0";
   const previousTrusted = previous?.methodologyVersion === methodologyVersion;
   const corpus = makeCorpus({ news: context.news || [], brokerResearch: context.brokerResearch || {} }, now, 45);
   const items = {};
   for (const target of baselineTargets(baseline)) {
-    const keywords = baselineKeywords(target.value);
-    const anchors = baselineAnchorKeywords(target.value, keywords);
-    const matches = corpus.map((item) => {
-      const matched = keywords.filter((keyword) => exactTermMatch(item.text, keyword));
-      const matchedAnchors = anchors.filter((keyword) => exactTermMatch(item.text, keyword));
-      return { item, matched, matchedAnchors, score: matched.reduce((sum, keyword) => sum + Math.min(8, keyword.length), 0) };
-    }).filter((match) => {
-      const highSignal = match.matchedAnchors.some((word) => /^(?:hbf|hbm4e?|xtacking|pangea|panmnesia|cowos|lpddr5x|ddr6)$/i.test(word));
-      return Boolean(match.matchedAnchors.length && (match.matched.length >= 2 || highSignal));
-    }).sort((a, b) => b.score - a.score || String(b.item.date).localeCompare(String(a.item.date)));
-    const currentEvidence = matches.slice(0, 5).map(({ item, matched }) => ({
+    const evaluated = corpus.map((item) => baselineClaimMatch(target, item));
+    const matches = evaluated.filter((match) => match.exact)
+      .sort((a, b) => b.score - a.score || String(b.item.date).localeCompare(String(a.item.date)));
+    const relatedMatches = evaluated.filter((match) => match.related && !match.exact)
+      .sort((a, b) => b.score - a.score || String(b.item.date).localeCompare(String(a.item.date)));
+    const evidenceView = ({ item, matchedAnchors, matchedClaims, matchedQuant, matchedPeriods }) => ({
       title: item.title || item.originalTitle,
       source: item.source,
       url: item.url,
       date: item.date,
-      matchedKeywords: matched.slice(0, 5),
+      matchedKeywords: matchedClaims.slice(0, 8),
+      matchedAnchors: matchedAnchors.slice(0, 5),
+      matchedQuantTokens: matchedQuant.slice(0, 8),
+      matchedPeriodTokens: matchedPeriods.slice(0, 5),
+      matchQuality: "claim-exact",
+    });
+    const currentEvidence = matches.slice(0, 5).map(evidenceView);
+    const relatedEvidence = relatedMatches.slice(0, 3).map((match) => ({
+      ...evidenceView(match),
+      matchQuality: "related-unverified",
     }));
     const previousItem = previousTrusted ? (previous?.items?.[target.id] || {}) : {};
     const previousEvidence = (previousItem.evidence || []).filter((item) => directUrl(item.url) && exactDate(item.date)).slice(0, 5);
@@ -599,11 +683,8 @@ export function buildBaselineFreshness(baseline = {}, context = {}, previous = {
       ? previousItem.conflictEvidence
       : null;
     const conflictEvidence = opposing ? {
-      title: opposing.item.title || opposing.item.originalTitle,
-      source: opposing.item.source,
-      url: opposing.item.url,
-      date: opposing.item.date,
-      matchedKeywords: opposing.matched.slice(0, 5),
+      ...evidenceView(opposing),
+      matchQuality: "claim-exact-opposing-language",
     } : previousConflict;
     const conflictCandidate = Boolean(conflictEvidence && ageInDays(conflictEvidence.date, now) <= 14);
     const status = conflictCandidate ? "conflict-candidate" : (!lastEvidenceAt || ageDays > 14 ? "revalidate" : "current");
@@ -618,16 +699,22 @@ export function buildBaselineFreshness(baseline = {}, context = {}, previous = {
       ageDays,
       evidenceCount: evidence.length,
       evidence,
+      relatedEvidenceCount: relatedEvidence.length,
+      relatedEvidence,
       conflictCandidate,
       conflictEvidence,
       reviewReason: conflictCandidate
-        ? "기준 서술과 반대 방향어가 포함된 최신 근거 발견 · 사람 검토 필요"
-        : evidence.length ? "최신 직접 링크 근거와 키워드 대조 완료" : "직접 대조 근거 없음",
+        ? "동일 주체·지표·기간·수치 근거에 반대 방향어가 있어 사람 검토 필요"
+        : evidence.length
+          ? "동일 주체·지표·기간과 정량 토큰을 최신 직접 링크에서 대조 완료"
+          : relatedEvidence.length
+            ? "관련 기사는 있으나 주장 수치까지 일치하지 않아 재검증 필요"
+            : "주장 단위 직접 대조 근거 없음",
     };
   }
   const values = Object.values(items);
   return {
-    schemaVersion: "2.3",
+    schemaVersion: "3.0",
     methodologyVersion,
     updatedAt: now.toISOString(),
     staleAfterDays: 14,
@@ -636,7 +723,7 @@ export function buildBaselineFreshness(baseline = {}, context = {}, previous = {
     revalidate: values.filter((item) => item.status === "revalidate").length,
     conflictCandidates: values.filter((item) => item.status === "conflict-candidate").length,
     items,
-    method: "baseline thesis/facts/summary/note/alt/insight/Q&A vs current-run 45d direct-link evidence; per-fact stable ids; entity/technology anchor required; unmatched or evidence older than 14d is revalidation-required; opposing wording is review-only",
+    method: "baseline claim-level audit vs current-run 45d direct-link evidence; same entity/source anchor plus at least two claim terms and period overlap required; every quantitative token must match for current status; related-only articles never refresh freshness; opposing wording is review-only",
   };
 }
 

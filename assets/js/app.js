@@ -27,11 +27,15 @@
     health: [],
   };
   const emptyHistory = {
+    schemaVersion: "2.0",
+    runId: null,
     updatedAt: null,
     timezone: "Asia/Seoul",
     items: {},
   };
   const emptyMarketHistory = {
+    schemaVersion: "2.0",
+    runId: null,
     updatedAt: null,
     timezone: "Asia/Seoul",
     indexes: {},
@@ -469,8 +473,8 @@
       ],
       channels: ["리텐션 패키지", "법무·보안 전담 채용", "공개 채용/특허 신호 분석", "대학·산학 신호 모니터링"],
       gates: [
-        { axis: "방어 투자", status: "O", title: "핵심 수율 인력 리텐션 예산 선집행", evidence: "중국 Talent/IP 레이더는 수율·TSV·Xtacking·캠퍼스 채용 신호를 매일 추적합니다.", implication: "핵심 인력 방어는 비용이 아니라 HBM·DRAM·NAND 수율 자산 보호 옵션입니다.", source: "Talent radar", sourceUrl: "https://dicacros-gif.github.io/memory/" },
-        { axis: "공개정보 수집", status: "O", title: "채용 공고·특허·전문매체 기반 조기경보", evidence: "공개 채용과 특허 키워드는 경쟁사의 개발 방향을 합법적으로 추정할 수 있는 선행 신호입니다.", implication: "비공개 정보 없이도 TSV, yield, HBM, Xtacking JD 증가를 경보 지표로 쓸 수 있습니다.", source: "Evidence methodology", sourceUrl: "https://dicacros-gif.github.io/memory/data/live.json" },
+        { axis: "방어 투자", status: "O", title: "핵심 수율 인력 리텐션 예산 선집행", evidence: "중국 Talent/IP 레이더는 수율·TSV·Xtacking·캠퍼스 채용 신호를 매일 추적합니다.", implication: "핵심 인력 방어는 비용이 아니라 HBM·DRAM·NAND 수율 자산 보호 옵션입니다.", source: "운영 방법론(외부 근거 아님)", sourceUrl: "" },
+        { axis: "공개정보 수집", status: "O", title: "채용 공고·특허·전문매체 기반 조기경보", evidence: "공개 채용과 특허 키워드는 경쟁사의 개발 방향을 합법적으로 추정할 수 있는 선행 신호입니다.", implication: "비공개 정보 없이도 TSV, yield, HBM, Xtacking JD 증가를 경보 지표로 쓸 수 있습니다.", source: "운영 방법론(외부 근거 아님)", sourceUrl: "" },
         { axis: "금지선", status: "X", title: "인력 확보를 통한 영업비밀 이전 금지", evidence: "채용은 역량 확보가 목적이며 경쟁사 영업비밀·고객 NDA·recipe 이전은 허용하지 않습니다.", implication: "면접·온보딩 단계에서 비공개 자료 반입 금지와 IP 클린룸 원칙을 명시합니다.", source: "Compliance rule", sourceUrl: "https://www.skhynix.com/company/UI-FR-CP06/" },
       ],
       actions: ["핵심 인력 리텐션 스코어를 경영진 탭과 연결", "퇴직자·협력사 접근권 회수를 자동 체크리스트화", "중국 공개 채용 키워드를 주간 경보로 요약"],
@@ -597,7 +601,7 @@
         label: "IP·접근권 자동 통제",
         type: "법무·보안",
         investment: "퇴직자 자료반출, 협력사 계정, 현지 접근권 회수 자동화",
-        monetization: "유출·소송·규제 위반의 꼬리 리스크를 낮추는 보험형 ROI",
+        monetization: "유출·소송·규제 위반의 꼬리 리스크를 낮추는 방어 효익 가정",
         costIndex: 36,
         payoffIndex: 74,
         riskIndex: 20,
@@ -621,9 +625,9 @@
   const CEO_CHALLENGES = [
     {
       id: "roi-credibility",
-      label: "ROI 지수는 어디까지 믿나?",
-      angle: "ROI",
-      question: "이 안건을 CFO 보고용 재무수익률이 아니라 실사 우선순위로만 써야 하는 이유는?",
+      label: "우선순위 모델점수는 어디까지 믿나?",
+      angle: "Model audit",
+      question: "이 점수가 CFO 보고용 재무수익률이 아니라 실사 우선순위로만 쓰이는 이유는?",
     },
     {
       id: "budget-cut",
@@ -1046,6 +1050,13 @@
       category: "dram",
       products: ["DDR5 RDIMM", "MRDIMM", "고용량 서버 DIMM"],
       priceTerms: ["ddr5", "so-dimm", "dram contract", "dram spot"],
+      proxySeriesVersion: "fixed-constituent-v1",
+      proxySeriesIds: [
+        "dram-dram-spot-price::ddr5 16gb (2gx8) 4800/5600",
+        "dram-dram-spot-price::ddr5 16gb (2gx8) ett",
+        "dram-dram-contract-price::ddr5 8gb so-dimm",
+        "dram-module-spot-price::ddr5 rdimm 32gb 4800/5600",
+      ],
       chinaTerms: ["cxmt", "ddr5", "server dram", "dram capacity"],
       decisionBias: "growth",
       rationale: "TrendForce DRAM spot/contract와 DDR5 품목을 사용해 서버 DRAM 가격 방향을 검증합니다.",
@@ -1059,6 +1070,12 @@
       category: "nand",
       products: ["Enterprise SSD", "QLC NAND", "Solidigm", "PCIe Gen5/Gen6 SSD"],
       priceTerms: ["nand flash contract", "pc-client oem ssd", "ssd", "tlc", "qlc"],
+      proxySeriesVersion: "fixed-constituent-v1",
+      proxySeriesIds: [
+        "nand-nand-flash-contract-price::nand 128gb 16gx8 mlc",
+        "nand-wafer-spot-price::512gb tlc",
+        "nand-pc-client-oem-ssd-contract-price::1tb-msata/m.2 tlc pcie-value grade",
+      ],
       chinaTerms: ["ymtc", "essd", "xtacking", "server ssd", "wuhan"],
       decisionBias: "balanced",
       rationale: "eSSD 전용 공개 가격이 제한적이므로 NAND contract와 SSD/OEM SSD 품목을 실제 proxy로 사용합니다.",
@@ -1072,6 +1089,13 @@
       category: "dram",
       products: ["LPDDR5X/LPDDR6", "UFS", "Client SSD", "모바일 NAND"],
       priceTerms: ["lpddr", "so-dimm", "module", "client", "ufs", "memory card", "microsd", "pc-client"],
+      proxySeriesVersion: "fixed-constituent-v1",
+      proxySeriesIds: [
+        "dram-dram-contract-price::ddr5 8gb so-dimm",
+        "dram-module-spot-price::ddr5 udimm 16gb 4800/5600",
+        "nand-pc-client-oem-ssd-contract-price::512gb-msata/m.2 tlc pcie-value grade",
+        "nand-memory-card-spot-price::microsd 128gb",
+      ],
       chinaTerms: ["cxmt", "ymtc", "lpddr", "ufs", "client ssd"],
       decisionBias: "defense",
       rationale: "LPDDR/UFS 공개 가격이 제한되어 module, SO-DIMM, PC-client SSD, memory card 가격을 단말 proxy로 사용합니다.",
@@ -1085,6 +1109,12 @@
       category: "aidemand",
       products: ["Automotive DRAM", "Industrial NAND", "Embedded SSD", "Edge AI Memory"],
       priceTerms: ["dram", "nand", "ssd", "embedded", "industrial"],
+      proxySeriesVersion: "fixed-constituent-v1",
+      proxySeriesIds: [
+        "dram-dram-contract-price::ddr4 16gb 2gx8",
+        "nand-nand-flash-contract-price::nand 128gb 16gx8 mlc",
+        "nand-pc-client-oem-ssd-contract-price::512gb-msata/m.2 tlc pcie-value grade",
+      ],
       chinaTerms: ["edge ai", "automotive memory", "industrial nand", "china"],
       decisionBias: "balanced",
       rationale: "차량/산업용 전용 공개 가격이 없으므로 DRAM/NAND/SSD 전체 가격 방향과 뉴스 신호를 보조 지표로 사용합니다.",
@@ -1098,6 +1128,14 @@
       category: "dram",
       products: ["DDR4", "DDR3", "Commodity DRAM", "Retail SSD", "Wafer NAND"],
       priceTerms: ["ddr4", "ddr3", "ett", "wafer", "mlc", "retail", "street"],
+      proxySeriesVersion: "fixed-constituent-v1",
+      proxySeriesIds: [
+        "dram-dram-spot-price::ddr4 16gb (2gx8) 3200",
+        "dram-dram-spot-price::ddr4 16gb (2gx8) ett",
+        "nand-nand-flash-spot-price::mlc 64gb 8gbx8",
+        "nand-wafer-spot-price::256gb tlc",
+        "nand-ssd-street-price::adata",
+      ],
       chinaTerms: ["cxmt", "ymtc", "legacy", "commodity", "oversupply"],
       decisionBias: "defense",
       rationale: "중국 물량 공세가 가장 먼저 반영되는 DDR4/eTT/wafer/SSD street 가격을 실제 방어 지표로 사용합니다.",
@@ -1111,6 +1149,15 @@
       category: "china",
       products: ["CXMT DRAM 압력", "YMTC NAND/eSSD", "중국 장비 국산화", "레거시 가격"],
       priceTerms: ["ddr4", "ddr5", "ett", "nand", "wafer", "ssd", "mlc", "tlc"],
+      proxySeriesVersion: "fixed-constituent-v1",
+      proxySeriesIds: [
+        "dram-dram-spot-price::ddr4 16gb (2gx8) 3200",
+        "dram-dram-spot-price::ddr4 16gb (2gx8) ett",
+        "dram-dram-spot-price::ddr5 16gb (2gx8) ett",
+        "nand-nand-flash-contract-price::nand 64gb 8gx8 mlc",
+        "nand-wafer-spot-price::256gb tlc",
+        "nand-pc-client-oem-ssd-contract-price::512gb-msata/m.2 tlc pcie-value grade",
+      ],
       chinaTerms: ["cxmt", "ymtc", "naura", "amec", "xmc", "jcet", "china capacity", "big fund"],
       decisionBias: "risk",
       rationale: "중국 업체별 실적/캐파의 과거 가격 직접 데이터는 없으므로 중국 영향이 큰 DDR4/eTT/NAND/SSD 가격을 실제 proxy로 사용합니다.",
@@ -2905,12 +2952,12 @@
     const currentRunFigureCount = (q.liveFigures?.items || []).filter((item) => item.origin === "live-crawl" && item.observedThisRun === true).length;
     if (currentRunFigureCount > 0) chips.push(`원문 정량수치 ${fmtNum(currentRunFigureCount)}건`);
     const industryPulse = verifiedDerivedContract("industryPulse", "1.1");
-    const baselineFreshness = verifiedDerivedContract("baselineFreshness", "2.3");
+    const baselineFreshness = verifiedDerivedContract("baselineFreshness", "3.0");
     if (Number(industryPulse?.total) > 0) chips.push(`WSTS·SIA 연결 ${fmtNum(industryPulse.connected)}/${fmtNum(industryPulse.total)} · 최신 관측 ${fmtNum(industryPulse.observed)}`);
     if (Number(baselineFreshness?.total) > 0) chips.push(`기준 재검증 ${fmtNum(baselineFreshness.revalidate)} · 모순후보 ${fmtNum(baselineFreshness.conflictCandidates)}`);
     const forecastChecks = q.forecastInputs?.sourceChecks || {};
     if (Number(forecastChecks.total) > 0) {
-      chips.push(`수요 원문 ${fmtNum(forecastChecks.ok)}/${fmtNum(forecastChecks.total)} 확인`);
+      chips.push(`수요 수치대조 ${fmtNum(forecastChecks.valueVerified)}/${fmtNum(forecastChecks.total)} · 링크접속 ${fmtNum(forecastChecks.reachable)}/${fmtNum(forecastChecks.total)}`);
     }
     const coverage = q.historyCoverage || {};
     if (Number(coverage.priceSeries) > 0) chips.push(`가격 ${fmtNum(coverage.priceSeries)}개·${fmtNum(coverage.pricePoints)}점`);
@@ -3157,9 +3204,10 @@
       loadJSON("data/crawl-exclusions.json", emptyCrawlExclusions),
       loadJSON("data/quant.json", null),
     ]);
-    if (!QUANT && LIVE && LIVE.quant) QUANT = LIVE.quant;
     LIVE = selectVerifiedLiveData(LIVE);
     LIVE = normalizeLiveData(LIVE);
+    if (!QUANT && LIVE && LIVE.quant) QUANT = LIVE.quant;
+    QUANT = selectVerifiedQuantData(QUANT, LIVE);
     refreshCrawlExclusionKeys();
 
     if (!BASE) {
@@ -3996,9 +4044,9 @@
         loadJSON("data/market-history.json", emptyMarketHistory),
         loadJSON("data/quant-backtest.json", emptyQuantBacktest),
       ]).then(([history, marketHistory, quantBacktest]) => {
-        HISTORY = history || emptyHistory;
-        MARKET_HISTORY = marketHistory || emptyMarketHistory;
-        QUANT_BACKTEST = quantBacktest || emptyQuantBacktest;
+        HISTORY = selectSameRunArtifact(history, emptyHistory, "2.0");
+        MARKET_HISTORY = selectSameRunArtifact(marketHistory, emptyMarketHistory, "2.0");
+        QUANT_BACKTEST = selectSameRunArtifact(quantBacktest, emptyQuantBacktest, "1.0");
       });
     }
     return secondaryDataPromise;
@@ -4093,14 +4141,14 @@
   const FORECAST_CATEGORIES = [
     {
       id: "hyperscaler", label: "AI서버·하이퍼스케일러", accent: "#2D6BFF",
-      unitLabel: "백만 대", unitStep: "가속기 출하", unitNote: "날짜·원문이 검증된 외부 shipment 관측값",
+      unitLabel: "백만 대", unitStep: "가속기 출하", unitNote: "외부기관 2026E 전망치(원문 수치 대조 시만 사용)",
       source: "Presenc AI GPU Shipment Tracker", sourceUrl: "https://presenc.ai/research/gpu-shipment-tracker-blackwell-rubin-2026",
       memLabel: "GB/대", memName: "HBM", memNote: "제품 믹스 모델",
       shareNote: "검증값과 계획 모델을 분리",
       dramLabel: "서버 DRAM", nandLabel: "eSSD NAND",
       driverLabel: "CapEx 방향", techLabel: "자체 가속기", pullLabel: "HBM 견인도", panelTitle: "하이퍼스케일러별 수요 풀",
       assume: [
-        "가속기 출하 기준선은 quant.json의 날짜·원문이 검증된 외부 관측값을 사용하며 확정 출하량으로 간주하지 않음",
+        "가속기 출하 기준선은 quant.json의 원문 수치가 대조된 외부기관 2026E 전망치를 사용하며 확정 출하량으로 간주하지 않음",
         "가속기 세대별 출하 믹스와 공급사별 HBM4 배분은 서로 다른 지표로 분리",
         "총 HBM 수요는 검증 출하량과 버전이 명시된 제품 믹스 모델로 계산하고 점유율 가정은 별도 표시",
         "커스텀 ASIC이 HBM 대신 저용량 구성을 택하면 탑재량·총수요 동시 하향(반증)",
@@ -4109,7 +4157,7 @@
     },
     {
       id: "auto", label: "오토·엣지", accent: "#0EA5E9",
-      unitLabel: "백만 대", unitStep: "차량 생산", unitNote: "검증 가능한 글로벌 신차 출하 관측값",
+      unitLabel: "백만 대", unitStep: "차량 생산", unitNote: "외부기관 2026E 전망치(원문 수치 대조 시만 사용)",
       memLabel: "GB/대", memName: "차량용 DRAM+NAND", memNote: "ADAS·IVI·존아키텍처 믹스 모델",
       shareNote: "오토향 계획 모델",
       dramLabel: "차량 DRAM", nandLabel: "차량 NAND",
@@ -4123,14 +4171,14 @@
     },
     {
       id: "mobile", label: "모바일·스마트폰", accent: "#8B5CF6",
-      unitLabel: "백만 대", unitStep: "스마트폰 출하", unitNote: "IDC 최신 검증 출하 관측값",
+      unitLabel: "백만 대", unitStep: "스마트폰 출하", unitNote: "IDC 2026E 전망치(원문 수치 대조 시만 사용)",
       source: "IDC", sourceUrl: "https://www.idc.com/resource-center/blog/worldwide-smartphone-market-to-decline-13-9-in-2026-as-memory-crisis-and-us-iran-war-constrain-growth/",
       memLabel: "GB/대", memName: "모바일 DRAM", memNote: "온디바이스 AI 기반 LPDDR 믹스 모델",
       shareNote: "모바일 DRAM 계획 모델",
       dramLabel: "LPDDR", nandLabel: "UFS NAND",
       driverLabel: "출하 방향", techLabel: "온디바이스 AI", pullLabel: "메모리 견인도", panelTitle: "스마트폰 브랜드 수요 풀",
       assume: [
-        "IDC의 날짜·원문이 검증된 최신 출하 관측값을 기준선으로 사용",
+        "IDC의 원문 수치가 대조된 2026E 출하 전망치를 기준선으로 사용",
         "총수요 = 스마트폰 출하 × 대당 LPDDR 용량; 온디바이스 AI 상향을 반영하고 UFS NAND는 별도 성장률로 표시",
         "교체 주기 장기화·엔트리 비중 확대 시 탑재량 상향 둔화(반증)",
         "LPDDR ASP 프리미엄이 유지될 때만 믹스 전환이 수익성 개선",
@@ -4138,14 +4186,14 @@
     },
     {
       id: "pc", label: "PC", accent: "#F59E0B",
-      unitLabel: "백만 대", unitStep: "PC 출하", unitNote: "IDC 최신 검증 출하 관측값",
+      unitLabel: "백만 대", unitStep: "PC 출하", unitNote: "IDC 2026E 전망치(원문 수치 대조 시만 사용)",
       source: "IDC 2026 forecast", sourceUrl: "https://www.idc.com/wp-content/uploads/2026/04/IDC-Directions-AI-Supercycle-Whalen.pdf",
       memLabel: "GB/대", memName: "PC DRAM", memNote: "AI PC 고용량 믹스 모델",
       shareNote: "PC DRAM 계획 모델",
       dramLabel: "PC DRAM", nandLabel: "클라이언트 SSD",
       driverLabel: "출하 방향", techLabel: "AI PC", pullLabel: "메모리 견인도", panelTitle: "PC OEM 수요 풀",
       assume: [
-        "IDC의 날짜·원문이 검증된 최신 PC 출하 관측값을 기준선으로 사용하며 가전 출하는 포함하지 않음",
+        "IDC의 원문 수치가 대조된 2026E PC 출하 전망치를 기준선으로 사용하며 가전 출하는 포함하지 않음",
         "총수요 = PC 출하 × 대당 PC DRAM; 클라이언트 SSD는 별도 성장률로 표시",
         "AI PC 침투율과 대당 기본 용량 상향이 상방 동력",
         "PC 교체 사이클 지연 시 출하·총수요 동시 하향(반증)",
@@ -4153,14 +4201,14 @@
     },
     {
       id: "datacenter", label: "데이터센터 스토리지", accent: "#10B981",
-      unitLabel: "백만 대", unitStep: "서버 출하", unitNote: "검증 가능한 전체 서버 출하 관측값",
+      unitLabel: "백만 대", unitStep: "서버 출하", unitNote: "외부기관 2026E 전망치(원문 수치 대조 시만 사용)",
       source: "Frost & Sullivan via HKEX", sourceUrl: "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0320/sehk26022702191.pdf",
       memLabel: "GB/대", memName: "서버 DRAM", memNote: "고용량 RDIMM 믹스 모델; eSSD는 별도",
       shareNote: "서버 DRAM/eSSD 계획 모델",
       dramLabel: "서버 DRAM", nandLabel: "eSSD NAND",
       driverLabel: "증설 방향", techLabel: "스토리지 사양", pullLabel: "메모리 견인도", panelTitle: "데이터센터·스토리지 수요 풀",
       assume: [
-        "전체 서버 출하는 날짜·원문이 검증된 최신 관측값을 기준선으로 사용하고 보조 출처로 방향성을 교차 확인",
+        "전체 서버 출하는 원문 수치가 대조된 외부기관 2026E 전망치를 기준선으로 사용하고 보조 출처로 방향성을 교차 확인",
         "총수요 = 서버 출하 × 노드당 서버 DRAM; eSSD NAND는 별도 성장률로 표시",
         "AI 데이터 증가가 eSSD 용량을 비선형으로 견인",
         "QLC 전환·고용량 eSSD 채택이 늦으면 NAND 총수요 하향(반증)",
@@ -4181,7 +4229,7 @@
     if (!Number.isFinite(quantInputValue(input))) return false;
     const status = String(input?.status || "").toLowerCase();
     if (status === "model") return allowModel && Boolean(String(input?.source || "").trim());
-    if (!["live-observed", "last-verified"].includes(status)) return false;
+    if (!["live-observed", "live-verified", "last-verified"].includes(status)) return false;
     const exactDate = String(input?.asOf || "").match(/\b20\d{2}-\d{2}-\d{2}\b/)?.[0];
     if (!exactDate) return false;
     try {
@@ -4193,21 +4241,72 @@
     }
   }
 
+  function forecastUnitSourceCheck(categoryId = "") {
+    const check = QUANT?.forecastInputs?.sourceChecks?.items?.[categoryId];
+    return check?.field === "units" ? check : null;
+  }
+
+  function forecastSourceUrlKey(value = "") {
+    try {
+      const url = new URL(String(value || ""));
+      url.hash = "";
+      ["utm_source", "utm_medium", "utm_campaign", "utm_term", "utm_content"].forEach((key) => url.searchParams.delete(key));
+      return url.toString().replace(/\/$/, "").toLowerCase();
+    } catch {
+      return "";
+    }
+  }
+
+  function forecastUnitVerification(categoryId = "", input = null) {
+    const status = String(input?.status || "").toLowerCase();
+    if (!quantInputReady(input)) return { verified: false, mode: "invalid-input", check: null };
+    if (status === "live-observed") {
+      return { verified: true, mode: "independent-live-source", check: null };
+    }
+    const check = forecastUnitSourceCheck(categoryId);
+    const inputValue = quantInputValue(input);
+    const expectedValue = Number(check?.expectedValue);
+    const observedValue = Number(check?.observedValue);
+    const sameValue = (left, right) => Math.abs(left - right) <= Math.max(1e-9, Math.abs(left) * 1e-6);
+    const sameUrl = Boolean(forecastSourceUrlKey(input?.sourceUrl)
+      && forecastSourceUrlKey(input?.sourceUrl) === forecastSourceUrlKey(check?.sourceUrl));
+    const configuredValueVerified = check?.valueVerified === true
+      && sameUrl
+      && Number.isFinite(expectedValue)
+      && Number.isFinite(observedValue)
+      && sameValue(inputValue, expectedValue)
+      && sameValue(inputValue, observedValue);
+    return { verified: configuredValueVerified, mode: configuredValueVerified ? "configured-value-verified" : "configured-unverified", check };
+  }
+
   function verifiedDerivedContract(key, schemaVersion) {
     const contract = QUANT?.[key];
     const acceptedVersions = Array.isArray(schemaVersion) ? schemaVersion : [schemaVersion];
     const sameRun = Boolean(QUANT?.runId && LIVE?.runId && QUANT.runId === LIVE.runId);
-    const expiresAt = Date.parse(String(contract?.expiresAt || QUANT?.expiresAt || ""));
+    const sameValidation = Boolean(contract?.validatedAt
+      && QUANT?.validatedAt
+      && contract.validatedAt === QUANT.validatedAt);
+    const sameExpiry = Boolean(contract?.expiresAt
+      && QUANT?.expiresAt
+      && contract.expiresAt === QUANT.expiresAt);
+    const expiresAt = Date.parse(String(contract?.expiresAt || ""));
     const fresh = Number.isFinite(expiresAt) && Date.now() <= expiresAt;
-    if (!contract || !acceptedVersions.includes(contract.schemaVersion) || contract.runId !== QUANT?.runId || !sameRun || !fresh) return null;
+    if (!contract
+      || !acceptedVersions.includes(contract.schemaVersion)
+      || contract.runId !== QUANT?.runId
+      || !sameRun
+      || !sameValidation
+      || !sameExpiry
+      || !fresh) return null;
     return contract;
   }
 
-  function verifiedDemandAccounts(categoryId) {
+  function verifiedDemandAccountRegistry(categoryId) {
     const signals = verifiedDerivedContract("accountSignals", "2.1");
     const expectedCount = Number(signals?.expectedCount || signals?.accountCount || 0);
-    if (!signals || !expectedCount || Number(signals.accountCount) !== expectedCount) return [];
-    return Object.values(signals?.accounts || {})
+    const accounts = Object.values(signals?.accounts || {});
+    if (!signals || !expectedCount || Number(signals.accountCount) !== expectedCount || accounts.length !== expectedCount) return [];
+    return accounts
       .filter((account) => account?.category === categoryId)
       .filter((account) => account?.id && account?.name)
       .map((account) => ({ id: account.id, name: account.name }));
@@ -4218,6 +4317,9 @@
     return FORECAST_CATEGORIES.map((category) => {
       const live = inputs[category.id] || {};
       const unitInput = live.units;
+      const unitVerification = forecastUnitVerification(category.id, unitInput);
+      const unitCheck = unitVerification.check || forecastUnitSourceCheck(category.id);
+      const unitSourceVerified = unitVerification.verified;
       const statuses = [live.units, live.memPerUnit, live.skhyShare, live.dramYoY, live.nandYoY]
         .map((item) => item?.status)
         .filter(Boolean);
@@ -4229,7 +4331,7 @@
         nandYoY: quantInputValue(live.nandYoY),
       };
       const ready = {
-        units: quantInputReady(live.units),
+        units: unitSourceVerified,
         memPerUnit: quantInputReady(live.memPerUnit, { allowModel: true }),
         skhyShare: quantInputReady(live.skhyShare, { allowModel: true }),
         dramYoY: quantInputReady(live.dramYoY, { allowModel: true }),
@@ -4239,18 +4341,26 @@
       const source = unitInput?.source || category.source;
       return {
         ...category,
-        accounts: verifiedDemandAccounts(category.id),
+        accounts: verifiedDemandAccountRegistry(category.id),
         ...values,
         available: Object.values(values).every(Number.isFinite) && Object.values(ready).every(Boolean),
         inputReadiness: ready,
         observedInputCount: [live.units, live.memPerUnit, live.skhyShare, live.dramYoY, live.nandYoY]
-          .filter((item) => ["live-observed", "last-verified"].includes(String(item?.status || "").toLowerCase())).length,
+          .filter((item) => ["live-observed", "live-verified", "last-verified"].includes(String(item?.status || "").toLowerCase())).length,
         modelInputCount: statuses.filter((status) => String(status).toLowerCase() === "model").length,
-        source,
-        sourceUrl: unitInput?.sourceUrl || category.sourceUrl,
+        sourceVerifiedUnit: unitSourceVerified,
+        sourceCheckStatus: unitVerification.mode,
+        unitBasisLabel: unitVerification.mode === "independent-live-source" ? "이번 실행 관측" : "외부기관 전망 2026E",
+        source: unitCheck?.source || source,
+        sourceUrl: unitCheck?.sourceUrl || unitInput?.sourceUrl || category.sourceUrl,
         liveAsOf: asOf,
-        liveStatus: statuses.includes("stale") ? "stale" : (statuses.includes("model") || statuses.includes("assumption") ? "model" : "live"),
-        unitNote: [category.unitNote, source, asOf].filter(Boolean).join(" · "),
+        liveStatus: unitVerification.mode === "independent-live-source" ? "live-observed" : (unitSourceVerified ? "third-party-forecast" : (unitCheck?.reachable ? "link-only" : "unverified")),
+        unitNote: [
+          unitVerification.mode === "independent-live-source" ? "이번 실행 관측" : "외부기관 전망 · 2026E",
+          unitVerification.mode === "independent-live-source" ? "독립 원문 수치" : (unitSourceVerified ? "원문 수치 대조 완료" : (unitCheck?.reachable ? "링크 접속 확인 · 수치 미대조" : "원문 확인 필요")),
+          unitCheck?.source || source,
+          asOf,
+        ].filter(Boolean).join(" · "),
       };
     });
   }
@@ -4377,7 +4487,7 @@
       return {
         available: false,
         missing: [
-          !category?.available ? "forecastInputs" : null,
+          !category?.inputReadiness?.units ? "외부기관 2026E 출하 수치 대조" : (!category?.available ? "forecastInputs" : null),
           !scenario?.available ? "scenarioCalibration" : null,
         ].filter(Boolean),
         calibration,
@@ -4399,10 +4509,17 @@
     return verifiedDerivedContract("accountSignals", "2.1")?.accounts?.[account?.id] || null;
   }
 
+  function isUsableAccountSignal(signal) {
+    return signal?.status === "live"
+      && signal?.minEvidenceMet === true
+      && typeof signal.pullScore === "number"
+      && Number.isFinite(signal.pullScore);
+  }
+
   function forecastAccountPull(account, scenario = forecastScenarioData()) {
     const signal = forecastAccountSignal(account);
-    const liveScore = Number(signal?.pullScore);
-    if (signal?.status !== "live" || !Number.isFinite(liveScore)) return null;
+    if (!isUsableAccountSignal(signal)) return null;
+    const liveScore = signal.pullScore;
     const tilt = scenario.id === "bull" ? 1.08 : scenario.id === "bear" ? 0.9 : 1;
     return Math.round(clamp(liveScore * tilt, 0, 100));
   }
@@ -4425,9 +4542,9 @@
     const d = forecastDrivers(category, scenario);
     const accounts = category.accounts || [];
     const accountSignals = accounts.map((account) => forecastAccountSignal(account)).filter(Boolean);
-    const liveAccountCount = accountSignals.filter((signal) => signal.status === "live").length;
+    const liveAccountCount = accountSignals.filter(isUsableAccountSignal).length;
     const reviewAccountCount = accountSignals.filter((signal) => signal.status !== "live" && Number(signal.evidenceCount) > 0).length;
-    const evidenceCoverage = `라이브 ${fmtNum(liveAccountCount)}/${fmtNum(accounts.length)}${reviewAccountCount ? ` · 검토 ${fmtNum(reviewAccountCount)}` : ""}`;
+    const evidenceCoverage = `추적 풀 ${fmtNum(accounts.length)} · 라이브 근거 ${fmtNum(liveAccountCount)}/${fmtNum(accounts.length)}${reviewAccountCount ? ` · 검토 ${fmtNum(reviewAccountCount)}` : ""}`;
     if (!d.available) {
       if (meta) meta.textContent = `${category.label} · 검증 가능한 정량 입력 수집 중`;
       if (panelTitle) panelTitle.textContent = category.panelTitle;
@@ -4439,9 +4556,9 @@
       if (assumptions) assumptions.innerHTML = "";
       return;
     }
-    if (meta) meta.textContent = `${category.label} · ${scenario.label} · ${fmtNum(d.units, d.units < 20 ? 1 : 0)}${category.unitLabel} × ${fmtNum(d.memPerUnit)}${category.memLabel} · ${evidenceCoverage}`;
+    if (meta) meta.textContent = `${category.label} · ${category.unitBasisLabel} · ${scenario.label} · ${fmtNum(d.units, d.units < 20 ? 1 : 0)}${category.unitLabel} × ${fmtNum(d.memPerUnit)}${category.memLabel} · ${evidenceCoverage}`;
     if (panelTitle) panelTitle.textContent = category.panelTitle;
-    if (panelMeta) panelMeta.textContent = `${category.driverLabel} · ${category.techLabel} · ${category.pullLabel} · ${evidenceCoverage}`;
+    if (panelMeta) panelMeta.textContent = `${category.unitBasisLabel} · ${category.driverLabel} · ${category.techLabel} · ${category.pullLabel} · ${evidenceCoverage} · 계정 카드 점수는 집계 전망 산식에 미반영`;
 
     if (catTabs) {
       catTabs.innerHTML = orderedForecastCategories().map((c) => `
@@ -4453,7 +4570,7 @@
 
     if (logic) {
       const steps = [
-        { k: `① ${category.unitStep}`, v: `${fmtNum(d.units, d.units < 20 ? 1 : 0)} ${category.unitLabel}`, s: category.unitNote },
+        { k: `① ${category.unitStep} · ${category.unitBasisLabel}`, v: `${fmtNum(d.units, d.units < 20 ? 1 : 0)} ${category.unitLabel}`, s: category.unitNote },
         { k: "② 메모리 탑재량", v: `${fmtNum(d.memPerUnit)} ${category.memLabel}`, s: `${category.memName} · ${category.memNote}` },
         { k: "③ 총 메모리 수요", v: `${fmtNum(d.totalPb)} PB`, s: "①×② (백만 대 × GB)" },
         { k: "④ SKHY 점유율", v: `${fmtNum(d.skhyShare)}%`, s: category.shareNote },
@@ -4495,7 +4612,7 @@
     `;
 
     if (!accounts.length) {
-      grid.innerHTML = `<div class="empty">동일 실행 ID와 유효기간을 통과한 27개 수요처 라이브 레지스트리가 없습니다.</div>`;
+      grid.innerHTML = `<div class="empty">동일 실행 ID·검증시각·유효기간을 통과한 수요처 추적 레지스트리가 없습니다.</div>`;
       if (focus) focus.innerHTML = "";
       if (assumptions) assumptions.innerHTML = "";
       return;
@@ -4505,7 +4622,7 @@
       const pull = forecastAccountPull(account, scenario);
       const signal = forecastAccountSignal(account);
       const hasPull = Number.isFinite(pull);
-      const signalBadge = signal?.status === "live"
+      const signalBadge = isUsableAccountSignal(signal)
         ? `<span class="hs-signal ${escapeHTML(signal.direction)}">${signal.direction === "up" ? "▲" : signal.direction === "down" ? "▼" : "•"} 오늘 뉴스 ${fmtNum(signal.mentions)}건</span>`
         : signal?.evidenceCount
           ? `<span class="hs-signal insufficient">근거 품질 미달 · ${fmtNum(signal.evidenceCount)}건</span>`
@@ -4526,7 +4643,7 @@
       const pull = forecastAccountPull(account, scenario);
       const signal = forecastAccountSignal(account);
       const hasPull = Number.isFinite(pull);
-      const signalHTML = signal?.status === "live"
+      const signalHTML = isUsableAccountSignal(signal)
         ? `<div class="hs-focus-signal">
             <b>오늘 크롤링 신호</b>
             <span>언급 ${fmtNum(signal.mentions)}건 · 독립 출처 ${fmtNum(signal.independentSourceCount || signal.sourceCount)}개 · 확장어 ${fmtNum(signal.up)} · 축소어 ${fmtNum(signal.down)} · 방향 ${signal.direction === "up" ? "▲ 확대" : signal.direction === "down" ? "▼ 축소" : "→ 중립"}</span>
@@ -4551,7 +4668,7 @@
 
     if (assumptions) {
       assumptions.innerHTML = `
-        <div class="intel-panel-head"><h3>모델 가정 · 반증 조건</h3><span>${escapeHTML(category.label)} · 공개 데이터 기반 논리 추정 (확정치 아님)${category.sourceUrl ? ` · <a href="${escapeHTML(category.sourceUrl)}" target="_blank" rel="noopener">${escapeHTML(category.source || "원문")}</a>` : ""}</span></div>
+        <div class="intel-panel-head"><h3>모델 가정 · 반증 조건</h3><span>${escapeHTML(category.label)} · ${escapeHTML(category.unitBasisLabel)} + 계획 모델 (확정치 아님)${category.sourceUrl ? ` · <a href="${escapeHTML(category.sourceUrl)}" target="_blank" rel="noopener">${escapeHTML(category.source || "원문")}</a>` : ""}</span></div>
         <ul class="hs-assume-list">
           ${category.assume.map((line, i) => `<li><b>${i < 2 ? "가정" : "반증"}</b><span>${strategicHighlightHTML(line)}</span></li>`).join("")}
         </ul>
@@ -4602,77 +4719,11 @@
   }
 
   function briefCopyText(value) {
-    if (value == null) return "";
-    const original = String(value);
-    if (!/[가-힣]/.test(original)) return original;
-
-    let text = original.replace(/\s+/g, " ").trim();
-    const proseLike = text.length > 18 || /합니다|됩니다|입니다|습니다|니다|다[.!?。]|[.!?。]\s/.test(text);
-    if (!proseLike) return original;
-
-    [
-      [/확인해야\s*합니다/g, "확인 필요"],
-      [/추적해야\s*합니다/g, "추적 필요"],
-      [/계산해야\s*합니다/g, "계산 필요"],
-      [/봐야\s*합니다/g, "검토 필요"],
-      [/필요합니다/g, "필요"],
-      [/가능합니다/g, "가능"],
-      [/중요합니다/g, "중요"],
-      [/아닙니다/g, "아님"],
-      [/있습니다/g, "있음"],
-      [/없습니다/g, "없음"],
-      [/어렵습니다/g, "어려움"],
-      [/높습니다/g, "높음"],
-      [/낮습니다/g, "낮음"],
-      [/큽니다/g, "큼"],
-      [/작습니다/g, "작음"],
-      [/나타납니다/g, "나타남"],
-      [/보입니다/g, "보임"],
-      [/움직입니다/g, "움직임"],
-      [/봅니다/g, "검토"],
-      [/보여줍니다/g, "표시"],
-      [/올라옵니다/g, "상승"],
-      [/커집니다/g, "확대"],
-      [/줄어듭니다/g, "축소"],
-      [/흔들립니다/g, "변동"],
-      [/됩니다/g, "됨"],
-      [/합니다/g, "함"],
-      [/입니다/g, "임"],
-      [/습니다/g, "음"],
-    ].forEach(([pattern, replacement]) => {
-      text = text.replace(pattern, replacement);
-    });
-
-    return text
-      .replace(/([가-힣)])\.(?=\s|$)/g, "$1 ·")
-      .replace(/[!?。](?=\s|$)/g, " ·")
-      .replace(/\s*·\s*/g, " · ")
-      .replace(/\s{2,}/g, " ")
-      .replace(/\s+([,;:])/g, "$1")
-      .replace(/\s*·\s*$/g, "")
-      .trim();
+    return String(value ?? "").replace(/\s+/g, " ").trim();
   }
 
   function normalizeBriefCopy(root = document.body) {
-    if (!root || typeof document.createTreeWalker !== "function") return;
-    const walker = document.createTreeWalker(root, NodeFilter.SHOW_TEXT, {
-      acceptNode(node) {
-        const parent = node.parentElement;
-        if (!parent || !/[가-힣]/.test(node.nodeValue || "")) return NodeFilter.FILTER_REJECT;
-        if (parent.closest("script, style, textarea, input, select, option, code, pre, .count, #ceoAgentAnswer, .agent-debate, .agent-chat, .speech-bubble")) return NodeFilter.FILTER_REJECT;
-        return NodeFilter.FILTER_ACCEPT;
-      },
-    });
-    const nodes = [];
-    let node = walker.nextNode();
-    while (node) {
-      nodes.push(node);
-      node = walker.nextNode();
-    }
-    nodes.forEach((textNode) => {
-      const next = briefCopyText(textNode.nodeValue);
-      if (next !== textNode.nodeValue) textNode.nodeValue = next;
-    });
+    return root;
   }
 
   function normalizeBrandName(value) {
@@ -4684,7 +4735,7 @@
 
   function escapeHTML(value) {
     const div = document.createElement("div");
-    div.textContent = normalizeBrandName(briefCopyText(value));
+    div.textContent = normalizeBrandName(String(value ?? ""));
     return div.innerHTML;
   }
 
@@ -4830,6 +4881,8 @@
     if (news.some((item) => {
       const checks = Object.values(item?.verification?.checks || {});
       return item?.verification?.status !== "promoted"
+        || item?.verification?.origin !== "live-crawl"
+        || item?.verification?.observedThisRun !== true
         || !item?.verification?.id
         || !item?.verification?.canonicalUrl
         || checks.length < 8
@@ -4837,6 +4890,8 @@
     })) return false;
     const timestamp = data.quality?.verifiedAt || data.updatedAt;
     if (!timestamp) return false;
+    const expiresAt = Date.parse(String(data.expiresAt || data.quant?.expiresAt || ""));
+    if (!Number.isFinite(expiresAt) || Date.now() > expiresAt) return false;
     const age = (Date.now() - new Date(timestamp).getTime()) / 36e5;
     return Number.isFinite(age) && age >= 0 && age <= maxAgeHours;
   }
@@ -4848,6 +4903,44 @@
     }
     document.body.dataset.liveDataState = "rejected";
     return emptyLive;
+  }
+
+  function isVerifiedQuantData(data = {}, liveData = LIVE, maxAgeHours = 36) {
+    if (!data || data.schemaVersion !== "2.0") return false;
+    const runId = String(data.runId || "").trim();
+    const liveRunId = String(liveData?.runId || "").trim();
+    if (!runId || !liveRunId || runId !== liveRunId) return false;
+    const updatedAt = Date.parse(String(data.updatedAt || ""));
+    const expiresAt = Date.parse(String(data.expiresAt || ""));
+    if (!Number.isFinite(updatedAt) || !Number.isFinite(expiresAt) || Date.now() > expiresAt) return false;
+    const ageHours = (Date.now() - updatedAt) / 36e5;
+    return Number.isFinite(ageHours) && ageHours >= 0 && ageHours <= maxAgeHours;
+  }
+
+  function selectVerifiedQuantData(data = null, liveData = LIVE) {
+    if (isVerifiedQuantData(data, liveData, 36)) {
+      document.body.dataset.quantDataState = "verified";
+      return data;
+    }
+    document.body.dataset.quantDataState = "rejected";
+    return null;
+  }
+
+  function selectSameRunArtifact(data, fallback, schemaVersion) {
+    const runId = String(data?.runId || "").trim();
+    const liveRunId = String(LIVE?.runId || "").trim();
+    const quantRunId = String(QUANT?.runId || "").trim();
+    const verifiedRunId = liveRunId && quantRunId && liveRunId === quantRunId ? liveRunId : "";
+    const sameRun = Boolean(runId && verifiedRunId && runId === verifiedRunId);
+    const schemaMatches = !schemaVersion || data?.schemaVersion === schemaVersion;
+    const validatedAt = String(data?.validatedAt || "");
+    const liveValidatedAt = String(LIVE?.updatedAt || "");
+    const expiresAt = String(data?.expiresAt || "");
+    const quantExpiresAt = String(QUANT?.expiresAt || "");
+    const sameBundle = Boolean(validatedAt && liveValidatedAt && validatedAt === liveValidatedAt
+      && expiresAt && quantExpiresAt && expiresAt === quantExpiresAt
+      && Date.now() <= Date.parse(expiresAt));
+    return sameRun && schemaMatches && sameBundle ? data : fallback;
   }
 
   function normalizeLiveData(data = emptyLive) {
@@ -4869,13 +4962,13 @@
       typeCounts: next.communitySignals?.typeCounts || {},
       platformCounts: next.communitySignals?.platformCounts || {},
       briefs: Array.isArray(next.communitySignals?.briefs) ? next.communitySignals.briefs.filter((item) => item?.id && Number(item?.count || 0) > 0) : [],
-      items: Array.isArray(next.communitySignals?.items) ? next.communitySignals.items.filter((item) => item?.id && item?.sourceUrl) : [],
+      items: Array.isArray(next.communitySignals?.items) ? next.communitySignals.items.filter((item) => item?.id && isCurrentRunCrawlItem(item)) : [],
     };
     next.communitySignals.total = next.communitySignals.items.length;
     next.benchmarkSignals = {
       ...(next.benchmarkSignals || {}),
       themes: (next.benchmarkSignals?.themes || []).filter(hasPositiveCount),
-      stream: next.benchmarkSignals?.stream || [],
+      stream: (next.benchmarkSignals?.stream || []).filter(isCurrentRunCrawlItem),
     };
     next.competitors = {
       ...(next.competitors || {}),
@@ -6117,10 +6210,10 @@
       const verifiedAt = kpiAsOfTime(sourceDate);
       const ageDays = verifiedAt ? Math.max(0, (Date.now() - verifiedAt) / 864e5) : Infinity;
       const requiresRevalidation = !liveVerified && (dataStatus === "watch" || dataStatus === "baseline-only" || ageDays > 14);
-      const verificationLabel = liveVerified ? "라이브 확인" : requiresRevalidation ? "재검증 필요" : "마지막 확인";
+      const verificationLabel = liveVerified ? "라이브 확인" : "기준 스냅샷";
       const verificationNote = liveVerified
         ? `크롤링 원문 대조 ${sourceDate || "날짜 확인"}`
-        : `${verificationLabel}${sourceDate ? ` · ${sourceDate}` : " · 확인일 없음"}`;
+        : `기준 스냅샷 · 마지막 출처일 ${sourceDate || "미상"}${requiresRevalidation ? " · 현재성 재검증 필요" : ""}`;
       return {
         ...kpi,
         value: live?.value ?? kpi.value,
@@ -6148,7 +6241,7 @@
     strip.innerHTML = "";
     const kpiOutlines = {
       "2026 글로벌 반도체 시장": [
-        { label: "최신", text: "$1.51T · WSTS Spring 2026" },
+        { label: "기준 스냅샷", text: "$1.51T · WSTS Spring 2026" },
         { label: "이전", text: "$975.46B · WSTS Autumn 2025" },
         { label: "기준", text: "같은 기관의 전망 개정이며 SKHY 자체 전망이 아님" },
       ],
@@ -6163,7 +6256,7 @@
         { label: "구성", text: "2026 DRAM $618.7B · NAND $270.6B" },
       ],
       "SKHY HBM 점유율": [
-        { label: "최신", text: "SKHY 58% · 2026 Q1 매출 기준" },
+        { label: "기준 스냅샷", text: "SKHY 58% · 2026 Q1 매출 기준" },
         { label: "경쟁", text: "Samsung 21% · Micron 21%" },
         { label: "추이", text: "2025 Q2 62% → Q3 57% → 2026 Q1 58%" },
       ],
@@ -6173,7 +6266,7 @@
         { label: "판단", text: "SKHY 36%→29%와 CXMT 8% 진입을 함께 점검" },
       ],
       "범용 DRAM CXMT 점유율": [
-        { label: "최신", text: "CXMT 8% · 2026 Q1 매출 기준" },
+        { label: "기준 스냅샷", text: "CXMT 8% · 2026 Q1 매출 기준" },
         { label: "구분", text: "매출 점유율이며 wafer 캐파 추정치와 분리" },
         { label: "판단", text: "10% 경보선 · 장기계약 · DDR5/LPDDR spread 추적" },
       ],
@@ -10201,10 +10294,10 @@
       {
         id: "projection-signal-total",
         kind: "Projection",
-        title: "제품군 프로젝션 입력 신호",
+        title: "제품군 프로젝션 고유 원문",
         value: projectionTotalSignals(),
         suffix: "건",
-        note: "현재 live.json의 제품·중국 벤치마킹 신호를 제품군별로 재분류",
+        note: "현재 실행의 원문 URL을 중복 제거해 제품군별로 재분류; 가격 관측 행은 별도",
         badge: "Live input",
         statusClass: "ok",
         source: "live.json",
@@ -10374,10 +10467,10 @@
       },
       projection: {
         value: projectionTotalSignals(),
-        unit: "signal",
+        unit: "원문",
         status: "Projection",
         score: clamp(58 + Math.min(projectionTotalSignals(), 180) * .18),
-        note: "30개월 후~5년 제품 믹스",
+        note: "고유 원문 기반 30개월 후~5년 모델",
       },
       workbench: {
         value: WORKBENCH_MODES.length,
@@ -10783,7 +10876,7 @@
   }
 
   function baselineFreshnessBadgeHTML(item = {}) {
-    const audit = verifiedDerivedContract("baselineFreshness", "2.3")?.items?.[baselineFreshnessKey(item)];
+    const audit = verifiedDerivedContract("baselineFreshness", "3.0")?.items?.[baselineFreshnessKey(item)];
     if (!audit) return `<span class="baseline-freshness revalidate">감사 미연결</span>`;
     const label = audit.status === "conflict-candidate"
       ? `모순 후보 · 근거일 ${audit.conflictEvidence?.date || audit.lastEvidenceAt || "미상"}`
@@ -11115,15 +11208,38 @@
     return (LIVE.categories || []).find((category) => category.id === id && hasPositiveCount(category)) || null;
   }
 
-  function axisSignalCount(axis) {
-    if (!axis) return 0;
+  function uniqueLiveSignalItems(items = []) {
+    const canonical = new Map();
+    for (const item of items.flat(Infinity).filter(Boolean)) {
+      const key = canonicalNewsKey(item)
+        || (evidenceItemUrl(item) ? `url:${evidenceItemUrl(item).toLowerCase()}` : "")
+        || (item.verification?.id ? `verification:${item.verification.id}` : "");
+      if (!key) continue;
+      const current = canonical.get(key);
+      if (!current || evidenceItemTimestamp(item) > evidenceItemTimestamp(current)) canonical.set(key, item);
+    }
+    return Array.from(canonical.values());
+  }
+
+  function axisSignalItems(axis) {
+    if (!axis) return [];
+    const keywords = (axis.keywords || []).map((word) => String(word).toLowerCase()).filter(Boolean);
+    const items = [];
     const theme = liveBenchmarkTheme(axis.theme);
-    const themeCount = Number(theme?.count ?? theme?.items?.length ?? 0) || 0;
-    const categoryCount = (axis.categoryIds || []).reduce((sum, id) => {
+    if (theme?.items) items.push(...theme.items);
+    for (const id of axis.categoryIds || []) {
       const category = liveNewsCategory(id);
-      return sum + (Number(category?.count ?? category?.items?.length ?? 0) || 0);
-    }, 0);
-    return themeCount + categoryCount;
+      if (category?.items) items.push(...category.items);
+    }
+    items.push(...rawNews().filter((item) => {
+      const hay = `${item.title || ""} ${item.titleKo || ""} ${item.summary || ""} ${item.source || ""}`.toLowerCase();
+      return keywords.some((keyword) => hay.includes(keyword));
+    }));
+    return uniqueLiveSignalItems(items);
+  }
+
+  function axisSignalCount(axis) {
+    return axisSignalItems(axis).length;
   }
 
   function axisMomentum(count) {
@@ -11133,59 +11249,33 @@
   }
 
   function axisLiveItems(axis) {
-    const keywords = (axis.keywords || []).map((word) => word.toLowerCase());
-    const items = [];
-    const theme = liveBenchmarkTheme(axis.theme);
-    if (theme?.items) items.push(...theme.items);
-    (axis.categoryIds || []).forEach((id) => {
-      const category = liveNewsCategory(id);
-      if (category?.items) items.push(...category.items);
-    });
-    items.push(...rawNews().filter((item) => {
-      const hay = `${item.title || ""} ${item.titleKo || ""} ${item.summary || ""} ${item.source || ""}`.toLowerCase();
-      return keywords.some((keyword) => hay.includes(keyword));
-    }));
-
-    const seen = new Set();
-    return items.filter((item) => {
-      const key = `${item.title || ""} ${item.source || ""}`.toLowerCase().replace(/\s+/g, " ").trim();
-      if (!key || seen.has(key)) return false;
-      seen.add(key);
-      return true;
-    }).slice(0, 4);
+    return axisSignalItems(axis).slice(0, 4);
   }
 
   function nandPriceRows() {
     return allPriceRows().filter((row) => /nand|ssd|flash|wafer|ufs|emmc/i.test(`${row.group || ""} ${row.sectionTitle || ""} ${row.item || ""}`));
   }
 
-  function nandBusinessSignalCount(item) {
+  function nandBusinessSignalItems(item) {
     const keywords = (item.keywords || []).map((keyword) => String(keyword).toLowerCase());
-    if (!keywords.length) return 0;
-    const newsCount = rawNews().filter((news) => {
+    if (!keywords.length) return [];
+    const items = rawNews().filter((news) => {
       const hay = `${news.title || ""} ${news.titleKo || ""} ${news.summary || ""} ${news.source || ""}`.toLowerCase();
       return keywords.some((keyword) => hay.includes(keyword));
-    }).length;
-    const themeCount = (LIVE.benchmarkSignals?.themes || []).reduce((sum, theme) => {
+    });
+    for (const theme of LIVE.benchmarkSignals?.themes || []) {
       const hay = `${theme.id || ""} ${theme.label || ""}`.toLowerCase();
-      return sum + (keywords.some((keyword) => hay.includes(keyword)) ? Number(theme.count ?? theme.items?.length ?? 0) || 0 : 0);
-    }, 0);
-    const priceCount = (item.linkedCategories || []).includes("nand") ? Math.min(nandPriceRows().length, 12) : 0;
-    return newsCount + themeCount + priceCount;
+      if (keywords.some((keyword) => hay.includes(keyword))) items.push(...(theme.items || []));
+    }
+    return uniqueLiveSignalItems(items);
+  }
+
+  function nandBusinessSignalCount(item) {
+    return nandBusinessSignalItems(item).length;
   }
 
   function nandBusinessLinks(item, limit = 4) {
-    const keywords = (item.keywords || []).map((keyword) => String(keyword).toLowerCase());
-    const seen = new Set();
-    return rawNews().filter((news) => {
-      const hay = `${news.title || ""} ${news.titleKo || ""} ${news.summary || ""} ${news.source || ""}`.toLowerCase();
-      return keywords.some((keyword) => hay.includes(keyword));
-    }).filter((news) => {
-      const key = `${news.title || ""} ${news.source || ""}`.toLowerCase().replace(/\s+/g, " ").trim();
-      if (!key || seen.has(key)) return false;
-      seen.add(key);
-      return true;
-    }).slice(0, limit);
+    return nandBusinessSignalItems(item).slice(0, limit);
   }
 
   function renderChinaNandBusiness() {
@@ -11203,8 +11293,8 @@
     const visibleLayers = layers.length ? layers : CHINA_NAND_BUSINESS_LAYERS;
     if (!visibleLayers.some((item) => item.id === chinaNandFocusId)) chinaNandFocusId = visibleLayers[0]?.id || "ymtc";
     const selected = visibleLayers.find((item) => item.id === chinaNandFocusId) || visibleLayers[0];
-    const totalSignals = visibleLayers.reduce((sum, item) => sum + nandBusinessSignalCount(item), 0);
-    if (meta) meta.textContent = `${fmtNum(totalSignals)}개 신호 · ${fmtDate(LIVE.updatedAt)}`;
+    const totalSignals = uniqueLiveSignalItems(visibleLayers.flatMap(nandBusinessSignalItems)).length;
+    if (meta) meta.textContent = `현재 실행 고유 원문 ${fmtNum(totalSignals)}건 · ${fmtDate(LIVE.updatedAt)}`;
 
     summary.innerHTML = "";
     summary.hidden = true;
@@ -11218,7 +11308,7 @@
           <span>
             <small>${escapeHTML(item.role)}</small>
             <strong>${escapeHTML(item.label)}</strong>
-            <em>${fmtNum(count)} signals</em>
+            <em>고유 원문 ${fmtNum(count)}건</em>
           </span>
         </button>
       `;
@@ -11307,16 +11397,7 @@
   }
 
   function historyItems() {
-    const items = Object.values(HISTORY?.items || {}).filter((item) => Array.isArray(item.points) && item.points.length);
-    if (items.length) return items;
-    return allPriceRows().filter((row) => Array.isArray(row.history) && row.history.length).map((row) => ({
-      key: row.historyKey || `${row.sectionTitle || ""}::${row.item || ""}`,
-      item: row.item,
-      sectionTitle: row.sectionTitle,
-      group: row.group,
-      sourceUrl: row.sourceUrl,
-      points: row.history,
-    }));
+    return Object.values(HISTORY?.items || {}).filter((item) => Array.isArray(item.points) && item.points.length);
   }
 
   function parseObservedTime(value) {
@@ -11445,6 +11526,9 @@
   }
 
   function historyMatchesProduct(series, product) {
+    const seriesId = String(series.key || series.id || "").toLowerCase();
+    const fixedIds = (product.proxySeriesIds || []).map((id) => String(id).toLowerCase());
+    if (fixedIds.length) return fixedIds.includes(seriesId);
     const hay = `${series.key || ""} ${series.item || ""} ${series.sectionTitle || ""} ${series.group || ""}`.toLowerCase();
     return (product.priceTerms || []).some((term) => hay.includes(String(term).toLowerCase()));
   }
@@ -11491,13 +11575,12 @@
     };
   }
 
-  function nearestPoint(points = [], targetTime = 0, toleranceDays = 0) {
+  function lastPointAtOrBefore(points = [], targetTime = 0, toleranceDays = 0) {
     if (!targetTime || !points.length) return null;
-    const point = points.reduce((nearest, candidate) => {
-      if (!nearest) return candidate;
-      return Math.abs(candidate._time - targetTime) < Math.abs(nearest._time - targetTime) ? candidate : nearest;
-    }, null);
-    const gapDays = point ? Math.abs(point._time - targetTime) / 864e5 : Infinity;
+    const point = points
+      .filter((candidate) => candidate._time <= targetTime)
+      .sort((left, right) => right._time - left._time)[0] || null;
+    const gapDays = point ? (targetTime - point._time) / 864e5 : Infinity;
     return gapDays <= toleranceDays ? { point, gapDays } : null;
   }
 
@@ -11528,7 +11611,7 @@
       statusLabel: "데이터 부족",
     };
     if (!points.length) return { ...base, status: "no-points", statusLabel: "관측값 없음" };
-    const startMatch = nearestPoint(points, selectedTime, BACKTEST_START_TOLERANCE_DAYS);
+    const startMatch = lastPointAtOrBefore(points, selectedTime, BACKTEST_START_TOLERANCE_DAYS);
     if (!startMatch) {
       return { ...base, status: "start-gap", statusLabel: "기준점 없음" };
     }
@@ -11696,6 +11779,32 @@
     if (product.directSignalModel === "hbm") return directHbmAssessment(product);
     const selectedTime = selectedIso ? new Date(selectedIso).getTime() : 0;
     const horizon = activeBacktestHorizon();
+    if (!contractPeriodStats(horizon.id)) {
+      const decision = {
+        label: "검증 불가",
+        cls: "insufficient",
+        action: "정량 계약 대기",
+        logic: "동일 실행 ID의 quant-backtest 계약이 없어 브라우저 추정으로 대체하지 않습니다.",
+      };
+      return {
+        ...product,
+        observations: [],
+        evidenceRows: [],
+        matchedCount: 0,
+        priorMomentum: null,
+        actualChange: null,
+        avgDays: 0,
+        priorDays: null,
+        horizon,
+        targetEndTime: backtestTargetTime(selectedTime, horizon),
+        chinaSignalCount: 0,
+        decision,
+        outcome: outcomeFromDecision(decision, null),
+        confidence: 0,
+        latestAt: 0,
+        contractUnavailable: true,
+      };
+    }
     const matched = productHistorySeries(product);
     const evidenceRows = matched.map((series) => backtestObservation(series, selectedTime, horizon));
     const observations = evidenceRows.filter((item) => item?.eligible);
@@ -11703,6 +11812,10 @@
     const actualChange = average(observations.map((item) => item.actualChange));
     const avgDays = average(observations.map((item) => item.days)) || 0;
     const priorDays = average(observations.map((item) => item.priorDays));
+    const observationTimes = observations.flatMap((item) => [item.start?._time, item.latest?._time]).filter(Number.isFinite);
+    const observationDateRange = observationTimes.length
+      ? { start: Math.min(...observationTimes), end: Math.max(...observationTimes) }
+      : null;
     const chinaSignalCount = rawNews().filter((news) => {
       const hay = `${news.title || ""} ${news.titleKo || ""} ${news.summary || ""} ${news.source || ""}`.toLowerCase();
       return (product.chinaTerms || []).some((term) => hay.includes(String(term).toLowerCase()));
@@ -11727,6 +11840,9 @@
       decision,
       outcome,
       confidence,
+      aggregationMethod: product.proxySeriesVersion ? `${product.proxySeriesVersion} · constituent 동일가중` : "keyword-matched equal-weight proxy",
+      constituentIds: observations.map((item) => item.key).filter(Boolean),
+      observationDateRange,
       latestAt: observations.reduce((latest, item) => Math.max(latest, item.latest._time || 0), 0),
     };
   }
@@ -11813,6 +11929,7 @@
       const eligible = Number(block.eligible ?? block.eligibleSeries ?? block.complete);
       const price = block.byDomain?.price || {};
       const market = block.byDomain?.market || {};
+      const metric = block.byDomain?.metric || {};
       return Number.isFinite(total) && Number.isFinite(eligible) ? {
         total,
         eligible,
@@ -11820,11 +11937,14 @@
         priceEligible: Number(price.eligible),
         marketTotal: Number(market.total),
         marketEligible: Number(market.eligible),
+        metricTotal: Number(metric.total),
+        metricEligible: Number(metric.eligible),
       } : null;
     }
-    const eligibleRecord = (item) => item.stats.eligible === true || item.stats.status === "eligible" || item.stats.status === "complete";
+    const eligibleRecord = (item) => item.stats.eligible === true;
     const price = records.filter((item) => item.domain === "price");
     const market = records.filter((item) => item.domain === "market");
+    const metric = records.filter((item) => item.domain === "metric");
     return {
       total: stats.length,
       eligible: records.filter(eligibleRecord).length,
@@ -11832,44 +11952,38 @@
       priceEligible: price.filter(eligibleRecord).length,
       marketTotal: market.length,
       marketEligible: market.filter(eligibleRecord).length,
-    };
-  }
-
-  function seriesCoversHorizon(times = [], horizon = BACKTEST_HORIZONS[0], toleranceDays = horizon.endToleranceDays) {
-    const sorted = times.filter(Number.isFinite).sort((a, b) => a - b);
-    const end = sorted[sorted.length - 1];
-    if (!end || sorted.length < 2) return false;
-    const target = addUtcYears(end, -horizon.years);
-    return Boolean(nearestPoint(sorted.map((_time) => ({ _time })), target, toleranceDays));
-  }
-
-  function fallbackHorizonCoverage(horizon = BACKTEST_HORIZONS[0]) {
-    const priceSeries = historyItems();
-    const marketSeries = Object.values(MARKET_HISTORY?.indexes || {}).filter((item) => Array.isArray(item?.points));
-    const priceEligible = priceSeries.filter((series) => seriesCoversHorizon((series.points || []).map(pointTime), horizon)).length;
-    const marketEligible = marketSeries.filter((series) => seriesCoversHorizon(marketIndexPoints(series).map((point) => point.time), horizon, Math.min(horizon.endToleranceDays, 35))).length;
-    return {
-      total: priceSeries.length + marketSeries.length,
-      eligible: priceEligible + marketEligible,
-      priceTotal: priceSeries.length,
-      priceEligible,
-      marketTotal: marketSeries.length,
-      marketEligible,
+      metricTotal: metric.length,
+      metricEligible: metric.filter(eligibleRecord).length,
     };
   }
 
   function backtestHorizonCoverage(horizon = BACKTEST_HORIZONS[0]) {
-    const fallback = fallbackHorizonCoverage(horizon);
     const contract = contractPeriodStats(horizon.id);
+    if (!contract) {
+      return {
+        available: false,
+        total: 0,
+        eligible: 0,
+        priceTotal: 0,
+        priceEligible: 0,
+        marketTotal: 0,
+        marketEligible: 0,
+        metricTotal: 0,
+        metricEligible: 0,
+        source: "contract-unavailable",
+      };
+    }
     return {
-      ...fallback,
-      total: contract?.total ?? fallback.total,
-      eligible: contract?.eligible ?? fallback.eligible,
-      priceTotal: Number.isFinite(contract?.priceTotal) ? contract.priceTotal : fallback.priceTotal,
-      priceEligible: Number.isFinite(contract?.priceEligible) ? contract.priceEligible : fallback.priceEligible,
-      marketTotal: Number.isFinite(contract?.marketTotal) ? contract.marketTotal : fallback.marketTotal,
-      marketEligible: Number.isFinite(contract?.marketEligible) ? contract.marketEligible : fallback.marketEligible,
-      source: contract ? "quant-backtest" : "history-fallback",
+      available: true,
+      total: contract.total,
+      eligible: contract.eligible,
+      priceTotal: Number.isFinite(contract.priceTotal) ? contract.priceTotal : 0,
+      priceEligible: Number.isFinite(contract.priceEligible) ? contract.priceEligible : 0,
+      marketTotal: Number.isFinite(contract.marketTotal) ? contract.marketTotal : 0,
+      marketEligible: Number.isFinite(contract.marketEligible) ? contract.marketEligible : 0,
+      metricTotal: Number.isFinite(contract.metricTotal) ? contract.metricTotal : 0,
+      metricEligible: Number.isFinite(contract.metricEligible) ? contract.metricEligible : 0,
+      source: "quant-backtest",
     };
   }
 
@@ -11880,13 +11994,22 @@
     summary.classList.add("backtest-period-summary");
     summary.innerHTML = BACKTEST_HORIZONS.map((horizon) => {
       const stats = backtestHorizonCoverage(horizon);
+      if (!stats.available) {
+        return `
+          <article class="decision-stat backtest-period-stat insufficient${horizon.id === selectedBacktestHorizon ? " active" : ""}">
+            <span>${escapeHTML(horizon.label)} 누적 검증</span>
+            <strong>검증 불가</strong>
+            <small>동일 실행 ID의 정량 계약 없음 · 브라우저 추정 미사용</small>
+          </article>
+        `;
+      }
       const complete = stats.total > 0 && stats.eligible === stats.total;
       const tone = !stats.eligible ? "insufficient" : complete ? "complete" : "partial";
       return `
         <article class="decision-stat backtest-period-stat ${escapeHTML(tone)}${horizon.id === selectedBacktestHorizon ? " active" : ""}">
           <span>${escapeHTML(horizon.label)} 누적 검증</span>
           <strong>${escapeHTML(`${fmtNum(stats.eligible)}/${fmtNum(stats.total)}`)}</strong>
-          <small>가격 ${escapeHTML(`${fmtNum(stats.priceEligible)}/${fmtNum(stats.priceTotal)}`)} · 시장 ${escapeHTML(`${fmtNum(stats.marketEligible)}/${fmtNum(stats.marketTotal)}`)} · ${stats.source === "quant-backtest" ? "정량 계약" : "브라우저 재계산"}</small>
+          <small>가격 ${escapeHTML(`${fmtNum(stats.priceEligible)}/${fmtNum(stats.priceTotal)}`)} · 시장 ${escapeHTML(`${fmtNum(stats.marketEligible)}/${fmtNum(stats.marketTotal)}`)} · 지표 ${escapeHTML(`${fmtNum(stats.metricEligible)}/${fmtNum(stats.metricTotal)}`)} · 정량 계약</small>
         </article>
       `;
     }).join("") + (generatedAt ? `<small class="backtest-contract-time">정량 계약 갱신 ${escapeHTML(pointDateLabel(generatedAt))}</small>` : "");
@@ -11909,7 +12032,7 @@
     return `
       <div class="decision-evidence-head">
         <div><span>FIXED-HORIZON EVIDENCE</span><strong>${escapeHTML(horizon.label)} 고정 백테스트 근거</strong></div>
-        <small>목표 ${escapeHTML(pointDateLabel(selectedTime))} → ${escapeHTML(pointDateLabel(targetTime))} · 종료 허용 +${fmtNum(horizon.endToleranceDays)}일 · 직전 신호 최대 ${fmtNum(BACKTEST_PRIOR_MAX_GAP_DAYS)}일</small>
+        <small>목표 ${escapeHTML(pointDateLabel(selectedTime))} → ${escapeHTML(pointDateLabel(targetTime))} · 종료 허용 +${fmtNum(horizon.endToleranceDays)}일 · 직전 신호 최대 ${fmtNum(BACKTEST_PRIOR_MAX_GAP_DAYS)}일 · ${escapeHTML(active?.aggregationMethod || "고정 constituent 동일가중 proxy")}${active?.observationDateRange ? ` · 실제 ${escapeHTML(pointDateLabel(active.observationDateRange.start))}~${escapeHTML(pointDateLabel(active.observationDateRange.end))}` : ""}</small>
       </div>
       ${rows.length ? `<div class="decision-table-wrap"><table class="decision-table"><thead><tr><th>상태</th><th>품목</th><th>기준 관측</th><th>직전 신호</th><th>고정 종료 관측</th><th>실제 구간</th><th>누적 변화</th><th>근거</th></tr></thead><tbody>${rows.map((row) => {
         const source = /^https?:\/\//i.test(String(row.sourceUrl || "")) ? row.sourceUrl : "";
@@ -12971,50 +13094,40 @@
     return values.reduce((sum, value) => sum + value, 0) / values.length;
   }
 
-  function investmentEvidenceLinks(item, limit = 4) {
+  function investmentEvidenceItems(item) {
     const terms = (item.keywords || []).map((term) => String(term).toLowerCase()).filter(Boolean);
-    const seen = new Set();
-    return rawNews().filter((news) => {
+    const items = rawNews().filter((news) => {
       const hay = `${news.title || ""} ${news.titleKo || ""} ${news.summary || ""} ${news.source || ""}`.toLowerCase();
       return terms.some((term) => hay.includes(term));
-    }).filter((news) => {
-      const key = `${news.title || ""} ${news.source || ""}`.toLowerCase().replace(/\s+/g, " ").trim();
-      if (!key || seen.has(key)) return false;
-      seen.add(key);
-      return true;
-    }).slice(0, limit);
-  }
-
-  function investmentSignalCount(item) {
-    const terms = (item.keywords || []).map((term) => String(term).toLowerCase()).filter(Boolean);
-    const categoryCount = (item.linkedCategories || []).reduce((sum, id) => {
+    });
+    for (const id of item.linkedCategories || []) {
       const category = liveNewsCategory(id);
-      return sum + (Number(category?.count ?? category?.items?.length ?? 0) || 0);
-    }, 0);
-    const axisCount = CHINA_DYNAMIC_AXES.reduce((sum, axis) => {
+      if (category?.items) items.push(...category.items);
+    }
+    for (const axis of CHINA_DYNAMIC_AXES) {
       const axisText = `${axis.id || ""} ${axis.title || ""} ${axis.label || ""} ${(axis.keywords || []).join(" ")}`.toLowerCase();
       const categoryHit = (axis.categoryIds || []).some((id) => (item.linkedCategories || []).includes(id));
-      return sum + (categoryHit || terms.some((term) => axisText.includes(term)) ? axisSignalCount(axis) : 0);
-    }, 0);
-    return investmentEvidenceLinks(item, 999).length + Math.round(categoryCount / 8) + axisCount + investmentPriceRows(item).length;
+      if (categoryHit || terms.some((term) => axisText.includes(term))) items.push(...axisSignalItems(axis));
+    }
+    return uniqueLiveSignalItems(items);
   }
 
   function managementStrategyItems() {
     return CHINA_BUSINESS_STRATEGY_PILLARS.map((item) => {
-      const signals = investmentSignalCount(item);
+      const evidenceItems = investmentEvidenceItems(item);
+      const signals = evidenceItems.length;
       const priceMomentum = investmentPriceMomentum(item);
       const chinaRisk = (item.linkedCategories || []).includes("china") ? rawNews().filter(isChinaArticle).length * .06 : 0;
       const score = clamp(item.baseScore + Math.min(signals, 160) * .08 + priceMomentum * 1.8 + chinaRisk);
-      const links = investmentEvidenceLinks(item, 5);
-      const evidenceCount = investmentEvidenceLinks(item, 999).length;
       return {
         ...item,
         signals,
         priceRows: investmentPriceRows(item).length,
         priceMomentum,
         score,
-        evidenceCount,
-        links,
+        evidenceItems,
+        evidenceCount: evidenceItems.length,
+        links: evidenceItems.slice(0, 5),
       };
     });
   }
@@ -13023,7 +13136,11 @@
     const strategyMap = new Map(managementStrategyItems().map((item) => [item.id, item]));
     return CHINA_BUSINESS_DECISIONS.map((item) => {
       const strategy = strategyMap.get(item.linkedStrategy);
-      const signals = investmentSignalCount(item) + Math.round((strategy?.signals || 0) * .45);
+      const evidenceItems = uniqueLiveSignalItems([
+        investmentEvidenceItems(item),
+        strategy?.evidenceItems || [],
+      ]);
+      const signals = evidenceItems.length;
       const priceMomentum = investmentPriceMomentum(item);
       const score = clamp(item.baseScore + Math.min(signals, 180) * .07 + priceMomentum * 1.5 + ((strategy?.score || 0) - 70) * .18);
       return {
@@ -13033,8 +13150,9 @@
         priceRows: investmentPriceRows(item).length,
         priceMomentum,
         score,
-        evidenceCount: investmentEvidenceLinks(item, 999).length + (strategy?.evidenceCount || 0),
-        links: investmentEvidenceLinks(item, 5).concat(strategy?.links || []).slice(0, 5),
+        evidenceItems,
+        evidenceCount: evidenceItems.length,
+        links: evidenceItems.slice(0, 5),
       };
     });
   }
@@ -13103,7 +13221,7 @@
     target.innerHTML = axes.map((axis, index) => {
       const axisItems = items.filter((item) => item.businessAxis === axis);
       const top = axisItems[0] || items[index % Math.max(items.length, 1)];
-      const signals = axisItems.reduce((sum, item) => sum + item.signals, 0);
+      const signals = uniqueLiveSignalItems(axisItems.flatMap((item) => item.evidenceItems || [])).length;
       const score = axisItems.length ? investmentAverageScore(axisItems) : top?.score || 0;
       return `
         <button class="china-business-lane reveal${top?.id === selectedId ? " active" : ""}" type="button" data-china-business-strategy="${escapeHTML(top?.id || "")}" style="--local-accent:${categoryAccent((top?.linkedCategories || [])[0])}; animation-delay:${index * 25}ms">
@@ -13111,7 +13229,7 @@
           <strong>${escapeHTML(top?.label || axis)}</strong>
           <p>${escapeHTML(top?.capital || "근거 보강을 기다리는 축")}</p>
           <div class="lane-meter" aria-hidden="true"><i data-fill-to="${clamp(score)}" style="width:0%"></i></div>
-          <small>${fmtNum(signals || top?.signals || 0)} signals · 우선순위 ${fmtNum(score)}/100 · 근거 ${fmtNum(top?.evidenceCount || 0)}건</small>
+          <small>고유 원문 ${fmtNum(signals || top?.signals || 0)}건 · 우선순위 모델 ${fmtNum(score)}/100 · 근거 ${fmtNum(top?.evidenceCount || 0)}건</small>
         </button>
       `;
     }).join("");
@@ -13524,7 +13642,7 @@
     const accent = categoryAccent(lens.accentCategory);
     const payload = policyPayload(lens);
     if (meta) meta.textContent = `${lens.label} · ${fmtNum((lens.rules || []).length)}개 체크포인트`;
-    if (sourceMeta) sourceMeta.textContent = `공식 원문 검증 · ${lens.verifiedAt || "2026. 7. 18."}`;
+    if (sourceMeta) sourceMeta.textContent = `정책 기준 스냅샷 · 작성일 ${lens.verifiedAt || "미상"} · 현재성 자동검증 없음`;
     renderPolicyTabs(lens);
 
     summary.style.setProperty("--local-accent", accent);
@@ -13666,15 +13784,19 @@
     return sources.filter((source) => !source.site || source.site === site.id || source.site === "all");
   }
 
-  function chinaInfraSignalCount(site = activeChinaInfraSite()) {
+  function chinaInfraSignalItems(site = activeChinaInfraSite()) {
     const terms = (site.liveTerms || []).map((term) => String(term).toLowerCase());
-    const newsCount = rawNews().filter((news) => {
+    const items = rawNews().filter((news) => {
       const hay = `${news.title || ""} ${news.titleKo || ""} ${news.summary || ""} ${news.source || ""} ${news.link || ""}`.toLowerCase();
       return terms.some((term) => hay.includes(term));
-    }).length;
+    });
     const theme = chinaInfraTheme();
-    const themeCount = Number(theme?.count ?? theme?.items?.length ?? 0) || 0;
-    return newsCount + themeCount + chinaInfraLiveSources(site).length;
+    items.push(...(theme?.items || []), ...chinaInfraLiveSources(site));
+    return uniqueLiveSignalItems(items);
+  }
+
+  function chinaInfraSignalCount(site = activeChinaInfraSite()) {
+    return chinaInfraSignalItems(site).length;
   }
 
   function chinaInfraPayload(site) {
@@ -13691,7 +13813,7 @@
         { label: "체크포인트", value: fmtNum((site.checks || []).length) },
         { label: "근거 신호", value: fmtNum(chinaInfraSignalCount(site)) },
       ],
-      links: [],
+      links: chinaInfraSignalItems(site).slice(0, 6),
       tags: [site.label, site.status, "Land", "Water", "Power"],
     };
   }
@@ -13726,10 +13848,10 @@
     const payload = chinaInfraPayload(site);
     const signalCount = chinaInfraSignalCount(site);
     const theme = chinaInfraTheme();
-    if (meta) meta.textContent = `${site.label} · ${fmtNum((site.checks || []).length)}개 체크포인트 · 근거 신호 ${fmtNum(signalCount)}개`;
+    if (meta) meta.textContent = `${site.label} · ${fmtNum((site.checks || []).length)}개 체크포인트 · 고유 원문 근거 ${fmtNum(signalCount)}건`;
     if (sourceMeta) {
-      const rssCount = Number(theme?.count ?? 0) || 0;
-      sourceMeta.textContent = `${rssCount > 0 ? `RSS ${fmtNum(rssCount)}개 · ` : ""}${fmtDate(LIVE.chinaInfra?.updatedAt || LIVE.updatedAt)}`;
+      const rssCount = uniqueLiveSignalItems(theme?.items || []).length;
+      sourceMeta.textContent = `${rssCount > 0 ? `벤치마킹 원문 ${fmtNum(rssCount)}건 · ` : ""}${fmtDate(LIVE.chinaInfra?.updatedAt || LIVE.updatedAt)}`;
     }
     renderChinaInfraTabs(site);
 
@@ -13850,6 +13972,25 @@
     return liveBenchmarkTheme("china_talent_strategy") || liveBenchmarkTheme("talent") || null;
   }
 
+  function chinaTalentEvidenceKey(item = {}) {
+    const rawUrl = String(item.sourceUrl || item.link || item.url || item.verification?.canonicalUrl || "").trim();
+    if (rawUrl) {
+      try {
+        const parsed = new URL(rawUrl);
+        parsed.hash = "";
+        ["utm_source", "utm_medium", "utm_campaign", "utm_term", "utm_content"].forEach((key) => parsed.searchParams.delete(key));
+        return `url:${parsed.toString().replace(/\/$/, "").toLowerCase()}`;
+      } catch {
+        return `url:${rawUrl.split(/[?#]/)[0].replace(/\/$/, "").toLowerCase()}`;
+      }
+    }
+    const id = String(item.verification?.id || item.storyId || item.id || "").trim();
+    if (id) return `id:${id}`;
+    const title = String(item.title || item.titleKo || item.label || "").toLowerCase().replace(/[^a-z0-9가-힣]+/g, " ").trim();
+    const date = String(item.publishedAt || item.date || item.observedAt || "").slice(0, 10);
+    return title ? `title:${title}:${date}` : "";
+  }
+
   function chinaTalentLiveItems(scenario = activeChinaTalentScenario(), limit = 6) {
     const keywords = (scenario.keywords || []).map((keyword) => String(keyword).toLowerCase());
     const items = [];
@@ -13866,9 +14007,10 @@
     const seen = new Set();
     return items.filter((item) => {
       const hay = `${item.title || item.titleKo || item.label || ""} ${item.source || ""}`.toLowerCase().replace(/\s+/g, " ").trim();
+      const evidenceKey = chinaTalentEvidenceKey(item);
       const related = !keywords.length || keywords.some((keyword) => hay.includes(keyword));
-      if (!hay || seen.has(hay) || !related) return false;
-      seen.add(hay);
+      if (!hay || !evidenceKey || seen.has(evidenceKey) || !related) return false;
+      seen.add(evidenceKey);
       return true;
     }).slice(0, limit);
   }
@@ -14135,9 +14277,7 @@
   }
 
   function chinaTalentSignalCount(scenario = activeChinaTalentScenario()) {
-    const theme = chinaTalentTheme();
-    const themeCount = Number(theme?.count ?? theme?.items?.length ?? 0) || 0;
-    return chinaTalentLiveItems(scenario, 24).length + Math.min(themeCount, 24);
+    return chinaTalentLiveItems(scenario, Number.POSITIVE_INFINITY).length;
   }
 
   function chinaTalentInvestments(scenario = activeChinaTalentScenario()) {
@@ -14181,22 +14321,28 @@
       signals,
       profitability,
       roi,
+      costAssumptionScore: cost,
+      benefitAssumptionScore: payoff,
+      priorityScore: roi,
       downside,
       upside,
       decision,
       decisionClass,
-      formula: `ROI 지수 = 효익(${fmtNum(payoff)}) + 신호(${fmtNum(signalBoost, 1)}) + 게이트(${fmtNum(gateBoost, 1)}) - 비용(${fmtNum(cost * .42, 1)}) - 리스크(${fmtNum(risk * .35, 1)})`,
+      formula: `우선순위 모델점수 = 효익 가정(${fmtNum(payoff)}) + 신호(${fmtNum(signalBoost, 1)}) + 게이트(${fmtNum(gateBoost, 1)}) - 비용 가정(${fmtNum(cost * .42, 1)}) - 리스크(${fmtNum(risk * .35, 1)})`,
     };
   }
 
   function chinaTalentScenarioRoi(scenario = activeChinaTalentScenario()) {
     const investments = chinaTalentInvestments(scenario);
-    if (!investments.length) return { roi: 0, profitability: 0, downside: 0, upside: 0, top: null, count: 0 };
+    if (!investments.length) return { roi: 0, priorityScore: 0, benefitAssumptionScore: 0, costAssumptionScore: 0, profitability: 0, downside: 0, upside: 0, top: null, count: 0, modeled: [] };
     const modeled = investments.map((investment) => ({ investment, model: chinaTalentRoiModel(scenario, investment) }));
     const avg = (key) => modeled.reduce((sum, item) => sum + item.model[key], 0) / modeled.length;
     const top = modeled.slice().sort((a, b) => b.model.roi - a.model.roi)[0];
     return {
       roi: Math.round(avg("roi")),
+      priorityScore: Math.round(avg("priorityScore")),
+      benefitAssumptionScore: Math.round(avg("benefitAssumptionScore")),
+      costAssumptionScore: Math.round(avg("costAssumptionScore")),
       profitability: Math.round(avg("profitability")),
       downside: Math.round(avg("downside")),
       upside: Math.round(avg("upside")),
@@ -14239,11 +14385,14 @@
       risk: Math.round((scenarioRoi.modeled || []).reduce((sum, item) => sum + item.model.risk, 0) / Math.max(scenarioRoi.count, 1)),
       profitability: scenarioRoi.profitability,
       roi: scenarioRoi.roi,
+      costAssumptionScore: scenarioRoi.costAssumptionScore,
+      benefitAssumptionScore: scenarioRoi.benefitAssumptionScore,
+      priorityScore: scenarioRoi.priorityScore,
       downside: scenarioRoi.downside,
       upside: scenarioRoi.upside,
       decision: scenarioRoi.top?.model?.decision || "옵션 유지",
       decisionClass: scenarioRoi.top?.model?.decisionClass || "watch",
-      formula: `시나리오 평균 ROI 지수 = 투자안 ${fmtNum(scenarioRoi.count)}개 평균`,
+      formula: `시나리오 우선순위 모델점수 = 투자안 ${fmtNum(scenarioRoi.count)}개 평균 · 재무 ROI 아님`,
     };
   }
 
@@ -14476,22 +14625,27 @@
         if (!response.ok) throw new Error(`${path} ${response.status}`);
         return response.json();
       };
-      const [liveResult, historyResult] = await Promise.allSettled([
+      const [liveResult, quantResult, historyResult] = await Promise.allSettled([
         fetchJSON("data/live.json"),
+        fetchJSON("data/quant.json"),
         fetchJSON("data/price-history.json"),
       ]);
       let liveUpdated = false;
+      let quantUpdated = false;
       let historyUpdated = false;
-      if (liveResult.status === "fulfilled" && isVerifiedLiveData(liveResult.value, 48)) {
+      if (liveResult.status === "fulfilled" && isVerifiedLiveData(liveResult.value, 36)) {
         LIVE = normalizeLiveData(liveResult.value);
+        document.body.dataset.liveDataState = "verified";
+        QUANT = selectVerifiedQuantData(quantResult.status === "fulfilled" ? quantResult.value : null, LIVE);
         liveUpdated = true;
+        quantUpdated = Boolean(QUANT);
       }
       if (historyResult.status === "fulfilled" && historyResult.value?.items && typeof historyResult.value.items === "object") {
-        HISTORY = historyResult.value;
-        historyUpdated = true;
+        HISTORY = selectSameRunArtifact(historyResult.value, emptyHistory, "2.0");
+        historyUpdated = HISTORY !== emptyHistory;
       }
       ceoChallengeLiveRefresh = {
-        status: liveUpdated && historyUpdated ? "synced" : (liveUpdated || historyUpdated ? "partial" : "fallback"),
+        status: liveUpdated && quantUpdated && historyUpdated ? "synced" : (liveUpdated || quantUpdated || historyUpdated ? "partial" : "fallback"),
         fetchedAt: new Date().toISOString(),
         liveUpdatedAt: LIVE.updatedAt || null,
         priceUpdatedAt: HISTORY.updatedAt || LIVE.prices?.updatedAt || null,
@@ -14574,7 +14728,7 @@
     const investment = target?.investment;
     const top = chinaTalentScenarioRoi(scenario).top;
     const liveContext = ceoChallengeLiveContext(scenario, target, challenge);
-    const kpis = investment?.kpis || top?.investment?.kpis || ["근거 신호", "O/X 게이트", "ROI 지수"];
+    const kpis = investment?.kpis || top?.investment?.kpis || ["근거 신호", "O/X 게이트", "우선순위 모델점수"];
     const noGoText = gates.noGo ? `X 게이트 ${fmtNum(gates.noGo)}개가 있어 전면 집행이 아니라 통제 조건부 집행입니다.` : "현재 선택 시나리오에는 즉시 중단형 X 게이트가 낮습니다.";
     const liveNewsEvidence = liveContext.news.map((item) => ({
       ...item,
@@ -14606,7 +14760,7 @@
     const common = {
       title: `${challenge.angle} · ${targetLabel}`,
       metrics: [
-        { label: "ROI", value: fmtNum(model.roi) },
+        { label: "우선순위", value: fmtNum(model.priorityScore) },
         { label: "가격", value: liveContext.priceMomentum == null ? "-" : signedPercent(liveContext.priceMomentum) },
         { label: "공식 팩트", value: fmtNum(liveContext.facts.length) },
         { label: "기사", value: fmtNum(liveContext.news.length) },
@@ -14620,13 +14774,13 @@
     const answers = {
       "roi-credibility": {
         verdict: "재무 ROI가 아니라 실사 우선순위 지표로만 사용합니다.",
-        logic: `${model.formula}. 비용 ${fmtNum(model.cost)}, 효익 ${fmtNum(model.payoff)}, 리스크 ${fmtNum(model.risk)}, O/X ${fmtNum(gates.ok)}/${fmtNum(gates.noGo)}를 0~100으로 표준화했습니다.`,
+        logic: `${model.formula}. 비용 가정 ${fmtNum(model.costAssumptionScore)}, 효익 가정 ${fmtNum(model.benefitAssumptionScore)}, 리스크 ${fmtNum(model.risk)}, O/X ${fmtNum(gates.ok)}/${fmtNum(gates.noGo)}를 0~100으로 표준화했습니다. 재무 ROI·IRR·NPV가 아닙니다.`,
         counter: "CFO 보고용 IRR/NPV는 계약 가격, 물량, 투자비 원문이 붙은 뒤 별도 산출해야 합니다.",
-        action: `SKHY 액션: ROI 지수 ${fmtNum(model.roi)}점은 실사 순서 결정에만 쓰고, ${primaryFlip.label} 기준을 넘으면 재상정합니다.`,
+        action: `SKHY 액션: 우선순위 모델점수 ${fmtNum(model.priorityScore)}점은 실사 순서 결정에만 쓰고, ${primaryFlip.label} 기준을 넘으면 재상정합니다.`,
       },
       "budget-cut": {
         verdict: top?.investment ? `예산 축소 시 '${top.investment.label}'만 1순위로 남깁니다.` : `${targetLabel}는 옵션 유지가 적절합니다.`,
-        logic: `시나리오 평균 ROI ${fmtNum(chinaTalentScenarioRoi(scenario).roi)}, 최상위 투자안 ROI ${fmtNum(top?.model?.roi || model.roi)}입니다. 낮은 ROI 항목은 현금흐름 근거와 투자 허들이 충족될 때까지 보류합니다.`,
+        logic: `시나리오 평균 우선순위 모델점수 ${fmtNum(chinaTalentScenarioRoi(scenario).priorityScore)}, 최상위 투자안 점수 ${fmtNum(top?.model?.priorityScore || model.priorityScore)}입니다. 낮은 점수 항목은 현금흐름 근거와 투자 허들이 충족될 때까지 보류합니다.`,
         counter: "모든 항목을 얇게 집행하면 보안, 품질, 리텐션 모두 임계치에 도달하지 못합니다.",
         action: "SKHY 액션: 1순위만 승인하고 나머지는 KPI 경보 발생 시 자동 재상정합니다.",
       },
@@ -14644,7 +14798,7 @@
       },
       outsourcing: {
         verdict: "외주는 보조 수단이며 품질, IP, 고객 판단은 내부 owner가 가져야 합니다.",
-        logic: `투자비 지수 ${fmtNum(model.cost)}는 외주로 낮출 수 있지만 ROI ${fmtNum(model.roi)}의 핵심은 운영 데이터와 고객 대응 속도입니다.`,
+        logic: `비용 가정점수 ${fmtNum(model.costAssumptionScore)}는 외주로 낮출 수 있지만 우선순위 모델점수 ${fmtNum(model.priorityScore)}의 핵심은 운영 데이터와 고객 대응 속도입니다.`,
         counter: "전력, EHS, 일반 운영은 협력 가능하지만 펌웨어 검증, 고객 품질, IP 통제는 내부 책임이 필요합니다.",
         action: "SKHY 액션: RACI로 외주 가능 업무와 내부 보유 업무를 분리하고 recipe·고객·접근권 업무는 내부 승인으로 제한합니다.",
       },
@@ -14658,11 +14812,11 @@
         verdict: "결정을 바꿀 KPI를 사전에 정해야 합니다.",
         logic: `${targetLabel}의 1순위 KPI는 ${primaryFlip.label}입니다. 현재 ${primaryFlip.current}; 재검토 기준은 "${primaryFlip.trigger}"입니다.`,
         counter: "가장 큰 리스크는 한 번 승인한 투자가 데이터 변화와 무관하게 관성으로 계속되는 것입니다.",
-        action: `SKHY 액션: ROI 지수 ${fmtNum(Math.max(40, model.roi - 12))}점 이하, X 게이트 ${fmtNum(gates.noGo + 1)}개 이상, 또는 핵심 KPI 2개 악화 시 Watch/Hold로 낮춥니다.`,
+        action: `SKHY 액션: 우선순위 모델점수 ${fmtNum(Math.max(40, model.priorityScore - 12))}점 이하, X 게이트 ${fmtNum(gates.noGo + 1)}개 이상, 또는 핵심 KPI 2개 악화 시 Watch/Hold로 낮춥니다.`,
       },
       "strategic-fit": {
         verdict: `${targetLabel}는 HBM, NAND/eSSD, 중국 운영, IP 방어 중 하나와 직접 연결될 때만 의미가 있습니다.`,
-        logic: `수익성 지수 ${fmtNum(model.profitability)}는 고객 방어, 수율 노하우 보호, 운영 중단 방지, 가격 하락 조기 대응을 반영합니다.`,
+        logic: `효익 가정점수 ${fmtNum(model.benefitAssumptionScore)}는 고객 방어, 수율 노하우 보호, 운영 중단 방지, 가격 하락 조기 대응 가정을 반영합니다.`,
         counter: "중국 인력 확보를 독립 프로젝트로 보면 비용입니다. 제품군, 고객, IP 방어와 연결될 때 옵션 가치가 생깁니다.",
         action: "SKHY 액션: 모든 채용 요청을 HBM 수율, eSSD 고객 방어, 중국 운영 안정, IP 리스크 중 하나에 매핑합니다.",
       },
@@ -14674,19 +14828,19 @@
       },
       "hbm4-lockin": {
         verdict: "HBM4는 고객 락인 강화가 우선이지만 수율·패키징 병목을 통과한 물량만 약속합니다.",
-        logic: `ROI ${fmtNum(model.roi)}와 수익성 ${fmtNum(model.profitability)}는 프리미엄 제품군에 자본을 먼저 배분하되, 병목 KPI가 깨지면 단계 집행으로 낮추는 구조입니다.`,
+        logic: `우선순위 모델점수 ${fmtNum(model.priorityScore)}와 효익 가정점수 ${fmtNum(model.benefitAssumptionScore)}는 프리미엄 제품군을 먼저 검토하되, 병목 KPI가 깨지면 단계 집행으로 낮추는 구조입니다.`,
         counter: "고객 수요가 강해도 CoWoS/패키징, base die, 수율 병목이 닫히지 않으면 약속 물량이 마진 리스크로 바뀝니다.",
         action: "SKHY 액션: HBM4/HBM4E 고객별 ramp, 수율, 패키징 할당을 한 묶음으로 승인하고 범용 캐파와 분리합니다.",
       },
       "solidigm-dalian": {
         verdict: "Solidigm·Dalian은 단일 결론이 아니라 현금흐름 방어, value-up, 옵션가치로 분리합니다.",
-        logic: `수익성 ${fmtNum(model.profitability)}, 리스크 ${fmtNum(model.risk)}, 하방 ${fmtNum(model.downside)}를 기준으로 eSSD 고객 방어와 NAND 가격 하방을 같이 봅니다.`,
+        logic: `효익 가정점수 ${fmtNum(model.benefitAssumptionScore)}, 리스크 ${fmtNum(model.risk)}, 하방 우선순위 ${fmtNum(model.downside)}를 기준으로 eSSD 고객 방어와 NAND 가격 하방을 같이 봅니다.`,
         counter: "NAND 약세만 보고 철수하면 eSSD 고객·QLC 로드맵 옵션을 잃고, 강세만 보고 추가 투자하면 YMTC 가격 압력을 과소평가합니다.",
         action: "SKHY 액션: eSSD 고객 인증과 NAND contract 회복이 같이 확인될 때 value-up, 둘 중 하나만 확인되면 옵션 유지로 둡니다.",
       },
       "china-fab-license": {
         verdict: "중국 Fab 투자는 운영 유지, 기술 업그레이드, 캐파 확대를 분리 승인해야 합니다.",
-        logic: `${noGoText} 정책 리스크는 수익성 지수 ${fmtNum(model.profitability)}보다 먼저 통과해야 하는 게이트입니다.`,
+        logic: `${noGoText} 정책 리스크는 효익 가정점수 ${fmtNum(model.benefitAssumptionScore)}보다 먼저 통과해야 하는 게이트입니다.`,
         counter: "운영 유지 인력과 기술 업그레이드 투자까지 같은 승인선에 올리면 BIS·VEU 리스크와 중국 운영 continuity를 모두 흐립니다.",
         action: "SKHY 액션: Wuxi·Dalian 안건은 운영 유지=Maintain, 기술 업그레이드=License Watch, 캐파 확대=Board approval로 분리합니다.",
       },
@@ -14723,7 +14877,7 @@
     const targetLabel = target?.label || scenario.label;
     const liveContext = response.liveContext || {};
     const metricValue = (label) => response.metrics?.find((metric) => metric.label === label)?.value || "-";
-    const roiMetric = metricValue("ROI");
+    const priorityMetric = metricValue("우선순위");
     const priceMetric = metricValue("가격");
     const factMetric = metricValue("공식 팩트");
     const articleMetric = metricValue("기사");
@@ -14767,12 +14921,12 @@
         },
         {
           name: "CFO",
-          role: "수익성·자본배분",
+          role: "가정 검증·자본배분",
           avatar: "CFO",
           color: "#00A896",
           message: `${response.logic} 재무 결론은 확정 ROI가 아니라 실사 우선순위로 사용하고, 비용·고객 방어·하방 리스크가 같이 충족될 때만 예산 안건으로 올립니다.`,
           speechEn: isRoiChallenge
-            ? `The current relative R O I score is ${roiMetric}. The latest linked price signal is ${priceMetric}, with ${articleMetric} authoritative articles and an O X gate of ${gateMetric}. These are operating indicators, not contractual cash flows. Net present value and internal rate of return still require verified price, volume, capital expenditure, and timing.`
+            ? `The current priority-model score is ${priorityMetric}. The latest linked price signal is ${priceMetric}, with ${articleMetric} authoritative articles and an O X gate of ${gateMetric}. These are operating assumptions, not contractual cash flows or a financial return. Net present value and internal rate of return still require verified price, volume, capital expenditure, and timing.`
             : `Finance sees a latest linked price signal of ${priceMetric} and ${articleMetric} authoritative articles. The budget should reach the executive agenda only when cost discipline, customer defense, and downside protection are satisfied together.`,
         },
         {
@@ -14868,7 +15022,9 @@
         { label: "확보 직무", value: fmtNum((scenario.roles || []).length) },
         { label: "O/X 게이트", value: fmtNum((scenario.gates || []).length) },
         { label: "근거 신호", value: fmtNum(chinaTalentSignalCount(scenario)) },
-        { label: "ROI 지수", value: fmtNum(roi.roi) },
+        { label: "우선순위 모델점수", value: fmtNum(roi.priorityScore) },
+        { label: "효익 가정점수", value: fmtNum(roi.benefitAssumptionScore) },
+        { label: "비용 가정점수", value: fmtNum(roi.costAssumptionScore) },
         { label: "Top 투자", value: roi.top?.investment?.label || "-" },
       ],
       links: [],
@@ -15002,7 +15158,7 @@
       const rssCount = Number(theme?.count ?? 0) || 0;
       sourceMeta.textContent = `시나리오 ${fmtNum(CHINA_TALENT_STRATEGY_SCENARIOS.length)}개 · 라이브 ${fmtNum(liveItems.length)}개${rssCount > 0 ? ` · RSS ${fmtNum(rssCount)}개` : ""}`;
     }
-    if (roiMeta) roiMeta.textContent = `ROI 지수 ${fmtNum(scenarioRoi.roi)} · 수익성 ${fmtNum(scenarioRoi.profitability)} · ${scenarioRoi.top?.investment?.label || "투자안 확인"}`;
+    if (roiMeta) roiMeta.textContent = `우선순위 모델점수 ${fmtNum(scenarioRoi.priorityScore)} · 효익 가정 ${fmtNum(scenarioRoi.benefitAssumptionScore)} · 비용 가정 ${fmtNum(scenarioRoi.costAssumptionScore)} · 재무 ROI 아님`;
     renderChinaTalentTabs(scenario);
     renderChinaTalentStrategyVideo(scenario, liveItems);
     renderChinaTalentStrategyGallery(scenario);
@@ -15050,11 +15206,13 @@
         <span>${strategicHighlightHTML(scenario.decision)}</span>
       </div>
       <div class="metric-row">
-        <div class="metric"><strong>${fmtNum(scenarioRoi.roi)}</strong><span>ROI 지수</span></div>
-        <div class="metric"><strong>${fmtNum(scenarioRoi.profitability)}</strong><span>수익성</span></div>
+        <div class="metric"><strong>${fmtNum(scenarioRoi.priorityScore)}</strong><span>우선순위 모델점수</span></div>
+        <div class="metric"><strong>${fmtNum(scenarioRoi.benefitAssumptionScore)}</strong><span>효익 가정점수</span></div>
+        <div class="metric"><strong>${fmtNum(scenarioRoi.costAssumptionScore)}</strong><span>비용 가정점수</span></div>
         <div class="metric"><strong>${fmtNum(signalCount)}</strong><span>근거 신호</span></div>
         <div class="metric"><strong>${fmtNum(noGoGates)}</strong><span>No-Go</span></div>
       </div>
+      <p class="talent-roi-disclaimer">이 점수는 공개 근거와 내부 가정을 표준화한 실사 우선순위 모델이며 재무 ROI·IRR·NPV가 아닙니다.</p>
       <div class="policy-focus-block">
         <strong>최우선 투자</strong>
         <p>${escapeHTML(scenarioRoi.top ? `${scenarioRoi.top.investment.label}: ${scenarioRoi.top.investment.monetization}` : "투자안이 없습니다.")}</p>
@@ -15108,19 +15266,19 @@
           <h3>${escapeHTML(investment.label)}</h3>
           <p>${escapeHTML(investment.investment)}</p>
           <div class="metric-row compact">
-            <div class="metric"><strong>${fmtNum(model.cost)}</strong><span>투자비</span></div>
-            <div class="metric"><strong>${fmtNum(model.profitability)}</strong><span>수익성</span></div>
-            <div class="metric"><strong>${fmtNum(model.roi)}</strong><span>ROI</span></div>
+            <div class="metric"><strong>${fmtNum(model.costAssumptionScore)}</strong><span>비용 가정점수</span></div>
+            <div class="metric"><strong>${fmtNum(model.benefitAssumptionScore)}</strong><span>효익 가정점수</span></div>
+            <div class="metric"><strong>${fmtNum(model.priorityScore)}</strong><span>우선순위 모델점수</span></div>
           </div>
           <div class="scenario-bars">
-            <div class="scenario-bar-row"><span>Down</span><i><b style="width:${model.downside}%"></b></i><em>${fmtNum(model.downside)}</em></div>
-            <div class="scenario-bar-row"><span>Base</span><i><b style="width:${model.roi}%"></b></i><em>${fmtNum(model.roi)}</em></div>
-            <div class="scenario-bar-row"><span>Up</span><i><b style="width:${model.upside}%"></b></i><em>${fmtNum(model.upside)}</em></div>
+            <div class="scenario-bar-row"><span>하방 우선순위</span><i><b style="width:${model.downside}%"></b></i><em>${fmtNum(model.downside)}</em></div>
+            <div class="scenario-bar-row"><span>기준 우선순위</span><i><b style="width:${model.priorityScore}%"></b></i><em>${fmtNum(model.priorityScore)}</em></div>
+            <div class="scenario-bar-row"><span>상방 우선순위</span><i><b style="width:${model.upside}%"></b></i><em>${fmtNum(model.upside)}</em></div>
           </div>
           <div class="talent-roi-note">
-            <strong>수익성 논리</strong>
+            <strong>효익 가정 근거</strong>
             <p>${escapeHTML(investment.monetization)}</p>
-            <small>${escapeHTML(model.formula)}</small>
+            <small>${escapeHTML(model.formula)} · 재무 ROI 아님</small>
           </div>
           <ul class="watch-list">
             ${(investment.kpis || []).slice(0, 3).map((kpi) => `<li>${escapeHTML(kpi)}</li>`).join("")}
@@ -15137,12 +15295,13 @@
           <button class="scenario-card talent-plan-card reveal${item.id === scenario.id ? " active" : ""}" type="button" data-talent-plan-scenario="${escapeHTML(item.id)}" style="--local-accent:${categoryAccent(item.accentCategory)}; animation-delay:${index * 35}ms">
             <div class="scenario-card-head">
               <span>${escapeHTML(item.label)}</span>
-              <strong>${fmtNum(model.roi)}</strong>
+              <strong>${fmtNum(model.priorityScore)}</strong>
             </div>
             <p>${escapeHTML(model.top ? model.top.investment.monetization : item.decision)}</p>
             <div class="scenario-bars">
-              <div class="scenario-bar-row"><span>ROI</span><i><b style="width:${model.roi}%"></b></i><em>${fmtNum(model.roi)}</em></div>
-              <div class="scenario-bar-row"><span>수익성</span><i><b style="width:${model.profitability}%"></b></i><em>${fmtNum(model.profitability)}</em></div>
+              <div class="scenario-bar-row"><span>우선순위</span><i><b style="width:${model.priorityScore}%"></b></i><em>${fmtNum(model.priorityScore)}</em></div>
+              <div class="scenario-bar-row"><span>효익 가정</span><i><b style="width:${model.benefitAssumptionScore}%"></b></i><em>${fmtNum(model.benefitAssumptionScore)}</em></div>
+              <div class="scenario-bar-row"><span>비용 가정</span><i><b style="width:${model.costAssumptionScore}%"></b></i><em>${fmtNum(model.costAssumptionScore)}</em></div>
               <div class="scenario-bar-row"><span>하방</span><i><b style="width:${model.downside}%"></b></i><em>${fmtNum(model.downside)}</em></div>
             </div>
             <div class="talent-plan-flow" aria-hidden="true">
@@ -15237,36 +15396,42 @@
     return values.reduce((sum, value) => sum + value, 0) / values.length;
   }
 
-  function projectionNewsLinks(segment, limit = 4) {
+  function projectionEvidenceItems(segment) {
     const terms = (segment.keywords || []).map((term) => String(term).toLowerCase()).filter(Boolean);
-    const seen = new Set();
-    return rawNews().filter((news) => {
+    const items = rawNews().filter((news) => {
       const hay = `${news.title || ""} ${news.titleKo || ""} ${news.summary || ""} ${news.source || ""}`.toLowerCase();
       return terms.some((term) => hay.includes(term));
-    }).filter((news) => {
-      const key = `${news.title || ""} ${news.source || ""}`.toLowerCase().replace(/\s+/g, " ").trim();
-      if (!key || seen.has(key)) return false;
-      seen.add(key);
-      return true;
-    }).slice(0, limit);
+    });
+    for (const id of segment.linkedCategories || []) {
+      const category = liveNewsCategory(id);
+      if (category?.items) items.push(...category.items);
+    }
+    for (const theme of LIVE.benchmarkSignals?.themes || []) {
+      const hay = `${theme.id || ""} ${theme.label || ""}`.toLowerCase();
+      if (terms.some((term) => hay.includes(term))) items.push(...(theme.items || []));
+    }
+    return uniqueLiveSignalItems(items);
+  }
+
+  function projectionNewsLinks(segment, limit = 4) {
+    return projectionEvidenceItems(segment).slice(0, limit);
   }
 
   function projectionSignalCount(segment) {
-    const terms = (segment.keywords || []).map((term) => String(term).toLowerCase()).filter(Boolean);
-    const newsCount = projectionNewsLinks(segment, 999).length;
-    const categoryCount = (segment.linkedCategories || []).reduce((sum, id) => {
-      const category = liveNewsCategory(id);
-      return sum + (Number(category?.count ?? category?.items?.length ?? 0) || 0);
-    }, 0);
-    const benchmarkCount = (LIVE.benchmarkSignals?.themes || []).reduce((sum, theme) => {
-      const hay = `${theme.id || ""} ${theme.label || ""}`.toLowerCase();
-      return sum + (terms.some((term) => hay.includes(term)) ? Number(theme.count ?? theme.items?.length ?? 0) || 0 : 0);
-    }, 0);
-    return newsCount + Math.round(categoryCount / 6) + benchmarkCount + projectionPriceRows(segment).length;
+    return projectionEvidenceItems(segment).length;
   }
 
-  function projectionTotalSignals() {
-    return SKHYNIX_PRODUCT_PROJECTION.reduce((sum, segment) => sum + projectionSignalCount(segment), 0);
+  function projectionTotalSignals(segments = SKHYNIX_PRODUCT_PROJECTION) {
+    return uniqueLiveSignalItems(segments.flatMap(projectionEvidenceItems)).length;
+  }
+
+  function projectionTotalPriceRows(segments = SKHYNIX_PRODUCT_PROJECTION) {
+    const rows = new Map();
+    for (const row of segments.flatMap(projectionPriceRows)) {
+      const key = String(row.historyKey || `${row.sectionId || row.sectionTitle || ""}::${row.item || ""}`).toLowerCase();
+      if (key) rows.set(key, row);
+    }
+    return rows.size;
   }
 
   function productProjectionSegments() {
@@ -15275,7 +15440,10 @@
     const scoring = model.segmentScoring || {};
     const requiredScoring = ["signalCap", "signalWeight", "priceWeight", "chinaPressureCap", "chinaPenaltyWeight", "equipmentSignalCap", "storageEquipmentWeight"];
     const scoringReady = requiredScoring.every((key) => Number.isFinite(Number(scoring[key])));
-    const chinaPressure = axisSignalCount(CHINA_DYNAMIC_AXES.find((axis) => axis.id === "capacity")) + axisSignalCount(CHINA_DYNAMIC_AXES.find((axis) => axis.id === "policy"));
+    const chinaPressure = uniqueLiveSignalItems([
+      axisSignalItems(CHINA_DYNAMIC_AXES.find((axis) => axis.id === "capacity")),
+      axisSignalItems(CHINA_DYNAMIC_AXES.find((axis) => axis.id === "policy")),
+    ]).length;
     return SKHYNIX_PRODUCT_PROJECTION.flatMap((segment) => {
       const parameters = segmentModel[segment.id] || {};
       const parameterKeys = ["startShare", "endShare", "baseScore", "sensitivity"];
@@ -15452,7 +15620,8 @@
         { label: `T+${horizon.startMonths}M 모델`, value: `${fmtNum(start, 1)}%` },
         { label: `${horizon.yearCount}Y 모델`, value: `${fmtNum(end, 1)}%` },
         { label: "Case", value: scenario.label },
-        { label: "실제 신호", value: fmtNum(segment.signals) },
+        { label: "현재 실행 고유 원문", value: fmtNum(segment.signals) },
+        { label: "가격 관측 행", value: fmtNum(segment.priceRows || 0) },
         { label: "근거지수", value: fmtNum(segment.score) },
       ],
     };
@@ -15487,7 +15656,11 @@
     }, 0);
     const serverScore = weightedScore(serverWeights);
     const terminalScore = weightedScore(terminalWeights);
-    const chinaSignals = axisSignalCount(CHINA_DYNAMIC_AXES.find((axis) => axis.id === "capacity")) + axisSignalCount(CHINA_DYNAMIC_AXES.find((axis) => axis.id === "equipment")) + rawNews().filter(isChinaArticle).length;
+    const chinaSignals = uniqueLiveSignalItems([
+      axisSignalItems(CHINA_DYNAMIC_AXES.find((axis) => axis.id === "capacity")),
+      axisSignalItems(CHINA_DYNAMIC_AXES.find((axis) => axis.id === "equipment")),
+      rawNews().filter(isChinaArticle),
+    ]).length;
     const storageSegment = segments.find((item) => item.id === "dc-storage");
     const nandMomentum = projectionPriceMomentum(storageSegment || {});
     return [
@@ -15524,7 +15697,7 @@
         suffix: "%",
         decimals: 2,
         score: clamp(Number(config.nandReference) + nandMomentum * Number(config.nandPriceWeight) + Number(storageSegment?.signals || 0) * Number(config.nandSignalWeight)),
-        note: "TrendForce NAND/SSD 가격 데이터와 eSSD 기사 신호 기반",
+        note: "TrendForce NAND/SSD 가격 관측과 eSSD 고유 원문 신호를 분리 반영",
       },
     ];
   }
@@ -15617,12 +15790,13 @@
     const terminalShare = projectionGroupShare(series, ["mobile-smartphone", "pc-appliance", "auto-edge"]);
     const bestServerShare = projectionGroupShare(scenarioMap.best || series, ["ai-server", "dc-storage"]);
     const worstServerShare = projectionGroupShare(scenarioMap.worst || series, ["ai-server", "dc-storage"]);
-    const totalSignals = segments.reduce((sum, segment) => sum + segment.signals, 0);
+    const totalSignals = projectionTotalSignals(segments);
+    const totalPriceRows = projectionTotalPriceRows(segments);
 
-    if (meta) meta.textContent = `${scenario.label} case · 모델 산출 · ${horizon.detail} · ${fmtNum(totalSignals)}개 신호 · ${fmtDate(LIVE.updatedAt)}`;
+    if (meta) meta.textContent = `${scenario.label} case · 모델 산출 · ${horizon.detail} · 현재 실행 고유 원문 ${fmtNum(totalSignals)}건 · 가격 관측 ${fmtNum(totalPriceRows)}행 · ${fmtDate(LIVE.updatedAt)}`;
     if (windowNode) windowNode.textContent = `${horizon.rangeLabel} · 현재 수집일 +${horizon.startMonths}개월부터`;
 
-    const liveInputBits = [`신호 ${fmtNum(totalSignals)}개`, `중국압력지수 ${fmtNum(projectionChinaPressureIndex() * 100, 0)}/100`];
+    const liveInputBits = [`고유 원문 ${fmtNum(totalSignals)}건`, `가격 관측 ${fmtNum(totalPriceRows)}행`, `중국압력지수 ${fmtNum(projectionChinaPressureIndex() * 100, 0)}/100`];
     const qm = QUANT?.memoryMomentum || {};
     if (Number.isFinite(qm.dramSpot30dPct)) liveInputBits.push(`DRAM spot 30d ${qm.dramSpot30dPct > 0 ? "+" : ""}${fmtNum(qm.dramSpot30dPct, 1)}%`);
     if (Number.isFinite(qm.nandSpot30dPct)) liveInputBits.push(`NAND spot 30d ${qm.nandSpot30dPct > 0 ? "+" : ""}${fmtNum(qm.nandSpot30dPct, 1)}%`);
@@ -15719,7 +15893,7 @@
           <span>
           <small>${escapeHTML(segment.demand)} · 근거지수</small>
           <strong>${escapeHTML(segment.label)}</strong>
-          <em>${horizon.yearCount}Y 모델 ${fmtNum(endShare, 1)}% · 실제 신호 ${fmtNum(segment.signals)}건</em>
+          <em>${horizon.yearCount}Y 모델 ${fmtNum(endShare, 1)}% · 고유 원문 ${fmtNum(segment.signals)}건 · 가격 ${fmtNum(segment.priceRows)}행</em>
           </span>
         </button>
       `;
@@ -15739,7 +15913,8 @@
         <div class="metric-row">
           <div class="metric"><strong>${fmtNum(startShare, 1)}%</strong><span>T+${horizon.startMonths}개월 모델</span></div>
           <div class="metric"><strong>${fmtNum(endShare, 1)}%</strong><span>${horizon.yearCount}년차 모델</span></div>
-          <div class="metric"><strong>${fmtNum(selected.signals)}</strong><span>실제 신호 건수</span></div>
+          <div class="metric"><strong>${fmtNum(selected.signals)}</strong><span>현재 실행 고유 원문</span></div>
+          <div class="metric"><strong>${fmtNum(selected.priceRows)}</strong><span>가격 관측 행</span></div>
         </div>
         <div class="projection-focus-block">
           <strong>제품군</strong>
@@ -15821,17 +15996,19 @@
     const summary = $("#chinaDynamicsSummary");
     if (!overview || !grid) return;
 
-    const chinaNewsCount = rawNews().filter(isChinaArticle).length;
-    const chinaCategorySignals = Number(liveNewsCategory("china")?.count ?? chinaNewsCount) || chinaNewsCount;
-    const benchmarkSignals = Number(LIVE.benchmarkSignals?.stats?.total ?? LIVE.benchmarkSignals?.stream?.length ?? 0) || 0;
+    const chinaNews = rawNews().filter(isChinaArticle);
+    const chinaNewsCount = chinaNews.length;
+    const chinaCategoryItems = liveNewsCategory("china")?.items || [];
+    const benchmarkItems = LIVE.benchmarkSignals?.stream || [];
+    const benchmarkSignals = uniqueLiveSignalItems(benchmarkItems).length;
     const equipmentSignals = axisSignalCount(CHINA_DYNAMIC_AXES.find((axis) => axis.id === "equipment"));
     const packagingSignals = axisSignalCount(CHINA_DYNAMIC_AXES.find((axis) => axis.id === "packaging"));
-    const totalChinaSignals = benchmarkSignals + chinaCategorySignals;
-    $("#chinaDynamicsMeta").textContent = `${fmtNum(totalChinaSignals)}개 핵심 신호 · ${fmtDate(LIVE.updatedAt)}`;
+    const totalChinaSignals = uniqueLiveSignalItems([chinaNews, chinaCategoryItems, benchmarkItems]).length;
+    $("#chinaDynamicsMeta").textContent = `현재 실행 고유 원문 ${fmtNum(totalChinaSignals)}건 · ${fmtDate(LIVE.updatedAt)}`;
 
     if (summary) {
       const summaryLines = [
-        `중국 메모리 생태계는 CXMT·YMTC 중심의 캐파 확대와 내수 AI 고객 확보를 통해 범용 DRAM/NAND 영향력을 키우고 있습니다`,
+        `모델 해석 · 중국 메모리 생태계는 CXMT·YMTC 중심의 캐파 확대와 내수 AI 고객 확보를 통해 범용 DRAM/NAND 영향력을 키우고 있습니다`,
         `Naura·AMEC·ACM 장비 국산화 신호 ${fmtNum(equipmentSignals)}건과 JCET·XMC 패키징 우회 신호 ${fmtNum(packagingSignals)}건이 선단 제약을 보완하는 축입니다`,
         `빅펀드·수출통제 반작용, 인재/IP 이동, 수율 레시피 유출 가능성은 SKHY가 별도로 추적해야 할 핵심 리스크입니다`,
       ];
@@ -15873,7 +16050,7 @@
           ${items.length ? items.map((item) => `
             <li>
               <span>${escapeHTML(item.source || item.theme || "Signal")}</span>
-              <a href="${escapeHTML(item.link || "#")}" target="_blank" rel="noopener">${escapeHTML(newsTitle(item) || item.title || "")}</a>
+              <a href="${escapeHTML(item.sourceUrl || item.link || "#")}" target="_blank" rel="noopener">${escapeHTML(newsTitle(item) || item.title || "")}</a>
             </li>
           `).join("") : `<li><span>Signal</span><em>수집된 최신 신호 없음</em></li>`}
         </ul>
@@ -15888,9 +16065,9 @@
         watch: axis.watch || [],
         links: items,
         metrics: [
-          { label: "Signal", value: fmtNum(count) },
+          { label: "고유 원문", value: fmtNum(count) },
           { label: "Momentum", value: momentum.label },
-          { label: "Article", value: fmtNum(items.length) },
+          { label: "표시 원문", value: fmtNum(items.length) },
         ],
       });
       grid.appendChild(card);
@@ -16116,13 +16293,7 @@
     const groups = termGroups
       .map((group) => (Array.isArray(group) ? group : [group]).map((term) => String(term).toLowerCase()))
       .filter((group) => group.length);
-    const evidenceFeed = dedupeNews([
-      ...(Array.isArray(LIVE.news) ? LIVE.news : []),
-      ...(Array.isArray(BASE?.curatedNews) ? BASE.curatedNews : []),
-    ].filter((item) => (item.sourceUrl || item.link)
-      && !isCrawlExcluded("news", item)
-      && !isLowConfidenceNews(item)
-      && !isSkhynixNewsroom(item)));
+    const evidenceFeed = currentRunNews();
     return evidenceFeed
       .filter((item) => {
         const hay = `${item.title || ""} ${item.titleKo || ""} ${item.summary || ""} ${item.summaryOriginal || ""}`.toLowerCase();
@@ -16519,7 +16690,9 @@
           { label: "시나리오", value: scenario.label },
           { label: "판단", value: gate.status },
           { label: "신호", value: fmtNum(chinaTalentSignalCount(scenario)) },
-          { label: "ROI", value: fmtNum(chinaTalentScenarioRoi(scenario).roi) },
+          { label: "우선순위 모델점수", value: fmtNum(chinaTalentScenarioRoi(scenario).priorityScore) },
+          { label: "효익 가정점수", value: fmtNum(chinaTalentScenarioRoi(scenario).benefitAssumptionScore) },
+          { label: "비용 가정점수", value: fmtNum(chinaTalentScenarioRoi(scenario).costAssumptionScore) },
           { label: "직무", value: fmtNum((scenario.roles || []).length) },
         ],
         tags: [scenario.verdict, gate.axis, "China hiring"].filter(Boolean),
@@ -16675,7 +16848,8 @@
           metrics: [
             { label: `T+${horizon.startMonths}M`, value: `${fmtNum(startShare, 1)}%` },
             { label: `${horizon.yearCount}Y`, value: `${fmtNum(endShare, 1)}%` },
-            { label: "Signal", value: fmtNum(segment.signals) },
+            { label: "고유 원문", value: fmtNum(segment.signals) },
+            { label: "가격 관측", value: fmtNum(segment.priceRows) },
           ],
           tags: segment.products || [],
           links: segment.links || [],
@@ -18661,19 +18835,51 @@
     return !(summaryKey.startsWith(titleKey) && summaryKey.length - titleKey.length < 32);
   }
 
-  function rawNews() {
-    const live = [
-      ...(Array.isArray(LIVE.news) ? LIVE.news : []),
-      ...(Array.isArray(BASE?.curatedNews) ? BASE.curatedNews : []),
-    ];
-    const clean = dedupeNews(live
+  function directCurrentRunSourceUrl(item = {}) {
+    const verification = item.verification || {};
+    const sourceUrl = String(item.sourceUrl || "").trim();
+    if (!sourceUrl) return "";
+    try {
+      const source = new URL(sourceUrl);
+      const blockedHost = /(^|\.)google\.com$|(^|\.)news\.google\.com$/i;
+      if (!["http:", "https:"].includes(source.protocol) || blockedHost.test(source.hostname)) return "";
+      const canonicalUrl = String(verification.canonicalUrl || "").trim();
+      if (canonicalUrl) {
+        const canonical = new URL(canonicalUrl);
+        if (source.hostname.toLowerCase() !== canonical.hostname.toLowerCase()) return "";
+      }
+      return sourceUrl;
+    } catch {
+      return "";
+    }
+  }
+
+  function isCurrentRunCrawlItem(item = {}) {
+    return (item.origin || item.verification?.origin) === "live-crawl"
+      && (item.observedThisRun === true || item.verification?.observedThisRun === true)
+      && Boolean(directCurrentRunSourceUrl(item));
+  }
+
+  function directCurrentRunNewsUrl(item = {}) {
+    const verification = item.verification || {};
+    if (verification?.checks?.directSource !== true || verification?.checks?.canonicalUrl !== true) return "";
+    return isCurrentRunCrawlItem(item) ? directCurrentRunSourceUrl(item) : "";
+  }
+
+  function currentRunNews() {
+    const live = Array.isArray(LIVE.news) ? LIVE.news : [];
+    return dedupeNews(live
+      .filter((item) => Boolean(directCurrentRunNewsUrl(item)))
       .filter((item) => articleStreamLanguage(item))
       .filter((item) => !isCrawlExcluded("news", item) && hasMeaningfulArticleSummary(item) && isForeignNews(item) && isAuthoritativeNews(item) && isMemoryRelevant(item) && !isLowConfidenceNews(item) && !isSkhynixNewsroom(item) && !isSupersededCxmtIpoNews(item)));
-    return clean;
+  }
+
+  function rawNews() {
+    return currentRunNews();
   }
 
   function canonicalNewsUrlKey(item = {}) {
-    const url = String(item.link || item.sourceUrl || "").trim();
+    const url = String(item.sourceUrl || item.verification?.canonicalUrl || item.link || "").trim();
     if (!url) return "";
     const language = articleStreamLanguage(item) || "unknown";
     try {
@@ -18911,16 +19117,6 @@
   }
 
   function newsSummaryLine(item, title, summary, category) {
-    const hay = `${item.title || ""} ${item.titleKo || ""} ${item.summary || ""}`.toLowerCase();
-    if (/\badata\b/.test(hay) && /(dram|nand)/.test(hay) && /(20|30|35|40)/.test(hay)) {
-      return "ADATA 경영진의 3Q26 체감 전망은 DRAM +20~30%, NAND +35~40%이며, TrendForce 공식 시장 전망(DRAM +13~18%, NAND +10~15%)과 분리해 상방 시나리오로만 봅니다.";
-    }
-    if (/hbm/.test(hay) && /2027/.test(hay) && /(double|2배|4~5|4-5)/.test(hay)) {
-      return "Digitimes의 가격 상승 전망은 전체 HBM이 아니라 HBM4 기준이며, 2026년 하반기 약 $2/Gb에서 2027년 $4~5/Gb 이상 가능성을 제시한 업계 추정입니다.";
-    }
-    if (/samsung|삼성/.test(hay) && /(19-fold|19배)/.test(hay) && /(profit|이익)/.test(hay)) {
-      return "삼성의 약 19배 영업이익 증가는 2Q26 가이던스를 2Q25와 비교한 YoY 수치이며, 다른 분기 성장률과 혼용하지 않습니다.";
-    }
     const cleanedTitle = cleanInsightText(title);
     const cleanedCategory = cleanInsightText(category);
     if (summary && !sameInsightText(summary, cleanedTitle) && !sameInsightText(summary, cleanedCategory)) {
@@ -18947,32 +19143,25 @@
 
   function newsImpactLine(item, category) {
     const hay = `${item.title || ""} ${item.titleKo || ""} ${item.summaryOriginal || ""} ${item.summary || ""}`.toLowerCase();
+    let interpretation = "";
     if (/lenovo/.test(hay) && /ymtc/.test(hay) && /(do not|does not|not use|미사용|사용하지)/.test(hay)) {
-      return "YMTC SSD 채택은 미국향과 비미국향 모델을 분리해 판단해야 하며, 미국 PC 공급망 진입 신호로 확대 해석하지 않습니다.";
-    }
-    if (/cxmt/.test(hay) && /(ipo|listing|상장|공모)/.test(hay)) {
-      return "공모 자금의 실제 사용처와 장비 발주가 DDR5 캐파 확대 속도와 범용 DRAM 가격 압력을 결정합니다.";
-    }
-    if (/cxmt/.test(hay) && /(tencent|alibaba|bytedance|customer|contract|텐센트|계약)/.test(hay)) {
-      return "중국 빅테크의 서버 DRAM 승인과 장기계약 확산은 SKHY의 중국 고객 가격 협상력에 직접 영향을 줍니다.";
-    }
-    if (/ymtc/.test(hay) && /(ssd|essd|lenovo|server|customer|고객)/.test(hay)) {
-      return "YMTC의 고객 채택 범위를 내수·유럽·미국으로 나눠 eSSD와 client SSD 방어 강도를 조정합니다.";
-    }
-    if (/hbm/.test(hay) && /(heat|thermal|cool|열|냉각)/.test(hay)) {
-      return "열·전력 병목을 낮추는 적층 구조가 검증되면 HBM 세대 전환의 수율·패키징 투자 우선순위가 바뀝니다.";
-    }
-    if (/hbm4|rubin|base die|cowos/.test(hay)) {
-      return "HBM4 속도·베이스다이·고객 인증 일정을 함께 봐야 SKHY의 공급 선점과 패키징 배분을 판단할 수 있습니다.";
-    }
-    if (/price|contract|spot|asp|가격/.test(hay)) {
-      return "기사의 제품군·기준 분기·변동 범위를 분리해 실제 Spot/Contract 시계열과 일치할 때만 ASP 시나리오에 반영합니다.";
-    }
-    if (/bis|chips act|match act|export control|license|tariff|수출통제|규제/.test(hay)) {
-      return "시행일과 적용 장비를 Wuxi·Dalian의 운영 유지, 공정 전환, 캐파 확대 게이트로 나눠 판단합니다.";
-    }
-    if (/micron|samsung|earnings|revenue|profit|guidance|실적/.test(hay)) {
-      return "경쟁사의 매출보다 HBM 믹스, ASP, CAPEX, 고객 인증 가이던스가 SKHY의 공급·가격 전략을 바꾸는 핵심입니다.";
+      interpretation = "YMTC SSD 채택은 미국향과 비미국향 모델을 분리해 판단해야 하며, 미국 PC 공급망 진입 신호로 확대 해석하지 않습니다.";
+    } else if (/cxmt/.test(hay) && /(ipo|listing|상장|공모)/.test(hay)) {
+      interpretation = "공모 자금의 실제 사용처와 장비 발주가 DDR5 캐파 확대 속도와 범용 DRAM 가격 압력을 결정합니다.";
+    } else if (/cxmt/.test(hay) && /(tencent|alibaba|bytedance|customer|contract|텐센트|계약)/.test(hay)) {
+      interpretation = "중국 빅테크의 서버 DRAM 승인과 장기계약 확산은 SKHY의 중국 고객 가격 협상력에 직접 영향을 줍니다.";
+    } else if (/ymtc/.test(hay) && /(ssd|essd|lenovo|server|customer|고객)/.test(hay)) {
+      interpretation = "YMTC의 고객 채택 범위를 내수·유럽·미국으로 나눠 eSSD와 client SSD 방어 강도를 조정합니다.";
+    } else if (/hbm/.test(hay) && /(heat|thermal|cool|열|냉각)/.test(hay)) {
+      interpretation = "열·전력 병목을 낮추는 적층 구조가 검증되면 HBM 세대 전환의 수율·패키징 투자 우선순위가 바뀝니다.";
+    } else if (/hbm4|rubin|base die|cowos/.test(hay)) {
+      interpretation = "HBM4 속도·베이스다이·고객 인증 일정을 함께 봐야 SKHY의 공급 선점과 패키징 배분을 판단할 수 있습니다.";
+    } else if (/price|contract|spot|asp|가격/.test(hay)) {
+      interpretation = "기사의 제품군·기준 분기·변동 범위를 분리해 실제 Spot/Contract 시계열과 일치할 때만 ASP 시나리오에 반영합니다.";
+    } else if (/bis|chips act|match act|export control|license|tariff|수출통제|규제/.test(hay)) {
+      interpretation = "시행일과 적용 장비를 Wuxi·Dalian의 운영 유지, 공정 전환, 캐파 확대 게이트로 나눠 판단합니다.";
+    } else if (/micron|samsung|earnings|revenue|profit|guidance|실적/.test(hay)) {
+      interpretation = "경쟁사의 매출보다 HBM 믹스, ASP, CAPEX, 고객 인증 가이던스가 SKHY의 공급·가격 전략을 바꾸는 핵심입니다.";
     }
     const impacts = {
       hbm: "HBM4/HBM4E 고객 ramp와 패키징 병목이 프리미엄 메모리 공급 우위 좌우",
@@ -18987,16 +19176,17 @@
       talent: "수율 엔지니어·채용 JD 증가는 공정 병목과 IP 리스크 조기 신호",
       operations: "Wuxi·Dalian·Solidigm 운영 변화는 중국 노출과 NAND 방어 전략 변수",
     };
-    return impacts[item.category] || category || "해당 변화가 가격·고객·공급망 중 어느 축을 바꾸는지 다음 의사결정에서 검토합니다.";
+    if (!interpretation) interpretation = impacts[item.category] || category || "해당 변화가 가격·고객·공급망 중 어느 축을 바꾸는지 다음 의사결정에서 검토합니다.";
+    return `모델 해석 · ${interpretation}`;
   }
 
   function uniqueInsightRows(rows) {
     const seen = new Set();
-    return rows.map((row, index) => {
+    return rows.map((row) => {
       const text = cleanInsightText(row);
       if (!text || seen.has(insightKey(text))) return "";
       seen.add(insightKey(text));
-      return clipText(text, index === 0 ? 92 : 88);
+      return text;
     }).filter(Boolean);
   }
 
@@ -19045,8 +19235,7 @@
 
   function clipText(text, limit) {
     const clean = briefCopyText(text).replace(/\s+/g, " ").trim();
-    if (clean.length <= limit) return clean;
-    return `${clean.slice(0, limit - 1).trim()}…`;
+    return clean;
   }
 
   function filteredNews(categoryId = activeCategory) {

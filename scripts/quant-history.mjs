@@ -11,15 +11,17 @@ export const QUANT_HORIZONS = Object.freeze([
 
 export const QUANT_CADENCE_RULES = Object.freeze({
   // Fourteen calendar days accommodates exchange closures (for example Golden
-  // Week) while still rejecting a missing multi-week daily-data block.
-  daily: Object.freeze({ minPointsPerYear: 180, maxGapDays: 14, maxEndLagDays: 14 }),
+  // Week) while still rejecting a missing multi-week daily-data block. The
+  // coverage floor keeps a nominal one-year result from silently becoming an
+  // eleven-month result merely because the horizon-level tolerance is wider.
+  daily: Object.freeze({ minPointsPerYear: 180, maxGapDays: 14, maxEndLagDays: 14, maxStartOffsetDays: 14, minCoverageRatio: 0.97 }),
   // Monthly source archives occasionally omit one publication month. Accept a
   // single missing month, but keep two consecutive omissions fail-closed.
-  monthly: Object.freeze({ minPointsPerYear: 10, maxGapDays: 75, maxEndLagDays: 50 }),
-  quarterly: Object.freeze({ minPointsPerYear: 3, maxGapDays: 200, maxEndLagDays: 150 }),
+  monthly: Object.freeze({ minPointsPerYear: 10, maxGapDays: 75, maxEndLagDays: 50, maxStartOffsetDays: 45, minCoverageRatio: 0.91 }),
+  quarterly: Object.freeze({ minPointsPerYear: 3, maxGapDays: 200, maxEndLagDays: 150, maxStartOffsetDays: 100, minCoverageRatio: 0.9 }),
   // Sparse archive anchors are evidence, but not a continuous return series. They
   // remain in the contract with diagnostics and can never pass a fixed horizon.
-  sparse: Object.freeze({ minPointsPerYear: 2, maxGapDays: 400, maxEndLagDays: 190 }),
+  sparse: Object.freeze({ minPointsPerYear: 2, maxGapDays: 400, maxEndLagDays: 190, maxStartOffsetDays: 0, minCoverageRatio: 1 }),
 });
 
 export const QUANT_SERIES_KINDS = Object.freeze(["price", "rate", "flow"]);
@@ -124,6 +126,81 @@ function pointValue(point, valueKeys) {
   return null;
 }
 
+function textOrNull(value) {
+  const text = String(value ?? "").trim();
+  return text || null;
+}
+
+function httpUrlOrNull(value) {
+  const text = textOrNull(value);
+  if (!text) return null;
+  try {
+    const parsed = new URL(text);
+    return ["http:", "https:"].includes(parsed.protocol) ? parsed.toString() : null;
+  } catch {
+    return null;
+  }
+}
+
+function pointProvenance(point = {}) {
+  if (!point || typeof point !== "object") return null;
+  const sourceUrl = httpUrlOrNull(point.sourceUrl || point.url || point.link);
+  const archiveUrl = httpUrlOrNull(point.archiveUrl);
+  const observedAt = isoOrNull(
+    point.sourceObservedAt
+    || point.observedAt
+    || point.date
+    || point.sourceUpdate
+    || point.regularMarketTime
+    || point.time,
+  );
+  const capturedAt = isoOrNull(point.capturedAt || point.crawledAt || point.validatedAt);
+  const snapshotAt = isoOrNull(point.snapshotAt);
+  const provenance = {
+    source: textOrNull(point.source || point.publisher),
+    sourceUrl,
+    archiveUrl,
+    evidenceUrl: archiveUrl || sourceUrl,
+    origin: textOrNull(point.origin),
+    dataStatus: textOrNull(point.dataStatus),
+    observedAt,
+    capturedAt,
+    snapshotAt,
+  };
+  return Object.values(provenance).some((value) => value !== null) ? provenance : null;
+}
+
+function endpointProvenance(point, options = {}) {
+  if (!point) return null;
+  const direct = point.provenance || {};
+  const pointSourceUrl = httpUrlOrNull(direct.sourceUrl);
+  const seriesSourceUrl = httpUrlOrNull(options.sourceUrl);
+  const archiveUrl = httpUrlOrNull(direct.archiveUrl);
+  const evidenceScope = archiveUrl
+    ? "archived-point"
+    : pointSourceUrl
+      ? "point-source"
+      : seriesSourceUrl
+        ? "series-source"
+        : "unavailable";
+  const sourceUrl = pointSourceUrl || seriesSourceUrl;
+  return {
+    source: textOrNull(direct.source) || textOrNull(options.source),
+    sourceUrl,
+    pointSourceUrl,
+    seriesSourceUrl,
+    archiveUrl,
+    evidenceUrl: archiveUrl || sourceUrl,
+    evidenceScope,
+    exactPointEvidence: evidenceScope === "archived-point" || evidenceScope === "point-source",
+    origin: textOrNull(direct.origin),
+    dataStatus: textOrNull(direct.dataStatus),
+    observedAt: direct.observedAt || point.date || null,
+    capturedAt: direct.capturedAt || null,
+    snapshotAt: direct.snapshotAt || null,
+  };
+}
+
 function bucketKey(time, cadence) {
   const iso = new Date(time).toISOString();
   if (cadence === "quarterly") {
@@ -152,6 +229,7 @@ export function normalizeHistoryPoints(points, options = {}) {
       date: new Date(time).toISOString(),
       time,
       value,
+      provenance: pointProvenance(point),
       inputIndex,
     };
     const key = bucketKey(time, cadence);
@@ -266,6 +344,8 @@ function performanceFields(seriesKind, values = {}) {
 }
 
 function emptyStats(horizon, cadence, seriesKind, status, reasonCodes = [status]) {
+  const rule = QUANT_CADENCE_RULES[cadence];
+  const effectiveStartToleranceDays = Math.min(horizon.toleranceDays, rule.maxStartOffsetDays);
   return {
     horizon: horizon.id,
     years: horizon.years,
@@ -275,19 +355,23 @@ function emptyStats(horizon, cadence, seriesKind, status, reasonCodes = [status]
     status,
     reasonCodes,
     pointCount: 0,
-    requiredPointCount: Math.ceil(QUANT_CADENCE_RULES[cadence].minPointsPerYear * horizon.years),
+    requiredPointCount: Math.ceil(rule.minPointsPerYear * horizon.years),
     availablePointCount: 0,
     availableSpanDays: 0,
     coverageDays: null,
     coverageRatio: null,
     toleranceDays: horizon.toleranceDays,
-    maxAllowedGapDays: QUANT_CADENCE_RULES[cadence].maxGapDays,
-    maxEndLagDays: QUANT_CADENCE_RULES[cadence].maxEndLagDays,
+    effectiveStartToleranceDays,
+    minimumCoverageRatio: rule.minCoverageRatio,
+    maxAllowedGapDays: rule.maxGapDays,
+    maxEndLagDays: rule.maxEndLagDays,
     targetStartDate: null,
     startDate: null,
     endDate: null,
     startValue: null,
     endValue: null,
+    startProvenance: null,
+    endProvenance: null,
     startOffsetDays: null,
     endLagDays: null,
     largestGapDays: null,
@@ -317,13 +401,14 @@ export function calculateHorizonStats(points, options = {}) {
   const end = available.at(-1);
   const targetStartTime = subtractUtcYears(end.time, horizon.years);
   const targetStartDate = new Date(targetStartTime).toISOString();
-  const toleranceMs = horizon.toleranceDays * DAY_MS;
+  const rule = QUANT_CADENCE_RULES[cadence];
+  const effectiveStartToleranceDays = Math.min(horizon.toleranceDays, rule.maxStartOffsetDays);
+  const toleranceMs = effectiveStartToleranceDays * DAY_MS;
   const candidates = available.filter((point) => Math.abs(point.time - targetStartTime) <= toleranceMs);
   const start = [...candidates].sort((a, b) => {
     const delta = Math.abs(a.time - targetStartTime) - Math.abs(b.time - targetStartTime);
     return delta || a.time - b.time;
   })[0] || null;
-  const rule = QUANT_CADENCE_RULES[cadence];
   const requiredPointCount = Math.ceil(rule.minPointsPerYear * horizon.years);
   const endLagDays = (requestedAsOf - end.time) / DAY_MS;
   const availableSpanDays = (end.time - available[0].time) / DAY_MS;
@@ -340,6 +425,7 @@ export function calculateHorizonStats(points, options = {}) {
       targetStartDate,
       endDate: end.date,
       endValue: end.value,
+      endProvenance: endpointProvenance(end, options),
       endLagDays: round(endLagDays, 2),
     };
   }
@@ -347,12 +433,15 @@ export function calculateHorizonStats(points, options = {}) {
   const window = available.filter((point) => point.time >= start.time && point.time <= end.time);
   const gapDays = largestGapDays(window, cadence);
   const coverageDays = (end.time - start.time) / DAY_MS;
+  const expectedCoverageDays = (end.time - targetStartTime) / DAY_MS;
+  const coverageRatio = expectedCoverageDays > 0 ? coverageDays / expectedCoverageDays : null;
   const startOffsetDays = Math.abs(start.time - targetStartTime) / DAY_MS;
   const reasonCodes = [];
   if (cadence === "sparse") reasonCodes.push("sparse-cadence");
   if (explicitAsOf && endLagDays > rule.maxEndLagDays) reasonCodes.push("stale-end");
   if (window.length < requiredPointCount) reasonCodes.push("insufficient-points");
   if (gapDays !== null && gapDays > rule.maxGapDays) reasonCodes.push("excessive-gap");
+  if (!Number.isFinite(coverageRatio) || coverageRatio < rule.minCoverageRatio) reasonCodes.push("insufficient-coverage");
   if (seriesKind === "price" && (!(start.value > 0) || window.some((point) => point.value < 0))) {
     reasonCodes.push("invalid-return-values");
   }
@@ -394,8 +483,10 @@ export function calculateHorizonStats(points, options = {}) {
     availablePointCount: available.length,
     availableSpanDays: round(availableSpanDays, 2),
     coverageDays: round(coverageDays, 2),
-    coverageRatio: round(coverageDays / ((end.time - targetStartTime) / DAY_MS), 4),
+    coverageRatio: round(coverageRatio, 4),
     toleranceDays: horizon.toleranceDays,
+    effectiveStartToleranceDays,
+    minimumCoverageRatio: rule.minCoverageRatio,
     maxAllowedGapDays: rule.maxGapDays,
     maxEndLagDays: rule.maxEndLagDays,
     targetStartDate,
@@ -403,6 +494,8 @@ export function calculateHorizonStats(points, options = {}) {
     endDate: end.date,
     startValue: start.value,
     endValue: end.value,
+    startProvenance: endpointProvenance(start, options),
+    endProvenance: endpointProvenance(end, options),
     startOffsetDays: round(startOffsetDays, 2),
     endLagDays: round(endLagDays, 2),
     largestGapDays: gapDays,
@@ -457,7 +550,13 @@ function seriesRecord(id, entry, domain, asOf) {
     source: entry?.source || null,
     sourceUrl: entry?.sourceUrl || null,
     observationCount: normalizeHistoryPoints(points, { cadence }).length,
-    periods: calculateAllHorizonStats(points, { cadence, seriesKind, asOf }),
+    periods: calculateAllHorizonStats(points, {
+      cadence,
+      seriesKind,
+      asOf,
+      source: entry?.source || null,
+      sourceUrl: entry?.sourceUrl || null,
+    }),
   };
 }
 
@@ -541,6 +640,9 @@ export function buildQuantBacktestSummary({
       flowDefinition: "absolute and relative percentage change between fixed-horizon endpoints",
       cagrDefinition: "annualized by actual elapsed days; price series only",
       maxDrawdownDefinition: "largest peak-to-trough percentage in the eligible fixed horizon; price series only",
+      startToleranceDefinition: "the lesser of the horizon tolerance and cadence-specific maximum start offset",
+      coverageDefinition: "actual endpoint span divided by the exact calendar horizon; cadence-specific minimums are fail-closed",
+      endpointProvenanceDefinition: "start and end values retain point-level evidence URLs; a series-level source fallback is explicitly labeled and is not treated as exact point evidence",
     },
     coverage: coverageSummary(series),
     series,

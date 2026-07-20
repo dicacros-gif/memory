@@ -27,11 +27,13 @@ function dailySeries(startIso, endIso, valueAt) {
 const normalized = normalizeHistoryPoints([
   { crawledAt: "2026-07-02T12:00:00Z", sourceUpdate: "2026-07-01 18:10 (GMT+8)", average: "1,250.5" },
   { date: "invalid", value: 7 },
-  { date: "2026-07-01T11:00:00Z", close: 1_251 },
+  { date: "2026-07-01T11:00:00Z", close: 1_251, source: "Primary source", sourceUrl: "https://example.com/point" },
 ]);
 assert.equal(normalized.length, 1, "same-day observations must be deduplicated");
 assert.equal(normalized[0].date, "2026-07-01T11:00:00.000Z");
 assert.equal(normalized[0].value, 1_251);
+assert.equal(normalized[0].provenance.source, "Primary source");
+assert.equal(normalized[0].provenance.evidenceUrl, "https://example.com/point");
 
 const exactFiveYears = dailySeries("2021-07-20", "2026-07-20", (index) => 100 + index / 100);
 assert.equal(inferHistoryCadence(exactFiveYears), "daily");
@@ -59,6 +61,36 @@ const staleAfterFourteenDays = calculateHorizonStats(exactFiveYears, {
 });
 assert.equal(staleAfterFourteenDays.eligible, false);
 assert.ok(staleAfterFourteenDays.reasonCodes.includes("stale-end"));
+
+const dailyTenDaysShort = dailySeries("2025-07-30", "2026-07-20", (index) => 100 + index / 100);
+const dailyTenDaysShortStats = calculateHorizonStats(dailyTenDaysShort, {
+  horizon: "1y",
+  cadence: "daily",
+  asOf: "2026-07-20T00:00:00Z",
+});
+assert.equal(dailyTenDaysShortStats.eligible, true, "a dense daily series within the cadence coverage floor remains eligible");
+assert.equal(dailyTenDaysShortStats.effectiveStartToleranceDays, 14);
+assert.ok(dailyTenDaysShortStats.coverageRatio >= dailyTenDaysShortStats.minimumCoverageRatio);
+
+const dailyTwelveDaysShort = dailySeries("2025-08-01", "2026-07-20", (index) => 100 + index / 100);
+const dailyTwelveDaysShortStats = calculateHorizonStats(dailyTwelveDaysShort, {
+  horizon: "1y",
+  cadence: "daily",
+  asOf: "2026-07-20T00:00:00Z",
+});
+assert.equal(dailyTwelveDaysShortStats.eligible, false, "a daily series below the fixed-horizon coverage floor must fail closed");
+assert.ok(dailyTwelveDaysShortStats.reasonCodes.includes("insufficient-coverage"));
+assert.equal(dailyTwelveDaysShortStats.cumulativePct, null);
+
+const dailyFifteenDaysShort = dailySeries("2025-08-04", "2026-07-20", (index) => 100 + index / 100);
+const dailyFifteenDaysShortStats = calculateHorizonStats(dailyFifteenDaysShort, {
+  horizon: "1y",
+  cadence: "daily",
+  asOf: "2026-07-20T00:00:00Z",
+});
+assert.equal(dailyFifteenDaysShortStats.eligible, false, "daily start tolerance must not inherit the horizon-wide 30-day allowance");
+assert.equal(dailyFifteenDaysShortStats.status, "insufficient-history");
+assert.equal(dailyFifteenDaysShortStats.effectiveStartToleranceDays, 14);
 
 const newlyListed = dailySeries("2025-10-01", "2026-07-20", (index) => 50 + index);
 const unavailableOneYear = calculateHorizonStats(newlyListed, {
@@ -128,6 +160,56 @@ assert.ok(Math.abs(threeYear.cagrPct - 25.98) < 0.1, `unexpected CAGR: ${threeYe
 assert.equal(threeYear.maxDrawdownPct, -50);
 assert.equal(threeYear.seriesKind, "price", "direct calculations default to price semantics");
 assert.equal(Object.hasOwn(threeYear, "absoluteChange"), false);
+
+const provenanceSeries = dailySeries("2025-07-20", "2026-07-20", (index) => 100 + index / 100);
+provenanceSeries[0] = {
+  ...provenanceSeries[0],
+  source: "TrendForce",
+  sourceUrl: "https://www.trendforce.com/price/dram/dram_spot",
+  archiveUrl: "https://web.archive.org/web/20250720/https://www.trendforce.com/price/dram/dram_spot",
+  origin: "web.archive.org",
+  dataStatus: "last-verified",
+};
+provenanceSeries[provenanceSeries.length - 1] = {
+  ...provenanceSeries.at(-1),
+  source: "TrendForce",
+  sourceUrl: "https://www.trendforce.com/price/dram/dram_spot",
+  dataStatus: "live-verified",
+};
+const provenanceStats = calculateHorizonStats(provenanceSeries, {
+  horizon: "1y",
+  cadence: "daily",
+  asOf: "2026-07-20T00:00:00Z",
+  source: "Series fallback",
+  sourceUrl: "https://example.com/series",
+});
+assert.equal(provenanceStats.eligible, true);
+assert.equal(provenanceStats.startProvenance.source, "TrendForce");
+assert.equal(
+  provenanceStats.startProvenance.evidenceUrl,
+  "https://web.archive.org/web/20250720/https://www.trendforce.com/price/dram/dram_spot",
+  "historical endpoint must prefer its archive evidence URL",
+);
+assert.equal(provenanceStats.startProvenance.evidenceScope, "archived-point");
+assert.equal(provenanceStats.startProvenance.exactPointEvidence, true);
+assert.equal(provenanceStats.endProvenance.evidenceUrl, "https://www.trendforce.com/price/dram/dram_spot");
+assert.equal(provenanceStats.endProvenance.evidenceScope, "point-source");
+assert.equal(provenanceStats.endProvenance.dataStatus, "live-verified");
+
+const fallbackProvenanceStats = calculateHorizonStats(exactFiveYears, {
+  horizon: "1y",
+  cadence: "daily",
+  asOf: "2026-07-20T00:00:00Z",
+  source: "Series source",
+  sourceUrl: "https://example.com/series-source",
+});
+assert.equal(fallbackProvenanceStats.startProvenance.source, "Series source");
+assert.equal(fallbackProvenanceStats.startProvenance.evidenceUrl, "https://example.com/series-source");
+assert.equal(fallbackProvenanceStats.endProvenance.evidenceUrl, "https://example.com/series-source");
+assert.equal(fallbackProvenanceStats.startProvenance.evidenceScope, "series-source");
+assert.equal(fallbackProvenanceStats.startProvenance.exactPointEvidence, false);
+assert.equal(fallbackProvenanceStats.startProvenance.pointSourceUrl, null);
+assert.equal(fallbackProvenanceStats.startProvenance.seriesSourceUrl, "https://example.com/series-source");
 
 const ratePoints = Array.from({ length: 13 }, (_, index) => ({
   date: new Date(Date.UTC(2025, 6 + index, 1)).toISOString(),
@@ -258,6 +340,7 @@ assert.equal(contractA.series["price:hybrid"].seriesKind, "price");
 assert.equal(contractA.series["metric:quant-usdkrw"].seriesKind, "price");
 assert.equal(contractA.series["metric:quant-tsmc-yoy"].seriesKind, "rate");
 assert.equal(contractA.series["metric:tsmc-revenue"].seriesKind, "flow");
+assert.equal(contractA.series["market:sox"].periods["5y"].endProvenance.observedAt, "2026-07-20T00:00:00.000Z");
 assert.equal(Object.hasOwn(contractA.series["metric:short"].periods["1y"], "cumulativePct"), false);
 assert.equal(classifySeriesKind("share-skhy-hbmShare"), "rate");
 assert.equal(classifySeriesKind("micron-gross-profit"), "flow");

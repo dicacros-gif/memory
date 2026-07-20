@@ -11,7 +11,7 @@ import {
   buildRelationCandidates,
 } from "./live-pipeline.mjs";
 import { mergeMarketPoints, quantMemoryMomentum } from "./crawl.mjs";
-import { buildQuantBacktestSummary } from "./quant-history.mjs";
+import { buildQuantBacktestSummary, calculateAllHorizonStats } from "./quant-history.mjs";
 
 const root = resolve(dirname(fileURLToPath(import.meta.url)), "..");
 const readJson = async (name) => JSON.parse(await readFile(resolve(root, "data", name), "utf8"));
@@ -30,7 +30,15 @@ const context = {
   baseline,
 };
 for (const index of Object.values(marketHistory.indexes || {})) {
-  if (Array.isArray(index?.points)) index.points = mergeMarketPoints(index.points, []);
+  if (!Array.isArray(index?.points)) continue;
+  index.points = mergeMarketPoints(index.points, []);
+  index.periods = calculateAllHorizonStats(index.points, {
+    cadence: "daily",
+    seriesKind: "price",
+    asOf: live.updatedAt || marketHistory.updatedAt,
+    source: index.source || marketHistory.source || "Yahoo Finance chart API",
+    sourceUrl: index.sourceUrl,
+  });
 }
 quant.runId = live.runId || quant.runId || null;
 quant.memoryMomentum = quantMemoryMomentum(priceHistory);
@@ -53,6 +61,10 @@ const quantBacktest = buildQuantBacktestSummary({
   runId: live.runId,
 });
 quantBacktest.validatedAt = live.updatedAt || quant.validatedAt || null;
+quantBacktest.expiresAt = quant.expiresAt || null;
+marketHistory.runId = live.runId || marketHistory.runId || null;
+marketHistory.validatedAt = live.updatedAt || null;
+marketHistory.expiresAt = quant.expiresAt || null;
 quant.historyCoverage = {
   ...(quant.historyCoverage || {}),
   periods: quantBacktest.coverage,
@@ -63,8 +75,11 @@ live.quantBacktest = {
   schemaVersion: quantBacktest.schemaVersion,
   generatedAt: quantBacktest.generatedAt,
   runId: quantBacktest.runId,
+  validatedAt: quantBacktest.validatedAt,
+  expiresAt: quantBacktest.expiresAt,
   coverage: quantBacktest.coverage,
 };
+live.expiresAt = quant.expiresAt || null;
 await Promise.all([
   writeFile(resolve(root, "data", "quant.json"), `${JSON.stringify(quant, null, 2)}\n`, "utf8"),
   writeFile(resolve(root, "data", "live.json"), `${JSON.stringify(live, null, 2)}\n`, "utf8"),

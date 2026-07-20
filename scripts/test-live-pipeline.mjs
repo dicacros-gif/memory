@@ -155,7 +155,7 @@ assert.equal(relationFor("skhy", "micron")?.relationEvidenceCount, 0, "a relatio
 
 const baseline = { architectureMatrix: { tracks: [{ id: "premium-test", title: "HBM4 TSMC", thesis: "HBM4 base die collaboration expands", signals: ["HBM4", "TSMC", "base die"] }] } };
 const freshness = buildBaselineFreshness(baseline, { news: relationNews }, {}, now);
-assert.equal(freshness.schemaVersion, "2.3");
+assert.equal(freshness.schemaVersion, "3.0");
 assert.equal(freshness.items["premium-test"].status, "current");
 assert.equal(freshness.items["premium-test"].lastCheckedAt, "2026-07-20");
 const staleFreshness = buildBaselineFreshness(baseline, { news: [] }, {}, now);
@@ -177,6 +177,28 @@ assert.equal(carriedConflict.items["premium-test"].conflictEvidence.url, "https:
 const anchoredBaseline = { talent: [{ id: "ymtc-talent", company: "YMTC", thesis: "YMTC NAND design hiring expands", facts: ["Xtacking design team"] }] };
 const unrelatedSamsung = buildBaselineFreshness(anchoredBaseline, { news: [article("Samsung NAND design hiring expands", "https://example.com/samsung-design", "2026-07-20")] }, {}, now);
 assert.equal(unrelatedSamsung.items["ymtc-talent"].status, "revalidate", "company baselines require the company anchor, not generic NAND/design words");
+const numericBaseline = { kpis: [{
+  id: "wsts-market-value",
+  label: "WSTS 2026 semiconductor forecast",
+  source: "WSTS",
+  note: "WSTS 2026 semiconductor forecast is $1.51T and memory growth is 90%.",
+}] };
+const genericSameSource = buildBaselineFreshness(numericBaseline, { news: [article(
+  "WSTS semiconductor forecast can change in 2026",
+  "https://example.com/wsts-generic",
+  "2026-07-20",
+)] }, {}, now);
+const genericSameSourceItem = genericSameSource.items["wsts-market-value-note"];
+assert.equal(genericSameSourceItem.status, "revalidate", "source and generic English words must not corroborate a quantitative claim");
+assert.equal(genericSameSourceItem.evidenceCount, 0, "related evidence without the configured numbers must not refresh freshness");
+assert.equal(genericSameSourceItem.relatedEvidenceCount, 1, "related but numerically unmatched evidence remains reviewable");
+const exactNumericSource = buildBaselineFreshness(numericBaseline, { news: [article(
+  "WSTS 2026 semiconductor forecast reaches $1.51T with memory growth of 90%",
+  "https://example.com/wsts-exact",
+  "2026-07-20",
+)] }, {}, now);
+assert.equal(exactNumericSource.items["wsts-market-value-note"].status, "current", "same source, metric, period and every numeric token may refresh the claim");
+assert.deepEqual(exactNumericSource.items["wsts-market-value-note"].evidence[0].matchedQuantTokens.sort(), ["$1.51t", "90%"].sort());
 const expandedBaseline = buildBaselineFreshness({ rows: [{
   id: "coverage-test",
   company: "TSMC",
