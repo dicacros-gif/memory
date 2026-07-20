@@ -9,7 +9,7 @@
 import { readFile, writeFile, mkdir, rename, rm } from "node:fs/promises";
 import { createHash } from "node:crypto";
 import { dirname, resolve } from "node:path";
-import { fileURLToPath } from "node:url";
+import { fileURLToPath, pathToFileURL } from "node:url";
 import {
   buildAgentBriefing,
   buildBaselineFreshness,
@@ -302,6 +302,27 @@ const ENGLISH_AUTHORITY_MONITORS = [
       "site:wsts.org/76/103 semiconductor market WSTS",
       "site:semiconductors.org/global-semiconductor-sales WSTS monthly sales",
       "site:semiconductors.org/news-events/latest-news semiconductor sales",
+    ],
+  },
+  {
+    id: "account-demand",
+    label: "수요처 계정 실적·CapEx·출하",
+    queries: [
+      "\"Microsoft Azure\" AI data center capex Maia",
+      "\"Amazon Web Services\" AI data center capex Trainium",
+      "\"Google Cloud\" AI data center capex TPU",
+      "\"Meta Platforms\" AI infrastructure data center capex MTIA",
+      "\"Oracle Cloud\" OpenAI Stargate data center capex",
+      "\"xAI\" Colossus data center expansion",
+      "Alibaba Tencent ByteDance cloud AI capex server",
+      "Tesla BYD Hyundai automotive memory ADAS production",
+      "Bosch Continental Denso automotive memory domain controller",
+      "Volkswagen Toyota automotive semiconductor memory ADAS",
+      "Apple iPhone Samsung Galaxy Xiaomi smartphone memory shipment",
+      "Oppo Vivo Transsion smartphone memory shipment",
+      "Lenovo Dell HP AI PC memory shipment",
+      "Azure Storage Amazon S3 Google Cloud Storage enterprise SSD",
+      "Solidigm enterprise SSD QLC data center demand",
     ],
   },
   {
@@ -3165,8 +3186,8 @@ async function collectNews(previousNews = []) {
   const selected = ["english", "chinese"]
     .flatMap((language) => {
       const languageItems = all.filter((item) => verifiedNewsLanguage(item) === language);
-      const fixed = languageItems.filter((item) => item.preservedSeed);
-      const discovered = languageItems.filter((item) => !item.preservedSeed);
+      const fixed = languageItems.filter((item) => item.preservedSeed || ["account-demand", "industry"].includes(item.category));
+      const discovered = languageItems.filter((item) => !fixed.includes(item));
       return fixed.concat(discovered.slice(0, Math.max(0, NEWS_STREAM_LIMIT - fixed.length)));
     })
     .sort((a, b) => b.ts - a.ts);
@@ -5214,8 +5235,30 @@ async function fetchTsmcMonthlyRevenue() {
   };
 }
 
+const OFFICIAL_INDUSTRY_PROBES = [
+  { id: "wsts", label: "WSTS forecast", url: "https://www.wsts.org/76/Recent-News-Release", pattern: /WSTS|World Semiconductor Trade Statistics/i },
+  { id: "sia", label: "SIA monthly sales", url: "https://www.semiconductors.org/news-events/latest-news/", pattern: /Semiconductor Industry Association|Global Semiconductor Sales|Market Data/i },
+];
+
+async function collectOfficialIndustrySourceChecks() {
+  const checkedAt = new Date().toISOString();
+  const entries = await Promise.all(OFFICIAL_INDUSTRY_PROBES.map(async (probe) => {
+    try {
+      const response = await fetch(probe.url, { signal: fetchSignal(), headers: { "User-Agent": BROWSER_UA, Accept: "text/html" } });
+      const html = await response.text();
+      const reachable = response.ok && probe.pattern.test(html);
+      note(`official:${probe.id}`, reachable, reachable ? `${probe.label} 직접 연결 · ${html.length} bytes` : `HTTP ${response.status} 또는 본문 표식 불일치`);
+      return [probe.id, { id: probe.id, label: probe.label, url: probe.url, reachable, checkedAt, status: reachable ? "connected" : "failed", httpStatus: response.status }];
+    } catch (error) {
+      note(`official:${probe.id}`, false, error.message);
+      return [probe.id, { id: probe.id, label: probe.label, url: probe.url, reachable: false, checkedAt, status: "failed", error: String(error.message || error).slice(0, 300) }];
+    }
+  }));
+  return Object.fromEntries(entries);
+}
+
 // Memory price momentum from our own accumulated TrendForce history.
-function quantMemoryMomentum(priceHistory = {}) {
+export function quantMemoryMomentum(priceHistory = {}) {
   const calc = (prefix, daysAgo) => {
     const changes = [];
     const spans = [];
@@ -6084,7 +6127,7 @@ function buildProjectionCalibration(previous = {}, scenarioCalibration = {}, mod
   };
 }
 
-function sourceHealthId(step = "unknown") {
+export function sourceHealthId(step = "unknown") {
   const value = String(step || "unknown");
   const exact = [
     [/^quant:FX USD\/KRW/i, "yahoo:usdkrw"],
@@ -6092,6 +6135,7 @@ function sourceHealthId(step = "unknown") {
     [/^quant:AI AMD/i, "yahoo:amd"],
     [/^quant:Micron EDGAR/i, "sec:micron"],
     [/^quant:TSMC/i, "twse:tsmc-monthly"],
+    [/^TrendForce차트/i, "trendforce:chart"],
     [/^official-industry:wsts-sia/i, "official:wsts-sia"],
   ].find(([pattern]) => pattern.test(value));
   if (exact) return exact[1];
@@ -6099,9 +6143,9 @@ function sourceHealthId(step = "unknown") {
   return value.replace(/\s+/g, "-").replace(/[^a-z0-9가-힣:_-]/gi, "").toLowerCase() || "unknown";
 }
 
-function sourceHealthSnapshot(previous = {}) {
+export function sourceHealthSnapshot(previous = {}, observations = health) {
   const grouped = new Map();
-  for (const item of health) {
+  for (const item of observations) {
     const id = sourceHealthId(item.step || item.name || "unknown");
     const current = grouped.get(id) || { id, label: item.step || item.name || id, ok: true, attempts: 0, errors: [] };
     current.attempts += 1;
@@ -6110,12 +6154,14 @@ function sourceHealthSnapshot(previous = {}) {
     grouped.set(id, current);
   }
   const attemptedAt = new Date().toISOString();
-  const sources = Object.fromEntries(Object.entries(previous.sources || {}).map(([id, item]) => [id, {
-    ...item,
-    id,
-    attempted: false,
-    attempts: 0,
-  }]));
+  const sources = Object.fromEntries(Object.entries(previous.sources || {})
+    .filter(([id]) => !["quant", "가격백필", "official:wsts-sia"].includes(id) && id.toLowerCase() !== "trendforce차트")
+    .map(([id, item]) => [id, {
+      ...item,
+      id,
+      attempted: false,
+      attempts: 0,
+    }]));
   for (const [id, item] of grouped.entries()) {
     const before = previous.sources?.[id] || {};
     const failureStreak = item.ok ? 0 : Number(before.failureStreak || 0) + 1;
@@ -6267,6 +6313,45 @@ function appendQuantHistory(marketHistory = {}, quant = {}) {
       policy: "source observation date only; no daily interpolation",
     };
   }
+  const appendSeries = ({ id, label, unit, source, sourceUrl, points = [] }) => {
+    if (!validHttpUrl(sourceUrl)) return;
+    const current = marketHistory.metrics[id] || { id, label, unit, points: [] };
+    const merged = new Map((current.points || []).filter(validMetricPoint).map((point) => [point.date, point]));
+    for (const point of points) {
+      const date = normalizeObservationDate(point.date);
+      const value = Number(point.value);
+      if (!date || !Number.isFinite(value)) continue;
+      merged.set(date, { date, value, source, sourceUrl, asOf: point.date, dataStatus: "live-verified", capturedAt });
+    }
+    const nextPoints = [...merged.values()].sort((a, b) => String(a.date).localeCompare(String(b.date))).slice(-2200);
+    if (!nextPoints.length) return;
+    marketHistory.metrics[id] = { ...current, id, label, unit, updatedAt: capturedAt, points: nextPoints };
+    marketHistory.metricDefinitions[id] = { label, unit, provenance: source, sourceUrl, policy: "source observation date only; no interpolation" };
+  };
+  appendSeries({
+    id: "quant-usdkrw",
+    label: "USD/KRW",
+    unit: "KRW",
+    source: quant.fx?.usdkrw?.source,
+    sourceUrl: quant.fx?.usdkrw?.sourceUrl,
+    points: quant.fx?.usdkrw?.history30d?.points,
+  });
+  appendSeries({
+    id: "quant-nvda",
+    label: "NVIDIA",
+    unit: quant.aiDemandProxy?.nvda?.currency || "USD",
+    source: quant.aiDemandProxy?.nvda?.source,
+    sourceUrl: quant.aiDemandProxy?.nvda?.sourceUrl,
+    points: quant.aiDemandProxy?.nvda?.history30d?.points,
+  });
+  appendSeries({
+    id: "quant-tsmc-yoy",
+    label: "TSMC monthly revenue YoY",
+    unit: "% YoY",
+    source: quant.foundry?.tsmcMonthly?.source,
+    sourceUrl: quant.foundry?.tsmcMonthly?.sourceUrl,
+    points: quant.foundry?.tsmcMonthly?.yoyHistory?.points,
+  });
   marketHistory.updatedAt = capturedAt;
 }
 
@@ -6363,8 +6448,9 @@ async function collectQuantMetrics(priceHistory, context = {}) {
   note("derived:relation-candidates", true, `신규 관계 후보 ${quant.relationCandidates.candidateCount}개 · 승격 검토 ${quant.relationCandidates.promotionReviewCount}개`);
   quant.baselineFreshness = buildBaselineFreshness(context.baseline, context, previous.baselineFreshness);
   note("derived:baseline-freshness", true, `기준 서술 ${quant.baselineFreshness.total}개 · 재검증 ${quant.baselineFreshness.revalidate}개`);
-  quant.industryPulse = buildIndustryPulse(context);
-  note("official-industry:wsts-sia", quant.industryPulse.connected > 0, `공식 산업 통계 ${quant.industryPulse.connected}/${quant.industryPulse.total} 연결`);
+  quant.industrySourceChecks = await collectOfficialIndustrySourceChecks();
+  quant.industryPulse = buildIndustryPulse(context, new Date(), quant.industrySourceChecks);
+  note("derived:official-industry", true, `공식 산업 통계 연결 ${quant.industryPulse.connected}/${quant.industryPulse.total} · 최신 기사 관측 ${quant.industryPulse.observed}/${quant.industryPulse.total}`);
   quant.agentBriefing = buildAgentBriefing(context, quant);
   note("derived:agent-briefing", quant.agentBriefing.sourceCount > 0, `역할별 최신 근거 ${quant.agentBriefing.sourceCount}개 출처`);
   quant.marketStructure = buildMarketStructure(previous.marketStructure, context.baseline, quant.liveFigures);
@@ -6383,6 +6469,7 @@ async function collectQuantMetrics(priceHistory, context = {}) {
  * origin=web.archive.org and only merged into series we already track. */
 
 const ARCHIVE_BACKFILL_ERAS = [
+  { id: "30d", daysAgo: 30, windowDays: 10 },
   { id: "1q", daysAgo: 92, windowDays: 24 },
   { id: "2q", daysAgo: 183, windowDays: 30 },
   { id: "1y", daysAgo: 365, windowDays: 45 },
@@ -6432,17 +6519,115 @@ function normalizedHistoryKey(key = "") {
     .replace(/\s+/g, ""); // whitespace-insensitive: "(2gx8)3200" == "(2gx8) 3200"
 }
 
+/* Legacy-era archive sources: before ~2024 TrendForce served NAND prices at
+ * /price/flash with <h2> section headings instead of price-title divs, but the
+ * spot-price item names are identical to today's (SLC 2Gb 256MBx8, MLC 64Gb
+ * 8GBx8, 3D TLC 256Gb...). Only exact-match sections are mapped — memory-card
+ * items were named differently back then (C10/U1 vs today's plain capacity),
+ * so they are deliberately excluded to avoid cross-product contamination. */
+const ARCHIVE_LEGACY_SOURCES = [
+  {
+    pageId: "nand",
+    url: "https://www.trendforce.com/price/flash",
+    sections: [
+      { legacyTitle: "Flash Spot Price", canonicalId: "nand-nand-flash-spot-price", title: "NAND Flash Spot Price", group: "NAND / Storage" },
+    ],
+  },
+];
+
+function parseLegacyPriceTables(html, source) {
+  const sections = [];
+  for (const map of source.sections || []) {
+    // Anchor on the <h2> heading, not the first text occurrence — the same
+    // label also appears in the page's nav links before any table.
+    const headingRe = new RegExp(`<h2[^>]*>\\s*${map.legacyTitle.replace(/[.*+?^${}()|[\]\\]/g, "\\$&")}`, "i");
+    const headingMatch = headingRe.exec(html);
+    if (!headingMatch) continue;
+    const idx = headingMatch.index;
+    const nextH2 = html.indexOf("<h2", idx + headingMatch[0].length);
+    const seg = html.slice(idx, nextH2 > 0 ? nextH2 : idx + 14000);
+    const tableMatch = /<table[\s\S]*?<\/table>/i.exec(seg);
+    if (!tableMatch) continue;
+    const rowsRaw = [...tableMatch[0].matchAll(/<tr[^>]*>([\s\S]*?)<\/tr>/gi)]
+      .map((m) => [...m[1].matchAll(/<t[dh][^>]*>([\s\S]*?)<\/t[dh]>/gi)].map((c) => stripHTML(c[1])));
+    if (rowsRaw.length < 2) continue;
+    const header = rowsRaw[0];
+    const avgIdx = header.findIndex((h) => /session average|^average$/i.test(h));
+    const chgIdx = header.findIndex((h) => /session change|^change$/i.test(h));
+    if (avgIdx < 0) continue;
+    const rows = rowsRaw.slice(1)
+      .filter((r) => r.length > avgIdx && r[0] && !/^item$/i.test(r[0]))
+      .map((r) => ({
+        item: r[0],
+        average: parseNumber(r[avgIdx]),
+        averageRaw: r[avgIdx] || "",
+        changePct: chgIdx >= 0 ? parseNumber(r[chgIdx]) : null,
+        changeRaw: chgIdx >= 0 ? r[chgIdx] || "" : "",
+        direction: chgIdx >= 0 ? directionFrom(r[chgIdx]) : "flat",
+      }))
+      .filter((r) => r.average != null);
+    if (rows.length) {
+      sections.push({ id: map.canonicalId, title: map.title, group: map.group, lastUpdate: "", sourceUrl: source.url, rows });
+    }
+  }
+  return sections;
+}
+
 async function backfillPriceHistoryFromArchive(history) {
   let snapshotsFetched = 0;
   let pointsAdded = 0;
+  const backfillCap = Number(process.env.BACKFILL_MAX) > 0 ? Number(process.env.BACKFILL_MAX) : ARCHIVE_BACKFILL_MAX_SNAPSHOTS_PER_RUN;
   const normalizedIndex = new Map();
   for (const item of Object.values(history.items || {})) {
     const norm = normalizedHistoryKey(item.key);
     if (norm && !normalizedIndex.has(norm)) normalizedIndex.set(norm, item);
   }
+
+  // Merge parsed archive sections into today's tracked series; returns count.
+  const mergeArchiveSections = (sections, snapTs, sourceUrl) => {
+    const snapIso = cdxTimestampToIso(snapTs);
+    let merged = 0;
+    for (const section of sections || []) {
+      for (const row of section.rows || []) {
+        if (row.average == null && row.changePct == null) continue;
+        const key = row.historyKey || priceHistoryKey(section, row);
+        const current = history.items[key] || normalizedIndex.get(normalizedHistoryKey(key));
+        if (!current) continue; // only enrich series we track today
+        const point = {
+          date: snapIso,
+          sourceUpdate: section.lastUpdate || "",
+          crawledAt: snapIso,
+          average: row.average,
+          averageRaw: row.averageRaw || "",
+          changePct: row.changePct,
+          changeRaw: row.changeRaw || "",
+          direction: row.direction || "flat",
+          origin: "web.archive.org",
+          archiveUrl: `https://web.archive.org/web/${snapTs}/${sourceUrl}`,
+        };
+        const next = mergePricePoints(current.points, [point]);
+        if (next.length !== current.points.length) {
+          current.points = next;
+          merged += 1;
+          pointsAdded += 1;
+        }
+      }
+    }
+    return merged;
+  };
+
+  const cdxSnapshots = async (url, target, windowMs) => {
+    const cdxUrl = `https://web.archive.org/cdx/search/cdx?url=${encodeURIComponent(url)}&output=json&from=${cdxDayStamp(target - windowMs)}&to=${cdxDayStamp(target + windowMs)}&filter=statuscode:200&limit=4`;
+    const cdxRows = JSON.parse(await fetchArchiveText(cdxUrl));
+    return (Array.isArray(cdxRows) ? cdxRows.slice(1) : []).map((r) => r[1]).filter(Boolean);
+  };
+
+  const pickClosest = (snapshots, target) => snapshots
+    .map((ts) => ({ ts, diff: Math.abs(new Date(cdxTimestampToIso(ts)).getTime() - target) }))
+    .sort((a, b) => a.diff - b.diff)[0].ts;
   for (const page of PRICE_PAGES) {
     for (const era of ARCHIVE_BACKFILL_ERAS) {
-      if (snapshotsFetched >= ARCHIVE_BACKFILL_MAX_SNAPSHOTS_PER_RUN) break;
+      if (snapshotsFetched >= backfillCap) break;
       const target = Date.now() - era.daysAgo * 86400000;
       const windowMs = era.windowDays * 86400000;
       const covered = Object.values(history.items || {}).some((item) =>
@@ -6450,49 +6635,33 @@ async function backfillPriceHistoryFromArchive(history) {
         (item.points || []).some((p) => Math.abs(new Date(p.date || p.crawledAt || 0).getTime() - target) <= windowMs));
       if (covered) continue;
       try {
-        const cdxUrl = `https://web.archive.org/cdx/search/cdx?url=${encodeURIComponent(page.url)}&output=json&from=${cdxDayStamp(target - windowMs)}&to=${cdxDayStamp(target + windowMs)}&filter=statuscode:200&limit=4`;
-        const cdxRows = JSON.parse(await fetchArchiveText(cdxUrl));
-        const snapshots = (Array.isArray(cdxRows) ? cdxRows.slice(1) : []).map((r) => r[1]).filter(Boolean);
-        if (!snapshots.length) {
+        const snapshots = await cdxSnapshots(page.url, target, windowMs);
+        if (snapshots.length) {
+          const best = pickClosest(snapshots, target);
+          snapshotsFetched += 1;
+          const html = await fetchArchiveText(`https://web.archive.org/web/${best}id_/${page.url}`);
+          const merged = mergeArchiveSections(parsePriceTables(html, page), best, page.url);
+          note(`가격백필:${page.id}·${era.id}`, merged > 0, `${best.slice(0, 8)} 스냅샷 · ${merged}개 시리즈에 과거점 추가`);
+          await sleep(900);
+          continue;
+        }
+        // No snapshot of the current page URL — try the legacy-era URL whose
+        // sections map to today's series (older markup, identical item names).
+        const legacy = ARCHIVE_LEGACY_SOURCES.find((src) => src.pageId === page.id);
+        if (!legacy) {
           note(`가격백필:${page.id}·${era.id}`, true, "아카이브 스냅샷 없음 (skip)");
           continue;
         }
-        // Pick the snapshot closest to the target date.
-        const best = snapshots
-          .map((ts) => ({ ts, diff: Math.abs(new Date(cdxTimestampToIso(ts)).getTime() - target) }))
-          .sort((a, b) => a.diff - b.diff)[0].ts;
-        snapshotsFetched += 1;
-        const html = await fetchArchiveText(`https://web.archive.org/web/${best}id_/${page.url}`);
-        const parsedSections = parsePriceTables(html, page); // returns an array of sections
-        const snapIso = cdxTimestampToIso(best);
-        let merged = 0;
-        for (const section of parsedSections || []) {
-          for (const row of section.rows || []) {
-            if (row.average == null && row.changePct == null) continue;
-            const key = row.historyKey || priceHistoryKey(section, row);
-            const current = history.items[key] || normalizedIndex.get(normalizedHistoryKey(key));
-            if (!current) continue; // only enrich series we track today
-            const point = {
-              date: snapIso,
-              sourceUpdate: section.lastUpdate || "",
-              crawledAt: snapIso,
-              average: row.average,
-              averageRaw: row.averageRaw || "",
-              changePct: row.changePct,
-              changeRaw: row.changeRaw || "",
-              direction: row.direction || "flat",
-              origin: "web.archive.org",
-              archiveUrl: `https://web.archive.org/web/${best}/${page.url}`,
-            };
-            const next = mergePricePoints(current.points, [point]);
-            if (next.length !== current.points.length) {
-              current.points = next;
-              merged += 1;
-              pointsAdded += 1;
-            }
-          }
+        const legacySnapshots = await cdxSnapshots(legacy.url, target, windowMs);
+        if (!legacySnapshots.length) {
+          note(`가격백필:${page.id}·${era.id}`, true, "현행·레거시 URL 모두 스냅샷 없음 (skip)");
+          continue;
         }
-        note(`가격백필:${page.id}·${era.id}`, merged > 0, `${best.slice(0, 8)} 스냅샷 · ${merged}개 시리즈에 과거점 추가`);
+        const bestLegacy = pickClosest(legacySnapshots, target);
+        snapshotsFetched += 1;
+        const legacyHtml = await fetchArchiveText(`https://web.archive.org/web/${bestLegacy}id_/${legacy.url}`);
+        const mergedLegacy = mergeArchiveSections(parseLegacyPriceTables(legacyHtml, legacy), bestLegacy, legacy.url);
+        note(`가격백필:${page.id}·${era.id}·legacy`, mergedLegacy > 0, `${bestLegacy.slice(0, 8)} 레거시 스냅샷 · ${mergedLegacy}개 시리즈에 과거점 추가`);
       } catch (error) {
         note(`가격백필:${page.id}·${era.id}`, false, error.message);
       }
@@ -6574,6 +6743,12 @@ async function main() {
   appendQuantHistory(marketHistory, quant);
   quant.validatedAt = new Date().toISOString();
   quant.expiresAt = new Date(Date.now() + 26 * 60 * 60 * 1000).toISOString();
+  for (const key of ["accountSignals", "agentBriefing", "relationCandidates", "baselineFreshness", "industryPulse"]) {
+    if (!quant[key] || typeof quant[key] !== "object") continue;
+    quant[key].runId = runId;
+    quant[key].validatedAt = quant.validatedAt;
+    quant[key].expiresAt = quant.expiresAt;
+  }
   quant.historyCoverage = quantHistoryCoverage(priceHistory, marketHistory);
   const sourceRegistry = buildSourceRegistry({ prices, news, communitySignals, brokerResearch, facts, marketHistory, quant });
   const okCount = health.filter((item) => item.ok).length;
@@ -6666,7 +6841,9 @@ if (process.env.BACKFILL_DEBUG) {
   process.exit(0);
 }
 
-main().catch((error) => {
-  console.error("크롤러 치명적 오류:", error);
-  process.exit(1);
-});
+if (process.argv[1] && import.meta.url === pathToFileURL(resolve(process.argv[1])).href) {
+  main().catch((error) => {
+    console.error("크롤러 치명적 오류:", error);
+    process.exit(1);
+  });
+}

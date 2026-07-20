@@ -1988,27 +1988,45 @@
     {
       id: "wuxi-operations",
       scenarioIds: ["operate"],
-      kicker: "01 · WUXI OPERATIONS",
-      title: "현장 운영은 현지화하고 핵심 변경 권한은 분리",
-      body: "장비 PM·utility·EHS는 현장 대응 체계로 묶고, recipe·수율 데이터와 공정 변경은 역할별 최소 권한과 승인선으로 통제합니다.",
+      kicker: "01 · 无锡 · DRAM FAB OPERATIONS",
+      title: "우시 DRAM은 현장 대응과 공정 변경 권한을 분리",
+      body: "장비 PM·유틸리티·EHS는 현지 대응 속도를 높이고, recipe·수율·설비 변경은 최소 권한과 이중 승인으로 통제합니다.",
+      brandLabel: "CHINA MEMORY ECOSYSTEM · 无锡 CLUSTER",
+      brands: [
+        { mark: "SK", name: "SK hynix", local: "无锡", primary: true },
+        { mark: "CX", name: "CXMT", local: "长鑫存储" },
+        { mark: "北", name: "NAURA", local: "北方华创" },
+      ],
       source: "BIS",
       href: "https://www.bis.gov/press-release/department-commerce-closes-export-controls-loophole-foreign-owned-semiconductor-fabs-china",
     },
     {
       id: "dalian-quality",
       scenarioIds: ["nand-essd", "defense"],
-      kicker: "02 · RECIPE & IP CONTROL",
-      title: "NAND·eSSD 운영을 이어가되 핵심 IP 접근은 분리",
-      body: "FA·reliability·customer quality는 현장 대응을 강화하고, 펌웨어·recipe·수율 분석 권한은 승인 기반으로 분리합니다.",
+      kicker: "02 · 大连 · NAND / eSSD QUALITY",
+      title: "다롄 NAND·eSSD는 고객 품질 대응과 핵심 IP를 분리",
+      body: "FA·신뢰성·펌웨어 대응은 고객 가까이 두되, recipe·펌웨어 소스·수율 분석 데이터는 승인 기반으로 접근합니다.",
+      brandLabel: "CHINA MEMORY ECOSYSTEM · 大连 CLUSTER",
+      brands: [
+        { mark: "SO", name: "Solidigm", local: "大连", primary: true },
+        { mark: "YM", name: "YMTC", local: "长江存储" },
+        { mark: "江", name: "Longsys", local: "江波龙" },
+      ],
       source: "Intel 8-K",
       href: "https://www.intc.com/filings-reports/all-sec-filings/content/0000050863-25-000060/0000050863-25-000060.pdf",
     },
     {
       id: "chongqing-packaging",
       scenarioIds: ["infra-packaging"],
-      kicker: "03 · QUALITY & TRACEABILITY",
-      title: "고객 품질 대응은 계측·lot 추적·변경관리로 연결",
-      body: "패키징·테스트 인력은 현장 문제 해결에 집중하고, 불량 분석·lot 이력·변경 승인 증빙을 하나의 대응 흐름으로 남깁니다.",
+      kicker: "03 · 重庆 · PACKAGE / TEST TRACEABILITY",
+      title: "충칭 후공정은 lot 추적성과 변경 증빙으로 지킨다",
+      body: "패키징·테스트 인력은 불량 분석과 납기 대응에 집중하고, lot 이력·계측 결과·공정 변경 승인을 하나의 흐름으로 남깁니다.",
+      brandLabel: "CHINA MEMORY ECOSYSTEM · 重庆 CLUSTER",
+      brands: [
+        { mark: "SK", name: "SK hynix", local: "重庆", primary: true },
+        { mark: "JC", name: "JCET", local: "长电科技" },
+        { mark: "通", name: "TFME", local: "通富微电" },
+      ],
       source: "SK hynix Offices",
       href: "https://www.skhynix.com/company/UI-FR-CP06/",
     },
@@ -2842,12 +2860,34 @@
         : `${fmtNum(ageHours, ageHours < 10 ? 1 : 0)}시간 전`;
     const q = QUANT || {};
     const chips = [];
-    if (Number.isFinite(q.fx?.usdkrw?.value)) chips.push(`USD/KRW ${fmtNum(q.fx.usdkrw.value, 0)}`);
-    if (Number.isFinite(q.aiDemandProxy?.nvda?.changePct90d)) chips.push(`NVDA 90d ${q.aiDemandProxy.nvda.changePct90d > 0 ? "+" : ""}${fmtNum(q.aiDemandProxy.nvda.changePct90d, 1)}%`);
-    if (Number.isFinite(q.foundry?.tsmcMonthly?.yoyPct)) chips.push(`TSMC 월매출 YoY ${q.foundry.tsmcMonthly.yoyPct > 0 ? "+" : ""}${fmtNum(q.foundry.tsmcMonthly.yoyPct, 1)}%`);
+    const trendItems = [
+      {
+        id: "usdkrw",
+        label: Number.isFinite(Number(q.fx?.usdkrw?.value)) ? `USD/KRW ${fmtNum(q.fx.usdkrw.value, 0)}` : "USD/KRW",
+        points: q.fx?.usdkrw?.history30d?.points || [],
+      },
+      {
+        id: "nvda",
+        label: Number.isFinite(Number(q.aiDemandProxy?.nvda?.changePct90d)) ? `NVDA 90d ${q.aiDemandProxy.nvda.changePct90d > 0 ? "+" : ""}${fmtNum(q.aiDemandProxy.nvda.changePct90d, 1)}%` : "NVDA",
+        points: q.aiDemandProxy?.nvda?.history30d?.points || [],
+      },
+      {
+        id: "tsmc-yoy",
+        label: Number.isFinite(Number(q.foundry?.tsmcMonthly?.yoyPct)) ? `TSMC YoY ${q.foundry.tsmcMonthly.yoyPct > 0 ? "+" : ""}${fmtNum(q.foundry.tsmcMonthly.yoyPct, 1)}%` : "TSMC YoY",
+        points: q.foundry?.tsmcMonthly?.yoyHistory?.points || [],
+      },
+    ].map((item) => {
+      const values = item.points.map((point) => Number(point.value)).filter(Number.isFinite);
+      const direction = values.length > 1 ? (values.at(-1) > values[0] ? "up" : values.at(-1) < values[0] ? "down" : "flat") : "flat";
+      return { ...item, values, direction };
+    });
     if (Number.isFinite(q.memoryMomentum?.dramSpot30dPct)) chips.push(`DRAM spot 30d ${q.memoryMomentum.dramSpot30dPct > 0 ? "+" : ""}${fmtNum(q.memoryMomentum.dramSpot30dPct, 1)}%`);
     if (Number.isFinite(q.fundamentals?.micron?.revenue?.value)) chips.push(`Micron 분기매출 $${fmtNum(q.fundamentals.micron.revenue.value / 1e9, 1)}B`);
     if (Number(q.liveFigures?.total) > 0) chips.push(`원문 정량수치 ${fmtNum(q.liveFigures.total)}건`);
+    const industryPulse = verifiedDerivedContract("industryPulse", "1.0");
+    const baselineFreshness = verifiedDerivedContract("baselineFreshness", "2.2");
+    if (Number(industryPulse?.total) > 0) chips.push(`WSTS·SIA 연결 ${fmtNum(industryPulse.connected)}/${fmtNum(industryPulse.total)} · 최신 관측 ${fmtNum(industryPulse.observed)}`);
+    if (Number(baselineFreshness?.total) > 0) chips.push(`기준 재검증 ${fmtNum(baselineFreshness.revalidate)} · 모순후보 ${fmtNum(baselineFreshness.conflictCandidates)}`);
     const forecastChecks = q.forecastInputs?.sourceChecks || {};
     if (Number(forecastChecks.total) > 0) {
       chips.push(`수요 원문 ${fmtNum(forecastChecks.ok)}/${fmtNum(forecastChecks.total)} 확인`);
@@ -2865,9 +2905,20 @@
       ${totalCount ? `<span class="hb-item">소스 ${fmtNum(okCount)}/${fmtNum(totalCount)} 정상</span>` : ""}
       ${failed.length ? `<span class="hb-item fail" title="${escapeHTML(failed.slice(0, 6).join(", "))}">실패 ${fmtNum(failed.length)}건</span>` : ""}
       ${alerts.length ? `<span class="hb-item fail" title="${escapeHTML(alerts.join(", "))}">3회 연속 실패 ${fmtNum(alerts.length)}건</span>` : ""}
+      ${trendItems.map((item) => `<span class="hb-chip hb-trend" data-hb-trend="${escapeHTML(item.id)}"><span>${escapeHTML(item.label)}</span></span>`).join("")}
       ${chips.map((chip) => `<span class="hb-chip">${escapeHTML(chip)}</span>`).join("")}
       <span class="hb-item">매일 06·18시 KST 자동 크롤링</span>
     `;
+    trendItems.forEach((item) => {
+      const node = strip.querySelector(`[data-hb-trend="${item.id}"]`);
+      if (!node) return;
+      const chart = sparkline(item.values, item.direction);
+      chart.classList.add("hb-spark");
+      node.appendChild(chart);
+      node.title = item.points.length > 1
+        ? `${item.points[0]?.date || ""}~${item.points.at(-1)?.date || ""} · ${fmtNum(item.points.length)}개 관측`
+        : "히스토리 누적 전";
+    });
   }
 
   // Live quantitative figures: verbatim numbers pulled from today's crawled
@@ -4016,15 +4067,6 @@
       shareNote: "검증값과 계획 모델을 분리",
       dramLabel: "서버 DRAM", nandLabel: "eSSD NAND",
       driverLabel: "CapEx 방향", techLabel: "자체 가속기", pullLabel: "HBM 견인도", panelTitle: "하이퍼스케일러별 수요 풀",
-      accounts: [
-        { id: "azure", name: "Microsoft · Azure", region: "US", driver: "↑↑ 최상", tech: "Maia 200", pull: 96, note: "OpenAI 학습·추론 동시 확장. HBM4 최우선 고객군, 서버 DRAM 동반 최대." },
-        { id: "aws", name: "Amazon · AWS", region: "US", driver: "↑↑ 최상", tech: "Trainium2/3", pull: 90, note: "자체 ASIC 확대 = HBM 직접 조달 + NVIDIA 간접 수요. eSSD 대량." },
-        { id: "google", name: "Google Cloud", region: "US", driver: "↑ 강", tech: "TPU v7 Ironwood", pull: 88, note: "TPU HBM 자체 조달 규모가 커 SKHY·삼성 물량 배분의 핵심 변수." },
-        { id: "meta", name: "Meta", region: "US", driver: "↑↑ 최상", tech: "MTIA", pull: 84, note: "추론·추천 가속 = 서버 DRAM·HBM 동반. 자본 여력 높아 Bull 민감도 큼." },
-        { id: "oracle", name: "Oracle · OpenAI(Stargate)", region: "US", driver: "↑↑↑ 신규", tech: "NVIDIA 중심", pull: 80, note: "대형 신규 수요이나 착공·자금 가시성 낮음 → 계약 확정 전 Watch." },
-        { id: "xai", name: "xAI", region: "US", driver: "↑↑ 급증", tech: "NVIDIA", pull: 68, note: "Colossus 확장 공격적, 전력·부지 제약이 실제 출하의 상한." },
-        { id: "china", name: "중국(Alibaba·Tencent·ByteDance)", region: "CN", driver: "↑ 제한", tech: "자체·H20·국산", pull: 58, note: "수출통제로 SKHY 직접 노출 제한. CXMT/국산 HBM 대체 압력을 별도 경보로 관리." },
-      ],
       assume: [
         "가속기 출하 기준선은 quant.json의 날짜·원문이 검증된 외부 관측값을 사용하며 확정 출하량으로 간주하지 않음",
         "가속기 세대별 출하 믹스와 공급사별 HBM4 배분은 서로 다른 지표로 분리",
@@ -4040,14 +4082,6 @@
       shareNote: "오토향 계획 모델",
       dramLabel: "차량 DRAM", nandLabel: "차량 NAND",
       driverLabel: "생산 방향", techLabel: "ADAS/SDV", pullLabel: "메모리 견인도", panelTitle: "완성차·Tier1 수요 풀",
-      accounts: [
-        { id: "tesla", name: "Tesla", region: "US", driver: "↑ 강", tech: "FSD HW5", pull: 88, note: "FSD·추론용 고용량 메모리. 차량당 DRAM 최상위 견인." },
-        { id: "byd", name: "BYD", region: "CN", driver: "↑↑ 최상", tech: "자체 ADAS", pull: 74, note: "판매량 세계 1위 EV. 중국 내수 + 국산 메모리 병행." },
-        { id: "hyundai", name: "Hyundai · Kia", region: "KR", driver: "↑ 강", tech: "Pleos SDV", pull: 66, note: "SDV·자율주행 투자 확대, 국내 공급망 연계." },
-        { id: "tier1", name: "Bosch · Continental(Tier1)", region: "EU", driver: "↑ 공급", tech: "도메인 컨트롤러", pull: 70, note: "존/도메인 컨트롤러가 차량용 DRAM 집적도를 끌어올림." },
-        { id: "vw", name: "Volkswagen", region: "EU", driver: "→ 정체", tech: "Zonal E/E", pull: 60, note: "SDV 전환 지연, 존아키텍처 채택 속도가 변수." },
-        { id: "toyota", name: "Toyota", region: "JP", driver: "→ 점진", tech: "HEV 중심", pull: 56, note: "하이브리드 중심, ADAS 고도화는 점진적." },
-      ],
       assume: [
         "차량용은 온도·수명 인증(AEC-Q) 때문에 세대 전환이 서버보다 느림",
         "총수요 = 신차 생산 × 차량당 메모리; ADAS 레벨 상승이 탑재량 견인",
@@ -4063,13 +4097,6 @@
       shareNote: "모바일 DRAM 계획 모델",
       dramLabel: "LPDDR", nandLabel: "UFS NAND",
       driverLabel: "출하 방향", techLabel: "온디바이스 AI", pullLabel: "메모리 견인도", panelTitle: "스마트폰 브랜드 수요 풀",
-      accounts: [
-        { id: "apple", name: "Apple", region: "US", driver: "→ 견조", tech: "Apple Intelligence", pull: 82, note: "온디바이스 AI로 기본 DRAM 8→12GB 상향 견인." },
-        { id: "samsung-mx", name: "Samsung MX", region: "KR", driver: "→ 견조", tech: "Galaxy AI", pull: 78, note: "Galaxy AI 탑재 확대, 자사 메모리 우선 조달." },
-        { id: "xiaomi", name: "Xiaomi", region: "CN", driver: "↑ 강", tech: "HyperAI", pull: 70, note: "중국 플래그십 12~16GB 상향, 가격 민감." },
-        { id: "oppo-vivo", name: "Oppo · Vivo", region: "CN", driver: "↑ 강", tech: "온디바이스 LLM", pull: 66, note: "중국 내수 온디바이스 AI 채택 가속." },
-        { id: "transsion", name: "Transsion", region: "CN", driver: "↑ 신흥", tech: "엔트리", pull: 46, note: "신흥시장 저용량 중심 → 견인도 낮음." },
-      ],
       assume: [
         "IDC의 날짜·원문이 검증된 최신 출하 관측값을 기준선으로 사용",
         "총수요 = 스마트폰 출하 × 대당 LPDDR 용량; 온디바이스 AI 상향을 반영하고 UFS NAND는 별도 성장률로 표시",
@@ -4085,12 +4112,6 @@
       shareNote: "PC DRAM 계획 모델",
       dramLabel: "PC DRAM", nandLabel: "클라이언트 SSD",
       driverLabel: "출하 방향", techLabel: "AI PC", pullLabel: "메모리 견인도", panelTitle: "PC OEM 수요 풀",
-      accounts: [
-        { id: "lenovo", name: "Lenovo", region: "CN", driver: "↑ 강", tech: "Copilot+ AI PC", pull: 80, note: "AI PC 전환 = 16GB 기본화, LPCAMM 채택 선도." },
-        { id: "dell", name: "Dell", region: "US", driver: "↑ 강", tech: "AI PC+엣지서버", pull: 76, note: "상용 AI PC + 엣지 서버 동반 수요." },
-        { id: "hp", name: "HP", region: "US", driver: "↑ 교체", tech: "AI PC", pull: 74, note: "상용 교체 수요, Win 전환 겹침." },
-        { id: "apple-mac", name: "Apple Mac", region: "US", driver: "→ 견조", tech: "M-series 통합메모리", pull: 72, note: "통합메모리 고용량, 자체 SoC 조달." },
-      ],
       assume: [
         "IDC의 날짜·원문이 검증된 최신 PC 출하 관측값을 기준선으로 사용하며 가전 출하는 포함하지 않음",
         "총수요 = PC 출하 × 대당 PC DRAM; 클라이언트 SSD는 별도 성장률로 표시",
@@ -4106,13 +4127,6 @@
       shareNote: "서버 DRAM/eSSD 계획 모델",
       dramLabel: "서버 DRAM", nandLabel: "eSSD NAND",
       driverLabel: "증설 방향", techLabel: "스토리지 사양", pullLabel: "메모리 견인도", panelTitle: "데이터센터·스토리지 수요 풀",
-      accounts: [
-        { id: "azure-st", name: "Azure Storage", region: "US", driver: "↑↑ 최상", tech: "QLC eSSD", pull: 90, note: "AI 데이터레이크·체크포인트 = eSSD 대량, 서버 DRAM 동반." },
-        { id: "aws-st", name: "AWS Storage", region: "US", driver: "↑↑ 최상", tech: "Nitro/eSSD", pull: 88, note: "S3·벡터DB 확장, 고용량 서버 DRAM 동반." },
-        { id: "solidigm-dc", name: "Solidigm(SKHY)", region: "KR", driver: "↑ 공급", tech: "QLC eSSD", pull: 82, note: "SKHY 자회사, eSSD value-up 직접 수혜." },
-        { id: "google-st", name: "Google Storage", region: "US", driver: "↑ 강", tech: "TPU 데이터 스테이징", pull: 78, note: "TPU 파이프라인 데이터 스테이징 수요." },
-        { id: "china-dc", name: "중국 클라우드 스토리지", region: "CN", driver: "↑ 국산", tech: "국산 eSSD", pull: 60, note: "수출통제로 국산 NAND 대체 압력, SKHY 직접 노출 제한." },
-      ],
       assume: [
         "전체 서버 출하는 날짜·원문이 검증된 최신 관측값을 기준선으로 사용하고 보조 출처로 방향성을 교차 확인",
         "총수요 = 서버 출하 × 노드당 서버 DRAM; eSSD NAND는 별도 성장률로 표시",
@@ -4147,6 +4161,24 @@
     }
   }
 
+  function verifiedDerivedContract(key, schemaVersion) {
+    const contract = QUANT?.[key];
+    const sameRun = Boolean(QUANT?.runId && LIVE?.runId && QUANT.runId === LIVE.runId);
+    const expiresAt = Date.parse(String(contract?.expiresAt || QUANT?.expiresAt || ""));
+    const fresh = !Number.isFinite(expiresAt) || Date.now() <= expiresAt;
+    if (!contract || contract.schemaVersion !== schemaVersion || contract.runId !== QUANT?.runId || !sameRun || !fresh) return null;
+    return contract;
+  }
+
+  function verifiedDemandAccounts(categoryId) {
+    const signals = verifiedDerivedContract("accountSignals", "2.0");
+    if (!signals || Number(signals.accountCount) !== 27) return [];
+    return Object.values(signals?.accounts || {})
+      .filter((account) => account?.category === categoryId)
+      .filter((account) => account?.id && account?.name)
+      .map((account) => ({ id: account.id, name: account.name }));
+  }
+
   function liveForecastCategories() {
     const inputs = QUANT?.forecastInputs?.categories || {};
     return FORECAST_CATEGORIES.map((category) => {
@@ -4173,6 +4205,7 @@
       const source = unitInput?.source || category.source;
       return {
         ...category,
+        accounts: verifiedDemandAccounts(category.id),
         ...values,
         available: Object.values(values).every(Number.isFinite) && Object.values(ready).every(Boolean),
         inputReadiness: ready,
@@ -4329,19 +4362,15 @@
 
   // Today's crawled mention/direction signal for a demand-pool account.
   function forecastAccountSignal(account) {
-    return QUANT?.accountSignals?.accounts?.[account?.id] || null;
+    return verifiedDerivedContract("accountSignals", "2.0")?.accounts?.[account?.id] || null;
   }
 
   function forecastAccountPull(account, scenario = forecastScenarioData()) {
-    const tilt = scenario.id === "bull" ? 1.12 : scenario.id === "bear" ? 0.82 : 1;
-    // Live nudge from today's crawl: mentions add weight, direction words tilt.
-    // Bounded ±8 so news flow adjusts the static prior without replacing it.
     const signal = forecastAccountSignal(account);
-    const liveNudge = signal
-      ? clamp(Math.min(signal.mentions, 6) * 0.8 + (signal.direction === "up" ? 4 : signal.direction === "down" ? -4 : 0), -8, 8)
-      : 0;
-    const capped = account.region === "CN" ? Math.min(account.pull * tilt + liveNudge, 70) : account.pull * tilt + liveNudge;
-    return Math.round(clamp(capped, 8, 100));
+    const liveScore = Number(signal?.pullScore);
+    if (signal?.status !== "live" || !Number.isFinite(liveScore)) return null;
+    const tilt = scenario.id === "bull" ? 1.08 : scenario.id === "bear" ? 0.9 : 1;
+    return Math.round(clamp(liveScore * tilt, 0, 100));
   }
 
   function renderHyperscalerDemand() {
@@ -4360,7 +4389,7 @@
     const category = forecastCategoryData();
     const scenario = forecastScenarioData();
     const d = forecastDrivers(category, scenario);
-    const accounts = category.accounts;
+    const accounts = category.accounts || [];
     if (!d.available) {
       if (meta) meta.textContent = `${category.label} · 검증 가능한 정량 입력 수집 중`;
       if (panelTitle) panelTitle.textContent = category.panelTitle;
@@ -4427,20 +4456,27 @@
       <article class="hs-readout"><span>경영 판단</span><strong>${escapeHTML(scenario.readout)}</strong></article>
     `;
 
+    if (!accounts.length) {
+      grid.innerHTML = `<div class="empty">동일 실행 ID와 유효기간을 통과한 27개 수요처 라이브 레지스트리가 없습니다.</div>`;
+      if (focus) focus.innerHTML = "";
+      if (assumptions) assumptions.innerHTML = "";
+      return;
+    }
     const focusId = accounts.some((a) => a.id === hyperscalerFocusId) ? hyperscalerFocusId : accounts[0].id;
     grid.innerHTML = accounts.map((account, i) => {
       const pull = forecastAccountPull(account, scenario);
       const signal = forecastAccountSignal(account);
-      const signalBadge = signal
+      const hasPull = Number.isFinite(pull);
+      const signalBadge = signal?.status === "live"
         ? `<span class="hs-signal ${escapeHTML(signal.direction)}">${signal.direction === "up" ? "▲" : signal.direction === "down" ? "▼" : "•"} 오늘 뉴스 ${fmtNum(signal.mentions)}건</span>`
-        : "";
+        : `<span class="hs-signal insufficient">최근 30일 근거 없음</span>`;
       return `
-        <button class="hs-card ${account.id === focusId ? "active" : ""} reveal" type="button" data-hs-account="${escapeHTML(account.id)}" style="--delay:${i * 40}ms; --pull:${pull}%">
-          <span class="hs-card-top"><em>${escapeHTML(account.region)}</em><b>${escapeHTML(category.driverLabel)} ${escapeHTML(account.driver)}</b></span>
+        <button class="hs-card ${account.id === focusId ? "active" : ""} reveal${hasPull ? "" : " insufficient"}" type="button" data-hs-account="${escapeHTML(account.id)}" style="--delay:${i * 40}ms; --pull:${hasPull ? pull : 0}%">
+          <span class="hs-card-top"><em>${signal?.status === "live" ? `${fmtNum(signal.sourceCount)}개 출처` : "30D"}</em><b>${escapeHTML(category.driverLabel)} ${escapeHTML(signal?.driverLabel || "근거 부족")}</b></span>
           <strong>${escapeHTML(account.name)}</strong>
-          <small>${escapeHTML(category.techLabel)} · ${escapeHTML(account.tech)}</small>
-          <div class="hs-pull"><i style="width:${pull}%"></i></div>
-          <span class="hs-pull-label">${escapeHTML(category.pullLabel)} ${fmtNum(pull)}/100${signalBadge}</span>
+          <small>${signal?.latest ? `${escapeHTML(signal.latest.source)} · ${escapeHTML(signal.latest.date || "날짜 미상")}` : "직접 연결 근거 대기"}</small>
+          <div class="hs-pull"><i style="width:${hasPull ? pull : 0}%"></i></div>
+          <span class="hs-pull-label">${escapeHTML(category.pullLabel)} ${hasPull ? `${fmtNum(pull)}/100` : "N/A"}${signalBadge}</span>
         </button>
       `;
     }).join("");
@@ -4449,22 +4485,23 @@
       const account = accounts.find((a) => a.id === focusId) || accounts[0];
       const pull = forecastAccountPull(account, scenario);
       const signal = forecastAccountSignal(account);
-      const signalHTML = signal
+      const hasPull = Number.isFinite(pull);
+      const signalHTML = signal?.status === "live"
         ? `<div class="hs-focus-signal">
             <b>오늘 크롤링 신호</b>
             <span>언급 ${fmtNum(signal.mentions)}건 · 확장어 ${fmtNum(signal.up)} · 축소어 ${fmtNum(signal.down)} · 방향 ${signal.direction === "up" ? "▲ 확대" : signal.direction === "down" ? "▼ 축소" : "→ 중립"}</span>
-            ${signal.latest ? `<a href="${escapeHTML(signal.latest.url || "#")}" target="_blank" rel="noopener">"${escapeHTML(signal.latest.title)}" — ${escapeHTML(signal.latest.source)} ${escapeHTML(signal.latest.date || "")} ↗</a>` : ""}
+            ${(signal.evidence || []).map((item) => `<a href="${escapeHTML(item.url)}" target="_blank" rel="noopener">${escapeHTML(item.title)} — ${escapeHTML(item.source)} ${escapeHTML(item.date || "")} ↗</a>`).join("")}
           </div>`
-        : `<div class="hs-focus-signal idle"><b>오늘 크롤링 신호</b><span>오늘 수집 기사에서 직접 언급 없음 · 정적 프로파일 기준</span></div>`;
+        : `<div class="hs-focus-signal idle"><b>라이브 근거 대기</b><span>최근 30일 직접 근거 없음 · 고정 방향·고정 점수로 대체하지 않음</span></div>`;
       focus.innerHTML = `
-        <span class="hs-focus-tag">${escapeHTML(account.region)} · 수요 심층</span>
+        <span class="hs-focus-tag">${escapeHTML(category.label)} · 수요 심층</span>
         <strong>${escapeHTML(account.name)}</strong>
         <div class="hs-focus-metrics">
-          <span><b>${escapeHTML(account.driver)}</b><small>${escapeHTML(category.driverLabel)}</small></span>
-          <span><b>${escapeHTML(account.tech)}</b><small>${escapeHTML(category.techLabel)}</small></span>
-          <span><b>${fmtNum(pull)}/100</b><small>${escapeHTML(category.pullLabel)}</small></span>
+          <span><b>${escapeHTML(signal?.driverLabel || "근거 부족")}</b><small>${escapeHTML(category.driverLabel)}</small></span>
+          <span><b>${escapeHTML(signal?.latest?.date || "N/A")}</b><small>최근 근거일</small></span>
+          <span><b>${hasPull ? `${fmtNum(pull)}/100` : "N/A"}</b><small>${escapeHTML(category.pullLabel)}</small></span>
         </div>
-        <p>${escapeHTML(account.note)}</p>
+        <p>${escapeHTML(signal?.note || "직접 근거가 쌓일 때까지 계정 해석을 보류합니다.")}</p>
         ${signalHTML}
         <small class="hs-focus-note">${escapeHTML(scenario.label)} · Insight</small>
       `;
@@ -6936,6 +6973,58 @@
     `;
   }
 
+  function dailyAgentRoleKey(agent = {}) {
+    const id = String(agent.id || "").toLowerCase();
+    const name = String(agent.name || agent.role || "").toLowerCase();
+    if (id === "brief") return "brief";
+    if (/auditor|audit|evidence|검증/.test(`${id} ${name}`)) return "audit";
+    if (/devil|red team|레드팀|반론/.test(`${id} ${name}`)) return "devil";
+    if (/china|중국/.test(`${id} ${name}`)) return "china";
+    if (/policy|정책/.test(`${id} ${name}`)) return "policy";
+    if (/market|sales|customer|시장/.test(`${id} ${name}`)) return "market";
+    if (/risk|리스크/.test(`${id} ${name}`)) return "risk";
+    if (/cto|technology|기술/.test(`${id} ${name}`)) return "cto";
+    if (/cfo|finance|재무/.test(`${id} ${name}`)) return "cfo";
+    if (/coo|operations|운영/.test(`${id} ${name}`)) return "coo";
+    if (/cso|strategy|전략/.test(`${id} ${name}`)) return "strategy";
+    if (/data|quant|수치/.test(`${id} ${name}`)) return "data";
+    if (/ceo|executive|최종/.test(`${id} ${name}`)) return "ceo";
+    return "brief";
+  }
+
+  function withDailyAgentEvidence(agent = {}) {
+    if (agent.dailyGrounded) return agent;
+    const roleKey = dailyAgentRoleKey(agent);
+    const evidence = verifiedDerivedContract("agentBriefing", "1.0")?.roles?.[roleKey];
+    const roleLens = {
+      ceo: "이 근거가 오늘 안건의 최종 의사결정 조건을 충족하는지 판단합니다.",
+      cfo: "재무 관점에서는 가격·매출·투자 약정의 현금흐름 영향을 다시 계산해야 합니다.",
+      cto: "기술 관점에서는 수율·대역폭·패키징 병목과 양산 가능성을 검증해야 합니다.",
+      coo: "운영 관점에서는 생산능력·출하·공급 일정에 미치는 영향을 확인해야 합니다.",
+      policy: "정책 관점에서는 수출 통제·허가·규제 변화의 적용 범위를 확인해야 합니다.",
+      china: "중국 경쟁 관점에서는 CXMT·YMTC의 고객·캐파·국산화 신호와 교차 확인해야 합니다.",
+      market: "시장 관점에서는 가격·출하·고객 수요의 방향이 같은지 교차 확인해야 합니다.",
+      risk: "리스크 관점에서는 지연·감산·공급과잉의 반증 조건을 우선 확인해야 합니다.",
+      devil: "반대 관점에서는 이 근거만으로 결론을 확정할 수 없는 조건을 먼저 찾습니다.",
+      audit: "감사 관점에서는 공시·공식 통계와 직접 대조된 범위만 사실로 사용합니다.",
+      data: "데이터 관점에서는 단위·기준일·계산식이 확인된 수치만 비교합니다.",
+      strategy: "전략 관점에서는 점유율·고객 인증·경쟁 구도가 바뀌는지를 판단합니다.",
+      cso: "전략 관점에서는 점유율·고객 인증·경쟁 구도가 바뀌는지를 판단합니다.",
+      brief: "오늘 브리핑은 이 직접 근거를 안건의 출발점으로 사용합니다.",
+    };
+    if (evidence?.status !== "live" || !/^https?:\/\//i.test(String(evidence.sourceUrl || ""))) {
+      return { ...agent, dailyGrounded: true, message: `오늘 ${agent.name || agent.role || "해당 역할"}에 연결된 직접 근거가 없어 판단을 보류합니다.` };
+    }
+    const quote = String(evidence.quote || evidence.title || "").replace(/\s+/g, " ").trim();
+    const value = evidence.value ? ` 핵심 수치 ${evidence.value}.` : "";
+    return {
+      ...agent,
+      dailyGrounded: true,
+      message: `오늘 근거(${evidence.date}): “${quote}” — ${evidence.source}.${value} ${roleLens[roleKey] || roleLens.brief}`,
+      source: { url: evidence.sourceUrl, title: `${evidence.source} · ${evidence.date}` },
+    };
+  }
+
   // Compose the council's opening data briefing from today's crawl:
   // memory momentum (honest windows), FX/market chips, and up to two verbatim
   // figures relevant to the selected agenda — each with source + date.
@@ -6962,20 +7051,14 @@
       const hay = `${f.snippet || ""} ${f.contextKo || ""}`.toLowerCase();
       return terms.some((t) => t.length > 2 && hay.includes(t));
     });
-    const quoted = (relevant.length ? relevant : figures).slice(0, 2);
+    const quoted = relevant.slice(0, 2);
     for (const fig of quoted) {
-      // Quote the sentence that actually contains the number (never the article
-      // title) so the figure is never attributed to a different claim.
-      const snippet = String(fig.snippet || "");
-      const idx = snippet.indexOf(fig.value);
-      const label = idx >= 0
-        ? snippet.slice(Math.max(0, idx - 34), idx + String(fig.value).length + 36).trim()
-        : snippet.slice(0, 70);
-      parts.push(`원문 수치 ==${fig.value}== — "…${String(label).slice(0, 80)}…" (${fig.source || "출처"}${fig.date ? ` ${fig.date}` : ""})`);
+      const label = String(fig.snippet || fig.contextKo || "").replace(/\s+/g, " ").trim();
+      parts.push(`원문 수치 ==${fig.value}== — "${label}" (${fig.source || "출처"}${fig.date ? ` ${fig.date}` : ""})`);
     }
     if (!parts.length) return null;
     const asOf = q.updatedAt ? String(q.updatedAt).slice(0, 10) : (LIVE?.updatedAt ? String(LIVE.updatedAt).slice(0, 10) : "");
-    return `오늘(${asOf}) 크롤링 기준 브리핑입니다. ${parts.join(" · ")}. 모든 수치는 원문 그대로이며, 오늘 숫자를 기준선으로 토론을 시작합니다.`;
+    return `오늘(${asOf}) 크롤링 기준 브리핑입니다. ${parts.join(" · ")}. 원문 관측값과 히스토리 계산값을 구분해 표시하며, 연결된 근거를 기준으로 토론을 시작합니다.`;
   }
 
   function cLevelAgentItems(decision = {}, decisions = [], scenario = agentFutureScenario()) {
@@ -7178,7 +7261,8 @@
           wrongRisk: 100 - agentConfidence,
           source: ["audit", "market", "policy", "china", "ceo"].includes(agent.id) ? primarySource : null,
         };
-      });
+      })
+      .map((agent) => withDailyAgentEvidence(agent));
   }
 
   function cLevelCouncilConclusion(decision = {}, scenario = agentFutureScenario()) {
@@ -8937,6 +9021,50 @@
     ];
   }
 
+  function memoryMarketCandidateEdges(manualEdges = []) {
+    const nodes = new Map(memoryMarketNodes().map((node) => [node.id, node]));
+    const manualPairs = new Set(manualEdges.map((edge) => [edge.from, edge.to].sort().join("--")));
+    return (verifiedDerivedContract("relationCandidates", "1.0")?.items || [])
+      .filter((item) => nodes.has(item.from) && nodes.has(item.to))
+      .filter((item) => !manualPairs.has([item.from, item.to].sort().join("--")))
+      .map((item) => ({
+        id: item.id,
+        mode: "competitive",
+        from: item.from,
+        to: item.to,
+        type: "후보",
+        candidate: true,
+        structural: false,
+        evidenceState: item.status,
+        label: item.status === "promotion-review" ? `승격 제안 · 동시 등장 ${fmtNum(item.evidenceCount)}건` : `신규 관계 후보 · 동시 등장 ${fmtNum(item.evidenceCount)}건`,
+        categories: [...new Set([nodes.get(item.from)?.category, nodes.get(item.to)?.category].filter(Boolean))],
+        weight: clamp(24 + Number(item.evidenceCount || 0) * 9 + Number(item.sourceCount || 0) * 3, 24, 82),
+        interpretation: "같은 기사에 두 기업이 함께 등장한 자동 후보입니다. 방향·인과·거래 관계는 검토 전 확정하지 않습니다.",
+        candidateEvidence: (item.evidence || []).map((evidence) => ({ ...evidence, link: evidence.url, sourceUrl: evidence.url })),
+        reportedEvidenceCount: Number(item.evidenceCount || 0),
+        sourceCount: Number(item.sourceCount || 0),
+        lastSeenAt: item.lastSeenAt || null,
+      }));
+  }
+
+  function memoryMarketAllEdges() {
+    const manual = memoryMarketEdges();
+    const livePairs = new Map((verifiedDerivedContract("relationCandidates", "1.0")?.items || []).map((item) => [[item.from, item.to].sort().join("--"), item]));
+    const auditedManual = manual.map((edge) => {
+      const livePair = livePairs.get([edge.from, edge.to].sort().join("--"));
+      if (!livePair) return edge;
+      return {
+        ...edge,
+        livePairStatus: livePair.status,
+        livePairEvidenceCount: Number(livePair.evidenceCount || 0),
+        livePairSourceCount: Number(livePair.sourceCount || 0),
+        livePairLastSeenAt: livePair.lastSeenAt || null,
+        livePairEvidence: livePair.evidence || [],
+      };
+    });
+    return auditedManual.concat(memoryMarketCandidateEdges(manual));
+  }
+
   function memoryMarketModeConfig(mode = memoryMarketMode) {
     return mode === "money"
       ? {
@@ -8950,7 +9078,7 @@
           id: "competitive",
           title: "Competitive Dynamics",
           subtitle: "경쟁 · 파트너십 · 투자 · 공급",
-          types: ["경쟁", "파트너십", "투자", "공급"],
+          types: ["경쟁", "파트너십", "투자", "공급", "후보"],
           accent: "#4322A8",
         };
   }
@@ -9009,6 +9137,13 @@
   }
 
   function memoryMarketRelationItem(edge = {}) {
+    if (edge.candidate) {
+      const news = edge.candidateEvidence || [];
+      const evidenceCount = Number(edge.reportedEvidenceCount || news.length || 0);
+      const evidence = { news, benchmark: [], prices: [], kpis: [] };
+      const score = clamp((edge.weight || 24) + Math.min(evidenceCount, 8) * 2, 8, 100);
+      return { ...edge, evidence, evidenceCount, linkCount: news.length, priceRows: 0, score, flowIndex: score };
+    }
     const evidence = memoryMarketEvidenceFor(edge);
     const evidenceCount = memoryMarketEvidenceCount(evidence);
     const linkCount = evidence.news.length + evidence.benchmark.length + evidence.kpis.length;
@@ -9025,7 +9160,7 @@
 
   function memoryMarketRelations(mode = memoryMarketMode, type = memoryMarketEdgeType) {
     const config = memoryMarketModeConfig(mode);
-    return memoryMarketEdges()
+    return memoryMarketAllEdges()
       .filter((edge) => edge.mode === config.id)
       .filter((edge) => type === "all" || edge.type === type)
       .filter(memoryMarketRelatedToActive)
@@ -9037,7 +9172,7 @@
   function memoryMarketRelationsForTerms(terms = []) {
     const normalized = terms.map((term) => String(term || "").toLowerCase()).filter(Boolean);
     if (!normalized.length) return [];
-    return memoryMarketEdges()
+    return memoryMarketAllEdges()
       .filter((edge) => memoryMarketTextHasAny(memoryMarketEdgeTerms(edge).join(" "), normalized))
       .map(memoryMarketRelationItem)
       .filter((edge) => edge.evidenceCount > 0)
@@ -9069,6 +9204,7 @@
       투자: "#10B981",
       공급: "#F59E0B",
       매출: "#F97316",
+      후보: "#06B6D4",
     }[type] || "var(--accent)";
   }
 
@@ -9204,6 +9340,7 @@
 
   function memoryMarketEvidenceLinks(edge = {}, limit = 4) {
     const links = []
+      .concat((edge.livePairEvidence || []).map((item) => ({ ...item, kind: "동시등장", link: item.url, sourceUrl: item.url })))
       .concat((edge.evidence?.news || []).map((item) => ({ ...item, kind: "뉴스" })))
       .concat((edge.evidence?.benchmark || []).map((item) => ({ ...item, kind: "벤치마킹" })))
       .concat((edge.evidence?.kpis || []).map((item) => ({ ...item, kind: "KPI", title: item.label, link: item.sourceUrl })))
@@ -9218,6 +9355,7 @@
   }
 
   function memoryMarketRelationSymbol(edge = {}) {
+    if (edge.candidate) return "↔";
     return ["경쟁", "파트너십"].includes(edge.type) ? "↔" : "→";
   }
 
@@ -9490,6 +9628,8 @@
       detail.innerHTML = `
         <div class="memory-detail-head">
           <span>${escapeHTML(edge.type)}</span>
+          ${edge.candidate ? factBadge(edge.evidenceState === "promotion-review" ? "승격 제안" : "신규 후보", "watch") : ""}
+          ${!edge.candidate && edge.livePairEvidenceCount ? factBadge(`관계 재검증 ${fmtNum(edge.livePairEvidenceCount)}건`, "ok") : ""}
           <h3>${escapeHTML(memoryMarketRelationTitle(edge))}</h3>
           <p>${escapeHTML(edge.label)}</p>
         </div>
@@ -9497,7 +9637,7 @@
           ${metricCards([
             { label: "근거", value: fmtNum(edge.evidenceCount) },
             { label: "링크", value: fmtNum(edge.linkCount) },
-            { label: "가격 rows", value: fmtNum(edge.priceRows) },
+            { label: edge.candidate ? "출처" : edge.livePairEvidenceCount ? "동시등장" : "가격 rows", value: fmtNum(edge.candidate ? edge.sourceCount : edge.livePairEvidenceCount || edge.priceRows) },
           ], 3)}
         </div>
         <div class="memory-flow-readout">
@@ -9622,7 +9762,7 @@
             if (!from || !to) return "";
             const active = selected?.kind === "edge" && selected.edge.id === edge.id;
             const strength = memoryMarketEdgeStrength(edge);
-            const bidirectional = ["경쟁", "파트너십"].includes(edge.type);
+            const bidirectional = !edge.candidate && ["경쟁", "파트너십"].includes(edge.type);
             const path = memoryMarketCurvePath(from, to, index);
             // Money Flow: stroke width is a quantified read of flowIndex (투자·매출 규모),
             // so a thick line literally means "more cash moving on this arrow".
@@ -9632,12 +9772,13 @@
             const opacity = (edge.mode === "money"
               ? (0.34 + strength * 0.006)
               : (0.24 + strength * 0.006)).toFixed(2);
-            const dash = edge.mode === "money" ? "9 6" : edge.type === "경쟁" ? "5 6" : edge.type === "파트너십" ? "1 0" : "10 7";
-            return `<path class="memory-edge ${active ? "active" : ""} ${bidirectional ? "bidir" : "directed"}" data-memory-edge="${escapeHTML(edge.id)}" data-from="${escapeHTML(edge.from)}" data-to="${escapeHTML(edge.to)}" d="${path}" style="--edge-color:${memoryMarketEdgeColor(edge.type)}; --delay:${index * 70}ms; --edge-width:${width}; --edge-strength:${strength}; --edge-opacity:${opacity}; --edge-dash:${dash}" marker-end="url(#memory-arrow-end)" ${bidirectional ? 'marker-start="url(#memory-arrow-start)"' : ""} />`;
+            const dash = edge.candidate ? "2 7" : edge.mode === "money" ? "9 6" : edge.type === "경쟁" ? "5 6" : edge.type === "파트너십" ? "1 0" : "10 7";
+            const candidateClass = edge.candidate ? ` candidate ${edge.evidenceState === "promotion-review" ? "promotion-review" : "review"}` : "";
+            return `<path class="memory-edge ${active ? "active" : ""} ${bidirectional ? "bidir" : "directed"}${candidateClass}" data-memory-edge="${escapeHTML(edge.id)}" data-from="${escapeHTML(edge.from)}" data-to="${escapeHTML(edge.to)}" d="${path}" style="--edge-color:${memoryMarketEdgeColor(edge.type)}; --delay:${index * 70}ms; --edge-width:${width}; --edge-strength:${strength}; --edge-opacity:${opacity}; --edge-dash:${dash}" ${edge.candidate ? "" : 'marker-end="url(#memory-arrow-end)"'} ${bidirectional ? 'marker-start="url(#memory-arrow-start)"' : ""} />`;
           }).join("")}
         </svg>
         <div class="memory-network-legend" aria-label="관계 범례">
-          ${config.types.map((type) => `<span style="--edge-color:${memoryMarketEdgeColor(type)}"><i></i>${escapeHTML(type)}</span>`).join("")}
+          ${config.types.map((type) => `<span class="${type === "후보" ? "candidate" : ""}" style="--edge-color:${memoryMarketEdgeColor(type)}"><i></i>${escapeHTML(type)}${type === "후보" ? " · 점선 검토" : ""}</span>`).join("")}
         </div>
         ${nodes.map((node, index) => {
           const active = selected?.kind === "node" && selected.node.id === node.id;
@@ -9659,7 +9800,7 @@
           <button class="${selected?.kind === "edge" && selected.edge.id === edge.id ? "active" : ""}" type="button" data-memory-edge="${escapeHTML(edge.id)}" style="--edge-color:${memoryMarketEdgeColor(edge.type)}; animation-delay:${index * 45}ms">
             <span>${escapeHTML(edge.type)}</span>
             <strong>${escapeHTML(memoryMarketRelationTitle(edge))}</strong>
-            <small>${escapeHTML(edge.label)} · 근거 ${fmtNum(edge.evidenceCount)}${edge.mode === "money" ? ` · 흐름지수 ${fmtNum(Math.round(edge.flowIndex))}` : ""}</small>
+            <small>${escapeHTML(edge.label)} · 근거 ${fmtNum(edge.evidenceCount)}${edge.candidate ? ` · ${edge.evidenceState === "promotion-review" ? "승격 제안" : `후보 ${fmtNum(edge.evidenceCount)}/${fmtNum(verifiedDerivedContract("relationCandidates", "1.0")?.promotionThreshold || 3)}`}` : edge.livePairEvidenceCount ? ` · 관계 재검증 ${fmtNum(edge.livePairEvidenceCount)}건` : edge.mode === "money" ? ` · 흐름지수 ${fmtNum(Math.round(edge.flowIndex))}` : ""}</small>
           </button>
         `).join("")}
       </div>
@@ -10506,6 +10647,26 @@
     return !cats.length || cats.includes(activeCategory);
   }
 
+  function baselineFreshnessKey(item = {}) {
+    if (item.id) return String(item.id);
+    return `${item.company || "baseline"}-${item.title || "item"}`
+      .toLowerCase()
+      .replace(/[^a-z0-9가-힣]+/g, "-")
+      .replace(/^-|-$/g, "");
+  }
+
+  function baselineFreshnessBadgeHTML(item = {}) {
+    const audit = verifiedDerivedContract("baselineFreshness", "2.2")?.items?.[baselineFreshnessKey(item)];
+    if (!audit) return `<span class="baseline-freshness revalidate">감사 미연결</span>`;
+    const label = audit.status === "conflict-candidate"
+      ? `모순 후보 · 근거일 ${audit.conflictEvidence?.date || audit.lastEvidenceAt || "미상"}`
+      : audit.status === "revalidate"
+        ? `재검증 필요 · 근거일 ${audit.lastEvidenceAt || "없음"}`
+        : `근거 기준 ${audit.lastEvidenceAt} · ${fmtNum(audit.evidenceCount)}건`;
+    const link = audit.status === "conflict-candidate" ? audit.conflictEvidence?.url : audit.evidence?.[0]?.url;
+    return `<span class="baseline-freshness ${escapeHTML(audit.status)}">${escapeHTML(label)}${link ? ` <a href="${escapeHTML(link)}" target="_blank" rel="noopener">근거 ↗</a>` : ""}</span>`;
+  }
+
   let postHbmContextSliderCleanup = null;
 
   function architectureModuleSource(module, labelFragment) {
@@ -10616,7 +10777,7 @@
       card.innerHTML = `
         <div class="arch-track-head">
           <span class="chip accent">${escapeHTML(track.label)}</span>
-          ${factBadge("Watch", "watch")}
+          ${baselineFreshnessBadgeHTML(track)}
         </div>
         <h3>${strategicHighlightHTML(track.title)}</h3>
         <p>${strategicHighlightHTML(track.thesis)}</p>
@@ -10666,6 +10827,7 @@
           </div>
           <div class="advanced-module-actions">
             ${factBadge(module.badge || "Watch", module.status || "watch")}
+            ${baselineFreshnessBadgeHTML(module)}
             <button class="copy-btn" type="button" data-copy-advanced>복사</button>
           </div>
         </div>
@@ -11146,6 +11308,9 @@
       actualChange,
       priorChange,
       days: Math.max(0, (latest._time - start._time) / 864e5),
+      // Span of the prior-momentum window; archive-era gaps can be months, so
+      // the UI must label the period instead of implying short-term momentum.
+      priorDays: previous ? Math.max(0, (start._time - previous._time) / 864e5) : null,
     };
   }
 
@@ -11247,6 +11412,7 @@
     const priorMomentum = average(observations.map((item) => item.priorChange));
     const actualChange = average(observations.map((item) => item.actualChange));
     const avgDays = average(observations.map((item) => item.days)) || 0;
+    const priorDays = average(observations.map((item) => item.priorDays));
     const chinaSignalCount = rawNews().filter((news) => {
       const hay = `${news.title || ""} ${news.titleKo || ""} ${news.summary || ""} ${news.source || ""}`.toLowerCase();
       return (product.chinaTerms || []).some((term) => hay.includes(String(term).toLowerCase()));
@@ -11263,6 +11429,7 @@
       priorMomentum,
       actualChange,
       avgDays,
+      priorDays,
       chinaSignalCount,
       decision,
       outcome,
@@ -11368,7 +11535,7 @@
         wrongRisk: Number.isFinite(Number(turn.wrongRisk)) ? Number(turn.wrongRisk) : (Number.isFinite(Number(defaultConfidence)) ? 100 - Number(defaultConfidence) : null),
         source: turn.source || (["Data Auditor", "Market/Sales", "CEO"].includes(turn.name) ? defaultSource : null),
       };
-    });
+    }).map((turn) => withDailyAgentEvidence(turn));
     const agents = [];
     normalizedTurns.forEach((turn) => {
       if (!agents.some((agent) => agent.name === turn.name)) {
@@ -11781,7 +11948,7 @@
     if (!active) return "";
     const actual = active.actualChange == null ? "선택 시점 이후 실측 데이터 부족" : `${active.actualChange > 0 ? "+" : ""}${fmtNum(active.actualChange, 2)}%`;
     const actualEn = active.actualChange == null ? "not available" : `${active.actualChange > 0 ? "+" : ""}${fmtNum(active.actualChange, 2)} percent`;
-    const prior = active.priorMomentum == null ? "NA" : `${active.priorMomentum > 0 ? "+" : ""}${fmtNum(active.priorMomentum, 2)}%`;
+    const prior = active.priorMomentum == null ? "NA" : `${active.priorMomentum > 0 ? "+" : ""}${fmtNum(active.priorMomentum, 2)}%${Number.isFinite(active.priorDays) ? ` (${fmtNum(active.priorDays, 0)}일 창)` : ""}`;
     const yearLabel = selectedYearOption?.label || "선택 시점 없음";
     const profile = executiveDecisionProfile(active, selectedYearOption, productLabel);
     const point = selectedIso ? pointDateLabel(selectedIso) : "기준점 없음";
@@ -11950,7 +12117,7 @@
   function executiveDecisionCouncilConclusion(active, selectedYearOption, selectedIso, scenario = agentFutureScenario()) {
     const yearLabel = selectedYearOption?.label || "선택 시점 없음";
     const actual = active?.actualChange == null ? "실측 부족" : `${active.actualChange > 0 ? "+" : ""}${fmtNum(active.actualChange, 2)}%`;
-    const prior = active?.priorMomentum == null ? "NA" : `${active.priorMomentum > 0 ? "+" : ""}${fmtNum(active.priorMomentum, 2)}%`;
+    const prior = active?.priorMomentum == null ? "NA" : `${active.priorMomentum > 0 ? "+" : ""}${fmtNum(active.priorMomentum, 2)}%${Number.isFinite(active?.priorDays) ? ` (${fmtNum(active.priorDays, 0)}일 창)` : ""}`;
     const outcome = active?.outcome?.label || "검증 대기";
     const profile = executiveDecisionProfile(active, selectedYearOption);
     const primaryFlip = primaryDecisionFlipKpi(active);
@@ -11964,7 +12131,7 @@
   function compactExecutiveDecisionAgentItems(active, selectedYearOption, productLabel, selectedIso, selectedSeriesCount, scenario = agentFutureScenario()) {
     if (!active) return [];
     const actual = active.actualChange == null ? "실측 부족" : `${active.actualChange > 0 ? "+" : ""}${fmtNum(active.actualChange, 2)}%`;
-    const prior = active.priorMomentum == null ? "NA" : `${active.priorMomentum > 0 ? "+" : ""}${fmtNum(active.priorMomentum, 2)}%`;
+    const prior = active.priorMomentum == null ? "NA" : `${active.priorMomentum > 0 ? "+" : ""}${fmtNum(active.priorMomentum, 2)}%${Number.isFinite(active.priorDays) ? ` (${fmtNum(active.priorDays, 0)}일 창)` : ""}`;
     const profile = executiveDecisionProfile(active, selectedYearOption, productLabel);
     const point = selectedIso ? pointDateLabel(selectedIso) : "기준점 없음";
     const flipKpis = decisionFlipKpis(active, { label: productLabel });
@@ -12064,14 +12231,15 @@
     if (!active) return "";
     const accent = categoryAccent(active.category);
     const actual = active.actualChange == null ? "NA" : `${active.actualChange > 0 ? "+" : ""}${fmtNum(active.actualChange, 2)}%`;
-    const prior = active.priorMomentum == null ? "NA" : `${active.priorMomentum > 0 ? "+" : ""}${fmtNum(active.priorMomentum, 2)}%`;
+    const prior = active.priorMomentum == null ? "NA" : `${active.priorMomentum > 0 ? "+" : ""}${fmtNum(active.priorMomentum, 2)}%${Number.isFinite(active.priorDays) ? ` (${fmtNum(active.priorDays, 0)}일 창)` : ""}`;
     const yearLabel = selectedYearOption?.label || "선택 시점 없음";
     const direct = active.directSignalModel === "hbm" ? active.directMetrics || {} : null;
     const metricTwo = direct ? `${fmtNum(direct.customer || 0)}건` : prior;
     const metricThree = direct ? `${fmtNum(direct.production || 0)}건` : actual;
     const metricTwoLabel = direct ? "고객·계약" : "사전 모멘텀";
     const metricThreeLabel = direct ? "양산·출하" : "이후 실측";
-    const agentItems = executiveDecisionAgentItems(active, selectedYearOption, productLabel, selectedIso, selectedSeriesCount, scenario);
+    const agentItems = executiveDecisionAgentItems(active, selectedYearOption, productLabel, selectedIso, selectedSeriesCount, scenario)
+      .map((agent) => withDailyAgentEvidence(agent));
     const conclusion = executiveDecisionCouncilConclusion(active, selectedYearOption, selectedIso, scenario);
     const profile = executiveDecisionProfile(active, selectedYearOption, productLabel);
     const rosterStepDelay = AGENT_DEBATE_TIMING.rosterStepMs;
@@ -13428,6 +13596,8 @@
     const title = $("#talentStrategyGalleryTitle");
     const body = $("#talentStrategyGalleryBody");
     const link = $("#talentStrategyGalleryLink");
+    const brandLabel = $("#talentStrategyGalleryBrandLabel");
+    const brandList = $("#talentStrategyGalleryBrands");
     const count = $("#talentStrategyGalleryCount");
     if (!panel || !copy || !kicker || !title || !body || !link) return;
     const images = $$("[data-talent-gallery-slide]", panel);
@@ -13438,6 +13608,7 @@
     const item = CHINA_TALENT_GALLERY_SLIDES[normalized];
     const transitions = ["zoom-pan", "wipe", "focus-shift"];
     chinaTalentGalleryIndex = normalized;
+    panel.dataset.slideId = item.id;
     panel.dataset.transition = transitions[(normalized + Math.floor(Date.now() / 1000)) % transitions.length];
     images.forEach((image, index) => {
       const active = index === normalized;
@@ -13455,6 +13626,15 @@
     body.textContent = item.body;
     link.href = item.href;
     link.textContent = `${item.source} 원문 ↗`;
+    if (brandLabel) brandLabel.textContent = item.brandLabel;
+    if (brandList) {
+      brandList.innerHTML = item.brands.map((brand) => `
+        <b class="talent-gallery-brand${brand.primary ? " is-primary" : ""}">
+          <i>${escapeHTML(brand.mark)}</i>
+          <span>${escapeHTML(brand.name)} <small>${escapeHTML(brand.local)}</small></span>
+        </b>
+      `).join("");
+    }
     if (count) count.textContent = `${String(normalized + 1).padStart(2, "0")} / ${String(total).padStart(2, "0")}`;
     if (!immediate) copy.classList.add("is-changing");
     scheduleChinaTalentGalleryRotation();
@@ -15346,7 +15526,7 @@
             <span class="chip accent">${escapeHTML(item.company)}</span>
             <h3>${escapeHTML(item.title)}</h3>
           </div>
-          <button class="copy-btn" type="button" data-copy-talent>복사</button>
+          <div class="talent-card-actions">${baselineFreshnessBadgeHTML(item)}<button class="copy-btn" type="button" data-copy-talent>복사</button></div>
         </div>
         <p>${escapeHTML(item.thesis || "")}</p>
         <div class="talent-metric-grid">${metricCards(item.metrics || [], 4)}</div>
