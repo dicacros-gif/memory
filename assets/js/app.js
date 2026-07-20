@@ -36,6 +36,14 @@
     timezone: "Asia/Seoul",
     indexes: {},
   };
+  const emptyQuantBacktest = {
+    schemaVersion: null,
+    runId: null,
+    generatedAt: null,
+    horizons: {},
+    series: {},
+    coverage: {},
+  };
   const emptyCrawlExclusions = {
     version: 1,
     updatedAt: null,
@@ -1935,6 +1943,15 @@
     { id: "year4", label: "4년", days: 365 * 4 },
     { id: "year5", label: "5년", days: 365 * 5 },
   ];
+  const BACKTEST_HORIZONS = [
+    { id: "1y", label: "1년", years: 1, days: 365, endToleranceDays: 30 },
+    { id: "3y", label: "3년", years: 3, days: 365 * 3, endToleranceDays: 60 },
+    { id: "5y", label: "5년", years: 5, days: 365 * 5, endToleranceDays: 90 },
+  ];
+  const BACKTEST_START_TOLERANCE_DAYS = 40;
+  const BACKTEST_PRIOR_MAX_GAP_DAYS = 120;
+  const BACKTEST_PRICE_MIN_POINTS_PER_YEAR = 10;
+  const BACKTEST_PRICE_MAX_GAP_DAYS = 75;
   const PRICE_CATEGORY_FILTERS = [
     { id: "all", label: "전체", test: () => true },
     { id: "dram-chip", label: "DRAM 칩", test: (row) => row.priceCategoryId === "dram-chip" },
@@ -1950,6 +1967,7 @@
   let QUANT = null;
   let HISTORY = emptyHistory;
   let MARKET_HISTORY = emptyMarketHistory;
+  let QUANT_BACKTEST = emptyQuantBacktest;
   let REPO_CRAWL_EXCLUSIONS = emptyCrawlExclusions;
   let localCrawlExclusions = [];
   let crawlExclusionKeys = new Set();
@@ -2054,6 +2072,7 @@
   let projectionScenario = "neutral";
   let execDecisionFocusId = "hbm-ai-server";
   let selectedBacktestYear = "";
+  let selectedBacktestHorizon = "1y";
   let selectedExecProductId = "all";
   let responsePriority = "all";
   let paletteIndex = 0;
@@ -3975,9 +3994,11 @@
       secondaryDataPromise = Promise.all([
         loadJSON("data/price-history.json", emptyHistory),
         loadJSON("data/market-history.json", emptyMarketHistory),
-      ]).then(([history, marketHistory]) => {
+        loadJSON("data/quant-backtest.json", emptyQuantBacktest),
+      ]).then(([history, marketHistory, quantBacktest]) => {
         HISTORY = history || emptyHistory;
         MARKET_HISTORY = marketHistory || emptyMarketHistory;
+        QUANT_BACKTEST = quantBacktest || emptyQuantBacktest;
       });
     }
     return secondaryDataPromise;
@@ -6073,6 +6094,54 @@
     animateCounts(research);
   }
 
+  function kpiAsOfTime(value = "") {
+    const text = String(value || "");
+    const day = text.match(/\b(20\d{2})-(\d{2})-(\d{2})\b/);
+    if (day) return Date.UTC(Number(day[1]), Number(day[2]) - 1, Number(day[3]));
+    const quarter = text.match(/\b(20\d{2})\s*Q([1-4])\b/i);
+    if (quarter) return Date.UTC(Number(quarter[1]), Number(quarter[2]) * 3, 0);
+    const month = text.match(/\b(20\d{2})-(\d{2})\b/);
+    if (month) return Date.UTC(Number(month[1]), Number(month[2]), 0);
+    return 0;
+  }
+
+  function resolvedKpiItems() {
+    const liveByIndex = new Map((QUANT?.marketStructure?.kpis || []).map((item) => [Number(item.baselineIndex), item]));
+    const baseline = BASE?.kpis || [];
+    return baseline.map((kpi, index) => {
+      const live = liveByIndex.get(index);
+      const liveCorroboration = live?.liveCorroboration || null;
+      const dataStatus = String(live?.dataStatus || "baseline-only").toLowerCase();
+      const liveVerified = dataStatus === "live-verified" && Boolean(liveCorroboration?.url || live?.sourceUrl);
+      const sourceDate = liveCorroboration?.date || live?.asOf || kpi.sourceDate || "";
+      const verifiedAt = kpiAsOfTime(sourceDate);
+      const ageDays = verifiedAt ? Math.max(0, (Date.now() - verifiedAt) / 864e5) : Infinity;
+      const requiresRevalidation = !liveVerified && (dataStatus === "watch" || dataStatus === "baseline-only" || ageDays > 14);
+      const verificationLabel = liveVerified ? "라이브 확인" : requiresRevalidation ? "재검증 필요" : "마지막 확인";
+      const verificationNote = liveVerified
+        ? `크롤링 원문 대조 ${sourceDate || "날짜 확인"}`
+        : `${verificationLabel}${sourceDate ? ` · ${sourceDate}` : " · 확인일 없음"}`;
+      return {
+        ...kpi,
+        value: live?.value ?? kpi.value,
+        prefix: live?.prefix ?? kpi.prefix ?? "",
+        suffix: live?.unit ?? kpi.suffix ?? "",
+        source: liveCorroboration?.source || live?.source || kpi.source,
+        sourceUrl: liveCorroboration?.url || live?.sourceUrl || kpi.sourceUrl,
+        sourceDate,
+        note: liveVerified && liveCorroboration?.snippet ? liveCorroboration.snippet : kpi.note,
+        status: live?.status || kpi.status,
+        statusClass: liveVerified ? "ok" : requiresRevalidation ? "watch" : (kpi.statusClass || "watch"),
+        badge: verificationLabel,
+        dataStatus,
+        liveVerified,
+        requiresRevalidation,
+        verificationLabel,
+        verificationNote,
+      };
+    });
+  }
+
   function renderKpis() {
     renderExecutiveSummary();
     const strip = $("#kpiStrip") || $("#overview");
@@ -6109,20 +6178,7 @@
         { label: "판단", text: "10% 경보선 · 장기계약 · DDR5/LPDDR spread 추적" },
       ],
     };
-    const liveKpiByIndex = new Map((QUANT?.marketStructure?.kpis || []).map((item) => [Number(item.baselineIndex), item]));
-    const kpis = (BASE.kpis || []).map((kpi, index) => {
-      const live = liveKpiByIndex.get(index);
-      if (!live) return kpi;
-      return {
-        ...kpi,
-        value: live.value ?? kpi.value,
-        unit: live.unit ?? kpi.unit,
-        source: live.source || kpi.source,
-        sourceUrl: live.sourceUrl || kpi.sourceUrl,
-        sourceDate: live.asOf || kpi.sourceDate,
-        status: live.status || kpi.status,
-      };
-    }).filter((kpi) => {
+    const kpis = resolvedKpiItems().filter((kpi) => {
       const status = `${kpi.status || ""} ${kpi.statusClass || ""}`.toLowerCase();
       return kpi.showInKpiStrip !== false && !status.includes("stale");
     });
@@ -6139,7 +6195,7 @@
       const hasSourceUrl = String(kpi.sourceUrl || "").trim();
       const statusClass = hasSourceUrl ? (kpi.statusClass || kpi.status || "ok") : "fail";
       const badgeLabel = hasSourceUrl ? (kpi.badge || kpi.status || "출처 있음") : "출처 미첨부";
-      const outline = kpiOutlines[kpi.label] || [];
+      const outline = kpi.liveVerified ? [] : (kpiOutlines[kpi.label] || []);
       if (outline.length) node.classList.add("kpi-evidence");
       node.innerHTML = `
         <span>${escapeHTML(kpi.label)}</span>
@@ -6160,9 +6216,11 @@
             ${outline.map((point) => `
               <li><b>${escapeHTML(point.label)}</b><span>${kpiHighlightHTML(point.text)}</span></li>
             `).join("")}
+            <li><b>신선도</b><span>${escapeHTML(kpi.verificationNote)}</span></li>
           </ul>
         ` : `
           <small>${escapeHTML(kpi.note)}</small>
+          <small>${escapeHTML(kpi.verificationNote)}</small>
           ${kpi.alt ? `<em class="kpi-alt">${escapeHTML(kpi.alt)}</em>` : ""}
         `}
       `;
@@ -10089,7 +10147,7 @@
   }
 
   function numberAnalysisItems() {
-    const baseItems = (BASE.kpis || []).map((kpi, index) => ({
+    const baseItems = resolvedKpiItems().map((kpi, index) => ({
       id: `kpi-${index}`,
       kind: "KPI",
       title: kpi.label,
@@ -10097,13 +10155,16 @@
       prefix: kpi.prefix || "",
       suffix: kpi.suffix || "",
       decimals: kpi.decimals || 0,
-      note: kpi.note,
+      note: `${kpi.note || ""}${kpi.verificationNote ? ` · ${kpi.verificationNote}` : ""}`,
       alt: kpi.alt,
-      badge: kpi.badge || kpi.status || "KPI",
+      badge: kpi.verificationLabel || kpi.badge || kpi.status || "KPI",
       statusClass: kpi.statusClass || kpi.status || "watch",
       source: kpi.source || "baseline",
       sourceDate: kpi.sourceDate || "",
       sourceUrl: kpi.sourceUrl || "",
+      dataStatus: kpi.dataStatus || "baseline-only",
+      liveVerified: Boolean(kpi.liveVerified),
+      requiresRevalidation: Boolean(kpi.requiresRevalidation),
       linkedCategories: kpi.linkedCategories || inferKpiCategories(kpi),
     }));
     const projectionSegments = productProjectionSegments();
@@ -11258,10 +11319,37 @@
     }));
   }
 
-  function pointTime(point) {
-    const value = point?.crawledAt || point?.sourceUpdate || point?.date || "";
-    const parsed = new Date(value);
+  function parseObservedTime(value) {
+    if (Number.isFinite(Number(value)) && Number(value) > 0) {
+      const numeric = Number(value);
+      return numeric < 1e12 ? numeric * 1000 : numeric;
+    }
+    const raw = String(value || "").trim();
+    if (!raw) return 0;
+    const gmtMatch = raw.match(/^(\d{4})-(\d{2})-(\d{2})[ T](\d{2}):(\d{2})(?::(\d{2}))?\s*\(GMT([+-]\d{1,2})(?::?(\d{2}))?\)$/i);
+    if (gmtMatch) {
+      const [, year, month, day, hour, minute, second = "0", offsetHour, offsetMinute = "0"] = gmtMatch;
+      const direction = Number(offsetHour) < 0 ? -1 : 1;
+      const offset = (Math.abs(Number(offsetHour)) * 60 + Number(offsetMinute)) * direction;
+      return Date.UTC(Number(year), Number(month) - 1, Number(day), Number(hour), Number(minute) - offset, Number(second));
+    }
+    const parsed = new Date(raw);
     return Number.isNaN(parsed.getTime()) ? 0 : parsed.getTime();
+  }
+
+  function pointTime(point) {
+    const candidates = [
+      point?.sourceObservedAt,
+      point?.observedAt,
+      point?.date,
+      point?.sourceUpdate,
+      point?.crawledAt,
+    ];
+    for (const value of candidates) {
+      const time = parseObservedTime(value);
+      if (time) return time;
+    }
+    return 0;
   }
 
   function pointDateLabel(value) {
@@ -11303,6 +11391,32 @@
       }));
   }
 
+  function activeBacktestHorizon() {
+    return BACKTEST_HORIZONS.find((item) => item.id === selectedBacktestHorizon) || BACKTEST_HORIZONS[0];
+  }
+
+  function addUtcYears(time, years) {
+    const date = new Date(time);
+    if (Number.isNaN(date.getTime())) return 0;
+    const month = date.getUTCMonth();
+    date.setUTCFullYear(date.getUTCFullYear() + Number(years || 0));
+    if (date.getUTCMonth() !== month) date.setUTCDate(0);
+    return date.getTime();
+  }
+
+  function backtestTargetTime(selectedTime = selectedBacktestIso(), horizon = activeBacktestHorizon()) {
+    return selectedTime ? addUtcYears(selectedTime, horizon.years) : 0;
+  }
+
+  function backtestOptionCanClose(option, horizon = activeBacktestHorizon()) {
+    const target = addUtcYears(option?.firstTime || 0, horizon.years);
+    if (!target) return false;
+    return historyItems().some((series) => (series.points || []).some((point) => {
+      const time = pointTime(point);
+      return time >= target && time - target <= horizon.endToleranceDays * 864e5;
+    }));
+  }
+
   function ensureBacktestYear() {
     const options = backtestYearOptions();
     if (!options.length) {
@@ -11310,7 +11424,8 @@
       return null;
     }
     if (!options.some((item) => item.value === selectedBacktestYear)) {
-      selectedBacktestYear = options[options.length - 1]?.value || options[0].value;
+      const eligible = options.filter((item) => backtestOptionCanClose(item));
+      selectedBacktestYear = eligible[eligible.length - 1]?.value || options[0].value;
     }
     return selectedBacktestYear;
   }
@@ -11346,37 +11461,144 @@
       .sort((a, b) => a._time - b._time);
   }
 
-  function backtestObservation(series, selectedTime) {
-    const points = sortedPoints(series);
-    const startIndex = points.findLastIndex((point) => point._time <= selectedTime);
-    if (startIndex < 0) return null;
-    const start = points[startIndex];
-    const previous = startIndex > 0 ? points[startIndex - 1] : null;
-    const latest = points[points.length - 1];
-    if (!latest || latest._time <= start._time) return null;
-    const startAvg = Number(start.average);
-    const latestAvg = Number(latest.average);
-    const previousAvg = Number(previous?.average);
-    if (!Number.isFinite(startAvg) || !Number.isFinite(latestAvg) || !startAvg) return null;
-    const actualChange = (latestAvg / startAvg - 1) * 100;
-    const priorChange = Number.isFinite(previousAvg) && previousAvg ? (startAvg / previousAvg - 1) * 100 : null;
+  function fixedWindowPriceCoverage(points, startTime, endTime, horizon) {
+    const byMonth = new Map();
+    points.filter((point) => point._time >= startTime && point._time <= endTime).forEach((point) => {
+      const date = new Date(point._time);
+      const month = `${date.getUTCFullYear()}-${String(date.getUTCMonth() + 1).padStart(2, "0")}`;
+      const previous = byMonth.get(month);
+      if (!previous || point._time > previous._time) byMonth.set(month, point);
+    });
+    const monthly = Array.from(byMonth.values()).sort((a, b) => a._time - b._time);
+    let largestGapDays = null;
+    for (let index = 1; index < monthly.length; index += 1) {
+      const left = new Date(monthly[index - 1]._time);
+      const right = new Date(monthly[index]._time);
+      const leftMonth = Date.UTC(left.getUTCFullYear(), left.getUTCMonth(), 1);
+      const rightMonth = Date.UTC(right.getUTCFullYear(), right.getUTCMonth(), 1);
+      largestGapDays = Math.max(largestGapDays || 0, (rightMonth - leftMonth) / 864e5);
+    }
+    const requiredPointCount = BACKTEST_PRICE_MIN_POINTS_PER_YEAR * Number(horizon?.years || 1);
+    const enoughPoints = monthly.length >= requiredPointCount;
+    const continuous = largestGapDays == null || largestGapDays <= BACKTEST_PRICE_MAX_GAP_DAYS;
     return {
+      eligible: enoughPoints && continuous,
+      pointCount: monthly.length,
+      requiredPointCount,
+      largestGapDays,
+      maxAllowedGapDays: BACKTEST_PRICE_MAX_GAP_DAYS,
+      reason: !enoughPoints ? "insufficient-points" : !continuous ? "excessive-gap" : "eligible",
+    };
+  }
+
+  function nearestPoint(points = [], targetTime = 0, toleranceDays = 0) {
+    if (!targetTime || !points.length) return null;
+    const point = points.reduce((nearest, candidate) => {
+      if (!nearest) return candidate;
+      return Math.abs(candidate._time - targetTime) < Math.abs(nearest._time - targetTime) ? candidate : nearest;
+    }, null);
+    const gapDays = point ? Math.abs(point._time - targetTime) / 864e5 : Infinity;
+    return gapDays <= toleranceDays ? { point, gapDays } : null;
+  }
+
+  function firstClosingPoint(points = [], targetTime = 0, toleranceDays = 0) {
+    if (!targetTime || !points.length) return null;
+    const candidates = points
+      .filter((point) => point._time >= targetTime && point._time - targetTime <= toleranceDays * 864e5)
+      .sort((a, b) => a._time - b._time);
+    const point = candidates[0] || null;
+    return point ? { point, gapDays: (point._time - targetTime) / 864e5 } : null;
+  }
+
+  function backtestObservation(series, selectedTime, horizon = activeBacktestHorizon()) {
+    const points = sortedPoints(series);
+    const targetEndTime = backtestTargetTime(selectedTime, horizon);
+    const base = {
       key: series.key,
       item: series.item || series.key,
       sectionTitle: series.sectionTitle || "",
       group: series.group || "",
       sourceUrl: series.sourceUrl || "",
+      targetStartTime: selectedTime,
+      targetEndTime,
+      horizonId: horizon.id,
+      horizonLabel: horizon.label,
+      eligible: false,
+      status: "insufficient",
+      statusLabel: "데이터 부족",
+    };
+    if (!points.length) return { ...base, status: "no-points", statusLabel: "관측값 없음" };
+    const startMatch = nearestPoint(points, selectedTime, BACKTEST_START_TOLERANCE_DAYS);
+    if (!startMatch) {
+      return { ...base, status: "start-gap", statusLabel: "기준점 없음" };
+    }
+    const start = startMatch.point;
+    const startIndex = points.indexOf(start);
+    const previous = startIndex > 0 ? points[startIndex - 1] : null;
+    const endMatch = firstClosingPoint(points.filter((point) => point._time > start._time), targetEndTime, horizon.endToleranceDays);
+    if (!endMatch) {
+      const latestAvailable = points[points.length - 1] || null;
+      return {
+        ...base,
+        start,
+        previous,
+        latest: latestAvailable,
+        startGapDays: startMatch.gapDays,
+        status: latestAvailable?._time < targetEndTime ? "end-not-collected" : "end-gap",
+        statusLabel: latestAvailable?._time < targetEndTime ? "종료점 미수집" : "종료점 간격 초과",
+        days: latestAvailable?._time > start._time ? (latestAvailable._time - start._time) / 864e5 : 0,
+      };
+    }
+    const latest = endMatch.point;
+    const startAvg = Number(start.average);
+    const latestAvg = Number(latest.average);
+    const previousAvg = Number(previous?.average);
+    if (!Number.isFinite(startAvg) || !Number.isFinite(latestAvg) || !startAvg) {
+      return { ...base, start, previous, latest, status: "invalid-value", statusLabel: "가격값 오류" };
+    }
+    const fixedWindowCoverage = fixedWindowPriceCoverage(points, start._time, latest._time, horizon);
+    if (!fixedWindowCoverage.eligible) {
+      const statusLabel = fixedWindowCoverage.reason === "insufficient-points"
+        ? `월 관측 ${fixedWindowCoverage.pointCount}/${fixedWindowCoverage.requiredPointCount}`
+        : `최대 공백 ${fmtNum(fixedWindowCoverage.largestGapDays, 0)}일`;
+      return {
+        ...base,
+        start,
+        previous,
+        latest,
+        startAvg,
+        latestAvg,
+        actualChange: null,
+        fixedWindowCoverage,
+        status: fixedWindowCoverage.reason,
+        statusLabel,
+        days: Math.max(0, (latest._time - start._time) / 864e5),
+        startGapDays: startMatch.gapDays,
+        endGapDays: endMatch.gapDays,
+      };
+    }
+    const actualChange = (latestAvg / startAvg - 1) * 100;
+    const priorDays = previous ? Math.max(0, (start._time - previous._time) / 864e5) : null;
+    const priorUsable = Number.isFinite(previousAvg) && previousAvg && Number.isFinite(priorDays) && priorDays <= BACKTEST_PRIOR_MAX_GAP_DAYS;
+    const priorChange = priorUsable ? (startAvg / previousAvg - 1) * 100 : null;
+    const eligible = priorChange != null;
+    return {
+      ...base,
       start,
       previous,
       latest,
       startAvg,
       latestAvg,
       actualChange,
+      fixedWindowCoverage,
       priorChange,
+      eligible,
+      status: eligible ? "complete" : "prior-gap",
+      statusLabel: eligible ? "검증 가능" : previous ? "직전 신호 간격 초과" : "직전 신호 없음",
       days: Math.max(0, (latest._time - start._time) / 864e5),
-      // Span of the prior-momentum window; archive-era gaps can be months, so
-      // the UI must label the period instead of implying short-term momentum.
-      priorDays: previous ? Math.max(0, (start._time - previous._time) / 864e5) : null,
+      priorDays,
+      startGapDays: startMatch.gapDays,
+      endGapDays: endMatch.gapDays,
     };
   }
 
@@ -11386,7 +11608,7 @@
     return nums.reduce((sum, value) => sum + value, 0) / nums.length;
   }
 
-  function decisionFromMomentum(product, priorMomentum, coverage, chinaSignalCount) {
+  function decisionFromMomentum(product, priorMomentum, coverage) {
     if (coverage < 2 || priorMomentum == null) {
       return {
         label: "데이터 부족",
@@ -11396,11 +11618,11 @@
       };
     }
     if (product.decisionBias === "risk") {
-      if (priorMomentum <= -0.35 || chinaSignalCount >= 40) {
-        return { label: "방어 강화", cls: "defend", action: "가격·고객 방어", logic: "중국 proxy 가격 약세 또는 중국 신호가 강해 가격 하방 리스크를 우선합니다." };
+      if (priorMomentum <= -0.35) {
+        return { label: "방어 강화", cls: "defend", action: "가격·고객 방어", logic: "기준 월 이전 중국 proxy 가격 약세가 확인돼 가격 하방 리스크를 우선합니다." };
       }
       if (priorMomentum >= 0.5) return { label: "압력 완화 확인", cls: "hold", action: "확인 후 선별 대응", logic: "중국 proxy 가격은 양호하지만 확대보다 침투율과 고객 인증을 확인합니다." };
-      return { label: "관찰 유지", cls: "hold", action: "일일 감시", logic: "방향성이 약해 가격·뉴스·캐파 데이터를 더 쌓습니다." };
+      return { label: "관찰 유지", cls: "hold", action: "가격 이력 누적", logic: "기준 월 이전 가격 방향성이 약해 동일 규칙의 가격 이력을 더 쌓습니다." };
     }
     if (product.decisionBias === "defense") {
       if (priorMomentum <= -0.45) return { label: "축소·방어", cls: "defend", action: "저수익 SKU 축소", logic: "단말/범용 proxy 가격이 약세라 원가와 재고 방어가 우선입니다." };
@@ -11473,8 +11695,10 @@
   function productBacktest(product, selectedIso = selectedBacktestIso()) {
     if (product.directSignalModel === "hbm") return directHbmAssessment(product);
     const selectedTime = selectedIso ? new Date(selectedIso).getTime() : 0;
+    const horizon = activeBacktestHorizon();
     const matched = productHistorySeries(product);
-    const observations = matched.map((series) => backtestObservation(series, selectedTime)).filter(Boolean);
+    const evidenceRows = matched.map((series) => backtestObservation(series, selectedTime, horizon));
+    const observations = evidenceRows.filter((item) => item?.eligible);
     const priorMomentum = average(observations.map((item) => item.priorChange));
     const actualChange = average(observations.map((item) => item.actualChange));
     const avgDays = average(observations.map((item) => item.days)) || 0;
@@ -11483,19 +11707,22 @@
       const hay = `${news.title || ""} ${news.titleKo || ""} ${news.summary || ""} ${news.source || ""}`.toLowerCase();
       return (product.chinaTerms || []).some((term) => hay.includes(String(term).toLowerCase()));
     }).length + (product.id === "china-exposure" ? benchmarkSignalTotal() : 0);
-    const decision = decisionFromMomentum(product, priorMomentum, observations.length, chinaSignalCount);
+    const decision = decisionFromMomentum(product, priorMomentum, observations.length);
     const outcome = outcomeFromDecision(decision, actualChange);
     const confidence = observations.length
-      ? clamp(30 + Math.min(observations.length, 12) * 5 + Math.min(avgDays, 20) * 1.2)
+      ? clamp(30 + Math.min(observations.length, 12) * 5 + Math.min(evidenceRows.length ? observations.length / evidenceRows.length : 0, 1) * 20)
       : 0;
     return {
       ...product,
       observations,
+      evidenceRows,
       matchedCount: matched.length,
       priorMomentum,
       actualChange,
       avgDays,
       priorDays,
+      horizon,
+      targetEndTime: backtestTargetTime(selectedTime, horizon),
       chinaSignalCount,
       decision,
       outcome,
@@ -11512,21 +11739,34 @@
 
   function decisionClassLabel(item) {
     if (item.directSignalModel === "hbm") return `직접 근거 ${fmtNum(item.directMetrics?.evidenceCount || 0)}건 · ${fmtNum(item.directMetrics?.score || 0)}점`;
-    if (!item.observations.length) return "데이터 부족";
-    return `${fmtNum(item.observations.length)}개 품목 · ${fmtNum(item.confidence)}점`;
+    if (!item.observations.length) return `데이터 부족 · ${fmtNum(item.evidenceRows?.length || item.matchedCount || 0)}개 점검`;
+    return `${fmtNum(item.observations.length)}/${fmtNum(item.evidenceRows?.length || item.observations.length)}개 검증 · ${fmtNum(item.confidence)}점`;
   }
 
   function renderBacktestControls() {
     const yearSelect = $("#backtestYearSelect");
+    const horizonSelect = $("#backtestHorizonSelect");
     const productSelect = $("#execProductSelect");
     const yearOptions = backtestYearOptions();
     ensureBacktestYear();
     if (yearSelect) {
       yearSelect.innerHTML = yearOptions.length ? yearOptions.map((option) => `
-        <option value="${escapeHTML(option.value)}"${option.value === selectedBacktestYear ? " selected" : ""}>${escapeHTML(option.label)}</option>
+        <option value="${escapeHTML(option.value)}"${option.value === selectedBacktestYear ? " selected" : ""}>${escapeHTML(option.label)}${backtestOptionCanClose(option) ? "" : " · 종료 미수집"}</option>
       `).join("") : `<option value="">가격 히스토리 없음</option>`;
       yearSelect.onchange = () => {
         selectedBacktestYear = yearSelect.value;
+        execDecisionCouncilRan = false;
+        execDecisionCouncilScenarioRun = 0;
+        renderExecutiveDecision();
+      };
+    }
+    if (horizonSelect) {
+      horizonSelect.innerHTML = BACKTEST_HORIZONS.map((option) => `
+        <option value="${escapeHTML(option.id)}"${option.id === selectedBacktestHorizon ? " selected" : ""}>${escapeHTML(option.label)} 고정</option>
+      `).join("");
+      horizonSelect.onchange = () => {
+        selectedBacktestHorizon = BACKTEST_HORIZONS.some((item) => item.id === horizonSelect.value) ? horizonSelect.value : "1y";
+        selectedBacktestYear = "";
         execDecisionCouncilRan = false;
         execDecisionCouncilScenarioRun = 0;
         renderExecutiveDecision();
@@ -11557,6 +11797,137 @@
       return allItems;
     }
     return selected;
+  }
+
+  function contractPeriodStats(horizonId) {
+    const series = Object.values(QUANT_BACKTEST?.series || {});
+    const records = series.map((item) => ({
+      domain: item?.domain || "other",
+      stats: item?.periods?.[horizonId] || item?.horizons?.[horizonId] || null,
+    })).filter((item) => item.stats);
+    const stats = records.map((item) => item.stats);
+    if (!stats.length) {
+      const block = QUANT_BACKTEST?.horizons?.[horizonId] || QUANT_BACKTEST?.coverage?.[horizonId] || null;
+      if (!block) return null;
+      const total = Number(block.total ?? block.seriesTotal ?? block.totalSeries);
+      const eligible = Number(block.eligible ?? block.eligibleSeries ?? block.complete);
+      const price = block.byDomain?.price || {};
+      const market = block.byDomain?.market || {};
+      return Number.isFinite(total) && Number.isFinite(eligible) ? {
+        total,
+        eligible,
+        priceTotal: Number(price.total),
+        priceEligible: Number(price.eligible),
+        marketTotal: Number(market.total),
+        marketEligible: Number(market.eligible),
+      } : null;
+    }
+    const eligibleRecord = (item) => item.stats.eligible === true || item.stats.status === "eligible" || item.stats.status === "complete";
+    const price = records.filter((item) => item.domain === "price");
+    const market = records.filter((item) => item.domain === "market");
+    return {
+      total: stats.length,
+      eligible: records.filter(eligibleRecord).length,
+      priceTotal: price.length,
+      priceEligible: price.filter(eligibleRecord).length,
+      marketTotal: market.length,
+      marketEligible: market.filter(eligibleRecord).length,
+    };
+  }
+
+  function seriesCoversHorizon(times = [], horizon = BACKTEST_HORIZONS[0], toleranceDays = horizon.endToleranceDays) {
+    const sorted = times.filter(Number.isFinite).sort((a, b) => a - b);
+    const end = sorted[sorted.length - 1];
+    if (!end || sorted.length < 2) return false;
+    const target = addUtcYears(end, -horizon.years);
+    return Boolean(nearestPoint(sorted.map((_time) => ({ _time })), target, toleranceDays));
+  }
+
+  function fallbackHorizonCoverage(horizon = BACKTEST_HORIZONS[0]) {
+    const priceSeries = historyItems();
+    const marketSeries = Object.values(MARKET_HISTORY?.indexes || {}).filter((item) => Array.isArray(item?.points));
+    const priceEligible = priceSeries.filter((series) => seriesCoversHorizon((series.points || []).map(pointTime), horizon)).length;
+    const marketEligible = marketSeries.filter((series) => seriesCoversHorizon(marketIndexPoints(series).map((point) => point.time), horizon, Math.min(horizon.endToleranceDays, 35))).length;
+    return {
+      total: priceSeries.length + marketSeries.length,
+      eligible: priceEligible + marketEligible,
+      priceTotal: priceSeries.length,
+      priceEligible,
+      marketTotal: marketSeries.length,
+      marketEligible,
+    };
+  }
+
+  function backtestHorizonCoverage(horizon = BACKTEST_HORIZONS[0]) {
+    const fallback = fallbackHorizonCoverage(horizon);
+    const contract = contractPeriodStats(horizon.id);
+    return {
+      ...fallback,
+      total: contract?.total ?? fallback.total,
+      eligible: contract?.eligible ?? fallback.eligible,
+      priceTotal: Number.isFinite(contract?.priceTotal) ? contract.priceTotal : fallback.priceTotal,
+      priceEligible: Number.isFinite(contract?.priceEligible) ? contract.priceEligible : fallback.priceEligible,
+      marketTotal: Number.isFinite(contract?.marketTotal) ? contract.marketTotal : fallback.marketTotal,
+      marketEligible: Number.isFinite(contract?.marketEligible) ? contract.marketEligible : fallback.marketEligible,
+      source: contract ? "quant-backtest" : "history-fallback",
+    };
+  }
+
+  function renderBacktestPeriodSummary(summary) {
+    if (!summary) return;
+    const generatedAt = QUANT_BACKTEST?.generatedAt || QUANT_BACKTEST?.updatedAt || "";
+    summary.hidden = false;
+    summary.classList.add("backtest-period-summary");
+    summary.innerHTML = BACKTEST_HORIZONS.map((horizon) => {
+      const stats = backtestHorizonCoverage(horizon);
+      const complete = stats.total > 0 && stats.eligible === stats.total;
+      const tone = !stats.eligible ? "insufficient" : complete ? "complete" : "partial";
+      return `
+        <article class="decision-stat backtest-period-stat ${escapeHTML(tone)}${horizon.id === selectedBacktestHorizon ? " active" : ""}">
+          <span>${escapeHTML(horizon.label)} 누적 검증</span>
+          <strong>${escapeHTML(`${fmtNum(stats.eligible)}/${fmtNum(stats.total)}`)}</strong>
+          <small>가격 ${escapeHTML(`${fmtNum(stats.priceEligible)}/${fmtNum(stats.priceTotal)}`)} · 시장 ${escapeHTML(`${fmtNum(stats.marketEligible)}/${fmtNum(stats.marketTotal)}`)} · ${stats.source === "quant-backtest" ? "정량 계약" : "브라우저 재계산"}</small>
+        </article>
+      `;
+    }).join("") + (generatedAt ? `<small class="backtest-contract-time">정량 계약 갱신 ${escapeHTML(pointDateLabel(generatedAt))}</small>` : "");
+  }
+
+  function backtestEvidenceHTML(active, selectedTime) {
+    const horizon = activeBacktestHorizon();
+    const targetTime = backtestTargetTime(selectedTime, horizon);
+    if (active?.directSignalModel === "hbm") {
+      const rows = (active.directEvidence || []).slice(0, 12);
+      return `
+        <div class="decision-evidence-head"><div><span>LIVE OVERLAY</span><strong>HBM 직접 근거 · 과거 가격 점수와 분리</strong></div><small>현재 기사 ${fmtNum(rows.length)}건</small></div>
+        ${rows.length ? `<div class="decision-table-wrap"><table class="decision-table"><thead><tr><th>상태</th><th>근거</th><th>날짜</th><th>출처</th></tr></thead><tbody>${rows.map((item) => {
+          const url = evidenceItemUrl(item);
+          return `<tr><td><span class="backtest-status live">현재 overlay</span></td><td>${escapeHTML(item.titleKo || item.title || "HBM 직접 근거")}</td><td>${escapeHTML(pointDateLabel(item.date || item.publishedAt))}</td><td>${url ? `<a href="${escapeHTML(url)}" target="_blank" rel="noopener">원문 ↗</a>` : "-"}</td></tr>`;
+        }).join("")}</tbody></table></div>` : `<div class="empty">HBM 직접 근거가 아직 수집되지 않았습니다.</div>`}
+      `;
+    }
+    const rows = active?.evidenceRows || [];
+    return `
+      <div class="decision-evidence-head">
+        <div><span>FIXED-HORIZON EVIDENCE</span><strong>${escapeHTML(horizon.label)} 고정 백테스트 근거</strong></div>
+        <small>목표 ${escapeHTML(pointDateLabel(selectedTime))} → ${escapeHTML(pointDateLabel(targetTime))} · 종료 허용 +${fmtNum(horizon.endToleranceDays)}일 · 직전 신호 최대 ${fmtNum(BACKTEST_PRIOR_MAX_GAP_DAYS)}일</small>
+      </div>
+      ${rows.length ? `<div class="decision-table-wrap"><table class="decision-table"><thead><tr><th>상태</th><th>품목</th><th>기준 관측</th><th>직전 신호</th><th>고정 종료 관측</th><th>실제 구간</th><th>누적 변화</th><th>근거</th></tr></thead><tbody>${rows.map((row) => {
+        const source = /^https?:\/\//i.test(String(row.sourceUrl || "")) ? row.sourceUrl : "";
+        const priorGap = Number.isFinite(row.priorDays) ? `${fmtNum(row.priorDays, 0)}일` : "없음";
+        const actual = row.eligible && Number.isFinite(row.actualChange) ? `${row.actualChange > 0 ? "+" : ""}${fmtNum(row.actualChange, 2)}%` : "계산 제외";
+        const actualDays = Number.isFinite(row.days) ? `${fmtNum(row.days, 0)}일` : "-";
+        return `<tr>
+          <td><span class="backtest-status ${row.eligible ? "complete" : "insufficient"}">${escapeHTML(row.statusLabel || "데이터 부족")}</span></td>
+          <td>${escapeHTML(row.item || row.key || "품목")}</td>
+          <td>${escapeHTML(row.start ? pointDateLabel(row.start._time) : "없음")}</td>
+          <td>${escapeHTML(priorGap)}</td>
+          <td>${escapeHTML(row.latest && ["complete", "prior-gap"].includes(row.status) ? pointDateLabel(row.latest._time) : "없음")}</td>
+          <td>${escapeHTML(actualDays)}</td>
+          <td>${escapeHTML(actual)}</td>
+          <td>${source ? `<a href="${escapeHTML(source)}" target="_blank" rel="noopener">원문 ↗</a>` : "-"}</td>
+        </tr>`;
+      }).join("")}</tbody></table></div>` : `<div class="empty">선택 제품군에 매칭되는 가격 series가 없습니다.</div>`}
+    `;
   }
 
   function agentInitials(name = "Expert") {
@@ -12012,7 +12383,8 @@
 
   function executiveDecisionAgentItems(active, selectedYearOption, productLabel, selectedIso, selectedSeriesCount, scenario = agentFutureScenario()) {
     if (!active) return "";
-    const actual = active.actualChange == null ? "선택 시점 이후 실측 데이터 부족" : `${active.actualChange > 0 ? "+" : ""}${fmtNum(active.actualChange, 2)}%`;
+    const horizon = active.horizon || activeBacktestHorizon();
+    const actual = active.actualChange == null ? `${horizon.label} 고정 종료 실측 데이터 부족` : `${active.actualChange > 0 ? "+" : ""}${fmtNum(active.actualChange, 2)}%`;
     const actualEn = active.actualChange == null ? "not available" : `${active.actualChange > 0 ? "+" : ""}${fmtNum(active.actualChange, 2)} percent`;
     const prior = active.priorMomentum == null ? "NA" : `${active.priorMomentum > 0 ? "+" : ""}${fmtNum(active.priorMomentum, 2)}%${Number.isFinite(active.priorDays) ? ` (${fmtNum(active.priorDays, 0)}일 창)` : ""}`;
     const yearLabel = selectedYearOption?.label || "선택 시점 없음";
@@ -12035,11 +12407,11 @@
         initials: "DB",
         name: "Briefing",
         title: "Daily Data Briefing",
-        role: "오늘 크롤링 데이터",
+        role: "현재 데이터 · 별도 overlay",
         color: "#0891B2",
-        stance: "팩트 먼저",
-        message: backtestBriefing,
-        speechEn: "Opening with today's crawled figures so the backtest debate is anchored to current data.",
+        stance: "과거 점수와 분리",
+        message: `아래 내용은 현재 크롤링 overlay이며 과거 백테스트 점수에는 넣지 않습니다. ${backtestBriefing}`,
+        speechEn: "Today's crawled figures are shown as a separate live overlay and are not included in the historical backtest score.",
       }] : []),
       {
         id: "ceo",
@@ -12060,7 +12432,7 @@
         role: "가격·백테스트",
         color: "#06B6D4",
         stance: "Base-rate 검증",
-        message: `${profile.data} ${point} 기준 가격 series ${fmtNum(selectedSeriesCount)}개 중 관측 ${fmtNum(active.observations.length)}개만 계산했습니다. 사전 모멘텀은 ${prior}, 이후 실측은 ${actual}입니다. ${scenario.label}에서는 ${scenario.market}`,
+        message: `${profile.data} ${point} 기준 가격 series ${fmtNum(selectedSeriesCount)}개 중 ${horizon.label} 고정 종료점과 직전 신호 간격을 통과한 ${fmtNum(active.observations.length)}개만 계산했습니다. 사전 모멘텀은 ${prior}, 고정 기간 실측은 ${actual}입니다. ${scenario.label}에서는 ${scenario.market}`,
         speechEn: `The backtest uses ${fmtNum(active.observations.length)} observed points from ${fmtNum(selectedSeriesCount)} matched price series. Prior momentum was ${prior}, and the subsequent observed result was ${actualEn}. This is the base rate for scenario ${scenario.id}.`,
       },
       {
@@ -12104,7 +12476,7 @@
         role: "공급·운영 실행",
         color: "#0EA5E9",
         stance: "실행 조건",
-        message: `선택 시점 이후 실측은 ${actual}, 관측은 ${fmtNum(active.observations.length)}개입니다. 공급 배분, 재고 회전, Fab continuity가 동시에 맞지 않으면 Go를 단계 집행으로 낮춥니다.`,
+        message: `${horizon.label} 고정 종료 실측은 ${actual}, 검증 가능 관측은 ${fmtNum(active.observations.length)}개입니다. 공급 배분, 재고 회전, Fab continuity가 동시에 맞지 않으면 Go를 단계 집행으로 낮춥니다.`,
         speechEn: `The subsequent observed result is ${actualEn}, based on ${fmtNum(active.observations.length)} observations. If supply allocation, inventory turns, and fab continuity do not align, a Go decision must be reduced to staged execution.`,
       },
       {
@@ -12148,7 +12520,7 @@
         role: "근거 감사",
         color: "#475569",
         stance: "근거 정합성",
-        message: `선택 시점 이후 실제 가격만 백테스트에 씁니다. 중국 신호 ${fmtNum(active.chinaSignalCount)}건은 현재 리스크이며, 원문·가격 row가 없는 해석은 결론 강도를 올리지 않습니다. ${counterEvidence.text}.`,
+        message: `기준 월과 ${horizon.label} 목표일의 허용 오차를 통과한 실제 가격만 백테스트에 씁니다. 중국 신호 ${fmtNum(active.chinaSignalCount)}건은 현재 리스크이며, 원문·가격 row가 없는 해석은 결론 강도를 올리지 않습니다. ${counterEvidence.text}.`,
         speechEn: `Only observed post-selection prices are used. Current China signals are not applied retroactively, and interpretations without a primary source or price row cannot increase conviction.`,
       },
       {
@@ -12187,9 +12559,12 @@
     const outcome = active?.outcome?.label || "검증 대기";
     const profile = executiveDecisionProfile(active, selectedYearOption);
     const primaryFlip = primaryDecisionFlipKpi(active);
+    const horizon = active?.horizon || activeBacktestHorizon();
     return {
       title: `${scenario.conclusion} · ${scenario.label}`,
-      body: `경영진 결론: "${profile.question}" ${yearLabel} 기준점 ${selectedIso ? pointDateLabel(selectedIso) : "없음"}에서 직전 모멘텀 ${prior}, 이후 실측 ${actual}, 관측 ${fmtNum(active?.observations?.length || 0)}개를 기준으로 ${scenario.label}을 stress test했습니다.`,
+      body: active?.directSignalModel === "hbm"
+        ? `경영진 결론: "${profile.question}" 현재 HBM 직접 근거 ${fmtNum(active?.directMetrics?.evidenceCount || 0)}건을 과거 가격 백테스트와 분리해 ${scenario.label}을 stress test했습니다.`
+        : `경영진 결론: "${profile.question}" ${yearLabel} 기준점 ${selectedIso ? pointDateLabel(selectedIso) : "없음"}에서 직전 모멘텀 ${prior}, ${horizon.label} 고정 실측 ${actual}, 검증 가능 관측 ${fmtNum(active?.observations?.length || 0)}개를 기준으로 ${scenario.label}을 stress test했습니다.`,
       next: `검증 결과: ${outcome}. 시나리오 액션: ${scenario.conclusion}. 재검토 KPI: ${primaryFlip.label}(${primaryFlip.trigger}). ${active?.decision?.logic || "근거가 더 쌓이면 재판단합니다."}`,
     };
   }
@@ -12296,6 +12671,7 @@
   function executiveDecisionDebateHTML(active, selectedYearOption, productLabel, selectedIso, selectedSeriesCount, items = [], scenario = agentFutureScenario()) {
     if (!active) return "";
     const accent = categoryAccent(active.category);
+    const horizon = active.horizon || activeBacktestHorizon();
     const actual = active.actualChange == null ? "NA" : `${active.actualChange > 0 ? "+" : ""}${fmtNum(active.actualChange, 2)}%`;
     const prior = active.priorMomentum == null ? "NA" : `${active.priorMomentum > 0 ? "+" : ""}${fmtNum(active.priorMomentum, 2)}%${Number.isFinite(active.priorDays) ? ` (${fmtNum(active.priorDays, 0)}일 창)` : ""}`;
     const yearLabel = selectedYearOption?.label || "선택 시점 없음";
@@ -12303,7 +12679,7 @@
     const metricTwo = direct ? `${fmtNum(direct.customer || 0)}건` : prior;
     const metricThree = direct ? `${fmtNum(direct.production || 0)}건` : actual;
     const metricTwoLabel = direct ? "고객·계약" : "사전 모멘텀";
-    const metricThreeLabel = direct ? "양산·출하" : "이후 실측";
+    const metricThreeLabel = direct ? "양산·출하" : `${horizon.label} 실측`;
     const agentItems = executiveDecisionAgentItems(active, selectedYearOption, productLabel, selectedIso, selectedSeriesCount, scenario)
       .map((agent) => withDailyAgentEvidence(agent));
     const conclusion = executiveDecisionCouncilConclusion(active, selectedYearOption, selectedIso, scenario);
@@ -12399,6 +12775,9 @@
     renderBacktestControls();
     const selectedYearOption = selectedBacktestYearOption();
     const selected = selectedBacktestIso();
+    const selectedTime = selected ? new Date(selected).getTime() : 0;
+    const horizon = activeBacktestHorizon();
+    const targetEndTime = backtestTargetTime(selectedTime, horizon);
     const items = executiveBacktestsForSelection();
     if (!items.some((item) => item.id === execDecisionFocusId)) {
       execDecisionFocusId = items[0]?.id || "hbm-ai-server";
@@ -12419,14 +12798,13 @@
     });
     const selectedSeriesCount = selectedSeriesKeys.size;
     const executiveScenario = agentFutureScenario(execDecisionCouncilScenarioRun);
+    renderBacktestPeriodSummary(summary);
     if (meta) meta.textContent = active?.directSignalModel === "hbm"
-      ? `${productLabel} · HBM 직접 근거 ${fmtNum(active.directMetrics?.evidenceCount || 0)}건 · 고객·계약 ${fmtNum(active.directMetrics?.customer || 0)}건 · 양산·출하 ${fmtNum(active.directMetrics?.production || 0)}건`
-      : `${yearLabel} 기준 · ${productLabel} · ${fmtNum(selectedSeriesCount)}개 매칭 series · ${latestAt ? pointDateLabel(latestAt) : "최신 결과 없음"}까지 검증`;
+      ? `${productLabel} · HBM 라이브 overlay ${fmtNum(active.directMetrics?.evidenceCount || 0)}건 · 과거 가격 점수와 분리`
+      : `${yearLabel} 기준 · ${horizon.label} 고정 · ${productLabel} · ${fmtNum(selectedSeriesCount)}개 매칭 series · 목표 종료 ${targetEndTime ? pointDateLabel(targetEndTime) : "없음"}`;
     if (coverage) coverage.textContent = active?.directSignalModel === "hbm"
       ? `직접 신호 모델 · AI 수요 ${fmtNum(active.directMetrics?.demand || 0)}건 · 패키징 실행 ${fmtNum(active.directMetrics?.packaging || 0)}건 · 위험 신호 ${fmtNum(active.directMetrics?.risk || 0)}건`
-      : `${yearLabel} 첫 수집점 ${selected ? pointDateLabel(selected) : "없음"} · 전체 가격 series ${fmtNum(historyCount)}개 · 제품군 매칭 ${fmtNum(selectedSeriesCount)}개`;
-    summary.hidden = true;
-    summary.innerHTML = "";
+      : `${yearLabel} → ${horizon.label} 고정 종료 · 검증 가능 ${fmtNum(active?.observations?.length || 0)}/${fmtNum(active?.evidenceRows?.length || selectedSeriesCount)}개 · 전체 가격 series ${fmtNum(historyCount)}개`;
 
     const executiveSlider = $("#executiveBacktestSlider");
     const executiveSliderDock = $("#executiveBacktestSliderDock");
@@ -12442,7 +12820,7 @@
       }
       return side === "first"
         ? `당시 ${item.priorMomentum == null ? "NA" : `${fmtNum(item.priorMomentum, 2)}%`}`
-        : `이후 ${item.actualChange == null ? "NA" : `${fmtNum(item.actualChange, 2)}%`}`;
+        : `${horizon.label} ${item.actualChange == null ? "NA" : `${fmtNum(item.actualChange, 2)}%`}`;
     };
     grid.innerHTML = items.map((item, index) => `
       <div class="decision-card-stack${item.id === "china-exposure" ? " has-executive-slider" : ""}">
@@ -12485,9 +12863,9 @@
         tags: active.products || [],
         metrics: [
           { label: active.directSignalModel === "hbm" ? "고객·계약" : "당시 모멘텀", value: active.directSignalModel === "hbm" ? fmtNum(active.directMetrics?.customer || 0) : active.priorMomentum == null ? "NA" : `${fmtNum(active.priorMomentum, 2)}%` },
-          { label: active.directSignalModel === "hbm" ? "양산·출하" : "이후 실제 변화", value: active.directSignalModel === "hbm" ? fmtNum(active.directMetrics?.production || 0) : active.actualChange == null ? "NA" : `${fmtNum(active.actualChange, 2)}%` },
+          { label: active.directSignalModel === "hbm" ? "양산·출하" : `${horizon.label} 실제 변화`, value: active.directSignalModel === "hbm" ? fmtNum(active.directMetrics?.production || 0) : active.actualChange == null ? "NA" : `${fmtNum(active.actualChange, 2)}%` },
           { label: active.directSignalModel === "hbm" ? "직접 근거" : "관측 품목", value: fmtNum(active.directMetrics?.evidenceCount ?? active.observations.length) },
-          { label: "중국 신호", value: fmtNum(active.chinaSignalCount) },
+          { label: "현재 중국 overlay", value: fmtNum(active.chinaSignalCount) },
         ],
       };
       focus.style.setProperty("--local-accent", categoryAccent(active.category));
@@ -12506,12 +12884,12 @@
         ${executiveDecisionDebateHTML(active, selectedYearOption, productLabel, selected, selectedSeriesCount, items, executiveScenario)}
         <div class="metric-row">
           <div class="metric"><strong>${active.directSignalModel === "hbm" ? fmtNum(active.directMetrics?.customer || 0) : active.priorMomentum == null ? "NA" : `${fmtNum(active.priorMomentum, 2)}%`}</strong><span>${active.directSignalModel === "hbm" ? "고객·계약" : "직전 모멘텀"}</span></div>
-          <div class="metric"><strong>${active.directSignalModel === "hbm" ? fmtNum(active.directMetrics?.production || 0) : active.actualChange == null ? "NA" : `${fmtNum(active.actualChange, 2)}%`}</strong><span>${active.directSignalModel === "hbm" ? "양산·출하" : "이후 실제"}</span></div>
+          <div class="metric"><strong>${active.directSignalModel === "hbm" ? fmtNum(active.directMetrics?.production || 0) : active.actualChange == null ? "NA" : `${fmtNum(active.actualChange, 2)}%`}</strong><span>${active.directSignalModel === "hbm" ? "양산·출하" : `${horizon.label} 실제`}</span></div>
           <div class="metric"><strong>${fmtNum(active.directMetrics?.evidenceCount ?? active.observations.length)}</strong><span>${active.directSignalModel === "hbm" ? "직접 근거" : "관측 품목"}</span></div>
         </div>
         <div class="decision-outcome ${escapeHTML(active.outcome.cls)}">
           <strong>${escapeHTML(active.outcome.label)}</strong>
-          <span>기준점 ${escapeHTML(pointDateLabel(selected))} → 최신 ${escapeHTML(active.latestAt ? pointDateLabel(active.latestAt) : "없음")}</span>
+          <span>${active.directSignalModel === "hbm" ? `현재 직접 근거 · 과거 백테스트와 분리` : `기준점 ${escapeHTML(pointDateLabel(selected))} → ${escapeHTML(horizon.label)} 목표 ${escapeHTML(pointDateLabel(targetEndTime))}`}</span>
         </div>
         <div class="decision-focus-block">
           <strong>제품군</strong>
@@ -12555,8 +12933,8 @@
       focus.querySelector("[data-decision-inspector]")?.addEventListener("click", () => openInspector(payload));
       focus.querySelector("[data-decision-prices]")?.addEventListener("click", () => jumpTo("prices"));
 
-      evidence.hidden = true;
-      evidence.innerHTML = "";
+      evidence.hidden = false;
+      evidence.innerHTML = backtestEvidenceHTML(active, selectedTime);
     } else {
       focus.innerHTML = `<div class="empty">제품군을 선택하면 의사결정 근거가 열립니다.</div>`;
       evidence.hidden = true;
@@ -17395,9 +17773,18 @@
   }
 
   function pricePointTime(point = {}) {
-    const raw = point.crawledAt || point.updatedAt || point.date || point.sourceUpdate;
-    const time = new Date(raw).getTime();
-    return Number.isFinite(time) ? time : 0;
+    const candidates = [
+      point.sourceObservedAt,
+      point.observedAt,
+      point.date,
+      point.sourceUpdate,
+      point.crawledAt,
+    ];
+    for (const value of candidates) {
+      const time = parseObservedTime(value);
+      if (time) return time;
+    }
+    return 0;
   }
 
   function kstDayKey(value) {
@@ -17486,6 +17873,15 @@
         sub: `${period.label} · 실제 이력 없음`,
       };
     }
+    if (trend.isPeriodComplete === false) {
+      const coverage = Math.max(0, Math.round(Number(trend.coverageDays || 0)));
+      const start = trend.startTime ? shortKstDateWithYear(trend.startTime) : "";
+      const end = trend.endTime ? shortKstDateWithYear(trend.endTime) : "";
+      return {
+        main: "데이터 부족",
+        sub: `${period.label} 요청 · 실제 ${fmtNum(coverage)}일${start && end ? ` · ${start}~${end}` : ""}`,
+      };
+    }
     const dateLabel = period.days > 370 ? shortKstDateWithYear : shortKstDate;
     const start = trend.startTime ? dateLabel(trend.startTime) : "";
     const end = trend.endTime ? dateLabel(trend.endTime) : "";
@@ -17509,14 +17905,27 @@
     const endEntry = priceTrendEndEntry();
     const candidates = endEntry ? points.filter((point) => point.time <= endEntry.time) : points;
     const end = candidates[candidates.length - 1] || points[points.length - 1];
-    if (!end) return { scoped: [], start: null, end: null };
+    if (!end) return { scoped: [], start: null, end: null, isPeriodComplete: false, coverageDays: 0 };
     const startMs = end.time - period.days * 86400000;
-    const windowPoints = candidates.filter((point) => point.time >= startMs);
-    const scoped = windowPoints.length ? windowPoints : candidates;
+    const toleranceDays = period.days <= 7 ? 2 : Math.min(90, 15 + Math.round(period.days / 365) * 15);
+    const nearestStart = candidates.reduce((nearest, point) => {
+      if (!nearest) return point;
+      return Math.abs(point.time - startMs) < Math.abs(nearest.time - startMs) ? point : nearest;
+    }, null);
+    const startGapDays = nearestStart ? Math.abs(nearestStart.time - startMs) / 86400000 : Infinity;
+    const isPeriodComplete = Boolean(nearestStart && startGapDays <= toleranceDays && nearestStart.time < end.time);
+    const windowPoints = nearestStart ? candidates.filter((point) => point.time >= nearestStart.time) : [];
+    const scoped = windowPoints.length ? windowPoints : (candidates.length ? candidates : [end]);
+    const start = scoped[0] || end;
+    const coverageDays = Math.max(0, (end.time - start.time) / 86400000);
     return {
       scoped: scoped.length ? scoped : [end],
-      start: scoped[0] || end,
+      start,
       end,
+      requestedStartTime: startMs,
+      startGapDays,
+      coverageDays,
+      isPeriodComplete,
     };
   }
 
@@ -17530,24 +17939,27 @@
         latestAverage: row.average,
         average: row.average,
         averageRaw: row.averageRaw,
-        changePct: Number(row.changePct),
-        direction: row.direction || "flat",
-        rangeLabel: row.lastUpdate || "TrendForce",
+        changePct: Number.NaN,
+        changeRaw: "데이터 부족",
+        direction: "flat",
+        rangeLabel: row.lastUpdate || "실제 이력 없음",
+        isPeriodComplete: false,
+        pointCount: 0,
+        coverageDays: 0,
       };
     }
-    const { scoped, start, end } = scopedPricePoints(points);
+    const { scoped, start, end, isPeriodComplete, coverageDays } = scopedPricePoints(points);
     const period = activePricePeriod();
     const startValue = Number(start?.average);
     const endValue = Number(end?.average);
-    const changePct = start && end && start.time !== end.time && startValue
+    const changePct = isPeriodComplete && start && end && start.time !== end.time && startValue
       ? ((endValue - startValue) / startValue) * 100
-      : Number(end.changePct || 0);
+      : Number.NaN;
     const direction = changePct > 0 ? "up" : changePct < 0 ? "down" : "flat";
-    const coverageDays = start && end ? Math.max(0, (end.time - start.time) / 86400000) : 0;
     const coverageLabel = priceUsesFullTrend()
-      ? coverageDays >= period.days
+      ? isPeriodComplete
         ? `선택 ${period.label} 전체 관측`
-        : `선택 ${period.label} · 실제 관측 ${fmtNum(Math.round(coverageDays))}일`
+        : `데이터 부족 · 요청 ${period.label} · 실제 ${fmtNum(Math.round(coverageDays))}일`
       : `선택 ${period.label}`;
     return {
       points: scoped.map((point) => Number(point.average)).filter((value) => !Number.isNaN(value)),
@@ -17558,11 +17970,13 @@
       startRaw: start?.averageRaw || formatPrice(startValue),
       latestRaw: end?.averageRaw || formatPrice(endValue),
       changePct,
+      changeRaw: isPeriodComplete ? "" : "데이터 부족",
       direction,
       rangeLabel: `${shortKstDate(start.time)}-${shortKstDate(end.time)}`,
       rangeMode: `${coverageLabel} · ${shortKstDate(start.time)}~${shortKstDate(end.time)}`,
       pointCount: scoped.length,
       coverageDays,
+      isPeriodComplete,
       startTime: start.time,
       endTime: end.time,
       plotPoints: scoped.map((point) => ({ time: point.time, value: Number(point.average) })).filter((point) => !Number.isNaN(point.value)),
@@ -17649,9 +18063,10 @@
     const visible = trends
       .sort((a, b) => (b.trend.pointCount || 0) - (a.trend.pointCount || 0))
       .slice(0, 6);
-    const changed = trends.filter((item) => Number(item.trend.changePct) !== 0);
-    const up = trends.filter((item) => Number(item.trend.changePct) > 0).length;
-    const down = trends.filter((item) => Number(item.trend.changePct) < 0).length;
+    const eligibleTrends = trends.filter((item) => item.trend.isPeriodComplete !== false && Number.isFinite(Number(item.trend.changePct)));
+    const changed = eligibleTrends.filter((item) => Number(item.trend.changePct) !== 0);
+    const up = eligibleTrends.filter((item) => Number(item.trend.changePct) > 0).length;
+    const down = eligibleTrends.filter((item) => Number(item.trend.changePct) < 0).length;
     const leader = changed
       .slice()
       .sort((a, b) => Math.abs(Number(b.trend.changePct || 0)) - Math.abs(Number(a.trend.changePct || 0)))[0] || trends[0];
@@ -17687,7 +18102,7 @@
       <article class="price-trend-card">
         <span>상승/하락</span>
         <strong>${escapeHTML(`${up}/${down}`)}</strong>
-        <small>${escapeHTML(trends.length)}개 품목 · 공개 수집 히스토리</small>
+        <small>${escapeHTML(eligibleTrends.length)}/${escapeHTML(trends.length)}개 기간 충족 · 공개 수집 히스토리</small>
       </article>
       <article class="price-trend-card">
         <span>최대 변동</span>
@@ -17763,12 +18178,19 @@
     const end = points[points.length - 1] || null;
     if (!end) return null;
     const startMs = end.time - period.days * 86400000;
-    const scoped = points.filter((point) => point.time >= startMs);
+    const toleranceDays = period.days <= 7 ? 2 : Math.min(90, 15 + Math.round(period.days / 365) * 15);
+    const nearestStart = points.reduce((nearest, point) => {
+      if (!nearest) return point;
+      return Math.abs(point.time - startMs) < Math.abs(nearest.time - startMs) ? point : nearest;
+    }, null);
+    const startGapDays = nearestStart ? Math.abs(nearestStart.time - startMs) / 86400000 : Infinity;
+    const isPeriodComplete = Boolean(nearestStart && startGapDays <= toleranceDays && nearestStart.time < end.time);
+    const scoped = nearestStart ? points.filter((point) => point.time >= nearestStart.time) : [];
     const plot = scoped.length ? scoped : points;
     const start = plot[0] || end;
-    const changePct = start.close
+    const changePct = isPeriodComplete && start.close
       ? ((end.close - start.close) / start.close) * 100
-      : 0;
+      : Number.NaN;
     return {
       points: plot.map((point) => point.close),
       plotPoints: plot.map((point) => ({ time: point.time, value: point.close })),
@@ -17779,11 +18201,15 @@
       startRaw: formatPrice(start.close),
       latestRaw: formatPrice(end.close),
       changePct,
+      changeRaw: isPeriodComplete ? "" : "데이터 부족",
       direction: changePct > 0 ? "up" : changePct < 0 ? "down" : "flat",
       pointCount: plot.length,
       coverageDays: Math.max(0, (end.time - start.time) / 86400000),
       startTime: start.time,
       endTime: end.time,
+      requestedStartTime: startMs,
+      startGapDays,
+      isPeriodComplete,
     };
   }
 
@@ -18052,7 +18478,7 @@
       }
 
       const trends = group.rows.map((row) => priceTrendForRow(row));
-      const aggregate = aggregatePriceTrend(trends);
+      const aggregate = aggregatePriceTrend(trends.filter((trend) => trend.isPeriodComplete !== false));
       const spot = group.rows.filter((row) => row.priceTypeLabel === "Spot").length;
       const contract = group.rows.filter((row) => row.priceTypeLabel === "Contract").length;
       const maxPoints = Math.max(0, ...trends.map((trend) => Number(trend.pointCount || 0)));
@@ -18110,7 +18536,7 @@
     const series = trends
       .map((trend) => (trend.points || []).map(Number).filter(Number.isFinite))
       .filter((points) => points.length >= 2 && Number(points[0]) !== 0);
-    if (!series.length) return { points: [], changePct: 0, direction: "flat" };
+    if (!series.length) return { points: [], changePct: Number.NaN, changeRaw: "데이터 부족", direction: "flat", isPeriodComplete: false };
     const sampleCount = Math.min(36, Math.max(...series.map((points) => points.length)));
     const points = Array.from({ length: sampleCount }, (_, sampleIndex) => {
       const values = series.map((source) => {

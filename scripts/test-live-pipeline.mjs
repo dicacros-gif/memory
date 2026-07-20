@@ -240,8 +240,9 @@ const health = sourceHealthSnapshot({
   { step: "quant:FX USD/KRW", ok: false, msg: "timeout" },
   { step: "quant:AI NVIDIA", ok: true, msg: "ok" },
 ]);
-assert.equal(health.sources["yahoo:usdkrw"].failureStreak, 3);
-assert.equal(health.sources["yahoo:usdkrw"].alert, true);
+assert.equal(health.sources["fx:usdkrw"].failureStreak, 3, "legacy Yahoo FX streak must migrate to the provider-neutral FX id");
+assert.equal(health.sources["fx:usdkrw"].alert, true);
+assert.equal(health.sources["yahoo:usdkrw"], undefined, "migrated legacy FX id must not remain as a duplicate");
 assert.equal(health.sources["yahoo:nvda"].failureStreak, 0, "different providers must not share a streak");
 assert.equal(health.sources["preserved:not-attempted"].attempted, false, "unattempted sources must be retained");
 assert.equal(health.total, 2, "source-health denominator must include only sources attempted in this run");

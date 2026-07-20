@@ -17,11 +17,16 @@ import {
   buildIndustryPulse,
   buildRelationCandidates,
 } from "./live-pipeline.mjs";
+import {
+  buildQuantBacktestSummary,
+  calculateAllHorizonStats,
+} from "./quant-history.mjs";
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
 const OUT = resolve(__dirname, "..", "data", "live.json");
 const HISTORY_OUT = resolve(__dirname, "..", "data", "price-history.json");
 const MARKET_HISTORY_OUT = resolve(__dirname, "..", "data", "market-history.json");
+const QUANT_BACKTEST_OUT = resolve(__dirname, "..", "data", "quant-backtest.json");
 const CRAWL_EXCLUSIONS_OUT = resolve(__dirname, "..", "data", "crawl-exclusions.json");
 const CRAWL_AUDIT_OUT = resolve(__dirname, "..", "data", "crawl-audit.json");
 const CRAWL_QUARANTINE_OUT = resolve(__dirname, "..", "data", "crawl-quarantine.json");
@@ -2138,16 +2143,74 @@ function kstPriceDayKey(value = "") {
   return `${parts.year}-${parts.month}-${parts.day}`;
 }
 
-function mergePricePoints(existing = [], incoming = []) {
+export function trendForceObservationIso(value = "") {
+  const text = String(value || "").trim();
+  if (!text) return null;
+  const detailed = text.match(/(20\d{2})-(\d{2})-(\d{2})\s+(\d{1,2}):(\d{2})(?:\s*\(GMT\s*([+-])\s*(\d{1,2})(?::?(\d{2}))?\))?/i);
+  if (detailed) {
+    const [, year, month, day, hour, minute, sign = "+", offsetHour = "8", offsetMinute = "0"] = detailed;
+    const offset = (Number(offsetHour) * 60 + Number(offsetMinute)) * (sign === "-" ? -1 : 1);
+    return new Date(Date.UTC(Number(year), Number(month) - 1, Number(day), Number(hour), Number(minute)) - offset * 60000).toISOString();
+  }
+  const dateOnly = text.match(/\b(20\d{2})-(\d{2})-(\d{2})\b/);
+  if (dateOnly) {
+    return new Date(Date.UTC(Number(dateOnly[1]), Number(dateOnly[2]) - 1, Number(dateOnly[3]), 4)).toISOString();
+  }
+  return null;
+}
+
+function priceObservationTime(point = {}) {
+  return point.sourceObservedAt
+    || point.observedAt
+    || trendForceObservationIso(point.sourceUpdate)
+    || point.date
+    || point.crawledAt
+    || point.updatedAt
+    || "";
+}
+
+export function pricePointCoversMonth(point = {}, targetMonth = "") {
+  const time = Date.parse(priceObservationTime(point));
+  return Number.isFinite(time)
+    && /^20\d{2}-(?:0[1-9]|1[0-2])$/.test(String(targetMonth))
+    && new Date(time).toISOString().slice(0, 7) === targetMonth;
+}
+
+export function mergePricePoints(existing = [], incoming = []) {
   const byKey = new Map();
   const keyFor = (point) => {
-    const rawTime = point.date || point.crawledAt || point.updatedAt || "";
+    const rawTime = priceObservationTime(point);
     return kstPriceDayKey(rawTime) || String(point.sourceUpdate || rawTime || "unknown").slice(0, 10);
   };
-  existing.forEach((point) => byKey.set(keyFor(point), point));
-  incoming.forEach((point) => byKey.set(keyFor(point), point));
+  const normalize = (point = {}) => {
+    const originalDate = point.date || point.crawledAt || null;
+    const observedAt = priceObservationTime(point);
+    return {
+      ...point,
+      ...(observedAt ? { date: observedAt, sourceObservedAt: observedAt } : {}),
+      capturedAt: point.capturedAt || point.crawledAt || null,
+      ...(point.origin === "web.archive.org" ? { snapshotAt: point.snapshotAt || originalDate } : {}),
+    };
+  };
+  const add = (point) => {
+    const normalized = normalize(point);
+    const key = keyFor(normalized);
+    const previous = byKey.get(key);
+    const sameObservation = previous
+      && Number(previous.average) === Number(normalized.average)
+      && String(previous.changeRaw || "") === String(normalized.changeRaw || "")
+      && String(previous.sourceUpdate || "") === String(normalized.sourceUpdate || "")
+      && String(previous.origin || "") === String(normalized.origin || "")
+      && String(previous.archiveUrl || "") === String(normalized.archiveUrl || "");
+    if (sameObservation) return;
+    const previousCapture = Date.parse(previous?.capturedAt || previous?.crawledAt || 0) || 0;
+    const nextCapture = Date.parse(normalized.capturedAt || normalized.crawledAt || 0) || 0;
+    if (!previous || nextCapture >= previousCapture) byKey.set(key, normalized);
+  };
+  existing.forEach(add);
+  incoming.forEach(add);
   return Array.from(byKey.values())
-    .sort((a, b) => new Date(a.date || a.crawledAt || a.sourceUpdate || 0).getTime() - new Date(b.date || b.crawledAt || b.sourceUpdate || 0).getTime())
+    .sort((a, b) => new Date(priceObservationTime(a) || 0).getTime() - new Date(priceObservationTime(b) || 0).getTime())
     .slice(-PRICE_HISTORY_RETENTION_POINTS);
 }
 
@@ -2312,12 +2375,16 @@ async function loadPriceHistory() {
     const raw = await readFile(HISTORY_OUT, "utf8");
     const parsed = JSON.parse(raw);
     return {
+      schemaVersion: parsed.schemaVersion || "2.0",
       updatedAt: parsed.updatedAt || null,
+      runId: parsed.runId || null,
+      validatedAt: parsed.validatedAt || null,
       timezone: parsed.timezone || "Asia/Seoul",
       items: parsed.items && typeof parsed.items === "object" ? parsed.items : {},
+      archiveBackfill: parsed.archiveBackfill && typeof parsed.archiveBackfill === "object" ? parsed.archiveBackfill : null,
     };
   } catch {
-    return { updatedAt: null, timezone: "Asia/Seoul", items: {} };
+    return { schemaVersion: "2.0", updatedAt: null, timezone: "Asia/Seoul", items: {}, archiveBackfill: null };
   }
 }
 
@@ -2325,6 +2392,15 @@ async function updatePriceHistory(prices) {
   const history = await loadPriceHistory();
   let changed = false;
   const crawledAt = new Date().toISOString();
+  // Run the migration independently of the live-page result. A temporary
+  // TrendForce outage must not leave old crawl-date copies in stored history.
+  for (const item of Object.values(history.items || {})) {
+    const normalized = mergePricePoints(item.points || [], []);
+    if (JSON.stringify(normalized) !== JSON.stringify(item.points || [])) {
+      item.points = normalized;
+      changed = true;
+    }
+  }
   const chartState = { blocked: false, status: "not_checked" };
   let chartRows = 0;
   let chartPoints = 0;
@@ -2387,10 +2463,13 @@ async function updatePriceHistory(prices) {
         }
       }
 
+      const sourceObservedAt = trendForceObservationIso(section.lastUpdate) || crawledAt;
       const point = {
-        date: crawledAt,
+        date: sourceObservedAt,
+        sourceObservedAt,
         sourceUpdate: section.lastUpdate || "",
         crawledAt,
+        capturedAt: crawledAt,
         average: row.average,
         averageRaw: row.averageRaw || "",
         changePct: row.changePct,
@@ -2405,7 +2484,7 @@ async function updatePriceHistory(prices) {
       const last = current.points[current.points.length - 1];
       const isNewPoint =
         !last ||
-        kstPriceDayKey(last.date || last.crawledAt) !== kstPriceDayKey(point.date) ||
+        kstPriceDayKey(priceObservationTime(last)) !== kstPriceDayKey(sourceObservedAt) ||
         last.sourceUpdate !== point.sourceUpdate ||
         last.average !== point.average ||
         last.changeRaw !== point.changeRaw;
@@ -2521,9 +2600,12 @@ async function fetchYahooChartResult(symbol, range = "5y", interval = "1d") {
 function yahooHistoryPoints(result = {}) {
   const timestamps = Array.isArray(result.timestamp) ? result.timestamp : [];
   const closes = result.indicators?.quote?.[0]?.close || [];
+  const adjustedCloses = result.indicators?.adjclose?.[0]?.adjclose || [];
   const points = timestamps
     .map((ts, index) => {
-      const close = Number(closes[index]);
+      const rawClose = Number(closes[index]);
+      const adjustedClose = Number(adjustedCloses[index]);
+      const close = Number.isFinite(adjustedClose) && adjustedClose > 0 ? adjustedClose : rawClose;
       if (!Number.isFinite(close) || close <= 0) return null;
       const time = Number(ts) * 1000;
       return {
@@ -2531,6 +2613,8 @@ function yahooHistoryPoints(result = {}) {
         time,
         close: Number(close.toFixed(2)),
         value: Number(close.toFixed(2)),
+        rawClose: Number.isFinite(rawClose) && rawClose > 0 ? Number(rawClose.toFixed(2)) : null,
+        adjusted: Number.isFinite(adjustedClose) && adjustedClose > 0,
       };
     })
     .filter(Boolean)
@@ -2538,7 +2622,7 @@ function yahooHistoryPoints(result = {}) {
   return points;
 }
 
-function mergeMarketPoints(existing = [], incoming = []) {
+export function mergeMarketPoints(existing = [], incoming = []) {
   const byDay = new Map();
   const add = (point = {}) => {
     const time = Number(point.time || new Date(point.date || 0).getTime());
@@ -2550,6 +2634,10 @@ function mergeMarketPoints(existing = [], incoming = []) {
       time,
       close: Number(close.toFixed(2)),
       value: Number(close.toFixed(2)),
+      rawClose: point.rawClose != null && Number.isFinite(Number(point.rawClose)) && Number(point.rawClose) > 0
+        ? Number(Number(point.rawClose).toFixed(2))
+        : null,
+      adjusted: Boolean(point.adjusted),
     });
   };
   existing.forEach(add);
@@ -2589,8 +2677,11 @@ async function loadMarketHistory() {
     const raw = await readFile(MARKET_HISTORY_OUT, "utf8");
     const parsed = JSON.parse(raw);
     return {
+      schemaVersion: parsed.schemaVersion || "2.0",
       updatedAt: parsed.updatedAt || null,
       metricsUpdatedAt: parsed.metricsUpdatedAt || null,
+      runId: parsed.runId || null,
+      validatedAt: parsed.validatedAt || null,
       timezone: parsed.timezone || "Asia/Seoul",
       source: parsed.source || "Yahoo Finance chart API",
       indexes: parsed.indexes && typeof parsed.indexes === "object" ? parsed.indexes : {},
@@ -2602,6 +2693,7 @@ async function loadMarketHistory() {
   } catch {
     return {
       updatedAt: null,
+      schemaVersion: "2.0",
       metricsUpdatedAt: null,
       timezone: "Asia/Seoul",
       source: "Yahoo Finance chart API",
@@ -2658,6 +2750,7 @@ async function updateMarketHistory() {
         latest,
         dailyChangePct: dailyChangePct == null ? null : Number(dailyChangePct.toFixed(2)),
         cumulativeChangePct: cumulativeChangePct == null ? null : Number(cumulativeChangePct.toFixed(2)),
+        periods: calculateAllHorizonStats(merged, { cadence: "daily", asOf: crawledAt }),
         pointCount: merged.length,
         points: merged,
       };
@@ -5138,8 +5231,8 @@ function buildQualityReport(payload = {}) {
  * Every metric carries value + asOf + source so the UI can show provenance. */
 
 const QUANT_FX = [
-  { id: "usdkrw", symbol: "KRW=X", label: "USD/KRW", sourceUrl: "https://finance.yahoo.com/quote/KRW=X/" },
-  { id: "usdtwd", symbol: "TWD=X", label: "USD/TWD", sourceUrl: "https://finance.yahoo.com/quote/TWD=X/" },
+  { id: "usdkrw", symbol: "KRW=X", fredId: "DEXKOUS", label: "USD/KRW", currency: "KRW", sourceUrl: "https://fred.stlouisfed.org/series/DEXKOUS", fallbackSourceUrl: "https://finance.yahoo.com/quote/KRW=X/" },
+  { id: "usdtwd", symbol: "TWD=X", fredId: "DEXTAUS", label: "USD/TWD", currency: "TWD", sourceUrl: "https://fred.stlouisfed.org/series/DEXTAUS", fallbackSourceUrl: "https://finance.yahoo.com/quote/TWD=X/" },
 ];
 
 const QUANT_AI_PROXIES = [
@@ -5160,31 +5253,81 @@ function quantSeriesChangePct(points = [], daysAgo = 30) {
   return Number((((latest.close - base.close) / base.close) * 100).toFixed(2));
 }
 
+async function fetchFredHistory(entry) {
+  const start = new Date(Date.now() - (365 * 5 + 10) * 864e5).toISOString().slice(0, 10);
+  const url = `https://fred.stlouisfed.org/graph/fredgraph.csv?id=${encodeURIComponent(entry.fredId)}&cosd=${start}`;
+  const csv = await fetchText(url);
+  const points = String(csv).split(/\r?\n/).slice(1).map((line) => {
+    const [date, rawValue] = line.split(",");
+    const value = Number(rawValue);
+    const time = Date.parse(`${date}T00:00:00.000Z`);
+    if (!/^20\d{2}-\d{2}-\d{2}$/.test(String(date)) || !Number.isFinite(time) || !Number.isFinite(value) || value <= 0) return null;
+    return { date: new Date(time).toISOString(), time, close: value, value, rawClose: value, adjusted: false };
+  }).filter(Boolean).sort((a, b) => a.time - b.time);
+  if (points.length < 2) throw new Error(`FRED ${entry.fredId} history empty`);
+  return { points, source: "Federal Reserve H.10 via FRED", sourceUrl: entry.sourceUrl, currency: entry.currency };
+}
+
 async function collectQuantSeries(entry) {
-  const result = await fetchYahooChartResult(entry.symbol, "1y", "1d");
-  const points = yahooHistoryPoints(result);
+  let result = null;
+  let points = [];
+  let source = "Yahoo Finance chart API";
+  let sourceUrl = entry.fallbackSourceUrl || entry.sourceUrl;
+  let currency = entry.currency || null;
+  let sourceFallback = false;
+  if (entry.fredId) {
+    try {
+      const fred = await fetchFredHistory(entry);
+      points = fred.points;
+      source = fred.source;
+      sourceUrl = fred.sourceUrl;
+      currency = fred.currency;
+    } catch (error) {
+      sourceFallback = true;
+      note(`quant:FRED ${entry.label}`, false, `${error.message} · Yahoo fallback`);
+    }
+  }
+  if (!points.length) {
+    result = await fetchYahooChartResult(entry.symbol, "5y", "1d");
+    points = yahooHistoryPoints(result);
+    currency = result.meta?.currency || currency;
+  }
   const latest = points[points.length - 1];
   if (!latest) throw new Error("empty series");
+  const periods = calculateAllHorizonStats(points, { cadence: "daily", asOf: latest.date });
   return {
     id: entry.id,
     label: entry.label,
     symbol: entry.symbol,
     value: latest.close,
-    currency: result.meta?.currency || null,
+    currency,
     asOf: latest.date.slice(0, 10),
     changePct30d: quantSeriesChangePct(points, 30),
     changePct90d: quantSeriesChangePct(points, 90),
+    changePct1y: periods["1y"].cumulativePct,
+    changePct3y: periods["3y"].cumulativePct,
+    changePct5y: periods["5y"].cumulativePct,
+    periods,
+    history5y: {
+      cadence: "daily",
+      unit: currency,
+      status: points.length >= 2 ? "live" : "accumulating",
+      sourceUrl,
+      usesAdjustedClose: points.some((point) => point.adjusted),
+      points: points.map((point) => ({ date: point.date.slice(0, 10), value: point.close })),
+    },
     history30d: {
       cadence: "daily",
-      unit: result.meta?.currency || null,
+      unit: currency,
       status: points.length >= 2 ? "live" : "accumulating",
-      sourceUrl: entry.sourceUrl,
+      sourceUrl,
       points: points
         .filter((point) => latest.time - point.time <= 35 * 86400000)
         .map((point) => ({ date: point.date.slice(0, 10), value: point.close })),
     },
-    source: "Yahoo Finance chart API",
-    sourceUrl: entry.sourceUrl,
+    source,
+    sourceUrl,
+    sourceFallback,
   };
 }
 
@@ -5198,6 +5341,46 @@ async function fetchEdgarMicronFundamentals() {
   if (!res.ok) throw new Error(`HTTP ${res.status}`);
   const json = await res.json();
   const gaap = json?.facts?.["us-gaap"] || {};
+  const quarterlyHistory = (tags) => {
+    let best = [];
+    for (const tag of tags) {
+      const units = gaap[tag]?.units?.USD;
+      if (!Array.isArray(units)) continue;
+      const byEnd = new Map();
+      for (const row of units) {
+        const durationDays = row.start && row.end ? (Date.parse(row.end) - Date.parse(row.start)) / 864e5 : NaN;
+        if (!["10-Q", "10-K"].includes(row.form) || !Number.isFinite(durationDays) || durationDays < 60 || durationDays > 130) continue;
+        if (!Number.isFinite(Number(row.val))) continue;
+        const previous = byEnd.get(row.end);
+        if (!previous || Date.parse(row.filed || 0) >= Date.parse(previous.filed || 0)) byEnd.set(row.end, row);
+      }
+      const rows = [...byEnd.values()]
+        .sort((a, b) => Date.parse(a.end) - Date.parse(b.end))
+        .slice(-20)
+        .map((row) => ({ tag, date: row.end, value: Number(row.val), start: row.start, form: row.form, filed: row.filed, fy: row.fy, fp: row.fp }));
+      if (rows.length > best.length) best = rows;
+    }
+    return best;
+  };
+  const instantHistory = (tags) => {
+    let best = [];
+    for (const tag of tags) {
+      const units = gaap[tag]?.units?.USD;
+      if (!Array.isArray(units)) continue;
+      const byEnd = new Map();
+      for (const row of units) {
+        if (!["10-Q", "10-K"].includes(row.form) || !row.end || !Number.isFinite(Number(row.val))) continue;
+        const previous = byEnd.get(row.end);
+        if (!previous || Date.parse(row.filed || 0) >= Date.parse(previous.filed || 0)) byEnd.set(row.end, row);
+      }
+      const rows = [...byEnd.values()]
+        .sort((a, b) => Date.parse(a.end) - Date.parse(b.end))
+        .slice(-20)
+        .map((row) => ({ tag, date: row.end, value: Number(row.val), form: row.form, filed: row.filed, fy: row.fy, fp: row.fp }));
+      if (rows.length > best.length) best = rows;
+    }
+    return best;
+  };
   const pickQuarterly = (tags) => {
     for (const tag of tags) {
       const units = gaap[tag]?.units?.USD;
@@ -5220,6 +5403,12 @@ async function fetchEdgarMicronFundamentals() {
   const revenue = pickQuarterly(["RevenueFromContractWithCustomerExcludingAssessedTax", "Revenues", "SalesRevenueNet"]);
   const inventory = pickInstant("InventoryNet");
   const grossProfit = pickQuarterly(["GrossProfit"]);
+  const history = {
+    cadence: "quarterly",
+    revenue: quarterlyHistory(["RevenueFromContractWithCustomerExcludingAssessedTax", "Revenues", "SalesRevenueNet"]),
+    grossProfit: quarterlyHistory(["GrossProfit"]),
+    inventory: instantHistory(["InventoryNet"]),
+  };
   if (!revenue && !inventory) throw new Error("EDGAR facts empty");
   return {
     company: "Micron Technology",
@@ -5227,9 +5416,66 @@ async function fetchEdgarMicronFundamentals() {
     revenue,
     grossProfit,
     inventory,
+    history,
     source: "SEC EDGAR companyfacts (10-Q/10-K XBRL)",
     sourceUrl: "https://www.sec.gov/cgi-bin/browse-edgar?action=getcompany&CIK=0000723125&type=10-Q",
   };
+}
+
+const TSMC_MONTHS = new Map([
+  ["jan", 1], ["feb", 2], ["mar", 3], ["apr", 4], ["may", 5], ["jun", 6],
+  ["jul", 7], ["aug", 8], ["sep", 9], ["sept", 9], ["oct", 10], ["nov", 11], ["dec", 12],
+]);
+
+export function parseTsmcAnnualRevenueHtml(html, year, sourceUrl) {
+  const points = [];
+  for (const rowMatch of String(html || "").matchAll(/<tr[^>]*>([\s\S]*?)<\/tr>/gi)) {
+    const cells = [...rowMatch[1].matchAll(/<t[dh][^>]*>([\s\S]*?)<\/t[dh]>/gi)].map((cell) => stripHTML(cell[1]).trim());
+    if (cells.length < 3) continue;
+    const monthName = cells[0].toLowerCase().replace(/[^a-z]/g, "");
+    const month = TSMC_MONTHS.get(monthName);
+    const revenueMillionTwd = Number(String(cells[1]).replace(/[^\d.-]/g, ""));
+    const yoyPct = Number(String(cells[2]).replace(/[^\d.-]/g, ""));
+    if (!month || !Number.isFinite(revenueMillionTwd) || revenueMillionTwd <= 0) continue;
+    points.push({
+      date: `${year}-${String(month).padStart(2, "0")}`,
+      revenueMillionTwd,
+      revenueBillionTwd: Number((revenueMillionTwd / 1000).toFixed(1)),
+      yoyPct: Number.isFinite(yoyPct) ? yoyPct : null,
+      sourceUrl,
+    });
+  }
+  return points;
+}
+
+async function fetchTsmcOfficialRevenueHistory() {
+  const currentYear = new Date().getUTCFullYear();
+  const years = Array.from({ length: 6 }, (_, index) => currentYear - 5 + index);
+  const settled = await Promise.allSettled(years.map(async (year) => {
+    const sourceUrl = `https://investor.tsmc.com/english/monthly-revenue/${year}`;
+    let points = [];
+    try {
+      points = parseTsmcAnnualRevenueHtml(await fetchText(sourceUrl), year, sourceUrl);
+    } catch {
+      points = [];
+    }
+    if (!points.length) {
+      const cdxUrl = `https://web.archive.org/cdx/search/cdx?url=${encodeURIComponent(sourceUrl)}&output=json&from=${year}&to=${currentYear + 1}&filter=statuscode:200&filter=mimetype:text/html&collapse=digest&limit=20`;
+      const rows = JSON.parse(await fetchArchiveText(cdxUrl));
+      const timestamps = (Array.isArray(rows) ? rows.slice(1) : []).map((row) => row[1]).filter(Boolean).sort();
+      for (const timestamp of timestamps.slice(-4).reverse()) {
+        const archiveUrl = `https://web.archive.org/web/${timestamp}id_/${sourceUrl}`;
+        points = parseTsmcAnnualRevenueHtml(await fetchArchiveText(archiveUrl, 2), year, sourceUrl)
+          .map((point) => ({ ...point, archiveUrl }));
+        if (points.length) break;
+      }
+    }
+    if (!points.length) throw new Error(`TSMC ${year} table empty`);
+    return points;
+  }));
+  const points = settled.flatMap((result) => result.status === "fulfilled" ? result.value : []);
+  if (!points.length) throw new Error("TSMC official annual history unavailable");
+  return points.sort((a, b) => a.date.localeCompare(b.date)).slice(-61);
 }
 
 // TWSE OpenAPI: official monthly revenue disclosures for TWSE-listed companies.
@@ -5259,6 +5505,13 @@ async function fetchTsmcMonthlyRevenue() {
   const month = rocMatch ? `${1911 + Number(rocMatch[1])}-${rocMatch[2]}` : null;
   const value = num(row[revenueKey]);
   if (!Number.isFinite(value)) throw new Error("TSMC revenue parse failed");
+  let officialHistory = [];
+  try {
+    officialHistory = await fetchTsmcOfficialRevenueHistory();
+    note("quant:TSMC history", officialHistory.length >= 60, `공식 IR 월매출 ${officialHistory.length}개월`);
+  } catch (error) {
+    note("quant:TSMC history", false, error.message);
+  }
   return {
     company: "TSMC (2330)",
     month,
@@ -5266,6 +5519,18 @@ async function fetchTsmcMonthlyRevenue() {
     revenueBillionTwd: Number((value / 1e6).toFixed(1)),
     yoyPct: num(row[yoyKey]),
     momPct: num(row[momKey]),
+    revenueHistory: {
+      cadence: "monthly",
+      unit: "B TWD",
+      status: officialHistory.length >= 60 ? "live" : (officialHistory.length ? "partial" : "unavailable"),
+      points: officialHistory.map((point) => ({ date: point.date, value: point.revenueBillionTwd, sourceUrl: point.sourceUrl, archiveUrl: point.archiveUrl || null })),
+    },
+    yoyHistory: {
+      cadence: "monthly",
+      unit: "% YoY",
+      status: officialHistory.length >= 60 ? "live" : (officialHistory.length ? "partial" : "unavailable"),
+      points: officialHistory.filter((point) => Number.isFinite(point.yoyPct)).map((point) => ({ date: point.date, value: point.yoyPct, sourceUrl: point.sourceUrl, archiveUrl: point.archiveUrl || null })),
+    },
     note: String(row["備註"] || "").slice(0, 120) || null,
     source: "TWSE OpenAPI 月營業收入 (official disclosure)",
     sourceUrl: "https://openapi.twse.com.tw/v1/opendata/t187ap05_L",
@@ -6175,11 +6440,15 @@ function buildProjectionCalibration(previous = {}, scenarioCalibration = {}, mod
 export function sourceHealthId(step = "unknown") {
   const value = String(step || "unknown");
   const exact = [
-    [/^quant:FX USD\/KRW/i, "yahoo:usdkrw"],
+    [/^quant:FRED USD\/KRW/i, "fred:usdkrw"],
+    [/^quant:FRED USD\/TWD/i, "fred:usdtwd"],
+    [/^quant:FX USD\/KRW/i, "fx:usdkrw"],
+    [/^quant:FX USD\/TWD/i, "fx:usdtwd"],
     [/^quant:AI NVIDIA/i, "yahoo:nvda"],
     [/^quant:AI AMD/i, "yahoo:amd"],
     [/^quant:Micron EDGAR/i, "sec:micron"],
-    [/^quant:TSMC/i, "twse:tsmc-monthly"],
+    [/^quant:TSMC history/i, "tsmc:ir-history"],
+    [/^quant:TSMC 월매출/i, "twse:tsmc-monthly"],
     [/^TrendForce차트/i, "trendforce:chart"],
     [/^official-industry:wsts-sia/i, "official:wsts-sia"],
   ].find(([pattern]) => pattern.test(value));
@@ -6199,8 +6468,15 @@ export function sourceHealthSnapshot(previous = {}, observations = health) {
     grouped.set(id, current);
   }
   const attemptedAt = new Date().toISOString();
+  const legacyIds = {
+    "fx:usdkrw": ["yahoo:usdkrw"],
+    "fx:usdtwd": ["yahoo:usdtwd"],
+  };
+  const migratedLegacyIds = new Set([...grouped.keys()].flatMap((id) => legacyIds[id] || []));
   const sources = Object.fromEntries(Object.entries(previous.sources || {})
-    .filter(([id]) => !["quant", "가격백필", "official:wsts-sia"].includes(id) && id.toLowerCase() !== "trendforce차트")
+    .filter(([id]) => !["quant", "가격백필", "official:wsts-sia"].includes(id)
+      && id.toLowerCase() !== "trendforce차트"
+      && !migratedLegacyIds.has(id))
     .map(([id, item]) => [id, {
       ...item,
       id,
@@ -6208,7 +6484,9 @@ export function sourceHealthSnapshot(previous = {}, observations = health) {
       attempts: 0,
     }]));
   for (const [id, item] of grouped.entries()) {
-    const before = previous.sources?.[id] || {};
+    const before = previous.sources?.[id]
+      || (legacyIds[id] || []).map((legacyId) => previous.sources?.[legacyId]).find(Boolean)
+      || {};
     const failureStreak = item.ok ? 0 : Number(before.failureStreak || 0) + 1;
     sources[id] = {
       ...item,
@@ -6243,6 +6521,13 @@ function quantHistoryCoverage(priceHistory = {}, marketHistory = {}) {
   const marketPoints = marketSeries.reduce((sum, item) => sum + (item.points?.length || 0), 0);
   const metricSeries = Object.values(marketHistory.metrics || {});
   const metricPoints = metricSeries.reduce((sum, item) => sum + (item.points?.length || 0), 0);
+  let periods = {};
+  try {
+    const generatedAt = marketHistory.updatedAt || priceHistory.updatedAt || new Date().toISOString();
+    periods = buildQuantBacktestSummary({ priceHistory, marketHistory, generatedAt }).coverage;
+  } catch {
+    periods = {};
+  }
   return {
     updatedAt: new Date().toISOString(),
     priceSeries: priceSeries.length,
@@ -6251,6 +6536,8 @@ function quantHistoryCoverage(priceHistory = {}, marketHistory = {}) {
     marketPoints,
     metricSeries: metricSeries.length,
     metricPoints,
+    periods,
+    failClosed: true,
     disclaimer: "Public observations only; unavailable historical observations are never interpolated or fabricated.",
   };
 }
@@ -6363,7 +6650,7 @@ function appendQuantHistory(marketHistory = {}, quant = {}) {
       policy: "source observation date only; no daily interpolation",
     };
   }
-  const appendSeries = ({ id, label, unit, source, sourceUrl, points = [] }) => {
+  const appendSeries = ({ id, label, unit, cadence, source, sourceUrl, points = [] }) => {
     if (!validHttpUrl(sourceUrl)) return;
     const current = marketHistory.metrics[id] || { id, label, unit, points: [] };
     const merged = new Map((current.points || []).filter(validMetricPoint).map((point) => [point.date, point]));
@@ -6371,11 +6658,11 @@ function appendQuantHistory(marketHistory = {}, quant = {}) {
       const date = normalizeObservationDate(point.date);
       const value = Number(point.value);
       if (!date || !Number.isFinite(value)) continue;
-      merged.set(date, { date, value, source, sourceUrl, asOf: point.date, dataStatus: "live-verified", capturedAt });
+      merged.set(date, { date, value, source, sourceUrl: point.sourceUrl || sourceUrl, asOf: point.date, dataStatus: "live-verified", capturedAt });
     }
     const nextPoints = [...merged.values()].sort((a, b) => String(a.date).localeCompare(String(b.date))).slice(-2200);
     if (!nextPoints.length) return;
-    marketHistory.metrics[id] = { ...current, id, label, unit, updatedAt: capturedAt, points: nextPoints };
+    marketHistory.metrics[id] = { ...current, id, label, unit, ...(cadence ? { cadence } : {}), updatedAt: capturedAt, points: nextPoints };
     metricsChanged = true;
     marketHistory.metricDefinitions[id] = { label, unit, provenance: source, sourceUrl, policy: "source observation date only; no interpolation" };
   };
@@ -6383,26 +6670,70 @@ function appendQuantHistory(marketHistory = {}, quant = {}) {
     id: "quant-usdkrw",
     label: "USD/KRW",
     unit: "KRW",
+    cadence: "daily",
     source: quant.fx?.usdkrw?.source,
     sourceUrl: quant.fx?.usdkrw?.sourceUrl,
-    points: quant.fx?.usdkrw?.history30d?.points,
+    points: quant.fx?.usdkrw?.history5y?.points || quant.fx?.usdkrw?.history30d?.points,
+  });
+  appendSeries({
+    id: "quant-usdtwd",
+    label: "USD/TWD",
+    unit: "TWD",
+    cadence: "daily",
+    source: quant.fx?.usdtwd?.source,
+    sourceUrl: quant.fx?.usdtwd?.sourceUrl,
+    points: quant.fx?.usdtwd?.history5y?.points || quant.fx?.usdtwd?.history30d?.points,
   });
   appendSeries({
     id: "quant-nvda",
     label: "NVIDIA",
     unit: quant.aiDemandProxy?.nvda?.currency || "USD",
+    cadence: "daily",
     source: quant.aiDemandProxy?.nvda?.source,
     sourceUrl: quant.aiDemandProxy?.nvda?.sourceUrl,
-    points: quant.aiDemandProxy?.nvda?.history30d?.points,
+    points: quant.aiDemandProxy?.nvda?.history5y?.points || quant.aiDemandProxy?.nvda?.history30d?.points,
+  });
+  appendSeries({
+    id: "quant-amd",
+    label: "AMD",
+    unit: quant.aiDemandProxy?.amd?.currency || "USD",
+    cadence: "daily",
+    source: quant.aiDemandProxy?.amd?.source,
+    sourceUrl: quant.aiDemandProxy?.amd?.sourceUrl,
+    points: quant.aiDemandProxy?.amd?.history5y?.points || quant.aiDemandProxy?.amd?.history30d?.points,
   });
   appendSeries({
     id: "quant-tsmc-yoy",
     label: "TSMC monthly revenue YoY",
     unit: "% YoY",
+    cadence: "monthly",
     source: quant.foundry?.tsmcMonthly?.source,
     sourceUrl: quant.foundry?.tsmcMonthly?.sourceUrl,
     points: quant.foundry?.tsmcMonthly?.yoyHistory?.points,
   });
+  appendSeries({
+    id: "quant-tsmc-revenue",
+    label: "TSMC monthly revenue",
+    unit: "B TWD",
+    cadence: "monthly",
+    source: quant.foundry?.tsmcMonthly?.source,
+    sourceUrl: quant.foundry?.tsmcMonthly?.sourceUrl,
+    points: quant.foundry?.tsmcMonthly?.revenueHistory?.points,
+  });
+  const micronHistory = quant.fundamentals?.micron?.history || {};
+  const micronSource = quant.fundamentals?.micron?.source;
+  const micronSourceUrl = quant.fundamentals?.micron?.sourceUrl;
+  for (const [field, label] of [["revenue", "Micron quarterly revenue"], ["grossProfit", "Micron quarterly gross profit"], ["inventory", "Micron inventory"]]) {
+    appendSeries({
+      id: `quant-micron-${field.replace(/[A-Z]/g, (letter) => `-${letter.toLowerCase()}`)}`,
+      label,
+      unit: "USD B",
+      cadence: "quarterly",
+      source: micronSource,
+      sourceUrl: micronSourceUrl,
+      points: (micronHistory[field] || []).map((point) => ({ ...point, value: Number((Number(point.value) / 1e9).toFixed(3)) })),
+    });
+  }
   if (metricsChanged) marketHistory.metricsUpdatedAt = capturedAt;
 }
 
@@ -6500,21 +6831,45 @@ async function collectQuantMetrics(priceHistory, context = {}) {
   );
   {
     const current = quant.foundry.tsmcMonthly;
-    const previousPoints = previous.foundry?.tsmcMonthly?.yoyHistory?.points || [];
-    const points = previousPoints
-      .filter((point) => /^20\d{2}-\d{2}$/.test(String(point.date)) && Number.isFinite(Number(point.value)))
-      .filter((point) => point.date !== current?.month);
-    if (/^20\d{2}-\d{2}$/.test(String(current?.month)) && Number.isFinite(Number(current?.yoyPct))) {
-      points.push({ date: current.month, value: Number(current.yoyPct) });
-    }
-    points.sort((a, b) => String(a.date).localeCompare(String(b.date)));
-    if (current) current.yoyHistory = {
-      cadence: "monthly",
-      unit: "% YoY",
-      status: points.length >= 2 ? "live" : "accumulating",
-      sourceUrl: current.sourceUrl || previous.foundry?.tsmcMonthly?.sourceUrl || null,
-      points: points.slice(-36),
+    const mergeMonthly = (...collections) => {
+      const byMonth = new Map();
+      for (const point of collections.flat()) {
+        if (!/^20\d{2}-\d{2}$/.test(String(point?.date)) || !Number.isFinite(Number(point?.value))) continue;
+        byMonth.set(point.date, { ...point, value: Number(point.value) });
+      }
+      return [...byMonth.values()].sort((a, b) => String(a.date).localeCompare(String(b.date))).slice(-61);
     };
+    if (current) {
+      const sourceUrl = current.sourceUrl || previous.foundry?.tsmcMonthly?.sourceUrl || null;
+      const yoyPoints = mergeMonthly(
+        previous.foundry?.tsmcMonthly?.yoyHistory?.points || [],
+        current.yoyHistory?.points || [],
+        /^20\d{2}-\d{2}$/.test(String(current.month)) && Number.isFinite(Number(current.yoyPct))
+          ? [{ date: current.month, value: Number(current.yoyPct), sourceUrl }]
+          : [],
+      );
+      const revenuePoints = mergeMonthly(
+        previous.foundry?.tsmcMonthly?.revenueHistory?.points || [],
+        current.revenueHistory?.points || [],
+        /^20\d{2}-\d{2}$/.test(String(current.month)) && Number.isFinite(Number(current.revenueBillionTwd))
+          ? [{ date: current.month, value: Number(current.revenueBillionTwd), sourceUrl }]
+          : [],
+      );
+      current.yoyHistory = {
+        cadence: "monthly",
+        unit: "% YoY",
+        status: yoyPoints.length >= 60 ? "live" : (yoyPoints.length >= 2 ? "partial" : "accumulating"),
+        sourceUrl,
+        points: yoyPoints,
+      };
+      current.revenueHistory = {
+        cadence: "monthly",
+        unit: "B TWD",
+        status: revenuePoints.length >= 60 ? "live" : (revenuePoints.length >= 2 ? "partial" : "accumulating"),
+        sourceUrl,
+        points: revenuePoints,
+      };
+    }
   }
   quant.forecastInputs = refreshForecastInputs(previous.forecastInputs, context, model);
   quant.forecastInputs.sourceChecks = await collectForecastSourceChecks(model);
@@ -6554,16 +6909,19 @@ async function collectQuantMetrics(priceHistory, context = {}) {
  * price pages, parsed with the same table parser. Points are tagged with
  * origin=web.archive.org and only merged into series we already track. */
 
-const ARCHIVE_BACKFILL_ERAS = [
-  { id: "30d", daysAgo: 30, windowDays: 10 },
-  { id: "1q", daysAgo: 92, windowDays: 24 },
-  { id: "2q", daysAgo: 183, windowDays: 30 },
-  { id: "1y", daysAgo: 365, windowDays: 45 },
-  { id: "2y", daysAgo: 730, windowDays: 60 },
-  { id: "3y", daysAgo: 1095, windowDays: 75 },
-  { id: "5y", daysAgo: 1825, windowDays: 90 },
-];
-const ARCHIVE_BACKFILL_MAX_SNAPSHOTS_PER_RUN = 4;
+export function archiveMonthlyTargets(months = 60, now = new Date()) {
+  const targets = [];
+  for (let monthsAgo = months; monthsAgo >= 1; monthsAgo -= 1) {
+    const target = Date.UTC(now.getUTCFullYear(), now.getUTCMonth() - monthsAgo + 1, 0, 12);
+    targets.push({
+      id: new Date(target).toISOString().slice(0, 7),
+      target,
+      windowDays: 35,
+    });
+  }
+  return targets;
+}
+const ARCHIVE_BACKFILL_MAX_SNAPSHOTS_PER_RUN = 8;
 
 function cdxDayStamp(time) {
   return new Date(time).toISOString().slice(0, 10).replace(/-/g, "");
@@ -6660,9 +7018,19 @@ function parseLegacyPriceTables(html, source) {
 }
 
 async function backfillPriceHistoryFromArchive(history) {
-  let snapshotsFetched = 0;
+  let attemptsThisRun = 0;
   let pointsAdded = 0;
   const backfillCap = Number(process.env.BACKFILL_MAX) > 0 ? Number(process.env.BACKFILL_MAX) : ARCHIVE_BACKFILL_MAX_SNAPSHOTS_PER_RUN;
+  const attemptedAt = new Date().toISOString();
+  const manifest = history.archiveBackfill && typeof history.archiveBackfill === "object"
+    ? history.archiveBackfill
+    : { schemaVersion: "2.0", monthsRequested: 60, attempts: {} };
+  manifest.schemaVersion = "2.0";
+  manifest.monthsRequested = 60;
+  manifest.attempts ||= {};
+  const monthlyTargets = archiveMonthlyTargets();
+  const targetMonthIds = new Set(monthlyTargets.map((period) => period.id));
+  const cdxCache = new Map();
   const normalizedIndex = new Map();
   for (const item of Object.values(history.items || {})) {
     const norm = normalizedHistoryKey(item.key);
@@ -6672,6 +7040,7 @@ async function backfillPriceHistoryFromArchive(history) {
   // Merge parsed archive sections into today's tracked series; returns count.
   const mergeArchiveSections = (sections, snapTs, sourceUrl) => {
     const snapIso = cdxTimestampToIso(snapTs);
+    const capturedAt = new Date().toISOString();
     let merged = 0;
     for (const section of sections || []) {
       for (const row of section.rows || []) {
@@ -6679,10 +7048,14 @@ async function backfillPriceHistoryFromArchive(history) {
         const key = row.historyKey || priceHistoryKey(section, row);
         const current = history.items[key] || normalizedIndex.get(normalizedHistoryKey(key));
         if (!current) continue; // only enrich series we track today
+        const sourceObservedAt = trendForceObservationIso(section.lastUpdate) || snapIso;
         const point = {
-          date: snapIso,
+          date: sourceObservedAt,
+          sourceObservedAt,
           sourceUpdate: section.lastUpdate || "",
-          crawledAt: snapIso,
+          snapshotAt: snapIso,
+          crawledAt: capturedAt,
+          capturedAt,
           average: row.average,
           averageRaw: row.averageRaw || "",
           changePct: row.changePct,
@@ -6692,7 +7065,7 @@ async function backfillPriceHistoryFromArchive(history) {
           archiveUrl: `https://web.archive.org/web/${snapTs}/${sourceUrl}`,
         };
         const next = mergePricePoints(current.points, [point]);
-        if (next.length !== current.points.length) {
+        if (JSON.stringify(next) !== JSON.stringify(current.points)) {
           current.points = next;
           merged += 1;
           pointsAdded += 1;
@@ -6703,58 +7076,112 @@ async function backfillPriceHistoryFromArchive(history) {
   };
 
   const cdxSnapshots = async (url, target, windowMs) => {
-    const cdxUrl = `https://web.archive.org/cdx/search/cdx?url=${encodeURIComponent(url)}&output=json&from=${cdxDayStamp(target - windowMs)}&to=${cdxDayStamp(target + windowMs)}&filter=statuscode:200&limit=4`;
-    const cdxRows = JSON.parse(await fetchArchiveText(cdxUrl));
-    return (Array.isArray(cdxRows) ? cdxRows.slice(1) : []).map((r) => r[1]).filter(Boolean);
+    if (!cdxCache.has(url)) {
+      const from = monthlyTargets[0].target - 40 * 864e5;
+      const to = monthlyTargets.at(-1).target + 40 * 864e5;
+      const cdxUrl = `https://web.archive.org/cdx/search/cdx?url=${encodeURIComponent(url)}&output=json&from=${cdxDayStamp(from)}&to=${cdxDayStamp(to)}&filter=statuscode:200&filter=mimetype:text/html&collapse=timestamp:6&limit=1000`;
+      cdxCache.set(url, fetchArchiveText(cdxUrl).then((text) => {
+        const rows = JSON.parse(text);
+        return (Array.isArray(rows) ? rows.slice(1) : []).map((row) => row[1]).filter(Boolean);
+      }));
+    }
+    const snapshots = await cdxCache.get(url);
+    return snapshots.filter((timestamp) => {
+      const time = Date.parse(cdxTimestampToIso(timestamp));
+      return Number.isFinite(time) && Math.abs(time - target) <= windowMs;
+    });
   };
 
   const pickClosest = (snapshots, target) => snapshots
     .map((ts) => ({ ts, diff: Math.abs(new Date(cdxTimestampToIso(ts)).getTime() - target) }))
     .sort((a, b) => a.diff - b.diff)[0].ts;
-  for (const page of PRICE_PAGES) {
-    for (const era of ARCHIVE_BACKFILL_ERAS) {
-      if (snapshotsFetched >= backfillCap) break;
-      const target = Date.now() - era.daysAgo * 86400000;
-      const windowMs = era.windowDays * 86400000;
-      const covered = Object.values(history.items || {}).some((item) =>
-        String(item.key || "").startsWith(`${page.id}-`) &&
-        (item.points || []).some((p) => Math.abs(new Date(p.date || p.crawledAt || 0).getTime() - target) <= windowMs));
-      if (covered) continue;
-      try {
-        const snapshots = await cdxSnapshots(page.url, target, windowMs);
-        if (snapshots.length) {
-          const best = pickClosest(snapshots, target);
-          snapshotsFetched += 1;
-          const html = await fetchArchiveText(`https://web.archive.org/web/${best}id_/${page.url}`);
-          const merged = mergeArchiveSections(parsePriceTables(html, page), best, page.url);
-          note(`가격백필:${page.id}·${era.id}`, merged > 0, `${best.slice(0, 8)} 스냅샷 · ${merged}개 시리즈에 과거점 추가`);
-          await sleep(900);
-          continue;
+  const jobs = monthlyTargets.flatMap((period) => PRICE_PAGES.map((page) => ({ page, period })));
+  for (const { page, period } of jobs) {
+    if (attemptsThisRun >= backfillCap) break;
+    const target = period.target;
+    const windowMs = period.windowDays * 86400000;
+    const pageItems = Object.values(history.items || {}).filter((item) =>
+      String(item.sectionId || "").startsWith(`${page.id}-`) || String(item.key || "").startsWith(`${page.id}-`));
+    if (!pageItems.length) continue;
+    const uncovered = pageItems.filter((item) => !(item.points || []).some((point) => pricePointCoversMonth(point, period.id)));
+    if (!uncovered.length) continue;
+
+    const jobId = `${page.id}:${period.id}`;
+    const priorAttempt = manifest.attempts[jobId];
+    const retryDays = priorAttempt?.status === "merged" ? 30 : 7;
+    if (priorAttempt?.attemptedAt && Date.now() - Date.parse(priorAttempt.attemptedAt) < retryDays * 864e5) continue;
+
+    attemptsThisRun += 1;
+    try {
+      let source = page;
+      let snapshots = await cdxSnapshots(page.url, target, windowMs);
+      let legacy = false;
+      if (!snapshots.length) {
+        source = ARCHIVE_LEGACY_SOURCES.find((item) => item.pageId === page.id);
+        if (source) {
+          snapshots = await cdxSnapshots(source.url, target, windowMs);
+          legacy = true;
         }
-        // No snapshot of the current page URL — try the legacy-era URL whose
-        // sections map to today's series (older markup, identical item names).
-        const legacy = ARCHIVE_LEGACY_SOURCES.find((src) => src.pageId === page.id);
-        if (!legacy) {
-          noteSkipped(`가격백필:${page.id}·${era.id}`, "아카이브 스냅샷 없음");
-          continue;
-        }
-        const legacySnapshots = await cdxSnapshots(legacy.url, target, windowMs);
-        if (!legacySnapshots.length) {
-          noteSkipped(`가격백필:${page.id}·${era.id}`, "현행·레거시 URL 모두 스냅샷 없음");
-          continue;
-        }
-        const bestLegacy = pickClosest(legacySnapshots, target);
-        snapshotsFetched += 1;
-        const legacyHtml = await fetchArchiveText(`https://web.archive.org/web/${bestLegacy}id_/${legacy.url}`);
-        const mergedLegacy = mergeArchiveSections(parseLegacyPriceTables(legacyHtml, legacy), bestLegacy, legacy.url);
-        note(`가격백필:${page.id}·${era.id}·legacy`, mergedLegacy > 0, `${bestLegacy.slice(0, 8)} 레거시 스냅샷 · ${mergedLegacy}개 시리즈에 과거점 추가`);
-      } catch (error) {
-        note(`가격백필:${page.id}·${era.id}`, false, error.message);
       }
-      await sleep(900);
+      if (!source || !snapshots.length) {
+        manifest.attempts[jobId] = { attemptedAt, status: "no-snapshot", uncoveredSeries: uncovered.length };
+        noteSkipped(`가격백필:${page.id}·${period.id}`, "현행·레거시 URL 모두 스냅샷 없음");
+        await sleep(900);
+        continue;
+      }
+
+      const best = pickClosest(snapshots, target);
+      const archivedUrl = `https://web.archive.org/web/${best}id_/${source.url}`;
+      const html = await fetchArchiveText(archivedUrl);
+      const sections = legacy ? parseLegacyPriceTables(html, source) : parsePriceTables(html, page);
+      const merged = mergeArchiveSections(sections, best, source.url);
+      const coveredAfter = uncovered.filter((item) => (item.points || []).some((point) => pricePointCoversMonth(point, period.id))).length;
+      manifest.attempts[jobId] = {
+        attemptedAt,
+        status: coveredAfter > 0 ? "merged" : (merged > 0 ? "target-miss" : "empty"),
+        snapshot: best,
+        snapshotUrl: archivedUrl,
+        uncoveredSeries: uncovered.length,
+        mergedSeries: merged,
+        coveredTargetSeries: coveredAfter,
+      };
+      note(`가격백필:${page.id}·${period.id}${legacy ? "·legacy" : ""}`, coveredAfter > 0, `${best.slice(0, 8)} 스냅샷 · 목표월 ${coveredAfter}/${uncovered.length}개 · 변경 ${merged}개`);
+    } catch (error) {
+      manifest.attempts[jobId] = { attemptedAt, status: "failed", error: String(error.message || error).slice(0, 300), uncoveredSeries: uncovered.length };
+      note(`가격백필:${page.id}·${period.id}`, false, error.message);
     }
+    await sleep(900);
   }
-  if (pointsAdded > 0) history.updatedAt = new Date().toISOString();
+  manifest.updatedAt = attemptedAt;
+  manifest.attemptsThisRun = attemptsThisRun;
+  manifest.pointsAddedThisRun = pointsAdded;
+  const coverageSeries = Object.fromEntries(Object.entries(history.items || {}).map(([key, item]) => {
+    const months = new Set((item.points || []).map((point) => {
+      const time = Date.parse(priceObservationTime(point));
+      return Number.isFinite(time) ? new Date(time).toISOString().slice(0, 7) : null;
+    }).filter((month) => month && targetMonthIds.has(month)));
+    return [key, {
+      observedMonths: months.size,
+      targetMonths: monthlyTargets.length,
+      coverageRatio: Number((months.size / monthlyTargets.length).toFixed(4)),
+      firstMonth: [...months].sort()[0] || null,
+      lastMonth: [...months].sort().at(-1) || null,
+    }];
+  }));
+  const totalSeriesMonths = Object.keys(coverageSeries).length * monthlyTargets.length;
+  const observedSeriesMonths = Object.values(coverageSeries).reduce((sum, item) => sum + item.observedMonths, 0);
+  manifest.coverage = {
+    targetStartMonth: monthlyTargets[0]?.id || null,
+    targetEndMonth: monthlyTargets.at(-1)?.id || null,
+    targetMonths: monthlyTargets.length,
+    seriesCount: Object.keys(coverageSeries).length,
+    observedSeriesMonths,
+    totalSeriesMonths,
+    coverageRatio: totalSeriesMonths ? Number((observedSeriesMonths / totalSeriesMonths).toFixed(4)) : 0,
+    series: coverageSeries,
+  };
+  history.archiveBackfill = manifest;
+  if (pointsAdded > 0 || attemptsThisRun > 0) history.updatedAt = attemptedAt;
   return pointsAdded;
 }
 
@@ -6827,6 +7254,12 @@ async function main() {
     marketHistory,
   });
   appendQuantHistory(marketHistory, quant);
+  const quantBacktest = buildQuantBacktestSummary({
+    priceHistory,
+    marketHistory,
+    generatedAt: quant.updatedAt,
+    runId,
+  });
   quant.validatedAt = new Date().toISOString();
   quant.expiresAt = new Date(Date.now() + 26 * 60 * 60 * 1000).toISOString();
   for (const key of ["accountSignals", "agentBriefing", "relationCandidates", "baselineFreshness", "industryPulse"]) {
@@ -6835,7 +7268,11 @@ async function main() {
     quant[key].validatedAt = quant.validatedAt;
     quant[key].expiresAt = quant.expiresAt;
   }
-  quant.historyCoverage = quantHistoryCoverage(priceHistory, marketHistory);
+  quant.historyCoverage = {
+    ...quantHistoryCoverage(priceHistory, marketHistory),
+    periods: quantBacktest.coverage,
+    contractSchemaVersion: quantBacktest.schemaVersion,
+  };
   const sourceRegistry = buildSourceRegistry({ prices, news, communitySignals, brokerResearch, facts, marketHistory, quant });
   const okCount = health.filter((item) => item.ok).length;
   const languageCounts = {
@@ -6851,6 +7288,12 @@ async function main() {
     timezone: "Asia/Seoul",
     stocks,
     quant,
+    quantBacktest: {
+      schemaVersion: quantBacktest.schemaVersion,
+      generatedAt: quantBacktest.generatedAt,
+      runId: quantBacktest.runId,
+      coverage: quantBacktest.coverage,
+    },
     prices,
     priceHistory,
     marketHistory: summarizeMarketHistory(marketHistory),
@@ -6893,12 +7336,14 @@ async function main() {
   priceHistory.validatedAt = payload.updatedAt;
   marketHistory.runId = runId;
   marketHistory.validatedAt = payload.updatedAt;
+  quantBacktest.validatedAt = payload.updatedAt;
   payload.marketHistory.runId = runId;
   payload.marketHistory.validatedAt = payload.updatedAt;
   const crawlAudit = buildCrawlAudit(payload, quarantineReport);
   await writeVerifiedBundle([
     [HISTORY_OUT, priceHistory],
     [MARKET_HISTORY_OUT, marketHistory],
+    [QUANT_BACKTEST_OUT, quantBacktest],
     [QUANT_OUT, quant],
     [CRAWL_QUARANTINE_OUT, quarantineReport],
     [CRAWL_AUDIT_OUT, crawlAudit],

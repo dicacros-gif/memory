@@ -10,6 +10,7 @@ import { readFile } from "node:fs/promises";
 import { dirname, resolve } from "node:path";
 import { fileURLToPath } from "node:url";
 import { DEMAND_ACCOUNT_REGISTRY, RELATION_ENTITY_REGISTRY } from "./live-pipeline.mjs";
+import { buildQuantBacktestSummary } from "./quant-history.mjs";
 
 const root = resolve(dirname(fileURLToPath(import.meta.url)), "..");
 const textFiles = [
@@ -18,6 +19,7 @@ const textFiles = [
   "data/baseline.json",
   "data/live.json",
   "data/quant.json",
+  "data/quant-backtest.json",
   "data/quant-model.json",
   "data/price-history.json",
   "data/market-history.json",
@@ -62,6 +64,17 @@ for (const file of textFiles) {
 
   if (file === "assets/js/app.js" && /\[\/입니다\/g,\s*""\]|\[\/합니다\/g,\s*""\]/.test(text)) {
     addIssue("error", file, "destructive Korean ending normalization can truncate words");
+  }
+  if (file === "assets/js/app.js") {
+    if (/Math\.abs\(time\s*-\s*target\)\s*<=\s*horizon\.endToleranceDays/.test(text)) {
+      addIssue("error", file, "fixed-horizon backtest can close before its nominal end date");
+    }
+    if (!text.includes("function firstClosingPoint") || !text.includes("point._time >= targetTime")) {
+      addIssue("error", file, "fixed-horizon backtest requires a one-sided closing observation");
+    }
+    if (!text.includes("function fixedWindowPriceCoverage")) {
+      addIssue("error", file, "price backtest must enforce minimum observations and maximum gaps");
+    }
   }
 
   const placeholderPattern = file.endsWith(".js")
@@ -222,6 +235,7 @@ const priceDayFormatter = new Intl.DateTimeFormat("en-CA", {
 for (const [key, item] of Object.entries(priceHistory.items || {})) {
   const points = Array.isArray(item.points) ? item.points : [];
   const dayKeys = new Set();
+  const sourceObservations = new Set();
   let previousTime = 0;
   for (const point of points) {
     const value = Number(point.average);
@@ -238,6 +252,14 @@ for (const [key, item] of Object.entries(priceHistory.items || {})) {
       addIssue("error", "data/price-history.json", "price history contains duplicate KST dates", `${key}: ${dayKey}`);
     }
     dayKeys.add(dayKey);
+    const sourceObservationKey = `${String(point.sourceUpdate || "").trim()}::${Number(point.average)}`;
+    if (point.sourceUpdate && sourceObservations.has(sourceObservationKey)) {
+      addIssue("error", "data/price-history.json", "same source observation was copied onto multiple crawl dates", `${key}: ${point.sourceUpdate}`);
+    }
+    if (point.sourceUpdate) sourceObservations.add(sourceObservationKey);
+    if (point.origin === "web.archive.org" && !Number.isFinite(Date.parse(String(point.snapshotAt || "")))) {
+      addIssue("error", "data/price-history.json", "archive point must preserve its snapshot timestamp separately", key);
+    }
     if (previousTime && time < previousTime) {
       addIssue("error", "data/price-history.json", "price history is not chronological", key);
     }
@@ -250,10 +272,86 @@ for (const [key, item] of Object.entries(priceHistory.items || {})) {
 
 const live = JSON.parse(await readFile(resolve(root, "data/live.json"), "utf8"));
 const quant = JSON.parse(await readFile(resolve(root, "data/quant.json"), "utf8"));
+const quantBacktest = JSON.parse(await readFile(resolve(root, "data/quant-backtest.json"), "utf8"));
 const quantModel = JSON.parse(await readFile(resolve(root, "data/quant-model.json"), "utf8"));
 const crawlAudit = JSON.parse(await readFile(resolve(root, "data/crawl-audit.json"), "utf8"));
 const crawlQuarantine = JSON.parse(await readFile(resolve(root, "data/crawl-quarantine.json"), "utf8"));
 const quality = live.quality || {};
+
+if (quantBacktest.schemaVersion !== "1.0" || !quantBacktest.methodology?.failClosed) {
+  addIssue("error", "data/quant-backtest.json", "quant backtest contract must be schema 1.0 and fail closed");
+}
+if (quantBacktest.runId !== quant.runId || quantBacktest.runId !== marketHistory.runId || quantBacktest.runId !== priceHistory.runId) {
+  addIssue("error", "data/quant-backtest.json", "quant backtest and source histories must share one verified runId");
+}
+for (const horizon of ["1y", "3y", "5y"]) {
+  const coverage = quantBacktest.coverage?.[horizon];
+  if (!coverage || !Number.isFinite(Number(coverage.totalSeries)) || !Number.isFinite(Number(coverage.eligibleSeries))) {
+    addIssue("error", "data/quant-backtest.json", "missing horizon coverage", horizon);
+  }
+  const marketReady = Number(coverage?.byDomain?.market?.eligible || 0);
+  const metricReady = Number(coverage?.byDomain?.metric?.eligible || 0);
+  if (marketReady < (horizon === "1y" ? 10 : 8)) {
+    addIssue("error", "data/quant-backtest.json", "insufficient long-run market series coverage", `${horizon}: ${marketReady}`);
+  }
+  if (metricReady < 4) {
+    addIssue("error", "data/quant-backtest.json", "five-year crawler metrics were not retained", `${horizon}: ${metricReady}`);
+  }
+  const priceReady = Number(coverage?.byDomain?.price?.eligible || 0);
+  if (priceReady === 0) {
+    addIssue("warn", "data/quant-backtest.json", "public memory-price history is not yet continuous enough for this horizon", horizon);
+  }
+}
+const archiveProgress = priceHistory.archiveBackfill;
+if (archiveProgress?.schemaVersion !== "2.0"
+  || Number(archiveProgress?.coverage?.targetMonths) !== 60
+  || Number(archiveProgress?.coverage?.seriesCount) !== Object.keys(priceHistory.items || {}).length) {
+  addIssue("error", "data/price-history.json", "60-month archive backfill progress contract is missing or inconsistent");
+} else if (Number(archiveProgress.coverage.coverageRatio || 0) < 0.2) {
+  addIssue("warn", "data/price-history.json", "public archive coverage remains sparse; UI must keep unsupported periods unavailable", String(archiveProgress.coverage.coverageRatio));
+}
+for (const [id, series] of Object.entries(quantBacktest.series || {})) {
+  for (const horizon of ["1y", "3y", "5y"]) {
+    const period = series.periods?.[horizon];
+    if (!period) {
+      addIssue("error", "data/quant-backtest.json", "series is missing a fixed horizon", `${id}:${horizon}`);
+      continue;
+    }
+    const kind = period.seriesKind || series.seriesKind || "price";
+    const eligibleMetric = kind === "price"
+      ? period.cumulativePct
+      : kind === "rate"
+        ? period.percentagePointChange
+        : period.endpointChangePct;
+    if (period.eligible && !Number.isFinite(Number(eligibleMetric))) {
+      addIssue("error", "data/quant-backtest.json", "eligible horizon lacks its series-kind performance field", `${id}:${horizon}:${kind}`);
+    }
+    if (!period.eligible && [
+      period.cumulativePct,
+      period.cagrPct,
+      period.maxDrawdownPct,
+      period.absoluteChange,
+      period.percentagePointChange,
+      period.endpointChangePct,
+    ].some((value) => value != null)) {
+      addIssue("error", "data/quant-backtest.json", "ineligible horizon must not fall back to a shorter range", `${id}:${horizon}`);
+    }
+  }
+}
+try {
+  const rebuilt = buildQuantBacktestSummary({
+    priceHistory,
+    marketHistory,
+    generatedAt: quantBacktest.generatedAt,
+    runId: quantBacktest.runId,
+  });
+  if (JSON.stringify(rebuilt.coverage) !== JSON.stringify(quantBacktest.coverage)
+    || JSON.stringify(rebuilt.series) !== JSON.stringify(quantBacktest.series)) {
+    addIssue("error", "data/quant-backtest.json", "derived backtest contract does not match source histories");
+  }
+} catch (error) {
+  addIssue("error", "data/quant-backtest.json", "derived backtest contract could not be recomputed", error.message);
+}
 
 if (DEMAND_ACCOUNT_REGISTRY.length !== 27 || new Set(DEMAND_ACCOUNT_REGISTRY.map((item) => item.id)).size !== 27) {
   addIssue("error", "scripts/live-pipeline.mjs", "demand account registry must contain 27 unique ids");

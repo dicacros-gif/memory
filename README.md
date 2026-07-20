@@ -24,11 +24,12 @@ The published dashboard is generated through a fail-closed evidence pipeline:
 | Intelligence Sources | CITIC/CICC/HSBC, Boss Zhipin, Maimai, TechInsights, Yole, DigiTimes, 36Kr, EE Times | 외신·현장 신호 크롤 |
 | Competitive Dynamics | 범용 DRAM 가격 하방, NAND/eSSD 교란, 패키징 우회, 소부장 국산화, 인재/IP 이동 | 관계선별 근거 카운트 live |
 | Scenario / Forecast | Bear·Base·Bull 배수, 프로젝션 가중치, 수요처 계정 신호 | `data/quant.json` (EMA 보정, 매일 재계산) |
-| Quant Metrics | 환율, NVDA/AMD 모멘텀, Micron 10-Q(EDGAR), TSMC 월매출(TWSE), 가격 모멘텀, 원문 정량 수치 | `data/quant.json` |
-| Spot / Contract Prices | TrendForce spot·contract + Wayback 아카이브 백필(분기·1년·5년) | `data/price-history.json` |
+| Quant Metrics | 환율·NVDA·AMD 5년 일봉, Micron 최근 20개 공시 분기(EDGAR), TSMC 최대 61개월 공식 월매출, 가격 모멘텀 | `data/quant.json` + `data/market-history.json` |
+| Quant Backtest | 1년·3년·5년 고정 기간 누적 변화, CAGR, 최대 낙폭, 실제 커버리지·최대 공백 | `data/quant-backtest.json` |
+| Spot / Contract Prices | TrendForce spot·contract + Wayback 공개 스냅샷 60개월 월별 증분 백필 | `data/price-history.json` |
 | Foreign / China News | 한국 출처를 제외한 외신·중국 중심 메모리 기사 | Google News RSS + 증거 게이트 |
 
-크롤링은 GitHub Actions에서 매일 06:00·18:00 KST 두 번 실행되며, 가격 모멘텀은 기준점이 실제 N일 근처일 때만 N일 변동으로 표기합니다(희소 이력 과장 방지). 원문 정량 수치(liveFigures)는 기사 문장에서 그대로 추출해 출처·날짜와 함께 표시하고 재해석하지 않습니다.
+크롤링은 GitHub Actions에서 매일 06:00·18:00 KST 두 번 실행됩니다. 1·3·5년 성과는 기간 시작점 허용 오차, 최소 관측 수, 최대 공백, 종료점 최신성을 모두 충족할 때만 계산합니다. 공개 메모리 가격 아카이브는 빈 구간을 보간하지 않으며 연속성이 부족하면 `데이터 부족`으로 표시합니다. 원문 정량 수치(liveFigures)는 기사 문장에서 그대로 추출해 출처·날짜와 함께 표시하고 재해석하지 않습니다.
 
 ## 한국 소스 제외
 
@@ -56,6 +57,7 @@ The published dashboard is generated through a fail-closed evidence pipeline:
 | `data/baseline.json` | 중국 벤치마킹 기준 데이터 모델 (live 대조로 신선도 표시) |
 | `data/live.json` | daily crawler가 갱신하는 가격·뉴스·신호 번들 |
 | `data/quant.json` | 정량 지표·시나리오 보정·원문 수치·계정 신호 (매 크롤 재계산) |
+| `data/quant-backtest.json` | 1·3·5년 고정 기간 통계와 시리즈별 커버리지 감사 계약 |
 | `data/price-history.json` | TrendForce 가격 이력 + web.archive.org 백필 과거점 |
 | `data/market-history.json` | SOX·주가 등 시장지수 5년 이력 + quant 시계열 |
 | `data/crawl-audit.json` | 크롤 실행별 감사 기록 |

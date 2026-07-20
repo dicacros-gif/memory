@@ -1,31 +1,31 @@
 {
   "schemaVersion": "1.0",
-  "runId": "local-1784554173229",
-  "generatedAt": "2026-07-20T13:36:56.812Z",
+  "runId": "local-1784562400522",
+  "generatedAt": "2026-07-20T15:50:16.004Z",
   "status": "verified",
   "methodologyVersion": "4.0-source-provenance",
   "promoted": {
-    "news": 72,
+    "news": 74,
     "priceRows": 41,
-    "communitySignals": 37,
+    "communitySignals": 38,
     "intelligenceBriefs": 7,
     "factEvents": 6,
     "sourceChannels": 8
   },
   "quarantined": {
-    "news": 24,
+    "news": 22,
     "reasonCounts": {
-      "source_summary_missing": 24
+      "source_summary_missing": 22
     }
   },
   "sourceClasses": {
-    "general-media": 42,
-    "authoritative-media": 15,
+    "general-media": 43,
+    "authoritative-media": 16,
     "official": 10,
     "research": 5
   },
   "origins": {
-    "live-crawl": 43,
+    "live-crawl": 45,
     "curated-seed": 29
   },
   "checks": [
@@ -40,21 +40,21 @@
       "id": "news_total",
       "critical": true,
       "passed": true,
-      "observed": 72,
+      "observed": 74,
       "threshold": 24
     },
     {
       "id": "news_english",
       "critical": true,
       "passed": true,
-      "observed": 37,
+      "observed": 38,
       "threshold": 12
     },
     {
       "id": "news_chinese",
       "critical": true,
       "passed": true,
-      "observed": 35,
+      "observed": 36,
       "threshold": 4
     },
     {
@@ -82,8 +82,29 @@
       "id": "news_current",
       "critical": true,
       "passed": true,
-      "observed": 67,
+      "observed": 69,
       "threshold": 12
+    },
+    {
+      "id": "news_observed_this_run",
+      "critical": true,
+      "passed": true,
+      "observed": 45,
+      "threshold": 12
+    },
+    {
+      "id": "news_observed_english",
+      "critical": true,
+      "passed": true,
+      "observed": 17,
+      "threshold": 6
+    },
+    {
+      "id": "news_observed_chinese",
+      "critical": true,
+      "passed": true,
+      "observed": 28,
+      "threshold": 2
     },
     {
       "id": "news_duplicates",
@@ -96,7 +117,7 @@
       "id": "community_signals",
       "critical": true,
       "passed": true,
-      "observed": 37,
+      "observed": 38,
       "threshold": 5
     },
     {
@@ -124,21 +145,21 @@
       "id": "source_registry",
       "critical": true,
       "passed": true,
-      "observed": 8,
+      "observed": 7,
       "threshold": 7
     },
     {
       "id": "broker_research",
-      "critical": true,
-      "passed": true,
-      "observed": 6,
-      "threshold": 6
+      "critical": false,
+      "passed": false,
+      "observed": 0,
+      "threshold": 1
     },
     {
       "id": "broker_framework",
-      "critical": true,
-      "passed": true,
-      "observed": 1,
+      "critical": false,
+      "passed": false,
+      "observed": 0,
       "threshold": 1
     },
     {
