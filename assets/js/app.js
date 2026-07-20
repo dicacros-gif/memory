@@ -1989,26 +1989,26 @@
       id: "wuxi-operations",
       scenarioIds: ["operate"],
       kicker: "01 · WUXI OPERATIONS",
-      title: "운영 인력은 현지화하고 핵심 공정 접근권은 분리",
-      body: "장비 PM·utility·EHS 인력은 상시 풀로 확보하되 recipe·수율 데이터는 역할별 최소 권한과 본사 승인 체계로 통제합니다.",
+      title: "현장 운영은 현지화하고 핵심 변경 권한은 분리",
+      body: "장비 PM·utility·EHS는 현장 대응 체계로 묶고, recipe·수율 데이터와 공정 변경은 역할별 최소 권한과 승인선으로 통제합니다.",
       source: "BIS",
       href: "https://www.bis.gov/press-release/department-commerce-closes-export-controls-loophole-foreign-owned-semiconductor-fabs-china",
     },
     {
       id: "dalian-quality",
       scenarioIds: ["nand-essd"],
-      kicker: "02 · DALIAN CUSTOMER QUALITY",
-      title: "eSSD 방어력은 고객 품질 응답 속도에서 결정",
-      body: "FA·reliability·customer quality를 한 운영 셀로 묶고, 핵심 펌웨어 소스와 보안키 접근은 지역·직무별로 분리합니다.",
+      kicker: "02 · RECIPE & IP CONTROL",
+      title: "NAND·eSSD 운영을 이어가되 핵심 IP 접근은 분리",
+      body: "FA·reliability·customer quality는 현장 대응을 강화하고, 펌웨어·recipe·수율 분석 권한은 승인 기반으로 분리합니다.",
       source: "Intel 8-K",
       href: "https://www.intc.com/filings-reports/all-sec-filings/content/0000050863-25-000060/0000050863-25-000060.pdf",
     },
     {
       id: "chongqing-packaging",
       scenarioIds: ["infra-packaging", "defense"],
-      kicker: "03 · CHONGQING BACK-END",
-      title: "후공정 확대는 인허가·통관·IP 통제가 선행",
-      body: "패키징·테스트 인력은 고객 인증과 납기 대응에 집중하고, 전공정 recipe·수율 데이터는 별도 보안 경계 안에 둡니다.",
+      kicker: "03 · QUALITY & TRACEABILITY",
+      title: "고객 품질 대응은 계측·lot 추적·변경관리로 연결",
+      body: "패키징·테스트 인력은 현장 문제 해결에 집중하고, 불량 분석·lot 이력·변경 승인 증빙을 하나의 대응 흐름으로 남깁니다.",
       source: "SK hynix Offices",
       href: "https://www.skhynix.com/company/UI-FR-CP06/",
     },
@@ -2872,6 +2872,125 @@
 
   // Live quantitative figures: verbatim numbers pulled from today's crawled
   // articles, each with its source sentence + link. Filterable by topic.
+  function normalizeLiveFigureKey(value = "") {
+    return String(value)
+      .normalize("NFKC")
+      .trim()
+      .toLowerCase()
+      .replace(/\s+/g, " ");
+  }
+
+  function liveFigureStoryKey(item = {}, index = 0) {
+    const storyId = normalizeLiveFigureKey(item.storyId);
+    if (storyId) return `story:${storyId}`;
+    const locator = normalizeLiveFigureKey(item.sourceLocator || item.url || item.source);
+    const context = normalizeLiveFigureKey(item.storyTitle || item.contextKo || item.snippet);
+    const date = normalizeLiveFigureKey(item.date);
+    const evidence = normalizeLiveFigureKey(`${item.sourceClass || ""}:${item.claimLayer || ""}`);
+    return locator || context
+      ? `legacy:${locator}:${date}:${context}:${evidence}`
+      : `legacy-item:${index}`;
+  }
+
+  function liveFigureSummaryIndexes() {
+    const byStory = new Map();
+    const byTitle = new Map();
+    const byLocator = new Map();
+    const remember = (map, key, summary) => {
+      const normalizedKey = normalizeLiveFigureKey(key);
+      const cleanSummary = String(summary || "").replace(/\s+/g, " ").trim();
+      if (normalizedKey && cleanSummary && !map.has(normalizedKey)) map.set(normalizedKey, cleanSummary);
+    };
+
+    for (const item of LIVE?.brokerResearch?.items || []) {
+      remember(byStory, item.id, item.summary);
+      remember(byTitle, item.title, item.summary);
+      remember(byLocator, item.sourceUrl || item.url, item.summary);
+    }
+    for (const item of LIVE?.news || []) {
+      const summary = item.summary || item.summaryOriginal;
+      remember(byStory, item.verification?.id || item.id, summary);
+      remember(byTitle, item.titleKo || item.title, summary);
+      remember(byLocator, item.sourceUrl || item.link || item.url, summary);
+    }
+    return { byStory, byTitle, byLocator };
+  }
+
+  function groupLiveFigures(items = []) {
+    const summaries = liveFigureSummaryIndexes();
+    const groups = new Map();
+
+    items.forEach((item, index) => {
+      const key = liveFigureStoryKey(item, index);
+      let group = groups.get(key);
+      if (!group) {
+        const storyId = normalizeLiveFigureKey(item.storyId);
+        const storyTitle = String(item.storyTitle || item.contextKo || "").trim();
+        const locator = normalizeLiveFigureKey(item.sourceLocator || item.url);
+        const summary = String(item.storySummary || "").trim()
+          || summaries.byStory.get(storyId)
+          || summaries.byTitle.get(normalizeLiveFigureKey(storyTitle))
+          || summaries.byLocator.get(locator)
+          || "";
+        group = {
+          key,
+          storyId: item.storyId || key,
+          title: storyTitle,
+          summary,
+          source: item.source,
+          url: item.url,
+          date: item.date,
+          sourceClass: item.sourceClass,
+          claimLayer: item.claimLayer,
+          values: [],
+          topics: [],
+          snippets: [],
+          valueKeys: new Set(),
+          topicKeys: new Set(),
+          snippetKeys: new Set(),
+        };
+        groups.set(key, group);
+      }
+
+      const valueKey = `${item.canonical?.family || item.kind || "value"}:${item.canonical?.number ?? ""}:${normalizeLiveFigureKey(item.value)}`;
+      if (!group.valueKeys.has(valueKey)) {
+        group.valueKeys.add(valueKey);
+        group.values.push(String(item.value || "").trim());
+      }
+
+      const topicId = String(item.topic?.id || "other");
+      if (!group.topicKeys.has(topicId)) {
+        group.topicKeys.add(topicId);
+        group.topics.push({ id: topicId, label: item.topic?.label || "지표" });
+      }
+
+      const snippet = String(item.snippet || "").replace(/\s+/g, " ").trim();
+      const snippetKey = normalizeLiveFigureKey(snippet);
+      if (snippet && !group.snippetKeys.has(snippetKey)) {
+        group.snippetKeys.add(snippetKey);
+        group.snippets.push(snippet);
+      }
+    });
+
+    return Array.from(groups.values()).map((group) => {
+      const { valueKeys, topicKeys, snippetKeys, ...story } = group;
+      const specificTopics = group.topics.filter((topic) => topic.id !== "other");
+      const summary = group.summary || group.snippets.join(" ");
+      const values = group.values
+        .map((value, index) => ({ value, index, position: summary.indexOf(value) }))
+        .sort((a, b) => (a.position < 0 ? Number.MAX_SAFE_INTEGER : a.position)
+          - (b.position < 0 ? Number.MAX_SAFE_INTEGER : b.position)
+          || a.index - b.index)
+        .map(({ value }) => value);
+      return {
+        ...story,
+        values,
+        topics: specificTopics.length ? specificTopics : group.topics,
+        summary,
+      };
+    });
+  }
+
   let liveFiguresTopic = "all";
   function renderLiveFigures() {
     const host = $("#liveFigures");
@@ -2884,13 +3003,24 @@
       return;
     }
     host.hidden = false;
+    const groupedItems = groupLiveFigures(items);
+    const groupedTopicCounts = new Map();
+    for (const group of groupedItems) {
+      for (const topic of group.topics) {
+        const current = groupedTopicCounts.get(topic.id) || { label: topic.label, count: 0 };
+        current.count += 1;
+        groupedTopicCounts.set(topic.id, current);
+      }
+    }
     const topics = [{ id: "all", label: "전체" }].concat(
-      Object.entries(lf.topicCounts || {})
-        .sort((a, b) => b[1] - a[1])
-        .map(([id]) => ({ id, label: (items.find((i) => i.topic?.id === id)?.topic?.label) || id }))
+      Array.from(groupedTopicCounts.entries())
+        .sort((a, b) => b[1].count - a[1].count)
+        .map(([id, meta]) => ({ id, label: meta.label || id }))
     );
     if (!topics.some((t) => t.id === liveFiguresTopic)) liveFiguresTopic = "all";
-    const shown = items.filter((item) => liveFiguresTopic === "all" || item.topic?.id === liveFiguresTopic).slice(0, 18);
+    const shown = groupedItems
+      .filter((item) => liveFiguresTopic === "all" || item.topics.some((topic) => topic.id === liveFiguresTopic))
+      .slice(0, 18);
     const asOf = lf.updatedAt ? String(lf.updatedAt).slice(0, 10) : "";
     const sourceLabels = { official: "공식 원문", "authoritative-media": "권위 매체", research: "리서치" };
     const layerLabels = { "official-fact": "공식 사실", "reported-fact": "보도 사실", "research-model": "연구모델" };
@@ -2898,7 +3028,7 @@
       <div class="live-figures-head">
         <div>
           <p class="eyebrow">Live figures · 권위 소스 정량 근거</p>
-          <h3>라이브 정량 수치 <span>${fmtNum(lf.total || items.length)}건</span></h3>
+          <h3>라이브 정량 근거 <span>${fmtNum(groupedItems.length)}개 스토리 · 수치 ${fmtNum(items.length)}개</span></h3>
         </div>
         <div class="live-figures-tabs">
           ${topics.map((t) => `<button type="button" class="${t.id === liveFiguresTopic ? "active" : ""}" data-lf-topic="${escapeHTML(t.id)}">${escapeHTML(t.label)}</button>`).join("")}
@@ -2909,11 +3039,14 @@
           const sourceClass = ["official", "authoritative-media", "research"].includes(item.sourceClass) ? item.sourceClass : "research";
           const claimLayer = ["official-fact", "reported-fact", "research-model"].includes(item.claimLayer) ? item.claimLayer : "research-model";
           return `
-            <article class="lf-card">
-              <div class="lf-top"><span class="lf-topic">${escapeHTML(item.topic?.label || "지표")}</span><b class="lf-value">${escapeHTML(item.value)}</b></div>
+            <article class="lf-card" data-live-story="${escapeHTML(item.storyId)}">
+              <div class="lf-top">
+                <div class="lf-topics">${item.topics.map((topic) => `<span class="lf-topic">${escapeHTML(topic.label || "지표")}</span>`).join("")}</div>
+                <div class="lf-values" aria-label="핵심 수치">${item.values.map((value) => `<b class="lf-value">${escapeHTML(value)}</b>`).join("")}</div>
+              </div>
               <div class="lf-meta"><span class="lf-badge ${sourceClass}">${sourceLabels[sourceClass]}</span><span class="lf-badge ${claimLayer}">${layerLabels[claimLayer]}</span></div>
-              ${item.contextKo && /[가-힣]/.test(item.contextKo) ? `<span class="lf-context">${escapeHTML(item.contextKo)}</span>` : ""}
-              <p class="lf-snippet" title="원문 문장">${escapeHTML(item.snippet)}</p>
+              ${item.title ? `<h4 class="lf-context">${escapeHTML(item.title)}</h4>` : ""}
+              <p class="lf-snippet">${escapeHTML(item.summary)}</p>
               <div class="lf-foot">
                 ${item.url ? `<a href="${escapeHTML(item.url)}" target="_blank" rel="noopener">${escapeHTML(item.source || "출처")} ↗</a>` : `<span>${escapeHTML(item.source || "출처")}</span>`}
                 <small>${escapeHTML(item.date || "")}</small>
@@ -2922,7 +3055,7 @@
           `;
         }).join("")}
       </div>
-      <p class="live-figures-note">권위 소스 게이트를 통과한 원문에서 추출 · 공식 사실/보도 사실/연구모델 분리 · 모델 수치는 회사 가이던스가 아님 · 갱신 ${escapeHTML(asOf)}</p>
+      <p class="live-figures-note">권위 소스 원문 수치와 핵심 요약을 스토리별로 통합 · 공식 사실/보도 사실/연구모델 분리 · 모델 수치는 회사 가이던스가 아님 · 갱신 ${escapeHTML(asOf)}</p>
     `;
     host.querySelectorAll("[data-lf-topic]").forEach((btn) => {
       btn.addEventListener("click", () => {
@@ -4194,9 +4327,20 @@
     return { available: true, units, memPerUnit, skhyShare, totalPb, skhyPb, dramYoY, nandYoY, calibration };
   }
 
+  // Today's crawled mention/direction signal for a demand-pool account.
+  function forecastAccountSignal(account) {
+    return QUANT?.accountSignals?.accounts?.[account?.id] || null;
+  }
+
   function forecastAccountPull(account, scenario = forecastScenarioData()) {
     const tilt = scenario.id === "bull" ? 1.12 : scenario.id === "bear" ? 0.82 : 1;
-    const capped = account.region === "CN" ? Math.min(account.pull * tilt, 70) : account.pull * tilt;
+    // Live nudge from today's crawl: mentions add weight, direction words tilt.
+    // Bounded ±8 so news flow adjusts the static prior without replacing it.
+    const signal = forecastAccountSignal(account);
+    const liveNudge = signal
+      ? clamp(Math.min(signal.mentions, 6) * 0.8 + (signal.direction === "up" ? 4 : signal.direction === "down" ? -4 : 0), -8, 8)
+      : 0;
+    const capped = account.region === "CN" ? Math.min(account.pull * tilt + liveNudge, 70) : account.pull * tilt + liveNudge;
     return Math.round(clamp(capped, 8, 100));
   }
 
@@ -4286,13 +4430,17 @@
     const focusId = accounts.some((a) => a.id === hyperscalerFocusId) ? hyperscalerFocusId : accounts[0].id;
     grid.innerHTML = accounts.map((account, i) => {
       const pull = forecastAccountPull(account, scenario);
+      const signal = forecastAccountSignal(account);
+      const signalBadge = signal
+        ? `<span class="hs-signal ${escapeHTML(signal.direction)}">${signal.direction === "up" ? "▲" : signal.direction === "down" ? "▼" : "•"} 오늘 뉴스 ${fmtNum(signal.mentions)}건</span>`
+        : "";
       return `
         <button class="hs-card ${account.id === focusId ? "active" : ""} reveal" type="button" data-hs-account="${escapeHTML(account.id)}" style="--delay:${i * 40}ms; --pull:${pull}%">
           <span class="hs-card-top"><em>${escapeHTML(account.region)}</em><b>${escapeHTML(category.driverLabel)} ${escapeHTML(account.driver)}</b></span>
           <strong>${escapeHTML(account.name)}</strong>
           <small>${escapeHTML(category.techLabel)} · ${escapeHTML(account.tech)}</small>
           <div class="hs-pull"><i style="width:${pull}%"></i></div>
-          <span class="hs-pull-label">${escapeHTML(category.pullLabel)} ${fmtNum(pull)}/100</span>
+          <span class="hs-pull-label">${escapeHTML(category.pullLabel)} ${fmtNum(pull)}/100${signalBadge}</span>
         </button>
       `;
     }).join("");
@@ -4300,6 +4448,14 @@
     if (focus) {
       const account = accounts.find((a) => a.id === focusId) || accounts[0];
       const pull = forecastAccountPull(account, scenario);
+      const signal = forecastAccountSignal(account);
+      const signalHTML = signal
+        ? `<div class="hs-focus-signal">
+            <b>오늘 크롤링 신호</b>
+            <span>언급 ${fmtNum(signal.mentions)}건 · 확장어 ${fmtNum(signal.up)} · 축소어 ${fmtNum(signal.down)} · 방향 ${signal.direction === "up" ? "▲ 확대" : signal.direction === "down" ? "▼ 축소" : "→ 중립"}</span>
+            ${signal.latest ? `<a href="${escapeHTML(signal.latest.url || "#")}" target="_blank" rel="noopener">"${escapeHTML(signal.latest.title)}" — ${escapeHTML(signal.latest.source)} ${escapeHTML(signal.latest.date || "")} ↗</a>` : ""}
+          </div>`
+        : `<div class="hs-focus-signal idle"><b>오늘 크롤링 신호</b><span>오늘 수집 기사에서 직접 언급 없음 · 정적 프로파일 기준</span></div>`;
       focus.innerHTML = `
         <span class="hs-focus-tag">${escapeHTML(account.region)} · 수요 심층</span>
         <strong>${escapeHTML(account.name)}</strong>
@@ -4309,6 +4465,7 @@
           <span><b>${fmtNum(pull)}/100</b><small>${escapeHTML(category.pullLabel)}</small></span>
         </div>
         <p>${escapeHTML(account.note)}</p>
+        ${signalHTML}
         <small class="hs-focus-note">${escapeHTML(scenario.label)} · Insight</small>
       `;
     }
@@ -4535,8 +4692,10 @@
   function countHTML(value, opts = {}) {
     const n = Number(value);
     if (Number.isNaN(n)) return escapeHTML(value);
-    const { prefix = "", suffix = "", decimals = 0 } = opts;
-    return `<span class="count" data-to="${n}" data-prefix="${escapeHTML(prefix)}" data-suffix="${escapeHTML(suffix)}" data-decimals="${decimals}">${escapeHTML(prefix)}0${escapeHTML(suffix)}</span>`;
+    const { prefix = "", suffix = "", decimals = 0, from = 0, duration = 850 } = opts;
+    const start = Number.isFinite(Number(from)) ? Number(from) : 0;
+    const animationDuration = Number.isFinite(Number(duration)) && Number(duration) > 0 ? Number(duration) : 850;
+    return `<span class="count" data-to="${n}" data-from="${start}" data-duration="${animationDuration}" data-prefix="${escapeHTML(prefix)}" data-suffix="${escapeHTML(suffix)}" data-decimals="${decimals}">${escapeHTML(prefix)}${fmtNum(start, decimals)}${escapeHTML(suffix)}</span>`;
   }
 
   function clamp(value, min = 0, max = 100) {
@@ -4792,18 +4951,29 @@
     if (!node) return;
     if (guard && node.dataset.done === "1") return;
     node.dataset.done = "1";
+    const target = Number.isFinite(Number(to)) ? Number(to) : 0;
+    const reducedMotion = window.matchMedia?.("(prefers-reduced-motion: reduce)")?.matches;
+    if (reducedMotion) {
+      node.classList.remove("is-counting");
+      setCountValue(node, target);
+      return;
+    }
     const token = String((Number(node.dataset.countToken || 0) || 0) + 1);
     node.dataset.countToken = token;
+    node.classList.add("is-counting");
+    node.style.setProperty("--count-duration", `${dur}ms`);
     const start = performance.now();
     const origin = Number.isFinite(Number(from)) ? Number(from) : 0;
-    const target = Number.isFinite(Number(to)) ? Number(to) : 0;
     const step = (now) => {
       if (node.dataset.countToken !== token) return;
       const k = Math.min((now - start) / dur, 1);
       const eased = 1 - Math.pow(1 - k, 3);
       setCountValue(node, origin + (target - origin) * eased);
       if (k < 1) requestAnimationFrame(step);
-      else setCountValue(node, target);
+      else {
+        setCountValue(node, target);
+        node.classList.remove("is-counting");
+      }
     };
     requestAnimationFrame(step);
   }
@@ -4849,7 +5019,12 @@
   function animateCounts(root = document) {
     const counts = $$(".count", root);
     const run = (node) => {
-      animateCountNode(node, { from: 0, to: countTarget(node), dur: 850, guard: true });
+      animateCountNode(node, {
+        from: Number(node.dataset.from || 0),
+        to: countTarget(node),
+        dur: Number(node.dataset.duration || 850),
+        guard: true,
+      });
     };
 
     if (!("IntersectionObserver" in window)) {
@@ -4859,15 +5034,12 @@
 
     const io = new IntersectionObserver((entries) => {
       entries.forEach((entry) => {
-        if (entry.isIntersecting) run(entry.target);
+        if (!entry.isIntersecting) return;
+        run(entry.target);
+        io.unobserve(entry.target);
       });
     }, { threshold: 0.3 });
-    counts.forEach((node) => {
-      io.observe(node);
-      const rect = node.getBoundingClientRect();
-      if (rect.top < window.innerHeight && rect.bottom > 0) run(node);
-    });
-    window.setTimeout(() => counts.forEach(run), 1200);
+    counts.forEach((node) => io.observe(node));
   }
 
   function animateMeters(root = document) {
@@ -5854,7 +6026,12 @@
       return kpi.showInKpiStrip !== false && !status.includes("stale");
     });
     kpis.slice(0, 6).forEach((kpi, index) => {
-      const node = el("article", "kpi reveal");
+      const isSecondRow = index >= 3;
+      const targetValue = Number(kpi.value);
+      const countDuration = isSecondRow && Number.isFinite(targetValue)
+        ? Math.max(700, Math.min(1800, targetValue * 18))
+        : 850;
+      const node = el("article", `kpi reveal${isSecondRow ? " kpi-share-card" : ""}`);
       node.tabIndex = 0;
       node.setAttribute("aria-label", `${kpi.label} ${kpi.prefix || ""}${kpi.value}${kpi.suffix || ""}`);
       node.style.animationDelay = `${index * 35}ms`;
@@ -5869,6 +6046,8 @@
           prefix: kpi.prefix || "",
           suffix: kpi.suffix || "",
           decimals: kpi.decimals || 0,
+          from: isSecondRow ? 1 : 0,
+          duration: countDuration,
         })}</strong>
         <div class="kpi-meta">
           ${factBadge(badgeLabel, statusClass)}
@@ -6757,6 +6936,42 @@
     `;
   }
 
+  // Compose the council's opening data briefing from today's crawl:
+  // memory momentum (honest windows), FX/market chips, and up to two verbatim
+  // figures relevant to the selected agenda — each with source + date.
+  function buildDailyBriefingMessage(selected = {}) {
+    const q = QUANT || {};
+    const parts = [];
+    const mom = q.memoryMomentum || {};
+    const momBits = [];
+    if (Number.isFinite(mom.dramSpot30dPct)) momBits.push(`DRAM spot 30d ${mom.dramSpot30dPct > 0 ? "+" : ""}${fmtNum(mom.dramSpot30dPct, 1)}%`);
+    else if (Number.isFinite(mom.dramSpot90dPct)) momBits.push(`DRAM spot 90d ${mom.dramSpot90dPct > 0 ? "+" : ""}${fmtNum(mom.dramSpot90dPct, 1)}%`);
+    if (Number.isFinite(mom.nandSpot30dPct)) momBits.push(`NAND spot 30d ${mom.nandSpot30dPct > 0 ? "+" : ""}${fmtNum(mom.nandSpot30dPct, 1)}%`);
+    else if (Number.isFinite(mom.nandSpot90dPct)) momBits.push(`NAND spot 90d ${mom.nandSpot90dPct > 0 ? "+" : ""}${fmtNum(mom.nandSpot90dPct, 1)}%`);
+    if (momBits.length) parts.push(`가격 모멘텀 **${momBits.join(" · ")}**`);
+    if (Number.isFinite(q.foundry?.tsmcMonthly?.yoyPct)) {
+      parts.push(`TSMC 월매출 YoY **${q.foundry.tsmcMonthly.yoyPct > 0 ? "+" : ""}${fmtNum(q.foundry.tsmcMonthly.yoyPct, 1)}%**(${q.foundry.tsmcMonthly.month || ""}, TWSE 공시)`);
+    }
+    if (Number.isFinite(q.fundamentals?.micron?.revenue?.value)) {
+      parts.push(`Micron 분기매출 **$${fmtNum(q.fundamentals.micron.revenue.value / 1e9, 1)}B**(10-Q ${String(q.fundamentals.micron.revenue.end || "").slice(0, 10)})`);
+    }
+    // Agenda-relevant verbatim figures from today's articles.
+    const terms = (selected?.terms || []).map((t) => String(t).toLowerCase());
+    const figures = Array.isArray(q.liveFigures?.items) ? q.liveFigures.items : [];
+    const relevant = figures.filter((f) => {
+      const hay = `${f.snippet || ""} ${f.contextKo || ""}`.toLowerCase();
+      return terms.some((t) => t.length > 2 && hay.includes(t));
+    });
+    const quoted = (relevant.length ? relevant : figures).slice(0, 2);
+    for (const fig of quoted) {
+      const label = fig.contextKo && /[가-힣]/.test(fig.contextKo) ? fig.contextKo : (fig.snippet || "").slice(0, 60);
+      parts.push(`원문 수치 ==${fig.value}== — "${String(label).slice(0, 70)}" (${fig.source || "출처"}${fig.date ? ` ${fig.date}` : ""})`);
+    }
+    if (!parts.length) return null;
+    const asOf = q.updatedAt ? String(q.updatedAt).slice(0, 10) : (LIVE?.updatedAt ? String(LIVE.updatedAt).slice(0, 10) : "");
+    return `오늘(${asOf}) 크롤링 기준 브리핑입니다. ${parts.join(" · ")}. 모든 수치는 원문 그대로이며, 오늘 숫자를 기준선으로 토론을 시작합니다.`;
+  }
+
   function cLevelAgentItems(decision = {}, decisions = [], scenario = agentFutureScenario()) {
     const selected = decision || decisions[0] || {};
     const contrast = decisions.find((item) => item.id !== selected?.id) || selected;
@@ -6804,7 +7019,21 @@
     const riskGate = decisionRiskGate(selected);
     const priceSpread = decisionPriceSpread(selected);
     const primarySource = liveBrief?.latest?.url ? { url: liveBrief.latest.url, title: liveBrief.latest.title || liveBrief.latest.source || "원문 근거" } : null;
+    // Opening turn: today's crawled numbers, quoted verbatim, so every debate
+    // starts from — and differs by — the day's actual data.
+    const dailyBriefing = buildDailyBriefingMessage(selected);
     const agents = [
+      ...(dailyBriefing ? [{
+        id: "brief",
+        initials: "DB",
+        name: "Briefing",
+        title: "Daily Data Briefing",
+        role: "오늘 크롤링 데이터",
+        color: "#0891B2",
+        stance: "팩트 먼저",
+        message: dailyBriefing,
+        speechEn: "Opening with today's crawled figures: memory price momentum, market metrics, and the most relevant verbatim numbers from this morning's sources. All debate positions should reference these numbers.",
+      }] : []),
       {
         id: "ceo",
         initials: "CEO",
@@ -7074,7 +7303,7 @@
     `).join("");
 
     const councilScenario = agentFutureScenario(cLevelCouncilScenarioRun);
-    const strategicAgentIds = new Set(["ceo", "cfo", "cto", "cso", "coo", "policy", "market", "china", "risk", "devil", "audit"]);
+    const strategicAgentIds = new Set(["brief", "ceo", "cfo", "cto", "cso", "coo", "policy", "market", "china", "risk", "devil", "audit"]);
     const agentItems = cLevelAgentItems(selectedDecision, decisions, councilScenario).filter((agent) => strategicAgentIds.has(agent.id));
     const conclusion = cLevelCouncilConclusion(selectedDecision, councilScenario);
     const selectedProfile = cLevelDecisionProfile(selectedDecision);
@@ -11560,7 +11789,19 @@
     const sourceItem = (active.observations || []).find((item) => evidenceItemUrl(item));
     const source = sourceItem ? { url: evidenceItemUrl(sourceItem), title: sourceItem.item || sourceItem.title || "가격 원문" } : null;
     const baseConfidence = Math.round(Number(active.confidence || counterEvidence.confidence || 0));
+    const backtestBriefing = buildDailyBriefingMessage(active);
     const agents = [
+      ...(backtestBriefing ? [{
+        id: "brief",
+        initials: "DB",
+        name: "Briefing",
+        title: "Daily Data Briefing",
+        role: "오늘 크롤링 데이터",
+        color: "#0891B2",
+        stance: "팩트 먼저",
+        message: backtestBriefing,
+        speechEn: "Opening with today's crawled figures so the backtest debate is anchored to current data.",
+      }] : []),
       {
         id: "ceo",
         initials: "CEO",

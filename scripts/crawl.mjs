@@ -778,7 +778,7 @@ const PRESERVED_NEWS_SEEDS = [
     date: "2026-02-11",
     link: "https://news.samsung.com/global/samsung-ships-industry-first-commercial-hbm4-with-ultimate-performance-for-ai-computing",
     summaryOriginal: "Samsung announced commercial HBM4 shipments with a 4nm logic base die and transfer speeds of 11.7Gbps, scalable up to 13Gbps.",
-    summary: "4nm 로직 베이스 다이와 11.7Gbps HBM4 상업 출하를 발표. 실제 고객별 인증·반복 발주·배정 물량은 별도 증거로 확인함.",
+    summary: "4nm 로직 베이스 다이 기반 HBM4를 11.7Gbps로 상업 출하했으며 최대 13Gbps까지 확장 가능하다고 발표. 실제 고객별 인증·반복 발주·배정 물량은 별도 증거로 확인함.",
   },
   {
     id: "the-register-china-memory-ban",
@@ -5654,7 +5654,7 @@ function splitClauses(text = "") {
   return String(text)
     .split(/(?<=[.。!?！？;；])\s+|[\n\r]+|(?<=다)\s+(?=[A-Z가-힣])/)
     .map((s) => s.replace(/\s+/g, " ").trim())
-    .filter((s) => s.length >= 8 && s.length <= 260);
+    .filter((s) => s.length >= 8);
 }
 
 function extractLiveFigures(context = {}) {
@@ -5670,6 +5670,9 @@ function extractLiveFigures(context = {}) {
       return {
         text: `${n.originalTitle || n.title || ""}. ${n.summaryOriginal || n.summary || ""}`,
         textKo: `${n.titleKo || n.title || ""}`,
+        storyId: n.verification?.id || n.id || directNewsUrl(n),
+        storyTitle: n.titleKo || n.title || "",
+        storySummary: n.summary || n.summaryOriginal || "",
         source: n.source || "News",
         url: directNewsUrl(n),
         date: exactEvidenceDate(n),
@@ -5687,6 +5690,9 @@ function extractLiveFigures(context = {}) {
       return {
         text: `${b.title || ""}. ${b.summary || ""} ${b.insight || ""}`,
         textKo: b.title || "",
+        storyId: b.id || `${b.institutionId || b.institution || "broker"}:${b.title || "research"}`,
+        storyTitle: b.title || "",
+        storySummary: b.summary || "",
         source: b.institution || b.source || "Broker",
         url: validHttpUrl(locator) ? locator : "",
         date: exactEvidenceDate(b),
@@ -5730,8 +5736,11 @@ function extractLiveFigures(context = {}) {
             topic: classifyLiveFigure(clause),
             // Verbatim source sentence (original language) = ground truth, no
             // translation-introduced drift. Korean title kept as a context label.
-            snippet: clause.slice(0, 180),
-            contextKo: article.textKo.slice(0, 90),
+            snippet: clause,
+            contextKo: article.textKo,
+            storyId: article.storyId,
+            storyTitle: article.storyTitle || article.textKo,
+            storySummary: article.storySummary,
             source: article.source,
             url: article.url,
             date: article.date || null,
@@ -5746,8 +5755,15 @@ function extractLiveFigures(context = {}) {
     }
     // Keep the two most substantive figures per article (currency/market over
     // bare percents) to avoid one story flooding the panel.
-    perArticle.sort((a, b) => (b.kind === "percent" ? 0 : 2) - (a.kind === "percent" ? 0 : 2) || b.value.length - a.value.length);
-    figures.push(...perArticle.slice(0, 2));
+    const selected = perArticle
+      .map((item, index) => ({ item, index }))
+      .sort((a, b) => (b.item.kind === "percent" ? 0 : 2) - (a.item.kind === "percent" ? 0 : 2)
+        || b.item.value.length - a.item.value.length
+        || a.index - b.index)
+      .slice(0, 2)
+      .sort((a, b) => a.index - b.index)
+      .map(({ item }) => item);
+    figures.push(...selected);
   }
   figures.sort((a, b) => String(b.date || "").localeCompare(String(a.date || "")));
   const topicCounts = {};
@@ -5804,6 +5820,85 @@ function corroborateKpi(item = {}, liveFigures = {}) {
       && figureValuesEquivalent(baselineValue, figure.canonical);
   });
   return hit || null;
+}
+
+/* ---------------- Live account signals (forecast demand pools) ----------------
+ * Counts how often each demand-pool account appears in today's crawled corpus
+ * and detects expansion/contraction wording. The UI blends this into the
+ * account cards as a bounded nudge with the latest source article attached —
+ * nothing invented: mentions, direction words, and links are all verbatim. */
+
+const ACCOUNT_SIGNAL_ALIASES = {
+  azure: /(microsoft|azure|openai(?!.*stargate)|maia)/i,
+  aws: /(amazon|aws|trainium)/i,
+  google: /(google|alphabet|tpu|ironwood)/i,
+  meta: /(\bmeta\b|mtia|instagram)/i,
+  oracle: /(oracle|stargate)/i,
+  xai: /(\bxai\b|colossus|grok)/i,
+  china: /(alibaba|tencent|bytedance|阿里|腾讯|字节)/i,
+  tesla: /(tesla|테슬라|fsd)/i,
+  byd: /(\bbyd\b|比亚迪)/i,
+  hyundai: /(hyundai|kia|현대차|기아)/i,
+  tier1: /(bosch|continental|denso)/i,
+  vw: /(volkswagen|폭스바겐)/i,
+  toyota: /(toyota|도요타|토요타)/i,
+  apple: /(apple(?!\s*mac)|iphone|아이폰)/i,
+  "samsung-mx": /(galaxy|갤럭시)/i,
+  xiaomi: /(xiaomi|샤오미|小米)/i,
+  "oppo-vivo": /(\boppo\b|\bvivo\b)/i,
+  transsion: /(transsion|tecno|infinix)/i,
+  lenovo: /(lenovo|联想|레노버)/i,
+  dell: /(\bdell\b|델)/i,
+  hp: /(\bhp\b|hewlett)/i,
+  "apple-mac": /(macbook|\bmac\b.*m\d|m\d.*\bmac\b)/i,
+  appliance: /(home appliance|가전|白电)/i,
+  "azure-st": /(azure.{0,40}(storage|data)|blob storage)/i,
+  "aws-st": /(aws.{0,40}(storage|s3)|\bs3\b)/i,
+  "solidigm-dc": /(solidigm|솔리다임)/i,
+  "google-st": /(google.{0,40}storage|gcs)/i,
+  "china-dc": /((alibaba|tencent|bytedance|中国).{0,50}(存储|storage|云)|国产.{0,20}(ssd|存储))/i,
+};
+const ACCOUNT_UP_RE = /(expand|expansion|increase|surge|ramp|accelerat|record|invest|order|확대|증가|급증|증설|상향|투자|발주|扩产|增设|加码|投资|上调|抢购|激增)/i;
+const ACCOUNT_DOWN_RE = /(cut|delay|pause|halt|cancel|slowdown|shortfall|축소|지연|보류|중단|하향|감산|취소|减产|下调|推迟|放缓|叫停)/i;
+
+function buildAccountSignals(context = {}) {
+  const corpus = [
+    ...(context.news || []),
+    ...(context.communitySignals?.items || []),
+    ...(context.benchmarkSignals?.stream || []),
+  ].map((item) => ({
+    text: `${item.originalTitle || item.title || ""} ${item.summaryOriginal || item.summary || ""}`,
+    title: item.titleKo || item.title || "",
+    source: item.source || item.platform || "News",
+    url: item.link || item.sourceUrl || item.url || "",
+    date: String(item.date || item.publishedAt || "").slice(0, 10),
+  })).filter((item) => item.text.trim());
+
+  const accounts = {};
+  for (const [id, alias] of Object.entries(ACCOUNT_SIGNAL_ALIASES)) {
+    const hits = corpus.filter((item) => alias.test(item.text));
+    if (!hits.length) continue;
+    let up = 0;
+    let down = 0;
+    for (const hit of hits) {
+      if (ACCOUNT_UP_RE.test(hit.text)) up += 1;
+      if (ACCOUNT_DOWN_RE.test(hit.text)) down += 1;
+    }
+    const latest = hits.slice().sort((a, b) => String(b.date).localeCompare(String(a.date)))[0];
+    accounts[id] = {
+      mentions: hits.length,
+      up,
+      down,
+      direction: up > down ? "up" : down > up ? "down" : "flat",
+      latest: latest ? { title: String(latest.title).slice(0, 110), source: latest.source, url: latest.url, date: latest.date } : null,
+    };
+  }
+  return {
+    updatedAt: new Date().toISOString(),
+    accountCount: Object.keys(accounts).length,
+    accounts,
+    method: "alias mention count + direction wording · 원문 링크 보존",
+  };
 }
 
 function buildMarketStructure(previous = {}, baseline = {}, liveFigures = {}) {
@@ -6256,6 +6351,8 @@ async function collectQuantMetrics(priceHistory, context = {}) {
   }
   quant.liveFigures = extractLiveFigures(context);
   note("quant:라이브 수치", quant.liveFigures.total > 0, `원문 정량 수치 ${quant.liveFigures.total}건 추출`);
+  quant.accountSignals = buildAccountSignals(context);
+  note("quant:계정 신호", quant.accountSignals.accountCount > 0, `수요처 ${quant.accountSignals.accountCount}개 계정 신호 감지`);
   quant.marketStructure = buildMarketStructure(previous.marketStructure, context.baseline, quant.liveFigures);
   const drivers = buildQuantDrivers(quant, context);
   quant.scenarioCalibration = buildScenarioCalibration(previous.scenarioCalibration, drivers, model);
