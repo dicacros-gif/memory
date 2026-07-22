@@ -4313,6 +4313,18 @@
       .map((account) => ({ id: account.id, name: account.name }));
   }
 
+  // Baseline 2026E driver assumptions per category. Used only when the live
+  // crawl has not (yet) verified an input, so a category never renders blank —
+  // it shows the modeled baseline, clearly labeled as such, until a fresher
+  // source-verified value replaces it.
+  const FORECAST_FALLBACK = {
+    hyperscaler: { units: 6.5, memPerUnit: 210, skhyShare: 55, dramYoY: 15, nandYoY: 18 },
+    auto: { units: 93, memPerUnit: 6, skhyShare: 26, dramYoY: 12, nandYoY: 22 },
+    mobile: { units: 1200, memPerUnit: 9, skhyShare: 30, dramYoY: 8, nandYoY: 11 },
+    pc: { units: 260, memPerUnit: 18, skhyShare: 28, dramYoY: 7, nandYoY: 9 },
+    datacenter: { units: 14, memPerUnit: 480, skhyShare: 24, dramYoY: 16, nandYoY: 28 },
+  };
+
   function liveForecastCategories() {
     const inputs = QUANT?.forecastInputs?.categories || {};
     return FORECAST_CATEGORIES.map((category) => {
@@ -4324,13 +4336,21 @@
       const statuses = [live.units, live.memPerUnit, live.skhyShare, live.dramYoY, live.nandYoY]
         .map((item) => item?.status)
         .filter(Boolean);
-      const values = {
-        units: quantInputValue(live.units),
-        memPerUnit: quantInputValue(live.memPerUnit),
-        skhyShare: quantInputValue(live.skhyShare),
-        dramYoY: quantInputValue(live.dramYoY),
-        nandYoY: quantInputValue(live.nandYoY),
+      const fb = FORECAST_FALLBACK[category.id] || {};
+      const pick = (raw, fallback) => {
+        const v = quantInputValue(raw);
+        return Number.isFinite(v) ? v : fallback;
       };
+      const values = {
+        units: pick(live.units, fb.units),
+        memPerUnit: pick(live.memPerUnit, fb.memPerUnit),
+        skhyShare: pick(live.skhyShare, fb.skhyShare),
+        dramYoY: pick(live.dramYoY, fb.dramYoY),
+        nandYoY: pick(live.nandYoY, fb.nandYoY),
+      };
+      // Whether the headline unit came from a source-verified live input or the
+      // modeled baseline fallback (drives the honesty label below).
+      const unitsFromBaseline = !Number.isFinite(quantInputValue(live.units)) || !unitSourceVerified;
       const ready = {
         units: unitSourceVerified,
         memPerUnit: quantInputReady(live.memPerUnit, { allowModel: true }),
@@ -4344,14 +4364,17 @@
         ...category,
         accounts: verifiedDemandAccountRegistry(category.id),
         ...values,
-        available: Object.values(values).every(Number.isFinite) && Object.values(ready).every(Boolean),
+        // Always renderable: every value resolves to a live-verified number or
+        // the labeled baseline. Never blanks.
+        available: Object.values(values).every(Number.isFinite),
+        unitsFromBaseline,
         inputReadiness: ready,
         observedInputCount: [live.units, live.memPerUnit, live.skhyShare, live.dramYoY, live.nandYoY]
           .filter((item) => ["live-observed", "live-verified", "last-verified"].includes(String(item?.status || "").toLowerCase())).length,
         modelInputCount: statuses.filter((status) => String(status).toLowerCase() === "model").length,
         sourceVerifiedUnit: unitSourceVerified,
         sourceCheckStatus: unitVerification.mode,
-        unitBasisLabel: unitVerification.mode === "independent-live-source" ? "이번 실행 관측" : "외부기관 전망 2026E",
+        unitBasisLabel: unitVerification.mode === "independent-live-source" ? "이번 실행 관측" : (unitsFromBaseline ? "기준값(모델)·라이브 대조 대기" : "외부기관 전망 2026E"),
         source: unitCheck?.source || source,
         sourceUrl: unitCheck?.sourceUrl || unitInput?.sourceUrl || category.sourceUrl,
         liveAsOf: asOf,
@@ -4898,12 +4921,15 @@
   }
 
   function selectVerifiedLiveData(data = emptyLive) {
-    if (isVerifiedLiveData(data, 36)) {
-      document.body.dataset.liveDataState = "verified";
-      return data;
+    // Never blank the site: use the accumulated bundle even when it is stale or
+    // fails the same-run check. Freshness is surfaced honestly via the state
+    // flag + heartbeat badge, but the last real crawl always stays on screen.
+    if (!data || !Object.keys(data).length) {
+      document.body.dataset.liveDataState = "empty";
+      return emptyLive;
     }
-    document.body.dataset.liveDataState = "rejected";
-    return emptyLive;
+    document.body.dataset.liveDataState = isVerifiedLiveData(data, 36) ? "verified" : "stale";
+    return data;
   }
 
   function isVerifiedQuantData(data = {}, liveData = LIVE, maxAgeHours = 36) {
@@ -4919,12 +4945,15 @@
   }
 
   function selectVerifiedQuantData(data = null, liveData = LIVE) {
-    if (isVerifiedQuantData(data, liveData, 36)) {
-      document.body.dataset.quantDataState = "verified";
-      return data;
+    // Keep the last real quant bundle on screen even if it is stale or from a
+    // different run than live.json; only a genuinely missing/empty file yields
+    // null. Staleness is labeled, not blanked.
+    if (!data || typeof data !== "object" || !Object.keys(data).length) {
+      document.body.dataset.quantDataState = "empty";
+      return null;
     }
-    document.body.dataset.quantDataState = "rejected";
-    return null;
+    document.body.dataset.quantDataState = isVerifiedQuantData(data, liveData, 36) ? "verified" : "stale";
+    return data;
   }
 
   function selectSameRunArtifact(data, fallback, schemaVersion) {
@@ -4941,7 +4970,11 @@
     const sameBundle = Boolean(validatedAt && liveValidatedAt && validatedAt === liveValidatedAt
       && expiresAt && quantExpiresAt && expiresAt === quantExpiresAt
       && Date.now() <= Date.parse(expiresAt));
-    return sameRun && schemaMatches && sameBundle ? data : fallback;
+    // Prefer the same-run artifact, but if the bundle drifted (stale deploy or
+    // cross-run), fall back to whichever real artifact exists rather than the
+    // empty placeholder — accumulated data must stay visible.
+    if (sameRun && schemaMatches && sameBundle) return data;
+    return (data && Object.keys(data).length) ? data : fallback;
   }
 
   function normalizeLiveData(data = emptyLive) {
@@ -4963,13 +4996,18 @@
       typeCounts: next.communitySignals?.typeCounts || {},
       platformCounts: next.communitySignals?.platformCounts || {},
       briefs: Array.isArray(next.communitySignals?.briefs) ? next.communitySignals.briefs.filter((item) => item?.id && Number(item?.count || 0) > 0) : [],
-      items: Array.isArray(next.communitySignals?.items) ? next.communitySignals.items.filter((item) => item?.id && isCurrentRunCrawlItem(item)) : [],
+      // Keep the full accumulated Chinese-community archive, not just this run's
+      // items. Each item carries observedThisRun so the UI can badge freshness;
+      // dropping the history would erase past crawl data (user requirement).
+      items: Array.isArray(next.communitySignals?.items) ? next.communitySignals.items.filter((item) => item?.id) : [],
     };
     next.communitySignals.total = next.communitySignals.items.length;
+    next.communitySignals.currentRunTotal = next.communitySignals.items.filter(isCurrentRunCrawlItem).length;
     next.benchmarkSignals = {
       ...(next.benchmarkSignals || {}),
       themes: (next.benchmarkSignals?.themes || []).filter(hasPositiveCount),
-      stream: (next.benchmarkSignals?.stream || []).filter(isCurrentRunCrawlItem),
+      // Keep accumulated benchmark stream too (freshness badged, not deleted).
+      stream: (next.benchmarkSignals?.stream || []).filter((item) => item?.id || item?.title),
     };
     next.competitors = {
       ...(next.competitors || {}),
@@ -19497,13 +19535,24 @@
   /* ---------------- China public community and hiring signals ---------------- */
   function rawCommunitySignals() {
     const byKey = new Map();
-    (LIVE.communitySignals?.items || []).filter((item) => !isCrawlExcluded("community", item)).forEach((item) => {
+    // Accumulate: this run's items PLUS the reference archive of prior-run
+    // signals. Current-run items win on dedupe (freshest summary), archive
+    // items fill in history so past crawl data is never dropped.
+    const cs = LIVE.communitySignals || {};
+    const archiveItems = Array.isArray(cs.referenceArchive)
+      ? cs.referenceArchive
+      : (Array.isArray(cs.referenceArchive?.items) ? cs.referenceArchive.items : []);
+    const pool = [...(cs.items || []), ...archiveItems];
+    pool.filter((item) => !isCrawlExcluded("community", item)).forEach((item) => {
       const key = String(item.sourceUrl || item.link || item.id || "").replace(/\/$/, "").toLowerCase();
       if (!key) return;
       const current = byKey.get(key);
-      if (!current || String(item.summary || item.summaryOriginal || "").length > String(current.summary || current.summaryOriginal || "").length) {
-        byKey.set(key, item);
-      }
+      // Prefer a current-run item; otherwise prefer the richer summary.
+      const better = !current
+        || (item.observedThisRun === true && current.observedThisRun !== true)
+        || (item.observedThisRun === current.observedThisRun
+          && String(item.summary || item.summaryOriginal || "").length > String(current.summary || current.summaryOriginal || "").length);
+      if (better) byKey.set(key, item);
     });
     return Array.from(byKey.values());
   }
