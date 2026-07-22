@@ -32,6 +32,9 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v7
+        with:
+          # Full history so the post-crawl rebase-before-push has real ancestry.
+          fetch-depth: 0
 
       - name: Setup Node
         uses: actions/setup-node@v7
@@ -61,7 +64,21 @@ jobs:
             echo "No data changes to commit."
           else
             git commit -m "chore: daily intelligence agent refresh"
-            git push
+            # The crawl takes several minutes, during which main often advances
+            # (code pushes). Without rebasing, the push is rejected as
+            # non-fast-forward and the whole refresh is lost. Rebase the data
+            # commit onto the latest main and retry a few times.
+            pushed=""
+            for attempt in 1 2 3 4 5; do
+              git pull --rebase --autostash origin main || true
+              if git push origin main; then pushed="yes"; break; fi
+              echo "push attempt $attempt rejected; retrying after refetch"
+              sleep 7
+            done
+            if [ -z "$pushed" ]; then
+              echo "::error::daily refresh could not be pushed after retries"
+              exit 1
+            fi
           fi
 
       - name: Pages deployment note
