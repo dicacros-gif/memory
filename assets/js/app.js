@@ -3012,6 +3012,36 @@
     return { cls: "watch", label: level || "Watch" };
   }
 
+  // Authoritative research / broker citations pulled from the crawled news:
+  // banks, research houses, and authoritative tech-research media that carry a
+  // real URL + date. These are the "증권사·리서치 인용" pool — verbatim, sourced.
+  const RESEARCH_SOURCE_RE = /morgan stanley|goldman|jpmorgan|\bciti\b|\bubs\b|counterpoint|trendforce|techinsights|\byole\b|semianalysis|bloomberg|reuters|nikkei|digitimes|mizuho|nomura|jefferies|omdia|gartner|\bidc\b|ee times|semiconductor engineering/i;
+  function researchCitations(limit = 10) {
+    const seen = new Set();
+    return (LIVE.news || [])
+      .filter((n) => {
+        const url = String(n.link || n.sourceUrl || "");
+        if (!/^https?:\/\//.test(url)) return false;
+        const hay = `${n.source || ""} ${n.title || ""} ${n.originalTitle || ""} ${n.summary || ""}`;
+        return RESEARCH_SOURCE_RE.test(hay);
+      })
+      .sort((a, b) => String(b.date || b.publishedAt || "").localeCompare(String(a.date || a.publishedAt || "")))
+      .filter((n) => {
+        const key = String(n.link || n.sourceUrl || "").toLowerCase();
+        if (seen.has(key)) return false;
+        seen.add(key);
+        return true;
+      })
+      .slice(0, limit)
+      .map((n) => ({
+        title: n.titleKo || n.title,
+        source: n.source,
+        url: n.link || n.sourceUrl,
+        date: String(n.date || n.publishedAt || "").slice(0, 10),
+        level: n.verification?.evidenceLevel || "",
+      }));
+  }
+
   function renderNewsInsightSummary() {
     const host = $("#newsInsight");
     if (!host) return;
@@ -3061,7 +3091,25 @@
           `;
         }).join("")}
       </div>
-      <p class="ni-note">테마별 최신 1건을 원문 그대로 표시 · 요약문은 크롤링된 기사 요약 · 해석 생성 없음</p>
+      ${(() => {
+        const cites = researchCitations(10);
+        if (!cites.length) return "";
+        return `
+          <div class="ni-research">
+            <div class="ni-research-head"><strong>증권사·권위 리서치 최신 인용</strong><span>${fmtNum(cites.length)}건 · 은행·리서치하우스·권위 매체</span></div>
+            <ul class="ni-research-list">
+              ${cites.map((c) => `
+                <li>
+                  <span class="ni-cite-src">${escapeHTML(c.source || "출처")}</span>
+                  ${c.url ? `<a href="${escapeHTML(c.url)}" target="_blank" rel="noopener">${escapeHTML(String(c.title).slice(0, 90))} ↗</a>` : `<span>${escapeHTML(String(c.title).slice(0, 90))}</span>`}
+                  <small>${escapeHTML(c.date)}</small>
+                </li>
+              `).join("")}
+            </ul>
+          </div>
+        `;
+      })()}
+      <p class="ni-note">테마별 최신 1건 + 권위 리서치 인용을 원문 그대로 표시 · 요약문은 크롤링된 기사 요약 · 해석 생성 없음</p>
     `;
   }
 

@@ -19177,3 +19177,16 @@ body.crawl-moderation-open {
 .ni-foot a:hover { text-decoration: underline; }
 .ni-foot small { font-size: 9.5px; color: var(--muted, var(--ink-2)); font-weight: 750; margin-left: auto; }
 .ni-note { margin-top: 8px; font-size: 10px; color: var(--muted, var(--ink-2)); font-weight: 650; }
+
+/* ---------------- Research citation strip (news insight) ---------------- */
+.ni-research { margin-top: 12px; padding: 11px 13px; border: 1px solid var(--line); border-radius: 12px; background: color-mix(in srgb, var(--accent, #4322A8) 5%, var(--panel)); }
+.ni-research-head { display: flex; align-items: baseline; justify-content: space-between; gap: 8px; flex-wrap: wrap; margin-bottom: 8px; }
+.ni-research-head strong { font-size: 12px; font-weight: 950; color: var(--ink); }
+.ni-research-head span { font-size: 10px; font-weight: 800; color: var(--ink-2); }
+.ni-research-list { list-style: none; padding: 0; display: grid; gap: 5px; }
+.ni-research-list li { display: flex; align-items: baseline; gap: 8px; font-size: 11.5px; padding: 5px 6px; border-radius: 7px; transition: background .14s; }
+.ni-research-list li:hover { background: color-mix(in srgb, var(--accent, #4322A8) 8%, transparent); }
+.ni-cite-src { flex: 0 0 auto; font-size: 9.5px; font-weight: 950; color: var(--accent, #4322A8); background: color-mix(in srgb, var(--accent, #4322A8) 12%, var(--panel)); padding: 2px 7px; border-radius: 999px; white-space: nowrap; }
+.ni-research-list a { color: var(--ink); text-decoration: none; font-weight: 750; line-height: 1.4; }
+.ni-research-list a:hover { color: var(--accent, #4322A8); text-decoration: underline; }
+.ni-research-list small { margin-left: auto; flex: 0 0 auto; font-size: 9.5px; color: var(--muted, var(--ink-2)); font-weight: 750; }
