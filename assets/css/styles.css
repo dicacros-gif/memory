@@ -19198,3 +19198,11 @@ body.crawl-moderation-open {
 .ni-trend-chip { display: inline-flex; align-items: center; gap: 5px; padding: 3px 9px; border-radius: 999px; font-weight: 850; color: var(--ink); border: 1px solid color-mix(in srgb, #0891B2 calc(var(--w) * 55%), var(--line)); background: color-mix(in srgb, #0891B2 calc(var(--w) * 16%), var(--panel)); font-size: calc(10px + var(--w) * 4px); transition: transform .14s; }
 .ni-trend-chip:hover { transform: translateY(-2px); }
 .ni-trend-chip b { font-size: 9.5px; font-weight: 950; color: #0e7490; }
+
+/* ---------------- Theme price signal (news insight card) ---------------- */
+.ni-price { display: inline-flex; align-items: center; gap: 7px; padding: 3px 9px; border-radius: 999px; font-size: 10.5px; font-weight: 850; border: 1px solid var(--line); background: var(--panel); width: fit-content; }
+.ni-price span { color: var(--ink-2); font-weight: 800; }
+.ni-price b { font-family: var(--display); font-weight: 950; }
+.ni-price.up { border-color: color-mix(in srgb, #dc2626 40%, var(--line)); } .ni-price.up b { color: #dc2626; }
+.ni-price.down { border-color: color-mix(in srgb, #2563eb 40%, var(--line)); } .ni-price.down b { color: #2563eb; }
+.ni-price.flat b { color: var(--ink-2); }

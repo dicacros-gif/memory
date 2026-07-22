@@ -3065,6 +3065,27 @@
     return list.slice(0, limit);
   }
 
+  // Real crawled price momentum for a theme, so a headline sits next to the
+  // actual spot move. Only DRAM/NAND have spot series; other themes get none.
+  function themePriceSignal(theme = {}) {
+    const mom = QUANT?.memoryMomentum;
+    if (!mom) return null;
+    const id = String(theme.id || "").toLowerCase();
+    const label = String(theme.label || "").toLowerCase();
+    const isNand = /nand|ssd|낸드/.test(id + label);
+    const isDram = /dram|ddr|hbm|디램/.test(id + label);
+    const pick = (v30, v90) => {
+      if (Number.isFinite(v30)) return { pct: v30, span: "30d" };
+      if (Number.isFinite(v90)) return { pct: v90, span: "90d" };
+      return null;
+    };
+    let sig = null; let kind = "";
+    if (isNand) { sig = pick(mom.nandSpot30dPct, mom.nandSpot90dPct); kind = "NAND spot"; }
+    else if (isDram) { sig = pick(mom.dramSpot30dPct, mom.dramSpot90dPct); kind = "DRAM spot"; }
+    if (!sig) return null;
+    return { kind, span: sig.span, pct: sig.pct, dir: sig.pct > 0 ? "up" : sig.pct < 0 ? "down" : "flat" };
+  }
+
   function renderNewsInsightSummary() {
     const host = $("#newsInsight");
     if (!host) return;
@@ -3118,6 +3139,11 @@
               </div>
               <h4>${strategicHighlightHTML(l.title || b.label)}</h4>
               ${l.summary ? `<p>${escapeHTML(String(l.summary).slice(0, 150))}</p>` : ""}
+              ${(() => {
+                const sig = themePriceSignal(b);
+                if (!sig) return "";
+                return `<div class="ni-price ${sig.dir}"><span>${escapeHTML(sig.kind)} ${escapeHTML(sig.span)}</span><b>${sig.pct > 0 ? "+" : ""}${fmtNum(sig.pct, 1)}%</b></div>`;
+              })()}
               <div class="ni-foot">
                 <span class="ni-badge ${badge.cls}">${escapeHTML(badge.label)}</span>
                 ${l.url ? `<a href="${escapeHTML(l.url)}" target="_blank" rel="noopener">${escapeHTML(l.source || "출처")} ↗</a>` : `<span>${escapeHTML(l.source || "")}</span>`}
