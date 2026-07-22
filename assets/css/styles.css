@@ -19249,3 +19249,38 @@ button.ni-trend-chip:hover { box-shadow: 0 4px 12px color-mix(in srgb, #0891B2 2
 .news-hit { position: relative; animation: newsHitPulse 1.6s ease-out 1; }
 .news-hit > * { outline: 2px solid #0891B2; outline-offset: 2px; border-radius: 8px; }
 @keyframes newsHitPulse { 0% { background: color-mix(in srgb, #0891B2 22%, transparent); } 100% { background: transparent; } }
+
+/* ---------- Accumulating research citations: delete control + note ---------- */
+.ni-research-list li.ni-cite { position: relative; padding-right: 30px; }
+.ni-cite .crawl-remove-button { width: 20px; height: 20px; top: 50%; right: 4px; transform: translateY(-50%) scale(.78); box-shadow: 0 4px 12px rgba(15,23,42,.16); }
+.ni-cite .crawl-remove-button span { font-size: 14px; }
+.ni-cite.crawl-moderatable:hover .crawl-remove-button,
+.ni-cite.crawl-moderatable:focus-within .crawl-remove-button { opacity: .82; transform: translateY(-50%) scale(1); }
+.ni-cite.crawl-removing { opacity: 0; transform: translateX(10px); transition: opacity .2s ease, transform .2s ease; }
+.ni-research-note { margin-top: 8px; font-size: 9.5px; font-weight: 750; color: var(--muted, var(--ink-2)); letter-spacing: .01em; }
+
+/* -------- Hover: color invert + upward lift on insight/research cards -------- */
+.ni-card, .mbp-front, .deep-implication, .community-insight, .ni-research-list li.ni-cite {
+  transition: transform .18s cubic-bezier(.2,.7,.3,1), background-color .18s ease, color .18s ease, border-color .18s ease, box-shadow .18s ease;
+  will-change: transform;
+}
+.ni-card:hover, .mbp-front:hover, .deep-implication:hover, .community-insight:hover {
+  transform: translateY(-6px);
+  background: var(--ink);
+  color: var(--panel);
+  border-color: var(--ink);
+  box-shadow: 0 16px 34px rgba(2, 8, 23, .38);
+}
+/* Keep text legible after the invert */
+.ni-card:hover :is(h4, p, .ni-theme, .ni-count, small, a, b),
+.mbp-front:hover :is(strong, p, .mbp-front-tag),
+.deep-implication:hover :is(strong, span, b),
+.community-insight:hover :is(strong, span, b) { color: var(--panel); }
+.ni-card:hover .strategy-highlight,
+.deep-implication:hover .strategy-highlight,
+.community-insight:hover .strategy-highlight { color: #16120a; }
+.ni-research-list li.ni-cite:hover {
+  transform: translateY(-3px);
+  background: var(--ink);
+}
+.ni-research-list li.ni-cite:hover :is(a, small, .ni-cite-src) { color: var(--panel); }

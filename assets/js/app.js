@@ -2016,6 +2016,7 @@
   let MARKET_HISTORY = emptyMarketHistory;
   let QUANT_BACKTEST = emptyQuantBacktest;
   let REPO_CRAWL_EXCLUSIONS = emptyCrawlExclusions;
+  let RESEARCH_ARCHIVE = { items: [] };
   let localCrawlExclusions = [];
   let crawlExclusionKeys = new Set();
   let activeCategory = "all";
@@ -2944,7 +2945,7 @@
           <span class="mbp-eyebrow">STRATEGY FRAMEWORK · 증권사 인사이트 확장</span>
           <h3>AMD의 MEXT 인수가 다음 몇 년의 신호다</h3>
         </div>
-        <span class="mbp-tag">전략 프레임워크 · 라이브 수치 아님</span>
+        <span class="mbp-tag">전략 프레임워크</span>
       </div>
       <div class="mbp-thesis">
         AMD가 인수한 <b>MEXT</b>는 플래시를 DRAM처럼 동작하게 하는 <b>예측 계층 소프트웨어</b> 기업이다.
@@ -3016,30 +3017,40 @@
   // banks, research houses, and authoritative tech-research media that carry a
   // real URL + date. These are the "증권사·리서치 인용" pool — verbatim, sourced.
   const RESEARCH_SOURCE_RE = /morgan stanley|goldman|jpmorgan|\bciti\b|\bubs\b|counterpoint|trendforce|techinsights|\byole\b|semianalysis|bloomberg|reuters|nikkei|digitimes|mizuho|nomura|jefferies|omdia|gartner|\bidc\b|ee times|semiconductor engineering/i;
-  function researchCitations(limit = 10) {
-    const seen = new Set();
-    return (LIVE.news || [])
-      .filter((n) => {
-        const url = String(n.link || n.sourceUrl || "");
-        if (!/^https?:\/\//.test(url)) return false;
-        const hay = `${n.source || ""} ${n.title || ""} ${n.originalTitle || ""} ${n.summary || ""}`;
-        return RESEARCH_SOURCE_RE.test(hay);
-      })
-      .sort((a, b) => String(b.date || b.publishedAt || "").localeCompare(String(a.date || a.publishedAt || "")))
-      .filter((n) => {
-        const key = String(n.link || n.sourceUrl || "").toLowerCase();
-        if (seen.has(key)) return false;
-        seen.add(key);
-        return true;
-      })
-      .slice(0, limit)
-      .map((n) => ({
-        title: n.titleKo || n.title,
-        source: n.source,
-        url: n.link || n.sourceUrl,
-        date: String(n.date || n.publishedAt || "").slice(0, 10),
-        level: n.verification?.evidenceLevel || "",
-      }));
+  // Broker/authority research citations, accumulated: the freshest crawl's
+  // research headlines merged with the persistent archive (data/research-archive.json),
+  // which recovers every previously-shown citation. Deduped by URL, excluded
+  // items dropped, newest first. `limit` caps how many render at once but the
+  // archive keeps stacking across cycles. No hard truncation of history.
+  function researchCitations(limit = 40) {
+    const byKey = new Map();
+    const ingest = (title, source, url, date, level) => {
+      const clean = String(url || "");
+      if (!/^https?:\/\//.test(clean)) return;
+      const key = normalizeCrawlExclusionUrl(clean);
+      if (!key) return;
+      const item = { title: String(title || ""), source: String(source || ""), url: clean, date: String(date || "").slice(0, 10), level: String(level || "") };
+      if (isCrawlExcluded("research", item)) return;
+      const prev = byKey.get(key);
+      if (!prev) { byKey.set(key, item); return; }
+      if (!prev.title && item.title) prev.title = item.title;
+      if (!prev.source && item.source) prev.source = item.source;
+      if (!prev.date && item.date) prev.date = item.date;
+    };
+    // Fresh crawl research headlines.
+    for (const n of LIVE.news || []) {
+      const hay = `${n.source || ""} ${n.title || ""} ${n.originalTitle || ""} ${n.summary || ""}`;
+      if (!RESEARCH_SOURCE_RE.test(hay)) continue;
+      ingest(n.titleKo || n.title, n.source, n.link || n.sourceUrl, n.date || n.publishedAt, n.verification?.evidenceLevel);
+    }
+    // Persistent accumulation archive (previously-shown citations).
+    for (const c of RESEARCH_ARCHIVE.items || []) {
+      ingest(c.title, c.source, c.url, c.date, c.level);
+    }
+    return [...byKey.values()]
+      .filter((c) => c.title)
+      .sort((a, b) => String(b.date || "").localeCompare(String(a.date || "")))
+      .slice(0, limit);
   }
 
   // Weekly trending keywords from crawled news, filtered to memory-domain terms
@@ -3154,20 +3165,22 @@
         }).join("")}
       </div>
       ${(() => {
-        const cites = researchCitations(10);
+        const cites = researchCitations(40);
         if (!cites.length) return "";
+        const total = (RESEARCH_ARCHIVE.items || []).length;
         return `
           <div class="ni-research">
-            <div class="ni-research-head"><strong>증권사·권위 리서치 최신 인용</strong><span>${fmtNum(cites.length)}건 · 은행·리서치하우스·권위 매체</span></div>
+            <div class="ni-research-head"><strong>증권사·권위 리서치 공개 원문·인용 브리핑</strong><span>${fmtNum(cites.length)}건 표시 · 누적 ${fmtNum(total)}건 · 은행·리서치하우스·권위 매체</span></div>
             <ul class="ni-research-list">
-              ${cites.map((c) => `
-                <li>
+              ${cites.map((c, i) => `
+                <li class="ni-cite" data-cite-index="${i}">
                   <span class="ni-cite-src">${escapeHTML(c.source || "출처")}</span>
                   ${c.url ? `<a href="${escapeHTML(c.url)}" target="_blank" rel="noopener">${escapeHTML(String(c.title).slice(0, 90))} ↗</a>` : `<span>${escapeHTML(String(c.title).slice(0, 90))}</span>`}
                   <small>${escapeHTML(c.date)}</small>
                 </li>
               `).join("")}
             </ul>
+            <p class="ni-research-note">× 를 눌러 관리자 비밀번호(${escapeHTML(ADMIN_DELETE_PASSWORD)}) 입력 시 이 브라우저의 이후 갱신에서도 제외 · 원문은 계속 누적</p>
           </div>
         `;
       })()}
@@ -3175,6 +3188,14 @@
     `;
     host.querySelectorAll("[data-trend-term]").forEach((btn) => {
       btn.addEventListener("click", () => highlightNewsForTerm(btn.dataset.trendTerm));
+    });
+    // Per-citation admin delete (× + password 000): hides in this browser and
+    // stays excluded on future refreshes, while the archive keeps accumulating.
+    const cites = researchCitations(40);
+    host.querySelectorAll(".ni-cite[data-cite-index]").forEach((li) => {
+      const cite = cites[Number(li.dataset.citeIndex)];
+      if (!cite) return;
+      attachCrawlModerationControl(li, "research", cite, cite.title, renderNewsInsightSummary, li);
     });
   }
 
@@ -3504,12 +3525,14 @@
     setupChinaBenchmarkVideoStory();
     setupChinaDecisionVideo();
     setupMemoryScrollStory();
-    [BASE, LIVE, REPO_CRAWL_EXCLUSIONS, QUANT] = await Promise.all([
+    [BASE, LIVE, REPO_CRAWL_EXCLUSIONS, QUANT, RESEARCH_ARCHIVE] = await Promise.all([
       loadJSON("data/baseline.json", null),
       loadJSON("data/live.json", emptyLive),
       loadJSON("data/crawl-exclusions.json", emptyCrawlExclusions),
       loadJSON("data/quant.json", null),
+      loadJSON("data/research-archive.json", { items: [] }),
     ]);
+    if (!RESEARCH_ARCHIVE || !Array.isArray(RESEARCH_ARCHIVE.items)) RESEARCH_ARCHIVE = { items: [] };
     LIVE = selectVerifiedLiveData(LIVE);
     LIVE = normalizeLiveData(LIVE);
     if (!QUANT && LIVE && LIVE.quant) QUANT = LIVE.quant;
