@@ -19152,3 +19152,28 @@ body.crawl-moderation-open {
 .mbp-front p { font-size: 11px; line-height: 1.55; color: var(--ink-2); font-weight: 650; }
 .mbp-foot { margin-top: 12px; font-size: 10px; color: var(--muted, var(--ink-2)); font-weight: 650; }
 @media (max-width: 720px) { .mbp-timeline { grid-template-columns: repeat(2, 1fr); } }
+
+/* ---------------- Latest news insight summary ---------------- */
+.news-insight { margin-top: 14px; }
+.ni-head { display: flex; align-items: flex-end; justify-content: space-between; gap: 12px; flex-wrap: wrap; margin-bottom: 10px; }
+.ni-eyebrow { font-size: 10px; font-weight: 950; letter-spacing: .1em; color: #0891B2; }
+.ni-title h3 { font-size: 16px; font-weight: 950; color: var(--ink); margin-top: 4px; display: flex; align-items: baseline; gap: 8px; flex-wrap: wrap; }
+.ni-title h3 span { font-size: 11px; font-weight: 800; color: #0891B2; }
+.ni-asof { font-size: 10px; font-weight: 800; color: var(--ink-2); }
+.ni-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 9px; }
+.ni-card { display: grid; gap: 6px; padding: 12px; border: 1px solid var(--line); border-radius: 12px; background: var(--panel-2, var(--panel)); transition: border-color .16s, transform .16s, box-shadow .16s; }
+.ni-card:hover { border-color: #0891B2; transform: translateY(-2px); box-shadow: 0 10px 24px color-mix(in srgb, #0891B2 15%, transparent); }
+.ni-card-top { display: flex; align-items: center; justify-content: space-between; gap: 8px; }
+.ni-theme { font-size: 10.5px; font-weight: 950; color: #0e7490; padding: 2px 8px; border-radius: 999px; background: color-mix(in srgb, #0891B2 12%, var(--panel)); }
+.ni-count { font-size: 9.5px; font-weight: 800; color: var(--ink-2); }
+.ni-card h4 { font-size: 12.5px; font-weight: 850; color: var(--ink); line-height: 1.4; }
+.ni-card p { font-size: 11px; line-height: 1.55; color: var(--ink-2); font-weight: 650; display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden; }
+.ni-foot { display: flex; align-items: baseline; gap: 8px; flex-wrap: wrap; }
+.ni-badge { font-size: 9px; font-weight: 950; padding: 2px 7px; border-radius: 999px; }
+.ni-badge.ok { color: #15803d; background: color-mix(in srgb, #16a34a 15%, var(--panel)); }
+.ni-badge.reported { color: #0e7490; background: color-mix(in srgb, #0891B2 14%, var(--panel)); }
+.ni-badge.watch { color: #b45309; background: color-mix(in srgb, #d97706 15%, var(--panel)); }
+.ni-foot a, .ni-foot span { font-size: 10px; font-weight: 850; color: var(--accent, #4322A8); text-decoration: none; }
+.ni-foot a:hover { text-decoration: underline; }
+.ni-foot small { font-size: 9.5px; color: var(--muted, var(--ink-2)); font-weight: 750; margin-left: auto; }
+.ni-note { margin-top: 8px; font-size: 10px; color: var(--muted, var(--ink-2)); font-weight: 650; }

@@ -2999,6 +2999,72 @@
     `;
   }
 
+  // Latest news insight summary: surfaces the crawler's themed intelligence
+  // briefs (HBM / DRAM / NAND / …) as compact cards — each shows the theme,
+  // its evidence count, and the single latest verbatim headline with source,
+  // date, and evidence level. No interpretation is invented; the summary text
+  // is the crawled article summary. Falls back to the most recent news when
+  // briefs are absent, so it never blanks.
+  function newsEvidenceBadge(level = "") {
+    const l = String(level).toLowerCase();
+    if (/confirm|확정/.test(l)) return { cls: "ok", label: "Confirmed" };
+    if (/report|보도/.test(l)) return { cls: "reported", label: "Reported" };
+    return { cls: "watch", label: level || "Watch" };
+  }
+
+  function renderNewsInsightSummary() {
+    const host = $("#newsInsight");
+    if (!host) return;
+    let briefs = (LIVE.intelligence?.briefs || []).filter((b) => b?.label && b?.latest);
+    // Fallback: synthesize lightweight themes from the freshest news so the
+    // panel always has content.
+    if (!briefs.length) {
+      const news = (LIVE.news || []).slice()
+        .sort((a, b) => String(b.date || b.publishedAt || "").localeCompare(String(a.date || a.publishedAt || "")));
+      briefs = news.slice(0, 6).map((n) => ({
+        id: n.id, label: (n.category || "메모리 신호"),
+        evidenceCount: 1,
+        latest: { title: n.titleKo || n.title, summary: n.summary || "", source: n.source, url: n.link || n.sourceUrl, publishedAt: n.date || n.publishedAt, evidenceLevel: n.verification?.evidenceLevel || "Watch" },
+      }));
+    }
+    if (!briefs.length) { host.hidden = true; return; }
+    host.hidden = false;
+    const asOf = String(LIVE.intelligence?.generatedAt || LIVE.updatedAt || "").slice(0, 10);
+    const totalEvidence = briefs.reduce((s, b) => s + (Number(b.evidenceCount) || 0), 0);
+    host.innerHTML = `
+      <div class="ni-head">
+        <div class="ni-title">
+          <span class="ni-eyebrow">LATEST NEWS INTELLIGENCE · 크롤 요약</span>
+          <h3>최신 뉴스 인사이트 요약 <span>${fmtNum(briefs.length)}개 테마 · 근거 ${fmtNum(totalEvidence)}건</span></h3>
+        </div>
+        <span class="ni-asof">${escapeHTML(asOf)} 기준 · 원문 헤드라인 그대로</span>
+      </div>
+      <div class="ni-grid">
+        ${briefs.map((b) => {
+          const l = b.latest || {};
+          const badge = newsEvidenceBadge(l.evidenceLevel);
+          const date = String(l.publishedAt || "").slice(0, 10);
+          return `
+            <article class="ni-card">
+              <div class="ni-card-top">
+                <span class="ni-theme">${escapeHTML(b.label)}</span>
+                <span class="ni-count">근거 ${fmtNum(b.evidenceCount || 0)}건</span>
+              </div>
+              <h4>${strategicHighlightHTML(l.title || b.label)}</h4>
+              ${l.summary ? `<p>${escapeHTML(String(l.summary).slice(0, 150))}</p>` : ""}
+              <div class="ni-foot">
+                <span class="ni-badge ${badge.cls}">${escapeHTML(badge.label)}</span>
+                ${l.url ? `<a href="${escapeHTML(l.url)}" target="_blank" rel="noopener">${escapeHTML(l.source || "출처")} ↗</a>` : `<span>${escapeHTML(l.source || "")}</span>`}
+                <small>${escapeHTML(date)}</small>
+              </div>
+            </article>
+          `;
+        }).join("")}
+      </div>
+      <p class="ni-note">테마별 최신 1건을 원문 그대로 표시 · 요약문은 크롤링된 기사 요약 · 해석 생성 없음</p>
+    `;
+  }
+
   // Crawl heartbeat: proves the site is alive — last run age, stage success
   // ratio, failed stages, and headline live metrics from quant.json.
   function renderCrawlHeartbeat() {
@@ -3332,6 +3398,7 @@
     renderKpis();
     renderLiveFigures();
     renderMemoryBypassRoutes();
+    renderNewsInsightSummary();
     setupQA();
     setupInteractions();
     setupScrollSpy();
