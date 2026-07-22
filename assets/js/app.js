@@ -2892,6 +2892,113 @@
     sync();
   }
 
+  // Curated strategic framework: AMD's MEXT acquisition read as the signal for
+  // "memory bypass routes" — 11 approaches across 4 bands, an adoption timeline,
+  // and 4 standards-war fronts. Always renders (editorial analysis of a real,
+  // citable event), clearly labeled as a framework rather than a live-crawl fact.
+  const MEMORY_BYPASS_ROUTES = [
+    { band: 1, bandLabel: "밴드 1 — 물리적 근접 (Bring Memory Closer)", accent: "#2D6BFF",
+      routes: [
+        { n: 1, name: "HBF (HBM 옆 플래시)", effect: "HBM 옆에 플래시를 둠", when: "2027~2028", who: "NAND · 패키징" },
+        { n: 2, name: "3D 적층", effect: "차세대 대역폭", when: "2028~2030", who: "메모리 · 파운드리 · 패키징" },
+      ] },
+    { band: 2, bandLabel: "밴드 2 — 데이터 이동 절감 (Reduce Data Movement)", accent: "#8B5CF6",
+      routes: [
+        { n: 3, name: "PIM / PNM", effect: "데이터 이동 제거", when: "2028~2030", who: "메모리 · JEDEC 표준" },
+        { n: 4, name: "광 메모리 인터커넥트", effect: "거리 한계 해소", when: "2028~2030", who: "실리콘 포토닉스 · 광 HBM" },
+      ] },
+    { band: 3, bandLabel: "밴드 3 — 시스템·소프트웨어로 해결 (System / Software)", accent: "#0EA5E9",
+      routes: [
+        { n: 5, name: "CXL", effect: "KV캐시 오프로드 · 풀링", when: "2026~2027", who: "컨트롤러 · 스위치 · 모듈" },
+        { n: 6, name: "예측형 티어링 (MEXT)", effect: "DRAM 수요 감축", when: "2026", who: "티어링 SW · 엔터프라이즈 SSD" },
+        { n: 7, name: "알고리즘 압축", effect: "필요 메모리 축소", when: "2026", who: "추론 효율" },
+        { n: 8, name: "온디바이스 sparse", effect: "기기 DRAM 회피", when: "2026~2027", who: "고용량 모바일 NAND" },
+        { n: 9, name: "모듈 혁신", effect: "HBM 너머 메모리 확장", when: "2026~2027", who: "모듈 인터페이스 · LPDDR/MRDIMM" },
+      ] },
+    { band: 4, bandLabel: "밴드 4 — 경로 밖 (Beyond the Routes)", accent: "#EF4444",
+      routes: [
+        { n: 10, name: "SRAM 추론 칩", effect: "HBM 자체를 건너뜀", when: "2026 (지금·자본 유입)", who: "SRAM 추론 ASIC (Groq · Cerebras)" },
+        { n: 11, name: "신소재 메모리", effect: "새 소재로 재설계", when: "2030+ (R&D)", who: "FeRAM / MRAM" },
+      ] },
+  ];
+  const MEMORY_BYPASS_TIMELINE = [
+    { label: "2026 · 지금 가용", cls: "now", items: ["[6] 예측형 티어링", "[7] 알고리즘 압축", "[10] SRAM 추론 칩"] },
+    { label: "2026~2027 · 근접", cls: "near", items: ["[5] CXL", "[8] 온디바이스 sparse", "[9] 모듈 혁신"] },
+    { label: "2027~2028 · 중기", cls: "mid", items: ["[1] HBF"] },
+    { label: "2028~2030 · 중장기", cls: "long", items: ["[2] 3D 적층", "[3] PIM / PNM", "[4] 광 인터커넥트"] },
+    { label: "2030+ · 연구 단계", cls: "research", items: ["[11] 신소재 메모리"] },
+  ];
+  const MEMORY_BYPASS_FRONTS = [
+    { n: 1, title: "하이퍼스케일러가 표준을 쥐기 시작", body: "클라우드 각사가 자사 워크로드에 최적인 메모리 사양·소프트웨어·시스템을 직접 주도한다." },
+    { n: 2, title: "엔비디아가 메모리 계층 전체를 인터페이스로 장악", body: "GPU를 중심으로 메모리에서 네트워크까지 이어지는 에코시스템을 지배한다." },
+    { n: 3, title: "메모리와 파운드리의 경계가 붕괴", body: "메모리 안 연산·적층·로직 융합으로 제조의 경계가 사라진다." },
+    { n: 4, title: "표준 전쟁이 이익 배분을 결정", body: "CXL, OCP, UCIe, HBM 규격 등의 패권이 향후 이익 배분을 좌우한다." },
+  ];
+
+  function renderMemoryBypassRoutes() {
+    const host = $("#memoryBypass");
+    if (!host) return;
+    host.innerHTML = `
+      <div class="mbp-head">
+        <div class="mbp-title">
+          <span class="mbp-eyebrow">STRATEGY FRAMEWORK · 증권사 인사이트 확장</span>
+          <h3>AMD의 MEXT 인수가 다음 몇 년의 신호다</h3>
+        </div>
+        <span class="mbp-tag">전략 프레임워크 · 라이브 수치 아님</span>
+      </div>
+      <div class="mbp-thesis">
+        AMD가 인수한 <b>MEXT</b>는 플래시를 DRAM처럼 동작하게 하는 <b>예측 계층 소프트웨어</b> 기업이다.
+        칩이 아니라 소프트웨어를 산 이유는 <mark>"DRAM을 늘린다"가 아니라 "DRAM이 필요 없는 구조"</mark>를 손에 넣으려 했기 때문 —
+        <b>DRAM 의존 축소 · 시스템 전체 비용 절감 · 새 메모리 계층 구축</b>이 노림수다.
+      </div>
+      <div class="mbp-bands">
+        ${MEMORY_BYPASS_ROUTES.map((band) => `
+          <section class="mbp-band" style="--mbp-accent:${band.accent}">
+            <h4>${escapeHTML(band.bandLabel)}</h4>
+            <div class="mbp-routes">
+              ${band.routes.map((r) => `
+                <article class="mbp-route">
+                  <span class="mbp-route-n">${r.n}</span>
+                  <div class="mbp-route-copy">
+                    <strong>${escapeHTML(r.name)}</strong>
+                    <p>${escapeHTML(r.effect)}</p>
+                    <small><b>${escapeHTML(r.when)}</b> · ${escapeHTML(r.who)}</small>
+                  </div>
+                </article>
+              `).join("")}
+            </div>
+          </section>
+        `).join("")}
+      </div>
+      <div class="mbp-sub">
+        <h4>도입 시간축 — 소프트웨어가 먼저, 물리 혁신이 나중</h4>
+        <p class="mbp-note">즉시 가용한 소프트웨어·추론 칩이 앞서고, 매체 교체·물리 계층·신소재가 뒤따른다. (초록=지금 가용 → 회색=연구 단계)</p>
+        <div class="mbp-timeline">
+          ${MEMORY_BYPASS_TIMELINE.map((t) => `
+            <div class="mbp-tl-col ${t.cls}">
+              <span class="mbp-tl-label">${escapeHTML(t.label)}</span>
+              ${t.items.map((i) => `<span class="mbp-tl-item">${escapeHTML(i)}</span>`).join("")}
+            </div>
+          `).join("")}
+        </div>
+      </div>
+      <div class="mbp-sub">
+        <h4>업계 공방 — 4개 프론트</h4>
+        <p class="mbp-note">우회 경로 표준을 둘러싼 싸움은 네 전선에서 동시에 벌어진다. 어디서 표준을 쥐느냐가 마진의 위치를 결정한다.</p>
+        <div class="mbp-fronts">
+          ${MEMORY_BYPASS_FRONTS.map((f) => `
+            <article class="mbp-front">
+              <span class="mbp-front-tag">FRONT ${f.n}</span>
+              <strong>${escapeHTML(f.title)}</strong>
+              <p>${escapeHTML(f.body)}</p>
+            </article>
+          `).join("")}
+        </div>
+      </div>
+      <p class="mbp-foot">전략 프레임워크 · AMD-MEXT 인수(실제 이벤트) 해석 기반 · 도입 시점·연도는 업계 로드맵 추정으로 확정치 아님</p>
+    `;
+  }
+
   // Crawl heartbeat: proves the site is alive — last run age, stage success
   // ratio, failed stages, and headline live metrics from quant.json.
   function renderCrawlHeartbeat() {
@@ -3224,6 +3331,7 @@
     renderCrawlHeartbeat();
     renderKpis();
     renderLiveFigures();
+    renderMemoryBypassRoutes();
     setupQA();
     setupInteractions();
     setupScrollSpy();

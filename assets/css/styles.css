@@ -19112,3 +19112,43 @@ body.crawl-moderation-open {
 .hs-focus-signal a { font-size: 10.5px; font-weight: 750; color: var(--ink-2); text-decoration: none; line-height: 1.4; }
 .hs-focus-signal a:hover { color: #0891B2; text-decoration: underline; }
 .hs-focus-signal.idle { opacity: .75; border-style: dotted; }
+
+/* ---------------- Memory bypass routes (AMD MEXT framework) ---------------- */
+.memory-bypass { margin-top: 14px; padding: 16px; border: 1px solid var(--line); border-radius: 14px; background: var(--panel-2, var(--panel)); }
+.mbp-head { display: flex; align-items: flex-start; justify-content: space-between; gap: 12px; flex-wrap: wrap; margin-bottom: 10px; }
+.mbp-eyebrow { font-size: 10px; font-weight: 950; letter-spacing: .1em; color: #2D6BFF; }
+.mbp-title h3 { font-size: 17px; font-weight: 950; color: var(--ink); margin-top: 4px; }
+.mbp-tag { font-size: 9.5px; font-weight: 850; color: var(--ink-2); border: 1px dashed var(--line); border-radius: 999px; padding: 3px 9px; white-space: nowrap; }
+.mbp-thesis { font-size: 13px; line-height: 1.7; color: var(--ink); font-weight: 650; padding: 12px 14px; border-left: 4px solid #2D6BFF; background: color-mix(in srgb, #2D6BFF 7%, var(--panel)); border-radius: 8px; margin-bottom: 14px; }
+.mbp-thesis b { font-weight: 900; color: var(--ink); }
+.mbp-thesis mark { background: linear-gradient(180deg, transparent 55%, rgba(250,204,21,.55) 55%); color: inherit; font-weight: 900; padding: 0 2px; }
+.mbp-bands { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 10px; }
+.mbp-band { border: 1px solid color-mix(in srgb, var(--mbp-accent) 30%, var(--line)); border-radius: 10px; padding: 11px; background: color-mix(in srgb, var(--mbp-accent) 5%, var(--panel)); }
+.mbp-band h4 { font-size: 11px; font-weight: 900; color: var(--mbp-accent); margin-bottom: 8px; }
+.mbp-routes { display: grid; gap: 7px; }
+.mbp-route { display: flex; gap: 9px; padding: 8px; border-radius: 8px; background: var(--panel); border: 1px solid var(--line); transition: border-color .15s, transform .15s; }
+.mbp-route:hover { border-color: var(--mbp-accent); transform: translateY(-2px); }
+.mbp-route-n { flex: 0 0 22px; height: 22px; border-radius: 999px; display: grid; place-items: center; background: var(--mbp-accent); color: #fff; font-size: 11px; font-weight: 950; }
+.mbp-route-copy strong { font-size: 12.5px; font-weight: 900; color: var(--ink); }
+.mbp-route-copy p { font-size: 11px; color: var(--ink-2); font-weight: 700; margin: 2px 0; }
+.mbp-route-copy small { font-size: 10px; color: var(--muted, var(--ink-2)); }
+.mbp-route-copy small b { color: var(--mbp-accent); font-weight: 900; }
+.mbp-sub { margin-top: 16px; }
+.mbp-sub h4 { font-size: 13px; font-weight: 900; color: var(--ink); }
+.mbp-note { font-size: 11px; color: var(--ink-2); font-weight: 650; margin: 4px 0 10px; }
+.mbp-timeline { display: grid; grid-template-columns: repeat(5, 1fr); gap: 8px; }
+.mbp-tl-col { display: grid; gap: 5px; align-content: start; padding: 9px; border-radius: 9px; border: 1px solid var(--line); background: var(--panel); }
+.mbp-tl-label { font-size: 10px; font-weight: 900; color: var(--ink); padding-bottom: 5px; border-bottom: 2px solid var(--line); }
+.mbp-tl-item { font-size: 10.5px; font-weight: 800; color: var(--ink); padding: 3px 7px; border-radius: 6px; background: color-mix(in srgb, var(--ink) 6%, var(--panel)); }
+.mbp-tl-col.now { border-color: #16a34a; } .mbp-tl-col.now .mbp-tl-item { background: color-mix(in srgb, #16a34a 16%, var(--panel)); color: #15803d; }
+.mbp-tl-col.near { border-color: #0891B2; } .mbp-tl-col.near .mbp-tl-item { background: color-mix(in srgb, #0891B2 14%, var(--panel)); }
+.mbp-tl-col.mid { border-color: #8B5CF6; }
+.mbp-tl-col.long { border-color: #d97706; }
+.mbp-tl-col.research .mbp-tl-label, .mbp-tl-col.research .mbp-tl-item { color: var(--muted, #94a3b8); }
+.mbp-fronts { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 9px; }
+.mbp-front { padding: 11px; border: 1px solid var(--line); border-radius: 10px; background: var(--panel); border-top: 3px solid #2D6BFF; }
+.mbp-front-tag { font-size: 9.5px; font-weight: 950; color: #2D6BFF; letter-spacing: .05em; }
+.mbp-front strong { display: block; font-size: 12.5px; font-weight: 900; color: var(--ink); margin: 5px 0; }
+.mbp-front p { font-size: 11px; line-height: 1.55; color: var(--ink-2); font-weight: 650; }
+.mbp-foot { margin-top: 12px; font-size: 10px; color: var(--muted, var(--ink-2)); font-weight: 650; }
+@media (max-width: 720px) { .mbp-timeline { grid-template-columns: repeat(2, 1fr); } }
