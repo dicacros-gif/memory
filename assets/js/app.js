@@ -3121,7 +3121,7 @@
           <div class="ni-trend" aria-label="주간 트렌드 키워드">
             <span class="ni-trend-label">주간 트렌드</span>
             <div class="ni-trend-chips">
-              ${trend.map((t) => `<span class="ni-trend-chip" style="--w:${Math.max(0.35, t.count / max).toFixed(2)}">${escapeHTML(t.term)}<b>${fmtNum(t.count)}</b></span>`).join("")}
+              ${trend.map((t) => `<button type="button" class="ni-trend-chip" data-trend-term="${escapeHTML(t.term)}" style="--w:${Math.max(0.35, t.count / max).toFixed(2)}" title="관련 기사 보기">${escapeHTML(t.term)}<b>${fmtNum(t.count)}</b></button>`).join("")}
             </div>
           </div>
         `;
@@ -3171,8 +3171,31 @@
           </div>
         `;
       })()}
-      <p class="ni-note">테마별 최신 1건 + 권위 리서치 인용을 원문 그대로 표시 · 요약문은 크롤링된 기사 요약 · 해석 생성 없음</p>
+      <p class="ni-note">테마별 최신 1건 + 권위 리서치 인용을 원문 그대로 표시 · 요약문은 크롤링된 기사 요약 · 해석 생성 없음 · 트렌드 키워드 클릭 시 관련 기사로 이동</p>
     `;
+    host.querySelectorAll("[data-trend-term]").forEach((btn) => {
+      btn.addEventListener("click", () => highlightNewsForTerm(btn.dataset.trendTerm));
+    });
+  }
+
+  // Clicking a trend keyword scrolls to the news stream and highlights every
+  // headline that contains it — a lightweight cross-link, no data mutation.
+  function highlightNewsForTerm(term) {
+    const needle = String(term || "").toLowerCase();
+    if (!needle) return;
+    const news = $("#news");
+    if (news) news.scrollIntoView({ behavior: "smooth", block: "start" });
+    // Wait for the (deferred) news section to render, then mark hits.
+    window.setTimeout(() => {
+      const items = document.querySelectorAll("#foreignNewsList li, #chinaNewsList li");
+      let first = null;
+      items.forEach((li) => {
+        const hit = li.textContent.toLowerCase().includes(needle);
+        li.classList.toggle("news-hit", hit);
+        if (hit && !first) first = li;
+      });
+      if (first) first.scrollIntoView({ behavior: "smooth", block: "center" });
+    }, 650);
   }
 
   // Crawl heartbeat: proves the site is alive — last run age, stage success
@@ -11996,7 +12019,7 @@
       horizonLabel: horizon.label,
       eligible: false,
       status: "insufficient",
-      statusLabel: "데이터 부족",
+      statusLabel: "구간 미충족",
     };
     if (!points.length) return { ...base, status: "no-points", statusLabel: "관측값 없음" };
     const startMatch = lastPointAtOrBefore(points, selectedTime, BACKTEST_START_TOLERANCE_DAYS);
@@ -12082,7 +12105,7 @@
   function decisionFromMomentum(product, priorMomentum, coverage) {
     if (coverage < 2 || priorMomentum == null) {
       return {
-        label: "데이터 부족",
+        label: "구간 미충족",
         cls: "insufficient",
         action: "추정 금지",
         logic: "기준일 이전 가격 포인트 부족 · 당시 판단 생성 불가",
@@ -12243,7 +12266,7 @@
 
   function decisionClassLabel(item) {
     if (item.directSignalModel === "hbm") return `직접 근거 ${fmtNum(item.directMetrics?.evidenceCount || 0)}건 · ${fmtNum(item.directMetrics?.score || 0)}점`;
-    if (!item.observations.length) return `데이터 부족 · ${fmtNum(item.evidenceRows?.length || item.matchedCount || 0)}개 점검`;
+    if (!item.observations.length) return `관측 대기 · ${fmtNum(item.evidenceRows?.length || item.matchedCount || 0)}개 점검`;
     return `${fmtNum(item.observations.length)}/${fmtNum(item.evidenceRows?.length || item.observations.length)}개 검증 · ${fmtNum(item.confidence)}점`;
   }
 
@@ -12428,7 +12451,7 @@
         const actual = row.eligible && Number.isFinite(row.actualChange) ? `${row.actualChange > 0 ? "+" : ""}${fmtNum(row.actualChange, 2)}%` : "계산 제외";
         const actualDays = Number.isFinite(row.days) ? `${fmtNum(row.days, 0)}일` : "-";
         return `<tr>
-          <td><span class="backtest-status ${row.eligible ? "complete" : "insufficient"}">${escapeHTML(row.statusLabel || "데이터 부족")}</span></td>
+          <td><span class="backtest-status ${row.eligible ? "complete" : "insufficient"}">${escapeHTML(row.statusLabel || "구간 미충족")}</span></td>
           <td>${escapeHTML(row.item || row.key || "품목")}</td>
           <td>${escapeHTML(row.start ? pointDateLabel(row.start._time) : "없음")}</td>
           <td>${escapeHTML(priorGap)}</td>
@@ -12882,7 +12905,7 @@
     };
     const fallback = {
       question: `${yearLabel} 기준 ${active?.label || productLabel}을 어떤 실행 판단으로 올릴 것인가?`,
-      ceo: "제품군별로 확대, 방어, 유지, 데이터 부족을 분리합니다.",
+      ceo: "제품군별로 확대, 방어, 유지, 구간 미충족을 분리합니다.",
       data: "선택 시점 이후 실제 관측된 가격만 백테스트에 사용합니다.",
       china: "중국 신호는 현재 리스크 overlay로만 반영합니다.",
       cfo: "확정 재무 ROI가 아니라 실사 우선순위로만 사용합니다.",
@@ -12895,7 +12918,7 @@
   function executiveDecisionAgentItems(active, selectedYearOption, productLabel, selectedIso, selectedSeriesCount, scenario = agentFutureScenario()) {
     if (!active) return "";
     const horizon = active.horizon || activeBacktestHorizon();
-    const actual = active.actualChange == null ? `${horizon.label} 고정 종료 실측 데이터 부족` : `${active.actualChange > 0 ? "+" : ""}${fmtNum(active.actualChange, 2)}%`;
+    const actual = active.actualChange == null ? `${horizon.label} 고정 종료 시점 도래 전` : `${active.actualChange > 0 ? "+" : ""}${fmtNum(active.actualChange, 2)}%`;
     const actualEn = active.actualChange == null ? "not available" : `${active.actualChange > 0 ? "+" : ""}${fmtNum(active.actualChange, 2)} percent`;
     const prior = active.priorMomentum == null ? "NA" : `${active.priorMomentum > 0 ? "+" : ""}${fmtNum(active.priorMomentum, 2)}%${Number.isFinite(active.priorDays) ? ` (${fmtNum(active.priorDays, 0)}일 창)` : ""}`;
     const yearLabel = selectedYearOption?.label || "선택 시점 없음";
@@ -13367,7 +13390,7 @@
         title: active.label,
         body: active.directSignalModel === "hbm"
           ? `${active.rationale} 현재 판단: ${active.decision.label}. 직접 신호 점수 ${fmtNum(active.directMetrics?.score || 0)}점.`
-          : `${active.rationale} 기준일 판단: ${active.decision.label}. 이후 실제 변화: ${active.actualChange == null ? "데이터 부족" : `${fmtNum(active.actualChange, 2)}%`}.`,
+          : `${active.rationale} 기준일 판단: ${active.decision.label}. 이후 실제 변화: ${active.actualChange == null ? "종료 시점 도래 전" : `${fmtNum(active.actualChange, 2)}%`}.`,
         section: "executive-decision",
         categories: [active.category],
         watch: [active.decision.logic, active.upside, active.downside],
@@ -16839,7 +16862,7 @@
           ${(item.facts || []).map((fact) => `<span>${escapeHTML(fact)}${/\d/.test(String(fact || "")) && !item.sourceUrl ? " · 출처 필요" : ""}</span>`).join("")}
         </div>
         <div class="insight-box"><span>리스크</span>${escapeHTML(item.risk)}</div>
-        <div class="deep-implication"><strong>SKHY 시사점</strong><span>${escapeHTML(item.implication)}</span></div>
+        <div class="deep-implication"><strong>SKHY Insight</strong><span>${strategicHighlightHTML(item.implication)}</span></div>
       `;
       makeInspectable(card, {
         type: "중국 심층 벤치마킹",
@@ -16906,7 +16929,7 @@
         title: item.label,
         body: item.directSignalModel === "hbm"
           ? `${item.rationale} 직접 신호 점수 ${fmtNum(item.directMetrics?.score || 0)}점 · ${item.outcome.label}`
-          : `${item.rationale} 이후 실제 변화 ${item.actualChange == null ? "데이터 부족" : `${fmtNum(item.actualChange, 2)}%`} · ${item.outcome.label}`,
+          : `${item.rationale} 이후 실제 변화 ${item.actualChange == null ? "종료 시점 도래 전" : `${fmtNum(item.actualChange, 2)}%`} · ${item.outcome.label}`,
         section: "executive-decision",
         categories: [item.category],
         watch: [item.decision.logic, item.upside, item.downside],
@@ -18440,8 +18463,8 @@
       const start = trend.startTime ? shortKstDateWithYear(trend.startTime) : "";
       const end = trend.endTime ? shortKstDateWithYear(trend.endTime) : "";
       return {
-        main: "데이터 부족",
-        sub: `${period.label} 요청 · 실제 ${fmtNum(coverage)}일${start && end ? ` · ${start}~${end}` : ""}`,
+        main: "가격 추이",
+        sub: `최대 관측 ${fmtNum(coverage)}일${start && end ? ` · ${start}~${end}` : ""}`,
       };
     }
     const dateLabel = period.days > 370 ? shortKstDateWithYear : shortKstDate;
@@ -18502,7 +18525,7 @@
         average: row.average,
         averageRaw: row.averageRaw,
         changePct: Number.NaN,
-        changeRaw: "데이터 부족",
+        changeRaw: "",
         direction: "flat",
         rangeLabel: row.lastUpdate || "실제 이력 없음",
         isPeriodComplete: false,
@@ -18514,14 +18537,17 @@
     const period = activePricePeriod();
     const startValue = Number(start?.average);
     const endValue = Number(end?.average);
-    const changePct = isPeriodComplete && start && end && start.time !== end.time && startValue
+    // Always compute the change over whatever real history exists (earliest
+    // available point → latest), even when it is shorter than the requested
+    // period. Never emit "데이터 부족" — show the actual observed span instead.
+    const changePct = start && end && start.time !== end.time && startValue
       ? ((endValue - startValue) / startValue) * 100
       : Number.NaN;
     const direction = changePct > 0 ? "up" : changePct < 0 ? "down" : "flat";
     const coverageLabel = priceUsesFullTrend()
       ? isPeriodComplete
         ? `선택 ${period.label} 전체 관측`
-        : `데이터 부족 · 요청 ${period.label} · 실제 ${fmtNum(Math.round(coverageDays))}일`
+        : `최대 관측 ${fmtNum(Math.round(coverageDays))}일`
       : `선택 ${period.label}`;
     return {
       points: scoped.map((point) => Number(point.average)).filter((value) => !Number.isNaN(value)),
@@ -18532,7 +18558,7 @@
       startRaw: start?.averageRaw || formatPrice(startValue),
       latestRaw: end?.averageRaw || formatPrice(endValue),
       changePct,
-      changeRaw: isPeriodComplete ? "" : "데이터 부족",
+      changeRaw: "",
       direction,
       rangeLabel: `${shortKstDate(start.time)}-${shortKstDate(end.time)}`,
       rangeMode: `${coverageLabel} · ${shortKstDate(start.time)}~${shortKstDate(end.time)}`,
@@ -18750,7 +18776,9 @@
     const scoped = nearestStart ? points.filter((point) => point.time >= nearestStart.time) : [];
     const plot = scoped.length ? scoped : points;
     const start = plot[0] || end;
-    const changePct = isPeriodComplete && start.close
+    // Always compute % from the earliest available observation to the latest,
+    // even when the real span is shorter than the requested period.
+    const changePct = start.close && start.time !== end.time
       ? ((end.close - start.close) / start.close) * 100
       : Number.NaN;
     return {
@@ -18763,7 +18791,7 @@
       startRaw: formatPrice(start.close),
       latestRaw: formatPrice(end.close),
       changePct,
-      changeRaw: isPeriodComplete ? "" : "데이터 부족",
+      changeRaw: "",
       direction: changePct > 0 ? "up" : changePct < 0 ? "down" : "flat",
       pointCount: plot.length,
       coverageDays: Math.max(0, (end.time - start.time) / 86400000),
@@ -19098,7 +19126,7 @@
     const series = trends
       .map((trend) => (trend.points || []).map(Number).filter(Number.isFinite))
       .filter((points) => points.length >= 2 && Number(points[0]) !== 0);
-    if (!series.length) return { points: [], changePct: Number.NaN, changeRaw: "데이터 부족", direction: "flat", isPeriodComplete: false };
+    if (!series.length) return { points: [], changePct: Number.NaN, changeRaw: "", direction: "flat", isPeriodComplete: false };
     const sampleCount = Math.min(36, Math.max(...series.map((points) => points.length)));
     const points = Array.from({ length: sampleCount }, (_, sampleIndex) => {
       const values = series.map((source) => {
@@ -20042,7 +20070,7 @@
         </div>
         <a class="community-title" href="${escapeHTML(item.sourceUrl || item.link || "#")}" target="_blank" rel="noopener">${strategicHighlightHTML(title)}</a>
         <p class="community-summary">${strategicHighlightHTML(summary)}</p>
-        <div class="community-insight"><strong>SKHY 시사점</strong><span>${strategicHighlightHTML(insight)}</span></div>
+        <div class="community-insight"><strong>SKHY Insight</strong><span>${strategicHighlightHTML(insight)}</span></div>
         ${validation ? `<div class="community-validation"><strong>확인 KPI</strong><span>${strategicHighlightHTML(validation)}</span></div>` : ""}
         <div class="community-tags">${tags.map((tag) => `<span>${escapeHTML(tag)}</span>`).join("")}</div>
       `;
