@@ -5859,6 +5859,41 @@
       seen.add(key);
       return true;
     }).slice(0, 8);
+
+    const referenceItems = Array.isArray(LIVE.referenceNews?.items) ? LIVE.referenceNews.items : [];
+    const referenceCitations = referenceItems.map((item) => {
+      const rule = brokerClientRule(item);
+      const url = String(item.sourceUrl || item.link || "");
+      if (!rule || !/^https?:\/\//i.test(url) || /news\.google\.com/i.test(url)) return null;
+      const title = newsTitle(item);
+      const body = newsSummaryLine(item, title, cleanInsightText(item.summaryKo || item.summary || item.summaryOriginal || ""), "");
+      if (!title || body.length < 32) return null;
+      const frame = brokerClientFrame(item);
+      return {
+        label: frame.label,
+        title,
+        body,
+        metrics: brokerArticleMetrics(item),
+        implication: frame.implication,
+        reversal: frame.reversal,
+        source: `${item.source || "외신"} · ${rule.institution} 인용`,
+        sourceUrl: url,
+        institution: rule.institution,
+        evidenceType: "reference-news",
+        dataStatus: "reference-only",
+        referenceOrigin: item.referenceOrigin || "previous-verified-run",
+        publishedAt: item.date || item.publishedAt || LIVE.referenceNews?.generatedAt || LIVE.updatedAt,
+        accent: rule.accent,
+      };
+    }).filter(Boolean);
+
+    const referenceSeen = new Set();
+    return referenceCitations.filter((item) => {
+      const key = String(item.sourceUrl || `${item.institution}:${item.title}`).toLowerCase().replace(/[?#].*$/, "");
+      if (referenceSeen.has(key)) return false;
+      referenceSeen.add(key);
+      return true;
+    }).slice(0, 8);
   }
 
   function brokerResearchFrameworkFallback() {
@@ -5989,6 +6024,7 @@
     if (!frameworkIsLive) {
       const updatedAt = String(LIVE.brokerResearch?.updatedAt || LIVE.updatedAt || "").slice(0, 10);
       const baseline = LIVE.brokerResearch?.baseline || {};
+      const hasReferenceItems = researchItems.some((item) => item.dataStatus === "reference-only");
       return `
         <article class="exec-report reveal" aria-labelledby="execReportTitle">
           <header class="exec-report-masthead">
@@ -5998,20 +6034,20 @@
             </div>
           </header>
           <section class="exec-report-thesis" aria-label="라이브 근거 상태">
-            <span>${researchItems.length ? `이번 실행 ${fmtNum(researchItems.length)}건` : "검증 가능한 공개 원문 수집 중"}</span>
-            <p>${researchItems.length ? "이번 크롤링에서 직접 확인한 공개 URL과 날짜가 있는 항목만 표시합니다." : "URL 없는 제공 리포트 수치나 이전 실행 기사를 라이브 카드로 대체하지 않습니다."}</p>
+            <span>${researchItems.length ? (hasReferenceItems ? `이전 정보 ${fmtNum(researchItems.length)}건` : `이번 실행 ${fmtNum(researchItems.length)}건`) : "검증 가능한 공개 원문 수집 중"}</span>
+            <p>${researchItems.length ? (hasReferenceItems ? "이번 실행에서 새 인용이 부족해, 직전 검증 실행의 출처·날짜가 있는 기사 카드를 이어서 표시합니다." : "이번 크롤링에서 직접 확인한 공개 URL과 날짜가 있는 항목만 표시합니다.") : "이번 실행에서 새 인용이 부족해 이전 검증 정보를 확인하고 있습니다."}</p>
           </section>
           <section class="exec-report-insights" aria-label="증권사 라이브 인용">
             ${researchItems.length ? researchItems.map((item, index) => `
               <article class="exec-report-insight" style="--report-accent:${escapeHTML(item.accent || "#00a98f")}">
                 <span class="exec-report-number">${String(index + 1).padStart(2, "0")}</span>
                 <div class="exec-report-insight-copy">
-                  <div class="exec-report-kicker"><strong>${escapeHTML(item.institution || item.label)}</strong><span>${escapeHTML(item.publishedAt || "")}</span></div>
+                  <div class="exec-report-kicker"><strong>${escapeHTML(item.institution || item.label)}</strong><span>${escapeHTML(item.dataStatus === "reference-only" ? `이전 정보 · ${item.publishedAt || ""}` : item.publishedAt || "")}</span></div>
                   <h5>${strategicHighlightHTML(item.title)}</h5>
                   <p>${strategicHighlightHTML(item.body)}</p>
                   ${item.metrics?.length ? `<p class="exec-report-inline-metrics">${item.metrics.map((metric) => `<strong>${strategicHighlightHTML(metric)}</strong>`).join("<span>·</span>")}</p>` : ""}
                   <dl><div><dt>Insight</dt><dd>${strategicHighlightHTML(item.implication)}</dd></div><div><dt>판단 전환 조건</dt><dd>${strategicHighlightHTML(item.reversal)}</dd></div></dl>
-                  <a class="exec-report-source" href="${escapeHTML(item.sourceUrl)}" target="_blank" rel="noopener noreferrer">출처 원문 보기</a>
+                  <a class="exec-report-source" href="${escapeHTML(item.sourceUrl)}" target="_blank" rel="noopener noreferrer">${item.dataStatus === "reference-only" ? "이전 기사 원문 보기" : "출처 원문 보기"}</a>
                 </div>
               </article>
             `).join("") : `<div class="empty">이번 실행에서 메모리 산업과 직접 연결되는 증권사 공개 원문·권위 매체 인용을 확인하지 못했습니다.</div>`}

@@ -282,6 +282,8 @@ const refreshText = await readFile(resolve(root, "scripts/refresh-derived.mjs"),
 assert.doesNotMatch(refreshText, /sourceHealthSnapshot/, "network-free derived replay must not increment source failure streaks");
 assert.match(appText, /const fresh = Number\.isFinite\(expiresAt\) && Date\.now\(\) <= expiresAt/, "derived contracts must fail closed when expiry is missing");
 assert.doesNotMatch(appText, /\["2\.1",\s*"2\.0"\]|\["1\.1",\s*"1\.0"\]|\["2\.3",\s*"2\.2"\]/, "legacy derived schemas must not bypass current live-quality gates");
+assert.doesNotMatch(appText, /이전 실행 기사를 라이브 카드로 대체하지 않습니다/, "empty broker cards must fall back to previous verified information instead of showing an internal guardrail");
+assert.match(appText, /dataStatus:\s*"reference-only"[\s\S]*?이전 기사 원문 보기/, "previous-run broker citations must render as reference cards with a clear label");
 const accountBlock = appText.match(/const FORECAST_CATEGORIES = \[[\s\S]*?const FORECAST_CATEGORY_ORDER/)?.[0] || "";
 assert.ok(accountBlock, "forecast category block must exist");
 assert.doesNotMatch(accountBlock, /\b(?:driver|pull|note)\s*:/, "account cards must not contain static direction, pull, or narrative fallbacks");
