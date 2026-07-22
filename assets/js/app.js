@@ -3042,6 +3042,29 @@
       }));
   }
 
+  // Weekly trending keywords from crawled news, filtered to memory-domain terms
+  // (source names / publisher fragments / generic words are dropped so the bar
+  // reflects topics, not outlets).
+  const TREND_STOPWORDS = new Set([
+    "digitimes", "digittimes", "trendforce", "reuters", "bloomberg", "nikkei", "cnbc",
+    "tom", "hardware", "com", "news", "the", "and", "for", "with", "report", "정보",
+    "hynix", "라고", "합니다", "있습니다", "위해", "따르면", "관련", "대한", "인한",
+    "eetimes", "times", "semianalysis", "counterpoint", "yole", "www", "html",
+  ]);
+  function trendingKeywords(limit = 12) {
+    const list = (LIVE.trending || [])
+      .filter((t) => {
+        const term = String(t.term || "").trim();
+        if (term.length < 2) return false;
+        if (TREND_STOPWORDS.has(term.toLowerCase())) return false;
+        if (/^\d+$/.test(term)) return false;
+        return true;
+      })
+      .map((t) => ({ term: t.term, count: Number(t.count) || 0 }))
+      .sort((a, b) => b.count - a.count);
+    return list.slice(0, limit);
+  }
+
   function renderNewsInsightSummary() {
     const host = $("#newsInsight");
     if (!host) return;
@@ -3069,6 +3092,19 @@
         </div>
         <span class="ni-asof">${escapeHTML(asOf)} 기준 · 원문 헤드라인 그대로</span>
       </div>
+      ${(() => {
+        const trend = trendingKeywords(12);
+        if (!trend.length) return "";
+        const max = trend[0].count || 1;
+        return `
+          <div class="ni-trend" aria-label="주간 트렌드 키워드">
+            <span class="ni-trend-label">주간 트렌드</span>
+            <div class="ni-trend-chips">
+              ${trend.map((t) => `<span class="ni-trend-chip" style="--w:${Math.max(0.35, t.count / max).toFixed(2)}">${escapeHTML(t.term)}<b>${fmtNum(t.count)}</b></span>`).join("")}
+            </div>
+          </div>
+        `;
+      })()}
       <div class="ni-grid">
         ${briefs.map((b) => {
           const l = b.latest || {};
