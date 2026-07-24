@@ -55,6 +55,16 @@ const KST_DAY_FORMATTER = new Intl.DateTimeFormat("en-CA", {
 const BROWSER_UA =
   "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124.0.0.0 Safari/537.36";
 const FETCH_TIMEOUT_MS = 12_000;
+// Headline translation is a convenience layer, never a reason to prevent a
+// validated crawl bundle from being published.  The public endpoint can rate
+// limit or stall without returning an error, so keep its timeout and total
+// crawl budget deliberately smaller than primary-source collection.
+const KO_TRANSLATION_TIMEOUT_MS = Math.max(1_000, Number(process.env.KO_TRANSLATION_TIMEOUT_MS || 4_500));
+const KO_TRANSLATION_BUDGET_MS = Math.max(0, Number(process.env.KO_TRANSLATION_BUDGET_MS || 45_000));
+const KO_BRIEF_TRANSLATION_RESERVE_MS = Math.max(0, Number(process.env.KO_BRIEF_TRANSLATION_RESERVE_MS || 18_000));
+const SKIP_KO_TRANSLATION = /^(?:1|true|yes)$/i.test(
+  String(process.env.CRAWL_SKIP_KO_TRANSLATION || process.env.SKIP_KO_TRANSLATION || ""),
+);
 
 function fetchSignal() {
   return AbortSignal.timeout(FETCH_TIMEOUT_MS);
@@ -1984,20 +1994,45 @@ function noteSkipped(step, msg = "") {
 }
 
 async function fetchText(url) {
-  const res = await fetch(url, {
-    signal: fetchSignal(),
-    headers: {
-      "User-Agent": BROWSER_UA,
-      Accept: "text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8",
-      "Accept-Language": "en-US,en;q=0.9",
-    },
-  });
-  if (!res.ok) throw new Error(`HTTP ${res.status}`);
-  // Decode explicitly as UTF-8 from raw bytes. Relying on res.text()'s
-  // charset detection mangled typographic punctuation (curly quotes, dashes)
-  // in foreign headlines into garbage codepoints, so force UTF-8 here.
-  const buf = await res.arrayBuffer();
-  return new TextDecoder("utf-8").decode(buf);
+  let lastError;
+  // Retry only transient server/rate-limit failures once.  This preserves a
+  // bounded crawl while reducing false source failures from public feeds.
+  for (let attempt = 0; attempt < 2; attempt += 1) {
+    try {
+      const res = await fetch(url, {
+        signal: fetchSignal(),
+        headers: {
+          "User-Agent": BROWSER_UA,
+          Accept: "text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8",
+          "Accept-Language": "en-US,en;q=0.9",
+        },
+      });
+      if (!res.ok) {
+        const retryable = res.status === 408 || res.status === 429 || res.status >= 500;
+        if (retryable && attempt === 0) {
+          const retryAfter = Number(res.headers.get("retry-after"));
+          await sleep(Number.isFinite(retryAfter) ? Math.min(retryAfter * 1_000, 3_000) : 550);
+          continue;
+        }
+        throw new Error(`HTTP ${res.status}`);
+      }
+      // Decode explicitly as UTF-8 from raw bytes. Relying on res.text()'s
+      // charset detection mangled typographic punctuation (curly quotes, dashes)
+      // in foreign headlines into garbage codepoints, so force UTF-8 here.
+      const buf = await res.arrayBuffer();
+      return new TextDecoder("utf-8").decode(buf);
+    } catch (error) {
+      lastError = error;
+      const networkFailure = error?.name === "AbortError"
+        || error?.name === "TimeoutError"
+        || /(?:fetch failed|network|socket|econn|etimedout|enotfound)/i.test(String(error?.message || ""));
+      if (attempt === 0 && networkFailure) {
+        await sleep(350);
+        continue;
+      }
+    }
+  }
+  throw lastError || new Error("fetch failed");
 }
 
 function decodeEntities(value) {
@@ -2598,6 +2633,13 @@ async function fetchYahooChartResult(symbol, range = "5y", interval = "1d") {
   throw lastErr || new Error("yahoo chart fetch failed");
 }
 
+export function yahooChartPageUrl(symbol, range = "5y", interval = "1d") {
+  const ticker = String(symbol || "").trim();
+  if (!ticker) return "";
+  const params = new URLSearchParams({ range: String(range), interval: String(interval) });
+  return `https://finance.yahoo.com/chart/${encodeURIComponent(ticker)}/?${params.toString()}`;
+}
+
 function yahooHistoryPoints(result = {}) {
   const timestamps = Array.isArray(result.timestamp) ? result.timestamp : [];
   const closes = result.indicators?.quote?.[0]?.close || [];
@@ -2743,6 +2785,7 @@ async function updateMarketHistory() {
         updatedAt: crawledAt,
         range: "5y",
         interval: "1d",
+        chartUrl: yahooChartPageUrl(index.symbol, "5y", "1d"),
         currency: result.meta?.currency || "USD",
         exchangeName: result.meta?.exchangeName || null,
         latestSource,
@@ -3092,12 +3135,20 @@ async function enrichNewsItems(items = [], previousItems = []) {
 let _trCount = 0;
 const TR_CAP = 210;
 
+function koTranslationDeadline() {
+  return KO_TRANSLATION_BUDGET_MS > 0 ? Date.now() + KO_TRANSLATION_BUDGET_MS : 0;
+}
+
+function koTranslationBudgetExpired(deadline = 0) {
+  return Number.isFinite(deadline) && deadline > 0 && Date.now() >= deadline;
+}
+
 async function translateKo(text) {
   if (!text) return "";
   try {
     const url = `https://translate.googleapis.com/translate_a/single?client=gtx&sl=auto&tl=ko&dt=t&q=${encodeURIComponent(text)}`;
     const res = await fetch(url, {
-      signal: fetchSignal(),
+      signal: AbortSignal.timeout(KO_TRANSLATION_TIMEOUT_MS),
       headers: { "User-Agent": BROWSER_UA, Accept: "application/json" },
     });
     if (!res.ok) return "";
@@ -3110,10 +3161,10 @@ async function translateKo(text) {
   }
 }
 
-async function addKoTitles(arr, limit) {
+async function addKoTitles(arr, limit, deadline = 0) {
   const items = (arr || []).slice(0, limit || (arr || []).length);
   for (const item of items) {
-    if (_trCount >= TR_CAP) break;
+    if (_trCount >= TR_CAP || koTranslationBudgetExpired(deadline)) break;
     if (!item || !item.title || item.titleKo) continue;
     const ko = await translateKo(item.title);
     const cleanKo = cleanKoNewsText(ko);
@@ -3123,10 +3174,10 @@ async function addKoTitles(arr, limit) {
   }
 }
 
-async function addKoSummaries(arr, limit) {
+async function addKoSummaries(arr, limit, deadline = 0) {
   const items = (arr || []).slice(0, limit || (arr || []).length);
   for (const item of items) {
-    if (_trCount >= TR_CAP) break;
+    if (_trCount >= TR_CAP || koTranslationBudgetExpired(deadline)) break;
     if (!item?.summaryOriginal || item.summary) continue;
     const ko = await translateKo(item.summaryOriginal);
     const cleanKo = cleanKoNewsText(ko);
@@ -3188,9 +3239,12 @@ function mergeNewsCategory(categories, cat, items, sampleLimit = 12) {
   categories.push({ id: cat.id, label: cat.label, count: items.length, items: sample });
 }
 
-function dedupeEnrichedNews(items = []) {
+export function dedupeEnrichedNews(items = [], { preferPreservedSeed = false } = {}) {
   const selected = new Map();
-  const observationRank = (item = {}) => item.preservedSeed ? 0 : item.continuityFallback ? 1 : 2;
+  const observationRank = (item = {}) => {
+    if (item.preservedSeed) return preferPreservedSeed ? 3 : 0;
+    return item.continuityFallback ? 1 : 2;
+  };
   for (const item of items) {
     const directUrl = sanitizeSourceUrl(item.sourceUrl || "");
     const key = directUrl
@@ -3260,7 +3314,7 @@ async function collectNews(previousNews = []) {
     .map(normalizePreviousNewsFallback)
     .filter(Boolean)
     .filter((item) => !isCrawlerExcluded("news", item));
-  const referenceNews = dedupeEnrichedNews(preserved.concat(previousReferences))
+  const referenceNews = dedupeEnrichedNews(preserved.concat(previousReferences), { preferPreservedSeed: true })
     .sort((a, b) => Number(b.ts || 0) - Number(a.ts || 0))
     .slice(0, NEWS_STREAM_LIMIT * 4)
     .map(({ ts, verification: _verification, ...item }) => ({
@@ -4718,6 +4772,20 @@ function intelligenceNewsScore(item, topic) {
   return matches + intelligenceSource(item).sourceScore + recency + summaryBonus;
 }
 
+function intelligenceBriefTranslationItems(briefs = [], items = []) {
+  const byEvidenceId = new Map(items.map((item) => [item.verification?.id, item]));
+  const seen = new Set();
+  return briefs.map((brief) => byEvidenceId.get(brief.latest?.provenanceId) || null)
+    .filter((item) => item && String(item.language || "").toLowerCase() === "english")
+    .filter((item) => directNewsUrl(item) && String(item.summaryOriginal || item.summary || "").trim())
+    .filter((item) => {
+      const key = directNewsUrl(item);
+      if (!key || seen.has(key)) return false;
+      seen.add(key);
+      return true;
+    });
+}
+
 function intelligencePriceRows(prices = {}) {
   return (prices.sections || []).flatMap((section) => (section.rows || []).map((row) => ({
     ...row,
@@ -4763,12 +4831,20 @@ function priceEvidenceForTopic(rows, topic) {
 }
 
 function compactArticleSummary(item = {}) {
-  const value = cleanKoNewsText(item.summary || item.summaryOriginal || "");
-  if (!value) return "";
-  if (/중국 최대의 삼성전자/.test(value)) return "";
-  const hangulCount = (value.match(/[가-힣]/g) || []).length;
-  if (hangulCount < 10) return "";
-  return value.length > 260 ? `${value.slice(0, 257).trim()}...` : value;
+  const localized = cleanKoNewsText(item.summary || "");
+  if (localized && !/중국 최대의 삼성전자/.test(localized) && (localized.match(/[가-힣]/g) || []).length >= 10) {
+    return localized.length > 260 ? `${localized.slice(0, 257).trim()}...` : localized;
+  }
+  // Translation is an enhancement, not a source of invented text. When the
+  // translation endpoint is unavailable, retain the source-language summary
+  // and mark it in the UI instead of dropping verified live evidence.
+  const original = String(item.summaryOriginal || item.summary || "").replace(/\s+/g, " ").trim();
+  return original.length > 260 ? `${original.slice(0, 257).trim()}...` : original;
+}
+
+function intelligenceSummaryLanguage(item = {}) {
+  const localized = cleanKoNewsText(item.summary || "");
+  return (localized.match(/[가-힣]/g) || []).length >= 10 ? "ko" : "source-original";
 }
 
 function intelligenceTitle(item = {}) {
@@ -4943,9 +5019,11 @@ function buildIntelligence({ news = [], prices = {}, stats = {}, chinaInfra = {}
         title: intelligenceTitle(top),
         originalTitle: top.title,
         summary: compactArticleSummary(top),
+        summaryLanguage: intelligenceSummaryLanguage(top),
         source: top.source || "Unknown",
         url: directNewsUrl(top),
         publishedAt: top.date || top.publishedAt || null,
+        language: top.language || null,
         sourceType: sourceMeta.sourceType,
         claimType: sourceMeta.claimType,
         evidenceLevel: sourceMeta.evidenceLevel,
@@ -7571,16 +7649,36 @@ async function main() {
   const quarantineReport = buildQuarantineReport(runId, evidenceGate.quarantined, evidenceValidatedAt);
   note("뉴스증거게이트", news.length >= 24, `승격 ${news.length}건 · 격리 ${quarantineReport.total}건`);
 
-  // Best-effort Korean headlines (no API key; English fallback on any failure).
+  // Best-effort Korean headlines (no API key; keep source-language text when
+  // translation is skipped, rate-limited, or exceeds its bounded budget).
   try {
-    await addKoTitles(news, 72);
-    await addKoSummaries(news, 72);
-    await addKoTitles(communitySignals.items, 30);
-    await addKoSummaries(communitySignals.items, 30);
-    await addKoTitles(benchmarkSignals.stream, 24);
-    for (const competitor of competitors.competitors) await addKoTitles(competitor.recentNews, 2);
-    for (const startup of startups.candidates) await addKoTitles(startup.recentNews, 2);
-    note("번역:KO", true, `${_trCount}건`);
+    const translationDeadline = SKIP_KO_TRANSLATION ? 0 : koTranslationDeadline();
+    if (SKIP_KO_TRANSLATION || translationDeadline === 0) {
+      noteSkipped("번역:KO", "환경 설정으로 생략 · 원문/기존 번역 유지");
+    } else {
+      // Reserve a final slice of the bounded translation budget for the exact
+      // articles selected for the executive briefing.  Generic feed ordering
+      // must not leave the visible decision cards untranslated.
+      const streamDeadline = Math.max(Date.now(), translationDeadline - KO_BRIEF_TRANSLATION_RESERVE_MS);
+      await addKoTitles(news, 72, streamDeadline);
+      await addKoSummaries(news, 72, streamDeadline);
+      await addKoTitles(communitySignals.items, 30, streamDeadline);
+      await addKoSummaries(communitySignals.items, 30, streamDeadline);
+      await addKoTitles(benchmarkSignals.stream, 24, streamDeadline);
+      for (const competitor of competitors.competitors) {
+        if (koTranslationBudgetExpired(streamDeadline)) break;
+        await addKoTitles(competitor.recentNews, 2, streamDeadline);
+      }
+      for (const startup of startups.candidates) {
+        if (koTranslationBudgetExpired(streamDeadline)) break;
+        await addKoTitles(startup.recentNews, 2, streamDeadline);
+      }
+      const provisionalFacts = buildFactTimeline(news, evidenceValidatedAt);
+      const provisionalBriefs = buildIntelligence({ news, prices, stats, chinaInfra, facts: provisionalFacts }).briefs;
+      const briefingItems = intelligenceBriefTranslationItems(provisionalBriefs, news);
+      await addKoSummaries(briefingItems, briefingItems.length, translationDeadline);
+      note("번역:KO", true, `${_trCount}건${koTranslationBudgetExpired(translationDeadline) ? " · 시간 예산 도달, 원문 유지" : ""}`);
+    }
   } catch (error) {
     note("번역:KO", false, error.message);
   }

@@ -278,12 +278,22 @@ assert.deepEqual(Object.keys(migratedHealth.sources).filter((id) => id.toLowerCa
 
 const root = resolve(dirname(fileURLToPath(import.meta.url)), "..");
 const appText = await readFile(resolve(root, "assets/js/app.js"), "utf8");
+const crawlText = await readFile(resolve(root, "scripts/crawl.mjs"), "utf8");
 const refreshText = await readFile(resolve(root, "scripts/refresh-derived.mjs"), "utf8");
 assert.doesNotMatch(refreshText, /sourceHealthSnapshot/, "network-free derived replay must not increment source failure streaks");
 assert.match(appText, /const fresh = Number\.isFinite\(expiresAt\) && Date\.now\(\) <= expiresAt/, "derived contracts must fail closed when expiry is missing");
 assert.doesNotMatch(appText, /\["2\.1",\s*"2\.0"\]|\["1\.1",\s*"1\.0"\]|\["2\.3",\s*"2\.2"\]/, "legacy derived schemas must not bypass current live-quality gates");
 assert.doesNotMatch(appText, /이전 실행 기사를 라이브 카드로 대체하지 않습니다/, "empty broker cards must fall back to previous verified information instead of showing an internal guardrail");
+assert.doesNotMatch(appText, /오늘 .*에 연결된 직접 근거가 없어 판단을 보류합니다/, "agent turns must fall back to previous collected briefing instead of exposing an internal hold message");
 assert.match(appText, /dataStatus:\s*"reference-only"[\s\S]*?이전 기사 원문 보기/, "previous-run broker citations must render as reference cards with a clear label");
+assert.match(appText, /function cLevelCrawledAgentAxes\(\)/, "crawled agent evidence must be able to add executive agenda items");
+assert.match(appText, /cLevelDecisionAxes\(\)\.concat\(cLevelCrawledAgentAxes\(\)\)/, "executive agenda list must include crawled agent agendas");
+assert.match(appText, /function newsActionLine\(item, category\)/, "news cards must include a third action/check line");
+assert.match(appText, /return unique\.slice\(0, 3\);/, "news card insight summaries must render as three lines");
+assert.match(crawlText, /function intelligenceBriefTranslationItems\(briefs = \[\], items = \[\]\)/, "translation must prioritize evidence used by executive briefings");
+assert.match(crawlText, /KO_BRIEF_TRANSLATION_RESERVE_MS/, "executive briefing translation must retain a bounded final budget");
+assert.match(crawlText, /summaryLanguage: intelligenceSummaryLanguage\(top\)/, "briefings must disclose when the source-language summary is shown");
+assert.match(appText, /brief\.latest\.summaryLanguage === "source-original" \? "원문 요약"/, "the UI must visibly label source-language fallback summaries");
 const accountBlock = appText.match(/const FORECAST_CATEGORIES = \[[\s\S]*?const FORECAST_CATEGORY_ORDER/)?.[0] || "";
 assert.ok(accountBlock, "forecast category block must exist");
 assert.doesNotMatch(accountBlock, /\b(?:driver|pull|note)\s*:/, "account cards must not contain static direction, pull, or narrative fallbacks");

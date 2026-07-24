@@ -1268,8 +1268,12 @@ for (const brief of briefs) {
     addIssue("error", "data/live.json", "intelligence brief lacks an article summary", brief.id || "unknown");
   }
   const briefSummary = String(brief.latest?.summary || "").trim();
-  if ((briefSummary.match(/[가-힣]/g) || []).length < 10) {
+  const sourceOriginalFallback = String(brief.latest?.summaryLanguage || "") === "source-original";
+  if ((briefSummary.match(/[가-힣]/g) || []).length < 10 && !sourceOriginalFallback) {
     addIssue("error", "data/live.json", "intelligence brief summary is not a substantive Korean summary", brief.id || "unknown");
+  }
+  if (sourceOriginalFallback) {
+    addIssue("warn", "data/live.json", "intelligence brief is showing the source-language summary after translation fallback", brief.id || "unknown");
   }
   if (/중국 최대의 삼성전자/.test(briefSummary)) {
     addIssue("error", "data/live.json", "intelligence brief contains a known malformed translation", brief.id || "unknown");

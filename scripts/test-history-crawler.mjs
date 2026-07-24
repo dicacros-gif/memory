@@ -4,13 +4,33 @@ import assert from "node:assert/strict";
 import {
   appendQuantHistory,
   archiveMonthlyTargets,
+  dedupeEnrichedNews,
   mergeMarketPoints,
   mergePricePoints,
   parseTsmcAnnualRevenueHtml,
   pricePointCoversMonth,
   quantMetricSeriesIdentity,
   trendForceObservationIso,
+  yahooChartPageUrl,
 } from "./crawl.mjs";
+
+assert.equal(
+  yahooChartPageUrl("000660.KS"),
+  "https://finance.yahoo.com/chart/000660.KS/?range=5y&interval=1d",
+  "market chart links must point to the Yahoo Finance 5-year chart used by the crawler",
+);
+assert.equal(
+  yahooChartPageUrl("^SOX"),
+  "https://finance.yahoo.com/chart/%5ESOX/?range=5y&interval=1d",
+  "special Yahoo ticker symbols must be URL-encoded in the visible chart source",
+);
+
+const preservedReference = dedupeEnrichedNews([
+  { id: "source-seed", title: "Seed article", sourceUrl: "https://example.com/article", preservedSeed: true },
+  { title: "Previous article", sourceUrl: "https://example.com/article", continuityFallback: true },
+], { preferPreservedSeed: true });
+assert.equal(preservedReference.length, 1);
+assert.equal(preservedReference[0].id, "source-seed", "reference archives must retain curated source IDs when a previous-run copy has the same URL");
 
 const observedAt = trendForceObservationIso("2026-05-29 15:00 (GMT+8)");
 assert.equal(observedAt, "2026-05-29T07:00:00.000Z");

@@ -6969,6 +6969,97 @@
     ];
   }
 
+  function cLevelAgentAxisId(value = "") {
+    return String(value || "brief")
+      .toLowerCase()
+      .replace(/[^a-z0-9가-힣]+/g, "-")
+      .replace(/^-+|-+$/g, "")
+      .substring(0, 64) || "brief";
+  }
+
+  function cLevelAgentRoleLabel(roleKey = "brief") {
+    return ({
+      ceo: "CEO 최종 판단",
+      cfo: "CFO 재무 안건",
+      cto: "CTO 기술 안건",
+      coo: "COO 운영 안건",
+      policy: "정책·규제 안건",
+      china: "중국 경쟁 안건",
+      market: "시장·고객 안건",
+      risk: "리스크 점검 안건",
+      devil: "반대논리 점검",
+      audit: "근거 감사 안건",
+      data: "정량 데이터 안건",
+      strategy: "전략 안건",
+      cso: "전략 안건",
+      brief: "오늘 브리핑 안건",
+    })[roleKey] || "크롤링 기반 안건";
+  }
+
+  function cLevelAgentAxisFromEvidence(roleKey = "brief", evidence = {}) {
+    const sourceUrl = String(evidence.sourceUrl || evidence.url || evidence.link || "").trim();
+    if (!/^https?:\/\//i.test(sourceUrl) || /news\.google\.com/i.test(sourceUrl)) return null;
+    const quote = String(evidence.quote || evidence.summary || evidence.summaryOriginal || evidence.title || evidence.titleKo || "").replace(/\s+/g, " ").trim();
+    const title = String(evidence.title || evidence.titleKo || quote || cLevelAgentRoleLabel(roleKey)).replace(/\s+/g, " ").trim();
+    const source = evidence.source || "수집 근거";
+    const date = evidence.date || evidence.publishedAt || evidence.updatedAt || "";
+    const terms = Array.from(new Set(dailyReferenceRoleTerms(roleKey)
+      .concat(evidence.matchedKeywords || [])
+      .concat(title.split(/\s+/).filter((term) => term.length > 2))
+      .map((term) => String(term).toLowerCase())
+      .filter(Boolean)));
+    const seedNews = [{
+      ...evidence,
+      title,
+      titleKo: evidence.titleKo || title,
+      summary: quote || title,
+      source,
+      sourceUrl,
+      link: sourceUrl,
+      date,
+      category: evidence.category || roleKey,
+      dataStatus: evidence.status === "live" ? "live-observed" : "previous-collected",
+    }];
+    return {
+      id: `agent-${cLevelAgentAxisId(roleKey)}-${cLevelAgentAxisId(title)}`,
+      label: `${cLevelAgentRoleLabel(roleKey)} · ${title}`,
+      category: evidence.category || "operations",
+      categories: ["hbm", "dram", "nand", "aidemand", "operations", "china", "geopolitics", "packaging", "talent"],
+      owner: cLevelAgentRoleLabel(roleKey),
+      jump: "executive-decision",
+      terms,
+      action: evidence.status === "live"
+        ? "오늘 크롤링 근거를 경영진 토론 안건으로 자동 상정"
+        : "이전 수집 근거를 임시 안건으로 유지하고 다음 크롤링에서 재검증",
+      go: evidence.status === "live" ? "오늘 안건" : "재검증 후 상정",
+      watch: "근거 재검토",
+      hold: "DB 근거 유지",
+      seedEvidence: { news: seedNews, benchmark: [], prices: [], kpis: [] },
+      dynamicAgenda: true,
+      dataStatus: evidence.status === "live" ? "live-observed" : "previous-collected",
+    };
+  }
+
+  function cLevelCrawledAgentAxes() {
+    const roleSources = verifiedDerivedContract("agentBriefing", "1.1")?.roles
+      || QUANT?.agentBriefing?.roles
+      || LIVE?.quant?.agentBriefing?.roles
+      || {};
+    const roleAxes = Object.entries(roleSources).map(([roleKey, evidence]) =>
+      cLevelAgentAxisFromEvidence(roleKey, evidence)
+    ).filter(Boolean);
+    const referenceAxes = ["ceo", "cfo", "cto", "china", "market", "risk"]
+      .map((roleKey) => cLevelAgentAxisFromEvidence(roleKey, dailyReferenceNewsEvidence(roleKey) || {}))
+      .filter(Boolean);
+    const seen = new Set();
+    return roleAxes.concat(referenceAxes).filter((axis) => {
+      const key = axis.seedEvidence?.news?.[0]?.sourceUrl || axis.id;
+      if (!key || seen.has(key)) return false;
+      seen.add(key);
+      return true;
+    }).slice(0, 6);
+  }
+
   function cLevelAxisVisible(axis) {
     if (activeCategory === "all") return true;
     return (axis.categories || []).includes(activeCategory);
@@ -7008,10 +7099,10 @@
 
   function cLevelEvidenceFor(axis) {
     return {
-      news: cLevelNewsFor(axis),
-      benchmark: cLevelBenchmarkFor(axis),
-      prices: cLevelPriceRowsFor(axis),
-      kpis: cLevelKpisFor(axis),
+      news: dedupeNews([...(axis.seedEvidence?.news || []), ...cLevelNewsFor(axis)]),
+      benchmark: [...(axis.seedEvidence?.benchmark || []), ...cLevelBenchmarkFor(axis)],
+      prices: [...(axis.seedEvidence?.prices || []), ...cLevelPriceRowsFor(axis)],
+      kpis: [...(axis.seedEvidence?.kpis || []), ...cLevelKpisFor(axis)],
     };
   }
 
@@ -7110,7 +7201,7 @@
   }
 
   function cLevelDecisionItems() {
-    return cLevelDecisionAxes()
+    return cLevelDecisionAxes().concat(cLevelCrawledAgentAxes())
       .filter(cLevelAxisVisible)
       .map(cLevelDecisionItem)
       .filter((item) => item.evidenceCount > 0)
@@ -7641,10 +7732,76 @@
     return "brief";
   }
 
+  function dailyReferenceRoleTerms(roleKey = "brief") {
+    return ({
+      ceo: ["strategy", "market", "price", "capex", "customer", "memory", "semiconductor", "전략", "시장", "가격", "고객", "메모리", "반도체"],
+      cfo: ["price", "revenue", "capex", "contract", "margin", "investment", "가격", "매출", "투자", "계약", "재무"],
+      cto: ["hbm", "nand", "dram", "ddr", "cxl", "mrdimm", "bandwidth", "packaging", "technology", "기술", "수율", "대역폭", "패키징"],
+      coo: ["capacity", "production", "shipment", "fab", "wafer", "supply", "운영", "생산", "출하", "캐파", "공급"],
+      policy: ["policy", "export", "control", "bis", "tariff", "license", "규제", "정책", "수출", "허가"],
+      china: ["china", "cxmt", "ymtc", "changxin", "yangtze", "중국", "长鑫", "长江存储"],
+      market: ["market", "price", "demand", "customer", "trendforce", "시장", "가격", "수요", "고객"],
+      risk: ["risk", "delay", "shortage", "oversupply", "inventory", "리스크", "지연", "재고", "공급과잉"],
+      devil: ["risk", "delay", "weak", "fall", "cut", "inventory", "리스크", "반대", "지연", "하락", "재고"],
+      audit: ["official", "filing", "source", "verified", "공식", "공시", "원문", "검증"],
+      data: ["%", "$", "usd", "revenue", "price", "gbps", "수치", "가격", "매출"],
+      strategy: ["strategy", "share", "customer", "competition", "roadmap", "전략", "점유율", "고객", "경쟁"],
+      cso: ["strategy", "share", "customer", "competition", "roadmap", "전략", "점유율", "고객", "경쟁"],
+      brief: ["memory", "semiconductor", "dram", "nand", "hbm", "메모리", "반도체", "디램", "낸드"],
+    })[roleKey] || ["memory", "semiconductor", "메모리", "반도체"];
+  }
+
+  function dailyReferenceItemText(item = {}) {
+    return `${item.titleKo || ""} ${item.title || ""} ${item.summary || ""} ${item.summaryOriginal || ""} ${item.source || ""} ${item.category || ""}`.toLowerCase();
+  }
+
+  function dailyReferenceNewsEvidence(roleKey = "brief") {
+    const terms = dailyReferenceRoleTerms(roleKey).map((term) => String(term).toLowerCase());
+    const items = Array.isArray(LIVE.referenceNews?.items) ? LIVE.referenceNews.items : [];
+    const scored = items.map((item) => {
+      const sourceUrl = String(item.sourceUrl || item.link || "");
+      if (!/^https?:\/\//i.test(sourceUrl) || /news\.google\.com/i.test(sourceUrl)) return null;
+      const text = dailyReferenceItemText(item);
+      const matched = terms.filter((term) => term && text.includes(term));
+      const timestamp = Date.parse(String(item.date || item.publishedAt || LIVE.referenceNews?.generatedAt || LIVE.updatedAt || ""));
+      const recency = Number.isFinite(timestamp) ? timestamp : 0;
+      return {
+        item,
+        sourceUrl,
+        matched,
+        score: matched.length * 10 + Math.min(recency / 864e5, 100000),
+      };
+    }).filter((entry) => entry && entry.matched.length);
+    const chosen = scored.sort((a, b) => b.score - a.score)[0];
+    if (!chosen) return null;
+    const item = chosen.item;
+    const quote = String(item.summary || item.summaryOriginal || item.titleKo || item.title || "").replace(/\s+/g, " ").trim();
+    const title = String(item.titleKo || item.title || quote || "이전 수집 기사").replace(/\s+/g, " ").trim();
+    return {
+      status: "reference",
+      title,
+      quote,
+      quoteQuality: "previous-run",
+      value: null,
+      source: item.source || "이전 수집 기사",
+      sourceUrl: chosen.sourceUrl,
+      date: item.date || item.publishedAt || String(LIVE.referenceNews?.generatedAt || LIVE.updatedAt || "").substring(0, 10),
+      matchedKeywords: chosen.matched,
+    };
+  }
+
+  function previousAgentBriefingEvidence(roleKey = "brief") {
+    const evidence = QUANT?.agentBriefing?.roles?.[roleKey] || LIVE?.quant?.agentBriefing?.roles?.[roleKey];
+    if (!evidence || !/^https?:\/\//i.test(String(evidence.sourceUrl || ""))) return null;
+    const quote = String(evidence.quote || evidence.title || "").replace(/\s+/g, " ").trim();
+    if (!quote) return null;
+    return { ...evidence, status: evidence.status === "live" ? "reference" : evidence.status || "reference" };
+  }
+
   function withDailyAgentEvidence(agent = {}) {
     if (agent.dailyGrounded) return agent;
     const roleKey = dailyAgentRoleKey(agent);
-    const evidence = verifiedDerivedContract("agentBriefing", "1.1")?.roles?.[roleKey];
+    const liveEvidence = verifiedDerivedContract("agentBriefing", "1.1")?.roles?.[roleKey];
     const roleLens = {
       ceo: "이 근거가 오늘 안건의 최종 의사결정 조건을 충족하는지 판단합니다.",
       cfo: "재무 관점에서는 가격·매출·투자 약정의 현금흐름 영향을 다시 계산해야 합니다.",
@@ -7661,16 +7818,20 @@
       cso: "전략 관점에서는 점유율·고객 인증·경쟁 구도가 바뀌는지를 판단합니다.",
       brief: "오늘 브리핑은 이 직접 근거를 안건의 출발점으로 사용합니다.",
     };
-    if (evidence?.status !== "live" || !/^https?:\/\//i.test(String(evidence.sourceUrl || ""))) {
-      return { ...agent, dailyGrounded: true, message: `오늘 ${agent.name || agent.role || "해당 역할"}에 연결된 직접 근거가 없어 판단을 보류합니다.` };
+    const evidence = liveEvidence?.status === "live" && /^https?:\/\//i.test(String(liveEvidence.sourceUrl || ""))
+      ? liveEvidence
+      : previousAgentBriefingEvidence(roleKey) || dailyReferenceNewsEvidence(roleKey);
+    if (!evidence || !/^https?:\/\//i.test(String(evidence.sourceUrl || ""))) {
+      return { ...agent, dailyGrounded: true };
     }
     const quote = String(evidence.quote || evidence.title || "").replace(/\s+/g, " ").trim();
     const value = evidence.value ? ` 핵심 수치 ${evidence.value}.` : "";
+    const freshness = evidence.status === "live" ? "오늘 근거" : "이전 수집";
     return {
       ...agent,
       dailyGrounded: true,
-      message: `오늘 근거(${evidence.date}): “${quote}” — ${evidence.source}.${value} ${roleLens[roleKey] || roleLens.brief}`,
-      source: { url: evidence.sourceUrl, title: `${evidence.source} · ${evidence.date}` },
+      message: `${freshness}(${evidence.date || "날짜 미상"}): “${quote}” — ${evidence.source}.${value} ${roleLens[roleKey] || roleLens.brief}`,
+      source: { url: evidence.sourceUrl, title: `${evidence.source} · ${evidence.date || "이전 수집"}` },
     };
   }
 
@@ -18198,7 +18359,11 @@
       <section class="qa-current-brief">
         <div class="qa-current-brief-head">
           <span>${escapeHTML(brief.label || "최신 근거")}</span>
-          <small>${escapeHTML([brief.latest.sourceType, brief.latest.claimType].filter(Boolean).join(" · "))}</small>
+          <small>${escapeHTML([
+            brief.latest.sourceType,
+            brief.latest.claimType,
+            brief.latest.summaryLanguage === "source-original" ? "원문 요약" : "",
+          ].filter(Boolean).join(" · "))}</small>
           <em class="${brief.latest.evidenceLevel === "Confirmed" ? "confirmed" : "watch"}">${escapeHTML(brief.latest.evidenceLevel || "Watch")}</em>
         </div>
         <strong>${escapeHTML(brief.latest.title || "")}</strong>
@@ -18939,7 +19104,7 @@
             ? `<img src="${escapeHTML(brand.logo)}" alt="${escapeHTML(brand.name)} 로고" loading="lazy" decoding="async">`
             : `<span class="market-peer-monogram">${escapeHTML(brand.abbr || brand.name)}</span>`;
           return `
-            <a class="market-peer-card" href="${escapeHTML(item.index.sourceUrl || "#")}" target="_blank" rel="noopener"
+            <a class="market-peer-card" href="${escapeHTML(item.index.chartUrl || item.index.sourceUrl || "#")}" target="_blank" rel="noopener"
               style="--peer-brand:${escapeHTML(brand.color)};--peer-brand-deep:${escapeHTML(brand.deep)};--peer-on-brand:${escapeHTML(brand.onColor)}">
               <span class="market-peer-brand">
                 <span class="market-peer-logo${item.id === "skhy-stock" ? " is-skhy" : ""}">${logoHTML}</span>
@@ -18992,6 +19157,7 @@
         <div class="market-index-source">
           <span>${escapeHTML(index.latestSource || index.source || "Yahoo Finance history")}</span>
           ${(index.latestSourceUrl || index.sourceUrl) ? `<a href="${escapeHTML(index.latestSourceUrl || index.sourceUrl)}" target="_blank" rel="noopener">SOX 원문</a>` : ""}
+          ${index.chartUrl ? `<a href="${escapeHTML(index.chartUrl)}" target="_blank" rel="noopener">Yahoo 차트</a>` : ""}
         </div>
         ${peers.length ? `
           <section class="market-peer-section">
@@ -19544,8 +19710,20 @@
     const rows = [
       newsSummaryLine(item, title, summary, category),
       newsImpactLine(item, category),
+      newsActionLine(item, category),
     ];
-    return uniqueInsightRows(rows);
+    const unique = uniqueInsightRows(rows);
+    const fallbacks = [
+      `확인: ${category} 기준으로 원문 날짜와 직접 출처를 다음 브리핑에서 다시 대조합니다.`,
+      "확인: 동일 주제의 반대 방향 기사와 공개 가격·공시를 분리해 비교합니다.",
+      "확인: 숫자는 기준일·단위·대상 제품이 일치할 때만 의사결정 근거로 승격합니다.",
+    ];
+    for (const fallback of fallbacks) {
+      if (unique.length >= 3) break;
+      const text = cleanInsightText(fallback);
+      if (text && !unique.some((row) => sameInsightText(row, text))) unique.push(text);
+    }
+    return unique.slice(0, 3);
   }
 
   function cleanInsightText(text) {
@@ -19617,6 +19795,17 @@
     };
     if (!interpretation) interpretation = impacts[item.category] || category || "해당 변화가 가격·고객·공급망 중 어느 축을 바꾸는지 다음 의사결정에서 검토합니다.";
     return `모델 해석 · ${interpretation}`;
+  }
+
+  function newsActionLine(item, category) {
+    const hay = `${item.title || ""} ${item.titleKo || ""} ${item.summaryOriginal || ""} ${item.summary || ""}`.toLowerCase();
+    if (/hbm|hbm4|rubin|cowos|packaging|패키징/.test(hay)) return "확인: 고객 인증, 양산 출하, 패키징 할당을 다음 안건의 반전 KPI로 둡니다.";
+    if (/cxmt|changxin|ddr|lpddr|dram|长鑫/.test(hay)) return "확인: 고객 장기계약, DDR5/LPDDR 가격, wafer start를 가격 방어 안건에 연결합니다.";
+    if (/ymtc|yangtze|nand|ssd|essd|xtacking|长江存储/.test(hay)) return "확인: eSSD 인증, client SSD 침투, NAND contract 흐름을 분리해 추적합니다.";
+    if (/bis|export control|license|tariff|chips|규제|수출통제|허가/.test(hay)) return "확인: 시행일, 적용 장비, Wuxi/Dalian 운영 유지와 캐파 확대 조건을 분리합니다.";
+    if (/price|contract|spot|asp|revenue|margin|가격|계약|매출/.test(hay)) return "확인: 기사 수치와 공개 가격표의 기준일·제품군·단위를 맞춰 재계산합니다.";
+    if (/hiring|talent|engineer|yield|채용|인재|수율/.test(hay)) return "확인: 직무 반복성, 지역, 접근권한을 리텐션·IP 방어 안건으로 넘깁니다.";
+    return `확인: ${category} 기준으로 원문 날짜, 출처, 반대 근거를 다음 브리핑에서 다시 대조합니다.`;
   }
 
   function uniqueInsightRows(rows) {
