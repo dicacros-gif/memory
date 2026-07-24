@@ -305,6 +305,11 @@ assert.match(appText, /data-research-citation-toggle/, "full research chronology
 assert.match(stylesText, /\.ni-research-map\s*\{/, "research evidence map must receive a diagram layout");
 assert.match(appText, /function storedAgentEvidence\(/, "agents must be able to continue from retained collected evidence");
 assert.match(appText, /dailyReferenceNewsEvidence\(roleKey\) \|\| storedAgentEvidence\(roleKey\)/, "stored evidence must follow prior agent and reference-news evidence in the fallback chain");
+assert.match(appText, /function ceoChallengeQuestionBriefHTML\(/, "CEO challenge must expose the selected question and live evidence context before the debate");
+assert.match(appText, /function ceoChallengeQuestionFor\(/, "each CEO challenge specialist must receive a role-specific question");
+assert.match(appText, /question: ceoChallengeQuestionFor\(turn\.name, scenario, target, challenge, response, riskGate\)/, "CEO challenge turns must pair every specialist answer with a question");
+assert.match(appText, /class="agent-question"/, "agent debate cards must render question text separately from answers");
+assert.match(stylesText, /\.agent-question\s*,[\s\S]*\.agent-answer\s*\{/, "question and answer states must be visually distinct");
 for (const artifact of [
   "data-manifest.json",
   "live-client.json",

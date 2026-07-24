@@ -12973,7 +12973,8 @@
                   <strong>${escapeHTML(turn.role || "Expert")}</strong>
                   <span>${escapeHTML(turn.stance || turn.name)}</span>
                  </div>
-                 <p data-say-en="${escapeHTML(turn.speechEn || "")}">${renderAgentSpeech(turn.message)}</p>
+                 ${turn.question ? `<div class="agent-question"><span>질문</span><p>${escapeHTML(turn.question)}</p></div>` : ""}
+                 <div class="agent-answer"><span>답변</span><p data-say-en="${escapeHTML(turn.speechEn || "")}">${renderAgentSpeech(turn.message)}</p></div>
                  ${agentEvidenceMetaHTML(turn)}
                </div>
             </article>
@@ -15696,6 +15697,53 @@
     };
   }
 
+  function ceoChallengeQuestionBriefHTML(scenario, target, challenge, response) {
+    const context = response.liveContext || {};
+    const evidence = response.evidence || {};
+    const targetLabel = target?.label || scenario.label;
+    const price = context.priceMomentum == null ? "연결 가격 없음" : signedPercent(context.priceMomentum);
+    const sourceLine = evidence.url
+      ? `<a href="${escapeHTML(evidence.url)}" target="_blank" rel="noopener noreferrer">${escapeHTML(evidence.source || "원문")} · ${escapeHTML(evidence.title || "연결 근거")} ↗</a>`
+      : `<span>누적 수집 기사·가격·공식 팩트를 함께 대조</span>`;
+    return `
+      <section class="ceo-challenge-prompt" aria-label="CEO 챌린지 질문과 토론 근거">
+        <div class="ceo-challenge-prompt-head">
+          <span>CEO CHALLENGE · SEMICONDUCTOR DECISION</span>
+          <strong>${escapeHTML(challenge.angle)}</strong>
+        </div>
+        <h4>${escapeHTML(challenge.question)}</h4>
+        <p>${escapeHTML(targetLabel)} 안건을 가격·수요·기술 병목·중국/정책·실행·재무·리스크 관점에서 차례로 교차 검증합니다.</p>
+        <div class="ceo-challenge-prompt-metrics">
+          <span><b>${fmtNum(context.news?.length || 0)}</b>연결 기사</span>
+          <span><b>${fmtNum(context.facts?.length || 0)}</b>공식 팩트</span>
+          <span><b>${escapeHTML(price)}</b>가격 신호</span>
+          <span><b>${fmtNum(response.kpis?.length || 0)}</b>재검토 KPI</span>
+        </div>
+        <div class="ceo-challenge-prompt-source">${sourceLine}</div>
+      </section>
+    `;
+  }
+
+  function ceoChallengeQuestionFor(agentName = "", scenario = {}, target = {}, challenge = {}, response = {}, riskGate = {}) {
+    const context = response.liveContext || {};
+    const targetLabel = target?.label || scenario.label || "선택 안건";
+    const price = context.priceMomentum == null ? "직접 가격 신호가 없는 안건" : `가격 중앙값 ${signedPercent(context.priceMomentum)}`;
+    const evidenceCount = Number(context.news?.length || 0) + Number(context.facts?.length || 0);
+    const questions = {
+      "Data Auditor": `이 안건의 기사·공식 팩트 ${fmtNum(evidenceCount)}건은 같은 URL을 중복하지 않고, 오늘 또는 누적 수집 근거로 연결되는가?`,
+      "Market/Sales": `${price}와 고객 전환·장기계약 신호가 같은 방향인가?`,
+      CTO: `${targetLabel}의 수율·패키징·고객 인증 중 지금 실행을 막는 병목은 무엇인가?`,
+      "Policy/China": "중국 운영 연속성, 기술 업그레이드, 캐파 확장을 어떤 별도 O/X 게이트로 나눌 것인가?",
+      Operations: "공급 배분·인증 일정·재고 회전·Fab 연속성 중 단계 실행의 선행 조건은 무엇인가?",
+      CFO: `우선순위 점수와 ${price}를 자본 배분으로 전환하려면 어떤 비용·고객·하방 조건이 추가로 충족돼야 하는가?`,
+      "IP/Risk": `${riskGate.rule || "핵심 리스크 규칙"}을 넘지 않으면서 실행 범위를 어디까지 허용할 것인가?`,
+      "Devil's Advocate": "12개월 뒤 이 권고가 틀렸다고 가정하면, 지금 놓치고 있는 고객·가격·정책의 반대 근거는 무엇인가?",
+      Strategy: "각 기능의 답변을 합쳤을 때 즉시 실행·조건부 실행·추가 검증 중 무엇을 선택할 것인가?",
+      CEO: challenge.question || "이 안건이 SKHY의 제품·고객·정책 우선순위를 실제로 개선하는가?",
+    };
+    return questions[agentName] || `이 안건의 실행 조건과 재검토 지표는 무엇인가?`;
+  }
+
   function ceoChallengeDebateHTML(scenario, target, challenge, response) {
     const accent = categoryAccent(scenario.accentCategory || "talent");
     const targetLabel = target?.label || scenario.label;
@@ -15821,7 +15869,10 @@
             ? `The recommendation is to use the R O I score only to rank diligence. It must not be reported as a financial return. At the next executive review, update the reversal indicators first, then choose to maintain, expand, or hold.`
             : `In summary, the action remains conditional. At the next meeting, we will review only the key reversal indicators and update the decision to maintain, expand, or hold.`,
         },
-      ],
+      ].map((turn) => ({
+        ...turn,
+        question: ceoChallengeQuestionFor(turn.name, scenario, target, challenge, response, riskGate),
+      })),
       kpis: [],
       conclusion: {
         title: `${verdictTitle} · SKHY 경영진 권고`,
@@ -15916,6 +15967,7 @@
     answerWrap.style.setProperty("--local-accent", accent);
     if (!ceoChallengeAgentRan) {
       answerWrap.innerHTML = `
+        ${ceoChallengeQuestionBriefHTML(scenario, target, challenge, response)}
         <div class="agent-waiting">
           <strong>Agent 실행 대기</strong>
           <p>CEO 챌린지를 선택한 뒤 Agent 실행을 누르면 CEO, CFO, CTO, Policy/China, Market/Sales, Operations, IP/Risk, Devil's Advocate, Data Auditor, Strategy가 순차 등장해 질문, 반론, 실행 조건, 결론을 정리합니다.</p>
@@ -15924,6 +15976,7 @@
       return;
     }
     answerWrap.innerHTML = `
+      ${ceoChallengeQuestionBriefHTML(scenario, target, challenge, response)}
       ${ceoChallengeLiveContextHTML(response.liveContext)}
       ${decisionFlipKpiHTML(response.flipSubject || {
         id: "talent-ip",

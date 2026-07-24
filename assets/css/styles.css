@@ -9678,6 +9678,98 @@ body.sidebar-collapsed .sb-ico {
   padding: 12px;
 }
 
+.ceo-challenge-prompt {
+  display: grid;
+  gap: 8px;
+  border: 1px solid color-mix(in srgb, var(--local-accent, var(--accent)) 40%, var(--line));
+  border-radius: 10px;
+  background:
+    linear-gradient(118deg, color-mix(in srgb, var(--local-accent, var(--accent)) 14%, transparent), transparent 54%),
+    var(--panel-2);
+  padding: 12px;
+}
+
+.ceo-challenge-prompt-head {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 8px;
+}
+
+.ceo-challenge-prompt-head span {
+  color: var(--local-accent, var(--accent));
+  font-size: 9px;
+  font-weight: 950;
+  letter-spacing: .09em;
+}
+
+.ceo-challenge-prompt-head strong {
+  color: var(--ink-2);
+  font-size: 10px;
+  font-weight: 900;
+}
+
+.ceo-challenge-prompt h4 {
+  margin: 0;
+  color: var(--ink);
+  font-size: 15px;
+  font-weight: 950;
+  line-height: 1.42;
+}
+
+.ceo-challenge-prompt > p {
+  margin: 0;
+  color: var(--ink-2);
+  font-size: 11px;
+  font-weight: 760;
+  line-height: 1.55;
+}
+
+.ceo-challenge-prompt-metrics {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  overflow: hidden;
+  border: 1px solid color-mix(in srgb, var(--local-accent, var(--accent)) 20%, var(--line));
+  border-radius: 8px;
+  background: var(--panel);
+}
+
+.ceo-challenge-prompt-metrics span {
+  min-width: 0;
+  padding: 7px 8px;
+  border-right: 1px solid color-mix(in srgb, var(--local-accent, var(--accent)) 15%, var(--line));
+  color: var(--muted);
+  font-size: 9px;
+  font-weight: 800;
+  line-height: 1.35;
+}
+
+.ceo-challenge-prompt-metrics span:last-child { border-right: 0; }
+
+.ceo-challenge-prompt-metrics b {
+  display: block;
+  overflow: hidden;
+  color: var(--ink);
+  font-family: var(--display);
+  font-size: 15px;
+  font-weight: 950;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.ceo-challenge-prompt-source {
+  min-width: 0;
+  overflow: hidden;
+  color: var(--ink-2);
+  font-size: 10px;
+  font-weight: 800;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.ceo-challenge-prompt-source a { color: var(--local-accent, var(--accent)); text-decoration: none; }
+.ceo-challenge-prompt-source a:hover { text-decoration: underline; }
+
 .ceo-live-context {
   display: grid;
   gap: 10px;
@@ -9839,6 +9931,10 @@ body.sidebar-collapsed .sb-ico {
   .ceo-live-news-list {
     grid-template-columns: repeat(2, minmax(0, 1fr));
   }
+
+  .ceo-challenge-prompt-metrics { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .ceo-challenge-prompt-metrics span:nth-child(2) { border-right: 0; }
+  .ceo-challenge-prompt-metrics span:nth-child(-n + 2) { border-bottom: 1px solid color-mix(in srgb, var(--local-accent, var(--accent)) 15%, var(--line)); }
 }
 
 .agent-head {
@@ -10826,6 +10922,51 @@ body.sidebar-collapsed .sb-ico {
   font-weight: 760;
   overflow-wrap: anywhere;
   min-height: 1.55em;
+}
+
+/* A challenge turn is deliberately a question and an answer.  This keeps the
+   council from reading as a stack of disconnected summaries. */
+.agent-question,
+.agent-answer {
+  display: grid;
+  gap: 3px;
+}
+
+.agent-question {
+  margin-top: 1px;
+  padding: 7px 8px;
+  border-left: 3px solid var(--agent-color);
+  border-radius: 7px;
+  background: color-mix(in srgb, var(--agent-color) 9%, var(--panel));
+}
+
+.agent-question > span,
+.agent-answer > span {
+  color: var(--agent-color);
+  font-size: 8.5px;
+  font-weight: 950;
+  letter-spacing: .08em;
+}
+
+.agent-question p {
+  margin: 0;
+  color: var(--ink);
+  font-size: 11px;
+  font-weight: 850;
+  line-height: 1.45;
+}
+
+.agent-answer { padding-top: 2px; }
+
+.agent-turn:hover .agent-question {
+  background: rgba(255, 255, 255, .13);
+  border-color: rgba(255, 255, 255, .85);
+}
+
+.agent-turn:hover .agent-question > span,
+.agent-turn:hover .agent-answer > span,
+.agent-turn:hover .agent-question p {
+  color: #fff;
 }
 
 /* ---- Live sequential debate (JS-driven typing + spotlight) ---- */
