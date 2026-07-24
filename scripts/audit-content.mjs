@@ -21,6 +21,12 @@ const textFiles = [
   "data/live.json",
   "data/quant.json",
   "data/quant-backtest.json",
+  "data/data-manifest.json",
+  "data/live-client.json",
+  "data/quant-client.json",
+  "data/price-history-client.json",
+  "data/market-history-client.json",
+  "data/quant-backtest-client.json",
   "data/quant-model.json",
   "data/price-history.json",
   "data/market-history.json",
@@ -185,6 +191,51 @@ const isDirectSourceUrl = (value = "") => {
 const exactSourceDate = (value = "") => /^20\d{2}-\d{2}-\d{2}$/.test(String(value));
 
 const marketHistory = JSON.parse(await readFile(resolve(root, "data/market-history.json"), "utf8"));
+const liveClient = JSON.parse(await readFile(resolve(root, "data/live-client.json"), "utf8"));
+const quantClient = JSON.parse(await readFile(resolve(root, "data/quant-client.json"), "utf8"));
+const priceHistoryClient = JSON.parse(await readFile(resolve(root, "data/price-history-client.json"), "utf8"));
+const marketHistoryClient = JSON.parse(await readFile(resolve(root, "data/market-history-client.json"), "utf8"));
+const quantBacktestClient = JSON.parse(await readFile(resolve(root, "data/quant-backtest-client.json"), "utf8"));
+const dataManifest = JSON.parse(await readFile(resolve(root, "data/data-manifest.json"), "utf8"));
+const clientArtifacts = {
+  live: liveClient,
+  quant: quantClient,
+  priceHistory: priceHistoryClient,
+  marketHistory: marketHistoryClient,
+  quantBacktest: quantBacktestClient,
+};
+const expectedClientPaths = {
+  live: "data/live-client.json",
+  quant: "data/quant-client.json",
+  priceHistory: "data/price-history-client.json",
+  marketHistory: "data/market-history-client.json",
+  quantBacktest: "data/quant-backtest-client.json",
+};
+if (dataManifest?.schemaVersion !== "1.0" || !String(dataManifest?.runId || "").trim()) {
+  addIssue("error", "data/data-manifest.json", "client data manifest is missing a valid runId");
+}
+for (const [id, artifact] of Object.entries(clientArtifacts)) {
+  const entry = dataManifest?.artifacts?.[id] || {};
+  if (entry.path !== expectedClientPaths[id]) {
+    addIssue("error", "data/data-manifest.json", "client artifact path mismatch", `${id}:${entry.path || "missing"}`);
+  }
+  if (String(artifact?.runId || "") !== String(dataManifest?.runId || "")) {
+    addIssue("error", `data/${id}-client.json`, "client artifact runId does not match manifest", `${artifact?.runId || "missing"} != ${dataManifest?.runId || "missing"}`);
+  }
+  if (!artifact?.clientArtifact) addIssue("error", `data/${id}-client.json`, "client artifact marker is missing");
+}
+if (Object.hasOwn(liveClient, "quant") || Object.hasOwn(liveClient, "priceHistory") || Object.hasOwn(liveClient, "marketHistory")) {
+  addIssue("error", "data/live-client.json", "client live artifact duplicates deferred database artifacts");
+}
+if ((liveClient.prices?.sections || []).some((section) => (section.rows || []).some((row) => Array.isArray(row.history)))) {
+  addIssue("error", "data/live-client.json", "client live price rows must not duplicate price history");
+}
+if (priceHistoryClient?.archiveBackfill?.attempts) {
+  addIssue("error", "data/price-history-client.json", "client price artifact must not expose the archive retry manifest");
+}
+if (Object.keys(marketHistoryClient.metrics || {}).length) {
+  addIssue("error", "data/market-history-client.json", "client market artifact must not duplicate metric provenance");
+}
 for (const [id, index] of Object.entries(marketHistory.indexes || {})) {
   const points = Array.isArray(index.points) ? index.points : [];
   if (points.length < 2) addIssue("error", "data/market-history.json", "market series has fewer than 2 points", id);

@@ -280,6 +280,7 @@ const root = resolve(dirname(fileURLToPath(import.meta.url)), "..");
 const appText = await readFile(resolve(root, "assets/js/app.js"), "utf8");
 const crawlText = await readFile(resolve(root, "scripts/crawl.mjs"), "utf8");
 const refreshText = await readFile(resolve(root, "scripts/refresh-derived.mjs"), "utf8");
+const workflowText = await readFile(resolve(root, ".github/workflows/pages.yml"), "utf8");
 assert.doesNotMatch(refreshText, /sourceHealthSnapshot/, "network-free derived replay must not increment source failure streaks");
 assert.match(appText, /const fresh = Number\.isFinite\(expiresAt\) && Date\.now\(\) <= expiresAt/, "derived contracts must fail closed when expiry is missing");
 assert.doesNotMatch(appText, /\["2\.1",\s*"2\.0"\]|\["1\.1",\s*"1\.0"\]|\["2\.3",\s*"2\.2"\]/, "legacy derived schemas must not bypass current live-quality gates");
@@ -294,6 +295,21 @@ assert.match(crawlText, /function intelligenceBriefTranslationItems\(briefs = \[
 assert.match(crawlText, /KO_BRIEF_TRANSLATION_RESERVE_MS/, "executive briefing translation must retain a bounded final budget");
 assert.match(crawlText, /summaryLanguage: intelligenceSummaryLanguage\(top\)/, "briefings must disclose when the source-language summary is shown");
 assert.match(appText, /brief\.latest\.summaryLanguage === "source-original" \? "원문 요약"/, "the UI must visibly label source-language fallback summaries");
+assert.match(crawlText, /export function buildClientDataBundle/, "crawler must create a compact browser data bundle from the verified DB");
+assert.match(crawlText, /retained previous verified bundle/, "a failed quality gate must keep the previous verified bundle instead of failing the automation");
+assert.match(appText, /function loadDataManifest\(\)/, "browser must load the small manifest before versioned data artifacts");
+assert.match(appText, /function loadManagedJSON\(/, "browser must cache immutable same-run data artifacts");
+for (const artifact of [
+  "data-manifest.json",
+  "live-client.json",
+  "quant-client.json",
+  "price-history-client.json",
+  "market-history-client.json",
+  "quant-backtest-client.json",
+]) {
+  assert.ok(workflowText.includes(`data/${artifact}`), `daily workflow must publish the ${artifact} browser artifact`);
+}
+
 const accountBlock = appText.match(/const FORECAST_CATEGORIES = \[[\s\S]*?const FORECAST_CATEGORY_ORDER/)?.[0] || "";
 assert.ok(accountBlock, "forecast category block must exist");
 assert.doesNotMatch(accountBlock, /\b(?:driver|pull|note)\s*:/, "account cards must not contain static direction, pull, or narrative fallbacks");

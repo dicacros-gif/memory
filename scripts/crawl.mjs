@@ -27,6 +27,12 @@ const OUT = resolve(__dirname, "..", "data", "live.json");
 const HISTORY_OUT = resolve(__dirname, "..", "data", "price-history.json");
 const MARKET_HISTORY_OUT = resolve(__dirname, "..", "data", "market-history.json");
 const QUANT_BACKTEST_OUT = resolve(__dirname, "..", "data", "quant-backtest.json");
+const LIVE_CLIENT_OUT = resolve(__dirname, "..", "data", "live-client.json");
+const QUANT_CLIENT_OUT = resolve(__dirname, "..", "data", "quant-client.json");
+const PRICE_HISTORY_CLIENT_OUT = resolve(__dirname, "..", "data", "price-history-client.json");
+const MARKET_HISTORY_CLIENT_OUT = resolve(__dirname, "..", "data", "market-history-client.json");
+const QUANT_BACKTEST_CLIENT_OUT = resolve(__dirname, "..", "data", "quant-backtest-client.json");
+const DATA_MANIFEST_OUT = resolve(__dirname, "..", "data", "data-manifest.json");
 const CRAWL_EXCLUSIONS_OUT = resolve(__dirname, "..", "data", "crawl-exclusions.json");
 const CRAWL_AUDIT_OUT = resolve(__dirname, "..", "data", "crawl-audit.json");
 const CRAWL_QUARANTINE_OUT = resolve(__dirname, "..", "data", "crawl-quarantine.json");
@@ -3372,6 +3378,214 @@ async function collectNews(previousNews = []) {
   };
 }
 
+function compactPricePointForClient(point = {}) {
+  return {
+    date: point.date || null,
+    sourceObservedAt: point.sourceObservedAt || point.observedAt || null,
+    sourceUpdate: point.sourceUpdate || "",
+    average: Number.isFinite(Number(point.average)) ? Number(point.average) : null,
+    averageRaw: point.averageRaw || "",
+    changePct: Number.isFinite(Number(point.changePct)) ? Number(point.changePct) : null,
+    changeRaw: point.changeRaw || "",
+    direction: point.direction || "flat",
+    origin: point.origin || null,
+    archiveUrl: point.archiveUrl || null,
+  };
+}
+
+function compactMarketPointForClient(point = {}) {
+  const time = Number(point.time || new Date(point.date || 0).getTime());
+  const close = Number(point.close ?? point.value);
+  return {
+    date: point.date || (Number.isFinite(time) ? new Date(time).toISOString() : null),
+    time: Number.isFinite(time) ? time : null,
+    close: Number.isFinite(close) && close > 0 ? close : null,
+  };
+}
+
+function compactPriceRowForClient(row = {}) {
+  const { history: _history, ...rest } = row;
+  return rest;
+}
+
+function compactPriceHistoryForClient(history = {}) {
+  return {
+    schemaVersion: history.schemaVersion || "2.0",
+    clientArtifact: true,
+    runId: history.runId || null,
+    updatedAt: history.updatedAt || null,
+    validatedAt: history.validatedAt || null,
+    expiresAt: history.expiresAt || null,
+    timezone: history.timezone || "Asia/Seoul",
+    // The browser needs chart points and availability, not every crawl-time
+    // parser field or the full archive retry log.  The complete evidence DB
+    // remains in price-history.json for audits and future recomputation.
+    archiveBackfill: history.archiveBackfill ? {
+      schemaVersion: history.archiveBackfill.schemaVersion || null,
+      monthsRequested: history.archiveBackfill.monthsRequested || null,
+      updatedAt: history.archiveBackfill.updatedAt || null,
+      coverage: history.archiveBackfill.coverage || null,
+    } : null,
+    items: Object.fromEntries(Object.entries(history.items || {}).map(([key, item]) => [key, {
+      key: item.key || key,
+      sectionId: item.sectionId || null,
+      sectionTitle: item.sectionTitle || item.title || null,
+      group: item.group || null,
+      item: item.item || null,
+      source: item.source || null,
+      sourceUrl: item.sourceUrl || null,
+      historyUrl: item.historyUrl || null,
+      historyDays: item.historyDays || null,
+      updatedAt: item.updatedAt || null,
+      points: (item.points || []).map(compactPricePointForClient),
+    }])),
+  };
+}
+
+function compactMarketHistoryForClient(history = {}) {
+  return {
+    schemaVersion: history.schemaVersion || "2.0",
+    clientArtifact: true,
+    runId: history.runId || null,
+    updatedAt: history.updatedAt || null,
+    validatedAt: history.validatedAt || null,
+    expiresAt: history.expiresAt || null,
+    timezone: history.timezone || "Asia/Seoul",
+    source: history.source || null,
+    indexes: Object.fromEntries(Object.entries(history.indexes || {}).map(([id, index]) => [id, {
+      id: index.id || id,
+      label: index.label || null,
+      labelKo: index.labelKo || null,
+      symbol: index.symbol || null,
+      currency: index.currency || null,
+      source: index.source || null,
+      sourceUrl: index.sourceUrl || null,
+      chartUrl: index.chartUrl || null,
+      updatedAt: index.updatedAt || null,
+      latest: index.latest || null,
+      pointCount: Number(index.pointCount || (index.points || []).length),
+      points: (index.points || []).map(compactMarketPointForClient),
+    }])),
+    // Metric point provenance stays in the database-only file.  UI market
+    // cards consume index time series and quant-backtest summaries instead.
+    metrics: {},
+  };
+}
+
+function compactQuantForClient(quant = {}) {
+  // Dashboard heartbeat charts use the explicit 30-day windows.  Five-year FX
+  // and equity proxy series remain in quant.json / market-history.json for
+  // audit and research export, avoiding another large initial JSON parse.
+  const next = JSON.parse(JSON.stringify(quant || {}));
+  for (const group of [next.fx, next.aiDemandProxy]) {
+    for (const item of Object.values(group || {})) delete item.history5y;
+  }
+  return { ...next, clientArtifact: true };
+}
+
+function compactBacktestPeriodForClient(period = {}) {
+  const {
+    startProvenance: _startProvenance,
+    endProvenance: _endProvenance,
+    ...rest
+  } = period;
+  return rest;
+}
+
+function compactQuantBacktestForClient(backtest = {}) {
+  return {
+    schemaVersion: backtest.schemaVersion || "1.0",
+    clientArtifact: true,
+    runId: backtest.runId || null,
+    generatedAt: backtest.generatedAt || null,
+    validatedAt: backtest.validatedAt || null,
+    expiresAt: backtest.expiresAt || null,
+    coverage: backtest.coverage || {},
+    horizons: backtest.horizons || {},
+    series: Object.fromEntries(Object.entries(backtest.series || {}).map(([id, series]) => [id, {
+      id: series.id || id,
+      domain: series.domain || null,
+      label: series.label || null,
+      group: series.group || null,
+      cadence: series.cadence || null,
+      seriesKind: series.seriesKind || null,
+      unit: series.unit || null,
+      symbol: series.symbol || null,
+      currency: series.currency || null,
+      source: series.source || null,
+      sourceUrl: series.sourceUrl || null,
+      observationCount: series.observationCount || 0,
+      periods: Object.fromEntries(Object.entries(series.periods || {}).map(([period, stats]) => [
+        period,
+        compactBacktestPeriodForClient(stats),
+      ])),
+    }])),
+  };
+}
+
+function compactLiveForClient(payload = {}) {
+  const {
+    quant: _quant,
+    priceHistory: _priceHistory,
+    marketHistory: _marketHistory,
+    evidence: _evidence,
+    sourceRegistry: _sourceRegistry,
+    ...rest
+  } = payload;
+  const prices = payload.prices && typeof payload.prices === "object"
+    ? {
+        ...payload.prices,
+        sections: (payload.prices.sections || []).map((section) => ({
+          ...section,
+          rows: (section.rows || []).map(compactPriceRowForClient),
+        })),
+        watchedItems: (payload.prices.watchedItems || []).map(compactPriceRowForClient),
+      }
+    : payload.prices;
+  return {
+    ...rest,
+    clientArtifact: true,
+    prices,
+  };
+}
+
+/**
+ * Builds browser-specific artifacts from the fully provenanced data bundle.
+ * Database files retain every source and audit field; these copies contain
+ * only what the static UI renders.  All files share one runId, so a browser
+ * never combines a fresh card with another run's history.
+ */
+export function buildClientDataBundle({ payload = {}, quant = {}, priceHistory = {}, marketHistory = {}, quantBacktest = {} } = {}) {
+  const runId = payload.runId || quant.runId || marketHistory.runId || priceHistory.runId || null;
+  const live = compactLiveForClient(payload);
+  const clientQuant = compactQuantForClient(quant);
+  const price = compactPriceHistoryForClient(priceHistory);
+  const market = compactMarketHistoryForClient(marketHistory);
+  const backtest = compactQuantBacktestForClient(quantBacktest);
+  const artifacts = {
+    live: { path: "data/live-client.json", bytes: Buffer.byteLength(JSON.stringify(live), "utf8") },
+    quant: { path: "data/quant-client.json", bytes: Buffer.byteLength(JSON.stringify(clientQuant), "utf8") },
+    priceHistory: { path: "data/price-history-client.json", bytes: Buffer.byteLength(JSON.stringify(price), "utf8") },
+    marketHistory: { path: "data/market-history-client.json", bytes: Buffer.byteLength(JSON.stringify(market), "utf8") },
+    quantBacktest: { path: "data/quant-backtest-client.json", bytes: Buffer.byteLength(JSON.stringify(backtest), "utf8") },
+  };
+  return {
+    manifest: {
+      schemaVersion: "1.0",
+      runId,
+      generatedAt: payload.updatedAt || quant.updatedAt || null,
+      expiresAt: payload.expiresAt || quant.expiresAt || null,
+      cacheVersion: runId || payload.updatedAt || "unknown",
+      artifacts,
+    },
+    live,
+    quant: clientQuant,
+    priceHistory: price,
+    marketHistory: market,
+    quantBacktest: backtest,
+  };
+}
+
 async function writeVerifiedBundle(entries = []) {
   const staged = [];
   try {
@@ -3381,8 +3595,10 @@ async function writeVerifiedBundle(entries = []) {
       await writeFile(temporary, `${JSON.stringify(value, null, 2)}\n`, { encoding: "utf8" });
       staged.push({ path, temporary });
     }
-    // live.json is the public commit marker and is promoted last.
-    staged.sort((a, b) => Number(a.path === OUT) - Number(b.path === OUT));
+    // Client artifacts must exist before their manifest points at them; the
+    // full live DB remains the final public commit marker for data consumers.
+    const publishRank = (path) => path === OUT ? 2 : path === DATA_MANIFEST_OUT ? 1 : 0;
+    staged.sort((a, b) => publishRank(a.path) - publishRank(b.path));
     for (const entry of staged) {
       try {
         await rename(entry.temporary, entry.path);
@@ -7338,6 +7554,7 @@ export function archiveMonthlyTargets(months = 60, now = new Date()) {
 const ARCHIVE_BACKFILL_MAX_SNAPSHOTS_PER_RUN = 8;
 // Sunday (KST) runs get a bigger budget so exact monthly coverage converges faster.
 const ARCHIVE_BACKFILL_SUNDAY_CAP = 12;
+const ARCHIVE_SNAPSHOT_CANDIDATES_PER_JOB = 3;
 
 function cdxDayStamp(time) {
   return new Date(time).toISOString().slice(0, 10).replace(/-/g, "");
@@ -7436,6 +7653,7 @@ function parseLegacyPriceTables(html, source) {
 async function backfillPriceHistoryFromArchive(history) {
   let attemptsThisRun = 0;
   let pointsAdded = 0;
+  const forceBackfill = /^(?:1|true|yes)$/i.test(String(process.env.BACKFILL_FORCE || ""));
   const kstDay = new Date(Date.now() + 9 * 3600000).getUTCDay();
   const backfillCap = Number(process.env.BACKFILL_MAX) > 0
     ? Number(process.env.BACKFILL_MAX)
@@ -7512,9 +7730,11 @@ async function backfillPriceHistoryFromArchive(history) {
     });
   };
 
-  const pickClosest = (snapshots, target) => snapshots
+  const closestSnapshots = (snapshots, target, limit = ARCHIVE_SNAPSHOT_CANDIDATES_PER_JOB) => snapshots
     .map((ts) => ({ ts, diff: Math.abs(new Date(cdxTimestampToIso(ts)).getTime() - target) }))
-    .sort((a, b) => a.diff - b.diff)[0].ts;
+    .sort((a, b) => a.diff - b.diff)
+    .slice(0, Math.max(1, limit))
+    .map((item) => item.ts);
   const jobs = monthlyTargets.flatMap((period) => PRICE_PAGES.map((page) => ({ page, period })));
   for (const { page, period } of jobs) {
     if (attemptsThisRun >= backfillCap) break;
@@ -7528,8 +7748,13 @@ async function backfillPriceHistoryFromArchive(history) {
 
     const jobId = `${page.id}:${period.id}`;
     const priorAttempt = manifest.attempts[jobId];
-    const retryDays = ["no-snapshot", "empty", "target-miss", "merged"].includes(priorAttempt?.status) ? 30 : 7;
-    if (priorAttempt?.attemptedAt && Date.now() - Date.parse(priorAttempt.attemptedAt) < retryDays * 864e5) {
+    const priorWasPartial = priorAttempt?.status === "partial"
+      || (priorAttempt?.status === "merged"
+        && Number(priorAttempt?.coveredTargetSeries || 0) < Number(priorAttempt?.uncoveredSeries || 0));
+    const retryDays = priorWasPartial || priorAttempt?.status === "failed"
+      ? 7
+      : ["no-snapshot", "empty", "target-miss", "merged"].includes(priorAttempt?.status) ? 30 : 7;
+    if (!forceBackfill && priorAttempt?.attemptedAt && Date.now() - Date.parse(priorAttempt.attemptedAt) < retryDays * 864e5) {
       skippedByRetryThisRun += 1;
       continue;
     }
@@ -7553,22 +7778,38 @@ async function backfillPriceHistoryFromArchive(history) {
         continue;
       }
 
-      const best = pickClosest(snapshots, target);
-      const archivedUrl = `https://web.archive.org/web/${best}id_/${source.url}`;
-      const html = await fetchArchiveText(archivedUrl);
-      const sections = legacy ? parseLegacyPriceTables(html, source) : parsePriceTables(html, page);
-      const merged = mergeArchiveSections(sections, best, source.url);
-      const coveredAfter = uncovered.filter((item) => (item.points || []).some((point) => pricePointCoversMonth(point, period.id))).length;
+      const candidates = closestSnapshots(snapshots, target);
+      let merged = 0;
+      let coveredAfter = 0;
+      const archiveAttempts = [];
+      for (const snapshot of candidates) {
+        const archivedUrl = `https://web.archive.org/web/${snapshot}id_/${source.url}`;
+        try {
+          const html = await fetchArchiveText(archivedUrl);
+          const sections = legacy ? parseLegacyPriceTables(html, source) : parsePriceTables(html, page);
+          const mergedHere = mergeArchiveSections(sections, snapshot, source.url);
+          merged += mergedHere;
+          coveredAfter = uncovered.filter((item) => (item.points || []).some((point) => pricePointCoversMonth(point, period.id))).length;
+          archiveAttempts.push({ snapshot, snapshotUrl: archivedUrl, mergedSeries: mergedHere, coveredTargetSeries: coveredAfter });
+          if (coveredAfter >= uncovered.length) break;
+        } catch (error) {
+          archiveAttempts.push({ snapshot, snapshotUrl: archivedUrl, error: String(error?.message || error).slice(0, 300) });
+        }
+      }
+      const bestAttempt = archiveAttempts.find((item) => !item.error) || archiveAttempts[0] || null;
       manifest.attempts[jobId] = {
         attemptedAt,
-        status: coveredAfter > 0 ? "merged" : (merged > 0 ? "target-miss" : "empty"),
-        snapshot: best,
-        snapshotUrl: archivedUrl,
+        status: coveredAfter >= uncovered.length && coveredAfter > 0
+          ? "merged"
+          : coveredAfter > 0 ? "partial" : (merged > 0 ? "target-miss" : "empty"),
+        snapshot: bestAttempt?.snapshot || null,
+        snapshotUrl: bestAttempt?.snapshotUrl || null,
+        snapshotCandidatesTried: archiveAttempts.length,
         uncoveredSeries: uncovered.length,
         mergedSeries: merged,
         coveredTargetSeries: coveredAfter,
       };
-      note(`가격백필:${page.id}·${period.id}${legacy ? "·legacy" : ""}`, coveredAfter > 0, `${best.slice(0, 8)} 스냅샷 · 목표월 ${coveredAfter}/${uncovered.length}개 · 변경 ${merged}개`);
+      note(`가격백필:${page.id}·${period.id}${legacy ? "·legacy" : ""}`, coveredAfter > 0, `${archiveAttempts.length}개 스냅샷 · 목표월 ${coveredAfter}/${uncovered.length}개 · 변경 ${merged}개`);
     } catch (error) {
       manifest.attempts[jobId] = { attemptedAt, status: "failed", error: String(error.message || error).slice(0, 300), uncoveredSeries: uncovered.length };
       note(`가격백필:${page.id}·${period.id}`, false, error.message);
@@ -7785,7 +8026,12 @@ async function main() {
         provenanceId: event.current?.provenanceId,
       })), null, 2));
     }
-    throw new Error(`quality gate rejected crawl: ${payload.quality.failures.join(", ")}`);
+    // A transient source outage must not turn the scheduled job into a hard
+    // failure or overwrite the last verified bundle.  Nothing is published
+    // here: the dashboard continues to serve its prior verified run and the
+    // source-health workflow can escalate repeated failures separately.
+    console.warn(`quality gate rejected new crawl; retained previous verified bundle: ${payload.quality.failures.join(", ")}`);
+    return { published: false, failures: payload.quality.failures };
   }
 
   priceHistory.runId = runId;
@@ -7804,13 +8050,26 @@ async function main() {
   payload.quantBacktest.validatedAt = payload.updatedAt;
   payload.quantBacktest.expiresAt = quant.expiresAt;
   const crawlAudit = buildCrawlAudit(payload, quarantineReport);
+  const clientBundle = buildClientDataBundle({
+    payload,
+    quant,
+    priceHistory,
+    marketHistory,
+    quantBacktest,
+  });
   await writeVerifiedBundle([
     [HISTORY_OUT, priceHistory],
     [MARKET_HISTORY_OUT, marketHistory],
     [QUANT_BACKTEST_OUT, quantBacktest],
     [QUANT_OUT, quant],
+    [LIVE_CLIENT_OUT, clientBundle.live],
+    [QUANT_CLIENT_OUT, clientBundle.quant],
+    [PRICE_HISTORY_CLIENT_OUT, clientBundle.priceHistory],
+    [MARKET_HISTORY_CLIENT_OUT, clientBundle.marketHistory],
+    [QUANT_BACKTEST_CLIENT_OUT, clientBundle.quantBacktest],
     [CRAWL_QUARANTINE_OUT, quarantineReport],
     [CRAWL_AUDIT_OUT, crawlAudit],
+    [DATA_MANIFEST_OUT, clientBundle.manifest],
     [OUT, payload],
   ]);
   console.log(`검증 데이터 묶음 저장: ${OUT}`);

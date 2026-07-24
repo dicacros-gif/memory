@@ -2015,6 +2015,7 @@
   let HISTORY = emptyHistory;
   let MARKET_HISTORY = emptyMarketHistory;
   let QUANT_BACKTEST = emptyQuantBacktest;
+  let DATA_MANIFEST = null;
   let REPO_CRAWL_EXCLUSIONS = emptyCrawlExclusions;
   let RESEARCH_ARCHIVE = { items: [] };
   let localCrawlExclusions = [];
@@ -2140,15 +2141,36 @@
     memoryMarketNodePositions = {};
   }
 
-  async function loadJSON(path, fallback) {
+  async function loadJSON(path, fallback, options = {}) {
     try {
-      const res = await fetch(path, { cache: "no-cache" });
+      const res = await fetch(path, { cache: options.cache || "no-cache" });
       if (!res.ok) throw new Error(`${path} ${res.status}`);
       return await res.json();
     } catch (error) {
       console.warn(error.message);
       return fallback;
     }
+  }
+
+  async function loadDataManifest() {
+    const manifest = await loadJSON("data/data-manifest.json", null, { cache: "no-cache" });
+    if (!manifest || typeof manifest !== "object" || !manifest.runId || !manifest.artifacts) return null;
+    const required = ["live", "quant", "priceHistory", "marketHistory", "quantBacktest"];
+    if (!required.every((key) => /^data\/[\w-]+\.json$/.test(String(manifest.artifacts?.[key]?.path || "")))) return null;
+    return manifest;
+  }
+
+  function managedDataPath(key, legacyPath) {
+    const entry = DATA_MANIFEST?.artifacts?.[key];
+    const path = String(entry?.path || legacyPath || "");
+    const version = String(DATA_MANIFEST?.cacheVersion || DATA_MANIFEST?.runId || "").trim();
+    if (!version || !path) return path;
+    return `${path}${path.includes("?") ? "&" : "?"}v=${encodeURIComponent(version)}`;
+  }
+
+  function loadManagedJSON(key, legacyPath, fallback) {
+    const managed = Boolean(DATA_MANIFEST?.artifacts?.[key]);
+    return loadJSON(managedDataPath(key, legacyPath), fallback, { cache: managed ? "force-cache" : "no-cache" });
   }
 
   function normalizeCrawlExclusionUrl(value = "") {
@@ -3525,11 +3547,12 @@
     setupChinaBenchmarkVideoStory();
     setupChinaDecisionVideo();
     setupMemoryScrollStory();
+    DATA_MANIFEST = await loadDataManifest();
     [BASE, LIVE, REPO_CRAWL_EXCLUSIONS, QUANT, RESEARCH_ARCHIVE] = await Promise.all([
       loadJSON("data/baseline.json", null),
-      loadJSON("data/live.json", emptyLive),
+      loadManagedJSON("live", "data/live.json", emptyLive),
       loadJSON("data/crawl-exclusions.json", emptyCrawlExclusions),
-      loadJSON("data/quant.json", null),
+      loadManagedJSON("quant", "data/quant.json", null),
       loadJSON("data/research-archive.json", { items: [] }),
     ]);
     if (!RESEARCH_ARCHIVE || !Array.isArray(RESEARCH_ARCHIVE.items)) RESEARCH_ARCHIVE = { items: [] };
@@ -4340,27 +4363,27 @@
     return cleanup;
   }
 
-  let secondaryDataPromise = null;
+  const secondaryDataPromises = new Map();
   const deferredSectionRuns = new Map();
   const deferredRenderedSections = new Set(["overview", "overview-content"]);
 
   function deferredSectionDefinitions() {
     return [
       { id: "c-level-cockpit", render: renderCLevelCockpit },
-      { id: "executive-decision", render: renderExecutiveDecision, history: true },
+      { id: "executive-decision", render: renderExecutiveDecision, data: ["priceHistory", "quantBacktest"] },
       { id: "management-strategy", render: renderManagementStrategy },
       { id: "strategic-investment-decision", render: renderStrategicInvestmentDecision },
       { id: "policy-makers", render: renderPolicyMakers },
       { id: "china-fab-infra", render: renderChinaFabInfra },
       { id: "china-talent-strategy", render: renderChinaTalentStrategy },
-      { id: "prices", render: renderPrices, history: true },
+      { id: "prices", render: renderPrices, data: ["priceHistory", "marketHistory"] },
       { id: "news", render: renderNews },
       { id: "china-community", render: renderChinaCommunity },
       { id: "china-nand", render: renderChinaNandBusiness },
       { id: "china-dynamics", render: renderChinaDynamics },
       { id: "talent-radar", render: renderTalentRadar },
       { id: "numbers", render: renderNumberAnalysis },
-      { id: "projection", render: renderProductProjection, history: true },
+      { id: "projection", render: renderProductProjection },
       { id: "hyperscaler-demand", render: renderHyperscalerDemand },
       { id: "workbench", render: renderWorkbench },
       { id: "memory-market-map", render: renderMemoryMarketMap },
@@ -4369,19 +4392,38 @@
     ];
   }
 
-  function loadSecondaryData() {
-    if (!secondaryDataPromise) {
-      secondaryDataPromise = Promise.all([
-        loadJSON("data/price-history.json", emptyHistory),
-        loadJSON("data/market-history.json", emptyMarketHistory),
-        loadJSON("data/quant-backtest.json", emptyQuantBacktest),
-      ]).then(([history, marketHistory, quantBacktest]) => {
-        HISTORY = selectSameRunArtifact(history, emptyHistory, "2.0");
-        MARKET_HISTORY = selectSameRunArtifact(marketHistory, emptyMarketHistory, "2.0");
-        QUANT_BACKTEST = selectSameRunArtifact(quantBacktest, emptyQuantBacktest, "1.0");
-      });
-    }
-    return secondaryDataPromise;
+  function loadSecondaryArtifact(id) {
+    if (secondaryDataPromises.has(id)) return secondaryDataPromises.get(id);
+    const definitions = {
+      priceHistory: {
+        path: "data/price-history.json",
+        fallback: emptyHistory,
+        schemaVersion: "2.0",
+        assign: (value) => { HISTORY = selectSameRunArtifact(value, emptyHistory, "2.0"); },
+      },
+      marketHistory: {
+        path: "data/market-history.json",
+        fallback: emptyMarketHistory,
+        schemaVersion: "2.0",
+        assign: (value) => { MARKET_HISTORY = selectSameRunArtifact(value, emptyMarketHistory, "2.0"); },
+      },
+      quantBacktest: {
+        path: "data/quant-backtest.json",
+        fallback: emptyQuantBacktest,
+        schemaVersion: "1.0",
+        assign: (value) => { QUANT_BACKTEST = selectSameRunArtifact(value, emptyQuantBacktest, "1.0"); },
+      },
+    };
+    const definition = definitions[id];
+    if (!definition) return Promise.resolve();
+    const promise = loadManagedJSON(id, definition.path, definition.fallback).then((value) => definition.assign(value));
+    secondaryDataPromises.set(id, promise);
+    return promise;
+  }
+
+  function loadSecondaryData(requirements = []) {
+    const ids = Array.from(new Set(requirements)).filter(Boolean);
+    return Promise.all(ids.map(loadSecondaryArtifact));
   }
 
   function deferredDefinition(id) {
@@ -4398,7 +4440,7 @@
     const run = (async () => {
       section.dataset.deferredState = "loading";
       section.setAttribute("aria-busy", "true");
-      if (definition.history) await loadSecondaryData();
+      if (definition.data?.length) await loadSecondaryData(definition.data);
       definition.render();
       deferredRenderedSections.add(id);
       section.dataset.deferredState = "ready";
