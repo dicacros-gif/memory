@@ -3075,6 +3075,135 @@
       .slice(0, limit);
   }
 
+  // The research archive can be large.  Turn its crawled citations into a
+  // compact evidence map first, rather than presenting forty near-identical
+  // rows.  The original dated links remain available behind the timeline
+  // disclosure below.
+  function researchCitationTheme(citation = {}) {
+    const text = `${citation.title || ""} ${citation.source || ""}`.toLowerCase();
+    if (/(hbm|hybrid bonding|packaging|tsv|cowos|advanced package)/.test(text)) return { id: "hbm", label: "HBM·패키징", color: "#8b5cf6" };
+    if (/(nand|ssd|flash|storage|낸드|플래시)/.test(text)) return { id: "nand", label: "NAND·스토리지", color: "#f59e0b" };
+    if (/(dram|ddr|lpddr|sram|메모리)/.test(text)) return { id: "dram", label: "DRAM·아키텍처", color: "#06b6d4" };
+    if (/(cxmt|ymtc|china|중국|fab|capex|capacity|wafer|equipment|ipo)/.test(text)) return { id: "supply", label: "공급·중국", color: "#ef4444" };
+    if (/(price|demand|market|revenue|shipment|가격|수요|시장|매출)/.test(text)) return { id: "market", label: "가격·수요", color: "#22c55e" };
+    return { id: "technology", label: "기술 로드맵", color: "#3b82f6" };
+  }
+
+  function researchEvidenceMap(citations = []) {
+    const sources = new Map();
+    const themes = new Map();
+    for (const citation of citations) {
+      const source = String(citation.source || "출처 미상").trim() || "출처 미상";
+      const sourceRow = sources.get(source) || { label: source, count: 0 };
+      sourceRow.count += 1;
+      sources.set(source, sourceRow);
+      const theme = researchCitationTheme(citation);
+      const themeRow = themes.get(theme.id) || { ...theme, count: 0 };
+      themeRow.count += 1;
+      themes.set(theme.id, themeRow);
+    }
+    const byCount = (a, b) => b.count - a.count || a.label.localeCompare(b.label, "ko");
+    const dated = citations.map((citation) => String(citation.date || "").slice(0, 10)).filter(Boolean).sort();
+    return {
+      sources: [...sources.values()].sort(byCount),
+      themes: [...themes.values()].sort(byCount),
+      newest: dated.at(-1) || "",
+      oldest: dated[0] || "",
+      latest: citations[0] || null,
+    };
+  }
+
+  function researchEvidenceInfographic(citations = [], archiveTotal = 0) {
+    const map = researchEvidenceMap(citations);
+    const sourceMax = Math.max(1, ...map.sources.map((item) => item.count));
+    const themeMax = Math.max(1, ...map.themes.map((item) => item.count));
+    const latest = map.latest || {};
+    const visibleSources = map.sources.slice(0, 5);
+    const visibleThemes = map.themes.slice(0, 5);
+    const leadingTheme = visibleThemes[0]?.label || "핵심 주제";
+    return `
+      <section class="ni-research ni-research-infographic" aria-label="증권사 및 권위 리서치 근거 맵">
+        <header class="ni-research-head">
+          <div>
+            <span class="ni-research-kicker">RESEARCH EVIDENCE MAP</span>
+            <strong>증권사·권위 리서치 근거 흐름</strong>
+          </div>
+          <span>${fmtNum(citations.length)}건 시각화 · 누적 ${fmtNum(archiveTotal)}건</span>
+        </header>
+        <div class="ni-research-metrics" aria-label="리서치 요약 지표">
+          <div><strong>${fmtNum(citations.length)}</strong><span>공개 원문·인용</span></div>
+          <div><strong>${fmtNum(map.sources.length)}</strong><span>교차 출처</span></div>
+          <div><strong>${fmtNum(map.themes.length)}</strong><span>분석 축</span></div>
+          <div><strong>${escapeHTML(map.newest || "날짜 미상")}</strong><span>${escapeHTML(map.oldest && map.oldest !== map.newest ? `${map.oldest} 이후` : "최신 관측")}</span></div>
+        </div>
+        <div class="ni-research-map" aria-label="출처에서 주제로 이어지는 리서치 흐름">
+          <section class="ni-research-lane ni-research-sources">
+            <span class="ni-research-lane-label">01 · SOURCE</span>
+            <strong>출처 집중도</strong>
+            <div class="ni-research-nodes">
+              ${visibleSources.map((item) => `
+                <div class="ni-research-node source" style="--share:${(item.count / sourceMax).toFixed(3)}">
+                  <span>${escapeHTML(item.label)}</span><b>${fmtNum(item.count)}</b><i aria-hidden="true"></i>
+                </div>
+              `).join("")}
+            </div>
+          </section>
+          <div class="ni-research-arrow" aria-hidden="true"><span>근거</span><i></i></div>
+          <section class="ni-research-lane ni-research-themes">
+            <span class="ni-research-lane-label">02 · SIGNAL</span>
+            <strong>주제 신호</strong>
+            <div class="ni-research-nodes">
+              ${visibleThemes.map((item) => `
+                <div class="ni-research-node theme" style="--share:${(item.count / themeMax).toFixed(3)};--node-color:${escapeHTML(item.color)}">
+                  <span>${escapeHTML(item.label)}</span><b>${fmtNum(item.count)}</b><i aria-hidden="true"></i>
+                </div>
+              `).join("")}
+            </div>
+          </section>
+          <div class="ni-research-arrow" aria-hidden="true"><span>토론</span><i></i></div>
+          <article class="ni-research-focus">
+            <span class="ni-research-lane-label">03 · LATEST</span>
+            <strong>${escapeHTML(leadingTheme)}</strong>
+            <h4>${strategicHighlightHTML(latest.title || "최근 수집 리서치")}</h4>
+            <div>
+              <span>${escapeHTML(latest.source || "출처")}</span>
+              <small>${escapeHTML(latest.date || "")}</small>
+            </div>
+            ${latest.url ? `<a href="${escapeHTML(latest.url)}" target="_blank" rel="noopener noreferrer">원문 근거 보기 ↗</a>` : ""}
+          </article>
+        </div>
+        <div class="ni-research-evidence-tape" aria-label="최근 리서치 근거">
+          ${citations.slice(0, 6).map((citation, index) => {
+            const theme = researchCitationTheme(citation);
+            return `
+              <a class="ni-research-evidence" href="${escapeHTML(citation.url)}" target="_blank" rel="noopener noreferrer" style="--node-color:${escapeHTML(theme.color)}">
+                <span><b>${String(index + 1).padStart(2, "0")}</b>${escapeHTML(theme.label)}</span>
+                <strong>${strategicHighlightHTML(citation.title)}</strong>
+                <small>${escapeHTML(citation.source)} · ${escapeHTML(citation.date)}</small>
+              </a>
+            `;
+          }).join("")}
+        </div>
+        <div class="ni-research-disclosure">
+          <span>각 노드는 크롤링된 날짜·원문 URL을 유지합니다.</span>
+          <button type="button" class="ni-research-toggle" data-research-citation-toggle aria-expanded="false">원문 타임라인 ${fmtNum(citations.length)}건 열기</button>
+        </div>
+        <div class="ni-research-archive" id="researchCitationArchive" hidden>
+          <ol class="ni-research-list">
+            ${citations.map((citation, index) => `
+              <li class="ni-cite" data-cite-index="${index}">
+                <span class="ni-cite-src">${escapeHTML(citation.source || "출처")}</span>
+                <a href="${escapeHTML(citation.url)}" target="_blank" rel="noopener noreferrer">${escapeHTML(citation.title)} ↗</a>
+                <small>${escapeHTML(citation.date)}</small>
+              </li>
+            `).join("")}
+          </ol>
+        </div>
+        <p class="ni-research-note">원문 타임라인에서만 개별 항목을 관리할 수 있으며, 제외한 링크도 수집 이력은 보존합니다.</p>
+      </section>
+    `;
+  }
+
   // Weekly trending keywords from crawled news, filtered to memory-domain terms
   // (source names / publisher fragments / generic words are dropped so the bar
   // reflects topics, not outlets).
@@ -3189,6 +3318,7 @@
       ${(() => {
         const cites = researchCitations(40);
         if (!cites.length) return "";
+        return researchEvidenceInfographic(cites, (RESEARCH_ARCHIVE.items || []).length);
         const total = (RESEARCH_ARCHIVE.items || []).length;
         return `
           <div class="ni-research">
@@ -3218,6 +3348,17 @@
       const cite = cites[Number(li.dataset.citeIndex)];
       if (!cite) return;
       attachCrawlModerationControl(li, "research", cite, cite.title, renderNewsInsightSummary, li);
+    });
+    host.querySelectorAll("[data-research-citation-toggle]").forEach((button) => {
+      button.addEventListener("click", () => {
+        const archive = host.querySelector("#researchCitationArchive");
+        if (!archive) return;
+        archive.hidden = !archive.hidden;
+        button.setAttribute("aria-expanded", String(!archive.hidden));
+        button.textContent = archive.hidden
+          ? `원문 타임라인 ${fmtNum(cites.length)}건 열기`
+          : "원문 타임라인 닫기";
+      });
     });
   }
 
@@ -7840,6 +7981,48 @@
     return { ...evidence, status: evidence.status === "live" ? "reference" : evidence.status || "reference" };
   }
 
+  // A role may have no fresh exact-match article on a given run.  Continue the
+  // discussion with a dated, already-collected record instead of returning a
+  // generic hold message.  The ordering intentionally favours reference news,
+  // then the retained live corpus, then the accumulated research archive.
+  function storedAgentEvidence(roleKey = "brief") {
+    const terms = dailyReferenceRoleTerms(roleKey).map((term) => String(term).toLowerCase());
+    const sources = [
+      ...(Array.isArray(LIVE?.referenceNews?.items) ? LIVE.referenceNews.items : []).map((item) => ({ item, priority: 3 })),
+      ...(Array.isArray(LIVE?.news) ? LIVE.news : []).map((item) => ({ item, priority: 2 })),
+      ...(Array.isArray(RESEARCH_ARCHIVE?.items) ? RESEARCH_ARCHIVE.items : []).map((item) => ({ item, priority: 1 })),
+    ];
+    const candidates = sources.map(({ item, priority }) => {
+      const sourceUrl = String(item.sourceUrl || item.link || item.url || "").trim();
+      if (!/^https?:\/\//i.test(sourceUrl) || /news\.google\.com/i.test(sourceUrl)) return null;
+      const text = dailyReferenceItemText(item);
+      const matchedKeywords = terms.filter((term) => term && text.includes(term));
+      const timestamp = Date.parse(String(item.date || item.publishedAt || item.updatedAt || ""));
+      return { item, sourceUrl, matchedKeywords, priority, timestamp: Number.isFinite(timestamp) ? timestamp : 0 };
+    }).filter(Boolean);
+    if (!candidates.length) return null;
+    candidates.sort((a, b) => (
+      b.matchedKeywords.length - a.matchedKeywords.length
+      || b.priority - a.priority
+      || b.timestamp - a.timestamp
+    ));
+    const chosen = candidates[0];
+    const item = chosen.item;
+    const quote = String(item.summary || item.summaryOriginal || item.titleKo || item.title || "").replace(/\s+/g, " ").trim();
+    if (!quote) return null;
+    return {
+      status: "reference",
+      title: String(item.titleKo || item.title || quote).replace(/\s+/g, " ").trim(),
+      quote,
+      quoteQuality: "stored-corpus",
+      value: item.value || null,
+      source: item.source || "이전 수집 원문",
+      sourceUrl: chosen.sourceUrl,
+      date: item.date || item.publishedAt || item.updatedAt || "이전 수집",
+      matchedKeywords: chosen.matchedKeywords,
+    };
+  }
+
   function withDailyAgentEvidence(agent = {}) {
     if (agent.dailyGrounded) return agent;
     const roleKey = dailyAgentRoleKey(agent);
@@ -7862,13 +8045,17 @@
     };
     const evidence = liveEvidence?.status === "live" && /^https?:\/\//i.test(String(liveEvidence.sourceUrl || ""))
       ? liveEvidence
-      : previousAgentBriefingEvidence(roleKey) || dailyReferenceNewsEvidence(roleKey);
+      : previousAgentBriefingEvidence(roleKey) || dailyReferenceNewsEvidence(roleKey) || storedAgentEvidence(roleKey);
     if (!evidence || !/^https?:\/\//i.test(String(evidence.sourceUrl || ""))) {
-      return { ...agent, dailyGrounded: true };
+      return {
+        ...agent,
+        dailyGrounded: true,
+        message: `누적 브리핑의 핵심 쟁점을 기준으로 기존 수집 내용과 정량 지표를 연결해 토론을 계속합니다. ${roleLens[roleKey] || roleLens.brief}`,
+      };
     }
     const quote = String(evidence.quote || evidence.title || "").replace(/\s+/g, " ").trim();
     const value = evidence.value ? ` 핵심 수치 ${evidence.value}.` : "";
-    const freshness = evidence.status === "live" ? "오늘 근거" : "이전 수집";
+    const freshness = evidence.status === "live" ? "오늘 근거" : "누적 근거";
     return {
       ...agent,
       dailyGrounded: true,

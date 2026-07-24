@@ -278,6 +278,7 @@ assert.deepEqual(Object.keys(migratedHealth.sources).filter((id) => id.toLowerCa
 
 const root = resolve(dirname(fileURLToPath(import.meta.url)), "..");
 const appText = await readFile(resolve(root, "assets/js/app.js"), "utf8");
+const stylesText = await readFile(resolve(root, "assets/css/styles.css"), "utf8");
 const crawlText = await readFile(resolve(root, "scripts/crawl.mjs"), "utf8");
 const refreshText = await readFile(resolve(root, "scripts/refresh-derived.mjs"), "utf8");
 const workflowText = await readFile(resolve(root, ".github/workflows/pages.yml"), "utf8");
@@ -299,6 +300,11 @@ assert.match(crawlText, /export function buildClientDataBundle/, "crawler must c
 assert.match(crawlText, /retained previous verified bundle/, "a failed quality gate must keep the previous verified bundle instead of failing the automation");
 assert.match(appText, /function loadDataManifest\(\)/, "browser must load the small manifest before versioned data artifacts");
 assert.match(appText, /function loadManagedJSON\(/, "browser must cache immutable same-run data artifacts");
+assert.match(appText, /function researchEvidenceInfographic\(/, "research citations must default to an evidence infographic rather than a long row list");
+assert.match(appText, /data-research-citation-toggle/, "full research chronology must remain available behind an explicit disclosure");
+assert.match(stylesText, /\.ni-research-map\s*\{/, "research evidence map must receive a diagram layout");
+assert.match(appText, /function storedAgentEvidence\(/, "agents must be able to continue from retained collected evidence");
+assert.match(appText, /dailyReferenceNewsEvidence\(roleKey\) \|\| storedAgentEvidence\(roleKey\)/, "stored evidence must follow prior agent and reference-news evidence in the fallback chain");
 for (const artifact of [
   "data-manifest.json",
   "live-client.json",
