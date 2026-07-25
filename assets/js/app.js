@@ -4002,10 +4002,11 @@
       prevSelector: "#talentRadarSliderPrev",
       nextSelector: "#talentRadarSliderNext",
       toggleSelector: "#talentRadarSliderToggle",
-      autoDelay: 5200,
+      autoDelay: 5000,
       zoomMode: "alternate",
       motionProfile: "cinematic",
-      advanceMode: "random",
+      advanceMode: "sequence",
+      carouselPreview: true,
       transitionModes: ["sweep", "depth", "iris", "shutter", "tilt", "split", "zoom-blur", "parallax"],
       onSlideChange: rotateInsight,
     });
@@ -4399,6 +4400,7 @@
     motionProfile = "standard",
     transitionModes = null,
     advanceMode = "sequence",
+    carouselPreview = false,
     onSlideChange = null,
   }) {
     const slider = $(sliderSelector);
@@ -4475,9 +4477,12 @@
       slides.forEach((slide, index) => {
         const active = index === activeIndex;
         const leaving = !initial && index === previousIndex && previousIndex !== activeIndex;
+        const relative = (index - activeIndex + slides.length) % slides.length;
         slide.classList.toggle("active", active);
         slide.classList.toggle("entering", active && !initial && previousIndex !== activeIndex);
         slide.classList.toggle("leaving", leaving);
+        slide.classList.toggle("is-next", carouselPreview && !active && relative === 1);
+        slide.classList.toggle("is-previous", carouselPreview && !active && relative === slides.length - 1);
         slide.setAttribute("aria-hidden", active ? "false" : "true");
         if (active) {
           const image = slide.querySelector("img");

@@ -20431,3 +20431,143 @@ button.ni-trend-chip:hover { box-shadow: 0 4px 12px color-mix(in srgb, #0891B2 2
   #china-talent-strategy .talent-strategy-gallery-image,
   #china-talent-strategy .talent-strategy-gallery-dots button.is-active::after { animation: none !important; transition: none; }
 }
+
+/* Talent radar uses the full board as an editorial filmstrip. The live brief
+   follows below, so the visual evidence never leaves an empty side panel. */
+#talent-radar .talent-split {
+  grid-template-columns: minmax(0, 1fr);
+}
+
+#talent-radar .talent-panel,
+#talent-radar .talent-radar-slider-slot {
+  width: 100%;
+}
+
+#talent-radar .talent-radar-slider {
+  min-height: 0;
+  height: clamp(430px, 38vw, 620px);
+  aspect-ratio: auto;
+  border-radius: 14px;
+  background:
+    radial-gradient(circle at 50% 14%, color-mix(in srgb, var(--slider-accent) 20%, transparent), transparent 44%),
+    linear-gradient(120deg, #071725 0%, #020811 46%, #091523 100%);
+}
+
+#talent-radar .talent-radar-slider .china-capital-stage {
+  isolation: isolate;
+  overflow: hidden;
+}
+
+#talent-radar .talent-radar-slider .china-capital-stage::before {
+  content: "";
+  position: absolute;
+  z-index: 2;
+  inset: 0;
+  pointer-events: none;
+  background:
+    linear-gradient(90deg, rgba(2, 8, 17, .95), transparent 18%, transparent 82%, rgba(2, 8, 17, .95)),
+    repeating-linear-gradient(90deg, transparent 0 7.9%, rgba(216, 180, 254, .06) 8% 8.1%, transparent 8.2% 16%);
+}
+
+#talent-radar .talent-radar-slider .china-capital-slide {
+  top: 28px;
+  right: auto;
+  bottom: 28px;
+  left: 50%;
+  z-index: 1;
+  width: min(68%, 1180px);
+  height: auto;
+  margin: 0;
+  overflow: hidden;
+  visibility: visible;
+  border: 1px solid rgba(220, 244, 255, .26);
+  border-radius: 12px;
+  background: #020811;
+  box-shadow: 0 24px 56px rgba(0, 0, 0, .48);
+  clip-path: inset(0 round 12px);
+  opacity: .46;
+  filter: saturate(.7) brightness(.58) contrast(1.06);
+  transform: translate3d(-50%, 0, 0) scale(.8);
+  transition: left .82s cubic-bezier(.2, .78, .18, 1), transform .82s cubic-bezier(.2, .78, .18, 1), opacity .58s ease, filter .58s ease, box-shadow .58s ease;
+  will-change: left, transform, opacity;
+  animation: none !important;
+}
+
+#talent-radar .talent-radar-slider .china-capital-slide img {
+  transform: none !important;
+  object-fit: cover;
+}
+
+#talent-radar .talent-radar-slider .china-capital-slide.active {
+  left: 50%;
+  z-index: 3;
+  opacity: 1;
+  filter: saturate(1.06) brightness(1) contrast(1.04);
+  transform: translate3d(-50%, 0, 0) scale(1);
+  box-shadow: 0 32px 76px rgba(0, 0, 0, .62), 0 0 0 1px rgba(216, 180, 254, .16);
+}
+
+#talent-radar .talent-radar-slider .china-capital-slide.is-previous {
+  left: 4%;
+  z-index: 2;
+  transform: translate3d(-50%, 0, 0) scale(.82);
+}
+
+#talent-radar .talent-radar-slider .china-capital-slide.is-next {
+  left: 96%;
+  z-index: 2;
+  transform: translate3d(-50%, 0, 0) scale(.82);
+}
+
+#talent-radar .talent-radar-slider .china-capital-slide.entering,
+#talent-radar .talent-radar-slider .china-capital-slide.leaving {
+  animation: none !important;
+}
+
+#talent-radar .talent-radar-slider .china-capital-slide.leaving {
+  opacity: .46;
+}
+
+#talent-radar .talent-radar-slider::after {
+  z-index: 4;
+  background:
+    linear-gradient(90deg, rgba(2, 8, 17, .86) 0%, rgba(2, 8, 17, .45) 31%, rgba(2, 8, 17, .04) 68%, rgba(2, 8, 17, .48) 100%),
+    linear-gradient(0deg, rgba(2, 8, 17, .78) 0%, transparent 52%);
+}
+
+#talent-radar .talent-radar-slider .talent-radar-slider-insight {
+  top: 50%;
+  right: auto;
+  bottom: auto;
+  left: calc(16% + 30px);
+  z-index: 5;
+  width: min(37%, 520px);
+  translate: 0 -50%;
+}
+
+#talent-radar .talent-radar-slider .china-capital-slider-controls {
+  right: calc(16% + 20px);
+  bottom: 20px;
+  z-index: 6;
+}
+
+@media (max-width: 760px) {
+  #talent-radar .talent-radar-slider { height: clamp(390px, 115vw, 560px); }
+  #talent-radar .talent-radar-slider .china-capital-slide { width: 84%; }
+  #talent-radar .talent-radar-slider .china-capital-slide.is-previous { left: -19%; }
+  #talent-radar .talent-radar-slider .china-capital-slide.is-next { left: 119%; }
+  #talent-radar .talent-radar-slider .talent-radar-slider-insight { left: 12%; width: min(66%, 390px); }
+  #talent-radar .talent-radar-slider .china-capital-slider-controls { right: 11%; }
+}
+
+@media (max-width: 520px) {
+  #talent-radar .talent-radar-slider { height: 500px; }
+  #talent-radar .talent-radar-slider .china-capital-slide.is-previous,
+  #talent-radar .talent-radar-slider .china-capital-slide.is-next { opacity: .2; }
+  #talent-radar .talent-radar-slider .talent-radar-slider-insight { left: 9%; width: 72%; }
+  #talent-radar .talent-radar-slider .china-capital-slider-controls { right: 8%; transform: scale(.88); transform-origin: right bottom; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  #talent-radar .talent-radar-slider .china-capital-slide { transition: none; }
+}

@@ -54,7 +54,14 @@ assert.match(css, /\.china-nand-focus\[data-nand-focus="policy"\] :is\(\.strateg
 assert.match(app, /<p>\$\{escapeHTML\(line\)\}<\/p>/, "AI matrix summaries should render plain text without isolated term highlighting");
 assert.doesNotMatch(css, /\.ai-summary-line \.strategy-highlight/, "AI matrix summaries should not style individual highlighted terms");
 assert.match(css, /\.ai-summary-line \{[\s\S]*?inset 0 4px 0 var\(--ai-summary-accent\)/, "AI matrix summaries should emphasize the complete card");
-assert.match(html, /styles\.css\?v=matrix-panel-emphasis-20260725-15/, "CSS cache key should include this integrated revision");
-assert.match(html, /app\.js\?v=matrix-panel-emphasis-20260725-15/, "JavaScript cache key should include this integrated revision");
+assert.match(app, /carouselPreview = false/, "image sliders should support optional adjacent-slide previews");
+assert.match(app, /slide\.classList\.toggle\("is-next", carouselPreview && !active && relative === 1\);/, "talent filmstrip should position the next slide at the right edge");
+assert.match(app, /slide\.classList\.toggle\("is-previous", carouselPreview && !active && relative === slides\.length - 1\);/, "talent filmstrip should position the previous slide at the left edge");
+assert.match(app, /autoDelay: 5000,[\s\S]*?carouselPreview: true,[\s\S]*?transitionModes:/, "talent filmstrip should advance through the adjacent previews every five seconds");
+assert.match(css, /#talent-radar \.talent-split \{[\s\S]*?grid-template-columns: minmax\(0, 1fr\);/, "talent filmstrip should use the full board width rather than leave a right-side panel empty");
+assert.match(css, /#talent-radar \.talent-radar-slider \.china-capital-slide\.is-previous/, "talent filmstrip should show a previous-slide preview");
+assert.match(css, /#talent-radar \.talent-radar-slider \.china-capital-slide\.is-next/, "talent filmstrip should show a next-slide preview");
+assert.match(html, /styles\.css\?v=talent-filmstrip-20260725-16/, "CSS cache key should include this integrated revision");
+assert.match(html, /app\.js\?v=talent-filmstrip-20260725-16/, "JavaScript cache key should include this integrated revision");
 
 console.log("KPI typography and hover count-up checks passed.");
