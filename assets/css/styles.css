@@ -20451,7 +20451,14 @@ button.ni-trend-chip:hover { box-shadow: 0 4px 12px color-mix(in srgb, #0891B2 2
   width: 100%;
 }
 
+#talent-radar .talent-radar-slider-slot {
+  display: flex;
+  justify-content: center;
+}
+
 #talent-radar .talent-radar-slider {
+  width: min(100%, 1360px);
+  margin-inline: auto;
   min-height: 0;
   height: clamp(430px, 38vw, 620px);
   aspect-ratio: auto;

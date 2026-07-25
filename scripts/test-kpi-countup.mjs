@@ -83,6 +83,8 @@ assert.doesNotMatch(css, /\.ai-summary-line \{[\s\S]*?inset 0 4px 0 var\(--ai-su
 assert.match(css, /\.arch-track-card \{[\s\S]*?border: 2px solid color-mix\(in srgb, var\(--track-accent\) 50%, var\(--line\)\);/, "architecture tracks should use a full-card accent border");
 assert.match(css, /\.china-deep-video-dock \.talent-strategy-video \{[\s\S]*?height: clamp\(380px, 29vw, 560px\);[\s\S]*?aspect-ratio: auto;/, "the wide China strategy video should have a bounded desktop height");
 assert.match(css, /@media \(max-width: 680px\) \{[\s\S]*?\.china-deep-video-dock \.talent-strategy-video \{[\s\S]*?aspect-ratio: 4 \/ 5;/, "the compact video height should preserve the mobile portrait layout");
-assert.match(html, /styles\.css\?v=china-video-height-20260725-23/, "CSS cache key should include the compact China video treatment");
+assert.match(css, /#talent-radar \.talent-radar-slider-slot \{[\s\S]*?display: flex;[\s\S]*?justify-content: center;/, "the talent radar slot should center its visual stage");
+assert.match(css, /#talent-radar \.talent-radar-slider \{[\s\S]*?width: min\(100%, 1360px\);[\s\S]*?margin-inline: auto;/, "the talent radar visual should use a bounded, centered desktop width");
+assert.match(html, /styles\.css\?v=talent-radar-width-20260725-24/, "CSS cache key should include the centered talent radar treatment");
 
 console.log("KPI typography and hover count-up checks passed.");
