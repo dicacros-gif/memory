@@ -19,6 +19,7 @@ import {
   extractLiveFigures,
   fetchSourceTextWithRetry,
   quantMemoryMomentum,
+  siaMonthlyPdfFallbackUrls,
   sourceHealthId,
   sourceHealthSnapshot,
 } from "./crawl.mjs";
@@ -200,6 +201,37 @@ const siaJsonRecovery = await checkOfficialIndustryProbe({
 assert.equal(siaJsonRecovery.reachable, true, "SIA should recover through its first-party JSON search when the HTML index returns 403");
 assert.equal(siaJsonRecovery.fallbackUsed, true);
 assert.match(siaFallbackCalls.at(-1).headers.Accept, /application\/json/, "the SIA JSON fallback should request JSON explicitly");
+
+const siaPdfUrls = siaMonthlyPdfFallbackUrls(new Date("2026-07-25T00:00:00Z"));
+assert.equal(
+  siaPdfUrls[0],
+  "https://www.semiconductors.org/wp-content/uploads/2026/07/May-2026-GSR-Table-and-Graph.pdf",
+  "the rolling SIA fallback should point at the latest expected monthly table",
+);
+const siaPdfCalls = [];
+const siaPdfRecovery = await checkOfficialIndustryProbe({
+  id: "official-sia-pdf-test",
+  url: "https://www.semiconductors.org/news-events/latest-news/",
+  fallbackUrls: ["https://www.semiconductors.org/feed/"],
+  pdfFallbackUrls: siaPdfUrls,
+  pattern: /Global Semiconductor Sales/i,
+}, {
+  fetchImpl: async (url, init) => {
+    siaPdfCalls.push({ url, headers: init.headers });
+    const isLatestPdf = url === siaPdfUrls[0];
+    return {
+      ok: isLatestPdf,
+      status: isLatestPdf ? 200 : 403,
+      url,
+      text: async () => isLatestPdf ? `%PDF-1.7\n${"0".repeat(800)}` : "temporary access block",
+    };
+  },
+  sleepImpl: async () => {},
+  signalFactory: () => undefined,
+});
+assert.equal(siaPdfRecovery.reachable, true, "SIA should recover through its current first-party monthly PDF when HTML endpoints are blocked");
+assert.equal(siaPdfRecovery.verifiedFormat, "pdf");
+assert.match(siaPdfCalls.at(-1).headers.Accept, /application\/pdf/, "the SIA PDF fallback should request PDF explicitly");
 
 let chinaInfraFetchAttempts = 0;
 const chinaInfraRecovery = await fetchSourceTextWithRetry({

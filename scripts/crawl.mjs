@@ -6176,6 +6176,28 @@ async function fetchTsmcMonthlyRevenue() {
   };
 }
 
+export function siaMonthlyPdfFallbackUrls(now = new Date()) {
+  const reference = Number.isFinite(now?.getTime?.()) ? now : new Date();
+  const currentMonth = new Date(Date.UTC(reference.getUTCFullYear(), reference.getUTCMonth(), 1));
+  const monthNames = [
+    "January", "February", "March", "April", "May", "June",
+    "July", "August", "September", "October", "November", "December",
+  ];
+  const urls = [];
+  // SIA publishes the table/graph roughly two months after the measured month.
+  // Probe the three most recent expected publications so the fallback rolls
+  // forward automatically without treating an old PDF as permanently current.
+  for (let lag = 2; lag <= 4; lag += 1) {
+    const dataMonth = new Date(Date.UTC(currentMonth.getUTCFullYear(), currentMonth.getUTCMonth() - lag, 1));
+    const publicationMonth = new Date(Date.UTC(dataMonth.getUTCFullYear(), dataMonth.getUTCMonth() + 2, 1));
+    if (publicationMonth > currentMonth) continue;
+    urls.push(
+      `https://www.semiconductors.org/wp-content/uploads/${publicationMonth.getUTCFullYear()}/${String(publicationMonth.getUTCMonth() + 1).padStart(2, "0")}/${monthNames[dataMonth.getUTCMonth()]}-${dataMonth.getUTCFullYear()}-GSR-Table-and-Graph.pdf`,
+    );
+  }
+  return urls;
+}
+
 const OFFICIAL_INDUSTRY_PROBES = [
   { id: "wsts", label: "WSTS forecast", url: "https://www.wsts.org/76/Recent-News-Release", pattern: /WSTS|World Semiconductor Trade Statistics/i },
   {
@@ -6191,6 +6213,7 @@ const OFFICIAL_INDUSTRY_PROBES = [
       "https://www.semiconductors.org/policies/tax/market-data/?type=post",
       "https://www.semiconductors.org/policies/market-data/",
     ],
+    pdfFallbackUrls: siaMonthlyPdfFallbackUrls(),
     pattern: /Semiconductor Industry Association|Global Semiconductor Sales|Market Data/i,
   },
   // These direct source checks make the decision-grade market and regulatory
@@ -6213,11 +6236,14 @@ function officialProbeHeaders(url, retry = false) {
   let referer = "";
   try { referer = `${new URL(url).origin}/`; } catch { /* URLs are curated constants */ }
   const acceptsJson = /\/wp-json\//i.test(String(url || ""));
+  const acceptsPdf = /\.pdf(?:$|[?#])/i.test(String(url || ""));
   return {
     "User-Agent": BROWSER_UA,
     Accept: acceptsJson
       ? "application/json,text/plain;q=0.9,*/*;q=0.8"
-      : "text/html,application/xhtml+xml,application/rss+xml,application/xml;q=0.9,*/*;q=0.8",
+      : acceptsPdf
+        ? "application/pdf,*/*;q=0.8"
+        : "text/html,application/xhtml+xml,application/rss+xml,application/xml;q=0.9,*/*;q=0.8",
     "Accept-Language": "en-US,en;q=0.9",
     ...(retry ? {
       "Cache-Control": "no-cache",
@@ -6237,10 +6263,13 @@ export async function checkOfficialIndustryProbe(probe = {}, {
   sleepImpl = sleep,
   signalFactory = (url) => fetchSignal(sourceTimeoutClass(url)),
 } = {}) {
-  const candidates = [...new Set([probe.url, ...(probe.fallbackUrls || [])].filter(Boolean))];
+  const candidates = [
+    ...[probe.url, ...(probe.fallbackUrls || [])].filter(Boolean).map((url) => ({ url, kind: "text" })),
+    ...(probe.pdfFallbackUrls || []).filter(Boolean).map((url) => ({ url, kind: "pdf" })),
+  ].filter((candidate, index, list) => list.findIndex((entry) => entry.url === candidate.url) === index);
   const attempts = [];
   for (let candidateIndex = 0; candidateIndex < candidates.length; candidateIndex += 1) {
-    const url = candidates[candidateIndex];
+    const { url, kind } = candidates[candidateIndex];
     for (let attempt = 0; attempt < 2; attempt += 1) {
       try {
         const response = await fetchImpl(url, {
@@ -6249,14 +6278,18 @@ export async function checkOfficialIndustryProbe(probe = {}, {
           headers: officialProbeHeaders(url, attempt > 0),
         });
         const html = await response.text();
-        const matched = response.ok && officialProbeMatches(probe.pattern, html);
+        const verifiedPdf = kind === "pdf"
+          && /^%PDF-/i.test(String(html || "").slice(0, 12))
+          && String(html || "").length >= 512;
+        const matched = response.ok && (verifiedPdf || officialProbeMatches(probe.pattern, html));
         const status = Number(response.status) || 0;
-        attempts.push({ url, status, matched });
+        attempts.push({ url, status, matched, kind });
         if (matched) {
           return {
             reachable: true,
             httpStatus: status,
             verifiedUrl: response.url || url,
+            verifiedFormat: verifiedPdf ? "pdf" : "text",
             fallbackUsed: candidateIndex > 0,
             attempts,
           };
@@ -7812,7 +7845,11 @@ async function collectQuantMetrics(priceHistory, context = {}) {
   quant.liveFigures = extractLiveFigures(context);
   note("quant:라이브 수치", quant.liveFigures.total > 0, `원문 정량 수치 ${quant.liveFigures.total}건 추출`);
   quant.accountSignals = buildDemandAccountSignals(context, previous.accountSignals);
-  note("derived:account-signals", quant.accountSignals.accountCount === 27, `수요처 27개 전수 · 직접 근거 ${quant.accountSignals.evidencedAccountCount}개`);
+  note(
+    "derived:account-signals",
+    quant.accountSignals.accountCount === 27,
+    `수요처 27개 전수 · 직접 근거 ${quant.accountSignals.evidencedAccountCount > 0 ? `${quant.accountSignals.evidencedAccountCount}개` : "미관측"}`,
+  );
   quant.relationCandidates = buildRelationCandidates(context);
   note("derived:relation-candidates", true, `신규 관계 후보 ${quant.relationCandidates.candidateCount}개 · 승격 검토 ${quant.relationCandidates.promotionReviewCount}개`);
   quant.baselineFreshness = buildBaselineFreshness(context.baseline, context, previous.baselineFreshness);
