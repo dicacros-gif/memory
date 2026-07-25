@@ -340,8 +340,15 @@ const dailyGroundingBlock = appText.slice(
 );
 assert.ok(dailyGroundingBlock, "daily agent evidence mapper must exist");
 assert.doesNotMatch(dailyGroundingBlock, /\.slice\s*\(/, "agent evidence quotes must not be cut to a fixed character count");
-assert.doesNotMatch(dailyGroundingBlock, /agent\.message/, "daily agent turns must replace, not append to, static template bodies");
+assert.match(dailyGroundingBlock, /String\(agent\.message \|\|/, "daily evidence must preserve a role's decision logic when using current or retained evidence");
+assert.match(dailyGroundingBlock, /\*\*근거\(/, "appended evidence must remain visibly dated and labelled");
 assert.ok((appText.match(/withDailyAgentEvidence\(/g) || []).length >= 4, "all three agent-turn render paths must apply daily live evidence");
+assert.match(appText, /function executiveDecisionFrame\(/, "all executive agents must share a diagnosis-to-gate consulting framework");
+assert.match(appText, /function agentDecisionFrameHTML\(/, "the consulting decision frame must render as a dedicated visual component");
+assert.match(appText, /decisionFrame: executiveDecisionFrame\(turn, decisionFrameContext\)/, "each CEO challenge turn must receive the management decision frame");
+assert.match(appText, /question: decisionFrame\.question, decisionFrame/, "each C-level council role must receive a data-bound question and decision frame");
+assert.match(appText, /function executiveDecisionAgentItems[\s\S]*?decisionFrame: executiveDecisionFrame/, "backtest product-council agents must use the same decision frame");
+assert.match(stylesText, /\.agent-decision-frame\s*\{/, "decision frames must use a compact infographic layout");
 
 const manualEdgesBlock = appText.slice(
   appText.indexOf("function memoryMarketEdges()"),

@@ -10958,6 +10958,48 @@ body.sidebar-collapsed .sb-ico {
 
 .agent-answer { padding-top: 2px; }
 
+/* Consulting frame: each agent must expose the decision chain rather than
+   leaving management with a narrative-only answer. */
+.agent-decision-frame {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 5px;
+  margin: 8px 0 4px;
+}
+
+.agent-decision-frame div {
+  min-width: 0;
+  padding: 6px 7px;
+  border: 1px solid color-mix(in srgb, var(--agent-color) 18%, var(--line));
+  border-radius: 7px;
+  background: color-mix(in srgb, var(--agent-color) 5%, var(--panel));
+}
+
+.agent-decision-frame dt {
+  margin: 0 0 3px;
+  color: var(--agent-color);
+  font-size: 8px;
+  font-weight: 950;
+  letter-spacing: .06em;
+}
+
+.agent-decision-frame dd {
+  margin: 0;
+  color: var(--ink-2);
+  font-size: 10px;
+  font-weight: 740;
+  line-height: 1.4;
+  overflow-wrap: anywhere;
+}
+
+.agent-turn:hover .agent-decision-frame div {
+  border-color: rgba(255, 255, 255, .42);
+  background: rgba(255, 255, 255, .12);
+}
+
+.agent-turn:hover .agent-decision-frame dt,
+.agent-turn:hover .agent-decision-frame dd { color: #fff; }
+
 .agent-turn:hover .agent-question {
   background: rgba(255, 255, 255, .13);
   border-color: rgba(255, 255, 255, .85);

@@ -8096,7 +8096,9 @@
       return {
         ...agent,
         dailyGrounded: true,
-        message: `누적 브리핑의 핵심 쟁점을 기준으로 기존 수집 내용과 정량 지표를 연결해 토론을 계속합니다. ${roleLens[roleKey] || roleLens.brief}`,
+        // Do not replace the role's decision logic with a generic fallback.
+        // An empty current run may still have a useful accumulated dataset.
+        message: String(agent.message || `누적 브리핑의 핵심 쟁점을 기준으로 기존 수집 내용과 정량 지표를 연결해 토론을 계속합니다. ${roleLens[roleKey] || roleLens.brief}`).trim(),
       };
     }
     const quote = String(evidence.quote || evidence.title || "").replace(/\s+/g, " ").trim();
@@ -8105,9 +8107,45 @@
     return {
       ...agent,
       dailyGrounded: true,
-      message: `${freshness}(${evidence.date || "날짜 미상"}): “${quote}” — ${evidence.source}.${value} ${roleLens[roleKey] || roleLens.brief}`,
+      message: [
+        String(agent.message || "").trim(),
+        `**근거(${freshness} · ${evidence.date || "날짜 미상"})** “${quote}” — ${evidence.source}.${value} ${roleLens[roleKey] || roleLens.brief}`,
+      ].filter(Boolean).join(" "),
       source: { url: evidence.sourceUrl, title: `${evidence.source} · ${evidence.date || "이전 수집"}` },
     };
+  }
+
+  // Every executive response follows the same consulting sequence.  It shows
+  // the observable diagnosis, management implication, recommendation and
+  // reversal gate without inventing a fact when a source is absent.
+  function executiveDecisionFrame(agent = {}, context = {}) {
+    const role = dailyAgentRoleKey(agent);
+    const evidenceCount = Number(context.evidenceCount || 0);
+    const factCount = Number(context.factCount || 0);
+    const newsCount = Number(context.newsCount || 0);
+    const priceText = String(context.priceText || "직접 가격 신호 없음");
+    const evidenceText = String(context.evidenceText || "연결된 원문과 누적 수집 데이터");
+    const action = String(context.action || "조건 충족 전까지 단계 실행");
+    const gate = String(context.gate || "핵심 판단 변경 KPI");
+    const verdict = String(context.verdict || "Watch");
+    const diagnosis = `${evidenceText} · 공식 팩트 ${fmtNum(factCount)}건 · 기사 ${fmtNum(newsCount)}건 · 연결 근거 ${fmtNum(evidenceCount)}건`;
+    const frames = {
+      brief: ["오늘·이전 수집 데이터 가운데 의사결정에 바로 쓸 관측값과 추가 검증값을 어떻게 구분할 것인가?", "관측값·추정치·가정을 분리해야 토론의 출발점이 흔들리지 않습니다.", "근거가 있는 수치부터 안건별로 연결하고, 누적 데이터는 기준일을 함께 표시합니다."],
+      data: ["선택 기준일 이전의 신호와 이후의 실측을 같은 제품·기간·단위로 비교해도 되는가?", "기준일 이후 정보가 섞이면 백테스트와 현재 판단을 과대평가할 수 있습니다.", "실제 관측 구간과 결측 구간을 분리해, 계산 가능한 시계열만 판단에 사용합니다."],
+      audit: [`이 안건의 근거 ${fmtNum(evidenceCount)}건은 같은 URL·기간·단위를 중복 없이 비교할 수 있는가?`, "검증 수준이 낮은 보도는 방향성 참고이지 확정 사실이 아닙니다.", "공식 팩트와 보도 근거를 분리해 유지하고 결론 등급은 낮은 쪽 근거에 맞춥니다."],
+      market: [`${priceText}가 고객 전환·장기계약·재고 변화와 같은 방향인지 확인한 뒤 배분을 바꿀 수 있는가?`, "가격만의 변동은 물량·마진·고객 락인을 보장하지 않습니다.", "가격·계약·고객 지표가 교차 확인되는 제품군에만 배분 변경을 제안합니다."],
+      cto: ["현재 수요 신호를 물량 약속으로 바꾸기 전에 수율·패키징·고객 인증 중 어느 병목을 해소해야 하는가?", "시장 신호와 기술 준비도는 별도 게이트로 관리해야 CAPEX 과잉을 막을 수 있습니다.", "고객 인증과 수율 확인이 끝난 범위만 단계적으로 램프업합니다."],
+      coo: ["공급 배분·Fab 연속성·인증 일정·재고 회전이 동시에 충족되는 실행 단위는 어디까지인가?", "한 축만 확인된 수요는 전사 CAPEX 결재 근거가 될 수 없습니다.", "고객·제품별 milestone에 맞춰 물량과 설비 투입을 나눕니다."],
+      cfo: [`${priceText}와 현재 근거로 확정 ROI가 아니라 자본배분 우선순위를 어디까지 정할 수 있는가?`, "상대 우선순위 점수는 감사된 현금흐름·IRR·NPV를 대체하지 않습니다.", "고객 물량·단가·CAPEX·회수기간이 확인된 범위만 예산 안건으로 올립니다."],
+      policy: ["운영 유지·기술 업그레이드·캐파 확대 가운데 어떤 항목이 독립적인 규제 및 고객 계약 게이트를 통과했는가?", "중국/정책 리스크를 하나의 결론으로 묶으면 연속 운영과 확장 투자를 혼동합니다.", "규제 원문과 계약 범위를 확인한 항목만 실행 범위에 포함합니다."],
+      china: ["중국 경쟁 신호를 DRAM 가격, NAND/eSSD, 패키징, 장비 내재화로 나눌 때 SK hynix의 방어 우선순위는 무엇인가?", "경쟁사 동향 자체는 가격·고객·기술의 인과관계를 증명하지 않습니다.", "영향이 확인된 제품·고객 조합부터 방어 가격과 믹스를 설계합니다."],
+      risk: [`현재 ${verdict} 판단을 즉시 낮추거나 실행을 멈추게 할 관측 가능한 트리거는 무엇인가?`, "리스크는 일반 경고가 아니라 의사결정을 뒤집는 조합형 조건이어야 합니다.", "제품·고객·정책별 트리거를 주간 검토하고 충족 시 자동 재상정합니다."],
+      devil: ["현재 결론이 12개월 뒤 틀렸다면 가격·고객·정책 중 어떤 반대 증거를 지금 놓치고 있는가?", "긍정 근거만으로는 실행 범위 확대의 하방을 측정할 수 없습니다.", "동일한 기준으로 반대 시나리오를 측정해 결론 신뢰도에서 차감합니다."],
+      strategy: ["즉시 실행·조건부 실사·옵션 유지 중 현재 데이터가 지지하는 선택지는 무엇이며 SK hynix의 승리 조건은 무엇인가?", "근거 강도가 낮은 축까지 일괄 집행하면 옵션가치를 잃습니다.", action],
+      ceo: ["현재 근거로 SK hynix 경영진이 지금 승인할 범위와 다음 회의로 넘길 조건은 무엇인가?", "결론은 하나의 점수가 아니라 고객·기술·정책·재무 게이트의 교집합입니다.", action],
+    };
+    const [question, implication, recommendation] = frames[role] || frames.brief;
+    return { question, diagnosis: role === "market" || role === "cfo" ? `${diagnosis} · 가격: ${priceText}` : diagnosis, implication, recommendation, gate };
   }
 
   // Compose the council's opening data briefing from today's crawl:
@@ -8209,6 +8247,7 @@
         color: "#0891B2",
         stance: "팩트 먼저",
         message: dailyBriefing,
+        dailyGrounded: true,
         speechEn: "Opening with today's crawled figures: memory price momentum, market metrics, and the most relevant verbatim numbers from this morning's sources. All debate positions should reference these numbers.",
       }] : []),
       {
@@ -8334,6 +8373,16 @@
       },
     ];
     const order = ["audit", "market", "cto", "policy", "china", "coo", "cfo", "cso", "risk", "devil", "ceo"];
+    const decisionFrameContext = {
+      evidenceCount: totalEvidence || linkCount,
+      factCount: liveBrief?.factReferences?.length || 0,
+      newsCount: liveBrief?.evidenceCount || 0,
+      priceText: priceEvidence,
+      evidenceText: latestEvidence,
+      action: selected?.action || profile.next,
+      gate: riskGate.rule || `${primaryFlip.label}(${primaryFlip.trigger})`,
+      verdict: scenarioVerdictValue,
+    };
     return agents
       .sort((a, b) => order.indexOf(a.id) - order.indexOf(b.id))
       .map((agent) => {
@@ -8349,6 +8398,10 @@
           wrongRisk: 100 - agentConfidence,
           source: ["audit", "market", "policy", "china", "ceo"].includes(agent.id) ? primarySource : null,
         };
+      })
+      .map((agent) => {
+        const decisionFrame = executiveDecisionFrame(agent, decisionFrameContext);
+        return { ...agent, question: decisionFrame.question, decisionFrame };
       })
       .map((agent) => withDailyAgentEvidence(agent));
   }
@@ -8404,6 +8457,16 @@
     const livePriceText = livePrice
       ? `${livePrice.item} ${livePriceState.status === "review-required" ? "변동률 검증 필요" : Number.isFinite(liveChange) ? `${liveChange >= 0 ? "+" : ""}${fmtNum(liveChange, 2)}%` : livePrice.latestRaw || ""}${livePrice.isProxy ? " proxy" : ""}`
       : "직접 가격 없음";
+    const decisionFrameContext = {
+      evidenceCount: totalEvidence || linkCount,
+      factCount: liveBrief?.factReferences?.length || 0,
+      newsCount: liveBrief?.evidenceCount || 0,
+      priceText: livePriceText,
+      evidenceText: liveEvidenceText,
+      action,
+      gate: `${primaryFlip.label}(${primaryFlip.trigger})`,
+      verdict: scenarioVerdictValue,
+    };
     return [
       {
         id: "ceo",
@@ -8435,7 +8498,10 @@
         stance: "근거 정합성",
         message: `${liveEvidenceText}의 증거 수준은 ${liveBrief?.latest?.evidenceLevel || "Watch"}, 출처 유형은 ${liveBrief?.latest?.sourceType || "분석"}입니다. 대표 관계 ${topRelationText}와 경쟁 관계 ${fmtNum(competitiveRelations.length)}개, 자금·매출 관계 ${fmtNum(moneyRelations.length)}개를 교차 확인했습니다. ==${liveBrief?.reversalKpi || primaryFlip.label}==이 바뀌면 Go를 Watch/Hold로 낮춥니다.`,
       },
-    ];
+    ].map((agent) => {
+      const decisionFrame = executiveDecisionFrame(agent, decisionFrameContext);
+      return { ...agent, question: decisionFrame.question, decisionFrame };
+    });
   }
 
   function renderCLevelCockpit() {
@@ -8534,7 +8600,9 @@
                 <span class="agent-badge-wrap"><span class="agent-badge">${escapeHTML(agent.initials || agent.id.toUpperCase().slice(0, 2))}</span><small class="agent-badge-name">${escapeHTML(agent.name)}</small></span>
                 <div class="speech-bubble">
                    <div class="speech-meta"><strong>${escapeHTML(agent.role)}</strong><span>${escapeHTML(agent.stance || agent.name)}</span></div>
-                   <p data-say-en="${escapeHTML(agent.speechEn || "")}">${renderAgentSpeech(agent.message)}</p>
+                   ${agent.question ? `<div class="agent-question"><span>질문</span><p>${escapeHTML(agent.question)}</p></div>` : ""}
+                   ${agentDecisionFrameHTML(agent.decisionFrame)}
+                   <div class="agent-answer"><span>답변</span><p data-say-en="${escapeHTML(agent.speechEn || "")}">${renderAgentSpeech(agent.message)}</p></div>
                    ${agentEvidenceMetaHTML(agent)}
                  </div>
               </div>
@@ -12946,6 +13014,21 @@
     `;
   }
 
+  function agentDecisionFrameHTML(frame = {}) {
+    if (!frame || !frame.diagnosis) return "";
+    const items = [
+      ["진단", frame.diagnosis],
+      ["경영 함의", frame.implication],
+      ["권고", frame.recommendation],
+      ["실행 게이트", frame.gate],
+    ].filter(([, value]) => String(value || "").trim());
+    return `
+      <dl class="agent-decision-frame" aria-label="경영진 의사결정 프레임">
+        ${items.map(([label, value]) => `<div><dt>${escapeHTML(label)}</dt><dd>${escapeHTML(value)}</dd></div>`).join("")}
+      </dl>
+    `;
+  }
+
   function agentDebateHTML({ mode = "default", title = "Expert debate", subtitle = "", metrics = [], turns = [], kpis = [], accent = "", conclusion = null, ttsLanguage = "", defaultConfidence = null, defaultSource = null } = {}) {
     const colors = ["#06B6D4", "#8B5CF6", "#22C55E", "#F59E0B", "#EF4444", "#0EA5E9"];
     const forcedTtsLanguage = /^(?:ko|en)$/.test(ttsLanguage) ? ttsLanguage : "";
@@ -13022,6 +13105,7 @@
                   <span>${escapeHTML(turn.stance || turn.name)}</span>
                  </div>
                  ${turn.question ? `<div class="agent-question"><span>질문</span><p>${escapeHTML(turn.question)}</p></div>` : ""}
+                 ${agentDecisionFrameHTML(turn.decisionFrame)}
                  <div class="agent-answer"><span>답변</span><p data-say-en="${escapeHTML(turn.speechEn || "")}">${renderAgentSpeech(turn.message)}</p></div>
                  ${agentEvidenceMetaHTML(turn)}
                </div>
@@ -13407,6 +13491,7 @@
         color: "#0891B2",
         stance: "과거 점수와 분리",
         message: `아래 내용은 현재 크롤링 overlay이며 과거 백테스트 점수에는 넣지 않습니다. ${backtestBriefing}`,
+        dailyGrounded: true,
         speechEn: "Today's crawled figures are shown as a separate live overlay and are not included in the historical backtest score.",
       }] : []),
       {
@@ -13532,6 +13617,20 @@
       },
     ].filter((agent) => agent.message);
     const order = ["audit", "data", "market", "cto", "china", "coo", "cfo", "risk", "devil", "strategy", "ceo"];
+    const decisionFrameContext = {
+      evidenceCount: Number(active.directMetrics?.evidenceCount || active.observations?.length || 0),
+      factCount: Number(active.directMetrics?.evidenceCount || 0),
+      newsCount: Number(active.directMetrics?.demand || 0),
+      priceText: active.directSignalModel === "hbm"
+        ? `HBM 직접 근거 ${fmtNum(active.directMetrics?.evidenceCount || 0)}건 · 범용 가격 proxy와 분리`
+        : `사전 모멘텀 ${prior} · ${horizon.label} 고정 실측 ${actual}`,
+      evidenceText: active.directSignalModel === "hbm"
+        ? "고객·양산·수요·패키징 직접 근거"
+        : `${point} 기준 고정 기간 백테스트 관측`,
+      action: active.decision?.action || profile.strategy,
+      gate: riskGate.rule || `${primaryFlip.label}(${primaryFlip.trigger})`,
+      verdict: active.decision?.label || "Watch",
+    };
     return agents
       .sort((a, b) => order.indexOf(a.id) - order.indexOf(b.id))
       .map((agent) => {
@@ -13545,6 +13644,10 @@
           wrongRisk: 100 - agentConfidence,
           source: ["audit", "data", "market", "ceo"].includes(agent.id) ? source : null,
         };
+      })
+      .map((agent) => {
+        const decisionFrame = executiveDecisionFrame(agent, decisionFrameContext);
+        return { ...agent, question: decisionFrame.question, decisionFrame };
       });
   }
 
@@ -13732,11 +13835,13 @@
               <article class="agent-turn pending${index % 2 ? " right" : ""}" data-tts-language="${agentUsesKoreanTts(agent.name, agent.role) ? "ko" : "en"}" style="--agent-color:${escapeHTML(agent.color)}; --delay:${chatStartDelay + index * councilStepDelay}ms">
                 <div class="agent-badge-wrap"><div class="agent-badge">${escapeHTML(agent.initials)}</div><small class="agent-badge-name">${escapeHTML(agent.name)}</small></div>
                 <div class="speech-bubble">
-                  <div class="speech-meta">
+                   <div class="speech-meta">
                     <strong>${escapeHTML(agent.role)}</strong>
                     <span>${escapeHTML(agent.stance || agent.name)}</span>
                    </div>
-                   <p data-say-en="${escapeHTML(agent.speechEn || "")}">${renderAgentSpeech(agent.message)}</p>
+                   ${agent.question ? `<div class="agent-question"><span>질문</span><p>${escapeHTML(agent.question)}</p></div>` : ""}
+                   ${agentDecisionFrameHTML(agent.decisionFrame)}
+                   <div class="agent-answer"><span>답변</span><p data-say-en="${escapeHTML(agent.speechEn || "")}">${renderAgentSpeech(agent.message)}</p></div>
                    ${agentEvidenceMetaHTML(agent)}
                  </div>
               </article>
@@ -15823,6 +15928,18 @@
     });
     const verdictTitle = String(response.verdict || "조건부 판단").replace(/[·.。!\s]+$/, "");
     const actionSummary = String(response.action || "실행 조건을 재검토합니다").replace(/[.。\s]+$/, "");
+    const decisionFrameContext = {
+      evidenceCount: Number(liveContext.facts?.length || 0) + Number(liveContext.news?.length || 0),
+      factCount: Number(liveContext.facts?.length || 0),
+      newsCount: Number(liveContext.news?.length || 0),
+      priceText: liveContext.priceNarrative || priceMetric || "직접 가격 신호 없음",
+      evidenceText: response.evidence?.title
+        ? `${response.evidence.source || "원문"} · ${response.evidence.title}`
+        : "현재 안건에 연결된 누적 수집 근거",
+      action: response.action || "조건 충족 전까지 단계 실행",
+      gate: riskGate.rule || response.evidence?.reversalKpi || "핵심 판단 변경 KPI",
+      verdict: response.verdict || "Watch",
+    };
     return agentDebateHTML({
       mode: "ceo-challenge",
       title: `${challenge.angle} 챌린지 토론`,
@@ -15924,6 +16041,7 @@
       ].map((turn) => ({
         ...turn,
         question: ceoChallengeQuestionFor(turn.name, scenario, target, challenge, response, riskGate),
+        decisionFrame: executiveDecisionFrame(turn, decisionFrameContext),
       })),
       kpis: [],
       conclusion: {
