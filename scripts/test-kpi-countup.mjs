@@ -18,10 +18,15 @@ assert.match(app, /previous instanceof Node && scope\.contains\(previous\)/, "mo
 assert.match(app, /setCountValue\(node, origin\);\s*const start = performance\.now\(\);/s, "the counter should visibly reset to zero before the first frame");
 assert.match(app, /if \(reducedMotion\) \{\s*node\.classList\.remove\("is-counting"\);\s*setCountValue\(node, target\);/s, "reduced motion should show the target immediately");
 
-assert.match(css, /\.kpi-value-card > strong \{[\s\S]*?font-family: "Space Grotesk", var\(--display\);[\s\S]*?font-size: clamp\(54px, 4\.5vw, 72px\);[\s\S]*?font-weight: 700;/, "KPI values should use one professional display treatment");
+assert.match(css, /\.kpi-value-card > strong \{[\s\S]*?font-family: "Space Grotesk", "Noto Sans KR", var\(--display\);[\s\S]*?font-size: clamp\(42px, 3\.5vw, 56px\);[\s\S]*?font-weight: 650;/, "KPI values should use one restrained professional display treatment");
 assert.match(css, /font-variant-numeric: lining-nums tabular-nums;/, "KPI figures should use aligned professional numerals");
 assert.match(css, /\.kpi-value-card > strong > \.count \{[\s\S]*?font: inherit;/, "the inner counter must inherit the large value size");
 assert.match(css, /@media \(prefers-reduced-motion: reduce\) \{\s*\.kpi-value-card > strong > \.count\.is-counting/s, "count-up motion should respect reduced-motion settings");
+assert.doesNotMatch(app, /class="ni-research-metrics"/, "the redundant research metric strip should not be rendered");
+assert.doesNotMatch(app, /검증 가능한 최신 공개 채용 신호가 없습니다/, "zero-result talent placeholder copy should stay hidden");
+assert.doesNotMatch(app, /class="community-brief-decision"/, "duplicated community management judgement should not be rendered");
+assert.doesNotMatch(app, /\$\{decisionFlipKpiHTML\(/, "decision KPI helper should not render the deleted panels");
+assert.match(app, /function decisionStateLabel[\s\S]*?"Go"[\s\S]*?"No-Go"/, "policy decisions should be presented as Go or No-Go");
 
 assert.match(app, /let memoryMarketModeTimer = 0;/, "market-map carousel must retain one rotation timer");
 assert.match(app, /window\.setInterval\(\(\) => \{[\s\S]*?\}, 5000\);/, "market-map views should rotate on a five-second cadence");
@@ -43,8 +48,8 @@ assert.doesNotMatch(app, /전략 참고용으로 전체 내용을 제공하며 �
 assert.doesNotMatch(app, /SKHY 판단/, "SKHY labels should use the neutral Insight label");
 assert.match(app, /bodyLead: "Insight"/, "executive insight cards should use the Insight label");
 assert.match(app, /function briefingBulletLines\(value = ""\)/, "broker summaries should be split into bullet-safe lines");
-assert.match(app, /briefingBulletListHTML\(item\.body\)/, "broker article bodies should render as bullet lists");
-assert.match(app, /class="exec-report-decision-list"/, "broker insights and reversal conditions should render as bullet lists");
+assert.match(app, /briefingBulletListHTML\(brokerArticleSummary\(item\)\)/, "broker article summaries should render as bullet lists");
+assert.doesNotMatch(app, /class="exec-report-decision-list"/, "broker cards should show the crawled source summary without separate insight or reversal-condition blocks");
 assert.match(app, /class="exec-flow-node reveal/, "executive summary should render as a compact signal-to-decision flow");
 assert.match(app, /class="exec-flow-signal"/, "executive flow nodes should retain the core evidence text");
 assert.match(css, /\.exec-report-bullet-list > li::before/, "broker bullet lists should have a visual bullet marker");
@@ -61,7 +66,7 @@ assert.match(app, /carouselPreview = false/, "image sliders should support optio
 assert.match(app, /slide\.classList\.toggle\("is-next", carouselPreview && !active && relative === 1\);/, "talent filmstrip should position the next slide at the right edge");
 assert.match(app, /slide\.classList\.toggle\("is-previous", carouselPreview && !active && relative === slides\.length - 1\);/, "talent filmstrip should position the previous slide at the left edge");
 assert.match(app, /autoDelay: 5000,[\s\S]*?carouselPreview: true,[\s\S]*?transitionModes:/, "talent filmstrip should advance through the adjacent previews every five seconds");
-assert.match(css, /#talent-radar \.talent-split \{[\s\S]*?grid-template-columns: minmax\(0, 1fr\);/, "talent filmstrip should use the full board width rather than leave a right-side panel empty");
+assert.match(css, /#talent-radar \.talent-split \{[\s\S]*?grid-template-columns: minmax\(0, 1\.35fr\) minmax\(320px, \.65fr\);/, "talent visual should occupy the compact right-side panel");
 assert.match(css, /#talent-radar \.talent-radar-slider \.china-capital-slide\.is-previous/, "talent filmstrip should show a previous-slide preview");
 assert.match(css, /#talent-radar \.talent-radar-slider \.china-capital-slide\.is-next/, "talent filmstrip should show a next-slide preview");
 assert.match(css, /#china-talent-strategy \.policy-focus \{[\s\S]*?position: sticky;/, "operational workforce plan should remain visible while the image carousel moves");
@@ -76,12 +81,12 @@ assert.match(app, /function agentEnglishSpeechSource\(turn, index = 0\) \{[\s\S]
 assert.match(app, /Math\.min\(180000, text\.length \* \(220 \/ utterance\.rate\) \+ 6000\)/, "the speech watchdog should allow complete English pronunciation");
 assert.match(app, /Do not pre-reveal queued agents[\s\S]*?schedule\(\(\) => speak\(0\), AGENT_DEBATE_TIMING\.rosterSettleMs\);/s, "queued agents should not appear before the prior English voice has ended");
 assert.match(app, /function prewarmPriceBoardData\(\)[\s\S]*?loadSecondaryData\(\["priceHistory", "marketHistory"\]\)/, "price history should start loading before the board enters the viewport");
-assert.match(app, /rootMargin: "2200px 0px"/, "price data should prefetch well ahead of a scrolling user");
-assert.match(app, /const priceRenderObserver = new IntersectionObserver[\s\S]*?rootMargin: "1100px 0px"/, "price board rendering should complete before the board reaches the viewport");
+assert.match(app, /rootMargin: "6000px 0px"/, "price data should prefetch well ahead of a scrolling user");
+assert.match(app, /const priceRenderObserver = new IntersectionObserver[\s\S]*?rootMargin: "3600px 0px"/, "price board rendering should complete before the board reaches the viewport");
 assert.match(app, /section\.id === "prices" \? priceRenderObserver : observer/, "only the price board should receive the early render window");
 assert.match(css, /\.agent-debate-title \.agent-tts-toggle \{[\s\S]*?min-width: 190px;[\s\S]*?min-height: 44px;/, "the English TTS control should be large and readable");
 assert.match(css, /\.agent-tts-state \{[\s\S]*?min-width: 31px;/, "the TTS control should expose a dedicated on-or-off state badge");
-assert.match(html, /app\.js\?v=live-source-integrity-20260725-28/, "JavaScript cache key should include the live-source-integrity revision");
+assert.match(html, /app\.js\?v=decision-ui-cleanup-20260725-32/, "JavaScript cache key should include the decision UI cleanup revision");
 assert.match(css, /\.market-peer-card \{[\s\S]*?border: 2px solid color-mix\(in srgb, var\(--peer-brand\) 48%, var\(--line\)\);[\s\S]*?linear-gradient\(135deg,[\s\S]*?var\(--peer-brand\) 15%/, "peer cards should use full-card brand treatment rather than a top-only rule");
 assert.doesNotMatch(css, /\.market-peer-card \{[\s\S]*?box-shadow: inset 0 3px 0 var\(--peer-brand\);/, "peer cards should not use an isolated top-edge highlight");
 assert.doesNotMatch(css, /\.arch-track-card \{[\s\S]*?border-top: 4px solid var\(--track-accent\);/, "architecture tracks should not use a top-only color rule");
@@ -91,6 +96,6 @@ assert.match(css, /\.china-deep-video-dock \.talent-strategy-video \{[\s\S]*?hei
 assert.match(css, /@media \(max-width: 680px\) \{[\s\S]*?\.china-deep-video-dock \.talent-strategy-video \{[\s\S]*?aspect-ratio: 4 \/ 5;/, "the compact video height should preserve the mobile portrait layout");
 assert.match(css, /#talent-radar \.talent-radar-slider-slot \{[\s\S]*?display: flex;[\s\S]*?justify-content: center;/, "the talent radar slot should center its visual stage");
 assert.match(css, /#talent-radar \.talent-radar-slider \{[\s\S]*?width: min\(100%, 1360px\);[\s\S]*?margin-inline: auto;/, "the talent radar visual should use a bounded, centered desktop width");
-assert.match(html, /styles\.css\?v=talent-radar-width-20260725-24/, "CSS cache key should include the centered talent radar treatment");
+assert.match(html, /styles\.css\?v=decision-ui-cleanup-20260725-28/, "CSS cache key should include the decision UI cleanup treatment");
 
 console.log("KPI typography and hover count-up checks passed.");

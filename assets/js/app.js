@@ -2936,17 +2936,17 @@
   // and 4 standards-war fronts. Always renders (editorial analysis of a real,
   // citable event), clearly labeled as a framework rather than a live-crawl fact.
   const MEMORY_BYPASS_ROUTES = [
-    { band: 1, bandLabel: "밴드 1 — 물리적 근접 (Bring Memory Closer)", accent: "#2D6BFF",
+    { band: 1, bandLabel: "물리적 근접", axis: "Bring Memory Closer", summary: "패키지 안에서 메모리 거리와 용량을 다시 배치", accent: "#2D6BFF",
       routes: [
         { n: 1, name: "HBF (HBM 옆 플래시)", effect: "HBM 옆에 플래시를 둠", when: "2027~2028", who: "NAND · 패키징" },
         { n: 2, name: "3D 적층", effect: "차세대 대역폭", when: "2028~2030", who: "메모리 · 파운드리 · 패키징" },
       ] },
-    { band: 2, bandLabel: "밴드 2 — 데이터 이동 절감 (Reduce Data Movement)", accent: "#8B5CF6",
+    { band: 2, bandLabel: "데이터 이동 절감", axis: "Reduce Data Movement", summary: "연산 위치를 메모리 가까이 옮겨 이동량을 축소", accent: "#8B5CF6",
       routes: [
         { n: 3, name: "PIM / PNM", effect: "데이터 이동 제거", when: "2028~2030", who: "메모리 · JEDEC 표준" },
         { n: 4, name: "광 메모리 인터커넥트", effect: "거리 한계 해소", when: "2028~2030", who: "실리콘 포토닉스 · 광 HBM" },
       ] },
-    { band: 3, bandLabel: "밴드 3 — 시스템·소프트웨어로 해결 (System / Software)", accent: "#0EA5E9",
+    { band: 3, bandLabel: "시스템·소프트웨어", axis: "System / Software", summary: "계층 제어와 워크로드 최적화로 수요를 조정", accent: "#0EA5E9",
       routes: [
         { n: 5, name: "CXL", effect: "KV캐시 오프로드 · 풀링", when: "2026~2027", who: "컨트롤러 · 스위치 · 모듈" },
         { n: 6, name: "예측형 티어링 (MEXT)", effect: "DRAM 수요 감축", when: "2026", who: "티어링 SW · 엔터프라이즈 SSD" },
@@ -2954,7 +2954,7 @@
         { n: 8, name: "온디바이스 sparse", effect: "기기 DRAM 회피", when: "2026~2027", who: "고용량 모바일 NAND" },
         { n: 9, name: "모듈 혁신", effect: "HBM 너머 메모리 확장", when: "2026~2027", who: "모듈 인터페이스 · LPDDR/MRDIMM" },
       ] },
-    { band: 4, bandLabel: "밴드 4 — 경로 밖 (Beyond the Routes)", accent: "#EF4444",
+    { band: 4, bandLabel: "대체 경로", axis: "Beyond the Routes", summary: "기존 HBM·DRAM 경로 밖의 새로운 선택지를 검증", accent: "#EF4444",
       routes: [
         { n: 10, name: "SRAM 추론 칩", effect: "HBM 자체를 건너뜀", when: "2026 (지금·자본 유입)", who: "SRAM 추론 ASIC (Groq · Cerebras)" },
         { n: 11, name: "신소재 메모리", effect: "새 소재로 재설계", when: "2030+ (R&D)", who: "FeRAM / MRAM" },
@@ -3010,20 +3010,46 @@
         </div>
         <span class="mbp-tag">전략 프레임워크</span>
       </div>
-      <div class="mbp-thesis">
-        <ul class="mbp-thesis-list">
-          <li><b>MEXT</b> · 플래시를 DRAM처럼 활용하는 예측형 계층 소프트웨어</li>
-          <li><b>인수 논리</b> · <mark>DRAM 증설보다 DRAM 요구량을 줄이는 시스템 설계</mark></li>
-          <li><b>전략 신호</b> · DRAM 의존 축소 · 시스템 비용 절감 · 새 메모리 계층 제어권 확보</li>
-        </ul>
+      <div class="mbp-thesis" aria-label="MEXT 전략 해석 흐름">
+        <div class="mbp-thesis-node">
+          <span>01 · INPUT</span>
+          <strong>MEXT</strong>
+          <p>플래시를 DRAM처럼 활용하는 예측형 계층 소프트웨어</p>
+        </div>
+        <span class="mbp-thesis-arrow" aria-hidden="true">→</span>
+        <div class="mbp-thesis-node">
+          <span>02 · MECHANISM</span>
+          <strong>시스템 설계</strong>
+          <p>DRAM 증설보다 DRAM 요구량을 줄이는 접근</p>
+        </div>
+        <span class="mbp-thesis-arrow" aria-hidden="true">→</span>
+        <div class="mbp-thesis-node">
+          <span>03 · STRATEGIC SIGNAL</span>
+          <strong>메모리 계층 제어</strong>
+          <p>의존도와 시스템 비용을 함께 조정할 여지</p>
+        </div>
+      </div>
+      <div class="mbp-map-head">
+        <div>
+          <span>STRATEGY MAP</span>
+          <h4>메모리 병목을 푸는 4개 실행 레이어</h4>
+        </div>
+        <p>왼쪽에서 오른쪽으로 갈수록 물리적 해법에서 시스템 제어와 대체 옵션으로 확장</p>
       </div>
       <div class="mbp-bands">
         ${MEMORY_BYPASS_ROUTES.map((band) => `
-          <section class="mbp-band" style="--mbp-accent:${band.accent}">
-            <h4>${escapeHTML(band.bandLabel)}</h4>
+          <section class="mbp-band" tabindex="0" style="--mbp-accent:${band.accent}">
+            <header class="mbp-band-head">
+              <span class="mbp-band-n">${String(band.band).padStart(2, "0")}</span>
+              <div>
+                <span>${escapeHTML(band.axis)}</span>
+                <h4>${escapeHTML(band.bandLabel)}</h4>
+              </div>
+            </header>
+            <p class="mbp-band-summary">${escapeHTML(band.summary)}</p>
             <div class="mbp-routes">
-              ${band.routes.map((r) => `
-                <article class="mbp-route">
+              ${band.routes.map((r, index) => `
+                <article class="mbp-route" tabindex="0" style="--mbp-route-order:${index}">
                   <span class="mbp-route-n">${r.n}</span>
                   <div class="mbp-route-copy">
                     <strong>${escapeHTML(r.name)}</strong>
@@ -3033,6 +3059,10 @@
                 </article>
               `).join("")}
             </div>
+            <footer class="mbp-band-foot">
+              <span>${band.routes.length}개 기술 경로</span>
+              <span>Hover to trace</span>
+            </footer>
           </section>
         `).join("")}
       </div>
@@ -3206,12 +3236,6 @@
           </div>
           <span>최근 ${fmtNum(citations.length)}건 · 누적 ${fmtNum(archiveTotal)}건</span>
         </header>
-        <div class="ni-research-metrics" aria-label="원문 근거 요약">
-          <div><strong>${fmtNum(citations.length)}</strong><span>공개 원문</span></div>
-          <div><strong>${fmtNum(map.sources.length)}</strong><span>출처</span></div>
-          <div><strong>${fmtNum(map.themes.length)}</strong><span>주제</span></div>
-          <div><strong>${escapeHTML(map.newest || "날짜 미상")}</strong><span>${escapeHTML(map.oldest && map.oldest !== map.newest ? `${map.oldest} 이후` : "최신 관측")}</span></div>
-        </div>
         <div class="ni-research-map" aria-label="출처에서 주제로 이어지는 원문 근거 지도">
           <section class="ni-research-lane ni-research-sources">
             <span class="ni-research-lane-label">01 · 출처</span>
@@ -8893,7 +8917,6 @@
           </label>
           <button type="button" id="cLevelRunCouncil">${cLevelCouncilRan ? "토론 다시 실행" : "토론 실행"}</button>
         </div>
-        ${decisionFlipKpiHTML(selectedDecision)}
         ${scenarioBriefHTML(councilScenario)}
         <div class="agent-selected-brief">
           <span>요약</span>
@@ -12322,11 +12345,11 @@
     const okCount = rows.filter((row) => row.verdict === "O").length;
     const xCount = rows.length - okCount;
     if (meta) {
-      meta.textContent = `O ${fmtNum(okCount)}개 · X ${fmtNum(xCount)}개 · 기준: 원문 링크 + 가격/proxy + 연결 안건`;
+      meta.textContent = `Go ${fmtNum(okCount)}개 · No-Go ${fmtNum(xCount)}개 · 기준: 원문 링크 + 가격/proxy + 연결 안건`;
     }
     target.innerHTML = rows.map((row, index) => `
       <button class="category-ox-card reveal ${row.verdict === "O" ? "go" : "stop"}${row.id === activeCategory ? " active" : ""}" type="button" data-category-ox="${escapeHTML(row.id)}" style="--local-accent:${categoryAccent(row.id)}; animation-delay:${index * 22}ms">
-        <span class="ox-mark ${row.verdict === "O" ? "o" : "x"}">${escapeHTML(row.verdict)}</span>
+        <span class="ox-mark ${row.verdict === "O" ? "o" : "x"}">${escapeHTML(row.verdict === "O" ? "Go" : "No-Go")}</span>
         <div class="category-ox-body">
           <small>${escapeHTML(row.label)}</small>
           <strong>${escapeHTML(row.point)}</strong>
@@ -13566,52 +13589,15 @@
 
   function renderBacktestPeriodSummary(summary) {
     if (!summary) return;
-    const generatedAt = QUANT_BACKTEST?.generatedAt || QUANT_BACKTEST?.updatedAt || "";
-    summary.hidden = false;
-    summary.classList.add("backtest-period-summary");
-    summary.innerHTML = BACKTEST_HORIZONS.map((horizon) => {
-      const stats = backtestHorizonCoverage(horizon);
-      if (!stats.available) {
-        return `
-          <article class="decision-stat backtest-period-stat insufficient${horizon.id === selectedBacktestHorizon ? " active" : ""}">
-            <span>${escapeHTML(horizon.label)} 누적 검증</span>
-            <strong>검증 불가</strong>
-            <small>동일 실행 ID의 정량 계약 없음 · 브라우저 추정 미사용</small>
-          </article>
-        `;
-      }
-      const complete = stats.total > 0 && stats.eligible === stats.total;
-      const tone = !stats.eligible ? "insufficient" : complete ? "complete" : "partial";
-      return `
-        <article class="decision-stat backtest-period-stat ${escapeHTML(tone)}${horizon.id === selectedBacktestHorizon ? " active" : ""}">
-          <span>${escapeHTML(horizon.label)} 누적 검증</span>
-          <strong>${escapeHTML(`${fmtNum(stats.eligible)}/${fmtNum(stats.total)}`)}</strong>
-          <small>가격 ${escapeHTML(`${fmtNum(stats.priceEligible)}/${fmtNum(stats.priceTotal)}`)} · 시장 ${escapeHTML(`${fmtNum(stats.marketEligible)}/${fmtNum(stats.marketTotal)}`)} · 지표 ${escapeHTML(`${fmtNum(stats.metricEligible)}/${fmtNum(stats.metricTotal)}`)} · 정량 계약</small>
-        </article>
-      `;
-    }).join("") + (generatedAt ? `<small class="backtest-contract-time">정량 계약 갱신 ${escapeHTML(pointDateLabel(generatedAt))}</small>` : "");
+    summary.hidden = true;
+    summary.innerHTML = "";
   }
 
   function backtestEvidenceHTML(active, selectedTime) {
     const horizon = activeBacktestHorizon();
     const targetTime = backtestTargetTime(selectedTime, horizon);
     if (active?.directSignalModel === "hbm") {
-      const rows = (active.directEvidence || []).slice(0, 12);
-      return `
-        <details class="decision-evidence-disclosure">
-          <summary>
-            <span>직접 근거</span>
-            <strong>HBM 원문 근거 요약</strong>
-            <small>기사 ${fmtNum(rows.length)}건</small>
-            <b aria-hidden="true">열기</b>
-          </summary>
-          ${rows.length ? `<div class="decision-evidence-infographic"><div class="decision-evidence-flow">${rows.map((item, index) => {
-            const url = evidenceItemUrl(item);
-            const title = koreanArticleHeadline(item.titleKo || item.title || "", "HBM 직접 근거", item.summary || "");
-            return `<article><i>${String(index + 1).padStart(2, "0")}</i><div><strong>${escapeHTML(title)}</strong><span>${escapeHTML(pointDateLabel(item.date || item.publishedAt))} · ${escapeHTML(item.source || "원문")}</span></div>${url ? `<a href="${escapeHTML(url)}" target="_blank" rel="noopener">원문 ↗</a>` : ""}</article>`;
-          }).join("")}</div></div>` : `<div class="empty">수집된 HBM 직접 근거가 없습니다</div>`}
-        </details>
-      `;
+      return "";
     }
     const rows = active?.evidenceRows || [];
     return `
@@ -14622,7 +14608,6 @@
           <h3>${escapeHTML(active.label)}</h3>
           <p>${escapeHTML(active.rationale)}</p>
         </div>
-        ${decisionFlipKpiHTML(active, { label: productLabel })}
         <div class="decision-verdict ${escapeHTML(active.decision.cls)}">
           <strong>${escapeHTML(active.decision.label)}</strong>
           <span>${escapeHTML(active.decision.action)}</span>
@@ -15216,10 +15201,22 @@
   function policyStatusClass(status) {
     const text = String(status || "").toLowerCase();
     if (text.includes("확인")) return "check";
-    if (text === "x" || text.includes("fail") || text.includes("금지")) return "fail";
+    if (text === "x" || text.includes("no-go") || text.includes("fail") || text.includes("금지")) return "fail";
     if (text.includes("watch") || text.includes("조건")) return "watch";
-    if (text === "o" || text.includes("ok") || text === "시행중") return "ok";
+    if (text === "o" || text === "go" || text.includes("ok") || text === "시행중") return "ok";
     return "watch";
+  }
+
+  function decisionStateLabel(value = "") {
+    const text = String(value || "").trim();
+    if (text === "O" || text === "OK") return "Go";
+    if (text === "X") return "No-Go";
+    return text
+      .replaceAll("조건부 O", "조건부 Go")
+      .replaceAll("운영 업그레이드 O", "운영 업그레이드 Go")
+      .replaceAll("운영 유지 조건부 O", "운영 유지 조건부 Go")
+      .replaceAll("확대·업그레이드 X", "확대·업그레이드 No-Go")
+      .replaceAll("Fab 확장 X", "Fab 확장 No-Go");
   }
 
   function policyPayload(lens) {
@@ -15232,7 +15229,7 @@
       categories: [lens.accentCategory || "geopolitics"],
       watch: (lens.rules || []).map((rule) => `${rule.axis}: ${rule.title} - ${rule.implication}`).concat(lens.actions || []),
       metrics: [
-        { label: "판단", value: lens.verdict },
+        { label: "판단", value: decisionStateLabel(lens.verdict) },
         { label: "체크포인트", value: fmtNum((lens.rules || []).length) },
         { label: "출처", value: fmtNum((lens.sources || []).length) },
         { label: "SK 거점", value: fmtNum((lens.sites || []).length) },
@@ -15284,7 +15281,7 @@
     ].map((card, index) => `
       <article class="policy-card reveal" style="animation-delay:${index * 25}ms">
         <span>${escapeHTML(card.label)}</span>
-        <strong>${strategicHighlightHTML(card.value)}</strong>
+        <strong>${strategicHighlightHTML(decisionStateLabel(card.value))}</strong>
         <p>${strategicHighlightHTML(card.note)}</p>
       </article>
     `).join("");
@@ -15294,7 +15291,7 @@
       return `
         <article class="policy-rule-card reveal" style="--local-accent:${accent}; animation-delay:${index * 25}ms">
           <div class="policy-rule-top">
-            <span class="policy-status ${cls}">${escapeHTML(rule.status)}</span>
+            <span class="policy-status ${cls}">${escapeHTML(decisionStateLabel(rule.status))}</span>
             <small>${escapeHTML(rule.axis)}</small>
           </div>
           <h3>${strategicHighlightHTML(rule.title)}</h3>
@@ -15348,12 +15345,12 @@
     focus.style.setProperty("--local-accent", accent);
     focus.innerHTML = `
       <div class="policy-focus-head">
-        <span class="chip accent">${escapeHTML(lens.en)} · ${escapeHTML(lens.status)}</span>
+        <span class="chip accent">${escapeHTML(lens.en)} · ${escapeHTML(decisionStateLabel(lens.status))}</span>
         <h3>${strategicHighlightHTML(lens.label)} Policy Maker 방향성</h3>
         <p>${strategicHighlightHTML(lens.direction)}</p>
       </div>
       <div class="policy-verdict ${policyStatusClass(lens.status)}">
-        <strong>${strategicHighlightHTML(lens.verdict)}</strong>
+        <strong>${strategicHighlightHTML(decisionStateLabel(lens.verdict))}</strong>
         <span>${strategicHighlightHTML(lens.skImpact)}</span>
       </div>
       <div class="policy-focus-block">
@@ -15513,7 +15510,7 @@
     ].map((card, index) => `
       <article class="policy-card infra-summary-card infra-tone-${index % 4} reveal" style="animation-delay:${index * 25}ms">
         <span>${escapeHTML(card.label)}</span>
-        <strong>${strategicHighlightHTML(card.value)}</strong>
+        <strong>${strategicHighlightHTML(decisionStateLabel(card.value))}</strong>
         <p>${strategicHighlightHTML(card.note)}</p>
       </article>
     `).join("");
@@ -15523,7 +15520,7 @@
       return `
         <article class="policy-rule-card infra-rule-card ${cls} infra-tone-${index % 6} reveal" style="--local-accent:${accent}; animation-delay:${index * 25}ms">
           <div class="policy-rule-top">
-            <span class="policy-status ${cls}">${escapeHTML(check.status)}</span>
+            <span class="policy-status ${cls}">${escapeHTML(decisionStateLabel(check.status))}</span>
             <small>${escapeHTML(check.axis)}</small>
           </div>
           <h3>${strategicHighlightHTML(check.title)}</h3>
@@ -15537,12 +15534,12 @@
     focus.style.setProperty("--local-accent", accent);
     focus.innerHTML = `
       <div class="policy-focus-head">
-        <span class="chip accent">${escapeHTML(site.en)} · ${escapeHTML(site.status)}</span>
+        <span class="chip accent">${escapeHTML(site.en)} · ${escapeHTML(decisionStateLabel(site.status))}</span>
         <h3>${strategicHighlightHTML(site.label)} 확장성 판단</h3>
         <p>${strategicHighlightHTML(site.direction)}</p>
       </div>
       <div class="policy-verdict ${policyStatusClass(site.status)}">
-        <strong>${strategicHighlightHTML(site.verdict)}</strong>
+        <strong>${strategicHighlightHTML(decisionStateLabel(site.verdict))}</strong>
         <span>${strategicHighlightHTML(site.decision)}</span>
       </div>
       <div class="metric-row">
@@ -15568,7 +15565,7 @@
       <div class="policy-focus-block">
         <strong>주기 점검</strong>
         <ul class="watch-list">
-          <li>공개 인허가·정책·규제 신호는 요약 지표와 O/X 판단 근거로만 반영합니다.</li>
+          <li>공개 인허가·정책·규제 신호는 요약 지표와 Go/No-Go 판단 근거로만 반영합니다.</li>
           <li>Wuxi water/power/land/EIA/BIS 보조 신호를 원문·외신 기준으로 확인합니다.</li>
           <li>전력 quota, 토지사용권, 신규 EIA 숫자가 나오기 전까지 신규 fab 증설은 보수적으로 판단합니다.</li>
         </ul>
@@ -15679,7 +15676,7 @@
         source: "BIS",
       },
       {
-        kicker: `${priorityGate.axis || "EXECUTION GATE"} · O/X`,
+        kicker: `${priorityGate.axis || "EXECUTION GATE"} · Go/No-Go`,
         title: priorityGate.title || "중국 사업은 승인 조건을 먼저 고정",
         body: shorten(`${priorityGate.evidence || "공개 근거를 확인합니다."} ${priorityGate.implication || "근거가 약하면 단계 집행으로 낮춥니다."}`),
         href: priorityGate.sourceUrl || "https://www.bis.gov/",
@@ -16388,7 +16385,7 @@
     const investment = target?.investment;
     const top = chinaTalentScenarioRoi(scenario).top;
     const liveContext = ceoChallengeLiveContext(scenario, target, challenge);
-    const kpis = investment?.kpis || top?.investment?.kpis || ["근거 신호", "O/X 게이트", "우선순위 모델점수"];
+    const kpis = investment?.kpis || top?.investment?.kpis || ["근거 신호", "Go/No-Go 게이트", "우선순위 모델점수"];
     const noGoText = gates.noGo ? `X 게이트 ${fmtNum(gates.noGo)}개가 있어 전면 집행이 아니라 통제 조건부 집행입니다.` : "현재 선택 시나리오에는 즉시 중단형 X 게이트가 낮습니다.";
     const liveNewsEvidence = liveContext.news.map((item) => ({
       ...item,
@@ -16424,7 +16421,7 @@
         { label: "가격", value: liveContext.priceMomentum == null ? "-" : signedPercent(liveContext.priceMomentum) },
         { label: "공식 팩트", value: fmtNum(liveContext.facts.length) },
         { label: "기사", value: fmtNum(liveContext.news.length) },
-        { label: "O/X", value: `${fmtNum(gates.ok)}/${fmtNum(gates.noGo)}` },
+        { label: "Go/No-Go", value: `${fmtNum(gates.ok)}/${fmtNum(gates.noGo)}` },
       ],
       kpis: decisionFlipKpiLabels(flipSubject).slice(0, 3).concat(kpis).slice(0, 5),
       flipSubject,
@@ -16434,7 +16431,7 @@
     const answers = {
       "roi-credibility": {
         verdict: "재무 ROI가 아니라 실사 우선순위 지표로만 사용합니다.",
-        logic: `${model.formula}. 비용 가정 ${fmtNum(model.costAssumptionScore)}, 효익 가정 ${fmtNum(model.benefitAssumptionScore)}, 리스크 ${fmtNum(model.risk)}, O/X ${fmtNum(gates.ok)}/${fmtNum(gates.noGo)}를 0~100으로 표준화했습니다. 재무 ROI·IRR·NPV가 아닙니다.`,
+        logic: `${model.formula}. 비용 가정 ${fmtNum(model.costAssumptionScore)}, 효익 가정 ${fmtNum(model.benefitAssumptionScore)}, 리스크 ${fmtNum(model.risk)}, Go/No-Go ${fmtNum(gates.ok)}/${fmtNum(gates.noGo)}를 0~100으로 표준화했습니다. 재무 ROI·IRR·NPV가 아닙니다.`,
         counter: "CFO 보고용 IRR/NPV는 계약 가격, 물량, 투자비 원문이 붙은 뒤 별도 산출해야 합니다.",
         action: `SKHY 액션: 우선순위 모델점수 ${fmtNum(model.priorityScore)}점은 실사 순서 결정에만 쓰고, ${primaryFlip.label} 기준을 넘으면 재상정합니다.`,
       },
@@ -16482,7 +16479,7 @@
       },
       "china-dram-defense": {
         verdict: "가격 방어는 감산부터가 아니라 고객·믹스·계약 재가격화 순서로 검토합니다.",
-        logic: `중국 신호 ${fmtNum(signals)}건과 O/X ${fmtNum(gates.ok)}/${fmtNum(gates.noGo)}를 기준으로, 범용 DRAM은 HBM·서버 DRAM과 별도 손익 게이트로 봅니다.`,
+        logic: `중국 신호 ${fmtNum(signals)}건과 Go/No-Go ${fmtNum(gates.ok)}/${fmtNum(gates.noGo)}를 기준으로, 범용 DRAM은 HBM·서버 DRAM과 별도 손익 게이트로 봅니다.`,
         counter: "CXMT 압력을 이유로 일괄 감산하면 고객 락인과 서버향 믹스 기회를 동시에 잃을 수 있습니다.",
         action: "SKHY 액션: DDR5/LPDDR spot-contract spread, 중국 고객 계약, 재고 회전율을 동시에 보며 가격 방어·믹스 전환·감산 후보를 분리합니다.",
       },
@@ -16533,10 +16530,8 @@
   }
 
   function ceoChallengeQuestionBriefHTML(scenario, target, challenge, response) {
-    const context = response.liveContext || {};
     const evidence = response.evidence || {};
     const targetLabel = target?.label || scenario.label;
-    const price = context.priceMomentum == null ? "연결 가격 없음" : signedPercent(context.priceMomentum);
     const sourceLine = evidence.url
       ? `<a href="${escapeHTML(evidence.url)}" target="_blank" rel="noopener noreferrer">${escapeHTML(evidence.source || "원문")} · ${escapeHTML(evidence.title || "연결 근거")} ↗</a>`
       : `<span>누적 수집 기사·가격·공식 팩트를 함께 대조</span>`;
@@ -16548,12 +16543,6 @@
         </div>
         <h4>${escapeHTML(challenge.question)}</h4>
         <p>${escapeHTML(targetLabel)} 안건을 가격·수요·기술 병목·중국/정책·실행·재무·리스크 관점에서 차례로 교차 검증합니다.</p>
-        <div class="ceo-challenge-prompt-metrics">
-          <span><b>${fmtNum(context.news?.length || 0)}</b>연결 기사</span>
-          <span><b>${fmtNum(context.facts?.length || 0)}</b>공식 팩트</span>
-          <span><b>${escapeHTML(price)}</b>가격 신호</span>
-          <span><b>${fmtNum(response.kpis?.length || 0)}</b>재검토 KPI</span>
-        </div>
         <div class="ceo-challenge-prompt-source">${sourceLine}</div>
       </section>
     `;
@@ -16568,7 +16557,7 @@
       "Data Auditor": `이 안건의 기사·공식 팩트 ${fmtNum(evidenceCount)}건은 같은 URL을 중복하지 않고, 오늘 또는 누적 수집 근거로 연결되는가?`,
       "Market/Sales": `${price}와 고객 전환·장기계약 신호가 같은 방향인가?`,
       CTO: `${targetLabel}의 수율·패키징·고객 인증 중 지금 실행을 막는 병목은 무엇인가?`,
-      "Policy/China": "중국 운영 연속성, 기술 업그레이드, 캐파 확장을 어떤 별도 O/X 게이트로 나눌 것인가?",
+      "Policy/China": "중국 운영 연속성, 기술 업그레이드, 캐파 확장을 어떤 별도 Go/No-Go 게이트로 나눌 것인가?",
       Operations: "공급 배분·인증 일정·재고 회전·Fab 연속성 중 단계 실행의 선행 조건은 무엇인가?",
       CFO: `우선순위 점수와 ${price}를 자본 배분으로 전환하려면 어떤 비용·고객·하방 조건이 추가로 충족돼야 하는가?`,
       "IP/Risk": `${riskGate.rule || "핵심 리스크 규칙"}을 넘지 않으면서 실행 범위를 어디까지 허용할 것인가?`,
@@ -16588,7 +16577,7 @@
     const priceMetric = metricValue("가격");
     const factMetric = metricValue("공식 팩트");
     const articleMetric = metricValue("기사");
-    const gateMetric = metricValue("O/X");
+    const gateMetric = metricValue("Go/No-Go");
     const topPriceRows = (liveContext.prices || []).slice(0, 2).map((row) => `${row.item} ${signedPercent(row.historyMove)}`).join(" · ");
     const topNews = (liveContext.news || []).slice(0, 2).map((item) => `${item.source || "원문"}: ${newsTitle(item)}`).join(" · ");
     const isRoiChallenge = challenge.id === "roi-credibility";
@@ -16661,7 +16650,7 @@
           role: "규제·중국 노출",
           avatar: "POL",
           color: "#F59E0B",
-          message: `정책 관점에서는 운영 유지, 기술 업그레이드, 캐파 확대를 같은 결론으로 묶지 않습니다. 중국 관련 안건은 BIS·VEU·현지 인허가·고객 계약을 분리해 O/X 게이트로 판단합니다.`,
+          message: `정책 관점에서는 운영 유지, 기술 업그레이드, 캐파 확대를 같은 결론으로 묶지 않습니다. 중국 관련 안건은 BIS·VEU·현지 인허가·고객 계약을 분리해 Go/No-Go 게이트로 판단합니다.`,
           speechEn: `Policy review separates operational continuity, technology upgrades, and capacity expansion. China-related decisions require independent gates for B I S, V E U status, local permits, and customer contracts.`,
         },
         {
@@ -16743,7 +16732,7 @@
       metrics: [
         { label: "판단", value: scenario.verdict },
         { label: "확보 직무", value: fmtNum((scenario.roles || []).length) },
-        { label: "O/X 게이트", value: fmtNum((scenario.gates || []).length) },
+        { label: "Go/No-Go 게이트", value: fmtNum((scenario.gates || []).length) },
         { label: "근거 신호", value: fmtNum(chinaTalentSignalCount(scenario)) },
         { label: "우선순위 모델점수", value: fmtNum(roi.priorityScore) },
         { label: "효익 가정점수", value: fmtNum(roi.benefitAssumptionScore) },
@@ -16826,13 +16815,6 @@
     answerWrap.innerHTML = `
       ${ceoChallengeQuestionBriefHTML(scenario, target, challenge, response)}
       ${ceoChallengeLiveContextHTML(response.liveContext)}
-      ${decisionFlipKpiHTML(response.flipSubject || {
-        id: "talent-ip",
-        label: target.label,
-        category: scenario.accentCategory || "talent",
-        evidenceCount: chinaTalentSignalCount(scenario),
-        chinaSignalCount: chinaTalentSignalCount(scenario),
-      })}
       ${ceoChallengeDebateHTML(scenario, target, challenge, response)}
       <div class="agent-kpi-row">
         <strong>재검토 KPI</strong>
@@ -16898,7 +16880,7 @@
     ].map((card, index) => `
       <article class="policy-card talent-summary-tone-${index % 4} reveal" style="animation-delay:${index * 25}ms">
         <span>${escapeHTML(card.label)}</span>
-        <strong>${strategicHighlightHTML(card.value)}</strong>
+        <strong>${strategicHighlightHTML(decisionStateLabel(card.value))}</strong>
         <p>${strategicHighlightHTML(card.note)}</p>
       </article>
     `).join("");
@@ -16908,7 +16890,7 @@
       return `
         <article class="policy-rule-card talent-gate-${cls} reveal" style="--local-accent:${accent}; animation-delay:${index * 25}ms">
           <div class="policy-rule-top">
-            <span class="policy-status ${cls}">${escapeHTML(gate.status)}</span>
+            <span class="policy-status ${cls}">${escapeHTML(decisionStateLabel(gate.status))}</span>
             <small>${escapeHTML(gate.axis)}</small>
           </div>
           <h3>${strategicHighlightHTML(gate.title)}</h3>
@@ -16922,12 +16904,12 @@
     focus.style.setProperty("--local-accent", accent);
     focus.innerHTML = `
       <div class="policy-focus-head">
-        <span class="chip accent">${escapeHTML(scenario.en)} · ${escapeHTML(scenario.status)}</span>
+        <span class="chip accent">${escapeHTML(scenario.en)} · ${escapeHTML(decisionStateLabel(scenario.status))}</span>
         <h3>${strategicHighlightHTML(scenario.label)} 인력 확보 계획</h3>
         <p>${strategicHighlightHTML(scenario.direction)}</p>
       </div>
       <div class="policy-verdict ${policyStatusClass(scenario.status)}">
-        <strong>${strategicHighlightHTML(scenario.verdict)}</strong>
+        <strong>${strategicHighlightHTML(decisionStateLabel(scenario.verdict))}</strong>
         <span>${strategicHighlightHTML(scenario.decision)}</span>
       </div>
       <div class="metric-row">
@@ -17635,12 +17617,6 @@
           <h3>${escapeHTML(selected.title)}</h3>
           <p>${escapeHTML(selected.thesis)}</p>
         </div>
-        <div class="metric-row">
-          <div class="metric"><strong>${fmtNum(startShare, 1)}%</strong><span>T+${horizon.startMonths}개월 모델</span></div>
-          <div class="metric"><strong>${fmtNum(endShare, 1)}%</strong><span>${horizon.yearCount}년차 모델</span></div>
-          <div class="metric"><strong>${fmtNum(selected.signals)}</strong><span>현재 실행 고유 원문</span></div>
-          <div class="metric"><strong>${fmtNum(selected.priceRows)}</strong><span>가격 관측 행</span></div>
-        </div>
         <div class="projection-focus-block">
           <strong>제품군</strong>
           <div class="tag-row">${(selected.products || []).map((product) => `<span class="tag">${escapeHTML(product)}</span>`).join("")}</div>
@@ -17940,7 +17916,7 @@
       .slice(0, 5);
     const priorityBriefIds = new Set(["yield-talent", "equipment-localization", "product-validation"]);
     const briefItems = (community.briefs || [])
-      .filter((item) => priorityBriefIds.has(item.id))
+      .filter((item) => priorityBriefIds.has(item.id) && Number(item.recent30d || 0) > 0)
       .slice(0, 3);
     const externalCheckKeys = new Set();
     const externalChecks = (LIVE.benchmarkSignals?.stream || [])
@@ -17968,7 +17944,7 @@
         <span>${escapeHTML(fmtDate(updatedAt))}</span>
       </div>
       <p class="talent-latest-note">공개 채용·면접 신호는 조직 수요의 선행지표입니다. 실제 채용 인원·수율·양산 성과는 원문 공시와 외신으로 별도 검증합니다.</p>
-      <div class="talent-live-stats">
+      ${briefItems.length ? `<div class="talent-live-stats">
         ${briefItems.map((item) => `
           <article class="talent-live-stat">
             <span>${escapeHTML(item.title || "채용 신호")}</span>
@@ -17976,8 +17952,8 @@
             <small>최근 30일 · ${fmtNum(item.sourceCount || 0)}개 채널</small>
           </article>
         `).join("")}
-      </div>
-      <div class="talent-feed-head">
+      </div>` : ""}
+      ${latestItems.length ? `<div class="talent-feed-head">
         <strong>최신 공개 신호</strong>
         <span>${fmtNum(latestItems.length)}건 · 날짜순</span>
       </div>
@@ -17996,9 +17972,9 @@
               <a href="${escapeHTML(item.sourceUrl)}" target="_blank" rel="noopener noreferrer">원문</a>
             </div>
           </article>
-        `).join("") || `<div class="empty">검증 가능한 최신 공개 채용 신호가 없습니다.</div>`}
-      </div>
-      <div class="talent-feed-head talent-crosscheck-head">
+        `).join("")}
+      </div>` : ""}
+      ${externalChecks.length ? `<div class="talent-feed-head talent-crosscheck-head">
         <strong>외신 교차검증</strong>
         <span>조직 역량 · Reported</span>
       </div>
@@ -18009,8 +17985,8 @@
             <strong>${escapeHTML(item.titleKo || item.title || "인재 전략 교차검증")}</strong>
             <small>${escapeHTML(item.insight || item.summary || "")}</small>
           </a>
-        `).join("") || `<div class="empty">외신 교차검증 신호를 수집 중입니다.</div>`}
-      </div>
+        `).join("")}
+      </div>` : ""}
     `;
   }
 
@@ -21379,8 +21355,6 @@
           <span>${fmtNum(brief.count || 0)}건 · ${fmtNum(brief.sourceCount || 0)}개 채널</span>
         </div>
         <p>${strategicHighlightHTML(brief.signal || "")}</p>
-        <div class="community-brief-decision"><strong>경영 판단</strong><span>${strategicHighlightHTML(brief.implication || "")}</span></div>
-        <small>확인 KPI · ${strategicHighlightHTML(brief.validation || "")}</small>
       </article>
     `).join("");
     const verificationItems = communityPlatform === "all" && communityType === "all" ? communityVerificationItems() : [];
