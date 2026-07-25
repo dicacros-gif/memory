@@ -20137,3 +20137,169 @@ button.ni-trend-chip:hover { box-shadow: 0 4px 12px color-mix(in srgb, #0891B2 2
 /* Larger, more editorial overlay type for the now full-width hero. */
 #china-talent-strategy .talent-strategy-gallery-copy strong { font-size: clamp(20px, 2.6vw, 34px); line-height: 1.12; }
 #china-talent-strategy .talent-strategy-gallery-copy p { font-size: clamp(12px, 1.2vw, 15px); }
+
+/* China talent strategy gallery — a full-board filmstrip rather than a left-column
+   background image. The active image is centered while the adjacent sites remain
+   visible at either edge, echoing an editorial portfolio carousel. */
+#china-talent-strategy .policy-layout {
+  grid-template-columns: minmax(0, 1fr);
+  grid-template-areas:
+    "panel"
+    "focus";
+  width: 100%;
+}
+
+#china-talent-strategy .policy-panel {
+  grid-area: panel;
+  width: 100%;
+}
+
+#china-talent-strategy .policy-focus {
+  grid-area: focus;
+  position: static;
+  width: 100%;
+}
+
+#china-talent-strategy .talent-strategy-gallery {
+  width: 100%;
+  border-radius: 14px;
+  background: #020811;
+}
+
+#china-talent-strategy .talent-strategy-gallery-stage {
+  height: clamp(430px, 39vw, 620px);
+  min-height: 0;
+  aspect-ratio: auto;
+  background:
+    radial-gradient(circle at 50% 14%, color-mix(in srgb, var(--talent-gallery-accent) 20%, transparent), transparent 44%),
+    linear-gradient(120deg, #071725 0%, #020811 46%, #091523 100%);
+}
+
+#china-talent-strategy .talent-strategy-gallery-stage::before {
+  content: "";
+  position: absolute;
+  z-index: 0;
+  inset: 0;
+  opacity: .72;
+  pointer-events: none;
+  background:
+    linear-gradient(90deg, rgba(2, 8, 17, .95), transparent 18%, transparent 82%, rgba(2, 8, 17, .95)),
+    repeating-linear-gradient(90deg, transparent 0 7.9%, rgba(129, 229, 255, .06) 8% 8.1%, transparent 8.2% 16%);
+}
+
+#china-talent-strategy .talent-strategy-gallery-image {
+  top: 28px;
+  bottom: 28px;
+  left: 50%;
+  z-index: 1;
+  width: min(68%, 1180px);
+  height: auto;
+  border: 1px solid rgba(220, 244, 255, .26);
+  border-radius: 12px;
+  box-shadow: 0 24px 56px rgba(0, 0, 0, .48);
+  opacity: .46;
+  clip-path: inset(0 round 12px);
+  filter: saturate(.7) brightness(.58) contrast(1.06);
+  transform: translate3d(-50%, 0, 0) scale(.8);
+  transition: left .82s cubic-bezier(.2, .78, .18, 1), transform .82s cubic-bezier(.2, .78, .18, 1), opacity .58s ease, filter .58s ease, box-shadow .58s ease;
+  will-change: left, transform, opacity;
+  animation: none !important;
+}
+
+#china-talent-strategy .talent-strategy-gallery-image.is-active {
+  left: 50%;
+  z-index: 3;
+  opacity: 1;
+  filter: saturate(1.06) brightness(1) contrast(1.04);
+  transform: translate3d(-50%, 0, 0) scale(1);
+  box-shadow: 0 32px 76px rgba(0, 0, 0, .62), 0 0 0 1px rgba(165, 234, 255, .12);
+}
+
+#china-talent-strategy .talent-strategy-gallery-image.is-previous {
+  left: 4%;
+  z-index: 2;
+  transform: translate3d(-50%, 0, 0) scale(.82);
+}
+
+#china-talent-strategy .talent-strategy-gallery-image.is-next {
+  left: 96%;
+  z-index: 2;
+  transform: translate3d(-50%, 0, 0) scale(.82);
+}
+
+#china-talent-strategy .talent-strategy-gallery-shade {
+  z-index: 4;
+  background:
+    linear-gradient(90deg, rgba(2, 8, 17, .9) 0%, rgba(2, 8, 17, .58) 31%, rgba(2, 8, 17, .04) 68%, rgba(2, 8, 17, .5) 100%),
+    linear-gradient(0deg, rgba(2, 8, 17, .78) 0%, transparent 52%);
+  pointer-events: none;
+}
+
+#china-talent-strategy .talent-strategy-gallery-brandbar {
+  z-index: 5;
+  top: 22px;
+  right: calc(16% + 24px);
+  left: calc(16% + 24px);
+}
+
+#china-talent-strategy .talent-strategy-gallery-copy {
+  z-index: 5;
+  left: calc(16% + 30px);
+  width: min(37%, 520px);
+}
+
+#china-talent-strategy .talent-strategy-gallery-controls {
+  z-index: 6;
+  right: calc(16% + 20px);
+  bottom: 20px;
+}
+
+#china-talent-strategy .talent-strategy-gallery-dots button {
+  position: relative;
+  overflow: hidden;
+}
+
+#china-talent-strategy .talent-strategy-gallery-dots button.is-active::after {
+  content: "";
+  position: absolute;
+  inset: 0 auto 0 0;
+  width: 100%;
+  background: rgba(255, 255, 255, .48);
+  transform: scaleX(0);
+  transform-origin: left;
+  animation: talentGalleryCarouselProgress 5s linear both;
+}
+
+#china-talent-strategy .talent-strategy-gallery[data-rotation-running="false"] .talent-strategy-gallery-dots button.is-active::after {
+  animation-play-state: paused;
+}
+
+@keyframes talentGalleryCarouselProgress {
+  from { transform: scaleX(0); }
+  to { transform: scaleX(1); }
+}
+
+@media (max-width: 760px) {
+  #china-talent-strategy .talent-strategy-gallery-stage { height: clamp(390px, 115vw, 560px); }
+  #china-talent-strategy .talent-strategy-gallery-image { width: 84%; }
+  #china-talent-strategy .talent-strategy-gallery-image.is-previous { left: -19%; }
+  #china-talent-strategy .talent-strategy-gallery-image.is-next { left: 119%; }
+  #china-talent-strategy .talent-strategy-gallery-brandbar { right: 11%; left: 11%; }
+  #china-talent-strategy .talent-strategy-gallery-copy { left: 12%; width: min(66%, 390px); }
+  #china-talent-strategy .talent-strategy-gallery-controls { right: 11%; }
+}
+
+@media (max-width: 520px) {
+  #china-talent-strategy .talent-strategy-gallery-stage { height: 500px; }
+  #china-talent-strategy .talent-strategy-gallery-image.is-previous,
+  #china-talent-strategy .talent-strategy-gallery-image.is-next { opacity: .2; }
+  #china-talent-strategy .talent-strategy-gallery-brandbar { right: 8%; left: 8%; }
+  #china-talent-strategy .talent-strategy-gallery-copy { left: 9%; width: 72%; }
+  #china-talent-strategy .talent-strategy-gallery-copy strong { font-size: clamp(22px, 7vw, 30px); }
+  #china-talent-strategy .talent-strategy-gallery-controls { right: 8%; transform: scale(.88); transform-origin: right bottom; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  #china-talent-strategy .talent-strategy-gallery-image,
+  #china-talent-strategy .talent-strategy-gallery-dots button.is-active::after { animation: none !important; transition: none; }
+}

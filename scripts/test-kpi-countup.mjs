@@ -29,7 +29,16 @@ assert.match(app, /board\.addEventListener\("mouseenter", stopMemoryMarketModeRo
 assert.match(app, /data-memory-rotation-toggle/, "market-map carousel should offer a pause and resume control");
 assert.match(css, /\.memory-map-tabs\[data-rotation-running="true"\] \.memory-map-cycle-progress b/, "market-map carousel should show five-second progress");
 assert.match(css, /@media \(prefers-reduced-motion: reduce\) \{[\s\S]*?\.memory-map-cycle-progress b/s, "market-map carousel should respect reduced-motion settings");
-assert.match(html, /styles\.css\?v=market-carousel-20260725-9/, "CSS cache key should include this integrated revision");
-assert.match(html, /app\.js\?v=market-carousel-20260725-9/, "JavaScript cache key should include this integrated revision");
+assert.match(app, /let chinaTalentGalleryInteractionPaused = false;/, "talent gallery should track temporary interaction pauses");
+assert.match(app, /image\.classList\.toggle\("is-next", !active && relative === 1\);/, "talent gallery should position the upcoming slide beside the active slide");
+assert.match(app, /image\.classList\.toggle\("is-previous", !active && relative === total - 1\);/, "talent gallery should position the previous slide beside the active slide");
+assert.match(app, /panel\.addEventListener\("mouseenter", \(\) => \{\s*chinaTalentGalleryInteractionPaused = true;/s, "talent gallery should pause while a user inspects it");
+assert.match(css, /#china-talent-strategy \.policy-layout \{[\s\S]*?grid-template-areas:\s*"panel"\s*"focus";/, "talent gallery should use the full board width before the detail panel");
+assert.match(css, /\.talent-strategy-gallery-image\.is-previous/, "talent gallery should render a previous-slide preview");
+assert.match(css, /\.talent-strategy-gallery-image\.is-next/, "talent gallery should render a next-slide preview");
+assert.match(css, /@keyframes talentGalleryCarouselProgress/, "talent gallery should show the five-second rotation progress");
+assert.match(html, /aria-roledescription="carousel"/, "talent gallery should expose its carousel role to assistive technology");
+assert.match(html, /styles\.css\?v=talent-carousel-20260725-10/, "CSS cache key should include this integrated revision");
+assert.match(html, /app\.js\?v=talent-carousel-20260725-10/, "JavaScript cache key should include this integrated revision");
 
 console.log("KPI typography and hover count-up checks passed.");

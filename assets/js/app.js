@@ -2123,6 +2123,7 @@
   let chinaTalentGalleryTimer = 0;
   let chinaTalentGalleryInView = false;
   let chinaTalentGalleryPaused = false;
+  let chinaTalentGalleryInteractionPaused = false;
   let ceoChallengeId = "roi-credibility";
   let ceoChallengeAgentRan = false;
   let ceoChallengeTargetId = "scenario";
@@ -15525,7 +15526,13 @@
   function scheduleChinaTalentGalleryRotation() {
     if (chinaTalentGalleryTimer) window.clearTimeout(chinaTalentGalleryTimer);
     chinaTalentGalleryTimer = 0;
-    if (!chinaTalentGalleryInView || chinaTalentGalleryPaused || document.hidden) return;
+    const panel = $("#talentStrategyGallery");
+    const shouldRotate = chinaTalentGalleryInView
+      && !chinaTalentGalleryPaused
+      && !chinaTalentGalleryInteractionPaused
+      && !document.hidden;
+    if (panel) panel.dataset.rotationRunning = shouldRotate ? "true" : "false";
+    if (!shouldRotate) return;
     chinaTalentGalleryTimer = window.setTimeout(() => {
       showChinaTalentGallerySlide(chinaTalentGalleryIndex + 1);
     }, 5000);
@@ -15554,7 +15561,10 @@
     panel.dataset.transition = transitions[(normalized + Math.floor(Date.now() / 1000)) % transitions.length];
     images.forEach((image, index) => {
       const active = index === normalized;
+      const relative = (index - normalized + total) % total;
       image.classList.toggle("is-active", active);
+      image.classList.toggle("is-next", !active && relative === 1);
+      image.classList.toggle("is-previous", !active && relative === total - 1);
       image.setAttribute("aria-hidden", active ? "false" : "true");
     });
     dots.forEach((dot, index) => {
@@ -15612,6 +15622,23 @@
         pause.textContent = chinaTalentGalleryPaused ? "▶" : "Ⅱ";
         pause.setAttribute("aria-label", chinaTalentGalleryPaused ? "자동 재생 시작" : "자동 재생 일시정지");
         pause.title = chinaTalentGalleryPaused ? "자동 재생 시작" : "자동 재생 일시정지";
+        scheduleChinaTalentGalleryRotation();
+      });
+      panel.addEventListener("mouseenter", () => {
+        chinaTalentGalleryInteractionPaused = true;
+        scheduleChinaTalentGalleryRotation();
+      });
+      panel.addEventListener("mouseleave", () => {
+        chinaTalentGalleryInteractionPaused = false;
+        scheduleChinaTalentGalleryRotation();
+      });
+      panel.addEventListener("focusin", () => {
+        chinaTalentGalleryInteractionPaused = true;
+        scheduleChinaTalentGalleryRotation();
+      });
+      panel.addEventListener("focusout", (event) => {
+        if (panel.contains(event.relatedTarget)) return;
+        chinaTalentGalleryInteractionPaused = false;
         scheduleChinaTalentGalleryRotation();
       });
       document.addEventListener("visibilitychange", scheduleChinaTalentGalleryRotation);
