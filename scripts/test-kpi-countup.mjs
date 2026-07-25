@@ -51,7 +51,10 @@ assert.match(css, /\.exec-line-bullet-list > li::before/, "executive summary bul
 assert.match(css, /\.china-nand-focus\[data-nand-focus="policy"\] \{[\s\S]*?inset 0 5px 0 var\(--policy-violet\);/, "policy selection should emphasize the complete panel");
 assert.match(css, /\.china-nand-focus\[data-nand-focus="policy"\] \.nand-focus-head h3 \{[\s\S]*?text-decoration: none;/, "policy heading should not use isolated text highlighting");
 assert.match(css, /\.china-nand-focus\[data-nand-focus="policy"\] :is\(\.strategy-highlight, \.answer-term\) \{[\s\S]*?text-decoration: none !important;/, "policy content should not use isolated term highlighting");
-assert.match(html, /styles\.css\?v=policy-panel-emphasis-20260725-14/, "CSS cache key should include this integrated revision");
-assert.match(html, /app\.js\?v=policy-panel-emphasis-20260725-14/, "JavaScript cache key should include this integrated revision");
+assert.match(app, /<p>\$\{escapeHTML\(line\)\}<\/p>/, "AI matrix summaries should render plain text without isolated term highlighting");
+assert.doesNotMatch(css, /\.ai-summary-line \.strategy-highlight/, "AI matrix summaries should not style individual highlighted terms");
+assert.match(css, /\.ai-summary-line \{[\s\S]*?inset 0 4px 0 var\(--ai-summary-accent\)/, "AI matrix summaries should emphasize the complete card");
+assert.match(html, /styles\.css\?v=matrix-panel-emphasis-20260725-15/, "CSS cache key should include this integrated revision");
+assert.match(html, /app\.js\?v=matrix-panel-emphasis-20260725-15/, "JavaScript cache key should include this integrated revision");
 
 console.log("KPI typography and hover count-up checks passed.");

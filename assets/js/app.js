@@ -12327,7 +12327,7 @@
     summary.innerHTML = (matrix.summary || []).map((line, index) => `
       <article class="ai-summary-line ai-summary-tone-${index % 4}">
         <span>${String(index + 1).padStart(2, "0")}</span>
-        <p>${strategicHighlightHTML(line)}</p>
+        <p>${escapeHTML(line)}</p>
       </article>
     `).join("");
 
