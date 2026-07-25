@@ -48,7 +48,10 @@ assert.match(app, /class="exec-line-bullet-list"/, "executive summary lines shou
 assert.match(css, /\.exec-report-bullet-list > li::before/, "broker bullet lists should have a visual bullet marker");
 assert.match(css, /\.exec-report-decision-list > li\.is-continuation/, "multi-line broker points should retain their bullet alignment");
 assert.match(css, /\.exec-line-bullet-list > li::before/, "executive summary bullets should have a visual bullet marker");
-assert.match(html, /styles\.css\?v=briefing-bullets-20260725-13/, "CSS cache key should include this integrated revision");
-assert.match(html, /app\.js\?v=briefing-bullets-20260725-13/, "JavaScript cache key should include this integrated revision");
+assert.match(css, /\.china-nand-focus\[data-nand-focus="policy"\] \{[\s\S]*?inset 0 5px 0 var\(--policy-violet\);/, "policy selection should emphasize the complete panel");
+assert.match(css, /\.china-nand-focus\[data-nand-focus="policy"\] \.nand-focus-head h3 \{[\s\S]*?text-decoration: none;/, "policy heading should not use isolated text highlighting");
+assert.match(css, /\.china-nand-focus\[data-nand-focus="policy"\] :is\(\.strategy-highlight, \.answer-term\) \{[\s\S]*?text-decoration: none !important;/, "policy content should not use isolated term highlighting");
+assert.match(html, /styles\.css\?v=policy-panel-emphasis-20260725-14/, "CSS cache key should include this integrated revision");
+assert.match(html, /app\.js\?v=policy-panel-emphasis-20260725-14/, "JavaScript cache key should include this integrated revision");
 
 console.log("KPI typography and hover count-up checks passed.");
