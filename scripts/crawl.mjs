@@ -6201,7 +6201,18 @@ const OFFICIAL_INDUSTRY_PROBES = [
   // longer appears. They are health checks only; a reachable page never turns
   // a forecast or a reported figure into an actual result.
   { id: "trendforce-memory-2026", label: "TrendForce 2026/2027 memory forecast", url: "https://www.trendforce.com/presscenter/news/20260529-13068.html", pattern: /889\.3\s*billion|1\.28\s*trillion/i },
-  { id: "sse-cxmt-final-offering", label: "SSE CXMT final offering", url: "https://english.sse.com.cn/news/newsrelease/voice/c/c_20260716_10825660.shtml", pattern: /57\.9\s*billion|greenshoe|6\.69\s*billion/i },
+  {
+    id: "sse-cxmt-final-offering",
+    label: "SSE / China Daily CXMT final offering",
+    url: "https://english.sse.com.cn/news/newsrelease/voice/c/c_20260716_10825660.shtml",
+    // SSE republishes the China Daily report but intermittently blocks hosted
+    // runners. Verify the same article at its original publisher before
+    // declaring the evidence source unavailable.
+    fallbackUrls: [
+      "https://www.chinadaily.com.cn/a/202607/15/WS6a56f42da310986e2b4655b8.html",
+    ],
+    pattern: /57\.9\s*billion|greenshoe|6\.69\s*billion/i,
+  },
   { id: "census-former-veu-c79", label: "Census former-VEU C79 license reporting", url: "https://content.govdelivery.com/accounts/USCENSUS/bulletins/4008e2b", pattern: /C79|H-prefix|former VEU/i },
 ];
 
@@ -6236,8 +6247,9 @@ function officialProbeHeaders(url, retry = false) {
 // A direct primary-page verification must remain the source of record.  Public
 // publisher CDNs nevertheless produce isolated 403s and short-lived 5xxs, so
 // retry those responses with a cache-busting browser profile before marking a
-// source failed.  A declared fallback is only used when it is also a first-party
-// URL and independently matches the same evidence marker.
+// source failed. A declared fallback is only used when it is the publisher's
+// first-party endpoint or the original article mirrored by the official page,
+// and it must independently match the same evidence marker.
 export async function checkOfficialIndustryProbe(probe = {}, {
   fetchImpl = fetch,
   sleepImpl = sleep,

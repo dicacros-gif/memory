@@ -175,6 +175,27 @@ assert.equal(fallbackOfficialProbe.reachable, true, "a declared first-party fall
 assert.equal(fallbackOfficialProbe.fallbackUsed, true);
 assert.equal(fallbackOfficialProbe.attempts.length, 2, "a non-matching primary page must move to the fallback without counting it as live");
 
+const originalPublisherProbe = await checkOfficialIndustryProbe({
+  id: "official-mirrored-article-test",
+  url: "https://official.example/republished-article",
+  fallbackUrls: ["https://publisher.example/original-article"],
+  pattern: /57\.9\s*billion|6\.69\s*billion/i,
+}, {
+  fetchImpl: async (url) => ({
+    ok: !url.includes("official.example"),
+    status: url.includes("official.example") ? 403 : 200,
+    url,
+    text: async () => url.includes("official.example")
+      ? "temporary access block"
+      : "The offering is expected to raise 57.9 billion and issue 6.69 billion shares.",
+  }),
+  sleepImpl: async () => {},
+  signalFactory: () => undefined,
+});
+assert.equal(originalPublisherProbe.reachable, true, "the original publisher may verify an article mirrored by a blocked official page");
+assert.equal(originalPublisherProbe.fallbackUsed, true);
+assert.equal(originalPublisherProbe.verifiedUrl, "https://publisher.example/original-article");
+
 const siaFallbackCalls = [];
 const siaJsonRecovery = await checkOfficialIndustryProbe({
   id: "official-sia-test",
