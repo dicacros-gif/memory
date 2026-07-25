@@ -15506,15 +15506,18 @@ body.sidebar-collapsed .sb-ico {
   grid-template-rows: 30px auto auto;
   gap: 5px;
   min-height: 104px;
-  border: 1px solid color-mix(in srgb, var(--peer-brand) 34%, var(--line));
+  border: 2px solid color-mix(in srgb, var(--peer-brand) 48%, var(--line));
   border-radius: 8px;
   background:
-    linear-gradient(145deg, color-mix(in srgb, var(--peer-brand) 10%, transparent), transparent 62%),
+    linear-gradient(135deg,
+      color-mix(in srgb, var(--peer-brand) 15%, var(--panel-2)) 0%,
+      color-mix(in srgb, var(--peer-brand) 6%, var(--panel-2)) 58%,
+      var(--panel-2) 100%),
     var(--panel-2);
   color: var(--ink);
   padding: 11px 12px 10px;
   text-decoration: none;
-  box-shadow: inset 0 3px 0 var(--peer-brand);
+  box-shadow: 0 9px 22px color-mix(in srgb, var(--peer-brand) 14%, transparent);
   isolation: isolate;
   transition: background .2s ease, color .2s ease, border-color .2s ease, transform .2s ease, box-shadow .2s ease;
 }

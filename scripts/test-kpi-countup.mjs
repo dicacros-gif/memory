@@ -71,11 +71,13 @@ assert.match(app, /const mustWaitForEnglishSpeech = Boolean\(agentTtsEnabled && 
 assert.match(app, /if \(!typed \|\| !speechFinished \|\| completed \|\| !alive\(\)\) return;/, "the next agent must not be scheduled before typing and English TTS finish");
 assert.match(app, /speakAgentTurn\(turn, i\)\.finally\(\(\) => \{[\s\S]*?speechFinished = true;[\s\S]*?completeTurn\(\);/s, "the sequence should unlock only after the TTS promise settles");
 assert.match(app, /Do not pre-reveal queued agents[\s\S]*?schedule\(\(\) => speak\(0\), AGENT_DEBATE_TIMING\.rosterSettleMs\);/s, "queued agents should not appear before the prior English voice has ended");
-assert.match(html, /styles\.css\?v=agent-tts-sequence-20260725-19/, "CSS cache key should include this integrated revision");
 assert.match(app, /function prewarmPriceBoardData\(\)[\s\S]*?loadSecondaryData\(\["priceHistory", "marketHistory"\]\)/, "price history should start loading before the board enters the viewport");
 assert.match(app, /rootMargin: "2200px 0px"/, "price data should prefetch well ahead of a scrolling user");
 assert.match(app, /const priceRenderObserver = new IntersectionObserver[\s\S]*?rootMargin: "1100px 0px"/, "price board rendering should complete before the board reaches the viewport");
 assert.match(app, /section\.id === "prices" \? priceRenderObserver : observer/, "only the price board should receive the early render window");
 assert.match(html, /app\.js\?v=price-prefetch-20260725-20/, "JavaScript cache key should include the price prefetch revision");
+assert.match(css, /\.market-peer-card \{[\s\S]*?border: 2px solid color-mix\(in srgb, var\(--peer-brand\) 48%, var\(--line\)\);[\s\S]*?linear-gradient\(135deg,[\s\S]*?var\(--peer-brand\) 15%/, "peer cards should use full-card brand treatment rather than a top-only rule");
+assert.doesNotMatch(css, /\.market-peer-card \{[\s\S]*?box-shadow: inset 0 3px 0 var\(--peer-brand\);/, "peer cards should not use an isolated top-edge highlight");
+assert.match(html, /styles\.css\?v=peer-card-full-emphasis-20260725-21/, "CSS cache key should include the full-card peer treatment");
 
 console.log("KPI typography and hover count-up checks passed.");
