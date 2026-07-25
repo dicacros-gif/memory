@@ -174,6 +174,33 @@ assert.equal(fallbackOfficialProbe.reachable, true, "a declared first-party fall
 assert.equal(fallbackOfficialProbe.fallbackUsed, true);
 assert.equal(fallbackOfficialProbe.attempts.length, 2, "a non-matching primary page must move to the fallback without counting it as live");
 
+const siaFallbackCalls = [];
+const siaJsonRecovery = await checkOfficialIndustryProbe({
+  id: "official-sia-test",
+  url: "https://www.semiconductors.org/news-events/latest-news/",
+  fallbackUrls: [
+    "https://www.semiconductors.org/wp-json/wp/v2/search?search=Global%20Semiconductor%20Sales&per_page=5",
+    "https://www.semiconductors.org/feed/",
+  ],
+  pattern: /Global Semiconductor Sales/i,
+}, {
+  fetchImpl: async (url, init) => {
+    siaFallbackCalls.push({ url, headers: init.headers });
+    const isJson = url.includes("/wp-json/");
+    return {
+      ok: isJson,
+      status: isJson ? 200 : 403,
+      url,
+      text: async () => isJson ? '[{"title":"Global Semiconductor Sales Increase"}]' : "temporary access block",
+    };
+  },
+  sleepImpl: async () => {},
+  signalFactory: () => undefined,
+});
+assert.equal(siaJsonRecovery.reachable, true, "SIA should recover through its first-party JSON search when the HTML index returns 403");
+assert.equal(siaJsonRecovery.fallbackUsed, true);
+assert.match(siaFallbackCalls.at(-1).headers.Accept, /application\/json/, "the SIA JSON fallback should request JSON explicitly");
+
 let chinaInfraFetchAttempts = 0;
 const chinaInfraRecovery = await fetchSourceTextWithRetry({
   url: "https://official.example/wuxi",

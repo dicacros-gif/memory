@@ -6182,10 +6182,15 @@ const OFFICIAL_INDUSTRY_PROBES = [
     id: "sia",
     label: "SIA monthly sales",
     url: "https://www.semiconductors.org/news-events/latest-news/",
-    // The news index is the primary monitor.  SIA also exposes the same
-    // monthly-sales material on its first-party Market Data hub, which is a
-    // resilient fallback when a CDN intermittently blocks the news index.
-    fallbackUrls: ["https://www.semiconductors.org/policies/market-data/"],
+    // GitHub-hosted runners can receive an isolated 403 from the public news
+    // index. Keep the source of record inside SIA and fall back first to the
+    // WordPress JSON/search and RSS endpoints, then to SIA's market-data hubs.
+    fallbackUrls: [
+      "https://www.semiconductors.org/wp-json/wp/v2/search?search=Global%20Semiconductor%20Sales&per_page=5",
+      "https://www.semiconductors.org/feed/",
+      "https://www.semiconductors.org/policies/tax/market-data/?type=post",
+      "https://www.semiconductors.org/policies/market-data/",
+    ],
     pattern: /Semiconductor Industry Association|Global Semiconductor Sales|Market Data/i,
   },
   // These direct source checks make the decision-grade market and regulatory
@@ -6207,9 +6212,12 @@ function officialProbeMatches(pattern, html = "") {
 function officialProbeHeaders(url, retry = false) {
   let referer = "";
   try { referer = `${new URL(url).origin}/`; } catch { /* URLs are curated constants */ }
+  const acceptsJson = /\/wp-json\//i.test(String(url || ""));
   return {
     "User-Agent": BROWSER_UA,
-    Accept: "text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8",
+    Accept: acceptsJson
+      ? "application/json,text/plain;q=0.9,*/*;q=0.8"
+      : "text/html,application/xhtml+xml,application/rss+xml,application/xml;q=0.9,*/*;q=0.8",
     "Accept-Language": "en-US,en;q=0.9",
     ...(retry ? {
       "Cache-Control": "no-cache",
