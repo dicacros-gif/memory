@@ -81,7 +81,7 @@ assert.match(app, /const priceRenderObserver = new IntersectionObserver[\s\S]*?r
 assert.match(app, /section\.id === "prices" \? priceRenderObserver : observer/, "only the price board should receive the early render window");
 assert.match(css, /\.agent-debate-title \.agent-tts-toggle \{[\s\S]*?min-width: 190px;[\s\S]*?min-height: 44px;/, "the English TTS control should be large and readable");
 assert.match(css, /\.agent-tts-state \{[\s\S]*?min-width: 31px;/, "the TTS control should expose a dedicated on-or-off state badge");
-assert.match(html, /app\.js\?v=agent-tts-sequence-20260725-26/, "JavaScript cache key should include the sequential English TTS revision");
+assert.match(html, /app\.js\?v=live-source-integrity-20260725-28/, "JavaScript cache key should include the live-source-integrity revision");
 assert.match(css, /\.market-peer-card \{[\s\S]*?border: 2px solid color-mix\(in srgb, var\(--peer-brand\) 48%, var\(--line\)\);[\s\S]*?linear-gradient\(135deg,[\s\S]*?var\(--peer-brand\) 15%/, "peer cards should use full-card brand treatment rather than a top-only rule");
 assert.doesNotMatch(css, /\.market-peer-card \{[\s\S]*?box-shadow: inset 0 3px 0 var\(--peer-brand\);/, "peer cards should not use an isolated top-edge highlight");
 assert.doesNotMatch(css, /\.arch-track-card \{[\s\S]*?border-top: 4px solid var\(--track-accent\);/, "architecture tracks should not use a top-only color rule");

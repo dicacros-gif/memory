@@ -3,6 +3,7 @@ import {
   assessPriceChange,
   auditTranslationFidelity,
   evidenceClaimLabel,
+  supersededNumericClaimReason,
 } from "./evidence-integrity.mjs";
 
 const correctCnyTranslation = auditTranslationFidelity(
@@ -53,5 +54,14 @@ assert.equal(normalMove.displayPeriodChangePct, 298);
 assert.equal(evidenceClaimLabel({ evidenceLevel: "Confirmed", sourceClass: "official", observedThisRun: true }), "사실(1차 확인)");
 assert.equal(evidenceClaimLabel({ evidenceLevel: "Reported", sourceClass: "authoritative-media", observedThisRun: true }), "보도됨(1차 미확인)");
 assert.equal(evidenceClaimLabel({ evidenceLevel: "Watch" }), "검증 대기");
+
+assert.equal(supersededNumericClaimReason({
+  title: "CXMT IPO fundraising update",
+  summary: "CXMT planned to raise US$4.3B in its public offering.",
+}), "superseded_by_sse_final_offering", "obsolete CXMT IPO dollar amount must not return to a live card");
+assert.equal(supersededNumericClaimReason({
+  title: "CXMT registration-stage investment plan",
+  summary: "The prospectus described a CNY 29.5 billion investment-project plan before final pricing.",
+}), null, "the earlier CNY 29.5B plan remains valid historical context");
 
 console.log("evidence integrity tests passed");

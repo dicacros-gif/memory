@@ -1072,6 +1072,7 @@
         "dram-dram-contract-price::ddr5 8gb so-dimm",
         "dram-module-spot-price::ddr5 rdimm 32gb 4800/5600",
       ],
+      marketProxySeriesIds: ["skhy-stock", "samsung-stock", "micron-stock", "sox"],
       chinaTerms: ["cxmt", "ddr5", "server dram", "dram capacity"],
       decisionBias: "growth",
       rationale: "TrendForce DRAM spot/contract와 DDR5 품목을 사용해 서버 DRAM 가격 방향을 검증합니다.",
@@ -1091,6 +1092,7 @@
         "nand-wafer-spot-price::512gb tlc",
         "nand-pc-client-oem-ssd-contract-price::1tb-msata/m.2 tlc pcie-value grade",
       ],
+      marketProxySeriesIds: ["skhy-stock", "wdc-stock", "sandisk-stock", "sox"],
       chinaTerms: ["ymtc", "essd", "xtacking", "server ssd", "wuhan"],
       decisionBias: "balanced",
       rationale: "eSSD 전용 공개 가격이 제한적이므로 NAND contract와 SSD/OEM SSD 품목을 실제 proxy로 사용합니다.",
@@ -1111,6 +1113,7 @@
         "nand-pc-client-oem-ssd-contract-price::512gb-msata/m.2 tlc pcie-value grade",
         "nand-memory-card-spot-price::microsd 128gb",
       ],
+      marketProxySeriesIds: ["samsung-stock", "micron-stock", "skhy-stock", "sox"],
       chinaTerms: ["cxmt", "ymtc", "lpddr", "ufs", "client ssd"],
       decisionBias: "defense",
       rationale: "LPDDR/UFS 공개 가격이 제한되어 module, SO-DIMM, PC-client SSD, memory card 가격을 단말 proxy로 사용합니다.",
@@ -1130,6 +1133,7 @@
         "nand-nand-flash-contract-price::nand 128gb 16gx8 mlc",
         "nand-pc-client-oem-ssd-contract-price::512gb-msata/m.2 tlc pcie-value grade",
       ],
+      marketProxySeriesIds: ["skhy-stock", "micron-stock", "samsung-stock", "sox"],
       chinaTerms: ["edge ai", "automotive memory", "industrial nand", "china"],
       decisionBias: "balanced",
       rationale: "차량/산업용 전용 공개 가격이 없으므로 DRAM/NAND/SSD 전체 가격 방향과 뉴스 신호를 보조 지표로 사용합니다.",
@@ -1151,6 +1155,7 @@
         "nand-wafer-spot-price::256gb tlc",
         "nand-ssd-street-price::adata",
       ],
+      marketProxySeriesIds: ["micron-stock", "samsung-stock", "skhy-stock", "sox"],
       chinaTerms: ["cxmt", "ymtc", "legacy", "commodity", "oversupply"],
       decisionBias: "defense",
       rationale: "중국 물량 공세가 가장 먼저 반영되는 DDR4/eTT/wafer/SSD street 가격을 실제 방어 지표로 사용합니다.",
@@ -1173,6 +1178,7 @@
         "nand-wafer-spot-price::256gb tlc",
         "nand-pc-client-oem-ssd-contract-price::512gb-msata/m.2 tlc pcie-value grade",
       ],
+      marketProxySeriesIds: ["smic-stock", "naura-stock", "amec-stock", "jcet-stock", "gigadevice-stock"],
       chinaTerms: ["cxmt", "ymtc", "naura", "amec", "xmc", "jcet", "china capacity", "big fund"],
       decisionBias: "risk",
       rationale: "중국 업체별 실적/캐파의 과거 가격 직접 데이터는 없으므로 중국 영향이 큰 DDR4/eTT/NAND/SSD 가격을 실제 proxy로 사용합니다.",
@@ -2029,6 +2035,7 @@
   let QUANT = null;
   let HISTORY = emptyHistory;
   let MARKET_HISTORY = emptyMarketHistory;
+  let MARKET_HISTORY_ITEMS_CACHE = { source: null, items: [] };
   let QUANT_BACKTEST = emptyQuantBacktest;
   let DATA_MANIFEST = null;
   let REPO_CRAWL_EXCLUSIONS = emptyCrawlExclusions;
@@ -4591,7 +4598,7 @@
   function deferredSectionDefinitions() {
     return [
       { id: "c-level-cockpit", render: renderCLevelCockpit },
-      { id: "executive-decision", render: renderExecutiveDecision, data: ["priceHistory", "quantBacktest"] },
+      { id: "executive-decision", render: renderExecutiveDecision, data: ["priceHistory", "marketHistory", "quantBacktest"] },
       { id: "management-strategy", render: renderManagementStrategy },
       { id: "strategic-investment-decision", render: renderStrategicInvestmentDecision },
       { id: "policy-makers", render: renderPolicyMakers },
@@ -12840,6 +12847,46 @@
     return Object.values(HISTORY?.items || {}).filter((item) => Array.isArray(item.points) && item.points.length);
   }
 
+  // Market data is never presented as a memory-price observation. It is a
+  // separately labelled fallback only when a product's public price proxy does
+  // not have a complete fixed window. This keeps the 5-year, source-backed
+  // equity history useful without fabricating missing DRAM or NAND prices.
+  function marketHistoryItems() {
+    const indexes = MARKET_HISTORY?.indexes || {};
+    if (MARKET_HISTORY_ITEMS_CACHE.source === indexes) return MARKET_HISTORY_ITEMS_CACHE.items;
+    const items = Object.values(indexes).map((index) => {
+      const id = String(index?.id || "").trim();
+      const points = (index?.points || []).map((point) => {
+        const average = Number(point?.close ?? point?.value);
+        const time = Number(point?.time || Date.parse(point?.date || ""));
+        if (!id || !Number.isFinite(average) || !Number.isFinite(time)) return null;
+        return {
+          date: point.date || new Date(time).toISOString(),
+          time,
+          average,
+          sourceObservedAt: point.date || new Date(time).toISOString(),
+          origin: index.source || "Yahoo Finance chart API",
+          sourceUrl: index.sourceUrl || index.chartUrl || "",
+        };
+      }).filter(Boolean);
+      return {
+        key: `market:${id}`,
+        item: `${index.labelKo || index.label || id} 시장 프록시`,
+        sectionTitle: "시장 프록시",
+        group: "Market proxy",
+        sourceUrl: index.sourceUrl || index.chartUrl || "",
+        proxyKind: "market",
+        points,
+      };
+    }).filter((item) => item.points.length);
+    MARKET_HISTORY_ITEMS_CACHE = { source: indexes, items };
+    return items;
+  }
+
+  function allBacktestHistoryItems() {
+    return [...historyItems(), ...marketHistoryItems()];
+  }
+
   function parseObservedTime(value) {
     if (Number.isFinite(Number(value)) && Number(value) > 0) {
       const numeric = Number(value);
@@ -12890,7 +12937,7 @@
     // Real crawled history at month granularity → past decision points expand
     // automatically as the evidence history accumulates price-history (no fabrication).
     const months = new Map();
-    historyItems().forEach((series) => {
+    allBacktestHistoryItems().forEach((series) => {
       (series.points || []).forEach((point) => {
         const t = pointTime(point);
         if (!t) return;
@@ -12932,7 +12979,7 @@
   function backtestOptionCanClose(option, horizon = activeBacktestHorizon()) {
     const target = addUtcYears(option?.firstTime || 0, horizon.years);
     if (!target) return false;
-    return historyItems().some((series) => (series.points || []).some((point) => {
+    return allBacktestHistoryItems().some((series) => (series.points || []).some((point) => {
       const time = pointTime(point);
       return time >= target && time - target <= horizon.endToleranceDays * 864e5;
     }));
@@ -12975,6 +13022,11 @@
 
   function productHistorySeries(product) {
     return historyItems().filter((series) => historyMatchesProduct(series, product));
+  }
+
+  function productMarketHistorySeries(product) {
+    const ids = new Set((product.marketProxySeriesIds || []).map((id) => `market:${String(id).toLowerCase()}`));
+    return marketHistoryItems().filter((series) => ids.has(String(series.key || "").toLowerCase()));
   }
 
   function sortedPoints(series) {
@@ -13041,6 +13093,7 @@
       item: series.item || series.key,
       sectionTitle: series.sectionTitle || "",
       group: series.group || "",
+      proxyKind: series.proxyKind || "price",
       sourceUrl: series.sourceUrl || "",
       targetStartTime: selectedTime,
       targetEndTime,
@@ -13245,9 +13298,16 @@
         contractUnavailable: true,
       };
     }
-    const matched = productHistorySeries(product);
-    const evidenceRows = matched.map((series) => backtestObservation(series, selectedTime, horizon));
-    const observations = evidenceRows.filter((item) => item?.eligible);
+    const directMatched = productHistorySeries(product);
+    const directEvidenceRows = directMatched.map((series) => backtestObservation(series, selectedTime, horizon));
+    const directObservations = directEvidenceRows.filter((item) => item?.eligible);
+    const marketMatched = productMarketHistorySeries(product);
+    const marketEvidenceRows = marketMatched.map((series) => backtestObservation(series, selectedTime, horizon));
+    const marketObservations = marketEvidenceRows.filter((item) => item?.eligible);
+    const useMarketProxy = !directObservations.length && marketObservations.length > 0;
+    const matched = useMarketProxy ? [...directMatched, ...marketMatched] : directMatched;
+    const evidenceRows = useMarketProxy ? [...directEvidenceRows, ...marketEvidenceRows] : directEvidenceRows;
+    const observations = useMarketProxy ? marketObservations : directObservations;
     const priorMomentum = average(observations.map((item) => item.priorChange));
     const actualChange = average(observations.map((item) => item.actualChange));
     const avgDays = average(observations.map((item) => item.days)) || 0;
@@ -13280,10 +13340,15 @@
       decision,
       outcome,
       confidence,
-      aggregationMethod: product.proxySeriesVersion ? `${product.proxySeriesVersion} · constituent 동일가중` : "keyword-matched equal-weight proxy",
+      aggregationMethod: useMarketProxy
+        ? "직접 가격 구간 미충족 · 시장 프록시 별도 동일가중"
+        : (product.proxySeriesVersion ? `${product.proxySeriesVersion} · 직접 가격 constituent 동일가중` : "직접 가격 keyword-matched equal-weight proxy"),
       constituentIds: observations.map((item) => item.key).filter(Boolean),
       observationDateRange,
       latestAt: observations.reduce((latest, item) => Math.max(latest, item.latest._time || 0), 0),
+      usesMarketProxy: useMarketProxy,
+      directSeriesCount: directMatched.length,
+      marketSeriesCount: marketMatched.length,
     };
   }
 
@@ -13481,7 +13546,7 @@
         const actualDays = Number.isFinite(row.days) ? `${fmtNum(row.days, 0)}일` : "-";
         return `<tr>
           <td><span class="backtest-status ${row.eligible ? "complete" : "insufficient"}">${escapeHTML(row.statusLabel || "구간 미충족")}</span></td>
-          <td>${escapeHTML(row.item || row.key || "품목")}</td>
+          <td>${escapeHTML(`${row.proxyKind === "market" ? "시장 프록시 · " : "직접 가격 · "}${row.item || row.key || "품목"}`)}</td>
           <td>${escapeHTML(row.start ? pointDateLabel(row.start._time) : "없음")}</td>
           <td>${escapeHTML(priorGap)}</td>
           <td>${escapeHTML(row.latest && ["complete", "prior-gap"].includes(row.status) ? pointDateLabel(row.latest._time) : "없음")}</td>
@@ -14387,13 +14452,14 @@
     }
     const active = items.find((item) => item.id === execDecisionFocusId) || items[0];
     const historyCount = historyItems().length;
+    const marketHistoryCount = marketHistoryItems().length;
     const latestAtRaw = items.length ? Math.max(...items.map((item) => item.latestAt || 0), 0) : 0;
     const latestAt = Number.isFinite(latestAtRaw) ? latestAtRaw : 0;
     const productLabel = selectedExecProductLabel();
     const yearLabel = selectedYearOption?.label || "시점 없음";
     const selectedSeriesKeys = new Set();
     items.forEach((item) => {
-      productHistorySeries(item).forEach((series) => {
+      [...productHistorySeries(item), ...productMarketHistorySeries(item)].forEach((series) => {
         selectedSeriesKeys.add(series.key || `${series.sectionTitle || ""}::${series.item || ""}`);
       });
     });
@@ -14402,10 +14468,10 @@
     renderBacktestPeriodSummary(summary);
     if (meta) meta.textContent = active?.directSignalModel === "hbm"
       ? `${productLabel} · HBM 라이브 overlay ${fmtNum(active.directMetrics?.evidenceCount || 0)}건 · 과거 가격 점수와 분리`
-      : `${yearLabel} 기준 · ${horizon.label} 고정 · ${productLabel} · ${fmtNum(selectedSeriesCount)}개 매칭 series · 목표 종료 ${targetEndTime ? pointDateLabel(targetEndTime) : "없음"}`;
+      : `${yearLabel} 기준 · ${horizon.label} 고정 · ${productLabel} · 직접 가격 ${fmtNum(historyCount)}개 · 시장 프록시 ${fmtNum(marketHistoryCount)}개 · 목표 종료 ${targetEndTime ? pointDateLabel(targetEndTime) : "없음"}`;
     if (coverage) coverage.textContent = active?.directSignalModel === "hbm"
       ? `직접 신호 모델 · AI 수요 ${fmtNum(active.directMetrics?.demand || 0)}건 · 패키징 실행 ${fmtNum(active.directMetrics?.packaging || 0)}건 · 위험 신호 ${fmtNum(active.directMetrics?.risk || 0)}건`
-      : `${yearLabel} → ${horizon.label} 고정 종료 · 검증 가능 ${fmtNum(active?.observations?.length || 0)}/${fmtNum(active?.evidenceRows?.length || selectedSeriesCount)}개 · 전체 가격 series ${fmtNum(historyCount)}개`;
+      : `${yearLabel} → ${horizon.label} 고정 종료 · 검증 가능 ${fmtNum(active?.observations?.length || 0)}/${fmtNum(active?.evidenceRows?.length || selectedSeriesCount)}개 · ${active?.usesMarketProxy ? "시장 프록시 보조" : "직접 가격 우선"}`;
 
     const executiveSlider = $("#executiveBacktestSlider");
     const executiveSliderDock = $("#executiveBacktestSliderDock");

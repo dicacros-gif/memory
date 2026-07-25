@@ -161,3 +161,19 @@ export function evidenceClaimLabel({ evidenceLevel = "", sourceClass = "", obser
   if (level === "Inferred") return "분석·추론";
   return "검증 대기";
 }
+
+/**
+ * Prevent a now-obsolete headline amount from being promoted after a primary
+ * source publishes the final version of the same transaction.  This is
+ * intentionally narrow: it only covers the documented CXMT IPO figure and
+ * leaves the earlier CNY 29.5B registration-stage plan available as context.
+ */
+export function supersededNumericClaimReason(item = {}) {
+  const text = `${item.title || ""} ${item.originalTitle || ""} ${item.summaryOriginal || item.summary || ""}`.toLowerCase();
+  const cxmtOffering = /(?:cxmt|changxin|长鑫)/i.test(text)
+    && /(?:ipo|offering|offered|raise|funding|public offering|공모|상장|募资|发行)/i.test(text);
+  if (cxmtOffering && /(?:us\$\s*4[.,]?3\s*(?:b|bn|billion)|\$\s*4[.,]?3\s*(?:b|bn|billion)|4[.,]?3\s*(?:b|bn|billion)\s*(?:ipo|offering|raise|funding))/i.test(text)) {
+    return "superseded_by_sse_final_offering";
+  }
+  return null;
+}

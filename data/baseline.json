@@ -11,8 +11,8 @@
       "prefix": "$",
       "suffix": "T+",
       "decimals": 1,
-      "note": "WSTS Spring 2026 최신 전망 기준. 이전 $975.46B는 SKHY 자체 전망이 아니라 WSTS Autumn 2025 전망이며, 같은 기관의 전망 버전 변경으로 분리합니다.",
-      "alt": "이전 전망: $975.46B · WSTS Autumn 2025 → 최신 $1.51T · WSTS Spring 2026",
+      "note": "WSTS Spring 2026의 2026년 전망 기준. 이전 $975.46B는 실적이나 SKHY 자체 전망이 아니라 WSTS Autumn 2025의 이전 전망이므로, 같은 기관의 전망 버전 변경으로 분리합니다.",
+      "alt": "이전 전망 $975.46B · WSTS Autumn 2025 → 최신 전망 $1.51T · WSTS Spring 2026",
       "badge": "WSTS 최신",
       "status": "OK",
       "statusClass": "ok",
@@ -133,8 +133,8 @@
       "label": "CXMT IPO 공모액",
       "value": "579",
       "suffix": "억 위안",
-      "note": "SSE 2026년 7월 16일 공시 기준 초과배정 전 기본 공모액은 579억 위안입니다. 기존 295억 위안은 투자 프로젝트 계획액이며, 15% greenshoe는 행사 여부를 확인한 뒤 최종 조달액에 반영합니다.",
-      "alt": "공모 계획액과 발행가·주식수 기준 기본 공모액을 분리하고, 자금의 실제 팹·장비 집행을 DDR5 원가와 범용 DRAM 가격 경보에 연결합니다.",
+      "note": "SSE 2026년 7월 16일 최종 공모 문서 기준 초과배정 전 기본 공모액은 579억 위안입니다. 기존 295억 위안은 등록 단계의 최초 조달 목표이자 투자 프로젝트 계획액이므로, 최종 발행가·주식수 기준 공모액과 분리합니다. 15% greenshoe는 실제 행사 확인 뒤 최종 조달액에 반영합니다.",
+      "alt": "등록 단계 계획액과 최종 발행가·주식수 기준 기본 공모액을 분리하고, 자금의 실제 팹·장비 집행을 DDR5 원가와 범용 DRAM 가격 경보에 연결합니다.",
       "badge": "공모가 확정",
       "status": "OK",
       "statusClass": "ok",
@@ -185,11 +185,11 @@
       "showInKpiStrip": true
     },
     {
-      "label": "빅펀드 3기",
+      "label": "빅펀드 3기 · 2024 확인",
       "value": "344",
       "suffix": "B 위안",
-      "note": "2024년 등록된 3,440억 위안, 약 $47.5B 규모 국가 반도체 펀드. 장비·소재·EDA 초크포인트 해소에 집중",
-      "badge": "보도 확인",
+      "note": "2024년 5월 등록된 3,440억 위안, 약 $47.5B 규모 국가 반도체 펀드. 현재 집행액이나 개별 투자 성과가 아니라 설립 규모이며 장비·소재·EDA 초크포인트의 실제 투자 공시를 별도 추적",
+      "badge": "2024 설립 확인",
       "status": "OK",
       "statusClass": "ok",
       "source": "Reuters",
@@ -197,7 +197,7 @@
       "sourceUrl": "https://www.reuters.com/technology/china-sets-up-475-bln-state-fund-boost-semiconductor-industry-2024-05-27/"
     },
     {
-      "label": "YMTC NAND 출하 점유율",
+      "label": "YMTC NAND 매출 점유율",
       "value": "13",
       "suffix": "%",
       "note": "Counterpoint Research 기준 2026년 1분기 YMTC NAND 매출 점유율은 13%입니다. Xtacking 4.0 기술 검증은 TechInsights 실측치로 별도 관리합니다.",
@@ -504,7 +504,7 @@
       {
         "cat": "threat",
         "q": "CXMT의 비대칭 위협은 무엇인가?",
-        "a": "CXMT는 HBM4 최선단에서 당장 SKHY를 압도하기보다, DDR5·LPDDR·레거시 DRAM에서 가격 하방 압력과 고객 협상력을 만드는 비대칭 위협입니다.\n\n최신 기준은 세 가지입니다. 첫째, SSE 기준 FY2025 연간 매출은 61.799B 위안, Q1 2026 분기 매출은 50.8B 위안으로 기간을 분리해 봅니다. 둘째, Counterpoint 기준 Q1 2026 DRAM 매출 점유율 8%와 Reuters가 보도한 Tencent 200억 위안+ 서버 DRAM 계약은 고객 락인 신호입니다. 보도된 제품 범위는 서버 DRAM이며 HBM 공급은 확인되지 않았습니다. 계약 금액·기간은 회사 공시가 아니라 익명 소식통 보도이므로 Watch입니다. 셋째, 2026년 7월 공모가 기준 기본 공모액 579억 위안은 계획된 투자 프로젝트 금액 295억 위안을 크게 웃돕니다.\n\n전략 검토에서는 CXMT DRAM 매출 점유율 8%→10%+ 진입 여부, IPO 자금의 실제 팹·장비 집행, Tencent·Alibaba·ByteDance 추가 계약, DDR5 spot/contract spread를 동시에 봅니다.",
+        "a": "CXMT는 HBM4 최선단에서 당장 SKHY를 압도하기보다, DDR5·LPDDR·레거시 DRAM에서 가격 하방 압력과 고객 협상력을 만드는 비대칭 위협입니다.\n\n최신 기준은 세 가지입니다. 첫째, SSE 기준 FY2025 연간 매출은 61.799B 위안, Q1 2026 분기 매출은 50.8B 위안으로 기간을 분리해 봅니다. 둘째, Counterpoint 기준 Q1 2026 DRAM 매출 점유율 8%와 Reuters가 보도한 Tencent 200억 위안+ 서버 DRAM 계약은 고객 락인 신호입니다. 보도된 제품 범위는 서버 DRAM이며 HBM 공급은 확인되지 않았습니다. 계약 금액·기간은 회사 공시가 아니라 익명 소식통 보도이므로 Watch입니다. 셋째, SSE의 2026년 7월 16일 최종 공모 문서 기준 기본 공모액 579억 위안은 등록 단계의 최초 조달 목표이자 투자 프로젝트 계획액 295억 위안과 분리합니다.\n\n전략 검토에서는 CXMT DRAM 매출 점유율 8%→10%+ 진입 여부, IPO 자금의 실제 팹·장비 집행, Tencent·Alibaba·ByteDance 추가 계약, DDR5 spot/contract spread를 동시에 봅니다.",
         "keywords": [
           "cxmt",
           "비대칭",
@@ -826,7 +826,7 @@
       {
         "cat": "threat",
         "q": "CXMT IPO의 212배와 243.93배 청약 수치는 왜 다른가?",
-        "a": "두 수치는 서로 모순되는 값이 아니라 계산 시점과 분모가 다릅니다.\n\n243.93배는 claw-back 전 온라인 리테일 트랜치의 청약 배수이고, 약 212배는 최종 배정률 약 0.47%에서 역산한 실효 청약 배수입니다. 공모 규모도 투자 프로젝트 계획액 295억 위안과 초과배정 전 기본 공모액 579억 위안을 분리해야 합니다.\n\nSKHY 관점에서는 높은 청약 배수를 기술 경쟁력의 확정 신호로 읽지 않습니다. 조달 자금의 실제 장비 발주, DDR5 비트 원가와 수율, Tencent 계약 출하, 추가 고객 qualification이 범용 DRAM 가격 압력으로 전환되는지를 봅니다.",
+        "a": "두 수치는 서로 모순되는 값이 아니라 계산 시점과 분모가 다릅니다.\n\n243.93배는 claw-back 전 온라인 리테일 트랜치의 청약 배수이고, 약 212배는 최종 배정률 약 0.47%에서 역산한 실효 청약 배수입니다. 공모 규모도 등록 단계의 최초 조달 목표이자 투자 프로젝트 계획액 295억 위안과, 최종 발행가·주식수 기준 초과배정 전 기본 공모액 579억 위안을 분리해야 합니다.\n\nSKHY 관점에서는 높은 청약 배수를 기술 경쟁력의 확정 신호로 읽지 않습니다. 조달 자금의 실제 장비 발주, DDR5 비트 원가와 수율, Tencent 계약 출하, 추가 고객 qualification이 범용 DRAM 가격 압력으로 전환되는지를 봅니다.",
         "status": "Reported allocation metrics",
         "asOf": "2026-07-17",
         "keywords": [
@@ -926,9 +926,9 @@
       {
         "cat": "threat",
         "q": "CXMT IPO가 글로벌 DRAM 경쟁에 미치는 영향은?",
-        "a": "CXMT IPO는 계획액과 발행가·주식수 기준 공모액을 분리해야 합니다. 투자 프로젝트 계획액은 295억 위안이었고, SSE의 2026년 7월 16일 공시 기준 초과배정 전 기본 공모액은 579억 위안입니다. 15% greenshoe는 실제 행사 여부를 확인한 뒤 최종 조달액에 반영합니다.\n\n청약 수치도 claw-back 전 온라인 트랜치 243.93배와 최종 배정률 약 0.47%에서 역산한 약 212배를 구분해야 합니다. 높은 청약 배수는 자금 조달 신호이지 기술·수율 검증은 아닙니다.\n\nSKHY 관점에서는 자금의 실제 팹·장비 집행, Tencent 계약 출하, DDR5 수율과 cost-per-bit, 추가 고객 qualification이 가격 압력으로 전환되는 속도를 봐야 합니다.",
+        "a": "CXMT IPO는 등록 단계의 최초 조달 목표이자 투자 프로젝트 계획액과 최종 발행가·주식수 기준 공모액을 분리해야 합니다. 전자는 295억 위안이었고, SSE의 2026년 7월 16일 최종 공모 문서 기준 초과배정 전 기본 공모액은 579억 위안입니다. 15% greenshoe는 실제 행사 여부를 확인한 뒤 최종 조달액에 반영합니다.\n\n청약 수치도 claw-back 전 온라인 트랜치 243.93배와 최종 배정률 약 0.47%에서 역산한 약 212배를 구분해야 합니다. 높은 청약 배수는 자금 조달 신호이지 기술·수율 검증은 아닙니다.\n\nSKHY 관점에서는 자금의 실제 팹·장비 집행, Tencent 계약 출하, DDR5 수율과 cost-per-bit, 추가 고객 qualification이 가격 압력으로 전환되는 속도를 봐야 합니다.",
         "status": "Confirmed Offering",
-        "asOf": "2026-07-14",
+        "asOf": "2026-07-16",
         "keywords": [
           "cxmt",
           "ipo",
@@ -1298,7 +1298,7 @@
           {
             "label": "CXMT IPO",
             "value": "579억 위안",
-            "note": "SSE 2026.7.16 공시 기준 초과배정 전 기본 공모액. 투자 프로젝트 계획액 295억 위안과 분리"
+            "note": "SSE 2026.7.16 최종 공모 문서 기준 초과배정 전 기본 공모액. 등록 단계의 최초 조달 목표이자 투자 프로젝트 계획액 295억 위안과 분리"
           },
           {
             "label": "YMTC Phase 3",
@@ -2429,16 +2429,16 @@
         "events": [
           {
             "title": "CXMT IPO 공모가 기준 579억 위안 조달",
-            "date": "2026-07-14",
-            "source": "CXMT offering announcement / SCMP",
-            "sourceUrl": "https://www.scmp.com/tech/article/3360615/china-memory-giant-cxmt-valued-us85-billion-record-shanghai-ipo",
+            "date": "2026-07-16",
+            "source": "Shanghai Stock Exchange final offering document",
+            "sourceUrl": "https://english.sse.com.cn/news/newsrelease/voice/c/c_20260716_10825660.shtml",
             "confidence": "공모가 확정",
             "statusClass": "ok",
-            "insight": "CXMT의 기본 공모액은 공모가 기준 579억 위안으로 확정됐습니다. 프로스펙투스의 투자 프로젝트 계획액 295억 위안과 구분하고, 15% 초과배정 전량 행사 시 최대 666억 위안까지 확대될 수 있습니다.",
+            "insight": "CXMT의 기본 공모액은 최종 공모가 기준 579억 위안입니다. 등록 단계의 최초 조달 목표이자 투자 프로젝트 계획액 295억 위안과 구분하고, 15% 초과배정 전량 행사 시 최대 약 666억 위안까지 확대될 수 있습니다.",
             "watch": [
               "579억 위안 기본 공모액",
               "666억 위안 초과배정 상한",
-              "295억 위안 투자 프로젝트 계획",
+              "295억 위안 등록 단계 계획",
               "라인 업그레이드·DDR5 원가",
               "Tencent·Alibaba Cloud 고객 확산"
             ],
@@ -2861,13 +2861,13 @@
       "language": "english",
       "curated": true,
       "category": "dram",
-      "source": "CXMT offering announcement / SCMP",
-      "date": "2026-07-14",
+      "source": "Shanghai Stock Exchange",
+      "date": "2026-07-16",
       "title": "CXMT sets 57.9 billion yuan base offering in Shanghai IPO",
       "titleKo": "CXMT, 기본 공모액 579억 위안 확정",
-      "summary": "CXMT의 공모가 기준 기본 공모액은 579억 위안(약 $8.5B)입니다. 투자 프로젝트 계획액 295억 위안과 구분하며, 15% 초과배정 전량 행사 시 최대 666억 위안(약 $9.83B)입니다.",
+      "summary": "CXMT의 최종 공모가 기준 기본 공모액은 579억 위안(약 $8.1B)입니다. 등록 단계의 최초 조달 목표이자 투자 프로젝트 계획액 295억 위안과 구분하며, 15% 초과배정 전량 행사 시 최대 약 666억 위안입니다.",
       "placement": "overview KPI · CXMT 카드 · 중국 캐파 경보",
-      "link": "https://www.scmp.com/tech/article/3360615/china-memory-giant-cxmt-valued-us85-billion-record-shanghai-ipo"
+      "link": "https://english.sse.com.cn/news/newsrelease/voice/c/c_20260716_10825660.shtml"
     },
     {
       "language": "english",

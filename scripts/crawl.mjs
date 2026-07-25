@@ -25,6 +25,7 @@ import {
   assessPriceChange,
   auditTranslationFidelity,
   evidenceClaimLabel,
+  supersededNumericClaimReason,
 } from "./evidence-integrity.mjs";
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
@@ -705,8 +706,8 @@ const PRESERVED_NEWS_SEEDS = [
     evidenceLevel: "Reported",
     date: "2026-07-16",
     link: "https://english.sse.com.cn/news/newsrelease/voice/c/c_20260716_10825660.shtml",
-    summaryOriginal: "The Shanghai Stock Exchange reported base proceeds of CNY 57.9 billion before a 15 percent greenshoe, compared with the earlier CNY 29.5 billion investment-project plan.",
-    summary: "초과배정 전 기본 공모액은 579억 위안. 기존 295억 위안은 투자 프로젝트 계획액이므로 최종 발행가·주식수 기준 공모액과 분리해 자금 집행을 추적함.",
+    summaryOriginal: "The Shanghai Stock Exchange reported base proceeds of CNY 57.9 billion before a 15 percent greenshoe, after an earlier CNY 29.5 billion registration-stage investment-project plan.",
+    summary: "초과배정 전 기본 공모액은 579억 위안. 기존 295억 위안은 등록 단계의 최초 조달 목표이자 투자 프로젝트 계획액이므로, 최종 발행가·주식수 기준 공모액과 분리해 자금 집행을 추적함.",
   },
   {
     id: "sse-cxmt-registration-plan",
@@ -719,7 +720,7 @@ const PRESERVED_NEWS_SEEDS = [
     evidenceLevel: "Reported",
     date: "2026-06-15",
     link: "https://english.sse.com.cn/news/newsrelease/voice/c/c_20260615_10821916.shtml",
-    summaryOriginal: "The Shanghai Stock Exchange reported registration approval and a prospectus plan to raise CNY 29.5 billion for investment projects before final pricing.",
+    summaryOriginal: "The Shanghai Stock Exchange reported registration approval and an initial CNY 29.5 billion investment-project funding plan before final pricing.",
     summary: "상장 등록 단계 증권신고서의 295억 위안은 투자 프로젝트 계획액임. 7월 최종 발행가와 주식수로 확정된 기본 공모액 579억 위안보다 앞선 단계이므로 현재 조달액으로 표시하지 않음.",
   },
   {
@@ -4482,7 +4483,8 @@ function isVerifiedBenchmarkLiveItem(item = {}) {
     && item.dataStatus === "live-observed"
     && item.summarySource === "source-meta"
     && Boolean(benchmarkDirectSourceUrl(item))
-    && isCompleteArticleSummary(item.summaryOriginal || "");
+    && isCompleteArticleSummary(item.summaryOriginal || "")
+    && !supersededNumericClaimReason(item);
 }
 
 function benchmarkDiscoveryOnly(item = {}, reason = "source-not-revalidated") {
@@ -4534,7 +4536,17 @@ async function collectBenchmarkSignals() {
     const enrichmentLimit = Math.min(18, items.length);
     const enriched = await enrichNewsItems(items.slice(0, enrichmentLimit), []);
     const validatedItems = [];
+    let supersededCount = 0;
     for (const item of enriched) {
+      const supersededReason = supersededNumericClaimReason(item);
+      if (supersededReason) {
+        // Do not carry an obsolete amount into the benchmark stream, agent
+        // corpus, or discovery archive once a newer primary-source document
+        // resolves the same transaction.
+        supersededCount += 1;
+        note(`벤치마킹:${theme.label}:superseded`, true, supersededReason);
+        continue;
+      }
       const sourceUrl = benchmarkDirectSourceUrl(item);
       const hasCurrentSourceSummary = item.summarySource === "source-meta"
         && sourceUrl
@@ -4565,9 +4577,9 @@ async function collectBenchmarkSignals() {
         items: validatedItems.slice(0, 10).map(({ ts, category, ...rest }) => rest),
       });
       stream = stream.concat(validatedItems);
-      note(`벤치마킹:${theme.label}`, true, `원문 재검증 ${validatedItems.length}건 · 발견 전용 ${items.length - validatedItems.length}건`);
+      note(`벤치마킹:${theme.label}`, true, `원문 재검증 ${validatedItems.length}건 · 발견 전용 ${items.length - validatedItems.length - supersededCount}건 · 최신값 대체 ${supersededCount}건`);
     } else {
-      note(`벤치마킹:${theme.label}`, false, `원문 재검증 0건 · 발견 전용 ${items.length}건`);
+      note(`벤치마킹:${theme.label}`, false, `원문 재검증 0건 · 발견 전용 ${items.length - supersededCount}건 · 최신값 대체 ${supersededCount}건`);
     }
   }
 
@@ -5426,6 +5438,8 @@ function validateNewsEvidence(items = [], validatedAt = new Date().toISOString()
     if (Number.isFinite(publishedAt) && now - publishedAt > maxAgeMs) reasons.push("published_date_outside_retention");
     if (canonicalUrl && seen.has(canonicalUrl)) reasons.push("canonical_duplicate");
     if (isCrawlerExcluded("news", item)) reasons.push("moderation_excluded");
+    const supersededReason = supersededNumericClaimReason(item);
+    if (supersededReason) reasons.push(supersededReason);
 
     const id = evidenceId(canonicalUrl || `${item.title || ""}|${item.date || ""}`);
     if (reasons.length) {
@@ -6100,6 +6114,13 @@ async function fetchTsmcMonthlyRevenue() {
 const OFFICIAL_INDUSTRY_PROBES = [
   { id: "wsts", label: "WSTS forecast", url: "https://www.wsts.org/76/Recent-News-Release", pattern: /WSTS|World Semiconductor Trade Statistics/i },
   { id: "sia", label: "SIA monthly sales", url: "https://www.semiconductors.org/news-events/latest-news/", pattern: /Semiconductor Industry Association|Global Semiconductor Sales|Market Data/i },
+  // These direct source checks make the decision-grade market and regulatory
+  // cards fail visibly when the primary page moves or its asserted figure no
+  // longer appears. They are health checks only; a reachable page never turns
+  // a forecast or a reported figure into an actual result.
+  { id: "trendforce-memory-2026", label: "TrendForce 2026/2027 memory forecast", url: "https://www.trendforce.com/presscenter/news/20260529-13068.html", pattern: /889\.3\s*billion|1\.28\s*trillion/i },
+  { id: "sse-cxmt-final-offering", label: "SSE CXMT final offering", url: "https://english.sse.com.cn/news/newsrelease/voice/c/c_20260716_10825660.shtml", pattern: /57\.9\s*billion|greenshoe|6\.69\s*billion/i },
+  { id: "census-former-veu-c79", label: "Census former-VEU C79 license reporting", url: "https://content.govdelivery.com/accounts/USCENSUS/bulletins/4008e2b", pattern: /C79|H-prefix|former VEU/i },
 ];
 
 async function collectOfficialIndustrySourceChecks() {
