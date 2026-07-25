@@ -1,6 +1,22 @@
 (() => {
   "use strict";
 
+  // This is a dashboard, not a document reader: every fresh load starts at
+  // the executive overview. Disable browser scroll restoration before data
+  // fetching so an old deep-link position cannot open against skeletons.
+  if ("scrollRestoration" in window.history) window.history.scrollRestoration = "manual";
+  let initialViewportLocked = true;
+  function resetInitialViewport() {
+    if (!initialViewportLocked) return;
+    window.scrollTo({ top: 0, left: 0, behavior: "auto" });
+    document.documentElement.scrollTop = 0;
+    document.body.scrollTop = 0;
+  }
+  ["wheel", "touchstart", "pointerdown", "keydown"].forEach((eventName) => {
+    window.addEventListener(eventName, () => { initialViewportLocked = false; }, { once: true, passive: true });
+  });
+  resetInitialViewport();
+
   const $ = (sel, root = document) => root.querySelector(sel);
   const $$ = (sel, root = document) => Array.from(root.querySelectorAll(sel));
   const el = (tag, cls, html) => {
@@ -3730,6 +3746,7 @@
     setupKpiCountReplay();
     schedulePostPaintEnhancements();
     setupDeferredSections();
+    resetInitialViewport();
   }
 
   function schedulePostPaintEnhancements() {

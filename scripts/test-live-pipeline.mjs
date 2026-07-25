@@ -366,6 +366,9 @@ assert.doesNotMatch(jumpNavigationBlock, /deferredSectionRuns\.values/, "a selec
 assert.match(appText, /function scheduleScrollProgress\(/, "scroll progress updates must be frame-throttled");
 assert.match(stylesText, /\.sb-item\.is-pending::after/, "sidebar must visibly retain the selected tab while the matching board loads");
 assert.equal((indexText.match(/pretendard[^"\s]*\.css/gi) || []).length, 1, "the page must load one Pretendard stylesheet rather than duplicate font CSS");
+assert.match(appText, /history\.scrollRestoration = "manual"/, "fresh dashboard loads must disable browser restoration to a stale deep scroll position");
+assert.match(appText, /function resetInitialViewport\(/, "fresh dashboard loads must explicitly start from the overview viewport");
+assert.ok((appText.match(/resetInitialViewport\(\);/g) || []).length >= 2, "the overview viewport must be reset before and after initial dashboard rendering");
 
 const manualEdgesBlock = appText.slice(
   appText.indexOf("function memoryMarketEdges()"),
