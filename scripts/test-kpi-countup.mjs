@@ -50,12 +50,12 @@ assert.match(css, /\.exec-report-bullet-list > li::before/, "broker bullet lists
 assert.match(css, /\.exec-report-decision-list > li\.is-continuation/, "multi-line broker points should retain their bullet alignment");
 assert.match(css, /\.exec-flow-node:not\(:last-child\)::after/, "executive flow nodes should have directional infographic connectors");
 assert.match(css, /\.exec-strategy-index \{/, "ecosystem strategy cards should include numbered infographic nodes");
-assert.match(css, /\.china-nand-focus\[data-nand-focus="policy"\] \{[\s\S]*?inset 0 5px 0 var\(--policy-violet\);/, "policy selection should emphasize the complete panel");
+assert.match(css, /\.china-nand-focus\[data-nand-focus="policy"\] \{[\s\S]*?border: 2px solid color-mix\(in srgb, var\(--policy-violet\) 64%, var\(--line\)\);/, "policy selection should emphasize the complete panel");
 assert.match(css, /\.china-nand-focus\[data-nand-focus="policy"\] \.nand-focus-head h3 \{[\s\S]*?text-decoration: none;/, "policy heading should not use isolated text highlighting");
 assert.match(css, /\.china-nand-focus\[data-nand-focus="policy"\] :is\(\.strategy-highlight, \.answer-term\) \{[\s\S]*?text-decoration: none !important;/, "policy content should not use isolated term highlighting");
 assert.match(app, /<p>\$\{escapeHTML\(line\)\}<\/p>/, "AI matrix summaries should render plain text without isolated term highlighting");
 assert.doesNotMatch(css, /\.ai-summary-line \.strategy-highlight/, "AI matrix summaries should not style individual highlighted terms");
-assert.match(css, /\.ai-summary-line \{[\s\S]*?inset 0 4px 0 var\(--ai-summary-accent\)/, "AI matrix summaries should emphasize the complete card");
+assert.match(css, /\.ai-summary-line \{[\s\S]*?border: 2px solid color-mix\(in srgb, var\(--ai-summary-accent\) 46%, var\(--line\)\);/, "AI matrix summaries should emphasize the complete card");
 assert.match(app, /carouselPreview = false/, "image sliders should support optional adjacent-slide previews");
 assert.match(app, /slide\.classList\.toggle\("is-next", carouselPreview && !active && relative === 1\);/, "talent filmstrip should position the next slide at the right edge");
 assert.match(app, /slide\.classList\.toggle\("is-previous", carouselPreview && !active && relative === slides\.length - 1\);/, "talent filmstrip should position the previous slide at the left edge");
@@ -78,6 +78,9 @@ assert.match(app, /section\.id === "prices" \? priceRenderObserver : observer/, 
 assert.match(html, /app\.js\?v=price-prefetch-20260725-20/, "JavaScript cache key should include the price prefetch revision");
 assert.match(css, /\.market-peer-card \{[\s\S]*?border: 2px solid color-mix\(in srgb, var\(--peer-brand\) 48%, var\(--line\)\);[\s\S]*?linear-gradient\(135deg,[\s\S]*?var\(--peer-brand\) 15%/, "peer cards should use full-card brand treatment rather than a top-only rule");
 assert.doesNotMatch(css, /\.market-peer-card \{[\s\S]*?box-shadow: inset 0 3px 0 var\(--peer-brand\);/, "peer cards should not use an isolated top-edge highlight");
-assert.match(html, /styles\.css\?v=peer-card-full-emphasis-20260725-21/, "CSS cache key should include the full-card peer treatment");
+assert.doesNotMatch(css, /\.arch-track-card \{[\s\S]*?border-top: 4px solid var\(--track-accent\);/, "architecture tracks should not use a top-only color rule");
+assert.doesNotMatch(css, /\.ai-summary-line \{[\s\S]*?inset 0 4px 0 var\(--ai-summary-accent\)/, "AI summaries should not use a top-only inset rule");
+assert.match(css, /\.arch-track-card \{[\s\S]*?border: 2px solid color-mix\(in srgb, var\(--track-accent\) 50%, var\(--line\)\);/, "architecture tracks should use a full-card accent border");
+assert.match(html, /styles\.css\?v=full-panel-emphasis-20260725-22/, "CSS cache key should include the full-panel treatment");
 
 console.log("KPI typography and hover count-up checks passed.");

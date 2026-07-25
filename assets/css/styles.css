@@ -7339,8 +7339,7 @@ body.sidebar-collapsed .sb-ico {
 }
 
 #china-fab-infra .policy-tab {
-  border: 1px solid var(--infra-line);
-  border-top: 2px solid transparent;
+  border: 2px solid var(--infra-line);
   background: var(--infra-surface);
   box-shadow: none;
   transition: transform .2s cubic-bezier(.2, .8, .2, 1), border-color .2s ease, background .2s ease, box-shadow .2s ease;
@@ -7350,7 +7349,6 @@ body.sidebar-collapsed .sb-ico {
 #china-fab-infra .policy-tab:focus-visible {
   transform: translateY(-2px);
   border-color: color-mix(in srgb, var(--infra-teal) 42%, var(--infra-line));
-  border-top-color: var(--infra-teal);
   background: color-mix(in srgb, var(--infra-teal) 5%, var(--panel-2));
   color: var(--ink);
   box-shadow: 0 8px 20px rgba(23, 50, 77, .08);
@@ -7470,16 +7468,14 @@ body.sidebar-collapsed .sb-ico {
 
 #china-fab-infra .policy-focus {
   --local-accent: var(--infra-teal) !important;
-  border: 1px solid var(--infra-line);
-  border-top: 3px solid var(--infra-teal);
-  background: var(--panel);
+  border: 2px solid color-mix(in srgb, var(--infra-teal) 46%, var(--infra-line));
+  background: color-mix(in srgb, var(--infra-teal) 6%, var(--panel));
   box-shadow: 0 12px 28px rgba(23, 50, 77, .08);
 }
 
 #china-fab-infra .policy-focus:is(:hover, :focus-within) {
   border-color: color-mix(in srgb, var(--infra-teal) 38%, var(--infra-line));
-  border-top-color: var(--infra-teal);
-  background: var(--panel);
+  background: color-mix(in srgb, var(--infra-teal) 10%, var(--panel));
   color: var(--ink);
 }
 
@@ -13054,9 +13050,7 @@ body.sidebar-collapsed .sb-ico {
     linear-gradient(135deg, color-mix(in srgb, var(--ai-summary-accent) 15%, transparent), transparent 72%),
     color-mix(in srgb, var(--ai-summary-accent) 8%, var(--panel));
   padding: 12px;
-  box-shadow:
-    inset 0 4px 0 var(--ai-summary-accent),
-    0 8px 18px color-mix(in srgb, var(--ai-summary-accent) 9%, transparent);
+  box-shadow: 0 8px 18px color-mix(in srgb, var(--ai-summary-accent) 14%, transparent);
   transition: transform .24s cubic-bezier(.2, .8, .2, 1), background .2s ease, border-color .2s ease, box-shadow .2s ease;
 }
 
@@ -13354,10 +13348,13 @@ body.sidebar-collapsed .sb-ico {
   display: grid;
   gap: 10px;
   background:
-    linear-gradient(180deg, color-mix(in srgb, var(--track-accent) 9%, transparent), transparent 44%),
+    linear-gradient(135deg,
+      color-mix(in srgb, var(--track-accent) 15%, var(--panel)) 0%,
+      color-mix(in srgb, var(--track-accent) 6%, var(--panel)) 62%,
+      var(--panel) 100%),
     var(--panel);
-  box-shadow: var(--shadow);
-  border-top: 4px solid var(--track-accent);
+  border: 2px solid color-mix(in srgb, var(--track-accent) 50%, var(--line));
+  box-shadow: 0 10px 24px color-mix(in srgb, var(--track-accent) 14%, transparent);
   transition: transform .24s cubic-bezier(.2, .8, .2, 1), border-color .2s ease, box-shadow .2s ease, background .2s ease;
 }
 
@@ -13905,7 +13902,7 @@ body.sidebar-collapsed .sb-ico {
     radial-gradient(circle at 88% 8%, color-mix(in srgb, var(--policy-violet) 18%, transparent), transparent 34%),
     linear-gradient(135deg, color-mix(in srgb, var(--policy-violet) 12%, transparent), transparent 42%),
     var(--panel);
-  box-shadow: 0 20px 42px color-mix(in srgb, var(--policy-violet) 20%, transparent), inset 0 5px 0 var(--policy-violet);
+  box-shadow: 0 20px 42px color-mix(in srgb, var(--policy-violet) 20%, transparent);
 }
 
 .china-nand-focus[data-nand-focus="policy"] .nand-focus-head {
@@ -13925,9 +13922,9 @@ body.sidebar-collapsed .sb-ico {
 .china-nand-focus[data-nand-focus="policy"] .metric-row .metric:nth-child(3) { --policy-metric-accent: var(--policy-localize); }
 
 .china-nand-focus[data-nand-focus="policy"] .metric-row .metric {
-  border: 1px solid color-mix(in srgb, var(--policy-metric-accent) 45%, var(--line));
-  background: color-mix(in srgb, var(--policy-metric-accent) 12%, var(--panel-2));
-  box-shadow: inset 0 4px 0 var(--policy-metric-accent);
+  border: 2px solid color-mix(in srgb, var(--policy-metric-accent) 45%, var(--line));
+  background: linear-gradient(135deg, color-mix(in srgb, var(--policy-metric-accent) 14%, var(--panel-2)), var(--panel-2));
+  box-shadow: 0 8px 18px color-mix(in srgb, var(--policy-metric-accent) 12%, transparent);
   transition: transform .22s cubic-bezier(.2, .8, .2, 1), background .2s ease, box-shadow .2s ease;
 }
 
