@@ -3817,6 +3817,12 @@ export function buildBrokerResearch(news = []) {
     baseline: {
       status: "revalidation-required",
       itemCount: BROKER_REPORT_SEEDS.length,
+      items: BROKER_REPORT_SEEDS.map((item) => ({
+        ...item,
+        dataStatus: "baseline-revalidation",
+        sourceUrl: null,
+        lastCheckedAt: null,
+      })),
       asOf: BROKER_RESEARCH_FRAMEWORK.asOf,
       sourceRef: BROKER_RESEARCH_FRAMEWORK.sourceRef,
       lastCheckedAt: null,

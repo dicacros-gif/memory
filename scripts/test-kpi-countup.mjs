@@ -23,7 +23,7 @@ assert.match(css, /font-variant-numeric: lining-nums tabular-nums;/, "KPI figure
 assert.match(css, /\.kpi-value-card > strong > \.count \{[\s\S]*?font: inherit;/, "the inner counter must inherit the large value size");
 assert.match(css, /@media \(prefers-reduced-motion: reduce\) \{\s*\.kpi-value-card > strong > \.count\.is-counting/s, "count-up motion should respect reduced-motion settings");
 
-assert.match(html, /styles\.css\?v=agent-gallery-20260725-7/, "CSS cache key should include this integrated revision");
-assert.match(html, /app\.js\?v=agent-gallery-20260725-7/, "JavaScript cache key should include this integrated revision");
+assert.match(html, /styles\.css\?v=baseline-timeline-20260725-8/, "CSS cache key should include this integrated revision");
+assert.match(html, /app\.js\?v=baseline-timeline-20260725-8/, "JavaScript cache key should include this integrated revision");
 
 console.log("KPI typography and hover count-up checks passed.");

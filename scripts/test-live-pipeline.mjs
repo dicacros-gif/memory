@@ -81,6 +81,8 @@ assert.equal(brokerLive.schemaVersion, "2.0");
 assert.equal(brokerLive.items.length, 1, "a current-run authoritative broker citation must be live");
 assert.equal(brokerLive.items[0].observedThisRun, true);
 assert.equal(brokerLive.baseline.status, "revalidation-required");
+assert.equal(brokerLive.baseline.items.length, 6, "all supplied reports must remain visible as a separate revalidation baseline");
+assert.ok(brokerLive.baseline.items.every((item) => item.dataStatus === "baseline-revalidation" && item.sourceUrl === null), "baseline reports must never masquerade as public live citations");
 const brokerSeedOnly = buildBrokerResearch([{
   ...article("Morgan Stanley DRAM memory forecast", "https://www.reuters.com/technology/seeded-memory", "2026-07-20"),
   preservedSeed: true,

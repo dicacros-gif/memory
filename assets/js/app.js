@@ -2951,17 +2951,42 @@
       ] },
   ];
   const MEMORY_BYPASS_TIMELINE = [
-    { label: "2026 · 지금 가용", cls: "now", items: ["[6] 예측형 티어링", "[7] 알고리즘 압축", "[10] SRAM 추론 칩"] },
-    { label: "2026~2027 · 근접", cls: "near", items: ["[5] CXL", "[8] 온디바이스 sparse", "[9] 모듈 혁신"] },
-    { label: "2027~2028 · 중기", cls: "mid", items: ["[1] HBF"] },
-    { label: "2028~2030 · 중장기", cls: "long", items: ["[2] 3D 적층", "[3] PIM / PNM", "[4] 광 인터커넥트"] },
-    { label: "2030+ · 연구 단계", cls: "research", items: ["[11] 신소재 메모리"] },
+    {
+      label: "2026", phase: "지금 가용", cls: "now", color: "#16a34a",
+      signal: "소프트웨어와 추론 칩으로 DRAM 요구량을 먼저 절감",
+      decision: "고객 워크로드에서 티어링 효율과 서버 총비용을 바로 검증",
+      items: ["[6] 예측형 티어링", "[7] 알고리즘 압축", "[10] SRAM 추론 칩"],
+    },
+    {
+      label: "2026~2027", phase: "근접", cls: "near", color: "#0891b2",
+      signal: "서버 메모리를 풀링하고 모듈 효율을 높이는 전환 구간",
+      decision: "CXL 지연시간과 MRDIMM 인증을 고객 PoC 기준으로 관리",
+      items: ["[5] CXL", "[8] 온디바이스 sparse", "[9] 모듈 혁신"],
+    },
+    {
+      label: "2027~2028", phase: "중기", cls: "mid", color: "#8b5cf6",
+      signal: "NAND를 추론 데이터 계층으로 끌어올리는 표준화 구간",
+      decision: "HBF 샘플 성능과 고객 인증 조건을 제품 로드맵에 연결",
+      items: ["[1] HBF"],
+    },
+    {
+      label: "2028~2030", phase: "중장기", cls: "long", color: "#d97706",
+      signal: "적층과 인메모리 연산으로 데이터 이동 비용을 재설계",
+      decision: "수율과 패키징 처리량을 가격 공식 및 자본 배분과 연동",
+      items: ["[2] 3D 적층", "[3] PIM / PNM", "[4] 광 인터커넥트"],
+    },
+    {
+      label: "2030+", phase: "연구 단계", cls: "research", color: "#64748b",
+      signal: "소재 전환이 제품 경쟁력으로 이어질지 검증하는 탐색 구간",
+      decision: "단기 매출 가정과 분리해 공동 개발과 특허 옵션으로 관리",
+      items: ["[11] 신소재 메모리"],
+    },
   ];
   const MEMORY_BYPASS_FRONTS = [
-    { n: 1, title: "하이퍼스케일러가 표준을 쥐기 시작", body: "클라우드 각사가 자사 워크로드에 최적인 메모리 사양·소프트웨어·시스템을 직접 주도한다." },
-    { n: 2, title: "엔비디아가 메모리 계층 전체를 인터페이스로 장악", body: "GPU를 중심으로 메모리에서 네트워크까지 이어지는 에코시스템을 지배한다." },
-    { n: 3, title: "메모리와 파운드리의 경계가 붕괴", body: "메모리 안 연산·적층·로직 융합으로 제조의 경계가 사라진다." },
-    { n: 4, title: "표준 전쟁이 이익 배분을 결정", body: "CXL, OCP, UCIe, HBM 규격 등의 패권이 향후 이익 배분을 좌우한다." },
+    { n: 1, title: "하이퍼스케일러가 표준을 쥐기 시작", points: ["워크로드에 맞춘 메모리 사양 · 소프트웨어 · 시스템을 직접 주도"] },
+    { n: 2, title: "엔비디아가 메모리 계층 전체를 인터페이스로 장악", points: ["GPU에서 메모리와 네트워크까지 이어지는 생태계 주도권 확대"] },
+    { n: 3, title: "메모리와 파운드리의 경계가 붕괴", points: ["메모리 안 연산 · 적층 · 로직 융합으로 제조 경계 재편"] },
+    { n: 4, title: "표준 전쟁이 이익 배분을 결정", points: ["CXL · OCP · UCIe · HBM 규격의 주도권이 마진 위치를 좌우"] },
   ];
 
   function renderMemoryBypassRoutes() {
@@ -2976,9 +3001,11 @@
         <span class="mbp-tag">전략 프레임워크</span>
       </div>
       <div class="mbp-thesis">
-        AMD가 인수한 <b>MEXT</b>는 플래시를 DRAM처럼 동작하게 하는 <b>예측 계층 소프트웨어</b> 기업이다.
-        칩이 아니라 소프트웨어를 산 이유는 <mark>"DRAM을 늘린다"가 아니라 "DRAM이 필요 없는 구조"</mark>를 손에 넣으려 했기 때문 —
-        <b>DRAM 의존 축소 · 시스템 전체 비용 절감 · 새 메모리 계층 구축</b>이 노림수다.
+        <ul class="mbp-thesis-list">
+          <li><b>MEXT</b> · 플래시를 DRAM처럼 활용하는 예측형 계층 소프트웨어</li>
+          <li><b>인수 논리</b> · <mark>DRAM 증설보다 DRAM 요구량을 줄이는 시스템 설계</mark></li>
+          <li><b>전략 신호</b> · DRAM 의존 축소 · 시스템 비용 절감 · 새 메모리 계층 제어권 확보</li>
+        </ul>
       </div>
       <div class="mbp-bands">
         ${MEMORY_BYPASS_ROUTES.map((band) => `
@@ -3000,31 +3027,43 @@
         `).join("")}
       </div>
       <div class="mbp-sub">
-        <h4>도입 시간축 — 소프트웨어가 먼저, 물리 혁신이 나중</h4>
-        <p class="mbp-note">즉시 가용한 소프트웨어·추론 칩이 앞서고, 매체 교체·물리 계층·신소재가 뒤따른다. (초록=지금 가용 → 회색=연구 단계)</p>
-        <div class="mbp-timeline">
-          ${MEMORY_BYPASS_TIMELINE.map((t) => `
-            <div class="mbp-tl-col ${t.cls}">
-              <span class="mbp-tl-label">${escapeHTML(t.label)}</span>
-              ${t.items.map((i) => `<span class="mbp-tl-item">${escapeHTML(i)}</span>`).join("")}
-            </div>
+        <h4>도입 시간축 · 소프트웨어에서 물리 계층으로</h4>
+        <p class="mbp-note">현재 적용 가능한 효율화 경로부터 검증하고 표준 · 패키징 · 소재 옵션으로 순차 확장</p>
+        <ol class="mbp-timeline mbp-timeline-consulting" aria-label="메모리 우회 경로 도입 타임라인">
+          ${MEMORY_BYPASS_TIMELINE.map((t, index) => `
+            <li class="mbp-tl-stage ${t.cls}" tabindex="0" style="--mbp-phase:${escapeHTML(t.color)};--mbp-stage:${index + 1}">
+              <span class="mbp-tl-marker" aria-hidden="true">${String(index + 1).padStart(2, "0")}</span>
+              <header>
+                <span>${escapeHTML(t.label)}</span>
+                <strong>${escapeHTML(t.phase)}</strong>
+              </header>
+              <p class="mbp-tl-signal"><b>시장 신호</b>${escapeHTML(t.signal)}</p>
+              <ul class="mbp-tl-items">
+                ${t.items.map((item) => `<li>${escapeHTML(item)}</li>`).join("")}
+              </ul>
+              <div class="mbp-tl-hover">
+                <span>HOVER INSIGHT</span>
+                <strong>경영 의사결정</strong>
+                <p>${escapeHTML(t.decision)}</p>
+              </div>
+            </li>
           `).join("")}
-        </div>
+        </ol>
       </div>
       <div class="mbp-sub">
-        <h4>업계 공방 — 4개 프론트</h4>
-        <p class="mbp-note">우회 경로 표준을 둘러싼 싸움은 네 전선에서 동시에 벌어진다. 어디서 표준을 쥐느냐가 마진의 위치를 결정한다.</p>
+        <h4>업계 공방 · 4개 프론트</h4>
+        <p class="mbp-note">표준 주도권이 제품 구성과 마진 배분을 함께 결정</p>
         <div class="mbp-fronts">
           ${MEMORY_BYPASS_FRONTS.map((f) => `
             <article class="mbp-front">
               <span class="mbp-front-tag">FRONT ${f.n}</span>
               <strong>${escapeHTML(f.title)}</strong>
-              <p>${escapeHTML(f.body)}</p>
+              <ul class="mbp-front-list">${f.points.map((point) => `<li>${escapeHTML(point)}</li>`).join("")}</ul>
             </article>
           `).join("")}
         </div>
       </div>
-      <p class="mbp-foot">전략 프레임워크 · AMD-MEXT 인수(실제 이벤트) 해석 기반 · 도입 시점·연도는 업계 로드맵 추정으로 확정치 아님</p>
+      <p class="mbp-foot">전략 프레임워크 · AMD MEXT 인수 해석 기반 · 도입 시점과 연도는 업계 로드맵 추정</p>
     `;
   }
 
@@ -6469,6 +6508,66 @@
     ];
   }
 
+  function withoutTerminalStop(value = "") {
+    return String(value || "").replace(/[.。]+\s*$/u, "").trim();
+  }
+
+  function brokerBaselineReports() {
+    const supplied = Array.isArray(LIVE.brokerResearch?.baseline?.items)
+      ? LIVE.brokerResearch.baseline.items
+      : [];
+    const source = supplied.length ? supplied : brokerResearchFallback();
+    return source.map((item) => ({
+      ...item,
+      body: withoutTerminalStop(item.summary || item.body || ""),
+      implication: withoutTerminalStop(item.insight || item.implication || ""),
+      reversal: withoutTerminalStop(item.reversalKpi || item.reversal || ""),
+      metrics: (Array.isArray(item.metrics) ? item.metrics : []).map(withoutTerminalStop),
+      dataStatus: "baseline-revalidation",
+    })).filter((item) => item.title && item.body);
+  }
+
+  function renderBrokerBaselineReports(baseline = {}) {
+    if (baseline.status !== "revalidation-required") return "";
+    const reports = brokerBaselineReports();
+    if (!reports.length) return "";
+    const count = Number(baseline.itemCount) || reports.length;
+    return `
+      <section class="exec-baseline-reports" aria-labelledby="baselineReportsTitle">
+        <header class="exec-baseline-head">
+          <div>
+            <span>BASELINE · 재검증 대기</span>
+            <h4 id="baselineReportsTitle">제공 리포트 ${fmtNum(count)}건</h4>
+          </div>
+          <ul aria-label="재검증 상태">
+            <li>공개 원문 URL 없음</li>
+            <li>대조일 없음</li>
+            <li>라이브 근거와 분리</li>
+          </ul>
+        </header>
+        <p class="exec-baseline-intro">전략 참고용으로 전체 내용을 제공하며 수치와 결론은 재검증 전 의사결정 입력값으로 사용하지 않음</p>
+        <ol class="exec-baseline-grid">
+          ${reports.map((item, index) => `
+            <li class="exec-baseline-report" style="--report-accent:${escapeHTML(item.accent || "#64748b")}">
+              <header>
+                <span>${String(index + 1).padStart(2, "0")}</span>
+                <strong>${escapeHTML(withoutTerminalStop(item.label || "제공 리포트"))}</strong>
+                <small>${escapeHTML(item.publishedAt || baseline.asOf || "작성일 미상")}</small>
+              </header>
+              <h5>${escapeHTML(withoutTerminalStop(item.title))}</h5>
+              <ul class="exec-baseline-points">
+                <li><b>핵심 내용</b><span>${escapeHTML(item.body)}</span></li>
+                ${item.metrics.length ? `<li><b>핵심 수치</b><span>${item.metrics.map(escapeHTML).join(" · ")}</span></li>` : ""}
+                <li><b>경영 시사점</b><span>${escapeHTML(item.implication)}</span></li>
+                <li><b>재검증 기준</b><span>${escapeHTML(item.reversal)}</span></li>
+              </ul>
+            </li>
+          `).join("")}
+        </ol>
+      </section>
+    `;
+  }
+
   const BROKER_CLIENT_RULES = [
     { institution: "Morgan Stanley", aliases: ["morgan stanley", "모건스탠리", "大摩"], accent: "#00a98f" },
     { institution: "Goldman Sachs", aliases: ["goldman sachs", "골드만삭스", "高盛"], accent: "#d6a428" },
@@ -6752,7 +6851,8 @@
               </article>
             `).join("") : `<div class="empty">이번 실행에서 메모리 산업과 직접 연결되는 증권사 공개 원문·권위 매체 인용을 확인하지 못했습니다.</div>`}
           </section>
-          ${baseline.status === "revalidation-required" ? `<section class="exec-report-conclusion"><span>BASELINE 분리</span><p>${fmtNum(baseline.itemCount || 0)}개 제공 리포트는 공개 원문 URL과 대조일이 없어 재검증 대상으로 분리했습니다.</p></section>` : ""}
+          ${renderBrokerBaselineReports(baseline)}
+          ${baseline.status === "revalidation-required" ? `<section class="exec-report-conclusion"><span>BASELINE 분리</span><ul><li>${fmtNum(baseline.itemCount || 0)}개 제공 리포트는 공개 원문 URL과 대조일이 없어 재검증 대상으로 분리</li><li>재검증 완료 전 라이브 카드와 별도 관리</li></ul></section>` : ""}
         </article>
       `;
     }
