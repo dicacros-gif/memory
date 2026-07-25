@@ -81,6 +81,8 @@ assert.doesNotMatch(css, /\.market-peer-card \{[\s\S]*?box-shadow: inset 0 3px 0
 assert.doesNotMatch(css, /\.arch-track-card \{[\s\S]*?border-top: 4px solid var\(--track-accent\);/, "architecture tracks should not use a top-only color rule");
 assert.doesNotMatch(css, /\.ai-summary-line \{[\s\S]*?inset 0 4px 0 var\(--ai-summary-accent\)/, "AI summaries should not use a top-only inset rule");
 assert.match(css, /\.arch-track-card \{[\s\S]*?border: 2px solid color-mix\(in srgb, var\(--track-accent\) 50%, var\(--line\)\);/, "architecture tracks should use a full-card accent border");
-assert.match(html, /styles\.css\?v=full-panel-emphasis-20260725-22/, "CSS cache key should include the full-panel treatment");
+assert.match(css, /\.china-deep-video-dock \.talent-strategy-video \{[\s\S]*?height: clamp\(380px, 29vw, 560px\);[\s\S]*?aspect-ratio: auto;/, "the wide China strategy video should have a bounded desktop height");
+assert.match(css, /@media \(max-width: 680px\) \{[\s\S]*?\.china-deep-video-dock \.talent-strategy-video \{[\s\S]*?aspect-ratio: 4 \/ 5;/, "the compact video height should preserve the mobile portrait layout");
+assert.match(html, /styles\.css\?v=china-video-height-20260725-23/, "CSS cache key should include the compact China video treatment");
 
 console.log("KPI typography and hover count-up checks passed.");

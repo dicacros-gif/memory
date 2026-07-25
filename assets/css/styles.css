@@ -14958,6 +14958,8 @@ body.sidebar-collapsed .sb-ico {
 .china-deep-video-dock .talent-strategy-video {
   width: 100%;
   min-height: 0;
+  height: clamp(380px, 29vw, 560px);
+  aspect-ratio: auto;
 }
 
 .china-deep-card {
@@ -19299,6 +19301,12 @@ body.crawl-moderation-open {
 }
 
 @media (max-width: 680px) {
+  .china-deep-video-dock .talent-strategy-video {
+    height: auto;
+    min-height: 390px;
+    aspect-ratio: 4 / 5;
+  }
+
   .talent-strategy-video {
     min-height: 390px;
     aspect-ratio: 4 / 5;
