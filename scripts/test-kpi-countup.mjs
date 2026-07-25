@@ -27,6 +27,11 @@ assert.doesNotMatch(app, /검증 가능한 최신 공개 채용 신호가 없습
 assert.doesNotMatch(app, /class="community-brief-decision"/, "duplicated community management judgement should not be rendered");
 assert.doesNotMatch(app, /\$\{decisionFlipKpiHTML\(/, "decision KPI helper should not render the deleted panels");
 assert.match(app, /function decisionStateLabel[\s\S]*?"Go"[\s\S]*?"No-Go"/, "policy decisions should be presented as Go or No-Go");
+assert.match(app, /function researchStrategicFrame[\s\S]*?meaning:[\s\S]*?gate:[\s\S]*?action:/, "the evidence map should turn source patterns into meaning, validation gates, and actions");
+assert.match(app, /class="ni-research-logic"[\s\S]*?Evidence[\s\S]*?Pattern[\s\S]*?Decision/, "the evidence map should expose a consulting evidence-to-decision flow");
+assert.match(app, /class="ni-research-strategy"[\s\S]*?핵심 의미[\s\S]*?검증 게이트[\s\S]*?실행 시사점/, "the latest source should carry an executive interpretation frame");
+assert.match(css, /\.ni-research-lane:is\(:hover, :focus-within\)[\s\S]*?transform: translateY\(-4px\)/, "evidence lanes should animate as full cards on hover");
+assert.match(css, /@media \(prefers-reduced-motion: reduce\)[^{]*\{[^}]*\.ni-research-logic/s, "evidence-map motion should respect reduced-motion settings");
 
 assert.match(app, /let memoryMarketModeTimer = 0;/, "market-map carousel must retain one rotation timer");
 assert.match(app, /window\.setInterval\(\(\) => \{[\s\S]*?\}, 5000\);/, "market-map views should rotate on a five-second cadence");
@@ -86,7 +91,7 @@ assert.match(app, /const priceRenderObserver = new IntersectionObserver[\s\S]*?r
 assert.match(app, /section\.id === "prices" \? priceRenderObserver : observer/, "only the price board should receive the early render window");
 assert.match(css, /\.agent-debate-title \.agent-tts-toggle \{[\s\S]*?min-width: 190px;[\s\S]*?min-height: 44px;/, "the English TTS control should be large and readable");
 assert.match(css, /\.agent-tts-state \{[\s\S]*?min-width: 31px;/, "the TTS control should expose a dedicated on-or-off state badge");
-assert.match(html, /app\.js\?v=decision-ui-cleanup-20260725-32/, "JavaScript cache key should include the decision UI cleanup revision");
+assert.match(html, /app\.js\?v=evidence-strategy-map-20260725-33/, "JavaScript cache key should include the evidence strategy map revision");
 assert.match(css, /\.market-peer-card \{[\s\S]*?border: 2px solid color-mix\(in srgb, var\(--peer-brand\) 48%, var\(--line\)\);[\s\S]*?linear-gradient\(135deg,[\s\S]*?var\(--peer-brand\) 15%/, "peer cards should use full-card brand treatment rather than a top-only rule");
 assert.doesNotMatch(css, /\.market-peer-card \{[\s\S]*?box-shadow: inset 0 3px 0 var\(--peer-brand\);/, "peer cards should not use an isolated top-edge highlight");
 assert.doesNotMatch(css, /\.arch-track-card \{[\s\S]*?border-top: 4px solid var\(--track-accent\);/, "architecture tracks should not use a top-only color rule");
@@ -96,6 +101,6 @@ assert.match(css, /\.china-deep-video-dock \.talent-strategy-video \{[\s\S]*?hei
 assert.match(css, /@media \(max-width: 680px\) \{[\s\S]*?\.china-deep-video-dock \.talent-strategy-video \{[\s\S]*?aspect-ratio: 4 \/ 5;/, "the compact video height should preserve the mobile portrait layout");
 assert.match(css, /#talent-radar \.talent-radar-slider-slot \{[\s\S]*?display: flex;[\s\S]*?justify-content: center;/, "the talent radar slot should center its visual stage");
 assert.match(css, /#talent-radar \.talent-radar-slider \{[\s\S]*?width: min\(100%, 1360px\);[\s\S]*?margin-inline: auto;/, "the talent radar visual should use a bounded, centered desktop width");
-assert.match(html, /styles\.css\?v=decision-ui-cleanup-20260725-28/, "CSS cache key should include the decision UI cleanup treatment");
+assert.match(html, /styles\.css\?v=evidence-strategy-map-20260725-29/, "CSS cache key should include the evidence strategy map treatment");
 
 console.log("KPI typography and hover count-up checks passed.");

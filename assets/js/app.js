@@ -3198,6 +3198,48 @@
     };
   }
 
+  function researchStrategicFrame(map = {}, citations = []) {
+    const leading = map.themes?.[0] || { id: "technology", label: "기술 로드맵", count: 0 };
+    const total = Math.max(1, citations.length);
+    const sourceShare = Number(map.sources?.[0]?.count || 0) / total;
+    const themeShare = Number(leading.count || 0) / total;
+    const frames = {
+      hbm: {
+        meaning: "HBM 경쟁축이 단순 적층 용량에서 수율·패키징·열관리·고객 인증의 동시 실행으로 이동",
+        gate: "샘플 성능보다 고객 인증, 양산 수율, 패키징 처리량, 반복 수주를 같은 날짜축에서 확인",
+        action: "프리미엄 캐파는 고객별 인증 물량과 후공정 병목을 묶어 단계 승인",
+      },
+      dram: {
+        meaning: "DRAM 의사결정이 범용 가격과 시스템 아키텍처·대역폭 병목의 두 트랙으로 분화",
+        gate: "spot·contract spread, 고객 재고, 서버 믹스와 실제 대역폭 개선을 분리 검증",
+        action: "범용 가격 방어와 차세대 메모리 계층 투자를 별도 손익·기술 게이트로 운영",
+      },
+      supply: {
+        meaning: "중국 공급 확대 신호가 캐파 발표보다 장비 반입·수율·고객 채택에서 실제 경쟁력으로 전환",
+        gate: "웨이퍼 캐파 추정은 장비 설치, 양산 수율, 제품 인증, 반복 주문 원문이 붙을 때만 승격",
+        action: "범용 DRAM·NAND 가격 방어와 중국 고객별 장기계약을 동시에 재점검",
+      },
+      market: {
+        meaning: "가격과 수요 신호가 제품별 재고·출하·고객 전환 속도에 따라 비대칭적으로 전개",
+        gate: "spot·contract 가격, 출하, 재고 회전, 고객 주문이 같은 방향인지 월별 교차검증",
+        action: "상방 신호는 선별 증산, 하방 신호는 믹스 전환과 계약 재가격화로 분리 대응",
+      },
+      technology: {
+        meaning: "기술 발표의 전략 가치는 데모가 아니라 표준 채택·샘플·양산·반복 수주의 전환 속도에서 결정",
+        gate: "로드맵 발표 뒤 고객 PoC, 펌웨어, 수율, 공급계약이 순서대로 연결되는지 확인",
+        action: "기술 옵션은 단계 투자로 유지하고 상용 전환 증거가 붙을 때 자본 배분을 확대",
+      },
+    };
+    const selected = frames[leading.id] || frames.technology;
+    return {
+      ...selected,
+      sourceReadout: sourceShare > .55
+        ? `상위 출처 비중 ${fmtNum(sourceShare * 100)}% · 추가 원문 교차검증 필요`
+        : `출처 ${fmtNum(map.sources?.length || 0)}곳 분산 · 동일 수치와 날짜 일치 여부 확인`,
+      themeReadout: `${leading.label} ${fmtNum(themeShare * 100)}% · 현재 원문 흐름의 최우선 검토축`,
+    };
+  }
+
   function koreanArticleHeadline(title = "", fallback = "", summary = "") {
     const value = String(title || "").replace(/\s+/g, " ").trim();
     if (/[가-힣]/.test(value)) return value;
@@ -3227,19 +3269,28 @@
     const visibleSources = map.sources.slice(0, 5);
     const visibleThemes = map.themes.slice(0, 5);
     const leadingTheme = visibleThemes[0]?.label || "핵심 주제";
+    const strategy = researchStrategicFrame(map, citations);
     return `
       <section class="ni-research ni-research-infographic" aria-label="원문 근거 지도">
         <header class="ni-research-head">
           <div>
             <span class="ni-research-kicker">원문 근거 지도</span>
-            <strong>출처 · 주제 · 최신 원문 연결</strong>
+            <strong>근거에서 전략 판단까지 연결</strong>
           </div>
           <span>최근 ${fmtNum(citations.length)}건 · 누적 ${fmtNum(archiveTotal)}건</span>
         </header>
+        <div class="ni-research-logic" aria-label="근거 해석 원칙">
+          <span><b>Evidence</b>${escapeHTML(strategy.sourceReadout)}</span>
+          <i aria-hidden="true">→</i>
+          <span><b>Pattern</b>${escapeHTML(strategy.themeReadout)}</span>
+          <i aria-hidden="true">→</i>
+          <span><b>Decision</b>검증 게이트 통과 후 실행 강도 조정</span>
+        </div>
         <div class="ni-research-map" aria-label="출처에서 주제로 이어지는 원문 근거 지도">
           <section class="ni-research-lane ni-research-sources">
-            <span class="ni-research-lane-label">01 · 출처</span>
-            <strong>원문 집계</strong>
+            <span class="ni-research-lane-label">01 · EVIDENCE BASE</span>
+            <strong>출처 신뢰도와 편중 점검</strong>
+            <p class="ni-research-lane-note">원문 수보다 출처 분산과 날짜 일치를 우선 확인</p>
             <div class="ni-research-nodes">
               ${visibleSources.map((item) => `
                 <div class="ni-research-node source" style="--share:${(item.count / sourceMax).toFixed(3)}">
@@ -3248,10 +3299,11 @@
               `).join("")}
             </div>
           </section>
-          <div class="ni-research-arrow" aria-hidden="true"><span>근거</span><i></i></div>
+          <div class="ni-research-arrow" aria-hidden="true"><span>분류</span><i></i></div>
           <section class="ni-research-lane ni-research-themes">
-            <span class="ni-research-lane-label">02 · 주제</span>
-            <strong>관련 신호</strong>
+            <span class="ni-research-lane-label">02 · SIGNAL CLUSTER</span>
+            <strong>전략 테마 집중도</strong>
+            <p class="ni-research-lane-note">반복 출현하는 주제를 우선 검토축으로 승격</p>
             <div class="ni-research-nodes">
               ${visibleThemes.map((item) => `
                 <div class="ni-research-node theme" style="--share:${(item.count / themeMax).toFixed(3)};--node-color:${escapeHTML(item.color)}">
@@ -3260,16 +3312,21 @@
               `).join("")}
             </div>
           </section>
-          <div class="ni-research-arrow" aria-hidden="true"><span>최신</span><i></i></div>
+          <div class="ni-research-arrow" aria-hidden="true"><span>판단</span><i></i></div>
           <article class="ni-research-focus">
-            <span class="ni-research-lane-label">03 · 최신 원문</span>
-            <strong>${escapeHTML(leadingTheme)}</strong>
+            <span class="ni-research-lane-label">03 · EXECUTIVE LENS</span>
+            <strong>${escapeHTML(leadingTheme)} · 최신 원문</strong>
             <h4>${strategicHighlightHTML(koreanArticleHeadline(latest.titleKo || latest.title, "최신 수집 원문", latest.summary))}</h4>
             <div>
               <span>${escapeHTML(latest.source || "출처")}</span>
               <small>${escapeHTML(latest.date || "")}</small>
             </div>
             ${latest.url ? `<a href="${escapeHTML(latest.url)}" target="_blank" rel="noopener noreferrer">원문 보기 ↗</a>` : ""}
+            <div class="ni-research-strategy">
+              <div><span>핵심 의미</span><p>${escapeHTML(strategy.meaning)}</p></div>
+              <div><span>검증 게이트</span><p>${escapeHTML(strategy.gate)}</p></div>
+              <div><span>실행 시사점</span><p>${escapeHTML(strategy.action)}</p></div>
+            </div>
           </article>
         </div>
         <div class="ni-research-evidence-tape" aria-label="최근 원문">
