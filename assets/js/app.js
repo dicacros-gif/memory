@@ -11227,9 +11227,9 @@
       title: "돈의 흐름",
       tagline: "누가 투자받고 누가 매출을 확보하는가 — 자본의 방향을 추적합니다.",
       slides: [
-        { img: "assets/media/ai-demand-scroll.webp", label: "AI 수요", caption: "NVIDIA·서버 DRAM 장기계약 매출" },
-        { img: "assets/media/china-capital-ai.webp", label: "중국 자본", caption: "지방정부 펀드·내재화 투자 라운드" },
-        { img: "assets/media/policy-capital-flow.webp", label: "정책 자금", caption: "Big Fund·보조금 자본 흐름" },
+        { img: "assets/media/money-flow-ai-demand.webp", label: "AI 수요", caption: "AI 서버 증설·메모리 장기계약" },
+        { img: "assets/media/money-flow-china-capital.webp", label: "중국 자본", caption: "패키징·테스트 캐파·현지 투자" },
+        { img: "assets/media/money-flow-policy-capital.webp", label: "정책 자금", caption: "정책 자금·Fab 증설·장비 발주" },
       ],
     },
   };

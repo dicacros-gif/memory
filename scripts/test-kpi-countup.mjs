@@ -26,6 +26,7 @@ assert.match(css, /@media \(prefers-reduced-motion: reduce\) \{\s*\.kpi-value-ca
 assert.match(app, /let memoryMarketModeTimer = 0;/, "market-map carousel must retain one rotation timer");
 assert.match(app, /window\.setInterval\(\(\) => \{[\s\S]*?\}, 5000\);/, "market-map views should rotate on a five-second cadence");
 assert.match(app, /board\.addEventListener\("mouseenter", stopMemoryMarketModeRotation\)/, "market-map carousel should pause on pointer hover");
+assert.match(app, /money: \{[\s\S]*?money-flow-ai-demand\.webp[\s\S]*?AI 서버 증설·메모리 장기계약[\s\S]*?money-flow-china-capital\.webp[\s\S]*?패키징·테스트 캐파·현지 투자[\s\S]*?money-flow-policy-capital\.webp[\s\S]*?정책 자금·Fab 증설·장비 발주/s, "Money Flow should use dedicated demand, capital, and policy-capital images");
 assert.match(app, /data-memory-rotation-toggle/, "market-map carousel should offer a pause and resume control");
 assert.match(css, /\.memory-map-tabs\[data-rotation-running="true"\] \.memory-map-cycle-progress b/, "market-map carousel should show five-second progress");
 assert.match(css, /@media \(prefers-reduced-motion: reduce\) \{[\s\S]*?\.memory-map-cycle-progress b/s, "market-map carousel should respect reduced-motion settings");
@@ -75,7 +76,7 @@ assert.match(app, /function prewarmPriceBoardData\(\)[\s\S]*?loadSecondaryData\(
 assert.match(app, /rootMargin: "2200px 0px"/, "price data should prefetch well ahead of a scrolling user");
 assert.match(app, /const priceRenderObserver = new IntersectionObserver[\s\S]*?rootMargin: "1100px 0px"/, "price board rendering should complete before the board reaches the viewport");
 assert.match(app, /section\.id === "prices" \? priceRenderObserver : observer/, "only the price board should receive the early render window");
-assert.match(html, /app\.js\?v=price-prefetch-20260725-20/, "JavaScript cache key should include the price prefetch revision");
+assert.match(html, /app\.js\?v=money-flow-images-20260725-25/, "JavaScript cache key should include the Money Flow image revision");
 assert.match(css, /\.market-peer-card \{[\s\S]*?border: 2px solid color-mix\(in srgb, var\(--peer-brand\) 48%, var\(--line\)\);[\s\S]*?linear-gradient\(135deg,[\s\S]*?var\(--peer-brand\) 15%/, "peer cards should use full-card brand treatment rather than a top-only rule");
 assert.doesNotMatch(css, /\.market-peer-card \{[\s\S]*?box-shadow: inset 0 3px 0 var\(--peer-brand\);/, "peer cards should not use an isolated top-edge highlight");
 assert.doesNotMatch(css, /\.arch-track-card \{[\s\S]*?border-top: 4px solid var\(--track-accent\);/, "architecture tracks should not use a top-only color rule");
