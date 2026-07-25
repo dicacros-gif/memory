@@ -7046,14 +7046,16 @@
     renderTodayHub();
 
     brief.innerHTML = `
-      <div class="exec-bullets">
-        ${executiveStrategyLines().map((item) => `
-          <button class="exec-line reveal${item.priority ? " exec-line-priority" : ""}" type="button" data-jump="${escapeHTML(item.jump)}">
-            <span>${escapeHTML(item.label)}</span>
-            <strong>${escapeHTML(briefingLineText(item.title))}</strong>
-            <ul class="exec-line-bullet-list">
-              ${briefingBulletLines(item.body).map((line, lineIndex) => `<li>${lineIndex === 0 && item.bodyLead ? `<strong class="exec-line-lead">${escapeHTML(item.bodyLead)}</strong>` : ""}${escapeHTML(line)}</li>`).join("")}
-            </ul>
+      <div class="exec-flow" aria-label="경영진 의사결정 흐름">
+        ${executiveStrategyLines().map((item, index) => `
+          <button class="exec-flow-node reveal${item.priority ? " is-priority" : ""}" type="button" data-jump="${escapeHTML(item.jump)}">
+            <span class="exec-flow-step">${String(index + 1).padStart(2, "0")}</span>
+            <span class="exec-flow-copy">
+              <span class="exec-flow-label">${escapeHTML(item.label)}</span>
+              <strong>${escapeHTML(briefingLineText(item.title))}</strong>
+              <span class="exec-flow-signal"><b>${escapeHTML(item.bodyLead || "Signal")}</b>${escapeHTML(briefingBulletLines(item.body).join(" · "))}</span>
+            </span>
+            <span class="exec-flow-marker">${escapeHTML(item.bodyLead || ["구조", "추적", "결정"][index] || "검토")}</span>
           </button>
         `).join("")}
       </div>
@@ -7061,9 +7063,12 @@
 
     strategy.innerHTML = CHINA_NAND_BUSINESS_LAYERS.slice(0, 6).map((item, index) => `
       <button class="exec-strategy-card exec-strategy-tone-${index % 6} reveal" type="button" data-exec-nand="${escapeHTML(item.id)}" style="animation-delay:${index * 30}ms">
-        <span>${strategicHighlightHTML(item.label)}</span>
-        <strong>${strategicHighlightHTML(briefingLineText(item.role))}</strong>
-        <small>${strategicHighlightHTML(briefingLineText(item.strategy[0] || item.title))}</small>
+        <span class="exec-strategy-index">${String(index + 1).padStart(2, "0")}</span>
+        <span class="exec-strategy-copy">
+          <span>${escapeHTML(item.label)}</span>
+          <strong>${escapeHTML(briefingLineText(item.role))}</strong>
+          <small>${escapeHTML(briefingLineText(item.strategy[0] || item.title))}</small>
+        </span>
       </button>
     `).join("");
 

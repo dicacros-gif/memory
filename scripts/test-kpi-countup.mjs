@@ -44,10 +44,12 @@ assert.match(app, /bodyLead: "Insight"/, "executive insight cards should use the
 assert.match(app, /function briefingBulletLines\(value = ""\)/, "broker summaries should be split into bullet-safe lines");
 assert.match(app, /briefingBulletListHTML\(item\.body\)/, "broker article bodies should render as bullet lists");
 assert.match(app, /class="exec-report-decision-list"/, "broker insights and reversal conditions should render as bullet lists");
-assert.match(app, /class="exec-line-bullet-list"/, "executive summary lines should render as bullet lists");
+assert.match(app, /class="exec-flow-node reveal/, "executive summary should render as a compact signal-to-decision flow");
+assert.match(app, /class="exec-flow-signal"/, "executive flow nodes should retain the core evidence text");
 assert.match(css, /\.exec-report-bullet-list > li::before/, "broker bullet lists should have a visual bullet marker");
 assert.match(css, /\.exec-report-decision-list > li\.is-continuation/, "multi-line broker points should retain their bullet alignment");
-assert.match(css, /\.exec-line-bullet-list > li::before/, "executive summary bullets should have a visual bullet marker");
+assert.match(css, /\.exec-flow-node:not\(:last-child\)::after/, "executive flow nodes should have directional infographic connectors");
+assert.match(css, /\.exec-strategy-index \{/, "ecosystem strategy cards should include numbered infographic nodes");
 assert.match(css, /\.china-nand-focus\[data-nand-focus="policy"\] \{[\s\S]*?inset 0 5px 0 var\(--policy-violet\);/, "policy selection should emphasize the complete panel");
 assert.match(css, /\.china-nand-focus\[data-nand-focus="policy"\] \.nand-focus-head h3 \{[\s\S]*?text-decoration: none;/, "policy heading should not use isolated text highlighting");
 assert.match(css, /\.china-nand-focus\[data-nand-focus="policy"\] :is\(\.strategy-highlight, \.answer-term\) \{[\s\S]*?text-decoration: none !important;/, "policy content should not use isolated term highlighting");
@@ -62,7 +64,7 @@ assert.match(css, /#talent-radar \.talent-split \{[\s\S]*?grid-template-columns:
 assert.match(css, /#talent-radar \.talent-radar-slider \.china-capital-slide\.is-previous/, "talent filmstrip should show a previous-slide preview");
 assert.match(css, /#talent-radar \.talent-radar-slider \.china-capital-slide\.is-next/, "talent filmstrip should show a next-slide preview");
 assert.match(css, /#china-talent-strategy \.policy-focus \{[\s\S]*?position: sticky;/, "operational workforce plan should remain visible while the image carousel moves");
-assert.match(html, /styles\.css\?v=talent-layout-20260725-17/, "CSS cache key should include this integrated revision");
-assert.match(html, /app\.js\?v=talent-layout-20260725-17/, "JavaScript cache key should include this integrated revision");
+assert.match(html, /styles\.css\?v=executive-infographic-20260725-18/, "CSS cache key should include this integrated revision");
+assert.match(html, /app\.js\?v=executive-infographic-20260725-18/, "JavaScript cache key should include this integrated revision");
 
 console.log("KPI typography and hover count-up checks passed.");
