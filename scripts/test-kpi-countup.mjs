@@ -23,7 +23,13 @@ assert.match(css, /font-variant-numeric: lining-nums tabular-nums;/, "KPI figure
 assert.match(css, /\.kpi-value-card > strong > \.count \{[\s\S]*?font: inherit;/, "the inner counter must inherit the large value size");
 assert.match(css, /@media \(prefers-reduced-motion: reduce\) \{\s*\.kpi-value-card > strong > \.count\.is-counting/s, "count-up motion should respect reduced-motion settings");
 
-assert.match(html, /styles\.css\?v=baseline-timeline-20260725-8/, "CSS cache key should include this integrated revision");
-assert.match(html, /app\.js\?v=baseline-timeline-20260725-8/, "JavaScript cache key should include this integrated revision");
+assert.match(app, /let memoryMarketModeTimer = 0;/, "market-map carousel must retain one rotation timer");
+assert.match(app, /window\.setInterval\(\(\) => \{[\s\S]*?\}, 5000\);/, "market-map views should rotate on a five-second cadence");
+assert.match(app, /board\.addEventListener\("mouseenter", stopMemoryMarketModeRotation\)/, "market-map carousel should pause on pointer hover");
+assert.match(app, /data-memory-rotation-toggle/, "market-map carousel should offer a pause and resume control");
+assert.match(css, /\.memory-map-tabs\[data-rotation-running="true"\] \.memory-map-cycle-progress b/, "market-map carousel should show five-second progress");
+assert.match(css, /@media \(prefers-reduced-motion: reduce\) \{[\s\S]*?\.memory-map-cycle-progress b/s, "market-map carousel should respect reduced-motion settings");
+assert.match(html, /styles\.css\?v=market-carousel-20260725-9/, "CSS cache key should include this integrated revision");
+assert.match(html, /app\.js\?v=market-carousel-20260725-9/, "JavaScript cache key should include this integrated revision");
 
 console.log("KPI typography and hover count-up checks passed.");

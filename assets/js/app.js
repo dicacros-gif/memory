@@ -2057,6 +2057,8 @@
   let memoryMarketFocusId = "";
   let memoryMarketEdgeType = "all";
   let memoryMarketNodePositions = {};
+  let memoryMarketModeTimer = 0;
+  let memoryMarketModeRotationPaused = false;
   let numberLens = "all";
   let chinaNandFocusId = "ymtc";
   let managementStrategyFocusId = "china-key-account";
@@ -10444,7 +10446,91 @@
           subtitle: "경쟁 · 파트너십 · 투자 · 공급",
           types: ["경쟁", "파트너십", "투자", "공급", "후보"],
           accent: "#4322A8",
-        };
+      };
+  }
+
+  function updateMemoryMarketModeCycleState() {
+    const tabs = $("#memoryMarketTabs");
+    if (!tabs) return;
+    const reducedMotion = window.matchMedia?.("(prefers-reduced-motion: reduce)").matches;
+    const running = Boolean(memoryMarketModeTimer) && !reducedMotion;
+    tabs.dataset.rotationPaused = memoryMarketModeRotationPaused ? "true" : "false";
+    tabs.dataset.rotationRunning = running ? "true" : "false";
+    const state = tabs.querySelector("[data-memory-rotation-state]");
+    if (state) state.textContent = reducedMotion
+      ? "모션 줄이기 적용"
+      : memoryMarketModeRotationPaused
+        ? "자동 순환 일시 정지"
+        : running
+          ? "5초 자동 순환"
+          : "마우스 위치로 일시 정지";
+    const toggle = tabs.querySelector("[data-memory-rotation-toggle]");
+    if (toggle) {
+      toggle.textContent = memoryMarketModeRotationPaused ? "자동 순환 재개" : "자동 순환 일시 정지";
+      toggle.setAttribute("aria-pressed", memoryMarketModeRotationPaused ? "true" : "false");
+    }
+  }
+
+  function stopMemoryMarketModeRotation() {
+    if (memoryMarketModeTimer) {
+      window.clearInterval(memoryMarketModeTimer);
+      memoryMarketModeTimer = 0;
+    }
+    updateMemoryMarketModeCycleState();
+  }
+
+  function startMemoryMarketModeRotation() {
+    stopMemoryMarketModeRotation();
+    if (memoryMarketModeRotationPaused || window.matchMedia?.("(prefers-reduced-motion: reduce)").matches) return;
+    memoryMarketModeTimer = window.setInterval(() => {
+      if (document.hidden) return;
+      memoryMarketMode = memoryMarketMode === "competitive" ? "money" : "competitive";
+      memoryMarketEdgeType = "all";
+      memoryMarketFocusId = "";
+      renderMemoryMarketMap();
+    }, 5000);
+    updateMemoryMarketModeCycleState();
+  }
+
+  function bindMemoryMarketModeControls(tabs) {
+    if (!tabs) return;
+    tabs.querySelectorAll("[data-memory-mode]").forEach((btn) => {
+      btn.addEventListener("click", () => {
+        memoryMarketMode = btn.dataset.memoryMode;
+        memoryMarketEdgeType = "all";
+        memoryMarketFocusId = "";
+        renderMemoryMarketMap();
+      });
+    });
+    tabs.querySelector("[data-memory-rotation-toggle]")?.addEventListener("click", () => {
+      memoryMarketModeRotationPaused = !memoryMarketModeRotationPaused;
+      if (memoryMarketModeRotationPaused) stopMemoryMarketModeRotation();
+      else startMemoryMarketModeRotation();
+    });
+    const board = $("#memory-market-map");
+    if (board?.dataset.modeCycleBound !== "true") {
+      board.dataset.modeCycleBound = "true";
+      board.addEventListener("mouseenter", stopMemoryMarketModeRotation);
+      board.addEventListener("mouseleave", startMemoryMarketModeRotation);
+      board.addEventListener("focusin", stopMemoryMarketModeRotation);
+      board.addEventListener("focusout", (event) => {
+        if (!board.contains(event.relatedTarget)) startMemoryMarketModeRotation();
+      });
+      document.addEventListener("visibilitychange", () => {
+        if (document.hidden) stopMemoryMarketModeRotation();
+        else startMemoryMarketModeRotation();
+      });
+    }
+    startMemoryMarketModeRotation();
+  }
+
+  function animateMemoryMarketModeTransition() {
+    const board = $("#memory-market-map");
+    if (!board || window.matchMedia?.("(prefers-reduced-motion: reduce)").matches) return;
+    const panels = Array.from(board.querySelectorAll(".memory-map-panel, .memory-map-side"));
+    panels.forEach((panel) => panel.classList.remove("is-mode-enter"));
+    void board.offsetWidth;
+    panels.forEach((panel) => panel.classList.add("is-mode-enter"));
   }
 
   function memoryMarketTextHasAny(text, terms = []) {
@@ -11150,6 +11236,7 @@
 
     renderMemoryMarketHero();
 
+    tabs.dataset.activeMode = memoryMarketMode;
     tabs.innerHTML = `
       <button type="button" class="${memoryMarketMode === "competitive" ? "active" : ""}" data-memory-mode="competitive" style="--tab-accent:#4322A8">
         <strong>Competitive Dynamics</strong><small>경쟁 · 파트너십 · 투자 · 공급</small>
@@ -11157,7 +11244,13 @@
       <button type="button" class="${memoryMarketMode === "money" ? "active" : ""}" data-memory-mode="money" style="--tab-accent:#0E8F6E">
         <strong>Money Flow · 돈의 흐름</strong><small>투자 · 매출</small>
       </button>
+      <div class="memory-map-cycle" aria-live="polite">
+        <span data-memory-rotation-state>5초 자동 순환</span>
+        <i class="memory-map-cycle-progress" aria-hidden="true"><b></b></i>
+        <button type="button" data-memory-rotation-toggle aria-pressed="false">자동 순환 일시 정지</button>
+      </div>
     `;
+    bindMemoryMarketModeControls(tabs);
 
     const typeCounts = config.types.map((type) => ({
       type,
@@ -11179,6 +11272,7 @@
       graph.innerHTML = `<div class="empty">선택한 조건에 연결된 근거 있는 관계가 없습니다.</div>`;
       renderMemoryMarketDetail(null, edges);
       renderMemoryMarketShowcaseInsight(null);
+      animateMemoryMarketModeTransition();
       return;
     }
 
@@ -11268,14 +11362,6 @@
         renderMemoryMarketMap();
       });
     });
-    tabs.querySelectorAll("[data-memory-mode]").forEach((btn) => {
-      btn.addEventListener("click", () => {
-        memoryMarketMode = btn.dataset.memoryMode;
-        memoryMarketEdgeType = "all";
-        memoryMarketFocusId = "";
-        renderMemoryMarketMap();
-      });
-    });
     summary.querySelectorAll("[data-memory-edge-type]").forEach((btn) => {
       btn.addEventListener("click", () => {
         memoryMarketEdgeType = btn.dataset.memoryEdgeType || "all";
@@ -11292,6 +11378,7 @@
 
     renderMemoryMarketDetail(selected, edges);
     renderMemoryMarketShowcaseInsight(selected);
+    animateMemoryMarketModeTransition();
     animateCounts(summary);
     animateCounts(graph);
     animateMeters(graph);

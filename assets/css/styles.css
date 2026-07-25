@@ -8416,9 +8416,14 @@ body.sidebar-collapsed .sb-ico {
 
 .memory-map-tabs {
   grid-template-columns: repeat(2, minmax(0, 1fr));
+  position: relative;
+  overflow: hidden;
+  padding: 4px;
+  border-radius: 14px;
+  background: color-mix(in srgb, var(--panel) 78%, transparent);
 }
 
-.memory-map-tabs button,
+.memory-map-tabs > button,
 .memory-map-kpi,
 .memory-map-type-filter,
 .memory-map-panel,
@@ -8435,18 +8440,19 @@ body.sidebar-collapsed .sb-ico {
     color .16s;
 }
 
-.memory-map-tabs button {
+.memory-map-tabs > button {
   min-height: 68px;
   display: grid;
   gap: 5px;
   position: relative;
+  z-index: 1;
   overflow: hidden;
   color: var(--ink);
   padding: 12px;
   text-align: left;
 }
 
-.memory-map-tabs button::before {
+.memory-map-tabs > button::before {
   content: "";
   position: absolute;
   inset: 0;
@@ -8455,16 +8461,26 @@ body.sidebar-collapsed .sb-ico {
   transition: opacity .18s;
 }
 
-.memory-map-tabs button:hover,
-.memory-map-tabs button.active {
-  transform: translateY(-2px);
+.memory-map-tabs > button:hover,
+.memory-map-tabs > button.active {
+  transform: translateY(-4px) scale(1.012);
   border-color: var(--tab-accent, var(--mode-accent, var(--accent)));
   background: color-mix(in srgb, var(--tab-accent, var(--mode-accent, var(--accent))) 10%, var(--panel));
   box-shadow: 0 12px 30px color-mix(in srgb, var(--tab-accent, var(--mode-accent, var(--accent))) 22%, transparent);
 }
 
-.memory-map-tabs button:hover::before,
-.memory-map-tabs button.active::before {
+.memory-map-tabs > button:not(.active) {
+  opacity: .66;
+  transform: scale(.975);
+}
+
+.memory-map-tabs > button:not(.active):hover {
+  opacity: 1;
+  transform: translateY(-2px) scale(.99);
+}
+
+.memory-map-tabs > button:hover::before,
+.memory-map-tabs > button.active::before {
   opacity: .92;
 }
 
@@ -8480,10 +8496,10 @@ body.sidebar-collapsed .sb-ico {
   z-index: 1;
 }
 
-.memory-map-tabs button:hover strong,
-.memory-map-tabs button.active strong,
-.memory-map-tabs button:hover small,
-.memory-map-tabs button.active small {
+.memory-map-tabs > button:hover strong,
+.memory-map-tabs > button.active strong,
+.memory-map-tabs > button:hover small,
+.memory-map-tabs > button.active small {
   color: #fff;
 }
 
@@ -8501,6 +8517,111 @@ body.sidebar-collapsed .sb-ico {
 
 .memory-map-summary {
   grid-template-columns: minmax(0, 1fr);
+}
+
+.memory-map-cycle {
+  grid-column: 1 / -1;
+  z-index: 2;
+  display: grid;
+  grid-template-columns: auto minmax(80px, 1fr) auto;
+  align-items: center;
+  gap: 9px;
+  min-height: 29px;
+  padding: 2px 5px 0;
+}
+
+.memory-map-cycle > span {
+  color: var(--ink-2);
+  font-size: 9px;
+  font-weight: 850;
+  white-space: nowrap;
+}
+
+.memory-map-cycle-progress {
+  display: block;
+  height: 2px;
+  overflow: hidden;
+  border-radius: 999px;
+  background: color-mix(in srgb, var(--mode-accent, var(--accent)) 14%, var(--line));
+}
+
+.memory-map-cycle-progress b {
+  display: block;
+  width: 100%;
+  height: 100%;
+  transform: scaleX(0);
+  transform-origin: left;
+  border-radius: inherit;
+  background: linear-gradient(90deg, var(--mode-accent, var(--accent)), color-mix(in srgb, var(--mode-accent, var(--accent)) 46%, #00c2a8));
+}
+
+.memory-map-tabs[data-rotation-running="true"] .memory-map-cycle-progress b {
+  animation: memoryMapCycleProgress 5s linear both;
+}
+
+.memory-map-tabs[data-rotation-running="false"] .memory-map-cycle-progress b {
+  animation-play-state: paused;
+}
+
+@keyframes memoryMapCycleProgress {
+  from { transform: scaleX(0); }
+  to { transform: scaleX(1); }
+}
+
+.memory-map-cycle button {
+  min-height: 0;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid color-mix(in srgb, var(--mode-accent, var(--accent)) 34%, var(--line));
+  border-radius: 999px;
+  color: color-mix(in srgb, var(--mode-accent, var(--accent)) 78%, var(--ink));
+  background: var(--panel);
+  padding: 4px 8px;
+  font: inherit;
+  font-size: 9px;
+  font-weight: 900;
+  cursor: pointer;
+  white-space: nowrap;
+  transform: none;
+}
+
+.memory-map-cycle button:hover,
+.memory-map-cycle button:focus-visible {
+  opacity: 1;
+  transform: translateY(-1px);
+  border-color: var(--mode-accent, var(--accent));
+  background: color-mix(in srgb, var(--mode-accent, var(--accent)) 9%, var(--panel));
+  box-shadow: none;
+}
+
+.memory-map-panel.is-mode-enter,
+.memory-map-side.is-mode-enter {
+  animation: memoryMapModeEnter .48s cubic-bezier(.2,.8,.2,1) both;
+}
+
+@keyframes memoryMapModeEnter {
+  from { opacity: .3; transform: translateX(12px); }
+  to { opacity: 1; transform: translateX(0); }
+}
+
+@media (max-width: 620px) {
+  .memory-map-cycle {
+    grid-template-columns: minmax(0, 1fr) auto;
+  }
+
+  .memory-map-cycle-progress {
+    grid-column: 1 / -1;
+    grid-row: 2;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .memory-map-cycle-progress b,
+  .memory-map-panel,
+  .memory-map-side {
+    animation: none !important;
+  }
 }
 
 .memory-map-kpi,
