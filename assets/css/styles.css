@@ -18257,45 +18257,86 @@ body.sidebar-collapsed .sb-ico {
   display: inline-flex;
   justify-self: end;
   align-items: center;
-  gap: 7px;
+  gap: 9px;
   width: auto;
-  max-width: 132px;
-  min-height: 32px;
+  min-width: 190px;
+  min-height: 44px;
   margin-left: auto;
-  padding: 5px 9px;
-  border: 1px solid var(--line);
-  border-radius: 7px;
+  padding: 6px 9px;
+  border: 2px solid color-mix(in srgb, var(--local-accent, var(--accent)) 34%, var(--line));
+  border-radius: 10px;
   background: var(--panel-2);
-  color: var(--ink-2);
+  color: var(--ink);
+  text-align: left;
   cursor: pointer;
-  transition: background .18s ease, border-color .18s ease, color .18s ease, transform .18s ease;
+  transition: background .18s ease, border-color .18s ease, color .18s ease, transform .18s ease, box-shadow .18s ease;
 }
 
-.agent-tts-toggle b {
+.agent-tts-mark {
   display: grid;
   place-items: center;
-  min-width: 29px;
-  height: 20px;
-  border-radius: 4px;
+  flex: 0 0 28px;
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
   background: color-mix(in srgb, var(--ink) 8%, transparent);
-  font-family: var(--display);
-  font-size: 9px;
-  letter-spacing: 0;
+  font-size: 15px;
 }
 
-.agent-tts-toggle small {
+.agent-tts-copy {
+  display: grid;
+  min-width: 0;
+  gap: 1px;
+  line-height: 1.1;
+}
+
+.agent-tts-copy strong {
   color: inherit;
-  font-size: 10px;
+  font-size: 12px;
   font-weight: 900;
   white-space: nowrap;
+}
+
+.agent-tts-copy small {
+  color: var(--ink-3);
+  font-size: 10px;
+  font-weight: 800;
+  white-space: nowrap;
+}
+
+.agent-tts-state {
+  display: grid;
+  place-items: center;
+  min-width: 31px;
+  min-height: 23px;
+  margin-left: auto;
+  padding: 0 5px;
+  border-radius: 5px;
+  background: color-mix(in srgb, var(--ink) 8%, transparent);
+  font-family: var(--display);
+  font-size: 10px;
+  font-weight: 900;
+  letter-spacing: .05em;
 }
 
 .agent-debate-title .agent-tts-toggle:hover,
 .agent-debate-title .agent-tts-toggle.is-on {
   border-color: var(--local-accent, var(--accent));
+  background: color-mix(in srgb, var(--local-accent, var(--accent)) 11%, var(--panel-2));
+  color: var(--ink);
+  transform: translateY(-1px);
+  box-shadow: 0 8px 18px color-mix(in srgb, var(--local-accent, var(--accent)) 17%, transparent);
+}
+
+.agent-debate-title .agent-tts-toggle.is-on .agent-tts-mark,
+.agent-debate-title .agent-tts-toggle.is-on .agent-tts-state {
   background: var(--local-accent, var(--accent));
   color: #fff;
-  transform: translateY(-1px);
+}
+
+.agent-debate-title .agent-tts-toggle.is-speaking {
+  border-color: color-mix(in srgb, var(--local-accent, var(--accent)) 74%, white);
+  box-shadow: 0 0 0 3px color-mix(in srgb, var(--local-accent, var(--accent)) 16%, transparent), 0 10px 20px color-mix(in srgb, var(--local-accent, var(--accent)) 18%, transparent);
 }
 
 .agent-debate-title .agent-tts-toggle:disabled {
@@ -18306,12 +18347,18 @@ body.sidebar-collapsed .sb-ico {
 
 @media (max-width: 620px) {
   .agent-debate-title .agent-tts-toggle {
-    min-height: 30px;
+    min-width: 166px;
+    min-height: 40px;
     padding: 4px 7px;
   }
 
-  .agent-debate-title .agent-tts-toggle small {
-    display: none;
+  .agent-tts-copy strong {
+    font-size: 11px;
+  }
+
+  .agent-tts-copy small {
+    display: block;
+    font-size: 9px;
   }
 }
 

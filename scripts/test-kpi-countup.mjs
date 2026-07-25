@@ -71,12 +71,17 @@ assert.match(app, /<h4 id="baselineReportsTitle">제공 리포트 \$\{fmtNum\(co
 assert.match(app, /const mustWaitForEnglishSpeech = Boolean\(agentTtsEnabled && agentSpeechSupported\(\) && englishSpeech\);/, "each agent turn should explicitly wait for its English TTS source");
 assert.match(app, /if \(!typed \|\| !speechFinished \|\| completed \|\| !alive\(\)\) return;/, "the next agent must not be scheduled before typing and English TTS finish");
 assert.match(app, /speakAgentTurn\(turn, i\)\.finally\(\(\) => \{[\s\S]*?speechFinished = true;[\s\S]*?completeTurn\(\);/s, "the sequence should unlock only after the TTS promise settles");
+assert.match(app, /function agentAnswerParagraph\(turn\) \{[\s\S]*?\.agent-answer p\[data-say-en\]/, "agent TTS should target the answer rather than a preceding question");
+assert.match(app, /function agentEnglishSpeechSource\(turn, index = 0\) \{[\s\S]*?agentEnglishSpeechFallback/, "every agent should receive an English speech fallback when authored text is absent");
+assert.match(app, /Math\.min\(180000, text\.length \* \(220 \/ utterance\.rate\) \+ 6000\)/, "the speech watchdog should allow complete English pronunciation");
 assert.match(app, /Do not pre-reveal queued agents[\s\S]*?schedule\(\(\) => speak\(0\), AGENT_DEBATE_TIMING\.rosterSettleMs\);/s, "queued agents should not appear before the prior English voice has ended");
 assert.match(app, /function prewarmPriceBoardData\(\)[\s\S]*?loadSecondaryData\(\["priceHistory", "marketHistory"\]\)/, "price history should start loading before the board enters the viewport");
 assert.match(app, /rootMargin: "2200px 0px"/, "price data should prefetch well ahead of a scrolling user");
 assert.match(app, /const priceRenderObserver = new IntersectionObserver[\s\S]*?rootMargin: "1100px 0px"/, "price board rendering should complete before the board reaches the viewport");
 assert.match(app, /section\.id === "prices" \? priceRenderObserver : observer/, "only the price board should receive the early render window");
-assert.match(html, /app\.js\?v=money-flow-images-20260725-25/, "JavaScript cache key should include the Money Flow image revision");
+assert.match(css, /\.agent-debate-title \.agent-tts-toggle \{[\s\S]*?min-width: 190px;[\s\S]*?min-height: 44px;/, "the English TTS control should be large and readable");
+assert.match(css, /\.agent-tts-state \{[\s\S]*?min-width: 31px;/, "the TTS control should expose a dedicated on-or-off state badge");
+assert.match(html, /app\.js\?v=agent-tts-sequence-20260725-26/, "JavaScript cache key should include the sequential English TTS revision");
 assert.match(css, /\.market-peer-card \{[\s\S]*?border: 2px solid color-mix\(in srgb, var\(--peer-brand\) 48%, var\(--line\)\);[\s\S]*?linear-gradient\(135deg,[\s\S]*?var\(--peer-brand\) 15%/, "peer cards should use full-card brand treatment rather than a top-only rule");
 assert.doesNotMatch(css, /\.market-peer-card \{[\s\S]*?box-shadow: inset 0 3px 0 var\(--peer-brand\);/, "peer cards should not use an isolated top-edge highlight");
 assert.doesNotMatch(css, /\.arch-track-card \{[\s\S]*?border-top: 4px solid var\(--track-accent\);/, "architecture tracks should not use a top-only color rule");

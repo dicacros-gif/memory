@@ -9109,6 +9109,41 @@
       .replace(/([^.!?])$/, "$1.");
   }
 
+  function agentAnswerParagraph(turn) {
+    return turn?.querySelector(".agent-answer p[data-say-en], .agent-answer p") || turn?.querySelector("p") || null;
+  }
+
+  function agentEnglishSpeechFallback(turn, index = 0) {
+    const name = (turn?.querySelector(".agent-badge-name")?.textContent || "").trim();
+    const role = (turn?.querySelector(".speech-meta strong")?.textContent || "").trim();
+    const profile = agentVoiceProfile(name, role, index);
+    const fallbacks = {
+      ceo: "We will approve only the actions supported by the current evidence and keep all other decisions behind their defined gates.",
+      cfo: "Capital allocation remains conditional on verified price, customer, and cash-flow evidence.",
+      cto: "Technology readiness, yield, and customer qualification must be confirmed before volume commitments are made.",
+      cso: "We will separate immediate actions, conditional diligence, and options that should remain open.",
+      coo: "Supply, fab readiness, customer qualification, and inventory conversion must align before execution expands.",
+      policy: "Regulatory permissions and operating scope must be confirmed before capacity or technology decisions move forward.",
+      market: "Market conviction requires price, customer, and contract signals to move in the same direction.",
+      china: "China exposure is assessed by product, customer, packaging, and equipment signals rather than as a single block.",
+      risk: "The team will monitor the defined reversal triggers and downgrade the recommendation when they are met.",
+      devil: "We will test the opposing case against the same evidence standard before expanding the decision scope.",
+      auditor: "Only dated, traceable source evidence is used to support the decision recommendation.",
+      data: "The decision uses comparable observed data with dates, units, and calculation boundaries clearly separated.",
+    };
+    const opening = name ? `${name} speaking.` : "The next expert is speaking.";
+    return `${opening} ${fallbacks[profile.id] || "The current evidence, decision gate, and next action are reviewed before the next meeting."}`;
+  }
+
+  function agentEnglishSpeechSource(turn, index = 0) {
+    const paragraph = agentAnswerParagraph(turn);
+    const authored = String(paragraph?.dataset.sayEn || "").trim();
+    if (authored) return authored;
+    const fallback = agentEnglishSpeechFallback(turn, index);
+    if (paragraph) paragraph.dataset.sayEn = fallback;
+    return fallback;
+  }
+
   function stopAgentSpeech() {
     const active = activeAgentSpeech;
     activeAgentSpeech = null;
@@ -9156,23 +9191,28 @@
       const supported = agentSpeechSupported();
       const debate = button.closest(".agent-debate");
       const blocked = Boolean(debate?.querySelector('.agent-turn[data-tts-status="error-not-allowed"]'));
-      const forcedLanguage = debate?.dataset.ttsMode || "";
-      const enabledLabel = forcedLanguage === "en" ? "English 음성 켜짐" : "음성 켜짐";
-      const startLabel = forcedLanguage === "en" ? "English 음성 시작" : "음성 시작";
+      const activeTurn = activeAgentSpeech?.turn;
+      const isSpeakingHere = Boolean(activeTurn && debate?.contains(activeTurn) && activeTurn.dataset.ttsStatus === "speaking");
+      const activeName = isSpeakingHere ? (activeTurn.querySelector(".agent-badge-name")?.textContent || "에이전트") : "";
+      const enabledLabel = isSpeakingHere ? `${activeName} 발화 중` : "켜짐 · 순차 발화";
+      const startLabel = "클릭해 영어 발화 시작";
       button.disabled = !supported;
       button.classList.toggle("is-on", supported && agentTtsEnabled);
+      button.classList.toggle("is-speaking", isSpeakingHere);
       button.classList.toggle("needs-gesture", supported && agentTtsEnabled && blocked);
       button.setAttribute("aria-pressed", supported && agentTtsEnabled ? "true" : "false");
       button.setAttribute("title", supported
-        ? `에이전트 음성 ${agentTtsEnabled ? "끄기" : "켜기"}`
+        ? `영어 음성 ${agentTtsEnabled ? "켜짐 — 현재 발화가 끝난 뒤 다음 에이전트가 시작됩니다" : "꺼짐 — 텍스트만 진행됩니다"}`
         : "이 브라우저는 음성 합성을 지원하지 않습니다");
       button.setAttribute("aria-label", supported
-        ? `에이전트 음성 ${agentTtsEnabled ? "끄기" : "켜기"}`
+        ? `영어 음성 ${agentTtsEnabled ? "끄기" : "켜기"}`
         : "에이전트 음성 미지원");
       const state = button.querySelector("small");
+      const badge = button.querySelector(".agent-tts-state");
       if (state) state.textContent = supported
-        ? (agentTtsEnabled ? (blocked ? startLabel : enabledLabel) : "음성 꺼짐")
+        ? (agentTtsEnabled ? (blocked ? startLabel : enabledLabel) : "꺼짐 · 텍스트만")
         : "음성 미지원";
+      if (badge) badge.textContent = supported && agentTtsEnabled ? "ON" : "OFF";
     });
   }
 
@@ -9194,8 +9234,8 @@
     button.type = "button";
     button.className = "agent-tts-toggle";
     button.dataset.agentTtsToggle = "";
-      button.innerHTML = '<b aria-hidden="true">TTS</b><small></small>';
-      button.addEventListener("click", () => {
+    button.innerHTML = '<span class="agent-tts-mark" aria-hidden="true">🔊</span><span class="agent-tts-copy"><strong>영어 음성</strong><small aria-live="polite"></small></span><span class="agent-tts-state" aria-hidden="true"></span>';
+    button.addEventListener("click", () => {
         const debate = button.closest(".agent-debate");
         const blockedTurn = debate?.querySelector('.agent-turn[data-tts-status="error-not-allowed"]');
         if (agentTtsEnabled && blockedTurn) {
@@ -9206,15 +9246,15 @@
           return;
         }
         agentTtsEnabled = !agentTtsEnabled;
-      try {
-        window.localStorage.setItem(AGENT_TTS_STORAGE_KEY, agentTtsEnabled ? "on" : "off");
-      } catch {
-        // Local storage is optional; the control still works for this session.
-      }
+        try {
+          window.localStorage.setItem(AGENT_TTS_STORAGE_KEY, agentTtsEnabled ? "on" : "off");
+        } catch {
+          // Local storage is optional; the control still works for this session.
+        }
         if (!agentTtsEnabled) stopAgentSpeech();
         else prepareAgentSpeechFromGesture();
         syncAgentTtsButtons();
-      });
+    });
     heading.appendChild(button);
     syncAgentTtsButtons();
   }
@@ -9228,7 +9268,7 @@
     const gestureStart = options.gestureStart === true;
     let resumeGestureSpeech = null;
     const speechPromise = new Promise((resolve) => {
-      const paragraph = turn?.querySelector("p");
+      const paragraph = agentAnswerParagraph(turn);
       const rawText = paragraph?.dataset.say || paragraph?.textContent || "";
       const name = (turn.querySelector(".agent-badge-name")?.textContent || "").trim();
       const role = (turn.querySelector(".speech-meta strong")?.textContent || "").trim();
@@ -9236,7 +9276,7 @@
         ? turn.dataset.ttsLanguage
         : "";
       const profile = agentVoiceProfile(name, role, index, requestedLanguage);
-      const englishText = paragraph?.dataset.sayEn || "";
+      const englishText = agentEnglishSpeechSource(turn, index);
       const speechSource = profile.language === "ko" ? rawText : englishText;
       if (!agentTtsEnabled || !agentSpeechSupported() || !speechSource.trim()) {
         if (turn) turn.dataset.ttsStatus = !agentTtsEnabled ? "off" : (!agentSpeechSupported() ? "unsupported" : "missing-text");
@@ -9264,7 +9304,7 @@
       let startWatchdog = 0;
       // Generous safety net so slow, full pronunciation is never cut short; the
       // real advance happens on utterance.onend, not this watchdog.
-      const timeout = window.setTimeout(() => finish(), Math.max(9000, Math.min(70000, text.length * (150 / utterance.rate))));
+      const timeout = window.setTimeout(() => finish(), Math.max(12000, Math.min(180000, text.length * (220 / utterance.rate) + 6000)));
       const finish = () => {
         if (settled) return;
         settled = true;
@@ -9291,9 +9331,7 @@
         turn.dataset.ttsGender = profile.gender;
         turn.dataset.ttsTone = profile.tone;
         turn.dataset.ttsLanguage = profile.language;
-        document.querySelectorAll("[data-agent-tts-toggle] small").forEach((state) => {
-          state.textContent = `${name || role || "Agent"} · ${profile.language === "ko" ? "한국어" : "English"} ${profile.gender === "female" ? "여성" : "남성"} 음성`;
-        });
+        syncAgentTtsButtons();
         if (!resumePulse) resumePulse = window.setInterval(() => window.speechSynthesis.resume?.(), 4000);
       };
       utterance.onstart = () => {
@@ -9313,9 +9351,7 @@
       utterance.onerror = (event) => {
         turn.dataset.ttsStatus = `error-${event.error || "unknown"}`;
         if (event.error === "not-allowed") {
-          document.querySelectorAll("[data-agent-tts-toggle] small").forEach((state) => {
-            state.textContent = "음성 시작";
-          });
+          syncAgentTtsButtons();
         }
         finish();
       };
@@ -9587,7 +9623,7 @@
     // Snapshot each bubble: plain text for the typing pass, highlighted HTML to
     // restore once the line finishes typing.
     turns.forEach((turn) => {
-      const p = turn.querySelector("p");
+      const p = agentAnswerParagraph(turn);
       if (p && p.dataset.rich == null) p.dataset.rich = p.innerHTML;
       if (p && p.dataset.say == null) p.dataset.say = p.textContent;
     });
@@ -9596,7 +9632,7 @@
     turns.forEach((turn) => {
       turn.classList.add("pending");
       turn.classList.remove("speaking", "done");
-      const p = turn.querySelector("p");
+      const p = agentAnswerParagraph(turn);
       if (p) p.textContent = "";
     });
     avatars.forEach((card) => {
@@ -9636,9 +9672,9 @@
       turn.classList.add("speaking");
       turn.querySelector(".speech-bubble")?.classList.add("live");
       setCard(turnName(turn), "speaking");
-      const p = turn.querySelector("p");
+      const p = agentAnswerParagraph(turn);
       let typed = false;
-      const englishSpeech = (p?.dataset.sayEn || "").trim();
+      const englishSpeech = agentEnglishSpeechSource(turn, i);
       // A visible next turn is gated on the browser's speech promise. That promise
       // resolves from SpeechSynthesisUtterance.onend (or safely falls back when TTS
       // is unavailable), so a slow English pronunciation can never be overtaken by
