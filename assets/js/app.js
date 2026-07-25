@@ -18176,7 +18176,7 @@
           ${(item.facts || []).map((fact) => `<span>${escapeHTML(fact)}${/\d/.test(String(fact || "")) && !item.sourceUrl ? " · 출처 필요" : ""}</span>`).join("")}
         </div>
         <div class="insight-box"><span>리스크</span>${escapeHTML(item.risk)}</div>
-        <div class="deep-implication"><strong>SKHY Insight</strong><span>${strategicHighlightHTML(item.implication)}</span></div>
+        <div class="deep-implication"><strong>Insight</strong><span>${strategicHighlightHTML(item.implication)}</span></div>
       `;
       makeInspectable(card, {
         type: "중국 심층 벤치마킹",
@@ -21428,7 +21428,7 @@
         </div>
         <a class="community-title" href="${escapeHTML(item.sourceUrl || item.link || "#")}" target="_blank" rel="noopener">${strategicHighlightHTML(title)}</a>
         <p class="community-summary">${strategicHighlightHTML(summary)}</p>
-        <div class="community-insight"><strong>SKHY Insight</strong><span>${strategicHighlightHTML(insight)}</span></div>
+        <div class="community-insight"><strong>Insight</strong><span>${strategicHighlightHTML(insight)}</span></div>
         ${validation ? `<div class="community-validation"><strong>확인 KPI</strong><span>${strategicHighlightHTML(validation)}</span></div>` : ""}
         <div class="community-tags">${tags.map((tag) => `<span>${escapeHTML(tag)}</span>`).join("")}</div>
       `;

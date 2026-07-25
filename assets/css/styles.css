@@ -20634,6 +20634,86 @@ button.ni-trend-chip:hover { box-shadow: 0 4px 12px color-mix(in srgb, #0891B2 2
   #talent-radar .talent-radar-slider .china-capital-slide { transition: none; }
 }
 
+/* Talent radar: keep the rotating visual compact in the upper-right utility
+   column instead of turning the whole board into a full-width filmstrip. */
+#talent-radar .talent-split {
+  grid-template-columns: minmax(0, 1.35fr) minmax(320px, .65fr);
+  align-items: start;
+}
+
+#talent-radar .talent-radar-side {
+  display: grid;
+  min-width: 0;
+  gap: 12px;
+}
+
+#talent-radar .talent-radar-side .talent-radar-slider-slot {
+  display: block;
+  width: 100%;
+  margin: 0;
+}
+
+#talent-radar .talent-radar-side .talent-radar-slider {
+  width: 100%;
+  height: clamp(230px, 18vw, 340px);
+  min-height: 0;
+  margin: 0;
+  aspect-ratio: 16 / 10;
+  border-radius: 12px;
+}
+
+#talent-radar .talent-radar-side .talent-radar-slider .china-capital-slide {
+  top: 12px;
+  right: auto;
+  bottom: 12px;
+  left: 50%;
+  width: 92%;
+  opacity: 0;
+  transform: translate3d(-50%, 0, 0) scale(.96);
+}
+
+#talent-radar .talent-radar-side .talent-radar-slider .china-capital-slide.active {
+  opacity: 1;
+  transform: translate3d(-50%, 0, 0) scale(1);
+}
+
+#talent-radar .talent-radar-side .talent-radar-slider .china-capital-slide.is-previous,
+#talent-radar .talent-radar-side .talent-radar-slider .china-capital-slide.is-next {
+  left: 50%;
+  opacity: 0;
+  pointer-events: none;
+}
+
+#talent-radar .talent-radar-side .talent-radar-slider .talent-radar-slider-insight {
+  top: 14px;
+  right: 14px;
+  bottom: auto;
+  left: auto;
+  width: min(78%, 330px);
+  padding: 10px 11px;
+  translate: 0;
+}
+
+#talent-radar .talent-radar-side .talent-radar-slider .talent-radar-slider-insight strong {
+  font-size: clamp(14px, 1.1vw, 18px);
+}
+
+#talent-radar .talent-radar-side .talent-radar-slider .talent-radar-slider-insight p {
+  display: none;
+}
+
+#talent-radar .talent-radar-side .talent-radar-slider .china-capital-slider-controls {
+  right: 14px;
+  bottom: 12px;
+  transform: scale(.82);
+  transform-origin: right bottom;
+}
+
+@media (max-width: 1080px) {
+  #talent-radar .talent-split { grid-template-columns: 1fr; }
+  #talent-radar .talent-radar-side .talent-radar-slider { height: clamp(270px, 52vw, 400px); }
+}
+
 /* China workforce plan: keep the operational plan on the left and the rotating
    fab imagery on the right, so the decision context stays visible while images move. */
 #china-talent-strategy .policy-layout {
