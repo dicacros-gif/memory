@@ -10930,6 +10930,88 @@
     return memoryMarketNodes().find((node) => node.id === id)?.name || id;
   }
 
+  // Squarespace-style editorial hero: a big bold headline + an auto-rotating
+  // 3-slide stage (01/02/03) sitting above the relationship graph. Imagery is
+  // existing in-repo .webp assets; slide labels describe the real relationships
+  // already mapped in the graph below (no fabricated figures).
+  const MEMORY_MARKET_HERO = {
+    competitive: {
+      eyebrow: "Competitive Dynamics",
+      title: "경쟁의 지형",
+      tagline: "경쟁 · 파트너십 · 투자 · 공급을 하나의 지도에서 연결합니다.",
+      slides: [
+        { img: "assets/media/competitive-dynamics-scroll.webp", label: "경쟁 구도", caption: "CXMT·YMTC·XMC 압력과 SKHY 방어축" },
+        { img: "assets/media/hbm-system.webp", label: "HBM 밸류체인", caption: "TSMC·CoWoS·인터포저 파트너십" },
+        { img: "assets/media/post-hbm-option-ecosystem.webp", label: "Post-HBM 옵션", caption: "CXL·PIM·포토닉스 후보 생태계" },
+      ],
+    },
+    money: {
+      eyebrow: "Money Flow",
+      title: "돈의 흐름",
+      tagline: "누가 투자받고 누가 매출을 확보하는가 — 자본의 방향을 추적합니다.",
+      slides: [
+        { img: "assets/media/ai-demand-scroll.webp", label: "AI 수요", caption: "NVIDIA·서버 DRAM 장기계약 매출" },
+        { img: "assets/media/china-capital-ai.webp", label: "중국 자본", caption: "지방정부 펀드·내재화 투자 라운드" },
+        { img: "assets/media/policy-capital-flow.webp", label: "정책 자금", caption: "Big Fund·보조금 자본 흐름" },
+      ],
+    },
+  };
+  let memoryMarketHeroTimer = 0;
+  let memoryMarketHeroIndex = 0;
+
+  function renderMemoryMarketHero() {
+    const host = $("#memoryMarketHero");
+    if (!host) return;
+    const cfg = MEMORY_MARKET_HERO[memoryMarketMode === "money" ? "money" : "competitive"];
+    const accent = memoryMarketModeConfig(memoryMarketMode).accent;
+    host.style.setProperty("--mm-accent", accent);
+    memoryMarketHeroIndex = 0;
+    host.innerHTML = `
+      <div class="mm-hero-head">
+        <span class="mm-hero-eyebrow">${escapeHTML(cfg.eyebrow)}</span>
+        <h3 class="mm-hero-title">${escapeHTML(cfg.title)}</h3>
+        <p class="mm-hero-tagline">${escapeHTML(cfg.tagline)}</p>
+      </div>
+      <div class="mm-hero-stage" role="group" aria-label="${escapeHTML(cfg.eyebrow)} 슬라이드">
+        ${cfg.slides.map((s, i) => `
+          <figure class="mm-slide ${i === 0 ? "is-active" : ""}" data-mm-slide="${i}" style="--i:${i}">
+            <img src="${escapeHTML(s.img)}" alt="${escapeHTML(s.label)}" loading="lazy" decoding="async" />
+            <figcaption class="mm-slide-body">
+              <span class="mm-slide-index">0${i + 1}</span>
+              <strong class="mm-slide-label">${escapeHTML(s.label)}</strong>
+              <span class="mm-slide-caption">${escapeHTML(s.caption)}</span>
+            </figcaption>
+            <span class="mm-slide-view">VIEW <b aria-hidden="true">↗</b></span>
+          </figure>
+        `).join("")}
+      </div>
+      <div class="mm-hero-dots" role="tablist" aria-label="슬라이드 선택">
+        ${cfg.slides.map((s, i) => `<button type="button" class="mm-dot ${i === 0 ? "is-active" : ""}" data-mm-dot="${i}" role="tab" aria-selected="${i === 0}" aria-label="0${i + 1} ${escapeHTML(s.label)}"><b>0${i + 1}</b><span>${escapeHTML(s.label)}</span></button>`).join("")}
+      </div>
+    `;
+    const slides = Array.from(host.querySelectorAll(".mm-slide"));
+    const dots = Array.from(host.querySelectorAll(".mm-dot"));
+    const show = (n) => {
+      memoryMarketHeroIndex = (n + slides.length) % slides.length;
+      slides.forEach((el, i) => el.classList.toggle("is-active", i === memoryMarketHeroIndex));
+      dots.forEach((el, i) => {
+        el.classList.toggle("is-active", i === memoryMarketHeroIndex);
+        el.setAttribute("aria-selected", i === memoryMarketHeroIndex ? "true" : "false");
+      });
+    };
+    const stopRotate = () => { if (memoryMarketHeroTimer) { window.clearInterval(memoryMarketHeroTimer); memoryMarketHeroTimer = 0; } };
+    const startRotate = () => {
+      stopRotate();
+      if (window.matchMedia?.("(prefers-reduced-motion: reduce)").matches) return;
+      memoryMarketHeroTimer = window.setInterval(() => show(memoryMarketHeroIndex + 1), 5200);
+    };
+    dots.forEach((dot) => dot.addEventListener("click", () => { show(Number(dot.dataset.mmDot)); startRotate(); }));
+    slides.forEach((slide) => slide.addEventListener("click", () => { show(Number(slide.dataset.mmSlide)); startRotate(); }));
+    host.addEventListener("mouseenter", stopRotate);
+    host.addEventListener("mouseleave", startRotate);
+    startRotate();
+  }
+
   function renderMemoryMarketMap() {
     const tabs = $("#memoryMarketTabs");
     const summary = $("#memoryMarketSummary");
@@ -10960,6 +11042,8 @@
     tabs.style.setProperty("--mode-accent", config.accent);
     summary.style.setProperty("--mode-accent", config.accent);
     graph.style.setProperty("--mode-accent", config.accent);
+
+    renderMemoryMarketHero();
 
     tabs.innerHTML = `
       <button type="button" class="${memoryMarketMode === "competitive" ? "active" : ""}" data-memory-mode="competitive" style="--tab-accent:#4322A8">

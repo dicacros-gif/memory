@@ -19569,3 +19569,201 @@ button.ni-trend-chip:hover { box-shadow: 0 4px 12px color-mix(in srgb, #0891B2 2
   transform: translateY(-3px);
   background: var(--ink);
 }
+
+/* ===================================================================
+   Squarespace-style editorial hero for Competitive Dynamics / Money Flow
+   Big bold headline + auto-rotating 01/02/03 slide stage over the graph.
+   =================================================================== */
+.mm-hero {
+  --mm-accent: #4322A8;
+  margin: 4px 0 22px;
+  display: grid;
+  gap: 18px;
+}
+.mm-hero-head { display: grid; gap: 8px; text-align: center; padding: 6px 0 2px; }
+.mm-hero-eyebrow {
+  justify-self: center;
+  font: 800 10.5px/1 var(--display, "Space Grotesk", sans-serif);
+  letter-spacing: .42em;
+  text-transform: uppercase;
+  color: color-mix(in srgb, var(--mm-accent) 72%, var(--ink));
+  padding-left: .42em;
+  animation: mmUp .7s cubic-bezier(.2,.7,.2,1) both;
+}
+.mm-hero-title {
+  margin: 0;
+  font: 800 clamp(38px, 8.2vw, 108px)/0.92 var(--display, "Space Grotesk", sans-serif);
+  letter-spacing: -.03em;
+  color: var(--ink);
+  animation: mmUp .8s cubic-bezier(.2,.7,.2,1) both .06s;
+}
+.mm-hero-tagline {
+  justify-self: center;
+  max-width: 640px;
+  font-size: 13.5px;
+  line-height: 1.6;
+  font-weight: 650;
+  color: var(--ink-2);
+  animation: mmUp .8s cubic-bezier(.2,.7,.2,1) both .12s;
+}
+@keyframes mmUp { from { opacity: 0; transform: translateY(24px); } to { opacity: 1; transform: none; } }
+
+/* Rotating slide stage */
+.mm-hero-stage {
+  position: relative;
+  height: clamp(260px, 42vw, 460px);
+  border-radius: 18px;
+  overflow: hidden;
+  background: var(--panel-2, var(--panel));
+  box-shadow: 0 24px 60px rgba(2, 8, 23, .34);
+  animation: mmUp .9s cubic-bezier(.2,.7,.2,1) both .16s;
+}
+.mm-slide {
+  position: absolute;
+  inset: 0;
+  margin: 0;
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity .9s ease, visibility .9s ease;
+  cursor: pointer;
+}
+.mm-slide.is-active { opacity: 1; visibility: visible; }
+.mm-slide img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transform: scale(1.04);
+}
+/* Ken Burns slow zoom only on the visible slide */
+.mm-slide.is-active img { animation: mmKen 6.2s ease-out both; }
+@keyframes mmKen { from { transform: scale(1.12); } to { transform: scale(1.0); } }
+.mm-slide::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(180deg, rgba(2,8,23,.05) 0%, rgba(2,8,23,.55) 62%, rgba(2,8,23,.86) 100%);
+}
+.mm-slide-body {
+  position: absolute;
+  left: clamp(16px, 3vw, 34px);
+  bottom: clamp(16px, 3vw, 30px);
+  right: clamp(16px, 3vw, 34px);
+  z-index: 2;
+  display: grid;
+  gap: 6px;
+  color: #fff;
+}
+.mm-slide-index {
+  font: 800 12px/1 var(--display, "Space Grotesk", sans-serif);
+  letter-spacing: .3em;
+  color: color-mix(in srgb, var(--mm-accent) 60%, #fff);
+}
+.mm-slide-label {
+  font: 800 clamp(20px, 3.4vw, 34px)/1.08 var(--display, "Space Grotesk", sans-serif);
+  letter-spacing: -.01em;
+}
+.mm-slide-caption { font-size: 12.5px; font-weight: 650; color: rgba(255,255,255,.86); }
+.mm-slide-view {
+  position: absolute;
+  top: clamp(14px, 2.4vw, 24px);
+  right: clamp(14px, 2.4vw, 24px);
+  z-index: 2;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 7px 13px;
+  border-radius: 999px;
+  background: rgba(255,255,255,.14);
+  border: 1px solid rgba(255,255,255,.34);
+  color: #fff;
+  font: 800 10px/1 var(--display, "Space Grotesk", sans-serif);
+  letter-spacing: .22em;
+  backdrop-filter: blur(6px);
+  opacity: 0;
+  transform: translateY(-6px);
+  transition: opacity .25s ease, transform .25s ease, background .25s ease;
+}
+.mm-slide:hover .mm-slide-view { opacity: 1; transform: none; }
+.mm-slide:hover .mm-slide-view { background: color-mix(in srgb, var(--mm-accent) 70%, transparent); }
+.mm-slide-view b { font-size: 12px; }
+
+/* Numbered 01/02/03 filmstrip controls */
+.mm-hero-dots {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 10px;
+  animation: mmUp .9s cubic-bezier(.2,.7,.2,1) both .22s;
+}
+.mm-dot {
+  display: flex;
+  align-items: center;
+  gap: 9px;
+  padding: 11px 14px;
+  border-radius: 12px;
+  border: 1px solid var(--line);
+  background: var(--panel);
+  color: var(--ink-2);
+  cursor: pointer;
+  text-align: left;
+  position: relative;
+  overflow: hidden;
+  transition: color .2s ease, border-color .2s ease, transform .2s ease, background .2s ease;
+}
+.mm-dot b {
+  font: 800 15px/1 var(--display, "Space Grotesk", sans-serif);
+  letter-spacing: .04em;
+  color: color-mix(in srgb, var(--mm-accent) 55%, var(--ink-2));
+}
+.mm-dot span { font-size: 12px; font-weight: 750; }
+.mm-dot::after {
+  content: "";
+  position: absolute;
+  left: 0; bottom: 0;
+  height: 3px; width: 100%;
+  transform: scaleX(0);
+  transform-origin: left;
+  background: var(--mm-accent);
+  transition: transform .3s ease;
+}
+.mm-dot:hover { transform: translateY(-2px); border-color: color-mix(in srgb, var(--mm-accent) 40%, var(--line)); }
+.mm-dot.is-active {
+  color: var(--ink);
+  border-color: color-mix(in srgb, var(--mm-accent) 50%, var(--line));
+  background: color-mix(in srgb, var(--mm-accent) 8%, var(--panel));
+}
+.mm-dot.is-active b { color: var(--mm-accent); }
+.mm-dot.is-active::after { transform: scaleX(1); animation: mmProgress 5.2s linear; }
+@keyframes mmProgress { from { transform: scaleX(0); } to { transform: scaleX(1); } }
+
+@media (max-width: 560px) {
+  .mm-hero-dots { grid-template-columns: 1fr; }
+  .mm-dot { padding: 9px 12px; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .mm-hero-eyebrow, .mm-hero-title, .mm-hero-tagline, .mm-hero-stage, .mm-hero-dots { animation: none; }
+  .mm-slide.is-active img { animation: none; transform: scale(1.02); }
+  .mm-dot.is-active::after { animation: none; }
+}
+
+/* Benchmarked media polish — cohesive with the editorial hero: gentle hover
+   zoom + lift on the showcase/video figures so every slide feels intentional. */
+.memory-map-showcase, .china-decision-video-panel, .china-benchmark-video-sticky {
+  overflow: hidden;
+}
+.memory-map-showcase-video, .china-decision-video, .china-benchmark-story-video {
+  transition: transform 1.1s cubic-bezier(.2,.7,.2,1);
+  will-change: transform;
+}
+.memory-map-showcase:hover .memory-map-showcase-video,
+.china-decision-video-panel:hover .china-decision-video,
+.china-benchmark-video-sticky:hover .china-benchmark-story-video {
+  transform: scale(1.045);
+}
+@media (prefers-reduced-motion: reduce) {
+  .memory-map-showcase-video, .china-decision-video, .china-benchmark-story-video { transition: none; }
+  .memory-map-showcase:hover .memory-map-showcase-video,
+  .china-decision-video-panel:hover .china-decision-video,
+  .china-benchmark-video-sticky:hover .china-benchmark-story-video { transform: none; }
+}
