@@ -3438,11 +3438,10 @@ function compactPricePointForClient(point = {}) {
 function compactMarketPointForClient(point = {}) {
   const time = Number(point.time || new Date(point.date || 0).getTime());
   const close = Number(point.close ?? point.value);
-  return {
-    date: point.date || (Number.isFinite(time) ? new Date(time).toISOString() : null),
-    time: Number.isFinite(time) ? time : null,
-    close: Number.isFinite(close) && close > 0 ? close : null,
-  };
+  if (!Number.isFinite(time) || !Number.isFinite(close) || close <= 0) return null;
+  // Browser charts only need a timestamp and close. The audit artifact retains
+  // the ISO date and full point provenance.
+  return [time, close];
 }
 
 function compactPriceRowForClient(row = {}) {
@@ -3506,7 +3505,7 @@ function compactMarketHistoryForClient(history = {}) {
       updatedAt: index.updatedAt || null,
       latest: index.latest || null,
       pointCount: Number(index.pointCount || (index.points || []).length),
-      points: (index.points || []).map(compactMarketPointForClient),
+      points: (index.points || []).map(compactMarketPointForClient).filter(Boolean),
     }])),
     // Metric point provenance stays in the database-only file.  UI market
     // cards consume index time series and quant-backtest summaries instead.
@@ -3525,15 +3524,6 @@ function compactQuantForClient(quant = {}) {
   return { ...next, clientArtifact: true };
 }
 
-function compactBacktestPeriodForClient(period = {}) {
-  const {
-    startProvenance: _startProvenance,
-    endProvenance: _endProvenance,
-    ...rest
-  } = period;
-  return rest;
-}
-
 function compactQuantBacktestForClient(backtest = {}) {
   return {
     schemaVersion: backtest.schemaVersion || "1.0",
@@ -3547,19 +3537,9 @@ function compactQuantBacktestForClient(backtest = {}) {
     series: Object.fromEntries(Object.entries(backtest.series || {}).map(([id, series]) => [id, {
       id: series.id || id,
       domain: series.domain || null,
-      label: series.label || null,
-      group: series.group || null,
-      cadence: series.cadence || null,
-      seriesKind: series.seriesKind || null,
-      unit: series.unit || null,
-      symbol: series.symbol || null,
-      currency: series.currency || null,
-      source: series.source || null,
-      sourceUrl: series.sourceUrl || null,
-      observationCount: series.observationCount || 0,
       periods: Object.fromEntries(Object.entries(series.periods || {}).map(([period, stats]) => [
         period,
-        compactBacktestPeriodForClient(stats),
+        { eligible: stats?.eligible === true },
       ])),
     }])),
   };

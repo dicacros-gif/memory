@@ -2398,6 +2398,35 @@
   function setupMediaExperience() {
     const video = $("#memoryHeroVideo");
     const videoToggle = $("#memoryHeroToggle");
+    let heroVideoStartTimer = 0;
+    let heroVideoIdleId = 0;
+    const hydrateHeroVideo = () => {
+      if (!video || video.dataset.hydrated === "1") return;
+      const source = video.querySelector("source[data-src]");
+      if (!source?.dataset.src) return;
+      source.src = source.dataset.src;
+      video.dataset.hydrated = "1";
+      video.load();
+    };
+    const startHeroVideo = async () => {
+      if (!video || video.dataset.userPaused === "1") return;
+      hydrateHeroVideo();
+      try { await video.play(); } catch { /* The poster remains visible until playback is available. */ }
+    };
+    const scheduleHeroVideo = () => {
+      if (!video || video.dataset.hydrated === "1" || heroVideoStartTimer || video.dataset.userPaused === "1") return;
+      heroVideoStartTimer = window.setTimeout(() => {
+        heroVideoStartTimer = 0;
+        if ("requestIdleCallback" in window) {
+          heroVideoIdleId = window.requestIdleCallback(() => {
+            heroVideoIdleId = 0;
+            startHeroVideo();
+          }, { timeout: 1800 });
+        } else {
+          startHeroVideo();
+        }
+      }, 900);
+    };
     if (video && videoToggle && videoToggle.dataset.ready !== "1") {
       videoToggle.dataset.ready = "1";
       video.muted = true;
@@ -2410,7 +2439,7 @@
       videoToggle.addEventListener("click", async () => {
         if (video.paused) {
           video.dataset.userPaused = "0";
-          try { await video.play(); } catch { /* The play control remains available. */ }
+          await startHeroVideo();
         } else {
           video.dataset.userPaused = "1";
           video.pause();
@@ -2419,8 +2448,9 @@
       });
       video.addEventListener("play", syncVideoControl);
       video.addEventListener("pause", syncVideoControl);
-      video.play().catch(syncVideoControl);
       syncVideoControl();
+      if (document.readyState === "complete") scheduleHeroVideo();
+      else window.addEventListener("load", scheduleHeroVideo, { once: true });
     }
 
     document.querySelectorAll("[data-hero-jump]").forEach((button) => {
@@ -2462,7 +2492,8 @@
         const heroVideoObserver = new IntersectionObserver((entries) => {
           entries.forEach((entry) => {
             if (entry.isIntersecting) {
-              if (video.dataset.userPaused !== "1") video.play().catch(() => {});
+              if (video.dataset.hydrated === "1") startHeroVideo();
+              else scheduleHeroVideo();
             } else {
               video.pause();
             }
@@ -2473,6 +2504,8 @@
       }
 
       window.addEventListener("pagehide", () => {
+        if (heroVideoStartTimer) window.clearTimeout(heroVideoStartTimer);
+        if (heroVideoIdleId && "cancelIdleCallback" in window) window.cancelIdleCallback(heroVideoIdleId);
         if (frame) window.cancelAnimationFrame(frame);
         window.removeEventListener("scroll", scheduleHeroScroll);
         window.removeEventListener("resize", scheduleHeroScroll);
@@ -2783,6 +2816,7 @@
     const hydrate = () => {
       if (hydrated) return;
       hydrated = true;
+      if (video.dataset.poster) video.poster = video.dataset.poster;
       source.src = source.dataset.src;
       video.load();
     };
@@ -4401,6 +4435,7 @@
     const hydrate = () => {
       if (hydrated) return;
       hydrated = true;
+      if (video.dataset.poster) video.poster = video.dataset.poster;
       source.src = source.dataset.src;
       video.load();
     };
@@ -4772,8 +4807,9 @@
     const board = $("#prices");
     if (!board) return;
     const start = () => {
-      if (priceBoardPreloadIdleId && "cancelIdleCallback" in window) {
-        window.cancelIdleCallback(priceBoardPreloadIdleId);
+      if (priceBoardPreloadIdleId) {
+        if ("cancelIdleCallback" in window) window.cancelIdleCallback(priceBoardPreloadIdleId);
+        window.clearTimeout(priceBoardPreloadIdleId);
       }
       priceBoardPreloadIdleId = 0;
       prewarmPriceBoardData();
@@ -4784,18 +4820,27 @@
     if ("IntersectionObserver" in window) {
       priceBoardPreloadObserver = new IntersectionObserver((entries) => {
         if (entries.some((entry) => entry.isIntersecting)) start();
-      }, { rootMargin: "6000px 0px", threshold: 0 });
+      }, { rootMargin: "4200px 0px", threshold: 0 });
       priceBoardPreloadObserver.observe(board);
       window.addEventListener("pagehide", () => priceBoardPreloadObserver?.disconnect(), { once: true });
     }
 
-    // On an idle first paint, prewarm as well. This keeps a fast scroll from
-    // overtaking the observer without making the first viewport wait on the data.
-    if ("requestIdleCallback" in window) {
-      priceBoardPreloadIdleId = window.requestIdleCallback(start, { timeout: 650 });
-    } else {
-      priceBoardPreloadIdleId = window.setTimeout(start, 240);
-    }
+    // Keep first paint and hero playback free of secondary JSON work. If the
+    // visitor does not interact, prewarm after load; scroll intent and the
+    // generous observer margin still fetch the board well before it is visible.
+    const scheduleIdlePrewarm = () => {
+      if (priceBoardPreloadStarted) return;
+      priceBoardPreloadIdleId = window.setTimeout(() => {
+        priceBoardPreloadIdleId = 0;
+        if ("requestIdleCallback" in window) {
+          priceBoardPreloadIdleId = window.requestIdleCallback(start, { timeout: 3200 });
+        } else {
+          start();
+        }
+      }, 2400);
+    };
+    if (document.readyState === "complete") scheduleIdlePrewarm();
+    else window.addEventListener("load", scheduleIdlePrewarm, { once: true });
     // A scroll gesture means the visitor is moving toward lower boards.  Start
     // the request immediately instead of waiting for the board observer.
     ["wheel", "touchstart", "keydown"].forEach((eventName) => {
@@ -9653,6 +9698,7 @@
 
     const hydrate = () => {
       if (video.dataset.hydrated === "1") return;
+      if (video.dataset.poster) video.poster = video.dataset.poster;
       const source = document.createElement("source");
       source.src = AGENT_DEBATE_VIDEO.src;
       source.type = "video/mp4";
@@ -13009,14 +13055,16 @@
     const items = Object.values(indexes).map((index) => {
       const id = String(index?.id || "").trim();
       const points = (index?.points || []).map((point) => {
-        const average = Number(point?.close ?? point?.value);
-        const time = Number(point?.time || Date.parse(point?.date || ""));
+        const tuple = Array.isArray(point);
+        const average = Number(tuple ? point[1] : point?.close ?? point?.value);
+        const time = Number(tuple ? point[0] : point?.time || Date.parse(point?.date || ""));
         if (!id || !Number.isFinite(average) || !Number.isFinite(time)) return null;
+        const observedAt = tuple ? new Date(time).toISOString() : point.date || new Date(time).toISOString();
         return {
-          date: point.date || new Date(time).toISOString(),
+          date: observedAt,
           time,
           average,
-          sourceObservedAt: point.date || new Date(time).toISOString(),
+          sourceObservedAt: observedAt,
           origin: index.source || "Yahoo Finance chart API",
           sourceUrl: index.sourceUrl || index.chartUrl || "",
         };
@@ -15812,8 +15860,20 @@
   function renderChinaTalentStrategyVideo(scenario, liveItems = []) {
     const panel = $("#talentStrategyVideo");
     const video = $("#talentStrategyVideoMedia");
+    const source = video?.querySelector("source[data-src]");
     const next = $("#talentStrategyVideoNext");
-    if (!panel || !video || !next) return;
+    if (!panel || !video || !source || !next) return;
+    const hydrate = () => {
+      if (video.dataset.hydrated === "1") return;
+      if (video.dataset.poster) video.poster = video.dataset.poster;
+      source.src = source.dataset.src;
+      video.dataset.hydrated = "1";
+      video.load();
+    };
+    const play = async () => {
+      hydrate();
+      try { await video.play(); } catch { /* The poster remains visible until playback is available. */ }
+    };
     const scenarioChanged = panel.dataset.scenario !== scenario.id;
     panel.dataset.scenario = scenario.id;
     panel.style.setProperty("--local-accent", categoryAccent(scenario.accentCategory));
@@ -15833,7 +15893,7 @@
       if ("IntersectionObserver" in window) {
         const observer = new IntersectionObserver((entries) => {
           chinaTalentVideoInView = entries.some((entry) => entry.isIntersecting);
-          if (chinaTalentVideoInView) video.play().catch(() => {});
+          if (chinaTalentVideoInView) play();
           else video.pause();
           scheduleChinaTalentVideoRotation();
         }, { rootMargin: "120px 0px", threshold: .12 });
@@ -15841,7 +15901,7 @@
         window.addEventListener("pagehide", () => observer.disconnect(), { once: true });
       } else {
         chinaTalentVideoInView = true;
-        video.play().catch(() => {});
+        play();
       }
       window.addEventListener("pagehide", () => {
         if (chinaTalentVideoTimer) window.clearTimeout(chinaTalentVideoTimer);
@@ -20094,8 +20154,9 @@
   function marketIndexPoints(index = {}) {
     return (index.points || [])
       .map((point) => {
-        const time = Number(point.time || new Date(point.date || 0).getTime());
-        const value = Number(point.close ?? point.value);
+        const tuple = Array.isArray(point);
+        const time = Number(tuple ? point[0] : point.time || new Date(point.date || 0).getTime());
+        const value = Number(tuple ? point[1] : point.close ?? point.value);
         return Number.isFinite(time) && Number.isFinite(value) && value > 0 ? { time, value, close: value } : null;
       })
       .filter(Boolean)

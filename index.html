@@ -30,7 +30,7 @@
   <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin />
   <link rel="preload" as="image" href="assets/media/memory-hero-poster.webp" fetchpriority="high" />
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css" />
-  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@500;700&family=Noto+Sans+KR:wght@400;500;700;800;900&family=Space+Grotesk:wght@500;600;700&display=swap" />
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@500;700&family=Space+Grotesk:wght@500;600;700&display=swap" />
   <link rel="stylesheet" href="assets/css/styles.css?v=evidence-strategy-map-20260725-29" />
 </head>
 <body>
@@ -92,8 +92,8 @@
 
       <main class="main" id="main">
         <section class="memory-video-hero" id="overview" aria-labelledby="memoryHeroTitle">
-          <video class="memory-hero-video" id="memoryHeroVideo" autoplay muted loop playsinline preload="metadata" disablepictureinpicture poster="assets/media/memory-hero-poster.webp" aria-hidden="true">
-            <source src="assets/media/memory-hero.mp4" type="video/mp4" />
+          <video class="memory-hero-video" id="memoryHeroVideo" autoplay muted loop playsinline preload="none" disablepictureinpicture poster="assets/media/memory-hero-poster.webp" aria-hidden="true">
+            <source data-src="assets/media/memory-hero.mp4" type="video/mp4" />
           </video>
           <div class="memory-hero-shade" aria-hidden="true"></div>
           <div class="memory-hero-content">
@@ -281,7 +281,7 @@
             <aside class="investment-focus" id="strategicDecisionFocus"></aside>
           </div>
           <figure class="china-decision-video-panel" id="chinaDecisionVideoPanel" aria-label="중국 사업 실행 판단 영상">
-            <video class="china-decision-video" id="chinaDecisionVideo" autoplay muted loop playsinline preload="none" disablepictureinpicture poster="assets/media/china-decision-options-poster.webp" aria-hidden="true">
+            <video class="china-decision-video" id="chinaDecisionVideo" autoplay muted loop playsinline preload="none" disablepictureinpicture data-poster="assets/media/china-decision-options-poster.webp" aria-hidden="true">
               <source data-src="assets/media/china-decision-options.mp4" type="video/mp4" />
             </video>
             <div class="china-decision-video-shade" aria-hidden="true"></div>
@@ -813,7 +813,7 @@
             <div class="memory-map-side">
               <aside class="memory-map-detail" id="memoryMarketDetail"></aside>
               <figure class="memory-map-showcase" aria-label="메모리 밸류체인 영상">
-                <video class="memory-map-showcase-video" id="memoryMarketVideo" autoplay muted loop playsinline preload="none" disablepictureinpicture poster="assets/media/agent-council-poster.webp" aria-hidden="true"></video>
+                <video class="memory-map-showcase-video" id="memoryMarketVideo" autoplay muted loop playsinline preload="none" disablepictureinpicture data-poster="assets/media/agent-council-poster.webp" aria-hidden="true"></video>
                 <figcaption class="memory-map-showcase-insight" id="memoryMarketVideoInsight" aria-live="polite"></figcaption>
                 <button class="memory-map-video-toggle" id="memoryMarketVideoToggle" type="button" aria-label="영상 일시정지" title="영상 일시정지"><span aria-hidden="true">Ⅱ</span></button>
               </figure>
@@ -917,7 +917,7 @@
 
         <section class="china-benchmark-video-story" id="china-benchmark-video-story" aria-labelledby="chinaBenchmarkStoryTitle">
           <div class="china-benchmark-video-sticky">
-            <video class="china-benchmark-story-video" id="chinaBenchmarkStoryVideo" autoplay muted loop playsinline preload="none" disablepictureinpicture poster="assets/media/china-benchmark-story-poster.webp" aria-hidden="true">
+            <video class="china-benchmark-story-video" id="chinaBenchmarkStoryVideo" autoplay muted loop playsinline preload="none" disablepictureinpicture data-poster="assets/media/china-benchmark-story-poster.webp" aria-hidden="true">
               <source data-src="assets/media/china-benchmark-story.mp4" type="video/mp4" />
             </video>
             <div class="china-benchmark-video-shade" aria-hidden="true"></div>
@@ -945,8 +945,8 @@
             <div class="china-deep-grid" id="chinaDeepGrid"></div>
             <div class="china-deep-video-dock">
               <article class="talent-strategy-video" id="talentStrategyVideo" aria-label="중국 반도체 인력 및 운영 전략 인사이트">
-                <video id="talentStrategyVideoMedia" autoplay muted loop playsinline preload="metadata" poster="assets/media/china-talent-strategy-poster.webp">
-                  <source src="assets/media/china-talent-strategy.mp4" type="video/mp4" />
+                <video id="talentStrategyVideoMedia" autoplay muted loop playsinline preload="none" data-poster="assets/media/china-talent-strategy-poster.webp">
+                  <source data-src="assets/media/china-talent-strategy.mp4" type="video/mp4" />
                 </video>
                 <div class="talent-strategy-video-shade" aria-hidden="true"></div>
                 <div class="talent-strategy-video-copy" id="talentStrategyVideoCopy" aria-live="polite">
@@ -996,6 +996,6 @@
   <div class="qa-answer" id="qaAnswer" hidden></div>
   <div class="inspector" id="inspector" hidden></div>
   <div class="backdrop" id="backdrop"></div>
-  <script src="assets/js/app.js?v=evidence-strategy-map-20260725-33" defer></script>
+  <script src="assets/js/app.js?v=performance-pass-20260725-34" defer></script>
 </body>
 </html>

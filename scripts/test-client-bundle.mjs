@@ -68,9 +68,10 @@ assert.equal(bundle.live.prices.sections[0].rows[0].history, undefined, "price r
 assert.equal(bundle.priceHistory.archiveBackfill.attempts, undefined, "archive retry diagnostics stay in the database artifact");
 assert.equal(bundle.priceHistory.items["dram::ddr5"].points[0].parserTrace, undefined);
 assert.equal(bundle.marketHistory.metrics.internal, undefined, "metric provenance stays in the database artifact");
-assert.equal(bundle.marketHistory.indexes.sox.points[0].close, 5000);
+assert.deepEqual(bundle.marketHistory.indexes.sox.points[0], [1_783_000_000_000, 5000], "market points use compact time/close tuples");
 assert.equal(bundle.quantBacktest.series["market:sox"].provenance, undefined);
 assert.equal(bundle.quantBacktest.series["market:sox"].periods["1y"].startProvenance, undefined);
+assert.deepEqual(bundle.quantBacktest.series["market:sox"].periods["1y"], { eligible: true }, "browser backtest periods keep only decision eligibility");
 assert.equal(bundle.quant.fx.usdkrw.history5y, undefined);
 assert.equal(bundle.quant.fx.usdkrw.history30d.points.length, 1);
 assert.ok(bundle.manifest.artifacts.live.bytes > 0);
