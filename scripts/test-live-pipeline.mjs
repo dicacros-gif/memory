@@ -12,7 +12,16 @@ import {
   buildIndustryPulse,
   buildRelationCandidates,
 } from "./live-pipeline.mjs";
-import { buildBrokerResearch, collectLastGood, extractLiveFigures, quantMemoryMomentum, sourceHealthId, sourceHealthSnapshot } from "./crawl.mjs";
+import {
+  buildBrokerResearch,
+  checkOfficialIndustryProbe,
+  collectLastGood,
+  extractLiveFigures,
+  fetchSourceTextWithRetry,
+  quantMemoryMomentum,
+  sourceHealthId,
+  sourceHealthSnapshot,
+} from "./crawl.mjs";
 
 const now = new Date("2026-07-20T12:00:00Z");
 const article = (title, url, date = "2026-07-20", summary = title, source = "Official", sourceClass = "official-primary") => ({
@@ -121,6 +130,64 @@ const expiredLastGood = await collectLastGood(
 assert.equal(expiredLastGood.status, "unavailable");
 assert.equal(expiredLastGood.value, undefined, "expired stale values must not remain in the live payload");
 assert.equal(expiredLastGood.expiredPrevious, true);
+
+const officialProbeCalls = [];
+const recoveredOfficialProbe = await checkOfficialIndustryProbe({
+  id: "official-test",
+  url: "https://official.example/primary",
+  pattern: /verified official marker/i,
+}, {
+  fetchImpl: async (url, init) => {
+    officialProbeCalls.push({ url, headers: init.headers });
+    const attempt = officialProbeCalls.length;
+    return {
+      ok: attempt === 2,
+      status: attempt === 2 ? 200 : 403,
+      url,
+      text: async () => attempt === 2 ? "verified official marker" : "temporary access block",
+    };
+  },
+  sleepImpl: async () => {},
+  signalFactory: () => undefined,
+});
+assert.equal(recoveredOfficialProbe.reachable, true, "a transient official 403 must receive a bounded retry before health fails");
+assert.equal(recoveredOfficialProbe.attempts.length, 2);
+assert.equal(officialProbeCalls[1].headers["Cache-Control"], "no-cache", "the retry must bypass a stale edge-cache response");
+assert.ok(officialProbeCalls[1].headers.Referer, "the retry must use a same-origin browser referer");
+
+const fallbackOfficialProbe = await checkOfficialIndustryProbe({
+  id: "official-fallback-test",
+  url: "https://official.example/primary",
+  fallbackUrls: ["https://official.example/fallback"],
+  pattern: /verified official marker/i,
+}, {
+  fetchImpl: async (url) => ({
+    ok: true,
+    status: 200,
+    url,
+    text: async () => url.endsWith("fallback") ? "verified official marker" : "page moved",
+  }),
+  sleepImpl: async () => {},
+  signalFactory: () => undefined,
+});
+assert.equal(fallbackOfficialProbe.reachable, true, "a declared first-party fallback may recover a moved index page");
+assert.equal(fallbackOfficialProbe.fallbackUsed, true);
+assert.equal(fallbackOfficialProbe.attempts.length, 2, "a non-matching primary page must move to the fallback without counting it as live");
+
+let chinaInfraFetchAttempts = 0;
+const chinaInfraRecovery = await fetchSourceTextWithRetry({
+  url: "https://official.example/wuxi",
+  retryAttempts: 3,
+}, {
+  fetchTextImpl: async () => {
+    chinaInfraFetchAttempts += 1;
+    if (chinaInfraFetchAttempts === 1) throw new Error("fetch failed");
+    return "official Wuxi source body";
+  },
+  sleepImpl: async () => {},
+});
+assert.equal(chinaInfraRecovery.html, "official Wuxi source body");
+assert.equal(chinaInfraRecovery.attempts, 2, "a transient source transport failure must recover before it reaches source health");
 
 const relationNews = [1, 2, 3].map((index) => article(
   `SK hynix and TSMC discuss HBM4 base die collaboration ${index}`,
@@ -295,7 +362,7 @@ assert.match(appText, /const fresh = Number\.isFinite\(expiresAt\) && Date\.now\
 assert.doesNotMatch(appText, /\["2\.1",\s*"2\.0"\]|\["1\.1",\s*"1\.0"\]|\["2\.3",\s*"2\.2"\]/, "legacy derived schemas must not bypass current live-quality gates");
 assert.doesNotMatch(appText, /이전 실행 기사를 라이브 카드로 대체하지 않습니다/, "empty broker cards must fall back to previous verified information instead of showing an internal guardrail");
 assert.doesNotMatch(appText, /오늘 .*에 연결된 직접 근거가 없어 판단을 보류합니다/, "agent turns must fall back to previous collected briefing instead of exposing an internal hold message");
-assert.match(appText, /dataStatus:\s*"reference-only"[\s\S]*?이전 기사 원문 보기/, "previous-run broker citations must render as reference cards with a clear label");
+assert.match(appText, /dataStatus:\s*"reference-only"[\s\S]*?referenceOrigin:\s*item\.referenceOrigin \|\| "previous-verified-run"/, "previous-run broker citations must retain explicit reference-only provenance");
 assert.match(appText, /function cLevelCrawledAgentAxes\(\)/, "crawled agent evidence must be able to add executive agenda items");
 assert.match(appText, /cLevelDecisionAxes\(\)\.concat\(cLevelCrawledAgentAxes\(\)\)/, "executive agenda list must include crawled agent agendas");
 assert.match(appText, /function newsActionLine\(item, category\)/, "news cards must include a third action/check line");

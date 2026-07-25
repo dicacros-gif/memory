@@ -1779,6 +1779,10 @@ const CHINA_INFRA_SOURCE_PAGES = [
     site: "wuxi",
     label: "Wuxi bonded zone expansion",
     url: "https://en.wuxi.gov.cn/2025-07/31/c_1113622.htm",
+    // The municipal page is periodically reset while the wider crawl is
+    // opening many public sources.  Give its source-level request one extra
+    // bounded recovery cycle after fetchText's own transient retry.
+    retryAttempts: 3,
     markers: ["3.49 square kilometers", "SK hynix", "1.11 square kilometers", "$10 billion"],
   },
   {
@@ -4611,11 +4615,42 @@ async function collectBenchmarkSignals() {
   };
 }
 
+function isTransientSourceError(error) {
+  const message = String(error?.message || error || "");
+  return error?.name === "AbortError"
+    || error?.name === "TimeoutError"
+    || /(?:fetch failed|network|socket|econn|etimedout|enotfound|HTTP (?:408|425|429|5\d\d))/i.test(message);
+}
+
+// fetchText already retries one transient transport failure.  Source pages
+// that are important to the dashboard can request a small number of complete
+// recovery cycles so an isolated CDN reset does not turn a verified public
+// record into a failed source-health event.
+export async function fetchSourceTextWithRetry(source = {}, {
+  fetchTextImpl = fetchText,
+  sleepImpl = sleep,
+} = {}) {
+  const url = String(source.url || "").trim();
+  if (!url) throw new Error("source URL missing");
+  const maxAttempts = Math.max(1, Math.min(3, Number(source.retryAttempts || 1)));
+  let lastError;
+  for (let attempt = 0; attempt < maxAttempts; attempt += 1) {
+    try {
+      return { html: await fetchTextImpl(url), attempts: attempt + 1 };
+    } catch (error) {
+      lastError = error;
+      if (!isTransientSourceError(error) || attempt === maxAttempts - 1) break;
+      await sleepImpl(550 * (attempt + 1));
+    }
+  }
+  throw lastError || new Error("source fetch failed");
+}
+
 async function collectChinaInfra() {
   const sources = [];
   for (const source of CHINA_INFRA_SOURCE_PAGES) {
     try {
-      const html = await fetchText(source.url);
+      const { html, attempts } = await fetchSourceTextWithRetry(source);
       const text = stripHTML(html).slice(0, 240000);
       const description = articleMetaDescription(html, source.label);
       const markers = (source.markers || []).map((marker) => ({
@@ -4634,8 +4669,9 @@ async function collectChinaInfra() {
         markers,
         excerpt: description || text.slice(0, 360),
         crawledAt: new Date().toISOString(),
+        attempts,
       });
-      note(`중국Fab인프라:${source.label}`, hitCount > 0, `${hitCount}/${markers.length} markers`);
+      note(`중국Fab인프라:${source.label}`, hitCount > 0, `${hitCount}/${markers.length} markers · ${attempts}회 확인`);
     } catch (error) {
       sources.push({
         id: source.id,
@@ -6142,7 +6178,16 @@ async function fetchTsmcMonthlyRevenue() {
 
 const OFFICIAL_INDUSTRY_PROBES = [
   { id: "wsts", label: "WSTS forecast", url: "https://www.wsts.org/76/Recent-News-Release", pattern: /WSTS|World Semiconductor Trade Statistics/i },
-  { id: "sia", label: "SIA monthly sales", url: "https://www.semiconductors.org/news-events/latest-news/", pattern: /Semiconductor Industry Association|Global Semiconductor Sales|Market Data/i },
+  {
+    id: "sia",
+    label: "SIA monthly sales",
+    url: "https://www.semiconductors.org/news-events/latest-news/",
+    // The news index is the primary monitor.  SIA also exposes the same
+    // monthly-sales material on its first-party Market Data hub, which is a
+    // resilient fallback when a CDN intermittently blocks the news index.
+    fallbackUrls: ["https://www.semiconductors.org/policies/market-data/"],
+    pattern: /Semiconductor Industry Association|Global Semiconductor Sales|Market Data/i,
+  },
   // These direct source checks make the decision-grade market and regulatory
   // cards fail visibly when the primary page moves or its asserted figure no
   // longer appears. They are health checks only; a reachable page never turns
@@ -6152,19 +6197,108 @@ const OFFICIAL_INDUSTRY_PROBES = [
   { id: "census-former-veu-c79", label: "Census former-VEU C79 license reporting", url: "https://content.govdelivery.com/accounts/USCENSUS/bulletins/4008e2b", pattern: /C79|H-prefix|former VEU/i },
 ];
 
-async function collectOfficialIndustrySourceChecks() {
+const OFFICIAL_PROBE_RETRYABLE_STATUSES = new Set([403, 408, 425, 429, 500, 502, 503, 504]);
+
+function officialProbeMatches(pattern, html = "") {
+  if (pattern?.global || pattern?.sticky) pattern.lastIndex = 0;
+  return Boolean(pattern?.test(String(html || "")));
+}
+
+function officialProbeHeaders(url, retry = false) {
+  let referer = "";
+  try { referer = `${new URL(url).origin}/`; } catch { /* URLs are curated constants */ }
+  return {
+    "User-Agent": BROWSER_UA,
+    Accept: "text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8",
+    "Accept-Language": "en-US,en;q=0.9",
+    ...(retry ? {
+      "Cache-Control": "no-cache",
+      Pragma: "no-cache",
+      ...(referer ? { Referer: referer } : {}),
+    } : {}),
+  };
+}
+
+// A direct primary-page verification must remain the source of record.  Public
+// publisher CDNs nevertheless produce isolated 403s and short-lived 5xxs, so
+// retry those responses with a cache-busting browser profile before marking a
+// source failed.  A declared fallback is only used when it is also a first-party
+// URL and independently matches the same evidence marker.
+export async function checkOfficialIndustryProbe(probe = {}, {
+  fetchImpl = fetch,
+  sleepImpl = sleep,
+  signalFactory = (url) => fetchSignal(sourceTimeoutClass(url)),
+} = {}) {
+  const candidates = [...new Set([probe.url, ...(probe.fallbackUrls || [])].filter(Boolean))];
+  const attempts = [];
+  for (let candidateIndex = 0; candidateIndex < candidates.length; candidateIndex += 1) {
+    const url = candidates[candidateIndex];
+    for (let attempt = 0; attempt < 2; attempt += 1) {
+      try {
+        const response = await fetchImpl(url, {
+          signal: signalFactory(url),
+          redirect: "follow",
+          headers: officialProbeHeaders(url, attempt > 0),
+        });
+        const html = await response.text();
+        const matched = response.ok && officialProbeMatches(probe.pattern, html);
+        const status = Number(response.status) || 0;
+        attempts.push({ url, status, matched });
+        if (matched) {
+          return {
+            reachable: true,
+            httpStatus: status,
+            verifiedUrl: response.url || url,
+            fallbackUsed: candidateIndex > 0,
+            attempts,
+          };
+        }
+        // A missing marker means the page can no longer verify this source;
+        // continue to a declared first-party fallback, but do not call it live.
+        if (!OFFICIAL_PROBE_RETRYABLE_STATUSES.has(status) || attempt === 1) break;
+      } catch (error) {
+        const message = String(error?.message || error || "fetch failed").slice(0, 300);
+        attempts.push({ url, error: message });
+        const transient = error?.name === "AbortError"
+          || error?.name === "TimeoutError"
+          || /(?:fetch failed|network|socket|econn|etimedout|enotfound)/i.test(message);
+        if (!transient || attempt === 1) break;
+      }
+      // Keep retry traffic bounded while giving a WAF/CDN a chance to rotate.
+      await sleepImpl(450 + candidateIndex * 200);
+    }
+  }
+  const last = attempts.at(-1) || {};
+  return {
+    reachable: false,
+    httpStatus: Number.isFinite(last.status) ? last.status : null,
+    attempts,
+    error: last.error || (last.status ? `HTTP ${last.status} 또는 본문 표식 불일치` : "source check failed"),
+  };
+}
+
+export async function collectOfficialIndustrySourceChecks(options = {}) {
   const checkedAt = new Date().toISOString();
   const entries = await Promise.all(OFFICIAL_INDUSTRY_PROBES.map(async (probe) => {
-    try {
-      const response = await fetch(probe.url, { signal: fetchSignal("official"), headers: { "User-Agent": BROWSER_UA, Accept: "text/html" } });
-      const html = await response.text();
-      const reachable = response.ok && probe.pattern.test(html);
-      note(`official:${probe.id}`, reachable, reachable ? `${probe.label} 직접 연결 · ${html.length} bytes` : `HTTP ${response.status} 또는 본문 표식 불일치`);
-      return [probe.id, { id: probe.id, label: probe.label, url: probe.url, reachable, checkedAt, status: reachable ? "connected" : "failed", httpStatus: response.status }];
-    } catch (error) {
-      note(`official:${probe.id}`, false, error.message);
-      return [probe.id, { id: probe.id, label: probe.label, url: probe.url, reachable: false, checkedAt, status: "failed", error: String(error.message || error).slice(0, 300) }];
-    }
+    const result = await checkOfficialIndustryProbe(probe, options);
+    const status = result.reachable ? (result.fallbackUsed ? "connected-fallback" : "connected") : "failed";
+    const detail = result.reachable
+      ? `${probe.label} ${result.fallbackUsed ? "공식 대체 경로" : "직접 연결"} · ${result.attempts.length}회 확인`
+      : result.error;
+    note(`official:${probe.id}`, result.reachable, detail);
+    return [probe.id, {
+      id: probe.id,
+      label: probe.label,
+      url: probe.url,
+      reachable: result.reachable,
+      checkedAt,
+      status,
+      httpStatus: result.httpStatus,
+      verifiedUrl: result.verifiedUrl || null,
+      fallbackUsed: Boolean(result.fallbackUsed),
+      attempts: result.attempts,
+      ...(result.error ? { error: result.error } : {}),
+    }];
   }));
   return Object.fromEntries(entries);
 }
