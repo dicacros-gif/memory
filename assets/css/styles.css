@@ -10955,13 +10955,21 @@ body.sidebar-collapsed .sb-ico {
 
 .agent-question {
   margin-top: 1px;
-  padding: 7px 8px;
-  border-left: 3px solid var(--agent-color);
-  border-radius: 7px;
-  background: color-mix(in srgb, var(--agent-color) 9%, var(--panel));
+  padding: 8px 10px;
+  border-left: 3px solid #fff;
+  border-radius: 8px;
+  /* Solid, saturated agent-colour fill mixed toward dark so white text is
+     always readable — in any theme and any hover/speaking state. */
+  background: color-mix(in srgb, var(--agent-color) 82%, #0b1020);
 }
 
-.agent-question > span,
+.agent-question > span {
+  color: rgba(255, 255, 255, .82) !important;
+  font-size: 9px;
+  font-weight: 950;
+  letter-spacing: .1em;
+}
+
 .agent-answer > span {
   color: var(--agent-color);
   font-size: 8.5px;
@@ -10971,11 +10979,15 @@ body.sidebar-collapsed .sb-ico {
 
 .agent-question p {
   margin: 0;
-  color: var(--ink);
-  font-size: 11px;
-  font-weight: 850;
-  line-height: 1.45;
+  color: #fff !important;
+  font-size: 11.5px;
+  font-weight: 800;
+  line-height: 1.5;
 }
+
+/* User directive: keep the agent exchange simple — question + core answer only.
+   Hide the four-box consulting frame that made each turn too complex. */
+.agent-decision-frame { display: none !important; }
 
 .agent-answer { padding-top: 2px; }
 
@@ -11022,15 +11034,12 @@ body.sidebar-collapsed .sb-ico {
 .agent-turn:hover .agent-decision-frame dd { color: #fff; }
 
 .agent-turn:hover .agent-question {
-  background: rgba(255, 255, 255, .13);
-  border-color: rgba(255, 255, 255, .85);
+  /* Keep the question box dark on hover so its white text stays readable. */
+  background: color-mix(in srgb, var(--agent-color) 88%, #0b1020);
+  border-color: #fff;
 }
 
-.agent-turn:hover .agent-question > span,
-.agent-turn:hover .agent-answer > span,
-.agent-turn:hover .agent-question p {
-  color: #fff;
-}
+.agent-turn:hover .agent-answer > span { color: #fff; }
 
 /* ---- Live sequential debate (JS-driven typing + spotlight) ---- */
 .agent-chat.js-debate .agent-turn {
@@ -19624,10 +19633,11 @@ button.ni-trend-chip:hover { box-shadow: 0 4px 12px color-mix(in srgb, #0891B2 2
   margin: 0;
   opacity: 0;
   visibility: hidden;
-  transition: opacity .9s ease, visibility .9s ease;
+  transform: translateX(6%);
+  transition: opacity .8s ease, visibility .8s ease, transform .8s cubic-bezier(.2,.7,.2,1);
   cursor: pointer;
 }
-.mm-slide.is-active { opacity: 1; visibility: visible; }
+.mm-slide.is-active { opacity: 1; visibility: visible; transform: translateX(0); }
 .mm-slide img {
   position: absolute;
   inset: 0;
@@ -19734,7 +19744,7 @@ button.ni-trend-chip:hover { box-shadow: 0 4px 12px color-mix(in srgb, #0891B2 2
   background: color-mix(in srgb, var(--mm-accent) 8%, var(--panel));
 }
 .mm-dot.is-active b { color: var(--mm-accent); }
-.mm-dot.is-active::after { transform: scaleX(1); animation: mmProgress 5.2s linear; }
+.mm-dot.is-active::after { transform: scaleX(1); animation: mmProgress 5s linear; }
 @keyframes mmProgress { from { transform: scaleX(0); } to { transform: scaleX(1); } }
 
 @media (max-width: 560px) {
@@ -19767,3 +19777,20 @@ button.ni-trend-chip:hover { box-shadow: 0 4px 12px color-mix(in srgb, #0891B2 2
   .china-decision-video-panel:hover .china-decision-video,
   .china-benchmark-video-sticky:hover .china-benchmark-story-video { transform: none; }
 }
+
+/* China talent strategy gallery → full-bleed Squarespace-style rotating hero.
+   The focus aside is often empty on wide screens, leaving the gallery boxed in
+   the left column with white space on the right. Collapse the empty aside so
+   the gallery spans the full board width, and cap the stage height so the
+   full-width image reads as an editorial hero band (not an over-tall 16/9). */
+#china-talent-strategy .policy-focus:empty { display: none; }
+/* Stack the board in a single column so the gallery spans the full board width
+   (no right-hand blank), with the focus detail panel below it — full width. */
+#china-talent-strategy .policy-layout { grid-template-columns: 1fr; }
+#china-talent-strategy .talent-strategy-gallery-stage {
+  aspect-ratio: auto;
+  height: clamp(340px, 42vw, 580px);
+}
+/* Larger, more editorial overlay type for the now full-width hero. */
+#china-talent-strategy .talent-strategy-gallery-copy strong { font-size: clamp(20px, 2.6vw, 34px); line-height: 1.12; }
+#china-talent-strategy .talent-strategy-gallery-copy p { font-size: clamp(12px, 1.2vw, 15px); }

@@ -5318,7 +5318,12 @@
     s = s.replace(/\(?\b\d{2,4}[.\-/]\d{1,2}[.\-/]\d{1,2}(?:\s*[~–-]\s*\d{2,4}[.\-/]\d{1,2}[.\-/]\d{1,2})?\)?/g, "");
     s = s.replace(/\b\d{4}\s*년\s*\d{1,2}\s*월(?:\s*\d{1,2}\s*일)?/g, "");
     s = s.replace(/\b\d{1,2}\s*월\s*\d{1,2}\s*일/g, "");
-    s = s.replace(/\(\s*\)/g, "").replace(/\s{2,}/g, " ").replace(/\s+([,.])/g, "$1").trim();
+    s = s.replace(/\b20\d{2}-\d{2}\b/g, "");            // YYYY-MM (e.g. 2026-06)
+    s = s.replace(/\bQ[1-4]\s*20\d{2}\b|\b20\d{2}\s*Q[1-4]\b/g, ""); // quarter tags
+    // Tidy up leftovers: empty parens, orphan leading commas inside parens,
+    // doubled spaces, and space-before-punctuation.
+    s = s.replace(/\(\s*[,·]\s*/g, "(").replace(/\(\s*\)/g, "");
+    s = s.replace(/\s{2,}/g, " ").replace(/\s+([,.)])/g, "$1").replace(/\(\s+/g, "(").trim();
     const sentences = s.split(/(?<=[.!?。])\s+/).filter(Boolean);
     const core = sentences.filter((t) => /(\*\*|==|Go|Watch|Hold|No-Go|\d)/.test(t));
     let out = (core.length ? core : sentences).slice(0, 2).join(" ").trim();
@@ -11003,7 +11008,7 @@
     const startRotate = () => {
       stopRotate();
       if (window.matchMedia?.("(prefers-reduced-motion: reduce)").matches) return;
-      memoryMarketHeroTimer = window.setInterval(() => show(memoryMarketHeroIndex + 1), 5200);
+      memoryMarketHeroTimer = window.setInterval(() => show(memoryMarketHeroIndex + 1), 5000);
     };
     dots.forEach((dot) => dot.addEventListener("click", () => { show(Number(dot.dataset.mmDot)); startRotate(); }));
     slides.forEach((slide) => slide.addEventListener("click", () => { show(Number(slide.dataset.mmSlide)); startRotate(); }));
@@ -15336,7 +15341,7 @@
     if (!chinaTalentGalleryInView || chinaTalentGalleryPaused || document.hidden) return;
     chinaTalentGalleryTimer = window.setTimeout(() => {
       showChinaTalentGallerySlide(chinaTalentGalleryIndex + 1);
-    }, 6400);
+    }, 5000);
   }
 
   function showChinaTalentGallerySlide(nextIndex, immediate = false) {
