@@ -4584,6 +4584,9 @@
   const secondaryDataPromises = new Map();
   const deferredSectionRuns = new Map();
   const deferredRenderedSections = new Set(["overview", "overview-content"]);
+  let priceBoardPreloadStarted = false;
+  let priceBoardPreloadObserver = null;
+  let priceBoardPreloadIdleId = 0;
 
   function deferredSectionDefinitions() {
     return [
@@ -4644,6 +4647,53 @@
     return Promise.all(ids.map(loadSecondaryArtifact));
   }
 
+  // The price board combines the compact price history with a larger market-history
+  // artifact. Start that network work well before the board becomes visible, while
+  // leaving the expensive DOM rendering to the near-viewport render observer below.
+  function prewarmPriceBoardData() {
+    if (priceBoardPreloadStarted) return loadSecondaryData(["priceHistory", "marketHistory"]);
+    priceBoardPreloadStarted = true;
+    const board = $("#prices");
+    if (board) board.dataset.pricePreload = "loading";
+    return loadSecondaryData(["priceHistory", "marketHistory"]).then(() => {
+      if (board) board.dataset.pricePreload = "ready";
+    }).catch(() => {
+      // loadJSON already provides empty, source-gated fallbacks. Mark the board so
+      // the normal renderer can show its truthful data-state message without delay.
+      if (board) board.dataset.pricePreload = "fallback";
+    });
+  }
+
+  function setupPriceBoardPreload() {
+    const board = $("#prices");
+    if (!board) return;
+    const start = () => {
+      if (priceBoardPreloadIdleId && "cancelIdleCallback" in window) {
+        window.cancelIdleCallback(priceBoardPreloadIdleId);
+      }
+      priceBoardPreloadIdleId = 0;
+      prewarmPriceBoardData();
+      priceBoardPreloadObserver?.disconnect();
+      priceBoardPreloadObserver = null;
+    };
+
+    if ("IntersectionObserver" in window) {
+      priceBoardPreloadObserver = new IntersectionObserver((entries) => {
+        if (entries.some((entry) => entry.isIntersecting)) start();
+      }, { rootMargin: "2200px 0px", threshold: 0 });
+      priceBoardPreloadObserver.observe(board);
+      window.addEventListener("pagehide", () => priceBoardPreloadObserver?.disconnect(), { once: true });
+    }
+
+    // On an idle first paint, prewarm as well. This keeps a fast scroll from
+    // overtaking the observer without making the first viewport wait on the data.
+    if ("requestIdleCallback" in window) {
+      priceBoardPreloadIdleId = window.requestIdleCallback(start, { timeout: 1800 });
+    } else {
+      priceBoardPreloadIdleId = window.setTimeout(start, 900);
+    }
+  }
+
   function deferredDefinition(id) {
     return deferredSectionDefinitions().find((item) => item.id === id) || null;
   }
@@ -4685,6 +4735,7 @@
       section.dataset.deferredState = "waiting";
       section.setAttribute("aria-busy", "true");
     });
+    setupPriceBoardPreload();
 
     if (!("IntersectionObserver" in window)) {
       definitions.reduce(
@@ -4701,8 +4752,18 @@
         ensureDeferredSection(entry.target.id);
       });
     }, { rootMargin: "320px 0px", threshold: 0.01 });
-    sections.forEach((section) => observer.observe(section));
-    window.addEventListener("pagehide", () => observer.disconnect(), { once: true });
+    const priceRenderObserver = new IntersectionObserver((entries) => {
+      entries.forEach((entry) => {
+        if (!entry.isIntersecting) return;
+        priceRenderObserver.unobserve(entry.target);
+        ensureDeferredSection(entry.target.id);
+      });
+    }, { rootMargin: "1100px 0px", threshold: 0.01 });
+    sections.forEach((section) => (section.id === "prices" ? priceRenderObserver : observer).observe(section));
+    window.addEventListener("pagehide", () => {
+      observer.disconnect();
+      priceRenderObserver.disconnect();
+    }, { once: true });
 
     // Navigation always calls ensureDeferredSection(), so no board is left as
     // a skeleton when selected.  Do not eagerly render every below-the-fold
