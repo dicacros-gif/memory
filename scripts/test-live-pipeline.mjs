@@ -272,6 +272,11 @@ assert.equal(health.sources["preserved:not-attempted"].attempted, false, "unatte
 assert.equal(health.total, 2, "source-health denominator must include only sources attempted in this run");
 assert.equal(health.ok, 1);
 assert.equal(health.catalogTotal, 3, "the retained source catalog must be reported separately");
+assert.deepEqual(health.alerts, ["fx:usdkrw"], "only failures attempted in the current run may raise an active alert");
+const inactiveAlert = sourceHealthSnapshot({ sources: {
+  "old:provider": { id: "old:provider", failureStreak: 4, alert: true },
+} }, []);
+assert.deepEqual(inactiveAlert.alerts, [], "a retained but unattempted source must not remain an active incident");
 assert.equal(sourceHealthId("TrendForce차트"), "trendforce:chart");
 const migratedHealth = sourceHealthSnapshot({ sources: { TrendForce차트: { id: "TrendForce차트", ok: true }, trendforce차트: { id: "trendforce차트", ok: true } } }, [
   { step: "TrendForce차트", ok: true, msg: "ok" },

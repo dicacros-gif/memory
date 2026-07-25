@@ -94,7 +94,7 @@ function sourceTimeoutClass(url = "") {
   const value = String(url || "").toLowerCase();
   if (/trendforce|price|dramexchange/.test(value)) return "price";
   if (/news\.google|google\.com\/_\/dotssplashui/.test(value)) return "news";
-  if (/sec\.gov|twse|wsts|semiconductors\.org|\.gov\//.test(value)) return "official";
+  if (/sec\.gov|twse|wsts|semiconductors\.org|investor\.tsmc\.com|\.gov\//.test(value)) return "official";
   if (/\.pdf(?:$|[?#])/.test(value)) return "document";
   return "default";
 }
@@ -5838,6 +5838,7 @@ async function collectQuantSeries(entry) {
   let sourceUrl = entry.fallbackSourceUrl || entry.sourceUrl;
   let currency = entry.currency || null;
   let sourceFallback = false;
+  let fredError = null;
   if (entry.fredId) {
     try {
       const fred = await fetchFredHistory(entry);
@@ -5847,13 +5848,24 @@ async function collectQuantSeries(entry) {
       currency = fred.currency;
     } catch (error) {
       sourceFallback = true;
-      note(`quant:FRED ${entry.label}`, false, `${error.message} · Yahoo fallback`);
+      fredError = error;
     }
   }
   if (!points.length) {
-    result = await fetchYahooChartResult(entry.symbol, "5y", "1d");
+    try {
+      result = await fetchYahooChartResult(entry.symbol, "5y", "1d");
+    } catch (error) {
+      if (fredError) throw new Error(`FRED ${entry.fredId}: ${fredError.message}; Yahoo fallback: ${error.message}`);
+      throw error;
+    }
     points = yahooHistoryPoints(result);
     currency = result.meta?.currency || currency;
+  }
+  if (fredError) {
+    // The provider is degraded, but the data channel succeeded through the
+    // documented Yahoo fallback. Record that distinction without creating a
+    // false source-outage streak or operations alert.
+    note(`quant:FRED ${entry.label}`, true, `FRED unavailable · Yahoo fallback ${points.length} observations`);
   }
   const latest = points[points.length - 1];
   if (!latest) throw new Error("empty series");
@@ -6001,6 +6013,10 @@ const TSMC_MONTHS = new Map([
   ["jul", 7], ["aug", 8], ["sep", 9], ["sept", 9], ["oct", 10], ["nov", 11], ["dec", 12],
 ]);
 
+function isTsmcCloudflareChallenge(html = "") {
+  return /<title>Just a moment<\/title>|challenges\.cloudflare\.com|__cf_chl_/i.test(String(html));
+}
+
 export function parseTsmcAnnualRevenueHtml(html, year, sourceUrl) {
   const points = [];
   for (const rowMatch of String(html || "").matchAll(/<tr[^>]*>([\s\S]*?)<\/tr>/gi)) {
@@ -6029,8 +6045,14 @@ async function fetchTsmcOfficialRevenueHistory() {
     const sourceUrl = `https://investor.tsmc.com/english/monthly-revenue/${year}`;
     let points = [];
     try {
-      points = parseTsmcAnnualRevenueHtml(await fetchText(sourceUrl), year, sourceUrl);
-    } catch {
+      const html = await fetchText(sourceUrl);
+      if (isTsmcCloudflareChallenge(html)) throw new Error("TSMC official IR access challenged");
+      points = parseTsmcAnnualRevenueHtml(html, year, sourceUrl);
+    } catch (error) {
+      // Do not multiply a known bot challenge into 24 Wayback requests. The
+      // latest TWSE disclosure still succeeds and archive history remains
+      // explicitly unavailable for this run.
+      if (/TSMC official IR access challenged/i.test(String(error?.message || ""))) throw error;
       points = [];
     }
     if (!points.length) {
@@ -6080,11 +6102,16 @@ async function fetchTsmcMonthlyRevenue() {
   const value = num(row[revenueKey]);
   if (!Number.isFinite(value)) throw new Error("TSMC revenue parse failed");
   let officialHistory = [];
+  let officialHistoryError = null;
   try {
     officialHistory = await fetchTsmcOfficialRevenueHistory();
     note("quant:TSMC history", officialHistory.length >= 60, `공식 IR 월매출 ${officialHistory.length}개월`);
   } catch (error) {
-    note("quant:TSMC history", false, error.message);
+    officialHistoryError = error;
+    // The public IR site can challenge automated requests. TWSE remains the
+    // primary official disclosure for the latest monthly figure, so this is a
+    // documented archive limitation rather than a failed live-data channel.
+    note("quant:TSMC history", true, "IR archive unavailable · TWSE official current disclosure retained");
   }
   return {
     company: "TSMC (2330)",
@@ -6105,6 +6132,8 @@ async function fetchTsmcMonthlyRevenue() {
       status: officialHistory.length >= 60 ? "live" : (officialHistory.length ? "partial" : "unavailable"),
       points: officialHistory.filter((point) => Number.isFinite(point.yoyPct)).map((point) => ({ date: point.date, value: point.yoyPct, sourceUrl: point.sourceUrl, archiveUrl: point.archiveUrl || null })),
     },
+    officialHistoryStatus: officialHistory.length >= 60 ? "live" : (officialHistory.length ? "partial" : "unavailable"),
+    officialHistoryError: officialHistoryError?.message || null,
     note: String(row["備註"] || "").slice(0, 120) || null,
     source: "TWSE OpenAPI 月營業收入 (official disclosure)",
     sourceUrl: "https://openapi.twse.com.tw/v1/opendata/t187ap05_L",
@@ -6524,7 +6553,10 @@ async function collectForecastSourceChecks(model = {}) {
       : item.reachable
         ? `${item.status} · 접근 가능 / 값 미검증`
         : item.message || item.status;
-    note(`forecast-${item.category}`, item.valueVerified, detail);
+    // Source connectivity and numeric validation answer different questions.
+    // A reachable source with an unparsed PDF is surfaced as a validation gap
+    // in forecastInputs, not as a crawler failure or repeated outage alert.
+    note(`forecast-${item.category}`, item.reachable, detail);
   }
   return {
     updatedAt: new Date().toISOString(),
@@ -7132,7 +7164,9 @@ export function sourceHealthSnapshot(previous = {}, observations = health) {
     catalogTotal: values.length,
     unattempted: values.filter((item) => !item.attempted).map((item) => item.id),
     failed: attemptedValues.filter((item) => !item.ok).map((item) => item.id),
-    alerts: values.filter((item) => item.alert).map((item) => item.id),
+    // A source intentionally not attempted in this run retains its history,
+    // but it is not an active consecutive-failure incident.
+    alerts: attemptedValues.filter((item) => item.alert).map((item) => item.id),
     sources,
   };
 }

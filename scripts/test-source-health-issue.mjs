@@ -26,6 +26,10 @@ const alertQuant = {
 const body = sourceHealthIssueBody(alertQuant, "https://github.com/acme/repo/actions/runs/42");
 assert.ok(body.includes(SOURCE_HEALTH_MARKER));
 assert.ok(!body.includes("timeout ``` injected"), "triple-backtick injection must be neutralized");
+const inactiveAlertQuant = { ...alertQuant, sourceHealth: { sources: {
+  "yahoo:usdkrw": { ...alertQuant.sourceHealth.sources["yahoo:usdkrw"], attempted: false },
+} } };
+assert.ok(!sourceHealthIssueBody(inactiveAlertQuant).includes("### USD/KRW"), "unattempted historical failures must not keep an incident open");
 
 function mockFetch(responses, calls) {
   return async (url, options = {}) => {

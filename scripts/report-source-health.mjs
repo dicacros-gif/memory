@@ -17,6 +17,7 @@ function clean(value = "", limit = 500) {
 
 export function activeSourceAlerts(quant = {}) {
   return Object.values(quant.sourceHealth?.sources || {})
+    .filter((item) => item?.attempted !== false)
     .filter((item) => item?.alert || Number(item?.failureStreak || 0) >= Number(item?.alertThreshold || 3))
     .sort((a, b) => Number(b.failureStreak || 0) - Number(a.failureStreak || 0) || String(a.id).localeCompare(String(b.id)));
 }
