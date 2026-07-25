@@ -5309,6 +5309,24 @@
   //   **key**  -> accent-colored keyword
   //   ==text== -> restrained key-line emphasis
   // and auto-color Go / Watch / Hold / No-Go verdicts by tone.
+  // Condense an agent answer to its consulting core: drop dates and redundant
+  // filler (중언부언·날짜 제거), then keep only the load-bearing sentences —
+  // those carrying an emphasis marker, a verdict, or a figure — capped to two.
+  // The full rationale still lives in the source string / speechEn for TTS.
+  function agentCoreText(value = "") {
+    let s = String(value || "");
+    s = s.replace(/\(?\b\d{2,4}[.\-/]\d{1,2}[.\-/]\d{1,2}(?:\s*[~–-]\s*\d{2,4}[.\-/]\d{1,2}[.\-/]\d{1,2})?\)?/g, "");
+    s = s.replace(/\b\d{4}\s*년\s*\d{1,2}\s*월(?:\s*\d{1,2}\s*일)?/g, "");
+    s = s.replace(/\b\d{1,2}\s*월\s*\d{1,2}\s*일/g, "");
+    s = s.replace(/\(\s*\)/g, "").replace(/\s{2,}/g, " ").replace(/\s+([,.])/g, "$1").trim();
+    const sentences = s.split(/(?<=[.!?。])\s+/).filter(Boolean);
+    const core = sentences.filter((t) => /(\*\*|==|Go|Watch|Hold|No-Go|\d)/.test(t));
+    let out = (core.length ? core : sentences).slice(0, 2).join(" ").trim();
+    if (((out.match(/\*\*/g) || []).length) % 2) out += "**";
+    if (((out.match(/==/g) || []).length) % 2) out += "==";
+    return out || s;
+  }
+
   function renderAgentSpeech(value) {
     let html = escapeReadableHTML(String(value ?? ""));
     html = html.replace(/==([^=]+)==/g, '<span class="ag-hl">$1</span>');
@@ -8682,7 +8700,7 @@
                    <div class="speech-meta"><strong>${escapeHTML(agent.role)}</strong><span>${escapeHTML(agent.stance || agent.name)}</span></div>
                    ${agent.question ? `<div class="agent-question"><span>질문</span><p>${escapeHTML(agent.question)}</p></div>` : ""}
                    ${agentDecisionFrameHTML(agent.decisionFrame)}
-                   <div class="agent-answer"><span>답변</span><p data-say-en="${escapeHTML(agent.speechEn || "")}">${renderAgentSpeech(agent.message)}</p></div>
+                   <div class="agent-answer"><span>답변</span><p data-say-en="${escapeHTML(agent.speechEn || "")}">${renderAgentSpeech(agentCoreText(agent.message))}</p></div>
                    ${agentEvidenceMetaHTML(agent)}
                  </div>
               </div>
@@ -8830,9 +8848,9 @@
     const profile = AGENT_TTS_PROFILES.find((item) => item.match.test(hay))
       || AGENT_TTS_PROFILES[index % AGENT_TTS_PROFILES.length];
     const voices = agentVoices.length ? agentVoices : refreshAgentVoices();
-    const language = /^(?:ko|en)$/.test(languageOverride)
-      ? languageOverride
-      : (agentUsesKoreanTts(name, role) ? "ko" : "en");
+    // Agent debate is spoken in English only (user directive): every voice
+    // profile resolves to an English voice regardless of role.
+    const language = "en";
     const languageVoices = voices.filter((voice) => language === "ko"
       ? /^ko(?:-|$)/i.test(voice.lang || "")
       : /^en(?:-|$)/i.test(voice.lang || ""));
@@ -9041,14 +9059,18 @@
       utterance.lang = profile.voice?.lang || (profile.language === "ko" ? "ko-KR" : "en-US");
       utterance.voice = profile.voice || null;
       utterance.pitch = Math.max(0.72, Math.min(1.28, profile.pitch + (/\?$/.test(text) ? 0.04 : 0)));
-      utterance.rate = Math.max(1.02, Math.min(1.24, profile.rate + AGENT_TTS_RATE_BOOST + (text.length > 180 ? 0.02 : 0)));
+      // Speak slowly and clearly — one statement fully pronounced before the
+      // sequence runner advances to the next agent (user directive).
+      utterance.rate = 0.82;
       utterance.volume = profile.volume;
       let settled = false;
       let started = false;
       let gestureReleased = !gestureStart;
       let resumePulse = 0;
       let startWatchdog = 0;
-      const timeout = window.setTimeout(() => finish(), Math.max(8000, Math.min(28000, text.length * (104 / utterance.rate))));
+      // Generous safety net so slow, full pronunciation is never cut short; the
+      // real advance happens on utterance.onend, not this watchdog.
+      const timeout = window.setTimeout(() => finish(), Math.max(9000, Math.min(70000, text.length * (150 / utterance.rate))));
       const finish = () => {
         if (settled) return;
         settled = true;
@@ -13186,7 +13208,7 @@
                  </div>
                  ${turn.question ? `<div class="agent-question"><span>질문</span><p>${escapeHTML(turn.question)}</p></div>` : ""}
                  ${agentDecisionFrameHTML(turn.decisionFrame)}
-                 <div class="agent-answer"><span>답변</span><p data-say-en="${escapeHTML(turn.speechEn || "")}">${renderAgentSpeech(turn.message)}</p></div>
+                 <div class="agent-answer"><span>답변</span><p data-say-en="${escapeHTML(turn.speechEn || "")}">${renderAgentSpeech(agentCoreText(turn.message))}</p></div>
                  ${agentEvidenceMetaHTML(turn)}
                </div>
             </article>
@@ -13921,7 +13943,7 @@
                    </div>
                    ${agent.question ? `<div class="agent-question"><span>질문</span><p>${escapeHTML(agent.question)}</p></div>` : ""}
                    ${agentDecisionFrameHTML(agent.decisionFrame)}
-                   <div class="agent-answer"><span>답변</span><p data-say-en="${escapeHTML(agent.speechEn || "")}">${renderAgentSpeech(agent.message)}</p></div>
+                   <div class="agent-answer"><span>답변</span><p data-say-en="${escapeHTML(agent.speechEn || "")}">${renderAgentSpeech(agentCoreText(agent.message))}</p></div>
                    ${agentEvidenceMetaHTML(agent)}
                  </div>
               </article>

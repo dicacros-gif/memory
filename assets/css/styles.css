@@ -19533,16 +19533,39 @@ button.ni-trend-chip:hover { box-shadow: 0 4px 12px color-mix(in srgb, #0891B2 2
   border-color: var(--ink);
   box-shadow: 0 16px 34px rgba(2, 8, 23, .38);
 }
-/* Keep text legible after the invert */
-.ni-card:hover :is(h4, p, .ni-theme, .ni-count, small, a, b),
-.mbp-front:hover :is(strong, p, .mbp-front-tag),
-.deep-implication:hover :is(strong, span, b),
-.community-insight:hover :is(strong, span, b) { color: var(--panel); }
+/* Bulletproof legibility after the invert: force EVERY descendant to the
+   contrasting (panel) colour so no text — links, badges, term tints, source
+   labels, gradient-clipped headings — can disappear against the flipped box. */
+.ni-card:hover *,
+.mbp-front:hover *,
+.deep-implication:hover *,
+.community-insight:hover *,
+.ni-research-list li.ni-cite:hover * {
+  color: var(--panel) !important;
+  -webkit-text-fill-color: var(--panel) !important;
+  border-color: color-mix(in srgb, var(--panel) 32%, transparent) !important;
+}
+/* Nested chips/pills carry their own dark background — on the inverted (light)
+   card give them a subtle dark-tint fill so their now-dark text stays legible. */
+.ni-card:hover :is(.ni-price, .ni-badge, .ni-theme, .ni-count),
+.mbp-front:hover :is(.mbp-front-tag),
+.ni-research-list li.ni-cite:hover .ni-cite-src {
+  background: rgba(2, 8, 23, .10) !important;
+  border-color: rgba(2, 8, 23, .20) !important;
+}
+/* Highlighted key terms keep the yellow chip but with dark, readable text. */
 .ni-card:hover .strategy-highlight,
+.mbp-front:hover .strategy-highlight,
 .deep-implication:hover .strategy-highlight,
-.community-insight:hover .strategy-highlight { color: #16120a; }
+.community-insight:hover .strategy-highlight,
+.ni-card:hover mark, .mbp-front:hover mark,
+.deep-implication:hover mark, .community-insight:hover mark {
+  background: #ffe45e !important;
+  color: #16120a !important;
+  -webkit-text-fill-color: #16120a !important;
+  text-decoration-color: #b7791f !important;
+}
 .ni-research-list li.ni-cite:hover {
   transform: translateY(-3px);
   background: var(--ink);
 }
-.ni-research-list li.ni-cite:hover :is(a, small, .ni-cite-src) { color: var(--panel); }
