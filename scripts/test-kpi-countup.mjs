@@ -38,7 +38,10 @@ assert.match(css, /\.talent-strategy-gallery-image\.is-previous/, "talent galler
 assert.match(css, /\.talent-strategy-gallery-image\.is-next/, "talent gallery should render a next-slide preview");
 assert.match(css, /@keyframes talentGalleryCarouselProgress/, "talent gallery should show the five-second rotation progress");
 assert.match(html, /aria-roledescription="carousel"/, "talent gallery should expose its carousel role to assistive technology");
-assert.match(html, /styles\.css\?v=talent-carousel-20260725-10/, "CSS cache key should include this integrated revision");
-assert.match(html, /app\.js\?v=talent-carousel-20260725-10/, "JavaScript cache key should include this integrated revision");
+assert.doesNotMatch(app, /전략 참고용으로 전체 내용을 제공하며 수치와 결론은 재검증 전 의사결정 입력값으로 사용하지 않음/, "baseline disclaimer should not be rendered");
+assert.doesNotMatch(app, /SKHY 판단/, "SKHY labels should use the neutral Insight label");
+assert.match(app, /bodyLead: "Insight"/, "executive insight cards should use the Insight label");
+assert.match(html, /styles\.css\?v=baseline-label-20260725-11/, "CSS cache key should include this integrated revision");
+assert.match(html, /app\.js\?v=baseline-label-20260725-11/, "JavaScript cache key should include this integrated revision");
 
 console.log("KPI typography and hover count-up checks passed.");

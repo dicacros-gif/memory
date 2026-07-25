@@ -6414,7 +6414,7 @@
       {
         label: "중요 인사이트",
         title: "가격 방어의 선행 신호는 CXMT 캐파보다 고객 인증과 장기계약",
-        bodyLead: "SKHY 판단",
+        bodyLead: "Insight",
         body: "서버 DRAM·eSSD의 고객별 승인, spot/contract spread, 패키징 병목을 함께 확인한 뒤 범용 캐파와 가격 방어 강도를 조정합니다.",
         jump: "c-level-cockpit",
         priority: true,
@@ -6548,7 +6548,6 @@
             <li>라이브 근거와 분리</li>
           </ul>
         </header>
-        <p class="exec-baseline-intro">전략 참고용으로 전체 내용을 제공하며 수치와 결론은 재검증 전 의사결정 입력값으로 사용하지 않음</p>
         <ol class="exec-baseline-grid">
           ${reports.map((item, index) => `
             <li class="exec-baseline-report" style="--report-accent:${escapeHTML(item.accent || "#64748b")}">
@@ -17717,7 +17716,7 @@
             </div>
             <h4>${escapeHTML(item.titleKo || item.title || "채용 신호")}</h4>
             <p>${escapeHTML(item.summary || "")}</p>
-            <div class="talent-latest-insight"><span>SKHY 판단</span>${escapeHTML(item.insight || "직무 재게시와 공식 공시를 함께 확인합니다.")}</div>
+            <div class="talent-latest-insight"><span>Insight</span>${escapeHTML(item.insight || "직무 재게시와 공식 공시를 함께 확인합니다.")}</div>
             <div class="talent-latest-validation">
               <span>검증 조건 · ${escapeHTML(item.validation || "공식 공시 · 실제 채용 · 제품 인증")}</span>
               <a href="${escapeHTML(item.sourceUrl)}" target="_blank" rel="noopener noreferrer">원문</a>
