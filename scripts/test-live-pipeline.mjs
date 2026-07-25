@@ -279,6 +279,7 @@ assert.deepEqual(Object.keys(migratedHealth.sources).filter((id) => id.toLowerCa
 const root = resolve(dirname(fileURLToPath(import.meta.url)), "..");
 const appText = await readFile(resolve(root, "assets/js/app.js"), "utf8");
 const stylesText = await readFile(resolve(root, "assets/css/styles.css"), "utf8");
+const indexText = await readFile(resolve(root, "index.html"), "utf8");
 const crawlText = await readFile(resolve(root, "scripts/crawl.mjs"), "utf8");
 const refreshText = await readFile(resolve(root, "scripts/refresh-derived.mjs"), "utf8");
 const workflowText = await readFile(resolve(root, ".github/workflows/pages.yml"), "utf8");
@@ -349,6 +350,22 @@ assert.match(appText, /decisionFrame: executiveDecisionFrame\(turn, decisionFram
 assert.match(appText, /question: decisionFrame\.question, decisionFrame/, "each C-level council role must receive a data-bound question and decision frame");
 assert.match(appText, /function executiveDecisionAgentItems[\s\S]*?decisionFrame: executiveDecisionFrame/, "backtest product-council agents must use the same decision frame");
 assert.match(stylesText, /\.agent-decision-frame\s*\{/, "decision frames must use a compact infographic layout");
+const deferredSectionBlock = appText.slice(
+  appText.indexOf("function setupDeferredSections"),
+  appText.indexOf("/* ---------------- Hyperscaler"),
+);
+assert.match(deferredSectionBlock, /rootMargin: "320px 0px"/, "below-the-fold boards must render close to the viewport instead of far in advance");
+assert.doesNotMatch(deferredSectionBlock, /renderRemaining/, "deferred boards must not all be force-rendered after initial paint");
+const jumpNavigationBlock = appText.slice(
+  appText.indexOf("async function jumpTo"),
+  appText.indexOf("function setupScrollSpy"),
+);
+assert.match(appText, /function syncSidebarRoute\(/, "sidebar tabs must share one active-route state with the content board");
+assert.match(jumpNavigationBlock, /syncSidebarRoute\(id, \{ pending: true, reveal: true \}\)/, "a selected sidebar tab must update before its board finishes preparing");
+assert.doesNotMatch(jumpNavigationBlock, /deferredSectionRuns\.values/, "a selected board must not wait for unrelated deferred boards");
+assert.match(appText, /function scheduleScrollProgress\(/, "scroll progress updates must be frame-throttled");
+assert.match(stylesText, /\.sb-item\.is-pending::after/, "sidebar must visibly retain the selected tab while the matching board loads");
+assert.equal((indexText.match(/pretendard[^"\s]*\.css/gi) || []).length, 1, "the page must load one Pretendard stylesheet rather than duplicate font CSS");
 
 const manualEdgesBlock = appText.slice(
   appText.indexOf("function memoryMarketEdges()"),

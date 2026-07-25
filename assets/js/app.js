@@ -2022,6 +2022,10 @@
   let activeCategory = "all";
   let categoryRenderToken = 0;
   let categoryRenderFrame = 0;
+  let pendingSidebarRoute = "";
+  let activeSidebarRoute = "";
+  let scrollSpyFrame = 0;
+  let scrollProgressFrame = 0;
   let priceFilter = "all";
   let pricePeriod = "year5";
   let priceAsOfDate = "";
@@ -3724,10 +3728,21 @@
     animateCounts();
     animateMeters();
     setupKpiCountReplay();
-    setupMouseDrivenMetrics();
-    setupAgentDebateBackdrops();
-    setupMemoryMapShowcaseVideo();
+    schedulePostPaintEnhancements();
     setupDeferredSections();
+  }
+
+  function schedulePostPaintEnhancements() {
+    const run = () => {
+      setupMouseDrivenMetrics();
+      setupAgentDebateBackdrops();
+      setupMemoryMapShowcaseVideo();
+    };
+    if ("requestIdleCallback" in window) {
+      window.requestIdleCallback(run, { timeout: 1400 });
+    } else {
+      window.setTimeout(run, 180);
+    }
   }
 
   function setupStrategyCapitalSlider() {
@@ -4621,21 +4636,13 @@
         observer.unobserve(entry.target);
         ensureDeferredSection(entry.target.id);
       });
-    }, { rootMargin: "900px 0px", threshold: 0.01 });
+    }, { rootMargin: "320px 0px", threshold: 0.01 });
     sections.forEach((section) => observer.observe(section));
     window.addEventListener("pagehide", () => observer.disconnect(), { once: true });
 
-    // Safety net: some browsers/webviews throttle IntersectionObserver, which
-    // would leave sections as skeletons forever. Shortly after first paint,
-    // progressively render whatever is still waiting during idle time.
-    const renderRemaining = () => {
-      definitions.reduce((chain, definition) => chain.then(() => new Promise((done) => {
-        const run = () => ensureDeferredSection(definition.id).then(done, done);
-        if ("requestIdleCallback" in window) window.requestIdleCallback(run, { timeout: 2500 });
-        else window.setTimeout(run, 120);
-      })), Promise.resolve());
-    };
-    window.setTimeout(renderRemaining, 2500);
+    // Navigation always calls ensureDeferredSection(), so no board is left as
+    // a skeleton when selected.  Do not eagerly render every below-the-fold
+    // board after first paint: that negates deferred loading on slower devices.
   }
 
   /* ---------------- Hyperscaler memory demand · scenario planning ---------------- */
@@ -5787,8 +5794,13 @@
     return `<a class="source-tag" href="${escapeHTML(clean)}" target="_blank" rel="noopener">${escapeHTML(label)}</a>`;
   }
 
-  function animateCounts(root = document) {
-    const counts = $$(".count", root);
+  function isNearViewport(node, margin = 160) {
+    const rect = node?.getBoundingClientRect?.();
+    return Boolean(rect && rect.bottom >= -margin && rect.top <= window.innerHeight + margin);
+  }
+
+  function animateCounts(root = document, { nearViewport = false } = {}) {
+    const counts = $$(".count", root).filter((node) => !nearViewport || isNearViewport(node));
     const run = (node) => {
       animateCountNode(node, {
         from: Number(node.dataset.from || 0),
@@ -5839,8 +5851,8 @@
     document.addEventListener("focusin", replayOnEntry);
   }
 
-  function animateMeters(root = document) {
-    const meters = $$("[data-fill-to], [data-score-to]", root);
+  function animateMeters(root = document, { nearViewport = false } = {}) {
+    const meters = $$("[data-fill-to], [data-score-to]", root).filter((node) => !nearViewport || isNearViewport(node));
     const run = (node) => {
       animateMeterNode(node, {
         from: 0,
@@ -5928,11 +5940,18 @@
 
   let metricMotionBound = false;
   let metricMotionActiveScope = null;
+  let metricMotionFrame = 0;
+  let metricMotionPending = null;
+  let metricMotionLastProgress = NaN;
   function setupMouseDrivenMetrics() {
     if (metricMotionBound) return;
     metricMotionBound = true;
-    document.addEventListener("pointermove", (event) => {
-      const scope = metricMotionScope(event.target);
+    const applyPendingMotion = () => {
+      metricMotionFrame = 0;
+      const pending = metricMotionPending;
+      metricMotionPending = null;
+      if (!pending) return;
+      const scope = metricMotionScope(pending.target);
       if (!scope) return;
       const countNodes = scopedMetricNodes(scope, ".count");
       const meterNodes = scopedMetricNodes(scope, "[data-fill-to], [data-score-to]");
@@ -5940,17 +5959,31 @@
       if (metricMotionActiveScope && metricMotionActiveScope !== scope) restoreMetricMotion(metricMotionActiveScope);
       if (metricMotionActiveScope !== scope) {
         metricMotionActiveScope = scope;
+        metricMotionLastProgress = NaN;
         cancelMetricAnimations(scope);
       }
       const rect = scope.getBoundingClientRect();
-      const progress = rect.width ? ((event.clientX - rect.left) / rect.width) * 100 : 100;
+      const progress = rect.width ? ((pending.clientX - rect.left) / rect.width) * 100 : 100;
+      if (Number.isFinite(metricMotionLastProgress) && Math.abs(progress - metricMotionLastProgress) < 0.75) return;
+      metricMotionLastProgress = progress;
       scope.classList.add("metric-motion-active");
       applyMetricMotion(scope, progress);
+    };
+    document.addEventListener("pointermove", (event) => {
+      metricMotionPending = { target: event.target, clientX: event.clientX };
+      if (metricMotionFrame) return;
+      metricMotionFrame = requestAnimationFrame(applyPendingMotion);
     }, { passive: true });
     document.addEventListener("pointerout", (event) => {
       const scope = metricMotionScope(event.target);
       if (!scope || (event.relatedTarget && scope.contains(event.relatedTarget))) return;
       if (metricMotionActiveScope === scope) metricMotionActiveScope = null;
+      metricMotionPending = null;
+      if (metricMotionFrame) {
+        cancelAnimationFrame(metricMotionFrame);
+        metricMotionFrame = 0;
+      }
+      metricMotionLastProgress = NaN;
       restoreMetricMotion(scope);
     }, { passive: true });
   }
@@ -5976,7 +6009,7 @@
     $("#paletteBtn")?.addEventListener("click", () => cyclePalette());
     $("#scrollTop")?.addEventListener("click", () => window.scrollTo({ top: 0, behavior: "smooth" }));
     updateScrollProgress();
-    window.addEventListener("scroll", updateScrollProgress, { passive: true });
+    window.addEventListener("scroll", scheduleScrollProgress, { passive: true });
     $("#sidebarFold")?.addEventListener("click", (event) => {
       event.stopPropagation();
       toggleSidebarCollapsed();
@@ -5984,6 +6017,7 @@
   }
 
   function updateScrollProgress() {
+    scrollProgressFrame = 0;
     const scroll = $("#scrollProg");
     const top = $("#scrollTop");
     const doc = document.documentElement;
@@ -5991,6 +6025,11 @@
     const progress = Math.min(100, Math.max(0, (doc.scrollTop / max) * 100));
     if (scroll) scroll.style.width = `${progress}%`;
     if (top) top.classList.toggle("show", window.scrollY > 420);
+  }
+
+  function scheduleScrollProgress() {
+    if (scrollProgressFrame) return;
+    scrollProgressFrame = requestAnimationFrame(updateScrollProgress);
   }
 
   function syncChromeMetrics() {
@@ -6087,6 +6126,27 @@
     return { ...category, ...(CATEGORY_DISPLAY[category.id] || {}) };
   }
 
+  function syncSidebarRoute(id, { pending = false, reveal = false } = {}) {
+    const routeTarget = NAV_SECTION_TARGETS[id] || id;
+    if (!routeTarget) return;
+    if (pending) pendingSidebarRoute = routeTarget;
+    else if (pendingSidebarRoute === routeTarget) pendingSidebarRoute = "";
+    activeSidebarRoute = routeTarget;
+    let activeButton = null;
+    $$(".sb-item").forEach((item) => {
+      const isActive = item.dataset.jump === routeTarget;
+      item.classList.toggle("active", isActive);
+      item.classList.toggle("is-pending", isActive && pending);
+      if (isActive) {
+        item.setAttribute("aria-current", "page");
+        activeButton = item;
+      } else {
+        item.removeAttribute("aria-current");
+      }
+    });
+    if (reveal && activeButton) activeButton.scrollIntoView({ block: "nearest", behavior: "auto" });
+  }
+
   function renderSidebarNav() {
     const nav = $("#sideNav");
     if (!nav) return;
@@ -6114,6 +6174,7 @@
     }).join("");
 
     decorateSidebarItems();
+    syncSidebarRoute(activeSidebarRoute || "overview");
   }
 
   function renderSidebarCategories() {
@@ -6205,8 +6266,10 @@
     categoryRenderFrame = 0;
     document.body.classList.remove("category-updating");
     updateCategoryChromeState(false);
-    animateCounts();
-    animateMeters();
+    // Filtering can re-render several boards. Re-arm motion only for cards
+    // close to the viewport instead of registering every historical board.
+    animateCounts(document, { nearViewport: true });
+    animateMeters(document, { nearViewport: true });
   }
 
   function scheduleCategoryRender() {
@@ -18363,14 +18426,6 @@
   function setupInteractions() {
     $$("[data-jump]").forEach((btn) => {
       btn.addEventListener("click", () => {
-        if (btn.classList.contains("sb-item")) {
-          $$(".sb-item").forEach((item) => {
-            const isActive = item === btn;
-            item.classList.toggle("active", isActive);
-            if (isActive) item.setAttribute("aria-current", "page");
-            else item.removeAttribute("aria-current");
-          });
-        }
         jumpTo(btn.dataset.jump);
       });
     });
@@ -18404,6 +18459,10 @@
     const token = ++jumpNavigationToken;
     const target = document.getElementById(id);
     if (!target) return;
+    // Set the navigation state immediately, then prepare only the board that
+    // was selected.  This keeps the left tab and the right content in sync
+    // without waiting for unrelated deferred sections.
+    syncSidebarRoute(id, { pending: true, reveal: true });
     await ensureDeferredSection(id);
     if (token !== jumpNavigationToken) return;
     document.body.classList.remove("menu-open");
@@ -18415,18 +18474,11 @@
 
     alignTarget();
     await new Promise((resolve) => requestAnimationFrame(resolve));
-    await Promise.allSettled(Array.from(deferredSectionRuns.values()));
     await new Promise((resolve) => requestAnimationFrame(() => requestAnimationFrame(resolve)));
     if (token !== jumpNavigationToken) return;
 
     alignTarget();
-    const routeTarget = NAV_SECTION_TARGETS[id] || id;
-    $$(".sb-item").forEach((item) => {
-      const isActive = item.dataset.jump === routeTarget;
-      item.classList.toggle("active", isActive);
-      if (isActive) item.setAttribute("aria-current", "page");
-      else item.removeAttribute("aria-current");
-    });
+    syncSidebarRoute(id);
   }
 
   function setupScrollSpy() {
@@ -18434,6 +18486,8 @@
     // sections here can highlight a previous route after a direct jump.
     const sections = SIDE_NAV_ROUTES.map((route) => route.jump);
     const update = () => {
+      scrollSpyFrame = 0;
+      if (pendingSidebarRoute) return;
       const y = window.scrollY + chromeOffset() + 22;
       let active = "overview";
       sections.forEach((id) => {
@@ -18448,14 +18502,13 @@
         active = sections[sections.length - 1];
       }
       const navTarget = NAV_SECTION_TARGETS[active] || active;
-      $$(".sb-item").forEach((btn) => {
-        const isActive = btn.dataset.jump === navTarget;
-        btn.classList.toggle("active", isActive);
-        if (isActive) btn.setAttribute("aria-current", "page");
-        else btn.removeAttribute("aria-current");
-      });
+      if (navTarget !== activeSidebarRoute) syncSidebarRoute(navTarget);
     };
-    window.addEventListener("scroll", update, { passive: true });
+    const schedule = () => {
+      if (scrollSpyFrame) return;
+      scrollSpyFrame = requestAnimationFrame(update);
+    };
+    window.addEventListener("scroll", schedule, { passive: true });
     update();
   }
 

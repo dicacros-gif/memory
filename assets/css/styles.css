@@ -399,6 +399,7 @@ button {
   gap: 10px;
   border: 1px solid transparent;
   padding: 8px 10px;
+  contain: layout paint style;
 }
 
 .sb-ico {
@@ -503,6 +504,25 @@ button {
 
 .sb-item.active .sb-label small {
   color: #586174;
+}
+
+.sb-item.is-pending::after {
+  content: "";
+  position: absolute;
+  right: 10px;
+  top: 50%;
+  width: 6px;
+  height: 6px;
+  border-radius: 999px;
+  background: currentColor;
+  box-shadow: 0 0 0 4px rgba(21, 27, 42, .12);
+  transform: translateY(-50%);
+  animation: sb-route-pulse .65s ease-in-out infinite alternate;
+}
+
+@keyframes sb-route-pulse {
+  from { opacity: .42; transform: translateY(-50%) scale(.76); }
+  to { opacity: .95; transform: translateY(-50%) scale(1.08); }
 }
 
 .sb-item:not(.active):hover .sb-ico {
@@ -612,6 +632,7 @@ body.category-updating .sb-cat.active {
 @media (prefers-reduced-motion: reduce) {
   .sb-item:hover,
   .sb-item:hover .sb-label,
+  .sb-item.is-pending::after,
   .sb-cat:hover,
   .sb-cat.is-pending::after,
   .agent-avatar-card,
