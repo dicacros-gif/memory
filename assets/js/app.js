@@ -3168,6 +3168,27 @@
     };
   }
 
+  function koreanArticleHeadline(title = "", fallback = "", summary = "") {
+    const value = String(title || "").replace(/\s+/g, " ").trim();
+    if (/[가-힣]/.test(value)) return value;
+    if (/NAND Flash Supply Growth to Outpace Demand/i.test(value)) return "2027년 NAND 공급 증가가 수요를 앞서며 하반기 공급 제약 완화 전망";
+    if (/Weakness in memory has created an interesting entry point/i.test(value)) return "메모리 업황 약세가 투자 진입 기회를 만들 수 있다는 분석";
+    if (/HBM4 battle shifts to cooling/i.test(value)) return "HBM4 경쟁이 하이브리드 본딩과 냉각 기술로 이동";
+    if (/Haesung DS lands CXMT as DDR5 substrate customer/i.test(value)) return "해성디에스, CXMT에 DDR5 기판 공급…DDR6 패널 생산 비중 확대";
+    if (/Gigabyte announces support for Chinese-made CXMT memory/i.test(value)) return "기가바이트, 중국산 CXMT 메모리 지원 발표…AM5 소켓에서 8,200MT/s 지원";
+    if (/Meta to use custom AMD Instinct MI400/i.test(value)) return "메타, 일부 워크로드에 HBM4 144GB 기반 맞춤형 AMD MI400 도입 검토 보도";
+    if (/Breaking the Memory Bottleneck Part 1/i.test(value)) return "메모리 병목 해소 1부: CXL이 KV 캐시 수요에 대응하는 방식";
+    if (/Hefei'?s CXMT jackpot fuels China local government/i.test(value)) return "허페이 CXMT 성과가 중국 지방정부의 기술 투자 확대를 견인";
+    if (/AI-driven soaring memory costs/i.test(value)) return "AI발 메모리 가격 급등이 아시아 자동차 업체의 비용 부담을 확대";
+    if (/CEA-Leti Looks Beyond SRAM and DRAM/i.test(value)) return "CEA-Leti, AI 메모리 로드맵에서 SRAM·DRAM 너머를 탐색";
+    if (/From Training to Inference: A Paradigm Shift/i.test(value)) return "훈련에서 추론으로: 메모리 계층 구조의 패러다임 전환";
+    if (/Nvidia locks down memory supply from SKHY/i.test(value)) return "엔비디아, 대규모 AI 계약의 일환으로 SK하이닉스 메모리 공급 확보";
+    if (/AI memory shortage is now increasing the price of cars/i.test(value)) return "AI 메모리 부족이 차량 가격 상승 압력으로 확대…GM 경고";
+    if (/Global Smartphone Shipments Slump to Lowest Q2 Level/i.test(value)) return "메모리 부족으로 2026년 2분기 글로벌 스마트폰 출하량이 13년 만에 최저 수준";
+    const summaryLead = String(summary || "").replace(/\s+/g, " ").split(/[.!?]/)[0].trim();
+    return /[가-힣]/.test(summaryLead) ? summaryLead : (fallback || value);
+  }
+
   function researchEvidenceInfographic(citations = [], archiveTotal = 0) {
     const map = researchEvidenceMap(citations);
     const sourceMax = Math.max(1, ...map.sources.map((item) => item.count));
@@ -3177,24 +3198,24 @@
     const visibleThemes = map.themes.slice(0, 5);
     const leadingTheme = visibleThemes[0]?.label || "핵심 주제";
     return `
-      <section class="ni-research ni-research-infographic" aria-label="증권사 및 권위 리서치 근거 맵">
+      <section class="ni-research ni-research-infographic" aria-label="원문 근거 지도">
         <header class="ni-research-head">
           <div>
-            <span class="ni-research-kicker">RESEARCH EVIDENCE MAP</span>
-            <strong>증권사·권위 리서치 근거 흐름</strong>
+            <span class="ni-research-kicker">원문 근거 지도</span>
+            <strong>출처 · 주제 · 최신 원문 연결</strong>
           </div>
-          <span>${fmtNum(citations.length)}건 시각화 · 누적 ${fmtNum(archiveTotal)}건</span>
+          <span>최근 ${fmtNum(citations.length)}건 · 누적 ${fmtNum(archiveTotal)}건</span>
         </header>
-        <div class="ni-research-metrics" aria-label="리서치 요약 지표">
-          <div><strong>${fmtNum(citations.length)}</strong><span>공개 원문·인용</span></div>
-          <div><strong>${fmtNum(map.sources.length)}</strong><span>교차 출처</span></div>
-          <div><strong>${fmtNum(map.themes.length)}</strong><span>분석 축</span></div>
+        <div class="ni-research-metrics" aria-label="원문 근거 요약">
+          <div><strong>${fmtNum(citations.length)}</strong><span>공개 원문</span></div>
+          <div><strong>${fmtNum(map.sources.length)}</strong><span>출처</span></div>
+          <div><strong>${fmtNum(map.themes.length)}</strong><span>주제</span></div>
           <div><strong>${escapeHTML(map.newest || "날짜 미상")}</strong><span>${escapeHTML(map.oldest && map.oldest !== map.newest ? `${map.oldest} 이후` : "최신 관측")}</span></div>
         </div>
-        <div class="ni-research-map" aria-label="출처에서 주제로 이어지는 리서치 흐름">
+        <div class="ni-research-map" aria-label="출처에서 주제로 이어지는 원문 근거 지도">
           <section class="ni-research-lane ni-research-sources">
-            <span class="ni-research-lane-label">01 · SOURCE</span>
-            <strong>출처 집중도</strong>
+            <span class="ni-research-lane-label">01 · 출처</span>
+            <strong>원문 집계</strong>
             <div class="ni-research-nodes">
               ${visibleSources.map((item) => `
                 <div class="ni-research-node source" style="--share:${(item.count / sourceMax).toFixed(3)}">
@@ -3205,8 +3226,8 @@
           </section>
           <div class="ni-research-arrow" aria-hidden="true"><span>근거</span><i></i></div>
           <section class="ni-research-lane ni-research-themes">
-            <span class="ni-research-lane-label">02 · SIGNAL</span>
-            <strong>주제 신호</strong>
+            <span class="ni-research-lane-label">02 · 주제</span>
+            <strong>관련 신호</strong>
             <div class="ni-research-nodes">
               ${visibleThemes.map((item) => `
                 <div class="ni-research-node theme" style="--share:${(item.count / themeMax).toFixed(3)};--node-color:${escapeHTML(item.color)}">
@@ -3215,46 +3236,42 @@
               `).join("")}
             </div>
           </section>
-          <div class="ni-research-arrow" aria-hidden="true"><span>토론</span><i></i></div>
+          <div class="ni-research-arrow" aria-hidden="true"><span>최신</span><i></i></div>
           <article class="ni-research-focus">
-            <span class="ni-research-lane-label">03 · LATEST</span>
+            <span class="ni-research-lane-label">03 · 최신 원문</span>
             <strong>${escapeHTML(leadingTheme)}</strong>
-            <h4>${strategicHighlightHTML(latest.title || "최근 수집 리서치")}</h4>
+            <h4>${strategicHighlightHTML(koreanArticleHeadline(latest.titleKo || latest.title, "최신 수집 원문", latest.summary))}</h4>
             <div>
               <span>${escapeHTML(latest.source || "출처")}</span>
               <small>${escapeHTML(latest.date || "")}</small>
             </div>
-            ${latest.url ? `<a href="${escapeHTML(latest.url)}" target="_blank" rel="noopener noreferrer">원문 근거 보기 ↗</a>` : ""}
+            ${latest.url ? `<a href="${escapeHTML(latest.url)}" target="_blank" rel="noopener noreferrer">원문 보기 ↗</a>` : ""}
           </article>
         </div>
-        <div class="ni-research-evidence-tape" aria-label="최근 리서치 근거">
+        <div class="ni-research-evidence-tape" aria-label="최근 원문">
           ${citations.slice(0, 6).map((citation, index) => {
             const theme = researchCitationTheme(citation);
             return `
               <a class="ni-research-evidence" href="${escapeHTML(citation.url)}" target="_blank" rel="noopener noreferrer" style="--node-color:${escapeHTML(theme.color)}">
                 <span><b>${String(index + 1).padStart(2, "0")}</b>${escapeHTML(theme.label)}</span>
-                <strong>${strategicHighlightHTML(citation.title)}</strong>
+                <strong>${strategicHighlightHTML(koreanArticleHeadline(citation.titleKo || citation.title, citation.title, citation.summary))}</strong>
                 <small>${escapeHTML(citation.source)} · ${escapeHTML(citation.date)}</small>
               </a>
             `;
           }).join("")}
         </div>
-        <div class="ni-research-disclosure">
-          <span>각 노드는 크롤링된 날짜·원문 URL을 유지합니다.</span>
-          <button type="button" class="ni-research-toggle" data-research-citation-toggle aria-expanded="false">원문 타임라인 ${fmtNum(citations.length)}건 열기</button>
-        </div>
+        <div class="ni-research-disclosure"><button type="button" class="ni-research-toggle" data-research-citation-toggle aria-expanded="false">원문 목록 ${fmtNum(citations.length)}건</button></div>
         <div class="ni-research-archive" id="researchCitationArchive" hidden>
           <ol class="ni-research-list">
             ${citations.map((citation, index) => `
               <li class="ni-cite" data-cite-index="${index}">
                 <span class="ni-cite-src">${escapeHTML(citation.source || "출처")}</span>
-                <a href="${escapeHTML(citation.url)}" target="_blank" rel="noopener noreferrer">${escapeHTML(citation.title)} ↗</a>
+                <a href="${escapeHTML(citation.url)}" target="_blank" rel="noopener noreferrer">${escapeHTML(koreanArticleHeadline(citation.titleKo || citation.title, citation.title, citation.summary))} ↗</a>
                 <small>${escapeHTML(citation.date)}</small>
               </li>
             `).join("")}
           </ol>
         </div>
-        <p class="ni-research-note">원문 타임라인에서만 개별 항목을 관리할 수 있으며, 제외한 링크도 수집 이력은 보존합니다.</p>
       </section>
     `;
   }
@@ -3325,10 +3342,10 @@
     host.innerHTML = `
       <div class="ni-head">
         <div class="ni-title">
-          <span class="ni-eyebrow">LATEST NEWS INTELLIGENCE · 크롤 요약</span>
-          <h3>최신 뉴스 인사이트 요약 <span>${fmtNum(briefs.length)}개 테마 · 근거 ${fmtNum(totalEvidence)}건</span></h3>
+          <span class="ni-eyebrow">최신 원문 요약</span>
+          <h3>주요 뉴스 <span>${fmtNum(briefs.length)}개 테마 · 근거 ${fmtNum(totalEvidence)}건</span></h3>
         </div>
-        <span class="ni-asof">${escapeHTML(asOf)} 기준 · 원문 헤드라인 그대로</span>
+        <span class="ni-asof">${escapeHTML(asOf)} 기준</span>
       </div>
       ${(() => {
         const trend = trendingKeywords(12);
@@ -3354,7 +3371,7 @@
                 <span class="ni-theme">${escapeHTML(b.label)}</span>
                 <span class="ni-count">근거 ${fmtNum(b.evidenceCount || 0)}건</span>
               </div>
-              <h4>${strategicHighlightHTML(l.title || b.label)}</h4>
+              <h4>${strategicHighlightHTML(koreanArticleHeadline(l.titleKo || l.title, b.label, l.summary))}</h4>
               ${l.summary ? `<p>${escapeHTML(String(l.summary).slice(0, 150))}</p>` : ""}
               ${(() => {
                 const sig = themePriceSignal(b);
@@ -3391,7 +3408,6 @@
           </div>
         `;
       })()}
-      <p class="ni-note">테마별 최신 1건 + 권위 리서치 인용을 원문 그대로 표시 · 요약문은 크롤링된 기사 요약 · 해석 생성 없음 · 트렌드 키워드 클릭 시 관련 기사로 이동</p>
     `;
     host.querySelectorAll("[data-trend-term]").forEach((btn) => {
       btn.addEventListener("click", () => highlightNewsForTerm(btn.dataset.trendTerm));
@@ -3411,8 +3427,8 @@
         archive.hidden = !archive.hidden;
         button.setAttribute("aria-expanded", String(!archive.hidden));
         button.textContent = archive.hidden
-          ? `원문 타임라인 ${fmtNum(cites.length)}건 열기`
-          : "원문 타임라인 닫기";
+          ? `원문 목록 ${fmtNum(cites.length)}건`
+          : "원문 목록 닫기";
       });
     });
   }
@@ -3712,8 +3728,8 @@
     host.innerHTML = `
       <div class="live-figures-head">
         <div>
-          <p class="eyebrow">Live figures · 권위 소스 정량 근거</p>
-          <h3>라이브 정량 근거 <span>${fmtNum(groupedItems.length)}개 스토리 · 수치 ${fmtNum(items.length)}개</span></h3>
+          <p class="eyebrow">실시간 수치 근거</p>
+          <h3>오늘 확인한 핵심 수치 <span>${fmtNum(groupedItems.length)}개 기사 · 수치 ${fmtNum(items.length)}개</span></h3>
         </div>
         <div class="live-figures-tabs">
           ${topics.map((t) => `<button type="button" class="${t.id === liveFiguresTopic ? "active" : ""}" data-lf-topic="${escapeHTML(t.id)}">${escapeHTML(t.label)}</button>`).join("")}
@@ -3730,7 +3746,7 @@
                 <div class="lf-values" aria-label="핵심 수치">${item.values.map((value) => `<b class="lf-value">${escapeHTML(value)}</b>`).join("")}</div>
               </div>
               <div class="lf-meta"><span class="lf-badge ${sourceClass}">${sourceLabels[sourceClass]}</span><span class="lf-badge ${claimLayer}">${layerLabels[claimLayer]}</span></div>
-              ${item.title ? `<h4 class="lf-context">${escapeHTML(item.title)}</h4>` : ""}
+              ${item.title ? `<h4 class="lf-context">${escapeHTML(koreanArticleHeadline(item.title, item.title, item.summary))}</h4>` : ""}
               <p class="lf-snippet">${escapeHTML(item.summary)}</p>
               <div class="lf-foot">
                 ${item.url ? `<a href="${escapeHTML(item.url)}" target="_blank" rel="noopener">${escapeHTML(item.source || "출처")} ↗</a>` : `<span>${escapeHTML(item.source || "출처")}</span>`}
@@ -3740,7 +3756,7 @@
           `;
         }).join("")}
       </div>
-      <p class="live-figures-note">권위 소스 원문 수치와 핵심 요약을 스토리별로 통합 · 공식 사실/보도 사실/연구모델 분리 · 모델 수치는 회사 가이던스가 아님 · 갱신 ${escapeHTML(asOf)}</p>
+      <p class="live-figures-note">원문 링크와 수집일 기준 · 갱신 ${escapeHTML(asOf)}</p>
     `;
     host.querySelectorAll("[data-lf-topic]").forEach((btn) => {
       btn.addEventListener("click", () => {
@@ -4687,7 +4703,7 @@
     if ("IntersectionObserver" in window) {
       priceBoardPreloadObserver = new IntersectionObserver((entries) => {
         if (entries.some((entry) => entry.isIntersecting)) start();
-      }, { rootMargin: "2200px 0px", threshold: 0 });
+      }, { rootMargin: "6000px 0px", threshold: 0 });
       priceBoardPreloadObserver.observe(board);
       window.addEventListener("pagehide", () => priceBoardPreloadObserver?.disconnect(), { once: true });
     }
@@ -4695,10 +4711,15 @@
     // On an idle first paint, prewarm as well. This keeps a fast scroll from
     // overtaking the observer without making the first viewport wait on the data.
     if ("requestIdleCallback" in window) {
-      priceBoardPreloadIdleId = window.requestIdleCallback(start, { timeout: 1800 });
+      priceBoardPreloadIdleId = window.requestIdleCallback(start, { timeout: 650 });
     } else {
-      priceBoardPreloadIdleId = window.setTimeout(start, 900);
+      priceBoardPreloadIdleId = window.setTimeout(start, 240);
     }
+    // A scroll gesture means the visitor is moving toward lower boards.  Start
+    // the request immediately instead of waiting for the board observer.
+    ["wheel", "touchstart", "keydown"].forEach((eventName) => {
+      window.addEventListener(eventName, start, { once: true, passive: eventName !== "keydown" });
+    });
   }
 
   function deferredDefinition(id) {
@@ -4765,7 +4786,7 @@
         priceRenderObserver.unobserve(entry.target);
         ensureDeferredSection(entry.target.id);
       });
-    }, { rootMargin: "1100px 0px", threshold: 0.01 });
+    }, { rootMargin: "3600px 0px", threshold: 0.01 });
     sections.forEach((section) => (section.id === "prices" ? priceRenderObserver : observer).observe(section));
     window.addEventListener("pagehide", () => {
       observer.disconnect();
@@ -6904,13 +6925,28 @@
     `;
   }
 
+  function brokerArticleTitle(item = {}) {
+    const title = String(item.title || "");
+    if (/Joseph Moore|Weakness in memory|기억력의 약화/i.test(title)) {
+      return "메모리 업황 약세가 투자 진입 기회를 만들 수 있다는 분석";
+    }
+    return koreanArticleHeadline(title, item.label || "증권사 원문", item.summary || item.body || "");
+  }
+
+  function brokerArticleSummary(item = {}) {
+    const summary = String(item.summary || item.body || "").replace(/\s+/g, " ").trim();
+    if (/Joseph Moore|Weakness in memory|기억력의 약화/i.test(String(item.title || ""))) {
+      return "Morgan Stanley의 Joseph Moore는 메모리 가격 상승이 수요에 미칠 영향과 메모리 업황의 투자 기회를 논의했습니다";
+    }
+    return summary;
+  }
+
   function renderBrokerInsightReport(researchItems) {
     const frameworkIsLive = LIVE.brokerResearch?.framework?.dataStatus === "live-observed"
       && /^20\d{2}-\d{2}-\d{2}$/.test(String(LIVE.brokerResearch?.framework?.lastCheckedAt || ""));
     if (!frameworkIsLive) {
       const updatedAt = String(LIVE.brokerResearch?.updatedAt || LIVE.updatedAt || "").slice(0, 10);
       const baseline = LIVE.brokerResearch?.baseline || {};
-      const hasReferenceItems = researchItems.some((item) => item.dataStatus === "reference-only");
       return `
         <article class="exec-report reveal" aria-labelledby="execReportTitle">
           <header class="exec-report-masthead">
@@ -6919,24 +6955,15 @@
               <h3 id="execReportTitle">증권사 공개 원문·인용 브리핑</h3>
             </div>
           </header>
-          <section class="exec-report-thesis" aria-label="라이브 근거 상태">
-            <span>${researchItems.length ? (hasReferenceItems ? `이전 정보 ${fmtNum(researchItems.length)}건` : `이번 실행 ${fmtNum(researchItems.length)}건`) : "검증 가능한 공개 원문 수집 중"}</span>
-            ${briefingBulletListHTML(researchItems.length ? (hasReferenceItems ? "이번 실행에서 새 인용이 부족해, 직전 검증 실행의 출처·날짜가 있는 기사 카드를 이어서 표시합니다." : "이번 크롤링에서 직접 확인한 공개 URL과 날짜가 있는 항목만 표시합니다.") : "이번 실행에서 새 인용이 부족해 이전 검증 정보를 확인하고 있습니다.")}
-          </section>
           <section class="exec-report-insights" aria-label="증권사 라이브 인용">
             ${researchItems.length ? researchItems.map((item, index) => `
               <article class="exec-report-insight" style="--report-accent:${escapeHTML(item.accent || "#00a98f")}">
                 <span class="exec-report-number">${String(index + 1).padStart(2, "0")}</span>
                 <div class="exec-report-insight-copy">
-                  <div class="exec-report-kicker"><strong>${escapeHTML(item.institution || item.label)}</strong><span>${escapeHTML(item.dataStatus === "reference-only" ? `이전 정보 · ${item.publishedAt || ""}` : item.publishedAt || "")}</span></div>
-                  <h5>${strategicHighlightHTML(briefingLineText(item.title))}</h5>
-                  ${briefingBulletListHTML(item.body)}
-                  ${item.metrics?.length ? `<p class="exec-report-inline-metrics">${item.metrics.map((metric) => `<strong>${strategicHighlightHTML(metric)}</strong>`).join("<span>·</span>")}</p>` : ""}
-                  <ul class="exec-report-decision-list">
-                    ${briefingBulletLines(item.implication).map((line, lineIndex) => `<li class="${lineIndex ? "is-continuation" : ""}"><b>${lineIndex === 0 ? "Insight" : ""}</b><span>${strategicHighlightHTML(line)}</span></li>`).join("")}
-                    ${briefingBulletLines(item.reversal).map((line, lineIndex) => `<li class="${lineIndex ? "is-continuation" : ""}"><b>${lineIndex === 0 ? "판단 전환 조건" : ""}</b><span>${strategicHighlightHTML(line)}</span></li>`).join("")}
-                  </ul>
-                  <a class="exec-report-source" href="${escapeHTML(item.sourceUrl)}" target="_blank" rel="noopener noreferrer">${item.dataStatus === "reference-only" ? "이전 기사 원문 보기" : "출처 원문 보기"}</a>
+                  <div class="exec-report-kicker"><strong>${escapeHTML(item.institution || item.label)}</strong><span>${escapeHTML(item.publishedAt || "")}</span></div>
+                  <h5>${strategicHighlightHTML(brokerArticleTitle(item))}</h5>
+                  ${briefingBulletListHTML(brokerArticleSummary(item))}
+                  <a class="exec-report-source" href="${escapeHTML(item.sourceUrl)}" target="_blank" rel="noopener noreferrer">원문 보기 ↗</a>
                 </div>
               </article>
             `).join("") : `<div class="empty">${briefingBulletListHTML("이번 실행에서 메모리 산업과 직접 연결되는 증권사 공개 원문·권위 매체 인용을 확인하지 못했습니다.")}</div>`}
@@ -6992,13 +7019,8 @@
                   <div class="exec-report-kicker">
                     <strong>${escapeHTML(item.label)}</strong>
                   </div>
-                  <h5>${strategicHighlightHTML(briefingLineText(item.title))}</h5>
-                  ${briefingBulletListHTML(item.body)}
-                  ${item.metrics?.length ? `<p class="exec-report-inline-metrics">${item.metrics.map((metric) => `<strong>${strategicHighlightHTML(metric)}</strong>`).join("<span>·</span>")}</p>` : ""}
-                  <ul class="exec-report-decision-list">
-                    ${briefingBulletLines(item.implication).map((line, lineIndex) => `<li class="${lineIndex ? "is-continuation" : ""}"><b>${lineIndex === 0 ? "Insight" : ""}</b><span>${strategicHighlightHTML(line)}</span></li>`).join("")}
-                    ${briefingBulletLines(item.reversal).map((line, lineIndex) => `<li class="${lineIndex ? "is-continuation" : ""}"><b>${lineIndex === 0 ? "판단 전환 조건" : ""}</b><span>${strategicHighlightHTML(line)}</span></li>`).join("")}
-                  </ul>
+                  <h5>${strategicHighlightHTML(brokerArticleTitle(item))}</h5>
+                  ${briefingBulletListHTML(brokerArticleSummary(item))}
                   ${item.evidenceType === "news-citation" && item.sourceUrl
                     ? `<a class="exec-report-source" href="${escapeHTML(item.sourceUrl)}" target="_blank" rel="noopener noreferrer">원문 보기</a>`
                     : ""}
@@ -8983,7 +9005,7 @@
     conclusionDelayMs: 760,
   });
   const AGENT_TTS_STORAGE_KEY = "memory-agent-tts-v2";
-  const AGENT_TTS_RATE_BOOST = 0.06;
+  const AGENT_TTS_SETTINGS_STORAGE_KEY = "memory-agent-tts-settings-v1";
   const AGENT_KOREAN_TTS_ROLE_RE = /(?:규제\s*[·/&]\s*fab\s*[·/&]\s*정책자금)/i;
   const AGENT_TTS_PROFILES = [
     { id: "ceo", match: /ceo|chief executive|최종 의사결정|우선순위/i, gender: "male", tone: "decisive", voiceSlot: 0, pitch: 0.9, rate: 1.02, volume: 1 },
@@ -9009,6 +9031,20 @@
       return window.localStorage.getItem(AGENT_TTS_STORAGE_KEY) !== "off";
     } catch {
       return true;
+    }
+  })();
+  let agentTtsSettings = (() => {
+    const defaults = { rate: 1, pitch: 1 };
+    try {
+      const stored = JSON.parse(window.localStorage.getItem(AGENT_TTS_SETTINGS_STORAGE_KEY) || "{}");
+      const rate = Number(stored.rate);
+      const pitch = Number(stored.pitch);
+      return {
+        rate: Number.isFinite(rate) ? Math.max(.7, Math.min(1.3, rate)) : defaults.rate,
+        pitch: Number.isFinite(pitch) ? Math.max(.8, Math.min(1.2, pitch)) : defaults.pitch,
+      };
+    } catch {
+      return defaults;
     }
   })();
   let agentVoices = [];
@@ -9055,15 +9091,20 @@
     const languageVoices = voices.filter((voice) => language === "ko"
       ? /^ko(?:-|$)/i.test(voice.lang || "")
       : /^en(?:-|$)/i.test(voice.lang || ""));
+    // Debate turns alternate male/female voices by speaking order, even when
+    // the same role appears twice.  Distinct slots rotate through available
+    // voices of that gender before any voice is reused.
+    const gender = index % 2 === 0 ? "male" : "female";
     const pool = languageVoices.slice().sort((a, b) => {
-      const scoreDelta = agentVoiceScore(b, profile.gender, language) - agentVoiceScore(a, profile.gender, language);
+      const scoreDelta = agentVoiceScore(b, gender, language) - agentVoiceScore(a, gender, language);
       return scoreDelta || String(a.name).localeCompare(String(b.name));
     });
-    const genderPool = pool.filter((voice) => AGENT_VOICE_HINTS[profile.gender]?.test(`${voice.name || ""} ${voice.voiceURI || ""}`));
-    const fallbackPool = pool.filter((_, voiceIndex) => voiceIndex % 2 === (profile.gender === "female" ? 0 : 1));
+    const genderPool = pool.filter((voice) => AGENT_VOICE_HINTS[gender]?.test(`${voice.name || ""} ${voice.voiceURI || ""}`));
+    const fallbackPool = pool.filter((_, voiceIndex) => voiceIndex % 2 === (gender === "female" ? 0 : 1));
     const preferredPool = genderPool.length ? genderPool : (fallbackPool.length ? fallbackPool : pool);
-    const voice = preferredPool.length ? preferredPool[profile.voiceSlot % preferredPool.length] : null;
-    return { ...profile, language, voice };
+    const voiceSlot = Math.floor(index / 2) + profile.voiceSlot;
+    const voice = preferredPool.length ? preferredPool[voiceSlot % preferredPool.length] : null;
+    return { ...profile, gender, language, voice };
   }
 
   function agentKoreanSpeechText(value = "", tone = "measured") {
@@ -9221,6 +9262,12 @@
         : "음성 미지원";
       if (badge) badge.textContent = supported && agentTtsEnabled ? "ON" : "OFF";
     });
+    document.querySelectorAll("[data-agent-tts-rate-output]").forEach((output) => {
+      output.textContent = `${agentTtsSettings.rate.toFixed(2)}×`;
+    });
+    document.querySelectorAll("[data-agent-tts-pitch-output]").forEach((output) => {
+      output.textContent = `${agentTtsSettings.pitch.toFixed(2)}×`;
+    });
   }
 
   function enableAgentTtsFromGesture() {
@@ -9237,6 +9284,8 @@
     if (!container) return;
     const heading = container.querySelector(".agent-debate-title");
     if (!heading || heading.querySelector("[data-agent-tts-toggle]")) return;
+    const control = document.createElement("div");
+    control.className = "agent-tts-control";
     const button = document.createElement("button");
     button.type = "button";
     button.className = "agent-tts-toggle";
@@ -9262,7 +9311,30 @@
         else prepareAgentSpeechFromGesture();
         syncAgentTtsButtons();
     });
-    heading.appendChild(button);
+    const settings = document.createElement("div");
+    settings.className = "agent-tts-adjusters";
+    settings.innerHTML = `
+      <label>속도 <input type="range" min="0.70" max="1.30" step="0.05" value="${agentTtsSettings.rate}" data-agent-tts-rate aria-label="영어 음성 속도"><output data-agent-tts-rate-output></output></label>
+      <label>억양 <input type="range" min="0.80" max="1.20" step="0.05" value="${agentTtsSettings.pitch}" data-agent-tts-pitch aria-label="영어 음성 억양"><output data-agent-tts-pitch-output></output></label>
+    `;
+    const persistSettings = () => {
+      try {
+        window.localStorage.setItem(AGENT_TTS_SETTINGS_STORAGE_KEY, JSON.stringify(agentTtsSettings));
+      } catch {
+        // Settings remain active for this session when storage is unavailable.
+      }
+      syncAgentTtsButtons();
+    };
+    settings.querySelector("[data-agent-tts-rate]")?.addEventListener("input", (event) => {
+      agentTtsSettings.rate = Math.max(.7, Math.min(1.3, Number(event.currentTarget.value) || 1));
+      persistSettings();
+    });
+    settings.querySelector("[data-agent-tts-pitch]")?.addEventListener("input", (event) => {
+      agentTtsSettings.pitch = Math.max(.8, Math.min(1.2, Number(event.currentTarget.value) || 1));
+      persistSettings();
+    });
+    control.append(button, settings);
+    heading.appendChild(control);
     syncAgentTtsButtons();
   }
 
@@ -9299,10 +9371,10 @@
       const utterance = new SpeechSynthesisUtterance(text);
       utterance.lang = profile.voice?.lang || (profile.language === "ko" ? "ko-KR" : "en-US");
       utterance.voice = profile.voice || null;
-      utterance.pitch = Math.max(0.72, Math.min(1.28, profile.pitch + (/\?$/.test(text) ? 0.04 : 0)));
-      // Speak slowly and clearly — one statement fully pronounced before the
-      // sequence runner advances to the next agent (user directive).
-      utterance.rate = 0.82;
+      utterance.pitch = Math.max(0.72, Math.min(1.28, (profile.pitch * agentTtsSettings.pitch) + (/\?$/.test(text) ? 0.04 : 0)));
+      // The sequence runner advances only from utterance.onend.  The user can
+      // adjust delivery without allowing one voice to interrupt the next.
+      utterance.rate = Math.max(.65, Math.min(1.45, profile.rate * agentTtsSettings.rate));
       utterance.volume = profile.volume;
       let settled = false;
       let started = false;
@@ -13526,11 +13598,19 @@
     if (active?.directSignalModel === "hbm") {
       const rows = (active.directEvidence || []).slice(0, 12);
       return `
-        <div class="decision-evidence-head"><div><span>LIVE OVERLAY</span><strong>HBM 직접 근거 · 과거 가격 점수와 분리</strong></div><small>현재 기사 ${fmtNum(rows.length)}건</small></div>
-        ${rows.length ? `<div class="decision-table-wrap"><table class="decision-table"><thead><tr><th>상태</th><th>근거</th><th>날짜</th><th>출처</th></tr></thead><tbody>${rows.map((item) => {
-          const url = evidenceItemUrl(item);
-          return `<tr><td><span class="backtest-status live">현재 overlay</span></td><td>${escapeHTML(item.titleKo || item.title || "HBM 직접 근거")}</td><td>${escapeHTML(pointDateLabel(item.date || item.publishedAt))}</td><td>${url ? `<a href="${escapeHTML(url)}" target="_blank" rel="noopener">원문 ↗</a>` : "-"}</td></tr>`;
-        }).join("")}</tbody></table></div>` : `<div class="empty">HBM 직접 근거가 아직 수집되지 않았습니다.</div>`}
+        <details class="decision-evidence-disclosure">
+          <summary>
+            <span>직접 근거</span>
+            <strong>HBM 원문 근거 요약</strong>
+            <small>기사 ${fmtNum(rows.length)}건</small>
+            <b aria-hidden="true">열기</b>
+          </summary>
+          ${rows.length ? `<div class="decision-evidence-infographic"><div class="decision-evidence-flow">${rows.map((item, index) => {
+            const url = evidenceItemUrl(item);
+            const title = koreanArticleHeadline(item.titleKo || item.title || "", "HBM 직접 근거", item.summary || "");
+            return `<article><i>${String(index + 1).padStart(2, "0")}</i><div><strong>${escapeHTML(title)}</strong><span>${escapeHTML(pointDateLabel(item.date || item.publishedAt))} · ${escapeHTML(item.source || "원문")}</span></div>${url ? `<a href="${escapeHTML(url)}" target="_blank" rel="noopener">원문 ↗</a>` : ""}</article>`;
+          }).join("")}</div></div>` : `<div class="empty">수집된 HBM 직접 근거가 없습니다</div>`}
+        </details>
       `;
     }
     const rows = active?.evidenceRows || [];
@@ -14963,15 +15043,21 @@
 
     const evidenceLinks = selected?.links || [];
     evidence.innerHTML = `
-      <div>
-        <span>Decision evidence</span>
-        <strong>${escapeHTML(selected?.label || "투자 옵션")}</strong>
-        <small>${escapeHTML(selected?.action || "")}</small>
-        <div class="evidence-row">${proofBadgeHTML(selected || {})}</div>
-      </div>
-      <ul class="work-link-list">
-        ${evidenceLinks.length ? evidenceLinks.map((link) => `<li><a href="${escapeHTML(link.link || "#")}" target="_blank" rel="noopener">${escapeHTML(newsTitle(link) || link.title || "Signal")}</a></li>`).join("") : `<li><em>현재 선택 옵션에 연결된 최신 기사 신호가 없습니다.</em></li>`}
-      </ul>
+      <details class="investment-evidence-disclosure">
+        <summary>
+          <span>의사결정 근거</span>
+          <strong>${escapeHTML(selected?.label || "투자 옵션")}</strong>
+          <small>원문 ${fmtNum(evidenceLinks.length)}건</small>
+          <b aria-hidden="true">열기</b>
+        </summary>
+        <div class="investment-evidence-body">
+          ${selected?.action ? `<p>${escapeHTML(selected.action)}</p>` : ""}
+          <div class="evidence-row">${proofBadgeHTML(selected || {})}</div>
+          <ol class="investment-evidence-flow">
+            ${evidenceLinks.length ? evidenceLinks.map((link, index) => `<li><i>${String(index + 1).padStart(2, "0")}</i><a href="${escapeHTML(link.link || "#")}" target="_blank" rel="noopener">${escapeHTML(koreanArticleHeadline(link.titleKo || newsTitle(link) || link.title || "", link.title || "", link.summary || ""))}</a><span>${escapeHTML(link.source || "원문")}</span></li>`).join("") : `<li class="is-empty"><em>연결된 원문이 없습니다</em></li>`}
+          </ol>
+        </div>
+      </details>
     `;
 
     grid.querySelectorAll("[data-strategic-decision]").forEach((btn) => {
