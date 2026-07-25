@@ -1050,6 +1050,31 @@ if (brokerResearch) {
   if (brokerLiveSchema && (brokerResearch.baseline?.status !== "revalidation-required" || brokerResearch.framework?.dataStatus !== "baseline")) {
     addIssue("error", "data/live.json", "URL-less broker material must be separated as a revalidation baseline");
   }
+  const baselineDocuments = Array.isArray(brokerResearch.baseline?.documents) ? brokerResearch.baseline.documents : [];
+  const baselineItems = Array.isArray(brokerResearch.baseline?.items) ? brokerResearch.baseline.items : [];
+  if (Number(brokerResearch.baseline?.documentCount || 0) !== baselineDocuments.length || baselineDocuments.length < 2) {
+    addIssue("error", "data/live.json", "provided broker document count is missing or inconsistent", `${baselineDocuments.length}`);
+  }
+  const baselineDocumentIds = new Set(baselineDocuments.map((document) => document.id).filter(Boolean));
+  for (const document of baselineDocuments) {
+    if (!exactSourceDate(document.publishedAt)) {
+      addIssue("error", "data/live.json", "provided broker document lacks an exact publication date", document.id || document.title || "unknown");
+    }
+    if (!String(document.fileName || "").trim() || /[A-Z]:[\\/]|(?:^|[\\/])Users[\\/]/i.test(String(document.fileName || ""))) {
+      addIssue("error", "data/live.json", "provided broker document filename is missing or exposes a local path", document.id || document.title || "unknown");
+    }
+    if (!String(document.title || "").trim() || !String(document.focus || "").trim()) {
+      addIssue("error", "data/live.json", "provided broker document digest is incomplete", document.id || "unknown");
+    }
+    if ((document.corePoints || []).length < 3 || (document.metrics || []).length < 3) {
+      addIssue("error", "data/live.json", "provided broker document lacks three core points or metrics", document.id || "unknown");
+    }
+  }
+  for (const item of baselineItems) {
+    if (!baselineDocumentIds.has(item.documentId)) {
+      addIssue("error", "data/live.json", "provided broker topic is not linked to a source document", item.id || item.title || "unknown");
+    }
+  }
 }
 
 const referenceNews = live.referenceNews || {};

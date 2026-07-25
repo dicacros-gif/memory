@@ -77,7 +77,10 @@ assert.match(css, /#talent-radar \.talent-radar-slider \.china-capital-slide\.is
 assert.match(css, /#china-talent-strategy \.policy-focus \{[\s\S]*?position: sticky;/, "operational workforce plan should remain visible while the image carousel moves");
 assert.doesNotMatch(app, /BASELINE 분리/, "broker reports should not show a baseline-separation notice");
 assert.doesNotMatch(app, /재검증 완료 전 라이브 카드와 별도 관리/, "broker reports should not show a separate-management disclaimer");
-assert.match(app, /<h4 id="baselineReportsTitle">제공 리포트 \$\{fmtNum\(count\)\}건<\/h4>/, "provided broker reports should remain visible without a revalidation label");
+assert.match(app, /<h4 id="baselineReportsTitle">제공 원문 \$\{fmtNum\(documentCount\)\}건 · 핵심 논점 \$\{fmtNum\(topicCount\)\}개<\/h4>/, "provided broker source documents and extracted topics should remain visible");
+assert.match(app, /GREATER_20260716_0122-1\.pdf[\s\S]*?insight_1pager_MSglobaltech_20260718\.html/, "both supplied Morgan Stanley source files should be represented");
+assert.match(app, /class="exec-baseline-documents"[\s\S]*?document\.corePoints[\s\S]*?document\.metrics/, "provided source documents should render a dashboard digest");
+assert.match(css, /\.exec-baseline-document \{[\s\S]*?border: 2px solid[\s\S]*?background:/, "provided source documents should receive full-card dashboard emphasis");
 assert.match(app, /const mustWaitForEnglishSpeech = Boolean\(agentTtsEnabled && agentSpeechSupported\(\) && englishSpeech\);/, "each agent turn should explicitly wait for its English TTS source");
 assert.match(app, /if \(!typed \|\| !speechFinished \|\| completed \|\| !alive\(\)\) return;/, "the next agent must not be scheduled before typing and English TTS finish");
 assert.match(app, /speakAgentTurn\(turn, i\)\.finally\(\(\) => \{[\s\S]*?speechFinished = true;[\s\S]*?completeTurn\(\);/s, "the sequence should unlock only after the TTS promise settles");
@@ -93,7 +96,7 @@ assert.match(app, /const priceRenderObserver = new IntersectionObserver[\s\S]*?r
 assert.match(app, /section\.id === "prices" \? priceRenderObserver : observer/, "only the price board should receive the early render window");
 assert.match(css, /\.agent-debate-title \.agent-tts-toggle \{[\s\S]*?min-width: 190px;[\s\S]*?min-height: 44px;/, "the English TTS control should be large and readable");
 assert.match(css, /\.agent-tts-state \{[\s\S]*?min-width: 31px;/, "the TTS control should expose a dedicated on-or-off state badge");
-assert.match(html, /app\.js\?v=performance-pass-20260725-34/, "JavaScript cache key should include the performance revision");
+assert.match(html, /app\.js\?v=broker-source-digest-20260726-35/, "JavaScript cache key should include the broker source digest revision");
 assert.match(html, /id="memoryHeroVideo"[\s\S]*?preload="none"[\s\S]*?<source data-src="assets\/media\/memory-hero\.mp4"/, "hero video should hydrate after the poster paints");
 assert.match(html, /id="talentStrategyVideoMedia"[\s\S]*?preload="none"[\s\S]*?data-poster="assets\/media\/china-talent-strategy-poster\.webp"[\s\S]*?<source data-src="assets\/media\/china-talent-strategy\.mp4"/, "below-fold talent media should not load during first paint");
 assert.doesNotMatch(html, /family=Noto\+Sans\+KR/, "Pretendard should replace the duplicate Korean webfont download");
@@ -106,6 +109,6 @@ assert.match(css, /\.china-deep-video-dock \.talent-strategy-video \{[\s\S]*?hei
 assert.match(css, /@media \(max-width: 680px\) \{[\s\S]*?\.china-deep-video-dock \.talent-strategy-video \{[\s\S]*?aspect-ratio: 4 \/ 5;/, "the compact video height should preserve the mobile portrait layout");
 assert.match(css, /#talent-radar \.talent-radar-slider-slot \{[\s\S]*?display: flex;[\s\S]*?justify-content: center;/, "the talent radar slot should center its visual stage");
 assert.match(css, /#talent-radar \.talent-radar-slider \{[\s\S]*?width: min\(100%, 1360px\);[\s\S]*?margin-inline: auto;/, "the talent radar visual should use a bounded, centered desktop width");
-assert.match(html, /styles\.css\?v=evidence-strategy-map-20260725-29/, "CSS cache key should include the evidence strategy map treatment");
+assert.match(html, /styles\.css\?v=broker-source-digest-20260726-30/, "CSS cache key should include the broker source digest treatment");
 
 console.log("KPI typography and hover count-up checks passed.");

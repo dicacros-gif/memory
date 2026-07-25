@@ -512,9 +512,45 @@ const BROKER_RULES = [
 // These report extracts were supplied as source documents and serve as a
 // continuity baseline. Fresh crawled citations rank ahead of them; report
 // metadata is never presented as a public URL when the document is private.
+const BROKER_REPORT_DOCUMENTS = [
+  {
+    id: "ms-next-gen-memory-20260716",
+    institution: "Morgan Stanley",
+    title: "Global Technology: Innovating the Next-Generation Memory",
+    publishedAt: "2026-07-16",
+    authors: "Charlie Chan · Daisy Dai · Shawn Kim 외",
+    fileName: "GREATER_20260716_0122-1.pdf",
+    focus: "메모리 병목이 HBM 공급을 넘어 데이터 이동·공정·패키징·시스템 효율 문제로 확장",
+    corePoints: [
+      "Agentic AI 확산 시 2030년 DRAM 수요가 기준 전망보다 26~77% 증가할 수 있는 시나리오",
+      "2027년 클라우드 CapEx 내 메모리 비중 40% 전망과 범용 메모리 대역폭 개선 +14%의 격차",
+      "설계·공정·패키징·주변장치·통합·소재의 여섯 혁신 축을 차세대 메모리 생태계로 제시",
+    ],
+    metrics: ["2030E 클라우드 메모리 $418B", "2027E CapEx mix 40%", "2030E 차세대 메모리 $23B"],
+    topicCount: 6,
+  },
+  {
+    id: "ms-key-debates-20260717",
+    institution: "Morgan Stanley",
+    title: "Global Technology - Key Debates: AI, Memory, Substrates & MLCC",
+    publishedAt: "2026-07-17",
+    authors: "Shawn Kim 외 3인",
+    fileName: "insight_1pager_MSglobaltech_20260718.html",
+    focus: "4Q26 가격 고점 가능성에도 구속형 LTA와 Agentic AI 신규 수요가 메모리 사이클을 연장",
+    corePoints: [
+      "메모리 가격은 4Q26 전후 고점 가능성이 있으나 3~5년 LTA가 이익의 가시성을 높이는 구조",
+      "HBM·NAND 공급 부족이 2026~2027년 이어지고 AI 수요가 NAND·CPU·DRAM으로 확장",
+      "ABF 기판과 MLCC까지 AI 서버 스펙 상향의 수혜 범위가 넓어지는 공급망 재평가 논쟁",
+    ],
+    metrics: ["2027E HBM $94B", "2030E Agentic AI DRAM 221EB", "2027E AI 서버 MLCC $893M"],
+    topicCount: 3,
+  },
+];
+
 const BROKER_REPORT_SEEDS = [
   {
     id: "ms-memory-wall-20260716",
+    documentId: "ms-next-gen-memory-20260716",
     institution: "Morgan Stanley",
     institutionId: "morgan-stanley",
     evidenceType: "direct-report",
@@ -531,6 +567,7 @@ const BROKER_REPORT_SEEDS = [
   },
   {
     id: "ms-agentic-ai-demand-20260716",
+    documentId: "ms-next-gen-memory-20260716",
     institution: "Morgan Stanley",
     institutionId: "morgan-stanley",
     evidenceType: "direct-report",
@@ -547,6 +584,7 @@ const BROKER_REPORT_SEEDS = [
   },
   {
     id: "ms-memory-cycle-20260716",
+    documentId: "ms-next-gen-memory-20260716",
     institution: "Morgan Stanley",
     institutionId: "morgan-stanley",
     evidenceType: "direct-report",
@@ -563,6 +601,7 @@ const BROKER_REPORT_SEEDS = [
   },
   {
     id: "ms-hbm4e-economics-20260716",
+    documentId: "ms-next-gen-memory-20260716",
     institution: "Morgan Stanley",
     institutionId: "morgan-stanley",
     evidenceType: "direct-report",
@@ -579,6 +618,7 @@ const BROKER_REPORT_SEEDS = [
   },
   {
     id: "ms-hbf-essd-tiering-20260716",
+    documentId: "ms-next-gen-memory-20260716",
     institution: "Morgan Stanley",
     institutionId: "morgan-stanley",
     evidenceType: "direct-report",
@@ -595,6 +635,7 @@ const BROKER_REPORT_SEEDS = [
   },
   {
     id: "ms-cxl-mrdimm-efficiency-20260716",
+    documentId: "ms-next-gen-memory-20260716",
     institution: "Morgan Stanley",
     institutionId: "morgan-stanley",
     evidenceType: "direct-report",
@@ -608,6 +649,57 @@ const BROKER_REPORT_SEEDS = [
     source: "Morgan Stanley",
     sourceRef: "Global Technology: Innovating the Next-Generation Memory",
     accent: "#2563eb",
+  },
+  {
+    id: "ms-cycle-lta-20260717",
+    documentId: "ms-key-debates-20260717",
+    institution: "Morgan Stanley",
+    institutionId: "morgan-stanley",
+    evidenceType: "direct-report",
+    label: "CYCLE & LTA",
+    title: "4Q26 가격 고점 가능성과 구속형 LTA의 사이클 연장 효과",
+    summary: "DRAM 계약가격 증가율은 고점에서 둔화되고 재고는 2Q26부터 다시 늘어 4Q26 전후 가격 고점 가능성이 제시됩니다. 다만 LTA가 3~5년 물량·가격공식·선수금을 포함하는 구조로 강화되면서 이익 가시성과 밸류에이션 재평가 여력이 생긴다는 분석입니다.",
+    metrics: ["가격 고점 4Q26E", "LTA 3~5년", "FY27 P/E 삼성 3.8x · SKHY 3.9x"],
+    insight: "가격 고점 여부와 별개로 고객별 LTA의 최소구매·가격공식·선수금·재협상 조항을 계약가치의 핵심 지표로 관리해야 합니다.",
+    reversalKpi: "DRAM·NAND 재고 주수, contract·spot 가격, LTA 재협상과 선수금 유지",
+    publishedAt: "2026-07-17",
+    source: "Morgan Stanley",
+    sourceRef: "Global Technology - Key Debates: AI, Memory, Substrates & MLCC",
+    accent: "#c28a20",
+  },
+  {
+    id: "ms-hbm-nand-supply-20260717",
+    documentId: "ms-key-debates-20260717",
+    institution: "Morgan Stanley",
+    institutionId: "morgan-stanley",
+    evidenceType: "direct-report",
+    label: "AI SUPPLY STACK",
+    title: "HBM·NAND 공급 부족이 2027년까지 이어지는 시나리오",
+    summary: "HBM 시장은 2023년 $3B에서 2027년 $94B로 확대되고 DRAM 공급충족률은 2026년 -17%, 2027년 -15%로 추정됩니다. AI향 NAND 수요 비중은 2025년 18%에서 2027년 41%로 높아지며 2026년 공급충족률은 -15%로 제시됩니다.",
+    metrics: ["2027E HBM $94B", "2026E DRAM -17%", "2027E AI NAND 609EB · 41%"],
+    insight: "HBM 수율·TSV 캐파와 함께 AI eSSD용 NAND 물량을 고객별로 배분해 DRAM과 NAND 공급 부족을 하나의 AI 메모리 스택으로 관리해야 합니다.",
+    reversalKpi: "HBM·DRAM fulfillment, AI NAND 수요 비중, TSV·NAND 증설 속도",
+    publishedAt: "2026-07-17",
+    source: "Morgan Stanley",
+    sourceRef: "Global Technology - Key Debates: AI, Memory, Substrates & MLCC",
+    accent: "#0e7490",
+  },
+  {
+    id: "ms-agentic-components-20260717",
+    documentId: "ms-key-debates-20260717",
+    institution: "Morgan Stanley",
+    institutionId: "morgan-stanley",
+    evidenceType: "direct-report",
+    label: "AGENTIC AI & COMPONENTS",
+    title: "Agentic AI 수요가 CPU·DRAM에서 ABF·MLCC까지 확장",
+    summary: "Agentic AI는 불 케이스에서 2030년까지 최대 $238B의 신규 CPU 수요와 221EB의 증분 DRAM 수요를 만들 수 있다는 추정입니다. ABF 기판은 2027년 이후 공급 부족 전환, AI 서버 MLCC 수요는 2027년 $893M으로 확대되는 시나리오가 함께 제시됩니다.",
+    metrics: ["2030E CPU $238B", "2030E DRAM 221EB", "2027E AI 서버 MLCC $893M"],
+    insight: "GPU 출하 외에 CPU 오케스트레이션, 서버당 DRAM, ABF 기판과 고용량 MLCC를 AI 인프라 수요의 연쇄 지표로 추적해야 합니다.",
+    reversalKpi: "Agentic AI 도입 속도, CPU utilization, ABF 가동률, 랙당 MLCC 탑재액",
+    publishedAt: "2026-07-17",
+    source: "Morgan Stanley",
+    sourceRef: "Global Technology - Key Debates: AI, Memory, Substrates & MLCC",
+    accent: "#6d5bd0",
   },
 ];
 
@@ -3801,6 +3893,12 @@ export function buildBrokerResearch(news = []) {
     citationCount: items.filter((item) => item.evidenceType === "news-citation").length,
     baseline: {
       status: "revalidation-required",
+      documentCount: BROKER_REPORT_DOCUMENTS.length,
+      documents: BROKER_REPORT_DOCUMENTS.map((document) => ({
+        ...document,
+        dataStatus: "provided-document",
+        sourceUrl: null,
+      })),
       itemCount: BROKER_REPORT_SEEDS.length,
       items: BROKER_REPORT_SEEDS.map((item) => ({
         ...item,

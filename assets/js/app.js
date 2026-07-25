@@ -6645,6 +6645,7 @@
   function brokerResearchFallback() {
     return [
       {
+        documentId: "ms-next-gen-memory-20260716",
         label: "SYSTEM BOTTLENECK",
         title: "메모리 병목은 HBM 캐파를 넘어 시스템 효율 문제로 확장",
         body: "2027년 클라우드 CapEx에서 메모리 비중은 40%로 높아지지만, 2024~2026년 범용 메모리 대역폭 개선은 14%에 그쳐 토큰 증가 속도와의 격차가 커진다는 분석입니다.",
@@ -6659,6 +6660,7 @@
         accent: "#00a98f",
       },
       {
+        documentId: "ms-next-gen-memory-20260716",
         label: "AGENTIC AI DEMAND",
         title: "Agentic AI가 서버 DRAM·스토리지까지 수요 범위를 넓힘",
         body: "에이전트의 작업 분해와 도구 호출이 CPU 오케스트레이션과 메모리 접근량을 늘려 2030년 DRAM 수요를 기준 전망보다 26~77% 높일 수 있다는 시나리오입니다.",
@@ -6673,6 +6675,7 @@
         accent: "#0e7490",
       },
       {
+        documentId: "ms-next-gen-memory-20260716",
         label: "CYCLE & CONTRACT",
         title: "3Q26 가격 상방 뒤 4Q26 모멘텀 둔화 가능성",
         body: "3Q26 DRAM 가격은 20~30% 이상 오를 수 있지만 전년 대비 가격 모멘텀은 4Q26에 정체될 수 있습니다. Micron은 16개 전략고객계약에서 $22B의 재무 약정을 확보했습니다.",
@@ -6687,6 +6690,7 @@
         accent: "#ef8d22",
       },
       {
+        documentId: "ms-next-gen-memory-20260716",
         label: "HBM4E ECONOMICS",
         title: "HBM4E는 ASP보다 웨이퍼 생산성 하락이 자본배분 핵심",
         body: "2026~2028년 HBM ASP는 연 15% 상승할 수 있지만 HBM4E 전환 시 die density가 24Gb에서 32Gb로 높아지고 웨이퍼당 gross die는 추가로 20% 감소할 수 있습니다.",
@@ -6701,6 +6705,7 @@
         accent: "#9a4fd4",
       },
       {
+        documentId: "ms-next-gen-memory-20260716",
         label: "NAND MOVES UP",
         title: "AI 추론은 NAND를 저장장치에서 메모리 계층으로 끌어올림",
         body: "HBF는 HBM과 유사한 대역폭에 8~16배 용량을 목표로 하고, Kioxia는 KV cache와 GPU 직접 연결용 SSD 계층을 제시합니다. 보고서 내 샘플 시점은 2H26~1H27 범위로 읽어야 합니다.",
@@ -6715,6 +6720,7 @@
         accent: "#5b67d8",
       },
       {
+        documentId: "ms-next-gen-memory-20260716",
         label: "CXL & MRDIMM",
         title: "CXL·MRDIMM은 증설 없이 서버당 메모리 효율을 높이는 축",
         body: "MRDIMM은 DDR5 부품으로 유효 12,800MT/s를 구현하고, CXL MXC·스위치 시장은 2030년 $4.0B로 전망됩니다. CXL은 로컬 DDR5보다 약 60% 느려 cold page 중심으로 적합합니다.",
@@ -6727,6 +6733,90 @@
         evidenceType: "direct-report",
         publishedAt: "2026-07-16",
         accent: "#2563eb",
+      },
+      {
+        documentId: "ms-key-debates-20260717",
+        label: "CYCLE & LTA",
+        title: "4Q26 가격 고점 가능성과 구속형 LTA의 사이클 연장 효과",
+        body: "DRAM 계약가격 증가율은 고점에서 둔화되고 재고는 2Q26부터 다시 늘어 4Q26 전후 가격 고점 가능성이 제시됩니다. 다만 LTA가 3~5년 물량·가격공식·선수금을 포함하는 구조로 강화되면서 이익 가시성과 밸류에이션 재평가 여력이 생긴다는 분석입니다.",
+        metrics: ["가격 고점 4Q26E", "LTA 3~5년", "FY27 P/E 삼성 3.8x · SKHY 3.9x"],
+        implication: "가격 고점 여부와 별개로 고객별 LTA의 최소구매·가격공식·선수금·재협상 조항을 계약가치의 핵심 지표로 관리해야 합니다.",
+        reversal: "DRAM·NAND 재고 주수, contract·spot 가격, LTA 재협상과 선수금 유지",
+        source: "Morgan Stanley",
+        sourceRef: "Global Technology - Key Debates: AI, Memory, Substrates & MLCC",
+        institution: "Morgan Stanley",
+        evidenceType: "direct-report",
+        publishedAt: "2026-07-17",
+        accent: "#c28a20",
+      },
+      {
+        documentId: "ms-key-debates-20260717",
+        label: "AI SUPPLY STACK",
+        title: "HBM·NAND 공급 부족이 2027년까지 이어지는 시나리오",
+        body: "HBM 시장은 2023년 $3B에서 2027년 $94B로 확대되고 DRAM 공급충족률은 2026년 -17%, 2027년 -15%로 추정됩니다. AI향 NAND 수요 비중은 2025년 18%에서 2027년 41%로 높아지며 2026년 공급충족률은 -15%로 제시됩니다.",
+        metrics: ["2027E HBM $94B", "2026E DRAM -17%", "2027E AI NAND 609EB · 41%"],
+        implication: "HBM 수율·TSV 캐파와 함께 AI eSSD용 NAND 물량을 고객별로 배분해 DRAM과 NAND 공급 부족을 하나의 AI 메모리 스택으로 관리해야 합니다.",
+        reversal: "HBM·DRAM fulfillment, AI NAND 수요 비중, TSV·NAND 증설 속도",
+        source: "Morgan Stanley",
+        sourceRef: "Global Technology - Key Debates: AI, Memory, Substrates & MLCC",
+        institution: "Morgan Stanley",
+        evidenceType: "direct-report",
+        publishedAt: "2026-07-17",
+        accent: "#0e7490",
+      },
+      {
+        documentId: "ms-key-debates-20260717",
+        label: "AGENTIC AI & COMPONENTS",
+        title: "Agentic AI 수요가 CPU·DRAM에서 ABF·MLCC까지 확장",
+        body: "Agentic AI는 불 케이스에서 2030년까지 최대 $238B의 신규 CPU 수요와 221EB의 증분 DRAM 수요를 만들 수 있다는 추정입니다. ABF 기판은 2027년 이후 공급 부족 전환, AI 서버 MLCC 수요는 2027년 $893M으로 확대되는 시나리오가 함께 제시됩니다.",
+        metrics: ["2030E CPU $238B", "2030E DRAM 221EB", "2027E AI 서버 MLCC $893M"],
+        implication: "GPU 출하 외에 CPU 오케스트레이션, 서버당 DRAM, ABF 기판과 고용량 MLCC를 AI 인프라 수요의 연쇄 지표로 추적해야 합니다.",
+        reversal: "Agentic AI 도입 속도, CPU utilization, ABF 가동률, 랙당 MLCC 탑재액",
+        source: "Morgan Stanley",
+        sourceRef: "Global Technology - Key Debates: AI, Memory, Substrates & MLCC",
+        institution: "Morgan Stanley",
+        evidenceType: "direct-report",
+        publishedAt: "2026-07-17",
+        accent: "#6d5bd0",
+      },
+    ];
+  }
+
+  function brokerBaselineDocuments(baseline = {}) {
+    const documents = Array.isArray(baseline.documents) ? baseline.documents : [];
+    if (documents.length) return documents;
+    return [
+      {
+        id: "ms-next-gen-memory-20260716",
+        institution: "Morgan Stanley",
+        title: "Global Technology: Innovating the Next-Generation Memory",
+        publishedAt: "2026-07-16",
+        authors: "Charlie Chan · Daisy Dai · Shawn Kim 외",
+        fileName: "GREATER_20260716_0122-1.pdf",
+        focus: "메모리 병목이 HBM 공급을 넘어 데이터 이동·공정·패키징·시스템 효율 문제로 확장",
+        corePoints: [
+          "Agentic AI 확산 시 2030년 DRAM 수요가 기준 전망보다 26~77% 증가할 수 있는 시나리오",
+          "2027년 클라우드 CapEx 내 메모리 비중 40% 전망과 범용 메모리 대역폭 개선 +14%의 격차",
+          "설계·공정·패키징·주변장치·통합·소재의 여섯 혁신 축을 차세대 메모리 생태계로 제시",
+        ],
+        metrics: ["2030E 클라우드 메모리 $418B", "2027E CapEx mix 40%", "2030E 차세대 메모리 $23B"],
+        topicCount: 6,
+      },
+      {
+        id: "ms-key-debates-20260717",
+        institution: "Morgan Stanley",
+        title: "Global Technology - Key Debates: AI, Memory, Substrates & MLCC",
+        publishedAt: "2026-07-17",
+        authors: "Shawn Kim 외 3인",
+        fileName: "insight_1pager_MSglobaltech_20260718.html",
+        focus: "4Q26 가격 고점 가능성에도 구속형 LTA와 Agentic AI 신규 수요가 메모리 사이클을 연장",
+        corePoints: [
+          "메모리 가격은 4Q26 전후 고점 가능성이 있으나 3~5년 LTA가 이익의 가시성을 높이는 구조",
+          "HBM·NAND 공급 부족이 2026~2027년 이어지고 AI 수요가 NAND·CPU·DRAM으로 확장",
+          "ABF 기판과 MLCC까지 AI 서버 스펙 상향의 수혜 범위가 넓어지는 공급망 재평가 논쟁",
+        ],
+        metrics: ["2027E HBM $94B", "2030E Agentic AI DRAM 221EB", "2027E AI 서버 MLCC $893M"],
+        topicCount: 3,
       },
     ];
   }
@@ -6772,14 +6862,44 @@
   function renderBrokerBaselineReports(baseline = {}) {
     const reports = brokerBaselineReports();
     if (!reports.length) return "";
-    const count = Number(baseline.itemCount) || reports.length;
+    const documents = brokerBaselineDocuments(baseline);
+    const documentCount = Number(baseline.documentCount) || documents.length;
+    const topicCount = Number(baseline.itemCount) || reports.length;
     return `
       <section class="exec-baseline-reports" aria-labelledby="baselineReportsTitle">
         <header class="exec-baseline-head">
           <div>
-            <h4 id="baselineReportsTitle">제공 리포트 ${fmtNum(count)}건</h4>
+            <span>USER-PROVIDED RESEARCH · SOURCE-LEVEL DIGEST</span>
+            <h4 id="baselineReportsTitle">제공 원문 ${fmtNum(documentCount)}건 · 핵심 논점 ${fmtNum(topicCount)}개</h4>
           </div>
         </header>
+        <div class="exec-baseline-documents">
+          ${documents.map((document, index) => `
+            <article class="exec-baseline-document">
+              <header>
+                <span>${String(index + 1).padStart(2, "0")}</span>
+                <div>
+                  <b>${escapeHTML(document.institution || "제공 원문")}</b>
+                  <small>${escapeHTML(document.publishedAt || "발간일 미상")} · ${escapeHTML(document.authors || "저자 미상")}</small>
+                </div>
+                <em>${fmtNum(Number(document.topicCount) || reports.filter((item) => item.documentId === document.id).length)}개 논점</em>
+              </header>
+              <h5>${escapeHTML(withoutTerminalStop(document.title || document.fileName || "제공 원문"))}</h5>
+              <p>${escapeHTML(withoutTerminalStop(document.focus || ""))}</p>
+              <ul>
+                ${(Array.isArray(document.corePoints) ? document.corePoints : []).slice(0, 3).map((point) => `<li>${escapeHTML(withoutTerminalStop(point))}</li>`).join("")}
+              </ul>
+              <div class="exec-baseline-document-metrics">
+                ${(Array.isArray(document.metrics) ? document.metrics : []).slice(0, 3).map((metric) => `<span>${escapeHTML(withoutTerminalStop(metric))}</span>`).join("")}
+              </div>
+              <footer><span>제공 파일</span><code>${escapeHTML(document.fileName || "파일명 미상")}</code></footer>
+            </article>
+          `).join("")}
+        </div>
+        <div class="exec-baseline-topic-head">
+          <span>핵심 논점</span>
+          <strong>두 원문의 수치·논리·전략 시사점을 주제별로 분해</strong>
+        </div>
         <ol class="exec-baseline-grid">
           ${reports.map((item, index) => `
             <li class="exec-baseline-report" style="--report-accent:${escapeHTML(item.accent || "#64748b")}">
