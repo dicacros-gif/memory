@@ -6515,6 +6515,25 @@
     return String(value || "").replace(/[.。]+\s*$/u, "").trim();
   }
 
+  function briefingBulletLines(value = "") {
+    const normalized = String(value || "").replace(/\s+/g, " ").trim();
+    if (!normalized) return [];
+    return normalized
+      .split(/(?<=[가-힣A-Za-z])(?:[.。]+)\s*(?=[가-힣A-Za-z0-9])/gu)
+      .map((line) => withoutTerminalStop(line))
+      .filter(Boolean);
+  }
+
+  function briefingBulletListHTML(value = "", className = "exec-report-bullet-list") {
+    const lines = briefingBulletLines(value);
+    if (!lines.length) return "";
+    return `<ul class="${className}">${lines.map((line) => `<li>${strategicHighlightHTML(line)}</li>`).join("")}</ul>`;
+  }
+
+  function briefingLineText(value = "") {
+    return briefingBulletLines(value).join(" · ");
+  }
+
   function brokerBaselineReports() {
     const supplied = Array.isArray(LIVE.brokerResearch?.baseline?.items)
       ? LIVE.brokerResearch.baseline.items
@@ -6522,9 +6541,9 @@
     const source = supplied.length ? supplied : brokerResearchFallback();
     return source.map((item) => ({
       ...item,
-      body: withoutTerminalStop(item.summary || item.body || ""),
-      implication: withoutTerminalStop(item.insight || item.implication || ""),
-      reversal: withoutTerminalStop(item.reversalKpi || item.reversal || ""),
+      body: briefingLineText(item.summary || item.body || ""),
+      implication: briefingLineText(item.insight || item.implication || ""),
+      reversal: briefingLineText(item.reversalKpi || item.reversal || ""),
       metrics: (Array.isArray(item.metrics) ? item.metrics : []).map(withoutTerminalStop),
       dataStatus: "baseline-revalidation",
     })).filter((item) => item.title && item.body);
@@ -6836,7 +6855,7 @@
           </header>
           <section class="exec-report-thesis" aria-label="라이브 근거 상태">
             <span>${researchItems.length ? (hasReferenceItems ? `이전 정보 ${fmtNum(researchItems.length)}건` : `이번 실행 ${fmtNum(researchItems.length)}건`) : "검증 가능한 공개 원문 수집 중"}</span>
-            <p>${researchItems.length ? (hasReferenceItems ? "이번 실행에서 새 인용이 부족해, 직전 검증 실행의 출처·날짜가 있는 기사 카드를 이어서 표시합니다." : "이번 크롤링에서 직접 확인한 공개 URL과 날짜가 있는 항목만 표시합니다.") : "이번 실행에서 새 인용이 부족해 이전 검증 정보를 확인하고 있습니다."}</p>
+            ${briefingBulletListHTML(researchItems.length ? (hasReferenceItems ? "이번 실행에서 새 인용이 부족해, 직전 검증 실행의 출처·날짜가 있는 기사 카드를 이어서 표시합니다." : "이번 크롤링에서 직접 확인한 공개 URL과 날짜가 있는 항목만 표시합니다.") : "이번 실행에서 새 인용이 부족해 이전 검증 정보를 확인하고 있습니다.")}
           </section>
           <section class="exec-report-insights" aria-label="증권사 라이브 인용">
             ${researchItems.length ? researchItems.map((item, index) => `
@@ -6844,14 +6863,17 @@
                 <span class="exec-report-number">${String(index + 1).padStart(2, "0")}</span>
                 <div class="exec-report-insight-copy">
                   <div class="exec-report-kicker"><strong>${escapeHTML(item.institution || item.label)}</strong><span>${escapeHTML(item.dataStatus === "reference-only" ? `이전 정보 · ${item.publishedAt || ""}` : item.publishedAt || "")}</span></div>
-                  <h5>${strategicHighlightHTML(item.title)}</h5>
-                  <p>${strategicHighlightHTML(item.body)}</p>
+                  <h5>${strategicHighlightHTML(briefingLineText(item.title))}</h5>
+                  ${briefingBulletListHTML(item.body)}
                   ${item.metrics?.length ? `<p class="exec-report-inline-metrics">${item.metrics.map((metric) => `<strong>${strategicHighlightHTML(metric)}</strong>`).join("<span>·</span>")}</p>` : ""}
-                  <dl><div><dt>Insight</dt><dd>${strategicHighlightHTML(item.implication)}</dd></div><div><dt>판단 전환 조건</dt><dd>${strategicHighlightHTML(item.reversal)}</dd></div></dl>
+                  <ul class="exec-report-decision-list">
+                    ${briefingBulletLines(item.implication).map((line, lineIndex) => `<li class="${lineIndex ? "is-continuation" : ""}"><b>${lineIndex === 0 ? "Insight" : ""}</b><span>${strategicHighlightHTML(line)}</span></li>`).join("")}
+                    ${briefingBulletLines(item.reversal).map((line, lineIndex) => `<li class="${lineIndex ? "is-continuation" : ""}"><b>${lineIndex === 0 ? "판단 전환 조건" : ""}</b><span>${strategicHighlightHTML(line)}</span></li>`).join("")}
+                  </ul>
                   <a class="exec-report-source" href="${escapeHTML(item.sourceUrl)}" target="_blank" rel="noopener noreferrer">${item.dataStatus === "reference-only" ? "이전 기사 원문 보기" : "출처 원문 보기"}</a>
                 </div>
               </article>
-            `).join("") : `<div class="empty">이번 실행에서 메모리 산업과 직접 연결되는 증권사 공개 원문·권위 매체 인용을 확인하지 못했습니다.</div>`}
+            `).join("") : `<div class="empty">${briefingBulletListHTML("이번 실행에서 메모리 산업과 직접 연결되는 증권사 공개 원문·권위 매체 인용을 확인하지 못했습니다.")}</div>`}
           </section>
           ${renderBrokerBaselineReports(baseline)}
           ${baseline.status === "revalidation-required" ? `<section class="exec-report-conclusion"><span>BASELINE 분리</span><ul><li>${fmtNum(baseline.itemCount || 0)}개 제공 리포트는 공개 원문 URL과 대조일이 없어 재검증 대상으로 분리</li><li>재검증 완료 전 라이브 카드와 별도 관리</li></ul></section>` : ""}
@@ -6892,7 +6914,7 @@
 
         <section class="exec-report-thesis" aria-label="한 줄 논지">
           <span>ONE-LINE THESIS</span>
-          <p>${escapeHTML(framework.subtitle)}</p>
+          ${briefingBulletListHTML(framework.subtitle)}
         </section>
 
         <div class="exec-report-body">
@@ -6905,13 +6927,13 @@
                   <div class="exec-report-kicker">
                     <strong>${escapeHTML(item.label)}</strong>
                   </div>
-                  <h5>${strategicHighlightHTML(item.title)}</h5>
-                  <p>${strategicHighlightHTML(item.body)}</p>
+                  <h5>${strategicHighlightHTML(briefingLineText(item.title))}</h5>
+                  ${briefingBulletListHTML(item.body)}
                   ${item.metrics?.length ? `<p class="exec-report-inline-metrics">${item.metrics.map((metric) => `<strong>${strategicHighlightHTML(metric)}</strong>`).join("<span>·</span>")}</p>` : ""}
-                  <dl>
-                    <div><dt>Insight</dt><dd>${strategicHighlightHTML(item.implication)}</dd></div>
-                    <div><dt>판단 전환 조건</dt><dd>${strategicHighlightHTML(item.reversal)}</dd></div>
-                  </dl>
+                  <ul class="exec-report-decision-list">
+                    ${briefingBulletLines(item.implication).map((line, lineIndex) => `<li class="${lineIndex ? "is-continuation" : ""}"><b>${lineIndex === 0 ? "Insight" : ""}</b><span>${strategicHighlightHTML(line)}</span></li>`).join("")}
+                    ${briefingBulletLines(item.reversal).map((line, lineIndex) => `<li class="${lineIndex ? "is-continuation" : ""}"><b>${lineIndex === 0 ? "판단 전환 조건" : ""}</b><span>${strategicHighlightHTML(line)}</span></li>`).join("")}
+                  </ul>
                   ${item.evidenceType === "news-citation" && item.sourceUrl
                     ? `<a class="exec-report-source" href="${escapeHTML(item.sourceUrl)}" target="_blank" rel="noopener noreferrer">원문 보기</a>`
                     : ""}
@@ -6932,7 +6954,7 @@
                   </div>
                 `).join("")}
               </div>
-              <p>AI 수요가 HBM 단일 품목을 넘어 <strong>DRAM·차세대 메모리·패키징</strong>으로 확장되는 경로를 분리해 봅니다.</p>
+              ${briefingBulletListHTML("AI 수요가 HBM 단일 품목을 넘어 DRAM·차세대 메모리·패키징으로 확장되는 경로를 분리해 봅니다")}
             </section>
 
             <section class="exec-report-section exec-report-system">
@@ -6943,9 +6965,9 @@
                   <tbody>
                     ${frameworkRows.map(({ bottleneck, option }) => `
                       <tr>
-                        <td><strong>${escapeHTML(bottleneck?.label || "-")}</strong><span>${escapeHTML(bottleneck?.detail || "-")}</span></td>
-                        <td><strong>${escapeHTML(option?.label || "-")}</strong><span>${escapeHTML(option?.metric || "-")}</span></td>
-                        <td>${escapeHTML(option?.gate || "-")}</td>
+                        <td><strong>${escapeHTML(briefingLineText(bottleneck?.label || "-"))}</strong><span>${escapeHTML(briefingLineText(bottleneck?.detail || "-"))}</span></td>
+                        <td><strong>${escapeHTML(briefingLineText(option?.label || "-"))}</strong><span>${escapeHTML(briefingLineText(option?.metric || "-"))}</span></td>
+                        <td>${escapeHTML(briefingLineText(option?.gate || "-"))}</td>
                       </tr>
                     `).join("")}
                   </tbody>
@@ -6964,7 +6986,7 @@
             <section class="exec-report-section exec-report-actions">
               <h4>5. SKHY 실행 우선순위</h4>
               <ol>
-                ${(framework.decisions || []).map((item) => `<li><strong>${escapeHTML(item.label)}</strong><p>${escapeHTML(item.action)}</p></li>`).join("")}
+                ${(framework.decisions || []).map((item) => `<li><strong>${escapeHTML(briefingLineText(item.label))}</strong><p>${escapeHTML(briefingLineText(item.action))}</p></li>`).join("")}
               </ol>
             </section>
           </aside>
@@ -6972,7 +6994,7 @@
 
         <section class="exec-report-conclusion">
           <span>EXECUTIVE TAKEAWAY</span>
-          <p>${escapeHTML(conclusion)}</p>
+          ${briefingBulletListHTML(conclusion, "exec-report-conclusion-bullets")}
         </section>
       </article>
     `;
@@ -7023,8 +7045,10 @@
         ${executiveStrategyLines().map((item) => `
           <button class="exec-line reveal${item.priority ? " exec-line-priority" : ""}" type="button" data-jump="${escapeHTML(item.jump)}">
             <span>${escapeHTML(item.label)}</span>
-            <strong>${escapeHTML(item.title)}</strong>
-            <p>${item.bodyLead ? `<strong class="exec-line-lead">${escapeHTML(item.bodyLead)}</strong>` : ""}${escapeHTML(item.body)}</p>
+            <strong>${escapeHTML(briefingLineText(item.title))}</strong>
+            <ul class="exec-line-bullet-list">
+              ${briefingBulletLines(item.body).map((line, lineIndex) => `<li>${lineIndex === 0 && item.bodyLead ? `<strong class="exec-line-lead">${escapeHTML(item.bodyLead)}</strong>` : ""}${escapeHTML(line)}</li>`).join("")}
+            </ul>
           </button>
         `).join("")}
       </div>
@@ -7033,8 +7057,8 @@
     strategy.innerHTML = CHINA_NAND_BUSINESS_LAYERS.slice(0, 6).map((item, index) => `
       <button class="exec-strategy-card exec-strategy-tone-${index % 6} reveal" type="button" data-exec-nand="${escapeHTML(item.id)}" style="animation-delay:${index * 30}ms">
         <span>${strategicHighlightHTML(item.label)}</span>
-        <strong>${strategicHighlightHTML(item.role)}</strong>
-        <small>${strategicHighlightHTML(item.strategy[0] || item.title)}</small>
+        <strong>${strategicHighlightHTML(briefingLineText(item.role))}</strong>
+        <small>${strategicHighlightHTML(briefingLineText(item.strategy[0] || item.title))}</small>
       </button>
     `).join("");
 

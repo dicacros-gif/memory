@@ -3767,6 +3767,7 @@ body.sidebar-collapsed .sb-ico {
 .exec-line:hover span,
 .exec-line:hover strong,
 .exec-line:hover p,
+.exec-line:hover .exec-line-bullet-list > li,
 .exec-strategy-card:hover span,
 .exec-strategy-card:hover strong,
 .exec-strategy-card:hover small,
@@ -3776,6 +3777,7 @@ body.sidebar-collapsed .sb-ico {
 .exec-line:focus-visible span,
 .exec-line:focus-visible strong,
 .exec-line:focus-visible p,
+.exec-line:focus-visible .exec-line-bullet-list > li,
 .exec-strategy-card:focus-visible span,
 .exec-strategy-card:focus-visible strong,
 .exec-strategy-card:focus-visible small {
@@ -3783,8 +3785,10 @@ body.sidebar-collapsed .sb-ico {
 }
 
 .exec-line:hover p,
+.exec-line:hover .exec-line-bullet-list > li,
 .exec-strategy-card:hover small,
 .exec-line:focus-visible p,
+.exec-line:focus-visible .exec-line-bullet-list > li,
 .exec-strategy-card:focus-visible small {
   color: rgba(255, 255, 255, .9);
 }
@@ -3843,6 +3847,47 @@ body.sidebar-collapsed .sb-ico {
   font-size: 12px;
   line-height: 1.5;
   font-weight: 700;
+}
+
+.exec-line-bullet-list {
+  display: grid;
+  gap: 4px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.exec-line-bullet-list > li {
+  display: grid;
+  grid-template-columns: 6px minmax(0, 1fr);
+  gap: 6px;
+  align-items: start;
+  color: var(--ink-2);
+  font-size: 12px;
+  line-height: 1.5;
+  font-weight: 700;
+}
+
+.exec-line-bullet-list > li::before {
+  content: "";
+  width: 4px;
+  height: 4px;
+  margin-top: .62em;
+  border-radius: 50%;
+  background: var(--local-accent, var(--accent));
+}
+
+.exec-line-bullet-list .exec-line-lead {
+  display: inline;
+  margin-right: 5px;
+  color: var(--local-accent, var(--accent));
+  font-size: inherit;
+  font-weight: 950;
+}
+
+.exec-line:hover .exec-line-bullet-list > li::before,
+.exec-line:focus-visible .exec-line-bullet-list > li::before {
+  background: #fff;
 }
 
 .kpi .strategy-highlight {
@@ -4242,6 +4287,56 @@ body.sidebar-collapsed .sb-ico {
   font-weight: 800;
 }
 
+.exec-report-thesis > .exec-report-bullet-list {
+  max-width: 1220px;
+  color: #e9eff6;
+}
+
+.exec-report-bullet-list,
+.exec-report-decision-list {
+  display: grid;
+  gap: 6px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.exec-report-bullet-list > li,
+.exec-report-decision-list > li {
+  position: relative;
+  display: grid;
+  grid-template-columns: 8px minmax(0, 1fr);
+  gap: 8px;
+  align-items: start;
+  color: #273449;
+  font-size: 11.5px;
+  line-height: 1.62;
+  font-weight: 720;
+}
+
+.exec-report-bullet-list > li::before,
+.exec-report-decision-list > li::before {
+  content: "";
+  width: 5px;
+  height: 5px;
+  margin-top: .56em;
+  border-radius: 50%;
+  background: var(--report-accent, #008f79);
+  box-shadow: 0 0 0 3px color-mix(in srgb, var(--report-accent, #008f79) 14%, transparent);
+}
+
+.exec-report-thesis > .exec-report-bullet-list > li {
+  color: #e9eff6;
+  font-size: 14px;
+  line-height: 1.6;
+  font-weight: 800;
+}
+
+.exec-report-thesis > .exec-report-bullet-list > li::before {
+  background: var(--report-gold);
+  box-shadow: 0 0 0 3px rgba(226, 178, 45, .16);
+}
+
 .exec-report-body {
   min-width: 0;
   display: grid;
@@ -4336,6 +4431,10 @@ body.sidebar-collapsed .sb-ico {
   font-weight: 720;
 }
 
+.exec-report-insight-copy > .exec-report-bullet-list {
+  margin-top: 1px;
+}
+
 .exec-report-inline-metrics {
   display: flex;
   flex-wrap: wrap;
@@ -4380,6 +4479,35 @@ body.sidebar-collapsed .sb-ico {
 
 .exec-report-insight dd {
   color: #39465a;
+}
+
+.exec-report-decision-list {
+  gap: 5px;
+  margin-top: 1px;
+}
+
+.exec-report-decision-list > li {
+  grid-template-columns: 8px minmax(76px, auto) minmax(0, 1fr);
+  color: #39465a;
+  font-size: 10px;
+  line-height: 1.5;
+  font-weight: 760;
+}
+
+.exec-report-decision-list > li::before {
+  width: 4px;
+  height: 4px;
+  box-shadow: none;
+}
+
+.exec-report-decision-list > li > b {
+  color: var(--report-accent, #008f79);
+  font-size: 10px;
+  font-weight: 950;
+}
+
+.exec-report-decision-list > li.is-continuation {
+  grid-template-columns: 8px minmax(0, 1fr);
 }
 
 .exec-report-source,

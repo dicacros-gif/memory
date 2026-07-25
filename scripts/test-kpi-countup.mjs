@@ -41,7 +41,14 @@ assert.match(html, /aria-roledescription="carousel"/, "talent gallery should exp
 assert.doesNotMatch(app, /전략 참고용으로 전체 내용을 제공하며 수치와 결론은 재검증 전 의사결정 입력값으로 사용하지 않음/, "baseline disclaimer should not be rendered");
 assert.doesNotMatch(app, /SKHY 판단/, "SKHY labels should use the neutral Insight label");
 assert.match(app, /bodyLead: "Insight"/, "executive insight cards should use the Insight label");
-assert.match(html, /styles\.css\?v=baseline-label-20260725-11/, "CSS cache key should include this integrated revision");
-assert.match(html, /app\.js\?v=baseline-label-20260725-11/, "JavaScript cache key should include this integrated revision");
+assert.match(app, /function briefingBulletLines\(value = ""\)/, "broker summaries should be split into bullet-safe lines");
+assert.match(app, /briefingBulletListHTML\(item\.body\)/, "broker article bodies should render as bullet lists");
+assert.match(app, /class="exec-report-decision-list"/, "broker insights and reversal conditions should render as bullet lists");
+assert.match(app, /class="exec-line-bullet-list"/, "executive summary lines should render as bullet lists");
+assert.match(css, /\.exec-report-bullet-list > li::before/, "broker bullet lists should have a visual bullet marker");
+assert.match(css, /\.exec-report-decision-list > li\.is-continuation/, "multi-line broker points should retain their bullet alignment");
+assert.match(css, /\.exec-line-bullet-list > li::before/, "executive summary bullets should have a visual bullet marker");
+assert.match(html, /styles\.css\?v=briefing-bullets-20260725-13/, "CSS cache key should include this integrated revision");
+assert.match(html, /app\.js\?v=briefing-bullets-20260725-13/, "JavaScript cache key should include this integrated revision");
 
 console.log("KPI typography and hover count-up checks passed.");
