@@ -6555,7 +6555,6 @@
   }
 
   function renderBrokerBaselineReports(baseline = {}) {
-    if (baseline.status !== "revalidation-required") return "";
     const reports = brokerBaselineReports();
     if (!reports.length) return "";
     const count = Number(baseline.itemCount) || reports.length;
@@ -6563,14 +6562,8 @@
       <section class="exec-baseline-reports" aria-labelledby="baselineReportsTitle">
         <header class="exec-baseline-head">
           <div>
-            <span>BASELINE · 재검증 대기</span>
             <h4 id="baselineReportsTitle">제공 리포트 ${fmtNum(count)}건</h4>
           </div>
-          <ul aria-label="재검증 상태">
-            <li>공개 원문 URL 없음</li>
-            <li>대조일 없음</li>
-            <li>라이브 근거와 분리</li>
-          </ul>
         </header>
         <ol class="exec-baseline-grid">
           ${reports.map((item, index) => `
@@ -6881,7 +6874,6 @@
             `).join("") : `<div class="empty">${briefingBulletListHTML("이번 실행에서 메모리 산업과 직접 연결되는 증권사 공개 원문·권위 매체 인용을 확인하지 못했습니다.")}</div>`}
           </section>
           ${renderBrokerBaselineReports(baseline)}
-          ${baseline.status === "revalidation-required" ? `<section class="exec-report-conclusion"><span>BASELINE 분리</span><ul><li>${fmtNum(baseline.itemCount || 0)}개 제공 리포트는 공개 원문 URL과 대조일이 없어 재검증 대상으로 분리</li><li>재검증 완료 전 라이브 카드와 별도 관리</li></ul></section>` : ""}
         </article>
       `;
     }
@@ -9474,7 +9466,7 @@
 
   // Drive any council as a live, sequential debate: one expert at a time, the matching
   // roster avatar spotlighted while "speaking", the message typed out like a real person,
-  // and the next expert queued so the exchange reads as a devil's-advocate rebuttal chain.
+  // and the next expert remains hidden until the current English utterance has ended.
   // Works generically: reads each bubble's text at runtime and matches the roster by name.
   function activateDebate(chat) {
     if (!chat) return;
@@ -9583,13 +9575,18 @@
       turn.classList.add("speaking");
       turn.querySelector(".speech-bubble")?.classList.add("live");
       setCard(turnName(turn), "speaking");
-      if (turns[i + 1]) setCard(turnName(turns[i + 1]), "next");
       const p = turn.querySelector("p");
       let typed = false;
-      let voiced = !agentTtsEnabled || !agentSpeechSupported();
+      const englishSpeech = (p?.dataset.sayEn || "").trim();
+      // A visible next turn is gated on the browser's speech promise. That promise
+      // resolves from SpeechSynthesisUtterance.onend (or safely falls back when TTS
+      // is unavailable), so a slow English pronunciation can never be overtaken by
+      // the next agent's card or message.
+      const mustWaitForEnglishSpeech = Boolean(agentTtsEnabled && agentSpeechSupported() && englishSpeech);
+      let speechFinished = !mustWaitForEnglishSpeech;
       let completed = false;
       const completeTurn = () => {
-        if (!typed || !voiced || completed || !alive()) return;
+        if (!typed || !speechFinished || completed || !alive()) return;
         completed = true;
         if (p && p.dataset.rich) p.innerHTML = p.dataset.rich;
         turn.classList.remove("speaking", "tts-speaking");
@@ -9603,27 +9600,21 @@
         typed = true;
         completeTurn();
       });
-      if (!voiced) {
+      if (mustWaitForEnglishSpeech) {
         schedule(() => {
           if (!alive()) return;
           speakAgentTurn(turn, i).finally(() => {
             if (!alive()) return;
-            voiced = true;
+            speechFinished = true;
             completeTurn();
           });
         }, AGENT_DEBATE_TIMING.speakerLeadMs);
       }
     };
 
-    const rosterStepMs = AGENT_DEBATE_TIMING.rosterStepMs;
-    avatars.forEach((card, index) => {
-      schedule(() => {
-        if (!alive()) return;
-        card.classList.remove("pending");
-        card.classList.add("next");
-      }, index * rosterStepMs);
-    });
-    schedule(() => speak(0), avatars.length * rosterStepMs + AGENT_DEBATE_TIMING.rosterSettleMs);
+    // Do not pre-reveal queued agents. Each roster card is released by speak(i),
+    // which itself is scheduled only after speak(i - 1) has completed its TTS.
+    schedule(() => speak(0), AGENT_DEBATE_TIMING.rosterSettleMs);
   }
 
   // Pull a competitor's share from the centralized, source-gated marketStructure.

@@ -64,7 +64,14 @@ assert.match(css, /#talent-radar \.talent-split \{[\s\S]*?grid-template-columns:
 assert.match(css, /#talent-radar \.talent-radar-slider \.china-capital-slide\.is-previous/, "talent filmstrip should show a previous-slide preview");
 assert.match(css, /#talent-radar \.talent-radar-slider \.china-capital-slide\.is-next/, "talent filmstrip should show a next-slide preview");
 assert.match(css, /#china-talent-strategy \.policy-focus \{[\s\S]*?position: sticky;/, "operational workforce plan should remain visible while the image carousel moves");
-assert.match(html, /styles\.css\?v=executive-infographic-20260725-18/, "CSS cache key should include this integrated revision");
-assert.match(html, /app\.js\?v=executive-infographic-20260725-18/, "JavaScript cache key should include this integrated revision");
+assert.doesNotMatch(app, /BASELINE 분리/, "broker reports should not show a baseline-separation notice");
+assert.doesNotMatch(app, /재검증 완료 전 라이브 카드와 별도 관리/, "broker reports should not show a separate-management disclaimer");
+assert.match(app, /<h4 id="baselineReportsTitle">제공 리포트 \$\{fmtNum\(count\)\}건<\/h4>/, "provided broker reports should remain visible without a revalidation label");
+assert.match(app, /const mustWaitForEnglishSpeech = Boolean\(agentTtsEnabled && agentSpeechSupported\(\) && englishSpeech\);/, "each agent turn should explicitly wait for its English TTS source");
+assert.match(app, /if \(!typed \|\| !speechFinished \|\| completed \|\| !alive\(\)\) return;/, "the next agent must not be scheduled before typing and English TTS finish");
+assert.match(app, /speakAgentTurn\(turn, i\)\.finally\(\(\) => \{[\s\S]*?speechFinished = true;[\s\S]*?completeTurn\(\);/s, "the sequence should unlock only after the TTS promise settles");
+assert.match(app, /Do not pre-reveal queued agents[\s\S]*?schedule\(\(\) => speak\(0\), AGENT_DEBATE_TIMING\.rosterSettleMs\);/s, "queued agents should not appear before the prior English voice has ended");
+assert.match(html, /styles\.css\?v=agent-tts-sequence-20260725-19/, "CSS cache key should include this integrated revision");
+assert.match(html, /app\.js\?v=agent-tts-sequence-20260725-19/, "JavaScript cache key should include this integrated revision");
 
 console.log("KPI typography and hover count-up checks passed.");
