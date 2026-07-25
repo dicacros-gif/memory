@@ -33,7 +33,7 @@ assert.match(app, /let chinaTalentGalleryInteractionPaused = false;/, "talent ga
 assert.match(app, /image\.classList\.toggle\("is-next", !active && relative === 1\);/, "talent gallery should position the upcoming slide beside the active slide");
 assert.match(app, /image\.classList\.toggle\("is-previous", !active && relative === total - 1\);/, "talent gallery should position the previous slide beside the active slide");
 assert.match(app, /panel\.addEventListener\("mouseenter", \(\) => \{\s*chinaTalentGalleryInteractionPaused = true;/s, "talent gallery should pause while a user inspects it");
-assert.match(css, /#china-talent-strategy \.policy-layout \{[\s\S]*?grid-template-areas:\s*"panel"\s*"focus";/, "talent gallery should use the full board width before the detail panel");
+assert.match(css, /#china-talent-strategy \.policy-layout \{[\s\S]*?grid-template-columns: minmax\(400px, \.85fr\) minmax\(0, 1\.35fr\);[\s\S]*?grid-template-areas: "focus panel";/, "operational workforce plan should stay left of the talent gallery");
 assert.match(css, /\.talent-strategy-gallery-image\.is-previous/, "talent gallery should render a previous-slide preview");
 assert.match(css, /\.talent-strategy-gallery-image\.is-next/, "talent gallery should render a next-slide preview");
 assert.match(css, /@keyframes talentGalleryCarouselProgress/, "talent gallery should show the five-second rotation progress");
@@ -61,7 +61,8 @@ assert.match(app, /autoDelay: 5000,[\s\S]*?carouselPreview: true,[\s\S]*?transit
 assert.match(css, /#talent-radar \.talent-split \{[\s\S]*?grid-template-columns: minmax\(0, 1fr\);/, "talent filmstrip should use the full board width rather than leave a right-side panel empty");
 assert.match(css, /#talent-radar \.talent-radar-slider \.china-capital-slide\.is-previous/, "talent filmstrip should show a previous-slide preview");
 assert.match(css, /#talent-radar \.talent-radar-slider \.china-capital-slide\.is-next/, "talent filmstrip should show a next-slide preview");
-assert.match(html, /styles\.css\?v=talent-filmstrip-20260725-16/, "CSS cache key should include this integrated revision");
-assert.match(html, /app\.js\?v=talent-filmstrip-20260725-16/, "JavaScript cache key should include this integrated revision");
+assert.match(css, /#china-talent-strategy \.policy-focus \{[\s\S]*?position: sticky;/, "operational workforce plan should remain visible while the image carousel moves");
+assert.match(html, /styles\.css\?v=talent-layout-20260725-17/, "CSS cache key should include this integrated revision");
+assert.match(html, /app\.js\?v=talent-layout-20260725-17/, "JavaScript cache key should include this integrated revision");
 
 console.log("KPI typography and hover count-up checks passed.");

@@ -20571,3 +20571,58 @@ button.ni-trend-chip:hover { box-shadow: 0 4px 12px color-mix(in srgb, #0891B2 2
 @media (prefers-reduced-motion: reduce) {
   #talent-radar .talent-radar-slider .china-capital-slide { transition: none; }
 }
+
+/* China workforce plan: keep the operational plan on the left and the rotating
+   fab imagery on the right, so the decision context stays visible while images move. */
+#china-talent-strategy .policy-layout {
+  grid-template-columns: minmax(400px, .85fr) minmax(0, 1.35fr);
+  grid-template-areas: "focus panel";
+  align-items: start;
+}
+
+#china-talent-strategy .policy-panel {
+  grid-area: panel;
+  width: 100%;
+}
+
+#china-talent-strategy .policy-focus {
+  grid-area: focus;
+  position: sticky;
+  top: calc(var(--topbar-h) + 16px);
+  width: 100%;
+}
+
+#china-talent-strategy .talent-strategy-gallery-stage {
+  height: clamp(430px, 34vw, 620px);
+}
+
+#china-talent-strategy .talent-strategy-gallery-image {
+  width: min(76%, 920px);
+}
+
+#china-talent-strategy .talent-strategy-gallery-brandbar {
+  right: calc(12% + 20px);
+  left: calc(12% + 20px);
+}
+
+#china-talent-strategy .talent-strategy-gallery-copy {
+  left: calc(12% + 24px);
+  width: min(51%, 460px);
+}
+
+#china-talent-strategy .talent-strategy-gallery-controls {
+  right: calc(12% + 16px);
+}
+
+@media (max-width: 1080px) {
+  #china-talent-strategy .policy-layout {
+    grid-template-columns: minmax(0, 1fr);
+    grid-template-areas:
+      "focus"
+      "panel";
+  }
+
+  #china-talent-strategy .policy-focus {
+    position: static;
+  }
+}
