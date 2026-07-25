@@ -11,6 +11,15 @@ The published dashboard is generated through a fail-closed evidence pipeline:
 5. Run `scripts/audit-content.mjs` and publish the JSON bundle atomically only when every critical check passes.
 6. Reject stale, incomplete, or mismatched bundles in the browser instead of falling back to unverified cached data.
 
+### Integrity safeguards
+
+- Korean convenience translations are token-audited against the source: numeric, percentage, magnitude, and currency values must agree after normalising units (for example, CNY 29.5bn and 295억 위안). Failed checks retain the source-language text and are recorded in `crawl-audit.json` as `unverified`.
+- Price-change calculations preserve their raw value for audit, but moves above the review threshold or with inadequate observation coverage are marked `review-required` and are not used as decision-grade momentum.
+- Brief labels distinguish `사실(1차 확인)` (current-run official evidence) from `보도됨(1차 미확인)` (reported research/media evidence). A report is never promoted to a first-party fact by its label.
+- `crawl-audit.json` exposes translation fidelity, price-source count/cross-check status, and per-channel collection timestamps. A single-source price series is explicitly labeled `single-source`, not cross-validated.
+- Current brief text is emitted by a deterministic template (`llmUsed: false`) from linked source fields. Any future LLM path must declare the model/run and add sentence-level source-entailment checks before it can be promoted.
+- The static-site “hide” control is device-local only. It does not claim administrator authentication or alter the shared crawl policy; shared exclusions remain in `data/crawl-exclusions.json`.
+
 `data/crawl-audit.json` records each run and `data/live.json` contains the promoted evidence ledger. Curated and previous-run rows are kept only in explicit `reference-only` archives; they cannot enter live counts, briefs, quality gates, or quantitative drivers. This pipeline reduces unsupported claims; it does not turn estimates or reported claims into facts.
 
 중국 메모리 경쟁사와 공급망을 추적하는 정적 대시보드입니다. `bizdevelopment1-max/ai` 스타일을 참고해 좌측 카테고리, 상단 자연어 Q&A, 보드형 카드, 글꼴 애니메이션, 드롭다운 질문/답변 인터랙션으로 구성했습니다.

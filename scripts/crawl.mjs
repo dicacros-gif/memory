@@ -21,6 +21,11 @@ import {
   buildQuantBacktestSummary,
   calculateAllHorizonStats,
 } from "./quant-history.mjs";
+import {
+  assessPriceChange,
+  auditTranslationFidelity,
+  evidenceClaimLabel,
+} from "./evidence-integrity.mjs";
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
 const OUT = resolve(__dirname, "..", "data", "live.json");
@@ -61,6 +66,13 @@ const KST_DAY_FORMATTER = new Intl.DateTimeFormat("en-CA", {
 const BROWSER_UA =
   "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124.0.0.0 Safari/537.36";
 const FETCH_TIMEOUT_MS = 12_000;
+const SOURCE_TIMEOUT_MS = Object.freeze({
+  default: FETCH_TIMEOUT_MS,
+  news: 8_000,
+  price: 16_000,
+  official: 14_000,
+  document: 10_000,
+});
 // Headline translation is a convenience layer, never a reason to prevent a
 // validated crawl bundle from being published.  The public endpoint can rate
 // limit or stall without returning an error, so keep its timeout and total
@@ -72,8 +84,18 @@ const SKIP_KO_TRANSLATION = /^(?:1|true|yes)$/i.test(
   String(process.env.CRAWL_SKIP_KO_TRANSLATION || process.env.SKIP_KO_TRANSLATION || ""),
 );
 
-function fetchSignal() {
-  return AbortSignal.timeout(FETCH_TIMEOUT_MS);
+function fetchSignal(source = "default") {
+  const timeout = Number(SOURCE_TIMEOUT_MS[source] || SOURCE_TIMEOUT_MS.default);
+  return AbortSignal.timeout(timeout);
+}
+
+function sourceTimeoutClass(url = "") {
+  const value = String(url || "").toLowerCase();
+  if (/trendforce|price|dramexchange/.test(value)) return "price";
+  if (/news\.google|google\.com\/_\/dotssplashui/.test(value)) return "news";
+  if (/sec\.gov|twse|wsts|semiconductors\.org|\.gov\//.test(value)) return "official";
+  if (/\.pdf(?:$|[?#])/.test(value)) return "document";
+  return "default";
 }
 
 const sleep = (ms) => new Promise((resolveSleep) => setTimeout(resolveSleep, ms));
@@ -2006,7 +2028,7 @@ async function fetchText(url) {
   for (let attempt = 0; attempt < 2; attempt += 1) {
     try {
       const res = await fetch(url, {
-        signal: fetchSignal(),
+        signal: fetchSignal(sourceTimeoutClass(url)),
         headers: {
           "User-Agent": BROWSER_UA,
           Accept: "text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8",
@@ -2263,7 +2285,7 @@ async function fetchRemotePriceHistory(row, chartState) {
   if (!url) return { status: "no-url", points: [] };
   try {
     const res = await fetch(url, {
-      signal: fetchSignal(),
+      signal: fetchSignal("price"),
       redirect: "manual",
       headers: {
         "User-Agent": BROWSER_UA,
@@ -3070,7 +3092,7 @@ async function resolveGoogleNewsUrl(link = "") {
   ]);
   const body = new URLSearchParams({ "f.req": JSON.stringify([[["Fbv4je", request]]]) }).toString();
   const response = await fetch("https://news.google.com/_/DotsSplashUi/data/batchexecute", {
-    signal: fetchSignal(),
+    signal: fetchSignal("news"),
     method: "POST",
     headers: {
       "User-Agent": BROWSER_UA,
@@ -3167,6 +3189,19 @@ async function translateKo(text) {
   }
 }
 
+function recordTranslationAudit(item, field, original, translated) {
+  const audit = auditTranslationFidelity(original, translated);
+  item.translation = {
+    ...(item.translation || {}),
+    [field]: {
+      ...audit,
+      checkedAt: new Date().toISOString(),
+      display: audit.status === "verified" ? "translated" : "source-original",
+    },
+  };
+  return audit.status === "verified";
+}
+
 async function addKoTitles(arr, limit, deadline = 0) {
   const items = (arr || []).slice(0, limit || (arr || []).length);
   for (const item of items) {
@@ -3174,7 +3209,8 @@ async function addKoTitles(arr, limit, deadline = 0) {
     if (!item || !item.title || item.titleKo) continue;
     const ko = await translateKo(item.title);
     const cleanKo = cleanKoNewsText(ko);
-    if (cleanKo && cleanKo !== item.title) item.titleKo = cleanKo;
+    const verified = recordTranslationAudit(item, "title", item.title, cleanKo);
+    if (cleanKo && cleanKo !== item.title && verified) item.titleKo = cleanKo;
     _trCount += 1;
     await sleep(120);
   }
@@ -3187,7 +3223,8 @@ async function addKoSummaries(arr, limit, deadline = 0) {
     if (!item?.summaryOriginal || item.summary) continue;
     const ko = await translateKo(item.summaryOriginal);
     const cleanKo = cleanKoNewsText(ko);
-    item.summary = cleanKo || item.summaryOriginal;
+    const verified = recordTranslationAudit(item, "summary", item.summaryOriginal, cleanKo);
+    item.summary = verified ? cleanKo : item.summaryOriginal;
     _trCount += 1;
     await sleep(120);
   }
@@ -4956,14 +4993,19 @@ function intelligenceSource(item = {}) {
   const estimated = ESTIMATE_RE.test(content);
   const chineseOnly = String(item.language || "").toLowerCase() === "chinese";
   const observedThisRun = wasSourceObservedThisRun(item);
+  const evidenceLevel = !chineseOnly && url && isOfficial && observedThisRun && !estimated && !companyView
+    ? "Confirmed"
+    : !chineseOnly && url && (isMedia || isAnalysis) && !estimated && !companyView
+      ? "Reported"
+      : "Watch";
   return {
     sourceType: chineseOnly ? "중국어 보도" : isOfficial ? "공식" : isMedia ? "외신" : isAnalysis ? "분석" : "내부추정",
-    claimType: companyView ? "업체전망" : estimated ? "전망·추정" : "사실",
-    evidenceLevel: !chineseOnly && url && isOfficial && observedThisRun && !estimated && !companyView
-      ? "Confirmed"
-      : !chineseOnly && url && (isMedia || isAnalysis) && !estimated && !companyView
-        ? "Reported"
-        : "Watch",
+    claimType: companyView ? "업체전망" : estimated ? "전망·추정" : evidenceClaimLabel({
+      evidenceLevel,
+      sourceClass: isOfficial ? "official" : isMedia ? "authoritative-media" : isAnalysis ? "research" : "general-media",
+      observedThisRun,
+    }),
+    evidenceLevel,
     sourceScore: chineseOnly ? (url ? 2 : 0) : isOfficial ? 5 : isMedia ? 4 : isAnalysis ? 4 : url ? 2 : 0,
   };
 }
@@ -5030,6 +5072,12 @@ function priceEvidenceForTopic(rows, topic) {
   const periodChangePct = Number.isFinite(first) && first > 0 && Number.isFinite(latest)
     ? Number((((latest - first) / first) * 100).toFixed(2))
     : null;
+  const periodChangeValidation = assessPriceChange({
+    periodChangePct,
+    observedPoints: history.length,
+    firstObservedAt: history[0]?.crawledAt || history[0]?.date || null,
+    lastObservedAt: row.lastUpdate || history.at(-1)?.crawledAt || history.at(-1)?.date || null,
+  });
   return {
     item: row.item,
     group: row.group,
@@ -5038,10 +5086,13 @@ function priceEvidenceForTopic(rows, topic) {
     latestRaw: row.averageRaw || String(row.average || ""),
     dailyChangePct: Number.isFinite(Number(row.changePct)) ? Number(row.changePct) : null,
     periodChangePct,
+    periodChangeValidation,
     observedPoints: history.length,
     firstObservedAt: history[0]?.crawledAt || null,
     lastUpdate: row.lastUpdate || null,
     sourceUrl: row.sourceUrl || "",
+    sourceCount: row.sourceUrl ? 1 : 0,
+    crossCheckStatus: row.sourceUrl ? "single-source" : "unverified",
     isProxy: Boolean(topic.priceProxy),
   };
 }
@@ -5223,13 +5274,21 @@ function buildIntelligence({ news = [], prices = {}, stats = {}, chinaInfra = {}
     if (!top) return null;
     const sourceMeta = intelligenceSource(top);
     const price = priceEvidenceForTopic(priceRows, topic);
-    const priceSentence = price && price.periodChangePct != null
-      ? `${price.item}은 공개 누적 ${price.observedPoints}개 관측에서 ${price.periodChangePct >= 0 ? "+" : ""}${price.periodChangePct.toFixed(2)}% 변했습니다${price.isProxy ? "(직접 가격이 아닌 proxy)" : ""}.`
-      : "";
+    const displayPriceChange = price?.periodChangeValidation?.displayPeriodChangePct;
+    const priceSentence = price && Number.isFinite(displayPriceChange)
+      ? `${price.item}은 공개 누적 ${price.observedPoints}개 관측에서 ${displayPriceChange >= 0 ? "+" : ""}${displayPriceChange.toFixed(2)}% 변했습니다${price.isProxy ? "(직접 가격이 아닌 proxy)" : ""}.`
+      : price?.periodChangeValidation?.status === "review-required"
+        ? `${price.item}의 누적 변동률은 관측 구간 또는 이상치 검증이 필요해 의사결정 수치로 사용하지 않습니다.`
+        : "";
     return {
       id: topic.id,
       label: topic.label,
       generatedAt,
+      generation: {
+        method: "deterministic-template",
+        llmUsed: false,
+        sourceEntailment: "not-applicable",
+      },
       evidenceCount: ranked.length + relatedFacts.length + (price ? 1 : 0),
       latest: {
         title: intelligenceTitle(top),
@@ -5243,6 +5302,8 @@ function buildIntelligence({ news = [], prices = {}, stats = {}, chinaInfra = {}
         sourceType: sourceMeta.sourceType,
         claimType: sourceMeta.claimType,
         evidenceLevel: sourceMeta.evidenceLevel,
+        translationStatus: top.translation?.summary?.status || top.translation?.title?.status || null,
+        translationMatchPct: top.translation?.summary?.tokenMatchPct ?? top.translation?.title?.tokenMatchPct ?? null,
         provenanceId: top.verification?.id || null,
         sourceClass: top.verification?.sourceClass || newsSourceClass(top),
         factId: primaryFact?.id || null,
@@ -5269,6 +5330,11 @@ function buildIntelligence({ news = [], prices = {}, stats = {}, chinaInfra = {}
   return {
     generatedAt,
     methodologyVersion: EVIDENCE_METHODOLOGY_VERSION,
+    generation: {
+      method: "deterministic-template",
+      llmUsed: false,
+      sourceEntailment: "not-applicable",
+    },
     validation: {
       status: validationStatus,
       newsItems: Number(stats.total || news.length),
@@ -5462,12 +5528,28 @@ function buildQuarantineReport(runId, items = [], generatedAt = new Date().toISO
 function buildCrawlAudit(payload = {}, quarantine = {}) {
   const sourceClasses = {};
   const origins = {};
+  const translationStates = { verified: 0, unverified: 0, attempted: 0 };
+  const translationMatches = [];
   for (const item of payload.news || []) {
     const sourceClass = item.verification?.sourceClass || "missing";
     const origin = item.verification?.origin || "missing";
     sourceClasses[sourceClass] = (sourceClasses[sourceClass] || 0) + 1;
     origins[origin] = (origins[origin] || 0) + 1;
+    for (const field of ["title", "summary"]) {
+      const translation = item.translation?.[field];
+      if (!translation) continue;
+      translationStates.attempted += 1;
+      if (translation.status === "verified") translationStates.verified += 1;
+      else translationStates.unverified += 1;
+      if (Number.isFinite(Number(translation.tokenMatchPct))) translationMatches.push(Number(translation.tokenMatchPct));
+    }
   }
+  const priceRows = (payload.prices?.sections || []).flatMap((section) => section.rows || []);
+  const priceSources = [...new Set(priceRows.map((row) => {
+    try { return new URL(String(row.sourceUrl || "")).hostname.toLowerCase(); } catch { return ""; }
+  }).filter(Boolean))];
+  const briefPrices = (payload.intelligence?.briefs || []).map((brief) => brief.price).filter(Boolean);
+  const priceReviewRequired = briefPrices.filter((price) => price.periodChangeValidation?.status === "review-required").length;
   return {
     schemaVersion: "1.0",
     runId: payload.runId,
@@ -5495,6 +5577,19 @@ function buildCrawlAudit(payload = {}, quarantine = {}) {
     },
     sourceClasses,
     origins,
+    translation: {
+      ...translationStates,
+      sourceOriginal: translationStates.unverified,
+      averageTokenMatchPct: translationMatches.length
+        ? Number((translationMatches.reduce((sum, value) => sum + value, 0) / translationMatches.length).toFixed(1))
+        : null,
+    },
+    priceVerification: {
+      sourceCount: priceSources.length,
+      crossCheckStatus: priceSources.length >= 2 ? "cross-checked" : "single-source",
+      reviewRequired: priceReviewRequired,
+    },
+    channelAsOf: payload.quality?.channels || {},
     checks: payload.quality?.checks || [],
   };
 }
@@ -5794,7 +5889,7 @@ async function collectQuantSeries(entry) {
 async function fetchEdgarMicronFundamentals() {
   const url = "https://data.sec.gov/api/xbrl/companyfacts/CIK0000723125.json";
   const res = await fetch(url, {
-    signal: fetchSignal(),
+    signal: fetchSignal("official"),
     headers: { "User-Agent": "memory-intelligence-dashboard admin@dicacros.dev", Accept: "application/json" },
   });
   if (!res.ok) throw new Error(`HTTP ${res.status}`);
@@ -5941,7 +6036,7 @@ async function fetchTsmcOfficialRevenueHistory() {
 async function fetchTsmcMonthlyRevenue() {
   const url = "https://openapi.twse.com.tw/v1/opendata/t187ap05_L";
   const res = await fetch(url, {
-    signal: fetchSignal(),
+    signal: fetchSignal("official"),
     headers: { "User-Agent": BROWSER_UA, Accept: "application/json" },
   });
   if (!res.ok) throw new Error(`HTTP ${res.status}`);
@@ -6005,7 +6100,7 @@ async function collectOfficialIndustrySourceChecks() {
   const checkedAt = new Date().toISOString();
   const entries = await Promise.all(OFFICIAL_INDUSTRY_PROBES.map(async (probe) => {
     try {
-      const response = await fetch(probe.url, { signal: fetchSignal(), headers: { "User-Agent": BROWSER_UA, Accept: "text/html" } });
+      const response = await fetch(probe.url, { signal: fetchSignal("official"), headers: { "User-Agent": BROWSER_UA, Accept: "text/html" } });
       const html = await response.text();
       const reachable = response.ok && probe.pattern.test(html);
       note(`official:${probe.id}`, reachable, reachable ? `${probe.label} 직접 연결 · ${html.length} bytes` : `HTTP ${response.status} 또는 본문 표식 불일치`);
@@ -6313,10 +6408,10 @@ async function probeDocumentReachability(url) {
     "User-Agent": BROWSER_UA,
     Accept: "application/pdf,text/html,application/xhtml+xml,*/*;q=0.8",
   };
-  let response = await fetch(url, { method: "HEAD", signal: fetchSignal(), headers });
+  let response = await fetch(url, { method: "HEAD", signal: fetchSignal(sourceTimeoutClass(url)), headers });
   if (!response.ok && [403, 405, 501].includes(response.status)) {
     response = await fetch(url, {
-      signal: fetchSignal(),
+      signal: fetchSignal(sourceTimeoutClass(url)),
       headers: { ...headers, Range: "bytes=0-4095" },
     });
     if (response.body) await response.body.cancel();

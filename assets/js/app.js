@@ -54,7 +54,6 @@
     items: [],
   };
   const CRAWL_EXCLUSION_STORAGE_KEY = "memory-crawl-exclusions-v1";
-  const ADMIN_DELETE_PASSWORD = "000";
 
   const KOREAN_SOURCE_RE = new RegExp(
     [
@@ -2281,17 +2280,14 @@
         <div class="crawl-moderation-head">
           <span aria-hidden="true">×</span>
           <div>
-            <small>ADMIN EXCLUSION</small>
-            <strong id="crawlModerationTitle">수집 항목 삭제</strong>
+            <small>LOCAL VIEW PREFERENCE</small>
+            <strong id="crawlModerationTitle">이 브라우저에서 숨기기</strong>
           </div>
         </div>
         <p id="crawlModerationLabel"></p>
-        <label for="crawlModerationPassword">관리자 비밀번호</label>
-        <input id="crawlModerationPassword" type="password" inputmode="numeric" maxlength="3" autocomplete="off" placeholder="•••" />
-        <em id="crawlModerationError" aria-live="polite"></em>
         <div class="crawl-moderation-actions">
           <button type="button" data-crawl-cancel>취소</button>
-          <button type="submit">삭제</button>
+          <button type="submit">이 브라우저에서 숨기기</button>
         </div>
       </form>
     `;
@@ -2299,15 +2295,11 @@
     return overlay;
   }
 
-  function requestCrawlModerationPassword(label = "") {
+  function requestCrawlModerationConfirmation(label = "") {
     const overlay = ensureCrawlModerationDialog();
     const form = overlay.querySelector("form");
-    const input = overlay.querySelector("input");
-    const error = $("#crawlModerationError", overlay);
     const labelNode = $("#crawlModerationLabel", overlay);
-    labelNode.textContent = `${String(label || "선택 항목").slice(0, 90)} · 이 브라우저의 이후 갱신 결과에서도 제외됩니다.`;
-    input.value = "";
-    error.textContent = "";
+    labelNode.textContent = `${String(label || "선택 항목").slice(0, 90)} · 이 브라우저에서만 숨기며 공통 수집 데이터는 변경하지 않습니다.`;
     overlay.hidden = false;
     document.body.classList.add("crawl-moderation-open");
 
@@ -2322,19 +2314,13 @@
       };
       form.onsubmit = (event) => {
         event.preventDefault();
-        if (input.value !== ADMIN_DELETE_PASSWORD) {
-          input.value = "";
-          error.textContent = "비밀번호가 맞지 않습니다.";
-          input.focus();
-          return;
-        }
         finish(true);
       };
       overlay.querySelector("[data-crawl-cancel]").onclick = () => finish(false);
       overlay.onclick = (event) => {
         if (event.target === overlay) finish(false);
       };
-      window.setTimeout(() => input.focus(), 30);
+      window.setTimeout(() => form.querySelector("button[type=submit]")?.focus(), 30);
     });
   }
 
@@ -2364,7 +2350,7 @@
     button.addEventListener("click", async (event) => {
       event.preventDefault();
       event.stopPropagation();
-      const approved = await requestCrawlModerationPassword(label);
+      const approved = await requestCrawlModerationConfirmation(label);
       if (!approved) return;
       if (!saveLocalCrawlExclusion(type, item, label)) {
         showCrawlModerationToast("삭제 정보를 저장하지 못했습니다.");
@@ -3332,7 +3318,7 @@
                 </li>
               `).join("")}
             </ul>
-            <p class="ni-research-note">× 를 눌러 관리자 비밀번호(${escapeHTML(ADMIN_DELETE_PASSWORD)}) 입력 시 이 브라우저의 이후 갱신에서도 제외 · 원문은 계속 누적</p>
+            <p class="ni-research-note">× 를 누르면 이 브라우저에서만 숨깁니다. 공통 수집 데이터와 원문 아카이브는 변경하지 않습니다.</p>
           </div>
         `;
       })()}
@@ -3341,8 +3327,8 @@
     host.querySelectorAll("[data-trend-term]").forEach((btn) => {
       btn.addEventListener("click", () => highlightNewsForTerm(btn.dataset.trendTerm));
     });
-    // Per-citation admin delete (× + password 000): hides in this browser and
-    // stays excluded on future refreshes, while the archive keeps accumulating.
+    // Per-citation local hide: this only changes the current browser's view;
+    // shared crawl policy remains explicit in data/crawl-exclusions.json.
     const cites = researchCitations(40);
     host.querySelectorAll(".ni-cite[data-cite-index]").forEach((li) => {
       const cite = cites[Number(li.dataset.citeIndex)];
@@ -3397,6 +3383,8 @@
     const updatedAt = updatedAtRaw ? new Date(updatedAtRaw) : null;
     const ageHours = updatedAt ? (Date.now() - updatedAt.getTime()) / 3600000 : null;
     const stale = ageHours == null || ageHours > 26;
+    const expiresAt = Date.parse(String(QUANT?.expiresAt || LIVE?.expiresAt || ""));
+    const expired = !Number.isFinite(expiresAt) || Date.now() > expiresAt;
     const health = Array.isArray(LIVE?.health) ? LIVE.health : [];
     const quantHealth = QUANT?.sourceHealth || {};
     const okCount = Number.isFinite(Number(quantHealth.ok))
@@ -3416,6 +3404,15 @@
         : `${fmtNum(ageHours, ageHours < 10 ? 1 : 0)}시간 전`;
     const q = QUANT || {};
     const chips = [];
+    const channelAsOf = LIVE?.quality?.channels || {};
+    const channelLabels = { prices: "가격", news: "뉴스", community: "현장 신호", brokerResearch: "리서치", markets: "시장" };
+    const channelTimes = Object.entries(channelAsOf)
+      .map(([id, value]) => ({ id, value: Date.parse(String(value || "")) }))
+      .filter((entry) => Number.isFinite(entry.value));
+    for (const entry of channelTimes) {
+      const age = (Date.now() - entry.value) / 36e5;
+      chips.push(`${channelLabels[entry.id] || entry.id} as of ${new Date(entry.value).toLocaleString("sv-SE", { timeZone: "Asia/Seoul", hour12: false }).slice(0, 16)} KST${age > 24 ? " · 지연" : ""}`);
+    }
     const trendItems = [
       {
         id: "usdkrw",
@@ -3458,12 +3455,13 @@
     if (delayedQuant.length) chips.push(`정량 지연 ${fmtNum(delayedQuant.length)}건`);
     const verifiedRun = document.body.dataset.liveDataState === "verified"
       && Boolean(QUANT?.runId && LIVE?.runId && QUANT.runId === LIVE.runId);
-    const delayed = !verifiedRun || stale || alerts.length > 0 || delayedQuant.length > 0;
+    const delayed = !verifiedRun || stale || expired || alerts.length > 0 || delayedQuant.length > 0;
     strip.className = `crawl-heartbeat${delayed ? " stale" : ""}`;
     strip.innerHTML = `
       <span class="hb-dot" aria-hidden="true"></span>
-      <b>${delayed ? "확인 필요" : "LIVE"}</b>
+      <b>${expired ? "DATA EXPIRED" : delayed ? "확인 필요" : "LIVE"}</b>
       <span class="hb-item">마지막 수집 ${escapeHTML(ageLabel)}</span>
+      ${expired ? '<span class="hb-item fail">데이터 만료 · 최신 수집 재시도 필요</span>' : ""}
       ${totalCount ? `<span class="hb-item">소스 ${fmtNum(okCount)}/${fmtNum(totalCount)} 정상</span>` : ""}
       ${failed.length ? `<span class="hb-item fail" title="${escapeHTML(failed.slice(0, 6).join(", "))}">실패 ${fmtNum(failed.length)}건</span>` : ""}
       ${alerts.length ? `<span class="hb-item fail" title="${escapeHTML(alerts.join(", "))}">3회 연속 실패 ${fmtNum(alerts.length)}건</span>` : ""}
@@ -5372,6 +5370,36 @@
     return Math.max(min, Math.min(max, n));
   }
 
+  const PRICE_CHANGE_REVIEW_THRESHOLD_PCT = 400;
+
+  function evidenceClaimDisplayLabel(evidenceLevel = "", claimType = "") {
+    const level = String(evidenceLevel || "");
+    const claim = String(claimType || "");
+    if (/전망|추정|inferred/i.test(claim)) return claim;
+    if (level === "Confirmed") return "사실(1차 확인)";
+    if (level === "Reported") return "보도됨(1차 미확인)";
+    return claim || "검증 대기";
+  }
+
+  function pricePeriodChangeState(price = {}) {
+    const raw = Number(price?.periodChangePct);
+    const validation = price?.periodChangeValidation || {};
+    const status = validation.status || (Number.isFinite(raw) && Math.abs(raw) > PRICE_CHANGE_REVIEW_THRESHOLD_PCT ? "review-required" : "verified");
+    const display = Number(validation.displayPeriodChangePct);
+    return {
+      raw,
+      status,
+      display: Number.isFinite(display) ? display : (status === "verified" && Number.isFinite(raw) ? raw : null),
+      reasons: Array.isArray(validation.reasons) ? validation.reasons : [],
+    };
+  }
+
+  function pricePeriodChangeLabel(price = {}) {
+    const state = pricePeriodChangeState(price);
+    if (state.status === "review-required") return "변동률 검증 필요";
+    return Number.isFinite(state.display) ? `${state.display >= 0 ? "+" : ""}${fmtNum(state.display, 2)}%` : "변화 확인 중";
+  }
+
   function itemIds(item = {}) {
     return []
       .concat(item.id || [])
@@ -5535,11 +5563,28 @@
       const msg = String(entry?.msg || "");
       return !isZeroCountMessage(msg);
     });
+    const newsByProvenanceId = new Map(next.news.map((item) => [item.verification?.id, item]));
+    const normalizedBriefs = (next.intelligence?.briefs || []).filter((brief) => brief?.id && brief?.latest?.url).map((brief) => {
+      const sourceItem = newsByProvenanceId.get(brief.latest?.provenanceId);
+      if (!sourceItem || !hasCurrencyTranslationMismatch(sourceItem.summaryOriginal, sourceItem.summary)) return brief;
+      const sourceSummary = sourceSafeSummary(sourceItem);
+      return {
+        ...brief,
+        latest: {
+          ...brief.latest,
+          title: sourceSafeTitle(sourceItem),
+          summary: sourceSummary,
+          summaryLanguage: "source-original",
+          translationStatus: "unverified",
+        },
+        insight: String(brief.insight || "").replace(String(brief.latest?.summary || ""), sourceSummary),
+      };
+    });
     next.intelligence = {
       generatedAt: next.intelligence?.generatedAt || next.updatedAt || null,
       methodologyVersion: next.intelligence?.methodologyVersion || "",
       validation: next.intelligence?.validation || {},
-      briefs: (next.intelligence?.briefs || []).filter((brief) => brief?.id && brief?.latest?.url),
+      briefs: normalizedBriefs,
       executive: next.intelligence?.executive || [],
     };
     return next;
@@ -7779,7 +7824,8 @@
     const observations = subject.observations || [];
     const priceRows = subject.evidence?.prices || [];
     return observations.concat(priceRows).map((item) => {
-      const candidates = [item.actualChange, item.changePct, item.periodChangePct, item.change, item.latestChangePct];
+      const periodChange = pricePeriodChangeState(item).display;
+      const candidates = [item.actualChange, item.changePct, periodChange, item.change, item.latestChangePct];
       const value = candidates.map(Number).find(Number.isFinite);
       return Number.isFinite(value) ? value : null;
     }).filter(Number.isFinite);
@@ -8116,16 +8162,17 @@
     const liveBrief = intelligenceBriefForDecision(selected);
     const chinaBrief = liveIntelligenceBrief("china");
     const livePrice = liveBrief?.price;
-    const livePeriodChange = Number(livePrice?.periodChangePct);
+    const livePriceState = pricePeriodChangeState(livePrice);
+    const livePeriodChange = livePriceState.display;
     const resolvedFact = liveBrief?.factReferences?.[0] || null;
     const resolvedFactText = resolvedFact
       ? ` 현재 단계는 ${resolvedFact.label} · ${resolvedFact.stage}입니다.`
       : "";
     const latestEvidence = liveBrief
-      ? `최신 근거는 "${liveBrief.latest?.title || liveBrief.label}"(${liveBrief.latest?.source || "원문"}, ${shortKstDate(liveBrief.latest?.publishedAt || liveBrief.generatedAt)})이며, ${liveBrief.latest?.evidenceLevel || "Watch"} · ${liveBrief.latest?.claimType || "사실"}로 분류합니다.${resolvedFactText}`
+      ? `최신 근거는 "${liveBrief.latest?.title || liveBrief.label}"(${liveBrief.latest?.source || "원문"}, ${shortKstDate(liveBrief.latest?.publishedAt || liveBrief.generatedAt)})이며, ${liveBrief.latest?.evidenceLevel || "Watch"} · ${evidenceClaimDisplayLabel(liveBrief.latest?.evidenceLevel, liveBrief.latest?.claimType)}로 분류합니다.${resolvedFactText}`
       : "원문이 연결된 최신 근거만 결론에 반영합니다.";
     const priceEvidence = livePrice
-      ? `${livePrice.item}은 공개 누적 ${fmtNum(livePrice.observedPoints)}개 관측에서 ${Number.isFinite(livePeriodChange) ? `${livePeriodChange >= 0 ? "+" : ""}${fmtNum(livePeriodChange, 2)}%` : livePrice.latestRaw || "변화 확인 중"}${livePrice.isProxy ? "이며 직접 가격이 아닌 proxy입니다" : "입니다"}.`
+      ? `${livePrice.item}은 공개 누적 ${fmtNum(livePrice.observedPoints)}개 관측에서 ${livePriceState.status === "review-required" ? "변동률 검증 필요" : Number.isFinite(livePeriodChange) ? `${livePeriodChange >= 0 ? "+" : ""}${fmtNum(livePeriodChange, 2)}%` : livePrice.latestRaw || "변화 확인 중"}${livePrice.isProxy ? "이며 직접 가격이 아닌 proxy입니다" : "입니다"}.`
       : "직접 연결된 공개 가격이 없는 안건은 물량·고객·규제 원문으로 판단합니다.";
     const topRelationText = topRelation
       ? `${memoryMarketNodeName(topRelation.from)} → ${memoryMarketNodeName(topRelation.to)}`
@@ -8347,14 +8394,15 @@
     const action = selected?.action || profile.next || "추가 검증 후 경영진 안건화";
     const liveBrief = intelligenceBriefForDecision(selected);
     const livePrice = liveBrief?.price;
-    const liveChange = Number(livePrice?.periodChangePct);
+    const livePriceState = pricePeriodChangeState(livePrice);
+    const liveChange = livePriceState.display;
     const liveFact = liveBrief?.factReferences?.[0] || null;
     const liveFactText = liveFact ? ` · ${liveFact.label}/${liveFact.stage}` : "";
     const liveEvidenceText = liveBrief
       ? `"${liveBrief.latest?.title || liveBrief.label}"(${liveBrief.latest?.source || "원문"}, ${shortKstDate(liveBrief.latest?.publishedAt || liveBrief.generatedAt)})${liveFactText}`
       : "원문이 연결된 근거";
     const livePriceText = livePrice
-      ? `${livePrice.item} ${Number.isFinite(liveChange) ? `${liveChange >= 0 ? "+" : ""}${fmtNum(liveChange, 2)}%` : livePrice.latestRaw || ""}${livePrice.isProxy ? " proxy" : ""}`
+      ? `${livePrice.item} ${livePriceState.status === "review-required" ? "변동률 검증 필요" : Number.isFinite(liveChange) ? `${liveChange >= 0 ? "+" : ""}${fmtNum(liveChange, 2)}%` : livePrice.latestRaw || ""}${livePrice.isProxy ? " proxy" : ""}`
       : "직접 가격 없음";
     return [
       {
@@ -15366,15 +15414,19 @@
       const end = points[points.length - 1];
       const startValue = Number(start?.average);
       const endValue = Number(end?.average ?? row.average);
-      const historyMove = Number.isFinite(startValue) && startValue !== 0 && Number.isFinite(endValue)
+      const rawHistoryMove = Number.isFinite(startValue) && startValue !== 0 && Number.isFinite(endValue)
         ? ((endValue - startValue) / startValue) * 100
         : Number(row.changePct);
+      const priceReviewRequired = Number.isFinite(rawHistoryMove) && Math.abs(rawHistoryMove) > PRICE_CHANGE_REVIEW_THRESHOLD_PCT;
+      const historyMove = priceReviewRequired ? null : rawHistoryMove;
       const relevance = mode === "hbm"
         ? (/rdimm|ddr5/.test(`${row.item}`.toLowerCase()) ? 8 : 4)
         : (/contract/i.test(row.sectionTitle || "") ? 5 : 4);
       return {
         ...row,
         historyMove: Number.isFinite(historyMove) ? historyMove : null,
+        rawHistoryMove: Number.isFinite(rawHistoryMove) ? rawHistoryMove : null,
+        priceReviewRequired,
         pointCount: points.length,
         firstAt: start?.time || 0,
         latestAt: end?.time || 0,
@@ -15527,7 +15579,7 @@
         </div>
         ${context.prices?.length ? `<div class="ceo-live-price-list">${context.prices.slice(0, 4).map((row) => `
           <a href="${escapeHTML(row.sourceUrl || "#")}" target="_blank" rel="noopener noreferrer">
-            <span>${escapeHTML(priceTypeLabel(row))}</span><strong>${escapeHTML(row.item || "가격 품목")}</strong><em>${signedPercent(row.historyMove)}</em>
+            <span>${escapeHTML(priceTypeLabel(row))}</span><strong>${escapeHTML(row.item || "가격 품목")}</strong><em>${row.priceReviewRequired ? "변동률 검증 필요" : signedPercent(row.historyMove)}</em>
           </a>`).join("")}</div>` : ""}
         <div class="ceo-live-news-list">
           ${factItems.map((item) => `
@@ -18636,21 +18688,22 @@
     const brief = qaIntelligenceBrief(pair, query);
     if (!brief?.latest?.url) return "";
     const price = brief.price;
-    const periodChange = Number(price?.periodChangePct);
+    const priceChange = pricePeriodChangeState(price);
     return `
       <section class="qa-current-brief">
         <div class="qa-current-brief-head">
           <span>${escapeHTML(brief.label || "최신 근거")}</span>
           <small>${escapeHTML([
             brief.latest.sourceType,
-            brief.latest.claimType,
+            evidenceClaimDisplayLabel(brief.latest.evidenceLevel, brief.latest.claimType),
             brief.latest.summaryLanguage === "source-original" ? "원문 요약" : "",
+            brief.latest.translationStatus === "unverified" ? "번역 미확인" : "",
           ].filter(Boolean).join(" · "))}</small>
           <em class="${brief.latest.evidenceLevel === "Confirmed" ? "confirmed" : "watch"}">${escapeHTML(brief.latest.evidenceLevel || "Watch")}</em>
         </div>
         <strong>${escapeHTML(brief.latest.title || "")}</strong>
         <p>${escapeHTML(brief.latest.summary || "")}</p>
-        ${price ? `<div class="qa-current-price"><span>${price.isProxy ? "가격 proxy" : "연결 가격"}</span><b>${escapeHTML(price.item || "")}</b><em>${Number.isFinite(periodChange) ? `${periodChange >= 0 ? "+" : ""}${fmtNum(periodChange, 2)}% · ${fmtNum(price.observedPoints)}개 관측` : escapeHTML(price.latestRaw || "")}</em></div>` : ""}
+        ${price ? `<div class="qa-current-price"><span>${price.isProxy ? "가격 proxy" : "연결 가격"}</span><b>${escapeHTML(price.item || "")}</b><em title="${priceChange.status === "review-required" ? "관측 구간 또는 변동률 이상치를 재검증한 뒤 사용합니다." : ""}">${priceChange.status === "review-required" ? `변동률 검증 필요 · ${fmtNum(price.observedPoints)}개 관측` : `${escapeHTML(pricePeriodChangeLabel(price))} · ${fmtNum(price.observedPoints)}개 관측`}${price.crossCheckStatus === "single-source" ? " · 단일 소스" : ""}</em></div>` : ""}
         <div class="qa-current-decision"><b>경영 판단</b><span>${escapeHTML(brief.decision || "")}</span></div>
         <div class="qa-current-reversal"><b>판단 변경 KPI</b><span>${escapeHTML(brief.reversalKpi || "")}</span></div>
         <a href="${escapeHTML(brief.latest.url)}" target="_blank" rel="noopener">${escapeHTML(brief.latest.source || "원문")} · ${escapeHTML(shortKstDate(brief.latest.publishedAt || brief.generatedAt) || "")}</a>
@@ -19906,7 +19959,32 @@
   }
 
   function newsTitle(item) {
-    return stripTrailingSource(cleanKoreanTitle(item.titleKo || item.title || ""), item.source);
+    return stripTrailingSource(cleanKoreanTitle(sourceSafeTitle(item)), item.source);
+  }
+
+  function hasCurrencyTranslationMismatch(original = "", translated = "") {
+    const source = String(original || "");
+    const localized = String(translated || "");
+    const sourceCny = /\b(?:cny|rmb|yuan)\b|위안|人民币|亿元/i.test(source);
+    const localizedUsd = /\b(?:usd|us\$)\b|달러/i.test(localized);
+    const localizedCny = /\b(?:cny|rmb|yuan)\b|위안/i.test(localized);
+    return sourceCny && localizedUsd && !localizedCny;
+  }
+
+  function sourceSafeTitle(item = {}) {
+    const original = String(item.title || "");
+    const translated = String(item.titleKo || original);
+    return item.translation?.title?.status === "unverified" || hasCurrencyTranslationMismatch(original, translated)
+      ? original
+      : translated;
+  }
+
+  function sourceSafeSummary(item = {}) {
+    const original = String(item.summaryOriginal || item.summary || "");
+    const translated = String(item.summaryKo || item.summary || original);
+    return item.translation?.summary?.status === "unverified" || hasCurrencyTranslationMismatch(original, translated)
+      ? original
+      : translated;
   }
 
   function stripTrailingSource(title, source) {
@@ -19987,7 +20065,7 @@
 
   function insightLines(item) {
     const title = newsTitle(item);
-    const summary = cleanInsightText(item.summaryKo || item.summary || item.summaryOriginal || "");
+    const summary = cleanInsightText(sourceSafeSummary(item));
     const category = CATEGORY_INSIGHTS[item.category] || "메모리 업계 가격·고객·공급망 변화를 함께 점검";
     const rows = [
       newsSummaryLine(item, title, summary, category),
