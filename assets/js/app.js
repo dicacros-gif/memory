@@ -5493,7 +5493,7 @@
     tabs.innerHTML = liveForecastScenarios().map((s) => {
       const sd = forecastDrivers(category, s);
       return `
-        <button type="button" class="${s.id === hyperscalerScenario ? "active" : ""}" data-hs-scenario="${escapeHTML(s.id)}" style="--tab-tone:${s.tone === "watch" ? "#F59E0B" : "#10B981"}">
+        <button type="button" class="${s.id === hyperscalerScenario ? "active" : ""}" data-hs-scenario="${escapeHTML(s.id)}" aria-pressed="${s.id === hyperscalerScenario ? "true" : "false"}" style="--tab-tone:${s.id === "bear" ? "#B7791F" : s.id === "bull" ? "#0B8F68" : "#52637A"}">
           <strong>${escapeHTML(s.label)}</strong>
           <small>총 ${fmtNum(sd.totalPb)} PB · SKHY ${fmtNum(sd.skhyPb)} PB</small>
         </button>
