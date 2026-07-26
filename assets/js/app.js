@@ -12919,18 +12919,16 @@
     const shareWrap = $("#architectureShareMatrix");
     const roadmapWrap = $("#architectureRoadmap");
     const valueWrap = $("#valueChainMap");
-    const moduleWrap = $("#platformModules");
     const meta = $("#architectureMeta");
-    if (!summary || !tracksWrap || !advancedWrap || !shareWrap || !roadmapWrap || !valueWrap || !moduleWrap) return;
+    if (!summary || !tracksWrap || !advancedWrap || !shareWrap || !roadmapWrap || !valueWrap) return;
 
     const tracks = (matrix.tracks || []).filter(architectureRelated);
     const advancedModules = (matrix.advancedModules || []).filter(architectureRelated);
     const shareRows = (matrix.shareMatrix || []).filter(architectureRelated);
     const roadmap = matrix.roadmap || [];
     const valueChain = (matrix.valueChain || []).filter(architectureRelated);
-    const modules = matrix.platformModules || [];
     if (meta) {
-      const objectCount = tracks.length + advancedModules.length + shareRows.length + roadmap.length + valueChain.length + modules.length;
+      const objectCount = tracks.length + advancedModules.length + shareRows.length + roadmap.length + valueChain.length;
       meta.textContent = `${fmtNum(objectCount)}개 객체 · ${activeCategoryData().label} · ${matrix.sourceNote || "첨부 보고서 반영"}`;
     }
 
@@ -13140,16 +13138,6 @@
     });
     if (!valueWrap.children.length) valueWrap.appendChild(el("div", "empty", "선택한 카테고리의 밸류체인 노드가 없습니다."));
 
-    moduleWrap.innerHTML = modules.map((module, index) => `
-      <article class="platform-module reveal" style="animation-delay:${index * 25}ms">
-        <span class="chip accent">${escapeHTML(module.name)}</span>
-        <p>${escapeHTML(module.function)}</p>
-        <div class="module-foot">
-          <strong>${escapeHTML(module.users)}</strong>
-          <span>${escapeHTML(module.differentiation)}</span>
-        </div>
-      </article>
-    `).join("");
   }
 
   function liveBenchmarkTheme(id) {
@@ -18186,16 +18174,13 @@
   }
 
   function renderChinaDynamics() {
-    const overview = $("#chinaDynamicsOverview");
     const grid = $("#chinaDynamicsGrid");
     const summary = $("#chinaDynamicsSummary");
-    if (!overview || !grid) return;
+    if (!grid) return;
 
     const chinaNews = rawNews().filter(isChinaArticle);
-    const chinaNewsCount = chinaNews.length;
     const chinaCategoryItems = liveNewsCategory("china")?.items || [];
     const benchmarkItems = LIVE.benchmarkSignals?.stream || [];
-    const benchmarkSignals = uniqueLiveSignalItems(benchmarkItems).length;
     const equipmentSignals = axisSignalCount(CHINA_DYNAMIC_AXES.find((axis) => axis.id === "equipment"));
     const packagingSignals = axisSignalCount(CHINA_DYNAMIC_AXES.find((axis) => axis.id === "packaging"));
     const totalChinaSignals = uniqueLiveSignalItems([chinaNews, chinaCategoryItems, benchmarkItems]).length;
@@ -18209,20 +18194,6 @@
       ];
       summary.innerHTML = summaryLines.map((line) => `<p>${escapeHTML(line)}</p>`).join("");
     }
-
-    const overviewItems = [
-      { label: "중국 기사", value: chinaNewsCount, note: "CXMT·YMTC·장비·패키징 관련" },
-      { label: "벤치마킹 신호", value: benchmarkSignals, note: "캐파·장비·패키징·인재/IP" },
-      { label: "장비 국산화", value: equipmentSignals, note: "Naura·AMEC·ACM 축" },
-      { label: "패키징 우회로", value: packagingSignals, note: "JCET·XMC·HBM 조립" },
-    ];
-    overview.innerHTML = overviewItems.map((item) => `
-      <article class="dyn-stat">
-        <span>${escapeHTML(item.label)}</span>
-        <strong>${countHTML(item.value)}</strong>
-        <small>${escapeHTML(item.note)}</small>
-      </article>
-    `).join("");
 
     grid.innerHTML = "";
     CHINA_DYNAMIC_AXES.map((axis) => ({ axis, count: axisSignalCount(axis) }))

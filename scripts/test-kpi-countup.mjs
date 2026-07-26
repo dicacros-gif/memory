@@ -104,7 +104,7 @@ assert.match(app, /const priceRenderObserver = new IntersectionObserver[\s\S]*?r
 assert.match(app, /section\.id === "prices" \? priceRenderObserver : observer/, "only the price board should receive the early render window");
 assert.match(css, /\.agent-debate-title \.agent-tts-toggle \{[\s\S]*?min-width: 190px;[\s\S]*?min-height: 44px;/, "the English TTS control should be large and readable");
 assert.match(css, /\.agent-tts-state \{[\s\S]*?min-width: 31px;/, "the TTS control should expose a dedicated on-or-off state badge");
-assert.match(html, /app\.js\?v=site-audit-20260726-48/, "JavaScript cache key should include the site-audit revision");
+assert.match(html, /app\.js\?v=site-audit-20260726-50/, "JavaScript cache key should include the site-audit revision");
 assert.match(html, /id="memoryHeroVideo"[\s\S]*?preload="none"[\s\S]*?<source data-src="assets\/media\/memory-hero\.mp4"/, "hero video should hydrate after the poster paints");
 assert.match(html, /id="talentStrategyVideoMedia"[\s\S]*?preload="none"[\s\S]*?data-poster="assets\/media\/china-talent-strategy-poster\.webp"[\s\S]*?<source data-src="assets\/media\/china-talent-strategy\.mp4"/, "below-fold talent media should not load during first paint");
 assert.doesNotMatch(html, /family=Noto\+Sans\+KR/, "Pretendard should replace the duplicate Korean webfont download");
@@ -159,5 +159,9 @@ assert.match(app, /class="forecast-cat-tab\$\{c\.id === forecastCategory \? " ac
 assert.match(css, /\.forecast-cat-tabs button:is\(:hover, :focus-visible\) \{[\s\S]*?translateY\(-4px\) scale\(1\.025\)/, "forecast category filters should lift and scale on hover");
 assert.match(css, /\.forecast-cat-tabs button:active \{[\s\S]*?translateY\(2px\) scale\(\.985\)/, "forecast category filters should visibly depress when clicked");
 assert.match(css, /\.forecast-cat-tabs button\.active \{[\s\S]*?0 4px 0 color-mix/, "the selected forecast category should retain tactile depth");
+assert.doesNotMatch(html, /id="chinaDynamicsOverview"/, "the redundant China dynamics metric strip should be removed");
+assert.doesNotMatch(html, /id="platformModules"/, "the platform implementation module section should be removed");
+assert.doesNotMatch(app, /const overview = \$\("#chinaDynamicsOverview"\)/, "China dynamics should no longer render the removed metric strip");
+assert.doesNotMatch(app, /const moduleWrap = \$\("#platformModules"\)/, "architecture rendering should not depend on the removed platform module section");
 
 console.log("KPI typography and hover count-up checks passed.");
