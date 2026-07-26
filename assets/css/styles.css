@@ -4326,6 +4326,22 @@ body.sidebar-collapsed .sb-ico {
   box-shadow: 0 0 0 3px color-mix(in srgb, var(--report-accent, #008f79) 14%, transparent);
 }
 
+.exec-report-bullet-copy {
+  min-width: 0;
+  display: block;
+  overflow-wrap: anywhere;
+  word-break: keep-all;
+  line-height: inherit;
+  letter-spacing: 0;
+}
+
+.exec-report-bullet-copy :is(.strategy-highlight, .answer-term) {
+  display: inline;
+  white-space: normal;
+  line-height: inherit;
+  vertical-align: baseline;
+}
+
 .exec-report-thesis > .exec-report-bullet-list > li {
   color: #e9eff6;
   font-size: 14px;

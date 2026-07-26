@@ -6911,7 +6911,7 @@
   function briefingBulletListHTML(value = "", className = "exec-report-bullet-list") {
     const lines = briefingBulletLines(value);
     if (!lines.length) return "";
-    return `<ul class="${className}">${lines.map((line) => `<li>${strategicHighlightHTML(line)}</li>`).join("")}</ul>`;
+    return `<ul class="${className}">${lines.map((line) => `<li><span class="exec-report-bullet-copy">${strategicHighlightHTML(line)}</span></li>`).join("")}</ul>`;
   }
 
   function briefingLineText(value = "") {
