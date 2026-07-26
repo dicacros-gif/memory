@@ -4342,6 +4342,108 @@ body.sidebar-collapsed .sb-ico {
   vertical-align: baseline;
 }
 
+/* Source-digest legibility: semantic colors identify important terms on light
+   cards, then converge to a high-contrast gold when the full card inverts. */
+.exec-baseline-document h5 {
+  font-size: 13.5px;
+  line-height: 1.45;
+  font-weight: 900;
+}
+
+.exec-baseline-document > p {
+  color: #263449;
+  font-size: 11px;
+  line-height: 1.58;
+  font-weight: 780;
+}
+
+.exec-baseline-document > ul li {
+  color: #35445a;
+  font-size: 10.25px;
+  line-height: 1.58;
+  font-weight: 700;
+}
+
+.exec-baseline-document > header small,
+.exec-baseline-document > header em {
+  color: #5b687b;
+  font-size: 9px;
+}
+
+.exec-baseline-document-metrics span {
+  min-height: 38px;
+  font-size: 9.5px;
+  line-height: 1.4;
+}
+
+.exec-baseline-report h5 {
+  font-size: 12.5px;
+  line-height: 1.46;
+  font-weight: 900;
+}
+
+.exec-baseline-points {
+  gap: 7px;
+}
+
+.exec-baseline-points b {
+  font-size: 9px;
+  line-height: 1.5;
+  font-weight: 900;
+}
+
+.exec-baseline-points span {
+  color: #35445a;
+  font-size: 10px;
+  line-height: 1.52;
+  font-weight: 700;
+}
+
+.exec-baseline-document :is(.strategy-highlight, .answer-term),
+.exec-baseline-report :is(.strategy-highlight, .answer-term) {
+  font-weight: 850;
+  text-shadow: none;
+}
+
+.exec-baseline-document .term-tech,
+.exec-baseline-report .term-tech {
+  --term-color: #006d63;
+}
+
+.exec-baseline-document .term-company,
+.exec-baseline-report .term-company {
+  --term-color: #6d28d9;
+}
+
+.exec-baseline-document .term-metric,
+.exec-baseline-report .term-metric {
+  --term-color: #b42318;
+}
+
+.exec-baseline-document .term-policy,
+.exec-baseline-report .term-policy {
+  --term-color: #a74600;
+}
+
+.exec-baseline-document:is(:hover, :focus-visible),
+.exec-baseline-report:is(:hover, :focus-visible) {
+  background:
+    radial-gradient(circle at 92% 0, rgba(255, 255, 255, .12), transparent 36%),
+    linear-gradient(138deg,
+      color-mix(in srgb, var(--document-accent, var(--report-accent)) 76%, #071526),
+      color-mix(in srgb, var(--document-accent, var(--report-accent)) 44%, #020817));
+}
+
+.exec-baseline-document:is(:hover, :focus-visible) :is(.strategy-highlight, .answer-term),
+.exec-baseline-report:is(:hover, :focus-visible) :is(.strategy-highlight, .answer-term) {
+  --term-color: #ffe790;
+  --term-line: #fbbf24;
+  color: #ffe790 !important;
+  -webkit-text-fill-color: #ffe790;
+  text-decoration-color: #fbbf24 !important;
+  text-shadow: 0 1px 2px rgba(2, 8, 23, .45);
+}
+
 .exec-report-thesis > .exec-report-bullet-list > li {
   color: #e9eff6;
   font-size: 14px;

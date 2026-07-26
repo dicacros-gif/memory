@@ -6958,13 +6958,13 @@
                 </div>
                 <em>${fmtNum(Number(document.topicCount) || reports.filter((item) => item.documentId === document.id).length)}개 논점</em>
               </header>
-              <h5>${escapeHTML(withoutTerminalStop(document.title || document.fileName || "제공 원문"))}</h5>
-              <p>${escapeHTML(withoutTerminalStop(document.focus || ""))}</p>
+              <h5>${strategicHighlightHTML(withoutTerminalStop(document.title || document.fileName || "제공 원문"))}</h5>
+              <p>${strategicHighlightHTML(withoutTerminalStop(document.focus || ""))}</p>
               <ul>
-                ${(Array.isArray(document.corePoints) ? document.corePoints : []).slice(0, 3).map((point) => `<li>${escapeHTML(withoutTerminalStop(point))}</li>`).join("")}
+                ${(Array.isArray(document.corePoints) ? document.corePoints : []).slice(0, 3).map((point) => `<li>${strategicHighlightHTML(withoutTerminalStop(point))}</li>`).join("")}
               </ul>
               <div class="exec-baseline-document-metrics">
-                ${(Array.isArray(document.metrics) ? document.metrics : []).slice(0, 3).map((metric) => `<span>${escapeHTML(withoutTerminalStop(metric))}</span>`).join("")}
+                ${(Array.isArray(document.metrics) ? document.metrics : []).slice(0, 3).map((metric) => `<span>${strategicHighlightHTML(withoutTerminalStop(metric))}</span>`).join("")}
               </div>
               <footer><span>제공 파일</span><code>${escapeHTML(document.fileName || "파일명 미상")}</code></footer>
             </article>
@@ -6982,12 +6982,12 @@
                 <strong>${escapeHTML(withoutTerminalStop(item.label || "제공 리포트"))}</strong>
                 <small>${escapeHTML(item.publishedAt || baseline.asOf || "작성일 미상")}</small>
               </header>
-              <h5>${escapeHTML(withoutTerminalStop(item.title))}</h5>
+              <h5>${strategicHighlightHTML(withoutTerminalStop(item.title))}</h5>
               <ul class="exec-baseline-points">
-                <li><b>핵심 내용</b><span>${escapeHTML(item.body)}</span></li>
-                ${item.metrics.length ? `<li><b>핵심 수치</b><span>${item.metrics.map(escapeHTML).join(" · ")}</span></li>` : ""}
-                <li><b>경영 시사점</b><span>${escapeHTML(item.implication)}</span></li>
-                <li><b>재검증 기준</b><span>${escapeHTML(item.reversal)}</span></li>
+                <li><b>핵심 내용</b><span>${strategicHighlightHTML(item.body)}</span></li>
+                ${item.metrics.length ? `<li><b>핵심 수치</b><span>${item.metrics.map((metric) => strategicHighlightHTML(metric)).join(" · ")}</span></li>` : ""}
+                <li><b>경영 시사점</b><span>${strategicHighlightHTML(item.implication)}</span></li>
+                <li><b>재검증 기준</b><span>${strategicHighlightHTML(item.reversal)}</span></li>
               </ul>
             </li>
           `).join("")}
