@@ -111,7 +111,7 @@ assert.match(app, /const priceRenderLookAhead = Math\.max\(9000, Math\.round\(wi
 assert.match(app, /section\.id === "prices" \? priceRenderObserver : observer/, "only the price board should receive the early render window");
 assert.match(css, /\.agent-debate-title \.agent-tts-toggle \{[\s\S]*?min-width: 190px;[\s\S]*?min-height: 44px;/, "the English TTS control should be large and readable");
 assert.match(css, /\.agent-tts-state \{[\s\S]*?min-width: 31px;/, "the TTS control should expose a dedicated on-or-off state badge");
-assert.match(html, /app\.js\?v=site-audit-20260726-62/, "JavaScript cache key should include the site-audit revision");
+assert.match(html, /app\.js\?v=site-audit-20260726-63/, "JavaScript cache key should include the site-audit revision");
 assert.match(html, /id="memoryHeroVideo"[\s\S]*?preload="none"[\s\S]*?<source data-src="assets\/media\/memory-hero\.mp4"/, "hero video should hydrate after the poster paints");
 assert.match(html, /id="talentStrategyVideoMedia"[\s\S]*?preload="none"[\s\S]*?data-poster="assets\/media\/china-talent-strategy-poster\.webp"[\s\S]*?<source data-src="assets\/media\/china-talent-strategy\.mp4"/, "below-fold talent media should not load during first paint");
 assert.doesNotMatch(html, /family=Noto\+Sans\+KR/, "Pretendard should replace the duplicate Korean webfont download");
@@ -131,6 +131,9 @@ assert.match(html, /styles\.css\?v=site-audit-20260726-59/, "CSS cache key shoul
 assert.doesNotMatch(app, /공개 출처로 확인되는 것은 중국 회사법의 당조직 조항/, "Unverified political-organization interpretation copy should not remain in the client");
 assert.doesNotMatch(app, /중국 내 고객 대응은 유지하되, 선단 공정 업그레이드/, "Removed China strategy copy should not remain in the client");
 assert.doesNotMatch(app, /<strong>관련 최신 기사(?:\/신호)?<\/strong>/, "Supplemental related-latest-article lists should not render in detail panels");
+assert.match(app, /function executiveBulletText\(value = ""\)[\s\S]*?\.replace\(\/\(\[가-힣\]\+\)합니다[\s\S]*?"\$1함"\)/, "Non-agent copy should convert formal prose into concise bullet endings");
+assert.match(app, /BRIEF_COPY_EXEMPT_SELECTOR[\s\S]*?"\.agent-question"[\s\S]*?"\.agent-answer"[\s\S]*?"\.qa-answer"/, "Agent questions and answers should remain verbatim");
+assert.match(app, /function setupBriefCopyObserver\(\)[\s\S]*?MutationObserver[\s\S]*?characterData: true/, "Dynamically rendered cards should also receive bullet-style normalization");
 assert.match(css, /#policy-makers[\s\S]*?--term-hover:\s*#334155;[\s\S]*?text-shadow:\s*none;/, "Light Policy Maker cards should retain dark semantic emphasis on hover");
 assert.match(css, /font-synthesis:\s*none/, "Mixed Hangul and Latin emphasis should disable synthetic glyph weights");
 assert.match(css, /\.exec-report-bullet-list[\s\S]*?font-weight:\s*800/, "Report highlights should use a supported professional font weight");

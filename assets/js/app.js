@@ -3948,7 +3948,8 @@
     setupQA();
     setupInteractions();
     setupScrollSpy();
-    normalizeBriefCopy($("#overview-content") || document.body);
+    normalizeBriefCopy(document.body);
+    setupBriefCopyObserver();
     animateCounts();
     animateMeters();
     setupKpiCountReplay();
@@ -5669,8 +5670,95 @@
     return String(value ?? "").replace(/\s+/g, " ").trim();
   }
 
+  const BRIEF_COPY_EXEMPT_SELECTOR = [
+    ".agent-question",
+    ".agent-answer",
+    ".qa-answer",
+    ".answer-panel",
+    "[data-say-en]",
+    "[data-brief-copy='verbatim']",
+    "script",
+    "style",
+    "code",
+    "pre",
+    "textarea",
+    "option",
+  ].join(",");
+
+  function executiveBulletText(value = "") {
+    return String(value ?? "")
+      .replace(/할 수 없습니다(?=[.!。]|$)/g, "불가")
+      .replace(/할 수 있습니다(?=[.!。]|$)/g, "가능")
+      .replace(/해야 합니다(?=[.!。]|$)/g, "필요")
+      .replace(/필요가 있습니다(?=[.!。]|$)/g, "필요")
+      .replace(/가능성이 큽니다(?=[.!。]|$)/g, "가능성 높음")
+      .replace(/가능성이 높습니다(?=[.!。]|$)/g, "가능성 높음")
+      .replace(/가능성이 낮습니다(?=[.!。]|$)/g, "가능성 낮음")
+      .replace(/([가-힣]+)입니다(?=[.!。]|$)/g, "$1임")
+      .replace(/([가-힣]+)합니다(?=[.!。]|$)/g, "$1함")
+      .replace(/([가-힣]+)됩니다(?=[.!。]|$)/g, "$1됨")
+      .replace(/([가-힣]+)집니다(?=[.!。]|$)/g, "$1짐")
+      .replace(/([가-힣]+)립니다(?=[.!。]|$)/g, "$1림")
+      .replace(/([가-힣]+)듭니다(?=[.!。]|$)/g, "$1듦")
+      .replace(/([가-힣]+)봅니다(?=[.!。]|$)/g, "$1판단")
+      .replace(/([가-힣]+)습니다(?=[.!。]|$)/g, "$1음")
+      .replace(/([가-힣]+)였다(?=[.!。]|$)/g, "$1였음")
+      .replace(/([가-힣]+)했다(?=[.!。]|$)/g, "$1했음")
+      .replace(/([가-힣]+)됐다(?=[.!。]|$)/g, "$1됐음")
+      .replace(/([가-힣]+)이다(?=[.!。]|$)/g, "$1임")
+      .replace(/([가-힣]+)있다(?=[.!。]|$)/g, "$1있음")
+      .replace(/([가-힣]+)없다(?=[.!。]|$)/g, "$1없음")
+      .replace(/([가-힣]+)한다(?=[.!。]|$)/g, "$1함")
+      .replace(/([가-힣]+)된다(?=[.!。]|$)/g, "$1됨")
+      .replace(/([가-힣]+)하다(?=[.!。]|$)/g, "$1")
+      .replace(/([가-힣])[.。]+\s+(?=[가-힣A-Za-z0-9])/g, "$1 · ")
+      .replace(/([가-힣])[.。]+\s*$/g, "$1")
+      .replace(/\s*·\s*·\s*/g, " · ");
+  }
+
+  function briefCopyTextNodeAllowed(node) {
+    const parent = node?.parentElement;
+    if (!parent || !String(node.nodeValue || "").trim()) return false;
+    if (parent.isContentEditable) return false;
+    return !parent.closest(BRIEF_COPY_EXEMPT_SELECTOR);
+  }
+
   function normalizeBriefCopy(root = document.body) {
-    return root;
+    if (!root) return 0;
+    const nodes = [];
+    if (root.nodeType === Node.TEXT_NODE) {
+      nodes.push(root);
+    } else {
+      const walker = document.createTreeWalker(root, NodeFilter.SHOW_TEXT);
+      while (walker.nextNode()) nodes.push(walker.currentNode);
+    }
+    let changed = 0;
+    nodes.forEach((node) => {
+      if (!briefCopyTextNodeAllowed(node)) return;
+      const next = executiveBulletText(node.nodeValue);
+      if (next === node.nodeValue) return;
+      node.nodeValue = next;
+      changed += 1;
+    });
+    return changed;
+  }
+
+  function setupBriefCopyObserver() {
+    if (!document.body || document.body.dataset.briefCopyObserver === "1") return;
+    document.body.dataset.briefCopyObserver = "1";
+    const observer = new MutationObserver((mutations) => {
+      const roots = new Set();
+      mutations.forEach((mutation) => {
+        if (mutation.type === "characterData") {
+          roots.add(mutation.target);
+          return;
+        }
+        mutation.addedNodes.forEach((node) => roots.add(node));
+      });
+      roots.forEach((root) => normalizeBriefCopy(root));
+    });
+    observer.observe(document.body, { childList: true, subtree: true, characterData: true });
+    window.addEventListener("pagehide", () => observer.disconnect(), { once: true });
   }
 
   function normalizeBrandName(value) {
