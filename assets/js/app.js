@@ -6949,7 +6949,7 @@
         </header>
         <div class="exec-baseline-documents">
           ${documents.map((document, index) => `
-            <article class="exec-baseline-document">
+            <article class="exec-baseline-document" tabindex="0">
               <header>
                 <span>${String(index + 1).padStart(2, "0")}</span>
                 <div>
@@ -6976,7 +6976,7 @@
         </div>
         <ol class="exec-baseline-grid">
           ${reports.map((item, index) => `
-            <li class="exec-baseline-report" style="--report-accent:${escapeHTML(item.accent || "#64748b")}">
+            <li class="exec-baseline-report" tabindex="0" style="--report-accent:${escapeHTML(item.accent || "#64748b")}">
               <header>
                 <span>${String(index + 1).padStart(2, "0")}</span>
                 <strong>${escapeHTML(withoutTerminalStop(item.label || "제공 리포트"))}</strong>
