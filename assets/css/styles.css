@@ -16068,14 +16068,16 @@ body.sidebar-collapsed .sb-ico {
 }
 
 .market-peer-section-china {
-  --accent: #d71920;
-  border-top-color: color-mix(in srgb, #d71920 28%, var(--line));
+  --accent: #526477;
+  border-top-color: color-mix(in srgb, #526477 34%, var(--line));
 }
 
 .market-peer-card {
   --peer-brand: var(--accent);
   --peer-brand-deep: var(--accent-2);
   --peer-on-brand: #fff;
+  --peer-frame: color-mix(in srgb, #68778b 56%, var(--line));
+  --peer-frame-deep: #334155;
   position: relative;
   overflow: hidden;
   min-width: 0;
@@ -16083,18 +16085,19 @@ body.sidebar-collapsed .sb-ico {
   grid-template-rows: 30px auto auto;
   gap: 5px;
   min-height: 104px;
-  border: 2px solid color-mix(in srgb, var(--peer-brand) 48%, var(--line));
+  border: 2px solid var(--peer-frame);
   border-radius: 8px;
   background:
-    linear-gradient(135deg,
-      color-mix(in srgb, var(--peer-brand) 15%, var(--panel-2)) 0%,
-      color-mix(in srgb, var(--peer-brand) 6%, var(--panel-2)) 58%,
+    radial-gradient(circle at 100% 100%, color-mix(in srgb, #718096 8%, transparent), transparent 45%),
+    linear-gradient(145deg,
+      color-mix(in srgb, #64748b 7%, var(--panel-2)) 0%,
+      color-mix(in srgb, #475569 3%, var(--panel-2)) 58%,
       var(--panel-2) 100%),
     var(--panel-2);
   color: var(--ink);
   padding: 11px 12px 10px;
   text-decoration: none;
-  box-shadow: 0 9px 22px color-mix(in srgb, var(--peer-brand) 14%, transparent);
+  box-shadow: 0 9px 22px rgba(15, 23, 42, .09);
   isolation: isolate;
   transition: background .2s ease, color .2s ease, border-color .2s ease, transform .2s ease, box-shadow .2s ease;
 }
@@ -16107,7 +16110,7 @@ body.sidebar-collapsed .sb-ico {
   bottom: -42px;
   width: 110px;
   height: 110px;
-  border: 1px solid color-mix(in srgb, var(--peer-brand) 24%, transparent);
+  border: 1px solid rgba(100, 116, 139, .24);
   border-radius: 50%;
   opacity: .65;
   transition: transform .28s ease, opacity .2s ease;
@@ -16116,10 +16119,12 @@ body.sidebar-collapsed .sb-ico {
 .market-peer-card:hover,
 .market-peer-card:focus-visible {
   transform: translateY(-4px) scale(1.012);
-  border-color: transparent;
-  background: linear-gradient(135deg, color-mix(in srgb, var(--peer-brand) 78%, #000), var(--peer-brand-deep));
+  border-color: #526477;
+  background:
+    radial-gradient(circle at 100% 100%, color-mix(in srgb, var(--peer-brand) 8%, transparent), transparent 48%),
+    linear-gradient(135deg, #142235 0%, #26374b 100%);
   color: var(--peer-on-brand);
-  box-shadow: 0 14px 28px color-mix(in srgb, var(--peer-brand) 34%, transparent);
+  box-shadow: 0 16px 30px rgba(15, 23, 42, .22);
 }
 
 .market-peer-card:hover::after,
@@ -16142,7 +16147,7 @@ body.sidebar-collapsed .sb-ico {
   flex: 0 0 78px;
   display: grid;
   place-items: center;
-  border: 1px solid color-mix(in srgb, var(--peer-brand) 20%, #d9dee8);
+  border: 1px solid #d5dbe4;
   border-radius: 5px;
   background: #fff;
   padding: 4px 7px;

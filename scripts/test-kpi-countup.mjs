@@ -110,7 +110,8 @@ assert.match(html, /id="talentStrategyVideoMedia"[\s\S]*?preload="none"[\s\S]*?d
 assert.doesNotMatch(html, /family=Noto\+Sans\+KR/, "Pretendard should replace the duplicate Korean webfont download");
 assert.match(html, /pretendard\.min\.css" media="print" onload="this\.media='all'"/, "external Korean font CSS should not block first paint");
 assert.match(app, /function ensureResearchArchiveLoaded\(\)[\s\S]*?requestIdleCallback\(enrichResearchTimeline/, "the persistent research archive should load after the first dashboard paint");
-assert.match(css, /\.market-peer-card \{[\s\S]*?border: 2px solid color-mix\(in srgb, var\(--peer-brand\) 48%, var\(--line\)\);[\s\S]*?linear-gradient\(135deg,[\s\S]*?var\(--peer-brand\) 15%/, "peer cards should use full-card brand treatment rather than a top-only rule");
+assert.match(css, /\.market-peer-card \{[\s\S]*?--peer-frame: color-mix\(in srgb, #68778b 56%, var\(--line\)\);[\s\S]*?border: 2px solid var\(--peer-frame\);[\s\S]*?linear-gradient\(145deg,[\s\S]*?#64748b 7%/, "peer cards should use a restrained shared slate frame");
+assert.doesNotMatch(css, /\.market-peer-card \{[\s\S]*?border: 2px solid color-mix\(in srgb, var\(--peer-brand\)/, "peer card borders should not vary by company brand");
 assert.doesNotMatch(css, /\.market-peer-card \{[\s\S]*?box-shadow: inset 0 3px 0 var\(--peer-brand\);/, "peer cards should not use an isolated top-edge highlight");
 assert.doesNotMatch(css, /\.arch-track-card \{[\s\S]*?border-top: 4px solid var\(--track-accent\);/, "architecture tracks should not use a top-only color rule");
 assert.doesNotMatch(css, /\.ai-summary-line \{[\s\S]*?inset 0 4px 0 var\(--ai-summary-accent\)/, "AI summaries should not use a top-only inset rule");
@@ -119,7 +120,7 @@ assert.match(css, /\.china-deep-video-dock \.talent-strategy-video \{[\s\S]*?hei
 assert.match(css, /@media \(max-width: 680px\) \{[\s\S]*?\.china-deep-video-dock \.talent-strategy-video \{[\s\S]*?aspect-ratio: 4 \/ 5;/, "the compact video height should preserve the mobile portrait layout");
 assert.match(css, /#talent-radar \.talent-radar-slider-slot \{[\s\S]*?display: flex;[\s\S]*?justify-content: center;/, "the talent radar slot should center its visual stage");
 assert.match(css, /#talent-radar \.talent-radar-slider \{[\s\S]*?width: min\(100%, 1360px\);[\s\S]*?margin-inline: auto;/, "the talent radar visual should use a bounded, centered desktop width");
-assert.match(html, /styles\.css\?v=site-audit-20260726-48/, "CSS cache key should include the site-audit revision");
+assert.match(html, /styles\.css\?v=site-audit-20260726-49/, "CSS cache key should include the site-audit revision");
 assert.match(css, /font-synthesis:\s*none/, "Mixed Hangul and Latin emphasis should disable synthetic glyph weights");
 assert.match(css, /\.exec-report-bullet-list[\s\S]*?font-weight:\s*800/, "Report highlights should use a supported professional font weight");
 assert.match(css, /\.exec-baseline-document:is\(:hover,\s*:focus-visible\)[\s\S]*?linear-gradient/, "Broker documents should invert their full surface on hover");
