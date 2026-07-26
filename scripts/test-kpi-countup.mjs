@@ -105,11 +105,13 @@ assert.match(app, /function prewarmPriceBoardData\(\)[\s\S]*?loadSecondaryData\(
 assert.match(app, /rootMargin: "4200px 0px"/, "price data should prefetch well ahead of a scrolling user");
 assert.match(app, /window\.addEventListener\("load", scheduleIdlePrewarm, \{ once: true \}\)/, "background price prewarm should not compete with first paint");
 assert.match(app, /\}, 2400\);/, "background price prewarm should leave the initial viewport a quiet network window");
-assert.match(app, /const priceRenderObserver = new IntersectionObserver[\s\S]*?rootMargin: "3600px 0px"/, "price board rendering should complete before the board reaches the viewport");
+assert.match(app, /function schedulePriceBoardRenderAhead[\s\S]*?Math\.max\(12000, Math\.round\(window\.innerHeight \* 10\)\)[\s\S]*?requestIdleCallback\(render, \{ timeout: 900 \}\)/, "downward scrolling should queue the price board several screens ahead during idle time");
+assert.match(app, /window\.addEventListener\("scroll", handleScrollTowardPrices, \{ passive: true \}\)/, "price rendering should react to real downward scroll progress");
+assert.match(app, /const priceRenderLookAhead = Math\.max\(9000, Math\.round\(window\.innerHeight \* 8\)\)[\s\S]*?rootMargin: `\$\{priceRenderLookAhead\}px 0px`/, "price board rendering should use a viewport-aware early render window");
 assert.match(app, /section\.id === "prices" \? priceRenderObserver : observer/, "only the price board should receive the early render window");
 assert.match(css, /\.agent-debate-title \.agent-tts-toggle \{[\s\S]*?min-width: 190px;[\s\S]*?min-height: 44px;/, "the English TTS control should be large and readable");
 assert.match(css, /\.agent-tts-state \{[\s\S]*?min-width: 31px;/, "the TTS control should expose a dedicated on-or-off state badge");
-assert.match(html, /app\.js\?v=site-audit-20260726-59/, "JavaScript cache key should include the site-audit revision");
+assert.match(html, /app\.js\?v=site-audit-20260726-60/, "JavaScript cache key should include the site-audit revision");
 assert.match(html, /id="memoryHeroVideo"[\s\S]*?preload="none"[\s\S]*?<source data-src="assets\/media\/memory-hero\.mp4"/, "hero video should hydrate after the poster paints");
 assert.match(html, /id="talentStrategyVideoMedia"[\s\S]*?preload="none"[\s\S]*?data-poster="assets\/media\/china-talent-strategy-poster\.webp"[\s\S]*?<source data-src="assets\/media\/china-talent-strategy\.mp4"/, "below-fold talent media should not load during first paint");
 assert.doesNotMatch(html, /family=Noto\+Sans\+KR/, "Pretendard should replace the duplicate Korean webfont download");

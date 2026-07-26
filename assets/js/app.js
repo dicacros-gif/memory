@@ -4754,6 +4754,7 @@
   let priceBoardPreloadStarted = false;
   let priceBoardPreloadObserver = null;
   let priceBoardPreloadIdleId = 0;
+  let priceBoardPreRenderQueued = false;
 
   function deferredSectionDefinitions() {
     return [
@@ -4831,6 +4832,26 @@
     });
   }
 
+  // Rendering the price dashboard builds several SVGs and grouped rows. Queue
+  // that work while the user is still multiple screens above the board, after
+  // the secondary artifacts have reached the browser cache.
+  function schedulePriceBoardRenderAhead(board = $("#prices")) {
+    if (!board || priceBoardPreRenderQueued || deferredRenderedSections.has("prices") || deferredSectionRuns.has("prices")) return;
+    const distanceBelowViewport = board.getBoundingClientRect().top - window.innerHeight;
+    const lookAheadDistance = Math.max(12000, Math.round(window.innerHeight * 10));
+    if (distanceBelowViewport > lookAheadDistance) return;
+    priceBoardPreRenderQueued = true;
+    const render = () => ensureDeferredSection("prices");
+    const queueRender = () => {
+      if ("requestIdleCallback" in window) {
+        window.requestIdleCallback(render, { timeout: 900 });
+      } else {
+        window.setTimeout(render, 0);
+      }
+    };
+    prewarmPriceBoardData().then(queueRender, queueRender);
+  }
+
   function setupPriceBoardPreload() {
     const board = $("#prices");
     if (!board) return;
@@ -4874,6 +4895,30 @@
     ["wheel", "touchstart", "keydown"].forEach((eventName) => {
       window.addEventListener(eventName, start, { once: true, passive: eventName !== "keydown" });
     });
+
+    // Track actual downward movement after the first gesture. This catches fast
+    // mouse-wheel and touch scrolling that can cross the fixed observer margin
+    // before history parsing and chart construction have finished.
+    let lastScrollY = window.scrollY;
+    let scrollFrame = 0;
+    const handleScrollTowardPrices = () => {
+      if (scrollFrame) return;
+      scrollFrame = window.requestAnimationFrame(() => {
+        scrollFrame = 0;
+        const currentScrollY = window.scrollY;
+        const movingDown = currentScrollY > lastScrollY + 4;
+        lastScrollY = currentScrollY;
+        if (!movingDown) return;
+        start();
+        schedulePriceBoardRenderAhead(board);
+        if (priceBoardPreRenderQueued) window.removeEventListener("scroll", handleScrollTowardPrices);
+      });
+    };
+    window.addEventListener("scroll", handleScrollTowardPrices, { passive: true });
+    window.addEventListener("pagehide", () => {
+      window.removeEventListener("scroll", handleScrollTowardPrices);
+      if (scrollFrame) window.cancelAnimationFrame(scrollFrame);
+    }, { once: true });
   }
 
   function deferredDefinition(id) {
@@ -4934,13 +4979,14 @@
         ensureDeferredSection(entry.target.id);
       });
     }, { rootMargin: "320px 0px", threshold: 0.01 });
+    const priceRenderLookAhead = Math.max(9000, Math.round(window.innerHeight * 8));
     const priceRenderObserver = new IntersectionObserver((entries) => {
       entries.forEach((entry) => {
         if (!entry.isIntersecting) return;
         priceRenderObserver.unobserve(entry.target);
         ensureDeferredSection(entry.target.id);
       });
-    }, { rootMargin: "3600px 0px", threshold: 0.01 });
+    }, { rootMargin: `${priceRenderLookAhead}px 0px`, threshold: 0.01 });
     sections.forEach((section) => (section.id === "prices" ? priceRenderObserver : observer).observe(section));
     window.addEventListener("pagehide", () => {
       observer.disconnect();
