@@ -22160,3 +22160,175 @@ button.ni-trend-chip:hover { box-shadow: 0 4px 12px color-mix(in srgb, #0891B2 2
     scale: 1;
   }
 }
+
+/* China workforce scenarios: a compact four-button decision rail. */
+#talentScenarioTabs {
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 12px;
+}
+
+#talentScenarioTabs .talent-scenario-tab {
+  --talent-tab-frame: color-mix(in srgb, #65758a 58%, var(--line));
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+  align-content: center;
+  gap: 8px;
+  min-width: 0;
+  min-height: 96px;
+  padding: 16px 74px 16px 18px;
+  cursor: pointer;
+  border: 2px solid var(--talent-tab-frame);
+  border-radius: 15px;
+  background:
+    radial-gradient(circle at 100% 0, color-mix(in srgb, var(--local-accent) 8%, transparent), transparent 48%),
+    linear-gradient(145deg, rgba(255, 255, 255, .98), color-mix(in srgb, #e8eef5 48%, var(--panel)));
+  box-shadow:
+    0 5px 0 color-mix(in srgb, #34475d 42%, var(--line)),
+    0 12px 24px rgba(30, 41, 59, .09);
+  transform: translateY(0) scale(1);
+  transition:
+    transform .24s cubic-bezier(.2, .82, .2, 1),
+    border-color .24s ease,
+    background .24s ease,
+    box-shadow .24s ease,
+    color .24s ease;
+}
+
+#talentScenarioTabs .talent-scenario-tab::before {
+  position: absolute;
+  z-index: -1;
+  inset: 0;
+  width: 46%;
+  background: linear-gradient(105deg, transparent 8%, rgba(255, 255, 255, .72) 48%, transparent 92%);
+  content: "";
+  pointer-events: none;
+  transform: translateX(-230%) skewX(-18deg);
+  transition: transform .55s cubic-bezier(.2, .8, .2, 1);
+}
+
+#talentScenarioTabs .talent-scenario-tab::after {
+  position: absolute;
+  top: 15px;
+  right: 15px;
+  display: grid;
+  width: 43px;
+  height: 26px;
+  place-items: center;
+  border: 1px solid color-mix(in srgb, #65758a 52%, var(--line));
+  border-radius: 999px;
+  background: rgba(255, 255, 255, .82);
+  color: #526277;
+  content: "선택";
+  font-size: 9px;
+  font-weight: 900;
+  letter-spacing: .04em;
+  box-shadow: 0 2px 5px rgba(30, 41, 59, .08);
+  transition: border-color .2s ease, background .2s ease, color .2s ease, transform .2s ease;
+}
+
+#talentScenarioTabs .talent-scenario-tab > strong {
+  color: #142033;
+  font-family: var(--display);
+  font-size: clamp(15px, 1.05vw, 18px);
+  font-weight: 850;
+  line-height: 1.2;
+  letter-spacing: -.02em;
+}
+
+#talentScenarioTabs .talent-scenario-tab > span {
+  overflow-wrap: anywhere;
+  color: #64748b;
+  font-size: 10px;
+  line-height: 1.45;
+  letter-spacing: .055em;
+}
+
+#talentScenarioTabs .talent-scenario-tab:is(:hover, :focus-visible) {
+  outline: none;
+  transform: translateY(-5px) scale(1.012);
+  border-color: color-mix(in srgb, var(--local-accent) 58%, #516175);
+  background:
+    radial-gradient(circle at 100% 0, color-mix(in srgb, var(--local-accent) 16%, transparent), transparent 50%),
+    linear-gradient(145deg, #fff, color-mix(in srgb, var(--local-accent) 9%, #edf3f8));
+  box-shadow:
+    0 8px 0 color-mix(in srgb, var(--local-accent) 28%, #526277),
+    0 20px 34px color-mix(in srgb, var(--local-accent) 17%, rgba(30, 41, 59, .16));
+}
+
+#talentScenarioTabs .talent-scenario-tab:is(:hover, :focus-visible)::before {
+  transform: translateX(330%) skewX(-18deg);
+}
+
+#talentScenarioTabs .talent-scenario-tab:is(:hover, :focus-visible)::after {
+  border-color: color-mix(in srgb, var(--local-accent) 55%, #65758a);
+  color: color-mix(in srgb, var(--local-accent) 82%, #142033);
+  transform: scale(1.04);
+}
+
+#talentScenarioTabs .talent-scenario-tab.active {
+  transform: translateY(-2px);
+  border-color: color-mix(in srgb, var(--local-accent) 72%, #405066);
+  background:
+    radial-gradient(circle at 100% 0, rgba(255, 255, 255, .18), transparent 44%),
+    linear-gradient(135deg,
+      color-mix(in srgb, var(--local-accent) 86%, #173047),
+      color-mix(in srgb, var(--local-accent) 58%, #0b2137));
+  box-shadow:
+    0 6px 0 color-mix(in srgb, var(--local-accent) 50%, #26384c),
+    0 18px 32px color-mix(in srgb, var(--local-accent) 24%, rgba(30, 41, 59, .2));
+}
+
+#talentScenarioTabs .talent-scenario-tab.active :is(strong, span) {
+  color: #fff;
+  -webkit-text-fill-color: #fff;
+  text-shadow: 0 1px 2px rgba(3, 12, 24, .18);
+}
+
+#talentScenarioTabs .talent-scenario-tab.active::after {
+  border-color: rgba(255, 255, 255, .42);
+  background: rgba(255, 255, 255, .18);
+  color: #fff;
+  content: "선택됨";
+}
+
+#talentScenarioTabs .talent-scenario-tab:active {
+  transform: translateY(2px) scale(.99);
+  box-shadow:
+    0 2px 0 color-mix(in srgb, var(--local-accent) 38%, #46576b),
+    0 8px 14px rgba(30, 41, 59, .12);
+  transition-duration: .08s;
+}
+
+#talentScenarioTabs .talent-scenario-tab:focus-visible {
+  outline: 3px solid color-mix(in srgb, var(--local-accent) 40%, #fff);
+  outline-offset: 3px;
+}
+
+@media (max-width: 980px) {
+  #talentScenarioTabs {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 560px) {
+  #talentScenarioTabs {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  #talentScenarioTabs .talent-scenario-tab,
+  #talentScenarioTabs .talent-scenario-tab::before,
+  #talentScenarioTabs .talent-scenario-tab::after {
+    transition: none !important;
+  }
+
+  #talentScenarioTabs .talent-scenario-tab:is(:hover, :focus-visible, :active) {
+    transform: none;
+  }
+
+  #talentScenarioTabs .talent-scenario-tab:is(:hover, :focus-visible)::before {
+    transform: translateX(-230%) skewX(-18deg);
+  }
+}

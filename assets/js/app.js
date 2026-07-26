@@ -17230,7 +17230,7 @@
     const tabs = $("#talentScenarioTabs");
     if (!tabs) return;
     tabs.innerHTML = CHINA_TALENT_STRATEGY_SCENARIOS.map((item) => `
-      <button class="policy-tab${item.id === scenario.id ? " active" : ""}" type="button" role="tab" aria-selected="${item.id === scenario.id ? "true" : "false"}" data-talent-scenario="${escapeHTML(item.id)}" style="--local-accent:${categoryAccent(item.accentCategory)}">
+      <button class="policy-tab talent-scenario-tab${item.id === scenario.id ? " active" : ""}" type="button" role="tab" aria-selected="${item.id === scenario.id ? "true" : "false"}" aria-pressed="${item.id === scenario.id ? "true" : "false"}" data-talent-scenario="${escapeHTML(item.id)}" style="--local-accent:${categoryAccent(item.accentCategory)}">
         <strong>${escapeHTML(item.label)}</strong>
         <span>${escapeHTML(item.subtitle)}</span>
       </button>
