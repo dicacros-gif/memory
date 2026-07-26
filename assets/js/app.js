@@ -2132,6 +2132,38 @@
       href: "https://www.skhynix.com/company/UI-FR-CP06/",
     },
   ];
+  const CHINA_TALENT_ROI_STORY_SLIDES = [
+    {
+      id: "wuxi-operations-network",
+      image: "assets/media/talent-strategy-wuxi-operations.webp",
+      scenarioIds: ["operate"],
+      kicker: "01 · 无锡 · OPERATING CONTINUITY",
+      title: "우시 운영 인력과 핵심 권한을 현장 단위로 분리",
+      body: "설비 PM·유틸리티·EHS는 현지 대응력을 높이고 recipe·수율·고객 데이터는 승인 경로로 통제",
+      source: "BIS",
+      href: "https://www.bis.gov/press-release/department-commerce-closes-export-controls-loophole-foreign-owned-semiconductor-fabs-china",
+    },
+    {
+      id: "dalian-quality-control",
+      image: "assets/media/talent-strategy-dalian-quality.webp",
+      scenarioIds: ["nand-essd", "defense"],
+      kicker: "02 · 大连 · QUALITY CONTROL",
+      title: "다롄 품질 대응과 핵심 분석 데이터의 접근 경로 분리",
+      body: "고객 FA·신뢰성 대응은 현장에 배치하고 펌웨어 소스·수율 분석·recipe는 최소 권한으로 운영",
+      source: "Intel 8-K",
+      href: "https://www.intc.com/filings-reports/all-sec-filings/content/0000050863-25-000060/0000050863-25-000060.pdf",
+    },
+    {
+      id: "chongqing-package-control",
+      image: "assets/media/talent-strategy-chongqing-packaging.webp",
+      scenarioIds: ["infra-packaging"],
+      kicker: "03 · 重庆 · PACKAGE CONTROL",
+      title: "충칭 패키징·테스트의 lot 추적성과 변경 증빙 강화",
+      body: "후공정 운영 인력은 불량·납기 대응에 집중하고 lot 이력·계측 결과·공정 변경은 통합 승인으로 관리",
+      source: "SK hynix Offices",
+      href: "https://www.skhynix.com/company/UI-FR-CP06/",
+    },
+  ];
   let chinaTalentGalleryIndex = 0;
   let chinaTalentGalleryTimer = 0;
   let chinaTalentGalleryInView = false;
@@ -17553,9 +17585,9 @@
     });
 
     if (roiGrid) {
-      const scenarioSlideIndex = CHINA_TALENT_GALLERY_SLIDES.findIndex((slide) => slide.scenarioIds.includes(scenario.id));
-      const orderedStorySlides = CHINA_TALENT_GALLERY_SLIDES.map((_, index) => (
-        CHINA_TALENT_GALLERY_SLIDES[(Math.max(scenarioSlideIndex, 0) + index) % CHINA_TALENT_GALLERY_SLIDES.length]
+      const scenarioSlideIndex = CHINA_TALENT_ROI_STORY_SLIDES.findIndex((slide) => slide.scenarioIds.includes(scenario.id));
+      const orderedStorySlides = CHINA_TALENT_ROI_STORY_SLIDES.map((_, index) => (
+        CHINA_TALENT_ROI_STORY_SLIDES[(Math.max(scenarioSlideIndex, 0) + index) % CHINA_TALENT_ROI_STORY_SLIDES.length]
       ));
       roiGrid.dataset.investmentCount = String(scenarioRoi.modeled.length);
       roiGrid.innerHTML = `${scenarioRoi.modeled.map(({ investment, model }, index) => `

@@ -111,7 +111,7 @@ assert.match(app, /const priceRenderLookAhead = Math\.max\(9000, Math\.round\(wi
 assert.match(app, /section\.id === "prices" \? priceRenderObserver : observer/, "only the price board should receive the early render window");
 assert.match(css, /\.agent-debate-title \.agent-tts-toggle \{[\s\S]*?min-width: 190px;[\s\S]*?min-height: 44px;/, "the English TTS control should be large and readable");
 assert.match(css, /\.agent-tts-state \{[\s\S]*?min-width: 31px;/, "the TTS control should expose a dedicated on-or-off state badge");
-assert.match(html, /app\.js\?v=site-audit-20260726-63/, "JavaScript cache key should include the site-audit revision");
+assert.match(html, /app\.js\?v=site-audit-20260726-64/, "JavaScript cache key should include the site-audit revision");
 assert.match(html, /id="memoryHeroVideo"[\s\S]*?preload="none"[\s\S]*?<source data-src="assets\/media\/memory-hero\.mp4"/, "hero video should hydrate after the poster paints");
 assert.match(html, /id="talentStrategyVideoMedia"[\s\S]*?preload="none"[\s\S]*?data-poster="assets\/media\/china-talent-strategy-poster\.webp"[\s\S]*?<source data-src="assets\/media\/china-talent-strategy\.mp4"/, "below-fold talent media should not load during first paint");
 assert.doesNotMatch(html, /family=Noto\+Sans\+KR/, "Pretendard should replace the duplicate Korean webfont download");
@@ -194,7 +194,9 @@ assert.match(css, /@media \(max-width: 980px\) \{[\s\S]*?#talentScenarioTabs \{[
 assert.match(css, /@media \(max-width: 560px\) \{[\s\S]*?#talentScenarioTabs \{[\s\S]*?grid-template-columns: minmax\(0, 1fr\)/, "talent scenarios should stack on narrow phones");
 assert.match(css, /@media \(prefers-reduced-motion: reduce\) \{[\s\S]*?#talentScenarioTabs \.talent-scenario-tab::before[\s\S]*?transition: none !important;/, "talent scenario motion should respect reduced-motion settings");
 assert.match(app, /class="talent-roi-story reveal"[\s\S]*?data-roi-story-slide="\$\{index\}"/, "the lower-right ROI gap should render rotating site imagery and copy");
-assert.match(app, /CHINA_TALENT_GALLERY_SLIDES\[\(Math\.max\(scenarioSlideIndex, 0\) \+ index\) % CHINA_TALENT_GALLERY_SLIDES\.length\]/, "the ROI story should begin with the selected scenario's matching site");
+assert.match(app, /CHINA_TALENT_ROI_STORY_SLIDES\[\(Math\.max\(scenarioSlideIndex, 0\) \+ index\) % CHINA_TALENT_ROI_STORY_SLIDES\.length\]/, "the ROI story should begin with the selected scenario's matching site");
+assert.match(app, /const CHINA_TALENT_ROI_STORY_SLIDES = \[[\s\S]*?talent-strategy-wuxi-operations\.webp[\s\S]*?talent-strategy-dalian-quality\.webp[\s\S]*?talent-strategy-chongqing-packaging\.webp/, "the lower visual story should use its own three-image collection");
+assert.doesNotMatch(app, /const CHINA_TALENT_ROI_STORY_SLIDES = \[[\s\S]*?talent-strategy-v3-(?:wuxi-dram|dalian-nand|chongqing-package)\.webp/, "the lower visual story should not reuse any upper gallery image");
 assert.match(css, /\.talent-roi-grid\[data-investment-count="2"\] \.talent-roi-story \{[\s\S]*?grid-column: 2;[\s\S]*?grid-row: 1 \/ span 2;/, "two-investment scenarios should keep the visual story in the right column");
 assert.match(css, /@media \(max-width: 980px\) \{[\s\S]*?\.talent-roi-grid \.talent-roi-story,[\s\S]*?grid-column: 1 \/ -1;/, "the ROI story should span the compact grid instead of leaving a new gap");
 assert.match(css, /\.talent-roi-story-slide \{[\s\S]*?animation: talentRoiStoryCycle 18s linear infinite;/, "ROI imagery and copy should rotate together");
