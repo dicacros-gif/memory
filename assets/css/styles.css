@@ -7636,9 +7636,13 @@ body.sidebar-collapsed .sb-ico {
 
 #china-talent-strategy :is(.policy-card, .policy-rule-card, .policy-focus):is(:hover, :focus-within) {
   transform: translateY(-5px);
-  border-color: var(--talent-card-accent);
-  background: linear-gradient(135deg, color-mix(in srgb, var(--talent-card-accent) 90%, #13213b), color-mix(in srgb, var(--talent-card-accent) 62%, #07111f));
-  box-shadow: 0 20px 42px color-mix(in srgb, var(--talent-card-accent) 24%, transparent);
+  border-color: #0e7490;
+  background:
+    radial-gradient(circle at 8% 0%, rgba(147, 197, 253, .24), transparent 38%),
+    linear-gradient(135deg, #153e75 0%, #0e7490 54%, #0f766e 100%);
+  box-shadow:
+    0 20px 42px rgba(14, 116, 144, .24),
+    0 8px 18px rgba(15, 118, 110, .16);
 }
 
 #china-talent-strategy :is(.policy-card, .policy-rule-card, .policy-focus):is(:hover, :focus-within)
@@ -22516,15 +22520,13 @@ button.ni-trend-chip:hover { box-shadow: 0 4px 12px color-mix(in srgb, #0891B2 2
 
 #talentScenarioTabs .talent-scenario-tab.active {
   transform: translateY(-2px);
-  border-color: color-mix(in srgb, var(--local-accent) 72%, #405066);
+  border-color: #0e7490;
   background:
-    radial-gradient(circle at 100% 0, rgba(255, 255, 255, .18), transparent 44%),
-    linear-gradient(135deg,
-      color-mix(in srgb, var(--local-accent) 86%, #173047),
-      color-mix(in srgb, var(--local-accent) 58%, #0b2137));
+    radial-gradient(circle at 8% 0%, rgba(147, 197, 253, .28), transparent 42%),
+    linear-gradient(135deg, #153e75 0%, #0e7490 54%, #0f766e 100%);
   box-shadow:
-    0 6px 0 color-mix(in srgb, var(--local-accent) 50%, #26384c),
-    0 18px 32px color-mix(in srgb, var(--local-accent) 24%, rgba(30, 41, 59, .2));
+    0 6px 0 #0b526a,
+    0 18px 32px rgba(14, 116, 144, .25);
 }
 
 #talentScenarioTabs .talent-scenario-tab.active :is(strong, span) {
