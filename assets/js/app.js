@@ -15032,15 +15032,6 @@
           <small>${escapeHTML(active.decision.logic)}</small>
         </div>
         ${executiveDecisionDebateHTML(active, selectedYearOption, productLabel, selected, selectedSeriesCount, items, executiveScenario)}
-        <div class="metric-row">
-          <div class="metric"><strong>${active.directSignalModel === "hbm" ? fmtNum(active.directMetrics?.customer || 0) : active.priorMomentum == null ? "NA" : `${fmtNum(active.priorMomentum, 2)}%`}</strong><span>${active.directSignalModel === "hbm" ? "고객·계약" : "직전 모멘텀"}</span></div>
-          <div class="metric"><strong>${active.directSignalModel === "hbm" ? fmtNum(active.directMetrics?.production || 0) : active.actualChange == null ? "NA" : `${fmtNum(active.actualChange, 2)}%`}</strong><span>${active.directSignalModel === "hbm" ? "양산·출하" : `${horizon.label} 실제`}</span></div>
-          <div class="metric"><strong>${fmtNum(active.directMetrics?.evidenceCount ?? active.observations.length)}</strong><span>${active.directSignalModel === "hbm" ? "직접 근거" : "관측 품목"}</span></div>
-        </div>
-        <div class="decision-outcome ${escapeHTML(active.outcome.cls)}">
-          <strong>${escapeHTML(active.outcome.label)}</strong>
-          <span>${active.directSignalModel === "hbm" ? `현재 직접 근거 · 과거 백테스트와 분리` : `기준점 ${escapeHTML(pointDateLabel(selected))} → ${escapeHTML(horizon.label)} 목표 ${escapeHTML(pointDateLabel(targetEndTime))}`}</span>
-        </div>
         <div class="decision-focus-block">
           <strong>제품군</strong>
           <div class="tag-row">${(active.products || []).map((product) => `<span class="tag">${escapeHTML(product)}</span>`).join("")}</div>
