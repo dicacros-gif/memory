@@ -231,8 +231,8 @@
       direction: "반도체 자립, 지방정부 펀드, 공급망 내재화, 외자 안정화가 동시에 움직입니다. SKHY 중국 법인은 현지 운영 연속성과 기술/IP 방어를 분리해 관리해야 합니다.",
       law: "2023년 개정 회사법, 지방 IC 펀드, 2026년 환경 리스크 관리",
       skImpact: "Wuxi DRAM, Chongqing 후공정, Dalian/Solidigm 스토리지 거점은 중국 산업정책과 미국 수출통제 사이에서 기존 운영 중심으로 관리해야 합니다.",
-      strategy: "중국 내 고객 대응은 유지하되, 선단 공정 업그레이드·핵심 recipe 이전·JV 구조는 공식 출처와 법무 검토가 충족될 때만 조건부 진행합니다.",
-      partyNote: "공개 확인 필요: 공개 출처로 확인되는 것은 중국 회사법의 당조직 조항입니다. SKHY 중국 법인 내부 당서기 성명은 공개 출처로 확인되지 않아 추정하지 않습니다.",
+      strategy: "",
+      partyNote: "",
       sites: [
         { name: "SK hynix Semiconductor (China) Ltd.", role: "Wuxi DRAM production site", note: "공식 오피스 페이지 기준 생산 거점" },
         { name: "SK hynix Semiconductor (Chongqing) Ltd.", role: "Chongqing headquarters", note: "보세구 후공정/운영 리스크 추적" },
@@ -15724,7 +15724,7 @@
       { label: "법·규제", value: lens.verdict, note: lens.law },
       { label: "SK 영향", value: `${(lens.sites || []).length}개 거점`, note: lens.skImpact },
       { label: "전략 방향", value: "Action", note: lens.strategy },
-    ].map((card, index) => `
+    ].filter((card) => card.note).map((card, index) => `
       <article class="policy-card reveal" style="animation-delay:${index * 25}ms">
         <span>${escapeHTML(card.label)}</span>
         <strong>${strategicHighlightHTML(decisionStateLabel(card.value))}</strong>
@@ -15799,10 +15799,10 @@
         <strong>${strategicHighlightHTML(decisionStateLabel(lens.verdict))}</strong>
         <span>${strategicHighlightHTML(lens.skImpact)}</span>
       </div>
-      <div class="policy-focus-block">
+      ${lens.strategy ? `<div class="policy-focus-block">
         <strong>SKHY 전략 방향</strong>
         <p>${strategicHighlightHTML(lens.strategy)}</p>
-      </div>
+      </div>` : ""}
       <div class="policy-focus-block">
         <strong>${escapeHTML(lens.id === "china" ? "SK 중국 법인·공장" : lens.id === "korea" ? "SKHY 적용 거점" : "SKHY 규제 적용 범위")}</strong>
         <ul class="policy-site-list">
@@ -15815,10 +15815,10 @@
           `).join("")}
         </ul>
       </div>
-      <div class="policy-focus-block">
+      ${lens.partyNote ? `<div class="policy-focus-block">
         <strong>${escapeHTML(lens.id === "china" ? "당서기·정치조직 해석" : "통제 해석 원칙")}</strong>
         <p>${escapeHTML(lens.partyNote)}</p>
-      </div>
+      </div>` : ""}
       <div class="policy-focus-block">
         <strong>의사결정 액션</strong>
         <ul class="watch-list">${(lens.actions || []).map((line) => `<li>${escapeHTML(line)}</li>`).join("")}</ul>

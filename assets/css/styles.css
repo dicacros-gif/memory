@@ -6879,7 +6879,7 @@ body.sidebar-collapsed .sb-ico {
 }
 
 .policy-summary {
-  grid-template-columns: repeat(4, minmax(0, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(210px, 1fr));
 }
 
 .policy-card {
@@ -7570,6 +7570,46 @@ body.sidebar-collapsed .sb-ico {
 .policy-site-list small {
   color: var(--muted);
   font-weight: 850;
+}
+
+/* Policy Maker cards keep a light surface on hover. Do not apply the pastel
+   semantic colors reserved for dark inverted cards. */
+#policy-makers
+  :is(.policy-card, .policy-rule-card, .policy-focus):is(:hover, :focus-visible, :focus-within)
+  :is(.strategy-highlight, .answer-term) {
+  --term-hover: #334155;
+  color: var(--term-hover) !important;
+  -webkit-text-fill-color: currentColor;
+  text-decoration-color: color-mix(in srgb, var(--term-line) 84%, transparent) !important;
+  text-shadow: none;
+}
+
+#policy-makers :is(.policy-card, .policy-rule-card, .policy-focus):is(:hover, :focus-visible, :focus-within) .term-company {
+  --term-hover: #5b21b6;
+}
+
+#policy-makers :is(.policy-card, .policy-rule-card, .policy-focus):is(:hover, :focus-visible, :focus-within) .term-source {
+  --term-hover: #1e40af;
+}
+
+#policy-makers :is(.policy-card, .policy-rule-card, .policy-focus):is(:hover, :focus-visible, :focus-within) .term-policy {
+  --term-hover: #9a3412;
+}
+
+#policy-makers :is(.policy-card, .policy-rule-card, .policy-focus):is(:hover, :focus-visible, :focus-within) .term-tech {
+  --term-hover: #006d63;
+}
+
+#policy-makers :is(.policy-card, .policy-rule-card, .policy-focus):is(:hover, :focus-visible, :focus-within) .term-metric {
+  --term-hover: #a61b12;
+}
+
+#policy-makers :is(.policy-card, .policy-rule-card, .policy-focus):is(:hover, :focus-visible, :focus-within) .term-action {
+  --term-hover: #047857;
+}
+
+#policy-makers :is(.policy-card, .policy-rule-card, .policy-focus):is(:hover, :focus-visible, :focus-within) .term-key {
+  --term-hover: #9d174d;
 }
 
 /* China talent strategy: use complete card borders instead of one-sided accents. */
