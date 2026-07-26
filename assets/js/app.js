@@ -6897,6 +6897,16 @@
     ];
   }
 
+  function brokerDocumentMetricParts(value = "") {
+    const text = withoutTerminalStop(value);
+    const match = text.match(/((?:[$€₩¥]\s*)?[+-]?\d[\d,.]*(?:%|[A-Za-z]{1,4})?)$/u);
+    if (!match) return { label: "핵심 수치", value: text };
+    return {
+      label: text.slice(0, match.index).trim() || "핵심 수치",
+      value: match[1],
+    };
+  }
+
   function withoutTerminalStop(value = "") {
     return String(value || "").replace(/[.。]+\s*$/u, "").trim();
   }
@@ -6961,14 +6971,24 @@
                 <em>${fmtNum(Number(document.topicCount) || reports.filter((item) => item.documentId === document.id).length)}개 논점</em>
               </header>
               <h5>${strategicHighlightHTML(withoutTerminalStop(document.title || document.fileName || "제공 원문"))}</h5>
-              <p>${strategicHighlightHTML(withoutTerminalStop(document.focus || ""))}</p>
-              <ul>
-                ${(Array.isArray(document.corePoints) ? document.corePoints : []).slice(0, 3).map((point) => `<li>${strategicHighlightHTML(withoutTerminalStop(point))}</li>`).join("")}
-              </ul>
-              <div class="exec-baseline-document-metrics">
-                ${(Array.isArray(document.metrics) ? document.metrics : []).slice(0, 3).map((metric) => `<span>${strategicHighlightHTML(withoutTerminalStop(metric))}</span>`).join("")}
+              <div class="exec-baseline-document-focus">
+                <span>핵심 논지</span>
+                <p>${strategicHighlightHTML(withoutTerminalStop(document.focus || ""))}</p>
               </div>
-              <footer><span>제공 파일</span><code>${escapeHTML(document.fileName || "파일명 미상")}</code></footer>
+              <ol class="exec-baseline-document-flow" aria-label="핵심 논리 흐름">
+                ${(Array.isArray(document.corePoints) ? document.corePoints : []).slice(0, 3).map((point, pointIndex) => `
+                  <li>
+                    <em>${String(pointIndex + 1).padStart(2, "0")}</em>
+                    <p>${strategicHighlightHTML(withoutTerminalStop(point))}</p>
+                  </li>
+                `).join("")}
+              </ol>
+              <div class="exec-baseline-document-metrics">
+                ${(Array.isArray(document.metrics) ? document.metrics : []).slice(0, 3).map((metric) => {
+                  const parts = brokerDocumentMetricParts(metric);
+                  return `<span><small>${strategicHighlightHTML(parts.label)}</small><strong>${strategicHighlightHTML(parts.value)}</strong></span>`;
+                }).join("")}
+              </div>
             </article>
           `).join("")}
         </div>
