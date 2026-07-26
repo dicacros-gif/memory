@@ -7448,6 +7448,10 @@
     renderTodayHub();
 
     brief.innerHTML = `
+      <header class="exec-cluster-head">
+        <span>01 · STRATEGIC LOGIC</span>
+        <strong>시장 구조에서 경영 판단까지</strong>
+      </header>
       <div class="exec-flow" aria-label="경영진 의사결정 흐름">
         ${executiveStrategyLines().map((item, index) => `
           <button class="exec-flow-node reveal${item.priority ? " is-priority" : ""}" type="button" data-jump="${escapeHTML(item.jump)}">
@@ -7463,16 +7467,24 @@
       </div>
     `;
 
-    strategy.innerHTML = CHINA_NAND_BUSINESS_LAYERS.slice(0, 6).map((item, index) => `
-      <button class="exec-strategy-card exec-strategy-tone-${index % 6} reveal" type="button" data-exec-nand="${escapeHTML(item.id)}" style="animation-delay:${index * 30}ms">
-        <span class="exec-strategy-index">${String(index + 1).padStart(2, "0")}</span>
-        <span class="exec-strategy-copy">
-          <span>${escapeHTML(item.label)}</span>
-          <strong>${escapeHTML(briefingLineText(item.role))}</strong>
-          <small>${escapeHTML(briefingLineText(item.strategy[0] || item.title))}</small>
-        </span>
-      </button>
-    `).join("");
+    strategy.innerHTML = `
+      <header class="exec-cluster-head">
+        <span>02 · EXECUTION MAP</span>
+        <strong>중국 메모리 경쟁의 6개 실행 축</strong>
+      </header>
+      <div class="exec-strategy-grid">
+        ${CHINA_NAND_BUSINESS_LAYERS.slice(0, 6).map((item, index) => `
+          <button class="exec-strategy-card exec-strategy-tone-${index % 6} reveal" type="button" data-exec-nand="${escapeHTML(item.id)}" style="animation-delay:${index * 30}ms">
+            <span class="exec-strategy-index">${String(index + 1).padStart(2, "0")}</span>
+            <span class="exec-strategy-copy">
+              <span>${escapeHTML(item.label)}</span>
+              <strong>${escapeHTML(briefingLineText(item.role))}</strong>
+              <small>${escapeHTML(briefingLineText(item.strategy[0] || item.title))}</small>
+            </span>
+          </button>
+        `).join("")}
+      </div>
+    `;
 
     const researchItems = brokerResearchSummaries();
     research.innerHTML = renderBrokerInsightReport(researchItems);

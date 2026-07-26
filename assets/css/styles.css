@@ -21502,3 +21502,152 @@ button.ni-trend-chip:hover { box-shadow: 0 4px 12px color-mix(in srgb, #0891B2 2
     opacity: 0;
   }
 }
+
+/* Executive consulting canvas: separate strategic logic from the six execution
+   axes with a dark analytical workspace and clear visual hierarchy. */
+.exec-layout {
+  position: relative;
+  gap: 18px;
+  overflow: hidden;
+  border: 1px solid rgba(117, 180, 226, .34);
+  border-radius: 20px;
+  background:
+    radial-gradient(circle at 6% 8%, rgba(37, 99, 235, .28), transparent 34%),
+    radial-gradient(circle at 94% 92%, rgba(8, 127, 114, .24), transparent 38%),
+    linear-gradient(135deg, #071526 0%, #0b2137 52%, #0b2b35 100%);
+  padding: 18px;
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, .08),
+    0 20px 46px rgba(7, 21, 38, .2);
+}
+
+.exec-layout::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  opacity: .18;
+  pointer-events: none;
+  background-image:
+    linear-gradient(rgba(255, 255, 255, .08) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255, 255, 255, .08) 1px, transparent 1px);
+  background-size: 32px 32px;
+  mask-image: linear-gradient(135deg, #000, transparent 72%);
+}
+
+.exec-layout > .exec-brief,
+.exec-layout > .exec-strategy {
+  position: relative;
+  z-index: 1;
+  align-content: start;
+  gap: 12px;
+  border: 1px solid rgba(255, 255, 255, .14);
+  border-radius: 16px;
+  background: rgba(255, 255, 255, .055);
+  padding: 14px;
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, .06);
+  backdrop-filter: blur(10px);
+}
+
+.exec-cluster-head {
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr);
+  gap: 7px 11px;
+  align-items: center;
+  min-height: 42px;
+  border-bottom: 1px solid rgba(255, 255, 255, .14);
+  padding: 0 2px 11px;
+}
+
+.exec-cluster-head > span {
+  grid-column: 1 / -1;
+  color: #7dd3fc;
+  font-family: var(--display);
+  font-size: 9px;
+  font-weight: 800;
+  letter-spacing: .13em;
+}
+
+.exec-strategy .exec-cluster-head > span {
+  color: #6ee7b7;
+}
+
+.exec-cluster-head > strong {
+  grid-column: 1 / -1;
+  color: #f8fbff;
+  font-size: 15px;
+  line-height: 1.25;
+  font-weight: 850;
+  letter-spacing: -.015em;
+}
+
+.exec-flow {
+  gap: 12px;
+}
+
+.exec-flow-node {
+  border-color: color-mix(in srgb, var(--exec-flow-accent) 52%, #b9c9d8);
+  background:
+    linear-gradient(135deg, color-mix(in srgb, var(--exec-flow-accent) 10%, transparent), transparent 58%),
+    rgba(248, 251, 255, .97);
+  box-shadow: 0 12px 26px rgba(2, 8, 23, .2);
+}
+
+.exec-flow-node:not(:last-child)::after {
+  background: #0b2137;
+  box-shadow: 0 0 0 4px rgba(11, 33, 55, .9);
+}
+
+.exec-strategy {
+  grid-template-columns: minmax(0, 1fr);
+  grid-auto-rows: auto;
+}
+
+.exec-strategy-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  grid-auto-rows: 1fr;
+  gap: 12px;
+}
+
+.exec-strategy-grid .exec-strategy-card {
+  min-height: 112px;
+  border-color: color-mix(in srgb, var(--exec-strategy-accent) 48%, #c7d2df);
+  background:
+    radial-gradient(circle at 100% 0, color-mix(in srgb, var(--exec-strategy-accent) 10%, transparent), transparent 42%),
+    rgba(248, 251, 255, .97);
+  box-shadow: 0 12px 26px rgba(2, 8, 23, .18);
+}
+
+.exec-strategy-grid .exec-strategy-card:is(:hover, :focus-visible) {
+  transform: translateY(-5px) scale(1.008);
+  border-color: color-mix(in srgb, var(--exec-strategy-accent) 76%, #fff);
+  background:
+    radial-gradient(circle at 10% 10%, rgba(255, 255, 255, .2), transparent 34%),
+    linear-gradient(135deg,
+      color-mix(in srgb, var(--exec-strategy-accent) 92%, #14213d),
+      color-mix(in srgb, var(--exec-strategy-accent) 60%, #07111f));
+  box-shadow: 0 22px 42px color-mix(in srgb, var(--exec-strategy-accent) 28%, rgba(2, 8, 23, .3));
+}
+
+.exec-strategy-grid .exec-strategy-card:is(:hover, :focus-visible)
+  :is(.exec-strategy-copy > span, .exec-strategy-copy strong, .exec-strategy-copy small) {
+  color: #fff;
+  -webkit-text-fill-color: #fff;
+}
+
+@media (max-width: 760px) {
+  .exec-layout {
+    padding: 12px;
+  }
+
+  .exec-strategy-grid {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .exec-flow-node,
+  .exec-strategy-grid .exec-strategy-card {
+    transition: none;
+  }
+}
