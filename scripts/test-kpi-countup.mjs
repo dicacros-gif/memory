@@ -127,7 +127,10 @@ assert.match(css, /\.china-deep-video-dock \.talent-strategy-video \{[\s\S]*?hei
 assert.match(css, /@media \(max-width: 680px\) \{[\s\S]*?\.china-deep-video-dock \.talent-strategy-video \{[\s\S]*?aspect-ratio: 4 \/ 5;/, "the compact video height should preserve the mobile portrait layout");
 assert.match(css, /#talent-radar \.talent-radar-slider-slot \{[\s\S]*?display: flex;[\s\S]*?justify-content: center;/, "the talent radar slot should center its visual stage");
 assert.match(css, /#talent-radar \.talent-radar-slider \{[\s\S]*?width: min\(100%, 1360px\);[\s\S]*?margin-inline: auto;/, "the talent radar visual should use a bounded, centered desktop width");
-assert.match(html, /styles\.css\?v=site-audit-20260726-59/, "CSS cache key should include the site-audit revision");
+assert.match(html, /styles\.css\?v=site-audit-20260726-60/, "CSS cache key should include the site-audit revision");
+assert.match(css, /\.share-card\.share-tone-0,[\s\S]*?\.share-card\.share-tone-4\s*\{\s*--share-accent:\s*var\(--matrix-teal,/, "Benchmark cards should share one restrained consulting accent");
+assert.match(css, /\.roadmap-card\.roadmap-tone-0,[\s\S]*?\.roadmap-card\.roadmap-tone-3\s*\{\s*--roadmap-accent:\s*var\(--matrix-navy,/, "Roadmap cards should share one restrained consulting accent");
+assert.match(css, /\.share-card:hover,[\s\S]*?linear-gradient\(135deg,\s*#234761,\s*#172f45\)/, "Benchmark hover should use the professional navy treatment");
 assert.doesNotMatch(app, /공개 출처로 확인되는 것은 중국 회사법의 당조직 조항/, "Unverified political-organization interpretation copy should not remain in the client");
 assert.doesNotMatch(app, /중국 내 고객 대응은 유지하되, 선단 공정 업그레이드/, "Removed China strategy copy should not remain in the client");
 assert.doesNotMatch(app, /<strong>관련 최신 기사(?:\/신호)?<\/strong>/, "Supplemental related-latest-article lists should not render in detail panels");
