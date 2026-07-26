@@ -5,6 +5,7 @@
   "type": "module",
   "scripts": {
     "crawl": "node scripts/crawl.mjs",
+    "backfill:prices": "node scripts/crawl.mjs --backfill-only",
     "refresh:derived": "node scripts/refresh-derived.mjs",
     "refresh:client-data": "node scripts/refresh-client-artifacts.mjs",
     "audit": "node scripts/audit-content.mjs",

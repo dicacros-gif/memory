@@ -13492,6 +13492,20 @@
     }));
   }
 
+  function backtestOptionStatus(option, horizon = activeBacktestHorizon()) {
+    const target = addUtcYears(option?.firstTime || 0, horizon.years);
+    if (!target) return { state: "missing", suffix: " · 종료점 미수집" };
+    if (backtestOptionCanClose(option, horizon)) return { state: "closed", suffix: "" };
+    if (target > Date.now()) {
+      const targetDate = new Date(target);
+      return {
+        state: "in-progress",
+        suffix: ` · 검증 진행 중 (${targetDate.getUTCFullYear()}년 ${targetDate.getUTCMonth() + 1}월 종료)`,
+      };
+    }
+    return { state: "missing", suffix: " · 종료점 미수집" };
+  }
+
   function ensureBacktestYear() {
     const options = backtestYearOptions();
     if (!options.length) {
@@ -13621,14 +13635,19 @@
     const endMatch = firstClosingPoint(points.filter((point) => point._time > start._time), targetEndTime, horizon.endToleranceDays);
     if (!endMatch) {
       const latestAvailable = points[points.length - 1] || null;
+      const periodInProgress = targetEndTime > Date.now();
       return {
         ...base,
         start,
         previous,
         latest: latestAvailable,
         startGapDays: startMatch.gapDays,
-        status: latestAvailable?._time < targetEndTime ? "end-not-collected" : "end-gap",
-        statusLabel: latestAvailable?._time < targetEndTime ? "종료점 미수집" : "종료점 간격 초과",
+        status: periodInProgress
+          ? "period-in-progress"
+          : latestAvailable?._time < targetEndTime ? "end-not-collected" : "end-gap",
+        statusLabel: periodInProgress
+          ? "검증 기간 진행 중"
+          : latestAvailable?._time < targetEndTime ? "종료점 미수집" : "종료점 간격 초과",
         days: latestAvailable?._time > start._time ? (latestAvailable._time - start._time) / 864e5 : 0,
       };
     }
@@ -13879,7 +13898,7 @@
     ensureBacktestYear();
     if (yearSelect) {
       yearSelect.innerHTML = yearOptions.length ? yearOptions.map((option) => `
-        <option value="${escapeHTML(option.value)}"${option.value === selectedBacktestYear ? " selected" : ""}>${escapeHTML(option.label)}${backtestOptionCanClose(option) ? "" : " · 종료 미수집"}</option>
+        <option value="${escapeHTML(option.value)}"${option.value === selectedBacktestYear ? " selected" : ""}>${escapeHTML(option.label)}${escapeHTML(backtestOptionStatus(option).suffix)}</option>
       `).join("") : `<option value="">가격 히스토리 없음</option>`;
       yearSelect.onchange = () => {
         selectedBacktestYear = yearSelect.value;

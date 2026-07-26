@@ -8,6 +8,7 @@
  */
 import { readFile, writeFile, mkdir, rename, rm } from "node:fs/promises";
 import { createHash } from "node:crypto";
+import { request as httpsRequest } from "node:https";
 import { dirname, resolve } from "node:path";
 import { fileURLToPath, pathToFileURL } from "node:url";
 import {
@@ -2540,6 +2541,7 @@ async function loadPriceHistory() {
       updatedAt: parsed.updatedAt || null,
       runId: parsed.runId || null,
       validatedAt: parsed.validatedAt || null,
+      expiresAt: parsed.expiresAt || null,
       timezone: parsed.timezone || "Asia/Seoul",
       items: parsed.items && typeof parsed.items === "object" ? parsed.items : {},
       archiveBackfill: parsed.archiveBackfill && typeof parsed.archiveBackfill === "object" ? parsed.archiveBackfill : null,
@@ -8090,20 +8092,53 @@ async function fetchArchiveText(url, tries = 3) {
   let lastErr;
   for (let attempt = 0; attempt < tries; attempt += 1) {
     try {
-      const res = await fetch(url, {
-        signal: AbortSignal.timeout(30000),
-        headers: { "User-Agent": BROWSER_UA, Accept: "text/html,application/json,*/*;q=0.8" },
+      return await new Promise((resolveText, rejectText) => {
+        const request = (requestUrl, redirectsLeft = 3) => {
+          const req = httpsRequest(requestUrl, {
+            headers: {
+              // Wayback's CDX edge currently rejects a full Chrome UA from
+              // Node with HTTP 498, while its documented generic client path
+              // accepts the same request. Keep this transport intentionally
+              // minimal and choose the media type by endpoint.
+              "User-Agent": "Mozilla/5.0",
+              Accept: requestUrl.includes("/cdx/") ? "application/json" : "text/html",
+            },
+          }, (res) => {
+            const status = Number(res.statusCode || 0);
+            if (status >= 300 && status < 400 && res.headers.location && redirectsLeft > 0) {
+              res.resume();
+              request(new URL(res.headers.location, requestUrl).href, redirectsLeft - 1);
+              return;
+            }
+            const chunks = [];
+            res.on("data", (chunk) => chunks.push(chunk));
+            res.on("end", () => {
+              if (status < 200 || status >= 300) {
+                rejectText(new Error(`HTTP ${status || "unknown"}`));
+                return;
+              }
+              resolveText(Buffer.concat(chunks).toString("utf8"));
+            });
+          });
+          req.setTimeout(30000, () => req.destroy(new Error("archive request timeout")));
+          req.on("error", rejectText);
+          req.end();
+        };
+        request(url);
       });
-      if (res.status === 503 || res.status === 429) throw new Error(`HTTP ${res.status}`);
-      if (!res.ok) throw new Error(`HTTP ${res.status}`);
-      const buf = await res.arrayBuffer();
-      return new TextDecoder("utf-8").decode(buf);
     } catch (error) {
       lastErr = error;
       await sleep(4000 * (attempt + 1));
     }
   }
   throw lastErr || new Error("archive fetch failed");
+}
+
+export function archiveReplayUrls(timestamp, sourceUrl) {
+  const base = `https://web.archive.org/web/${timestamp}`;
+  // id_ is the cleanest raw replay. if_ is an independent replay path that
+  // remains parseable when id_ is temporarily rejected with HTTP 498.
+  return [`${base}id_/${sourceUrl}`, `${base}if_/${sourceUrl}`];
 }
 
 function cdxTimestampToIso(ts = "") {
@@ -8239,16 +8274,20 @@ async function backfillPriceHistoryFromArchive(history) {
   };
 
   const cdxSnapshots = async (url, target, windowMs) => {
-    if (!cdxCache.has(url)) {
-      const from = monthlyTargets[0].target - 40 * 864e5;
-      const to = monthlyTargets.at(-1).target + 40 * 864e5;
-      const cdxUrl = `https://web.archive.org/cdx/search/cdx?url=${encodeURIComponent(url)}&output=json&from=${cdxDayStamp(from)}&to=${cdxDayStamp(to)}&filter=statuscode:200&filter=mimetype:text/html&collapse=timestamp:6&limit=1000`;
-      cdxCache.set(url, fetchArchiveText(cdxUrl).then((text) => {
+    // A single five-year CDX query is expensive and is frequently rejected
+    // with HTTP 498. Query only the target month's ± window; the run budget
+    // already limits how many months are requested.
+    const from = target - windowMs;
+    const to = target + windowMs;
+    const cacheKey = `${url}:${cdxDayStamp(from)}:${cdxDayStamp(to)}`;
+    if (!cdxCache.has(cacheKey)) {
+      const cdxUrl = `https://web.archive.org/cdx/search/cdx?url=${encodeURIComponent(url)}&output=json&from=${cdxDayStamp(from)}&to=${cdxDayStamp(to)}&filter=${encodeURIComponent("statuscode:200")}&filter=${encodeURIComponent("mimetype:text/html")}&collapse=${encodeURIComponent("timestamp:8")}&limit=250`;
+      cdxCache.set(cacheKey, fetchArchiveText(cdxUrl).then((text) => {
         const rows = JSON.parse(text);
         return (Array.isArray(rows) ? rows.slice(1) : []).map((row) => row[1]).filter(Boolean);
       }));
     }
-    const snapshots = await cdxCache.get(url);
+    const snapshots = await cdxCache.get(cacheKey);
     return snapshots.filter((timestamp) => {
       const time = Date.parse(cdxTimestampToIso(timestamp));
       return Number.isFinite(time) && Math.abs(time - target) <= windowMs;
@@ -8260,7 +8299,12 @@ async function backfillPriceHistoryFromArchive(history) {
     .sort((a, b) => a.diff - b.diff)
     .slice(0, Math.max(1, limit))
     .map((item) => item.ts);
-  const jobs = monthlyTargets.flatMap((period) => PRICE_PAGES.map((page) => ({ page, period })));
+  const jobs = monthlyTargets
+    .flatMap((period) => PRICE_PAGES.map((page) => ({ page, period })))
+    // Fill the decision screen's most recent closeable windows first. Without
+    // this ordering, a small daily budget can be consumed indefinitely by
+    // sparse 2021 snapshots while recent monthly gaps remain visible.
+    .sort((left, right) => right.period.target - left.period.target);
   for (const { page, period } of jobs) {
     if (attemptsThisRun >= backfillCap) break;
     const target = period.target;
@@ -8276,8 +8320,12 @@ async function backfillPriceHistoryFromArchive(history) {
     const priorWasPartial = priorAttempt?.status === "partial"
       || (priorAttempt?.status === "merged"
         && Number(priorAttempt?.coveredTargetSeries || 0) < Number(priorAttempt?.uncoveredSeries || 0));
-    const retryDays = priorWasPartial || priorAttempt?.status === "failed"
-      ? 7
+    const transientReplayFailure = priorAttempt?.status === "failed"
+      && /\bHTTP (?:429|498|502|503|504)\b/i.test(String(priorAttempt?.error || ""));
+    const retryDays = transientReplayFailure
+      ? 0.25
+      : priorWasPartial || priorAttempt?.status === "failed"
+        ? 7
       : ["no-snapshot", "empty", "target-miss", "merged"].includes(priorAttempt?.status) ? 30 : 7;
     if (!forceBackfill && priorAttempt?.attemptedAt && Date.now() - Date.parse(priorAttempt.attemptedAt) < retryDays * 864e5) {
       skippedByRetryThisRun += 1;
@@ -8308,17 +8356,24 @@ async function backfillPriceHistoryFromArchive(history) {
       let coveredAfter = 0;
       const archiveAttempts = [];
       for (const snapshot of candidates) {
-        const archivedUrl = `https://web.archive.org/web/${snapshot}id_/${source.url}`;
-        try {
-          const html = await fetchArchiveText(archivedUrl);
-          const sections = legacy ? parseLegacyPriceTables(html, source) : parsePriceTables(html, page);
-          const mergedHere = mergeArchiveSections(sections, snapshot, source.url);
-          merged += mergedHere;
-          coveredAfter = uncovered.filter((item) => (item.points || []).some((point) => pricePointCoversMonth(point, period.id))).length;
-          archiveAttempts.push({ snapshot, snapshotUrl: archivedUrl, mergedSeries: mergedHere, coveredTargetSeries: coveredAfter });
-          if (coveredAfter >= uncovered.length) break;
-        } catch (error) {
-          archiveAttempts.push({ snapshot, snapshotUrl: archivedUrl, error: String(error?.message || error).slice(0, 300) });
+        for (const archivedUrl of archiveReplayUrls(snapshot, source.url)) {
+          try {
+            const html = await fetchArchiveText(archivedUrl);
+            const sections = legacy ? parseLegacyPriceTables(html, source) : parsePriceTables(html, page);
+            const mergedHere = mergeArchiveSections(sections, snapshot, source.url);
+            merged += mergedHere;
+            coveredAfter = uncovered.filter((item) => (item.points || []).some((point) => pricePointCoversMonth(point, period.id))).length;
+            archiveAttempts.push({ snapshot, snapshotUrl: archivedUrl, mergedSeries: mergedHere, coveredTargetSeries: coveredAfter });
+            break;
+          } catch (error) {
+            archiveAttempts.push({ snapshot, snapshotUrl: archivedUrl, error: String(error?.message || error).slice(0, 300) });
+          }
+        }
+        if (coveredAfter >= uncovered.length) break;
+        if (snapshot !== candidates.at(-1)) {
+          // Avoid replay throttling when one monthly job has several nearby
+          // snapshots. This runs below the fold and does not delay first paint.
+          await sleep(1200);
         }
       }
       const bestAttempt = archiveAttempts.find((item) => !item.error) || archiveAttempts[0] || null;
@@ -8339,7 +8394,7 @@ async function backfillPriceHistoryFromArchive(history) {
       manifest.attempts[jobId] = { attemptedAt, status: "failed", error: String(error.message || error).slice(0, 300), uncoveredSeries: uncovered.length };
       note(`가격백필:${page.id}·${period.id}`, false, error.message);
     }
-    await sleep(900);
+    await sleep(1800);
   }
   manifest.updatedAt = attemptedAt;
   manifest.attemptsThisRun = attemptsThisRun;
@@ -8620,8 +8675,16 @@ if (process.env.BACKFILL_DEBUG) {
   process.exit(0);
 }
 
+async function runArchiveBackfillOnly() {
+  const history = await loadPriceHistory();
+  const added = await backfillPriceHistoryFromArchive(history);
+  await writeVerifiedBundle([[HISTORY_OUT, history]]);
+  console.log(`가격 아카이브 백필 완료: 추가 ${added}개 · ${HISTORY_OUT}`);
+}
+
 if (process.argv[1] && import.meta.url === pathToFileURL(resolve(process.argv[1])).href) {
-  main().catch((error) => {
+  const run = process.argv.includes("--backfill-only") ? runArchiveBackfillOnly : main;
+  run().catch((error) => {
     console.error("크롤러 치명적 오류:", error);
     process.exit(1);
   });

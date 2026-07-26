@@ -4,6 +4,7 @@ import assert from "node:assert/strict";
 import {
   appendQuantHistory,
   archiveMonthlyTargets,
+  archiveReplayUrls,
   dedupeEnrichedNews,
   mergeMarketPoints,
   mergePricePoints,
@@ -85,6 +86,14 @@ assert.equal(new Set(targets.map((target) => target.id)).size, 60);
 assert.equal(pricePointCoversMonth({ date: "2026-07-01T00:00:00Z", average: 1 }, "2026-06"), false,
   "one observation must not cover an adjacent archive month");
 assert.equal(pricePointCoversMonth({ date: "2026-06-30T00:00:00Z", average: 1 }, "2026-06"), true);
+assert.deepEqual(
+  archiveReplayUrls("20250907135556", "https://www.trendforce.com/price/dram/dram_spot"),
+  [
+    "https://web.archive.org/web/20250907135556id_/https://www.trendforce.com/price/dram/dram_spot",
+    "https://web.archive.org/web/20250907135556if_/https://www.trendforce.com/price/dram/dram_spot",
+  ],
+  "archive collection should fall back to an independent replay mode when raw replay is throttled",
+);
 
 const tsmc = parseTsmcAnnualRevenueHtml(`
   <table><tr><th>Month</th><th>Consolidated Net Revenue</th><th>YoY Change</th></tr>

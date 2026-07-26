@@ -65,6 +65,9 @@ quantBacktest.expiresAt = quant.expiresAt || null;
 marketHistory.runId = live.runId || marketHistory.runId || null;
 marketHistory.validatedAt = live.updatedAt || null;
 marketHistory.expiresAt = quant.expiresAt || null;
+priceHistory.runId = live.runId || priceHistory.runId || null;
+priceHistory.validatedAt = live.updatedAt || null;
+priceHistory.expiresAt = quant.expiresAt || null;
 quant.historyCoverage = {
   ...(quant.historyCoverage || {}),
   periods: quantBacktest.coverage,
@@ -83,6 +86,7 @@ live.expiresAt = quant.expiresAt || null;
 await Promise.all([
   writeFile(resolve(root, "data", "quant.json"), `${JSON.stringify(quant, null, 2)}\n`, "utf8"),
   writeFile(resolve(root, "data", "live.json"), `${JSON.stringify(live, null, 2)}\n`, "utf8"),
+  writeFile(resolve(root, "data", "price-history.json"), `${JSON.stringify(priceHistory, null, 2)}\n`, "utf8"),
   writeFile(resolve(root, "data", "market-history.json"), `${JSON.stringify(marketHistory, null, 2)}\n`, "utf8"),
   writeFile(resolve(root, "data", "quant-backtest.json"), `${JSON.stringify(quantBacktest, null, 2)}\n`, "utf8"),
 ]);
