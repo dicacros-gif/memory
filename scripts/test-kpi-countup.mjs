@@ -41,6 +41,7 @@ assert.match(app, /window\.setInterval\(\(\) => \{[\s\S]*?\}, MEMORY_MARKET_MODE
 assert.match(app, /let memoryMarketModeRotationPaused = false;/, "market-map carousel should be enabled on first load");
 assert.doesNotMatch(app, /board\.addEventListener\("mouseenter", stopMemoryMarketModeRotation\)/, "pointer hover should not cancel the default market-map rotation");
 assert.match(app, /aria-pressed="true" aria-label="자동 순환 끄기">자동 순환 ON/, "market-map carousel should render an explicit enabled state");
+assert.match(app, /if \(backtestOptionCanClose\(option, horizon\)\) return \{ state: "closed", suffix: " · 검증 완료" \};/, "closed fixed-window backtests should be visibly labelled as verified");
 assert.match(app, /money: \{[\s\S]*?money-flow-ai-demand\.webp[\s\S]*?AI 서버 증설·메모리 장기계약[\s\S]*?money-flow-china-capital\.webp[\s\S]*?패키징·테스트 캐파·현지 투자[\s\S]*?money-flow-policy-capital\.webp[\s\S]*?정책 자금·Fab 증설·장비 발주/s, "Money Flow should use dedicated demand, capital, and policy-capital images");
 assert.match(app, /data-memory-rotation-toggle/, "market-map carousel should offer a pause and resume control");
 assert.match(css, /\.memory-map-tabs\[data-rotation-running="true"\] \.memory-map-cycle-progress b \{[\s\S]*?animation: memoryMapCycleProgress 9s linear both;/, "the lower market carousel should show nine-second progress");
@@ -106,7 +107,7 @@ assert.match(app, /const priceRenderObserver = new IntersectionObserver[\s\S]*?r
 assert.match(app, /section\.id === "prices" \? priceRenderObserver : observer/, "only the price board should receive the early render window");
 assert.match(css, /\.agent-debate-title \.agent-tts-toggle \{[\s\S]*?min-width: 190px;[\s\S]*?min-height: 44px;/, "the English TTS control should be large and readable");
 assert.match(css, /\.agent-tts-state \{[\s\S]*?min-width: 31px;/, "the TTS control should expose a dedicated on-or-off state badge");
-assert.match(html, /app\.js\?v=site-audit-20260726-55/, "JavaScript cache key should include the site-audit revision");
+assert.match(html, /app\.js\?v=site-audit-20260726-56/, "JavaScript cache key should include the site-audit revision");
 assert.match(html, /id="memoryHeroVideo"[\s\S]*?preload="none"[\s\S]*?<source data-src="assets\/media\/memory-hero\.mp4"/, "hero video should hydrate after the poster paints");
 assert.match(html, /id="talentStrategyVideoMedia"[\s\S]*?preload="none"[\s\S]*?data-poster="assets\/media\/china-talent-strategy-poster\.webp"[\s\S]*?<source data-src="assets\/media\/china-talent-strategy\.mp4"/, "below-fold talent media should not load during first paint");
 assert.doesNotMatch(html, /family=Noto\+Sans\+KR/, "Pretendard should replace the duplicate Korean webfont download");

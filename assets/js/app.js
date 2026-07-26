@@ -13482,7 +13482,7 @@
   function backtestOptionStatus(option, horizon = activeBacktestHorizon()) {
     const target = addUtcYears(option?.firstTime || 0, horizon.years);
     if (!target) return { state: "missing", suffix: " · 종료점 미수집" };
-    if (backtestOptionCanClose(option, horizon)) return { state: "closed", suffix: "" };
+    if (backtestOptionCanClose(option, horizon)) return { state: "closed", suffix: " · 검증 완료" };
     if (target > Date.now()) {
       const targetDate = new Date(target);
       return {
