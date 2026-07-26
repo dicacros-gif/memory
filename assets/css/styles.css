@@ -8878,7 +8878,6 @@ body.sidebar-collapsed .sb-ico {
 .investment-focus-block.is-action { --focus-card-accent: #2563eb; }
 .investment-focus-block.is-formula { --focus-card-accent: #4f46e5; }
 .investment-focus-block.is-gate { --focus-card-accent: #7c3aed; }
-.investment-focus-block.is-monitor { --focus-card-accent: #078579; }
 .investment-focus-block.is-sources { --focus-card-accent: #c26408; }
 
 .investment-focus-block:is(:hover, :focus-within) {
@@ -20400,6 +20399,32 @@ body.crawl-moderation-open {
   text-decoration-color: color-mix(in srgb, var(--term-hover) 72%, transparent) !important;
   text-shadow: 0 1px 2px rgba(2, 8, 23, .55);
 }
+
+/* Investment detail cards remain light on hover. Restore dark semantic inks
+   instead of inheriting the pastel colors reserved for truly inverted cards. */
+.investment-focus:is(:hover, :focus-within) .investment-focus-block :is(.strategy-highlight, .answer-term) {
+  background:
+    linear-gradient(
+      transparent 52%,
+      color-mix(in srgb, var(--term-line) 24%, #fff) 52%,
+      color-mix(in srgb, var(--term-line) 24%, #fff) 94%,
+      transparent 94%
+    ) !important;
+  color: var(--term-color) !important;
+  -webkit-text-fill-color: currentColor;
+  font-weight: 850;
+  text-decoration-color: var(--term-line) !important;
+  text-decoration-thickness: 2px !important;
+  text-shadow: none;
+}
+
+.investment-focus:is(:hover, :focus-within) .investment-focus-block .term-company { --term-color: #5b21b6; }
+.investment-focus:is(:hover, :focus-within) .investment-focus-block .term-source { --term-color: #1e40af; }
+.investment-focus:is(:hover, :focus-within) .investment-focus-block .term-policy { --term-color: #9a3412; }
+.investment-focus:is(:hover, :focus-within) .investment-focus-block .term-tech { --term-color: #006d63; }
+.investment-focus:is(:hover, :focus-within) .investment-focus-block .term-metric { --term-color: #a61b12; }
+.investment-focus:is(:hover, :focus-within) .investment-focus-block .term-action { --term-color: #047857; }
+.investment-focus:is(:hover, :focus-within) .investment-focus-block .term-key { --term-color: #9d174d; }
 
 /* The policy-news block uses a dark inverted surface. Keep nested links and
    semantic emphasis legible regardless of visited state or term category. */

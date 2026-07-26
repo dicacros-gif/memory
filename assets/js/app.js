@@ -15325,10 +15325,6 @@
         <strong>${section === "management-strategy" ? "전략 실행" : "의사결정 게이트"}</strong>
         <ul class="watch-list">${(item.actions || item.gate || []).map((line) => `<li>${strategicHighlightHTML(line)}</li>`).join("")}</ul>
       </div>
-      <div class="investment-focus-block is-monitor">
-        <strong>매일 확인할 신호</strong>
-        <ul class="watch-list">${(item.triggers || item.gate || []).map((line) => `<li>${strategicHighlightHTML(line)}</li>`).join("")}</ul>
-      </div>
       ${relatedLinks.length ? `
         <div class="investment-focus-block is-sources">
           <strong>관련 최신 기사/신호</strong>
