@@ -127,7 +127,7 @@ assert.match(css, /\.china-deep-video-dock \.talent-strategy-video \{[\s\S]*?hei
 assert.match(css, /@media \(max-width: 680px\) \{[\s\S]*?\.china-deep-video-dock \.talent-strategy-video \{[\s\S]*?aspect-ratio: 4 \/ 5;/, "the compact video height should preserve the mobile portrait layout");
 assert.match(css, /#talent-radar \.talent-radar-slider-slot \{[\s\S]*?display: flex;[\s\S]*?justify-content: center;/, "the talent radar slot should center its visual stage");
 assert.match(css, /#talent-radar \.talent-radar-slider \{[\s\S]*?width: min\(100%, 1360px\);[\s\S]*?margin-inline: auto;/, "the talent radar visual should use a bounded, centered desktop width");
-assert.match(html, /styles\.css\?v=site-audit-20260726-57/, "CSS cache key should include the site-audit revision");
+assert.match(html, /styles\.css\?v=site-audit-20260726-58/, "CSS cache key should include the site-audit revision");
 assert.match(css, /font-synthesis:\s*none/, "Mixed Hangul and Latin emphasis should disable synthetic glyph weights");
 assert.match(css, /\.exec-report-bullet-list[\s\S]*?font-weight:\s*800/, "Report highlights should use a supported professional font weight");
 assert.match(css, /\.exec-baseline-document:is\(:hover,\s*:focus-visible\)[\s\S]*?linear-gradient/, "Broker documents should invert their full surface on hover");

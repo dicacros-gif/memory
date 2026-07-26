@@ -16973,9 +16973,12 @@ body.sidebar-collapsed .sb-ico {
 .community-tabs button:focus-visible,
 .community-tabs button.active {
   transform: translateY(-1px);
-  border-color: color-mix(in srgb, var(--teal) 70%, var(--line));
-  background: var(--teal);
-  color: #071a1f;
+  border-color: #2dd4bf;
+  background: linear-gradient(135deg, #102a43 0%, #123c4a 100%);
+  color: #f8fafc;
+  box-shadow:
+    0 7px 18px rgba(15, 42, 67, .2),
+    inset 0 0 0 1px rgba(94, 234, 212, .14);
 }
 
 .community-caveat {
@@ -17020,10 +17023,14 @@ body.sidebar-collapsed .sb-ico {
 .community-brief:hover,
 .community-brief:focus-within {
   transform: translateY(-3px);
-  border-color: var(--brief-accent);
-  background: color-mix(in srgb, var(--brief-accent) 88%, #111827);
+  border-color: #5eead4;
+  background:
+    linear-gradient(135deg, rgba(45, 212, 191, .11), transparent 48%),
+    linear-gradient(145deg, #0f2438 0%, #123747 100%);
   color: #fff;
-  box-shadow: 0 18px 34px color-mix(in srgb, var(--brief-accent) 24%, rgba(15, 23, 42, .2));
+  box-shadow:
+    0 18px 34px rgba(15, 36, 56, .22),
+    inset 0 0 0 1px rgba(94, 234, 212, .1);
 }
 
 .community-brief-head {
@@ -17081,12 +17088,19 @@ body.sidebar-collapsed .sb-ico {
 .community-brief:focus-within .community-brief-decision span,
 .community-brief:hover small,
 .community-brief:focus-within small {
-  color: #fff;
+  color: #f8fafc;
 }
 
 .community-brief:hover .community-brief-decision,
 .community-brief:focus-within .community-brief-decision {
-  border-color: rgba(255, 255, 255, .28);
+  border-color: rgba(148, 163, 184, .34);
+}
+
+.community-brief:hover .community-brief-head span,
+.community-brief:focus-within .community-brief-head span,
+.community-brief:hover .community-brief-decision strong,
+.community-brief:focus-within .community-brief-decision strong {
+  color: #5eead4;
 }
 
 .community-verification {
@@ -17143,9 +17157,13 @@ body.sidebar-collapsed .sb-ico {
 .community-verification-card:focus-visible {
   transform: translateY(-4px) scale(1.01);
   border-color: #5eead4;
-  background: color-mix(in srgb, var(--teal) 84%, #0f172a);
+  background:
+    linear-gradient(135deg, rgba(45, 212, 191, .1), transparent 48%),
+    linear-gradient(145deg, #0f2438 0%, #123747 100%);
   color: #fff;
-  box-shadow: 0 18px 38px color-mix(in srgb, var(--teal) 25%, rgba(15, 23, 42, .22));
+  box-shadow:
+    0 18px 38px rgba(15, 36, 56, .22),
+    inset 0 0 0 1px rgba(94, 234, 212, .1);
 }
 
 .community-verification-card > div {
@@ -17193,12 +17211,19 @@ body.sidebar-collapsed .sb-ico {
 .community-verification-card:focus-visible p,
 .community-verification-card:hover small,
 .community-verification-card:focus-visible small {
-  color: #fff;
+  color: #f8fafc;
 }
 
 .community-verification-card:hover > div em,
 .community-verification-card:focus-visible > div em {
-  border-color: rgba(255, 255, 255, .46);
+  border-color: rgba(94, 234, 212, .52);
+}
+
+.community-verification-card:hover > div span,
+.community-verification-card:focus-visible > div span,
+.community-verification-card:hover > div em,
+.community-verification-card:focus-visible > div em {
+  color: #5eead4;
 }
 
 .community-stats {
@@ -17250,13 +17275,15 @@ body.sidebar-collapsed .sb-ico {
 .community-card:focus-within {
   transform: translateY(-4px);
   color: #fff;
-  border-color: color-mix(in srgb, var(--community-card-accent) 86%, #fff);
+  border-color: #5eead4;
   background:
     linear-gradient(135deg,
-      color-mix(in srgb, var(--community-card-accent) 90%, #111827) 0%,
-      color-mix(in srgb, var(--accent-3) 62%, #111827) 58%,
-      #111827 100%);
-  box-shadow: 0 22px 48px color-mix(in srgb, var(--community-card-accent) 32%, rgba(15, 23, 42, .26));
+      rgba(45, 212, 191, .11) 0%,
+      transparent 46%),
+    linear-gradient(145deg, #0f2438 0%, #123747 64%, #102a43 100%);
+  box-shadow:
+    0 22px 48px rgba(15, 36, 56, .25),
+    inset 0 0 0 1px rgba(94, 234, 212, .1);
 }
 
 .community-card-head {
