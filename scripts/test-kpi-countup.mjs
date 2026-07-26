@@ -104,7 +104,7 @@ assert.match(app, /const priceRenderObserver = new IntersectionObserver[\s\S]*?r
 assert.match(app, /section\.id === "prices" \? priceRenderObserver : observer/, "only the price board should receive the early render window");
 assert.match(css, /\.agent-debate-title \.agent-tts-toggle \{[\s\S]*?min-width: 190px;[\s\S]*?min-height: 44px;/, "the English TTS control should be large and readable");
 assert.match(css, /\.agent-tts-state \{[\s\S]*?min-width: 31px;/, "the TTS control should expose a dedicated on-or-off state badge");
-assert.match(html, /app\.js\?v=site-audit-20260726-51/, "JavaScript cache key should include the site-audit revision");
+assert.match(html, /app\.js\?v=site-audit-20260726-52/, "JavaScript cache key should include the site-audit revision");
 assert.match(html, /id="memoryHeroVideo"[\s\S]*?preload="none"[\s\S]*?<source data-src="assets\/media\/memory-hero\.mp4"/, "hero video should hydrate after the poster paints");
 assert.match(html, /id="talentStrategyVideoMedia"[\s\S]*?preload="none"[\s\S]*?data-poster="assets\/media\/china-talent-strategy-poster\.webp"[\s\S]*?<source data-src="assets\/media\/china-talent-strategy\.mp4"/, "below-fold talent media should not load during first paint");
 assert.doesNotMatch(html, /family=Noto\+Sans\+KR/, "Pretendard should replace the duplicate Korean webfont download");
@@ -120,7 +120,7 @@ assert.match(css, /\.china-deep-video-dock \.talent-strategy-video \{[\s\S]*?hei
 assert.match(css, /@media \(max-width: 680px\) \{[\s\S]*?\.china-deep-video-dock \.talent-strategy-video \{[\s\S]*?aspect-ratio: 4 \/ 5;/, "the compact video height should preserve the mobile portrait layout");
 assert.match(css, /#talent-radar \.talent-radar-slider-slot \{[\s\S]*?display: flex;[\s\S]*?justify-content: center;/, "the talent radar slot should center its visual stage");
 assert.match(css, /#talent-radar \.talent-radar-slider \{[\s\S]*?width: min\(100%, 1360px\);[\s\S]*?margin-inline: auto;/, "the talent radar visual should use a bounded, centered desktop width");
-assert.match(html, /styles\.css\?v=site-audit-20260726-51/, "CSS cache key should include the site-audit revision");
+assert.match(html, /styles\.css\?v=site-audit-20260726-52/, "CSS cache key should include the site-audit revision");
 assert.match(css, /font-synthesis:\s*none/, "Mixed Hangul and Latin emphasis should disable synthetic glyph weights");
 assert.match(css, /\.exec-report-bullet-list[\s\S]*?font-weight:\s*800/, "Report highlights should use a supported professional font weight");
 assert.match(css, /\.exec-baseline-document:is\(:hover,\s*:focus-visible\)[\s\S]*?linear-gradient/, "Broker documents should invert their full surface on hover");
@@ -170,5 +170,13 @@ assert.match(css, /#talentScenarioTabs \.talent-scenario-tab:active \{[\s\S]*?tr
 assert.match(css, /@media \(max-width: 980px\) \{[\s\S]*?#talentScenarioTabs \{[\s\S]*?repeat\(2, minmax\(0, 1fr\)\)/, "talent scenarios should reflow to two columns on compact screens");
 assert.match(css, /@media \(max-width: 560px\) \{[\s\S]*?#talentScenarioTabs \{[\s\S]*?grid-template-columns: minmax\(0, 1fr\)/, "talent scenarios should stack on narrow phones");
 assert.match(css, /@media \(prefers-reduced-motion: reduce\) \{[\s\S]*?#talentScenarioTabs \.talent-scenario-tab::before[\s\S]*?transition: none !important;/, "talent scenario motion should respect reduced-motion settings");
+assert.match(app, /class="talent-roi-story reveal"[\s\S]*?data-roi-story-slide="\$\{index\}"/, "the lower-right ROI gap should render rotating site imagery and copy");
+assert.match(app, /CHINA_TALENT_GALLERY_SLIDES\[\(Math\.max\(scenarioSlideIndex, 0\) \+ index\) % CHINA_TALENT_GALLERY_SLIDES\.length\]/, "the ROI story should begin with the selected scenario's matching site");
+assert.match(css, /\.talent-roi-grid\[data-investment-count="2"\] \.talent-roi-story \{[\s\S]*?grid-column: 2;[\s\S]*?grid-row: 1 \/ span 2;/, "two-investment scenarios should keep the visual story in the right column");
+assert.match(css, /@media \(max-width: 980px\) \{[\s\S]*?\.talent-roi-grid \.talent-roi-story,[\s\S]*?grid-column: 1 \/ -1;/, "the ROI story should span the compact grid instead of leaving a new gap");
+assert.match(css, /\.talent-roi-story-slide \{[\s\S]*?animation: talentRoiStoryCycle 18s linear infinite;/, "ROI imagery and copy should rotate together");
+assert.match(css, /\.talent-roi-story:is\(:hover, :focus-within\)[\s\S]*?animation-play-state: paused;/, "users should be able to pause the ROI story by hovering or focusing it");
+assert.match(css, /@keyframes talentRoiStoryProgress/, "the ROI story should expose visual rotation progress");
+assert.match(css, /@media \(prefers-reduced-motion: reduce\) \{[\s\S]*?\.talent-roi-story-slide:first-child[\s\S]*?opacity: 1;/, "the ROI story should show one stable slide when reduced motion is requested");
 
 console.log("KPI typography and hover count-up checks passed.");

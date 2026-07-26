@@ -2085,6 +2085,7 @@
   const CHINA_TALENT_GALLERY_SLIDES = [
     {
       id: "wuxi-operations",
+      image: "assets/media/talent-strategy-v3-wuxi-dram.webp",
       scenarioIds: ["operate"],
       kicker: "01 · 无锡 · DRAM FAB OPERATIONS",
       title: "우시 DRAM은 현장 대응과 공정 변경 권한을 분리",
@@ -2100,6 +2101,7 @@
     },
     {
       id: "dalian-quality",
+      image: "assets/media/talent-strategy-v3-dalian-nand.webp",
       scenarioIds: ["nand-essd", "defense"],
       kicker: "02 · 大连 · NAND / eSSD QUALITY",
       title: "다롄 NAND·eSSD는 고객 품질 대응과 핵심 IP를 분리",
@@ -2115,6 +2117,7 @@
     },
     {
       id: "chongqing-packaging",
+      image: "assets/media/talent-strategy-v3-chongqing-package.webp",
       scenarioIds: ["infra-packaging"],
       kicker: "03 · 重庆 · PACKAGE / TEST TRACEABILITY",
       title: "충칭 후공정은 lot 추적성과 변경 증빙으로 지킨다",
@@ -17446,7 +17449,12 @@
     });
 
     if (roiGrid) {
-      roiGrid.innerHTML = scenarioRoi.modeled.map(({ investment, model }, index) => `
+      const scenarioSlideIndex = CHINA_TALENT_GALLERY_SLIDES.findIndex((slide) => slide.scenarioIds.includes(scenario.id));
+      const orderedStorySlides = CHINA_TALENT_GALLERY_SLIDES.map((_, index) => (
+        CHINA_TALENT_GALLERY_SLIDES[(Math.max(scenarioSlideIndex, 0) + index) % CHINA_TALENT_GALLERY_SLIDES.length]
+      ));
+      roiGrid.dataset.investmentCount = String(scenarioRoi.modeled.length);
+      roiGrid.innerHTML = `${scenarioRoi.modeled.map(({ investment, model }, index) => `
         <article class="talent-roi-card reveal" style="--local-accent:${accent}; animation-delay:${index * 35}ms">
           <div class="talent-roi-head">
             <span>${escapeHTML(investment.type)}</span>
@@ -17473,7 +17481,27 @@
             ${(investment.kpis || []).slice(0, 3).map((kpi) => `<li>${escapeHTML(kpi)}</li>`).join("")}
           </ul>
         </article>
-      `).join("");
+      `).join("")}
+        <article class="talent-roi-story reveal" tabindex="0" aria-label="중국 거점별 실행 전략 이미지와 설명" style="--local-accent:${accent}">
+          <div class="talent-roi-story-stage">
+            ${orderedStorySlides.map((slide, index) => `
+              <figure class="talent-roi-story-slide" data-roi-story-slide="${index}" style="--roi-story-index:${index}">
+                <img src="${escapeHTML(slide.image)}" alt="${escapeHTML(slide.title)}" width="1672" height="941" loading="lazy" decoding="async" />
+                <span class="talent-roi-story-shade" aria-hidden="true"></span>
+                <figcaption>
+                  <small>${escapeHTML(slide.kicker)}</small>
+                  <strong>${strategicHighlightHTML(slide.title)}</strong>
+                  <p>${strategicHighlightHTML(slide.body)}</p>
+                  ${sourceLinkHTML(slide.href, slide.source)}
+                </figcaption>
+              </figure>
+            `).join("")}
+            <div class="talent-roi-story-progress" aria-hidden="true">
+              ${orderedStorySlides.map((_, index) => `<i style="--roi-story-index:${index}"></i>`).join("")}
+            </div>
+          </div>
+        </article>
+      `;
     }
 
     if (planning) {
