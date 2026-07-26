@@ -22961,6 +22961,82 @@ button.ni-trend-chip:hover { box-shadow: 0 4px 12px color-mix(in srgb, #0891B2 2
   animation: execBaselineFlowPulse 1.15s ease-in-out infinite alternate;
 }
 
+/* Keep the source-card inversion, but separate its internal hierarchy with
+   restrained light gradients so every argument and figure remains readable. */
+.exec-baseline-document:is(:hover, :focus-visible) .exec-baseline-document-focus {
+  border-color: #e6b84a;
+  background: linear-gradient(135deg, #fffdf5 0%, #fef3c7 100%);
+  box-shadow: inset 0 1px 0 #fff, 0 10px 22px rgba(120, 84, 20, .16);
+}
+
+.exec-baseline-document:is(:hover, :focus-visible) .exec-baseline-document-focus > span {
+  border-color: #b7791f;
+  background: linear-gradient(135deg, #b7791f, #d97706);
+  color: #fff;
+  -webkit-text-fill-color: #fff;
+}
+
+.exec-baseline-document:is(:hover, :focus-visible) .exec-baseline-document-focus > p {
+  color: #3f3522 !important;
+  -webkit-text-fill-color: #3f3522;
+  text-shadow: none;
+}
+
+.exec-baseline-document:is(:hover, :focus-visible) .exec-baseline-document-flow > li,
+.exec-baseline-document:is(:hover, :focus-visible) .exec-baseline-document-metrics > .exec-baseline-metric {
+  --baseline-inner-start: #f0f7ff;
+  --baseline-inner-end: #dbeafe;
+  --baseline-inner-border: #60a5fa;
+  --baseline-inner-ink: #16355f;
+  --baseline-inner-accent: #2563eb;
+  border-color: var(--baseline-inner-border);
+  background: linear-gradient(145deg, var(--baseline-inner-start) 0%, var(--baseline-inner-end) 100%);
+  box-shadow: inset 0 1px 0 #fff, 0 10px 22px rgba(30, 64, 175, .14);
+}
+
+.exec-baseline-document:is(:hover, :focus-visible) .exec-baseline-document-flow > li:nth-child(2),
+.exec-baseline-document:is(:hover, :focus-visible) .exec-baseline-document-metrics > .exec-baseline-metric:nth-child(2) {
+  --baseline-inner-start: #effcf8;
+  --baseline-inner-end: #ccfbf1;
+  --baseline-inner-border: #2dd4bf;
+  --baseline-inner-ink: #124e4a;
+  --baseline-inner-accent: #0f766e;
+}
+
+.exec-baseline-document:is(:hover, :focus-visible) .exec-baseline-document-flow > li:nth-child(3),
+.exec-baseline-document:is(:hover, :focus-visible) .exec-baseline-document-metrics > .exec-baseline-metric:nth-child(3) {
+  --baseline-inner-start: #faf7ff;
+  --baseline-inner-end: #ede9fe;
+  --baseline-inner-border: #a78bfa;
+  --baseline-inner-ink: #49326f;
+  --baseline-inner-accent: #7c3aed;
+}
+
+.exec-baseline-document:is(:hover, :focus-visible) .exec-baseline-document-flow > li p,
+.exec-baseline-document:is(:hover, :focus-visible)
+  .exec-baseline-document-metrics > .exec-baseline-metric :is(small, strong) {
+  color: var(--baseline-inner-ink) !important;
+  -webkit-text-fill-color: var(--baseline-inner-ink);
+  text-shadow: none;
+}
+
+.exec-baseline-document:is(:hover, :focus-visible) .exec-baseline-document-flow > li em,
+.exec-baseline-document:is(:hover, :focus-visible)
+  .exec-baseline-document-metrics > .exec-baseline-metric::before {
+  border-color: transparent;
+  background: linear-gradient(135deg, var(--baseline-inner-accent), color-mix(in srgb, var(--baseline-inner-accent) 72%, #172554));
+  color: #fff;
+  -webkit-text-fill-color: #fff;
+  box-shadow: 0 5px 12px color-mix(in srgb, var(--baseline-inner-accent) 24%, transparent);
+}
+
+.exec-baseline-document:is(:hover, :focus-visible)
+  .exec-baseline-document-flow > li:not(:last-child)::after {
+  border-color: rgba(255, 255, 255, .8);
+  background: linear-gradient(135deg, #2563eb, #0f766e);
+  color: #fff;
+}
+
 @keyframes execBaselineMetricIn {
   from { opacity: 0; transform: translateY(18px) scale(.96); }
   to { opacity: 1; transform: translateY(0) scale(1); }

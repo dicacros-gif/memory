@@ -127,9 +127,12 @@ assert.match(css, /\.china-deep-video-dock \.talent-strategy-video \{[\s\S]*?hei
 assert.match(css, /@media \(max-width: 680px\) \{[\s\S]*?\.china-deep-video-dock \.talent-strategy-video \{[\s\S]*?aspect-ratio: 4 \/ 5;/, "the compact video height should preserve the mobile portrait layout");
 assert.match(css, /#talent-radar \.talent-radar-slider-slot \{[\s\S]*?display: flex;[\s\S]*?justify-content: center;/, "the talent radar slot should center its visual stage");
 assert.match(css, /#talent-radar \.talent-radar-slider \{[\s\S]*?width: min\(100%, 1360px\);[\s\S]*?margin-inline: auto;/, "the talent radar visual should use a bounded, centered desktop width");
-assert.match(html, /styles\.css\?v=site-audit-20260726-61/, "CSS cache key should include the site-audit revision");
+assert.match(html, /styles\.css\?v=site-audit-20260726-62/, "CSS cache key should include the site-audit revision");
 assert.match(css, /#china-talent-strategy :is\(\.policy-card, \.policy-rule-card, \.policy-focus\):is\(:hover, :focus-within\) \{[\s\S]*?linear-gradient\(135deg, #153e75 0%, #0e7490 54%, #0f766e 100%\)/, "China talent inverted cards should use the professional blue-to-teal gradient");
 assert.match(css, /#talentScenarioTabs \.talent-scenario-tab\.active \{[\s\S]*?linear-gradient\(135deg, #153e75 0%, #0e7490 54%, #0f766e 100%\)/, "the selected China talent scenario should use the same professional gradient");
+assert.match(css, /\.exec-baseline-document:is\(:hover, :focus-visible\) \.exec-baseline-document-focus \{[\s\S]*?linear-gradient\(135deg, #fffdf5 0%, #fef3c7 100%\)/, "the inverted source card should separate its key thesis with an ivory-to-gold gradient");
+assert.match(css, /--baseline-inner-start: #f0f7ff;[\s\S]*?--baseline-inner-start: #effcf8;[\s\S]*?--baseline-inner-start: #faf7ff;/, "the inverted source card should use distinct blue, teal, and violet internal gradients");
+assert.match(css, /\.exec-baseline-document:is\(:hover, :focus-visible\) \.exec-baseline-document-flow > li p,[\s\S]*?color: var\(--baseline-inner-ink\) !important;/, "internal source-card copy should switch to high-contrast ink on light gradients");
 assert.match(css, /\.share-card\.share-tone-0,[\s\S]*?\.share-card\.share-tone-4\s*\{\s*--share-accent:\s*var\(--matrix-teal,/, "Benchmark cards should share one restrained consulting accent");
 assert.match(css, /\.roadmap-card\.roadmap-tone-0,[\s\S]*?\.roadmap-card\.roadmap-tone-3\s*\{\s*--roadmap-accent:\s*var\(--matrix-navy,/, "Roadmap cards should share one restrained consulting accent");
 assert.match(css, /\.share-card:hover,[\s\S]*?linear-gradient\(135deg,\s*#234761,\s*#172f45\)/, "Benchmark hover should use the professional navy treatment");
