@@ -4370,7 +4370,7 @@ body.sidebar-collapsed .sb-ico {
   font-size: 9px;
 }
 
-.exec-baseline-document-metrics span {
+.exec-baseline-document-metrics > span {
   min-height: 38px;
   font-size: 9.5px;
   line-height: 1.4;
@@ -5137,7 +5137,7 @@ body.sidebar-collapsed .sb-ico {
   gap: 5px;
 }
 
-.exec-baseline-document-metrics span {
+.exec-baseline-document-metrics > span {
   display: flex;
   min-height: 70px;
   align-items: center;
@@ -21945,7 +21945,7 @@ button.ni-trend-chip:hover { box-shadow: 0 4px 12px color-mix(in srgb, #0891B2 2
 }
 
 .exec-baseline-document:is(:hover, :focus-visible) > header > em,
-.exec-baseline-document:is(:hover, :focus-visible) .exec-baseline-document-metrics span {
+.exec-baseline-document:is(:hover, :focus-visible) .exec-baseline-document-metrics > span {
   border-color: rgba(255, 255, 255, .38);
   background: rgba(255, 255, 255, .12);
   color: #fff;
@@ -22542,6 +22542,205 @@ button.ni-trend-chip:hover { box-shadow: 0 4px 12px color-mix(in srgb, #0891B2 2
   }
 
   .talent-roi-story:is(:hover, :focus-within) {
+    transform: none;
+  }
+}
+
+/* Broker source digest: large, atomic figures and a readable evidence flow. */
+.exec-baseline-document-metrics {
+  position: relative;
+  gap: 12px;
+  counter-reset: baseline-metric;
+}
+
+.exec-baseline-document-metrics > .exec-baseline-metric {
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+  min-height: 118px;
+  align-items: flex-start;
+  justify-content: flex-end;
+  gap: 9px;
+  counter-increment: baseline-metric;
+  border: 2px solid color-mix(in srgb, var(--document-accent) 28%, #d6dee8);
+  border-radius: 15px;
+  background:
+    radial-gradient(circle at 100% 0, color-mix(in srgb, var(--document-accent) 14%, transparent), transparent 46%),
+    linear-gradient(145deg, #fff, color-mix(in srgb, var(--document-accent) 7%, #f7f9fc));
+  padding: 38px 16px 15px;
+  text-align: left;
+  box-shadow: inset 0 1px 0 #fff, 0 10px 22px color-mix(in srgb, var(--document-accent) 10%, transparent);
+  transform: translateY(0);
+  animation: execBaselineMetricIn .64s cubic-bezier(.2, .82, .2, 1) both;
+  animation-delay: calc(var(--baseline-metric-order) * 90ms);
+  transition: transform .22s cubic-bezier(.2, .82, .2, 1), border-color .22s ease, background .22s ease, box-shadow .22s ease;
+}
+
+.exec-baseline-document-metrics > .exec-baseline-metric::before {
+  position: absolute;
+  top: 12px;
+  left: 14px;
+  display: grid;
+  width: 27px;
+  height: 22px;
+  place-items: center;
+  border-radius: 7px;
+  background: var(--document-accent);
+  color: #fff;
+  content: "0" counter(baseline-metric);
+  font-family: var(--mono);
+  font-size: 9px;
+  font-weight: 900;
+  letter-spacing: .03em;
+}
+
+.exec-baseline-document-metrics > .exec-baseline-metric::after {
+  position: absolute;
+  z-index: -1;
+  right: -30px;
+  bottom: -44px;
+  width: 120px;
+  height: 120px;
+  border: 1px solid color-mix(in srgb, var(--document-accent) 22%, transparent);
+  border-radius: 50%;
+  content: "";
+  transition: transform .35s cubic-bezier(.2, .82, .2, 1), background .35s ease;
+}
+
+.exec-baseline-document-metrics > .exec-baseline-metric small {
+  display: block;
+  min-width: 0;
+  color: #59687d;
+  font-size: clamp(11px, .8vw, 13px);
+  line-height: 1.35;
+  font-weight: 850;
+  letter-spacing: -.01em;
+  text-align: left;
+}
+
+.exec-baseline-document-metrics > .exec-baseline-metric strong {
+  display: block;
+  width: 100%;
+  color: var(--document-accent);
+  font-family: "Space Grotesk", var(--display);
+  font-size: clamp(30px, 2.25vw, 44px);
+  font-variant-numeric: lining-nums tabular-nums;
+  line-height: .98;
+  font-weight: 700;
+  letter-spacing: -.055em;
+  white-space: nowrap;
+  text-align: left;
+}
+
+.exec-baseline-document-metrics .exec-baseline-metric .strategy-highlight {
+  display: inline;
+  min-height: 0;
+  border: 0;
+  border-radius: 0;
+  background: none;
+  padding: 0;
+  color: inherit;
+  font: inherit;
+  text-decoration: none;
+  box-shadow: none;
+}
+
+.exec-baseline-document-metrics > .exec-baseline-metric:is(:hover, :focus-within) {
+  transform: translateY(-6px) scale(1.015);
+  border-color: color-mix(in srgb, var(--document-accent) 76%, #fff);
+  background:
+    radial-gradient(circle at 100% 0, rgba(255, 255, 255, .18), transparent 42%),
+    linear-gradient(140deg,
+      color-mix(in srgb, var(--document-accent) 92%, #10203a),
+      color-mix(in srgb, var(--document-accent) 64%, #07111f));
+  box-shadow: 0 20px 36px color-mix(in srgb, var(--document-accent) 24%, rgba(15, 23, 42, .2));
+}
+
+.exec-baseline-document-metrics > .exec-baseline-metric:is(:hover, :focus-within)::after {
+  background: rgba(255, 255, 255, .12);
+  transform: scale(1.2);
+}
+
+.exec-baseline-document-metrics > .exec-baseline-metric:is(:hover, :focus-within) :is(small, strong) {
+  color: #fff;
+  -webkit-text-fill-color: #fff;
+}
+
+.exec-baseline-document-flow {
+  gap: 14px;
+}
+
+.exec-baseline-document-flow > li {
+  min-height: 118px;
+  gap: 10px;
+  border-width: 2px;
+  padding: 14px;
+  transition: transform .22s cubic-bezier(.2, .82, .2, 1), border-color .22s ease, background .22s ease, box-shadow .22s ease;
+}
+
+.exec-baseline-document-flow > li:is(:hover, :focus-within) {
+  transform: translateY(-5px);
+  border-color: color-mix(in srgb, var(--document-accent) 68%, #fff);
+  background: color-mix(in srgb, var(--document-accent) 10%, #fff);
+  box-shadow: 0 16px 28px color-mix(in srgb, var(--document-accent) 16%, transparent);
+}
+
+.exec-baseline-document-flow em {
+  width: 32px;
+  height: 32px;
+  border-radius: 9px;
+  font-size: 11px;
+}
+
+.exec-baseline-document-flow p {
+  color: #3e4d62;
+  font-size: clamp(12px, .84vw, 14px);
+  line-height: 1.55;
+  font-weight: 760;
+}
+
+.exec-baseline-document-flow > li:not(:last-child)::after {
+  right: -19px;
+  width: 26px;
+  height: 26px;
+  border-width: 2px;
+  box-shadow: 0 4px 12px color-mix(in srgb, var(--document-accent) 20%, transparent);
+}
+
+.exec-baseline-document:is(:hover, :focus-visible) .exec-baseline-document-flow > li:not(:last-child)::after {
+  animation: execBaselineFlowPulse 1.15s ease-in-out infinite alternate;
+}
+
+@keyframes execBaselineMetricIn {
+  from { opacity: 0; transform: translateY(18px) scale(.96); }
+  to { opacity: 1; transform: translateY(0) scale(1); }
+}
+
+@keyframes execBaselineFlowPulse {
+  from { transform: translateY(-50%) scale(.92); }
+  to { transform: translateY(-50%) scale(1.08); }
+}
+
+@media (max-width: 760px) {
+  .exec-baseline-document-metrics > .exec-baseline-metric {
+    min-height: 104px;
+  }
+
+  .exec-baseline-document-flow > li {
+    min-height: 0;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .exec-baseline-document-metrics > .exec-baseline-metric,
+  .exec-baseline-document-flow > li,
+  .exec-baseline-document-flow > li:not(:last-child)::after {
+    animation: none !important;
+    transition: none !important;
+  }
+
+  .exec-baseline-document-metrics > .exec-baseline-metric:is(:hover, :focus-within),
+  .exec-baseline-document-flow > li:is(:hover, :focus-within) {
     transform: none;
   }
 }

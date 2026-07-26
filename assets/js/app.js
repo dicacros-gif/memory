@@ -6987,9 +6987,9 @@
                 `).join("")}
               </ol>
               <div class="exec-baseline-document-metrics">
-                ${(Array.isArray(document.metrics) ? document.metrics : []).slice(0, 3).map((metric) => {
+                ${(Array.isArray(document.metrics) ? document.metrics : []).slice(0, 3).map((metric, metricIndex) => {
                   const parts = brokerDocumentMetricParts(metric);
-                  return `<span><small>${strategicHighlightHTML(parts.label)}</small><strong>${strategicHighlightHTML(parts.value)}</strong></span>`;
+                  return `<span class="exec-baseline-metric" style="--baseline-metric-order:${metricIndex}"><small>${strategicHighlightHTML(parts.label)}</small><strong>${escapeHTML(parts.value)}</strong></span>`;
                 }).join("")}
               </div>
             </article>
