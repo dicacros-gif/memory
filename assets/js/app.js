@@ -5456,7 +5456,7 @@
 
     if (catTabs) {
       catTabs.innerHTML = orderedForecastCategories().map((c) => `
-        <button type="button" class="${c.id === forecastCategory ? "active" : ""}" data-forecast-cat="${escapeHTML(c.id)}" style="--cat-accent:${c.accent}">
+        <button type="button" class="forecast-cat-tab${c.id === forecastCategory ? " active" : ""}" data-forecast-cat="${escapeHTML(c.id)}" aria-pressed="${c.id === forecastCategory ? "true" : "false"}" style="--cat-accent:${c.accent}">
           <strong>${escapeHTML(c.label)}</strong>
         </button>
       `).join("");
