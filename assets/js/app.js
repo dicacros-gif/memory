@@ -18436,7 +18436,6 @@
         </div>
         <span>${escapeHTML(fmtDate(updatedAt))}</span>
       </div>
-      <p class="talent-latest-note">공개 채용·면접 신호는 조직 수요의 선행지표입니다. 실제 채용 인원·수율·양산 성과는 원문 공시와 외신으로 별도 검증합니다.</p>
       ${briefItems.length ? `<div class="talent-live-stats">
         ${briefItems.map((item) => `
           <article class="talent-live-stat">

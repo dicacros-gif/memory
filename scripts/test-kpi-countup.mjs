@@ -104,7 +104,7 @@ assert.match(app, /const priceRenderObserver = new IntersectionObserver[\s\S]*?r
 assert.match(app, /section\.id === "prices" \? priceRenderObserver : observer/, "only the price board should receive the early render window");
 assert.match(css, /\.agent-debate-title \.agent-tts-toggle \{[\s\S]*?min-width: 190px;[\s\S]*?min-height: 44px;/, "the English TTS control should be large and readable");
 assert.match(css, /\.agent-tts-state \{[\s\S]*?min-width: 31px;/, "the TTS control should expose a dedicated on-or-off state badge");
-assert.match(html, /app\.js\?v=site-audit-20260726-52/, "JavaScript cache key should include the site-audit revision");
+assert.match(html, /app\.js\?v=site-audit-20260726-53/, "JavaScript cache key should include the site-audit revision");
 assert.match(html, /id="memoryHeroVideo"[\s\S]*?preload="none"[\s\S]*?<source data-src="assets\/media\/memory-hero\.mp4"/, "hero video should hydrate after the poster paints");
 assert.match(html, /id="talentStrategyVideoMedia"[\s\S]*?preload="none"[\s\S]*?data-poster="assets\/media\/china-talent-strategy-poster\.webp"[\s\S]*?<source data-src="assets\/media\/china-talent-strategy\.mp4"/, "below-fold talent media should not load during first paint");
 assert.doesNotMatch(html, /family=Noto\+Sans\+KR/, "Pretendard should replace the duplicate Korean webfont download");
@@ -178,5 +178,6 @@ assert.match(css, /\.talent-roi-story-slide \{[\s\S]*?animation: talentRoiStoryC
 assert.match(css, /\.talent-roi-story:is\(:hover, :focus-within\)[\s\S]*?animation-play-state: paused;/, "users should be able to pause the ROI story by hovering or focusing it");
 assert.match(css, /@keyframes talentRoiStoryProgress/, "the ROI story should expose visual rotation progress");
 assert.match(css, /@media \(prefers-reduced-motion: reduce\) \{[\s\S]*?\.talent-roi-story-slide:first-child[\s\S]*?opacity: 1;/, "the ROI story should show one stable slide when reduced motion is requested");
+assert.doesNotMatch(app, /공개 채용·면접 신호는 조직 수요의 선행지표입니다/, "the removed talent-signal disclaimer should not be rendered");
 
 console.log("KPI typography and hover count-up checks passed.");
