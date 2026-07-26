@@ -2065,6 +2065,8 @@
   let memoryMarketFocusId = "";
   let memoryMarketEdgeType = "all";
   let memoryMarketNodePositions = {};
+  const MEMORY_MARKET_HERO_ROTATION_MS = 3000;
+  const MEMORY_MARKET_MODE_ROTATION_MS = 9000;
   let memoryMarketModeTimer = 0;
   let memoryMarketModeRotationPaused = false;
   let numberLens = "all";
@@ -11074,7 +11076,7 @@
       : memoryMarketModeRotationPaused
         ? "자동 순환 일시 정지"
         : running
-          ? "5초 자동 순환"
+          ? `${MEMORY_MARKET_MODE_ROTATION_MS / 1000}초 자동 순환`
           : "마우스 위치로 일시 정지";
     const toggle = tabs.querySelector("[data-memory-rotation-toggle]");
     if (toggle) {
@@ -11100,7 +11102,7 @@
       memoryMarketEdgeType = "all";
       memoryMarketFocusId = "";
       renderMemoryMarketMap();
-    }, 5000);
+    }, MEMORY_MARKET_MODE_ROTATION_MS);
     updateMemoryMarketModeCycleState();
   }
 
@@ -11806,7 +11808,7 @@
     const startRotate = () => {
       stopRotate();
       if (window.matchMedia?.("(prefers-reduced-motion: reduce)").matches) return;
-      memoryMarketHeroTimer = window.setInterval(() => show(memoryMarketHeroIndex + 1), 5000);
+      memoryMarketHeroTimer = window.setInterval(() => show(memoryMarketHeroIndex + 1), MEMORY_MARKET_HERO_ROTATION_MS);
     };
     dots.forEach((dot) => dot.addEventListener("click", () => { show(Number(dot.dataset.mmDot)); startRotate(); }));
     slides.forEach((slide) => slide.addEventListener("click", () => { show(Number(slide.dataset.mmSlide)); startRotate(); }));
@@ -11857,7 +11859,7 @@
         <strong>Money Flow · 돈의 흐름</strong><small>투자 · 매출</small>
       </button>
       <div class="memory-map-cycle" aria-live="polite">
-        <span data-memory-rotation-state>5초 자동 순환</span>
+        <span data-memory-rotation-state>${MEMORY_MARKET_MODE_ROTATION_MS / 1000}초 자동 순환</span>
         <i class="memory-map-cycle-progress" aria-hidden="true"><b></b></i>
         <button type="button" data-memory-rotation-toggle aria-pressed="false">자동 순환 일시 정지</button>
       </div>

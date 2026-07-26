@@ -34,11 +34,15 @@ assert.match(css, /\.ni-research-lane:is\(:hover, :focus-within\)[\s\S]*?transfo
 assert.match(css, /@media \(prefers-reduced-motion: reduce\)[^{]*\{[^}]*\.ni-research-logic/s, "evidence-map motion should respect reduced-motion settings");
 
 assert.match(app, /let memoryMarketModeTimer = 0;/, "market-map carousel must retain one rotation timer");
-assert.match(app, /window\.setInterval\(\(\) => \{[\s\S]*?\}, 5000\);/, "market-map views should rotate on a five-second cadence");
+assert.match(app, /const MEMORY_MARKET_HERO_ROTATION_MS = 3000;/, "the upper market hero should rotate every three seconds");
+assert.match(app, /const MEMORY_MARKET_MODE_ROTATION_MS = 9000;/, "the lower market modes should rotate every nine seconds");
+assert.match(app, /window\.setInterval\(\(\) => show\(memoryMarketHeroIndex \+ 1\), MEMORY_MARKET_HERO_ROTATION_MS\)/, "the upper market hero should use its three-second cadence");
+assert.match(app, /window\.setInterval\(\(\) => \{[\s\S]*?\}, MEMORY_MARKET_MODE_ROTATION_MS\);/, "the lower market modes should use their nine-second cadence");
 assert.match(app, /board\.addEventListener\("mouseenter", stopMemoryMarketModeRotation\)/, "market-map carousel should pause on pointer hover");
 assert.match(app, /money: \{[\s\S]*?money-flow-ai-demand\.webp[\s\S]*?AI 서버 증설·메모리 장기계약[\s\S]*?money-flow-china-capital\.webp[\s\S]*?패키징·테스트 캐파·현지 투자[\s\S]*?money-flow-policy-capital\.webp[\s\S]*?정책 자금·Fab 증설·장비 발주/s, "Money Flow should use dedicated demand, capital, and policy-capital images");
 assert.match(app, /data-memory-rotation-toggle/, "market-map carousel should offer a pause and resume control");
-assert.match(css, /\.memory-map-tabs\[data-rotation-running="true"\] \.memory-map-cycle-progress b/, "market-map carousel should show five-second progress");
+assert.match(css, /\.memory-map-tabs\[data-rotation-running="true"\] \.memory-map-cycle-progress b \{[\s\S]*?animation: memoryMapCycleProgress 9s linear both;/, "the lower market carousel should show nine-second progress");
+assert.match(css, /\.mm-dot\.is-active::after \{[^}]*animation: mmProgress 3s linear;/, "the upper market hero should show three-second progress");
 assert.match(css, /@media \(prefers-reduced-motion: reduce\) \{[\s\S]*?\.memory-map-cycle-progress b/s, "market-map carousel should respect reduced-motion settings");
 assert.match(app, /let chinaTalentGalleryInteractionPaused = false;/, "talent gallery should track temporary interaction pauses");
 assert.match(app, /image\.classList\.toggle\("is-next", !active && relative === 1\);/, "talent gallery should position the upcoming slide beside the active slide");
@@ -96,7 +100,7 @@ assert.match(app, /const priceRenderObserver = new IntersectionObserver[\s\S]*?r
 assert.match(app, /section\.id === "prices" \? priceRenderObserver : observer/, "only the price board should receive the early render window");
 assert.match(css, /\.agent-debate-title \.agent-tts-toggle \{[\s\S]*?min-width: 190px;[\s\S]*?min-height: 44px;/, "the English TTS control should be large and readable");
 assert.match(css, /\.agent-tts-state \{[\s\S]*?min-width: 31px;/, "the TTS control should expose a dedicated on-or-off state badge");
-assert.match(html, /app\.js\?v=site-audit-20260726-42/, "JavaScript cache key should include the site-audit revision");
+assert.match(html, /app\.js\?v=site-audit-20260726-43/, "JavaScript cache key should include the site-audit revision");
 assert.match(html, /id="memoryHeroVideo"[\s\S]*?preload="none"[\s\S]*?<source data-src="assets\/media\/memory-hero\.mp4"/, "hero video should hydrate after the poster paints");
 assert.match(html, /id="talentStrategyVideoMedia"[\s\S]*?preload="none"[\s\S]*?data-poster="assets\/media\/china-talent-strategy-poster\.webp"[\s\S]*?<source data-src="assets\/media\/china-talent-strategy\.mp4"/, "below-fold talent media should not load during first paint");
 assert.doesNotMatch(html, /family=Noto\+Sans\+KR/, "Pretendard should replace the duplicate Korean webfont download");
@@ -111,7 +115,7 @@ assert.match(css, /\.china-deep-video-dock \.talent-strategy-video \{[\s\S]*?hei
 assert.match(css, /@media \(max-width: 680px\) \{[\s\S]*?\.china-deep-video-dock \.talent-strategy-video \{[\s\S]*?aspect-ratio: 4 \/ 5;/, "the compact video height should preserve the mobile portrait layout");
 assert.match(css, /#talent-radar \.talent-radar-slider-slot \{[\s\S]*?display: flex;[\s\S]*?justify-content: center;/, "the talent radar slot should center its visual stage");
 assert.match(css, /#talent-radar \.talent-radar-slider \{[\s\S]*?width: min\(100%, 1360px\);[\s\S]*?margin-inline: auto;/, "the talent radar visual should use a bounded, centered desktop width");
-assert.match(html, /styles\.css\?v=site-audit-20260726-42/, "CSS cache key should include the site-audit revision");
+assert.match(html, /styles\.css\?v=site-audit-20260726-43/, "CSS cache key should include the site-audit revision");
 assert.match(css, /font-synthesis:\s*none/, "Mixed Hangul and Latin emphasis should disable synthetic glyph weights");
 assert.match(css, /\.exec-report-bullet-list[\s\S]*?font-weight:\s*800/, "Report highlights should use a supported professional font weight");
 assert.match(css, /\.exec-baseline-document:is\(:hover,\s*:focus-visible\)[\s\S]*?linear-gradient/, "Broker documents should invert their full surface on hover");
