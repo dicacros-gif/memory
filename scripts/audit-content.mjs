@@ -163,6 +163,15 @@ if (/filter\(isChinaArticle\)/.test(appText) && !/function\s+isChinaArticle\s*\(
 if (!/SpeechSynthesisUtterance/.test(appText) || !/speechSynthesis/.test(appText)) {
   addIssue("error", "assets/js/app.js", "agent TTS engine is missing");
 }
+for (const forbidden of [
+  "안건 키워드와 연결된 최신 권위 소스 기사가 없습니다",
+  "안건에 직접 연결된 권위 원문이 없습니다",
+  "오늘 Briefing에 연결된 직접 근거가 없어 판단을 보류",
+]) {
+  if (appText.includes(forbidden)) {
+    addIssue("error", "assets/js/app.js", "agent discussion still contains a blocking no-evidence template", forbidden);
+  }
+}
 const numericKpis = (baseline.kpis || []).filter((item) => /\d/.test(String(item.value || "")));
 const missingKpiSources = numericKpis.filter((item) => !String(item.sourceUrl || "").trim());
 for (const item of missingKpiSources) {
@@ -226,6 +235,32 @@ for (const [id, artifact] of Object.entries(clientArtifacts)) {
 }
 if (Object.hasOwn(liveClient, "quant") || Object.hasOwn(liveClient, "priceHistory") || Object.hasOwn(liveClient, "marketHistory")) {
   addIssue("error", "data/live-client.json", "client live artifact duplicates deferred database artifacts");
+}
+if (Number(liveClient.evidence?.promotedCount) !== (liveClient.news || []).length) {
+  addIssue("error", "data/live-client.json", "client evidence count must match promoted browser news");
+}
+for (const field of ["signals", "competitors", "newsStats", "quarantineSummary"]) {
+  if (Object.hasOwn(liveClient, field)) {
+    addIssue("error", "data/live-client.json", "browser artifact retains a non-rendered database field", field);
+  }
+}
+if (Object.hasOwn(liveClient.benchmarkSignals || {}, "referenceArchive")
+  || Object.hasOwn(liveClient.benchmarkSignals || {}, "discoveryArchive")) {
+  addIssue("error", "data/live-client.json", "browser artifact exposes database-only benchmark archives");
+}
+const browserSourceItems = [
+  ...(liveClient.news || []),
+  ...(liveClient.referenceNews?.items || []),
+  ...(liveClient.categories || []).flatMap((category) => category.items || []),
+  ...(liveClient.benchmarkSignals?.stream || []),
+  ...(liveClient.benchmarkSignals?.themes || []).flatMap((theme) => theme.items || []),
+  ...(liveClient.startups?.candidates || []).flatMap((candidate) => candidate.recentNews || []),
+];
+for (const item of browserSourceItems) {
+  const value = item.sourceUrl || item.url || item.link || "";
+  if (/news\.google\.com/i.test(String(value))) {
+    addIssue("error", "data/live-client.json", "browser-visible evidence uses a Google News relay instead of a canonical source", item.title || value);
+  }
 }
 if ((liveClient.prices?.sections || []).some((section) => (section.rows || []).some((row) => Array.isArray(row.history)))) {
   addIssue("error", "data/live-client.json", "client live price rows must not duplicate price history");

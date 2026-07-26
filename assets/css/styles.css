@@ -96,6 +96,7 @@ body {
     color-mix(in srgb, var(--accent) 5%, var(--bg)) 100%);
   background-attachment: fixed;
   font-variant-numeric: tabular-nums;
+  font-synthesis: none;
   -webkit-font-smoothing: antialiased;
   text-rendering: optimizeLegibility;
   letter-spacing: 0;
@@ -19835,14 +19836,29 @@ body.crawl-moderation-open {
   border-radius: 0;
   background: transparent !important;
   color: var(--term-color) !important;
-  font-weight: 920;
+  font-weight: 800;
+  font-synthesis: none;
+  line-height: inherit;
+  letter-spacing: inherit;
+  vertical-align: baseline;
   text-decoration-line: underline !important;
   text-decoration-color: color-mix(in srgb, var(--term-line) 72%, transparent) !important;
-  text-decoration-thickness: 1.5px !important;
-  text-underline-offset: .2em !important;
-  text-decoration-skip-ink: auto !important;
-  box-decoration-break: clone;
-  -webkit-box-decoration-break: clone;
+  text-decoration-thickness: 1px !important;
+  text-underline-offset: .24em !important;
+  text-decoration-skip-ink: none !important;
+  text-shadow: none;
+  -webkit-text-fill-color: currentColor;
+}
+
+/* Report copy mixes Hangul and Latin product names. Keep both scripts on the
+   same baseline and avoid unsupported faux weights that can fracture glyphs. */
+.exec-report-insight-copy :is(.strategy-highlight, .answer-term),
+.exec-report-bullet-list :is(.strategy-highlight, .answer-term) {
+  font-weight: 800;
+  font-synthesis: none;
+  line-height: inherit;
+  letter-spacing: 0;
+  vertical-align: baseline;
 }
 
 .term-company {

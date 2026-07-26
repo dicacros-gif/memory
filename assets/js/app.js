@@ -2040,6 +2040,7 @@
   let DATA_MANIFEST = null;
   let REPO_CRAWL_EXCLUSIONS = emptyCrawlExclusions;
   let RESEARCH_ARCHIVE = { items: [] };
+  let researchArchivePromise = null;
   let localCrawlExclusions = [];
   let crawlExclusionKeys = new Set();
   let activeCategory = "all";
@@ -2200,6 +2201,22 @@
   function loadManagedJSON(key, legacyPath, fallback) {
     const managed = Boolean(DATA_MANIFEST?.artifacts?.[key]);
     return loadJSON(managedDataPath(key, legacyPath), fallback, { cache: managed ? "force-cache" : "no-cache" });
+  }
+
+  function ensureResearchArchiveLoaded() {
+    if (Array.isArray(RESEARCH_ARCHIVE?.items) && RESEARCH_ARCHIVE.items.length) {
+      return Promise.resolve(RESEARCH_ARCHIVE);
+    }
+    if (researchArchivePromise) return researchArchivePromise;
+    researchArchivePromise = loadJSON("data/research-archive.json", { items: [] }, { cache: "force-cache" })
+      .then((value) => {
+        RESEARCH_ARCHIVE = value && Array.isArray(value.items) ? value : { items: [] };
+        return RESEARCH_ARCHIVE;
+      })
+      .finally(() => {
+        researchArchivePromise = null;
+      });
+    return researchArchivePromise;
   }
 
   function normalizeCrawlExclusionUrl(value = "") {
@@ -3887,14 +3904,12 @@
     setupChinaDecisionVideo();
     setupMemoryScrollStory();
     DATA_MANIFEST = await loadDataManifest();
-    [BASE, LIVE, REPO_CRAWL_EXCLUSIONS, QUANT, RESEARCH_ARCHIVE] = await Promise.all([
+    [BASE, LIVE, REPO_CRAWL_EXCLUSIONS, QUANT] = await Promise.all([
       loadJSON("data/baseline.json", null),
       loadManagedJSON("live", "data/live.json", emptyLive),
       loadJSON("data/crawl-exclusions.json", emptyCrawlExclusions),
       loadManagedJSON("quant", "data/quant.json", null),
-      loadJSON("data/research-archive.json", { items: [] }),
     ]);
-    if (!RESEARCH_ARCHIVE || !Array.isArray(RESEARCH_ARCHIVE.items)) RESEARCH_ARCHIVE = { items: [] };
     LIVE = selectVerifiedLiveData(LIVE);
     LIVE = normalizeLiveData(LIVE);
     if (!QUANT && LIVE && LIVE.quant) QUANT = LIVE.quant;
@@ -3917,6 +3932,14 @@
     renderLiveFigures();
     renderMemoryBypassRoutes();
     renderNewsInsightSummary();
+    // The persistent research timeline is below the first viewport. Load it
+    // after the core dashboard is interactive, then enrich that section without
+    // holding back first paint.
+    const enrichResearchTimeline = () => {
+      ensureResearchArchiveLoaded().then(renderNewsInsightSummary);
+    };
+    if ("requestIdleCallback" in window) window.requestIdleCallback(enrichResearchTimeline, { timeout: 1800 });
+    else window.setTimeout(enrichResearchTimeline, 450);
     setupQA();
     setupInteractions();
     setupScrollSpy();
@@ -5331,6 +5354,53 @@
     return verifiedDerivedContract("accountSignals", "2.1")?.accounts?.[account?.id] || null;
   }
 
+  function forecastAccountDisplaySignal(account = {}) {
+    const current = forecastAccountSignal(account);
+    if (Number(current?.evidenceCount || 0) > 0) return current;
+    const stop = new Set(["cloud", "group", "china", "server", "mobile", "automotive", "hyperscaler"]);
+    const terms = `${account.id || ""} ${account.name || ""}`
+      .toLowerCase()
+      .split(/[^a-z0-9가-힣]+/)
+      .filter((term) => term.length >= 3 && !stop.has(term));
+    if (!terms.length) return current;
+    const stored = [
+      ...(Array.isArray(LIVE.referenceNews?.items) ? LIVE.referenceNews.items : []),
+      ...(Array.isArray(RESEARCH_ARCHIVE?.items) ? RESEARCH_ARCHIVE.items : []),
+    ].map((item) => ({
+      item,
+      haystack: `${item.title || ""} ${item.titleKo || ""} ${item.summary || ""} ${item.summaryOriginal || ""}`.toLowerCase(),
+      url: item.sourceUrl || item.url || item.link || "",
+      date: String(item.date || item.publishedAt || "").slice(0, 10),
+    })).filter((entry) => isDirectEvidenceUrl(entry.url) && /^20\d{2}-\d{2}-\d{2}$/.test(entry.date))
+      .filter((entry) => terms.some((term) => /^[a-z0-9]+$/.test(term)
+        ? new RegExp(`(^|[^a-z0-9])${term}([^a-z0-9]|$)`).test(entry.haystack)
+        : entry.haystack.includes(term)))
+      .sort((a, b) => b.date.localeCompare(a.date))
+      .slice(0, 3);
+    if (!stored.length) return current;
+    const evidence = stored.map(({ item, url, date }) => ({
+      title: item.titleKo || item.title || "누적 수집 원문",
+      source: item.source || "원문",
+      sourceClass: item.sourceClass || "reference",
+      url,
+      date,
+      snippet: item.summary || item.summaryOriginal || "",
+      direction: "reference",
+    }));
+    return {
+      ...(current || {}),
+      status: "reference",
+      evidenceCount: evidence.length,
+      sourceCount: new Set(evidence.map((item) => item.source)).size,
+      independentSourceCount: new Set(evidence.map((item) => item.source)).size,
+      evidenceQuality: "historical-reference",
+      driverLabel: "누적 DB 근거",
+      latest: evidence[0],
+      evidence,
+      note: `누적 DB의 최근 검증 원문 ${fmtNum(evidence.length)}건을 표시하며 당일 점수 산식에는 반영하지 않습니다`,
+    };
+  }
+
   function isUsableAccountSignal(signal) {
     return signal?.status === "live"
       && signal?.minEvidenceMet === true
@@ -5442,13 +5512,15 @@
     const focusId = accounts.some((a) => a.id === hyperscalerFocusId) ? hyperscalerFocusId : accounts[0].id;
     grid.innerHTML = accounts.map((account, i) => {
       const pull = forecastAccountPull(account, scenario);
-      const signal = forecastAccountSignal(account);
+      const signal = forecastAccountDisplaySignal(account);
       const hasPull = Number.isFinite(pull);
       const signalBadge = isUsableAccountSignal(signal)
         ? `<span class="hs-signal ${escapeHTML(signal.direction)}">${signal.direction === "up" ? "▲" : signal.direction === "down" ? "▼" : "•"} 오늘 뉴스 ${fmtNum(signal.mentions)}건</span>`
+        : signal?.status === "reference"
+          ? `<span class="hs-signal insufficient">누적 DB · ${fmtNum(signal.evidenceCount)}건</span>`
         : signal?.evidenceCount
           ? `<span class="hs-signal insufficient">근거 품질 미달 · ${fmtNum(signal.evidenceCount)}건</span>`
-          : `<span class="hs-signal insufficient">최근 30일 근거 없음</span>`;
+          : `<span class="hs-signal insufficient">공식 원문 추가 수집 중</span>`;
       return `
         <button class="hs-card ${account.id === focusId ? "active" : ""} reveal${hasPull ? "" : " insufficient"}" type="button" data-hs-account="${escapeHTML(account.id)}" style="--delay:${i * 40}ms; --pull:${hasPull ? pull : 0}%">
           <span class="hs-card-top"><em>${signal?.evidenceCount ? `${fmtNum(signal.independentSourceCount || signal.sourceCount)}개 독립 출처` : "30D"}</em><b>${escapeHTML(category.driverLabel)} ${escapeHTML(signal?.driverLabel || "근거 부족")}</b></span>
@@ -5463,7 +5535,7 @@
     if (focus) {
       const account = accounts.find((a) => a.id === focusId) || accounts[0];
       const pull = forecastAccountPull(account, scenario);
-      const signal = forecastAccountSignal(account);
+      const signal = forecastAccountDisplaySignal(account);
       const hasPull = Number.isFinite(pull);
       const signalHTML = isUsableAccountSignal(signal)
         ? `<div class="hs-focus-signal">
@@ -5471,9 +5543,11 @@
             <span>언급 ${fmtNum(signal.mentions)}건 · 독립 출처 ${fmtNum(signal.independentSourceCount || signal.sourceCount)}개 · 확장어 ${fmtNum(signal.up)} · 축소어 ${fmtNum(signal.down)} · 방향 ${signal.direction === "up" ? "▲ 확대" : signal.direction === "down" ? "▼ 축소" : "→ 중립"}</span>
             ${(signal.evidence || []).map((item) => `<a href="${escapeHTML(item.url)}" target="_blank" rel="noopener">${escapeHTML(item.title)} — ${escapeHTML(item.source)} ${escapeHTML(item.date || "")} ↗</a>`).join("")}
           </div>`
+        : signal?.status === "reference"
+          ? `<div class="hs-focus-signal idle"><b>누적 DB 근거</b><span>당일 점수와 분리해 이전 수집 원문의 날짜·출처를 표시</span>${(signal.evidence || []).map((item) => `<a href="${escapeHTML(item.url)}" target="_blank" rel="noopener">${escapeHTML(item.title)} — ${escapeHTML(item.source)} ${escapeHTML(item.date || "")} ↗</a>`).join("")}</div>`
         : signal?.evidenceCount
           ? `<div class="hs-focus-signal idle"><b>근거 품질 미달</b><span>독립 출처 2개 또는 공식·공시 원문 1건 확인 전까지 점수 산출 보류</span>${(signal.evidence || []).map((item) => `<a href="${escapeHTML(item.url)}" target="_blank" rel="noopener">${escapeHTML(item.title)} — ${escapeHTML(item.source)} ${escapeHTML(item.date || "")} ↗</a>`).join("")}</div>`
-          : `<div class="hs-focus-signal idle"><b>라이브 근거 대기</b><span>최근 30일 직접 근거 없음 · 고정 방향·고정 점수로 대체하지 않음</span></div>`;
+          : `<div class="hs-focus-signal idle"><b>공식 원문 추가 수집 중</b><span>누적 DB 검색과 신규 수집을 계속하며 확인 전 점수는 산출하지 않음</span></div>`;
       focus.innerHTML = `
         <span class="hs-focus-tag">${escapeHTML(category.label)} · 수요 심층</span>
         <strong>${escapeHTML(account.name)}</strong>
@@ -5482,7 +5556,7 @@
           <span><b>${escapeHTML(signal?.latest?.date || "N/A")}</b><small>최근 근거일</small></span>
           <span><b>${hasPull ? `${fmtNum(pull)}/100` : "N/A"}</b><small>${escapeHTML(category.pullLabel)}</small></span>
         </div>
-        <p>${escapeHTML(signal?.note || "직접 근거가 쌓일 때까지 계정 해석을 보류합니다.")}</p>
+        <p>${escapeHTML(signal?.note || "공식 원문이 추가되면 계정별 방향과 견인도를 자동 재계산합니다")}</p>
         ${signalHTML}
         <small class="hs-focus-note">${escapeHTML(scenario.label)} · Insight</small>
       `;
@@ -16325,6 +16399,59 @@
       .filter((term) => term.length >= 2 && !stop.has(term))));
   }
 
+  function isDirectEvidenceUrl(value = "") {
+    try {
+      const url = new URL(String(value || ""));
+      return ["http:", "https:"].includes(url.protocol)
+        && !/(^|\.)news\.google\.com$|(^|\.)google\.com$/i.test(url.hostname);
+    } catch {
+      return false;
+    }
+  }
+
+  function ceoChallengeStoredNews(terms = [], limit = 4, excludedKeys = new Set()) {
+    const stored = [
+      ...(Array.isArray(LIVE.referenceNews?.items) ? LIVE.referenceNews.items : []),
+      ...(Array.isArray(RESEARCH_ARCHIVE?.items) ? RESEARCH_ARCHIVE.items : []),
+    ].map((item) => {
+      const sourceUrl = item.sourceUrl || item.url || item.link || "";
+      return {
+        ...item,
+        title: item.title || item.titleKo || "누적 원문",
+        titleKo: item.titleKo || item.title || "누적 원문",
+        sourceUrl,
+        link: sourceUrl,
+        date: item.date || item.publishedAt || "",
+        publishedAt: item.publishedAt || item.date || "",
+        summary: item.summary || item.summaryOriginal || "",
+        sourceType: item.sourceType || "누적 DB 원문",
+        claimType: item.claimType || "과거 수집 기사",
+        evidenceLevel: item.evidenceLevel || item.level || "Reported",
+        continuityFallback: true,
+        dataStatus: "reference-only",
+      };
+    }).filter((item) => isDirectEvidenceUrl(item.sourceUrl))
+      .filter((item) => /^20\d{2}-\d{2}-\d{2}$/.test(String(item.date || "").slice(0, 10)))
+      .filter((item) => !isCrawlExcluded("news", item) && !isSkhynixNewsroom(item) && !isLowConfidenceNews(item));
+    const ranked = stored.map((item) => {
+      const title = `${item.title || ""} ${item.titleKo || ""}`.toLowerCase();
+      const summary = `${item.summary || ""} ${item.summaryOriginal || ""}`.toLowerCase();
+      const relevance = terms.reduce((score, term) => score + (title.includes(term) ? 5 : 0) + (summary.includes(term) ? 2 : 0), 0);
+      const authority = Math.max(newsAuthorityScore(item), RESEARCH_SOURCE_RE.test(`${item.source || ""} ${title}`) ? 5 : 0);
+      return { item, relevance, authority, timestamp: newsTimestamp(item) };
+    }).filter((entry) => entry.authority >= 4)
+      .sort((a, b) => b.relevance - a.relevance || b.authority - a.authority || b.timestamp - a.timestamp);
+    const selected = [];
+    for (const entry of ranked) {
+      const key = canonicalNewsKey(entry.item);
+      if (!key || excludedKeys.has(key)) continue;
+      excludedKeys.add(key);
+      selected.push({ ...entry.item, _storedRelevance: entry.relevance });
+      if (selected.length >= limit) break;
+    }
+    return selected.map(({ _storedRelevance, ...item }) => item);
+  }
+
   function ceoChallengeLiveNews(scenario = {}, target = {}, challenge = {}, limit = 4) {
     const terms = ceoChallengeSearchTerms(scenario, target, challenge);
     const briefItems = (LIVE.intelligence?.briefs || []).map((brief) => ({
@@ -16353,13 +16480,16 @@
     }).filter((entry) => entry.relevance > 0 && entry.authority >= 4);
     ranked.sort((a, b) => b.relevance - a.relevance || b.authority - a.authority || b.timestamp - a.timestamp);
     const selected = ranked.slice(0, limit).map((entry) => entry.item);
-    if (selected.length >= Math.min(2, limit)) return selected;
     const selectedKeys = new Set(selected.map(canonicalNewsKey));
     const fallback = candidates
       .filter((item) => newsAuthorityScore(item) >= 5 && !selectedKeys.has(canonicalNewsKey(item)))
       .sort(compareNewsItems)
       .slice(0, limit - selected.length);
-    return selected.concat(fallback);
+    fallback.forEach((item) => selectedKeys.add(canonicalNewsKey(item)));
+    const current = selected.concat(fallback);
+    if (current.length >= limit) return current.slice(0, limit);
+    const stored = ceoChallengeStoredNews(terms, limit - current.length, selectedKeys);
+    return current.concat(stored).slice(0, limit);
   }
 
   function ceoChallengeLiveFacts(scenario = {}, target = {}, challenge = {}, limit = 4) {
@@ -16481,13 +16611,13 @@
     const primarySummary = cleanInsightText(primaryNews?.summary || primaryNews?.summaryOriginal || "");
     const priceNarrative = prices.length
       ? `가격 ${fmtNum(prices.length)}개 품목의 수집 구간 중앙값은 ${signedPercent(priceMomentum)}${spread != null ? `, Spot·Contract 차이는 ${fmtNum(spread, 2)}%p` : ""}입니다.`
-      : "이 안건은 직접 연결할 공개 가격 품목이 없어 기사·정책 근거로만 판단합니다.";
+      : "이 안건은 가격 품목 대신 누적 원문과 정책·고객 근거를 우선 적용합니다.";
     const newsNarrative = primaryNews
-      ? `${primaryNews.source || "원문"}(${shortKstDateWithYear(primaryNews.publishedAt || primaryNews.date)}): ${primaryTitle}${primarySummary ? ` · ${primarySummary}` : ""}`
-      : "안건 키워드와 연결된 최신 권위 소스 기사가 없습니다.";
+      ? `${primaryNews.continuityFallback ? "누적 DB 근거 · " : ""}${primaryNews.source || "원문"}(${shortKstDateWithYear(primaryNews.publishedAt || primaryNews.date)}): ${primaryTitle}${primarySummary ? ` · ${primarySummary}` : ""}`
+      : "현재 보유한 공식 KPI와 정책 원문을 기준선으로 적용합니다.";
     const factNarrative = primaryFact
       ? `${primaryFact.source} 공식 팩트: ${primaryFact.title} · 현재 단계 ${primaryFact.stage}`
-      : "안건과 직접 연결된 단계 해소 팩트가 없습니다.";
+      : `단계 판단은 ${primaryNews ? "연결 원문의 날짜·출처" : "공식 KPI의 출처·대조일"}와 실행 게이트를 분리해 검토합니다.`;
     return {
       news,
       facts,
@@ -16515,14 +16645,14 @@
     ceoChallengeRefreshPromise = (async () => {
       const stamp = Date.now();
       const fetchJSON = async (path) => {
-        const response = await fetch(`${path}?agent=${stamp}`, { cache: "no-store" });
+        const response = await fetch(`${path}${path.includes("?") ? "&" : "?"}agent=${stamp}`, { cache: "no-store" });
         if (!response.ok) throw new Error(`${path} ${response.status}`);
         return response.json();
       };
       const [liveResult, quantResult, historyResult] = await Promise.allSettled([
-        fetchJSON("data/live.json"),
-        fetchJSON("data/quant.json"),
-        fetchJSON("data/price-history.json"),
+        fetchJSON(managedDataPath("live", "data/live-client.json")),
+        fetchJSON(managedDataPath("quant", "data/quant-client.json")),
+        fetchJSON(managedDataPath("priceHistory", "data/price-history-client.json")),
       ]);
       let liveUpdated = false;
       let quantUpdated = false;
@@ -16606,9 +16736,9 @@
             </a>`).join("")}
           ${newsItems.map((item) => `
             <a href="${escapeHTML(item.sourceUrl || item.link)}" target="_blank" rel="noopener noreferrer">
-              <span>${escapeHTML(item.source || "원문")} · ${escapeHTML(shortKstDateWithYear(item.publishedAt || item.date))}</span>
+              <span>${item.continuityFallback ? "누적 DB · " : ""}${escapeHTML(item.source || "원문")} · ${escapeHTML(shortKstDateWithYear(item.publishedAt || item.date))}</span>
               <strong>${escapeHTML(newsTitle(item))}</strong>
-            </a>`).join("") || `<p>안건과 직접 연결된 최신 권위 소스 기사가 없습니다.</p>`}
+            </a>`).join("") || `<p>공식 KPI와 누적 정책 원문을 기준선으로 적용</p>`}
         </div>
       </section>
     `;
@@ -16742,7 +16872,7 @@
 
     const selectedAnswer = answers[challenge.id] || answers["roi-credibility"];
     const liveAction = liveContext.priceMomentum == null
-      ? "직접 가격이 없는 안건은 최신 기사·정책 원문이 바뀔 때 재검토합니다."
+      ? "가격 비적용 안건은 누적 기사·정책 원문의 상태 변화 시 재검토합니다."
       : liveContext.priceMomentum <= -0.45
         ? `가격 중앙값 ${signedPercent(liveContext.priceMomentum)}를 반영해 고객·재고 방어 조건을 강화합니다.`
         : liveContext.priceMomentum >= 0.55
@@ -16879,7 +17009,7 @@
           role: "제품·기술 병목",
           avatar: "CTO",
           color: "#7C3AED",
-          message: `${targetLabel}은 기술·제품 병목을 먼저 분리해야 합니다. ${topNews || "최신 원문 연결이 없는 기술 주장은 승격하지 않습니다."} HBM 수율, NAND/eSSD 고객 인증, 중국 Fab 운영, IP 접근권 중 어느 축이 막히는지 확인한 뒤 물량·채용·투자 약속을 단계화합니다.`,
+          message: `${targetLabel}은 기술·제품 병목을 먼저 분리해야 합니다. ${topNews || "누적 기술 원문과 공식 제품 로드맵을 기준선으로 적용합니다."} HBM 수율, NAND/eSSD 고객 인증, 중국 Fab 운영, IP 접근권 중 어느 축이 막히는지 확인한 뒤 물량·채용·투자 약속을 단계화합니다.`,
           speechEn: `We must isolate the technical bottleneck first. H B M yield, NAND and enterprise S S D qualification, China fab operations, and intellectual-property access require separate gates before volume, hiring, or investment commitments are staged.`,
         },
         {
@@ -16895,8 +17025,8 @@
           role: "고객·가격 전이",
           avatar: "MKT",
           color: "#10B981",
-          message: `${liveContext.priceNarrative || "직접 연결 가격이 없습니다."}${topPriceRows ? ` 대표 품목은 **${topPriceRows}**입니다.` : ""} 가격과 고객 전환·장기계약이 같은 방향일 때만 방어 가격, 물량 배분, 고객 락인 안건으로 올립니다.`,
-          speechEn: `The latest linked price signal is ${priceMetric}. ${liveContext.spread == null ? "There is no comparable spot and contract spread for this agenda." : `The current spot and contract spread is ${fmtNum(liveContext.spread, 2)} percentage points.`} Pricing, customer switching, and long-term contracts must point in the same direction before allocation changes are approved.`,
+          message: `${liveContext.priceNarrative || "누적 원문과 정책·고객 근거를 우선 적용합니다."}${topPriceRows ? ` 대표 품목은 **${topPriceRows}**입니다.` : ""} 가격과 고객 전환·장기계약이 같은 방향일 때만 방어 가격, 물량 배분, 고객 락인 안건으로 올립니다.`,
+          speechEn: `The latest linked price signal is ${priceMetric}. ${liveContext.spread == null ? "This agenda uses article, customer, and policy evidence because a comparable spot and contract spread is not applicable." : `The current spot and contract spread is ${fmtNum(liveContext.spread, 2)} percentage points.`} Pricing, customer switching, and long-term contracts must point in the same direction before allocation changes are approved.`,
         },
         {
           name: "Operations",
@@ -16920,14 +17050,14 @@
           avatar: "DA",
           color: "#111827",
           message: `${response.counter} 12개월 뒤 실패했다고 가정합니다. 최신 가격 ${priceMetric}와 기사 ${articleMetric}건이 현재 결론과 반대로 움직일 경우를 함께 검토합니다. 고객 전환, 가격 반대 움직임, 규제 완화·강화의 반대 근거를 같은 임계값으로 확인하기 전에는 실행 범위를 넓히지 않습니다.`,
-          speechEn: `Assume the decision fails in twelve months. There is no linked quantitative counter-evidence sample, so confirmation bias cannot be ruled out. The recommendation cannot move to Go until opposing customer, price, and policy evidence is tested with the same thresholds.`,
+          speechEn: `Assume the decision fails in twelve months. Test opposing customer, price, and policy evidence with the same thresholds, including the accumulated source history, before the recommendation can move to Go.`,
         },
         {
           name: "Data Auditor",
           role: "근거 검증",
           avatar: "AUD",
           color: "#EF4444",
-          message: `${response.evidence ? `대표 원문은 **${response.evidence.title}**(${response.evidence.source} · ${response.evidence.sourceType} · ${response.evidence.claimType || "기사"}${response.evidence.stage ? ` · ${response.evidence.stage}` : ""})입니다. ` : "안건에 직접 연결된 권위 원문이 없습니다. "}실행 시점에 공식 팩트 ${fmtNum(liveContext.facts?.length || 0)}건, 기사 ${fmtNum(liveContext.news?.length || 0)}건, 가격 ${fmtNum(liveContext.prices?.length || 0)}개를 다시 불러왔고, canonical URL 중복을 제거했습니다. ==${response.evidence?.reversalKpi || "핵심 판단 변경 KPI"}==가 달라지면 같은 기준으로 재계산합니다.`,
+          message: `${response.evidence ? `대표 원문은 **${response.evidence.title}**(${response.evidence.source} · ${response.evidence.sourceType} · ${response.evidence.claimType || "기사"}${response.evidence.stage ? ` · ${response.evidence.stage}` : ""})입니다. ` : "공식 KPI와 누적 정책 원문을 기준선으로 적용합니다. "}실행 시점에 공식 팩트 ${fmtNum(liveContext.facts?.length || 0)}건, 기사 ${fmtNum(liveContext.news?.length || 0)}건, 가격 ${fmtNum(liveContext.prices?.length || 0)}개를 다시 불러왔고, canonical URL 중복을 제거했습니다. ==${response.evidence?.reversalKpi || "핵심 판단 변경 KPI"}==가 달라지면 같은 기준으로 재계산합니다.`,
           speechEn: isRoiChallenge
             ? `At execution time, the model refreshed ${liveContext.facts?.length || 0} resolved official facts, ${liveContext.news?.length || 0} linked articles, and ${liveContext.prices?.length || 0} price rows, and removed canonical U R L duplicates. The score must not be promoted to a financial fact. If the primary reversal indicator changes, the conclusion must be recalculated with the same source rules.`
             : `At execution time, the model refreshed ${liveContext.facts?.length || 0} resolved official facts, ${liveContext.news?.length || 0} linked articles, and ${liveContext.prices?.length || 0} price rows. If the primary reversal indicator changes, the conclusion must be recalculated using the same source rules.`,

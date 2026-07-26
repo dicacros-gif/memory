@@ -3541,6 +3541,50 @@ function compactPriceRowForClient(row = {}) {
   return rest;
 }
 
+function compactTranslationForClient(translation = null) {
+  if (!translation || typeof translation !== "object") return translation;
+  const compactPart = (part = null) => part && typeof part === "object"
+    ? { status: part.status || null, display: part.display || null }
+    : part;
+  return {
+    title: compactPart(translation.title),
+    summary: compactPart(translation.summary),
+  };
+}
+
+function compactVerificationForClient(verification = null) {
+  if (!verification || typeof verification !== "object") return verification;
+  return {
+    id: verification.id || null,
+    status: verification.status || null,
+    canonicalUrl: verification.canonicalUrl || null,
+    origin: verification.origin || null,
+    observedThisRun: verification.observedThisRun === true,
+    evidenceLevel: verification.evidenceLevel || null,
+    checks: verification.checks || {},
+  };
+}
+
+function compactNewsItemForClient(item = {}) {
+  const next = { ...item };
+  if (next.originalTitle === next.title) delete next.originalTitle;
+  if (next.link === next.sourceUrl) delete next.link;
+  if (next.translation) next.translation = compactTranslationForClient(next.translation);
+  if (next.verification) next.verification = compactVerificationForClient(next.verification);
+  return next;
+}
+
+function hasDirectBrowserSource(item = {}) {
+  const value = item.sourceUrl || item.url || item.link || "";
+  try {
+    const url = new URL(String(value));
+    return ["http:", "https:"].includes(url.protocol)
+      && !/(^|\.)news\.google\.com$|(^|\.)google\.com$/i.test(url.hostname);
+  } catch {
+    return false;
+  }
+}
+
 function compactPriceHistoryForClient(history = {}) {
   return {
     schemaVersion: history.schemaVersion || "2.0",
@@ -3642,10 +3686,59 @@ function compactLiveForClient(payload = {}) {
     quant: _quant,
     priceHistory: _priceHistory,
     marketHistory: _marketHistory,
-    evidence: _evidence,
     sourceRegistry: _sourceRegistry,
+    signals: _signals,
+    competitors: _competitors,
+    newsStats: _newsStats,
+    quarantineSummary: _quarantineSummary,
     ...rest
   } = payload;
+  const evidence = payload.evidence ? {
+    promotedCount: Number(payload.evidence.promotedCount || 0),
+  } : null;
+  const news = (payload.news || []).map(compactNewsItemForClient);
+  const referenceNews = payload.referenceNews && typeof payload.referenceNews === "object"
+    ? {
+        ...payload.referenceNews,
+        items: (payload.referenceNews.items || []).map(compactNewsItemForClient),
+      }
+    : payload.referenceNews;
+  const categories = (payload.categories || []).map((category) => ({
+    ...category,
+    items: (category.items || []).map(compactNewsItemForClient),
+  }));
+  const communitySignals = payload.communitySignals && typeof payload.communitySignals === "object"
+    ? {
+        ...payload.communitySignals,
+        items: (payload.communitySignals.items || []).map(compactNewsItemForClient),
+      }
+    : payload.communitySignals;
+  const benchmarkSignals = payload.benchmarkSignals && typeof payload.benchmarkSignals === "object"
+    ? {
+        ...payload.benchmarkSignals,
+        stream: (payload.benchmarkSignals.stream || []).map(compactNewsItemForClient),
+        themes: (payload.benchmarkSignals.themes || []).map((theme) => ({
+          ...theme,
+          items: (theme.items || []).map(compactNewsItemForClient),
+        })),
+        // Discovery/reference archives remain in live.json for audits and future
+        // recomputation. They are not rendered and often contain RSS relay URLs,
+        // so they do not belong in the browser's first-load artifact.
+        referenceArchive: undefined,
+        discoveryArchive: undefined,
+      }
+    : payload.benchmarkSignals;
+  const startups = payload.startups && typeof payload.startups === "object"
+    ? {
+        ...payload.startups,
+        candidates: (payload.startups.candidates || []).map((candidate) => ({
+          ...candidate,
+          recentNews: (candidate.recentNews || [])
+            .filter(hasDirectBrowserSource)
+            .map(compactNewsItemForClient),
+        })),
+      }
+    : payload.startups;
   const prices = payload.prices && typeof payload.prices === "object"
     ? {
         ...payload.prices,
@@ -3659,6 +3752,13 @@ function compactLiveForClient(payload = {}) {
   return {
     ...rest,
     clientArtifact: true,
+    evidence,
+    news,
+    referenceNews,
+    categories,
+    communitySignals,
+    benchmarkSignals,
+    startups,
     prices,
   };
 }
