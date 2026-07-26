@@ -11097,14 +11097,16 @@
     if (state) state.textContent = reducedMotion
       ? "모션 줄이기 적용"
       : memoryMarketModeRotationPaused
-        ? "자동 순환 일시 정지"
+        ? "자동 순환 · 꺼짐"
         : running
-          ? `${MEMORY_MARKET_MODE_ROTATION_MS / 1000}초 자동 순환`
-          : "마우스 위치로 일시 정지";
+          ? `${MEMORY_MARKET_MODE_ROTATION_MS / 1000}초 자동 순환 · 켜짐`
+          : "자동 순환 준비 중";
     const toggle = tabs.querySelector("[data-memory-rotation-toggle]");
     if (toggle) {
-      toggle.textContent = memoryMarketModeRotationPaused ? "자동 순환 재개" : "자동 순환 일시 정지";
-      toggle.setAttribute("aria-pressed", memoryMarketModeRotationPaused ? "true" : "false");
+      const enabled = !memoryMarketModeRotationPaused;
+      toggle.textContent = enabled ? "자동 순환 ON" : "자동 순환 OFF";
+      toggle.setAttribute("aria-pressed", enabled ? "true" : "false");
+      toggle.setAttribute("aria-label", enabled ? "자동 순환 끄기" : "자동 순환 켜기");
     }
   }
 
@@ -11147,12 +11149,6 @@
     const board = $("#memory-market-map");
     if (board?.dataset.modeCycleBound !== "true") {
       board.dataset.modeCycleBound = "true";
-      board.addEventListener("mouseenter", stopMemoryMarketModeRotation);
-      board.addEventListener("mouseleave", startMemoryMarketModeRotation);
-      board.addEventListener("focusin", stopMemoryMarketModeRotation);
-      board.addEventListener("focusout", (event) => {
-        if (!board.contains(event.relatedTarget)) startMemoryMarketModeRotation();
-      });
       document.addEventListener("visibilitychange", () => {
         if (document.hidden) stopMemoryMarketModeRotation();
         else startMemoryMarketModeRotation();
@@ -11882,9 +11878,9 @@
         <strong>Money Flow · 돈의 흐름</strong><small>투자 · 매출</small>
       </button>
       <div class="memory-map-cycle" aria-live="polite">
-        <span data-memory-rotation-state>${MEMORY_MARKET_MODE_ROTATION_MS / 1000}초 자동 순환</span>
+        <span data-memory-rotation-state>${MEMORY_MARKET_MODE_ROTATION_MS / 1000}초 자동 순환 · 켜짐</span>
         <i class="memory-map-cycle-progress" aria-hidden="true"><b></b></i>
-        <button type="button" data-memory-rotation-toggle aria-pressed="false">자동 순환 일시 정지</button>
+        <button type="button" data-memory-rotation-toggle aria-pressed="true" aria-label="자동 순환 끄기">자동 순환 ON</button>
       </div>
     `;
     bindMemoryMarketModeControls(tabs);
