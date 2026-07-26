@@ -18020,7 +18020,7 @@
       const itemSeries = scenarioMap[item.id] || series;
       const selectedShare = selected ? projectionShare(itemSeries, selected.id, -1) : 0;
       return `
-        <button class="projection-scenario-tab reveal${item.id === scenario.id ? " active" : ""}" type="button" data-projection-scenario="${escapeHTML(item.id)}">
+        <button class="projection-scenario-tab is-${escapeHTML(item.id)} reveal${item.id === scenario.id ? " active" : ""}" type="button" data-projection-scenario="${escapeHTML(item.id)}" aria-pressed="${item.id === scenario.id ? "true" : "false"}">
           <span>${escapeHTML(item.label)}</span>
           <strong>${escapeHTML(item.sub)}</strong>
           <em>${selected ? escapeHTML(selected.short) : "Product"} ${horizon.yearCount}Y 모델 ${fmtNum(selectedShare, 1)}%</em>

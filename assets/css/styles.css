@@ -10236,17 +10236,118 @@ body.sidebar-collapsed .sb-ico {
 }
 
 .projection-scenario-tab {
+  --scenario-accent: #c26408;
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
   display: grid;
-  gap: 5px;
+  gap: 4px;
+  min-height: 96px;
   color: var(--ink);
-  padding: 10px 12px;
+  padding: 15px 64px 15px 16px;
+  border: 2px solid color-mix(in srgb, var(--scenario-accent) 42%, var(--line));
+  border-radius: 14px;
+  background:
+    radial-gradient(circle at 100% 0%, color-mix(in srgb, var(--scenario-accent) 13%, transparent), transparent 48%),
+    linear-gradient(145deg, color-mix(in srgb, var(--scenario-accent) 6%, var(--panel)) 0%, var(--panel-2) 100%);
+  box-shadow:
+    0 5px 0 color-mix(in srgb, var(--scenario-accent) 38%, #5b6472),
+    0 11px 22px rgba(15, 23, 42, .09);
+  cursor: pointer;
   text-align: left;
-  transition: transform .16s, border-color .16s, background .16s, box-shadow .16s;
+  transform: translateY(0) scale(1);
+  transition:
+    transform .26s cubic-bezier(.2, .82, .25, 1),
+    border-color .22s ease,
+    background .22s ease,
+    box-shadow .26s ease;
+  will-change: transform;
 }
 
-.projection-scenario-tab:hover,
-.projection-scenario-tab:focus-visible,
-.projection-scenario-tab.active,
+.projection-scenario-tab.is-neutral { --scenario-accent: #c26408; }
+.projection-scenario-tab.is-best { --scenario-accent: #087f68; }
+.projection-scenario-tab.is-worst { --scenario-accent: #b43d5c; }
+
+.projection-scenario-tab::before {
+  position: absolute;
+  z-index: -1;
+  top: -35%;
+  bottom: -35%;
+  left: -45%;
+  width: 32%;
+  content: "";
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, .72), transparent);
+  opacity: 0;
+  pointer-events: none;
+  transform: skewX(-18deg);
+  transition: left .58s cubic-bezier(.2, .75, .25, 1), opacity .2s ease;
+}
+
+.projection-scenario-tab::after {
+  position: absolute;
+  top: 13px;
+  right: 13px;
+  content: "선택";
+  padding: 5px 8px;
+  border: 1px solid color-mix(in srgb, var(--scenario-accent) 42%, var(--line));
+  border-radius: 999px;
+  background: color-mix(in srgb, var(--scenario-accent) 8%, var(--panel));
+  color: var(--scenario-accent);
+  font-size: 9px;
+  font-weight: 900;
+  letter-spacing: .03em;
+  line-height: 1;
+}
+
+.projection-scenario-tab > * {
+  position: relative;
+  z-index: 1;
+}
+
+.projection-scenario-tab:is(:hover, :focus-visible) {
+  outline: none;
+  transform: translateY(-5px) scale(1.015);
+  border-color: color-mix(in srgb, var(--scenario-accent) 78%, var(--line));
+  background:
+    radial-gradient(circle at 100% 0%, color-mix(in srgb, var(--scenario-accent) 24%, transparent), transparent 50%),
+    linear-gradient(145deg, color-mix(in srgb, var(--scenario-accent) 13%, var(--panel)) 0%, var(--panel-2) 100%);
+  box-shadow:
+    0 7px 0 color-mix(in srgb, var(--scenario-accent) 48%, #4b5563),
+    0 20px 34px color-mix(in srgb, var(--scenario-accent) 19%, rgba(15, 23, 42, .16));
+}
+
+.projection-scenario-tab:is(:hover, :focus-visible)::before {
+  left: 118%;
+  opacity: .82;
+}
+
+.projection-scenario-tab:focus-visible {
+  outline: 3px solid color-mix(in srgb, var(--scenario-accent) 38%, #fff);
+  outline-offset: 3px;
+}
+
+.projection-scenario-tab:active {
+  transform: translateY(2px) scale(.99);
+  box-shadow:
+    0 1px 0 color-mix(in srgb, var(--scenario-accent) 50%, #4b5563),
+    0 6px 12px rgba(15, 23, 42, .12);
+  transition-duration: .08s;
+}
+
+.projection-scenario-tab.active {
+  border-color: var(--scenario-accent);
+  background:
+    radial-gradient(circle at 100% 0%, color-mix(in srgb, var(--scenario-accent) 29%, transparent), transparent 52%),
+    linear-gradient(145deg, color-mix(in srgb, var(--scenario-accent) 17%, var(--panel)) 0%, color-mix(in srgb, var(--scenario-accent) 7%, var(--panel-2)) 100%);
+}
+
+.projection-scenario-tab.active::after {
+  content: "선택됨 ✓";
+  border-color: var(--scenario-accent);
+  background: var(--scenario-accent);
+  color: #fff;
+}
+
 .scenario-card:hover,
 .scenario-card:focus-visible,
 .scenario-card.active {
@@ -10269,15 +10370,31 @@ body.sidebar-collapsed .sb-ico {
 
 .projection-scenario-tab strong {
   color: var(--ink);
-  font-size: 14px;
+  font-size: 17px;
   font-weight: 950;
+  letter-spacing: -.02em;
 }
 
 .projection-scenario-tab em {
-  color: var(--amber);
-  font-size: 11px;
+  color: var(--scenario-accent);
+  font-size: 12px;
   font-style: normal;
   font-weight: 900;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .projection-scenario-tab,
+  .projection-scenario-tab::before {
+    transition: none !important;
+  }
+
+  .projection-scenario-tab:is(:hover, :focus-visible, :active) {
+    transform: none;
+  }
+
+  .projection-scenario-tab::before {
+    display: none;
+  }
 }
 
 .projection-scenario-chart {
@@ -21940,5 +22057,14 @@ button.ni-trend-chip:hover { box-shadow: 0 4px 12px color-mix(in srgb, #0891B2 2
   .exec-flow-node,
   .exec-strategy-grid .exec-strategy-card {
     transition: none;
+  }
+}
+
+/* Scenario selectors remain tactile buttons even when the shared card-hover
+   system is active. The transform animation above owns their movement. */
+@media (hover: hover) and (pointer: fine) {
+  .main .projection-scenario-tab:is(:hover, :focus-visible, :active) {
+    translate: 0;
+    scale: 1;
   }
 }
