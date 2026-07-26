@@ -13334,12 +13334,6 @@
           <strong>사업 판단 포인트</strong>
           <ul class="watch-list">${(selected.decisions || []).map((line) => `<li>${strategicHighlightHTML(line)}</li>`).join("")}</ul>
         </div>
-        ${links.length ? `
-          <div class="nand-focus-block">
-            <strong>관련 최신 기사</strong>
-            <ul class="work-link-list">${links.map((link) => `<li><a href="${escapeHTML(link.link || "#")}" target="_blank" rel="noopener">${strategicHighlightHTML(newsTitle(link) || link.title || "Signal")}</a></li>`).join("")}</ul>
-          </div>
-        ` : ""}
         <div class="focus-actions">
           <button type="button" data-nand-copy>복사</button>
           <button type="button" data-nand-inspector>상세 패널</button>
@@ -15346,7 +15340,6 @@
   function renderInvestmentFocus(target, item, section) {
     if (!target || !item) return;
     const payload = investmentPayload(item, section);
-    const relatedLinks = investmentStrategyLinks(item);
     target.style.setProperty("--local-accent", categoryAccent((item.linkedCategories || [])[0]));
     target.innerHTML = `
       <div class="investment-focus-head">
@@ -15371,12 +15364,6 @@
         <strong>${section === "management-strategy" ? "전략 실행" : "의사결정 게이트"}</strong>
         <ul class="watch-list">${(item.actions || item.gate || []).map((line) => `<li>${strategicHighlightHTML(line)}</li>`).join("")}</ul>
       </div>
-      ${relatedLinks.length ? `
-        <div class="investment-focus-block is-sources">
-          <strong>관련 최신 기사/신호</strong>
-          <ul class="work-link-list">${relatedLinks.map((link) => `<li><a href="${escapeHTML(link.sourceUrl || link.link || "#")}" target="_blank" rel="noopener">${strategicHighlightHTML(newsTitle(link) || link.title || "Signal")}</a></li>`).join("")}</ul>
-        </div>
-      ` : ""}
       <div class="focus-actions">
         <button type="button" data-investment-copy>복사</button>
         <button type="button" data-investment-inspector>상세 패널</button>
@@ -18173,12 +18160,6 @@
           <ul class="watch-list">${(selected.triggers || []).map((line) => `<li>${escapeHTML(line)}</li>`).join("")}</ul>
         </div>
         <div class="insight-box"><span>리스크</span>${escapeHTML(selected.risk)}</div>
-        ${selected.links?.length ? `
-          <div class="projection-focus-block">
-            <strong>관련 최신 기사</strong>
-            <ul class="work-link-list">${selected.links.map((link) => `<li><a href="${escapeHTML(link.link || "#")}" target="_blank" rel="noopener">${escapeHTML(newsTitle(link) || link.title || "Signal")}</a></li>`).join("")}</ul>
-          </div>
-        ` : ""}
         <div class="focus-actions">
           <button type="button" data-projection-copy>복사</button>
           <button type="button" data-projection-inspector>상세 패널</button>
