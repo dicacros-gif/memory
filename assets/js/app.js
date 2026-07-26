@@ -9523,10 +9523,10 @@
     return fallback;
   }
 
-  function stopAgentSpeech() {
+  function stopAgentSpeech(status = "interrupted") {
     const active = activeAgentSpeech;
     activeAgentSpeech = null;
-    if (active?.finish) active.finish();
+    if (active?.finish) active.finish(status);
     if (agentSpeechSupported()) window.speechSynthesis.cancel();
     document.querySelectorAll(".agent-turn.tts-speaking").forEach((node) => node.classList.remove("tts-speaking"));
   }
@@ -9565,23 +9565,33 @@
     }
   }
 
+  function agentTurnNeedsSpeechGesture(turn) {
+    const status = String(turn?.dataset.ttsStatus || "");
+    return status === "stalled"
+      || status === "needs-gesture"
+      || status.startsWith("error-");
+  }
+
   function syncAgentTtsButtons() {
     document.querySelectorAll("[data-agent-tts-toggle]").forEach((button) => {
       const supported = agentSpeechSupported();
       const debate = button.closest(".agent-debate");
-      const blocked = Boolean(debate?.querySelector('.agent-turn[data-tts-status="error-not-allowed"]'));
+      const blockedTurn = Array.from(debate?.querySelectorAll(".agent-turn") || []).find(agentTurnNeedsSpeechGesture);
+      const blocked = Boolean(blockedTurn);
       const activeTurn = activeAgentSpeech?.turn;
       const isSpeakingHere = Boolean(activeTurn && debate?.contains(activeTurn) && activeTurn.dataset.ttsStatus === "speaking");
       const activeName = isSpeakingHere ? (activeTurn.querySelector(".agent-badge-name")?.textContent || "에이전트") : "";
-      const enabledLabel = isSpeakingHere ? `${activeName} 발화 중` : "켜짐 · 순차 발화";
-      const startLabel = "클릭해 영어 발화 시작";
+      const genderLabel = activeTurn?.dataset.ttsGender === "female" ? "여성" : "남성";
+      const voiceLabel = activeTurn?.dataset.ttsVoice || "";
+      const enabledLabel = isSpeakingHere ? `${activeName} · ${genderLabel} 발화 중` : "켜짐 · 남성/여성 순차 발화";
+      const startLabel = "재생 시작 필요 · 클릭";
       button.disabled = !supported;
       button.classList.toggle("is-on", supported && agentTtsEnabled);
       button.classList.toggle("is-speaking", isSpeakingHere);
       button.classList.toggle("needs-gesture", supported && agentTtsEnabled && blocked);
       button.setAttribute("aria-pressed", supported && agentTtsEnabled ? "true" : "false");
       button.setAttribute("title", supported
-        ? `영어 음성 ${agentTtsEnabled ? "켜짐 — 현재 발화가 끝난 뒤 다음 에이전트가 시작됩니다" : "꺼짐 — 텍스트만 진행됩니다"}`
+        ? `영어 음성 ${agentTtsEnabled ? `켜짐 — 현재 발화가 끝난 뒤 다음 에이전트가 시작됩니다${isSpeakingHere && voiceLabel ? ` · ${genderLabel} 음성: ${voiceLabel}` : ""}` : "꺼짐 — 텍스트만 진행됩니다"}`
         : "이 브라우저는 음성 합성을 지원하지 않습니다");
       button.setAttribute("aria-label", supported
         ? `영어 음성 ${agentTtsEnabled ? "끄기" : "켜기"}`
@@ -9591,7 +9601,7 @@
       if (state) state.textContent = supported
         ? (agentTtsEnabled ? (blocked ? startLabel : enabledLabel) : "꺼짐 · 텍스트만")
         : "음성 미지원";
-      if (badge) badge.textContent = supported && agentTtsEnabled ? "ON" : "OFF";
+      if (badge) badge.textContent = supported && agentTtsEnabled ? (blocked ? "PLAY" : "ON") : "OFF";
     });
     document.querySelectorAll("[data-agent-tts-rate-output]").forEach((output) => {
       output.textContent = `${agentTtsSettings.rate.toFixed(2)}×`;
@@ -9624,12 +9634,16 @@
     button.innerHTML = '<span class="agent-tts-mark" aria-hidden="true">🔊</span><span class="agent-tts-copy"><strong>영어 음성</strong><small aria-live="polite"></small></span><span class="agent-tts-state" aria-hidden="true"></span>';
     button.addEventListener("click", () => {
         const debate = button.closest(".agent-debate");
-        const blockedTurn = debate?.querySelector('.agent-turn[data-tts-status="error-not-allowed"]');
+        const blockedTurn = Array.from(debate?.querySelectorAll(".agent-turn") || []).find(agentTurnNeedsSpeechGesture);
         if (agentTtsEnabled && blockedTurn) {
           primedAgentSpeech.delete(blockedTurn);
           blockedTurn.dataset.ttsStatus = "queued";
           const turnIndex = Array.from(debate.querySelectorAll(".agent-turn")).indexOf(blockedTurn);
-          speakAgentTurn(blockedTurn, Math.max(0, turnIndex), { gestureStart: true });
+          if (activeAgentSpeech?.turn === blockedTurn && activeAgentSpeech.retry) {
+            activeAgentSpeech.retry();
+          } else {
+            speakAgentTurn(blockedTurn, Math.max(0, turnIndex), { gestureStart: true });
+          }
           return;
         }
         agentTtsEnabled = !agentTtsEnabled;
@@ -9638,7 +9652,7 @@
         } catch {
           // Local storage is optional; the control still works for this session.
         }
-        if (!agentTtsEnabled) stopAgentSpeech();
+        if (!agentTtsEnabled) stopAgentSpeech("off");
         else prepareAgentSpeechFromGesture();
         syncAgentTtsButtons();
     });
@@ -9675,128 +9689,193 @@
       primed.resume?.();
       return primed.promise;
     }
+    if (activeAgentSpeech?.turn === turn) {
+      if (options.gestureStart) activeAgentSpeech.retry?.();
+      return activeAgentSpeech.promise;
+    }
     const gestureStart = options.gestureStart === true;
-    let resumeGestureSpeech = null;
-    const speechPromise = new Promise((resolve) => {
-      const paragraph = agentAnswerParagraph(turn);
-      const rawText = paragraph?.dataset.say || paragraph?.textContent || "";
-      const name = (turn.querySelector(".agent-badge-name")?.textContent || "").trim();
-      const role = (turn.querySelector(".speech-meta strong")?.textContent || "").trim();
-      const requestedLanguage = /^(?:ko|en)$/.test(turn?.dataset.ttsLanguage || "")
-        ? turn.dataset.ttsLanguage
-        : "";
-      const profile = agentVoiceProfile(name, role, index, requestedLanguage);
-      const englishText = agentEnglishSpeechSource(turn, index);
-      const speechSource = profile.language === "ko" ? rawText : englishText;
-      if (!agentTtsEnabled || !agentSpeechSupported() || !speechSource.trim()) {
-        if (turn) turn.dataset.ttsStatus = !agentTtsEnabled ? "off" : (!agentSpeechSupported() ? "unsupported" : "missing-text");
-        resolve();
+    const paragraph = agentAnswerParagraph(turn);
+    const rawText = paragraph?.dataset.say || paragraph?.textContent || "";
+    const name = (turn.querySelector(".agent-badge-name")?.textContent || "").trim();
+    const role = (turn.querySelector(".speech-meta strong")?.textContent || "").trim();
+    const requestedLanguage = /^(?:ko|en)$/.test(turn?.dataset.ttsLanguage || "")
+      ? turn.dataset.ttsLanguage
+      : "";
+    const profile = agentVoiceProfile(name, role, index, requestedLanguage);
+    const englishText = agentEnglishSpeechSource(turn, index);
+    const speechSource = profile.language === "ko" ? rawText : englishText;
+    let settleSpeech = null;
+    const speechPromise = new Promise((resolve) => { settleSpeech = resolve; });
+    if (!agentTtsEnabled || !agentSpeechSupported() || !speechSource.trim()) {
+      turn.dataset.ttsStatus = !agentTtsEnabled ? "off" : (!agentSpeechSupported() ? "unsupported" : "missing-text");
+      settleSpeech();
+      return speechPromise;
+    }
+
+    if (activeAgentSpeech && activeAgentSpeech.turn !== turn) stopAgentSpeech("interrupted");
+    refreshAgentVoices();
+    const text = profile.language === "ko"
+      ? agentKoreanSpeechText(speechSource, profile.tone)
+      : agentEnglishSpeechText(speechSource, profile.tone);
+    let utterance = null;
+    let settled = false;
+    let started = false;
+    let gestureReleased = !gestureStart;
+    let resumePulse = 0;
+    let startWatchdog = 0;
+    let hardWatchdog = 0;
+    let generation = 0;
+    let attempt = 0;
+    let blocked = false;
+
+    const clearSpeechTimers = () => {
+      window.clearTimeout(startWatchdog);
+      window.clearTimeout(hardWatchdog);
+      window.clearInterval(resumePulse);
+      startWatchdog = 0;
+      hardWatchdog = 0;
+      resumePulse = 0;
+    };
+    const finish = (status = "done") => {
+      if (settled) return;
+      settled = true;
+      clearSpeechTimers();
+      turn.classList.remove("tts-speaking");
+      turn.dataset.ttsStatus = status;
+      const primedTurn = primedAgentSpeech.get(turn);
+      if (primedTurn?.promise === speechPromise) primedAgentSpeech.delete(turn);
+      if (activeAgentSpeech?.promise === speechPromise) activeAgentSpeech = null;
+      syncAgentTtsButtons();
+      settleSpeech();
+    };
+    const markSpeaking = () => {
+      if (settled) return;
+      blocked = false;
+      turn.dataset.ttsStatus = "speaking";
+      turn.classList.add("tts-speaking");
+      turn.dataset.ttsProfile = profile.id;
+      turn.dataset.ttsVoice = utterance?.voice?.name || "Browser default English";
+      turn.dataset.ttsGender = profile.gender;
+      turn.dataset.ttsTone = profile.tone;
+      turn.dataset.ttsLanguage = profile.language;
+      syncAgentTtsButtons();
+      if (!resumePulse) resumePulse = window.setInterval(() => window.speechSynthesis.resume?.(), 4000);
+    };
+    const requestAgentSpeechGesture = (status = "needs-gesture") => {
+      if (settled) return;
+      blocked = true;
+      generation += 1;
+      clearSpeechTimers();
+      turn.classList.remove("tts-speaking");
+      turn.dataset.ttsStatus = status;
+      try { window.speechSynthesis.cancel(); } catch { /* Keep the retry control available. */ }
+      syncAgentTtsButtons();
+    };
+    const startAttempt = ({ fromGesture = false, forceDefaultVoice = false } = {}) => {
+      if (settled || !agentTtsEnabled) {
+        if (!agentTtsEnabled) finish("off");
         return;
       }
-      turn.dataset.ttsStatus = "queued";
-      if (activeAgentSpeech && activeAgentSpeech.turn !== turn) stopAgentSpeech();
-      else window.speechSynthesis.resume?.();
-      const text = profile.language === "ko"
-        ? agentKoreanSpeechText(speechSource, profile.tone)
-        : agentEnglishSpeechText(speechSource, profile.tone);
-      const utterance = new SpeechSynthesisUtterance(text);
-      utterance.lang = profile.voice?.lang || (profile.language === "ko" ? "ko-KR" : "en-US");
-      utterance.voice = profile.voice || null;
-      utterance.pitch = Math.max(0.72, Math.min(1.28, (profile.pitch * agentTtsSettings.pitch) + (/\?$/.test(text) ? 0.04 : 0)));
-      // The sequence runner advances only from utterance.onend.  The user can
-      // adjust delivery without allowing one voice to interrupt the next.
-      utterance.rate = Math.max(.65, Math.min(1.45, profile.rate * agentTtsSettings.rate));
+      if (fromGesture) gestureReleased = true;
+      blocked = false;
+      started = false;
+      attempt += 1;
+      const currentGeneration = ++generation;
+      clearSpeechTimers();
+      try { window.speechSynthesis.cancel(); } catch { /* A clean queue is preferred but optional. */ }
+
+      utterance = new SpeechSynthesisUtterance(text);
+      utterance.lang = forceDefaultVoice
+        ? "en-US"
+        : (profile.voice?.lang || (profile.language === "ko" ? "ko-KR" : "en-US"));
+      utterance.voice = forceDefaultVoice ? null : (profile.voice || null);
+      utterance.pitch = Math.max(0.78, Math.min(1.22, (profile.pitch * agentTtsSettings.pitch) + (/\?$/.test(text) ? 0.03 : 0)));
+      utterance.rate = Math.max(.72, Math.min(1.32, profile.rate * agentTtsSettings.rate));
       utterance.volume = profile.volume;
-      let settled = false;
-      let started = false;
-      let gestureReleased = !gestureStart;
-      let resumePulse = 0;
-      let startWatchdog = 0;
-      // Generous safety net so slow, full pronunciation is never cut short; the
-      // real advance happens on utterance.onend, not this watchdog.
-      const timeout = window.setTimeout(() => finish(), Math.max(12000, Math.min(180000, text.length * (220 / utterance.rate) + 6000)));
-      const finish = () => {
-        if (settled) return;
-        settled = true;
-        window.clearTimeout(timeout);
-        window.clearTimeout(startWatchdog);
-        window.clearInterval(resumePulse);
-        turn.classList.remove("tts-speaking");
-        if (!turn.dataset.ttsStatus.startsWith("error-")) {
-          turn.dataset.ttsStatus = started ? "done" : "stalled";
-        }
-        if (turn.dataset.ttsStatus.startsWith("error-") && primedAgentSpeech.get(turn)?.utterance === utterance) {
-          primedAgentSpeech.delete(turn);
-        }
-        if (activeAgentSpeech?.utterance === utterance) {
-          activeAgentSpeech = null;
-          syncAgentTtsButtons();
-        }
-        resolve();
-      };
-      const markSpeaking = () => {
-        turn.dataset.ttsStatus = "speaking";
-        turn.classList.add("tts-speaking");
-        turn.dataset.ttsVoice = profile.id;
-        turn.dataset.ttsGender = profile.gender;
-        turn.dataset.ttsTone = profile.tone;
-        turn.dataset.ttsLanguage = profile.language;
-        syncAgentTtsButtons();
-        if (!resumePulse) resumePulse = window.setInterval(() => window.speechSynthesis.resume?.(), 4000);
-      };
+
       utterance.onstart = () => {
+        if (currentGeneration !== generation || settled) return;
         started = true;
+        window.clearTimeout(startWatchdog);
         if (!gestureReleased) {
           turn.dataset.ttsStatus = "primed";
           window.speechSynthesis.pause?.();
+          syncAgentTtsButtons();
           return;
         }
         markSpeaking();
       };
-      utterance.onresume = markSpeaking;
+      utterance.onresume = () => {
+        if (currentGeneration === generation) markSpeaking();
+      };
       utterance.onpause = () => {
-        if (gestureReleased) window.speechSynthesis.resume?.();
+        if (currentGeneration === generation && gestureReleased && !blocked) window.speechSynthesis.resume?.();
       };
-      utterance.onend = finish;
+      utterance.onend = () => {
+        if (currentGeneration === generation) finish("done");
+      };
       utterance.onerror = (event) => {
-        turn.dataset.ttsStatus = `error-${event.error || "unknown"}`;
-        if (event.error === "not-allowed") {
+        if (currentGeneration !== generation || settled) return;
+        const errorCode = String(event.error || "unknown");
+        if (errorCode !== "not-allowed" && attempt < 2) {
+          turn.dataset.ttsStatus = "retrying";
           syncAgentTtsButtons();
+          window.setTimeout(() => startAttempt({ forceDefaultVoice: true }), 180);
+          return;
         }
-        finish();
+        requestAgentSpeechGesture(`error-${errorCode}`);
       };
-      const armStartWatchdog = () => {
-        window.clearTimeout(startWatchdog);
-        startWatchdog = window.setTimeout(() => {
-          if (started || settled) return;
-          turn.dataset.ttsStatus = window.speechSynthesis.pending ? "pending" : "retrying";
-          window.speechSynthesis.resume?.();
-          if (!window.speechSynthesis.speaking && !window.speechSynthesis.pending) {
-            utterance.voice = null;
-            utterance.lang = profile.language === "ko" ? "ko-KR" : "en-US";
-            window.speechSynthesis.speak(utterance);
-          }
-        }, 1200);
-      };
-      resumeGestureSpeech = () => {
-        if (settled) return;
-        gestureReleased = true;
-        turn.dataset.ttsStatus = "starting";
-        window.speechSynthesis.resume?.();
-        if (started) markSpeaking();
-      };
-      activeAgentSpeech = { utterance, finish, turn };
+
+      turn.dataset.ttsStatus = attempt > 1 ? "retrying" : "starting";
+      syncAgentTtsButtons();
+      startWatchdog = window.setTimeout(() => {
+        if (currentGeneration !== generation || started || settled) return;
+        if (attempt < 2) {
+          turn.dataset.ttsStatus = "retrying";
+          syncAgentTtsButtons();
+          startAttempt({ forceDefaultVoice: true });
+          return;
+        }
+        requestAgentSpeechGesture("stalled");
+      }, 5000);
+      // Never treat a watchdog as a successful utterance. If the browser loses
+      // a long speech, keep this agent active and request an explicit replay.
+      hardWatchdog = window.setTimeout(
+        () => {
+          if (currentGeneration === generation && !settled) requestAgentSpeechGesture("stalled");
+        },
+        Math.max(20000, Math.min(180000, text.length * (240 / utterance.rate) + 10000)),
+      );
       try {
         window.speechSynthesis.resume?.();
         window.speechSynthesis.speak(utterance);
-        armStartWatchdog();
       } catch {
-        finish();
+        requestAgentSpeechGesture("error-synthesis-failed");
       }
-    });
-    if (gestureStart && !turn.dataset.ttsStatus.startsWith("error-")) {
+    };
+    const retry = () => {
+      if (settled) return;
+      primedAgentSpeech.delete(turn);
+      startAttempt({ fromGesture: true, forceDefaultVoice: false });
+    };
+    const resumeGestureSpeech = () => {
+      if (settled) return;
+      gestureReleased = true;
+      if (blocked) {
+        syncAgentTtsButtons();
+        return;
+      }
+      turn.dataset.ttsStatus = started ? "speaking" : "starting";
+      window.speechSynthesis.resume?.();
+      if (started) markSpeaking();
+    };
+
+    activeAgentSpeech = { utterance, finish, promise: speechPromise, retry, turn };
+    startAttempt();
+    activeAgentSpeech.utterance = utterance;
+    if (gestureStart && !agentTurnNeedsSpeechGesture(turn)) {
       primedAgentSpeech.set(turn, {
-        utterance: activeAgentSpeech?.utterance,
+        utterance,
         promise: speechPromise,
         resume: resumeGestureSpeech,
       });

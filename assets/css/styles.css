@@ -18625,6 +18625,9 @@ body.sidebar-collapsed .sb-ico {
   color: var(--ink-3);
   font-size: 10px;
   font-weight: 800;
+  max-width: 190px;
+  overflow: hidden;
+  text-overflow: ellipsis;
   white-space: nowrap;
 }
 
@@ -18661,6 +18664,22 @@ body.sidebar-collapsed .sb-ico {
 .agent-debate-title .agent-tts-toggle.is-speaking {
   border-color: color-mix(in srgb, var(--local-accent, var(--accent)) 74%, white);
   box-shadow: 0 0 0 3px color-mix(in srgb, var(--local-accent, var(--accent)) 16%, transparent), 0 10px 20px color-mix(in srgb, var(--local-accent, var(--accent)) 18%, transparent);
+}
+
+.agent-debate-title .agent-tts-toggle.needs-gesture {
+  border-color: #f59e0b;
+  background: linear-gradient(135deg, #7c2d12, #c2410c);
+  box-shadow: 0 0 0 3px rgba(245, 158, 11, .2), 0 10px 22px rgba(124, 45, 18, .3);
+}
+
+.agent-debate-title .agent-tts-toggle.needs-gesture .agent-tts-state {
+  min-width: 42px;
+  background: #fff7ed;
+  color: #9a3412;
+}
+
+.agent-debate-title .agent-tts-toggle.is-speaking .agent-tts-mark {
+  animation: agentVoicePulse 1.1s ease-in-out infinite;
 }
 
 .agent-debate-title .agent-tts-toggle:disabled {

@@ -86,7 +86,7 @@ assert.match(app, /if \(!typed \|\| !speechFinished \|\| completed \|\| !alive\(
 assert.match(app, /speakAgentTurn\(turn, i\)\.finally\(\(\) => \{[\s\S]*?speechFinished = true;[\s\S]*?completeTurn\(\);/s, "the sequence should unlock only after the TTS promise settles");
 assert.match(app, /function agentAnswerParagraph\(turn\) \{[\s\S]*?\.agent-answer p\[data-say-en\]/, "agent TTS should target the answer rather than a preceding question");
 assert.match(app, /function agentEnglishSpeechSource\(turn, index = 0\) \{[\s\S]*?agentEnglishSpeechFallback/, "every agent should receive an English speech fallback when authored text is absent");
-assert.match(app, /Math\.min\(180000, text\.length \* \(220 \/ utterance\.rate\) \+ 6000\)/, "the speech watchdog should allow complete English pronunciation");
+assert.match(app, /Math\.min\(180000, text\.length \* \(240 \/ utterance\.rate\) \+ 10000\)/, "the speech watchdog should allow complete English pronunciation");
 assert.match(app, /Do not pre-reveal queued agents[\s\S]*?schedule\(\(\) => speak\(0\), AGENT_DEBATE_TIMING\.rosterSettleMs\);/s, "queued agents should not appear before the prior English voice has ended");
 assert.match(app, /function prewarmPriceBoardData\(\)[\s\S]*?loadSecondaryData\(\["priceHistory", "marketHistory"\]\)/, "price history should start loading before the board enters the viewport");
 assert.match(app, /rootMargin: "4200px 0px"/, "price data should prefetch well ahead of a scrolling user");
@@ -96,7 +96,7 @@ assert.match(app, /const priceRenderObserver = new IntersectionObserver[\s\S]*?r
 assert.match(app, /section\.id === "prices" \? priceRenderObserver : observer/, "only the price board should receive the early render window");
 assert.match(css, /\.agent-debate-title \.agent-tts-toggle \{[\s\S]*?min-width: 190px;[\s\S]*?min-height: 44px;/, "the English TTS control should be large and readable");
 assert.match(css, /\.agent-tts-state \{[\s\S]*?min-width: 31px;/, "the TTS control should expose a dedicated on-or-off state badge");
-assert.match(html, /app\.js\?v=site-audit-20260726-41/, "JavaScript cache key should include the site-audit revision");
+assert.match(html, /app\.js\?v=site-audit-20260726-42/, "JavaScript cache key should include the site-audit revision");
 assert.match(html, /id="memoryHeroVideo"[\s\S]*?preload="none"[\s\S]*?<source data-src="assets\/media\/memory-hero\.mp4"/, "hero video should hydrate after the poster paints");
 assert.match(html, /id="talentStrategyVideoMedia"[\s\S]*?preload="none"[\s\S]*?data-poster="assets\/media\/china-talent-strategy-poster\.webp"[\s\S]*?<source data-src="assets\/media\/china-talent-strategy\.mp4"/, "below-fold talent media should not load during first paint");
 assert.doesNotMatch(html, /family=Noto\+Sans\+KR/, "Pretendard should replace the duplicate Korean webfont download");
@@ -111,7 +111,7 @@ assert.match(css, /\.china-deep-video-dock \.talent-strategy-video \{[\s\S]*?hei
 assert.match(css, /@media \(max-width: 680px\) \{[\s\S]*?\.china-deep-video-dock \.talent-strategy-video \{[\s\S]*?aspect-ratio: 4 \/ 5;/, "the compact video height should preserve the mobile portrait layout");
 assert.match(css, /#talent-radar \.talent-radar-slider-slot \{[\s\S]*?display: flex;[\s\S]*?justify-content: center;/, "the talent radar slot should center its visual stage");
 assert.match(css, /#talent-radar \.talent-radar-slider \{[\s\S]*?width: min\(100%, 1360px\);[\s\S]*?margin-inline: auto;/, "the talent radar visual should use a bounded, centered desktop width");
-assert.match(html, /styles\.css\?v=site-audit-20260726-41/, "CSS cache key should include the site-audit revision");
+assert.match(html, /styles\.css\?v=site-audit-20260726-42/, "CSS cache key should include the site-audit revision");
 assert.match(css, /font-synthesis:\s*none/, "Mixed Hangul and Latin emphasis should disable synthetic glyph weights");
 assert.match(css, /\.exec-report-bullet-list[\s\S]*?font-weight:\s*800/, "Report highlights should use a supported professional font weight");
 assert.match(css, /\.exec-baseline-document:is\(:hover,\s*:focus-visible\)[\s\S]*?linear-gradient/, "Broker documents should invert their full surface on hover");
@@ -127,5 +127,11 @@ assert.match(css, /\.exec-report-bullet-copy[\s\S]*?overflow-wrap:\s*anywhere/, 
 assert.match(app, /document\.corePoints[\s\S]*?strategicHighlightHTML/, "Provided report copy should color important semantic terms");
 assert.match(app, /item\.metrics\.map\(\(metric\) => strategicHighlightHTML\(metric\)\)/, "Provided report metrics should color important values");
 assert.match(css, /\.exec-baseline-document:is\(:hover,\s*:focus-visible\)[\s\S]*?#ffe790/, "Inverted source cards should keep important terms legible");
+assert.match(app, /function agentTurnNeedsSpeechGesture[\s\S]*?status === "stalled"[\s\S]*?status\.startsWith\("error-"\)/, "blocked TTS turns should expose a replay state");
+assert.match(app, /utterance\.onend = \(\) => \{[\s\S]*?finish\("done"\)/, "the next agent should advance only after the English utterance ends");
+assert.match(app, /requestAgentSpeechGesture\("stalled"\)/, "a lost long utterance should pause the debate for explicit replay");
+assert.match(app, /startAttempt\(\{ forceDefaultVoice: true \}\)/, "voice startup failures should retry once with the browser default English voice");
+assert.match(app, /activeAgentSpeech = \{ utterance, finish, promise: speechPromise, retry, turn \}/, "the visible TTS control should be able to retry the active speaker");
+assert.match(css, /\.agent-debate-title \.agent-tts-toggle\.needs-gesture \{[\s\S]*?#f59e0b/, "the TTS replay state should be visually distinct");
 
 console.log("KPI typography and hover count-up checks passed.");
