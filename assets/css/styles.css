@@ -8846,10 +8846,13 @@ body.sidebar-collapsed .sb-ico {
   position: sticky;
   top: calc(var(--topbar-h) + 16px);
   display: grid;
-  gap: 12px;
+  gap: 14px;
   border: 2px solid color-mix(in srgb, var(--local-accent, var(--accent)) 58%, var(--line));
-  background: var(--panel);
-  padding: 14px;
+  background:
+    radial-gradient(circle at 100% 0, color-mix(in srgb, var(--local-accent, var(--accent)) 11%, transparent), transparent 34%),
+    var(--panel);
+  box-shadow: 0 16px 40px color-mix(in srgb, var(--local-accent, var(--accent)) 11%, transparent), var(--shadow);
+  padding: 16px;
 }
 
 .investment-focus-head,
@@ -8859,30 +8862,57 @@ body.sidebar-collapsed .sb-ico {
 }
 
 .investment-focus-block {
+  --focus-card-accent: var(--local-accent, var(--accent));
+  position: relative;
+  overflow: hidden;
   border: 1px solid color-mix(in srgb, var(--local-accent, var(--accent)) 30%, var(--line));
-  border-radius: 8px;
-  background: color-mix(in srgb, var(--local-accent, var(--accent)) 4%, var(--panel-2));
-  padding: 11px 12px;
+  border-radius: 12px;
+  background:
+    linear-gradient(135deg, color-mix(in srgb, var(--focus-card-accent) 12%, var(--panel)) 0%, color-mix(in srgb, var(--focus-card-accent) 4%, var(--panel-2)) 100%);
+  box-shadow: 0 6px 18px color-mix(in srgb, var(--focus-card-accent) 8%, transparent);
+  padding: 15px 16px;
+  transition: transform .2s ease, border-color .2s ease, box-shadow .2s ease, background .2s ease;
 }
 
-.investment-focus-block.is-priority,
-.investment-focus-block.is-action,
-.investment-focus-block.is-formula {
-  border-color: color-mix(in srgb, var(--local-accent, var(--accent)) 64%, var(--line));
+.investment-focus-block.is-priority { --focus-card-accent: #0b8f62; }
+.investment-focus-block.is-action { --focus-card-accent: #2563eb; }
+.investment-focus-block.is-formula { --focus-card-accent: #4f46e5; }
+.investment-focus-block.is-gate { --focus-card-accent: #7c3aed; }
+.investment-focus-block.is-monitor { --focus-card-accent: #078579; }
+.investment-focus-block.is-sources { --focus-card-accent: #c26408; }
+
+.investment-focus-block:is(:hover, :focus-within) {
+  transform: translateY(-3px);
+  border-color: color-mix(in srgb, var(--focus-card-accent) 72%, var(--line));
+  background:
+    linear-gradient(135deg, color-mix(in srgb, var(--focus-card-accent) 18%, var(--panel)) 0%, color-mix(in srgb, var(--focus-card-accent) 7%, var(--panel-2)) 100%);
+  box-shadow: 0 14px 28px color-mix(in srgb, var(--focus-card-accent) 16%, transparent);
 }
 
 .investment-focus-block > strong {
-  color: var(--local-accent, var(--accent));
-  font-size: 11px;
+  color: var(--focus-card-accent);
+  font-size: 12px;
+  line-height: 1.25;
+  letter-spacing: .01em;
+  text-transform: none;
 }
 
 .investment-focus-head p,
 .investment-focus-block p,
 .investment-focus-block li,
 .investment-focus-block a {
-  font-size: 13px;
-  line-height: 1.58;
-  font-weight: 780;
+  color: color-mix(in srgb, var(--ink) 82%, var(--ink-2));
+  font-size: 13.5px;
+  line-height: 1.65;
+  font-weight: 760;
+}
+
+.investment-focus-block .watch-list {
+  gap: 8px;
+}
+
+.investment-focus-block .watch-list li::marker {
+  color: var(--focus-card-accent);
 }
 
 .investment-focus-block .work-link-list {
@@ -10548,13 +10578,15 @@ body.sidebar-collapsed .sb-ico {
 
 .ceo-challenge-prompt {
   display: grid;
-  gap: 8px;
-  border: 1px solid color-mix(in srgb, var(--local-accent, var(--accent)) 40%, var(--line));
-  border-radius: 10px;
+  gap: 11px;
+  overflow: hidden;
+  border: 1px solid color-mix(in srgb, #4fd1c5 58%, #18395f);
+  border-radius: 14px;
   background:
-    linear-gradient(118deg, color-mix(in srgb, var(--local-accent, var(--accent)) 14%, transparent), transparent 54%),
-    var(--panel-2);
-  padding: 12px;
+    radial-gradient(circle at 92% 4%, rgba(79, 209, 197, .22), transparent 31%),
+    linear-gradient(118deg, #071526 0%, #0b2944 58%, #123b55 100%);
+  box-shadow: 0 16px 36px rgba(7, 21, 38, .18);
+  padding: 18px 20px;
 }
 
 .ceo-challenge-prompt-head {
@@ -10565,32 +10597,38 @@ body.sidebar-collapsed .sb-ico {
 }
 
 .ceo-challenge-prompt-head span {
-  color: var(--local-accent, var(--accent));
-  font-size: 9px;
+  color: #71f3df;
+  font-size: 10px;
   font-weight: 950;
   letter-spacing: .09em;
 }
 
 .ceo-challenge-prompt-head strong {
-  color: var(--ink-2);
-  font-size: 10px;
+  border: 1px solid rgba(113, 243, 223, .32);
+  border-radius: 999px;
+  background: rgba(113, 243, 223, .10);
+  color: #d9fff8;
+  font-size: 10.5px;
   font-weight: 900;
+  padding: 5px 9px;
 }
 
 .ceo-challenge-prompt h4 {
   margin: 0;
-  color: var(--ink);
-  font-size: 15px;
+  color: #ffffff;
+  font-family: var(--display);
+  font-size: clamp(18px, 1.35vw, 22px);
   font-weight: 950;
-  line-height: 1.42;
+  line-height: 1.38;
+  letter-spacing: -.018em;
 }
 
 .ceo-challenge-prompt > p {
   margin: 0;
-  color: var(--ink-2);
-  font-size: 11px;
-  font-weight: 760;
-  line-height: 1.55;
+  color: #cbd9ea;
+  font-size: 13px;
+  font-weight: 720;
+  line-height: 1.62;
 }
 
 .ceo-challenge-prompt-metrics {
@@ -10627,25 +10665,30 @@ body.sidebar-collapsed .sb-ico {
 
 .ceo-challenge-prompt-source {
   min-width: 0;
-  overflow: hidden;
-  color: var(--ink-2);
-  font-size: 10px;
+  color: #b9cbe0;
+  font-size: 11.5px;
   font-weight: 800;
-  text-overflow: ellipsis;
-  white-space: nowrap;
+  line-height: 1.5;
 }
 
-.ceo-challenge-prompt-source a { color: var(--local-accent, var(--accent)); text-decoration: none; }
+.ceo-challenge-prompt-source a { color: #71f3df; text-decoration: none; }
 .ceo-challenge-prompt-source a:hover { text-decoration: underline; }
 
 .ceo-live-context {
+  --ceo-surface: #ffffff;
+  --ceo-surface-soft: #f4f8fb;
+  --ceo-ink: #10243e;
+  --ceo-ink-2: #38506b;
   display: grid;
-  gap: 10px;
+  gap: 14px;
   min-width: 0;
-  border: 1px solid color-mix(in srgb, var(--local-accent, var(--accent)) 38%, var(--line));
-  border-radius: 8px;
-  background: color-mix(in srgb, var(--panel) 94%, var(--local-accent, var(--accent)) 6%);
-  padding: 11px;
+  border: 2px solid color-mix(in srgb, #0b8f82 40%, var(--line));
+  border-radius: 14px;
+  background:
+    radial-gradient(circle at 0 0, color-mix(in srgb, #11a89a 11%, transparent), transparent 26%),
+    linear-gradient(145deg, color-mix(in srgb, #e8fffb 76%, var(--ceo-surface)), var(--ceo-surface) 42%);
+  box-shadow: 0 14px 32px rgba(11, 74, 85, .10);
+  padding: 17px;
 }
 
 .ceo-live-context-head {
@@ -10663,22 +10706,25 @@ body.sidebar-collapsed .sb-ico {
 }
 
 .ceo-live-context-head span {
-  color: var(--local-accent, var(--accent));
-  font-size: 9px;
+  color: #08776d;
+  font-size: 10px;
   font-weight: 950;
   letter-spacing: .08em;
 }
 
 .ceo-live-context-head strong {
-  color: var(--ink);
-  font-size: 12px;
+  color: var(--ceo-ink);
+  font-size: 14px;
   font-weight: 950;
 }
 
 .ceo-live-context-head time {
-  color: var(--muted);
-  font-size: 10px;
+  border-radius: 999px;
+  background: color-mix(in srgb, #0b8f82 10%, var(--ceo-surface));
+  color: #245066;
+  font-size: 10.5px;
   font-weight: 800;
+  padding: 5px 9px;
   white-space: nowrap;
 }
 
@@ -10689,13 +10735,23 @@ body.sidebar-collapsed .sb-ico {
 }
 
 .ceo-live-price-strip > div {
+  --live-metric-accent: #0b8f82;
   display: grid;
   gap: 3px;
   min-width: 0;
-  border: 1px solid var(--line-2);
-  border-radius: 7px;
-  background: var(--panel-2);
-  padding: 8px;
+  border: 1px solid color-mix(in srgb, var(--live-metric-accent) 36%, var(--line));
+  border-radius: 10px;
+  background:
+    linear-gradient(135deg, color-mix(in srgb, var(--live-metric-accent) 13%, var(--ceo-surface)), color-mix(in srgb, var(--live-metric-accent) 5%, var(--ceo-surface-soft)));
+  padding: 11px 12px;
+}
+
+.ceo-live-price-strip > div:nth-child(2) { --live-metric-accent: #2563eb; }
+.ceo-live-price-strip > div:nth-child(3) { --live-metric-accent: #7c3aed; }
+.ceo-live-price-strip > div:nth-child(4) { --live-metric-accent: #c26408; }
+
+.ceo-live-price-strip > div span {
+  color: color-mix(in srgb, var(--live-metric-accent) 80%, var(--ink-2));
 }
 
 .ceo-live-price-strip span,
@@ -10707,8 +10763,9 @@ body.sidebar-collapsed .sb-ico {
 }
 
 .ceo-live-price-strip strong {
-  color: var(--ink);
-  font-size: 14px;
+  color: var(--ceo-ink);
+  font-family: var(--display);
+  font-size: 18px;
   font-weight: 950;
 }
 
@@ -10721,17 +10778,23 @@ body.sidebar-collapsed .sb-ico {
 
 .ceo-live-price-list a,
 .ceo-live-news-list a {
+  --live-card-accent: #0b8f82;
   min-width: 0;
   display: grid;
   grid-template-columns: minmax(0, 1fr) auto;
   gap: 3px 8px;
-  border: 1px solid var(--line-2);
-  border-radius: 7px;
-  background: var(--panel-2);
-  color: var(--ink-2);
-  padding: 8px;
+  border: 1px solid color-mix(in srgb, var(--live-card-accent) 27%, var(--line));
+  border-radius: 10px;
+  background: linear-gradient(135deg, color-mix(in srgb, var(--live-card-accent) 7%, var(--ceo-surface)), var(--ceo-surface));
+  color: var(--ceo-ink-2);
+  padding: 11px 12px;
   text-decoration: none;
   transition: transform .18s ease, border-color .18s ease, background .18s ease, color .18s ease;
+}
+
+.ceo-live-price-list a:nth-child(even),
+.ceo-live-news-list a:nth-child(even) {
+  --live-card-accent: #4f46e5;
 }
 
 .ceo-live-price-list a:hover,
@@ -10740,9 +10803,10 @@ body.sidebar-collapsed .sb-ico {
 .ceo-live-news-list a:focus-visible {
   transform: translateY(-2px);
   outline: none;
-  border-color: var(--local-accent, var(--accent));
-  background: var(--ink);
-  color: var(--panel);
+  border-color: var(--live-card-accent);
+  background: color-mix(in srgb, var(--live-card-accent) 84%, #071526);
+  color: #ffffff;
+  box-shadow: 0 10px 22px color-mix(in srgb, var(--live-card-accent) 20%, transparent);
 }
 
 .ceo-live-price-list span,
@@ -10753,13 +10817,11 @@ body.sidebar-collapsed .sb-ico {
 .ceo-live-price-list strong,
 .ceo-live-news-list strong {
   min-width: 0;
-  overflow: hidden;
   color: inherit;
-  font-size: 10.5px;
+  font-size: 12.5px;
   font-weight: 900;
-  line-height: 1.35;
-  text-overflow: ellipsis;
-  white-space: nowrap;
+  line-height: 1.48;
+  overflow-wrap: anywhere;
 }
 
 .ceo-live-price-list em {
@@ -10776,7 +10838,7 @@ body.sidebar-collapsed .sb-ico {
 .ceo-live-price-list a:focus-visible span,
 .ceo-live-news-list a:hover span,
 .ceo-live-news-list a:focus-visible span {
-  color: var(--panel);
+  color: #ffffff;
 }
 
 .ceo-live-news-list p {

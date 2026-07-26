@@ -15331,11 +15331,6 @@
         <p>${escapeHTML(item.thesis || item.logic)}</p>
         <div class="evidence-row">${proofBadgeHTML(item)}</div>
       </div>
-      <div class="metric-row">
-        <div class="metric"><strong>${fmtNum(item.score)}</strong><span>근거지수</span></div>
-        <div class="metric"><strong>${fmtNum(item.evidenceCount || sourceUrlItems(item.links || []).length)}</strong><span>출처/기사 근거</span></div>
-        <div class="metric"><strong>${fmtNum(item.priceRows || 0)}</strong><span>가격 데이터</span></div>
-      </div>
       <div class="investment-focus-block is-priority">
         <strong>${item.allocation ? "전략 가중치" : "판단 상태"}</strong>
         <p>${item.allocation ? `${strategicHighlightHTML(item.allocation)} · 실제 자본 배분 확정값이 아니라, 현재 수집 신호 기반 우선순위입니다.` : strategicHighlightHTML(item.stage || "Gate")}</p>
@@ -15348,16 +15343,16 @@
         <strong>우선순위 산식</strong>
         <p>${strategicHighlightHTML("근거지수 = 기준점수 + 가격·뉴스·정책 근거 + 가격 모멘텀 + 연결 전략 점수. 실측값은 가격 데이터와 원문 링크 수만 별도 집계합니다.")}</p>
       </div>
-      <div class="investment-focus-block">
+      <div class="investment-focus-block is-gate">
         <strong>${section === "management-strategy" ? "전략 실행" : "의사결정 게이트"}</strong>
         <ul class="watch-list">${(item.actions || item.gate || []).map((line) => `<li>${strategicHighlightHTML(line)}</li>`).join("")}</ul>
       </div>
-      <div class="investment-focus-block">
+      <div class="investment-focus-block is-monitor">
         <strong>매일 확인할 신호</strong>
         <ul class="watch-list">${(item.triggers || item.gate || []).map((line) => `<li>${strategicHighlightHTML(line)}</li>`).join("")}</ul>
       </div>
       ${relatedLinks.length ? `
-        <div class="investment-focus-block">
+        <div class="investment-focus-block is-sources">
           <strong>관련 최신 기사/신호</strong>
           <ul class="work-link-list">${relatedLinks.map((link) => `<li><a href="${escapeHTML(link.sourceUrl || link.link || "#")}" target="_blank" rel="noopener">${strategicHighlightHTML(newsTitle(link) || link.title || "Signal")}</a></li>`).join("")}</ul>
         </div>
