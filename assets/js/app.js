@@ -21494,46 +21494,51 @@
       .map((dot) => [dot.dataset.equitySeries, dot]));
     const viewY = (value) => pad.top
       + (1 - ((value - minValue) / Math.max(1, maxValue - minValue))) * plotHeight;
-    const move = (event) => {
+    let frameId = 0;
+    let latestPointer = null;
+    let lastSnappedTime = Number.NaN;
+    const renderPointer = ({ clientX }) => {
       const hitRect = hit.getBoundingClientRect();
       const canvasRect = canvas.getBoundingClientRect();
-      const ratio = Math.min(1, Math.max(0,
-        (event.clientX - hitRect.left) / Math.max(1, hitRect.width),
+      const pointerRatio = Math.min(1, Math.max(0,
+        (clientX - hitRect.left) / Math.max(1, hitRect.width),
       ));
-      const targetTime = minTime + ((maxTime - minTime) * ratio);
+      const pointerViewX = pad.left + pointerRatio * plotWidth;
+      const targetTime = minTime + ((maxTime - minTime) * pointerRatio);
       const snappedTime = equityNearestPoint(observedTimeline, targetTime)?.time || targetTime;
-      const snappedRatio = (snappedTime - minTime) / Math.max(1, maxTime - minTime);
-      const viewX = pad.left + snappedRatio * plotWidth;
-      crosshair.setAttribute("x1", viewX.toFixed(2));
-      crosshair.setAttribute("x2", viewX.toFixed(2));
+      crosshair.setAttribute("x1", pointerViewX.toFixed(2));
+      crosshair.setAttribute("x2", pointerViewX.toFixed(2));
       crosshair.classList.add("is-visible");
-      const rows = series.map((item) => {
-        const point = equityPointAtOrBefore(item.points, snappedTime);
-        return { item, point };
-      }).filter((row) => row.point).sort((a, b) => b.point.value - a.point.value);
-      rows.forEach(({ item, point }) => {
-        const dot = dots.get(item.id);
-        if (!dot) return;
-        const dotRatio = (point.time - minTime) / Math.max(1, maxTime - minTime);
-        const dotViewX = pad.left + dotRatio * plotWidth;
-        dot.hidden = false;
-        dot.setAttribute("cx", dotViewX.toFixed(2));
-        dot.setAttribute("cy", viewY(point.value).toFixed(2));
-      });
       tooltip.hidden = false;
-      tooltip.innerHTML = `
-        <strong>${escapeHTML(shortKstDateWithYear(snappedTime))} · 기준 거래일</strong>
-        ${rows.slice(0, 8).map(({ item, point }) => `
-          <span>
-            <i style="--series-color:${escapeHTML(item.color)}"></i>
-            <b>${escapeHTML(item.label)}</b>
-            <em>지수 ${escapeHTML(point.value.toFixed(1))}</em>
-            ${Number.isFinite(point.close) ? `<small>종가 ${escapeHTML(equityCloseLabel(point.close, item.currency))} · ${escapeHTML(shortKstDate(point.time))}</small>` : `<small>${escapeHTML(item.exchange || "동일가중 지수")} · ${escapeHTML(shortKstDate(point.time))}</small>`}
-            <small>${escapeHTML(point.source || item.source || item.exchange || "수집 데이터")}</small>
-          </span>
-        `).join("")}
-      `;
-      const pointerCanvasX = event.clientX - canvasRect.left;
+      if (snappedTime !== lastSnappedTime) {
+        const rows = series.map((item) => {
+          const point = equityPointAtOrBefore(item.points, snappedTime);
+          return { item, point };
+        }).filter((row) => row.point).sort((a, b) => b.point.value - a.point.value);
+        rows.forEach(({ item, point }) => {
+          const dot = dots.get(item.id);
+          if (!dot) return;
+          const dotRatio = (point.time - minTime) / Math.max(1, maxTime - minTime);
+          const dotViewX = pad.left + dotRatio * plotWidth;
+          dot.hidden = false;
+          dot.setAttribute("cx", dotViewX.toFixed(2));
+          dot.setAttribute("cy", viewY(point.value).toFixed(2));
+        });
+        tooltip.innerHTML = `
+          <strong>${escapeHTML(shortKstDateWithYear(snappedTime))} · 기준 거래일</strong>
+          ${rows.slice(0, 8).map(({ item, point }) => `
+            <span>
+              <i style="--series-color:${escapeHTML(item.color)}"></i>
+              <b>${escapeHTML(item.label)}</b>
+              <em>지수 ${escapeHTML(point.value.toFixed(1))}</em>
+              ${Number.isFinite(point.close) ? `<small>종가 ${escapeHTML(equityCloseLabel(point.close, item.currency))} · ${escapeHTML(shortKstDate(point.time))}</small>` : `<small>${escapeHTML(item.exchange || "동일가중 지수")} · ${escapeHTML(shortKstDate(point.time))}</small>`}
+              <small>${escapeHTML(point.source || item.source || item.exchange || "수집 데이터")}</small>
+            </span>
+          `).join("")}
+        `;
+        lastSnappedTime = snappedTime;
+      }
+      const pointerCanvasX = Math.min(canvasRect.width, Math.max(0, clientX - canvasRect.left));
       const tooltipWidth = tooltip.offsetWidth;
       const preferRight = pointerCanvasX + tooltipWidth + 18 <= canvasRect.width;
       const left = preferRight
@@ -21541,9 +21546,24 @@
         : pointerCanvasX - tooltipWidth - 14;
       tooltip.style.left = `${Math.max(8, Math.min(canvasRect.width - tooltipWidth - 8, left))}px`;
     };
-    hit.addEventListener("pointermove", move);
-    hit.addEventListener("pointerenter", move);
+    const queuePointer = (event) => {
+      latestPointer = { clientX: event.clientX };
+      if (frameId) return;
+      frameId = requestAnimationFrame(() => {
+        const pointer = latestPointer;
+        frameId = 0;
+        if (pointer) renderPointer(pointer);
+      });
+    };
+    hit.addEventListener("pointermove", queuePointer, { passive: true });
+    hit.addEventListener("pointerenter", queuePointer, { passive: true });
     hit.addEventListener("pointerleave", () => {
+      latestPointer = null;
+      if (frameId) {
+        cancelAnimationFrame(frameId);
+        frameId = 0;
+      }
+      lastSnappedTime = Number.NaN;
       tooltip.hidden = true;
       crosshair.classList.remove("is-visible");
       dots.forEach((dot) => {

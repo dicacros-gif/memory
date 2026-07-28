@@ -49,10 +49,16 @@ assert.match(app, /const EQUITY_CHART_VIEW = Object\.freeze\(\{[\s\S]*?right: 0[
   "the price plot must use the full SVG width without dead horizontal margins");
 assert.match(app, /function equityChartHTML[\s\S]*?const \{ width, height, pad, axisInset \} = EQUITY_CHART_VIEW[\s\S]*?width="\$\{plotWidth\}"/,
   "the visible chart and pointer hit area must share the full-width plot geometry");
-assert.match(app, /const hitRect = hit\.getBoundingClientRect\(\)[\s\S]*?\(event\.clientX - hitRect\.left\) \/ Math\.max\(1, hitRect\.width\)/,
+assert.match(app, /const hitRect = hit\.getBoundingClientRect\(\)[\s\S]*?\(clientX - hitRect\.left\) \/ Math\.max\(1, hitRect\.width\)/,
   "pointer movement must use the exact rendered hit area so both visual edges remain reachable");
 assert.match(app, /function equityNearestPoint[\s\S]*?const snappedTime = equityNearestPoint\(observedTimeline, targetTime\)/,
-  "the crosshair must snap to a real observed trading timestamp");
+  "tooltip values must snap to a real observed trading timestamp");
+assert.match(app, /const pointerViewX = pad\.left \+ pointerRatio \* plotWidth[\s\S]*?crosshair\.setAttribute\("x1", pointerViewX\.toFixed\(2\)\)/,
+  "the crosshair must track the continuous pointer position across the full plot width");
+assert.match(app, /let lastSnappedTime = Number\.NaN[\s\S]*?if \(snappedTime !== lastSnappedTime\)[\s\S]*?lastSnappedTime = snappedTime/,
+  "expensive tooltip content should update only when the sourced trading date changes");
+assert.match(app, /const queuePointer = \(event\) =>[\s\S]*?requestAnimationFrame[\s\S]*?cancelAnimationFrame\(frameId\)/,
+  "pointer DOM updates must be coalesced to one render per animation frame");
 assert.match(app, /EQUITY_STOCK_COLORS\[ordinal % EQUITY_STOCK_COLORS\.length\]/,
   "simultaneously selected companies must receive distinct series colors");
 assert.match(app, /const point = equityPointAtOrBefore\(item\.points, snappedTime\)[\s\S]*?기준 거래일[\s\S]*?종가 \$\{escapeHTML\(equityCloseLabel\(point\.close, item\.currency\)\)\}[\s\S]*?point\.source/,
