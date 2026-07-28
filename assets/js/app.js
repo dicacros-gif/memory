@@ -1859,7 +1859,10 @@
       jump: "hyperscaler-demand",
       sections: ["hyperscaler-demand", "memory-scroll-story"],
     },
-    ...MECE_GROUPS.filter((route) => ["market", "policy", "competitors", "talent"].includes(route.id)),
+    ...MECE_GROUPS.filter((route) => ["market", "policy", "competitors", "talent"].includes(route.id))
+      .map((route) => route.id === "market"
+        ? { ...route, sections: [...(route.sections || []), "equity-value-chain"] }
+        : route),
   ];
   const ROUTE_DISPLAY = {
     home: {
@@ -1998,6 +2001,7 @@
     news: "중국·외신 기사",
     "china-community": "중국 반도체 현장 신호",
     prices: "TrendForce 가격",
+    "equity-value-chain": "밸류체인 주가",
   };
   const SECTION_ORDER = SIDE_NAV_ROUTES.flatMap((route) => route.sections || []);
   const NAV_SECTION_TARGETS = Object.fromEntries(
@@ -4811,6 +4815,7 @@
       { id: "memory-market-map", render: renderMemoryMarketMap },
       { id: "ai-matrix", render: renderArchitectureMatrix },
       { id: "china-deep-dive", render: renderChinaDeepDive },
+      { id: "equity-value-chain", render: renderEquityValueChain, data: ["marketHistory"] },
     ];
   }
 
@@ -20899,6 +20904,436 @@
         ` : ""}
       </article>
     `;
+  }
+
+  const EQUITY_CHAIN_PERIODS = [
+    { id: "1m", label: "1개월", days: 31 },
+    { id: "6m", label: "6개월", days: 183 },
+    { id: "1y", label: "1년", days: 365 },
+    { id: "5y", label: "5년", days: 365 * 5 },
+    { id: "all", label: "전체", days: Number.POSITIVE_INFINITY },
+  ];
+  const EQUITY_CHAIN_REGIONS = {
+    global: {
+      eyebrow: "Global semiconductor equities",
+      title: "글로벌 반도체 밸류체인",
+      description: "AI 칩에서 메모리·파운드리·장비·패키징·인프라까지 연결한 상장사 흐름",
+      defaultSelected: ["nvidia-stock", "skhy-stock", "tsmc-stock", "asml-stock"],
+      categories: [
+        { id: "ai-chip", label: "AI 칩·설계" },
+        { id: "memory", label: "메모리·스토리지" },
+        { id: "foundry", label: "파운드리" },
+        { id: "equipment", label: "장비" },
+        { id: "packaging", label: "패키징·테스트" },
+        { id: "infrastructure", label: "네트워크·전력" },
+      ],
+    },
+    china: {
+      eyebrow: "China A-share semiconductor equities",
+      title: "중국 상장 반도체 밸류체인",
+      description: "CXMT와 상하이·선전 주요 상장사를 메모리·파운드리·장비·패키징·EDA/IP·소재로 연결",
+      defaultSelected: ["cxmt-stock", "smic-stock", "naura-stock", "jcet-stock"],
+      categories: [
+        { id: "memory", label: "메모리·스토리지" },
+        { id: "foundry", label: "파운드리" },
+        { id: "equipment", label: "장비" },
+        { id: "packaging", label: "패키징·테스트" },
+        { id: "design-ip", label: "설계·EDA·IP" },
+        { id: "materials", label: "소재·기판" },
+      ],
+    },
+  };
+  const EQUITY_CHAIN_COLORS = {
+    "ai-chip": "#53d7ba",
+    memory: "#8b7cf6",
+    foundry: "#58a6ff",
+    equipment: "#f3b35b",
+    packaging: "#ef7f73",
+    infrastructure: "#7cc7d8",
+    "design-ip": "#b48cf2",
+    materials: "#9cc56b",
+  };
+  const equityChainState = {
+    period: "1y",
+    global: { mode: "group", category: "all", selected: [] },
+    china: { mode: "group", category: "all", selected: [] },
+  };
+
+  function equityPercent(value) {
+    const numeric = Number(value);
+    if (!Number.isFinite(numeric)) return "—";
+    return `${numeric > 0 ? "+" : ""}${numeric.toFixed(Math.abs(numeric) >= 100 ? 0 : 1)}%`;
+  }
+
+  function equityRegionIndexes(region) {
+    return Object.values(MARKET_HISTORY?.indexes || {})
+      .filter((index) => index?.region === region && index?.valueChain)
+      .sort((a, b) => {
+        const categories = EQUITY_CHAIN_REGIONS[region]?.categories || [];
+        const rank = (id) => Math.max(0, categories.findIndex((item) => item.id === id));
+        return rank(a.valueChain) - rank(b.valueChain)
+          || String(a.shortName || a.label || "").localeCompare(String(b.shortName || b.label || ""));
+      });
+  }
+
+  function equityScopedPoints(index = {}, period = EQUITY_CHAIN_PERIODS[2]) {
+    const points = marketIndexPoints(index);
+    if (points.length < 2) return [];
+    if (!Number.isFinite(period.days)) return points;
+    const endTime = points.at(-1).time;
+    const startTime = endTime - period.days * 86400000;
+    let first = points.findIndex((point) => point.time >= startTime);
+    if (first < 0) first = Math.max(0, points.length - 2);
+    if (first > 0) first -= 1;
+    return points.slice(first);
+  }
+
+  function equityNormalizedSeries(index = {}, period = EQUITY_CHAIN_PERIODS[2]) {
+    const scoped = equityScopedPoints(index, period);
+    const base = Number(scoped[0]?.close);
+    if (scoped.length < 2 || !Number.isFinite(base) || base <= 0) return null;
+    return {
+      id: index.id,
+      label: index.shortName || index.labelKo || index.label || index.symbol,
+      symbol: index.symbol || "",
+      category: index.valueChain || "",
+      exchange: index.exchange || index.exchangeName || "",
+      color: EQUITY_CHAIN_COLORS[index.valueChain] || "#6ea8fe",
+      points: scoped.map((point) => ({
+        time: point.time,
+        value: (point.close / base) * 100,
+        close: point.close,
+      })),
+      changePct: ((scoped.at(-1).close - base) / base) * 100,
+      coverageDays: (scoped.at(-1).time - scoped[0].time) / 86400000,
+      index,
+    };
+  }
+
+  function equitySampleTimes(series = [], maxPoints = 280) {
+    const times = Array.from(new Set(series.flatMap((item) => item.points.map((point) => point.time)))).sort((a, b) => a - b);
+    if (times.length <= maxPoints) return times;
+    const stride = Math.ceil(times.length / maxPoints);
+    return times.filter((time, index) => index === 0 || index === times.length - 1 || index % stride === 0);
+  }
+
+  function equityPointAtOrBefore(points = [], time = 0) {
+    let low = 0;
+    let high = points.length - 1;
+    let hit = null;
+    while (low <= high) {
+      const mid = Math.floor((low + high) / 2);
+      if (points[mid].time <= time) {
+        hit = points[mid];
+        low = mid + 1;
+      } else {
+        high = mid - 1;
+      }
+    }
+    return hit;
+  }
+
+  function equityGroupSeries(indexes = [], period, activeCategory = "all") {
+    const config = EQUITY_CHAIN_REGIONS[indexes[0]?.region] || {};
+    const categoryIds = activeCategory === "all"
+      ? (config.categories || []).map((item) => item.id)
+      : [activeCategory];
+    return categoryIds.map((categoryId) => {
+      const members = indexes
+        .filter((index) => index.valueChain === categoryId)
+        .map((index) => equityNormalizedSeries(index, period))
+        .filter(Boolean)
+        .filter((series) => !Number.isFinite(period.days)
+          || series.coverageDays >= Math.min(120, period.days * 0.55));
+      if (!members.length) return null;
+      const times = equitySampleTimes(members);
+      const points = times.map((time) => {
+        const values = members
+          .map((member) => equityPointAtOrBefore(member.points, time)?.value)
+          .filter(Number.isFinite);
+        if (!values.length) return null;
+        return { time, value: values.reduce((sum, value) => sum + value, 0) / values.length };
+      }).filter(Boolean);
+      if (points.length < 2) return null;
+      const label = config.categories?.find((item) => item.id === categoryId)?.label || categoryId;
+      return {
+        id: `group-${categoryId}`,
+        label,
+        symbol: `${members.length}개사`,
+        category: categoryId,
+        exchange: "동일가중 지수",
+        color: EQUITY_CHAIN_COLORS[categoryId] || "#6ea8fe",
+        points,
+        changePct: points.at(-1).value - 100,
+        members,
+      };
+    }).filter(Boolean);
+  }
+
+  function equityVisibleSeries(region, indexes, period) {
+    const state = equityChainState[region];
+    if (state.mode === "group") return equityGroupSeries(indexes, period, state.category);
+    const eligible = indexes.filter((index) => state.category === "all" || index.valueChain === state.category);
+    if (!state.selected.length) {
+      state.selected = EQUITY_CHAIN_REGIONS[region].defaultSelected
+        .filter((id) => eligible.some((index) => index.id === id));
+    }
+    let selected = eligible.filter((index) => state.selected.includes(index.id));
+    if (!selected.length) {
+      selected = eligible.filter((index) => marketIndexPoints(index).length >= 2).slice(0, 4);
+      state.selected = selected.map((index) => index.id);
+    }
+    return selected.map((index) => equityNormalizedSeries(index, period)).filter(Boolean).slice(0, 8);
+  }
+
+  function equityChartHTML(region, series = []) {
+    if (!series.length) {
+      return `<div class="equity-chart-empty">선택 기간에 비교 가능한 종가 이력 없음</div>`;
+    }
+    const width = 1120;
+    const height = 360;
+    const pad = { top: 26, right: 30, bottom: 38, left: 58 };
+    const allPoints = series.flatMap((item) => item.points || []);
+    const minTime = Math.min(...allPoints.map((point) => point.time));
+    const maxTime = Math.max(...allPoints.map((point) => point.time));
+    const values = allPoints.map((point) => point.value);
+    let minValue = Math.min(...values);
+    let maxValue = Math.max(...values);
+    const spread = Math.max(8, maxValue - minValue);
+    minValue = Math.max(0, minValue - spread * 0.12);
+    maxValue += spread * 0.12;
+    const x = (time) => pad.left + ((time - minTime) / Math.max(1, maxTime - minTime)) * (width - pad.left - pad.right);
+    const y = (value) => pad.top + (1 - ((value - minValue) / Math.max(1, maxValue - minValue))) * (height - pad.top - pad.bottom);
+    const grid = Array.from({ length: 5 }, (_, index) => {
+      const value = minValue + ((maxValue - minValue) * index / 4);
+      const py = y(value);
+      return `<g><line x1="${pad.left}" y1="${py.toFixed(2)}" x2="${width - pad.right}" y2="${py.toFixed(2)}"></line><text x="${pad.left - 10}" y="${(py + 4).toFixed(2)}">${value.toFixed(0)}</text></g>`;
+    }).join("");
+    const paths = series.map((item) => {
+      const d = item.points.map((point, index) => `${index ? "L" : "M"}${x(point.time).toFixed(2)},${y(point.value).toFixed(2)}`).join(" ");
+      const end = item.points.at(-1);
+      return `
+        <path class="equity-chart-line" d="${d}" style="--series-color:${escapeHTML(item.color)}"></path>
+        <circle class="equity-chart-end" cx="${x(end.time).toFixed(2)}" cy="${y(end.value).toFixed(2)}" r="4" style="--series-color:${escapeHTML(item.color)}"></circle>
+      `;
+    }).join("");
+    const middleTime = minTime + ((maxTime - minTime) / 2);
+    return `
+      <div class="equity-chart-shell" data-equity-chart="${escapeHTML(region)}">
+        <div class="equity-chart-legend">
+          ${series.map((item) => `
+            <span><i style="--series-color:${escapeHTML(item.color)}"></i><b>${escapeHTML(item.label)}</b><em class="${item.changePct >= 0 ? "up" : "down"}">${escapeHTML(equityPercent(item.changePct))}</em></span>
+          `).join("")}
+        </div>
+        <div class="equity-chart-canvas">
+          <svg class="equity-chart-svg" viewBox="0 0 ${width} ${height}" role="img" aria-label="${escapeHTML(region === "china" ? "중국 반도체 상장사 정규화 주가 차트" : "글로벌 반도체 상장사 정규화 주가 차트")}">
+            <g class="equity-chart-grid">${grid}</g>
+            <line class="equity-chart-base" x1="${pad.left}" y1="${y(100).toFixed(2)}" x2="${width - pad.right}" y2="${y(100).toFixed(2)}"></line>
+            <g class="equity-chart-series">${paths}</g>
+            <line class="equity-chart-crosshair" x1="${pad.left}" y1="${pad.top}" x2="${pad.left}" y2="${height - pad.bottom}"></line>
+            <g class="equity-chart-axis">
+              <text x="${pad.left}" y="${height - 10}" text-anchor="start">${escapeHTML(shortKstDateWithYear(minTime))}</text>
+              <text x="${x(middleTime)}" y="${height - 10}" text-anchor="middle">${escapeHTML(shortKstDateWithYear(middleTime))}</text>
+              <text x="${width - pad.right}" y="${height - 10}" text-anchor="end">${escapeHTML(shortKstDateWithYear(maxTime))}</text>
+            </g>
+            <rect class="equity-chart-hit" x="${pad.left}" y="${pad.top}" width="${width - pad.left - pad.right}" height="${height - pad.top - pad.bottom}"></rect>
+          </svg>
+          <div class="equity-chart-tooltip" hidden></div>
+        </div>
+      </div>
+    `;
+  }
+
+  function equityRegionAnalysis(region, series = [], indexes = [], period) {
+    const comparable = series.filter((item) => Number.isFinite(item.changePct));
+    const ranked = comparable.slice().sort((a, b) => b.changePct - a.changePct);
+    const leader = ranked[0];
+    const laggard = ranked.at(-1);
+    const positive = comparable.filter((item) => item.changePct > 0).length;
+    const latestTime = Math.max(...indexes.map((index) => marketIndexPoints(index).at(-1)?.time || 0));
+    return {
+      leader,
+      laggard,
+      breadth: `${positive}/${comparable.length}`,
+      latestTime,
+      periodLabel: period.label,
+      listedCount: indexes.length,
+      exchangeLabel: region === "china" ? "SSE·SSE STAR·SZSE" : "KRX·NASDAQ·NYSE·TSE",
+    };
+  }
+
+  function equityValueChainCards(region, indexes = [], period) {
+    const config = EQUITY_CHAIN_REGIONS[region];
+    return (config.categories || []).map((category) => {
+      const members = indexes.filter((index) => index.valueChain === category.id);
+      const group = equityGroupSeries(indexes, period, category.id)[0];
+      const ranked = (group?.members || []).slice().sort((a, b) => b.changePct - a.changePct);
+      const change = group?.changePct ?? Number.NaN;
+      return `
+        <button class="equity-chain-card" type="button" data-equity-category="${escapeHTML(category.id)}" style="--chain-color:${escapeHTML(EQUITY_CHAIN_COLORS[category.id] || "#6ea8fe")}">
+          <span>${escapeHTML(category.label)}</span>
+          <strong>${escapeHTML(equityPercent(change))}</strong>
+          <small>${escapeHTML(`${members.length}개사`)}${ranked[0] ? ` · 선도 ${escapeHTML(ranked[0].label)}` : ""}</small>
+        </button>
+      `;
+    }).join("");
+  }
+
+  function wireEquityChartTooltip(panel, series = []) {
+    const svg = panel.querySelector(".equity-chart-svg");
+    const hit = panel.querySelector(".equity-chart-hit");
+    const crosshair = panel.querySelector(".equity-chart-crosshair");
+    const tooltip = panel.querySelector(".equity-chart-tooltip");
+    if (!svg || !hit || !crosshair || !tooltip || !series.length) return;
+    const minTime = Math.min(...series.flatMap((item) => item.points.map((point) => point.time)));
+    const maxTime = Math.max(...series.flatMap((item) => item.points.map((point) => point.time)));
+    const move = (event) => {
+      const rect = svg.getBoundingClientRect();
+      const ratio = Math.min(1, Math.max(0, (event.clientX - rect.left) / Math.max(1, rect.width)));
+      const targetTime = minTime + ((maxTime - minTime) * ratio);
+      const viewX = 58 + ratio * (1120 - 58 - 30);
+      crosshair.setAttribute("x1", viewX.toFixed(2));
+      crosshair.setAttribute("x2", viewX.toFixed(2));
+      crosshair.classList.add("is-visible");
+      const rows = series.map((item) => {
+        const point = equityPointAtOrBefore(item.points, targetTime) || item.points[0];
+        return { item, point };
+      }).filter((row) => row.point).sort((a, b) => b.point.value - a.point.value);
+      const date = rows[0]?.point?.time || targetTime;
+      tooltip.hidden = false;
+      tooltip.style.left = `${Math.min(76, Math.max(4, ratio * 100))}%`;
+      tooltip.innerHTML = `
+        <strong>${escapeHTML(shortKstDateWithYear(date))}</strong>
+        ${rows.slice(0, 8).map(({ item, point }) => `
+          <span><i style="--series-color:${escapeHTML(item.color)}"></i><b>${escapeHTML(item.label)}</b><em>${escapeHTML(point.value.toFixed(1))}</em></span>
+        `).join("")}
+      `;
+    };
+    hit.addEventListener("pointermove", move);
+    hit.addEventListener("pointerenter", move);
+    hit.addEventListener("pointerleave", () => {
+      tooltip.hidden = true;
+      crosshair.classList.remove("is-visible");
+    });
+  }
+
+  function renderEquityRegion(region) {
+    const panel = document.querySelector(`[data-equity-region="${region}"]`);
+    if (!panel) return;
+    const config = EQUITY_CHAIN_REGIONS[region];
+    const state = equityChainState[region];
+    const period = EQUITY_CHAIN_PERIODS.find((item) => item.id === equityChainState.period) || EQUITY_CHAIN_PERIODS[2];
+    const indexes = equityRegionIndexes(region);
+    const filteredIndexes = indexes.filter((index) => state.category === "all" || index.valueChain === state.category);
+    const series = equityVisibleSeries(region, indexes, period);
+    const analysis = equityRegionAnalysis(region, series, indexes, period);
+    const latestLabel = analysis.latestTime ? shortKstDateWithYear(analysis.latestTime) : "수집 전";
+    panel.innerHTML = `
+      <div class="equity-region-head">
+        <div>
+          <p>${escapeHTML(config.eyebrow)}</p>
+          <h3>${escapeHTML(config.title)}</h3>
+          <span>${escapeHTML(config.description)}</span>
+        </div>
+        <div class="equity-region-meta">
+          <b>${escapeHTML(`${analysis.listedCount}개사`)}</b>
+          <small>${escapeHTML(analysis.exchangeLabel)}</small>
+          <em>${escapeHTML(`기준 ${latestLabel}`)}</em>
+        </div>
+      </div>
+      <div class="equity-mode-controls" role="group" aria-label="${escapeHTML(config.title)} 보기 방식">
+        <button type="button" data-equity-mode="group" class="${state.mode === "group" ? "active" : ""}">밸류체인 그룹 트렌드</button>
+        <button type="button" data-equity-mode="stock" class="${state.mode === "stock" ? "active" : ""}">개별 종목</button>
+      </div>
+      <div class="equity-category-controls" role="group" aria-label="${escapeHTML(config.title)} 밸류체인">
+        <button type="button" data-equity-category="all" class="${state.category === "all" ? "active" : ""}">전체 · ${indexes.length}</button>
+        ${(config.categories || []).map((category) => {
+          const count = indexes.filter((index) => index.valueChain === category.id).length;
+          return `<button type="button" data-equity-category="${escapeHTML(category.id)}" class="${state.category === category.id ? "active" : ""}">${escapeHTML(category.label)} · ${count}</button>`;
+        }).join("")}
+      </div>
+      <div class="equity-ticker-grid" aria-label="${escapeHTML(config.title)} 상장사 목록">
+        ${filteredIndexes.map((index) => {
+          const points = marketIndexPoints(index);
+          const selected = state.selected.includes(index.id);
+          const isNew = index.newListing === true || points.length < 10;
+          return `
+            <button type="button" data-equity-stock="${escapeHTML(index.id)}" class="${selected ? "active" : ""}" title="${escapeHTML(`${index.label || index.shortName} · ${index.exchange || index.exchangeName || ""}`)}">
+              <b>${escapeHTML(index.symbol || "")}</b>
+              <span>${escapeHTML(index.shortName || index.labelKo || index.label || "")}</span>
+              <small>${escapeHTML(index.exchange || index.exchangeName || "")}${isNew ? " · 신규" : ""}</small>
+            </button>
+          `;
+        }).join("")}
+      </div>
+      <div class="equity-analysis-strip">
+        <span><small>기간 선도</small><b>${escapeHTML(analysis.leader?.label || "—")}</b><em class="up">${escapeHTML(equityPercent(analysis.leader?.changePct))}</em></span>
+        <span><small>기간 하위</small><b>${escapeHTML(analysis.laggard?.label || "—")}</b><em class="down">${escapeHTML(equityPercent(analysis.laggard?.changePct))}</em></span>
+        <span><small>상승 폭</small><b>${escapeHTML(analysis.breadth)}</b><em>${escapeHTML(analysis.periodLabel)}</em></span>
+        <span><small>비교 기준</small><b>100</b><em>기간 첫 종가</em></span>
+      </div>
+      ${equityChartHTML(region, series)}
+      <div class="equity-chain-map">
+        ${equityValueChainCards(region, indexes, period)}
+      </div>
+      <div class="equity-source-note">
+        <span>Yahoo Finance 일별 수정종가 · 밸류체인 그룹은 동일가중 정규화 지수</span>
+        <span>${region === "china" ? "CXMT 688825 · 2026-07-27 상장 · 신규 이력은 관측일만 표시" : "통화가 다른 종목은 가격 수준이 아닌 100 기준 변화율로 비교"}</span>
+      </div>
+    `;
+
+    panel.querySelectorAll("[data-equity-mode]").forEach((button) => {
+      button.addEventListener("click", () => {
+        state.mode = button.dataset.equityMode || "group";
+        renderEquityRegion(region);
+      });
+    });
+    panel.querySelectorAll("[data-equity-category]").forEach((button) => {
+      button.addEventListener("click", () => {
+        state.category = button.dataset.equityCategory || "all";
+        if (button.classList.contains("equity-chain-card")) state.mode = "group";
+        renderEquityRegion(region);
+      });
+    });
+    panel.querySelectorAll("[data-equity-stock]").forEach((button) => {
+      button.addEventListener("click", () => {
+        const id = button.dataset.equityStock;
+        state.mode = "stock";
+        if (state.selected.includes(id)) {
+          if (state.selected.length > 1) state.selected = state.selected.filter((item) => item !== id);
+        } else {
+          state.selected = [...state.selected, id].slice(-8);
+        }
+        renderEquityRegion(region);
+      });
+    });
+    wireEquityChartTooltip(panel, series);
+  }
+
+  function renderEquityValueChain() {
+    const controls = $("#equityPeriodControls");
+    const panels = $("#equityValueChainPanels");
+    if (!controls || !panels) return;
+    controls.innerHTML = EQUITY_CHAIN_PERIODS.map((period) => `
+      <button type="button" data-equity-period="${escapeHTML(period.id)}" class="${period.id === equityChainState.period ? "active" : ""}">${escapeHTML(period.label)}</button>
+    `).join("");
+    panels.innerHTML = Object.keys(EQUITY_CHAIN_REGIONS).map((region) => `
+      <article class="equity-region-panel equity-region-${escapeHTML(region)}" data-equity-region="${escapeHTML(region)}"></article>
+    `).join("");
+    controls.querySelectorAll("[data-equity-period]").forEach((button) => {
+      button.addEventListener("click", () => {
+        equityChainState.period = button.dataset.equityPeriod || "1y";
+        renderEquityValueChain();
+      });
+    });
+    Object.keys(EQUITY_CHAIN_REGIONS).forEach(renderEquityRegion);
+    const freshness = $("#equityValueChainFreshness");
+    if (freshness) {
+      const indexes = [...equityRegionIndexes("global"), ...equityRegionIndexes("china")];
+      const latest = Math.max(...indexes.map((index) => marketIndexPoints(index).at(-1)?.time || 0));
+      freshness.textContent = `${latest ? shortKstDateWithYear(latest) : "수집 전"} · 상장사 ${indexes.length}개`;
+      freshness.classList.toggle("fresh", Boolean(latest));
+    }
   }
 
   function priceSeriesColor(index = 0, direction = "flat") {

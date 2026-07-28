@@ -180,6 +180,78 @@ const TICKERS = [
   { id: "micron", label: "Micron", symbol: "MU" },
 ];
 
+function equityIndex(id, symbol, label, labelKo = label) {
+  return {
+    id,
+    symbol,
+    label,
+    labelKo,
+    source: "Yahoo Finance chart API",
+    sourceUrl: `https://finance.yahoo.com/quote/${encodeURIComponent(symbol)}/`,
+  };
+}
+
+const MARKET_EQUITY_META = {
+  "skhy-stock": { region: "global", valueChain: "memory", exchange: "KRX", shortName: "SK hynix" },
+  "samsung-stock": { region: "global", valueChain: "memory", exchange: "KRX", shortName: "Samsung" },
+  "micron-stock": { region: "global", valueChain: "memory", exchange: "NASDAQ", shortName: "Micron" },
+  "sandisk-stock": { region: "global", valueChain: "memory", exchange: "NASDAQ", shortName: "SanDisk" },
+  "wdc-stock": { region: "global", valueChain: "memory", exchange: "NASDAQ", shortName: "Western Digital" },
+  "kioxia-stock": { region: "global", valueChain: "memory", exchange: "TSE", shortName: "Kioxia" },
+  "nvidia-stock": { region: "global", valueChain: "ai-chip", exchange: "NASDAQ", shortName: "NVIDIA" },
+  "amd-stock": { region: "global", valueChain: "ai-chip", exchange: "NASDAQ", shortName: "AMD" },
+  "broadcom-stock": { region: "global", valueChain: "ai-chip", exchange: "NASDAQ", shortName: "Broadcom" },
+  "marvell-stock": { region: "global", valueChain: "ai-chip", exchange: "NASDAQ", shortName: "Marvell" },
+  "qualcomm-stock": { region: "global", valueChain: "ai-chip", exchange: "NASDAQ", shortName: "Qualcomm" },
+  "tsmc-stock": { region: "global", valueChain: "foundry", exchange: "NYSE", shortName: "TSMC" },
+  "umc-stock": { region: "global", valueChain: "foundry", exchange: "NYSE", shortName: "UMC" },
+  "globalfoundries-stock": { region: "global", valueChain: "foundry", exchange: "NASDAQ", shortName: "GlobalFoundries" },
+  "asml-stock": { region: "global", valueChain: "equipment", exchange: "NASDAQ", shortName: "ASML" },
+  "applied-materials-stock": { region: "global", valueChain: "equipment", exchange: "NASDAQ", shortName: "Applied Materials" },
+  "lam-research-stock": { region: "global", valueChain: "equipment", exchange: "NASDAQ", shortName: "Lam Research" },
+  "kla-stock": { region: "global", valueChain: "equipment", exchange: "NASDAQ", shortName: "KLA" },
+  "tokyo-electron-stock": { region: "global", valueChain: "equipment", exchange: "TSE", shortName: "Tokyo Electron" },
+  "ase-stock": { region: "global", valueChain: "packaging", exchange: "NYSE", shortName: "ASE" },
+  "amkor-stock": { region: "global", valueChain: "packaging", exchange: "NASDAQ", shortName: "Amkor" },
+  "arista-stock": { region: "global", valueChain: "infrastructure", exchange: "NYSE", shortName: "Arista" },
+  "vertiv-stock": { region: "global", valueChain: "infrastructure", exchange: "NYSE", shortName: "Vertiv" },
+
+  "cxmt-stock": {
+    region: "china",
+    valueChain: "memory",
+    exchange: "SSE STAR",
+    shortName: "CXMT",
+    listedAt: "2026-07-27",
+    newListing: true,
+    officialSourceUrl: "https://www.sse.com.cn/assortment/stock/list/info/announcement/",
+  },
+  "gigadevice-stock": { region: "china", valueChain: "memory", exchange: "SSE", shortName: "GigaDevice" },
+  "biwin-stock": { region: "china", valueChain: "memory", exchange: "SSE STAR", shortName: "BIWIN" },
+  "smic-stock": { region: "china", valueChain: "foundry", exchange: "SSE STAR", shortName: "SMIC" },
+  "hua-hong-stock": { region: "china", valueChain: "foundry", exchange: "SSE STAR", shortName: "Hua Hong" },
+  "naura-stock": { region: "china", valueChain: "equipment", exchange: "SZSE", shortName: "NAURA" },
+  "amec-stock": { region: "china", valueChain: "equipment", exchange: "SSE STAR", shortName: "AMEC" },
+  "acm-shanghai-stock": { region: "china", valueChain: "equipment", exchange: "SSE STAR", shortName: "ACM Shanghai" },
+  "piotech-stock": { region: "china", valueChain: "equipment", exchange: "SSE STAR", shortName: "Piotech" },
+  "kingsemi-stock": { region: "china", valueChain: "equipment", exchange: "SSE STAR", shortName: "Kingsemi" },
+  "hwatsing-stock": { region: "china", valueChain: "equipment", exchange: "SSE STAR", shortName: "Hwatsing" },
+  "jcet-stock": { region: "china", valueChain: "packaging", exchange: "SSE", shortName: "JCET" },
+  "tongfu-stock": { region: "china", valueChain: "packaging", exchange: "SZSE", shortName: "Tongfu" },
+  "huatian-stock": { region: "china", valueChain: "packaging", exchange: "SZSE", shortName: "Huatian" },
+  "montage-stock": { region: "china", valueChain: "design-ip", exchange: "SSE STAR", shortName: "Montage" },
+  "verisilicon-stock": { region: "china", valueChain: "design-ip", exchange: "SSE STAR", shortName: "VeriSilicon" },
+  "empyrean-stock": { region: "china", valueChain: "design-ip", exchange: "SZSE ChiNext", shortName: "Empyrean" },
+  "primarius-stock": { region: "china", valueChain: "design-ip", exchange: "SSE STAR", shortName: "Primarius" },
+  "omnivision-stock": { region: "china", valueChain: "design-ip", exchange: "SSE", shortName: "OmniVision" },
+  "rockchip-stock": { region: "china", valueChain: "design-ip", exchange: "SSE", shortName: "Rockchip" },
+  "loongson-stock": { region: "china", valueChain: "design-ip", exchange: "SSE STAR", shortName: "Loongson" },
+  "cambricon-stock": { region: "china", valueChain: "design-ip", exchange: "SSE STAR", shortName: "Cambricon" },
+  "anji-stock": { region: "china", valueChain: "materials", exchange: "SSE STAR", shortName: "Anji Micro" },
+  "nsig-stock": { region: "china", valueChain: "materials", exchange: "SSE STAR", shortName: "NSIG" },
+  "kfmi-stock": { region: "china", valueChain: "materials", exchange: "SZSE ChiNext", shortName: "KFMI" },
+  "shennan-stock": { region: "china", valueChain: "materials", exchange: "SZSE", shortName: "Shennan Circuits" },
+};
+
 const MARKET_INDEXES = [
   {
     id: "sox",
@@ -285,7 +357,48 @@ const MARKET_INDEXES = [
     source: "Yahoo Finance chart API",
     sourceUrl: "https://finance.yahoo.com/quote/688981.SS/",
   },
-];
+  equityIndex("nvidia-stock", "NVDA", "NVIDIA"),
+  equityIndex("amd-stock", "AMD", "Advanced Micro Devices", "AMD"),
+  equityIndex("broadcom-stock", "AVGO", "Broadcom"),
+  equityIndex("marvell-stock", "MRVL", "Marvell Technology", "Marvell"),
+  equityIndex("qualcomm-stock", "QCOM", "Qualcomm"),
+  equityIndex("tsmc-stock", "TSM", "Taiwan Semiconductor Manufacturing", "TSMC"),
+  equityIndex("umc-stock", "UMC", "United Microelectronics", "UMC"),
+  equityIndex("globalfoundries-stock", "GFS", "GlobalFoundries"),
+  equityIndex("asml-stock", "ASML", "ASML"),
+  equityIndex("applied-materials-stock", "AMAT", "Applied Materials"),
+  equityIndex("lam-research-stock", "LRCX", "Lam Research"),
+  equityIndex("kla-stock", "KLAC", "KLA"),
+  equityIndex("tokyo-electron-stock", "8035.T", "Tokyo Electron"),
+  equityIndex("ase-stock", "ASX", "ASE Technology"),
+  equityIndex("amkor-stock", "AMKR", "Amkor Technology", "Amkor"),
+  equityIndex("arista-stock", "ANET", "Arista Networks", "Arista"),
+  equityIndex("vertiv-stock", "VRT", "Vertiv"),
+
+  equityIndex("cxmt-stock", "688825.SS", "CXMT Corporation", "CXMT"),
+  equityIndex("biwin-stock", "688525.SS", "BIWIN Storage Technology", "BIWIN"),
+  equityIndex("hua-hong-stock", "688347.SS", "Hua Hong Semiconductor", "Hua Hong"),
+  equityIndex("piotech-stock", "688072.SS", "Piotech"),
+  equityIndex("kingsemi-stock", "688037.SS", "Kingsemi"),
+  equityIndex("hwatsing-stock", "688120.SS", "Hwatsing Technology", "Hwatsing"),
+  equityIndex("tongfu-stock", "002156.SZ", "Tongfu Microelectronics", "Tongfu"),
+  equityIndex("huatian-stock", "002185.SZ", "Huatian Technology", "Huatian"),
+  equityIndex("montage-stock", "688008.SS", "Montage Technology", "Montage"),
+  equityIndex("verisilicon-stock", "688521.SS", "VeriSilicon"),
+  equityIndex("empyrean-stock", "301269.SZ", "Empyrean Technology", "Empyrean"),
+  equityIndex("primarius-stock", "688206.SS", "Primarius Technologies", "Primarius"),
+  equityIndex("omnivision-stock", "603501.SS", "OmniVision Integrated Circuits", "OmniVision"),
+  equityIndex("rockchip-stock", "603893.SS", "Rockchip Electronics", "Rockchip"),
+  equityIndex("loongson-stock", "688047.SS", "Loongson Technology", "Loongson"),
+  equityIndex("cambricon-stock", "688256.SS", "Cambricon Technologies", "Cambricon"),
+  equityIndex("anji-stock", "688019.SS", "Anji Microelectronics", "Anji Micro"),
+  equityIndex("nsig-stock", "688126.SS", "National Silicon Industry Group", "NSIG"),
+  equityIndex("kfmi-stock", "300666.SZ", "Konfoong Materials International", "KFMI"),
+  equityIndex("shennan-stock", "002916.SZ", "Shennan Circuits"),
+].map((index) => ({
+  ...index,
+  ...(MARKET_EQUITY_META[index.id] || {}),
+}));
 
 const PRICE_PAGES = [
   {
@@ -3621,6 +3734,29 @@ function compactPriceHistoryForClient(history = {}) {
   };
 }
 
+const MARKET_PRICE_BOARD_IDS = new Set([
+  "sox",
+  "skhy-stock",
+  "samsung-stock",
+  "micron-stock",
+  "sandisk-stock",
+  "wdc-stock",
+  "kioxia-stock",
+  "naura-stock",
+  "amec-stock",
+  "acm-shanghai-stock",
+  "jcet-stock",
+  "gigadevice-stock",
+  "smic-stock",
+]);
+
+function compactEquityPointsForClient(id, points = []) {
+  const compact = (points || []).map(compactMarketPointForClient).filter(Boolean);
+  if (MARKET_PRICE_BOARD_IDS.has(id) || compact.length <= 320) return compact;
+  const stride = Math.max(1, Math.ceil(compact.length / 300));
+  return compact.filter((point, index) => index === 0 || index === compact.length - 1 || index % stride === 0);
+}
+
 function compactMarketHistoryForClient(history = {}) {
   return {
     schemaVersion: history.schemaVersion || "2.0",
@@ -3631,20 +3767,32 @@ function compactMarketHistoryForClient(history = {}) {
     expiresAt: history.expiresAt || null,
     timezone: history.timezone || "Asia/Seoul",
     source: history.source || null,
-    indexes: Object.fromEntries(Object.entries(history.indexes || {}).map(([id, index]) => [id, {
-      id: index.id || id,
-      label: index.label || null,
-      labelKo: index.labelKo || null,
-      symbol: index.symbol || null,
-      currency: index.currency || null,
-      source: index.source || null,
-      sourceUrl: index.sourceUrl || null,
-      chartUrl: index.chartUrl || null,
-      updatedAt: index.updatedAt || null,
-      latest: index.latest || null,
-      pointCount: Number(index.pointCount || (index.points || []).length),
-      points: (index.points || []).map(compactMarketPointForClient).filter(Boolean),
-    }])),
+    indexes: Object.fromEntries(Object.entries(history.indexes || {}).map(([id, index]) => {
+      const points = compactEquityPointsForClient(id, index.points || []);
+      return [id, {
+        id: index.id || id,
+        label: index.label || null,
+        labelKo: index.labelKo || null,
+        shortName: index.shortName || index.labelKo || index.label || null,
+        symbol: index.symbol || null,
+        currency: index.currency || null,
+        exchangeName: index.exchangeName || null,
+        exchange: index.exchange || null,
+        region: index.region || null,
+        valueChain: index.valueChain || null,
+        listedAt: index.listedAt || null,
+        newListing: index.newListing === true,
+        officialSourceUrl: index.officialSourceUrl || null,
+        source: index.source || null,
+        sourceUrl: index.sourceUrl || null,
+        chartUrl: index.chartUrl || null,
+        updatedAt: index.updatedAt || null,
+        latest: index.latest || null,
+        pointCount: Number(index.pointCount || (index.points || []).length),
+        clientPointCount: points.length,
+        points,
+      }];
+    })),
     // Metric point provenance stays in the database-only file.  UI market
     // cards consume index time series and quant-backtest summaries instead.
     metrics: {},
@@ -8682,8 +8830,18 @@ async function runArchiveBackfillOnly() {
   console.log(`가격 아카이브 백필 완료: 추가 ${added}개 · ${HISTORY_OUT}`);
 }
 
+async function runMarketHistoryOnly() {
+  const marketHistory = await updateMarketHistory();
+  await writeVerifiedBundle([[MARKET_HISTORY_OUT, marketHistory]]);
+  console.log(`상장사 시장 이력 갱신 완료: ${Object.keys(marketHistory.indexes || {}).length}개 · ${MARKET_HISTORY_OUT}`);
+}
+
 if (process.argv[1] && import.meta.url === pathToFileURL(resolve(process.argv[1])).href) {
-  const run = process.argv.includes("--backfill-only") ? runArchiveBackfillOnly : main;
+  const run = process.argv.includes("--backfill-only")
+    ? runArchiveBackfillOnly
+    : process.argv.includes("--market-only")
+      ? runMarketHistoryOnly
+      : main;
   run().catch((error) => {
     console.error("크롤러 치명적 오류:", error);
     process.exit(1);
