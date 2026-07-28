@@ -49,8 +49,8 @@ assert.match(app, /const EQUITY_CHART_VIEW = Object\.freeze\(\{[\s\S]*?right: 0[
   "the price plot must use the full SVG width without dead horizontal margins");
 assert.match(app, /function equityChartHTML[\s\S]*?const \{ width, height, pad, axisInset \} = EQUITY_CHART_VIEW[\s\S]*?width="\$\{plotWidth\}"/,
   "the visible chart and pointer hit area must share the full-width plot geometry");
-assert.match(app, /const pointerViewX = \(\(event\.clientX - rect\.left\) \/ Math\.max\(1, rect\.width\)\) \* width[\s\S]*?\(pointerViewX - pad\.left\) \/ plotWidth/,
-  "pointer movement must be mapped into the SVG plot area rather than the full element width");
+assert.match(app, /const hitRect = hit\.getBoundingClientRect\(\)[\s\S]*?\(event\.clientX - hitRect\.left\) \/ Math\.max\(1, hitRect\.width\)/,
+  "pointer movement must use the exact rendered hit area so both visual edges remain reachable");
 assert.match(app, /function equityNearestPoint[\s\S]*?const snappedTime = equityNearestPoint\(observedTimeline, targetTime\)/,
   "the crosshair must snap to a real observed trading timestamp");
 assert.match(app, /EQUITY_STOCK_COLORS\[ordinal % EQUITY_STOCK_COLORS\.length\]/,
@@ -69,6 +69,12 @@ assert.match(css, /\.equity-chart-shell \{[\s\S]*?var\(--equity-navy\)/,
   "the chart should use the professional dark reference treatment");
 assert.match(css, /\.equity-chart-shell \{[\s\S]*?padding:\s*13px 0;/,
   "the chart canvas must span the full card width while controls retain their own inset");
+assert.match(app, /class="equity-chart-svg"[\s\S]*?preserveAspectRatio="none"/,
+  "the SVG plot must not retain hidden horizontal letterboxing");
+assert.match(css, /\.equity-region-panel \{[\s\S]*?--equity-region-pad:[\s\S]*?padding:\s*var\(--equity-region-pad\)/,
+  "the equity panel must expose its responsive inset for a full-bleed plot");
+assert.match(css, /\.equity-chart-shell \{[\s\S]*?width:\s*calc\(100% \+ var\(--equity-region-pad\) \+ var\(--equity-region-pad\)\)[\s\S]*?margin-inline:\s*calc\(0px - var\(--equity-region-pad\)\)/,
+  "the Yahoo-style dark chart surface must extend to both edges of the equity panel");
 assert.match(css, /\.equity-chart-hover-dot \{[\s\S]*?var\(--series-color\)/,
   "the chart must expose a visible per-series marker at the hovered observation");
 assert.match(css, /\.equity-ticker-grid button:is\(:hover, :focus-visible\)[\s\S]*?translateY\(-3px\)/,

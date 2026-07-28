@@ -23168,13 +23168,14 @@ button.ni-trend-chip:hover { box-shadow: 0 4px 12px color-mix(in srgb, #0891B2 2
 }
 
 .equity-region-panel {
+  --equity-region-pad: clamp(14px, 1.6vw, 22px);
   min-width: 0;
   display: grid;
   gap: 12px;
   border: 1px solid var(--equity-line);
   border-radius: 18px;
   background: color-mix(in srgb, var(--panel) 96%, #dbeafe 4%);
-  padding: clamp(14px, 1.6vw, 22px);
+  padding: var(--equity-region-pad);
   box-shadow: 0 18px 45px rgba(15, 23, 42, .08);
 }
 
@@ -23482,8 +23483,10 @@ button.ni-trend-chip:hover { box-shadow: 0 4px 12px color-mix(in srgb, #0891B2 2
 
 .equity-chart-shell {
   min-width: 0;
+  width: calc(100% + var(--equity-region-pad) + var(--equity-region-pad));
+  margin-inline: calc(0px - var(--equity-region-pad));
   border: 1px solid rgba(148, 163, 184, .25);
-  border-radius: 17px;
+  border-radius: 0;
   background:
     radial-gradient(circle at 88% 8%, rgba(52, 197, 161, .12), transparent 26%),
     radial-gradient(circle at 12% 100%, rgba(88, 166, 255, .11), transparent 28%),
@@ -23575,14 +23578,16 @@ button.ni-trend-chip:hover { box-shadow: 0 4px 12px color-mix(in srgb, #0891B2 2
   position: relative;
   min-width: 0;
   width: 100%;
+  overflow: hidden;
 }
 
 .equity-chart-svg {
   display: block;
   width: 100%;
   height: auto;
+  aspect-ratio: 1120 / 360;
   max-height: 440px;
-  overflow: visible;
+  overflow: hidden;
 }
 
 .equity-chart-grid line {

@@ -21254,7 +21254,7 @@
           `).join("")}
         </div>
         <div class="equity-chart-canvas">
-          <svg class="equity-chart-svg" viewBox="0 0 ${width} ${height}" data-min-time="${minTime}" data-max-time="${maxTime}" data-min-value="${minValue}" data-max-value="${maxValue}" role="img" aria-label="${escapeHTML(region === "china" ? "중국 반도체 상장사 실제 종가 기반 정규화 차트" : "글로벌 반도체 상장사 실제 종가 기반 정규화 차트")}">
+          <svg class="equity-chart-svg" viewBox="0 0 ${width} ${height}" preserveAspectRatio="none" data-min-time="${minTime}" data-max-time="${maxTime}" data-min-value="${minValue}" data-max-value="${maxValue}" role="img" aria-label="${escapeHTML(region === "china" ? "중국 반도체 상장사 실제 종가 기반 정규화 차트" : "글로벌 반도체 상장사 실제 종가 기반 정규화 차트")}">
             <g class="equity-chart-grid">${grid}</g>
             <line class="equity-chart-base" x1="${pad.left}" y1="${y(100).toFixed(2)}" x2="${width - pad.right}" y2="${y(100).toFixed(2)}"></line>
             <g class="equity-chart-series">${paths}</g>
@@ -21368,10 +21368,11 @@
     const viewY = (value) => pad.top
       + (1 - ((value - minValue) / Math.max(1, maxValue - minValue))) * plotHeight;
     const move = (event) => {
-      const rect = svg.getBoundingClientRect();
+      const hitRect = hit.getBoundingClientRect();
       const canvasRect = canvas.getBoundingClientRect();
-      const pointerViewX = ((event.clientX - rect.left) / Math.max(1, rect.width)) * width;
-      const ratio = Math.min(1, Math.max(0, (pointerViewX - pad.left) / plotWidth));
+      const ratio = Math.min(1, Math.max(0,
+        (event.clientX - hitRect.left) / Math.max(1, hitRect.width),
+      ));
       const targetTime = minTime + ((maxTime - minTime) * ratio);
       const snappedTime = equityNearestPoint(observedTimeline, targetTime)?.time || targetTime;
       const snappedRatio = (snappedTime - minTime) / Math.max(1, maxTime - minTime);
