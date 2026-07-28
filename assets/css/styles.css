@@ -23280,7 +23280,7 @@ button.ni-trend-chip:hover { box-shadow: 0 4px 12px color-mix(in srgb, #0891B2 2
 
 .equity-ticker-grid button {
   min-width: 0;
-  min-height: 72px;
+  min-height: 86px;
   display: grid;
   align-content: center;
   gap: 2px;
@@ -23314,7 +23314,8 @@ button.ni-trend-chip:hover { box-shadow: 0 4px 12px color-mix(in srgb, #0891B2 2
 
 .equity-ticker-grid b,
 .equity-ticker-grid span,
-.equity-ticker-grid small {
+.equity-ticker-grid small,
+.equity-ticker-grid em {
   min-width: 0;
   overflow: hidden;
   text-overflow: ellipsis;
@@ -23421,6 +23422,21 @@ button.ni-trend-chip:hover { box-shadow: 0 4px 12px color-mix(in srgb, #0891B2 2
   font-family: "JetBrains Mono", "Pretendard", monospace;
   font-size: 9px;
   font-weight: 750;
+}
+
+.equity-ticker-grid em {
+  margin-top: 3px;
+  color: var(--equity-teal);
+  font-family: "JetBrains Mono", "Space Grotesk", monospace;
+  font-size: 10px;
+  font-style: normal;
+  font-weight: 850;
+}
+
+.equity-source-note a {
+  color: var(--equity-teal);
+  font-weight: 850;
+  text-underline-offset: 3px;
 }
 
 .equity-chart-legend {

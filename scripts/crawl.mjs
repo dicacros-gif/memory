@@ -224,6 +224,9 @@ const MARKET_EQUITY_META = {
     listedAt: "2026-07-27",
     newListing: true,
     officialSourceUrl: "https://www.sse.com.cn/assortment/stock/list/info/announcement/",
+    quoteReference: "Investing.com",
+    quoteReferenceUrl: "https://kr.investing.com/equities/cxmt-corp",
+    quoteReferenceCurrency: "CNY",
   },
   "gigadevice-stock": { region: "china", valueChain: "memory", exchange: "SSE", shortName: "GigaDevice" },
   "biwin-stock": { region: "china", valueChain: "memory", exchange: "SSE STAR", shortName: "BIWIN" },
@@ -2905,6 +2908,16 @@ function yahooHistoryPoints(result = {}) {
   return points;
 }
 
+function marketCurrency(index = {}, result = {}) {
+  const symbol = String(index.symbol || "").toUpperCase();
+  if (/\.(?:SS|SZ)$/.test(symbol)) return "CNY";
+  if (/\.KS$/.test(symbol)) return "KRW";
+  if (/\.T$/.test(symbol)) return "JPY";
+  const reported = String(result.meta?.currency || "").trim().toUpperCase();
+  if (/^[A-Z]{3}$/.test(reported)) return reported;
+  return "USD";
+}
+
 export function mergeMarketPoints(existing = [], incoming = []) {
   const byDay = new Map();
   const add = (point = {}) => {
@@ -3026,7 +3039,7 @@ async function updateMarketHistory() {
         range: "5y",
         interval: "1d",
         chartUrl: yahooChartPageUrl(index.symbol, "5y", "1d"),
-        currency: result.meta?.currency || "USD",
+        currency: marketCurrency(index, result),
         exchangeName: result.meta?.exchangeName || null,
         latestSource,
         latestSourceUrl,
@@ -3783,11 +3796,17 @@ function compactMarketHistoryForClient(history = {}) {
         listedAt: index.listedAt || null,
         newListing: index.newListing === true,
         officialSourceUrl: index.officialSourceUrl || null,
+        quoteReference: index.quoteReference || null,
+        quoteReferenceUrl: index.quoteReferenceUrl || null,
+        quoteReferenceCurrency: index.quoteReferenceCurrency || null,
         source: index.source || null,
         sourceUrl: index.sourceUrl || null,
         chartUrl: index.chartUrl || null,
         updatedAt: index.updatedAt || null,
         latest: index.latest || null,
+        latestSource: index.latestSource || null,
+        latestSourceUrl: index.latestSourceUrl || null,
+        regularMarketTime: index.regularMarketTime || null,
         pointCount: Number(index.pointCount || (index.points || []).length),
         clientPointCount: points.length,
         points,

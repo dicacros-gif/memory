@@ -39,8 +39,10 @@ assert.match(app, /function equityNearestPoint[\s\S]*?const snappedTime = equity
   "the crosshair must snap to a real observed trading timestamp");
 assert.match(app, /EQUITY_STOCK_COLORS\[ordinal % EQUITY_STOCK_COLORS\.length\]/,
   "simultaneously selected companies must receive distinct series colors");
-assert.match(app, /const point = equityPointAtOrBefore\(item\.points, snappedTime\)[\s\S]*?기준 거래일[\s\S]*?종가 \$\{escapeHTML\(equityCloseLabel\(point\.close, item\.currency\)\)\}[\s\S]*?item\.source/,
+assert.match(app, /const point = equityPointAtOrBefore\(item\.points, snappedTime\)[\s\S]*?기준 거래일[\s\S]*?종가 \$\{escapeHTML\(equityCloseLabel\(point\.close, item\.currency\)\)\}[\s\S]*?point\.source/,
   "the tooltip must distinguish normalized comparison values from sourced actual closes");
+assert.match(app, /equityCloseLabel\(latest\.close, index\.currency\)[\s\S]*?shortKstDate\(latest\.time\)/,
+  "each stock control must show its latest actual close, currency, and trading date");
 assert.match(app, /class="equity-chart-sources"[\s\S]*?href="\$\{escapeHTML\(item\.sourceUrl\)\}"/,
   "visible chart series must retain direct links to their collected price sources");
 assert.match(app, /const group = equityGroupSeries\(indexes, period, category\.id\)\[0\]/,
@@ -60,6 +62,10 @@ assert.match(crawler, /equityIndex\("cxmt-stock", "688825\.SS"/,
   "CXMT must use its verified Shanghai STAR ticker");
 assert.match(crawler, /"cxmt-stock": \{[\s\S]*?exchange: "SSE STAR"[\s\S]*?listedAt: "2026-07-27"/,
   "CXMT listing metadata must retain its exchange and debut date");
+assert.match(crawler, /"cxmt-stock": \{[\s\S]*?quoteReferenceUrl: "https:\/\/kr\.investing\.com\/equities\/cxmt-corp"/,
+  "CXMT must retain the user's direct Investing.com quote reference");
+assert.match(crawler, /function marketCurrency[\s\S]*?\\\.\(\?:SS\|SZ\)\$[\s\S]*?return "CNY"/,
+  "Shanghai and Shenzhen securities must never fall back to a USD label");
 for (const chain of ["memory", "foundry", "equipment", "packaging", "design-ip", "materials"]) {
   assert.match(crawler, new RegExp(`region: "china", valueChain: "${chain}"`),
     `China coverage should include the ${chain} value chain`);

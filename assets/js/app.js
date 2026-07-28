@@ -20662,12 +20662,22 @@
   }
 
   function marketIndexPoints(index = {}) {
+    const latestTime = Number(index.latest?.time || new Date(index.latest?.date || 0).getTime());
     return (index.points || [])
       .map((point) => {
         const tuple = Array.isArray(point);
         const time = Number(tuple ? point[0] : point.time || new Date(point.date || 0).getTime());
         const value = Number(tuple ? point[1] : point.close ?? point.value);
-        return Number.isFinite(time) && Number.isFinite(value) && value > 0 ? { time, value, close: value } : null;
+        const isLatest = Number.isFinite(latestTime) && time === latestTime;
+        return Number.isFinite(time) && Number.isFinite(value) && value > 0
+          ? {
+              time,
+              value,
+              close: value,
+              source: isLatest ? (index.latestSource || index.source || "") : (index.source || ""),
+              sourceUrl: isLatest ? (index.latestSourceUrl || index.sourceUrl || "") : (index.sourceUrl || ""),
+            }
+          : null;
       })
       .filter(Boolean)
       .sort((a, b) => a.time - b.time);
@@ -21016,6 +21026,8 @@
         time: point.time,
         value: (point.close / base) * 100,
         close: point.close,
+        source: point.source || index.source || "",
+        sourceUrl: point.sourceUrl || index.sourceUrl || "",
       })),
       changePct: ((scoped.at(-1).close - base) / base) * 100,
       coverageDays: (scoped.at(-1).time - scoped[0].time) / 86400000,
@@ -21174,8 +21186,8 @@
     return `
       <div class="equity-chart-shell" data-equity-chart="${escapeHTML(region)}">
         <div class="equity-chart-toolbar">
-          <strong>실제 종가 비교</strong>
-          <span>기간 첫 거래일=100 · 포인터 기준 실제 관측일</span>
+          <strong>정규화 추이 · 실제 종가</strong>
+          <span>선 높이=기간 첫 거래일 100 기준 · 포인터=통화별 실제 종가</span>
         </div>
         <div class="equity-chart-legend">
           ${series.map((item) => `
@@ -21302,7 +21314,7 @@
             <b>${escapeHTML(item.label)}</b>
             <em>지수 ${escapeHTML(point.value.toFixed(1))}</em>
             ${Number.isFinite(point.close) ? `<small>종가 ${escapeHTML(equityCloseLabel(point.close, item.currency))} · ${escapeHTML(shortKstDate(point.time))}</small>` : `<small>${escapeHTML(item.exchange || "동일가중 지수")} · ${escapeHTML(shortKstDate(point.time))}</small>`}
-            <small>${escapeHTML(item.source || item.exchange || "수집 데이터")}</small>
+            <small>${escapeHTML(point.source || item.source || item.exchange || "수집 데이터")}</small>
           </span>
         `).join("")}
       `;
@@ -21363,6 +21375,7 @@
       <div class="equity-ticker-grid" aria-label="${escapeHTML(config.title)} 상장사 목록">
         ${filteredIndexes.map((index) => {
           const points = marketIndexPoints(index);
+          const latest = points.at(-1) || null;
           const selected = state.selected.includes(index.id);
           const isNew = index.newListing === true || points.length < 10;
           return `
@@ -21370,6 +21383,7 @@
               <b>${escapeHTML(index.symbol || "")}</b>
               <span>${escapeHTML(index.shortName || index.labelKo || index.label || "")}</span>
               <small>${escapeHTML(index.exchange || index.exchangeName || "")}${isNew ? " · 신규" : ""}</small>
+              ${latest ? `<em>${escapeHTML(equityCloseLabel(latest.close, index.currency))} · ${escapeHTML(shortKstDate(latest.time))}</em>` : ""}
             </button>
           `;
         }).join("")}
@@ -21386,7 +21400,16 @@
       </div>
       <div class="equity-source-note">
         <span>각 종목 수집 출처의 실제 일별 종가 · 밸류체인 그룹은 동일가중 정규화 지수</span>
-        <span>${region === "china" ? "CXMT 688825 · 2026-07-27 상장 · 신규 이력은 관측일만 표시" : "통화가 다른 종목은 가격 수준이 아닌 100 기준 변화율로 비교"}</span>
+        ${region === "china" ? (() => {
+          const cxmt = indexes.find((index) => index.id === "cxmt-stock");
+          const latest = marketIndexPoints(cxmt).at(-1);
+          const text = latest
+            ? `CXMT 688825 · 최신 종가 ${equityCloseLabel(latest.close, cxmt.currency)} · ${shortKstDate(latest.time)}`
+            : "CXMT 688825 · 신규 이력은 실제 관측일만 표시";
+          const quoteReferenceUrl = cxmt?.quoteReferenceUrl || "https://kr.investing.com/equities/cxmt-corp";
+          const quoteReference = cxmt?.quoteReference || "Investing.com 대조";
+          return `<span>${escapeHTML(text)} · <a href="${escapeHTML(quoteReferenceUrl)}" target="_blank" rel="noopener noreferrer">${escapeHTML(quoteReference)} ↗</a></span>`;
+        })() : "<span>통화가 다른 종목은 가격 수준이 아닌 100 기준 변화율로 비교</span>"}
       </div>
     `;
 
