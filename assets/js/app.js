@@ -21167,13 +21167,19 @@
       .filter(Boolean);
   }
 
+  const EQUITY_CHART_VIEW = Object.freeze({
+    width: 1120,
+    height: 360,
+    pad: Object.freeze({ top: 30, right: 0, bottom: 42, left: 0 }),
+    axisInset: 12,
+  });
+
   function equityChartHTML(region, series = []) {
     if (!series.length) {
       return `<div class="equity-chart-empty">선택 기간에 비교 가능한 종가 이력 없음</div>`;
     }
-    const width = 1120;
-    const height = 360;
-    const pad = { top: 30, right: 72, bottom: 42, left: 18 };
+    const { width, height, pad, axisInset } = EQUITY_CHART_VIEW;
+    const plotWidth = width - pad.left - pad.right;
     const allPoints = series.flatMap((item) => item.points || []);
     const minTime = Math.min(...allPoints.map((point) => point.time));
     const maxTime = Math.max(...allPoints.map((point) => point.time));
@@ -21183,12 +21189,12 @@
     const spread = Math.max(8, maxValue - minValue);
     minValue = Math.max(0, minValue - spread * 0.12);
     maxValue += spread * 0.12;
-    const x = (time) => pad.left + ((time - minTime) / Math.max(1, maxTime - minTime)) * (width - pad.left - pad.right);
+    const x = (time) => pad.left + ((time - minTime) / Math.max(1, maxTime - minTime)) * plotWidth;
     const y = (value) => pad.top + (1 - ((value - minValue) / Math.max(1, maxValue - minValue))) * (height - pad.top - pad.bottom);
     const grid = Array.from({ length: 5 }, (_, index) => {
       const value = minValue + ((maxValue - minValue) * index / 4);
       const py = y(value);
-      return `<g><line x1="${pad.left}" y1="${py.toFixed(2)}" x2="${width - pad.right}" y2="${py.toFixed(2)}"></line><text x="${width - pad.right + 12}" y="${(py + 4).toFixed(2)}">${value.toFixed(0)}</text></g>`;
+      return `<g><line x1="${pad.left}" y1="${py.toFixed(2)}" x2="${width - pad.right}" y2="${py.toFixed(2)}"></line><text x="${width - axisInset}" y="${(py + 4).toFixed(2)}" text-anchor="end">${value.toFixed(0)}</text></g>`;
     }).join("");
     const paths = series.map((item) => {
       const d = item.points.map((point, index) => `${index ? "L" : "M"}${x(point.time).toFixed(2)},${y(point.value).toFixed(2)}`).join(" ");
@@ -21224,11 +21230,11 @@
             <g class="equity-chart-series">${paths}</g>
             <line class="equity-chart-crosshair" x1="${pad.left}" y1="${pad.top}" x2="${pad.left}" y2="${height - pad.bottom}"></line>
             <g class="equity-chart-axis">
-              <text x="${pad.left}" y="${height - 10}" text-anchor="start">${escapeHTML(shortKstDateWithYear(minTime))}</text>
+              <text x="${pad.left + axisInset}" y="${height - 10}" text-anchor="start">${escapeHTML(shortKstDateWithYear(minTime))}</text>
               <text x="${x(middleTime)}" y="${height - 10}" text-anchor="middle">${escapeHTML(shortKstDateWithYear(middleTime))}</text>
-              <text x="${width - pad.right}" y="${height - 10}" text-anchor="end">${escapeHTML(shortKstDateWithYear(maxTime))}</text>
+              <text x="${width - pad.right - axisInset}" y="${height - 10}" text-anchor="end">${escapeHTML(shortKstDateWithYear(maxTime))}</text>
             </g>
-            <rect class="equity-chart-hit" x="${pad.left}" y="${pad.top}" width="${width - pad.left - pad.right}" height="${height - pad.top - pad.bottom}"></rect>
+            <rect class="equity-chart-hit" x="${pad.left}" y="${pad.top}" width="${plotWidth}" height="${height - pad.top - pad.bottom}"></rect>
           </svg>
           <div class="equity-chart-tooltip" hidden></div>
         </div>
@@ -21316,9 +21322,7 @@
     const crosshair = panel.querySelector(".equity-chart-crosshair");
     const tooltip = panel.querySelector(".equity-chart-tooltip");
     if (!svg || !canvas || !hit || !crosshair || !tooltip || !series.length) return;
-    const width = 1120;
-    const height = 360;
-    const pad = { top: 30, right: 72, bottom: 42, left: 18 };
+    const { width, height, pad } = EQUITY_CHART_VIEW;
     const plotWidth = width - pad.left - pad.right;
     const plotHeight = height - pad.top - pad.bottom;
     const minTime = Math.min(...series.flatMap((item) => item.points.map((point) => point.time)));

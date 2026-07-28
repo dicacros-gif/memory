@@ -39,6 +39,10 @@ assert.match(app, /AI 칩·CPU·엣지 SoC[\s\S]*?센서·아날로그·전력[\
   "the China value chain should cover compute, analog, substrates, and optical interconnect");
 assert.match(app, /function wireEquityChartTooltip[\s\S]*?pointermove/,
   "the chart must provide a pointer crosshair and value tooltip");
+assert.match(app, /const EQUITY_CHART_VIEW = Object\.freeze\(\{[\s\S]*?right: 0[\s\S]*?left: 0/,
+  "the price plot must use the full SVG width without dead horizontal margins");
+assert.match(app, /function equityChartHTML[\s\S]*?const \{ width, height, pad, axisInset \} = EQUITY_CHART_VIEW[\s\S]*?width="\$\{plotWidth\}"/,
+  "the visible chart and pointer hit area must share the full-width plot geometry");
 assert.match(app, /const pointerViewX = \(\(event\.clientX - rect\.left\) \/ Math\.max\(1, rect\.width\)\) \* width[\s\S]*?\(pointerViewX - pad\.left\) \/ plotWidth/,
   "pointer movement must be mapped into the SVG plot area rather than the full element width");
 assert.match(app, /function equityNearestPoint[\s\S]*?const snappedTime = equityNearestPoint\(observedTimeline, targetTime\)/,
@@ -57,6 +61,8 @@ assert.match(app, /기간 선도[\s\S]*?기간 하위[\s\S]*?상승 폭[\s\S]*?�
   "the chart should calculate an executive trend readout");
 assert.match(css, /\.equity-chart-shell \{[\s\S]*?var\(--equity-navy\)/,
   "the chart should use the professional dark reference treatment");
+assert.match(css, /\.equity-chart-shell \{[\s\S]*?padding:\s*13px 0;/,
+  "the chart canvas must span the full card width while controls retain their own inset");
 assert.match(css, /\.equity-chart-hover-dot \{[\s\S]*?var\(--series-color\)/,
   "the chart must expose a visible per-series marker at the hovered observation");
 assert.match(css, /\.equity-ticker-grid button:is\(:hover, :focus-visible\)[\s\S]*?translateY\(-3px\)/,
