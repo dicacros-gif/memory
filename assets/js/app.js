@@ -20953,6 +20953,16 @@
     "design-ip": "#b48cf2",
     materials: "#9cc56b",
   };
+  const EQUITY_STOCK_COLORS = [
+    "#2dd4bf",
+    "#60a5fa",
+    "#f59e0b",
+    "#f472b6",
+    "#a78bfa",
+    "#34d399",
+    "#fb7185",
+    "#22d3ee",
+  ];
   const equityChainState = {
     period: "1y",
     global: { mode: "group", category: "all", selected: [] },
@@ -20988,7 +20998,7 @@
     return points.slice(first);
   }
 
-  function equityNormalizedSeries(index = {}, period = EQUITY_CHAIN_PERIODS[2]) {
+  function equityNormalizedSeries(index = {}, period = EQUITY_CHAIN_PERIODS[2], color = "") {
     const scoped = equityScopedPoints(index, period);
     const base = Number(scoped[0]?.close);
     if (scoped.length < 2 || !Number.isFinite(base) || base <= 0) return null;
@@ -20998,7 +21008,10 @@
       symbol: index.symbol || "",
       category: index.valueChain || "",
       exchange: index.exchange || index.exchangeName || "",
-      color: EQUITY_CHAIN_COLORS[index.valueChain] || "#6ea8fe",
+      currency: index.currency || "",
+      source: index.source || "",
+      sourceUrl: index.sourceUrl || index.officialSourceUrl || "",
+      color: color || EQUITY_CHAIN_COLORS[index.valueChain] || "#6ea8fe",
       points: scoped.map((point) => ({
         time: point.time,
         value: (point.close / base) * 100,
@@ -21033,6 +21046,31 @@
     return hit;
   }
 
+  function equityNearestPoint(points = [], time = 0) {
+    if (!points.length) return null;
+    let low = 0;
+    let high = points.length - 1;
+    while (low < high) {
+      const mid = Math.floor((low + high) / 2);
+      if (points[mid].time < time) low = mid + 1;
+      else high = mid;
+    }
+    const after = points[low];
+    const before = points[Math.max(0, low - 1)];
+    return Math.abs((before?.time || 0) - time) <= Math.abs((after?.time || 0) - time) ? before : after;
+  }
+
+  function equityCloseLabel(value, currency = "") {
+    const numeric = Number(value);
+    if (!Number.isFinite(numeric)) return "";
+    const decimals = numeric >= 100 ? 0 : numeric >= 10 ? 2 : 3;
+    const amount = new Intl.NumberFormat("ko-KR", {
+      minimumFractionDigits: 0,
+      maximumFractionDigits: decimals,
+    }).format(numeric);
+    return `${currency ? `${currency} ` : ""}${amount}`;
+  }
+
   function equityGroupSeries(indexes = [], period, activeCategory = "all") {
     const config = EQUITY_CHAIN_REGIONS[indexes[0]?.region] || {};
     const categoryIds = activeCategory === "all"
@@ -21062,6 +21100,7 @@
         symbol: `${members.length}개사`,
         category: categoryId,
         exchange: "동일가중 지수",
+        source: "실제 종가 동일가중 계산",
         color: EQUITY_CHAIN_COLORS[categoryId] || "#6ea8fe",
         points,
         changePct: points.at(-1).value - 100,
@@ -21083,7 +21122,14 @@
       selected = eligible.filter((index) => marketIndexPoints(index).length >= 2).slice(0, 4);
       state.selected = selected.map((index) => index.id);
     }
-    return selected.map((index) => equityNormalizedSeries(index, period)).filter(Boolean).slice(0, 8);
+    return selected
+      .slice(0, 8)
+      .map((index, ordinal) => equityNormalizedSeries(
+        index,
+        period,
+        EQUITY_STOCK_COLORS[ordinal % EQUITY_STOCK_COLORS.length],
+      ))
+      .filter(Boolean);
   }
 
   function equityChartHTML(region, series = []) {
@@ -21092,7 +21138,7 @@
     }
     const width = 1120;
     const height = 360;
-    const pad = { top: 26, right: 30, bottom: 38, left: 58 };
+    const pad = { top: 30, right: 72, bottom: 42, left: 18 };
     const allPoints = series.flatMap((item) => item.points || []);
     const minTime = Math.min(...allPoints.map((point) => point.time));
     const maxTime = Math.max(...allPoints.map((point) => point.time));
@@ -21107,7 +21153,7 @@
     const grid = Array.from({ length: 5 }, (_, index) => {
       const value = minValue + ((maxValue - minValue) * index / 4);
       const py = y(value);
-      return `<g><line x1="${pad.left}" y1="${py.toFixed(2)}" x2="${width - pad.right}" y2="${py.toFixed(2)}"></line><text x="${pad.left - 10}" y="${(py + 4).toFixed(2)}">${value.toFixed(0)}</text></g>`;
+      return `<g><line x1="${pad.left}" y1="${py.toFixed(2)}" x2="${width - pad.right}" y2="${py.toFixed(2)}"></line><text x="${width - pad.right + 12}" y="${(py + 4).toFixed(2)}">${value.toFixed(0)}</text></g>`;
     }).join("");
     const paths = series.map((item) => {
       const d = item.points.map((point, index) => `${index ? "L" : "M"}${x(point.time).toFixed(2)},${y(point.value).toFixed(2)}`).join(" ");
@@ -21115,18 +21161,29 @@
       return `
         <path class="equity-chart-line" d="${d}" style="--series-color:${escapeHTML(item.color)}"></path>
         <circle class="equity-chart-end" cx="${x(end.time).toFixed(2)}" cy="${y(end.value).toFixed(2)}" r="4" style="--series-color:${escapeHTML(item.color)}"></circle>
+        <circle class="equity-chart-hover-dot" data-equity-series="${escapeHTML(item.id)}" cx="${x(end.time).toFixed(2)}" cy="${y(end.value).toFixed(2)}" r="5" style="--series-color:${escapeHTML(item.color)}" hidden></circle>
       `;
     }).join("");
+    const sourceSeries = Array.from(new Map(
+      series
+        .flatMap((item) => item.members || [item])
+        .filter((item) => item.sourceUrl)
+        .map((item) => [item.sourceUrl, item]),
+    ).values()).slice(0, 10);
     const middleTime = minTime + ((maxTime - minTime) / 2);
     return `
       <div class="equity-chart-shell" data-equity-chart="${escapeHTML(region)}">
+        <div class="equity-chart-toolbar">
+          <strong>실제 종가 비교</strong>
+          <span>기간 첫 거래일=100 · 포인터 기준 실제 관측일</span>
+        </div>
         <div class="equity-chart-legend">
           ${series.map((item) => `
             <span><i style="--series-color:${escapeHTML(item.color)}"></i><b>${escapeHTML(item.label)}</b><em class="${item.changePct >= 0 ? "up" : "down"}">${escapeHTML(equityPercent(item.changePct))}</em></span>
           `).join("")}
         </div>
         <div class="equity-chart-canvas">
-          <svg class="equity-chart-svg" viewBox="0 0 ${width} ${height}" role="img" aria-label="${escapeHTML(region === "china" ? "중국 반도체 상장사 정규화 주가 차트" : "글로벌 반도체 상장사 정규화 주가 차트")}">
+          <svg class="equity-chart-svg" viewBox="0 0 ${width} ${height}" data-min-time="${minTime}" data-max-time="${maxTime}" data-min-value="${minValue}" data-max-value="${maxValue}" role="img" aria-label="${escapeHTML(region === "china" ? "중국 반도체 상장사 실제 종가 기반 정규화 차트" : "글로벌 반도체 상장사 실제 종가 기반 정규화 차트")}">
             <g class="equity-chart-grid">${grid}</g>
             <line class="equity-chart-base" x1="${pad.left}" y1="${y(100).toFixed(2)}" x2="${width - pad.right}" y2="${y(100).toFixed(2)}"></line>
             <g class="equity-chart-series">${paths}</g>
@@ -21140,6 +21197,14 @@
           </svg>
           <div class="equity-chart-tooltip" hidden></div>
         </div>
+        ${sourceSeries.length ? `
+          <div class="equity-chart-sources">
+            <span>원자료</span>
+            ${sourceSeries.map((item) => `
+              <a href="${escapeHTML(item.sourceUrl)}" target="_blank" rel="noopener noreferrer">${escapeHTML(item.label)} ↗</a>
+            `).join("")}
+          </div>
+        ` : ""}
       </div>
     `;
   }
@@ -21181,39 +21246,82 @@
 
   function wireEquityChartTooltip(panel, series = []) {
     const svg = panel.querySelector(".equity-chart-svg");
+    const canvas = panel.querySelector(".equity-chart-canvas");
     const hit = panel.querySelector(".equity-chart-hit");
     const crosshair = panel.querySelector(".equity-chart-crosshair");
     const tooltip = panel.querySelector(".equity-chart-tooltip");
-    if (!svg || !hit || !crosshair || !tooltip || !series.length) return;
+    if (!svg || !canvas || !hit || !crosshair || !tooltip || !series.length) return;
+    const width = 1120;
+    const height = 360;
+    const pad = { top: 30, right: 72, bottom: 42, left: 18 };
+    const plotWidth = width - pad.left - pad.right;
+    const plotHeight = height - pad.top - pad.bottom;
     const minTime = Math.min(...series.flatMap((item) => item.points.map((point) => point.time)));
     const maxTime = Math.max(...series.flatMap((item) => item.points.map((point) => point.time)));
+    const minValue = Number(svg.dataset.minValue);
+    const maxValue = Number(svg.dataset.maxValue);
+    const observedTimes = Array.from(new Set(
+      series.flatMap((item) => item.points.map((point) => point.time)),
+    )).sort((a, b) => a - b);
+    const observedTimeline = observedTimes.map((time) => ({ time }));
+    const dots = new Map(Array.from(panel.querySelectorAll(".equity-chart-hover-dot"))
+      .map((dot) => [dot.dataset.equitySeries, dot]));
+    const viewY = (value) => pad.top
+      + (1 - ((value - minValue) / Math.max(1, maxValue - minValue))) * plotHeight;
     const move = (event) => {
       const rect = svg.getBoundingClientRect();
-      const ratio = Math.min(1, Math.max(0, (event.clientX - rect.left) / Math.max(1, rect.width)));
+      const canvasRect = canvas.getBoundingClientRect();
+      const pointerViewX = ((event.clientX - rect.left) / Math.max(1, rect.width)) * width;
+      const ratio = Math.min(1, Math.max(0, (pointerViewX - pad.left) / plotWidth));
       const targetTime = minTime + ((maxTime - minTime) * ratio);
-      const viewX = 58 + ratio * (1120 - 58 - 30);
+      const snappedTime = equityNearestPoint(observedTimeline, targetTime)?.time || targetTime;
+      const snappedRatio = (snappedTime - minTime) / Math.max(1, maxTime - minTime);
+      const viewX = pad.left + snappedRatio * plotWidth;
       crosshair.setAttribute("x1", viewX.toFixed(2));
       crosshair.setAttribute("x2", viewX.toFixed(2));
       crosshair.classList.add("is-visible");
       const rows = series.map((item) => {
-        const point = equityPointAtOrBefore(item.points, targetTime) || item.points[0];
+        const point = equityPointAtOrBefore(item.points, snappedTime);
         return { item, point };
       }).filter((row) => row.point).sort((a, b) => b.point.value - a.point.value);
-      const date = rows[0]?.point?.time || targetTime;
+      rows.forEach(({ item, point }) => {
+        const dot = dots.get(item.id);
+        if (!dot) return;
+        const dotRatio = (point.time - minTime) / Math.max(1, maxTime - minTime);
+        const dotViewX = pad.left + dotRatio * plotWidth;
+        dot.hidden = false;
+        dot.setAttribute("cx", dotViewX.toFixed(2));
+        dot.setAttribute("cy", viewY(point.value).toFixed(2));
+      });
       tooltip.hidden = false;
-      tooltip.style.left = `${Math.min(76, Math.max(4, ratio * 100))}%`;
       tooltip.innerHTML = `
-        <strong>${escapeHTML(shortKstDateWithYear(date))}</strong>
+        <strong>${escapeHTML(shortKstDateWithYear(snappedTime))} · 기준 거래일</strong>
         ${rows.slice(0, 8).map(({ item, point }) => `
-          <span><i style="--series-color:${escapeHTML(item.color)}"></i><b>${escapeHTML(item.label)}</b><em>${escapeHTML(point.value.toFixed(1))}</em></span>
+          <span>
+            <i style="--series-color:${escapeHTML(item.color)}"></i>
+            <b>${escapeHTML(item.label)}</b>
+            <em>지수 ${escapeHTML(point.value.toFixed(1))}</em>
+            ${Number.isFinite(point.close) ? `<small>종가 ${escapeHTML(equityCloseLabel(point.close, item.currency))} · ${escapeHTML(shortKstDate(point.time))}</small>` : `<small>${escapeHTML(item.exchange || "동일가중 지수")} · ${escapeHTML(shortKstDate(point.time))}</small>`}
+            <small>${escapeHTML(item.source || item.exchange || "수집 데이터")}</small>
+          </span>
         `).join("")}
       `;
+      const pointerCanvasX = event.clientX - canvasRect.left;
+      const tooltipWidth = tooltip.offsetWidth;
+      const preferRight = pointerCanvasX + tooltipWidth + 18 <= canvasRect.width;
+      const left = preferRight
+        ? pointerCanvasX + 14
+        : pointerCanvasX - tooltipWidth - 14;
+      tooltip.style.left = `${Math.max(8, Math.min(canvasRect.width - tooltipWidth - 8, left))}px`;
     };
     hit.addEventListener("pointermove", move);
     hit.addEventListener("pointerenter", move);
     hit.addEventListener("pointerleave", () => {
       tooltip.hidden = true;
       crosshair.classList.remove("is-visible");
+      dots.forEach((dot) => {
+        dot.hidden = true;
+      });
     });
   }
 
@@ -21277,7 +21385,7 @@
         ${equityValueChainCards(region, indexes, period)}
       </div>
       <div class="equity-source-note">
-        <span>Yahoo Finance 일별 수정종가 · 밸류체인 그룹은 동일가중 정규화 지수</span>
+        <span>각 종목 수집 출처의 실제 일별 종가 · 밸류체인 그룹은 동일가중 정규화 지수</span>
         <span>${region === "china" ? "CXMT 688825 · 2026-07-27 상장 · 신규 이력은 관측일만 표시" : "통화가 다른 종목은 가격 수준이 아닌 100 기준 변화율로 비교"}</span>
       </div>
     `;

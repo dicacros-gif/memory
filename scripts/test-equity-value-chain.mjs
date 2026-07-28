@@ -33,12 +33,24 @@ assert.match(app, /밸류체인 그룹 트렌드[\s\S]*?개별 종목/,
   "the chart should switch between grouped value chains and individual stocks");
 assert.match(app, /function wireEquityChartTooltip[\s\S]*?pointermove/,
   "the chart must provide a pointer crosshair and value tooltip");
+assert.match(app, /const pointerViewX = \(\(event\.clientX - rect\.left\) \/ Math\.max\(1, rect\.width\)\) \* width[\s\S]*?\(pointerViewX - pad\.left\) \/ plotWidth/,
+  "pointer movement must be mapped into the SVG plot area rather than the full element width");
+assert.match(app, /function equityNearestPoint[\s\S]*?const snappedTime = equityNearestPoint\(observedTimeline, targetTime\)/,
+  "the crosshair must snap to a real observed trading timestamp");
+assert.match(app, /EQUITY_STOCK_COLORS\[ordinal % EQUITY_STOCK_COLORS\.length\]/,
+  "simultaneously selected companies must receive distinct series colors");
+assert.match(app, /const point = equityPointAtOrBefore\(item\.points, snappedTime\)[\s\S]*?기준 거래일[\s\S]*?종가 \$\{escapeHTML\(equityCloseLabel\(point\.close, item\.currency\)\)\}[\s\S]*?item\.source/,
+  "the tooltip must distinguish normalized comparison values from sourced actual closes");
+assert.match(app, /class="equity-chart-sources"[\s\S]*?href="\$\{escapeHTML\(item\.sourceUrl\)\}"/,
+  "visible chart series must retain direct links to their collected price sources");
 assert.match(app, /const group = equityGroupSeries\(indexes, period, category\.id\)\[0\]/,
   "value-chain cards and chart lines must share one comparable-universe calculation");
 assert.match(app, /기간 선도[\s\S]*?기간 하위[\s\S]*?상승 폭[\s\S]*?비교 기준/,
   "the chart should calculate an executive trend readout");
 assert.match(css, /\.equity-chart-shell \{[\s\S]*?var\(--equity-navy\)/,
   "the chart should use the professional dark reference treatment");
+assert.match(css, /\.equity-chart-hover-dot \{[\s\S]*?var\(--series-color\)/,
+  "the chart must expose a visible per-series marker at the hovered observation");
 assert.match(css, /\.equity-ticker-grid button:is\(:hover, :focus-visible\)[\s\S]*?translateY\(-3px\)/,
   "listed-company controls should have a clear hover interaction");
 assert.match(css, /@media \(prefers-reduced-motion: reduce\)[\s\S]*?\.equity-chart-line/,
