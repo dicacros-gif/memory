@@ -77,8 +77,18 @@ assert.match(css, /\.equity-chart-shell \{[\s\S]*?width:\s*calc\(100% \+ var\(--
   "the Yahoo-style dark chart surface must extend to both edges of the equity panel");
 assert.match(css, /\.equity-chart-hover-dot \{[\s\S]*?var\(--series-color\)/,
   "the chart must expose a visible per-series marker at the hovered observation");
-assert.match(css, /\.equity-ticker-grid button:is\(:hover, :focus-visible\)[\s\S]*?translateY\(-3px\)/,
+assert.match(css, /\.equity-ticker-grid button:is\(:hover, :focus-visible\)[\s\S]*?translateY\(-4px\)/,
   "listed-company controls should have a clear hover interaction");
+assert.match(app, /const EQUITY_LOCAL_LOGOS = Object\.freeze\([\s\S]*?function equityCompanyLogoHTML[\s\S]*?loading="lazy"/,
+  "listed-company cards must reuse local logos and lazy-load remaining company marks");
+assert.match(app, /const EQUITY_COMPANY_DOMAINS = Object\.freeze\([\s\S]*?"amd-stock": "amd\.com"[\s\S]*?"cxmt-stock": "cxmt\.com"/,
+  "global and China listed-company cards must include configured corporate-domain logo sources");
+assert.match(app, /const EQUITY_GENERIC_FAVICON_IDS = new Set\([\s\S]*?!EQUITY_GENERIC_FAVICON_IDS\.has\(index\.id\)/,
+  "generic globe favicons must fall back to a readable company monogram");
+assert.match(app, /class="equity-ticker-identity"[\s\S]*?equityCompanyLogoHTML\(index\)[\s\S]*?class="equity-ticker-name"/,
+  "each listed-company card must place its company logo beside the company identity");
+assert.match(css, /\.equity-ticker-grid button:is\(:hover, :focus-visible\) \{[\s\S]*?scale\(1\.018\)[\s\S]*?linear-gradient\(145deg, #172b46 0%, #0d4f5a 58%, #087f72 100%\)/,
+  "listed-company cards must invert to a professional animated gradient on hover");
 assert.match(css, /@media \(prefers-reduced-motion: reduce\)[\s\S]*?\.equity-chart-line/,
   "equity motion must respect reduced-motion settings");
 

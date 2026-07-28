@@ -23384,17 +23384,38 @@ button.ni-trend-chip:hover { box-shadow: 0 4px 12px color-mix(in srgb, #0891B2 2
   cursor: pointer;
   box-shadow: 0 3px 0 color-mix(in srgb, var(--ink) 10%, var(--line));
   transition:
-    transform .18s ease,
-    border-color .18s ease,
-    box-shadow .18s ease,
-    background .18s ease;
+    transform .24s cubic-bezier(.2, .8, .2, 1),
+    border-color .24s ease,
+    box-shadow .24s ease,
+    background .24s ease,
+    color .24s ease;
 }
 
 .equity-ticker-grid button:is(:hover, :focus-visible) {
-  transform: translateY(-3px);
-  border-color: color-mix(in srgb, var(--equity-teal) 65%, var(--line));
-  box-shadow: 0 8px 20px rgba(15, 23, 42, .12);
+  transform: translateY(-4px) scale(1.018);
+  border-color: color-mix(in srgb, var(--ticker-accent) 72%, #fff);
+  background:
+    radial-gradient(circle at 88% 12%, color-mix(in srgb, var(--ticker-accent) 40%, transparent), transparent 42%),
+    linear-gradient(145deg, #172b46 0%, #0d4f5a 58%, #087f72 100%);
+  color: #fff;
+  box-shadow:
+    0 14px 28px rgba(7, 23, 43, .26),
+    inset 0 1px rgba(255, 255, 255, .14);
   outline: none;
+}
+
+.equity-ticker-grid button:is(:hover, :focus-visible) :is(b, strong, small, em) {
+  color: #fff;
+}
+
+.equity-ticker-grid button:is(:hover, :focus-visible) small {
+  opacity: .76;
+}
+
+.equity-ticker-grid button:is(:hover, :focus-visible) .equity-company-logo {
+  transform: rotate(-3deg) scale(1.08);
+  border-color: rgba(255, 255, 255, .76);
+  box-shadow: 0 8px 18px rgba(3, 14, 28, .28);
 }
 
 .equity-ticker-grid button.active {
@@ -23404,7 +23425,7 @@ button.ni-trend-chip:hover { box-shadow: 0 4px 12px color-mix(in srgb, #0891B2 2
 }
 
 .equity-ticker-grid b,
-.equity-ticker-grid span,
+.equity-ticker-grid strong,
 .equity-ticker-grid small,
 .equity-ticker-grid em {
   min-width: 0;
@@ -23413,13 +23434,60 @@ button.ni-trend-chip:hover { box-shadow: 0 4px 12px color-mix(in srgb, #0891B2 2
   white-space: nowrap;
 }
 
+.equity-ticker-identity {
+  min-width: 0;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.equity-company-logo {
+  position: relative;
+  width: 30px;
+  height: 30px;
+  flex: 0 0 30px;
+  display: grid;
+  place-items: center;
+  overflow: hidden;
+  border: 1px solid color-mix(in srgb, var(--ticker-accent) 34%, var(--line));
+  border-radius: 9px;
+  background: #fff;
+  box-shadow: 0 4px 10px rgba(15, 23, 42, .10);
+  transition:
+    transform .24s cubic-bezier(.2, .8, .2, 1),
+    border-color .24s ease,
+    box-shadow .24s ease;
+}
+
+.equity-company-logo img {
+  position: absolute;
+  inset: 4px;
+  width: calc(100% - 8px);
+  height: calc(100% - 8px);
+  object-fit: contain;
+}
+
+.equity-company-monogram {
+  color: color-mix(in srgb, var(--ticker-accent) 72%, #0f172a);
+  font-family: "Space Grotesk", "Pretendard", sans-serif;
+  font-size: 10px;
+  font-weight: 900;
+  letter-spacing: -.03em;
+}
+
+.equity-ticker-name {
+  min-width: 0;
+  display: grid;
+  gap: 1px;
+}
+
 .equity-ticker-grid b {
   color: #0f766e;
   font-family: "JetBrains Mono", "Space Grotesk", monospace;
-  font-size: 11px;
+  font-size: 9px;
 }
 
-.equity-ticker-grid span {
+.equity-ticker-grid strong {
   color: var(--ink);
   font-size: 12px;
   font-weight: 900;
@@ -23937,6 +24005,7 @@ button.ni-trend-chip:hover { box-shadow: 0 4px 12px color-mix(in srgb, #0891B2 2
   .equity-mode-controls button,
   .equity-category-controls button,
   .equity-ticker-grid button,
+  .equity-company-logo,
   .equity-chain-card {
     transition: none;
   }

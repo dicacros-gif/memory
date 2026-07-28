@@ -20858,6 +20858,133 @@
     };
   }
 
+  const EQUITY_LOCAL_LOGOS = Object.freeze({
+    "skhy-stock": "assets/img/brands/sk-hynix.svg",
+    "samsung-stock": "assets/img/brands/samsung.svg",
+    "micron-stock": "assets/img/brands/micron.svg",
+    "sandisk-stock": "assets/img/brands/sandisk.svg",
+    "wdc-stock": "assets/img/brands/western-digital.svg",
+    "kioxia-stock": "assets/img/brands/kioxia.svg",
+  });
+
+  const EQUITY_COMPANY_DOMAINS = Object.freeze({
+    "nvidia-stock": "nvidia.com",
+    "amd-stock": "amd.com",
+    "broadcom-stock": "broadcom.com",
+    "marvell-stock": "marvell.com",
+    "qualcomm-stock": "qualcomm.com",
+    "tsmc-stock": "tsmc.com",
+    "umc-stock": "umc.com",
+    "globalfoundries-stock": "gf.com",
+    "asml-stock": "asml.com",
+    "applied-materials-stock": "appliedmaterials.com",
+    "lam-research-stock": "lamresearch.com",
+    "kla-stock": "kla.com",
+    "tokyo-electron-stock": "tel.com",
+    "ase-stock": "aseglobal.com",
+    "amkor-stock": "amkor.com",
+    "arista-stock": "arista.com",
+    "vertiv-stock": "vertiv.com",
+    "arm-stock": "arm.com",
+    "synopsys-stock": "synopsys.com",
+    "cadence-stock": "cadence.com",
+    "kokusai-stock": "kokusai-electric.com",
+    "asm-stock": "asm.com",
+    "axcelis-stock": "axcelis.com",
+    "onto-stock": "ontoinnovation.com",
+    "entegris-stock": "entegris.com",
+    "shinetsu-stock": "shinetsu.co.jp",
+    "sumco-stock": "sumcosi.com",
+    "globalwafers-stock": "sas-globalwafers.com",
+    "teradyne-stock": "teradyne.com",
+    "advantest-stock": "advantest.com",
+    "disco-stock": "disco.co.jp",
+    "besi-stock": "besi.com",
+    "coherent-stock": "coherent.com",
+    "lumentum-stock": "lumentum.com",
+    "astera-stock": "asteralabs.com",
+    "credo-stock": "credosemi.com",
+    "eaton-stock": "eaton.com",
+    "supermicro-stock": "supermicro.com",
+    "dell-stock": "dell.com",
+    "celestica-stock": "celestica.com",
+    "honhai-stock": "honhai.com",
+    "quanta-stock": "quantatw.com",
+    "inventec-stock": "inventec.com",
+    "monolithic-power-stock": "monolithicpower.com",
+    "rambus-stock": "rambus.com",
+    "seagate-stock": "seagate.com",
+    "silicon-motion-stock": "siliconmotion.com",
+    "naura-stock": "naura.com",
+    "amec-stock": "amec-inc.com",
+    "acm-shanghai-stock": "acmrcsh.com.cn",
+    "jcet-stock": "jcetglobal.com",
+    "gigadevice-stock": "gigadevice.com",
+    "smic-stock": "smic.com",
+    "cxmt-stock": "cxmt.com",
+    "biwin-stock": "biwintech.com",
+    "hua-hong-stock": "huahonggrace.com",
+    "piotech-stock": "piotech.com.cn",
+    "kingsemi-stock": "kingsemi.com",
+    "hwatsing-stock": "hwatsing.com",
+    "tongfu-stock": "tfme.com",
+    "huatian-stock": "ht-tech.com",
+    "montage-stock": "montage-tech.com",
+    "verisilicon-stock": "verisilicon.com",
+    "empyrean-stock": "empyrean-tech.com",
+    "primarius-stock": "primarius-tech.com",
+    "omnivision-stock": "ovt.com",
+    "rockchip-stock": "rock-chips.com",
+    "loongson-stock": "loongson.cn",
+    "cambricon-stock": "cambricon.com",
+    "anji-stock": "anjicmt.com",
+    "nsig-stock": "nsig.com",
+    "kfmi-stock": "kfmic.com",
+    "shennan-stock": "scc.com.cn",
+    "longsys-stock": "longsys.com",
+    "hygon-stock": "hygon.cn",
+    "wingtech-stock": "wingtech.com",
+    "silan-stock": "silan.com.cn",
+    "victory-giant-stock": "victorygiant.com",
+    "shengyi-stock": "syst.com.cn",
+    "eoptolink-stock": "eoptolink.com",
+    "innolight-stock": "innolight.com",
+    "accelink-stock": "accelink.com",
+    "inspur-stock": "inspur.com",
+  });
+
+  const EQUITY_GENERIC_FAVICON_IDS = new Set([
+    "axcelis-stock", "kokusai-stock", "tokyo-electron-stock", "sumco-stock",
+    "globalwafers-stock", "shinetsu-stock", "honhai-stock", "quanta-stock",
+    "inventec-stock", "cxmt-stock", "hwatsing-stock", "tongfu-stock",
+    "piotech-stock", "smic-stock", "acm-shanghai-stock", "jcet-stock",
+    "empyrean-stock", "anji-stock", "rockchip-stock", "montage-stock",
+    "kfmi-stock", "loongson-stock", "nsig-stock", "huatian-stock",
+    "wingtech-stock", "accelink-stock", "hygon-stock", "silan-stock",
+    "shengyi-stock", "longsys-stock", "shennan-stock",
+  ]);
+
+  function equityCompanyMonogram(index = {}) {
+    const label = String(index.shortName || index.labelKo || index.label || index.symbol || "CO");
+    const words = label.match(/[A-Za-z0-9]+/g) || [];
+    if (words.length >= 2) return `${words[0][0]}${words[1][0]}`.toUpperCase();
+    return String(words[0] || label).replace(/[^A-Za-z0-9]/g, "").slice(0, 2).toUpperCase() || "CO";
+  }
+
+  function equityCompanyLogoHTML(index = {}) {
+    const localLogo = EQUITY_LOCAL_LOGOS[index.id] || "";
+    const domain = EQUITY_COMPANY_DOMAINS[index.id] || "";
+    const logoUrl = localLogo || (domain && !EQUITY_GENERIC_FAVICON_IDS.has(index.id)
+      ? `https://www.google.com/s2/favicons?domain_url=${encodeURIComponent(`https://${domain}`)}&sz=64`
+      : "");
+    return `
+      <span class="equity-company-logo" aria-hidden="true">
+        <span class="equity-company-monogram">${escapeHTML(equityCompanyMonogram(index))}</span>
+        ${logoUrl ? `<img src="${escapeHTML(logoUrl)}" alt="" loading="lazy" decoding="async" referrerpolicy="no-referrer">` : ""}
+      </span>
+    `;
+  }
+
   function marketPeerCardsHTML(peers = [], className = "") {
     if (!peers.length) return "";
     return `
@@ -21468,9 +21595,14 @@
           const selected = state.selected.includes(index.id);
           const isNew = index.newListing === true || points.length < 10;
           return `
-            <button type="button" data-equity-stock="${escapeHTML(index.id)}" class="${selected ? "active" : ""}" title="${escapeHTML(`${index.label || index.shortName} · ${index.exchange || index.exchangeName || ""}`)}">
-              <b>${escapeHTML(index.symbol || "")}</b>
-              <span>${escapeHTML(index.shortName || index.labelKo || index.label || "")}</span>
+            <button type="button" data-equity-stock="${escapeHTML(index.id)}" class="${selected ? "active" : ""}" style="--ticker-accent:${escapeHTML(EQUITY_CHAIN_COLORS[index.valueChain] || "#34c5a1")}" title="${escapeHTML(`${index.label || index.shortName} · ${index.exchange || index.exchangeName || ""}`)}">
+              <span class="equity-ticker-identity">
+                ${equityCompanyLogoHTML(index)}
+                <span class="equity-ticker-name">
+                  <b>${escapeHTML(index.symbol || "")}</b>
+                  <strong>${escapeHTML(index.shortName || index.labelKo || index.label || "")}</strong>
+                </span>
+              </span>
               <small>${escapeHTML(index.exchange || index.exchangeName || "")}${isNew ? " · 신규" : ""}</small>
               ${latest ? `<em>${escapeHTML(equityCloseLabel(latest.close, index.currency))} · ${escapeHTML(shortKstDate(latest.time))}</em>` : ""}
             </button>
@@ -21502,6 +21634,11 @@
       </div>
     `;
 
+    panel.querySelectorAll(".equity-company-logo img").forEach((image) => {
+      image.addEventListener("error", () => {
+        image.remove();
+      }, { once: true });
+    });
     panel.querySelectorAll("[data-equity-mode]").forEach((button) => {
       button.addEventListener("click", () => {
         state.mode = button.dataset.equityMode || "group";
