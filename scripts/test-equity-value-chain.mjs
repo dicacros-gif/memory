@@ -27,6 +27,12 @@ assert.match(css, /#marketIndexPanel\s*\{\s*order:\s*30;\s*\}/,
   "the SOX and listed-peer dashboard must have the final content order");
 assert.match(app, /\{ id: "equity-value-chain", render: renderEquityValueChain, data: \["marketHistory"\] \}/,
   "the heavy equity dashboard must lazy-load the market artifact");
+assert.match(app, /id: "stock"[\s\S]*?label: "Stock 분석"[\s\S]*?jump: "equity-value-chain"/,
+  "the sidebar must expose a dedicated Stock analysis route");
+assert.match(app, /\{ label: "시장·리스크", routes: \["market", "stock", "policy"\] \}/,
+  "Stock analysis should align with the market and risk navigation group");
+assert.match(app, /function setupScrollSpy[\s\S]*?activeTop = Number\.NEGATIVE_INFINITY[\s\S]*?top <= y && top >= activeTop/,
+  "scroll spy must follow real document position rather than sidebar declaration order");
 assert.match(app, /const EQUITY_CHAIN_PERIODS = \[[\s\S]*?"1개월"[\s\S]*?"6개월"[\s\S]*?"1년"[\s\S]*?"5년"[\s\S]*?"전체"/,
   "the chart should expose the reference period controls");
 assert.match(app, /밸류체인 그룹 트렌드[\s\S]*?개별 종목/,
@@ -95,8 +101,8 @@ for (const ticker of [
 for (const ticker of ["ARM", "SNPS", "CDNS", "ENTG", "COHR", "ALAB", "ETN", "SMCI", "6857.T", "6488.TWO"]) {
   assert.ok(crawler.includes(`"${ticker}"`), `Global universe should include ${ticker}`);
 }
-assert.match(crawler, /function compactEquityPointsForClient[\s\S]*?compact\.length \/ 300/,
-  "non-core equity history should be downsampled for browser performance");
+assert.match(crawler, /function sampleEquityPointWindow[\s\S]*?function compactEquityPointsForClient[\s\S]*?recentCutoff[\s\S]*?archiveLimit[\s\S]*?recentLimit/,
+  "equity history should preserve recent detail while sampling the older archive");
 
 console.log(JSON.stringify({
   ok: true,

@@ -1859,10 +1859,16 @@
       jump: "hyperscaler-demand",
       sections: ["hyperscaler-demand", "memory-scroll-story"],
     },
-    ...MECE_GROUPS.filter((route) => ["market", "policy", "competitors", "talent"].includes(route.id))
-      .map((route) => route.id === "market"
-        ? { ...route, sections: [...(route.sections || []), "equity-value-chain"] }
-        : route),
+    ...MECE_GROUPS.filter((route) => route.id === "market"),
+    {
+      id: "stock",
+      label: "Stock 분석",
+      desc: "글로벌·중국 밸류체인 주가",
+      cadence: "Equity analytics",
+      jump: "equity-value-chain",
+      sections: ["equity-value-chain"],
+    },
+    ...MECE_GROUPS.filter((route) => ["policy", "competitors", "talent"].includes(route.id)),
   ];
   const ROUTE_DISPLAY = {
     home: {
@@ -1905,6 +1911,11 @@
       desc: "현물·계약 가격·권위 기사",
       cadence: "Market data",
     },
+    stock: {
+      label: "Stock 분석",
+      desc: "글로벌·중국 밸류체인 주가",
+      cadence: "Equity analytics",
+    },
     competitors: {
       label: "중국 메모리 경쟁",
       desc: "CXMT·YMTC·장비·패키징",
@@ -1937,7 +1948,7 @@
   const SIDE_NAV_GROUPS = [
     { label: "핵심·의사결정", routes: ["home", "c-level"] },
     { label: "분석·전망", routes: ["workbench", "market-map", "analysis", "projection", "hyperscaler-demand"] },
-    { label: "시장·리스크", routes: ["market", "policy"] },
+    { label: "시장·리스크", routes: ["market", "stock", "policy"] },
     { label: "중국 인텔리전스", routes: ["competitors", "talent"] },
   ];
   const SIDE_NAV_ICONS = {
@@ -1949,9 +1960,10 @@
     projection: "06",
     "hyperscaler-demand": "07",
     market: "08",
-    policy: "09",
-    competitors: "10",
-    talent: "11",
+    stock: "09",
+    policy: "10",
+    competitors: "11",
+    talent: "12",
   };
   const TOPIC_FILTER_GROUPS = [
     { label: "전체", hint: "All", categories: ["all"] },
@@ -3944,12 +3956,18 @@
     setupChinaBenchmarkVideoStory();
     setupChinaDecisionVideo();
     setupMemoryScrollStory();
+    // Paint the persistent shell before any JSON request completes. Navigation
+    // is static, so it stays usable even on a cold GitHub Pages cache.
+    renderChrome();
+    renderSidebarNav();
+    const baselinePromise = loadJSON("data/baseline.json", null);
+    const crawlExclusionsPromise = loadJSON("data/crawl-exclusions.json", emptyCrawlExclusions);
     DATA_MANIFEST = await loadDataManifest();
     [BASE, LIVE, REPO_CRAWL_EXCLUSIONS, QUANT] = await Promise.all([
-      loadJSON("data/baseline.json", null),
-      loadManagedJSON("live", "data/live.json", emptyLive),
-      loadJSON("data/crawl-exclusions.json", emptyCrawlExclusions),
-      loadManagedJSON("quant", "data/quant.json", null),
+      baselinePromise,
+      loadManagedJSON("live", "data/live-client.json", emptyLive),
+      crawlExclusionsPromise,
+      loadManagedJSON("quant", "data/quant-client.json", null),
     ]);
     LIVE = selectVerifiedLiveData(LIVE);
     LIVE = normalizeLiveData(LIVE);
@@ -3965,8 +3983,7 @@
     setupStrategyCapitalSlider();
     setupChinaNandSlider();
     hideDisabledSections();
-    renderChrome();
-    renderSidebarNav();
+    document.title = BASE.meta?.title || document.title;
     renderSidebarCategories();
     renderCrawlHeartbeat();
     renderKpis();
@@ -4790,7 +4807,6 @@
   const deferredRenderedSections = new Set(["overview", "overview-content"]);
   let priceBoardPreloadStarted = false;
   let priceBoardPreloadObserver = null;
-  let priceBoardPreloadIdleId = 0;
   let priceBoardPreRenderQueued = false;
 
   function deferredSectionDefinitions() {
@@ -4823,19 +4839,19 @@
     if (secondaryDataPromises.has(id)) return secondaryDataPromises.get(id);
     const definitions = {
       priceHistory: {
-        path: "data/price-history.json",
+        path: "data/price-history-client.json",
         fallback: emptyHistory,
         schemaVersion: "2.0",
         assign: (value) => { HISTORY = selectSameRunArtifact(value, emptyHistory, "2.0"); },
       },
       marketHistory: {
-        path: "data/market-history.json",
+        path: "data/market-history-client.json",
         fallback: emptyMarketHistory,
         schemaVersion: "2.0",
         assign: (value) => { MARKET_HISTORY = selectSameRunArtifact(value, emptyMarketHistory, "2.0"); },
       },
       quantBacktest: {
-        path: "data/quant-backtest.json",
+        path: "data/quant-backtest-client.json",
         fallback: emptyQuantBacktest,
         schemaVersion: "1.0",
         assign: (value) => { QUANT_BACKTEST = selectSameRunArtifact(value, emptyQuantBacktest, "1.0"); },
@@ -4894,11 +4910,6 @@
     const board = $("#prices");
     if (!board) return;
     const start = () => {
-      if (priceBoardPreloadIdleId) {
-        if ("cancelIdleCallback" in window) window.cancelIdleCallback(priceBoardPreloadIdleId);
-        window.clearTimeout(priceBoardPreloadIdleId);
-      }
-      priceBoardPreloadIdleId = 0;
       prewarmPriceBoardData();
       priceBoardPreloadObserver?.disconnect();
       priceBoardPreloadObserver = null;
@@ -4912,26 +4923,12 @@
       window.addEventListener("pagehide", () => priceBoardPreloadObserver?.disconnect(), { once: true });
     }
 
-    // Keep first paint and hero playback free of secondary JSON work. If the
-    // visitor does not interact, prewarm after load; scroll intent and the
-    // generous observer margin still fetch the board well before it is visible.
-    const scheduleIdlePrewarm = () => {
-      if (priceBoardPreloadStarted) return;
-      priceBoardPreloadIdleId = window.setTimeout(() => {
-        priceBoardPreloadIdleId = 0;
-        if ("requestIdleCallback" in window) {
-          priceBoardPreloadIdleId = window.requestIdleCallback(start, { timeout: 3200 });
-        } else {
-          start();
-        }
-      }, 2400);
-    };
-    if (document.readyState === "complete") scheduleIdlePrewarm();
-    else window.addEventListener("load", scheduleIdlePrewarm, { once: true });
-    // A scroll gesture means the visitor is moving toward lower boards.  Start
-    // the request immediately instead of waiting for the board observer.
-    ["wheel", "touchstart", "keydown"].forEach((eventName) => {
-      window.addEventListener(eventName, start, { once: true, passive: eventName !== "keydown" });
+    // Route intent is a high-confidence preload signal. Avoid parsing the large
+    // market-history artifact on the visitor's first unrelated wheel gesture.
+    const intentTargets = $$('[data-jump="prices"], [data-jump="equity-value-chain"], [data-hero-jump="prices"]');
+    intentTargets.forEach((target) => {
+      target.addEventListener("pointerenter", start, { once: true, passive: true });
+      target.addEventListener("focusin", start, { once: true });
     });
 
     // Track actual downward movement after the first gesture. This catches fast
@@ -4947,6 +4944,9 @@
         const movingDown = currentScrollY > lastScrollY + 4;
         lastScrollY = currentScrollY;
         if (!movingDown) return;
+        const distanceBelowViewport = board.getBoundingClientRect().top - window.innerHeight;
+        const lookAheadDistance = Math.max(12000, Math.round(window.innerHeight * 10));
+        if (distanceBelowViewport > lookAheadDistance) return;
         start();
         schedulePriceBoardRenderAhead(board);
         if (priceBoardPreRenderQueued) window.removeEventListener("scroll", handleScrollTowardPrices);
@@ -5025,10 +5025,28 @@
         ensureDeferredSection(entry.target.id);
       });
     }, { rootMargin: `${priceRenderLookAhead}px 0px`, threshold: 0.01 });
-    sections.forEach((section) => (section.id === "prices" ? priceRenderObserver : observer).observe(section));
+    const stockRenderLookAhead = Math.max(5200, Math.round(window.innerHeight * 5));
+    const stockRenderObserver = new IntersectionObserver((entries) => {
+      entries.forEach((entry) => {
+        if (!entry.isIntersecting) return;
+        stockRenderObserver.unobserve(entry.target);
+        const render = () => ensureDeferredSection(entry.target.id);
+        if ("requestIdleCallback" in window) window.requestIdleCallback(render, { timeout: 1000 });
+        else window.setTimeout(render, 0);
+      });
+    }, { rootMargin: `${stockRenderLookAhead}px 0px`, threshold: 0.01 });
+    sections.forEach((section) => {
+      const renderObserver = section.id === "prices"
+        ? priceRenderObserver
+        : section.id === "equity-value-chain"
+          ? stockRenderObserver
+          : observer;
+      renderObserver.observe(section);
+    });
     window.addEventListener("pagehide", () => {
       observer.disconnect();
       priceRenderObserver.disconnect();
+      stockRenderObserver.disconnect();
     }, { once: true });
 
     // Navigation always calls ensureDeferredSection(), so no board is left as
@@ -6541,7 +6559,7 @@
   }
 
   function renderChrome() {
-    document.title = BASE.meta?.title || document.title;
+    document.title = BASE?.meta?.title || document.title;
     const saved = localStorage.getItem("memory-theme") || "dark";
     document.documentElement.dataset.theme = saved;
     const savedPalette = Number(localStorage.getItem("memory-palette-index") || 0);
@@ -19708,16 +19726,28 @@
       if (pendingSidebarRoute) return;
       const y = window.scrollY + chromeOffset() + 22;
       let active = "overview";
+      let activeTop = Number.NEGATIVE_INFINITY;
+      let lastSection = "overview";
+      let lastTop = Number.NEGATIVE_INFINITY;
       sections.forEach((id) => {
         const node = document.getElementById(id);
-        if (node && node.offsetTop <= y) active = id;
+        if (!node) return;
+        const top = node.offsetTop;
+        if (top > lastTop) {
+          lastTop = top;
+          lastSection = id;
+        }
+        if (top <= y && top >= activeTop) {
+          activeTop = top;
+          active = id;
+        }
       });
       if (window.innerHeight + window.scrollY >= document.documentElement.scrollHeight - 4) {
-        active = sections[sections.length - 1];
+        active = lastSection;
       }
-      const lastNode = document.getElementById(sections[sections.length - 1]);
+      const lastNode = document.getElementById(lastSection);
       if (lastNode && lastNode.getBoundingClientRect().top < window.innerHeight * 0.72) {
-        active = sections[sections.length - 1];
+        active = lastSection;
       }
       const navTarget = NAV_SECTION_TARGETS[active] || active;
       if (navTarget !== activeSidebarRoute) syncSidebarRoute(navTarget);

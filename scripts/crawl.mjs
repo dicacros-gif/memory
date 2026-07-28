@@ -3843,11 +3843,32 @@ const MARKET_PRICE_BOARD_IDS = new Set([
   "smic-stock",
 ]);
 
+function sampleEquityPointWindow(points = [], maxPoints = 0) {
+  if (!maxPoints || points.length <= maxPoints) return points;
+  const lastIndex = points.length - 1;
+  const sampled = [];
+  for (let index = 0; index < maxPoints; index += 1) {
+    sampled.push(points[Math.round((index / Math.max(1, maxPoints - 1)) * lastIndex)]);
+  }
+  return sampled.filter((point, index) => index === 0 || point[0] !== sampled[index - 1][0]);
+}
+
 function compactEquityPointsForClient(id, points = []) {
   const compact = (points || []).map(compactMarketPointForClient).filter(Boolean);
-  if (MARKET_PRICE_BOARD_IDS.has(id) || compact.length <= 320) return compact;
-  const stride = Math.max(1, Math.ceil(compact.length / 300));
-  return compact.filter((point, index) => index === 0 || index === compact.length - 1 || index % stride === 0);
+  if (compact.length <= 260) return compact;
+  const latestTime = Number(compact.at(-1)?.[0] || 0);
+  const recentCutoff = latestTime - (400 * 24 * 60 * 60 * 1000);
+  const recentStart = compact.findIndex((point) => point[0] >= recentCutoff);
+  const splitAt = recentStart > 0 ? recentStart : 0;
+  const archive = compact.slice(0, splitAt);
+  const recent = compact.slice(splitAt);
+  const isCorePriceBoard = MARKET_PRICE_BOARD_IDS.has(id);
+  const archiveLimit = isCorePriceBoard ? 120 : 72;
+  const recentLimit = isCorePriceBoard ? 240 : 168;
+  return [
+    ...sampleEquityPointWindow(archive, archiveLimit),
+    ...sampleEquityPointWindow(recent, recentLimit),
+  ].filter((point, index, sampled) => index === 0 || point[0] !== sampled[index - 1][0]);
 }
 
 function compactMarketHistoryForClient(history = {}) {
