@@ -20926,42 +20926,65 @@
   const EQUITY_CHAIN_REGIONS = {
     global: {
       eyebrow: "Global semiconductor equities",
-      title: "글로벌 반도체 밸류체인",
-      description: "AI 칩에서 메모리·파운드리·장비·패키징·인프라까지 연결한 상장사 흐름",
+      title: "글로벌 반도체 AI·메모리 밸류체인",
+      description: "설계·EDA/IP에서 웨이퍼·장비·파운드리, HBM·스토리지, 첨단 패키징, 광통신·서버 인프라까지 연결한 상장사 흐름",
       defaultSelected: ["nvidia-stock", "skhy-stock", "tsmc-stock", "asml-stock"],
+      lanes: [
+        { id: "design", label: "01 설계", description: "가속기·CPU·ASIC·EDA/IP", categories: ["ai-chip", "design-ip"] },
+        { id: "manufacturing", label: "02 제조", description: "웨이퍼·소재·장비·파운드리", categories: ["materials", "equipment", "foundry"] },
+        { id: "integration", label: "03 통합", description: "메모리·스토리지·패키징·테스트", categories: ["memory", "packaging"] },
+        { id: "systems", label: "04 시스템", description: "광통신·네트워크·서버·전력·냉각", categories: ["interconnect", "infrastructure"] },
+      ],
       categories: [
-        { id: "ai-chip", label: "AI 칩·설계" },
-        { id: "memory", label: "메모리·스토리지" },
-        { id: "foundry", label: "파운드리" },
-        { id: "equipment", label: "장비" },
-        { id: "packaging", label: "패키징·테스트" },
-        { id: "infrastructure", label: "네트워크·전력" },
+        { id: "ai-chip", label: "AI 가속기·CPU·ASIC", stage: "설계", focus: "GPU·CPU·커스텀 실리콘" },
+        { id: "design-ip", label: "EDA·CPU IP", stage: "설계", focus: "설계 자동화·검증·아키텍처 IP" },
+        { id: "materials", label: "웨이퍼·소재", stage: "제조 기반", focus: "실리콘 웨이퍼·케미컬·오염 제어" },
+        { id: "equipment", label: "전공정·계측 장비", stage: "제조", focus: "노광·증착·식각·이온주입·계측" },
+        { id: "foundry", label: "파운드리", stage: "제조", focus: "선단·성숙 공정 위탁생산" },
+        { id: "memory", label: "HBM·DRAM·NAND·스토리지", stage: "통합", focus: "메모리 다이·인터페이스·SSD·HDD" },
+        { id: "packaging", label: "첨단 패키징·테스트", stage: "통합", focus: "CoWoS·본딩·절단·ATE·OSAT" },
+        { id: "interconnect", label: "광통신·네트워크", stage: "시스템", focus: "스위치·DSP·광모듈·PCIe/CXL 연결" },
+        { id: "infrastructure", label: "AI 서버·전력·냉각", stage: "시스템", focus: "서버·ODM·전력변환·열관리" },
       ],
     },
     china: {
       eyebrow: "China A-share semiconductor equities",
-      title: "중국 상장 반도체 밸류체인",
-      description: "CXMT와 상하이·선전 주요 상장사를 메모리·파운드리·장비·패키징·EDA/IP·소재로 연결",
+      title: "중국 상장 반도체 AI·메모리 밸류체인",
+      description: "CXMT와 상하이·선전 상장사를 AI 칩·EDA, 메모리, 장비·소재, 패키징·기판, 광통신·AI 서버까지 연결",
       defaultSelected: ["cxmt-stock", "smic-stock", "naura-stock", "jcet-stock"],
+      lanes: [
+        { id: "design", label: "01 설계", description: "AI 칩·CPU·EDA/IP·아날로그", categories: ["ai-chip", "design-ip", "analog-power"] },
+        { id: "manufacturing", label: "02 제조", description: "소재·웨이퍼·장비·파운드리", categories: ["materials", "equipment", "foundry"] },
+        { id: "integration", label: "03 통합", description: "메모리·패키징·테스트·기판", categories: ["memory", "packaging", "substrates"] },
+        { id: "systems", label: "04 시스템", description: "광통신·네트워크·AI 서버", categories: ["interconnect", "infrastructure"] },
+      ],
       categories: [
-        { id: "memory", label: "메모리·스토리지" },
-        { id: "foundry", label: "파운드리" },
-        { id: "equipment", label: "장비" },
-        { id: "packaging", label: "패키징·테스트" },
-        { id: "design-ip", label: "설계·EDA·IP" },
-        { id: "materials", label: "소재·기판" },
+        { id: "ai-chip", label: "AI 칩·CPU·엣지 SoC", stage: "설계", focus: "가속기·서버 CPU·엣지 프로세서" },
+        { id: "design-ip", label: "EDA·IP·메모리 인터페이스", stage: "설계", focus: "EDA·검증·IP·서버 메모리 인터페이스" },
+        { id: "analog-power", label: "센서·아날로그·전력", stage: "설계", focus: "CIS·전력반도체·IDM" },
+        { id: "materials", label: "웨이퍼·CMP·타깃 소재", stage: "제조 기반", focus: "실리콘 웨이퍼·슬러리·스퍼터링 타깃" },
+        { id: "equipment", label: "증착·식각·세정·CMP 장비", stage: "제조", focus: "전공정·세정·트랙·CMP 국산화" },
+        { id: "foundry", label: "파운드리", stage: "제조", focus: "성숙 공정·특화 공정 위탁생산" },
+        { id: "memory", label: "DRAM·NOR·스토리지", stage: "통합", focus: "CXMT DRAM·NOR·SSD·메모리 모듈" },
+        { id: "packaging", label: "OSAT·첨단 패키징", stage: "통합", focus: "범핑·조립·테스트·2.5D/3D" },
+        { id: "substrates", label: "PCB·패키지 기판", stage: "통합", focus: "고다층 PCB·CCL·서버 기판" },
+        { id: "interconnect", label: "광모듈·네트워크", stage: "시스템", focus: "800G/1.6T 광모듈·데이터센터 연결" },
+        { id: "infrastructure", label: "AI 서버·시스템", stage: "시스템", focus: "AI 서버·컴퓨팅 시스템 통합" },
       ],
     },
   };
   const EQUITY_CHAIN_COLORS = {
-    "ai-chip": "#53d7ba",
-    memory: "#8b7cf6",
-    foundry: "#58a6ff",
-    equipment: "#f3b35b",
-    packaging: "#ef7f73",
-    infrastructure: "#7cc7d8",
-    "design-ip": "#b48cf2",
-    materials: "#9cc56b",
+    "ai-chip": "#2dd4bf",
+    "design-ip": "#67e8f9",
+    "analog-power": "#38bdf8",
+    materials: "#fbbf24",
+    equipment: "#f59e0b",
+    foundry: "#fb923c",
+    memory: "#a78bfa",
+    packaging: "#c084fc",
+    substrates: "#e879f9",
+    interconnect: "#60a5fa",
+    infrastructure: "#34d399",
   };
   const EQUITY_STOCK_COLORS = [
     "#2dd4bf",
@@ -21239,6 +21262,34 @@
     };
   }
 
+  function equityArchitectureHTML(region, indexes = []) {
+    const config = EQUITY_CHAIN_REGIONS[region];
+    return `
+      <div class="equity-chain-architecture" aria-label="${escapeHTML(config.title)} 구조">
+        ${(config.lanes || []).map((lane) => `
+          <section class="equity-chain-lane">
+            <header>
+              <b>${escapeHTML(lane.label)}</b>
+              <span>${escapeHTML(lane.description)}</span>
+            </header>
+            <div>
+              ${(lane.categories || []).map((categoryId) => {
+                const category = config.categories.find((item) => item.id === categoryId);
+                const count = indexes.filter((index) => index.valueChain === categoryId).length;
+                return `
+                  <button type="button" data-equity-category="${escapeHTML(categoryId)}" style="--chain-color:${escapeHTML(EQUITY_CHAIN_COLORS[categoryId] || "#6ea8fe")}">
+                    <span>${escapeHTML(category?.label || categoryId)}</span>
+                    <em>${escapeHTML(`${count}개사`)}</em>
+                  </button>
+                `;
+              }).join("")}
+            </div>
+          </section>
+        `).join("")}
+      </div>
+    `;
+  }
+
   function equityValueChainCards(region, indexes = [], period) {
     const config = EQUITY_CHAIN_REGIONS[region];
     return (config.categories || []).map((category) => {
@@ -21248,9 +21299,11 @@
       const change = group?.changePct ?? Number.NaN;
       return `
         <button class="equity-chain-card" type="button" data-equity-category="${escapeHTML(category.id)}" style="--chain-color:${escapeHTML(EQUITY_CHAIN_COLORS[category.id] || "#6ea8fe")}">
-          <span>${escapeHTML(category.label)}</span>
+          <span>${escapeHTML(category.stage || "밸류체인")}</span>
+          <b>${escapeHTML(category.label)}</b>
           <strong>${escapeHTML(equityPercent(change))}</strong>
           <small>${escapeHTML(`${members.length}개사`)}${ranked[0] ? ` · 선도 ${escapeHTML(ranked[0].label)}` : ""}</small>
+          <em>${escapeHTML(category.focus || "")}</em>
         </button>
       `;
     }).join("");
@@ -21365,6 +21418,7 @@
         <button type="button" data-equity-mode="group" class="${state.mode === "group" ? "active" : ""}">밸류체인 그룹 트렌드</button>
         <button type="button" data-equity-mode="stock" class="${state.mode === "stock" ? "active" : ""}">개별 종목</button>
       </div>
+      ${equityArchitectureHTML(region, indexes)}
       <div class="equity-category-controls" role="group" aria-label="${escapeHTML(config.title)} 밸류체인">
         <button type="button" data-equity-category="all" class="${state.category === "all" ? "active" : ""}">전체 · ${indexes.length}</button>
         ${(config.categories || []).map((category) => {

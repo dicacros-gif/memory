@@ -31,6 +31,12 @@ assert.match(app, /const EQUITY_CHAIN_PERIODS = \[[\s\S]*?"1개월"[\s\S]*?"6개
   "the chart should expose the reference period controls");
 assert.match(app, /밸류체인 그룹 트렌드[\s\S]*?개별 종목/,
   "the chart should switch between grouped value chains and individual stocks");
+assert.match(app, /lanes:\s*\[[\s\S]*?01 설계[\s\S]*?02 제조[\s\S]*?03 통합[\s\S]*?04 시스템[\s\S]*?function equityArchitectureHTML/,
+  "the expanded universe should be explained as a four-lane value-chain architecture");
+assert.match(app, /AI 가속기·CPU·ASIC[\s\S]*?EDA·CPU IP[\s\S]*?웨이퍼·소재[\s\S]*?AI 서버·전력·냉각/,
+  "the global value chain should cover design through system infrastructure");
+assert.match(app, /AI 칩·CPU·엣지 SoC[\s\S]*?센서·아날로그·전력[\s\S]*?PCB·패키지 기판[\s\S]*?광모듈·네트워크/,
+  "the China value chain should cover compute, analog, substrates, and optical interconnect");
 assert.match(app, /function wireEquityChartTooltip[\s\S]*?pointermove/,
   "the chart must provide a pointer crosshair and value tooltip");
 assert.match(app, /const pointerViewX = \(\(event\.clientX - rect\.left\) \/ Math\.max\(1, rect\.width\)\) \* width[\s\S]*?\(pointerViewX - pad\.left\) \/ plotWidth/,
@@ -66,12 +72,22 @@ assert.match(crawler, /"cxmt-stock": \{[\s\S]*?quoteReferenceUrl: "https:\/\/kr\
   "CXMT must retain the user's direct Investing.com quote reference");
 assert.match(crawler, /function marketCurrency[\s\S]*?\\\.\(\?:SS\|SZ\)\$[\s\S]*?return "CNY"/,
   "Shanghai and Shenzhen securities must never fall back to a USD label");
-for (const chain of ["memory", "foundry", "equipment", "packaging", "design-ip", "materials"]) {
+for (const chain of ["ai-chip", "memory", "foundry", "equipment", "packaging", "design-ip", "materials", "analog-power", "substrates", "interconnect", "infrastructure"]) {
   assert.match(crawler, new RegExp(`region: "china", valueChain: "${chain}"`),
     `China coverage should include the ${chain} value chain`);
 }
-for (const ticker of ["688825.SS", "688981.SS", "002371.SZ", "688012.SS", "600584.SS", "688008.SS", "688019.SS"]) {
+for (const chain of ["ai-chip", "memory", "foundry", "equipment", "packaging", "design-ip", "materials", "interconnect", "infrastructure"]) {
+  assert.match(crawler, new RegExp(`region: "global", valueChain: "${chain}"`),
+    `Global coverage should include the ${chain} value chain`);
+}
+for (const ticker of [
+  "688825.SS", "688981.SS", "002371.SZ", "688012.SS", "600584.SS", "688008.SS", "688019.SS",
+  "688041.SS", "300308.SZ", "300502.SZ", "300476.SZ", "000977.SZ",
+]) {
   assert.ok(crawler.includes(ticker), `China universe should include ${ticker}`);
+}
+for (const ticker of ["ARM", "SNPS", "CDNS", "ENTG", "COHR", "ALAB", "ETN", "SMCI", "6857.T", "6488.TWO"]) {
+  assert.ok(crawler.includes(`"${ticker}"`), `Global universe should include ${ticker}`);
 }
 assert.match(crawler, /function compactEquityPointsForClient[\s\S]*?compact\.length \/ 300/,
   "non-core equity history should be downsampled for browser performance");
@@ -79,5 +95,6 @@ assert.match(crawler, /function compactEquityPointsForClient[\s\S]*?compact\.len
 console.log(JSON.stringify({
   ok: true,
   regions: 2,
-  chinaValueChains: 6,
+  globalValueChains: 9,
+  chinaValueChains: 11,
 }, null, 2));
