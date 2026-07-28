@@ -1532,6 +1532,8 @@ body.sidebar-collapsed .sb-ico {
 #monetization { order: 26; }
 #response { order: 27; }
 #categories { order: 28; }
+#equity-value-chain { order: 29; }
+#marketIndexPanel { order: 30; }
 
 .main > *,
 .board,
@@ -16039,6 +16041,11 @@ body.sidebar-collapsed .sb-ico {
 
 .market-index-panel {
   margin: 0 0 14px;
+}
+
+.main > .market-index-panel {
+  margin: 0;
+  scroll-margin-top: calc(var(--topbar-h) + 18px);
 }
 
 .market-index-card {

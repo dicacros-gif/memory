@@ -13,6 +13,18 @@ assert.ok(
   html.indexOf('id="equity-value-chain"') > html.indexOf('id="response"'),
   "the equity dashboard should remain below the existing analysis boards",
 );
+assert.ok(
+  html.indexOf('id="marketIndexPanel"') > html.indexOf('id="equity-value-chain"'),
+  "the SOX and listed-peer dashboard must follow the richer value-chain dashboard",
+);
+assert.ok(
+  html.indexOf('id="marketIndexPanel"') < html.indexOf('class="site-author-footer"'),
+  "the SOX and listed-peer dashboard must remain the final content screen before the footer",
+);
+assert.match(css, /#equity-value-chain\s*\{\s*order:\s*29;\s*\}/,
+  "the value-chain dashboard must have an explicit bottom-of-page order");
+assert.match(css, /#marketIndexPanel\s*\{\s*order:\s*30;\s*\}/,
+  "the SOX and listed-peer dashboard must have the final content order");
 assert.match(app, /\{ id: "equity-value-chain", render: renderEquityValueChain, data: \["marketHistory"\] \}/,
   "the heavy equity dashboard must lazy-load the market artifact");
 assert.match(app, /const EQUITY_CHAIN_PERIODS = \[[\s\S]*?"1개월"[\s\S]*?"6개월"[\s\S]*?"1년"[\s\S]*?"5년"[\s\S]*?"전체"/,
