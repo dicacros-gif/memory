@@ -4,6 +4,15 @@ import { readFile } from "node:fs/promises";
 const app = await readFile(new URL("../assets/js/app.js", import.meta.url), "utf8");
 const css = await readFile(new URL("../assets/css/styles.css", import.meta.url), "utf8");
 const html = await readFile(new URL("../index.html", import.meta.url), "utf8");
+const baseline = await readFile(new URL("../data/baseline.json", import.meta.url), "utf8");
+const crawler = await readFile(new URL("./crawl.mjs", import.meta.url), "utf8");
+
+assert.doesNotMatch(html, /JCET·XMC의 후공정/, "XMC must not be grouped with OSAT companies in the China supply chapter");
+assert.doesNotMatch(app, /JCET·XMC·TFME|id: "jcet-xmc"/, "the value-chain map must not classify XMC as part of the OSAT aggregate");
+assert.match(app, /12인치 특화 파운드리·3D IC/, "XMC should retain its official foundry and 3D-integration role");
+assert.match(baseline, /"category": "Specialty Foundry \/ 3D Integration"/, "the XMC baseline profile should use the official business category");
+assert.match(crawler, /site:xmcwh\.com\/en\/site XMC 12-inch wafer foundry 3D IC specialty memory/, "the crawler should monitor XMC's official classification");
+assert.match(crawler, /trendforce-memory-price-3q26[\s\S]*?20260703-13134/, "3Q26 DRAM and NAND pricing should have a direct source probe");
 
 assert.match(
   app,
@@ -119,7 +128,7 @@ assert.match(app, /loadManagedJSON\("live", "data\/live-client\.json"[\s\S]*?loa
 assert.match(app, /priceHistory: \{[\s\S]*?path: "data\/price-history-client\.json"[\s\S]*?marketHistory: \{[\s\S]*?path: "data\/market-history-client\.json"/, "secondary fallbacks must never download database-sized history files");
 assert.match(css, /\.agent-debate-title \.agent-tts-toggle \{[\s\S]*?min-width: 190px;[\s\S]*?min-height: 44px;/, "the English TTS control should be large and readable");
 assert.match(css, /\.agent-tts-state \{[\s\S]*?min-width: 31px;/, "the TTS control should expose a dedicated on-or-off state badge");
-assert.match(html, /app\.js\?v=site-audit-20260730-01/, "JavaScript cache key should include the site-audit revision");
+assert.match(html, /app\.js\?v=source-audit-20260730-01/, "JavaScript cache key should include the source-audit revision");
 assert.match(html, /id="memoryHeroVideo"[\s\S]*?preload="none"[\s\S]*?<source data-src="assets\/media\/memory-hero\.mp4"/, "hero video should hydrate after the poster paints");
 assert.match(html, /id="talentStrategyVideoMedia"[\s\S]*?preload="none"[\s\S]*?data-poster="assets\/media\/china-talent-strategy-poster\.webp"[\s\S]*?<source data-src="assets\/media\/china-talent-strategy\.mp4"/, "below-fold talent media should not load during first paint");
 assert.doesNotMatch(html, /family=Noto\+Sans\+KR/, "Pretendard should replace the duplicate Korean webfont download");
@@ -135,7 +144,7 @@ assert.match(css, /\.china-deep-video-dock \.talent-strategy-video \{[\s\S]*?hei
 assert.match(css, /@media \(max-width: 680px\) \{[\s\S]*?\.china-deep-video-dock \.talent-strategy-video \{[\s\S]*?aspect-ratio: 4 \/ 5;/, "the compact video height should preserve the mobile portrait layout");
 assert.match(css, /#talent-radar \.talent-radar-slider-slot \{[\s\S]*?display: flex;[\s\S]*?justify-content: center;/, "the talent radar slot should center its visual stage");
 assert.match(css, /#talent-radar \.talent-radar-slider \{[\s\S]*?width: min\(100%, 1360px\);[\s\S]*?margin-inline: auto;/, "the talent radar visual should use a bounded, centered desktop width");
-assert.match(html, /styles\.css\?v=site-audit-20260730-01/, "CSS cache key should include the site-audit revision");
+assert.match(html, /styles\.css\?v=source-audit-20260730-01/, "CSS cache key should include the source-audit revision");
 assert.match(css, /#china-talent-strategy :is\(\.policy-card, \.policy-rule-card, \.policy-focus\):is\(:hover, :focus-within\) \{[\s\S]*?linear-gradient\(135deg, #153e75 0%, #0e7490 54%, #0f766e 100%\)/, "China talent inverted cards should use the professional blue-to-teal gradient");
 assert.match(css, /#talentScenarioTabs \.talent-scenario-tab\.active \{[\s\S]*?linear-gradient\(135deg, #153e75 0%, #0e7490 54%, #0f766e 100%\)/, "the selected China talent scenario should use the same professional gradient");
 assert.match(css, /\.exec-baseline-document:is\(:hover, :focus-visible\) \.exec-baseline-document-focus \{[\s\S]*?linear-gradient\(135deg, #fffdf5 0%, #fef3c7 100%\)/, "the inverted source card should separate its key thesis with an ivory-to-gold gradient");

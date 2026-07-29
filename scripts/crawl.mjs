@@ -520,15 +520,15 @@ const CATEGORIES = [
   { id: "hbm", label: "HBM·AI Memory", queries: ["HBM4 memory AI accelerator", "high bandwidth memory HBM", "SK hynix TSMC HBM4 base die", "Samsung HBM4 1c DRAM 4nm base die", "NVIDIA Rubin HBM4 11.7Gbps 36GB 48GB", "Micron HBM4 36GB 12H high volume production NVIDIA Vera Rubin", "Micron Anthropic strategic agreement AI memory storage architecture", "Micron strategic customer agreements 16 100 billion 22 billion", "Nvidia SK hynix multi-year HBM4 Vera Rubin co-development", "SK hynix HBM market share 58 Counterpoint Q1 2026 revenue", "TrendForce Rubin share 29 percent 22 percent 2026 Blackwell 71", "TSMC United States investment 265 billion AI demand 2026", "ASML EUV capacity grown more than 30 percent 2026 AGM", "CXMT HBM3 delayed mass production 2027", "CXMT HBM3 delayed 2H 2026 mass production unlikely industry sources", "ChinaTalk mapping China's HBM advancement CXMT HBM3 HBM3E", "HBM export control China December 2024 SK hynix Samsung Micron", "SK hynix Q1 2026 HBM4 Vera Rubin HBM4E 2027"] },
   { id: "dram", label: "DRAM·DDR", queries: ["DRAM DDR5 server memory price", "DRAM market demand", "CXMT DDR5 yield cost per bit die size Samsung 40 percent December 2024 historical", "CXMT DDR5 4800 product specification process node teardown estimate 16nm 17nm", "CXMT IPO final offering 57.9 billion yuan July 2026", "CXMT IPO planned 29.5 billion yuan final 57.9 billion yuan", "Counterpoint DRAM market share Q1 2026 Samsung SK hynix Micron CXMT revenue 8 percent", "TrendForce CXMT wafer capacity 10 percent DRAM production capacity", "CXMT 2027 DRAM share forecast 13.9 percent", "TrendForce 3Q26 DRAM contract price 13 18 NAND 10 15", "UBS Q3 2026 DRAM 32 percent NAND 30 percent forecast", "CXMT Tencent 20 billion yuan server DRAM supply deal Reuters"] },
   { id: "nand", label: "NAND·SSD", queries: ["NAND flash enterprise SSD price", "SSD memory demand", "YMTC Xtacking 4.0 12.66 Gb/mm2 TechInsights 512Gb", "YMTC 1Tb 294 layer 20.5 Gb/mm2 estimate", "YMTC enterprise SSD customer China", "NAND contract price China eSSD", "YMTC NAND market share 2026 HSBC Qianhai 13 percent", "NAND contract price Q2 2026 70 75 TrendForce", "YMTC homegrown NAND production line US sanctions"] },
-  { id: "china_nand", label: "China NAND Business", queries: ["YMTC eSSD Xtacking customer", "YMTC Wuhan Phase 3 NAND domestic equipment", "XMC Wuhan Xinxin NAND packaging", "JCET TFME advanced packaging NAND controller", "JCET XDFOI HBM AI packaging", "TFME advanced packaging China memory", "Naura AMEC ACM Research YMTC NAND equipment", "AMEC etch YMTC NAND", "ACM Research cleaning YMTC NAND", "YMTC controller firmware enterprise SSD", "China NAND subsidy server SSD procurement", "Chinese memory chips 15 percent cheaper YMTC CXMT", "China memory capacity expansion 2027 YMTC CXMT"] },
+  { id: "china_nand", label: "China NAND Business", queries: ["YMTC eSSD Xtacking customer", "YMTC Wuhan Phase 3 NAND domestic equipment", "XMC Wuhan Xinxin 12-inch specialty wafer foundry 3D IC", "XMC HBM packaging project equipment customer qualification", "JCET TFME advanced packaging NAND controller", "JCET XDFOI HBM AI packaging", "TFME advanced packaging China memory", "Naura AMEC ACM Research YMTC NAND equipment", "AMEC etch YMTC NAND", "ACM Research cleaning YMTC NAND", "YMTC controller firmware enterprise SSD", "China NAND subsidy server SSD procurement", "Chinese memory chips 15 percent cheaper YMTC CXMT", "China memory capacity expansion 2027 YMTC CXMT"] },
   { id: "skhynix_projection", label: "SKHY Product Projection", queries: ["SK hynix HBM4 server DRAM product mix", "SK hynix enterprise SSD Solidigm AI server storage", "SK hynix LPDDR UFS mobile memory demand", "SK hynix CXL memory module server roadmap", "SK hynix automotive memory edge AI", "SK hynix Nasdaq ADR SKHY 26.5 billion July 2026 SEC Reuters", "memory product mix AI server terminal NAND DRAM"] },
   { id: "capital", label: "Capital Markets·Investment", queries: ["site:sec.gov/Archives/edgar/data/2120882 SK hynix ADS Nasdaq prospectus", "site:english.sse.com.cn CXMT final offering 57.9 billion yuan", "CXMT STAR Market registration plan 29.5 billion yuan final offering 57.9 billion yuan", "Micron strategic customer agreements 16 customers official", "memory semiconductor capital expenditure long term agreement"] },
   { id: "cxl", label: "CXL·Next Memory", queries: ["CXL memory pooling", "CXL switch memory expansion", "CXL memory tester module", "CXL 3.1 memory module CMM-D", "Pangea v3 CXL 3.2", "4F2 vertical gate 3D DRAM SK hynix"] },
-  { id: "packaging", label: "Packaging·Photonics", queries: ["advanced packaging HBM hybrid bonding", "TSMC CoWoS HBM 3DFabric official", "CoWoS interposer HBM allocation advanced packaging", "High Bandwidth Flash HBF Sandisk SK hynix Open Compute Project", "HBF flash AI inference high bandwidth memory", "silicon photonics interconnect memory", "HBM TC bonder equipment supply chain", "JCET XDFOI advanced packaging HBM", "XMC Wuhan HBM packaging", "YMTC sells 39 percent XMC stake Caixin Global 68.2 29.2", "TFME advanced packaging memory", "Huawei Ascend HBM packaging China"] },
+  { id: "packaging", label: "Packaging·Photonics", queries: ["advanced packaging HBM hybrid bonding", "TSMC CoWoS HBM 3DFabric official", "CoWoS interposer HBM allocation advanced packaging", "High Bandwidth Flash HBF Sandisk SK hynix Open Compute Project", "HBF flash AI inference high bandwidth memory", "silicon photonics interconnect memory", "HBM TC bonder equipment supply chain", "JCET TFME XDFOI advanced packaging HBM OSAT", "XMC 3D integration HBM packaging project", "YMTC sells 39 percent XMC stake Caixin Global 68.2 29.2", "Huawei Ascend HBM packaging China"] },
   { id: "aidemand", label: "AI Demand", queries: ["AI memory demand data center", "AI accelerator memory bandwidth", "TrendForce global memory market 2027 1.28 trillion 2026 889.3 billion Agentic AI", "TrendForce DRAM 618.7 NAND 270.6 2026 memory market"] },
   { id: "benchmark", label: "China Benchmark", queries: ["China memory benchmark CXMT YMTC", "Chinese semiconductor equipment localization memory"] },
   { id: "china", label: "China·Geopolitics", queries: ["CXMT YMTC China memory", "China DRAM NAND export control", "CXMT revenue 2025 DRAM capacity", "YMTC Wuhan Phase 3 domestic equipment Naura AMEC", "YMTC existing Wuhan fabs 160000 200000 wpm source discrepancy", "YMTC sells XMC stake state-backed buyer Caixin Global June 2026", "XMC STAR Market review withdrawn May 2026", "BIS China memory export control VEU", "Reuters H200 China shipments CXMT Entity List held off July 2026", "US VEU revocation SK hynix Samsung Intel China fabs annual license 2026", "MATCH Act DUV restriction cryogenic etch blanket ban removed Reuters", "HR 8170 MATCH Act House Foreign Affairs Committee latest official action", "S.4281 MATCH Act Senate Banking Housing Urban Affairs latest official action", "CXMT IPO final offering 57.9 billion yuan July 2026", "CXMT IPO 15 percent overallotment 66.6 billion yuan", "Apple seeks approval buy CXMT memory China devices Reuters", "CXMT HBM3 mass production order materials components unlikely 2026", "CXMT DDR5 yield cost per bit die size Samsung 40 percent December 2024", "CXMT yield engineer HBM TSV recruitment", "YMTC Xtacking eSSD engineer recruitment", "Huawei Ascend memory supply YMTC CXMT", "Tencent Alibaba ByteDance CXMT DRAM supply", "Tsinghua career CXMT YMTC semiconductor recruitment", "Nvidia H20 export controls China HBM memory demand The Diplomat"] },
-  { id: "china_infra", label: "China Fab Infra", queries: ["SK hynix Wuxi fab water power land expansion", "SK hynix Wuxi K7 environmental impact assessment cleanroom expansion", "Wuxi high-tech bonded zone SK hynix land water electricity", "SK hynix Wuxi C2F additional cleanroom equipment installation", "BIS VEU SK hynix Wuxi fab capacity upgrade"] },
+  { id: "china_infra", label: "China Fab Infra", queries: ["SK hynix Wuxi fab water power land expansion", "SK hynix Wuxi 1z 1a 180000 190000 wafer capacity upgrade", "SK hynix Wuxi 581 billion won investment 2025 TrendForce", "SK hynix Wuxi K7 environmental impact assessment cleanroom expansion", "Wuxi high-tech bonded zone SK hynix land water electricity", "SK hynix Wuxi C2F additional cleanroom equipment installation", "BIS VEU SK hynix Wuxi fab capacity upgrade"] },
   { id: "china_talent_strategy", label: "China Talent Strategy", queries: ["SK hynix China hiring Wuxi Dalian Chongqing semiconductor", "China memory talent retention IP compliance semiconductor", "CXMT YMTC hiring yield TSV HBM engineer", "China enterprise SSD firmware FAE hiring memory", "Wuxi semiconductor EHS facility utilities hiring fab", "CXMT IPO filing Micron Samsung alumni international talent base DIGITIMES"] },
 ];
 
@@ -586,6 +586,8 @@ const ENGLISH_AUTHORITY_MONITORS = [
       "site:jedec.org HBM memory standard",
       "site:spectrum.ieee.org HBM semiconductor memory",
       "site:semiengineering.com HBM advanced packaging memory",
+      "site:news.skhynix.com CES 2026 cHBM AiMX CMM-Ax HBM4",
+      "site:semiconductor.samsung.com/news-events/news HBM4 HBM4E Custom HBM 2027",
     ],
   },
   {
@@ -599,6 +601,8 @@ const ENGLISH_AUTHORITY_MONITORS = [
       "site:semiengineering.com DRAM memory manufacturing",
       "site:semiconductor-digest.com DRAM memory semiconductor",
       "site:eetimes.com DRAM memory technology",
+      "site:trendforce.com/presscenter/news 3Q26 conventional DRAM contract 13 18 NAND 10 15",
+      "site:semimedia.cc SK hynix Wuxi 1a 180000 190000 wafer",
     ],
   },
   {
@@ -630,6 +634,8 @@ const ENGLISH_AUTHORITY_MONITORS = [
       "site:theregister.com Chinese memory ban CXMT YMTC supply",
       "site:newsletter.semianalysis.com CXMT DRAM capacity HBM",
       "site:technode.com YMTC NAND market share",
+      "site:xmcwh.com/en/site XMC 12-inch wafer foundry 3D IC specialty memory",
+      "site:trendforce.com/news SK hynix Wuxi Dalian 581 billion 2025 investment",
     ],
   },
   {
@@ -2126,6 +2132,25 @@ const CHINA_INFRA_SOURCE_PAGES = [
     publishedAt: "2026-01-05",
     markers: ["C79", "C57", "H-prefix", "individual fab license"],
   },
+  {
+    id: "wuxi-1a-upgrade",
+    site: "wuxi",
+    label: "Wuxi 1a process upgrade",
+    url: "https://www.semimedia.cc/sk-hynix-completes-wuxi-dram-fab-upgrade-enabling-advanced-1a-process-production/",
+    fallbackUrls: [
+      "https://www.trendforce.com/news/2026/03/27/news-memory-giants-china-investments-soar-in-2025-samsung-xian-up-67-5-sk-hynix-wuxi-dalian-hit-trillion-won/",
+    ],
+    publishedAt: "2026-01-22",
+    markers: ["1a", "180,000", "190,000", "90%"],
+  },
+  {
+    id: "wuxi-dalian-investment-2025",
+    site: "all",
+    label: "Wuxi and Dalian 2025 investment",
+    url: "https://www.trendforce.com/news/2026/03/27/news-memory-giants-china-investments-soar-in-2025-samsung-xian-up-67-5-sk-hynix-wuxi-dalian-hit-trillion-won/",
+    publishedAt: "2026-03-27",
+    markers: ["581 billion", "440.6 billion", "Wuxi", "Dalian"],
+  },
 ];
 
 const STOPWORDS = new Set([
@@ -2207,7 +2232,7 @@ const KOREAN_SOURCE_RE = new RegExp(
 const LOW_CONFIDENCE_NEWS_RE = /(ad hoc news|indexbox|36\s*kr|36kr|borncity|mjengo|blockchain\.news|odaily|zamin\.uz|finance\.biggo|crypto briefing|weex|fortrinawwer|siliconanalysts|nand-research|reddit|facebook|linkedin\.com|x\.com|twitter\.com)/i;
 const SKHYNIX_NEWSROOM_RE = /news\.skhynix\.com|sk\s*hynix\s*newsroom|skhy\s*newsroom/i;
 const AUTHORITATIVE_EN_NEWS_RE =
-  /(reuters|bloomberg|financial times|ft\.com|nikkei|cnbc|associated press|apnews|sec\.gov|nasdaq|trendforce|dramexchange|techinsights|yole|counterpoint|tom'?s hardware|tomshardware|south china morning post|scmp|caixin global|caixinglobal|digitimes|ee times|eetimes|semianalysis|techwire asia|the register|business insider|network world|evertiq|technode|techspot|japan times|electronics weekly|semiconductor engineering|semiengineering|semiconductor digest|solid state technology|ieee spectrum|jedec|semi\.org|businesswire|pr newswire|solidigm|intel|micron|tsmc|open compute project|opencompute\.org|u\.s\. bis|bis\.gov|govinfo|census\.gov|content\.govdelivery\.com\/accounts\/USCENSUS|wsts|acm research ir|cxmt|shanghai stock exchange|samsung|samsung semiconductor|semiconductor\.samsung\.com|sandisk|panmnesia|morganstanley\.com|goldmansachs\.com|jpmorgan\.com|ubs\.com|citigroup\.com|bofa\.com|bankofamerica\.com|barclays\.com|nomura\.com|jefferies\.com|mizuho)/i;
+  /(reuters|bloomberg|financial times|ft\.com|nikkei|cnbc|associated press|apnews|sec\.gov|nasdaq|trendforce|dramexchange|techinsights|yole|counterpoint|tom'?s hardware|tomshardware|south china morning post|scmp|caixin global|caixinglobal|digitimes|ee times|eetimes|semianalysis|semimedia|techwire asia|the register|business insider|network world|evertiq|technode|techspot|japan times|electronics weekly|semiconductor engineering|semiengineering|semiconductor digest|solid state technology|ieee spectrum|jedec|semi\.org|businesswire|pr newswire|solidigm|intel|micron|tsmc|open compute project|opencompute\.org|u\.s\. bis|bis\.gov|govinfo|census\.gov|content\.govdelivery\.com\/accounts\/USCENSUS|wsts|acm research ir|cxmt|xmcwh\.com|shanghai stock exchange|samsung|samsung semiconductor|semiconductor\.samsung\.com|sandisk|panmnesia|morganstanley\.com|goldmansachs\.com|jpmorgan\.com|ubs\.com|citigroup\.com|bofa\.com|bankofamerica\.com|barclays\.com|nomura\.com|jefferies\.com|mizuho)/i;
 const AUTHORITATIVE_CN_NEWS_RE =
   /(财新|caixin|第一财经|yicai|21财经|21世纪经济报道|21jingji|证券时报|stcn|中国经营报|cb\.com\.cn|东方财富|eastmoney|新浪财经|sina finance|澎湃新闻|the paper|虎嗅|huxiu|电子工程专辑|eet-china|集微网|爱集微|ijiwei|laoyaoba|半导体新闻网|seminews|经济观察网|eeo\.com\.cn|techweb|chinaflashmarket|闪存市场|semi china|中国半导体行业协会|csia|科技新报|technews\.tw|钜亨网|cnyes\.com|solidot|奇客|xinhuanet)/i;
 const MEMORY_NEWS_RE =
@@ -5282,17 +5307,23 @@ export async function fetchSourceTextWithRetry(source = {}, {
   fetchTextImpl = fetchText,
   sleepImpl = sleep,
 } = {}) {
-  const url = String(source.url || "").trim();
-  if (!url) throw new Error("source URL missing");
+  const urls = [source.url, ...(Array.isArray(source.fallbackUrls) ? source.fallbackUrls : [])]
+    .map((value) => String(value || "").trim())
+    .filter((value, index, values) => value && values.indexOf(value) === index);
+  if (!urls.length) throw new Error("source URL missing");
   const maxAttempts = Math.max(1, Math.min(3, Number(source.retryAttempts || 1)));
   let lastError;
-  for (let attempt = 0; attempt < maxAttempts; attempt += 1) {
-    try {
-      return { html: await fetchTextImpl(url), attempts: attempt + 1 };
-    } catch (error) {
-      lastError = error;
-      if (!isTransientSourceError(error) || attempt === maxAttempts - 1) break;
-      await sleepImpl(550 * (attempt + 1));
+  let totalAttempts = 0;
+  for (const url of urls) {
+    for (let attempt = 0; attempt < maxAttempts; attempt += 1) {
+      totalAttempts += 1;
+      try {
+        return { html: await fetchTextImpl(url), attempts: totalAttempts, url };
+      } catch (error) {
+        lastError = error;
+        if (!isTransientSourceError(error) || attempt === maxAttempts - 1) break;
+        await sleepImpl(550 * (attempt + 1));
+      }
     }
   }
   throw lastError || new Error("source fetch failed");
@@ -5302,7 +5333,7 @@ async function collectChinaInfra() {
   const sources = [];
   for (const source of CHINA_INFRA_SOURCE_PAGES) {
     try {
-      const { html, attempts } = await fetchSourceTextWithRetry(source);
+      const { html, attempts, url: resolvedUrl } = await fetchSourceTextWithRetry(source);
       const text = stripHTML(html).slice(0, 240000);
       const description = articleMetaDescription(html, source.label);
       const markers = (source.markers || []).map((marker) => ({
@@ -5315,6 +5346,7 @@ async function collectChinaInfra() {
         site: source.site,
         label: source.label,
         url: source.url,
+        resolvedUrl,
         publishedAt: source.publishedAt || null,
         ok: true,
         markerHits: hitCount,
@@ -5712,7 +5744,7 @@ const INTELLIGENCE_TOPICS = [
   },
 ];
 
-const OFFICIAL_SOURCE_RE = /(?:\.gov(?:\/|$)|govinfo\.gov|congress\.gov|sec\.gov|census\.gov|content\.govdelivery\.com\/accounts\/USCENSUS|english\.sse\.com\.cn|hkexnews\.hk|investors?\.|ir\.|newsroom\.|company\/(?:news|press))/i;
+const OFFICIAL_SOURCE_RE = /(?:\.gov(?:\/|$)|govinfo\.gov|congress\.gov|sec\.gov|census\.gov|content\.govdelivery\.com\/accounts\/USCENSUS|english\.sse\.com\.cn|hkexnews\.hk|investors?\.|ir\.|newsroom\.|company\/(?:news|press)|news\.samsung\.com|news\.skhynix\.com|semiconductor\.samsung\.com\/(?:[^/]+\/)*news-events\/news|xmcwh\.com\/(?:en\/)?site\/(?:about-XMC|news|details))/i;
 const ANALYSIS_SOURCE_RE = /(?:trendforce\.com\/(?:presscenter|price|news)|counterpointresearch\.com|techinsights\.com|wsts\.org|yolegroup\.com|newsletter\.semianalysis\.com)/i;
 const AUTHORITATIVE_MEDIA_RE = /(?:reuters|bloomberg|ft\.com|financial times|nikkei|cnbc|associated press|apnews|south china morning post|scmp|caixin global|caixinglobal|digitimes|ee times|tom's hardware)/i;
 const ESTIMATE_RE = /(?:forecast|estimate|reportedly|sources? (?:said|say)|could|may |might|expected|projection|전망|추정|보도|소식통)/i;
@@ -6929,6 +6961,27 @@ const OFFICIAL_INDUSTRY_PROBES = [
   // a forecast or a reported figure into an actual result.
   { id: "trendforce-memory-2026", label: "TrendForce 2026/2027 memory forecast", url: "https://www.trendforce.com/presscenter/news/20260529-13068.html", pattern: /889\.3\s*billion|1\.28\s*trillion/i },
   { id: "trendforce-rubin-mix-2026", label: "TrendForce NVIDIA 2026 product mix", url: "https://www.trendforce.com/presscenter/news/20260408-13003.html", pattern: /Rubin.{0,200}(?:29%|29 percent).{0,200}(?:22%|22 percent)|Blackwell.{0,200}(?:61%|61 percent).{0,200}(?:71%|71 percent)/is },
+  { id: "trendforce-memory-price-3q26", label: "TrendForce 3Q26 DRAM and NAND contract prices", url: "https://www.trendforce.com/presscenter/news/20260703-13134.html", pattern: /DRAM.{0,400}13.{0,40}18%|NAND.{0,400}10.{0,40}15%/is },
+  {
+    id: "xmc-company-profile",
+    label: "XMC official company classification",
+    url: "https://www.xmcwh.com/en/site/about-XMC",
+    retryAttempts: 3,
+    pattern: /12-inch.{0,400}(?:wafer foundry|3D IC)|specialty memory/is,
+  },
+  {
+    id: "samsung-hbm4-roadmap",
+    label: "Samsung HBM4 and Custom HBM roadmap",
+    url: "https://semiconductor.samsung.com/kr/news-events/news/samsung-ships-industry-first-commercial-hbm4-with-ultimate-performance-for-ai-computing/",
+    fallbackUrls: ["https://news.samsung.com/global/samsung-ships-industry-first-commercial-hbm4-with-ultimate-performance-for-ai-computing"],
+    pattern: /11\.7\s*Gbps.{0,500}13\s*Gbps|HBM4E.{0,400}Custom HBM/is,
+  },
+  {
+    id: "skhynix-ces-2026-ai-memory",
+    label: "SK hynix CES 2026 AI memory portfolio",
+    url: "https://news.skhynix.com/sk-hynix-showcases-next-generation-ai-memory-innovations-at-ces-2026/",
+    pattern: /cHBM.{0,800}AiMX.{0,800}CMM-Ax/is,
+  },
   {
     id: "sse-cxmt-final-offering",
     label: "SSE / China Daily CXMT final offering",

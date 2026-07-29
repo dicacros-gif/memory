@@ -386,6 +386,22 @@ const chinaInfraRecovery = await fetchSourceTextWithRetry({
 assert.equal(chinaInfraRecovery.html, "official Wuxi source body");
 assert.equal(chinaInfraRecovery.attempts, 2, "a transient source transport failure must recover before it reaches source health");
 
+const chinaInfraFallbackCalls = [];
+const chinaInfraFallback = await fetchSourceTextWithRetry({
+  url: "https://primary.example/wuxi",
+  fallbackUrls: ["https://fallback.example/wuxi"],
+}, {
+  fetchTextImpl: async (url) => {
+    chinaInfraFallbackCalls.push(url);
+    if (url.includes("primary")) throw new Error("HTTP 403");
+    return "fallback Wuxi source body";
+  },
+  sleepImpl: async () => {},
+});
+assert.deepEqual(chinaInfraFallbackCalls, ["https://primary.example/wuxi", "https://fallback.example/wuxi"]);
+assert.equal(chinaInfraFallback.url, "https://fallback.example/wuxi");
+assert.equal(chinaInfraFallback.attempts, 2, "a blocked primary source should recover through its curated authority fallback");
+
 const relationNews = [1, 2, 3].map((index) => article(
   `SK hynix and TSMC discuss HBM4 base die collaboration ${index}`,
   `https://example.com/relation-${index}`,
