@@ -21134,6 +21134,33 @@ button.ni-trend-chip:hover { box-shadow: 0 4px 12px color-mix(in srgb, #0891B2 2
 .ni-research-evidence > span b { display: grid; place-items: center; width: 17px; height: 17px; border-radius: 5px; color: var(--panel); background: var(--node-color, var(--accent, #4322A8)); font-family: var(--display); font-size: 8px; }
 .ni-research-evidence > strong { display: -webkit-box; overflow: hidden; color: var(--ink); font-size: 10px; line-height: 1.38; -webkit-line-clamp: 3; -webkit-box-orient: vertical; }
 .ni-research-evidence > small { overflow: hidden; color: var(--muted, var(--ink-2)); font-size: 8.5px; font-weight: 750; text-overflow: ellipsis; white-space: nowrap; }
+
+/* Evidence tape cards keep a light surface on hover. Override the global
+   inverted-card pastels with dark semantic inks so every highlighted term
+   remains readable against the white panel. */
+.ni-research-evidence .term-company { --evidence-hover-ink: #5b21b6; }
+.ni-research-evidence .term-source { --evidence-hover-ink: #1e40af; }
+.ni-research-evidence .term-policy { --evidence-hover-ink: #9a3412; }
+.ni-research-evidence .term-tech { --evidence-hover-ink: #006d63; }
+.ni-research-evidence .term-metric { --evidence-hover-ink: #a61b12; }
+.ni-research-evidence .term-action { --evidence-hover-ink: #047857; }
+.ni-research-evidence .term-key { --evidence-hover-ink: #9d174d; }
+
+.ni-research-evidence:is(:hover, :focus-visible) {
+  background:
+    radial-gradient(circle at 100% 0, color-mix(in srgb, var(--node-color, #4322A8) 10%, transparent), transparent 46%),
+    linear-gradient(145deg, #fff, color-mix(in srgb, var(--node-color, #4322A8) 5%, #f8fafc));
+}
+
+.ni-research-evidence:is(:hover, :focus-visible) :is(.strategy-highlight, .answer-term) {
+  --term-color: var(--evidence-hover-ink, #334155);
+  --term-hover: var(--evidence-hover-ink, #334155);
+  color: var(--evidence-hover-ink, #334155) !important;
+  -webkit-text-fill-color: var(--evidence-hover-ink, #334155);
+  text-decoration-color: color-mix(in srgb, var(--evidence-hover-ink, #334155) 72%, transparent) !important;
+  text-shadow: none;
+}
+
 .ni-research-disclosure { display: flex; align-items: center; justify-content: space-between; gap: 10px; margin-top: 9px; }
 .ni-research-disclosure > span { font-size: 9.5px; font-weight: 750; color: var(--ink-2); }
 .ni-research-toggle { flex: 0 0 auto; padding: 5px 9px; border: 1px solid color-mix(in srgb, var(--accent, #4322A8) 42%, var(--line)); border-radius: 999px; color: var(--accent, #4322A8); background: var(--panel); font: inherit; font-size: 9.5px; font-weight: 950; cursor: pointer; }
