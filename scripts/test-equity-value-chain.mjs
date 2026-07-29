@@ -97,6 +97,8 @@ assert.match(app, /class="equity-ticker-identity"[\s\S]*?equityCompanyLogoHTML\(
   "each listed-company card must place its company logo beside the company identity");
 assert.match(css, /\.equity-ticker-grid button:is\(:hover, :focus-visible\) \{[\s\S]*?scale\(1\.018\)[\s\S]*?linear-gradient\(145deg, #172b46 0%, #0d4f5a 58%, #087f72 100%\)/,
   "listed-company cards must invert to a professional animated gradient on hover");
+assert.match(css, /\.equity-ticker-grid button\.active:is\(:hover, :focus-visible\) \{[\s\S]*?linear-gradient\(145deg, #17324d 0%, #0d5963 56%, #08796d 100%\)[\s\S]*?\.equity-ticker-grid button\.active:is\(:hover, :focus-visible\) :is\(b, strong, small, em\) \{[\s\S]*?color:\s*#fff[\s\S]*?opacity:\s*1/,
+  "selected listed-company cards must retain high-contrast text when hover and focus states overlap");
 assert.match(css, /@media \(prefers-reduced-motion: reduce\)[\s\S]*?\.equity-chart-line/,
   "equity motion must respect reduced-motion settings");
 

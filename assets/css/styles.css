@@ -23442,8 +23442,11 @@ button.ni-trend-chip:hover { box-shadow: 0 4px 12px color-mix(in srgb, #0891B2 2
 
 .equity-ticker-grid button.active {
   border-color: #168f7b;
-  background: linear-gradient(145deg, rgba(52, 197, 161, .16), rgba(88, 166, 255, .09));
-  box-shadow: 0 3px 0 #0f766e, 0 10px 22px rgba(15, 118, 110, .13);
+  background: linear-gradient(145deg, #e7f7f3 0%, #e2edf8 100%);
+  box-shadow:
+    0 3px 0 #0f766e,
+    0 10px 22px rgba(15, 118, 110, .13),
+    inset 0 1px rgba(255, 255, 255, .88);
 }
 
 .equity-ticker-grid b,
@@ -23614,6 +23617,30 @@ button.ni-trend-chip:hover { box-shadow: 0 4px 12px color-mix(in srgb, #0891B2 2
   font-size: 10px;
   font-style: normal;
   font-weight: 850;
+}
+
+/* Keep the selected company readable when pointer and keyboard states overlap.
+   Surface and typography switch together into one high-contrast state. */
+.equity-ticker-grid button.active:is(:hover, :focus-visible) {
+  border-color: #7de8d3;
+  background:
+    radial-gradient(circle at 88% 12%, rgba(125, 232, 211, .24), transparent 42%),
+    linear-gradient(145deg, #17324d 0%, #0d5963 56%, #08796d 100%);
+  box-shadow:
+    0 4px 0 #064e48,
+    0 16px 30px rgba(7, 23, 43, .30),
+    inset 0 1px rgba(255, 255, 255, .16);
+}
+
+.equity-ticker-grid button.active:is(:hover, :focus-visible) :is(b, strong, small, em) {
+  color: #fff;
+  opacity: 1;
+  text-shadow: 0 1px 1px rgba(3, 14, 28, .28);
+}
+
+.equity-ticker-grid button.active:is(:hover, :focus-visible) b,
+.equity-ticker-grid button.active:is(:hover, :focus-visible) em {
+  color: #b9ffed;
 }
 
 .equity-source-note a {
