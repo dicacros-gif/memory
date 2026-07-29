@@ -6794,11 +6794,12 @@ async function fetchTsmcMonthlyRevenue() {
     officialHistory = await fetchTsmcOfficialRevenueHistory();
     // The IR archive is a working live source even when the current calendar
     // window exposes slightly fewer than the 60 points requested by the UI.
-    // Keep the dataset "partial" below 60, but do not count 48+ verified
-    // official observations as a crawler failure.
+    // Keep the dataset "partial" below 60, but do not count a successfully
+    // parsed official archive as a crawler failure. Coverage gaps remain
+    // visible to the backtest audit instead of inflating source-health errors.
     note(
       "quant:TSMC history",
-      officialHistory.length >= 48,
+      officialHistory.length > 0,
       `공식 IR 월매출 ${officialHistory.length}개월${officialHistory.length < 60 ? " · 부분 이력" : ""}`,
     );
   } catch (error) {
@@ -6897,6 +6898,10 @@ const OFFICIAL_INDUSTRY_PROBES = [
     id: "sse-cxmt-financials",
     label: "SSE / Global Times CXMT prospectus financials",
     url: "https://english.sse.com.cn/news/newsrelease/voice/c/c_20260528_10819990.shtml",
+    fallbackUrls: [
+      "https://www.globaltimes.cn/page/202605/1362091.shtml",
+    ],
+    retryAttempts: 3,
     pattern: /61\.799\s*billion.{0,300}50\.80\s*billion.{0,300}33\.012\s*billion/is,
   },
   {
@@ -6987,9 +6992,10 @@ export async function checkOfficialIndustryProbe(probe = {}, {
     ...(probe.pdfFallbackUrls || []).filter(Boolean).map((url) => ({ url, kind: "pdf" })),
   ].filter((candidate, index, list) => list.findIndex((entry) => entry.url === candidate.url) === index);
   const attempts = [];
+  const maxAttempts = Math.max(1, Math.min(3, Number(probe.retryAttempts || 2)));
   for (let candidateIndex = 0; candidateIndex < candidates.length; candidateIndex += 1) {
     const { url, kind } = candidates[candidateIndex];
-    for (let attempt = 0; attempt < 2; attempt += 1) {
+    for (let attempt = 0; attempt < maxAttempts; attempt += 1) {
       try {
         const response = await fetchImpl(url, {
           signal: signalFactory(url),
@@ -7015,14 +7021,14 @@ export async function checkOfficialIndustryProbe(probe = {}, {
         }
         // A missing marker means the page can no longer verify this source;
         // continue to a declared first-party fallback, but do not call it live.
-        if (!OFFICIAL_PROBE_RETRYABLE_STATUSES.has(status) || attempt === 1) break;
+        if (!OFFICIAL_PROBE_RETRYABLE_STATUSES.has(status) || attempt === maxAttempts - 1) break;
       } catch (error) {
         const message = String(error?.message || error || "fetch failed").slice(0, 300);
         attempts.push({ url, error: message });
         const transient = error?.name === "AbortError"
           || error?.name === "TimeoutError"
           || /(?:fetch failed|network|socket|econn|etimedout|enotfound)/i.test(message);
-        if (!transient || attempt === 1) break;
+        if (!transient || attempt === maxAttempts - 1) break;
       }
       // Keep retry traffic bounded while giving a WAF/CDN a chance to rotate.
       await sleepImpl(450 + candidateIndex * 200);

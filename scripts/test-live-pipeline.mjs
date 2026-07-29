@@ -228,6 +228,28 @@ assert.equal(recoveredOfficialProbe.attempts.length, 2);
 assert.equal(officialProbeCalls[1].headers["Cache-Control"], "no-cache", "the retry must bypass a stale edge-cache response");
 assert.ok(officialProbeCalls[1].headers.Referer, "the retry must use a same-origin browser referer");
 
+let thirdAttemptProbeCalls = 0;
+const thirdAttemptOfficialProbe = await checkOfficialIndustryProbe({
+  id: "official-third-attempt-test",
+  url: "https://official.example/intermittent",
+  retryAttempts: 3,
+  pattern: /verified official marker/i,
+}, {
+  fetchImpl: async (url) => {
+    thirdAttemptProbeCalls += 1;
+    return {
+      ok: thirdAttemptProbeCalls === 3,
+      status: thirdAttemptProbeCalls === 3 ? 200 : 503,
+      url,
+      text: async () => thirdAttemptProbeCalls === 3 ? "verified official marker" : "temporary upstream failure",
+    };
+  },
+  sleepImpl: async () => {},
+  signalFactory: () => undefined,
+});
+assert.equal(thirdAttemptOfficialProbe.reachable, true, "a probe configured for three attempts must recover on its final bounded retry");
+assert.equal(thirdAttemptProbeCalls, 3);
+
 const fallbackOfficialProbe = await checkOfficialIndustryProbe({
   id: "official-fallback-test",
   url: "https://official.example/primary",
