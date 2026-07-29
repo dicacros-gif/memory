@@ -17,11 +17,11 @@ on:
       - "data/price-history-client.json"
       - "data/market-history-client.json"
       - "data/quant-backtest-client.json"
+      - "data/translation-cache.json"
   schedule:
     # Refresh foreign/China news, public China community/hiring signals,
-    # TrendForce prices, and memory peer data twice a day: 06:00 and 18:00 KST.
-    - cron: "0 21 * * *"
-    - cron: "0 9 * * *"
+    # TrendForce prices, and memory peer data every six hours.
+    - cron: "0 3,9,15,21 * * *"
   workflow_dispatch:
 
 permissions:
@@ -65,7 +65,7 @@ jobs:
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add data/live.json data/price-history.json data/market-history.json data/quant.json data/quant-backtest.json data/crawl-audit.json data/crawl-quarantine.json data/data-manifest.json data/live-client.json data/quant-client.json data/price-history-client.json data/market-history-client.json data/quant-backtest-client.json
+          git add data/live.json data/price-history.json data/market-history.json data/quant.json data/quant-backtest.json data/crawl-audit.json data/crawl-quarantine.json data/data-manifest.json data/live-client.json data/quant-client.json data/price-history-client.json data/market-history-client.json data/quant-backtest-client.json data/translation-cache.json
           if git diff --cached --quiet; then
             echo "No data changes to commit."
           else

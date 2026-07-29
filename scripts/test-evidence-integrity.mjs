@@ -13,6 +13,12 @@ const correctCnyTranslation = auditTranslationFidelity(
 assert.equal(correctCnyTranslation.status, "verified", "CNY billion and Korean 억 must normalise to the same amount");
 assert.equal(correctCnyTranslation.tokenMatchPct, 100);
 
+const compoundCnyTranslation = auditTranslationFidelity(
+  "The company raised 57.92 billion yuan ($8.6 billion) after pricing the IPO at 8.66 yuan per share.",
+  "회사는 IPO 가격을 주당 8.66위안으로 책정한 후 579억 2천만 위안(86억 달러)을 조달했습니다.",
+);
+assert.equal(compoundCnyTranslation.status, "verified", "compound 억·천만 amounts must retain the same currency value");
+
 const incorrectCurrencyTranslation = auditTranslationFidelity(
   "The exchange approved a CNY 29.5 billion plan.",
   "거래소는 295억 달러 계획을 승인했습니다.",

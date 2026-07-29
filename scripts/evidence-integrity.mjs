@@ -50,12 +50,24 @@ function moneyMatches(text = "") {
     const normalized = normalizedCurrency(currency);
     const value = numberValue(amount);
     if (!normalized || !Number.isFinite(value)) return;
+    const range = [match.index, match.index + match[0].length];
+    if (claimedRanges.some(([start, end]) => range[0] < end && range[1] > start)) return;
     matches.push({ currency: normalized, amount: value * magnitudeMultiplier(magnitude) });
-    claimedRanges.push([match.index, match.index + match[0].length]);
+    claimedRanges.push(range);
   };
+  const compoundKorean = /(?:(\d+(?:[,.]\d+)?)\s*조\s*)?(?:(\d+(?:[,.]\d+)?)\s*억\s*)?(?:(\d+(?:[,.]\d+)?)\s*천만\s*)?(달러|위안|원|유로)/gu;
   const prefix = new RegExp(`(${CURRENCY_PATTERN})\\s*(${NUMBER_PATTERN})\\s*(${MAGNITUDE_PATTERN})?`, "giu");
   const suffix = new RegExp(`(${NUMBER_PATTERN})\\s*(${MAGNITUDE_PATTERN})?\\s*(${CURRENCY_PATTERN})`, "giu");
   let match;
+  while ((match = compoundKorean.exec(input))) {
+    const parts = [match[1], match[2], match[3]].map(numberValue);
+    if (!parts.some(Number.isFinite)) continue;
+    const amount = (parts[0] || 0) * 1e12 + (parts[1] || 0) * 1e8 + (parts[2] || 0) * 1e7;
+    const normalized = normalizedCurrency(match[4]);
+    if (!normalized || !Number.isFinite(amount) || amount <= 0) continue;
+    matches.push({ currency: normalized, amount });
+    claimedRanges.push([match.index, match.index + match[0].length]);
+  }
   while ((match = prefix.exec(input))) add(match, match[1], match[2], match[3]);
   while ((match = suffix.exec(input))) add(match, match[3], match[1], match[2]);
 

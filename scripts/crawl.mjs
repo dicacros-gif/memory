@@ -28,6 +28,11 @@ import {
   evidenceClaimLabel,
   supersededNumericClaimReason,
 } from "./evidence-integrity.mjs";
+import {
+  createGoogleKoTranslator,
+  koreanTranslationQualityGate,
+  translationCacheKey,
+} from "./translation-pipeline.mjs";
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
 const OUT = resolve(__dirname, "..", "data", "live.json");
@@ -43,6 +48,7 @@ const DATA_MANIFEST_OUT = resolve(__dirname, "..", "data", "data-manifest.json")
 const CRAWL_EXCLUSIONS_OUT = resolve(__dirname, "..", "data", "crawl-exclusions.json");
 const CRAWL_AUDIT_OUT = resolve(__dirname, "..", "data", "crawl-audit.json");
 const CRAWL_QUARANTINE_OUT = resolve(__dirname, "..", "data", "crawl-quarantine.json");
+const TRANSLATION_CACHE_OUT = resolve(__dirname, "..", "data", "translation-cache.json");
 const QUANT_OUT = resolve(__dirname, "..", "data", "quant.json");
 const QUANT_MODEL_IN = resolve(__dirname, "..", "data", "quant-model.json");
 const BASELINE_IN = resolve(__dirname, "..", "data", "baseline.json");
@@ -54,7 +60,7 @@ const PRICE_HISTORY_RETENTION_POINTS = 365 * 5 + 60;
 const MARKET_HISTORY_LOOKBACK_DAYS = 365 * 5;
 const MARKET_HISTORY_RETENTION_POINTS = 365 * 5 + 60;
 const NEWS_STREAM_LIMIT = 48;
-const NEWS_ENRICH_CONCURRENCY = 5;
+const NEWS_ENRICH_CONCURRENCY = 4;
 const NEWS_PROVIDER_FAILURE_LIMIT = 3;
 const COMMUNITY_MAX_ITEMS = 96;
 const COMMUNITY_RETENTION_DAYS = 365 * 5;
@@ -79,9 +85,9 @@ const SOURCE_TIMEOUT_MS = Object.freeze({
 // validated crawl bundle from being published.  The public endpoint can rate
 // limit or stall without returning an error, so keep its timeout and total
 // crawl budget deliberately smaller than primary-source collection.
-const KO_TRANSLATION_TIMEOUT_MS = Math.max(1_000, Number(process.env.KO_TRANSLATION_TIMEOUT_MS || 4_500));
-const KO_TRANSLATION_BUDGET_MS = Math.max(0, Number(process.env.KO_TRANSLATION_BUDGET_MS || 45_000));
-const KO_BRIEF_TRANSLATION_RESERVE_MS = Math.max(0, Number(process.env.KO_BRIEF_TRANSLATION_RESERVE_MS || 18_000));
+const KO_TRANSLATION_TIMEOUT_MS = Math.max(1_000, Number(process.env.KO_TRANSLATION_TIMEOUT_MS || 8_000));
+const KO_TRANSLATION_BUDGET_MS = Math.max(0, Number(process.env.KO_TRANSLATION_BUDGET_MS || 120_000));
+const KO_BRIEF_TRANSLATION_RESERVE_MS = Math.max(0, Number(process.env.KO_BRIEF_TRANSLATION_RESERVE_MS || 30_000));
 const SKIP_KO_TRANSLATION = /^(?:1|true|yes)$/i.test(
   String(process.env.CRAWL_SKIP_KO_TRANSLATION || process.env.SKIP_KO_TRANSLATION || ""),
 );
@@ -3467,6 +3473,7 @@ async function enrichNewsItems(items = [], previousItems = []) {
 /* ---------- best-effort EN->KO headline translation (no API key) ---------- */
 let _trCount = 0;
 const TR_CAP = 210;
+let koTranslator = null;
 
 function koTranslationDeadline() {
   return KO_TRANSLATION_BUDGET_MS > 0 ? Date.now() + KO_TRANSLATION_BUDGET_MS : 0;
@@ -3476,30 +3483,28 @@ function koTranslationBudgetExpired(deadline = 0) {
   return Number.isFinite(deadline) && deadline > 0 && Date.now() >= deadline;
 }
 
-async function translateKo(text) {
-  if (!text) return "";
-  try {
-    const url = `https://translate.googleapis.com/translate_a/single?client=gtx&sl=auto&tl=ko&dt=t&q=${encodeURIComponent(text)}`;
-    const res = await fetch(url, {
-      signal: AbortSignal.timeout(KO_TRANSLATION_TIMEOUT_MS),
-      headers: { "User-Agent": BROWSER_UA, Accept: "application/json" },
-    });
-    if (!res.ok) return "";
-    const buf = await res.arrayBuffer();
-    const json = JSON.parse(new TextDecoder("utf-8").decode(buf));
-    const parts = (json[0] || []).map((seg) => (seg && seg[0]) || "").join("");
-    return String(parts || "").replace(/\s+/g, " ").trim();
-  } catch {
-    return "";
-  }
+function translationQuality(original = "", translated = "") {
+  const language = koreanTranslationQualityGate(original, translated);
+  const fidelity = auditTranslationFidelity(original, translated);
+  return {
+    status: language.status === "verified" && fidelity.status === "verified" ? "verified" : "unverified",
+    reasons: [...language.reasons, ...(fidelity.reasons || [])],
+    language,
+    fidelity,
+  };
 }
 
 function recordTranslationAudit(item, field, original, translated) {
-  const audit = auditTranslationFidelity(original, translated);
+  const audit = translationQuality(original, translated);
   item.translation = {
     ...(item.translation || {}),
     [field]: {
-      ...audit,
+      ...audit.fidelity,
+      languageStatus: audit.language.status,
+      languageReasons: audit.language.reasons,
+      hangulCount: audit.language.hangulCount,
+      hangulRatio: audit.language.hangulRatio,
+      status: audit.status,
       checkedAt: new Date().toISOString(),
       display: audit.status === "verified" ? "translated" : "source-original",
     },
@@ -3507,32 +3512,43 @@ function recordTranslationAudit(item, field, original, translated) {
   return audit.status === "verified";
 }
 
-async function addKoTitles(arr, limit, deadline = 0) {
+function hasReusableTranslation(original = "", translated = "") {
+  return Boolean(translated && translationQuality(original, translated).status === "verified");
+}
+
+async function addKoField(arr, limit, deadline, field) {
   const items = (arr || []).slice(0, limit || (arr || []).length);
+  const tasks = [];
   for (const item of items) {
     if (_trCount >= TR_CAP || koTranslationBudgetExpired(deadline)) break;
-    if (!item || !item.title || item.titleKo) continue;
-    const ko = await translateKo(item.title);
-    const cleanKo = cleanKoNewsText(ko);
-    const verified = recordTranslationAudit(item, "title", item.title, cleanKo);
-    if (cleanKo && cleanKo !== item.title && verified) item.titleKo = cleanKo;
+    if (!item) continue;
+    const original = field === "title" ? String(item.title || "") : String(item.summaryOriginal || "");
+    const current = field === "title" ? String(item.titleKo || "") : String(item.summary || "");
+    if (!original || hasReusableTranslation(original, current)) continue;
+    tasks.push({ item, original });
     _trCount += 1;
-    await sleep(120);
+  }
+  if (!tasks.length || !koTranslator) return;
+
+  const translated = await koTranslator.translateTexts(tasks.map((task) => task.original), { deadline });
+  for (const task of tasks) {
+    const cleanKo = cleanKoNewsText(translated.get(task.original) || "");
+    const verified = recordTranslationAudit(task.item, field, task.original, cleanKo);
+    if (field === "title") {
+      if (verified) task.item.titleKo = cleanKo;
+      else delete task.item.titleKo;
+    } else {
+      task.item.summary = verified ? cleanKo : task.original;
+    }
   }
 }
 
+async function addKoTitles(arr, limit, deadline = 0) {
+  return addKoField(arr, limit, deadline, "title");
+}
+
 async function addKoSummaries(arr, limit, deadline = 0) {
-  const items = (arr || []).slice(0, limit || (arr || []).length);
-  for (const item of items) {
-    if (_trCount >= TR_CAP || koTranslationBudgetExpired(deadline)) break;
-    if (!item?.summaryOriginal || item.summary) continue;
-    const ko = await translateKo(item.summaryOriginal);
-    const cleanKo = cleanKoNewsText(ko);
-    const verified = recordTranslationAudit(item, "summary", item.summaryOriginal, cleanKo);
-    item.summary = verified ? cleanKo : item.summaryOriginal;
-    _trCount += 1;
-    await sleep(120);
-  }
+  return addKoField(arr, limit, deadline, "summary");
 }
 
 async function fetchCategory(cat, seen, locale = "en") {
@@ -5183,6 +5199,40 @@ function buildSignals({ prices, competitors, startups, newsStats: stats }) {
 }
 
 /* ---------- main ---------- */
+function seedTranslationCache(cache = {}, payload = {}) {
+  const entries = {
+    ...(cache && typeof cache === "object" && cache.entries && typeof cache.entries === "object" ? cache.entries : {}),
+  };
+  const visited = new WeakSet();
+  const add = (original, translated) => {
+    if (!original || !translated || translationQuality(original, translated).status !== "verified") return;
+    const key = translationCacheKey(original);
+    if (entries[key]?.translated === translated) return;
+    entries[key] = {
+      translated: String(translated).replace(/\s+/g, " ").trim(),
+      updatedAt: new Date().toISOString(),
+      lastUsedAt: new Date().toISOString(),
+    };
+  };
+  const visit = (value) => {
+    if (!value || typeof value !== "object" || visited.has(value)) return;
+    visited.add(value);
+    add(value.title, value.titleKo);
+    add(value.summaryOriginal, value.summary);
+    for (const child of Object.values(value)) {
+      if (child && typeof child === "object") visit(child);
+    }
+  };
+  visit(payload);
+  return {
+    schemaVersion: "1.0",
+    targetLanguage: "ko",
+    updatedAt: cache?.updatedAt || null,
+    entryCount: Object.keys(entries).length,
+    entries,
+  };
+}
+
 async function loadPreviousData() {
   const readJson = async (path, fallback) => {
     try {
@@ -5191,11 +5241,12 @@ async function loadPreviousData() {
       return fallback;
     }
   };
-  const [previous, quant, baseline, quantModel] = await Promise.all([
+  const [previous, quant, baseline, quantModel, translationCache] = await Promise.all([
     readJson(OUT, {}),
     readJson(QUANT_OUT, {}),
     readJson(BASELINE_IN, {}),
     readJson(QUANT_MODEL_IN, {}),
+    readJson(TRANSLATION_CACHE_OUT, {}),
   ]);
   return {
     news: Array.isArray(previous.news) ? previous.news : [],
@@ -5206,6 +5257,7 @@ async function loadPreviousData() {
     quant: quant && typeof quant === "object" ? quant : {},
     baseline: baseline && typeof baseline === "object" ? baseline : {},
     quantModel: quantModel && typeof quantModel === "object" ? quantModel : {},
+    translationCache: seedTranslationCache(translationCache, previous),
   };
 }
 
@@ -8728,6 +8780,12 @@ async function main() {
   await loadCrawlExclusions();
   const runId = process.env.GITHUB_RUN_ID || `local-${Date.now()}`;
   const previous = await loadPreviousData();
+  koTranslator = createGoogleKoTranslator({
+    cache: previous.translationCache,
+    timeoutMs: KO_TRANSLATION_TIMEOUT_MS,
+    userAgent: BROWSER_UA,
+    qualityGate: (original, translated) => translationQuality(original, translated).status === "verified",
+  });
   const [prices, stocks, newsPayload, communitySignals, competitors, startups, benchmarkSignals, chinaInfra] = await Promise.all([
     collectPrices(),
     collectStocks(),
@@ -8789,7 +8847,15 @@ async function main() {
       const provisionalBriefs = buildIntelligence({ news, prices, stats, chinaInfra, facts: provisionalFacts }).briefs;
       const briefingItems = intelligenceBriefTranslationItems(provisionalBriefs, news);
       await addKoSummaries(briefingItems, briefingItems.length, translationDeadline);
-      note("번역:KO", true, `${_trCount}건${koTranslationBudgetExpired(translationDeadline) ? " · 시간 예산 도달, 원문 유지" : ""}`);
+      const translationStats = koTranslator.stats;
+      note(
+        "번역:KO",
+        true,
+        `${translationStats.translated}건 신규 · 캐시 ${translationStats.cacheHits}건 · 요청 ${translationStats.requests}회`
+        + `${translationStats.retries ? ` · 재시도 ${translationStats.retries}회` : ""}`
+        + `${translationStats.qualityRejected ? ` · 품질게이트 폴백 ${translationStats.qualityRejected}건` : ""}`
+        + `${koTranslationBudgetExpired(translationDeadline) ? " · 시간 예산 도달, 다음 실행 재시도" : ""}`,
+      );
     }
   } catch (error) {
     note("번역:KO", false, error.message);
@@ -8940,6 +9006,7 @@ async function main() {
     [QUANT_BACKTEST_CLIENT_OUT, clientBundle.quantBacktest],
     [CRAWL_QUARANTINE_OUT, quarantineReport],
     [CRAWL_AUDIT_OUT, crawlAudit],
+    [TRANSLATION_CACHE_OUT, koTranslator?.snapshot() || previous.translationCache],
     [DATA_MANIFEST_OUT, clientBundle.manifest],
     [OUT, payload],
   ]);
