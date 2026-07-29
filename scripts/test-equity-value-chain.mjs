@@ -95,6 +95,16 @@ assert.match(app, /const EQUITY_GENERIC_FAVICON_IDS = new Set\([\s\S]*?!EQUITY_G
   "generic globe favicons must fall back to a readable company monogram");
 assert.match(app, /class="equity-ticker-identity"[\s\S]*?equityCompanyLogoHTML\(index\)[\s\S]*?class="equity-ticker-name"/,
   "each listed-company card must place its company logo beside the company identity");
+const soxPeerBlock = app.match(/const SOX_REPRESENTATIVE_PEER_IDS = Object\.freeze\(\[([\s\S]*?)\]\);/)?.[1] || "";
+const soxPeerIds = [...soxPeerBlock.matchAll(/"([a-z0-9-]+-stock)"/g)].map((match) => match[1]);
+assert.equal(soxPeerIds.length, 12, "the SOX summary must show exactly 12 representative constituents");
+assert.equal(new Set(soxPeerIds).size, 12, "the SOX representative list must not contain duplicate companies");
+assert.match(app, /const peers = peerData\(SOX_REPRESENTATIVE_PEER_IDS\)/,
+  "the SOX summary cards must be sourced from the representative constituent list");
+assert.match(app, /<strong>SOX 대표 구성종목 12<\/strong>/,
+  "the SOX summary must identify the 12 cards as index constituents");
+assert.doesNotMatch(app, /const chinaPeers = peerData\(/,
+  "the SOX summary must not mix a separate China peer group into its 12 constituent cards");
 assert.match(css, /\.equity-ticker-grid button:is\(:hover, :focus-visible\) \{[\s\S]*?scale\(1\.018\)[\s\S]*?linear-gradient\(145deg, #172b46 0%, #0d4f5a 58%, #087f72 100%\)/,
   "listed-company cards must invert to a professional animated gradient on hover");
 assert.match(css, /\.equity-ticker-grid button\.active:is\(:hover, :focus-visible\) \{[\s\S]*?linear-gradient\(145deg, #17324d 0%, #0d5963 56%, #08796d 100%\)[\s\S]*?\.equity-ticker-grid button\.active:is\(:hover, :focus-visible\) :is\(b, strong, small, em\) \{[\s\S]*?color:\s*#fff[\s\S]*?opacity:\s*1/,

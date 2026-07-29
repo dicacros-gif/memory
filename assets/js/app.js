@@ -20726,8 +20726,47 @@
     };
   }
 
+  const SOX_REPRESENTATIVE_PEER_IDS = Object.freeze([
+    "nvidia-stock",
+    "broadcom-stock",
+    "amd-stock",
+    "micron-stock",
+    "applied-materials-stock",
+    "kla-stock",
+    "marvell-stock",
+    "lam-research-stock",
+    "asml-stock",
+    "tsmc-stock",
+    "arm-stock",
+    "monolithic-power-stock",
+  ]);
+
   function marketPeerBrandMeta(id = "") {
     return {
+      "nvidia-stock": {
+        name: "NVIDIA",
+        abbr: "NVIDIA",
+        logo: "",
+        color: "#76b900",
+        deep: "#436900",
+        onColor: "#ffffff",
+      },
+      "broadcom-stock": {
+        name: "Broadcom",
+        abbr: "AVGO",
+        logo: "",
+        color: "#cc163f",
+        deep: "#86102d",
+        onColor: "#ffffff",
+      },
+      "amd-stock": {
+        name: "AMD",
+        abbr: "AMD",
+        logo: "",
+        color: "#ed1c24",
+        deep: "#981116",
+        onColor: "#ffffff",
+      },
       "skhy-stock": {
         name: "SK hynix",
         logo: "assets/img/brands/sk-hynix.svg",
@@ -20747,6 +20786,70 @@
         logo: "assets/img/brands/micron.svg",
         color: "#0057b8",
         deep: "#003977",
+        onColor: "#ffffff",
+      },
+      "applied-materials-stock": {
+        name: "Applied Materials",
+        abbr: "AMAT",
+        logo: "",
+        color: "#1a66a4",
+        deep: "#104269",
+        onColor: "#ffffff",
+      },
+      "kla-stock": {
+        name: "KLA",
+        abbr: "KLA",
+        logo: "",
+        color: "#b31b34",
+        deep: "#711122",
+        onColor: "#ffffff",
+      },
+      "marvell-stock": {
+        name: "Marvell",
+        abbr: "MRVL",
+        logo: "",
+        color: "#7a2f73",
+        deep: "#4c1d48",
+        onColor: "#ffffff",
+      },
+      "lam-research-stock": {
+        name: "Lam Research",
+        abbr: "LRCX",
+        logo: "",
+        color: "#006c9f",
+        deep: "#004466",
+        onColor: "#ffffff",
+      },
+      "asml-stock": {
+        name: "ASML",
+        abbr: "ASML",
+        logo: "",
+        color: "#0b5fa5",
+        deep: "#073b66",
+        onColor: "#ffffff",
+      },
+      "tsmc-stock": {
+        name: "TSMC",
+        abbr: "TSMC",
+        logo: "",
+        color: "#bd2530",
+        deep: "#76171e",
+        onColor: "#ffffff",
+      },
+      "arm-stock": {
+        name: "Arm",
+        abbr: "ARM",
+        logo: "",
+        color: "#167a86",
+        deep: "#0d4c54",
+        onColor: "#ffffff",
+      },
+      "monolithic-power-stock": {
+        name: "Monolithic Power Systems",
+        abbr: "MPWR",
+        logo: "",
+        color: "#3446a8",
+        deep: "#202b69",
         onColor: "#ffffff",
       },
       "sandisk-stock": {
@@ -20962,8 +21065,13 @@
         ${peers.map((item) => {
           const peerObs = priceObservationText(item.trend);
           const brand = marketPeerBrandMeta(item.id);
-          const logoHTML = brand.logo
-            ? `<img src="${escapeHTML(brand.logo)}" alt="${escapeHTML(brand.name)} 로고" loading="lazy" decoding="async">`
+          const domain = EQUITY_COMPANY_DOMAINS[item.id] || "";
+          const remoteLogo = domain && !EQUITY_GENERIC_FAVICON_IDS.has(item.id)
+            ? `https://www.google.com/s2/favicons?domain_url=${encodeURIComponent(`https://${domain}`)}&sz=64`
+            : "";
+          const logoUrl = brand.logo || remoteLogo;
+          const logoHTML = logoUrl
+            ? `<img src="${escapeHTML(logoUrl)}" alt="${escapeHTML(brand.name)} 로고" loading="lazy" decoding="async" referrerpolicy="no-referrer">`
             : `<span class="market-peer-monogram">${escapeHTML(brand.abbr || brand.name)}</span>`;
           return `
             <a class="market-peer-card" href="${escapeHTML(item.index.chartUrl || item.index.sourceUrl || "#")}" target="_blank" rel="noopener"
@@ -20997,8 +21105,7 @@
       .map((id) => ({ id, index: marketIndexData(id) }))
       .map((item) => ({ ...item, trend: marketIndexTrend(item.index || {}) }))
       .filter((item) => item.index && item.trend && (item.trend.plotPoints || []).length >= 2);
-    const peers = peerData(["skhy-stock", "samsung-stock", "micron-stock", "sandisk-stock", "wdc-stock", "kioxia-stock"]);
-    const chinaPeers = peerData(["naura-stock", "amec-stock", "acm-shanghai-stock", "jcet-stock", "gigadevice-stock", "smic-stock"]);
+    const peers = peerData(SOX_REPRESENTATIVE_PEER_IDS);
     panel.hidden = false;
     panel.innerHTML = `
       <article class="market-index-card">
@@ -21024,19 +21131,10 @@
         ${peers.length ? `
           <section class="market-peer-section">
             <div class="market-peer-section-head">
-              <strong>Global memory peers</strong>
-              <small>${escapeHTML(period.label)} 실제 종가 누적</small>
+              <strong>SOX 대표 구성종목 12</strong>
+              <small>Nasdaq SOX · 2026-06-30 구성 기준 · ${escapeHTML(period.label)} 실제 종가 누적</small>
             </div>
             ${marketPeerCardsHTML(peers)}
-          </section>
-        ` : ""}
-        ${chinaPeers.length ? `
-          <section class="market-peer-section market-peer-section-china">
-            <div class="market-peer-section-head">
-              <strong>중국 반도체 상장사 6</strong>
-              <small>장비 · 세정/ECP · OSAT · 메모리 · 파운드리</small>
-            </div>
-            ${marketPeerCardsHTML(chinaPeers, "market-peer-grid-china")}
           </section>
         ` : ""}
       </article>
