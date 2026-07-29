@@ -20,6 +20,7 @@ import {
   fetchSourceTextWithRetry,
   normalizeYahooStockResult,
   quantMemoryMomentum,
+  selectFreshestYahooStockResult,
   siaMonthlyPdfFallbackUrls,
   sourceHealthId,
   sourceHealthSnapshot,
@@ -165,6 +166,43 @@ const staleStock = normalizeYahooStockResult({
   indicators: { quote: [{ close: [900.2, 820.53] }] },
 }, { expectedCurrency: "USD", now: new Date("2026-07-29T12:00:00Z") });
 assert.equal(staleStock.sourceStatus, "stale", "old Yahoo observations must remain visible only as stale data");
+const freshestStock = selectFreshestYahooStockResult([
+  {
+    url: "https://query2.finance.yahoo.com/stale",
+    result: {
+      meta: { symbol: "MU", currency: "USD" },
+      timestamp: [1785187800, 1785274200],
+      indicators: { quote: [{ close: [920.95, 900.2] }] },
+    },
+  },
+  {
+    url: "https://query1.finance.yahoo.com/current",
+    result: {
+      meta: { symbol: "MU", currency: "USD" },
+      timestamp: [1785274200, 1785360600],
+      indicators: { quote: [{ close: [900.2, 820.53] }] },
+    },
+  },
+], { symbol: "MU", expectedCurrency: "USD", now: new Date("2026-07-29T14:00:00Z") });
+assert.equal(freshestStock.latestClose, 820.53, "the newest Yahoo host observation must win over a stale successful response");
+assert.equal(freshestStock.prevClose, 900.2);
+assert.equal(freshestStock.changePct, -8.85);
+assert.equal(freshestStock.quoteCandidates, 2);
+assert.match(freshestStock.quoteSource, /query1/);
+const completedCloseOnly = normalizeYahooStockResult({
+  meta: {
+    symbol: "MU",
+    currency: "USD",
+    currentTradingPeriod: {
+      regular: { start: 1785331800, end: 1785355200 },
+    },
+  },
+  timestamp: [1785187800, 1785274200, 1785331800],
+  indicators: { quote: [{ close: [900.2, 820.53, 837.58] }] },
+}, { expectedCurrency: "USD", now: new Date("2026-07-29T14:00:00Z") });
+assert.equal(completedCloseOnly.latestClose, 820.53, "an in-progress daily bar must not be published as a closing price");
+assert.equal(completedCloseOnly.prevClose, 900.2);
+assert.equal(completedCloseOnly.priceType, "completed-close");
 
 const officialProbeCalls = [];
 const recoveredOfficialProbe = await checkOfficialIndustryProbe({

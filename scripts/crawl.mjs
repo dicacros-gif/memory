@@ -2940,17 +2940,31 @@ export function normalizeYahooStockResult(result, {
     && Number.isFinite(item.close)
     && item.close > 0
   ));
-  if (observations.length < 2) throw new Error("종가 관측 부족");
-
   const currency = String(result.meta?.currency || "").trim().toUpperCase() || null;
   if (expectedCurrency && currency !== String(expectedCurrency).toUpperCase()) {
     throw new Error(`통화 불일치: ${currency || "미상"} / 예상 ${expectedCurrency}`);
   }
 
+  const nowMs = Number.isFinite(now?.getTime?.()) ? now.getTime() : Date.now();
+  const nowSeconds = nowMs / 1000;
+  const regularSession = result.meta?.currentTradingPeriod?.regular || {};
+  const regularStart = Number(regularSession.start);
+  const regularEnd = Number(regularSession.end);
+  const marketOpen = Number.isFinite(regularStart)
+    && Number.isFinite(regularEnd)
+    && nowSeconds >= regularStart
+    && nowSeconds < regularEnd;
+  // Yahoo includes the current intraday bar in a 1d chart. The dashboard is a
+  // close-price monitor, so remove that partial bar until the exchange's
+  // regular session has ended.
+  if (marketOpen && observations.at(-1)?.timestamp >= regularStart - 60) {
+    observations.pop();
+  }
+  if (observations.length < 2) throw new Error("종가 관측 부족");
+
   const latest = observations.at(-1);
   const previous = observations.at(-2);
   const latestAtMs = latest.timestamp * 1000;
-  const nowMs = Number.isFinite(now?.getTime?.()) ? now.getTime() : Date.now();
   const ageDays = (nowMs - latestAtMs) / 864e5;
   if (ageDays < -0.75) throw new Error("미래 시점 주가 관측");
   const fresh = ageDays <= maxAgeDays;
@@ -2964,30 +2978,68 @@ export function normalizeYahooStockResult(result, {
     currency,
     asOf: new Date(latestAtMs).toISOString(),
     exchangeTimezoneName: result.meta?.exchangeTimezoneName || null,
+    priceType: "completed-close",
     sourceStatus: fresh ? "current" : "stale",
     stale: !fresh,
     ageDays: Number(Math.max(0, ageDays).toFixed(2)),
   };
 }
 
-async function fetchStock(symbol, options = {}) {
-  const path = `/v8/finance/chart/${encodeURIComponent(symbol)}?range=1mo&interval=1d`;
-  const hosts = ["query2.finance.yahoo.com", "query1.finance.yahoo.com"];
-  let lastErr;
-
-  for (const host of hosts) {
+export function selectFreshestYahooStockResult(entries = [], options = {}) {
+  const candidates = [];
+  const errors = [];
+  for (const entry of entries) {
+    const result = entry?.result || entry;
     try {
-      const txt = await fetchText(`https://${host}${path}`);
-      const json = JSON.parse(txt);
-      const result = json?.chart?.result?.[0];
-      return normalizeYahooStockResult(result, { ...options, symbol });
+      candidates.push({
+        ...normalizeYahooStockResult(result, options),
+        quoteSource: entry?.url || null,
+      });
     } catch (error) {
-      lastErr = error;
+      errors.push(String(error?.message || error || "invalid quote"));
     }
-    await sleep(350);
   }
+  if (!candidates.length) {
+    throw new Error(errors.filter(Boolean).join(" · ") || "no valid stock result");
+  }
+  candidates.sort((left, right) => (
+    new Date(right.asOf).getTime() - new Date(left.asOf).getTime()
+    || right.points.length - left.points.length
+  ));
+  return {
+    ...candidates[0],
+    quoteCandidates: candidates.length,
+  };
+}
 
-  throw lastErr || new Error("주가 조회 실패");
+async function fetchStock(symbol, options = {}) {
+  const requestAt = Date.now();
+  const period1 = Math.floor((requestAt - 40 * 864e5) / 1000);
+  const period2 = Math.floor((requestAt + 2 * 864e5) / 1000);
+  // Explicit periods plus a run-scoped cache key prevent a regional Yahoo CDN
+  // from serving yesterday's one-month range after a new market close.
+  const path = `/v8/finance/chart/${encodeURIComponent(symbol)}?period1=${period1}&period2=${period2}&interval=1d&includePrePost=false&events=div%2Csplits&_=${requestAt}`;
+  const hosts = ["query2.finance.yahoo.com", "query1.finance.yahoo.com"];
+  const settled = await Promise.allSettled(hosts.map(async (host) => {
+    const url = `https://${host}${path}`;
+    const txt = await fetchText(url);
+    const json = JSON.parse(txt);
+    const result = json?.chart?.result?.[0];
+    if (!result) throw new Error(`${host}: empty result`);
+    return { result, url };
+  }));
+  const entries = [];
+  const errors = [];
+  for (const outcome of settled) {
+    if (outcome.status === "fulfilled") entries.push(outcome.value);
+    else errors.push(String(outcome.reason?.message || outcome.reason || "quote request failed"));
+  }
+  try {
+    return selectFreshestYahooStockResult(entries, { ...options, symbol });
+  } catch (error) {
+    const details = [...errors, String(error?.message || error || "")].filter(Boolean).join(" · ");
+    throw new Error(details || "stock lookup failed");
+  }
 }
 
 async function collectStocks(previousStocks = {}) {
