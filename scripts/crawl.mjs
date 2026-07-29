@@ -181,10 +181,12 @@ async function loadCrawlExclusions() {
 }
 
 const TICKERS = [
-  { id: "samsung", label: "삼성전자", symbol: "005930.KS" },
-  { id: "skhynix", label: "SKHY", symbol: "000660.KS" },
-  { id: "micron", label: "Micron", symbol: "MU" },
+  { id: "samsung", label: "삼성전자", symbol: "005930.KS", currency: "KRW" },
+  { id: "skhynix", label: "SKHY", symbol: "000660.KS", currency: "KRW" },
+  { id: "micron", label: "Micron", symbol: "MU", currency: "USD" },
 ];
+
+const STOCK_MAX_AGE_DAYS = 5;
 
 function equityIndex(id, symbol, label, labelKo = label) {
   return {
@@ -1069,10 +1071,38 @@ const PRESERVED_NEWS_SEEDS = [
     source: "Micron",
     sourceType: "기업 공식",
     evidenceLevel: "Reported",
-    date: "2026-07-01",
-    link: "https://investors.micron.com/news-releases/news-release-details/micron-and-general-motors-sign-strategic-agreement-secure-supply",
-    summaryOriginal: "Micron said its agreement with General Motors was one of sixteen Strategic Customer Agreements discussed on its fiscal third-quarter 2026 earnings call.",
-    summary: "Micron 공식 발표는 GM 계약이 FY2026 3분기 실적발표에서 언급한 16개 Strategic Customer Agreement 중 하나라고 확인함. 제품별 물량 비중과 총 계약액은 별도 공시가 없는 한 추정하지 않음.",
+    date: "2026-07-06",
+    link: "https://investors.micron.com/news-releases/news-release-details/micron-and-ford-sign-strategic-agreement-strengthen-long-term",
+    summaryOriginal: "Micron said its agreement with Ford was one of sixteen Strategic Customer Agreements discussed on its fiscal third-quarter 2026 financial conference call.",
+    summary: "Micron 공식 발표는 Ford 계약이 FY2026 3분기 실적발표에서 언급한 16개 Strategic Customer Agreement 중 하나라고 확인함. 제품별 물량 비중과 총 계약액은 별도 공시가 없는 한 추정하지 않음.",
+  },
+  {
+    id: "micron-fq3-2026-results",
+    category: "dram",
+    language: "english",
+    title: "Micron reports record fiscal third-quarter 2026 results",
+    titleKo: "Micron FY2026 3분기 매출 414.56억 달러·GAAP 총마진 84.6%",
+    source: "Micron",
+    sourceType: "기업 공식",
+    evidenceLevel: "Reported",
+    date: "2026-06-24",
+    link: "https://investors.micron.com/node/50671",
+    summaryOriginal: "Micron reported fiscal third-quarter 2026 revenue of USD 41.456 billion, GAAP gross margin of 84.6 percent and non-GAAP gross margin of 84.9 percent.",
+    summary: "Micron FY2026 3분기 공식 실적은 매출 414.56억 달러, GAAP 총마진 84.6%, non-GAAP 총마진 84.9%임. 실적과 향후 계약가 전망을 분리해 메모리 사이클을 판단함.",
+  },
+  {
+    id: "sse-cxmt-prospectus-financials",
+    category: "capital",
+    language: "english",
+    title: "CXMT prospectus reports 2025 and first-quarter 2026 financials",
+    titleKo: "CXMT 투자설명서, 2025년·2026년 1분기 실적 공개",
+    source: "Shanghai Stock Exchange",
+    sourceType: "거래소 공시",
+    evidenceLevel: "Reported",
+    date: "2026-05-28",
+    link: "https://english.sse.com.cn/news/newsrelease/voice/c/c_20260528_10819990.shtml",
+    summaryOriginal: "CXMT reported 2025 revenue of CNY 61.799 billion and first-quarter 2026 revenue of CNY 50.80 billion with net profit of CNY 33.012 billion.",
+    summary: "SSE가 인용한 투자설명서 기준 CXMT의 2025년 매출은 617.99억 위안, 2026년 1분기 매출은 508억 위안, 순이익은 330.12억 위안임. 연간·분기 수치와 매출·순이익을 혼용하지 않음.",
   },
   {
     id: "wsts-spring-2026-forecast",
@@ -1260,15 +1290,15 @@ const PRESERVED_NEWS_SEEDS = [
     id: "sandisk-kioxia-bics10",
     category: "nand",
     language: "english",
-    title: "Kioxia and Sandisk Begin Production of 10th-Generation 3D Flash Memory",
-    titleKo: "Kioxia·Sandisk, 10세대 3D NAND 생산 개시",
+    title: "Sandisk Announces Sampling of BiCS10 1Tb TLC 3D NAND Flash Memory",
+    titleKo: "Sandisk, 332단 BiCS10 1Tb TLC 샘플링 개시",
     source: "Sandisk",
     sourceType: "기업 공식",
     evidenceLevel: "Reported",
     date: "2026-07-02",
-    link: "https://www.sandisk.com/company/newsroom/press-releases/2026/2026-07-02-kioxia-sandisk-begin-production-10th-gen-3d-flash-memory-kitakami",
-    summaryOriginal: "Kioxia and Sandisk announced the start of production for their 10th-generation 3D flash technology at Kitakami Fab2.",
-    summary: "Kitakami Fab2에서 10세대 3D NAND 생산을 시작했다는 기업 공식 발표. 실제 출하량·수율·eSSD 믹스가 확인될 때 NAND 공급 시나리오에 반영.",
+    link: "https://www.sandisk.com/company/newsroom/press-releases/2026/2026-07-02-sandisk-announces-bics10-1tb-tlc",
+    summaryOriginal: "Sandisk announced sampling of 332-layer BiCS10 1Tb TLC with up to 4.8Gb/s interface speed and 59 percent higher bit density than BiCS8.",
+    summary: "Sandisk 공식 발표는 332단 BiCS10 1Tb TLC의 샘플링, 최대 4.8Gb/s 인터페이스, BiCS8 대비 비트 밀도 59% 개선을 제시함. 샘플링을 양산 출하나 고객 인증 완료로 해석하지 않음.",
   },
   {
     id: "panmnesia-isca-cxl",
@@ -2890,7 +2920,57 @@ function attachPriceHistory(prices, history) {
 }
 
 /* ---------- stocks ---------- */
-async function fetchStock(symbol) {
+export function normalizeYahooStockResult(result, {
+  symbol = result?.meta?.symbol || "",
+  expectedCurrency = null,
+  now = new Date(),
+  maxAgeDays = STOCK_MAX_AGE_DAYS,
+} = {}) {
+  if (!result) throw new Error("빈 주가 결과");
+  const timestamps = Array.isArray(result.timestamp) ? result.timestamp : [];
+  const closes = Array.isArray(result.indicators?.quote?.[0]?.close)
+    ? result.indicators.quote[0].close
+    : [];
+  const observations = timestamps.map((timestamp, index) => ({
+    timestamp: Number(timestamp),
+    close: Number(closes[index]),
+  })).filter((item) => (
+    Number.isFinite(item.timestamp)
+    && item.timestamp > 0
+    && Number.isFinite(item.close)
+    && item.close > 0
+  ));
+  if (observations.length < 2) throw new Error("종가 관측 부족");
+
+  const currency = String(result.meta?.currency || "").trim().toUpperCase() || null;
+  if (expectedCurrency && currency !== String(expectedCurrency).toUpperCase()) {
+    throw new Error(`통화 불일치: ${currency || "미상"} / 예상 ${expectedCurrency}`);
+  }
+
+  const latest = observations.at(-1);
+  const previous = observations.at(-2);
+  const latestAtMs = latest.timestamp * 1000;
+  const nowMs = Number.isFinite(now?.getTime?.()) ? now.getTime() : Date.now();
+  const ageDays = (nowMs - latestAtMs) / 864e5;
+  if (ageDays < -0.75) throw new Error("미래 시점 주가 관측");
+  const fresh = ageDays <= maxAgeDays;
+  const changePct = ((latest.close - previous.close) / previous.close) * 100;
+  return {
+    symbol,
+    latestClose: Number(latest.close.toFixed(2)),
+    prevClose: Number(previous.close.toFixed(2)),
+    changePct: Number(changePct.toFixed(2)),
+    points: observations.slice(-22).map((item) => Number(item.close.toFixed(2))),
+    currency,
+    asOf: new Date(latestAtMs).toISOString(),
+    exchangeTimezoneName: result.meta?.exchangeTimezoneName || null,
+    sourceStatus: fresh ? "current" : "stale",
+    stale: !fresh,
+    ageDays: Number(Math.max(0, ageDays).toFixed(2)),
+  };
+}
+
+async function fetchStock(symbol, options = {}) {
   const path = `/v8/finance/chart/${encodeURIComponent(symbol)}?range=1mo&interval=1d`;
   const hosts = ["query2.finance.yahoo.com", "query1.finance.yahoo.com"];
   let lastErr;
@@ -2900,23 +2980,7 @@ async function fetchStock(symbol) {
       const txt = await fetchText(`https://${host}${path}`);
       const json = JSON.parse(txt);
       const result = json?.chart?.result?.[0];
-      if (!result) throw new Error("빈 결과");
-      const closes = (result.indicators?.quote?.[0]?.close || [])
-        .map(Number)
-        .filter((value) => Number.isFinite(value) && value > 0);
-      if (closes.length < 2) throw new Error("종가 부족");
-      const latestClose = closes[closes.length - 1];
-      const prevClose = closes[closes.length - 2];
-      const changePct = ((latestClose - prevClose) / prevClose) * 100;
-      const points = closes.slice(-22).map((value) => Number(value.toFixed(2)));
-      return {
-        symbol,
-        latestClose: Number(latestClose.toFixed(2)),
-        prevClose: Number(prevClose.toFixed(2)),
-        changePct: Number(changePct.toFixed(2)),
-        points,
-        currency: result.meta?.currency || null,
-      };
+      return normalizeYahooStockResult(result, { ...options, symbol });
     } catch (error) {
       lastErr = error;
     }
@@ -2926,15 +2990,38 @@ async function fetchStock(symbol) {
   throw lastErr || new Error("주가 조회 실패");
 }
 
-async function collectStocks() {
+async function collectStocks(previousStocks = {}) {
   const stocks = {};
   for (const ticker of TICKERS) {
     try {
-      stocks[ticker.id] = { ...(await fetchStock(ticker.symbol)), label: ticker.label };
-      note(`주가:${ticker.label}`, true, `${stocks[ticker.id].latestClose} (${stocks[ticker.id].changePct}%)`);
+      stocks[ticker.id] = {
+        ...(await fetchStock(ticker.symbol, { expectedCurrency: ticker.currency })),
+        label: ticker.label,
+      };
+      const current = stocks[ticker.id].sourceStatus === "current";
+      note(
+        `주가:${ticker.label}`,
+        current,
+        `${stocks[ticker.id].latestClose} ${stocks[ticker.id].currency} (${stocks[ticker.id].changePct}%) · ${stocks[ticker.id].asOf}${current ? "" : " · 시세 지연"}`,
+      );
     } catch (error) {
-      stocks[ticker.id] = null;
-      note(`주가:${ticker.label}`, false, error.message);
+      const previous = previousStocks?.[ticker.id];
+      const canRetain = previous
+        && Number(previous.latestClose) > 0
+        && String(previous.currency || "").toUpperCase() === ticker.currency;
+      stocks[ticker.id] = canRetain ? {
+        ...previous,
+        label: ticker.label,
+        sourceStatus: "previous-run",
+        stale: true,
+        retainedAt: new Date().toISOString(),
+        fetchError: String(error.message || error).slice(0, 240),
+      } : null;
+      note(
+        `주가:${ticker.label}`,
+        false,
+        canRetain ? `${error.message} · 이전 검증 종가 유지` : error.message,
+      );
     }
     await sleep(350);
   }
@@ -5250,6 +5337,7 @@ async function loadPreviousData() {
   ]);
   return {
     news: Array.isArray(previous.news) ? previous.news : [],
+    stocks: previous.stocks && typeof previous.stocks === "object" ? previous.stocks : {},
     communityItems: [
       ...(Array.isArray(previous.communitySignals?.items) ? previous.communitySignals.items : []),
       ...(Array.isArray(previous.communitySignals?.referenceArchive?.items) ? previous.communitySignals.referenceArchive.items : []),
@@ -6195,7 +6283,12 @@ function buildQualityReport(payload = {}) {
   const canonicalUrls = news.map(qualityCanonicalUrl).filter(Boolean);
   const duplicateCount = canonicalUrls.length - new Set(canonicalUrls).size;
   const validMarkets = marketIndexes.filter((item) => Number(item?.latest?.close ?? item?.latest?.value) > 0);
-  const validStocks = stocks.filter((item) => Number(item?.latestClose) > 0);
+  const validStocks = stocks.filter((item) => (
+    Number(item?.latestClose) > 0
+    && item?.sourceStatus === "current"
+    && item?.stale !== true
+    && /^20\d{2}-\d{2}-\d{2}T/.test(String(item?.asOf || ""))
+  ));
   const promotedEvidenceIds = new Set(news.map((item) => item.verification?.id).filter(Boolean));
   const validFacts = factEvents.filter((event) => (
     event.current?.provenanceId
@@ -6729,6 +6822,7 @@ const OFFICIAL_INDUSTRY_PROBES = [
   // longer appears. They are health checks only; a reachable page never turns
   // a forecast or a reported figure into an actual result.
   { id: "trendforce-memory-2026", label: "TrendForce 2026/2027 memory forecast", url: "https://www.trendforce.com/presscenter/news/20260529-13068.html", pattern: /889\.3\s*billion|1\.28\s*trillion/i },
+  { id: "trendforce-rubin-mix-2026", label: "TrendForce NVIDIA 2026 product mix", url: "https://www.trendforce.com/presscenter/news/20260408-13003.html", pattern: /Rubin.{0,200}(?:29%|29 percent).{0,200}(?:22%|22 percent)|Blackwell.{0,200}(?:61%|61 percent).{0,200}(?:71%|71 percent)/is },
   {
     id: "sse-cxmt-final-offering",
     label: "SSE / China Daily CXMT final offering",
@@ -6739,7 +6833,39 @@ const OFFICIAL_INDUSTRY_PROBES = [
     fallbackUrls: [
       "https://www.chinadaily.com.cn/a/202607/15/WS6a56f42da310986e2b4655b8.html",
     ],
-    pattern: /57\.9\s*billion|greenshoe|6\.69\s*billion/i,
+    pattern: /57\.9\s*billion|579\.2\s*billion|8\.66\s*yuan/i,
+  },
+  {
+    id: "sse-cxmt-financials",
+    label: "SSE / Global Times CXMT prospectus financials",
+    url: "https://english.sse.com.cn/news/newsrelease/voice/c/c_20260528_10819990.shtml",
+    pattern: /61\.799\s*billion.{0,300}50\.80\s*billion.{0,300}33\.012\s*billion/is,
+  },
+  {
+    id: "micron-fq3-2026",
+    label: "Micron fiscal Q3 2026 results",
+    url: "https://investors.micron.com/node/50671",
+    fallbackUrls: ["https://investors.micron.com/node/50671/pdf"],
+    pattern: /41[,\s]?456|41\.46\s*billion.{0,500}84\.6/is,
+  },
+  {
+    id: "micron-sixteen-sca",
+    label: "Micron sixteen strategic customer agreements",
+    url: "https://investors.micron.com/news-releases/news-release-details/micron-and-ford-sign-strategic-agreement-strengthen-long-term",
+    pattern: /one\s+of\s+the\s+16.{0,120}fiscal\s+third-quarter\s+2026/is,
+  },
+  {
+    id: "counterpoint-dram-q1-2026",
+    label: "Counterpoint Q1 2026 DRAM revenue shares",
+    url: "https://japan.counterpointresearch.com/insights/global-dram-revenue-surges-to-near-dollar-100-billion-mark-in-q1-2026/",
+    fallbackUrls: ["https://germany.counterpointresearch.com/insights/pr/weltweiter-dram-umsatz-steigt-im-q1-2026-um-80-auf-rekordhoch/"],
+    pattern: /CXMT.{0,120}(?:8%|8 percent)|Samsung.{0,120}(?:38%|38 percent)/is,
+  },
+  {
+    id: "sandisk-bics10-sampling",
+    label: "Sandisk BiCS10 sampling",
+    url: "https://www.sandisk.com/company/newsroom/press-releases/2026/2026-07-02-sandisk-announces-bics10-1tb-tlc",
+    pattern: /332\s+(?:memory\s+)?layers.{0,300}4\.8\s*Gb\/s|59\s*percent\s+bit\s+density/is,
   },
   { id: "census-former-veu-c79", label: "Census former-VEU C79 license reporting", url: "https://content.govdelivery.com/accounts/USCENSUS/bulletins/4008e2b", pattern: /C79|H-prefix|former VEU/i },
 ];
@@ -6754,6 +6880,21 @@ function officialProbeMatches(pattern, html = "") {
 function officialProbeHeaders(url, retry = false) {
   let referer = "";
   try { referer = `${new URL(url).origin}/`; } catch { /* URLs are curated constants */ }
+  // Micron IR's CDN returns a 200 response containing an empty bot-challenge
+  // shell when a browser-style Accept header is sent from hosted runners. A
+  // normal User-Agent without content negotiation returns the complete public
+  // release. Keep this source-specific quirk out of the shared probe profile.
+  if (/^https:\/\/investors\.micron\.com\//i.test(String(url || ""))) {
+    return {
+      "User-Agent": BROWSER_UA,
+      "Accept-Language": "en-US,en;q=0.9",
+      ...(retry ? {
+        "Cache-Control": "no-cache",
+        Pragma: "no-cache",
+        ...(referer ? { Referer: referer } : {}),
+      } : {}),
+    };
+  }
   const acceptsJson = /\/wp-json\//i.test(String(url || ""));
   const acceptsPdf = /\.pdf(?:$|[?#])/i.test(String(url || ""));
   return {
@@ -8788,7 +8929,7 @@ async function main() {
   });
   const [prices, stocks, newsPayload, communitySignals, competitors, startups, benchmarkSignals, chinaInfra] = await Promise.all([
     collectPrices(),
-    collectStocks(),
+    collectStocks(previous.stocks),
     collectNews(previous.news),
     collectCommunitySignals(previous.communityItems),
     collectCompetitors(),

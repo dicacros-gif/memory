@@ -18,6 +18,7 @@ import {
   collectLastGood,
   extractLiveFigures,
   fetchSourceTextWithRetry,
+  normalizeYahooStockResult,
   quantMemoryMomentum,
   siaMonthlyPdfFallbackUrls,
   sourceHealthId,
@@ -134,6 +135,36 @@ const expiredLastGood = await collectLastGood(
 assert.equal(expiredLastGood.status, "unavailable");
 assert.equal(expiredLastGood.value, undefined, "expired stale values must not remain in the live payload");
 assert.equal(expiredLastGood.expiredPrevious, true);
+
+const normalizedStock = normalizeYahooStockResult({
+  meta: { symbol: "005930.KS", currency: "KRW", exchangeTimezoneName: "Asia/Seoul" },
+  timestamp: [1785193200, 1785279600],
+  indicators: { quote: [{ close: [220000, 208500] }] },
+}, {
+  expectedCurrency: "KRW",
+  now: new Date("2026-07-29T12:00:00Z"),
+});
+assert.equal(normalizedStock.latestClose, 208500, "latest stock close must stay aligned with its timestamp");
+assert.equal(normalizedStock.prevClose, 220000);
+assert.equal(normalizedStock.changePct, -5.23);
+assert.equal(normalizedStock.currency, "KRW");
+assert.equal(normalizedStock.sourceStatus, "current");
+assert.match(normalizedStock.asOf, /^2026-07-2[78]T/, "stock quotes must expose their market observation date");
+assert.throws(
+  () => normalizeYahooStockResult({
+    meta: { symbol: "005930.KS", currency: "USD" },
+    timestamp: [1785193200, 1785279600],
+    indicators: { quote: [{ close: [220000, 208500] }] },
+  }, { expectedCurrency: "KRW", now: new Date("2026-07-29T12:00:00Z") }),
+  /통화 불일치/,
+  "a cross-market currency mismatch must not enter the stock widget",
+);
+const staleStock = normalizeYahooStockResult({
+  meta: { symbol: "MU", currency: "USD" },
+  timestamp: [1784415600, 1784502000],
+  indicators: { quote: [{ close: [900.2, 820.53] }] },
+}, { expectedCurrency: "USD", now: new Date("2026-07-29T12:00:00Z") });
+assert.equal(staleStock.sourceStatus, "stale", "old Yahoo observations must remain visible only as stale data");
 
 const officialProbeCalls = [];
 const recoveredOfficialProbe = await checkOfficialIndustryProbe({

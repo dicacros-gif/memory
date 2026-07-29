@@ -18522,7 +18522,11 @@
 
     const community = LIVE.communitySignals || {};
     const latestItems = (community.items || [])
-      .filter((item) => item.type === "workplace" && item.sourceUrl && !item.historical && !isCrawlExcluded("community", item))
+      .filter((item) => {
+        const publishedAt = new Date(item.date || item.publishedAt || 0).getTime();
+        const recent = Number.isFinite(publishedAt) && publishedAt > 0 && Date.now() - publishedAt <= 30 * 864e5;
+        return item.type === "workplace" && item.sourceUrl && recent && !isCrawlExcluded("community", item);
+      })
       .sort((a, b) => Number(b.ts || 0) - Number(a.ts || 0) || Number(b.score || 0) - Number(a.score || 0))
       .slice(0, 5);
     const priorityBriefIds = new Set(["yield-talent", "equipment-localization", "product-validation"]);
@@ -18544,7 +18548,8 @@
         return true;
       })
       .slice(0, 3);
-    const updatedAt = community.updatedAt || LIVE.updatedAt;
+    const latestPublishedAt = community.latestPublishedAt || null;
+    const updatedAt = latestPublishedAt || community.updatedAt || LIVE.updatedAt;
 
     latestPanel.innerHTML = `
       <div class="intel-panel-head talent-latest-head">
@@ -18552,7 +18557,7 @@
           <p class="eyebrow">Live talent brief</p>
           <h3 id="talentLatestTitle">최신 인재·채용 동향</h3>
         </div>
-        <span>${escapeHTML(fmtDate(updatedAt))}</span>
+        <span>${latestPublishedAt ? "원문 " : "수집 "}${escapeHTML(fmtDate(updatedAt))}</span>
       </div>
       ${briefItems.length ? `<div class="talent-live-stats">
         ${briefItems.map((item) => `
@@ -22634,6 +22639,14 @@
     return Number.isFinite(time) ? time : 0;
   }
 
+  function communityFreshnessState(item = {}) {
+    const timestamp = communityTimestamp(item);
+    if (!timestamp) return { id: "unknown", label: "날짜 미상", ageDays: null };
+    const ageDays = Math.max(0, Math.floor((Date.now() - timestamp) / 864e5));
+    if (ageDays <= 30) return { id: "recent", label: "최근 30일", ageDays };
+    return { id: "archive", label: "과거 자료", ageDays };
+  }
+
   function renderCommunityPlatformSelect(base = []) {
     const select = $("#communityPlatformSelect");
     if (!select) return;
@@ -22705,10 +22718,15 @@
   function setCommunityFreshness(total = 0) {
     const badge = $("#communityFreshness");
     if (!badge) return;
-    const updatedAt = LIVE.communitySignals?.updatedAt || LIVE.updatedAt;
-    const stale = hoursSince(updatedAt) > 36;
-    badge.className = `freshness-badge ${total && !stale ? "ok" : "stale"}`;
-    badge.textContent = `${stale ? "수집 지연" : "업데이트"} · ${fmtDate(updatedAt)} · 공개 채널 ${fmtNum(LIVE.communitySignals?.sourceCount || 0)}개`;
+    const latestPublishedAt = LIVE.communitySignals?.latestPublishedAt || null;
+    const recentCount = Number(LIVE.communitySignals?.recent30d || 0);
+    const collectionAt = LIVE.communitySignals?.updatedAt || LIVE.updatedAt;
+    const collectionStale = hoursSince(collectionAt) > 36;
+    const sourceDate = latestPublishedAt ? fmtDate(latestPublishedAt) : "날짜 미상";
+    badge.className = `freshness-badge ${total && recentCount > 0 && !collectionStale ? "ok" : "stale"}`;
+    badge.textContent = recentCount > 0
+      ? `최근 원문 ${sourceDate} · ${fmtNum(recentCount)}건 · 공개 채널 ${fmtNum(LIVE.communitySignals?.sourceCount || 0)}개`
+      : `과거 공개자료 · 최신 원문 ${sourceDate} · 공개 채널 ${fmtNum(LIVE.communitySignals?.sourceCount || 0)}개`;
   }
 
   function renderChinaCommunity() {
@@ -22777,7 +22795,7 @@
     ` : "";
     const statParts = [
       LIVE.communitySignals?.recent30d > 0 ? `최근 30일 ${fmtNum(LIVE.communitySignals.recent30d)}건` : "",
-      LIVE.communitySignals?.historicalCount > 0 ? `중요 과거 ${fmtNum(LIVE.communitySignals.historicalCount)}건` : "",
+      LIVE.communitySignals?.historicalCount > 0 ? `과거 공개자료 ${fmtNum(LIVE.communitySignals.historicalCount)}건` : "",
       LIVE.communitySignals?.sourceCount > 0 ? `공개 채널 ${fmtNum(LIVE.communitySignals.sourceCount)}개` : "",
     ].filter(Boolean);
     stats.innerHTML = statParts.map((part) => `<span>${escapeHTML(part)}</span>`).join("");
@@ -22790,6 +22808,7 @@
       const insight = clipText(item.insight || "", 180);
       const validation = clipText(item.validation || "", 140);
       const dateLabel = item.period || formatNewsDate(item.date || item.publishedAt) || "공개 페이지";
+      const freshness = communityFreshnessState(item);
       const evidenceClass = item.sourceClass === "official-career" || item.sourceClass === "job-board" ? "listing" : "unverified";
       const tags = Array.from(new Set([...(item.entities || []), ...(item.topics || [])])).slice(0, 5);
       card.innerHTML = `
@@ -22797,7 +22816,7 @@
           <span class="community-platform">${escapeHTML(item.platform || "공개 커뮤니티")}</span>
           <span class="community-type">${escapeHTML(item.typeLabel || "현장 신호")}</span>
           <span class="community-evidence ${escapeHTML(evidenceClass)}">${escapeHTML(item.evidenceLevel || "커뮤니티 신호")}</span>
-          ${item.historical ? '<span class="community-history">중요 과거</span>' : ""}
+          <span class="community-history community-history-${escapeHTML(freshness.id)}">${escapeHTML(freshness.label)}</span>
           <time>${escapeHTML(dateLabel)}</time>
         </div>
         <a class="community-title" href="${escapeHTML(item.sourceUrl || item.link || "#")}" target="_blank" rel="noopener">${strategicHighlightHTML(title)}</a>
