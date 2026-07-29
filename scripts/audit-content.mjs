@@ -482,12 +482,33 @@ for (const horizon of ["1y", "3y", "5y"]) {
   }
 }
 const archiveProgress = priceHistory.archiveBackfill;
-if (archiveProgress?.schemaVersion !== "2.0"
+if (archiveProgress?.schemaVersion !== "3.0"
   || Number(archiveProgress?.coverage?.targetMonths) !== 60
   || Number(archiveProgress?.coverage?.seriesCount) !== Object.keys(priceHistory.items || {}).length) {
   addIssue("error", "data/price-history.json", "60-month archive backfill progress contract is missing or inconsistent");
 } else if (Number(archiveProgress.coverage.coverageRatio || 0) < 0.2) {
   addIssue("warn", "data/price-history.json", "public archive coverage remains sparse; UI must keep unsupported periods unavailable", String(archiveProgress.coverage.coverageRatio));
+}
+for (const [id, item] of Object.entries(priceHistory.items || {})) {
+  for (const point of item.points || []) {
+    if (point.origin !== "web.archive.org") continue;
+    if (!isDirectSourceUrl(point.archiveUrl) || !String(point.archiveUrl).includes("web.archive.org/web/")) {
+      addIssue("error", "data/price-history.json", "archive price point lacks direct Wayback provenance", id);
+    }
+    // Aggregate legacy pages have no independent "Last Update" timestamp, so
+    // their observation date must be the exact archive month. Current
+    // TrendForce pages do publish a separate update time that can legitimately
+    // predate the capture month and are therefore not subject to this check.
+    if (String(point.archiveUrl).includes("www.dramexchange.com/")) {
+      const observedMonth = String(point.sourceObservedAt || point.date || "").slice(0, 7);
+      const snapshotMonth = String(point.snapshotAt || "").slice(0, 7);
+      if (!/^20\d{2}-\d{2}$/.test(observedMonth)
+        || !/^20\d{2}-\d{2}$/.test(snapshotMonth)
+        || observedMonth !== snapshotMonth) {
+        addIssue("error", "data/price-history.json", "aggregate archive price point crossed a calendar month", `${id}:${observedMonth}:${snapshotMonth}`);
+      }
+    }
+  }
 }
 for (const [id, series] of Object.entries(quantBacktest.series || {})) {
   for (const horizon of ["1y", "3y", "5y"]) {

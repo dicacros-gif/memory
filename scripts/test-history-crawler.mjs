@@ -5,9 +5,11 @@ import {
   appendQuantHistory,
   archiveMonthlyTargets,
   archiveReplayUrls,
+  archiveSnapshotMatchesMonth,
   dedupeEnrichedNews,
   mergeMarketPoints,
   mergePricePoints,
+  parseDramexchangeLegacyHome,
   parseTsmcAnnualRevenueHtml,
   pricePointCoversMonth,
   quantMetricSeriesIdentity,
@@ -86,6 +88,9 @@ assert.equal(new Set(targets.map((target) => target.id)).size, 60);
 assert.equal(pricePointCoversMonth({ date: "2026-07-01T00:00:00Z", average: 1 }, "2026-06"), false,
   "one observation must not cover an adjacent archive month");
 assert.equal(pricePointCoversMonth({ date: "2026-06-30T00:00:00Z", average: 1 }, "2026-06"), true);
+assert.equal(archiveSnapshotMatchesMonth("20260630235959", "2026-06"), true);
+assert.equal(archiveSnapshotMatchesMonth("20260701000000", "2026-06"), false,
+  "a neighbouring archive month must never stand in for a missing target month");
 assert.deepEqual(
   archiveReplayUrls("20250907135556", "https://www.trendforce.com/price/dram/dram_spot"),
   [
@@ -94,6 +99,36 @@ assert.deepEqual(
   ],
   "archive collection should fall back to an independent replay mode when raw replay is throttled",
 );
+
+const legacyHome = parseDramexchangeLegacyHome(`
+  <table>
+    <tr>
+      <td class="tab_title">Item</td><td>Daily High</td><td>Daily Low</td>
+      <td>Session High</td><td>Session Low</td><td>Session Average</td><td>Session Change</td><td>History</td>
+    </tr>
+    <tr>
+      <td><a href="/Price/Dram_Spot">DDR4 16Gb (2Gx8) eTT</a></td>
+      <td>4.70</td><td>4.10</td><td>4.60</td><td>4.20</td><td>4.417</td><td>+0.25%</td><td></td>
+    </tr>
+  </table>
+  <table>
+    <tr>
+      <td>Item</td><td>Daily High</td><td>Daily Low</td>
+      <td>Session High</td><td>Session Low</td><td>Session Average</td><td>Session Change</td><td>History</td>
+    </tr>
+    <tr>
+      <td><a href="/Price/Flash_Spot">SLC 2Gb 256MBx8</a></td>
+      <td>1.30</td><td>1.20</td><td>1.28</td><td>1.22</td><td>1.261</td><td>-0.10%</td><td></td>
+    </tr>
+  </table>
+`);
+assert.equal(legacyHome.length, 2, "legacy public homepage must retain separate DRAM and NAND sections");
+assert.equal(legacyHome[0].id, "dram-dram-spot-price");
+assert.equal(legacyHome[0].rows[0].average, 4.417);
+assert.equal(legacyHome[0].rows[0].direction, "up");
+assert.equal(legacyHome[1].id, "nand-nand-flash-spot-price");
+assert.equal(legacyHome[1].rows[0].average, 1.261);
+assert.equal(legacyHome[1].rows[0].direction, "down");
 
 const tsmc = parseTsmcAnnualRevenueHtml(`
   <table><tr><th>Month</th><th>Consolidated Net Revenue</th><th>YoY Change</th></tr>

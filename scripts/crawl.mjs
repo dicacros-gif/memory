@@ -8695,6 +8695,11 @@ function cdxTimestampToIso(ts = "") {
   return new Date(Date.UTC(+m[1], +m[2] - 1, +m[3], +(m[4] || 12), +(m[5] || 0), +(m[6] || 0))).toISOString();
 }
 
+export function archiveSnapshotMatchesMonth(timestamp = "", targetMonth = "") {
+  return /^20\d{2}-(?:0[1-9]|1[0-2])$/.test(String(targetMonth))
+    && String(timestamp).slice(0, 6) === String(targetMonth).replace("-", "");
+}
+
 // TrendForce renamed items over the years (e.g. "16G" -> "16Gb"), so archived
 // rows are matched to today's series via a normalized key.
 function normalizedHistoryKey(key = "") {
@@ -8717,6 +8722,26 @@ const ARCHIVE_LEGACY_SOURCES = [
     sections: [
       { legacyTitle: "Flash Spot Price", canonicalId: "nand-nand-flash-spot-price", title: "NAND Flash Spot Price", group: "NAND / Storage" },
     ],
+  },
+];
+
+const DRAMEXCHANGE_HOME_ROUTE_MAP = new Map([
+  ["dram_spot", { canonicalId: "dram-dram-spot-price", title: "DRAM Spot Price", group: "DRAM" }],
+  ["nationalcontractdramdetail", { canonicalId: "dram-dram-contract-price", title: "DRAM Contract Price", group: "DRAM" }],
+  ["module_spot", { canonicalId: "dram-module-spot-price", title: "Module Spot Price", group: "DRAM" }],
+  ["gddr_spot", { canonicalId: "dram-gddr-spot-price", title: "GDDR Spot Price", group: "DRAM" }],
+  ["flash_spot", { canonicalId: "nand-nand-flash-spot-price", title: "NAND Flash Spot Price", group: "NAND / Storage" }],
+  ["nationalcontractflashdetail", { canonicalId: "nand-nand-flash-contract-price", title: "NAND Flash Contract Price", group: "NAND / Storage" }],
+  ["wafer_spot", { canonicalId: "nand-wafer-spot-price", title: "Wafer Spot Price", group: "NAND / Storage" }],
+  ["memorycard_spot", { canonicalId: "nand-memory-card-spot-price", title: "Memory Card Spot Price", group: "NAND / Storage" }],
+  ["pcclientoemssd", { canonicalId: "nand-pc-client-oem-ssd-contract-price", title: "PC-Client OEM SSD Contract Price", group: "NAND / Storage" }],
+  ["ssd_street", { canonicalId: "nand-ssd-street-price", title: "SSD Street Price", group: "NAND / Storage" }],
+]);
+
+const ARCHIVE_AGGREGATE_SOURCES = [
+  {
+    id: "dramexchange-home",
+    url: "https://www.dramexchange.com/",
   },
 ];
 
@@ -8758,19 +8783,83 @@ function parseLegacyPriceTables(html, source) {
   return sections;
 }
 
+// DRAMeXchange's public homepage carried multiple DRAM and NAND tables in one
+// document before TrendForce split them into today's price URLs. The route on
+// each item link is used as the section identity, so similarly named products
+// from different tables can never be cross-merged. Product rows still need an
+// exact normalized name match in mergeArchiveSections; no speed-bin aliases or
+// interpolated observations are introduced.
+export function parseDramexchangeLegacyHome(html, sourceUrl = "https://www.dramexchange.com/") {
+  const grouped = new Map();
+  const tables = [...String(html || "").matchAll(/<table[^>]*>[\s\S]*?<\/table>/gi)].map((match) => match[0]);
+
+  for (const table of tables) {
+    if (!/Session Average|Average Change|Session Change/i.test(table)) continue;
+    const rawRows = [...table.matchAll(/<tr[^>]*>([\s\S]*?)<\/tr>/gi)].map((match) => match[1]);
+    if (rawRows.length < 2) continue;
+
+    const headerCells = [...rawRows[0].matchAll(/<t[dh][^>]*>([\s\S]*?)<\/t[dh]>/gi)]
+      .map((match) => stripHTML(match[1]));
+    const avgIdx = headerCells.findIndex((label) => /session average|^average$/i.test(label));
+    const chgIdx = headerCells.findIndex((label) => /session change|average change|^change$/i.test(label));
+    if (avgIdx < 0) continue;
+
+    for (const rawRow of rawRows.slice(1)) {
+      const rawCells = [...rawRow.matchAll(/<t[dh][^>]*>([\s\S]*?)<\/t[dh]>/gi)].map((match) => match[1]);
+      if (rawCells.length <= avgIdx) continue;
+      const routeMatch = rawCells[0].match(/href=["'][^"']*\/Price\/([^"'/?#]+)/i);
+      if (!routeMatch) continue;
+      const sectionMap = DRAMEXCHANGE_HOME_ROUTE_MAP.get(routeMatch[1].toLowerCase());
+      if (!sectionMap) continue;
+
+      const cells = rawCells.map((cell) => stripHTML(cell));
+      const item = cells[0];
+      const averageRaw = cells[avgIdx] || "";
+      const changeRaw = chgIdx >= 0 ? cells[chgIdx] || "" : "";
+      const average = parseNumber(averageRaw);
+      if (!item || average == null) continue;
+
+      if (!grouped.has(sectionMap.canonicalId)) {
+        grouped.set(sectionMap.canonicalId, {
+          id: sectionMap.canonicalId,
+          title: sectionMap.title,
+          group: sectionMap.group,
+          lastUpdate: "",
+          sourceUrl,
+          rows: [],
+        });
+      }
+      grouped.get(sectionMap.canonicalId).rows.push({
+        item,
+        average,
+        averageRaw,
+        changePct: chgIdx >= 0 ? parseNumber(changeRaw) : null,
+        changeRaw,
+        direction: chgIdx >= 0 ? directionFrom(changeRaw) : "flat",
+      });
+    }
+  }
+
+  return [...grouped.values()];
+}
+
 async function backfillPriceHistoryFromArchive(history) {
   let attemptsThisRun = 0;
+  let aggregateAttemptsThisRun = 0;
   let pointsAdded = 0;
   const forceBackfill = /^(?:1|true|yes)$/i.test(String(process.env.BACKFILL_FORCE || ""));
   const kstDay = new Date(Date.now() + 9 * 3600000).getUTCDay();
   const backfillCap = Number(process.env.BACKFILL_MAX) > 0
     ? Number(process.env.BACKFILL_MAX)
     : (kstDay === 0 ? ARCHIVE_BACKFILL_SUNDAY_CAP : ARCHIVE_BACKFILL_MAX_SNAPSHOTS_PER_RUN);
+  const aggregateBackfillCap = Number(process.env.BACKFILL_AGGREGATE_MAX) > 0
+    ? Number(process.env.BACKFILL_AGGREGATE_MAX)
+    : (kstDay === 0 ? 8 : 4);
   const attemptedAt = new Date().toISOString();
   const manifest = history.archiveBackfill && typeof history.archiveBackfill === "object"
     ? history.archiveBackfill
     : { schemaVersion: "2.0", monthsRequested: 60, attempts: {} };
-  manifest.schemaVersion = "2.0";
+  manifest.schemaVersion = "3.0";
   manifest.monthsRequested = 60;
   manifest.attempts ||= {};
   const monthlyTargets = archiveMonthlyTargets();
@@ -8842,11 +8931,108 @@ async function backfillPriceHistoryFromArchive(history) {
     });
   };
 
+  const cdxCatalog = async (url) => {
+    const first = monthlyTargets[0];
+    const last = monthlyTargets.at(-1);
+    const from = cdxDayStamp(first.target - first.windowDays * 86400000);
+    const to = cdxDayStamp(last.target + last.windowDays * 86400000);
+    const cacheKey = `${url}:${from}:${to}:catalog`;
+    if (!cdxCache.has(cacheKey)) {
+      const cdxUrl = `https://web.archive.org/cdx/search/cdx?url=${encodeURIComponent(url)}&output=json&from=${from}&to=${to}&filter=${encodeURIComponent("statuscode:200")}&filter=${encodeURIComponent("mimetype:text/html")}&collapse=${encodeURIComponent("timestamp:8")}&limit=2000`;
+      cdxCache.set(cacheKey, fetchArchiveText(cdxUrl).then((text) => {
+        const rows = JSON.parse(text);
+        return (Array.isArray(rows) ? rows.slice(1) : []).map((row) => row[1]).filter(Boolean);
+      }));
+    }
+    return cdxCache.get(cacheKey);
+  };
+
   const closestSnapshots = (snapshots, target, limit = ARCHIVE_SNAPSHOT_CANDIDATES_PER_JOB) => snapshots
     .map((ts) => ({ ts, diff: Math.abs(new Date(cdxTimestampToIso(ts)).getTime() - target) }))
     .sort((a, b) => a.diff - b.diff)
     .slice(0, Math.max(1, limit))
     .map((item) => item.ts);
+
+  // One archived DRAMeXchange homepage contains several public DRAM/NAND
+  // tables. A single 5-year CDX catalog request therefore replaces up to 120
+  // month-by-page lookups and restores pre-2025 exact-product observations.
+  // Each run stays bounded; BACKFILL_AGGREGATE_MAX=60 performs a one-time full
+  // recovery while scheduled runs continue filling any remaining months.
+  for (const source of ARCHIVE_AGGREGATE_SOURCES) {
+    if (aggregateAttemptsThisRun >= aggregateBackfillCap) break;
+    let catalog = [];
+    try {
+      catalog = await cdxCatalog(source.url);
+    } catch (error) {
+      note(`가격백필:${source.id}·catalog`, false, error.message);
+      continue;
+    }
+    for (const period of [...monthlyTargets].sort((left, right) => right.target - left.target)) {
+      if (aggregateAttemptsThisRun >= aggregateBackfillCap) break;
+      const uncovered = Object.values(history.items || {}).filter((item) =>
+        !(item.points || []).some((point) => pricePointCoversMonth(point, period.id)));
+      if (!uncovered.length) continue;
+
+      const jobId = `aggregate:${source.id}:${period.id}`;
+      const priorAttempt = manifest.attempts[jobId];
+      const retryDays = priorAttempt?.status === "failed" ? 1 : 30;
+      if (!forceBackfill && priorAttempt?.attemptedAt && Date.now() - Date.parse(priorAttempt.attemptedAt) < retryDays * 864e5) {
+        skippedByRetryThisRun += 1;
+        continue;
+      }
+
+      const available = catalog.filter((timestamp) => {
+        // Never let a neighbouring month stand in for a missing target month.
+        // This is an exact archived observation, not a backfilled estimate.
+        return archiveSnapshotMatchesMonth(timestamp, period.id);
+      });
+      if (!available.length) {
+        manifest.attempts[jobId] = { attemptedAt, status: "no-snapshot", uncoveredSeries: uncovered.length };
+        aggregateAttemptsThisRun += 1;
+        continue;
+      }
+
+      aggregateAttemptsThisRun += 1;
+      const candidates = closestSnapshots(available, period.target);
+      const archiveAttempts = [];
+      let merged = 0;
+      let coveredAfter = 0;
+      let parsedSuccessfully = false;
+      for (const snapshot of candidates) {
+        for (const archivedUrl of archiveReplayUrls(snapshot, source.url)) {
+          try {
+            const html = await fetchArchiveText(archivedUrl);
+            const sections = parseDramexchangeLegacyHome(html, source.url);
+            parsedSuccessfully = sections.length > 0;
+            const mergedHere = mergeArchiveSections(sections, snapshot, source.url);
+            merged += mergedHere;
+            coveredAfter = uncovered.filter((item) =>
+              (item.points || []).some((point) => pricePointCoversMonth(point, period.id))).length;
+            archiveAttempts.push({ snapshot, snapshotUrl: archivedUrl, parsedSections: sections.length, mergedSeries: mergedHere, coveredTargetSeries: coveredAfter });
+            break;
+          } catch (error) {
+            archiveAttempts.push({ snapshot, snapshotUrl: archivedUrl, error: String(error?.message || error).slice(0, 300) });
+          }
+        }
+        if (parsedSuccessfully) break;
+        if (snapshot !== candidates.at(-1)) await sleep(900);
+      }
+      const bestAttempt = archiveAttempts.find((item) => !item.error) || archiveAttempts[0] || null;
+      manifest.attempts[jobId] = {
+        attemptedAt,
+        status: coveredAfter > 0 ? "merged" : (merged > 0 ? "target-miss" : "empty"),
+        snapshot: bestAttempt?.snapshot || null,
+        snapshotUrl: bestAttempt?.snapshotUrl || null,
+        snapshotCandidatesTried: archiveAttempts.length,
+        uncoveredSeries: uncovered.length,
+        mergedSeries: merged,
+        coveredTargetSeries: coveredAfter,
+      };
+      note(`가격백필:${source.id}·${period.id}`, coveredAfter > 0, `${archiveAttempts.length}개 스냅샷 · 목표월 ${coveredAfter}/${uncovered.length}개 · 변경 ${merged}개`);
+      await sleep(900);
+    }
+  }
+
   const jobs = monthlyTargets
     .flatMap((period) => PRICE_PAGES.map((page) => ({ page, period })))
     // Fill the decision screen's most recent closeable windows first. Without
@@ -8946,6 +9132,7 @@ async function backfillPriceHistoryFromArchive(history) {
   }
   manifest.updatedAt = attemptedAt;
   manifest.attemptsThisRun = attemptsThisRun;
+  manifest.aggregateAttemptsThisRun = aggregateAttemptsThisRun;
   manifest.pointsAddedThisRun = pointsAdded;
   manifest.skippedByRetryThisRun = skippedByRetryThisRun;
   const coverageSeries = Object.fromEntries(Object.entries(history.items || {}).map(([key, item]) => {
