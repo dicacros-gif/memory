@@ -4362,7 +4362,22 @@ function brokerMetrics(item = {}) {
   return [...new Set(matches)].slice(0, 2);
 }
 
-export function buildBrokerResearch(news = []) {
+function brokerResearchHistoryKey(item = {}) {
+  const sourceUrl = String(item.sourceUrl || "").toLowerCase().replace(/[?#].*$/, "").replace(/\/$/, "");
+  return sourceUrl || String(item.id || `${item.institution || ""}:${item.publishedAt || ""}:${item.title || ""}`).toLowerCase();
+}
+
+function validAccumulatedBrokerItem(item = {}) {
+  return item.origin === "live-crawl"
+    && /^https?:\/\//i.test(String(item.sourceUrl || ""))
+    && !/news\.google\.com/i.test(String(item.sourceUrl || ""))
+    && /^20\d{2}-\d{2}-\d{2}$/.test(String(item.publishedAt || ""))
+    && String(item.title || "").trim()
+    && String(item.summary || "").trim().length >= 35
+    && new Set(["direct-report", "news-citation"]).has(String(item.evidenceType || ""));
+}
+
+export function buildBrokerResearch(news = [], previousBrokerResearch = {}) {
   const generatedAt = new Date().toISOString();
   const citations = news.map((item) => {
     if (item.verification?.origin !== "live-crawl" || item.verification?.observedThisRun !== true) return null;
@@ -4410,14 +4425,42 @@ export function buildBrokerResearch(news = []) {
     seen.add(key);
     deduped.push(item);
   }
-  const items = deduped.slice(0, 8);
+  const previousItems = Array.isArray(previousBrokerResearch?.items)
+    ? previousBrokerResearch.items.filter(validAccumulatedBrokerItem)
+    : [];
+  const previousByKey = new Map(previousItems.map((item) => [brokerResearchHistoryKey(item), item]));
+  const currentItems = deduped.map((item) => {
+    const previous = previousByKey.get(brokerResearchHistoryKey(item));
+    return {
+      ...item,
+      observedThisRun: true,
+      firstObservedAt: previous?.firstObservedAt || previous?.validatedAt || previousBrokerResearch?.updatedAt || generatedAt,
+      lastObservedAt: generatedAt,
+    };
+  });
+  const merged = new Map(currentItems.map((item) => [brokerResearchHistoryKey(item), item]));
+  for (const previous of previousItems) {
+    const key = brokerResearchHistoryKey(previous);
+    if (merged.has(key)) continue;
+    merged.set(key, {
+      ...previous,
+      observedThisRun: false,
+      firstObservedAt: previous.firstObservedAt || previous.validatedAt || previousBrokerResearch?.updatedAt || null,
+      lastObservedAt: previous.lastObservedAt || previous.validatedAt || previousBrokerResearch?.updatedAt || null,
+    });
+  }
+  const items = [...merged.values()].sort((a, b) => (
+    new Date(b.publishedAt || b.lastObservedAt || 0) - new Date(a.publishedAt || a.lastObservedAt || 0)
+  ));
   return {
-    schemaVersion: "2.0",
+    schemaVersion: "2.1",
     updatedAt: generatedAt,
-    methodology: "이번 실행에서 직접 관측한 증권사 공식 발간물·권위 매체 인용만 승격하며, URL 없는 제공 문서는 baseline으로 분리함.",
+    methodology: "공개 원문 URL과 정확한 날짜가 확인된 증권사 공식 발간물·권위 매체 인용을 실행 간 누적하고 중복 URL만 병합함.",
     institutions: [...new Set(items.map((item) => item.institution))],
     reportCount: items.filter((item) => item.evidenceType === "direct-report").length,
     citationCount: items.filter((item) => item.evidenceType === "news-citation").length,
+    currentRunCount: currentItems.length,
+    accumulatedCount: items.length,
     baseline: {
       status: "revalidation-required",
       documentCount: BROKER_REPORT_DOCUMENTS.length,
@@ -5396,6 +5439,7 @@ async function loadPreviousData() {
   return {
     news: Array.isArray(previous.news) ? previous.news : [],
     stocks: previous.stocks && typeof previous.stocks === "object" ? previous.stocks : {},
+    brokerResearch: previous.brokerResearch && typeof previous.brokerResearch === "object" ? previous.brokerResearch : {},
     communityItems: [
       ...(Array.isArray(previous.communitySignals?.items) ? previous.communitySignals.items : []),
       ...(Array.isArray(previous.communitySignals?.referenceArchive?.items) ? previous.communitySignals.referenceArchive.items : []),
@@ -6375,13 +6419,15 @@ function buildQualityReport(payload = {}) {
     const linkedEvidence = /^https?:\/\//i.test(String(item.sourceUrl || "")) && !/news\.google\.com/i.test(String(item.sourceUrl || ""));
     return linkedEvidence
       && item.origin === "live-crawl"
-      && item.observedThisRun === true
+      && typeof item.observedThisRun === "boolean"
+      && /^20\d{2}-\d{2}-\d{2}$/.test(String(item.publishedAt || ""))
       && String(item.institution || "").trim()
       && String(item.title || "").trim()
       && String(item.summary || "").trim().length >= 35
       && String(item.insight || "").trim()
       && String(item.reversalKpi || "").trim();
   });
+  const currentBrokerItems = validBrokerItems.filter((item) => item.observedThisRun === true);
   const validBrokerFramework = Boolean(
     brokerFramework
     && brokerFramework.dataStatus === "live-observed"
@@ -6459,6 +6505,7 @@ function buildQualityReport(payload = {}) {
       factEvents: validFacts.length,
       sourceChannels: sourceChannels.length,
       brokerResearch: validBrokerItems.length,
+      brokerResearchCurrent: currentBrokerItems.length,
       brokerFramework: validBrokerFramework ? 1 : 0,
       brokerNewsCitations: validBrokerItems.filter((item) => item.evidenceType === "news-citation").length,
       marketIndexes: validMarkets.length,
@@ -9256,8 +9303,8 @@ async function main() {
   const signals = buildSignals({ prices, competitors, startups, newsStats: stats });
   const facts = buildFactTimeline(news, evidenceValidatedAt);
   const intelligence = buildIntelligence({ news, prices, stats, chinaInfra, facts });
-  const brokerResearch = buildBrokerResearch(news);
-  note("증권사 리서치", true, `이번 실행 공개 원문 ${brokerResearch.items.length}건 · URL 없는 baseline ${brokerResearch.baseline.itemCount}건 분리`);
+  const brokerResearch = buildBrokerResearch(news, previous.brokerResearch);
+  note("증권사 리서치", true, `이번 실행 ${brokerResearch.currentRunCount}건 · 누적 공개 원문 ${brokerResearch.accumulatedCount}건`);
   quant = await collectQuantMetrics(priceHistory, {
     runId,
     previousQuant: previous.quant,

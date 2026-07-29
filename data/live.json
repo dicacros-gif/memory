@@ -148381,12 +148381,17 @@
     ]
   },
   "brokerResearch": {
-    "schemaVersion": "2.0",
+    "schemaVersion": "2.1",
     "updatedAt": "2026-07-29T15:20:09.530Z",
-    "methodology": "이번 실행에서 직접 관측한 증권사 공식 발간물·권위 매체 인용만 승격하며, URL 없는 제공 문서는 baseline으로 분리함.",
-    "institutions": [],
+    "methodology": "공개 원문 URL과 정확한 날짜가 확인된 증권사 공식 발간물·권위 매체 인용을 실행 간 누적하고 중복 URL만 병합함.",
+    "institutions": [
+      "UBS",
+      "Morgan Stanley"
+    ],
     "reportCount": 0,
-    "citationCount": 0,
+    "citationCount": 2,
+    "currentRunCount": 0,
+    "accumulatedCount": 2,
     "baseline": {
       "status": "revalidation-required",
       "documentCount": 2,
@@ -148749,7 +148754,52 @@
       "lastCheckedAt": null,
       "revalidationRequired": true
     },
-    "items": []
+    "items": [
+      {
+        "id": "broker-ubs-삼성-2027년-hbm-시장에서-skhy-추월할-수도",
+        "institution": "UBS",
+        "institutionId": "ubs",
+        "evidenceType": "news-citation",
+        "label": "HBM & PACKAGING",
+        "title": "삼성, 2027년 HBM 시장에서 SKHY 추월할 수도",
+        "summary": "UBS가 인용한 예측에 따르면, 삼성전자는 HBM4의 출하량 확대로 2027년 SKHY를 제치고 글로벌 고대역폭 메모리 시장을 선도할 수 있을 것으로 전망된다.",
+        "metrics": [],
+        "insight": "SKHY는 점유율 전망보다 고객 인증, HBM4 수율, 베이스 다이와 패키징 병목의 실제 개선 속도를 우선 확인해야 합니다.",
+        "reversalKpi": "고객 인증, HBM4 수율, 패키징 처리량",
+        "publishedAt": "2026-07-20",
+        "source": "digitimes",
+        "sourceRef": "UBS 인용 기사",
+        "sourceUrl": "https://www.digitimes.com/news/a20260720PD215/samsung-2027-hbm4-market-sk-hynix.html",
+        "origin": "live-crawl",
+        "observedThisRun": false,
+        "validatedAt": "2026-07-26T21:51:53.299Z",
+        "firstObservedAt": "2026-07-26T21:51:53.299Z",
+        "lastObservedAt": "2026-07-26T21:51:53.299Z",
+        "accent": "#e11d48"
+      },
+      {
+        "id": "broker-morgan-stanley-cnbc에서-morgan-stanley의-joseph-moore는-기억력의-약화가-흥미로운-진입점을-만들었다고-말했습니다",
+        "institution": "Morgan Stanley",
+        "institutionId": "morgan-stanley",
+        "evidenceType": "news-citation",
+        "label": "CYCLE CHECK",
+        "title": "CNBC에서 Morgan Stanley의 Joseph Moore는 기억력의 약화가 흥미로운 진입점을 만들었다고 말했습니다.",
+        "summary": "Joseph Moore, Morgan Stanley senior semiconductor analyst, joins 'Power Lunch' to discuss the memory trade, if there will be demand damage with higher prices and much more.",
+        "metrics": [],
+        "insight": "SKHY는 증권사 가격 전망을 공개 contract·spot 가격, 고객 재고와 대조하고 상방·하방 시나리오를 분리해 사용해야 합니다.",
+        "reversalKpi": "contract·spot spread, 고객 재고, 수요 전망",
+        "publishedAt": "2026-07-20",
+        "source": "CNBC",
+        "sourceRef": "Morgan Stanley 인용 기사",
+        "sourceUrl": "https://www.cnbc.com/video/2026/07/20/weakness-in-memory-has-created-an-interesting-entry-point-says-morgan-stanleys-joseph-moore.html",
+        "origin": "live-crawl",
+        "observedThisRun": false,
+        "validatedAt": "2026-07-26T21:51:53.299Z",
+        "firstObservedAt": "2026-07-26T21:51:53.299Z",
+        "lastObservedAt": "2026-07-26T21:51:53.299Z",
+        "accent": "#00a98f"
+      }
+    ]
   },
   "categories": [
     {
@@ -161400,9 +161450,10 @@
       "decisionBriefs": 6,
       "factEvents": 0,
       "sourceChannels": 8,
-      "brokerResearch": 0,
+      "brokerResearch": 2,
+      "brokerResearchCurrent": 0,
       "brokerFramework": 0,
-      "brokerNewsCitations": 0,
+      "brokerNewsCitations": 2,
       "marketIndexes": 90,
       "peerStocks": 3
     },

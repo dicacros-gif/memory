@@ -1050,7 +1050,8 @@ for (const item of news) {
 const brokerResearch = live.brokerResearch || null;
 const brokerItems = Array.isArray(brokerResearch?.items) ? brokerResearch.items : [];
 if (brokerResearch) {
-  const brokerLiveSchema = brokerResearch.schemaVersion === "2.0";
+  const brokerLiveSchema = new Set(["2.0", "2.1"]).has(brokerResearch.schemaVersion);
+  const brokerCumulativeSchema = brokerResearch.schemaVersion === "2.1";
   if (!brokerLiveSchema && brokerItems.length < 6) {
     addIssue("error", "data/live.json", "fewer than six broker research evidence cards", String(brokerItems.length));
   }
@@ -1066,8 +1067,17 @@ if (brokerResearch) {
       addIssue("error", "data/live.json", "broker research item has an invalid evidence type", `${item.id || item.title}:${evidenceType || "missing"}`);
     }
     if (!hasEvidence) addIssue("error", "data/live.json", "broker research item lacks linked evidence", item.id || item.title || "unknown");
-    if (brokerLiveSchema && (item.origin !== "live-crawl" || item.observedThisRun !== true || !exactSourceDate(item.publishedAt))) {
+    if (brokerResearch.schemaVersion === "2.0" && (item.origin !== "live-crawl" || item.observedThisRun !== true || !exactSourceDate(item.publishedAt))) {
       addIssue("error", "data/live.json", "broker live item was not observed in the current crawl with an exact date", item.id || item.title || "unknown");
+    }
+    if (brokerCumulativeSchema && (
+      item.origin !== "live-crawl"
+      || typeof item.observedThisRun !== "boolean"
+      || !exactSourceDate(item.publishedAt)
+      || !String(item.firstObservedAt || "").trim()
+      || !String(item.lastObservedAt || "").trim()
+    )) {
+      addIssue("error", "data/live.json", "broker cumulative item is missing source-date or observation history", item.id || item.title || "unknown");
     }
     if (!String(item.institution || "").trim()) addIssue("error", "data/live.json", "broker research item has no institution", item.id || item.title || "unknown");
     if (String(item.summary || "").trim().length < 35) addIssue("error", "data/live.json", "broker research summary is not substantive", item.id || item.title || "unknown");
@@ -1083,6 +1093,12 @@ if (brokerResearch) {
   }
   if (Number(brokerResearch.citationCount || 0) !== brokerItems.filter((item) => item.evidenceType === "news-citation").length) {
     addIssue("error", "data/live.json", "broker news-citation count mismatch", String(brokerResearch.citationCount));
+  }
+  if (brokerCumulativeSchema && Number(brokerResearch.currentRunCount || 0) !== brokerItems.filter((item) => item.observedThisRun === true).length) {
+    addIssue("error", "data/live.json", "broker current-run count mismatch", String(brokerResearch.currentRunCount));
+  }
+  if (brokerCumulativeSchema && Number(brokerResearch.accumulatedCount || 0) !== brokerItems.length) {
+    addIssue("error", "data/live.json", "broker accumulated count mismatch", String(brokerResearch.accumulatedCount));
   }
   const framework = brokerResearch.framework || null;
   if (!framework || !String(framework.sourceRef || "").trim()) {
@@ -1475,6 +1491,7 @@ const expectedQualityMetrics = {
   peerStocks: stocks.filter(([, stock]) => Number(stock.latestClose) > 0).length,
   ...(brokerResearch ? {
     brokerResearch: brokerItems.length,
+    brokerResearchCurrent: brokerItems.filter((item) => item.observedThisRun === true).length,
     brokerNewsCitations: brokerItems.filter((item) => item.evidenceType === "news-citation").length,
   } : {}),
 };

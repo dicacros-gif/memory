@@ -64,6 +64,11 @@ assert.match(app, /bodyLead: "Insight"/, "executive insight cards should use the
 assert.match(app, /function briefingBulletLines\(value = ""\)/, "broker summaries should be split into bullet-safe lines");
 assert.match(app, /briefingBulletListHTML\(brokerArticleSummary\(item\)\)/, "broker article summaries should render as bullet lists");
 assert.doesNotMatch(app, /class="exec-report-decision-list"/, "broker cards should show the crawled source summary without separate insight or reversal-condition blocks");
+assert.doesNotMatch(app, /이번 실행에서 메모리 산업과 직접 연결되는 증권사 공개 원문·권위 매체 인용을 확인하지 못했습니다/, "an empty current crawl must not replace the accumulated broker archive with placeholder copy");
+assert.match(app, /const BROKER_DISMISSED_STORAGE_KEY = "memory-broker-dismissed-v1";/, "dismissed broker cards should be stored as a browser-local preference");
+assert.match(app, /data-broker-dismiss="\$\{escapeHTML\(itemKey\)\}"/, "each accumulated broker card should expose an individual dismiss control");
+assert.match(app, /data-broker-restore/, "dismissed broker cards should be restorable without deleting source data");
+assert.match(css, /\.exec-report-dismiss:is\(:hover, :focus-visible\)[\s\S]*?rotate\(90deg\)/, "the broker dismiss control should visibly respond to hover and keyboard focus");
 assert.match(app, /class="exec-flow-node reveal/, "executive summary should render as a compact signal-to-decision flow");
 assert.match(app, /class="exec-flow-signal"/, "executive flow nodes should retain the core evidence text");
 assert.match(css, /\.exec-report-bullet-list > li::before/, "broker bullet lists should have a visual bullet marker");
@@ -114,7 +119,7 @@ assert.match(app, /loadManagedJSON\("live", "data\/live-client\.json"[\s\S]*?loa
 assert.match(app, /priceHistory: \{[\s\S]*?path: "data\/price-history-client\.json"[\s\S]*?marketHistory: \{[\s\S]*?path: "data\/market-history-client\.json"/, "secondary fallbacks must never download database-sized history files");
 assert.match(css, /\.agent-debate-title \.agent-tts-toggle \{[\s\S]*?min-width: 190px;[\s\S]*?min-height: 44px;/, "the English TTS control should be large and readable");
 assert.match(css, /\.agent-tts-state \{[\s\S]*?min-width: 31px;/, "the TTS control should expose a dedicated on-or-off state badge");
-assert.match(html, /app\.js\?v=site-audit-20260729-74/, "JavaScript cache key should include the site-audit revision");
+assert.match(html, /app\.js\?v=site-audit-20260730-01/, "JavaScript cache key should include the site-audit revision");
 assert.match(html, /id="memoryHeroVideo"[\s\S]*?preload="none"[\s\S]*?<source data-src="assets\/media\/memory-hero\.mp4"/, "hero video should hydrate after the poster paints");
 assert.match(html, /id="talentStrategyVideoMedia"[\s\S]*?preload="none"[\s\S]*?data-poster="assets\/media\/china-talent-strategy-poster\.webp"[\s\S]*?<source data-src="assets\/media\/china-talent-strategy\.mp4"/, "below-fold talent media should not load during first paint");
 assert.doesNotMatch(html, /family=Noto\+Sans\+KR/, "Pretendard should replace the duplicate Korean webfont download");
@@ -130,7 +135,7 @@ assert.match(css, /\.china-deep-video-dock \.talent-strategy-video \{[\s\S]*?hei
 assert.match(css, /@media \(max-width: 680px\) \{[\s\S]*?\.china-deep-video-dock \.talent-strategy-video \{[\s\S]*?aspect-ratio: 4 \/ 5;/, "the compact video height should preserve the mobile portrait layout");
 assert.match(css, /#talent-radar \.talent-radar-slider-slot \{[\s\S]*?display: flex;[\s\S]*?justify-content: center;/, "the talent radar slot should center its visual stage");
 assert.match(css, /#talent-radar \.talent-radar-slider \{[\s\S]*?width: min\(100%, 1360px\);[\s\S]*?margin-inline: auto;/, "the talent radar visual should use a bounded, centered desktop width");
-assert.match(html, /styles\.css\?v=site-audit-20260729-75/, "CSS cache key should include the site-audit revision");
+assert.match(html, /styles\.css\?v=site-audit-20260730-01/, "CSS cache key should include the site-audit revision");
 assert.match(css, /#china-talent-strategy :is\(\.policy-card, \.policy-rule-card, \.policy-focus\):is\(:hover, :focus-within\) \{[\s\S]*?linear-gradient\(135deg, #153e75 0%, #0e7490 54%, #0f766e 100%\)/, "China talent inverted cards should use the professional blue-to-teal gradient");
 assert.match(css, /#talentScenarioTabs \.talent-scenario-tab\.active \{[\s\S]*?linear-gradient\(135deg, #153e75 0%, #0e7490 54%, #0f766e 100%\)/, "the selected China talent scenario should use the same professional gradient");
 assert.match(css, /\.exec-baseline-document:is\(:hover, :focus-visible\) \.exec-baseline-document-focus \{[\s\S]*?linear-gradient\(135deg, #fffdf5 0%, #fef3c7 100%\)/, "the inverted source card should separate its key thesis with an ivory-to-gold gradient");

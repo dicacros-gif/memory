@@ -34,7 +34,7 @@
     prices: { sections: [], watchedItems: [] },
     news: [],
     communitySignals: { updatedAt: null, total: 0, typeCounts: {}, platformCounts: {}, items: [] },
-    brokerResearch: { updatedAt: null, reportCount: 0, citationCount: 0, institutions: [], framework: null, items: [] },
+    brokerResearch: { schemaVersion: "2.1", updatedAt: null, reportCount: 0, citationCount: 0, currentRunCount: 0, accumulatedCount: 0, institutions: [], framework: null, items: [] },
     categories: [],
     benchmarkSignals: { stream: [] },
     chinaInfra: { sources: [], signals: [] },
@@ -7225,13 +7225,11 @@
       reversal: item.reversalKpi || item.reversal || "",
       metrics: Array.isArray(item.metrics) ? item.metrics : [],
     })).filter((item) => (
-      item.title && item.body && item.implication && item.reversal
+      item.title && item.body
       && item.origin === "live-crawl"
-      && item.observedThisRun === true
       && /^https?:\/\//i.test(String(item.sourceUrl || ""))
       && !/news\.google\.com/i.test(String(item.sourceUrl || ""))
     ));
-    if (normalizedLive.length) return normalizedLive.slice(0, 8);
 
     const citations = rawNews().map((item) => {
       if (item.verification?.origin !== "live-crawl" || item.verification?.observedThisRun !== true) return null;
@@ -7257,14 +7255,6 @@
         accent: rule.accent,
       };
     }).filter(Boolean);
-
-    const seen = new Set();
-    return citations.filter((item) => {
-      const key = String(item.sourceUrl || `${item.institution}:${item.title}`).toLowerCase().replace(/[?#].*$/, "");
-      if (seen.has(key)) return false;
-      seen.add(key);
-      return true;
-    }).slice(0, 8);
 
     const referenceItems = Array.isArray(LIVE.referenceNews?.items) ? LIVE.referenceNews.items : [];
     const referenceCitations = referenceItems.map((item) => {
@@ -7293,13 +7283,80 @@
       };
     }).filter(Boolean);
 
-    const referenceSeen = new Set();
-    return referenceCitations.filter((item) => {
+    const seen = new Set();
+    return normalizedLive.concat(citations, referenceCitations).filter((item) => {
       const key = String(item.sourceUrl || `${item.institution}:${item.title}`).toLowerCase().replace(/[?#].*$/, "");
-      if (referenceSeen.has(key)) return false;
-      referenceSeen.add(key);
+      if (seen.has(key)) return false;
+      seen.add(key);
       return true;
-    }).slice(0, 8);
+    }).sort((a, b) => new Date(b.publishedAt || 0) - new Date(a.publishedAt || 0));
+  }
+
+  const BROKER_DISMISSED_STORAGE_KEY = "memory-broker-dismissed-v1";
+
+  function brokerResearchItemKey(item = {}) {
+    return String(item.id || item.sourceUrl || `${item.institution || ""}:${item.publishedAt || ""}:${item.title || ""}`).trim();
+  }
+
+  function dismissedBrokerResearchKeys() {
+    try {
+      const stored = JSON.parse(window.localStorage.getItem(BROKER_DISMISSED_STORAGE_KEY) || "[]");
+      return new Set(Array.isArray(stored) ? stored.map(String).filter(Boolean) : []);
+    } catch {
+      return new Set();
+    }
+  }
+
+  function storeDismissedBrokerResearchKeys(keys) {
+    try {
+      window.localStorage.setItem(BROKER_DISMISSED_STORAGE_KEY, JSON.stringify([...keys]));
+    } catch {
+      // Browser privacy settings may block local storage; the source archive
+      // remains untouched and the next render simply shows every item again.
+    }
+  }
+
+  function brokerResearchCardsHTML(researchItems = []) {
+    const dismissed = dismissedBrokerResearchKeys();
+    const visibleItems = researchItems.filter((item) => !dismissed.has(brokerResearchItemKey(item)));
+    const hiddenCount = researchItems.length - visibleItems.length;
+    const cards = visibleItems.map((item, index) => {
+      const itemKey = brokerResearchItemKey(item);
+      return `
+        <article class="exec-report-insight" data-broker-card="${escapeHTML(itemKey)}" style="--report-accent:${escapeHTML(item.accent || "#00a98f")}">
+          <span class="exec-report-number">${String(index + 1).padStart(2, "0")}</span>
+          <div class="exec-report-insight-copy">
+            <div class="exec-report-kicker"><strong>${escapeHTML(item.institution || item.label)}</strong><span>${escapeHTML(item.publishedAt || "")}</span></div>
+            <h5>${strategicHighlightHTML(brokerArticleTitle(item))}</h5>
+            ${briefingBulletListHTML(brokerArticleSummary(item))}
+            <a class="exec-report-source" href="${escapeHTML(item.sourceUrl)}" target="_blank" rel="noopener noreferrer">원문 보기 ↗</a>
+          </div>
+          <button class="exec-report-dismiss" type="button" data-broker-dismiss="${escapeHTML(itemKey)}" aria-label="${escapeHTML(brokerArticleTitle(item))} 숨기기" title="이 브리핑 숨기기">×</button>
+        </article>
+      `;
+    }).join("");
+    const restore = hiddenCount
+      ? `<div class="exec-report-hidden-state"><span>이 브라우저에서 숨김 ${fmtNum(hiddenCount)}건</span><button type="button" data-broker-restore>숨김 복원</button></div>`
+      : "";
+    return { cards, restore, visibleCount: visibleItems.length, hiddenCount };
+  }
+
+  function bindBrokerResearchControls(container, researchItems) {
+    if (!container) return;
+    container.querySelectorAll("[data-broker-dismiss]").forEach((button) => {
+      button.addEventListener("click", () => {
+        const dismissed = dismissedBrokerResearchKeys();
+        dismissed.add(button.dataset.brokerDismiss);
+        storeDismissedBrokerResearchKeys(dismissed);
+        container.innerHTML = renderBrokerInsightReport(researchItems);
+        bindBrokerResearchControls(container, researchItems);
+      });
+    });
+    container.querySelector("[data-broker-restore]")?.addEventListener("click", () => {
+      storeDismissedBrokerResearchKeys(new Set());
+      container.innerHTML = renderBrokerInsightReport(researchItems);
+      bindBrokerResearchControls(container, researchItems);
+    });
   }
 
   function brokerResearchFrameworkFallback() {
@@ -7441,6 +7498,7 @@
   }
 
   function renderBrokerInsightReport(researchItems) {
+    const brokerCards = brokerResearchCardsHTML(researchItems);
     const frameworkIsLive = LIVE.brokerResearch?.framework?.dataStatus === "live-observed"
       && /^20\d{2}-\d{2}-\d{2}$/.test(String(LIVE.brokerResearch?.framework?.lastCheckedAt || ""));
     if (!frameworkIsLive) {
@@ -7453,20 +7511,14 @@
               <span>LIVE BROKER MONITOR · ${escapeHTML(updatedAt || "수집 대기")}</span>
               <h3 id="execReportTitle">증권사 공개 원문·인용 브리핑</h3>
             </div>
+            <div class="exec-report-history-count"><strong>누적 ${fmtNum(researchItems.length)}건</strong><span>공개 원문 URL·날짜 기준</span></div>
           </header>
-          <section class="exec-report-insights" aria-label="증권사 라이브 인용">
-            ${researchItems.length ? researchItems.map((item, index) => `
-              <article class="exec-report-insight" style="--report-accent:${escapeHTML(item.accent || "#00a98f")}">
-                <span class="exec-report-number">${String(index + 1).padStart(2, "0")}</span>
-                <div class="exec-report-insight-copy">
-                  <div class="exec-report-kicker"><strong>${escapeHTML(item.institution || item.label)}</strong><span>${escapeHTML(item.publishedAt || "")}</span></div>
-                  <h5>${strategicHighlightHTML(brokerArticleTitle(item))}</h5>
-                  ${briefingBulletListHTML(brokerArticleSummary(item))}
-                  <a class="exec-report-source" href="${escapeHTML(item.sourceUrl)}" target="_blank" rel="noopener noreferrer">원문 보기 ↗</a>
-                </div>
-              </article>
-            `).join("") : `<div class="empty">${briefingBulletListHTML("이번 실행에서 메모리 산업과 직접 연결되는 증권사 공개 원문·권위 매체 인용을 확인하지 못했습니다.")}</div>`}
-          </section>
+          ${brokerCards.cards || brokerCards.restore ? `
+            <section class="exec-report-insights" aria-label="증권사 누적 공개 원문·인용">
+              ${brokerCards.cards}
+              ${brokerCards.restore}
+            </section>
+          ` : ""}
           ${renderBrokerBaselineReports(baseline)}
         </article>
       `;
@@ -7501,6 +7553,7 @@
             <span>IB RESEARCH BRIEFING · MORGAN STANLEY</span>
             <h3 id="execReportTitle">${escapeHTML(framework.title || "증권사 리서치 핵심 요약")}</h3>
           </div>
+          <div class="exec-report-history-count"><strong>누적 ${fmtNum(researchItems.length)}건</strong><span>공개 원문 URL·날짜 기준</span></div>
         </header>
 
         <section class="exec-report-thesis" aria-label="한 줄 논지">
@@ -7511,21 +7564,8 @@
         <div class="exec-report-body">
           <section class="exec-report-insights" aria-labelledby="execReportInsights">
             <h4 id="execReportInsights">1. 핵심 인사이트</h4>
-            ${researchItems.map((item, index) => `
-              <article class="exec-report-insight" style="--report-accent:${escapeHTML(item.accent || "#00a98f")}">
-                <span class="exec-report-number">${String(index + 1).padStart(2, "0")}</span>
-                <div class="exec-report-insight-copy">
-                  <div class="exec-report-kicker">
-                    <strong>${escapeHTML(item.label)}</strong>
-                  </div>
-                  <h5>${strategicHighlightHTML(brokerArticleTitle(item))}</h5>
-                  ${briefingBulletListHTML(brokerArticleSummary(item))}
-                  ${item.evidenceType === "news-citation" && item.sourceUrl
-                    ? `<a class="exec-report-source" href="${escapeHTML(item.sourceUrl)}" target="_blank" rel="noopener noreferrer">원문 보기</a>`
-                    : ""}
-                </div>
-              </article>
-            `).join("")}
+            ${brokerCards.cards}
+            ${brokerCards.restore}
           </section>
 
           <aside class="exec-report-analysis" aria-label="정량 분석과 실행 판단">
@@ -7667,6 +7707,7 @@
 
     const researchItems = brokerResearchSummaries();
     research.innerHTML = renderBrokerInsightReport(researchItems);
+    bindBrokerResearchControls(research, researchItems);
 
     brief.querySelectorAll("[data-jump]").forEach((btn) => btn.addEventListener("click", () => jumpTo(btn.dataset.jump)));
     strategy.querySelectorAll("[data-exec-nand]").forEach((btn) => {

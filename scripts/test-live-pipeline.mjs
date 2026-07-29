@@ -89,9 +89,11 @@ const brokerLive = buildBrokerResearch([
     "authoritative-media",
   ),
 ]);
-assert.equal(brokerLive.schemaVersion, "2.0");
+assert.equal(brokerLive.schemaVersion, "2.1");
 assert.equal(brokerLive.items.length, 1, "a current-run authoritative broker citation must be live");
 assert.equal(brokerLive.items[0].observedThisRun, true);
+assert.equal(brokerLive.currentRunCount, 1);
+assert.equal(brokerLive.accumulatedCount, 1);
 assert.equal(brokerLive.baseline.status, "revalidation-required");
 assert.equal(brokerLive.baseline.documentCount, 2, "both supplied source documents must remain visible");
 assert.equal(brokerLive.baseline.documents.length, 2, "the supplied source digest must preserve both documents");
@@ -104,6 +106,27 @@ const brokerSeedOnly = buildBrokerResearch([{
   verification: { sourceClass: "authoritative-media", origin: "curated-seed", observedThisRun: false },
 }]);
 assert.equal(brokerSeedOnly.items.length, 0, "curated broker material must remain outside live cards");
+
+const accumulatedBroker = buildBrokerResearch([], brokerLive);
+assert.equal(accumulatedBroker.schemaVersion, "2.1");
+assert.equal(accumulatedBroker.items.length, 1, "a later empty crawl must preserve previously verified broker citations");
+assert.equal(accumulatedBroker.currentRunCount, 0, "an empty crawl must not relabel historical citations as newly observed");
+assert.equal(accumulatedBroker.accumulatedCount, 1);
+assert.equal(accumulatedBroker.items[0].observedThisRun, false);
+assert.equal(accumulatedBroker.items[0].sourceUrl, brokerLive.items[0].sourceUrl);
+const refreshedBroker = buildBrokerResearch([
+  article(
+    "Morgan Stanley raises DRAM memory semiconductor forecast",
+    "https://www.reuters.com/technology/morgan-stanley-memory-forecast",
+    "2026-07-20",
+    "모건스탠리는 서버 수요 강세를 근거로 DRAM 메모리 반도체 전망을 상향했습니다.",
+    "Reuters",
+    "authoritative-media",
+  ),
+], accumulatedBroker);
+assert.equal(refreshedBroker.items.length, 1, "a repeated canonical broker URL must update rather than duplicate the archive");
+assert.equal(refreshedBroker.currentRunCount, 1);
+assert.equal(refreshedBroker.items[0].firstObservedAt, accumulatedBroker.items[0].firstObservedAt);
 
 const liveFigures = extractLiveFigures({ news: [
   article("HBM memory capacity rises 40%", "https://news.samsung.com/global/live-figure", "2026-07-20", "HBM 메모리 생산능력이 공식 발표 기준 40% 증가했습니다.", "Samsung"),
