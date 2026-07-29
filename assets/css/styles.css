@@ -4438,11 +4438,11 @@ body.sidebar-collapsed .sb-ico {
 
 .exec-baseline-document:is(:hover, :focus-visible) :is(.strategy-highlight, .answer-term),
 .exec-baseline-report:is(:hover, :focus-visible) :is(.strategy-highlight, .answer-term) {
-  --term-color: #ffe790;
-  --term-line: #fbbf24;
-  color: #ffe790 !important;
-  -webkit-text-fill-color: #ffe790;
-  text-decoration-color: #fbbf24 !important;
+  --term-color: #d9f7f2;
+  --term-line: #5eead4;
+  color: #d9f7f2 !important;
+  -webkit-text-fill-color: #d9f7f2;
+  text-decoration-color: #5eead4 !important;
   text-shadow: 0 1px 2px rgba(2, 8, 23, .45);
 }
 
@@ -22989,6 +22989,16 @@ button.ni-trend-chip:hover { box-shadow: 0 4px 12px color-mix(in srgb, #0891B2 2
   text-shadow: none;
 }
 
+.exec-baseline-document:is(:hover, :focus-visible)
+  .exec-baseline-document-focus > p :is(.strategy-highlight, .answer-term) {
+  --term-color: #7c3f00;
+  --term-line: #b45309;
+  color: #7c3f00 !important;
+  -webkit-text-fill-color: #7c3f00;
+  text-decoration-color: #b45309 !important;
+  text-shadow: none;
+}
+
 .exec-baseline-document:is(:hover, :focus-visible) .exec-baseline-document-flow > li,
 .exec-baseline-document:is(:hover, :focus-visible) .exec-baseline-document-metrics > .exec-baseline-metric {
   --baseline-inner-start: #f0f7ff;
@@ -23024,6 +23034,18 @@ button.ni-trend-chip:hover { box-shadow: 0 4px 12px color-mix(in srgb, #0891B2 2
   .exec-baseline-document-metrics > .exec-baseline-metric :is(small, strong) {
   color: var(--baseline-inner-ink) !important;
   -webkit-text-fill-color: var(--baseline-inner-ink);
+  text-shadow: none;
+}
+
+.exec-baseline-document:is(:hover, :focus-visible)
+  .exec-baseline-document-flow > li :is(.strategy-highlight, .answer-term),
+.exec-baseline-document:is(:hover, :focus-visible)
+  .exec-baseline-document-metrics > .exec-baseline-metric :is(.strategy-highlight, .answer-term) {
+  --term-color: var(--baseline-inner-accent);
+  --term-line: var(--baseline-inner-accent);
+  color: var(--baseline-inner-accent) !important;
+  -webkit-text-fill-color: var(--baseline-inner-accent);
+  text-decoration-color: color-mix(in srgb, var(--baseline-inner-accent) 78%, transparent) !important;
   text-shadow: none;
 }
 
