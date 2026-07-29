@@ -29,8 +29,10 @@ assert.match(app, /\{ id: "equity-value-chain", render: renderEquityValueChain, 
   "the heavy equity dashboard must lazy-load the market artifact");
 assert.match(app, /id: "stock"[\s\S]*?label: "Stock 분석"[\s\S]*?jump: "equity-value-chain"/,
   "the sidebar must expose a dedicated Stock analysis route");
-assert.match(app, /\{ label: "시장·리스크", routes: \["market", "stock", "policy"\] \}/,
-  "Stock analysis should align with the market and risk navigation group");
+assert.match(app, /\{ label: "주가 분석", routes: \["stock"\] \},\s*\];/,
+  "Stock analysis should be the final sidebar group");
+assert.match(app, /const SIDE_NAV_ROUTES = \[[\s\S]*?id === "home"[\s\S]*?id: "c-level"[\s\S]*?id: "workbench"[\s\S]*?id: "market-map"[\s\S]*?id === "analysis"[\s\S]*?id: "projection"[\s\S]*?id: "hyperscaler-demand"[\s\S]*?id === "market"[\s\S]*?id === "policy"[\s\S]*?id === "competitors"[\s\S]*?id === "talent"[\s\S]*?id: "stock"/,
+  "sidebar routes should follow the real document flow with Stock last");
 assert.match(app, /function setupScrollSpy[\s\S]*?activeTop = Number\.NEGATIVE_INFINITY[\s\S]*?top <= y && top >= activeTop/,
   "scroll spy must follow real document position rather than sidebar declaration order");
 assert.match(app, /const EQUITY_CHAIN_PERIODS = \[[\s\S]*?"1개월"[\s\S]*?"6개월"[\s\S]*?"1년"[\s\S]*?"5년"[\s\S]*?"전체"/,

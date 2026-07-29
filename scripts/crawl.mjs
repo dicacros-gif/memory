@@ -6589,7 +6589,15 @@ async function fetchTsmcMonthlyRevenue() {
   let officialHistoryError = null;
   try {
     officialHistory = await fetchTsmcOfficialRevenueHistory();
-    note("quant:TSMC history", officialHistory.length >= 60, `공식 IR 월매출 ${officialHistory.length}개월`);
+    // The IR archive is a working live source even when the current calendar
+    // window exposes slightly fewer than the 60 points requested by the UI.
+    // Keep the dataset "partial" below 60, but do not count 48+ verified
+    // official observations as a crawler failure.
+    note(
+      "quant:TSMC history",
+      officialHistory.length >= 48,
+      `공식 IR 월매출 ${officialHistory.length}개월${officialHistory.length < 60 ? " · 부분 이력" : ""}`,
+    );
   } catch (error) {
     officialHistoryError = error;
     // The public IR site can challenge automated requests. TWSE remains the
@@ -7751,9 +7759,23 @@ export function sourceHealthSnapshot(previous = {}, observations = health) {
   const grouped = new Map();
   for (const item of observations) {
     const id = sourceHealthId(item.step || item.name || "unknown");
-    const current = grouped.get(id) || { id, label: item.step || item.name || id, ok: true, attempts: 0, errors: [] };
+    const current = grouped.get(id) || {
+      id,
+      label: item.step || item.name || id,
+      ok: false,
+      attempts: 0,
+      successfulAttempts: 0,
+      failedAttempts: 0,
+      errors: [],
+    };
     current.attempts += 1;
-    current.ok = current.ok && Boolean(item.ok);
+    if (item.ok) current.successfulAttempts += 1;
+    else current.failedAttempts += 1;
+    // A logical channel may have several bounded fetch batches. It is failed
+    // only when every attempted batch fails. Mixed results remain visible as
+    // "degraded" while valid observations continue to flow.
+    current.ok = current.successfulAttempts > 0;
+    current.degraded = current.successfulAttempts > 0 && current.failedAttempts > 0;
     if (!item.ok && item.msg) current.errors.push(String(item.msg).replace(/[\u0000-\u001f\u007f]/g, " ").slice(0, 400));
     grouped.set(id, current);
   }
@@ -7781,7 +7803,7 @@ export function sourceHealthSnapshot(previous = {}, observations = health) {
     sources[id] = {
       ...item,
       attempted: true,
-      status: item.ok ? "ok" : "failed",
+      status: item.ok ? (item.degraded ? "degraded" : "ok") : "failed",
       failureStreak,
       alertThreshold: 3,
       lastAttemptAt: attemptedAt,
@@ -7799,6 +7821,7 @@ export function sourceHealthSnapshot(previous = {}, observations = health) {
     catalogTotal: values.length,
     unattempted: values.filter((item) => !item.attempted).map((item) => item.id),
     failed: attemptedValues.filter((item) => !item.ok).map((item) => item.id),
+    degraded: attemptedValues.filter((item) => item.degraded).map((item) => item.id),
     // A source intentionally not attempted in this run retains its history,
     // but it is not an active consecutive-failure incident.
     alerts: attemptedValues.filter((item) => item.alert).map((item) => item.id),

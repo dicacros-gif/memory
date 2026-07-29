@@ -423,6 +423,15 @@ assert.equal(health.total, 2, "source-health denominator must include only sourc
 assert.equal(health.ok, 1);
 assert.equal(health.catalogTotal, 3, "the retained source catalog must be reported separately");
 assert.deepEqual(health.alerts, ["fx:usdkrw"], "only failures attempted in the current run may raise an active alert");
+const mixedHealth = sourceHealthSnapshot({}, [
+  { step: "뉴스원문요약", ok: true, msg: "4/7건 원문 메타 확보" },
+  { step: "뉴스원문요약", ok: false, msg: "0/1건 원문 메타 확보" },
+]);
+assert.equal(mixedHealth.sources["뉴스원문요약"].ok, true, "a multi-batch source must remain available when at least one batch succeeds");
+assert.equal(mixedHealth.sources["뉴스원문요약"].status, "degraded", "partial batch failure must remain visible without becoming a full outage");
+assert.equal(mixedHealth.sources["뉴스원문요약"].failureStreak, 0, "partial batch failure must not extend the full-source failure streak");
+assert.deepEqual(mixedHealth.failed, [], "degraded multi-batch sources must not be reported as fully failed");
+assert.deepEqual(mixedHealth.degraded, ["뉴스원문요약"], "degraded channel ids must be exposed for transparent UI reporting");
 const inactiveAlert = sourceHealthSnapshot({ sources: {
   "old:provider": { id: "old:provider", failureStreak: 4, alert: true },
 } }, []);
@@ -511,8 +520,9 @@ const deferredSectionBlock = appText.slice(
   appText.indexOf("function setupDeferredSections"),
   appText.indexOf("/* ---------------- Hyperscaler"),
 );
-assert.match(deferredSectionBlock, /rootMargin: "320px 0px"/, "below-the-fold boards must render close to the viewport instead of far in advance");
-assert.doesNotMatch(deferredSectionBlock, /renderRemaining/, "deferred boards must not all be force-rendered after initial paint");
+assert.match(appText, /function hydrateDeferredSectionsSequentially[\s\S]*?for \(const definition of ordered\)[\s\S]*?await ensureDeferredSection\(definition\.id\)/, "below-the-fold boards must hydrate automatically in document order");
+assert.match(deferredSectionBlock, /scheduleSequentialDeferredHydration\(definitions\)/, "full-page hydration must start after first paint without waiting for scroll");
+assert.doesNotMatch(deferredSectionBlock, /IntersectionObserver|rootMargin/, "deferred boards must not depend on viewport arrival");
 const jumpNavigationBlock = appText.slice(
   appText.indexOf("async function jumpTo"),
   appText.indexOf("function setupScrollSpy"),

@@ -1860,6 +1860,9 @@
       sections: ["hyperscaler-demand", "memory-scroll-story"],
     },
     ...MECE_GROUPS.filter((route) => route.id === "market"),
+    ...MECE_GROUPS.filter((route) => route.id === "policy"),
+    ...MECE_GROUPS.filter((route) => route.id === "competitors"),
+    ...MECE_GROUPS.filter((route) => route.id === "talent"),
     {
       id: "stock",
       label: "Stock 분석",
@@ -1868,7 +1871,6 @@
       jump: "equity-value-chain",
       sections: ["equity-value-chain"],
     },
-    ...MECE_GROUPS.filter((route) => ["policy", "competitors", "talent"].includes(route.id)),
   ];
   const ROUTE_DISPLAY = {
     home: {
@@ -1948,8 +1950,9 @@
   const SIDE_NAV_GROUPS = [
     { label: "핵심·의사결정", routes: ["home", "c-level"] },
     { label: "분석·전망", routes: ["workbench", "market-map", "analysis", "projection", "hyperscaler-demand"] },
-    { label: "시장·리스크", routes: ["market", "stock", "policy"] },
+    { label: "시장·정책", routes: ["market", "policy"] },
     { label: "중국 인텔리전스", routes: ["competitors", "talent"] },
+    { label: "주가 분석", routes: ["stock"] },
   ];
   const SIDE_NAV_ICONS = {
     home: "01",
@@ -1960,10 +1963,10 @@
     projection: "06",
     "hyperscaler-demand": "07",
     market: "08",
-    stock: "09",
-    policy: "10",
-    competitors: "11",
-    talent: "12",
+    policy: "09",
+    competitors: "10",
+    talent: "11",
+    stock: "12",
   };
   const TOPIC_FILTER_GROUPS = [
     { label: "전체", hint: "All", categories: ["all"] },
@@ -3666,6 +3669,7 @@
     const failed = Array.isArray(quantHealth.failed)
       ? quantHealth.failed
       : health.filter((item) => item && !item.ok).map((item) => item.step);
+    const degraded = Array.isArray(quantHealth.degraded) ? quantHealth.degraded : [];
     const alerts = Array.isArray(quantHealth.alerts) ? quantHealth.alerts : [];
     const ageLabel = ageHours == null
       ? "수집 기록 없음"
@@ -3734,6 +3738,7 @@
       ${expired ? '<span class="hb-item fail">데이터 만료 · 최신 수집 재시도 필요</span>' : ""}
       ${totalCount ? `<span class="hb-item">소스 ${fmtNum(okCount)}/${fmtNum(totalCount)} 정상</span>` : ""}
       ${failed.length ? `<span class="hb-item fail" title="${escapeHTML(failed.slice(0, 6).join(", "))}">실패 ${fmtNum(failed.length)}건</span>` : ""}
+      ${degraded.length ? `<span class="hb-item" title="${escapeHTML(degraded.slice(0, 6).join(", "))}">부분 성공 ${fmtNum(degraded.length)}건</span>` : ""}
       ${alerts.length ? `<span class="hb-item fail" title="${escapeHTML(alerts.join(", "))}">3회 연속 실패 ${fmtNum(alerts.length)}건</span>` : ""}
       ${trendItems.map((item) => `<span class="hb-chip hb-trend" data-hb-trend="${escapeHTML(item.id)}"><span>${escapeHTML(item.label)}</span></span>`).join("")}
       ${chips.map((chip) => `<span class="hb-chip">${escapeHTML(chip)}</span>`).join("")}
@@ -4806,8 +4811,7 @@
   const deferredSectionRuns = new Map();
   const deferredRenderedSections = new Set(["overview", "overview-content"]);
   let priceBoardPreloadStarted = false;
-  let priceBoardPreloadObserver = null;
-  let priceBoardPreRenderQueued = false;
+  let deferredHydrationPromise = null;
 
   function deferredSectionDefinitions() {
     return [
@@ -4870,8 +4874,8 @@
   }
 
   // The price board combines the compact price history with a larger market-history
-  // artifact. Start that network work well before the board becomes visible, while
-  // leaving the expensive DOM rendering to the near-viewport render observer below.
+  // artifact. Start that network work automatically after the first dashboard paint;
+  // reaching the board with a wheel, touch, or pointer is never required.
   function prewarmPriceBoardData() {
     if (priceBoardPreloadStarted) return loadSecondaryData(["priceHistory", "marketHistory"]);
     priceBoardPreloadStarted = true;
@@ -4886,77 +4890,23 @@
     });
   }
 
-  // Rendering the price dashboard builds several SVGs and grouped rows. Queue
-  // that work while the user is still multiple screens above the board, after
-  // the secondary artifacts have reached the browser cache.
-  function schedulePriceBoardRenderAhead(board = $("#prices")) {
-    if (!board || priceBoardPreRenderQueued || deferredRenderedSections.has("prices") || deferredSectionRuns.has("prices")) return;
-    const distanceBelowViewport = board.getBoundingClientRect().top - window.innerHeight;
-    const lookAheadDistance = Math.max(12000, Math.round(window.innerHeight * 10));
-    if (distanceBelowViewport > lookAheadDistance) return;
-    priceBoardPreRenderQueued = true;
-    const render = () => ensureDeferredSection("prices");
-    const queueRender = () => {
-      if ("requestIdleCallback" in window) {
-        window.requestIdleCallback(render, { timeout: 900 });
-      } else {
-        window.setTimeout(render, 0);
-      }
-    };
-    prewarmPriceBoardData().then(queueRender, queueRender);
-  }
-
   function setupPriceBoardPreload() {
     const board = $("#prices");
     if (!board) return;
-    const start = () => {
-      prewarmPriceBoardData();
-      priceBoardPreloadObserver?.disconnect();
-      priceBoardPreloadObserver = null;
-    };
+    const start = () => { void prewarmPriceBoardData(); };
 
-    if ("IntersectionObserver" in window) {
-      priceBoardPreloadObserver = new IntersectionObserver((entries) => {
-        if (entries.some((entry) => entry.isIntersecting)) start();
-      }, { rootMargin: "4200px 0px", threshold: 0 });
-      priceBoardPreloadObserver.observe(board);
-      window.addEventListener("pagehide", () => priceBoardPreloadObserver?.disconnect(), { once: true });
-    }
-
-    // Route intent is a high-confidence preload signal. Avoid parsing the large
-    // market-history artifact on the visitor's first unrelated wheel gesture.
+    // Navigation intent can still accelerate the same idempotent preload, but the
+    // scheduled start below guarantees that no user gesture is necessary.
     const intentTargets = $$('[data-jump="prices"], [data-jump="equity-value-chain"], [data-hero-jump="prices"]');
     intentTargets.forEach((target) => {
       target.addEventListener("pointerenter", start, { once: true, passive: true });
       target.addEventListener("focusin", start, { once: true });
     });
-
-    // Track actual downward movement after the first gesture. This catches fast
-    // mouse-wheel and touch scrolling that can cross the fixed observer margin
-    // before history parsing and chart construction have finished.
-    let lastScrollY = window.scrollY;
-    let scrollFrame = 0;
-    const handleScrollTowardPrices = () => {
-      if (scrollFrame) return;
-      scrollFrame = window.requestAnimationFrame(() => {
-        scrollFrame = 0;
-        const currentScrollY = window.scrollY;
-        const movingDown = currentScrollY > lastScrollY + 4;
-        lastScrollY = currentScrollY;
-        if (!movingDown) return;
-        const distanceBelowViewport = board.getBoundingClientRect().top - window.innerHeight;
-        const lookAheadDistance = Math.max(12000, Math.round(window.innerHeight * 10));
-        if (distanceBelowViewport > lookAheadDistance) return;
-        start();
-        schedulePriceBoardRenderAhead(board);
-        if (priceBoardPreRenderQueued) window.removeEventListener("scroll", handleScrollTowardPrices);
-      });
+    const schedule = () => {
+      if ("requestIdleCallback" in window) window.requestIdleCallback(start, { timeout: 700 });
+      else window.setTimeout(start, 60);
     };
-    window.addEventListener("scroll", handleScrollTowardPrices, { passive: true });
-    window.addEventListener("pagehide", () => {
-      window.removeEventListener("scroll", handleScrollTowardPrices);
-      if (scrollFrame) window.cancelAnimationFrame(scrollFrame);
-    }, { once: true });
+    window.requestAnimationFrame(() => window.requestAnimationFrame(schedule));
   }
 
   function deferredDefinition(id) {
@@ -4990,6 +4940,71 @@
     return run;
   }
 
+  function deferredDefinitionsInDocumentOrder(definitions) {
+    return [...definitions].sort((left, right) => {
+      const leftSection = document.getElementById(left.id);
+      const rightSection = document.getElementById(right.id);
+      if (!leftSection || !rightSection || leftSection === rightSection) return 0;
+      const topDelta = leftSection.getBoundingClientRect().top - rightSection.getBoundingClientRect().top;
+      if (Math.abs(topDelta) > 1) return topDelta;
+      const relation = leftSection.compareDocumentPosition(rightSection);
+      if (relation & Node.DOCUMENT_POSITION_FOLLOWING) return -1;
+      if (relation & Node.DOCUMENT_POSITION_PRECEDING) return 1;
+      return 0;
+    });
+  }
+
+  function yieldDeferredHydration() {
+    return new Promise((resolve) => {
+      const finish = () => window.setTimeout(resolve, 0);
+      if ("requestIdleCallback" in window) {
+        window.requestIdleCallback(finish, { timeout: 140 });
+      } else {
+        window.requestAnimationFrame(finish);
+      }
+    });
+  }
+
+  function hydrateDeferredSectionsSequentially(definitions = deferredSectionDefinitions()) {
+    if (deferredHydrationPromise) return deferredHydrationPromise;
+    const ordered = deferredDefinitionsInDocumentOrder(definitions);
+    document.body.dataset.deferredHydration = "loading";
+    document.body.dataset.deferredHydrationTotal = String(ordered.length);
+    document.body.dataset.deferredHydrationReady = "0";
+
+    // Begin every secondary network request together, then construct each section
+    // one at a time in real document order. This keeps the main thread responsive
+    // without making scroll position a loading trigger.
+    void Promise.allSettled([
+      prewarmPriceBoardData(),
+      loadSecondaryData(["quantBacktest"]),
+    ]);
+
+    deferredHydrationPromise = (async () => {
+      let ready = 0;
+      for (const definition of ordered) {
+        await ensureDeferredSection(definition.id);
+        ready += 1;
+        document.body.dataset.deferredHydrationReady = String(ready);
+        await yieldDeferredHydration();
+      }
+      document.body.dataset.deferredHydration = "ready";
+    })().catch((error) => {
+      document.body.dataset.deferredHydration = "error";
+      console.warn("Sequential section hydration failed", error);
+    });
+    return deferredHydrationPromise;
+  }
+
+  function scheduleSequentialDeferredHydration(definitions) {
+    const start = () => { void hydrateDeferredSectionsSequentially(definitions); };
+    const schedule = () => {
+      if ("requestIdleCallback" in window) window.requestIdleCallback(start, { timeout: 850 });
+      else window.setTimeout(start, 80);
+    };
+    window.requestAnimationFrame(() => window.requestAnimationFrame(schedule));
+  }
+
   function setupDeferredSections() {
     const definitions = deferredSectionDefinitions();
     const sections = definitions
@@ -5001,57 +5016,7 @@
       section.setAttribute("aria-busy", "true");
     });
     setupPriceBoardPreload();
-
-    if (!("IntersectionObserver" in window)) {
-      definitions.reduce(
-        (chain, definition) => chain.then(() => ensureDeferredSection(definition.id)),
-        Promise.resolve()
-      );
-      return;
-    }
-
-    const observer = new IntersectionObserver((entries) => {
-      entries.forEach((entry) => {
-        if (!entry.isIntersecting) return;
-        observer.unobserve(entry.target);
-        ensureDeferredSection(entry.target.id);
-      });
-    }, { rootMargin: "320px 0px", threshold: 0.01 });
-    const priceRenderLookAhead = Math.max(9000, Math.round(window.innerHeight * 8));
-    const priceRenderObserver = new IntersectionObserver((entries) => {
-      entries.forEach((entry) => {
-        if (!entry.isIntersecting) return;
-        priceRenderObserver.unobserve(entry.target);
-        ensureDeferredSection(entry.target.id);
-      });
-    }, { rootMargin: `${priceRenderLookAhead}px 0px`, threshold: 0.01 });
-    const stockRenderLookAhead = Math.max(5200, Math.round(window.innerHeight * 5));
-    const stockRenderObserver = new IntersectionObserver((entries) => {
-      entries.forEach((entry) => {
-        if (!entry.isIntersecting) return;
-        stockRenderObserver.unobserve(entry.target);
-        const render = () => ensureDeferredSection(entry.target.id);
-        if ("requestIdleCallback" in window) window.requestIdleCallback(render, { timeout: 1000 });
-        else window.setTimeout(render, 0);
-      });
-    }, { rootMargin: `${stockRenderLookAhead}px 0px`, threshold: 0.01 });
-    sections.forEach((section) => {
-      const renderObserver = section.id === "prices"
-        ? priceRenderObserver
-        : section.id === "equity-value-chain"
-          ? stockRenderObserver
-          : observer;
-      renderObserver.observe(section);
-    });
-    window.addEventListener("pagehide", () => {
-      observer.disconnect();
-      priceRenderObserver.disconnect();
-      stockRenderObserver.disconnect();
-    }, { once: true });
-
-    // Navigation always calls ensureDeferredSection(), so no board is left as
-    // a skeleton when selected.  Do not eagerly render every below-the-fold
-    // board after first paint: that negates deferred loading on slower devices.
+    scheduleSequentialDeferredHydration(definitions);
   }
 
   /* ---------------- Hyperscaler memory demand · scenario planning ---------------- */
