@@ -3590,7 +3590,7 @@ async function enrichNewsItem(item = {}, cached = null) {
   }
 }
 
-async function enrichNewsItems(items = [], previousItems = []) {
+async function enrichNewsItems(items = [], previousItems = [], { emitHealth = true } = {}) {
   const previousByKey = new Map(previousItems.map((item) => [canonicalNewsKey(item), item]));
   const output = items.slice();
   let cursor = 0;
@@ -3605,7 +3605,9 @@ async function enrichNewsItems(items = [], previousItems = []) {
   };
   await Promise.all(Array.from({ length: Math.min(NEWS_ENRICH_CONCURRENCY, output.length) }, worker));
   const sourceCount = output.filter((item) => item.summaryOriginal && item.sourceUrl).length;
-  note("뉴스원문요약", sourceCount > 0, `${sourceCount}/${output.length}건 원문 메타 확보`);
+  if (emitHealth) {
+    note("뉴스원문요약", sourceCount > 0, `${sourceCount}/${output.length}건 원문 메타 확보`);
+  }
   return output;
 }
 
@@ -5141,7 +5143,11 @@ async function collectBenchmarkSignals() {
     }
     items.sort((a, b) => b.ts - a.ts);
     const enrichmentLimit = Math.min(18, items.length);
-    const enriched = await enrichNewsItems(items.slice(0, enrichmentLimit), []);
+    // Benchmark discovery has its own theme-level health result below.
+    // Individual candidates that lack direct-source metadata are quarantined
+    // as discovery-only and must not inflate the dashboard-wide source-failure
+    // count before that theme-level decision is made.
+    const enriched = await enrichNewsItems(items.slice(0, enrichmentLimit), [], { emitHealth: false });
     const validatedItems = [];
     let supersededCount = 0;
     for (const item of enriched) {
