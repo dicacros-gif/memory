@@ -7065,6 +7065,22 @@
     };
   }
 
+  function brokerAnimatedMetricHTML(value = "", order = 0) {
+    const text = String(value || "").trim();
+    const match = text.match(/^([^0-9+-]*)([+-]?\d[\d,]*(?:\.\d+)?)(.*)$/u);
+    if (!match) return escapeHTML(text);
+    const numericText = match[2].replace(/,/g, "");
+    const target = Number(numericText);
+    if (!Number.isFinite(target)) return escapeHTML(text);
+    const decimals = (numericText.split(".")[1] || "").length;
+    return countHTML(target, {
+      prefix: match[1],
+      suffix: match[3],
+      decimals,
+      duration: 980 + (Number(order) || 0) * 140,
+    });
+  }
+
   function withoutTerminalStop(value = "") {
     return String(value || "").replace(/[.。]+\s*$/u, "").trim();
   }
@@ -7107,19 +7123,14 @@
     const reports = brokerBaselineReports();
     if (!reports.length) return "";
     const documents = brokerBaselineDocuments(baseline);
-    const documentCount = Number(baseline.documentCount) || documents.length;
-    const topicCount = Number(baseline.itemCount) || reports.length;
     return `
-      <section class="exec-baseline-reports" aria-labelledby="baselineReportsTitle">
+      <section class="exec-baseline-reports" aria-label="차세대 메모리 리서치 인포그래픽">
         <header class="exec-baseline-head">
-          <div>
-            <span>USER-PROVIDED RESEARCH · SOURCE-LEVEL DIGEST</span>
-            <h4 id="baselineReportsTitle">제공 원문 ${fmtNum(documentCount)}건 · 핵심 논점 ${fmtNum(topicCount)}개</h4>
-          </div>
+          <span>USER-PROVIDED RESEARCH · SOURCE-LEVEL DIGEST</span>
         </header>
         <div class="exec-baseline-documents">
           ${documents.map((document, index) => `
-            <article class="exec-baseline-document" tabindex="0">
+            <article class="exec-baseline-document" tabindex="0" style="--baseline-document-order:${index}">
               <header>
                 <span>${String(index + 1).padStart(2, "0")}</span>
                 <div>
@@ -7135,7 +7146,7 @@
               </div>
               <ol class="exec-baseline-document-flow" aria-label="핵심 논리 흐름">
                 ${(Array.isArray(document.corePoints) ? document.corePoints : []).slice(0, 3).map((point, pointIndex) => `
-                  <li>
+                  <li style="--baseline-flow-order:${pointIndex}">
                     <em>${String(pointIndex + 1).padStart(2, "0")}</em>
                     <p>${strategicHighlightHTML(withoutTerminalStop(point))}</p>
                   </li>
@@ -7144,19 +7155,15 @@
               <div class="exec-baseline-document-metrics">
                 ${(Array.isArray(document.metrics) ? document.metrics : []).slice(0, 3).map((metric, metricIndex) => {
                   const parts = brokerDocumentMetricParts(metric);
-                  return `<span class="exec-baseline-metric" style="--baseline-metric-order:${metricIndex}"><small>${strategicHighlightHTML(parts.label)}</small><strong>${escapeHTML(parts.value)}</strong></span>`;
+                  return `<span class="exec-baseline-metric kpi" data-count-replay="hover" style="--baseline-metric-order:${metricIndex}"><small>${strategicHighlightHTML(parts.label)}</small><strong aria-label="${escapeHTML(parts.value)}">${brokerAnimatedMetricHTML(parts.value, metricIndex)}</strong></span>`;
                 }).join("")}
               </div>
             </article>
           `).join("")}
         </div>
-        <div class="exec-baseline-topic-head">
-          <span>핵심 논점</span>
-          <strong>두 원문의 수치·논리·전략 시사점을 주제별로 분해</strong>
-        </div>
         <ol class="exec-baseline-grid">
           ${reports.map((item, index) => `
-            <li class="exec-baseline-report" tabindex="0" style="--report-accent:${escapeHTML(item.accent || "#64748b")}">
+            <li class="exec-baseline-report" tabindex="0" style="--report-accent:${escapeHTML(item.accent || "#64748b")};--baseline-report-order:${index}">
               <header>
                 <span>${String(index + 1).padStart(2, "0")}</span>
                 <strong>${escapeHTML(withoutTerminalStop(item.label || "제공 리포트"))}</strong>

@@ -100,13 +100,16 @@ assert.match(css, /#talent-radar \.talent-radar-slider \.china-capital-slide\.is
 assert.match(css, /#china-talent-strategy \.policy-focus \{[\s\S]*?position: sticky;/, "operational workforce plan should remain visible while the image carousel moves");
 assert.doesNotMatch(app, /BASELINE 분리/, "broker reports should not show a baseline-separation notice");
 assert.doesNotMatch(app, /재검증 완료 전 라이브 카드와 별도 관리/, "broker reports should not show a separate-management disclaimer");
-assert.match(app, /<h4 id="baselineReportsTitle">제공 원문 \$\{fmtNum\(documentCount\)\}건 · 핵심 논점 \$\{fmtNum\(topicCount\)\}개<\/h4>/, "provided broker source documents and extracted topics should remain visible");
+assert.doesNotMatch(app, /제공 원문 \$\{fmtNum\(documentCount\)\}건 · 핵심 논점/, "the removed supplied-document count headline should not render");
+assert.doesNotMatch(app, /두 원문의 수치·논리·전략 시사점을 주제별로 분해/, "the removed topic explainer should not render");
+assert.doesNotMatch(app, /<span>핵심 논점<\/span>/, "the removed topic heading should not render");
 assert.match(app, /GREATER_20260716_0122-1\.pdf[\s\S]*?insight_1pager_MSglobaltech_20260718\.html/, "both supplied Morgan Stanley source files should be represented");
 assert.match(app, /class="exec-baseline-documents"[\s\S]*?document\.corePoints[\s\S]*?document\.metrics/, "provided source documents should render a dashboard digest");
 assert.match(css, /\.exec-baseline-document \{[\s\S]*?border: 2px solid[\s\S]*?background:/, "provided source documents should receive full-card dashboard emphasis");
 assert.doesNotMatch(app, /<footer><span>제공 파일<\/span>/, "provided file labels and filenames should not be rendered in the cards");
 assert.match(app, /class="exec-baseline-document-flow"[\s\S]*?핵심 논리 흐름/, "provided report logic should render as an infographic flow");
-assert.match(app, /brokerDocumentMetricParts\(metric\)[\s\S]*?<small>\$\{strategicHighlightHTML\(parts\.label\)\}<\/small><strong>\$\{escapeHTML\(parts\.value\)\}<\/strong>/, "provided report metrics should separate labels from atomic large values");
+assert.match(app, /function brokerAnimatedMetricHTML\(value = "", order = 0\)[\s\S]*?return countHTML\(target,[\s\S]*?duration: 980 \+ \(Number\(order\) \|\| 0\) \* 140/, "provided report figures should use staggered automatic count-up");
+assert.match(app, /class="exec-baseline-metric kpi" data-count-replay="hover"[\s\S]*?<strong aria-label="\$\{escapeHTML\(parts\.value\)\}">\$\{brokerAnimatedMetricHTML\(parts\.value, metricIndex\)\}<\/strong>/, "provided report metrics should replay their count-up on hover");
 assert.match(css, /\.exec-baseline-document-flow \{[\s\S]*?grid-template-columns: repeat\(3, minmax\(0, 1fr\)\)/, "provided report logic should use a three-step consulting diagram");
 assert.match(app, /const mustWaitForEnglishSpeech = Boolean\(agentTtsEnabled && agentSpeechSupported\(\) && englishSpeech\);/, "each agent turn should explicitly wait for its English TTS source");
 assert.match(app, /if \(!typed \|\| !speechFinished \|\| completed \|\| !alive\(\)\) return;/, "the next agent must not be scheduled before typing and English TTS finish");
@@ -128,7 +131,7 @@ assert.match(app, /loadManagedJSON\("live", "data\/live-client\.json"[\s\S]*?loa
 assert.match(app, /priceHistory: \{[\s\S]*?path: "data\/price-history-client\.json"[\s\S]*?marketHistory: \{[\s\S]*?path: "data\/market-history-client\.json"/, "secondary fallbacks must never download database-sized history files");
 assert.match(css, /\.agent-debate-title \.agent-tts-toggle \{[\s\S]*?min-width: 190px;[\s\S]*?min-height: 44px;/, "the English TTS control should be large and readable");
 assert.match(css, /\.agent-tts-state \{[\s\S]*?min-width: 31px;/, "the TTS control should expose a dedicated on-or-off state badge");
-assert.match(html, /app\.js\?v=source-audit-20260730-01/, "JavaScript cache key should include the source-audit revision");
+assert.match(html, /app\.js\?v=research-motion-20260730-01/, "JavaScript cache key should include the research-motion revision");
 assert.match(html, /id="memoryHeroVideo"[\s\S]*?preload="none"[\s\S]*?<source data-src="assets\/media\/memory-hero\.mp4"/, "hero video should hydrate after the poster paints");
 assert.match(html, /id="talentStrategyVideoMedia"[\s\S]*?preload="none"[\s\S]*?data-poster="assets\/media\/china-talent-strategy-poster\.webp"[\s\S]*?<source data-src="assets\/media\/china-talent-strategy\.mp4"/, "below-fold talent media should not load during first paint");
 assert.doesNotMatch(html, /family=Noto\+Sans\+KR/, "Pretendard should replace the duplicate Korean webfont download");
@@ -144,7 +147,7 @@ assert.match(css, /\.china-deep-video-dock \.talent-strategy-video \{[\s\S]*?hei
 assert.match(css, /@media \(max-width: 680px\) \{[\s\S]*?\.china-deep-video-dock \.talent-strategy-video \{[\s\S]*?aspect-ratio: 4 \/ 5;/, "the compact video height should preserve the mobile portrait layout");
 assert.match(css, /#talent-radar \.talent-radar-slider-slot \{[\s\S]*?display: flex;[\s\S]*?justify-content: center;/, "the talent radar slot should center its visual stage");
 assert.match(css, /#talent-radar \.talent-radar-slider \{[\s\S]*?width: min\(100%, 1360px\);[\s\S]*?margin-inline: auto;/, "the talent radar visual should use a bounded, centered desktop width");
-assert.match(html, /styles\.css\?v=source-audit-20260730-01/, "CSS cache key should include the source-audit revision");
+assert.match(html, /styles\.css\?v=research-motion-20260730-01/, "CSS cache key should include the research-motion revision");
 assert.match(css, /#china-talent-strategy :is\(\.policy-card, \.policy-rule-card, \.policy-focus\):is\(:hover, :focus-within\) \{[\s\S]*?linear-gradient\(135deg, #153e75 0%, #0e7490 54%, #0f766e 100%\)/, "China talent inverted cards should use the professional blue-to-teal gradient");
 assert.match(css, /#talentScenarioTabs \.talent-scenario-tab\.active \{[\s\S]*?linear-gradient\(135deg, #153e75 0%, #0e7490 54%, #0f766e 100%\)/, "the selected China talent scenario should use the same professional gradient");
 assert.match(css, /\.exec-baseline-document:is\(:hover, :focus-visible\) \.exec-baseline-document-focus \{[\s\S]*?linear-gradient\(135deg, #fffdf5 0%, #fef3c7 100%\)/, "the inverted source card should separate its key thesis with an ivory-to-gold gradient");
@@ -228,12 +231,14 @@ assert.match(css, /\.talent-roi-story:is\(:hover, :focus-within\)[\s\S]*?animati
 assert.match(css, /@keyframes talentRoiStoryProgress/, "the ROI story should expose visual rotation progress");
 assert.match(css, /@media \(prefers-reduced-motion: reduce\) \{[\s\S]*?\.talent-roi-story-slide:first-child[\s\S]*?opacity: 1;/, "the ROI story should show one stable slide when reduced motion is requested");
 assert.doesNotMatch(app, /공개 채용·면접 신호는 조직 수요의 선행지표입니다/, "the removed talent-signal disclaimer should not be rendered");
-assert.match(app, /class="exec-baseline-metric" style="--baseline-metric-order:\$\{metricIndex\}"[\s\S]*?<strong>\$\{escapeHTML\(parts\.value\)\}<\/strong>/, "broker metrics should render each figure atomically without nested highlight cards");
+assert.match(app, /class="exec-baseline-metric kpi" data-count-replay="hover" style="--baseline-metric-order:\$\{metricIndex\}"[\s\S]*?<strong aria-label="\$\{escapeHTML\(parts\.value\)\}">\$\{brokerAnimatedMetricHTML\(parts\.value, metricIndex\)\}<\/strong>/, "broker metrics should render each figure as an animated atomic value");
 assert.doesNotMatch(css, /\.exec-baseline-document-metrics span \{/, "nested metric highlights must not inherit the complete metric-card layout");
 assert.match(css, /\.exec-baseline-document-metrics > \.exec-baseline-metric \{[\s\S]*?min-height: 118px;[\s\S]*?animation: execBaselineMetricIn/, "broker metric cards should be larger and animate into view");
 assert.match(css, /\.exec-baseline-document-metrics > \.exec-baseline-metric strong \{[\s\S]*?font-size: clamp\(30px, 2\.25vw, 44px\);[\s\S]*?white-space: nowrap;/, "broker metric figures should use large, non-breaking professional numerals");
 assert.match(css, /\.exec-baseline-document-flow > li \{[\s\S]*?min-height: 118px;[\s\S]*?border-width: 2px;/, "broker logic should render as substantial infographic nodes");
-assert.match(css, /@keyframes execBaselineFlowPulse/, "broker flow connectors should animate when the document is inspected");
+assert.match(css, /@keyframes execBaselineArrowAuto/, "broker flow arrows should move automatically");
+assert.match(css, /@keyframes execBaselineDocumentScan/, "broker document cards should expose an automatic scanning signal");
+assert.match(css, /@keyframes execBaselineReportSignal/, "broker topic cards should animate sequentially");
 assert.match(css, /@media \(prefers-reduced-motion: reduce\) \{[\s\S]*?\.exec-baseline-document-metrics > \.exec-baseline-metric[\s\S]*?animation: none !important;/, "broker infographic motion should respect reduced-motion preferences");
 
 console.log("KPI typography and hover count-up checks passed.");
