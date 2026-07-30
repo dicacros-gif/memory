@@ -7884,11 +7884,9 @@
             ${outline.map((point) => `
               <li><b>${escapeHTML(point.label)}</b><span>${kpiHighlightHTML(point.text)}</span></li>
             `).join("")}
-            <li><b>신선도</b><span>${escapeHTML(kpi.verificationNote)}</span></li>
           </ul>
         ` : `
           <small>${escapeHTML(kpi.note)}</small>
-          <small>${escapeHTML(kpi.verificationNote)}</small>
           ${kpi.alt ? `<em class="kpi-alt">${escapeHTML(kpi.alt)}</em>` : ""}
         `}
       `;
@@ -12434,7 +12432,7 @@
       prefix: kpi.prefix || "",
       suffix: kpi.suffix || "",
       decimals: kpi.decimals || 0,
-      note: `${kpi.note || ""}${kpi.verificationNote ? ` · ${kpi.verificationNote}` : ""}`,
+      note: kpi.note || "",
       alt: kpi.alt,
       badge: kpi.verificationLabel || kpi.badge || kpi.status || "KPI",
       statusClass: kpi.statusClass || kpi.status || "watch",
