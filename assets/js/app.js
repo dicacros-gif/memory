@@ -18990,7 +18990,7 @@
         id: "live-decision-reversal",
         tag: "실행 게이트",
         title: "결정을 뒤집는 KPI와 교차검증 순서",
-        thesis: "기사·가격·공개 채용 신호를 같은 사실 등급으로 합산하지 않고, 고객 승인·가격 전이·장비 qualification·정책 시행 여부가 확인될 때만 실행 판단을 바꿉니다.",
+        thesis: "고객 승인·가격 전이·장비 qualification·정책 시행 여부가 확인될 때만 실행 판단을 바꿉니다.",
         facts: [
           `고객·계약 원문 ${fmtNum(customerNews.length)}건 연결`,
           `TrendForce 공개 가격 ${fmtNum(allPriceRows().length)} rows · DRAM/NAND 분리`,

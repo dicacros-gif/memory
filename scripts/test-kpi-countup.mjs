@@ -74,6 +74,7 @@ assert.match(app, /function briefingBulletLines\(value = ""\)/, "broker summarie
 assert.match(app, /briefingBulletListHTML\(brokerArticleSummary\(item\)\)/, "broker article summaries should render as bullet lists");
 assert.doesNotMatch(app, /class="exec-report-decision-list"/, "broker cards should show the crawled source summary without separate insight or reversal-condition blocks");
 assert.doesNotMatch(app, /이번 실행에서 메모리 산업과 직접 연결되는 증권사 공개 원문·권위 매체 인용을 확인하지 못했습니다/, "an empty current crawl must not replace the accumulated broker archive with placeholder copy");
+assert.doesNotMatch(app, /기사·가격·공개 채용 신호를 같은 사실 등급으로 합산하지 않고/, "the decision-gate card should omit the redundant evidence-ranking preface");
 assert.match(app, /const BROKER_DISMISSED_STORAGE_KEY = "memory-broker-dismissed-v1";/, "dismissed broker cards should be stored as a browser-local preference");
 assert.match(app, /data-broker-dismiss="\$\{escapeHTML\(itemKey\)\}"/, "each accumulated broker card should expose an individual dismiss control");
 assert.match(app, /data-broker-restore/, "dismissed broker cards should be restorable without deleting source data");
