@@ -83,6 +83,8 @@ assert.match(css, /\.equity-region-panel \{[\s\S]*?--equity-region-pad:[\s\S]*?p
   "the equity panel must expose its responsive inset for a full-bleed plot");
 assert.match(css, /\.equity-chain-lane button \{[\s\S]*?border: 1px solid color-mix\(in srgb, var\(--chain-color\) 32%, var\(--line\)\);/,
   "value-chain lane controls should use a complete-card outline");
+assert.match(css, /\.equity-chain-lane button \{[\s\S]*?border-inline-start-width: 1px;/,
+  "global and China value-chain controls should explicitly keep the leading edge at the same width");
 assert.doesNotMatch(css, /\.equity-chain-lane button \{[\s\S]*?border-left:\s*4px solid var\(--chain-color\)/,
   "value-chain lane controls must not use a left-only accent stripe");
 assert.match(css, /\.equity-chart-shell \{[\s\S]*?width:\s*calc\(100% \+ var\(--equity-region-pad\) \+ var\(--equity-region-pad\)\)[\s\S]*?margin-inline:\s*calc\(0px - var\(--equity-region-pad\)\)/,

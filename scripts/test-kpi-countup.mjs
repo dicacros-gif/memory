@@ -149,7 +149,7 @@ assert.match(css, /\.china-deep-video-dock \.talent-strategy-video \{[\s\S]*?hei
 assert.match(css, /@media \(max-width: 680px\) \{[\s\S]*?\.china-deep-video-dock \.talent-strategy-video \{[\s\S]*?aspect-ratio: 4 \/ 5;/, "the compact video height should preserve the mobile portrait layout");
 assert.match(css, /#talent-radar \.talent-radar-slider-slot \{[\s\S]*?display: flex;[\s\S]*?justify-content: center;/, "the talent radar slot should center its visual stage");
 assert.match(css, /#talent-radar \.talent-radar-slider \{[\s\S]*?width: min\(100%, 1360px\);[\s\S]*?margin-inline: auto;/, "the talent radar visual should use a bounded, centered desktop width");
-assert.match(html, /styles\.css\?v=equity-lane-outline-20260730-01/, "CSS cache key should include the equity-lane-outline revision");
+assert.match(html, /styles\.css\?v=equity-lane-outline-20260730-02/, "CSS cache key should include the current equity-lane-outline revision");
 assert.match(app, /function sourceLinkLabel\(source = "", nearbyText = ""\) \{[\s\S]*?return repeated \? "원문 보기 ↗" : `\$\{label\} ↗`;/, "source links should become generic when the same publisher is already visible nearby");
 assert.match(app, /link\.textContent = sourceLinkLabel\(item\.source, item\.kicker\);/, "rotating story cards should suppress duplicate publisher link labels");
 assert.match(app, /function koreanArticleHeadline\(title = "", fallback = "", summary = ""\) \{[\s\S]*?const value = cleanKoreanTitle\(/, "article headlines should strip repeated publisher suffixes before display");
