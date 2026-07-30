@@ -4088,6 +4088,13 @@
       .trim() || text;
   }
 
+  function withoutBriefingAgendaPhrase(value = "") {
+    return String(value || "")
+      .replace(/오늘\s*브리핑\s*안건\s*(?:[·|:：—–-]\s*)?/gi, "")
+      .replace(/\s+/g, " ")
+      .trim();
+  }
+
   function sourceLinkLabel(source = "", nearbyText = "") {
     const label = uniqueSourceLabel(source) || "근거 원문";
     const normalize = (value) => String(value || "")
@@ -8167,7 +8174,7 @@
       data: "정량 데이터 안건",
       strategy: "전략 안건",
       cso: "전략 안건",
-      brief: "오늘 브리핑 안건",
+      brief: "실시간 근거",
     })[roleKey] || "크롤링 기반 안건";
   }
 
@@ -8177,7 +8184,7 @@
     const quote = String(evidence.quote || evidence.summary || evidence.summaryOriginal || evidence.title || evidence.titleKo || "").replace(/\s+/g, " ").trim();
     const owner = cLevelAgentRoleLabel(roleKey);
     const source = uniqueSourceLabel(evidence.source) || "수집 근거";
-    const rawTitle = String(evidence.title || evidence.titleKo || quote || owner).replace(/\s+/g, " ").trim();
+    const rawTitle = withoutBriefingAgendaPhrase(evidence.title || evidence.titleKo || quote || owner);
     const strippedTitle = withoutRepeatedLeadingPhrase(stripTrailingSource(rawTitle, source), owner);
     const title = displayTextKey(strippedTitle) === displayTextKey(owner) ? "수집 근거 검토" : strippedTitle;
     const date = evidence.date || evidence.publishedAt || evidence.updatedAt || "";
