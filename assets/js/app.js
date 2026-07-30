@@ -2216,7 +2216,6 @@
   let selectedQaQuestion = "";
   let selectedQaCategory = "all";
   let numberOrder = [];
-  let numberFolded = {};
   let draggedNumberId = null;
   const QA_PLACEHOLDER = "Memory 시장에 대해 물어보세요";
   const CATEGORY_RENDER_BUDGET_MS = 12;
@@ -12546,11 +12545,7 @@
         numberOrder = [];
       }
     }
-    try {
-      numberFolded = JSON.parse(localStorage.getItem("memory-number-folded") || "{}") || {};
-    } catch {
-      numberFolded = {};
-    }
+    localStorage.removeItem("memory-number-folded");
     const ids = items.map((item) => item.id);
     const order = numberOrder.filter((id) => ids.includes(id)).concat(ids.filter((id) => !numberOrder.includes(id)));
     return order.map((id) => items.find((item) => item.id === id)).filter(Boolean);
@@ -12558,7 +12553,6 @@
 
   function saveNumberPrefs() {
     localStorage.setItem("memory-number-order", JSON.stringify(numberOrder));
-    localStorage.setItem("memory-number-folded", JSON.stringify(numberFolded));
   }
 
   function numberProgress(item) {
@@ -12810,8 +12804,7 @@
           { label: "Source", value: item.source || "baseline" },
         ],
       };
-      const folded = Boolean(numberFolded[item.id]);
-      const card = el("article", `number-card reveal${folded ? " folded" : ""}`);
+      const card = el("article", "number-card reveal");
       card.draggable = true;
       card.dataset.numberId = item.id;
       card.style.animationDelay = `${index * 30}ms`;
@@ -12821,7 +12814,7 @@
           <span class="chip accent">${escapeHTML(item.kind || "KPI")}</span>
           <div class="number-actions">
             <button class="copy-btn" type="button" data-copy-number="${escapeHTML(item.id)}">복사</button>
-            <button class="copy-btn ghost" type="button" data-number-toggle="${escapeHTML(item.id)}" aria-expanded="${folded ? "false" : "true"}">${folded ? "펼치기" : "접기"}</button>
+            <button class="copy-btn ghost" type="button" data-number-detail="${escapeHTML(item.id)}" aria-label="${escapeHTML(item.title)} 상세 보기">상세</button>
           </div>
         </div>
         <h3>${escapeHTML(item.title)}</h3>
@@ -12843,11 +12836,7 @@
         </div>
       `;
       card.querySelector("[data-copy-number]")?.addEventListener("click", (event) => copyTextToClipboard(numberPlainText(item), event.currentTarget));
-      card.querySelector("[data-number-toggle]")?.addEventListener("click", () => {
-        numberFolded[item.id] = !numberFolded[item.id];
-        saveNumberPrefs();
-        renderNumberAnalysis();
-      });
+      card.querySelector("[data-number-detail]")?.addEventListener("click", () => openInspector(payload));
       card.addEventListener("dragstart", () => {
         draggedNumberId = item.id;
         card.classList.add("dragging");

@@ -132,8 +132,8 @@ assert.match(app, /loadManagedJSON\("live", "data\/live-client\.json"[\s\S]*?loa
 assert.match(app, /priceHistory: \{[\s\S]*?path: "data\/price-history-client\.json"[\s\S]*?marketHistory: \{[\s\S]*?path: "data\/market-history-client\.json"/, "secondary fallbacks must never download database-sized history files");
 assert.match(css, /\.agent-debate-title \.agent-tts-toggle \{[\s\S]*?min-width: 190px;[\s\S]*?min-height: 44px;/, "the English TTS control should be large and readable");
 assert.match(css, /\.agent-tts-state \{[\s\S]*?min-width: 31px;/, "the TTS control should expose a dedicated on-or-off state badge");
-assert.match(html, /app\.js\?v=investment-infographic-20260730-01/, "JavaScript cache key should include the investment infographic revision");
-assert.match(html, /styles\.css\?v=investment-infographic-20260730-01/, "CSS cache key should include the investment infographic revision");
+assert.match(html, /app\.js\?v=number-detail-20260730-01/, "JavaScript cache key should include the number-detail revision");
+assert.match(html, /styles\.css\?v=number-detail-20260730-01/, "CSS cache key should include the number-detail revision");
 assert.match(html, /id="memoryHeroVideo"[\s\S]*?preload="none"[\s\S]*?<source data-src="assets\/media\/memory-hero\.mp4"/, "hero video should hydrate after the poster paints");
 assert.match(html, /id="talentStrategyVideoMedia"[\s\S]*?preload="none"[\s\S]*?data-poster="assets\/media\/china-talent-strategy-poster\.webp"[\s\S]*?<source data-src="assets\/media\/china-talent-strategy\.mp4"/, "below-fold talent media should not load during first paint");
 assert.doesNotMatch(html, /family=Noto\+Sans\+KR/, "Pretendard should replace the duplicate Korean webfont download");
@@ -231,6 +231,10 @@ assert.doesNotMatch(app, /investment-focus-block is-monitor/, "the daily signal 
 assert.match(css, /\.investment-focus-flow::before \{[\s\S]*?linear-gradient\(180deg, #0f766e 0%, #0e7490 33%, #1d4ed8 67%, #4338ca 100%\)/, "investment detail should expose a professional gradient decision path");
 assert.match(css, /\.investment-focus-block\.is-priority \{ --focus-card-accent: #0f766e; \}[\s\S]*?\.investment-focus-block\.is-sources \{ --focus-card-accent: #475569; \}/, "remaining investment detail blocks should use a restrained consulting palette");
 assert.match(app, /class="investment-priority-meter"[\s\S]*?class="investment-formula"[\s\S]*?data-step="04"/, "investment detail should render the weighted decision flow as an infographic");
+assert.match(app, /data-number-detail="\$\{escapeHTML\(item\.id\)\}"[\s\S]*?>상세<\/button>/, "number cards should expose a dedicated detail button");
+assert.match(app, /querySelector\("\[data-number-detail\]"\)[\s\S]*?openInspector\(payload\)/, "number-card detail buttons should open the right-side inspector");
+assert.doesNotMatch(app, /data-number-toggle|numberFolded|memory-number-folded", JSON\.stringify/, "number cards should not retain the broken fold toggle");
+assert.doesNotMatch(css, /\.number-card\.folded/, "number cards should not ship fold-only styling");
 assert.match(css, /\.investment-focus:is\(:hover, :focus-within\) \.investment-focus-block :is\(\.strategy-highlight, \.answer-term\) \{[\s\S]*?color: var\(--term-color\) !important;[\s\S]*?text-shadow: none;/, "investment highlights should retain dark contrast on hover");
 assert.match(css, /\.investment-focus:is\(:hover, :focus-within\) \.investment-focus-block \.term-metric \{ --term-color: #a61b12; \}/, "investment metric emphasis should use a high-contrast hover color");
 assert.match(css, /\.ceo-challenge-prompt \{[\s\S]*?linear-gradient\(118deg, #071526 0%, #0b2944 58%, #123b55 100%\)/, "CEO challenge prompt should use a high-contrast executive header");
