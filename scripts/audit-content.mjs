@@ -116,13 +116,17 @@ const baselineText = await readFile(resolve(root, "data/baseline.json"), "utf8")
 const appText = await readFile(resolve(root, "assets/js/app.js"), "utf8");
 const stylesText = await readFile(resolve(root, "assets/css/styles.css"), "utf8");
 const crawlText = await readFile(resolve(root, "scripts/crawl.mjs"), "utf8");
+const indexText = await readFile(resolve(root, "index.html"), "utf8");
 
-const liveFigureStyles = stylesText.match(/\/\* ---------------- Live figures[\s\S]*?\/\* ---------------- Semantic emphasis/)?.[0] || "";
-if (!/const groupedItems = groupLiveFigures\(items\)/.test(appText)) {
-  addIssue("error", "assets/js/app.js", "live figures must group observations into story cards");
+if (/id="liveFigures"|실시간 수치 근거|오늘 확인한 핵심 수치/.test(indexText + appText)) {
+  addIssue("error", "index.html", "live figures must not repeat as a standalone dashboard section");
 }
-if (/\.(?:lf-snippet|lf-context)\s*\{[^}]*?(?:line-clamp|overflow:\s*hidden)/s.test(liveFigureStyles)) {
-  addIssue("error", "assets/css/styles.css", "live figure titles and summaries must not be line-clamped or hidden");
+if (!/function articleFigureSignalsHTML\(/.test(appText)
+  || (appText.match(/articleFigureSignalsHTML\(/g) || []).length < 3) {
+  addIssue("error", "assets/js/app.js", "crawled figures must route into matching overview and article cards");
+}
+if (!/\.article-figure-signals\s*\{/.test(stylesText)) {
+  addIssue("error", "assets/css/styles.css", "routed quantitative evidence needs a readable inline treatment");
 }
 if (/snippet:\s*clause\.slice|contextKo:\s*article\.textKo\.slice/.test(crawlText)) {
   addIssue("error", "scripts/crawl.mjs", "live figure source text must not be cut at a fixed character count");

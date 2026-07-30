@@ -3581,6 +3581,7 @@
               </div>
               <h4>${strategicHighlightHTML(headline)}</h4>
               ${summary ? `<p>${escapeHTML(summary.slice(0, 150))}</p>` : ""}
+              ${articleFigureSignalsHTML({ ...l, titleKo: l.titleKo || l.title })}
               ${(() => {
                 const sig = themePriceSignal(b);
                 if (!sig) return "";
@@ -3897,84 +3898,86 @@
     });
   }
 
-  let liveFiguresTopic = "all";
-  function renderLiveFigures() {
-    const host = $("#liveFigures");
-    if (!host) return;
-    const lf = QUANT?.liveFigures;
-    const items = Array.isArray(lf?.items) ? lf.items.filter((item) => (
+  let liveFigureEvidenceCache = null;
+
+  function normalizeLiveFigureUrl(value = "") {
+    const raw = String(value || "").trim();
+    if (!raw) return "";
+    try {
+      const url = new URL(raw);
+      url.hash = "";
+      ["utm_source", "utm_medium", "utm_campaign", "utm_term", "utm_content"].forEach((param) => url.searchParams.delete(param));
+      return url.toString().replace(/\/$/, "").toLowerCase();
+    } catch {
+      return raw.replace(/#.*$/, "").replace(/\/$/, "").toLowerCase();
+    }
+  }
+
+  function currentRunLiveFigureGroups() {
+    const items = Array.isArray(QUANT?.liveFigures?.items) ? QUANT.liveFigures.items.filter((item) => (
       item.origin === "live-crawl"
       && item.observedThisRun === true
       && /^https?:\/\//i.test(String(item.url || ""))
       && !/news\.google\.com/i.test(String(item.url || ""))
     )) : [];
-    if (!items.length) {
-      host.innerHTML = "";
-      host.hidden = true;
-      return;
-    }
-    host.hidden = false;
-    const groupedItems = groupLiveFigures(items);
-    const groupedTopicCounts = new Map();
-    for (const group of groupedItems) {
-      for (const topic of group.topics) {
-        const current = groupedTopicCounts.get(topic.id) || { label: topic.label, count: 0 };
-        current.count += 1;
-        groupedTopicCounts.set(topic.id, current);
-      }
-    }
-    const topics = [{ id: "all", label: "전체" }].concat(
-      Array.from(groupedTopicCounts.entries())
-        .sort((a, b) => b[1].count - a[1].count)
-        .map(([id, meta]) => ({ id, label: meta.label || id }))
-    );
-    if (!topics.some((t) => t.id === liveFiguresTopic)) liveFiguresTopic = "all";
-    const shown = groupedItems
-      .filter((item) => liveFiguresTopic === "all" || item.topics.some((topic) => topic.id === liveFiguresTopic))
-      .slice(0, 18);
-    const asOf = lf.updatedAt ? String(lf.updatedAt).slice(0, 10) : "";
-    const sourceLabels = { official: "공식 원문", "authoritative-media": "권위 매체", research: "리서치" };
-    const layerLabels = { "official-fact": "공식 사실", "reported-fact": "보도 사실", "research-model": "연구모델" };
-    host.innerHTML = `
-      <div class="live-figures-head">
-        <div>
-          <p class="eyebrow">실시간 수치 근거</p>
-          <h3>오늘 확인한 핵심 수치 <span>${fmtNum(groupedItems.length)}개 기사 · 수치 ${fmtNum(items.length)}개</span></h3>
-        </div>
-        <div class="live-figures-tabs">
-          ${topics.map((t) => `<button type="button" class="${t.id === liveFiguresTopic ? "active" : ""}" data-lf-topic="${escapeHTML(t.id)}">${escapeHTML(t.label)}</button>`).join("")}
-        </div>
-      </div>
-      <div class="live-figures-grid">
-        ${shown.map((item) => {
-          const sourceClass = ["official", "authoritative-media", "research"].includes(item.sourceClass) ? item.sourceClass : "research";
-          const claimLayer = ["official-fact", "reported-fact", "research-model"].includes(item.claimLayer) ? item.claimLayer : "research-model";
-          return `
-            <article class="lf-card" data-live-story="${escapeHTML(item.storyId)}">
-              <div class="lf-top">
-                <div class="lf-topics">${item.topics.map((topic) => `<span class="lf-topic">${escapeHTML(topic.label || "지표")}</span>`).join("")}</div>
-                <div class="lf-values" aria-label="핵심 수치">${item.values.map((value) => `<b class="lf-value">${escapeHTML(value)}</b>`).join("")}</div>
-              </div>
-              <div class="lf-meta"><span class="lf-badge ${sourceClass}">${sourceLabels[sourceClass]}</span><span class="lf-badge ${claimLayer}">${layerLabels[claimLayer]}</span></div>
-              ${item.title ? `<h4 class="lf-context">${escapeHTML(koreanArticleHeadline(item.title, item.title, item.summary))}</h4>` : ""}
-              <p class="lf-snippet">${escapeHTML(item.summary)}</p>
-              <div class="lf-foot">
-                ${item.url ? `<a href="${escapeHTML(item.url)}" target="_blank" rel="noopener">${escapeHTML(item.source || "출처")} ↗</a>` : `<span>${escapeHTML(item.source || "출처")}</span>`}
-                <small>${escapeHTML(item.date || "")}</small>
-              </div>
-            </article>
-          `;
-        }).join("")}
-      </div>
-      <p class="live-figures-note">원문 링크와 수집일 기준 · 갱신 ${escapeHTML(asOf)}</p>
-    `;
-    host.querySelectorAll("[data-lf-topic]").forEach((btn) => {
-      btn.addEventListener("click", () => {
-        liveFiguresTopic = btn.dataset.lfTopic;
-        renderLiveFigures();
-      });
-    });
+    return groupLiveFigures(items);
   }
+
+  function liveFigureEvidenceIndex() {
+    const signature = [
+      QUANT?.runId || QUANT?.liveFigures?.updatedAt || "",
+      QUANT?.liveFigures?.items?.length || 0,
+    ].join(":");
+    if (liveFigureEvidenceCache?.signature === signature) return liveFigureEvidenceCache;
+
+    const byUrl = new Map();
+    const byTitle = new Map();
+    for (const group of currentRunLiveFigureGroups()) {
+      const urlKey = normalizeLiveFigureUrl(group.url);
+      const titleKey = normalizeLiveFigureKey(cleanKoreanTitle(group.title || ""));
+      if (urlKey && !byUrl.has(urlKey)) byUrl.set(urlKey, group);
+      if (titleKey && !byTitle.has(titleKey)) byTitle.set(titleKey, group);
+    }
+    liveFigureEvidenceCache = { signature, byUrl, byTitle };
+    return liveFigureEvidenceCache;
+  }
+
+  function liveFigureEvidenceForArticle(article = {}) {
+    const index = liveFigureEvidenceIndex();
+    const urls = [
+      article.sourceUrl,
+      article.url,
+      article.link,
+      article.verification?.canonicalUrl,
+    ].map(normalizeLiveFigureUrl).filter(Boolean);
+    for (const key of urls) {
+      if (index.byUrl.has(key)) return index.byUrl.get(key);
+    }
+    const titles = [article.titleKo, article.title, article.storyTitle]
+      .map((value) => normalizeLiveFigureKey(cleanKoreanTitle(value || "")))
+      .filter(Boolean);
+    for (const key of titles) {
+      if (index.byTitle.has(key)) return index.byTitle.get(key);
+    }
+    return null;
+  }
+
+  function articleFigureSignalsHTML(article = {}, limit = 4) {
+    const evidence = liveFigureEvidenceForArticle(article);
+    if (!evidence?.values?.length) return "";
+    const topic = evidence.topics
+      .map((item) => item.label || "")
+      .filter(Boolean)
+      .slice(0, 2)
+      .join(" · ") || "정량 근거";
+    return `
+      <div class="article-figure-signals" aria-label="기사 원문에서 추출한 정량 근거">
+        <span>${escapeHTML(topic)}</span>
+        ${evidence.values.slice(0, limit).map((value) => `<b>${escapeHTML(value)}</b>`).join("")}
+      </div>
+    `;
+  }
+  // End live-figure evidence routing.
 
   async function init() {
     setupMediaExperience();
@@ -4012,7 +4015,6 @@
     renderSidebarCategories();
     renderCrawlHeartbeat();
     renderKpis();
-    renderLiveFigures();
     renderMemoryBypassRoutes();
     renderNewsInsightSummary();
     // The persistent research timeline is below the first viewport. Load it
@@ -22750,6 +22752,7 @@
       a.rel = "noopener";
       const insights = insightLines(item);
       const evidence = newsEvidenceMeta(item);
+      const figureSignals = articleFigureSignalsHTML(item);
       a.innerHTML = strategicHighlightHTML(newsTitle(item));
       card.innerHTML = `
         <div class="news-card-head">
@@ -22760,6 +22763,7 @@
         <div class="news-insights">
           ${insights.map((line) => `<span>${strategicHighlightHTML(line)}</span>`).join("")}
         </div>
+        ${figureSignals}
       `;
       card.insertBefore(a, card.querySelector(".news-insights"));
       attachCrawlModerationControl(card, "news", item, newsTitle(item), renderNews);

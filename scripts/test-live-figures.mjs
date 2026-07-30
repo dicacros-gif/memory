@@ -8,9 +8,9 @@ import vm from "node:vm";
 
 const root = resolve(dirname(fileURLToPath(import.meta.url)), "..");
 const appText = await readFile(resolve(root, "assets/js/app.js"), "utf8");
-const helperMatch = appText.match(/  function normalizeLiveFigureKey[\s\S]*?\n  let liveFiguresTopic = "all";/);
-assert.ok(helperMatch, "live-figure grouping helpers are missing from app.js");
-const helperBlock = helperMatch[0].replace(/\n  let liveFiguresTopic = "all";$/, "");
+const helperMatch = appText.match(/  function normalizeLiveFigureKey[\s\S]*?  \/\/ End live-figure evidence routing\./);
+assert.ok(helperMatch, "live-figure grouping and evidence-routing helpers are missing from app.js");
+const helperBlock = helperMatch[0].replace(/\n  \/\/ End live-figure evidence routing\.$/, "");
 
 const memoryWallTitle = "메모리 병목은 HBM 캐파를 넘어 시스템 효율 문제로 확장";
 const memoryCycleTitle = "3Q26 가격 상방 뒤 4Q26 모멘텀 둔화 가능성";
@@ -41,11 +41,17 @@ const evidence = {
     },
   ],
 };
-const sandbox = {};
+const sandbox = {
+  URL,
+  QUANT: { runId: "fixture", liveFigures: { items: [] } },
+  cleanKoreanTitle: (value = "") => String(value).replace(/\s+-\s+Tom's Hardware$/i, "").trim(),
+  escapeHTML: (value = "") => String(value),
+};
 vm.runInNewContext(`
   const LIVE = ${JSON.stringify(evidence)};
   ${helperBlock}
   globalThis.groupLiveFiguresForTest = groupLiveFigures;
+  globalThis.routeLiveFigureEvidenceForTest = liveFigureEvidenceForArticle;
 `, sandbox);
 
 const group = (items) => JSON.parse(JSON.stringify(sandbox.groupLiveFiguresForTest(items)));
@@ -103,6 +109,44 @@ const storyFixture = group([
 ]);
 assert.equal(storyFixture.length, 2, "storyId must merge one story without merging distinct stories");
 assert.deepEqual(storyFixture[0].values, ["40%", "14%"]);
+
+const apacerUrl = "https://example.com/apacer-memory?utm_source=test";
+sandbox.QUANT.liveFigures.items = [
+  {
+    storyId: "apacer-supply",
+    storyTitle: "Apacer 메모리 공급 확보",
+    storySummary: "Apacer는 메모리 재고와 공급 자금을 확보했습니다.",
+    value: "$383 million",
+    canonical: { family: "currency-usd", number: 383 },
+    topic: { id: "capital", label: "IPO·자본" },
+    source: "Tom's Hardware",
+    url: apacerUrl,
+    sourceLocator: apacerUrl,
+    date: "2026-07-29",
+    origin: "live-crawl",
+    observedThisRun: true,
+  },
+  {
+    storyId: "apacer-supply",
+    storyTitle: "Apacer 메모리 공급 확보",
+    storySummary: "Apacer는 메모리 재고와 공급 자금을 확보했습니다.",
+    value: "$124 million",
+    canonical: { family: "currency-usd", number: 124 },
+    topic: { id: "capital", label: "IPO·자본" },
+    source: "Tom's Hardware",
+    url: apacerUrl,
+    sourceLocator: apacerUrl,
+    date: "2026-07-29",
+    origin: "live-crawl",
+    observedThisRun: true,
+  },
+];
+const routed = JSON.parse(JSON.stringify(sandbox.routeLiveFigureEvidenceForTest({
+  sourceUrl: "https://example.com/apacer-memory",
+  title: "Apacer stockpiles memory",
+})));
+assert.deepEqual(routed?.values, ["$383 million", "$124 million"], "matching article cards should receive their own extracted figures");
+assert.deepEqual(routed?.topics, [{ id: "capital", label: "IPO·자본" }]);
 
 console.log(JSON.stringify({
   ok: true,
