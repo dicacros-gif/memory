@@ -18412,7 +18412,7 @@
 
     if (summary) {
       const summaryLines = [
-        `모델 해석 · 중국 메모리 생태계는 CXMT·YMTC 중심의 캐파 확대와 내수 AI 고객 확보를 통해 범용 DRAM/NAND 영향력을 키우고 있습니다`,
+        `중국 메모리 생태계는 CXMT·YMTC 중심의 캐파 확대와 내수 AI 고객 확보를 통해 범용 DRAM/NAND 영향력을 키우고 있습니다`,
         `Naura·AMEC·ACM 장비 국산화 신호 ${fmtNum(equipmentSignals)}건과 JCET·TFME OSAT·XMC 3D 집적 신호 ${fmtNum(packagingSignals)}건이 선단 제약을 보완하는 축입니다`,
         `빅펀드·수출통제 반작용, 인재/IP 이동, 수율 레시피 유출 가능성은 SKHY가 별도로 추적해야 할 핵심 리스크입니다`,
       ];
@@ -22504,7 +22504,7 @@
       operations: "Wuxi·Dalian·Solidigm 운영 변화는 중국 노출과 NAND 방어 전략 변수",
     };
     if (!interpretation) interpretation = impacts[item.category] || category || "해당 변화가 가격·고객·공급망 중 어느 축을 바꾸는지 다음 의사결정에서 검토합니다.";
-    return `모델 해석 · ${interpretation}`;
+    return interpretation;
   }
 
   function newsActionLine(item, category) {
