@@ -1398,7 +1398,7 @@
       capital: "Solidigm value-up + 고객 락인",
       title: "YMTC의 eSSD·Xtacking 확장을 중국 NAND 사업 방어 KPI로 연결",
       thesis: "YMTC의 기술 진전은 낸드 가격보다 고객 인증에서 먼저 나타납니다. eSSD, QLC, 데이터센터 스토리지와 중국 내수 보조금 신호를 묶어 방어 우선순위를 관리합니다.",
-      actions: ["중국 eSSD 입찰·고객 인증 신호를 일일 보드 상단에 배치", "Solidigm QLC/eSSD 경쟁력 개선 과제를 가격 추이와 연결", "저마진 소비자 SSD보다 데이터센터 고객 방어를 우선"],
+      actions: ["Solidigm QLC/eSSD 경쟁력 개선 과제를 가격 추이와 연결", "저마진 소비자 SSD보다 데이터센터 고객 방어를 우선"],
       triggers: ["YMTC eSSD", "Xtacking 4.0", "NAND contract price", "Wuhan Phase 3", "QLC"],
       linkedCategories: ["nand", "china", "packaging"],
       keywords: ["ymtc", "xtacking", "essd", "solidigm", "qlc", "nand", "wuhan", "datacenter ssd"],
@@ -7817,7 +7817,6 @@
       "2026 글로벌 반도체 시장": [
         { label: "기준 스냅샷", text: "$1.51T · WSTS Spring 2026" },
         { label: "이전", text: "$975.46B · WSTS Autumn 2025" },
-        { label: "기준", text: "같은 기관의 전망 개정이며 SKHY 자체 전망이 아님" },
       ],
       "메모리 성장률": [
         { label: "WSTS", text: "메모리 $800B+ · 약 +250% YoY" },
