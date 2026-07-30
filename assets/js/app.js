@@ -15967,13 +15967,14 @@
       const cls = policyStatusClass(rule.status);
       return `
         <article class="policy-rule-card reveal" style="--local-accent:${accent}; animation-delay:${index * 25}ms">
+          <span class="policy-rule-index" aria-hidden="true">${String(index + 1).padStart(2, "0")}</span>
           <div class="policy-rule-top">
             <span class="policy-status ${cls}">${escapeHTML(decisionStateLabel(rule.status))}</span>
             <small>${escapeHTML(rule.axis)}</small>
           </div>
           <h3>${strategicHighlightHTML(rule.title)}</h3>
-          <p>${strategicHighlightHTML(rule.evidence)}</p>
-          <em>${strategicHighlightHTML(rule.implication)}</em>
+          <p class="policy-rule-evidence"><b>근거</b>${strategicHighlightHTML(rule.evidence)}</p>
+          <em class="policy-rule-implication"><b>의미</b>${strategicHighlightHTML(rule.implication)}</em>
           <div class="policy-rule-foot">${sourceLinkHTML(rule.sourceUrl, rule.source || "출처")}</div>
         </article>
       `;
