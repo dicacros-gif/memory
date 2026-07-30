@@ -21014,6 +21014,148 @@
     };
   }
 
+  const MARKET_INDEX_CHART_VIEW = Object.freeze({
+    width: 1120,
+    height: 320,
+    pad: Object.freeze({ top: 22, right: 22, bottom: 34, left: 22 }),
+  });
+
+  function marketIndexChartHTML(index = {}, trend = {}) {
+    const points = trend.plotPoints || [];
+    const { width, height, pad } = MARKET_INDEX_CHART_VIEW;
+    const plotWidth = width - pad.left - pad.right;
+    const plotHeight = height - pad.top - pad.bottom;
+    const minTime = Math.min(...points.map((point) => point.time));
+    const maxTime = Math.max(...points.map((point) => point.time));
+    const rawMin = Math.min(...points.map((point) => point.value));
+    const rawMax = Math.max(...points.map((point) => point.value));
+    const valuePadding = Math.max(1, (rawMax - rawMin) * 0.08);
+    const minValue = rawMin - valuePadding;
+    const maxValue = rawMax + valuePadding;
+    const timeRange = Math.max(1, maxTime - minTime);
+    const valueRange = Math.max(1, maxValue - minValue);
+    const viewX = (time) => pad.left + ((time - minTime) / timeRange) * plotWidth;
+    const viewY = (value) => pad.top + (1 - ((value - minValue) / valueRange)) * plotHeight;
+    const line = points.map((point, pointIndex) => (
+      `${pointIndex ? "L" : "M"}${viewX(point.time).toFixed(2)},${viewY(point.value).toFixed(2)}`
+    )).join(" ");
+    const area = `${line} L${viewX(maxTime).toFixed(2)},${height - pad.bottom} L${viewX(minTime).toFixed(2)},${height - pad.bottom} Z`;
+    const last = points.at(-1);
+    const gridLines = [0, 0.25, 0.5, 0.75, 1].map((ratio) => {
+      const y = pad.top + ratio * plotHeight;
+      return `<line x1="${pad.left}" y1="${y.toFixed(2)}" x2="${width - pad.right}" y2="${y.toFixed(2)}"></line>`;
+    }).join("");
+    return `
+      <div class="market-index-chart-canvas">
+        <svg class="market-index-chart-svg" viewBox="0 0 ${width} ${height}" role="img"
+          aria-label="${escapeHTML(index.labelKo || "필라델피아 반도체 지수")} 날짜별 종가 차트"
+          data-min-value="${minValue}" data-max-value="${maxValue}">
+          <defs>
+            <linearGradient id="marketIndexAreaGradient" x1="0" y1="0" x2="0" y2="1">
+              <stop offset="0%" stop-color="#22c58b" stop-opacity=".34"></stop>
+              <stop offset="72%" stop-color="#22c58b" stop-opacity=".08"></stop>
+              <stop offset="100%" stop-color="#22c58b" stop-opacity="0"></stop>
+            </linearGradient>
+          </defs>
+          <g class="market-index-chart-grid" aria-hidden="true">${gridLines}</g>
+          <path class="market-index-chart-area" d="${escapeHTML(area)}"></path>
+          <path class="market-index-chart-line" d="${escapeHTML(line)}"></path>
+          <line class="market-index-chart-crosshair" x1="${pad.left}" y1="${pad.top}" x2="${pad.left}" y2="${height - pad.bottom}"></line>
+          <circle class="market-index-chart-hover-dot" cx="${viewX(last.time).toFixed(2)}" cy="${viewY(last.value).toFixed(2)}" r="5" hidden></circle>
+          <circle class="market-index-chart-end" cx="${viewX(last.time).toFixed(2)}" cy="${viewY(last.value).toFixed(2)}" r="4.5"></circle>
+          <rect class="market-index-chart-hit" x="${pad.left}" y="${pad.top}" width="${plotWidth}" height="${plotHeight}"></rect>
+          <text x="${pad.left}" y="${height - 8}" class="market-index-chart-axis">${escapeHTML(shortKstDateWithYear(minTime))}</text>
+          <text x="${width - pad.right}" y="${height - 8}" text-anchor="end" class="market-index-chart-axis">${escapeHTML(shortKstDateWithYear(maxTime))}</text>
+        </svg>
+        <output class="market-index-chart-tooltip" hidden aria-live="polite"></output>
+      </div>
+    `;
+  }
+
+  function wireMarketIndexChartTooltip(panel, index = {}, trend = {}) {
+    const points = trend.plotPoints || [];
+    const canvas = panel.querySelector(".market-index-chart-canvas");
+    const svg = panel.querySelector(".market-index-chart-svg");
+    const hit = panel.querySelector(".market-index-chart-hit");
+    const crosshair = panel.querySelector(".market-index-chart-crosshair");
+    const dot = panel.querySelector(".market-index-chart-hover-dot");
+    const tooltip = panel.querySelector(".market-index-chart-tooltip");
+    if (!canvas || !svg || !hit || !crosshair || !dot || !tooltip || points.length < 2) return;
+    const { width, height, pad } = MARKET_INDEX_CHART_VIEW;
+    const plotWidth = width - pad.left - pad.right;
+    const plotHeight = height - pad.top - pad.bottom;
+    const minTime = points[0].time;
+    const maxTime = points.at(-1).time;
+    const minValue = Number(svg.dataset.minValue);
+    const maxValue = Number(svg.dataset.maxValue);
+    const viewX = (time) => pad.left + ((time - minTime) / Math.max(1, maxTime - minTime)) * plotWidth;
+    const viewY = (value) => pad.top + (1 - ((value - minValue) / Math.max(1, maxValue - minValue))) * plotHeight;
+    const nearestPoint = (targetTime) => points.reduce((nearest, point) => (
+      !nearest || Math.abs(point.time - targetTime) < Math.abs(nearest.time - targetTime) ? point : nearest
+    ), null);
+    const closeLabel = (value) => new Intl.NumberFormat("en-US", {
+      minimumFractionDigits: 2,
+      maximumFractionDigits: 2,
+    }).format(value);
+    let frameId = 0;
+    let latestClientX = null;
+    let lastPointTime = Number.NaN;
+    const renderPointer = (clientX) => {
+      const hitRect = hit.getBoundingClientRect();
+      const canvasRect = canvas.getBoundingClientRect();
+      const pointerRatio = Math.min(1, Math.max(0, (clientX - hitRect.left) / Math.max(1, hitRect.width)));
+      const targetTime = minTime + ((maxTime - minTime) * pointerRatio);
+      const point = nearestPoint(targetTime);
+      if (!point) return;
+      const pointX = viewX(point.time);
+      const pointY = viewY(point.value);
+      crosshair.setAttribute("x1", pointX.toFixed(2));
+      crosshair.setAttribute("x2", pointX.toFixed(2));
+      crosshair.classList.add("is-visible");
+      dot.hidden = false;
+      dot.setAttribute("cx", pointX.toFixed(2));
+      dot.setAttribute("cy", pointY.toFixed(2));
+      tooltip.hidden = false;
+      if (point.time !== lastPointTime) {
+        tooltip.innerHTML = `
+          <small>${escapeHTML(shortKstDateWithYear(point.time))}</small>
+          <strong>${escapeHTML(closeLabel(point.value))}</strong>
+          <span>종가 · ${escapeHTML(index.symbol || "SOX")}</span>
+        `;
+        lastPointTime = point.time;
+      }
+      const pointCanvasX = ((pointX - pad.left) / plotWidth) * hitRect.width + (hitRect.left - canvasRect.left);
+      const pointCanvasY = ((pointY - pad.top) / plotHeight) * hitRect.height + (hitRect.top - canvasRect.top);
+      const tooltipWidth = tooltip.offsetWidth;
+      const tooltipHeight = tooltip.offsetHeight;
+      const preferRight = pointCanvasX + tooltipWidth + 18 <= canvasRect.width;
+      const left = preferRight ? pointCanvasX + 14 : pointCanvasX - tooltipWidth - 14;
+      tooltip.style.left = `${Math.max(8, Math.min(canvasRect.width - tooltipWidth - 8, left))}px`;
+      tooltip.style.top = `${Math.max(8, Math.min(canvasRect.height - tooltipHeight - 8, pointCanvasY - tooltipHeight / 2))}px`;
+    };
+    const queuePointer = (event) => {
+      latestClientX = event.clientX;
+      if (frameId) return;
+      frameId = requestAnimationFrame(() => {
+        frameId = 0;
+        if (latestClientX != null) renderPointer(latestClientX);
+      });
+    };
+    hit.addEventListener("pointerenter", queuePointer, { passive: true });
+    hit.addEventListener("pointermove", queuePointer, { passive: true });
+    hit.addEventListener("pointerleave", () => {
+      latestClientX = null;
+      lastPointTime = Number.NaN;
+      if (frameId) {
+        cancelAnimationFrame(frameId);
+        frameId = 0;
+      }
+      tooltip.hidden = true;
+      dot.hidden = true;
+      crosshair.classList.remove("is-visible");
+    });
+  }
+
   const SOX_REPRESENTATIVE_PEER_IDS = Object.freeze([
     "nvidia-stock",
     "broadcom-stock",
@@ -21407,7 +21549,7 @@
           </div>
           <em>${escapeHTML(period.label)} · ${escapeHTML(shortKstDateWithYear(trend.startTime))}-${escapeHTML(shortKstDateWithYear(trend.endTime))}</em>
         </div>
-        ${priceTrendSvg([{ row: { item: "SOX" }, trend }])}
+        ${marketIndexChartHTML(index, trend)}
         <div class="market-index-readout">
           <span><b>${escapeHTML(formatPrice(trend.startAverage))}</b><small>시작</small></span>
           <span><b>${escapeHTML(formatPrice(trend.latestAverage))}</b><small>최신</small></span>
@@ -21430,6 +21572,7 @@
         ` : ""}
       </article>
     `;
+    wireMarketIndexChartTooltip(panel, index, trend);
   }
 
   const EQUITY_CHAIN_PERIODS = [

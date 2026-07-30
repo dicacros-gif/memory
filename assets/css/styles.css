@@ -17841,6 +17841,118 @@ body.consulting-system {
   box-shadow: 0 16px 45px rgba(15, 23, 42, .12);
 }
 
+.market-index-chart-canvas {
+  position: relative;
+  min-width: 0;
+  overflow: hidden;
+  margin-top: 12px;
+  border: 1px solid rgba(120, 142, 169, .24);
+  border-radius: 13px;
+  background:
+    radial-gradient(circle at 82% 8%, rgba(34, 197, 139, .08), transparent 35%),
+    linear-gradient(145deg, #111c31 0%, #0b1628 58%, #0c1b2b 100%);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, .035);
+}
+
+.market-index-chart-svg {
+  display: block;
+  width: 100%;
+  height: auto;
+  aspect-ratio: 1120 / 320;
+  overflow: hidden;
+}
+
+.market-index-chart-grid line {
+  stroke: rgba(148, 163, 184, .16);
+  stroke-width: 1;
+  vector-effect: non-scaling-stroke;
+}
+
+.market-index-chart-area {
+  fill: url("#marketIndexAreaGradient");
+  pointer-events: none;
+}
+
+.market-index-chart-line {
+  fill: none;
+  stroke: #22c58b;
+  stroke-width: 3;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  vector-effect: non-scaling-stroke;
+  filter: drop-shadow(0 0 5px rgba(34, 197, 139, .25));
+}
+
+.market-index-chart-end,
+.market-index-chart-hover-dot {
+  fill: #22c58b;
+  stroke: #eafff8;
+  stroke-width: 2.2;
+  vector-effect: non-scaling-stroke;
+  filter: drop-shadow(0 0 7px rgba(34, 197, 139, .72));
+}
+
+.market-index-chart-crosshair {
+  opacity: 0;
+  stroke: rgba(225, 234, 245, .72);
+  stroke-width: 1;
+  stroke-dasharray: 4 4;
+  vector-effect: non-scaling-stroke;
+  transition: opacity .12s ease;
+}
+
+.market-index-chart-crosshair.is-visible {
+  opacity: 1;
+}
+
+.market-index-chart-hit {
+  fill: transparent;
+  cursor: crosshair;
+  touch-action: pan-y;
+}
+
+.market-index-chart-axis {
+  fill: #91a1b5;
+  font-family: "JetBrains Mono", "Pretendard", monospace;
+  font-size: 11px;
+  font-weight: 750;
+}
+
+.market-index-chart-tooltip {
+  position: absolute;
+  z-index: 4;
+  display: grid;
+  min-width: 126px;
+  gap: 3px;
+  border: 1px solid rgba(255, 255, 255, .18);
+  border-radius: 10px;
+  background: rgba(5, 13, 25, .96);
+  color: #f8fbff;
+  padding: 9px 11px;
+  pointer-events: none;
+  box-shadow: 0 14px 30px rgba(0, 0, 0, .32);
+  backdrop-filter: blur(12px);
+}
+
+.market-index-chart-tooltip[hidden] {
+  display: none;
+}
+
+.market-index-chart-tooltip small,
+.market-index-chart-tooltip span {
+  color: #a9b8c9;
+  font-size: 9px;
+  font-weight: 750;
+}
+
+.market-index-chart-tooltip strong {
+  color: #fff;
+  font-family: "Space Grotesk", "JetBrains Mono", monospace;
+  font-size: 17px;
+  font-weight: 760;
+  letter-spacing: -.02em;
+}
+
 .market-index-readout {
   display: grid;
   grid-template-columns: repeat(4, minmax(0, 1fr));
