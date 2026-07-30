@@ -3349,7 +3349,8 @@
   }
 
   function koreanArticleHeadline(title = "", fallback = "", summary = "") {
-    const value = String(title || "").replace(/\s+/g, " ").trim();
+    const value = cleanKoreanTitle(String(title || "").replace(/\s+/g, " ").trim());
+    const fallbackValue = cleanKoreanTitle(String(fallback || "").replace(/\s+/g, " ").trim());
     if (/[가-힣]/.test(value)) return value;
     if (/NAND Flash Supply Growth to Outpace Demand/i.test(value)) return "2027년 NAND 공급 증가가 수요를 앞서며 하반기 공급 제약 완화 전망";
     if (/Weakness in memory has created an interesting entry point/i.test(value)) return "메모리 업황 약세가 투자 진입 기회를 만들 수 있다는 분석";
@@ -3365,8 +3366,24 @@
     if (/Nvidia locks down memory supply from SKHY/i.test(value)) return "엔비디아, 대규모 AI 계약의 일환으로 SK하이닉스 메모리 공급 확보";
     if (/AI memory shortage is now increasing the price of cars/i.test(value)) return "AI 메모리 부족이 차량 가격 상승 압력으로 확대…GM 경고";
     if (/Global Smartphone Shipments Slump to Lowest Q2 Level/i.test(value)) return "메모리 부족으로 2026년 2분기 글로벌 스마트폰 출하량이 13년 만에 최저 수준";
-    const summaryLead = String(summary || "").replace(/\s+/g, " ").split(/[.!?]/)[0].trim();
-    return /[가-힣]/.test(summaryLead) ? summaryLead : (fallback || value);
+    const summaryLead = cleanKoreanTitle(String(summary || "").replace(/\s+/g, " ").split(/[.!?]/)[0].trim());
+    return /[가-힣]/.test(summaryLead) ? summaryLead : (fallbackValue || value);
+  }
+
+  function distinctArticleSummary(summary = "", title = "", source = "") {
+    const clean = stripTrailingSource(String(summary || "").replace(/\s+/g, " ").trim(), source);
+    if (!clean) return "";
+    const normalize = (value) => String(value || "")
+      .toLowerCase()
+      .replace(/[^a-z0-9가-힣一-鿿]+/g, "");
+    const summaryKey = normalize(clean);
+    const titleKey = normalize(title);
+    if (!summaryKey || (titleKey && (
+      summaryKey === titleKey
+      || (summaryKey.startsWith(titleKey) && summaryKey.length - titleKey.length < 24)
+      || (titleKey.startsWith(summaryKey) && titleKey.length - summaryKey.length < 24)
+    ))) return "";
+    return clean;
   }
 
   function researchEvidenceInfographic(citations = [], archiveTotal = 0) {
@@ -3554,14 +3571,16 @@
           const l = b.latest || {};
           const badge = newsEvidenceBadge(l.evidenceLevel);
           const date = String(l.publishedAt || "").slice(0, 10);
+          const headline = koreanArticleHeadline(l.titleKo || l.title, b.label, l.summary);
+          const summary = distinctArticleSummary(l.summary, headline, l.source);
           return `
             <article class="ni-card">
               <div class="ni-card-top">
                 <span class="ni-theme">${escapeHTML(b.label)}</span>
                 <span class="ni-count">근거 ${fmtNum(b.evidenceCount || 0)}건</span>
               </div>
-              <h4>${strategicHighlightHTML(koreanArticleHeadline(l.titleKo || l.title, b.label, l.summary))}</h4>
-              ${l.summary ? `<p>${escapeHTML(String(l.summary).slice(0, 150))}</p>` : ""}
+              <h4>${strategicHighlightHTML(headline)}</h4>
+              ${summary ? `<p>${escapeHTML(summary.slice(0, 150))}</p>` : ""}
               ${(() => {
                 const sig = themePriceSignal(b);
                 if (!sig) return "";
@@ -4030,6 +4049,17 @@
     }
   }
 
+  function sourceLinkLabel(source = "", nearbyText = "") {
+    const label = String(source || "근거 원문").replace(/\s+/g, " ").trim();
+    const normalize = (value) => String(value || "")
+      .toLowerCase()
+      .replace(/[^a-z0-9가-힣一-鿿]+/g, "");
+    const sourceKey = normalize(label);
+    const nearbyKey = normalize(nearbyText);
+    const repeated = Boolean(sourceKey && nearbyKey.includes(sourceKey));
+    return repeated ? "원문 보기 ↗" : `${label} ↗`;
+  }
+
   function setupStrategyCapitalSlider() {
     const insight = $("#strategyCapitalInsight");
     const kicker = $("#strategyCapitalInsightKicker");
@@ -4057,7 +4087,7 @@
       title.textContent = item.title;
       body.textContent = item.body;
       link.href = item.href;
-      link.textContent = `${item.source || "근거 원문"} ↗`;
+      link.textContent = sourceLinkLabel(item.source, item.kicker);
       insight.classList.add("is-changing");
     };
 
@@ -4109,7 +4139,7 @@
       title.textContent = item.title;
       body.textContent = item.body;
       link.href = item.href;
-      link.textContent = `${item.source || "근거 원문"} ↗`;
+      link.textContent = sourceLinkLabel(item.source, item.kicker);
       insight.classList.add("is-changing");
     };
 
@@ -4217,7 +4247,7 @@
       title.textContent = item.title;
       body.textContent = item.body;
       link.href = item.href;
-      link.textContent = `${item.source || "근거 원문"} ↗`;
+      link.textContent = sourceLinkLabel(item.source, item.kicker);
       insight.classList.add("is-changing");
     };
 
@@ -4381,7 +4411,7 @@
       title.textContent = item.title;
       body.textContent = item.body;
       link.href = item.href;
-      link.textContent = `${item.source || "근거 원문"} ↗`;
+      link.textContent = sourceLinkLabel(item.source, item.kicker);
       insight.classList.add("is-changing");
     };
 
@@ -16338,7 +16368,7 @@
     title.textContent = item.title;
     body.textContent = item.body;
     link.href = item.href;
-    link.textContent = `${item.source || "원문"} 원문 ↗`;
+    link.textContent = sourceLinkLabel(item.source, item.kicker);
     copy.classList.add("is-changing");
   }
 
@@ -16449,7 +16479,7 @@
     title.textContent = item.title;
     body.textContent = item.body;
     link.href = item.href;
-    link.textContent = `${item.source} 원문 ↗`;
+    link.textContent = sourceLinkLabel(item.source, item.kicker);
     if (brandLabel) brandLabel.textContent = item.brandLabel;
     if (brandList) {
       brandList.innerHTML = item.brands.map((brand) => `
@@ -22305,12 +22335,19 @@
     let clean = String(title || "").replace(/\s+/g, " ").trim();
     const src = String(source || "").replace(/\s+/g, " ").trim();
     if (!clean || !src) return clean;
-    const lower = clean.toLowerCase();
     const srcLower = src.toLowerCase();
-    [" - ", " – ", " — ", " | ", " :: "].forEach((sep) => {
-      const suffix = `${sep}${srcLower}`;
-      if (lower.endsWith(suffix)) clean = clean.slice(0, -suffix.length).trim();
-    });
+    let removed = true;
+    while (removed) {
+      removed = false;
+      const lower = clean.toLowerCase();
+      for (const sep of [" - ", " – ", " — ", " | ", " :: "]) {
+        const suffix = `${sep}${srcLower}`;
+        if (!lower.endsWith(suffix)) continue;
+        clean = clean.slice(0, -suffix.length).trim();
+        removed = true;
+        break;
+      }
+    }
     return clean;
   }
 
