@@ -21794,7 +21794,7 @@
         symbol: `${members.length}개사`,
         category: categoryId,
         exchange: "동일가중 지수",
-        source: "실제 종가 동일가중 계산",
+        source: "",
         color: EQUITY_CHAIN_COLORS[categoryId] || "#6ea8fe",
         points,
         changePct: points.at(-1).value - 100,
@@ -22034,7 +22034,7 @@
               <b>${escapeHTML(item.label)}</b>
               <em>지수 ${escapeHTML(point.value.toFixed(1))}</em>
               ${Number.isFinite(point.close) ? `<small>종가 ${escapeHTML(equityCloseLabel(point.close, item.currency))} · ${escapeHTML(shortKstDate(point.time))}</small>` : `<small>${escapeHTML(item.exchange || "동일가중 지수")} · ${escapeHTML(shortKstDate(point.time))}</small>`}
-              <small>${escapeHTML(point.source || item.source || item.exchange || "수집 데이터")}</small>
+              ${(point.source || item.source) ? `<small>${escapeHTML(point.source || item.source)}</small>` : ""}
             </span>
           `).join("")}
         `;

@@ -65,6 +65,10 @@ assert.match(app, /EQUITY_STOCK_COLORS\[ordinal % EQUITY_STOCK_COLORS\.length\]/
   "simultaneously selected companies must receive distinct series colors");
 assert.match(app, /const point = equityPointAtOrBefore\(item\.points, snappedTime\)[\s\S]*?기준 거래일[\s\S]*?종가 \$\{escapeHTML\(equityCloseLabel\(point\.close, item\.currency\)\)\}[\s\S]*?point\.source/,
   "the tooltip must distinguish normalized comparison values from sourced actual closes");
+assert.doesNotMatch(app, /source: "실제 종가 동일가중 계산"/,
+  "grouped value-chain tooltips must not repeat the equal-weight calculation label");
+assert.match(app, /\(point\.source \|\| item\.source\) \? `<small>\$\{escapeHTML\(point\.source \|\| item\.source\)\}<\/small>` : ""/,
+  "tooltip source rows must render only when a distinct source label exists");
 assert.ok(
   app.includes('${latest ? `<em>${escapeHTML(equityCloseLabel(latest.close, index.currency))}</em>` : ""}'),
   "each stock control must show its latest actual close and currency without a trading date",
