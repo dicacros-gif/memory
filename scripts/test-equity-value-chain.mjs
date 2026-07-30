@@ -36,10 +36,10 @@ assert.match(app, /id: "stock"[\s\S]*?label: "Stock 분석"[\s\S]*?jump: "equity
   "the sidebar must expose a dedicated Stock analysis route");
 assert.match(app, /\{ label: "주가 분석", routes: \["stock"\] \},\s*\];/,
   "Stock analysis should be the final sidebar group");
-assert.match(app, /const SIDE_NAV_ROUTES = \[[\s\S]*?id === "home"[\s\S]*?id: "c-level"[\s\S]*?id: "workbench"[\s\S]*?id: "market-map"[\s\S]*?id === "analysis"[\s\S]*?id: "projection"[\s\S]*?id: "hyperscaler-demand"[\s\S]*?id === "market"[\s\S]*?id === "policy"[\s\S]*?id === "competitors"[\s\S]*?id === "talent"[\s\S]*?id: "stock"/,
+assert.match(app, /const SIDE_NAV_ROUTES = \[[\s\S]*?id: "home"[\s\S]*?id: "c-level"[\s\S]*?id: "analysis"[\s\S]*?id: "policy"[\s\S]*?id: "china-workforce"[\s\S]*?id: "market"[\s\S]*?id: "competitors"[\s\S]*?id: "talent"[\s\S]*?id: "numbers"[\s\S]*?id: "projection"[\s\S]*?id: "hyperscaler-demand"[\s\S]*?id: "workbench"[\s\S]*?id: "market-map"[\s\S]*?id: "ai-architecture"[\s\S]*?id: "strategy-actions"[\s\S]*?id: "stock"/,
   "sidebar routes should follow the real document flow with Stock last");
-assert.match(app, /function setupScrollSpy[\s\S]*?activeTop = Number\.NEGATIVE_INFINITY[\s\S]*?top <= y && top >= activeTop/,
-  "scroll spy must follow real document position rather than sidebar declaration order");
+assert.match(app, /function refreshScrollSpyGeometry[\s\S]*?getBoundingClientRect\(\)\.top \+ window\.scrollY[\s\S]*?sort\(\(left, right\) => left\.top - right\.top\)[\s\S]*?function updateScrollSpyFromGeometry/,
+  "scroll spy must cache real document landmarks rather than force layout on every scroll");
 assert.match(app, /const EQUITY_CHAIN_PERIODS = \[[\s\S]*?"1개월"[\s\S]*?"6개월"[\s\S]*?"1년"[\s\S]*?"5년"[\s\S]*?"전체"/,
   "the chart should expose the reference period controls");
 assert.match(app, /밸류체인 그룹 트렌드[\s\S]*?개별 종목/,

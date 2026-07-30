@@ -142,15 +142,15 @@ assert.doesNotMatch(app, /\["wheel", "touchstart", "keydown"\][\s\S]*?addEventLi
 assert.match(app, /function setupPriceBoardPreload\(\)[\s\S]*?requestAnimationFrame\(\(\) => window\.requestAnimationFrame\(schedule\)\)/, "price data should start automatically after the first dashboard paint");
 assert.match(app, /function deferredDefinitionsInDocumentOrder[\s\S]*?getBoundingClientRect\(\)\.top[\s\S]*?compareDocumentPosition[\s\S]*?DOCUMENT_POSITION_FOLLOWING/, "deferred sections should follow their real visual order with a DOM-order fallback");
 assert.match(app, /function hydrateDeferredSectionsSequentially[\s\S]*?for \(const definition of ordered\)[\s\S]*?await ensureDeferredSection\(definition\.id\)[\s\S]*?yieldDeferredHydration/, "all deferred sections should hydrate sequentially without waiting for scroll");
-assert.match(app, /Promise\.allSettled\(\[[\s\S]*?prewarmPriceBoardData\(\)[\s\S]*?loadSecondaryData\(\["quantBacktest"\]\)/, "secondary datasets should begin loading in parallel before sequential section construction");
+assert.match(app, /Promise\.allSettled\(\[[\s\S]*?prewarmPriceBoardData\(\)[\s\S]*?loadSecondaryData\(\["quantBacktest", "enterpriseProfiles"\]\)/, "secondary datasets should begin loading in parallel before sequential section construction");
 assert.match(app, /document\.body\.dataset\.deferredHydration = "ready"/, "the site should expose completion of automatic full-page hydration");
 assert.doesNotMatch(app, /handleScrollTowardPrices|priceRenderObserver|stockRenderObserver|schedulePriceBoardRenderAhead/, "below-fold loading must not depend on scroll position observers");
 assert.match(app, /loadManagedJSON\("live", "data\/live-client\.json"[\s\S]*?loadManagedJSON\("quant", "data\/quant-client\.json"/, "initial managed-data fallbacks must remain browser-sized client artifacts");
 assert.match(app, /priceHistory: \{[\s\S]*?path: "data\/price-history-client\.json"[\s\S]*?marketHistory: \{[\s\S]*?path: "data\/market-history-client\.json"/, "secondary fallbacks must never download database-sized history files");
 assert.match(css, /\.agent-debate-title \.agent-tts-toggle \{[\s\S]*?min-width: 190px;[\s\S]*?min-height: 44px;/, "the English TTS control should be large and readable");
 assert.match(css, /\.agent-tts-state \{[\s\S]*?min-width: 31px;/, "the TTS control should expose a dedicated on-or-off state badge");
-assert.match(html, /app\.js\?v=company-intelligence-20260731-01/, "JavaScript cache key should include the company-intelligence revision");
-assert.match(html, /styles\.css\?v=company-intelligence-20260731-01/, "CSS cache key should include the company-intelligence revision");
+assert.match(html, /app\.js\?v=nav-performance-20260731-01/, "JavaScript cache key should include the navigation-performance revision");
+assert.match(html, /styles\.css\?v=nav-performance-20260731-01/, "CSS cache key should include the navigation-performance revision");
 assert.match(html, /id="memoryHeroVideo"[\s\S]*?preload="none"[\s\S]*?<source data-src="assets\/media\/memory-hero\.mp4"/, "hero video should hydrate after the poster paints");
 assert.match(html, /id="talentStrategyVideoMedia"[\s\S]*?preload="none"[\s\S]*?data-poster="assets\/media\/china-talent-strategy-poster\.webp"[\s\S]*?<source data-src="assets\/media\/china-talent-strategy\.mp4"/, "below-fold talent media should not load during first paint");
 assert.doesNotMatch(html, /family=Noto\+Sans\+KR/, "Pretendard should replace the duplicate Korean webfont download");

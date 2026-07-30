@@ -1817,8 +1817,18 @@
     },
   ];
   const IA_ROUTES = MECE_GROUPS;
+  // Keep navigation landmarks in the same order as the right-hand document.
+  // A route owns one contiguous region only, so scroll highlighting never
+  // jumps backward to a tab whose content is elsewhere on the page.
   const SIDE_NAV_ROUTES = [
-    ...MECE_GROUPS.filter((route) => route.id === "home"),
+    {
+      id: "home",
+      label: "Executive Summary",
+      desc: "핵심 변화·증권사 리서치",
+      cadence: "Daily",
+      jump: "overview",
+      sections: ["overview", "overview-content"],
+    },
     {
       id: "c-level",
       label: "경영진 의사결정",
@@ -1826,6 +1836,84 @@
       cadence: "C-level cockpit",
       jump: "c-level-cockpit",
       sections: ["c-level-cockpit"],
+    },
+    {
+      id: "analysis",
+      label: "전략·백테스트",
+      desc: "과거 판단·중국 전략·ROI",
+      cadence: "Decision lab",
+      jump: "executive-decision",
+      sections: [
+        "executive-decision",
+        "management-strategy",
+        "strategic-investment-decision",
+        "memory-visual-story",
+        "memory-scroll-story",
+      ],
+    },
+    {
+      id: "policy",
+      label: "정책·팹 리스크",
+      desc: "중국·한국·미국·팹 운영",
+      cadence: "Policy watch",
+      jump: "policy-makers",
+      sections: ["policy-makers", "ai-demand-scroll-story", "china-fab-infra"],
+    },
+    {
+      id: "china-workforce",
+      label: "중국 인력 전략",
+      desc: "거점 운영·채용·IP 통제",
+      cadence: "Workforce plan",
+      jump: "china-talent-strategy",
+      sections: ["china-talent-strategy"],
+    },
+    {
+      id: "market",
+      label: "시장·가격·기사",
+      desc: "현물·계약 가격·권위 기사",
+      cadence: "Market data",
+      jump: "prices",
+      sections: ["prices", "news", "china-community"],
+    },
+    {
+      id: "competitors",
+      label: "중국 메모리 경쟁",
+      desc: "CXMT·YMTC·장비·패키징",
+      cadence: "China benchmark",
+      jump: "china-nand",
+      sections: ["china-nand", "china-dynamics"],
+    },
+    {
+      id: "talent",
+      label: "인재·IP 리스크",
+      desc: "채용·수율 인력·IP 방어",
+      cadence: "Hiring watch",
+      jump: "talent-radar",
+      sections: ["talent-radar"],
+    },
+    {
+      id: "numbers",
+      label: "정량 분석",
+      desc: "수치 근거·시나리오 비교",
+      cadence: "Quant review",
+      jump: "numbers",
+      sections: ["numbers"],
+    },
+    {
+      id: "projection",
+      label: "제품군 전망",
+      desc: "서버·단말 제품 믹스",
+      cadence: "SKHY projection",
+      jump: "projection",
+      sections: ["projection"],
+    },
+    {
+      id: "hyperscaler-demand",
+      label: "메모리 수요 예측",
+      desc: "AI서버·스토리지·단말",
+      cadence: "Scenario planning",
+      jump: "hyperscaler-demand",
+      sections: ["hyperscaler-demand"],
     },
     {
       id: "workbench",
@@ -1843,34 +1931,29 @@
       jump: "memory-market-map",
       sections: ["memory-market-map", "competitive-scroll-story"],
     },
-    ...MECE_GROUPS.filter((route) => route.id === "analysis"),
     {
-      id: "projection",
-      label: "제품군 전망",
-      desc: "서버·단말 제품 믹스",
-      cadence: "SKHY projection",
-      jump: "projection",
-      sections: ["projection"],
+      id: "ai-architecture",
+      label: "AI·중국 심층",
+      desc: "HBM·CXL·중국 밸류체인",
+      cadence: "Architecture",
+      jump: "ai-matrix",
+      sections: ["ai-matrix", "china-benchmark-video-story", "china-deep-dive"],
     },
     {
-      id: "hyperscaler-demand",
-      label: "메모리 수요 예측",
-      desc: "AI서버·스토리지·단말",
-      cadence: "Scenario planning",
-      jump: "hyperscaler-demand",
-      sections: ["hyperscaler-demand", "memory-scroll-story"],
+      id: "strategy-actions",
+      label: "분류·대응 전략",
+      desc: "카테고리·실행 액션",
+      cadence: "Action plan",
+      jump: "categories",
+      sections: ["categories", "response"],
     },
-    ...MECE_GROUPS.filter((route) => route.id === "market"),
-    ...MECE_GROUPS.filter((route) => route.id === "policy"),
-    ...MECE_GROUPS.filter((route) => route.id === "competitors"),
-    ...MECE_GROUPS.filter((route) => route.id === "talent"),
     {
       id: "stock",
       label: "Stock 분석",
       desc: "글로벌·중국 밸류체인 주가",
       cadence: "Equity analytics",
       jump: "equity-value-chain",
-      sections: ["equity-value-chain"],
+      sections: ["equity-value-chain", "marketIndexPanel"],
     },
   ];
   const ROUTE_DISPLAY = {
@@ -1903,6 +1986,26 @@
       label: "메모리 수요 예측",
       desc: "AI서버·스토리지·단말",
       cadence: "Scenario",
+    },
+    "china-workforce": {
+      label: "중국 인력 전략",
+      desc: "거점 운영·채용·IP 통제",
+      cadence: "Workforce",
+    },
+    numbers: {
+      label: "정량 분석",
+      desc: "수치 근거·시나리오 비교",
+      cadence: "Quant",
+    },
+    "ai-architecture": {
+      label: "AI·중국 심층",
+      desc: "HBM·CXL·중국 밸류체인",
+      cadence: "Architecture",
+    },
+    "strategy-actions": {
+      label: "분류·대응 전략",
+      desc: "카테고리·실행 액션",
+      cadence: "Action plan",
     },
     analysis: {
       label: "전략·백테스트",
@@ -1949,25 +2052,29 @@
     talent: { label: "인재 · IP", en: "Talent / IP", desc: "채용, 핵심 수율 인력 이동, IP 방어 신호" },
   };
   const SIDE_NAV_GROUPS = [
-    { label: "핵심·의사결정", routes: ["home", "c-level"] },
-    { label: "분석·전망", routes: ["workbench", "market-map", "analysis", "projection", "hyperscaler-demand"] },
-    { label: "시장·정책", routes: ["market", "policy"] },
-    { label: "중국 인텔리전스", routes: ["competitors", "talent"] },
+    { label: "핵심·의사결정", routes: ["home", "c-level", "analysis"] },
+    { label: "정책·시장", routes: ["policy", "china-workforce", "market"] },
+    { label: "경쟁·전망", routes: ["competitors", "talent", "numbers", "projection", "hyperscaler-demand"] },
+    { label: "구조·실행", routes: ["workbench", "market-map", "ai-architecture", "strategy-actions"] },
     { label: "주가 분석", routes: ["stock"] },
   ];
   const SIDE_NAV_ICONS = {
     home: "01",
     "c-level": "02",
-    workbench: "03",
-    "market-map": "04",
-    analysis: "05",
-    projection: "06",
-    "hyperscaler-demand": "07",
-    market: "08",
-    policy: "09",
-    competitors: "10",
-    talent: "11",
-    stock: "12",
+    analysis: "03",
+    policy: "04",
+    "china-workforce": "05",
+    market: "06",
+    competitors: "07",
+    talent: "08",
+    numbers: "09",
+    projection: "10",
+    "hyperscaler-demand": "11",
+    workbench: "12",
+    "market-map": "13",
+    "ai-architecture": "14",
+    "strategy-actions": "15",
+    stock: "16",
   };
   const TOPIC_FILTER_GROUPS = [
     { label: "전체", hint: "All", categories: ["all"] },
@@ -2070,6 +2177,9 @@
   let pendingSidebarRoute = "";
   let activeSidebarRoute = "";
   let scrollSpyFrame = 0;
+  let scrollSpyRefreshFrame = 0;
+  let scrollSpyLandmarks = [];
+  let scrollSpyResizeObserver = null;
   let scrollProgressFrame = 0;
   let priceFilter = "all";
   let pricePeriod = "year5";
@@ -2230,7 +2340,10 @@
 
   async function loadJSON(path, fallback, options = {}) {
     try {
-      const res = await fetch(path, { cache: options.cache || "no-cache" });
+      const res = await fetch(path, {
+        cache: options.cache || "no-cache",
+        credentials: "omit",
+      });
       if (!res.ok) throw new Error(`${path} ${res.status}`);
       return await res.json();
     } catch (error) {
@@ -3964,6 +4077,11 @@
   // End live-figure evidence routing.
 
   async function init() {
+    // Start critical data requests before synchronous UI setup. On a cold
+    // GitHub Pages visit this overlaps JSON latency with shell construction.
+    const manifestPromise = loadDataManifest();
+    const baselinePromise = loadJSON("data/baseline.json", null);
+    const crawlExclusionsPromise = loadJSON("data/crawl-exclusions.json", emptyCrawlExclusions);
     document.body.classList.add("consulting-system");
     setupMediaExperience();
     setupChinaBenchmarkVideoStory();
@@ -3973,9 +4091,7 @@
     // is static, so it stays usable even on a cold GitHub Pages cache.
     renderChrome();
     renderSidebarNav();
-    const baselinePromise = loadJSON("data/baseline.json", null);
-    const crawlExclusionsPromise = loadJSON("data/crawl-exclusions.json", emptyCrawlExclusions);
-    DATA_MANIFEST = await loadDataManifest();
+    DATA_MANIFEST = await manifestPromise;
     [BASE, LIVE, REPO_CRAWL_EXCLUSIONS, QUANT] = await Promise.all([
       baselinePromise,
       loadManagedJSON("live", "data/live-client.json", emptyLive),
@@ -5025,6 +5141,7 @@
       normalizeBriefCopy(section);
       animateCounts(section);
       animateMeters(section);
+      scheduleScrollSpyGeometryRefresh();
     })().catch((error) => {
       section.dataset.deferredState = "error";
       section.removeAttribute("aria-busy");
@@ -5050,12 +5167,11 @@
 
   function yieldDeferredHydration() {
     return new Promise((resolve) => {
-      const finish = () => window.setTimeout(resolve, 0);
-      if ("requestIdleCallback" in window) {
-        window.requestIdleCallback(finish, { timeout: 140 });
-      } else {
-        window.requestAnimationFrame(finish);
+      if (window.scheduler?.postTask) {
+        window.scheduler.postTask(resolve, { priority: "background" });
+        return;
       }
+      window.requestAnimationFrame(() => window.setTimeout(resolve, 0));
     });
   }
 
@@ -5071,7 +5187,7 @@
     // without making scroll position a loading trigger.
     void Promise.allSettled([
       prewarmPriceBoardData(),
-      loadSecondaryData(["quantBacktest"]),
+      loadSecondaryData(["quantBacktest", "enterpriseProfiles"]),
     ]);
 
     deferredHydrationPromise = (async () => {
@@ -5083,6 +5199,7 @@
         await yieldDeferredHydration();
       }
       document.body.dataset.deferredHydration = "ready";
+      scheduleScrollSpyGeometryRefresh();
     })().catch((error) => {
       document.body.dataset.deferredHydration = "error";
       console.warn("Sequential section hydration failed", error);
@@ -5093,7 +5210,7 @@
   function scheduleSequentialDeferredHydration(definitions) {
     const start = () => { void hydrateDeferredSectionsSequentially(definitions); };
     const schedule = () => {
-      if ("requestIdleCallback" in window) window.requestIdleCallback(start, { timeout: 850 });
+      if ("requestIdleCallback" in window) window.requestIdleCallback(start, { timeout: 320 });
       else window.setTimeout(start, 80);
     };
     window.requestAnimationFrame(() => window.requestAnimationFrame(schedule));
@@ -6900,6 +7017,7 @@
     // close to the viewport instead of registering every historical board.
     animateCounts(document, { nearViewport: true });
     animateMeters(document, { nearViewport: true });
+    scheduleScrollSpyGeometryRefresh();
   }
 
   function scheduleCategoryRender() {
@@ -19974,6 +20092,7 @@
     await ensureDeferredSection(id);
     if (token !== jumpNavigationToken) return;
     document.body.classList.remove("menu-open");
+    refreshScrollSpyGeometry();
 
     const alignTarget = () => {
       const y = Math.max(0, target.getBoundingClientRect().top + window.scrollY - chromeOffset());
@@ -19987,49 +20106,71 @@
 
     alignTarget();
     syncSidebarRoute(id);
+    scheduleScrollSpyGeometryRefresh();
+  }
+
+  function refreshScrollSpyGeometry() {
+    if (scrollSpyRefreshFrame) {
+      cancelAnimationFrame(scrollSpyRefreshFrame);
+      scrollSpyRefreshFrame = 0;
+    }
+    scrollSpyLandmarks = SIDE_NAV_ROUTES
+      .map((route) => {
+        const node = document.getElementById(route.jump);
+        if (!node || node.hidden) return null;
+        return {
+          id: route.jump,
+          top: node.getBoundingClientRect().top + window.scrollY,
+        };
+      })
+      .filter(Boolean)
+      .sort((left, right) => left.top - right.top);
+    updateScrollSpyFromGeometry();
+  }
+
+  function scheduleScrollSpyGeometryRefresh() {
+    if (scrollSpyRefreshFrame) return;
+    scrollSpyRefreshFrame = requestAnimationFrame(() => {
+      scrollSpyRefreshFrame = 0;
+      refreshScrollSpyGeometry();
+    });
+  }
+
+  function updateScrollSpyFromGeometry() {
+    scrollSpyFrame = 0;
+    if (pendingSidebarRoute || !scrollSpyLandmarks.length) return;
+    // The reading line sits below the sticky header and slightly inside the
+    // viewport, matching the section the user is actually reading.
+    const readingLine = window.scrollY + chromeOffset()
+      + Math.min(180, Math.max(36, window.innerHeight * 0.16));
+    let active = scrollSpyLandmarks[0].id;
+    for (const landmark of scrollSpyLandmarks) {
+      if (landmark.top > readingLine) break;
+      active = landmark.id;
+    }
+    if (window.innerHeight + window.scrollY >= document.documentElement.scrollHeight - 8) {
+      active = scrollSpyLandmarks.at(-1).id;
+    }
+    const navTarget = NAV_SECTION_TARGETS[active] || active;
+    if (navTarget !== activeSidebarRoute) syncSidebarRoute(navTarget, { reveal: true });
+  }
+
+  function scheduleScrollSpyUpdate() {
+    if (scrollSpyFrame) return;
+    scrollSpyFrame = requestAnimationFrame(updateScrollSpyFromGeometry);
   }
 
   function setupScrollSpy() {
-    // The sidebar represents top-level boards. Tracking nested/deferred
-    // sections here can highlight a previous route after a direct jump.
-    const sections = SIDE_NAV_ROUTES.map((route) => route.jump);
-    const update = () => {
-      scrollSpyFrame = 0;
-      if (pendingSidebarRoute) return;
-      const y = window.scrollY + chromeOffset() + 22;
-      let active = "overview";
-      let activeTop = Number.NEGATIVE_INFINITY;
-      let lastSection = "overview";
-      let lastTop = Number.NEGATIVE_INFINITY;
-      sections.forEach((id) => {
-        const node = document.getElementById(id);
-        if (!node) return;
-        const top = node.offsetTop;
-        if (top > lastTop) {
-          lastTop = top;
-          lastSection = id;
-        }
-        if (top <= y && top >= activeTop) {
-          activeTop = top;
-          active = id;
-        }
-      });
-      if (window.innerHeight + window.scrollY >= document.documentElement.scrollHeight - 4) {
-        active = lastSection;
-      }
-      const lastNode = document.getElementById(lastSection);
-      if (lastNode && lastNode.getBoundingClientRect().top < window.innerHeight * 0.72) {
-        active = lastSection;
-      }
-      const navTarget = NAV_SECTION_TARGETS[active] || active;
-      if (navTarget !== activeSidebarRoute) syncSidebarRoute(navTarget);
-    };
-    const schedule = () => {
-      if (scrollSpyFrame) return;
-      scrollSpyFrame = requestAnimationFrame(update);
-    };
-    window.addEventListener("scroll", schedule, { passive: true });
-    update();
+    window.addEventListener("scroll", scheduleScrollSpyUpdate, { passive: true });
+    window.addEventListener("resize", scheduleScrollSpyGeometryRefresh, { passive: true });
+    window.addEventListener("load", scheduleScrollSpyGeometryRefresh, { once: true });
+    if ("ResizeObserver" in window) {
+      scrollSpyResizeObserver = new ResizeObserver(scheduleScrollSpyGeometryRefresh);
+      const main = $("#main");
+      if (main) scrollSpyResizeObserver.observe(main);
+    }
+    document.fonts?.ready?.then(scheduleScrollSpyGeometryRefresh).catch(() => {});
+    refreshScrollSpyGeometry();
   }
 
   /* ---------------- Q&A ---------------- */
