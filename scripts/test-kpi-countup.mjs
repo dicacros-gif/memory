@@ -84,6 +84,11 @@ assert.match(
   /\.china-deep-card:is\(:hover, :focus-within\) \.deep-implication:not\(:hover\) :is\(\.strategy-highlight, \.answer-term\)[\s\S]*?text-shadow: none !important;/,
   "China deep-dive Insight terms must retain dark contrast when only the parent card is hovered",
 );
+assert.match(
+  css,
+  /#china-talent-strategy \.policy-rule-card:is\(:hover, :focus-within\) \.policy-rule-foot \.source-tag[\s\S]*?color: #0b3b49 !important;[\s\S]*?-webkit-text-fill-color: #0b3b49 !important;/,
+  "inverted China talent cards must keep source-pill labels dark on their light surface",
+);
 assert.match(app, /class="exec-flow-node reveal/, "executive summary should render as a compact signal-to-decision flow");
 assert.match(app, /class="exec-flow-signal"/, "executive flow nodes should retain the core evidence text");
 assert.match(css, /\.exec-report-bullet-list > li::before/, "broker bullet lists should have a visual bullet marker");
