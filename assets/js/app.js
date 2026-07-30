@@ -3599,22 +3599,6 @@
         const cites = researchCitations(40);
         if (!cites.length) return "";
         return researchEvidenceInfographic(cites, (RESEARCH_ARCHIVE.items || []).length);
-        const total = (RESEARCH_ARCHIVE.items || []).length;
-        return `
-          <div class="ni-research">
-            <div class="ni-research-head"><strong>증권사·권위 리서치 공개 원문·인용 브리핑</strong><span>${fmtNum(cites.length)}건 표시 · 누적 ${fmtNum(total)}건 · 은행·리서치하우스·권위 매체</span></div>
-            <ul class="ni-research-list">
-              ${cites.map((c, i) => `
-                <li class="ni-cite" data-cite-index="${i}">
-                  <span class="ni-cite-src">${escapeHTML(c.source || "출처")}</span>
-                  ${c.url ? `<a href="${escapeHTML(c.url)}" target="_blank" rel="noopener">${escapeHTML(String(c.title).slice(0, 90))} ↗</a>` : `<span>${escapeHTML(String(c.title).slice(0, 90))}</span>`}
-                  <small>${escapeHTML(c.date)}</small>
-                </li>
-              `).join("")}
-            </ul>
-            <p class="ni-research-note">× 를 누르면 이 브라우저에서만 숨깁니다. 공통 수집 데이터와 원문 아카이브는 변경하지 않습니다.</p>
-          </div>
-        `;
       })()}
     `;
     host.querySelectorAll("[data-trend-term]").forEach((btn) => {
@@ -3979,6 +3963,7 @@
   // End live-figure evidence routing.
 
   async function init() {
+    document.body.classList.add("consulting-system");
     setupMediaExperience();
     setupChinaBenchmarkVideoStory();
     setupChinaDecisionVideo();
@@ -4056,8 +4041,27 @@
       .replace(/[^a-z0-9가-힣一-鿿]+/g, "");
   }
 
+  function dedupeDisplayParts(value = "", separator = " · ") {
+    const text = String(value || "").replace(/\s+/g, " ").trim();
+    if (!text) return "";
+    const seen = new Set();
+    return text
+      .split(/\s*(?:·|\||\n)\s*/)
+      .map((part) => part
+        .replace(/\b([A-Za-z][A-Za-z0-9&'.-]{2,})(?:\s+\1\b)+/gi, "$1")
+        .replace(/([가-힣]{2,})(?:\s+\1(?![가-힣]))+/g, "$1")
+        .trim())
+      .filter((part) => {
+        const key = displayTextKey(part);
+        if (!key || seen.has(key)) return false;
+        seen.add(key);
+        return true;
+      })
+      .join(separator);
+  }
+
   function uniqueSourceLabel(source = "") {
-    let label = String(source || "").replace(/\s+/g, " ").trim();
+    let label = dedupeDisplayParts(source);
     if (!label) return "";
     let previous = "";
     while (label !== previous) {
@@ -4382,7 +4386,7 @@
         return {
           kicker: [source, date].filter(Boolean).join(" · "),
           title: lines[0] || newsTitle(item),
-          body: lines[1] || "중국 고객·가격·공급망의 변화가 SKHY 자본 배분에 미치는 영향을 별도로 검토합니다.",
+          body: lines[1] ? `전략 해석 · ${lines[1]}` : "중국 고객·가격·공급망의 변화가 SKHY 자본 배분에 미치는 영향을 별도로 검토합니다.",
           href: String(item.link || item.sourceUrl || "").trim(),
           source,
         };
@@ -4486,7 +4490,7 @@
         return {
           kicker: `${newsPublisherText(item) || "Authoritative source"} · ${String(item.category || "China").toUpperCase()}`,
           title: newsTitle(item),
-          body: lines[1] || lines[0] || "중국 메모리 신호가 SKHY의 가격·고객·공급망 판단에 미치는 영향을 검토합니다.",
+          body: lines[1] ? `전략 해석 · ${lines[1]}` : (lines[0] || "중국 메모리 신호가 SKHY의 가격·고객·공급망 판단에 미치는 영향을 검토합니다."),
           href: String(item.link || item.sourceUrl || "").trim(),
           source: newsPublisherText(item) || "원문 보기",
         };
@@ -5333,9 +5337,10 @@
         ...category,
         accounts: verifiedDemandAccountRegistry(category.id),
         ...values,
-        // Always renderable: every value resolves to a live-verified number or
-        // the labeled baseline. Never blanks.
-        available: Object.values(values).every(Number.isFinite),
+        // A numeric model may remain in memory for scenario design, but the
+        // public board opens only after the headline demand input is verified
+        // against a direct, dated source.
+        available: unitSourceVerified && Object.values(values).every(Number.isFinite),
         unitsFromBaseline,
         inputReadiness: ready,
         observedInputCount: [live.units, live.memPerUnit, live.skhyShare, live.dramYoY, live.nandYoY]
@@ -5343,7 +5348,7 @@
         modelInputCount: statuses.filter((status) => String(status).toLowerCase() === "model").length,
         sourceVerifiedUnit: unitSourceVerified,
         sourceCheckStatus: unitVerification.mode,
-        unitBasisLabel: unitVerification.mode === "independent-live-source" ? "이번 실행 관측" : (unitsFromBaseline ? "기준값(모델)·라이브 대조 대기" : "외부기관 전망 2026E"),
+        unitBasisLabel: unitVerification.mode === "independent-live-source" ? "이번 실행 관측" : (unitsFromBaseline ? "원문 수치 대조 대기" : "외부기관 전망 2026E"),
         source: unitCheck?.source || source,
         sourceUrl: unitCheck?.sourceUrl || unitInput?.sourceUrl || category.sourceUrl,
         liveAsOf: asOf,
@@ -5763,7 +5768,7 @@
   }
 
   function briefCopyText(value) {
-    return String(value ?? "").replace(/\s+/g, " ").trim();
+    return dedupeDisplayParts(value);
   }
 
   const BRIEF_COPY_EXEMPT_SELECTOR = [
@@ -7163,10 +7168,16 @@
   function briefingBulletLines(value = "") {
     const normalized = String(value || "").replace(/\s+/g, " ").trim();
     if (!normalized) return [];
+    const seen = new Set();
     return normalized
       .split(/(?<=[가-힣A-Za-z])(?:[.。]+)\s*(?=[가-힣A-Za-z0-9])/gu)
-      .map((line) => withoutTerminalStop(line))
-      .filter(Boolean);
+      .map((line) => dedupeDisplayParts(withoutTerminalStop(line)))
+      .filter((line) => {
+        const key = displayTextKey(line);
+        if (!key || seen.has(key)) return false;
+        seen.add(key);
+        return true;
+      });
   }
 
   function briefingBulletListHTML(value = "", className = "exec-report-bullet-list") {
@@ -7741,6 +7752,93 @@
     animateCounts(hero);
   }
 
+  function consultingEvidenceSnapshot() {
+    const articles = currentRunNews().filter((item) => (
+      isDirectEvidenceUrl(item.sourceUrl || item.link)
+      && Boolean(newsTimestamp(item))
+    ));
+    const research = brokerResearchSummaries().filter((item) => (
+      isDirectEvidenceUrl(item.sourceUrl)
+      && Boolean(item.publishedAt)
+    ));
+    const prices = allPriceRows().filter((row) => {
+      const values = [row.current, row.latest, row.price, row.value, row.average, row.low, row.high]
+        .map(Number)
+        .filter(Number.isFinite);
+      return isDirectEvidenceUrl(row.sourceUrl) && values.length > 0;
+    });
+    const sources = new Set(
+      articles.concat(research)
+        .map((item) => {
+          try {
+            return new URL(item.sourceUrl || item.link).hostname.replace(/^www\./, "");
+          } catch {
+            return "";
+          }
+        })
+        .filter(Boolean),
+    );
+    return { articles, research, prices, sourceCount: sources.size };
+  }
+
+  function renderConsultingLogic() {
+    const wrap = $("#consultingLogic");
+    if (!wrap) return;
+    const evidence = consultingEvidenceSnapshot();
+    const nodes = [
+      {
+        index: "01",
+        eyebrow: "SOURCE",
+        title: "직접 근거",
+        body: "공개 원문 URL · 발행일 · 출처 식별",
+        value: `${fmtNum(evidence.sourceCount)}개 출처`,
+      },
+      {
+        index: "02",
+        eyebrow: "SIGNAL",
+        title: "시장 신호",
+        body: "가격 · 수요 · 공급 · 경쟁을 중복 없이 분류",
+        value: `${fmtNum(evidence.articles.length)}개 기사 · ${fmtNum(evidence.prices.length)}개 가격 행`,
+      },
+      {
+        index: "03",
+        eyebrow: "SYNTHESIS",
+        title: "MECE 종합",
+        body: "시장성 · 경쟁력 · 실행성 · 리스크로 교차검증",
+        value: `${fmtNum(evidence.research.length)}개 리서치 근거`,
+      },
+      {
+        index: "04",
+        eyebrow: "DECISION",
+        title: "경영 판단",
+        body: "결론 · 전환 조건 · 확인 KPI를 한 화면에 연결",
+        value: "Go · Watch · No-Go",
+      },
+    ];
+    wrap.innerHTML = `
+      <header class="consulting-logic-head">
+        <div>
+          <span>DECISION ARCHITECTURE</span>
+          <strong>근거에서 실행까지 한 방향으로 연결</strong>
+        </div>
+        <small>검증되지 않은 수치는 결론 계산에서 제외</small>
+      </header>
+      <div class="consulting-logic-flow">
+        ${nodes.map((node) => `
+          <article class="consulting-logic-node reveal">
+            <span class="consulting-logic-index">${escapeHTML(node.index)}</span>
+            <div>
+              <small>${escapeHTML(node.eyebrow)}</small>
+              <strong>${escapeHTML(node.title)}</strong>
+              <p>${escapeHTML(node.body)}</p>
+              <em>${escapeHTML(node.value)}</em>
+            </div>
+          </article>
+        `).join("")}
+      </div>
+    `;
+  }
+
   function renderExecutiveSummary() {
     const brief = $("#execBrief");
     const strategy = $("#execStrategy");
@@ -7748,6 +7846,7 @@
     if (!brief || !strategy || !research) return;
 
     renderTodayHub();
+    renderConsultingLogic();
 
     brief.innerHTML = `
       <header class="exec-cluster-head">
@@ -22296,6 +22395,22 @@
     return "";
   }
 
+  function canonicalNewsStoryKey(item = {}) {
+    const title = cleanKoreanTitle(item.titleKo || item.title || "")
+      .toLowerCase()
+      .replace(/^(핵심|벤치마킹|체크포인트)\s*:\s*/, "")
+      .replace(SOURCE_SUFFIX_RE, "")
+      .split(/\s[—–]\s/)[0]
+      .replace(/[^a-z0-9가-힣一-鿿 ]+/g, " ")
+      .replace(/\s+/g, " ")
+      .trim();
+    if (!title) return "";
+    const compact = /[一-鿿가-힣]/.test(title)
+      ? title.slice(0, 88)
+      : title.split(" ").slice(0, 12).join(" ");
+    return `story:${compact}`;
+  }
+
   function canonicalNewsKey(item = {}) {
     return canonicalNewsUrlKey(item) || canonicalNewsTitleKey(item);
   }
@@ -22326,6 +22441,7 @@
     const selected = [];
     const byUrl = new Map();
     const byTitle = new Map();
+    const byStory = new Map();
     items.forEach((item) => {
       const source = uniqueSourceLabel(item.source);
       const normalizedItem = {
@@ -22336,13 +22452,16 @@
       };
       const urlKey = canonicalNewsUrlKey(normalizedItem);
       const titleKey = canonicalNewsTitleKey(normalizedItem);
+      const storyKey = canonicalNewsStoryKey(normalizedItem);
       const urlIndex = urlKey ? byUrl.get(urlKey) : undefined;
       const titleIndex = titleKey ? byTitle.get(titleKey) : undefined;
-      const index = urlIndex ?? titleIndex;
+      const storyIndex = storyKey ? byStory.get(storyKey) : undefined;
+      const index = urlIndex ?? titleIndex ?? storyIndex;
       if (index !== undefined) {
         selected[index] = mergeNewsDuplicate(selected[index], normalizedItem);
         if (urlKey) byUrl.set(urlKey, index);
         if (titleKey) byTitle.set(titleKey, index);
+        if (storyKey) byStory.set(storyKey, index);
         return;
       }
       if (!urlKey && !titleKey) return;
@@ -22350,6 +22469,7 @@
       selected.push(normalizedItem);
       if (urlKey) byUrl.set(urlKey, nextIndex);
       if (titleKey) byTitle.set(titleKey, nextIndex);
+      if (storyKey) byStory.set(storyKey, nextIndex);
     });
     return selected;
   }
@@ -22547,7 +22667,7 @@
   }
 
   function cleanInsightText(text) {
-    return cleanKoreanTitle(text || "")
+    return dedupeDisplayParts(cleanKoreanTitle(text || ""))
       .replace(/^(요약|관찰|인사이트|확인|확인 포인트)\s*[:：]\s*/i, "")
       .replace(/\s+/g, " ")
       .trim();
@@ -22868,7 +22988,12 @@
           <span class="news-meta">${escapeHTML(formatNewsDate(item.date || item.published))}</span>
         </div>
         <div class="news-insights">
-          ${insights.map((line) => `<span>${strategicHighlightHTML(line)}</span>`).join("")}
+          ${insights.map((line, index) => `
+            <span>
+              <b>${["기사 요약", "전략 시사점", "확인 조건"][index] || "근거"}</b>
+              <em>${strategicHighlightHTML(line)}</em>
+            </span>
+          `).join("")}
         </div>
         ${figureSignals}
       `;

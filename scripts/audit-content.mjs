@@ -128,6 +128,21 @@ if (!/function articleFigureSignalsHTML\(/.test(appText)
 if (!/\.article-figure-signals\s*\{/.test(stylesText)) {
   addIssue("error", "assets/css/styles.css", "routed quantitative evidence needs a readable inline treatment");
 }
+if (!indexText.includes('id="consultingLogic"')
+  || !appText.includes("function renderConsultingLogic")
+  || !stylesText.includes(".consulting-logic-flow")) {
+  addIssue("error", "index.html", "executive dashboard is missing the MECE source-to-decision architecture");
+}
+if (!appText.includes("available: unitSourceVerified && Object.values(values).every(Number.isFinite)")) {
+  addIssue("error", "assets/js/app.js", "unverified forecast values can still render as decision-grade numbers");
+}
+if (!appText.includes("function canonicalNewsStoryKey")
+  || !appText.includes("const byStory = new Map()")) {
+  addIssue("error", "assets/js/app.js", "news deduplication does not merge the same story across repeated publisher labels");
+}
+if (!appText.includes('["기사 요약", "전략 시사점", "확인 조건"]')) {
+  addIssue("error", "assets/js/app.js", "news cards do not separate sourced summary from generated interpretation");
+}
 if (/snippet:\s*clause\.slice|contextKo:\s*article\.textKo\.slice/.test(crawlText)) {
   addIssue("error", "scripts/crawl.mjs", "live figure source text must not be cut at a fixed character count");
 }
@@ -985,9 +1000,18 @@ const latinCount = (value = "") => (String(value).match(/[A-Za-z]/g) || []).leng
 const languageCounts = { english: 0, chinese: 0 };
 for (const item of news) {
   const title = String(item.title || "").trim();
+  const titleKo = String(item.titleKo || "").trim();
+  const source = String(item.source || "").trim();
   const language = String(item.streamLanguage || item.language || "").toLowerCase();
   const key = title.toLowerCase().replace(/\s[-–—]\s[^-–—|]+$/g, "").replace(/[^a-z0-9가-힣一-鿿]+/g, "");
   if (/^\s*\[(?:news|뉴스)\]/i.test(title)) addIssue("error", "data/live.json", "news title contains forbidden prefix", title);
+  if (source) {
+    const escapedSource = source.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
+    const repeatedSuffix = new RegExp(`(?:\\s[-–—|:]\\s*${escapedSource}){2,}\\s*$`, "i");
+    if (repeatedSuffix.test(title) || repeatedSuffix.test(titleKo)) {
+      addIssue("error", "data/live.json", "news title repeats its publisher suffix", titleKo || title);
+    }
+  }
   if (!new Set(["english", "chinese"]).has(language)) {
     addIssue("error", "data/live.json", "news item has no verified stream language", title);
   } else if (language === "english" && (hanCount(title) > 0 || latinCount(title) < 6)) {

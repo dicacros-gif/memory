@@ -7181,6 +7181,339 @@ body.sidebar-collapsed .sb-ico {
   }
 }
 
+/* --------------------------------------------------------------------------
+   Executive consulting system
+   One restrained visual language across evidence, synthesis and decision.
+   -------------------------------------------------------------------------- */
+body.consulting-system {
+  --consulting-navy: #102a43;
+  --consulting-blue: #245b86;
+  --consulting-teal: #087f72;
+  --consulting-amber: #b7791f;
+  --consulting-slate: #52637a;
+  --consulting-line: #d6dee8;
+  --consulting-soft: #f4f7fa;
+  background:
+    radial-gradient(circle at 88% 4%, rgba(8, 127, 114, .08), transparent 27%),
+    linear-gradient(160deg, #eef3f7 0%, #f7f9fb 48%, #edf2f6 100%);
+}
+
+.consulting-system .main {
+  --accent: var(--consulting-teal);
+  color: var(--consulting-navy);
+}
+
+.consulting-system :is(.executive-summary, .board) {
+  border: 1px solid var(--consulting-line);
+  border-radius: 16px;
+  background: rgba(255, 255, 255, .94);
+  box-shadow: 0 12px 34px rgba(16, 42, 67, .07);
+}
+
+.consulting-system .board-head {
+  align-items: flex-end;
+  padding-bottom: 14px;
+  border-bottom: 1px solid var(--consulting-line);
+  background: transparent;
+}
+
+.consulting-system .board-head .eyebrow,
+.consulting-system .exec-cluster-head > span {
+  color: var(--consulting-teal);
+  font-weight: 900;
+  letter-spacing: .075em;
+}
+
+.consulting-system :is(.board-head h2, .exec-cluster-head strong) {
+  color: var(--consulting-navy);
+  letter-spacing: -.025em;
+}
+
+.consulting-system :is(
+  .exec-flow-node,
+  .exec-strategy-card,
+  .mece-group-card,
+  .mece-node,
+  .news-card,
+  .community-card,
+  .community-brief,
+  .policy-card,
+  .policy-rule-card,
+  .investment-focus,
+  .memory-map-card,
+  .category-card,
+  .response-card,
+  .workbench-card
+) {
+  border: 1px solid var(--consulting-line) !important;
+  border-top-color: var(--consulting-line) !important;
+  border-right-color: var(--consulting-line) !important;
+  border-bottom-color: var(--consulting-line) !important;
+  border-left-color: var(--consulting-line) !important;
+  background: linear-gradient(145deg, #fff 0%, var(--consulting-soft) 100%);
+  color: var(--consulting-navy);
+  box-shadow: 0 4px 14px rgba(16, 42, 67, .045);
+}
+
+.consulting-system :is(
+  .exec-flow-node,
+  .exec-strategy-card,
+  .mece-node,
+  .news-card,
+  .community-card,
+  .policy-card,
+  .investment-focus,
+  .memory-map-card,
+  .category-card,
+  .response-card,
+  .workbench-card
+):is(:hover, :focus-visible, :focus-within) {
+  border-color: color-mix(in srgb, var(--consulting-teal) 58%, var(--consulting-line)) !important;
+  background: linear-gradient(145deg, #fff, #eaf5f3);
+  color: var(--consulting-navy);
+  box-shadow: 0 14px 28px rgba(16, 42, 67, .11);
+  transform: translateY(-3px);
+  outline: none;
+}
+
+.consulting-system :is(
+  .exec-flow-node,
+  .exec-strategy-card,
+  .mece-node,
+  .news-card,
+  .community-card,
+  .policy-card,
+  .investment-focus,
+  .memory-map-card,
+  .category-card,
+  .response-card,
+  .workbench-card
+):is(:hover, :focus-visible, :focus-within) :is(strong, b, span, p, small, em, a) {
+  color: inherit;
+}
+
+.consulting-system :is(.exec-flow-node.is-priority, .mece-node.active, button.active, [aria-pressed="true"]) {
+  border-color: color-mix(in srgb, var(--consulting-teal) 64%, var(--consulting-line)) !important;
+  box-shadow:
+    inset 0 0 0 1px rgba(8, 127, 114, .12),
+    0 9px 24px rgba(8, 127, 114, .10);
+}
+
+.consulting-logic {
+  margin: 16px 0 18px;
+  padding: 18px;
+  border: 1px solid var(--consulting-line);
+  border-radius: 15px;
+  background:
+    linear-gradient(120deg, rgba(16, 42, 67, .025), rgba(8, 127, 114, .055)),
+    #fff;
+}
+
+.consulting-logic-head {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 20px;
+  margin-bottom: 14px;
+}
+
+.consulting-logic-head > div {
+  display: grid;
+  gap: 3px;
+}
+
+.consulting-logic-head span {
+  color: var(--consulting-teal);
+  font-size: 10px;
+  font-weight: 950;
+  letter-spacing: .12em;
+}
+
+.consulting-logic-head strong {
+  color: var(--consulting-navy);
+  font-family: var(--display);
+  font-size: clamp(17px, 1.3vw, 23px);
+  letter-spacing: -.025em;
+}
+
+.consulting-logic-head > small {
+  color: var(--consulting-slate);
+  font-size: 10px;
+  font-weight: 800;
+}
+
+.consulting-logic-flow {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 16px;
+}
+
+.consulting-logic-node {
+  position: relative;
+  min-width: 0;
+  display: grid;
+  grid-template-columns: 34px minmax(0, 1fr);
+  gap: 11px;
+  min-height: 132px;
+  padding: 15px;
+  border: 1px solid var(--consulting-line);
+  border-radius: 13px;
+  background: #fff;
+  box-shadow: 0 5px 15px rgba(16, 42, 67, .045);
+  transition: transform .18s ease, border-color .18s ease, box-shadow .18s ease;
+}
+
+.consulting-logic-node:not(:last-child)::after {
+  content: "›";
+  position: absolute;
+  top: 50%;
+  right: -22px;
+  z-index: 2;
+  width: 26px;
+  height: 26px;
+  display: grid;
+  place-items: center;
+  border: 1px solid var(--consulting-line);
+  border-radius: 50%;
+  background: #fff;
+  color: var(--consulting-teal);
+  font-size: 20px;
+  font-weight: 900;
+  transform: translateY(-50%);
+}
+
+.consulting-logic-node:hover {
+  border-color: color-mix(in srgb, var(--consulting-teal) 55%, var(--consulting-line));
+  box-shadow: 0 13px 25px rgba(16, 42, 67, .10);
+  transform: translateY(-3px);
+}
+
+.consulting-logic-index {
+  width: 34px;
+  height: 34px;
+  display: grid;
+  place-items: center;
+  border-radius: 9px;
+  background: var(--consulting-navy);
+  color: #fff;
+  font-family: var(--mono);
+  font-size: 10px;
+  font-weight: 900;
+}
+
+.consulting-logic-node > div {
+  min-width: 0;
+  display: grid;
+  align-content: start;
+  gap: 4px;
+}
+
+.consulting-logic-node small {
+  color: var(--consulting-teal);
+  font-size: 9px;
+  font-weight: 950;
+  letter-spacing: .08em;
+}
+
+.consulting-logic-node strong {
+  color: var(--consulting-navy);
+  font-family: var(--display);
+  font-size: 15px;
+}
+
+.consulting-logic-node p {
+  color: var(--consulting-slate);
+  font-size: 10px;
+  font-weight: 720;
+  line-height: 1.5;
+}
+
+.consulting-logic-node em {
+  align-self: end;
+  margin-top: 5px;
+  color: var(--consulting-navy);
+  font-family: var(--mono);
+  font-size: 10px;
+  font-style: normal;
+  font-weight: 850;
+}
+
+.consulting-system .news-insights {
+  display: grid;
+  gap: 7px;
+}
+
+.consulting-system .news-insights > span {
+  display: grid;
+  grid-template-columns: 76px minmax(0, 1fr);
+  align-items: start;
+  gap: 10px;
+  padding: 8px 10px;
+  border: 1px solid #e1e7ee;
+  border-radius: 9px;
+  background: rgba(255, 255, 255, .78);
+}
+
+.consulting-system .news-insights > span > b {
+  color: var(--consulting-teal);
+  font-size: 9px;
+  font-weight: 950;
+  letter-spacing: .02em;
+}
+
+.consulting-system .news-insights > span > em {
+  color: var(--consulting-slate);
+  font-size: 10px;
+  font-style: normal;
+  font-weight: 720;
+  line-height: 1.52;
+}
+
+.consulting-system .mece-group-card {
+  --mece-accent: var(--consulting-teal) !important;
+}
+
+.consulting-system .mece-group-foot {
+  border-top: 1px solid var(--consulting-line);
+  color: var(--consulting-slate);
+}
+
+[data-theme="dark"] body.consulting-system {
+  --consulting-navy: #eef6fb;
+  --consulting-line: #2b3b4d;
+  --consulting-soft: #111c29;
+  background: linear-gradient(160deg, #07111c, #0b1723 54%, #0d1b27);
+}
+
+[data-theme="dark"] .consulting-system :is(.executive-summary, .board, .consulting-logic) {
+  background: rgba(12, 25, 37, .96);
+}
+
+[data-theme="dark"] .consulting-system :is(.consulting-logic-node, .consulting-logic-node:not(:last-child)::after) {
+  background: #10202f;
+}
+
+@media (max-width: 1100px) {
+  .consulting-logic-flow {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .consulting-logic-node::after {
+    display: none;
+  }
+}
+
+@media (max-width: 680px) {
+  .consulting-logic-head {
+    align-items: flex-start;
+    flex-direction: column;
+  }
+
+  .consulting-logic-flow {
+    grid-template-columns: 1fr;
+  }
+}
+
 .policy-summary {
   grid-template-columns: repeat(auto-fit, minmax(210px, 1fr));
 }
