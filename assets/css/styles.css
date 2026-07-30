@@ -6910,6 +6910,35 @@ body.sidebar-collapsed .sb-ico {
     var(--panel);
 }
 
+.management-strategy-board {
+  border-color: color-mix(in srgb, #536b84 62%, var(--line));
+  background:
+    linear-gradient(135deg, color-mix(in srgb, #dce7ef 72%, var(--panel)) 0%, color-mix(in srgb, #f8fafc 90%, var(--panel)) 50%, color-mix(in srgb, #eeeaf3 62%, var(--panel)) 100%);
+  box-shadow:
+    inset 0 0 0 1px rgba(255, 255, 255, .72),
+    0 16px 38px rgba(37, 54, 72, .1);
+}
+
+.management-strategy-board .china-business-brief-card {
+  border-color: color-mix(in srgb, #607a94 68%, var(--line));
+  background:
+    linear-gradient(145deg, color-mix(in srgb, #ffffff 94%, var(--panel)) 0%, color-mix(in srgb, #edf2f6 78%, var(--panel-2)) 100%);
+  box-shadow: 0 8px 22px rgba(45, 63, 82, .08);
+  transition: transform .18s ease, border-color .18s ease, background .18s ease, box-shadow .18s ease;
+}
+
+.management-strategy-board .china-business-brief-card:is(:hover, :focus-within) {
+  transform: translateY(-2px);
+  border-color: #365d7e;
+  background:
+    linear-gradient(145deg, color-mix(in srgb, #ffffff 96%, var(--panel)) 0%, color-mix(in srgb, #e4edf5 82%, var(--panel-2)) 100%);
+  box-shadow: 0 14px 30px rgba(38, 67, 92, .14);
+}
+
+.management-strategy-board :is(.china-business-lane, .investment-panel, .investment-focus) {
+  border-color: color-mix(in srgb, #71869c 54%, var(--line));
+}
+
 .strategic-investment-board {
   border-color: color-mix(in srgb, var(--purple) 30%, var(--line));
 }
