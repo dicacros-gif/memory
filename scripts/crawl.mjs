@@ -3828,23 +3828,39 @@ function mergeNewsCategory(categories, cat, items, sampleLimit = 12) {
 }
 
 export function dedupeEnrichedNews(items = [], { preferPreservedSeed = false } = {}) {
-  const selected = new Map();
+  const selected = [];
+  const byUrl = new Map();
+  const byTitle = new Map();
   const observationRank = (item = {}) => {
     if (item.preservedSeed) return preferPreservedSeed ? 3 : 0;
     return item.continuityFallback ? 1 : 2;
   };
   for (const item of items) {
     const directUrl = sanitizeSourceUrl(item.sourceUrl || "");
-    const key = directUrl
+    const urlKey = directUrl
       ? `url:${directUrl.toLowerCase().replace(/\/$/, "")}`
-      : canonicalNewsKey(item);
-    if (!key) continue;
-    const existing = selected.get(key);
+      : "";
+    const titleKey = canonicalNewsKey(item);
+    if (!urlKey && !titleKey) continue;
+    const index = (urlKey ? byUrl.get(urlKey) : undefined)
+      ?? (titleKey ? byTitle.get(titleKey) : undefined);
+    if (index === undefined) {
+      const nextIndex = selected.length;
+      selected.push(item);
+      if (urlKey) byUrl.set(urlKey, nextIndex);
+      if (titleKey) byTitle.set(titleKey, nextIndex);
+      continue;
+    }
+    const existing = selected[index];
     // A source fetched/discovered in the current run must win over both a
-    // previous-run continuity copy and a curated reference seed.
-    if (!existing || observationRank(item) > observationRank(existing)) selected.set(key, item);
+    // previous-run continuity copy and a curated reference seed. URL and title
+    // are independent identity gates so syndication URLs cannot duplicate one
+    // article in the public dataset.
+    if (!existing || observationRank(item) > observationRank(existing)) selected[index] = item;
+    if (urlKey) byUrl.set(urlKey, index);
+    if (titleKey) byTitle.set(titleKey, index);
   }
-  return [...selected.values()];
+  return selected;
 }
 
 function normalizePreviousNewsFallback(item = {}) {

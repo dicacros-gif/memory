@@ -140,6 +140,10 @@ if (!appText.includes("function canonicalNewsStoryKey")
   || !appText.includes("const byStory = new Map()")) {
   addIssue("error", "assets/js/app.js", "news deduplication does not merge the same story across repeated publisher labels");
 }
+if (!crawlText.includes("const byUrl = new Map();")
+  || !crawlText.includes("const byTitle = new Map();")) {
+  addIssue("error", "scripts/crawl.mjs", "crawler deduplication does not merge one article discovered through multiple syndication URLs");
+}
 if (!appText.includes('["기사 요약", "전략 시사점", "확인 조건"]')) {
   addIssue("error", "assets/js/app.js", "news cards do not separate sourced summary from generated interpretation");
 }

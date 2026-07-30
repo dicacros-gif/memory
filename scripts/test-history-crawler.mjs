@@ -35,6 +35,22 @@ const preservedReference = dedupeEnrichedNews([
 assert.equal(preservedReference.length, 1);
 assert.equal(preservedReference[0].id, "source-seed", "reference archives must retain curated source IDs when a previous-run copy has the same URL");
 
+const syndicatedNews = dedupeEnrichedNews([
+  {
+    id: "primary",
+    title: "长江存储：核心 3D NAND 专利争议回应",
+    sourceUrl: "https://example.com/primary",
+    streamLanguage: "chinese",
+  },
+  {
+    id: "syndicated",
+    title: "长江存储：核心 3D NAND 专利争议回应",
+    sourceUrl: "https://mirror.example.com/syndicated",
+    streamLanguage: "chinese",
+  },
+]);
+assert.equal(syndicatedNews.length, 1, "the same article title must not survive under multiple syndication URLs");
+
 const observedAt = trendForceObservationIso("2026-05-29 15:00 (GMT+8)");
 assert.equal(observedAt, "2026-05-29T07:00:00.000Z");
 
