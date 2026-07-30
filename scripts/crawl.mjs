@@ -557,6 +557,8 @@ const ENGLISH_AUTHORITY_MONITORS = [
     id: "account-demand",
     label: "수요처 계정 실적·CapEx·출하",
     queries: [
+      "site:blogs.microsoft.com/blog/2026 Microsoft Azure AI infrastructure AMD Helios",
+      "site:microsoft.com/en-us/investor/events/fy-2026 Azure capital expenditures AI infrastructure",
       "\"Microsoft Azure\" AI data center capex Maia",
       "\"Amazon Web Services\" AI data center capex Trainium",
       "\"Google Cloud\" AI data center capex TPU",
@@ -2153,6 +2155,26 @@ const CHINA_INFRA_SOURCE_PAGES = [
   },
 ];
 
+// Account-demand pages that expose durable canonical URLs but can be missed
+// by news-index timing. They are fetched and content-validated on every run;
+// registry metadata alone is never promoted as evidence.
+const DIRECT_ACCOUNT_SOURCES = [
+  {
+    category: "account-demand",
+    title: "Microsoft expands Azure AI and HPC infrastructure with AMD",
+    link: "https://blogs.microsoft.com/blog/2026/07/20/microsoft-expands-azure-ai-and-hpc-infrastructure-with-amd/",
+    source: "Microsoft",
+    date: "2026-07-20",
+  },
+  {
+    category: "account-demand",
+    title: "AMD Helios AI rack challenges NVIDIA with HBM4 memory edge; Microsoft joins as latest customer",
+    link: "https://www.trendforce.com/news/2026/07/21/news-amds-first-rack-scale-ai-system-helios-challenges-nvidia-with-hbm4-memory-edge-but-reportedly-comes-at-a-higher-price/",
+    source: "TrendForce",
+    date: "2026-07-21",
+  },
+];
+
 const STOPWORDS = new Set([
   "memory", "chip", "chips", "price", "prices", "market", "report", "says", "said",
   "the", "and", "for", "with", "from", "that", "this", "are", "will", "has", "new",
@@ -3490,6 +3512,7 @@ function htmlAttributes(tag = "") {
 function isCompleteArticleSummary(value = "") {
   const clean = stripHTML(value).replace(/\s+/g, " ").trim();
   if (!clean) return false;
+  if (/(?:网站.{0,80}(?:资讯平台|专业提供)|trendforce news operates independently|curating key semiconductor and tech updates|all rights reserved|copyright)/iu.test(clean)) return false;
   if (/(?:\.{3,}|…|[-–—])\s*$/u.test(clean)) return false;
   if (/\b(?:a|an|the|to|of|for|with|and|or|by|from|at|in|on)$/i.test(clean) && clean.length >= 120) return false;
   return true;
@@ -3513,6 +3536,18 @@ function articleMetaDescription(html = "", title = "") {
       if (/^(subscribe|sign in|log in|access denied|enable javascript|latest news|breaking news)/i.test(value)) return false;
       return isCompleteArticleSummary(value);
     }) || "";
+}
+
+function articleLeadParagraph(html = "", title = "") {
+  const normalizedTitle = stripHTML(title).toLowerCase().replace(/\s+/g, " ").trim();
+  for (const match of String(html).matchAll(/<p\b[^>]*>([\s\S]*?)<\/p>/gi)) {
+    const value = stripHTML(match[1]).replace(/\s+/g, " ").trim();
+    const lower = value.toLowerCase();
+    if (value.length < 80 || lower === normalizedTitle) continue;
+    if (/^(subscribe|sign in|log in|access denied|enable javascript|latest news|breaking news|cookie|privacy)/i.test(value)) continue;
+    if (isCompleteArticleSummary(value)) return value;
+  }
+  return "";
 }
 
 function sanitizeSourceUrl(value = "") {
@@ -3599,7 +3634,7 @@ async function enrichNewsItem(item = {}, cached = null) {
     resolvedUrl ||= await resolveGoogleNewsUrl(item.link || "");
     if (!resolvedUrl) return { ...item, summarySource: "headline" };
     const html = await fetchText(resolvedUrl);
-    const summaryOriginal = articleMetaDescription(html, item.title).slice(0, 620);
+    const summaryOriginal = (articleMetaDescription(html, item.title) || articleLeadParagraph(html, item.title)).slice(0, 620);
     return {
       ...item,
       sourceUrl: articleCanonicalUrl(html, resolvedUrl) || resolvedUrl,
@@ -3613,6 +3648,29 @@ async function enrichNewsItem(item = {}, cached = null) {
       summarySource: "headline",
     };
   }
+}
+
+async function collectDirectAccountSources() {
+  const output = [];
+  for (const source of DIRECT_ACCOUNT_SOURCES) {
+    const item = {
+      ...source,
+      originalTitle: source.title,
+      sourceUrl: source.link,
+      ts: new Date(`${source.date}T00:00:00Z`).getTime(),
+      language: "english",
+      streamLanguage: "english",
+      languageVerified: true,
+      discoveryProvider: "direct-source-monitor",
+    };
+    const enriched = await enrichNewsItem(item);
+    if (enriched.summarySource === "source-meta" && isCompleteArticleSummary(enriched.summaryOriginal)) {
+      output.push(enriched);
+      continue;
+    }
+    note(`직접소스:${source.source}`, false, "본문 요약 검증 실패 · 증거 승격 제외");
+  }
+  return output;
 }
 
 async function enrichNewsItems(items = [], previousItems = [], { emitHealth = true } = {}) {
@@ -3867,6 +3925,12 @@ async function collectNews(previousNews = []) {
     const items = (await fetchCategory(cat, seen, "zh")).filter((item) => !isCrawlerExcluded("news", item));
     all = all.concat(items);
     mergeNewsCategory(categories, cat, items, 10);
+  }
+
+  const directAccountSources = await collectDirectAccountSources();
+  if (directAccountSources.length) {
+    all = all.concat(directAccountSources);
+    mergeNewsCategory(categories, { id: "account-demand", label: "수요처 계정 실적·CapEx·출하" }, directAccountSources);
   }
 
   all = all.filter((item) => verifiedNewsLanguage(item));
@@ -5744,7 +5808,7 @@ const INTELLIGENCE_TOPICS = [
   },
 ];
 
-const OFFICIAL_SOURCE_RE = /(?:\.gov(?:\/|$)|govinfo\.gov|congress\.gov|sec\.gov|census\.gov|content\.govdelivery\.com\/accounts\/USCENSUS|english\.sse\.com\.cn|hkexnews\.hk|investors?\.|ir\.|newsroom\.|company\/(?:news|press)|news\.samsung\.com|news\.skhynix\.com|semiconductor\.samsung\.com\/(?:[^/]+\/)*news-events\/news|xmcwh\.com\/(?:en\/)?site\/(?:about-XMC|news|details))/i;
+const OFFICIAL_SOURCE_RE = /(?:\.gov(?:\/|$)|govinfo\.gov|congress\.gov|sec\.gov|census\.gov|content\.govdelivery\.com\/accounts\/USCENSUS|english\.sse\.com\.cn|hkexnews\.hk|investors?\.|ir\.|newsroom\.|company\/(?:news|press)|blogs\.microsoft\.com\/blog|microsoft\.com\/en-us\/investor|news\.samsung\.com|news\.skhynix\.com|semiconductor\.samsung\.com\/(?:[^/]+\/)*news-events\/news|xmcwh\.com\/(?:en\/)?site\/(?:about-XMC|news|details))/i;
 const ANALYSIS_SOURCE_RE = /(?:trendforce\.com\/(?:presscenter|price|news)|counterpointresearch\.com|techinsights\.com|wsts\.org|yolegroup\.com|newsletter\.semianalysis\.com)/i;
 const AUTHORITATIVE_MEDIA_RE = /(?:reuters|bloomberg|ft\.com|financial times|nikkei|cnbc|associated press|apnews|south china morning post|scmp|caixin global|caixinglobal|digitimes|ee times|tom's hardware)/i;
 const ESTIMATE_RE = /(?:forecast|estimate|reportedly|sources? (?:said|say)|could|may |might|expected|projection|전망|추정|보도|소식통)/i;

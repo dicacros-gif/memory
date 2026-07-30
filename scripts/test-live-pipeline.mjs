@@ -45,6 +45,7 @@ assert.equal(new Set(RELATION_ENTITY_REGISTRY.map((item) => item.id)).size, RELA
 const accountContext = {
   news: [
     article("Microsoft Azure expands cloud data center CAPEX", "https://example.com/azure", "2026-07-19"),
+    article("微软扩大 Azure 人工智能数据中心投资", "https://news-two.example/azure-cn", "2026-07-18", "微软扩大 Azure 人工智能数据中心投资并增加服务器需求", "News Two", "news"),
     article("Tencent signs a server DRAM supply contract", "https://example.com/tencent", "2026-07-19"),
     article("Output flaws increase memory test coverage", "https://example.com/not-aws", "2026-07-19"),
     article("서버 메모리 확대 모델 검토", "https://example.com/not-dell", "2026-07-19"),
@@ -63,8 +64,9 @@ const accountSignals = buildDemandAccountSignals(accountContext, {}, now);
 assert.equal(accountSignals.accountCount, 27, "all accounts must be emitted even with zero evidence");
 assert.equal(accountSignals.schemaVersion, "2.1");
 assert.equal(accountSignals.expectedCount, DEMAND_ACCOUNT_REGISTRY.length);
-assert.equal(accountSignals.accounts.azure.evidenceCount, 1, "canonical URL duplicates must be removed");
+assert.equal(accountSignals.accounts.azure.evidenceCount, 2, "canonical URL duplicates must be removed while multilingual evidence remains");
 assert.equal(accountSignals.accounts.azure.direction, "up");
+assert.equal(accountSignals.accounts.azure.independentSourceCount, 2, "Microsoft's Chinese name must resolve to the Azure account");
 assert.equal(accountSignals.accounts.china.evidenceCount, 1, "a named China cloud account plus server context must be live evidence");
 assert.equal(accountSignals.accounts.china.direction, "up", "a scoped server supply contract must count as demand expansion");
 assert.ok(accountSignals.accounts.china.pullScore < 75, "one source must not produce a high-confidence-looking pull score");

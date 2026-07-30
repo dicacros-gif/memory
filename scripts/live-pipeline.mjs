@@ -15,7 +15,7 @@ const ACCOUNT_DOWN_RE = /(cut|delay|pause|halt|cancel|slowdown|shortfall|decline
 const RELATION_ACTION_RE = /(partner(?:ship)?|collaborat(?:e|es|ed|ion|ive)?|co-?develop|joint venture|supply agreement|supply contract|supplier|customer|invest(?:ment|s|ed)? in|acquir(?:e|es|ed|ing)|merger|license agreement|strategic alliance|파트너십|협력|공동 개발|합작|공급 계약|공급사|고객사|투자|인수|합병|라이선스 계약|战略合作|合作|联合开发|合资|供应协议|供应合同|供应商|客户|投资|收购|并购|许可协议)/i;
 
 export const DEMAND_ACCOUNT_REGISTRY = [
-  { id: "azure", category: "hyperscaler", name: "Microsoft · Azure", aliases: ["microsoft azure", "azure", "maia"], context: ["cloud", "data center", "capex", "maia", "openai"] },
+  { id: "azure", category: "hyperscaler", name: "Microsoft · Azure", aliases: ["microsoft azure", "microsoft", "azure", "maia", "마이크로소프트", "애저", "微软", "微軟"], context: ["cloud", "data center", "capex", "maia", "openai", "ai infrastructure", "hbm", "云", "数据中心", "人工智能", "资本支出", "클라우드", "데이터센터"] },
   { id: "aws", category: "hyperscaler", name: "Amazon · AWS", aliases: ["amazon web services", "aws", "trainium"], context: ["cloud", "data center", "capex", "trainium", "s3"] },
   { id: "google", category: "hyperscaler", name: "Google Cloud", aliases: ["google cloud", "alphabet", "tpu", "ironwood"], context: ["cloud", "data center", "capex", "tpu", "ironwood"] },
   { id: "meta", category: "hyperscaler", name: "Meta", aliases: ["meta platforms", "meta", "mtia"], context: ["data center", "capex", "mtia", "ai infrastructure"] },
