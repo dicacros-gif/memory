@@ -197,6 +197,8 @@ assert.match(crawler, /MemoryIntelligenceDashboard\/1\.0[\s\S]*?github\.com\/dic
   "SEC probes must identify the dashboard instead of impersonating a browser");
 assert.match(crawler, /company-jcet-profile[\s\S]*?english\.sse\.com\.cn/,
   "JCET must fall back to an official exchange record when its corporate site blocks hosted runners");
+assert.match(crawler, /company-jcet-profile[\s\S]*?prnewswire\.com[\s\S]*?jcet-reports/,
+  "JCET must retain its issuer-distributed release for exchange network failures");
 assert.match(crawler, /company-smic-profile[\s\S]*?hkexnews\.hk/,
   "SMIC must fall back to an official exchange filing when its corporate site blocks hosted runners");
 

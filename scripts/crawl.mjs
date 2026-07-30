@@ -7140,6 +7140,10 @@ const OFFICIAL_INDUSTRY_PROBES = [
     label: "JCET official company and governance profile",
     url: "https://www.jcetglobal.com/en",
     fallbackUrls: [
+      // JCET supplied this result release directly to the distributor. Keep
+      // it ahead of SSE mirrors because the exchange intermittently drops
+      // connections from GitHub-hosted runners.
+      "https://www.prnewswire.com/news-releases/jcet-reports-42-7-yoy-surge-in-q1-2026-net-profit-attributable-to-shareholders-302755543.html",
       "https://english.sse.com.cn/news/newsrelease/voice/c/c_20260629_10823788.shtml",
       "https://english.sse.com.cn/news/newsrelease/digest/c/c_20250423_10777555.shtml",
     ],
