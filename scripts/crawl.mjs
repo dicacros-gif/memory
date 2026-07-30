@@ -33,6 +33,11 @@ import {
   koreanTranslationQualityGate,
   translationCacheKey,
 } from "./translation-pipeline.mjs";
+import {
+  crawlExclusionKeySet,
+  crawlModerationKeys as sharedCrawlModerationKeys,
+  purgeCrawlExclusions,
+} from "./crawl-exclusions.mjs";
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
 const OUT = resolve(__dirname, "..", "data", "live.json");
@@ -161,18 +166,18 @@ function crawlModerationKeys(type = "data", item = {}) {
 }
 
 function isCrawlerExcluded(type, item = {}) {
-  return crawlModerationKeys(type, item).some((key) => crawlExclusionKeys.has(key));
+  const requestedType = String(type || "").toLowerCase();
+  const types = ["news", "research"].includes(requestedType)
+    ? ["news", "research"]
+    : [requestedType];
+  return types.some((candidateType) => sharedCrawlModerationKeys(candidateType, item)
+    .some((key) => crawlExclusionKeys.has(key)));
 }
 
 async function loadCrawlExclusions() {
   try {
     const parsed = JSON.parse(await readFile(CRAWL_EXCLUSIONS_OUT, "utf8"));
-    const records = Array.isArray(parsed) ? parsed : (Array.isArray(parsed?.items) ? parsed.items : []);
-    crawlExclusionKeys = new Set(records.flatMap((record) => {
-      if (typeof record === "string") return [record];
-      if (Array.isArray(record?.keys)) return record.keys;
-      return record?.key ? [record.key] : [];
-    }).map((key) => String(key || "").trim()).filter(Boolean));
+    crawlExclusionKeys = crawlExclusionKeySet(parsed);
     console.log(`크롤 제외 목록: ${crawlExclusionKeys.size}개 식별 키`);
   } catch (error) {
     crawlExclusionKeys = new Set();
@@ -4116,7 +4121,8 @@ async function collectNews(previousNews = [], previousReferenceNews = []) {
     mergeNewsCategory(categories, cat, items, 10);
   }
 
-  const directAccountSources = await collectDirectAccountSources();
+  const directAccountSources = (await collectDirectAccountSources())
+    .filter((item) => !isCrawlerExcluded("news", item));
   if (directAccountSources.length) {
     all = all.concat(directAccountSources);
     mergeNewsCategory(categories, { id: "account-demand", label: "수요처 계정 실적·CapEx·출하" }, directAccountSources);
@@ -9889,29 +9895,47 @@ async function main() {
   payload.priceHistory.expiresAt = quant.expiresAt;
   payload.quantBacktest.validatedAt = payload.updatedAt;
   payload.quantBacktest.expiresAt = quant.expiresAt;
-  const crawlAudit = buildCrawlAudit(payload, quarantineReport);
+  const publishedPayload = purgeCrawlExclusions(payload, crawlExclusionKeys).value;
+  const publishedQuant = purgeCrawlExclusions(quant, crawlExclusionKeys).value;
+  const publishedPriceHistory = purgeCrawlExclusions(priceHistory, crawlExclusionKeys).value;
+  const publishedMarketHistory = purgeCrawlExclusions(marketHistory, crawlExclusionKeys).value;
+  const publishedQuantBacktest = purgeCrawlExclusions(quantBacktest, crawlExclusionKeys).value;
+  const publishedQuarantine = purgeCrawlExclusions(quarantineReport, crawlExclusionKeys).value;
+  publishedPayload.quant = publishedQuant;
+  publishedPayload.priceHistory = publishedPriceHistory;
+  publishedPayload.marketHistory = summarizeMarketHistory(publishedMarketHistory);
+  publishedPayload.quantBacktest = {
+    schemaVersion: publishedQuantBacktest.schemaVersion,
+    generatedAt: publishedQuantBacktest.generatedAt,
+    runId: publishedQuantBacktest.runId,
+    coverage: publishedQuantBacktest.coverage,
+    validatedAt: publishedQuantBacktest.validatedAt,
+    expiresAt: publishedQuantBacktest.expiresAt,
+  };
+  publishedPayload.quality = buildQualityReport(publishedPayload);
+  const crawlAudit = buildCrawlAudit(publishedPayload, publishedQuarantine);
   const clientBundle = buildClientDataBundle({
-    payload,
-    quant,
-    priceHistory,
-    marketHistory,
-    quantBacktest,
+    payload: publishedPayload,
+    quant: publishedQuant,
+    priceHistory: publishedPriceHistory,
+    marketHistory: publishedMarketHistory,
+    quantBacktest: publishedQuantBacktest,
   });
   await writeVerifiedBundle([
-    [HISTORY_OUT, priceHistory],
-    [MARKET_HISTORY_OUT, marketHistory],
-    [QUANT_BACKTEST_OUT, quantBacktest],
-    [QUANT_OUT, quant],
+    [HISTORY_OUT, publishedPriceHistory],
+    [MARKET_HISTORY_OUT, publishedMarketHistory],
+    [QUANT_BACKTEST_OUT, publishedQuantBacktest],
+    [QUANT_OUT, publishedQuant],
     [LIVE_CLIENT_OUT, clientBundle.live],
     [QUANT_CLIENT_OUT, clientBundle.quant],
     [PRICE_HISTORY_CLIENT_OUT, clientBundle.priceHistory],
     [MARKET_HISTORY_CLIENT_OUT, clientBundle.marketHistory],
     [QUANT_BACKTEST_CLIENT_OUT, clientBundle.quantBacktest],
-    [CRAWL_QUARANTINE_OUT, quarantineReport],
+    [CRAWL_QUARANTINE_OUT, publishedQuarantine],
     [CRAWL_AUDIT_OUT, crawlAudit],
     [TRANSLATION_CACHE_OUT, koTranslator?.snapshot() || previous.translationCache],
     [DATA_MANIFEST_OUT, clientBundle.manifest],
-    [OUT, payload],
+    [OUT, publishedPayload],
   ]);
   console.log(`검증 데이터 묶음 저장: ${OUT}`);
 }

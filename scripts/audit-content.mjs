@@ -104,7 +104,7 @@ if (!Array.isArray(crawlExclusionItems)) {
     const cleanKeys = keys.map((key) => String(key || "").trim()).filter(Boolean);
     if (!cleanKeys.length) addIssue("error", "data/crawl-exclusions.json", "crawl exclusion record has no key", JSON.stringify(record));
     for (const key of cleanKeys) {
-      if (!/^(?:news|community|price):(?:url|id|title|history|item):/.test(key)) {
+      if (!/^(?:news|research|community|price):(?:url|id|title|history|item):/.test(key)) {
         addIssue("error", "data/crawl-exclusions.json", "crawl exclusion key has an invalid format", key);
       }
       if (exclusionKeys.has(key)) addIssue("error", "data/crawl-exclusions.json", "duplicate crawl exclusion key", key);

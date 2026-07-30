@@ -1,0 +1,76 @@
+name: Apply crawl exclusion request
+
+on:
+  issues:
+    types: [opened, reopened]
+
+permissions:
+  contents: write
+  issues: write
+
+concurrency:
+  group: intelligence-agent
+  cancel-in-progress: false
+
+jobs:
+  apply-exclusion:
+    if: >-
+      startsWith(github.event.issue.title, '[crawl-exclusion]') &&
+      (
+        github.event.issue.author_association == 'OWNER' ||
+        github.event.issue.author_association == 'MEMBER' ||
+        github.event.issue.author_association == 'COLLABORATOR'
+      )
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - name: Checkout latest main
+        uses: actions/checkout@v7
+        with:
+          ref: main
+          fetch-depth: 0
+
+      - name: Setup Node
+        uses: actions/setup-node@v7
+        with:
+          node-version: "24"
+
+      - name: Add exclusion and purge generated data
+        env:
+          EXCLUSION_REQUEST_BODY: ${{ github.event.issue.body }}
+          EXCLUSION_ISSUE_NUMBER: ${{ github.event.issue.number }}
+          EXCLUSION_ACTOR: ${{ github.event.issue.user.login }}
+          EXCLUSION_AUTHOR_ASSOCIATION: ${{ github.event.issue.author_association }}
+        run: node scripts/apply-crawl-exclusion-request.mjs
+
+      - name: Rebuild derived and browser data
+        run: |
+          npm run refresh:derived
+          npm run refresh:client-data
+
+      - name: Validate exclusion result
+        run: npm run check
+
+      - name: Commit permanent exclusion
+        shell: bash
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          exclusion_base="$(git rev-parse HEAD)"
+          git fetch origin main
+          if [ "$exclusion_base" != "$(git rev-parse origin/main)" ]; then
+            echo "::error::main advanced while applying the exclusion; reopen the request to retry against the latest data"
+            exit 1
+          fi
+          git add data
+          if git diff --cached --quiet; then
+            echo "No exclusion changes to commit."
+          else
+            git commit -m "chore: apply approved crawl exclusion"
+            git push origin HEAD:main
+          fi
+
+      - name: Close processed request
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: gh issue close "${{ github.event.issue.number }}" --comment "영구 제외 목록 반영 및 기존 생성 데이터 정리 완료"

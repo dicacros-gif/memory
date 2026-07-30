@@ -70,6 +70,8 @@
     items: [],
   };
   const CRAWL_EXCLUSION_STORAGE_KEY = "memory-crawl-exclusions-v1";
+  const CRAWL_MODERATION_GATE_DIGEST = "5feceb66ffc86f38d952786c6d696c79c2dbc239dd4e91b46729d73a27fb57e9";
+  const CRAWL_EXCLUSION_ISSUE_URL = "https://github.com/dicacros-gif/memory/issues/new";
 
   const KOREAN_SOURCE_RE = new RegExp(
     [
@@ -2463,7 +2465,12 @@
   }
 
   function isCrawlExcluded(type, item = {}) {
-    return crawlModerationKeys(type, item).some((key) => crawlExclusionKeys.has(key));
+    const requestedType = String(type || "").toLowerCase();
+    const types = ["news", "research"].includes(requestedType)
+      ? ["news", "research"]
+      : [requestedType];
+    return types.some((candidateType) => crawlModerationKeys(candidateType, item)
+      .some((key) => crawlExclusionKeys.has(key)));
   }
 
   function saveLocalCrawlExclusion(type, item = {}, label = "") {
@@ -2486,7 +2493,7 @@
     return true;
   }
 
-  function ensureCrawlModerationDialog() {
+  function ensureLegacyCrawlModerationDialog() {
     let overlay = $("#crawlModerationDialog");
     if (overlay) return overlay;
     overlay = el("div", "crawl-moderation-dialog");
@@ -2512,7 +2519,7 @@
     return overlay;
   }
 
-  function requestCrawlModerationConfirmation(label = "") {
+  function requestLegacyCrawlModerationConfirmation(label = "") {
     const overlay = ensureCrawlModerationDialog();
     const form = overlay.querySelector("form");
     const labelNode = $("#crawlModerationLabel", overlay);
@@ -2541,7 +2548,7 @@
     });
   }
 
-  function showCrawlModerationToast(message) {
+  function showLegacyCrawlModerationToast(message) {
     let toast = $("#crawlModerationToast");
     if (!toast) {
       toast = el("div", "crawl-moderation-toast");
@@ -2556,7 +2563,7 @@
     toast.dataset.timer = String(window.setTimeout(() => toast.classList.remove("show"), 2800));
   }
 
-  function attachCrawlModerationControl(container, type, item, label, rerender, controlHost = container) {
+  function attachLegacyCrawlModerationControl(container, type, item, label, rerender, controlHost = container) {
     if (!container || isCrawlExcluded(type, item)) return;
     container.classList.add("crawl-moderatable");
     controlHost?.classList.add("crawl-remove-host");
@@ -2577,6 +2584,190 @@
       window.setTimeout(() => {
         rerender?.();
         showCrawlModerationToast("화면에서 삭제됨 · 이후 갱신에서도 재노출 차단");
+      }, 220);
+    });
+    (controlHost || container).appendChild(button);
+  }
+
+  function ensureCrawlModerationDialog() {
+    let overlay = $("#crawlModerationDialogSecure");
+    if (overlay) return overlay;
+    overlay = el("div", "crawl-moderation-dialog");
+    overlay.id = "crawlModerationDialogSecure";
+    overlay.hidden = true;
+    overlay.innerHTML = `
+      <form class="crawl-moderation-panel" role="dialog" aria-modal="true" aria-labelledby="crawlModerationTitleSecure">
+        <div class="crawl-moderation-head">
+          <span aria-hidden="true">×</span>
+          <div>
+            <small>CRAWL EXCLUSION</small>
+            <strong id="crawlModerationTitleSecure">수집 항목 영구 삭제</strong>
+          </div>
+        </div>
+        <p id="crawlModerationLabelSecure"></p>
+        <label for="crawlModerationPasswordSecure">관리 비밀번호</label>
+        <input
+          id="crawlModerationPasswordSecure"
+          name="crawlModerationPassword"
+          type="password"
+          inputmode="numeric"
+          autocomplete="current-password"
+          aria-describedby="crawlModerationErrorSecure"
+          required
+        >
+        <em id="crawlModerationErrorSecure" aria-live="polite"></em>
+        <div class="crawl-moderation-actions">
+          <button type="button" data-crawl-cancel>취소</button>
+          <button type="submit">삭제 요청</button>
+        </div>
+      </form>
+    `;
+    document.body.appendChild(overlay);
+    return overlay;
+  }
+
+  async function sha256Hex(value = "") {
+    if (!window.crypto?.subtle || typeof window.TextEncoder !== "function") return "";
+    const bytes = new TextEncoder().encode(String(value));
+    const digest = await window.crypto.subtle.digest("SHA-256", bytes);
+    return Array.from(new Uint8Array(digest), (byte) => byte.toString(16).padStart(2, "0")).join("");
+  }
+
+  function requestCrawlModerationConfirmation(label = "") {
+    const overlay = ensureCrawlModerationDialog();
+    const form = overlay.querySelector("form");
+    const labelNode = $("#crawlModerationLabelSecure", overlay);
+    const input = $("#crawlModerationPasswordSecure", overlay);
+    const errorNode = $("#crawlModerationErrorSecure", overlay);
+    const submit = form.querySelector("button[type=submit]");
+    labelNode.textContent = `${String(label || "선택 항목").slice(0, 90)} · 화면에서 즉시 숨기고 승인 후 기존 데이터와 이후 크롤링에서 제외`;
+    input.value = "";
+    input.removeAttribute("aria-invalid");
+    errorNode.textContent = "";
+    submit.disabled = false;
+    overlay.hidden = false;
+    document.body.classList.add("crawl-moderation-open");
+
+    return new Promise((resolve) => {
+      const finish = (approved) => {
+        input.value = "";
+        overlay.hidden = true;
+        document.body.classList.remove("crawl-moderation-open");
+        form.onsubmit = null;
+        overlay.onclick = null;
+        overlay.querySelector("[data-crawl-cancel]").onclick = null;
+        document.removeEventListener("keydown", onKeydown);
+        resolve(approved);
+      };
+      const onKeydown = (event) => {
+        if (event.key === "Escape") finish(false);
+      };
+      form.onsubmit = async (event) => {
+        event.preventDefault();
+        submit.disabled = true;
+        errorNode.textContent = "";
+        const digest = await sha256Hex(input.value);
+        if (digest !== CRAWL_MODERATION_GATE_DIGEST) {
+          input.value = "";
+          input.setAttribute("aria-invalid", "true");
+          errorNode.textContent = "비밀번호를 확인해 주세요";
+          submit.disabled = false;
+          input.focus();
+          return;
+        }
+        input.removeAttribute("aria-invalid");
+        finish(true);
+      };
+      overlay.querySelector("[data-crawl-cancel]").onclick = () => finish(false);
+      overlay.onclick = (event) => {
+        if (event.target === overlay) finish(false);
+      };
+      document.addEventListener("keydown", onKeydown);
+      window.setTimeout(() => input.focus(), 30);
+    });
+  }
+
+  function crawlExclusionRequestUrl(type, item = {}, label = "") {
+    const keys = crawlModerationKeys(type, item).slice(0, 6);
+    if (!keys.length) return "";
+    const payload = {
+      version: 1,
+      type,
+      keys,
+      label: String(label || item.titleKo || item.title || item.item || item.id || "선택 항목").slice(0, 180),
+      sourceUrl: String(item.sourceUrl || item.link || item.url || "").slice(0, 900),
+      requestedAt: new Date().toISOString(),
+    };
+    const body = [
+      "<!-- memory-crawl-exclusion:v1 -->",
+      "아래 항목을 기존 생성 데이터와 이후 크롤링에서 영구 제외합니다",
+      "",
+      "```json",
+      JSON.stringify(payload),
+      "```",
+    ].join("\n");
+    const params = new URLSearchParams({
+      title: `[crawl-exclusion] ${payload.label}`,
+      body,
+    });
+    return `${CRAWL_EXCLUSION_ISSUE_URL}?${params.toString()}`;
+  }
+
+  function showCrawlModerationToast(message, actionHref = "") {
+    let toast = $("#crawlModerationToastSecure");
+    if (!toast) {
+      toast = el("div", "crawl-moderation-toast");
+      toast.id = "crawlModerationToastSecure";
+      toast.setAttribute("role", "status");
+      document.body.appendChild(toast);
+    }
+    toast.replaceChildren(document.createTextNode(message));
+    if (actionHref) {
+      const action = el("a", "crawl-moderation-toast-action");
+      action.href = actionHref;
+      action.target = "_blank";
+      action.rel = "noopener noreferrer";
+      action.textContent = "영구 삭제 요청 열기";
+      toast.appendChild(action);
+    }
+    toast.classList.remove("show");
+    window.requestAnimationFrame(() => toast.classList.add("show"));
+    window.clearTimeout(Number(toast.dataset.timer || 0));
+    toast.dataset.timer = String(window.setTimeout(() => toast.classList.remove("show"), actionHref ? 9000 : 3200));
+  }
+
+  function attachCrawlModerationControl(container, type, item, label, rerender, controlHost = container) {
+    if (!container || isCrawlExcluded(type, item)) return;
+    container.classList.add("crawl-moderatable");
+    controlHost?.classList.add("crawl-remove-host");
+    const button = el("button", "crawl-remove-button", '<span aria-hidden="true">×</span>');
+    button.type = "button";
+    button.setAttribute("aria-label", `${label || "수집 항목"} 삭제`);
+    button.setAttribute("title", "수집 제외");
+    button.addEventListener("click", async (event) => {
+      event.preventDefault();
+      event.stopPropagation();
+      const approved = await requestCrawlModerationConfirmation(label);
+      if (!approved) return;
+      if (!saveLocalCrawlExclusion(type, item, label)) {
+        showCrawlModerationToast("삭제 정보를 브라우저에 저장하지 못했습니다");
+        return;
+      }
+      const requestUrl = crawlExclusionRequestUrl(type, item, label);
+      container.classList.add("crawl-removing");
+      window.setTimeout(() => {
+        rerender?.();
+        let requestWindow = null;
+        if (requestUrl) {
+          requestWindow = window.open(requestUrl, "_blank");
+          if (requestWindow) requestWindow.opener = null;
+        }
+        showCrawlModerationToast(
+          requestUrl
+            ? "화면에서 삭제했습니다 · 열린 GitHub 요청을 제출하면 기존 데이터와 이후 수집에서도 영구 제외됩니다"
+            : "화면에서 삭제했습니다",
+          requestWindow ? "" : requestUrl,
+        );
       }, 220);
     });
     (controlHost || container).appendChild(button);

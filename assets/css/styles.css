@@ -21634,6 +21634,11 @@ body.crawl-moderation-open {
   box-shadow: 0 0 0 3px color-mix(in srgb, var(--accent) 18%, transparent);
 }
 
+.crawl-moderation-panel input[aria-invalid="true"] {
+  border-color: #dc2626;
+  box-shadow: 0 0 0 3px rgba(220, 38, 38, .13);
+}
+
 .crawl-moderation-panel em {
   display: block;
   min-height: 18px;
@@ -21670,6 +21675,11 @@ body.crawl-moderation-open {
   color: #fff;
 }
 
+.crawl-moderation-actions button:disabled {
+  cursor: wait;
+  opacity: .62;
+}
+
 .crawl-moderation-toast {
   position: fixed;
   right: 22px;
@@ -21693,6 +21703,27 @@ body.crawl-moderation-open {
 .crawl-moderation-toast.show {
   opacity: 1;
   transform: translateY(0);
+  pointer-events: auto;
+}
+
+.crawl-moderation-toast-action {
+  display: inline-flex;
+  margin-left: 10px;
+  border-radius: 6px;
+  background: #fff;
+  color: #111827;
+  padding: 6px 9px;
+  font-size: 11px;
+  font-weight: 900;
+  text-decoration: none;
+}
+
+.crawl-moderation-toast-action:hover,
+.crawl-moderation-toast-action:focus-visible {
+  background: #d1fae5;
+  color: #065f46;
+  outline: 2px solid #6ee7b7;
+  outline-offset: 2px;
 }
 
 @keyframes crawl-dialog-in {
