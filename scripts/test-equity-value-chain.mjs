@@ -81,6 +81,10 @@ assert.match(app, /class="equity-chart-svg"[\s\S]*?preserveAspectRatio="none"/,
   "the SVG plot must not retain hidden horizontal letterboxing");
 assert.match(css, /\.equity-region-panel \{[\s\S]*?--equity-region-pad:[\s\S]*?padding:\s*var\(--equity-region-pad\)/,
   "the equity panel must expose its responsive inset for a full-bleed plot");
+assert.match(css, /\.equity-chain-lane button \{[\s\S]*?border: 1px solid color-mix\(in srgb, var\(--chain-color\) 32%, var\(--line\)\);/,
+  "value-chain lane controls should use a complete-card outline");
+assert.doesNotMatch(css, /\.equity-chain-lane button \{[\s\S]*?border-left:\s*4px solid var\(--chain-color\)/,
+  "value-chain lane controls must not use a left-only accent stripe");
 assert.match(css, /\.equity-chart-shell \{[\s\S]*?width:\s*calc\(100% \+ var\(--equity-region-pad\) \+ var\(--equity-region-pad\)\)[\s\S]*?margin-inline:\s*calc\(0px - var\(--equity-region-pad\)\)/,
   "the Yahoo-style dark chart surface must extend to both edges of the equity panel");
 assert.match(css, /\.equity-chart-hover-dot \{[\s\S]*?var\(--series-color\)/,
