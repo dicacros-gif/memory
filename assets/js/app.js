@@ -16127,9 +16127,10 @@
     const tabs = $("#infraSiteTabs");
     if (!tabs) return;
     tabs.innerHTML = CHINA_FAB_INFRA_SITES.map((item) => `
-      <button class="policy-tab${item.id === site.id ? " active" : ""}" type="button" role="tab" aria-selected="${item.id === site.id ? "true" : "false"}" data-infra-site="${escapeHTML(item.id)}" style="--local-accent:${categoryAccent(item.accentCategory)}">
+      <button class="policy-tab${item.id === site.id ? " active" : ""}" type="button" role="tab" aria-selected="${item.id === site.id ? "true" : "false"}" aria-pressed="${item.id === site.id ? "true" : "false"}" data-infra-site="${escapeHTML(item.id)}" style="--local-accent:${categoryAccent(item.accentCategory)}">
+        <span class="infra-tab-state" aria-hidden="true">${item.id === site.id ? "선택됨" : "선택"}</span>
         <strong>${escapeHTML(item.label)}</strong>
-        <span>${escapeHTML(item.subtitle)}</span>
+        <span class="infra-tab-subtitle">${escapeHTML(item.subtitle)}</span>
       </button>
     `).join("");
     tabs.querySelectorAll("[data-infra-site]").forEach((btn) => {

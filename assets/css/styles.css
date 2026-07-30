@@ -8520,37 +8520,180 @@ body.sidebar-collapsed .sb-ico {
   content: "";
 }
 
+#china-fab-infra .policy-tabs {
+  gap: 16px;
+  padding: 4px 4px 10px;
+  perspective: 1000px;
+}
+
 #china-fab-infra .policy-tab {
-  border: 2px solid var(--infra-line);
-  background: var(--infra-surface);
-  box-shadow: none;
-  transition: transform .2s cubic-bezier(.2, .8, .2, 1), border-color .2s ease, background .2s ease, box-shadow .2s ease;
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+  min-height: 96px;
+  padding: 19px 104px 17px 18px;
+  border: 1px solid color-mix(in srgb, var(--infra-navy) 30%, var(--infra-line));
+  border-radius: 16px;
+  background:
+    linear-gradient(145deg, rgba(255, 255, 255, .98), rgba(241, 245, 249, .92)),
+    var(--infra-surface);
+  box-shadow:
+    inset 0 1px 0 #fff,
+    inset 0 -1px 0 rgba(23, 50, 77, .08),
+    0 6px 0 color-mix(in srgb, var(--infra-navy) 22%, #cbd5e1),
+    0 12px 22px rgba(23, 50, 77, .1);
+  cursor: pointer;
+  transform: translate3d(0, 0, 0);
+  transform-style: preserve-3d;
+  transition:
+    transform .22s cubic-bezier(.2, .8, .2, 1),
+    border-color .22s ease,
+    background .22s ease,
+    box-shadow .22s ease,
+    color .22s ease;
+}
+
+#china-fab-infra .policy-tab::before {
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  background:
+    radial-gradient(circle at 94% 0, rgba(15, 118, 110, .16), transparent 44%),
+    linear-gradient(112deg, rgba(255, 255, 255, .58), transparent 42%);
+  content: "";
+  opacity: .72;
+  transition: opacity .22s ease, transform .36s ease;
 }
 
 #china-fab-infra .policy-tab:hover,
 #china-fab-infra .policy-tab:focus-visible {
-  transform: translateY(-2px);
-  border-color: color-mix(in srgb, var(--infra-teal) 42%, var(--infra-line));
-  background: color-mix(in srgb, var(--infra-teal) 5%, var(--panel-2));
+  outline: none;
+  transform: translate3d(0, -5px, 0) scale(1.006);
+  border-color: color-mix(in srgb, var(--infra-teal) 62%, var(--infra-line));
+  background:
+    linear-gradient(145deg, #fff, color-mix(in srgb, var(--infra-teal) 7%, #f8fafc));
   color: var(--ink);
-  box-shadow: 0 8px 20px rgba(23, 50, 77, .08);
+  box-shadow:
+    inset 0 1px 0 #fff,
+    0 8px 0 color-mix(in srgb, var(--infra-teal) 28%, #b8c2d1),
+    0 18px 30px rgba(23, 50, 77, .15);
+}
+
+#china-fab-infra .policy-tab:focus-visible {
+  box-shadow:
+    0 0 0 4px color-mix(in srgb, var(--infra-teal) 22%, transparent),
+    inset 0 1px 0 #fff,
+    0 8px 0 color-mix(in srgb, var(--infra-teal) 28%, #b8c2d1),
+    0 18px 30px rgba(23, 50, 77, .15);
+}
+
+#china-fab-infra .policy-tab:active {
+  transform: translate3d(0, 3px, 0) scale(.996);
+  box-shadow:
+    inset 0 3px 7px rgba(23, 50, 77, .18),
+    0 2px 0 color-mix(in srgb, var(--infra-teal) 32%, #94a3b8),
+    0 5px 10px rgba(23, 50, 77, .1);
+  transition-duration: .08s;
 }
 
 #china-fab-infra .policy-tab.active {
-  transform: translateY(-2px);
-  border-color: var(--infra-navy);
-  border-top-color: color-mix(in srgb, var(--infra-teal) 65%, #fff);
-  background: var(--infra-navy);
+  border-color: color-mix(in srgb, var(--infra-teal) 55%, var(--infra-navy));
+  background:
+    linear-gradient(
+      145deg,
+      color-mix(in srgb, var(--infra-navy) 86%, var(--infra-teal)),
+      color-mix(in srgb, var(--infra-navy) 64%, #071827)
+    );
   color: #fff;
-  box-shadow: 0 10px 24px rgba(23, 50, 77, .18);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, .3),
+    inset 0 -1px 0 rgba(2, 15, 25, .38),
+    0 7px 0 color-mix(in srgb, var(--infra-navy) 78%, #071827),
+    0 17px 30px rgba(23, 50, 77, .25);
+  animation: infra-tab-select-pop .34s cubic-bezier(.2, .9, .2, 1);
 }
 
-#china-fab-infra .policy-tab:is(:hover, :focus-visible) :is(strong, span) {
+#china-fab-infra .policy-tab.active::before {
+  background:
+    radial-gradient(circle at 94% 0, rgba(45, 212, 191, .25), transparent 45%),
+    linear-gradient(115deg, rgba(255, 255, 255, .18), transparent 44%);
+  opacity: 1;
+}
+
+#china-fab-infra .policy-tab:is(:hover, :focus-visible) :is(strong, .infra-tab-subtitle) {
   color: inherit;
 }
 
-#china-fab-infra .policy-tab.active :is(strong, span) {
+#china-fab-infra .policy-tab strong {
+  color: var(--ink);
+  font-size: 16px;
+  line-height: 1.15;
+  transition: color .22s ease;
+}
+
+#china-fab-infra .policy-tab .infra-tab-subtitle {
+  color: var(--muted);
+  font-size: 10.5px;
+  line-height: 1.4;
+  transition: color .22s ease;
+}
+
+#china-fab-infra .policy-tab.active :is(strong, .infra-tab-subtitle) {
   color: #fff;
+  text-shadow: 0 1px 2px rgba(2, 15, 25, .35);
+}
+
+#china-fab-infra .policy-tab.active .infra-tab-subtitle {
+  color: rgba(255, 255, 255, .76);
+}
+
+#china-fab-infra .infra-tab-state {
+  position: absolute;
+  top: 15px;
+  right: 14px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 58px;
+  min-height: 28px;
+  padding: 5px 10px;
+  border: 1px solid color-mix(in srgb, var(--infra-teal) 34%, var(--infra-line));
+  border-radius: 999px;
+  background: color-mix(in srgb, var(--infra-teal) 7%, #fff);
+  color: var(--infra-teal);
+  font-size: 10px;
+  font-weight: 950;
+  letter-spacing: .02em;
+  box-shadow: inset 0 1px 0 #fff;
+  transition: transform .22s ease, background .22s ease, color .22s ease, box-shadow .22s ease;
+}
+
+#china-fab-infra .policy-tab.active .infra-tab-state {
+  border-color: rgba(255, 255, 255, .52);
+  background: #fff;
+  color: var(--infra-navy);
+  text-shadow: none;
+  box-shadow: 0 4px 10px rgba(2, 15, 25, .22);
+}
+
+#china-fab-infra .policy-tab:hover .infra-tab-state,
+#china-fab-infra .policy-tab:focus-visible .infra-tab-state {
+  transform: translateY(-1px) scale(1.05);
+}
+
+@keyframes infra-tab-select-pop {
+  0% { transform: translate3d(0, 3px, 0) scale(.985); }
+  62% { transform: translate3d(0, -3px, 0) scale(1.012); }
+  100% { transform: translate3d(0, -2px, 0) scale(1); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  #china-fab-infra .policy-tab,
+  #china-fab-infra .policy-tab::before,
+  #china-fab-infra .infra-tab-state {
+    animation: none;
+    transition: none;
+  }
 }
 
 #china-fab-infra .infra-summary-card {
