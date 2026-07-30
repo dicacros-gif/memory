@@ -11,7 +11,13 @@ assert.doesNotMatch(html, /JCET·XMC의 후공정/, "XMC must not be grouped wit
 assert.doesNotMatch(app, /JCET·XMC·TFME|id: "jcet-xmc"/, "the value-chain map must not classify XMC as part of the OSAT aggregate");
 assert.match(app, /12인치 특화 파운드리·3D IC/, "XMC should retain its official foundry and 3D-integration role");
 assert.match(baseline, /"category": "Specialty Foundry \/ 3D Integration"/, "the XMC baseline profile should use the official business category");
+assert.doesNotMatch(baseline, /"id": "packaging"[\s\S]{0,700}"XMC"/, "the generic packaging category must not classify XMC as an OSAT");
+assert.match(baseline, /"id": "nand"[\s\S]{0,900}"Wuhan Xinxin"/, "the NAND ecosystem should link XMC through its official foundry role");
+assert.doesNotMatch(app, /keywords: \["jcet", "tfme", "xmc"/, "the packaging signal axis must not route the XMC company as an OSAT");
 assert.match(crawler, /site:xmcwh\.com\/en\/site XMC 12-inch wafer foundry 3D IC specialty memory/, "the crawler should monitor XMC's official classification");
+assert.doesNotMatch(crawler, /label: "Packaging·Photonics"[\s\S]{0,1600}YMTC sells 39 percent XMC stake/, "XMC ownership news must stay out of the packaging query bucket");
+assert.doesNotMatch(crawler, /id: "dram", label: "DRAM·DDR"[\s\S]{0,2200}CXMT IPO final offering/, "CXMT financing belongs in capital-market queries, not the DRAM product bucket");
+assert.match(crawler, /id: "capital", label: "Capital Markets·Investment"[\s\S]{0,900}CXMT STAR Market registration plan 29\.5 billion yuan final offering 57\.9 billion yuan/, "the capital-market query should retain both the registration plan and final offering");
 assert.match(crawler, /trendforce-memory-price-3q26[\s\S]*?20260703-13134/, "3Q26 DRAM and NAND pricing should have a direct source probe");
 
 assert.match(

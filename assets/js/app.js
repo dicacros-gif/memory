@@ -738,8 +738,8 @@
       label: "패키징",
       theme: "packaging",
       categoryIds: ["packaging", "hbm"],
-      keywords: ["jcet", "tfme", "xmc", "packaging", "hbm", "hybrid bonding", "cpo", "chiplet"],
-      pulse: "선단 노광 격차를 JCET·TFME OSAT, XMC 3D 집적, CPO·hybrid bonding으로 보완하는 중국 AI 패키징 생태계",
+      keywords: ["jcet", "tfme", "packaging", "hbm", "hybrid bonding", "cpo", "chiplet"],
+      pulse: "선단 노광 격차를 JCET·TFME OSAT, CPO·hybrid bonding으로 보완하는 중국 AI 패키징 생태계",
       watch: ["HBM 조립 우회", "CPO·실리콘 브리지", "fan-out/RDL", "열·테스트 병목"],
     },
     {
@@ -1942,7 +1942,7 @@
     aidemand: { label: "AI 수요 · eSSD", en: "AI Demand", desc: "AI 서버, eSSD, 데이터센터 수요 신호" },
     hbm: { label: "HBM 초격차", en: "HBM Moat", desc: "HBM3E/HBM4, 고객 인증, 베이스 다이·패키징 병목" },
     cxl: { label: "CXL · PIM", en: "CXL / PIM", desc: "Post-HBM, CXL, PIM, 3D DRAM 전환 신호" },
-    packaging: { label: "첨단 패키징", en: "Advanced Packaging", desc: "JCET·TFME OSAT, XMC 3D 집적/HBM 프로젝트, 하이브리드 본딩, TSV, 칩렛" },
+    packaging: { label: "첨단 패키징", en: "Advanced Packaging", desc: "JCET·TFME OSAT, 하이브리드 본딩, TSV, CPO, 칩렛" },
     equipment: { label: "소부장 · 장비", en: "Equipment / Materials", desc: "Naura, AMEC, ACM과 중국 장비 내재화" },
     geopolitics: { label: "정책 · 규제", en: "Policy / Geopolitics", desc: "BIS, CHIPS, Big Fund, 수출통제 리스크" },
     operations: { label: "SKHY 중국 운영", en: "SKHY China Ops", desc: "Wuxi, Dalian, Solidigm, VEU와 Fab 운영 리스크" },
@@ -13041,7 +13041,7 @@
   const CATEGORY_DECISION_POINTS = {
     dram: "서버 DRAM 가격·캐파 배분",
     nand: "eSSD·Solidigm 고객 방어",
-    packaging: "XMC·JCET 패키징 우회 대응",
+    packaging: "JCET·TFME OSAT 우회 대응",
     equipment: "소부장 JV·IP 게이트",
     talent: "핵심 인재·공정 IP 방어",
     geopolitics: "수출통제·BIS/VEU 시나리오",
@@ -18615,7 +18615,7 @@
     if (summary) {
       const summaryLines = [
         `중국 메모리 생태계는 CXMT·YMTC 중심의 캐파 확대와 내수 AI 고객 확보를 통해 범용 DRAM/NAND 영향력을 키우고 있습니다`,
-        `Naura·AMEC·ACM 장비 국산화 신호 ${fmtNum(equipmentSignals)}건과 JCET·TFME OSAT·XMC 3D 집적 신호 ${fmtNum(packagingSignals)}건이 선단 제약을 보완하는 축입니다`,
+        `Naura·AMEC·ACM 장비 국산화 신호 ${fmtNum(equipmentSignals)}건과 JCET·TFME OSAT 신호 ${fmtNum(packagingSignals)}건을 집계하고, XMC 특화 파운드리·3D 집적은 별도 축으로 추적합니다`,
         `빅펀드·수출통제 반작용, 인재/IP 이동, 수율 레시피 유출 가능성은 SKHY가 별도로 추적해야 할 핵심 리스크입니다`,
       ];
       summary.innerHTML = summaryLines.map((line) => `<p>${escapeHTML(line)}</p>`).join("");
@@ -22916,7 +22916,7 @@
       dram: "DDR5·LPDDR 물량 확대는 범용 DRAM spot/contract 하방 압력의 선행 신호",
       nand: "eSSD·client SSD 채택 변화가 NAND 회복 강도와 Solidigm 방어 전략 변수",
       cxl: "CXL·PIM PoC와 인증이 Post-HBM 옵션 투자 우선순위 변화 요인",
-      packaging: "XMC·JCET·TFME 패키징 우회로는 선단 공정 격차 보완 변수",
+      packaging: "JCET·TFME 패키징 우회로는 선단 공정 격차 보완 변수",
       aidemand: "AI 서버·eSSD 수요가 HBM, DDR5, NAND 가격 방어력을 동시 지지",
       china: "중국 내수 고객·정책자금·장비 내재화가 가격보다 먼저 경쟁 구도 변화",
       equipment: "Naura·AMEC·ACM 장비 qual은 YMTC·CXMT ramp 속도의 선행지표",
