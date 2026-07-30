@@ -5103,11 +5103,11 @@
   // Presentation metadata only. Every numeric input and scenario multiplier is
   // loaded from data/quant.json after provenance validation.
   const FORECAST_SCENARIOS = [
-    { id: "bear", label: "Bear · 소화 국면", tone: "watch",
+    { id: "bear", label: "Bear", tone: "watch",
       premise: "수요 소화·거시 둔화로 출하 감소, 메모리 재고 조정", readout: "범용 가격 방어 우선, CAPEX는 milestone tranche로 제한" },
-    { id: "base", label: "Base · 기준", tone: "ok",
+    { id: "base", label: "Base", tone: "ok",
       premise: "출하·믹스 견조, 세대 전환 완만 진행", readout: "프리미엄 인증 일정에 캐파 선배분, 범용은 현금흐름 방어" },
-    { id: "bull", label: "Bull · 상방", tone: "ok",
+    { id: "bull", label: "Bull", tone: "ok",
       premise: "AI·온디바이스 수요 상방, 대당 탑재량 상향과 조기 세대 전환", readout: "선제 증설·장기계약 락인, 범용 캐파 잠식 트레이드오프 관리" },
   ];
 
