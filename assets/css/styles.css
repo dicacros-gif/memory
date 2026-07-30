@@ -14683,43 +14683,140 @@ body.consulting-system {
 
 .workbench-tabs {
   display: grid;
-  grid-template-columns: repeat(6, minmax(0, 1fr));
-  gap: 8px;
+  grid-template-columns: repeat(var(--workbench-columns, 7), minmax(0, 1fr));
+  gap: 10px;
+  position: relative;
+  padding: 12px;
   margin-bottom: 13px;
+  border: 1px solid color-mix(in srgb, var(--accent) 16%, var(--line));
+  border-radius: 16px;
+  background:
+    radial-gradient(circle at 8% 10%, color-mix(in srgb, var(--accent) 9%, transparent), transparent 34%),
+    linear-gradient(135deg, color-mix(in srgb, var(--panel-2) 96%, #fff), color-mix(in srgb, var(--panel) 97%, #e8f2f3));
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, .8), 0 12px 30px rgba(15, 23, 42, .05);
+  overflow: hidden;
 }
 
 .workbench-tabs button {
+  --tab-accent: color-mix(in srgb, var(--accent) 82%, #0f766e);
+  display: grid;
+  grid-template-columns: 34px minmax(0, 1fr) 22px;
+  align-items: center;
+  gap: 9px;
+  position: relative;
   min-width: 0;
-  min-height: 62px;
-  border: 1px solid var(--line);
-  border-radius: 9px;
-  background: var(--panel-2);
+  min-height: 76px;
+  border: 1px solid color-mix(in srgb, var(--line) 78%, var(--accent));
+  border-radius: 13px;
+  background:
+    linear-gradient(145deg, rgba(255, 255, 255, .76), transparent 48%),
+    color-mix(in srgb, var(--panel-2) 96%, var(--accent));
   color: var(--ink);
-  padding: 10px;
+  padding: 11px 10px 11px 12px;
   text-align: left;
-  transition: background .16s, border-color .16s, transform .16s;
+  box-shadow: 0 5px 12px rgba(15, 23, 42, .06), inset 0 1px 0 rgba(255, 255, 255, .88);
+  cursor: pointer;
+  isolation: isolate;
+  overflow: visible;
+  animation: workbench-tab-enter .46s cubic-bezier(.22, 1, .36, 1) both;
+  animation-delay: calc(var(--tab-order, 0) * 35ms);
+  transition: color .22s ease, background .22s ease, border-color .22s ease, box-shadow .22s ease, transform .22s ease;
+}
+
+.workbench-tabs button::before {
+  content: "";
+  position: absolute;
+  z-index: -1;
+  inset: auto 10px 0;
+  height: 3px;
+  border-radius: 99px 99px 0 0;
+  background: linear-gradient(90deg, var(--tab-accent), color-mix(in srgb, var(--tab-accent) 44%, #22d3ee));
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform .28s cubic-bezier(.22, 1, .36, 1);
 }
 
 .workbench-tabs button:hover,
 .workbench-tabs button:focus-visible {
   outline: none;
-  border-color: var(--accent);
+  border-color: color-mix(in srgb, var(--tab-accent) 76%, #fff);
   background:
-    linear-gradient(135deg, color-mix(in srgb, var(--accent) 92%, #111827), color-mix(in srgb, var(--accent) 68%, #0f172a));
+    linear-gradient(135deg, color-mix(in srgb, var(--tab-accent) 82%, #0f172a), color-mix(in srgb, var(--tab-accent) 48%, #0b2540));
   color: #fff;
-  box-shadow: 0 12px 28px color-mix(in srgb, var(--accent) 22%, transparent);
+  box-shadow: 0 15px 30px color-mix(in srgb, var(--tab-accent) 24%, transparent), inset 0 1px 0 rgba(255, 255, 255, .22);
+  transform: translateY(-4px) scale(1.012);
+}
+
+.workbench-tabs button:is(:hover, :focus-visible, .active)::before {
+  transform: scaleX(1);
+}
+
+.workbench-tabs button.active {
+  border-color: color-mix(in srgb, var(--tab-accent) 72%, #fff);
+  background:
+    linear-gradient(135deg, color-mix(in srgb, var(--tab-accent) 86%, #0f172a), color-mix(in srgb, var(--tab-accent) 52%, #0b2540));
+  color: #fff;
+  box-shadow: 0 13px 28px color-mix(in srgb, var(--tab-accent) 22%, transparent), inset 0 1px 0 rgba(255, 255, 255, .24);
   transform: translateY(-2px);
 }
 
-.workbench-tabs button.active:not(:hover):not(:focus-visible) {
-  border-color: var(--accent);
-  background: color-mix(in srgb, var(--accent) 9%, var(--panel));
-  transform: translateY(-1px);
+.workbench-tabs button:hover small,
+.workbench-tabs button:focus-visible small,
+.workbench-tabs button.active small {
+  color: rgba(255, 255, 255, .78);
 }
 
-.workbench-tabs button:hover small,
-.workbench-tabs button:focus-visible small {
-  color: rgba(255, 255, 255, .78);
+.workbench-tab-index {
+  display: grid;
+  place-items: center;
+  width: 34px;
+  height: 34px;
+  border: 1px solid color-mix(in srgb, var(--tab-accent) 38%, var(--line));
+  border-radius: 11px;
+  background: color-mix(in srgb, var(--tab-accent) 11%, var(--panel));
+  color: var(--tab-accent);
+  font-family: "Bahnschrift", "Inter", "Pretendard", sans-serif;
+  font-size: 11px;
+  font-weight: 800;
+  font-variant-numeric: tabular-nums;
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, .8);
+  transition: color .22s ease, background .22s ease, transform .22s ease;
+}
+
+.workbench-tabs button:is(:hover, :focus-visible, .active) .workbench-tab-index {
+  border-color: rgba(255, 255, 255, .32);
+  background: rgba(255, 255, 255, .15);
+  color: #fff;
+  transform: rotate(-4deg) scale(1.06);
+}
+
+.workbench-tab-copy {
+  min-width: 0;
+}
+
+.workbench-tab-flow {
+  display: grid;
+  place-items: center;
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  background: color-mix(in srgb, var(--tab-accent) 10%, var(--panel));
+  color: var(--tab-accent);
+  font-size: 13px;
+  font-weight: 900;
+  transition: color .22s ease, background .22s ease, transform .22s ease;
+}
+
+.workbench-tabs button:is(:hover, :focus-visible, .active) .workbench-tab-flow {
+  background: rgba(255, 255, 255, .16);
+  color: #fff;
+  transform: translateX(3px);
+}
+
+.workbench-tabs button:nth-child(7n) .workbench-tab-flow,
+.workbench-tabs button:last-child .workbench-tab-flow {
+  opacity: .28;
+  transform: none;
 }
 
 .workbench-tabs strong,
@@ -14733,6 +14830,7 @@ body.consulting-system {
 .workbench-tabs strong {
   font-size: 13px;
   font-weight: 900;
+  letter-spacing: -.02em;
 }
 
 .workbench-tabs small {
@@ -14740,6 +14838,37 @@ body.consulting-system {
   color: var(--muted);
   font-size: 10.5px;
   font-weight: 800;
+}
+
+.workbench-tabs small b {
+  display: inline-grid;
+  place-items: center;
+  min-width: 19px;
+  min-height: 19px;
+  margin-left: 5px;
+  padding: 0 5px;
+  border-radius: 99px;
+  background: color-mix(in srgb, var(--tab-accent) 12%, var(--panel));
+  color: var(--tab-accent);
+  font-family: "Bahnschrift", "Inter", "Pretendard", sans-serif;
+  font-size: 10px;
+  font-variant-numeric: tabular-nums;
+}
+
+.workbench-tabs button:is(:hover, :focus-visible, .active) small b {
+  background: rgba(255, 255, 255, .15);
+  color: #fff;
+}
+
+@keyframes workbench-tab-enter {
+  from {
+    opacity: 0;
+    transform: translateY(12px) scale(.97);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
 }
 
 .workbench-body {
@@ -19628,7 +19757,17 @@ body.consulting-system {
   }
 
   .workbench-tabs {
-    grid-template-columns: repeat(3, minmax(0, 1fr));
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+  }
+
+  .workbench-tabs button:nth-child(7n) .workbench-tab-flow {
+    opacity: 1;
+  }
+
+  .workbench-tabs button:nth-child(4n) .workbench-tab-flow,
+  .workbench-tabs button:last-child .workbench-tab-flow {
+    opacity: .28;
+    transform: none;
   }
 
   .projection-tabs,
@@ -19992,6 +20131,16 @@ body.consulting-system {
     grid-template-columns: repeat(2, minmax(0, 1fr));
   }
 
+  .workbench-tabs button:nth-child(4n) .workbench-tab-flow {
+    opacity: 1;
+  }
+
+  .workbench-tabs button:nth-child(2n) .workbench-tab-flow,
+  .workbench-tabs button:last-child .workbench-tab-flow {
+    opacity: .28;
+    transform: none;
+  }
+
   .projection-year-list {
     grid-template-columns: repeat(2, minmax(0, 1fr));
   }
@@ -20077,6 +20226,14 @@ body.consulting-system {
 }
 
 @media (max-width: 680px) {
+  .workbench-tab-flow {
+    display: none;
+  }
+
+  .workbench-tabs button {
+    grid-template-columns: 34px minmax(0, 1fr);
+  }
+
   .topbar,
   .main {
     padding-left: 14px;

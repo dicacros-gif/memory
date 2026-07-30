@@ -19572,14 +19572,22 @@
 
     renderWorkbenchMece();
     tabs.innerHTML = "";
-    availableModes.forEach((mode) => {
+    tabs.style.setProperty("--workbench-columns", String(Math.max(1, Math.ceil(availableModes.length / 2))));
+    tabs.setAttribute("aria-label", "분석 워크벤치 선택");
+    availableModes.forEach((mode, index) => {
       const count = mode.items.length;
       const btn = el("button", mode.id === workbenchMode ? "active" : "");
       btn.type = "button";
       btn.dataset.workMode = mode.id;
+      btn.setAttribute("aria-pressed", mode.id === workbenchMode ? "true" : "false");
+      btn.style.setProperty("--tab-order", String(index));
       btn.innerHTML = `
-        <strong>${escapeHTML(mode.label)}</strong>
-        <small>${escapeHTML(mode.sub)} · ${fmtNum(count)}${mode.usingAllEvidence ? " · 전체 근거" : ""}</small>
+        <span class="workbench-tab-index" aria-hidden="true">${String(index + 1).padStart(2, "0")}</span>
+        <span class="workbench-tab-copy">
+          <strong>${escapeHTML(mode.label)}</strong>
+          <small>${escapeHTML(mode.sub)} <b>${fmtNum(count)}</b>${mode.usingAllEvidence ? " · 전체 근거" : ""}</small>
+        </span>
+        <span class="workbench-tab-flow" aria-hidden="true">→</span>
       `;
       btn.addEventListener("click", () => {
         workbenchMode = mode.id;
