@@ -109,6 +109,8 @@ assert.equal(soxPeerIds.length, 12, "the SOX summary must show exactly 12 repres
 assert.equal(new Set(soxPeerIds).size, 12, "the SOX representative list must not contain duplicate companies");
 assert.match(app, /const peers = peerData\(SOX_REPRESENTATIVE_PEER_IDS\)/,
   "the SOX summary cards must be sourced from the representative constituent list");
+assert.match(app, /const stockLabel = String\(item\.index\.labelKo \|\| item\.index\.label \|\| item\.index\.symbol \|\| ""\)[\s\S]*?\.replace\(\/\\s\*주가\\s\*\$\/u, ""\)[\s\S]*?market-peer-stock-label">\$\{escapeHTML\(stockLabel\)\}/,
+  "SOX summary cards must remove the repeated stock-price suffix from company labels");
 assert.match(app, /<strong>SOX 대표 구성종목 12<\/strong>/,
   "the SOX summary must identify the 12 cards as index constituents");
 assert.doesNotMatch(app, /const chinaPeers = peerData\(/,

@@ -21361,12 +21361,15 @@
           const logoHTML = logoUrl
             ? `<img src="${escapeHTML(logoUrl)}" alt="${escapeHTML(brand.name)} 로고" loading="lazy" decoding="async" referrerpolicy="no-referrer">`
             : `<span class="market-peer-monogram">${escapeHTML(brand.abbr || brand.name)}</span>`;
+          const stockLabel = String(item.index.labelKo || item.index.label || item.index.symbol || "")
+            .replace(/\s*주가\s*$/u, "")
+            .trim();
           return `
             <a class="market-peer-card" href="${escapeHTML(item.index.chartUrl || item.index.sourceUrl || "#")}" target="_blank" rel="noopener"
               style="--peer-brand:${escapeHTML(brand.color)};--peer-brand-deep:${escapeHTML(brand.deep)};--peer-on-brand:${escapeHTML(brand.onColor)}">
               <span class="market-peer-brand">
                 <span class="market-peer-logo${item.id === "skhy-stock" ? " is-skhy" : ""}">${logoHTML}</span>
-                <span class="market-peer-stock-label">${escapeHTML(item.index.labelKo || item.index.label || item.index.symbol)}</span>
+                <span class="market-peer-stock-label">${escapeHTML(stockLabel)}</span>
               </span>
               <strong class="market-peer-change ${escapeHTML(item.trend.direction || "flat")}">${escapeHTML(formatChange(item.trend))}</strong>
               <small>${escapeHTML(formatPrice(item.trend.latestAverage))} · ${escapeHTML(peerObs.sub)}</small>
