@@ -21980,7 +21980,7 @@
                 </span>
               </span>
               <small>${escapeHTML(index.exchange || index.exchangeName || "")}${isNew ? " · 신규" : ""}</small>
-              ${latest ? `<em>${escapeHTML(equityCloseLabel(latest.close, index.currency))} · ${escapeHTML(shortKstDate(latest.time))}</em>` : ""}
+              ${latest ? `<em>${escapeHTML(equityCloseLabel(latest.close, index.currency))}</em>` : ""}
             </button>
           `;
         }).join("")}
