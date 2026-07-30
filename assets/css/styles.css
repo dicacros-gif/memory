@@ -22959,6 +22959,52 @@ button.ni-trend-chip:hover { box-shadow: 0 4px 12px color-mix(in srgb, #0891B2 2
   -webkit-text-fill-color: #16120a !important;
   text-decoration-color: #b7791f !important;
 }
+
+/* The parent card only lifts on hover. Its light Insight panel therefore keeps
+   dark semantic terms until that panel itself enters its inverted hover state. */
+.china-deep-card:is(:hover, :focus-within) .deep-implication:not(:hover) :is(.strategy-highlight, .answer-term) {
+  --term-color: #334155;
+  --term-line: #64748b;
+  color: var(--term-color) !important;
+  -webkit-text-fill-color: var(--term-color) !important;
+  text-decoration-color: var(--term-line) !important;
+  text-shadow: none !important;
+}
+
+.china-deep-card:is(:hover, :focus-within) .deep-implication:not(:hover) .term-company {
+  --term-color: #5b21b6;
+  --term-line: #7c3aed;
+}
+
+.china-deep-card:is(:hover, :focus-within) .deep-implication:not(:hover) .term-source {
+  --term-color: #1d4ed8;
+  --term-line: #2563eb;
+}
+
+.china-deep-card:is(:hover, :focus-within) .deep-implication:not(:hover) .term-policy {
+  --term-color: #9a3412;
+  --term-line: #c2410c;
+}
+
+.china-deep-card:is(:hover, :focus-within) .deep-implication:not(:hover) .term-tech {
+  --term-color: #006d63;
+  --term-line: #0f766e;
+}
+
+.china-deep-card:is(:hover, :focus-within) .deep-implication:not(:hover) .term-metric {
+  --term-color: #a61b12;
+  --term-line: #dc2626;
+}
+
+.china-deep-card:is(:hover, :focus-within) .deep-implication:not(:hover) .term-action {
+  --term-color: #047857;
+  --term-line: #059669;
+}
+
+.china-deep-card:is(:hover, :focus-within) .deep-implication:not(:hover) .term-key {
+  --term-color: #9d174d;
+  --term-line: #be185d;
+}
 .ni-research-list li.ni-cite:hover {
   transform: translateY(-3px);
   background: var(--ink);

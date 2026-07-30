@@ -78,6 +78,11 @@ assert.match(app, /const BROKER_DISMISSED_STORAGE_KEY = "memory-broker-dismissed
 assert.match(app, /data-broker-dismiss="\$\{escapeHTML\(itemKey\)\}"/, "each accumulated broker card should expose an individual dismiss control");
 assert.match(app, /data-broker-restore/, "dismissed broker cards should be restorable without deleting source data");
 assert.match(css, /\.exec-report-dismiss:is\(:hover, :focus-visible\)[\s\S]*?rotate\(90deg\)/, "the broker dismiss control should visibly respond to hover and keyboard focus");
+assert.match(
+  css,
+  /\.china-deep-card:is\(:hover, :focus-within\) \.deep-implication:not\(:hover\) :is\(\.strategy-highlight, \.answer-term\)[\s\S]*?text-shadow: none !important;/,
+  "China deep-dive Insight terms must retain dark contrast when only the parent card is hovered",
+);
 assert.match(app, /class="exec-flow-node reveal/, "executive summary should render as a compact signal-to-decision flow");
 assert.match(app, /class="exec-flow-signal"/, "executive flow nodes should retain the core evidence text");
 assert.match(css, /\.exec-report-bullet-list > li::before/, "broker bullet lists should have a visual bullet marker");
