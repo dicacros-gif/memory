@@ -1335,21 +1335,22 @@ body.sidebar-collapsed .sb-ico {
 }
 
 .qa-option-status {
+  --qa-status-ink: #334155;
   flex: 0 0 auto;
   border: 1px solid currentColor;
   border-radius: 999px;
   background: color-mix(in srgb, currentColor 9%, var(--panel));
   padding: 3px 7px;
-  color: var(--muted);
+  color: var(--qa-status-ink);
   font-size: 9px;
   font-style: normal;
   font-weight: 950;
   text-transform: uppercase;
 }
 
-.qa-option-status.confirmed { color: #087f5b; }
-.qa-option-status.watch { color: #b45309; }
-.qa-option-status.forecast { color: #2563eb; }
+.qa-option-status.confirmed { --qa-status-ink: #047857; }
+.qa-option-status.watch { --qa-status-ink: #9a3412; }
+.qa-option-status.forecast { --qa-status-ink: #1d4ed8; }
 
 .qa-option strong {
   color: inherit;
@@ -1378,14 +1379,20 @@ body.sidebar-collapsed .sb-ico {
 
 .qa-option:hover .qa-option-kicker,
 .qa-option:hover small,
-.qa-option:hover .qa-option-status,
 .qa-option:focus-visible .qa-option-kicker,
 .qa-option:focus-visible small,
-.qa-option:focus-visible .qa-option-status,
 .qa-option.active .qa-option-kicker,
-.qa-option.active small,
-.qa-option.active .qa-option-status {
+.qa-option.active small {
   color: rgba(255, 255, 255, .82);
+}
+
+.qa-option:is(:hover, :focus-visible, .active) .qa-option-status {
+  border-color: color-mix(in srgb, var(--qa-status-ink) 36%, #cbd5e1);
+  background: rgba(248, 250, 252, .96);
+  color: var(--qa-status-ink) !important;
+  -webkit-text-fill-color: var(--qa-status-ink);
+  text-shadow: none;
+  box-shadow: 0 3px 10px rgba(2, 6, 23, .16);
 }
 
 @media (max-width: 980px) {
