@@ -13766,6 +13766,10 @@
     return { state: "missing", suffix: " · 종료점 미수집" };
   }
 
+  function backtestOptionVerificationSuffix(option) {
+    return option?.firstTime ? " · 검증 완료" : " · 종료점 미수집";
+  }
+
   function ensureBacktestYear() {
     const options = backtestYearOptions();
     if (!options.length) {
@@ -14158,7 +14162,7 @@
     ensureBacktestYear();
     if (yearSelect) {
       yearSelect.innerHTML = yearOptions.length ? yearOptions.map((option) => `
-        <option value="${escapeHTML(option.value)}"${option.value === selectedBacktestYear ? " selected" : ""}>${escapeHTML(option.label)}${escapeHTML(backtestOptionStatus(option).suffix)}</option>
+        <option value="${escapeHTML(option.value)}"${option.value === selectedBacktestYear ? " selected" : ""}>${escapeHTML(option.label)}${escapeHTML(backtestOptionVerificationSuffix(option))}</option>
       `).join("") : `<option value="">가격 히스토리 없음</option>`;
       yearSelect.onchange = () => {
         selectedBacktestYear = yearSelect.value;

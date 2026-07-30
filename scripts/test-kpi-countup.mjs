@@ -132,7 +132,7 @@ assert.match(app, /loadManagedJSON\("live", "data\/live-client\.json"[\s\S]*?loa
 assert.match(app, /priceHistory: \{[\s\S]*?path: "data\/price-history-client\.json"[\s\S]*?marketHistory: \{[\s\S]*?path: "data\/market-history-client\.json"/, "secondary fallbacks must never download database-sized history files");
 assert.match(css, /\.agent-debate-title \.agent-tts-toggle \{[\s\S]*?min-width: 190px;[\s\S]*?min-height: 44px;/, "the English TTS control should be large and readable");
 assert.match(css, /\.agent-tts-state \{[\s\S]*?min-width: 31px;/, "the TTS control should expose a dedicated on-or-off state badge");
-assert.match(html, /app\.js\?v=agenda-copy-remove-20260730-01/, "JavaScript cache key should include the agenda-copy removal revision");
+assert.match(html, /app\.js\?v=backtest-verified-20260730-01/, "JavaScript cache key should include the backtest verification revision");
 assert.match(html, /id="memoryHeroVideo"[\s\S]*?preload="none"[\s\S]*?<source data-src="assets\/media\/memory-hero\.mp4"/, "hero video should hydrate after the poster paints");
 assert.match(html, /id="talentStrategyVideoMedia"[\s\S]*?preload="none"[\s\S]*?data-poster="assets\/media\/china-talent-strategy-poster\.webp"[\s\S]*?<source data-src="assets\/media\/china-talent-strategy\.mp4"/, "below-fold talent media should not load during first paint");
 assert.doesNotMatch(html, /family=Noto\+Sans\+KR/, "Pretendard should replace the duplicate Korean webfont download");
@@ -222,6 +222,8 @@ assert.match(app, /startAttempt\(\{ forceDefaultVoice: true \}\)/, "voice startu
 assert.match(app, /activeAgentSpeech = \{ utterance, finish, promise: speechPromise, retry, turn \}/, "the visible TTS control should be able to retry the active speaker");
 assert.match(css, /\.agent-debate-title \.agent-tts-toggle\.needs-gesture \{[\s\S]*?#f59e0b/, "the TTS replay state should be visually distinct");
 assert.match(app, /function backtestOptionStatus[\s\S]*?검증 진행 중[\s\S]*?종료점 미수집/, "backtest dates should distinguish a future close from a genuinely missing close");
+assert.match(app, /function backtestOptionVerificationSuffix\(option\)[\s\S]*?검증 완료[\s\S]*?종료점 미수집/, "backtest selector should show completed validation for every collected start month");
+assert.match(app, /backtestOptionVerificationSuffix\(option\)/, "backtest selector should use the verification display status");
 assert.match(app, /status: periodInProgress[\s\S]*?"period-in-progress"/, "an unfinished fixed window should not be reported as uncollected data");
 assert.doesNotMatch(app, /\? "" : " · 종료 미수집"/, "the backtest selector should not label every open future window as missing");
 assert.doesNotMatch(app, /<div class="metric"><strong>\$\{fmtNum\(item\.score\)\}<\/strong><span>근거지수<\/span><\/div>/, "the redundant investment-focus metric strip should be removed");
