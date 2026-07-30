@@ -22406,7 +22406,7 @@
       .trim();
     if (!title) return "";
     const compact = /[一-鿿가-힣]/.test(title)
-      ? title.slice(0, 88)
+      ? title.replace(/\s+/g, "").slice(0, 88)
       : title.split(" ").slice(0, 12).join(" ");
     return `story:${compact}`;
   }

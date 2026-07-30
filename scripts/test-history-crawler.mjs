@@ -38,7 +38,7 @@ assert.equal(preservedReference[0].id, "source-seed", "reference archives must r
 const syndicatedNews = dedupeEnrichedNews([
   {
     id: "primary",
-    title: "长江存储：核心 3D NAND 专利争议回应",
+    title: "长江存储：核心3DNAND专利争议回应 - 新浪财经",
     sourceUrl: "https://example.com/primary",
     streamLanguage: "chinese",
   },

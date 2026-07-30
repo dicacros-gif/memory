@@ -2333,7 +2333,7 @@ function canonicalNewsKey(item = {}) {
     .replace(/\s+/g, " ")
     .trim();
   const titleKey = /[一-鿿가-힣]/.test(title)
-    ? title.slice(0, 96)
+    ? title.replace(/\s+/g, "").slice(0, 96)
     : title.split(" ").slice(0, 10).join(" ");
   const language = verifiedNewsLanguage(item) || "unknown";
   if (titleKey) return `${language}|title:${titleKey}`;
