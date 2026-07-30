@@ -8853,6 +8853,272 @@ body.sidebar-collapsed .sb-ico {
   color: inherit;
 }
 
+#china-fab-infra .infra-block-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  margin-bottom: 12px;
+}
+
+#china-fab-infra .infra-block-head > strong {
+  color: var(--infra-navy);
+  font-size: 14px;
+  letter-spacing: -.02em;
+}
+
+#china-fab-infra .infra-block-head > span {
+  color: var(--muted);
+  font-size: 11px;
+  font-weight: 800;
+}
+
+#china-fab-infra .infra-site-map,
+#china-fab-infra .infra-gate-flow {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+#china-fab-infra .infra-site-map {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
+  gap: 26px;
+}
+
+#china-fab-infra .infra-site-map li {
+  position: relative;
+  display: grid;
+  grid-template-columns: 42px minmax(0, 1fr);
+  gap: 12px;
+  min-width: 0;
+  padding: 15px;
+  border: 1px solid color-mix(in srgb, var(--infra-teal) 28%, var(--infra-line));
+  border-radius: 14px;
+  background:
+    linear-gradient(145deg, color-mix(in srgb, var(--infra-teal) 8%, var(--panel)), var(--panel));
+  box-shadow: 0 7px 16px rgba(23, 50, 77, .07);
+  transition: transform .22s ease, box-shadow .22s ease, border-color .22s ease;
+}
+
+#china-fab-infra .infra-site-map li:not(:last-child)::after {
+  content: "→";
+  position: absolute;
+  z-index: 2;
+  top: 50%;
+  right: -21px;
+  display: grid;
+  width: 18px;
+  height: 18px;
+  place-items: center;
+  border: 1px solid color-mix(in srgb, var(--infra-teal) 34%, var(--infra-line));
+  border-radius: 50%;
+  color: var(--infra-teal);
+  background: var(--panel);
+  font-size: 11px;
+  font-weight: 900;
+  transform: translateY(-50%);
+}
+
+#china-fab-infra .infra-site-map li:hover {
+  transform: translateY(-3px);
+  border-color: color-mix(in srgb, var(--infra-teal) 52%, var(--infra-line));
+  box-shadow: 0 12px 24px rgba(23, 50, 77, .12);
+}
+
+#china-fab-infra .infra-site-index {
+  display: grid;
+  width: 42px;
+  height: 42px;
+  place-items: center;
+  border-radius: 12px;
+  color: #fff;
+  background: linear-gradient(145deg, var(--infra-navy), var(--infra-teal));
+  box-shadow: inset 0 1px rgba(255,255,255,.3), 0 6px 12px rgba(23, 50, 77, .18);
+  font-size: 12px;
+  font-weight: 900;
+}
+
+#china-fab-infra .infra-site-map li > div {
+  display: grid;
+  gap: 4px;
+  min-width: 0;
+}
+
+#china-fab-infra .infra-site-map li span:not(.infra-site-index) {
+  color: var(--infra-teal);
+  font-size: 10px;
+  font-weight: 900;
+  letter-spacing: .06em;
+  text-transform: uppercase;
+}
+
+#china-fab-infra .infra-site-map b {
+  overflow-wrap: anywhere;
+  color: var(--ink);
+  font-size: 14px;
+  line-height: 1.28;
+}
+
+#china-fab-infra .infra-site-map small {
+  color: var(--muted);
+  font-size: 11px;
+  font-weight: 700;
+  line-height: 1.45;
+}
+
+#china-fab-infra .infra-gate-flow {
+  display: grid;
+  grid-template-columns: repeat(5, minmax(0, 1fr));
+  gap: 9px;
+}
+
+#china-fab-infra .infra-gate-flow li {
+  --gate-accent: var(--infra-slate);
+  position: relative;
+  display: grid;
+  align-content: start;
+  gap: 7px;
+  min-width: 0;
+  min-height: 130px;
+  padding: 13px;
+  border: 1px solid color-mix(in srgb, var(--gate-accent) 28%, var(--infra-line));
+  border-radius: 13px;
+  background: linear-gradient(155deg, color-mix(in srgb, var(--gate-accent) 8%, var(--panel)), var(--panel));
+  transition: transform .22s ease, box-shadow .22s ease, border-color .22s ease;
+}
+
+#china-fab-infra .infra-gate-flow li.ok { --gate-accent: var(--infra-green); }
+#china-fab-infra .infra-gate-flow li.watch { --gate-accent: var(--infra-amber); }
+#china-fab-infra .infra-gate-flow li.fail { --gate-accent: var(--infra-red); }
+
+#china-fab-infra .infra-gate-flow li:not(:last-child)::after {
+  content: "";
+  position: absolute;
+  top: 24px;
+  right: -10px;
+  z-index: 2;
+  width: 10px;
+  height: 2px;
+  background: color-mix(in srgb, var(--infra-teal) 38%, var(--infra-line));
+}
+
+#china-fab-infra .infra-gate-flow li:hover {
+  transform: translateY(-3px);
+  border-color: color-mix(in srgb, var(--gate-accent) 56%, var(--infra-line));
+  box-shadow: 0 10px 20px color-mix(in srgb, var(--gate-accent) 15%, transparent);
+}
+
+#china-fab-infra .infra-gate-flow li > span {
+  color: var(--gate-accent);
+  font-size: 10px;
+  font-weight: 900;
+  letter-spacing: .08em;
+}
+
+#china-fab-infra .infra-gate-flow b {
+  color: var(--ink);
+  font-size: 14px;
+}
+
+#china-fab-infra .infra-gate-flow small {
+  color: var(--muted);
+  font-size: 10px;
+  font-weight: 700;
+  line-height: 1.35;
+}
+
+#china-fab-infra .infra-gate-flow em {
+  align-self: end;
+  justify-self: start;
+  margin-top: auto;
+  padding: 4px 8px;
+  border: 1px solid color-mix(in srgb, var(--gate-accent) 32%, var(--infra-line));
+  border-radius: 999px;
+  color: var(--gate-accent);
+  background: color-mix(in srgb, var(--gate-accent) 7%, var(--panel));
+  font-size: 10px;
+  font-style: normal;
+  font-weight: 900;
+}
+
+#china-fab-infra .infra-monitor-strip {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 10px;
+}
+
+#china-fab-infra .infra-monitor-strip > div {
+  display: grid;
+  grid-template-columns: 28px auto;
+  gap: 2px 9px;
+  align-items: center;
+  min-width: 0;
+  padding: 12px;
+  border: 1px solid var(--infra-line);
+  border-radius: 12px;
+  background: var(--infra-surface);
+  transition: transform .2s ease, background .2s ease, border-color .2s ease;
+}
+
+#china-fab-infra .infra-monitor-strip > div:hover {
+  transform: translateY(-2px);
+  border-color: color-mix(in srgb, var(--infra-teal) 40%, var(--infra-line));
+  background: color-mix(in srgb, var(--infra-teal) 5%, var(--panel));
+}
+
+#china-fab-infra .infra-monitor-strip span {
+  grid-row: 1 / span 2;
+  display: grid;
+  width: 28px;
+  height: 28px;
+  place-items: center;
+  border-radius: 50%;
+  color: #fff;
+  background: var(--infra-navy);
+  font-size: 9px;
+  font-weight: 900;
+}
+
+#china-fab-infra .infra-monitor-strip b {
+  color: var(--ink);
+  font-size: 12px;
+}
+
+#china-fab-infra .infra-monitor-strip small {
+  color: var(--muted);
+  font-size: 10px;
+  font-weight: 700;
+}
+
+@media (max-width: 900px) {
+  #china-fab-infra .infra-gate-flow {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  #china-fab-infra .infra-gate-flow li:not(:last-child)::after,
+  #china-fab-infra .infra-site-map li:not(:last-child)::after {
+    display: none;
+  }
+
+  #china-fab-infra .infra-monitor-strip {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 560px) {
+  #china-fab-infra .infra-block-head {
+    align-items: flex-start;
+    flex-direction: column;
+    gap: 3px;
+  }
+
+  #china-fab-infra .infra-site-map,
+  #china-fab-infra .infra-gate-flow {
+    grid-template-columns: 1fr;
+  }
+}
+
 .investment-summary,
 .investment-flow {
   display: grid;

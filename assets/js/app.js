@@ -346,8 +346,8 @@
       decision: "기존 fab 효율화·1a 전환·클린룸 단계 확장은 운영 개선으로 인정합니다. 새 fab/대규모 캐파 증설은 공개자료로 수전 용량·변전소 여유·비상전원이 확인되지 않아 보류합니다.",
       liveTerms: ["wuxi", "sk hynix", "1a", "1z", "water", "power", "land", "k7", "c2f", "cleanroom", "bonded zone", "environmental impact"],
       sites: [
-        { name: "SK hynix Semiconductor (China) Ltd.", role: "Wuxi DRAM production site", note: "공식 오피스 기준 중국 핵심 DRAM 생산 거점" },
-        { name: "K7 plot / Wuxi Hi-Tech District Comprehensive Bonded Zone", role: "기존 공장·기술개조 위치", note: "2017년 EIA에 K7 부지·기존 공장 내 증축으로 명시" },
+        { name: "SK hynix Semiconductor (China) Ltd.", role: "생산 법인", note: "중국 DRAM 핵심 거점" },
+        { name: "K7 · Wuxi Hi-Tech District", role: "기술개조·증축 부지", note: "2017년 EIA의 공장 내 확장 범위" },
       ],
       checks: [
         { axis: "공정 업그레이드", status: "O", title: "Wuxi 1z→1a 전환 완료", evidence: "SemiMedia는 2026년 1월 Wuxi DRAM 팹이 1z에서 1a로 전환됐고, 12인치 기준 월 18만~19만 장 캐파 중 약 90%가 1a 공정이라고 보도했습니다.", implication: "DDR5·고성능 DRAM 양산 여력과 수익성은 개선 신호지만, 1b/1c 같은 최선단 이전 근거로 해석하지 않습니다.", source: "SemiMedia", sourceUrl: "https://www.semimedia.cc/sk-hynix-completes-wuxi-dram-fab-upgrade-enabling-advanced-1a-process-production/" },
@@ -16210,6 +16210,25 @@
       `;
     }).join("");
 
+    const infraGateDefinitions = [
+      { step: "01", label: "부지", terms: ["토지", "부지", "클린룸"], fallback: "사용권·잔여 면적" },
+      { step: "02", label: "용수", terms: ["용수", "폐수"], fallback: "공정용수·폐수 총량" },
+      { step: "03", label: "전력", terms: ["전력", "유틸리티", "수전"], fallback: "수전 용량·비상전원" },
+      { step: "04", label: "환경", terms: ["환경", "인허가", "EIA"], fallback: "환경영향평가" },
+      { step: "05", label: "BIS", terms: ["수출통제", "BIS", "라이선스"], fallback: "장비·기술 허가" },
+    ];
+    const infraGates = infraGateDefinitions.map((gate) => {
+      const check = (site.checks || []).find((item) => {
+        const haystack = `${item.axis || ""} ${item.title || ""}`;
+        return gate.terms.some((term) => haystack.includes(term));
+      });
+      return {
+        ...gate,
+        status: check?.status || "확인필요",
+        detail: check?.title || gate.fallback,
+      };
+    });
+
     focus.style.setProperty("--local-accent", accent);
     focus.innerHTML = `
       <div class="policy-focus-head">
@@ -16225,29 +16244,53 @@
         <div class="metric"><strong>${fmtNum(signalCount)}</strong><span>근거 신호</span></div>
         <div class="metric"><strong>${fmtNum((site.checks || []).filter((check) => policyStatusClass(check.status) === "fail").length)}</strong><span>No-Go 항목</span></div>
       </div>
-      <div class="policy-focus-block">
-        <strong>SK 중국 거점</strong>
-        <ul class="policy-site-list">
-          ${(site.sites || []).map((row) => `
+      <div class="policy-focus-block infra-map-block">
+        <div class="infra-block-head">
+          <strong>거점 구조</strong>
+          <span>법인에서 확장 부지로 연결</span>
+        </div>
+        <ol class="infra-site-map">
+          ${(site.sites || []).map((row, index) => `
             <li>
-              <b>${escapeHTML(row.name)}</b>
-              <span>${escapeHTML(row.role)}</span>
-              <small>${escapeHTML(row.note)}</small>
+              <span class="infra-site-index">${String(index + 1).padStart(2, "0")}</span>
+              <div>
+                <span>${escapeHTML(row.role)}</span>
+                <b>${escapeHTML(row.name)}</b>
+                <small>${escapeHTML(row.note)}</small>
+              </div>
             </li>
           `).join("")}
-        </ul>
+        </ol>
       </div>
-      <div class="policy-focus-block">
-        <strong>확장 판단 로직</strong>
-        <p>토지사용권·남은 부지, 공정용수/폐수총량, 수전 용량, 환경영향평가, BIS 라이선스가 모두 통과해야 추가 fab 확장을 O로 판단합니다. 공개 원문으로 확인되지 않은 항목은 요약 카드에서 제외하고 확장 판단은 보류 또는 X로 둡니다.</p>
+      <div class="policy-focus-block infra-gate-block">
+        <div class="infra-block-head">
+          <strong>확장 게이트</strong>
+          <span>5개 항목 통과 시 Go</span>
+        </div>
+        <ol class="infra-gate-flow">
+          ${infraGates.map((gate) => {
+            const cls = policyStatusClass(gate.status);
+            return `
+              <li class="${cls}">
+                <span>${gate.step}</span>
+                <b>${escapeHTML(gate.label)}</b>
+                <small>${strategicHighlightHTML(gate.detail)}</small>
+                <em>${escapeHTML(decisionStateLabel(gate.status))}</em>
+              </li>
+            `;
+          }).join("")}
+        </ol>
       </div>
-      <div class="policy-focus-block">
-        <strong>주기 점검</strong>
-        <ul class="watch-list">
-          <li>공개 인허가·정책·규제 신호는 요약 지표와 Go/No-Go 판단 근거로만 반영합니다.</li>
-          <li>Wuxi water/power/land/EIA/BIS 보조 신호를 원문·외신 기준으로 확인합니다.</li>
-          <li>전력 quota, 토지사용권, 신규 EIA 숫자가 나오기 전까지 신규 fab 증설은 보수적으로 판단합니다.</li>
-        </ul>
+      <div class="policy-focus-block infra-update-block">
+        <div class="infra-block-head">
+          <strong>판단 업데이트</strong>
+          <span>공개 근거 기준</span>
+        </div>
+        <div class="infra-monitor-strip">
+          <div><span>01</span><b>수집</b><small>인허가·정책·규제 원문</small></div>
+          <div><span>02</span><b>대조</b><small>공식 자료·권위 매체 교차 확인</small></div>
+          <div><span>03</span><b>전환</b><small>신규 수치 공개 시 판단 갱신</small></div>
+        </div>
       </div>
       <div class="focus-actions">
         <button type="button" data-infra-copy>복사</button>
