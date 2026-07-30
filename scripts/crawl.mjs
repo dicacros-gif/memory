@@ -86,7 +86,7 @@ const SOURCE_TIMEOUT_MS = Object.freeze({
 // limit or stall without returning an error, so keep its timeout and total
 // crawl budget deliberately smaller than primary-source collection.
 const KO_TRANSLATION_TIMEOUT_MS = Math.max(1_000, Number(process.env.KO_TRANSLATION_TIMEOUT_MS || 8_000));
-const KO_TRANSLATION_BUDGET_MS = Math.max(0, Number(process.env.KO_TRANSLATION_BUDGET_MS || 120_000));
+const KO_TRANSLATION_BUDGET_MS = Math.max(0, Number(process.env.KO_TRANSLATION_BUDGET_MS || 300_000));
 const KO_BRIEF_TRANSLATION_RESERVE_MS = Math.max(0, Number(process.env.KO_BRIEF_TRANSLATION_RESERVE_MS || 30_000));
 const SKIP_KO_TRANSLATION = /^(?:1|true|yes)$/i.test(
   String(process.env.CRAWL_SKIP_KO_TRANSLATION || process.env.SKIP_KO_TRANSLATION || ""),
@@ -2318,6 +2318,7 @@ function cleanKoNewsText(value) {
   return String(value || "")
     .replace(/^\s*(?:\[(?:news|뉴스)\]|(?:news|뉴스))\s*[:：-]?\s*/i, "")
     .replace(/\s*\[(?:news|뉴스)\]\s*/gi, " ")
+    .replace(/\s*丨\s*/g, " · ")
     .replace(/SK\s*하이닉스/g, "SKHY")
     .replace(/SK하이닉스/g, "SKHY")
     .replace(/\s{2,}/g, " ")
@@ -3696,7 +3697,7 @@ async function enrichNewsItems(items = [], previousItems = [], { emitHealth = tr
 
 /* ---------- best-effort EN->KO headline translation (no API key) ---------- */
 let _trCount = 0;
-const TR_CAP = 210;
+const TR_CAP = 800;
 let koTranslator = null;
 
 function koTranslationDeadline() {
@@ -3710,11 +3711,19 @@ function koTranslationBudgetExpired(deadline = 0) {
 function translationQuality(original = "", translated = "") {
   const language = koreanTranslationQualityGate(original, translated);
   const fidelity = auditTranslationFidelity(original, translated);
+  const chineseUnitNormalization = scriptCount(original, HAN_RE) > 0
+    && fidelity.reasons?.length > 0
+    && fidelity.reasons.every((reason) => String(reason).startsWith("number-mismatch:"));
+  const fidelityAccepted = fidelity.status === "verified" || chineseUnitNormalization;
   return {
-    status: language.status === "verified" && fidelity.status === "verified" ? "verified" : "unverified",
-    reasons: [...language.reasons, ...(fidelity.reasons || [])],
+    status: language.status === "verified" && fidelityAccepted ? "verified" : "unverified",
+    reasons: [
+      ...language.reasons,
+      ...(fidelityAccepted ? [] : (fidelity.reasons || [])),
+    ],
     language,
     fidelity,
+    chineseUnitNormalization,
   };
 }
 
@@ -3724,13 +3733,19 @@ function recordTranslationAudit(item, field, original, translated) {
     ...(item.translation || {}),
     [field]: {
       ...audit.fidelity,
+      fidelityStatus: audit.fidelity.status,
+      fidelityReasons: audit.fidelity.reasons || [],
+      chineseUnitNormalization: audit.chineseUnitNormalization,
       languageStatus: audit.language.status,
       languageReasons: audit.language.reasons,
       hangulCount: audit.language.hangulCount,
+      hanCount: audit.language.hanCount,
       hangulRatio: audit.language.hangulRatio,
       status: audit.status,
       checkedAt: new Date().toISOString(),
-      display: audit.status === "verified" ? "translated" : "source-original",
+      display: audit.status === "verified"
+        ? "translated"
+        : (verifiedNewsLanguage(item) === "chinese" ? "translation-pending" : "source-original"),
     },
   };
   return audit.status === "verified";
@@ -3762,7 +3777,9 @@ async function addKoField(arr, limit, deadline, field) {
       if (verified) task.item.titleKo = cleanKo;
       else delete task.item.titleKo;
     } else {
-      task.item.summary = verified ? cleanKo : task.original;
+      if (verified) task.item.summary = cleanKo;
+      else if (verifiedNewsLanguage(task.item) === "chinese") delete task.item.summary;
+      else task.item.summary = task.original;
     }
   }
 }
@@ -3908,19 +3925,19 @@ function extractTrending(allNews) {
     .slice(0, 16);
 }
 
-async function collectNews(previousNews = []) {
+async function collectNews(previousNews = [], previousReferenceNews = []) {
   const seen = new Set();
   const categories = [];
   const preserved = PRESERVED_NEWS_SEEDS
     .map(normalizePreservedNewsSeed)
     .filter((item) => isForeignItem(item) && !isCrawlerExcluded("news", item));
   const previousReferences = previousNews
+    .concat(previousReferenceNews)
     .map(normalizePreviousNewsFallback)
     .filter(Boolean)
     .filter((item) => !isCrawlerExcluded("news", item));
   const referenceNews = dedupeEnrichedNews(preserved.concat(previousReferences), { preferPreservedSeed: true })
     .sort((a, b) => Number(b.ts || 0) - Number(a.ts || 0))
-    .slice(0, NEWS_STREAM_LIMIT * 4)
     .map(({ ts, verification: _verification, ...item }) => ({
       ...item,
       referenceOnly: true,
@@ -5550,6 +5567,7 @@ async function loadPreviousData() {
   ]);
   return {
     news: Array.isArray(previous.news) ? previous.news : [],
+    referenceNews: Array.isArray(previous.referenceNews?.items) ? previous.referenceNews.items : [],
     stocks: previous.stocks && typeof previous.stocks === "object" ? previous.stocks : {},
     brokerResearch: previous.brokerResearch && typeof previous.brokerResearch === "object" ? previous.brokerResearch : {},
     communityItems: [
@@ -9361,7 +9379,7 @@ async function main() {
   const [prices, stocks, newsPayload, communitySignals, competitors, startups, benchmarkSignals, chinaInfra] = await Promise.all([
     collectPrices(),
     collectStocks(previous.stocks),
-    collectNews(previous.news),
+    collectNews(previous.news, previous.referenceNews),
     collectCommunitySignals(previous.communityItems),
     collectCompetitors(),
     collectStartups(),
@@ -9402,8 +9420,13 @@ async function main() {
       // articles selected for the executive briefing.  Generic feed ordering
       // must not leave the visible decision cards untranslated.
       const streamDeadline = Math.max(Date.now(), translationDeadline - KO_BRIEF_TRANSLATION_RESERVE_MS);
-      await addKoTitles(news, 72, streamDeadline);
-      await addKoSummaries(news, 72, streamDeadline);
+      const accumulatedNews = [...news, ...(newsPayload.referenceNews || [])];
+      const chineseNews = accumulatedNews.filter((item) => verifiedNewsLanguage(item) === "chinese");
+      const englishNews = accumulatedNews.filter((item) => verifiedNewsLanguage(item) === "english");
+      await addKoTitles(chineseNews, chineseNews.length, streamDeadline);
+      await addKoSummaries(chineseNews, chineseNews.length, streamDeadline);
+      await addKoTitles(englishNews, englishNews.length, streamDeadline);
+      await addKoSummaries(englishNews, englishNews.length, streamDeadline);
       await addKoTitles(communitySignals.items, 30, streamDeadline);
       await addKoSummaries(communitySignals.items, 30, streamDeadline);
       await addKoTitles(benchmarkSignals.stream, 24, streamDeadline);
@@ -9512,7 +9535,7 @@ async function main() {
       mode: "reference-only",
       generatedAt: evidenceValidatedAt,
       itemCount: newsPayload.referenceNews?.length || 0,
-      methodology: "curated seeds and previous-run continuity copies; excluded from live news, evidence promotion, derived signals, and quality counts",
+      methodology: "cumulative English and Chinese article archive with curated seeds and prior verified runs; excluded from live evidence promotion, derived signals, and quality counts",
       items: newsPayload.referenceNews || [],
     },
     trending,

@@ -23,6 +23,8 @@ export function koreanTranslationQualityGate(original = "", translated = "") {
   const source = normalizeSourceText(original);
   const target = normalizeSourceText(translated);
   const hangulCount = (target.match(/[가-힣]/g) || []).length;
+  const sourceHanCount = (source.match(/[㐀-䶿一-鿿豈-﫿]/g) || []).length;
+  const hanCount = (target.match(/[㐀-䶿一-鿿豈-﫿]/g) || []).length;
   const contentCount = (target.match(/[A-Za-z가-힣一-龥]/g) || []).length;
   const hangulRatio = contentCount ? hangulCount / contentCount : 0;
   const reasons = [];
@@ -33,6 +35,7 @@ export function koreanTranslationQualityGate(original = "", translated = "") {
   if (source.toLowerCase() === target.toLowerCase() && !/[가-힣]/.test(source)) reasons.push("source-unchanged");
   if (!/[가-힣]/.test(source) && hangulCount < 4) reasons.push("insufficient-hangul");
   if (!/[가-힣]/.test(source) && hangulRatio < 0.08) reasons.push("low-hangul-ratio");
+  if (sourceHanCount > 0 && hanCount > 0) reasons.push("residual-han-script");
   if (source.length >= 20 && target.length < Math.max(8, Math.floor(source.length * 0.18))) reasons.push("too-short");
   if (target.length > Math.max(240, source.length * 4)) reasons.push("too-long");
 
@@ -40,6 +43,7 @@ export function koreanTranslationQualityGate(original = "", translated = "") {
     status: reasons.length ? "unverified" : "verified",
     reasons,
     hangulCount,
+    hanCount,
     hangulRatio: Number(hangulRatio.toFixed(3)),
   };
 }

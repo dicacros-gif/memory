@@ -23,6 +23,15 @@ const parsed = parseMarkerTranslation(
 assert.deepEqual(parsed, ["메모리 공급이 빠듯합니다", "설비투자 계획을 상향했습니다"]);
 assert.equal(koreanTranslationQualityGate(originals[0], originals[0]).status, "unverified");
 assert.equal(koreanTranslationQualityGate(originals[0], "메모리 공급이 빠듯한 가운데 수요가 확대되고 있습니다").status, "verified");
+assert.equal(
+  koreanTranslationQualityGate("长鑫存储扩大DRAM产能", "长鑫存储는 DRAM 생산능력을 확대합니다").status,
+  "unverified",
+  "Chinese-source translations must not retain Han-script text",
+);
+assert.equal(
+  koreanTranslationQualityGate("长鑫存储扩大DRAM产能", "창신메모리는 DRAM 생산능력을 확대합니다").status,
+  "verified",
+);
 
 let requestCount = 0;
 const waits = [];

@@ -4381,7 +4381,7 @@
       })
       .map((item) => {
         const lines = insightLines(item);
-        const source = newsPublisherText(item) || "Authoritative source";
+        const source = displayNewsPublisher(item) || "Authoritative source";
         const date = formatNewsDate(item.date || item.publishedAt || item.crawledAt || "");
         return {
           kicker: [source, date].filter(Boolean).join(" · "),
@@ -4488,11 +4488,11 @@
       .map((item) => {
         const lines = insightLines(item);
         return {
-          kicker: `${newsPublisherText(item) || "Authoritative source"} · ${String(item.category || "China").toUpperCase()}`,
+          kicker: `${displayNewsPublisher(item) || "Authoritative source"} · ${String(item.category || "China").toUpperCase()}`,
           title: newsTitle(item),
           body: lines[1] ? `전략 해석 · ${lines[1]}` : (lines[0] || "중국 메모리 신호가 SKHY의 가격·고객·공급망 판단에 미치는 영향을 검토합니다."),
           href: String(item.link || item.sourceUrl || "").trim(),
-          source: newsPublisherText(item) || "원문 보기",
+          source: displayNewsPublisher(item) || "원문 보기",
         };
       })
       .filter((item) => item.title && item.href);
@@ -5694,12 +5694,12 @@
         ? `<div class="hs-focus-signal">
             <b>오늘 크롤링 신호</b>
             <span>언급 ${fmtNum(signal.mentions)}건 · 독립 출처 ${fmtNum(signal.independentSourceCount || signal.sourceCount)}개 · 확장어 ${fmtNum(signal.up)} · 축소어 ${fmtNum(signal.down)} · 방향 ${signal.direction === "up" ? "▲ 확대" : signal.direction === "down" ? "▼ 축소" : "→ 중립"}</span>
-            ${(signal.evidence || []).map((item) => `<a href="${escapeHTML(item.url)}" target="_blank" rel="noopener">${escapeHTML(newsTitle(item) || item.title)} — ${escapeHTML(newsPublisherText(item) || "원문")} ${escapeHTML(item.date || "")} ↗</a>`).join("")}
+            ${(signal.evidence || []).map((item) => `<a href="${escapeHTML(item.url)}" target="_blank" rel="noopener">${escapeHTML(newsTitle(item) || item.title)} — ${escapeHTML(displayNewsPublisher(item) || "원문")} ${escapeHTML(item.date || "")} ↗</a>`).join("")}
           </div>`
         : signal?.status === "reference"
-          ? `<div class="hs-focus-signal idle"><b>누적 DB 근거</b><span>당일 점수와 분리해 이전 수집 원문의 날짜·출처를 표시</span>${(signal.evidence || []).map((item) => `<a href="${escapeHTML(item.url)}" target="_blank" rel="noopener">${escapeHTML(newsTitle(item) || item.title)} — ${escapeHTML(newsPublisherText(item) || "원문")} ${escapeHTML(item.date || "")} ↗</a>`).join("")}</div>`
+          ? `<div class="hs-focus-signal idle"><b>누적 DB 근거</b><span>당일 점수와 분리해 이전 수집 원문의 날짜·출처를 표시</span>${(signal.evidence || []).map((item) => `<a href="${escapeHTML(item.url)}" target="_blank" rel="noopener">${escapeHTML(newsTitle(item) || item.title)} — ${escapeHTML(displayNewsPublisher(item) || "원문")} ${escapeHTML(item.date || "")} ↗</a>`).join("")}</div>`
         : signal?.evidenceCount
-          ? `<div class="hs-focus-signal idle"><b>근거 품질 미달</b><span>독립 출처 2개 또는 공식·공시 원문 1건 확인 전까지 점수 산출 보류</span>${(signal.evidence || []).map((item) => `<a href="${escapeHTML(item.url)}" target="_blank" rel="noopener">${escapeHTML(newsTitle(item) || item.title)} — ${escapeHTML(newsPublisherText(item) || "원문")} ${escapeHTML(item.date || "")} ↗</a>`).join("")}</div>`
+          ? `<div class="hs-focus-signal idle"><b>근거 품질 미달</b><span>독립 출처 2개 또는 공식·공시 원문 1건 확인 전까지 점수 산출 보류</span>${(signal.evidence || []).map((item) => `<a href="${escapeHTML(item.url)}" target="_blank" rel="noopener">${escapeHTML(newsTitle(item) || item.title)} — ${escapeHTML(displayNewsPublisher(item) || "원문")} ${escapeHTML(item.date || "")} ↗</a>`).join("")}</div>`
           : `<div class="hs-focus-signal idle"><b>공식 원문 추가 수집 중</b><span>누적 DB 검색과 신규 수집을 계속하며 확인 전 점수는 산출하지 않음</span></div>`;
       focus.innerHTML = `
         <span class="hs-focus-tag">${escapeHTML(category.label)} · 수요 심층</span>
@@ -9059,15 +9059,15 @@
     const chosen = scored.sort((a, b) => b.score - a.score)[0];
     if (!chosen) return null;
     const item = chosen.item;
-    const quote = String(item.summary || item.summaryOriginal || item.titleKo || item.title || "").replace(/\s+/g, " ").trim();
-    const title = String(item.titleKo || item.title || quote || "이전 수집 기사").replace(/\s+/g, " ").trim();
+    const quote = String(sourceSafeSummary(item) || newsTitle(item) || "").replace(/\s+/g, " ").trim();
+    const title = String(newsTitle(item) || quote || "이전 수집 기사").replace(/\s+/g, " ").trim();
     return {
       status: "reference",
       title,
       quote,
       quoteQuality: "previous-run",
       value: null,
-      source: item.source || "이전 수집 기사",
+      source: displayNewsPublisher(item) || "이전 수집 기사",
       sourceUrl: chosen.sourceUrl,
       date: item.date || item.publishedAt || String(LIVE.referenceNews?.generatedAt || LIVE.updatedAt || "").substring(0, 10),
       matchedKeywords: chosen.matched,
@@ -9109,15 +9109,15 @@
     ));
     const chosen = candidates[0];
     const item = chosen.item;
-    const quote = String(item.summary || item.summaryOriginal || item.titleKo || item.title || "").replace(/\s+/g, " ").trim();
+    const quote = String(sourceSafeSummary(item) || newsTitle(item) || "").replace(/\s+/g, " ").trim();
     if (!quote) return null;
     return {
       status: "reference",
-      title: String(item.titleKo || item.title || quote).replace(/\s+/g, " ").trim(),
+      title: String(newsTitle(item) || quote).replace(/\s+/g, " ").trim(),
       quote,
       quoteQuality: "stored-corpus",
       value: item.value || null,
-      source: item.source || "이전 수집 원문",
+      source: displayNewsPublisher(item) || "이전 수집 원문",
       sourceUrl: chosen.sourceUrl,
       date: item.date || item.publishedAt || item.updatedAt || "이전 수집",
       matchedKeywords: chosen.matchedKeywords,
@@ -17253,12 +17253,12 @@
         <div class="ceo-live-news-list">
           ${factItems.map((item) => `
             <a class="ceo-live-fact" href="${escapeHTML(item.sourceUrl || item.link)}" target="_blank" rel="noopener noreferrer">
-              <span>${escapeHTML(newsPublisherText(item) || "공식 원문")} · ${escapeHTML(item.stage || "현재 단계")}</span>
+              <span>${escapeHTML(displayNewsPublisher(item) || "공식 원문")} · ${escapeHTML(item.stage || "현재 단계")}</span>
               <strong>${escapeHTML(newsTitle(item) || item.label || "확정 팩트")}</strong>
             </a>`).join("")}
           ${newsItems.map((item) => `
             <a href="${escapeHTML(item.sourceUrl || item.link)}" target="_blank" rel="noopener noreferrer">
-              <span>${item.continuityFallback ? "누적 DB · " : ""}${escapeHTML(newsPublisherText(item) || "원문")} · ${escapeHTML(shortKstDateWithYear(item.publishedAt || item.date))}</span>
+              <span>${item.continuityFallback ? "누적 DB · " : ""}${escapeHTML(displayNewsPublisher(item) || "원문")} · ${escapeHTML(shortKstDateWithYear(item.publishedAt || item.date))}</span>
               <strong>${escapeHTML(newsTitle(item))}</strong>
             </a>`).join("") || `<p>공식 KPI와 누적 정책 원문을 기준선으로 적용</p>`}
         </div>
@@ -22367,8 +22367,22 @@
       .filter((item) => !isCrawlExcluded("news", item) && hasMeaningfulArticleSummary(item) && isForeignNews(item) && isAuthoritativeNews(item) && isMemoryRelevant(item) && !isLowConfidenceNews(item) && !isSkhynixNewsroom(item) && !isSupersededCxmtIpoNews(item)));
   }
 
+  function archivedNews() {
+    const archive = Array.isArray(LIVE.referenceNews?.items) ? LIVE.referenceNews.items : [];
+    return archive
+      .filter((item) => /^https?:\/\//i.test(String(item.sourceUrl || item.link || "")))
+      .filter((item) => articleStreamLanguage(item))
+      .filter((item) => !isCrawlExcluded("news", item)
+        && hasMeaningfulArticleSummary(item)
+        && isForeignNews(item)
+        && isMemoryRelevant(item)
+        && !isLowConfidenceNews(item)
+        && !isSkhynixNewsroom(item)
+        && !isSupersededCxmtIpoNews(item));
+  }
+
   function rawNews() {
-    return currentRunNews();
+    return dedupeNews([...currentRunNews(), ...archivedNews()]);
   }
 
   function canonicalNewsUrlKey(item = {}) {
@@ -22555,17 +22569,40 @@
   function sourceSafeTitle(item = {}) {
     const original = String(item.title || "");
     const translated = String(item.titleKo || original);
-    return item.translation?.title?.status === "unverified" || hasCurrencyTranslationMismatch(original, translated)
-      ? original
-      : translated;
+    const chinese = articleStreamLanguage(item) === "chinese";
+    const rejected = item.translation?.title?.status === "unverified"
+      || hasCurrencyTranslationMismatch(original, translated)
+      || (chinese && hasHanScript(translated));
+    if (!rejected) return translated;
+    if (!chinese) return original;
+    return `${safeChinesePublisher(item)} 기사 · 한국어 번역 재시도 중`;
   }
 
   function sourceSafeSummary(item = {}) {
     const original = String(item.summaryOriginal || item.summary || "");
     const translated = String(item.summaryKo || item.summary || original);
-    return item.translation?.summary?.status === "unverified" || hasCurrencyTranslationMismatch(original, translated)
-      ? original
-      : translated;
+    const chinese = articleStreamLanguage(item) === "chinese";
+    const rejected = item.translation?.summary?.status === "unverified"
+      || hasCurrencyTranslationMismatch(original, translated)
+      || (chinese && hasHanScript(translated));
+    if (!rejected) return translated;
+    if (!chinese) return original;
+    return "Google 번역 품질검사 대기 · 다음 수집에서 자동 재시도";
+  }
+
+  function hasHanScript(value = "") {
+    return /[㐀-䶿一-鿿豈-﫿]/.test(String(value || ""));
+  }
+
+  function safeChinesePublisher(item = {}) {
+    const source = newsPublisherText(item);
+    return source && !hasHanScript(source) ? source : "중국 매체";
+  }
+
+  function displayNewsPublisher(item = {}) {
+    return articleStreamLanguage(item) === "chinese"
+      ? safeChinesePublisher(item)
+      : newsPublisherText(item);
   }
 
   function stripTrailingSource(title, source) {
@@ -22978,7 +23015,7 @@
       return;
     }
 
-    items.slice().sort(compareNewsItems).slice(0, 42).forEach((item) => {
+    items.slice().sort(compareNewsItems).forEach((item) => {
       const li = el("li", "news-card-item");
       const card = el("article", "news-card");
       const a = el("a", "news-title");
@@ -22991,7 +23028,7 @@
       a.innerHTML = strategicHighlightHTML(newsTitle(item));
       card.innerHTML = `
         <div class="news-card-head">
-          <span class="source-tag">${escapeHTML(newsPublisherText(item) || "Foreign source")}</span>
+          <span class="source-tag">${escapeHTML(displayNewsPublisher(item) || "Foreign source")}</span>
           <span class="news-evidence ${escapeHTML(evidence.className)}">${escapeHTML(evidence.label)}</span>
           <span class="news-meta">${escapeHTML(formatNewsDate(item.date || item.published))}</span>
         </div>

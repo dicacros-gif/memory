@@ -1193,6 +1193,22 @@ if (referenceNewsItems.some((item) => item.origin !== "reference-archive"
   || Object.prototype.hasOwnProperty.call(item, "verification"))) {
   addIssue("error", "data/live.json", "reference-news rows must be visibly excluded from live provenance");
 }
+for (const item of [...news, ...referenceNewsItems].filter((entry) => String(entry.streamLanguage || entry.language || "").toLowerCase() === "chinese")) {
+  const titleKo = String(item.titleKo || "");
+  const summaryKo = String(item.summaryKo || item.summary || "");
+  if (item.translation?.title?.status === "verified" && hanCount(titleKo) > 0) {
+    addIssue("error", "data/live.json", "verified Chinese headline translation retains Han script", titleKo);
+  }
+  if (item.translation?.summary?.status === "verified" && hanCount(summaryKo) > 0) {
+    addIssue("error", "data/live.json", "verified Chinese summary translation retains Han script", summaryKo);
+  }
+  if (item.translation?.title?.status === "unverified" && item.translation?.title?.display === "source-original") {
+    addIssue("error", "data/live.json", "unverified Chinese headline is configured to display its source text", item.title || "unknown");
+  }
+  if (item.translation?.summary?.status === "unverified" && hanCount(summaryKo) > 0) {
+    addIssue("error", "data/live.json", "unverified Chinese summary leaked into the display field", summaryKo);
+  }
+}
 const requiredPreservedNewsIds = [
   "the-register-china-memory-ban",
   "reuters-cxmt-tencent",
