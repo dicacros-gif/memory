@@ -22112,26 +22112,84 @@
     });
   }
 
+  function normalizedCompanyMatchText(value = "") {
+    return String(value || "")
+      .toLowerCase()
+      .replace(/[^a-z0-9가-힣一-鿿]+/g, " ")
+      .replace(/\s+/g, " ")
+      .trim();
+  }
+
+  function companyAliasMatches(text = "", alias = "") {
+    const haystack = normalizedCompanyMatchText(text);
+    const needle = normalizedCompanyMatchText(alias);
+    if (!haystack || !needle) return false;
+    if (/^[a-z0-9 ]+$/i.test(needle) && needle.replace(/\s+/g, "").length <= 4) {
+      return new RegExp(`(?:^|\\s)${needle.replace(/[.*+?^${}()|[\]\\]/g, "\\$&")}(?:$|\\s)`, "i").test(haystack);
+    }
+    return haystack.includes(needle);
+  }
+
+  function companyEvidenceAxisLabel(item = {}) {
+    const labels = {
+      "demand-customers": "수요·고객",
+      "price-cycle": "가격·사이클",
+      "supply-capacity": "공급·캐파",
+      "technology-product": "기술·제품",
+      "capital-competition": "자본·경쟁",
+      "policy-risk": "정책·리스크",
+      "operations-talent": "운영·인재",
+    };
+    return labels[item.meceAxis || item.verification?.meceAxis] || "산업 근거";
+  }
+
+  function companyEvidenceClassLabel(item = {}) {
+    const sourceClass = item.verification?.sourceClass || item.sourceClass || "";
+    return {
+      official: "공식",
+      research: "리서치",
+      "authoritative-media": "권위 매체",
+      "general-media": "전문 매체",
+    }[sourceClass] || "공개 원문";
+  }
+
   function companyRecentNews(profile = {}) {
-    const keywords = uniqueCompanyRows(
+    const aliases = uniqueCompanyRows(
+      (profile.entityAliases || []).map((alias) => String(alias || "").trim()).filter(Boolean),
+      (alias) => alias,
+    );
+    const topicKeywords = uniqueCompanyRows(
       (profile.keywords || []).map((keyword) => String(keyword || "").trim()).filter(Boolean),
       (keyword) => keyword,
     );
-    if (!keywords.length) return [];
+    if (!aliases.length) return [];
     const selected = new Map();
     rawNews()
-      .filter((item) => {
-        const hay = [
+      .map((item) => {
+        const haystack = [
           item.title,
           item.titleKo,
           item.summary,
+          item.summaryOriginal,
           item.summaryKo,
           item.source,
-        ].join(" ").toLowerCase();
-        return keywords.some((keyword) => hay.includes(keyword.toLowerCase()));
+        ].join(" ");
+        const aliasHits = aliases.filter((alias) => companyAliasMatches(haystack, alias)).length;
+        const topicHits = topicKeywords.filter((keyword) => companyAliasMatches(haystack, keyword)).length;
+        const sourceClass = item.verification?.sourceClass || item.sourceClass || "";
+        const sourceScore = Math.max(newsAuthorityScore(item), sourceClass === "official" ? 5
+          : sourceClass === "research" ? 4
+            : sourceClass === "authoritative-media" ? 3 : 1);
+        return {
+          item,
+          aliasHits,
+          sourceScore,
+          score: aliasHits * 20 + topicHits * 3 + sourceScore,
+        };
       })
-      .sort((a, b) => newsTimestamp(b) - newsTimestamp(a))
-      .forEach((item) => {
+      .filter((entry) => entry.aliasHits > 0 && entry.sourceScore >= 3)
+      .sort((a, b) => newsTimestamp(b.item) - newsTimestamp(a.item) || b.score - a.score)
+      .forEach(({ item }) => {
         const key = canonicalNewsKey(item) || canonicalNewsStoryKey(item);
         if (key && !selected.has(key)) selected.set(key, item);
       });
@@ -22220,7 +22278,11 @@
             const date = formatNewsDate(item.date || item.publishedAt || item.crawledAt || "");
             return `
               <a href="${escapeHTML(url)}" target="_blank" rel="noopener noreferrer" style="--evidence-order:${index}">
-                <span>${escapeHTML(displayNewsPublisher(item) || "원문")}${date ? ` · ${escapeHTML(date)}` : ""}</span>
+                <span class="company-evidence-meta">
+                  <i>${escapeHTML(companyEvidenceClassLabel(item))}</i>
+                  <i>${escapeHTML(companyEvidenceAxisLabel(item))}</i>
+                  <em>${escapeHTML(displayNewsPublisher(item) || "원문")}${date ? ` · ${escapeHTML(date)}` : ""}</em>
+                </span>
                 <b>${escapeHTML(title)}</b>
                 ${summary && !sameInsightText(summary, title) ? `<small>${escapeHTML(summary)}</small>` : ""}
               </a>

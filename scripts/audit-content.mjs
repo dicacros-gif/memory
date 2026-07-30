@@ -1053,6 +1053,20 @@ for (const item of news) {
   if (!["official", "research", "authoritative-media", "general-media"].includes(String(verification.sourceClass || ""))) {
     addIssue("error", "data/live.json", "news item has invalid source class", `${verification.id || "unknown"}:${verification.sourceClass || "missing"}`);
   }
+  if (!new Set([
+    "demand-customers",
+    "price-cycle",
+    "supply-capacity",
+    "technology-product",
+    "capital-competition",
+    "policy-risk",
+    "operations-talent",
+  ]).has(String(item.meceAxis || verification.meceAxis || ""))) {
+    addIssue("error", "data/live.json", "news item has no exclusive MECE axis", verification.id || title || "unknown");
+  }
+  if (!Array.isArray(item.entities || verification.entities)) {
+    addIssue("error", "data/live.json", "news entity metadata is not structured", verification.id || title || "unknown");
+  }
 }
 if (news.length && (!languageCounts.english || !languageCounts.chinese)) {
   addIssue("error", "data/live.json", "one article language stream is empty", JSON.stringify(languageCounts));

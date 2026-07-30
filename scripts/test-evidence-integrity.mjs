@@ -5,6 +5,12 @@ import {
   evidenceClaimLabel,
   supersededNumericClaimReason,
 } from "./evidence-integrity.mjs";
+import {
+  classifyNewsMeceAxis,
+  dedupeEnrichedNews,
+  newsEntityTags,
+  sameNewsStory,
+} from "./crawl.mjs";
 
 const correctCnyTranslation = auditTranslationFidelity(
   "The exchange approved a CNY 29.5 billion plan with a 15 percent greenshoe.",
@@ -69,5 +75,28 @@ assert.equal(supersededNumericClaimReason({
   title: "CXMT registration-stage investment plan",
   summary: "The prospectus described a CNY 29.5 billion investment-project plan before final pricing.",
 }), null, "the earlier CNY 29.5B plan remains valid historical context");
+
+const syndicatedA = {
+  title: "Micron expands HBM capacity as AI server demand rises - Reuters",
+  source: "Reuters",
+  sourceUrl: "https://example.com/reuters-micron-hbm",
+  date: "2026-07-30",
+  summaryOriginal: "Micron said it would expand HBM capacity to serve rising AI server demand.",
+};
+const syndicatedB = {
+  title: "AI server demand prompts Micron to expand its HBM capacity",
+  source: "Partner wire",
+  sourceUrl: "https://example.net/micron-ai-capacity",
+  date: "2026-07-31",
+  summaryOriginal: "Micron will expand HBM capacity as demand from AI servers increases.",
+};
+assert.ok(newsEntityTags(syndicatedA).includes("micron"), "company aliases must become structured entity tags");
+assert.equal(sameNewsStory(syndicatedA, syndicatedB), true, "same event with a syndication title must be recognised");
+assert.equal(dedupeEnrichedNews([syndicatedA, syndicatedB]).length, 1, "syndicated copies must collapse to one observation");
+assert.equal(classifyNewsMeceAxis(syndicatedA), "demand-customers", "each article must receive one MECE axis");
+assert.equal(classifyNewsMeceAxis({
+  title: "BIS expands export controls on advanced semiconductor equipment",
+  category: "policy",
+}), "policy-risk");
 
 console.log("evidence integrity tests passed");

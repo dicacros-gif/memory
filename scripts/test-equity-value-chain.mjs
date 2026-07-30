@@ -140,6 +140,8 @@ assert.match(app, /function companyIntelligenceHTML[\s\S]*?companyOrganizationHT
   "company detail must separate market facts, leadership, official priorities, and recent evidence");
 assert.match(app, /function companyRecentNews[\s\S]*?canonicalNewsKey\(item\)[\s\S]*?canonicalNewsStoryKey\(item\)/,
   "company evidence must use canonical story deduplication rather than repeat articles");
+assert.match(app, /function companyRecentNews[\s\S]*?profile\.entityAliases[\s\S]*?aliasHits > 0 && entry\.sourceScore >= 3/,
+  "company evidence must require both a direct company-entity match and an authoritative source");
 assert.match(app, /const detailIndex = indexes\.find\(\(index\) => index\.id === state\.detailId\)[\s\S]*?companyIntelligenceHTML\(region, detailIndex, period\)/,
   "clicking a listed company must drive the inline company intelligence panel");
 assert.match(app, /data-equity-stock[\s\S]*?state\.detailId = id[\s\S]*?renderEquityRegion\(region\)/,
@@ -160,6 +162,8 @@ for (const [id, profile] of companyProfiles) {
   assert.ok(id.endsWith("-stock"), `${id} must join the market-history index by stock id`);
   assert.match(profile.officialUrl || "", /^https:\/\//, `${id} must retain an official company URL`);
   assert.ok(Array.isArray(profile.organization), `${id} must expose a structured organization array`);
+  assert.ok(Array.isArray(profile.entityAliases) && profile.entityAliases.length >= 2,
+    `${id} must provide explicit aliases so generic product terms cannot attach another company's article`);
   for (const person of profile.organization) {
     assert.ok(person.role && person.function, `${id} organization entries require role and function`);
     if (person.name) {

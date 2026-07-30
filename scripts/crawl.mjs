@@ -2354,6 +2354,143 @@ function canonicalNewsKey(item = {}) {
   return "";
 }
 
+const NEWS_ENTITY_ALIASES = Object.freeze({
+  sk_hynix: ["sk hynix", "skhy", "sk하이닉스", "에스케이하이닉스", "하이닉스"],
+  samsung: ["samsung electronics", "samsung", "삼성전자", "三星电子", "三星電子"],
+  micron: ["micron technology", "micron", "마이크론", "美光"],
+  nvidia: ["nvidia", "엔비디아", "英伟达", "英偉達"],
+  tsmc: ["taiwan semiconductor manufacturing", "tsmc", "台积电", "台積電"],
+  amd: ["advanced micro devices", "amd", "超威半导体", "超微半導體"],
+  asml: ["asml", "阿斯麦", "艾司摩爾"],
+  broadcom: ["broadcom", "브로드컴", "博通"],
+  cxmt: ["changxin memory", "changxin", "cxmt", "长鑫存储", "長鑫存儲", "长鑫科技", "長鑫科技"],
+  ymtc: ["ymtc", "yangtze memory", "长江存储", "長江存儲"],
+  smic: ["smic", "semiconductor manufacturing international", "中芯国际", "中芯國際"],
+  naura: ["naura", "north china huachuang", "北方华创", "北方華創"],
+  amec: ["amec", "advanced micro-fabrication equipment", "中微公司", "中微半导体"],
+  jcet: ["jcet", "jiangsu changjiang electronics", "长电科技", "長電科技"],
+  kioxia: ["kioxia", "키옥시아", "铠侠", "鎧俠"],
+  sandisk: ["sandisk", "샌디스크", "闪迪", "閃迪"],
+  western_digital: ["western digital", "wdc", "웨스턴디지털", "西部数据"],
+  intel: ["intel", "인텔", "英特尔", "英特爾"],
+  apple: ["apple", "애플", "苹果公司"],
+  microsoft: ["microsoft", "마이크로소프트", "微软", "微軟"],
+  amazon: ["amazon", "aws", "아마존", "亚马逊", "亞馬遜"],
+  google: ["google", "alphabet", "구글", "谷歌"],
+  meta: ["meta platforms", "meta", "메타 플랫폼", "元宇宙平台"],
+  tesla: ["tesla", "테슬라", "特斯拉"],
+});
+
+const NEWS_STORY_STOPWORDS = new Set([
+  "a", "an", "and", "are", "as", "at", "be", "by", "for", "from", "has", "have", "in", "into",
+  "is", "it", "its", "of", "on", "or", "says", "said", "the", "to", "with", "will", "after",
+  "new", "news", "report", "reports", "update", "latest", "company", "market", "industry",
+  "대한", "통해", "위한", "관련", "전망", "발표", "보도", "시장", "기업", "업계",
+]);
+
+const NEWS_MECE_AXES = Object.freeze([
+  "demand-customers",
+  "price-cycle",
+  "supply-capacity",
+  "technology-product",
+  "capital-competition",
+  "policy-risk",
+  "operations-talent",
+]);
+
+function normalizedNewsIdentityText(value = "") {
+  return String(value || "")
+    .toLowerCase()
+    .replace(/\s[-–—|:]\s*(?:reuters|bloomberg|cnbc|nikkei asia|digitimes|trendforce|tom'?s hardware|the register|ee times|scmp|south china morning post)\s*$/i, "")
+    .replace(/[’']/g, "")
+    .replace(/([a-z가-힣一-鿿])\.(?=\s|$)/gi, "$1 ")
+    .replace(/[^a-z0-9가-힣一-鿿.%$¥₩]+/g, " ")
+    .replace(/\s+/g, " ")
+    .trim();
+}
+
+export function newsEntityTags(item = {}) {
+  const haystack = normalizedNewsIdentityText([
+    item.originalTitle,
+    item.title,
+    item.titleKo,
+    item.summaryOriginal,
+    item.summary,
+  ].filter(Boolean).join(" "));
+  if (!haystack) return [];
+  return Object.entries(NEWS_ENTITY_ALIASES)
+    .filter(([, aliases]) => aliases.some((alias) => haystack.includes(normalizedNewsIdentityText(alias))))
+    .map(([entity]) => entity);
+}
+
+function newsStoryTokens(item = {}) {
+  const normalized = normalizedNewsIdentityText([
+    item.originalTitle,
+    item.title,
+    item.titleKo,
+    item.summaryOriginal,
+    item.summary,
+  ].filter(Boolean).join(" "));
+  return [...new Set(normalized.split(" ")
+    .map((token) => /^[a-z]{6,}$/i.test(token) ? token.replace(/(?:ing|ed|es|s)$/i, "") : token)
+    .filter((token) => token.length >= 2 && !NEWS_STORY_STOPWORDS.has(token))
+    .slice(0, 36))];
+}
+
+function newsPublishedTime(item = {}) {
+  const value = Number(item.ts || new Date(item.date || item.publishedAt || item.crawledAt || 0).getTime());
+  return Number.isFinite(value) ? value : 0;
+}
+
+export function sameNewsStory(a = {}, b = {}) {
+  const aEntities = newsEntityTags(a);
+  const bEntities = newsEntityTags(b);
+  if (!aEntities.length || !bEntities.some((entity) => aEntities.includes(entity))) return false;
+  const aTime = newsPublishedTime(a);
+  const bTime = newsPublishedTime(b);
+  if (aTime && bTime && Math.abs(aTime - bTime) > 3 * 864e5) return false;
+  const aTokens = newsStoryTokens(a);
+  const bTokens = newsStoryTokens(b);
+  if (aTokens.length < 4 || bTokens.length < 4) return false;
+  const overlap = aTokens.filter((token) => bTokens.includes(token)).length;
+  const union = new Set([...aTokens, ...bTokens]).size;
+  const jaccard = union ? overlap / union : 0;
+  const containment = overlap / Math.max(1, Math.min(aTokens.length, bTokens.length));
+  return jaccard >= 0.72 || containment >= 0.77;
+}
+
+export function classifyNewsMeceAxis(item = {}) {
+  const category = String(item.category || "").toLowerCase();
+  const text = normalizedNewsIdentityText([
+    item.originalTitle,
+    item.title,
+    item.titleKo,
+    item.summaryOriginal,
+    item.summary,
+    category,
+  ].filter(Boolean).join(" "));
+  if (category === "account-demand"
+    || /\b(?:capex|shipment|customer|hyperscaler|cloud|server demand|smartphone|pc demand|order|contract win)\b|수요|출하|고객|订单|需求/i.test(text)) {
+    return "demand-customers";
+  }
+  if (/\b(?:spot price|contract price|pricing|asp|gross margin|price hike|price decline|inventory cycle)\b|가격|재고|마진|涨价|降价/i.test(text)) {
+    return "price-cycle";
+  }
+  if (/\b(?:capacity|wafer|fab|production line|supply shortage|allocation|output|utilization)\b|캐파|생산능력|공급부족|产能|扩产|供给/i.test(text)) {
+    return "supply-capacity";
+  }
+  if (/\b(?:ipo|funding|investment|acquisition|merger|stake|valuation|market share|partnership)\b|상장|투자|인수|지분|估值|融资/i.test(text)) {
+    return "capital-competition";
+  }
+  if (/\b(?:export control|sanction|regulation|tariff|subsidy|license|policy|government)\b|규제|정책|수출통제|制裁|监管|补贴/i.test(text)) {
+    return "policy-risk";
+  }
+  if (/\b(?:hiring|layoff|workforce|executive|organization|talent|operations)\b|채용|인력|임원|조직|招聘|裁员/i.test(text)) {
+    return "operations-talent";
+  }
+  return "technology-product";
+}
+
 function publisherText(item = {}) {
   const source = String(item.source || "").trim();
   if (source) return source;
@@ -3852,6 +3989,17 @@ export function dedupeEnrichedNews(items = [], { preferPreservedSeed = false } =
     if (item.preservedSeed) return preferPreservedSeed ? 3 : 0;
     return item.continuityFallback ? 1 : 2;
   };
+  const mergeObservation = (primary = {}, secondary = {}) => ({
+    ...secondary,
+    ...primary,
+    sourceUrl: primary.sourceUrl || secondary.sourceUrl,
+    link: primary.link || secondary.link,
+    title: primary.title || secondary.title,
+    titleKo: primary.titleKo || secondary.titleKo,
+    summaryOriginal: primary.summaryOriginal || secondary.summaryOriginal,
+    summary: primary.summary || secondary.summary,
+    translation: primary.translation || secondary.translation,
+  });
   for (const item of items) {
     const directUrl = sanitizeSourceUrl(item.sourceUrl || "");
     const urlKey = directUrl
@@ -3859,8 +4007,12 @@ export function dedupeEnrichedNews(items = [], { preferPreservedSeed = false } =
       : "";
     const titleKey = canonicalNewsKey(item);
     if (!urlKey && !titleKey) continue;
-    const index = (urlKey ? byUrl.get(urlKey) : undefined)
+    const exactIndex = (urlKey ? byUrl.get(urlKey) : undefined)
       ?? (titleKey ? byTitle.get(titleKey) : undefined);
+    const storyIndex = exactIndex === undefined
+      ? selected.findIndex((existing) => sameNewsStory(existing, item))
+      : -1;
+    const index = exactIndex ?? (storyIndex >= 0 ? storyIndex : undefined);
     if (index === undefined) {
       const nextIndex = selected.length;
       selected.push(item);
@@ -3873,7 +4025,11 @@ export function dedupeEnrichedNews(items = [], { preferPreservedSeed = false } =
     // previous-run continuity copy and a curated reference seed. URL and title
     // are independent identity gates so syndication URLs cannot duplicate one
     // article in the public dataset.
-    if (!existing || observationRank(item) > observationRank(existing)) selected[index] = item;
+    if (!existing || observationRank(item) > observationRank(existing)) {
+      selected[index] = mergeObservation(item, existing);
+    } else {
+      selected[index] = mergeObservation(existing, item);
+    }
     if (urlKey) byUrl.set(urlKey, index);
     if (titleKey) byTitle.set(titleKey, index);
   }
@@ -4048,6 +4204,10 @@ function compactVerificationForClient(verification = null) {
     origin: verification.origin || null,
     observedThisRun: verification.observedThisRun === true,
     evidenceLevel: verification.evidenceLevel || null,
+    sourceClass: verification.sourceClass || null,
+    freshness: verification.freshness || null,
+    entities: Array.isArray(verification.entities) ? verification.entities : [],
+    meceAxis: verification.meceAxis || null,
     checks: verification.checks || {},
   };
 }
@@ -6274,6 +6434,7 @@ function validateNewsEvidence(items = [], validatedAt = new Date().toISOString()
   const promoted = [];
   const quarantined = [];
   const seen = new Set();
+  const seenStories = [];
   const now = new Date(validatedAt).getTime();
   const maxAgeMs = 365 * 5 * 864e5;
 
@@ -6293,6 +6454,7 @@ function validateNewsEvidence(items = [], validatedAt = new Date().toISOString()
     if (Number.isFinite(publishedAt) && publishedAt > now + 48 * 3600e3) reasons.push("published_date_future");
     if (Number.isFinite(publishedAt) && now - publishedAt > maxAgeMs) reasons.push("published_date_outside_retention");
     if (canonicalUrl && seen.has(canonicalUrl)) reasons.push("canonical_duplicate");
+    if (seenStories.some((existing) => sameNewsStory(existing, item))) reasons.push("story_duplicate");
     if (isCrawlerExcluded("news", item)) reasons.push("moderation_excluded");
     const supersededReason = supersededNumericClaimReason(item);
     if (supersededReason) reasons.push(supersededReason);
@@ -6316,7 +6478,10 @@ function validateNewsEvidence(items = [], validatedAt = new Date().toISOString()
     }
 
     seen.add(canonicalUrl);
+    seenStories.push(item);
     const ageDays = Math.max(0, Math.floor((now - publishedAt) / 864e5));
+    const entities = newsEntityTags(item);
+    const meceAxis = classifyNewsMeceAxis(item);
     const checks = {
       directSource: true,
       canonicalUrl: true,
@@ -6326,6 +6491,7 @@ function validateNewsEvidence(items = [], validatedAt = new Date().toISOString()
       retention: true,
       moderation: true,
       duplicate: true,
+      storyIdentity: true,
     };
     promoted.push({
       ...item,
@@ -6334,6 +6500,8 @@ function validateNewsEvidence(items = [], validatedAt = new Date().toISOString()
       language,
       streamLanguage: language,
       languageVerified: true,
+      entities,
+      meceAxis,
       verification: {
         id,
         status: "promoted",
@@ -6344,6 +6512,8 @@ function validateNewsEvidence(items = [], validatedAt = new Date().toISOString()
         observedThisRun: wasSourceObservedThisRun(item),
         freshness: ageDays <= 120 ? "current" : "archive",
         ageDays,
+        entities,
+        meceAxis,
         checks,
       },
     });
@@ -6373,6 +6543,8 @@ function buildEvidenceLedger(news = [], validatedAt = new Date().toISOString()) 
     origin: item.verification?.origin,
     observedThisRun: Boolean(item.verification?.observedThisRun),
     freshness: item.verification?.freshness,
+    entities: item.verification?.entities || item.entities || [],
+    meceAxis: item.verification?.meceAxis || item.meceAxis || null,
     language: item.streamLanguage || item.language,
     publishedAt: item.date || item.publishedAt || null,
     validatedAt: item.verification?.validatedAt || validatedAt,
