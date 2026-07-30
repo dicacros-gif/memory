@@ -626,6 +626,25 @@ for (const artifact of [
 ]) {
   assert.ok(workflowText.includes(`data/${artifact}`), `daily workflow must publish the ${artifact} browser artifact`);
 }
+assert.ok(
+  (workflowText.match(/\bref:\s*main\b/g) || []).length >= 2,
+  "queued crawl and source-health jobs must both checkout the latest main tip",
+);
+assert.match(
+  workflowText,
+  /crawl_base="\$\(git rev-parse HEAD\)"[\s\S]*?git fetch origin main[\s\S]*?crawl_base[\s\S]*?origin\/main/,
+  "daily refresh must detect code advances before committing generated artifacts",
+);
+assert.doesNotMatch(
+  workflowText,
+  /git pull --rebase/,
+  "generated JSON snapshots must never be line-rebased after a concurrent main update",
+);
+assert.match(
+  workflowText,
+  /main advanced before the data push; deferring to the newer queued run/,
+  "a late push race must defer cleanly to the newer queued refresh",
+);
 
 const accountBlock = appText.match(/const FORECAST_CATEGORIES = \[[\s\S]*?const FORECAST_CATEGORY_ORDER/)?.[0] || "";
 assert.ok(accountBlock, "forecast category block must exist");
