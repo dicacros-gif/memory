@@ -132,7 +132,7 @@ assert.match(app, /loadManagedJSON\("live", "data\/live-client\.json"[\s\S]*?loa
 assert.match(app, /priceHistory: \{[\s\S]*?path: "data\/price-history-client\.json"[\s\S]*?marketHistory: \{[\s\S]*?path: "data\/market-history-client\.json"/, "secondary fallbacks must never download database-sized history files");
 assert.match(css, /\.agent-debate-title \.agent-tts-toggle \{[\s\S]*?min-width: 190px;[\s\S]*?min-height: 44px;/, "the English TTS control should be large and readable");
 assert.match(css, /\.agent-tts-state \{[\s\S]*?min-width: 31px;/, "the TTS control should expose a dedicated on-or-off state badge");
-assert.match(html, /app\.js\?v=briefing-title-20260730-01/, "JavaScript cache key should include the briefing-title revision");
+assert.match(html, /app\.js\?v=agenda-copy-remove-20260730-01/, "JavaScript cache key should include the agenda-copy removal revision");
 assert.match(html, /id="memoryHeroVideo"[\s\S]*?preload="none"[\s\S]*?<source data-src="assets\/media\/memory-hero\.mp4"/, "hero video should hydrate after the poster paints");
 assert.match(html, /id="talentStrategyVideoMedia"[\s\S]*?preload="none"[\s\S]*?data-poster="assets\/media\/china-talent-strategy-poster\.webp"[\s\S]*?<source data-src="assets\/media\/china-talent-strategy\.mp4"/, "below-fold talent media should not load during first paint");
 assert.doesNotMatch(html, /family=Noto\+Sans\+KR/, "Pretendard should replace the duplicate Korean webfont download");
@@ -163,6 +163,9 @@ assert.match(app, /const owner = cLevelAgentRoleLabel\(roleKey\);[\s\S]*?label: 
 assert.doesNotMatch(app, /label: `\$\{cLevelAgentRoleLabel\(roleKey\)\} · \$\{title\}`/, "agent briefing role and agenda labels should remain distinct");
 assert.match(app, /function withoutBriefingAgendaPhrase\(value = ""\) \{[\s\S]*?replace\(\/오늘\\s\*브리핑\\s\*안건/, "legacy briefing agenda prefixes should be removed from crawled titles");
 assert.doesNotMatch(app, /brief:\s*"오늘 브리핑 안건"/, "the removed briefing agenda phrase should not remain as an agent role label");
+assert.doesNotMatch(app, /오늘 안건|오늘 크롤링 근거를 경영진 토론 안건으로 자동 상정/, "removed live-agenda copy should not return in C-level cards or prompts");
+assert.match(app, /\$\{item\.action \? `<p>\$\{strategicHighlightHTML\(item\.action\)\}<\/p>` : ""\}/, "C-level cards should omit empty agenda descriptions instead of leaving blank copy");
+assert.match(app, /\$\{item\.tone \? `<small>\$\{strategicHighlightHTML\(item\.tone\)\}<\/small>` : ""\}/, "C-level cards should omit empty footer labels");
 assert.doesNotMatch(html, /id="liveFigures"|실시간 수치 근거|오늘 확인한 핵심 수치/, "live figures should not render as a standalone duplicate section");
 assert.match(app, /function articleFigureSignalsHTML\([\s\S]*?기사 원문에서 추출한 정량 근거/, "article cards should receive matching crawled figures inline");
 assert.match(app, /const figureSignals = articleFigureSignalsHTML\(item\);[\s\S]*?\$\{figureSignals\}/, "full news cards should show their own quantitative evidence");

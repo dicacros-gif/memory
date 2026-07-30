@@ -8214,9 +8214,9 @@
       jump: "executive-decision",
       terms,
       action: evidence.status === "live"
-        ? "오늘 크롤링 근거를 경영진 토론 안건으로 자동 상정"
+        ? ""
         : "이전 수집 근거를 임시 안건으로 유지하고 다음 크롤링에서 재검증",
-      go: evidence.status === "live" ? "오늘 안건" : "재검증 후 상정",
+      go: evidence.status === "live" ? "" : "재검증 후 상정",
       watch: "근거 재검토",
       hold: "DB 근거 유지",
       seedEvidence: { news: seedNews, benchmark: [], prices: [], kpis: [] },
@@ -9031,7 +9031,7 @@
     const roleKey = dailyAgentRoleKey(agent);
     const liveEvidence = verifiedDerivedContract("agentBriefing", "1.1")?.roles?.[roleKey];
     const roleLens = {
-      ceo: "이 근거가 오늘 안건의 최종 의사결정 조건을 충족하는지 판단합니다.",
+      ceo: "이 근거가 최종 의사결정 조건을 충족하는지 판단합니다.",
       cfo: "재무 관점에서는 가격·매출·투자 약정의 현금흐름 영향을 다시 계산해야 합니다.",
       cto: "기술 관점에서는 수율·대역폭·패키징 병목과 양산 가능성을 검증해야 합니다.",
       coo: "운영 관점에서는 생산능력·출하·공급 일정에 미치는 영향을 확인해야 합니다.",
@@ -9493,14 +9493,14 @@
           ${factBadge(item.verdict, item.verdict === "Go" ? "ok" : item.verdict === "Watch" ? "watch" : "fail")}
         </span>
         <strong>${strategicHighlightHTML(item.label)}</strong>
-        <p>${strategicHighlightHTML(item.action)}</p>
+        ${item.action ? `<p>${strategicHighlightHTML(item.action)}</p>` : ""}
         <div class="c-level-card-metrics">
           <span><b>${countHTML(item.evidenceCount)}</b><small>근거</small></span>
           <span><b>${countHTML(item.linkCount)}</b><small>링크/KPI</small></span>
           <span><b>${countHTML(item.priceRows)}</b><small>가격 rows</small></span>
         </div>
         <div class="c-level-meter" data-fill-to="${item.confidence}"><i style="width:0"></i></div>
-        <small>${strategicHighlightHTML(item.tone)}</small>
+        ${item.tone ? `<small>${strategicHighlightHTML(item.tone)}</small>` : ""}
       </button>
     `).join("");
 
