@@ -20769,6 +20769,39 @@ body.crawl-moderation-open {
   text-shadow: 0 1px 2px rgba(2, 8, 23, .55);
 }
 
+/* C-level cards use saturated decision colours when selected or hovered.
+   Switch semantic terms to light equivalents so company and action labels
+   retain their meaning without losing contrast against the inverted surface. */
+.c-level-card:is(:hover, :focus-visible, .council-active) :is(.strategy-highlight, .answer-term) {
+  --term-color: #fff7d6;
+  --term-hover: #fff7d6;
+  color: var(--term-color) !important;
+  -webkit-text-fill-color: var(--term-color);
+  text-decoration-color: rgba(255, 255, 255, .72) !important;
+  text-shadow: 0 1px 2px rgba(42, 18, 5, .5);
+}
+
+.c-level-card:is(:hover, :focus-visible, .council-active) .term-company {
+  --term-color: #f3e8ff;
+  --term-hover: #f3e8ff;
+}
+
+.c-level-card:is(:hover, :focus-visible, .council-active) .term-tech,
+.c-level-card:is(:hover, :focus-visible, .council-active) .term-action {
+  --term-color: #d1fae5;
+  --term-hover: #d1fae5;
+}
+
+.c-level-card:is(:hover, :focus-visible, .council-active) .term-metric {
+  --term-color: #fee2e2;
+  --term-hover: #fee2e2;
+}
+
+.c-level-card:is(:hover, :focus-visible, .council-active) .term-policy {
+  --term-color: #ffedd5;
+  --term-hover: #ffedd5;
+}
+
 /* Investment detail cards remain light on hover. Restore dark semantic inks
    instead of inheriting the pastel colors reserved for truly inverted cards. */
 .investment-focus:is(:hover, :focus-within) .investment-focus-block :is(.strategy-highlight, .answer-term) {
