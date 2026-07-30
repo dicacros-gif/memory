@@ -133,6 +133,7 @@ assert.match(app, /priceHistory: \{[\s\S]*?path: "data\/price-history-client\.js
 assert.match(css, /\.agent-debate-title \.agent-tts-toggle \{[\s\S]*?min-width: 190px;[\s\S]*?min-height: 44px;/, "the English TTS control should be large and readable");
 assert.match(css, /\.agent-tts-state \{[\s\S]*?min-width: 31px;/, "the TTS control should expose a dedicated on-or-off state badge");
 assert.match(html, /app\.js\?v=investment-infographic-20260730-01/, "JavaScript cache key should include the investment infographic revision");
+assert.match(html, /styles\.css\?v=investment-infographic-20260730-01/, "CSS cache key should include the investment infographic revision");
 assert.match(html, /id="memoryHeroVideo"[\s\S]*?preload="none"[\s\S]*?<source data-src="assets\/media\/memory-hero\.mp4"/, "hero video should hydrate after the poster paints");
 assert.match(html, /id="talentStrategyVideoMedia"[\s\S]*?preload="none"[\s\S]*?data-poster="assets\/media\/china-talent-strategy-poster\.webp"[\s\S]*?<source data-src="assets\/media\/china-talent-strategy\.mp4"/, "below-fold talent media should not load during first paint");
 assert.doesNotMatch(html, /family=Noto\+Sans\+KR/, "Pretendard should replace the duplicate Korean webfont download");
@@ -149,7 +150,6 @@ assert.match(css, /\.china-deep-video-dock \.talent-strategy-video \{[\s\S]*?hei
 assert.match(css, /@media \(max-width: 680px\) \{[\s\S]*?\.china-deep-video-dock \.talent-strategy-video \{[\s\S]*?aspect-ratio: 4 \/ 5;/, "the compact video height should preserve the mobile portrait layout");
 assert.match(css, /#talent-radar \.talent-radar-slider-slot \{[\s\S]*?display: flex;[\s\S]*?justify-content: center;/, "the talent radar slot should center its visual stage");
 assert.match(css, /#talent-radar \.talent-radar-slider \{[\s\S]*?width: min\(100%, 1360px\);[\s\S]*?margin-inline: auto;/, "the talent radar visual should use a bounded, centered desktop width");
-assert.match(html, /styles\.css\?v=clevel-text-contrast-20260730-01/, "CSS cache key should include the current C-level text contrast revision");
 assert.match(css, /\.qa-option:is\(:hover, :focus-visible, \.active\) \.qa-option-status \{[\s\S]*?background: rgba\(248, 250, 252, \.96\);[\s\S]*?color: var\(--qa-status-ink\) !important;[\s\S]*?-webkit-text-fill-color: var\(--qa-status-ink\);[\s\S]*?text-shadow: none;/, "inverted QA cards should keep status-chip text readable on a light chip surface");
 assert.match(css, /\.c-level-card:is\(:hover, :focus-visible, \.council-active\) :is\(\.strategy-highlight, \.answer-term\) \{[\s\S]*?--term-color: #fff7d6;[\s\S]*?color: var\(--term-color\) !important;[\s\S]*?-webkit-text-fill-color: var\(--term-color\);/, "inverted C-level decision cards should promote semantic terms to a light high-contrast palette");
 assert.match(css, /\.c-level-card:is\(:hover, :focus-visible, \.council-active\) \.term-company \{[\s\S]*?--term-color: #f3e8ff;[\s\S]*?\.c-level-card:is\(:hover, :focus-visible, \.council-active\) \.term-tech,[\s\S]*?--term-color: #d1fae5;/, "inverted C-level cards should retain readable company and action distinctions");
