@@ -189,6 +189,16 @@ for (const sourceId of [
 ]) {
   assert.ok(crawler.includes(`id: "${sourceId}"`), `${sourceId} must be health-checked by the crawler`);
 }
+assert.match(crawler, /company-tsmc-leadership[\s\S]*?sec\.gov\/Archives\/edgar/,
+  "TSMC leadership must fall back to its official SEC filing");
+assert.match(crawler, /company-tsmc-leadership[\s\S]*?globenewswire\.com[\s\S]*?NVIDIA-and-TSMC/,
+  "TSMC leadership must retain an issuer-distributed fallback for hosted-runner IP blocks");
+assert.match(crawler, /MemoryIntelligenceDashboard\/1\.0[\s\S]*?github\.com\/dicacros-gif\/memory/,
+  "SEC probes must identify the dashboard instead of impersonating a browser");
+assert.match(crawler, /company-jcet-profile[\s\S]*?english\.sse\.com\.cn/,
+  "JCET must fall back to an official exchange record when its corporate site blocks hosted runners");
+assert.match(crawler, /company-smic-profile[\s\S]*?hkexnews\.hk/,
+  "SMIC must fall back to an official exchange filing when its corporate site blocks hosted runners");
 
 assert.match(crawler, /equityIndex\("cxmt-stock", "688825\.SS"/,
   "CXMT must use its verified Shanghai STAR ticker");

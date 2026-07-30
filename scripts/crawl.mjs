@@ -7104,6 +7104,10 @@ const OFFICIAL_INDUSTRY_PROBES = [
     fallbackUrls: [
       "https://www.sec.gov/Archives/edgar/data/1046179/000162828026025362/tsm-20251231.htm",
       "https://www.sec.gov/Archives/edgar/data/1046179/000162828026025362/exhibit131.htm",
+      // NVIDIA's issuer-distributed release includes a direct quotation from
+      // TSMC and identifies C.C. Wei's current role. It remains available when
+      // both TSMC and SEC block the GitHub-hosted runner by IP.
+      "https://www.globenewswire.com/news-release/2026/06/01/3304000/0/en/NVIDIA-and-TSMC-Bring-AI-Into-Fabs-to-Advance-Semiconductor-Design-and-Manufacturing.html",
     ],
     retryAttempts: 3,
     pattern: /C\.?\s*C\.?\s*Wei|Y\.?\s*P\.?\s*Chyn|Wendell\s+Huang|executives/i,
@@ -7135,13 +7139,25 @@ const OFFICIAL_INDUSTRY_PROBES = [
     id: "company-jcet-profile",
     label: "JCET official company and governance profile",
     url: "https://www.jcetglobal.com/en",
+    fallbackUrls: [
+      "https://english.sse.com.cn/news/newsrelease/voice/c/c_20260629_10823788.shtml",
+      "https://english.sse.com.cn/news/newsrelease/digest/c/c_20250423_10777555.shtml",
+    ],
+    retryAttempts: 3,
     pattern: /turnkey|packaging|testing|committee|JCET/i,
   },
   {
     id: "company-smic-profile",
     label: "SMIC official company profile",
     url: "https://www.smics.com/en/site/about_summary",
-    fallbackUrls: ["https://www.smics.com/en"],
+    fallbackUrls: [
+      "https://www.smics.com/en",
+      "https://english.sse.com.cn/news/newsrelease/voice/c/c_20260414_10815146.shtml",
+      "https://big5.sse.com.cn/site/cht/www.sse.com.cn/star/en/marketdata/snapshot/c/5481443.shtml",
+    ],
+    pdfFallbackUrls: [
+      "https://www1.hkexnews.hk/listedco/listconews/sehk/2025/0409/2025040900322.pdf",
+    ],
     retryAttempts: 3,
     pattern: /Semiconductor\s+Manufacturing\s+International|SMIC|foundry/i,
   },
@@ -7242,6 +7258,21 @@ function officialProbeMatches(pattern, html = "") {
 function officialProbeHeaders(url, retry = false) {
   let referer = "";
   try { referer = `${new URL(url).origin}/`; } catch { /* URLs are curated constants */ }
+  // SEC asks automated clients to identify the application and a contact
+  // location. Using a generic browser signature can produce a policy 403 on
+  // hosted runners even though the filing itself is public.
+  if (/^https:\/\/(?:www\.)?sec\.gov\//i.test(String(url || ""))) {
+    return {
+      "User-Agent": "MemoryIntelligenceDashboard/1.0 (https://github.com/dicacros-gif/memory)",
+      Accept: "text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8",
+      "Accept-Language": "en-US,en;q=0.9",
+      "Accept-Encoding": "gzip, deflate",
+      ...(retry ? {
+        "Cache-Control": "no-cache",
+        Pragma: "no-cache",
+      } : {}),
+    };
+  }
   // Micron IR's CDN returns a 200 response containing an empty bot-challenge
   // shell when a browser-style Accept header is sent from hosted runners. A
   // normal User-Agent without content negotiation returns the complete public
