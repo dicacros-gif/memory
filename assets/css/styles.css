@@ -7013,6 +7013,174 @@ body.sidebar-collapsed .sb-ico {
   text-transform: uppercase;
 }
 
+#policy-makers .policy-tabs {
+  gap: 16px;
+  padding: 4px 4px 9px;
+  perspective: 1000px;
+}
+
+#policy-makers .policy-tab {
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+  min-height: 88px;
+  padding: 18px 104px 16px 18px;
+  border: 1px solid color-mix(in srgb, var(--local-accent, var(--accent)) 34%, var(--line));
+  border-radius: 16px;
+  background:
+    linear-gradient(145deg, rgba(255, 255, 255, .96), rgba(248, 250, 252, .9)),
+    var(--panel-2);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, .95),
+    inset 0 -1px 0 color-mix(in srgb, var(--local-accent, var(--accent)) 10%, transparent),
+    0 5px 0 color-mix(in srgb, var(--local-accent, var(--accent)) 24%, #cbd5e1),
+    0 10px 18px rgba(15, 23, 42, .09);
+  cursor: pointer;
+  transform: translate3d(0, 0, 0);
+  transform-style: preserve-3d;
+  transition:
+    transform .22s cubic-bezier(.2, .8, .2, 1),
+    border-color .22s ease,
+    background .22s ease,
+    box-shadow .22s ease,
+    color .22s ease;
+}
+
+#policy-makers .policy-tab::before {
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  background:
+    radial-gradient(circle at 92% 12%, color-mix(in srgb, var(--local-accent, var(--accent)) 18%, transparent), transparent 42%),
+    linear-gradient(110deg, rgba(255, 255, 255, .42), transparent 38%);
+  content: "";
+  opacity: .72;
+  transition: opacity .22s ease, transform .35s ease;
+}
+
+#policy-makers .policy-tab:hover,
+#policy-makers .policy-tab:focus-visible {
+  outline: none;
+  transform: translate3d(0, -4px, 0) scale(1.008);
+  border-color: color-mix(in srgb, var(--local-accent, var(--accent)) 68%, var(--line));
+  background:
+    linear-gradient(145deg, #fff, color-mix(in srgb, var(--local-accent, var(--accent)) 8%, #f8fafc));
+  box-shadow:
+    inset 0 1px 0 #fff,
+    0 7px 0 color-mix(in srgb, var(--local-accent, var(--accent)) 34%, #b8c2d1),
+    0 17px 28px rgba(15, 23, 42, .14);
+}
+
+#policy-makers .policy-tab:focus-visible {
+  box-shadow:
+    0 0 0 4px color-mix(in srgb, var(--local-accent, var(--accent)) 22%, transparent),
+    inset 0 1px 0 #fff,
+    0 7px 0 color-mix(in srgb, var(--local-accent, var(--accent)) 34%, #b8c2d1),
+    0 17px 28px rgba(15, 23, 42, .14);
+}
+
+#policy-makers .policy-tab:active {
+  transform: translate3d(0, 3px, 0) scale(.996);
+  box-shadow:
+    inset 0 2px 5px rgba(15, 23, 42, .15),
+    0 2px 0 color-mix(in srgb, var(--local-accent, var(--accent)) 40%, #94a3b8),
+    0 5px 10px rgba(15, 23, 42, .1);
+  transition-duration: .08s;
+}
+
+#policy-makers .policy-tab.active {
+  border-color: color-mix(in srgb, var(--local-accent, var(--accent)) 74%, #0f172a);
+  background:
+    linear-gradient(
+      145deg,
+      color-mix(in srgb, var(--local-accent, var(--accent)) 80%, #1e293b),
+      color-mix(in srgb, var(--local-accent, var(--accent)) 54%, #0f172a)
+    );
+  color: #fff;
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, .32),
+    inset 0 -1px 0 rgba(15, 23, 42, .34),
+    0 6px 0 color-mix(in srgb, var(--local-accent, var(--accent)) 48%, #0f172a),
+    0 15px 28px color-mix(in srgb, var(--local-accent, var(--accent)) 24%, transparent);
+  animation: policy-tab-select-pop .34s cubic-bezier(.2, .9, .2, 1);
+}
+
+#policy-makers .policy-tab.active::before {
+  background:
+    radial-gradient(circle at 90% 0, rgba(255, 255, 255, .28), transparent 43%),
+    linear-gradient(115deg, rgba(255, 255, 255, .2), transparent 42%);
+  opacity: 1;
+}
+
+#policy-makers .policy-tab strong {
+  color: var(--ink);
+  font-size: 16px;
+  line-height: 1.15;
+  transition: color .22s ease;
+}
+
+#policy-makers .policy-tab .policy-tab-subtitle {
+  color: var(--muted);
+  font-size: 11px;
+  line-height: 1.45;
+  transition: color .22s ease;
+}
+
+#policy-makers .policy-tab.active :is(strong, .policy-tab-subtitle) {
+  color: #fff;
+  text-shadow: 0 1px 2px rgba(15, 23, 42, .28);
+}
+
+#policy-makers .policy-tab.active .policy-tab-subtitle {
+  color: rgba(255, 255, 255, .82);
+}
+
+#policy-makers .policy-tab .policy-tab-state {
+  position: absolute;
+  top: 14px;
+  right: 14px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 58px;
+  min-height: 28px;
+  padding: 5px 10px;
+  border: 1px solid color-mix(in srgb, var(--local-accent, var(--accent)) 30%, var(--line));
+  border-radius: 999px;
+  background: color-mix(in srgb, var(--local-accent, var(--accent)) 8%, #fff);
+  color: color-mix(in srgb, var(--local-accent, var(--accent)) 78%, #0f172a);
+  font-size: 10px;
+  letter-spacing: .02em;
+  box-shadow: inset 0 1px 0 #fff;
+  transition: transform .22s ease, background .22s ease, color .22s ease;
+}
+
+#policy-makers .policy-tab.active .policy-tab-state {
+  border-color: rgba(255, 255, 255, .5);
+  background: #fff;
+  color: color-mix(in srgb, var(--local-accent, var(--accent)) 72%, #0f172a);
+  box-shadow: 0 3px 8px rgba(15, 23, 42, .18);
+}
+
+#policy-makers .policy-tab:hover .policy-tab-state {
+  transform: translateY(-1px) scale(1.04);
+}
+
+@keyframes policy-tab-select-pop {
+  0% { transform: translate3d(0, 2px, 0) scale(.985); }
+  62% { transform: translate3d(0, -3px, 0) scale(1.012); }
+  100% { transform: translate3d(0, -2px, 0) scale(1); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  #policy-makers .policy-tab,
+  #policy-makers .policy-tab::before,
+  #policy-makers .policy-tab .policy-tab-state {
+    animation: none;
+    transition: none;
+  }
+}
+
 .policy-summary {
   grid-template-columns: repeat(auto-fit, minmax(210px, 1fr));
 }

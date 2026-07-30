@@ -15919,9 +15919,10 @@
     const tabs = $("#policyTabs");
     if (!tabs) return;
     tabs.innerHTML = POLICY_MAKER_LENSES.map((item) => `
-      <button class="policy-tab${item.id === lens.id ? " active" : ""}" type="button" role="tab" aria-selected="${item.id === lens.id ? "true" : "false"}" data-policy-tab="${escapeHTML(item.id)}" style="--local-accent:${categoryAccent(item.accentCategory)}">
+      <button class="policy-tab${item.id === lens.id ? " active" : ""}" type="button" role="tab" aria-selected="${item.id === lens.id ? "true" : "false"}" aria-pressed="${item.id === lens.id ? "true" : "false"}" data-policy-tab="${escapeHTML(item.id)}" style="--local-accent:${categoryAccent(item.accentCategory)}">
+        <span class="policy-tab-state" aria-hidden="true">${item.id === lens.id ? "선택됨" : "선택"}</span>
         <strong>${escapeHTML(item.label)}</strong>
-        <span>${escapeHTML(item.subtitle)}</span>
+        <span class="policy-tab-subtitle">${escapeHTML(item.subtitle)}</span>
       </button>
     `).join("");
     tabs.querySelectorAll("[data-policy-tab]").forEach((btn) => {
