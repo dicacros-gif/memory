@@ -15577,6 +15577,7 @@
   function renderInvestmentFocus(target, item, section) {
     if (!target || !item) return;
     const payload = investmentPayload(item, section);
+    const allocationValue = Math.max(0, Math.min(100, Number.parseFloat(item.allocation) || 0));
     target.style.setProperty("--local-accent", categoryAccent((item.linkedCategories || [])[0]));
     target.innerHTML = `
       <div class="investment-focus-head">
@@ -15585,21 +15586,37 @@
         <p>${escapeHTML(item.thesis || item.logic)}</p>
         <div class="evidence-row">${proofBadgeHTML(item)}</div>
       </div>
-      <div class="investment-focus-block is-priority">
-        <strong>${item.allocation ? "전략 가중치" : "판단 상태"}</strong>
-        <p>${item.allocation ? `${strategicHighlightHTML(item.allocation)} · 실제 자본 배분 확정값이 아니라, 현재 수집 신호 기반 우선순위입니다.` : strategicHighlightHTML(item.stage || "Gate")}</p>
-      </div>
-      <div class="investment-focus-block is-action">
-        <strong>실행 관점</strong>
-        <p>${strategicHighlightHTML(item.capital || item.action || "")}</p>
-      </div>
-      <div class="investment-focus-block is-formula">
-        <strong>우선순위 산식</strong>
-        <p>${strategicHighlightHTML("근거지수 = 기준점수 + 가격·뉴스·정책 근거 + 가격 모멘텀 + 연결 전략 점수. 실측값은 가격 데이터와 원문 링크 수만 별도 집계합니다.")}</p>
-      </div>
-      <div class="investment-focus-block is-gate">
-        <strong>${section === "management-strategy" ? "전략 실행" : "의사결정 게이트"}</strong>
-        <ul class="watch-list">${(item.actions || item.gate || []).map((line) => `<li>${strategicHighlightHTML(line)}</li>`).join("")}</ul>
+      <div class="investment-focus-flow" aria-label="전략 의사결정 흐름">
+        <div class="investment-focus-block is-priority" data-step="01">
+          <span class="investment-focus-kicker">PRIORITY</span>
+          <strong>${item.allocation ? "전략 가중치" : "판단 상태"}</strong>
+          ${item.allocation ? `
+            <div class="investment-priority-meter" style="--priority-value:${allocationValue}%">
+              <span class="investment-priority-value">${strategicHighlightHTML(item.allocation)}</span>
+              <span class="investment-priority-caption">수집 신호 기반 우선순위</span>
+              <i aria-hidden="true"></i>
+            </div>
+            <p class="investment-focus-note">실제 자본 배분 확정값 아님</p>
+          ` : `<p>${strategicHighlightHTML(item.stage || "Gate")}</p>`}
+        </div>
+        <div class="investment-focus-block is-action" data-step="02">
+          <span class="investment-focus-kicker">DIRECTION</span>
+          <strong>실행 관점</strong>
+          <p class="investment-action-line">${strategicHighlightHTML(item.capital || item.action || "")}</p>
+        </div>
+        <div class="investment-focus-block is-formula" data-step="03">
+          <span class="investment-focus-kicker">LOGIC</span>
+          <strong>우선순위 산식</strong>
+          <div class="investment-formula" aria-label="근거지수 산식">
+            <span>기준점수</span><b>+</b><span>가격·뉴스·정책</span><b>+</b><span>가격 모멘텀</span><b>+</b><span>전략 연결</span>
+          </div>
+          <p class="investment-focus-note">실측값은 가격 데이터와 원문 링크 수만 별도 집계</p>
+        </div>
+        <div class="investment-focus-block is-gate" data-step="04">
+          <span class="investment-focus-kicker">EXECUTION</span>
+          <strong>${section === "management-strategy" ? "전략 실행" : "의사결정 게이트"}</strong>
+          <ul class="watch-list">${(item.actions || item.gate || []).map((line) => `<li>${strategicHighlightHTML(line)}</li>`).join("")}</ul>
+        </div>
       </div>
       <div class="focus-actions">
         <button type="button" data-investment-copy>복사</button>
