@@ -7753,10 +7753,11 @@ body.sidebar-collapsed .sb-ico {
 #china-talent-strategy .policy-rule-card,
 #china-talent-strategy .policy-focus {
   --talent-card-accent: var(--local-accent, var(--accent));
-  border: 2px solid color-mix(in srgb, var(--talent-card-accent) 62%, var(--line));
+  --talent-card-frame: #607286;
+  border: 2px solid color-mix(in srgb, var(--talent-card-frame) 68%, var(--line));
   background:
     linear-gradient(145deg, color-mix(in srgb, var(--talent-card-accent) 8%, var(--panel)), var(--panel) 58%);
-  box-shadow: 0 10px 24px color-mix(in srgb, var(--talent-card-accent) 9%, transparent);
+  box-shadow: 0 10px 24px rgba(51, 65, 85, .09);
   transition: transform .22s cubic-bezier(.2, .8, .2, 1), border-color .22s ease, background .22s ease, box-shadow .22s ease;
 }
 
@@ -7772,7 +7773,7 @@ body.sidebar-collapsed .sb-ico {
 
 #china-talent-strategy :is(.policy-card, .policy-rule-card, .policy-focus):is(:hover, :focus-within) {
   transform: translateY(-5px);
-  border-color: #0e7490;
+  border-color: #365d7e;
   background:
     radial-gradient(circle at 8% 0%, rgba(147, 197, 253, .24), transparent 38%),
     linear-gradient(135deg, #153e75 0%, #0e7490 54%, #0f766e 100%);
