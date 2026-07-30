@@ -7,6 +7,9 @@ const app = await readFile(new URL("../assets/js/app.js", import.meta.url), "utf
 const css = await readFile(new URL("../assets/css/styles.css", import.meta.url), "utf8");
 const html = await readFile(new URL("../index.html", import.meta.url), "utf8");
 const crawler = await readFile(new URL("./crawl.mjs", import.meta.url), "utf8");
+const companyIntelligence = JSON.parse(
+  await readFile(new URL("../data/company-intelligence.json", import.meta.url), "utf8"),
+);
 
 assert.match(html, /id="equity-value-chain"/, "the value-chain equity dashboard must be mounted at the bottom of the site");
 assert.ok(
@@ -25,8 +28,10 @@ assert.match(css, /#equity-value-chain\s*\{\s*order:\s*29;\s*\}/,
   "the value-chain dashboard must have an explicit bottom-of-page order");
 assert.match(css, /#marketIndexPanel\s*\{\s*order:\s*30;\s*\}/,
   "the SOX and listed-peer dashboard must have the final content order");
-assert.match(app, /\{ id: "equity-value-chain", render: renderEquityValueChain, data: \["marketHistory"\] \}/,
-  "the heavy equity dashboard must lazy-load the market artifact");
+assert.match(app, /\{ id: "equity-value-chain", render: renderEquityValueChain, data: \["marketHistory", "enterpriseProfiles"\] \}/,
+  "the heavy equity dashboard must load market history and company intelligence together");
+assert.match(app, /enterpriseProfiles:\s*\{[\s\S]*?data\/company-intelligence\.json[\s\S]*?managed:\s*false/,
+  "company profiles must load as a small static evidence artifact without the run-manifest gate");
 assert.match(app, /id: "stock"[\s\S]*?label: "Stock 분석"[\s\S]*?jump: "equity-value-chain"/,
   "the sidebar must expose a dedicated Stock analysis route");
 assert.match(app, /\{ label: "주가 분석", routes: \["stock"\] \},\s*\];/,
@@ -131,8 +136,59 @@ assert.match(css, /\.equity-ticker-grid button:is\(:hover, :focus-visible\) \{[\
   "listed-company cards must invert to a professional animated gradient on hover");
 assert.match(css, /\.equity-ticker-grid button\.active:is\(:hover, :focus-visible\) \{[\s\S]*?linear-gradient\(145deg, #17324d 0%, #0d5963 56%, #08796d 100%\)[\s\S]*?\.equity-ticker-grid button\.active:is\(:hover, :focus-visible\) :is\(b, strong, small, em\) \{[\s\S]*?color:\s*#fff[\s\S]*?opacity:\s*1/,
   "selected listed-company cards must retain high-contrast text when hover and focus states overlap");
+assert.match(app, /function companyIntelligenceHTML[\s\S]*?companyOrganizationHTML\(profile\)[\s\S]*?companyStrategyHTML\(profile\)[\s\S]*?companyEvidenceHTML\(profile\)[\s\S]*?Corporate facts/,
+  "company detail must separate market facts, leadership, official priorities, and recent evidence");
+assert.match(app, /function companyRecentNews[\s\S]*?canonicalNewsKey\(item\)[\s\S]*?canonicalNewsStoryKey\(item\)/,
+  "company evidence must use canonical story deduplication rather than repeat articles");
+assert.match(app, /const detailIndex = indexes\.find\(\(index\) => index\.id === state\.detailId\)[\s\S]*?companyIntelligenceHTML\(region, detailIndex, period\)/,
+  "clicking a listed company must drive the inline company intelligence panel");
+assert.match(app, /data-equity-stock[\s\S]*?state\.detailId = id[\s\S]*?renderEquityRegion\(region\)/,
+  "company selection must update the detail panel in the existing stock region");
+assert.match(css, /\.company-intelligence-grid \{[\s\S]*?grid-template-columns:\s*repeat\(2,[\s\S]*?\.company-org-executives \{[\s\S]*?grid-template-columns:\s*repeat\(auto-fit/,
+  "company intelligence must use a responsive consulting-style grid and executive organization chart");
+assert.match(css, /@keyframes companyPanelReveal[\s\S]*?@keyframes companyConnectorMove/,
+  "company cards and organization connectors must include purposeful motion");
 assert.match(css, /@media \(prefers-reduced-motion: reduce\)[\s\S]*?\.equity-chart-line/,
   "equity motion must respect reduced-motion settings");
+assert.match(css, /@media \(prefers-reduced-motion: reduce\)[\s\S]*?\.company-intelligence-panel[\s\S]*?animation:\s*none/,
+  "company intelligence motion must respect reduced-motion settings");
+
+assert.equal(companyIntelligence.schemaVersion, "1.0", "company intelligence schema must be versioned");
+const companyProfiles = Object.entries(companyIntelligence.profiles || {});
+assert.ok(companyProfiles.length >= 13, "company intelligence must cover core global and China decision companies");
+for (const [id, profile] of companyProfiles) {
+  assert.ok(id.endsWith("-stock"), `${id} must join the market-history index by stock id`);
+  assert.match(profile.officialUrl || "", /^https:\/\//, `${id} must retain an official company URL`);
+  assert.ok(Array.isArray(profile.organization), `${id} must expose a structured organization array`);
+  for (const person of profile.organization) {
+    assert.ok(person.role && person.function, `${id} organization entries require role and function`);
+    if (person.name) {
+      assert.match(person.sourceUrl || "", /^https:\/\//,
+        `${id} named executives require a direct official source`);
+    }
+  }
+  for (const priority of profile.officialPriorities || []) {
+    assert.ok(priority.title && priority.detail, `${id} official priorities require title and detail`);
+    assert.match(priority.sourceUrl || "", /^https:\/\//,
+      `${id} official priorities require a direct source`);
+  }
+}
+for (const sourceId of [
+  "company-skhynix-leadership",
+  "company-samsung-leadership",
+  "company-micron-leadership",
+  "company-nvidia-leadership",
+  "company-tsmc-leadership",
+  "company-amd-leadership",
+  "company-asml-leadership",
+  "company-broadcom-leadership",
+  "company-jcet-profile",
+  "company-smic-profile",
+  "company-naura-profile",
+  "company-amec-profile",
+]) {
+  assert.ok(crawler.includes(`id: "${sourceId}"`), `${sourceId} must be health-checked by the crawler`);
+}
 
 assert.match(crawler, /equityIndex\("cxmt-stock", "688825\.SS"/,
   "CXMT must use its verified Shanghai STAR ticker");

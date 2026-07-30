@@ -2057,6 +2057,7 @@
   let MARKET_HISTORY = emptyMarketHistory;
   let MARKET_HISTORY_ITEMS_CACHE = { source: null, items: [] };
   let QUANT_BACKTEST = emptyQuantBacktest;
+  let COMPANY_INTELLIGENCE = { schemaVersion: "1.0", profiles: {} };
   let DATA_MANIFEST = null;
   let REPO_CRAWL_EXCLUSIONS = emptyCrawlExclusions;
   let RESEARCH_ARCHIVE = { items: [] };
@@ -4915,7 +4916,7 @@
       { id: "memory-market-map", render: renderMemoryMarketMap },
       { id: "ai-matrix", render: renderArchitectureMatrix },
       { id: "china-deep-dive", render: renderChinaDeepDive },
-      { id: "equity-value-chain", render: renderEquityValueChain, data: ["marketHistory"] },
+      { id: "equity-value-chain", render: renderEquityValueChain, data: ["marketHistory", "enterpriseProfiles"] },
     ];
   }
 
@@ -4940,10 +4941,23 @@
         schemaVersion: "1.0",
         assign: (value) => { QUANT_BACKTEST = selectSameRunArtifact(value, emptyQuantBacktest, "1.0"); },
       },
+      enterpriseProfiles: {
+        path: "data/company-intelligence.json",
+        fallback: { schemaVersion: "1.0", profiles: {} },
+        managed: false,
+        assign: (value) => {
+          COMPANY_INTELLIGENCE = value && typeof value === "object"
+            ? value
+            : { schemaVersion: "1.0", profiles: {} };
+        },
+      },
     };
     const definition = definitions[id];
     if (!definition) return Promise.resolve();
-    const promise = loadManagedJSON(id, definition.path, definition.fallback).then((value) => definition.assign(value));
+    const promise = (definition.managed === false
+      ? loadJSON(definition.path, definition.fallback)
+      : loadManagedJSON(id, definition.path, definition.fallback))
+      .then((value) => definition.assign(value));
     secondaryDataPromises.set(id, promise);
     return promise;
   }
@@ -21657,8 +21671,8 @@
   ];
   const equityChainState = {
     period: "1y",
-    global: { mode: "group", category: "all", selected: [] },
-    china: { mode: "group", category: "all", selected: [] },
+    global: { mode: "group", category: "all", selected: [], detailId: "skhy-stock" },
+    china: { mode: "group", category: "all", selected: [], detailId: "cxmt-stock" },
   };
 
   function equityPercent(value) {
@@ -22074,6 +22088,216 @@
     });
   }
 
+  function companyIntelligenceProfile(id = "") {
+    const profiles = COMPANY_INTELLIGENCE?.profiles;
+    if (!profiles || typeof profiles !== "object") return null;
+    return profiles[id] && typeof profiles[id] === "object" ? profiles[id] : null;
+  }
+
+  function companySourceCheck(profile = {}) {
+    const id = String(profile.sourceCheckId || "").trim();
+    if (!id) return null;
+    const checks = QUANT?.industrySourceChecks;
+    if (!checks || typeof checks !== "object") return null;
+    return checks[id] || null;
+  }
+
+  function uniqueCompanyRows(rows = [], keyBuilder = (item) => JSON.stringify(item)) {
+    const seen = new Set();
+    return rows.filter((item) => {
+      const key = String(keyBuilder(item) || "").toLowerCase().replace(/\s+/g, " ").trim();
+      if (!key || seen.has(key)) return false;
+      seen.add(key);
+      return true;
+    });
+  }
+
+  function companyRecentNews(profile = {}) {
+    const keywords = uniqueCompanyRows(
+      (profile.keywords || []).map((keyword) => String(keyword || "").trim()).filter(Boolean),
+      (keyword) => keyword,
+    );
+    if (!keywords.length) return [];
+    const selected = new Map();
+    rawNews()
+      .filter((item) => {
+        const hay = [
+          item.title,
+          item.titleKo,
+          item.summary,
+          item.summaryKo,
+          item.source,
+        ].join(" ").toLowerCase();
+        return keywords.some((keyword) => hay.includes(keyword.toLowerCase()));
+      })
+      .sort((a, b) => newsTimestamp(b) - newsTimestamp(a))
+      .forEach((item) => {
+        const key = canonicalNewsKey(item) || canonicalNewsStoryKey(item);
+        if (key && !selected.has(key)) selected.set(key, item);
+      });
+    return [...selected.values()].slice(0, 4);
+  }
+
+  function companySourceBadgeHTML(profile = {}) {
+    const check = companySourceCheck(profile);
+    if (check?.reachable === true) {
+      return `<span class="company-source-state is-connected"><i></i>공식 출처 연결</span>`;
+    }
+    if (profile.leadershipSourceUrl || profile.officialUrl) {
+      return `<span class="company-source-state"><i></i>공식 페이지 기준</span>`;
+    }
+    return `<span class="company-source-state is-market-only"><i></i>상장·가격 정보</span>`;
+  }
+
+  function companyOrganizationHTML(profile = {}) {
+    const organization = uniqueCompanyRows(
+      Array.isArray(profile.organization) ? profile.organization : [],
+      (item) => `${item.name || ""}|${item.role || ""}|${item.function || ""}`,
+    );
+    if (!organization.length) return "";
+    const chiefs = organization.filter((item) => item.level === "chief");
+    const executives = organization.filter((item) => item.level !== "chief");
+    const renderNode = (item, index) => {
+      const named = String(item.name || "").trim();
+      const label = named || "공식 인물 미표시";
+      const body = `
+        <span>${escapeHTML(item.function || "책임 조직")}</span>
+        <strong>${escapeHTML(label)}</strong>
+        <b>${escapeHTML(item.role || "Executive function")}</b>
+      `;
+      return item.sourceUrl
+        ? `<a class="company-org-node ${named ? "is-named" : "is-role-only"}" href="${escapeHTML(item.sourceUrl)}" target="_blank" rel="noopener noreferrer" style="--org-order:${index}">${body}<em>공식 원문 ↗</em></a>`
+        : `<div class="company-org-node is-role-only" style="--org-order:${index}">${body}<em>직책 기준</em></div>`;
+    };
+    const chiefRows = chiefs.length ? chiefs : organization.slice(0, 1);
+    const executiveRows = chiefs.length ? executives : organization.slice(1);
+    return `
+      <section class="company-intelligence-card company-org-card">
+        <header><span>02</span><div><small>Leadership map</small><h4>임원·책임 조직</h4></div></header>
+        <div class="company-org-chart">
+          <div class="company-org-chief">${chiefRows.map(renderNode).join("")}</div>
+          ${executiveRows.length ? `<i class="company-org-connector" aria-hidden="true"></i>` : ""}
+          ${executiveRows.length ? `<div class="company-org-executives">${executiveRows.map((item, index) => renderNode(item, index + chiefRows.length)).join("")}</div>` : ""}
+        </div>
+      </section>
+    `;
+  }
+
+  function companyStrategyHTML(profile = {}) {
+    const priorities = uniqueCompanyRows(
+      Array.isArray(profile.officialPriorities) ? profile.officialPriorities : [],
+      (item) => `${item.title || ""}|${item.detail || ""}`,
+    );
+    if (!priorities.length) return "";
+    return `
+      <section class="company-intelligence-card company-strategy-card">
+        <header><span>03</span><div><small>Official priorities</small><h4>공식 실행 방향</h4></div></header>
+        <div class="company-strategy-flow">
+          ${priorities.map((item, index) => `
+            <a href="${escapeHTML(item.sourceUrl || profile.officialUrl || "#")}" target="_blank" rel="noopener noreferrer" style="--strategy-order:${index}">
+              <i>${String(index + 1).padStart(2, "0")}</i>
+              <span><b>${escapeHTML(item.title || "공식 우선순위")}</b><small>${escapeHTML(item.owner || "책임 조직")}</small></span>
+              <p>${escapeHTML(item.detail || "")}</p>
+              <em>원문 ↗</em>
+            </a>
+          `).join("")}
+        </div>
+      </section>
+    `;
+  }
+
+  function companyEvidenceHTML(profile = {}) {
+    const news = companyRecentNews(profile);
+    if (!news.length) return "";
+    return `
+      <section class="company-intelligence-card company-evidence-card">
+        <header><span>04</span><div><small>Latest evidence</small><h4>최근 공개 근거</h4></div></header>
+        <div class="company-evidence-list">
+          ${news.map((item, index) => {
+            const title = newsTitle(item) || "기사 원문";
+            const summary = sourceSafeSummary(item);
+            const url = item.sourceUrl || item.link || "#";
+            const date = formatNewsDate(item.date || item.publishedAt || item.crawledAt || "");
+            return `
+              <a href="${escapeHTML(url)}" target="_blank" rel="noopener noreferrer" style="--evidence-order:${index}">
+                <span>${escapeHTML(displayNewsPublisher(item) || "원문")}${date ? ` · ${escapeHTML(date)}` : ""}</span>
+                <b>${escapeHTML(title)}</b>
+                ${summary && !sameInsightText(summary, title) ? `<small>${escapeHTML(summary)}</small>` : ""}
+              </a>
+            `;
+          }).join("")}
+        </div>
+      </section>
+    `;
+  }
+
+  function companyIntelligenceHTML(region, index = {}, period = EQUITY_CHAIN_PERIODS[2]) {
+    if (!index?.id) return "";
+    const profile = companyIntelligenceProfile(index.id);
+    const points = marketIndexPoints(index);
+    const scoped = equityScopedPoints(index, period);
+    const first = scoped[0] || null;
+    const latest = scoped.at(-1) || points.at(-1) || null;
+    const changePct = first && latest && Number(first.close) > 0
+      ? ((Number(latest.close) - Number(first.close)) / Number(first.close)) * 100
+      : Number.NaN;
+    const coverageDays = first && latest ? Math.max(0, Math.round((latest.time - first.time) / 86400000)) : 0;
+    const category = EQUITY_CHAIN_REGIONS[region]?.categories?.find((item) => item.id === index.valueChain);
+    const organization = profile ? companyOrganizationHTML(profile) : "";
+    const strategy = profile ? companyStrategyHTML(profile) : "";
+    const evidence = profile ? companyEvidenceHTML(profile) : "";
+    const decisionFocus = uniqueCompanyRows(
+      Array.isArray(profile?.decisionFocus) ? profile.decisionFocus : [],
+      (item) => item,
+    );
+    const officialUrl = profile?.officialUrl || index.officialSourceUrl || index.sourceUrl || "";
+    const leadershipUrl = profile?.leadershipSourceUrl || "";
+    return `
+      <section class="company-intelligence-panel" data-company-intelligence="${escapeHTML(index.id)}" style="--company-accent:${escapeHTML(EQUITY_CHAIN_COLORS[index.valueChain] || "#2dd4bf")}">
+        <div class="company-intelligence-hero">
+          <div class="company-intelligence-identity">
+            ${equityCompanyLogoHTML(index)}
+            <div>
+              <span>${escapeHTML(category?.stage || "Listed company")} · ${escapeHTML(category?.label || index.valueChain || "")}</span>
+              <h3>${escapeHTML(profile?.nameKo || index.shortName || index.labelKo || index.label || index.symbol || "")}</h3>
+              <p>${escapeHTML(profile?.summary || `${category?.focus || "반도체 밸류체인"} 상장 기업의 실제 종가와 공개 기업 정보를 연결`)}</p>
+            </div>
+          </div>
+          <div class="company-intelligence-links">
+            ${companySourceBadgeHTML(profile || {})}
+            ${officialUrl ? `<a href="${escapeHTML(officialUrl)}" target="_blank" rel="noopener noreferrer">기업 원문 ↗</a>` : ""}
+            ${leadershipUrl && leadershipUrl !== officialUrl ? `<a href="${escapeHTML(leadershipUrl)}" target="_blank" rel="noopener noreferrer">리더십 원문 ↗</a>` : ""}
+          </div>
+        </div>
+        <div class="company-market-facts">
+          <span><small>종목·거래소</small><b>${escapeHTML(index.symbol || "—")}</b><em>${escapeHTML(index.exchange || index.exchangeName || "")}</em></span>
+          <span><small>최근 종가</small><b>${latest ? escapeHTML(equityCloseLabel(latest.close, index.currency)) : "—"}</b><em>${latest ? escapeHTML(shortKstDateWithYear(latest.time)) : "관측 전"}</em></span>
+          <span><small>${escapeHTML(period.label)} 변화</small><b class="${changePct >= 0 ? "up" : "down"}">${Number.isFinite(changePct) ? `<i class="count" data-from="0" data-to="${escapeHTML(changePct.toFixed(2))}" data-decimals="2" data-prefix="${changePct > 0 ? "+" : ""}" data-suffix="%">${escapeHTML(equityPercent(changePct))}</i>` : "—"}</b><em>첫 종가 대비</em></span>
+          <span><small>관측 범위</small><b><i class="count" data-from="0" data-to="${points.length}" data-decimals="0">${points.length}</i>회</b><em>${coverageDays ? `${coverageDays.toLocaleString("ko-KR")}일` : "신규 관측"}</em></span>
+        </div>
+        <div class="company-intelligence-grid">
+          <section class="company-intelligence-card company-fact-card">
+            <header><span>01</span><div><small>Corporate facts</small><h4>기업·시장 사실</h4></div></header>
+            <ul>
+              <li><b>사업 위치</b><span>${escapeHTML(category?.focus || category?.label || "반도체 밸류체인")}</span></li>
+              <li><b>가격 출처</b><span>${escapeHTML(latest?.source || index.source || index.latestSource || "공개 시장 데이터")}</span></li>
+              <li><b>검증 기준</b><span>종가·조직·전략·기사를 서로 다른 근거층으로 분리</span></li>
+            </ul>
+          </section>
+          ${organization}
+          ${strategy}
+          ${decisionFocus.length ? `
+            <section class="company-intelligence-card company-focus-card">
+              <header><span>↗</span><div><small>Decision watch</small><h4>경영 관찰 포인트</h4></div></header>
+              <ol>${decisionFocus.map((item, index) => `<li style="--focus-order:${index}"><i>${String(index + 1).padStart(2, "0")}</i><span>${escapeHTML(item)}</span></li>`).join("")}</ol>
+            </section>
+          ` : ""}
+          ${evidence}
+        </div>
+      </section>
+    `;
+  }
+
   function renderEquityRegion(region) {
     const panel = document.querySelector(`[data-equity-region="${region}"]`);
     if (!panel) return;
@@ -22084,6 +22308,11 @@
     const filteredIndexes = indexes.filter((index) => state.category === "all" || index.valueChain === state.category);
     const series = equityVisibleSeries(region, indexes, period);
     const analysis = equityRegionAnalysis(region, series, indexes, period);
+    const detailIndex = indexes.find((index) => index.id === state.detailId)
+      || indexes.find((index) => companyIntelligenceProfile(index.id))
+      || indexes[0]
+      || null;
+    if (detailIndex) state.detailId = detailIndex.id;
     const latestLabel = analysis.latestTime ? shortKstDateWithYear(analysis.latestTime) : "수집 전";
     panel.innerHTML = `
       <div class="equity-region-head">
@@ -22115,9 +22344,10 @@
           const points = marketIndexPoints(index);
           const latest = points.at(-1) || null;
           const selected = state.selected.includes(index.id);
+          const detailActive = state.detailId === index.id;
           const isNew = index.newListing === true || points.length < 10;
           return `
-            <button type="button" data-equity-stock="${escapeHTML(index.id)}" class="${selected ? "active" : ""}" style="--ticker-accent:${escapeHTML(EQUITY_CHAIN_COLORS[index.valueChain] || "#34c5a1")}" title="${escapeHTML(`${index.label || index.shortName} · ${index.exchange || index.exchangeName || ""}`)}">
+            <button type="button" data-equity-stock="${escapeHTML(index.id)}" class="${selected ? "active" : ""} ${detailActive ? "is-detail" : ""}" style="--ticker-accent:${escapeHTML(EQUITY_CHAIN_COLORS[index.valueChain] || "#34c5a1")}" title="${escapeHTML(`${index.label || index.shortName} · ${index.exchange || index.exchangeName || ""}`)}" aria-pressed="${detailActive ? "true" : "false"}">
               <span class="equity-ticker-identity">
                 ${equityCompanyLogoHTML(index)}
                 <span class="equity-ticker-name">
@@ -22131,6 +22361,7 @@
           `;
         }).join("")}
       </div>
+      ${detailIndex ? companyIntelligenceHTML(region, detailIndex, period) : ""}
       <div class="equity-analysis-strip">
         <span><small>기간 선도</small><b>${escapeHTML(analysis.leader?.label || "—")}</b><em class="up">${escapeHTML(equityPercent(analysis.leader?.changePct))}</em></span>
         <span><small>기간 하위</small><b>${escapeHTML(analysis.laggard?.label || "—")}</b><em class="down">${escapeHTML(equityPercent(analysis.laggard?.changePct))}</em></span>
@@ -22178,6 +22409,7 @@
       button.addEventListener("click", () => {
         const id = button.dataset.equityStock;
         state.mode = "stock";
+        state.detailId = id;
         if (state.selected.includes(id)) {
           if (state.selected.length > 1) state.selected = state.selected.filter((item) => item !== id);
         } else {
@@ -22186,6 +22418,7 @@
         renderEquityRegion(region);
       });
     });
+    animateCounts(panel, { nearViewport: true });
     wireEquityChartTooltip(panel, series);
   }
 

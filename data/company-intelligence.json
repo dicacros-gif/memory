@@ -1,0 +1,793 @@
+{
+  "schemaVersion": "1.0",
+  "generatedAt": "2026-07-31T00:00:00+09:00",
+  "policy": {
+    "identity": "상장 정보와 종가는 market-history의 실제 관측값만 사용",
+    "leadership": "회사 공식 리더십·IR·공시에서 확인한 인물과 직책만 노출",
+    "strategy": "공식 발표의 실행 방향과 대시보드의 관찰 포인트를 분리",
+    "fallback": "최신 공식 인물 확인이 어려운 기업은 이름을 추정하지 않고 책임 조직만 표시"
+  },
+  "profiles": {
+    "skhy-stock": {
+      "nameKo": "SK하이닉스",
+      "name": "SK hynix",
+      "summary": "HBM에서 AI DRAM·AI NAND·eSSD까지 메모리 계층 전체를 고객 공동 설계로 연결",
+      "officialUrl": "https://www.skhynix.com/",
+      "leadershipSourceUrl": "https://www.skhynix.com/company/UI-FR-CP0301/",
+      "sourceCheckId": "company-skhynix-leadership",
+      "verifiedAt": "2026-07-31",
+      "organization": [
+        {
+          "name": "Kwak Noh-Jung",
+          "role": "President & CEO",
+          "function": "전사 전략·경영",
+          "level": "chief",
+          "sourceUrl": "https://www.skhynix.com/company/UI-FR-CP0301/"
+        },
+        {
+          "name": "Ahn Hyun",
+          "role": "Chief Development Officer",
+          "function": "AI 메모리 개발",
+          "level": "executive",
+          "sourceUrl": "https://news.skhynix.com/invention-day-2026/"
+        },
+        {
+          "name": "Yunik Son",
+          "role": "VP, Head of Device Tech Solutions",
+          "function": "소자·공정·설계 통합",
+          "level": "executive",
+          "sourceUrl": "https://news.skhynix.com/2026-new-executive-yunikson/"
+        },
+        {
+          "name": "Hanul Park",
+          "role": "VP, Head of Global Talent",
+          "function": "글로벌 인재·조직",
+          "level": "executive",
+          "sourceUrl": "https://news.skhynix.com/2026-new-executive-parkhanul/"
+        }
+      ],
+      "officialPriorities": [
+        {
+          "title": "Full-stack AI memory",
+          "detail": "HBM4·HBM4E·SOCAMM2·LPDDR·eSSD를 하나의 AI 메모리 포트폴리오로 연결",
+          "owner": "CEO·개발",
+          "sourceUrl": "https://news.skhynix.com/hbm-to-essd/"
+        },
+        {
+          "title": "Customer co-design",
+          "detail": "AI 칩·워크로드·전력·열 설계를 반영해 제품 개발과 패키징 인프라를 고객과 공동 최적화",
+          "owner": "사업·R&D",
+          "sourceUrl": "https://news.skhynix.com/ai-competition-next-challenge/"
+        }
+      ],
+      "decisionFocus": [
+        "HBM4·HBM4E 고객 인증과 양산 전환",
+        "AI DRAM·eSSD 매출 믹스와 고객 공동 로드맵",
+        "개발·패키징·생산 캐파의 동시 확장 속도"
+      ],
+      "keywords": [
+        "SK hynix",
+        "SKHY",
+        "HBM4",
+        "HBM4E",
+        "eSSD"
+      ]
+    },
+    "samsung-stock": {
+      "nameKo": "삼성전자",
+      "name": "Samsung Electronics",
+      "summary": "메모리·파운드리·첨단 패키징을 묶어 AI 인프라 고객의 통합 반도체 수요에 대응",
+      "officialUrl": "https://www.samsung.com/global/ir/",
+      "leadershipSourceUrl": "https://www.samsung.com/global/ir/governance-csr/board-committee/",
+      "sourceCheckId": "company-samsung-leadership",
+      "verifiedAt": "2026-07-31",
+      "organization": [
+        {
+          "name": "Young Hyun Jun",
+          "role": "Vice Chairman & CEO, DS Division",
+          "function": "반도체·메모리",
+          "level": "chief",
+          "sourceUrl": "https://www.samsung.com/global/ir/governance-csr/board-committee/"
+        },
+        {
+          "name": "Tae Moon Roh",
+          "role": "President & CEO, DX Division",
+          "function": "디바이스·모바일",
+          "level": "chief",
+          "sourceUrl": "https://www.samsung.com/global/ir/governance-csr/board-committee/"
+        },
+        {
+          "name": "Yong Kwan Kim",
+          "role": "President, Corporate Management, Strategy & Operation, DS",
+          "function": "DS 전략·투자·운영",
+          "level": "executive",
+          "sourceUrl": "https://www.samsung.com/global/ir/governance-csr/board-of-directors/"
+        },
+        {
+          "name": "Sang Joon Hwang",
+          "role": "EVP, Head of Memory Development",
+          "function": "HBM·메모리 개발",
+          "level": "executive",
+          "sourceUrl": "https://news.samsung.com/global/samsung-ships-industry-first-commercial-hbm4-with-ultimate-performance-for-ai-computing"
+        }
+      ],
+      "officialPriorities": [
+        {
+          "title": "AI product-centric memory",
+          "detail": "HBM4 양산과 HBM4E 샘플, SOCAMM2·PCIe Gen6 SSD를 중심으로 AI 제품 믹스 확대",
+          "owner": "DS·Memory",
+          "sourceUrl": "https://news.samsung.com/global/samsung-electronics-announces-first-quarter-2026-results"
+        },
+        {
+          "title": "Memory-foundry-packaging integration",
+          "detail": "메모리와 2nm 이하 파운드리·첨단 패키징을 결합해 AI 가속기 고객 협업 범위 확대",
+          "owner": "DS",
+          "sourceUrl": "https://news.samsung.com/global/samsung-electronics-and-broadcom-expand-strategic-collaboration-across-memory-and-foundry-technologies"
+        }
+      ],
+      "decisionFocus": [
+        "HBM4 고객 출하와 HBM4E 샘플 전환",
+        "1c DRAM·4nm 로직 베이스 다이 수율",
+        "메모리·파운드리·패키징 공동 수주"
+      ],
+      "keywords": [
+        "Samsung",
+        "삼성전자",
+        "HBM4",
+        "HBM4E",
+        "Foundry"
+      ]
+    },
+    "micron-stock": {
+      "nameKo": "마이크론",
+      "name": "Micron",
+      "summary": "메모리 기술·제품·시스템 엔지니어링과 고객 계약을 하나의 실행 체계로 운영",
+      "officialUrl": "https://www.micron.com/about/company",
+      "leadershipSourceUrl": "https://www.micron.com/about/company/leadership/",
+      "sourceCheckId": "company-micron-leadership",
+      "verifiedAt": "2026-07-31",
+      "organization": [
+        {
+          "name": "Sanjay Mehrotra",
+          "role": "Chairman, President & CEO",
+          "function": "전사 전략·경영",
+          "level": "chief",
+          "sourceUrl": "https://www.micron.com/about/company/leadership/"
+        },
+        {
+          "name": "Manish Bhatia",
+          "role": "EVP, Global Operations",
+          "function": "제조·공급 운영",
+          "level": "executive",
+          "sourceUrl": "https://www.micron.com/about/company/leadership/"
+        },
+        {
+          "name": "Scott J. DeBoer",
+          "role": "EVP, Chief Technology and Products Officer",
+          "function": "기술·제품·SSD·펌웨어",
+          "level": "executive",
+          "sourceUrl": "https://www.micron.com/about/company/leadership/scott-deboer"
+        },
+        {
+          "name": "Sumit Sadana",
+          "role": "EVP, Chief Business Officer",
+          "function": "사업·전략·벤처",
+          "level": "executive",
+          "sourceUrl": "https://www.micron.com/about/company/leadership/sumit-sadana"
+        },
+        {
+          "name": "Mark Murphy",
+          "role": "EVP, Chief Financial Officer",
+          "function": "재무·자본",
+          "level": "executive",
+          "sourceUrl": "https://www.micron.com/about/company/leadership/"
+        }
+      ],
+      "officialPriorities": [
+        {
+          "title": "AI memory and storage",
+          "detail": "AI 컴퓨팅 구조 변화에 맞춰 메모리·스토리지 제품과 시스템 역량을 함께 확장",
+          "owner": "CEO·CTPO",
+          "sourceUrl": "https://www.micron.com/about/company"
+        },
+        {
+          "title": "End-to-end engineering",
+          "detail": "실리콘 기술·메모리 설계·시스템·SSD·펌웨어·IP·ASIC 개발을 단일 기술 조직으로 연결",
+          "owner": "CTPO",
+          "sourceUrl": "https://www.micron.com/about/company/leadership/scott-deboer"
+        }
+      ],
+      "decisionFocus": [
+        "HBM·서버 DRAM 장기계약과 생산 배분",
+        "기술 노드·제품 전환의 수율과 원가",
+        "SSD·펌웨어·시스템 설계의 고객 고착 효과"
+      ],
+      "keywords": [
+        "Micron",
+        "MU",
+        "HBM",
+        "DRAM",
+        "SSD"
+      ]
+    },
+    "nvidia-stock": {
+      "nameKo": "엔비디아",
+      "name": "NVIDIA",
+      "summary": "GPU·네트워킹·시스템·소프트웨어를 결합한 가속 컴퓨팅 플랫폼으로 AI 인프라를 확장",
+      "officialUrl": "https://www.nvidia.com/",
+      "leadershipSourceUrl": "https://investor.nvidia.com/governance/management-team/default.aspx",
+      "sourceCheckId": "company-nvidia-leadership",
+      "verifiedAt": "2026-07-31",
+      "organization": [
+        {
+          "name": "Jensen Huang",
+          "role": "Founder, President & CEO",
+          "function": "플랫폼·제품 전략",
+          "level": "chief",
+          "sourceUrl": "https://www.nvidia.com/en-eu/about-nvidia/governance/management-team/jensen-huang/"
+        },
+        {
+          "name": "Colette Kress",
+          "role": "EVP & Chief Financial Officer",
+          "function": "재무·자본",
+          "level": "executive",
+          "sourceUrl": "https://www.nvidia.com/en-eu/about-nvidia/governance/management-team/colette-kress/"
+        },
+        {
+          "name": "Chris Malachowsky",
+          "role": "Founder & NVIDIA Fellow",
+          "function": "기술·연구",
+          "level": "executive",
+          "sourceUrl": "https://investor.nvidia.com/governance/management-team/default.aspx"
+        }
+      ],
+      "officialPriorities": [
+        {
+          "title": "Accelerated computing platform",
+          "detail": "GPU를 중심으로 컴퓨팅·네트워크·시스템 소프트웨어를 결합해 AI 워크로드를 확장",
+          "owner": "CEO·기술",
+          "sourceUrl": "https://www.nvidia.com/en-eu/about-nvidia/governance/management-team/jensen-huang/"
+        }
+      ],
+      "decisionFocus": [
+        "신규 GPU 플랫폼의 HBM 용량·대역폭 요구",
+        "랙 단위 시스템 출하와 네트워킹 믹스",
+        "메모리 공급 계약과 플랫폼 전환 일정"
+      ],
+      "keywords": [
+        "NVIDIA",
+        "NVDA",
+        "Rubin",
+        "GPU",
+        "AI infrastructure"
+      ]
+    },
+    "tsmc-stock": {
+      "nameKo": "TSMC",
+      "name": "Taiwan Semiconductor Manufacturing Company",
+      "summary": "선단 공정·운영·R&D·글로벌 생산·디지털 공급망을 경영진 공동 책임 체계로 관리",
+      "officialUrl": "https://www.tsmc.com/english",
+      "leadershipSourceUrl": "https://www.tsmc.com/english/aboutTSMC/executives",
+      "sourceCheckId": "company-tsmc-leadership",
+      "verifiedAt": "2026-07-31",
+      "organization": [
+        {
+          "name": "C.C. Wei",
+          "role": "Chairman & Chief Executive Officer",
+          "function": "전사 전략·경영",
+          "level": "chief",
+          "sourceUrl": "https://www.tsmc.com/english/aboutTSMC/executives"
+        },
+        {
+          "name": "Y.P. Chyn",
+          "role": "EVP & Co-Chief Operating Officer",
+          "function": "운영·해외 생산",
+          "level": "executive",
+          "sourceUrl": "https://www.tsmc.com/english/aboutTSMC/executives"
+        },
+        {
+          "name": "Y.J. Mii",
+          "role": "EVP & Co-Chief Operating Officer",
+          "function": "R&D·공정 기술",
+          "level": "executive",
+          "sourceUrl": "https://www.tsmc.com/english/aboutTSMC/executives"
+        },
+        {
+          "name": "Wendell Huang",
+          "role": "SVP & Chief Financial Officer",
+          "function": "재무·투자",
+          "level": "executive",
+          "sourceUrl": "https://www.tsmc.com/english/aboutTSMC/executives"
+        },
+        {
+          "name": "Chris Lin",
+          "role": "VP & Chief Information Officer",
+          "function": "스마트 제조·디지털 공급망",
+          "level": "executive",
+          "sourceUrl": "https://www.tsmc.com/english/aboutTSMC/executives"
+        }
+      ],
+      "officialPriorities": [
+        {
+          "title": "Technology and manufacturing leadership",
+          "detail": "선단 공정 개발과 대규모 생산 운영을 공동 COO 체계로 연결",
+          "owner": "CEO·COO",
+          "sourceUrl": "https://www.tsmc.com/english/aboutTSMC/executives"
+        },
+        {
+          "title": "Intelligent manufacturing",
+          "detail": "AI·ML 기반 제조 최적화와 디지털 공급망·고성능 컴퓨팅 인프라를 통합",
+          "owner": "CIO",
+          "sourceUrl": "https://www.tsmc.com/english/aboutTSMC/executives"
+        }
+      ],
+      "decisionFocus": [
+        "선단 노드 양산 램프와 고객 제품 전환",
+        "첨단 패키징과 메모리 베이스 다이 협업",
+        "해외 생산 캐파·원가·공급망 실행"
+      ],
+      "keywords": [
+        "TSMC",
+        "TSM",
+        "CoWoS",
+        "foundry",
+        "base die"
+      ]
+    },
+    "amd-stock": {
+      "nameKo": "AMD",
+      "name": "Advanced Micro Devices",
+      "summary": "CPU·GPU·적응형 컴퓨팅·AI 소프트웨어와 고객 사업 조직을 하나의 고성능 컴퓨팅 전략으로 연결",
+      "officialUrl": "https://www.amd.com/en/corporate.html",
+      "leadershipSourceUrl": "https://www.amd.com/en/corporate/leadership.html",
+      "sourceCheckId": "company-amd-leadership",
+      "verifiedAt": "2026-07-31",
+      "organization": [
+        {
+          "name": "Lisa Su",
+          "role": "Chair & Chief Executive Officer",
+          "function": "전사 전략·경영",
+          "level": "chief",
+          "sourceUrl": "https://www.amd.com/en/corporate/leadership.html"
+        },
+        {
+          "name": "Jean Hu",
+          "role": "EVP, Chief Financial Officer & Treasurer",
+          "function": "재무·자본",
+          "level": "executive",
+          "sourceUrl": "https://www.amd.com/en/corporate/leadership.html"
+        },
+        {
+          "name": "Forrest Norrod",
+          "role": "EVP & GM, Data Center Solutions",
+          "function": "데이터센터",
+          "level": "executive",
+          "sourceUrl": "https://www.amd.com/en/corporate/leadership.html"
+        },
+        {
+          "name": "Mark Papermaster",
+          "role": "EVP & Chief Technology Officer",
+          "function": "기술·로드맵",
+          "level": "executive",
+          "sourceUrl": "https://www.amd.com/en/corporate/leadership.html"
+        },
+        {
+          "name": "Mathew Hein",
+          "role": "SVP & Chief Strategy Officer, Corporate Development",
+          "function": "전략·투자·M&A",
+          "level": "executive",
+          "sourceUrl": "https://www.amd.com/en/corporate/leadership/mathew-hein.html"
+        }
+      ],
+      "officialPriorities": [
+        {
+          "title": "High-performance and adaptive computing",
+          "detail": "CPU·GPU·적응형 컴퓨팅 제품과 AI 솔루션을 단일 시장 전략으로 확대",
+          "owner": "CEO·CTO",
+          "sourceUrl": "https://www.amd.com/en/corporate.html"
+        },
+        {
+          "title": "Data center and enterprise AI",
+          "detail": "데이터센터 제품·AI 엔지니어링·글로벌 AI 시장 조직을 분화해 실행 속도 강화",
+          "owner": "Data Center·AI",
+          "sourceUrl": "https://www.amd.com/en/corporate/leadership.html"
+        }
+      ],
+      "decisionFocus": [
+        "GPU·CPU 플랫폼별 HBM·DDR 요구량",
+        "데이터센터 고객 인증과 소프트웨어 채택",
+        "제품 로드맵·M&A·생태계 투자의 연결"
+      ],
+      "keywords": [
+        "AMD",
+        "Instinct",
+        "EPYC",
+        "AI accelerator",
+        "data center"
+      ]
+    },
+    "asml-stock": {
+      "nameKo": "ASML",
+      "name": "ASML",
+      "summary": "EUV·High-NA·응용 계측과 고객 지원을 기술·운영·조달 경영진 체계로 연결",
+      "officialUrl": "https://www.asml.com/en",
+      "leadershipSourceUrl": "https://www.asml.com/en/company/governance/board-of-management",
+      "sourceCheckId": "company-asml-leadership",
+      "verifiedAt": "2026-07-31",
+      "organization": [
+        {
+          "name": "Christophe Fouquet",
+          "role": "President & Chief Executive Officer",
+          "function": "전사 전략·경영",
+          "level": "chief",
+          "sourceUrl": "https://www.asml.com/en/company/governance/board-of-management"
+        },
+        {
+          "name": "Roger Dassen",
+          "role": "EVP & Chief Financial Officer",
+          "function": "재무·자본",
+          "level": "executive",
+          "sourceUrl": "https://www.asml.com/en/company/governance/board-of-management"
+        },
+        {
+          "name": "Frédéric Schneider-Maunoury",
+          "role": "EVP & Chief Operations Officer",
+          "function": "운영·제조",
+          "level": "executive",
+          "sourceUrl": "https://www.asml.com/en/company/governance/board-of-management"
+        },
+        {
+          "name": "Wayne Allan",
+          "role": "EVP, Strategic Sourcing & Procurement",
+          "function": "전략 조달·공급망",
+          "level": "executive",
+          "sourceUrl": "https://www.asml.com/en/company/governance/board-of-management"
+        },
+        {
+          "name": "Marco Pieters",
+          "role": "EVP & Chief Technology Officer",
+          "function": "기술·제품 로드맵",
+          "level": "executive",
+          "sourceUrl": "https://www.asml.com/en/company/governance/board-of-management"
+        }
+      ],
+      "officialPriorities": [
+        {
+          "title": "EUV and High-NA industrialization",
+          "detail": "EUV 고객 양산 적용과 High-NA 제품 전환을 기술·운영·고객 조직이 공동 실행",
+          "owner": "CEO·CTO·COO",
+          "sourceUrl": "https://www.asml.com/en/company/governance/board-of-management"
+        },
+        {
+          "title": "Strategic sourcing",
+          "detail": "공급망 통합과 핵심 부품 조달을 이사회급 책임으로 관리",
+          "owner": "Sourcing",
+          "sourceUrl": "https://www.asml.com/en/company/governance/board-of-management"
+        }
+      ],
+      "decisionFocus": [
+        "EUV·High-NA 출하와 고객 설치 속도",
+        "핵심 광학·부품 공급망 제약",
+        "메모리 고객의 선단 공정 투자 전환"
+      ],
+      "keywords": [
+        "ASML",
+        "EUV",
+        "High-NA",
+        "lithography"
+      ]
+    },
+    "broadcom-stock": {
+      "nameKo": "브로드컴",
+      "name": "Broadcom",
+      "summary": "AI 네트워킹·커스텀 실리콘과 인프라 소프트웨어를 장기 R&D·규모 실행으로 결합",
+      "officialUrl": "https://www.broadcom.com/",
+      "leadershipSourceUrl": "https://investors.broadcom.com/corporate-governance/board-of-directors",
+      "sourceCheckId": "company-broadcom-leadership",
+      "verifiedAt": "2026-07-31",
+      "organization": [
+        {
+          "name": "Hock E. Tan",
+          "role": "President & Chief Executive Officer",
+          "function": "전사 전략·경영",
+          "level": "chief",
+          "sourceUrl": "https://investors.broadcom.com/board-member/hock-e-tan"
+        },
+        {
+          "name": "Amie Thuener",
+          "role": "Chief Financial Officer",
+          "function": "재무·거버넌스",
+          "level": "executive",
+          "sourceUrl": "https://investors.broadcom.com/news-releases/news-release-details/broadcom-announces-planned-chief-financial-officer-transition"
+        },
+        {
+          "name": "",
+          "role": "Semiconductor Solutions Leadership",
+          "function": "반도체·AI 네트워킹",
+          "level": "role-only"
+        }
+      ],
+      "officialPriorities": [
+        {
+          "title": "AI semiconductor scale",
+          "detail": "커스텀 실리콘·네트워킹과 대규모 고객 협업을 반도체 솔루션 전략으로 확대",
+          "owner": "CEO·Semiconductor",
+          "sourceUrl": "https://www.broadcom.com/"
+        },
+        {
+          "title": "Long-term R&D and execution",
+          "detail": "반도체와 인프라 소프트웨어의 장기 연구개발을 규모 실행과 결합",
+          "owner": "CEO·CFO",
+          "sourceUrl": "https://investors.broadcom.com/news-releases/news-release-details/broadcom-announces-planned-chief-financial-officer-transition"
+        }
+      ],
+      "decisionFocus": [
+        "커스텀 AI 가속기와 HBM 수요",
+        "스위치·광연결·네트워크 제품 믹스",
+        "대형 고객 장기 협업과 공급 계약"
+      ],
+      "keywords": [
+        "Broadcom",
+        "AVGO",
+        "custom accelerator",
+        "networking",
+        "HBM"
+      ]
+    },
+    "cxmt-stock": {
+      "nameKo": "CXMT",
+      "name": "ChangXin Memory Technologies",
+      "summary": "범용 DRAM 캐파·공정 전환·내수 고객 확대를 중심으로 추적하는 중국 메모리 기업",
+      "officialUrl": "https://www.cxmt.com/",
+      "leadershipSourceUrl": "https://www.sse.com.cn/",
+      "sourceCheckId": "sse-cxmt-final-offering",
+      "verifiedAt": "2026-07-31",
+      "organization": [
+        {
+          "name": "",
+          "role": "Board / General Management",
+          "function": "공시·자본·전사 운영",
+          "level": "role-only"
+        },
+        {
+          "name": "",
+          "role": "DRAM Technology & Manufacturing",
+          "function": "공정·제품·웨이퍼 생산",
+          "level": "role-only"
+        },
+        {
+          "name": "",
+          "role": "Sales & Customer Qualification",
+          "function": "DDR5·LPDDR 고객 인증",
+          "level": "role-only"
+        }
+      ],
+      "officialPriorities": [
+        {
+          "title": "DRAM capacity and process",
+          "detail": "상장 공시와 거래소 자료에서 확인되는 DRAM 생산 투자·공정 전환을 우선 추적",
+          "owner": "경영·제조",
+          "sourceUrl": "https://english.sse.com.cn/news/newsrelease/voice/c/c_20260528_10819990.shtml"
+        }
+      ],
+      "decisionFocus": [
+        "월 웨이퍼 캐파와 신규 라인 램프",
+        "DDR5·LPDDR 고객 인증과 제품 믹스",
+        "현금흐름·CAPEX·장기계약의 일치 여부"
+      ],
+      "keywords": [
+        "CXMT",
+        "ChangXin",
+        "长鑫",
+        "DDR5",
+        "DRAM"
+      ]
+    },
+    "smic-stock": {
+      "nameKo": "SMIC",
+      "name": "Semiconductor Manufacturing International Corporation",
+      "summary": "중국 파운드리의 공정 믹스·가동률·장비 제약과 메모리 고객 연계를 추적",
+      "officialUrl": "https://www.smics.com/en/site/about_summary",
+      "leadershipSourceUrl": "https://www.smics.com/en/site/about_summary",
+      "sourceCheckId": "company-smic-profile",
+      "verifiedAt": "2026-07-31",
+      "organization": [
+        {
+          "name": "",
+          "role": "Board / Executive Management",
+          "function": "전사 경영·거버넌스",
+          "level": "role-only"
+        },
+        {
+          "name": "",
+          "role": "Technology & Fab Operations",
+          "function": "공정 개발·생산 운영",
+          "level": "role-only"
+        },
+        {
+          "name": "",
+          "role": "Customer & Supply Chain",
+          "function": "고객·장비·소재",
+          "level": "role-only"
+        }
+      ],
+      "officialPriorities": [
+        {
+          "title": "Foundry capacity and utilization",
+          "detail": "공식 실적·공시에서 공정 믹스와 가동률·캐파 증설을 분리해 추적",
+          "owner": "경영·운영",
+          "sourceUrl": "https://www.smics.com/en/site/about_summary"
+        }
+      ],
+      "decisionFocus": [
+        "성숙·선단 공정별 가동률",
+        "장비·소재 조달 제약",
+        "중국 메모리·AI 칩 고객 연계"
+      ],
+      "keywords": [
+        "SMIC",
+        "中芯国际",
+        "foundry",
+        "wafer"
+      ]
+    },
+    "naura-stock": {
+      "nameKo": "NAURA",
+      "name": "NAURA Technology",
+      "summary": "중국 전공정 장비 국산화에서 증착·식각·세정·열처리 제품의 고객 검증과 매출 전환을 추적",
+      "officialUrl": "https://www.naura.com/",
+      "leadershipSourceUrl": "https://www.naura.com/",
+      "sourceCheckId": "company-naura-profile",
+      "verifiedAt": "2026-07-31",
+      "organization": [
+        {
+          "name": "",
+          "role": "Board / General Management",
+          "function": "전사 경영·투자",
+          "level": "role-only"
+        },
+        {
+          "name": "",
+          "role": "Semiconductor Equipment R&D",
+          "function": "증착·식각·열처리·세정",
+          "level": "role-only"
+        },
+        {
+          "name": "",
+          "role": "Operations & Customer Qualification",
+          "function": "생산·고객 검증",
+          "level": "role-only"
+        }
+      ],
+      "officialPriorities": [
+        {
+          "title": "Equipment portfolio localization",
+          "detail": "전공정 장비별 고객 검증·반복 수주·서비스 역량을 제품군 단위로 추적",
+          "owner": "R&D·사업",
+          "sourceUrl": "https://www.naura.com/"
+        }
+      ],
+      "decisionFocus": [
+        "제품군별 고객 인증과 반복 수주",
+        "중국 팹 CAPEX와 장비 매출 전환",
+        "부품 국산화·서비스·유지보수 역량"
+      ],
+      "keywords": [
+        "NAURA",
+        "北方华创",
+        "equipment",
+        "etch",
+        "deposition"
+      ]
+    },
+    "amec-stock": {
+      "nameKo": "AMEC",
+      "name": "Advanced Micro-Fabrication Equipment",
+      "summary": "식각·MOCVD 중심 장비의 기술 협력·고객 검증·수출통제를 함께 추적",
+      "officialUrl": "https://www.amec-inc.com/",
+      "leadershipSourceUrl": "https://www.amec-inc.com/",
+      "sourceCheckId": "company-amec-profile",
+      "verifiedAt": "2026-07-31",
+      "organization": [
+        {
+          "name": "",
+          "role": "Board / Executive Management",
+          "function": "전사 경영·거버넌스",
+          "level": "role-only"
+        },
+        {
+          "name": "",
+          "role": "Etch & MOCVD R&D",
+          "function": "제품·공정 기술",
+          "level": "role-only"
+        },
+        {
+          "name": "",
+          "role": "Global Operations & Compliance",
+          "function": "생산·고객·수출통제",
+          "level": "role-only"
+        }
+      ],
+      "officialPriorities": [
+        {
+          "title": "Etch and MOCVD innovation",
+          "detail": "공식 ESG·기술 자료에서 제품 개발·산학 협력·품질·수출통제 체계를 함께 확인",
+          "owner": "R&D·운영",
+          "sourceUrl": "https://www.amec-inc.com/uploads/files/20250611/17496080859885.pdf"
+        }
+      ],
+      "decisionFocus": [
+        "식각·MOCVD 고객 검증과 반복 주문",
+        "부품·소프트웨어·서비스 내재화",
+        "수출통제 영향과 중국 팹 투자"
+      ],
+      "keywords": [
+        "AMEC",
+        "中微公司",
+        "etch",
+        "MOCVD"
+      ]
+    },
+    "jcet-stock": {
+      "nameKo": "JCET",
+      "name": "JCET Group",
+      "summary": "설계 지원부터 범핑·패키징·테스트까지 턴키 후공정 역량과 고성능 패키징 투자를 추적",
+      "officialUrl": "https://www.jcetglobal.com/en",
+      "leadershipSourceUrl": "https://www.jcetglobal.com/en",
+      "sourceCheckId": "company-jcet-profile",
+      "verifiedAt": "2026-07-31",
+      "organization": [
+        {
+          "name": "",
+          "role": "Board / Chief Executive",
+          "function": "전사 전략·경영",
+          "level": "role-only"
+        },
+        {
+          "name": "",
+          "role": "Technology & Manufacturing",
+          "function": "범핑·패키징·테스트",
+          "level": "role-only"
+        },
+        {
+          "name": "",
+          "role": "Global Sales & Customer Solutions",
+          "function": "고객·턴키 솔루션",
+          "level": "role-only"
+        },
+        {
+          "name": "",
+          "role": "ESG Committee / Plant Management",
+          "function": "EHS·공장 실행",
+          "level": "role-only"
+        }
+      ],
+      "officialPriorities": [
+        {
+          "title": "High-performance advanced packaging",
+          "detail": "고성능 컴퓨팅·스토리지·자동차·전력 제품의 턴키 후공정과 첨단 패키징 캐파 확대",
+          "owner": "경영·기술",
+          "sourceUrl": "https://www.jcetglobal.com/en"
+        },
+        {
+          "title": "Turnkey back-end manufacturing",
+          "detail": "설계·테스트 프로그램·범핑·프로브·다이 적층·최종 테스트·출하를 단일 서비스로 제공",
+          "owner": "기술·영업",
+          "sourceUrl": "https://www.jcetglobal.com/en"
+        }
+      ],
+      "decisionFocus": [
+        "고성능 패키징 고객 수주와 캐파 가동률",
+        "범핑·본딩·테스트 수율과 사이클타임",
+        "글로벌 생산 거점·고객 믹스"
+      ],
+      "keywords": [
+        "JCET",
+        "长电科技",
+        "advanced packaging",
+        "OSAT",
+        "test"
+      ]
+    }
+  }
+}
