@@ -131,7 +131,7 @@ assert.match(app, /loadManagedJSON\("live", "data\/live-client\.json"[\s\S]*?loa
 assert.match(app, /priceHistory: \{[\s\S]*?path: "data\/price-history-client\.json"[\s\S]*?marketHistory: \{[\s\S]*?path: "data\/market-history-client\.json"/, "secondary fallbacks must never download database-sized history files");
 assert.match(css, /\.agent-debate-title \.agent-tts-toggle \{[\s\S]*?min-width: 190px;[\s\S]*?min-height: 44px;/, "the English TTS control should be large and readable");
 assert.match(css, /\.agent-tts-state \{[\s\S]*?min-width: 31px;/, "the TTS control should expose a dedicated on-or-off state badge");
-assert.match(html, /app\.js\?v=copy-cleanup-20260730-01/, "JavaScript cache key should include the copy-cleanup revision");
+assert.match(html, /app\.js\?v=brief-hover-20260730-01/, "JavaScript cache key should include the brief-hover revision");
 assert.match(html, /id="memoryHeroVideo"[\s\S]*?preload="none"[\s\S]*?<source data-src="assets\/media\/memory-hero\.mp4"/, "hero video should hydrate after the poster paints");
 assert.match(html, /id="talentStrategyVideoMedia"[\s\S]*?preload="none"[\s\S]*?data-poster="assets\/media\/china-talent-strategy-poster\.webp"[\s\S]*?<source data-src="assets\/media\/china-talent-strategy\.mp4"/, "below-fold talent media should not load during first paint");
 assert.doesNotMatch(html, /family=Noto\+Sans\+KR/, "Pretendard should replace the duplicate Korean webfont download");
@@ -147,7 +147,7 @@ assert.match(css, /\.china-deep-video-dock \.talent-strategy-video \{[\s\S]*?hei
 assert.match(css, /@media \(max-width: 680px\) \{[\s\S]*?\.china-deep-video-dock \.talent-strategy-video \{[\s\S]*?aspect-ratio: 4 \/ 5;/, "the compact video height should preserve the mobile portrait layout");
 assert.match(css, /#talent-radar \.talent-radar-slider-slot \{[\s\S]*?display: flex;[\s\S]*?justify-content: center;/, "the talent radar slot should center its visual stage");
 assert.match(css, /#talent-radar \.talent-radar-slider \{[\s\S]*?width: min\(100%, 1360px\);[\s\S]*?margin-inline: auto;/, "the talent radar visual should use a bounded, centered desktop width");
-assert.match(html, /styles\.css\?v=copy-cleanup-20260730-01/, "CSS cache key should include the copy-cleanup revision");
+assert.match(html, /styles\.css\?v=brief-hover-20260730-01/, "CSS cache key should include the brief-hover revision");
 assert.match(app, /function sourceLinkLabel\(source = "", nearbyText = ""\) \{[\s\S]*?return repeated \? "원문 보기 ↗" : `\$\{label\} ↗`;/, "source links should become generic when the same publisher is already visible nearby");
 assert.match(app, /link\.textContent = sourceLinkLabel\(item\.source, item\.kicker\);/, "rotating story cards should suppress duplicate publisher link labels");
 assert.match(app, /function koreanArticleHeadline\(title = "", fallback = "", summary = ""\) \{[\s\S]*?const value = cleanKoreanTitle\(/, "article headlines should strip repeated publisher suffixes before display");
@@ -161,6 +161,8 @@ assert.doesNotMatch(app, /note:\s*`\$\{kpi\.note \|\| ""\}\$\{kpi\.verificationN
 assert.doesNotMatch(app, /같은 기관의 전망 개정이며 SKHY 자체 전망이 아님|중국 eSSD 입찰·고객 인증 신호를 일일 보드 상단에 배치/, "removed dashboard copy should not be rendered again");
 assert.match(css, /\.ni-research-evidence:is\(:hover, :focus-visible\) :is\(\.strategy-highlight, \.answer-term\) \{[\s\S]*?--term-hover: var\(--evidence-hover-ink, #334155\);[\s\S]*?-webkit-text-fill-color: var\(--evidence-hover-ink, #334155\);[\s\S]*?text-shadow: none;/, "light evidence cards should retain dark semantic emphasis on hover");
 assert.match(css, /\.ni-research-evidence \.term-company \{ --evidence-hover-ink: #5b21b6; \}[\s\S]*?\.ni-research-evidence \.term-metric \{ --evidence-hover-ink: #a61b12; \}/, "evidence-card hover should preserve readable company and metric colors");
+assert.match(css, /\.china-business-brief-card:is\(:hover, :focus-within\) :is\(\.strategy-highlight, \.answer-term\) \{[\s\S]*?color: var\(--brief-hover-ink\) !important;[\s\S]*?-webkit-text-fill-color: var\(--brief-hover-ink\);[\s\S]*?text-shadow: none;/, "light China business briefs should retain high-contrast semantic text on hover");
+assert.match(css, /\.china-business-brief-card \.term-company \{ --brief-hover-ink: #5b21b6; \}[\s\S]*?\.china-business-brief-card \.term-tech \{ --brief-hover-ink: #006d63; \}/, "China business brief hover should preserve distinct dark company and technology colors");
 assert.match(css, /#china-talent-strategy :is\(\.policy-card, \.policy-rule-card, \.policy-focus\):is\(:hover, :focus-within\) \{[\s\S]*?linear-gradient\(135deg, #153e75 0%, #0e7490 54%, #0f766e 100%\)/, "China talent inverted cards should use the professional blue-to-teal gradient");
 assert.match(css, /#talentScenarioTabs \.talent-scenario-tab\.active \{[\s\S]*?linear-gradient\(135deg, #153e75 0%, #0e7490 54%, #0f766e 100%\)/, "the selected China talent scenario should use the same professional gradient");
 assert.match(css, /\.exec-baseline-document:is\(:hover, :focus-visible\) \.exec-baseline-document-focus \{[\s\S]*?linear-gradient\(135deg, #fffdf5 0%, #fef3c7 100%\)/, "the inverted source card should separate its key thesis with an ivory-to-gold gradient");

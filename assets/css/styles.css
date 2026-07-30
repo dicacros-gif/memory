@@ -20754,6 +20754,28 @@ body.crawl-moderation-open {
 .investment-focus:is(:hover, :focus-within) .investment-focus-block .term-source { --term-color: #1e40af; }
 .investment-focus:is(:hover, :focus-within) .investment-focus-block .term-policy { --term-color: #9a3412; }
 .investment-focus:is(:hover, :focus-within) .investment-focus-block .term-tech { --term-color: #006d63; }
+
+/* China business briefs stay on a light surface when hovered. Keep semantic
+   terms dark instead of inheriting the pastel ink used by inverted cards. */
+.china-business-brief-card :is(.strategy-highlight, .answer-term) {
+  --brief-hover-ink: #334155;
+}
+
+.china-business-brief-card .term-company { --brief-hover-ink: #5b21b6; }
+.china-business-brief-card .term-source { --brief-hover-ink: #1e40af; }
+.china-business-brief-card .term-policy { --brief-hover-ink: #9a3412; }
+.china-business-brief-card .term-tech { --brief-hover-ink: #006d63; }
+.china-business-brief-card .term-metric { --brief-hover-ink: #a61b12; }
+.china-business-brief-card .term-action { --brief-hover-ink: #047857; }
+.china-business-brief-card .term-key { --brief-hover-ink: #9d174d; }
+
+.china-business-brief-card:is(:hover, :focus-within) :is(.strategy-highlight, .answer-term) {
+  --term-color: var(--brief-hover-ink);
+  color: var(--brief-hover-ink) !important;
+  -webkit-text-fill-color: var(--brief-hover-ink);
+  text-decoration-color: color-mix(in srgb, var(--brief-hover-ink) 62%, transparent) !important;
+  text-shadow: none;
+}
 .investment-focus:is(:hover, :focus-within) .investment-focus-block .term-metric { --term-color: #a61b12; }
 .investment-focus:is(:hover, :focus-within) .investment-focus-block .term-action { --term-color: #047857; }
 .investment-focus:is(:hover, :focus-within) .investment-focus-block .term-key { --term-color: #9d174d; }
