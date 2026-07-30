@@ -4051,8 +4051,45 @@
     }
   }
 
+  function displayTextKey(value = "") {
+    return String(value || "")
+      .toLowerCase()
+      .replace(/[^a-z0-9가-힣一-鿿]+/g, "");
+  }
+
+  function uniqueSourceLabel(source = "") {
+    let label = String(source || "").replace(/\s+/g, " ").trim();
+    if (!label) return "";
+    let previous = "";
+    while (label !== previous) {
+      previous = label;
+      label = label.replace(/^(.+?)\s*(?:·|\||\/|[-–—])\s*\1$/i, "$1").trim();
+    }
+    const seen = new Set();
+    return label
+      .split(/\s*(?:·|\||\/)\s*/)
+      .map((part) => part.trim())
+      .filter((part) => {
+        const key = displayTextKey(part);
+        if (!key || seen.has(key)) return false;
+        seen.add(key);
+        return true;
+      })
+      .join(" · ");
+  }
+
+  function withoutRepeatedLeadingPhrase(value = "", phrase = "") {
+    const text = String(value || "").replace(/\s+/g, " ").trim();
+    const prefix = String(phrase || "").replace(/\s+/g, " ").trim();
+    if (!text || !prefix || displayTextKey(text) === displayTextKey(prefix)) return text;
+    const escaped = prefix.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
+    return text
+      .replace(new RegExp(`^(?:${escaped})(?:\\s*[·|:：—–-]\\s*|\\s+)+`, "i"), "")
+      .trim() || text;
+  }
+
   function sourceLinkLabel(source = "", nearbyText = "") {
-    const label = String(source || "근거 원문").replace(/\s+/g, " ").trim();
+    const label = uniqueSourceLabel(source) || "근거 원문";
     const normalize = (value) => String(value || "")
       .toLowerCase()
       .replace(/[^a-z0-9가-힣一-鿿]+/g, "");
@@ -5630,7 +5667,7 @@
         <button class="hs-card ${account.id === focusId ? "active" : ""} reveal${hasPull ? "" : " insufficient"}" type="button" data-hs-account="${escapeHTML(account.id)}" style="--delay:${i * 40}ms; --pull:${hasPull ? pull : 0}%">
           <span class="hs-card-top"><em>${signal?.evidenceCount ? `${fmtNum(signal.independentSourceCount || signal.sourceCount)}개 독립 출처` : "30D"}</em><b>${escapeHTML(category.driverLabel)} ${escapeHTML(signal?.driverLabel || "근거 부족")}</b></span>
           <strong>${escapeHTML(account.name)}</strong>
-          <small>${signal?.latest ? `${escapeHTML(signal.latest.source)} · ${escapeHTML(signal.latest.date || "날짜 미상")}` : "직접 연결 근거 대기"}</small>
+          <small>${signal?.latest ? `${escapeHTML(uniqueSourceLabel(signal.latest.source) || "원문")} · ${escapeHTML(signal.latest.date || "날짜 미상")}` : "직접 연결 근거 대기"}</small>
           <div class="hs-pull"><i style="width:${hasPull ? pull : 0}%"></i></div>
           <span class="hs-pull-label">${escapeHTML(category.pullLabel)} ${hasPull ? `${fmtNum(pull)}/100` : "N/A"}${signalBadge}</span>
         </button>
@@ -5646,12 +5683,12 @@
         ? `<div class="hs-focus-signal">
             <b>오늘 크롤링 신호</b>
             <span>언급 ${fmtNum(signal.mentions)}건 · 독립 출처 ${fmtNum(signal.independentSourceCount || signal.sourceCount)}개 · 확장어 ${fmtNum(signal.up)} · 축소어 ${fmtNum(signal.down)} · 방향 ${signal.direction === "up" ? "▲ 확대" : signal.direction === "down" ? "▼ 축소" : "→ 중립"}</span>
-            ${(signal.evidence || []).map((item) => `<a href="${escapeHTML(item.url)}" target="_blank" rel="noopener">${escapeHTML(item.title)} — ${escapeHTML(item.source)} ${escapeHTML(item.date || "")} ↗</a>`).join("")}
+            ${(signal.evidence || []).map((item) => `<a href="${escapeHTML(item.url)}" target="_blank" rel="noopener">${escapeHTML(newsTitle(item) || item.title)} — ${escapeHTML(newsPublisherText(item) || "원문")} ${escapeHTML(item.date || "")} ↗</a>`).join("")}
           </div>`
         : signal?.status === "reference"
-          ? `<div class="hs-focus-signal idle"><b>누적 DB 근거</b><span>당일 점수와 분리해 이전 수집 원문의 날짜·출처를 표시</span>${(signal.evidence || []).map((item) => `<a href="${escapeHTML(item.url)}" target="_blank" rel="noopener">${escapeHTML(item.title)} — ${escapeHTML(item.source)} ${escapeHTML(item.date || "")} ↗</a>`).join("")}</div>`
+          ? `<div class="hs-focus-signal idle"><b>누적 DB 근거</b><span>당일 점수와 분리해 이전 수집 원문의 날짜·출처를 표시</span>${(signal.evidence || []).map((item) => `<a href="${escapeHTML(item.url)}" target="_blank" rel="noopener">${escapeHTML(newsTitle(item) || item.title)} — ${escapeHTML(newsPublisherText(item) || "원문")} ${escapeHTML(item.date || "")} ↗</a>`).join("")}</div>`
         : signal?.evidenceCount
-          ? `<div class="hs-focus-signal idle"><b>근거 품질 미달</b><span>독립 출처 2개 또는 공식·공시 원문 1건 확인 전까지 점수 산출 보류</span>${(signal.evidence || []).map((item) => `<a href="${escapeHTML(item.url)}" target="_blank" rel="noopener">${escapeHTML(item.title)} — ${escapeHTML(item.source)} ${escapeHTML(item.date || "")} ↗</a>`).join("")}</div>`
+          ? `<div class="hs-focus-signal idle"><b>근거 품질 미달</b><span>독립 출처 2개 또는 공식·공시 원문 1건 확인 전까지 점수 산출 보류</span>${(signal.evidence || []).map((item) => `<a href="${escapeHTML(item.url)}" target="_blank" rel="noopener">${escapeHTML(newsTitle(item) || item.title)} — ${escapeHTML(newsPublisherText(item) || "원문")} ${escapeHTML(item.date || "")} ↗</a>`).join("")}</div>`
           : `<div class="hs-focus-signal idle"><b>공식 원문 추가 수집 중</b><span>누적 DB 검색과 신규 수집을 계속하며 확인 전 점수는 산출하지 않음</span></div>`;
       focus.innerHTML = `
         <span class="hs-focus-tag">${escapeHTML(category.label)} · 수요 심층</span>
@@ -5669,7 +5706,7 @@
 
     if (assumptions) {
       assumptions.innerHTML = `
-        <div class="intel-panel-head"><h3>모델 가정 · 반증 조건</h3><span>${escapeHTML(category.label)} · ${escapeHTML(category.unitBasisLabel)} + 계획 모델 (확정치 아님)${category.sourceUrl ? ` · <a href="${escapeHTML(category.sourceUrl)}" target="_blank" rel="noopener">${escapeHTML(category.source || "원문")}</a>` : ""}</span></div>
+        <div class="intel-panel-head"><h3>모델 가정 · 반증 조건</h3><span>${escapeHTML(category.label)} · ${escapeHTML(category.unitBasisLabel)} + 계획 모델 (확정치 아님)${category.sourceUrl ? ` · <a href="${escapeHTML(category.sourceUrl)}" target="_blank" rel="noopener">${escapeHTML(uniqueSourceLabel(category.source) || "원문")}</a>` : ""}</span></div>
         <ul class="hs-assume-list">
           ${category.assume.map((line, i) => `<li><b>${i < 2 ? "가정" : "반증"}</b><span>${strategicHighlightHTML(line)}</span></li>`).join("")}
         </ul>
@@ -8138,8 +8175,11 @@
     const sourceUrl = String(evidence.sourceUrl || evidence.url || evidence.link || "").trim();
     if (!/^https?:\/\//i.test(sourceUrl) || /news\.google\.com/i.test(sourceUrl)) return null;
     const quote = String(evidence.quote || evidence.summary || evidence.summaryOriginal || evidence.title || evidence.titleKo || "").replace(/\s+/g, " ").trim();
-    const title = String(evidence.title || evidence.titleKo || quote || cLevelAgentRoleLabel(roleKey)).replace(/\s+/g, " ").trim();
-    const source = evidence.source || "수집 근거";
+    const owner = cLevelAgentRoleLabel(roleKey);
+    const source = uniqueSourceLabel(evidence.source) || "수집 근거";
+    const rawTitle = String(evidence.title || evidence.titleKo || quote || owner).replace(/\s+/g, " ").trim();
+    const strippedTitle = withoutRepeatedLeadingPhrase(stripTrailingSource(rawTitle, source), owner);
+    const title = displayTextKey(strippedTitle) === displayTextKey(owner) ? "수집 근거 검토" : strippedTitle;
     const date = evidence.date || evidence.publishedAt || evidence.updatedAt || "";
     const terms = Array.from(new Set(dailyReferenceRoleTerms(roleKey)
       .concat(evidence.matchedKeywords || [])
@@ -8160,10 +8200,10 @@
     }];
     return {
       id: `agent-${cLevelAgentAxisId(roleKey)}-${cLevelAgentAxisId(title)}`,
-      label: `${cLevelAgentRoleLabel(roleKey)} · ${title}`,
+      label: title,
       category: evidence.category || "operations",
       categories: ["hbm", "dram", "nand", "aidemand", "operations", "china", "geopolitics", "packaging", "talent"],
-      owner: cLevelAgentRoleLabel(roleKey),
+      owner,
       jump: "executive-decision",
       terms,
       action: evidence.status === "live"
@@ -15658,7 +15698,7 @@
           ${selected?.action ? `<p>${escapeHTML(selected.action)}</p>` : ""}
           <div class="evidence-row">${proofBadgeHTML(selected || {})}</div>
           <ol class="investment-evidence-flow">
-            ${evidenceLinks.length ? evidenceLinks.map((link, index) => `<li><i>${String(index + 1).padStart(2, "0")}</i><a href="${escapeHTML(link.link || "#")}" target="_blank" rel="noopener">${escapeHTML(koreanArticleHeadline(link.titleKo || newsTitle(link) || link.title || "", link.title || "", link.summary || ""))}</a><span>${escapeHTML(link.source || "원문")}</span></li>`).join("") : `<li class="is-empty"><em>연결된 원문이 없습니다</em></li>`}
+            ${evidenceLinks.length ? evidenceLinks.map((link, index) => `<li><i>${String(index + 1).padStart(2, "0")}</i><a href="${escapeHTML(link.link || "#")}" target="_blank" rel="noopener">${escapeHTML(koreanArticleHeadline(link.titleKo || newsTitle(link) || link.title || "", link.title || "", link.summary || ""))}</a><span>${escapeHTML(newsPublisherText(link) || "원문")}</span></li>`).join("") : `<li class="is-empty"><em>연결된 원문이 없습니다</em></li>`}
           </ol>
         </div>
       </details>
@@ -17051,12 +17091,12 @@
         <div class="ceo-live-news-list">
           ${factItems.map((item) => `
             <a class="ceo-live-fact" href="${escapeHTML(item.sourceUrl || item.link)}" target="_blank" rel="noopener noreferrer">
-              <span>${escapeHTML(item.source || "공식 원문")} · ${escapeHTML(item.stage || "현재 단계")}</span>
-              <strong>${escapeHTML(item.title || item.label || "확정 팩트")}</strong>
+              <span>${escapeHTML(newsPublisherText(item) || "공식 원문")} · ${escapeHTML(item.stage || "현재 단계")}</span>
+              <strong>${escapeHTML(newsTitle(item) || item.label || "확정 팩트")}</strong>
             </a>`).join("")}
           ${newsItems.map((item) => `
             <a href="${escapeHTML(item.sourceUrl || item.link)}" target="_blank" rel="noopener noreferrer">
-              <span>${item.continuityFallback ? "누적 DB · " : ""}${escapeHTML(item.source || "원문")} · ${escapeHTML(shortKstDateWithYear(item.publishedAt || item.date))}</span>
+              <span>${item.continuityFallback ? "누적 DB · " : ""}${escapeHTML(newsPublisherText(item) || "원문")} · ${escapeHTML(shortKstDateWithYear(item.publishedAt || item.date))}</span>
               <strong>${escapeHTML(newsTitle(item))}</strong>
             </a>`).join("") || `<p>공식 KPI와 누적 정책 원문을 기준선으로 적용</p>`}
         </div>
@@ -22224,20 +22264,27 @@
     const byUrl = new Map();
     const byTitle = new Map();
     items.forEach((item) => {
-      const urlKey = canonicalNewsUrlKey(item);
-      const titleKey = canonicalNewsTitleKey(item);
+      const source = uniqueSourceLabel(item.source);
+      const normalizedItem = {
+        ...item,
+        source,
+        title: stripTrailingSource(item.title, source),
+        titleKo: stripTrailingSource(item.titleKo, source),
+      };
+      const urlKey = canonicalNewsUrlKey(normalizedItem);
+      const titleKey = canonicalNewsTitleKey(normalizedItem);
       const urlIndex = urlKey ? byUrl.get(urlKey) : undefined;
       const titleIndex = titleKey ? byTitle.get(titleKey) : undefined;
       const index = urlIndex ?? titleIndex;
       if (index !== undefined) {
-        selected[index] = mergeNewsDuplicate(selected[index], item);
+        selected[index] = mergeNewsDuplicate(selected[index], normalizedItem);
         if (urlKey) byUrl.set(urlKey, index);
         if (titleKey) byTitle.set(titleKey, index);
         return;
       }
       if (!urlKey && !titleKey) return;
       const nextIndex = selected.length;
-      selected.push(item);
+      selected.push(normalizedItem);
       if (urlKey) byUrl.set(urlKey, nextIndex);
       if (titleKey) byTitle.set(titleKey, nextIndex);
     });
@@ -22258,10 +22305,10 @@
   }
 
   function newsPublisherText(item = {}) {
-    const source = String(item.source || "").trim();
+    const source = uniqueSourceLabel(item.source);
     if (source) return source;
     const parts = String(item.title || "").split(/\s[-–—]\s/).map((part) => part.trim()).filter(Boolean);
-    return parts.length > 1 ? parts[parts.length - 1] : "";
+    return parts.length > 1 ? uniqueSourceLabel(parts[parts.length - 1]) : "";
   }
 
   function isAuthoritativeNews(item) {
@@ -22332,7 +22379,7 @@
 
   function stripTrailingSource(title, source) {
     let clean = String(title || "").replace(/\s+/g, " ").trim();
-    const src = String(source || "").replace(/\s+/g, " ").trim();
+    const src = uniqueSourceLabel(source);
     if (!clean || !src) return clean;
     const srcLower = src.toLowerCase();
     let removed = true;
@@ -22753,7 +22800,7 @@
       a.innerHTML = strategicHighlightHTML(newsTitle(item));
       card.innerHTML = `
         <div class="news-card-head">
-          <span class="source-tag">${escapeHTML(item.source || "Foreign source")}</span>
+          <span class="source-tag">${escapeHTML(newsPublisherText(item) || "Foreign source")}</span>
           <span class="news-evidence ${escapeHTML(evidence.className)}">${escapeHTML(evidence.label)}</span>
           <span class="news-meta">${escapeHTML(formatNewsDate(item.date || item.published))}</span>
         </div>
@@ -22973,7 +23020,7 @@
             <div><span>${escapeHTML(item.kind)}</span><em>${escapeHTML(item.evidence)}</em></div>
             <strong>${strategicHighlightHTML(item.title)}</strong>
             <p>${strategicHighlightHTML(item.summary)}</p>
-            <small>${escapeHTML(item.source)}${item.date ? ` · ${escapeHTML(formatNewsDate(item.date) || item.date)}` : ""}</small>
+            <small>${escapeHTML(uniqueSourceLabel(item.source))}${item.date ? ` · ${escapeHTML(formatNewsDate(item.date) || item.date)}` : ""}</small>
           </a>
         `).join("")}
       </div>

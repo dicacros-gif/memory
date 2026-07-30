@@ -132,7 +132,7 @@ assert.match(app, /loadManagedJSON\("live", "data\/live-client\.json"[\s\S]*?loa
 assert.match(app, /priceHistory: \{[\s\S]*?path: "data\/price-history-client\.json"[\s\S]*?marketHistory: \{[\s\S]*?path: "data\/market-history-client\.json"/, "secondary fallbacks must never download database-sized history files");
 assert.match(css, /\.agent-debate-title \.agent-tts-toggle \{[\s\S]*?min-width: 190px;[\s\S]*?min-height: 44px;/, "the English TTS control should be large and readable");
 assert.match(css, /\.agent-tts-state \{[\s\S]*?min-width: 31px;/, "the TTS control should expose a dedicated on-or-off state badge");
-assert.match(html, /app\.js\?v=matrix-outline-20260730-01/, "JavaScript cache key should include the matrix-outline revision");
+assert.match(html, /app\.js\?v=dedupe-copy-20260730-01/, "JavaScript cache key should include the copy-deduplication revision");
 assert.match(html, /id="memoryHeroVideo"[\s\S]*?preload="none"[\s\S]*?<source data-src="assets\/media\/memory-hero\.mp4"/, "hero video should hydrate after the poster paints");
 assert.match(html, /id="talentStrategyVideoMedia"[\s\S]*?preload="none"[\s\S]*?data-poster="assets\/media\/china-talent-strategy-poster\.webp"[\s\S]*?<source data-src="assets\/media\/china-talent-strategy\.mp4"/, "below-fold talent media should not load during first paint");
 assert.doesNotMatch(html, /family=Noto\+Sans\+KR/, "Pretendard should replace the duplicate Korean webfont download");
@@ -154,9 +154,13 @@ assert.match(css, /\.qa-option:is\(:hover, :focus-visible, \.active\) \.qa-optio
 assert.match(css, /\.c-level-card:is\(:hover, :focus-visible, \.council-active\) :is\(\.strategy-highlight, \.answer-term\) \{[\s\S]*?--term-color: #fff7d6;[\s\S]*?color: var\(--term-color\) !important;[\s\S]*?-webkit-text-fill-color: var\(--term-color\);/, "inverted C-level decision cards should promote semantic terms to a light high-contrast palette");
 assert.match(css, /\.c-level-card:is\(:hover, :focus-visible, \.council-active\) \.term-company \{[\s\S]*?--term-color: #f3e8ff;[\s\S]*?\.c-level-card:is\(:hover, :focus-visible, \.council-active\) \.term-tech,[\s\S]*?--term-color: #d1fae5;/, "inverted C-level cards should retain readable company and action distinctions");
 assert.match(app, /function sourceLinkLabel\(source = "", nearbyText = ""\) \{[\s\S]*?return repeated \? "원문 보기 ↗" : `\$\{label\} ↗`;/, "source links should become generic when the same publisher is already visible nearby");
+assert.match(app, /function uniqueSourceLabel\(source = ""\) \{[\s\S]*?seen\.has\(key\)[\s\S]*?join\(" · "\);/, "source labels should collapse repeated publisher names before display");
+assert.match(app, /function dedupeNews\(items = \[\]\) \{[\s\S]*?const normalizedItem = \{[\s\S]*?source,[\s\S]*?title: stripTrailingSource\(item\.title, source\),[\s\S]*?selected\.push\(normalizedItem\);/, "news records should normalize repeated publisher suffixes before reaching site sections");
 assert.match(app, /link\.textContent = sourceLinkLabel\(item\.source, item\.kicker\);/, "rotating story cards should suppress duplicate publisher link labels");
 assert.match(app, /function koreanArticleHeadline\(title = "", fallback = "", summary = ""\) \{[\s\S]*?const value = cleanKoreanTitle\(/, "article headlines should strip repeated publisher suffixes before display");
 assert.match(app, /function distinctArticleSummary\(summary = "", title = "", source = ""\) \{[\s\S]*?summaryKey === titleKey[\s\S]*?return clean;/, "article cards should suppress summaries that merely repeat their headline");
+assert.match(app, /const owner = cLevelAgentRoleLabel\(roleKey\);[\s\S]*?label: title,[\s\S]*?owner,/, "agent briefing cards should not repeat the role label inside the agenda title");
+assert.doesNotMatch(app, /label: `\$\{cLevelAgentRoleLabel\(roleKey\)\} · \$\{title\}`/, "agent briefing role and agenda labels should remain distinct");
 assert.doesNotMatch(html, /id="liveFigures"|실시간 수치 근거|오늘 확인한 핵심 수치/, "live figures should not render as a standalone duplicate section");
 assert.match(app, /function articleFigureSignalsHTML\([\s\S]*?기사 원문에서 추출한 정량 근거/, "article cards should receive matching crawled figures inline");
 assert.match(app, /const figureSignals = articleFigureSignalsHTML\(item\);[\s\S]*?\$\{figureSignals\}/, "full news cards should show their own quantitative evidence");
