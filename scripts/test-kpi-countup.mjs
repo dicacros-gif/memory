@@ -89,7 +89,8 @@ assert.match(css, /\.china-nand-focus\[data-nand-focus="policy"\] \.nand-focus-h
 assert.match(css, /\.china-nand-focus\[data-nand-focus="policy"\] :is\(\.strategy-highlight, \.answer-term\) \{[\s\S]*?text-decoration: none !important;/, "policy content should not use isolated term highlighting");
 assert.match(app, /<p>\$\{escapeHTML\(line\)\}<\/p>/, "AI matrix summaries should render plain text without isolated term highlighting");
 assert.doesNotMatch(css, /\.ai-summary-line \.strategy-highlight/, "AI matrix summaries should not style individual highlighted terms");
-assert.match(css, /\.ai-summary-line \{[\s\S]*?border: 2px solid color-mix\(in srgb, var\(--ai-summary-accent\) 46%, var\(--line\)\);/, "AI matrix summaries should emphasize the complete card");
+assert.match(css, /\.ai-summary-line \{[\s\S]*?border: 2px solid color-mix\(in srgb, var\(--matrix-slate\) 68%, var\(--matrix-line\)\);/, "AI matrix summaries should use a restrained shared blue-gray outline");
+assert.match(css, /\.ai-summary-line:hover,[\s\S]*?\.ai-summary-line:focus-within \{[\s\S]*?border-color: var\(--matrix-blue\);/, "AI matrix summary hover should strengthen the shared navy outline");
 assert.match(app, /carouselPreview = false/, "image sliders should support optional adjacent-slide previews");
 assert.match(app, /slide\.classList\.toggle\("is-next", carouselPreview && !active && relative === 1\);/, "talent filmstrip should position the next slide at the right edge");
 assert.match(app, /slide\.classList\.toggle\("is-previous", carouselPreview && !active && relative === slides\.length - 1\);/, "talent filmstrip should position the previous slide at the left edge");
@@ -131,7 +132,7 @@ assert.match(app, /loadManagedJSON\("live", "data\/live-client\.json"[\s\S]*?loa
 assert.match(app, /priceHistory: \{[\s\S]*?path: "data\/price-history-client\.json"[\s\S]*?marketHistory: \{[\s\S]*?path: "data\/market-history-client\.json"/, "secondary fallbacks must never download database-sized history files");
 assert.match(css, /\.agent-debate-title \.agent-tts-toggle \{[\s\S]*?min-width: 190px;[\s\S]*?min-height: 44px;/, "the English TTS control should be large and readable");
 assert.match(css, /\.agent-tts-state \{[\s\S]*?min-width: 31px;/, "the TTS control should expose a dedicated on-or-off state badge");
-assert.match(html, /app\.js\?v=interpretation-copy-20260730-01/, "JavaScript cache key should include the interpretation-copy revision");
+assert.match(html, /app\.js\?v=matrix-outline-20260730-01/, "JavaScript cache key should include the matrix-outline revision");
 assert.match(html, /id="memoryHeroVideo"[\s\S]*?preload="none"[\s\S]*?<source data-src="assets\/media\/memory-hero\.mp4"/, "hero video should hydrate after the poster paints");
 assert.match(html, /id="talentStrategyVideoMedia"[\s\S]*?preload="none"[\s\S]*?data-poster="assets\/media\/china-talent-strategy-poster\.webp"[\s\S]*?<source data-src="assets\/media\/china-talent-strategy\.mp4"/, "below-fold talent media should not load during first paint");
 assert.doesNotMatch(html, /family=Noto\+Sans\+KR/, "Pretendard should replace the duplicate Korean webfont download");
@@ -142,12 +143,13 @@ assert.doesNotMatch(css, /\.market-peer-card \{[\s\S]*?border: 2px solid color-m
 assert.doesNotMatch(css, /\.market-peer-card \{[\s\S]*?box-shadow: inset 0 3px 0 var\(--peer-brand\);/, "peer cards should not use an isolated top-edge highlight");
 assert.doesNotMatch(css, /\.arch-track-card \{[\s\S]*?border-top: 4px solid var\(--track-accent\);/, "architecture tracks should not use a top-only color rule");
 assert.doesNotMatch(css, /\.ai-summary-line \{[\s\S]*?inset 0 4px 0 var\(--ai-summary-accent\)/, "AI summaries should not use a top-only inset rule");
-assert.match(css, /\.arch-track-card \{[\s\S]*?border: 2px solid color-mix\(in srgb, var\(--track-accent\) 50%, var\(--line\)\);/, "architecture tracks should use a full-card accent border");
+assert.match(css, /\.arch-track-card \{[\s\S]*?border: 2px solid color-mix\(in srgb, var\(--matrix-slate\) 68%, var\(--matrix-line\)\);/, "architecture tracks should use the same restrained full-card outline");
+assert.match(css, /\.arch-track-card:hover,[\s\S]*?\.arch-track-card:focus-within \{[\s\S]*?border-color: var\(--matrix-blue\);/, "architecture track hover should strengthen the shared navy outline");
 assert.match(css, /\.china-deep-video-dock \.talent-strategy-video \{[\s\S]*?height: clamp\(380px, 29vw, 560px\);[\s\S]*?aspect-ratio: auto;/, "the wide China strategy video should have a bounded desktop height");
 assert.match(css, /@media \(max-width: 680px\) \{[\s\S]*?\.china-deep-video-dock \.talent-strategy-video \{[\s\S]*?aspect-ratio: 4 \/ 5;/, "the compact video height should preserve the mobile portrait layout");
 assert.match(css, /#talent-radar \.talent-radar-slider-slot \{[\s\S]*?display: flex;[\s\S]*?justify-content: center;/, "the talent radar slot should center its visual stage");
 assert.match(css, /#talent-radar \.talent-radar-slider \{[\s\S]*?width: min\(100%, 1360px\);[\s\S]*?margin-inline: auto;/, "the talent radar visual should use a bounded, centered desktop width");
-assert.match(html, /styles\.css\?v=interpretation-copy-20260730-01/, "CSS cache key should include the interpretation-copy revision");
+assert.match(html, /styles\.css\?v=matrix-outline-20260730-01/, "CSS cache key should include the matrix-outline revision");
 assert.match(app, /function sourceLinkLabel\(source = "", nearbyText = ""\) \{[\s\S]*?return repeated \? "원문 보기 ↗" : `\$\{label\} ↗`;/, "source links should become generic when the same publisher is already visible nearby");
 assert.match(app, /link\.textContent = sourceLinkLabel\(item\.source, item\.kicker\);/, "rotating story cards should suppress duplicate publisher link labels");
 assert.match(app, /function koreanArticleHeadline\(title = "", fallback = "", summary = ""\) \{[\s\S]*?const value = cleanKoreanTitle\(/, "article headlines should strip repeated publisher suffixes before display");

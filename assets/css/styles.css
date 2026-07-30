@@ -13816,7 +13816,7 @@ body.sidebar-collapsed .sb-ico {
   grid-template-columns: auto 1fr;
   gap: 10px;
   align-items: start;
-  border: 2px solid color-mix(in srgb, var(--ai-summary-accent) 46%, var(--line));
+  border: 2px solid color-mix(in srgb, var(--matrix-slate) 68%, var(--matrix-line));
   border-radius: 10px;
   background:
     linear-gradient(135deg, color-mix(in srgb, var(--ai-summary-accent) 15%, transparent), transparent 72%),
@@ -13853,7 +13853,7 @@ body.sidebar-collapsed .sb-ico {
 .ai-summary-line:focus-within {
   transform: translateY(-6px) scale(1.012);
   background: color-mix(in srgb, var(--ai-summary-accent) 90%, #071426);
-  border-color: color-mix(in srgb, #fff 70%, var(--ai-summary-accent));
+  border-color: var(--matrix-blue);
   box-shadow: 0 17px 36px color-mix(in srgb, var(--ai-summary-accent) 30%, transparent);
 }
 
@@ -14125,7 +14125,7 @@ body.sidebar-collapsed .sb-ico {
       color-mix(in srgb, var(--track-accent) 6%, var(--panel)) 62%,
       var(--panel) 100%),
     var(--panel);
-  border: 2px solid color-mix(in srgb, var(--track-accent) 50%, var(--line));
+  border: 2px solid color-mix(in srgb, var(--matrix-slate) 68%, var(--matrix-line));
   box-shadow: 0 10px 24px color-mix(in srgb, var(--track-accent) 14%, transparent);
   transition: transform .24s cubic-bezier(.2, .8, .2, 1), border-color .2s ease, box-shadow .2s ease, background .2s ease;
 }
@@ -14659,7 +14659,7 @@ body.sidebar-collapsed .sb-ico {
 
 .arch-track-card:hover,
 .arch-track-card:focus-within {
-  border-color: var(--track-accent);
+  border-color: var(--matrix-blue);
   background:
     radial-gradient(circle at 8% 10%, rgba(255, 255, 255, .2), transparent 32%),
     linear-gradient(135deg, color-mix(in srgb, var(--track-accent) 92%, #14213d), color-mix(in srgb, var(--track-accent) 62%, #07111f));
