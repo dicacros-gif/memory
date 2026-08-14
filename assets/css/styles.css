@@ -23167,10 +23167,10 @@ button.ni-trend-chip:hover { box-shadow: 0 4px 12px color-mix(in srgb, #0891B2 2
   background: var(--ink);
 }
 
-/* ===================================================================
+/* -------------------------------------------------------------------
    Squarespace-style editorial hero for Competitive Dynamics / Money Flow
    Big bold headline + auto-rotating 01/02/03 slide stage over the graph.
-   =================================================================== */
+   ------------------------------------------------------------------- */
 .mm-hero {
   --mm-accent: #4322A8;
   margin: 4px 0 22px;
@@ -26867,3 +26867,93 @@ button.ni-trend-chip:hover { box-shadow: 0 4px 12px color-mix(in srgb, #0891B2 2
     animation: none;
   }
 }
+
+/* -------------------------------------------------------------------
+   Strategy consulting board — pain-point → workload → solution → Biz.
+   Crawl-driven evidence; consulting-deck aesthetic.
+   ------------------------------------------------------------------- */
+.strategy-consulting-board .sc-mission {
+  margin: 2px 0 16px;
+  font-size: 13px;
+  line-height: 1.65;
+  font-weight: 650;
+  color: var(--ink-2);
+  max-width: 900px;
+}
+.strategy-consulting-board .sc-mission b { color: var(--ink); font-weight: 850; }
+.sc-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+  gap: 14px;
+}
+.sc-card {
+  --sc-accent: #2D6BFF;
+  display: grid;
+  gap: 9px;
+  padding: 15px;
+  border: 1px solid var(--line);
+  border-radius: 14px;
+  background: var(--panel);
+  border-top: 3px solid var(--sc-accent);
+  box-shadow: 0 10px 26px rgba(2, 8, 23, .16);
+  transition: transform .18s cubic-bezier(.2,.7,.2,1), box-shadow .18s ease, border-color .18s ease;
+}
+.sc-card:hover { transform: translateY(-4px); box-shadow: 0 20px 44px color-mix(in srgb, var(--sc-accent) 22%, rgba(2,8,23,.22)); }
+.sc-card-top { display: flex; align-items: center; justify-content: space-between; gap: 8px; }
+.sc-evidence {
+  font: 800 10px/1 var(--display, "Space Grotesk", sans-serif);
+  letter-spacing: .04em;
+  padding: 4px 9px;
+  border-radius: 999px;
+  color: #fff;
+  background: var(--sc-accent);
+}
+.sc-evidence.is-waiting { background: color-mix(in srgb, var(--ink-2) 40%, var(--line)); color: var(--ink-2); }
+.sc-mom { font: 800 10px/1 var(--display, "Space Grotesk", sans-serif); padding: 4px 8px; border-radius: 999px; border: 1px solid var(--line); }
+.sc-mom.up { color: #dc2626; border-color: color-mix(in srgb, #dc2626 40%, var(--line)); }
+.sc-mom.down { color: #2563eb; border-color: color-mix(in srgb, #2563eb 40%, var(--line)); }
+.sc-mom.flat { color: var(--ink-2); }
+.sc-step > span {
+  display: block;
+  font: 800 8.5px/1 var(--display, "Space Grotesk", sans-serif);
+  letter-spacing: .14em;
+  color: var(--sc-accent);
+  margin-bottom: 3px;
+}
+.sc-pain strong { font-size: 13.5px; font-weight: 850; line-height: 1.4; color: var(--ink); }
+.sc-solution p, .sc-opportunity p { margin: 0; font-size: 11.5px; line-height: 1.5; font-weight: 680; color: var(--ink-2); }
+.sc-workload {
+  display: grid;
+  gap: 4px;
+  padding: 9px 10px;
+  border-radius: 10px;
+  background: color-mix(in srgb, var(--sc-accent) 7%, var(--panel-2, var(--panel)));
+  border: 1px solid color-mix(in srgb, var(--sc-accent) 22%, var(--line));
+}
+.sc-wl-name { font: 800 11px/1.2 var(--display, "Space Grotesk", sans-serif); color: var(--ink); }
+.sc-wl-row { display: flex; gap: 8px; align-items: baseline; font-size: 10.5px; }
+.sc-wl-row b { flex: 0 0 20px; color: var(--sc-accent); font-weight: 900; font-size: 9px; letter-spacing: .05em; }
+.sc-wl-row span { color: var(--ink-2); font-weight: 640; line-height: 1.4; }
+.sc-trends { display: flex; flex-wrap: wrap; gap: 5px; }
+.sc-trend {
+  cursor: pointer;
+  font: 700 10px/1 var(--display, "Space Grotesk", sans-serif);
+  padding: 4px 8px;
+  border-radius: 999px;
+  border: 1px solid var(--line);
+  background: var(--panel-2, var(--panel));
+  color: var(--ink-2);
+  display: inline-flex; gap: 5px; align-items: center;
+  transition: border-color .15s ease, color .15s ease;
+}
+.sc-trend:hover { border-color: var(--sc-accent); color: var(--ink); }
+.sc-trend b { color: var(--sc-accent); }
+.sc-evidence-list { list-style: none; margin: 0; padding: 0; display: grid; gap: 5px; }
+.sc-evidence-list li { display: flex; align-items: baseline; gap: 7px; font-size: 11px; padding: 5px 6px; border-radius: 7px; transition: background .14s; }
+.sc-evidence-list li:hover { background: color-mix(in srgb, var(--sc-accent) 8%, transparent); }
+.sc-ev-src { flex: 0 0 auto; font: 800 8.5px/1 var(--display, "Space Grotesk", sans-serif); letter-spacing: .04em; color: var(--sc-accent); text-transform: uppercase; }
+.sc-evidence-list a { color: var(--ink); text-decoration: none; font-weight: 720; line-height: 1.38; }
+.sc-evidence-list a:hover { color: var(--sc-accent); text-decoration: underline; }
+.sc-evidence-list small { margin-left: auto; flex: 0 0 auto; font-size: 9px; color: var(--muted, var(--ink-2)); font-weight: 700; }
+.sc-empty { margin: 0; font-size: 10.5px; font-weight: 650; color: var(--muted, var(--ink-2)); font-style: italic; }
+.sc-note { margin: 14px 0 0; font-size: 10px; font-weight: 700; color: var(--muted, var(--ink-2)); letter-spacing: .01em; }

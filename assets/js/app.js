@@ -1832,6 +1832,14 @@
       sections: ["overview", "overview-content"],
     },
     {
+      id: "biz-consulting",
+      label: "전략 컨설팅",
+      desc: "페인포인트·신규 메모리 Biz 기회",
+      cadence: "Consulting",
+      jump: "strategy-consulting",
+      sections: ["strategy-consulting"],
+    },
+    {
       id: "c-level",
       label: "경영진 의사결정",
       desc: "안건·에이전트 토론·결론",
@@ -2054,7 +2062,7 @@
     talent: { label: "인재 · IP", en: "Talent / IP", desc: "채용, 핵심 수율 인력 이동, IP 방어 신호" },
   };
   const SIDE_NAV_GROUPS = [
-    { label: "핵심·의사결정", routes: ["home", "c-level", "analysis"] },
+    { label: "핵심·의사결정", routes: ["home", "biz-consulting", "c-level", "analysis"] },
     { label: "정책·시장", routes: ["policy", "china-workforce", "market"] },
     { label: "경쟁·전망", routes: ["competitors", "talent", "numbers", "projection", "hyperscaler-demand"] },
     { label: "구조·실행", routes: ["workbench", "market-map", "ai-architecture", "strategy-actions"] },
@@ -2062,6 +2070,7 @@
   ];
   const SIDE_NAV_ICONS = {
     home: "01",
+    "biz-consulting": "◆",
     "c-level": "02",
     analysis: "03",
     policy: "04",
@@ -5203,6 +5212,7 @@
 
   function deferredSectionDefinitions() {
     return [
+      { id: "strategy-consulting", render: renderStrategyConsulting },
       { id: "c-level-cockpit", render: renderCLevelCockpit },
       { id: "executive-decision", render: renderExecutiveDecision, data: ["priceHistory", "marketHistory", "quantBacktest"] },
       { id: "management-strategy", render: renderManagementStrategy },
@@ -12452,6 +12462,144 @@
 
   function memoryMarketNodeName(id) {
     return memoryMarketNodes().find((node) => node.id === id)?.name || id;
+  }
+
+  // ------------------------------------------------------------
+  // Strategy consulting board — for the SK hynix Biz-strategy team.
+  // Each "lens" is a customer/workload pain-point framed as a consulting
+  // chain (Pain point → Datacenter workload HW/SW → Memory solution → new Biz
+  // opportunity). The FRAMEWORK text is a fixed consulting scaffold; the
+  // EVIDENCE (headline count, verbatim citations, price momentum) is pulled
+  // live from the latest crawl (LIVE.news / LIVE.trending / QUANT.momentum),
+  // so the board updates every crawl instead of being hardcoded. No fabricated
+  // facts: lens framing is labelled as framework, evidence is real and sourced.
+  // ------------------------------------------------------------
+  const STRATEGY_CONSULTING_LENSES = [
+    {
+      id: "ai-training",
+      accent: "#2D6BFF",
+      pain: "AI 학습 클러스터의 메모리 대역폭·용량 병목",
+      workload: { name: "LLM Training", hw: "GPU + HBM 스택", sw: "분산학습·병렬화 프레임워크(FSDP·Megatron)" },
+      solution: "HBM4/HBM4E 대역폭·스택 고용량으로 학습 처리량과 토큰당 비용을 방어",
+      opportunity: "하이퍼스케일러 HBM 장기 공급계약·베이스다이 공동 로드맵",
+      match: /HBM|training|학습|nvidia|\bgpu\b|bandwidth|대역폭|AI 서버|accelerat|B200|MI3|rubin|blackwell/i,
+    },
+    {
+      id: "ai-inference",
+      accent: "#00C2A8",
+      pain: "추론 서비스의 비용·지연과 KV-cache 메모리 압박",
+      workload: { name: "LLM Inference · Serving", hw: "가속기 + DDR5 / CXL 확장", sw: "서빙 스택(vLLM)·KV 캐시·양자화" },
+      solution: "CXL 메모리 풀링 + 고용량 DDR5로 추론 TCO·컨텍스트 길이 확보",
+      opportunity: "추론 최적화 메모리 티어링·CXL 확장 신규 매출축",
+      match: /inference|추론|\bCXL\b|LPDDR|DDR5|serving|vllm|\bKV\b|latency|지연|양자화|quantiz|context/i,
+    },
+    {
+      id: "storage",
+      accent: "#0EA5E9",
+      pain: "AI 데이터 파이프라인·체크포인트의 스토리지 처리량 한계",
+      workload: { name: "Data Pipeline · Storage", hw: "eSSD · NAND", sw: "데이터레이크·체크포인트 I/O·벡터DB" },
+      solution: "고밀도 eSSD·QLC로 데이터센터 I/O·체크포인트·벡터 검색 가속",
+      opportunity: "AI 데이터센터 eSSD 확대·고용량 QLC 신규 수요",
+      match: /NAND|eSSD|\bSSD\b|storage|스토리지|낸드|checkpoint|vector\s*db|데이터레이크|data\s*lake/i,
+    },
+    {
+      id: "supply-cost",
+      accent: "#F59E0B",
+      pain: "범용 DRAM 가격 변동성과 공급 부족·재고 리스크",
+      workload: { name: "Commodity DRAM", hw: "서버·PC·모바일 DRAM", sw: "재고·수급 관리" },
+      solution: "제품 믹스 전환·장기계약으로 가격 하방을 방어",
+      opportunity: "프리미엄 고객 장기 공급계약 락인·저수익 SKU 회수",
+      match: /DRAM\s*spot|contract\s*price|shortage|가격|공급\s*부족|재고|price\s*(?:hike|increase|rise)|감산/i,
+      momentum: "dram",
+    },
+    {
+      id: "china",
+      accent: "#DB2777",
+      pain: "CXMT·YMTC 범용 가격 압력과 장비 내재화 가속",
+      workload: { name: "China Competition", hw: "범용 DRAM·NAND", sw: "국산 장비·EDA" },
+      solution: "프리미엄 차별화·비중국 고객 집중으로 기술 격차 유지",
+      opportunity: "비중국 프리미엄 락인·HBM/서버 DRAM 격차 방어",
+      match: /CXMT|YMTC|중국|\bchina\b|장비\s*내재화|국산화|big\s*fund|수출통제|export\s*control/i,
+    },
+  ];
+
+  function strategyConsultingEvidence(lens) {
+    const seen = new Set();
+    const items = [];
+    for (const n of LIVE.news || []) {
+      const hay = `${n.title || ""} ${n.titleKo || ""} ${n.originalTitle || ""} ${n.summary || ""} ${n.source || ""}`;
+      if (!lens.match.test(hay)) continue;
+      const url = String(n.link || n.sourceUrl || "");
+      const key = normalizeCrawlExclusionUrl(url) || `${n.title}`;
+      if (seen.has(key)) continue;
+      seen.add(key);
+      items.push({
+        title: n.titleKo || n.title || "",
+        url,
+        source: n.source || "",
+        date: String(n.date || n.publishedAt || "").slice(0, 10),
+        level: n.verification?.evidenceLevel || "",
+      });
+    }
+    items.sort((a, b) => String(b.date || "").localeCompare(String(a.date || "")));
+    const trends = (LIVE.trending || [])
+      .filter((t) => lens.match.test(String(t.term || "")))
+      .slice(0, 6)
+      .map((t) => ({ term: t.term, count: Number(t.count) || 0 }));
+    // Real spot-price momentum, only where the lens is price-bearing.
+    let momentum = null;
+    const mom = QUANT?.memoryMomentum;
+    if (lens.momentum && mom) {
+      const pct = lens.momentum === "nand" ? (mom.nandSpot30dPct ?? mom.nandSpot90dPct) : (mom.dramSpot30dPct ?? mom.dramSpot90dPct);
+      if (Number.isFinite(pct)) momentum = { kind: `${lens.momentum.toUpperCase()} spot 30d`, pct, dir: pct > 0 ? "up" : pct < 0 ? "down" : "flat" };
+    }
+    return { count: items.length, items: items.slice(0, 3), trends, momentum };
+  }
+
+  function renderStrategyConsulting() {
+    const host = $("#strategyConsulting");
+    if (!host) return;
+    const meta = $("#strategyConsultingMeta");
+    const lenses = STRATEGY_CONSULTING_LENSES.map((lens) => ({ lens, ev: strategyConsultingEvidence(lens) }));
+    const totalEvidence = lenses.reduce((s, x) => s + x.ev.count, 0);
+    const asOf = String(LIVE.intelligence?.generatedAt || LIVE.updatedAt || "").slice(0, 10);
+    if (meta) { meta.hidden = false; meta.textContent = `크롤 근거 ${fmtNum(totalEvidence)}건 · ${escapeHTML(asOf)} 기준`; }
+    // Rank lenses by live evidence so the hottest pain-point leads.
+    lenses.sort((a, b) => b.ev.count - a.ev.count);
+    host.innerHTML = `
+      <p class="sc-mission">SK hynix 고객의 <b>Pain point</b>를 분석하고 맞춤형 메모리 솔루션을 제안해 새로운 Biz. 기회를 창출합니다. 아래 카드는 <b>이번 크롤에서 관측된 근거</b>로 우선순위가 갱신됩니다 — 프레임(페인포인트→워크로드→솔루션→기회)은 컨설팅 스캐폴드, 수치·인용은 실제 크롤 근거입니다.</p>
+      <div class="sc-grid">
+        ${lenses.map(({ lens, ev }) => `
+          <article class="sc-card" style="--sc-accent:${lens.accent}">
+            <div class="sc-card-top">
+              <span class="sc-evidence ${ev.count ? "" : "is-waiting"}">근거 ${fmtNum(ev.count)}건</span>
+              ${ev.momentum ? `<span class="sc-mom ${ev.momentum.dir}">${escapeHTML(ev.momentum.kind)} ${ev.momentum.pct > 0 ? "+" : ""}${fmtNum(ev.momentum.pct, 1)}%</span>` : ""}
+            </div>
+            <div class="sc-step sc-pain"><span>PAIN POINT</span><strong>${strategicHighlightHTML(lens.pain)}</strong></div>
+            <div class="sc-workload">
+              <span class="sc-wl-name">${escapeHTML(lens.workload.name)}</span>
+              <div class="sc-wl-row"><b>HW</b><span>${escapeHTML(lens.workload.hw)}</span></div>
+              <div class="sc-wl-row"><b>SW</b><span>${escapeHTML(lens.workload.sw)}</span></div>
+            </div>
+            <div class="sc-step sc-solution"><span>MEMORY SOLUTION</span><p>${strategicHighlightHTML(lens.solution)}</p></div>
+            <div class="sc-step sc-opportunity"><span>NEW BIZ OPPORTUNITY</span><p>${strategicHighlightHTML(lens.opportunity)}</p></div>
+            ${ev.trends.length ? `<div class="sc-trends">${ev.trends.map((t) => `<button type="button" class="sc-trend" data-trend-term="${escapeHTML(t.term)}">${escapeHTML(t.term)}<b>${fmtNum(t.count)}</b></button>`).join("")}</div>` : ""}
+            ${ev.items.length ? `
+              <ul class="sc-evidence-list">
+                ${ev.items.map((c) => `<li>
+                  <span class="sc-ev-src">${escapeHTML(c.source || "출처")}</span>
+                  ${c.url ? `<a href="${escapeHTML(c.url)}" target="_blank" rel="noopener">${escapeHTML(String(c.title).slice(0, 82))} ↗</a>` : `<span>${escapeHTML(String(c.title).slice(0, 82))}</span>`}
+                  <small>${escapeHTML(c.date)}</small>
+                </li>`).join("")}
+              </ul>` : `<p class="sc-empty">이번 크롤에서 직접 근거 미관측 · 다음 갱신에서 재탐색</p>`}
+          </article>
+        `).join("")}
+      </div>
+      <p class="sc-note">근거는 매 크롤(1일 2회) 자동 갱신 · 페인포인트/솔루션/기회 프레임은 컨설팅 스캐폴드이며 확정 사실이 아님 · 트렌드 키워드 클릭 시 관련 기사로 이동</p>
+    `;
+    host.querySelectorAll("[data-trend-term]").forEach((btn) => {
+      btn.addEventListener("click", () => highlightNewsForTerm(btn.dataset.trendTerm));
+    });
   }
 
   // Squarespace-style editorial hero: a big bold headline + an auto-rotating
