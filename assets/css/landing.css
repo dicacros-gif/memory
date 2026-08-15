@@ -16,6 +16,31 @@
   line-height: 1.65;
 }
 
+.business-copy-list,
+.business-answer-bullets {
+  list-style: none;
+}
+
+.business-copy-list {
+  display: grid;
+  gap: 5px;
+}
+
+.business-copy-list li,
+.business-answer-bullets li {
+  position: relative;
+  padding-left: 16px;
+}
+
+.business-copy-list li::before,
+.business-answer-bullets li::before {
+  content: "·";
+  position: absolute;
+  left: 0;
+  color: var(--business-mint);
+  font-weight: 950;
+}
+
 .business-decision-lab {
   background: #eaf0f5;
 }
@@ -125,12 +150,20 @@
   line-height: 1.18;
 }
 
-.business-decision-answer p {
+.business-decision-answer p,
+.business-answer-bullets {
   max-width: 980px;
+  margin: 0;
+  padding: 0;
   color: rgba(255, 255, 255, .78);
   font-size: 14px;
   font-weight: 650;
   line-height: 1.7;
+}
+
+.business-answer-bullets {
+  display: grid;
+  gap: 3px;
 }
 
 .business-decision-answer > strong {
@@ -5569,6 +5602,39 @@ body.landing-mode {
   .business-evidence-case-framework li { min-height: 0; }
   .business-evidence-case-framework li::after { display: none; }
   .business-evidence-decision-path li { grid-template-columns: 1fr; gap: 6px; }
+}
+
+/* Korean supporting copy uses compact consulting-style bullets. */
+.business-case-logic p,
+.business-option-portfolio article p,
+.business-partner-raci article p,
+.business-strategy-artifact p,
+.business-fabric-stack p,
+.business-deep-case-grid p,
+.business-role-outputs p,
+.business-macro-action p {
+  position: relative;
+  padding-left: 13px;
+}
+
+.business-case-logic p::before,
+.business-option-portfolio article p::before,
+.business-partner-raci article p::before,
+.business-strategy-artifact p::before,
+.business-fabric-stack p::before,
+.business-deep-case-grid p::before,
+.business-role-outputs p::before,
+.business-macro-action p::before {
+  content: "·";
+  position: absolute;
+  left: 0;
+  color: var(--business-mint);
+  font-weight: 950;
+}
+
+.business-strategy-artifact p::before,
+.business-deep-case-grid p::before {
+  color: var(--initiative-accent, var(--consulting-blue));
 }
 
 @media (prefers-reduced-motion: reduce) {

@@ -113,7 +113,7 @@ assert.deepEqual(businessNavLabels, [
 assert.match(html, /id="intelligenceConsole" hidden/, "the Intelligence Console must stay outside the initial visible layer");
 assert.doesNotMatch(html, /<script[^>]+src="assets\/js\/app\.js/, "the heavy console app must not load with the public landing page");
 assert.doesNotMatch(html, /<link[^>]+href="assets\/css\/styles\.css/, "the heavy console stylesheet must not load with the public landing page");
-assert.match(html, /assets\/js\/landing\.js\?v=infra-20260816-05/, "the lightweight landing controller must use the AI Infra revision");
+assert.match(html, /assets\/js\/landing\.js\?v=infra-20260816-06/, "the lightweight landing controller must use the AI Infra revision");
 assert.match(html, /class="business-footer"[\s\S]*?href="https:\/\/www\.linkedin\.com\/in\/dicacross\/"[\s\S]*?© 2026 dicacross · Independent strategy portfolio based on public information/, "the public portfolio credit must link to the dicacross LinkedIn profile");
 assert.doesNotMatch(html, /메모리를 판매하는 것이 아니라/, "the removed sales-negation headline must stay deleted");
 assert.doesNotMatch(html, /직무 적합성을 세 가지|검증 가능한 역량으로 압축합니다/, "the removed role-fit headline must stay deleted");
@@ -159,8 +159,8 @@ assert.equal((html.match(/class="business-competency-card"/g) || []).length, 3, 
 assert.match(html, /Customer Problem Structuring[\s\S]*?Full-Stack AI Infra Translation[\s\S]*?Executive Strategy &amp; Business Case/, "the three competencies must map directly to the target role");
 assert.match(html, /id="initiatives"[\s\S]*?Customer Memory Consulting[\s\S]*?Context \/ Tiered AI Memory[\s\S]*?Custom Memory Co-Design/, "the hero must lead into three strategic initiatives");
 assert.doesNotMatch(html, /data-diagnostic-stage=|business-consulting-funnel|business-execution-roadmap/, "repeated diagnostic, funnel, and roadmap frameworks must be removed");
-assert.match(html, /Customer Signal[\s\S]*?Workload Profile[\s\S]*?System Bottleneck[\s\S]*?Memory Requirement[\s\S]*?Benchmark \/ TCO[\s\S]*?Revenue \/ Repeat Order/, "the public strategy chain must use one workload-to-revenue loop");
-assert.match(html, /Customer Memory Consulting Process · 10 Gates[\s\S]*?Packaging \/ Yield Readiness[\s\S]*?Capacity \/ Volume Ramp/, "the consulting process must separate package/yield readiness from volume ramp");
+assert.match(html, /고객 신호[\s\S]*?Workload 정의[\s\S]*?시스템 병목[\s\S]*?메모리 요구사항[\s\S]*?Benchmark \/ TCO[\s\S]*?매출 \/ 반복 발주/, "the public strategy chain must use one workload-to-revenue loop");
+assert.match(html, /Customer Memory Consulting Process · 10 Gates[\s\S]*?Packaging \/ 수율 준비[\s\S]*?Capacity \/ 양산 확대/, "the consulting process must separate package/yield readiness from volume ramp");
 assert.match(html, /What Would Change Our Mind\?/, "the strategy loop must expose an explicit decision-reversal board");
 assert.match(html, /System TCO 개선 &lt;10%/, "the strategy loop must define a modeled technology kill criterion");
 assert.match(html, /Package Yield Gate가? 2회 연속 미달/, "the strategy loop must define a modeled supply kill criterion");
@@ -168,7 +168,7 @@ assert.match(html, /확정 물량 &lt;제안 Capacity의 80%/, "the strategy loo
 assert.match(html, /RECONSTRUCTED · DECISION PACK[\s\S]*?CUSTOMER SITUATION[\s\S]*?DIAGNOSTIC METRICS[\s\S]*?ARCHITECTURE OPTIONS[\s\S]*?EXECUTION GATES/, "solutions must show a strategy deliverable instead of another process diagram");
 assert.match(html, /id="workload-map"[\s\S]*?Large-scale Training[\s\S]*?Long-context \/ Agentic AI[\s\S]*?Physical AI/, "the representative workload-to-memory map must cover five workload families");
 assert.match(html, /Performance[\s\S]*?per Watt[\s\S]*?Token \/ Query[\s\S]*?Total Cost of/, "technology options must connect to system-economics metrics");
-assert.match(html, /id="macro"[\s\S]*?Competition &amp; Supply Chain[\s\S]*?Global · China[\s\S]*?Policy &amp; Geopolitics/, "China and policy must remain subordinate macro decision inputs");
+assert.match(html, /id="macro"[\s\S]*?Competition &amp; Supply Chain[\s\S]*?글로벌 경쟁 · Packaging[\s\S]*?Policy &amp; Geopolitics/, "competition and policy must remain subordinate macro decision inputs");
 assert.match(html, /id="role-fit"[\s\S]*?Strategic Problem Solving[\s\S]*?AI Infra Execution Strategy/, "the portfolio must make role fit and execution capabilities explicit");
 assert.match(html, /sk-hynix-and-sandisk-begin-global-standardization-ofnext-generation-memory-hbf/, "the HBF evidence case must link to the official standardization source");
 assert.match(html, /표준화 착수는 상용화 완료가 아닙니다/, "the HBF case must distinguish standardization from commercialization");
