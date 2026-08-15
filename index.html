@@ -110,7 +110,7 @@
     (() => {
       if (!location.hash.startsWith("#console")) return;
       document.documentElement.classList.add("console-entry");
-      const revision = "infra-20260816-03";
+      const revision = "infra-20260816-04";
       const assets = [
         ["consoleStylesPreload", "style", `assets/css/styles.css?v=${revision}`, "high"],
         ["consoleAppPreload", "script", `assets/js/app.js?v=${revision}`, "low"],
@@ -127,7 +127,7 @@
       }
     })();
   </script>
-  <link rel="stylesheet" href="assets/css/landing.css?v=infra-20260816-03" />
+  <link rel="stylesheet" href="assets/css/landing.css?v=infra-20260816-04" />
 </head>
 <body class="landing-mode">
   <div class="business-site" id="businessSite">
@@ -573,29 +573,29 @@
       <section class="business-section business-insights" id="insights" data-frame="ISSUE TREE · SO WHAT / NOW WHAT">
         <div class="business-container">
           <div class="business-section-heading business-section-heading--split">
-            <div><p class="business-kicker">Tech-to-Business Translation</p><h2>Tech Change → Memory Implication → Business Question</h2></div>
-            <ul class="business-heading-points"><li>WHAT · Architecture Change</li><li>SO WHAT · Memory Footprint · Data Reuse</li><li>NOW WHAT · TCO · Qualification · Trigger</li></ul>
+            <div><p class="business-kicker">Tech-to-Business Decision Frame</p><h2>Issue Tree → Evidence → Decision Gate</h2></div>
+            <ul class="business-heading-points"><li>FACT · Architecture Change</li><li>IMPLICATION · Memory Economics</li><li>ACTION · Owner · KPI · Kill Criteria</li></ul>
           </div>
           <div class="business-tech-decision-grid" id="llm-topics">
             <article>
               <div><span>01 · TRANSFORMER / ATTENTION</span><b>HYPOTHESIS</b></div>
               <h3>HBM 병목이 Bandwidth인지 Capacity인지 먼저 구분합니다.</h3>
-              <dl><div><dt>TECH CHANGE</dt><dd>Attention과 KV Cache가 Serving Memory Footprint를 확대</dd></div><div><dt>MEMORY IMPLICATION</dt><dd>HBM Capacity/Bandwidth와 Host·Context Tier의 역할 분화</dd></div><div><dt>BUSINESS QUESTION</dt><dd>병목은 HBM 부족인가, KV Reuse와 Data Movement 문제인가?</dd></div></dl>
+              <dl><div><dt>FACT</dt><dd>Attention과 KV Cache가 Serving Memory Footprint를 확대</dd></div><div><dt>IMPLICATION</dt><dd>HBM Capacity/Bandwidth와 Host·Context Tier의 역할 분화</dd></div><div><dt>DECISION QUESTION</dt><dd>병목은 HBM 부족인가, KV Reuse와 Data Movement 문제인가?</dd></div><div><dt>ACTION GATE</dt><dd>Memory Stall·TTFT·TPOT를 동일 Workload에서 계측한 뒤 증설안을 승인</dd></div></dl>
             </article>
             <article>
               <div><span>02 · PREFIX / KV REUSE</span><b>HYPOTHESIS</b></div>
               <h3>더 큰 HBM과 별도 Context Tier의 경제성을 비교합니다.</h3>
-              <dl><div><dt>TECH CHANGE</dt><dd>공유 Prompt와 반복 Context의 Cache 재사용 가능성 증가</dd></div><div><dt>MEMORY IMPLICATION</dt><dd>Cache Placement·Promotion·Eviction이 시스템 효율을 좌우</dd></div><div><dt>BUSINESS QUESTION</dt><dd>추가 Accelerator와 Tiered Context Architecture 중 어느 쪽이 싼가?</dd></div></dl>
+              <dl><div><dt>FACT</dt><dd>공유 Prompt와 반복 Context의 Cache 재사용 가능성 증가</dd></div><div><dt>IMPLICATION</dt><dd>Cache Placement·Promotion·Eviction이 시스템 효율을 좌우</dd></div><div><dt>DECISION QUESTION</dt><dd>추가 Accelerator와 Tiered Context Architecture 중 어느 쪽이 싼가?</dd></div><div><dt>ACTION GATE</dt><dd>Reuse Rate별 Token 원가와 P99를 비교해 Context Tier PoC 범위를 확정</dd></div></dl>
             </article>
             <article>
               <div><span>03 · AGENTIC / LONG CONTEXT</span><b>RECONSTRUCTED</b></div>
               <h3>HBM과 Storage 사이의 새로운 Context Memory 기회를 봅니다.</h3>
-              <dl><div><dt>TECH CHANGE</dt><dd>Multi-turn·Multi-agent에서 Context State가 커지고 반복</dd></div><div><dt>MEMORY IMPLICATION</dt><dd>HBM Hot Tier와 SOCAMM2·CXL·HBF·eSSD Capacity Tier 연결</dd></div><div><dt>BUSINESS QUESTION</dt><dd>어떤 Reuse·Latency Threshold에서 Tiering의 TCO가 역전되는가?</dd></div></dl>
+              <dl><div><dt>FACT</dt><dd>Multi-turn·Multi-agent에서 Context State가 커지고 반복</dd></div><div><dt>IMPLICATION</dt><dd>HBM Hot Tier와 SOCAMM2·CXL·HBF·eSSD Capacity Tier 연결</dd></div><div><dt>DECISION QUESTION</dt><dd>어떤 Reuse·Latency Threshold에서 Tiering의 TCO가 역전되는가?</dd></div><div><dt>ACTION GATE</dt><dd>대표 Agentic Workload로 Tier별 Latency·Power·TCO Benchmark를 구축</dd></div></dl>
             </article>
             <article>
               <div><span>04 · RAG / VECTOR RETRIEVAL</span><b>HYPOTHESIS</b></div>
               <h3>Index Resident Ratio가 DRAM과 eSSD 투자 결정을 바꿉니다.</h3>
-              <dl><div><dt>TECH CHANGE</dt><dd>Vector Index·Metadata·Source Document·Retrieval Cache 증가</dd></div><div><dt>MEMORY IMPLICATION</dt><dd>DRAM/CXL Resident Cache와 High-capacity eSSD 배치 최적화</dd></div><div><dt>BUSINESS QUESTION</dt><dd>어떤 Hit Rate와 P99에서 Memory 증설과 Storage 증설이 교차하는가?</dd></div></dl>
+              <dl><div><dt>FACT</dt><dd>Vector Index·Metadata·Source Document·Retrieval Cache 증가</dd></div><div><dt>IMPLICATION</dt><dd>DRAM/CXL Resident Cache와 High-capacity eSSD 배치 최적화</dd></div><div><dt>DECISION QUESTION</dt><dd>어떤 Hit Rate와 P99에서 Memory 증설과 Storage 증설이 교차하는가?</dd></div><div><dt>ACTION GATE</dt><dd>Index Resident Ratio별 DRAM·eSSD 비용 곡선과 전환 Trigger를 확정</dd></div></dl>
             </article>
           </div>
           <div class="business-llm-causal-chain" aria-label="LLM 기술 변화와 메모리 사업 영향">
@@ -620,40 +620,60 @@
             <p class="business-evidence-caveat">공식 발표상 3사 모두 2026년 HBM4 생산·출하 단계에 진입했습니다. 고정된 ‘2분기 격차’를 전제하지 않고 Speed·Power·Base Die·Qualification·Package Yield·Volume Ramp를 같은 기준으로 재검증합니다.</p>
           </section>
           <section class="business-execution-evidence" id="execution-evidence" aria-labelledby="executionEvidenceTitle">
-            <div class="business-module-heading business-module-heading--light">
-              <span>2026 EXECUTION EVIDENCE</span>
-              <h3 id="executionEvidenceTitle">Evidence Ladder · Fact to Decision</h3>
-              <p>OFFICIAL → REPORTED → THIRD PARTY → HYPOTHESIS</p>
+            <div class="business-module-heading business-module-heading--evidence">
+              <span>EXECUTIVE EVIDENCE SYNTHESIS · 4-STEP FRAME</span>
+              <h3 id="executionEvidenceTitle">Evidence Ladder · Fact → Decision</h3>
+              <p>SOURCE GRADE → BUSINESS IMPACT → GATE QUESTION → OWNER · KPI · KILL CRITERIA</p>
             </div>
             <div class="business-execution-evidence-grid">
-              <article>
+              <article tabindex="0">
                 <div><span>H1 · SCALE</span><b>REPORTED · PRELIMINARY</b></div>
                 <h4>2Q26 AI Memory Execution</h4>
                 <dl><div><dt>REVENUE</dt><dd>₩79.3T</dd></div><div><dt>OP. PROFIT</dt><dd>₩60.5T</dd></div><div><dt>MARGIN</dt><dd>76%</dd></div></dl>
-                <p>HBM·AI Server DRAM·eSSD 중심의 고부가 제품 확대, HBM4 양산 출하 시작, 핵심 고객 약 10곳과 LTA 체결을 실행 근거로 봅니다.</p>
+                <ol class="business-evidence-decision-path">
+                  <li><span>01 · FACT</span><strong>HBM·AI Server DRAM·eSSD 확대, HBM4 양산 출하와 핵심 고객 LTA를 실행 근거로 확인</strong></li>
+                  <li><span>02 · IMPLICATION</span><strong>AI Memory Scale은 증명됐지만 Qualification·반복 발주·수익성은 고객별로 분리 관리</strong></li>
+                  <li><span>03 · DECISION</span><strong>확정 수요와 공헌이익을 기준으로 고객별 Package·Ramp Capacity를 어떻게 배분할 것인가?</strong></li>
+                  <li><span>04 · ACTION GATE</span><strong>Owner · Sales/Production/Finance · KPI · Qual-to-Volume Lead Time · Kill · 출하 지연 반복 시 재배분</strong></li>
+                </ol>
                 <a href="https://news.skhynix.com/en/q2-2026-business-results/" target="_blank" rel="noopener noreferrer">Official 2Q26 Results · 2026-07-29 ↗</a>
               </article>
-              <article>
+              <article tabindex="0">
                 <div><span>TECHNOLOGY · CO-DESIGN</span><b>CONFIRMED · OFFICIAL</b></div>
                 <h4>Custom Memory Beyond HBM</h4>
                 <dl><div><dt>SCOPE</dt><dd>HBM → DRAM · NAND</dd></div><div><dt>LOGIC</dt><dd>TSMC Base Die</dd></div><div><dt>OPTION</dt><dd>HBF · 3D DRAM</dd></div></dl>
-                <p>HBM4부터 첨단 Logic 공정을 Base Die에 적용하고, Custom HBM을 넘어 DRAM·NAND 전반으로 고객 맞춤형 접근을 확장합니다.</p>
+                <ol class="business-evidence-decision-path">
+                  <li><span>01 · FACT</span><strong>HBM4 Base Die에 첨단 Logic 공정을 적용하고 Custom 범위를 DRAM·NAND까지 확장</strong></li>
+                  <li><span>02 · IMPLICATION</span><strong>경쟁축이 단품 사양에서 Workload Co-Design·Foundry·Package를 묶은 시스템 제안으로 이동</strong></li>
+                  <li><span>03 · DECISION</span><strong>어떤 고객·Workload를 표준 Offer로 만들고 어디까지 고객별 Customization을 허용할 것인가?</strong></li>
+                  <li><span>04 · ACTION GATE</span><strong>Owner · Product/Tech/Biz · KPI · 90-day Benchmark·Design-in Pipeline · Kill · TCO 우위 미확인 시 재설계</strong></li>
+                </ol>
                 <a href="https://news.skhynix.com/en/tsmc-technology-symposium-2026/" target="_blank" rel="noopener noreferrer">TSMC Symposium · 2026-04-23 ↗</a>
               </article>
-              <article>
+              <article tabindex="0">
                 <div><span>MARKET · CUSTOMER MIX</span><b>FORECAST · THIRD PARTY</b></div>
                 <h4>Custom ASIC Diversification</h4>
                 <dl><div><dt>2026 GROWTH</dt><dd>+82%</dd></div><div><dt>HBM SHARE</dt><dd>1/3</dd></div><div><dt>DRIVER</dt><dd>Big Tech ASIC</dd></div></dl>
-                <p>Goldman Sachs 전망을 인용한 SK hynix Market Outlook 기준입니다. NVIDIA 단일 축이 아니라 고객별 ASIC과 Custom Memory 기회를 평가합니다.</p>
+                <ol class="business-evidence-decision-path">
+                  <li><span>01 · FACT</span><strong>+82%와 1/3은 SK hynix Market Outlook이 인용한 제3자 전망이며 확정 매출이 아님</strong></li>
+                  <li><span>02 · IMPLICATION</span><strong>NVIDIA 단일 축을 넘어 Big Tech ASIC별 Interface·Capacity·Qualification 요구가 분화</strong></li>
+                  <li><span>03 · DECISION</span><strong>시장 매력도와 Right to Win을 함께 보면 어느 ASIC Account부터 공동 Roadmap을 만들 것인가?</strong></li>
+                  <li><span>04 · ACTION GATE</span><strong>Owner · Account Strategy · KPI · Qual Pipeline·Customer Mix · Kill · 고객 일정 또는 Design-in 확률 하락 시 중단</strong></li>
+                </ol>
                 <a href="https://news.skhynix.com/en/2026-market-outlook-focus-on-the-hbm-led-memory-supercycle/" target="_blank" rel="noopener noreferrer">2026 Market Outlook · 2026-01-05 ↗</a>
               </article>
             </div>
             <p class="business-evidence-caveat">2Q26 수치는 2026-07-29 발표된 잠정 연결 K-IFRS 기준입니다. +82%와 1/3은 회사 실적이 아닌 Goldman Sachs의 시장 전망이며, 고객별 공급·독점 계약을 뜻하지 않습니다.</p>
           </section>
-          <article class="business-evidence-case" id="tco-evidence">
-            <div class="business-evidence-title"><span>CONFIRMED FACT + RECONSTRUCTED BUSINESS CASE</span><h3>HBF 표준화 → Inference Memory Tier 가설</h3><p>FACT → IMPLICATION → QUESTION → ACTION</p></div>
-            <dl><div><dt>SOURCE</dt><dd><a href="https://news.skhynix.com/sk-hynix-and-sandisk-begin-global-standardization-ofnext-generation-memory-hbf/" target="_blank" rel="noopener noreferrer">SK hynix·Sandisk HBF Standardization ↗</a></dd></div><div><dt>DATE</dt><dd>2026-02-26</dd></div><div><dt>CONFIDENCE</dt><dd><span class="business-confidence">Confirmed · Standardization</span></dd></div><div><dt>BUSINESS IMPLICATION</dt><dd>OCP Workstream을 통한 HBF 표준화가 시작됐으며, HBM과 SSD 사이의 Capacity·Power 간극을 겨냥.</dd></div><div><dt>DECISION QUESTION</dt><dd>어떤 KV Cache·Long-context Workload에서 HBF의 System TCO Advantage가 발생하는가?</dd></div><div><dt>RECOMMENDED ACTION</dt><dd>대표 LLM Serving Workload로 HBF·CXL·eSSD Tiering의 Latency, Throughput, Power와 TCO Benchmark를 구축.</dd></div></dl>
-            <p>표준화 착수는 상용화 완료가 아닙니다. 사양, Interoperability, 성능·내구성, 고객 Qualification과 반복 발주를 별도 Gate로 검증합니다.</p>
+          <article class="business-evidence-case" id="tco-evidence" tabindex="0">
+            <div class="business-evidence-title"><span>WORKED CASE · HYPOTHESIS TO INVESTMENT GATE</span><h3>HBF 표준화 → Inference Memory Tier 의사결정</h3><p>FACT → IMPLICATION → DECISION → ACTION / KILL</p></div>
+            <ol class="business-evidence-case-framework">
+              <li><span>01</span><div><small>FACT · CONFIRMED</small><strong>HBF 표준화 Workstream 착수</strong><p><a href="https://news.skhynix.com/sk-hynix-and-sandisk-begin-global-standardization-ofnext-generation-memory-hbf/" target="_blank" rel="noopener noreferrer">SK hynix·Sandisk 공식 발표 · 2026-02-26 ↗</a></p></div></li>
+              <li><span>02</span><div><small>BUSINESS IMPLICATION</small><strong>HBM과 SSD 사이 Capacity·Power 간극</strong><p>HBF·CXL·eSSD를 하나의 Inference Memory Tier Offer로 설계할 기회</p></div></li>
+              <li><span>03</span><div><small>DECISION QUESTION</small><strong>어디에서 TCO가 역전되는가?</strong><p>KV Cache·Long-context Workload별 Latency·Reuse·Capacity 임계치를 검증</p></div></li>
+              <li><span>04</span><div><small>ACTION / KILL GATE</small><strong>90-day System Benchmark</strong><p>Owner · AI Infra Solution · KPI · TTFT/TPOT/Power/TCO · Kill · 우위 미확인 또는 Qualification 지연</p></div></li>
+            </ol>
+            <p>표준화 착수는 상용화 완료가 아닙니다. 사양 → Interoperability → 성능·내구성 → 고객 Qualification → 반복 발주를 순차 Gate로 검증합니다.</p>
           </article>
           <aside class="business-data-status" id="automation" aria-live="polite">
             <div class="business-data-status-main"><span class="business-status-dot" id="businessStatusDot"></span><div><small>AUTONOMOUS INTELLIGENCE LOOP</small><strong id="businessDataStatus">Freshness gate 확인 중</strong></div></div>
@@ -1826,6 +1846,6 @@
   <div class="qa-answer" id="qaAnswer" hidden></div>
   <div class="inspector" id="inspector" hidden></div>
   <div class="backdrop" id="backdrop"></div>
-  <script src="assets/js/landing.js?v=infra-20260816-03" defer></script>
+  <script src="assets/js/landing.js?v=infra-20260816-04" defer></script>
 </body>
 </html>

@@ -5161,9 +5161,192 @@ body.landing-mode {
 .business-tech-decision-grid > article:nth-child(3)::before { color: var(--consulting-magenta); }
 .business-tech-decision-grid > article:nth-child(4)::before { color: #ba7800; }
 
-.business-execution-evidence-grid { gap: 8px; }
-.business-execution-evidence-grid > article { position: relative; border-radius: 0; clip-path: polygon(0 0, calc(100% - 18px) 0, 100% 50%, calc(100% - 18px) 100%, 0 100%, 12px 50%); }
-.business-evidence-case { border-radius: 0; clip-path: polygon(0 0, calc(100% - 22px) 0, 100% 22px, 100% 100%, 22px 100%, 0 calc(100% - 22px)); }
+.business-insights {
+  color: var(--business-ink);
+}
+.business-insights .business-kicker { color: #0d756e; }
+.business-insights .business-section-heading--split > p,
+.business-insights .business-evidence-caveat { color: #52697c; }
+
+.business-execution-evidence {
+  border-top-color: #c8d4df;
+}
+.business-module-heading--evidence > span { color: #0d756e; }
+.business-module-heading--evidence h3 { color: #102c43; }
+.business-module-heading--evidence p { color: #52697c; }
+
+.business-execution-evidence-grid {
+  gap: 10px;
+  perspective: 1200px;
+}
+.business-execution-evidence-grid > article {
+  --evidence-accent: #0d756e;
+  position: relative;
+  min-height: 610px;
+  border: 1px solid #b8c8d5;
+  border-top: 4px solid var(--evidence-accent);
+  border-radius: 0;
+  clip-path: polygon(0 0, calc(100% - 18px) 0, 100% 50%, calc(100% - 18px) 100%, 0 100%, 12px 50%);
+  color: #183248;
+  background: #fff;
+  box-shadow: 0 12px 28px rgba(18, 55, 79, .08);
+}
+.business-execution-evidence-grid > article:first-child {
+  border-color: #8fbeb6;
+  border-top-color: var(--evidence-accent);
+  background: #f2faf8;
+}
+.business-execution-evidence-grid > article:nth-child(2) { --evidence-accent: #2f68bd; }
+.business-execution-evidence-grid > article:nth-child(3) { --evidence-accent: #9a6500; }
+.business-execution-evidence-grid article > div:first-child > span { color: var(--evidence-accent); }
+.business-execution-evidence-grid article b {
+  color: #2f475b;
+  border: 1px solid #c8d4df;
+  background: #edf2f6;
+}
+.business-execution-evidence-grid h4 { color: #102c43; }
+.business-execution-evidence-grid dl > div { background: #edf3f7; }
+.business-execution-evidence-grid dt { color: #5f7588; }
+.business-execution-evidence-grid dd { color: #102c43; }
+.business-execution-evidence-grid a {
+  color: #173f66;
+  text-decoration-color: #7aa49d;
+}
+
+.business-evidence-decision-path {
+  display: grid;
+  gap: 0;
+  margin: 22px 0 24px;
+  padding: 0;
+  list-style: none;
+  border-top: 1px solid #cbd6df;
+}
+.business-evidence-decision-path li {
+  display: grid;
+  grid-template-columns: 105px minmax(0, 1fr);
+  gap: 12px;
+  padding: 13px 0;
+  border-bottom: 1px solid #d9e2e9;
+}
+.business-evidence-decision-path span {
+  color: var(--evidence-accent);
+  font: 900 8px/1.45 var(--mono);
+  letter-spacing: .07em;
+}
+.business-evidence-decision-path strong {
+  color: #294257;
+  font-size: 10px;
+  font-weight: 730;
+  line-height: 1.55;
+}
+
+.business-evidence-case {
+  position: relative;
+  border: 1px solid #aabcc9;
+  border-top: 4px solid #173f66;
+  border-radius: 0;
+  clip-path: polygon(0 0, calc(100% - 22px) 0, 100% 22px, 100% 100%, 22px 100%, 0 calc(100% - 22px));
+  color: #183248;
+  background: #fff;
+  box-shadow: 0 16px 34px rgba(18, 55, 79, .09);
+}
+.business-evidence-case .business-evidence-title > span { color: #0d756e; }
+.business-evidence-case .business-evidence-title h3 { color: #102c43; }
+.business-evidence-case .business-evidence-title p { color: #52697c; }
+.business-evidence-case-framework {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 8px;
+  margin: 28px 0 0;
+  padding: 0;
+  list-style: none;
+}
+.business-evidence-case-framework li {
+  position: relative;
+  display: grid;
+  grid-template-columns: 34px minmax(0, 1fr);
+  gap: 12px;
+  min-height: 190px;
+  padding: 20px 18px;
+  border: 1px solid #cbd6df;
+  background: #f5f8fa;
+}
+.business-evidence-case-framework li:not(:last-child)::after {
+  content: "→";
+  position: absolute;
+  top: 50%;
+  right: -12px;
+  z-index: 2;
+  display: grid;
+  place-items: center;
+  width: 16px;
+  height: 24px;
+  color: #0d756e;
+  background: #fff;
+  font-weight: 950;
+  transform: translateY(-50%);
+}
+.business-evidence-case-framework li > span {
+  color: #fff;
+  font: 900 10px/34px var(--mono);
+  text-align: center;
+  background: #173f66;
+}
+.business-evidence-case-framework li > div { display: grid; align-content: start; gap: 9px; }
+.business-evidence-case-framework small {
+  color: #0d756e;
+  font: 900 8px/1.35 var(--mono);
+  letter-spacing: .08em;
+}
+.business-evidence-case-framework strong { color: #17324d; font-size: 14px; line-height: 1.35; }
+.business-evidence-case-framework p { margin: 0; color: #52697c; font-size: 10px; line-height: 1.55; }
+.business-evidence-case-framework a { color: #173f66; }
+.business-evidence-case > p { color: #5b7183; }
+
+/* Consulting cards: restrained drift, pointer-responsive 3D lift and high-contrast inversion. */
+.business-insights .business-consulting-motion {
+  --tilt-x: 0deg;
+  --tilt-y: 0deg;
+  transform-style: preserve-3d;
+  transform-origin: 50% 50%;
+  transition: color .22s ease, background-color .22s ease, border-color .22s ease, box-shadow .28s ease, transform .28s cubic-bezier(.2, .75, .2, 1);
+}
+.business-insights .business-consulting-motion.is-visible {
+  animation: consultingCardDrift 6.8s ease-in-out calc(var(--sequence-index, 0) * -.75s) infinite alternate;
+}
+.business-insights .business-consulting-motion:is(:hover, :focus-within) {
+  animation: none;
+  color: #f7fbff;
+  border-color: #173f66;
+  background: #102c43;
+  box-shadow: 0 28px 48px rgba(7, 25, 40, .28), 0 8px 0 rgba(13, 117, 110, .2);
+  transform: perspective(950px) translate3d(0, -9px, 24px) rotateX(var(--tilt-y)) rotateY(var(--tilt-x));
+}
+.business-insights .business-consulting-motion:is(:hover, :focus-within) :is(h3, h4, strong, dd, p, a) {
+  color: #f7fbff;
+}
+.business-insights .business-consulting-motion:is(:hover, :focus-within) :is(dt, small),
+.business-insights .business-consulting-motion:is(:hover, :focus-within) .business-evidence-decision-path span,
+.business-insights .business-consulting-motion:is(:hover, :focus-within) .business-evidence-title > span {
+  color: #72ddca;
+}
+.business-insights .business-consulting-motion:is(:hover, :focus-within) b {
+  color: #ffe4a3;
+  border-color: rgba(255, 228, 163, .4);
+  background: rgba(154, 101, 0, .28);
+}
+.business-insights .business-consulting-motion:is(:hover, :focus-within) :is(dl > div, .business-evidence-case-framework li) {
+  border-color: rgba(255, 255, 255, .17);
+  background: rgba(255, 255, 255, .055);
+}
+.business-insights .business-consulting-motion:is(:hover, :focus-within) .business-evidence-decision-path,
+.business-insights .business-consulting-motion:is(:hover, :focus-within) .business-evidence-decision-path li {
+  border-color: rgba(255, 255, 255, .16);
+}
+.business-insights .business-consulting-motion:is(:hover, :focus-within) .business-evidence-case-framework li::after {
+  color: #72ddca;
+  background: #102c43;
+}
 
 .business-automation-flow { gap: 7px; background: transparent; }
 .business-automation-flow li {
@@ -5299,12 +5482,25 @@ body.landing-mode {
   100% { filter: saturate(1.12); }
 }
 
+@keyframes consultingCardDrift {
+  0% { transform: perspective(1100px) translate3d(0, 0, 0) rotateX(0deg) rotateY(0deg); }
+  50% { transform: perspective(1100px) translate3d(0, -2px, 3px) rotateX(.18deg) rotateY(-.18deg); }
+  100% { transform: perspective(1100px) translate3d(0, -4px, 5px) rotateX(-.18deg) rotateY(.18deg); }
+}
+
 @media (max-width: 1180px) {
   .business-competencies .business-container { grid-template-columns: 1fr; }
   .business-quality-thesis { max-width: 520px; }
   .business-partnership-types { grid-template-columns: repeat(3, minmax(0, 1fr)); }
   .business-framework-panel dl { grid-template-columns: repeat(3, minmax(0, 1fr)); }
   .business-framework-panel dl > div:nth-child(3)::after { display: none; }
+}
+
+@media (max-width: 980px) {
+  .business-execution-evidence-grid { grid-template-columns: 1fr; }
+  .business-execution-evidence-grid > article { min-height: 0; }
+  .business-evidence-case-framework { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .business-evidence-case-framework li:nth-child(2)::after { display: none; }
 }
 
 @media (max-width: 880px) {
@@ -5357,6 +5553,10 @@ body.landing-mode {
   .business-tco-metrics::before,
   .business-macro-grid::before { left: -42px; }
   .business-inline-points { display: grid; }
+  .business-evidence-case-framework { grid-template-columns: 1fr; }
+  .business-evidence-case-framework li { min-height: 0; }
+  .business-evidence-case-framework li::after { display: none; }
+  .business-evidence-decision-path li { grid-template-columns: 1fr; gap: 6px; }
 }
 
 @media (prefers-reduced-motion: reduce) {
@@ -5367,6 +5567,13 @@ body.landing-mode {
   }
   .business-reveal {
     opacity: 1 !important;
+    transform: none !important;
+    transition: none !important;
+  }
+  .business-insights .business-consulting-motion,
+  .business-insights .business-consulting-motion.is-visible,
+  .business-insights .business-consulting-motion:is(:hover, :focus-within) {
+    animation: none !important;
     transform: none !important;
     transition: none !important;
   }

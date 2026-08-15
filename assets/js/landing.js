@@ -3,7 +3,7 @@
 
   const BUSINESS_TITLE = "AI Infra Strategy OS · Workload to Revenue";
   const CONSOLE_HASH = "#console";
-  const CONSOLE_REVISION = "infra-20260816-03";
+  const CONSOLE_REVISION = "infra-20260816-04";
   const DECISION_CLIENT_PATH = "data/landing-decision-client.json";
   const site = document.querySelector("#businessSite");
   const consoleLayer = document.querySelector("#intelligenceConsole");
@@ -456,6 +456,44 @@
     }
   }
 
+  function setupConsultingCardMotion() {
+    const cards = [...document.querySelectorAll([
+      ".business-insights .business-tech-decision-grid > article",
+      ".business-insights .business-competitor-grid > article",
+      ".business-execution-evidence-grid > article",
+      ".business-evidence-case",
+    ].join(","))];
+    cards.forEach((card, index) => {
+      card.classList.add("business-consulting-motion");
+      if (!card.style.getPropertyValue("--sequence-index")) {
+        card.style.setProperty("--sequence-index", String(index % 4));
+      }
+    });
+
+    const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    const finePointer = window.matchMedia("(hover: hover) and (pointer: fine)").matches;
+    if (reduceMotion || !finePointer) return;
+
+    for (const card of cards) {
+      let frame = 0;
+      card.addEventListener("pointermove", (event) => {
+        cancelAnimationFrame(frame);
+        frame = requestAnimationFrame(() => {
+          const bounds = card.getBoundingClientRect();
+          const x = ((event.clientX - bounds.left) / bounds.width) - .5;
+          const y = ((event.clientY - bounds.top) / bounds.height) - .5;
+          card.style.setProperty("--tilt-x", `${(x * 5).toFixed(2)}deg`);
+          card.style.setProperty("--tilt-y", `${(-y * 4).toFixed(2)}deg`);
+        });
+      }, { passive: true });
+      card.addEventListener("pointerleave", () => {
+        cancelAnimationFrame(frame);
+        card.style.setProperty("--tilt-x", "0deg");
+        card.style.setProperty("--tilt-y", "0deg");
+      }, { passive: true });
+    }
+  }
+
   function setupBusinessExperience() {
     if (businessReady) return;
     businessReady = true;
@@ -465,6 +503,7 @@
     setupDecisionLab();
     setupInfographicSequence();
     setupReveal();
+    setupConsultingCardMotion();
     void updateDataStatus();
     void loadDecisionEvidence();
   }

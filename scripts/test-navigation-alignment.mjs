@@ -113,7 +113,7 @@ assert.deepEqual(businessNavLabels, [
 assert.match(html, /id="intelligenceConsole" hidden/, "the Intelligence Console must stay outside the initial visible layer");
 assert.doesNotMatch(html, /<script[^>]+src="assets\/js\/app\.js/, "the heavy console app must not load with the public landing page");
 assert.doesNotMatch(html, /<link[^>]+href="assets\/css\/styles\.css/, "the heavy console stylesheet must not load with the public landing page");
-assert.match(html, /assets\/js\/landing\.js\?v=infra-20260816-03/, "the lightweight landing controller must use the AI Infra revision");
+assert.match(html, /assets\/js\/landing\.js\?v=infra-20260816-04/, "the lightweight landing controller must use the AI Infra revision");
 assert.doesNotMatch(html, /메모리를 판매하는 것이 아니라/, "the removed sales-negation headline must stay deleted");
 assert.doesNotMatch(html, /직무 적합성을 세 가지|검증 가능한 역량으로 압축합니다/, "the removed role-fit headline must stay deleted");
 assert.doesNotMatch(html, /SK hynix AI Infra에서 만들고 싶은/, "the removed aspiration heading must stay deleted");
@@ -183,7 +183,7 @@ assert.match(html, /HBM4 \/ HBM4E 경쟁사 동종 지표 비교[\s\S]*?SK HYNIX
 assert.match(html, /ANNOUNCEMENT[\s\S]*?LOI[\s\S]*?DEFINITIVE CONTRACT[\s\S]*?REVENUE RECOGNITION/, "the flagship partnership must separate announcement, contract, shipment, and revenue stages");
 assert.doesNotMatch(html, /skhynix-nvidia-partnership-2026/, "the partnership must not retain the invalid SK hynix source URL");
 assert.equal((html.match(/<div><span>0[1-4] · (?:TRANSFORMER|PREFIX|AGENTIC|RAG)/g) || []).length, 4, "tech insights must expose four change-to-decision cards");
-assert.match(html, /TECH CHANGE[\s\S]*?MEMORY IMPLICATION[\s\S]*?BUSINESS QUESTION/, "every technology card must end in a business decision question");
+assert.match(html, /<dt>FACT<\/dt>[\s\S]*?<dt>IMPLICATION<\/dt>[\s\S]*?<dt>DECISION QUESTION<\/dt>[\s\S]*?<dt>ACTION GATE<\/dt>/, "every technology card must close the consulting chain with an action gate");
 assert.equal((html.match(/<article><span>0[1-6] · (?:ACCELERATOR|HYPERSCALER|SERVER|FOUNDRY|STORAGE|AI SERVING)/g) || []).length, 6, "partner strategy must cover six commercialization gates");
 assert.match(html, /id="deep-cases"[\s\S]*?data-deep-case="agentic"[\s\S]*?data-deep-case="training"[\s\S]*?data-deep-case="rag"/, "the portfolio must expose three deep business cases");
 assert.equal((html.match(/WHAT WOULD CHANGE MY MIND\?/g) || []).length, 3, "every deep case must declare decision reversal conditions");
