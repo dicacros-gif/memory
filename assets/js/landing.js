@@ -3,8 +3,9 @@
 
   const BUSINESS_TITLE = "AI Infra Strategy OS · Workload to Revenue";
   const CONSOLE_HASH = "#console";
-  const CONSOLE_REVISION = "infra-20260816-07";
+  const CONSOLE_REVISION = "infra-20260816-08";
   const DECISION_CLIENT_PATH = "data/landing-decision-client.json";
+  const SITE_CONTENT_PATH = "data/site-content-client.json";
   const site = document.querySelector("#businessSite");
   let consoleLayer = document.querySelector("#intelligenceConsole");
   const header = document.querySelector("#businessHeader");
@@ -16,6 +17,9 @@
     .map((link) => document.querySelector(link.getAttribute("href")))
     .filter(Boolean);
   let consoleLoadPromise = null;
+  let manifestPromise = null;
+  let siteContentPromise = null;
+  let siteContentRefreshTimer = 0;
   let businessReady = false;
   let consoleStartupTimer = 0;
   let view = "business";
@@ -137,7 +141,7 @@
   function loadConsole() {
     if (consoleLoadPromise) return consoleLoadPromise;
     primeConsoleAssets();
-    consoleLoadPromise = loadStylesheet().then(async () => {
+    consoleLoadPromise = Promise.all([loadStylesheet(), loadSiteContent()]).then(async () => {
       await new Promise((resolve) => requestAnimationFrame(resolve));
       return loadAppScript();
     });
@@ -227,7 +231,281 @@
     }).format(date);
   }
 
-  async function updateDataStatus() {
+  function escapeBusinessHTML(value = "") {
+    return String(value || "")
+      .replace(/&/g, "&amp;")
+      .replace(/</g, "&lt;")
+      .replace(/>/g, "&gt;")
+      .replace(/"/g, "&quot;")
+      .replace(/'/g, "&#39;");
+  }
+
+  function safeBusinessUrl(value = "", fallback = "#console") {
+    const url = String(value || "");
+    return /^(https?:\/\/|#)/i.test(url) ? url : fallback;
+  }
+
+  function renderBusinessList(node, items = []) {
+    if (!node || !Array.isArray(items) || !items.length) return;
+    node.innerHTML = items.map((item) => `<li>${escapeBusinessHTML(item)}</li>`).join("");
+  }
+
+  function renderDecisionContent(content = {}) {
+    for (const decision of content.decisionCases || []) {
+      const panel = document.querySelector(`[data-decision-panel="${CSS.escape(decision.panelId || "")}"]`);
+      if (!panel) continue;
+      const tab = document.querySelector(`[data-decision-tab="${CSS.escape(decision.panelId || "")}"]`);
+      if (tab) tab.textContent = `${decision.index || ""} · ${decision.tabLabel || decision.title}`;
+      const answer = panel.querySelector(":scope > .business-decision-answer");
+      const answerLabel = answer?.querySelector("div > span");
+      const answerTitle = answer?.querySelector("h3");
+      const answerBullets = answer?.querySelector(".business-answer-bullets");
+      const recommendation = answer?.querySelector(":scope > strong");
+      if (answerLabel) answerLabel.textContent = `EXECUTIVE ANSWER · ${decision.phase || "CURRENT"}`;
+      if (answerTitle) answerTitle.textContent = decision.answerTitle || decision.decision;
+      renderBusinessList(answerBullets, [
+        decision.latest?.summary,
+        decision.decision,
+        `판단 변경 조건 · ${decision.stop}`,
+      ].filter(Boolean));
+      if (recommendation) recommendation.innerHTML = `RECOMMENDATION<br>${escapeBusinessHTML(decision.recommendation || "CONDITIONAL")}`;
+
+      const live = panel.querySelector(":scope > .business-live-evidence");
+      const liveTitle = live?.querySelector("[data-live-title]");
+      const liveSummary = live?.querySelector("[data-live-summary]");
+      const liveSource = live?.querySelector("[data-live-source]");
+      if (liveTitle) liveTitle.textContent = decision.latest?.title || "최신 근거 확인 필요";
+      if (liveSummary) liveSummary.textContent = decision.latest?.summary || "검증된 근거가 수집되면 자동 갱신됩니다.";
+      if (liveSource) {
+        liveSource.href = safeBusinessUrl(decision.latest?.url, decision.deepLink || "#console");
+        if (/^https?:/i.test(liveSource.href)) {
+          liveSource.target = "_blank";
+          liveSource.rel = "noopener noreferrer";
+        }
+        liveSource.textContent = `${decision.latest?.source || "Console"} · ${String(decision.latest?.publishedAt || "").slice(0, 10) || "기준일 확인"} ↗`;
+      }
+
+      const stop = panel.querySelector(":scope > .business-delivery-grid > aside p");
+      if (stop) stop.textContent = decision.stop;
+      const footerModel = panel.querySelector(":scope > .business-decision-footer div strong");
+      if (footerModel && decision.partners?.length) footerModel.textContent = decision.partners.join(" · ");
+      const footerLink = panel.querySelector(":scope > .business-decision-footer a");
+      if (footerLink) footerLink.href = safeBusinessUrl(decision.deepLink);
+    }
+  }
+
+  function renderCurrentInsights(content = {}) {
+    const insights = (content.insights || []).slice(0, 3);
+    const grid = document.querySelector(".business-execution-evidence-grid");
+    if (grid && insights.length) {
+      grid.innerHTML = insights.map((item) => {
+        const latest = item.latest || {};
+        const href = safeBusinessUrl(latest.url, "#console");
+        return `
+          <article tabindex="0" data-current-insight="${escapeBusinessHTML(item.id)}">
+            <div><span>${escapeBusinessHTML(item.label)}</span><b>${escapeBusinessHTML(latest.evidenceLevel || "WATCH")} · ${escapeBusinessHTML(String(latest.sourceClass || "SOURCE").toUpperCase())}</b></div>
+            <h4>${escapeBusinessHTML(latest.title || item.label)}</h4>
+            <dl><div><dt>SOURCE</dt><dd>${escapeBusinessHTML(latest.source || "확인 필요")}</dd></div><div><dt>AS OF</dt><dd>${escapeBusinessHTML(String(latest.publishedAt || "").slice(0, 10) || "확인 필요")}</dd></div><div><dt>EVIDENCE</dt><dd>${escapeBusinessHTML(item.evidenceCount || 0)}건</dd></div></dl>
+            <ol class="business-evidence-decision-path">
+              <li><span>01 · FACT</span><strong>${escapeBusinessHTML(item.fact)}</strong></li>
+              <li><span>02 · IMPLICATION</span><strong>${escapeBusinessHTML(item.implication)}</strong></li>
+              <li><span>03 · DECISION</span><strong>${escapeBusinessHTML(item.decision)}</strong></li>
+              <li><span>04 · ACTION / KILL</span><strong>${escapeBusinessHTML(item.action)}</strong></li>
+            </ol>
+            <a href="${escapeBusinessHTML(href)}" target="_blank" rel="noopener noreferrer">${escapeBusinessHTML(latest.source || "원문")} · ${escapeBusinessHTML(String(latest.publishedAt || "").slice(0, 10) || "기준일 확인")} ↗</a>
+          </article>`;
+      }).join("");
+      const caveat = document.querySelector(".business-execution-evidence > .business-evidence-caveat");
+      if (caveat) caveat.textContent = `최신 검증 실행 ${content.runId || "확인 필요"}에서 승격된 근거만 표시합니다. 전망·추정은 확정 계약·고객 성과와 분리하며 판단 변경 KPI를 함께 추적합니다.`;
+    }
+
+    const proofline = document.querySelector(".business-tech-proofline");
+    if (proofline && insights.length) {
+      proofline.innerHTML = insights.slice(0, 2).map((item) => `
+        <div><span>${escapeBusinessHTML(item.latest?.evidenceLevel || "WATCH")} · CURRENT EVIDENCE</span><strong>${escapeBusinessHTML(item.latest?.title || item.label)}</strong><a href="${escapeBusinessHTML(safeBusinessUrl(item.latest?.url, "#console"))}" target="_blank" rel="noopener noreferrer">${escapeBusinessHTML(item.latest?.source || "원문")} ↗</a></div>
+      `).join("");
+    }
+
+    const primarySourceNote = document.querySelector(".business-memory-fabric .business-source-note");
+    const primaryInsight = insights[0];
+    if (primarySourceNote && primaryInsight) {
+      const label = primarySourceNote.querySelector("span");
+      const link = primarySourceNote.querySelector("a");
+      const time = primarySourceNote.querySelector("time");
+      if (label) label.textContent = `${primaryInsight.latest?.evidenceLevel || "WATCH"} · CURRENT`;
+      if (link) {
+        link.href = safeBusinessUrl(primaryInsight.latest?.url, "#console");
+        link.textContent = `${primaryInsight.latest?.source || "원문"} · ${primaryInsight.latest?.title || primaryInsight.label} ↗`;
+      }
+      if (time) {
+        const date = String(primaryInsight.latest?.publishedAt || content.generatedAt || "").slice(0, 10);
+        time.dateTime = date;
+        time.textContent = date || "기준일 확인";
+      }
+    }
+
+    const storageSources = document.querySelector(".business-storage-sources");
+    const storageInsights = (content.insights || []).filter((item) => ["nand", "demand"].includes(item.id)).slice(0, 2);
+    if (storageSources && storageInsights.length) {
+      storageSources.innerHTML = storageInsights.map((item) => `<a href="${escapeBusinessHTML(safeBusinessUrl(item.latest?.url, "#console"))}" target="_blank" rel="noopener noreferrer">${escapeBusinessHTML(item.latest?.evidenceLevel || "WATCH")} · ${escapeBusinessHTML(item.latest?.title || item.label)} ↗</a>`).join("");
+    }
+
+    const worked = document.querySelector("#tco-evidence");
+    const workedInsight = (content.insights || []).find((item) => item.id === "demand") || (content.insights || [])[0];
+    if (worked && workedInsight) {
+      const workedTitle = worked.querySelector(".business-evidence-title h3");
+      if (workedTitle) workedTitle.textContent = `${workedInsight.label} → AI Infra 투자 Gate`;
+      const rows = [...worked.querySelectorAll(".business-evidence-case-framework > li")];
+      const values = [
+        ["FACT · CURRENT", workedInsight.latest?.title, workedInsight.latest?.summary],
+        ["BUSINESS IMPLICATION", workedInsight.implication, "고객 Workload와 Memory Architecture에 미치는 영향을 분리 검증합니다."],
+        ["DECISION QUESTION", workedInsight.decision, "선택지·사업성·Right to Win을 동일 근거에서 비교합니다."],
+        ["ACTION / KILL GATE", workedInsight.action, "Owner·KPI·다음 검증 시점을 실행 보드에 연결합니다."],
+      ];
+      rows.forEach((row, index) => {
+        const [label, title, copy] = values[index] || [];
+        if (!label) return;
+        const small = row.querySelector("small");
+        const strong = row.querySelector("strong");
+        const paragraph = row.querySelector("p");
+        if (small) small.textContent = label;
+        if (strong) strong.textContent = title || "검증 중";
+        if (paragraph) {
+          if (index === 0 && workedInsight.latest?.url) paragraph.innerHTML = `<a href="${escapeBusinessHTML(safeBusinessUrl(workedInsight.latest.url))}" target="_blank" rel="noopener noreferrer">${escapeBusinessHTML(workedInsight.latest.source || "원문")} · ${escapeBusinessHTML(String(workedInsight.latest.publishedAt || "").slice(0, 10))} ↗</a>`;
+          else paragraph.textContent = copy;
+        }
+      });
+      const workedCaveat = worked.querySelector(":scope > p");
+      if (workedCaveat) workedCaveat.textContent = "공개 근거와 전략 가설을 분리하고, 고객 Baseline·Qualification·반복 발주가 확인될 때만 다음 투자 Gate로 승격합니다.";
+    }
+  }
+
+  function renderCompetitorContent(content = {}) {
+    const competitors = content.competitors || [];
+    if (!competitors.length) return;
+    const heading = document.querySelector(".business-competitor-benchmark .business-module-heading p");
+    if (heading) heading.textContent = `${competitors.map((item) => item.asOf).filter(Boolean)[0] || String(content.generatedAt || "").slice(0, 10)} 기준 · 동일 출처·동일 지표 비교 · 최신 검증본 자동 반영`;
+    const grid = document.querySelector(".business-competitor-grid");
+    if (!grid) return;
+    grid.innerHTML = competitors.map((item) => `
+      <article>
+        <header><span>${escapeBusinessHTML(item.company)}</span><strong>${escapeBusinessHTML(item.dataStatus || "review")}</strong></header>
+        <dl><div><dt>HBM SHARE</dt><dd>${escapeBusinessHTML(item.hbmShare || "미공개")}</dd></div><div><dt>DRAM SHARE</dt><dd>${escapeBusinessHTML(item.dramShare || "미공개")}</dd></div><div><dt>AS OF</dt><dd>${escapeBusinessHTML(item.asOf || "확인 필요")}</dd></div></dl>
+        <div><a href="${escapeBusinessHTML(safeBusinessUrl(item.sourceUrl, "#console"))}" target="_blank" rel="noopener noreferrer">${escapeBusinessHTML(item.source || "근거") } ↗</a></div>
+      </article>`).join("");
+  }
+
+  function renderPartnerContent(content = {}) {
+    const partner = content.partnerSpotlight;
+    const card = document.querySelector(".business-flagship-partnership");
+    if (!partner || !card) return;
+    const title = card.querySelector("#flagshipPartnershipTitle");
+    const status = card.querySelector(".business-flagship-status strong");
+    const time = card.querySelector(".business-flagship-status time");
+    if (title) title.textContent = partner.title;
+    if (status) status.textContent = `${partner.evidenceLevel || "WATCH"} · ${String(partner.sourceClass || "SOURCE").toUpperCase()}`;
+    if (time) {
+      const date = String(partner.publishedAt || content.generatedAt || "").slice(0, 10);
+      time.dateTime = date;
+      time.textContent = date || "기준일 확인";
+    }
+    const metrics = card.querySelector(".business-flagship-metrics");
+    if (metrics) metrics.innerHTML = `
+      <div><strong>${escapeBusinessHTML(content.freshness?.evidenceCount || 0)}</strong><span>승격 근거<br>전체 건수</span></div>
+      <div><strong>${escapeBusinessHTML(partner.evidenceLevel || "WATCH")}</strong><span>현재 근거<br>등급</span></div>
+      <div><strong>${escapeBusinessHTML(String(partner.publishedAt || "").slice(0, 10) || "N/A")}</strong><span>원문<br>기준일</span></div>
+      <div><strong>${escapeBusinessHTML(content.freshness?.briefCount || 0)}</strong><span>전략 Brief<br>자동 연결</span></div>`;
+    const values = card.querySelector(".business-contract-values");
+    if (values) values.innerHTML = `
+      <div><dt>PUBLIC SIGNAL</dt><dd>${escapeBusinessHTML(partner.title)}</dd></div>
+      <div><dt>BINDING VALUE</dt><dd>확정 계약·물량은 공식 원문 확인 전 미확정</dd></div>
+      <div><dt>REVENUE GATE</dt><dd>Qualification → Capacity → Shipment → 매출 인식 분리</dd></div>`;
+    const source = card.querySelector(".business-flagship-bottom a");
+    if (source) {
+      source.href = safeBusinessUrl(partner.url, "#console");
+      source.textContent = `${partner.source || "원문"} ↗`;
+    }
+    const caveat = card.querySelector(".business-flagship-caveat");
+    if (caveat) caveat.textContent = `${partner.summary} 공개 발표·보도는 확정 계약과 구분하며 고객 인증·물량 약정·출하·매출 인식 Gate를 별도로 검증합니다.`;
+  }
+
+  function applySiteContent(content = {}) {
+    if (!content?.clientArtifact) return;
+    document.documentElement.dataset.contentRun = String(content.runId || "");
+    const title = document.querySelector(".business-hero-copy h1");
+    if (title && content.hero?.titleLines?.length) {
+      const [first, ...rest] = content.hero.titleLines;
+      title.innerHTML = `${escapeBusinessHTML(first)}<br><em>${escapeBusinessHTML(rest.join(" "))}</em>`;
+    }
+    renderBusinessList(document.querySelector(".business-hero-thesis"), content.hero?.thesis);
+    renderBusinessList(document.querySelector(".business-hero-bullets"), content.hero?.capabilities);
+    const liveDot = document.querySelector(".business-live-dot");
+    if (liveDot) liveDot.textContent = content.hero?.status || "Decision-ready";
+    const visualResult = document.querySelector(".business-visual-result small");
+    if (visualResult) visualResult.textContent = `검증 실행 ${content.runId || "확인 필요"} · 근거 ${content.freshness?.evidenceCount || 0}건 · 자동 생성 ${formatKst(content.generatedAt)}`;
+    const staticSnapshot = document.querySelector(".console-static-snapshot header p");
+    if (staticSnapshot) staticSnapshot.textContent = content.agentCouncil?.subtitle || staticSnapshot.textContent;
+
+    renderDecisionContent(content);
+    renderCurrentInsights(content);
+    renderCompetitorContent(content);
+    renderPartnerContent(content);
+
+    const footer = document.querySelector(".business-footer a");
+    if (footer) footer.textContent = `© ${content.footer?.year || new Date().getFullYear()} dicacross · ${content.footer?.disclosure || "Independent strategy portfolio based on public information."}`;
+  }
+
+  async function getDataManifest({ force = false } = {}) {
+    if (force) manifestPromise = null;
+    if (!manifestPromise) {
+      manifestPromise = fetch("data/data-manifest.json", { cache: "no-store" }).then((response) => {
+        if (!response.ok) throw new Error(`Manifest HTTP ${response.status}`);
+        return response.json();
+      }).catch((error) => {
+        manifestPromise = null;
+        throw error;
+      });
+    }
+    return manifestPromise;
+  }
+
+  async function loadSiteContent({ force = false } = {}) {
+    if (force) siteContentPromise = null;
+    if (siteContentPromise) return siteContentPromise;
+    siteContentPromise = (async () => {
+      const manifest = await getDataManifest({ force });
+      const cacheVersion = encodeURIComponent(manifest.cacheVersion || manifest.runId || Date.now());
+      const response = await fetch(`${SITE_CONTENT_PATH}?v=${cacheVersion}`, { cache: "no-store" });
+      if (!response.ok) throw new Error(`Site content HTTP ${response.status}`);
+      const content = await response.json();
+      if (content?.clientArtifact !== true || !content.runId || content.runId !== manifest.runId) {
+        throw new Error("Site content runId mismatch");
+      }
+      window.MEMORY_SITE_CONTENT = content;
+      applySiteContent(content);
+      window.dispatchEvent(new CustomEvent("memory-site-content-ready", { detail: { runId: content.runId } }));
+      return content;
+    })().catch((error) => {
+      siteContentPromise = null;
+      console.warn("Verified site content unavailable; retaining last rendered framework", error);
+      window.dispatchEvent(new CustomEvent("memory-site-content-error"));
+      return null;
+    });
+    return siteContentPromise;
+  }
+
+  function scheduleSiteContentRefresh() {
+    window.clearTimeout(siteContentRefreshTimer);
+    siteContentRefreshTimer = window.setTimeout(async () => {
+      if (!document.hidden) {
+        await loadSiteContent({ force: true });
+        void updateDataStatus({ force: true });
+      }
+      scheduleSiteContentRefresh();
+    }, 15 * 60 * 1000);
+  }
+
+  async function updateDataStatus({ force = false } = {}) {
     const panel = document.querySelector(".business-data-status");
     const dot = document.querySelector("#businessStatusDot");
     const status = document.querySelector("#businessDataStatus");
@@ -238,9 +516,7 @@
     if (!status) return;
 
     try {
-      const response = await fetch("data/data-manifest.json", { cache: "no-store" });
-      if (!response.ok) throw new Error(`HTTP ${response.status}`);
-      const manifest = await response.json();
+      const manifest = await getDataManifest({ force });
       const expiresAt = new Date(manifest.expiresAt).getTime();
       const current = Number.isFinite(expiresAt) && Date.now() <= expiresAt;
       status.textContent = current ? "Verified · current" : "Update delayed · freshness gate exceeded";
@@ -514,6 +790,8 @@
   function setupBusinessExperience() {
     if (businessReady) return;
     businessReady = true;
+    void loadSiteContent();
+    scheduleSiteContentRefresh();
     setupAudienceTabs();
     setupPainPointFramework();
     setupDeepCases();

@@ -38,6 +38,7 @@ import {
   crawlModerationKeys as sharedCrawlModerationKeys,
   purgeCrawlExclusions,
 } from "./crawl-exclusions.mjs";
+import { buildSiteContentClient } from "./site-content.mjs";
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
 const OUT = resolve(__dirname, "..", "data", "live.json");
@@ -51,6 +52,7 @@ const MARKET_HISTORY_CLIENT_OUT = resolve(__dirname, "..", "data", "market-histo
 const QUANT_BACKTEST_CLIENT_OUT = resolve(__dirname, "..", "data", "quant-backtest-client.json");
 const DECISION_HISTORY_CLIENT_OUT = resolve(__dirname, "..", "data", "decision-history-client.json");
 const LANDING_DECISION_CLIENT_OUT = resolve(__dirname, "..", "data", "landing-decision-client.json");
+const SITE_CONTENT_CLIENT_OUT = resolve(__dirname, "..", "data", "site-content-client.json");
 const DATA_MANIFEST_OUT = resolve(__dirname, "..", "data", "data-manifest.json");
 const CRAWL_EXCLUSIONS_OUT = resolve(__dirname, "..", "data", "crawl-exclusions.json");
 const CRAWL_AUDIT_OUT = resolve(__dirname, "..", "data", "crawl-audit.json");
@@ -4674,6 +4676,7 @@ export function buildClientDataBundle({ payload = {}, quant = {}, priceHistory =
   const backtest = compactQuantBacktestForClient(quantBacktest);
   const decisionHistory = compactDecisionHistoryForClient({ priceHistory, marketHistory, quantBacktest });
   const landingDecision = buildLandingDecisionClient({ payload, quant });
+  const siteContent = buildSiteContentClient({ payload, quant });
   const artifacts = {
     live: { path: "data/live-client.json", bytes: Buffer.byteLength(JSON.stringify(live), "utf8") },
     quant: { path: "data/quant-client.json", bytes: Buffer.byteLength(JSON.stringify(clientQuant), "utf8") },
@@ -4682,6 +4685,7 @@ export function buildClientDataBundle({ payload = {}, quant = {}, priceHistory =
     quantBacktest: { path: "data/quant-backtest-client.json", bytes: Buffer.byteLength(JSON.stringify(backtest), "utf8") },
     decisionHistory: { path: "data/decision-history-client.json", bytes: Buffer.byteLength(JSON.stringify(decisionHistory), "utf8") },
     landingDecision: { path: "data/landing-decision-client.json", bytes: Buffer.byteLength(JSON.stringify(landingDecision), "utf8") },
+    siteContent: { path: "data/site-content-client.json", bytes: Buffer.byteLength(JSON.stringify(siteContent), "utf8") },
   };
   return {
     manifest: {
@@ -4699,6 +4703,7 @@ export function buildClientDataBundle({ payload = {}, quant = {}, priceHistory =
     quantBacktest: backtest,
     decisionHistory,
     landingDecision,
+    siteContent,
   };
 }
 
@@ -10120,6 +10125,7 @@ async function main() {
     [QUANT_BACKTEST_CLIENT_OUT, clientBundle.quantBacktest],
     [DECISION_HISTORY_CLIENT_OUT, clientBundle.decisionHistory],
     [LANDING_DECISION_CLIENT_OUT, clientBundle.landingDecision],
+    [SITE_CONTENT_CLIENT_OUT, clientBundle.siteContent],
     [CRAWL_QUARANTINE_OUT, publishedQuarantine],
     [CRAWL_AUDIT_OUT, crawlAudit],
     [TRANSLATION_CACHE_OUT, koTranslator?.snapshot() || previous.translationCache],

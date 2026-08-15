@@ -625,6 +625,7 @@ for (const artifact of [
   "quant-backtest-client.json",
   "decision-history-client.json",
   "landing-decision-client.json",
+  "site-content-client.json",
 ]) {
   assert.ok(workflowText.includes(`data/${artifact}`), `daily workflow must publish the ${artifact} browser artifact`);
 }
@@ -669,7 +670,8 @@ assert.match(appText, /decisionFrame: executiveDecisionFrame\(mapped, decisionFr
 assert.match(appText, /question: decisionFrame\.question, decisionFrame/, "each C-level council role must receive a data-bound question and decision frame");
 assert.match(appText, /function executiveDecisionAgentItems[\s\S]*?executiveDecisionFrame\(agent, decisionFrameContext\)[\s\S]*?aiInfraDomainDecisionFrame\(agent, domain, decisionFrameContext\)/, "backtest product-council agents must combine the shared and domain-specific decision frames");
 assert.match(stylesText, /\.agent-decision-frame\s*\{/, "decision frames must use a compact infographic layout");
-assert.match(appText, /const AI_INFRA_COUNCIL_AGENDAS = Object\.freeze\(\[/, "the C-level board must use a bounded AI Infra strategy agenda");
+assert.match(appText, /const STATIC_AI_INFRA_COUNCIL_AGENDAS = Object\.freeze\(\[/, "the C-level board must retain a bounded fallback agenda");
+assert.match(appText, /window\.MEMORY_SITE_CONTENT\?\.agentCouncil\?\.agendas/, "the C-level board must prefer the current generated strategy agenda");
 assert.match(appText, /function consoleDeepLinkState\([\s\S]*?function applyConsoleDeepLink\(/, "the C-level board must support stable section and agenda deep links");
 assert.match(appText, /MODELED · 예약 Capacity가 승인 수요의 80% 미만[\s\S]*?Package Yield Gate가 2회 연속 미달/, "the foundry agenda must include quantified modeled reversal thresholds");
 assert.match(appText, /MODELED KILL CRITERIA · STOP \/ REFRAME/, "the decision pack must distinguish modeled kill criteria from reported facts");

@@ -1,0 +1,166 @@
+{
+  "schemaVersion": "1.0",
+  "strategyMandate": {
+    "titleLines": [
+      "Customer Pain을",
+      "AI Infra 실행안으로 전환"
+    ],
+    "scope": [
+      "고객 Workload별 병목·구매 기준·사업 기회 진단",
+      "HBM–DRAM/CXL–HBF/eSSD 대안과 System TCO 비교",
+      "공동 검증 → Qualification → Capacity → Ramp 실행"
+    ],
+    "capabilities": [
+      "Pain Point 분석 · 고객 현황·기술·전략을 정량 병목으로 구조화",
+      "Data Center & IT · HW/SW·인프라를 Memory Tier와 연결",
+      "Executive Strategy · 근거·선택지·Trigger·Owner·KPI를 한 장으로 제시"
+    ]
+  },
+  "profiles": [
+    {
+      "id": "hbm4-foundry",
+      "panelId": "hbm",
+      "briefId": "hbm",
+      "index": "01",
+      "phase": "NOW",
+      "tabLabel": "Custom HBM",
+      "title": "Customized Memory Consulting · Custom HBM",
+      "answerTitle": "검증된 Ramp와 Custom Co-Design을 분리 운영",
+      "recommendation": "TWO-TRACK",
+      "question": "고객별 Workload 요구를 HBM·Base-Die·Package·Capacity 공동설계와 수익성으로 어떻게 연결할 것인가?",
+      "fallbackDecision": "검증된 고객 Ramp에는 표준 HBM Capacity를 우선 배분하고, Architecture Lock·공동 TCO·확정 물량이 확인된 고객만 Custom 단계로 승격합니다.",
+      "fallbackStop": "고객 인증 일정, 패키징 수율, 확정 물량 가운데 핵심 Gate가 악화되면 Custom 범위와 Capacity 배분을 재검토합니다.",
+      "lenses": [
+        ["01 · CUSTOMER", "Customer JTBD", ["Training·Inference별 성능·전력·일정 요구", "고객 Buying Criteria와 Qualification 일정", "확정 물량·반복 발주 가능성"]],
+        ["02 · TECHNOLOGY", "Architecture", ["HBM·Logic Base-Die·Package 공동 최적화", "PPA·열·수율·신뢰성 분리 검증", "표준형과 Custom 사양 경계"]],
+        ["03 · BUSINESS", "Option Economics", ["NRE·Margin floor·Committed volume", "Foundry·Packaging Capacity 조건", "고객 집중·공급 의존 위험"]],
+        ["04 · EXECUTION", "Qualification & Ramp", ["Requirement Lock → Sample → Qual", "Capacity allocation → Shipment", "Owner·KPI·Kill Criteria"]]
+      ],
+      "horizons": [
+        ["NOW · 0–30D", "Requirement Lock", "고객 Trace·Buying Criteria·공급 조건을 잠금", "Workload baseline·확정 수요"],
+        ["NEXT · 31–60D", "Architecture / TCO", "Standard와 Semi-Custom의 PPA·TCO를 비교", "PPA·Yield·System TCO"],
+        ["SCALE · 61–90D", "Qualification / Capacity", "인증·물량·가격·Ramp 조건을 계약 Gate로 연결", "Qual-to-volume·Margin floor"]
+      ],
+      "kpis": ["Qualification cycle", "Committed volume coverage", "Package yield", "Contribution margin"],
+      "partners": ["Accelerator/ASIC · architecture owner", "Foundry/Packaging · capacity & yield", "CSP/Data center · workload & TCO"],
+      "useCase": "익명화 AI Accelerator 고객 · Workload Trace → Base-Die 공동설계 → Qualification → Capacity Gate",
+      "deepLink": "#console/c-level-cockpit/hbm4-foundry"
+    },
+    {
+      "id": "agentic-inference",
+      "panelId": "demand",
+      "briefId": "demand",
+      "index": "02",
+      "phase": "NEXT",
+      "tabLabel": "Agentic Inference",
+      "title": "Data Center Workload Optimization · Agentic AI",
+      "answerTitle": "Agentic Inference를 Context Economics로 판단",
+      "recommendation": "TIERED MEMORY PoC",
+      "question": "Long Context·Multi-agent·RAG 확대로 커지는 KV Cache와 데이터 이동을 어떤 Memory Tier로 배치해야 Token 원가와 SLA가 함께 개선되는가?",
+      "fallbackDecision": "HBM Hot–DRAM/CXL Warm–HBF/eSSD Reuse Tier를 동일 Workload에서 비교하고 $/Million Tokens와 P99 기준으로 상용화 범위를 정합니다.",
+      "fallbackStop": "KV Reuse, P99 Latency, GPU Idle, System TCO가 고객 Baseline을 충족하지 못하면 Context Tier 범위를 축소합니다.",
+      "lenses": [
+        ["01 · CUSTOMER", "Serving JTBD", ["TTFT·TPOT/P99와 동시 Session", "Token 원가·전력·Rack Capacity", "고객 SLA와 구매 기준"]],
+        ["02 · AI TECH", "Context Flow", ["KV Cache reuse·offload·prefetch", "Prompt·Prefix·Multi-agent state", "Bytes/token·GPU idle 계측"]],
+        ["03 · MEMORY", "Tiered Architecture", ["HBM Hot Tier", "DRAM/CXL Warm Tier", "HBF/eSSD Reuse Tier"]],
+        ["04 · BUSINESS", "Reference Offer", ["Architecture·SW·Memory 공동 PoC", "System TCO와 고객 지불의사", "Qualification·반복주문"]]
+      ],
+      "horizons": [
+        ["NOW · 0–30D", "Serving Baseline", "대표 Prompt·Context·Concurrency와 KPI를 고정", "TTFT·TPOT·GPU idle"],
+        ["NEXT · 31–60D", "Tier Placement PoC", "HBM-only와 DRAM/CXL/HBF/eSSD 배치를 비교", "P99·Reuse·Power/token"],
+        ["SCALE · 61–90D", "Commercial Gate", "TCO·성능보증·Qualification 범위를 확정", "Cost/token·Repeatability"]
+      ],
+      "kpis": ["TTFT / TPOT P99", "KV reuse", "GPU utilization", "Cost per million tokens"],
+      "partners": ["AI model/serving · workload", "CSP/Data center · operations", "CXL/HBF/eSSD · tier integration"],
+      "useCase": "익명화 Agentic AI 운영사 · Context 병목 → Tiered Memory PoC → 공동 Qualification",
+      "deepLink": "#console/c-level-cockpit/post-hbm"
+    },
+    {
+      "id": "enterprise-rag",
+      "panelId": "nand",
+      "briefId": "nand",
+      "index": "03",
+      "phase": "NEXT",
+      "tabLabel": "Enterprise RAG",
+      "title": "LLM Tech & Enterprise RAG Architecture",
+      "answerTitle": "eSSD를 AI 추론의 독립 성장축으로 운영",
+      "recommendation": "eSSD ATTACH",
+      "question": "RAG의 Index·Cache·Document 경로에서 DRAM/CXL과 TLC/QLC eSSD를 어떻게 배치해야 P99·신뢰성·Cost/Query가 개선되는가?",
+      "fallbackDecision": "Retrieval Trace를 기반으로 Active Index는 DRAM/CXL, Vector·Document Tier는 eSSD에 배치하고 Controller·Firmware·Vector DB 튜닝을 공동 Offer로 묶습니다.",
+      "fallbackStop": "Retrieval P99, Cost/Query, Endurance/Reliability 중 하나라도 고객 Baseline을 통과하지 못하면 Architecture를 재설계합니다.",
+      "lenses": [
+        ["01 · CUSTOMER", "Enterprise JTBD", ["Fresh answer·보안·예측 가능한 비용", "Corpus·Freshness·SLA", "운영 신뢰성과 구매 기준"]],
+        ["02 · AI TECH", "RAG Flow", ["Embedding·Index·Retrieval·Generation", "Vector DB·reranking·cache", "Index resident ratio·QPS"]],
+        ["03 · MEMORY", "Active + Capacity", ["DRAM/CXL Active Index", "TLC eSSD Performance Tier", "QLC eSSD Capacity Tier"]],
+        ["04 · BUSINESS", "Solution Offer", ["Controller/Firmware 공동 튜닝", "성능보증·Qualification", "Design win → Repeat order"]]
+      ],
+      "horizons": [
+        ["NOW · 0–30D", "Retrieval Trace", "Corpus·Index·Cache·Document 경로를 계측", "P99·QPS·Cache hit"],
+        ["NEXT · 31–60D", "Architecture PoC", "DRAM/CXL/eSSD 비중별 Benchmark", "Cost/query·Power/query"],
+        ["SCALE · 61–90D", "Reference Offer", "성능보증·Qualification·가격 패키지", "Design win·Repeat order"]
+      ],
+      "kpis": ["Retrieval P99", "QPS", "Cache hit", "Cost/query", "Qualification"],
+      "partners": ["Enterprise · data/SLA", "Vector DB/RAG · index tuning", "OEM/Data center · platform qualification"],
+      "useCase": "익명화 Enterprise RAG 고객 · Retrieval Trace → DRAM/CXL·eSSD PoC → Qualification",
+      "deepLink": "#console/ai-matrix"
+    },
+    {
+      "id": "ondevice-memory",
+      "panelId": "dram",
+      "briefId": "dram",
+      "index": "04",
+      "phase": "OPTION",
+      "tabLabel": "On-device Memory",
+      "title": "AI Application & HW/SW · On-device",
+      "answerTitle": "AI 경험·Memory Footprint·BOM을 SKU별로 재설계",
+      "recommendation": "PORTFOLIO GATE",
+      "question": "AI 서버 수요와 공급 제약이 모바일·PC 메모리 원가로 전이될 때 어떤 고객·SKU·용량 구간을 우선 방어할 것인가?",
+      "fallbackDecision": "Premium–Mainstream–Entry별 AI 기능 가치, Memory Footprint, BOM 탄력성, Sell-through를 함께 비교해 제품 믹스와 Allocation을 조정합니다.",
+      "fallbackStop": "BOM/ASP, Sell-through, AI 기능 가치 가운데 핵심 지표가 악화되면 용량·가격·Allocation을 재설계합니다.",
+      "lenses": [
+        ["01 · CUSTOMER", "Need State", ["Latency·Privacy·Offline 가치", "Tier별 AI 사용 시나리오", "고객 지불의사"]],
+        ["02 · TECHNOLOGY", "HW/SW Translation", ["모델 압축·KV Cache", "NPU·OS·LPDDR 공동 최적화", "Memory Footprint·Energy/task"]],
+        ["03 · BUSINESS", "Portfolio & Price", ["SKU별 BOM·ASP", "용량 Mix·Allocation", "장기계약·가격 전가"]],
+        ["04 · EXECUTION", "Launch Gate", ["AI App·OEM 공동 Benchmark", "제품 Mix와 수요 Forecast", "Sell-through 기반 재배분"]]
+      ],
+      "horizons": [
+        ["NOW · 0–30D", "BOM 민감도", "용량·단가·수요 탄력성을 SKU별 재계산", "BOM/ASP·Gross margin"],
+        ["NEXT · 31–60D", "Experience PoC", "대표 AI 기능의 Latency·전력·Footprint 측정", "P95 latency·Energy/task"],
+        ["SCALE · 61–90D", "제품 믹스", "고객별 Allocation·가격·용량 패키지 확정", "Capacity mix·Sell-through"]
+      ],
+      "kpis": ["BOM/ASP ratio", "P95 AI latency", "Energy per task", "Sell-through by tier"],
+      "partners": ["Mobile/PC OEM · SKU/BOM", "AI Application · workload profiling", "Platform · launch optimization"],
+      "useCase": "익명화 Device OEM · AI Feature Footprint → SKU 재설계 → 가격·Allocation 실행",
+      "deepLink": "#console/ai-matrix"
+    },
+    {
+      "id": "partner-new-biz",
+      "panelId": "partner",
+      "briefId": "demand",
+      "index": "05",
+      "phase": "SCALE",
+      "tabLabel": "Partner-led New Biz",
+      "title": "Partners & Clients · Repeatable New Biz",
+      "answerTitle": "검증 결과를 반복 가능한 공동사업 패키지로 전환",
+      "recommendation": "LIGHTHOUSE → REPEAT",
+      "question": "AI 개발사·데이터센터·OEM·컨설팅 파트너를 어떤 RACI로 묶어 Pain 진단부터 Qualification·반복주문까지 연결할 것인가?",
+      "fallbackDecision": "Pain Map·Workload Trace·Architecture·TCO·Qualification Plan을 표준 Offer로 묶고 Lighthouse → Reference → Repeat 전환율로 투자합니다.",
+      "fallbackStop": "Decision Owner, Trace 접근, Qualification 경로, Reference 재사용성 가운데 2개 이상이 확인되지 않으면 Scale 투자를 중단합니다.",
+      "lenses": [
+        ["01 · AI DEVELOPER", "Workload Owner", ["Model·Prompt·Serving Trace", "성능 목표·Test Workload", "SW Integration 책임"]],
+        ["02 · DATA CENTER", "Operations Owner", ["Rack·Power·Cooling·Network", "Reliability·SLA·TCO", "PoC 운영 환경"]],
+        ["03 · OEM / PLATFORM", "Qualification Owner", ["Interoperability·BOM", "Sample·인증 일정", "Volume Ramp"]],
+        ["04 · CONSULTING / SI", "Value Realization", ["Business Case·Roadmap", "Change Management·PMO", "Reference 재사용"]]
+      ],
+      "horizons": [
+        ["NOW · 0–30D", "Opportunity Screen", "Customer Value·Market·Right to Win", "Trace access·Decision owner"],
+        ["NEXT · 31–60D", "Joint Proof", "Benchmark·TCO·Architecture·RACI", "PoC KPI·Commercial hypothesis"],
+        ["SCALE · 61–90D", "Commercialize", "Qualification·Capacity·Contract", "Reference reuse·Pipeline"]
+      ],
+      "kpis": ["PoC → Qualification", "Qualification → Contract", "Reference reuse", "Repeat order"],
+      "partners": ["AI Developer · workload", "Data Center · operations", "OEM/Platform · qualification", "Consulting/SI · adoption"],
+      "useCase": "익명화 Lighthouse 고객 · Pain 진단 → 공동 Benchmark → Qualification → Reference Offer",
+      "deepLink": "#console/c-level-cockpit/partner-new-biz"
+    }
+  ]
+}

@@ -9954,7 +9954,7 @@
     });
   }
 
-  const AI_INFRA_COUNCIL_AGENDAS = Object.freeze([
+  const STATIC_AI_INFRA_COUNCIL_AGENDAS = Object.freeze([
     {
       id: "hbm4-foundry",
       index: "01",
@@ -10127,8 +10127,16 @@
     },
   ]);
 
+  function aiInfraCouncilAgendas() {
+    const generated = window.MEMORY_SITE_CONTENT?.agentCouncil?.agendas;
+    return Array.isArray(generated) && generated.length >= 4
+      ? generated
+      : STATIC_AI_INFRA_COUNCIL_AGENDAS;
+  }
+
   function aiInfraCouncilAgenda(id = "") {
-    return AI_INFRA_COUNCIL_AGENDAS.find((item) => item.id === id) || AI_INFRA_COUNCIL_AGENDAS[0];
+    const agendas = aiInfraCouncilAgendas();
+    return agendas.find((item) => item.id === id) || agendas[0];
   }
 
   function consoleDeepLinkState(hash = location.hash) {
@@ -10154,7 +10162,7 @@
   async function applyConsoleDeepLink() {
     const { section, item } = consoleDeepLinkState();
     if (!section || !document.getElementById(section)) return;
-    if (section === "c-level-cockpit" && AI_INFRA_COUNCIL_AGENDAS.some((agenda) => agenda.id === item)) {
+    if (section === "c-level-cockpit" && aiInfraCouncilAgendas().some((agenda) => agenda.id === item)) {
       cLevelCouncilDecisionId = item;
       cLevelCouncilRan = true;
     }
@@ -10176,18 +10184,19 @@
   }
 
   function aiInfraCouncilWaitingHTML(agenda = {}) {
-    const capabilities = [
-      ["01", "Pain Point 분석", "고객 현황·기술·전략 → 정량 병목"],
-      ["02", "Data Center & IT", "Workload → HW/SW → memory tier"],
-      ["03", "Executive Strategy", "근거 → 선택지 → Trigger·Owner·KPI"],
-    ];
-    const workstreams = [
-      ["CUSTOM CONSULTING", "맞춤형 메모리", "B2B 고객 Pain point → solution blueprint"],
-      ["WORKLOAD", "데이터센터 최적화", "HW/SW·인프라 → TCO·성능 개선"],
-      ["NEW BIZ", "신규 사업", "AI 변화 → partner model·revenue option"],
-      ["INSIGHTS", "Tech & Market", "AI App·Transformer·Prompt·RAG·Vector DB → memory implication"],
-      ["PARTNERS", "Partners & Clients", "AI 개발사·데이터센터·컨설팅 파트너 → 공동 실행·익명 Use Case"],
-    ];
+    const generatedCapabilities = window.MEMORY_SITE_CONTENT?.hero?.capabilities || [];
+    const capabilities = generatedCapabilities.length
+      ? generatedCapabilities.slice(0, 3).map((copy, index) => [String(index + 1).padStart(2, "0"), String(copy).split(" · ")[0], String(copy).split(" · ").slice(1).join(" · ")])
+      : [
+          ["01", "Pain Point 분석", "고객 현황·기술·전략 → 정량 병목"],
+          ["02", "Data Center & IT", "Workload → HW/SW → memory tier"],
+          ["03", "Executive Strategy", "근거 → 선택지 → Trigger·Owner·KPI"],
+        ];
+    const workstreams = aiInfraCouncilAgendas().slice(0, 5).map((item) => [
+      `${item.phase || "CURRENT"} · ${item.index || ""}`,
+      item.tabLabel || item.title,
+      item.subtitle || item.question,
+    ]);
     return `
       <div class="ai-infra-council ai-infra-council-waiting">
         <header class="ai-council-mandate">
@@ -10276,13 +10285,14 @@
     const agents = $("#cLevelAgentGrid");
     if (!grid || !agents) return;
 
-    if (!AI_INFRA_COUNCIL_AGENDAS.some((item) => item.id === cLevelCouncilDecisionId)) {
-      cLevelCouncilDecisionId = AI_INFRA_COUNCIL_AGENDAS[0].id;
+    const agendas = aiInfraCouncilAgendas();
+    if (!agendas.some((item) => item.id === cLevelCouncilDecisionId)) {
+      cLevelCouncilDecisionId = agendas[0].id;
       cLevelCouncilRan = false;
     }
     const selectedAgenda = aiInfraCouncilAgenda(cLevelCouncilDecisionId);
 
-    grid.innerHTML = AI_INFRA_COUNCIL_AGENDAS.map((item) => `
+    grid.innerHTML = agendas.map((item) => `
       <button class="ai-council-agenda-card${item.id === selectedAgenda.id ? " is-selected" : ""}" type="button" data-council-pick="${escapeHTML(item.id)}" aria-pressed="${item.id === selectedAgenda.id ? "true" : "false"}">
         <span><b>${escapeHTML(item.index)}</b>${escapeHTML(item.phase)}</span>
         <strong>${escapeHTML(item.title)}</strong>
@@ -10297,7 +10307,7 @@
           <label>
             <span>의사결정 안건</span>
             <select id="cLevelCouncilSelect" aria-label="AI Infra 전략 의사결정 안건 선택">
-              ${AI_INFRA_COUNCIL_AGENDAS.map((item) => `<option value="${escapeHTML(item.id)}"${item.id === selectedAgenda.id ? " selected" : ""}>${escapeHTML(item.index)} · ${escapeHTML(item.title)}</option>`).join("")}
+              ${agendas.map((item) => `<option value="${escapeHTML(item.id)}"${item.id === selectedAgenda.id ? " selected" : ""}>${escapeHTML(item.index)} · ${escapeHTML(item.title)}</option>`).join("")}
             </select>
           </label>
           <button type="button" id="cLevelRunCouncil">${cLevelCouncilRan ? "전략 팩 재생성" : "AI Infra 전략 실행"}</button>
@@ -10330,6 +10340,12 @@
       button.addEventListener("click", () => chooseCouncilAgenda(button.dataset.councilPick));
     });
   }
+
+  window.addEventListener("memory-site-content-ready", () => {
+    if (document.getElementById("cLevelDecisionGrid") && document.getElementById("cLevelAgentGrid")) {
+      renderCLevelCockpit();
+    }
+  });
 
   function clearCouncilTimers() {
     while (cLevelCouncilTimers.length) window.clearTimeout(cLevelCouncilTimers.pop());
