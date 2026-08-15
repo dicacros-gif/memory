@@ -9,8 +9,6 @@
   function resetInitialViewport() {
     if (!initialViewportLocked) return;
     window.scrollTo({ top: 0, left: 0, behavior: "auto" });
-    document.documentElement.scrollTop = 0;
-    document.body.scrollTop = 0;
   }
   ["wheel", "touchstart", "pointerdown", "keydown"].forEach((eventName) => {
     window.addEventListener(eventName, () => { initialViewportLocked = false; }, { once: true, passive: true });
@@ -2890,7 +2888,7 @@
       window.addEventListener("resize", scheduleHeroScroll, { passive: true });
       const heroResizeObserver = "ResizeObserver" in window ? new ResizeObserver(scheduleHeroScroll) : null;
       heroResizeObserver?.observe(hero);
-      syncHeroScroll();
+      scheduleHeroScroll();
 
       if (video && "IntersectionObserver" in window) {
         const heroVideoObserver = new IntersectionObserver((entries) => {
@@ -4353,7 +4351,6 @@
     setupKpiCountReplay();
     schedulePostPaintEnhancements();
     setupDeferredSections();
-    resetInitialViewport();
   }
 
   function schedulePostPaintEnhancements() {
@@ -5242,7 +5239,7 @@
   const deferredSectionRuns = new Map();
   const deferredRenderedSections = new Set(["overview", "overview-content"]);
   let priceBoardPreloadStarted = false;
-  let deferredHydrationPromise = null;
+  let deferredSectionObserver = null;
 
   function deferredSectionDefinitions() {
     return [
@@ -5319,8 +5316,8 @@
   }
 
   // The price board combines the compact price history with a larger market-history
-  // artifact. Start that network work automatically after the first dashboard paint;
-  // reaching the board with a wheel, touch, or pointer is never required.
+  // artifact. Prewarm it only when navigation intent is clear; viewport hydration
+  // below starts the same idempotent request before the board becomes visible.
   function prewarmPriceBoardData() {
     if (priceBoardPreloadStarted) return loadSecondaryData(["priceHistory", "marketHistory"]);
     priceBoardPreloadStarted = true;
@@ -5340,18 +5337,11 @@
     if (!board) return;
     const start = () => { void prewarmPriceBoardData(); };
 
-    // Navigation intent can still accelerate the same idempotent preload, but the
-    // scheduled start below guarantees that no user gesture is necessary.
     const intentTargets = $$('[data-jump="prices"], [data-jump="equity-value-chain"], [data-hero-jump="prices"]');
     intentTargets.forEach((target) => {
       target.addEventListener("pointerenter", start, { once: true, passive: true });
       target.addEventListener("focusin", start, { once: true });
     });
-    const schedule = () => {
-      if ("requestIdleCallback" in window) window.requestIdleCallback(start, { timeout: 700 });
-      else window.setTimeout(start, 60);
-    };
-    window.requestAnimationFrame(() => window.requestAnimationFrame(schedule));
   }
 
   function deferredDefinition(id) {
@@ -5366,6 +5356,7 @@
     if (!section) return Promise.resolve();
 
     const run = (async () => {
+      deferredSectionObserver?.unobserve(section);
       section.dataset.deferredState = "loading";
       section.setAttribute("aria-busy", "true");
       if (definition.data?.length) await loadSecondaryData(definition.data);
@@ -5376,79 +5367,61 @@
       normalizeBriefCopy(section);
       animateCounts(section);
       animateMeters(section);
+      updateDeferredHydrationStatus();
       scheduleScrollSpyGeometryRefresh();
     })().catch((error) => {
       section.dataset.deferredState = "error";
       section.removeAttribute("aria-busy");
+      updateDeferredHydrationStatus();
       console.warn(`Deferred section failed: ${id}`, error);
     });
     deferredSectionRuns.set(id, run);
     return run;
   }
 
-  function deferredDefinitionsInDocumentOrder(definitions) {
-    return [...definitions].sort((left, right) => {
-      const leftSection = document.getElementById(left.id);
-      const rightSection = document.getElementById(right.id);
-      if (!leftSection || !rightSection || leftSection === rightSection) return 0;
-      const topDelta = leftSection.getBoundingClientRect().top - rightSection.getBoundingClientRect().top;
-      if (Math.abs(topDelta) > 1) return topDelta;
-      const relation = leftSection.compareDocumentPosition(rightSection);
-      if (relation & Node.DOCUMENT_POSITION_FOLLOWING) return -1;
-      if (relation & Node.DOCUMENT_POSITION_PRECEDING) return 1;
-      return 0;
-    });
+  function updateDeferredHydrationStatus() {
+    const definitions = deferredSectionDefinitions();
+    const ready = definitions.filter((definition) => deferredRenderedSections.has(definition.id)).length;
+    document.body.dataset.deferredHydrationReady = String(ready);
+    document.body.dataset.deferredHydration = ready === definitions.length ? "ready" : "on-demand";
   }
 
-  function yieldDeferredHydration() {
-    return new Promise((resolve) => {
-      if (window.scheduler?.postTask) {
-        window.scheduler.postTask(resolve, { priority: "background" });
-        return;
-      }
-      window.requestAnimationFrame(() => window.setTimeout(resolve, 0));
-    });
-  }
+  function observeDeferredSections(definitions) {
+    const sections = definitions
+      .map((definition) => document.getElementById(definition.id))
+      .filter(Boolean);
 
-  function hydrateDeferredSectionsSequentially(definitions = deferredSectionDefinitions()) {
-    if (deferredHydrationPromise) return deferredHydrationPromise;
-    const ordered = deferredDefinitionsInDocumentOrder(definitions);
-    document.body.dataset.deferredHydration = "loading";
-    document.body.dataset.deferredHydrationTotal = String(ordered.length);
-    document.body.dataset.deferredHydrationReady = "0";
+    if ("IntersectionObserver" in window) {
+      deferredSectionObserver = new IntersectionObserver((entries) => {
+        entries.forEach((entry) => {
+          if (!entry.isIntersecting) return;
+          deferredSectionObserver?.unobserve(entry.target);
+          void ensureDeferredSection(entry.target.id);
+        });
+      }, { rootMargin: "900px 0px", threshold: 0.01 });
+      sections.forEach((section) => deferredSectionObserver.observe(section));
+      window.addEventListener("pagehide", () => deferredSectionObserver?.disconnect(), { once: true });
+      return;
+    }
 
-    // Begin every secondary network request together, then construct each section
-    // one at a time in real document order. This keeps the main thread responsive
-    // without making scroll position a loading trigger.
-    void Promise.allSettled([
-      prewarmPriceBoardData(),
-      loadSecondaryData(["quantBacktest", "enterpriseProfiles"]),
-    ]);
-
-    deferredHydrationPromise = (async () => {
-      let ready = 0;
-      for (const definition of ordered) {
-        await ensureDeferredSection(definition.id);
-        ready += 1;
-        document.body.dataset.deferredHydrationReady = String(ready);
-        await yieldDeferredHydration();
-      }
-      document.body.dataset.deferredHydration = "ready";
-      scheduleScrollSpyGeometryRefresh();
-    })().catch((error) => {
-      document.body.dataset.deferredHydration = "error";
-      console.warn("Sequential section hydration failed", error);
-    });
-    return deferredHydrationPromise;
-  }
-
-  function scheduleSequentialDeferredHydration(definitions) {
-    const start = () => { void hydrateDeferredSectionsSequentially(definitions); };
-    const schedule = () => {
-      if ("requestIdleCallback" in window) window.requestIdleCallback(start, { timeout: 320 });
-      else window.setTimeout(start, 80);
+    // Compatibility path for older browsers: check proximity only while the user
+    // moves through the document. Modern browsers stay on the zero-layout-read IO path.
+    let frame = 0;
+    const hydrateNearby = () => {
+      frame = 0;
+      sections.forEach((section) => {
+        if (section.dataset.deferredState !== "waiting") return;
+        const rect = section.getBoundingClientRect();
+        if (rect.top <= window.innerHeight + 900 && rect.bottom >= -400) void ensureDeferredSection(section.id);
+      });
     };
-    window.requestAnimationFrame(() => window.requestAnimationFrame(schedule));
+    const schedule = () => {
+      if (frame) return;
+      frame = window.requestAnimationFrame(hydrateNearby);
+    };
+    window.addEventListener("scroll", schedule, { passive: true });
+    window.addEventListener("resize", schedule, { passive: true });
+    schedule();
   }
 
   function setupDeferredSections() {
@@ -5459,10 +5432,14 @@
     sections.forEach((section) => {
       section.classList.add("deferred-section");
       section.dataset.deferredState = "waiting";
-      section.setAttribute("aria-busy", "true");
     });
+    document.body.dataset.deferredHydrationTotal = String(sections.length);
+    updateDeferredHydrationStatus();
     setupPriceBoardPreload();
-    scheduleSequentialDeferredHydration(definitions);
+    observeDeferredSections(definitions);
+    // The strategy board is the first content after the hero and has no secondary
+    // data dependency, so make it ready immediately while every deep section waits.
+    void ensureDeferredSection("strategy-consulting");
   }
 
   /* ---------------- Hyperscaler memory demand · scenario planning ---------------- */
@@ -6980,8 +6957,6 @@
     decorateSidebarItems();
     syncChromeMetrics();
     window.addEventListener("resize", syncChromeMetrics, { passive: true });
-    document.fonts?.ready?.then(syncChromeMetrics).catch(() => {});
-
     $("#themeBtn").addEventListener("click", () => {
       const next = document.documentElement.dataset.theme === "dark" ? "light" : "dark";
       document.documentElement.dataset.theme = next;
@@ -20588,8 +20563,12 @@
   function scheduleScrollSpyGeometryRefresh() {
     if (scrollSpyRefreshFrame) return;
     scrollSpyRefreshFrame = requestAnimationFrame(() => {
-      scrollSpyRefreshFrame = 0;
-      refreshScrollSpyGeometry();
+      // Wait through one completed paint so geometry reads do not force layout
+      // while deferred content or responsive chrome styles are still settling.
+      scrollSpyRefreshFrame = requestAnimationFrame(() => {
+        scrollSpyRefreshFrame = 0;
+        refreshScrollSpyGeometry();
+      });
     });
   }
 
@@ -20626,8 +20605,7 @@
       const main = $("#main");
       if (main) scrollSpyResizeObserver.observe(main);
     }
-    document.fonts?.ready?.then(scheduleScrollSpyGeometryRefresh).catch(() => {});
-    refreshScrollSpyGeometry();
+    scheduleScrollSpyGeometryRefresh();
   }
 
   /* ---------------- Q&A ---------------- */

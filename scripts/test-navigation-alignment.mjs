@@ -76,7 +76,9 @@ assert.equal(routes.at(-1).id, "stock", "Stock analysis must remain at the botto
 
 assert.match(app, /const manifestPromise = loadDataManifest\(\);/, "critical manifest request must start early");
 assert.match(app, /function updateScrollSpyFromGeometry\(\)/, "scroll spy must use cached geometry");
-assert.match(app, /scheduleSequentialDeferredHydration\(definitions\);/, "all deferred sections must auto-hydrate");
+assert.match(app, /function observeDeferredSections\(definitions\)[\s\S]*?new IntersectionObserver[\s\S]*?rootMargin: "900px 0px"/, "deferred sections should hydrate shortly before entering the viewport");
+assert.match(app, /void ensureDeferredSection\("strategy-consulting"\);/, "the first strategy section should be ready immediately after the hero");
+assert.doesNotMatch(app, /hydrateDeferredSectionsSequentially|scheduleSequentialDeferredHydration/, "deep sections must not auto-hydrate in the background");
 assert.match(css, /\.deferred-section\s*\{[\s\S]*?content-visibility:\s*auto;/, "offscreen sections must skip paint");
 assert.doesNotMatch(css, /#(?:overview|strategy-consulting|overview-content)\s*\{[^}]*\border\s*:/, "opening sections must not be visually reordered with CSS");
 

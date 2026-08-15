@@ -671,9 +671,9 @@ const deferredSectionBlock = appText.slice(
   appText.indexOf("function setupDeferredSections"),
   appText.indexOf("/* ---------------- Hyperscaler"),
 );
-assert.match(appText, /function hydrateDeferredSectionsSequentially[\s\S]*?for \(const definition of ordered\)[\s\S]*?await ensureDeferredSection\(definition\.id\)/, "below-the-fold boards must hydrate automatically in document order");
-assert.match(deferredSectionBlock, /scheduleSequentialDeferredHydration\(definitions\)/, "full-page hydration must start after first paint without waiting for scroll");
-assert.doesNotMatch(deferredSectionBlock, /IntersectionObserver|rootMargin/, "deferred boards must not depend on viewport arrival");
+assert.match(appText, /function observeDeferredSections\(definitions\)[\s\S]*?new IntersectionObserver[\s\S]*?ensureDeferredSection\(entry\.target\.id\)[\s\S]*?rootMargin: "900px 0px"/, "below-the-fold boards must hydrate shortly before viewport arrival");
+assert.match(deferredSectionBlock, /observeDeferredSections\(definitions\)/, "on-demand viewport hydration must start after core rendering");
+assert.doesNotMatch(appText, /hydrateDeferredSectionsSequentially|scheduleSequentialDeferredHydration/, "deep boards must not auto-hydrate during initial loading");
 const jumpNavigationBlock = appText.slice(
   appText.indexOf("async function jumpTo"),
   appText.indexOf("function setupScrollSpy"),
@@ -683,10 +683,10 @@ assert.match(jumpNavigationBlock, /syncSidebarRoute\(id, \{ pending: true, revea
 assert.doesNotMatch(jumpNavigationBlock, /deferredSectionRuns\.values/, "a selected board must not wait for unrelated deferred boards");
 assert.match(appText, /function scheduleScrollProgress\(/, "scroll progress updates must be frame-throttled");
 assert.match(stylesText, /\.sb-item\.is-pending::after/, "sidebar must visibly retain the selected tab while the matching board loads");
-assert.equal((indexText.match(/pretendard[^"\s]*\.css/gi) || []).length, 1, "the page must load one Pretendard stylesheet rather than duplicate font CSS");
+assert.equal((indexText.match(/pretendard[^"\s]*\.css/gi) || []).length, 0, "the page must avoid external Korean font requests during initial rendering");
 assert.match(appText, /history\.scrollRestoration = "manual"/, "fresh dashboard loads must disable browser restoration to a stale deep scroll position");
 assert.match(appText, /function resetInitialViewport\(/, "fresh dashboard loads must explicitly start from the overview viewport");
-assert.ok((appText.match(/resetInitialViewport\(\);/g) || []).length >= 2, "the overview viewport must be reset before and after initial dashboard rendering");
+assert.equal((appText.match(/resetInitialViewport\(\);/g) || []).length, 1, "the overview viewport must reset once without a late forced reflow");
 
 const manualEdgesBlock = appText.slice(
   appText.indexOf("function memoryMarketEdges()"),
