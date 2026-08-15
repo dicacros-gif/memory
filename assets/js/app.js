@@ -2312,7 +2312,131 @@
   let selectedQaCategory = "all";
   let numberOrder = [];
   let draggedNumberId = null;
-  const QA_PLACEHOLDER = "Memory 시장에 대해 물어보세요";
+  const QA_PLACEHOLDER = "메모리 시장에 대해 물어보세요 · Pain Point·Workload·신규 Biz";
+  const AI_INFRA_QA_CATEGORIES = Object.freeze([
+    { id: "customer", name: "Customer Pain", color: "#0F766E" },
+    { id: "workload", name: "Workload & DC", color: "#1D4ED8" },
+    { id: "solution", name: "Memory Solution", color: "#6D28D9" },
+    { id: "newbiz", name: "New Biz & Partner", color: "#B45309" },
+    { id: "insights", name: "Tech & Market", color: "#0369A1" },
+    { id: "execution", name: "Executive Action", color: "#334155" },
+  ]);
+  const AI_INFRA_QA_PRESETS = Object.freeze([
+    {
+      cat: "customer",
+      q: "대규모 LLM 추론 고객의 Pain Point를 어떻게 진단할 것인가?",
+      preview: "고객 JTBD를 TTFT·TPOT·P99·GPU utilization·bytes/token으로 바꾸고 병목의 경제적 크기를 계산합니다.",
+      a: "고객의 사업 목표와 운영 KPI를 먼저 고정한 뒤 Workload trace로 병목을 검증합니다. 기술 증상이 아니라 고객 가치 손실을 기준으로 우선순위를 정합니다.",
+      keywords: ["고객", "pain point", "jtbd", "llm", "추론", "병목", "ttft", "tpot", "gpu utilization", "bytes token"],
+      nav: "c-level-cockpit",
+      status: "Decision frame",
+      strategy: {
+        pain: "동시 사용자·Context 길이 증가로 GPU가 계산보다 KV 재계산과 Data Movement를 기다림",
+        workload: "Serving trace → TTFT·TPOT/P99·KV hit·GPU utilization·rack power를 동일 부하에서 측정",
+        memory: "HBM Hot Tier · Server DRAM/CXL Warm Tier · HBF/eSSD Reuse Tier를 대안별 비교",
+        business: "추가 메모리 비용 ↔ GPU Idle 감소·Throughput 증가·Power/Token 개선을 TCO로 환산",
+        partner: "AI 개발사 + 데이터센터 운영사 + 메모리/SW 팀 공동 Benchmark",
+        action: "30일 Baseline → 60일 Architecture PoC → 90일 Qualification 안건",
+        kpis: ["TTFT", "TPOT/P99", "GPU utilization", "Bytes/token", "TCO/query"],
+        kill: "P99 SLA 개선 5% 미만 또는 System TCO 개선 10% 미만이면 Architecture 옵션 재설계",
+      },
+    },
+    {
+      cat: "workload",
+      q: "데이터센터 HW·SW·Memory를 함께 최적화하는 실행안은?",
+      preview: "Workload → Compute/Network/Memory/Storage 병목을 분리하고 성능·전력·비용을 같은 기준으로 비교합니다.",
+      a: "데이터센터 최적화는 제품 사양 비교가 아니라 Workload의 데이터 흐름과 병목을 HW/SW 전 구간에서 추적하는 작업입니다.",
+      keywords: ["데이터센터", "hw", "sw", "인프라", "최적화", "tco", "전력", "성능", "architecture"],
+      nav: "ai-matrix",
+      status: "Architecture",
+      strategy: {
+        pain: "GPU 증설 이후에도 Host Memory·Interconnect·Storage I/O가 Token 처리량과 가동률을 제한",
+        workload: "Training·Inference·RAG별 Compute/Memory/Network/Storage utilization을 MECE하게 분해",
+        memory: "HBM·SOCAMM/DDR5·CXL·HBF·eSSD의 Hot/Warm/Scale 배치와 SW tiering을 공동 설계",
+        business: "성능/Watt·GPU당 유효 Token·Rack TCO·증설 회피 CAPEX를 기준으로 대안 비교",
+        partner: "CSP 운영팀 + AI Framework/Compiler + Server/OEM + Memory 공동 Reference Architecture",
+        action: "대표 Workload 2종을 고정해 Baseline·PoC·Reliability·Qualification Gate로 운영",
+        kpis: ["GPU utilization", "P95/P99 latency", "Performance/Watt", "Rack TCO", "Qualification cycle"],
+        kill: "병목 이동만 발생하거나 Reliability Gate 미통과 시 Scale 투입을 중단하고 SW/Topology를 재설계",
+      },
+    },
+    {
+      cat: "solution",
+      q: "고객별 맞춤형 메모리 솔루션을 어떤 프로세스로 제안할 것인가?",
+      preview: "고객 현황·기술·전략에서 Pain Point를 찾고 Requirement Matrix·Business Case·Qualification Plan으로 전환합니다.",
+      a: "맞춤형 메모리 컨설팅은 제품 추천이 아니라 고객 Pain Point를 검증 가능한 Memory Requirement와 상업화 Gate로 바꾸는 과정입니다.",
+      keywords: ["맞춤형", "메모리 컨설팅", "고객별", "요구사항", "solution", "qualification", "hbm", "dram", "cxl", "essd"],
+      nav: "c-level-cockpit",
+      status: "Solution blueprint",
+      strategy: {
+        pain: "고객의 Business KPI와 기술 요구가 분리되어 구매 기준·우선순위·예산 논리가 불명확",
+        workload: "Customer Situation → JTBD → Workload Trace → Bottleneck Tree → Buying Criteria",
+        memory: "Standard · Semi-Custom · Full-Custom 옵션을 PPA·Capacity·Power·Reliability 기준으로 비교",
+        business: "가격이 아니라 고객 매출·운영비·Time-to-Market 영향과 SK hynix Right to Win을 함께 제시",
+        partner: "고객 Product/Infra/Procurement + Foundry/Packaging + SK hynix 기술·사업 PMO",
+        action: "Pain Point Map → Requirement Matrix → Benchmark → Proposal → Qualification → Ramp",
+        kpis: ["Design win", "Qualification lead time", "Capacity coverage", "Gross margin", "Repeat order"],
+        kill: "고객 KPI와 Memory 요구의 인과가 검증되지 않거나 확정 물량이 기준 미달이면 Custom 범위를 축소",
+      },
+    },
+    {
+      cat: "newbiz",
+      q: "Agentic AI와 RAG 확산에서 신규 메모리 Biz 기회는 무엇인가?",
+      preview: "Context economics와 데이터 재사용을 중심으로 HBM 이후 DRAM·CXL·HBF·eSSD의 수익 모델을 설계합니다.",
+      a: "신규 Biz는 기술 목록이 아니라 고객 Workload의 지불 의사, 반복 가능한 Architecture, 파트너 역할, Qualification 경로가 동시에 있는 기회만 선별합니다.",
+      keywords: ["신규 biz", "new biz", "agentic", "rag", "vector db", "파트너", "사업 기회", "hbf", "essd", "cxl"],
+      nav: "projection",
+      status: "Growth option",
+      strategy: {
+        pain: "Long Context·도구 호출·Vector Retrieval이 데이터 이동과 KV/Index 용량 비용을 구조적으로 확대",
+        workload: "Agentic loop·RAG retrieval·Checkpoint의 Hot/Warm/Cold 데이터 수명과 재사용률을 계측",
+        memory: "HBM 단품이 아닌 CXL Pooling·HBF Context Tier·High-capacity eSSD를 묶은 Memory Fabric",
+        business: "NRE·공동설계 IP·Reference Architecture·장기 공급을 결합한 반복 매출 모델",
+        partner: "AI 개발사·Vector DB/RAG SW·데이터센터 운영사·IT 컨설팅 펌 공동 Go-to-Market",
+        action: "TAM 가설 → Lighthouse 고객 → PoC → Qualification → Partner Playbook → Repeat Order",
+        kpis: ["Lighthouse 고객", "PoC→Qualification", "NRE", "ARR/Repeat order", "Partner-sourced pipeline"],
+        kill: "고객 지불 의사·Reference 재사용성·Qualification 경로 중 2개가 미확인되면 옵션 투자로 환원",
+      },
+    },
+    {
+      cat: "insights",
+      q: "Transformer·Prompt·RAG·Vector DB 변화가 메모리 수요에 미치는 영향은?",
+      preview: "AI Application과 SW 변화가 Capacity·Bandwidth·I/O·Data Reuse에 미치는 영향을 Memory requirement로 번역합니다.",
+      a: "기술 동향은 제품 수요 전망으로 바로 연결하지 않습니다. Model/Application 변화가 Workload 지표를 거쳐 Memory 요구와 고객 구매 기준을 바꾸는 인과 사슬을 검증합니다.",
+      keywords: ["transformer", "prompt", "prompt engineering", "rag", "vector db", "llm", "기술 트렌드", "ai application", "hw sw"],
+      nav: "hyperscaler-demand",
+      status: "Tech impact",
+      strategy: {
+        pain: "모델·Prompt·검색 구조 변화가 실제 Memory 수요로 전환되는 중간 지표가 없어 전망 오차가 큼",
+        workload: "Context length·Batch/Concurrency·KV reuse·Embedding index·Read amplification을 추적",
+        memory: "Bandwidth·Capacity·Latency·Endurance 요구를 HBM·DRAM/CXL·HBF/eSSD별로 매핑",
+        business: "기술 신호 → 고객 Architecture 변경 → Qualification → Unit/Content growth 순으로 수요를 산정",
+        partner: "AI Lab·Framework/Vector DB 업체·CSP Architecture 팀과 Benchmark 데이터 교환",
+        action: "월간 Tech Signal Map + 분기별 Workload Benchmark + 제품 Roadmap Trigger 갱신",
+        kpis: ["Context/token growth", "KV reuse", "Index TB", "Bytes/token", "Memory content/system"],
+        kill: "Application adoption 또는 고객 Architecture 변경이 확인되지 않으면 수요 전망에 반영하지 않음",
+      },
+    },
+    {
+      cat: "execution",
+      q: "경영진 결재용 AI Infra 실행 전략 팩을 만들어줘",
+      preview: "결론·근거·선택지·Business Value·Owner·KPI·Kill Criteria·90일 실행을 한 장으로 구조화합니다.",
+      a: "경영진 산출물은 전망 요약이 아니라 지금 승인할 범위, 보류할 조건, 다음 검증 과제와 책임자를 명확히 해야 합니다.",
+      keywords: ["경영진", "의사결정", "실행 전략", "결재", "kpi", "kill criteria", "owner", "90일", "전략 기획"],
+      nav: "c-level-cockpit",
+      status: "Executive pack",
+      strategy: {
+        pain: "시장·기술 신호가 많지만 어떤 고객·제품·투자 결정을 지금 바꿔야 하는지 불명확",
+        workload: "고객 Pain·Workload 병목·HW/SW 제약·공급 준비도를 하나의 Issue Tree로 정리",
+        memory: "Where to Play · How to Win · Memory Option · Partner/Qualification 의존성을 비교",
+        business: "Base/Upside/Downside별 Revenue·TCO·CAPEX·Option Value와 반대 근거를 병기",
+        partner: "의사결정 Owner·고객 Counterpart·기술/공급 파트너·검증 책임을 RACI로 지정",
+        action: "Now 30D 검증 → Next 60D PoC/계약 → Scale 90D Qualification·Capacity Gate",
+        kpis: ["Value KPI", "Evidence grade", "Owner", "Decision date", "Kill criteria"],
+        kill: "핵심 근거·고객 의향·기술 준비도 중 하나라도 임계치 미달이면 Go를 Watch/Hold로 자동 재상정",
+      },
+    },
+  ]);
   const CATEGORY_RENDER_BUDGET_MS = 12;
   const MEMORY_MARKET_POSITIONS_KEY = "memory-market-node-positions-v2";
 
@@ -9156,7 +9280,7 @@
         <span>미래 가정</span>
         <strong>${escapeHTML(scenario.label)} · ${escapeHTML(scenario.horizon)}</strong>
         <p>${escapeReadableHTML(scenario.premise)}</p>
-        <small>토론 다시 실행 시 다음 가정으로 전환 · ${escapeHTML(scenario.conclusion)}</small>
+        <small>전략 팩 재생성 시 다음 가정으로 전환 · ${escapeHTML(scenario.conclusion)}</small>
       </div>
     `;
   }
@@ -9887,24 +10011,25 @@
       ["WORKLOAD", "데이터센터 최적화", "HW/SW·인프라 → TCO·성능 개선"],
       ["NEW BIZ", "신규 사업", "AI 변화 → partner model·revenue option"],
       ["INSIGHTS", "Tech & Market", "AI App·Transformer·Prompt·RAG·Vector DB → memory implication"],
+      ["PARTNERS", "Partners & Clients", "AI 개발사·데이터센터·컨설팅 파트너 → 공동 실행·익명 Use Case"],
     ];
     return `
       <div class="ai-infra-council ai-infra-council-waiting">
         <header class="ai-council-mandate">
-          <span>AI INFRA STRATEGY COUNCIL</span>
-          <strong>Signal → Business Question → Evidence → Choice → 90-Day Action</strong>
-          <small>영상·음성 없이 즉시 실행 · 공식 근거와 검증 대상을 분리</small>
+          <span>AI INFRA STRATEGY AGENT OS</span>
+          <strong>Customer Pain → Workload → Memory Option → Business Case → 90-Day Action</strong>
+          <small>5개 전문 Agent가 병렬 검토 · 영상·음성 없이 즉시 실행 · 공식 근거와 검증 가설 분리</small>
         </header>
         <div class="ai-council-capabilities" aria-label="핵심 역량 3가지">
           ${capabilities.map(([index, title, copy]) => `<div><b>${index}</b><strong>${escapeHTML(title)}</strong><small>${escapeHTML(copy)}</small></div>`).join("")}
         </div>
-        <div class="ai-council-workstreams" aria-label="실행 업무 4개 축">
+        <div class="ai-council-workstreams" aria-label="실행 업무 5개 축">
           ${workstreams.map(([tag, title, copy]) => `<div><span>${tag}</span><strong>${escapeHTML(title)}</strong><small>${escapeHTML(copy)}</small></div>`).join("")}
         </div>
         <div class="ai-council-start">
           <span>SELECTED QUESTION</span>
           <strong>${escapeHTML(agenda.question)}</strong>
-          <small>‘토론 실행’ 클릭 → 4개 검토 렌즈 · 3개 투자 Horizon · 근거 등급 · 90일 Gate 표시</small>
+          <small>‘AI Infra 전략 실행’ 클릭 → Issue Tree · 3개 투자 Horizon · 근거 등급 · Partner Model · 90일 Gate 표시</small>
         </div>
       </div>
     `;
@@ -10000,7 +10125,7 @@
               ${AI_INFRA_COUNCIL_AGENDAS.map((item) => `<option value="${escapeHTML(item.id)}"${item.id === selectedAgenda.id ? " selected" : ""}>${escapeHTML(item.index)} · ${escapeHTML(item.title)}</option>`).join("")}
             </select>
           </label>
-          <button type="button" id="cLevelRunCouncil">${cLevelCouncilRan ? "전략 검토 다시 열기" : "토론 실행"}</button>
+          <button type="button" id="cLevelRunCouncil">${cLevelCouncilRan ? "전략 팩 재생성" : "AI Infra 전략 실행"}</button>
           <button class="is-secondary" type="button" id="cLevelCopyLink" aria-label="선택한 의사결정 안건 링크 복사">안건 링크 복사</button>
         </div>
         <div id="aiInfraCouncilOutput" aria-live="polite">
@@ -10043,17 +10168,17 @@
 
   // Per-debate run state (token + timers) so multiple councils animate independently.
   const debateRunStates = new WeakMap();
-  // One immutable cadence for every agent surface. Board-specific renderers must not
-  // override this sequence: roster first, then one slowly typed turn at a time.
+  // One short, deterministic cadence for every strategy-agent surface. Results are
+  // rendered as a decision pack; speech is opt-in and never blocks first content.
   const AGENT_DEBATE_TIMING = Object.freeze({
-    rosterStepMs: 320,
-    rosterSettleMs: 1080,
-    speakerLeadMs: 420,
-    charMs: 48,
-    commaPauseMs: 90,
-    sentencePauseMs: 220,
-    turnGapMs: 980,
-    conclusionDelayMs: 760,
+    rosterStepMs: 35,
+    rosterSettleMs: 90,
+    speakerLeadMs: 45,
+    charMs: 0,
+    commaPauseMs: 0,
+    sentencePauseMs: 0,
+    turnGapMs: 90,
+    conclusionDelayMs: 120,
   });
   const AGENT_TTS_STORAGE_KEY = "memory-agent-tts-v2";
   const AGENT_TTS_SETTINGS_STORAGE_KEY = "memory-agent-tts-settings-v1";
@@ -10079,9 +10204,9 @@
   const AGENT_NATURAL_VOICE_HINT = /natural|neural|premium|enhanced|online/i;
   let agentTtsEnabled = (() => {
     try {
-      return window.localStorage.getItem(AGENT_TTS_STORAGE_KEY) !== "off";
+      return window.localStorage.getItem(AGENT_TTS_STORAGE_KEY) === "on";
     } catch {
-      return true;
+      return false;
     }
   })();
   let agentTtsSettings = (() => {
@@ -10645,53 +10770,15 @@
     if (base instanceof Element && base.matches(".agent-debate")) debates.push(base);
     debates.push(...base.querySelectorAll(".agent-debate"));
     debates.forEach((container) => {
-      if (container.querySelector(":scope > .agent-debate-video")) {
-        observeAgentDebateVideo(container);
-        return;
-      }
-      const video = document.createElement("video");
-      video.className = "agent-debate-video";
-      video.autoplay = true;
-      video.muted = true;
-      video.loop = true;
-      video.playsInline = true;
-      video.preload = "none";
-      video.poster = AGENT_DEBATE_VIDEO.poster;
-      video.setAttribute("aria-hidden", "true");
-      container.prepend(video);
-      container.classList.add("agent-debate-has-video");
-      observeAgentDebateVideo(container);
+      container.querySelectorAll(":scope > .agent-debate-video").forEach((video) => video.remove());
+      container.classList.remove("agent-debate-has-video");
     });
   }
 
   function setupAgentDebateBackdrops() {
     if (document.body.dataset.agentVideoObserver === "1") return;
     document.body.dataset.agentVideoObserver = "1";
-    if ("IntersectionObserver" in window) {
-      agentVideoVisibilityObserver = new IntersectionObserver((entries) => {
-        entries.forEach((entry) => {
-          const video = entry.target.querySelector(":scope > .agent-debate-video");
-          if (entry.isIntersecting) hydrateAgentDebateVideo(entry.target);
-          else video?.pause();
-        });
-      }, { rootMargin: "280px 0px", threshold: 0.01 });
-    }
     ensureAgentDebateBackdrop(document);
-    const observer = new MutationObserver((mutations) => {
-      mutations.forEach((mutation) => {
-        mutation.addedNodes.forEach((node) => {
-          if (!(node instanceof Element)) return;
-          if (node.matches(".agent-debate") || node.querySelector(".agent-debate")) {
-            ensureAgentDebateBackdrop(node);
-          }
-        });
-      });
-    });
-    observer.observe(document.body, { childList: true, subtree: true });
-    window.addEventListener("pagehide", () => {
-      observer.disconnect();
-      agentVideoVisibilityObserver?.disconnect();
-    }, { once: true });
   }
 
   function setupMemoryMapShowcaseVideo() {
@@ -10771,10 +10858,7 @@
     });
   }
 
-  // Drive any council as a live, sequential debate: one expert at a time, the matching
-  // roster avatar spotlighted while "speaking", the message typed out like a real person,
-  // and the next expert remains hidden until the current English utterance has ended.
-  // Works generically: reads each bubble's text at runtime and matches the roster by name.
+  // Reveal each strategy workstream in sequence without simulated typing delays.
   function activateDebate(chat) {
     if (!chat) return;
     const container = chat.closest(".agent-debate") || chat.parentElement || chat;
@@ -10790,7 +10874,8 @@
       if (priorState) debateRunStates.set(activeAgentDebateChat, { token: priorState.token + 1, timers: [] });
     }
     activeAgentDebateChat = chat;
-    ensureAgentTtsControl(container);
+    if (agentTtsEnabled) ensureAgentTtsControl(container);
+    else container?.querySelector(".agent-tts-control")?.remove();
     if (container) {
       container.classList.add("is-live-debate");
       container.dataset.agentCadence = "locked";
@@ -10852,23 +10937,13 @@
     if (conclusion) { conclusion.classList.remove("reveal"); conclusion.classList.add("pending"); }
 
     const typeMessage = (p, done) => {
-      const text = p ? p.dataset.say || "" : "";
-      if (!p || !text) { done(); return; }
-      let shown = 0;
-      const advance = () => {
+      if (!p) { done(); return; }
+      schedule(() => {
         if (!alive()) return;
-        shown = Math.min(text.length, shown + 1);
-        p.textContent = text.slice(0, shown);
-        if (shown >= text.length) { done(); return; }
-        const typedChar = text.charAt(shown - 1);
-        const punctuationPause = /[.!?。！？]/.test(typedChar)
-          ? AGENT_DEBATE_TIMING.sentencePauseMs
-          : /[,;:，、]/.test(typedChar)
-            ? AGENT_DEBATE_TIMING.commaPauseMs
-            : 0;
-        schedule(advance, AGENT_DEBATE_TIMING.charMs + punctuationPause);
-      };
-      schedule(advance, AGENT_DEBATE_TIMING.speakerLeadMs);
+        if (p.dataset.rich) p.innerHTML = p.dataset.rich;
+        else p.textContent = p.dataset.say || "";
+        done();
+      }, AGENT_DEBATE_TIMING.speakerLeadMs);
     };
 
     const speak = (i) => {
@@ -14976,13 +15051,13 @@
   function agentDecisionFrameHTML(frame = {}) {
     if (!frame || !frame.diagnosis) return "";
     const items = [
-      ["진단", frame.diagnosis],
-      ["경영 함의", frame.implication],
-      ["권고", frame.recommendation],
-      ["실행 게이트", frame.gate],
+      ["PAIN / EVIDENCE", frame.diagnosis],
+      ["WORKLOAD / BUSINESS", frame.implication],
+      ["MEMORY / RECOMMENDATION", frame.recommendation],
+      ["90D GATE / KILL", frame.gate],
     ].filter(([, value]) => String(value || "").trim());
     return `
-      <dl class="agent-decision-frame" aria-label="경영진 의사결정 프레임">
+      <dl class="agent-decision-frame" aria-label="AI Infra 실행 전략 프레임">
         ${items.map(([label, value]) => `<div><dt>${escapeHTML(label)}</dt><dd>${escapeHTML(value)}</dd></div>`).join("")}
       </dl>
     `;
@@ -14991,7 +15066,7 @@
   function agentDebateHTML({ mode = "default", title = "Expert debate", subtitle = "", metrics = [], turns = [], kpis = [], accent = "", conclusion = null, ttsLanguage = "", defaultConfidence = null, defaultSource = null } = {}) {
     const colors = ["#06B6D4", "#8B5CF6", "#22C55E", "#F59E0B", "#EF4444", "#0EA5E9"];
     const forcedTtsLanguage = /^(?:ko|en)$/.test(ttsLanguage) ? ttsLanguage : "";
-    const challengeOrder = ["Data Auditor", "Market/Sales", "CTO", "Policy/China", "Operations", "CFO", "IP/Risk", "Devil's Advocate", "Strategy", "CEO"];
+    const challengeOrder = ["Customer Strategist", "Workload Architect", "Memory Solution Lead", "New Biz & Partner Lead", "Evidence Auditor", "Executive Decision Lead"];
     const orderedTurns = turns.filter((turn) => turn?.message).slice(0, 12).sort((a, b) => {
       if (mode !== "ceo-challenge") return 0;
       return challengeOrder.indexOf(a.name) - challengeOrder.indexOf(b.name);
@@ -15007,7 +15082,7 @@
         ttsLanguage: turnLanguage,
         confidence: Number.isFinite(Number(turn.confidence)) ? Number(turn.confidence) : (Number.isFinite(Number(defaultConfidence)) ? Number(defaultConfidence) : null),
         wrongRisk: Number.isFinite(Number(turn.wrongRisk)) ? Number(turn.wrongRisk) : (Number.isFinite(Number(defaultConfidence)) ? 100 - Number(defaultConfidence) : null),
-        source: turn.source || (["Data Auditor", "Market/Sales", "CEO"].includes(turn.name) ? defaultSource : null),
+        source: turn.source || (["Evidence Auditor", "Customer Strategist", "Executive Decision Lead"].includes(turn.name) ? defaultSource : null),
       };
     }).map((turn) => withDailyAgentEvidence(turn));
     const agents = [];
@@ -15028,7 +15103,7 @@
     return `
       <div class="agent-debate agent-debate-${escapeHTML(mode)}" data-tts-mode="${escapeHTML(forcedTtsLanguage || "role")}" style="--local-accent:${escapeHTML(accent || colors[0])}">
         <div class="agent-debate-title">
-          <span>EXPERT COUNCIL</span>
+          <span>AI INFRA STRATEGY AGENT OS</span>
           <strong>${escapeHTML(title)}</strong>
           ${subtitle ? `<small>${escapeHTML(subtitle)}</small>` : ""}
         </div>
@@ -15042,7 +15117,7 @@
             `).join("")}
           </div>
         ` : ""}
-        <div class="agent-roster" aria-label="토론 참여 전문가">
+        <div class="agent-roster" aria-label="AI Infra 전략 Agent">
           ${agents.slice(0, 12).map((agent, index) => `
             <div class="agent-avatar-card" style="--agent-color:${escapeHTML(agent.color)};--delay:${index * rosterStepDelay}ms">
               <div class="agent-person">
@@ -15054,7 +15129,7 @@
             </div>
           `).join("")}
         </div>
-        <div class="agent-chat js-debate" aria-label="전문가 토론 말풍선" style="--chat-delay:${chatStartDelay}ms">
+        <div class="agent-chat js-debate" aria-label="AI Infra 전략 실행 워크스트림" style="--chat-delay:${chatStartDelay}ms">
           ${normalizedTurns.map((turn, index) => `
             <article class="agent-turn pending ${escapeHTML(turn.side)}" data-tts-language="${escapeHTML(turn.ttsLanguage)}" style="--agent-color:${escapeHTML(turn.color)};--delay:${chatStartDelay + index * chatStepDelay}ms">
               <div class="agent-badge-wrap"><div class="agent-badge">${escapeHTML(turn.avatar || agentInitials(turn.name))}</div><small class="agent-badge-name">${escapeHTML(turn.name)}</small></div>
@@ -15063,9 +15138,9 @@
                   <strong>${escapeHTML(turn.role || "Expert")}</strong>
                   <span>${escapeHTML(turn.stance || turn.name)}</span>
                  </div>
-                 ${turn.question ? `<div class="agent-question"><span>질문</span><p>${escapeHTML(turn.question)}</p></div>` : ""}
+                 ${turn.question ? `<div class="agent-question"><span>검토 질문</span><p>${escapeHTML(turn.question)}</p></div>` : ""}
                  ${agentDecisionFrameHTML(turn.decisionFrame)}
-                 <div class="agent-answer"><span>답변</span><p data-say-en="${escapeHTML(turn.speechEn || "")}">${renderAgentSpeech(agentCoreText(turn.message))}</p></div>
+                 <div class="agent-answer"><span>산출물</span><p data-say-en="${escapeHTML(turn.speechEn || "")}">${renderAgentSpeech(agentCoreText(turn.message))}</p></div>
                  ${agentEvidenceMetaHTML(turn)}
                </div>
             </article>
@@ -15079,7 +15154,7 @@
         ` : ""}
         ${conclusion ? `
           <div class="agent-conclusion pending" style="--local-accent:${escapeHTML(accent || colors[0])}">
-            <span>결론</span>
+            <span>EXECUTIVE OUTPUT</span>
             <strong>${escapeHTML(conclusion.title || "경영진 결론")}</strong>
             <p>${escapeHTML(conclusion.body || "")}</p>
             ${conclusion.next ? `<small>${escapeHTML(conclusion.next)}</small>` : ""}
@@ -15421,163 +15496,86 @@
   }
 
   function executiveDecisionAgentItems(active, selectedYearOption, productLabel, selectedIso, selectedSeriesCount, scenario = agentFutureScenario()) {
-    if (!active) return "";
+    if (!active) return [];
     const horizon = active.horizon || activeBacktestHorizon();
-    const actual = active.actualChange == null ? `${horizon.label} 고정 종료 시점 도래 전` : `${active.actualChange > 0 ? "+" : ""}${fmtNum(active.actualChange, 2)}%`;
-    const actualEn = active.actualChange == null ? "not available" : `${active.actualChange > 0 ? "+" : ""}${fmtNum(active.actualChange, 2)} percent`;
-    const prior = active.priorMomentum == null ? "NA" : `${active.priorMomentum > 0 ? "+" : ""}${fmtNum(active.priorMomentum, 2)}%${Number.isFinite(active.priorDays) ? ` (${fmtNum(active.priorDays, 0)}일 창)` : ""}`;
-    const yearLabel = selectedYearOption?.label || "선택 시점 없음";
+    const actual = active.actualChange == null ? `${horizon.label} 실측 대기` : `${active.actualChange > 0 ? "+" : ""}${fmtNum(active.actualChange, 2)}%`;
+    const prior = active.priorMomentum == null ? "NA" : `${active.priorMomentum > 0 ? "+" : ""}${fmtNum(active.priorMomentum, 2)}%`;
     const profile = executiveDecisionProfile(active, selectedYearOption, productLabel);
     const point = selectedIso ? pointDateLabel(selectedIso) : "기준점 없음";
-    const flipKpis = decisionFlipKpis(active, { label: productLabel });
     const primaryFlip = primaryDecisionFlipKpi(active, { label: productLabel });
-    const priceFlip = flipKpis.find((item) => item.id === "price-turn") || primaryFlip;
-    const chinaFlip = flipKpis.find((item) => /cxmt|ymtc|china/i.test(item.id)) || primaryFlip;
     const counterEvidence = decisionCounterEvidence(active);
     const riskGate = decisionRiskGate(active, { label: productLabel });
     const priceSpread = decisionPriceSpread(active);
     const sourceItem = (active.observations || []).find((item) => evidenceItemUrl(item));
     const source = sourceItem ? { url: evidenceItemUrl(sourceItem), title: sourceItem.item || sourceItem.title || "가격 원문" } : null;
     const baseConfidence = Math.round(Number(active.confidence || counterEvidence.confidence || 0));
-    const backtestBriefing = buildDailyBriefingMessage(active);
+    const productScope = (active.products || []).slice(0, 4).join(" · ") || productLabel;
+    const directEvidence = Number(active.directMetrics?.evidenceCount || active.observations?.length || 0);
+    const currentBriefing = buildDailyBriefingMessage(active);
     const agents = [
-      ...(backtestBriefing ? [{
-        id: "brief",
-        initials: "DB",
-        name: "Briefing",
-        title: "Daily Data Briefing",
-        role: "현재 데이터 · 별도 overlay",
-        color: "#0891B2",
-        stance: "과거 점수와 분리",
-        message: `아래 내용은 현재 크롤링 overlay이며 과거 백테스트 점수에는 넣지 않습니다. ${backtestBriefing}`,
-        dailyGrounded: true,
-        speechEn: "Today's crawled figures are shown as a separate live overlay and are not included in the historical backtest score.",
-      }] : []),
       {
-        id: "ceo",
-        initials: "CEO",
-        name: "CEO",
-        title: "Executive Chair",
-        role: "최종 의사결정",
-        color: "#111827",
-        stance: scenario.conclusion,
-        message: `근거·시장·기술·중국·운영·재무·리스크·반증 검토를 종합합니다. ${profile.question} 최종 판단은 **${active.decision.label}**이며, ${scenario.label}은 가정만으로 등급을 바꾸지 않습니다. ${counterEvidence.text}. ${riskGate.rule}을 통과할 때만 ${active.decision.action}을 실행합니다.`,
-        speechEn: `After evidence, market, technology, China, operations, finance, risk, and red-team review, the final recommendation is ${active.decision.label}. A scenario premise alone does not change the grade. Execution requires the defined reversal gate.`,
+        id: "customer",
+        initials: "CX",
+        name: "Customer Strategist",
+        title: "Customer Pain & JTBD",
+        role: "고객 Pain Point 분석",
+        color: "#0F766E",
+        stance: "CUSTOMER",
+        message: `${profile.question} 고객의 구매 기준은 가격 단독이 아니라 성능·용량·전력·공급 안정성입니다. ${productScope}의 고객 KPI와 실제 Pain Point를 먼저 고정하고, 고객 신호가 없는 시장 움직임은 실행 근거로 올리지 않습니다.`,
       },
       {
-        id: "data",
-        initials: "DATA",
-        name: "Data",
-        title: "Backtest & Price Series",
-        role: "가격·백테스트",
-        color: "#06B6D4",
-        stance: "Base-rate 검증",
-        message: `${profile.data} ${point} 기준 가격 series ${fmtNum(selectedSeriesCount)}개 중 ${horizon.label} 고정 종료점과 직전 신호 간격을 통과한 ${fmtNum(active.observations.length)}개만 계산했습니다. 사전 모멘텀은 ${prior}, 고정 기간 실측은 ${actual}입니다. ${scenario.label}에서는 ${scenario.market}`,
-        speechEn: `The backtest uses ${fmtNum(active.observations.length)} observed points from ${fmtNum(selectedSeriesCount)} matched price series. Prior momentum was ${prior}, and the subsequent observed result was ${actualEn}. This is the base rate for scenario ${scenario.id}.`,
+        id: "workload-technology",
+        initials: "WA",
+        name: "Workload Architect",
+        title: "AI Application · HW/SW · Data Center",
+        role: "Workload·데이터센터 진단",
+        color: "#1D4ED8",
+        stance: "WORKLOAD",
+        message: `${productScope}을 Training·Inference·RAG·On-device 중 해당 Workload에 연결하고 Compute·Network·Memory·Storage 병목을 분리합니다. 수율·패키징·Qualification 병목이 해소된 범위만 물량 약속으로 전환합니다.`,
       },
       {
-        id: "china",
-        initials: "CN",
-        name: "China",
-        title: "China Risk Overlay",
-        role: "중국 신호",
-        color: "#8B5CF6",
-        stance: "시나리오 오버레이",
-        message: `${profile.china} 연결 신호 ${fmtNum(active.chinaSignalCount)}건은 과거 판단에 소급 반영하지 않습니다. ${scenario.label}에서는 ${scenario.id === "china-pressure" ? "중국 신호를 Bear case로 상향 반영합니다." : "중국 신호를 현재 리스크로만 유지합니다."} ${chinaFlip.label} 기준이 충족되면 판단을 '${chinaFlip.flip}'로 재분류합니다.`,
-        speechEn: `${fmtNum(active.chinaSignalCount)} China-related signals are treated as a current risk overlay and are not applied retroactively to the historical test. Under scenario ${scenario.id}, ${scenario.id === "china-pressure" ? "China pressure is moved into the downside case" : "China pressure remains a current-risk overlay"}. If the China reversal threshold is triggered, the decision is downgraded.`,
+        id: "memory-technology",
+        initials: "MS",
+        name: "Memory Solution Lead",
+        title: "Full-Stack Memory Architecture",
+        role: "맞춤형 Memory Solution",
+        color: "#6D28D9",
+        stance: "SOLUTION",
+        message: `HBM·Server DRAM/SOCAMM·CXL·HBF·eSSD를 같은 제품 결론으로 묶지 않습니다. ${profile.data} ${point} 기준 사전 신호 ${prior}, ${horizon.label} 실측 ${actual}를 Architecture 선택의 검증 기준으로 사용합니다.`,
       },
       {
-        id: "cfo",
-        initials: "CFO",
-        name: "CFO",
-        title: "Capital Allocation",
-        role: "수익성·자본배분",
-        color: "#F59E0B",
-        stance: "Capital Allocation",
-        message: `${profile.cfo} ${scenario.cfo} 이 판단은 IRR/NPV가 아니라 실사 우선순위입니다. 실행 문구는 '${active.decision.action}'로 제한하고, 재검토 기준이 충족되면 예산안을 다시 냅니다.`,
-        speechEn: `This result is a diligence priority, not an I R R or N P V. The authorized action remains limited and conditional. A capital request should be resubmitted only after the reversal conditions are satisfied.`,
+        id: "growth-strategy",
+        initials: "NB",
+        name: "New Biz & Partner Lead",
+        title: "Business Model · Partnership",
+        role: "신규 Biz·파트너 실행",
+        color: "#B45309",
+        stance: "BUSINESS",
+        message: `${profile.strategy} 제품 판매만이 아니라 공동 Benchmark·Co-Design·Qualification·장기 공급을 반복 가능한 Partner Model로 설계합니다. ${priceSpread.text} 고객 지불 의사와 Repeat Order 경로가 확인된 옵션만 Scale로 이동합니다.`,
       },
       {
-        id: "cto",
-        initials: "CTO",
-        name: "CTO",
-        title: "Product & Technology",
-        role: "제품·기술 병목",
-        color: "#7C3AED",
-        stance: "MECE 분해",
-        message: `HBM, 서버 DDR5, NAND/eSSD, 단말향 DRAM은 같은 결론으로 묶지 않습니다. 대상 제품군 ${(active.products || []).slice(0, 4).join(" · ") || productLabel}에서 수율, 인증, 패키징 병목이 풀릴 때만 확대 판단을 유지합니다.`,
-        speechEn: `H B M, server D D R five, NAND and enterprise S S D, and device D RAM require separate decisions. For the selected product family, expansion remains valid only after yield, qualification, and packaging bottlenecks are cleared.`,
+        id: "evidence-audit",
+        initials: "EV",
+        name: "Evidence Auditor",
+        title: "Tech & Market Intelligence",
+        role: "근거·반증 검증",
+        color: "#0369A1",
+        stance: "EVIDENCE",
+        message: `${currentBriefing ? `${currentBriefing} ` : ""}직접 근거 ${fmtNum(directEvidence)}건과 가격 series ${fmtNum(selectedSeriesCount)}개를 기준일·출처·단위별로 분리했습니다. ${counterEvidence.text}. 반대 근거와 ${primaryFlip.label}을 함께 갱신합니다.`,
       },
       {
-        id: "coo",
-        initials: "COO",
-        name: "COO",
-        title: "Operations & Supply",
-        role: "공급·운영 실행",
-        color: "#0EA5E9",
-        stance: "실행 조건",
-        message: `${horizon.label} 고정 종료 실측은 ${actual}, 검증 가능 관측은 ${fmtNum(active.observations.length)}개입니다. 공급 배분, 재고 회전, Fab continuity가 동시에 맞지 않으면 Go를 단계 집행으로 낮춥니다.`,
-        speechEn: `The subsequent observed result is ${actualEn}, based on ${fmtNum(active.observations.length)} observations. If supply allocation, inventory turns, and fab continuity do not align, a Go decision must be reduced to staged execution.`,
+        id: "executive",
+        initials: "EX",
+        name: "Executive Decision Lead",
+        title: "Decision · Owner · KPI · 90-Day Gate",
+        role: "경영진 실행 전략",
+        color: "#334155",
+        stance: "EXECUTION",
+        message: `결론은 **${active.decision.label}** · ${scenario.conclusion}입니다. 권고 실행은 ${active.decision.action}으로 제한합니다. 30일 Baseline, 60일 PoC/계약, 90일 Qualification·Capacity Gate로 운영하고 ==${riskGate.rule}==이 발생하면 즉시 Watch/Hold로 재상정합니다.`,
       },
-      {
-        id: "market",
-        initials: "MKT",
-        name: "Market",
-        title: "Customer & Pricing",
-        role: "가격·고객",
-        color: "#10B981",
-        stance: "Lead-Lag 신호",
-        message: `${profile.data} 가격은 사전 모멘텀 ${prior}와 이후 실측 ${actual}로 나눠 봅니다. Spot과 contract 변화율 차이가 **±5%p 이내**이고 고객 신호가 같은 방향일 때만 전이로 인정합니다. ${priceSpread.text} ${priceFlip.label} 기준 전에는 결론을 높이지 않습니다.`,
-        speechEn: `Pricing is separated into prior and subsequent observations. Spot and contract changes must be within five percentage points and align with customer evidence before conviction can rise.`,
-      },
-      {
-        id: "risk",
-        initials: "RISK",
-        name: "Risk",
-        title: "Downside Gate",
-        role: "하방 리스크",
-        color: "#EF4444",
-        stance: "Reversal Trigger",
-        message: `${profile.risk} ${scenario.policy} 하방 조건은 "${active.downside}"입니다. 이 제품군의 하향 규칙은 ==${riskGate.rule}==이며 현재 실패 게이트는 ${fmtNum(riskGate.failed.length)}개입니다.`,
-        speechEn: `The downside gate is category specific. The recommendation changes only when the defined customer, product, policy, or pricing combination is actually triggered.`,
-      },
-      {
-        id: "devil",
-        initials: "DA",
-        name: "Devil's Advocate",
-        title: "Devil's Advocate · 반론 전담",
-        role: "Devil's Advocate",
-        color: "#111827",
-        stance: "Devil's Advocate",
-        message: `12개월 뒤 결론이 틀렸다고 가정합니다. ${counterEvidence.text}. 반대 방향 관측 비율을 결론 신뢰도에서 차감했고, 표본 ${fmtNum(active.observations?.length || 0)}개가 충분하지 않으면 같은 규칙으로 손실 구간까지 비교해야 합니다. 반증이 끝나기 전에는 등급을 올리지 않습니다.`,
-        speechEn: `Assume the conclusion fails in twelve months. Opposing observations are explicitly deducted from conviction. The same rule must be tested on losing periods before the grade can increase.`,
-      },
-      {
-        id: "audit",
-        initials: "AUD",
-        name: "Auditor",
-        title: "Evidence & Method",
-        role: "근거 감사",
-        color: "#475569",
-        stance: "근거 정합성",
-        message: `기준 월과 ${horizon.label} 목표일의 허용 오차를 통과한 실제 가격만 백테스트에 씁니다. 중국 신호 ${fmtNum(active.chinaSignalCount)}건은 현재 리스크이며, 원문·가격 row가 없는 해석은 결론 강도를 올리지 않습니다. ${counterEvidence.text}.`,
-        speechEn: `Only observed post-selection prices are used. Current China signals are not applied retroactively, and interpretations without a primary source or price row cannot increase conviction.`,
-      },
-      {
-        id: "strategy",
-        initials: "STR",
-        name: "Strategy",
-        title: "Final Synthesis",
-        role: "최종 정리",
-        color: "#22C55E",
-        stance: scenario.conclusion,
-        message: `권고: ${profile.strategy} 대상 제품군은 ${(active.products || []).slice(0, 4).join(" · ") || productLabel}입니다. ${scenario.label}에서는 ${scenario.conclusion}을 우선 결론으로 두고, 위 KPI가 기준선을 넘으면 다음 검토에서 재판단합니다.`,
-        speechEn: `The recommendation for the selected product family remains conditional under scenario ${scenario.id}. The decision should be updated at the next review if any reversal indicator crosses its threshold.`,
-      },
-    ].filter((agent) => agent.message);
-    const order = ["audit", "data", "market", "cto", "china", "coo", "cfo", "risk", "devil", "strategy", "ceo"];
+    ];
     const decisionFrameContext = {
-      evidenceCount: Number(active.directMetrics?.evidenceCount || active.observations?.length || 0),
+      evidenceCount: directEvidence,
       factCount: Number(active.directMetrics?.evidenceCount || 0),
       newsCount: Number(active.directMetrics?.demand || 0),
       priceText: active.directSignalModel === "hbm"
@@ -15591,19 +15589,12 @@
       verdict: active.decision?.label || "Watch",
     };
     return agents
-      .sort((a, b) => order.indexOf(a.id) - order.indexOf(b.id))
-      .map((agent) => {
-        let agentConfidence = Math.min(baseConfidence, counterEvidence.confidence);
-        if (agent.id === "market" && !priceSpread.hasBoth) agentConfidence -= 10;
-        if (agent.id === "cto" && !(active.observations?.length > 0)) agentConfidence -= 8;
-        agentConfidence = Math.round(clamp(agentConfidence, 0, 100));
-        return {
-          ...agent,
-          confidence: agentConfidence,
-          wrongRisk: 100 - agentConfidence,
-          source: ["audit", "data", "market", "ceo"].includes(agent.id) ? source : null,
-        };
-      })
+      .map((agent) => ({
+        ...agent,
+        confidence: Math.round(clamp(Math.min(baseConfidence, counterEvidence.confidence), 0, 100)),
+        wrongRisk: 100 - Math.round(clamp(Math.min(baseConfidence, counterEvidence.confidence), 0, 100)),
+        source: agent.id === "evidence-audit" ? source : null,
+      }))
       .map((agent) => {
         const decisionFrame = executiveDecisionFrame(agent, decisionFrameContext);
         return { ...agent, question: decisionFrame.question, decisionFrame };
@@ -15738,6 +15729,7 @@
     const metricThree = direct ? `${fmtNum(direct.production || 0)}건` : actual;
     const metricTwoLabel = direct ? "고객·계약" : "사전 모멘텀";
     const metricThreeLabel = direct ? "양산·출하" : `${horizon.label} 실측`;
+    const metricFour = `${fmtNum(direct?.evidenceCount ?? active.observations?.length ?? 0)}건`;
     const agentItems = executiveDecisionAgentItems(active, selectedYearOption, productLabel, selectedIso, selectedSeriesCount, scenario)
       .map((agent) => withDailyAgentEvidence(agent));
     const conclusion = executiveDecisionCouncilConclusion(active, selectedYearOption, selectedIso, scenario);
@@ -15749,18 +15741,18 @@
     return `
       <div class="agent-debate agent-debate-decision decision-agent-council" style="--local-accent:${escapeHTML(accent)}">
         <div class="agent-debate-title">
-          <span>EXPERT COUNCIL</span>
-          <strong>${escapeHTML(active.label)} 의사결정 토론</strong>
-          <small>${escapeHTML(scenario.label)} · ${escapeHTML(scenario.horizon)}</small>
+          <span>AI INFRA STRATEGY AGENT OS</span>
+          <strong>${escapeHTML(active.label)} 실행 전략 팩</strong>
+          <small>Customer Pain → Workload → Memory Solution → New Biz → Executive Action · ${escapeHTML(scenario.label)}</small>
         </div>
         <div class="c-level-agent-controls decision-agent-controls">
           <label>
             <span>안건 선택</span>
-            <select id="execDecisionCouncilSelect" aria-label="제품군 전문가 토론 안건 선택">
+            <select id="execDecisionCouncilSelect" aria-label="AI Infra 실행 전략 안건 선택">
               ${items.map((item) => `<option value="${escapeHTML(item.id)}"${item.id === active.id ? " selected" : ""}>${escapeHTML(item.label)} · ${escapeHTML(item.decision.label)} · ${fmtNum(item.directMetrics?.evidenceCount ?? item.observations.length)}개 근거</option>`).join("")}
             </select>
           </label>
-          <button type="button" id="execDecisionRunCouncil">${execDecisionCouncilRan ? "토론 다시 실행" : "토론 실행"}</button>
+          <button type="button" id="execDecisionRunCouncil">${execDecisionCouncilRan ? "전략 팩 재생성" : "AI Infra 전략 실행"}</button>
         </div>
         <div class="agent-selected-brief">
           <span>요약</span>
@@ -15773,10 +15765,10 @@
           <div><strong>${escapeHTML(active.decision.label)}</strong><span>판단</span></div>
           <div><strong>${escapeHTML(metricTwo)}</strong><span>${escapeHTML(metricTwoLabel)}</span></div>
           <div><strong>${escapeHTML(metricThree)}</strong><span>${escapeHTML(metricThreeLabel)}</span></div>
-          <div><strong>${fmtNum(active.chinaSignalCount)}</strong><span>중국 신호</span></div>
+          <div><strong>${escapeHTML(metricFour)}</strong><span>검증 근거</span></div>
         </div>
         ${execDecisionCouncilRan ? `
-          <div class="agent-roster" aria-label="제품군 토론 참여 전문가">
+          <div class="agent-roster" aria-label="AI Infra 전략 Agent 6개 역할">
             ${agentItems.map((agent, index) => `
               <div class="agent-avatar-card" style="--agent-color:${escapeHTML(agent.color)}; --delay:${index * rosterStepDelay}ms">
                 <div class="agent-person">
@@ -15789,7 +15781,7 @@
               </div>
             `).join("")}
           </div>
-          <div class="agent-chat js-debate" aria-label="제품군 전문가 토론 말풍선" style="--chat-delay:${chatStartDelay}ms">
+          <div class="agent-chat js-debate" aria-label="AI Infra 실행 전략 산출물" style="--chat-delay:${chatStartDelay}ms">
             ${agentItems.map((agent, index) => `
               <article class="agent-turn pending${index % 2 ? " right" : ""}" data-tts-language="${agentUsesKoreanTts(agent.name, agent.role) ? "ko" : "en"}" style="--agent-color:${escapeHTML(agent.color)}; --delay:${chatStartDelay + index * councilStepDelay}ms">
                 <div class="agent-badge-wrap"><div class="agent-badge">${escapeHTML(agent.initials)}</div><small class="agent-badge-name">${escapeHTML(agent.name)}</small></div>
@@ -15798,24 +15790,24 @@
                     <strong>${escapeHTML(agent.role)}</strong>
                     <span>${escapeHTML(agent.stance || agent.name)}</span>
                    </div>
-                   ${agent.question ? `<div class="agent-question"><span>질문</span><p>${escapeHTML(agent.question)}</p></div>` : ""}
+                   ${agent.question ? `<div class="agent-question"><span>검토 질문</span><p>${escapeHTML(agent.question)}</p></div>` : ""}
                    ${agentDecisionFrameHTML(agent.decisionFrame)}
-                   <div class="agent-answer"><span>답변</span><p data-say-en="${escapeHTML(agent.speechEn || "")}">${renderAgentSpeech(agentCoreText(agent.message))}</p></div>
+                   <div class="agent-answer"><span>산출물</span><p data-say-en="${escapeHTML(agent.speechEn || "")}">${renderAgentSpeech(agentCoreText(agent.message))}</p></div>
                    ${agentEvidenceMetaHTML(agent)}
                  </div>
               </article>
             `).join("")}
           </div>
           <div class="agent-conclusion pending" style="--local-accent:${escapeHTML(accent)}; --delay:${councilConclusionDelay}ms">
-            <span>결론</span>
+            <span>EXECUTIVE OUTPUT</span>
             <strong>${escapeHTML(conclusion.title)}</strong>
             <p>${escapeHTML(conclusion.body)}</p>
             <small>${escapeHTML(conclusion.next)}</small>
           </div>
         ` : `
           <div class="agent-waiting">
-            <strong>안건을 선택한 뒤 토론 실행을 누르세요.</strong>
-            <p>실행 후 Auditor, Data, Market, CTO, China, COO, CFO, Risk, Devil's Advocate, Strategy가 검증하고 CEO가 마지막에 결론을 냅니다.</p>
+            <strong>안건을 선택한 뒤 AI Infra 전략 실행을 누르세요.</strong>
+            <p>Customer Strategist, Workload Architect, Memory Solution, New Biz & Partner, Evidence Auditor, Executive Decision Agent가 하나의 실행 팩을 즉시 생성합니다.</p>
           </div>
         `}
       </div>
@@ -18042,10 +18034,18 @@
       gate: riskGate.rule || response.evidence?.reversalKpi || "핵심 판단 변경 KPI",
       verdict: response.verdict || "Watch",
     };
+    const aiInfraRoleMap = {
+      "Market/Sales": { name: "Customer Strategist", role: "고객 Pain Point·JTBD", avatar: "CX", color: "#0F766E" },
+      CTO: { name: "Workload Architect", role: "AI Application·HW/SW·Data Center", avatar: "WA", color: "#1D4ED8" },
+      Operations: { name: "Memory Solution Lead", role: "Full-Stack Memory·Qualification", avatar: "MS", color: "#6D28D9" },
+      Strategy: { name: "New Biz & Partner Lead", role: "Business Model·Partner·Use Case", avatar: "NB", color: "#B45309" },
+      "Data Auditor": { name: "Evidence Auditor", role: "Tech & Market 근거·반증", avatar: "EV", color: "#0369A1" },
+      CEO: { name: "Executive Decision Lead", role: "결론·Owner·KPI·90일 Gate", avatar: "EX", color: "#334155" },
+    };
     return agentDebateHTML({
       mode: "ceo-challenge",
-      title: `${challenge.angle} 챌린지 토론`,
-      subtitle: `${scenario.label} · ${targetLabel}`,
+      title: `${challenge.angle} · AI Infra 실행 검증`,
+      subtitle: `Customer Pain → Workload → Memory → New Biz → Evidence → Executive Action · ${targetLabel}`,
       accent,
       ttsLanguage: "en",
       defaultConfidence: challengeConfidence,
@@ -18140,16 +18140,21 @@
             ? `The recommendation is to use the R O I score only to rank diligence. It must not be reported as a financial return. At the next executive review, update the reversal indicators first, then choose to maintain, expand, or hold.`
             : `In summary, the action remains conditional. At the next meeting, we will review only the key reversal indicators and update the decision to maintain, expand, or hold.`,
         },
-      ].map((turn) => ({
-        ...turn,
-        question: ceoChallengeQuestionFor(turn.name, scenario, target, challenge, response, riskGate),
-        decisionFrame: executiveDecisionFrame(turn, decisionFrameContext),
-      })),
+      ]
+        .filter((turn) => Boolean(aiInfraRoleMap[turn.name]))
+        .map((turn) => {
+          const mapped = { ...turn, ...aiInfraRoleMap[turn.name] };
+          return {
+            ...mapped,
+            question: ceoChallengeQuestionFor(turn.name, scenario, target, challenge, response, riskGate),
+            decisionFrame: executiveDecisionFrame(mapped, decisionFrameContext),
+          };
+        }),
       kpis: [],
       conclusion: {
-        title: `${verdictTitle} · SKHY 경영진 권고`,
-        body: `${targetLabel} 안건은 고객 전환, 수익성, 기술 병목, 정책 게이트를 분리해 판단합니다. ${liveContext.priceNarrative || ""} 현재 실행안: ${actionSummary}.`,
-        next: `다음 회의에서는 ${response.kpis?.slice(0, 3).join(", ") || "결정을 뒤집는 KPI"}만 업데이트해 유지, 확대, 보류 중 하나로 재판단합니다.`,
+        title: `${verdictTitle} · AI Infra 실행 권고`,
+        body: `${targetLabel} 안건을 고객 Pain·Workload/HW·SW·Memory Solution·Business Value·Partner·Evidence Gate로 분리했습니다. ${liveContext.priceNarrative || ""} 현재 실행안: ${actionSummary}.`,
+        next: `30일 Baseline, 60일 PoC/계약, 90일 Qualification Gate에서 ${response.kpis?.slice(0, 3).join(", ") || "결정을 뒤집는 KPI"}를 갱신합니다.`,
       },
     });
   }
@@ -18222,10 +18227,9 @@
       renderCeoChallengeAgent(activeChinaTalentScenario());
     };
     if (runButton) {
-      runButton.textContent = ceoChallengeAgentRan ? "토론 다시 실행" : "Agent 실행";
+      runButton.textContent = ceoChallengeAgentRan ? "전략 팩 재생성" : "AI Infra 전략 실행";
       runButton.disabled = ceoChallengeLiveRefresh.status === "loading";
       runButton.onclick = async () => {
-        enableAgentTtsFromGesture();
         ceoChallengeLiveRefresh.status = "loading";
         runButton.disabled = true;
         runButton.textContent = "시장 근거 갱신 중";
@@ -18241,8 +18245,8 @@
       answerWrap.innerHTML = `
         ${ceoChallengeQuestionBriefHTML(scenario, target, challenge, response)}
         <div class="agent-waiting">
-          <strong>Agent 실행 대기</strong>
-          <p>CEO 챌린지를 선택한 뒤 Agent 실행을 누르면 CEO, CFO, CTO, Policy/China, Market/Sales, Operations, IP/Risk, Devil's Advocate, Data Auditor, Strategy가 순차 등장해 질문, 반론, 실행 조건, 결론을 정리합니다.</p>
+          <strong>AI Infra 전략 실행 대기</strong>
+          <p>Customer Strategist, Workload Architect, Memory Solution, New Biz & Partner, Evidence Auditor, Executive Decision Agent가 고객 Pain에서 90일 Gate까지 하나의 실행 팩으로 정리합니다.</p>
         </div>
       `;
       return;
@@ -20654,33 +20658,32 @@
   }
 
   function currentQAData() {
-    const base = BASE.qa || { cats: [], pairs: [] };
     const topicMeta = {
-      hbm: { cat: "hbm", nav: "ai-matrix" },
-      dram: { cat: "price", nav: "prices" },
-      nand: { cat: "china", nav: "china-nand" },
-      china: { cat: "threat", nav: "china-dynamics" },
-      policy: { cat: "policy", nav: "policy" },
-      demand: { cat: "strategy", nav: "projection" },
+      hbm: { cat: "solution", nav: "ai-matrix" },
+      dram: { cat: "workload", nav: "prices" },
+      nand: { cat: "solution", nav: "ai-matrix" },
+      demand: { cat: "insights", nav: "hyperscaler-demand" },
     };
     const livePairs = (LIVE.intelligence?.briefs || [])
-      .filter((brief) => brief?.id && brief?.latest?.url && brief?.latest?.summary)
+      .filter((brief) => topicMeta[brief?.id] && brief?.latest?.url && brief?.latest?.summary)
       .map((brief) => {
-        const meta = topicMeta[brief.id] || { cat: "strategy", nav: "overview" };
+        const meta = topicMeta[brief.id];
         return {
           cat: meta.cat,
-          q: `${brief.label}의 최신 변화가 SKHY 의사결정에 미치는 영향은?`,
+          q: `${brief.label} 최신 신호를 AI Infra 실행 전략에 어떻게 반영할 것인가?`,
           a: "",
           preview: brief.latest.summary,
           keywords: [brief.id, brief.label, brief.latest.title, brief.latest.source].filter(Boolean),
           nav: meta.nav,
           liveTopic: brief.id,
           dynamic: true,
+          status: "Live evidence",
         };
       });
     return {
-      ...base,
-      pairs: [...livePairs, ...(base.pairs || [])],
+      intro: "Customer Pain → Workload/HW·SW → Memory Option → Business Case → 실행 Gate 순서로 질문하세요.",
+      cats: AI_INFRA_QA_CATEGORIES,
+      pairs: [...AI_INFRA_QA_PRESETS, ...livePairs],
     };
   }
 
@@ -20700,10 +20703,10 @@
 
     drop.innerHTML = "";
     drop.setAttribute("role", "dialog");
-    drop.setAttribute("aria-label", "Memory Intelligence 질문 라이브러리");
+    drop.setAttribute("aria-label", "AI Infra 전략 질문 라이브러리");
     const tools = el("div", "qa-drop-tools");
     tools.appendChild(el("div", "qa-drop-head", `
-      <div><strong>질문 라이브러리</strong><span>${escapeHTML(data.intro || "질문을 선택하거나 자연어로 검색하세요.")}</span></div>
+      <div><strong>AI Infra 전략 질문</strong><span>${escapeHTML(data.intro || "질문을 선택하거나 자연어로 검색하세요.")}</span></div>
       <em>${fmtNum(pairs.length)}개</em>
     `));
     const categoryStrip = el("div", "qa-category-strip");
@@ -20873,11 +20876,22 @@
   function intelligenceFallbackPair(query) {
     const terms = qaTerms({}, query);
     return {
-      cat: "strategy",
+      cat: "execution",
       q: query,
-      a: "정확히 일치하는 드롭다운 질문은 없지만, 입력한 자연어와 가까운 가격·기사·벤치마킹 신호를 기준으로 답합니다.\n\n아래의 관련 가격 데이터, 기사, 벤치마킹 신호를 먼저 확인하세요. 특정 업체·제품·정책 키워드를 함께 입력하면 CXMT, YMTC, HBM, NAND, BIS, TrendForce 같은 근거로 더 정확히 연결됩니다.",
+      a: "입력한 질문을 AI Infra 전략 프레임으로 구조화했습니다. 실제 고객 데이터와 공식 원문이 연결되기 전까지 아래 내용은 검증 가설로 사용합니다.",
       keywords: terms,
-      nav: terms.some((term) => /price|spot|contract|가격|trendforce/.test(term)) ? "prices" : "overview",
+      nav: "c-level-cockpit",
+      status: "Structured hypothesis",
+      strategy: {
+        pain: `질문에서 고객·사업 목표와 관측 가능한 Pain Point를 분리: ${query}`,
+        workload: "AI Application → SW stack → HW/Network/Storage → Memory access 흐름을 추적",
+        memory: "HBM·DRAM/SOCAMM·CXL·HBF·eSSD 옵션을 Bandwidth·Capacity·Power·Reliability 기준으로 비교",
+        business: "고객 KPI·TCO·매출 가능성·SK hynix Right to Win을 같은 의사결정 표에 배치",
+        partner: "AI 개발사·데이터센터 운영사·IT 컨설팅/기술 파트너의 역할과 검증 책임을 지정",
+        action: "30일 Baseline → 60일 PoC/Business Case → 90일 Qualification 또는 Stop",
+        kpis: ["Customer KPI", "System KPI", "Business Value", "Owner", "Decision Gate"],
+        kill: "고객 근거·기술 인과·경제성 중 하나라도 검증되지 않으면 실행 범위를 확대하지 않음",
+      },
     };
   }
 
@@ -20993,24 +21007,63 @@
     `;
   }
 
+  function qaStrategyPackHTML(pair = {}, query = "") {
+    const strategy = pair.strategy;
+    if (!strategy) return "";
+    const stages = [
+      ["01", "CUSTOMER PAIN", strategy.pain],
+      ["02", "WORKLOAD / HW·SW", strategy.workload],
+      ["03", "MEMORY OPTION", strategy.memory],
+      ["04", "BUSINESS CASE", strategy.business],
+      ["05", "EXECUTION GATE", strategy.action],
+    ];
+    const capabilities = [
+      ["PAIN POINT ANALYSIS", "고객 현황·기술·전략을 검증 가능한 병목으로 구조화"],
+      ["DATA CENTER & IT", "AI Application부터 HW/SW·Infrastructure·Memory까지 연결"],
+      ["EXECUTIVE STRATEGY", "선택지·근거·Owner·KPI·Kill Criteria로 결재 가능하게 전환"],
+    ];
+    return `
+      <section class="qa-strategy-pack" aria-label="AI Infra 전략 실행 팩">
+        <header class="qa-strategy-mandate">
+          <span>AI INFRA STRATEGY AGENT · ANSWER FIRST</span>
+          <strong>${escapeHTML(query || pair.q || "AI Infra 실행 전략")}</strong>
+          <small>가설과 검증 근거를 분리하고, 고객 가치에서 Qualification·Ramp까지 연결합니다.</small>
+        </header>
+        <div class="qa-strategy-capabilities" aria-label="핵심 역량">
+          ${capabilities.map(([title, copy], index) => `<article><b>${String(index + 1).padStart(2, "0")}</b><strong>${escapeHTML(title)}</strong><small>${escapeHTML(copy)}</small></article>`).join("")}
+        </div>
+        <div class="qa-strategy-flow" aria-label="Workload-to-Value 5단계">
+          ${stages.map(([index, label, copy]) => `<article><span>${escapeHTML(index)}</span><strong>${escapeHTML(label)}</strong><p>${escapeHTML(copy || "검증 필요")}</p></article>`).join("")}
+        </div>
+        <div class="qa-strategy-delivery">
+          <article><span>PARTNERS & CLIENTS</span><strong>공동 실행 모델</strong><p>${escapeHTML(strategy.partner || "고객·기술·운영 파트너 역할 정의")}</p></article>
+          <article><span>VALUE KPI</span><strong>검증 지표</strong><div>${(strategy.kpis || []).map((kpi) => `<em>${escapeHTML(kpi)}</em>`).join("")}</div></article>
+          <article class="qa-strategy-stop"><span>KILL CRITERIA</span><strong>판단 변경 조건</strong><p>${escapeHTML(strategy.kill || "핵심 가정 미충족 시 재검토")}</p></article>
+        </div>
+        <footer class="qa-strategy-output"><span>OUTPUT</span><strong>Pain Point Map · Workload Trace · Memory Blueprint · Business Case · 90-Day Execution Board</strong></footer>
+      </section>
+    `;
+  }
+
   function showAnswer(pair, query = "") {
     const overlay = $("#qaAnswer");
     const cat = qaCat(pair);
+    const displayQuestion = query && query !== pair.q ? query : pair.q;
     overlay.hidden = false;
     document.body.style.overflow = "hidden";
     overlay.innerHTML = `
       <div class="answer-panel" role="dialog" aria-modal="true" style="--answer-accent:${escapeHTML(cat.color || "var(--accent)")}">
         <div class="answer-head">
-          <span>A</span>
+          <span>S</span>
           <div>
-            <em>${escapeHTML(cat.name)} · ${escapeHTML(SECTION_LABELS[pair.nav] || "Intelligence")}</em>
-            <strong>${escapeHTML(pair.q)}</strong>
+            <em>${escapeHTML(cat.name)} · AI Infra Strategy Agent</em>
+            <strong>${escapeHTML(displayQuestion)}</strong>
           </div>
           <button type="button" id="answerClose">닫기</button>
         </div>
         <div class="answer-body" id="answerBody"></div>
         <div class="answer-foot">
-          <button type="button" id="answerJump">관련 섹션으로 이동</button>
+          <button type="button" id="answerJump">관련 실행 보드로 이동</button>
         </div>
       </div>
     `;
@@ -21040,22 +21093,9 @@
     const highlighted = highlight(text);
     const currentBriefHTML = qaCurrentBriefHTML(pair, query);
     const liveHTML = qaLiveContextHTML(pair, query);
-    const brief = qaIntelligenceBrief(pair, query);
-    const plain = brief
-      ? `${brief.latest?.summary || ""}\n\n경영 판단: ${brief.decision || ""}\n\n${text}`
-      : text;
-    let i = 0;
     if (typeTimer) clearInterval(typeTimer);
-    typeTimer = setInterval(() => {
-      i += Math.max(2, Math.ceil(plain.length / 130));
-      if (i >= plain.length) {
-        clearInterval(typeTimer);
-        typeTimer = null;
-        body.innerHTML = `${currentBriefHTML}${highlighted}${liveHTML}`;
-        return;
-      }
-      body.textContent = plain.slice(0, i) + "▋";
-    }, 18);
+    typeTimer = null;
+    body.innerHTML = `${qaStrategyPackHTML(pair, query)}${currentBriefHTML}${pair.strategy ? "" : highlighted}${liveHTML}`;
   }
 
   function highlight(text) {

@@ -110,7 +110,7 @@
     (() => {
       if (!location.hash.startsWith("#console")) return;
       document.documentElement.classList.add("console-entry");
-      const revision = "infra-20260815-14";
+      const revision = "infra-20260815-19";
       const assets = [
         ["consoleStylesPreload", "style", `assets/css/styles.css?v=${revision}`, "high"],
         ["consoleAppPreload", "script", `assets/js/app.js?v=${revision}`, "low"],
@@ -127,7 +127,7 @@
       }
     })();
   </script>
-  <link rel="stylesheet" href="assets/css/landing.css?v=infra-20260815-14" />
+  <link rel="stylesheet" href="assets/css/landing.css?v=infra-20260815-19" />
 </head>
 <body class="landing-mode">
   <div class="business-site" id="businessSite">
@@ -700,9 +700,9 @@
         <div class="tb-actions">
           <div class="qa" id="qaBox">
             <div class="qa-line">
-              <span>E</span>
-              <input id="qaInput" type="search" autocomplete="off" placeholder="검증된 근거를 검색하세요" aria-label="Evidence Search" />
-              <button id="qaToggle" type="button" aria-label="질문 목록 열기" aria-controls="qaDrop" aria-expanded="false">▾</button>
+              <span>S</span>
+              <input id="qaInput" type="search" autocomplete="off" placeholder="메모리 시장에 대해 물어보세요 · Pain Point·Workload·신규 Biz" aria-label="AI Infra 전략 질문" />
+              <button id="qaToggle" type="button" aria-label="AI Infra 전략 질문 목록 열기" aria-controls="qaDrop" aria-expanded="false">▾</button>
             </div>
             <div class="qa-dropdown" id="qaDrop" hidden></div>
           </div>
@@ -1635,6 +1635,6 @@
   <div class="qa-answer" id="qaAnswer" hidden></div>
   <div class="inspector" id="inspector" hidden></div>
   <div class="backdrop" id="backdrop"></div>
-  <script src="assets/js/landing.js?v=infra-20260815-14" defer></script>
+  <script src="assets/js/landing.js?v=infra-20260815-19" defer></script>
 </body>
 </html>

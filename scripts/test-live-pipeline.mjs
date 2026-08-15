@@ -664,7 +664,7 @@ assert.match(dailyGroundingBlock, /\*\*근거\(/, "appended evidence must remain
 assert.ok((appText.match(/withDailyAgentEvidence\(/g) || []).length >= 4, "all three agent-turn render paths must apply daily live evidence");
 assert.match(appText, /function executiveDecisionFrame\(/, "all executive agents must share a diagnosis-to-gate consulting framework");
 assert.match(appText, /function agentDecisionFrameHTML\(/, "the consulting decision frame must render as a dedicated visual component");
-assert.match(appText, /decisionFrame: executiveDecisionFrame\(turn, decisionFrameContext\)/, "each CEO challenge turn must receive the management decision frame");
+assert.match(appText, /decisionFrame: executiveDecisionFrame\(mapped, decisionFrameContext\)/, "each mapped AI Infra challenge agent must receive the management decision frame");
 assert.match(appText, /question: decisionFrame\.question, decisionFrame/, "each C-level council role must receive a data-bound question and decision frame");
 assert.match(appText, /function executiveDecisionAgentItems[\s\S]*?decisionFrame: executiveDecisionFrame/, "backtest product-council agents must use the same decision frame");
 assert.match(stylesText, /\.agent-decision-frame\s*\{/, "decision frames must use a compact infographic layout");
@@ -679,7 +679,7 @@ for (const agenda of ["HBM4 Base-Die & Foundry Alliance", "On-device AI · LPDDR
 for (const capability of ["Pain Point 분석", "Data Center & IT", "Executive Strategy"]) {
   assert.match(appText, new RegExp(capability), `the strategy council must make ${capability} explicit`);
 }
-assert.match(appText, /Signal → Business Question → Evidence → Choice → 90-Day Action/, "the council must expose an evidence-to-action consulting flow");
+assert.match(appText, /Customer Pain → Workload → Memory Option → Business Case → 90-Day Action/, "the council must expose a customer-to-execution consulting flow");
 assert.match(appText, /OFFICIAL · TSMC[\s\S]*?N12 HBM4 · N3P Custom HBM4E/, "the foundry decision must separate official HBM4 and custom HBM4E process evidence");
 assert.match(appText, /검증 전 결재 사용 금지/, "unverified mobile pricing and contract claims must be excluded from decision use");
 const aiInfraCouncilRenderBlock = appText.slice(appText.indexOf("function renderCLevelCockpit"), appText.indexOf("function clearCouncilTimers"));
