@@ -151,7 +151,7 @@ assert.match(app, /loadManagedJSON\("live", "data\/live-client\.json"[\s\S]*?loa
 assert.match(app, /priceHistory: \{[\s\S]*?path: "data\/price-history-client\.json"[\s\S]*?marketHistory: \{[\s\S]*?path: "data\/market-history-client\.json"/, "secondary fallbacks must never download database-sized history files");
 assert.match(css, /\.agent-debate-title \.agent-tts-toggle \{[\s\S]*?min-width: 190px;[\s\S]*?min-height: 44px;/, "the English TTS control should be large and readable");
 assert.match(css, /\.agent-tts-state \{[\s\S]*?min-width: 31px;/, "the TTS control should expose a dedicated on-or-off state badge");
-assert.match(html, /landing\.js\?v=infra-20260815-12/, "the public landing controller should include the AI Infra revision");
+assert.match(html, /landing\.js\?v=infra-20260815-13/, "the public landing controller should include the AI Infra revision");
 assert.match(css, /\.consulting-system \.news-card:is\(:hover, :focus-within\) \.news-insights > span \{[\s\S]*?background: rgba\(255, 255, 255, \.9\);[\s\S]*?color: var\(--consulting-slate\) !important;[\s\S]*?-webkit-text-fill-color: var\(--consulting-slate\);/, "light consulting news cards must keep high-contrast insight copy on hover");
 assert.match(css, /\.consulting-system \.news-card:is\(:hover, :focus-within\) :is\(\.strategy-highlight, \.answer-term\) \{[\s\S]*?--term-color: #334155;[\s\S]*?text-shadow: none;/, "light consulting news cards must restore dark semantic terms on hover");
 assert.doesNotMatch(html, /<script[^>]+src="assets\/js\/app\.js/, "the dashboard JavaScript must load only when the Intelligence Console is opened");
@@ -189,8 +189,8 @@ assert.doesNotMatch(app, /label: `\$\{cLevelAgentRoleLabel\(roleKey\)\} · \$\{t
 assert.match(app, /function withoutBriefingAgendaPhrase\(value = ""\) \{[\s\S]*?replace\(\/오늘\\s\*브리핑\\s\*안건/, "legacy briefing agenda prefixes should be removed from crawled titles");
 assert.doesNotMatch(app, /brief:\s*"오늘 브리핑 안건"/, "the removed briefing agenda phrase should not remain as an agent role label");
 assert.doesNotMatch(app, /오늘 안건|오늘 크롤링 근거를 경영진 토론 안건으로 자동 상정/, "removed live-agenda copy should not return in C-level cards or prompts");
-assert.match(app, /\$\{item\.action \? `<p>\$\{strategicHighlightHTML\(item\.action\)\}<\/p>` : ""\}/, "C-level cards should omit empty agenda descriptions instead of leaving blank copy");
-assert.match(app, /\$\{item\.tone \? `<small>\$\{strategicHighlightHTML\(item\.tone\)\}<\/small>` : ""\}/, "C-level cards should omit empty footer labels");
+assert.match(app, /class="ai-council-agenda-card[\s\S]*?\$\{escapeHTML\(item\.subtitle\)\}/, "C-level agenda cards should render a bounded strategy question without blank copy");
+assert.match(app, /\$\{escapeHTML\(item\.index\)\}[\s\S]*?\$\{escapeHTML\(item\.phase\)\}/, "C-level agenda cards should expose the decision sequence and horizon");
 assert.doesNotMatch(html, /id="liveFigures"|실시간 수치 근거|오늘 확인한 핵심 수치/, "live figures should not render as a standalone duplicate section");
 assert.match(app, /function articleFigureSignalsHTML\([\s\S]*?기사 원문에서 추출한 정량 근거/, "article cards should receive matching crawled figures inline");
 assert.match(app, /const figureSignals = articleFigureSignalsHTML\(item\);[\s\S]*?\$\{figureSignals\}/, "full news cards should show their own quantitative evidence");

@@ -9721,158 +9721,273 @@
     });
   }
 
+  const AI_INFRA_COUNCIL_AGENDAS = Object.freeze([
+    {
+      id: "hbm4-foundry",
+      index: "01",
+      phase: "NOW",
+      title: "HBM4 Base-Die & Foundry Alliance",
+      subtitle: "파운드리 의존도를 고객 맞춤형 성능 우위로 전환",
+      question: "TSMC 선단공정·패키징 의존을 통제하면서 HBM4/HBM4E의 고객별 PPA·TCO 우위를 어떻게 확보할 것인가?",
+      decision: "N12 표준 HBM4와 N3P Custom HBM4E를 하나의 동맹 로드맵으로 묶고, 캐파·인증·대체노드를 독립 게이트로 운영",
+      signals: [
+        ["CONFIRMED", "SK hynix × TSMC", "HBM4부터 advanced logic base die 협력"],
+        ["CONFIRMED", "N12 → N3P", "표준 HBM4 → Custom HBM4E 공정 축"],
+        ["BENCHMARK", "Samsung 통합형", "1c DRAM · 4nm logic · packaging DTCO"],
+      ],
+      lenses: [
+        ["01 · CUSTOMER", "고객·Workload", ["GPU·ASIC별 bandwidth/전력/열 요구", "Base-die 기능·인터페이스 공동 정의", "Qualification slot과 고객 ramp 동기화"]],
+        ["02 · TECHNOLOGY", "Architecture", ["2,048 I/O·logic base-die 복잡도", "MR-MUF·CoWoS·logic node 동시 최적화", "Yield·PPA·thermal을 분리 검증"]],
+        ["03 · BUSINESS", "Partner Model", ["Product design–Foundry–Memory 3자 co-design", "Reserved capacity·납기 SLA·IP 경계", "표준형과 custom형 수익모델 분리"]],
+        ["04 · EXECUTION", "Risk & Finance", ["파운드리 우선순위 충돌을 가설로 관리", "CAPEX를 인증·물량 약정 milestone에 연동", "대체 노드·패키징 contingency 사전 승인"]],
+      ],
+      horizons: [
+        ["NOW · 0–30D", "동맹 조건 잠금", "N12/N3P 수요·캐파·qualification slot 공동표", "예약 커버리지·납기 SLA"],
+        ["NEXT · 31–60D", "고객 Co-design", "PPA·열·패키징 trade-off를 고객 ASIC별 검증", "PPA 목표·sample on-time"],
+        ["SCALE · 61–90D", "투자 Gate", "Ramp와 대체 시나리오를 경영진 결재안으로 전환", "Yield·LT·고객 물량 약정"],
+      ],
+      kpis: ["Qualification cycle", "Reserved capacity coverage", "Base-die PPA", "Package lead time"],
+      stop: "캐파 미확보 · 고객 인증 지연 · PPA 미달 중 2개 동시 발생 시 Scale 투자 보류",
+      partners: ["AI chip developer · architecture co-design", "Foundry/packaging · capacity & yield governance", "Data center operator · system TCO validation"],
+      useCase: "익명화 Case A · AI accelerator 고객 — base-die 요구사항 → 공동 PPA 검증 → 공급·인증 gate",
+      sources: [
+        ["OFFICIAL · SK hynix", "HBM4 base die에 TSMC advanced logic 도입", "https://news.skhynix.com/sk-hynix-partners-with-tsmc-to-strengthen-hbm-technological-leadership/"],
+        ["OFFICIAL · TSMC", "N12 HBM4 · N3P Custom HBM4E logic base die", "https://www.tsmc.com/english/node/233"],
+        ["OFFICIAL · Samsung", "1c DRAM · 4nm logic base die · DTCO benchmark", "https://news.samsung.com/global/samsung-ships-industry-first-commercial-hbm4-with-ultimate-performance-for-ai-computing"],
+      ],
+    },
+    {
+      id: "ondevice-lpddr",
+      index: "02",
+      phase: "NEXT",
+      title: "On-device AI · LPDDR Portfolio",
+      subtitle: "서버발 공급 압력을 모바일 제품 믹스·원가·고객가치 판단으로 전환",
+      question: "AI 서버 수요와 제한된 공급이 모바일 메모리 원가로 전이될 때, 어떤 고객·SKU·용량 구간을 우선 방어할 것인가?",
+      decision: "단일 가격 인상 대응이 아니라 Premium–Mainstream–Entry별 메모리 용량·AI 경험·BOM 탄력성을 함께 재설계",
+      signals: [
+        ["CONFIRMED", "12GB+ 확대", "Flagship 스마트폰 DRAM 고용량 비중 상승"],
+        ["CONFIRMED", "공급 제약", "PC·스마트폰 수요와 메모리 공급의 긴장"],
+        ["VERIFY", "가격·BOM 전이", "계약·구매 데이터 확인 전 보도 수치 사용 금지"],
+      ],
+      lenses: [
+        ["01 · CUSTOMER", "Need State", ["온디바이스 latency·privacy·offline 가치", "Premium/Mainstream/Entry 사용 시나리오", "AI feature별 최소 memory footprint"]],
+        ["02 · TECHNOLOGY", "HW/SW Translation", ["모델 압축·KV cache·memory bandwidth", "LPDDR5X/LPDDR6 전력·용량 trade-off", "App–OS–NPU–memory 공동 benchmark"]],
+        ["03 · BUSINESS", "Portfolio & Price", ["SKU별 BOM·ASP·sell-through 민감도", "우선 고객 allocation·장기계약 옵션", "메모리 원가 전가와 AI 가치 패키징"]],
+        ["04 · EXECUTION", "Trigger & Owner", ["Mobile OEM·AI app 업체 공동 PoC", "제품 믹스와 수요 forecast 주간 연결", "가격 보도는 계약 확인 후만 결재 반영"]],
+      ],
+      horizons: [
+        ["NOW · 0–30D", "BOM 민감도", "용량·단가·수요 탄력성을 SKU별 재계산", "Gross margin·sell-through"],
+        ["NEXT · 31–60D", "Experience PoC", "대표 AI 기능의 latency·전력·memory footprint 측정", "P95 latency·energy/task"],
+        ["SCALE · 61–90D", "제품 믹스", "고객별 allocation·가격·용량 패키지 확정", "12GB+ mix·계약 커버리지"],
+      ],
+      kpis: ["BOM/ASP ratio", "P95 AI latency", "Energy per task", "Sell-through by tier"],
+      stop: "AI 체감가치가 가격 인상분을 회수하지 못하거나 보급형 sell-through가 trigger 이하이면 용량 상향 중단",
+      partners: ["Mobile OEM · SKU/BOM co-planning", "AI application developer · workload profiling", "Platform/IT consulting · launch PMO & value case"],
+      useCase: "익명화 Case B · Mobile OEM — AI feature memory footprint → 3-tier SKU 재설계 → 가격·allocation 실행",
+      sources: [
+        ["OFFICIAL · Micron", "12GB+ flagship 비중·공급 제약·온디바이스 AI 수요", "https://investors.micron.com/static-files/e089f8c0-065d-47b8-9d02-bfa863cdb357"],
+        ["OFFICIAL · SK hynix", "LPDDR5X를 포함한 on-device AI 포트폴리오", "https://news.skhynix.com/gtc-2026-ai-partnership/"],
+        ["CONTROL", "가격·BOM·특정 고객 계약 수치", ""],
+      ],
+    },
+    {
+      id: "post-hbm",
+      index: "03",
+      phase: "SCALE",
+      title: "Post-HBM · Tiered Memory Portfolio",
+      subtitle: "HBM 단일 제품을 Workload별 Memory Fabric 사업으로 확장",
+      question: "Training·Inference·RAG·On-device의 서로 다른 병목을 HBM–DRAM–CXL–HBF–eSSD 포트폴리오로 어떻게 연결할 것인가?",
+      decision: "제품별 전망이 아니라 Workload–Memory tier–Partner–Qualification을 하나의 7-gate 사업개발 체계로 운영",
+      signals: [
+        ["CONFIRMED", "HBM4 2,048 I/O", "대역폭 2배·logic base-die 중요성 확대"],
+        ["CONFIRMED", "Full-stack AI memory", "HBM + system DRAM + NAND/eSSD hierarchy"],
+        ["OPTION", "CXL · HBF · 3D DRAM", "PoC·표준·고객 인증 단계별 관리"],
+      ],
+      lenses: [
+        ["01 · TRAINING", "HBM4 / Custom HBM", ["GPU utilization·bandwidth·thermal", "ASIC별 base-die co-design", "Performance/Watt·rack TCO"]],
+        ["02 · INFERENCE", "HBM + DRAM/CXL", ["TTFT·TPOT/P99·KV cache", "Memory pooling·capacity expansion", "Bytes/token·cache hit"]],
+        ["03 · RAG / VECTOR", "eSSD + HBF Option", ["QPS·read amplification·DRAM resident ratio", "Hot/Warm/Cold data placement", "Qualification·interoperability·repeat order"]],
+        ["04 · ON-DEVICE", "LPDDR / 3D DRAM", ["Latency·power·footprint", "NPU·OS·model joint tuning", "Device tier별 capacity curve"]],
+      ],
+      horizons: [
+        ["NOW · CAPTURE", "Pain Point", "고객 workload와 HW/SW 병목을 정량화", "TTFT·TPOT·QPS·TCO"],
+        ["NEXT · PoC", "Architecture", "Benchmark → architecture → SW integration", "성능/W·cache hit·reliability"],
+        ["SCALE · RAMP", "New Biz", "Qualification → volume → repeat order", "Design win·ramp yield·ARR"],
+      ],
+      kpis: ["TTFT / TPOT P99", "Bytes per token", "Cache hit / QPS", "Qualification → repeat order"],
+      stop: "PoC 개선이 고객 TCO로 연결되지 않거나 qualification·상호운용성·반복주문 gate가 깨지면 옵션 단계로 환원",
+      partners: ["AI developer · model/workload benchmark", "Data center operator · fabric PoC & TCO", "IT consulting firm · transformation roadmap & PMO"],
+      useCase: "익명화 Case C · RAG 서비스 사업자 — latency·QPS 병목 → tiered architecture PoC → qualification·반복주문",
+      sources: [
+        ["OFFICIAL · SK hynix", "HBM4 2,048 I/O와 전력 효율", "https://news.skhynix.com/sk-hynix-completes-worlds-first-hbm4-development-and-readies-mass-production/"],
+        ["OFFICIAL · SK hynix", "HBM부터 eSSD까지 full-stack memory hierarchy", "https://news.skhynix.com/hbm-to-essd/"],
+        ["OFFICIAL · SK hynix", "Custom HBM·HBF·3D Stacked DRAM on Logic", "https://news.skhynix.com/tsmc-technology-symposium-2026/"],
+      ],
+    },
+  ]);
+
+  function aiInfraCouncilAgenda(id = "") {
+    return AI_INFRA_COUNCIL_AGENDAS.find((item) => item.id === id) || AI_INFRA_COUNCIL_AGENDAS[0];
+  }
+
+  function aiInfraCouncilList(items = []) {
+    return `<ul>${items.map((item) => `<li>${escapeHTML(item)}</li>`).join("")}</ul>`;
+  }
+
+  function aiInfraCouncilSourceHTML(source = []) {
+    const [level, label, url] = source;
+    const content = `<span>${escapeHTML(level)}</span><strong>${escapeHTML(label)}</strong>`;
+    return url
+      ? `<a href="${escapeHTML(url)}" target="_blank" rel="noopener noreferrer">${content}<small>원문 ↗</small></a>`
+      : `<div class="is-control">${content}<small>검증 전 결재 사용 금지</small></div>`;
+  }
+
+  function aiInfraCouncilWaitingHTML(agenda = {}) {
+    const capabilities = [
+      ["01", "Pain Point 분석", "고객 현황·기술·전략 → 정량 병목"],
+      ["02", "Data Center & IT", "Workload → HW/SW → memory tier"],
+      ["03", "Executive Strategy", "근거 → 선택지 → Trigger·Owner·KPI"],
+    ];
+    const workstreams = [
+      ["CUSTOM CONSULTING", "맞춤형 메모리", "B2B 고객 Pain point → solution blueprint"],
+      ["WORKLOAD", "데이터센터 최적화", "HW/SW·인프라 → TCO·성능 개선"],
+      ["NEW BIZ", "신규 사업", "AI 변화 → partner model·revenue option"],
+      ["INSIGHTS", "Tech & Market", "AI App·Transformer·Prompt·RAG·Vector DB → memory implication"],
+    ];
+    return `
+      <div class="ai-infra-council ai-infra-council-waiting">
+        <header class="ai-council-mandate">
+          <span>AI INFRA STRATEGY COUNCIL</span>
+          <strong>Signal → Business Question → Evidence → Choice → 90-Day Action</strong>
+          <small>영상·음성 없이 즉시 실행 · 공식 근거와 검증 대상을 분리</small>
+        </header>
+        <div class="ai-council-capabilities" aria-label="핵심 역량 3가지">
+          ${capabilities.map(([index, title, copy]) => `<div><b>${index}</b><strong>${escapeHTML(title)}</strong><small>${escapeHTML(copy)}</small></div>`).join("")}
+        </div>
+        <div class="ai-council-workstreams" aria-label="실행 업무 4개 축">
+          ${workstreams.map(([tag, title, copy]) => `<div><span>${tag}</span><strong>${escapeHTML(title)}</strong><small>${escapeHTML(copy)}</small></div>`).join("")}
+        </div>
+        <div class="ai-council-start">
+          <span>SELECTED QUESTION</span>
+          <strong>${escapeHTML(agenda.question)}</strong>
+          <small>‘토론 실행’ 클릭 → 4개 검토 렌즈 · 3개 투자 Horizon · 근거 등급 · 90일 Gate 표시</small>
+        </div>
+      </div>
+    `;
+  }
+
+  function aiInfraCouncilPackHTML(agenda = {}) {
+    return `
+      <div class="ai-infra-council ai-infra-council-pack" data-agenda="${escapeHTML(agenda.id)}">
+        <header class="ai-council-result">
+          <span>EXECUTIVE DECISION PACK · ${escapeHTML(agenda.phase)}</span>
+          <strong>${escapeHTML(agenda.title)}</strong>
+          <small>${escapeHTML(agenda.subtitle)}</small>
+        </header>
+
+        <section class="ai-council-question">
+          <span>BUSINESS QUESTION</span>
+          <strong>${escapeHTML(agenda.question)}</strong>
+          <div><b>권고안</b><p>${escapeHTML(agenda.decision)}</p></div>
+        </section>
+
+        <div class="ai-council-signal-chain" aria-label="핵심 근거 신호">
+          ${agenda.signals.map(([level, title, copy], index) => `
+            <div><i>${String(index + 1).padStart(2, "0")}</i><span>${escapeHTML(level)}</span><strong>${escapeHTML(title)}</strong><small>${escapeHTML(copy)}</small></div>
+          `).join("")}
+        </div>
+
+        <section class="ai-council-section">
+          <div class="ai-council-section-title"><span>01</span><strong>Four-Lens Issue Tree</strong><small>MECE · 고객 → 기술 → 사업 → 실행</small></div>
+          <div class="ai-council-lens-grid">
+            ${agenda.lenses.map(([key, title, bullets]) => `<article><span>${escapeHTML(key)}</span><strong>${escapeHTML(title)}</strong>${aiInfraCouncilList(bullets)}</article>`).join("")}
+          </div>
+        </section>
+
+        <section class="ai-council-section">
+          <div class="ai-council-section-title"><span>02</span><strong>Now–Next–Scale</strong><small>BCG Three Horizons · 투자와 검증을 분리</small></div>
+          <div class="ai-council-horizons">
+            ${agenda.horizons.map(([phase, title, action, gate]) => `
+              <article><span>${escapeHTML(phase)}</span><strong>${escapeHTML(title)}</strong><p>${escapeHTML(action)}</p><small><b>GATE</b>${escapeHTML(gate)}</small></article>
+            `).join("")}
+          </div>
+        </section>
+
+        <section class="ai-council-section">
+          <div class="ai-council-section-title"><span>03</span><strong>Evidence Ladder</strong><small>공식 원문 · benchmark · 검증 통제</small></div>
+          <div class="ai-council-sources">${agenda.sources.map(aiInfraCouncilSourceHTML).join("")}</div>
+        </section>
+
+        <section class="ai-council-section ai-council-delivery">
+          <div class="ai-council-section-title"><span>04</span><strong>Results Delivery</strong><small>Owner · KPI · Stop Rule</small></div>
+          <div class="ai-council-delivery-grid">
+            <article><span>VALUE KPI</span>${aiInfraCouncilList(agenda.kpis)}</article>
+            <article><span>PARTNER MODEL</span>${aiInfraCouncilList(agenda.partners)}</article>
+            <article><span>USE CASE</span><strong>${escapeHTML(agenda.useCase)}</strong></article>
+            <article class="ai-council-stop"><span>STOP / REFRAME</span><strong>${escapeHTML(agenda.stop)}</strong></article>
+          </div>
+        </section>
+
+        <footer class="ai-council-consensus">
+          <span>COUNCIL CONSENSUS</span>
+          <strong>${escapeHTML(agenda.decision)}</strong>
+          <small>전략 기획 · 신규 Biz 기회 창출 · AI Infra 실행 전략 수립</small>
+        </footer>
+      </div>
+    `;
+  }
+
   function renderCLevelCockpit() {
     const grid = $("#cLevelDecisionGrid");
     const agents = $("#cLevelAgentGrid");
     if (!grid || !agents) return;
 
-    const decisions = cLevelDecisionItems();
-
-    if (!decisions.length) {
-      grid.innerHTML = `
-        <article class="empty-card">
-          <strong>선택한 필터에서 검증 가능한 근거가 없습니다.</strong>
-          <p>전체 필터로 전환하거나 원문 링크·가격 근거가 있는 항목만 의사결정 목록에 표시합니다.</p>
-        </article>
-      `;
-      agents.innerHTML = "";
-      return;
-    }
-
-    if (!decisions.some((item) => item.id === cLevelCouncilDecisionId)) {
-      cLevelCouncilDecisionId = (decisions.find((item) => item.id === "legacy-commodity") || decisions[0]).id;
+    if (!AI_INFRA_COUNCIL_AGENDAS.some((item) => item.id === cLevelCouncilDecisionId)) {
+      cLevelCouncilDecisionId = AI_INFRA_COUNCIL_AGENDAS[0].id;
       cLevelCouncilRan = false;
-      cLevelCouncilScenarioRun = 0;
     }
-    const selectedDecision = decisions.find((item) => item.id === cLevelCouncilDecisionId) || decisions[0];
+    const selectedAgenda = aiInfraCouncilAgenda(cLevelCouncilDecisionId);
 
-    grid.innerHTML = decisions.map((item, index) => `
-      <button class="c-level-card c-level-tone-${index % 6} ${escapeHTML(item.verdict.toLowerCase())}${item.id === selectedDecision.id ? " council-active" : ""} reveal" type="button" data-council-pick="${escapeHTML(item.id)}" style="animation-delay:${index * 35}ms">
-        <span class="c-level-card-top">
-          <em>${escapeHTML(item.owner)}</em>
-          ${factBadge(item.verdict, item.verdict === "Go" ? "ok" : item.verdict === "Watch" ? "watch" : "fail")}
-        </span>
-        <strong>${strategicHighlightHTML(item.label)}</strong>
-        ${item.action ? `<p>${strategicHighlightHTML(item.action)}</p>` : ""}
-        <div class="c-level-card-metrics">
-          <span><b>${countHTML(item.evidenceCount)}</b><small>근거</small></span>
-          <span><b>${countHTML(item.linkCount)}</b><small>링크/KPI</small></span>
-          <span><b>${countHTML(item.priceRows)}</b><small>가격 rows</small></span>
-        </div>
-        <div class="c-level-meter" data-fill-to="${item.confidence}"><i style="width:0"></i></div>
-        ${item.tone ? `<small>${strategicHighlightHTML(item.tone)}</small>` : ""}
+    grid.innerHTML = AI_INFRA_COUNCIL_AGENDAS.map((item) => `
+      <button class="ai-council-agenda-card${item.id === selectedAgenda.id ? " is-selected" : ""}" type="button" data-council-pick="${escapeHTML(item.id)}" aria-pressed="${item.id === selectedAgenda.id ? "true" : "false"}">
+        <span><b>${escapeHTML(item.index)}</b>${escapeHTML(item.phase)}</span>
+        <strong>${escapeHTML(item.title)}</strong>
+        <small>${escapeHTML(item.subtitle)}</small>
+        <em>Business Question →</em>
       </button>
     `).join("");
 
-    const councilScenario = agentFutureScenario(cLevelCouncilScenarioRun);
-    const strategicAgentIds = new Set(["brief", "ceo", "cfo", "cto", "cso", "coo", "policy", "market", "china", "risk", "devil", "audit"]);
-    const agentItems = cLevelAgentItems(selectedDecision, decisions, councilScenario).filter((agent) => strategicAgentIds.has(agent.id));
-    const conclusion = cLevelCouncilConclusion(selectedDecision, councilScenario);
-    const selectedProfile = cLevelDecisionProfile(selectedDecision);
-    const rosterStepDelay = AGENT_DEBATE_TIMING.rosterStepMs;
-    const chatStartDelay = agentItems.length * rosterStepDelay + AGENT_DEBATE_TIMING.rosterSettleMs;
-    const councilStepDelay = AGENT_DEBATE_TIMING.turnGapMs;
-    const councilConclusionDelay = chatStartDelay + agentItems.length * councilStepDelay + AGENT_DEBATE_TIMING.conclusionDelayMs;
     agents.innerHTML = `
-      <div class="agent-debate c-level-agent-debate" style="--local-accent:${categoryAccent(selectedDecision?.category || "hbm")}">
-        <div class="agent-debate-title">
-          <span>EXPERT COUNCIL</span>
-          <strong>${escapeHTML(selectedDecision?.label || "경영진 안건")} 토론</strong>
-          <small>${escapeHTML(councilScenario.label)} · ${escapeHTML(councilScenario.horizon)}</small>
-        </div>
-        <div class="c-level-agent-controls">
+      <div class="ai-council-shell">
+        <div class="ai-council-controls">
           <label>
-            <span>안건 선택</span>
-            <select id="cLevelCouncilSelect" aria-label="전문가 토론 안건 선택">
-              ${decisions.map((item) => `<option value="${escapeHTML(item.id)}"${item.id === selectedDecision.id ? " selected" : ""}>${escapeHTML(item.label)} · ${escapeHTML(item.verdict)}</option>`).join("")}
+            <span>의사결정 안건</span>
+            <select id="cLevelCouncilSelect" aria-label="AI Infra 전략 의사결정 안건 선택">
+              ${AI_INFRA_COUNCIL_AGENDAS.map((item) => `<option value="${escapeHTML(item.id)}"${item.id === selectedAgenda.id ? " selected" : ""}>${escapeHTML(item.index)} · ${escapeHTML(item.title)}</option>`).join("")}
             </select>
           </label>
-          <button type="button" id="cLevelRunCouncil">${cLevelCouncilRan ? "토론 다시 실행" : "토론 실행"}</button>
+          <button type="button" id="cLevelRunCouncil">${cLevelCouncilRan ? "전략 검토 다시 열기" : "토론 실행"}</button>
         </div>
-        ${scenarioBriefHTML(councilScenario)}
-        <div class="agent-selected-brief">
-          <span>요약</span>
-          <strong>${escapeHTML(`${selectedDecision?.verdict || "Hold"} · ${selectedDecision?.tone || "검토"}`)}</strong>
-          <p>${escapeHTML(`인사이트: ${selectedDecision?.action || selectedProfile.next}`)}</p>
+        <div id="aiInfraCouncilOutput" aria-live="polite">
+          ${cLevelCouncilRan ? aiInfraCouncilPackHTML(selectedAgenda) : aiInfraCouncilWaitingHTML(selectedAgenda)}
         </div>
-        ${cLevelCouncilRan ? `
-          <div class="agent-roster" data-council-roster>
-            ${agentItems.map((agent, index) => `
-              <div class="agent-avatar-card" data-agent-slot="${index}" style="--agent-color:${escapeHTML(agent.color)}; --delay:${index * rosterStepDelay}ms">
-                <div class="agent-person">
-                  <b>${escapeHTML(agent.initials || agent.id.toUpperCase().slice(0, 2))}</b>
-                  <i aria-hidden="true"></i>
-                  <u class="agent-typing" aria-hidden="true"><s></s><s></s><s></s></u>
-                </div>
-                <span>${escapeHTML(agent.name)}</span>
-                <small>${escapeHTML(agent.title || agent.role)}</small>
-                <em>${escapeHTML(agent.stance || agent.role)}</em>
-              </div>
-            `).join("")}
-          </div>
-          <div class="agent-chat js-debate" data-council-chat>
-            ${agentItems.map((agent, index) => `
-              <div class="agent-turn pending${index % 2 ? " right" : ""}" data-agent-slot="${index}" data-tts-language="${agentUsesKoreanTts(agent.name, agent.role) ? "ko" : "en"}" style="--agent-color:${escapeHTML(agent.color)}">
-                <span class="agent-badge-wrap"><span class="agent-badge">${escapeHTML(agent.initials || agent.id.toUpperCase().slice(0, 2))}</span><small class="agent-badge-name">${escapeHTML(agent.name)}</small></span>
-                <div class="speech-bubble">
-                   <div class="speech-meta"><strong>${escapeHTML(agent.role)}</strong><span>${escapeHTML(agent.stance || agent.name)}</span></div>
-                   ${agent.question ? `<div class="agent-question"><span>질문</span><p>${escapeHTML(agent.question)}</p></div>` : ""}
-                   ${agentDecisionFrameHTML(agent.decisionFrame)}
-                   <div class="agent-answer"><span>답변</span><p data-say-en="${escapeHTML(agent.speechEn || "")}">${renderAgentSpeech(agentCoreText(agent.message))}</p></div>
-                   ${agentEvidenceMetaHTML(agent)}
-                 </div>
-              </div>
-            `).join("")}
-          </div>
-          <div class="agent-conclusion pending" data-council-conclusion style="--local-accent:${categoryAccent(selectedDecision?.category || "hbm")}">
-            <span>결론</span>
-            <strong>${escapeHTML(conclusion.title)}</strong>
-            <p>${escapeHTML(conclusion.body)}</p>
-            <small>${escapeHTML(conclusion.next)}</small>
-          </div>
-        ` : `
-          <div class="agent-waiting">
-            <strong>안건을 선택한 뒤 토론 실행을 누르세요.</strong>
-            <p>실행 후 Auditor, Market, CTO, Policy, China, COO, CFO, CSO, Risk, Devil's Advocate가 검증하고 CEO가 마지막에 결론을 냅니다.</p>
-          </div>
-        `}
       </div>
     `;
 
-    const councilSelect = $("#cLevelCouncilSelect");
-    if (councilSelect) {
-      const chooseCouncilAgenda = (event) => {
-        cLevelCouncilDecisionId = event.target.value;
-        cLevelCouncilRan = false;
-        cLevelCouncilScenarioRun = 0;
-        renderCLevelCockpit();
-      };
-      councilSelect.addEventListener("input", chooseCouncilAgenda);
-      councilSelect.addEventListener("change", chooseCouncilAgenda);
-    }
-    const runCouncil = $("#cLevelRunCouncil");
-    if (runCouncil) {
-      runCouncil.addEventListener("click", () => {
-        if (cLevelCouncilRan) cLevelCouncilScenarioRun += 1;
-        else cLevelCouncilScenarioRun = 0;
-        cLevelCouncilRan = true;
-        renderCLevelCockpit();
-        prepareAgentSpeechFromGesture($("#cLevelRunCouncil"));
-      });
-    }
-    grid.querySelectorAll("[data-council-pick]").forEach((btn) => {
-      btn.addEventListener("click", () => {
-        cLevelCouncilDecisionId = btn.dataset.councilPick;
-        cLevelCouncilRan = false;
-        cLevelCouncilScenarioRun = 0;
-        renderCLevelCockpit();
-      });
+    const chooseCouncilAgenda = (id) => {
+      cLevelCouncilDecisionId = aiInfraCouncilAgenda(id).id;
+      cLevelCouncilRan = false;
+      renderCLevelCockpit();
+    };
+    $("#cLevelCouncilSelect")?.addEventListener("change", (event) => chooseCouncilAgenda(event.target.value));
+    $("#cLevelRunCouncil")?.addEventListener("click", () => {
+      cLevelCouncilRan = true;
+      renderCLevelCockpit();
+      $("#aiInfraCouncilOutput")?.focus?.({ preventScroll: true });
     });
-
-    animateCounts(grid);
-    animateMeters(grid);
-
-    if (cLevelCouncilRan) animateCouncilDebate(agents);
+    grid.querySelectorAll("[data-council-pick]").forEach((button) => {
+      button.addEventListener("click", () => chooseCouncilAgenda(button.dataset.councilPick));
+    });
   }
 
   function clearCouncilTimers() {

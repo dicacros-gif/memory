@@ -668,6 +668,19 @@ assert.match(appText, /decisionFrame: executiveDecisionFrame\(turn, decisionFram
 assert.match(appText, /question: decisionFrame\.question, decisionFrame/, "each C-level council role must receive a data-bound question and decision frame");
 assert.match(appText, /function executiveDecisionAgentItems[\s\S]*?decisionFrame: executiveDecisionFrame/, "backtest product-council agents must use the same decision frame");
 assert.match(stylesText, /\.agent-decision-frame\s*\{/, "decision frames must use a compact infographic layout");
+assert.match(appText, /const AI_INFRA_COUNCIL_AGENDAS = Object\.freeze\(\[/, "the C-level board must use a bounded AI Infra strategy agenda");
+for (const agenda of ["HBM4 Base-Die & Foundry Alliance", "On-device AI · LPDDR Portfolio", "Post-HBM · Tiered Memory Portfolio"]) {
+  assert.match(appText, new RegExp(agenda.replace(/[.*+?^${}()|[\]\\]/g, "\\$&")), `the AI Infra council must expose ${agenda}`);
+}
+for (const capability of ["Pain Point 분석", "Data Center & IT", "Executive Strategy"]) {
+  assert.match(appText, new RegExp(capability), `the strategy council must make ${capability} explicit`);
+}
+assert.match(appText, /Signal → Business Question → Evidence → Choice → 90-Day Action/, "the council must expose an evidence-to-action consulting flow");
+assert.match(appText, /OFFICIAL · TSMC[\s\S]*?N12 HBM4 · N3P Custom HBM4E/, "the foundry decision must separate official HBM4 and custom HBM4E process evidence");
+assert.match(appText, /검증 전 결재 사용 금지/, "unverified mobile pricing and contract claims must be excluded from decision use");
+const aiInfraCouncilRenderBlock = appText.slice(appText.indexOf("function renderCLevelCockpit"), appText.indexOf("function clearCouncilTimers"));
+assert.doesNotMatch(aiInfraCouncilRenderBlock, /agent-debate|animateCouncilDebate|prepareAgentSpeechFromGesture/, "the AI Infra council must render instantly without video, typing, or speech effects");
+assert.match(stylesText, /AI Infra Strategy Council — flat consulting geometry[\s\S]*?\.ai-council-agenda-card[\s\S]*?box-shadow: none;/, "the AI Infra council must use flat consulting geometry without glow styling");
 const deferredSectionBlock = appText.slice(
   appText.indexOf("function setupDeferredSections"),
   appText.indexOf("/* ---------------- Hyperscaler"),
