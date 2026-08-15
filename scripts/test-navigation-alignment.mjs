@@ -113,7 +113,7 @@ assert.deepEqual(businessNavLabels, [
 assert.match(html, /id="intelligenceConsole" hidden/, "the Intelligence Console must stay outside the initial visible layer");
 assert.doesNotMatch(html, /<script[^>]+src="assets\/js\/app\.js/, "the heavy console app must not load with the public landing page");
 assert.doesNotMatch(html, /<link[^>]+href="assets\/css\/styles\.css/, "the heavy console stylesheet must not load with the public landing page");
-assert.match(html, /assets\/js\/landing\.js\?v=infra-20260815-02/, "the lightweight landing controller must use the AI Infra revision");
+assert.match(html, /assets\/js\/landing\.js\?v=infra-20260815-03/, "the lightweight landing controller must use the AI Infra revision");
 assert.match(landing, /function loadConsole\(\)[\s\S]*?assets\/js\/app\.js\?v=\$\{CONSOLE_REVISION\}/, "the console app must load only after an explicit console request");
 assert.match(landing, /assets\/css\/styles\.css\?v=\$\{CONSOLE_REVISION\}/, "console-only styling must load on demand");
 assert.match(landing, /nav\?\.classList\.toggle\("is-open", open\)/, "the mobile menu controller must activate the responsive navigation state");
@@ -127,6 +127,15 @@ assert.match(html, /Performance[\s\S]*?per Watt[\s\S]*?Token \/ Query[\s\S]*?Tot
 assert.match(html, /id="macro"[\s\S]*?China Memory &amp; Supply Chain[\s\S]*?Policy &amp; Geopolitics/, "China and policy must remain subordinate macro decision inputs");
 assert.match(html, /id="role-fit"[\s\S]*?Strategic Problem Solving[\s\S]*?AI Infra Execution Strategy/, "the portfolio must make role fit and execution capabilities explicit");
 assert.match(html, /https:\/\/news\.skhynix\.com\/en\/hbf-at-fms-2026\//, "the HBF evidence case must link to the official primary source");
+assert.match(html, /FLAGSHIP COLLABORATION MODEL[\s\S]*?ANNOUNCED · LOI[\s\S]*?\$500B\+[\s\S]*?2 GW/, "the NVIDIA partnership must be framed as an announced SK Group initiative with stage status");
+assert.match(html, /SK하이닉스 단독 계약액이나 확정 매출이 아니라/, "the flagship partnership must distinguish initiative scope from SK hynix revenue");
+assert.match(html, /id="memory-fabric"[\s\S]*?HBM4 · Custom HBM[\s\S]*?AI-DRAM · SOCAMM · CXL[\s\S]*?AI-NAND · HBF · eSSD/, "the site must present a full-stack tiered memory architecture");
+assert.match(html, /https:\/\/news\.skhynix\.com\/en\/fms-2026\//, "the tiered-memory architecture must link to the official FMS source");
+assert.match(html, /2Q26 AI Memory Execution[\s\S]*?₩79\.3T[\s\S]*?₩60\.5T[\s\S]*?76%/, "the execution proofboard must include the official Q2 scale evidence");
+assert.match(html, /Custom Memory Beyond HBM[\s\S]*?HBM → DRAM · NAND/, "custom memory must extend across the full portfolio");
+assert.match(html, /Custom ASIC Diversification[\s\S]*?\+82%[\s\S]*?1\/3/, "the ASIC diversification signal must retain its forecast context");
+assert.match(html, /<aside class="business-data-status" aria-live="polite" hidden>/, "public data status placeholders must stay hidden until verified data arrives");
+assert.doesNotMatch(html, /데이터 상태 확인 중|>확인 중</, "unfinished data-loading copy must not ship in public markup");
 assert.doesNotMatch(html, /Prompt Engineering/, "prompt engineering must not appear as a top-level AI memory theme");
 assert.match(html, /aria-label="Evidence Search"/, "the console evidence field must not imply unsupported generative Q&A");
 assert.match(landingCss, /\.business-reveal[\s\S]*?\.business-reveal\.is-visible/, "business sections should progressively reveal without blocking layout");

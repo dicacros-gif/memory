@@ -3,7 +3,7 @@
 
   const BUSINESS_TITLE = "Memory Intelligence · AI Memory Strategy & Execution";
   const CONSOLE_HASH = "#console";
-  const CONSOLE_REVISION = "infra-20260815-02";
+  const CONSOLE_REVISION = "infra-20260815-03";
   const site = document.querySelector("#businessSite");
   const consoleLayer = document.querySelector("#intelligenceConsole");
   const header = document.querySelector("#businessHeader");
@@ -160,6 +160,7 @@
   }
 
   async function updateDataStatus() {
+    const panel = document.querySelector(".business-data-status");
     const dot = document.querySelector("#businessStatusDot");
     const status = document.querySelector("#businessDataStatus");
     const updated = document.querySelector("#businessDataUpdated");
@@ -179,13 +180,10 @@
       if (updated) updated.textContent = formatKst(manifest.generatedAt);
       if (expiry) expiry.textContent = formatKst(manifest.expiresAt);
       if (artifacts) artifacts.textContent = `${Object.keys(manifest.artifacts || {}).length} datasets`;
+      if (panel) panel.hidden = false;
     } catch (error) {
       console.warn("Data freshness status unavailable", error);
-      status.textContent = "Status unavailable";
-      dot?.classList.add("is-delayed");
-      if (updated) updated.textContent = "확인 불가";
-      if (expiry) expiry.textContent = "확인 불가";
-      if (artifacts) artifacts.textContent = "확인 불가";
+      if (panel) panel.hidden = true;
     }
   }
 
@@ -221,10 +219,13 @@
       ".business-pain-framework",
       ".business-solution-card",
       ".business-workload-matrix > article",
+      ".business-memory-fabric",
       ".business-tco-module",
       ".business-execution-roadmap",
       ".business-report-grid > article",
       ".business-evidence-case",
+      ".business-execution-evidence-grid > article",
+      ".business-flagship-partnership",
       ".business-partner-map",
       ".business-case-card",
       ".business-macro-grid > article",
