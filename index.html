@@ -58,7 +58,7 @@
     (() => {
       if (location.hash !== "#console") return;
       document.documentElement.classList.add("console-entry");
-      const revision = "infra-20260815-07";
+      const revision = "infra-20260815-08";
       const assets = [
         ["consoleStylesPreload", "style", `assets/css/styles.css?v=${revision}`, "high"],
         ["consoleAppPreload", "script", `assets/js/app.js?v=${revision}`, "low"],
@@ -75,7 +75,7 @@
       }
     })();
   </script>
-  <link rel="stylesheet" href="assets/css/landing.css?v=infra-20260815-07" />
+  <link rel="stylesheet" href="assets/css/landing.css?v=infra-20260815-08" />
 </head>
 <body class="landing-mode">
   <div class="business-site" id="businessSite">
@@ -108,13 +108,17 @@
     </header>
 
     <main id="businessMain">
-      <section class="business-hero" id="home">
+      <section class="business-hero" id="home" data-frame="ANSWER FIRST · WORKLOAD TO VALUE">
         <div class="business-hero-grid" aria-hidden="true"></div>
         <div class="business-hero-content business-container">
           <div class="business-hero-copy">
             <p class="business-kicker"><span></span>AI INFRA STRATEGY OPERATING SYSTEM</p>
-            <h1>메모리를 판매하는 것이 아니라,<br /><em>AI Workload의 병목을 제거합니다.</em></h1>
-            <p class="business-hero-lead">Workload Trace에서 GPU Idle·KV Cache·Memory Capacity·Data Movement·Power/Thermal 병목을 찾아 HBM·SOCAMM2·Server DRAM·CXL·HBF·eSSD 요구사항으로 변환하고, Business Case·Co-Design·Qualification·Ramp까지 연결합니다.</p>
+            <h1><em>AI Workload 병목</em><br />Memory Strategy로 전환</h1>
+            <ul class="business-hero-bullets" aria-label="핵심 전략 범위">
+              <li>TRACE · GPU Idle · KV Cache · Capacity · Data Movement</li>
+              <li>ARCHITECTURE · HBM · SOCAMM2 · DRAM · CXL · HBF · eSSD</li>
+              <li>VALUE · Business Case · Co-Design · Qualification · Ramp</li>
+            </ul>
             <div class="business-hero-actions">
               <a class="business-primary-button" href="#initiatives">3 Strategic Initiatives <span aria-hidden="true">→</span></a>
               <a class="business-secondary-button" href="#deep-cases">Deep Business Cases</a>
@@ -156,75 +160,80 @@
             <button type="button" role="tab" aria-selected="false" data-audience="technology">Technology</button>
           </div>
           <div class="business-audience-copy" data-audience-panel="executive">
-            <strong>5분 안에 핵심 판단을 내릴 수 있도록</strong>
-            <span>결론 · 사업 영향 · 권장 실행 · 판단 변경 조건을 한 화면에 정리합니다.</span>
+            <strong>EXECUTIVE · 5-MINUTE DECISION</strong>
+            <span>결론 · 사업 영향 · 권장 실행 · 판단 변경 조건</span>
           </div>
           <div class="business-audience-copy" data-audience-panel="strategy" hidden>
-            <strong>시장 신호를 성장 옵션으로 전환하도록</strong>
-            <span>고객 문제 · 시장성 · Right to Win · 파트너 · 수익성을 함께 평가합니다.</span>
+            <strong>STRATEGY · GROWTH OPTION</strong>
+            <span>고객 문제 · 시장성 · Right to Win · 파트너 · 수익성</span>
           </div>
           <div class="business-audience-copy" data-audience-panel="technology" hidden>
-            <strong>워크로드를 메모리 요구사항으로 번역하도록</strong>
-            <span>Workload → Memory Wall → Tiered Memory → System TCO → Qualification을 연결합니다.</span>
+            <strong>TECHNOLOGY · REQUIREMENT</strong>
+            <span>Workload → Memory Wall → Tiered Memory → System TCO → Qualification</span>
           </div>
         </div>
       </section>
 
-      <section class="business-section business-initiatives" id="initiatives">
+      <section class="business-section business-initiatives" id="initiatives" data-frame="McKINSEY · THREE HORIZONS">
         <div class="business-container">
           <div class="business-section-heading business-section-heading--split">
-            <div><p class="business-kicker">What I Would Build</p><h2>SK hynix AI Infra에서 만들고 싶은<br />세 가지 반복 가능한 성장 시스템</h2></div>
-            <p>Memory Strategy 조직은 전망을 만드는 데서 끝나지 않습니다. 고객 Workload를 가장 먼저 이해하고 기술 변화를 Requirement로 번역해 Co-Design·Qualification·Capacity·Revenue로 이어지는 실행 시스템을 만듭니다.</p>
+            <div><p class="business-kicker">North Star · Growth System</p><h2>3 Strategic Initiatives</h2></div>
+            <ul class="business-heading-points">
+              <li>H1 · 고객 Pain Point → Memory Requirement</li>
+              <li>H2 · Tiered Memory → Context Economics</li>
+              <li>H3 · Custom Co-Design → Qualification · Ramp</li>
+            </ul>
           </div>
           <div class="business-initiative-grid">
-            <article><span>01 · CUSTOMER</span><h3>Customer Memory Consulting</h3><p>고객 Business Model·Workload·System KPI를 진단해 증상이 아닌 병목과 구매 기준을 정의합니다.</p><strong>OUTPUT</strong><small>Pain Point Map · Workload Trace · Business Case</small></article>
-            <article><span>02 · NEW BIZ</span><h3>Context / Tiered AI Memory</h3><p>HBM 중심의 Hot Tier와 SOCAMM2·CXL·HBF·eSSD를 연결해 Agentic AI의 Context Economics를 검증합니다.</p><strong>OUTPUT</strong><small>Reference Architecture · Benchmark · TCO</small></article>
-            <article><span>03 · PLATFORM</span><h3>Custom Memory Co-Design</h3><p>Standard·Semi-Custom·Full Custom 옵션을 고객 Roadmap과 Qualification·Volume Commitment에 연결합니다.</p><strong>OUTPUT</strong><small>Requirement Matrix · Stage-Gate · Ramp Plan</small></article>
+            <article><span>01 · HORIZON 1</span><h3>Customer Memory Consulting</h3><ul><li>Business Model · Workload · System KPI</li><li>Bottleneck · Buying Criteria · Priority</li></ul><strong>OUTPUT</strong><small>Pain Point Map · Workload Trace · Business Case</small></article>
+            <article><span>02 · HORIZON 2</span><h3>Context / Tiered AI Memory</h3><ul><li>HBM Hot Tier · SOCAMM2 · CXL</li><li>HBF · eSSD · Context Economics</li></ul><strong>OUTPUT</strong><small>Reference Architecture · Benchmark · TCO</small></article>
+            <article><span>03 · HORIZON 3</span><h3>Custom Memory Co-Design</h3><ul><li>Standard · Semi-Custom · Full Custom</li><li>Roadmap · Qualification · Volume Gate</li></ul><strong>OUTPUT</strong><small>Requirement Matrix · Stage-Gate · Ramp Plan</small></article>
           </div>
+          <div class="business-initiative-foundation"><span>FOUNDATION</span><strong>Customer Trace · System Benchmark · Source Evidence · TCO · Qualification</strong></div>
         </div>
       </section>
 
-      <section class="business-section business-competencies" id="competencies">
+      <section class="business-section business-competencies" id="competencies" data-frame="BAIN · RESULTS DELIVERY">
         <div class="business-container">
           <div class="business-section-heading">
-            <p class="business-kicker">Core Competencies</p>
-            <h2>직무 적합성을 세 가지<br />검증 가능한 역량으로 압축합니다.</h2>
-            <p>시장·기술 지식의 개수보다 고객 문제를 구조화하고, 전체 AI Infra를 번역하며, 경영진의 상용화 결정을 만드는 능력에 집중합니다.</p>
+            <p class="business-kicker">Capability System · MECE</p>
+            <h2>Problem → Architecture → Decision</h2>
+            <div class="business-quality-thesis"><span>QUALITY THESIS</span><strong>근거 → 선택지 → 실행 Gate</strong><small>Accuracy · MECE · Action</small></div>
           </div>
           <div class="business-competency-grid">
             <article class="business-competency-card">
               <span class="business-card-index">01</span>
               <div class="business-card-icon" aria-hidden="true">◎</div>
-              <p>Customer Problem Structuring</p>
-              <h3>증상이 아니라 실제 Bottleneck을 정의합니다.</h3>
-              <p>Business Model, AI Workload, System Architecture와 운영 KPI를 연결해 GPU Idle·Capacity·KV Reuse·Data Movement 중 우선 문제를 구조화합니다.</p>
+              <p>01 · PROBLEM</p>
+              <h3>Customer Problem Structuring</h3>
+              <ul class="business-card-evidence"><li>Business Model · Workload · System KPI</li><li>GPU Idle · Capacity · KV Reuse · Data Movement</li></ul>
               <ul><li>Pain Point Map</li><li>Workload Trace</li><li>Bottleneck Tree</li><li>Priority Decision</li></ul>
             </article>
             <article class="business-competency-card">
               <span class="business-card-index">02</span>
               <div class="business-card-icon" aria-hidden="true">⌘</div>
-              <p>Full-Stack AI Infra Translation</p>
-              <h3>SW 변화가 어느 Memory Tier의 수요가 되는지 설명합니다.</h3>
-              <p>LLM Serving, Accelerator, Host Memory, CXL, Storage, Network, Power와 Cooling을 하나의 Data Flow와 시스템 경제성으로 연결합니다.</p>
+              <p>02 · ARCHITECTURE</p>
+              <h3>Full-Stack AI Infra Translation</h3>
+              <ul class="business-card-evidence"><li>Serving · Accelerator · Host · CXL · Storage</li><li>Network · Power · Cooling · Data Flow</li></ul>
               <ul><li>Requirement Matrix</li><li>Reference Architecture</li><li>System TCO</li></ul>
             </article>
             <article class="business-competency-card">
               <span class="business-card-index">03</span>
               <div class="business-card-icon" aria-hidden="true">↗</div>
-              <p>Executive Strategy &amp; Business Case</p>
-              <h3>무엇을 언제 할지, 무엇이 바뀌면 멈출지 제안합니다.</h3>
-              <p>고객가치, 시장성, 투자, 공급 리스크, Qualification과 수익성을 비교해 Now/Next/Scale과 판단 변경 조건을 명확히 합니다.</p>
+              <p>03 · DECISION</p>
+              <h3>Executive Strategy &amp; Business Case</h3>
+              <ul class="business-card-evidence"><li>Value · Market · Investment · Supply Risk</li><li>Now · Next · Scale · Stop Condition</li></ul>
               <ul><li>Business Case</li><li>Stage-Gate</li><li>Owner · Trigger · KPI</li></ul>
             </article>
           </div>
         </div>
       </section>
 
-      <section class="business-section business-ai-strategy" id="ai-strategy">
+      <section class="business-section business-ai-strategy" id="ai-strategy" data-frame="McKINSEY · END-TO-END VALUE LOOP">
         <div class="business-container">
           <div class="business-section-heading business-section-heading--split">
-            <div><p class="business-kicker">Workload-to-Revenue Loop</p><h2>하나의 운영 루프로<br />전략의 반복을 제거합니다.</h2></div>
-            <p>모든 분석은 고객 Signal에서 시작해 Repeat Order와 다음 Workload Roadmap으로 돌아옵니다. 아래 루프가 사이트 전체의 단일 중심축입니다.</p>
+            <div><p class="business-kicker">Workload-to-Revenue</p><h2>9-Stage Value Loop</h2></div>
+            <ul class="business-heading-points"><li>INPUT · Customer Signal</li><li>ENGINE · Architecture · Benchmark · TCO</li><li>OUTPUT · Qualification · Ramp · Repeat Order</li></ul>
           </div>
           <ol class="business-strategy-chain" aria-label="AI Memory Strategy 실행 프레임">
             <li><span>01</span><strong>Customer Signal</strong></li>
@@ -241,7 +250,7 @@
           <section class="business-pain-framework" id="pain-framework" aria-labelledby="painFrameworkTitle">
             <div class="business-framework-head">
               <div><span>INTERACTIVE DIAGNOSTIC</span><h3 id="painFrameworkTitle">Customer Pain Point Framework</h3></div>
-              <p>고객 유형을 선택하면 Workload부터 Memory Option과 실행 Gate까지 연결된 진단 가설을 확인할 수 있습니다.</p>
+              <ul class="business-inline-points"><li>SELECT · Customer Type</li><li>TRACE · Workload → Bottleneck</li><li>DECIDE · Memory Option → Execution Gate</li></ul>
             </div>
             <div class="business-framework-tabs" role="tablist" aria-label="고객 유형 선택">
               <button type="button" role="tab" aria-selected="true" data-framework="hyperscaler">Hyperscaler / CSP</button>
@@ -270,18 +279,18 @@
         </div>
       </section>
 
-      <section class="business-section business-solutions" id="solutions">
+      <section class="business-section business-solutions" id="solutions" data-frame="BCG · STRATEGY PALETTE">
         <div class="business-container">
           <div class="business-section-heading">
-            <p class="business-kicker">Business Strategy &amp; Solutions</p>
-            <h2>고객 문제에서 Co-Design과 Commercialization까지</h2>
-            <p>개별 제품을 추천하는 데서 끝나지 않고 Workload, Memory Hierarchy, System TCO와 Qualification을 연결합니다.</p>
+            <p class="business-kicker">Decision Architecture · So What</p>
+            <h2>Pain Point → Option → Commercialization</h2>
+            <ul class="business-heading-points"><li>WHERE TO PLAY · Workload · Customer</li><li>HOW TO WIN · Memory Hierarchy · TCO</li><li>HOW TO SCALE · Qualification · Capacity</li></ul>
           </div>
           <div class="business-solution-grid">
             <article class="business-solution-card business-solution-card--wide">
-              <div class="business-artifact-head"><span class="business-card-tag">RECONSTRUCTED · STRATEGY DELIVERABLE</span><strong>실제 고객 데이터로 검증해야 하는 산출물 예시</strong></div>
+              <div class="business-artifact-head"><span class="business-card-tag">RECONSTRUCTED · DECISION PACK</span><strong>가설 · 실제 고객 데이터 검증 필요</strong></div>
               <h3>Agentic AI Customer Memory Strategy</h3>
-              <p>프로세스 설명보다 고객 문제를 어떤 데이터로 진단하고 어떤 선택지와 상용화 Gate로 바꾸는지 보여줍니다.</p>
+              <ul class="business-inline-points"><li>FACT · Customer Situation</li><li>INSIGHT · System Bottleneck</li><li>ACTION · Architecture · Commercial Gate</li></ul>
               <div class="business-strategy-artifact">
                 <div><span>CUSTOMER SITUATION</span><p>Context length와 concurrent session이 증가하는 대규모 Agentic AI Serving.</p></div>
                 <div><span>PAIN POINT</span><p>GPU compute가 아니라 KV 재계산과 Context data movement로 발생하는 Stall.</p></div>
@@ -295,7 +304,7 @@
           </div>
 
           <section class="business-workload-map" id="workload-map" aria-labelledby="workloadMapTitle">
-            <div class="business-module-heading"><span>REPRESENTATIVE CONTENT</span><h3 id="workloadMapTitle">Workload-to-Memory Map</h3><p>워크로드별 핵심 문제를 Memory Focus와 의사결정으로 연결합니다.</p></div>
+            <div class="business-module-heading"><span>McKINSEY · ISSUE TREE</span><h3 id="workloadMapTitle">Workload-to-Memory Map</h3><p>WORKLOAD → BOTTLENECK → MEMORY FOCUS → DECISION</p></div>
             <div class="business-workload-matrix">
               <article><span>01 · TRAINING</span><h4>Large-scale Training</h4><dl><div><dt>BOTTLENECK</dt><dd>Bandwidth · Capacity · Accelerator Utilization</dd></div><div><dt>MEMORY FOCUS</dt><dd>HBM + RDIMM/MRDIMM + Checkpoint eSSD</dd></div><div><dt>DECISION</dt><dd>Generation · Capacity · Packaging · Qualification</dd></div></dl></article>
               <article><span>02 · INFERENCE</span><h4>Large-scale Inference</h4><dl><div><dt>BOTTLENECK</dt><dd>Token Throughput · Capacity · Power · Cost</dd></div><div><dt>MEMORY FOCUS</dt><dd>HBM + SOCAMM2/DRAM + CXL</dd></div><div><dt>DECISION</dt><dd>Tiering · Pooling · System TCO</dd></div></dl></article>
@@ -308,8 +317,8 @@
           <section class="business-memory-fabric" id="memory-fabric" aria-labelledby="memoryFabricTitle">
             <div class="business-module-heading business-module-heading--light">
               <span>FULL-STACK AI MEMORY · FMS 2026</span>
-              <h3 id="memoryFabricTitle">Memory Fabric — 제품 성능을 시스템 효율로 연결합니다.</h3>
-              <p>한 종류의 메모리로 모든 AI Workload를 처리하지 않습니다. 데이터의 온도·용량·재사용 패턴에 따라 계층을 배치하고 이동 비용을 최소화합니다.</p>
+              <h3 id="memoryFabricTitle">Memory Fabric · Three-Tier Architecture</h3>
+              <p>HOT · WARM · SCALE → Data Placement · Reuse · Movement Cost</p>
             </div>
             <div class="business-fabric-workloads" aria-label="AI 워크로드"><span>Training</span><span>Large-scale Inference</span><span>Agentic / Long Context</span><span>Physical AI</span></div>
             <div class="business-fabric-stack" aria-label="Full-Stack AI Memory 계층">
@@ -322,7 +331,7 @@
           </section>
 
           <section class="business-tco-module" aria-labelledby="tcoModuleTitle">
-            <div class="business-tco-intro"><span>SYSTEM TCO</span><h3 id="tcoModuleTitle">더 빠른 메모리가 아니라 더 나은 시스템 경제성을 판단합니다.</h3><p>HBM, CXL, HBF, eSSD를 Spec으로만 비교하지 않고 Data Temperature, GPU Idle, Power와 Cooling까지 포함한 Business Metric으로 평가합니다.</p></div>
+            <div class="business-tco-intro"><span>BCG · 2×2 VALUE MATRIX</span><h3 id="tcoModuleTitle">System Economics Portfolio</h3><p>X · Investment / Y · System Impact</p></div>
             <div class="business-tco-metrics"><article><strong>Performance<br />per Watt</strong><span>전력·냉각 포함 효율</span></article><article><strong>Performance<br />per Dollar</strong><span>시스템 투자 대비 처리량</span></article><article><strong>Token / Query<br />Economics</strong><span>서비스 단위 원가</span></article><article><strong>Total Cost of<br />Ownership</strong><span>CapEx + OpEx + Risk</span></article></div>
             <ul class="business-tco-questions"><li>어떤 데이터가 Hot / Warm / Cold인가?</li><li>GPU가 Memory Stall로 얼마나 Idle한가?</li><li>추가 HBM과 Tiering 중 어느 쪽이 유리한가?</li><li>Power·Cooling까지 포함하면 최적 Architecture는 무엇인가?</li></ul>
           </section>
@@ -330,11 +339,11 @@
         </div>
       </section>
 
-      <section class="business-section business-insights" id="insights">
+      <section class="business-section business-insights" id="insights" data-frame="ISSUE TREE · SO WHAT / NOW WHAT">
         <div class="business-container">
           <div class="business-section-heading business-section-heading--split">
-            <div><p class="business-kicker">Tech &amp; Market Insights</p><h2>AI 유행어를 Memory Requirement와<br />사업 의사결정으로 번역합니다.</h2></div>
-            <p>Model Architecture 자체보다 Memory Footprint, Data Reuse, KV Cache, Bandwidth, Capacity, Power와 TCO에 미치는 영향을 분석합니다.</p>
+            <div><p class="business-kicker">Tech-to-Business Translation</p><h2>Tech Change → Memory Implication → Business Question</h2></div>
+            <ul class="business-heading-points"><li>WHAT · Architecture Change</li><li>SO WHAT · Memory Footprint · Data Reuse</li><li>NOW WHAT · TCO · Qualification · Trigger</li></ul>
           </div>
           <div class="business-tech-decision-grid" id="llm-topics">
             <article>
@@ -366,8 +375,8 @@
           <section class="business-execution-evidence" id="execution-evidence" aria-labelledby="executionEvidenceTitle">
             <div class="business-module-heading business-module-heading--light">
               <span>2026 EXECUTION EVIDENCE</span>
-              <h3 id="executionEvidenceTitle">전략 언어를 제품·고객·실적의 검증 가능한 신호로 연결합니다.</h3>
-              <p>공식 발표, 공시 성격의 실적 자료와 외부 전망을 구분해 Decision Confidence를 표시합니다.</p>
+              <h3 id="executionEvidenceTitle">Evidence Ladder · Fact to Decision</h3>
+              <p>OFFICIAL → REPORTED → THIRD PARTY → HYPOTHESIS</p>
             </div>
             <div class="business-execution-evidence-grid">
               <article>
@@ -395,7 +404,7 @@
             <p class="business-evidence-caveat">2Q26 수치는 2026-07-29 발표된 잠정 연결 K-IFRS 기준입니다. +82%와 1/3은 회사 실적이 아닌 Goldman Sachs의 시장 전망이며, 고객별 공급·독점 계약을 뜻하지 않습니다.</p>
           </section>
           <article class="business-evidence-case" id="tco-evidence">
-            <div class="business-evidence-title"><span>CONFIRMED FACT + RECONSTRUCTED BUSINESS CASE</span><h3>HBF 표준화 추진 → AI Inference Memory Tier 가설</h3><p>공식 단계와 전략적 추론을 분리해 Signal을 Business Question과 검증 Action으로 전환합니다.</p></div>
+            <div class="business-evidence-title"><span>CONFIRMED FACT + RECONSTRUCTED BUSINESS CASE</span><h3>HBF 표준화 → Inference Memory Tier 가설</h3><p>FACT → IMPLICATION → QUESTION → ACTION</p></div>
             <dl><div><dt>SOURCE</dt><dd><a href="https://news.skhynix.com/sk-hynix-and-sandisk-begin-global-standardization-ofnext-generation-memory-hbf/" target="_blank" rel="noopener noreferrer">SK hynix·Sandisk HBF Standardization ↗</a></dd></div><div><dt>DATE</dt><dd>2026-02-26</dd></div><div><dt>CONFIDENCE</dt><dd><span class="business-confidence">Confirmed · Standardization</span></dd></div><div><dt>BUSINESS IMPLICATION</dt><dd>OCP Workstream을 통한 HBF 표준화가 시작됐으며, HBM과 SSD 사이의 Capacity·Power 간극을 겨냥.</dd></div><div><dt>DECISION QUESTION</dt><dd>어떤 KV Cache·Long-context Workload에서 HBF의 System TCO Advantage가 발생하는가?</dd></div><div><dt>RECOMMENDED ACTION</dt><dd>대표 LLM Serving Workload로 HBF·CXL·eSSD Tiering의 Latency, Throughput, Power와 TCO Benchmark를 구축.</dd></div></dl>
             <p>표준화 착수는 상용화 완료가 아닙니다. 사양, Interoperability, 성능·내구성, 고객 Qualification과 반복 발주를 별도 Gate로 검증합니다.</p>
           </article>
@@ -410,17 +419,17 @@
               <li><span>05</span><strong>Recheck</strong><small>Expiry gate · next scheduled run</small></li>
             </ol>
             <dl class="business-automation-metrics"><div><dt>Last verified update</dt><dd id="businessDataUpdated">확인 중</dd></div><div><dt>Next freshness gate</dt><dd id="businessDataExpiry">확인 중</dd></div><div><dt>Published datasets</dt><dd id="businessDataArtifacts">확인 중</dd></div><div><dt>Traceable run</dt><dd id="businessDataRun">확인 중</dd></div></dl>
-            <p>자동 수집 결과가 검증 Gate를 통과하지 못하면 새 데이터를 게시하지 않고 마지막 검증 Bundle을 유지합니다. 상세 출처·교차검증·판단 변경 Trigger는 Intelligence Console에서 확인합니다.</p>
+            <ul class="business-status-rules"><li>PASS · Verified Bundle 게시</li><li>FAIL · 신규 게시 중단</li><li>FALLBACK · Last Verified 유지</li><li>TRACE · Source · Cross-check · Trigger</li></ul>
           </aside>
         </div>
       </section>
 
-      <section class="business-section business-partners" id="partners">
+      <section class="business-section business-partners" id="partners" data-frame="ECOSYSTEM MAP · COMMERCIAL GATES">
         <div class="business-container">
           <div class="business-section-heading">
-            <p class="business-kicker">Partners &amp; Use Cases</p>
-            <h2>AI Infra Value Chain을 Co-Design과 검증 구조로 연결합니다.</h2>
-            <p>파트너의 이름이나 로고보다 Customer Problem, Technology Requirement, Collaboration Model, Business Value와 Strategic Implication을 분석합니다.</p>
+            <p class="business-kicker">Partner System · Value Chain</p>
+            <h2>Co-Design → Qualification → Ramp</h2>
+            <ul class="business-heading-points"><li>CUSTOMER · Pain Point</li><li>PARTNER · Technology Requirement</li><li>VALUE · Business Case · Strategic Implication</li></ul>
           </div>
           <article class="business-flagship-partnership" aria-labelledby="flagshipPartnershipTitle">
             <div class="business-flagship-head">
@@ -435,7 +444,7 @@
             </div>
             <div class="business-flagship-flow" aria-label="파트너십 실행 흐름"><span>NVIDIA DSX · Vera Rubin</span><i>→</i><span>SK hynix HBM4 · Next-gen Memory</span><i>→</i><span>LLM Training · Agentic · Physical AI</span><i>→</i><span>Supply · Qualification · Ramp</span></div>
             <div class="business-flagship-bottom">
-              <p><strong>STRATEGIC IMPLICATION</strong> 제품 공급 관계를 AI Factory Architecture, 장기 공급 안정성, Workload 최적화와 공동 Roadmap으로 확장하는 대표 모델입니다.</p>
+              <p><strong>STRATEGIC IMPLICATION</strong> Supply → AI Factory Architecture → Workload Optimization → Joint Roadmap</p>
               <a href="https://news.skhynix.com/en/skhynix-nvidia-partnership-2026/" target="_blank" rel="noopener noreferrer">Official Partnership Release ↗</a>
             </div>
             <p class="business-flagship-caveat">$500B+는 SK하이닉스 단독 계약액이나 확정 매출이 아니라 SK그룹–NVIDIA의 포괄 이니셔티브 규모입니다. 발표 시점의 LOI와 2027 가동 목표는 실행·인허가·공급 조건에 따라 달라질 수 있습니다.</p>
@@ -455,7 +464,7 @@
           <div class="business-collaboration-models"><span>Requirement Definition</span><span>Workload Benchmark</span><span>Memory Co-Design</span><span>PoC · Reference Architecture</span><span>Qualification</span><span>Capacity &amp; Ramp</span></div>
 
           <section class="business-deep-cases" id="deep-cases" aria-labelledby="deepCasesTitle">
-            <div class="business-case-heading"><span>THREE DEEP BUSINESS CASES</span><h3 id="deepCasesTitle">결론보다 검증 방법과 판단 변경 조건을 보여줍니다.</h3><p>세 사례 모두 HYPOTHESIS / MODELED이며 실제 고객 성과가 아닙니다. 고객 Trace와 합의된 Baseline으로 검증합니다.</p></div>
+            <div class="business-case-heading"><span>THREE DEEP BUSINESS CASES</span><h3 id="deepCasesTitle">Hypothesis → Test → Trigger → Decision</h3><ul class="business-inline-points"><li>STATUS · HYPOTHESIS / MODELED</li><li>VALIDATION · Customer Trace · Agreed Baseline</li><li>GATE · What Would Change My Mind?</li></ul></div>
             <div class="business-case-tabs" role="tablist" aria-label="Deep Business Case 선택">
               <button type="button" role="tab" aria-selected="true" data-deep-case="agentic">Agentic Inference</button>
               <button type="button" role="tab" aria-selected="false" data-deep-case="training">AI Factory Training</button>
@@ -483,29 +492,29 @@
         </div>
       </section>
 
-      <section class="business-section business-macro" id="macro">
+      <section class="business-section business-macro" id="macro" data-frame="BCG · 2×2 SCENARIO MATRIX">
         <div class="business-container">
           <div class="business-section-heading business-section-heading--split">
-            <div><p class="business-kicker">Macro &amp; Competitive Intelligence</p><h2>중국과 가격은 사이트의 중심이 아니라<br />AI Memory 의사결정의 입력 변수입니다.</h2></div>
-            <p>Global Competition, Supply Chain, Geopolitics와 Capacity Signal을 Customer Demand·Product Mix·Capacity Allocation·New Biz 우선순위로 번역합니다.</p>
+            <div><p class="business-kicker">External Context · Decision Input</p><h2>Signal Portfolio → Memory Decision</h2></div>
+            <ul class="business-heading-points"><li>DEMAND · Customer · Accelerator</li><li>SUPPLY · Capacity · Packaging · Pricing</li><li>RISK · Competition · Policy · Geopolitics</li></ul>
           </div>
           <div class="business-decision-inputs" aria-label="시장과 사업 의사결정 입력 변수"><span>Customer Demand</span><span>Accelerator Roadmap</span><span>Qualification Status</span><span>Memory Pricing</span><span>Capacity / Packaging</span><span>Policy / Geopolitics</span></div>
           <div class="business-macro-grid">
-            <article><span>01 · GLOBAL</span><h3>Global Memory Competition</h3><p>HBM, DRAM, NAND, Foundry, Packaging과 Equipment를 하나의 경쟁 시스템으로 분석합니다.</p><strong>Decision → Product mix · partner · capacity</strong></article>
-            <article><span>02 · CHINA</span><h3>China Memory &amp; Supply Chain</h3><p>중국 DRAM, NAND, Packaging, Equipment, Capacity와 Talent를 독립 축이 아닌 글로벌 경쟁구도의 한 변수로 봅니다.</p><strong>Decision → Risk scenario · allocation</strong></article>
-            <article><span>03 · POLICY</span><h3>Policy &amp; Geopolitics</h3><p>Export Control, Localization과 Supply Chain Regulation이 고객·공급·투자·제품 전략에 미치는 영향을 평가합니다.</p><strong>Decision → Customer · supply · investment</strong></article>
-            <article><span>04 · CAPACITY</span><h3>Capacity &amp; Investment Signals</h3><p>CapEx, Equipment Order, Packaging Capacity, Customer Qualification과 Supply Contract를 연결해 실제 공급 확대 가능성을 판단합니다.</p><strong>Decision → Timing · ramp · downside gate</strong></article>
+            <article><span>01 · HIGH IMPACT / HIGH CERTAINTY</span><h3>Customer &amp; Accelerator</h3><ul><li>Workload Demand · Qualification</li><li>Roadmap · Volume Signal</li></ul><strong>Decision → Product mix · capacity</strong></article>
+            <article><span>02 · HIGH IMPACT / LOW CERTAINTY</span><h3>Competition &amp; Supply Chain</h3><ul><li>Global · China · Packaging</li><li>Equipment · Capacity · Talent</li></ul><strong>Decision → Scenario · allocation</strong></article>
+            <article><span>03 · LOW IMPACT / LOW CERTAINTY</span><h3>Policy &amp; Geopolitics</h3><ul><li>Export Control · Localization</li><li>Customer · Supply · Investment Risk</li></ul><strong>Decision → Trigger · contingency</strong></article>
+            <article><span>04 · LOW IMPACT / HIGH CERTAINTY</span><h3>Pricing &amp; Capacity</h3><ul><li>CapEx · Equipment Order</li><li>Contract · Packaging · Ramp</li></ul><strong>Decision → Timing · downside gate</strong></article>
           </div>
           <div class="business-macro-action"><div><span>INTELLIGENCE PRINCIPLE</span><strong>Signal → Implication → Decision Question → Action</strong></div><p>가격과 뉴스의 개수보다 그 신호가 어떤 의사결정을 바꾸는지 보여줍니다.</p><button type="button" data-open-console>Open Decision Inputs ↗</button></div>
         </div>
       </section>
 
-      <section class="business-section business-about" id="role-fit">
+      <section class="business-section business-about" id="role-fit" data-frame="EXECUTIVE DECISION PACK">
         <div class="business-container business-about-grid">
           <div>
-            <p class="business-kicker">Career &amp; Role Fit</p>
-            <h2>AI 산업의 변화를<br />Memory Business 실행으로</h2>
-            <p>복잡한 기술·시장·고객 정보를 구조화하고, 고객 가치와 New Business Opportunity를 찾아 경영진이 선택하고 조직이 실행할 수 있는 Roadmap으로 전환합니다.</p>
+            <p class="business-kicker">Role Outputs · Repeatable Decisions</p>
+            <h2>Input → Insight → Executive Output</h2>
+            <ul class="business-heading-points"><li>INPUT · Technology · Market · Customer</li><li>INSIGHT · Pain Point · Opportunity · Risk</li><li>OUTPUT · Decision · Owner · KPI · Roadmap</li></ul>
             <div class="business-role-fit-grid"><article><strong>Strategic Problem Solving</strong><span>복잡한 이슈를 대안·Scenario·Trigger로 구조화</span></article><article><strong>Tech-Business Synthesis</strong><span>AI Architecture를 고객 가치와 수익 논리로 번역</span></article><article><strong>Market &amp; Tech Intelligence</strong><span>AI·반도체·Datacenter·Macro 변곡점 분석</span></article><article><strong>New Business Development</strong><span>Pain Point와 Technology Inflection을 사업모델로 연결</span></article><article><strong>AI Infra Execution Strategy</strong><span>Requirement부터 PoC·Qualification·Ramp까지 실행</span></article></div>
             <div class="business-role-outputs" aria-label="업무와 산출물 매핑">
               <article><span>MEMORY STRATEGY PLANNING</span><strong>Customer Diagnostic Report</strong><p>Workload Baseline · Bottleneck · Requirement Matrix</p></article>
@@ -515,8 +524,8 @@
           </div>
           <aside class="business-contact-card">
             <span>HOW I CREATE VALUE</span>
-            <h3>고객 Pain Point에서 시작해 Qualification과 Commercialization까지 연결합니다.</h3>
-            <p>Customer Diagnostic, Workload-to-Memory, System TCO, Co-Design, Business Case와 실행 Roadmap을 하나의 문법으로 다룹니다.</p>
+            <h3>Customer Pain → Commercial Gate</h3>
+            <ul><li>Customer Diagnostic · Workload-to-Memory</li><li>System TCO · Co-Design · Business Case</li><li>PoC · Qualification · Ramp Roadmap</li></ul>
             <div><a href="https://linkedin.com/in/dicacross" target="_blank" rel="noopener noreferrer">협업 문의 · LinkedIn ↗</a><button type="button" data-open-console>Intelligence Console ↗</button></div>
           </aside>
         </div>
@@ -1523,6 +1532,6 @@
   <div class="qa-answer" id="qaAnswer" hidden></div>
   <div class="inspector" id="inspector" hidden></div>
   <div class="backdrop" id="backdrop"></div>
-  <script src="assets/js/landing.js?v=infra-20260815-07" defer></script>
+  <script src="assets/js/landing.js?v=infra-20260815-08" defer></script>
 </body>
 </html>

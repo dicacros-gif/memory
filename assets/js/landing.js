@@ -3,7 +3,7 @@
 
   const BUSINESS_TITLE = "AI Infra Strategy OS · Workload to Revenue";
   const CONSOLE_HASH = "#console";
-  const CONSOLE_REVISION = "infra-20260815-07";
+  const CONSOLE_REVISION = "infra-20260815-08";
   const site = document.querySelector("#businessSite");
   const consoleLayer = document.querySelector("#intelligenceConsole");
   const header = document.querySelector("#businessHeader");
@@ -279,8 +279,12 @@
 
   function setupReveal() {
     const candidates = document.querySelectorAll([
+      ".business-hero-visual",
       ".business-section-heading",
+      ".business-heading-points",
       ".business-initiative-grid > article",
+      ".business-initiative-foundation",
+      ".business-quality-thesis",
       ".business-competency-card",
       ".business-strategy-chain > li",
       ".business-pain-framework",
@@ -301,6 +305,7 @@
       ".business-role-fit-grid > article",
       ".business-role-outputs > article",
       ".business-data-status",
+      ".business-status-rules",
       ".business-about-card",
     ].join(","));
     if (!("IntersectionObserver" in window)) {
@@ -320,12 +325,31 @@
     }
   }
 
+  function setupInfographicSequence() {
+    const groups = document.querySelectorAll([
+      ".business-initiative-grid",
+      ".business-competency-grid",
+      ".business-strategy-chain",
+      ".business-strategy-artifact",
+      ".business-workload-matrix",
+      ".business-tech-decision-grid",
+      ".business-execution-evidence-grid",
+      ".business-automation-flow",
+      ".business-partnership-types",
+      ".business-role-outputs",
+    ].join(","));
+    for (const group of groups) {
+      [...group.children].forEach((item, index) => item.style.setProperty("--sequence-index", String(index)));
+    }
+  }
+
   function setupBusinessExperience() {
     if (businessReady) return;
     businessReady = true;
     setupAudienceTabs();
     setupPainPointFramework();
     setupDeepCases();
+    setupInfographicSequence();
     setupReveal();
     void updateDataStatus();
   }
