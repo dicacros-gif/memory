@@ -103,21 +103,31 @@ const businessNavLabels = [...html.matchAll(/<nav class="business-nav"[\s\S]*?<\
   .flatMap((match) => [...match[0].matchAll(/<a href="#[^"]+">([^<]+)<\/a>/g)].map((link) => link[1]));
 assert.deepEqual(businessNavLabels, [
   "Home",
-  "AI Strategy &amp; Execution",
-  "Business Strategy &amp; Solutions",
-  "Tech &amp; Market Insights",
-  "Partners &amp; Clients",
-  "About &amp; Contact",
-], "the public site must expose the six-section business information architecture");
+  "Strategy",
+  "Solutions",
+  "Tech &amp; Market",
+  "Partners &amp; Cases",
+  "Macro Intel",
+  "Role Fit",
+], "the public site must expose the AI Infra strategy information architecture");
 assert.match(html, /id="intelligenceConsole" hidden/, "the Intelligence Console must stay outside the initial visible layer");
 assert.doesNotMatch(html, /<script[^>]+src="assets\/js\/app\.js/, "the heavy console app must not load with the public landing page");
 assert.doesNotMatch(html, /<link[^>]+href="assets\/css\/styles\.css/, "the heavy console stylesheet must not load with the public landing page");
-assert.match(html, /assets\/js\/landing\.js\?v=business-20260815-01/, "the lightweight landing controller must use the business revision");
+assert.match(html, /assets\/js\/landing\.js\?v=infra-20260815-02/, "the lightweight landing controller must use the AI Infra revision");
 assert.match(landing, /function loadConsole\(\)[\s\S]*?assets\/js\/app\.js\?v=\$\{CONSOLE_REVISION\}/, "the console app must load only after an explicit console request");
 assert.match(landing, /assets\/css\/styles\.css\?v=\$\{CONSOLE_REVISION\}/, "console-only styling must load on demand");
 assert.match(landing, /nav\?\.classList\.toggle\("is-open", open\)/, "the mobile menu controller must activate the responsive navigation state");
 assert.match(landing, /fetch\("data\/data-manifest\.json", \{ cache: "no-store" \}\)/, "the business site must disclose current manifest freshness");
-assert.match(html, /ILLUSTRATIVE CASE 01[\s\S]*?ILLUSTRATIVE CASE 03/, "non-client examples must be labeled as illustrative cases");
+assert.match(html, /PUBLIC CASE RECONSTRUCTION[\s\S]*?HYPOTHETICAL STRATEGY CASE/, "public facts and strategy simulations must use explicit case labels");
+assert.match(html, /id="pain-framework"[\s\S]*?Customer Pain Point Framework[\s\S]*?data-framework="edge"/, "the landing must provide a customer-selectable pain-point diagnostic");
+assert.match(landing, /function setupPainPointFramework\(\)[\s\S]*?data-framework-panel/, "the pain-point diagnostic must switch customer-specific panels");
+assert.match(html, /Customer Pain Point[\s\S]*?AI Workload[\s\S]*?System Bottleneck[\s\S]*?Memory Requirement[\s\S]*?Qualification &amp; Ramp[\s\S]*?Executive Decision \/ KPI/, "the public strategy chain must connect diagnosis to execution");
+assert.match(html, /id="workload-map"[\s\S]*?Large-scale Training[\s\S]*?Long-context \/ Agentic AI[\s\S]*?Physical AI/, "the representative workload-to-memory map must cover five workload families");
+assert.match(html, /Performance[\s\S]*?per Watt[\s\S]*?Token \/ Query[\s\S]*?Total Cost of/, "technology options must connect to system-economics metrics");
+assert.match(html, /id="macro"[\s\S]*?China Memory &amp; Supply Chain[\s\S]*?Policy &amp; Geopolitics/, "China and policy must remain subordinate macro decision inputs");
+assert.match(html, /id="role-fit"[\s\S]*?Strategic Problem Solving[\s\S]*?AI Infra Execution Strategy/, "the portfolio must make role fit and execution capabilities explicit");
+assert.match(html, /https:\/\/news\.skhynix\.com\/en\/hbf-at-fms-2026\//, "the HBF evidence case must link to the official primary source");
+assert.doesNotMatch(html, /Prompt Engineering/, "prompt engineering must not appear as a top-level AI memory theme");
 assert.match(html, /aria-label="Evidence Search"/, "the console evidence field must not imply unsupported generative Q&A");
 assert.match(landingCss, /\.business-reveal[\s\S]*?\.business-reveal\.is-visible/, "business sections should progressively reveal without blocking layout");
 

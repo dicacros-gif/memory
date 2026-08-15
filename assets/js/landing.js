@@ -1,9 +1,9 @@
 (() => {
   "use strict";
 
-  const BUSINESS_TITLE = "Memory Intelligence · AI Strategy & Execution";
+  const BUSINESS_TITLE = "Memory Intelligence · AI Memory Strategy & Execution";
   const CONSOLE_HASH = "#console";
-  const CONSOLE_REVISION = "business-20260815-01";
+  const CONSOLE_REVISION = "infra-20260815-02";
   const site = document.querySelector("#businessSite");
   const consoleLayer = document.querySelector("#intelligenceConsole");
   const header = document.querySelector("#businessHeader");
@@ -201,16 +201,34 @@
     }
   }
 
+  function setupPainPointFramework() {
+    const tabs = [...document.querySelectorAll("[data-framework]")];
+    const panels = [...document.querySelectorAll("[data-framework-panel]")];
+    for (const tab of tabs) {
+      tab.addEventListener("click", () => {
+        const customer = tab.dataset.framework;
+        for (const item of tabs) item.setAttribute("aria-selected", String(item === tab));
+        for (const panel of panels) panel.hidden = panel.dataset.frameworkPanel !== customer;
+      });
+    }
+  }
+
   function setupReveal() {
     const candidates = document.querySelectorAll([
       ".business-section-heading",
       ".business-competency-card",
-      ".business-execution-steps > li",
-      ".business-horizon-card",
+      ".business-strategy-chain > li",
+      ".business-pain-framework",
       ".business-solution-card",
+      ".business-workload-matrix > article",
+      ".business-tco-module",
+      ".business-execution-roadmap",
       ".business-report-grid > article",
+      ".business-evidence-case",
       ".business-partner-map",
       ".business-case-card",
+      ".business-macro-grid > article",
+      ".business-role-fit-grid > article",
       ".business-about-card",
     ].join(","));
     if (!("IntersectionObserver" in window)) {
@@ -259,6 +277,7 @@
   }, { passive: true });
 
   setupAudienceTabs();
+  setupPainPointFramework();
   setupReveal();
   void updateDataStatus();
   if (location.hash === CONSOLE_HASH) void openConsole({ updateHistory: false });
