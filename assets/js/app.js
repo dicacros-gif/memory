@@ -2143,6 +2143,8 @@
   let HISTORY = emptyHistory;
   let MARKET_HISTORY = emptyMarketHistory;
   let MARKET_HISTORY_ITEMS_CACHE = { source: null, items: [] };
+  let BACKTEST_YEAR_OPTIONS_CACHE = { history: null, market: null, options: [] };
+  let BACKTEST_CLOSE_CACHE = { history: null, market: null, values: new Map() };
   let QUANT_BACKTEST = emptyQuantBacktest;
   let COMPANY_INTELLIGENCE = { schemaVersion: "1.0", profiles: {} };
   let DATA_MANIFEST = null;
@@ -5283,6 +5285,7 @@
   }
 
   const secondaryDataPromises = new Map();
+  const secondaryDataReady = new Set();
   const deferredSectionRuns = new Map();
   const deferredRenderedSections = new Set(["overview", "overview-content"]);
   let priceBoardPreloadStarted = false;
@@ -5292,7 +5295,13 @@
     return [
       { id: "strategy-consulting", render: renderStrategyConsulting },
       { id: "c-level-cockpit", render: renderCLevelCockpit },
-      { id: "executive-decision", render: renderExecutiveDecision, data: ["priceHistory", "marketHistory", "quantBacktest"] },
+      {
+        id: "executive-decision",
+        render: renderExecutiveDecision,
+        data: ["decisionHistory"],
+        selfAnimates: true,
+        normalize: false,
+      },
       { id: "prices", render: renderPrices, data: ["priceHistory", "marketHistory"] },
       { id: "news", render: renderNews },
       { id: "numbers", render: renderNumberAnalysis },
@@ -5324,6 +5333,32 @@
         schemaVersion: "1.0",
         assign: (value) => { QUANT_BACKTEST = selectSameRunArtifact(value, emptyQuantBacktest, "1.0"); },
       },
+      decisionHistory: {
+        path: "data/decision-history-client.json",
+        fallback: {
+          schemaVersion: "1.0",
+          clientArtifact: true,
+          priceHistory: emptyHistory,
+          marketHistory: emptyMarketHistory,
+          quantBacktest: emptyQuantBacktest,
+        },
+        schemaVersion: "1.0",
+        assign: (value) => {
+          const bundle = selectSameRunArtifact(value, null, "1.0");
+          if (!bundle) return;
+          // A full history request may already be ready because another board
+          // was opened first. Never replace that richer dataset with a subset.
+          if (!secondaryDataReady.has("priceHistory")) {
+            HISTORY = selectSameRunArtifact(bundle.priceHistory, emptyHistory, "2.0");
+          }
+          if (!secondaryDataReady.has("marketHistory")) {
+            MARKET_HISTORY = selectSameRunArtifact(bundle.marketHistory, emptyMarketHistory, "2.0");
+          }
+          if (!secondaryDataReady.has("quantBacktest")) {
+            QUANT_BACKTEST = selectSameRunArtifact(bundle.quantBacktest, emptyQuantBacktest, "1.0");
+          }
+        },
+      },
       enterpriseProfiles: {
         path: "data/company-intelligence.json",
         fallback: { schemaVersion: "1.0", profiles: {} },
@@ -5340,7 +5375,10 @@
     const promise = (definition.managed === false
       ? loadJSON(definition.path, definition.fallback)
       : loadManagedJSON(id, definition.path, definition.fallback))
-      .then((value) => definition.assign(value));
+      .then((value) => {
+        definition.assign(value);
+        secondaryDataReady.add(id);
+      });
     secondaryDataPromises.set(id, promise);
     return promise;
   }
@@ -5379,6 +5417,35 @@
     });
   }
 
+  let decisionHistoryPreloadStarted = false;
+
+  function prewarmDecisionHistory() {
+    if (decisionHistoryPreloadStarted) return loadSecondaryData(["decisionHistory"]);
+    decisionHistoryPreloadStarted = true;
+    const board = $("#executive-decision");
+    if (board) board.dataset.decisionPreload = "loading";
+    return loadSecondaryData(["decisionHistory"]).then(() => {
+      if (board) board.dataset.decisionPreload = "ready";
+    }).catch(() => {
+      if (board) board.dataset.decisionPreload = "fallback";
+    });
+  }
+
+  function setupDecisionHistoryPreload() {
+    const start = () => { void prewarmDecisionHistory(); };
+    $$('[data-jump="executive-decision"]').forEach((target) => {
+      target.addEventListener("pointerenter", start, { once: true, passive: true });
+      target.addEventListener("pointerdown", start, { once: true, passive: true });
+      target.addEventListener("focusin", start, { once: true });
+    });
+    const schedule = () => {
+      if ("requestIdleCallback" in window) window.requestIdleCallback(start, { timeout: 2200 });
+      else window.setTimeout(start, 700);
+    };
+    if (document.readyState === "complete") schedule();
+    else window.addEventListener("load", schedule, { once: true });
+  }
+
   function deferredDefinition(id) {
     return deferredSectionDefinitions().find((item) => item.id === id) || null;
   }
@@ -5394,14 +5461,20 @@
       deferredSectionObserver?.unobserve(section);
       section.dataset.deferredState = "loading";
       section.setAttribute("aria-busy", "true");
+      const dataStartedAt = performance.now();
       if (definition.data?.length) await loadSecondaryData(definition.data);
+      section.dataset.deferredDataMs = String(Math.round(performance.now() - dataStartedAt));
+      const renderStartedAt = performance.now();
       definition.render();
+      section.dataset.deferredRenderMs = String(Math.round(performance.now() - renderStartedAt));
       deferredRenderedSections.add(id);
       section.dataset.deferredState = "ready";
       section.removeAttribute("aria-busy");
-      normalizeBriefCopy(section);
-      animateCounts(section);
-      animateMeters(section);
+      if (definition.normalize !== false) normalizeBriefCopy(section);
+      if (!definition.selfAnimates) {
+        animateCounts(section);
+        animateMeters(section);
+      }
       updateDeferredHydrationStatus();
       scheduleScrollSpyGeometryRefresh();
     })().catch((error) => {
@@ -5471,6 +5544,7 @@
     document.body.dataset.deferredHydrationTotal = String(sections.length);
     updateDeferredHydrationStatus();
     setupPriceBoardPreload();
+    setupDecisionHistoryPreload();
     observeDeferredSections(definitions);
     // The strategy board is the first content after the hero and has no secondary
     // data dependency, so make it ready immediately while every deep section waits.
@@ -12577,25 +12651,29 @@
                 ${ev.momentum ? `<span class="sc-mom ${ev.momentum.dir}">${escapeHTML(ev.momentum.kind)} ${ev.momentum.pct > 0 ? "+" : ""}${fmtNum(ev.momentum.pct, 1)}%</span>` : ""}
               </div>
             </div>
-            <div class="sc-step sc-pain"><span>CUSTOMER · JTBD</span><small>${escapeHTML(lens.customer)}</small><strong>${strategicHighlightHTML(lens.pain)}</strong></div>
-            <div class="sc-workload">
-              <span class="sc-wl-name">WORKLOAD TRANSLATION · ${escapeHTML(lens.workload.name)}</span>
-              <div class="sc-wl-row"><b>HW</b><span>${escapeHTML(lens.workload.hw)}</span></div>
-              <div class="sc-wl-row"><b>SW</b><span>${escapeHTML(lens.workload.sw)}</span></div>
+            <div class="sc-case-thesis">
+              <span>CUSTOMER · JTBD</span>
+              <small>${escapeHTML(lens.customer)}</small>
+              <strong>${strategicHighlightHTML(lens.pain)}</strong>
             </div>
-            <div class="sc-strategy-pair">
-              <div class="sc-step sc-solution"><span>HOW TO WIN · MEMORY OFFER</span><p>${strategicHighlightHTML(lens.solution)}</p></div>
-              <div class="sc-step sc-opportunity"><span>WHERE TO PLAY · BIZ MODEL</span><p>${strategicHighlightHTML(lens.opportunity)}</p></div>
-            </div>
-            <div class="sc-proof-grid">
-              <div><span>VALUE KPI</span><p>${escapeHTML(lens.valueMetric)}</p></div>
-              <div><span>RIGHT TO WIN</span><p>${escapeHTML(lens.rightToWin)}</p></div>
-            </div>
-            <div class="sc-gate">
-              <span>STAGE-GATE QUESTION</span>
-              <strong>${escapeHTML(lens.gate)}</strong>
-              <p><b>90D ACTION</b> ${escapeHTML(lens.nextAction)}</p>
-            </div>
+            <ol class="sc-card-flow" aria-label="JTBD에서 90일 실행 게이트까지">
+              <li class="sc-map-node sc-workload" data-step="01">
+                <span class="sc-wl-name">INPUT · ${escapeHTML(lens.workload.name)}</span>
+                <div class="sc-wl-row"><b>HW</b><span>${escapeHTML(lens.workload.hw)}</span></div>
+                <div class="sc-wl-row"><b>SW</b><span>${escapeHTML(lens.workload.sw)}</span></div>
+              </li>
+              <li class="sc-map-node sc-opportunity" data-step="02"><span>WHERE TO PLAY</span><p>${strategicHighlightHTML(lens.opportunity)}</p></li>
+              <li class="sc-map-node sc-solution" data-step="03"><span>HOW TO WIN</span><p>${strategicHighlightHTML(lens.solution)}</p></li>
+              <li class="sc-map-node sc-proof-grid" data-step="04">
+                <div><span>VALUE KPI</span><p>${escapeHTML(lens.valueMetric)}</p></div>
+                <div><span>RIGHT TO WIN</span><p>${escapeHTML(lens.rightToWin)}</p></div>
+              </li>
+              <li class="sc-map-node sc-gate" data-step="05">
+                <span>DECISION GATE</span>
+                <strong>${escapeHTML(lens.gate)}</strong>
+                <p><b>90D ACTION</b> ${escapeHTML(lens.nextAction)}</p>
+              </li>
+            </ol>
             ${ev.trends.length ? `<div class="sc-trends">${ev.trends.map((t) => `<button type="button" class="sc-trend" data-trend-term="${escapeHTML(t.term)}">${escapeHTML(t.term)}<b>${fmtNum(t.count)}</b></button>`).join("")}</div>` : ""}
             ${ev.items.length ? `
               <ul class="sc-evidence-list">
@@ -14273,6 +14351,12 @@
   }
 
   function backtestYearOptions() {
+    const historySource = HISTORY?.items || null;
+    const marketSource = MARKET_HISTORY?.indexes || null;
+    if (BACKTEST_YEAR_OPTIONS_CACHE.history === historySource
+      && BACKTEST_YEAR_OPTIONS_CACHE.market === marketSource) {
+      return BACKTEST_YEAR_OPTIONS_CACHE.options;
+    }
     // Real crawled history at month granularity → past decision points expand
     // automatically as the evidence history accumulates price-history (no fabrication).
     const months = new Map();
@@ -14289,13 +14373,15 @@
         months.set(key, current);
       });
     });
-    return Array.from(months.values())
+    const options = Array.from(months.values())
       .sort((a, b) => a.firstTime - b.firstTime)
       .map((item) => ({
         ...item,
         label: `${item.year}년 ${item.month}월`,
         benchmarkIso: new Date(item.firstTime).toISOString(),
       }));
+    BACKTEST_YEAR_OPTIONS_CACHE = { history: historySource, market: marketSource, options };
+    return options;
   }
 
   function activeBacktestHorizon() {
@@ -14318,10 +14404,19 @@
   function backtestOptionCanClose(option, horizon = activeBacktestHorizon()) {
     const target = addUtcYears(option?.firstTime || 0, horizon.years);
     if (!target) return false;
-    return allBacktestHistoryItems().some((series) => (series.points || []).some((point) => {
+    const historySource = HISTORY?.items || null;
+    const marketSource = MARKET_HISTORY?.indexes || null;
+    if (BACKTEST_CLOSE_CACHE.history !== historySource || BACKTEST_CLOSE_CACHE.market !== marketSource) {
+      BACKTEST_CLOSE_CACHE = { history: historySource, market: marketSource, values: new Map() };
+    }
+    const key = `${horizon.id}:${target}`;
+    if (BACKTEST_CLOSE_CACHE.values.has(key)) return BACKTEST_CLOSE_CACHE.values.get(key);
+    const canClose = allBacktestHistoryItems().some((series) => (series.points || []).some((point) => {
       const time = pointTime(point);
       return time >= target && time - target <= horizon.endToleranceDays * 864e5;
     }));
+    BACKTEST_CLOSE_CACHE.values.set(key, canClose);
+    return canClose;
   }
 
   function backtestOptionStatus(option, horizon = activeBacktestHorizon()) {
@@ -20442,18 +20537,25 @@
     // was selected.  This keeps the left tab and the right content in sync
     // without waiting for unrelated deferred sections.
     syncSidebarRoute(id, { pending: true, reveal: true });
-    await ensureDeferredSection(id);
-    if (token !== jumpNavigationToken) return;
     document.body.classList.remove("menu-open");
-    refreshScrollSpyGeometry();
 
     const alignTarget = () => {
       const y = Math.max(0, target.getBoundingClientRect().top + window.scrollY - chromeOffset());
       window.scrollTo({ top: y, behavior: "auto" });
     };
 
+    // Move to the reserved framework shell immediately. Previously navigation
+    // waited for multi-megabyte history data, leaving the active tab in a
+    // pending state for several seconds and producing a late layout shift.
     alignTarget();
     await new Promise((resolve) => requestAnimationFrame(resolve));
+    if (token !== jumpNavigationToken) return;
+
+    await ensureDeferredSection(id);
+    if (token !== jumpNavigationToken) return;
+    refreshScrollSpyGeometry();
+
+    alignTarget();
     await new Promise((resolve) => requestAnimationFrame(() => requestAnimationFrame(resolve)));
     if (token !== jumpNavigationToken) return;
 

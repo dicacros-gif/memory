@@ -27402,3 +27402,427 @@ button.ni-trend-chip:hover { box-shadow: 0 4px 12px color-mix(in srgb, #0891B2 2
   .console-evidence-ladder > div:nth-child(2n) { border-right: 0; }
   .console-evidence-ladder > div:nth-child(-n + 2) { border-bottom: 1px solid rgba(255, 255, 255, .08); }
 }
+
+/* -------------------------------------------------------------------
+   2026-08-15 · Executive consulting geometry system
+   Flat evidence architecture: no AI glow, gradient highlight, or colored
+   top/bottom rails. Color is reserved for small labels and decision state.
+   ------------------------------------------------------------------- */
+.consulting-system #main > :is(.board, .memory-visual-story, .memory-scroll-story) {
+  content-visibility: auto;
+  contain-intrinsic-size: auto 920px;
+}
+
+.consulting-system #main > .board {
+  border-radius: 2px;
+  background: var(--panel);
+  box-shadow: none;
+}
+
+.consulting-system #main > .board > .board-head {
+  border-bottom: 2px solid var(--ink);
+}
+
+.consulting-system :is(.board-control-row button, .decision-card, .decision-flip-card) {
+  box-shadow: none;
+}
+
+.consulting-system .board-control-row button:is(:hover, .active),
+.consulting-system .decision-card:is(:hover, :focus-visible, .active),
+.consulting-system .decision-flip-card:is(:hover, :focus-within) {
+  transform: none;
+  background: var(--panel);
+  box-shadow: none;
+}
+
+.consulting-system .decision-flip-card::before { display: none; }
+.consulting-system .decision-flip-card:is(:hover, :focus-within) :is(span, strong, p, em) { color: inherit; }
+.consulting-system .decision-flip-card:is(:hover, :focus-within) em { background: transparent; }
+
+/* Replace decorative donut charts with a compact consulting score tile. */
+.consulting-system .score-ring,
+.consulting-system .score-ring.compact,
+.consulting-system .score-ring.tiny {
+  width: 54px;
+  height: 54px;
+  border: 1px solid var(--line);
+  border-left: 4px solid var(--ink);
+  border-radius: 2px;
+  background: var(--panel);
+  box-shadow: none;
+}
+
+.consulting-system .score-ring::after {
+  content: "SCORE";
+  position: absolute;
+  inset: auto 5px 5px;
+  color: var(--muted);
+  font: 800 6px/1 var(--mono, monospace);
+  letter-spacing: .12em;
+  text-align: center;
+}
+
+.consulting-system .score-ring small {
+  position: static;
+  color: var(--muted);
+  font-size: 6.5px;
+}
+
+.consulting-system .metric-motion-active .score-ring,
+.consulting-system .score-ring.metric-motion-active {
+  filter: none;
+  box-shadow: none;
+}
+
+/* Strategy consulting: one horizontal decision map per opportunity. */
+.consulting-system .strategy-consulting-board::before { display: none; }
+
+.consulting-system .sc-framework {
+  border: 1px solid var(--line);
+  border-left: 5px solid var(--ink);
+  border-radius: 2px;
+  background: var(--panel);
+  box-shadow: none;
+}
+
+.consulting-system .sc-framework-steps {
+  border-radius: 2px;
+  background: transparent;
+}
+
+.consulting-system .sc-framework-steps li {
+  background: var(--panel);
+}
+
+.consulting-system .sc-framework-steps li::before {
+  content: "";
+  position: absolute;
+  inset: 0 auto 0 0;
+  width: 3px;
+  background: var(--ink);
+  opacity: calc(.18 + var(--sequence-index, 0) * .06);
+}
+
+.consulting-system .sc-framework-steps li:not(:last-child)::after {
+  border: 0;
+  border-radius: 0;
+  background: var(--panel);
+  color: var(--ink);
+}
+
+.consulting-system .sc-grid {
+  grid-template-columns: minmax(0, 1fr);
+  gap: 14px;
+}
+
+.consulting-system .sc-card {
+  gap: 12px;
+  overflow: hidden;
+  border: 1px solid var(--line);
+  border-top: 1px solid var(--line);
+  border-radius: 2px;
+  background: var(--panel);
+  box-shadow: none;
+  transition: border-color .15s ease;
+}
+
+.consulting-system .sc-card:hover {
+  transform: none;
+  border-color: color-mix(in srgb, var(--ink) 46%, var(--line));
+  box-shadow: none;
+}
+
+.consulting-system .sc-card-rank > b,
+.consulting-system .sc-evidence,
+.consulting-system .sc-mom,
+.consulting-system .sc-trend {
+  border: 1px solid var(--line);
+  border-radius: 2px;
+  background: transparent;
+  color: var(--ink-2);
+}
+
+.consulting-system .sc-evidence {
+  border-color: var(--ink);
+  color: var(--ink);
+}
+
+.consulting-system .sc-card .strategy-highlight {
+  border: 0;
+  background: transparent;
+  box-shadow: none;
+  color: inherit;
+  text-decoration: none;
+  -webkit-text-fill-color: currentColor;
+}
+
+.consulting-system .sc-case-thesis {
+  display: grid;
+  grid-template-columns: 122px minmax(170px, .45fr) minmax(0, 1fr);
+  gap: 14px;
+  align-items: center;
+  padding: 10px 14px;
+  border: 1px solid var(--ink);
+  background: var(--panel);
+}
+
+.consulting-system .sc-case-thesis > span {
+  color: var(--ink);
+  font: 900 9px/1 var(--display, sans-serif);
+  letter-spacing: .12em;
+}
+
+.consulting-system .sc-case-thesis small {
+  color: var(--ink-2);
+  font-size: 10px;
+  font-weight: 760;
+}
+
+.consulting-system .sc-case-thesis strong {
+  border-left: 1px solid var(--line);
+  padding-left: 14px;
+  color: var(--ink);
+  font-size: 14px;
+  line-height: 1.42;
+}
+
+.consulting-system .sc-card-flow {
+  display: grid;
+  grid-template-columns: 1.18fr 1fr 1fr 1.14fr 1.24fr;
+  gap: 6px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.consulting-system .sc-map-node {
+  position: relative;
+  display: grid;
+  align-content: start;
+  gap: 6px;
+  min-width: 0;
+  min-height: 132px;
+  padding: 12px 14px 12px 16px;
+  border: 1px solid var(--line);
+  border-radius: 0;
+  background: var(--panel);
+}
+
+.consulting-system .sc-map-node::before {
+  content: attr(data-step);
+  color: color-mix(in srgb, var(--ink) 28%, var(--panel));
+  font: 900 25px/1 var(--display, sans-serif);
+}
+
+.consulting-system .sc-map-node:not(:last-child)::after {
+  content: "";
+  position: absolute;
+  z-index: 2;
+  top: 50%;
+  right: -7px;
+  width: 12px;
+  height: 12px;
+  border-top: 1px solid var(--ink);
+  border-right: 1px solid var(--ink);
+  background: var(--panel);
+  transform: translateY(-50%) rotate(45deg);
+}
+
+.consulting-system .sc-map-node > span,
+.consulting-system .sc-map-node .sc-wl-name,
+.consulting-system .sc-map-node .sc-proof-grid span,
+.consulting-system .sc-map-node.sc-gate > span {
+  margin: 0;
+  color: var(--ink);
+  font: 900 8px/1.2 var(--display, sans-serif);
+  letter-spacing: .1em;
+}
+
+.consulting-system .sc-map-node p,
+.consulting-system .sc-map-node strong,
+.consulting-system .sc-map-node .sc-wl-row span {
+  color: var(--ink-2);
+  font-size: 10.5px;
+  font-weight: 680;
+  line-height: 1.48;
+}
+
+.consulting-system .sc-map-node.sc-workload,
+.consulting-system .sc-map-node.sc-gate,
+.consulting-system .sc-map-node.sc-proof-grid {
+  border-left: 1px solid var(--line);
+  background: var(--panel);
+}
+
+.consulting-system .sc-map-node.sc-proof-grid {
+  grid-template-columns: 1fr;
+}
+
+.consulting-system .sc-map-node.sc-proof-grid > div {
+  padding: 0;
+  border: 0;
+  background: transparent;
+}
+
+.consulting-system .sc-map-node.sc-gate strong { color: var(--ink); }
+.consulting-system .sc-map-node.sc-gate p b { color: var(--ink); }
+.consulting-system .sc-evidence-list { border-top: 1px solid var(--line); padding-top: 8px; }
+.consulting-system .sc-evidence-list li:hover { background: var(--panel-2); }
+
+/* Technology & Memory: reserve the destination, then replace it with the
+   evidence board without a late page jump. */
+#executive-decision[data-deferred-state="waiting"],
+#executive-decision[data-deferred-state="loading"] {
+  min-height: calc(100vh - var(--topbar-h) - 28px);
+  content-visibility: visible;
+}
+
+.decision-loading-framework {
+  display: none;
+  grid-template-columns: repeat(4, minmax(0, 1fr) 26px) minmax(0, 1fr);
+  align-items: stretch;
+  min-height: 180px;
+  margin-top: 18px;
+}
+
+#executive-decision:is([data-deferred-state="waiting"], [data-deferred-state="loading"]) .decision-loading-framework {
+  display: grid;
+}
+
+.consulting-system #executive-decision #execDecisionRunCouncil,
+.consulting-system #executive-decision .decision-agent-controls select,
+.consulting-system #executive-decision .chip.accent {
+  color: var(--ink);
+  background: transparent;
+  border: 1px solid var(--ink);
+  box-shadow: none;
+  text-shadow: none;
+}
+
+.consulting-system #executive-decision #execDecisionRunCouncil:hover,
+.consulting-system #executive-decision #execDecisionRunCouncil:focus-visible {
+  color: var(--panel);
+  background: var(--ink);
+  transform: none;
+  box-shadow: none;
+}
+
+#executive-decision:is([data-deferred-state="waiting"], [data-deferred-state="loading"]) :is(.decision-summary, .decision-layout, .decision-evidence) {
+  display: none;
+}
+
+.decision-loading-framework span {
+  display: grid;
+  align-content: center;
+  gap: 12px;
+  padding: 20px;
+  border: 1px solid var(--line);
+  color: var(--ink);
+  font: 900 12px/1.2 var(--display, sans-serif);
+  letter-spacing: .08em;
+  text-align: center;
+}
+
+.decision-loading-framework span b {
+  color: var(--muted);
+  font-size: 28px;
+}
+
+.decision-loading-framework i {
+  display: grid;
+  place-items: center;
+  color: var(--ink);
+  font: 900 18px/1 sans-serif;
+}
+
+.consulting-system .executive-decision-board {
+  border-color: var(--line);
+  background: var(--panel);
+}
+
+.consulting-system :is(.decision-stat, .decision-panel, .decision-focus, .decision-card, .decision-evidence, .decision-control) {
+  border-radius: 2px;
+  background: var(--panel);
+  box-shadow: none;
+}
+
+.consulting-system .decision-card.active {
+  border: 1px solid var(--ink) !important;
+  border-left-width: 4px !important;
+  background: var(--panel);
+}
+
+.consulting-system #executive-decision .decision-panel {
+  border-color: var(--line) !important;
+}
+
+.consulting-system #executive-decision .decision-card em,
+.consulting-system #executive-decision .agent-debate-title span {
+  color: var(--ink-2);
+}
+
+.consulting-system #executive-decision .focus-actions button {
+  color: var(--ink);
+  background: transparent;
+  border: 1px solid var(--ink);
+  box-shadow: none;
+}
+
+.consulting-system #executive-decision .focus-actions button:hover,
+.consulting-system #executive-decision .focus-actions button:focus-visible {
+  color: var(--panel);
+  background: var(--ink);
+  transform: none;
+  box-shadow: none;
+}
+
+.consulting-system :is(.decision-card-metrics span, .decision-verdict, .decision-outcome, .decision-flip-kpis) {
+  border-radius: 2px;
+  background: transparent;
+  box-shadow: none;
+}
+
+.consulting-system .decision-focus {
+  border-top: 3px solid var(--ink);
+}
+
+.consulting-system #executive-decision .agent-debate {
+  border: 1px solid var(--line);
+  border-left: 4px solid var(--ink);
+  border-radius: 2px;
+  background: var(--panel) !important;
+  box-shadow: none;
+}
+
+.consulting-system #executive-decision .agent-debate::before { display: none; }
+.consulting-system #executive-decision .agent-debate :is(.agent-selected-brief, .scenario-brief, .agent-debate-metrics > div, .agent-waiting, .agent-conclusion) {
+  border-radius: 2px;
+  background: transparent;
+  box-shadow: none;
+}
+
+.consulting-system #executive-decision .agent-debate :is(strong, p, small, span, label) {
+  text-shadow: none;
+}
+
+@media (max-width: 1180px) {
+  .consulting-system .sc-framework-steps li::after { display: none; }
+  .consulting-system .sc-card-flow { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .consulting-system .sc-map-node:last-child { grid-column: 1 / -1; min-height: 0; }
+  .consulting-system .sc-map-node:nth-child(2n)::after { display: none; }
+}
+
+@media (max-width: 760px) {
+  .consulting-system .sc-case-thesis { grid-template-columns: 1fr; }
+  .consulting-system .sc-case-thesis strong { border-left: 0; border-top: 1px solid var(--line); padding: 10px 0 0; }
+  .consulting-system .sc-card-flow { grid-template-columns: 1fr; }
+  .consulting-system .sc-map-node { min-height: 0; }
+  .consulting-system .sc-map-node::after { display: none; }
+  .decision-loading-framework { grid-template-columns: 1fr; }
+  .decision-loading-framework i { min-height: 28px; transform: rotate(90deg); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .consulting-system .sc-card,
+  .consulting-system .decision-card { transition: none; }
+}

@@ -114,7 +114,7 @@ assert.deepEqual(businessNavLabels, [
 assert.match(html, /id="intelligenceConsole" hidden/, "the Intelligence Console must stay outside the initial visible layer");
 assert.doesNotMatch(html, /<script[^>]+src="assets\/js\/app\.js/, "the heavy console app must not load with the public landing page");
 assert.doesNotMatch(html, /<link[^>]+href="assets\/css\/styles\.css/, "the heavy console stylesheet must not load with the public landing page");
-assert.match(html, /assets\/js\/landing\.js\?v=infra-20260815-08/, "the lightweight landing controller must use the AI Infra revision");
+assert.match(html, /assets\/js\/landing\.js\?v=infra-20260815-10/, "the lightweight landing controller must use the AI Infra revision");
 assert.doesNotMatch(html, /메모리를 판매하는 것이 아니라/, "the removed sales-negation headline must stay deleted");
 assert.doesNotMatch(html, /직무 적합성을 세 가지|검증 가능한 역량으로 압축합니다/, "the removed role-fit headline must stay deleted");
 assert.doesNotMatch(html, /SK hynix AI Infra에서 만들고 싶은/, "the removed aspiration heading must stay deleted");
@@ -126,6 +126,17 @@ assert.match(html, /data-frame="BCG · 2×2 SCENARIO MATRIX"/, "external context
 assert.match(html, /Hypothesis → Test → Trigger → Decision/, "deep cases must show the decision-validation sequence");
 assert.match(landing, /function setupInfographicSequence\(\)/, "the landing controller must stagger infographic sequences");
 assert.match(landingCss, /@keyframes consultingArrowPulse/, "the infographic system must animate directional flow");
+assert.match(app, /id: "executive-decision"[\s\S]*?render: renderExecutiveDecision[\s\S]*?data: \["decisionHistory"\]/, "Technology & Memory must use the compact decision bundle");
+assert.match(app, /path: "data\/decision-history-client\.json"/, "the compact decision history artifact must be loaded on demand");
+assert.match(app, /function setupDecisionHistoryPreload\(\)/, "Technology & Memory history must prewarm on navigation intent and idle time");
+assert.match(app, /BACKTEST_YEAR_OPTIONS_CACHE[\s\S]*?BACKTEST_CLOSE_CACHE/, "Technology & Memory must cache repeated backtest option scans");
+assert.match(app, /section\.dataset\.deferredDataMs[\s\S]*?section\.dataset\.deferredRenderMs/, "deferred performance timings must remain observable in the DOM");
+assert.match(app, /Move to the reserved framework shell immediately[\s\S]*?alignTarget\(\);[\s\S]*?await ensureDeferredSection\(id\)/, "deferred navigation must reveal its reserved shell before waiting for data");
+assert.match(html, /class="decision-loading-framework"[\s\S]*?01<\/b> SIGNAL[\s\S]*?05<\/b> ACTION/, "Technology & Memory must expose a consulting-framework loading shell");
+assert.match(html, /exec-backtest-memory-wave-960\.webp/, "the decision board must use the responsive backtest image");
+assert.match(css, /Executive consulting geometry system[\s\S]*?\.consulting-system \.sc-card \{[\s\S]*?border-top: 1px solid var\(--line\);[\s\S]*?box-shadow: none;/, "strategy cards must remove colored top rails and glow shadows");
+assert.match(css, /\.consulting-system \.sc-card-flow \{[\s\S]*?grid-template-columns: 1\.18fr 1fr 1fr 1\.14fr 1\.24fr;/, "opportunity cards must use a five-step decision map");
+assert.match(css, /#execDecisionRunCouncil[\s\S]*?background: transparent;[\s\S]*?box-shadow: none;/, "the executive framework must not use glowing AI-style action controls");
 assert.match(landing, /function loadAppScript\(\)[\s\S]*?assets\/js\/app\.js\?v=\$\{CONSOLE_REVISION\}/, "the console app must load only after an explicit console request");
 assert.match(landing, /assets\/css\/styles\.css\?v=\$\{CONSOLE_REVISION\}/, "console-only styling must load on demand");
 assert.match(html, /location\.hash !== "#console"[\s\S]*?consolePosterPreload[\s\S]*?memory-hero-poster\.webp/, "direct console entry must discover its LCP poster during head parsing");

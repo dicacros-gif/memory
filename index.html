@@ -58,7 +58,7 @@
     (() => {
       if (location.hash !== "#console") return;
       document.documentElement.classList.add("console-entry");
-      const revision = "infra-20260815-08";
+      const revision = "infra-20260815-10";
       const assets = [
         ["consoleStylesPreload", "style", `assets/css/styles.css?v=${revision}`, "high"],
         ["consoleAppPreload", "script", `assets/js/app.js?v=${revision}`, "low"],
@@ -75,7 +75,7 @@
       }
     })();
   </script>
-  <link rel="stylesheet" href="assets/css/landing.css?v=infra-20260815-08" />
+  <link rel="stylesheet" href="assets/css/landing.css?v=infra-20260815-10" />
 </head>
 <body class="landing-mode">
   <div class="business-site" id="businessSite">
@@ -688,6 +688,17 @@
             </div>
             <span class="board-meta" id="execDecisionMeta">로드 중 · 가격 히스토리/제품군 매칭 연결</span>
           </div>
+          <div class="decision-loading-framework" aria-hidden="true">
+            <span><b>01</b> SIGNAL</span>
+            <i>→</i>
+            <span><b>02</b> EVIDENCE</span>
+            <i>→</i>
+            <span><b>03</b> OPTION</span>
+            <i>→</i>
+            <span><b>04</b> GATE</span>
+            <i>→</i>
+            <span><b>05</b> ACTION</span>
+          </div>
           <div class="decision-summary" id="execDecisionSummary" hidden></div>
           <div class="decision-layout">
             <section class="decision-panel">
@@ -708,7 +719,7 @@
             <section class="china-capital-slider executive-backtest-slider" id="executiveBacktestSlider" aria-label="중국 노출·가격 압력 인사이트 슬라이드" aria-roledescription="carousel" tabindex="0">
               <div class="china-capital-stage">
                 <figure class="china-capital-slide active" aria-hidden="false">
-                  <img src="assets/media/exec-backtest-memory-wave.webp" alt="메모리 수요와 데이터 흐름을 상징하는 반도체 시각화" width="1920" height="1080" loading="lazy" decoding="async" />
+                  <img src="assets/media/exec-backtest-memory-wave-960.webp" alt="메모리 수요와 데이터 흐름을 상징하는 반도체 시각화" width="960" height="536" loading="lazy" decoding="async" />
                 </figure>
                 <figure class="china-capital-slide" aria-hidden="true">
                   <img src="assets/media/exec-backtest-skhynix-chip.webp" alt="SKHY 제품군 의사결정을 상징하는 메모리 칩 시각화" width="1920" height="1080" loading="lazy" decoding="async" />
@@ -1532,6 +1543,6 @@
   <div class="qa-answer" id="qaAnswer" hidden></div>
   <div class="inspector" id="inspector" hidden></div>
   <div class="backdrop" id="backdrop"></div>
-  <script src="assets/js/landing.js?v=infra-20260815-08" defer></script>
+  <script src="assets/js/landing.js?v=infra-20260815-10" defer></script>
 </body>
 </html>

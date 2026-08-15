@@ -623,6 +623,7 @@ for (const artifact of [
   "price-history-client.json",
   "market-history-client.json",
   "quant-backtest-client.json",
+  "decision-history-client.json",
 ]) {
   assert.ok(workflowText.includes(`data/${artifact}`), `daily workflow must publish the ${artifact} browser artifact`);
 }

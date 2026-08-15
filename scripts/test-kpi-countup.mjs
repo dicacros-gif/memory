@@ -139,7 +139,11 @@ assert.match(app, /Do not pre-reveal queued agents[\s\S]*?schedule\(\(\) => spea
 assert.match(app, /function prewarmPriceBoardData\(\)[\s\S]*?loadSecondaryData\(\["priceHistory", "marketHistory"\]\)/, "price history should support navigation-intent prewarming");
 assert.match(app, /const intentTargets = \$\$\('\[data-jump="prices"\], \[data-jump="equity-value-chain"\], \[data-hero-jump="prices"\]'\)/, "price and Stock navigation intent should prewarm chart data");
 assert.doesNotMatch(app, /\["wheel", "touchstart", "keydown"\][\s\S]*?addEventListener\(eventName, start/, "the first unrelated user gesture must not parse market history");
-assert.doesNotMatch(app, /function setupPriceBoardPreload\(\)[\s\S]*?requestIdleCallback\(start|function setupPriceBoardPreload\(\)[\s\S]*?setTimeout\(start/, "market history must not load automatically after first paint");
+const pricePreloadSource = app.slice(
+  app.indexOf("function setupPriceBoardPreload()"),
+  app.indexOf("let decisionHistoryPreloadStarted"),
+);
+assert.doesNotMatch(pricePreloadSource, /requestIdleCallback\(start|setTimeout\(start/, "full market history must not load automatically after first paint");
 assert.match(app, /function observeDeferredSections\(definitions\)[\s\S]*?new IntersectionObserver[\s\S]*?ensureDeferredSection\(entry\.target\.id\)[\s\S]*?rootMargin: "900px 0px"/, "deep sections should hydrate just ahead of the viewport");
 assert.doesNotMatch(app, /hydrateDeferredSectionsSequentially|deferredDefinitionsInDocumentOrder|Promise\.allSettled\(\[[\s\S]*?enterpriseProfiles/, "initial loading must not construct every board or fetch every secondary dataset");
 assert.match(app, /document\.body\.dataset\.deferredHydration = ready === definitions\.length \? "ready" : "on-demand"/, "the site should expose on-demand hydration progress");
@@ -147,7 +151,7 @@ assert.match(app, /loadManagedJSON\("live", "data\/live-client\.json"[\s\S]*?loa
 assert.match(app, /priceHistory: \{[\s\S]*?path: "data\/price-history-client\.json"[\s\S]*?marketHistory: \{[\s\S]*?path: "data\/market-history-client\.json"/, "secondary fallbacks must never download database-sized history files");
 assert.match(css, /\.agent-debate-title \.agent-tts-toggle \{[\s\S]*?min-width: 190px;[\s\S]*?min-height: 44px;/, "the English TTS control should be large and readable");
 assert.match(css, /\.agent-tts-state \{[\s\S]*?min-width: 31px;/, "the TTS control should expose a dedicated on-or-off state badge");
-assert.match(html, /landing\.js\?v=infra-20260815-08/, "the public landing controller should include the AI Infra revision");
+assert.match(html, /landing\.js\?v=infra-20260815-10/, "the public landing controller should include the AI Infra revision");
 assert.match(css, /\.consulting-system \.news-card:is\(:hover, :focus-within\) \.news-insights > span \{[\s\S]*?background: rgba\(255, 255, 255, \.9\);[\s\S]*?color: var\(--consulting-slate\) !important;[\s\S]*?-webkit-text-fill-color: var\(--consulting-slate\);/, "light consulting news cards must keep high-contrast insight copy on hover");
 assert.match(css, /\.consulting-system \.news-card:is\(:hover, :focus-within\) :is\(\.strategy-highlight, \.answer-term\) \{[\s\S]*?--term-color: #334155;[\s\S]*?text-shadow: none;/, "light consulting news cards must restore dark semantic terms on hover");
 assert.doesNotMatch(html, /<script[^>]+src="assets\/js\/app\.js/, "the dashboard JavaScript must load only when the Intelligence Console is opened");

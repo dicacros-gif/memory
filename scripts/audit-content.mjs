@@ -27,6 +27,7 @@ const textFiles = [
   "data/price-history-client.json",
   "data/market-history-client.json",
   "data/quant-backtest-client.json",
+  "data/decision-history-client.json",
   "data/quant-model.json",
   "data/price-history.json",
   "data/market-history.json",
@@ -228,6 +229,7 @@ const quantClient = JSON.parse(await readFile(resolve(root, "data/quant-client.j
 const priceHistoryClient = JSON.parse(await readFile(resolve(root, "data/price-history-client.json"), "utf8"));
 const marketHistoryClient = JSON.parse(await readFile(resolve(root, "data/market-history-client.json"), "utf8"));
 const quantBacktestClient = JSON.parse(await readFile(resolve(root, "data/quant-backtest-client.json"), "utf8"));
+const decisionHistoryClient = JSON.parse(await readFile(resolve(root, "data/decision-history-client.json"), "utf8"));
 const dataManifest = JSON.parse(await readFile(resolve(root, "data/data-manifest.json"), "utf8"));
 const clientArtifacts = {
   live: liveClient,
@@ -235,6 +237,7 @@ const clientArtifacts = {
   priceHistory: priceHistoryClient,
   marketHistory: marketHistoryClient,
   quantBacktest: quantBacktestClient,
+  decisionHistory: decisionHistoryClient,
 };
 const expectedClientPaths = {
   live: "data/live-client.json",
@@ -242,6 +245,7 @@ const expectedClientPaths = {
   priceHistory: "data/price-history-client.json",
   marketHistory: "data/market-history-client.json",
   quantBacktest: "data/quant-backtest-client.json",
+  decisionHistory: "data/decision-history-client.json",
 };
 if (dataManifest?.schemaVersion !== "1.0" || !String(dataManifest?.runId || "").trim()) {
   addIssue("error", "data/data-manifest.json", "client data manifest is missing a valid runId");

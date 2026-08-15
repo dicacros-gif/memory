@@ -49,6 +49,7 @@ const QUANT_CLIENT_OUT = resolve(__dirname, "..", "data", "quant-client.json");
 const PRICE_HISTORY_CLIENT_OUT = resolve(__dirname, "..", "data", "price-history-client.json");
 const MARKET_HISTORY_CLIENT_OUT = resolve(__dirname, "..", "data", "market-history-client.json");
 const QUANT_BACKTEST_CLIENT_OUT = resolve(__dirname, "..", "data", "quant-backtest-client.json");
+const DECISION_HISTORY_CLIENT_OUT = resolve(__dirname, "..", "data", "decision-history-client.json");
 const DATA_MANIFEST_OUT = resolve(__dirname, "..", "data", "data-manifest.json");
 const CRAWL_EXCLUSIONS_OUT = resolve(__dirname, "..", "data", "crawl-exclusions.json");
 const CRAWL_AUDIT_OUT = resolve(__dirname, "..", "data", "crawl-audit.json");
@@ -4291,6 +4292,43 @@ const MARKET_PRICE_BOARD_IDS = new Set([
   "smic-stock",
 ]);
 
+// The Technology & Memory decision board uses a deliberately small subset of
+// the full price/equity history. Keeping this contract explicit prevents a
+// sidebar click from downloading every stock series before the board appears.
+const EXECUTIVE_DECISION_PRICE_SERIES_IDS = new Set([
+  "dram-dram-spot-price::ddr5 16gb (2gx8) 4800/5600",
+  "dram-dram-spot-price::ddr5 16gb (2gx8) ett",
+  "dram-dram-contract-price::ddr5 8gb so-dimm",
+  "dram-module-spot-price::ddr5 rdimm 32gb 4800/5600",
+  "nand-nand-flash-contract-price::nand 128gb 16gx8 mlc",
+  "nand-wafer-spot-price::512gb tlc",
+  "nand-pc-client-oem-ssd-contract-price::1tb-msata/m.2 tlc pcie-value grade",
+  "dram-module-spot-price::ddr5 udimm 16gb 4800/5600",
+  "nand-pc-client-oem-ssd-contract-price::512gb-msata/m.2 tlc pcie-value grade",
+  "nand-memory-card-spot-price::microsd 128gb",
+  "dram-dram-contract-price::ddr4 16gb 2gx8",
+  "dram-dram-spot-price::ddr4 16gb (2gx8) 3200",
+  "dram-dram-spot-price::ddr4 16gb (2gx8) ett",
+  "nand-nand-flash-spot-price::mlc 64gb 8gbx8",
+  "nand-wafer-spot-price::256gb tlc",
+  "nand-ssd-street-price::adata",
+  "nand-nand-flash-contract-price::nand 64gb 8gx8 mlc",
+]);
+
+const EXECUTIVE_DECISION_MARKET_SERIES_IDS = new Set([
+  "sox",
+  "skhy-stock",
+  "samsung-stock",
+  "micron-stock",
+  "sandisk-stock",
+  "wdc-stock",
+  "naura-stock",
+  "amec-stock",
+  "jcet-stock",
+  "gigadevice-stock",
+  "smic-stock",
+]);
+
 function sampleEquityPointWindow(points = [], maxPoints = 0) {
   if (!maxPoints || points.length <= maxPoints) return points;
   const lastIndex = points.length - 1;
@@ -4399,6 +4437,88 @@ function compactQuantBacktestForClient(backtest = {}) {
   };
 }
 
+function decisionPointTime(point = {}) {
+  if (Array.isArray(point)) return Number(point[0]) || 0;
+  const direct = Number(point.time || 0);
+  if (Number.isFinite(direct) && direct > 0) return direct;
+  const parsed = Date.parse(point.sourceObservedAt || point.observedAt || point.date || point.sourceUpdate || "");
+  return Number.isFinite(parsed) ? parsed : 0;
+}
+
+function sampleDecisionMonthPoints(points = [], mapPoint = (point) => point) {
+  const months = new Map();
+  for (const point of points || []) {
+    const time = decisionPointTime(point);
+    if (!time) continue;
+    const date = new Date(time);
+    const month = `${date.getUTCFullYear()}-${String(date.getUTCMonth() + 1).padStart(2, "0")}`;
+    const previous = months.get(month);
+    if (!previous || time > previous.time) months.set(month, { time, point });
+  }
+  return Array.from(months.values())
+    .sort((left, right) => left.time - right.time)
+    .map(({ point, time }) => mapPoint(point, time))
+    .filter(Boolean);
+}
+
+function compactDecisionPriceSeries(item = {}, key = "") {
+  return {
+    key: item.key || key,
+    sectionTitle: item.sectionTitle || null,
+    group: item.group || null,
+    item: item.item || null,
+    sourceUrl: item.sourceUrl || null,
+    points: sampleDecisionMonthPoints(item.points || [], (point, time) => {
+      const average = Number(point?.average);
+      if (!Number.isFinite(average)) return null;
+      return { date: new Date(time).toISOString(), average };
+    }),
+  };
+}
+
+function compactDecisionMarketSeries(index = {}, id = "") {
+  return {
+    id: index.id || id,
+    label: index.label || null,
+    labelKo: index.labelKo || null,
+    source: index.source || null,
+    sourceUrl: index.sourceUrl || null,
+    chartUrl: index.chartUrl || null,
+    points: sampleDecisionMonthPoints(index.points || [], (point, time) => {
+      const value = Number(Array.isArray(point) ? point[1] : point?.close ?? point?.value);
+      return Number.isFinite(value) && value > 0 ? [time, value] : null;
+    }),
+  };
+}
+
+function compactDecisionHistoryForClient({ priceHistory = {}, marketHistory = {}, quantBacktest = {} } = {}) {
+  const price = compactPriceHistoryForClient(priceHistory);
+  const market = compactMarketHistoryForClient(marketHistory);
+  const backtest = compactQuantBacktestForClient(quantBacktest);
+  price.items = Object.fromEntries(Object.entries(price.items || {})
+    .filter(([id]) => EXECUTIVE_DECISION_PRICE_SERIES_IDS.has(id))
+    .map(([id, item]) => [id, compactDecisionPriceSeries(item, id)]));
+  market.indexes = Object.fromEntries(Object.entries(market.indexes || {})
+    .filter(([id]) => EXECUTIVE_DECISION_MARKET_SERIES_IDS.has(id))
+    .map(([id, index]) => [id, compactDecisionMarketSeries(index, id)]));
+  const allowedBacktestIds = new Set([
+    ...Object.keys(price.items).map((id) => `price:${id}`),
+    ...Object.keys(market.indexes).map((id) => `market:${id}`),
+  ]);
+  backtest.series = Object.fromEntries(Object.entries(backtest.series || {})
+    .filter(([id]) => allowedBacktestIds.has(id)));
+  return {
+    schemaVersion: "1.0",
+    clientArtifact: true,
+    runId: price.runId || market.runId || backtest.runId || null,
+    generatedAt: price.updatedAt || market.updatedAt || backtest.generatedAt || null,
+    expiresAt: price.expiresAt || market.expiresAt || backtest.expiresAt || null,
+    priceHistory: price,
+    marketHistory: market,
+    quantBacktest: backtest,
+  };
+}
+
 function compactLiveForClient(payload = {}) {
   const {
     quant: _quant,
@@ -4494,12 +4614,14 @@ export function buildClientDataBundle({ payload = {}, quant = {}, priceHistory =
   const price = compactPriceHistoryForClient(priceHistory);
   const market = compactMarketHistoryForClient(marketHistory);
   const backtest = compactQuantBacktestForClient(quantBacktest);
+  const decisionHistory = compactDecisionHistoryForClient({ priceHistory, marketHistory, quantBacktest });
   const artifacts = {
     live: { path: "data/live-client.json", bytes: Buffer.byteLength(JSON.stringify(live), "utf8") },
     quant: { path: "data/quant-client.json", bytes: Buffer.byteLength(JSON.stringify(clientQuant), "utf8") },
     priceHistory: { path: "data/price-history-client.json", bytes: Buffer.byteLength(JSON.stringify(price), "utf8") },
     marketHistory: { path: "data/market-history-client.json", bytes: Buffer.byteLength(JSON.stringify(market), "utf8") },
     quantBacktest: { path: "data/quant-backtest-client.json", bytes: Buffer.byteLength(JSON.stringify(backtest), "utf8") },
+    decisionHistory: { path: "data/decision-history-client.json", bytes: Buffer.byteLength(JSON.stringify(decisionHistory), "utf8") },
   };
   return {
     manifest: {
@@ -4515,6 +4637,7 @@ export function buildClientDataBundle({ payload = {}, quant = {}, priceHistory =
     priceHistory: price,
     marketHistory: market,
     quantBacktest: backtest,
+    decisionHistory,
   };
 }
 
@@ -9934,6 +10057,7 @@ async function main() {
     [PRICE_HISTORY_CLIENT_OUT, clientBundle.priceHistory],
     [MARKET_HISTORY_CLIENT_OUT, clientBundle.marketHistory],
     [QUANT_BACKTEST_CLIENT_OUT, clientBundle.quantBacktest],
+    [DECISION_HISTORY_CLIENT_OUT, clientBundle.decisionHistory],
     [CRAWL_QUARANTINE_OUT, publishedQuarantine],
     [CRAWL_AUDIT_OUT, crawlAudit],
     [TRANSLATION_CACHE_OUT, koTranslator?.snapshot() || previous.translationCache],

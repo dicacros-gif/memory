@@ -64,7 +64,7 @@ const bundle = buildClientDataBundle({ payload, quant, priceHistory, marketHisto
 const marketSummary = summarizeMarketHistory(marketHistory);
 
 assert.equal(bundle.manifest.runId, runId);
-assert.deepEqual(Object.keys(bundle.manifest.artifacts).sort(), ["live", "marketHistory", "priceHistory", "quant", "quantBacktest"]);
+assert.deepEqual(Object.keys(bundle.manifest.artifacts).sort(), ["decisionHistory", "live", "marketHistory", "priceHistory", "quant", "quantBacktest"]);
 assert.equal(bundle.live.quant, undefined, "live client must not duplicate quant.json");
 assert.equal(bundle.live.priceHistory, undefined, "live client must not duplicate price history");
 assert.equal(bundle.live.prices.sections[0].rows[0].history, undefined, "price row history belongs in the deferred artifact");
@@ -75,6 +75,9 @@ assert.deepEqual(bundle.marketHistory.indexes.sox.points[0], [1_783_000_000_000,
 assert.equal(bundle.quantBacktest.series["market:sox"].provenance, undefined);
 assert.equal(bundle.quantBacktest.series["market:sox"].periods["1y"].startProvenance, undefined);
 assert.deepEqual(bundle.quantBacktest.series["market:sox"].periods["1y"], { eligible: true }, "browser backtest periods keep only decision eligibility");
+assert.deepEqual(Object.keys(bundle.decisionHistory.marketHistory.indexes), ["sox"], "decision bundle keeps only executive market proxies");
+assert.deepEqual(Object.keys(bundle.decisionHistory.quantBacktest.series), ["market:sox"], "decision bundle keeps only matching backtest summaries");
+assert.ok(bundle.manifest.artifacts.decisionHistory.bytes < bundle.manifest.artifacts.marketHistory.bytes + bundle.manifest.artifacts.priceHistory.bytes + bundle.manifest.artifacts.quantBacktest.bytes, "decision bundle must stay smaller than the full history payload");
 assert.equal(bundle.quant.fx.usdkrw.history5y, undefined);
 assert.equal(bundle.quant.fx.usdkrw.history30d.points.length, 1);
 assert.ok(bundle.manifest.artifacts.live.bytes > 0);
