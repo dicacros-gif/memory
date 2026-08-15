@@ -2817,13 +2817,13 @@
       hero.dataset.scrollMotion = "1";
       const reducedMotion = window.matchMedia?.("(prefers-reduced-motion: reduce)")?.matches;
       let frame = 0;
+      let topbarHeight = window.innerWidth <= 480 ? 44 : 49;
       const syncHeroScroll = () => {
         frame = 0;
-        const topbar = Number.parseFloat(getComputedStyle(document.documentElement).getPropertyValue("--topbar-h")) || 64;
-        const viewportHeight = Math.max(1, window.innerHeight - topbar);
+        const viewportHeight = Math.max(1, window.innerHeight - topbarHeight);
         const travel = Math.max(1, hero.offsetHeight - viewportHeight);
         const rect = hero.getBoundingClientRect();
-        const progress = clamp((topbar - rect.top) / travel, 0, 1);
+        const progress = clamp((topbarHeight - rect.top) / travel, 0, 1);
         const opacity = reducedMotion ? 1 : clamp(1 - progress * 1.25, 0, 1);
         const shift = reducedMotion ? 0 : -Math.round(progress * Math.min(180, viewportHeight * 0.22));
         hero.style.setProperty("--hero-progress", progress.toFixed(4));
@@ -2835,11 +2835,17 @@
         if (frame) return;
         frame = window.requestAnimationFrame(syncHeroScroll);
       };
+      const scheduleHeroResize = () => {
+        topbarHeight = Number.parseFloat(getComputedStyle(document.documentElement).getPropertyValue("--topbar-h")) || 64;
+        scheduleHeroScroll();
+      };
       window.addEventListener("scroll", scheduleHeroScroll, { passive: true });
-      window.addEventListener("resize", scheduleHeroScroll, { passive: true });
+      window.addEventListener("resize", scheduleHeroResize, { passive: true });
       const heroResizeObserver = "ResizeObserver" in window ? new ResizeObserver(scheduleHeroScroll) : null;
       heroResizeObserver?.observe(hero);
-      scheduleHeroScroll();
+      hero.style.setProperty("--hero-progress", "0");
+      hero.style.setProperty("--hero-copy-opacity", "1");
+      hero.style.setProperty("--hero-copy-shift", "0px");
 
       if (video && "IntersectionObserver" in window) {
         const heroVideoObserver = new IntersectionObserver((entries) => {
@@ -4299,6 +4305,8 @@
     setupKpiCountReplay();
     schedulePostPaintEnhancements();
     setupDeferredSections();
+    document.body.dataset.consoleReady = "1";
+    window.dispatchEvent(new Event("memory-console-ready"));
   }
 
   function schedulePostPaintEnhancements() {
@@ -6890,7 +6898,6 @@
     applyPalette(savedPalette);
     setSidebarCollapsed(localStorage.getItem("memory-sidebar-collapsed") === "1", { persist: false, cycle: false });
     decorateSidebarItems();
-    syncChromeMetrics();
     window.addEventListener("resize", syncChromeMetrics, { passive: true });
     $("#themeBtn").addEventListener("click", () => {
       const next = document.documentElement.dataset.theme === "dark" ? "light" : "dark";
@@ -6900,7 +6907,6 @@
 
     $("#paletteBtn")?.addEventListener("click", () => cyclePalette());
     $("#scrollTop")?.addEventListener("click", () => window.scrollTo({ top: 0, behavior: "smooth" }));
-    updateScrollProgress();
     window.addEventListener("scroll", scheduleScrollProgress, { passive: true });
     $("#sidebarFold")?.addEventListener("click", (event) => {
       event.stopPropagation();

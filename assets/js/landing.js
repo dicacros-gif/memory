@@ -3,7 +3,7 @@
 
   const BUSINESS_TITLE = "Memory Intelligence · AI Memory Strategy & Execution";
   const CONSOLE_HASH = "#console";
-  const CONSOLE_REVISION = "infra-20260815-03";
+  const CONSOLE_REVISION = "infra-20260815-04";
   const site = document.querySelector("#businessSite");
   const consoleLayer = document.querySelector("#intelligenceConsole");
   const header = document.querySelector("#businessHeader");
@@ -15,7 +15,17 @@
     .map((link) => document.querySelector(link.getAttribute("href")))
     .filter(Boolean);
   let consoleLoadPromise = null;
+  let businessReady = false;
+  let consoleStartupTimer = 0;
   let view = "business";
+
+  function finishConsoleStartup() {
+    window.clearTimeout(consoleStartupTimer);
+    consoleStartupTimer = 0;
+    requestAnimationFrame(() => requestAnimationFrame(() => {
+      document.body.classList.remove("console-startup");
+    }));
+  }
 
   function setMenu(open) {
     document.body.classList.toggle("business-menu-open", open);
@@ -36,6 +46,23 @@
   function prepareConsoleMedia() {
     const heroVideo = document.querySelector("#memoryHeroVideo[data-poster]");
     if (heroVideo && !heroVideo.poster) heroVideo.poster = heroVideo.dataset.poster;
+  }
+
+  function ensurePreload(id, as, href, priority = "auto") {
+    if (document.getElementById(id)) return;
+    const link = document.createElement("link");
+    link.id = id;
+    link.rel = "preload";
+    link.as = as;
+    link.href = href;
+    link.fetchPriority = priority;
+    document.head.appendChild(link);
+  }
+
+  function primeConsoleAssets() {
+    ensurePreload("consoleStylesPreload", "style", `assets/css/styles.css?v=${CONSOLE_REVISION}`, "high");
+    ensurePreload("consoleAppPreload", "script", `assets/js/app.js?v=${CONSOLE_REVISION}`, "low");
+    ensurePreload("consolePosterPreload", "image", "assets/media/memory-hero-poster.webp", "high");
   }
 
   function loadStylesheet() {
@@ -63,9 +90,8 @@
     });
   }
 
-  function loadConsole() {
-    if (consoleLoadPromise) return consoleLoadPromise;
-    consoleLoadPromise = loadStylesheet().then(() => new Promise((resolve, reject) => {
+  function loadAppScript() {
+    return new Promise((resolve, reject) => {
       const existing = document.querySelector("#consoleApp");
       if (existing) {
         if (existing.dataset.ready === "1") resolve();
@@ -84,7 +110,16 @@
       }, { once: true });
       script.addEventListener("error", reject, { once: true });
       document.body.appendChild(script);
-    }));
+    });
+  }
+
+  function loadConsole() {
+    if (consoleLoadPromise) return consoleLoadPromise;
+    primeConsoleAssets();
+    consoleLoadPromise = loadStylesheet().then(async () => {
+      await new Promise((resolve) => requestAnimationFrame(resolve));
+      return loadAppScript();
+    });
     return consoleLoadPromise;
   }
 
@@ -92,17 +127,25 @@
     if (!site || !consoleLayer) return;
     view = "console";
     setMenu(false);
+    primeConsoleAssets();
     site.hidden = true;
-    consoleLayer.hidden = false;
-    document.body.classList.remove("landing-mode", "business-menu-open");
-    document.body.classList.add("console-mode");
+    consoleLayer.hidden = true;
+    document.body.classList.remove("business-menu-open");
+    document.body.classList.add("console-loading");
     prepareConsoleMedia();
     if (updateHistory && location.hash !== CONSOLE_HASH) history.pushState({ view: "console" }, "", CONSOLE_HASH);
     window.scrollTo({ top: 0, behavior: "instant" });
 
     for (const trigger of document.querySelectorAll("[data-open-console]")) trigger.setAttribute("aria-busy", "true");
     try {
+      await loadStylesheet();
+      consoleLayer.hidden = false;
+      document.body.classList.remove("landing-mode", "business-menu-open", "console-loading");
+      document.body.classList.add("console-mode", "console-startup");
+      document.documentElement.classList.remove("console-entry");
       await loadConsole();
+      if (document.body.dataset.consoleReady === "1") finishConsoleStartup();
+      else consoleStartupTimer = window.setTimeout(finishConsoleStartup, 6000);
     } catch (error) {
       console.error("Intelligence Console failed to load", error);
       document.querySelector("#consoleStyles:not([data-ready='1'])")?.remove();
@@ -119,9 +162,11 @@
   function openBusiness(targetId = "home", { updateHistory = true } = {}) {
     if (!site || !consoleLayer) return;
     view = "business";
+    setupBusinessExperience();
     document.title = BUSINESS_TITLE;
     document.body.classList.add("landing-mode");
-    document.body.classList.remove("console-mode", "business-menu-open", "menu-open", "crawl-moderation-open");
+    document.body.classList.remove("console-mode", "console-loading", "console-startup", "business-menu-open", "menu-open", "crawl-moderation-open");
+    document.documentElement.classList.remove("console-entry");
     consoleLayer.hidden = true;
     site.hidden = false;
     setMenu(false);
@@ -249,6 +294,17 @@
     }
   }
 
+  function setupBusinessExperience() {
+    if (businessReady) return;
+    businessReady = true;
+    setupAudienceTabs();
+    setupPainPointFramework();
+    setupReveal();
+    void updateDataStatus();
+  }
+
+  window.addEventListener("memory-console-ready", finishConsoleStartup);
+
   function updateBusinessScrollState() {
     if (view !== "business") return;
     header?.classList.toggle("is-scrolled", window.scrollY > 18);
@@ -277,13 +333,10 @@
     updateBusinessScrollState();
   }, { passive: true });
 
-  setupAudienceTabs();
-  setupPainPointFramework();
-  setupReveal();
-  void updateDataStatus();
   if (location.hash === CONSOLE_HASH) void openConsole({ updateHistory: false });
   else {
     view = "business";
+    setupBusinessExperience();
     const initialId = location.hash.slice(1) || "home";
     requestAnimationFrame(() => {
       document.getElementById(initialId)?.scrollIntoView({ behavior: "instant", block: "start" });

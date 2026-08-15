@@ -25,7 +25,57 @@
   <meta name="twitter:image" content="https://dicacros-gif.github.io/memory/assets/media/memory-intelligence-og.jpg?v=20260717" />
   <meta name="twitter:image:alt" content="HBM 시스템을 배경으로 한 Memory Intelligence 전략 인텔리전스" />
   <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='8' fill='%234322A8'/%3E%3Cpath d='M8 21V10h4v4h8v-4h4v11h-4v-4h-8v4z' fill='white'/%3E%3C/svg%3E" />
-  <link rel="stylesheet" href="assets/css/landing.css?v=infra-20260815-03" />
+  <style>
+    html.console-entry,
+    html.console-entry body {
+      min-height: 100%;
+      margin: 0;
+      overflow: hidden;
+      color: #fff;
+      background: #080d16;
+    }
+    html.console-entry .business-site,
+    html.console-entry #intelligenceConsole {
+      display: none !important;
+    }
+    html.console-entry body::after {
+      content: "MEMORY INTELLIGENCE\A Intelligence Console 준비 중";
+      position: fixed;
+      inset: 0;
+      z-index: 2147483647;
+      display: grid;
+      place-content: center;
+      gap: 10px;
+      color: #dce8ff;
+      background: radial-gradient(circle at 50% 42%, #17295b 0%, #080d16 58%);
+      font: 800 13px/1.8 system-ui, sans-serif;
+      letter-spacing: .16em;
+      text-align: center;
+      white-space: pre-line;
+    }
+  </style>
+  <script>
+    (() => {
+      if (location.hash !== "#console") return;
+      document.documentElement.classList.add("console-entry");
+      const revision = "infra-20260815-04";
+      const assets = [
+        ["consoleStylesPreload", "style", `assets/css/styles.css?v=${revision}`, "high"],
+        ["consoleAppPreload", "script", `assets/js/app.js?v=${revision}`, "low"],
+        ["consolePosterPreload", "image", "assets/media/memory-hero-poster.webp", "high"],
+      ];
+      for (const [id, as, href, priority] of assets) {
+        const link = document.createElement("link");
+        link.id = id;
+        link.rel = "preload";
+        link.as = as;
+        link.href = href;
+        link.fetchPriority = priority;
+        document.head.appendChild(link);
+      }
+    })();
+  </script>
+  <link rel="stylesheet" href="assets/css/landing.css?v=infra-20260815-04" />
 </head>
 <body class="landing-mode">
   <div class="business-site" id="businessSite">
@@ -1432,6 +1482,6 @@
   <div class="qa-answer" id="qaAnswer" hidden></div>
   <div class="inspector" id="inspector" hidden></div>
   <div class="backdrop" id="backdrop"></div>
-  <script src="assets/js/landing.js?v=infra-20260815-03" defer></script>
+  <script src="assets/js/landing.js?v=infra-20260815-04" defer></script>
 </body>
 </html>

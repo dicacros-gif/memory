@@ -25,6 +25,29 @@ body.landing-mode::before {
   display: none;
 }
 
+body.console-loading {
+  min-height: 100vh;
+  overflow: hidden;
+  color: #fff;
+  background: #080d16;
+}
+
+body.console-loading::after {
+  content: "MEMORY INTELLIGENCE\A Intelligence Console 준비 중";
+  position: fixed;
+  inset: 0;
+  z-index: 2147483647;
+  display: grid;
+  place-content: center;
+  gap: 10px;
+  color: #dce8ff;
+  background: radial-gradient(circle at 50% 42%, #17295b 0%, #080d16 58%);
+  font: 800 13px/1.8 system-ui, sans-serif;
+  letter-spacing: .16em;
+  text-align: center;
+  white-space: pre-line;
+}
+
 body.landing-mode :is(.scroll-prog, .scroll-top, .qa-answer, .inspector, #backdrop) {
   display: none !important;
 }

@@ -1435,6 +1435,18 @@ body.sidebar-collapsed .sb-ico {
   scroll-margin-top: calc(var(--topbar-h) + 18px);
 }
 
+.main > section:not(#overview):not(#strategy-consulting) {
+  content-visibility: auto;
+  contain-intrinsic-size: auto 900px;
+}
+
+body.console-startup #intelligenceConsole *,
+body.console-startup #intelligenceConsole *::before,
+body.console-startup #intelligenceConsole *::after {
+  animation: none !important;
+  transition: none !important;
+}
+
 .deferred-section {
   content-visibility: auto;
   contain-intrinsic-size: auto 720px;
@@ -20556,6 +20568,10 @@ body.consulting-system {
 }
 
 @media (max-width: 480px) {
+  :root {
+    --topbar-h: 44px;
+  }
+
   .topbar {
     gap: 6px;
     min-height: 44px;
