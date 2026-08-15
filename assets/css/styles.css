@@ -14101,7 +14101,7 @@ body.consulting-system {
 
 .ai-council-controls {
   display: grid;
-  grid-template-columns: minmax(0, 1fr) auto;
+  grid-template-columns: minmax(0, 1fr) auto auto;
   gap: 9px;
   align-items: end;
   padding: 12px;
@@ -14159,6 +14159,18 @@ body.consulting-system {
   background: #244763;
   outline: 2px solid color-mix(in srgb, #17324d 32%, transparent);
   outline-offset: 2px;
+}
+
+.ai-council-controls button.is-secondary {
+  color: var(--ink);
+  border-color: var(--line);
+  background: var(--panel-2);
+}
+
+.ai-council-controls button.is-secondary:hover,
+.ai-council-controls button.is-secondary:focus-visible {
+  color: var(--ink);
+  background: color-mix(in srgb, #17324d 6%, var(--panel-2));
 }
 
 .ai-infra-council {

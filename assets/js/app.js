@@ -4208,6 +4208,8 @@
     setupKpiCountReplay();
     schedulePostPaintEnhancements();
     setupDeferredSections();
+    window.addEventListener("hashchange", () => void applyConsoleDeepLink());
+    window.setTimeout(() => void applyConsoleDeepLink(), 0);
     window.setTimeout(finalizeConsoleLoadingLabels, 8000);
     document.body.dataset.consoleReady = "1";
     window.dispatchEvent(new Event("memory-console-ready"));
@@ -9747,7 +9749,7 @@
         ["SCALE · 61–90D", "투자 Gate", "Ramp와 대체 시나리오를 경영진 결재안으로 전환", "Yield·LT·고객 물량 약정"],
       ],
       kpis: ["Qualification cycle", "Reserved capacity coverage", "Base-die PPA", "Package lead time"],
-      stop: "캐파 미확보 · 고객 인증 지연 · PPA 미달 중 2개 동시 발생 시 Scale 투자 보류",
+      stop: "MODELED · 예약 Capacity가 승인 수요의 80% 미만, Qualification/Ramp가 1분기 이상 지연, Package Yield Gate가 2회 연속 미달 중 하나가 발생하면 Scale CAPEX 재배분",
       partners: ["AI chip developer · architecture co-design", "Foundry/packaging · capacity & yield governance", "Data center operator · system TCO validation"],
       useCase: "익명화 Case A · AI accelerator 고객 — base-die 요구사항 → 공동 PPA 검증 → 공급·인증 gate",
       sources: [
@@ -9781,7 +9783,7 @@
         ["SCALE · 61–90D", "제품 믹스", "고객별 allocation·가격·용량 패키지 확정", "12GB+ mix·계약 커버리지"],
       ],
       kpis: ["BOM/ASP ratio", "P95 AI latency", "Energy per task", "Sell-through by tier"],
-      stop: "AI 체감가치가 가격 인상분을 회수하지 못하거나 보급형 sell-through가 trigger 이하이면 용량 상향 중단",
+      stop: "MODELED · Sell-through가 2개월 연속 계획 대비 10% 이상 하회, BOM/ASP가 5%p 이상 상승, AI 기능 가치가 추가 Memory 비용 미만 중 하나가 발생하면 SKU·Capacity 재설계",
       partners: ["Mobile OEM · SKU/BOM co-planning", "AI application developer · workload profiling", "Platform/IT consulting · launch PMO & value case"],
       useCase: "익명화 Case B · Mobile OEM — AI feature memory footprint → 3-tier SKU 재설계 → 가격·allocation 실행",
       sources: [
@@ -9815,7 +9817,7 @@
         ["SCALE · RAMP", "New Biz", "Qualification → volume → repeat order", "Design win·ramp yield·ARR"],
       ],
       kpis: ["TTFT / TPOT P99", "Bytes per token", "Cache hit / QPS", "Qualification → repeat order"],
-      stop: "PoC 개선이 고객 TCO로 연결되지 않거나 qualification·상호운용성·반복주문 gate가 깨지면 옵션 단계로 환원",
+      stop: "MODELED · PoC System TCO 개선이 10% 미만, P99 SLA가 5% 초과 악화, Qualification이 1개 Gate 이상 지연 중 하나가 발생하면 Option 단계로 환원",
       partners: ["AI developer · model/workload benchmark", "Data center operator · fabric PoC & TCO", "IT consulting firm · transformation roadmap & PMO"],
       useCase: "익명화 Case C · RAG 서비스 사업자 — latency·QPS 병목 → tiered architecture PoC → qualification·반복주문",
       sources: [
@@ -9828,6 +9830,38 @@
 
   function aiInfraCouncilAgenda(id = "") {
     return AI_INFRA_COUNCIL_AGENDAS.find((item) => item.id === id) || AI_INFRA_COUNCIL_AGENDAS[0];
+  }
+
+  function consoleDeepLinkState(hash = location.hash) {
+    const parts = String(hash || "").replace(/^#/, "").split("/").filter(Boolean);
+    if (parts[0] !== "console") return { section: "", item: "" };
+    const decode = (value) => {
+      try { return decodeURIComponent(value || ""); } catch { return value || ""; }
+    };
+    return { section: decode(parts[1]), item: decode(parts[2]) };
+  }
+
+  function aiInfraCouncilDeepLink(id = cLevelCouncilDecisionId) {
+    const agenda = aiInfraCouncilAgenda(id);
+    return `${location.origin}${location.pathname}${location.search}#console/c-level-cockpit/${encodeURIComponent(agenda.id)}`;
+  }
+
+  function syncAiInfraCouncilDeepLink(id = cLevelCouncilDecisionId) {
+    const url = aiInfraCouncilDeepLink(id);
+    history.replaceState({ view: "console", section: "c-level-cockpit", item: aiInfraCouncilAgenda(id).id }, "", url);
+    return url;
+  }
+
+  async function applyConsoleDeepLink() {
+    const { section, item } = consoleDeepLinkState();
+    if (!section || !document.getElementById(section)) return;
+    if (section === "c-level-cockpit" && AI_INFRA_COUNCIL_AGENDAS.some((agenda) => agenda.id === item)) {
+      cLevelCouncilDecisionId = item;
+      cLevelCouncilRan = true;
+    }
+    await ensureDeferredSection(section);
+    if (section === "c-level-cockpit") renderCLevelCockpit();
+    await jumpTo(section);
   }
 
   function aiInfraCouncilList(items = []) {
@@ -9924,7 +9958,7 @@
             <article><span>VALUE KPI</span>${aiInfraCouncilList(agenda.kpis)}</article>
             <article><span>PARTNER MODEL</span>${aiInfraCouncilList(agenda.partners)}</article>
             <article><span>USE CASE</span><strong>${escapeHTML(agenda.useCase)}</strong></article>
-            <article class="ai-council-stop"><span>STOP / REFRAME</span><strong>${escapeHTML(agenda.stop)}</strong></article>
+            <article class="ai-council-stop"><span>MODELED KILL CRITERIA · STOP / REFRAME</span><strong>${escapeHTML(agenda.stop)}</strong></article>
           </div>
         </section>
 
@@ -9967,6 +10001,7 @@
             </select>
           </label>
           <button type="button" id="cLevelRunCouncil">${cLevelCouncilRan ? "전략 검토 다시 열기" : "토론 실행"}</button>
+          <button class="is-secondary" type="button" id="cLevelCopyLink" aria-label="선택한 의사결정 안건 링크 복사">안건 링크 복사</button>
         </div>
         <div id="aiInfraCouncilOutput" aria-live="polite">
           ${cLevelCouncilRan ? aiInfraCouncilPackHTML(selectedAgenda) : aiInfraCouncilWaitingHTML(selectedAgenda)}
@@ -9977,13 +10012,19 @@
     const chooseCouncilAgenda = (id) => {
       cLevelCouncilDecisionId = aiInfraCouncilAgenda(id).id;
       cLevelCouncilRan = false;
+      syncAiInfraCouncilDeepLink(cLevelCouncilDecisionId);
       renderCLevelCockpit();
     };
     $("#cLevelCouncilSelect")?.addEventListener("change", (event) => chooseCouncilAgenda(event.target.value));
     $("#cLevelRunCouncil")?.addEventListener("click", () => {
       cLevelCouncilRan = true;
+      syncAiInfraCouncilDeepLink(cLevelCouncilDecisionId);
       renderCLevelCockpit();
       $("#aiInfraCouncilOutput")?.focus?.({ preventScroll: true });
+    });
+    $("#cLevelCopyLink")?.addEventListener("click", (event) => {
+      const url = syncAiInfraCouncilDeepLink(cLevelCouncilDecisionId);
+      void copyTextToClipboard(url, event.currentTarget);
     });
     grid.querySelectorAll("[data-council-pick]").forEach((button) => {
       button.addEventListener("click", () => chooseCouncilAgenda(button.dataset.councilPick));

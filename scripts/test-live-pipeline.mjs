@@ -669,6 +669,10 @@ assert.match(appText, /question: decisionFrame\.question, decisionFrame/, "each 
 assert.match(appText, /function executiveDecisionAgentItems[\s\S]*?decisionFrame: executiveDecisionFrame/, "backtest product-council agents must use the same decision frame");
 assert.match(stylesText, /\.agent-decision-frame\s*\{/, "decision frames must use a compact infographic layout");
 assert.match(appText, /const AI_INFRA_COUNCIL_AGENDAS = Object\.freeze\(\[/, "the C-level board must use a bounded AI Infra strategy agenda");
+assert.match(appText, /function consoleDeepLinkState\([\s\S]*?function applyConsoleDeepLink\(/, "the C-level board must support stable section and agenda deep links");
+assert.match(appText, /MODELED · 예약 Capacity가 승인 수요의 80% 미만[\s\S]*?Package Yield Gate가 2회 연속 미달/, "the foundry agenda must include quantified modeled reversal thresholds");
+assert.match(appText, /MODELED KILL CRITERIA · STOP \/ REFRAME/, "the decision pack must distinguish modeled kill criteria from reported facts");
+assert.match(appText, /function aiInfraCouncilDeepLink\([\s\S]*?id="cLevelCopyLink"/, "the decision pack must provide a copyable agenda deep link");
 for (const agenda of ["HBM4 Base-Die & Foundry Alliance", "On-device AI · LPDDR Portfolio", "Post-HBM · Tiered Memory Portfolio"]) {
   assert.match(appText, new RegExp(agenda.replace(/[.*+?^${}()|[\]\\]/g, "\\$&")), `the AI Infra council must expose ${agenda}`);
 }

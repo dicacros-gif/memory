@@ -3,7 +3,7 @@
 
   const BUSINESS_TITLE = "AI Infra Strategy OS · Workload to Revenue";
   const CONSOLE_HASH = "#console";
-  const CONSOLE_REVISION = "infra-20260815-13";
+  const CONSOLE_REVISION = "infra-20260815-14";
   const site = document.querySelector("#businessSite");
   const consoleLayer = document.querySelector("#intelligenceConsole");
   const header = document.querySelector("#businessHeader");
@@ -19,10 +19,15 @@
   let consoleStartupTimer = 0;
   let view = "business";
 
+  function isConsoleHash(hash = location.hash) {
+    return hash === CONSOLE_HASH || hash.startsWith(`${CONSOLE_HASH}/`);
+  }
+
   function finishConsoleStartup() {
     window.clearTimeout(consoleStartupTimer);
     consoleStartupTimer = 0;
     requestAnimationFrame(() => requestAnimationFrame(() => {
+      document.documentElement.classList.remove("console-entry");
       document.body.classList.remove("console-startup");
     }));
   }
@@ -128,12 +133,13 @@
     view = "console";
     setMenu(false);
     primeConsoleAssets();
+    document.documentElement.classList.add("console-entry");
     site.hidden = true;
     consoleLayer.hidden = true;
     document.body.classList.remove("business-menu-open");
     document.body.classList.add("console-loading");
     prepareConsoleMedia();
-    if (updateHistory && location.hash !== CONSOLE_HASH) history.pushState({ view: "console" }, "", CONSOLE_HASH);
+    if (updateHistory && !isConsoleHash()) history.pushState({ view: "console" }, "", CONSOLE_HASH);
     window.scrollTo({ top: 0, behavior: "instant" });
 
     for (const trigger of document.querySelectorAll("[data-open-console]")) trigger.setAttribute("aria-busy", "true");
@@ -142,7 +148,6 @@
       consoleLayer.hidden = false;
       document.body.classList.remove("landing-mode", "business-menu-open", "console-loading");
       document.body.classList.add("console-mode", "console-startup");
-      document.documentElement.classList.remove("console-entry");
       await loadConsole();
       if (document.body.dataset.consoleReady === "1") finishConsoleStartup();
       else consoleStartupTimer = window.setTimeout(finishConsoleStartup, 6000);
@@ -182,7 +187,7 @@
   }
 
   function syncFromLocation() {
-    if (location.hash === CONSOLE_HASH) {
+    if (isConsoleHash()) {
       if (view !== "console") void openConsole({ updateHistory: false });
       return;
     }
@@ -384,7 +389,7 @@
     updateBusinessScrollState();
   }, { passive: true });
 
-  if (location.hash === CONSOLE_HASH) void openConsole({ updateHistory: false });
+  if (isConsoleHash()) void openConsole({ updateHistory: false });
   else {
     view = "business";
     setupBusinessExperience();

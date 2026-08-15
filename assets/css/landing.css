@@ -3106,6 +3106,288 @@ body.landing-mode :is(.scroll-prog, .scroll-top, .qa-answer, .inspector, #backdr
   }
 }
 
+/* Decision-system additions: flat consulting diagrams, explicit gates, no glow. */
+body.console-loading::after {
+  display: none;
+}
+
+.business-competency-output {
+  display: block;
+  margin-top: 14px;
+  padding-top: 10px;
+  color: var(--business-muted);
+  border-top: 1px solid var(--business-line);
+  font-size: 10px;
+  line-height: 1.45;
+  font-weight: 750;
+}
+
+.business-competency-output b {
+  margin-right: 6px;
+  color: #0d756e;
+  font-size: 9px;
+  letter-spacing: .08em;
+}
+
+.business-kill-gates,
+.business-storage-track,
+.business-competitor-benchmark {
+  display: grid;
+  gap: 14px;
+  margin-top: 24px;
+  padding: clamp(20px, 3vw, 32px);
+  border: 1px solid #c9d5df;
+  background: #fff;
+}
+
+.business-kill-gates-head {
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr) auto;
+  gap: 12px;
+  align-items: baseline;
+  padding-bottom: 12px;
+  border-bottom: 2px solid #17324d;
+}
+
+.business-kill-gates-head > span,
+.business-module-heading > span {
+  color: #0d756e;
+  font: 900 10px/1.2 var(--mono);
+  letter-spacing: .1em;
+}
+
+.business-kill-gates-head h3 {
+  margin: 0;
+  color: #17324d;
+  font-size: clamp(19px, 2.2vw, 27px);
+}
+
+.business-kill-gates-head small {
+  color: var(--business-muted);
+  font-size: 9px;
+  font-weight: 760;
+}
+
+.business-kill-gate-grid,
+.business-storage-track-grid,
+.business-competitor-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 10px;
+}
+
+.business-kill-gate-grid article,
+.business-storage-track-grid article,
+.business-competitor-grid article {
+  display: grid;
+  align-content: start;
+  gap: 8px;
+  min-width: 0;
+  padding: 16px;
+  border: 1px solid var(--business-line);
+  border-top: 4px solid #17324d;
+  background: #f8fafc;
+}
+
+.business-kill-gate-grid span,
+.business-storage-track-grid > article > span,
+.business-competitor-grid header span {
+  color: #0d756e;
+  font: 900 9px/1.3 var(--mono);
+  letter-spacing: .08em;
+}
+
+.business-kill-gate-grid strong,
+.business-storage-track-grid > article > strong,
+.business-competitor-grid header strong {
+  color: #17324d;
+  font-size: 15px;
+  line-height: 1.3;
+}
+
+.business-kill-gate-grid p,
+.business-kill-gate-grid small {
+  margin: 0;
+  color: var(--business-muted);
+  font-size: 11px;
+  line-height: 1.55;
+  font-weight: 720;
+}
+
+.business-kill-gate-grid small {
+  padding-top: 8px;
+  border-top: 1px solid var(--business-line);
+  font-size: 9px;
+}
+
+.business-storage-track .business-module-heading,
+.business-competitor-benchmark .business-module-heading {
+  display: grid;
+  gap: 5px;
+  padding-bottom: 12px;
+  color: var(--business-ink);
+  border-bottom: 2px solid #17324d;
+  background: transparent;
+}
+
+.business-storage-track .business-module-heading h3,
+.business-competitor-benchmark .business-module-heading h3 {
+  margin: 0;
+  color: #17324d;
+  font-size: clamp(20px, 2.3vw, 29px);
+}
+
+.business-storage-track .business-module-heading p,
+.business-competitor-benchmark .business-module-heading p {
+  margin: 0;
+  color: var(--business-muted);
+  font-size: 10px;
+  font-weight: 750;
+}
+
+.business-storage-track-grid dl,
+.business-competitor-grid dl,
+.business-contract-values {
+  display: grid;
+  gap: 0;
+  margin: 0;
+}
+
+.business-storage-track-grid dl > div,
+.business-competitor-grid dl > div,
+.business-contract-values > div {
+  display: grid;
+  grid-template-columns: 92px minmax(0, 1fr);
+  gap: 8px;
+  padding: 8px 0;
+  border-top: 1px solid var(--business-line);
+}
+
+.business-storage-track-grid dt,
+.business-competitor-grid dt,
+.business-contract-values dt {
+  color: #0d756e;
+  font: 900 9px/1.4 var(--mono);
+  letter-spacing: .04em;
+}
+
+.business-storage-track-grid dd,
+.business-competitor-grid dd,
+.business-contract-values dd {
+  margin: 0;
+  color: var(--business-muted);
+  font-size: 10px;
+  line-height: 1.45;
+  font-weight: 720;
+}
+
+.business-storage-sources,
+.business-competitor-grid article > div:last-child {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.business-storage-sources a,
+.business-competitor-grid article > div:last-child a {
+  padding: 8px 10px;
+  color: #17324d;
+  border: 1px solid #afbdc9;
+  font-size: 9px;
+  font-weight: 850;
+}
+
+.business-llm-causal-chain {
+  display: flex;
+  align-items: stretch;
+  gap: 6px;
+  margin-top: 16px;
+  padding: 12px;
+  overflow-x: auto;
+  border: 1px solid #c9d5df;
+  background: #fff;
+}
+
+.business-llm-causal-chain span,
+.business-llm-causal-chain strong,
+.business-llm-causal-chain b {
+  display: grid;
+  place-items: center;
+  min-width: 128px;
+  padding: 10px;
+  color: #17324d;
+  border: 1px solid var(--business-line);
+  background: #f8fafc;
+  font-size: 10px;
+  line-height: 1.35;
+  text-align: center;
+}
+
+.business-llm-causal-chain strong { min-width: 210px; border-color: #0d756e; }
+.business-llm-causal-chain b { color: #fff; border-color: #17324d; background: #17324d; }
+.business-llm-causal-chain i { display: grid; place-items: center; color: #9a6500; font-style: normal; font-weight: 950; }
+
+.business-competitor-grid header {
+  display: grid;
+  gap: 5px;
+  min-height: 54px;
+}
+
+.business-contract-funnel {
+  display: grid;
+  grid-template-columns: repeat(13, auto);
+  align-items: center;
+  gap: 5px;
+  margin-top: 14px;
+  overflow-x: auto;
+}
+
+.business-contract-funnel span {
+  min-width: max-content;
+  padding: 9px 10px;
+  color: #5f6c7b;
+  border: 1px solid #9aabba;
+  background: #fff;
+  font: 850 9px/1.2 var(--mono);
+}
+
+.business-contract-funnel span.is-current {
+  color: #fff;
+  border-color: #0d756e;
+  background: #0d756e;
+}
+
+.business-contract-funnel i {
+  color: #9a6500;
+  font-style: normal;
+  font-weight: 950;
+}
+
+.business-contract-values {
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  margin-top: 12px;
+  border: 1px solid #c9d5df;
+}
+
+.business-contract-values > div {
+  grid-template-columns: minmax(0, 1fr);
+  padding: 12px;
+  border-top: 0;
+  border-right: 1px solid #c9d5df;
+}
+
+.business-contract-values > div:last-child { border-right: 0; }
+
+@media (max-width: 880px) {
+  .business-kill-gates-head { grid-template-columns: minmax(0, 1fr); }
+  .business-kill-gate-grid,
+  .business-storage-track-grid,
+  .business-competitor-grid { grid-template-columns: minmax(0, 1fr); }
+  .business-contract-values { grid-template-columns: minmax(0, 1fr); }
+  .business-contract-values > div { border-right: 0; border-bottom: 1px solid #c9d5df; }
+  .business-contract-values > div:last-child { border-bottom: 0; }
+}
+
 /* 2026-08-15 · Strategy OS compression and deep-case system */
 .business-initiatives {
   padding-top: 96px;

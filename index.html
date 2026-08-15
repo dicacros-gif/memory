@@ -34,31 +34,83 @@
       color: #fff;
       background: #080d16;
     }
+    .console-static-snapshot {
+      display: none;
+    }
     html.console-entry .business-site,
     html.console-entry #intelligenceConsole {
       display: none !important;
     }
-    html.console-entry body::after {
-      content: "MEMORY INTELLIGENCE\A Intelligence Console 준비 중";
+    html.console-entry .console-static-snapshot {
       position: fixed;
       inset: 0;
       z-index: 2147483647;
       display: grid;
-      place-content: center;
-      gap: 10px;
-      color: #dce8ff;
-      background: radial-gradient(circle at 50% 42%, #17295b 0%, #080d16 58%);
-      font: 800 13px/1.8 system-ui, sans-serif;
-      letter-spacing: .16em;
-      text-align: center;
-      white-space: pre-line;
+      align-content: center;
+      gap: 18px;
+      padding: clamp(24px, 5vw, 72px);
+      overflow: auto;
+      color: #e9f0f6;
+      background: #0b1722;
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    }
+    .console-static-snapshot header {
+      display: grid;
+      gap: 7px;
+      max-width: 1040px;
+      margin: 0 auto;
+    }
+    .console-static-snapshot header span,
+    .console-static-snapshot small {
+      color: #8fc8c2;
+      font-size: 11px;
+      font-weight: 800;
+      letter-spacing: .12em;
+    }
+    .console-static-snapshot h1,
+    .console-static-snapshot p { margin: 0; }
+    .console-static-snapshot h1 {
+      font-size: clamp(25px, 4vw, 48px);
+      line-height: 1.12;
+    }
+    .console-static-snapshot p {
+      color: #b6c5d2;
+      font-size: clamp(13px, 1.4vw, 17px);
+      line-height: 1.55;
+    }
+    .console-static-flow,
+    .console-static-links {
+      display: grid;
+      grid-template-columns: repeat(5, minmax(0, 1fr));
+      gap: 8px;
+      width: min(1040px, 100%);
+      margin: 0 auto;
+    }
+    .console-static-flow span,
+    .console-static-links a {
+      min-width: 0;
+      padding: 13px;
+      color: #e9f0f6;
+      border: 1px solid #395267;
+      border-radius: 4px;
+      background: #122536;
+      font-size: 12px;
+      font-weight: 800;
+      line-height: 1.35;
+      text-decoration: none;
+    }
+    .console-static-links { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+    .console-static-links a { background: #102f34; }
+    @media (max-width: 720px) {
+      .console-static-flow { grid-template-columns: 1fr; }
+      .console-static-links { grid-template-columns: 1fr; }
     }
   </style>
   <script>
     (() => {
-      if (location.hash !== "#console") return;
+      if (!location.hash.startsWith("#console")) return;
       document.documentElement.classList.add("console-entry");
-      const revision = "infra-20260815-13";
+      const revision = "infra-20260815-14";
       const assets = [
         ["consoleStylesPreload", "style", `assets/css/styles.css?v=${revision}`, "high"],
         ["consoleAppPreload", "script", `assets/js/app.js?v=${revision}`, "low"],
@@ -75,7 +127,7 @@
       }
     })();
   </script>
-  <link rel="stylesheet" href="assets/css/landing.css?v=infra-20260815-13" />
+  <link rel="stylesheet" href="assets/css/landing.css?v=infra-20260815-14" />
 </head>
 <body class="landing-mode">
   <div class="business-site" id="businessSite">
@@ -208,6 +260,7 @@
               <h3>Customer Problem Structuring</h3>
               <ul class="business-card-evidence"><li>Business Model · Workload · System KPI</li><li>GPU Idle · Capacity · KV Reuse · Data Movement</li></ul>
               <ul><li>Pain Point Map</li><li>Workload Trace</li><li>Bottleneck Tree</li><li>Priority Decision</li></ul>
+              <small class="business-competency-output"><b>OUTPUT EXAMPLE</b> KV Cache 병목 트리 · TTFT/TPOT/P99</small>
             </article>
             <article class="business-competency-card">
               <span class="business-card-index">02</span>
@@ -216,6 +269,7 @@
               <h3>Full-Stack AI Infra Translation</h3>
               <ul class="business-card-evidence"><li>Serving · Accelerator · Host · CXL · Storage</li><li>Network · Power · Cooling · Data Flow</li></ul>
               <ul><li>Requirement Matrix</li><li>Reference Architecture</li><li>System TCO</li></ul>
+              <small class="business-competency-output"><b>OUTPUT EXAMPLE</b> Hot/Warm/Scale Architecture · TCO</small>
             </article>
             <article class="business-competency-card">
               <span class="business-card-index">03</span>
@@ -224,6 +278,7 @@
               <h3>Executive Strategy &amp; Business Case</h3>
               <ul class="business-card-evidence"><li>Value · Market · Investment · Supply Risk</li><li>Now · Next · Scale · Stop Condition</li></ul>
               <ul><li>Business Case</li><li>Stage-Gate</li><li>Owner · Trigger · KPI</li></ul>
+              <small class="business-competency-output"><b>OUTPUT EXAMPLE</b> Now/Next/Scale · Kill Criteria · Owner</small>
             </article>
           </div>
         </div>
@@ -232,7 +287,7 @@
       <section class="business-section business-ai-strategy" id="ai-strategy" data-frame="McKINSEY · END-TO-END VALUE LOOP">
         <div class="business-container">
           <div class="business-section-heading business-section-heading--split">
-            <div><p class="business-kicker">Workload-to-Revenue</p><h2>9-Stage Value Loop</h2></div>
+            <div><p class="business-kicker">Workload-to-Revenue</p><h2>Customer Memory Consulting Process · 10 Gates</h2></div>
             <ul class="business-heading-points"><li>INPUT · Customer Signal</li><li>ENGINE · Architecture · Benchmark · TCO</li><li>OUTPUT · Qualification · Ramp · Repeat Order</li></ul>
           </div>
           <ol class="business-strategy-chain" aria-label="AI Memory Strategy 실행 프레임">
@@ -243,9 +298,19 @@
             <li><span>05</span><strong>Architecture Option</strong></li>
             <li><span>06</span><strong>Benchmark / TCO</strong></li>
             <li><span>07</span><strong>Co-Design / Qualification</strong></li>
-            <li><span>08</span><strong>Capacity / Ramp</strong></li>
-            <li><span>09</span><strong>Revenue / Repeat Order</strong></li>
+            <li><span>08</span><strong>Packaging / Yield Readiness</strong></li>
+            <li><span>09</span><strong>Capacity / Volume Ramp</strong></li>
+            <li><span>10</span><strong>Revenue / Repeat Order</strong></li>
           </ol>
+
+          <section class="business-kill-gates" aria-labelledby="killGatesTitle">
+            <div class="business-kill-gates-head"><span>RED TEAM · DECISION REVERSAL</span><h3 id="killGatesTitle">What Would Change Our Mind?</h3><small>MODELED THRESHOLDS · 실제 고객 Baseline과 경영진 승인 후 확정</small></div>
+            <div class="business-kill-gate-grid">
+              <article><span>01 · TECHNOLOGY</span><strong>PoC Value Gate</strong><p>System TCO 개선 &lt;10% 또는 P99 Latency 악화 &gt;5%</p><small>ACTION · Architecture 재설계 · OWNER · CTO / AI Infra</small></article>
+              <article><span>02 · SUPPLY</span><strong>Packaging / Yield Gate</strong><p>Qualification ≥1분기 지연 또는 Package Yield Gate 2회 연속 미달</p><small>ACTION · Capacity 재배분 · OWNER · COO / Packaging</small></article>
+              <article><span>03 · COMMERCIAL</span><strong>Demand Conversion Gate</strong><p>확정 물량 &lt;제안 Capacity의 80% 또는 Sell-through가 2개월 연속 계획 대비 −10%</p><small>ACTION · 단계 축소·중단 · OWNER · CFO / Business</small></article>
+            </div>
+          </section>
 
           <section class="business-pain-framework" id="pain-framework" aria-labelledby="painFrameworkTitle">
             <div class="business-framework-head">
@@ -297,7 +362,7 @@
                 <div><span>DIAGNOSTIC METRICS</span><p>GPU utilization · HBM occupancy · KV hit rate · TTFT · TPOT/P99 · bytes/token · rack power.</p></div>
                 <div><span>ARCHITECTURE OPTIONS</span><p>HBM = Hot state · SOCAMM2/Server DRAM/CXL = Warm capacity · HBF/eSSD = Reusable context.</p></div>
                 <div><span>BUSINESS CASE</span><p>추가 Memory 비용과 GPU Idle 감소·Throughput 증가·Power/Token 개선을 같은 단위로 비교.</p></div>
-                <div><span>EXECUTION GATES</span><p>Capture → Benchmark → Architecture PoC → SW integration → Reliability → Qualification → Volume/Ramp.</p></div>
+                <div><span>EXECUTION GATES</span><p>Capture → Benchmark → Architecture PoC → SW Integration → Reliability → Qualification → Packaging/Yield Readiness → Volume/Ramp.</p></div>
               </div>
               <p class="business-framework-note">공개 사실을 바탕으로 재구성한 전략 산출물이며 실제 고객 성과가 아닙니다.</p>
             </article>
@@ -328,6 +393,20 @@
             </div>
             <div class="business-fabric-output"><span>MINIMIZE</span><strong>Data Movement · GPU Idle · Power · Cooling</strong><i aria-hidden="true">→</i><span>MAXIMIZE</span><strong>Tokens/Watt · Tokens/$ · Utilization · TCO</strong></div>
             <p class="business-source-note"><span>CONFIRMED · OFFICIAL</span><a href="https://news.skhynix.com/en/fms-2026/" target="_blank" rel="noopener noreferrer">SK hynix FMS 2026 · Tiered Memory Architecture ↗</a><time datetime="2026-08-07">2026-08-07</time></p>
+          </section>
+
+          <section class="business-storage-track" aria-labelledby="storageTrackTitle">
+            <div class="business-module-heading">
+              <span>AI STORAGE · EQUAL GROWTH TRACK</span>
+              <h3 id="storageTrackTitle">NAND/eSSD를 독립 의사결정 축으로</h3>
+              <p>WORKLOAD → DATA ROLE → PRODUCT OPTION → VALUE KPI</p>
+            </div>
+            <div class="business-storage-track-grid">
+              <article><span>AI-N P · PERFORMANCE</span><strong>TLC eSSD</strong><dl><div><dt>ROLE</dt><dd>Inference · Retrieval Hot Path</dd></div><div><dt>KPI</dt><dd>QPS · P99 · Read Amplification</dd></div><div><dt>GATE</dt><dd>Latency SLA · Endurance · TCO</dd></div></dl></article>
+              <article><span>AI-N B · BANDWIDTH</span><strong>HBF Option</strong><dl><div><dt>ROLE</dt><dd>Context · KV Capacity Tier</dd></div><div><dt>KPI</dt><dd>Bandwidth/W · Reuse Rate</dd></div><div><dt>GATE</dt><dd>Standard · Interoperability · PoC</dd></div></dl></article>
+              <article><span>AI-N D · DENSITY</span><strong>QLC eSSD</strong><dl><div><dt>ROLE</dt><dd>Checkpoint · Data Lake · Cold Context</dd></div><div><dt>KPI</dt><dd>$/TB · Rack Density · Recovery Time</dd></div><div><dt>GATE</dt><dd>Capacity Economics · Qualification</dd></div></dl></article>
+            </div>
+            <div class="business-storage-sources"><a href="https://news.skhynix.com/q1-2026-business-results/" target="_blank" rel="noopener noreferrer">Official · High-performance TLC + High-capacity QLC ↗</a><a href="https://news.skhynix.com/sk-hynix-redefines-its-vision-at-sk-ai-summit-2025-from-ai-memory-provider-to-creator/" target="_blank" rel="noopener noreferrer">Official · AI-N P/B/D Portfolio ↗</a></div>
           </section>
 
           <section class="business-tco-module" aria-labelledby="tcoModuleTitle">
@@ -367,11 +446,27 @@
               <dl><div><dt>TECH CHANGE</dt><dd>Vector Index·Metadata·Source Document·Retrieval Cache 증가</dd></div><div><dt>MEMORY IMPLICATION</dt><dd>DRAM/CXL Resident Cache와 High-capacity eSSD 배치 최적화</dd></div><div><dt>BUSINESS QUESTION</dt><dd>어떤 Hit Rate와 P99에서 Memory 증설과 Storage 증설이 교차하는가?</dd></div></dl>
             </article>
           </div>
+          <div class="business-llm-causal-chain" aria-label="LLM 기술 변화와 메모리 사업 영향">
+            <span>Transformer Attention</span><i>→</i><span>Prompt · Prefix Reuse</span><i>→</i><span>KV Cache Growth</span><i>→</i><span>Data Movement</span><i>→</i><strong>HBM Hot · CXL Warm · eSSD Context</strong><i>→</i><b>TTFT · TPOT · TCO</b>
+          </div>
           <div class="business-tech-proofline">
             <div><span>CONFIRMED · OFFICIAL</span><strong>192GB SOCAMM2 양산 · AI Server용 저전력 Host Memory</strong><a href="https://news.skhynix.com/mass-production-socamm2-192gb/" target="_blank" rel="noopener noreferrer">Official release ↗</a></div>
             <div><span>CONFIRMED · SAMPLE STAGE</span><strong>12-layer HBM4E · 48GB · 최대 16Gbps/pin</strong><a href="https://news.skhynix.com/12-layer-hbm4e-sample/" target="_blank" rel="noopener noreferrer">Official sample release ↗</a></div>
           </div>
           <p class="business-evidence-caveat">SOCAMM2 양산과 HBM4E 고객 Sample 출하는 서로 다른 상용화 단계입니다. Sample은 Qualification·수율·Capacity·반복 발주를 별도로 확인해야 합니다.</p>
+          <section class="business-competitor-benchmark" aria-labelledby="competitorBenchmarkTitle">
+            <div class="business-module-heading">
+              <span>RIGHT TO WIN · SAME-METRIC BENCHMARK</span>
+              <h3 id="competitorBenchmarkTitle">HBM4 / HBM4E 경쟁사 동종 지표 비교</h3>
+              <p>2026-08-15 기준 · 회사 공식 발표만 사용 · Qualification 수·수율은 미공개</p>
+            </div>
+            <div class="business-competitor-grid">
+              <article><header><span>SK HYNIX</span><strong>HBM4 대량 생산 진행</strong></header><dl><div><dt>HBM4E</dt><dd>12H Sample · 16Gbps/pin</dd></div><div><dt>BASE / PACKAGE</dt><dd>TSMC Logic · Advanced MR-MUF</dd></div><div><dt>TRACK</dt><dd>Customer Qualification · Package Yield · Volume Ramp</dd></div></dl><div><a href="https://news.skhynix.com/sk-hynix-announces-fy25-financial-results/" target="_blank" rel="noopener noreferrer">HBM4 ↗</a><a href="https://news.skhynix.com/12-layer-hbm4e-sample/" target="_blank" rel="noopener noreferrer">HBM4E ↗</a></div></article>
+              <article><header><span>SAMSUNG</span><strong>HBM4 상용 출하 발표</strong></header><dl><div><dt>HBM4E</dt><dd>12H Sample · 최대 16Gbps/pin</dd></div><div><dt>BASE / PACKAGE</dt><dd>4nm Logic · DTCO</dd></div><div><dt>TRACK</dt><dd>Customer Qualification · Volume Shipment · HBM4E Ramp</dd></div></dl><div><a href="https://news.samsung.com/global/samsung-ships-industry-first-commercial-hbm4-with-ultimate-performance-for-ai-computing" target="_blank" rel="noopener noreferrer">HBM4 ↗</a><a href="https://news.samsung.com/global/samsung-electronics-begins-shipment-of-industry-first-hbm4e-samples" target="_blank" rel="noopener noreferrer">HBM4E ↗</a></div></article>
+              <article><header><span>MICRON</span><strong>36GB 12H HBM4 Volume Shipment</strong></header><dl><div><dt>HBM4E</dt><dd>개발 진행 · 2027 Volume 예상</dd></div><div><dt>PERFORMANCE</dt><dd>&gt;11Gbps/pin · &gt;2.8TB/s</dd></div><div><dt>TRACK</dt><dd>Platform Adoption · Customer Ramp · HBM4E Timing</dd></div></dl><div><a href="https://investors.micron.com/news-releases/news-release-details/micron-high-volume-production-hbm4-designed-nvidia-vera-rubin" target="_blank" rel="noopener noreferrer">HBM4 ↗</a><a href="https://investors.micron.com/node/50671/pdf" target="_blank" rel="noopener noreferrer">HBM4E ↗</a></div></article>
+            </div>
+            <p class="business-evidence-caveat">공식 발표상 3사 모두 2026년 HBM4 생산·출하 단계에 진입했습니다. 고정된 ‘2분기 격차’를 전제하지 않고 Speed·Power·Base Die·Qualification·Package Yield·Volume Ramp를 같은 기준으로 재검증합니다.</p>
+          </section>
           <section class="business-execution-evidence" id="execution-evidence" aria-labelledby="executionEvidenceTitle">
             <div class="business-module-heading business-module-heading--light">
               <span>2026 EXECUTION EVIDENCE</span>
@@ -443,9 +538,13 @@
               <div><strong>HBM4+</strong><span>Next-gen AI Memory<br />Co-Develop &amp; Optimize</span></div>
             </div>
             <div class="business-flagship-flow" aria-label="파트너십 실행 흐름"><span>NVIDIA DSX · Vera Rubin</span><i>→</i><span>SK hynix HBM4 · Next-gen Memory</span><i>→</i><span>LLM Training · Agentic · Physical AI</span><i>→</i><span>Supply · Qualification · Ramp</span></div>
+            <div class="business-contract-funnel" aria-label="발표에서 매출 인식까지의 전환 단계">
+              <span class="is-current">01 · ANNOUNCEMENT</span><i>→</i><span class="is-current">02 · LOI</span><i>→</i><span>03 · DEFINITIVE CONTRACT</span><i>→</i><span>04 · QUALIFICATION</span><i>→</i><span>05 · CAPACITY ALLOCATION</span><i>→</i><span>06 · SHIPMENT</span><i>→</i><span>07 · REVENUE RECOGNITION</span>
+            </div>
+            <dl class="business-contract-values"><div><dt>ANNOUNCED VALUE</dt><dd>$500B+ · SK Group initiative</dd></div><div><dt>BINDING VALUE</dt><dd>Not disclosed</dd></div><div><dt>RECOGNIZED REVENUE</dt><dd>SK hynix 매출로 인식 전</dd></div></dl>
             <div class="business-flagship-bottom">
               <p><strong>STRATEGIC IMPLICATION</strong> Supply → AI Factory Architecture → Workload Optimization → Joint Roadmap</p>
-              <a href="https://news.skhynix.com/en/skhynix-nvidia-partnership-2026/" target="_blank" rel="noopener noreferrer">Official Partnership Release ↗</a>
+              <a href="https://investor.nvidia.com/news/press-release-details/2026/SK-Group-and-NVIDIA-Expand-Strategic-Partnership-Across-AI-Factories-and-Next-Generation-Memory/default.aspx" target="_blank" rel="noopener noreferrer">Official NVIDIA Release ↗</a>
             </div>
             <p class="business-flagship-caveat">$500B+는 SK하이닉스 단독 계약액이나 확정 매출이 아니라 SK그룹–NVIDIA의 포괄 이니셔티브 규모입니다. 발표 시점의 LOI와 2027 가동 목표는 실행·인허가·공급 조건에 따라 달라질 수 있습니다.</p>
           </article>
@@ -539,6 +638,26 @@
 
   <div class="scroll-prog" id="scrollProg" aria-hidden="true"></div>
   <button class="scroll-top" id="scrollTop" type="button" aria-label="맨 위로 이동">↑</button>
+  <aside class="console-static-snapshot" id="consoleStaticSnapshot" aria-label="Intelligence Console 정적 요약">
+    <header>
+      <span>MEMORY INTELLIGENCE · INDEXABLE DECISION SNAPSHOT</span>
+      <h1>AI Infra Decision Intelligence</h1>
+      <p>고객 Pain Point를 Workload·Memory Architecture·Business Case로 번역하고, 근거·선택지·Kill Criteria·Owner·KPI를 한 흐름에서 관리합니다.</p>
+    </header>
+    <div class="console-static-flow" aria-label="의사결정 5단계">
+      <span>01 · SIGNAL<br />고객·기술 변화</span>
+      <span>02 · DIAGNOSE<br />Workload 병목</span>
+      <span>03 · EVIDENCE<br />공식·검증 근거</span>
+      <span>04 · DECIDE<br />선택지·Kill Criteria</span>
+      <span>05 · EXECUTE<br />Owner·KPI·90일 Gate</span>
+    </div>
+    <nav class="console-static-links" aria-label="AI Infra 의사결정 안건 바로가기">
+      <a href="#console/c-level-cockpit/hbm4-foundry">HBM4 Base-Die · Foundry Alliance →</a>
+      <a href="#console/c-level-cockpit/ondevice-lpddr">On-device AI · LPDDR Portfolio →</a>
+      <a href="#console/c-level-cockpit/post-hbm">Post-HBM · Tiered Memory Portfolio →</a>
+    </nav>
+    <small>정적 요약을 먼저 표시한 뒤 검증 데이터 기반 Console로 전환합니다.</small>
+  </aside>
   <div class="app console-layer" id="intelligenceConsole" hidden>
     <aside class="sidebar" id="sidebar">
       <button class="sb-fold" id="sidebarFold" type="button" aria-label="사이드바 접기" title="사이드바 접기 · 색상 변경">‹</button>
@@ -1516,6 +1635,6 @@
   <div class="qa-answer" id="qaAnswer" hidden></div>
   <div class="inspector" id="inspector" hidden></div>
   <div class="backdrop" id="backdrop"></div>
-  <script src="assets/js/landing.js?v=infra-20260815-13" defer></script>
+  <script src="assets/js/landing.js?v=infra-20260815-14" defer></script>
 </body>
 </html>
