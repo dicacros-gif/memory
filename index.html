@@ -33,7 +33,7 @@
   <link rel="preload" as="fetch" href="data/baseline.json" crossorigin="anonymous" />
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css" media="print" onload="this.media='all'" />
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@500;700&family=Space+Grotesk:wght@500;600;700&display=swap" media="print" onload="this.media='all'" />
-  <link rel="stylesheet" href="assets/css/styles.css?v=strategy-consulting-20260731-02" />
+  <link rel="stylesheet" href="assets/css/styles.css?v=strategy-flow-20260815-01" />
 </head>
 <body>
   <div class="scroll-prog" id="scrollProg" aria-hidden="true"></div>
@@ -41,7 +41,7 @@
   <div class="app">
     <aside class="sidebar" id="sidebar">
       <button class="sb-fold" id="sidebarFold" type="button" aria-label="사이드바 접기" title="사이드바 접기 · 색상 변경">‹</button>
-      <button class="sb-logo" type="button" data-jump="overview" aria-label="Executive Summary">
+      <button class="sb-logo" type="button" data-jump="overview" aria-label="영상 브리핑으로 이동">
         <span class="sb-mark">M</span>
         <span class="sb-logo-text">
           <strong>MEMORY</strong>
@@ -101,14 +101,25 @@
           <div class="memory-hero-content">
             <p class="memory-hero-kicker">Executive memory intelligence</p>
             <h2 id="memoryHeroTitle">Memory Intelligence</h2>
-            <p>가격·수요·중국 경쟁 신호를 연결해 경영전략과 의사결정의 우선순위를 선명하게 제시합니다.</p>
+            <p>고객 Pain point와 AI 인프라 변화를 메모리 솔루션·신규 Biz 기회·실행 판단으로 연결합니다.</p>
             <div class="memory-hero-actions">
-              <button type="button" data-hero-jump="c-level-cockpit">경영진 안건</button>
-              <button type="button" data-hero-jump="prices">가격 추이</button>
+              <button type="button" data-hero-jump="strategy-consulting">전략 컨설팅 보기</button>
+              <button type="button" data-hero-jump="overview-content">Executive Summary</button>
             </div>
             <div class="memory-hero-scroll-cue" aria-hidden="true"><span></span></div>
           </div>
           <button class="memory-hero-toggle" id="memoryHeroToggle" type="button" aria-label="배경 영상 일시정지" title="배경 영상 일시정지"><span aria-hidden="true">Ⅱ</span></button>
+        </section>
+
+        <section class="board strategy-consulting-board" id="strategy-consulting" aria-label="전략 컨설팅 · 고객 페인포인트와 신규 메모리 Biz 기회">
+          <div class="board-head">
+            <div>
+              <p class="eyebrow">Strategy consulting · pain-point → memory solution → new Biz</p>
+              <h2>전략 컨설팅 · 고객 페인포인트 &amp; 신규 메모리 Biz 기회</h2>
+            </div>
+            <span class="board-meta" id="strategyConsultingMeta">크롤 근거 연결 중</span>
+          </div>
+          <div id="strategyConsulting"></div>
         </section>
 
         <section class="executive-summary" id="overview-content" aria-label="Executive Summary">
@@ -121,17 +132,6 @@
           <section class="memory-bypass" id="memoryBypass" aria-label="메모리 우회 경로 · AMD MEXT 신호"></section>
           <section class="news-insight" id="newsInsight" aria-label="최신 뉴스 인사이트 요약"></section>
           <div class="kpi-strip" id="kpiStrip"></div>
-        </section>
-
-        <section class="board strategy-consulting-board" id="strategy-consulting" aria-label="전략 컨설팅 · 고객 페인포인트와 신규 메모리 Biz 기회">
-          <div class="board-head">
-            <div>
-              <p class="eyebrow">Strategy consulting · pain-point → memory solution → new Biz</p>
-              <h2>전략 컨설팅 · 고객 페인포인트 &amp; 신규 메모리 Biz 기회</h2>
-            </div>
-            <span class="board-meta" id="strategyConsultingMeta">크롤 근거 연결 중</span>
-          </div>
-          <div id="strategyConsulting"></div>
         </section>
 
         <section class="board c-level-board" id="c-level-cockpit">
@@ -291,21 +291,23 @@
                 <div class="investment-grid decision-option-grid" id="strategicDecisionGrid"></div>
               </section>
             </div>
-            <aside class="investment-focus" id="strategicDecisionFocus"></aside>
+            <div class="strategic-decision-side">
+              <figure class="china-decision-video-panel" id="chinaDecisionVideoPanel" aria-label="중국 사업 실행 판단 영상">
+                <video class="china-decision-video" id="chinaDecisionVideo" autoplay muted loop playsinline preload="none" disablepictureinpicture data-poster="assets/media/china-decision-options-poster.webp" aria-hidden="true">
+                  <source data-src="assets/media/china-decision-options.mp4" type="video/mp4" />
+                </video>
+                <div class="china-decision-video-shade" aria-hidden="true"></div>
+                <figcaption class="china-decision-video-copy" id="chinaDecisionVideoCopy">
+                  <small id="chinaDecisionVideoKicker">Customer lock-in</small>
+                  <strong id="chinaDecisionVideoTitle">핵심 고객은 가격보다 공급 안정성과 공동개발로 락인</strong>
+                  <p id="chinaDecisionVideoBody">장기계약, 인증 지원, 제품 번들을 하나의 협상안으로 설계</p>
+                  <span id="chinaDecisionVideoCount">01 / 07</span>
+                </figcaption>
+                <button class="china-decision-video-toggle" id="chinaDecisionVideoToggle" type="button" aria-label="영상 일시정지" title="영상 일시정지"><span aria-hidden="true">Ⅱ</span></button>
+              </figure>
+              <aside class="investment-focus" id="strategicDecisionFocus"></aside>
+            </div>
           </div>
-          <figure class="china-decision-video-panel" id="chinaDecisionVideoPanel" aria-label="중국 사업 실행 판단 영상">
-            <video class="china-decision-video" id="chinaDecisionVideo" autoplay muted loop playsinline preload="none" disablepictureinpicture data-poster="assets/media/china-decision-options-poster.webp" aria-hidden="true">
-              <source data-src="assets/media/china-decision-options.mp4" type="video/mp4" />
-            </video>
-            <div class="china-decision-video-shade" aria-hidden="true"></div>
-            <figcaption class="china-decision-video-copy" id="chinaDecisionVideoCopy">
-              <small id="chinaDecisionVideoKicker">Customer lock-in</small>
-              <strong id="chinaDecisionVideoTitle">핵심 고객은 가격보다 공급 안정성과 공동개발로 락인</strong>
-              <p id="chinaDecisionVideoBody">장기계약, 인증 지원, 제품 번들을 하나의 협상안으로 설계</p>
-              <span id="chinaDecisionVideoCount">01 / 07</span>
-            </figcaption>
-            <button class="china-decision-video-toggle" id="chinaDecisionVideoToggle" type="button" aria-label="영상 일시정지" title="영상 일시정지"><span aria-hidden="true">Ⅱ</span></button>
-          </figure>
           <div class="investment-evidence" id="strategicDecisionEvidence"></div>
         </section>
 
@@ -1015,6 +1017,6 @@
   <div class="qa-answer" id="qaAnswer" hidden></div>
   <div class="inspector" id="inspector" hidden></div>
   <div class="backdrop" id="backdrop"></div>
-  <script src="assets/js/app.js?v=strategy-consulting-20260731-02" defer></script>
+  <script src="assets/js/app.js?v=strategy-flow-20260815-01" defer></script>
 </body>
 </html>

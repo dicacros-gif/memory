@@ -149,8 +149,11 @@ assert.match(app, /loadManagedJSON\("live", "data\/live-client\.json"[\s\S]*?loa
 assert.match(app, /priceHistory: \{[\s\S]*?path: "data\/price-history-client\.json"[\s\S]*?marketHistory: \{[\s\S]*?path: "data\/market-history-client\.json"/, "secondary fallbacks must never download database-sized history files");
 assert.match(css, /\.agent-debate-title \.agent-tts-toggle \{[\s\S]*?min-width: 190px;[\s\S]*?min-height: 44px;/, "the English TTS control should be large and readable");
 assert.match(css, /\.agent-tts-state \{[\s\S]*?min-width: 31px;/, "the TTS control should expose a dedicated on-or-off state badge");
-assert.match(html, /app\.js\?v=strategy-consulting-20260731-02/, "JavaScript cache key should include the navigation-performance revision");
-assert.match(html, /styles\.css\?v=strategy-consulting-20260731-02/, "CSS cache key should include the navigation-performance revision");
+assert.match(html, /app\.js\?v=strategy-flow-20260815-01/, "JavaScript cache key should include the strategy-flow revision");
+assert.match(html, /styles\.css\?v=strategy-flow-20260815-01/, "CSS cache key should include the strategy-flow revision");
+assert.match(html, /class="strategic-decision-side"[\s\S]*?id="chinaDecisionVideoPanel"[\s\S]*?id="strategicDecisionFocus"/, "the China decision video should lead the right-hand decision column");
+assert.match(app, /decisionId: "china-key-account-lock"[\s\S]*?decisionId: "china-legacy-capex"[\s\S]*?syncChinaDecisionVideoToDecision\(selected\?\.id\)/, "video messages and left-hand decision cards should stay synchronized");
+assert.match(css, /\.strategic-decision-side \{[\s\S]*?position: sticky;[\s\S]*?display: grid;/, "the right-hand decision column should keep the video above the supporting detail");
 assert.match(html, /id="memoryHeroVideo"[\s\S]*?preload="none"[\s\S]*?<source data-src="assets\/media\/memory-hero\.mp4"/, "hero video should hydrate after the poster paints");
 assert.match(html, /id="talentStrategyVideoMedia"[\s\S]*?preload="none"[\s\S]*?data-poster="assets\/media\/china-talent-strategy-poster\.webp"[\s\S]*?<source data-src="assets\/media\/china-talent-strategy\.mp4"/, "below-fold talent media should not load during first paint");
 assert.doesNotMatch(html, /family=Noto\+Sans\+KR/, "Pretendard should replace the duplicate Korean webfont download");

@@ -1825,19 +1825,27 @@
   const SIDE_NAV_ROUTES = [
     {
       id: "home",
-      label: "Executive Summary",
-      desc: "핵심 변화·증권사 리서치",
-      cadence: "Daily",
+      label: "영상 브리핑",
+      desc: "Memory Intelligence 오프닝",
+      cadence: "Briefing",
       jump: "overview",
-      sections: ["overview", "overview-content"],
+      sections: ["overview"],
     },
     {
       id: "biz-consulting",
       label: "전략 컨설팅",
-      desc: "페인포인트·신규 메모리 Biz 기회",
+      desc: "고객 Pain point·신규 Biz 기회",
       cadence: "Consulting",
       jump: "strategy-consulting",
       sections: ["strategy-consulting"],
+    },
+    {
+      id: "executive-summary",
+      label: "Executive Summary",
+      desc: "핵심 변화·증권사 리서치",
+      cadence: "Daily",
+      jump: "overview-content",
+      sections: ["overview-content"],
     },
     {
       id: "c-level",
@@ -1968,6 +1976,11 @@
   ];
   const ROUTE_DISPLAY = {
     home: {
+      label: "영상 브리핑",
+      desc: "Memory Intelligence 오프닝",
+      cadence: "Briefing",
+    },
+    "executive-summary": {
       label: "Executive Summary",
       desc: "핵심 변화·증권사 리서치",
       cadence: "Daily",
@@ -2062,7 +2075,7 @@
     talent: { label: "인재 · IP", en: "Talent / IP", desc: "채용, 핵심 수율 인력 이동, IP 방어 신호" },
   };
   const SIDE_NAV_GROUPS = [
-    { label: "핵심·의사결정", routes: ["home", "biz-consulting", "c-level", "analysis"] },
+    { label: "브리핑·의사결정", routes: ["home", "biz-consulting", "executive-summary", "c-level", "analysis"] },
     { label: "정책·시장", routes: ["policy", "china-workforce", "market"] },
     { label: "경쟁·전망", routes: ["competitors", "talent", "numbers", "projection", "hyperscaler-demand"] },
     { label: "구조·실행", routes: ["workbench", "market-map", "ai-architecture", "strategy-actions"] },
@@ -2070,22 +2083,23 @@
   ];
   const SIDE_NAV_ICONS = {
     home: "01",
-    "biz-consulting": "◆",
-    "c-level": "02",
-    analysis: "03",
-    policy: "04",
-    "china-workforce": "05",
-    market: "06",
-    competitors: "07",
-    talent: "08",
-    numbers: "09",
-    projection: "10",
-    "hyperscaler-demand": "11",
-    workbench: "12",
-    "market-map": "13",
-    "ai-architecture": "14",
-    "strategy-actions": "15",
-    stock: "16",
+    "biz-consulting": "02",
+    "executive-summary": "03",
+    "c-level": "04",
+    analysis: "05",
+    policy: "06",
+    "china-workforce": "07",
+    market: "08",
+    competitors: "09",
+    talent: "10",
+    numbers: "11",
+    projection: "12",
+    "hyperscaler-demand": "13",
+    workbench: "14",
+    "market-map": "15",
+    "ai-architecture": "16",
+    "strategy-actions": "17",
+    stock: "18",
   };
   const TOPIC_FILTER_GROUPS = [
     { label: "전체", hint: "All", categories: ["all"] },
@@ -2112,7 +2126,9 @@
     { id: "china-risk", label: "중국 리스크", sub: "CXMT · YMTC · 정책", categories: ["china", "geopolitics", "equipment", "talent"], keywords: ["cxmt", "ymtc", "big fund", "match", "veU", "중국", "국산화", "수출통제"] },
   ];
   const SECTION_LABELS = {
-    overview: "Executive Summary",
+    overview: "영상 브리핑",
+    "overview-content": "Executive Summary",
+    "strategy-consulting": "전략 컨설팅",
     "c-level-cockpit": "C-level 전략 보드",
     "executive-decision": "경영진 의사결정",
     "management-strategy": "중국 경영전략 수립",
@@ -2215,6 +2231,7 @@
   let chinaNandFocusId = "ymtc";
   let managementStrategyFocusId = "china-key-account";
   let strategicDecisionFocusId = "china-key-account-lock";
+  let syncChinaDecisionVideoToDecision = () => {};
   let policyMakerTab = "china";
   let chinaInfraSite = "wuxi";
   let chinaTalentScenarioId = "operate";
@@ -4856,8 +4873,8 @@
     const body = $("#chinaDecisionVideoBody");
     const count = $("#chinaDecisionVideoCount");
     const toggle = $("#chinaDecisionVideoToggle");
-    const primary = document.querySelector("#strategic-investment-decision .strategic-decision-primary");
-    if (panel && primary && panel.parentElement !== primary) primary.append(panel);
+    const side = document.querySelector("#strategic-investment-decision .strategic-decision-side");
+    if (panel && side && panel.parentElement !== side) side.prepend(panel);
     if (!panel || !video || !source || !copy || !kicker || !title || !body || !count || !toggle || panel.dataset.ready === "1") return;
     panel.dataset.ready = "1";
     video.muted = true;
@@ -4866,36 +4883,43 @@
 
     const messages = [
       {
+        decisionId: "china-key-account-lock",
         kicker: "Customer lock-in",
         title: "핵심 고객은 가격보다 공급 안정성과 공동개발로 락인",
         body: "장기계약, 인증 지원, 제품 번들을 하나의 협상안으로 설계",
       },
       {
+        decisionId: "china-essd-defense",
         kicker: "NAND · eSSD defense",
         title: "eSSD 방어는 가격·인증·공급 안정성을 함께 제시",
         body: "고객별 제품 믹스와 장기 공급 조건을 단일 실행안으로 관리",
       },
       {
+        decisionId: "china-packaging-hedge",
         kicker: "Packaging option",
         title: "패키징 대응은 제휴·소수지분·공급권 옵션으로 분리",
         body: "고객 인증과 IP 보호 조건이 충족될 때만 다음 단계로 전환",
       },
       {
+        decisionId: "china-equipment-ip-gate",
         kicker: "Equipment gate",
         title: "소부장 협력은 기술성보다 규제와 IP 게이트를 우선 검토",
         body: "수출통제, 정보 접근권, 대체 공급망 조건을 선행 검토",
       },
       {
+        decisionId: "china-operation-scenario",
         kicker: "Operating switch",
         title: "생산·재고·고객 전환 조건으로 운영 시나리오 조정",
         body: "가격 하방과 공급 차질에 따라 유지·전환·방어 모드를 즉시 재배치",
       },
       {
+        decisionId: "china-talent-retention",
         kicker: "Talent · IP defense",
         title: "핵심 인재 방어는 보상·법무·보안을 동시에 집행",
         body: "수율과 패키징 경험이 집중된 직무를 우선 보호",
       },
       {
+        decisionId: "china-legacy-capex",
         kicker: "CAPEX discipline",
         title: "레거시 CAPEX는 현금원가와 고객 수요 확인 후 확대",
         body: "범용 가격 압력이 커지면 증설보다 SKU·재고·원가 방어를 우선",
@@ -4932,7 +4956,7 @@
       if (!inView || userPaused || document.hidden) return;
       timer = window.setTimeout(() => showMessage(activeIndex + 1), 4700);
     };
-    const showMessage = (targetIndex, { initial = false } = {}) => {
+    const showMessage = (targetIndex, { initial = false, syncDecision = true } = {}) => {
       activeIndex = (Number(targetIndex) + messages.length) % messages.length;
       const message = messages[activeIndex];
       const position = initial ? lastPosition : chooseDifferent(positions, lastPosition);
@@ -4941,6 +4965,7 @@
       lastEffect = effect;
       panel.dataset.copyPosition = position;
       panel.dataset.copyEffect = effect;
+      panel.dataset.decisionId = message.decisionId;
       copy.classList.remove("is-entering");
       kicker.textContent = message.kicker;
       title.textContent = message.title;
@@ -4950,7 +4975,16 @@
       copy.classList.add("is-entering");
       if (transitionTimer) window.clearTimeout(transitionTimer);
       transitionTimer = window.setTimeout(() => copy.classList.remove("is-entering"), 950);
+      if (syncDecision && message.decisionId && strategicDecisionFocusId !== message.decisionId) {
+        strategicDecisionFocusId = message.decisionId;
+        if (BASE) renderStrategicInvestmentDecision();
+      }
       scheduleRotation();
+    };
+    syncChinaDecisionVideoToDecision = (decisionId) => {
+      const targetIndex = messages.findIndex((message) => message.decisionId === decisionId);
+      if (targetIndex < 0 || targetIndex === activeIndex) return;
+      showMessage(targetIndex, { syncDecision: false });
     };
     const syncToggle = () => {
       toggle.querySelector("span").textContent = userPaused ? "▶" : "Ⅱ";
@@ -12466,60 +12500,102 @@
 
   // ------------------------------------------------------------
   // Strategy consulting board — for the SK hynix Biz-strategy team.
-  // Each "lens" is a customer/workload pain-point framed as a consulting
-  // chain (Pain point → Datacenter workload HW/SW → Memory solution → new Biz
-  // opportunity). The FRAMEWORK text is a fixed consulting scaffold; the
-  // EVIDENCE (headline count, verbatim citations, price momentum) is pulled
-  // live from the latest crawl (LIVE.news / LIVE.trending / QUANT.momentum),
-  // so the board updates every crawl instead of being hardcoded. No fabricated
-  // facts: lens framing is labelled as framework, evidence is real and sourced.
+  // Each lens combines JTBD, workload translation, Where-to-Play / How-to-Win,
+  // Three Horizons and a Stage-Gate validation question. Framework copy is a
+  // strategic hypothesis; evidence counts, citations and price momentum are
+  // pulled live from the latest crawl so facts remain traceable.
   // ------------------------------------------------------------
   const STRATEGY_CONSULTING_LENSES = [
     {
       id: "ai-training",
       accent: "#2D6BFF",
+      horizon: "H1 · SCALE",
+      customer: "하이퍼스케일러 · AI 모델 개발사",
       pain: "AI 학습 클러스터의 메모리 대역폭·용량 병목",
       workload: { name: "LLM Training", hw: "GPU + HBM 스택", sw: "분산학습·병렬화 프레임워크(FSDP·Megatron)" },
       solution: "HBM4/HBM4E 대역폭·스택 고용량으로 학습 처리량과 토큰당 비용을 방어",
       opportunity: "하이퍼스케일러 HBM 장기 공급계약·베이스다이 공동 로드맵",
+      valueMetric: "학습 처리량 · 토큰당 비용 · 클러스터 가동률",
+      rightToWin: "HBM 양산·고객 인증·첨단 패키징 협업을 하나의 공동 로드맵으로 제안",
+      gate: "고객별 가속기 램프와 패키징 할당이 장기계약 물량으로 확인되는가",
+      nextAction: "상위 고객별 병목 인터뷰와 공동 TCO 모델 수립",
       match: /HBM|training|학습|nvidia|\bgpu\b|bandwidth|대역폭|AI 서버|accelerat|B200|MI3|rubin|blackwell/i,
     },
     {
       id: "ai-inference",
       accent: "#00C2A8",
+      horizon: "H2 · BUILD",
+      customer: "클라우드 · AI 서비스 사업자",
       pain: "추론 서비스의 비용·지연과 KV-cache 메모리 압박",
       workload: { name: "LLM Inference · Serving", hw: "가속기 + DDR5 / CXL 확장", sw: "서빙 스택(vLLM)·KV 캐시·양자화" },
       solution: "CXL 메모리 풀링 + 고용량 DDR5로 추론 TCO·컨텍스트 길이 확보",
       opportunity: "추론 최적화 메모리 티어링·CXL 확장 신규 매출축",
+      valueMetric: "요청당 비용 · TTFT · 동시 사용자 · 컨텍스트 길이",
+      rightToWin: "고용량 서버 DRAM과 CXL 생태계 파트너를 묶은 검증 패키지",
+      gate: "고객 SW 스택에서 메모리 풀링의 TCO 개선과 SLA 충족이 재현되는가",
+      nextAction: "대표 추론 워크로드 PoC와 용량별 가격 민감도 검증",
       match: /inference|추론|\bCXL\b|LPDDR|DDR5|serving|vllm|\bKV\b|latency|지연|양자화|quantiz|context/i,
     },
     {
       id: "storage",
       accent: "#0EA5E9",
+      horizon: "H2 · ADJACENCY",
+      customer: "AI 데이터 플랫폼 · 스토리지 운영사",
       pain: "AI 데이터 파이프라인·체크포인트의 스토리지 처리량 한계",
       workload: { name: "Data Pipeline · Storage", hw: "eSSD · NAND", sw: "데이터레이크·체크포인트 I/O·벡터DB" },
       solution: "고밀도 eSSD·QLC로 데이터센터 I/O·체크포인트·벡터 검색 가속",
       opportunity: "AI 데이터센터 eSSD 확대·고용량 QLC 신규 수요",
+      valueMetric: "체크포인트 시간 · 검색 처리량 · 랙당 TB · TB당 비용",
+      rightToWin: "NAND·컨트롤러·펌웨어 튜닝을 워크로드별 성능 보증으로 전환",
+      gate: "실사용 데이터셋에서 성능·내구성·전력 개선이 총소유비용으로 연결되는가",
+      nextAction: "벡터 검색·체크포인트 벤치마크와 고객 데이터 경로 맵 작성",
       match: /NAND|eSSD|\bSSD\b|storage|스토리지|낸드|checkpoint|vector\s*db|데이터레이크|data\s*lake/i,
     },
     {
       id: "supply-cost",
       accent: "#F59E0B",
+      horizon: "H1 · OPTIMIZE",
+      customer: "서버 OEM · 엔터프라이즈 · PC/모바일 OEM",
       pain: "범용 DRAM 가격 변동성과 공급 부족·재고 리스크",
       workload: { name: "Commodity DRAM", hw: "서버·PC·모바일 DRAM", sw: "재고·수급 관리" },
       solution: "제품 믹스 전환·장기계약으로 가격 하방을 방어",
       opportunity: "프리미엄 고객 장기 공급계약 락인·저수익 SKU 회수",
+      valueMetric: "공급 안정성 · 재고 일수 · 믹스 마진 · 계약 커버리지",
+      rightToWin: "제품 포트폴리오와 고객별 공급 약속을 연동한 믹스 운영",
+      gate: "가격·재고·고객 발주 신호가 동일 방향일 때만 캐파 전환을 실행하는가",
+      nextAction: "고객별 계약·재고·가격 트리거와 SKU 전환 규칙 정의",
       match: /DRAM\s*spot|contract\s*price|shortage|가격|공급\s*부족|재고|price\s*(?:hike|increase|rise)|감산/i,
       momentum: "dram",
     },
     {
       id: "china",
       accent: "#DB2777",
+      horizon: "H1 · DEFEND",
+      customer: "비중국 프리미엄 고객 · 중국 내 기존 고객",
       pain: "CXMT·YMTC 범용 가격 압력과 장비 내재화 가속",
       workload: { name: "China Competition", hw: "범용 DRAM·NAND", sw: "국산 장비·EDA" },
       solution: "프리미엄 차별화·비중국 고객 집중으로 기술 격차 유지",
       opportunity: "비중국 프리미엄 락인·HBM/서버 DRAM 격차 방어",
+      valueMetric: "프리미엄 수주율 · 가격 프리미엄 · 고객 전환비용 · 규제 노출",
+      rightToWin: "품질·인증·공급 안정성의 격차를 장기 공동개발 계약으로 고정",
+      gate: "중국 공급 확대가 실제 고객 인증·가격 전이·장비 qualification으로 확인되는가",
+      nextAction: "고객·장비·가격 신호를 연결한 경쟁사 조기경보 대시보드 운영",
       match: /CXMT|YMTC|중국|\bchina\b|장비\s*내재화|국산화|big\s*fund|수출통제|export\s*control/i,
+    },
+    {
+      id: "post-hbm",
+      accent: "#7C3AED",
+      horizon: "H3 · OPTIONS",
+      customer: "차세대 가속기 · 엣지 AI 플랫폼 사업자",
+      pain: "에이전트·멀티모달 추론의 전력·지연·용량을 범용 메모리만으로 최적화하기 어려움",
+      workload: { name: "Post-HBM Architecture", hw: "Custom HBM · CXL · PIM", sw: "메모리 인지형 컴파일러·RAG·벡터 검색" },
+      solution: "고객 워크로드에 맞춘 Custom HBM·CXL 티어링·PIM 공동 설계 옵션",
+      opportunity: "공동개발 NRE·설계 IP·장기 공급을 결합한 솔루션형 사업모델",
+      valueMetric: "와트당 토큰 · 메모리 이동량 · 시스템 지연 · 공동개발 전환율",
+      rightToWin: "메모리 공정·패키징·시스템 설계를 잇는 고객 공동 아키텍처 역량",
+      gate: "고객 PoC가 시스템 KPI를 개선하고 유료 공동개발 의향으로 전환되는가",
+      nextAction: "2개 선도 고객과 아키텍처 스프린트·유료 PoC 조건 설계",
+      match: /custom\s*HBM|post[- ]?HBM|\bPIM\b|processing.in.memory|\bCXL\b|chiplet|칩렛|3D\s*DRAM|photonic|포토닉/i,
     },
   ];
 
@@ -12563,26 +12639,67 @@
     const lenses = STRATEGY_CONSULTING_LENSES.map((lens) => ({ lens, ev: strategyConsultingEvidence(lens) }));
     const totalEvidence = lenses.reduce((s, x) => s + x.ev.count, 0);
     const asOf = String(LIVE.intelligence?.generatedAt || LIVE.updatedAt || "").slice(0, 10);
-    if (meta) { meta.hidden = false; meta.textContent = `크롤 근거 ${fmtNum(totalEvidence)}건 · ${escapeHTML(asOf)} 기준`; }
+    if (meta) { meta.hidden = false; meta.textContent = `연결 근거 ${fmtNum(totalEvidence)}건${asOf ? ` · ${asOf} 기준` : ""}`; }
     // Rank lenses by live evidence so the hottest pain-point leads.
     lenses.sort((a, b) => b.ev.count - a.ev.count);
     host.innerHTML = `
-      <p class="sc-mission">SK hynix 고객의 <b>Pain point</b>를 분석하고 맞춤형 메모리 솔루션을 제안해 새로운 Biz. 기회를 창출합니다. 아래 카드는 <b>이번 크롤에서 관측된 근거</b>로 우선순위가 갱신됩니다 — 프레임(페인포인트→워크로드→솔루션→기회)은 컨설팅 스캐폴드, 수치·인용은 실제 크롤 근거입니다.</p>
+      <section class="sc-framework" aria-labelledby="strategyFrameworkTitle">
+        <header class="sc-framework-head">
+          <span>CONSULTING OPERATING SYSTEM</span>
+          <h3 id="strategyFrameworkTitle">고객의 문제를 메모리 사업 안건으로 전환하는 5단계</h3>
+          <p>JTBD로 고객가치를 정의하고, 워크로드를 HW·SW 요구사항으로 번역한 뒤 Where to Play / How to Win과 사업성을 검증해 90일 실행 게이트로 연결합니다.</p>
+        </header>
+        <ol class="sc-framework-steps">
+          <li><b>01</b><span>DISCOVER</span><strong>고객 JTBD</strong><small>Pain point·구매 기준·미충족 성과</small></li>
+          <li><b>02</b><span>TRANSLATE</span><strong>워크로드 분해</strong><small>AI App → SW → HW → Memory requirement</small></li>
+          <li><b>03</b><span>CHOOSE</span><strong>WTP / HTW</strong><small>고객군·제품·차별화 방식 선택</small></li>
+          <li><b>04</b><span>PROVE</span><strong>사업성 검증</strong><small>고객가치·시장성·Right-to-Win·리스크</small></li>
+          <li><b>05</b><span>EXECUTE</span><strong>90일 Stage-Gate</strong><small>PoC·계약·캐파·파트너·O/X 조건</small></li>
+        </ol>
+        <div class="sc-scorecard" aria-label="기회 평가 기준">
+          <span>기회 평가 기준</span>
+          <div><b>Customer Value</b><small>TCO · 처리량 · 지연 · 안정성</small></div>
+          <div><b>Market Attractiveness</b><small>수요 · 가격 · 성장 · Value pool</small></div>
+          <div><b>Right to Win</b><small>기술 · 인증 · 고객 · 파트너</small></div>
+          <div><b>Feasibility &amp; Risk</b><small>캐파 · CapEx · 규제 · IP</small></div>
+        </div>
+      </section>
+      <div class="sc-section-lead">
+        <div>
+          <span>OPPORTUNITY PORTFOLIO · THREE HORIZONS</span>
+          <h3>근거량 순 고객·사업 기회</h3>
+        </div>
+        <p>H1은 핵심사업 확대·방어, H2는 인접사업 구축, H3는 차세대 옵션을 뜻합니다.</p>
+      </div>
       <div class="sc-grid">
-        ${lenses.map(({ lens, ev }) => `
+        ${lenses.map(({ lens, ev }, index) => `
           <article class="sc-card" style="--sc-accent:${lens.accent}">
             <div class="sc-card-top">
-              <span class="sc-evidence ${ev.count ? "" : "is-waiting"}">근거 ${fmtNum(ev.count)}건</span>
-              ${ev.momentum ? `<span class="sc-mom ${ev.momentum.dir}">${escapeHTML(ev.momentum.kind)} ${ev.momentum.pct > 0 ? "+" : ""}${fmtNum(ev.momentum.pct, 1)}%</span>` : ""}
+              <div class="sc-card-rank"><span>#${String(index + 1).padStart(2, "0")} · EVIDENCE RANK</span><b>${escapeHTML(lens.horizon)}</b></div>
+              <div class="sc-card-signals">
+                <span class="sc-evidence ${ev.count ? "" : "is-waiting"}">근거 ${fmtNum(ev.count)}건</span>
+                ${ev.momentum ? `<span class="sc-mom ${ev.momentum.dir}">${escapeHTML(ev.momentum.kind)} ${ev.momentum.pct > 0 ? "+" : ""}${fmtNum(ev.momentum.pct, 1)}%</span>` : ""}
+              </div>
             </div>
-            <div class="sc-step sc-pain"><span>PAIN POINT</span><strong>${strategicHighlightHTML(lens.pain)}</strong></div>
+            <div class="sc-step sc-pain"><span>CUSTOMER · JTBD</span><small>${escapeHTML(lens.customer)}</small><strong>${strategicHighlightHTML(lens.pain)}</strong></div>
             <div class="sc-workload">
-              <span class="sc-wl-name">${escapeHTML(lens.workload.name)}</span>
+              <span class="sc-wl-name">WORKLOAD TRANSLATION · ${escapeHTML(lens.workload.name)}</span>
               <div class="sc-wl-row"><b>HW</b><span>${escapeHTML(lens.workload.hw)}</span></div>
               <div class="sc-wl-row"><b>SW</b><span>${escapeHTML(lens.workload.sw)}</span></div>
             </div>
-            <div class="sc-step sc-solution"><span>MEMORY SOLUTION</span><p>${strategicHighlightHTML(lens.solution)}</p></div>
-            <div class="sc-step sc-opportunity"><span>NEW BIZ OPPORTUNITY</span><p>${strategicHighlightHTML(lens.opportunity)}</p></div>
+            <div class="sc-strategy-pair">
+              <div class="sc-step sc-solution"><span>HOW TO WIN · MEMORY OFFER</span><p>${strategicHighlightHTML(lens.solution)}</p></div>
+              <div class="sc-step sc-opportunity"><span>WHERE TO PLAY · BIZ MODEL</span><p>${strategicHighlightHTML(lens.opportunity)}</p></div>
+            </div>
+            <div class="sc-proof-grid">
+              <div><span>VALUE KPI</span><p>${escapeHTML(lens.valueMetric)}</p></div>
+              <div><span>RIGHT TO WIN</span><p>${escapeHTML(lens.rightToWin)}</p></div>
+            </div>
+            <div class="sc-gate">
+              <span>STAGE-GATE QUESTION</span>
+              <strong>${escapeHTML(lens.gate)}</strong>
+              <p><b>90D ACTION</b> ${escapeHTML(lens.nextAction)}</p>
+            </div>
             ${ev.trends.length ? `<div class="sc-trends">${ev.trends.map((t) => `<button type="button" class="sc-trend" data-trend-term="${escapeHTML(t.term)}">${escapeHTML(t.term)}<b>${fmtNum(t.count)}</b></button>`).join("")}</div>` : ""}
             ${ev.items.length ? `
               <ul class="sc-evidence-list">
@@ -12595,7 +12712,7 @@
           </article>
         `).join("")}
       </div>
-      <p class="sc-note">근거는 매 크롤(1일 2회) 자동 갱신 · 페인포인트/솔루션/기회 프레임은 컨설팅 스캐폴드이며 확정 사실이 아님 · 트렌드 키워드 클릭 시 관련 기사로 이동</p>
+      <p class="sc-note">우선순위는 최신 크롤의 연결 근거량 순 · 프레임워크 문구는 전략 가설이며, 수치·인용은 연결된 원문 근거로 검증 · 트렌드 키워드 클릭 시 관련 기사로 이동</p>
     `;
     host.querySelectorAll("[data-trend-term]").forEach((btn) => {
       btn.addEventListener("click", () => highlightNewsForTerm(btn.dataset.trendTerm));
@@ -16271,6 +16388,7 @@
     `).join("");
     renderChinaDecisionGates(gates, items, selected?.id);
     renderInvestmentFocus(focus, selected, "strategic-investment-decision");
+    syncChinaDecisionVideoToDecision(selected?.id);
 
     const evidenceLinks = selected?.links || [];
     evidence.innerHTML = `

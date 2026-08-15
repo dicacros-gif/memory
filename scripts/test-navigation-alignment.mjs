@@ -42,6 +42,16 @@ for (const match of html.matchAll(/<(?:main|section)\b[^>]*\bid="([^"]+)"/g)) {
 assert.ok(routes.length >= 10, "sidebar routes should cover the full dashboard");
 assert.equal(new Set(routes.map((route) => route.id)).size, routes.length, "route ids must be unique");
 assert.equal(new Set(routes.map((route) => route.jump)).size, routes.length, "route landmarks must be unique");
+assert.deepEqual(
+  routes.slice(0, 3).map((route) => route.id),
+  ["home", "biz-consulting", "executive-summary"],
+  "opening route must stay video → strategy consulting → executive summary",
+);
+assert.deepEqual(
+  routes.slice(0, 3).map((route) => route.jump),
+  ["overview", "strategy-consulting", "overview-content"],
+  "opening tab targets must match the right-hand document order",
+);
 
 let previousJump = -1;
 for (const route of routes) {
@@ -68,6 +78,7 @@ assert.match(app, /const manifestPromise = loadDataManifest\(\);/, "critical man
 assert.match(app, /function updateScrollSpyFromGeometry\(\)/, "scroll spy must use cached geometry");
 assert.match(app, /scheduleSequentialDeferredHydration\(definitions\);/, "all deferred sections must auto-hydrate");
 assert.match(css, /\.deferred-section\s*\{[\s\S]*?content-visibility:\s*auto;/, "offscreen sections must skip paint");
+assert.doesNotMatch(css, /#(?:overview|strategy-consulting|overview-content)\s*\{[^}]*\border\s*:/, "opening sections must not be visually reordered with CSS");
 
 console.log(JSON.stringify({
   ok: true,
