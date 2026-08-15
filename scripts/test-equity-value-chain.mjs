@@ -118,6 +118,11 @@ assert.equal(soxPeerIds.length, 12, "the SOX summary must show exactly 12 repres
 assert.equal(new Set(soxPeerIds).size, 12, "the SOX representative list must not contain duplicate companies");
 assert.match(app, /const peers = peerData\(SOX_REPRESENTATIVE_PEER_IDS\)/,
   "the SOX summary cards must be sourced from the representative constituent list");
+assert.match(app, /const ticker = brand\.abbr \|\| item\.index\.symbol \|\| brand\.name[\s\S]*?market-peer-monogram">\$\{escapeHTML\(ticker\)\}/,
+  "SOX summary cards must use stable text tickers instead of remote favicon wordmarks");
+const marketPeerCardsBlock = app.match(/function marketPeerCardsHTML[\s\S]*?\n  }\n\n  function renderMarketIndexPanel/)?.[0] || "";
+assert.doesNotMatch(marketPeerCardsBlock, /google\.com\/s2\/favicons|<img/,
+  "SOX summary cards must not depend on remote images that can bleed into the return value");
 assert.match(app, /function marketIndexChartHTML[\s\S]*?market-index-chart-area[\s\S]*?market-index-chart-crosshair[\s\S]*?market-index-chart-hover-dot[\s\S]*?market-index-chart-hit/,
   "the SOX chart must render a Yahoo-style area, crosshair, hover marker, and pointer hit target");
 assert.match(app, /function wireMarketIndexChartTooltip[\s\S]*?nearestPoint\(targetTime\)[\s\S]*?shortKstDateWithYear\(point\.time\)[\s\S]*?closeLabel\(point\.value\)[\s\S]*?>종가 · \$\{escapeHTML\(index\.symbol \|\| "SOX"\)\}/,
@@ -126,6 +131,10 @@ assert.match(app, /function wireMarketIndexChartTooltip[\s\S]*?const hitRect = h
   "the SOX pointer must use the rendered hit area and coalesce movement updates per animation frame");
 assert.match(css, /\.market-index-chart-canvas \{[\s\S]*?linear-gradient\(145deg, #111c31 0%, #0b1628 58%, #0c1b2b 100%\)[\s\S]*?\.market-index-chart-area \{[\s\S]*?marketIndexAreaGradient/,
   "the SOX chart must use the professional dark Yahoo-style mountain treatment");
+assert.match(css, /\.market-peer-brand \{[\s\S]*?grid-template-columns:\s*minmax\(0, 78px\) minmax\(0, 1fr\)[\s\S]*?\.market-peer-logo \{[\s\S]*?overflow:\s*hidden/,
+  "SOX ticker and company name must occupy separate, clipped columns without overlap");
+assert.match(css, /\.market-peer-card \.market-peer-change \{[\s\S]*?max-width:\s*100%[\s\S]*?white-space:\s*nowrap/,
+  "SOX return values must remain on their own bounded row");
 assert.match(app, /const stockLabel = String\(item\.index\.labelKo \|\| item\.index\.label \|\| item\.index\.symbol \|\| ""\)[\s\S]*?\.replace\(\/\\s\*주가\\s\*\$\/u, ""\)[\s\S]*?market-peer-stock-label">\$\{escapeHTML\(stockLabel\)\}/,
   "SOX summary cards must remove the repeated stock-price suffix from company labels");
 assert.match(app, /<strong>SOX 대표 구성종목 12<\/strong>/,

@@ -18050,7 +18050,7 @@ body.consulting-system {
   overflow: hidden;
   min-width: 0;
   display: grid;
-  grid-template-rows: 30px auto auto;
+  grid-template-rows: auto auto auto;
   gap: 5px;
   min-height: 104px;
   border: 2px solid var(--peer-frame);
@@ -18103,37 +18103,26 @@ body.consulting-system {
 
 .market-peer-brand {
   min-width: 0;
-  display: flex;
+  min-height: 30px;
+  display: grid;
+  grid-template-columns: minmax(0, 78px) minmax(0, 1fr);
   align-items: center;
-  justify-content: space-between;
   gap: 8px;
 }
 
 .market-peer-logo {
-  width: 78px;
+  width: 100%;
+  max-width: 78px;
   height: 27px;
-  flex: 0 0 78px;
   display: grid;
   place-items: center;
+  overflow: hidden;
   border: 1px solid #d5dbe4;
+  border-inline-start: 3px solid var(--peer-brand);
   border-radius: 5px;
-  background: #fff;
+  background: color-mix(in srgb, var(--peer-brand) 7%, #fff);
   padding: 4px 7px;
   box-shadow: 0 3px 10px rgba(15, 23, 42, .08);
-}
-
-.market-peer-logo img {
-  display: block;
-  width: 100%;
-  height: 100%;
-  object-fit: contain;
-}
-
-.market-peer-logo.is-skhy img {
-  width: 72%;
-  height: 72%;
-  max-width: 58px;
-  max-height: 18px;
 }
 
 .market-peer-monogram {
@@ -18142,9 +18131,10 @@ body.consulting-system {
   overflow: hidden;
   color: var(--peer-brand-deep);
   font-family: var(--display);
-  font-size: 11px;
+  font-size: 10px;
   line-height: 1;
   font-weight: 950;
+  letter-spacing: .02em;
   text-overflow: ellipsis;
   white-space: nowrap;
 }
@@ -18156,6 +18146,9 @@ body.consulting-system {
   font-weight: 900;
   line-height: 1.25;
   text-align: right;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 }
 
 .market-peer-card small {
@@ -18172,8 +18165,13 @@ body.consulting-system {
 
 .market-peer-card .market-peer-change {
   width: max-content;
+  max-width: 100%;
+  align-self: start;
+  overflow: hidden;
   border-radius: 999px;
   padding: 2px 7px;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 }
 
 .market-peer-card .market-peer-change.up {

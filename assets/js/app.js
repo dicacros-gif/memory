@@ -22108,14 +22108,7 @@
         ${peers.map((item) => {
           const peerObs = priceObservationText(item.trend);
           const brand = marketPeerBrandMeta(item.id);
-          const domain = EQUITY_COMPANY_DOMAINS[item.id] || "";
-          const remoteLogo = domain && !EQUITY_GENERIC_FAVICON_IDS.has(item.id)
-            ? `https://www.google.com/s2/favicons?domain_url=${encodeURIComponent(`https://${domain}`)}&sz=64`
-            : "";
-          const logoUrl = brand.logo || remoteLogo;
-          const logoHTML = logoUrl
-            ? `<img src="${escapeHTML(logoUrl)}" alt="${escapeHTML(brand.name)} 로고" loading="lazy" decoding="async" referrerpolicy="no-referrer">`
-            : `<span class="market-peer-monogram">${escapeHTML(brand.abbr || brand.name)}</span>`;
+          const ticker = brand.abbr || item.index.symbol || brand.name;
           const stockLabel = String(item.index.labelKo || item.index.label || item.index.symbol || "")
             .replace(/\s*주가\s*$/u, "")
             .trim();
@@ -22123,7 +22116,7 @@
             <a class="market-peer-card" href="${escapeHTML(item.index.chartUrl || item.index.sourceUrl || "#")}" target="_blank" rel="noopener"
               style="--peer-brand:${escapeHTML(brand.color)};--peer-brand-deep:${escapeHTML(brand.deep)};--peer-on-brand:${escapeHTML(brand.onColor)}">
               <span class="market-peer-brand">
-                <span class="market-peer-logo${item.id === "skhy-stock" ? " is-skhy" : ""}">${logoHTML}</span>
+                <span class="market-peer-logo" aria-hidden="true"><span class="market-peer-monogram">${escapeHTML(ticker)}</span></span>
                 <span class="market-peer-stock-label">${escapeHTML(stockLabel)}</span>
               </span>
               <strong class="market-peer-change ${escapeHTML(item.trend.direction || "flat")}">${escapeHTML(formatChange(item.trend))}</strong>
