@@ -89,8 +89,6 @@ for (const retiredSection of ["policy-makers", "china-fab-infra", "china-talent-
 assert.doesNotMatch(html, /CEO 챌린지|id="ceoChallengeSelect"|id="ceoAgentAnswer"/, "the casual CEO challenge must not appear in the executive board");
 assert.doesNotMatch(app, /id: "china-dram"/, "China DRAM decision axis should be retired");
 assert.doesNotMatch(app, /id: "china",\s+accent: "#DB2777"/, "China consulting lens should be retired");
-assert.match(app, /\.filter\(\(\[id\]\) => id !== "community"\)/, "community heartbeat should be excluded from the executive summary");
-
 assert.match(app, /const manifestPromise = loadDataManifest\(\);/, "critical manifest request must start early");
 assert.match(app, /const auditPromise = loadJSON\("data\/crawl-audit\.json"/, "the evidence audit must load with the decision control plane");
 assert.match(app, /function updateScrollSpyFromGeometry\(\)/, "scroll spy must use cached geometry");
@@ -114,7 +112,7 @@ assert.deepEqual(businessNavLabels, [
 assert.match(html, /id="intelligenceConsole" hidden/, "the Intelligence Console must stay outside the initial visible layer");
 assert.doesNotMatch(html, /<script[^>]+src="assets\/js\/app\.js/, "the heavy console app must not load with the public landing page");
 assert.doesNotMatch(html, /<link[^>]+href="assets\/css\/styles\.css/, "the heavy console stylesheet must not load with the public landing page");
-assert.match(html, /assets\/js\/landing\.js\?v=infra-20260815-11/, "the lightweight landing controller must use the AI Infra revision");
+assert.match(html, /assets\/js\/landing\.js\?v=infra-20260815-12/, "the lightweight landing controller must use the AI Infra revision");
 assert.doesNotMatch(html, /메모리를 판매하는 것이 아니라/, "the removed sales-negation headline must stay deleted");
 assert.doesNotMatch(html, /직무 적합성을 세 가지|검증 가능한 역량으로 압축합니다/, "the removed role-fit headline must stay deleted");
 assert.doesNotMatch(html, /SK hynix AI Infra에서 만들고 싶은/, "the removed aspiration heading must stay deleted");
@@ -142,7 +140,7 @@ assert.match(landing, /assets\/css\/styles\.css\?v=\$\{CONSOLE_REVISION\}/, "con
 assert.match(html, /location\.hash !== "#console"[\s\S]*?consolePosterPreload[\s\S]*?memory-hero-poster\.webp/, "direct console entry must discover its LCP poster during head parsing");
 assert.match(landing, /function primeConsoleAssets\(\)[\s\S]*?consoleAppPreload[\s\S]*?consolePosterPreload/, "console assets must be primed in parallel before activation");
 assert.match(landing, /await loadStylesheet\(\);[\s\S]*?consoleLayer\.hidden = false;[\s\S]*?await loadConsole\(\);/, "the console must stay hidden until its stylesheet is ready");
-assert.match(css, /\.main > section:not\(#overview\):not\(#console-data-health\):not\(#strategy-consulting\) \{[\s\S]*?content-visibility:\s*auto;/, "below-fold console sections must skip initial layout and paint");
+assert.match(css, /\.main > section:not\(#overview\):not\(#strategy-consulting\) \{[\s\S]*?content-visibility:\s*auto;/, "below-fold console sections must skip initial layout and paint");
 assert.match(landing, /nav\?\.classList\.toggle\("is-open", open\)/, "the mobile menu controller must activate the responsive navigation state");
 assert.match(landing, /fetch\("data\/data-manifest\.json", \{ cache: "no-store" \}\)/, "the business site must disclose current manifest freshness");
 for (const evidenceLabel of ["CONFIRMED", "RECONSTRUCTED", "HYPOTHESIS", "MODELED"]) {
@@ -178,8 +176,9 @@ assert.match(html, /Reuse ≥ 35%[\s\S]*?Training Time −10%[\s\S]*?Retrieval P
 assert.match(landing, /function setupDeepCases\(\)[\s\S]*?data-deep-case-panel/, "deep-case tabs must switch the visible strategy case");
 assert.match(html, /id="automation" aria-live="polite"[\s\S]*?6-HOUR CYCLE[\s\S]*?FAIL-CLOSED[\s\S]*?id="businessDataRun"/, "the public site must expose the automated intelligence control loop and traceable run");
 assert.match(landing, /Status unavailable · fail-closed[\s\S]*?마지막 검증 Bundle 유지[\s\S]*?panel\.hidden = false/, "automation status failures must remain visible and fail closed");
-assert.match(html, /id="console-data-health"[\s\S]*?Data Health · Decision Use Gate[\s\S]*?DECISION OBJECT STANDARD/, "the console must lead with evidence health and a decision-object contract");
-assert.match(app, /function renderConsoleDataHealth\(\)[\s\S]*?DECISION USE ENABLED[\s\S]*?DECISION USE DISABLED/, "console data health must gate decision use dynamically");
+assert.doesNotMatch(html, /console-data-health|Data Health · Decision Use Gate|DECISION OBJECT STANDARD/, "the redundant console data-health board must stay removed");
+assert.doesNotMatch(app, /renderConsoleDataHealth|renderCrawlHeartbeat|crawlHeartbeat/, "removed console status panels must not retain rendering work");
+assert.doesNotMatch(css, /\.console-data-health|\.crawl-heartbeat/, "removed console status panels must not retain unused styling");
 assert.match(app, /function finalizeConsoleLoadingLabels\(\)[\s\S]*?LIVE DATA UNAVAILABLE/, "unresolved loading labels must become explicit fail-closed states");
 assert.doesNotMatch(html, /Prompt Engineering/, "prompt engineering must not appear as a top-level AI memory theme");
 assert.match(html, /aria-label="Evidence Search"/, "the console evidence field must not imply unsupported generative Q&A");

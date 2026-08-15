@@ -58,7 +58,7 @@
     (() => {
       if (location.hash !== "#console") return;
       document.documentElement.classList.add("console-entry");
-      const revision = "infra-20260815-11";
+      const revision = "infra-20260815-12";
       const assets = [
         ["consoleStylesPreload", "style", `assets/css/styles.css?v=${revision}`, "high"],
         ["consoleAppPreload", "script", `assets/js/app.js?v=${revision}`, "low"],
@@ -75,7 +75,7 @@
       }
     })();
   </script>
-  <link rel="stylesheet" href="assets/css/landing.css?v=infra-20260815-11" />
+  <link rel="stylesheet" href="assets/css/landing.css?v=infra-20260815-12" />
 </head>
 <body class="landing-mode">
   <div class="business-site" id="businessSite">
@@ -611,33 +611,6 @@
             <div class="memory-hero-scroll-cue" aria-hidden="true"><span></span></div>
           </div>
           <button class="memory-hero-toggle" id="memoryHeroToggle" type="button" aria-label="배경 영상 일시정지" title="배경 영상 일시정지"><span aria-hidden="true">Ⅱ</span></button>
-        </section>
-
-        <section class="console-data-health" id="console-data-health" aria-labelledby="consoleHealthTitle" aria-live="polite">
-          <header>
-            <div><span>EVIDENCE CONTROL PLANE</span><h2 id="consoleHealthTitle">Data Health · Decision Use Gate</h2></div>
-            <strong id="consoleHealthState">VERIFYING</strong>
-          </header>
-          <div class="console-health-metrics">
-            <article><span>LAST VERIFIED</span><strong id="consoleHealthVerified">확인 중</strong><small id="consoleHealthAge">Freshness 계산 중</small></article>
-            <article><span>SOURCE HIERARCHY</span><strong id="consoleHealthSources">확인 중</strong><small>Official · Research · Reported 구분</small></article>
-            <article><span>PRICE CROSS-CHECK</span><strong id="consoleHealthPrice">확인 중</strong><small>Single source = Indicative only</small></article>
-            <article><span>DECISION-GRADE CHECKS</span><strong id="consoleHealthChecks">확인 중</strong><small>Critical pipeline gates</small></article>
-            <article><span>TRACEABLE RUN</span><strong id="consoleHealthRun">확인 중</strong><small>Manifest · Live · Quant 동일 실행</small></article>
-          </div>
-          <div class="console-health-lower">
-            <section class="console-evidence-ladder" aria-label="Evidence source hierarchy">
-              <div><span>01 · CONFIRMED</span><strong>Official · Filing · Standard</strong><small>사실 주장 우선 근거</small></div>
-              <div><span>02 · RESEARCH</span><strong>Analyst · Original Research</strong><small>시장 전망으로 표시</small></div>
-              <div><span>03 · REPORTED</span><strong>Authoritative / General Media</strong><small>보도 사실로 분리</small></div>
-              <div><span>04 · EARLY SIGNAL</span><strong>Community · Hiring</strong><small>Fact로 승격하지 않음</small></div>
-            </section>
-            <section class="console-decision-contract" aria-labelledby="decisionContractTitle">
-              <span>DECISION OBJECT STANDARD</span><h3 id="decisionContractTitle">모든 Brief가 답해야 할 8개 필드</h3>
-              <ol><li>Conclusion</li><li>Customer Pain</li><li>Evidence</li><li>Memory Implication</li><li>Business Value</li><li>Recommendation</li><li>Trigger / Risk</li><li>Owner / KPI</li></ol>
-            </section>
-          </div>
-          <p id="consoleHealthNotice">검증 상태를 불러오는 중입니다. Pipeline 통과는 모든 주장의 진실 보장이 아니라 정의된 Freshness·Provenance·Run 일치 조건을 충족했다는 뜻입니다.</p>
         </section>
 
         <section class="board strategy-consulting-board" id="strategy-consulting" aria-label="전략 컨설팅 · 고객 페인포인트와 신규 메모리 Biz 기회">
@@ -1543,6 +1516,6 @@
   <div class="qa-answer" id="qaAnswer" hidden></div>
   <div class="inspector" id="inspector" hidden></div>
   <div class="backdrop" id="backdrop"></div>
-  <script src="assets/js/landing.js?v=infra-20260815-11" defer></script>
+  <script src="assets/js/landing.js?v=infra-20260815-12" defer></script>
 </body>
 </html>

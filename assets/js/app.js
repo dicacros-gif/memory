@@ -1845,7 +1845,7 @@
       desc: "AI Infra Decision System 오프닝",
       cadence: "Briefing",
       jump: "overview",
-      sections: ["overview", "console-data-health"],
+      sections: ["overview"],
     },
     {
       id: "biz-consulting",
@@ -3938,122 +3938,6 @@
     }, 650);
   }
 
-  // Crawl heartbeat: proves the site is alive — last run age, stage success
-  // ratio, failed stages, and headline live metrics from quant.json.
-  function renderCrawlHeartbeat() {
-    const host = $("#overview-content");
-    if (!host) return;
-    let strip = $("#crawlHeartbeat");
-    if (!strip) {
-      strip = el("div", "crawl-heartbeat");
-      strip.id = "crawlHeartbeat";
-      host.insertBefore(strip, host.firstChild);
-    }
-    const updatedAtRaw = QUANT?.updatedAt || LIVE?.updatedAt;
-    const updatedAt = updatedAtRaw ? new Date(updatedAtRaw) : null;
-    const ageHours = updatedAt ? (Date.now() - updatedAt.getTime()) / 3600000 : null;
-    const stale = ageHours == null || ageHours > 26;
-    const expiresAt = Date.parse(String(QUANT?.expiresAt || LIVE?.expiresAt || ""));
-    const expired = !Number.isFinite(expiresAt) || Date.now() > expiresAt;
-    const health = Array.isArray(LIVE?.health) ? LIVE.health : [];
-    const quantHealth = QUANT?.sourceHealth || {};
-    const okCount = Number.isFinite(Number(quantHealth.ok))
-      ? Number(quantHealth.ok)
-      : health.filter((item) => item && item.ok).length;
-    const totalCount = Number.isFinite(Number(quantHealth.total))
-      ? Number(quantHealth.total)
-      : health.length;
-    const failed = Array.isArray(quantHealth.failed)
-      ? quantHealth.failed
-      : health.filter((item) => item && !item.ok).map((item) => item.step);
-    const degraded = Array.isArray(quantHealth.degraded) ? quantHealth.degraded : [];
-    const alerts = Array.isArray(quantHealth.alerts) ? quantHealth.alerts : [];
-    const ageLabel = ageHours == null
-      ? "수집 기록 없음"
-      : ageHours < 1
-        ? `${Math.max(1, Math.round(ageHours * 60))}분 전`
-        : `${fmtNum(ageHours, ageHours < 10 ? 1 : 0)}시간 전`;
-    const q = QUANT || {};
-    const chips = [];
-    const channelAsOf = LIVE?.quality?.channels || {};
-    const channelLabels = { prices: "가격", news: "뉴스", brokerResearch: "리서치", markets: "시장" };
-    const channelTimes = Object.entries(channelAsOf)
-      .filter(([id]) => id !== "community")
-      .map(([id, value]) => ({ id, value: Date.parse(String(value || "")) }))
-      .filter((entry) => Number.isFinite(entry.value));
-    for (const entry of channelTimes) {
-      const age = (Date.now() - entry.value) / 36e5;
-      chips.push(`${channelLabels[entry.id] || entry.id} as of ${new Date(entry.value).toLocaleString("sv-SE", { timeZone: "Asia/Seoul", hour12: false }).slice(0, 16)} KST${age > 24 ? " · 지연" : ""}`);
-    }
-    const trendItems = [
-      {
-        id: "usdkrw",
-        label: Number.isFinite(Number(q.fx?.usdkrw?.value)) ? `USD/KRW ${fmtNum(q.fx.usdkrw.value, 0)}` : "USD/KRW",
-        points: q.fx?.usdkrw?.history30d?.points || [],
-      },
-      {
-        id: "nvda",
-        label: Number.isFinite(Number(q.aiDemandProxy?.nvda?.changePct90d)) ? `NVDA 90d ${q.aiDemandProxy.nvda.changePct90d > 0 ? "+" : ""}${fmtNum(q.aiDemandProxy.nvda.changePct90d, 1)}%` : "NVDA",
-        points: q.aiDemandProxy?.nvda?.history30d?.points || [],
-      },
-      {
-        id: "tsmc-yoy",
-        label: Number.isFinite(Number(q.foundry?.tsmcMonthly?.yoyPct)) ? `TSMC YoY ${q.foundry.tsmcMonthly.yoyPct > 0 ? "+" : ""}${fmtNum(q.foundry.tsmcMonthly.yoyPct, 1)}%` : "TSMC YoY",
-        points: q.foundry?.tsmcMonthly?.yoyHistory?.points || [],
-      },
-    ].map((item) => {
-      const values = item.points.map((point) => Number(point.value)).filter(Number.isFinite);
-      const direction = values.length > 1 ? (values.at(-1) > values[0] ? "up" : values.at(-1) < values[0] ? "down" : "flat") : "flat";
-      return { ...item, values, direction };
-    });
-    if (Number.isFinite(q.memoryMomentum?.dramSpot30dPct)) chips.push(`DRAM spot 30d ${q.memoryMomentum.dramSpot30dPct > 0 ? "+" : ""}${fmtNum(q.memoryMomentum.dramSpot30dPct, 1)}%`);
-    if (Number.isFinite(q.fundamentals?.micron?.revenue?.value)) chips.push(`Micron 분기매출 $${fmtNum(q.fundamentals.micron.revenue.value / 1e9, 1)}B`);
-    const currentRunFigureCount = (q.liveFigures?.items || []).filter((item) => item.origin === "live-crawl" && item.observedThisRun === true).length;
-    if (currentRunFigureCount > 0) chips.push(`원문 정량수치 ${fmtNum(currentRunFigureCount)}건`);
-    const industryPulse = verifiedDerivedContract("industryPulse", "1.1");
-    const baselineFreshness = verifiedDerivedContract("baselineFreshness", "3.0");
-    if (Number(industryPulse?.total) > 0) chips.push(`WSTS·SIA 연결 ${fmtNum(industryPulse.connected)}/${fmtNum(industryPulse.total)} · 최신 관측 ${fmtNum(industryPulse.observed)}`);
-    if (Number(baselineFreshness?.total) > 0) chips.push(`기준 재검증 ${fmtNum(baselineFreshness.revalidate)} · 모순후보 ${fmtNum(baselineFreshness.conflictCandidates)}`);
-    const forecastChecks = q.forecastInputs?.sourceChecks || {};
-    if (Number(forecastChecks.total) > 0) {
-      chips.push(`수요 수치대조 ${fmtNum(forecastChecks.valueVerified)}/${fmtNum(forecastChecks.total)} · 링크접속 ${fmtNum(forecastChecks.reachable)}/${fmtNum(forecastChecks.total)}`);
-    }
-    const coverage = q.historyCoverage || {};
-    if (Number(coverage.priceSeries) > 0) chips.push(`가격 ${fmtNum(coverage.priceSeries)}개·${fmtNum(coverage.pricePoints)}점`);
-    if (Number(coverage.marketSeries) > 0) chips.push(`시장 ${fmtNum(coverage.marketSeries)}개·${fmtNum(coverage.marketPoints)}점`);
-    if (Number(coverage.metricSeries) > 0) chips.push(`정량 ${fmtNum(coverage.metricSeries)}개·${fmtNum(coverage.metricPoints)}점`);
-    const delayedQuant = [q.fx?.usdkrw, q.aiDemandProxy?.nvda, q.aiDemandProxy?.amd, q.fundamentals?.micron, q.foundry?.tsmcMonthly]
-      .filter((item) => ["stale", "unavailable"].includes(String(item?.status || "")));
-    if (delayedQuant.length) chips.push(`정량 지연 ${fmtNum(delayedQuant.length)}건`);
-    const verifiedRun = document.body.dataset.liveDataState === "verified"
-      && Boolean(QUANT?.runId && LIVE?.runId && QUANT.runId === LIVE.runId);
-    const delayed = !verifiedRun || stale || expired || alerts.length > 0 || delayedQuant.length > 0;
-    strip.className = `crawl-heartbeat${delayed ? " stale" : ""}`;
-    strip.innerHTML = `
-      <span class="hb-dot" aria-hidden="true"></span>
-      <b>${expired ? "DATA EXPIRED" : delayed ? "확인 필요" : "LIVE"}</b>
-      <span class="hb-item">마지막 수집 ${escapeHTML(ageLabel)}</span>
-      ${expired ? '<span class="hb-item fail">데이터 만료 · 최신 수집 재시도 필요</span>' : ""}
-      ${totalCount ? `<span class="hb-item">소스 ${fmtNum(okCount)}/${fmtNum(totalCount)} 정상</span>` : ""}
-      ${failed.length ? `<span class="hb-item fail" title="${escapeHTML(failed.slice(0, 6).join(", "))}">실패 ${fmtNum(failed.length)}건</span>` : ""}
-      ${degraded.length ? `<span class="hb-item" title="${escapeHTML(degraded.slice(0, 6).join(", "))}">부분 성공 ${fmtNum(degraded.length)}건</span>` : ""}
-      ${alerts.length ? `<span class="hb-item fail" title="${escapeHTML(alerts.join(", "))}">3회 연속 실패 ${fmtNum(alerts.length)}건</span>` : ""}
-      ${trendItems.map((item) => `<span class="hb-chip hb-trend" data-hb-trend="${escapeHTML(item.id)}"><span>${escapeHTML(item.label)}</span></span>`).join("")}
-      ${chips.map((chip) => `<span class="hb-chip">${escapeHTML(chip)}</span>`).join("")}
-      <span class="hb-item">매일 06·18시 KST 자동 크롤링</span>
-    `;
-    trendItems.forEach((item) => {
-      const node = strip.querySelector(`[data-hb-trend="${item.id}"]`);
-      if (!node) return;
-      const chart = sparkline(item.values, item.direction);
-      chart.classList.add("hb-spark");
-      node.appendChild(chart);
-      node.title = item.points.length > 1
-        ? `${item.points[0]?.date || ""}~${item.points.at(-1)?.date || ""} · ${fmtNum(item.points.length)}개 관측`
-        : "히스토리 누적 전";
-    });
-  }
-
   // Live quantitative figures: verbatim numbers pulled from today's crawled
   // articles, each with its source sentence + link. Filterable by topic.
   function normalizeLiveFigureKey(value = "") {
@@ -4256,78 +4140,6 @@
   }
   // End live-figure evidence routing.
 
-  function formatConsoleHealthTime(value) {
-    const date = new Date(value);
-    if (!Number.isFinite(date.getTime())) return "UNAVAILABLE";
-    return new Intl.DateTimeFormat("ko-KR", {
-      timeZone: "Asia/Seoul",
-      month: "2-digit",
-      day: "2-digit",
-      hour: "2-digit",
-      minute: "2-digit",
-      hour12: false,
-    }).format(date);
-  }
-
-  function renderConsoleDataHealth() {
-    const panel = $("#console-data-health");
-    if (!panel) return;
-    const manifestRun = String(DATA_MANIFEST?.runId || "").trim();
-    const liveRun = String(LIVE?.runId || "").trim();
-    const quantRun = String(QUANT?.runId || "").trim();
-    const verifiedAt = LIVE?.quality?.verifiedAt || DATA_AUDIT?.generatedAt || DATA_MANIFEST?.generatedAt || LIVE?.updatedAt;
-    const expiresAt = DATA_MANIFEST?.expiresAt || LIVE?.expiresAt || QUANT?.expiresAt;
-    const verifiedMs = Date.parse(String(verifiedAt || ""));
-    const expiresMs = Date.parse(String(expiresAt || ""));
-    const sameRun = Boolean(manifestRun && manifestRun === liveRun && liveRun === quantRun);
-    const current = Number.isFinite(expiresMs) && Date.now() <= expiresMs;
-    const criticalChecks = (LIVE?.quality?.checks || []).filter((check) => check?.critical === true);
-    const passedChecks = criticalChecks.filter((check) => check?.passed === true).length;
-    const pipelineVerified = document.body.dataset.liveDataState === "verified"
-      && document.body.dataset.quantDataState === "verified"
-      && DATA_AUDIT?.status === "verified"
-      && sameRun
-      && current
-      && criticalChecks.length > 0
-      && passedChecks === criticalChecks.length;
-
-    const sourceClasses = DATA_AUDIT?.sourceClasses || (LIVE?.news || []).reduce((counts, item) => {
-      const key = String(item?.verification?.sourceClass || "unclassified");
-      counts[key] = (counts[key] || 0) + 1;
-      return counts;
-    }, {});
-    const official = Number(sourceClasses.official || 0);
-    const research = Number(sourceClasses.research || 0);
-    const reported = Number(sourceClasses["authoritative-media"] || 0) + Number(sourceClasses["general-media"] || 0);
-    const crossCheck = String(DATA_AUDIT?.priceVerification?.crossCheckStatus || "unknown").toLowerCase();
-    const ageHours = Number.isFinite(verifiedMs) ? Math.max(0, (Date.now() - verifiedMs) / 36e5) : null;
-    const ageText = ageHours == null
-      ? "Latest verified snapshot unavailable"
-      : ageHours < 1 ? `${Math.max(1, Math.round(ageHours * 60))}분 전` : `${Math.round(ageHours)}시간 전`;
-
-    panel.classList.toggle("is-degraded", !pipelineVerified);
-    const state = $("#consoleHealthState");
-    const verified = $("#consoleHealthVerified");
-    const age = $("#consoleHealthAge");
-    const sources = $("#consoleHealthSources");
-    const price = $("#consoleHealthPrice");
-    const checks = $("#consoleHealthChecks");
-    const run = $("#consoleHealthRun");
-    const notice = $("#consoleHealthNotice");
-    if (state) state.textContent = pipelineVerified ? "VERIFIED · DECISION USE ENABLED" : "DEGRADED · DECISION USE DISABLED";
-    if (verified) verified.textContent = formatConsoleHealthTime(verifiedAt);
-    if (age) age.textContent = `${ageText}${current ? " · Current" : " · Expired / reference only"}`;
-    if (sources) sources.textContent = `O ${fmtNum(official)} · R ${fmtNum(research)} · M ${fmtNum(reported)}`;
-    if (price) price.textContent = crossCheck === "multi-source" ? "CROSS-VALIDATED" : crossCheck === "single-source" ? "INDICATIVE · SINGLE" : "UNAVAILABLE";
-    if (checks) checks.textContent = criticalChecks.length ? `${fmtNum(passedChecks)} / ${fmtNum(criticalChecks.length)} PASSED` : "UNAVAILABLE";
-    if (run) run.textContent = sameRun ? `#${manifestRun}` : "RUN ID MISMATCH";
-    if (notice) {
-      notice.textContent = pipelineVerified
-        ? "Decision use enabled. Verified는 모든 정보가 사실이라는 뜻이 아니라 현재 Pipeline의 Freshness·Provenance·Critical Check·Run 일치 조건을 통과했다는 뜻입니다. 가격이 Single-source이면 Indicative로만 사용합니다."
-        : `LIVE DATA UNAVAILABLE · Latest verified: ${formatConsoleHealthTime(verifiedAt)} · Dataset expiry: ${formatConsoleHealthTime(expiresAt)} · Decision use: Disabled · Last verified snapshot: Reference only`;
-    }
-  }
-
   function finalizeConsoleLoadingLabels() {
     const verified = document.body.dataset.liveDataState === "verified"
       && document.body.dataset.quantDataState === "verified";
@@ -4375,8 +4187,6 @@
     hideDisabledSections();
     document.title = BASE.meta?.title || document.title;
     renderSidebarCategories();
-    renderConsoleDataHealth();
-    renderCrawlHeartbeat();
     renderKpis();
     renderMemoryBypassRoutes();
     renderNewsInsightSummary();
