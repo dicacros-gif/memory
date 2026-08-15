@@ -110,7 +110,7 @@
     (() => {
       if (!location.hash.startsWith("#console")) return;
       document.documentElement.classList.add("console-entry");
-      const revision = "infra-20260816-02";
+      const revision = "infra-20260816-03";
       const assets = [
         ["consoleStylesPreload", "style", `assets/css/styles.css?v=${revision}`, "high"],
         ["consoleAppPreload", "script", `assets/js/app.js?v=${revision}`, "low"],
@@ -127,7 +127,7 @@
       }
     })();
   </script>
-  <link rel="stylesheet" href="assets/css/landing.css?v=infra-20260816-02" />
+  <link rel="stylesheet" href="assets/css/landing.css?v=infra-20260816-03" />
 </head>
 <body class="landing-mode">
   <div class="business-site" id="businessSite">
@@ -907,6 +907,19 @@
           <div class="kpi-strip" id="kpiStrip"></div>
         </section>
 
+        <section class="visual-insight-bridge" id="visual-bridge-system" data-visual-story-mount="memory-visual-story" aria-labelledby="visualBridgeSystemTitle">
+          <header class="visual-insight-bridge-head">
+            <div>
+              <span>VISUAL SYNTHESIS 01 · EXECUTIVE SUMMARY → SYSTEM DIAGNOSIS</span>
+              <h2 id="visualBridgeSystemTitle">시장 신호를 고객 Workload와 Memory 요구사항으로 전환</h2>
+              <p>정보를 나열하는 대신 고객 KPI와 AI Application을 출발점으로 삼아, 실제 HW·SW 병목과 필요한 메모리 계층을 연결합니다.</p>
+            </div>
+            <div class="visual-insight-route" aria-label="시스템 진단 흐름">
+              <span><b>INPUT</b>Customer KPI</span><i>→</i><span><b>TRACE</b>HW·SW Bottleneck</span><i>→</i><span><b>OUTPUT</b>Memory Requirement</span>
+            </div>
+          </header>
+        </section>
+
         <section class="board c-level-board" id="c-level-cockpit">
           <div class="board-head">
             <div>
@@ -988,6 +1001,19 @@
             </section>
           </div>
           <div class="decision-evidence" id="execDecisionEvidence"></div>
+        </section>
+
+        <section class="visual-insight-bridge" id="visual-bridge-execution" data-visual-story-mount="memory-scroll-story" aria-labelledby="visualBridgeExecutionTitle">
+          <header class="visual-insight-bridge-head">
+            <div>
+              <span>VISUAL SYNTHESIS 02 · BACKTEST → 90-DAY EXECUTION</span>
+              <h2 id="visualBridgeExecutionTitle">검증된 판단을 Owner·KPI·Stage-Gate로 전환</h2>
+              <p>증설·방어·신규 Biz 결론을 실행하려면 고객 Pain, Workload trace, Solution PoC, Qualification과 중단 조건이 같은 흐름에 있어야 합니다.</p>
+            </div>
+            <div class="visual-insight-route" aria-label="90일 실행 흐름">
+              <span><b>0–30D</b>Diagnose</span><i>→</i><span><b>31–60D</b>Prove</span><i>→</i><span><b>61–90D</b>Commit / Stop</span>
+            </div>
+          </header>
         </section>
 
         <section class="board investment-board management-strategy-board" id="management-strategy" hidden>
@@ -1081,31 +1107,31 @@
           <div class="investment-evidence" id="strategicDecisionEvidence"></div>
         </section>
 
-        <section class="memory-visual-story" id="memory-visual-story" aria-label="메모리 산업 시각화" aria-roledescription="carousel" tabindex="0">
+        <section class="memory-visual-story" id="memory-visual-story" aria-label="Executive Summary를 시스템 진단으로 연결하는 시각화" aria-roledescription="carousel" tabindex="0">
           <div class="memory-story-viewport">
             <div class="memory-story-track" id="memoryStoryTrack">
               <figure class="memory-story-slide active" data-memory-slide="0" aria-hidden="false">
                 <img src="assets/media/memory-fabric.webp" alt="메모리 칩과 데이터 연결망을 표현한 시각화" width="1920" height="1072" loading="lazy" decoding="async" />
                 <figcaption>
-                  <span>Memory Fabric</span>
-                  <h2>데이터 경로가 메모리 경쟁력을 결정</h2>
-                  <p>대역폭·지연·패키징을 하나의 시스템 관점으로 연결합니다.</p>
+                  <span>01 · WORKLOAD TRANSLATION</span>
+                  <h2>워크로드 병목에서 메모리 요구사항을 도출</h2>
+                  <p>AI Application과 SW stack을 먼저 분해하고, 데이터 이동·지연·GPU idle을 HBM·DRAM·CXL·eSSD 요구사항으로 번역합니다.</p>
                 </figcaption>
               </figure>
               <figure class="memory-story-slide" data-memory-slide="1" aria-hidden="true">
                 <img src="assets/media/hbm-system.webp" alt="GPU와 HBM 적층 구조를 표현한 시각화" width="1920" height="1072" loading="lazy" decoding="async" />
                 <figcaption>
-                  <span>HBM System</span>
-                  <h2>제품보다 시스템 병목을 먼저 판단</h2>
-                  <p>베이스 다이·적층·수율·고객 인증을 함께 검토합니다.</p>
+                  <span>02 · CUSTOMER VALUE</span>
+                  <h2>제품 성능보다 고객 KPI로 솔루션을 선택</h2>
+                  <p>처리량·P99 지연·전력·TCO 기준선을 고정한 뒤, Base Die·적층·패키징·스토리지 조합의 개선 폭을 비교합니다.</p>
                 </figcaption>
               </figure>
               <figure class="memory-story-slide" data-memory-slide="2" aria-hidden="true">
                 <img src="assets/media/memory-scale.webp" alt="대규모 메모리 생산 생태계를 표현한 시각화" width="1920" height="1072" loading="lazy" decoding="async" />
                 <figcaption>
-                  <span>Memory Scale</span>
-                  <h2>용량 확대는 공급망 실행력의 함수</h2>
-                  <p>장비·소재·전력·인력 신호를 캐파 계획과 교차 확인합니다.</p>
+                  <span>03 · COMMERCIAL GATE</span>
+                  <h2>캐파 확대보다 Qualification과 Ramp를 먼저 확정</h2>
+                  <p>공동 PoC, 고객 인증, 패키징 수율, Binding volume이 연결될 때만 투자를 확대하고 지연 시 범위를 재설계합니다.</p>
                 </figcaption>
               </figure>
             </div>
@@ -1119,7 +1145,7 @@
           </div>
         </section>
 
-        <section class="memory-scroll-story" id="memory-scroll-story" data-scroll-story aria-label="AI 메모리 전략 스크롤 스토리">
+        <section class="memory-scroll-story" id="memory-scroll-story" data-scroll-story aria-label="Backtest 결론을 90일 실행 전략으로 연결하는 시각화">
           <div class="memory-scroll-sticky">
             <img src="assets/media/hbm-scroll-story.webp" alt="HBM 적층 구조와 인터포저를 시각화한 AI 메모리 시스템" loading="lazy" decoding="async" />
             <div class="memory-scroll-shade" aria-hidden="true"></div>
@@ -1131,34 +1157,34 @@
           <div class="memory-scroll-copy">
             <article class="memory-scroll-chapter active" data-scroll-chapter="0">
               <div class="memory-scroll-panel">
-                <span>01 · SYSTEM ADVANTAGE</span>
-                <h2>AI 메모리 경쟁은<br />시스템 실행력으로 이동</h2>
-                <p>HBM 다이, 로직 베이스 다이, 인터포저, 적층 수율을 하나의 시스템으로 판단. 개별 제품 성능보다 고객 인증과 양산 안정성이 우선.</p>
-                <div><em>HBM4</em><em>Base die</em><em>Advanced packaging</em></div>
+                <span>01 · FRAME THE PAIN</span>
+                <h2>고객 Pain Point를<br />경영 안건으로 구조화</h2>
+                <p>고객 JTBD, 구매 기준, 현재 KPI를 먼저 합의합니다. 수요 전망만으로 시작하지 않고 성능·비용·공급 안정성의 미충족 지점을 명확히 정의합니다.</p>
+                <div><em>JTBD</em><em>Buying criteria</em><em>Baseline KPI</em></div>
               </div>
             </article>
             <article class="memory-scroll-chapter align-right" data-scroll-chapter="1">
               <div class="memory-scroll-panel">
-                <span>02 · BOTTLENECK FIRST</span>
-                <h2>수요보다 먼저<br />병목의 순서를 확인</h2>
-                <p>패키징 할당, 전력과 냉각, 고객별 램프 일정이 실제 출하 상한을 결정. 수요 전망은 병목 해소 시점과 함께 검토.</p>
-                <div><em>Packaging</em><em>Power</em><em>Qualification</em></div>
+                <span>02 · TRACE THE WORKLOAD</span>
+                <h2>HW·SW 전 구간에서<br />실제 병목을 검증</h2>
+                <p>Transformer 학습, Agentic inference, RAG 검색 경로를 계측해 Compute·Fabric·Host Memory·Storage 가운데 KPI를 제한하는 구간을 찾습니다.</p>
+                <div><em>Transformer</em><em>RAG / Vector DB</em><em>Workload trace</em></div>
               </div>
             </article>
             <article class="memory-scroll-chapter" data-scroll-chapter="2">
               <div class="memory-scroll-panel">
-                <span>03 · TWO-TRACK PORTFOLIO</span>
-                <h2>프리미엄 성장과<br />범용 방어를 분리</h2>
-                <p>HBM·서버 DRAM은 인증과 고객 배분 중심으로 운영. 범용 DRAM·NAND는 Spot/Contract 스프레드와 중국 캐파 신호로 가격 하방을 방어.</p>
-                <div><em>AI server</em><em>Legacy defense</em><em>China capacity</em></div>
+                <span>03 · DESIGN THE SOLUTION</span>
+                <h2>메모리 계층을<br />고객 KPI에 연결</h2>
+                <p>HBM·서버 DRAM·CXL·eSSD를 개별 제품이 아니라 하나의 Memory hierarchy로 설계하고, 고객 Workload에서 TCO 개선을 재현합니다.</p>
+                <div><em>HBM / DRAM</em><em>CXL</em><em>eSSD</em></div>
               </div>
             </article>
             <article class="memory-scroll-chapter align-right" data-scroll-chapter="3">
               <div class="memory-scroll-panel">
-                <span>04 · EXECUTIVE ACTION</span>
-                <h2>경영 판단을<br />실행 조건으로 전환</h2>
-                <p>캐파 선배분, 장기 고객 확보, 수율 개선을 기본안으로 설정. 가격·인증·정책 KPI가 임계치를 벗어날 때만 투자 속도와 제품 믹스를 전환.</p>
-                <div><em>Capacity</em><em>Customer lock-in</em><em>Decision trigger</em></div>
+                <span>04 · COMMIT WITH GATES</span>
+                <h2>판단을 90일<br />실행 조건으로 전환</h2>
+                <p>0–30일 진단, 31–60일 Architecture·PoC 검증, 61–90일 Qualification·계약 확정으로 운영합니다. KPI 미달 시 투자 범위를 축소하거나 중단합니다.</p>
+                <div><em>Owner</em><em>Stage-Gate</em><em>Kill Criteria</em></div>
               </div>
             </article>
           </div>
@@ -1187,7 +1213,7 @@
           </div>
         </section>
 
-        <section class="memory-scroll-story ai-demand-scroll-story" id="ai-demand-scroll-story" data-scroll-story aria-label="AI 수요와 메모리 제품 믹스 스크롤 스토리">
+        <section class="memory-scroll-story ai-demand-scroll-story" id="ai-demand-scroll-story" data-scroll-story aria-label="고객 수요 예측을 제품과 파트너 배분으로 연결하는 시각화">
           <div class="memory-scroll-sticky">
             <img src="assets/media/ai-demand-scroll.webp" alt="AI 가속기와 HBM·DRAM·NAND 메모리 계층을 연결한 시스템" loading="lazy" decoding="async" />
             <div class="memory-scroll-shade" aria-hidden="true"></div>
@@ -1199,34 +1225,34 @@
           <div class="memory-scroll-copy">
             <article class="memory-scroll-chapter active" data-scroll-chapter="0">
               <div class="memory-scroll-panel">
-                <span>01 · MEMORY HIERARCHY</span>
-                <h2>AI 수요는 HBM만<br />확대하지 않음</h2>
-                <p>가속기 HBM, 호스트 서버 DRAM, 데이터센터 eSSD, 메모리 확장 계층이 함께 움직임. 제품별 수요를 분리하되 하나의 시스템 용량으로 검토.</p>
-                <div><em>HBM</em><em>Server DRAM</em><em>eSSD</em><em>CXL Memory</em></div>
+                <span>01 · SEGMENT THE DEMAND</span>
+                <h2>AI 수요를 하나의<br />성장률로 보지 않음</h2>
+                <p>학습, Agentic inference, Enterprise RAG, On-device AI는 도입 속도와 메모리 구성이 다릅니다. Workload와 고객별로 수요 풀을 분리합니다.</p>
+                <div><em>Training</em><em>Inference</em><em>RAG</em><em>On-device</em></div>
               </div>
             </article>
             <article class="memory-scroll-chapter align-right" data-scroll-chapter="1">
               <div class="memory-scroll-panel">
-                <span>02 · WORKLOAD MIX</span>
-                <h2>학습과 추론은<br />서로 다른 메모리를 요구</h2>
-                <p>학습은 대역폭과 대용량 적층, 추론은 지연시간·전력·비용 효율이 중요. 워크로드 믹스 변화가 HBM 세대와 서버 DRAM·eSSD 구성을 결정.</p>
-                <div><em>Training</em><em>Inference</em><em>Bandwidth</em><em>Efficiency</em></div>
+                <span>02 · MAP THE HIERARCHY</span>
+                <h2>RAG·Vector DB가<br />전체 계층을 함께 움직임</h2>
+                <p>Active index는 DRAM/CXL, 대규모 corpus는 TLC·QLC eSSD, 가속 연산은 HBM을 요구합니다. Prompt와 context 재사용까지 용량 모델에 반영합니다.</p>
+                <div><em>DRAM / CXL</em><em>Vector DB</em><em>QLC eSSD</em><em>HBM</em></div>
               </div>
             </article>
             <article class="memory-scroll-chapter" data-scroll-chapter="2">
               <div class="memory-scroll-panel">
-                <span>03 · CUSTOMER POOLS</span>
-                <h2>고객별 수요를<br />하나의 성장률로 보지 않음</h2>
-                <p>하이퍼스케일러, 엔터프라이즈, 국가 AI 인프라, 엣지는 도입 속도와 메모리 구성이 다름. 고객 인증과 실제 발주를 수요 전망보다 우선 확인.</p>
-                <div><em>Hyperscaler</em><em>Enterprise</em><em>Sovereign AI</em><em>Edge</em></div>
+                <span>03 · VERIFY ADOPTION</span>
+                <h2>전망보다 고객의<br />채택 증거를 우선</h2>
+                <p>Hyperscaler, Enterprise, Device 고객별로 PoC, Qualification, Binding order를 분리 추적합니다. 발표나 LOI는 확정 매출과 구분합니다.</p>
+                <div><em>PoC</em><em>Qualification</em><em>Binding order</em><em>LOI ≠ Contract</em></div>
               </div>
             </article>
             <article class="memory-scroll-chapter align-right" data-scroll-chapter="3">
               <div class="memory-scroll-panel">
-                <span>04 · PRODUCT MIX</span>
-                <h2>수요 신호를<br />제품 배분으로 전환</h2>
-                <p>검증된 고객 주문, 패키징 여력, 가격 스프레드, 중국 공급 신호를 함께 반영. HBM·서버 DRAM·eSSD의 캐파 배분과 범용 제품 방어 수준을 조정.</p>
-                <div><em>Capacity allocation</em><em>Customer order</em><em>Price spread</em><em>China supply</em></div>
+                <span>04 · ALLOCATE TO VALUE</span>
+                <h2>검증된 수요를<br />제품·파트너·캐파로 전환</h2>
+                <p>고객 KPI 개선, 파트너 준비도, 패키징·컨트롤러 병목, 계약 전환율을 함께 평가해 HBM·서버 DRAM·CXL·eSSD의 우선순위를 조정합니다.</p>
+                <div><em>Product mix</em><em>Partner RACI</em><em>Capacity</em><em>Revenue gate</em></div>
               </div>
             </article>
           </div>
@@ -1565,6 +1591,19 @@
           <div class="hs-assumptions" id="hyperscalerAssumptions"></div>
         </section>
 
+        <section class="visual-insight-bridge" id="visual-bridge-demand" data-visual-story-mount="ai-demand-scroll-story" aria-labelledby="visualBridgeDemandTitle">
+          <header class="visual-insight-bridge-head">
+            <div>
+              <span>VISUAL SYNTHESIS 03 · DEMAND FORECAST → PORTFOLIO ALLOCATION</span>
+              <h2 id="visualBridgeDemandTitle">고객별 수요를 제품·파트너·캐파 우선순위로 전환</h2>
+              <p>학습·추론·RAG·On-device를 분리하고 고객 채택 증거까지 확인해 HBM·서버 DRAM·CXL·eSSD의 투자 순서를 결정합니다.</p>
+            </div>
+            <div class="visual-insight-route" aria-label="수요의 사업화 흐름">
+              <span><b>DEMAND</b>Workload Pool</span><i>→</i><span><b>PROOF</b>PoC·Qualification</span><i>→</i><span><b>VALUE</b>Product·Partner·Capacity</span>
+            </div>
+          </header>
+        </section>
+
         <section class="board workbench-board" id="workbench" hidden>
           <div class="board-head">
             <div>
@@ -1787,6 +1826,6 @@
   <div class="qa-answer" id="qaAnswer" hidden></div>
   <div class="inspector" id="inspector" hidden></div>
   <div class="backdrop" id="backdrop"></div>
-  <script src="assets/js/landing.js?v=infra-20260816-02" defer></script>
+  <script src="assets/js/landing.js?v=infra-20260816-03" defer></script>
 </body>
 </html>
