@@ -110,7 +110,7 @@
     (() => {
       if (!location.hash.startsWith("#console")) return;
       document.documentElement.classList.add("console-entry");
-      const revision = "infra-20260816-01";
+      const revision = "infra-20260816-02";
       const assets = [
         ["consoleStylesPreload", "style", `assets/css/styles.css?v=${revision}`, "high"],
         ["consoleAppPreload", "script", `assets/js/app.js?v=${revision}`, "low"],
@@ -127,7 +127,7 @@
       }
     })();
   </script>
-  <link rel="stylesheet" href="assets/css/landing.css?v=infra-20260816-01" />
+  <link rel="stylesheet" href="assets/css/landing.css?v=infra-20260816-02" />
 </head>
 <body class="landing-mode">
   <div class="business-site" id="businessSite">
@@ -928,7 +928,7 @@
           <div class="board-head">
             <div>
               <p class="eyebrow">Executive decision · historical backtest · actual evidence</p>
-              <h2>경영진 의사결정 · 백테스트</h2>
+              <h2>AI Infra 영역별 전략 검증 · Backtest</h2>
             </div>
             <span class="board-meta" id="execDecisionMeta">로드 중 · 가격 히스토리/제품군 매칭 연결</span>
           </div>
@@ -960,7 +960,7 @@
             <aside class="decision-focus" id="execDecisionFocus"></aside>
           </div>
           <div id="executiveBacktestSliderDock" hidden>
-            <section class="china-capital-slider executive-backtest-slider" id="executiveBacktestSlider" aria-label="중국 노출·가격 압력 인사이트 슬라이드" aria-roledescription="carousel" tabindex="0">
+            <section class="china-capital-slider executive-backtest-slider" id="executiveBacktestSlider" aria-label="AI Infra 제품군 의사결정 인사이트 슬라이드" aria-roledescription="carousel" tabindex="0">
               <div class="china-capital-stage">
                 <figure class="china-capital-slide active" aria-hidden="false">
                   <img src="assets/media/exec-backtest-memory-wave-960.webp" alt="메모리 수요와 데이터 흐름을 상징하는 반도체 시각화" width="960" height="536" loading="lazy" decoding="async" />
@@ -1787,6 +1787,6 @@
   <div class="qa-answer" id="qaAnswer" hidden></div>
   <div class="inspector" id="inspector" hidden></div>
   <div class="backdrop" id="backdrop"></div>
-  <script src="assets/js/landing.js?v=infra-20260816-01" defer></script>
+  <script src="assets/js/landing.js?v=infra-20260816-02" defer></script>
 </body>
 </html>

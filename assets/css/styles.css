@@ -28711,3 +28711,352 @@ button.ni-trend-chip:hover { box-shadow: 0 4px 12px color-mix(in srgb, #0891B2 2
 .agent-debate:not(.agent-debate-has-video) .agent-turn:hover .agent-answer > span {
   color: var(--agent-color);
 }
+
+/* AI Infra Domain Council - context-specific consulting workstreams */
+.consulting-system #executive-decision .domain-agent-council {
+  display: grid;
+  gap: 14px;
+  padding: 22px;
+  border: 1px solid #bcc9d5;
+  border-radius: 4px;
+  background: #eef3f7 !important;
+  color: #10243a !important;
+  box-shadow: none;
+}
+
+.consulting-system .domain-agent-council *,
+.consulting-system .domain-agent-council *::before,
+.consulting-system .domain-agent-council *::after {
+  text-shadow: none !important;
+  box-shadow: none !important;
+  animation: none !important;
+}
+
+.consulting-system .domain-agent-council .agent-debate-title {
+  display: grid;
+  gap: 6px;
+  padding: 0 0 16px;
+  border-bottom: 2px solid #10243a;
+  color: #10243a;
+}
+
+.consulting-system .domain-agent-council .agent-debate-title span {
+  color: #087f75;
+}
+
+.consulting-system .domain-agent-council .agent-debate-title strong,
+.consulting-system .domain-agent-council .agent-debate-title small {
+  color: #10243a !important;
+  -webkit-text-fill-color: #10243a;
+}
+
+.consulting-system .domain-agent-council .c-level-agent-controls,
+.consulting-system .domain-agent-council .agent-selected-brief,
+.consulting-system .domain-agent-council .agent-scenario-brief,
+.consulting-system .domain-agent-council .agent-debate-metrics,
+.consulting-system .domain-agent-council .agent-waiting,
+.consulting-system .domain-agent-council .agent-conclusion {
+  border: 1px solid #c5d0da;
+  border-radius: 3px;
+  background: #fff;
+}
+
+.consulting-system #executive-decision .domain-agent-council #execDecisionCouncilSelect {
+  border: 1px solid #aebcc8 !important;
+  background: #fff !important;
+  color: #10243a !important;
+  -webkit-text-fill-color: #10243a;
+}
+
+.consulting-system #executive-decision .domain-agent-council #execDecisionRunCouncil {
+  border: 1px solid #10243a !important;
+  background: #10243a !important;
+  color: #fff !important;
+  -webkit-text-fill-color: #fff;
+}
+
+.consulting-system #executive-decision .domain-agent-council #execDecisionRunCouncil:hover,
+.consulting-system #executive-decision .domain-agent-council #execDecisionRunCouncil:focus-visible {
+  background: #087f75 !important;
+  border-color: #087f75 !important;
+}
+
+.consulting-system .domain-agent-council .agent-selected-brief > span,
+.consulting-system .domain-agent-council .agent-scenario-brief > span,
+.consulting-system .domain-agent-council .agent-conclusion > span {
+  color: #087f75 !important;
+}
+
+.consulting-system .domain-agent-council .agent-selected-brief strong,
+.consulting-system .domain-agent-council .agent-selected-brief p,
+.consulting-system .domain-agent-council .agent-selected-brief small,
+.consulting-system .domain-agent-council .agent-scenario-brief strong,
+.consulting-system .domain-agent-council .agent-scenario-brief p,
+.consulting-system .domain-agent-council .agent-scenario-brief small,
+.consulting-system .domain-agent-council .agent-waiting strong,
+.consulting-system .domain-agent-council .agent-waiting p,
+.consulting-system .domain-agent-council .agent-conclusion strong,
+.consulting-system .domain-agent-council .agent-conclusion p,
+.consulting-system .domain-agent-council .agent-conclusion small {
+  color: #10243a !important;
+  -webkit-text-fill-color: #10243a;
+}
+
+.consulting-system .domain-agent-council .agent-debate-metrics {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+}
+
+.consulting-system .domain-agent-council .agent-debate-metrics > div {
+  border-right: 1px solid #d6dee6;
+  background: transparent;
+}
+
+.consulting-system .domain-agent-council .agent-debate-metrics > div:last-child {
+  border-right: 0;
+}
+
+.consulting-system .domain-agent-council .agent-debate-metrics strong,
+.consulting-system .domain-agent-council .agent-debate-metrics span {
+  color: #10243a !important;
+}
+
+.domain-council-context {
+  display: grid;
+  grid-template-columns: repeat(5, minmax(0, 1fr));
+  border: 1px solid #b9c6d2;
+  background: #fff;
+}
+
+.domain-council-context article {
+  min-width: 0;
+  min-height: 156px;
+  padding: 16px;
+  border-right: 1px solid #d4dde5;
+}
+
+.domain-council-context article:last-child {
+  border-right: 0;
+}
+
+.domain-council-context span,
+.domain-agent-workstream header > span,
+.domain-council-delivery span {
+  color: #087f75;
+  font: 900 9px/1.35 var(--mono);
+  letter-spacing: .07em;
+}
+
+.domain-council-context strong {
+  display: block;
+  margin: 10px 0 8px;
+  color: #10243a;
+  font-size: 12px;
+  line-height: 1.45;
+}
+
+.domain-council-context p {
+  color: #5a6978;
+  font-size: 10px;
+  font-weight: 700;
+  line-height: 1.55;
+}
+
+.domain-council-flow {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 10px;
+}
+
+.domain-agent-workstream {
+  min-width: 0;
+  display: grid;
+  align-content: start;
+  gap: 12px;
+  padding: 18px;
+  border: 1px solid #c5d0da;
+  border-left: 4px solid var(--agent-color);
+  border-radius: 2px;
+  background: #fff;
+}
+
+.domain-agent-workstream:last-child {
+  grid-column: 1 / -1;
+}
+
+.domain-agent-workstream header {
+  display: grid;
+  grid-template-columns: 30px minmax(0, 1fr);
+  gap: 10px;
+  align-items: start;
+  padding-bottom: 10px;
+  border-bottom: 1px solid #dbe2e8;
+}
+
+.domain-agent-workstream header strong,
+.domain-agent-workstream header small {
+  display: block;
+  color: #10243a;
+}
+
+.domain-agent-workstream header strong {
+  font-size: 12px;
+  line-height: 1.4;
+}
+
+.domain-agent-workstream header small {
+  margin-top: 3px;
+  color: #697887;
+  font-size: 9px;
+  font-weight: 750;
+}
+
+.consulting-system .domain-agent-workstream .agent-question,
+.consulting-system .domain-agent-workstream .agent-answer {
+  margin: 0;
+  padding: 12px;
+  border: 1px solid #d7e0e7;
+  border-radius: 2px;
+  background: #f8fafc;
+}
+
+.consulting-system .domain-agent-workstream .agent-question {
+  border-left: 3px solid var(--agent-color);
+}
+
+.consulting-system .domain-agent-workstream .agent-answer {
+  background: #fff;
+}
+
+.consulting-system .domain-agent-workstream .agent-question > span,
+.consulting-system .domain-agent-workstream .agent-answer > span {
+  color: var(--agent-color) !important;
+}
+
+.consulting-system .domain-agent-workstream .agent-question p,
+.consulting-system .domain-agent-workstream .agent-answer p {
+  color: #24384c !important;
+  font-size: 10px;
+  line-height: 1.65;
+}
+
+.consulting-system .domain-agent-workstream .agent-decision-frame {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  border: 1px solid #d7e0e7;
+  border-radius: 2px;
+  background: #fff;
+}
+
+.consulting-system .domain-agent-workstream .agent-decision-frame > div {
+  min-height: 74px;
+  border-color: #e1e7ec;
+  background: transparent;
+}
+
+.consulting-system .domain-agent-workstream .agent-decision-frame dt {
+  color: var(--agent-color);
+}
+
+.consulting-system .domain-agent-workstream .agent-decision-frame dd {
+  color: #3e5062;
+}
+
+.domain-council-delivery {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  border: 1px solid #b9c6d2;
+  background: #fff;
+}
+
+.domain-council-delivery > * {
+  min-width: 0;
+  min-height: 118px;
+  padding: 16px;
+  border-right: 1px solid #d4dde5;
+}
+
+.domain-council-delivery > *:last-child {
+  border-right: 0;
+}
+
+.domain-council-delivery strong,
+.domain-council-delivery p {
+  display: block;
+  color: #10243a;
+}
+
+.domain-council-delivery strong {
+  margin-top: 9px;
+  font-size: 11px;
+  line-height: 1.5;
+}
+
+.domain-council-delivery p {
+  margin-top: 6px;
+  color: #657485;
+  font-size: 9px;
+  font-weight: 750;
+  line-height: 1.5;
+}
+
+.domain-council-delivery aside {
+  background: #fff8eb;
+}
+
+.domain-council-delivery aside span {
+  color: #9a4b0a;
+}
+
+@media (max-width: 1100px) {
+  .domain-council-context { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .domain-council-context article { border-bottom: 1px solid #d4dde5; }
+  .domain-council-context article:nth-child(2n) { border-right: 0; }
+  .domain-council-context article:last-child { grid-column: 1 / -1; border-bottom: 0; }
+  .domain-council-delivery { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .domain-council-delivery > *:nth-child(2n) { border-right: 0; }
+}
+
+@media (max-width: 720px) {
+  .consulting-system #executive-decision .decision-layout,
+  .consulting-system #executive-decision .decision-focus,
+  .consulting-system #executive-decision .domain-agent-council {
+    min-width: 0;
+    width: 100%;
+    max-width: 100%;
+  }
+  .consulting-system #executive-decision .domain-agent-council {
+    overflow: hidden;
+    padding: 14px;
+  }
+  .consulting-system #executive-decision .domain-agent-council :is(header, div, section, article, aside, label, dl, p, strong, small) {
+    min-width: 0;
+    max-width: 100%;
+    overflow-wrap: anywhere;
+  }
+  .consulting-system #executive-decision .domain-agent-council .agent-debate-title strong,
+  .consulting-system #executive-decision .domain-agent-council .agent-debate-title small {
+    white-space: normal !important;
+    overflow-wrap: anywhere;
+  }
+  .consulting-system #executive-decision .domain-agent-council .c-level-agent-controls {
+    grid-template-columns: minmax(0, 1fr) !important;
+  }
+  .consulting-system #executive-decision .domain-agent-council .c-level-agent-controls label,
+  .consulting-system #executive-decision .domain-agent-council #execDecisionCouncilSelect,
+  .consulting-system #executive-decision .domain-agent-council #execDecisionRunCouncil {
+    min-width: 0;
+    width: 100%;
+  }
+  .consulting-system .domain-agent-council .agent-debate-metrics,
+  .domain-council-context,
+  .domain-council-flow,
+  .domain-council-delivery { grid-template-columns: minmax(0, 1fr); }
+  .domain-council-context article,
+  .domain-council-context article:nth-child(2n),
+  .domain-council-delivery > *,
+  .domain-council-delivery > *:nth-child(2n) { grid-column: auto; border-right: 0; border-bottom: 1px solid #d4dde5; }
+  .domain-council-context article:last-child,
+  .domain-council-delivery > *:last-child { border-bottom: 0; }
+  .domain-agent-workstream:last-child { grid-column: auto; }
+  .consulting-system .domain-agent-workstream .agent-decision-frame { grid-template-columns: minmax(0, 1fr); }
+}

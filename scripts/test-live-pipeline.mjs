@@ -667,14 +667,20 @@ assert.match(appText, /function executiveDecisionFrame\(/, "all executive agents
 assert.match(appText, /function agentDecisionFrameHTML\(/, "the consulting decision frame must render as a dedicated visual component");
 assert.match(appText, /decisionFrame: executiveDecisionFrame\(mapped, decisionFrameContext\)/, "each mapped AI Infra challenge agent must receive the management decision frame");
 assert.match(appText, /question: decisionFrame\.question, decisionFrame/, "each C-level council role must receive a data-bound question and decision frame");
-assert.match(appText, /function executiveDecisionAgentItems[\s\S]*?decisionFrame: executiveDecisionFrame/, "backtest product-council agents must use the same decision frame");
+assert.match(appText, /function executiveDecisionAgentItems[\s\S]*?executiveDecisionFrame\(agent, decisionFrameContext\)[\s\S]*?aiInfraDomainDecisionFrame\(agent, domain, decisionFrameContext\)/, "backtest product-council agents must combine the shared and domain-specific decision frames");
 assert.match(stylesText, /\.agent-decision-frame\s*\{/, "decision frames must use a compact infographic layout");
 assert.match(appText, /const AI_INFRA_COUNCIL_AGENDAS = Object\.freeze\(\[/, "the C-level board must use a bounded AI Infra strategy agenda");
 assert.match(appText, /function consoleDeepLinkState\([\s\S]*?function applyConsoleDeepLink\(/, "the C-level board must support stable section and agenda deep links");
 assert.match(appText, /MODELED · 예약 Capacity가 승인 수요의 80% 미만[\s\S]*?Package Yield Gate가 2회 연속 미달/, "the foundry agenda must include quantified modeled reversal thresholds");
 assert.match(appText, /MODELED KILL CRITERIA · STOP \/ REFRAME/, "the decision pack must distinguish modeled kill criteria from reported facts");
 assert.match(appText, /function aiInfraCouncilDeepLink\([\s\S]*?id="cLevelCopyLink"/, "the decision pack must provide a copyable agenda deep link");
-for (const agenda of ["HBM4 Base-Die & Foundry Alliance", "On-device AI · LPDDR Portfolio", "Post-HBM · Tiered Memory Portfolio"]) {
+for (const agenda of [
+  "Customized Memory Consulting · Custom HBM",
+  "AI Application & HW/SW · On-device",
+  "LLM Tech & Enterprise RAG Architecture",
+  "Data Center Workload Optimization",
+  "Partners & Clients · Repeatable New Biz",
+]) {
   assert.match(appText, new RegExp(agenda.replace(/[.*+?^${}()|[\]\\]/g, "\\$&")), `the AI Infra council must expose ${agenda}`);
 }
 for (const capability of ["Pain Point 분석", "Data Center & IT", "Executive Strategy"]) {

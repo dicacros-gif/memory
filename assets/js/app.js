@@ -1181,30 +1181,104 @@
       upside: "레거시 가격이 상승해도 구조적 성장으로 보지 않고 현금흐름 회수와 재고 정상화에 초점을 둡니다.",
       downside: "가격 하락이 확인되면 생산/재고/저수익 SKU를 빠르게 줄이는 의사결정이 필요합니다.",
     },
-    {
-      id: "china-exposure",
-      label: "중국 노출·가격 압력",
-      demand: "중국 포함",
-      category: "china",
-      products: ["CXMT DRAM 압력", "YMTC NAND/eSSD", "중국 장비 국산화", "레거시 가격"],
-      priceTerms: ["ddr4", "ddr5", "ett", "nand", "wafer", "ssd", "mlc", "tlc"],
-      proxySeriesVersion: "fixed-constituent-v1",
-      proxySeriesIds: [
-        "dram-dram-spot-price::ddr4 16gb (2gx8) 3200",
-        "dram-dram-spot-price::ddr4 16gb (2gx8) ett",
-        "dram-dram-spot-price::ddr5 16gb (2gx8) ett",
-        "nand-nand-flash-contract-price::nand 64gb 8gx8 mlc",
-        "nand-wafer-spot-price::256gb tlc",
-        "nand-pc-client-oem-ssd-contract-price::512gb-msata/m.2 tlc pcie-value grade",
-      ],
-      marketProxySeriesIds: ["smic-stock", "naura-stock", "amec-stock", "jcet-stock", "gigadevice-stock"],
-      chinaTerms: ["cxmt", "ymtc", "naura", "amec", "xmc", "jcet", "china capacity", "big fund"],
-      decisionBias: "risk",
-      rationale: "중국 업체별 실적/캐파의 과거 가격 직접 데이터는 없으므로 중국 영향이 큰 DDR4/eTT/NAND/SSD 가격을 실제 proxy로 사용합니다.",
-      upside: "중국 관련 가격 proxy가 상승해도 의사결정은 확대보다 경쟁 압력 완화 여부 확인에 둡니다.",
-      downside: "중국 proxy 가격이 하락하면 가격 하방, 고객 침투, 수출통제 반작용을 즉시 경영진 안건으로 올립니다.",
-    },
   ];
+
+  const AI_INFRA_DECISION_CONTEXTS = Object.freeze({
+    "hbm-ai-server": {
+      customer: "Hyperscaler · AI Model Developer · Custom ASIC",
+      pain: "학습 시간·전력·공급 Ramp를 동시에 보장하면서 GPU/ASIC 세대 전환 위험을 줄여야 함",
+      workload: "대규모 Training · All-reduce · Checkpoint",
+      hwSw: "GPU/ASIC–Fabric–Host–Storage 병목과 HBM occupancy·GPU idle·checkpoint time을 동시 계측",
+      aiTech: "Transformer scale-out 학습 · MoE communication · distributed checkpoint",
+      memory: "HBM4/4E + Server DRAM + Checkpoint eSSD + Logic Base-Die/Package",
+      offer: "Standard HBM Scale과 Semi-Custom Co-Design을 분리한 고객별 Capacity·Qualification 계약",
+      partners: "AI chip developer · CSP · Foundry · Advanced Packaging · AI framework",
+      kpis: ["Training time", "GPU utilization", "Performance/W", "Qualification cycle", "Committed volume"],
+      gates: ["Workload trace 승인", "Architecture lock", "Package/Yield readiness", "Binding volume"],
+      kill: "Qualification이 1개 분기 이상 지연되거나 Package/Yield Gate가 2회 연속 미달하면 Custom 투자 범위를 축소",
+    },
+    "server-dram": {
+      customer: "Hyperscaler · Cloud Service · Server OEM",
+      pain: "Agentic Inference의 긴 Context와 동시 세션 증가를 GPU 증설만으로 감당하기 어려움",
+      workload: "LLM Inference · Agentic AI · KV-cache serving",
+      hwSw: "Serving framework–CPU–Host memory–CXL–Network 경로에서 TTFT·TPOT/P99·bytes/token을 계측",
+      aiTech: "Paged attention · KV cache reuse/offload · prefix caching · multi-agent state",
+      memory: "HBM Hot Tier + MRDIMM/RDIMM/SOCAMM Warm Tier + CXL Capacity Tier",
+      offer: "Tiered Memory Reference Architecture와 서버 OEM 공동 Qualification 패키지",
+      partners: "Model company · Serving framework · CSP · CXL ecosystem · Server OEM",
+      kpis: ["TTFT/TPOT P99", "KV hit ratio", "GPU idle", "Bytes/token", "System TCO"],
+      gates: ["Serving baseline", "Tier placement PoC", "SW integration", "OEM qualification"],
+      kill: "P99가 5% 이상 악화되거나 System TCO 개선이 10% 미만이면 CXL·Warm Tier 범위를 재설계",
+    },
+    "enterprise-ssd": {
+      customer: "Enterprise RAG 사업자 · Data Center Operator · Storage OEM",
+      pain: "Vector index·문서 증가로 Retrieval P99와 비용, Freshness, 보안을 동시에 맞추기 어려움",
+      workload: "Enterprise RAG · Vector Search · AI Checkpoint/Inference Storage",
+      hwSw: "Vector DB–cache–controller–eSSD 경로에서 QPS·read amplification·queue depth·GPU wait를 계측",
+      aiTech: "Embedding pipeline · RAG retrieval · Vector DB indexing · prompt/context reuse",
+      memory: "DRAM/CXL Active Index + TLC/QLC eSSD Capacity Tier + SLC cache mode",
+      offer: "Vector DB·Controller 공동 튜닝과 성능 보증을 결합한 AI Storage Solution",
+      partners: "Enterprise · Vector DB/RAG SW · Data Center · Server OEM · SSD Controller",
+      kpis: ["Retrieval P99", "QPS", "Cache hit", "Cost/query", "Endurance"],
+      gates: ["Data path map", "Vector benchmark", "Reliability/endurance", "Customer qualification"],
+      kill: "Retrieval P99 개선이 15% 미만이거나 Cost/query 개선이 10% 미만이면 제품·Index 구성을 재설계",
+    },
+    "mobile-pc-terminal": {
+      customer: "Mobile/PC OEM · OS Platform · On-device AI App",
+      pain: "제한된 BOM·전력 안에서 온디바이스 AI 응답성·개인정보·오프라인 경험을 차별화해야 함",
+      workload: "On-device LLM · Multimodal Assistant · Local RAG",
+      hwSw: "App–OS–NPU–Memory–Storage 경로에서 peak footprint·latency·energy/task를 계측",
+      aiTech: "Quantized Transformer · Prompt cache · Local RAG · speculative decoding",
+      memory: "LPDDR5X/LPDDR6 + UFS/Client SSD + NPU shared memory",
+      offer: "AI 기능별 Memory Footprint와 Premium–Mainstream–Entry SKU/BOM 공동 설계",
+      partners: "Device OEM · OS/NPU platform · AI app developer · Module/Storage ecosystem",
+      kpis: ["P95 AI latency", "Energy/task", "BOM/ASP", "12GB+ mix", "Sell-through"],
+      gates: ["Feature footprint", "Device benchmark", "SKU economics", "Launch allocation"],
+      kill: "BOM/ASP가 5%p 이상 상승하거나 Sell-through가 2개월 연속 계획 대비 10% 하회하면 SKU 용량을 재설계",
+    },
+    "auto-edge": {
+      customer: "Automotive OEM/Tier-1 · Robotics · Industrial Edge Operator",
+      pain: "실시간 추론 성능과 기능안전·내구성·장기공급을 긴 인증 주기 안에서 동시에 보장해야 함",
+      workload: "Physical AI · ADAS/IVI · Robotics perception/control",
+      hwSw: "Sensor–SoC/NPU–Memory–Storage 경로에서 worst-case latency·thermal·reliability를 검증",
+      aiTech: "Multimodal perception · edge Transformer · continual update · safety partition",
+      memory: "Automotive DRAM + Embedded NAND/eSSD + Edge AI Memory",
+      offer: "장기공급·Functional Safety·Lifecycle 관리가 포함된 인증형 Memory Platform",
+      partners: "OEM/Tier-1 · Edge SoC · Robotics software · Test/Certification partner",
+      kpis: ["Worst-case latency", "FIT rate", "Thermal margin", "Qualification lead time", "Lifetime value"],
+      gates: ["Mission profile", "Safety/reliability test", "Platform qualification", "Long-term supply contract"],
+      kill: "Safety·Reliability Gate 미통과 또는 고객 장기 물량 약정 부재 시 Scale 투자를 보류",
+    },
+    "legacy-commodity": {
+      customer: "Server/Device OEM · Channel Partner · Installed-base Operator",
+      pain: "공급 연속성을 유지하면서 저수익 SKU·재고·가격 하락 노출을 줄여야 함",
+      workload: "기존 IT 운영 · Replacement demand · Cost-sensitive infrastructure",
+      hwSw: "호환성·재고 회전·서비스 수명·전환 비용을 고객 플랫폼별로 분리",
+      aiTech: "AI 전환과 비AI 설치기반 수요를 분리해 범용 수요를 과대평가하지 않음",
+      memory: "DDR4/DDR3 + Commodity DRAM + Retail/Client SSD + Wafer NAND",
+      offer: "SKU Rationalization·Last-time Buy·Migration Roadmap를 결합한 방어형 고객 프로그램",
+      partners: "OEM · Distributor · Enterprise IT · Migration/Service partner",
+      kpis: ["Inventory days", "Cash-cost margin", "SKU count", "Contract coverage", "Migration rate"],
+      gates: ["Customer dependency map", "SKU economics", "Migration agreement", "Capacity exit"],
+      kill: "Cash-cost floor 미달 또는 재고일수 2개월 연속 악화 시 생산·SKU를 단계 축소",
+    },
+  });
+
+  function aiInfraDecisionContext(active = {}) {
+    return AI_INFRA_DECISION_CONTEXTS[active.id] || {
+      customer: "AI 개발사 · Data Center Operator · IT Enterprise",
+      pain: "고객의 성능·용량·전력·비용 병목을 검증 가능한 요구사항으로 전환해야 함",
+      workload: "Training · Inference · RAG · On-device/Edge",
+      hwSw: "Application–Model–Accelerator–Host–Network–Storage end-to-end trace",
+      aiTech: "Transformer · Prompt Engineering · RAG · Vector DB",
+      memory: "HBM · DRAM/SOCAMM · CXL · HBF · eSSD",
+      offer: "Pain Point 기반 Memory Architecture·TCO·Qualification 패키지",
+      partners: "AI developer · Data center · OEM · Consulting/SI",
+      kpis: ["System performance", "TCO", "Qualification", "Committed volume"],
+      gates: ["Pain map", "Benchmark", "Business case", "Qualification"],
+      kill: "고객 KPI와 사업성 Gate가 동시에 충족되지 않으면 Scale 이전 단계로 환원",
+    };
+  }
   const INVESTMENT_STRATEGY_PILLARS = [
     {
       id: "hbm-premium",
@@ -9088,72 +9162,72 @@
   const AGENT_FUTURE_SCENARIOS = [
     {
       id: "base",
-      label: "기준 시나리오",
-      horizon: "30개월",
+      label: "검증 기반 실행",
+      horizon: "0–90일",
       tilt: "base",
-      premise: "현재 확인된 가격, 기사, 정책, 경쟁 근거가 큰 충격 없이 이어지는 경우",
-      ceo: "현 결론은 유지하되 판단 변경 KPI를 선제 정의합니다.",
-      cfo: "재무 집행은 보류하고 가격 row와 고객 계약 근거가 쌓인 안건부터 실사합니다.",
-      cto: "제품군별 기술 병목은 현재 확인된 근거 범위에서만 판단합니다.",
-      policy: "규제 원문이 추가되지 않으면 운영 유지와 확대 투자를 분리합니다.",
-      market: "Spot/contract와 고객 계약 신호가 같은 방향으로 움직이는지만 확인합니다.",
-      audit: "이 시나리오는 현재 데이터의 기준선이며 사실 레이어와 가정 레이어를 분리합니다.",
-      conclusion: "현재 결론 유지",
+      premise: "고객 Pain과 Workload baseline을 먼저 고정하고 Architecture·TCO·Qualification을 순차 검증하는 경우",
+      ceo: "고객 KPI와 90일 Gate가 확인된 범위만 승인합니다.",
+      cfo: "System TCO와 고객 지불 의사가 확인된 옵션만 예산 안건으로 올립니다.",
+      cto: "HW/SW 병목과 Memory tier 효과를 같은 benchmark로 검증합니다.",
+      policy: "파트너 RACI와 IP·데이터 경계를 실행 전에 잠급니다.",
+      market: "가격 신호는 고객 전환·계약·Qualification과 교차 확인합니다.",
+      audit: "사실·가설·모델 임계치를 분리하고 판단 변경 조건을 함께 표시합니다.",
+      conclusion: "조건부 실행",
     },
     {
-      id: "china-pressure",
-      label: "중국 공급압력",
-      horizon: "12~24개월",
-      tilt: "down",
-      premise: "CXMT DDR5/LPDDR 물량과 YMTC eSSD/NAND 침투가 빨라져 범용 가격 협상력이 약해지는 경우",
-      ceo: "가격 방어와 고객 락인을 우선하며 확대 안건은 조건부로 낮춥니다.",
-      cfo: "Bear case ASP와 재고 방어 비용을 먼저 반영하고 저수익 SKU 축소를 검토합니다.",
-      cto: "HBM과 범용 DRAM/NAND를 분리하고 중국 가격 압력은 레거시 제품군에 먼저 반영합니다.",
-      policy: "중국 내수 보조금과 국산 장비 qual은 제재와 별도로 공급압력 변수로 둡니다.",
-      market: "Spot이 먼저 약해지고 contract가 뒤따르면 고객별 가격 방어 안건으로 전환합니다.",
-      audit: "중국 공급압력은 점유율, 고객계약, 가격 row가 동시에 확인될 때만 강한 신호로 승격합니다.",
-      conclusion: "방어 우선",
-    },
-    {
-      id: "policy-tightening",
-      label: "정책 강화",
-      horizon: "6~18개월",
-      tilt: "down",
-      premise: "BIS/VEU, CHIPS, MATCH, 중국 인허가·환경 규제가 강화되어 중국 Fab 업그레이드와 장비 반입이 느려지는 경우",
-      ceo: "중국 운영은 유지·확대·기술 업그레이드로 쪼개고 확대성 안건은 Watch로 낮춥니다.",
-      cfo: "CAPEX 집행은 라이선스 확보 전 보류하고 운영 continuity 예산만 별도 승인합니다.",
-      cto: "선단 공정 전환보다 기존 공정 안정화, 수율 유지, 고객 품질 대응을 우선합니다.",
-      policy: "원문 규제와 허가 상태가 없으면 Go 판단을 금지하고 법무 게이트를 먼저 통과시킵니다.",
-      market: "정책 리스크가 가격 프리미엄을 상쇄하면 고객 배분과 재고 전략을 재검토합니다.",
-      audit: "정책 강화 시나리오는 법령·기관 원문이 붙은 항목만 사실 근거로 사용합니다.",
-      conclusion: "라이선스 게이트 우선",
-    },
-    {
-      id: "ai-upside",
-      label: "AI 수요 상방",
-      horizon: "30개월~5년",
+      id: "custom-demand",
+      label: "Custom 수요 확정",
+      horizon: "3–12개월",
       tilt: "up",
-      premise: "AI 서버, HBM4/HBM4E, eSSD 수요가 예상보다 강하고 고객 장기계약 또는 선급 신호가 확대되는 경우",
-      ceo: "프리미엄 제품군은 고객 락인과 공급 배분을 앞당기고 범용은 현금흐름 방어로 분리합니다.",
-      cfo: "장기계약, 선급, 프리미엄 ASP 근거가 붙은 제품군만 선별 CAPEX 후보로 올립니다.",
-      cto: "HBM base die, CoWoS/패키징, eSSD 인증 병목을 해소하는 투자를 우선합니다.",
-      policy: "미국 고객과 첨단 패키징 노출은 중국 Fab 안건과 분리해 승인합니다.",
-      market: "AI 수요가 강해도 spot 약세가 동반되면 고객별 믹스와 계약 조건을 따로 봅니다.",
-      audit: "상방 시나리오는 고객 계약, 가격 row, 출하·인증 원문이 있을 때만 Go 강도를 높입니다.",
-      conclusion: "선별 확대",
+      premise: "고객별 Workload 요구·Architecture lock·장기 물량 약정이 함께 확인되는 경우",
+      ceo: "표준 제품과 Custom Co-Design의 투자·수익모델을 분리 승인합니다.",
+      cfo: "NRE·Margin floor·Committed volume을 milestone 예산과 연결합니다.",
+      cto: "Logic base-die·Package·Firmware 요구를 고객별 specification으로 잠급니다.",
+      policy: "Foundry·Packaging·AI software 파트너의 책임과 IP 경계를 계약화합니다.",
+      market: "고객 인증과 반복주문 경로가 있는 Custom 요구만 Scale로 승격합니다.",
+      audit: "발표·LOI·Qualification·확정계약·매출 인식을 단계별로 분리합니다.",
+      conclusion: "선별 Co-Design",
     },
     {
-      id: "execution-bottleneck",
-      label: "실행 병목",
-      horizon: "6~24개월",
+      id: "agentic-inference",
+      label: "Agentic Inference 전환",
+      horizon: "6–18개월",
+      tilt: "up",
+      premise: "Long context·multi-agent state·RAG 확대로 HBM 외 DRAM/CXL/eSSD tier 가치가 커지는 경우",
+      ceo: "HBM 단품이 아니라 Context Economics 기반 포트폴리오로 판단합니다.",
+      cfo: "추가 Memory 비용과 GPU idle 회피·token throughput을 같은 단위로 비교합니다.",
+      cto: "KV cache reuse·offload·prefetch를 HW/SW 공동 PoC로 검증합니다.",
+      policy: "Model·Serving·CXL·Storage 파트너를 하나의 Reference Architecture RACI로 묶습니다.",
+      market: "TTFT/TPOT·Cost/token 개선이 확인된 고객군부터 확대합니다.",
+      audit: "Modeled threshold와 실제 고객 baseline의 차이를 명시합니다.",
+      conclusion: "Tiered Memory PoC",
+    },
+    {
+      id: "partner-scale",
+      label: "Partner-led Scale",
+      horizon: "6–24개월",
+      tilt: "up",
+      premise: "Lighthouse 고객의 benchmark와 Qualification 결과를 반복 가능한 공동사업 패키지로 전환하는 경우",
+      ceo: "Reference Case의 재사용성과 고객 파이프라인을 Scale 승인 기준으로 둡니다.",
+      cfo: "Partner별 역할·NRE·Revenue share·반복주문 경제성을 검증합니다.",
+      cto: "공통 Architecture와 고객별 Custom 요소의 경계를 명확히 합니다.",
+      policy: "AI 개발사·데이터센터·OEM·컨설팅/SI의 RACI와 데이터 권한을 고정합니다.",
+      market: "Lighthouse → Reference → Repeat의 전환율을 고객군별로 추적합니다.",
+      audit: "성공 사례는 익명화하고 실제 성과와 modeled benefit을 분리합니다.",
+      conclusion: "Reference 확장",
+    },
+    {
+      id: "qualification-bottleneck",
+      label: "Qualification 병목",
+      horizon: "0–12개월",
       tilt: "watch",
-      premise: "CoWoS/패키징, 장비 qual, 고객 인증, 수율 안정화가 지연되어 수요는 있어도 출하 전환이 느려지는 경우",
-      ceo: "수요가 있어도 실행 병목이 확인되면 Go를 단계 집행으로 낮춥니다.",
-      cfo: "CAPEX는 milestone tranche로 쪼개고 고객 인증 전 지출을 제한합니다.",
-      cto: "수율, 패키징, 테스트, 고객 인증을 같은 일정표에 놓고 병목 해소 순서를 정합니다.",
-      policy: "장비 반입과 인허가가 지연되면 증설보다 운영 안정과 대체 조달을 먼저 봅니다.",
-      market: "고객 수요 뉴스보다 실제 인증, 출하, 가격 반영 여부를 우선합니다.",
-      audit: "실행 병목은 이벤트 뉴스가 아니라 일정 지연, 인증 실패, 가격 미반영 근거가 있어야 승격합니다.",
+      premise: "Benchmark는 통과했지만 수율·패키징·SW integration·고객 인증이 늦어지는 경우",
+      ceo: "Scale 결정을 단계 집행으로 낮추고 병목 Owner를 단일화합니다.",
+      cfo: "CAPEX를 Qualification milestone tranche로 분리합니다.",
+      cto: "Architecture–Firmware–Package–Reliability의 critical path를 재배열합니다.",
+      policy: "파트너별 지연 책임과 대체 경로를 공동 실행보드에 반영합니다.",
+      market: "수요 발표보다 sample on-time·인증·출하 전환을 우선합니다.",
+      audit: "지연 횟수와 Gate 미달을 동일 기준으로 기록해 Kill Criteria를 자동 발동합니다.",
       conclusion: "단계 집행",
     },
   ];
@@ -9295,7 +9369,7 @@
     if (/policy|정책/.test(`${id} ${name}`)) return "policy";
     if (/market|sales|customer|시장/.test(`${id} ${name}`)) return "market";
     if (/risk|리스크/.test(`${id} ${name}`)) return "risk";
-    if (/cto|technology|기술/.test(`${id} ${name}`)) return "cto";
+    if (/cto|technology|workload|ai-application|llm|rag|vector|기술|워크로드/.test(`${id} ${name}`)) return "cto";
     if (/cfo|finance|재무/.test(`${id} ${name}`)) return "cfo";
     if (/coo|operations|운영/.test(`${id} ${name}`)) return "coo";
     if (/cso|strategy|전략/.test(`${id} ${name}`)) return "strategy";
@@ -9852,8 +9926,8 @@
       id: "hbm4-foundry",
       index: "01",
       phase: "NOW",
-      title: "HBM4 Base-Die & Foundry Alliance",
-      subtitle: "파운드리 의존도를 고객 맞춤형 성능 우위로 전환",
+      title: "Customized Memory Consulting · Custom HBM",
+      subtitle: "고객 Pain과 Workload를 Base-Die·Package·Capacity 공동설계로 전환",
       question: "TSMC 선단공정·패키징 의존을 통제하면서 HBM4/HBM4E의 고객별 PPA·TCO 우위를 어떻게 확보할 것인가?",
       decision: "N12 표준 HBM4와 N3P Custom HBM4E를 하나의 동맹 로드맵으로 묶고, 캐파·인증·대체노드를 독립 게이트로 운영",
       signals: [
@@ -9886,8 +9960,8 @@
       id: "ondevice-lpddr",
       index: "02",
       phase: "NEXT",
-      title: "On-device AI · LPDDR Portfolio",
-      subtitle: "서버발 공급 압력을 모바일 제품 믹스·원가·고객가치 판단으로 전환",
+      title: "AI Application & HW/SW · On-device",
+      subtitle: "AI 기능의 Memory Footprint를 제품 믹스·BOM·고객가치 판단으로 전환",
       question: "AI 서버 수요와 제한된 공급이 모바일 메모리 원가로 전이될 때, 어떤 고객·SKU·용량 구간을 우선 방어할 것인가?",
       decision: "단일 가격 인상 대응이 아니라 Premium–Mainstream–Entry별 메모리 용량·AI 경험·BOM 탄력성을 함께 재설계",
       signals: [
@@ -9917,11 +9991,45 @@
       ],
     },
     {
-      id: "post-hbm",
+      id: "llm-rag-architecture",
       index: "03",
+      phase: "NEXT",
+      title: "LLM Tech & Enterprise RAG Architecture",
+      subtitle: "Transformer·Prompt·RAG·Vector DB 변화를 Memory/Storage 사업 기회로 전환",
+      question: "Long context와 Vector Search가 확대될 때 DRAM/CXL과 eSSD의 최적 배치·성능보증·고객 지불의사를 어떻게 검증할 것인가?",
+      decision: "AI Application trace에서 Retrieval P99·KV reuse·Index residency를 측정하고, DRAM/CXL + TLC/QLC eSSD Reference Offer로 공동 검증",
+      signals: [
+        ["WORKLOAD", "RAG / Vector Search", "Embedding·Index·Retrieval·Generation 경로를 분리"],
+        ["ARCHITECTURE", "Active + Capacity Tier", "DRAM/CXL active index와 eSSD vector/document tier"],
+        ["CONTROL", "Customer baseline", "공개 시장 신호를 고객 성과로 오인하지 않음"],
+      ],
+      lenses: [
+        ["01 · CUSTOMER", "Enterprise JTBD", ["Fresh answer·보안·예측 가능한 Cost/query", "Corpus·Freshness·SLA·규제 요구 분류", "구매 기준과 시스템 KPI 연결"]],
+        ["02 · AI TECH", "LLM/RAG Flow", ["Transformer context와 Prompt cache", "Embedding·Vector DB·reranking", "KV reuse·Index resident ratio"]],
+        ["03 · MEMORY", "Tiered Architecture", ["DRAM/CXL active index", "TLC/QLC eSSD capacity", "Controller/Firmware·queue 공동 튜닝"]],
+        ["04 · BUSINESS", "Reference Offer", ["Benchmark·TCO·성능보증 범위", "Vector DB/OEM 공동 Qualification", "Design win → repeat order"]],
+      ],
+      horizons: [
+        ["NOW · 0–30D", "Retrieval Trace", "Corpus·Index·cache·document path baseline", "P99·QPS·cache hit"],
+        ["NEXT · 31–60D", "Architecture PoC", "DRAM/CXL/eSSD 비중별 benchmark", "Cost/query·power/query"],
+        ["SCALE · 61–90D", "Reference Offer", "성능보증·Qualification·가격 패키지", "Design win·repeat order"],
+      ],
+      kpis: ["Retrieval P99", "QPS", "Cache hit", "Cost/query", "Qualification"],
+      stop: "MODELED · Retrieval P99 개선 15% 미만, Cost/query 개선 10% 미만, Endurance/Reliability Gate 미통과 중 하나가 발생하면 Architecture를 재설계",
+      partners: ["Enterprise · data/SLA owner", "Vector DB/RAG software · index tuning", "Data center/OEM · platform qualification"],
+      useCase: "익명화 Case C · Enterprise RAG — Retrieval path 진단 → DRAM/CXL·eSSD PoC → 고객 Qualification",
+      sources: [
+        ["OFFICIAL · SK hynix", "HBM부터 eSSD까지 full-stack memory hierarchy", "https://news.skhynix.com/hbm-to-essd/"],
+        ["CONTROL", "RAG 고객 benchmark·TCO·계약", ""],
+        ["CONTROL", "Vector DB별 성능보증 범위", ""],
+      ],
+    },
+    {
+      id: "post-hbm",
+      index: "04",
       phase: "SCALE",
-      title: "Post-HBM · Tiered Memory Portfolio",
-      subtitle: "HBM 단일 제품을 Workload별 Memory Fabric 사업으로 확장",
+      title: "Data Center Workload Optimization",
+      subtitle: "HBM 단일 제품을 Workload별 Tiered Memory·System TCO 사업으로 확장",
       question: "Training·Inference·RAG·On-device의 서로 다른 병목을 HBM–DRAM–CXL–HBF–eSSD 포트폴리오로 어떻게 연결할 것인가?",
       decision: "제품별 전망이 아니라 Workload–Memory tier–Partner–Qualification을 하나의 7-gate 사업개발 체계로 운영",
       signals: [
@@ -9948,6 +10056,40 @@
         ["OFFICIAL · SK hynix", "HBM4 2,048 I/O와 전력 효율", "https://news.skhynix.com/sk-hynix-completes-worlds-first-hbm4-development-and-readies-mass-production/"],
         ["OFFICIAL · SK hynix", "HBM부터 eSSD까지 full-stack memory hierarchy", "https://news.skhynix.com/hbm-to-essd/"],
         ["OFFICIAL · SK hynix", "Custom HBM·HBF·3D Stacked DRAM on Logic", "https://news.skhynix.com/tsmc-technology-symposium-2026/"],
+      ],
+    },
+    {
+      id: "partner-new-biz",
+      index: "05",
+      phase: "SCALE",
+      title: "Partners & Clients · Repeatable New Biz",
+      subtitle: "Lighthouse 고객의 검증 결과를 반복 가능한 공동사업과 익명화 Use Case로 전환",
+      question: "AI 개발사·데이터센터·OEM·컨설팅 파트너를 어떤 RACI로 묶어 Pain 진단부터 Qualification·반복주문까지 연결할 것인가?",
+      decision: "AI Infra Memory Blueprint를 표준 산출물로 정의하고 Lighthouse → Reference → Repeat의 3단계 사업개발 Funnel로 운영",
+      signals: [
+        ["OFFER", "AI Infra Memory Blueprint", "Pain map·trace·architecture·TCO·qualification"],
+        ["PARTNER", "Joint execution RACI", "Workload·operations·platform·value realization owner"],
+        ["CONTROL", "Anonymous use case", "고객 기밀과 modeled benefit을 실제 성과와 분리"],
+      ],
+      lenses: [
+        ["01 · AI DEVELOPER", "Workload Owner", ["Model·Prompt·Serving trace", "성능 목표와 test workload", "SW integration 책임"]],
+        ["02 · DATA CENTER", "Operations Owner", ["Rack·Power·Cooling·Network baseline", "Reliability·SLA·TCO", "PoC 운영 환경"]],
+        ["03 · OEM/PLATFORM", "Qualification Owner", ["Interoperability·BOM·Certification", "Sample·platform schedule", "Volume ramp"]],
+        ["04 · CONSULTING/SI", "Value Realization", ["Business case·adoption roadmap", "Change management·PMO", "Reference case 재사용"]],
+      ],
+      horizons: [
+        ["NOW · 0–30D", "Opportunity Screen", "Customer Value·Market·Right to Win", "Trace access·Decision owner"],
+        ["NEXT · 31–60D", "Joint Proof", "Benchmark·TCO·Architecture·RACI", "PoC KPI·commercial hypothesis"],
+        ["SCALE · 61–90D", "Commercialize", "Qualification·Capacity·Contract", "Reference reuse·pipeline"],
+      ],
+      kpis: ["PoC → Qualification", "Qualification → contract", "Reference reuse", "Repeat order"],
+      stop: "Decision owner·Trace access·Reference 재사용성·Qualification 경로 중 2개 이상이 확인되지 않으면 Scale 투자를 중단하고 Option 단계로 환원",
+      partners: ["AI developer · workload", "Data center · operations", "OEM/platform · qualification", "Consulting/SI · adoption"],
+      useCase: "익명화 Case D · Agentic AI 운영사 — Context 병목 → Tiered Memory 공동검증 → Reference Offer",
+      sources: [
+        ["OFFICIAL · SK hynix", "AI ecosystem collaboration과 full-stack portfolio", "https://news.skhynix.com/gtc-2026-ai-partnership/"],
+        ["CONTROL", "고객명·계약·매출 수치", ""],
+        ["CONTROL", "Modeled benefit와 실제 고객 성과", ""],
       ],
     },
   ]);
@@ -15065,7 +15207,7 @@
   function agentDebateHTML({ mode = "default", title = "Expert debate", subtitle = "", metrics = [], turns = [], kpis = [], accent = "", conclusion = null, ttsLanguage = "", defaultConfidence = null, defaultSource = null } = {}) {
     const colors = ["#06B6D4", "#8B5CF6", "#22C55E", "#F59E0B", "#EF4444", "#0EA5E9"];
     const forcedTtsLanguage = /^(?:ko|en)$/.test(ttsLanguage) ? ttsLanguage : "";
-    const challengeOrder = ["Customer Strategist", "Workload Architect", "Memory Solution Lead", "New Biz & Partner Lead", "Evidence Auditor", "Executive Decision Lead"];
+    const challengeOrder = ["Customer Strategist", "Workload Architect", "AI Application & LLM Lead", "Memory Solution Lead", "New Biz & Partner Lead", "Evidence Auditor", "Executive Decision Lead"];
     const orderedTurns = turns.filter((turn) => turn?.message).slice(0, 12).sort((a, b) => {
       if (mode !== "ceo-challenge") return 0;
       return challengeOrder.indexOf(a.name) - challengeOrder.indexOf(b.name);
@@ -15494,6 +15636,64 @@
     return profiles[active?.id] || fallback;
   }
 
+  function aiInfraDomainDecisionFrame(agent = {}, domain = {}, context = {}) {
+    const evidence = String(context.evidenceText || "Console 연결 근거");
+    const price = String(context.priceText || "직접 가격 신호 없음");
+    const action = String(context.action || domain.offer || "조건부 실행");
+    const frames = {
+      customer: {
+        question: `${domain.customer}의 가장 중요한 JTBD와 구매 기준은 무엇인가?`,
+        diagnosis: `${domain.customer} · ${domain.pain}`,
+        implication: `고객 성과 KPI · ${domain.kpis.slice(0, 2).join(" · ")}`,
+        recommendation: "Pain Point Map과 Buying Criteria를 고객과 공동 승인",
+        gate: domain.gates[0],
+      },
+      "workload-technology": {
+        question: `${domain.workload}에서 Compute가 아니라 실제로 멈추는 HW/SW 구간은 어디인가?`,
+        diagnosis: domain.workload,
+        implication: domain.hwSw,
+        recommendation: "End-to-end trace와 병목 기여도를 같은 baseline으로 고정",
+        gate: domain.gates[1] || domain.gates[0],
+      },
+      "ai-application": {
+        question: `AI 기술 변화가 ${domain.workload}의 Memory 요구를 어떻게 바꾸는가?`,
+        diagnosis: domain.aiTech,
+        implication: "Transformer·Prompt·RAG·Vector DB 변화 → capacity·bandwidth·latency·data movement 요구",
+        recommendation: "AI Application/HW/SW 변화와 Memory requirement를 버전별로 연결",
+        gate: "Model·Prompt·Serving 조건이 고정된 재현 가능 benchmark",
+      },
+      "memory-technology": {
+        question: `고객 KPI를 달성하는 최소 Memory hierarchy와 Qualification 범위는 무엇인가?`,
+        diagnosis: domain.memory,
+        implication: `Workload/HW·SW 병목 → ${domain.memory}`,
+        recommendation: domain.offer,
+        gate: domain.gates[2] || domain.gates[1],
+      },
+      "growth-strategy": {
+        question: `어떤 파트너·수익모델·반복주문 구조가 이 솔루션을 New Biz로 만드는가?`,
+        diagnosis: domain.partners,
+        implication: `${domain.offer} · ${price}`,
+        recommendation: "Lighthouse → Reference → Repeat 단계로 공동사업화",
+        gate: domain.gates[3] || domain.gates[2],
+      },
+      "evidence-audit": {
+        question: "사실·가설·모델 임계치와 반대 근거가 분리되어 있는가?",
+        diagnosis: evidence,
+        implication: `${price} · 공개 근거는 방향성, 고객 benchmark는 실행 검증에 사용`,
+        recommendation: "원문·기준일·단위·반증 신호를 동일 Decision Pack에 유지",
+        gate: domain.kill,
+      },
+      executive: {
+        question: "경영진이 지금 승인할 범위, Owner, KPI와 판단 변경 조건은 무엇인가?",
+        diagnosis: `${domain.pain} · 핵심 KPI ${domain.kpis.slice(0, 3).join(" · ")}`,
+        implication: `Customer → Workload → AI Tech → Memory → Business의 Gate 교집합만 승인`,
+        recommendation: action,
+        gate: domain.kill,
+      },
+    };
+    return frames[agent.id] || executiveDecisionFrame(agent, context);
+  }
+
   function executiveDecisionAgentItems(active, selectedYearOption, productLabel, selectedIso, selectedSeriesCount, scenario = agentFutureScenario()) {
     if (!active) return [];
     const horizon = active.horizon || activeBacktestHorizon();
@@ -15509,6 +15709,7 @@
     const source = sourceItem ? { url: evidenceItemUrl(sourceItem), title: sourceItem.item || sourceItem.title || "가격 원문" } : null;
     const baseConfidence = Math.round(Number(active.confidence || counterEvidence.confidence || 0));
     const productScope = (active.products || []).slice(0, 4).join(" · ") || productLabel;
+    const domain = aiInfraDecisionContext(active);
     const directEvidence = Number(active.directMetrics?.evidenceCount || active.observations?.length || 0);
     const currentBriefing = buildDailyBriefingMessage(active);
     const agents = [
@@ -15520,7 +15721,7 @@
         role: "고객 Pain Point 분석",
         color: "#0F766E",
         stance: "CUSTOMER",
-        message: `${profile.question} 고객의 구매 기준은 가격 단독이 아니라 성능·용량·전력·공급 안정성입니다. ${productScope}의 고객 KPI와 실제 Pain Point를 먼저 고정하고, 고객 신호가 없는 시장 움직임은 실행 근거로 올리지 않습니다.`,
+        message: `대상 고객은 **${domain.customer}**입니다. 핵심 Pain은 ${domain.pain}입니다. ${productScope} 제안 전에 고객 JTBD·구매 기준·${domain.kpis.slice(0, 2).join("·")} baseline을 공동 승인하고, 고객 신호가 없는 시장 움직임은 실행 근거로 올리지 않습니다.`,
       },
       {
         id: "workload-technology",
@@ -15530,7 +15731,17 @@
         role: "Workload·데이터센터 진단",
         color: "#1D4ED8",
         stance: "WORKLOAD",
-        message: `${productScope}을 Training·Inference·RAG·On-device 중 해당 Workload에 연결하고 Compute·Network·Memory·Storage 병목을 분리합니다. 수율·패키징·Qualification 병목이 해소된 범위만 물량 약속으로 전환합니다.`,
+        message: `핵심 Workload는 **${domain.workload}**입니다. ${domain.hwSw}. Application–Accelerator–Host–Network–Storage 전체 경로를 추적해 병목 기여도를 분리하고, ${domain.gates.slice(0, 2).join(" → ")}가 확인된 범위만 다음 설계로 넘깁니다.`,
+      },
+      {
+        id: "ai-application",
+        initials: "AI",
+        name: "AI Application & LLM Lead",
+        title: "Transformer · Prompt · RAG · Vector DB",
+        role: "AI Application·HW/SW 변화",
+        color: "#0E7490",
+        stance: "AI TECH",
+        message: `기술 변화의 핵심은 **${domain.aiTech}**입니다. 모델 구조·Prompt/Context 운용·Serving/Retrieval 방식이 capacity·bandwidth·latency·data movement 요구를 어떻게 바꾸는지 버전별로 연결하고, 동일한 test workload로 재현되지 않는 주장은 Memory 요구사항에서 제외합니다.`,
       },
       {
         id: "memory-technology",
@@ -15540,7 +15751,7 @@
         role: "맞춤형 Memory Solution",
         color: "#6D28D9",
         stance: "SOLUTION",
-        message: `HBM·Server DRAM/SOCAMM·CXL·HBF·eSSD를 같은 제품 결론으로 묶지 않습니다. ${profile.data} ${point} 기준 사전 신호 ${prior}, ${horizon.label} 실측 ${actual}를 Architecture 선택의 검증 기준으로 사용합니다.`,
+        message: `권고 Architecture는 **${domain.memory}**입니다. ${profile.data} ${point} 기준 사전 신호 ${prior}, ${horizon.label} 실측 ${actual}를 시장 baseline으로 두되, 제품별 성능은 고객 Workload benchmark와 ${domain.gates.slice(1, 3).join(" → ")}에서 별도로 검증합니다.`,
       },
       {
         id: "growth-strategy",
@@ -15550,7 +15761,7 @@
         role: "신규 Biz·파트너 실행",
         color: "#B45309",
         stance: "BUSINESS",
-        message: `${profile.strategy} 제품 판매만이 아니라 공동 Benchmark·Co-Design·Qualification·장기 공급을 반복 가능한 Partner Model로 설계합니다. ${priceSpread.text} 고객 지불 의사와 Repeat Order 경로가 확인된 옵션만 Scale로 이동합니다.`,
+        message: `제안은 **${domain.offer}**입니다. 파트너는 ${domain.partners}로 구성하고 Workload·Operations·Qualification·Value Realization Owner를 분리합니다. ${priceSpread.text} Lighthouse → Reference → Repeat 경로와 고객 지불 의사가 확인된 옵션만 Scale로 이동합니다.`,
       },
       {
         id: "evidence-audit",
@@ -15560,7 +15771,7 @@
         role: "근거·반증 검증",
         color: "#0369A1",
         stance: "EVIDENCE",
-        message: `${currentBriefing ? `${currentBriefing} ` : ""}직접 근거 ${fmtNum(directEvidence)}건과 가격 series ${fmtNum(selectedSeriesCount)}개를 기준일·출처·단위별로 분리했습니다. ${counterEvidence.text}. 반대 근거와 ${primaryFlip.label}을 함께 갱신합니다.`,
+        message: `${currentBriefing ? `${currentBriefing} ` : ""}직접 근거 ${fmtNum(directEvidence)}건과 가격 series ${fmtNum(selectedSeriesCount)}개를 기준일·출처·단위별로 분리했습니다. ${counterEvidence.text}. 공개 시장 신호와 고객 성과를 구분하고, 반대 근거·${primaryFlip.label}·**${domain.kill}**을 같은 기준으로 갱신합니다.`,
       },
       {
         id: "executive",
@@ -15570,7 +15781,7 @@
         role: "경영진 실행 전략",
         color: "#334155",
         stance: "EXECUTION",
-        message: `결론은 **${active.decision.label}** · ${scenario.conclusion}입니다. 권고 실행은 ${active.decision.action}으로 제한합니다. 30일 Baseline, 60일 PoC/계약, 90일 Qualification·Capacity Gate로 운영하고 ==${riskGate.rule}==이 발생하면 즉시 Watch/Hold로 재상정합니다.`,
+        message: `결론은 **${active.decision.label} · ${scenario.conclusion}**입니다. 0–30일 ${domain.gates[0]}, 31–60일 ${domain.gates[1]}, 61–90일 ${domain.gates.slice(2).join("·")} 순서로 운영합니다. Owner는 고객·기술·사업·운영으로 분리하고, ==${domain.kill}== 조건이 발생하면 즉시 Watch/Hold로 재상정합니다.`,
       },
     ];
     const decisionFrameContext = {
@@ -15595,7 +15806,8 @@
         source: agent.id === "evidence-audit" ? source : null,
       }))
       .map((agent) => {
-        const decisionFrame = executiveDecisionFrame(agent, decisionFrameContext);
+        const baseFrame = executiveDecisionFrame(agent, decisionFrameContext);
+        const decisionFrame = { ...baseFrame, ...aiInfraDomainDecisionFrame(agent, domain, decisionFrameContext) };
         return { ...agent, question: decisionFrame.question, decisionFrame };
       });
   }
@@ -15733,30 +15945,34 @@
       .map((agent) => withDailyAgentEvidence(agent));
     const conclusion = executiveDecisionCouncilConclusion(active, selectedYearOption, selectedIso, scenario);
     const profile = executiveDecisionProfile(active, selectedYearOption, productLabel);
-    const rosterStepDelay = AGENT_DEBATE_TIMING.rosterStepMs;
-    const chatStartDelay = agentItems.length * rosterStepDelay + AGENT_DEBATE_TIMING.rosterSettleMs;
-    const councilStepDelay = AGENT_DEBATE_TIMING.turnGapMs;
-    const councilConclusionDelay = chatStartDelay + agentItems.length * councilStepDelay + AGENT_DEBATE_TIMING.conclusionDelayMs;
+    const domain = aiInfraDecisionContext(active);
+    const contextTiles = [
+      ["CUSTOMER / JTBD", domain.customer, domain.pain],
+      ["WORKLOAD / DC", domain.workload, domain.hwSw],
+      ["AI APPLICATION", domain.aiTech, "Transformer·Prompt·RAG·Vector DB 변화의 Memory 영향"],
+      ["MEMORY SYSTEM", domain.memory, "HW/SW 병목을 tier별 요구사항으로 전환"],
+      ["BUSINESS / PARTNER", domain.offer, domain.partners],
+    ];
     return `
-      <div class="agent-debate agent-debate-decision decision-agent-council" style="--local-accent:${escapeHTML(accent)}">
+      <div class="agent-debate agent-debate-decision decision-agent-council domain-agent-council" style="--local-accent:${escapeHTML(accent)}">
         <div class="agent-debate-title">
-          <span>AI INFRA STRATEGY AGENT OS</span>
-          <strong>${escapeHTML(active.label)} 실행 전략 팩</strong>
-          <small>Customer Pain → Workload → Memory Solution → New Biz → Executive Action · ${escapeHTML(scenario.label)}</small>
+          <span>AI INFRA DOMAIN COUNCIL · CONTEXT-SPECIFIC</span>
+          <strong>${escapeHTML(active.label)} 영역별 실행 전략</strong>
+          <small>Customer Pain → Workload/DC → AI Application → Memory Architecture → New Biz/Partner → Executive Gate · ${escapeHTML(scenario.label)}</small>
         </div>
         <div class="c-level-agent-controls decision-agent-controls">
           <label>
-            <span>안건 선택</span>
+            <span>AI Infra 영역 선택</span>
             <select id="execDecisionCouncilSelect" aria-label="AI Infra 실행 전략 안건 선택">
               ${items.map((item) => `<option value="${escapeHTML(item.id)}"${item.id === active.id ? " selected" : ""}>${escapeHTML(item.label)} · ${escapeHTML(item.decision.label)} · ${fmtNum(item.directMetrics?.evidenceCount ?? item.observations.length)}개 근거</option>`).join("")}
             </select>
           </label>
-          <button type="button" id="execDecisionRunCouncil">${execDecisionCouncilRan ? "전략 팩 재생성" : "AI Infra 전략 실행"}</button>
+          <button type="button" id="execDecisionRunCouncil">${execDecisionCouncilRan ? "다음 시나리오 검증" : "영역별 전략 팩 생성"}</button>
         </div>
         <div class="agent-selected-brief">
-          <span>요약</span>
-          <strong>${escapeHTML(`${active.decision.label} · ${active.outcome.label}`)}</strong>
-          <p>${escapeHTML(`인사이트: ${active.rationale}`)}</p>
+          <span>EXECUTIVE QUESTION</span>
+          <strong>${escapeHTML(profile.question)}</strong>
+          <p>${escapeHTML(`${active.decision.label} · ${active.outcome.label} — ${active.rationale}`)}</p>
           <small>${escapeHTML(yearLabel)} · ${escapeHTML(productLabel)} · 기준점 ${selectedIso ? escapeHTML(pointDateLabel(selectedIso)) : "없음"}</small>
         </div>
         ${scenarioBriefHTML(scenario)}
@@ -15766,38 +15982,40 @@
           <div><strong>${escapeHTML(metricThree)}</strong><span>${escapeHTML(metricThreeLabel)}</span></div>
           <div><strong>${escapeHTML(metricFour)}</strong><span>검증 근거</span></div>
         </div>
+        <div class="domain-council-context" aria-label="선택 영역의 고객·기술·사업 맥락">
+          ${contextTiles.map(([label, title, body], index) => `
+            <article style="--context-index:${index + 1}">
+              <span>${escapeHTML(`${String(index + 1).padStart(2, "0")} · ${label}`)}</span>
+              <strong>${escapeHTML(title)}</strong>
+              <p>${escapeHTML(body)}</p>
+            </article>
+          `).join("")}
+        </div>
         ${execDecisionCouncilRan ? `
-          <div class="agent-roster" aria-label="AI Infra 전략 Agent 6개 역할">
+          <div class="domain-council-flow" aria-label="선택 영역에 맞춘 AI Infra 전략 Agent 7개 산출물">
             ${agentItems.map((agent, index) => `
-              <div class="agent-avatar-card" style="--agent-color:${escapeHTML(agent.color)}; --delay:${index * rosterStepDelay}ms">
-                <div class="agent-person">
-                  <b>${escapeHTML(agent.initials)}</b>
-                  <i aria-hidden="true"></i>
+              <article class="domain-agent-workstream" style="--agent-color:${escapeHTML(agent.color)}">
+                <header>
+                  <span>${escapeHTML(String(index + 1).padStart(2, "0"))}</span>
+                  <div><strong>${escapeHTML(agent.role)}</strong><small>${escapeHTML(agent.name)} · ${escapeHTML(agent.stance || agent.title || "")}</small></div>
+                </header>
+                ${agent.question ? `<div class="agent-question"><span>검토 질문</span><p>${escapeHTML(agent.question)}</p></div>` : ""}
+                ${agentDecisionFrameHTML(agent.decisionFrame)}
+                <div class="agent-answer">
+                  <span>영역별 산출물</span>
+                  <p>${renderAgentSpeech(agentCoreText(agent.message))}</p>
                 </div>
-                <span>${escapeHTML(agent.name)}</span>
-                <small>${escapeHTML(agent.title || agent.role)}</small>
-                <em>${escapeHTML(agent.stance || agent.role)}</em>
-              </div>
-            `).join("")}
-          </div>
-          <div class="agent-chat js-debate" aria-label="AI Infra 실행 전략 산출물" style="--chat-delay:${chatStartDelay}ms">
-            ${agentItems.map((agent, index) => `
-              <article class="agent-turn pending${index % 2 ? " right" : ""}" data-tts-language="${agentUsesKoreanTts(agent.name, agent.role) ? "ko" : "en"}" style="--agent-color:${escapeHTML(agent.color)}; --delay:${chatStartDelay + index * councilStepDelay}ms">
-                <div class="agent-badge-wrap"><div class="agent-badge">${escapeHTML(agent.initials)}</div><small class="agent-badge-name">${escapeHTML(agent.name)}</small></div>
-                <div class="speech-bubble">
-                   <div class="speech-meta">
-                    <strong>${escapeHTML(agent.role)}</strong>
-                    <span>${escapeHTML(agent.stance || agent.name)}</span>
-                   </div>
-                   ${agent.question ? `<div class="agent-question"><span>검토 질문</span><p>${escapeHTML(agent.question)}</p></div>` : ""}
-                   ${agentDecisionFrameHTML(agent.decisionFrame)}
-                   <div class="agent-answer"><span>산출물</span><p data-say-en="${escapeHTML(agent.speechEn || "")}">${renderAgentSpeech(agentCoreText(agent.message))}</p></div>
-                   ${agentEvidenceMetaHTML(agent)}
-                 </div>
+                ${agentEvidenceMetaHTML(agent)}
               </article>
             `).join("")}
           </div>
-          <div class="agent-conclusion pending" style="--local-accent:${escapeHTML(accent)}; --delay:${councilConclusionDelay}ms">
+          <div class="domain-council-delivery" aria-label="90일 실행 보드">
+            <section><span>0–30D · DIAGNOSE</span><strong>${escapeHTML(domain.gates[0])}</strong><p>${escapeHTML(domain.kpis.slice(0, 2).join(" · "))} baseline 승인</p></section>
+            <section><span>31–60D · PROVE</span><strong>${escapeHTML(domain.gates[1])}</strong><p>${escapeHTML(domain.gates[2] || "Business case")} 공동 검증</p></section>
+            <section><span>61–90D · COMMIT</span><strong>${escapeHTML(domain.gates[3] || domain.gates[2])}</strong><p>${escapeHTML(domain.kpis.slice(-2).join(" · "))} 실행 책임 고정</p></section>
+            <aside><span>STOP / REFRAME</span><strong>${escapeHTML(domain.kill)}</strong></aside>
+          </div>
+          <div class="agent-conclusion" style="--local-accent:${escapeHTML(accent)}">
             <span>EXECUTIVE OUTPUT</span>
             <strong>${escapeHTML(conclusion.title)}</strong>
             <p>${escapeHTML(conclusion.body)}</p>
@@ -15805,8 +16023,8 @@
           </div>
         ` : `
           <div class="agent-waiting">
-            <strong>안건을 선택한 뒤 AI Infra 전략 실행을 누르세요.</strong>
-            <p>Customer Strategist, Workload Architect, Memory Solution, New Biz & Partner, Evidence Auditor, Executive Decision Agent가 하나의 실행 팩을 즉시 생성합니다.</p>
+            <strong>${escapeHTML(active.label)} 맥락을 적용한 전략 팩을 생성합니다.</strong>
+            <p>Customer, Workload/DC, AI Application, Memory Solution, New Biz/Partner, Evidence, Executive Agent가 각자 다른 질문과 KPI·Gate를 제시합니다.</p>
           </div>
         `}
       </div>
@@ -15875,7 +16093,7 @@
         : `${horizon.label} ${item.actualChange == null ? "NA" : `${fmtNum(item.actualChange, 2)}%`}`;
     };
     grid.innerHTML = items.map((item, index) => `
-      <div class="decision-card-stack${item.id === "china-exposure" ? " has-executive-slider" : ""}">
+      <div class="decision-card-stack">
         <button class="decision-card reveal${item.id === active?.id ? " active" : ""}" type="button" data-decision-product="${escapeHTML(item.id)}" style="--local-accent:${categoryAccent(item.category)}; animation-delay:${index * 25}ms">
           <div class="decision-card-top">
             ${scoreRingHTML(item.confidence, "Data")}
@@ -15891,7 +16109,6 @@
             <span>${escapeHTML(decisionClassLabel(item))}</span>
           </div>
         </button>
-        ${item.id === "china-exposure" ? `<div class="decision-card-media-slot" data-executive-backtest-slot></div>` : ""}
       </div>
     `).join("") || `<div class="empty">선택한 카테고리에 연결된 경영진 의사결정 항목이 없습니다.</div>`;
 
@@ -15917,7 +16134,7 @@
           { label: active.directSignalModel === "hbm" ? "고객·계약" : "당시 모멘텀", value: active.directSignalModel === "hbm" ? fmtNum(active.directMetrics?.customer || 0) : active.priorMomentum == null ? "NA" : `${fmtNum(active.priorMomentum, 2)}%` },
           { label: active.directSignalModel === "hbm" ? "양산·출하" : `${horizon.label} 실제 변화`, value: active.directSignalModel === "hbm" ? fmtNum(active.directMetrics?.production || 0) : active.actualChange == null ? "NA" : `${fmtNum(active.actualChange, 2)}%` },
           { label: active.directSignalModel === "hbm" ? "직접 근거" : "관측 품목", value: fmtNum(active.directMetrics?.evidenceCount ?? active.observations.length) },
-          { label: "현재 중국 overlay", value: fmtNum(active.chinaSignalCount) },
+          { label: "검증 근거", value: fmtNum(active.directMetrics?.evidenceCount ?? active.observations.length) },
         ],
       };
       focus.style.setProperty("--local-accent", categoryAccent(active.category));
@@ -15942,7 +16159,7 @@
           <ul class="watch-list">
             <li>${escapeHTML(active.upside)}</li>
             <li>${escapeHTML(active.downside)}</li>
-            <li>중국 관련 최신 신호 ${fmtNum(active.chinaSignalCount)}건은 과거 판정에는 넣지 않고 현재 리스크 overlay로만 표시합니다.</li>
+            <li>${escapeHTML(aiInfraDecisionContext(active).kill)}</li>
           </ul>
         </div>
         <div class="focus-actions">
@@ -18041,6 +18258,68 @@
       "Data Auditor": { name: "Evidence Auditor", role: "Tech & Market 근거·반증", avatar: "EV", color: "#0369A1" },
       CEO: { name: "Executive Decision Lead", role: "결론·Owner·KPI·90일 Gate", avatar: "EX", color: "#334155" },
     };
+    const challengeDomain = aiInfraDecisionContext({ id: "server-dram" });
+    const aiInfraTurns = [
+      {
+        id: "customer",
+        name: "Customer Strategist",
+        role: "고객 Pain Point·JTBD",
+        avatar: "CX",
+        color: "#0F766E",
+        message: `${targetLabel} 안건의 고객을 AI 개발사·데이터센터 운영사·IT Enterprise로 분리합니다. 질문은 “${challenge.question}”이며, 구매 기준과 고객 KPI가 확인되지 않은 시장 신호는 실행 근거로 사용하지 않습니다.`,
+      },
+      {
+        id: "workload-technology",
+        name: "Workload Architect",
+        role: "데이터센터·HW/SW 진단",
+        avatar: "WA",
+        color: "#1D4ED8",
+        message: `${targetLabel}을 Training·Inference·RAG·On-device/Edge 중 해당 Workload에 연결하고 Application–Accelerator–Host–Network–Storage 경로를 추적합니다. Compute·Memory·Data movement 병목을 분리한 뒤에만 Architecture 대안을 비교합니다.`,
+      },
+      {
+        id: "ai-application",
+        name: "AI Application & LLM Lead",
+        role: "Transformer·Prompt·RAG·Vector DB",
+        avatar: "AI",
+        color: "#0E7490",
+        message: `Transformer 구조, Prompt/Context 운용, RAG와 Vector DB가 ${targetLabel}의 capacity·bandwidth·latency·storage 요구를 어떻게 바꾸는지 검증합니다. 동일한 모델·Prompt·Serving 조건에서 재현되지 않는 수치는 요구사항에서 제외합니다.`,
+      },
+      {
+        id: "memory-technology",
+        name: "Memory Solution Lead",
+        role: "맞춤형 Full-Stack Memory",
+        avatar: "MS",
+        color: "#6D28D9",
+        message: `고객 Pain과 Workload trace를 HBM·Server DRAM/SOCAMM·CXL·HBF·eSSD 조합으로 전환합니다. 제품 단품 비교가 아니라 System TCO·Reliability·Qualification 기준으로 최소 Architecture를 선택합니다.`,
+      },
+      {
+        id: "growth-strategy",
+        name: "New Biz & Partner Lead",
+        role: "Business Model·Partner·Use Case",
+        avatar: "NB",
+        color: "#B45309",
+        message: `AI 개발사·데이터센터·OEM·컨설팅/SI의 RACI를 고정하고 공동 Benchmark → Qualification → 장기공급을 하나의 Offer로 묶습니다. Lighthouse 고객의 검증 결과가 Reference와 Repeat Order로 재사용될 때만 신규 Biz로 Scale합니다.`,
+      },
+      {
+        id: "evidence-audit",
+        name: "Evidence Auditor",
+        role: "Tech & Market 근거·반증",
+        avatar: "EV",
+        color: "#0369A1",
+        message: `${response.evidence ? `대표 원문은 **${response.evidence.title}**(${response.evidence.source})입니다. ` : "공식 원문과 누적 Console 근거를 기준선으로 적용합니다. "}공식 팩트 ${fmtNum(liveContext.facts?.length || 0)}건·기사 ${fmtNum(liveContext.news?.length || 0)}건·가격 ${fmtNum(liveContext.prices?.length || 0)}개를 사실·가설·모델 임계치로 분리하고, 반대 근거가 바뀌면 동일 규칙으로 재계산합니다.`,
+      },
+      {
+        id: "executive",
+        name: "Executive Decision Lead",
+        role: "결론·Owner·KPI·90일 Gate",
+        avatar: "EX",
+        color: "#334155",
+        message: `최종 권고는 **${response.verdict}**이며 실행 범위는 ${response.action}로 제한합니다. 30일 Customer/Workload baseline, 60일 Architecture·TCO PoC, 90일 Qualification·Capacity/Contract Gate로 운영하고 ${riskGate.rule}이 발생하면 즉시 재상정합니다.`,
+      },
+    ].map((turn) => {
+      const decisionFrame = aiInfraDomainDecisionFrame(turn, challengeDomain, decisionFrameContext);
+      return { ...turn, question: decisionFrame.question, decisionFrame };
+    });
     return agentDebateHTML({
       mode: "ceo-challenge",
       title: `${challenge.angle} · AI Infra 실행 검증`,
@@ -18050,7 +18329,7 @@
       defaultConfidence: challengeConfidence,
       defaultSource: challengeSource,
       metrics: response.metrics || [],
-      turns: [
+      legacyTurns: [
         {
           name: "CEO",
           role: "최종 의사결정",
@@ -18149,6 +18428,7 @@
             decisionFrame: executiveDecisionFrame(mapped, decisionFrameContext),
           };
         }),
+      turns: aiInfraTurns,
       kpis: [],
       conclusion: {
         title: `${verdictTitle} · AI Infra 실행 권고`,
