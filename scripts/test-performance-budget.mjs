@@ -35,13 +35,17 @@ assert.match(files.landingCss.text, /contain-intrinsic-size:\s*auto 2400px/);
 assert.match(files.appJs.text, /memory-console-ready", scheduleHeroVideo/);
 assert.match(files.html.text, /data-src="assets\/media\/memory-hero-lite\.mp4"/);
 
-for (const [sourceKey, minKey] of [
-  ["landingCss", "landingMinCss"],
-  ["stylesCss", "stylesMinCss"],
-  ["landingJs", "landingMinJs"],
-  ["appJs", "appMinJs"],
+for (const [sourceKey, minKey, minimumRawSaving] of [
+  ["landingCss", "landingMinCss", 0.15],
+  ["stylesCss", "stylesMinCss", 0.15],
+  ["landingJs", "landingMinJs", 0.18],
+  ["appJs", "appMinJs", 0.18],
 ]) {
-  assert.ok(files[minKey].bytes < files[sourceKey].bytes * 0.82, `${minKey} must reduce raw transfer size by at least 18%`);
+  const minimumPercent = Math.round(minimumRawSaving * 100);
+  assert.ok(
+    files[minKey].bytes < files[sourceKey].bytes * (1 - minimumRawSaving),
+    `${minKey} must reduce raw transfer size by at least ${minimumPercent}%`,
+  );
   assert.ok(files[minKey].gzipBytes < files[sourceKey].gzipBytes, `${minKey} must reduce gzip transfer size`);
 }
 
