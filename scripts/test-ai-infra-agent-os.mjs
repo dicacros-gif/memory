@@ -36,7 +36,8 @@ for (const agent of [
 assert.match(app, /Customer Pain → Workload → Memory Option → Business Case → 90-Day Action/, "agent flow must follow the consulting value chain");
 assert.match(app, /AI Infra 전략 실행/, "agent surfaces must use action-oriented run labels");
 assert.doesNotMatch(app, /토론 실행|Agent 실행 대기|Memory 시장에 대해 물어보세요/, "legacy market-search and debate labels must be removed");
-assert.match(app, /window\.localStorage\.getItem\(AGENT_TTS_STORAGE_KEY\) === "on"/, "speech must be opt-in so it cannot block the result");
+assert.match(app, /let agentTtsEnabled = false/, "speech must remain disabled so it cannot block the result");
+assert.match(app, /window\.localStorage\.removeItem\(AGENT_TTS_STORAGE_KEY\)/, "legacy speech preferences must not re-enable the slow path");
 assert.doesNotMatch(app, /container\.prepend\(video\)/, "agent execution must not inject decorative background video");
 assert.match(app, /container\.classList\.remove\("agent-debate-has-video"\)/, "agent execution must enforce the flat consulting treatment");
 assert.match(app, /body\.innerHTML = `\$\{qaStrategyPackHTML\(pair, query\)\}\$\{currentBriefHTML\}/, "strategy answers must render immediately and answer before live evidence");

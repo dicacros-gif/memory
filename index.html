@@ -110,7 +110,7 @@
     (() => {
       if (!location.hash.startsWith("#console")) return;
       document.documentElement.classList.add("console-entry");
-      const revision = "infra-20260815-19";
+      const revision = "infra-20260815-21";
       const assets = [
         ["consoleStylesPreload", "style", `assets/css/styles.css?v=${revision}`, "high"],
         ["consoleAppPreload", "script", `assets/js/app.js?v=${revision}`, "low"],
@@ -127,7 +127,7 @@
       }
     })();
   </script>
-  <link rel="stylesheet" href="assets/css/landing.css?v=infra-20260815-19" />
+  <link rel="stylesheet" href="assets/css/landing.css?v=infra-20260815-21" />
 </head>
 <body class="landing-mode">
   <div class="business-site" id="businessSite">
@@ -1635,6 +1635,6 @@
   <div class="qa-answer" id="qaAnswer" hidden></div>
   <div class="inspector" id="inspector" hidden></div>
   <div class="backdrop" id="backdrop"></div>
-  <script src="assets/js/landing.js?v=infra-20260815-19" defer></script>
+  <script src="assets/js/landing.js?v=infra-20260815-21" defer></script>
 </body>
 </html>

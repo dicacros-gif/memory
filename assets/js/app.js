@@ -10171,14 +10171,14 @@
   // One short, deterministic cadence for every strategy-agent surface. Results are
   // rendered as a decision pack; speech is opt-in and never blocks first content.
   const AGENT_DEBATE_TIMING = Object.freeze({
-    rosterStepMs: 35,
-    rosterSettleMs: 90,
-    speakerLeadMs: 45,
+    rosterStepMs: 15,
+    rosterSettleMs: 20,
+    speakerLeadMs: 10,
     charMs: 0,
     commaPauseMs: 0,
     sentencePauseMs: 0,
-    turnGapMs: 90,
-    conclusionDelayMs: 120,
+    turnGapMs: 25,
+    conclusionDelayMs: 30,
   });
   const AGENT_TTS_STORAGE_KEY = "memory-agent-tts-v2";
   const AGENT_TTS_SETTINGS_STORAGE_KEY = "memory-agent-tts-settings-v1";
@@ -10202,13 +10202,12 @@
     male: /male|man|남성|guy|david|mark|daniel|george|james|ryan|injoon|hyunsu|minsu|junwoo|jiho|woosung|taeho|인준|현수|민수|준우|지호|우성|태호/i,
   });
   const AGENT_NATURAL_VOICE_HINT = /natural|neural|premium|enhanced|online/i;
-  let agentTtsEnabled = (() => {
-    try {
-      return window.localStorage.getItem(AGENT_TTS_STORAGE_KEY) === "on";
-    } catch {
-      return false;
-    }
-  })();
+  let agentTtsEnabled = false;
+  try {
+    window.localStorage.removeItem(AGENT_TTS_STORAGE_KEY);
+  } catch {
+    // The strategy pack remains text-first when storage is unavailable.
+  }
   let agentTtsSettings = (() => {
     const defaults = { rate: 1, pitch: 1 };
     try {
