@@ -6,10 +6,12 @@ import { fileURLToPath } from "node:url";
 import { dirname, resolve } from "node:path";
 
 const root = resolve(dirname(fileURLToPath(import.meta.url)), "..");
-const [html, app, css] = await Promise.all([
+const [html, app, css, landing, landingCss] = await Promise.all([
   readFile(resolve(root, "index.html"), "utf8"),
   readFile(resolve(root, "assets/js/app.js"), "utf8"),
   readFile(resolve(root, "assets/css/styles.css"), "utf8"),
+  readFile(resolve(root, "assets/js/landing.js"), "utf8"),
+  readFile(resolve(root, "assets/css/landing.css"), "utf8"),
 ]).then((files) => files.map((content) => content.replace(/\r\n/g, "\n")));
 
 function extractLiteral(source, startMarker, endMarker) {
@@ -96,6 +98,28 @@ assert.match(app, /void ensureDeferredSection\("strategy-consulting"\);/, "the f
 assert.doesNotMatch(app, /hydrateDeferredSectionsSequentially|scheduleSequentialDeferredHydration/, "deep sections must not auto-hydrate in the background");
 assert.match(css, /\.deferred-section\s*\{[\s\S]*?content-visibility:\s*auto;/, "offscreen sections must skip paint");
 assert.doesNotMatch(css, /#(?:overview|strategy-consulting|overview-content)\s*\{[^}]*\border\s*:/, "opening sections must not be visually reordered with CSS");
+
+const businessNavLabels = [...html.matchAll(/<nav class="business-nav"[\s\S]*?<\/nav>/g)]
+  .flatMap((match) => [...match[0].matchAll(/<a href="#[^"]+">([^<]+)<\/a>/g)].map((link) => link[1]));
+assert.deepEqual(businessNavLabels, [
+  "Home",
+  "AI Strategy &amp; Execution",
+  "Business Strategy &amp; Solutions",
+  "Tech &amp; Market Insights",
+  "Partners &amp; Clients",
+  "About &amp; Contact",
+], "the public site must expose the six-section business information architecture");
+assert.match(html, /id="intelligenceConsole" hidden/, "the Intelligence Console must stay outside the initial visible layer");
+assert.doesNotMatch(html, /<script[^>]+src="assets\/js\/app\.js/, "the heavy console app must not load with the public landing page");
+assert.doesNotMatch(html, /<link[^>]+href="assets\/css\/styles\.css/, "the heavy console stylesheet must not load with the public landing page");
+assert.match(html, /assets\/js\/landing\.js\?v=business-20260815-01/, "the lightweight landing controller must use the business revision");
+assert.match(landing, /function loadConsole\(\)[\s\S]*?assets\/js\/app\.js\?v=\$\{CONSOLE_REVISION\}/, "the console app must load only after an explicit console request");
+assert.match(landing, /assets\/css\/styles\.css\?v=\$\{CONSOLE_REVISION\}/, "console-only styling must load on demand");
+assert.match(landing, /nav\?\.classList\.toggle\("is-open", open\)/, "the mobile menu controller must activate the responsive navigation state");
+assert.match(landing, /fetch\("data\/data-manifest\.json", \{ cache: "no-store" \}\)/, "the business site must disclose current manifest freshness");
+assert.match(html, /ILLUSTRATIVE CASE 01[\s\S]*?ILLUSTRATIVE CASE 03/, "non-client examples must be labeled as illustrative cases");
+assert.match(html, /aria-label="Evidence Search"/, "the console evidence field must not imply unsupported generative Q&A");
+assert.match(landingCss, /\.business-reveal[\s\S]*?\.business-reveal\.is-visible/, "business sections should progressively reveal without blocking layout");
 
 console.log(JSON.stringify({
   ok: true,
