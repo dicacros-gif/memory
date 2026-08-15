@@ -3493,13 +3493,16 @@ async function updateMarketHistory() {
   return history;
 }
 
-function summarizeMarketHistory(history = {}) {
+export function summarizeMarketHistory(history = {}) {
   const indexes = {};
   for (const [id, index] of Object.entries(history.indexes || {})) {
     const { points, ...summary } = index || {};
     indexes[id] = summary;
   }
   return {
+    runId: history.runId || null,
+    validatedAt: history.validatedAt || null,
+    expiresAt: history.expiresAt || null,
     updatedAt: history.updatedAt || null,
     metricsUpdatedAt: history.metricsUpdatedAt || null,
     timezone: history.timezone || "Asia/Seoul",

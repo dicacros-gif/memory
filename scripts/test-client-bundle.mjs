@@ -1,7 +1,7 @@
 #!/usr/bin/env node
 
 import assert from "node:assert/strict";
-import { buildClientDataBundle } from "./crawl.mjs";
+import { buildClientDataBundle, summarizeMarketHistory } from "./crawl.mjs";
 
 const runId = "test-client-run";
 const payload = {
@@ -45,6 +45,8 @@ const marketHistory = {
   schemaVersion: "2.0",
   runId,
   updatedAt: payload.updatedAt,
+  validatedAt: payload.updatedAt,
+  expiresAt: payload.expiresAt,
   indexes: {
     sox: { id: "sox", symbol: "^SOX", sourceUrl: "https://example.com/sox", points: [{ date: "2026-07-01T00:00:00.000Z", time: 1_783_000_000_000, close: 5000, rawClose: 5001 }] },
   },
@@ -59,6 +61,7 @@ const quantBacktest = {
 };
 
 const bundle = buildClientDataBundle({ payload, quant, priceHistory, marketHistory, quantBacktest });
+const marketSummary = summarizeMarketHistory(marketHistory);
 
 assert.equal(bundle.manifest.runId, runId);
 assert.deepEqual(Object.keys(bundle.manifest.artifacts).sort(), ["live", "marketHistory", "priceHistory", "quant", "quantBacktest"]);
@@ -75,6 +78,9 @@ assert.deepEqual(bundle.quantBacktest.series["market:sox"].periods["1y"], { elig
 assert.equal(bundle.quant.fx.usdkrw.history5y, undefined);
 assert.equal(bundle.quant.fx.usdkrw.history30d.points.length, 1);
 assert.ok(bundle.manifest.artifacts.live.bytes > 0);
+assert.equal(marketSummary.runId, runId, "embedded market summary must preserve the verified runId");
+assert.equal(marketSummary.validatedAt, payload.updatedAt, "embedded market summary must preserve validation time");
+assert.equal(marketSummary.expiresAt, payload.expiresAt, "embedded market summary must preserve the shared freshness gate");
 
 console.log(JSON.stringify({
   ok: true,

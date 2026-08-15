@@ -113,7 +113,7 @@ assert.deepEqual(businessNavLabels, [
 assert.match(html, /id="intelligenceConsole" hidden/, "the Intelligence Console must stay outside the initial visible layer");
 assert.doesNotMatch(html, /<script[^>]+src="assets\/js\/app\.js/, "the heavy console app must not load with the public landing page");
 assert.doesNotMatch(html, /<link[^>]+href="assets\/css\/styles\.css/, "the heavy console stylesheet must not load with the public landing page");
-assert.match(html, /assets\/js\/landing\.js\?v=infra-20260815-05/, "the lightweight landing controller must use the AI Infra revision");
+assert.match(html, /assets\/js\/landing\.js\?v=infra-20260815-06/, "the lightweight landing controller must use the AI Infra revision");
 assert.match(landing, /function loadAppScript\(\)[\s\S]*?assets\/js\/app\.js\?v=\$\{CONSOLE_REVISION\}/, "the console app must load only after an explicit console request");
 assert.match(landing, /assets\/css\/styles\.css\?v=\$\{CONSOLE_REVISION\}/, "console-only styling must load on demand");
 assert.match(html, /location\.hash !== "#console"[\s\S]*?consolePosterPreload[\s\S]*?memory-hero-poster\.webp/, "direct console entry must discover its LCP poster during head parsing");
@@ -125,6 +125,9 @@ assert.match(landing, /fetch\("data\/data-manifest\.json", \{ cache: "no-store" 
 assert.match(html, /PUBLIC CASE RECONSTRUCTION[\s\S]*?HYPOTHETICAL STRATEGY CASE/, "public facts and strategy simulations must use explicit case labels");
 assert.match(html, /id="pain-framework"[\s\S]*?Customer Pain Point Framework[\s\S]*?data-framework="edge"/, "the landing must provide a customer-selectable pain-point diagnostic");
 assert.match(landing, /function setupPainPointFramework\(\)[\s\S]*?data-framework-panel/, "the pain-point diagnostic must switch customer-specific panels");
+assert.equal((html.match(/data-diagnostic-stage=/g) || []).length, 4, "the evidence diagnostic must expose four traceable stages");
+assert.match(html, /GPU Idle 27%[\s\S]*?Memory Stall 18%p[\s\S]*?Token Cost −12%/, "diagnostic examples must connect system evidence to business outcomes");
+assert.equal((html.match(/<li><span>0[1-6]<\/span><strong>[^<]+<\/strong><small>OUTPUT ·/g) || []).length, 6, "the consulting funnel must expose six stages and their deliverables");
 assert.match(html, /Customer Pain Point[\s\S]*?AI Workload[\s\S]*?System Bottleneck[\s\S]*?Memory Requirement[\s\S]*?Qualification &amp; Ramp[\s\S]*?Executive Decision \/ KPI/, "the public strategy chain must connect diagnosis to execution");
 assert.match(html, /id="workload-map"[\s\S]*?Large-scale Training[\s\S]*?Long-context \/ Agentic AI[\s\S]*?Physical AI/, "the representative workload-to-memory map must cover five workload families");
 assert.match(html, /Performance[\s\S]*?per Watt[\s\S]*?Token \/ Query[\s\S]*?Total Cost of/, "technology options must connect to system-economics metrics");
@@ -138,8 +141,12 @@ assert.match(html, /https:\/\/news\.skhynix\.com\/en\/fms-2026\//, "the tiered-m
 assert.match(html, /2Q26 AI Memory Execution[\s\S]*?₩79\.3T[\s\S]*?₩60\.5T[\s\S]*?76%/, "the execution proofboard must include the official Q2 scale evidence");
 assert.match(html, /Custom Memory Beyond HBM[\s\S]*?HBM → DRAM · NAND/, "custom memory must extend across the full portfolio");
 assert.match(html, /Custom ASIC Diversification[\s\S]*?\+82%[\s\S]*?1\/3/, "the ASIC diversification signal must retain its forecast context");
-assert.match(html, /<aside class="business-data-status" aria-live="polite" hidden>/, "public data status placeholders must stay hidden until verified data arrives");
-assert.doesNotMatch(html, /데이터 상태 확인 중|>확인 중</, "unfinished data-loading copy must not ship in public markup");
+assert.match(html, /MoE · Multi-Head Latent Attention[\s\S]*?KV Cache · Bandwidth · Data Reuse[\s\S]*?HBM Scale-up vs CXL \/ HBF Tiering/, "LLM architecture changes must map causally to memory decisions");
+assert.match(html, /Embedding 생성[\s\S]*?Vector 검색[\s\S]*?Context 결합[\s\S]*?Token 추론/, "RAG data movement must expose all four memory-relevant stages");
+assert.equal((html.match(/<article><span>0[1-3] · (?:ACCELERATOR|DATACENTER|CONSULTING)/g) || []).length, 3, "partner strategy must cover three repeatable collaboration models");
+assert.match(html, /ILLUSTRATIVE VALIDATION TARGET[\s\S]*?GPU Idle −8~12%p[\s\S]*?Retrieval P99 −15~20%/, "hypothetical use cases must declare measurable validation targets");
+assert.match(html, /id="automation" aria-live="polite"[\s\S]*?6-HOUR CYCLE[\s\S]*?FAIL-CLOSED[\s\S]*?id="businessDataRun"/, "the public site must expose the automated intelligence control loop and traceable run");
+assert.match(landing, /Status unavailable · fail-closed[\s\S]*?마지막 검증 Bundle 유지[\s\S]*?panel\.hidden = false/, "automation status failures must remain visible and fail closed");
 assert.doesNotMatch(html, /Prompt Engineering/, "prompt engineering must not appear as a top-level AI memory theme");
 assert.match(html, /aria-label="Evidence Search"/, "the console evidence field must not imply unsupported generative Q&A");
 assert.match(landingCss, /\.business-reveal[\s\S]*?\.business-reveal\.is-visible/, "business sections should progressively reveal without blocking layout");

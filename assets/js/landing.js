@@ -3,7 +3,7 @@
 
   const BUSINESS_TITLE = "Memory Intelligence · AI Memory Strategy & Execution";
   const CONSOLE_HASH = "#console";
-  const CONSOLE_REVISION = "infra-20260815-05";
+  const CONSOLE_REVISION = "infra-20260815-06";
   const site = document.querySelector("#businessSite");
   const consoleLayer = document.querySelector("#intelligenceConsole");
   const header = document.querySelector("#businessHeader");
@@ -211,6 +211,7 @@
     const updated = document.querySelector("#businessDataUpdated");
     const expiry = document.querySelector("#businessDataExpiry");
     const artifacts = document.querySelector("#businessDataArtifacts");
+    const run = document.querySelector("#businessDataRun");
     if (!status) return;
 
     try {
@@ -225,10 +226,18 @@
       if (updated) updated.textContent = formatKst(manifest.generatedAt);
       if (expiry) expiry.textContent = formatKst(manifest.expiresAt);
       if (artifacts) artifacts.textContent = `${Object.keys(manifest.artifacts || {}).length} datasets`;
+      if (run) run.textContent = String(manifest.runId || "unavailable").slice(0, 18);
       if (panel) panel.hidden = false;
     } catch (error) {
       console.warn("Data freshness status unavailable", error);
-      if (panel) panel.hidden = true;
+      status.textContent = "Status unavailable · fail-closed";
+      dot?.classList.remove("is-current");
+      dot?.classList.add("is-delayed");
+      if (updated) updated.textContent = "마지막 검증 Bundle 유지";
+      if (expiry) expiry.textContent = "Console에서 재확인";
+      if (artifacts) artifacts.textContent = "새 게시 중단";
+      if (run) run.textContent = "unavailable";
+      if (panel) panel.hidden = false;
     }
   }
 
@@ -262,19 +271,25 @@
       ".business-competency-card",
       ".business-strategy-chain > li",
       ".business-pain-framework",
+      ".business-diagnostic-pipeline",
       ".business-solution-card",
+      ".business-consulting-funnel",
       ".business-workload-matrix > article",
       ".business-memory-fabric",
       ".business-tco-module",
       ".business-execution-roadmap",
       ".business-report-grid > article",
+      ".business-llm-causality",
       ".business-evidence-case",
       ".business-execution-evidence-grid > article",
       ".business-flagship-partnership",
+      ".business-partnership-types > article",
       ".business-partner-map",
       ".business-case-card",
       ".business-macro-grid > article",
       ".business-role-fit-grid > article",
+      ".business-role-outputs > article",
+      ".business-data-status",
       ".business-about-card",
     ].join(","));
     if (!("IntersectionObserver" in window)) {

@@ -29,7 +29,9 @@ permissions:
 
 concurrency:
   group: intelligence-agent
-  cancel-in-progress: false
+  # UI and strategy updates can arrive while a long crawl is running. Keep
+  # only the newest main-tip run so stale work never blocks verified data.
+  cancel-in-progress: true
 
 jobs:
   agent:
