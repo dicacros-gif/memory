@@ -32,10 +32,10 @@ assert.match(app, /\{ id: "equity-value-chain", render: renderEquityValueChain, 
   "the heavy equity dashboard must load market history and company intelligence together");
 assert.match(app, /enterpriseProfiles:\s*\{[\s\S]*?data\/company-intelligence\.json[\s\S]*?managed:\s*false/,
   "company profiles must load as a small static evidence artifact without the run-manifest gate");
-assert.match(app, /id: "stock"[\s\S]*?label: "Stock 분석"[\s\S]*?jump: "equity-value-chain"/,
-  "the sidebar must expose a dedicated Stock analysis route");
-assert.match(app, /\{ label: "Data Lab", routes: \["stock"\] \},\s*\];/,
-  "Stock analysis should be the final Data Lab sidebar group");
+assert.match(app, /id: "stock"[\s\S]*?label: "Market & Competitor"[\s\S]*?jump: "equity-value-chain"/,
+  "the sidebar must expose a dedicated market and competitor route");
+assert.match(app, /\{ label: "Market & External Context", routes: \["stock"\] \},\s*\];/,
+  "market and competitor analysis should be the final external-context sidebar group");
 assert.match(app, /const SIDE_NAV_ROUTES = \[[\s\S]*?id: "home"[\s\S]*?id: "biz-consulting"[\s\S]*?id: "executive-summary"[\s\S]*?id: "c-level"[\s\S]*?id: "analysis"[\s\S]*?id: "market"[\s\S]*?id: "numbers"[\s\S]*?id: "projection"[\s\S]*?id: "hyperscaler-demand"[\s\S]*?id: "ai-architecture"[\s\S]*?id: "stock"/,
   "focused sidebar routes should follow the real document flow with Stock last");
 assert.match(app, /function refreshScrollSpyGeometry[\s\S]*?getBoundingClientRect\(\)\.top \+ window\.scrollY[\s\S]*?sort\(\(left, right\) => left\.top - right\.top\)[\s\S]*?function updateScrollSpyFromGeometry/,

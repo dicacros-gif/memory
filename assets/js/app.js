@@ -1842,40 +1842,40 @@
     {
       id: "home",
       label: "영상 브리핑",
-      desc: "Memory Intelligence 오프닝",
+      desc: "AI Infra Decision System 오프닝",
       cadence: "Briefing",
       jump: "overview",
-      sections: ["overview"],
+      sections: ["overview", "console-data-health"],
     },
     {
       id: "biz-consulting",
-      label: "전략 컨설팅",
-      desc: "고객 Pain point·신규 Biz 기회",
-      cadence: "Consulting",
+      label: "Customer & Workload",
+      desc: "고객 Pain point·Workload·신규 Biz",
+      cadence: "Customer signal",
       jump: "strategy-consulting",
       sections: ["strategy-consulting"],
     },
     {
       id: "executive-summary",
-      label: "Executive Summary",
-      desc: "핵심 변화·증권사 리서치",
-      cadence: "Daily",
+      label: "Executive Brief",
+      desc: "핵심 변화·근거·실행 판단",
+      cadence: "Decision brief",
       jump: "overview-content",
       sections: ["overview-content"],
     },
     {
       id: "c-level",
-      label: "경영진 의사결정",
-      desc: "안건·에이전트 토론·결론",
-      cadence: "C-level cockpit",
+      label: "Executive Decisions",
+      desc: "안건·대안·Trigger·Owner·KPI",
+      cadence: "Decision cockpit",
       jump: "c-level-cockpit",
       sections: ["c-level-cockpit"],
     },
     {
       id: "analysis",
-      label: "전략·백테스트",
-      desc: "과거 판단·Memory Fabric·AI 수요",
-      cadence: "Decision lab",
+      label: "Technology & Memory",
+      desc: "Workload·Memory Fabric·Backtest",
+      cadence: "Architecture lab",
       jump: "executive-decision",
       sections: [
         "executive-decision",
@@ -1886,49 +1886,49 @@
     },
     {
       id: "market",
-      label: "시장·가격·기사",
-      desc: "현물·계약 가격·권위 기사",
-      cadence: "Market data",
+      label: "Market & Signals",
+      desc: "가격·기사·외부 의사결정 변수",
+      cadence: "External context",
       jump: "prices",
       sections: ["prices", "news"],
     },
     {
       id: "numbers",
-      label: "정량 분석",
-      desc: "수치 근거·시나리오 비교",
-      cadence: "Quant review",
+      label: "Supply & Commercialization",
+      desc: "수치·시나리오·Capacity Gate",
+      cadence: "Commercial review",
       jump: "numbers",
       sections: ["numbers"],
     },
     {
       id: "projection",
-      label: "제품군 전망",
-      desc: "서버·단말 제품 믹스",
-      cadence: "SKHY projection",
+      label: "Portfolio Roadmap",
+      desc: "제품 믹스·Qualification·Ramp",
+      cadence: "Portfolio gate",
       jump: "projection",
       sections: ["projection"],
     },
     {
       id: "hyperscaler-demand",
-      label: "메모리 수요 예측",
-      desc: "AI서버·스토리지·단말",
-      cadence: "Scenario planning",
+      label: "Customer Demand",
+      desc: "Hyperscaler·Enterprise·Device",
+      cadence: "Workload demand",
       jump: "hyperscaler-demand",
       sections: ["hyperscaler-demand"],
     },
     {
       id: "ai-architecture",
-      label: "AI 아키텍처",
-      desc: "HBM·CXL·PIM·워크로드",
-      cadence: "Architecture",
+      label: "Memory Architecture",
+      desc: "HBM·SOCAMM·CXL·HBF·eSSD",
+      cadence: "Technology map",
       jump: "ai-matrix",
       sections: ["ai-matrix"],
     },
     {
       id: "stock",
-      label: "Stock 분석",
-      desc: "글로벌 메모리·AI 밸류체인",
-      cadence: "Equity analytics",
+      label: "Market & Competitor",
+      desc: "글로벌 경쟁·중국·밸류체인",
+      cadence: "Competitive context",
       jump: "equity-value-chain",
       sections: ["equity-value-chain", "marketIndexPanel"],
     },
@@ -1936,18 +1936,23 @@
   const ROUTE_DISPLAY = {
     home: {
       label: "영상 브리핑",
-      desc: "Memory Intelligence 오프닝",
+      desc: "AI Infra Decision System 오프닝",
       cadence: "Briefing",
     },
+    "biz-consulting": {
+      label: "Customer & Workload",
+      desc: "고객 Pain point·Workload·신규 Biz",
+      cadence: "Customer signal",
+    },
     "executive-summary": {
-      label: "Executive Summary",
-      desc: "핵심 변화·증권사 리서치",
-      cadence: "Daily",
+      label: "Executive Brief",
+      desc: "핵심 변화·근거·실행 판단",
+      cadence: "Decision brief",
     },
     "c-level": {
-      label: "경영진 의사결정",
-      desc: "안건·에이전트 토론·결론",
-      cadence: "C-level",
+      label: "Executive Decisions",
+      desc: "안건·대안·Trigger·Owner·KPI",
+      cadence: "Decision cockpit",
     },
     workbench: {
       label: "분석실",
@@ -1960,14 +1965,14 @@
       cadence: "Dynamics",
     },
     projection: {
-      label: "제품군 전망",
-      desc: "서버·단말 제품 믹스",
-      cadence: "Projection",
+      label: "Portfolio Roadmap",
+      desc: "제품 믹스·Qualification·Ramp",
+      cadence: "Portfolio gate",
     },
     "hyperscaler-demand": {
-      label: "메모리 수요 예측",
-      desc: "AI서버·스토리지·단말",
-      cadence: "Scenario",
+      label: "Customer Demand",
+      desc: "Hyperscaler·Enterprise·Device",
+      cadence: "Workload demand",
     },
     "china-workforce": {
       label: "중국 인력 전략",
@@ -1975,14 +1980,14 @@
       cadence: "Workforce",
     },
     numbers: {
-      label: "정량 분석",
-      desc: "수치 근거·시나리오 비교",
-      cadence: "Quant",
+      label: "Supply & Commercialization",
+      desc: "수치·시나리오·Capacity Gate",
+      cadence: "Commercial review",
     },
     "ai-architecture": {
-      label: "AI 아키텍처",
-      desc: "HBM·CXL·PIM·워크로드",
-      cadence: "Architecture",
+      label: "Memory Architecture",
+      desc: "HBM·SOCAMM·CXL·HBF·eSSD",
+      cadence: "Technology map",
     },
     "strategy-actions": {
       label: "분류·대응 전략",
@@ -1990,19 +1995,19 @@
       cadence: "Action plan",
     },
     analysis: {
-      label: "전략·백테스트",
-      desc: "과거 판단·시스템 병목·ROI",
-      cadence: "Decision lab",
+      label: "Technology & Memory",
+      desc: "Workload·Memory Fabric·Backtest",
+      cadence: "Architecture lab",
     },
     market: {
-      label: "시장·가격·기사",
-      desc: "현물·계약 가격·권위 기사",
-      cadence: "Market data",
+      label: "Market & Signals",
+      desc: "가격·기사·외부 의사결정 변수",
+      cadence: "External context",
     },
     stock: {
-      label: "Stock 분석",
-      desc: "글로벌 메모리·AI 밸류체인",
-      cadence: "Equity analytics",
+      label: "Market & Competitor",
+      desc: "글로벌 경쟁·중국·밸류체인",
+      cadence: "Competitive context",
     },
     competitors: {
       label: "중국 메모리 경쟁",
@@ -2034,10 +2039,9 @@
     talent: { label: "인재 · IP", en: "Talent / IP", desc: "채용, 핵심 수율 인력 이동, IP 방어 신호" },
   };
   const SIDE_NAV_GROUPS = [
-    { label: "핵심 역량", routes: ["home", "biz-consulting", "executive-summary"] },
-    { label: "Business Strategy & Solutions", routes: ["c-level", "analysis"] },
-    { label: "Tech & Market Insights", routes: ["market", "numbers", "projection", "hyperscaler-demand", "ai-architecture"] },
-    { label: "Data Lab", routes: ["stock"] },
+    { label: "AI Infra Decisions", routes: ["home", "biz-consulting", "executive-summary", "c-level"] },
+    { label: "Technology & Commercialization", routes: ["analysis", "market", "numbers", "projection", "hyperscaler-demand", "ai-architecture"] },
+    { label: "Market & External Context", routes: ["stock"] },
   ];
   const SIDE_NAV_ICONS = {
     home: "01",
@@ -2142,6 +2146,7 @@
   let QUANT_BACKTEST = emptyQuantBacktest;
   let COMPANY_INTELLIGENCE = { schemaVersion: "1.0", profiles: {} };
   let DATA_MANIFEST = null;
+  let DATA_AUDIT = null;
   let REPO_CRAWL_EXCLUSIONS = emptyCrawlExclusions;
   let RESEARCH_ARCHIVE = { items: [] };
   let researchArchivePromise = null;
@@ -4249,10 +4254,94 @@
   }
   // End live-figure evidence routing.
 
+  function formatConsoleHealthTime(value) {
+    const date = new Date(value);
+    if (!Number.isFinite(date.getTime())) return "UNAVAILABLE";
+    return new Intl.DateTimeFormat("ko-KR", {
+      timeZone: "Asia/Seoul",
+      month: "2-digit",
+      day: "2-digit",
+      hour: "2-digit",
+      minute: "2-digit",
+      hour12: false,
+    }).format(date);
+  }
+
+  function renderConsoleDataHealth() {
+    const panel = $("#console-data-health");
+    if (!panel) return;
+    const manifestRun = String(DATA_MANIFEST?.runId || "").trim();
+    const liveRun = String(LIVE?.runId || "").trim();
+    const quantRun = String(QUANT?.runId || "").trim();
+    const verifiedAt = LIVE?.quality?.verifiedAt || DATA_AUDIT?.generatedAt || DATA_MANIFEST?.generatedAt || LIVE?.updatedAt;
+    const expiresAt = DATA_MANIFEST?.expiresAt || LIVE?.expiresAt || QUANT?.expiresAt;
+    const verifiedMs = Date.parse(String(verifiedAt || ""));
+    const expiresMs = Date.parse(String(expiresAt || ""));
+    const sameRun = Boolean(manifestRun && manifestRun === liveRun && liveRun === quantRun);
+    const current = Number.isFinite(expiresMs) && Date.now() <= expiresMs;
+    const criticalChecks = (LIVE?.quality?.checks || []).filter((check) => check?.critical === true);
+    const passedChecks = criticalChecks.filter((check) => check?.passed === true).length;
+    const pipelineVerified = document.body.dataset.liveDataState === "verified"
+      && document.body.dataset.quantDataState === "verified"
+      && DATA_AUDIT?.status === "verified"
+      && sameRun
+      && current
+      && criticalChecks.length > 0
+      && passedChecks === criticalChecks.length;
+
+    const sourceClasses = DATA_AUDIT?.sourceClasses || (LIVE?.news || []).reduce((counts, item) => {
+      const key = String(item?.verification?.sourceClass || "unclassified");
+      counts[key] = (counts[key] || 0) + 1;
+      return counts;
+    }, {});
+    const official = Number(sourceClasses.official || 0);
+    const research = Number(sourceClasses.research || 0);
+    const reported = Number(sourceClasses["authoritative-media"] || 0) + Number(sourceClasses["general-media"] || 0);
+    const crossCheck = String(DATA_AUDIT?.priceVerification?.crossCheckStatus || "unknown").toLowerCase();
+    const ageHours = Number.isFinite(verifiedMs) ? Math.max(0, (Date.now() - verifiedMs) / 36e5) : null;
+    const ageText = ageHours == null
+      ? "Latest verified snapshot unavailable"
+      : ageHours < 1 ? `${Math.max(1, Math.round(ageHours * 60))}분 전` : `${Math.round(ageHours)}시간 전`;
+
+    panel.classList.toggle("is-degraded", !pipelineVerified);
+    const state = $("#consoleHealthState");
+    const verified = $("#consoleHealthVerified");
+    const age = $("#consoleHealthAge");
+    const sources = $("#consoleHealthSources");
+    const price = $("#consoleHealthPrice");
+    const checks = $("#consoleHealthChecks");
+    const run = $("#consoleHealthRun");
+    const notice = $("#consoleHealthNotice");
+    if (state) state.textContent = pipelineVerified ? "VERIFIED · DECISION USE ENABLED" : "DEGRADED · DECISION USE DISABLED";
+    if (verified) verified.textContent = formatConsoleHealthTime(verifiedAt);
+    if (age) age.textContent = `${ageText}${current ? " · Current" : " · Expired / reference only"}`;
+    if (sources) sources.textContent = `O ${fmtNum(official)} · R ${fmtNum(research)} · M ${fmtNum(reported)}`;
+    if (price) price.textContent = crossCheck === "multi-source" ? "CROSS-VALIDATED" : crossCheck === "single-source" ? "INDICATIVE · SINGLE" : "UNAVAILABLE";
+    if (checks) checks.textContent = criticalChecks.length ? `${fmtNum(passedChecks)} / ${fmtNum(criticalChecks.length)} PASSED` : "UNAVAILABLE";
+    if (run) run.textContent = sameRun ? `#${manifestRun}` : "RUN ID MISMATCH";
+    if (notice) {
+      notice.textContent = pipelineVerified
+        ? "Decision use enabled. Verified는 모든 정보가 사실이라는 뜻이 아니라 현재 Pipeline의 Freshness·Provenance·Critical Check·Run 일치 조건을 통과했다는 뜻입니다. 가격이 Single-source이면 Indicative로만 사용합니다."
+        : `LIVE DATA UNAVAILABLE · Latest verified: ${formatConsoleHealthTime(verifiedAt)} · Dataset expiry: ${formatConsoleHealthTime(expiresAt)} · Decision use: Disabled · Last verified snapshot: Reference only`;
+    }
+  }
+
+  function finalizeConsoleLoadingLabels() {
+    const verified = document.body.dataset.liveDataState === "verified"
+      && document.body.dataset.quantDataState === "verified";
+    const fallback = verified
+      ? "현재 실행에서 승격 근거 없음 · Reference only"
+      : "LIVE DATA UNAVAILABLE · Decision use disabled";
+    $$(".board-meta").forEach((node) => {
+      if (/로드 중|연결 중|집계 전|확인 중/.test(node.textContent || "")) node.textContent = fallback;
+    });
+  }
+
   async function init() {
     // Start critical data requests before synchronous UI setup. On a cold
     // GitHub Pages visit this overlaps JSON latency with shell construction.
     const manifestPromise = loadDataManifest();
+    const auditPromise = loadJSON("data/crawl-audit.json", null, { cache: "no-cache" });
     const baselinePromise = loadJSON("data/baseline.json", null);
     const crawlExclusionsPromise = loadJSON("data/crawl-exclusions.json", emptyCrawlExclusions);
     document.body.classList.add("consulting-system");
@@ -4263,11 +4352,12 @@
     renderChrome();
     renderSidebarNav();
     DATA_MANIFEST = await manifestPromise;
-    [BASE, LIVE, REPO_CRAWL_EXCLUSIONS, QUANT] = await Promise.all([
+    [BASE, LIVE, REPO_CRAWL_EXCLUSIONS, QUANT, DATA_AUDIT] = await Promise.all([
       baselinePromise,
       loadManagedJSON("live", "data/live-client.json", emptyLive),
       crawlExclusionsPromise,
       loadManagedJSON("quant", "data/quant-client.json", null),
+      auditPromise,
     ]);
     LIVE = selectVerifiedLiveData(LIVE);
     LIVE = normalizeLiveData(LIVE);
@@ -4283,6 +4373,7 @@
     hideDisabledSections();
     document.title = BASE.meta?.title || document.title;
     renderSidebarCategories();
+    renderConsoleDataHealth();
     renderCrawlHeartbeat();
     renderKpis();
     renderMemoryBypassRoutes();
@@ -4305,6 +4396,7 @@
     setupKpiCountReplay();
     schedulePostPaintEnhancements();
     setupDeferredSections();
+    window.setTimeout(finalizeConsoleLoadingLabels, 8000);
     document.body.dataset.consoleReady = "1";
     window.dispatchEvent(new Event("memory-console-ready"));
   }

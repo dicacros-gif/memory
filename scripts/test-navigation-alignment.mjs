@@ -77,8 +77,8 @@ assert.deepEqual(groupedRoutes, routes.map((route) => route.id), "sidebar groups
 assert.equal(routes.at(-1).id, "stock", "Stock analysis must remain at the bottom");
 assert.deepEqual(
   groups.map((group) => group.label),
-  ["핵심 역량", "Business Strategy & Solutions", "Tech & Market Insights", "Data Lab"],
-  "navigation should use the focused consulting information architecture",
+  ["AI Infra Decisions", "Technology & Commercialization", "Market & External Context"],
+  "navigation should use the customer-first decision information architecture",
 );
 for (const retiredRoute of ["policy", "china-workforce", "competitors", "talent", "workbench", "market-map", "strategy-actions"]) {
   assert.ok(!routes.some((route) => route.id === retiredRoute), `retired route must stay removed: ${retiredRoute}`);
@@ -92,6 +92,7 @@ assert.doesNotMatch(app, /id: "china",\s+accent: "#DB2777"/, "China consulting l
 assert.match(app, /\.filter\(\(\[id\]\) => id !== "community"\)/, "community heartbeat should be excluded from the executive summary");
 
 assert.match(app, /const manifestPromise = loadDataManifest\(\);/, "critical manifest request must start early");
+assert.match(app, /const auditPromise = loadJSON\("data\/crawl-audit\.json"/, "the evidence audit must load with the decision control plane");
 assert.match(app, /function updateScrollSpyFromGeometry\(\)/, "scroll spy must use cached geometry");
 assert.match(app, /function observeDeferredSections\(definitions\)[\s\S]*?new IntersectionObserver[\s\S]*?rootMargin: "900px 0px"/, "deferred sections should hydrate shortly before entering the viewport");
 assert.match(app, /void ensureDeferredSection\("strategy-consulting"\);/, "the first strategy section should be ready immediately after the hero");
@@ -113,40 +114,51 @@ assert.deepEqual(businessNavLabels, [
 assert.match(html, /id="intelligenceConsole" hidden/, "the Intelligence Console must stay outside the initial visible layer");
 assert.doesNotMatch(html, /<script[^>]+src="assets\/js\/app\.js/, "the heavy console app must not load with the public landing page");
 assert.doesNotMatch(html, /<link[^>]+href="assets\/css\/styles\.css/, "the heavy console stylesheet must not load with the public landing page");
-assert.match(html, /assets\/js\/landing\.js\?v=infra-20260815-06/, "the lightweight landing controller must use the AI Infra revision");
+assert.match(html, /assets\/js\/landing\.js\?v=infra-20260815-07/, "the lightweight landing controller must use the AI Infra revision");
 assert.match(landing, /function loadAppScript\(\)[\s\S]*?assets\/js\/app\.js\?v=\$\{CONSOLE_REVISION\}/, "the console app must load only after an explicit console request");
 assert.match(landing, /assets\/css\/styles\.css\?v=\$\{CONSOLE_REVISION\}/, "console-only styling must load on demand");
 assert.match(html, /location\.hash !== "#console"[\s\S]*?consolePosterPreload[\s\S]*?memory-hero-poster\.webp/, "direct console entry must discover its LCP poster during head parsing");
 assert.match(landing, /function primeConsoleAssets\(\)[\s\S]*?consoleAppPreload[\s\S]*?consolePosterPreload/, "console assets must be primed in parallel before activation");
 assert.match(landing, /await loadStylesheet\(\);[\s\S]*?consoleLayer\.hidden = false;[\s\S]*?await loadConsole\(\);/, "the console must stay hidden until its stylesheet is ready");
-assert.match(css, /\.main > section:not\(#overview\):not\(#strategy-consulting\) \{[\s\S]*?content-visibility:\s*auto;/, "below-fold console sections must skip initial layout and paint");
+assert.match(css, /\.main > section:not\(#overview\):not\(#console-data-health\):not\(#strategy-consulting\) \{[\s\S]*?content-visibility:\s*auto;/, "below-fold console sections must skip initial layout and paint");
 assert.match(landing, /nav\?\.classList\.toggle\("is-open", open\)/, "the mobile menu controller must activate the responsive navigation state");
 assert.match(landing, /fetch\("data\/data-manifest\.json", \{ cache: "no-store" \}\)/, "the business site must disclose current manifest freshness");
-assert.match(html, /PUBLIC CASE RECONSTRUCTION[\s\S]*?HYPOTHETICAL STRATEGY CASE/, "public facts and strategy simulations must use explicit case labels");
+for (const evidenceLabel of ["CONFIRMED", "RECONSTRUCTED", "HYPOTHESIS", "MODELED"]) {
+  assert.match(html, new RegExp(evidenceLabel), `the portfolio must expose the ${evidenceLabel} evidence label`);
+}
 assert.match(html, /id="pain-framework"[\s\S]*?Customer Pain Point Framework[\s\S]*?data-framework="edge"/, "the landing must provide a customer-selectable pain-point diagnostic");
 assert.match(landing, /function setupPainPointFramework\(\)[\s\S]*?data-framework-panel/, "the pain-point diagnostic must switch customer-specific panels");
-assert.equal((html.match(/data-diagnostic-stage=/g) || []).length, 4, "the evidence diagnostic must expose four traceable stages");
-assert.match(html, /GPU Idle 27%[\s\S]*?Memory Stall 18%p[\s\S]*?Token Cost −12%/, "diagnostic examples must connect system evidence to business outcomes");
-assert.equal((html.match(/<li><span>0[1-6]<\/span><strong>[^<]+<\/strong><small>OUTPUT ·/g) || []).length, 6, "the consulting funnel must expose six stages and their deliverables");
-assert.match(html, /Customer Pain Point[\s\S]*?AI Workload[\s\S]*?System Bottleneck[\s\S]*?Memory Requirement[\s\S]*?Qualification &amp; Ramp[\s\S]*?Executive Decision \/ KPI/, "the public strategy chain must connect diagnosis to execution");
+assert.equal((html.match(/class="business-competency-card"/g) || []).length, 3, "the public portfolio must compress core competencies to three");
+assert.match(html, /Customer Problem Structuring[\s\S]*?Full-Stack AI Infra Translation[\s\S]*?Executive Strategy &amp; Business Case/, "the three competencies must map directly to the target role");
+assert.match(html, /id="initiatives"[\s\S]*?Customer Memory Consulting[\s\S]*?Context \/ Tiered AI Memory[\s\S]*?Custom Memory Co-Design/, "the hero must lead into three strategic initiatives");
+assert.doesNotMatch(html, /data-diagnostic-stage=|business-consulting-funnel|business-execution-roadmap/, "repeated diagnostic, funnel, and roadmap frameworks must be removed");
+assert.match(html, /Customer Signal[\s\S]*?Workload Profile[\s\S]*?System Bottleneck[\s\S]*?Memory Requirement[\s\S]*?Benchmark \/ TCO[\s\S]*?Revenue \/ Repeat Order/, "the public strategy chain must use one workload-to-revenue loop");
+assert.match(html, /RECONSTRUCTED · STRATEGY DELIVERABLE[\s\S]*?CUSTOMER SITUATION[\s\S]*?DIAGNOSTIC METRICS[\s\S]*?ARCHITECTURE OPTIONS[\s\S]*?EXECUTION GATES/, "solutions must show a strategy deliverable instead of another process diagram");
 assert.match(html, /id="workload-map"[\s\S]*?Large-scale Training[\s\S]*?Long-context \/ Agentic AI[\s\S]*?Physical AI/, "the representative workload-to-memory map must cover five workload families");
 assert.match(html, /Performance[\s\S]*?per Watt[\s\S]*?Token \/ Query[\s\S]*?Total Cost of/, "technology options must connect to system-economics metrics");
 assert.match(html, /id="macro"[\s\S]*?China Memory &amp; Supply Chain[\s\S]*?Policy &amp; Geopolitics/, "China and policy must remain subordinate macro decision inputs");
 assert.match(html, /id="role-fit"[\s\S]*?Strategic Problem Solving[\s\S]*?AI Infra Execution Strategy/, "the portfolio must make role fit and execution capabilities explicit");
-assert.match(html, /https:\/\/news\.skhynix\.com\/en\/hbf-at-fms-2026\//, "the HBF evidence case must link to the official primary source");
+assert.match(html, /sk-hynix-and-sandisk-begin-global-standardization-ofnext-generation-memory-hbf/, "the HBF evidence case must link to the official standardization source");
+assert.match(html, /표준화 착수는 상용화 완료가 아닙니다/, "the HBF case must distinguish standardization from commercialization");
 assert.match(html, /FLAGSHIP COLLABORATION MODEL[\s\S]*?ANNOUNCED · LOI[\s\S]*?\$500B\+[\s\S]*?2 GW/, "the NVIDIA partnership must be framed as an announced SK Group initiative with stage status");
 assert.match(html, /SK하이닉스 단독 계약액이나 확정 매출이 아니라/, "the flagship partnership must distinguish initiative scope from SK hynix revenue");
-assert.match(html, /id="memory-fabric"[\s\S]*?HBM4 · Custom HBM[\s\S]*?AI-DRAM · SOCAMM · CXL[\s\S]*?AI-NAND · HBF · eSSD/, "the site must present a full-stack tiered memory architecture");
+assert.match(html, /id="memory-fabric"[\s\S]*?HBM4 · Custom HBM[\s\S]*?SOCAMM2 · RDIMM\/MRDIMM · CXL[\s\S]*?HBF · High-capacity eSSD/, "the site must present concrete full-stack memory product families");
 assert.match(html, /https:\/\/news\.skhynix\.com\/en\/fms-2026\//, "the tiered-memory architecture must link to the official FMS source");
 assert.match(html, /2Q26 AI Memory Execution[\s\S]*?₩79\.3T[\s\S]*?₩60\.5T[\s\S]*?76%/, "the execution proofboard must include the official Q2 scale evidence");
 assert.match(html, /Custom Memory Beyond HBM[\s\S]*?HBM → DRAM · NAND/, "custom memory must extend across the full portfolio");
 assert.match(html, /Custom ASIC Diversification[\s\S]*?\+82%[\s\S]*?1\/3/, "the ASIC diversification signal must retain its forecast context");
-assert.match(html, /MoE · Multi-Head Latent Attention[\s\S]*?KV Cache · Bandwidth · Data Reuse[\s\S]*?HBM Scale-up vs CXL \/ HBF Tiering/, "LLM architecture changes must map causally to memory decisions");
-assert.match(html, /Embedding 생성[\s\S]*?Vector 검색[\s\S]*?Context 결합[\s\S]*?Token 추론/, "RAG data movement must expose all four memory-relevant stages");
-assert.equal((html.match(/<article><span>0[1-3] · (?:ACCELERATOR|DATACENTER|CONSULTING)/g) || []).length, 3, "partner strategy must cover three repeatable collaboration models");
-assert.match(html, /ILLUSTRATIVE VALIDATION TARGET[\s\S]*?GPU Idle −8~12%p[\s\S]*?Retrieval P99 −15~20%/, "hypothetical use cases must declare measurable validation targets");
+assert.equal((html.match(/<div><span>0[1-4] · (?:TRANSFORMER|PREFIX|AGENTIC|RAG)/g) || []).length, 4, "tech insights must expose four change-to-decision cards");
+assert.match(html, /TECH CHANGE[\s\S]*?MEMORY IMPLICATION[\s\S]*?BUSINESS QUESTION/, "every technology card must end in a business decision question");
+assert.equal((html.match(/<article><span>0[1-6] · (?:ACCELERATOR|HYPERSCALER|SERVER|FOUNDRY|STORAGE|AI SERVING)/g) || []).length, 6, "partner strategy must cover six commercialization gates");
+assert.match(html, /id="deep-cases"[\s\S]*?data-deep-case="agentic"[\s\S]*?data-deep-case="training"[\s\S]*?data-deep-case="rag"/, "the portfolio must expose three deep business cases");
+assert.equal((html.match(/WHAT WOULD CHANGE MY MIND\?/g) || []).length, 3, "every deep case must declare decision reversal conditions");
+assert.match(html, /Reuse ≥ 35%[\s\S]*?Training Time −10%[\s\S]*?Retrieval P99 −15%/, "deep cases must declare measurable modeled decision triggers");
+assert.match(landing, /function setupDeepCases\(\)[\s\S]*?data-deep-case-panel/, "deep-case tabs must switch the visible strategy case");
 assert.match(html, /id="automation" aria-live="polite"[\s\S]*?6-HOUR CYCLE[\s\S]*?FAIL-CLOSED[\s\S]*?id="businessDataRun"/, "the public site must expose the automated intelligence control loop and traceable run");
 assert.match(landing, /Status unavailable · fail-closed[\s\S]*?마지막 검증 Bundle 유지[\s\S]*?panel\.hidden = false/, "automation status failures must remain visible and fail closed");
+assert.match(html, /id="console-data-health"[\s\S]*?Data Health · Decision Use Gate[\s\S]*?DECISION OBJECT STANDARD/, "the console must lead with evidence health and a decision-object contract");
+assert.match(app, /function renderConsoleDataHealth\(\)[\s\S]*?DECISION USE ENABLED[\s\S]*?DECISION USE DISABLED/, "console data health must gate decision use dynamically");
+assert.match(app, /function finalizeConsoleLoadingLabels\(\)[\s\S]*?LIVE DATA UNAVAILABLE/, "unresolved loading labels must become explicit fail-closed states");
 assert.doesNotMatch(html, /Prompt Engineering/, "prompt engineering must not appear as a top-level AI memory theme");
 assert.match(html, /aria-label="Evidence Search"/, "the console evidence field must not imply unsupported generative Q&A");
 assert.match(landingCss, /\.business-reveal[\s\S]*?\.business-reveal\.is-visible/, "business sections should progressively reveal without blocking layout");

@@ -1,9 +1,9 @@
 (() => {
   "use strict";
 
-  const BUSINESS_TITLE = "Memory Intelligence · AI Memory Strategy & Execution";
+  const BUSINESS_TITLE = "AI Infra Strategy OS · Workload to Revenue";
   const CONSOLE_HASH = "#console";
-  const CONSOLE_REVISION = "infra-20260815-06";
+  const CONSOLE_REVISION = "infra-20260815-07";
   const site = document.querySelector("#businessSite");
   const consoleLayer = document.querySelector("#intelligenceConsole");
   const header = document.querySelector("#businessHeader");
@@ -265,27 +265,38 @@
     }
   }
 
+  function setupDeepCases() {
+    const tabs = [...document.querySelectorAll("[data-deep-case]")];
+    const panels = [...document.querySelectorAll("[data-deep-case-panel]")];
+    for (const tab of tabs) {
+      tab.addEventListener("click", () => {
+        const caseId = tab.dataset.deepCase;
+        for (const item of tabs) item.setAttribute("aria-selected", String(item === tab));
+        for (const panel of panels) panel.hidden = panel.dataset.deepCasePanel !== caseId;
+      });
+    }
+  }
+
   function setupReveal() {
     const candidates = document.querySelectorAll([
       ".business-section-heading",
+      ".business-initiative-grid > article",
       ".business-competency-card",
       ".business-strategy-chain > li",
       ".business-pain-framework",
-      ".business-diagnostic-pipeline",
       ".business-solution-card",
-      ".business-consulting-funnel",
+      ".business-strategy-artifact > div",
       ".business-workload-matrix > article",
       ".business-memory-fabric",
       ".business-tco-module",
-      ".business-execution-roadmap",
-      ".business-report-grid > article",
-      ".business-llm-causality",
+      ".business-tech-decision-grid > article",
+      ".business-tech-proofline",
       ".business-evidence-case",
       ".business-execution-evidence-grid > article",
       ".business-flagship-partnership",
       ".business-partnership-types > article",
       ".business-partner-map",
-      ".business-case-card",
+      ".business-deep-cases",
       ".business-macro-grid > article",
       ".business-role-fit-grid > article",
       ".business-role-outputs > article",
@@ -314,6 +325,7 @@
     businessReady = true;
     setupAudienceTabs();
     setupPainPointFramework();
+    setupDeepCases();
     setupReveal();
     void updateDataStatus();
   }
