@@ -28,7 +28,7 @@
   <link rel="preload" as="image" href="assets/media/memory-hero-poster.webp" fetchpriority="high" />
   <link rel="preload" as="fetch" href="data/data-manifest.json" crossorigin="anonymous" />
   <link rel="preload" as="fetch" href="data/baseline.json" crossorigin="anonymous" />
-  <link rel="stylesheet" href="assets/css/styles.css?v=perf-20260815-01" />
+  <link rel="stylesheet" href="assets/css/styles.css?v=focus-20260815-01" />
 </head>
 <body>
   <div class="scroll-prog" id="scrollProg" aria-hidden="true"></div>
@@ -199,23 +199,9 @@
             </section>
           </div>
           <div class="decision-evidence" id="execDecisionEvidence"></div>
-          <div class="ceo-challenge-board">
-            <div class="intel-panel-head">
-              <h3>CEO 챌린지 · 전문가 답변</h3>
-              <span id="ceoChallengeMeta">시나리오와 투자안을 선택해 반론을 검증</span>
-            </div>
-            <div class="ceo-challenge-controls">
-              <label>
-                <span>CEO 챌린지</span>
-                <select id="ceoChallengeSelect" aria-label="CEO 챌린지 선택"></select>
-              </label>
-              <button type="button" id="ceoChallengeRun">Agent 실행</button>
-            </div>
-            <div class="ceo-agent-answer" id="ceoAgentAnswer"></div>
-          </div>
         </section>
 
-        <section class="board investment-board management-strategy-board" id="management-strategy">
+        <section class="board investment-board management-strategy-board" id="management-strategy" hidden>
           <div class="board-head">
             <div>
               <p class="eyebrow">China business · strategy formulation · evidence based</p>
@@ -266,7 +252,7 @@
           </div>
         </section>
 
-        <section class="board investment-board strategic-investment-board" id="strategic-investment-decision">
+        <section class="board investment-board strategic-investment-board" id="strategic-investment-decision" hidden>
           <div class="board-head">
             <div>
               <p class="eyebrow">China business · strategic decision · evidence based</p>
@@ -389,7 +375,7 @@
           </div>
         </section>
 
-        <section class="board policy-board" id="policy-makers">
+        <section class="board policy-board" id="policy-makers" hidden>
           <div class="board-head">
             <div>
               <p class="eyebrow">Policy maker direction · China / Korea / United States</p>
@@ -457,7 +443,7 @@
           </div>
         </section>
 
-        <section class="board policy-board infra-board" id="china-fab-infra">
+        <section class="board policy-board infra-board" id="china-fab-infra" hidden>
           <div class="board-head">
             <div>
               <p class="eyebrow">China fab expansion infrastructure · policy and utility evidence</p>
@@ -479,7 +465,7 @@
           </div>
         </section>
 
-        <section class="board policy-board talent-strategy-board" id="china-talent-strategy">
+        <section class="board policy-board talent-strategy-board" id="china-talent-strategy" hidden>
           <div class="board-head">
             <div>
               <p class="eyebrow">China workforce strategy · scenario tabs · lawful hiring</p>
@@ -621,7 +607,7 @@
           </div>
         </section>
 
-        <section class="board china-community-board" id="china-community">
+        <section class="board china-community-board" id="china-community" hidden>
           <div class="board-head">
             <div>
               <p class="eyebrow">Community · Hiring</p>
@@ -642,7 +628,7 @@
           <div class="community-grid" id="communityGrid"></div>
         </section>
 
-        <section class="board china-nand-board" id="china-nand">
+        <section class="board china-nand-board" id="china-nand" hidden>
           <div class="board-head">
             <div>
               <p class="eyebrow">China NAND business strengthening</p>
@@ -686,7 +672,7 @@
           <div class="china-nand-playbook" id="chinaNandPlaybook"></div>
         </section>
 
-        <section class="board china-dynamics-board" id="china-dynamics">
+        <section class="board china-dynamics-board" id="china-dynamics" hidden>
           <div class="board-head">
             <div>
               <p class="eyebrow">중국 반도체 흐름 요약</p>
@@ -698,7 +684,7 @@
           <div class="china-dynamics-grid" id="chinaDynamicsGrid"></div>
         </section>
 
-        <section class="board talent-radar-board" id="talent-radar">
+        <section class="board talent-radar-board" id="talent-radar" hidden>
           <div class="board-head">
             <div>
               <p class="eyebrow">Talent and hiring early warning</p>
@@ -790,7 +776,7 @@
           <div class="hs-assumptions" id="hyperscalerAssumptions"></div>
         </section>
 
-        <section class="board workbench-board" id="workbench">
+        <section class="board workbench-board" id="workbench" hidden>
           <div class="board-head">
             <div>
               <p class="eyebrow">Dynamic intelligence workbench</p>
@@ -805,7 +791,7 @@
           </div>
         </section>
 
-        <section class="board memory-market-map-board" id="memory-market-map">
+        <section class="board memory-market-map-board" id="memory-market-map" hidden>
           <div class="board-head">
             <div>
               <p class="eyebrow">Competitive Dynamics · Money Flow</p>
@@ -829,7 +815,7 @@
           </div>
         </section>
 
-        <section class="memory-scroll-story competitive-scroll-story" id="competitive-scroll-story" data-scroll-story aria-label="메모리 경쟁 다이나믹스 스크롤 스토리">
+        <section class="memory-scroll-story competitive-scroll-story" id="competitive-scroll-story" data-scroll-story aria-label="메모리 경쟁 다이나믹스 스크롤 스토리" hidden>
           <div class="memory-scroll-sticky">
             <img src="assets/media/competitive-dynamics-scroll.webp" alt="메모리 칩과 반도체 밸류체인 연결을 시각화한 경쟁 다이나믹스" loading="lazy" decoding="async" />
             <div class="memory-scroll-shade" aria-hidden="true"></div>
@@ -916,7 +902,7 @@
           </section>
         </section>
 
-        <section class="china-benchmark-video-story" id="china-benchmark-video-story" aria-labelledby="chinaBenchmarkStoryTitle">
+        <section class="china-benchmark-video-story" id="china-benchmark-video-story" aria-labelledby="chinaBenchmarkStoryTitle" hidden>
           <div class="china-benchmark-video-sticky">
             <video class="china-benchmark-story-video" id="chinaBenchmarkStoryVideo" autoplay muted loop playsinline preload="none" disablepictureinpicture data-poster="assets/media/china-benchmark-story-poster.webp" aria-hidden="true">
               <source data-src="assets/media/china-benchmark-story.mp4" type="video/mp4" />
@@ -933,7 +919,7 @@
           </div>
         </section>
 
-        <section class="board china-deep-board" id="china-deep-dive">
+        <section class="board china-deep-board" id="china-deep-dive" hidden>
           <div class="board-head">
             <div>
               <p class="eyebrow">중국 메모리 심층 벤치마킹</p>
@@ -962,7 +948,7 @@
           </div>
         </section>
 
-        <section class="board" id="categories">
+        <section class="board" id="categories" hidden>
           <div class="board-head">
             <div>
               <p class="eyebrow">Memory category classifier</p>
@@ -973,7 +959,7 @@
           <div class="category-grid" id="categoryGrid"></div>
         </section>
 
-        <section class="board" id="response">
+        <section class="board" id="response" hidden>
           <div class="board-head">
             <div>
               <p class="eyebrow">Strategic response</p>
@@ -1012,6 +998,6 @@
   <div class="qa-answer" id="qaAnswer" hidden></div>
   <div class="inspector" id="inspector" hidden></div>
   <div class="backdrop" id="backdrop"></div>
-  <script src="assets/js/app.js?v=perf-20260815-01" defer></script>
+  <script src="assets/js/app.js?v=focus-20260815-01" defer></script>
 </body>
 </html>

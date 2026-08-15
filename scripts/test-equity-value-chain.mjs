@@ -34,10 +34,10 @@ assert.match(app, /enterpriseProfiles:\s*\{[\s\S]*?data\/company-intelligence\.j
   "company profiles must load as a small static evidence artifact without the run-manifest gate");
 assert.match(app, /id: "stock"[\s\S]*?label: "Stock 분석"[\s\S]*?jump: "equity-value-chain"/,
   "the sidebar must expose a dedicated Stock analysis route");
-assert.match(app, /\{ label: "주가 분석", routes: \["stock"\] \},\s*\];/,
-  "Stock analysis should be the final sidebar group");
-assert.match(app, /const SIDE_NAV_ROUTES = \[[\s\S]*?id: "home"[\s\S]*?id: "c-level"[\s\S]*?id: "analysis"[\s\S]*?id: "policy"[\s\S]*?id: "china-workforce"[\s\S]*?id: "market"[\s\S]*?id: "competitors"[\s\S]*?id: "talent"[\s\S]*?id: "numbers"[\s\S]*?id: "projection"[\s\S]*?id: "hyperscaler-demand"[\s\S]*?id: "workbench"[\s\S]*?id: "market-map"[\s\S]*?id: "ai-architecture"[\s\S]*?id: "strategy-actions"[\s\S]*?id: "stock"/,
-  "sidebar routes should follow the real document flow with Stock last");
+assert.match(app, /\{ label: "Data Lab", routes: \["stock"\] \},\s*\];/,
+  "Stock analysis should be the final Data Lab sidebar group");
+assert.match(app, /const SIDE_NAV_ROUTES = \[[\s\S]*?id: "home"[\s\S]*?id: "biz-consulting"[\s\S]*?id: "executive-summary"[\s\S]*?id: "c-level"[\s\S]*?id: "analysis"[\s\S]*?id: "market"[\s\S]*?id: "numbers"[\s\S]*?id: "projection"[\s\S]*?id: "hyperscaler-demand"[\s\S]*?id: "ai-architecture"[\s\S]*?id: "stock"/,
+  "focused sidebar routes should follow the real document flow with Stock last");
 assert.match(app, /function refreshScrollSpyGeometry[\s\S]*?getBoundingClientRect\(\)\.top \+ window\.scrollY[\s\S]*?sort\(\(left, right\) => left\.top - right\.top\)[\s\S]*?function updateScrollSpyFromGeometry/,
   "scroll spy must cache real document landmarks rather than force layout on every scroll");
 assert.match(app, /const EQUITY_CHAIN_PERIODS = \[[\s\S]*?"1개월"[\s\S]*?"6개월"[\s\S]*?"1년"[\s\S]*?"5년"[\s\S]*?"전체"/,

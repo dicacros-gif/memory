@@ -148,8 +148,26 @@
   const NEWS_MARKET_NOISE_RE =
     /\bETF\b|指数|领涨|领跌|净买入|净卖出|吸金|中签|打新|牛股|涨停|跌停|股价|个股|股票行情|认购|申购|抽签|赚钱|热度观测日志/i;
   const SOURCE_SUFFIX_RE = /\s[-–—]\s(?:[A-Za-z0-9가-힣 .·&]+)$/;
-  const HIDDEN_SECTIONS = new Set(["corpdev", "categories", "response"]);
-  const HIDDEN_CATEGORY_IDS = new Set(["corpdev"]);
+  const HIDDEN_SECTIONS = new Set([
+    "corpdev",
+    "management-strategy",
+    "strategic-investment-decision",
+    "policy-makers",
+    "china-fab-infra",
+    "china-talent-strategy",
+    "china-community",
+    "china-nand",
+    "china-dynamics",
+    "talent-radar",
+    "workbench",
+    "memory-market-map",
+    "competitive-scroll-story",
+    "china-benchmark-video-story",
+    "china-deep-dive",
+    "categories",
+    "response",
+  ]);
+  const HIDDEN_CATEGORY_IDS = new Set(["corpdev", "geopolitics", "operations", "talent"]);
   const COMPANY_NEWS_ALIASES = {
     cxmt: ["cxmt", "changxin", "changxin memory", "changxin memory technologies"],
     ymtc: ["ymtc", "yangtze memory", "yangtze memory technologies", "yangtze"],
@@ -1856,32 +1874,15 @@
     {
       id: "analysis",
       label: "전략·백테스트",
-      desc: "과거 판단·중국 전략·ROI",
+      desc: "과거 판단·Memory Fabric·AI 수요",
       cadence: "Decision lab",
       jump: "executive-decision",
       sections: [
         "executive-decision",
-        "management-strategy",
-        "strategic-investment-decision",
         "memory-visual-story",
         "memory-scroll-story",
+        "ai-demand-scroll-story",
       ],
-    },
-    {
-      id: "policy",
-      label: "정책·팹 리스크",
-      desc: "중국·한국·미국·팹 운영",
-      cadence: "Policy watch",
-      jump: "policy-makers",
-      sections: ["policy-makers", "ai-demand-scroll-story", "china-fab-infra"],
-    },
-    {
-      id: "china-workforce",
-      label: "중국 인력 전략",
-      desc: "거점 운영·채용·IP 통제",
-      cadence: "Workforce plan",
-      jump: "china-talent-strategy",
-      sections: ["china-talent-strategy"],
     },
     {
       id: "market",
@@ -1889,23 +1890,7 @@
       desc: "현물·계약 가격·권위 기사",
       cadence: "Market data",
       jump: "prices",
-      sections: ["prices", "news", "china-community"],
-    },
-    {
-      id: "competitors",
-      label: "중국 메모리 경쟁",
-      desc: "CXMT·YMTC·장비·패키징",
-      cadence: "China benchmark",
-      jump: "china-nand",
-      sections: ["china-nand", "china-dynamics"],
-    },
-    {
-      id: "talent",
-      label: "인재·IP 리스크",
-      desc: "채용·수율 인력·IP 방어",
-      cadence: "Hiring watch",
-      jump: "talent-radar",
-      sections: ["talent-radar"],
+      sections: ["prices", "news"],
     },
     {
       id: "numbers",
@@ -1932,41 +1917,17 @@
       sections: ["hyperscaler-demand"],
     },
     {
-      id: "workbench",
-      label: "분석실",
-      desc: "워크벤치·정량 모델·토론",
-      cadence: "Decision lab",
-      jump: "workbench",
-      sections: ["workbench"],
-    },
-    {
-      id: "market-map",
-      label: "경쟁·자본 흐름",
-      desc: "경쟁·파트너십·투자·공급",
-      cadence: "Dynamics",
-      jump: "memory-market-map",
-      sections: ["memory-market-map", "competitive-scroll-story"],
-    },
-    {
       id: "ai-architecture",
-      label: "AI·중국 심층",
-      desc: "HBM·CXL·중국 밸류체인",
+      label: "AI 아키텍처",
+      desc: "HBM·CXL·PIM·워크로드",
       cadence: "Architecture",
       jump: "ai-matrix",
-      sections: ["ai-matrix", "china-benchmark-video-story", "china-deep-dive"],
-    },
-    {
-      id: "strategy-actions",
-      label: "분류·대응 전략",
-      desc: "카테고리·실행 액션",
-      cadence: "Action plan",
-      jump: "categories",
-      sections: ["categories", "response"],
+      sections: ["ai-matrix"],
     },
     {
       id: "stock",
       label: "Stock 분석",
-      desc: "글로벌·중국 밸류체인 주가",
+      desc: "글로벌 메모리·AI 밸류체인",
       cadence: "Equity analytics",
       jump: "equity-value-chain",
       sections: ["equity-value-chain", "marketIndexPanel"],
@@ -2019,8 +1980,8 @@
       cadence: "Quant",
     },
     "ai-architecture": {
-      label: "AI·중국 심층",
-      desc: "HBM·CXL·중국 밸류체인",
+      label: "AI 아키텍처",
+      desc: "HBM·CXL·PIM·워크로드",
       cadence: "Architecture",
     },
     "strategy-actions": {
@@ -2030,7 +1991,7 @@
     },
     analysis: {
       label: "전략·백테스트",
-      desc: "과거 판단·ROI 시나리오",
+      desc: "과거 판단·시스템 병목·ROI",
       cadence: "Decision lab",
     },
     market: {
@@ -2040,7 +2001,7 @@
     },
     stock: {
       label: "Stock 분석",
-      desc: "글로벌·중국 밸류체인 주가",
+      desc: "글로벌 메모리·AI 밸류체인",
       cadence: "Equity analytics",
     },
     competitors: {
@@ -2073,11 +2034,10 @@
     talent: { label: "인재 · IP", en: "Talent / IP", desc: "채용, 핵심 수율 인력 이동, IP 방어 신호" },
   };
   const SIDE_NAV_GROUPS = [
-    { label: "브리핑·의사결정", routes: ["home", "biz-consulting", "executive-summary", "c-level", "analysis"] },
-    { label: "정책·시장", routes: ["policy", "china-workforce", "market"] },
-    { label: "경쟁·전망", routes: ["competitors", "talent", "numbers", "projection", "hyperscaler-demand"] },
-    { label: "구조·실행", routes: ["workbench", "market-map", "ai-architecture", "strategy-actions"] },
-    { label: "주가 분석", routes: ["stock"] },
+    { label: "핵심 역량", routes: ["home", "biz-consulting", "executive-summary"] },
+    { label: "Business Strategy & Solutions", routes: ["c-level", "analysis"] },
+    { label: "Tech & Market Insights", routes: ["market", "numbers", "projection", "hyperscaler-demand", "ai-architecture"] },
+    { label: "Data Lab", routes: ["stock"] },
   ];
   const SIDE_NAV_ICONS = {
     home: "01",
@@ -2085,26 +2045,18 @@
     "executive-summary": "03",
     "c-level": "04",
     analysis: "05",
-    policy: "06",
-    "china-workforce": "07",
-    market: "08",
-    competitors: "09",
-    talent: "10",
-    numbers: "11",
-    projection: "12",
-    "hyperscaler-demand": "13",
-    workbench: "14",
-    "market-map": "15",
-    "ai-architecture": "16",
-    "strategy-actions": "17",
-    stock: "18",
+    market: "06",
+    numbers: "07",
+    projection: "08",
+    "hyperscaler-demand": "09",
+    "ai-architecture": "10",
+    stock: "11",
   };
   const TOPIC_FILTER_GROUPS = [
     { label: "전체", hint: "All", categories: ["all"] },
     { label: "시장·제품", hint: "DRAM·NAND·수요", categories: ["dram", "nand", "aidemand"] },
     { label: "AI·차세대", hint: "HBM·CXL·패키징", categories: ["hbm", "cxl", "packaging"] },
-    { label: "중국 공급망", hint: "장비·정책·운영", categories: ["equipment", "geopolitics", "operations"] },
-    { label: "인재·IP", hint: "채용·보안", categories: ["talent"] },
+    { label: "공급망", hint: "장비·소재", categories: ["equipment"] },
   ];
   const NEWS_SOURCE_TABS = [
     { id: "english", label: "영어권 기사", countId: "foreignNewsCount", bucketId: "foreignNewsBucket", listId: "foreignNewsList" },
@@ -2121,7 +2073,6 @@
     { id: "all", label: "전체", sub: "All KPI", categories: [] },
     { id: "market", label: "시장/가격", sub: "Spot · Contract · WSTS", categories: ["dram", "nand", "aidemand"], keywords: ["가격", "spot", "contract", "wsts", "market", "성장", "매출", "규모"] },
     { id: "hbm", label: "HBM/Post-HBM", sub: "HBM4 · CXL · 3D DRAM", categories: ["hbm", "cxl", "packaging", "aidemand"], keywords: ["hbm", "rubin", "cxl", "pim", "3d dram", "cowos", "tsmc"] },
-    { id: "china-risk", label: "중국 리스크", sub: "CXMT · YMTC · 정책", categories: ["china", "geopolitics", "equipment", "talent"], keywords: ["cxmt", "ymtc", "big fund", "match", "veU", "중국", "국산화", "수출통제"] },
   ];
   const SECTION_LABELS = {
     overview: "영상 브리핑",
@@ -4012,8 +3963,9 @@
     const q = QUANT || {};
     const chips = [];
     const channelAsOf = LIVE?.quality?.channels || {};
-    const channelLabels = { prices: "가격", news: "뉴스", community: "현장 신호", brokerResearch: "리서치", markets: "시장" };
+    const channelLabels = { prices: "가격", news: "뉴스", brokerResearch: "리서치", markets: "시장" };
     const channelTimes = Object.entries(channelAsOf)
+      .filter(([id]) => id !== "community")
       .map(([id, value]) => ({ id, value: Date.parse(String(value || "")) }))
       .filter((entry) => Number.isFinite(entry.value));
     for (const entry of channelTimes) {
@@ -4299,8 +4251,6 @@
     const crawlExclusionsPromise = loadJSON("data/crawl-exclusions.json", emptyCrawlExclusions);
     document.body.classList.add("consulting-system");
     setupMediaExperience();
-    setupChinaBenchmarkVideoStory();
-    setupChinaDecisionVideo();
     setupMemoryScrollStory();
     // Paint the persistent shell before any JSON request completes. Navigation
     // is static, so it stays usable even on a cold GitHub Pages cache.
@@ -4324,8 +4274,6 @@
       return;
     }
 
-    setupStrategyCapitalSlider();
-    setupChinaNandSlider();
     hideDisabledSections();
     document.title = BASE.meta?.title || document.title;
     renderSidebarCategories();
@@ -4357,7 +4305,6 @@
     const run = () => {
       setupMouseDrivenMetrics();
       setupAgentDebateBackdrops();
-      setupMemoryMapShowcaseVideo();
     };
     if ("requestIdleCallback" in window) {
       window.requestIdleCallback(run, { timeout: 1400 });
@@ -5246,24 +5193,12 @@
       { id: "strategy-consulting", render: renderStrategyConsulting },
       { id: "c-level-cockpit", render: renderCLevelCockpit },
       { id: "executive-decision", render: renderExecutiveDecision, data: ["priceHistory", "marketHistory", "quantBacktest"] },
-      { id: "management-strategy", render: renderManagementStrategy },
-      { id: "strategic-investment-decision", render: renderStrategicInvestmentDecision },
-      { id: "policy-makers", render: renderPolicyMakers },
-      { id: "china-fab-infra", render: renderChinaFabInfra },
-      { id: "china-talent-strategy", render: renderChinaTalentStrategy },
       { id: "prices", render: renderPrices, data: ["priceHistory", "marketHistory"] },
       { id: "news", render: renderNews },
-      { id: "china-community", render: renderChinaCommunity },
-      { id: "china-nand", render: renderChinaNandBusiness },
-      { id: "china-dynamics", render: renderChinaDynamics },
-      { id: "talent-radar", render: renderTalentRadar },
       { id: "numbers", render: renderNumberAnalysis },
       { id: "projection", render: renderProductProjection },
       { id: "hyperscaler-demand", render: renderHyperscalerDemand },
-      { id: "workbench", render: renderWorkbench },
-      { id: "memory-market-map", render: renderMemoryMarketMap },
       { id: "ai-matrix", render: renderArchitectureMatrix },
-      { id: "china-deep-dive", render: renderChinaDeepDive },
       { id: "equity-value-chain", render: renderEquityValueChain, data: ["marketHistory", "enterpriseProfiles"] },
     ];
   }
@@ -7206,13 +7141,7 @@
       { id: "numbers", render: renderNumberAnalysis },
       { id: "projection", render: renderProductProjection },
       { id: "news", render: renderNews },
-      { id: "china-community", render: renderChinaCommunity },
       { id: "ai-matrix", render: renderArchitectureMatrix },
-      { id: "memory-market-map", render: renderMemoryMarketMap },
-      { id: "china-deep-dive", render: renderChinaDeepDive },
-      { id: "talent-radar", render: renderTalentRadar },
-      { id: "china-nand", render: renderChinaNandBusiness },
-      { id: "workbench", render: renderWorkbench },
     ]
       .filter((item) => item.always || deferredRenderedSections.has(item.id))
       .map((item) => item.render);
@@ -8394,66 +8323,40 @@
         hold: "근거 보류",
       },
       {
-        id: "china-dram",
-        label: "중국 DRAM 가격 압력",
-        category: "dram",
-        categories: ["dram", "china", "operations"],
-        owner: "CEO · CFO",
-        jump: "prices",
-        terms: ["cxmt", "changxin", "dram", "ddr5", "ddr4", "lpddr", "tencent", "capacity", "wpm"],
-        action: "CXMT 점유율, 장기계약, DDR5 spot/contract spread를 가격 방어 안건으로 상정",
-        go: "가격 방어",
-        watch: "중국 캐파",
-        hold: "근거 보류",
-      },
-      {
         id: "legacy-commodity",
         label: "레거시·범용 의사결정",
         category: "dram",
-        categories: ["dram", "nand", "aidemand", "operations", "china"],
+        categories: ["dram", "nand", "aidemand", "operations"],
         owner: "CEO · CFO · 영업",
         jump: "prices",
-        terms: ["legacy", "commodity", "dram", "ddr4", "ddr5", "lpddr", "nand", "ssd", "spot", "contract", "cxmt", "ymtc", "kioxia", "sandisk", "solidigm"],
-        action: "DDR·LPDDR·NAND spot/contract spread와 CXMT·YMTC·Kioxia-SanDisk 신호를 제품 믹스·가격 방어·고객 배분 안건으로 전환",
+        terms: ["legacy", "commodity", "dram", "ddr4", "ddr5", "lpddr", "nand", "ssd", "spot", "contract", "inventory", "margin"],
+        action: "DDR·LPDDR·NAND 가격, 재고, 고객 수요를 제품 믹스·가격 방어·공급 배분 안건으로 전환",
         go: "방어 실행",
         watch: "가격/캐파 감시",
         hold: "근거 보류",
       },
       {
         id: "nand-essd",
-        label: "NAND/eSSD 방어",
+        label: "NAND/eSSD 가치 전환",
         category: "nand",
-        categories: ["nand", "aidemand", "china"],
+        categories: ["nand", "aidemand", "operations"],
         owner: "사업총괄 · CFO",
-        jump: "china-nand",
-        terms: ["ymtc", "yangtze", "nand", "ssd", "essd", "solidigm", "xtacking", "lenovo", "wuhan"],
-        action: "eSSD 고객 방어, Solidigm value-up, YMTC OEM 침투를 같은 보드에서 추적",
-        go: "고객 방어",
-        watch: "YMTC 침투",
-        hold: "근거 보류",
-      },
-      {
-        id: "competitive-dynamics",
-        label: "경쟁 다이나믹스 대응",
-        category: "china",
-        categories: ["dram", "nand", "hbm", "packaging", "equipment", "china"],
-        owner: "CEO · 전략",
-        jump: "memory-market-map",
-        terms: ["competitive", "competition", "rival", "samsung", "micron", "cxmt", "ymtc", "kioxia", "sandisk", "jcet", "xmc", "naura", "amec", "hbm", "nand", "dram"],
-        action: "경쟁·파트너십·투자·공급 관계를 한 화면에서 비교해 가격 방어, 고객 락인, 제휴 우선순위를 결정",
-        go: "관계 재배치",
-        watch: "경쟁축 변화",
+        jump: "projection",
+        terms: ["nand", "ssd", "essd", "solidigm", "qlc", "datacenter", "storage", "customer", "contract"],
+        action: "eSSD 고객 가치, QLC 제품 믹스, 데이터센터 수요를 같은 보드에서 추적",
+        go: "가치 전환",
+        watch: "고객 수요",
         hold: "근거 보류",
       },
       {
         id: "money-flow",
         label: "Money Flow 수익성 판단",
         category: "operations",
-        categories: ["hbm", "dram", "nand", "aidemand", "operations", "china"],
+        categories: ["hbm", "dram", "nand", "aidemand", "operations"],
         owner: "CFO · 사업총괄",
-        jump: "memory-market-map",
-        terms: ["money flow", "revenue", "sales", "investment", "funding", "capex", "contract", "tencent", "nvidia", "hyperscaler", "solidigm", "wuxi", "dalian", "ipo", "big fund"],
-        action: "투자·매출 노출 흐름을 구분해 어디서 현금이 들어오고 어디로 방어 비용이 나가는지 검토",
+        jump: "numbers",
+        terms: ["money flow", "revenue", "sales", "investment", "funding", "capex", "contract", "nvidia", "hyperscaler", "solidigm", "margin", "cash flow"],
+        action: "투자·매출·마진 흐름을 구분해 성장 자본과 방어 비용의 우선순위를 검토",
         go: "수익성 검토",
         watch: "현금흐름 변화",
         hold: "근거 보류",
@@ -8464,9 +8367,9 @@
         category: "aidemand",
         categories: ["hbm", "aidemand", "dram", "nand", "operations"],
         owner: "영업 · SCM",
-        jump: "memory-market-map",
-        terms: ["nvidia", "ai server", "hyperscaler", "tencent", "alibaba", "bytedance", "contract", "supply", "customer", "essd", "server dram", "hbm"],
-        action: "AI 서버 고객 매출, 중국 장기계약, eSSD 침투를 묶어 공급 배분과 가격 재협상 우선순위를 정리",
+        jump: "hyperscaler-demand",
+        terms: ["nvidia", "ai server", "hyperscaler", "contract", "supply", "customer", "essd", "server dram", "hbm"],
+        action: "AI 서버 고객 수요, 장기계약, eSSD 채택을 묶어 공급 배분과 가격 재협상 우선순위를 정리",
         go: "계약 재가격화",
         watch: "고객 전환",
         hold: "근거 보류",
@@ -8477,24 +8380,11 @@
         category: "hbm",
         categories: ["hbm", "packaging", "aidemand", "operations"],
         owner: "CEO · CTO · 공급망",
-        jump: "memory-market-map",
+        jump: "ai-matrix",
         terms: ["hbm4", "hbm4e", "tsmc", "cowos", "base die", "nvidia", "rubin", "packaging", "foundry"],
         action: "SKHY-TSMC 동맹, 삼성 턴키, Micron 추격을 같은 관계 보드에서 비교해 HBM4 고객 인증과 패키징 할당 우선순위를 결정",
         go: "고객 락인 강화",
         watch: "인증 일정 감시",
-        hold: "근거 보류",
-      },
-      {
-        id: "china-capex-warning",
-        label: "중국 캐파·정책자금 경보",
-        category: "china",
-        categories: ["china", "dram", "nand", "equipment", "geopolitics"],
-        owner: "CEO · Policy · CFO",
-        jump: "memory-market-map",
-        terms: ["cxmt", "ymtc", "big fund", "ipo", "capacity", "wpm", "naura", "amec", "wuhan", "shanghai", "hefei", "policy"],
-        action: "CXMT IPO·YMTC 우한 증설·Big Fund 자금을 투자 관계선으로 묶어 레거시 DRAM/NAND 하방 압력 경보로 전환",
-        go: "가격 방어 준비",
-        watch: "캐파 ramp 감시",
         hold: "근거 보류",
       },
       {
@@ -8503,7 +8393,7 @@
         category: "operations",
         categories: ["hbm", "cxl", "packaging", "aidemand", "operations"],
         owner: "CVC · CTO · CFO",
-        jump: "memory-market-map",
+        jump: "ai-matrix",
         terms: ["cxl", "photonic", "photonics", "pim", "xcena", "celestial", "lightmatter", "ayar", "xconn", "startup", "funding"],
         action: "CXL·포토닉스·PIM 후보를 Money Flow 투자 축으로 비교해 직접 투자, 공동 PoC, 관찰 대상을 분리",
         go: "PoC/실사 착수",
@@ -8511,68 +8401,16 @@
         hold: "근거 보류",
       },
       {
-        id: "policy-fab",
-        label: "정책/Fab 라이선스",
-        category: "geopolitics",
-        categories: ["geopolitics", "operations", "china"],
-        owner: "법무 · 대외협력",
-        jump: "policy-makers",
-        terms: ["bis", "veu", "match", "chips", "wuxi", "dalian", "license", "export control", "fab"],
-        action: "중국 증설, 운영유지, 기술 업그레이드를 분리해 승인 조건을 관리",
-        go: "조건부 승인",
-        watch: "규제 이벤트",
-        hold: "No-Go",
-      },
-      {
-        id: "packaging-equipment",
-        label: "패키징·장비 우회로",
-        category: "packaging",
-        categories: ["packaging", "equipment", "china"],
-        owner: "CTO · 구매",
-        jump: "china-dynamics",
-        terms: ["jcet", "xmc", "tfme", "naura", "amec", "acm", "packaging", "hybrid bonding", "tsv", "equipment"],
-        action: "중국 패키징·장비 qual 신호를 HBM 우회로와 IP 방어 안건으로 연결",
-        go: "옵션 투자",
-        watch: "국산 장비 qual",
-        hold: "근거 보류",
-      },
-      {
-        id: "talent-ip",
-        label: "인재/IP 조기경보",
-        category: "talent",
-        categories: ["talent", "china", "operations"],
-        owner: "CHRO · CISO",
-        jump: "talent-radar",
-        terms: ["talent", "hiring", "yield", "engineer", "ip", "tsv", "boss zhipin", "campus", "maimai"],
-        action: "수율 엔지니어, 채용 JD, IP 소송 신호를 리텐션·보안 게이트로 연결",
-        go: "방어 강화",
-        watch: "채용 신호",
-        hold: "근거 보류",
-      },
-      {
         id: "capacity-discipline",
         label: "캐파 규율·감산 판단",
         category: "operations",
-        categories: ["dram", "nand", "operations", "china", "aidemand"],
+        categories: ["dram", "nand", "operations", "aidemand"],
         owner: "CEO · CFO · 생산",
         jump: "prices",
         terms: ["capacity", "capex", "utilization", "inventory", "wafer", "cut", "감산", "재고", "oversupply", "dram", "nand", "spot", "contract"],
         action: "가동률·재고·CAPEX를 묶어 범용 감산 유지와 HBM 우선 배분을 하나의 캐파 규율 안건으로 판단",
         go: "규율 유지",
         watch: "재고·가동률",
-        hold: "근거 보류",
-      },
-      {
-        id: "us-fab-tariff",
-        label: "미국 투자·관세 대응",
-        category: "geopolitics",
-        categories: ["geopolitics", "operations", "hbm", "aidemand"],
-        owner: "CEO · CFO · 대외협력",
-        jump: "policy-makers",
-        terms: ["chips act", "tariff", "관세", "indiana", "us fab", "advanced packaging", "subsidy", "guardrail", "export", "section 232", "capex"],
-        action: "미국 첨단 패키징 투자, CHIPS 보조금, 관세·가드레일 조건을 자본배분과 공급 배분 안건으로 연결",
-        go: "조건부 집행",
-        watch: "정책 확정 대기",
         hold: "근거 보류",
       },
       {
@@ -12541,21 +12379,6 @@
       nextAction: "고객별 계약·재고·가격 트리거와 SKU 전환 규칙 정의",
       match: /DRAM\s*spot|contract\s*price|shortage|가격|공급\s*부족|재고|price\s*(?:hike|increase|rise)|감산/i,
       momentum: "dram",
-    },
-    {
-      id: "china",
-      accent: "#DB2777",
-      horizon: "H1 · DEFEND",
-      customer: "비중국 프리미엄 고객 · 중국 내 기존 고객",
-      pain: "CXMT·YMTC 범용 가격 압력과 장비 내재화 가속",
-      workload: { name: "China Competition", hw: "범용 DRAM·NAND", sw: "국산 장비·EDA" },
-      solution: "프리미엄 차별화·비중국 고객 집중으로 기술 격차 유지",
-      opportunity: "비중국 프리미엄 락인·HBM/서버 DRAM 격차 방어",
-      valueMetric: "프리미엄 수주율 · 가격 프리미엄 · 고객 전환비용 · 규제 노출",
-      rightToWin: "품질·인증·공급 안정성의 격차를 장기 공동개발 계약으로 고정",
-      gate: "중국 공급 확대가 실제 고객 인증·가격 전이·장비 qualification으로 확인되는가",
-      nextAction: "고객·장비·가격 신호를 연결한 경쟁사 조기경보 대시보드 운영",
-      match: /CXMT|YMTC|중국|\bchina\b|장비\s*내재화|국산화|big\s*fund|수출통제|export\s*control/i,
     },
     {
       id: "post-hbm",

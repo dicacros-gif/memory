@@ -73,6 +73,21 @@ for (const route of routes) {
 const groupedRoutes = groups.flatMap((group) => group.routes);
 assert.deepEqual(groupedRoutes, routes.map((route) => route.id), "sidebar groups must preserve route order");
 assert.equal(routes.at(-1).id, "stock", "Stock analysis must remain at the bottom");
+assert.deepEqual(
+  groups.map((group) => group.label),
+  ["핵심 역량", "Business Strategy & Solutions", "Tech & Market Insights", "Data Lab"],
+  "navigation should use the focused consulting information architecture",
+);
+for (const retiredRoute of ["policy", "china-workforce", "competitors", "talent", "workbench", "market-map", "strategy-actions"]) {
+  assert.ok(!routes.some((route) => route.id === retiredRoute), `retired route must stay removed: ${retiredRoute}`);
+}
+for (const retiredSection of ["policy-makers", "china-fab-infra", "china-talent-strategy", "china-community", "china-nand", "china-dynamics", "talent-radar", "workbench", "memory-market-map", "china-deep-dive"]) {
+  assert.match(html, new RegExp(`id="${retiredSection}"[^>]*\\shidden(?:\\s|>)`), `retired section must remain hidden: ${retiredSection}`);
+}
+assert.doesNotMatch(html, /CEO 챌린지|id="ceoChallengeSelect"|id="ceoAgentAnswer"/, "the casual CEO challenge must not appear in the executive board");
+assert.doesNotMatch(app, /id: "china-dram"/, "China DRAM decision axis should be retired");
+assert.doesNotMatch(app, /id: "china",\s+accent: "#DB2777"/, "China consulting lens should be retired");
+assert.match(app, /\.filter\(\(\[id\]\) => id !== "community"\)/, "community heartbeat should be excluded from the executive summary");
 
 assert.match(app, /const manifestPromise = loadDataManifest\(\);/, "critical manifest request must start early");
 assert.match(app, /function updateScrollSpyFromGeometry\(\)/, "scroll spy must use cached geometry");
