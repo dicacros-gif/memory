@@ -3,7 +3,7 @@
 
   const BUSINESS_TITLE = "Memory Intelligence · AI Memory Strategy & Execution";
   const CONSOLE_HASH = "#console";
-  const CONSOLE_REVISION = "infra-20260815-04";
+  const CONSOLE_REVISION = "infra-20260815-05";
   const site = document.querySelector("#businessSite");
   const consoleLayer = document.querySelector("#intelligenceConsole");
   const header = document.querySelector("#businessHeader");

@@ -113,7 +113,7 @@ assert.deepEqual(businessNavLabels, [
 assert.match(html, /id="intelligenceConsole" hidden/, "the Intelligence Console must stay outside the initial visible layer");
 assert.doesNotMatch(html, /<script[^>]+src="assets\/js\/app\.js/, "the heavy console app must not load with the public landing page");
 assert.doesNotMatch(html, /<link[^>]+href="assets\/css\/styles\.css/, "the heavy console stylesheet must not load with the public landing page");
-assert.match(html, /assets\/js\/landing\.js\?v=infra-20260815-04/, "the lightweight landing controller must use the AI Infra revision");
+assert.match(html, /assets\/js\/landing\.js\?v=infra-20260815-05/, "the lightweight landing controller must use the AI Infra revision");
 assert.match(landing, /function loadAppScript\(\)[\s\S]*?assets\/js\/app\.js\?v=\$\{CONSOLE_REVISION\}/, "the console app must load only after an explicit console request");
 assert.match(landing, /assets\/css\/styles\.css\?v=\$\{CONSOLE_REVISION\}/, "console-only styling must load on demand");
 assert.match(html, /location\.hash !== "#console"[\s\S]*?consolePosterPreload[\s\S]*?memory-hero-poster\.webp/, "direct console entry must discover its LCP poster during head parsing");
