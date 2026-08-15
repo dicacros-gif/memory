@@ -3,7 +3,8 @@
 
   const BUSINESS_TITLE = "AI Infra Strategy OS · Workload to Revenue";
   const CONSOLE_HASH = "#console";
-  const CONSOLE_REVISION = "infra-20260815-21";
+  const CONSOLE_REVISION = "infra-20260816-01";
+  const DECISION_CLIENT_PATH = "data/landing-decision-client.json";
   const site = document.querySelector("#businessSite");
   const consoleLayer = document.querySelector("#intelligenceConsole");
   const header = document.querySelector("#businessHeader");
@@ -282,6 +283,113 @@
     }
   }
 
+  function activateDecisionTab(tab, { focus = false } = {}) {
+    const tabs = [...document.querySelectorAll("[data-decision-tab]")];
+    const panels = [...document.querySelectorAll("[data-decision-panel]")];
+    const decisionId = tab?.dataset.decisionTab;
+    if (!decisionId) return;
+    for (const item of tabs) {
+      const active = item === tab;
+      item.setAttribute("aria-selected", String(active));
+      item.tabIndex = active ? 0 : -1;
+    }
+    for (const panel of panels) panel.hidden = panel.dataset.decisionPanel !== decisionId;
+    if (focus) tab.focus();
+  }
+
+  function setupDecisionLab() {
+    const tabs = [...document.querySelectorAll("[data-decision-tab]")];
+    for (const tab of tabs) {
+      tab.tabIndex = tab.getAttribute("aria-selected") === "true" ? 0 : -1;
+      tab.addEventListener("click", () => activateDecisionTab(tab));
+      tab.addEventListener("keydown", (event) => {
+        const current = tabs.indexOf(tab);
+        let next = current;
+        if (event.key === "ArrowRight") next = (current + 1) % tabs.length;
+        else if (event.key === "ArrowLeft") next = (current - 1 + tabs.length) % tabs.length;
+        else if (event.key === "Home") next = 0;
+        else if (event.key === "End") next = tabs.length - 1;
+        else return;
+        event.preventDefault();
+        activateDecisionTab(tabs[next], { focus: true });
+      });
+    }
+  }
+
+  function formatPrice(section) {
+    const row = section?.rows?.[0];
+    if (!row || !Number.isFinite(Number(row.average))) return "확인 필요";
+    const change = Number(row.changePct);
+    const changeText = Number.isFinite(change) ? ` · ${change > 0 ? "+" : ""}${change.toFixed(2)}%` : "";
+    return `${Number(row.average).toLocaleString("en-US")}${changeText}`;
+  }
+
+  function setDecisionMetric(name, value) {
+    for (const node of document.querySelectorAll(`[data-live-metric="${name}"]`)) node.textContent = value;
+  }
+
+  function updateDecisionBrief(panel, brief) {
+    if (!panel || !brief?.latest) return;
+    const latest = brief.latest;
+    const title = panel.querySelector("[data-live-title]");
+    const summary = panel.querySelector("[data-live-summary]");
+    const source = panel.querySelector("[data-live-source]");
+    if (title && latest.title) title.textContent = latest.title;
+    if (summary && latest.summary) summary.textContent = latest.summary;
+    if (source && latest.url) {
+      source.href = latest.url;
+      source.target = "_blank";
+      source.rel = "noopener noreferrer";
+      source.textContent = `${latest.source || "원문"} 근거 보기 ↗`;
+    }
+  }
+
+  async function loadDecisionEvidence() {
+    const dot = document.querySelector("#decisionDataDot");
+    const status = document.querySelector("#decisionDataStatus");
+    const updated = document.querySelector("#decisionDataUpdated");
+    if (!status) return;
+    try {
+      const response = await fetch(DECISION_CLIENT_PATH, { cache: "no-store" });
+      if (!response.ok) throw new Error(`HTTP ${response.status}`);
+      const data = await response.json();
+      if (data?.clientArtifact !== true) throw new Error("Unverified landing artifact");
+
+      for (const panel of document.querySelectorAll("[data-decision-brief]")) {
+        const brief = data.briefs?.find((item) => item.id === panel.dataset.decisionBrief);
+        updateDecisionBrief(panel, brief);
+      }
+
+      const companies = data.marketStructure?.companies || [];
+      const skhy = companies.find((item) => item.company === "SKHY");
+      const sections = data.prices?.sections || [];
+      const dramSpot = sections.find((item) => item.title === "DRAM Spot Price");
+      const ssdContract = sections.find((item) => item.title === "PC-Client OEM SSD Contract Price");
+      const evidenceCount = Number(data.evidence?.promotedCount || 0);
+      const quality = String(data.evidence?.qualityStatus || "review").toUpperCase();
+      setDecisionMetric("skhy-hbm-share", skhy?.hbmShare || "확인 필요");
+      setDecisionMetric("evidence-count", evidenceCount ? `${evidenceCount}건` : "확인 필요");
+      setDecisionMetric("quality-status", quality);
+      setDecisionMetric("dram-spot", formatPrice(dramSpot));
+      setDecisionMetric("ssd-contract", formatPrice(ssdContract));
+
+      const expiresAt = new Date(data.expiresAt).getTime();
+      const current = Number.isFinite(expiresAt) && Date.now() <= expiresAt;
+      dot?.classList.toggle("is-current", current);
+      dot?.classList.toggle("is-delayed", !current);
+      if (dot) dot.textContent = current ? "Console verified" : "Freshness review";
+      status.textContent = `Console 승격 근거 ${evidenceCount || "-"}건 · ${quality} · 전략 답안 자동 연결`;
+      if (updated) updated.textContent = `기준 ${formatKst(data.updatedAt)}`;
+    } catch (error) {
+      console.warn("Decision evidence unavailable", error);
+      dot?.classList.remove("is-current");
+      dot?.classList.add("is-delayed");
+      if (dot) dot.textContent = "Static answer";
+      status.textContent = "Console 연결 지연 · 검증된 정적 전략 답안을 유지합니다.";
+      if (updated) updated.textContent = "Console에서 최신 근거 재확인";
+    }
+  }
+
   function setupReveal() {
     const candidates = document.querySelectorAll([
       ".business-hero-visual",
@@ -354,9 +462,11 @@
     setupAudienceTabs();
     setupPainPointFramework();
     setupDeepCases();
+    setupDecisionLab();
     setupInfographicSequence();
     setupReveal();
     void updateDataStatus();
+    void loadDecisionEvidence();
   }
 
   window.addEventListener("memory-console-ready", finishConsoleStartup);

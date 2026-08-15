@@ -110,7 +110,7 @@
     (() => {
       if (!location.hash.startsWith("#console")) return;
       document.documentElement.classList.add("console-entry");
-      const revision = "infra-20260815-21";
+      const revision = "infra-20260816-01";
       const assets = [
         ["consoleStylesPreload", "style", `assets/css/styles.css?v=${revision}`, "high"],
         ["consoleAppPreload", "script", `assets/js/app.js?v=${revision}`, "low"],
@@ -127,7 +127,7 @@
       }
     })();
   </script>
-  <link rel="stylesheet" href="assets/css/landing.css?v=infra-20260815-21" />
+  <link rel="stylesheet" href="assets/css/landing.css?v=infra-20260816-01" />
 </head>
 <body class="landing-mode">
   <div class="business-site" id="businessSite">
@@ -142,6 +142,7 @@
       </a>
       <nav class="business-nav" id="businessNav" aria-label="주요 메뉴">
         <a href="#home">Home</a>
+        <a href="#decision-lab">Decision Lab</a>
         <a href="#ai-strategy">Strategy</a>
         <a href="#solutions">Solutions</a>
         <a href="#insights">Tech &amp; Market</a>
@@ -165,14 +166,15 @@
         <div class="business-hero-content business-container">
           <div class="business-hero-copy">
             <p class="business-kicker"><span></span>AI INFRA STRATEGY OPERATING SYSTEM</p>
-            <h1><em>AI Workload 병목</em><br />Memory Strategy로 전환</h1>
+            <h1>고객 Pain을<br /><em>AI Memory 실행안</em>으로 전환</h1>
+            <p class="business-hero-thesis">핵심 방향 · HBM 단품 확대가 아니라 고객 Workload별 HBM–DRAM/CXL–HBF/eSSD 조합, 공동 검증, Qualification·Capacity Gate를 하나의 사업개발 체계로 운영</p>
             <ul class="business-hero-bullets" aria-label="핵심 전략 범위">
               <li>TRACE · GPU Idle · KV Cache · Capacity · Data Movement</li>
               <li>ARCHITECTURE · HBM · SOCAMM2 · DRAM · CXL · HBF · eSSD</li>
               <li>VALUE · Business Case · Co-Design · Qualification · Ramp</li>
             </ul>
             <div class="business-hero-actions">
-              <a class="business-primary-button" href="#initiatives">3 Strategic Initiatives <span aria-hidden="true">→</span></a>
+              <a class="business-primary-button" href="#decision-lab">검증된 전략 답안 보기 <span aria-hidden="true">→</span></a>
               <a class="business-secondary-button" href="#deep-cases">Deep Business Cases</a>
               <button class="business-text-button" type="button" data-open-console>Intelligence Console 열기 <span aria-hidden="true">↗</span></button>
             </div>
@@ -223,6 +225,156 @@
             <strong>TECHNOLOGY · REQUIREMENT</strong>
             <span>Workload → Memory Wall → Tiered Memory → System TCO → Qualification</span>
           </div>
+        </div>
+      </section>
+
+      <section class="business-section business-decision-lab" id="decision-lab" data-frame="ANSWER FIRST · CONSOLE EVIDENCE · RESULTS DELIVERY">
+        <div class="business-container">
+          <div class="business-section-heading business-section-heading--split">
+            <div>
+              <p class="business-kicker">Executive Answer Lab · Console-connected</p>
+              <h2>질문이 아니라, 실행 가능한 답을 제시</h2>
+            </div>
+            <ul class="business-heading-points">
+              <li>DIAGNOSE · Customer JTBD → Workload Bottleneck</li>
+              <li>DECIDE · Memory Option → Business Case</li>
+              <li>DELIVER · Partner → Qualification → 90-Day Gate</li>
+            </ul>
+          </div>
+
+          <div class="business-decision-method" aria-label="컨설팅 답안 작성 원칙">
+            <span>01 · ANSWER FIRST</span><i>→</i><span>02 · FACT / HYPOTHESIS</span><i>→</i><span>03 · OPTION ECONOMICS</span><i>→</i><span>04 · OWNER / KPI</span><i>→</i><span>05 · KILL CRITERIA</span>
+          </div>
+
+          <div class="business-decision-tabs" role="tablist" aria-label="AI Infra 전략 안건 선택">
+            <button type="button" role="tab" id="decisionTabHbm" aria-controls="decisionCaseHbm" aria-selected="true" data-decision-tab="hbm">01 · Custom HBM</button>
+            <button type="button" role="tab" id="decisionTabInference" aria-controls="decisionCaseInference" aria-selected="false" data-decision-tab="demand">02 · Agentic Inference</button>
+            <button type="button" role="tab" id="decisionTabRag" aria-controls="decisionCaseRag" aria-selected="false" data-decision-tab="nand">03 · Enterprise RAG</button>
+            <button type="button" role="tab" id="decisionTabPartner" aria-controls="decisionCasePartner" aria-selected="false" data-decision-tab="partner">04 · Partner-led New Biz</button>
+          </div>
+
+          <article class="business-decision-case" id="decisionCaseHbm" role="tabpanel" aria-labelledby="decisionTabHbm" data-decision-panel="hbm" data-decision-brief="hbm">
+            <header class="business-decision-answer">
+              <div><span>EXECUTIVE ANSWER · H1 SCALE / H2 BUILD</span><h3>HBM 물량 확대와 Custom Co-Design을 분리 운영</h3><p>검증된 고객 Ramp에는 Standard HBM4 Capacity를 선배분하고, Custom HBM은 고객 Architecture Lock·Base-Die 공동설계·Packaging Readiness·확정 물량이 동시에 충족될 때만 단계적으로 투자합니다.</p></div>
+              <strong>RECOMMENDATION<br />TWO-TRACK</strong>
+            </header>
+            <div class="business-live-evidence">
+              <div><span>CONSOLE · LATEST EVIDENCE</span><strong data-live-title>최신 HBM 근거 연결 중</strong><p data-live-summary>검증된 Console 신호를 불러와 전략 가설과 분리해 표시합니다.</p><a data-live-source href="#console/c-level-cockpit/hbm4-foundry">Console 근거 보기 →</a></div>
+              <dl><div><dt>SKHY HBM SHARE</dt><dd data-live-metric="skhy-hbm-share">연결 중</dd></div><div><dt>EVIDENCE BASE</dt><dd data-live-metric="evidence-count">연결 중</dd></div><div><dt>DATA STATUS</dt><dd data-live-metric="quality-status">검증 중</dd></div></dl>
+            </div>
+            <ol class="business-case-logic" aria-label="Custom HBM 판단 논리">
+              <li><span>01 · CUSTOMER JTBD</span><strong>예측 가능한 Training Ramp</strong><p>Training time 단축, 안정적 Supply, Accelerator 세대 전환의 일정 위험 최소화.</p></li>
+              <li><span>02 · WORKLOAD DIAGNOSIS</span><strong>Bandwidth만 보지 않음</strong><p>HBM occupancy·All-reduce stall·Checkpoint time·Rack power·Failure recovery를 함께 측정.</p></li>
+              <li><span>03 · MEMORY IMPLICATION</span><strong>HBM4 + Host + Storage</strong><p>HBM4/4E, Server DRAM, Checkpoint eSSD, Base-Die·Package를 하나의 시스템으로 설계.</p></li>
+              <li><span>04 · BUSINESS LOGIC</span><strong>Capacity보다 Commitment</strong><p>NRE·장기 물량·Qualification 일정·Package allocation을 하나의 계약 Gate로 묶음.</p></li>
+            </ol>
+            <section class="business-option-portfolio" aria-label="Custom HBM 전략 선택지">
+              <div class="business-option-head"><span>WHERE TO PLAY / HOW TO WIN</span><strong>세 가지 투자 옵션</strong></div>
+              <article><span>A · DEFEND</span><h4>Standard HBM Scale</h4><p>검증 Ramp에 빠르게 대응. Custom 부담은 낮지만 고객 Lock-in과 차별화 폭이 제한됨.</p><small>GATE · 고객 인증 + 확정 물량</small></article>
+              <article class="is-recommended"><span>B · RECOMMENDED</span><h4>Semi-Custom Co-Design</h4><p>공통 Stack·Package를 유지하면서 Logic Base-Die와 Firmware/Compiler 요구를 고객별 최적화.</p><small>GATE · Architecture Lock + 공동 TCO</small></article>
+              <article><span>C · OPTION</span><h4>Full-Custom Platform</h4><p>최대 차별화와 NRE 기회. Design·Yield·Foundry 의존성과 고객 집중 위험이 가장 큼.</p><small>GATE · Binding Volume + Margin Floor</small></article>
+            </section>
+            <div class="business-delivery-grid">
+              <section><span>0–30 DAYS · DIAGNOSE</span><strong>Requirement Lock</strong><ul><li>고객 Workload Trace와 Buying Criteria 확정</li><li>HBM·Network·Checkpoint 병목 분리</li><li>Owner · Customer/AI Infra Strategy</li></ul></section>
+              <section><span>31–60 DAYS · PROVE</span><strong>Architecture / TCO</strong><ul><li>Standard vs Semi-Custom Benchmark</li><li>Base-Die·Package·Yield 시나리오</li><li>Owner · Architecture/Packaging</li></ul></section>
+              <section><span>61–90 DAYS · COMMIT</span><strong>Qualification / Capacity</strong><ul><li>Qualification Roadmap와 Capacity 범위</li><li>NRE·물량·가격·Ramp 계약 조건</li><li>Owner · Business/Operations</li></ul></section>
+              <aside><span>STOP / REFRAME</span><strong>판단 변경 조건</strong><p>Qualification이 1개 분기 이상 지연되거나, Package/Yield Gate가 2회 연속 미달하거나, 확정 물량이 제안 Capacity의 80% 미만이면 Custom 범위를 축소합니다.</p><small>MODELED THRESHOLD · 고객 Baseline 승인 필요</small></aside>
+            </div>
+            <footer class="business-decision-footer"><div><span>PARTNER MODEL</span><strong>Accelerator/ASIC · CSP · Foundry · Packaging · AI Software</strong></div><a href="#console/c-level-cockpit/hbm4-foundry">HBM4 의사결정 팩 열기 →</a></footer>
+          </article>
+
+          <article class="business-decision-case" id="decisionCaseInference" role="tabpanel" aria-labelledby="decisionTabInference" data-decision-panel="demand" data-decision-brief="demand" hidden>
+            <header class="business-decision-answer">
+              <div><span>EXECUTIVE ANSWER · H2 ADJACENCY</span><h3>Agentic Inference는 HBM 증설보다 Context Tier 최적화가 우선</h3><p>Long Context·Multi-turn·도구 호출이 만드는 KV 재계산과 Data Movement를 먼저 계측하고, HBM Hot Tier–DRAM/CXL Warm Tier–HBF/eSSD Reuse Tier의 경제성을 $/Million Tokens로 비교합니다.</p></div>
+              <strong>RECOMMENDATION<br />TIERED MEMORY PoC</strong>
+            </header>
+            <div class="business-live-evidence">
+              <div><span>CONSOLE · LATEST EVIDENCE</span><strong data-live-title>최신 고객 수요 근거 연결 중</strong><p data-live-summary>고객 수요·공급 신호를 Architecture 판단과 분리해 표시합니다.</p><a data-live-source href="#console/c-level-cockpit/post-hbm">Console 근거 보기 →</a></div>
+              <dl><div><dt>DRAM SPOT</dt><dd data-live-metric="dram-spot">연결 중</dd></div><div><dt>EVIDENCE BASE</dt><dd data-live-metric="evidence-count">연결 중</dd></div><div><dt>DATA STATUS</dt><dd data-live-metric="quality-status">검증 중</dd></div></dl>
+            </div>
+            <ol class="business-case-logic" aria-label="Agentic Inference 판단 논리">
+              <li><span>01 · CUSTOMER JTBD</span><strong>SLA와 Token Cost 동시 개선</strong><p>TTFT·TPOT/P99를 지키면서 동시 Session과 Context 길이를 확대.</p></li>
+              <li><span>02 · WORKLOAD DIAGNOSIS</span><strong>KV Reuse / Movement</strong><p>KV hit ratio·HBM occupancy·GPU idle·bytes/token·rack power를 동일 부하에서 측정.</p></li>
+              <li><span>03 · MEMORY IMPLICATION</span><strong>Hot / Warm / Reuse</strong><p>HBM, SOCAMM/Server DRAM, CXL, HBF/eSSD를 Data lifetime과 Latency SLA로 배치.</p></li>
+              <li><span>04 · BUSINESS LOGIC</span><strong>GPU Idle 회피 가치</strong><p>추가 Memory 비용과 Throughput·Power/Token·증설 회피 CAPEX를 같은 단위로 비교.</p></li>
+            </ol>
+            <section class="business-option-portfolio" aria-label="Agentic Inference 전략 선택지">
+              <div class="business-option-head"><span>ARCHITECTURE ECONOMICS</span><strong>세 가지 Memory Tier 옵션</strong></div>
+              <article><span>A · BASELINE</span><h4>HBM-Centric</h4><p>Latency는 낮지만 Capacity 비용과 KV eviction/recompute가 증가할 수 있음.</p><small>TEST · HBM occupancy / eviction</small></article>
+              <article class="is-recommended"><span>B · RECOMMENDED</span><h4>HBM + DRAM/CXL</h4><p>Active Context를 Warm Tier로 확장하고 SW placement로 SLA와 Capacity를 균형화.</p><small>TEST · P99 + GPU utilization</small></article>
+              <article><span>C · SCALE OPTION</span><h4>Full Context Fabric</h4><p>HBF/eSSD까지 Reuse Tier를 확장. 반복 활용이 충분할 때 경제성이 발생.</p><small>TEST · KV reuse / integration cost</small></article>
+            </section>
+            <div class="business-delivery-grid">
+              <section><span>0–30 DAYS</span><strong>Serving Baseline</strong><ul><li>대표 Prompt·Context·Concurrency 고정</li><li>TTFT·TPOT/P99·GPU idle 계측</li><li>Owner · AI Software/Data Center</li></ul></section>
+              <section><span>31–60 DAYS</span><strong>Tier Placement PoC</strong><ul><li>HBM-only vs DRAM/CXL 비교</li><li>KV offload·prefetch 정책 검증</li><li>Owner · Architecture/Framework</li></ul></section>
+              <section><span>61–90 DAYS</span><strong>Commercial Gate</strong><ul><li>System TCO와 고객 지불의사 검증</li><li>Reference Architecture·Qualification</li><li>Owner · New Biz/Customer</li></ul></section>
+              <aside><span>STOP / REFRAME</span><strong>판단 변경 조건</strong><p>KV Reuse가 35% 미만이거나 P99가 5% 이상 악화되거나 System TCO 개선이 10% 미만이면 Context Tier 범위를 축소합니다.</p><small>MODELED THRESHOLD · 고객 Baseline 승인 필요</small></aside>
+            </div>
+            <footer class="business-decision-footer"><div><span>PARTNER MODEL</span><strong>Model Company · Serving Framework · CSP · CXL/HBF/eSSD Ecosystem</strong></div><a href="#console/c-level-cockpit/post-hbm">Post-HBM 의사결정 팩 열기 →</a></footer>
+          </article>
+
+          <article class="business-decision-case" id="decisionCaseRag" role="tabpanel" aria-labelledby="decisionTabRag" data-decision-panel="nand" data-decision-brief="nand" hidden>
+            <header class="business-decision-answer">
+              <div><span>EXECUTIVE ANSWER · H1 SCALE / H2 BUILD</span><h3>eSSD를 보조재가 아닌 AI 추론의 독립 성장축으로 격상</h3><p>Enterprise RAG는 GPU보다 Vector Index·Document Fetch·Freshness·Security가 P99와 비용을 결정할 수 있습니다. DRAM/CXL Capacity와 고용량 eSSD를 하나의 Retrieval Architecture로 제안합니다.</p></div>
+              <strong>RECOMMENDATION<br />eSSD ATTACH</strong>
+            </header>
+            <div class="business-live-evidence">
+              <div><span>CONSOLE · LATEST EVIDENCE</span><strong data-live-title>최신 NAND·eSSD 근거 연결 중</strong><p data-live-summary>AI Storage 신호를 RAG 고객의 운영 KPI와 연결합니다.</p><a data-live-source href="#console/ai-matrix">Console 근거 보기 →</a></div>
+              <dl><div><dt>SSD CONTRACT</dt><dd data-live-metric="ssd-contract">연결 중</dd></div><div><dt>EVIDENCE BASE</dt><dd data-live-metric="evidence-count">연결 중</dd></div><div><dt>DATA STATUS</dt><dd data-live-metric="quality-status">검증 중</dd></div></dl>
+            </div>
+            <ol class="business-case-logic" aria-label="Enterprise RAG 판단 논리">
+              <li><span>01 · CUSTOMER JTBD</span><strong>Fresh Answer at Predictable Cost</strong><p>Index 규모와 Freshness를 확대하면서 Query P99·보안·Reliability SLA를 유지.</p></li>
+              <li><span>02 · WORKLOAD DIAGNOSIS</span><strong>Retrieval Path Trace</strong><p>Index resident ratio·cache hit·read amplification·QPS·GPU wait·power/query 계측.</p></li>
+              <li><span>03 · MEMORY IMPLICATION</span><strong>DRAM/CXL + eSSD</strong><p>Active Index와 Cache는 DRAM/CXL, Vector·Document Tier는 고용량 TLC/QLC eSSD로 분리.</p></li>
+              <li><span>04 · BUSINESS LOGIC</span><strong>Capacity + Performance Offer</strong><p>Drive 판매가 아니라 Controller/Firmware·Vector DB 튜닝·성능 보증을 묶은 솔루션으로 전환.</p></li>
+            </ol>
+            <section class="business-option-portfolio" aria-label="Enterprise RAG 전략 선택지">
+              <div class="business-option-head"><span>MEMORY / STORAGE PORTFOLIO</span><strong>세 가지 Retrieval 옵션</strong></div>
+              <article><span>A · PERFORMANCE</span><h4>DRAM-Resident Index</h4><p>P99는 유리하지만 대규모 Index의 Rack Cost와 전력 부담이 큼.</p><small>FIT · Small / latency-critical corpus</small></article>
+              <article class="is-recommended"><span>B · RECOMMENDED</span><h4>DRAM/CXL + TLC/QLC eSSD</h4><p>Hot Index와 Capacity Tier를 분리해 Query Cost와 확장성을 균형화.</p><small>FIT · Enterprise RAG at scale</small></article>
+              <article><span>C · COST FLOOR</span><h4>eSSD-Heavy Retrieval</h4><p>Capacity 비용은 낮지만 Read amplification과 Tail Latency 관리가 핵심.</p><small>FIT · High reuse / relaxed SLA</small></article>
+            </section>
+            <div class="business-delivery-grid">
+              <section><span>0–30 DAYS</span><strong>Data Path Map</strong><ul><li>Corpus·Index·Freshness·Security 분류</li><li>Cache hit·P99·Read amplification Baseline</li><li>Owner · Customer Data/Infra</li></ul></section>
+              <section><span>31–60 DAYS</span><strong>Vector Benchmark</strong><ul><li>DRAM/CXL/eSSD 비중별 QPS·P99</li><li>Firmware·Queue·Index 튜닝</li><li>Owner · Storage/Vector DB</li></ul></section>
+              <section><span>61–90 DAYS</span><strong>Reference Offer</strong><ul><li>성능 보증 범위와 TCO 산출</li><li>OEM/CSP Qualification 경로</li><li>Owner · Solution/New Biz</li></ul></section>
+              <aside><span>STOP / REFRAME</span><strong>판단 변경 조건</strong><p>Retrieval P99 개선이 15% 미만이거나 Cost/Query 개선이 10% 미만이거나 Reliability·Endurance Gate를 통과하지 못하면 제품·Index 구성을 재설계합니다.</p><small>MODELED THRESHOLD · 고객 Baseline 승인 필요</small></aside>
+            </div>
+            <footer class="business-decision-footer"><div><span>PARTNER MODEL</span><strong>Enterprise · Vector DB/RAG SW · Data Center · Server OEM · Storage Controller</strong></div><a href="#console/ai-matrix">NAND·eSSD 근거 보드 열기 →</a></footer>
+          </article>
+
+          <article class="business-decision-case" id="decisionCasePartner" role="tabpanel" aria-labelledby="decisionTabPartner" data-decision-panel="partner" data-decision-brief="hbm" hidden>
+            <header class="business-decision-answer">
+              <div><span>EXECUTIVE ANSWER · NEW BIZ</span><h3>제품 제안이 아니라 반복 가능한 AI Infra 공동사업 패키지로 전환</h3><p>AI 개발사·데이터센터·Server/OEM·Foundry/Packaging·IT 컨설팅 파트너의 역할을 Workload 진단부터 Qualification까지 고정하고, Lighthouse 고객의 검증 결과를 재사용 가능한 Reference Offer로 만듭니다.</p></div>
+              <strong>RECOMMENDATION<br />LIGHTHOUSE → REPEAT</strong>
+            </header>
+            <div class="business-live-evidence">
+              <div><span>CONSOLE · MARKET / PARTNER SIGNAL</span><strong data-live-title>최신 파트너·HBM 근거 연결 중</strong><p data-live-summary>발표와 계약, Qualification과 매출 인식을 분리해 추적합니다.</p><a data-live-source href="#console/c-level-cockpit/hbm4-foundry">Console 근거 보기 →</a></div>
+              <dl><div><dt>SKHY HBM SHARE</dt><dd data-live-metric="skhy-hbm-share">연결 중</dd></div><div><dt>EVIDENCE BASE</dt><dd data-live-metric="evidence-count">연결 중</dd></div><div><dt>DATA STATUS</dt><dd data-live-metric="quality-status">검증 중</dd></div></dl>
+            </div>
+            <ol class="business-case-logic" aria-label="파트너 기반 신사업 판단 논리">
+              <li><span>01 · OFFER</span><strong>AI Infra Memory Blueprint</strong><p>Pain Point Map·Workload Trace·Architecture·TCO·Qualification Plan을 표준 산출물로 묶음.</p></li>
+              <li><span>02 · LIGHTHOUSE</span><strong>검증 가능한 첫 고객</strong><p>실제 Trace 제공, 공동 Benchmark, 구매 기준 합의가 가능한 고객만 1차 대상.</p></li>
+              <li><span>03 · ECOSYSTEM</span><strong>역할 기반 공동 실행</strong><p>AI SW는 Placement, DC는 운영 KPI, OEM은 인증, Foundry/Packaging은 양산 준비를 책임.</p></li>
+              <li><span>04 · REPEATABILITY</span><strong>Case → Playbook → Pipeline</strong><p>고객별 Custom 요소와 재사용 가능한 표준 요소를 분리해 반복 매출 구조로 전환.</p></li>
+            </ol>
+            <section class="business-partner-raci" aria-label="파트너별 역할과 산출물">
+              <div class="business-option-head"><span>PARTNERS &amp; CLIENTS · RACI</span><strong>공동 실행 모델</strong></div>
+              <article><span>AI DEVELOPER</span><strong>Workload Owner</strong><p>Model·Prompt·Serving Trace와 성능 목표 제공.</p><small>OUTPUT · Test workload</small></article>
+              <article><span>DATA CENTER / CSP</span><strong>Operations Owner</strong><p>Rack·Power·Cooling·Network·Reliability Baseline 제공.</p><small>OUTPUT · Operational KPI</small></article>
+              <article><span>OEM / PLATFORM</span><strong>Qualification Owner</strong><p>Interoperability·BOM·Certification·Volume Ramp 관리.</p><small>OUTPUT · Certified platform</small></article>
+              <article><span>CONSULTING / SI</span><strong>Value Realization</strong><p>Process redesign·Adoption·Business Case·Change management 지원.</p><small>OUTPUT · Adoption roadmap</small></article>
+            </section>
+            <div class="business-delivery-grid">
+              <section><span>0–30 DAYS</span><strong>Opportunity Screen</strong><ul><li>Customer Value·Market·Right to Win</li><li>Trace 접근권과 Decision Owner 확인</li><li>Output · Opportunity Thesis</li></ul></section>
+              <section><span>31–60 DAYS</span><strong>Joint Proof</strong><ul><li>공동 Benchmark·TCO·Architecture</li><li>파트너 RACI와 IP/데이터 경계</li><li>Output · Business Case</li></ul></section>
+              <section><span>61–90 DAYS</span><strong>Commercialize</strong><ul><li>Qualification·Capacity·Contract Gate</li><li>Reference Case와 다음 고객 Playbook</li><li>Output · 90-Day Board</li></ul></section>
+              <aside><span>STOP / REFRAME</span><strong>신사업 중단 조건</strong><p>고객 지불의사·Reference 재사용성·Qualification 경로 중 2개 이상이 확인되지 않거나 Partner Owner가 지정되지 않으면 Scale 투자를 중단하고 Option 단계로 되돌립니다.</p><small>DECISION RULE · Evidence before scale</small></aside>
+            </div>
+            <footer class="business-decision-footer"><div><span>ANONYMIZED USE CASE</span><strong>Agentic AI 운영사 · Context 병목 → Tiered Memory PoC → 공동 Qualification</strong></div><a href="#console/c-level-cockpit/post-hbm">파트너 실행 근거 열기 →</a></footer>
+          </article>
+
+          <div class="business-decision-data-note"><span class="business-live-dot" id="decisionDataDot">Console sync</span><p id="decisionDataStatus">정적 전략 답안을 먼저 표시하고, 검증된 Console 경량 데이터만 비동기로 연결합니다.</p><time id="decisionDataUpdated">업데이트 확인 중</time></div>
         </div>
       </section>
 
@@ -1635,6 +1787,6 @@
   <div class="qa-answer" id="qaAnswer" hidden></div>
   <div class="inspector" id="inspector" hidden></div>
   <div class="backdrop" id="backdrop"></div>
-  <script src="assets/js/landing.js?v=infra-20260815-21" defer></script>
+  <script src="assets/js/landing.js?v=infra-20260816-01" defer></script>
 </body>
 </html>

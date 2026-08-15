@@ -50,6 +50,7 @@ const PRICE_HISTORY_CLIENT_OUT = resolve(__dirname, "..", "data", "price-history
 const MARKET_HISTORY_CLIENT_OUT = resolve(__dirname, "..", "data", "market-history-client.json");
 const QUANT_BACKTEST_CLIENT_OUT = resolve(__dirname, "..", "data", "quant-backtest-client.json");
 const DECISION_HISTORY_CLIENT_OUT = resolve(__dirname, "..", "data", "decision-history-client.json");
+const LANDING_DECISION_CLIENT_OUT = resolve(__dirname, "..", "data", "landing-decision-client.json");
 const DATA_MANIFEST_OUT = resolve(__dirname, "..", "data", "data-manifest.json");
 const CRAWL_EXCLUSIONS_OUT = resolve(__dirname, "..", "data", "crawl-exclusions.json");
 const CRAWL_AUDIT_OUT = resolve(__dirname, "..", "data", "crawl-audit.json");
@@ -4601,6 +4602,63 @@ function compactLiveForClient(payload = {}) {
   };
 }
 
+export function buildLandingDecisionClient({ payload = {}, quant = {} } = {}) {
+  const allowedBriefIds = new Set(["hbm", "dram", "nand", "demand"]);
+  const briefs = (payload.intelligence?.briefs || [])
+    .filter((brief) => allowedBriefIds.has(brief?.id) && brief?.latest?.url)
+    .map((brief) => ({
+      id: brief.id,
+      label: brief.label,
+      latest: {
+        title: brief.latest.title || "",
+        summary: brief.latest.summary || "",
+        source: brief.latest.source || "",
+        url: brief.latest.url || "",
+        observedAt: brief.latest.observedAt || brief.latest.crawledAt || payload.updatedAt || null,
+        dataStatus: brief.latest.dataStatus || "live-observed",
+      },
+    }));
+  const companies = (quant.marketStructure?.companies || [])
+    .filter((company) => ["SKHY", "삼성전자", "마이크론"].includes(company?.company))
+    .map((company) => ({
+      company: company.company,
+      hbmShare: company.hbmShare || null,
+      dramShare: company.dramShare2026 || null,
+      asOf: company.asOf || null,
+      source: company.source || null,
+      sourceUrl: company.sourceUrl || null,
+      dataStatus: company.dataStatus || null,
+    }));
+  const priceSections = (payload.prices?.sections || [])
+    .filter((section) => ["DRAM Spot Price", "DRAM Contract Price", "PC-Client OEM SSD Contract Price"].includes(section?.title))
+    .map((section) => ({
+      title: section.title,
+      group: section.group,
+      lastUpdate: section.lastUpdate || null,
+      sourceUrl: section.sourceUrl || payload.prices?.source?.url || null,
+      rows: (section.rows || []).slice(0, 2).map((row) => ({
+        item: row.item,
+        average: Number.isFinite(Number(row.average)) ? Number(row.average) : null,
+        changePct: Number.isFinite(Number(row.changePct)) ? Number(row.changePct) : null,
+        direction: row.direction || null,
+      })),
+    }));
+  return {
+    schemaVersion: "1.0",
+    runId: payload.runId || quant.runId || null,
+    updatedAt: payload.updatedAt || quant.updatedAt || null,
+    expiresAt: payload.expiresAt || quant.expiresAt || null,
+    clientArtifact: true,
+    evidence: {
+      promotedCount: Number(payload.evidence?.promotedCount || payload.news?.length || 0),
+      qualityStatus: payload.quality?.status || "unavailable",
+    },
+    briefs,
+    marketStructure: { companies },
+    prices: { sections: priceSections },
+  };
+}
+
 /**
  * Builds browser-specific artifacts from the fully provenanced data bundle.
  * Database files retain every source and audit field; these copies contain
@@ -4615,6 +4673,7 @@ export function buildClientDataBundle({ payload = {}, quant = {}, priceHistory =
   const market = compactMarketHistoryForClient(marketHistory);
   const backtest = compactQuantBacktestForClient(quantBacktest);
   const decisionHistory = compactDecisionHistoryForClient({ priceHistory, marketHistory, quantBacktest });
+  const landingDecision = buildLandingDecisionClient({ payload, quant });
   const artifacts = {
     live: { path: "data/live-client.json", bytes: Buffer.byteLength(JSON.stringify(live), "utf8") },
     quant: { path: "data/quant-client.json", bytes: Buffer.byteLength(JSON.stringify(clientQuant), "utf8") },
@@ -4622,6 +4681,7 @@ export function buildClientDataBundle({ payload = {}, quant = {}, priceHistory =
     marketHistory: { path: "data/market-history-client.json", bytes: Buffer.byteLength(JSON.stringify(market), "utf8") },
     quantBacktest: { path: "data/quant-backtest-client.json", bytes: Buffer.byteLength(JSON.stringify(backtest), "utf8") },
     decisionHistory: { path: "data/decision-history-client.json", bytes: Buffer.byteLength(JSON.stringify(decisionHistory), "utf8") },
+    landingDecision: { path: "data/landing-decision-client.json", bytes: Buffer.byteLength(JSON.stringify(landingDecision), "utf8") },
   };
   return {
     manifest: {
@@ -4638,6 +4698,7 @@ export function buildClientDataBundle({ payload = {}, quant = {}, priceHistory =
     marketHistory: market,
     quantBacktest: backtest,
     decisionHistory,
+    landingDecision,
   };
 }
 
@@ -10058,6 +10119,7 @@ async function main() {
     [MARKET_HISTORY_CLIENT_OUT, clientBundle.marketHistory],
     [QUANT_BACKTEST_CLIENT_OUT, clientBundle.quantBacktest],
     [DECISION_HISTORY_CLIENT_OUT, clientBundle.decisionHistory],
+    [LANDING_DECISION_CLIENT_OUT, clientBundle.landingDecision],
     [CRAWL_QUARANTINE_OUT, publishedQuarantine],
     [CRAWL_AUDIT_OUT, crawlAudit],
     [TRANSLATION_CACHE_OUT, koTranslator?.snapshot() || previous.translationCache],

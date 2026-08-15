@@ -49,6 +49,7 @@ await writeAtomically([
   [dataPath("market-history-client.json"), bundle.marketHistory],
   [dataPath("quant-backtest-client.json"), bundle.quantBacktest],
   [dataPath("decision-history-client.json"), bundle.decisionHistory],
+  [dataPath("landing-decision-client.json"), bundle.landingDecision],
   [dataPath("data-manifest.json"), bundle.manifest],
 ]);
 
