@@ -3,14 +3,14 @@
 
   const BUSINESS_TITLE = "AI Infra Strategy OS · Workload to Revenue";
   const CONSOLE_HASH = "#console";
-  const CONSOLE_REVISION = "infra-20260816-06";
+  const CONSOLE_REVISION = "infra-20260816-07";
   const DECISION_CLIENT_PATH = "data/landing-decision-client.json";
   const site = document.querySelector("#businessSite");
-  const consoleLayer = document.querySelector("#intelligenceConsole");
+  let consoleLayer = document.querySelector("#intelligenceConsole");
   const header = document.querySelector("#businessHeader");
   const nav = document.querySelector("#businessNav");
   const menuButton = document.querySelector("#businessMenuButton");
-  const consoleExit = document.querySelector("#consoleExit");
+  let consoleExit = document.querySelector("#consoleExit");
   const navLinks = [...document.querySelectorAll("#businessNav a[href^='#']")];
   const businessSections = navLinks
     .map((link) => document.querySelector(link.getAttribute("href")))
@@ -54,6 +54,21 @@
     if (heroVideo && !heroVideo.poster) heroVideo.poster = heroVideo.dataset.poster;
   }
 
+  function ensureConsoleMarkup() {
+    if (consoleLayer) return consoleLayer;
+    const template = document.querySelector("#consoleTemplate");
+    if (!(template instanceof HTMLTemplateElement)) return null;
+    const fragment = template.content.cloneNode(true);
+    consoleLayer = fragment.querySelector("#intelligenceConsole");
+    if (!consoleLayer) return null;
+    const anchor = document.querySelector("#qaAnswer");
+    document.body.insertBefore(fragment, anchor || null);
+    consoleExit = document.querySelector("#consoleExit");
+    consoleExit?.addEventListener("click", () => openBusiness("home"));
+    template.remove();
+    return consoleLayer;
+  }
+
   function ensurePreload(id, as, href, priority = "auto") {
     if (document.getElementById(id)) return;
     const link = document.createElement("link");
@@ -66,8 +81,8 @@
   }
 
   function primeConsoleAssets() {
-    ensurePreload("consoleStylesPreload", "style", `assets/css/styles.css?v=${CONSOLE_REVISION}`, "high");
-    ensurePreload("consoleAppPreload", "script", `assets/js/app.js?v=${CONSOLE_REVISION}`, "low");
+    ensurePreload("consoleStylesPreload", "style", `assets/css/styles.min.css?v=${CONSOLE_REVISION}`, "high");
+    ensurePreload("consoleAppPreload", "script", `assets/js/app.min.js?v=${CONSOLE_REVISION}`, "low");
     ensurePreload("consolePosterPreload", "image", "assets/media/memory-hero-poster.webp", "high");
   }
 
@@ -85,13 +100,13 @@
       const link = document.createElement("link");
       link.id = "consoleStyles";
       link.rel = "stylesheet";
-      link.href = `assets/css/styles.css?v=${CONSOLE_REVISION}`;
+      link.href = `assets/css/styles.min.css?v=${CONSOLE_REVISION}`;
       link.addEventListener("load", () => {
         link.dataset.ready = "1";
         resolve();
       }, { once: true });
       link.addEventListener("error", reject, { once: true });
-      const landingStyles = document.querySelector('link[href^="assets/css/landing.css"]');
+      const landingStyles = document.querySelector('link[href^="assets/css/landing.min.css"]');
       document.head.insertBefore(link, landingStyles || null);
     });
   }
@@ -109,7 +124,7 @@
       }
       const script = document.createElement("script");
       script.id = "consoleApp";
-      script.src = `assets/js/app.js?v=${CONSOLE_REVISION}`;
+      script.src = `assets/js/app.min.js?v=${CONSOLE_REVISION}`;
       script.addEventListener("load", () => {
         script.dataset.ready = "1";
         resolve();
@@ -130,13 +145,15 @@
   }
 
   async function openConsole({ updateHistory = true } = {}) {
-    if (!site || !consoleLayer) return;
+    if (!site) return;
+    const activeConsoleLayer = ensureConsoleMarkup();
+    if (!activeConsoleLayer) return;
     view = "console";
     setMenu(false);
     primeConsoleAssets();
     document.documentElement.classList.add("console-entry");
     site.hidden = true;
-    consoleLayer.hidden = true;
+    activeConsoleLayer.hidden = true;
     document.body.classList.remove("business-menu-open");
     document.body.classList.add("console-loading");
     prepareConsoleMedia();
@@ -146,7 +163,7 @@
     for (const trigger of document.querySelectorAll("[data-open-console]")) trigger.setAttribute("aria-busy", "true");
     try {
       await loadStylesheet();
-      consoleLayer.hidden = false;
+      activeConsoleLayer.hidden = false;
       document.body.classList.remove("landing-mode", "business-menu-open", "console-loading");
       document.body.classList.add("console-mode", "console-startup");
       await loadConsole();
@@ -166,14 +183,14 @@
   }
 
   function openBusiness(targetId = "home", { updateHistory = true } = {}) {
-    if (!site || !consoleLayer) return;
+    if (!site) return;
     view = "business";
     setupBusinessExperience();
     document.title = BUSINESS_TITLE;
     document.body.classList.add("landing-mode");
     document.body.classList.remove("console-mode", "console-loading", "console-startup", "business-menu-open", "menu-open", "crawl-moderation-open");
     document.documentElement.classList.remove("console-entry");
-    consoleLayer.hidden = true;
+    if (consoleLayer) consoleLayer.hidden = true;
     site.hidden = false;
     setMenu(false);
     document.querySelector("#qaAnswer")?.setAttribute("hidden", "");

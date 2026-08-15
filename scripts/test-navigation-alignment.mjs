@@ -113,7 +113,7 @@ assert.deepEqual(businessNavLabels, [
 assert.match(html, /id="intelligenceConsole" hidden/, "the Intelligence Console must stay outside the initial visible layer");
 assert.doesNotMatch(html, /<script[^>]+src="assets\/js\/app\.js/, "the heavy console app must not load with the public landing page");
 assert.doesNotMatch(html, /<link[^>]+href="assets\/css\/styles\.css/, "the heavy console stylesheet must not load with the public landing page");
-assert.match(html, /assets\/js\/landing\.js\?v=infra-20260816-06/, "the lightweight landing controller must use the AI Infra revision");
+assert.match(html, /assets\/js\/landing\.min\.js\?v=infra-20260816-07/, "the lightweight landing controller must use the minified AI Infra revision");
 assert.match(html, /class="business-footer"[\s\S]*?href="https:\/\/www\.linkedin\.com\/in\/dicacross\/"[\s\S]*?© 2026 dicacross · Independent strategy portfolio based on public information/, "the public portfolio credit must link to the dicacross LinkedIn profile");
 assert.doesNotMatch(html, /메모리를 판매하는 것이 아니라/, "the removed sales-negation headline must stay deleted");
 assert.doesNotMatch(html, /직무 적합성을 세 가지|검증 가능한 역량으로 압축합니다/, "the removed role-fit headline must stay deleted");
@@ -137,11 +137,11 @@ assert.match(html, /exec-backtest-memory-wave-960\.webp/, "the decision board mu
 assert.match(css, /Executive consulting geometry system[\s\S]*?\.consulting-system \.sc-card \{[\s\S]*?border-top: 1px solid var\(--line\);[\s\S]*?box-shadow: none;/, "strategy cards must remove colored top rails and glow shadows");
 assert.match(css, /\.consulting-system \.sc-card-flow \{[\s\S]*?grid-template-columns: 1\.18fr 1fr 1fr 1\.14fr 1\.24fr;/, "opportunity cards must use a five-step decision map");
 assert.match(css, /#execDecisionRunCouncil[\s\S]*?background: transparent;[\s\S]*?box-shadow: none;/, "the executive framework must not use glowing AI-style action controls");
-assert.match(landing, /function loadAppScript\(\)[\s\S]*?assets\/js\/app\.js\?v=\$\{CONSOLE_REVISION\}/, "the console app must load only after an explicit console request");
-assert.match(landing, /assets\/css\/styles\.css\?v=\$\{CONSOLE_REVISION\}/, "console-only styling must load on demand");
+assert.match(landing, /function loadAppScript\(\)[\s\S]*?assets\/js\/app\.min\.js\?v=\$\{CONSOLE_REVISION\}/, "the minified console app must load only after an explicit console request");
+assert.match(landing, /assets\/css\/styles\.min\.css\?v=\$\{CONSOLE_REVISION\}/, "minified console-only styling must load on demand");
 assert.match(html, /location\.hash\.startsWith\("#console"\)[\s\S]*?consolePosterPreload[\s\S]*?memory-hero-poster\.webp/, "direct console and deep-link entry must discover the LCP poster during head parsing");
 assert.match(landing, /function primeConsoleAssets\(\)[\s\S]*?consoleAppPreload[\s\S]*?consolePosterPreload/, "console assets must be primed in parallel before activation");
-assert.match(landing, /await loadStylesheet\(\);[\s\S]*?consoleLayer\.hidden = false;[\s\S]*?await loadConsole\(\);/, "the console must stay hidden until its stylesheet is ready");
+assert.match(landing, /await loadStylesheet\(\);[\s\S]*?activeConsoleLayer\.hidden = false;[\s\S]*?await loadConsole\(\);/, "the console must stay hidden until its stylesheet is ready");
 assert.match(html, /id="consoleStaticSnapshot"[\s\S]*?SIGNAL[\s\S]*?DIAGNOSE[\s\S]*?KILL Criteria|id="consoleStaticSnapshot"[\s\S]*?Kill Criteria/, "direct console entry must expose an indexable decision snapshot instead of an empty loader");
 assert.match(html, /#console\/c-level-cockpit\/hbm4-foundry[\s\S]*?#console\/c-level-cockpit\/post-hbm/, "the static console snapshot must expose stable decision deep links");
 assert.match(landing, /function isConsoleHash\([\s\S]*?startsWith\(`\$\{CONSOLE_HASH\}\//, "the landing controller must keep console deep links inside the console view");

@@ -3024,8 +3024,8 @@
       video.addEventListener("play", syncVideoControl);
       video.addEventListener("pause", syncVideoControl);
       syncVideoControl();
-      if (document.readyState === "complete") scheduleHeroVideo();
-      else window.addEventListener("load", scheduleHeroVideo, { once: true });
+      if (document.body.dataset.consoleReady === "1") scheduleHeroVideo();
+      else window.addEventListener("memory-console-ready", scheduleHeroVideo, { once: true });
     }
 
     document.querySelectorAll("[data-hero-jump]").forEach((button) => {

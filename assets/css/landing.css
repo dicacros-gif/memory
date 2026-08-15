@@ -3,6 +3,25 @@
   display: none !important;
 }
 
+/* Skip layout and paint for long consulting sections until they near view. */
+@supports (content-visibility: auto) {
+  .business-site > main > .business-section {
+    content-visibility: auto;
+    contain-intrinsic-size: auto 1200px;
+  }
+
+  #decision-lab,
+  #insights,
+  #partners {
+    contain-intrinsic-size: auto 2400px;
+  }
+
+  #ai-strategy,
+  #solutions {
+    contain-intrinsic-size: auto 1800px;
+  }
+}
+
 /* ---------- Executive Answer Lab: deep, evidence-connected consulting output ---------- */
 .business-hero-thesis {
   max-width: 760px;

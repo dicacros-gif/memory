@@ -151,7 +151,7 @@ assert.match(app, /loadManagedJSON\("live", "data\/live-client\.json"[\s\S]*?loa
 assert.match(app, /priceHistory: \{[\s\S]*?path: "data\/price-history-client\.json"[\s\S]*?marketHistory: \{[\s\S]*?path: "data\/market-history-client\.json"/, "secondary fallbacks must never download database-sized history files");
 assert.match(css, /\.agent-debate-title \.agent-tts-toggle \{[\s\S]*?min-width: 190px;[\s\S]*?min-height: 44px;/, "the English TTS control should be large and readable");
 assert.match(css, /\.agent-tts-state \{[\s\S]*?min-width: 31px;/, "the TTS control should expose a dedicated on-or-off state badge");
-assert.match(html, /landing\.js\?v=infra-20260816-06/, "the public landing controller should include the AI Infra revision");
+assert.match(html, /landing\.min\.js\?v=infra-20260816-07/, "the public landing controller should include the minified AI Infra revision");
 assert.match(css, /\.consulting-system \.news-card:is\(:hover, :focus-within\) \.news-insights > span \{[\s\S]*?background: rgba\(255, 255, 255, \.9\);[\s\S]*?color: var\(--consulting-slate\) !important;[\s\S]*?-webkit-text-fill-color: var\(--consulting-slate\);/, "light consulting news cards must keep high-contrast insight copy on hover");
 assert.match(css, /\.consulting-system \.news-card:is\(:hover, :focus-within\) :is\(\.strategy-highlight, \.answer-term\) \{[\s\S]*?--term-color: #334155;[\s\S]*?text-shadow: none;/, "light consulting news cards must restore dark semantic terms on hover");
 assert.doesNotMatch(html, /<script[^>]+src="assets\/js\/app\.js/, "the dashboard JavaScript must load only when the Intelligence Console is opened");
@@ -159,7 +159,7 @@ assert.doesNotMatch(html, /<link[^>]+href="assets\/css\/styles\.css/, "the dashb
 assert.match(html, /class="strategic-decision-side"[\s\S]*?id="chinaDecisionVideoPanel"[\s\S]*?id="strategicDecisionFocus"/, "the China decision video should lead the right-hand decision column");
 assert.match(app, /decisionId: "china-key-account-lock"[\s\S]*?decisionId: "china-legacy-capex"[\s\S]*?syncChinaDecisionVideoToDecision\(selected\?\.id\)/, "video messages and left-hand decision cards should stay synchronized");
 assert.match(css, /\.strategic-decision-side \{[\s\S]*?position: sticky;[\s\S]*?display: grid;/, "the right-hand decision column should keep the video above the supporting detail");
-assert.match(html, /id="memoryHeroVideo"[\s\S]*?preload="none"[\s\S]*?data-poster="assets\/media\/memory-hero-poster\.webp"[\s\S]*?<source data-src="assets\/media\/memory-hero\.mp4"/, "console hero media should remain dormant until the console opens");
+assert.match(html, /id="memoryHeroVideo"[\s\S]*?preload="none"[\s\S]*?data-poster="assets\/media\/memory-hero-poster\.webp"[\s\S]*?<source data-src="assets\/media\/memory-hero-lite\.mp4"/, "optimized console hero media should remain dormant until the console opens");
 assert.match(html, /id="talentStrategyVideoMedia"[\s\S]*?preload="none"[\s\S]*?data-poster="assets\/media\/china-talent-strategy-poster\.webp"[\s\S]*?<source data-src="assets\/media\/china-talent-strategy\.mp4"/, "below-fold talent media should not load during first paint");
 assert.doesNotMatch(html, /family=Noto\+Sans\+KR/, "Pretendard should replace the duplicate Korean webfont download");
 assert.doesNotMatch(html, /fonts\.googleapis\.com|fonts\.gstatic\.com|cdn\.jsdelivr\.net|pretendard\.min\.css/, "initial rendering should use local system fonts without external font requests");

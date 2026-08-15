@@ -110,10 +110,10 @@
     (() => {
       if (!location.hash.startsWith("#console")) return;
       document.documentElement.classList.add("console-entry");
-      const revision = "infra-20260816-06";
+      const revision = "infra-20260816-07";
       const assets = [
-        ["consoleStylesPreload", "style", `assets/css/styles.css?v=${revision}`, "high"],
-        ["consoleAppPreload", "script", `assets/js/app.js?v=${revision}`, "low"],
+        ["consoleStylesPreload", "style", `assets/css/styles.min.css?v=${revision}`, "high"],
+        ["consoleAppPreload", "script", `assets/js/app.min.js?v=${revision}`, "low"],
         ["consolePosterPreload", "image", "assets/media/memory-hero-poster.webp", "high"],
       ];
       for (const [id, as, href, priority] of assets) {
@@ -127,7 +127,7 @@
       }
     })();
   </script>
-  <link rel="stylesheet" href="assets/css/landing.css?v=infra-20260816-06" />
+  <link rel="stylesheet" href="assets/css/landing.min.css?v=infra-20260816-07" />
 </head>
 <body class="landing-mode">
   <div class="business-site" id="businessSite">
@@ -834,6 +834,7 @@
     </nav>
     <small>정적 요약을 먼저 표시한 뒤 검증 데이터 기반 Console로 전환합니다.</small>
   </aside>
+  <template id="consoleTemplate">
   <div class="app console-layer" id="intelligenceConsole" hidden>
     <aside class="sidebar" id="sidebar">
       <button class="sb-fold" id="sidebarFold" type="button" aria-label="사이드바 접기" title="사이드바 접기 · 색상 변경">‹</button>
@@ -892,7 +893,7 @@
       <main class="main" id="main">
         <section class="memory-video-hero" id="overview" aria-labelledby="memoryHeroTitle">
           <video class="memory-hero-video" id="memoryHeroVideo" autoplay muted loop playsinline preload="none" disablepictureinpicture data-poster="assets/media/memory-hero-poster.webp" aria-hidden="true">
-            <source data-src="assets/media/memory-hero.mp4" type="video/mp4" />
+            <source data-src="assets/media/memory-hero-lite.mp4" type="video/mp4" />
           </video>
           <div class="memory-hero-shade" aria-hidden="true"></div>
           <div class="memory-hero-content">
@@ -1846,10 +1847,11 @@
       </main>
     </div>
   </div>
+  </template>
 
   <div class="qa-answer" id="qaAnswer" hidden></div>
   <div class="inspector" id="inspector" hidden></div>
   <div class="backdrop" id="backdrop"></div>
-  <script src="assets/js/landing.js?v=infra-20260816-06" defer></script>
+  <script src="assets/js/landing.min.js?v=infra-20260816-07" defer></script>
 </body>
 </html>

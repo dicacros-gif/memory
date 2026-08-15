@@ -30,7 +30,7 @@ assert.match(css, /@media \(prefers-reduced-motion: reduce\)[\s\S]*?\.business-i
 assert.match(landing, /function setupConsultingCardMotion\(\)/);
 assert.match(landing, /requestAnimationFrame[\s\S]*?--tilt-x[\s\S]*?--tilt-y/);
 assert.match(landing, /setupReveal\(\);\s*setupConsultingCardMotion\(\);/);
-assert.match(landing, /infra-20260816-06/);
+assert.match(landing, /infra-20260816-07/);
 
 console.log(JSON.stringify({
   decisionThemes: 3,
