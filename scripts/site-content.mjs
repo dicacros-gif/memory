@@ -6,6 +6,51 @@ import { buildSourceCatalogSnapshot, catalogSourceForUrl, loadSourceCatalog } fr
 const root = resolve(dirname(fileURLToPath(import.meta.url)), "..");
 const model = Object.freeze(JSON.parse(readFileSync(resolve(root, "data", "site-content-model.json"), "utf8")));
 const sourceCatalog = loadSourceCatalog();
+const siteMarkup = readFileSync(resolve(root, "index.html"), "utf8");
+
+const LANDING_SECTION_IDS = new Set([
+  "home", "departmentDecisionQueue", "decision-lab", "decision-automation", "initiatives",
+  "competencies", "ai-strategy", "pain-framework", "solutions", "ai-factory-system",
+  "acceleratorScorecard", "aiFactoryKpiTree", "workload-optimization", "ragOperatingModel",
+  "workload-map", "memory-fabric", "insights", "execution-evidence", "businessFreshnessBoard",
+  "partners", "deep-cases", "macro", "team-operating-model",
+]);
+const MARKET_SECTION_PATTERN = /price|market|equity|number|projection|demand|benchmark|investment|capital/i;
+const SIGNAL_SECTION_PATTERN = /news|community|china|talent|policy|deep-dive|categories|response/i;
+
+function buildSiteAutomation({ runId = null, generatedAt = null, sourceCoverage = {} } = {}) {
+  const sectionIds = [...siteMarkup.matchAll(/<section\b[^>]*\bid=["']([^"']+)["']/gi)]
+    .map((match) => match[1])
+    .filter((id, index, list) => id && list.indexOf(id) === index);
+  const landing = sectionIds.filter((id) => LANDING_SECTION_IDS.has(id));
+  const quant = sectionIds.filter((id) => !LANDING_SECTION_IDS.has(id) && MARKET_SECTION_PATTERN.test(id));
+  const live = sectionIds.filter((id) => !LANDING_SECTION_IDS.has(id) && !MARKET_SECTION_PATTERN.test(id) && SIGNAL_SECTION_PATTERN.test(id));
+  const siteContent = sectionIds.filter((id) => !quant.includes(id) && !live.includes(id));
+  return {
+    schemaVersion: "1.0",
+    status: sectionIds.length ? "all-sections-bound" : "unavailable",
+    runId,
+    generatedAt,
+    totalSections: sectionIds.length,
+    boundSections: sectionIds.length,
+    refresh: {
+      eventFirst: true,
+      safetyPollHours: Number(sourceCoverage.scheduleHours || sourceCatalog.refreshPolicy.scheduleHours),
+      browserRecheckMinutes: Number(sourceCoverage.browserRecheckMinutes || sourceCatalog.refreshPolicy.browserRecheckMinutes),
+      incrementalReindex: true,
+      atomicManifest: true,
+      failClosed: true,
+    },
+    lanes: {
+      framework: "versioned-approved-model",
+      evidence: "catalog-crawl-and-incremental-reindex",
+      decision: "verified-site-content-generation",
+      delivery: "atomic-manifest-and-browser-recheck",
+    },
+    sectionIds,
+    bindingGroups: { landing, siteContent, live, quant },
+  };
+}
 
 const directUrl = (value = "") => /^https?:\/\//i.test(String(value || "")) && !/news\.google\.com/i.test(String(value || ""));
 const compact = (value = "", limit = 180) => {
@@ -730,6 +775,12 @@ export function validateSiteContent(content = {}) {
   if (content.schemaVersion !== "1.1") errors.push("schemaVersion");
   if (!content.runId) errors.push("runId");
   if (!content.generatedAt || Number.isNaN(Date.parse(content.generatedAt))) errors.push("generatedAt");
+  if (content.siteAutomation?.status !== "all-sections-bound") errors.push("siteAutomation.status");
+  if (!Array.isArray(content.siteAutomation?.sectionIds) || content.siteAutomation.sectionIds.length < 60) errors.push("siteAutomation.sectionIds");
+  if (Number(content.siteAutomation?.totalSections || 0) !== Number(content.siteAutomation?.boundSections || -1)) errors.push("siteAutomation.coverage");
+  const boundIds = Object.values(content.siteAutomation?.bindingGroups || {}).flat();
+  if (new Set(boundIds).size !== content.siteAutomation?.sectionIds?.length || !content.siteAutomation.sectionIds.every((id) => boundIds.includes(id))) errors.push("siteAutomation.sectionContract");
+  if (content.siteAutomation?.refresh?.atomicManifest !== true || content.siteAutomation?.refresh?.failClosed !== true) errors.push("siteAutomation.refresh");
   if (!Array.isArray(content.decisionCases) || content.decisionCases.length < 4) errors.push("decisionCases");
   if (!Array.isArray(content.insights) || content.insights.length < 4) errors.push("insights");
   if (!Array.isArray(content.agentCouncil?.agendas) || content.agentCouncil.agendas.length < 4) errors.push("agentCouncil.agendas");
@@ -838,6 +889,11 @@ export function buildSiteContentClient({ payload = {}, quant = {} } = {}) {
       failClosed: true,
       sourceRunId: payload.runId || quant.runId || null,
     },
+    siteAutomation: buildSiteAutomation({
+      runId: payload.runId || quant.runId || null,
+      generatedAt,
+      sourceCoverage,
+    }),
     freshness: {
       status: payload.quality?.status || "unavailable",
       evidenceCount: Number(payload.evidence?.promotedCount || payload.news?.length || 0),

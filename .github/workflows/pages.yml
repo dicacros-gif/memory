@@ -26,11 +26,11 @@ on:
       - "data/refresh-events.json"
   schedule:
     # Refresh catalog-driven official, customer, standards, research, price,
-    # and market sources every three hours. Browser bundles still fail closed.
-    - cron: "17 */3 * * *"
+    # and market sources hourly. Browser bundles still fail closed.
+    - cron: "17 * * * *"
   repository_dispatch:
     # Webhook/RSS relays use repository_dispatch as the low-latency path.
-    # The three-hour schedule below remains the reconciliation safety poll.
+    # The hourly schedule below remains the reconciliation safety poll.
     types: [earnings-release, press-release, filing-update, industry-report, source-update]
   workflow_dispatch:
     inputs:

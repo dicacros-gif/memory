@@ -3,7 +3,7 @@
 
   const BUSINESS_TITLE = "AI Infra Strategy Workbench · Customer Pain to Executive Action";
   const CONSOLE_HASH = "#console";
-  const CONSOLE_REVISION = "infra-20260816-30";
+  const CONSOLE_REVISION = "infra-20260816-31";
   const DECISION_CLIENT_PATH = "data/landing-decision-client.json";
   const SITE_CONTENT_PATH = "data/site-content-client.json";
   const site = document.querySelector("#businessSite");
@@ -520,7 +520,7 @@
     const status = document.querySelector("#aiFactoryAutomationStatus");
     if (title) title.textContent = system.title || title.textContent;
     if (thesis) thesis.textContent = system.thesis || thesis.textContent;
-    if (status) status.textContent = `${system.automation?.status || "COVERAGE CHECK"} · ${system.automation?.activePillars || 0}/${system.automation?.totalPillars || 0} PILLARS · ${system.automation?.activeWorkloads || 0}/${system.automation?.totalWorkloads || 0} CONNECTED · ${system.automation?.promotedWorkloads || 0} PROMOTED · EVENT + ${system.automation?.scheduleHours || 3}H`;
+    if (status) status.textContent = `${system.automation?.status || "COVERAGE CHECK"} · ${system.automation?.activePillars || 0}/${system.automation?.totalPillars || 0} PILLARS · ${system.automation?.activeWorkloads || 0}/${system.automation?.totalWorkloads || 0} CONNECTED · ${system.automation?.promotedWorkloads || 0} PROMOTED · EVENT + ${system.automation?.scheduleHours || 1}H`;
 
     const northStar = document.querySelector("#aiFactoryNorthStar");
     if (northStar && system.northStar) {
@@ -877,7 +877,7 @@
       ? `관측 ${content.freshness?.observedSources || 0} · 구성 ${configuredSources} · 검색 문서 ${retrievalStats.documents || 0} · 증분 ${retrievalStats.reindexed || 0}`
       : "다음 검증 실행 반영";
     const cadence = document.querySelector("#businessDataCadence");
-    if (cadence) cadence.textContent = `HYBRID REFRESH · EVENT + ${content.freshness?.scheduleHours || 3}H SAFETY POLL`;
+    if (cadence) cadence.textContent = `HYBRID REFRESH · EVENT + ${content.freshness?.scheduleHours || 1}H SAFETY POLL`;
     const staticSnapshot = document.querySelector(".console-static-snapshot header p");
     if (staticSnapshot) staticSnapshot.textContent = content.agentCouncil?.subtitle || staticSnapshot.textContent;
 
@@ -890,6 +890,7 @@
     renderCompetitorContent(content);
     renderPartnerContent(content);
     renderCaseClassification(content);
+    applyUniversalSectionBindings(content);
     applyDecisionControl(content);
     applyPresentationPolicy(content.presentation);
     setupConsultingCardMotion();
@@ -897,6 +898,29 @@
 
     const footer = document.querySelector(".business-footer a");
     if (footer) footer.textContent = `© ${content.footer?.year || new Date().getFullYear()} dicacross · ${content.footer?.disclosure || "Independent strategy portfolio based on public information."}`;
+  }
+
+  function applyUniversalSectionBindings(content = {}) {
+    const automation = content.siteAutomation || {};
+    const runId = String(content.runId || automation.runId || "");
+    const groups = automation.bindingGroups || {};
+    for (const id of automation.sectionIds || []) {
+      const section = document.getElementById(String(id || ""));
+      if (!section) continue;
+      const primaryArtifact = (groups.quant || []).includes(id)
+        ? "quant"
+        : (groups.live || []).includes(id)
+          ? "live"
+          : "siteContent";
+      section.dataset.contentRun = runId;
+      section.dataset.contentMode = primaryArtifact === "siteContent" ? "framework-plus-live" : "verified-live";
+      section.dataset.contentArtifact = primaryArtifact;
+      section.dataset.contentStatus = "bound";
+      section.dataset.contentUpdatedAt = String(content.generatedAt || "");
+    }
+    document.body.dataset.automationCoverage = `${Number(automation.boundSections || 0)}/${Number(automation.totalSections || 0)}`;
+    document.body.dataset.automationRun = runId;
+    document.body.dataset.automationStatus = String(automation.status || "unavailable");
   }
 
   async function getDataManifest({ force = false } = {}) {
@@ -925,6 +949,13 @@
       if (content?.clientArtifact !== true || !content.runId || content.runId !== manifest.runId) {
         throw new Error("Site content runId mismatch");
       }
+      const previousRunId = String(window.MEMORY_SITE_CONTENT?.runId || "");
+      if (previousRunId && previousRunId !== String(content.runId) && isConsoleHash()) {
+        document.body.dataset.snapshotUpdate = "reloading";
+        document.body.dataset.nextAutomationRun = String(content.runId);
+        window.location.reload();
+        return content;
+      }
       window.MEMORY_SITE_CONTENT = content;
       applySiteContent(content);
       window.dispatchEvent(new CustomEvent("memory-site-content-ready", { detail: { runId: content.runId } }));
@@ -940,13 +971,24 @@
 
   function scheduleSiteContentRefresh() {
     window.clearTimeout(siteContentRefreshTimer);
+    const minutes = Math.max(1, Number(window.MEMORY_SITE_CONTENT?.siteAutomation?.refresh?.browserRecheckMinutes
+      || window.MEMORY_SITE_CONTENT?.freshness?.browserRecheckMinutes
+      || 5));
     siteContentRefreshTimer = window.setTimeout(async () => {
       if (!document.hidden) {
         await loadSiteContent({ force: true });
         void updateDataStatus({ force: true });
       }
       scheduleSiteContentRefresh();
-    }, 15 * 60 * 1000);
+    }, minutes * 60 * 1000);
+  }
+
+  function recheckSiteContentNow() {
+    if (document.hidden) return;
+    void loadSiteContent({ force: true }).then(() => {
+      void updateDataStatus({ force: true });
+      scheduleSiteContentRefresh();
+    });
   }
 
   async function updateDataStatus({ force = false } = {}) {
@@ -1448,6 +1490,8 @@
     businessReady = true;
     void loadSiteContent().then(scheduleConsoleAssetWarmup);
     scheduleSiteContentRefresh();
+    document.addEventListener("visibilitychange", recheckSiteContentNow);
+    window.addEventListener("online", recheckSiteContentNow);
     setupAudienceTabs();
     setupPainPointFramework();
     setupDeepCases();
@@ -1459,7 +1503,10 @@
     void loadDecisionEvidence();
   }
 
-  window.addEventListener("memory-console-ready", finishConsoleStartup);
+  window.addEventListener("memory-console-ready", () => {
+    finishConsoleStartup();
+    applyUniversalSectionBindings(window.MEMORY_SITE_CONTENT || {});
+  });
 
   function updateBusinessScrollState() {
     if (view !== "business") return;

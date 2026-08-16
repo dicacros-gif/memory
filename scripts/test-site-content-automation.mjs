@@ -19,12 +19,24 @@ const rebuilt = buildSiteContentClient({ payload, quant });
 assert.deepEqual(validateSiteContent(rebuilt), { ok: true, errors: [] });
 assert.ok(rebuilt.freshness.configuredSources >= 42);
 assert.ok(rebuilt.freshness.officialConfigured >= 33);
-assert.equal(rebuilt.freshness.scheduleHours, 3);
+assert.equal(rebuilt.freshness.scheduleHours, 1);
+assert.equal(rebuilt.freshness.browserRecheckMinutes, 5);
 assert.equal(artifact.runId, payload.runId, "site content must use the verified live runId");
 assert.equal(manifest.runId, artifact.runId, "manifest and site content must be atomic");
 assert.equal(manifest.artifacts.siteContent.path, "data/site-content-client.json");
 assert.equal(artifact.generation.failClosed, true);
 assert.equal(artifact.schemaVersion, "1.1");
+const sectionIds = [...index.matchAll(/<section\b[^>]*\bid=["']([^"']+)["']/gi)].map((match) => match[1]);
+const uniqueSectionIds = [...new Set(sectionIds)];
+assert.equal(artifact.siteAutomation.status, "all-sections-bound");
+assert.equal(artifact.siteAutomation.totalSections, uniqueSectionIds.length);
+assert.equal(artifact.siteAutomation.boundSections, uniqueSectionIds.length);
+assert.equal(artifact.siteAutomation.refresh.safetyPollHours, 1);
+assert.equal(artifact.siteAutomation.refresh.browserRecheckMinutes, 5);
+assert.equal(artifact.siteAutomation.refresh.atomicManifest, true);
+assert.equal(artifact.siteAutomation.refresh.failClosed, true);
+assert.deepEqual(artifact.siteAutomation.sectionIds.slice().sort(), uniqueSectionIds.sort());
+assert.equal(new Set(Object.values(artifact.siteAutomation.bindingGroups).flat()).size, uniqueSectionIds.length);
 assert.equal(artifact.organizationOperatingModel.workstreams.length, 3);
 assert.equal(artifact.organizationOperatingModel.decisionLoop.length, 5);
 assert.equal(Object.hasOwn(artifact.organizationOperatingModel, "capabilityProofs"), false);
@@ -126,7 +138,7 @@ assert.equal(changed.hero.departmentWorkbench.runId, changedPayload.runId);
 assert.equal(changed.presentation.refreshPolicy.runId, changedPayload.runId);
 assert.equal(changed.presentation.refreshPolicy.generatedAt, changedPayload.updatedAt);
 
-assert.match(workflow, /cron: "17 \*\/3 \* \* \*"/);
+assert.match(workflow, /cron: "17 \* \* \* \*"/);
 assert.match(workflow, /repository_dispatch:[\s\S]*earnings-release[\s\S]*industry-report[\s\S]*source-update/);
 assert.match(workflow, /data\/site-content-client\.json/);
 assert.match(workflow, /npm run prerender:decision/);
@@ -139,7 +151,11 @@ assert.match(landing, /SITE_CONTENT_PATH = "data\/site-content-client\.json"/);
 assert.doesNotMatch(landing, /teamCapabilityProofs|teamCadence/);
 assert.doesNotMatch(index, /CAPABILITY SYSTEM|MANAGEMENT CADENCE|업무를 지탱하는 검증 가능한 역량|회의가 아니라 산출물이 남는 운영 주기/);
 assert.match(landing, /content\.runId !== manifest\.runId/);
-assert.match(landing, /15 \* 60 \* 1000/);
+assert.match(landing, /browserRecheckMinutes/);
+assert.match(landing, /function applyUniversalSectionBindings\(content = \{\}\)/);
+assert.match(landing, /section\.dataset\.contentRun/);
+assert.match(landing, /document\.addEventListener\("visibilitychange", recheckSiteContentNow\)/);
+assert.match(landing, /window\.addEventListener\("online", recheckSiteContentNow\)/);
 assert.match(landing, /function renderWorkloadOptimization\(content = \{\}\)/);
 assert.match(landing, /function renderDepartmentHomepage\(content = \{\}\)/);
 assert.match(landing, /hero\.departmentWorkbench/);
@@ -170,8 +186,10 @@ assert.match(index, /Stale Retrieval/);
 assert.match(index, /Coverage Drift/);
 assert.match(index, /Samsung SMRC/);
 assert.match(app, /window\.MEMORY_SITE_CONTENT\?\.agentCouncil\?\.agendas/);
+assert.match(landing, /previousRunId && previousRunId !== String\(content\.runId\) && isConsoleHash\(\)/);
+assert.match(landing, /window\.location\.reload\(\)/);
 assert.match(app, /replace\(\/솔리드다임\/g, "솔리다임"\)/, "the interactive console must normalize stale Solidigm labels at render time");
-assert.match(index, /infra-20260816-30/);
+assert.match(index, /infra-20260816-31/);
 assert.match(index, /Customer Pain to Executive Action/);
 assert.match(index, /LIVE DECISION QUEUE · CONSOLE-CONNECTED/);
 assert.match(index, /id="departmentDecisionQueue"/);
@@ -194,5 +212,5 @@ console.log(JSON.stringify({
   insights: artifact.insights.length,
   agendas: artifact.agentCouncil.agendas.length,
   competitors: artifact.competitors.length,
-  refresh: "3-hour publish + 15-minute in-page revalidation",
+  refresh: "event-first + hourly safety poll + 5-minute in-page revalidation",
 }, null, 2));
