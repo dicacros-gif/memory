@@ -352,6 +352,10 @@ export function validateSiteContent(content = {}) {
   if (!Array.isArray(content.aiFactorySystem?.sources) || content.aiFactorySystem.sources.length < 8) errors.push("aiFactorySystem.sources");
   if (!Array.isArray(content.aiFactorySystem?.pillarCoverage) || content.aiFactorySystem.pillarCoverage.length < 6) errors.push("aiFactorySystem.pillarCoverage");
   if (!content.aiFactorySystem?.automation?.status) errors.push("aiFactorySystem.automation");
+  if (!Array.isArray(content.presentation?.emphasisTerms) || content.presentation.emphasisTerms.length < 4) errors.push("presentation.emphasisTerms");
+  if (content.presentation?.emphasisPolicy?.style !== "underline-only") errors.push("presentation.emphasisPolicy");
+  if (Number(content.presentation?.emphasisPolicy?.maxTotal || 0) > 12) errors.push("presentation.emphasisPolicy.maxTotal");
+  if (!Array.isArray(content.presentation?.readabilityPolicy?.hoverModes) || content.presentation.readabilityPolicy.hoverModes.length !== 2) errors.push("presentation.readabilityPolicy.hoverModes");
   if (!Array.isArray(content.caseClassification) || content.caseClassification.length !== 3) errors.push("caseClassification");
   if (!content.decisionControl?.integrity?.status || !content.decisionControl?.freshness?.status || !content.decisionControl?.coverage?.status || !content.decisionControl?.confidence?.status) errors.push("decisionControl");
   if (Number(content.freshness?.configuredSources || 0) < 20) errors.push("freshness.configuredSources");
@@ -415,6 +419,17 @@ export function buildSiteContentClient({ payload = {}, quant = {} } = {}) {
       scheduleHours: Number(sourceCoverage.scheduleHours || sourceCatalog.refreshPolicy.scheduleHours),
       browserRecheckMinutes: Number(sourceCoverage.browserRecheckMinutes || sourceCatalog.refreshPolicy.browserRecheckMinutes),
       sourceCatalogVersion: sourceCoverage.version || sourceCatalog.schemaVersion,
+    },
+    presentation: {
+      ...(model.presentation || {}),
+      refreshPolicy: {
+        ...(model.presentation?.refreshPolicy || {}),
+        scheduleHours: Number(sourceCoverage.scheduleHours || sourceCatalog.refreshPolicy.scheduleHours),
+        browserRecheckMinutes: Number(sourceCoverage.browserRecheckMinutes || sourceCatalog.refreshPolicy.browserRecheckMinutes),
+        sourceCatalogVersion: sourceCoverage.version || sourceCatalog.schemaVersion,
+        runId: payload.runId || quant.runId || null,
+        generatedAt,
+      },
     },
     decisionControl: buildDecisionControl(payload, sourceCoverage, generatedAt, expiresAt),
     hero: {

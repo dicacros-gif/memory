@@ -435,10 +435,17 @@ button {
 }
 
 .sb-label strong {
+  display: -webkit-box;
+  overflow: hidden;
   color: inherit;
   font-size: 13px;
   font-weight: 850;
-  line-height: 1.15;
+  line-height: 1.25;
+  overflow-wrap: anywhere;
+  white-space: normal;
+  text-overflow: clip;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
 }
 
 .sb-label small {
@@ -23897,7 +23904,7 @@ body.crawl-moderation-open {
 .mbp-front-list li { position: relative; padding-left: 10px; font-size: 11px; line-height: 1.55; color: var(--ink-2); font-weight: 650; }
 .mbp-front-list li::before { content: ""; position: absolute; top: .63em; left: 0; width: 4px; height: 4px; border-radius: 50%; background: #2D6BFF; }
 .mbp-foot { margin-top: 12px; font-size: 10px; color: var(--muted, var(--ink-2)); font-weight: 650; }
-@keyframes mbpFlowArrow { 0%, 100% { opacity: .42; transform: translateX(0); } 50% { opacity: 1; transform: translateX(4px); } }
+@keyframes mbpFlowArrow { 0%, 100% { opacity: .88; transform: translateX(0); } 50% { opacity: 1; transform: translateX(4px); } }
 @media (max-width: 1240px) { .mbp-bands { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 14px; } .mbp-band::after { display: none; } .mbp-timeline { grid-template-columns: repeat(3, minmax(0, 1fr)); } .mbp-timeline-consulting::before { display: none; } }
 @media (max-width: 720px) { .memory-bypass { padding: 14px; } .mbp-thesis { grid-template-columns: 1fr; gap: 6px; } .mbp-thesis-arrow { height: 18px; transform: rotate(90deg); } .mbp-map-head { align-items: flex-start; flex-direction: column; } .mbp-map-head > p { text-align: left; } .mbp-bands, .mbp-timeline { grid-template-columns: minmax(0, 1fr); } .mbp-band-summary { min-height: 0; } .mbp-tl-stage { min-height: auto; } }
 @media (prefers-reduced-motion: reduce) { .mbp-thesis-node, .mbp-thesis-arrow, .mbp-band, .mbp-band::after, .mbp-band-n, .mbp-route, .mbp-tl-stage, .mbp-tl-stage::after, .mbp-tl-marker, .mbp-tl-items li, .mbp-tl-hover { transition: none; animation: none; } .mbp-thesis-node:hover, .mbp-band:hover, .mbp-band:focus-visible, .mbp-route:hover, .mbp-route:focus-visible, .mbp-tl-stage:hover, .mbp-tl-stage:focus-visible { transform: none; } .mbp-tl-stage:hover .mbp-tl-marker, .mbp-tl-stage:focus-visible .mbp-tl-marker { transform: none; } }
@@ -24008,7 +24015,8 @@ button.ni-trend-chip:hover { box-shadow: 0 4px 12px color-mix(in srgb, #0891B2 2
 .ni-research-focus { position: relative; display: flex; flex-direction: column; justify-content: center; border-color: color-mix(in srgb, var(--accent, #4322A8) 46%, var(--line)); background: linear-gradient(135deg, color-mix(in srgb, var(--accent, #4322A8) 14%, var(--panel)), var(--panel)); }
 .ni-research-focus > strong { margin: 4px 0 6px; font-size: 11px; color: var(--accent, #4322A8); }
 .ni-research-focus h4 { display: -webkit-box; overflow: hidden; margin: 0; color: var(--ink); font-size: 12px; line-height: 1.42; -webkit-line-clamp: 3; -webkit-box-orient: vertical; }
-.ni-research-focus > div { display: flex; justify-content: space-between; gap: 8px; margin-top: 8px; font-size: 9.5px; font-weight: 850; color: var(--ink-2); }
+.ni-research-focus > div { display: flex; justify-content: space-between; gap: 8px; margin-top: 8px; font-size: 10px; font-weight: 850; color: var(--ink-2); }
+.ni-research-focus small { font-size: 10px; line-height: 1.35; }
 .ni-research-focus a { width: fit-content; margin-top: 8px; font-size: 10px; font-weight: 950; color: var(--accent, #4322A8); text-decoration: none; }
 .ni-research-focus a:hover { text-decoration: underline; }
 .ni-research-strategy { display: grid !important; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 6px !important; margin-top: 10px !important; }
@@ -24023,7 +24031,7 @@ button.ni-trend-chip:hover { box-shadow: 0 4px 12px color-mix(in srgb, #0891B2 2
 .ni-research-evidence > span { display: flex; align-items: center; gap: 5px; min-width: 0; color: var(--ink-2); font-size: 8.5px; font-weight: 850; white-space: nowrap; }
 .ni-research-evidence > span b { display: grid; place-items: center; width: 17px; height: 17px; border-radius: 5px; color: var(--panel); background: var(--node-color, var(--accent, #4322A8)); font-family: var(--display); font-size: 8px; }
 .ni-research-evidence > strong { display: -webkit-box; overflow: hidden; color: var(--ink); font-size: 10px; line-height: 1.38; -webkit-line-clamp: 3; -webkit-box-orient: vertical; }
-.ni-research-evidence > small { overflow: hidden; color: var(--muted, var(--ink-2)); font-size: 8.5px; font-weight: 750; text-overflow: ellipsis; white-space: nowrap; }
+.ni-research-evidence > small { color: var(--muted, var(--ink-2)); font-size: 9px; font-weight: 750; line-height: 1.4; overflow-wrap: anywhere; white-space: normal; }
 
 /* Evidence tape cards keep a light surface on hover. Override the global
    inverted-card pastels with dark semantic inks so every highlighted term
@@ -29131,6 +29139,8 @@ button.ni-trend-chip:hover { box-shadow: 0 4px 12px color-mix(in srgb, #0891B2 2
   font-size: 10px;
   font-weight: 850;
   line-height: 1.4;
+  overflow-wrap: anywhere;
+  word-break: keep-all;
 }
 
 .visual-insight-route b {

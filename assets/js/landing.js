@@ -3,10 +3,9 @@
 
   const BUSINESS_TITLE = "AI Infra Strategy OS · Bottleneck to Scale";
   const CONSOLE_HASH = "#console";
-  const CONSOLE_REVISION = "infra-20260816-17";
+  const CONSOLE_REVISION = "infra-20260816-18";
   const DECISION_CLIENT_PATH = "data/landing-decision-client.json";
   const SITE_CONTENT_PATH = "data/site-content-client.json";
-  const BUSINESS_KEY_TERM_PATTERN = /(Dominant Bottleneck|Root Bottleneck|Bottleneck First|System Bottleneck|AI Factory|Useful AI Work|Serving SW|PagedAttention|Prefill|Decode|Goodput|Business Outcome|Memory Option|Business Value|Right to Win|Kill Criteria|Execution Gates?|Decision Gate|Agentic AI|Pain Point|Qualification|Benchmark|Workload|Capacity|HBM4?|CXL|HBF|eSSD|TCO|Ramp|전력·열|단위경제성|고객 인증|판단 변경 조건|실행 전략|지배 병목|시스템 병목|메모리 대안|사업 가치)/gi;
   const site = document.querySelector("#businessSite");
   let consoleLayer = document.querySelector("#intelligenceConsole");
   const header = document.querySelector("#businessHeader");
@@ -22,6 +21,7 @@
   let siteContentPromise = null;
   let siteContentRefreshTimer = 0;
   let consultingMotionObserver = null;
+  let presentationPolicy = null;
   let businessReady = false;
   let consoleStartupTimer = 0;
   let view = "business";
@@ -587,8 +587,9 @@
     renderPartnerContent(content);
     renderCaseClassification(content);
     applyDecisionControl(content);
+    applyPresentationPolicy(content.presentation);
     setupConsultingCardMotion();
-    highlightBusinessKeyTerms();
+    highlightBusinessKeyTerms(site, content.presentation);
 
     const footer = document.querySelector(".business-footer a");
     if (footer) footer.textContent = `© ${content.footer?.year || new Date().getFullYear()} dicacross · ${content.footer?.disclosure || "Independent strategy portfolio based on public information."}`;
@@ -947,6 +948,10 @@
     ].join(","))];
     cards.forEach((card, index) => {
       card.classList.add("business-consulting-motion");
+      card.dataset.hoverMode = inferHoverContrastMode(card);
+      const hasInteractiveContent = card.matches("a, button, input, select, textarea, [tabindex]")
+        || Boolean(card.querySelector("a, button, input, select, textarea, [tabindex]"));
+      if (!hasInteractiveContent) card.tabIndex = 0;
       if (!card.style.getPropertyValue("--sequence-index")) {
         card.style.setProperty("--sequence-index", String(index % 4));
       }
@@ -995,9 +1000,67 @@
     }
   }
 
-  function highlightBusinessKeyTerms(root = site) {
+  function parseRgb(value = "") {
+    const channels = value.match(/[\d.]+/g)?.map(Number) || [];
+    if (channels.length < 3 || (channels.length > 3 && channels[3] < .35)) return null;
+    return channels.slice(0, 3);
+  }
+
+  function surfaceLuminance(node) {
+    let current = node;
+    while (current && current !== document.documentElement) {
+      const rgb = parseRgb(getComputedStyle(current).backgroundColor);
+      if (rgb) {
+        const channels = rgb.map((value) => {
+          const normalized = value / 255;
+          return normalized <= .03928 ? normalized / 12.92 : ((normalized + .055) / 1.055) ** 2.4;
+        });
+        return .2126 * channels[0] + .7152 * channels[1] + .0722 * channels[2];
+      }
+      current = current.parentElement;
+    }
+    return 1;
+  }
+
+  function inferHoverContrastMode(card) {
+    return surfaceLuminance(card) < .32 ? "dark-to-light" : "light-to-dark";
+  }
+
+  function applyPresentationPolicy(policy = {}) {
+    presentationPolicy = policy || null;
+    if (!site || !policy) return;
+    const readability = policy.readabilityPolicy || {};
+    const maxCharacters = Math.min(82, Math.max(58, Number(readability.bodyMaxCharacters || 72)));
+    const minimumLineHeight = Math.min(1.9, Math.max(1.55, Number(readability.minimumBodyLineHeight || 1.65)));
+    site.style.setProperty("--business-copy-max", `${maxCharacters}ch`);
+    site.style.setProperty("--business-body-leading", String(minimumLineHeight));
+    site.dataset.contentSource = policy.refreshPolicy?.contentSource || "verified-site-content-client";
+    site.dataset.contentRun = String(policy.refreshPolicy?.runId || document.documentElement.dataset.contentRun || "");
+    site.dataset.emphasisStyle = policy.emphasisPolicy?.style || "underline-only";
+  }
+
+  function clearBusinessKeyTerms(root = site) {
+    for (const mark of root?.querySelectorAll("mark.business-key-term") || []) {
+      mark.replaceWith(document.createTextNode(mark.textContent || ""));
+    }
+    root?.normalize();
+  }
+
+  function escapeRegExp(value = "") {
+    return String(value).replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
+  }
+
+  function highlightBusinessKeyTerms(root = site, policy = presentationPolicy) {
     const surface = root?.querySelector("main") || root;
-    if (!surface || !("TreeWalker" in window)) return;
+    const emphasis = policy?.emphasisPolicy || {};
+    const terms = [...new Set((policy?.emphasisTerms || []).map((term) => String(term || "").trim()).filter(Boolean))];
+    if (!surface || !("TreeWalker" in window) || !terms.length) return;
+    clearBusinessKeyTerms(surface);
+    const pattern = new RegExp(`(${terms.sort((a, b) => b.length - a.length).map(escapeRegExp).join("|")})`, "giu");
+    const targets = (emphasis.targets || ["h1", "h2", "h3", "h4", "strong"]).filter((target) => /^[a-z][a-z\d-]*$/i.test(target));
+    const targetSelector = targets.join(",");
+    const maxPerSection = Math.max(1, Number(emphasis.maxPerSection || 1));
+    const maxTotal = Math.min(12, Math.max(1, Number(emphasis.maxTotal || 10)));
     const candidates = [];
     const walker = document.createTreeWalker(surface, NodeFilter.SHOW_TEXT, {
       acceptNode(node) {
@@ -1005,19 +1068,26 @@
         const value = node.nodeValue || "";
         if (!parent || !value.trim()) return NodeFilter.FILTER_REJECT;
         if (parent.closest("mark, script, style, textarea, select, option, code, pre, [aria-hidden='true']")) return NodeFilter.FILTER_REJECT;
-        if (!parent.closest("h1, h2, h3, h4, p, li, dd, strong")) return NodeFilter.FILTER_REJECT;
-        BUSINESS_KEY_TERM_PATTERN.lastIndex = 0;
-        return BUSINESS_KEY_TERM_PATTERN.test(value) ? NodeFilter.FILTER_ACCEPT : NodeFilter.FILTER_REJECT;
+        if (!targetSelector || !parent.closest(targetSelector)) return NodeFilter.FILTER_REJECT;
+        pattern.lastIndex = 0;
+        return pattern.test(value) ? NodeFilter.FILTER_ACCEPT : NodeFilter.FILTER_REJECT;
       },
     });
     while (walker.nextNode()) candidates.push(walker.currentNode);
 
+    const sectionCounts = new Map();
+    let total = 0;
     for (const node of candidates) {
+      if (total >= maxTotal) break;
+      const section = node.parentElement?.closest("section, article, [data-decision-panel]") || surface;
+      if ((sectionCounts.get(section) || 0) >= maxPerSection) continue;
       const value = node.nodeValue || "";
       const fragment = document.createDocumentFragment();
       let cursor = 0;
-      BUSINESS_KEY_TERM_PATTERN.lastIndex = 0;
-      for (const match of value.matchAll(BUSINESS_KEY_TERM_PATTERN)) {
+      let inserted = 0;
+      pattern.lastIndex = 0;
+      for (const match of value.matchAll(pattern)) {
+        if (inserted >= maxPerSection || total >= maxTotal) break;
         const index = match.index ?? 0;
         if (index > cursor) fragment.append(value.slice(cursor, index));
         const mark = document.createElement("mark");
@@ -1025,9 +1095,13 @@
         mark.textContent = match[0];
         fragment.append(mark);
         cursor = index + match[0].length;
+        inserted += 1;
+        total += 1;
       }
+      if (!inserted) continue;
       if (cursor < value.length) fragment.append(value.slice(cursor));
       node.replaceWith(fragment);
+      sectionCounts.set(section, (sectionCounts.get(section) || 0) + inserted);
     }
   }
 
@@ -1043,7 +1117,6 @@
     setupInfographicSequence();
     setupReveal();
     setupConsultingCardMotion();
-    highlightBusinessKeyTerms();
     void updateDataStatus();
     void loadDecisionEvidence();
   }

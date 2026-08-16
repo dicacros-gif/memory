@@ -2985,7 +2985,7 @@ body.landing-mode :is(.scroll-prog, .scroll-top, .qa-answer, .inspector, #backdr
 
 .business-execution-evidence-grid dt {
   color: rgba(255, 255, 255, .38);
-  font: 740 7px/1.3 var(--mono);
+  font: 760 9px/1.35 var(--mono);
 }
 
 .business-execution-evidence-grid dd {
@@ -3175,7 +3175,7 @@ body.landing-mode :is(.scroll-prog, .scroll-top, .qa-answer, .inspector, #backdr
 }
 
 .business-reveal {
-  opacity: 0;
+  opacity: 1;
   transform: translateY(22px);
   transition: opacity .55s ease, transform .55s cubic-bezier(.2, .75, .3, 1);
 }
@@ -4705,7 +4705,7 @@ body.console-loading::after {
   border-radius: 999px;
   color: var(--business-mint);
   background: rgba(98, 230, 196, .06);
-  font: 780 7.5px/1 var(--mono);
+  font: 800 9px/1.2 var(--mono);
   letter-spacing: .06em;
 }
 
@@ -5493,8 +5493,8 @@ body.landing-mode {
   background: var(--motion-surface-hover);
 }
 
-/* Cards on dark sections invert to paper instead of becoming darker. */
-.business-site :is(.business-data-status, .business-partners, .business-about) .business-consulting-motion {
+/* Dark surfaces are detected at runtime and invert to paper instead of becoming darker. */
+.business-site .business-consulting-motion[data-hover-mode="dark-to-light"] {
   --motion-surface-hover: #f7fbff;
   --motion-copy-hover: #102c43;
   --motion-muted-hover: #40596c;
@@ -5852,21 +5852,21 @@ body.landing-mode {
   opacity: 1;
 }
 
-/* Important decision vocabulary: yellow marker plus an explicit underline on every surface. */
+/* Sparse decision emphasis: transparent surface with a restrained amber underline only. */
 .business-site mark.business-key-term {
   display: inline;
-  margin-inline: .025em;
-  padding: 0 .075em .02em;
-  color: #2d2600 !important;
-  -webkit-text-fill-color: #2d2600;
-  background: linear-gradient(180deg, transparent 12%, #ffe36b 12% 91%, transparent 91%);
-  border-radius: 2px;
+  margin: 0;
+  padding: 0;
+  color: inherit !important;
+  -webkit-text-fill-color: currentColor;
+  background: transparent !important;
   font: inherit;
-  font-weight: 900;
+  font-weight: inherit;
   text-decoration-line: underline;
-  text-decoration-color: #a86700;
-  text-decoration-thickness: 2px;
-  text-underline-offset: 3px;
+  text-decoration-color: #d5a400;
+  text-decoration-thickness: .14em;
+  text-underline-offset: .2em;
+  text-decoration-skip-ink: auto;
   box-decoration-break: clone;
   -webkit-box-decoration-break: clone;
 }
@@ -5874,6 +5874,48 @@ body.landing-mode {
 .business-site mark.business-key-term::selection {
   color: #fff;
   background: #725000;
+}
+
+.business-site .business-consulting-motion:is(:hover, :focus-within) mark.business-key-term {
+  color: inherit !important;
+  -webkit-text-fill-color: currentColor;
+  background: transparent !important;
+  text-decoration-color: #ffd45c;
+}
+
+.business-site .business-consulting-motion[data-hover-mode="dark-to-light"]:is(:hover, :focus-within) mark.business-key-term {
+  text-decoration-color: #9a6500;
+}
+
+/* Generated readability policy: stable wrapping and visible copy in every interaction state. */
+.business-site main :where(h1, h2, h3, h4, h5, h6, strong) {
+  max-width: 100%;
+  overflow-wrap: break-word;
+  word-break: keep-all;
+  text-wrap: balance;
+}
+
+.business-site main :where(p, dd) {
+  max-width: min(100%, var(--business-copy-max, 72ch));
+  line-height: var(--business-body-leading, 1.65);
+  overflow-wrap: anywhere;
+  word-break: keep-all;
+  text-wrap: pretty;
+}
+
+.business-site main :where(li) {
+  max-width: 100%;
+  overflow-wrap: anywhere;
+  word-break: keep-all;
+  text-wrap: pretty;
+}
+
+.business-site main :where(article, section, li, div, dl, ul, ol) {
+  min-width: 0;
+}
+
+.business-site :is(.business-hero, .business-competencies, .business-solutions, .business-data-status, .business-partners, .business-about) :where(p, li, dd, small, span) {
+  opacity: 1;
 }
 
 /* AI Factory system view: one workload, one SLO, one economic control plane. */
@@ -6248,6 +6290,31 @@ body.landing-mode {
   .business-consulting-process > li { min-height: 0; }
   .business-consulting-process > li::after { display: none; }
   .business-workload-sources { grid-column: auto; }
+
+  .business-competency-output {
+    grid-column: 2 !important;
+    width: 100%;
+    overflow-wrap: anywhere;
+  }
+
+  .business-llm-causal-chain,
+  .business-contract-funnel {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr);
+    overflow-x: visible;
+  }
+
+  .business-llm-causal-chain :is(span, strong, b),
+  .business-contract-funnel span {
+    min-width: 0;
+    white-space: normal;
+  }
+
+  .business-llm-causal-chain i,
+  .business-contract-funnel i {
+    min-height: 18px;
+    transform: rotate(90deg);
+  }
 }
 
 @media (prefers-reduced-motion: reduce) {
