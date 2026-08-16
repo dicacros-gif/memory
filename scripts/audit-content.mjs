@@ -417,6 +417,9 @@ if (!intelligencePolicyValidation.ok
   || intelligencePolicy.retrieval?.onlyChangedDocuments !== true
   || intelligencePolicy.evaluation?.failClosed !== true
   || Number(intelligencePolicy.evaluation?.maximumUnsupportedClaimPct ?? 1) !== 0
+  || Number(intelligencePolicy.freshnessScoring?.thresholds?.current) !== 85
+  || Number(intelligencePolicy.freshnessScoring?.thresholds?.warning) !== 70
+  || Number(intelligencePolicy.refreshOrchestration?.safetyPollHours) !== 3
   || (intelligencePolicy.directFeeds || []).length < 8) {
   addIssue("error", "data/intelligence-policy.json", "decision intelligence policy is incomplete or not fail-closed", intelligencePolicyValidation.errors.join(", "));
 }
@@ -432,6 +435,18 @@ if (!decisionIntelligence) {
   if (decisionIntelligence.retrieval?.mode !== "incremental-extractive"
     || Number(decisionIntelligence.retrieval?.stats?.documents || 0) < 1) {
     addIssue("error", "data/quant.json", "incremental decision knowledge index is missing", JSON.stringify(decisionIntelligence.retrieval?.stats || {}));
+  }
+  if (decisionIntelligence.schemaVersion === "1.1") {
+    const freshness = decisionIntelligence.freshness || {};
+    const components = freshness.components || {};
+    if (!Number.isFinite(Number(freshness.score))
+      || Number(freshness.score) < 0
+      || Number(freshness.score) > 100
+      || ["contentAge", "embeddingLag", "staleRetrievalRate", "coverageDrift"].some((key) => !Number.isFinite(Number(components[key])))) {
+      addIssue("error", "data/quant.json", "evidence freshness score is incomplete", JSON.stringify(freshness));
+    }
+  } else {
+    addIssue("warn", "data/quant.json", "evidence freshness score will be populated by the next verified crawl");
   }
 }
 const quantBacktest = JSON.parse(await readFile(resolve(root, "data/quant-backtest.json"), "utf8"));

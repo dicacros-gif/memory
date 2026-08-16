@@ -15,7 +15,9 @@
       "metricId": "hbm-revenue-share",
       "sectionAnchors": ["전세계 HBM 시장 점유율", "Global HBM Market Share"],
       "sectionExcludePatterns": ["D램 및 HBM", "DRAM and HBM"],
-      "freshnessDays": 190
+      "freshnessDays": 190,
+      "refreshMode": "poll",
+      "latencyClass": "market-report"
     },
     {
       "id": "trendforce-hbm-wafer-input",
@@ -24,7 +26,9 @@
       "kind": "parallel-series",
       "metricId": "hbm-wafer-input-share",
       "sectionAnchors": ["HBM wafer input among the top three suppliers", "HBM wafer input"],
-      "freshnessDays": 550
+      "freshnessDays": 550,
+      "refreshMode": "poll",
+      "latencyClass": "market-report"
     },
     {
       "id": "samsung-hbm4-stage",
@@ -32,7 +36,9 @@
       "url": "https://semiconductor.samsung.com/news-events/news/samsung-ships-industry-first-commercial-hbm4-with-ultimate-performance-for-ai-computing/",
       "kind": "event",
       "eventRuleIds": ["hbm4-production-stage", "competitor-ramp"],
-      "freshnessDays": 365
+      "freshnessDays": 365,
+      "refreshMode": "event+poll",
+      "latencyClass": "press-release"
     },
     {
       "id": "micron-quarterly-results",
@@ -41,7 +47,9 @@
       "kind": "event-index",
       "eventRuleIds": ["earnings-release", "hbm4-production-stage", "capacity-commitment"],
       "triggerOnChange": true,
-      "freshnessDays": 140
+      "freshnessDays": 140,
+      "refreshMode": "event+poll",
+      "latencyClass": "filing"
     },
     {
       "id": "skhynix-results-and-hbm",
@@ -49,42 +57,54 @@
       "url": "https://news.skhynix.com/category/press-release/",
       "kind": "event",
       "eventRuleIds": ["earnings-release", "hbm4-production-stage", "capacity-commitment"],
-      "freshnessDays": 140
+      "freshnessDays": 140,
+      "refreshMode": "event+poll",
+      "latencyClass": "earnings-release"
     },
     {
       "id": "samsung-memory-validation-lab",
       "sourceId": "samsung-smrc",
       "url": "https://smrc.biz.samsung.com/html/about-us_new.html",
       "kind": "knowledge",
-      "freshnessDays": 365
+      "freshnessDays": 365,
+      "refreshMode": "poll",
+      "latencyClass": "knowledge"
     },
     {
       "id": "nvidia-dynamo-inference",
       "sourceId": "nvidia-dynamo",
       "url": "https://developer.nvidia.com/blog/introducing-nvidia-dynamo-a-low-latency-distributed-inference-framework-for-scaling-reasoning-ai-models/",
       "kind": "knowledge",
-      "freshnessDays": 365
+      "freshnessDays": 365,
+      "refreshMode": "poll",
+      "latencyClass": "knowledge"
     },
     {
       "id": "vllm-kv-offloading",
       "sourceId": "vllm-kv-offloading",
       "url": "https://docs.vllm.ai/en/latest/features/kv_offloading_usage/",
       "kind": "knowledge",
-      "freshnessDays": 365
+      "freshnessDays": 365,
+      "refreshMode": "poll",
+      "latencyClass": "knowledge"
     },
     {
       "id": "llm-serving-systems-research",
       "sourceId": "llm-serving-systems-research",
       "url": "https://arxiv.org/abs/2309.06180",
       "kind": "knowledge",
-      "freshnessDays": 1095
+      "freshnessDays": 1095,
+      "refreshMode": "poll",
+      "latencyClass": "research"
     },
     {
       "id": "nvidia-ai-factory-reference",
       "sourceId": "nvidia-nvl72-architecture",
       "url": "https://docs.nvidia.com/enterprise-reference-architectures/nvl72-ai-factory/latest/overview.html",
       "kind": "knowledge",
-      "freshnessDays": 365
+      "freshnessDays": 365,
+      "refreshMode": "poll",
+      "latencyClass": "knowledge"
     }
   ],
   "metrics": [
@@ -191,5 +211,36 @@
     "minimumPrimaryOrResearchPct": 80,
     "maximumUnsupportedClaimPct": 0,
     "failClosed": true
+  },
+  "freshnessScoring": {
+    "method": "evidence-freshness-v1",
+    "weights": {
+      "contentAge": 0.35,
+      "embeddingLag": 0.2,
+      "staleRetrievalRate": 0.25,
+      "coverageDrift": 0.2
+    },
+    "thresholds": {
+      "current": 85,
+      "warning": 70
+    },
+    "defaults": {
+      "contentAgeDays": 180,
+      "embeddingLagMinutes": 15
+    }
+  },
+  "refreshOrchestration": {
+    "strategy": "webhook-first-poll-reconciliation",
+    "safetyPollHours": 3,
+    "idempotencyLedgerLimit": 100,
+    "latencyTargets": {
+      "earnings-release": { "minutes": 10 },
+      "press-release": { "minutes": 15 },
+      "filing-update": { "minutes": 10 },
+      "source-update": { "minutes": 30 },
+      "industry-report": { "hours": 6 },
+      "market-report": { "hours": 24 },
+      "scheduled": { "hours": 3 }
+    }
   }
 }

@@ -6318,21 +6318,111 @@ body.landing-mode {
 }
 
 /* Generated intelligence loop: six explicit controls with responsive wrap. */
+.business-freshness-board {
+  --freshness-score: 0;
+  --freshness-accent: #62e6c4;
+  display: grid;
+  grid-template-columns: 148px minmax(0, .8fr) minmax(420px, 1.8fr);
+  gap: 18px 24px;
+  align-items: center;
+  width: 100%;
+  max-width: 100%;
+  padding: 20px;
+  border: 1px solid rgba(197, 212, 222, .24);
+  border-radius: 12px;
+  background: rgba(255, 255, 255, .035);
+}
+
+.business-freshness-board[data-state="warning"] { --freshness-accent: #e9b84a; }
+.business-freshness-board[data-state="degraded"] { --freshness-accent: #ef7b71; }
+
+.business-freshness-ring {
+  position: relative;
+  isolation: isolate;
+  width: 126px;
+  aspect-ratio: 1;
+  display: grid;
+  place-content: center;
+  justify-items: center;
+  border-radius: 50%;
+  color: #f7fbff;
+  background: conic-gradient(var(--freshness-accent) calc(var(--freshness-score) * 1%), rgba(197, 212, 222, .15) 0);
+}
+
+.business-freshness-ring::before {
+  position: absolute;
+  inset: 8px;
+  z-index: -1;
+  border-radius: 50%;
+  background: #071522;
+  content: "";
+}
+
+.business-freshness-ring span,
+.business-freshness-ring small { color: #c5d4de; font: 800 8px/1.2 var(--mono); letter-spacing: .08em; }
+.business-freshness-ring strong { color: #fff; font: 900 30px/1 var(--mono); }
+.business-freshness-summary { min-width: 0; }
+.business-freshness-summary > small { color: var(--freshness-accent); font: 850 9px/1.3 var(--mono); letter-spacing: .08em; }
+.business-freshness-summary > strong { display: block; margin-top: 8px; color: #fff; font-size: clamp(17px, 1.5vw, 24px); line-height: 1.25; }
+.business-freshness-summary p { margin: 9px 0 0; color: #c5d4de; font-size: 12px; line-height: 1.65; }
+.business-freshness-summary b { color: #fff; font-weight: 800; }
+
+.business-freshness-components,
+.business-freshness-timestamps {
+  display: grid;
+  margin: 0;
+  border: 1px solid rgba(197, 212, 222, .16);
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+.business-freshness-components { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+.business-freshness-timestamps { grid-column: 1 / -1; grid-template-columns: repeat(3, minmax(0, 1fr)); }
+.business-freshness-components > div,
+.business-freshness-timestamps > div { min-width: 0; padding: 12px; border-right: 1px solid rgba(197, 212, 222, .14); }
+.business-freshness-components > div:last-child,
+.business-freshness-timestamps > div:last-child { border-right: 0; }
+.business-freshness-board dt { color: #9fb2c0; font: 750 8px/1.3 var(--mono); letter-spacing: .05em; }
+.business-freshness-board dd { margin: 6px 0 0; color: #f7fbff; font: 850 13px/1.4 var(--mono); overflow-wrap: anywhere; }
+
+.business-hypothesis-badge {
+  display: inline-flex;
+  align-items: center;
+  width: fit-content;
+  margin-top: 9px;
+  padding: 5px 8px;
+  border: 1px solid rgba(233, 184, 74, .5);
+  border-radius: 999px;
+  color: #ffd978;
+  background: rgba(233, 184, 74, .08);
+  font: 800 9px/1.2 var(--mono);
+  letter-spacing: .04em;
+}
+
 .business-automation-flow {
   grid-template-columns: repeat(6, minmax(0, 1fr));
 }
 
 .business-status-rules {
-  grid-template-columns: repeat(5, minmax(0, 1fr));
+  grid-template-columns: repeat(6, minmax(0, 1fr));
 }
 
 @media (max-width: 980px) {
+  .business-freshness-board { grid-template-columns: 132px minmax(0, 1fr); }
+  .business-freshness-components { grid-column: 1 / -1; }
   .business-automation-flow { grid-template-columns: repeat(3, minmax(0, 1fr)); }
   .business-status-rules { grid-template-columns: repeat(2, minmax(0, 1fr)); }
   .business-status-rules li:last-child { grid-column: 1 / -1; }
 }
 
 @media (max-width: 660px) {
+  .business-freshness-board { grid-template-columns: minmax(0, 1fr); justify-items: start; padding: 16px; }
+  .business-freshness-components,
+  .business-freshness-timestamps { grid-column: auto; grid-template-columns: minmax(0, 1fr); width: 100%; }
+  .business-freshness-components > div,
+  .business-freshness-timestamps > div { border-right: 0; border-bottom: 1px solid rgba(197, 212, 222, .14); }
+  .business-freshness-components > div:last-child,
+  .business-freshness-timestamps > div:last-child { border-bottom: 0; }
   .business-automation-flow,
   .business-status-rules { grid-template-columns: minmax(0, 1fr); }
   .business-status-rules li:last-child { grid-column: auto; }

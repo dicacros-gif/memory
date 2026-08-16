@@ -52,6 +52,12 @@ import {
   htmlToDecisionText,
   loadIntelligencePolicy,
 } from "./decision-intelligence.mjs";
+import {
+  buildRefreshRequest,
+  isDuplicateRefreshRequest,
+  recordRefreshRequest,
+  validateRefreshLedger,
+} from "./refresh-orchestration.mjs";
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
 const OUT = resolve(__dirname, "..", "data", "live.json");
@@ -71,6 +77,7 @@ const CRAWL_EXCLUSIONS_OUT = resolve(__dirname, "..", "data", "crawl-exclusions.
 const CRAWL_AUDIT_OUT = resolve(__dirname, "..", "data", "crawl-audit.json");
 const CRAWL_QUARANTINE_OUT = resolve(__dirname, "..", "data", "crawl-quarantine.json");
 const TRANSLATION_CACHE_OUT = resolve(__dirname, "..", "data", "translation-cache.json");
+const REFRESH_EVENTS_OUT = resolve(__dirname, "..", "data", "refresh-events.json");
 const QUANT_OUT = resolve(__dirname, "..", "data", "quant.json");
 const QUANT_MODEL_IN = resolve(__dirname, "..", "data", "quant-model.json");
 const BASELINE_IN = resolve(__dirname, "..", "data", "baseline.json");
@@ -5835,6 +5842,8 @@ function currentDecisionDocuments(context = {}) {
       url: directNewsUrl(item),
       publishedAt: exactEvidenceDate(item),
       observedAt: item.verification?.validatedAt || context.generatedAt || new Date().toISOString(),
+      lastHumanVerifiedAt: item.verification?.humanVerifiedAt || item.lastHumanVerifiedAt || null,
+      freshnessDays: Number(item.freshnessDays || 180),
       text: `${item.originalTitle || item.title || ""}\n${item.summaryOriginal || item.summary || ""}`,
       feedId: null,
     })),
@@ -5846,6 +5855,8 @@ function currentDecisionDocuments(context = {}) {
       url: item.sourceUrl || item.url || "",
       publishedAt: exactEvidenceDate(item),
       observedAt: item.observedAt || context.generatedAt || new Date().toISOString(),
+      lastHumanVerifiedAt: item.lastHumanVerifiedAt || null,
+      freshnessDays: Number(item.freshnessDays || 180),
       text: `${item.title || ""}\n${item.summary || ""}\n${item.insight || ""}`,
       feedId: null,
     })),
@@ -5879,6 +5890,8 @@ async function collectDecisionIntelligenceDocuments(context = {}) {
           url,
           publishedAt: documentPublicationDate(html, url),
           observedAt,
+          lastHumanVerifiedAt: feed.lastHumanVerifiedAt || null,
+          freshnessDays: Number(feed.freshnessDays || 180),
           text,
         },
       };
@@ -10123,6 +10136,15 @@ async function backfillPriceHistoryFromArchive(history) {
 async function main() {
   await loadCrawlExclusions();
   const runId = process.env.GITHUB_RUN_ID || `local-${Date.now()}`;
+  let refreshLedger = { schemaVersion: "1.0", events: [] };
+  try { refreshLedger = JSON.parse(await readFile(REFRESH_EVENTS_OUT, "utf8")); } catch { /* first run */ }
+  const ledgerValidation = validateRefreshLedger(refreshLedger);
+  if (!ledgerValidation.ok) throw new Error(`refresh event ledger validation failed: ${ledgerValidation.errors.join(", ")}`);
+  const refreshRequest = buildRefreshRequest({ env: process.env, policy: INTELLIGENCE_POLICY, now: new Date(), runId });
+  if (isDuplicateRefreshRequest(refreshLedger, refreshRequest)) {
+    console.log(`Duplicate refresh event suppressed: ${refreshRequest.trigger} · ${refreshRequest.idempotencyKeyHash.slice(0, 12)}`);
+    return { published: false, duplicate: true };
+  }
   const previous = await loadPreviousData();
   koTranslator = createGoogleKoTranslator({
     cache: previous.translationCache,
@@ -10341,6 +10363,12 @@ async function main() {
   const publishedMarketHistory = purgeCrawlExclusions(marketHistory, crawlExclusionKeys).value;
   const publishedQuantBacktest = purgeCrawlExclusions(quantBacktest, crawlExclusionKeys).value;
   const publishedQuarantine = purgeCrawlExclusions(quarantineReport, crawlExclusionKeys).value;
+  const publishedRefreshLedger = recordRefreshRequest(
+    refreshLedger,
+    refreshRequest,
+    { runId, processedAt: payload.updatedAt, status: "published" },
+    INTELLIGENCE_POLICY,
+  );
   publishedPayload.quant = publishedQuant;
   publishedPayload.priceHistory = publishedPriceHistory;
   publishedPayload.marketHistory = summarizeMarketHistory(publishedMarketHistory);
@@ -10377,6 +10405,7 @@ async function main() {
     [CRAWL_QUARANTINE_OUT, publishedQuarantine],
     [CRAWL_AUDIT_OUT, crawlAudit],
     [TRANSLATION_CACHE_OUT, koTranslator?.snapshot() || previous.translationCache],
+    [REFRESH_EVENTS_OUT, publishedRefreshLedger],
     [DATA_MANIFEST_OUT, clientBundle.manifest],
     [OUT, publishedPayload],
   ]);

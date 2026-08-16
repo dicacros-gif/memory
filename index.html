@@ -110,7 +110,7 @@
     (() => {
       if (!location.hash.startsWith("#console")) return;
       document.documentElement.classList.add("console-entry");
-      const revision = "infra-20260816-19";
+      const revision = "infra-20260816-20";
       const assets = [
         ["consoleStylesPreload", "style", `assets/css/styles.min.css?v=${revision}`, "high"],
         ["consoleAppPreload", "script", `assets/js/app.min.js?v=${revision}`, "low"],
@@ -127,7 +127,7 @@
       }
     })();
   </script>
-  <link rel="stylesheet" href="assets/css/landing.min.css?v=infra-20260816-19" />
+  <link rel="stylesheet" href="assets/css/landing.min.css?v=infra-20260816-20" />
 </head>
 <body class="landing-mode">
   <div class="business-site" id="businessSite">
@@ -264,7 +264,7 @@
             </header>
             <div class="business-live-evidence">
               <div><span>CONSOLE · LATEST EVIDENCE</span><strong data-live-title>최신 HBM 근거 연결 중</strong><p data-live-summary>검증된 Console 신호를 불러와 전략 가설과 분리해 표시합니다.</p><a data-live-source href="#console/c-level-cockpit/hbm4-foundry">Console 근거 보기 →</a></div>
-              <dl><div><dt>SKHY HBM SHARE</dt><dd data-live-metric="skhy-hbm-share">연결 중</dd></div><div><dt>EVIDENCE BASE</dt><dd data-live-metric="evidence-count">연결 중</dd></div><div><dt>DATA STATUS</dt><dd data-live-metric="quality-status">검증 중</dd></div></dl>
+              <dl><div><dt>SKHY HBM SHARE</dt><dd data-live-metric="skhy-hbm-share">연결 중</dd></div><div><dt>EVIDENCE BASE</dt><dd data-live-metric="evidence-count">점수 산정 중</dd></div><div><dt>DATA STATUS</dt><dd data-live-metric="quality-status">정량 평가 대기</dd></div></dl>
             </div>
             <ol class="business-case-logic" aria-label="Custom HBM 판단 논리">
               <li><span>01 · CUSTOMER JTBD</span><strong>예측 가능한 Training Ramp</strong><p>Training time 단축, 안정적 Supply, Accelerator 세대 전환의 일정 위험 최소화.</p></li>
@@ -294,7 +294,7 @@
             </header>
             <div class="business-live-evidence">
               <div><span>CONSOLE · LATEST EVIDENCE</span><strong data-live-title>최신 고객 수요 근거 연결 중</strong><p data-live-summary>고객 수요·공급 신호를 Architecture 판단과 분리해 표시합니다.</p><a data-live-source href="#console/c-level-cockpit/post-hbm">Console 근거 보기 →</a></div>
-              <dl><div><dt>DRAM SPOT</dt><dd data-live-metric="dram-spot">연결 중</dd></div><div><dt>EVIDENCE BASE</dt><dd data-live-metric="evidence-count">연결 중</dd></div><div><dt>DATA STATUS</dt><dd data-live-metric="quality-status">검증 중</dd></div></dl>
+              <dl><div><dt>DRAM SPOT</dt><dd data-live-metric="dram-spot">연결 중</dd></div><div><dt>EVIDENCE BASE</dt><dd data-live-metric="evidence-count">점수 산정 중</dd></div><div><dt>DATA STATUS</dt><dd data-live-metric="quality-status">정량 평가 대기</dd></div></dl>
             </div>
             <ol class="business-case-logic" aria-label="Agentic Inference 판단 논리">
               <li><span>01 · CUSTOMER JTBD</span><strong>SLA와 Token Cost 동시 개선</strong><p>TTFT·TPOT/P99를 지키면서 동시 Session과 Context 길이를 확대.</p></li>
@@ -324,7 +324,7 @@
             </header>
             <div class="business-live-evidence">
               <div><span>CONSOLE · LATEST EVIDENCE</span><strong data-live-title>최신 NAND·eSSD 근거 연결 중</strong><p data-live-summary>AI Storage 신호를 RAG 고객의 운영 KPI와 연결합니다.</p><a data-live-source href="#console/ai-matrix">Console 근거 보기 →</a></div>
-              <dl><div><dt>SSD CONTRACT</dt><dd data-live-metric="ssd-contract">연결 중</dd></div><div><dt>EVIDENCE BASE</dt><dd data-live-metric="evidence-count">연결 중</dd></div><div><dt>DATA STATUS</dt><dd data-live-metric="quality-status">검증 중</dd></div></dl>
+              <dl><div><dt>SSD CONTRACT</dt><dd data-live-metric="ssd-contract">연결 중</dd></div><div><dt>EVIDENCE BASE</dt><dd data-live-metric="evidence-count">점수 산정 중</dd></div><div><dt>DATA STATUS</dt><dd data-live-metric="quality-status">정량 평가 대기</dd></div></dl>
             </div>
             <ol class="business-case-logic" aria-label="Enterprise RAG 판단 논리">
               <li><span>01 · CUSTOMER JTBD</span><strong>Fresh Answer at Predictable Cost</strong><p>Index 규모와 Freshness를 확대하면서 Query P99·보안·Reliability SLA를 유지.</p></li>
@@ -354,7 +354,7 @@
             </header>
             <div class="business-live-evidence">
               <div><span>CONSOLE · MARKET / PARTNER SIGNAL</span><strong data-live-title>최신 파트너·HBM 근거 연결 중</strong><p data-live-summary>발표와 계약, Qualification과 매출 인식을 분리해 추적합니다.</p><a data-live-source href="#console/c-level-cockpit/hbm4-foundry">Console 근거 보기 →</a></div>
-              <dl><div><dt>SKHY HBM SHARE</dt><dd data-live-metric="skhy-hbm-share">연결 중</dd></div><div><dt>EVIDENCE BASE</dt><dd data-live-metric="evidence-count">연결 중</dd></div><div><dt>DATA STATUS</dt><dd data-live-metric="quality-status">검증 중</dd></div></dl>
+              <dl><div><dt>SKHY HBM SHARE</dt><dd data-live-metric="skhy-hbm-share">연결 중</dd></div><div><dt>EVIDENCE BASE</dt><dd data-live-metric="evidence-count">점수 산정 중</dd></div><div><dt>DATA STATUS</dt><dd data-live-metric="quality-status">정량 평가 대기</dd></div></dl>
             </div>
             <ol class="business-case-logic" aria-label="파트너 기반 신사업 판단 논리">
               <li><span>01 · OFFER</span><strong>AI Infra Memory Blueprint</strong><p>Pain Point Map·Workload Trace·Architecture·TCO·Qualification Plan을 표준 산출물로 묶음.</p></li>
@@ -715,7 +715,13 @@
           </article>
           <aside class="business-data-status" id="automation" aria-live="polite">
             <div class="business-data-status-main"><span class="business-status-dot" id="businessStatusDot"></span><div><small>AUTOMATED · FAIL-CLOSED INTELLIGENCE LOOP</small><strong id="businessDataStatus">검증 상태 확인 중</strong></div></div>
-            <div class="business-automation-badges"><span id="businessDataIntegrity">INTEGRITY · CHECK</span><span id="businessDataFreshness">FRESHNESS · CHECK</span><span id="businessDataCoverage">COVERAGE · CHECK</span><span id="businessDecisionConfidence">CONFIDENCE · CHECK</span><span id="businessRagQuality">RAG EVAL · PENDING</span><span id="businessDataCadence">SCHEDULED 3H REFRESH</span></div>
+            <div class="business-automation-badges"><span id="businessDataIntegrity">INTEGRITY · CHECK</span><span id="businessDataFreshness">FRESHNESS · SCORING</span><span id="businessDataCoverage">COVERAGE · CHECK</span><span id="businessDecisionConfidence">CONFIDENCE · CHECK</span><span id="businessRagQuality">RAG EVAL · PENDING</span><span id="businessDataCadence">HYBRID REFRESH · EVENT + 3H</span></div>
+            <section class="business-freshness-board" id="businessFreshnessBoard" data-state="pending" aria-label="근거 최신성 정량 평가">
+              <div class="business-freshness-ring" aria-hidden="true"><span>FRESHNESS</span><strong id="businessFreshnessScore">--</strong><small>/ 100</small></div>
+              <div class="business-freshness-summary"><small>EVIDENCE BASE · QUANTIFIED CONTROL</small><strong id="businessFreshnessMode">다음 검증 실행 대기</strong><p>85점 미만은 <b>재검증 필요</b>, 70점 미만은 <b>저하 모드</b>로 자동 전환합니다.</p></div>
+              <dl class="business-freshness-components"><div><dt>Content Age</dt><dd id="businessFreshnessAge">--</dd></div><div><dt>Embedding Lag</dt><dd id="businessFreshnessLag">--</dd></div><div><dt>Stale Retrieval</dt><dd id="businessFreshnessStale">--</dd></div><div><dt>Coverage Drift</dt><dd id="businessFreshnessDrift">--</dd></div></dl>
+              <dl class="business-freshness-timestamps"><div><dt>최종 인간 검증일</dt><dd id="businessHumanVerifiedAt">미등록</dd></div><div><dt>소스 변경 감지일</dt><dd id="businessSourceChangedAt">확인 중</dd></div><div><dt>색인 반영일</dt><dd id="businessIndexedAt">확인 중</dd></div></dl>
+            </section>
             <ol class="business-automation-flow" aria-label="자동 인텔리전스 운영 흐름">
               <li><span>01</span><strong>Collect</strong><small>공식 · 표준 · 논문 · 시장 신호</small></li>
               <li><span>02</span><strong>Normalize</strong><small>기관 · 기간 · 분모 · 단위 분리</small></li>
@@ -725,7 +731,7 @@
               <li><span>06</span><strong>Publish</strong><small>평가를 통과한 Bundle만 게시</small></li>
             </ol>
             <dl class="business-automation-metrics"><div><dt>최종 검증 시각</dt><dd id="businessDataUpdated">확인 중</dd></div><div><dt>다음 최신성 Gate</dt><dd id="businessDataExpiry">확인 중</dd></div><div><dt>출처 커버리지</dt><dd id="businessDataSources">확인 중</dd></div><div><dt>게시 데이터셋</dt><dd id="businessDataArtifacts">확인 중</dd></div><div><dt>추적 실행 ID</dt><dd id="businessDataRun">확인 중</dd></div></dl>
-            <ul class="business-status-rules"><li>SCHEDULE · 3시간 + 실적 이벤트 갱신</li><li>RANGE · 기관별 차이 자동 공개</li><li>PASS · 검증 Bundle만 게시</li><li>FAIL · 신규 게시 중단</li><li>FALLBACK · 최종 검증본 유지</li></ul>
+            <ul class="business-status-rules"><li>EVENT · 실적·공시·보도자료 분 단위 반영</li><li>SAFETY POLL · 3시간마다 유실 재확인</li><li>IDEMPOTENT · 중복 이벤트 자동 억제</li><li>RANGE · 기관별 차이 자동 공개</li><li>FAIL · 신규 게시 중단</li><li>FALLBACK · 최종 검증본 유지</li></ul>
           </aside>
         </div>
       </section>
@@ -1893,6 +1899,6 @@
   <div class="qa-answer" id="qaAnswer" hidden></div>
   <div class="inspector" id="inspector" hidden></div>
   <div class="backdrop" id="backdrop"></div>
-  <script src="assets/js/landing.min.js?v=infra-20260816-19" defer></script>
+  <script src="assets/js/landing.min.js?v=infra-20260816-20" defer></script>
 </body>
 </html>

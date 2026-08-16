@@ -122,14 +122,19 @@ assert.equal(wafer.period, "2027");
 const firstIndex = buildIncrementalKnowledgeIndex({ documents, policy, now: new Date("2026-08-16T00:00:00.000Z") });
 assert.equal(firstIndex.stats.added, documents.length);
 assert.equal(firstIndex.stats.reindexed, documents.length);
+assert.equal(firstIndex.documents[0].lastHumanVerifiedAt, null, "human verification must never be inferred from an automated run");
+assert.ok(firstIndex.documents.every((item) => item.sourceChangeDetectedAt && item.indexedAt && item.freshnessDays));
 const secondIndex = buildIncrementalKnowledgeIndex({ documents, previous: firstIndex, policy, now: new Date("2026-08-16T03:00:00.000Z") });
 assert.equal(secondIndex.stats.unchanged, documents.length);
 assert.equal(secondIndex.stats.reindexed, 0);
+assert.ok(secondIndex.documents.every((item) => item.indexedAt === firstIndex.documents.find((before) => before.id === item.id)?.indexedAt), "unchanged documents must not be reindexed");
 const changedDocuments = structuredClone(documents);
 changedDocuments[0].text += " Updated source text.";
 const thirdIndex = buildIncrementalKnowledgeIndex({ documents: changedDocuments, previous: secondIndex, policy, now: new Date("2026-08-16T06:00:00.000Z") });
 assert.equal(thirdIndex.stats.changed, 1);
 assert.equal(thirdIndex.stats.reindexed, 1);
+const changedDocument = thirdIndex.documents.find((item) => item.sourceId === "counterpoint");
+assert.equal(changedDocument.indexedAt, "2026-08-16T06:00:00.000Z");
 
 const built = buildDecisionIntelligence({
   documents,
@@ -143,6 +148,13 @@ assert.equal(built.retrieval.packs.length, policy.retrieval.tracks.length);
 assert.ok(built.retrieval.packs.every((pack) => pack.evidence.every((item) => item.url)));
 assert.equal(built.evaluation.metrics.unsupportedClaimPct, 0);
 assert.equal(built.evaluation.metrics.citationCoveragePct, 100);
+assert.equal(built.schemaVersion, "1.1");
+assert.ok(built.freshness.score >= 85);
+assert.equal(built.freshness.status, "current");
+assert.deepEqual(Object.keys(built.freshness.components).sort(), ["contentAge", "coverageDrift", "embeddingLag", "staleRetrievalRate"].sort());
+assert.equal(built.freshness.thresholds.current, 85);
+assert.equal(built.freshness.thresholds.warning, 70);
+assert.ok(built.retrieval.packs.flatMap((pack) => pack.evidence).every((item) => item.indexedAt && item.sourceChangeDetectedAt));
 
 console.log(JSON.stringify({
   ok: true,
@@ -150,4 +162,5 @@ console.log(JSON.stringify({
   latestMetrics: built.metrics.latest.length,
   index: built.retrieval.stats,
   evaluation: built.evaluation,
+  freshness: built.freshness,
 }, null, 2));

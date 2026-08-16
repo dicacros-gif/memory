@@ -3,7 +3,7 @@
 
   const BUSINESS_TITLE = "AI Infra Strategy OS · Bottleneck to Scale";
   const CONSOLE_HASH = "#console";
-  const CONSOLE_REVISION = "infra-20260816-19";
+  const CONSOLE_REVISION = "infra-20260816-20";
   const DECISION_CLIENT_PATH = "data/landing-decision-client.json";
   const SITE_CONTENT_PATH = "data/site-content-client.json";
   const site = document.querySelector("#businessSite");
@@ -271,6 +271,18 @@
         `판단 변경 조건 · ${decision.stop}`,
       ].filter(Boolean));
       if (recommendation) recommendation.innerHTML = `RECOMMENDATION<br>${escapeBusinessHTML(decision.recommendation || "CONDITIONAL")}`;
+      let hypothesisBadge = answer?.querySelector(":scope > .business-hypothesis-badge");
+      if (answer && !hypothesisBadge) {
+        hypothesisBadge = document.createElement("span");
+        hypothesisBadge.className = "business-hypothesis-badge";
+        answer.appendChild(hypothesisBadge);
+      }
+      if (hypothesisBadge) {
+        const isUnverified = decision.hypothesis?.status !== "verified";
+        hypothesisBadge.hidden = !isUnverified;
+        hypothesisBadge.textContent = `! · ${decision.hypothesis?.label || "근거 미검증"}`;
+        hypothesisBadge.title = decision.hypothesis?.scope || "전략 가설은 고객 내부 근거 확인 전입니다.";
+      }
 
       const live = panel.querySelector(":scope > .business-live-evidence");
       const liveTitle = live?.querySelector("[data-live-title]");
@@ -308,6 +320,7 @@
             <div><span>${escapeBusinessHTML(item.label)}</span><b>${escapeBusinessHTML(latest.evidenceLevel || "WATCH")} · ${escapeBusinessHTML(String(latest.sourceClass || "SOURCE").toUpperCase())}</b></div>
             <h4>${escapeBusinessHTML(latest.title || item.label)}</h4>
             <dl><div><dt>SOURCE</dt><dd>${escapeBusinessHTML(latest.source || "확인 필요")}</dd></div><div><dt>AS OF</dt><dd>${escapeBusinessHTML(String(latest.publishedAt || "").slice(0, 10) || "확인 필요")}</dd></div><div><dt>EVIDENCE</dt><dd>${escapeBusinessHTML(item.evidenceCount || 0)}건</dd></div></dl>
+            ${item.hypothesis?.status !== "verified" ? `<span class="business-hypothesis-badge" title="${escapeBusinessHTML(item.hypothesis?.scope || "전략 가설")}">! · ${escapeBusinessHTML(item.hypothesis?.label || "근거 미검증")}</span>` : ""}
             <ol class="business-evidence-decision-path">
               <li><span>01 · FACT</span><strong>${escapeBusinessHTML(item.fact)}</strong></li>
               <li><span>02 · IMPLICATION</span><strong>${escapeBusinessHTML(item.implication)}</strong></li>
@@ -559,12 +572,51 @@
     const confidence = document.querySelector("#businessDecisionConfidence");
     const ragQuality = document.querySelector("#businessRagQuality");
     if (integrity) integrity.textContent = `INTEGRITY · ${control.integrity?.status || "CHECK"}`;
-    if (freshness) freshness.textContent = `FRESHNESS · ${control.freshness?.status || "CHECK"}`;
+    const freshnessControl = content.decisionIntelligence?.freshness || {};
+    const hasFreshnessScore = ["current", "warning", "degraded"].includes(freshnessControl.status) && Number.isFinite(Number(freshnessControl.score));
+    const score = hasFreshnessScore ? Math.max(0, Math.min(100, Number(freshnessControl.score))) : 0;
+    const scoreText = hasFreshnessScore ? String(Math.round(score)) : "--";
+    if (freshness) {
+      freshness.textContent = `FRESHNESS · ${scoreText}/100 · ${String(freshnessControl.status || "PENDING").toUpperCase()}`;
+      freshness.dataset.state = freshnessControl.status || "pending";
+    }
     if (coverage) coverage.textContent = `COVERAGE · ${control.coverage?.status || "CHECK"}`;
     if (confidence) confidence.textContent = `CONFIDENCE · ${control.confidence?.status || "CHECK"}`;
     if (ragQuality) {
       const evaluation = content.decisionIntelligence?.evaluation || {};
       ragQuality.textContent = `RAG EVAL · ${String(evaluation.status || "PENDING").toUpperCase()} · CITE ${evaluation.metrics?.citationCoveragePct ?? 0}%`;
+    }
+    const freshnessBoard = document.querySelector("#businessFreshnessBoard");
+    if (freshnessBoard) {
+      freshnessBoard.dataset.state = freshnessControl.status || "pending";
+      freshnessBoard.style.setProperty("--freshness-score", String(score));
+    }
+    const scoreNode = document.querySelector("#businessFreshnessScore");
+    if (scoreNode) {
+      scoreNode.textContent = scoreText;
+      scoreNode.parentElement?.setAttribute("aria-label", hasFreshnessScore ? `Freshness Score ${scoreText}점, ${freshnessControl.label || "검증 대기"}` : "Freshness Score 다음 검증 실행 대기");
+    }
+    const modeNode = document.querySelector("#businessFreshnessMode");
+    if (modeNode) modeNode.textContent = freshnessControl.label || "다음 검증 실행 대기";
+    const componentNodes = {
+      contentAge: "#businessFreshnessAge",
+      embeddingLag: "#businessFreshnessLag",
+      staleRetrievalRate: "#businessFreshnessStale",
+      coverageDrift: "#businessFreshnessDrift",
+    };
+    for (const [key, selector] of Object.entries(componentNodes)) {
+      const node = document.querySelector(selector);
+      if (node) node.textContent = hasFreshnessScore ? `${Math.round(Number(freshnessControl.components?.[key] || 0))} / 100` : "--";
+    }
+    const timestampNodes = {
+      lastHumanVerifiedAt: ["#businessHumanVerifiedAt", "미등록 · 자동 검증과 분리"],
+      sourceChangeDetectedAt: ["#businessSourceChangedAt", "확인 중"],
+      indexedAt: ["#businessIndexedAt", "확인 중"],
+    };
+    for (const [key, [selector, fallback]] of Object.entries(timestampNodes)) {
+      const node = document.querySelector(selector);
+      const value = freshnessControl.timestamps?.[key];
+      if (node) node.textContent = value ? formatKst(value) : fallback;
     }
   }
 
@@ -589,7 +641,7 @@
       ? `관측 ${content.freshness?.observedSources || 0} · 구성 ${configuredSources} · 검색 문서 ${retrievalStats.documents || 0} · 증분 ${retrievalStats.reindexed || 0}`
       : "다음 검증 실행 반영";
     const cadence = document.querySelector("#businessDataCadence");
-    if (cadence) cadence.textContent = `SCHEDULED ${content.freshness?.scheduleHours || 3}H REFRESH`;
+    if (cadence) cadence.textContent = `HYBRID REFRESH · EVENT + ${content.freshness?.scheduleHours || 3}H SAFETY POLL`;
     const staticSnapshot = document.querySelector(".console-static-snapshot header p");
     if (staticSnapshot) staticSnapshot.textContent = content.agentCouncil?.subtitle || staticSnapshot.textContent;
 
@@ -675,8 +727,11 @@
       const expiresAt = new Date(manifest.expiresAt).getTime();
       const current = Number.isFinite(expiresAt) && Date.now() <= expiresAt;
       const decisionControl = window.MEMORY_SITE_CONTENT?.decisionControl || {};
+      const evidenceFreshness = window.MEMORY_SITE_CONTENT?.decisionIntelligence?.freshness || {};
+      const hasFreshnessScore = ["current", "warning", "degraded"].includes(evidenceFreshness.status) && Number.isFinite(Number(evidenceFreshness.score));
+      const scoreText = hasFreshnessScore ? String(Math.round(Number(evidenceFreshness.score))) : "--";
       status.textContent = current
-        ? `Integrity ${decisionControl.integrity?.status || "PASS"} · Freshness current · Confidence ${decisionControl.confidence?.status || "CHECK"}`
+        ? `Integrity ${decisionControl.integrity?.status || "PASS"} · Freshness ${scoreText}/100 ${evidenceFreshness.label || "검증 대기"} · Confidence ${decisionControl.confidence?.status || "CHECK"}`
         : "Update delayed · freshness gate exceeded · last verified bundle retained";
       dot?.classList.toggle("is-current", current);
       dot?.classList.toggle("is-delayed", !current);
@@ -685,7 +740,9 @@
       if (artifacts) artifacts.textContent = `${Object.keys(manifest.artifacts || {}).length} datasets`;
       if (run) run.textContent = String(manifest.runId || "unavailable").slice(0, 18);
       const freshnessBadge = document.querySelector("#businessDataFreshness");
-      if (freshnessBadge) freshnessBadge.textContent = `FRESHNESS · ${current ? "CURRENT" : "DELAYED"}`;
+      if (freshnessBadge) freshnessBadge.textContent = current
+        ? `FRESHNESS · ${scoreText}/100 · ${String(evidenceFreshness.status || "PENDING").toUpperCase()}`
+        : `FRESHNESS · ${scoreText}/100 · DELAYED`;
       if (panel) panel.hidden = false;
     } catch (error) {
       console.warn("Data freshness status unavailable", error);
@@ -808,6 +865,7 @@
     const updated = document.querySelector("#decisionDataUpdated");
     if (!status) return;
     try {
+      await loadSiteContent();
       const response = await fetch(DECISION_CLIENT_PATH, { cache: "no-store" });
       if (!response.ok) throw new Error(`HTTP ${response.status}`);
       const data = await response.json();
@@ -825,9 +883,11 @@
       const ssdContract = sections.find((item) => item.title === "PC-Client OEM SSD Contract Price");
       const evidenceCount = Number(data.evidence?.promotedCount || 0);
       const quality = String(data.evidence?.qualityStatus || "review").toUpperCase();
+      const freshness = window.MEMORY_SITE_CONTENT?.decisionIntelligence?.freshness || {};
+      const freshnessScore = ["current", "warning", "degraded"].includes(freshness.status) ? Math.round(Number(freshness.score || 0)) : "--";
       setDecisionMetric("skhy-hbm-share", skhy?.hbmShare || "확인 필요");
-      setDecisionMetric("evidence-count", evidenceCount ? `${evidenceCount}건` : "확인 필요");
-      setDecisionMetric("quality-status", quality);
+      setDecisionMetric("evidence-count", evidenceCount ? `${evidenceCount}건 · F${freshnessScore}` : `FRESHNESS ${freshnessScore}/100`);
+      setDecisionMetric("quality-status", `${quality} · ${freshness.label || "검증 대기"}`);
       setDecisionMetric("dram-spot", formatPrice(dramSpot));
       setDecisionMetric("ssd-contract", formatPrice(ssdContract));
 

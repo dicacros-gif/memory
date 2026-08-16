@@ -21,12 +21,15 @@ on:
       - "data/landing-decision-client.json"
       - "data/site-content-client.json"
       - "data/translation-cache.json"
+      - "data/refresh-events.json"
   schedule:
     # Refresh catalog-driven official, customer, standards, research, price,
     # and market sources every three hours. Browser bundles still fail closed.
     - cron: "17 */3 * * *"
   repository_dispatch:
-    types: [earnings-release, industry-report, source-update]
+    # Webhook/RSS relays use repository_dispatch as the low-latency path.
+    # The three-hour schedule below remains the reconciliation safety poll.
+    types: [earnings-release, press-release, filing-update, industry-report, source-update]
   workflow_dispatch:
     inputs:
       refresh_scope:
@@ -67,6 +70,9 @@ jobs:
       - name: Run intelligence agent
         env:
           INTELLIGENCE_REFRESH_TRIGGER: ${{ github.event.action || inputs.refresh_scope || github.event_name }}
+          INTELLIGENCE_EVENT_KEY: ${{ github.event.client_payload.idempotency_key || github.event.client_payload.event_id || github.event.client_payload.delivery_id || '' }}
+          INTELLIGENCE_EVENT_OCCURRED_AT: ${{ github.event.client_payload.occurred_at || github.event.client_payload.published_at || '' }}
+          INTELLIGENCE_EVENT_SOURCE: ${{ github.event.client_payload.source || github.event.action || github.event_name }}
         run: npm run crawl
 
       - name: Validate refreshed intelligence
@@ -90,7 +96,7 @@ jobs:
             echo "::notice::main advanced during this crawl; a newer queued run will refresh from the latest code"
             exit 0
           fi
-          git add data/live.json data/price-history.json data/market-history.json data/quant.json data/quant-backtest.json data/crawl-audit.json data/crawl-quarantine.json data/data-manifest.json data/live-client.json data/quant-client.json data/price-history-client.json data/market-history-client.json data/quant-backtest-client.json data/decision-history-client.json data/landing-decision-client.json data/site-content-client.json data/translation-cache.json
+          git add data/live.json data/price-history.json data/market-history.json data/quant.json data/quant-backtest.json data/crawl-audit.json data/crawl-quarantine.json data/data-manifest.json data/live-client.json data/quant-client.json data/price-history-client.json data/market-history-client.json data/quant-backtest-client.json data/decision-history-client.json data/landing-decision-client.json data/site-content-client.json data/translation-cache.json data/refresh-events.json
           if git diff --cached --quiet; then
             echo "No data changes to commit."
           else

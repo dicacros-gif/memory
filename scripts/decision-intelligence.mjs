@@ -64,6 +64,13 @@ export function validateIntelligencePolicy(policy = {}) {
   if (!Array.isArray(policy.retrieval?.tracks) || policy.retrieval.tracks.length < 3) errors.push("retrieval.tracks");
   if (policy.retrieval?.onlyChangedDocuments !== true) errors.push("retrieval.onlyChangedDocuments");
   if (policy.evaluation?.failClosed !== true) errors.push("evaluation.failClosed");
+  const freshness = policy.freshnessScoring || {};
+  const weights = freshness.weights || {};
+  const weightTotal = ["contentAge", "embeddingLag", "staleRetrievalRate", "coverageDrift"]
+    .reduce((sum, key) => sum + Number(weights[key] || 0), 0);
+  if (Math.abs(weightTotal - 1) > 0.0001) errors.push("freshnessScoring.weights");
+  if (Number(freshness.thresholds?.current) !== 85 || Number(freshness.thresholds?.warning) !== 70) errors.push("freshnessScoring.thresholds");
+  if (!policy.refreshOrchestration?.latencyTargets || Number(policy.refreshOrchestration?.safetyPollHours) !== 3) errors.push("refreshOrchestration");
   const ids = new Set();
   for (const feed of policy.directFeeds || []) {
     if (!feed.id || ids.has(`feed:${feed.id}`)) errors.push(`feed:${feed.id || "missing"}`);
@@ -381,13 +388,22 @@ export function buildIncrementalKnowledgeIndex({ documents = [], previous = {}, 
     const before = previousMap.get(id);
     if (before?.contentHash === contentHash) {
       unchanged += 1;
-      next.push({ ...before, observedAt: raw.observedAt || before.observedAt, status: "current" });
+      next.push({
+        ...before,
+        feedId: raw.feedId || before.feedId || null,
+        observedAt: raw.observedAt || before.observedAt,
+        freshnessDays: Number(raw.freshnessDays || before.freshnessDays || policy.freshnessScoring?.defaults?.contentAgeDays || 180),
+        lastHumanVerifiedAt: raw.lastHumanVerifiedAt || before.lastHumanVerifiedAt || null,
+        sourceChangeDetectedAt: before.sourceChangeDetectedAt || before.indexedAt || before.observedAt || null,
+        status: "current",
+      });
       continue;
     }
     if (before) changed += 1; else added += 1;
     next.push({
       id,
       sourceId: raw.sourceId,
+      feedId: raw.feedId || null,
       source: raw.source,
       sourceClass: raw.sourceClass,
       title: compact(raw.title || raw.source || "Source document", 180),
@@ -395,6 +411,9 @@ export function buildIncrementalKnowledgeIndex({ documents = [], previous = {}, 
       publishedAt: raw.publishedAt || null,
       observedAt: raw.observedAt || now.toISOString(),
       indexedAt: now.toISOString(),
+      sourceChangeDetectedAt: raw.observedAt || now.toISOString(),
+      lastHumanVerifiedAt: raw.lastHumanVerifiedAt || null,
+      freshnessDays: Number(raw.freshnessDays || policy.freshnessScoring?.defaults?.contentAgeDays || 180),
       contentHash,
       status: "current",
       chunks: chunkText(text, Number(policy.retrieval?.chunkCharacters || 900), Number(policy.retrieval?.chunkOverlapCharacters || 120), Number(policy.retrieval?.maxChunksPerDocument || 14)),
@@ -445,6 +464,11 @@ function buildRetrievalPacks(index = {}, policy = loadIntelligencePolicy()) {
           sourceClass: document.sourceClass,
           url: document.url,
           publishedAt: document.publishedAt,
+          indexedAt: document.indexedAt || null,
+          sourceChangeDetectedAt: document.sourceChangeDetectedAt || null,
+          lastHumanVerifiedAt: document.lastHumanVerifiedAt || null,
+          freshnessDays: Number(document.freshnessDays || policy.freshnessScoring?.defaults?.contentAgeDays || 180),
+          documentStatus: document.status || "current",
         });
       }
     }
@@ -457,6 +481,103 @@ function buildRetrievalPacks(index = {}, policy = loadIntelligencePolicy()) {
       evidence,
     };
   });
+}
+
+const clampScore = (value) => Math.max(0, Math.min(100, Number.isFinite(Number(value)) ? Number(value) : 0));
+const roundedScore = (value) => Number(clampScore(value).toFixed(1));
+
+function recencyScore(document = {}, now = new Date(), defaultDays = 180) {
+  const published = Date.parse(document.publishedAt || document.observedAt || "");
+  if (!Number.isFinite(published)) return 0;
+  const targetDays = Math.max(1, Number(document.freshnessDays || defaultDays));
+  const ageDays = Math.max(0, (now.getTime() - published) / 864e5);
+  if (ageDays <= targetDays) return 100;
+  return clampScore(100 * (2 - ageDays / targetDays));
+}
+
+function embeddingLagScore(document = {}, targetMinutes = 15) {
+  const changed = Date.parse(document.sourceChangeDetectedAt || "");
+  const indexed = Date.parse(document.indexedAt || "");
+  if (!Number.isFinite(changed) || !Number.isFinite(indexed) || indexed < changed) return 0;
+  const lagMinutes = (indexed - changed) / 60000;
+  const target = Math.max(1, Number(targetMinutes || 15));
+  if (lagMinutes <= target) return 100;
+  return clampScore(100 * (2 - lagMinutes / target));
+}
+
+function latestTimestamp(values = []) {
+  return values.filter(Boolean).sort((a, b) => Date.parse(b) - Date.parse(a))[0] || null;
+}
+
+export function buildFreshnessScore({ index = {}, packs = [], consensus = {}, feedStatus = [], previous = {}, policy = loadIntelligencePolicy(), now = new Date() } = {}) {
+  const config = policy.freshnessScoring || {};
+  const defaultDays = Number(config.defaults?.contentAgeDays || 180);
+  const lagTargetMinutes = Number(config.defaults?.embeddingLagMinutes || 15);
+  const documentMap = new Map((index.documents || []).map((document) => [canonicalUrl(document.url), document]));
+  const citedUrls = new Set(packs.flatMap((pack) => pack.evidence || []).map((item) => canonicalUrl(item.url)).filter(Boolean));
+  const activeDocuments = [...citedUrls].map((url) => documentMap.get(url)).filter(Boolean);
+  const scoredDocuments = activeDocuments.length ? activeDocuments : (index.documents || []);
+  const contentAge = scoredDocuments.length
+    ? scoredDocuments.reduce((sum, document) => sum + recencyScore(document, now, defaultDays), 0) / scoredDocuments.length
+    : 0;
+  const embeddingLag = scoredDocuments.length
+    ? scoredDocuments.reduce((sum, document) => sum + embeddingLagScore(document, lagTargetMinutes), 0) / scoredDocuments.length
+    : 0;
+  const citations = packs.flatMap((pack) => pack.evidence || []);
+  const staleCitations = citations.filter((citation) => {
+    const document = documentMap.get(canonicalUrl(citation.url)) || citation;
+    return document.status === "retained-last-verified" || recencyScore(document, now, defaultDays) < 100;
+  });
+  const staleRetrievalRatePct = citations.length ? 100 * staleCitations.length / citations.length : 100;
+  const staleRetrievalRate = 100 - staleRetrievalRatePct;
+  const feedsConfigured = Math.max(1, (policy.directFeeds || []).length);
+  const feedCoveragePct = 100 * feedStatus.filter((item) => item.status === "fetched" || item.status === "fixture").length / feedsConfigured;
+  const trackCoveragePct = packs.length ? 100 * packs.filter((pack) => pack.status !== "coverage-gap").length / packs.length : 0;
+  const expectedMetrics = Math.max(1, (policy.metrics || []).reduce((sum, metric) => sum + Math.max(1, metric.entities?.length || 0), 0));
+  const metricCoveragePct = 100 * Math.min(expectedMetrics, consensus.latest?.length || 0) / expectedMetrics;
+  const currentCoveragePct = (feedCoveragePct + trackCoveragePct + metricCoveragePct) / 3;
+  const previousCoverage = Number(previous.freshness?.coverage?.currentPct);
+  const coverageDropPctPoint = Number.isFinite(previousCoverage) ? Math.max(0, previousCoverage - currentCoveragePct) : 0;
+  const coverageDrift = Number.isFinite(previousCoverage)
+    ? 100 - coverageDropPctPoint * 2
+    : currentCoveragePct;
+  const components = {
+    contentAge: roundedScore(contentAge),
+    embeddingLag: roundedScore(embeddingLag),
+    staleRetrievalRate: roundedScore(staleRetrievalRate),
+    coverageDrift: roundedScore(coverageDrift),
+  };
+  const weights = config.weights || { contentAge: 0.35, embeddingLag: 0.2, staleRetrievalRate: 0.25, coverageDrift: 0.2 };
+  const score = roundedScore(Object.entries(components).reduce((sum, [key, value]) => sum + value * Number(weights[key] || 0), 0));
+  const currentThreshold = Number(config.thresholds?.current || 85);
+  const warningThreshold = Number(config.thresholds?.warning || 70);
+  const status = score >= currentThreshold ? "current" : score >= warningThreshold ? "warning" : "degraded";
+  const label = status === "current" ? "최신" : status === "warning" ? "재검증 필요" : "저하 모드";
+  return {
+    framework: config.method || "evidence-freshness-v1",
+    score,
+    status,
+    label,
+    revalidationRequired: score < currentThreshold,
+    thresholds: { current: currentThreshold, warning: warningThreshold },
+    weights,
+    components,
+    diagnostics: {
+      staleRetrievalRatePct: roundedScore(staleRetrievalRatePct),
+      feedCoveragePct: roundedScore(feedCoveragePct),
+      trackCoveragePct: roundedScore(trackCoveragePct),
+      metricCoveragePct: roundedScore(metricCoveragePct),
+      coverageDropPctPoint: roundedScore(coverageDropPctPoint),
+      activeDocumentCount: scoredDocuments.length,
+    },
+    coverage: { currentPct: roundedScore(currentCoveragePct), previousPct: Number.isFinite(previousCoverage) ? roundedScore(previousCoverage) : null },
+    timestamps: {
+      lastHumanVerifiedAt: latestTimestamp(scoredDocuments.map((document) => document.lastHumanVerifiedAt)),
+      sourceChangeDetectedAt: latestTimestamp(scoredDocuments.map((document) => document.sourceChangeDetectedAt)),
+      indexedAt: latestTimestamp(scoredDocuments.map((document) => document.indexedAt)),
+    },
+    generatedAt: now.toISOString(),
+  };
 }
 
 function detectEvents(documents = [], previousIndex = {}, policy = loadIntelligencePolicy()) {
@@ -533,8 +654,9 @@ export function buildDecisionIntelligence({ documents = [], previous = {}, polic
   const retrievalPacks = buildRetrievalPacks(index, policy);
   const events = detectEvents(documents, previous.knowledgeIndex || {}, policy);
   const evaluation = evaluate({ index, packs: retrievalPacks, consensus, policy, now });
+  const freshness = buildFreshnessScore({ index, packs: retrievalPacks, consensus, feedStatus, previous, policy, now });
   return {
-    schemaVersion: "1.0",
+    schemaVersion: "1.1",
     runId,
     generatedAt: now.toISOString(),
     refreshTrigger,
@@ -547,6 +669,7 @@ export function buildDecisionIntelligence({ documents = [], previous = {}, polic
       stats: index.stats,
       packs: retrievalPacks,
     },
+    freshness,
     evaluation,
     knowledgeIndex: index,
   };

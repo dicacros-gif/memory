@@ -84,6 +84,12 @@ function buildInsight(brief = {}, fallbackAt = null) {
     implication: compact(brief.insight || latest.summary, 250),
     decision: compact(brief.decision || "추가 검증 후 의사결정 안건으로 승격합니다.", 240),
     action: compact(brief.reversalKpi || "핵심 KPI와 출처가 바뀌면 결론을 재검토합니다.", 220),
+    hypothesis: {
+      status: brief.hypothesisVerifiedAt ? "verified" : "unverified",
+      label: brief.hypothesisVerifiedAt ? "근거 검증 완료" : "근거 미검증",
+      verifiedAt: brief.hypothesisVerifiedAt || null,
+      scope: "전략 가설 · 고객 내부 Trace와 계약 조건 확인 전",
+    },
   };
 }
 
@@ -128,6 +134,7 @@ function buildDecisionIntelligenceContent(quant = {}) {
   const current = quant.decisionIntelligence || {};
   const evaluation = current.evaluation || {};
   const retrieval = current.retrieval || {};
+  const freshness = current.freshness || {};
   return {
     schemaVersion: current.schemaVersion || "1.0",
     status: evaluation.status || "pending-next-verified-run",
@@ -181,8 +188,26 @@ function buildDecisionIntelligenceContent(quant = {}) {
           sourceClass: item.sourceClass,
           url: directUrl(item.url) ? item.url : "",
           publishedAt: item.publishedAt || null,
+          indexedAt: item.indexedAt || null,
+          sourceChangeDetectedAt: item.sourceChangeDetectedAt || null,
+          lastHumanVerifiedAt: item.lastHumanVerifiedAt || null,
+          stale: item.documentStatus === "retained-last-verified",
         })),
       })),
+    },
+    freshness: {
+      framework: freshness.framework || "evidence-freshness-v1",
+      score: Number(freshness.score || 0),
+      status: freshness.status || "pending",
+      label: freshness.label || "다음 검증 실행 대기",
+      revalidationRequired: freshness.revalidationRequired !== false,
+      thresholds: freshness.thresholds || { current: 85, warning: 70 },
+      weights: freshness.weights || { contentAge: 0.35, embeddingLag: 0.2, staleRetrievalRate: 0.25, coverageDrift: 0.2 },
+      components: freshness.components || { contentAge: 0, embeddingLag: 0, staleRetrievalRate: 0, coverageDrift: 0 },
+      diagnostics: freshness.diagnostics || {},
+      coverage: freshness.coverage || { currentPct: 0, previousPct: null },
+      timestamps: freshness.timestamps || { lastHumanVerifiedAt: null, sourceChangeDetectedAt: null, indexedAt: null },
+      generatedAt: freshness.generatedAt || current.generatedAt || null,
     },
     evaluation: {
       framework: evaluation.framework || "grounded-retrieval-quality-loop",
@@ -420,6 +445,12 @@ function buildProfile(profile = {}, brief = {}, partner = {}, generatedAt = null
     recommendation: profile.recommendation,
     question: profile.question,
     decision,
+    hypothesis: {
+      status: brief.hypothesisVerifiedAt ? "verified" : "unverified",
+      label: brief.hypothesisVerifiedAt ? "근거 검증 완료" : "근거 미검증",
+      verifiedAt: brief.hypothesisVerifiedAt || null,
+      scope: "전략 가설 · 고객 내부 Trace와 계약 조건 확인 전",
+    },
     stop,
     latest,
     evidenceCount: Number(brief.evidenceCount || 0),
@@ -460,12 +491,21 @@ export function validateSiteContent(content = {}) {
   if (content.decisionIntelligence?.evaluation?.failClosed !== true) errors.push("decisionIntelligence.evaluation.failClosed");
   if (content.decisionIntelligence?.retrieval?.mode !== "incremental-extractive") errors.push("decisionIntelligence.retrieval.mode");
   if (Number(content.decisionIntelligence?.evaluation?.metrics?.unsupportedClaimPct ?? 1) !== 0) errors.push("decisionIntelligence.unsupportedClaimPct");
+  const freshnessScore = Number(content.decisionIntelligence?.freshness?.score);
+  if (!Number.isFinite(freshnessScore) || freshnessScore < 0 || freshnessScore > 100) errors.push("decisionIntelligence.freshness.score");
+  if (Number(content.decisionIntelligence?.freshness?.thresholds?.current) !== 85 || Number(content.decisionIntelligence?.freshness?.thresholds?.warning) !== 70) errors.push("decisionIntelligence.freshness.thresholds");
+  for (const key of ["contentAge", "embeddingLag", "staleRetrievalRate", "coverageDrift"]) {
+    const value = Number(content.decisionIntelligence?.freshness?.components?.[key]);
+    if (!Number.isFinite(value) || value < 0 || value > 100) errors.push(`decisionIntelligence.freshness.components.${key}`);
+  }
   if (Number(content.freshness?.configuredSources || 0) < 20) errors.push("freshness.configuredSources");
   if (Number(content.freshness?.officialConfigured || 0) < 15) errors.push("freshness.officialConfigured");
   for (const item of content.insights || []) {
     if (!item?.latest?.title || !item?.decision || !item?.action) errors.push(`insight:${item?.id || "unknown"}`);
     if (item?.latest?.url && !directUrl(item.latest.url)) errors.push(`insight-url:${item?.id || "unknown"}`);
   }
+  if (!(content.insights || []).every((item) => item.hypothesis?.status)) errors.push("insights.hypothesis");
+  if (!(content.decisionCases || []).every((item) => item.hypothesis?.status)) errors.push("decisionCases.hypothesis");
   return { ok: errors.length === 0, errors };
 }
 
