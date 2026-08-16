@@ -425,7 +425,8 @@ function buildAIFactorySystem(payload = {}, sourceCoverage = {}, generatedAt = n
   const activePillars = pillarCoverage.filter((pillar) => pillar.status !== "coverage-gap").length;
   const signals = buildAIFactorySignals(payload, sourceIds);
   const workloads = buildWorkloadEvidence(payload, sourceIds, framework.workloads || []);
-  const activeWorkloads = workloads.filter((workload) => !["coverage-gap", "monitoring"].includes(workload.evidence?.status)).length;
+  const connectedWorkloads = workloads.filter((workload) => Boolean(workload.evidence?.url)).length;
+  const promotedWorkloads = workloads.filter((workload) => !["coverage-gap", "monitoring"].includes(workload.evidence?.status)).length;
   const acceleratorDecision = framework.acceleratorDecision || {};
   return {
     title: framework.title || "AI Factory System Optimization",
@@ -447,10 +448,11 @@ function buildAIFactorySystem(payload = {}, sourceCoverage = {}, generatedAt = n
     signals,
     pillarCoverage,
     automation: {
-      status: activePillars >= 6 ? "SYSTEM-COVERED" : activePillars >= 3 ? "PARTIAL" : "COVERAGE-GAP",
+      status: activePillars >= 6 ? "SYSTEM-COVERED" : connectedWorkloads === workloads.length ? "SOURCE-CONNECTED" : activePillars >= 3 ? "PARTIAL" : "COVERAGE-GAP",
       activePillars,
       totalPillars: AI_FACTORY_PILLARS.length,
-      activeWorkloads,
+      activeWorkloads: connectedWorkloads,
+      promotedWorkloads,
       totalWorkloads: workloads.length,
       refreshMode: "event + safety-poll + incremental-reindex",
       scheduleHours: Number(sourceCoverage.scheduleHours || sourceCatalog.refreshPolicy.scheduleHours),

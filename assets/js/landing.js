@@ -403,7 +403,7 @@
     const status = document.querySelector("#aiFactoryAutomationStatus");
     if (title) title.textContent = system.title || title.textContent;
     if (thesis) thesis.textContent = system.thesis || thesis.textContent;
-    if (status) status.textContent = `${system.automation?.status || "COVERAGE CHECK"} · ${system.automation?.activePillars || 0}/${system.automation?.totalPillars || 0} PILLARS · ${system.automation?.activeWorkloads || 0}/${system.automation?.totalWorkloads || 0} WORKLOADS · EVENT + ${system.automation?.scheduleHours || 3}H`;
+    if (status) status.textContent = `${system.automation?.status || "COVERAGE CHECK"} · ${system.automation?.activePillars || 0}/${system.automation?.totalPillars || 0} PILLARS · ${system.automation?.activeWorkloads || 0}/${system.automation?.totalWorkloads || 0} CONNECTED · ${system.automation?.promotedWorkloads || 0} PROMOTED · EVENT + ${system.automation?.scheduleHours || 3}H`;
 
     const northStar = document.querySelector("#aiFactoryNorthStar");
     if (northStar && system.northStar) {

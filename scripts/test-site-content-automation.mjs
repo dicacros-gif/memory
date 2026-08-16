@@ -55,6 +55,8 @@ assert.ok(artifact.aiFactorySystem.sources.length >= 8);
 assert.equal(artifact.aiFactorySystem.pillarCoverage.length, 7);
 assert.equal(artifact.aiFactorySystem.automation.failClosed, true);
 assert.equal(artifact.aiFactorySystem.automation.totalWorkloads, 6);
+assert.equal(artifact.aiFactorySystem.automation.activeWorkloads, 6);
+assert.ok(Number.isInteger(artifact.aiFactorySystem.automation.promotedWorkloads));
 assert.equal(artifact.aiFactorySystem.automation.refreshMode, "event + safety-poll + incremental-reindex");
 assert.equal(artifact.caseClassification.length, 3);
 assert.ok(artifact.decisionControl.integrity.status);
