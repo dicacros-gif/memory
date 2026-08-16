@@ -25,8 +25,8 @@ const entries = await Promise.all(Object.entries(paths).map(async ([key, path]) 
 const files = Object.fromEntries(entries);
 
 assert.match(files.html.text, /<template id="consoleTemplate">[\s\S]*?id="intelligenceConsole"[\s\S]*?<\/template>/);
-assert.match(files.html.text, /assets\/css\/landing\.min\.css\?v=infra-20260816-29/);
-assert.match(files.html.text, /assets\/js\/landing\.min\.js\?v=infra-20260816-29/);
+assert.match(files.html.text, /assets\/css\/landing\.min\.css\?v=infra-20260816-30/);
+assert.match(files.html.text, /assets\/js\/landing\.min\.js\?v=infra-20260816-30/);
 assert.match(files.landingJs.text, /function ensureConsoleMarkup\(\)/);
 assert.match(files.landingJs.text, /assets\/css\/styles\.min\.css/);
 assert.match(files.landingJs.text, /assets\/js\/app\.min\.js/);
@@ -61,7 +61,7 @@ assert.ok(files.heroVideoLite.bytes < 1_100_000, "console hero video must stay b
 assert.ok(files.heroVideoLite.bytes < files.heroVideo.bytes * 0.4, "console hero video must reduce transfer size by at least 60%");
 
 console.log(JSON.stringify({
-  revision: "infra-20260816-29",
+  revision: "infra-20260816-30",
   rootRuntimeGzipKb: Math.round((files.html.gzipBytes + files.landingMinCss.gzipBytes + files.landingMinJs.gzipBytes) / 1024),
   consoleRuntimeGzipKb: Math.round((files.stylesMinCss.gzipBytes + files.appMinJs.gzipBytes) / 1024),
   heroVideoKb: Math.round(files.heroVideoLite.bytes / 1024),

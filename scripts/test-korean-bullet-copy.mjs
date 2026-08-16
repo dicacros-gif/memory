@@ -17,22 +17,22 @@ for (const [, content] of answerLists) {
 }
 
 for (const phrase of [
-  "고객 현황·기술·전략 → Pain Point → 맞춤형 메모리 전략",
+  "고객 현황·기술·전략과 Workload Trace에서 우선 해결할 Pain Point 구조화",
   "고객 문제와 구매 기준",
   "공식 · 표준 · 논문 · 시장 신호",
   "칩 Roadmap · 메모리 요구사항",
   "의사결정 변화 · 실행 Trigger 우선",
-  "시장성 · Right to Win · 단위경제성",
+  "시장성 · 차별화 · 단위경제성",
 ]) assert.ok(html.includes(phrase), `missing Korean supporting copy: ${phrase}`);
 
 assert.doesNotMatch(html, /메모리를 판매하는 것이 아니라/);
 assert.doesNotMatch(html, /직무 적합성을 세 가지/);
-assert.match(html, /infra-20260816-29/);
+assert.match(html, /infra-20260816-30/);
 assert.match(css, /\.business-copy-list li::before/);
 assert.match(css, /Korean supporting copy uses compact consulting-style bullets/);
 
 console.log(JSON.stringify({
   heroBullets: 3,
   decisionAnswerLists: answerLists.length,
-  revision: "infra-20260816-29",
+  revision: "infra-20260816-30",
 }, null, 2));

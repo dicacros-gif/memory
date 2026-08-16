@@ -2,19 +2,36 @@
   "schemaVersion": "1.1",
   "strategyMandate": {
     "titleLines": [
-      "AI Infra Strategy",
-      "Customer Pain to Growth"
+      "AI Infra Strategy Workbench",
+      "Customer Pain to Executive Action"
     ],
     "scope": [
-      "고객 현황·기술·전략 → Pain Point → 맞춤형 메모리 전략",
-      "AI Application·HW·SW 변화 → 신규 Memory Biz·파트너 기회",
-      "내·외부 Roadmap → PoC·Qualification·Ramp → AI Infra 실행전략"
+      "고객 현황·기술·전략과 Workload Trace에서 우선 해결할 Pain Point 구조화",
+      "AI Application·HW·SW 변화를 맞춤형 Memory Solution과 신규 Biz 기회로 전환",
+      "검증 근거·경제성·Owner·KPI·Kill Criteria를 묶어 경영진 실행안으로 제시"
     ],
     "capabilities": [
-      "Customer Insight · 고객 전략과 Workload Trace에서 실제 Pain Point 도출",
-      "Tech-to-Business · AI·Data Center·반도체 변화를 제품·사업기회로 번역",
-      "Executive Decision · 근거·경제성·Owner·KPI·Trigger·Kill Criteria로 실행 통제"
-    ]
+      "Customer Strategy · Account Fact Base → Pain Map → Buying Criteria → 맞춤형 제안",
+      "New Business · Tech Inflection → Where to Play → Partner → Business Case",
+      "AI Infra Execution · PoC → Qualification → Capacity → Scale·Hold·Stop"
+    ],
+    "workProducts": [
+      { "id": "account-brief", "index": "01", "label": "CUSTOMER ACCOUNT BRIEF", "title": "고객 문제와 구매 기준", "detail": "Pain Map · JTBD · Decision Owner · Requirement" },
+      { "id": "workload-memory", "index": "02", "label": "WORKLOAD-TO-MEMORY", "title": "병목과 메모리 대안", "detail": "Trace · SLO · HBM/DRAM/eSSD/CXL · TCO" },
+      { "id": "new-biz-case", "index": "03", "label": "NEW BIZ CASE", "title": "시장·파트너·수익성", "detail": "Where to Play · Right to Win · Partner · Economics" },
+      { "id": "execution-pack", "index": "04", "label": "EXECUTIVE EXECUTION PACK", "title": "결정과 90일 실행", "detail": "Now/Next/Scale · Owner · KPI · Trigger · Kill" }
+    ],
+    "workflow": [
+      { "index": "01", "label": "CUSTOMER PROBLEM", "title": "Account · Strategy · Workload", "detail": "Business Outcome · Pain · 구매 기준" },
+      { "index": "02", "label": "FULL-STACK DIAGNOSIS", "title": "Application · HW/SW · Data Center", "detail": "SLO · 지배 병목 · Memory Requirement" },
+      { "index": "03", "label": "STRATEGIC OPTIONS", "title": "Memory Solution · New Biz · Partner", "detail": "시장성 · 차별화 · 단위경제성" },
+      { "index": "04", "label": "EXECUTION GATE", "title": "PoC · Qualification · Capacity", "detail": "Owner · KPI · Trigger · Kill Criteria" }
+    ],
+    "output": {
+      "label": "DEPARTMENT OUTPUT",
+      "title": "Customer Strategy · New Biz · AI Infra Execution",
+      "detail": "Answer First · Evidence · Options · Economics · 90-Day Action"
+    }
   },
   "organizationOperatingModel": {
     "title": "AI Infra Strategy Team Operating Model",

@@ -1,9 +1,9 @@
 (() => {
   "use strict";
 
-  const BUSINESS_TITLE = "AI Infra Strategy OS · Customer Pain to Growth";
+  const BUSINESS_TITLE = "AI Infra Strategy Workbench · Customer Pain to Executive Action";
   const CONSOLE_HASH = "#console";
-  const CONSOLE_REVISION = "infra-20260816-29";
+  const CONSOLE_REVISION = "infra-20260816-30";
   const DECISION_CLIENT_PATH = "data/landing-decision-client.json";
   const SITE_CONTENT_PATH = "data/site-content-client.json";
   const site = document.querySelector("#businessSite");
@@ -802,6 +802,59 @@
     }
   }
 
+  function renderDepartmentHomepage(content = {}) {
+    const hero = content.hero || {};
+    const workbench = hero.departmentWorkbench || {};
+    const proof = document.querySelector(".business-hero-proof");
+    if (proof && Array.isArray(hero.workProducts) && hero.workProducts.length) {
+      proof.innerHTML = hero.workProducts.map((item, index) => `
+        <div data-work-product="${escapeBusinessHTML(item.id || String(index + 1))}">
+          <dt>${escapeBusinessHTML(item.index || String(index + 1).padStart(2, "0"))}</dt>
+          <dd><small>${escapeBusinessHTML(item.label || "TEAM OUTPUT")}</small><strong>${escapeBusinessHTML(item.title || "전략 산출물")}</strong><span>${escapeBusinessHTML(item.detail || "")}</span></dd>
+        </div>`).join("");
+    }
+
+    const flow = document.querySelector(".business-architecture-flow");
+    if (flow && Array.isArray(hero.workflow) && hero.workflow.length) {
+      flow.innerHTML = hero.workflow.map((item, index) => `${index ? '<i aria-hidden="true">↓</i>' : ""}
+        <div class="business-flow-node${index === 2 ? " business-flow-node--accent" : ""}">
+          <small>${escapeBusinessHTML(item.index || String(index + 1).padStart(2, "0"))} · ${escapeBusinessHTML(item.label || "DECISION STEP")}</small>
+          <strong>${escapeBusinessHTML(item.title || "")}</strong>
+          <span>${escapeBusinessHTML(item.detail || "")}</span>
+        </div>`).join("");
+    }
+    const output = hero.output || {};
+    const outputLabel = document.querySelector(".business-visual-result > span");
+    const outputTitle = document.querySelector(".business-visual-result > strong");
+    if (outputLabel && output.label) outputLabel.textContent = output.label;
+    if (outputTitle && output.title) outputTitle.textContent = output.title;
+
+    const queue = document.querySelector("#businessHomeDecisionQueue");
+    if (queue && Array.isArray(workbench.agenda) && workbench.agenda.length) {
+      queue.innerHTML = workbench.agenda.map((item, index) => {
+        const deepLink = /^#console(?:$|\/)/.test(String(item.deepLink || "")) ? item.deepLink : "#console";
+        const evidence = Number(item.evidenceCount || 0);
+        const sources = Number(item.independentSources || 0);
+        return `<a href="${deepLink}" data-decision-id="${escapeBusinessHTML(item.id || String(index + 1))}" data-state="${escapeBusinessHTML(String(item.state || "monitoring").toLowerCase())}">
+          <span>${escapeBusinessHTML(item.index || String(index + 1).padStart(2, "0"))} · ${escapeBusinessHTML(item.label || "AI INFRA DECISION")}</span>
+          <strong>${escapeBusinessHTML(item.customerPain || item.whatChanged || "고객 문제 검증 중")}</strong>
+          <p>${escapeBusinessHTML(item.recommendation || "검증된 선택지를 비교합니다.")}</p>
+          <small>90D · ${escapeBusinessHTML(item.action90d || "Owner와 다음 검증 과제를 지정합니다.")} · 근거 ${evidence}건/${sources}개 출처</small>
+        </a>`;
+      }).join("");
+    }
+    const metrics = document.querySelector("#businessHomeQueueMetrics");
+    if (metrics && Array.isArray(workbench.metrics) && workbench.metrics.length) {
+      metrics.innerHTML = workbench.metrics.map((item) => `<div><dt>${escapeBusinessHTML(item.label || "METRIC")}</dt><dd>${escapeBusinessHTML(String(item.value ?? "--"))}${escapeBusinessHTML(item.suffix || "")}</dd><small>${escapeBusinessHTML(item.detail || "")}</small></div>`).join("");
+    }
+    const queueStatus = document.querySelector("#businessHomeQueueStatus");
+    if (queueStatus) {
+      const freshness = Number(content.decisionIntelligence?.freshness?.score || 0);
+      const state = workbench.revalidationRequired ? "재검증 필요" : (workbench.status || "MONITORING");
+      queueStatus.textContent = `${state} · Freshness ${Math.round(freshness)}/100 · ${formatKst(workbench.indexedAt || workbench.generatedAt)}`;
+    }
+  }
+
   function applySiteContent(content = {}) {
     if (!content?.clientArtifact) return;
     document.documentElement.dataset.contentRun = String(content.runId || "");
@@ -812,6 +865,7 @@
     }
     renderBusinessList(document.querySelector(".business-hero-thesis"), content.hero?.thesis);
     renderBusinessList(document.querySelector(".business-hero-bullets"), content.hero?.capabilities);
+    renderDepartmentHomepage(content);
     const liveDot = document.querySelector(".business-live-dot");
     if (liveDot) liveDot.textContent = content.hero?.status || "Decision-ready";
     const visualResult = document.querySelector(".business-visual-result small");

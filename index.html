@@ -3,14 +3,14 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>AI Infra Strategy OS · Customer Pain to Growth</title>
+  <title>AI Infra Strategy Workbench · Customer Pain to Executive Action</title>
   <meta name="description" content="고객 Business Outcome와 Workload·SLO에서 출발해 Compute·Memory·Network·Storage·Serving SW·Power/Cooling의 지배 병목을 판별하고 실행 Gate까지 연결하는 AI Infra 전략 포트폴리오" />
   <meta name="theme-color" content="#071522" />
   <link rel="canonical" href="https://dicacros-gif.github.io/memory/" />
   <meta property="og:type" content="website" />
   <meta property="og:locale" content="ko_KR" />
   <meta property="og:site_name" content="Memory Intelligence" />
-  <meta property="og:title" content="AI Infra Strategy OS · Customer Pain to Growth" />
+  <meta property="og:title" content="AI Infra Strategy Workbench · Customer Pain to Executive Action" />
   <meta property="og:description" content="Business Outcome → Workload/SLO → Dominant Bottleneck → Architecture → Qualification → Scale" />
   <meta property="og:url" content="https://dicacros-gif.github.io/memory/" />
   <meta property="og:image" content="https://dicacros-gif.github.io/memory/assets/media/memory-intelligence-og.jpg?v=20260717" />
@@ -20,7 +20,7 @@
   <meta property="og:image:height" content="630" />
   <meta property="og:image:alt" content="HBM 시스템을 배경으로 한 Memory Intelligence 전략 인텔리전스" />
   <meta name="twitter:card" content="summary_large_image" />
-  <meta name="twitter:title" content="AI Infra Strategy OS · Customer Pain to Growth" />
+  <meta name="twitter:title" content="AI Infra Strategy Workbench · Customer Pain to Executive Action" />
   <meta name="twitter:description" content="Business Outcome × Bottleneck Diagnosis × HW/SW Architecture × Qualification × Scale" />
   <meta name="twitter:image" content="https://dicacros-gif.github.io/memory/assets/media/memory-intelligence-og.jpg?v=20260717" />
   <meta name="twitter:image:alt" content="HBM 시스템을 배경으로 한 Memory Intelligence 전략 인텔리전스" />
@@ -110,7 +110,7 @@
     (() => {
       if (!location.hash.startsWith("#console")) return;
       document.documentElement.classList.add("console-entry");
-      const revision = "infra-20260816-29";
+      const revision = "infra-20260816-30";
       const assets = [
         ["consoleStylesPreload", "style", `assets/css/styles.min.css?v=${revision}`, "high"],
         ["consoleAppPreload", "script", `assets/js/app.min.js?v=${revision}`, "low"],
@@ -127,7 +127,7 @@
       }
     })();
   </script>
-  <link rel="stylesheet" href="assets/css/landing.min.css?v=infra-20260816-29" />
+  <link rel="stylesheet" href="assets/css/landing.min.css?v=infra-20260816-30" />
 </head>
 <body class="landing-mode">
   <div class="business-site" id="businessSite">
@@ -161,75 +161,75 @@
     </header>
 
     <main id="businessMain">
-      <section class="business-hero" id="home" data-frame="CUSTOMER PAIN · NEW BIZ · EXECUTION">
+      <section class="business-hero" id="home" data-frame="CUSTOMER PAIN · WORKLOAD · MEMORY OPTION · EXECUTION">
         <div class="business-hero-grid" aria-hidden="true"></div>
         <div class="business-hero-content business-container">
           <div class="business-hero-copy">
-            <p class="business-kicker"><span></span>AI INFRA &amp; MEMORY STRATEGY</p>
-            <h1>AI Infra Strategy<br /><em>Customer Pain to Growth</em></h1>
+            <p class="business-kicker"><span></span>AI INFRA STRATEGY WORKBENCH</p>
+            <h1>AI Infra Strategy Workbench<br /><em>Customer Pain to Executive Action</em></h1>
             <ul class="business-hero-thesis business-copy-list" aria-label="핵심 방향">
-              <li>고객 현황·기술·전략 → Pain Point → 맞춤형 메모리 전략</li>
-              <li>AI Application·HW·SW 변화 → 신규 Memory Biz·파트너 기회</li>
-              <li>내·외부 Roadmap → PoC·Qualification·Ramp → AI Infra 실행전략</li>
+              <li>고객 현황·기술·전략과 Workload Trace에서 우선 해결할 Pain Point 구조화</li>
+              <li>AI Application·HW·SW 변화를 맞춤형 Memory Solution과 신규 Biz 기회로 전환</li>
+              <li>검증 근거·경제성·Owner·KPI·Kill Criteria를 묶어 경영진 실행안으로 제시</li>
             </ul>
             <ul class="business-hero-bullets" aria-label="핵심 전략 범위">
-              <li>Customer Insight · 고객 전략과 Workload에서 실제 Pain Point 도출</li>
-              <li>Tech-to-Business · AI·Data Center·반도체 변화를 사업기회로 번역</li>
-              <li>Executive Decision · 근거·경제성·Owner·KPI·Trigger·Kill로 실행</li>
+              <li>Customer Strategy · Account Fact Base → Pain Map → Buying Criteria → 맞춤형 제안</li>
+              <li>New Business · Tech Inflection → Where to Play → Partner → Business Case</li>
+              <li>AI Infra Execution · PoC → Qualification → Capacity → Scale·Hold·Stop</li>
             </ul>
             <div class="business-hero-actions">
-              <a class="business-primary-button" href="#decision-lab">검증된 전략 답안 보기 <span aria-hidden="true">→</span></a>
-              <a class="business-secondary-button" href="#deep-cases">Deep Business Cases</a>
-              <button class="business-text-button" type="button" data-open-console>Intelligence Console 열기 <span aria-hidden="true">↗</span></button>
+              <a class="business-primary-button" href="#departmentDecisionQueue">오늘의 의사결정 보기 <span aria-hidden="true">↓</span></a>
+              <a class="business-secondary-button" href="#decision-lab">전략 답안 보기</a>
+              <button class="business-text-button" type="button" data-open-console>Console 근거 열기 <span aria-hidden="true">↗</span></button>
             </div>
-            <dl class="business-hero-proof" aria-label="핵심 제공 가치">
-              <div><dt>01</dt><dd><strong>Customer Strategy</strong><span>Pain Map·Requirement·맞춤형 제안</span></dd></div>
-              <div><dt>02</dt><dd><strong>New Business</strong><span>Tech Inflection·Partner·Business Case</span></dd></div>
-              <div><dt>03</dt><dd><strong>AI Infra Execution</strong><span>PoC·Qualification·Capacity·Scale</span></dd></div>
+            <dl class="business-hero-proof" aria-label="부서 핵심 산출물">
+              <div><dt>01</dt><dd><small>CUSTOMER ACCOUNT BRIEF</small><strong>고객 문제와 구매 기준</strong><span>Pain Map · JTBD · Requirement</span></dd></div>
+              <div><dt>02</dt><dd><small>WORKLOAD-TO-MEMORY</small><strong>병목과 메모리 대안</strong><span>Trace · SLO · Architecture · TCO</span></dd></div>
+              <div><dt>03</dt><dd><small>NEW BIZ CASE</small><strong>시장·파트너·수익성</strong><span>Where to Play · Right to Win</span></dd></div>
+              <div><dt>04</dt><dd><small>EXECUTIVE EXECUTION PACK</small><strong>결정과 90일 실행</strong><span>Owner · KPI · Trigger · Kill</span></dd></div>
             </dl>
           </div>
 
-          <div class="business-hero-visual" aria-label="고객 신호에서 신규 사업과 실행 Gate까지 연결하는 전략 흐름">
+          <div class="business-hero-visual" aria-label="고객 문제를 경영진 실행안으로 전환하는 전략 흐름">
             <div class="business-visual-head">
-              <span>STRATEGY SYSTEM</span>
+              <span>DEPARTMENT DECISION SYSTEM</span>
               <span class="business-live-dot">Decision-ready</span>
             </div>
             <div class="business-architecture-flow">
-              <div class="business-flow-node"><small>CUSTOMER INTELLIGENCE</small><strong>Account · Technology · Strategy</strong><span>고객 Pain · 구매 기준 · Decision Owner</span></div>
+              <div class="business-flow-node"><small>01 · CUSTOMER PROBLEM</small><strong>Account · Strategy · Workload</strong><span>Business Outcome · Pain · 구매 기준</span></div>
               <i aria-hidden="true">↓</i>
-              <div class="business-flow-node"><small>WORKLOAD TRANSLATION</small><strong>Training · Inference · RAG · Agent</strong><span>HW/SW 병목 · SLO · Memory Requirement</span></div>
+              <div class="business-flow-node"><small>02 · FULL-STACK DIAGNOSIS</small><strong>Application · HW/SW · Data Center</strong><span>SLO · 지배 병목 · Memory Requirement</span></div>
               <i aria-hidden="true">↓</i>
-              <div class="business-flow-node business-flow-node--accent"><small>BUSINESS OPTIONS</small><strong>Memory Solution · New Biz · Partner</strong><span>시장성 · Right to Win · 단위경제성</span></div>
+              <div class="business-flow-node business-flow-node--accent"><small>03 · STRATEGIC OPTIONS</small><strong>Memory Solution · New Biz · Partner</strong><span>시장성 · 차별화 · 단위경제성</span></div>
               <i aria-hidden="true">↓</i>
-              <div class="business-flow-node"><small>EXECUTION GOVERNANCE</small><strong>PoC · Qualification · Capacity</strong><span>Owner · KPI · Trigger · Kill Criteria</span></div>
+              <div class="business-flow-node"><small>04 · EXECUTION GATE</small><strong>PoC · Qualification · Capacity</strong><span>Owner · KPI · Trigger · Kill Criteria</span></div>
             </div>
             <div class="business-visual-result">
-              <span>EXECUTIVE OUTPUT</span>
-              <strong>Customer Strategy · New Biz · AI Infra Roadmap</strong>
-              <small>Evidence · Options · Economics · Owner · KPI · 90-Day Gate</small>
+              <span>DEPARTMENT OUTPUT</span>
+              <strong>Customer Strategy · New Biz · AI Infra Execution</strong>
+              <small>Answer First · Evidence · Options · Economics · 90-Day Action</small>
             </div>
           </div>
         </div>
 
-        <div class="business-audience business-container" aria-label="관점별 핵심 가치">
-          <div class="business-audience-tabs" role="tablist" aria-label="관점 선택">
-            <button type="button" role="tab" aria-selected="true" data-audience="customer">Customer Strategy</button>
-            <button type="button" role="tab" aria-selected="false" data-audience="newbiz">New Biz</button>
-            <button type="button" role="tab" aria-selected="false" data-audience="execution">AI Infra Execution</button>
+        <section class="business-decision-queue business-container" id="departmentDecisionQueue" aria-label="Console 기반 오늘의 의사결정">
+          <header>
+            <div><span>LIVE DECISION QUEUE · CONSOLE-CONNECTED</span><strong>수집 근거가 바뀌면 안건·권고·90일 Action을 자동 갱신</strong></div>
+            <small id="businessHomeQueueStatus">검증 데이터 연결 중</small>
+          </header>
+          <div class="business-decision-queue-grid" id="businessHomeDecisionQueue">
+            <a href="#console/c-level-cockpit/hbm4-foundry"><span>01 · CUSTOM MEMORY</span><strong>고객 인증·패키징·물량 약정 Gate</strong><p>표준 HBM과 Custom Co-Design의 투자 조건을 분리합니다.</p><small>CONSOLE EVIDENCE → 90-DAY ACTION</small></a>
+            <a href="#console/c-level-cockpit/post-hbm"><span>02 · AGENTIC INFERENCE</span><strong>Serving 병목과 Memory Tier 경제성</strong><p>SW 최적화 이후 지배 병목을 기준으로 대안을 비교합니다.</p><small>CONSOLE EVIDENCE → 90-DAY ACTION</small></a>
+            <a href="#console/ai-matrix"><span>03 · ENTERPRISE RAG</span><strong>검색 품질과 eSSD·DRAM 기회</strong><p>Freshness·P99·Cost/Query를 사업안으로 연결합니다.</p><small>CONSOLE EVIDENCE → 90-DAY ACTION</small></a>
+            <a href="#console/ai-factory"><span>04 · AI FACTORY</span><strong>랙 단위 AI Infra 실행전략</strong><p>전력·냉각·Network·Memory를 하나의 Gate로 운영합니다.</p><small>CONSOLE EVIDENCE → 90-DAY ACTION</small></a>
           </div>
-          <div class="business-audience-copy" data-audience-panel="customer">
-            <strong>CUSTOMER STRATEGY · PAIN TO REQUIREMENT</strong>
-            <span>고객 현황·기술·전략 → Workload Trace → Pain Map → Memory Proposal</span>
-          </div>
-          <div class="business-audience-copy" data-audience-panel="newbiz" hidden>
-            <strong>NEW BIZ · INFLECTION TO BUSINESS CASE</strong>
-            <span>AI App·HW·SW 변화 → Opportunity Thesis → Partner → 수익성</span>
-          </div>
-          <div class="business-audience-copy" data-audience-panel="execution" hidden>
-            <strong>AI INFRA EXECUTION · DECISION TO RAMP</strong>
-            <span>선택지·경제성 → RACI → PoC·Qualification·Capacity → Scale / Stop</span>
-          </div>
-        </div>
+          <dl class="business-decision-queue-metrics" id="businessHomeQueueMetrics" aria-label="자동화 상태">
+            <div><dt>DECISION READY</dt><dd>4</dd><small>실행 검토 가능 안건</small></div>
+            <div><dt>VERIFIED EVENTS</dt><dd>--</dd><small>교차 검증된 변화</small></div>
+            <div><dt>FRESHNESS</dt><dd>--/100</dd><small>검증 데이터 연결 중</small></div>
+            <div><dt>SOURCE COVERAGE</dt><dd>--</dd><small>관측/구성 소스</small></div>
+          </dl>
+        </section>
       </section>
 
       <section class="business-section business-decision-lab" id="decision-lab" data-frame="ANSWER FIRST · CONSOLE EVIDENCE · RESULTS DELIVERY">
@@ -1992,6 +1992,6 @@
   <div class="qa-answer" id="qaAnswer" hidden></div>
   <div class="inspector" id="inspector" hidden></div>
   <div class="backdrop" id="backdrop"></div>
-  <script src="assets/js/landing.min.js?v=infra-20260816-29" defer></script>
+  <script src="assets/js/landing.min.js?v=infra-20260816-30" defer></script>
 </body>
 </html>

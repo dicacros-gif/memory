@@ -648,6 +648,83 @@ function buildProfile(profile = {}, brief = {}, partner = {}, generatedAt = null
   };
 }
 
+function buildDepartmentHomepage({ decisionIntelligence = {}, sourceCoverage = {}, payload = {}, insights = [], generatedAt = null } = {}) {
+  const automation = decisionIntelligence.decisionAutomation || {};
+  const freshness = decisionIntelligence.freshness || {};
+  const deepLinks = {
+    "custom-memory": "#console/c-level-cockpit/hbm4-foundry",
+    "agentic-tiering": "#console/c-level-cockpit/post-hbm",
+    "enterprise-rag": "#console/ai-matrix",
+    "ai-factory": "#console/ai-factory",
+  };
+  const agenda = (automation.briefs || [])
+    .filter((brief) => brief?.status === "DECISION_READY" || brief?.status === "EXECUTION_TRACKING")
+    .slice(0, 4)
+    .map((brief, index) => ({
+      id: brief.id || `decision-${index + 1}`,
+      index: String(index + 1).padStart(2, "0"),
+      label: compact(brief.label || "AI Infra Decision", 72),
+      state: brief.status || "MONITORING",
+      stage: brief.stage || "EVIDENCE_REVIEW",
+      whatChanged: compact(brief.whatChanged || "새 근거가 수집되면 변경 내용을 갱신합니다.", 120),
+      customerPain: compact(brief.customerPain || "고객 Pain과 Workload 근거를 확인합니다.", 150),
+      recommendation: compact(brief.hypothesis || "검증된 선택지를 비교합니다.", 180),
+      action90d: compact(brief.action90d || "Owner와 다음 검증 과제를 지정합니다.", 160),
+      owner: compact(brief.owner || "AI Infra Strategy", 100),
+      kpis: (brief.kpis || []).slice(0, 3).map((item) => compact(item, 48)),
+      evidenceCount: Number(brief.evidenceCount || 0),
+      independentSources: Number(brief.independentSources || 0),
+      confidence: brief.confidence || "review",
+      deepLink: deepLinks[brief.id] || "#console",
+    }));
+  if (agenda.length < 3) {
+    const fallbackLinks = {
+      hbm: "#console/c-level-cockpit/hbm4-foundry",
+      demand: "#console/c-level-cockpit/post-hbm",
+      nand: "#console/ai-matrix",
+      partner: "#console/ai-factory",
+    };
+    for (const insight of insights) {
+      if (agenda.length >= 4 || agenda.some((item) => item.id === insight.id)) continue;
+      agenda.push({
+        id: insight.id || `verified-brief-${agenda.length + 1}`,
+        index: String(agenda.length + 1).padStart(2, "0"),
+        label: compact(insight.label || "Verified Intelligence", 72),
+        state: "MONITORING",
+        stage: "EVIDENCE_REVIEW",
+        whatChanged: compact(insight.latest?.title || "최신 근거 검토", 120),
+        customerPain: compact(insight.implication || insight.fact || "고객 Pain과 Workload 근거를 확인합니다.", 150),
+        recommendation: compact(insight.decision || "검증된 선택지를 비교합니다.", 180),
+        action90d: compact(insight.action || "Owner와 다음 검증 과제를 지정합니다.", 160),
+        owner: "AI Infra Strategy",
+        kpis: [],
+        evidenceCount: Number(insight.evidenceCount || 0),
+        independentSources: insight.latest?.source ? 1 : 0,
+        confidence: insight.latest?.evidenceLevel || "review",
+        deepLink: fallbackLinks[insight.id] || "#console",
+      });
+    }
+  }
+  const funnel = automation.funnel || {};
+  const configured = Number(sourceCoverage.configuredSources || 0);
+  const observed = Number(sourceCoverage.observedSources || 0);
+  return {
+    source: "decisionIntelligence.decisionAutomation.briefs",
+    runId: payload.runId || decisionIntelligence.runId || null,
+    generatedAt,
+    status: automation.state || "MONITORING",
+    agenda,
+    metrics: [
+      { label: "DECISION READY", value: Number(funnel.decisionReadyBriefs || agenda.length), detail: "실행 검토 가능 안건" },
+      { label: "VERIFIED EVENTS", value: Number(funnel.verifiedEvents || 0), detail: "교차 검증된 변화" },
+      { label: "FRESHNESS", value: Number(freshness.score || 0), suffix: "/100", detail: freshness.label || freshness.status || "검증 대기" },
+      { label: "SOURCE COVERAGE", value: observed, suffix: configured ? `/${configured}` : "", detail: "관측/구성 소스" },
+    ],
+    revalidationRequired: freshness.revalidationRequired === true,
+    indexedAt: freshness.timestamps?.indexedAt || null,
+  };
+}
+
 export function validateSiteContent(content = {}) {
   const errors = [];
   if (content.schemaVersion !== "1.1") errors.push("schemaVersion");
@@ -678,6 +755,11 @@ export function validateSiteContent(content = {}) {
   if (!Array.isArray(content.organizationOperatingModel?.decisionLoop) || content.organizationOperatingModel.decisionLoop.length < 5) errors.push("organizationOperatingModel.decisionLoop");
   if (!Array.isArray(content.organizationOperatingModel?.workstreams) || content.organizationOperatingModel.workstreams.length !== 3) errors.push("organizationOperatingModel.workstreams");
   if (!(content.organizationOperatingModel?.workstreams || []).every((item) => item?.mandate && item?.inputs?.length >= 4 && item?.questions?.length >= 3 && item?.outputs?.length >= 4 && item?.gate && item?.kpis?.length >= 3)) errors.push("organizationOperatingModel.workstreamContract");
+  if (!Array.isArray(content.hero?.workProducts) || content.hero.workProducts.length !== 4) errors.push("hero.workProducts");
+  if (!Array.isArray(content.hero?.workflow) || content.hero.workflow.length !== 4) errors.push("hero.workflow");
+  if (!Array.isArray(content.hero?.departmentWorkbench?.agenda) || content.hero.departmentWorkbench.agenda.length < 3) errors.push("hero.departmentWorkbench.agenda");
+  if (!Array.isArray(content.hero?.departmentWorkbench?.metrics) || content.hero.departmentWorkbench.metrics.length !== 4) errors.push("hero.departmentWorkbench.metrics");
+  if (content.hero?.departmentWorkbench?.source !== "decisionIntelligence.decisionAutomation.briefs") errors.push("hero.departmentWorkbench.source");
   if (!Array.isArray(content.caseClassification) || content.caseClassification.length !== 3) errors.push("caseClassification");
   if (!content.decisionControl?.integrity?.status || !content.decisionControl?.freshness?.status || !content.decisionControl?.coverage?.status || !content.decisionControl?.confidence?.status) errors.push("decisionControl");
   if (content.decisionIntelligence?.evaluation?.failClosed !== true) errors.push("decisionIntelligence.evaluation.failClosed");
@@ -737,6 +819,13 @@ export function buildSiteContentClient({ payload = {}, quant = {} } = {}) {
     officialFresh: Number(sourceCoverage.officialFreshObserved || 0),
     targetPct: 90,
   };
+  const departmentWorkbench = buildDepartmentHomepage({
+    decisionIntelligence,
+    sourceCoverage,
+    payload,
+    insights,
+    generatedAt,
+  });
   const content = {
     schemaVersion: "1.1",
     runId: payload.runId || quant.runId || null,
@@ -787,6 +876,10 @@ export function buildSiteContentClient({ payload = {}, quant = {} } = {}) {
       currentDecisions: topDecisions,
       scope: model.strategyMandate?.scope || [],
       capabilities: model.strategyMandate?.capabilities || [],
+      workProducts: model.strategyMandate?.workProducts || [],
+      workflow: model.strategyMandate?.workflow || [],
+      output: model.strategyMandate?.output || {},
+      departmentWorkbench,
       status: `${String(payload.quality?.status || "review").toUpperCase()} · 출처 ${sourceCoverage.observedSources || 0}개 관측 · ${String(generatedAt).slice(0, 10)}`,
     },
     organizationOperatingModel: model.organizationOperatingModel || {},

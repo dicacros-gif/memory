@@ -1853,13 +1853,13 @@
   },
   "hero": {
     "titleLines": [
-      "AI Infra Strategy",
-      "Customer Pain to Growth"
+      "AI Infra Strategy Workbench",
+      "Customer Pain to Executive Action"
     ],
     "thesis": [
-      "고객 현황·기술·전략 → Pain Point → 맞춤형 메모리 전략",
-      "AI Application·HW·SW 변화 → 신규 Memory Biz·파트너 기회",
-      "내·외부 Roadmap → PoC·Qualification·Ramp → AI Infra 실행전략"
+      "고객 현황·기술·전략과 Workload Trace에서 우선 해결할 Pain Point 구조화",
+      "AI Application·HW·SW 변화를 맞춤형 Memory Solution과 신규 Biz 기회로 전환",
+      "검증 근거·경제성·Owner·KPI·Kill Criteria를 묶어 경영진 실행안으로 제시"
     ],
     "currentDecisions": [
       "고객 인증·공급 일정·베이스 다이·패키징 병목을 함께 확인한 뒤 프리미엄 캐파를 배분합니다.",
@@ -1867,15 +1867,194 @@
       "NAND 계약가·웨이퍼 가격·eSSD 고객 신호를 분리해 Dalian/Solidigm의 제품 믹스와 가격 방어를 결정합니다."
     ],
     "scope": [
-      "고객 현황·기술·전략 → Pain Point → 맞춤형 메모리 전략",
-      "AI Application·HW·SW 변화 → 신규 Memory Biz·파트너 기회",
-      "내·외부 Roadmap → PoC·Qualification·Ramp → AI Infra 실행전략"
+      "고객 현황·기술·전략과 Workload Trace에서 우선 해결할 Pain Point 구조화",
+      "AI Application·HW·SW 변화를 맞춤형 Memory Solution과 신규 Biz 기회로 전환",
+      "검증 근거·경제성·Owner·KPI·Kill Criteria를 묶어 경영진 실행안으로 제시"
     ],
     "capabilities": [
-      "Customer Insight · 고객 전략과 Workload Trace에서 실제 Pain Point 도출",
-      "Tech-to-Business · AI·Data Center·반도체 변화를 제품·사업기회로 번역",
-      "Executive Decision · 근거·경제성·Owner·KPI·Trigger·Kill Criteria로 실행 통제"
+      "Customer Strategy · Account Fact Base → Pain Map → Buying Criteria → 맞춤형 제안",
+      "New Business · Tech Inflection → Where to Play → Partner → Business Case",
+      "AI Infra Execution · PoC → Qualification → Capacity → Scale·Hold·Stop"
     ],
+    "workProducts": [
+      {
+        "id": "account-brief",
+        "index": "01",
+        "label": "CUSTOMER ACCOUNT BRIEF",
+        "title": "고객 문제와 구매 기준",
+        "detail": "Pain Map · JTBD · Decision Owner · Requirement"
+      },
+      {
+        "id": "workload-memory",
+        "index": "02",
+        "label": "WORKLOAD-TO-MEMORY",
+        "title": "병목과 메모리 대안",
+        "detail": "Trace · SLO · HBM/DRAM/eSSD/CXL · TCO"
+      },
+      {
+        "id": "new-biz-case",
+        "index": "03",
+        "label": "NEW BIZ CASE",
+        "title": "시장·파트너·수익성",
+        "detail": "Where to Play · Right to Win · Partner · Economics"
+      },
+      {
+        "id": "execution-pack",
+        "index": "04",
+        "label": "EXECUTIVE EXECUTION PACK",
+        "title": "결정과 90일 실행",
+        "detail": "Now/Next/Scale · Owner · KPI · Trigger · Kill"
+      }
+    ],
+    "workflow": [
+      {
+        "index": "01",
+        "label": "CUSTOMER PROBLEM",
+        "title": "Account · Strategy · Workload",
+        "detail": "Business Outcome · Pain · 구매 기준"
+      },
+      {
+        "index": "02",
+        "label": "FULL-STACK DIAGNOSIS",
+        "title": "Application · HW/SW · Data Center",
+        "detail": "SLO · 지배 병목 · Memory Requirement"
+      },
+      {
+        "index": "03",
+        "label": "STRATEGIC OPTIONS",
+        "title": "Memory Solution · New Biz · Partner",
+        "detail": "시장성 · 차별화 · 단위경제성"
+      },
+      {
+        "index": "04",
+        "label": "EXECUTION GATE",
+        "title": "PoC · Qualification · Capacity",
+        "detail": "Owner · KPI · Trigger · Kill Criteria"
+      }
+    ],
+    "output": {
+      "label": "DEPARTMENT OUTPUT",
+      "title": "Customer Strategy · New Biz · AI Infra Execution",
+      "detail": "Answer First · Evidence · Options · Economics · 90-Day Action"
+    },
+    "departmentWorkbench": {
+      "source": "decisionIntelligence.decisionAutomation.briefs",
+      "runId": "31952831392",
+      "generatedAt": "2026-08-16T14:39:27.327Z",
+      "status": "DECISION_READY",
+      "agenda": [
+        {
+          "id": "custom-memory",
+          "index": "01",
+          "label": "Custom Memory Co-Design",
+          "state": "DECISION_READY",
+          "stage": "COMMERCIAL_SHIPMENT",
+          "whatChanged": "Samsung의 HBM4가 COMMERCIAL_SHIPMENT 단계로 관측됨",
+          "customerPain": "가속기 세대 전환 일정과 고객 인증·패키징·물량 약정을 동시에 맞춰야 함",
+          "recommendation": "표준 HBM과 Semi-Custom을 분리하고 확정 물량·NRE 회수·Qualification Gate를 통과한 고객에만 Custom 범위를 확대",
+          "action90d": "고객별 Stage Map과 Binding Volume·Margin Floor를 연결한 Qualification Board 구축",
+          "owner": "AI Infra Strategy · Memory Product · Packaging · Customer Team",
+          "kpis": [
+            "Qualification Lead Time",
+            "Yield",
+            "Committed Volume"
+          ],
+          "evidenceCount": 5,
+          "independentSources": 4,
+          "confidence": "verified-primary",
+          "deepLink": "#console/c-level-cockpit/hbm4-foundry"
+        },
+        {
+          "id": "agentic-tiering",
+          "index": "02",
+          "label": "Agentic Inference Memory Tiering",
+          "state": "DECISION_READY",
+          "stage": "COMMERCIAL_SHIPMENT",
+          "whatChanged": "Samsung의 HBM4가 COMMERCIAL_SHIPMENT 단계로 관측됨",
+          "customerPain": "긴 Context·동시 실행·KV 이동으로 TTFT/TPOT와 Cost per Successful Task가 악화",
+          "recommendation": "Serving SW 최적화 후에도 KV Capacity가 지배 병목이면 HBM·Host DRAM/CXL·eSSD Tiering이 증설보다 경제적",
+          "action90d": "동일 Model·Context·Concurrency·SLO로 SW-only와 Memory Tier A/B Benchmark 수행",
+          "owner": "Serving Platform · AI Infra Architecture · Memory Solution",
+          "kpis": [
+            "TTFT P95",
+            "TPOT P95",
+            "Goodput"
+          ],
+          "evidenceCount": 7,
+          "independentSources": 6,
+          "confidence": "verified-primary",
+          "deepLink": "#console/c-level-cockpit/post-hbm"
+        },
+        {
+          "id": "enterprise-rag",
+          "index": "03",
+          "label": "Enterprise RAG Economics",
+          "state": "DECISION_READY",
+          "stage": "DISCLOSED",
+          "whatChanged": "Memory industry의 AI Memory가 DISCLOSED 단계로 관측됨",
+          "customerPain": "검색 품질·권한·색인 최신성과 Query P99를 유지하면서 Corpus 비용을 통제해야 함",
+          "recommendation": "Vector DB 교체보다 Metadata·ACL·Hybrid Retrieval·Rerank를 먼저 통과한 뒤 Hot Index·Warm Document·Cold Corpus를 계층화",
+          "action90d": "Golden Set과 권한 오류·Recall·P99 기준선을 고정하고 Tier별 Retrieval Benchmark 수행",
+          "owner": "Knowledge Platform · Data Infra · Storage Solution",
+          "kpis": [
+            "Recall@k",
+            "Citation Precision",
+            "Retrieval P99"
+          ],
+          "evidenceCount": 5,
+          "independentSources": 5,
+          "confidence": "review",
+          "deepLink": "#console/ai-matrix"
+        },
+        {
+          "id": "ai-factory",
+          "index": "04",
+          "label": "AI Factory Scale Gate",
+          "state": "DECISION_READY",
+          "stage": "DISCLOSED",
+          "whatChanged": "Memory industry의 AI Memory가 DISCLOSED 단계로 관측됨",
+          "customerPain": "가속기·Fabric·Storage·전력·냉각의 병목이 Rack/POD 단위 확장을 제한",
+          "recommendation": "서버 단품이 아니라 Useful AI Work / Total Cost와 Qualification / Time 기준으로 Rack Cell을 공동 최적화",
+          "action90d": "Workload Trace·전력·열·Fabric·Checkpoint를 한 부하에서 계측하는 Rack Cell Baseline 확정",
+          "owner": "AI Platform · Data Center Facilities · Network / Storage · FinOps",
+          "kpis": [
+            "Goodput",
+            "MFU",
+            "Rack kW"
+          ],
+          "evidenceCount": 6,
+          "independentSources": 6,
+          "confidence": "review",
+          "deepLink": "#console/ai-factory"
+        }
+      ],
+      "metrics": [
+        {
+          "label": "DECISION READY",
+          "value": 4,
+          "detail": "실행 검토 가능 안건"
+        },
+        {
+          "label": "VERIFIED EVENTS",
+          "value": 4,
+          "detail": "교차 검증된 변화"
+        },
+        {
+          "label": "FRESHNESS",
+          "value": 92.1,
+          "suffix": "/100",
+          "detail": "최신"
+        },
+        {
+          "label": "SOURCE COVERAGE",
+          "value": 7,
+          "suffix": "/42",
+          "detail": "관측/구성 소스"
+        }
+      ],
+      "revalidationRequired": false,
+      "indexedAt": "2026-08-16T10:54:14.715Z"
+    },
     "status": "VERIFIED · 출처 7개 관측 · 2026-08-16"
   },
   "organizationOperatingModel": {
