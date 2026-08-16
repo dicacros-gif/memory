@@ -19,6 +19,9 @@ The published dashboard is generated through a fail-closed evidence pipeline:
 - The browser checks for a new manifest every 15 minutes while the page remains open. A partially published or mismatched artifact is never mixed with the prior run.
 - The GitHub Actions agent refreshes the evidence and derived site content every three hours from `data/source-catalog.json`. If collection or validation fails, the last verified bundle remains published.
 - The catalog separates primary company/customer sources, standards, filings, market data, industry research, and authoritative media. Source coverage and the observed/configured ratio are generated into the landing bundle on every verified run.
+- The AI Factory system view tracks seven independent evidence pillars: power/cooling, network/fabric, data/storage, scheduling/orchestration, LLM serving, accelerator/memory, and economics/governance. Each pillar exposes `fresh`, `observed`, or `coverage-gap` rather than inferring readiness from a different domain.
+- Official IEA, ASHRAE, Kubernetes/Kueue, Kubernetes DRA, Slurm, NVIDIA, and vLLM sources are monitored through catalog-driven discovery and health checks. Vendor performance claims remain `Watch` unless workload, model, version, SLO, and observation date are reproducible.
+- The generated `aiFactorySystem` contract carries the 9-layer architecture, six workload KPI sets, eight execution gates, source status, pillar coverage, and the latest promoted signal into the landing page and Console agent council.
 
 ### Integrity safeguards
 

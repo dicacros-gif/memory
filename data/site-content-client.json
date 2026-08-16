@@ -15,16 +15,16 @@
     "evidenceCount": 77,
     "briefCount": 6,
     "sourceCount": 4,
-    "configuredSources": 37,
+    "configuredSources": 42,
     "observedSources": 7,
     "freshObservedSources": 6,
     "staleObservedSources": 1,
-    "officialConfigured": 28,
+    "officialConfigured": 33,
     "officialObserved": 3,
     "officialFreshObserved": 2,
-    "discoveryQueries": 35,
+    "discoveryQueries": 40,
     "connectedHealthChecks": 10,
-    "healthChecks": 12,
+    "healthChecks": 17,
     "scheduleHours": 3,
     "browserRecheckMinutes": 15,
     "sourceCatalogVersion": "1.0"
@@ -42,9 +42,9 @@
     "coverage": {
       "status": "PARTIAL",
       "observed": 7,
-      "configured": 37,
-      "ratio": 0.189,
-      "freshRatio": 0.162
+      "configured": 42,
+      "ratio": 0.167,
+      "freshRatio": 0.143
     },
     "confidence": {
       "status": "CONDITIONAL",
@@ -471,7 +471,7 @@
       "id": "partner-new-biz",
       "panelId": "partner",
       "briefId": "demand",
-      "index": "05",
+      "index": "06",
       "phase": "SCALE",
       "tabLabel": "Partner-led New Biz",
       "title": "Partners & Clients · Repeatable New Biz",
@@ -749,6 +749,419 @@
     "publishedAt": "2026-08-12",
     "evidenceLevel": "Watch",
     "sourceClass": "official"
+  },
+  "aiFactorySystem": {
+    "title": "AI Factory System Optimization · Useful Work per MW",
+    "thesis": "가속기·메모리·네트워크·스토리지·스케줄러·LLM Serving·전력·냉각을 개별 구매 항목이 아니라 하나의 Workload SLO와 단위경제성으로 공동 최적화합니다.",
+    "northStar": {
+      "label": "NORTH STAR",
+      "formula": "Useful AI Work ÷ (Annualized CapEx + OpEx + Energy + Risk)",
+      "training": "Quality Gate를 통과한 Goodput · Time-to-Train · 유효 학습량/GPU-hour",
+      "inference": "Quality·Latency SLO를 통과한 Tokens/s · Cost/1M Useful Tokens · Useful Tokens/kWh"
+    },
+    "architectureLayers": [
+      {
+        "id": "application",
+        "index": "01",
+        "label": "AI APPLICATION",
+        "title": "RAG · Agent · Multimodal · Training",
+        "decision": "업무 Outcome·Quality·Latency SLO"
+      },
+      {
+        "id": "platform",
+        "index": "02",
+        "label": "AI PLATFORM",
+        "title": "Gateway · Eval · Guardrail · MLOps",
+        "decision": "Model 교체 가능성·평가·통제"
+      },
+      {
+        "id": "orchestration",
+        "index": "03",
+        "label": "ORCHESTRATION",
+        "title": "Kubernetes/Kueue · Slurm · Queue",
+        "decision": "Gang·Topology·Quota·Preemption"
+      },
+      {
+        "id": "runtime",
+        "index": "04",
+        "label": "RUNTIME",
+        "title": "vLLM · Dynamo · TensorRT-LLM",
+        "decision": "Batching·KV·Prefill/Decode·Routing"
+      },
+      {
+        "id": "accelerator",
+        "index": "05",
+        "label": "ACCELERATOR",
+        "title": "GPU · TPU · Custom ASIC · HBM",
+        "decision": "동일 모델·SLO에서 Goodput/TCO"
+      },
+      {
+        "id": "fabric",
+        "index": "06",
+        "label": "FABRIC",
+        "title": "Scale-up · RDMA · InfiniBand/RoCE",
+        "decision": "Collective 효율·KV 이동·Oversubscription"
+      },
+      {
+        "id": "data",
+        "index": "07",
+        "label": "DATA LAYER",
+        "title": "Parallel File · Object · Vector · Cache",
+        "decision": "Checkpoint·Retrieval·Freshness·Recovery"
+      },
+      {
+        "id": "facility",
+        "index": "08",
+        "label": "PHYSICAL INFRA",
+        "title": "Power · UPS · DLC/CDU · BMS/DCIM",
+        "decision": "MW·Rack kW·열 제거·가동 가능 시점"
+      },
+      {
+        "id": "grid",
+        "index": "09",
+        "label": "SITE / GRID",
+        "title": "Energy · Grid · Site · Regulation",
+        "decision": "계통 연결·단계 가동·입지 위험"
+      }
+    ],
+    "workloads": [
+      {
+        "id": "training",
+        "label": "TRAINING",
+        "northStar": "Goodput · MFU · Time-to-Train",
+        "bottlenecks": [
+          "Collective",
+          "Checkpoint",
+          "HBM",
+          "Power"
+        ],
+        "kpis": [
+          "Goodput",
+          "MFU",
+          "Recovery",
+          "Cost/Run"
+        ]
+      },
+      {
+        "id": "finetuning",
+        "label": "FINE-TUNING / RL",
+        "northStar": "Experiment Velocity · Queue",
+        "bottlenecks": [
+          "Fragmentation",
+          "Queue",
+          "Checkpoint"
+        ],
+        "kpis": [
+          "Queue P95",
+          "Job Success",
+          "GPU-hour"
+        ]
+      },
+      {
+        "id": "online-serving",
+        "label": "ONLINE LLM",
+        "northStar": "SLO-constrained Goodput",
+        "bottlenecks": [
+          "KV",
+          "Scheduler",
+          "Fabric",
+          "Memory"
+        ],
+        "kpis": [
+          "TTFT P95",
+          "TPOT P95",
+          "Tokens/GPU",
+          "Cost/Token"
+        ]
+      },
+      {
+        "id": "rag",
+        "label": "RAG",
+        "northStar": "Grounded Quality · Cost/Query",
+        "bottlenecks": [
+          "Retrieval",
+          "Index",
+          "Metadata/ACL",
+          "Storage"
+        ],
+        "kpis": [
+          "Recall",
+          "Retrieval P99",
+          "QPS",
+          "Cost/Query"
+        ]
+      },
+      {
+        "id": "agentic",
+        "label": "AGENTIC AI",
+        "northStar": "Successful Task · Cost/Task",
+        "bottlenecks": [
+          "Tail Latency",
+          "Tool Error",
+          "Reasoning Cost"
+        ],
+        "kpis": [
+          "Task Success",
+          "P99",
+          "Steps/Task",
+          "Cost/Success"
+        ]
+      },
+      {
+        "id": "physical",
+        "label": "MULTIMODAL / PHYSICAL",
+        "northStar": "Latency · Accuracy · Energy/Task",
+        "bottlenecks": [
+          "Ingest",
+          "Edge-to-Core",
+          "Thermal"
+        ],
+        "kpis": [
+          "E2E Latency",
+          "Accuracy",
+          "Energy/Task"
+        ]
+      }
+    ],
+    "decisionSequence": [
+      "전력·열 Feasibility",
+      "Workload Census · SLO",
+      "동일 데이터셋 Benchmark",
+      "Network·Storage Architecture",
+      "Scheduler·Resource Policy",
+      "LLM Serving 최적화",
+      "RAG·Evaluation·Security",
+      "Modular Cell → Scale-out"
+    ],
+    "roadmap": [
+      {
+        "phase": "NOW · 0–90D",
+        "goal": "Baseline & Benchmark",
+        "gate": "Workload·SLO·전력·열·TCO 기준선 승인"
+      },
+      {
+        "phase": "NEXT · 3–6M",
+        "goal": "Production Cell",
+        "gate": "SLA·Goodput·Cost/Token·가동성 기준 통과"
+      },
+      {
+        "phase": "SCALE · 6–18M",
+        "goal": "Modular Scale-out",
+        "gate": "Cell 추가 시 단위비용·신뢰성 유지"
+      },
+      {
+        "phase": "REFRESH · 6M CYCLE",
+        "goal": "HW/SW Re-benchmark",
+        "gate": "세대교체·Lock-in·Stranded CapEx 재검토"
+      }
+    ],
+    "evidencePolicy": [
+      "전력·시장 전망은 발표일·기준연도·시나리오를 함께 저장",
+      "벤더 성능 수치는 동일 Workload·Model·Version·SLO가 없으면 Watch로 유지",
+      "PUE·GPU Utilization 단독 지표 대신 Useful Work·Quality·TCO를 함께 판단",
+      "각 Pillar의 공식 근거가 관측되지 않으면 Coverage Gap으로 표시"
+    ],
+    "sources": [
+      {
+        "id": "iea-energy-ai",
+        "name": "IEA Energy and AI",
+        "sourceClass": "official",
+        "url": "https://www.iea.org/reports/key-questions-on-energy-and-ai",
+        "topics": [
+          "energy",
+          "grid",
+          "data-center",
+          "ai-demand",
+          "scenario"
+        ],
+        "status": "monitoring"
+      },
+      {
+        "id": "ashrae-ai-data-center",
+        "name": "ASHRAE AI Data Center Framework",
+        "sourceClass": "official",
+        "url": "https://www.ashrae.org/technical-resources/ai-data-center-framework",
+        "topics": [
+          "power",
+          "cooling",
+          "liquid-cooling",
+          "data-center",
+          "energy",
+          "water"
+        ],
+        "status": "monitoring"
+      },
+      {
+        "id": "nvidia-nvl72-architecture",
+        "name": "NVIDIA NVL72 AI Factory Reference Architecture",
+        "sourceClass": "official",
+        "url": "https://docs.nvidia.com/enterprise-reference-architectures/nvl72-ai-factory/latest/overview.html",
+        "topics": [
+          "rack-scale",
+          "network",
+          "nvme",
+          "power",
+          "liquid-cooling",
+          "ai-factory"
+        ],
+        "status": "monitoring"
+      },
+      {
+        "id": "kubernetes-kueue",
+        "name": "Kubernetes Kueue",
+        "sourceClass": "official",
+        "url": "https://kueue.sigs.k8s.io/docs/overview/",
+        "topics": [
+          "scheduler",
+          "gpu",
+          "queue",
+          "topology",
+          "quota",
+          "orchestration"
+        ],
+        "status": "monitoring"
+      },
+      {
+        "id": "kubernetes-dra",
+        "name": "Kubernetes Dynamic Resource Allocation",
+        "sourceClass": "official",
+        "url": "https://kubernetes.io/docs/concepts/scheduling-eviction/dynamic-resource-allocation/",
+        "topics": [
+          "scheduler",
+          "accelerator",
+          "gpu",
+          "resource-allocation",
+          "orchestration"
+        ],
+        "status": "monitoring"
+      },
+      {
+        "id": "slurm-gres",
+        "name": "Slurm GPU Resource Scheduling",
+        "sourceClass": "official",
+        "url": "https://slurm.schedmd.com/gres.html",
+        "topics": [
+          "scheduler",
+          "gpu",
+          "accounting",
+          "energy",
+          "hpc",
+          "orchestration"
+        ],
+        "status": "monitoring"
+      },
+      {
+        "id": "nvidia-dynamo",
+        "name": "NVIDIA Dynamo",
+        "sourceClass": "official",
+        "url": "https://developer.nvidia.com/blog/introducing-nvidia-dynamo-a-low-latency-distributed-inference-framework-for-scaling-reasoning-ai-models/",
+        "topics": [
+          "kv-cache",
+          "offloading",
+          "inference",
+          "data-center",
+          "storage"
+        ],
+        "status": "monitoring"
+      },
+      {
+        "id": "vllm-kv-offloading",
+        "name": "vLLM KV Offloading",
+        "sourceClass": "official",
+        "url": "https://docs.vllm.ai/en/latest/features/kv_offloading_usage/",
+        "topics": [
+          "kv-cache",
+          "offloading",
+          "inference",
+          "cpu-memory",
+          "storage"
+        ],
+        "status": "monitoring"
+      },
+      {
+        "id": "llm-serving-systems-research",
+        "name": "LLM Serving Systems Research",
+        "sourceClass": "research",
+        "url": "https://arxiv.org/abs/2309.06180",
+        "topics": [
+          "paged-attention",
+          "prefill-decode",
+          "kv-cache",
+          "scheduler",
+          "goodput",
+          "offloading"
+        ],
+        "status": "monitoring"
+      }
+    ],
+    "signals": [],
+    "pillarCoverage": [
+      {
+        "id": "facility",
+        "label": "POWER / COOLING",
+        "configured": 4,
+        "observed": 0,
+        "fresh": 0,
+        "status": "coverage-gap"
+      },
+      {
+        "id": "fabric",
+        "label": "NETWORK / FABRIC",
+        "configured": 1,
+        "observed": 0,
+        "fresh": 0,
+        "status": "coverage-gap"
+      },
+      {
+        "id": "data",
+        "label": "DATA / STORAGE",
+        "configured": 4,
+        "observed": 0,
+        "fresh": 0,
+        "status": "coverage-gap"
+      },
+      {
+        "id": "orchestration",
+        "label": "SCHEDULER / ORCHESTRATION",
+        "configured": 4,
+        "observed": 0,
+        "fresh": 0,
+        "status": "coverage-gap"
+      },
+      {
+        "id": "serving",
+        "label": "LLM SERVING",
+        "configured": 3,
+        "observed": 0,
+        "fresh": 0,
+        "status": "coverage-gap"
+      },
+      {
+        "id": "accelerator",
+        "label": "ACCELERATOR / MEMORY",
+        "configured": 1,
+        "observed": 0,
+        "fresh": 0,
+        "status": "coverage-gap"
+      },
+      {
+        "id": "economics",
+        "label": "ECONOMICS / GOVERNANCE",
+        "configured": 1,
+        "observed": 0,
+        "fresh": 0,
+        "status": "coverage-gap"
+      }
+    ],
+    "automation": {
+      "status": "COVERAGE-GAP",
+      "activePillars": 0,
+      "totalPillars": 7,
+      "scheduleHours": 3,
+      "failClosed": true
+    },
+    "generatedAt": "2026-08-16T03:58:29.391Z",
+    "runId": "31925176627"
   },
   "workloadOptimization": {
     "title": "Data Center Workload Optimization · Bottleneck-to-PoC",
@@ -1553,10 +1966,143 @@
         "deepLink": "#console/ai-matrix"
       },
       {
+        "id": "ai-factory-system",
+        "panelId": "factory",
+        "briefId": "demand",
+        "index": "05",
+        "phase": "SCALE",
+        "tabLabel": "AI Factory System",
+        "title": "AI Factory · System Co-Optimization",
+        "subtitle": "TrendForce 최신 근거 · 2026-08-12",
+        "answerTitle": "Useful AI Work/MW/원을 단일 North Star로 운영",
+        "recommendation": "MODULAR CELL → SCALE",
+        "question": "전력·냉각·Fabric·Storage·Scheduler·Serving·Memory 가운데 어느 병목을 먼저 제거해야 고객 SLO와 단위경제성이 동시에 개선되는가?",
+        "decision": "출하량과 대당 탑재량을 분리하고 고객 CapEx·전력·패키징 제약을 반영해 제품군 시나리오를 갱신합니다.",
+        "stop": "공식 출하 전망 또는 고객 CapEx가 기준 시나리오 대비 10% 이상 변경",
+        "latest": {
+          "title": "고객이 \"매우 높은\" 가격으로 메모리를 확보하려고 서두르는 가운데 Micron은 데이터 센터 수요의 절반 미만을 충족합니다.",
+          "summary": "81%의 분기별 영업 이익률을 보고한 지 거의 6주 만에 Micron은 8월 10일 KeyBanc 기술 리더십 포럼 2026에서 더욱 낙관적인 어조를 밝혔습니다. Investing.com에 따르면 Micron은 데이터 센터의 공급이 가장 부족하기 때문에 \"매우 높은\" 가격에도 불구하고 메모리 확보에 여전히 열의가 있다고 말했습니다. Micron은 종종 고객 수요의 절반도 채울 수 없습니다.",
+          "source": "TrendForce",
+          "url": "https://www.trendforce.com/news/2026/08/12/news-micron-can-meet-less-than-half-of-data-center-demand-as-customers-rush-to-secure-memory-at-very-high-prices/",
+          "publishedAt": "2026-08-12",
+          "evidenceLevel": "Reported",
+          "sourceClass": "research"
+        },
+        "evidenceCount": 6,
+        "signals": [
+          [
+            "Reported · RESEARCH",
+            "고객이 \"매우 높은\" 가격으로 메모리를 확보하려고 서두르는 가운데 Micron은 데이터 센터 수요의 절반 미만을 충족합니다.",
+            "81%의 분기별 영업 이익률을 보고한 지 거의 6주 만에 Micron은 8월 10일 KeyBanc 기술 리더십 포럼 2026에서 더욱 낙관적인 어조를 밝혔습니다. Investing.com에 따르면 Micron은 데이터 센터의 공급이 가장 부족하기 때문에 \"매우 높은\" 가격에도 불구하고 메모리 확보에 여전히 열의가 있다고 말했습니다. Micron은 종종 고객 수요의 절반도 채울 수 없습니다."
+          ],
+          [
+            "EXECUTIVE DECISION",
+            "Useful AI Work/MW/원을 단일 North Star로 운영",
+            "출하량과 대당 탑재량을 분리하고 고객 CapEx·전력·패키징 제약을 반영해 제품군 시나리오를 갱신합니다."
+          ],
+          [
+            "REVERSAL KPI",
+            "판단 변경 조건",
+            "공식 출하 전망 또는 고객 CapEx가 기준 시나리오 대비 10% 이상 변경"
+          ]
+        ],
+        "lenses": [
+          [
+            "01 · FACILITY",
+            "Power & Thermal",
+            [
+              "Utility MW·Rack kW·UPS Headroom",
+              "DLC/CDU·Supply/Return Temperature",
+              "Site·Grid·Phased Energization"
+            ]
+          ],
+          [
+            "02 · SYSTEM",
+            "Fabric & Data Path",
+            [
+              "Scale-up/Scale-out·RDMA·Oversubscription",
+              "Checkpoint·Parallel File·Object·Cache",
+              "GPU Idle·Collective·Recovery"
+            ]
+          ],
+          [
+            "03 · SOFTWARE",
+            "Scheduler & Serving",
+            [
+              "Gang·Topology·Quota·Preemption",
+              "Paged KV·Batching·Prefix Reuse",
+              "Prefill/Decode·KV Transfer·Routing"
+            ]
+          ],
+          [
+            "04 · ECONOMICS",
+            "Useful Work Economics",
+            [
+              "Goodput·MFU·Quality-SLO Tokens",
+              "Fully-loaded GPU-hour·Cost/Token",
+              "Useful Work/kWh·Risk-adjusted TCO"
+            ]
+          ]
+        ],
+        "horizons": [
+          [
+            "NOW · 0–90D",
+            "Baseline & Benchmark",
+            "Workload·SLO·전력·열·TCO 기준선을 승인",
+            "Trace coverage·Physical readiness"
+          ],
+          [
+            "NEXT · 3–6M",
+            "Production Cell",
+            "DLC-ready·RDMA·Storage Tier·Scheduler·Serving을 통합 검증",
+            "SLA·Goodput·Cost/Token"
+          ],
+          [
+            "SCALE · 6–18M",
+            "Modular Scale-out",
+            "Cell 추가와 가속기·Model 세대교체를 병행",
+            "Unit cost·Reliability·Lock-in"
+          ]
+        ],
+        "kpis": [
+          "Useful Work/MW",
+          "Goodput / MFU",
+          "TTFT / TPOT P95",
+          "Cost per useful token",
+          "Job success / MTTR",
+          "Energy per useful task"
+        ],
+        "partners": [
+          "DC/CSP · MW/Rack/SLA",
+          "Accelerator/OEM · validated design",
+          "Network/Storage · data-path SLO",
+          "AI Developer/SI · workload/evaluation"
+        ],
+        "useCase": "MODELED STRATEGY CASE · AI Factory · Physical Readiness → Workload Benchmark → Production Cell → Modular Scale-out",
+        "sources": [
+          [
+            "Reported",
+            "TrendForce · 2026-08-12",
+            "https://www.trendforce.com/news/2026/08/12/news-micron-can-meet-less-than-half-of-data-center-demand-as-customers-rush-to-secure-memory-at-very-high-prices/"
+          ],
+          [
+            "CONTROL",
+            "고객 Trace·계약·Qualification은 내부 검증 전 공개 근거와 분리",
+            ""
+          ],
+          [
+            "CONTROL",
+            "Modeled threshold는 고객 Baseline 승인 후 결재 사용",
+            ""
+          ]
+        ],
+        "deepLink": "#console/c-level-cockpit/post-hbm"
+      },
+      {
         "id": "partner-new-biz",
         "panelId": "partner",
         "briefId": "demand",
-        "index": "05",
+        "index": "06",
         "phase": "SCALE",
         "tabLabel": "Partner-led New Biz",
         "title": "Partners & Clients · Repeatable New Biz",

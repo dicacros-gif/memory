@@ -10192,7 +10192,7 @@
           ["02", "Serving & Rack", "Runtime·Compute·Memory·Network·Storage·Facility"],
           ["03", "Executive Decision OS", "Evidence → Options → Economics → Owner·KPI·Kill"],
         ];
-    const workstreams = aiInfraCouncilAgendas().slice(0, 5).map((item) => [
+    const workstreams = aiInfraCouncilAgendas().slice(0, 6).map((item) => [
       `${item.phase || "CURRENT"} · ${item.index || ""}`,
       item.tabLabel || item.title,
       item.subtitle || item.question,
@@ -10202,12 +10202,12 @@
         <header class="ai-council-mandate">
           <span>AI INFRA STRATEGY AGENT OS</span>
           <strong>Business Outcome → Workload/SLO → Dominant Bottleneck → HW/SW Options → 90-Day Gate</strong>
-          <small>5개 전문 Agent가 병렬 검토 · 영상·음성 없이 즉시 실행 · 공식 근거와 검증 가설 분리</small>
+          <small>8개 전문 Agent가 병렬 검토 · 영상·음성 없이 즉시 실행 · 공식 근거와 검증 가설 분리</small>
         </header>
         <div class="ai-council-capabilities" aria-label="핵심 역량 3가지">
           ${capabilities.map(([index, title, copy]) => `<div><b>${index}</b><strong>${escapeHTML(title)}</strong><small>${escapeHTML(copy)}</small></div>`).join("")}
         </div>
-        <div class="ai-council-workstreams" aria-label="실행 업무 5개 축">
+        <div class="ai-council-workstreams" aria-label="실행 업무 6개 축">
           ${workstreams.map(([tag, title, copy]) => `<div><span>${tag}</span><strong>${escapeHTML(title)}</strong><small>${escapeHTML(copy)}</small></div>`).join("")}
         </div>
         <div class="ai-council-start">
@@ -15256,7 +15256,7 @@
   function agentDebateHTML({ mode = "default", title = "Expert debate", subtitle = "", metrics = [], turns = [], kpis = [], accent = "", conclusion = null, ttsLanguage = "", defaultConfidence = null, defaultSource = null } = {}) {
     const colors = ["#06B6D4", "#8B5CF6", "#22C55E", "#F59E0B", "#EF4444", "#0EA5E9"];
     const forcedTtsLanguage = /^(?:ko|en)$/.test(ttsLanguage) ? ttsLanguage : "";
-    const challengeOrder = ["Customer Strategist", "Serving & Rack Architect", "AI Application & LLM Lead", "Architecture & Qualification Lead", "New Biz & Partner Lead", "Evidence Auditor", "Executive Decision Lead"];
+    const challengeOrder = ["Customer Strategist", "Serving & Rack Architect", "Facility & Energy Lead", "AI Application & LLM Lead", "Architecture & Qualification Lead", "New Biz & Partner Lead", "Evidence Auditor", "Executive Decision Lead"];
     const orderedTurns = turns.filter((turn) => turn?.message).slice(0, 12).sort((a, b) => {
       if (mode !== "ceo-challenge") return 0;
       return challengeOrder.indexOf(a.name) - challengeOrder.indexOf(b.name);
@@ -15781,6 +15781,16 @@
         color: "#1D4ED8",
         stance: "WORKLOAD",
         message: `핵심 Workload는 **${domain.workload}**입니다. ${domain.hwSw}. Runtime–Accelerator/HBM–CPU/Host–Network–NVMe–Power/Cooling 전체 경로를 추적해 Compute·Memory·Network·Storage·Serving SW·Facility의 병목 기여도를 분리하고, ${domain.gates.slice(0, 2).join(" → ")}가 확인된 범위만 다음 설계로 넘깁니다.`,
+      },
+      {
+        id: "facility-energy",
+        initials: "FE",
+        name: "Facility & Energy Lead",
+        title: "Grid · Power · Cooling · Rack Readiness",
+        role: "전력·열·가동 가능 시점 검증",
+        color: "#A16207",
+        stance: "FACILITY",
+        message: `Utility MW·Rack kW·UPS Headroom·DLC/CDU·Supply/Return Temperature·Site/Grid lead time을 먼저 확인합니다. 서버가 준비돼도 전력 인입과 열 제거가 합의 Gate를 통과하지 못하면 Production Cell과 Capacity 승격을 보류합니다.`,
       },
       {
         id: "ai-application",
@@ -18326,6 +18336,14 @@
         message: `${targetLabel}을 Training·Inference·RAG·On-device/Edge로 분류하고 Runtime–Accelerator/HBM–CPU/Host Memory–NVLink/Network–NVMe–Power/Cooling 경로를 추적합니다. Compute·Memory·Network·Storage·Serving SW·Facility·Supply/Qualification 중 지배 병목을 분리한 뒤에만 Architecture 대안을 비교합니다.`,
       },
       {
+        id: "facility-energy",
+        name: "Facility & Energy Lead",
+        role: "Grid·Power·Cooling·Rack Readiness",
+        avatar: "FE",
+        color: "#A16207",
+        message: `${targetLabel}의 Utility MW·Rack kW·UPS Headroom·DLC/CDU·열 제거·Site/Grid lead time을 검증합니다. Physical Readiness가 통과되지 않으면 GPU·메모리 Capacity 확대를 결재안으로 승격하지 않습니다.`,
+      },
+      {
         id: "ai-application",
         name: "AI Application & LLM Lead",
         role: "Paged KV·Scheduler·Prefill/Decode·RAG",
@@ -18574,7 +18592,7 @@
         ${ceoChallengeQuestionBriefHTML(scenario, target, challenge, response)}
         <div class="agent-waiting">
           <strong>AI Infra 전략 실행 대기</strong>
-          <p>Customer Strategist, Serving &amp; Rack Architect, Architecture &amp; Qualification, New Biz &amp; Partner, Evidence Auditor, Executive Decision Agent가 Business Outcome에서 90일 Gate까지 하나의 실행 팩으로 정리합니다.</p>
+          <p>Customer Strategist, Serving &amp; Rack Architect, Facility &amp; Energy, AI Application &amp; LLM, Architecture &amp; Qualification, New Biz &amp; Partner, Evidence Auditor, Executive Decision Agent가 Business Outcome에서 90일 Gate까지 하나의 실행 팩으로 정리합니다.</p>
         </div>
       `;
       return;

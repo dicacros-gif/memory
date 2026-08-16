@@ -110,7 +110,7 @@
     (() => {
       if (!location.hash.startsWith("#console")) return;
       document.documentElement.classList.add("console-entry");
-      const revision = "infra-20260816-16";
+      const revision = "infra-20260816-17";
       const assets = [
         ["consoleStylesPreload", "style", `assets/css/styles.min.css?v=${revision}`, "high"],
         ["consoleAppPreload", "script", `assets/js/app.min.js?v=${revision}`, "low"],
@@ -127,7 +127,7 @@
       }
     })();
   </script>
-  <link rel="stylesheet" href="assets/css/landing.min.css?v=infra-20260816-16" />
+  <link rel="stylesheet" href="assets/css/landing.min.css?v=infra-20260816-17" />
 </head>
 <body class="landing-mode">
   <div class="business-site" id="businessSite">
@@ -523,6 +523,40 @@
               <p class="business-framework-note">공개 사실을 바탕으로 재구성한 전략 산출물이며 실제 고객 성과가 아닙니다.</p>
             </article>
           </div>
+
+          <section class="business-ai-factory-system" id="ai-factory-system" aria-labelledby="aiFactorySystemTitle">
+            <div class="business-ai-factory-head">
+              <div><span>AI FACTORY · SYSTEM VALUE TREE</span><h3 id="aiFactorySystemTitle">AI Factory System Optimization</h3><p id="aiFactorySystemThesis">Workload SLO와 단위경제성을 중심으로 전력·냉각·네트워크·스토리지·스케줄러·LLM Serving을 공동 최적화합니다.</p></div>
+              <strong id="aiFactoryAutomationStatus">AUTOMATION · COVERAGE CHECK</strong>
+            </div>
+            <div class="business-ai-factory-north-star" id="aiFactoryNorthStar">
+              <span>NORTH STAR</span><strong>Useful AI Work ÷ (Annualized CapEx + OpEx + Energy + Risk)</strong><small>Training · Goodput / GPU-hour · Inference · Quality-SLO-passing Tokens / 원 / kWh</small>
+            </div>
+            <div class="business-ai-factory-layers" id="aiFactoryLayers" aria-label="AI Factory 전체 시스템 계층">
+              <article><span>01</span><div><small>AI APPLICATION</small><strong>RAG · Agent · Multimodal · Training</strong><p>업무 Outcome·Quality·Latency SLO</p></div></article>
+              <article><span>02</span><div><small>AI PLATFORM</small><strong>Gateway · Eval · Guardrail · MLOps</strong><p>Model 교체 가능성·평가·통제</p></div></article>
+              <article><span>03</span><div><small>ORCHESTRATION</small><strong>Kubernetes/Kueue · Slurm</strong><p>Gang·Topology·Quota·Preemption</p></div></article>
+              <article><span>04</span><div><small>RUNTIME</small><strong>vLLM · Dynamo · TensorRT-LLM</strong><p>Batching·KV·Prefill/Decode·Routing</p></div></article>
+              <article><span>05</span><div><small>ACCELERATOR</small><strong>GPU · TPU · Custom ASIC · HBM</strong><p>동일 모델·SLO에서 Goodput/TCO</p></div></article>
+              <article><span>06</span><div><small>FABRIC</small><strong>Scale-up · RDMA · InfiniBand/RoCE</strong><p>Collective 효율·KV 이동</p></div></article>
+              <article><span>07</span><div><small>DATA LAYER</small><strong>Parallel File · Object · Vector · Cache</strong><p>Checkpoint·Retrieval·Recovery</p></div></article>
+              <article><span>08</span><div><small>PHYSICAL INFRA</small><strong>Power · UPS · DLC/CDU · BMS/DCIM</strong><p>MW·Rack kW·열 제거</p></div></article>
+              <article><span>09</span><div><small>SITE / GRID</small><strong>Energy · Grid · Site · Regulation</strong><p>계통 연결·단계 가동·입지 위험</p></div></article>
+            </div>
+            <div class="business-ai-factory-workloads" id="aiFactoryWorkloads" aria-label="워크로드별 North Star와 병목">
+              <article><span>TRAINING</span><strong>Goodput · MFU</strong><p>Collective · Checkpoint · HBM · Power</p><small>Time-to-Train · Cost/Run</small></article>
+              <article><span>ONLINE LLM</span><strong>SLO-constrained Goodput</strong><p>KV · Scheduler · Fabric · Memory</p><small>TTFT · TPOT · Cost/Token</small></article>
+              <article><span>RAG / AGENT</span><strong>Quality · Cost/Task</strong><p>Retrieval · Tail Latency · Tool Error</p><small>Recall · P99 · Cost/Success</small></article>
+            </div>
+            <ol class="business-ai-factory-sequence" id="aiFactorySequence" aria-label="AI Factory 실행 순서">
+              <li><span>01</span><strong>전력·열 Feasibility</strong></li><li><span>02</span><strong>Workload Census</strong></li><li><span>03</span><strong>동일 Benchmark</strong></li><li><span>04</span><strong>Network·Storage</strong></li><li><span>05</span><strong>Scheduler</strong></li><li><span>06</span><strong>Serving</strong></li><li><span>07</span><strong>RAG·Evaluation</strong></li><li><span>08</span><strong>Modular Scale-out</strong></li>
+            </ol>
+            <div class="business-ai-factory-control">
+              <div><span>AUTOMATED PILLAR COVERAGE</span><div class="business-ai-factory-coverage" id="aiFactoryCoverage"><b>POWER / COOLING · CHECK</b><b>NETWORK / FABRIC · CHECK</b><b>DATA / STORAGE · CHECK</b><b>SCHEDULER · CHECK</b><b>LLM SERVING · CHECK</b><b>ACCELERATOR · CHECK</b></div></div>
+              <div><span>CURRENT VERIFIED SIGNALS</span><div class="business-ai-factory-signals" id="aiFactorySignals"><p>공식 원문이 최신성·출처·주제 Gate를 통과하면 Pillar별 한 건씩 자동 승격됩니다.</p></div></div>
+            </div>
+            <p class="business-framework-note" id="aiFactoryEvidenceNote">벤더 성능 배수와 전망 수치는 Workload·Model·Version·SLO·기준일이 확인될 때만 의사결정 근거로 승격합니다.</p>
+          </section>
 
           <section class="business-workload-advisory" id="workload-optimization" aria-labelledby="workloadOptimizationTitle">
             <div class="business-module-heading business-module-heading--workload">
@@ -1858,6 +1892,6 @@
   <div class="qa-answer" id="qaAnswer" hidden></div>
   <div class="inspector" id="inspector" hidden></div>
   <div class="backdrop" id="backdrop"></div>
-  <script src="assets/js/landing.min.js?v=infra-20260816-16" defer></script>
+  <script src="assets/js/landing.min.js?v=infra-20260816-17" defer></script>
 </body>
 </html>

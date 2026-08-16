@@ -16,6 +16,58 @@
       "Executive Decision OS · 근거·선택지·경제성·Owner·Trigger·Kill Criteria를 한 장으로 제시"
     ]
   },
+  "aiFactorySystem": {
+    "title": "AI Factory System Optimization · Useful Work per MW",
+    "thesis": "가속기·메모리·네트워크·스토리지·스케줄러·LLM Serving·전력·냉각을 개별 구매 항목이 아니라 하나의 Workload SLO와 단위경제성으로 공동 최적화합니다.",
+    "northStar": {
+      "label": "NORTH STAR",
+      "formula": "Useful AI Work ÷ (Annualized CapEx + OpEx + Energy + Risk)",
+      "training": "Quality Gate를 통과한 Goodput · Time-to-Train · 유효 학습량/GPU-hour",
+      "inference": "Quality·Latency SLO를 통과한 Tokens/s · Cost/1M Useful Tokens · Useful Tokens/kWh"
+    },
+    "architectureLayers": [
+      { "id": "application", "index": "01", "label": "AI APPLICATION", "title": "RAG · Agent · Multimodal · Training", "decision": "업무 Outcome·Quality·Latency SLO" },
+      { "id": "platform", "index": "02", "label": "AI PLATFORM", "title": "Gateway · Eval · Guardrail · MLOps", "decision": "Model 교체 가능성·평가·통제" },
+      { "id": "orchestration", "index": "03", "label": "ORCHESTRATION", "title": "Kubernetes/Kueue · Slurm · Queue", "decision": "Gang·Topology·Quota·Preemption" },
+      { "id": "runtime", "index": "04", "label": "RUNTIME", "title": "vLLM · Dynamo · TensorRT-LLM", "decision": "Batching·KV·Prefill/Decode·Routing" },
+      { "id": "accelerator", "index": "05", "label": "ACCELERATOR", "title": "GPU · TPU · Custom ASIC · HBM", "decision": "동일 모델·SLO에서 Goodput/TCO" },
+      { "id": "fabric", "index": "06", "label": "FABRIC", "title": "Scale-up · RDMA · InfiniBand/RoCE", "decision": "Collective 효율·KV 이동·Oversubscription" },
+      { "id": "data", "index": "07", "label": "DATA LAYER", "title": "Parallel File · Object · Vector · Cache", "decision": "Checkpoint·Retrieval·Freshness·Recovery" },
+      { "id": "facility", "index": "08", "label": "PHYSICAL INFRA", "title": "Power · UPS · DLC/CDU · BMS/DCIM", "decision": "MW·Rack kW·열 제거·가동 가능 시점" },
+      { "id": "grid", "index": "09", "label": "SITE / GRID", "title": "Energy · Grid · Site · Regulation", "decision": "계통 연결·단계 가동·입지 위험" }
+    ],
+    "workloads": [
+      { "id": "training", "label": "TRAINING", "northStar": "Goodput · MFU · Time-to-Train", "bottlenecks": ["Collective", "Checkpoint", "HBM", "Power"], "kpis": ["Goodput", "MFU", "Recovery", "Cost/Run"] },
+      { "id": "finetuning", "label": "FINE-TUNING / RL", "northStar": "Experiment Velocity · Queue", "bottlenecks": ["Fragmentation", "Queue", "Checkpoint"], "kpis": ["Queue P95", "Job Success", "GPU-hour"] },
+      { "id": "online-serving", "label": "ONLINE LLM", "northStar": "SLO-constrained Goodput", "bottlenecks": ["KV", "Scheduler", "Fabric", "Memory"], "kpis": ["TTFT P95", "TPOT P95", "Tokens/GPU", "Cost/Token"] },
+      { "id": "rag", "label": "RAG", "northStar": "Grounded Quality · Cost/Query", "bottlenecks": ["Retrieval", "Index", "Metadata/ACL", "Storage"], "kpis": ["Recall", "Retrieval P99", "QPS", "Cost/Query"] },
+      { "id": "agentic", "label": "AGENTIC AI", "northStar": "Successful Task · Cost/Task", "bottlenecks": ["Tail Latency", "Tool Error", "Reasoning Cost"], "kpis": ["Task Success", "P99", "Steps/Task", "Cost/Success"] },
+      { "id": "physical", "label": "MULTIMODAL / PHYSICAL", "northStar": "Latency · Accuracy · Energy/Task", "bottlenecks": ["Ingest", "Edge-to-Core", "Thermal"], "kpis": ["E2E Latency", "Accuracy", "Energy/Task"] }
+    ],
+    "decisionSequence": [
+      "전력·열 Feasibility",
+      "Workload Census · SLO",
+      "동일 데이터셋 Benchmark",
+      "Network·Storage Architecture",
+      "Scheduler·Resource Policy",
+      "LLM Serving 최적화",
+      "RAG·Evaluation·Security",
+      "Modular Cell → Scale-out"
+    ],
+    "roadmap": [
+      { "phase": "NOW · 0–90D", "goal": "Baseline & Benchmark", "gate": "Workload·SLO·전력·열·TCO 기준선 승인" },
+      { "phase": "NEXT · 3–6M", "goal": "Production Cell", "gate": "SLA·Goodput·Cost/Token·가동성 기준 통과" },
+      { "phase": "SCALE · 6–18M", "goal": "Modular Scale-out", "gate": "Cell 추가 시 단위비용·신뢰성 유지" },
+      { "phase": "REFRESH · 6M CYCLE", "goal": "HW/SW Re-benchmark", "gate": "세대교체·Lock-in·Stranded CapEx 재검토" }
+    ],
+    "sourceIds": ["iea-energy-ai", "ashrae-ai-data-center", "nvidia-nvl72-architecture", "kubernetes-kueue", "kubernetes-dra", "slurm-gres", "nvidia-dynamo", "vllm-kv-offloading", "llm-serving-systems-research"],
+    "evidencePolicy": [
+      "전력·시장 전망은 발표일·기준연도·시나리오를 함께 저장",
+      "벤더 성능 수치는 동일 Workload·Model·Version·SLO가 없으면 Watch로 유지",
+      "PUE·GPU Utilization 단독 지표 대신 Useful Work·Quality·TCO를 함께 판단",
+      "각 Pillar의 공식 근거가 관측되지 않으면 Coverage Gap으로 표시"
+    ]
+  },
   "workloadOptimization": {
     "title": "Data Center Workload Optimization · Bottleneck-to-PoC",
     "thesis": "메모리 증설부터 제안하지 않습니다. Customer KPI와 SLO를 기준으로 Compute·Memory·Network·Storage·Serving SW·Power/Cooling·Qualification을 먼저 계측하고, 지배 병목에 맞는 최소 Architecture를 검증합니다.",
@@ -223,10 +275,39 @@
       "deepLink": "#console/ai-matrix"
     },
     {
+      "id": "ai-factory-system",
+      "panelId": "factory",
+      "briefId": "demand",
+      "index": "05",
+      "phase": "SCALE",
+      "tabLabel": "AI Factory System",
+      "title": "AI Factory · System Co-Optimization",
+      "answerTitle": "Useful AI Work/MW/원을 단일 North Star로 운영",
+      "recommendation": "MODULAR CELL → SCALE",
+      "question": "전력·냉각·Fabric·Storage·Scheduler·Serving·Memory 가운데 어느 병목을 먼저 제거해야 고객 SLO와 단위경제성이 동시에 개선되는가?",
+      "fallbackDecision": "GPU 구매보다 전력·열 Feasibility와 Workload Census를 먼저 승인하고, 동일 Dataset·Model·SLO Benchmark로 Scheduler·Serving·Network·Storage·Memory 대안을 비교한 뒤 Production Cell 단위로 확장합니다.",
+      "fallbackStop": "Useful Work·Quality·SLO·MW Readiness·System TCO 가운데 하나라도 합의 Baseline을 통과하지 못하면 Cell 증설을 중단하고 지배 병목 단계로 환원합니다.",
+      "lenses": [
+        ["01 · FACILITY", "Power & Thermal", ["Utility MW·Rack kW·UPS Headroom", "DLC/CDU·Supply/Return Temperature", "Site·Grid·Phased Energization"]],
+        ["02 · SYSTEM", "Fabric & Data Path", ["Scale-up/Scale-out·RDMA·Oversubscription", "Checkpoint·Parallel File·Object·Cache", "GPU Idle·Collective·Recovery"]],
+        ["03 · SOFTWARE", "Scheduler & Serving", ["Gang·Topology·Quota·Preemption", "Paged KV·Batching·Prefix Reuse", "Prefill/Decode·KV Transfer·Routing"]],
+        ["04 · ECONOMICS", "Useful Work Economics", ["Goodput·MFU·Quality-SLO Tokens", "Fully-loaded GPU-hour·Cost/Token", "Useful Work/kWh·Risk-adjusted TCO"]]
+      ],
+      "horizons": [
+        ["NOW · 0–90D", "Baseline & Benchmark", "Workload·SLO·전력·열·TCO 기준선을 승인", "Trace coverage·Physical readiness"],
+        ["NEXT · 3–6M", "Production Cell", "DLC-ready·RDMA·Storage Tier·Scheduler·Serving을 통합 검증", "SLA·Goodput·Cost/Token"],
+        ["SCALE · 6–18M", "Modular Scale-out", "Cell 추가와 가속기·Model 세대교체를 병행", "Unit cost·Reliability·Lock-in"]
+      ],
+      "kpis": ["Useful Work/MW", "Goodput / MFU", "TTFT / TPOT P95", "Cost per useful token", "Job success / MTTR", "Energy per useful task"],
+      "partners": ["DC/CSP · MW/Rack/SLA", "Accelerator/OEM · validated design", "Network/Storage · data-path SLO", "AI Developer/SI · workload/evaluation"],
+      "useCase": "MODELED STRATEGY CASE · AI Factory · Physical Readiness → Workload Benchmark → Production Cell → Modular Scale-out",
+      "deepLink": "#console/c-level-cockpit/post-hbm"
+    },
+    {
       "id": "partner-new-biz",
       "panelId": "partner",
       "briefId": "demand",
-      "index": "05",
+      "index": "06",
       "phase": "SCALE",
       "tabLabel": "Partner-led New Biz",
       "title": "Partners & Clients · Repeatable New Biz",

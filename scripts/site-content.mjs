@@ -134,6 +134,110 @@ function buildWorkloadSignals(payload = {}, allowedSourceIds = []) {
     .map(({ score: _score, ...item }) => item);
 }
 
+const AI_FACTORY_PILLARS = [
+  { id: "facility", label: "POWER / COOLING", terms: /power|electric|energy|grid|mw|rack.?kw|cool|thermal|liquid|cdus?|pue|전력|냉각|열|계통/i, topics: ["power", "cooling", "liquid-cooling", "energy", "grid", "water"] },
+  { id: "fabric", label: "NETWORK / FABRIC", terms: /network|fabric|rdma|infiniband|roce|nvlink|collective|rail|oversubscription|네트워크|패브릭|통신/i, topics: ["network", "rack-scale"] },
+  { id: "data", label: "DATA / STORAGE", terms: /storage|nvme|ssd|parallel.?file|object|vector|retrieval|checkpoint|cache|스토리지|검색|체크포인트/i, topics: ["storage", "enterprise-ssd", "ai-storage", "nvme", "kv-cache"] },
+  { id: "orchestration", label: "SCHEDULER / ORCHESTRATION", terms: /scheduler|scheduling|kueue|slurm|quota|preemption|topology|resource.?allocation|queue|스케줄|자원|큐/i, topics: ["scheduler", "orchestration", "queue", "resource-allocation", "gpu"] },
+  { id: "serving", label: "LLM SERVING", terms: /serving|inference|pagedattention|prefill|decode|kv.?cache|batching|routing|vllm|dynamo|추론|서빙/i, topics: ["inference", "paged-attention", "prefill-decode", "kv-cache", "offloading", "goodput"] },
+  { id: "accelerator", label: "ACCELERATOR / MEMORY", terms: /accelerator|gpu|tpu|asic|hbm|dram|cxl|memory|가속기|메모리/i, topics: ["accelerator", "hbm", "dram", "cxl", "memory-pooling"] },
+  { id: "economics", label: "ECONOMICS / GOVERNANCE", terms: /tco|cost|capex|opex|economics|finops|governance|security|risk|비용|경제성|보안|거버넌스/i, topics: ["economics", "financial", "scenario"] },
+];
+
+function classifyAIFactoryPillar(text = "", source = {}) {
+  const topics = new Set(source.topics || []);
+  return AI_FACTORY_PILLARS.find((pillar) => pillar.terms.test(text)
+    || pillar.topics.some((topic) => topics.has(topic))) || AI_FACTORY_PILLARS[AI_FACTORY_PILLARS.length - 1];
+}
+
+function buildAIFactorySignals(payload = {}, allowedSourceIds = []) {
+  const allowed = new Set(allowedSourceIds);
+  const classScore = { official: 24, research: 14, "authoritative-media": 8 };
+  const systemTerms = /ai.?factory|data.?cent(er|re)|power|cool|network|fabric|storage|scheduler|orchestrat|serving|inference|accelerator|gpu|tpu|hbm|kv.?cache|rag|workload|benchmark|전력|냉각|네트워크|스토리지|스케줄|추론|가속기|워크로드/i;
+  return (payload.news || [])
+    .map((item) => {
+      const url = item?.verification?.canonicalUrl || item.sourceUrl || item.link || item.url || "";
+      const catalogSource = catalogSourceForUrl(url, sourceCatalog);
+      const title = item.titleKo || item.title || "";
+      const summary = item.summaryKo || item.summary || "";
+      const text = `${title} ${item.originalTitle || ""} ${summary}`;
+      if (!catalogSource || !allowed.has(catalogSource.id) || !directUrl(url) || !systemTerms.test(text)) return null;
+      const date = publishedAt(item, payload.updatedAt);
+      const timestamp = Date.parse(String(date || ""));
+      const pillar = classifyAIFactoryPillar(text, catalogSource);
+      return {
+        id: `${catalogSource.id}-${pillar.id}-${String(date || "watch").slice(0, 10)}`,
+        pillar: pillar.id,
+        pillarLabel: pillar.label,
+        title: compact(title, 150),
+        summary: compact(summary, 240),
+        source: catalogSource.name,
+        sourceId: catalogSource.id,
+        url,
+        publishedAt: date,
+        evidenceLevel: evidenceLevel(item),
+        sourceClass: catalogSource.sourceClass,
+        score: (classScore[catalogSource.sourceClass] || 0) + (Number.isFinite(timestamp) ? timestamp / 8.64e7 / 100000 : 0),
+      };
+    })
+    .filter(Boolean)
+    .sort((a, b) => b.score - a.score)
+    .filter((item, index, rows) => rows.findIndex((candidate) => candidate.pillar === item.pillar) === index)
+    .slice(0, AI_FACTORY_PILLARS.length)
+    .map(({ score: _score, ...item }) => item);
+}
+
+function buildAIFactorySystem(payload = {}, sourceCoverage = {}, generatedAt = null) {
+  const framework = model.aiFactorySystem || {};
+  const observed = new Set(sourceCoverage.observedSourceIds || []);
+  const fresh = new Set(sourceCoverage.freshSourceIds || []);
+  const sourceIds = framework.sourceIds || [];
+  const sources = sourceIds.map((id) => sourceCatalog.sources.find((source) => source.id === id)).filter(Boolean).map((source) => ({
+    id: source.id,
+    name: source.name,
+    sourceClass: source.sourceClass,
+    url: source.url,
+    topics: source.topics,
+    status: fresh.has(source.id) ? "fresh" : observed.has(source.id) ? "observed" : "monitoring",
+  }));
+  const pillarCoverage = AI_FACTORY_PILLARS.map((pillar) => {
+    const relevant = sources.filter((source) => pillar.topics.some((topic) => source.topics.includes(topic)));
+    const observedCount = relevant.filter((source) => source.status !== "monitoring").length;
+    const freshCount = relevant.filter((source) => source.status === "fresh").length;
+    return {
+      id: pillar.id,
+      label: pillar.label,
+      configured: relevant.length,
+      observed: observedCount,
+      fresh: freshCount,
+      status: freshCount > 0 ? "fresh" : observedCount > 0 ? "observed" : "coverage-gap",
+    };
+  });
+  const activePillars = pillarCoverage.filter((pillar) => pillar.status !== "coverage-gap").length;
+  return {
+    title: framework.title || "AI Factory System Optimization",
+    thesis: framework.thesis || "Workload SLO와 단위경제성으로 AI Factory 전체 시스템을 공동 최적화합니다.",
+    northStar: framework.northStar || {},
+    architectureLayers: framework.architectureLayers || [],
+    workloads: framework.workloads || [],
+    decisionSequence: framework.decisionSequence || [],
+    roadmap: framework.roadmap || [],
+    evidencePolicy: framework.evidencePolicy || [],
+    sources,
+    signals: buildAIFactorySignals(payload, sourceIds),
+    pillarCoverage,
+    automation: {
+      status: activePillars >= 6 ? "SYSTEM-COVERED" : activePillars >= 3 ? "PARTIAL" : "COVERAGE-GAP",
+      activePillars,
+      totalPillars: AI_FACTORY_PILLARS.length,
+      scheduleHours: Number(sourceCoverage.scheduleHours || sourceCatalog.refreshPolicy.scheduleHours),
+      failClosed: true,
+    },
+    generatedAt,
+    runId: payload.runId || null,
+  };
+}
+
 function buildDecisionControl(payload = {}, sourceCoverage = {}, generatedAt = null, expiresAt = null) {
   const qualityStatus = String(payload.quality?.status || "unavailable").toLowerCase();
   const integrityPassed = /verified|pass|current|healthy/.test(qualityStatus);
@@ -242,6 +346,12 @@ export function validateSiteContent(content = {}) {
   if (!Array.isArray(content.workloadOptimization?.process) || content.workloadOptimization.process.length < 6) errors.push("workloadOptimization.process");
   if (!Array.isArray(content.workloadOptimization?.serviceLines) || content.workloadOptimization.serviceLines.length < 3) errors.push("workloadOptimization.serviceLines");
   if (!Array.isArray(content.workloadOptimization?.sources) || content.workloadOptimization.sources.length < 4) errors.push("workloadOptimization.sources");
+  if (!Array.isArray(content.aiFactorySystem?.architectureLayers) || content.aiFactorySystem.architectureLayers.length < 8) errors.push("aiFactorySystem.architectureLayers");
+  if (!Array.isArray(content.aiFactorySystem?.workloads) || content.aiFactorySystem.workloads.length < 6) errors.push("aiFactorySystem.workloads");
+  if (!Array.isArray(content.aiFactorySystem?.decisionSequence) || content.aiFactorySystem.decisionSequence.length < 8) errors.push("aiFactorySystem.decisionSequence");
+  if (!Array.isArray(content.aiFactorySystem?.sources) || content.aiFactorySystem.sources.length < 8) errors.push("aiFactorySystem.sources");
+  if (!Array.isArray(content.aiFactorySystem?.pillarCoverage) || content.aiFactorySystem.pillarCoverage.length < 6) errors.push("aiFactorySystem.pillarCoverage");
+  if (!content.aiFactorySystem?.automation?.status) errors.push("aiFactorySystem.automation");
   if (!Array.isArray(content.caseClassification) || content.caseClassification.length !== 3) errors.push("caseClassification");
   if (!content.decisionControl?.integrity?.status || !content.decisionControl?.freshness?.status || !content.decisionControl?.coverage?.status || !content.decisionControl?.confidence?.status) errors.push("decisionControl");
   if (Number(content.freshness?.configuredSources || 0) < 20) errors.push("freshness.configuredSources");
@@ -318,6 +428,7 @@ export function buildSiteContentClient({ payload = {}, quant = {} } = {}) {
     insights,
     competitors: buildCompetitors(quant),
     partnerSpotlight,
+    aiFactorySystem: buildAIFactorySystem(payload, sourceCoverage, generatedAt),
     workloadOptimization: buildWorkloadOptimization(payload, sourceCoverage, generatedAt),
     caseClassification: model.caseClassification || [],
     agentCouncil: {

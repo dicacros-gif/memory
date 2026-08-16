@@ -3,10 +3,10 @@
 
   const BUSINESS_TITLE = "AI Infra Strategy OS · Bottleneck to Scale";
   const CONSOLE_HASH = "#console";
-  const CONSOLE_REVISION = "infra-20260816-16";
+  const CONSOLE_REVISION = "infra-20260816-17";
   const DECISION_CLIENT_PATH = "data/landing-decision-client.json";
   const SITE_CONTENT_PATH = "data/site-content-client.json";
-  const BUSINESS_KEY_TERM_PATTERN = /(Dominant Bottleneck|Root Bottleneck|Bottleneck First|System Bottleneck|Serving SW|PagedAttention|Prefill|Decode|Goodput|Business Outcome|Memory Option|Business Value|Right to Win|Kill Criteria|Execution Gates?|Decision Gate|Agentic AI|Pain Point|Qualification|Benchmark|Workload|Capacity|HBM4?|CXL|HBF|eSSD|TCO|Ramp|고객 인증|판단 변경 조건|실행 전략|지배 병목|시스템 병목|메모리 대안|사업 가치)/gi;
+  const BUSINESS_KEY_TERM_PATTERN = /(Dominant Bottleneck|Root Bottleneck|Bottleneck First|System Bottleneck|AI Factory|Useful AI Work|Serving SW|PagedAttention|Prefill|Decode|Goodput|Business Outcome|Memory Option|Business Value|Right to Win|Kill Criteria|Execution Gates?|Decision Gate|Agentic AI|Pain Point|Qualification|Benchmark|Workload|Capacity|HBM4?|CXL|HBF|eSSD|TCO|Ramp|전력·열|단위경제성|고객 인증|판단 변경 조건|실행 전략|지배 병목|시스템 병목|메모리 대안|사업 가치)/gi;
   const site = document.querySelector("#businessSite");
   let consoleLayer = document.querySelector("#intelligenceConsole");
   const header = document.querySelector("#businessHeader");
@@ -382,6 +382,54 @@
     }
   }
 
+  function renderAIFactorySystem(content = {}) {
+    const system = content.aiFactorySystem;
+    if (!system) return;
+    const title = document.querySelector("#aiFactorySystemTitle");
+    const thesis = document.querySelector("#aiFactorySystemThesis");
+    const status = document.querySelector("#aiFactoryAutomationStatus");
+    if (title) title.textContent = system.title || title.textContent;
+    if (thesis) thesis.textContent = system.thesis || thesis.textContent;
+    if (status) status.textContent = `${system.automation?.status || "COVERAGE CHECK"} · ${system.automation?.activePillars || 0}/${system.automation?.totalPillars || 0} PILLARS · ${system.automation?.scheduleHours || 3}H`;
+
+    const northStar = document.querySelector("#aiFactoryNorthStar");
+    if (northStar && system.northStar) {
+      northStar.innerHTML = `<span>${escapeBusinessHTML(system.northStar.label || "NORTH STAR")}</span><strong>${escapeBusinessHTML(system.northStar.formula || "Useful AI Work / Total Cost")}</strong><small>${escapeBusinessHTML(system.northStar.training || "")} · ${escapeBusinessHTML(system.northStar.inference || "")}</small>`;
+    }
+
+    const layers = document.querySelector("#aiFactoryLayers");
+    if (layers && system.architectureLayers?.length) {
+      layers.innerHTML = system.architectureLayers.map((layer) => `<article data-system-layer="${escapeBusinessHTML(layer.id)}"><span>${escapeBusinessHTML(layer.index)}</span><div><small>${escapeBusinessHTML(layer.label)}</small><strong>${escapeBusinessHTML(layer.title)}</strong><p>${escapeBusinessHTML(layer.decision)}</p></div></article>`).join("");
+    }
+
+    const workloads = document.querySelector("#aiFactoryWorkloads");
+    if (workloads && system.workloads?.length) {
+      workloads.innerHTML = system.workloads.map((workload) => `<article><span>${escapeBusinessHTML(workload.label)}</span><strong>${escapeBusinessHTML(workload.northStar)}</strong><p>${escapeBusinessHTML((workload.bottlenecks || []).join(" · "))}</p><small>${escapeBusinessHTML((workload.kpis || []).join(" · "))}</small></article>`).join("");
+    }
+
+    const sequence = document.querySelector("#aiFactorySequence");
+    if (sequence && system.decisionSequence?.length) {
+      sequence.innerHTML = system.decisionSequence.map((step, index) => `<li><span>${String(index + 1).padStart(2, "0")}</span><strong>${escapeBusinessHTML(step)}</strong></li>`).join("");
+    }
+
+    const coverage = document.querySelector("#aiFactoryCoverage");
+    if (coverage && system.pillarCoverage?.length) {
+      coverage.innerHTML = system.pillarCoverage.map((pillar) => `<b data-coverage="${escapeBusinessHTML(pillar.status)}">${escapeBusinessHTML(pillar.label)} · ${escapeBusinessHTML(String(pillar.status || "check").toUpperCase())} ${escapeBusinessHTML(String(pillar.observed || 0))}/${escapeBusinessHTML(String(pillar.configured || 0))}</b>`).join("");
+    }
+
+    const signals = document.querySelector("#aiFactorySignals");
+    if (signals) {
+      if (system.signals?.length) {
+        signals.innerHTML = system.signals.map((signal) => `<a href="${escapeBusinessHTML(safeBusinessUrl(signal.url, "#console"))}" target="_blank" rel="noopener noreferrer"><small>${escapeBusinessHTML(signal.pillarLabel)} · ${escapeBusinessHTML(String(signal.evidenceLevel || "WATCH").toUpperCase())}</small><strong>${escapeBusinessHTML(signal.title)}</strong><span>${escapeBusinessHTML(signal.source)} · ${escapeBusinessHTML(String(signal.publishedAt || "").slice(0, 10))} ↗</span></a>`).join("");
+      } else {
+        signals.innerHTML = `<p>현재 실행 ${escapeBusinessHTML(system.runId || content.runId || "확인 필요")}에서 승격된 시스템 신호가 없습니다. 마지막 검증본을 유지하고 Coverage Gap을 공개합니다.</p>`;
+      }
+    }
+
+    const note = document.querySelector("#aiFactoryEvidenceNote");
+    if (note && system.evidencePolicy?.length) note.textContent = system.evidencePolicy.join(" · ");
+  }
+
   function renderWorkloadOptimization(content = {}) {
     const workload = content.workloadOptimization;
     if (!workload) return;
@@ -533,6 +581,7 @@
 
     renderDecisionContent(content);
     renderCurrentInsights(content);
+    renderAIFactorySystem(content);
     renderWorkloadOptimization(content);
     renderCompetitorContent(content);
     renderPartnerContent(content);
@@ -797,6 +846,9 @@
       ".business-pain-framework",
       ".business-solution-card",
       ".business-strategy-artifact > div",
+      ".business-ai-factory-system",
+      ".business-ai-factory-layers > article",
+      ".business-ai-factory-workloads > article",
       ".business-workload-advisory",
       ".business-consulting-process > li",
       ".business-workload-services > article",
@@ -841,6 +893,9 @@
       ".business-competency-grid",
       ".business-strategy-chain",
       ".business-strategy-artifact",
+      ".business-ai-factory-layers",
+      ".business-ai-factory-workloads",
+      ".business-ai-factory-sequence",
       ".business-consulting-process",
       ".business-workload-services",
       ".business-workload-matrix",
@@ -865,6 +920,10 @@
       ".business-competency-grid > article",
       ".business-strategy-chain > li",
       ".business-strategy-artifact > div",
+      ".business-ai-factory-layers > article",
+      ".business-ai-factory-workloads > article",
+      ".business-ai-factory-sequence > li",
+      ".business-ai-factory-signals > a",
       ".business-consulting-process > li",
       ".business-workload-services > article",
       ".business-workload-sources > a",

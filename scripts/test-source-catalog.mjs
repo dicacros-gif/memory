@@ -19,8 +19,8 @@ const enabled = catalog.sources.filter((source) => source.enabled);
 const official = enabled.filter((source) => source.sourceClass === "official");
 const tiers = new Set(enabled.map((source) => source.tier));
 const roles = new Set(enabled.flatMap((source) => source.roles));
-assert.ok(enabled.length >= 37, "source catalog must preserve broad AI Infra coverage");
-assert.ok(official.length >= 28, "primary sources must remain the majority");
+assert.ok(enabled.length >= 42, "source catalog must preserve broad AI Factory coverage");
+assert.ok(official.length >= 33, "primary sources must remain the majority");
 assert.ok(tiers.has("primary-company") && tiers.has("primary-customer") && tiers.has("primary-standard"));
 assert.ok(tiers.has("primary-regulatory") && tiers.has("industry-research") && tiers.has("authoritative-media"));
 for (const role of ["customer", "technology", "market", "financial", "standard", "competitor"]) assert.ok(roles.has(role), `missing role coverage: ${role}`);
@@ -38,6 +38,11 @@ assert.equal(catalogSourceForUrl("https://developer.nvidia.com/blog/example", ca
 assert.equal(catalogSourceForUrl("https://docs.vllm.ai/en/latest/features/kv_offloading_usage/", catalog)?.id, "vllm-kv-offloading");
 assert.equal(catalogSourceForUrl("https://arxiv.org/abs/2309.06180", catalog)?.id, "llm-serving-systems-research");
 assert.equal(catalogSourceForUrl("https://docs.nvidia.com/enterprise-reference-architectures/nvl72-ai-factory/latest/components.html", catalog)?.id, "nvidia-nvl72-architecture");
+assert.equal(catalogSourceForUrl("https://www.iea.org/reports/key-questions-on-energy-and-ai", catalog)?.id, "iea-energy-ai");
+assert.equal(catalogSourceForUrl("https://www.ashrae.org/technical-resources/ai-data-center-framework", catalog)?.id, "ashrae-ai-data-center");
+assert.equal(catalogSourceForUrl("https://kueue.sigs.k8s.io/docs/overview/", catalog)?.id, "kubernetes-kueue");
+assert.equal(catalogSourceForUrl("https://kubernetes.io/docs/concepts/scheduling-eviction/dynamic-resource-allocation/", catalog)?.id, "kubernetes-dra");
+assert.equal(catalogSourceForUrl("https://slurm.schedmd.com/gres.html", catalog)?.id, "slurm-gres");
 
 const snapshot = buildSourceCatalogSnapshot({
   catalog,
@@ -52,7 +57,7 @@ const snapshot = buildSourceCatalogSnapshot({
   },
   now: new Date("2026-08-16T12:00:00.000Z"),
 });
-assert.ok(snapshot.configuredSources >= 37);
+assert.ok(snapshot.configuredSources >= 42);
 assert.equal(snapshot.observedSources, 3);
 assert.equal(snapshot.officialObserved, 2);
 assert.equal(snapshot.freshObservedSources, 3);
@@ -63,12 +68,15 @@ assert.equal(snapshot.failClosed, true);
 const payload = json("data/live.json");
 const quant = json("data/quant.json");
 const siteContent = buildSiteContentClient({ payload, quant });
-assert.ok(siteContent.freshness.configuredSources >= 37);
-assert.ok(siteContent.freshness.officialConfigured >= 28);
+assert.ok(siteContent.freshness.configuredSources >= 42);
+assert.ok(siteContent.freshness.officialConfigured >= 33);
 assert.equal(siteContent.freshness.scheduleHours, 3);
 assert.equal(siteContent.workloadOptimization.process.length, 6);
 assert.equal(siteContent.workloadOptimization.serviceLines.length, 3);
 assert.ok(siteContent.workloadOptimization.sources.some((source) => source.id === "samsung-smrc"));
+assert.ok(siteContent.aiFactorySystem.sources.some((source) => source.id === "iea-energy-ai"));
+assert.ok(siteContent.aiFactorySystem.sources.some((source) => source.id === "kubernetes-kueue"));
+assert.equal(siteContent.aiFactorySystem.pillarCoverage.length, 7);
 
 const crawler = readFileSync("scripts/crawl.mjs", "utf8");
 const workflow = readFileSync(".github/workflows/pages.yml", "utf8");

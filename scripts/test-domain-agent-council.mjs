@@ -31,6 +31,7 @@ for (const phrase of [
 for (const agent of [
   "Customer Strategist",
   "Serving & Rack Architect",
+  "Facility & Energy Lead",
   "AI Application & LLM Lead",
   "Architecture & Qualification Lead",
   "New Biz & Partner Lead",
@@ -47,7 +48,7 @@ assert.doesNotMatch(renderBlock, /class="agent-roster"|class="agent-chat/, "exec
 assert.match(renderBlock, /영역별 전략 팩 생성/);
 
 assert.match(html, /AI Infra 영역별 전략 검증 · Backtest/);
-assert.match(html, /infra-20260816-16/);
+assert.match(html, /infra-20260816-17/);
 assert.match(css, /AI Infra Domain Council - context-specific consulting workstreams/);
 assert.match(css, /#executive-decision \.domain-agent-council\s*\{[\s\S]*?background:\s*#eef3f7 !important/, "domain council must remain legible in dark and inverted themes");
 assert.match(css, /#execDecisionCouncilSelect\s*\{[\s\S]*?color:\s*#10243a !important/, "domain selector text must remain visible in dark and inverted themes");
@@ -59,7 +60,7 @@ assert.match(css, /\.domain-agent-council \*[\s\S]*?animation:\s*none !important
 
 console.log(JSON.stringify({
   contexts: 6,
-  agents: 7,
-  agendas: 5,
-  revision: "infra-20260816-16",
+  agents: 8,
+  agendas: 6,
+  revision: "infra-20260816-17",
 }, null, 2));

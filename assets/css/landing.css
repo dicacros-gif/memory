@@ -5876,6 +5876,176 @@ body.landing-mode {
   background: #725000;
 }
 
+/* AI Factory system view: one workload, one SLO, one economic control plane. */
+.business-ai-factory-system {
+  margin-top: 26px;
+  padding: 36px 32px 32px;
+  color: #102c43;
+  border: 1px solid #b8c7d2;
+  background:
+    linear-gradient(rgba(18, 55, 79, .025) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(18, 55, 79, .025) 1px, transparent 1px),
+    #f7f9fb;
+  background-size: 44px 44px;
+  clip-path: polygon(0 0, calc(100% - 24px) 0, 100% 24px, 100% 100%, 24px 100%, 0 calc(100% - 24px));
+}
+
+.business-ai-factory-head {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  align-items: start;
+  gap: 24px;
+}
+
+.business-ai-factory-head > div > span,
+.business-ai-factory-control > div > span {
+  color: #08766f;
+  font: 850 9px/1.2 var(--mono);
+  letter-spacing: .09em;
+}
+
+.business-ai-factory-head h3 {
+  max-width: 100%;
+  margin: 10px 0 0;
+  color: #102c43;
+  font-size: clamp(27px, 3vw, 43px);
+  line-height: 1.06;
+  letter-spacing: -.045em;
+  overflow-wrap: anywhere;
+}
+
+.business-ai-factory-head p {
+  max-width: 900px;
+  margin: 13px 0 0;
+  color: #40596c;
+  font-size: 13px;
+  font-weight: 720;
+  line-height: 1.65;
+}
+
+.business-ai-factory-head > strong {
+  padding: 9px 12px;
+  color: #fff;
+  background: #102c43;
+  font: 850 8px/1 var(--mono);
+  letter-spacing: .06em;
+  white-space: nowrap;
+}
+
+.business-ai-factory-north-star {
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr);
+  align-items: center;
+  gap: 8px 18px;
+  margin-top: 26px;
+  padding: 20px 22px;
+  color: #f7fbff;
+  border-left: 6px solid #f2c94c;
+  background: #071522;
+}
+
+.business-ai-factory-north-star span { color: #69dfc3; font: 850 9px/1 var(--mono); letter-spacing: .1em; }
+.business-ai-factory-north-star strong { color: #fff; font-size: clamp(16px, 2vw, 24px); line-height: 1.3; }
+.business-ai-factory-north-star small { grid-column: 2; color: #c5d4de; font-size: 10px; line-height: 1.5; }
+
+.business-ai-factory-layers {
+  display: grid;
+  grid-template-columns: repeat(9, minmax(0, 1fr));
+  gap: 5px;
+  margin-top: 10px;
+}
+
+.business-ai-factory-layers > article {
+  position: relative;
+  min-width: 0;
+  min-height: 178px;
+  padding: 16px 13px 14px;
+  border: 1px solid #c0ced8;
+  border-top: 4px solid var(--system-accent, #08766f);
+  background: #fff;
+}
+
+.business-ai-factory-layers > article:nth-child(3n+2) { --system-accent: #2f68bd; }
+.business-ai-factory-layers > article:nth-child(3n) { --system-accent: #8a55d2; }
+.business-ai-factory-layers > article > span { display: grid; place-items: center; width: 30px; height: 30px; margin-bottom: 18px; color: #fff; background: var(--system-accent, #08766f); border-radius: 50%; font: 900 12px/1 var(--mono); }
+.business-ai-factory-layers small { display: block; color: var(--system-accent, #08766f); font: 850 8px/1.25 var(--mono); letter-spacing: .05em; overflow-wrap: anywhere; }
+.business-ai-factory-layers strong { display: block; margin-top: 8px; color: #102c43; font-size: 11px; line-height: 1.45; overflow-wrap: anywhere; }
+.business-ai-factory-layers p { margin: 10px 0 0; color: #52697c; font-size: 9px; line-height: 1.5; overflow-wrap: anywhere; }
+
+.business-ai-factory-workloads {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 8px;
+  margin-top: 10px;
+}
+
+.business-ai-factory-workloads > article {
+  min-width: 0;
+  padding: 18px;
+  border: 1px solid #c0ced8;
+  border-left: 4px solid #08766f;
+  background: #fff;
+}
+
+.business-ai-factory-workloads > article:nth-child(3n+2) { border-left-color: #2f68bd; }
+.business-ai-factory-workloads > article:nth-child(3n) { border-left-color: #8a55d2; }
+.business-ai-factory-workloads span { color: #08766f; font: 850 8px/1 var(--mono); letter-spacing: .07em; }
+.business-ai-factory-workloads strong { display: block; margin-top: 9px; color: #102c43; font-size: 15px; line-height: 1.35; }
+.business-ai-factory-workloads p { margin: 10px 0 0; color: #40596c; font-size: 10px; line-height: 1.5; }
+.business-ai-factory-workloads small { display: block; margin-top: 10px; color: #6e54d7; font: 800 8px/1.45 var(--mono); }
+
+.business-ai-factory-sequence {
+  display: grid;
+  grid-template-columns: repeat(8, minmax(0, 1fr));
+  gap: 1px;
+  margin: 10px 0 0;
+  padding: 0;
+  border: 1px solid #304d61;
+  background: #304d61;
+  list-style: none;
+}
+
+.business-ai-factory-sequence > li { position: relative; min-width: 0; min-height: 88px; padding: 14px; background: #0b2131; }
+.business-ai-factory-sequence span { color: #69dfc3; font: 900 9px/1 var(--mono); }
+.business-ai-factory-sequence strong { display: block; margin-top: 15px; color: #f7fbff; font-size: 10px; line-height: 1.4; overflow-wrap: anywhere; }
+
+.business-ai-factory-control {
+  display: grid;
+  grid-template-columns: minmax(0, .9fr) minmax(0, 1.1fr);
+  gap: 10px;
+  margin-top: 10px;
+}
+
+.business-ai-factory-control > div { min-width: 0; padding: 20px; border: 1px solid #c0ced8; background: #fff; }
+.business-ai-factory-coverage { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 14px; }
+.business-ai-factory-coverage b { padding: 7px 9px; color: #6f4c00; border: 1px solid #ead5a1; background: #fff8df; font: 800 8px/1.2 var(--mono); }
+.business-ai-factory-coverage b[data-coverage="fresh"] { color: #08665f; border-color: #a9dcd2; background: #e9f8f4; }
+.business-ai-factory-coverage b[data-coverage="observed"] { color: #285da8; border-color: #b9d0ed; background: #eef5ff; }
+.business-ai-factory-signals { display: grid; gap: 6px; margin-top: 14px; }
+.business-ai-factory-signals a { display: grid; gap: 5px; min-width: 0; padding: 10px 12px; color: #102c43; border-left: 3px solid #2f68bd; background: #f3f7fa; text-decoration: none; }
+.business-ai-factory-signals a small { color: #08766f; font: 850 8px/1.2 var(--mono); }
+.business-ai-factory-signals a strong { color: #102c43; font-size: 11px; line-height: 1.4; overflow-wrap: anywhere; }
+.business-ai-factory-signals a span { color: #52697c; font-size: 9px; }
+.business-ai-factory-signals p { margin: 0; color: #40596c; font-size: 11px; line-height: 1.55; }
+
+@media (max-width: 1180px) {
+  .business-ai-factory-layers { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+  .business-ai-factory-sequence { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+}
+
+@media (max-width: 760px) {
+  .business-ai-factory-system { padding: 28px 18px 24px; }
+  .business-ai-factory-head,
+  .business-ai-factory-control { grid-template-columns: 1fr; }
+  .business-ai-factory-head > strong { white-space: normal; }
+  .business-ai-factory-north-star { grid-template-columns: 1fr; }
+  .business-ai-factory-north-star small { grid-column: auto; }
+  .business-ai-factory-layers,
+  .business-ai-factory-workloads { grid-template-columns: 1fr; }
+  .business-ai-factory-layers > article { min-height: 0; }
+  .business-ai-factory-sequence { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+}
+
 /* Workload consulting automation: a flat, evidence-led delivery framework. */
 .business-workload-advisory {
   margin-top: 26px;
