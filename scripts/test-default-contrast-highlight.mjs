@@ -46,6 +46,9 @@ assert.match(css, /\.business-role-outputs p,[\s\S]*?\.business-automation-flow 
 assert.match(css, /Sparse decision emphasis[\s\S]*?mark\.business-key-term[\s\S]*?color:\s*inherit !important[\s\S]*?background:\s*transparent !important[\s\S]*?text-decoration-line:\s*underline[\s\S]*?text-decoration-color:\s*#d5a400/);
 assert.doesNotMatch(css, /mark\.business-key-term[\s\S]{0,500}#ffe36b/, "decision terms must not use a filled yellow marker");
 assert.match(css, /\.business-competency-card \.business-card-index \{[\s\S]*?inline-size:\s*42px;[\s\S]*?block-size:\s*42px;[\s\S]*?border:\s*2px solid currentColor;[\s\S]*?border-radius:\s*50%;[\s\S]*?font:\s*900 19px\/1 var\(--mono\);/, "capability step numbers must remain large, centered circular badges");
+assert.match(css, /\.business-competency-card h3 \{[\s\S]*?font-size:\s*20px;[\s\S]*?\.business-card-evidence li \{[\s\S]*?color:\s*#e8f2f8;[\s\S]*?font-size:\s*12\.5px;/, "capability headings and evidence copy must be larger and explicitly legible on the dark surface");
+assert.match(css, /\.business-competency-card > ul:not\(\.business-card-evidence\) li \{[\s\S]*?color:\s*#d9e9f2;[\s\S]*?font:\s*760 11\.5px\/1\.35 var\(--mono\);/, "capability detail rows must use the intended selector and high-contrast copy");
+assert.match(css, /\.business-site \.business-competency-card mark\.business-key-term \{[\s\S]*?background:\s*transparent !important;[\s\S]*?text-decoration-color:\s*#ffd24f !important;/, "capability key terms must use a restrained yellow underline without a filled marker");
 assert.match(css, /Automation status is always legible[\s\S]*?\.business-data-status \{[\s\S]*?color:\s*#f7fbff;[\s\S]*?background:[\s\S]*?#071522;[\s\S]*?\.business-data-status\.business-reveal \{[\s\S]*?opacity:\s*1;/, "automation text must remain visible before reveal animation completes");
 assert.match(css, /\.business-data-status :is\(\.business-data-status-main strong, \.business-automation-flow strong, dd\)[\s\S]*?color:\s*#f7fbff;[\s\S]*?\.business-data-status :is\(small, dt, \.business-automation-flow small\)[\s\S]*?color:\s*#c5d4de;/, "automation labels and values must use high-contrast default colors");
 assert.match(css, /\.business-team-workstreams h3 \{[\s\S]*?color:\s*#fff;[\s\S]*?\.business-team-workstreams dd \{[\s\S]*?color:\s*#edf6fb;/, "team workstream cards must remain legible before hover");
@@ -60,13 +63,16 @@ assert.deepEqual(artifact.presentation.emphasisTerms, model.presentation.emphasi
 assert.equal(artifact.presentation.emphasisPolicy.style, "underline-only");
 assert.ok(artifact.presentation.emphasisPolicy.maxTotal <= 10);
 assert.equal(artifact.presentation.emphasisPolicy.maxPerSection, 1);
+for (const term of ["Customer Problem", "Full-Stack AI Infra", "Business Case"]) {
+  assert.ok(model.presentation.emphasisTerms.includes(term), `presentation model must preserve the capability emphasis term: ${term}`);
+}
 assert.match(landing, /function highlightBusinessKeyTerms\(root = site, policy = presentationPolicy\)/);
 assert.match(landing, /createTreeWalker[\s\S]*?NodeFilter\.SHOW_TEXT/);
 assert.match(landing, /parent\.closest\("mark, script, style[\s\S]*?business-key-term/);
 assert.match(landing, /maxPerSection[\s\S]*?maxTotal[\s\S]*?total >= maxTotal/);
 assert.match(landing, /highlightBusinessKeyTerms\(site, content\.presentation\)/, "every generated refresh must reapply the sparse emphasis policy");
 assert.match(landing, /applyPresentationPolicy\(content\.presentation\)/);
-assert.match(html, /infra-20260816-25/);
+assert.match(html, /infra-20260816-26/);
 assert.match(css, /@media \(max-width: 760px\)[\s\S]*?\.business-competency-output[\s\S]*?grid-column:\s*2 !important[\s\S]*?\.business-llm-causal-chain,[\s\S]*?\.business-contract-funnel[\s\S]*?overflow-x:\s*visible/);
 
 console.log(JSON.stringify({
