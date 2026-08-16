@@ -8662,7 +8662,8 @@ function buildMarketStructure(previous = {}, baseline = {}, liveFigures = {}, de
         sourceUrl: provenance?.sourceUrl || null,
         basis: provenance?.basis || "automation-unavailable",
         dataStatus: provenance?.dataStatus || "unavailable",
-        liveCorroboration: automatedSkhynixHbm || null,
+        liveCorroboration: null,
+        metricConsensus: automatedSkhynixHbm || null,
         status: automatedSkhynixHbm ? "reported" : "watch",
       };
     }

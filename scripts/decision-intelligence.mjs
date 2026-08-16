@@ -234,9 +234,11 @@ export function extractMetricObservations(documents = [], policy = loadIntellige
     // A direct metric feed has a publisher-specific parser and denominator.
     // Re-running generic narrative extraction over that page can confuse a
     // nearby DRAM or margin percentage for the HBM metric.
-    const narrative = extractNarrativeMetrics(document, policy)
-      .filter((item) => item.metricId !== feed?.metricId);
-    output.push(...narrative);
+    if (feed || ["official", "research"].includes(document.sourceClass)) {
+      const narrative = extractNarrativeMetrics(document, policy)
+        .filter((item) => item.metricId !== feed?.metricId);
+      output.push(...narrative);
+    }
   }
   const byKey = new Map();
   for (const item of output) byKey.set(`${item.metricId}|${item.entityId}|${item.period}|${item.sourceId}`, item);

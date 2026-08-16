@@ -928,10 +928,13 @@ for (const company of quant.marketStructure?.companies || []) {
     const value = Number(String(company?.[field] ?? "").replace(/[^\d.-]/g, ""));
     if (!Number.isFinite(value) || value <= 0) continue;
     const provenance = company.fieldProvenance?.[field];
+    const legacyVerified = ["live-verified", "last-verified"].includes(provenance?.dataStatus);
+    const consensusVerified = provenance?.basis === "automated-metric-consensus"
+      && /^(?:high|single-source|range-\d+-sources)$/.test(String(provenance?.dataStatus || ""));
     if (!provenance
       || !String(provenance.asOf || "").trim()
       || !isDirectSourceUrl(provenance.sourceUrl)
-      || !["live-verified", "last-verified"].includes(provenance.dataStatus)) {
+      || (!legacyVerified && !consensusVerified)) {
       addIssue("error", "data/quant.json", "company share lacks field-specific provenance", `${company.company || "unknown"}:${field}`);
     }
   }

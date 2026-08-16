@@ -20,6 +20,7 @@ assert.deepEqual(validateIntelligencePolicy(intelligencePolicy), { ok: true, err
 assert.ok(intelligencePolicy.directFeeds.every((feed) => catalog.sources.some((source) => source.id === feed.sourceId)), "every direct feed must map to the governed source catalog");
 assert.ok(intelligencePolicy.metrics.some((metric) => metric.id === "hbm-revenue-share" && metric.dimension === "revenue-share"));
 assert.ok(intelligencePolicy.metrics.some((metric) => metric.id === "hbm-wafer-input-share" && metric.dimension === "wafer-input-share"));
+assert.deepEqual(intelligencePolicy.retrieval.allowedSourceClasses, ["official", "research"]);
 
 const enabled = catalog.sources.filter((source) => source.enabled);
 const official = enabled.filter((source) => source.sourceClass === "official");
