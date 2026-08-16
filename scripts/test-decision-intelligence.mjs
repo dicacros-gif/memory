@@ -154,6 +154,8 @@ assert.equal(built.schemaVersion, "1.2");
 assert.ok(built.claimEvents.stats.structuredEvents > 0, "verified documents must become structured ClaimEvents");
 assert.ok(built.claimEvents.events.every((event) => event.evidenceSpan && event.entity?.id && event.product?.id && event.stage?.id));
 assert.ok(built.claimEvents.events.every((event) => ["official", "research"].includes(event.sourceClass)), "media summaries must not enter the ClaimEvent ledger");
+assert.ok(built.claimEvents.events.every((event) => event.promotionStatus !== "verified-primary" || event.sourceClass === "official"), "research claims must never inherit a verified-primary label");
+assert.ok(built.claimEvents.events.every((event) => !event.isCurrentStage || event.sourceClass === "official" || !built.claimEvents.events.some((peer) => peer.entity.id === event.entity.id && peer.product.id === event.product.id && peer.stage.id === event.stage.id && peer.sourceClass === "official")), "an official claim must lead same-stage research claims");
 assert.equal(built.decisionAutomation.briefs.length, policy.decisionAutomation.briefs.length);
 assert.ok(built.decisionAutomation.briefs.every((brief) => brief.customerPain && brief.hypothesis && brief.trigger && brief.killCriteria));
 assert.ok(["MONITORING", "EVIDENCE_READY", "CONFLICT_REVIEW", "DECISION_READY"].includes(built.decisionAutomation.state));

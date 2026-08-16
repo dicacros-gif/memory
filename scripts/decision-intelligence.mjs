@@ -707,7 +707,9 @@ export function buildClaimEventLedger({ documents = [], previous = {}, policy = 
     groups.get(key).push(event);
   }
   for (const group of groups.values()) {
-    group.sort((left, right) => Number(right.stage.rank) - Number(left.stage.rank) || String(right.publishedAt).localeCompare(String(left.publishedAt)));
+    group.sort((left, right) => Number(right.stage.rank) - Number(left.stage.rank)
+      || Number(right.sourceClass === "official") - Number(left.sourceClass === "official")
+      || String(right.publishedAt).localeCompare(String(left.publishedAt)));
     for (const event of group) {
       const peers = group.filter((item) => item.stage.id === event.stage.id);
       const independentSources = new Set(peers.map((item) => item.sourceId)).size;
@@ -715,7 +717,14 @@ export function buildClaimEventLedger({ documents = [], previous = {}, policy = 
       const affirmative = peers.some((item) => !/(?:\bnot\b|den(?:y|ies|ied)|cancel(?:s|led)?|withdraw(?:s|n)?|중단|철회|부인)/i.test(item.evidenceSpan));
       const opposing = peers.some((item) => /(?:\bnot\b|den(?:y|ies|ied)|cancel(?:s|led)?|withdraw(?:s|n)?|중단|철회|부인)/i.test(item.evidenceSpan));
       event.independentSources = independentSources;
-      event.promotionStatus = hasPrimary ? "verified-primary" : independentSources >= 2 ? "corroborated" : "review";
+      // Promotion is attached to the individual claim, not inherited from a
+      // peer at the same product stage.  A research report can corroborate a
+      // primary disclosure, but it must never be labelled as primary itself.
+      event.promotionStatus = event.sourceClass === "official"
+        ? "verified-primary"
+        : hasPrimary || independentSources >= 2
+          ? "corroborated"
+          : "review";
       // Different documents commonly disclose complementary capacity, speed
       // and thermal figures.  A numerical-token difference is not itself a
       // contradiction; only explicit affirmative/opposing stage language is.
