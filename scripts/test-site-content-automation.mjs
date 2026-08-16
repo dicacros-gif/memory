@@ -53,7 +53,7 @@ assert.match(landing, /SITE_CONTENT_PATH = "data\/site-content-client\.json"/);
 assert.match(landing, /content\.runId !== manifest\.runId/);
 assert.match(landing, /15 \* 60 \* 1000/);
 assert.match(app, /window\.MEMORY_SITE_CONTENT\?\.agentCouncil\?\.agendas/);
-assert.match(index, /infra-20260816-11/);
+assert.match(index, /infra-20260816-12/);
 
 console.log(JSON.stringify({
   ok: true,

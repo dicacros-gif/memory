@@ -5114,7 +5114,24 @@ body.landing-mode {
 .business-competency-card:nth-child(2) { --capability-color: var(--consulting-violet); margin-left: 6%; }
 .business-competency-card:nth-child(3) { --capability-color: var(--consulting-magenta); margin-left: 12%; }
 .business-competency-card:is(:hover, :focus-within) { transform: translateX(7px); box-shadow: 0 0 32px color-mix(in srgb, var(--capability-color) 20%, transparent); }
-.business-competency-card .business-card-index { position: static; grid-area: 1 / 1 / 4 / 2; color: var(--capability-color); font-size: 17px; }
+.business-competency-card .business-card-index {
+  position: static;
+  grid-area: 1 / 1 / 4 / 2;
+  inline-size: 42px;
+  block-size: 42px;
+  display: grid;
+  place-items: center;
+  justify-self: start;
+  align-self: center;
+  box-sizing: border-box;
+  color: var(--capability-color);
+  border: 2px solid currentColor;
+  border-radius: 50%;
+  background: #071522;
+  box-shadow: 0 0 0 4px color-mix(in srgb, var(--capability-color) 12%, transparent);
+  font: 900 19px/1 var(--mono);
+  letter-spacing: -.04em;
+}
 .business-competency-card .business-card-icon { display: none; }
 .business-competency-card > p:first-of-type { grid-column: 2; margin: 0 0 7px; color: var(--capability-color); font: 850 9px/1 var(--mono); }
 .business-competency-card h3 { grid-column: 2; margin: 0; color: #fff; font-size: 18px; }
