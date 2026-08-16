@@ -3,9 +3,10 @@
 
   const BUSINESS_TITLE = "AI Infra Strategy OS · Workload to Revenue";
   const CONSOLE_HASH = "#console";
-  const CONSOLE_REVISION = "infra-20260816-09";
+  const CONSOLE_REVISION = "infra-20260816-10";
   const DECISION_CLIENT_PATH = "data/landing-decision-client.json";
   const SITE_CONTENT_PATH = "data/site-content-client.json";
+  const BUSINESS_KEY_TERM_PATTERN = /(System Bottleneck|Memory Option|Business Value|Right to Win|Kill Criteria|Execution Gates?|Decision Gate|Agentic AI|Pain Point|Qualification|Benchmark|Workload|Capacity|HBM4?|CXL|HBF|eSSD|TCO|Ramp|고객 인증|판단 변경 조건|실행 전략|시스템 병목|메모리 대안|사업 가치)/gi;
   const site = document.querySelector("#businessSite");
   let consoleLayer = document.querySelector("#intelligenceConsole");
   const header = document.querySelector("#businessHeader");
@@ -452,6 +453,7 @@
     renderCompetitorContent(content);
     renderPartnerContent(content);
     setupConsultingCardMotion();
+    highlightBusinessKeyTerms();
 
     const footer = document.querySelector(".business-footer a");
     if (footer) footer.textContent = `© ${content.footer?.year || new Date().getFullYear()} dicacross · ${content.footer?.disclosure || "Independent strategy portfolio based on public information."}`;
@@ -827,6 +829,42 @@
     }
   }
 
+  function highlightBusinessKeyTerms(root = site) {
+    const surface = root?.querySelector("main") || root;
+    if (!surface || !("TreeWalker" in window)) return;
+    const candidates = [];
+    const walker = document.createTreeWalker(surface, NodeFilter.SHOW_TEXT, {
+      acceptNode(node) {
+        const parent = node.parentElement;
+        const value = node.nodeValue || "";
+        if (!parent || !value.trim()) return NodeFilter.FILTER_REJECT;
+        if (parent.closest("mark, script, style, textarea, select, option, code, pre, [aria-hidden='true']")) return NodeFilter.FILTER_REJECT;
+        if (!parent.closest("h1, h2, h3, h4, p, li, dd, strong")) return NodeFilter.FILTER_REJECT;
+        BUSINESS_KEY_TERM_PATTERN.lastIndex = 0;
+        return BUSINESS_KEY_TERM_PATTERN.test(value) ? NodeFilter.FILTER_ACCEPT : NodeFilter.FILTER_REJECT;
+      },
+    });
+    while (walker.nextNode()) candidates.push(walker.currentNode);
+
+    for (const node of candidates) {
+      const value = node.nodeValue || "";
+      const fragment = document.createDocumentFragment();
+      let cursor = 0;
+      BUSINESS_KEY_TERM_PATTERN.lastIndex = 0;
+      for (const match of value.matchAll(BUSINESS_KEY_TERM_PATTERN)) {
+        const index = match.index ?? 0;
+        if (index > cursor) fragment.append(value.slice(cursor, index));
+        const mark = document.createElement("mark");
+        mark.className = "business-key-term";
+        mark.textContent = match[0];
+        fragment.append(mark);
+        cursor = index + match[0].length;
+      }
+      if (cursor < value.length) fragment.append(value.slice(cursor));
+      node.replaceWith(fragment);
+    }
+  }
+
   function setupBusinessExperience() {
     if (businessReady) return;
     businessReady = true;
@@ -839,6 +877,7 @@
     setupInfographicSequence();
     setupReveal();
     setupConsultingCardMotion();
+    highlightBusinessKeyTerms();
     void updateDataStatus();
     void loadDecisionEvidence();
   }

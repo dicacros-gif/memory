@@ -5706,6 +5706,96 @@ body.landing-mode {
   color: var(--initiative-accent, var(--consulting-blue));
 }
 
+/* Default-state contrast contract: text must remain readable before any hover interaction. */
+.business-pain-framework .business-framework-panel dl > div {
+  color: #183248;
+}
+
+.business-pain-framework .business-framework-panel dt {
+  color: #08766f;
+}
+
+.business-pain-framework .business-framework-panel dd {
+  color: #183248;
+  font-weight: 790;
+}
+
+.business-pain-framework .business-framework-head p,
+.business-pain-framework .business-framework-note,
+.business-pain-framework .business-framework-tabs button:not([aria-selected="true"]) {
+  color: #c5d4de;
+}
+
+.business-pain-framework .business-framework-note {
+  font-weight: 700;
+}
+
+.business-solutions .business-workload-map {
+  padding: 36px 32px 32px;
+  color: #102c43;
+  border: 1px solid #cbd6df;
+  background: #f5f8fa;
+}
+
+.business-workload-map .business-module-heading > span {
+  color: #08766f;
+}
+
+.business-workload-map .business-module-heading h3 {
+  color: #102c43;
+}
+
+.business-workload-map .business-module-heading p {
+  color: #40596c;
+  font-weight: 720;
+}
+
+.business-hero-proof dd span,
+.business-visual-head,
+.business-flow-node span,
+.business-data-status small,
+.business-data-status dt,
+.business-data-status > p,
+.business-flagship-status time,
+.business-flagship-metrics span,
+.business-flagship-caveat,
+.business-tco-metrics span,
+.business-fabric-stack p,
+.business-fabric-output span,
+.business-source-note,
+.business-macro-action p,
+.business-role-fit-grid span,
+.business-role-outputs p,
+.business-automation-flow small,
+.business-contact-card li {
+  color: #c5d4de;
+  opacity: 1;
+}
+
+/* Important decision vocabulary: yellow marker plus an explicit underline on every surface. */
+.business-site mark.business-key-term {
+  display: inline;
+  margin-inline: .025em;
+  padding: 0 .075em .02em;
+  color: #2d2600 !important;
+  -webkit-text-fill-color: #2d2600;
+  background: linear-gradient(180deg, transparent 12%, #ffe36b 12% 91%, transparent 91%);
+  border-radius: 2px;
+  font: inherit;
+  font-weight: 900;
+  text-decoration-line: underline;
+  text-decoration-color: #a86700;
+  text-decoration-thickness: 2px;
+  text-underline-offset: 3px;
+  box-decoration-break: clone;
+  -webkit-box-decoration-break: clone;
+}
+
+.business-site mark.business-key-term::selection {
+  color: #fff;
+  background: #725000;
+}
+
 @media (prefers-reduced-motion: reduce) {
   .business-architecture-flow > i::before,
   .business-strategy-chain > li.is-visible,
