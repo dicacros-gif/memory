@@ -3,7 +3,7 @@
 
   const BUSINESS_TITLE = "AI Infra Strategy OS · Bottleneck to Scale";
   const CONSOLE_HASH = "#console";
-  const CONSOLE_REVISION = "infra-20260816-20";
+  const CONSOLE_REVISION = "infra-20260816-21";
   const DECISION_CLIENT_PATH = "data/landing-decision-client.json";
   const SITE_CONTENT_PATH = "data/site-content-client.json";
   const site = document.querySelector("#businessSite");
@@ -403,7 +403,7 @@
     const status = document.querySelector("#aiFactoryAutomationStatus");
     if (title) title.textContent = system.title || title.textContent;
     if (thesis) thesis.textContent = system.thesis || thesis.textContent;
-    if (status) status.textContent = `${system.automation?.status || "COVERAGE CHECK"} · ${system.automation?.activePillars || 0}/${system.automation?.totalPillars || 0} PILLARS · ${system.automation?.scheduleHours || 3}H`;
+    if (status) status.textContent = `${system.automation?.status || "COVERAGE CHECK"} · ${system.automation?.activePillars || 0}/${system.automation?.totalPillars || 0} PILLARS · ${system.automation?.activeWorkloads || 0}/${system.automation?.totalWorkloads || 0} WORKLOADS · EVENT + ${system.automation?.scheduleHours || 3}H`;
 
     const northStar = document.querySelector("#aiFactoryNorthStar");
     if (northStar && system.northStar) {
@@ -417,12 +417,65 @@
 
     const workloads = document.querySelector("#aiFactoryWorkloads");
     if (workloads && system.workloads?.length) {
-      workloads.innerHTML = system.workloads.map((workload) => `<article><span>${escapeBusinessHTML(workload.label)}</span><strong>${escapeBusinessHTML(workload.northStar)}</strong><p>${escapeBusinessHTML((workload.bottlenecks || []).join(" · "))}</p><small>${escapeBusinessHTML((workload.kpis || []).join(" · "))}</small></article>`).join("");
+      workloads.innerHTML = system.workloads.map((workload) => {
+        const evidence = workload.evidence || {};
+        const evidenceMeta = `${String(evidence.status || "coverage-gap").toUpperCase()}${evidence.publishedAt ? ` · ${String(evidence.publishedAt).slice(0, 10)}` : ""}`;
+        const evidenceNode = evidence.url
+          ? `<a href="${escapeBusinessHTML(safeBusinessUrl(evidence.url, "#console"))}" target="_blank" rel="noopener noreferrer">${escapeBusinessHTML(evidenceMeta)} ↗</a>`
+          : `<em>${escapeBusinessHTML(evidenceMeta)}</em>`;
+        return `<article data-workload="${escapeBusinessHTML(workload.id)}"><header><span>${escapeBusinessHTML(workload.label)}</span>${evidenceNode}</header><strong>${escapeBusinessHTML(workload.northStar)}</strong><p>${escapeBusinessHTML((workload.bottlenecks || []).join(" · "))}</p><small>${escapeBusinessHTML((workload.kpis || []).join(" · "))}</small><footer>${escapeBusinessHTML(workload.capacityMode || "Capacity 경로 검증")}</footer></article>`;
+      }).join("");
+    }
+
+    const workloadMatrix = document.querySelector("#workloadMatrix");
+    if (workloadMatrix && system.workloads?.length) {
+      workloadMatrix.innerHTML = system.workloads.map((workload, index) => {
+        const evidence = workload.evidence || {};
+        const evidenceLine = evidence.url
+          ? `<a href="${escapeBusinessHTML(safeBusinessUrl(evidence.url, "#console"))}" target="_blank" rel="noopener noreferrer">${escapeBusinessHTML(evidence.source || "원문")} · ${escapeBusinessHTML(String(evidence.publishedAt || "").slice(0, 10) || "기준일 확인")} ↗</a>`
+          : `<span>${escapeBusinessHTML(evidence.title || "최신 근거 관측 대기")}</span>`;
+        return `<article data-workload-contract="${escapeBusinessHTML(workload.id)}"><span>${String(index + 1).padStart(2, "0")} · ${escapeBusinessHTML(workload.label)}</span><h4>${escapeBusinessHTML(workload.northStar)}</h4><dl><div><dt>BOTTLENECK</dt><dd>${escapeBusinessHTML((workload.bottlenecks || []).join(" · "))}</dd></div><div><dt>KPI CONTRACT</dt><dd>${escapeBusinessHTML((workload.kpis || []).join(" · "))}</dd></div><div><dt>CAPACITY PATH</dt><dd>${escapeBusinessHTML(workload.capacityMode || "검증 후 결정")}</dd></div><div><dt>LIVE EVIDENCE</dt><dd>${evidenceLine}</dd></div></dl></article>`;
+      }).join("");
+    }
+
+    const demandShift = document.querySelector("#aiFactoryDemandShift");
+    if (demandShift && system.demandShift) {
+      const forecast = system.demandShift;
+      const evidence = forecast.evidence || {};
+      const evidenceNode = evidence.url
+        ? `<a href="${escapeBusinessHTML(safeBusinessUrl(evidence.url, "#console"))}" target="_blank" rel="noopener noreferrer">${escapeBusinessHTML(evidence.source || "원문")} · ${escapeBusinessHTML(String(evidence.publishedAt || "").slice(0, 10))} ↗</a>`
+        : `<em>COVERAGE GAP · 다음 증분 수집에서 전망 근거 재확인</em>`;
+      demandShift.innerHTML = `<span>${escapeBusinessHTML(forecast.label || "DEMAND TRANSITION · FORECAST")}</span><strong>${escapeBusinessHTML(forecast.hypothesis || "수요 전환을 지속 관측")}</strong><p>${escapeBusinessHTML(forecast.decision || "Workload 수요로 Capacity Mix 조정")}</p><small>${escapeBusinessHTML(forecast.guardrail || "전망과 실적 분리")} · ${evidenceNode}</small>`;
     }
 
     const sequence = document.querySelector("#aiFactorySequence");
     if (sequence && system.decisionSequence?.length) {
       sequence.innerHTML = system.decisionSequence.map((step, index) => `<li><span>${String(index + 1).padStart(2, "0")}</span><strong>${escapeBusinessHTML(step)}</strong></li>`).join("");
+    }
+
+    const roadmap = document.querySelector("#aiFactoryRoadmap");
+    if (roadmap && system.roadmap?.length) {
+      roadmap.innerHTML = system.roadmap.map((phase) => `<li><span>${escapeBusinessHTML(phase.phase)}</span><strong>${escapeBusinessHTML(phase.goal)}</strong><p>${escapeBusinessHTML(phase.gate)}</p></li>`).join("");
+    }
+
+    const accelerator = document.querySelector("#acceleratorScorecard");
+    if (accelerator && system.acceleratorDecision) {
+      const matrix = system.acceleratorDecision;
+      const score = accelerator.querySelector(":scope > div");
+      const copy = accelerator.querySelector("header p");
+      const footer = accelerator.querySelector("footer");
+      if (copy) copy.textContent = matrix.guardrail || copy.textContent;
+      if (score) score.innerHTML = (matrix.criteria || []).map((item) => `<b style="--weight:${Number(item.weight || 0)}"><span>${escapeBusinessHTML(String(item.weight || 0))}</span><small>${escapeBusinessHTML(item.label)}</small></b>`).join("");
+      if (footer) footer.textContent = `${(matrix.supplyLayers || []).join(" · ")} · 합계 ${matrix.totalWeight || 0}점 · 벤더 Peak 수치는 조건 불일치 시 Watch`;
+    }
+
+    const kpiTree = document.querySelector("#aiFactoryKpiTree");
+    if (kpiTree && system.kpiTree) {
+      const groups = [["BUSINESS", system.kpiTree.business], ["APPLICATION", system.kpiTree.application], ["PLATFORM", system.kpiTree.platform], ["FACILITY", system.kpiTree.facility]];
+      const grid = kpiTree.querySelector(":scope > div");
+      const formula = kpiTree.querySelector(":scope > p");
+      if (grid) grid.innerHTML = groups.map(([label, items]) => `<article><small>${escapeBusinessHTML(label)}</small><strong>${escapeBusinessHTML((items || []).join(" · "))}</strong></article>`).join("");
+      if (formula) formula.textContent = (system.kpiTree.formulas || []).join(" · ");
     }
 
     const coverage = document.querySelector("#aiFactoryCoverage");
@@ -495,6 +548,18 @@
       const signalCount = Number(workload.currentSignals?.length || 0);
       control.textContent = `검증 실행 ${workload.runId || content.runId || "확인 필요"} · 현재 승격 신호 ${signalCount}건. 실제 협업·검증 사례와 향후 운영 모델을 분리하고, 조건 없는 성능 배수·가격·시장 수치는 게시하지 않습니다.`;
     }
+
+    const rag = workload.ragOperatingModel || {};
+    const ragTitle = document.querySelector("#ragOperatingModelTitle");
+    const ragControl = document.querySelector("#ragLiveControl");
+    const ragPipeline = document.querySelector("#ragQualityPipeline");
+    const ragMaturity = document.querySelector("#ragMaturity");
+    const ragKpis = document.querySelector("#ragQualityKpis");
+    if (ragTitle && rag.title) ragTitle.textContent = rag.title;
+    if (ragControl) ragControl.textContent = `FRESHNESS ${Math.round(Number(rag.liveControl?.freshnessScore || 0))}/100 · ${String(rag.liveControl?.freshnessStatus || "pending").toUpperCase()} · CITE ${Math.round(Number(rag.liveControl?.citationCoveragePct || 0))}%`;
+    if (ragPipeline && rag.pipeline?.length) ragPipeline.innerHTML = rag.pipeline.map((step, index) => `<li><span>${String(index + 1).padStart(2, "0")}</span><strong>${escapeBusinessHTML(step)}</strong></li>`).join("");
+    if (ragMaturity && rag.maturity?.length) ragMaturity.innerHTML = rag.maturity.map((level) => `<article><b>${escapeBusinessHTML(level.level)}</b><strong>${escapeBusinessHTML(level.title)}</strong><small>${escapeBusinessHTML(level.gate)}</small></article>`).join("");
+    if (ragKpis) ragKpis.textContent = `${(rag.qualityKpis || []).join(" · ")} · Indexed ${rag.liveControl?.indexedAt ? String(rag.liveControl.indexedAt).slice(0, 16).replace("T", " ") : "확인 중"}`;
   }
 
   function renderCompetitorContent(content = {}) {
@@ -928,6 +993,12 @@
       ".business-consulting-process > li",
       ".business-workload-services > article",
       ".business-workload-matrix > article",
+      ".business-demand-shift",
+      ".business-accelerator-scorecard",
+      ".business-kpi-tree",
+      ".business-ai-factory-roadmap > li",
+      ".business-rag-operating-model",
+      ".business-rag-maturity > article",
       ".business-memory-fabric",
       ".business-tco-module",
       ".business-tech-decision-grid > article",
@@ -974,6 +1045,8 @@
       ".business-consulting-process",
       ".business-workload-services",
       ".business-workload-matrix",
+      ".business-ai-factory-roadmap",
+      ".business-rag-maturity",
       ".business-tech-decision-grid",
       ".business-execution-evidence-grid",
       ".business-automation-flow",
@@ -1003,6 +1076,12 @@
       ".business-workload-services > article",
       ".business-workload-sources > a",
       ".business-workload-matrix > article",
+      ".business-demand-shift",
+      ".business-accelerator-scorecard",
+      ".business-kpi-tree",
+      ".business-ai-factory-roadmap > li",
+      ".business-rag-operating-model",
+      ".business-rag-maturity > article",
       ".business-fabric-stack > article",
       ".business-tco-metrics > article",
       ".business-tech-decision-grid > article",

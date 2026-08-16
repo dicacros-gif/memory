@@ -66,12 +66,12 @@
       { "id": "grid", "index": "09", "label": "SITE / GRID", "title": "Energy · Grid · Site · Regulation", "decision": "계통 연결·단계 가동·입지 위험" }
     ],
     "workloads": [
-      { "id": "training", "label": "TRAINING", "northStar": "Goodput · MFU · Time-to-Train", "bottlenecks": ["Collective", "Checkpoint", "HBM", "Power"], "kpis": ["Goodput", "MFU", "Recovery", "Cost/Run"] },
-      { "id": "finetuning", "label": "FINE-TUNING / RL", "northStar": "Experiment Velocity · Queue", "bottlenecks": ["Fragmentation", "Queue", "Checkpoint"], "kpis": ["Queue P95", "Job Success", "GPU-hour"] },
-      { "id": "online-serving", "label": "ONLINE LLM", "northStar": "SLO-constrained Goodput", "bottlenecks": ["KV", "Scheduler", "Fabric", "Memory"], "kpis": ["TTFT P95", "TPOT P95", "Tokens/GPU", "Cost/Token"] },
-      { "id": "rag", "label": "RAG", "northStar": "Grounded Quality · Cost/Query", "bottlenecks": ["Retrieval", "Index", "Metadata/ACL", "Storage"], "kpis": ["Recall", "Retrieval P99", "QPS", "Cost/Query"] },
-      { "id": "agentic", "label": "AGENTIC AI", "northStar": "Successful Task · Cost/Task", "bottlenecks": ["Tail Latency", "Tool Error", "Reasoning Cost"], "kpis": ["Task Success", "P99", "Steps/Task", "Cost/Success"] },
-      { "id": "physical", "label": "MULTIMODAL / PHYSICAL", "northStar": "Latency · Accuracy · Energy/Task", "bottlenecks": ["Ingest", "Edge-to-Core", "Thermal"], "kpis": ["E2E Latency", "Accuracy", "Energy/Task"] }
+      { "id": "training", "label": "TRAINING", "northStar": "Goodput · Time-to-Train", "bottlenecks": ["가속기 간 Collective", "Checkpoint I/O", "지속 전력·냉각"], "kpis": ["Goodput", "MFU", "Recovery", "Cost/Run"], "capacityMode": "예약형·임대형 가속기 + 검증된 상시 Cell", "signalTerms": ["training", "collective", "checkpoint", "all-reduce", "power"], "monitorSourceIds": ["aws-trainium", "nvidia-nvl72-architecture", "slurm-gres"] },
+      { "id": "realtime-inference", "label": "REAL-TIME INFERENCE", "northStar": "SLO-constrained Goodput", "bottlenecks": ["HBM·KV Cache", "TTFT·TPOT", "동시 사용자"], "kpis": ["TTFT P95", "TPOT P95", "Cache Hit", "Cost/Success"], "capacityMode": "보안·예측 수요는 Private/Colo, 급증은 Cloud Burst", "signalTerms": ["inference", "serving", "kv cache", "prefill", "decode", "ttft", "tpot"], "monitorSourceIds": ["nvidia-dynamo", "vllm-kv-offloading", "llm-serving-systems-research"] },
+      { "id": "batch-inference", "label": "BATCH INFERENCE", "northStar": "Quality-gated Throughput", "bottlenecks": ["Batch 효율", "Queue·Scheduling", "처리 단가"], "kpis": ["Goodput", "Batch Efficiency", "Queue Wait", "Cost/Task"], "capacityMode": "저가 시간대·예약 용량·이기종 가속기 Routing", "signalTerms": ["batch inference", "batching", "throughput", "scheduler", "queue", "goodput"], "monitorSourceIds": ["kubernetes-kueue", "slurm-gres", "aws-trainium"] },
+      { "id": "rag", "label": "ENTERPRISE RAG", "northStar": "Grounded Quality · Cost/Query", "bottlenecks": ["검색 품질", "Metadata·ACL", "색인 최신성"], "kpis": ["Recall@k", "nDCG", "Citation Precision", "Index Lag"], "capacityMode": "공용 Knowledge Layer + 데이터 등급별 Hybrid 경로", "signalTerms": ["rag", "retrieval", "vector", "embedding", "rerank", "metadata", "index"], "monitorSourceIds": ["google-context-caching", "anthropic-context-engineering", "llm-serving-systems-research"] },
+      { "id": "agentic", "label": "AI AGENT", "northStar": "Successful Task · Cost/Task", "bottlenecks": ["Tool 호출", "동시 실행", "긴 Context·외부 API"], "kpis": ["Task Completion", "Tool Success", "P99", "Steps/Task"], "capacityMode": "공용 Tool Gateway + 단계·토큰·시간 Budget", "signalTerms": ["agent", "tool", "reasoning", "context", "workflow", "api latency"], "monitorSourceIds": ["anthropic-context-engineering", "nvidia-dynamo", "google-context-caching"] },
+      { "id": "multimodal", "label": "MULTIMODAL", "northStar": "Latency · Accuracy · Energy/Task", "bottlenecks": ["이미지·영상 전처리", "Object Storage", "가속기 Memory"], "kpis": ["E2E Latency", "Accuracy", "Ingest Throughput", "Energy/Task"], "capacityMode": "Edge CPU·NPU 전처리 + 필요 시 Core Accelerator", "signalTerms": ["multimodal", "vision", "image", "video", "object storage", "edge"], "monitorSourceIds": ["nvidia-newsroom", "google-cloud-tpu", "meta-engineering"] }
     ],
     "decisionSequence": [
       "전력·열 Feasibility",
@@ -84,18 +84,52 @@
       "Modular Cell → Scale-out"
     ],
     "roadmap": [
-      { "phase": "NOW · 0–90D", "goal": "Baseline & Benchmark", "gate": "Workload·SLO·전력·열·TCO 기준선 승인" },
-      { "phase": "NEXT · 3–6M", "goal": "Production Cell", "gate": "SLA·Goodput·Cost/Token·가동성 기준 통과" },
-      { "phase": "SCALE · 6–18M", "goal": "Modular Scale-out", "gate": "Cell 추가 시 단위비용·신뢰성 유지" },
-      { "phase": "REFRESH · 6M CYCLE", "goal": "HW/SW Re-benchmark", "gate": "세대교체·Lock-in·Stranded CapEx 재검토" }
+      { "phase": "PHASE 0 · 0–30D", "goal": "Discovery & Baseline", "gate": "실제 로그·업무 성공기준 없이는 대규모 GPU CAPEX 보류" },
+      { "phase": "PHASE 1 · 31–90D", "goal": "Benchmark & Pilot", "gate": "품질·P95 지연·Cost/Successful Task·보안·복구 통과" },
+      { "phase": "PHASE 2 · 3–6M", "goal": "Shared Production Platform", "gate": "Gateway·RAG·Serving·Observability·Chargeback 운영 준비" },
+      { "phase": "PHASE 3 · 6–18M", "goal": "Modular AI Factory", "gate": "수요 오차·유효 활용률·전력/열·SLO·복구 역량 통과" },
+      { "phase": "PHASE 4 · 18–36M", "goal": "Grid-interactive Autonomy", "gate": "전력가격·탄소·수요 기반 Routing과 자동 복구 검증" }
     ],
-    "sourceIds": ["iea-energy-ai", "ashrae-ai-data-center", "nvidia-nvl72-architecture", "kubernetes-kueue", "kubernetes-dra", "slurm-gres", "nvidia-dynamo", "vllm-kv-offloading", "llm-serving-systems-research"],
+    "sourceIds": ["iea-energy-ai", "ashrae-ai-data-center", "nvidia-nvl72-architecture", "nvidia-newsroom", "aws-trainium", "google-cloud-tpu", "meta-engineering", "kubernetes-kueue", "kubernetes-dra", "slurm-gres", "nvidia-dynamo", "vllm-kv-offloading", "llm-serving-systems-research", "google-context-caching", "anthropic-context-engineering", "cxl-consortium", "sandisk-newsroom"],
     "evidencePolicy": [
       "전력·시장 전망은 발표일·기준연도·시나리오를 함께 저장",
       "벤더 성능 수치는 동일 Workload·Model·Version·SLO가 없으면 Watch로 유지",
       "PUE·GPU Utilization 단독 지표 대신 Useful Work·Quality·TCO를 함께 판단",
-      "각 Pillar의 공식 근거가 관측되지 않으면 Coverage Gap으로 표시"
-    ]
+      "각 Workload와 Pillar의 공식 근거가 관측되지 않으면 Coverage Gap으로 표시"
+    ],
+    "demandShift": {
+      "label": "DEMAND TRANSITION · FORECAST",
+      "hypothesis": "AI 인프라 수요 중심이 학습 일변도에서 고효율 추론 플랫폼으로 이동하는지 지속 관측",
+      "decision": "Training·Inference 설치량이 아니라 검증된 업무 수요·SLO·Goodput 변화로 Capacity Mix 조정",
+      "signalTerms": ["training to inference", "inference demand", "ai workload share", "data center demand"],
+      "guardrail": "전망은 기준연도·시나리오·출처를 보존하고 실적과 분리"
+    },
+    "acceleratorDecision": {
+      "title": "Accelerator Decision Scorecard",
+      "guardrail": "동일 Workload·Model·Version·Precision·Batch·Quality·Latency SLO에서만 비교",
+      "criteria": [
+        { "id": "workload", "label": "실제 Workload 성능", "weight": 25 },
+        { "id": "economics", "label": "품질 제약 Cost/Task", "weight": 20 },
+        { "id": "memory", "label": "HBM·Fabric 적합성", "weight": 15 },
+        { "id": "software", "label": "SW·모델 호환성", "weight": 15 },
+        { "id": "facility", "label": "전력·냉각 적합성", "weight": 10 },
+        { "id": "supply", "label": "공급·지원·이식성", "weight": 10 },
+        { "id": "security", "label": "보안·운영 도구", "weight": 5 }
+      ],
+      "supplyLayers": ["Accelerator", "Runtime / Serving", "Application / RAG"]
+    },
+    "kpiTree": {
+      "business": ["검증된 업무 성공률", "업무 처리시간", "사용자 채택", "오류·재작업"],
+      "application": ["Groundedness", "Citation Precision", "Hallucination Rate", "Tool Success"],
+      "platform": ["Goodput", "TTFT·TPOT", "KV/Prefix Hit", "Queue·Idle·Preemption"],
+      "facility": ["PUE·WUE·CUE", "Rack kW", "kWh/Successful Task", "Goodput/W"],
+      "formulas": [
+        "Cost per Successful Task = 총비용 ÷ 품질 기준 통과 업무",
+        "Energy per Successful Task = 총소비전력 ÷ 품질 기준 통과 업무",
+        "Effective AI Capacity = 설치 가속기 × 가용성 × 유효 이용률 × SLO 통과율",
+        "Goodput = 단위시간 내 품질·지연 SLO를 통과한 요청"
+      ]
+    }
   },
   "workloadOptimization": {
     "title": "Data Center Workload Optimization · Bottleneck-to-PoC",
@@ -146,31 +180,58 @@
     ],
     "serviceLines": [
       {
-        "id": "kv-cache-tiering",
-        "label": "01 · AGENTIC INFERENCE",
-        "title": "KV Cache Tiering Advisory",
-        "pain": "Long Context·Multi-agent에서 KV 재계산과 HBM 상주 비용이 함께 증가",
-        "hypothesis": "Scheduler·Batching·Prefill/Decode와 Cache 정책을 먼저 최적화하고, 재사용 빈도와 SLA에 따라 HBM·Host DRAM·CXL·SSD Placement를 조정하면 Goodput과 경제성을 함께 개선 가능",
-        "metrics": ["TTFT·TPOT/P99·Goodput", "KV Hit·Reuse·TTL", "HBM Occupancy·GPU Idle", "Cost/Token·Tokens/W"],
-        "killCriteria": "Serving SW 최적화와 Tiering 중 어느 대안도 SLO·Quality·Baseline-relative Economics를 통과하지 못하면 Architecture를 재설계"
+        "id": "managed-ai-factory",
+        "label": "01 · MANAGED AI FACTORY",
+        "title": "Managed AI Factory",
+        "pain": "GPU·플랫폼 운영 인력 부족과 빠른 Runtime 변화로 성능·비용 최적화가 지속되지 않음",
+        "hypothesis": "예약·Burst 용량, Model Serving, MLOps/LLMOps, AI FinOps와 24×7 SRE를 하나의 SLO 계약으로 운영",
+        "metrics": ["Goodput·가용성", "TTFT·TPOT/P99", "Queue·Idle", "Cost/Successful Task"],
+        "killCriteria": "품질·지연 SLO와 복구 목표를 동시에 지키지 못하면 자동 확장 또는 모델 Routing 정책을 되돌림"
       },
       {
-        "id": "rag-memory-economics",
+        "id": "enterprise-rag-agent",
         "label": "02 · ENTERPRISE RAG",
-        "title": "RAG Memory Economics",
-        "pain": "Corpus·Embedding·Index 증가로 DRAM 상주 비용과 Retrieval P99가 동시 상승",
-        "hypothesis": "Hot Metadata·Cache, Active Index, Vector·Document Tier를 workload-dependent하게 배치하고 Memory·Storage 대안을 Retrieval Quality와 같은 비용축에서 비교",
-        "metrics": ["Index Resident Ratio", "Cache Hit·QPS·P99", "Recall·Quality Guardrail", "Cost/Query·Power/Query"],
-        "killCriteria": "검색 SLA·Quality·신뢰성·Cost/Query 가운데 하나라도 고객 기준선을 통과하지 못하면 데이터 배치를 재설계"
+        "title": "Enterprise RAG & Agent Platform",
+        "pain": "부서별 RAG 중복, 낮은 검색 정확도, 권한 오류와 Tool 연결 단절",
+        "hypothesis": "공용 Knowledge Layer·Hybrid Search·Reranking·권한 상속·Model Router·Tool Gateway를 통합",
+        "metrics": ["Recall@k·nDCG", "Citation Precision", "Index Freshness Lag", "Agent Task Completion"],
+        "killCriteria": "Golden Set 품질·ACL·인용·Cost/Query 중 하나라도 기준 미달이면 생산 승격을 중단"
       },
       {
-        "id": "customer-validation-lab",
-        "label": "03 · CUSTOM MEMORY",
-        "title": "Customer Workload Validation Lab",
-        "pain": "제품 사양과 고객 실사용 Workload의 간극으로 인증 지연·과잉 설계·사업성 불확실성이 발생",
-        "hypothesis": "공개 SMRC 모델처럼 고객·파트너가 실제 환경에서 공동 Benchmark하고, 결과를 Requirement·Architecture·Qualification에 연결하는 운영체계를 제안",
-        "metrics": ["Trace Coverage", "PoC → Qualification", "Qualification Cycle", "Reference Reuse·Repeat Order"],
-        "killCriteria": "Workload Trace 접근·Decision Owner·Qualification 경로 중 2개 이상이 없으면 Custom 투자를 보류"
+        "id": "infra-discovery-benchmark",
+        "label": "03 · DISCOVERY & BENCHMARK",
+        "title": "AI Infrastructure Discovery & Benchmark",
+        "pain": "필요 GPU 규모와 Cloud·On-premise 선택을 실제 업무 로그 없이 결정",
+        "hypothesis": "Workload Inventory·Token/Context/동시성·가속기 Benchmark·3년 수요 시나리오로 Build·Buy·Hybrid를 판단",
+        "metrics": ["Trace Coverage", "Workload/SLO Coverage", "TCO Range", "PoC → Production"],
+        "killCriteria": "실제 로그·Golden Set·업무 성공기준이 없으면 대규모 GPU CAPEX 승인을 보류"
+      },
+      {
+        "id": "data-center-retrofit",
+        "label": "04 · HIGH-DENSITY RETROFIT",
+        "title": "High-Density AI Data Center Retrofit",
+        "pain": "기존 센터의 전력·냉각·랙 용량과 액체냉각 운영 역량 부족",
+        "hypothesis": "시설 Audit·랙/열 Simulation·DTC/CDU·UPS·DCIM/BMS를 장비 조달 전 Power-first Gate로 검증",
+        "metrics": ["Rack kW", "PUE·WUE", "Thermal Margin", "Energization Date"],
+        "killCriteria": "계통 인입일·열 제거·Step Load·복구 경로가 확정되지 않으면 서버 발주를 보류"
+      },
+      {
+        "id": "sovereign-ai-factory",
+        "label": "05 · SOVEREIGN AI",
+        "title": "Sovereign AI Factory",
+        "pain": "데이터 외부 반출 제한과 규제·감사 요건 때문에 공용 Cloud 경로 사용 불가",
+        "hypothesis": "고객 사이트 전용 인프라·관리형 Control Plane·BYOK/HSM·지역/보존정책·역량 이전을 결합",
+        "metrics": ["Data Residency", "Policy Compliance", "Recovery SLO", "Portability"],
+        "killCriteria": "권한·키 관리·감사 로그·Exit Plan 중 하나라도 검증되지 않으면 운영 전환을 중단"
+      },
+      {
+        "id": "finops-greenops",
+        "label": "06 · FINOPS / GREENOPS",
+        "title": "AI FinOps & GreenOps",
+        "pain": "GPU 사용률과 업무 성과가 연결되지 않고 부서별 비용·전력·탄소 원인을 추적할 수 없음",
+        "hypothesis": "Token·업무·전력 통합 계측, Showback/Chargeback, Cache·Queue·Idle 분석과 전력가격 기반 Scheduling 적용",
+        "metrics": ["Cost/Successful Task", "kWh/Successful Task", "Goodput/W", "Budget Variance"],
+        "killCriteria": "절감액이 품질·지연·가용성 악화로 상쇄되면 Routing·Scheduling 변경을 되돌림"
       }
     ],
     "sourceIds": ["samsung-smrc", "google-context-caching", "anthropic-context-engineering", "nvidia-dynamo", "vllm-kv-offloading", "llm-serving-systems-research", "nvidia-nvl72-architecture", "cxl-consortium", "sandisk-newsroom"],
@@ -179,7 +240,22 @@
       "실제 파트너십·검증 사례와 향후 운영 모델을 명확히 분리",
       "성능 배수·가격·시장 수치는 Workload·모델·버전 조건이 확인될 때만 게시",
       "최신성 Gate 실패 시 새 결론을 게시하지 않고 마지막 검증본을 유지"
-    ]
+    ],
+    "ragOperatingModel": {
+      "title": "RAG Quality Operating System",
+      "pipeline": ["Identity / ACL", "수집·변경 감지", "Parsing·OCR", "Chunking", "Metadata·Version", "Embedding", "Keyword·Vector·Graph", "Query Rewrite", "Hybrid Retrieval", "Rerank·Dedup", "Evidence·Citation", "Generation·Validation", "Feedback·Evaluation"],
+      "maturity": [
+        { "level": "L0", "title": "Document Chat", "gate": "출처·권한·평가 미구축" },
+        { "level": "L1", "title": "Vector Retrieval", "gate": "Baseline Recall·Latency 측정" },
+        { "level": "L2", "title": "Hybrid + Rerank", "gate": "Golden Set·Citation 검증" },
+        { "level": "L3", "title": "Governed Enterprise RAG", "gate": "ACL·Version·Freshness SLO" },
+        { "level": "L4", "title": "Agentic Retrieval", "gate": "Tool 권한·단계·비용 통제" },
+        { "level": "L5", "title": "Adaptive Knowledge System", "gate": "회귀평가·Canary·자동 재색인" }
+      ],
+      "selectionCriteria": ["Hybrid Search", "Metadata Filtering", "ACL 상속", "Update/Delete", "Backup/DR", "Latency/QPS", "비용·Portability"],
+      "securityControls": ["문서·Chunk 권한 상속", "Query-time ACL", "Prompt Injection 격리", "Tool 최소권한", "감사·보존·삭제"],
+      "qualityKpis": ["Recall@k", "Precision@k", "nDCG", "Reranker Lift", "Citation Precision", "색인 최신성 지연", "권한 오류율", "근거 없는 답변율"]
+    }
   },
   "caseClassification": [
     { "id": "public", "label": "PUBLIC CASE RECONSTRUCTION", "description": "공개 원문과 검증 자료를 기반으로 재구성" },

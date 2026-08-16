@@ -311,6 +311,91 @@ function buildAIFactorySignals(payload = {}, allowedSourceIds = []) {
     .map(({ score: _score, ...item }) => item);
 }
 
+function buildWorkloadEvidence(payload = {}, allowedSourceIds = [], workloads = []) {
+  const allowed = new Set(allowedSourceIds);
+  const classScore = { official: 30, research: 20, "authoritative-media": 8 };
+  const candidates = (payload.news || []).map((item) => {
+    const url = item?.verification?.canonicalUrl || item.sourceUrl || item.link || item.url || "";
+    const catalogSource = catalogSourceForUrl(url, sourceCatalog);
+    if (!catalogSource || !allowed.has(catalogSource.id) || !directUrl(url)) return null;
+    const title = item.titleKo || item.title || "";
+    const summary = item.summaryKo || item.summary || "";
+    const text = `${title} ${item.originalTitle || ""} ${summary}`.toLowerCase();
+    const date = publishedAt(item, payload.updatedAt);
+    const timestamp = Date.parse(String(date || ""));
+    return {
+      title: compact(title, 150),
+      summary: compact(summary, 220),
+      text,
+      source: catalogSource.name,
+      sourceId: catalogSource.id,
+      sourceClass: catalogSource.sourceClass,
+      url,
+      publishedAt: date,
+      evidenceLevel: evidenceLevel(item),
+      baseScore: (classScore[catalogSource.sourceClass] || 0) + (Number.isFinite(timestamp) ? timestamp / 8.64e7 / 100000 : 0),
+    };
+  }).filter(Boolean);
+
+  return workloads.map((workload) => {
+    const terms = (workload.signalTerms || []).map((term) => String(term).toLowerCase());
+    const matches = candidates.map((candidate) => {
+      const matchedTerms = terms.filter((term) => candidate.text.includes(term));
+      return matchedTerms.length ? { ...candidate, matchedTerms, score: candidate.baseScore + matchedTerms.length * 8 } : null;
+    }).filter(Boolean).sort((a, b) => b.score - a.score);
+    const best = matches[0];
+    const monitor = (workload.monitorSourceIds || [])
+      .map((id) => sourceCatalog.sources.find((source) => source.id === id && allowed.has(id)))
+      .find(Boolean);
+    return {
+      ...workload,
+      evidence: best ? {
+        status: best.evidenceLevel || "watch",
+        title: best.title,
+        summary: best.summary,
+        source: best.source,
+        sourceId: best.sourceId,
+        sourceClass: best.sourceClass,
+        url: best.url,
+        publishedAt: best.publishedAt,
+        matchedTerms: best.matchedTerms,
+      } : monitor ? {
+        status: "monitoring",
+        title: "공식·연구 원문 증분 모니터링",
+        summary: "소스 변경이 감지되면 이 Workload의 Retrieval Track을 증분 재색인합니다.",
+        source: monitor.name,
+        sourceId: monitor.id,
+        sourceClass: monitor.sourceClass,
+        url: monitor.url,
+        publishedAt: null,
+        matchedTerms: [],
+      } : {
+        status: "coverage-gap",
+        title: "최신 검증 근거 관측 대기",
+        summary: "다음 증분 수집에서 이 Workload의 공식·연구 근거를 재확인합니다.",
+        source: "자동 수집 대기",
+        sourceId: null,
+        sourceClass: null,
+        url: "",
+        publishedAt: null,
+        matchedTerms: [],
+      },
+    };
+  });
+}
+
+function buildForecastSignal(payload = {}, allowedSourceIds = [], forecast = {}) {
+  const [result] = buildWorkloadEvidence(payload, allowedSourceIds, [{
+    id: "demand-transition",
+    label: forecast.label || "DEMAND TRANSITION · FORECAST",
+    signalTerms: forecast.signalTerms || [],
+  }]);
+  return {
+    ...forecast,
+    evidence: result?.evidence || { status: "coverage-gap" },
+  };
+}
+
 function buildAIFactorySystem(payload = {}, sourceCoverage = {}, generatedAt = null) {
   const framework = model.aiFactorySystem || {};
   const observed = new Set(sourceCoverage.observedSourceIds || []);
@@ -338,22 +423,36 @@ function buildAIFactorySystem(payload = {}, sourceCoverage = {}, generatedAt = n
     };
   });
   const activePillars = pillarCoverage.filter((pillar) => pillar.status !== "coverage-gap").length;
+  const signals = buildAIFactorySignals(payload, sourceIds);
+  const workloads = buildWorkloadEvidence(payload, sourceIds, framework.workloads || []);
+  const activeWorkloads = workloads.filter((workload) => !["coverage-gap", "monitoring"].includes(workload.evidence?.status)).length;
+  const acceleratorDecision = framework.acceleratorDecision || {};
   return {
     title: framework.title || "AI Factory System Optimization",
     thesis: framework.thesis || "Workload SLO와 단위경제성으로 AI Factory 전체 시스템을 공동 최적화합니다.",
     northStar: framework.northStar || {},
     architectureLayers: framework.architectureLayers || [],
-    workloads: framework.workloads || [],
+    workloads,
     decisionSequence: framework.decisionSequence || [],
     roadmap: framework.roadmap || [],
+    demandShift: buildForecastSignal(payload, sourceIds, framework.demandShift || {}),
+    acceleratorDecision: {
+      ...acceleratorDecision,
+      totalWeight: (acceleratorDecision.criteria || []).reduce((sum, item) => sum + Number(item.weight || 0), 0),
+      currentEvidence: signals.filter((item) => ["accelerator", "fabric", "economics"].includes(item.pillar)).slice(0, 3),
+    },
+    kpiTree: framework.kpiTree || {},
     evidencePolicy: framework.evidencePolicy || [],
     sources,
-    signals: buildAIFactorySignals(payload, sourceIds),
+    signals,
     pillarCoverage,
     automation: {
       status: activePillars >= 6 ? "SYSTEM-COVERED" : activePillars >= 3 ? "PARTIAL" : "COVERAGE-GAP",
       activePillars,
       totalPillars: AI_FACTORY_PILLARS.length,
+      activeWorkloads,
+      totalWorkloads: workloads.length,
+      refreshMode: "event + safety-poll + incremental-reindex",
       scheduleHours: Number(sourceCoverage.scheduleHours || sourceCatalog.refreshPolicy.scheduleHours),
       failClosed: true,
     },
@@ -387,7 +486,7 @@ function buildDecisionControl(payload = {}, sourceCoverage = {}, generatedAt = n
   };
 }
 
-function buildWorkloadOptimization(payload = {}, sourceCoverage = {}, generatedAt = null) {
+function buildWorkloadOptimization(payload = {}, sourceCoverage = {}, generatedAt = null, decisionIntelligence = {}) {
   const framework = model.workloadOptimization || {};
   const observed = new Set(sourceCoverage.observedSourceIds || []);
   const fresh = new Set(sourceCoverage.freshSourceIds || []);
@@ -407,6 +506,17 @@ function buildWorkloadOptimization(payload = {}, sourceCoverage = {}, generatedA
     process: framework.process || [],
     serviceLines: framework.serviceLines || [],
     evidencePolicy: framework.evidencePolicy || [],
+    ragOperatingModel: {
+      ...(framework.ragOperatingModel || {}),
+      liveControl: {
+        freshnessScore: Number(decisionIntelligence.freshness?.score || 0),
+        freshnessStatus: decisionIntelligence.freshness?.status || "pending",
+        retrievalStatus: decisionIntelligence.evaluation?.status || "pending",
+        citationCoveragePct: Number(decisionIntelligence.evaluation?.metrics?.citationCoveragePct || 0),
+        trackCoveragePct: Number(decisionIntelligence.evaluation?.metrics?.trackCoveragePct || 0),
+        indexedAt: decisionIntelligence.freshness?.timestamps?.indexedAt || null,
+      },
+    },
     sources,
     currentSignals: buildWorkloadSignals(payload, sourceIds),
     generatedAt,
@@ -474,13 +584,19 @@ export function validateSiteContent(content = {}) {
   if (!Array.isArray(content.insights) || content.insights.length < 4) errors.push("insights");
   if (!Array.isArray(content.agentCouncil?.agendas) || content.agentCouncil.agendas.length < 4) errors.push("agentCouncil.agendas");
   if (!Array.isArray(content.workloadOptimization?.process) || content.workloadOptimization.process.length < 6) errors.push("workloadOptimization.process");
-  if (!Array.isArray(content.workloadOptimization?.serviceLines) || content.workloadOptimization.serviceLines.length < 3) errors.push("workloadOptimization.serviceLines");
+  if (!Array.isArray(content.workloadOptimization?.serviceLines) || content.workloadOptimization.serviceLines.length < 6) errors.push("workloadOptimization.serviceLines");
   if (!Array.isArray(content.workloadOptimization?.sources) || content.workloadOptimization.sources.length < 4) errors.push("workloadOptimization.sources");
+  if (!Array.isArray(content.workloadOptimization?.ragOperatingModel?.pipeline) || content.workloadOptimization.ragOperatingModel.pipeline.length < 13) errors.push("workloadOptimization.ragOperatingModel.pipeline");
+  if (!Array.isArray(content.workloadOptimization?.ragOperatingModel?.maturity) || content.workloadOptimization.ragOperatingModel.maturity.length < 6) errors.push("workloadOptimization.ragOperatingModel.maturity");
   if (!Array.isArray(content.aiFactorySystem?.architectureLayers) || content.aiFactorySystem.architectureLayers.length < 8) errors.push("aiFactorySystem.architectureLayers");
   if (!Array.isArray(content.aiFactorySystem?.workloads) || content.aiFactorySystem.workloads.length < 6) errors.push("aiFactorySystem.workloads");
+  if (!(content.aiFactorySystem?.workloads || []).every((item) => item?.evidence?.status)) errors.push("aiFactorySystem.workloads.evidence");
   if (!Array.isArray(content.aiFactorySystem?.decisionSequence) || content.aiFactorySystem.decisionSequence.length < 8) errors.push("aiFactorySystem.decisionSequence");
+  if (!Array.isArray(content.aiFactorySystem?.roadmap) || content.aiFactorySystem.roadmap.length < 5) errors.push("aiFactorySystem.roadmap");
   if (!Array.isArray(content.aiFactorySystem?.sources) || content.aiFactorySystem.sources.length < 8) errors.push("aiFactorySystem.sources");
   if (!Array.isArray(content.aiFactorySystem?.pillarCoverage) || content.aiFactorySystem.pillarCoverage.length < 6) errors.push("aiFactorySystem.pillarCoverage");
+  if (Number(content.aiFactorySystem?.acceleratorDecision?.totalWeight || 0) !== 100) errors.push("aiFactorySystem.acceleratorDecision.totalWeight");
+  if (!Array.isArray(content.aiFactorySystem?.kpiTree?.formulas) || content.aiFactorySystem.kpiTree.formulas.length < 4) errors.push("aiFactorySystem.kpiTree.formulas");
   if (!content.aiFactorySystem?.automation?.status) errors.push("aiFactorySystem.automation");
   if (!Array.isArray(content.presentation?.emphasisTerms) || content.presentation.emphasisTerms.length < 4) errors.push("presentation.emphasisTerms");
   if (content.presentation?.emphasisPolicy?.style !== "underline-only") errors.push("presentation.emphasisPolicy");
@@ -531,6 +647,7 @@ export function buildSiteContentClient({ payload = {}, quant = {} } = {}) {
     .map((id) => insights.find((item) => item.id === id)?.decision)
     .filter(Boolean);
   const expiresAt = payload.expiresAt || quant.expiresAt || null;
+  const decisionIntelligence = buildDecisionIntelligenceContent(quant);
   const content = {
     schemaVersion: "1.0",
     runId: payload.runId || quant.runId || null,
@@ -574,7 +691,7 @@ export function buildSiteContentClient({ payload = {}, quant = {} } = {}) {
       },
     },
     decisionControl: buildDecisionControl(payload, sourceCoverage, generatedAt, expiresAt),
-    decisionIntelligence: buildDecisionIntelligenceContent(quant),
+    decisionIntelligence,
     hero: {
       titleLines: model.strategyMandate?.titleLines || [],
       thesis: topDecisions.length ? topDecisions : model.strategyMandate?.scope || [],
@@ -587,7 +704,7 @@ export function buildSiteContentClient({ payload = {}, quant = {} } = {}) {
     competitors: buildCompetitors(quant),
     partnerSpotlight,
     aiFactorySystem: buildAIFactorySystem(payload, sourceCoverage, generatedAt),
-    workloadOptimization: buildWorkloadOptimization(payload, sourceCoverage, generatedAt),
+    workloadOptimization: buildWorkloadOptimization(payload, sourceCoverage, generatedAt, decisionIntelligence),
     caseClassification: model.caseClassification || [],
     agentCouncil: {
       title: "AI Infra Strategy Agent Council",

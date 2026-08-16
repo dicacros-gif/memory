@@ -110,7 +110,7 @@
     (() => {
       if (!location.hash.startsWith("#console")) return;
       document.documentElement.classList.add("console-entry");
-      const revision = "infra-20260816-20";
+      const revision = "infra-20260816-21";
       const assets = [
         ["consoleStylesPreload", "style", `assets/css/styles.min.css?v=${revision}`, "high"],
         ["consoleAppPreload", "script", `assets/js/app.min.js?v=${revision}`, "low"],
@@ -127,7 +127,7 @@
       }
     })();
   </script>
-  <link rel="stylesheet" href="assets/css/landing.min.css?v=infra-20260816-20" />
+  <link rel="stylesheet" href="assets/css/landing.min.css?v=infra-20260816-21" />
 </head>
 <body class="landing-mode">
   <div class="business-site" id="businessSite">
@@ -545,9 +545,13 @@
             </div>
             <div class="business-ai-factory-workloads" id="aiFactoryWorkloads" aria-label="워크로드별 North Star와 병목">
               <article><span>TRAINING</span><strong>Goodput · MFU</strong><p>Collective · Checkpoint · HBM · Power</p><small>Time-to-Train · Cost/Run</small></article>
-              <article><span>ONLINE LLM</span><strong>SLO-constrained Goodput</strong><p>KV · Scheduler · Fabric · Memory</p><small>TTFT · TPOT · Cost/Token</small></article>
-              <article><span>RAG / AGENT</span><strong>Quality · Cost/Task</strong><p>Retrieval · Tail Latency · Tool Error</p><small>Recall · P99 · Cost/Success</small></article>
+              <article><span>REAL-TIME INFERENCE</span><strong>SLO-constrained Goodput</strong><p>HBM·KV Cache · TTFT·TPOT · 동시 사용자</p><small>Cache Hit · Cost/Success</small></article>
+              <article><span>BATCH INFERENCE</span><strong>Quality-gated Throughput</strong><p>Batch 효율 · Queue · 처리 단가</p><small>Goodput · Cost/Task</small></article>
+              <article><span>ENTERPRISE RAG</span><strong>Grounded Quality</strong><p>검색 품질 · Metadata·ACL · 색인 최신성</p><small>Recall@k · nDCG · Index Lag</small></article>
+              <article><span>AI AGENT</span><strong>Successful Task</strong><p>Tool 호출 · 동시 실행 · 외부 API</p><small>Task Completion · P99</small></article>
+              <article><span>MULTIMODAL</span><strong>Latency · Accuracy</strong><p>전처리 · Object Storage · Accelerator Memory</p><small>Ingest · Energy/Task</small></article>
             </div>
+            <div class="business-demand-shift" id="aiFactoryDemandShift"><span>DEMAND TRANSITION · FORECAST</span><strong>학습 일변도 → 고효율 추론 플랫폼</strong><p>설치량 전망이 아니라 검증된 Workload·SLO·Goodput 변화로 Capacity Mix를 조정합니다.</p><small>전망은 기준연도·시나리오·출처를 보존하고 실적과 분리</small></div>
             <ol class="business-ai-factory-sequence" id="aiFactorySequence" aria-label="AI Factory 실행 순서">
               <li><span>01</span><strong>전력·열 Feasibility</strong></li><li><span>02</span><strong>Workload Census</strong></li><li><span>03</span><strong>동일 Benchmark</strong></li><li><span>04</span><strong>Network·Storage</strong></li><li><span>05</span><strong>Scheduler</strong></li><li><span>06</span><strong>Serving</strong></li><li><span>07</span><strong>RAG·Evaluation</strong></li><li><span>08</span><strong>Modular Scale-out</strong></li>
             </ol>
@@ -555,6 +559,11 @@
               <div><span>AUTOMATED PILLAR COVERAGE</span><div class="business-ai-factory-coverage" id="aiFactoryCoverage"><b>POWER / COOLING · CHECK</b><b>NETWORK / FABRIC · CHECK</b><b>DATA / STORAGE · CHECK</b><b>SCHEDULER · CHECK</b><b>LLM SERVING · CHECK</b><b>ACCELERATOR · CHECK</b></div></div>
               <div><span>CURRENT VERIFIED SIGNALS</span><div class="business-ai-factory-signals" id="aiFactorySignals"><p>공식 원문이 최신성·출처·주제 Gate를 통과하면 Pillar별 한 건씩 자동 승격됩니다.</p></div></div>
             </div>
+            <div class="business-ai-factory-decision-grid">
+              <section class="business-accelerator-scorecard" id="acceleratorScorecard" aria-labelledby="acceleratorScorecardTitle"><header><span>WEIGHTED DECISION MATRIX</span><h4 id="acceleratorScorecardTitle">Accelerator Decision Scorecard</h4><p>동일 Workload·Model·Version·Precision·Quality·Latency SLO에서만 비교</p></header><div><b style="--weight:25">25<small>WORKLOAD</small></b><b style="--weight:20">20<small>COST/TASK</small></b><b style="--weight:15">15<small>HBM/FABRIC</small></b><b style="--weight:15">15<small>SOFTWARE</small></b><b style="--weight:10">10<small>POWER</small></b><b style="--weight:10">10<small>SUPPLY</small></b><b style="--weight:5">5<small>SECURITY</small></b></div><footer>Accelerator · Runtime/Serving · Application/RAG 공급 계층 분리</footer></section>
+              <section class="business-kpi-tree" id="aiFactoryKpiTree" aria-labelledby="aiFactoryKpiTitle"><header><span>VALUE TREE</span><h4 id="aiFactoryKpiTitle">Successful Task Economics</h4></header><div><article><small>BUSINESS</small><strong>업무 성공률 · 시간 · 채택</strong></article><article><small>APPLICATION</small><strong>Groundedness · Citation</strong></article><article><small>PLATFORM</small><strong>Goodput · TTFT · Cache</strong></article><article><small>FACILITY</small><strong>PUE · kWh/Task · Goodput/W</strong></article></div><p>Cost per Successful Task = 총비용 ÷ 품질 기준 통과 업무</p></section>
+            </div>
+            <ol class="business-ai-factory-roadmap" id="aiFactoryRoadmap" aria-label="AI Infra 실행 로드맵"><li><span>PHASE 0 · 0–30D</span><strong>Discovery &amp; Baseline</strong><p>로그·업무 성공기준 없이는 대규모 CAPEX 보류</p></li><li><span>PHASE 1 · 31–90D</span><strong>Benchmark &amp; Pilot</strong><p>품질·P95·Cost/Task·보안·복구 Gate</p></li><li><span>PHASE 2 · 3–6M</span><strong>Shared Platform</strong><p>Gateway·RAG·Serving·Observability</p></li><li><span>PHASE 3 · 6–18M</span><strong>Modular AI Factory</strong><p>전력·열·SLO·복구 역량 검증</p></li><li><span>PHASE 4 · 18–36M</span><strong>Grid-interactive Autonomy</strong><p>전력·탄소·수요 기반 Routing</p></li></ol>
             <p class="business-framework-note" id="aiFactoryEvidenceNote">벤더 성능 배수와 전망 수치는 Workload·Model·Version·SLO·기준일이 확인될 때만 의사결정 근거로 승격합니다.</p>
           </section>
 
@@ -573,10 +582,19 @@
               <li><span>06</span><div><small>QUALIFY &amp; REPEAT</small><strong>사업화·재검증</strong><ul><li>Qualification·Capacity·Ramp</li><li>표준 산출물·변경 Trigger</li></ul></div></li>
             </ol>
             <div class="business-workload-services" id="workloadServiceLines">
-              <article><span>01 · AGENTIC INFERENCE</span><h4>KV Cache Tiering Advisory</h4><dl><div><dt>PAIN</dt><dd>KV 재계산과 HBM 상주 비용 동시 증가</dd></div><div><dt>HYPOTHESIS</dt><dd>HBM·Host DRAM/CXL·SSD 승격·퇴거 정책 비교</dd></div><div><dt>KPI</dt><dd>TTFT·TPOT/P99 · KV Reuse · GPU Idle · Cost/Token</dd></div><div><dt>KILL</dt><dd>P99 또는 System TCO가 Baseline 미달 시 Offload 범위 축소</dd></div></dl></article>
-              <article><span>02 · ENTERPRISE RAG</span><h4>RAG Memory Economics</h4><dl><div><dt>PAIN</dt><dd>Index 상주 비용과 Retrieval P99 동시 상승</dd></div><div><dt>HYPOTHESIS</dt><dd>DRAM/CXL Active Tier와 TLC/QLC eSSD Capacity Tier 비교</dd></div><div><dt>KPI</dt><dd>Index Resident · Cache Hit · QPS/P99 · Cost/Query</dd></div><div><dt>KILL</dt><dd>SLA·신뢰성·Query 원가 미달 시 데이터 배치 재설계</dd></div></dl></article>
-              <article><span>03 · CUSTOM MEMORY</span><h4>Customer Workload Validation Lab</h4><dl><div><dt>BENCHMARK</dt><dd>삼성 SMRC의 실사용 Workload 공동 검증 모델</dd></div><div><dt>PROPOSAL</dt><dd>SK hynix 적용안은 공개 사례를 참조한 향후 운영 모델</dd></div><div><dt>OUTPUT</dt><dd>Pain Map · Requirement Matrix · TCO · Qualification Plan</dd></div><div><dt>KILL</dt><dd>Trace·Owner·인증 경로 중 2개 이상 미확인 시 Custom 보류</dd></div></dl></article>
+              <article><span>01 · MANAGED AI FACTORY</span><h4>Managed AI Factory</h4><dl><div><dt>PAIN</dt><dd>GPU·플랫폼 운영 인력 부족</dd></div><div><dt>OFFER</dt><dd>예약·Burst · Serving · LLMOps · 24×7 SRE</dd></div><div><dt>KPI</dt><dd>Goodput · SLO · Queue · Cost/Task</dd></div><div><dt>KILL</dt><dd>품질·지연·복구 목표 미달 시 자동 확장 정책 원복</dd></div></dl></article>
+              <article><span>02 · ENTERPRISE RAG</span><h4>Enterprise RAG &amp; Agent Platform</h4><dl><div><dt>PAIN</dt><dd>부서별 중복 · 검색 품질 · ACL · Tool 단절</dd></div><div><dt>OFFER</dt><dd>Knowledge Layer · Hybrid Search · Rerank · Gateway</dd></div><div><dt>KPI</dt><dd>Recall@k · Citation · Index Lag · Task Completion</dd></div><div><dt>KILL</dt><dd>Golden Set·ACL·인용 Gate 미달 시 생산 승격 중단</dd></div></dl></article>
+              <article><span>03 · DISCOVERY</span><h4>AI Infrastructure Discovery</h4><dl><div><dt>PAIN</dt><dd>실제 업무 로그 없이 GPU·배치 경로 결정</dd></div><div><dt>OFFER</dt><dd>Workload Inventory · Benchmark · 3년 Scenario</dd></div><div><dt>KPI</dt><dd>Trace · SLO Coverage · TCO Range</dd></div><div><dt>KILL</dt><dd>로그·Golden Set 없이는 대규모 CAPEX 보류</dd></div></dl></article>
+              <article><span>04 · HIGH-DENSITY RETROFIT</span><h4>Data Center Retrofit</h4><dl><div><dt>PAIN</dt><dd>전력·냉각·랙 용량 부족</dd></div><div><dt>OFFER</dt><dd>시설 Audit · DTC/CDU · UPS · DCIM/BMS</dd></div><div><dt>KPI</dt><dd>Rack kW · PUE/WUE · Thermal Margin</dd></div><div><dt>KILL</dt><dd>인입일·열 제거·Step Load 미확정 시 서버 발주 보류</dd></div></dl></article>
+              <article><span>05 · SOVEREIGN AI</span><h4>Sovereign AI Factory</h4><dl><div><dt>PAIN</dt><dd>데이터 반출·규제·감사 제약</dd></div><div><dt>OFFER</dt><dd>전용 Infra · Control Plane · BYOK/HSM</dd></div><div><dt>KPI</dt><dd>Residency · Compliance · Recovery · Portability</dd></div><div><dt>KILL</dt><dd>키·감사·Exit Plan 미검증 시 운영 전환 중단</dd></div></dl></article>
+              <article><span>06 · FINOPS / GREENOPS</span><h4>AI FinOps &amp; GreenOps</h4><dl><div><dt>PAIN</dt><dd>비용·전력과 업무 성과 연결 불가</dd></div><div><dt>OFFER</dt><dd>Showback · Cache/Queue/Idle · 전력기반 Scheduling</dd></div><div><dt>KPI</dt><dd>Cost/Task · kWh/Task · Goodput/W</dd></div><div><dt>KILL</dt><dd>절감이 품질·지연 악화로 상쇄되면 정책 원복</dd></div></dl></article>
             </div>
+            <section class="business-rag-operating-model" id="ragOperatingModel" aria-labelledby="ragOperatingModelTitle">
+              <header><div><span>RAG QUALITY OPERATING SYSTEM</span><h4 id="ragOperatingModelTitle">Vector DB가 아니라 데이터·검색 품질을 운영</h4></div><strong id="ragLiveControl">FRESHNESS · CHECK</strong></header>
+              <ol id="ragQualityPipeline"><li>Identity / ACL</li><li>수집·변경 감지</li><li>Parsing·OCR</li><li>Chunking</li><li>Metadata</li><li>Embedding</li><li>Hybrid Search</li><li>Query Rewrite</li><li>Retrieval</li><li>Rerank·Dedup</li><li>Evidence·Citation</li><li>Generation</li><li>Evaluation</li></ol>
+              <div class="business-rag-maturity" id="ragMaturity"><article><b>L0</b><strong>Document Chat</strong></article><article><b>L1</b><strong>Vector Retrieval</strong></article><article><b>L2</b><strong>Hybrid + Rerank</strong></article><article><b>L3</b><strong>Governed RAG</strong></article><article><b>L4</b><strong>Agentic Retrieval</strong></article><article><b>L5</b><strong>Adaptive System</strong></article></div>
+              <footer id="ragQualityKpis">Recall@k · nDCG · Citation Precision · Index Freshness · ACL Error · Unsupported Answer</footer>
+            </section>
             <div class="business-workload-evidence">
               <div><span>AUTOMATED EVIDENCE CONTROL</span><strong>공식 원문 → 최신성 → Workload Signal → PoC Gate</strong><p>실제 협업·검증 사례와 향후 운영 모델을 분리하며, 조건 없는 성능 배수·가격·시장 수치는 게시하지 않습니다.</p></div>
               <ul id="workloadEvidencePolicy"><li>공식 원문·표준·공개 기술 문서 우선</li><li>3시간 수집 · 15분 브라우저 재확인</li><li>최신성 실패 시 마지막 검증본 유지</li></ul>
@@ -590,12 +608,13 @@
 
           <section class="business-workload-map" id="workload-map" aria-labelledby="workloadMapTitle">
             <div class="business-module-heading"><span>McKINSEY · ISSUE TREE</span><h3 id="workloadMapTitle">Workload-to-Bottleneck Map</h3><p>Workload/SLO → 지배 병목 검증 → Option Set → 경영진 판단</p></div>
-            <div class="business-workload-matrix">
-              <article><span>01 · TRAINING</span><h4>Large-scale Training</h4><dl><div><dt>NORTH STAR</dt><dd>Goodput · MFU · Time/Run</dd></div><div><dt>BOTTLENECK TEST</dt><dd>Compute · HBM · Fabric · Checkpoint · Power</dd></div><div><dt>OPTION SET</dt><dd>Parallelism · HBM/Host · Network · eSSD · Capacity</dd></div></dl></article>
-              <article><span>02 · INFERENCE</span><h4>Large-scale Inference</h4><dl><div><dt>NORTH STAR</dt><dd>SLO-constrained Goodput · Cost/Token</dd></div><div><dt>BOTTLENECK TEST</dt><dd>Scheduler · Compute · Memory · Fabric · Power</dd></div><div><dt>OPTION SET</dt><dd>Batching · Prefill/Decode · HBM/Host/CXL · Network</dd></div></dl></article>
-              <article><span>03 · AGENTIC</span><h4>Long-context / Agentic AI</h4><dl><div><dt>NORTH STAR</dt><dd>TTFT · TPOT/P99 · Quality · Tokens/W</dd></div><div><dt>BOTTLENECK TEST</dt><dd>KV Reuse · Data Movement · Scheduler · Capacity</dd></div><div><dt>OPTION SET</dt><dd>HBM · Host DRAM · CXL · eSSD · HBF Emerging</dd></div></dl></article>
-              <article><span>04 · RETRIEVAL</span><h4>RAG / Vector Retrieval</h4><dl><div><dt>NORTH STAR</dt><dd>Recall/Quality · P99 · Cost/Query</dd></div><div><dt>BOTTLENECK TEST</dt><dd>Index · Cache · Network · Storage I/O · Data</dd></div><div><dt>OPTION SET</dt><dd>Retrieval SW · DRAM/CXL · TLC/QLC eSSD</dd></div></dl></article>
-              <article><span>05 · EDGE</span><h4>Physical AI</h4><dl><div><dt>NORTH STAR</dt><dd>Latency · Accuracy · Energy/Task</dd></div><div><dt>BOTTLENECK TEST</dt><dd>Model · Compute · Memory · Storage · Thermal</dd></div><div><dt>OPTION SET</dt><dd>Model 효율화 · LPDDR · UFS · SKU/BOM</dd></div></dl></article>
+            <div class="business-workload-matrix" id="workloadMatrix">
+              <article><span>01 · TRAINING</span><h4>Goodput · Time-to-Train</h4><dl><div><dt>BOTTLENECK</dt><dd>가속기 간 Collective · Checkpoint I/O · 지속 전력·냉각</dd></div><div><dt>KPI CONTRACT</dt><dd>Goodput · MFU · Recovery · Cost/Run</dd></div><div><dt>CAPACITY PATH</dt><dd>예약·임대형 가속기 + 검증된 상시 Cell</dd></div></dl></article>
+              <article><span>02 · REAL-TIME INFERENCE</span><h4>SLO-constrained Goodput</h4><dl><div><dt>BOTTLENECK</dt><dd>HBM·KV Cache · TTFT·TPOT · 동시 사용자</dd></div><div><dt>KPI CONTRACT</dt><dd>TTFT P95 · TPOT P95 · Cache Hit · Cost/Success</dd></div><div><dt>CAPACITY PATH</dt><dd>Private/Colo + Cloud Burst</dd></div></dl></article>
+              <article><span>03 · BATCH INFERENCE</span><h4>Quality-gated Throughput</h4><dl><div><dt>BOTTLENECK</dt><dd>Batch 효율 · Queue·Scheduling · 처리 단가</dd></div><div><dt>KPI CONTRACT</dt><dd>Goodput · Batch Efficiency · Queue · Cost/Task</dd></div><div><dt>CAPACITY PATH</dt><dd>저가 시간대 · 예약 용량 · 이기종 Routing</dd></div></dl></article>
+              <article><span>04 · ENTERPRISE RAG</span><h4>Grounded Quality · Cost/Query</h4><dl><div><dt>BOTTLENECK</dt><dd>검색 품질 · Metadata·ACL · 색인 최신성</dd></div><div><dt>KPI CONTRACT</dt><dd>Recall@k · nDCG · Citation Precision · Index Lag</dd></div><div><dt>CAPACITY PATH</dt><dd>공용 Knowledge Layer + 데이터 등급별 Hybrid</dd></div></dl></article>
+              <article><span>05 · AI AGENT</span><h4>Successful Task · Cost/Task</h4><dl><div><dt>BOTTLENECK</dt><dd>Tool 호출 · 동시 실행 · 긴 Context · 외부 API</dd></div><div><dt>KPI CONTRACT</dt><dd>Task Completion · Tool Success · P99 · Steps/Task</dd></div><div><dt>CAPACITY PATH</dt><dd>공용 Tool Gateway + 단계·토큰·시간 Budget</dd></div></dl></article>
+              <article><span>06 · MULTIMODAL</span><h4>Latency · Accuracy · Energy/Task</h4><dl><div><dt>BOTTLENECK</dt><dd>이미지·영상 전처리 · Object Storage · Accelerator Memory</dd></div><div><dt>KPI CONTRACT</dt><dd>E2E Latency · Accuracy · Ingest · Energy/Task</dd></div><div><dt>CAPACITY PATH</dt><dd>Edge CPU·NPU 전처리 + Core Accelerator</dd></div></dl></article>
             </div>
           </section>
 
@@ -1899,6 +1918,6 @@
   <div class="qa-answer" id="qaAnswer" hidden></div>
   <div class="inspector" id="inspector" hidden></div>
   <div class="backdrop" id="backdrop"></div>
-  <script src="assets/js/landing.min.js?v=infra-20260816-20" defer></script>
+  <script src="assets/js/landing.min.js?v=infra-20260816-21" defer></script>
 </body>
 </html>

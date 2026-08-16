@@ -200,6 +200,54 @@
         "label": "Qualification & Capacity",
         "terms": ["capex", "capacity", "long-term", "contract", "shipment", "customer"],
         "decisionQuestion": "발표 물량이 Qualification·Binding Volume·Shipment·매출로 전환되는 조건은 무엇인가?"
+      },
+      {
+        "id": "training-communication-checkpoint-power",
+        "label": "Training · Fabric / Checkpoint / Power",
+        "terms": ["training", "collective", "all-reduce", "checkpoint", "fabric", "power", "cooling"],
+        "decisionQuestion": "학습 Goodput을 제한하는 지배 병목은 가속기, Collective, Checkpoint, 지속 전력 중 무엇인가?"
+      },
+      {
+        "id": "realtime-inference-kv-latency",
+        "label": "Real-time Inference · KV / Latency",
+        "terms": ["inference", "serving", "kv cache", "prefill", "decode", "ttft", "tpot", "concurrency"],
+        "decisionQuestion": "품질·지연 SLO에서 HBM, KV Cache, Scheduler, 외부 이동 중 어떤 병목을 먼저 제거해야 하는가?"
+      },
+      {
+        "id": "batch-inference-throughput-economics",
+        "label": "Batch Inference · Throughput / Economics",
+        "terms": ["batch inference", "batching", "throughput", "goodput", "scheduler", "cost per task"],
+        "decisionQuestion": "배치 처리량과 Cost/Successful Task를 함께 개선하는 Model·Accelerator·Schedule 조합은 무엇인가?"
+      },
+      {
+        "id": "rag-quality-metadata-freshness",
+        "label": "RAG · Quality / Metadata / Freshness",
+        "terms": ["rag", "retrieval", "metadata", "acl", "index", "freshness", "rerank", "citation"],
+        "decisionQuestion": "Vector DB 교체 전 수집·Metadata·ACL·Hybrid Retrieval·Rerank 중 어느 품질 Gate가 실패하는가?"
+      },
+      {
+        "id": "agent-tools-concurrency-latency",
+        "label": "AI Agent · Tools / Concurrency / Latency",
+        "terms": ["agent", "tool calling", "workflow", "reasoning", "long context", "api latency", "queue"],
+        "decisionQuestion": "Agent 성공률을 제한하는 요인이 모델, Tool 권한, 동시 실행, 외부 API 지연, 비용 Budget 중 무엇인가?"
+      },
+      {
+        "id": "multimodal-ingest-storage-memory",
+        "label": "Multimodal · Ingest / Storage / Memory",
+        "terms": ["multimodal", "vision", "image", "video", "ingest", "object storage", "accelerator memory", "edge"],
+        "decisionQuestion": "전처리·Object Storage·가속기 Memory·Edge/Core 이동 가운데 E2E 지연을 지배하는 구간은 어디인가?"
+      },
+      {
+        "id": "rack-scale-power-cooling-fabric",
+        "label": "Rack-scale · Power / Cooling / Fabric",
+        "terms": ["rack scale", "ai factory", "power", "liquid cooling", "network fabric", "nvme", "runtime"],
+        "decisionQuestion": "서버 단품이 아니라 Rack Cell 기준으로 전력·열·Fabric·Storage·Runtime SLO를 통과하는가?"
+      },
+      {
+        "id": "accelerator-runtime-portability",
+        "label": "Accelerator · Runtime / Portability",
+        "terms": ["gpu", "tpu", "npu", "custom asic", "accelerator", "runtime", "portability", "benchmark"],
+        "decisionQuestion": "동일 Workload·Model·Precision·SLO에서 성능, 단위경제성, SW 호환성, 공급 위험을 함께 통과하는가?"
       }
     ]
   },

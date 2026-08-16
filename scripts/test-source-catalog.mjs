@@ -80,7 +80,7 @@ assert.ok(siteContent.freshness.configuredSources >= 42);
 assert.ok(siteContent.freshness.officialConfigured >= 33);
 assert.equal(siteContent.freshness.scheduleHours, 3);
 assert.equal(siteContent.workloadOptimization.process.length, 6);
-assert.equal(siteContent.workloadOptimization.serviceLines.length, 3);
+assert.equal(siteContent.workloadOptimization.serviceLines.length, 6);
 assert.ok(siteContent.workloadOptimization.sources.some((source) => source.id === "samsung-smrc"));
 assert.ok(siteContent.aiFactorySystem.sources.some((source) => source.id === "iea-energy-ai"));
 assert.ok(siteContent.aiFactorySystem.sources.some((source) => source.id === "kubernetes-kueue"));
