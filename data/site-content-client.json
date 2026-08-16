@@ -1,14 +1,14 @@
 {
   "schemaVersion": "1.0",
-  "runId": "31939678382",
-  "generatedAt": "2026-08-16T09:49:41.639Z",
-  "expiresAt": "2026-08-17T11:49:39.543Z",
+  "runId": "31940239156",
+  "generatedAt": "2026-08-16T10:02:52.609Z",
+  "expiresAt": "2026-08-17T12:02:50.539Z",
   "clientArtifact": true,
   "generation": {
     "method": "verified-data-plus-approved-framework",
     "frameworkVersion": "1.0",
     "failClosed": true,
-    "sourceRunId": "31939678382"
+    "sourceRunId": "31940239156"
   },
   "freshness": {
     "status": "verified",
@@ -68,8 +68,8 @@
       "scheduleHours": 3,
       "browserRecheckMinutes": 15,
       "sourceCatalogVersion": "1.0",
-      "runId": "31939678382",
-      "generatedAt": "2026-08-16T09:49:41.639Z"
+      "runId": "31940239156",
+      "generatedAt": "2026-08-16T10:02:52.609Z"
     }
   },
   "decisionControl": {
@@ -79,8 +79,8 @@
     },
     "freshness": {
       "status": "CURRENT",
-      "generatedAt": "2026-08-16T09:49:41.639Z",
-      "expiresAt": "2026-08-17T11:49:39.543Z"
+      "generatedAt": "2026-08-16T10:02:52.609Z",
+      "expiresAt": "2026-08-17T12:02:50.539Z"
     },
     "coverage": {
       "status": "PARTIAL",
@@ -97,9 +97,9 @@
   "decisionIntelligence": {
     "schemaVersion": "1.1",
     "status": "pass",
-    "generatedAt": "2026-08-16T09:49:07.559Z",
-    "runId": "31939678382",
-    "refreshTrigger": "schedule",
+    "generatedAt": "2026-08-16T10:02:18.152Z",
+    "runId": "31940239156",
+    "refreshTrigger": "push",
     "metrics": [
       {
         "metricId": "hbm-revenue-share",
@@ -225,14 +225,14 @@
         "changed": true
       },
       {
-        "id": "f9a1a47534a2644a3eda",
+        "id": "cf3bf4c9b3551477a837",
         "ruleId": "capacity-commitment",
         "label": "CapEx·Capacity·장기 물량",
         "priority": "quarterly",
         "sourceId": "authoritative-media",
-        "source": "digitimes",
+        "source": "digitimes.com",
         "sourceClass": "authoritative-media",
-        "title": "삼성, HBM의 용량 확보를 위해 레거시 메모리 백엔드 작업을 베트남으로 이전하는 방안 검토 - digittimes",
+        "title": "삼성, HBM의 용량 확보를 위해 레거시 메모리 백엔드 작업을 베트남으로 이전하는 방안 검토 - digittimes.com",
         "url": "https://www.digitimes.com/news/a20260814VL222/samsung-hbm-dram-capacity-vietnam.html",
         "publishedAt": "2026-08-14",
         "changed": true
@@ -251,14 +251,14 @@
         "changed": true
       },
       {
-        "id": "0f9de40cf2f48388a69c",
+        "id": "a0157a2bead16b76b61b",
         "ruleId": "capacity-commitment",
         "label": "CapEx·Capacity·장기 물량",
         "priority": "quarterly",
         "sourceId": "authoritative-media",
-        "source": "digitimes",
+        "source": "digitimes.com",
         "sourceClass": "authoritative-media",
-        "title": "SKHY, YMTC와 글로벌 경쟁사들이 AI 스토리지 수요를 충족시키기 위해 경쟁함에 따라 중국 NAND 확장을 재개한 것으로 알려짐 - 디지털타임스",
+        "title": "SKHY, YMTC와 글로벌 경쟁사들이 AI 스토리지 수요를 충족시키기 위해 경쟁함에 따라 중국 NAND 확장을 재개한 것으로 알려짐 - digittimes.com",
         "url": "https://www.digitimes.com/news/a20260812VL205/sk-hynix-nand-expansion-dalian-ymtc.html",
         "publishedAt": "2026-08-12",
         "changed": true
@@ -433,13 +433,13 @@
     "retrieval": {
       "mode": "incremental-extractive",
       "stats": {
-        "documents": 28,
-        "chunks": 117,
-        "added": 0,
+        "documents": 29,
+        "chunks": 118,
+        "added": 1,
         "changed": 0,
-        "unchanged": 28,
-        "retained": 0,
-        "reindexed": 0
+        "unchanged": 27,
+        "retained": 1,
+        "reindexed": 1
       },
       "packs": [
         {
@@ -609,12 +609,348 @@
               "stale": false
             }
           ]
+        },
+        {
+          "id": "training-communication-checkpoint-power",
+          "label": "Training · Fabric / Checkpoint / Power",
+          "decisionQuestion": "학습 Goodput을 제한하는 지배 병목은 가속기, Collective, Checkpoint, 지속 전력 중 무엇인가?",
+          "status": "grounded",
+          "evidenceCount": 4,
+          "citations": [
+            {
+              "title": "Samsung Ships Industry-First Commercial HBM4 With Ultimate Performance for AI Computing | Samsung Semiconductor Global",
+              "source": "Samsung Semiconductor",
+              "sourceClass": "official",
+              "url": "https://semiconductor.samsung.com/news-events/news/samsung-ships-industry-first-commercial-hbm4-with-ultimate-performance-for-ai-computing",
+              "publishedAt": "2026-02-19",
+              "indexedAt": "2026-08-16T09:07:15.999Z",
+              "sourceChangeDetectedAt": "2026-08-16T09:07:15.999Z",
+              "lastHumanVerifiedAt": null,
+              "stale": false
+            },
+            {
+              "title": "Samsung Ships Industry-First Commercial HBM4 With Ultimate Performance for AI Computing | Samsung Semiconductor Global",
+              "source": "Samsung Semiconductor",
+              "sourceClass": "official",
+              "url": "https://semiconductor.samsung.com/news-events/news/samsung-ships-industry-first-commercial-hbm4-with-ultimate-performance-for-ai-computing",
+              "publishedAt": "2026-02-19",
+              "indexedAt": "2026-08-16T09:07:15.999Z",
+              "sourceChangeDetectedAt": "2026-08-16T09:07:15.999Z",
+              "lastHumanVerifiedAt": null,
+              "stale": false
+            },
+            {
+              "title": "KV Offloading Usage Guide - vLLM",
+              "source": "vLLM KV Offloading",
+              "sourceClass": "official",
+              "url": "https://docs.vllm.ai/en/latest/features/kv_offloading_usage",
+              "publishedAt": "2026-01-08",
+              "indexedAt": "2026-08-16T09:07:15.999Z",
+              "sourceChangeDetectedAt": "2026-08-16T09:07:15.999Z",
+              "lastHumanVerifiedAt": null,
+              "stale": false
+            }
+          ]
+        },
+        {
+          "id": "realtime-inference-kv-latency",
+          "label": "Real-time Inference · KV / Latency",
+          "decisionQuestion": "품질·지연 SLO에서 HBM, KV Cache, Scheduler, 외부 이동 중 어떤 병목을 먼저 제거해야 하는가?",
+          "status": "grounded",
+          "evidenceCount": 4,
+          "citations": [
+            {
+              "title": "NVIDIA Dynamo, A Low-Latency Distributed Inference Framework for Scaling Reasoning AI Models | NVIDIA Technical Blog",
+              "source": "NVIDIA Dynamo",
+              "sourceClass": "official",
+              "url": "https://developer.nvidia.com/blog/introducing-nvidia-dynamo-a-low-latency-distributed-inference-framework-for-scaling-reasoning-ai-models",
+              "publishedAt": "2025-03-18",
+              "indexedAt": "2026-08-16T09:07:15.999Z",
+              "sourceChangeDetectedAt": "2026-08-16T09:07:15.999Z",
+              "lastHumanVerifiedAt": null,
+              "stale": false
+            },
+            {
+              "title": "NVIDIA Dynamo, A Low-Latency Distributed Inference Framework for Scaling Reasoning AI Models | NVIDIA Technical Blog",
+              "source": "NVIDIA Dynamo",
+              "sourceClass": "official",
+              "url": "https://developer.nvidia.com/blog/introducing-nvidia-dynamo-a-low-latency-distributed-inference-framework-for-scaling-reasoning-ai-models",
+              "publishedAt": "2025-03-18",
+              "indexedAt": "2026-08-16T09:07:15.999Z",
+              "sourceChangeDetectedAt": "2026-08-16T09:07:15.999Z",
+              "lastHumanVerifiedAt": null,
+              "stale": false
+            },
+            {
+              "title": "NVIDIA Dynamo, A Low-Latency Distributed Inference Framework for Scaling Reasoning AI Models | NVIDIA Technical Blog",
+              "source": "NVIDIA Dynamo",
+              "sourceClass": "official",
+              "url": "https://developer.nvidia.com/blog/introducing-nvidia-dynamo-a-low-latency-distributed-inference-framework-for-scaling-reasoning-ai-models",
+              "publishedAt": "2025-03-18",
+              "indexedAt": "2026-08-16T09:07:15.999Z",
+              "sourceChangeDetectedAt": "2026-08-16T09:07:15.999Z",
+              "lastHumanVerifiedAt": null,
+              "stale": false
+            }
+          ]
+        },
+        {
+          "id": "batch-inference-throughput-economics",
+          "label": "Batch Inference · Throughput / Economics",
+          "decisionQuestion": "배치 처리량과 Cost/Successful Task를 함께 개선하는 Model·Accelerator·Schedule 조합은 무엇인가?",
+          "status": "grounded",
+          "evidenceCount": 4,
+          "citations": [
+            {
+              "title": "NVIDIA Dynamo, A Low-Latency Distributed Inference Framework for Scaling Reasoning AI Models | NVIDIA Technical Blog",
+              "source": "NVIDIA Dynamo",
+              "sourceClass": "official",
+              "url": "https://developer.nvidia.com/blog/introducing-nvidia-dynamo-a-low-latency-distributed-inference-framework-for-scaling-reasoning-ai-models",
+              "publishedAt": "2025-03-18",
+              "indexedAt": "2026-08-16T09:07:15.999Z",
+              "sourceChangeDetectedAt": "2026-08-16T09:07:15.999Z",
+              "lastHumanVerifiedAt": null,
+              "stale": false
+            },
+            {
+              "title": "NVIDIA Dynamo, A Low-Latency Distributed Inference Framework for Scaling Reasoning AI Models | NVIDIA Technical Blog",
+              "source": "NVIDIA Dynamo",
+              "sourceClass": "official",
+              "url": "https://developer.nvidia.com/blog/introducing-nvidia-dynamo-a-low-latency-distributed-inference-framework-for-scaling-reasoning-ai-models",
+              "publishedAt": "2025-03-18",
+              "indexedAt": "2026-08-16T09:07:15.999Z",
+              "sourceChangeDetectedAt": "2026-08-16T09:07:15.999Z",
+              "lastHumanVerifiedAt": null,
+              "stale": false
+            },
+            {
+              "title": "[2309.06180] Efficient Memory Management for Large Language Model Serving with PagedAttention",
+              "source": "LLM Serving Systems Research",
+              "sourceClass": "research",
+              "url": "https://arxiv.org/abs/2309.06180",
+              "publishedAt": null,
+              "indexedAt": "2026-08-16T09:07:15.999Z",
+              "sourceChangeDetectedAt": "2026-08-16T09:07:15.999Z",
+              "lastHumanVerifiedAt": null,
+              "stale": false
+            }
+          ]
+        },
+        {
+          "id": "rag-quality-metadata-freshness",
+          "label": "RAG · Quality / Metadata / Freshness",
+          "decisionQuestion": "Vector DB 교체 전 수집·Metadata·ACL·Hybrid Retrieval·Rerank 중 어느 품질 Gate가 실패하는가?",
+          "status": "grounded",
+          "evidenceCount": 4,
+          "citations": [
+            {
+              "title": "KV Offloading Usage Guide - vLLM",
+              "source": "vLLM KV Offloading",
+              "sourceClass": "official",
+              "url": "https://docs.vllm.ai/en/latest/features/kv_offloading_usage",
+              "publishedAt": "2026-01-08",
+              "indexedAt": "2026-08-16T09:07:15.999Z",
+              "sourceChangeDetectedAt": "2026-08-16T09:07:15.999Z",
+              "lastHumanVerifiedAt": null,
+              "stale": false
+            },
+            {
+              "title": "Kioxia와 Sandisk, AI 및 데이터 집약적 애플리케이션을 위해 설계된 새로운 고성능 QLC 3D 플래시 메모리 기술 공개 - Sandisk",
+              "source": "Sandisk",
+              "sourceClass": "official",
+              "url": "https://www.sandisk.com/company/newsroom/press-releases/2026/2026-08-12-kioxia-and-sandisk-unveil-new-high-performance-qlc-3d-flash-memory-for-ai-and-data-intensive-apps",
+              "publishedAt": "2026-08-12",
+              "indexedAt": "2026-08-16T09:07:15.999Z",
+              "sourceChangeDetectedAt": "2026-08-16T09:07:15.999Z",
+              "lastHumanVerifiedAt": null,
+              "stale": false
+            },
+            {
+              "title": "솔리드다임 뉴스룸 - news.solidigm.com",
+              "source": ".solidigm.com",
+              "sourceClass": "official",
+              "url": "https://news.solidigm.com/en-WW",
+              "publishedAt": "2026-08-12",
+              "indexedAt": "2026-08-16T09:07:15.999Z",
+              "sourceChangeDetectedAt": "2026-08-16T09:07:15.999Z",
+              "lastHumanVerifiedAt": null,
+              "stale": false
+            }
+          ]
+        },
+        {
+          "id": "agent-tools-concurrency-latency",
+          "label": "AI Agent · Tools / Concurrency / Latency",
+          "decisionQuestion": "Agent 성공률을 제한하는 요인이 모델, Tool 권한, 동시 실행, 외부 API 지연, 비용 Budget 중 무엇인가?",
+          "status": "grounded",
+          "evidenceCount": 4,
+          "citations": [
+            {
+              "title": "KV Offloading Usage Guide - vLLM",
+              "source": "vLLM KV Offloading",
+              "sourceClass": "official",
+              "url": "https://docs.vllm.ai/en/latest/features/kv_offloading_usage",
+              "publishedAt": "2026-01-08",
+              "indexedAt": "2026-08-16T09:07:15.999Z",
+              "sourceChangeDetectedAt": "2026-08-16T09:07:15.999Z",
+              "lastHumanVerifiedAt": null,
+              "stale": false
+            },
+            {
+              "title": "KV Offloading Usage Guide - vLLM",
+              "source": "vLLM KV Offloading",
+              "sourceClass": "official",
+              "url": "https://docs.vllm.ai/en/latest/features/kv_offloading_usage",
+              "publishedAt": "2026-01-08",
+              "indexedAt": "2026-08-16T09:07:15.999Z",
+              "sourceChangeDetectedAt": "2026-08-16T09:07:15.999Z",
+              "lastHumanVerifiedAt": null,
+              "stale": false
+            },
+            {
+              "title": "KV Offloading Usage Guide - vLLM",
+              "source": "vLLM KV Offloading",
+              "sourceClass": "official",
+              "url": "https://docs.vllm.ai/en/latest/features/kv_offloading_usage",
+              "publishedAt": "2026-01-08",
+              "indexedAt": "2026-08-16T09:07:15.999Z",
+              "sourceChangeDetectedAt": "2026-08-16T09:07:15.999Z",
+              "lastHumanVerifiedAt": null,
+              "stale": false
+            }
+          ]
+        },
+        {
+          "id": "multimodal-ingest-storage-memory",
+          "label": "Multimodal · Ingest / Storage / Memory",
+          "decisionQuestion": "전처리·Object Storage·가속기 Memory·Edge/Core 이동 가운데 E2E 지연을 지배하는 구간은 어디인가?",
+          "status": "grounded",
+          "evidenceCount": 4,
+          "citations": [
+            {
+              "title": "KV Offloading Usage Guide - vLLM",
+              "source": "vLLM KV Offloading",
+              "sourceClass": "official",
+              "url": "https://docs.vllm.ai/en/latest/features/kv_offloading_usage",
+              "publishedAt": "2026-01-08",
+              "indexedAt": "2026-08-16T09:07:15.999Z",
+              "sourceChangeDetectedAt": "2026-08-16T09:07:15.999Z",
+              "lastHumanVerifiedAt": null,
+              "stale": false
+            },
+            {
+              "title": "KV Offloading Usage Guide - vLLM",
+              "source": "vLLM KV Offloading",
+              "sourceClass": "official",
+              "url": "https://docs.vllm.ai/en/latest/features/kv_offloading_usage",
+              "publishedAt": "2026-01-08",
+              "indexedAt": "2026-08-16T09:07:15.999Z",
+              "sourceChangeDetectedAt": "2026-08-16T09:07:15.999Z",
+              "lastHumanVerifiedAt": null,
+              "stale": false
+            },
+            {
+              "title": "Tight DRAM Supply Gives Suppliers Greater Pricing Power in HBM, with HBM Contract Prices Expected to Surge Multiples Higher in 2027, Says TrendForce",
+              "source": "TrendForce",
+              "sourceClass": "research",
+              "url": "https://www.trendforce.com/presscenter/news/20260602-13074.html",
+              "publishedAt": "2026-06-02",
+              "indexedAt": "2026-08-16T09:07:15.999Z",
+              "sourceChangeDetectedAt": "2026-08-16T09:07:15.999Z",
+              "lastHumanVerifiedAt": null,
+              "stale": false
+            }
+          ]
+        },
+        {
+          "id": "rack-scale-power-cooling-fabric",
+          "label": "Rack-scale · Power / Cooling / Fabric",
+          "decisionQuestion": "서버 단품이 아니라 Rack Cell 기준으로 전력·열·Fabric·Storage·Runtime SLO를 통과하는가?",
+          "status": "grounded",
+          "evidenceCount": 4,
+          "citations": [
+            {
+              "title": "Samsung Ships Industry-First Commercial HBM4 With Ultimate Performance for AI Computing | Samsung Semiconductor Global",
+              "source": "Samsung Semiconductor",
+              "sourceClass": "official",
+              "url": "https://semiconductor.samsung.com/news-events/news/samsung-ships-industry-first-commercial-hbm4-with-ultimate-performance-for-ai-computing",
+              "publishedAt": "2026-02-19",
+              "indexedAt": "2026-08-16T09:07:15.999Z",
+              "sourceChangeDetectedAt": "2026-08-16T09:07:15.999Z",
+              "lastHumanVerifiedAt": null,
+              "stale": false
+            },
+            {
+              "title": "NVIDIA Dynamo, A Low-Latency Distributed Inference Framework for Scaling Reasoning AI Models | NVIDIA Technical Blog",
+              "source": "NVIDIA Dynamo",
+              "sourceClass": "official",
+              "url": "https://developer.nvidia.com/blog/introducing-nvidia-dynamo-a-low-latency-distributed-inference-framework-for-scaling-reasoning-ai-models",
+              "publishedAt": "2025-03-18",
+              "indexedAt": "2026-08-16T09:07:15.999Z",
+              "sourceChangeDetectedAt": "2026-08-16T09:07:15.999Z",
+              "lastHumanVerifiedAt": null,
+              "stale": false
+            },
+            {
+              "title": "Overview — NVIDIA NVL72 AI Factory",
+              "source": "NVIDIA NVL72 AI Factory Reference Architecture",
+              "sourceClass": "official",
+              "url": "https://docs.nvidia.com/enterprise-reference-architectures/nvl72-ai-factory/latest/overview.html",
+              "publishedAt": null,
+              "indexedAt": "2026-08-16T09:07:15.999Z",
+              "sourceChangeDetectedAt": "2026-08-16T09:07:15.999Z",
+              "lastHumanVerifiedAt": null,
+              "stale": false
+            }
+          ]
+        },
+        {
+          "id": "accelerator-runtime-portability",
+          "label": "Accelerator · Runtime / Portability",
+          "decisionQuestion": "동일 Workload·Model·Precision·SLO에서 성능, 단위경제성, SW 호환성, 공급 위험을 함께 통과하는가?",
+          "status": "grounded",
+          "evidenceCount": 4,
+          "citations": [
+            {
+              "title": "KV Offloading Usage Guide - vLLM",
+              "source": "vLLM KV Offloading",
+              "sourceClass": "official",
+              "url": "https://docs.vllm.ai/en/latest/features/kv_offloading_usage",
+              "publishedAt": "2026-01-08",
+              "indexedAt": "2026-08-16T09:07:15.999Z",
+              "sourceChangeDetectedAt": "2026-08-16T09:07:15.999Z",
+              "lastHumanVerifiedAt": null,
+              "stale": false
+            },
+            {
+              "title": "NVIDIA Dynamo, A Low-Latency Distributed Inference Framework for Scaling Reasoning AI Models | NVIDIA Technical Blog",
+              "source": "NVIDIA Dynamo",
+              "sourceClass": "official",
+              "url": "https://developer.nvidia.com/blog/introducing-nvidia-dynamo-a-low-latency-distributed-inference-framework-for-scaling-reasoning-ai-models",
+              "publishedAt": "2025-03-18",
+              "indexedAt": "2026-08-16T09:07:15.999Z",
+              "sourceChangeDetectedAt": "2026-08-16T09:07:15.999Z",
+              "lastHumanVerifiedAt": null,
+              "stale": false
+            },
+            {
+              "title": "NVIDIA Dynamo, A Low-Latency Distributed Inference Framework for Scaling Reasoning AI Models | NVIDIA Technical Blog",
+              "source": "NVIDIA Dynamo",
+              "sourceClass": "official",
+              "url": "https://developer.nvidia.com/blog/introducing-nvidia-dynamo-a-low-latency-distributed-inference-framework-for-scaling-reasoning-ai-models",
+              "publishedAt": "2025-03-18",
+              "indexedAt": "2026-08-16T09:07:15.999Z",
+              "sourceChangeDetectedAt": "2026-08-16T09:07:15.999Z",
+              "lastHumanVerifiedAt": null,
+              "stale": false
+            }
+          ]
         }
       ]
     },
     "freshness": {
       "framework": "evidence-freshness-v1",
-      "score": 93.2,
+      "score": 92.1,
       "status": "current",
       "label": "최신",
       "revalidationRequired": false,
@@ -629,18 +965,18 @@
         "coverageDrift": 0.2
       },
       "components": {
-        "contentAge": 89.6,
+        "contentAge": 95.4,
         "embeddingLag": 100,
-        "staleRetrievalRate": 87.5,
+        "staleRetrievalRate": 75,
         "coverageDrift": 100
       },
       "diagnostics": {
-        "staleRetrievalRatePct": 12.5,
+        "staleRetrievalRatePct": 25,
         "feedCoveragePct": 100,
         "trackCoveragePct": 100,
         "metricCoveragePct": 100,
         "coverageDropPctPoint": 0,
-        "activeDocumentCount": 4
+        "activeDocumentCount": 9
       },
       "coverage": {
         "currentPct": 100,
@@ -651,7 +987,7 @@
         "sourceChangeDetectedAt": "2026-08-16T09:07:15.999Z",
         "indexedAt": "2026-08-16T09:07:15.999Z"
       },
-      "generatedAt": "2026-08-16T09:49:07.559Z"
+      "generatedAt": "2026-08-16T10:02:18.152Z"
     },
     "evaluation": {
       "framework": "grounded-retrieval-quality-loop",
@@ -661,7 +997,7 @@
       "metrics": {
         "citationCoveragePct": 100,
         "trackCoveragePct": 100,
-        "freshDocumentPct": 92.9,
+        "freshDocumentPct": 93.1,
         "primaryOrResearchPct": 100,
         "conflictDisclosurePct": 100,
         "unsupportedClaimPct": 0
@@ -993,7 +1329,7 @@
         "evidenceLevel": "Reported",
         "sourceClass": "research"
       },
-      "evidenceCount": 17,
+      "evidenceCount": 16,
       "signals": [
         [
           "Reported · RESEARCH",
@@ -1268,18 +1604,18 @@
     {
       "id": "dram",
       "label": "DRAM·범용 가격",
-      "evidenceCount": 9,
+      "evidenceCount": 8,
       "latest": {
-        "title": "AI 메모리 부족으로 인해 DRAM 및 NAND 가격이 수년간 높은 수준으로 유지될 수 있는 이유",
-        "summary": "AI 중심 수요로 인해 역사상 최대 규모의 메모리 부족이 발생하고 있습니다. DRAM 및 NAND 가격이 향후 10년 동안 계속 상승할 것으로 예상되는 이유를 알아보세요.",
-        "source": "TechInsights",
-        "url": "https://www.techinsights.com/blog/why-ai-memory-shortage-could-keep-dram-and-nand-prices-high-years",
-        "publishedAt": "2026-08-07",
-        "evidenceLevel": "Watch",
-        "sourceClass": "research"
+        "title": "삼성, HBM의 용량 확보를 위해 레거시 메모리 백엔드 작업을 베트남으로 이전하는 방안 검토 - digittimes.com",
+        "summary": "삼성전자가 현재 천안과 온양 사업장에서 처리 중인 범용 DRAM과 NAND 패키징 및 테스트 일부를 베트남으로 이전해 고대역폭 메모리(HBM)용 국내 백엔드 용량을 확보할 가능성이 있다고 밝혔습니다.",
+        "source": "digitimes.com",
+        "url": "https://www.digitimes.com/news/a20260814VL222/samsung-hbm-dram-capacity-vietnam.html",
+        "publishedAt": "2026-08-14",
+        "evidenceLevel": "Reported",
+        "sourceClass": "authoritative-media"
       },
-      "fact": "AI 중심 수요로 인해 역사상 최대 규모의 메모리 부족이 발생하고 있습니다. DRAM 및 NAND 가격이 향후 10년 동안 계속 상승할 것으로 예상되는 이유를 알아보세요.",
-      "implication": "AI 중심 수요로 인해 역사상 최대 규모의 메모리 부족이 발생하고 있습니다. DRAM 및 NAND 가격이 향후 10년 동안 계속 상승할 것으로 예상되는 이유를 알아보세요. DDR4 16Gb (2Gx8) 3200의 누적 변동률은 관측 구간 또는 이상치 검증이 필요해 의사결정 수치로 사용하지 않습니다.",
+      "fact": "삼성전자가 현재 천안과 온양 사업장에서 처리 중인 범용 DRAM과 NAND 패키징 및 테스트 일부를 베트남으로 이전해 고대역폭 메모리(HBM)용 국내 백엔드 용량을 확보할 가능성이 있다고 밝혔습니다.",
+      "implication": "삼성전자가 현재 천안과 온양 사업장에서 처리 중인 범용 DRAM과 NAND 패키징 및 테스트 일부를 베트남으로 이전해 고대역폭 메모리(HBM)용 국내 백엔드 용량을 확보할 가능성이 있다고 밝혔습니다. DDR4 16Gb (2Gx8) 3200의 누적 변동률은 관측 구간 또는 이상치 검증이 필요해 의사결정 수치로 사용하지 않습니다.",
       "decision": "Spot 방향이 계약가로 전이되는지와 CXMT 고객·캐파 신호를 함께 확인해 범용 DRAM 가격 방어 강도를 정합니다.",
       "action": "DDR5 Spot 누적 하락 뒤 계약가 하락이 확인되거나 CXMT 매출 점유율이 2%p 이상 변동",
       "hypothesis": {
@@ -1292,7 +1628,7 @@
     {
       "id": "nand",
       "label": "NAND·eSSD",
-      "evidenceCount": 17,
+      "evidenceCount": 16,
       "latest": {
         "title": "서버 주도 eSSD는 NAND 출하량의 48%를 기록했습니다. YMTC, 글로벌 톱 3 진입",
         "summary": "AI 추론 워크로드로 인해 기업용 SSD는 2026년 2분기 전 세계 NAND 출하량의 48%를 차지했으며, 이는 1년 전 26% 점유율의 거의 두 배에 달하는 수치입니다.",
@@ -2242,8 +2578,8 @@
       "scheduleHours": 3,
       "failClosed": true
     },
-    "generatedAt": "2026-08-16T09:49:41.639Z",
-    "runId": "31939678382"
+    "generatedAt": "2026-08-16T10:02:52.609Z",
+    "runId": "31940239156"
   },
   "workloadOptimization": {
     "title": "Data Center Workload Optimization · Bottleneck-to-PoC",
@@ -2484,7 +2820,7 @@
         "근거 없는 답변율"
       ],
       "liveControl": {
-        "freshnessScore": 93.2,
+        "freshnessScore": 92.1,
         "freshnessStatus": "current",
         "retrievalStatus": "pass",
         "citationCoveragePct": 100,
@@ -2626,8 +2962,8 @@
       }
     ],
     "currentSignals": [],
-    "generatedAt": "2026-08-16T09:49:41.639Z",
-    "runId": "31939678382"
+    "generatedAt": "2026-08-16T10:02:52.609Z",
+    "runId": "31940239156"
   },
   "caseClassification": [
     {
@@ -2952,7 +3288,7 @@
           "evidenceLevel": "Reported",
           "sourceClass": "research"
         },
-        "evidenceCount": 17,
+        "evidenceCount": 16,
         "signals": [
           [
             "Reported · RESEARCH",
@@ -3069,7 +3405,7 @@
         "phase": "OPTION",
         "tabLabel": "On-device Memory",
         "title": "AI Application & HW/SW · On-device",
-        "subtitle": "TechInsights 최신 근거 · 2026-08-07",
+        "subtitle": "digitimes.com 최신 근거 · 2026-08-14",
         "answerTitle": "AI 경험·Memory Footprint·BOM을 SKU별로 재설계",
         "recommendation": "PORTFOLIO GATE",
         "question": "AI 서버 수요와 공급 제약이 모바일·PC 메모리 원가로 전이될 때 어떤 고객·SKU·용량 구간을 우선 방어할 것인가?",
@@ -3082,20 +3418,20 @@
         },
         "stop": "DDR5 Spot 누적 하락 뒤 계약가 하락이 확인되거나 CXMT 매출 점유율이 2%p 이상 변동",
         "latest": {
-          "title": "AI 메모리 부족으로 인해 DRAM 및 NAND 가격이 수년간 높은 수준으로 유지될 수 있는 이유",
-          "summary": "AI 중심 수요로 인해 역사상 최대 규모의 메모리 부족이 발생하고 있습니다. DRAM 및 NAND 가격이 향후 10년 동안 계속 상승할 것으로 예상되는 이유를 알아보세요.",
-          "source": "TechInsights",
-          "url": "https://www.techinsights.com/blog/why-ai-memory-shortage-could-keep-dram-and-nand-prices-high-years",
-          "publishedAt": "2026-08-07",
-          "evidenceLevel": "Watch",
-          "sourceClass": "research"
+          "title": "삼성, HBM의 용량 확보를 위해 레거시 메모리 백엔드 작업을 베트남으로 이전하는 방안 검토 - digittimes.com",
+          "summary": "삼성전자가 현재 천안과 온양 사업장에서 처리 중인 범용 DRAM과 NAND 패키징 및 테스트 일부를 베트남으로 이전해 고대역폭 메모리(HBM)용 국내 백엔드 용량을 확보할 가능성이 있다고 밝혔습니다.",
+          "source": "digitimes.com",
+          "url": "https://www.digitimes.com/news/a20260814VL222/samsung-hbm-dram-capacity-vietnam.html",
+          "publishedAt": "2026-08-14",
+          "evidenceLevel": "Reported",
+          "sourceClass": "authoritative-media"
         },
-        "evidenceCount": 9,
+        "evidenceCount": 8,
         "signals": [
           [
-            "Watch · RESEARCH",
-            "AI 메모리 부족으로 인해 DRAM 및 NAND 가격이 수년간 높은 수준으로 유지될 수 있는 이유",
-            "AI 중심 수요로 인해 역사상 최대 규모의 메모리 부족이 발생하고 있습니다. DRAM 및 NAND 가격이 향후 10년 동안 계속 상승할 것으로 예상되는 이유를 알아보세요."
+            "Reported · AUTHORITATIVE-MEDIA",
+            "삼성, HBM의 용량 확보를 위해 레거시 메모리 백엔드 작업을 베트남으로 이전하는 방안 검토 - digittimes.com",
+            "삼성전자가 현재 천안과 온양 사업장에서 처리 중인 범용 DRAM과 NAND 패키징 및 테스트 일부를 베트남으로 이전해 고대역폭 메모리(HBM)용 국내 백엔드 용량을 확보할 가능성이 있다고 밝혔습니다."
           ],
           [
             "EXECUTIVE DECISION",
@@ -3180,9 +3516,9 @@
         "useCase": "MODELED STRATEGY CASE · Device OEM · AI Feature Footprint → SKU 재설계 → 가격·Allocation 실행",
         "sources": [
           [
-            "Watch",
-            "TechInsights · 2026-08-07",
-            "https://www.techinsights.com/blog/why-ai-memory-shortage-could-keep-dram-and-nand-prices-high-years"
+            "Reported",
+            "digitimes.com · 2026-08-14",
+            "https://www.digitimes.com/news/a20260814VL222/samsung-hbm-dram-capacity-vietnam.html"
           ],
           [
             "CONTROL",
