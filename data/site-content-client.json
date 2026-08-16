@@ -1,18 +1,18 @@
 {
   "schemaVersion": "1.0",
-  "runId": "31934707940",
-  "generatedAt": "2026-08-16T07:54:28.880Z",
-  "expiresAt": "2026-08-17T09:54:27.220Z",
+  "runId": "31937829748",
+  "generatedAt": "2026-08-16T09:07:37.916Z",
+  "expiresAt": "2026-08-17T11:07:36.313Z",
   "clientArtifact": true,
   "generation": {
     "method": "verified-data-plus-approved-framework",
     "frameworkVersion": "1.0",
     "failClosed": true,
-    "sourceRunId": "31934707940"
+    "sourceRunId": "31937829748"
   },
   "freshness": {
     "status": "verified",
-    "evidenceCount": 80,
+    "evidenceCount": 78,
     "briefCount": 6,
     "sourceCount": 4,
     "configuredSources": 42,
@@ -68,8 +68,8 @@
       "scheduleHours": 3,
       "browserRecheckMinutes": 15,
       "sourceCatalogVersion": "1.0",
-      "runId": "31934707940",
-      "generatedAt": "2026-08-16T07:54:28.880Z"
+      "runId": "31937829748",
+      "generatedAt": "2026-08-16T09:07:37.916Z"
     }
   },
   "decisionControl": {
@@ -79,8 +79,8 @@
     },
     "freshness": {
       "status": "CURRENT",
-      "generatedAt": "2026-08-16T07:54:28.880Z",
-      "expiresAt": "2026-08-17T09:54:27.220Z"
+      "generatedAt": "2026-08-16T09:07:37.916Z",
+      "expiresAt": "2026-08-17T11:07:36.313Z"
     },
     "coverage": {
       "status": "PARTIAL",
@@ -96,32 +96,484 @@
   },
   "decisionIntelligence": {
     "schemaVersion": "1.0",
-    "status": "pending-next-verified-run",
-    "generatedAt": "2026-08-16T07:51:44.043Z",
-    "runId": "31934707940",
-    "refreshTrigger": "pending-next-verified-run",
-    "metrics": [],
-    "eventTriggers": [],
-    "feedStatus": [],
+    "status": "pass",
+    "generatedAt": "2026-08-16T09:07:15.999Z",
+    "runId": "31937829748",
+    "refreshTrigger": "push",
+    "metrics": [
+      {
+        "metricId": "hbm-revenue-share",
+        "metricLabel": "HBM 매출 점유율",
+        "dimension": "revenue-share",
+        "entityId": "skhynix",
+        "company": "SKHY",
+        "period": "2026-Q1",
+        "display": "58%",
+        "representation": "point",
+        "sourceCount": 1,
+        "confidence": "single-source",
+        "direction": "up",
+        "changePctPoint": 1,
+        "priorPeriod": "2025-Q4",
+        "yearAgoPeriod": "2025-Q1",
+        "yearAgoChangePctPoint": -11,
+        "sources": [
+          {
+            "id": "counterpoint",
+            "name": "Counterpoint Research",
+            "sourceClass": "research",
+            "url": "https://korea.counterpointresearch.com/global-dram-and-hbm-market-share-quarterly",
+            "publishedAt": "2026-06-10",
+            "value": 58
+          }
+        ]
+      },
+      {
+        "metricId": "hbm-revenue-share",
+        "metricLabel": "HBM 매출 점유율",
+        "dimension": "revenue-share",
+        "entityId": "samsung",
+        "company": "삼성전자",
+        "period": "2026-Q1",
+        "display": "21%",
+        "representation": "point",
+        "sourceCount": 1,
+        "confidence": "single-source",
+        "direction": "down",
+        "changePctPoint": -1,
+        "priorPeriod": "2025-Q4",
+        "yearAgoPeriod": "2025-Q1",
+        "yearAgoChangePctPoint": 8,
+        "sources": [
+          {
+            "id": "counterpoint",
+            "name": "Counterpoint Research",
+            "sourceClass": "research",
+            "url": "https://korea.counterpointresearch.com/global-dram-and-hbm-market-share-quarterly",
+            "publishedAt": "2026-06-10",
+            "value": 21
+          }
+        ]
+      },
+      {
+        "metricId": "hbm-revenue-share",
+        "metricLabel": "HBM 매출 점유율",
+        "dimension": "revenue-share",
+        "entityId": "micron",
+        "company": "마이크론",
+        "period": "2026-Q1",
+        "display": "21%",
+        "representation": "point",
+        "sourceCount": 1,
+        "confidence": "single-source",
+        "direction": "flat",
+        "changePctPoint": 0,
+        "priorPeriod": "2025-Q4",
+        "yearAgoPeriod": "2025-Q1",
+        "yearAgoChangePctPoint": 3,
+        "sources": [
+          {
+            "id": "counterpoint",
+            "name": "Counterpoint Research",
+            "sourceClass": "research",
+            "url": "https://korea.counterpointresearch.com/global-dram-and-hbm-market-share-quarterly",
+            "publishedAt": "2026-06-10",
+            "value": 21
+          }
+        ]
+      },
+      {
+        "metricId": "hbm-wafer-input-share",
+        "metricLabel": "HBM DRAM 웨이퍼 투입 비중",
+        "dimension": "wafer-input-share",
+        "entityId": "top-three-suppliers",
+        "company": "Top 3 suppliers",
+        "period": "2027",
+        "display": "30%",
+        "representation": "point",
+        "sourceCount": 1,
+        "confidence": "single-source",
+        "direction": "up",
+        "changePctPoint": 8,
+        "priorPeriod": "2026",
+        "yearAgoPeriod": "2026",
+        "yearAgoChangePctPoint": 8,
+        "sources": [
+          {
+            "id": "trendforce",
+            "name": "TrendForce",
+            "sourceClass": "research",
+            "url": "https://www.trendforce.com/presscenter/news/20260602-13074.html",
+            "publishedAt": "2026-06-02",
+            "value": 30
+          }
+        ]
+      }
+    ],
+    "eventTriggers": [
+      {
+        "id": "28b48d7a426003ef5e5f",
+        "ruleId": "capacity-commitment",
+        "label": "CapEx·Capacity·장기 물량",
+        "priority": "quarterly",
+        "sourceId": "general-media",
+        "source": "TechSpot",
+        "sourceClass": "general-media",
+        "title": "기업용 SSD는 이제 전 세계 NAND 플래시 공급량의 48%를 소비합니다.",
+        "url": "https://www.techspot.com/news/113478-enterprise-ssds-now-consume-48-global-nand-flash.html",
+        "publishedAt": "2026-08-14",
+        "changed": true
+      },
+      {
+        "id": "f9a1a47534a2644a3eda",
+        "ruleId": "capacity-commitment",
+        "label": "CapEx·Capacity·장기 물량",
+        "priority": "quarterly",
+        "sourceId": "authoritative-media",
+        "source": "digitimes",
+        "sourceClass": "authoritative-media",
+        "title": "삼성, HBM의 용량 확보를 위해 레거시 메모리 백엔드 작업을 베트남으로 이전하는 방안 검토 - digittimes",
+        "url": "https://www.digitimes.com/news/a20260814VL222/samsung-hbm-dram-capacity-vietnam.html",
+        "publishedAt": "2026-08-14",
+        "changed": true
+      },
+      {
+        "id": "655388bf4e57d5f60549",
+        "ruleId": "capacity-commitment",
+        "label": "CapEx·Capacity·장기 물량",
+        "priority": "quarterly",
+        "sourceId": "authoritative-media",
+        "source": "Caixin Global",
+        "sourceClass": "authoritative-media",
+        "title": "YMTC, 출하량 기준 키옥시아 제치고 글로벌 NAND 시장 3위 - Caixin Global",
+        "url": "https://www.caixinglobal.com/2026-08-13/ymtc-overtakes-kioxia-by-shipments-to-rank-no-3-in-global-nand-market-102473570.html",
+        "publishedAt": "2026-08-12",
+        "changed": true
+      },
+      {
+        "id": "0f9de40cf2f48388a69c",
+        "ruleId": "capacity-commitment",
+        "label": "CapEx·Capacity·장기 물량",
+        "priority": "quarterly",
+        "sourceId": "authoritative-media",
+        "source": "digitimes",
+        "sourceClass": "authoritative-media",
+        "title": "SKHY, YMTC와 글로벌 경쟁사들이 AI 스토리지 수요를 충족시키기 위해 경쟁함에 따라 중국 NAND 확장을 재개한 것으로 알려짐 - 디지털타임스",
+        "url": "https://www.digitimes.com/news/a20260812VL205/sk-hynix-nand-expansion-dalian-ymtc.html",
+        "publishedAt": "2026-08-12",
+        "changed": true
+      },
+      {
+        "id": "deb1d8612d6ba7b0fb14",
+        "ruleId": "capacity-commitment",
+        "label": "CapEx·Capacity·장기 물량",
+        "priority": "quarterly",
+        "sourceId": "authoritative-media",
+        "source": "Tom's Hardware",
+        "sourceClass": "authoritative-media",
+        "title": "SKHY, Solidigm IPO를 검토하면서 중국 내 생산 능력 확대 - 2단계 팹을 통해 현지 생산량을 50% 늘릴 수 있다고 주장",
+        "url": "https://www.tomshardware.com/pc-components/ssds/sk-hynix-to-expand-production-capacity-in-china-as-it-mulls-solidigm-ipo-report-claims-second-phase-of-fab-could-boost-local-production-by-50-percent",
+        "publishedAt": "2026-08-11",
+        "changed": true
+      },
+      {
+        "id": "d31da94ba3b57493ad98",
+        "ruleId": "hbm4-production-stage",
+        "label": "HBM4 Sample → Qualification → Ramp",
+        "priority": "immediate",
+        "sourceId": "trendforce",
+        "source": "TrendForce",
+        "sourceClass": "research",
+        "title": "HBM 경주 가열로 삼성 HBM4 수율 80% 돌파 보도, SKHY 노사 회담에 반전 추가 - TrendForce",
+        "url": "https://www.trendforce.com/news/2026/08/10/news-samsungs-hbm4-yield-reportedly-hits-80-as-race-to-supply-vera-rubin-heats-up-sk-hynix-labor-talks-add-a-twist",
+        "publishedAt": "2026-08-10",
+        "changed": true
+      },
+      {
+        "id": "d81c3e0028060c9dcbe2",
+        "ruleId": "competitor-ramp",
+        "label": "경쟁사 Ramp·고객 공급",
+        "priority": "immediate",
+        "sourceId": "trendforce",
+        "source": "TrendForce",
+        "sourceClass": "research",
+        "title": "HBM 경주 가열로 삼성 HBM4 수율 80% 돌파 보도, SKHY 노사 회담에 반전 추가 - TrendForce",
+        "url": "https://www.trendforce.com/news/2026/08/10/news-samsungs-hbm4-yield-reportedly-hits-80-as-race-to-supply-vera-rubin-heats-up-sk-hynix-labor-talks-add-a-twist",
+        "publishedAt": "2026-08-10",
+        "changed": true
+      },
+      {
+        "id": "d2fd7036a6be27fefb90",
+        "ruleId": "earnings-release",
+        "label": "분기 실적·어닝콜",
+        "priority": "immediate",
+        "sourceId": "sec-edgar",
+        "source": "SEC EDGAR",
+        "sourceClass": "official",
+        "title": "SEC EDGAR",
+        "url": "https://data.sec.gov/submissions/CIK0000723125.json",
+        "publishedAt": "2026-07-28",
+        "changed": true
+      },
+      {
+        "id": "3dee341fb49838605d8d",
+        "ruleId": "hbm4-production-stage",
+        "label": "HBM4 Sample → Qualification → Ramp",
+        "priority": "immediate",
+        "sourceId": "sec-edgar",
+        "source": "SEC EDGAR",
+        "sourceClass": "official",
+        "title": "SEC EDGAR",
+        "url": "https://data.sec.gov/submissions/CIK0000723125.json",
+        "publishedAt": "2026-07-28",
+        "changed": true
+      },
+      {
+        "id": "4c99cbd1053e6df31b2f",
+        "ruleId": "capacity-commitment",
+        "label": "CapEx·Capacity·장기 물량",
+        "priority": "quarterly",
+        "sourceId": "sec-edgar",
+        "source": "SEC EDGAR",
+        "sourceClass": "official",
+        "title": "SEC EDGAR",
+        "url": "https://data.sec.gov/submissions/CIK0000723125.json",
+        "publishedAt": "2026-07-28",
+        "changed": true
+      },
+      {
+        "id": "6251b7b00cf166c589f8",
+        "ruleId": "hbm4-production-stage",
+        "label": "HBM4 Sample → Qualification → Ramp",
+        "priority": "immediate",
+        "sourceId": "ubs",
+        "source": "UBS",
+        "sourceClass": "research",
+        "title": "삼성, 2027년 HBM 시장에서 SKHY 추월할 수도",
+        "url": "https://www.digitimes.com/news/a20260720PD215/samsung-2027-hbm4-market-sk-hynix.html",
+        "publishedAt": "2026-07-20",
+        "changed": true
+      },
+      {
+        "id": "1f5d53792a50a4d987ef",
+        "ruleId": "hbm4-production-stage",
+        "label": "HBM4 Sample → Qualification → Ramp",
+        "priority": "immediate",
+        "sourceId": "counterpoint",
+        "source": "Counterpoint Research",
+        "sourceClass": "research",
+        "title": "전세계 D램 및 HBM 시장 점유율: 분기별 데이터 - 카운터포인트",
+        "url": "https://korea.counterpointresearch.com/global-dram-and-hbm-market-share-quarterly",
+        "publishedAt": "2026-06-10",
+        "changed": true
+      }
+    ],
+    "feedStatus": [
+      {
+        "id": "counterpoint-hbm-quarterly-share",
+        "sourceId": "counterpoint",
+        "kind": "metric-table",
+        "status": "fetched"
+      },
+      {
+        "id": "trendforce-hbm-wafer-input",
+        "sourceId": "trendforce",
+        "kind": "parallel-series",
+        "status": "fetched"
+      },
+      {
+        "id": "samsung-hbm4-stage",
+        "sourceId": "samsung-semiconductor",
+        "kind": "event",
+        "status": "fetched"
+      },
+      {
+        "id": "micron-quarterly-results",
+        "sourceId": "sec-edgar",
+        "kind": "event-index",
+        "status": "fetched"
+      },
+      {
+        "id": "skhynix-results-and-hbm",
+        "sourceId": "skhynix-newsroom",
+        "kind": "event",
+        "status": "fetched"
+      },
+      {
+        "id": "samsung-memory-validation-lab",
+        "sourceId": "samsung-smrc",
+        "kind": "knowledge",
+        "status": "fetched"
+      },
+      {
+        "id": "nvidia-dynamo-inference",
+        "sourceId": "nvidia-dynamo",
+        "kind": "knowledge",
+        "status": "fetched"
+      },
+      {
+        "id": "vllm-kv-offloading",
+        "sourceId": "vllm-kv-offloading",
+        "kind": "knowledge",
+        "status": "fetched"
+      },
+      {
+        "id": "llm-serving-systems-research",
+        "sourceId": "llm-serving-systems-research",
+        "kind": "knowledge",
+        "status": "fetched"
+      },
+      {
+        "id": "nvidia-ai-factory-reference",
+        "sourceId": "nvidia-nvl72-architecture",
+        "kind": "knowledge",
+        "status": "fetched"
+      }
+    ],
     "retrieval": {
       "mode": "incremental-extractive",
       "stats": {
-        "documents": 0,
-        "chunks": 0,
-        "reindexed": 0
+        "documents": 28,
+        "chunks": 117,
+        "added": 28,
+        "changed": 0,
+        "unchanged": 0,
+        "retained": 0,
+        "reindexed": 28
       },
-      "packs": []
+      "packs": [
+        {
+          "id": "hbm-market-and-ramp",
+          "label": "HBM Market & Ramp",
+          "decisionQuestion": "점유율 변화가 인증·패키징·공급 배분 중 어느 Gate에서 발생했는가?",
+          "status": "grounded",
+          "evidenceCount": 4,
+          "citations": [
+            {
+              "title": "Tight DRAM Supply Gives Suppliers Greater Pricing Power in HBM, with HBM Contract Prices Expected to Surge Multiples Higher in 2027, Says TrendForce",
+              "source": "TrendForce",
+              "sourceClass": "research",
+              "url": "https://www.trendforce.com/presscenter/news/20260602-13074.html",
+              "publishedAt": "2026-06-02"
+            },
+            {
+              "title": "Tight DRAM Supply Gives Suppliers Greater Pricing Power in HBM, with HBM Contract Prices Expected to Surge Multiples Higher in 2027, Says TrendForce",
+              "source": "TrendForce",
+              "sourceClass": "research",
+              "url": "https://www.trendforce.com/presscenter/news/20260602-13074.html",
+              "publishedAt": "2026-06-02"
+            },
+            {
+              "title": "Tight DRAM Supply Gives Suppliers Greater Pricing Power in HBM, with HBM Contract Prices Expected to Surge Multiples Higher in 2027, Says TrendForce",
+              "source": "TrendForce",
+              "sourceClass": "research",
+              "url": "https://www.trendforce.com/presscenter/news/20260602-13074.html",
+              "publishedAt": "2026-06-02"
+            }
+          ]
+        },
+        {
+          "id": "workload-and-tco",
+          "label": "Workload & TCO",
+          "decisionQuestion": "HBM 증설보다 먼저 제거할 Runtime·Memory Placement 병목은 무엇인가?",
+          "status": "grounded",
+          "evidenceCount": 4,
+          "citations": [
+            {
+              "title": "KV Offloading Usage Guide - vLLM",
+              "source": "vLLM KV Offloading",
+              "sourceClass": "official",
+              "url": "https://docs.vllm.ai/en/latest/features/kv_offloading_usage",
+              "publishedAt": "2026-01-08"
+            },
+            {
+              "title": "KV Offloading Usage Guide - vLLM",
+              "source": "vLLM KV Offloading",
+              "sourceClass": "official",
+              "url": "https://docs.vllm.ai/en/latest/features/kv_offloading_usage",
+              "publishedAt": "2026-01-08"
+            },
+            {
+              "title": "NVIDIA Dynamo, A Low-Latency Distributed Inference Framework for Scaling Reasoning AI Models | NVIDIA Technical Blog",
+              "source": "NVIDIA Dynamo",
+              "sourceClass": "official",
+              "url": "https://developer.nvidia.com/blog/introducing-nvidia-dynamo-a-low-latency-distributed-inference-framework-for-scaling-reasoning-ai-models",
+              "publishedAt": "2025-03-18"
+            }
+          ]
+        },
+        {
+          "id": "rag-and-vector-memory",
+          "label": "RAG & Vector Memory",
+          "decisionQuestion": "Quality Guardrail 아래 DRAM·CXL·eSSD 배치의 비용 교차점은 어디인가?",
+          "status": "grounded",
+          "evidenceCount": 4,
+          "citations": [
+            {
+              "title": "KV Offloading Usage Guide - vLLM",
+              "source": "vLLM KV Offloading",
+              "sourceClass": "official",
+              "url": "https://docs.vllm.ai/en/latest/features/kv_offloading_usage",
+              "publishedAt": "2026-01-08"
+            },
+            {
+              "title": "솔리드다임 뉴스룸 - news.solidigm.com",
+              "source": ".solidigm.com",
+              "sourceClass": "official",
+              "url": "https://news.solidigm.com/en-WW",
+              "publishedAt": "2026-08-12"
+            },
+            {
+              "title": "KV Offloading Usage Guide - vLLM",
+              "source": "vLLM KV Offloading",
+              "sourceClass": "official",
+              "url": "https://docs.vllm.ai/en/latest/features/kv_offloading_usage",
+              "publishedAt": "2026-01-08"
+            }
+          ]
+        },
+        {
+          "id": "capacity-and-contract",
+          "label": "Qualification & Capacity",
+          "decisionQuestion": "발표 물량이 Qualification·Binding Volume·Shipment·매출로 전환되는 조건은 무엇인가?",
+          "status": "grounded",
+          "evidenceCount": 4,
+          "citations": [
+            {
+              "title": "Tight DRAM Supply Gives Suppliers Greater Pricing Power in HBM, with HBM Contract Prices Expected to Surge Multiples Higher in 2027, Says TrendForce",
+              "source": "TrendForce",
+              "sourceClass": "research",
+              "url": "https://www.trendforce.com/presscenter/news/20260602-13074.html",
+              "publishedAt": "2026-06-02"
+            },
+            {
+              "title": "Tight DRAM Supply Gives Suppliers Greater Pricing Power in HBM, with HBM Contract Prices Expected to Surge Multiples Higher in 2027, Says TrendForce",
+              "source": "TrendForce",
+              "sourceClass": "research",
+              "url": "https://www.trendforce.com/presscenter/news/20260602-13074.html",
+              "publishedAt": "2026-06-02"
+            },
+            {
+              "title": "Tight DRAM Supply Gives Suppliers Greater Pricing Power in HBM, with HBM Contract Prices Expected to Surge Multiples Higher in 2027, Says TrendForce",
+              "source": "TrendForce",
+              "sourceClass": "research",
+              "url": "https://www.trendforce.com/presscenter/news/20260602-13074.html",
+              "publishedAt": "2026-06-02"
+            }
+          ]
+        }
+      ]
     },
     "evaluation": {
       "framework": "grounded-retrieval-quality-loop",
-      "status": "pending",
+      "status": "pass",
       "failClosed": true,
-      "groundingMode": "extractive-only",
+      "groundingMode": "extractive-only; no uncited generated claim is published",
       "metrics": {
-        "citationCoveragePct": 0,
-        "trackCoveragePct": 0,
-        "freshDocumentPct": 0,
-        "primaryOrResearchPct": 0,
+        "citationCoveragePct": 100,
+        "trackCoveragePct": 100,
+        "freshDocumentPct": 92.9,
+        "primaryOrResearchPct": 100,
         "conflictDisclosurePct": 100,
         "unsupportedClaimPct": 0
       }
@@ -173,7 +625,7 @@
         "evidenceLevel": "Watch",
         "sourceClass": "research"
       },
-      "evidenceCount": 11,
+      "evidenceCount": 10,
       "signals": [
         [
           "Watch · RESEARCH",
@@ -434,7 +886,7 @@
         "evidenceLevel": "Reported",
         "sourceClass": "research"
       },
-      "evidenceCount": 19,
+      "evidenceCount": 17,
       "signals": [
         [
           "Reported · RESEARCH",
@@ -679,7 +1131,7 @@
     {
       "id": "hbm",
       "label": "HBM·AI 서버",
-      "evidenceCount": 11,
+      "evidenceCount": 10,
       "latest": {
         "title": "Micron은 HBM4E를 맞춤형 HBM 시대의 시작으로 표시합니다. HBM 시장은 이중 또는 단일 공급업체 쪽으로 기울 수 있습니다",
         "summary": "메모리 거대 기업들은 점점 더 차세대 성장 엔진으로 맞춤형 HBM을 선택하고 있습니다. Investing.com에 따르면 KeyBanc 기술 리더십 포럼 2026에서 Micron EVP Sumit Sadana는 맞춤형 HBM으로의 전환이 HBM4E에서 시작될 것이며 회사는 맞춤형 SKU에 대해 고객과 협력할 계획이라고 말했습니다.",
@@ -697,11 +1149,11 @@
     {
       "id": "dram",
       "label": "DRAM·범용 가격",
-      "evidenceCount": 10,
+      "evidenceCount": 9,
       "latest": {
         "title": "AI 메모리 부족으로 인해 DRAM 및 NAND 가격이 수년간 높은 수준으로 유지될 수 있는 이유",
         "summary": "AI 중심 수요로 인해 역사상 최대 규모의 메모리 부족이 발생하고 있습니다. DRAM 및 NAND 가격이 향후 10년 동안 계속 상승할 것으로 예상되는 이유를 알아보세요.",
-        "source": "techinsights.com",
+        "source": "TechInsights",
         "url": "https://www.techinsights.com/blog/why-ai-memory-shortage-could-keep-dram-and-nand-prices-high-years",
         "publishedAt": "2026-08-07",
         "evidenceLevel": "Watch",
@@ -715,7 +1167,7 @@
     {
       "id": "nand",
       "label": "NAND·eSSD",
-      "evidenceCount": 19,
+      "evidenceCount": 17,
       "latest": {
         "title": "서버 주도 eSSD는 NAND 출하량의 48%를 기록했습니다. YMTC, 글로벌 톱 3 진입",
         "summary": "AI 추론 워크로드로 인해 기업용 SSD는 2026년 2분기 전 세계 NAND 출하량의 48%를 차지했으며, 이는 1년 전 26% 점유율의 거의 두 배에 달하는 수치입니다.",
@@ -733,7 +1185,7 @@
     {
       "id": "china",
       "label": "중국 경쟁",
-      "evidenceCount": 13,
+      "evidenceCount": 12,
       "latest": {
         "title": "메모리 제조업체 CXMT, IPO 후 17일 만에 Tencent를 제치고 중국에서 가장 가치 있는 기업으로 등극 - 현재 가치 5,240억 달러",
         "summary": "DRAM 제조업체는 목요일에 Tencent의 5,100억 달러 대비 가치가 5,240억 달러로 마감했습니다.",
@@ -788,36 +1240,60 @@
   "competitors": [
     {
       "company": "SKHY",
-      "hbmShare": null,
+      "hbmShare": "58%",
       "dramShare": "29%",
       "nandShare": null,
-      "asOf": null,
-      "source": null,
-      "sourceUrl": "",
-      "dataStatus": "automation-pending",
-      "trend": null
+      "asOf": "2026-Q1",
+      "source": "Counterpoint Research",
+      "sourceUrl": "https://korea.counterpointresearch.com/global-dram-and-hbm-market-share-quarterly",
+      "dataStatus": "single-source",
+      "trend": {
+        "direction": "up",
+        "changePctPoint": 1,
+        "priorPeriod": "2025-Q4",
+        "yearAgoPeriod": "2025-Q1",
+        "yearAgoChangePctPoint": -11,
+        "sourceCount": 1,
+        "representation": "point"
+      }
     },
     {
       "company": "삼성전자",
-      "hbmShare": null,
+      "hbmShare": "21%",
       "dramShare": "38%",
       "nandShare": null,
-      "asOf": null,
-      "source": null,
-      "sourceUrl": "",
-      "dataStatus": "automation-pending",
-      "trend": null
+      "asOf": "2026-Q1",
+      "source": "Counterpoint Research",
+      "sourceUrl": "https://korea.counterpointresearch.com/global-dram-and-hbm-market-share-quarterly",
+      "dataStatus": "single-source",
+      "trend": {
+        "direction": "down",
+        "changePctPoint": -1,
+        "priorPeriod": "2025-Q4",
+        "yearAgoPeriod": "2025-Q1",
+        "yearAgoChangePctPoint": 8,
+        "sourceCount": 1,
+        "representation": "point"
+      }
     },
     {
       "company": "마이크론",
-      "hbmShare": null,
+      "hbmShare": "21%",
       "dramShare": "22%",
       "nandShare": null,
-      "asOf": null,
-      "source": null,
-      "sourceUrl": "",
-      "dataStatus": "automation-pending",
-      "trend": null
+      "asOf": "2026-Q1",
+      "source": "Counterpoint Research",
+      "sourceUrl": "https://korea.counterpointresearch.com/global-dram-and-hbm-market-share-quarterly",
+      "dataStatus": "single-source",
+      "trend": {
+        "direction": "flat",
+        "changePctPoint": 0,
+        "priorPeriod": "2025-Q4",
+        "yearAgoPeriod": "2025-Q1",
+        "yearAgoChangePctPoint": 3,
+        "sourceCount": 1,
+        "representation": "point"
+      }
     }
   ],
   "partnerSpotlight": {
@@ -1239,8 +1715,8 @@
       "scheduleHours": 3,
       "failClosed": true
     },
-    "generatedAt": "2026-08-16T07:54:28.880Z",
-    "runId": "31934707940"
+    "generatedAt": "2026-08-16T09:07:37.916Z",
+    "runId": "31937829748"
   },
   "workloadOptimization": {
     "title": "Data Center Workload Optimization · Bottleneck-to-PoC",
@@ -1497,8 +1973,8 @@
       }
     ],
     "currentSignals": [],
-    "generatedAt": "2026-08-16T07:54:28.880Z",
-    "runId": "31934707940"
+    "generatedAt": "2026-08-16T09:07:37.916Z",
+    "runId": "31937829748"
   },
   "caseClassification": [
     {
@@ -1544,7 +2020,7 @@
           "evidenceLevel": "Watch",
           "sourceClass": "research"
         },
-        "evidenceCount": 11,
+        "evidenceCount": 10,
         "signals": [
           [
             "Watch · RESEARCH",
@@ -1805,7 +2281,7 @@
           "evidenceLevel": "Reported",
           "sourceClass": "research"
         },
-        "evidenceCount": 19,
+        "evidenceCount": 17,
         "signals": [
           [
             "Reported · RESEARCH",
@@ -1922,7 +2398,7 @@
         "phase": "OPTION",
         "tabLabel": "On-device Memory",
         "title": "AI Application & HW/SW · On-device",
-        "subtitle": "techinsights.com 최신 근거 · 2026-08-07",
+        "subtitle": "TechInsights 최신 근거 · 2026-08-07",
         "answerTitle": "AI 경험·Memory Footprint·BOM을 SKU별로 재설계",
         "recommendation": "PORTFOLIO GATE",
         "question": "AI 서버 수요와 공급 제약이 모바일·PC 메모리 원가로 전이될 때 어떤 고객·SKU·용량 구간을 우선 방어할 것인가?",
@@ -1931,13 +2407,13 @@
         "latest": {
           "title": "AI 메모리 부족으로 인해 DRAM 및 NAND 가격이 수년간 높은 수준으로 유지될 수 있는 이유",
           "summary": "AI 중심 수요로 인해 역사상 최대 규모의 메모리 부족이 발생하고 있습니다. DRAM 및 NAND 가격이 향후 10년 동안 계속 상승할 것으로 예상되는 이유를 알아보세요.",
-          "source": "techinsights.com",
+          "source": "TechInsights",
           "url": "https://www.techinsights.com/blog/why-ai-memory-shortage-could-keep-dram-and-nand-prices-high-years",
           "publishedAt": "2026-08-07",
           "evidenceLevel": "Watch",
           "sourceClass": "research"
         },
-        "evidenceCount": 10,
+        "evidenceCount": 9,
         "signals": [
           [
             "Watch · RESEARCH",
@@ -2028,7 +2504,7 @@
         "sources": [
           [
             "Watch",
-            "techinsights.com · 2026-08-07",
+            "TechInsights · 2026-08-07",
             "https://www.techinsights.com/blog/why-ai-memory-shortage-could-keep-dram-and-nand-prices-high-years"
           ],
           [
