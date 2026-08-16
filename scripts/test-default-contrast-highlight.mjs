@@ -35,6 +35,11 @@ const defaultContrastPairs = [
   ["#344b61", "#ffffff"],
   ["#f8fbff", "#102b3d"],
   ["#d6e4ee", "#102b3d"],
+  ["#102c43", "#eaf1f5"],
+  ["#40596c", "#eaf1f5"],
+  ["#f7fbff", "#17394f"],
+  ["#d4e2eb", "#17394f"],
+  ["#6f4c00", "#fff4cf"],
 ];
 const minimumDefaultContrast = Math.min(...defaultContrastPairs.map(([foreground, background]) => contrastRatio(foreground, background)));
 assert.ok(minimumDefaultContrast >= 4.5, `default text contrast must remain WCAG AA; received ${minimumDefaultContrast.toFixed(2)}:1`);
@@ -53,6 +58,11 @@ assert.match(css, /Automation status is always legible[\s\S]*?\.business-data-st
 assert.match(css, /\.business-data-status :is\(\.business-data-status-main strong, \.business-automation-flow strong, dd\)[\s\S]*?color:\s*#f7fbff;[\s\S]*?\.business-data-status :is\(small, dt, \.business-automation-flow small\)[\s\S]*?color:\s*#c5d4de;/, "automation labels and values must use high-contrast default colors");
 assert.match(css, /\.business-team-workstreams h3 \{[\s\S]*?color:\s*#fff;[\s\S]*?\.business-team-workstreams dd \{[\s\S]*?color:\s*#edf6fb;/, "team workstream cards must remain legible before hover");
 assert.match(css, /\.business-team-workstreams > article:is\(:hover, :focus-visible\)[\s\S]*?background:\s*#fff;[\s\S]*?\.business-team-workstreams > article:is\(:hover, :focus-visible\) dd \{ color:\s*#29465c;/, "inverted workstream cards must retain readable text");
+assert.match(css, /Nested inversion contract[\s\S]*?\.business-rag-operating-model\[data-hover-mode="dark-to-light"\]:is\(:hover, :focus-within\) > ol > li,[\s\S]*?background:\s*#eaf1f5 !important;/, "RAG pipeline and maturity panels must invert with their parent surface");
+assert.match(css, /\.business-rag-operating-model\[data-hover-mode="dark-to-light"\]:is\(:hover, :focus-within\) > ol > li strong,[\s\S]*?color:\s*#102c43 !important;/, "RAG pipeline copy must stay dark on the inverted light panels");
+assert.match(css, /\.business-rag-operating-model\[data-hover-mode="dark-to-light"\]:is\(:hover, :focus-within\) \.business-rag-maturity b \{[\s\S]*?color:\s*#071522 !important;[\s\S]*?background:\s*#69dfc3 !important;/, "RAG maturity level badges must retain their own readable contrast");
+assert.match(css, /\.business-kpi-tree\[data-hover-mode="light-to-dark"\]:is\(:hover, :focus-within\) article,[\s\S]*?\.business-partner-map\[data-hover-mode="light-to-dark"\]:is\(:hover, :focus-within\) li[\s\S]*?background:\s*#17394f !important;/, "nested KPI and partner panels must darken with a light-to-dark parent");
+assert.match(css, /\.business-contact-card\[data-hover-mode="dark-to-light"\]:is\(:hover, :focus-within\) :is\(a, button\)[\s\S]*?color:\s*#102c43 !important;[\s\S]*?background:\s*#ffffff !important;/, "contact actions must remain readable when the dark card flips to paper");
 assert.match(consoleCss, /\.consulting-system \.sc-card \{[\s\S]*?--sc-readable-ink:\s*#13263a;[\s\S]*?--sc-hover-surface:\s*#102b3d;/, "consulting strategy cards must define explicit readable and inverted palettes");
 assert.match(consoleCss, /\.consulting-system \.sc-card:is\(:hover, :focus-visible, :focus-within\)[\s\S]*?background:\s*var\(--sc-hover-surface\);[\s\S]*?color:\s*var\(--sc-hover-ink\);/, "consulting strategy cards must invert their full surface on hover and keyboard focus");
 assert.match(consoleCss, /\.consulting-system \.sc-card:is\(:hover, :focus-visible, :focus-within\) \.strategy-highlight \{[\s\S]*?color:\s*var\(--sc-hover-key\) !important;[\s\S]*?-webkit-text-fill-color:\s*var\(--sc-hover-key\);/, "highlighted strategy terms must remain readable on the inverted surface");
@@ -72,7 +82,7 @@ assert.match(landing, /parent\.closest\("mark, script, style[\s\S]*?business-key
 assert.match(landing, /maxPerSection[\s\S]*?maxTotal[\s\S]*?total >= maxTotal/);
 assert.match(landing, /highlightBusinessKeyTerms\(site, content\.presentation\)/, "every generated refresh must reapply the sparse emphasis policy");
 assert.match(landing, /applyPresentationPolicy\(content\.presentation\)/);
-assert.match(html, /infra-20260816-26/);
+assert.match(html, /infra-20260816-27/);
 assert.match(css, /@media \(max-width: 760px\)[\s\S]*?\.business-competency-output[\s\S]*?grid-column:\s*2 !important[\s\S]*?\.business-llm-causal-chain,[\s\S]*?\.business-contract-funnel[\s\S]*?overflow-x:\s*visible/);
 
 console.log(JSON.stringify({

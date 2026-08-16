@@ -6712,6 +6712,66 @@ body.landing-mode {
 .business-rag-maturity small { color: #aebfca; font-size: 8px; line-height: 1.45; }
 .business-rag-operating-model > footer { margin-top: 14px; padding-top: 12px; color: #c5d4de; border-top: 1px solid #36566b; font: 740 8px/1.55 var(--mono); }
 
+/* Nested inversion contract: a flipped parent must also flip every retained inner surface. */
+.business-site .business-rag-operating-model[data-hover-mode="dark-to-light"]:is(:hover, :focus-within) > header > strong {
+  color: #6f4c00 !important;
+  border-color: #d5bd72 !important;
+  background: #fff4cf !important;
+}
+.business-site .business-rag-operating-model[data-hover-mode="dark-to-light"]:is(:hover, :focus-within) > ol {
+  background: #b8c9d4 !important;
+}
+.business-site .business-rag-operating-model[data-hover-mode="dark-to-light"]:is(:hover, :focus-within) > ol > li,
+.business-site .business-rag-operating-model[data-hover-mode="dark-to-light"]:is(:hover, :focus-within) .business-rag-maturity > article {
+  color: #102c43 !important;
+  border-color: #b8c9d4 !important;
+  background: #eaf1f5 !important;
+}
+.business-site .business-rag-operating-model[data-hover-mode="dark-to-light"]:is(:hover, :focus-within) > ol > li span {
+  color: #08766f !important;
+}
+.business-site .business-rag-operating-model[data-hover-mode="dark-to-light"]:is(:hover, :focus-within) > ol > li strong,
+.business-site .business-rag-operating-model[data-hover-mode="dark-to-light"]:is(:hover, :focus-within) .business-rag-maturity strong {
+  color: #102c43 !important;
+}
+.business-site .business-rag-operating-model[data-hover-mode="dark-to-light"]:is(:hover, :focus-within) .business-rag-maturity small,
+.business-site .business-rag-operating-model[data-hover-mode="dark-to-light"]:is(:hover, :focus-within) > footer {
+  color: #40596c !important;
+}
+.business-site .business-rag-operating-model[data-hover-mode="dark-to-light"]:is(:hover, :focus-within) .business-rag-maturity b {
+  color: #071522 !important;
+  border-color: #08766f !important;
+  background: #69dfc3 !important;
+}
+.business-site .business-rag-operating-model[data-hover-mode="dark-to-light"]:is(:hover, :focus-within) > footer {
+  border-color: #b8c9d4 !important;
+}
+
+/* Other nested cards follow the same contrast rule instead of retaining the old surface. */
+.business-site .business-kpi-tree[data-hover-mode="light-to-dark"]:is(:hover, :focus-within) article,
+.business-site .business-partner-map[data-hover-mode="light-to-dark"]:is(:hover, :focus-within) li {
+  color: #f7fbff !important;
+  border-color: rgba(255, 255, 255, .2) !important;
+  background: #17394f !important;
+}
+.business-site .business-kpi-tree[data-hover-mode="light-to-dark"]:is(:hover, :focus-within) article strong,
+.business-site .business-partner-map[data-hover-mode="light-to-dark"]:is(:hover, :focus-within) li strong {
+  color: #f7fbff !important;
+}
+.business-site .business-kpi-tree[data-hover-mode="light-to-dark"]:is(:hover, :focus-within) article small,
+.business-site .business-partner-map[data-hover-mode="light-to-dark"]:is(:hover, :focus-within) li span {
+  color: #d4e2eb !important;
+}
+.business-site .business-flagship-partnership[data-hover-mode="dark-to-light"]:is(:hover, :focus-within) .business-flagship-flow {
+  border-color: #b8c9d4 !important;
+  background: #eaf1f5 !important;
+}
+.business-site .business-contact-card[data-hover-mode="dark-to-light"]:is(:hover, :focus-within) :is(a, button) {
+  color: #102c43 !important;
+  border-color: #8299a6 !important;
+  background: #ffffff !important;
+}
+
 .business-workload-matrix { grid-template-columns: repeat(3, minmax(0, 1fr)); }
 .business-workload-matrix article { min-height: 360px; }
 .business-workload-matrix h4 { min-height: 0; margin-top: 20px; }
