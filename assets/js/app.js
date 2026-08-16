@@ -5332,7 +5332,7 @@
   const deferredSectionRuns = new Map();
   const deferredRenderedSections = new Set(["overview", "overview-content"]);
   let priceBoardPreloadStarted = false;
-  let deferredSectionObserver = null;
+  let deferredHydrationQueueStarted = false;
 
   function deferredSectionDefinitions() {
     return [
@@ -5501,7 +5501,6 @@
     if (!section) return Promise.resolve();
 
     const run = (async () => {
-      deferredSectionObserver?.unobserve(section);
       section.dataset.deferredState = "loading";
       section.setAttribute("aria-busy", "true");
       const dataStartedAt = performance.now();
@@ -5510,6 +5509,10 @@
       const renderStartedAt = performance.now();
       definition.render();
       section.dataset.deferredRenderMs = String(Math.round(performance.now() - renderStartedAt));
+      // Build while content-visibility is still contained, then expose the
+      // completed board. This prevents a large offscreen layout from blocking
+      // the next progressive step.
+      section.dataset.progressivePaint = "ready";
       deferredRenderedSections.add(id);
       section.dataset.deferredState = "ready";
       section.removeAttribute("aria-busy");
@@ -5534,45 +5537,42 @@
     const definitions = deferredSectionDefinitions();
     const ready = definitions.filter((definition) => deferredRenderedSections.has(definition.id)).length;
     document.body.dataset.deferredHydrationReady = String(ready);
-    document.body.dataset.deferredHydration = ready === definitions.length ? "ready" : "on-demand";
+    document.body.dataset.deferredHydration = ready === definitions.length ? "ready" : "progressive";
   }
 
-  function observeDeferredSections(definitions) {
-    const sections = definitions
-      .map((definition) => document.getElementById(definition.id))
-      .filter(Boolean);
+  function scheduleProgressiveDeferredSections(definitions) {
+    if (deferredHydrationQueueStarted) return;
+    deferredHydrationQueueStarted = true;
+    const queue = definitions.filter((definition) => document.getElementById(definition.id));
+    let cursor = 0;
 
-    if ("IntersectionObserver" in window) {
-      deferredSectionObserver = new IntersectionObserver((entries) => {
-        entries.forEach((entry) => {
-          if (!entry.isIntersecting) return;
-          deferredSectionObserver?.unobserve(entry.target);
-          void ensureDeferredSection(entry.target.id);
-        });
-      }, { rootMargin: "900px 0px", threshold: 0.01 });
-      sections.forEach((section) => deferredSectionObserver.observe(section));
-      window.addEventListener("pagehide", () => deferredSectionObserver?.disconnect(), { once: true });
-      return;
-    }
+    const startNext = () => {
+      const run = async () => {
+        const definition = queue[cursor++];
+        const section = definition && document.getElementById(definition.id);
+        if (section) {
+          await ensureDeferredSection(definition.id);
+        }
+        document.body.dataset.deferredHydrationScheduled = String(cursor);
+        if (cursor < queue.length) scheduleNext();
+        else document.body.dataset.deferredHydrationQueue = "scheduled";
+      };
+      if ("requestIdleCallback" in window) window.requestIdleCallback(() => { void run(); }, { timeout: 460 });
+      else window.setTimeout(() => { void run(); }, 84);
+    };
+    const scheduleNext = () => startNext();
 
-    // Compatibility path for older browsers: check proximity only while the user
-    // moves through the document. Modern browsers stay on the zero-layout-read IO path.
-    let frame = 0;
-    const hydrateNearby = () => {
-      frame = 0;
-      sections.forEach((section) => {
-        if (section.dataset.deferredState !== "waiting") return;
-        const rect = section.getBoundingClientRect();
-        if (rect.top <= window.innerHeight + 900 && rect.bottom >= -400) void ensureDeferredSection(section.id);
+    // The first board is lightweight and becomes ready with the interactive shell.
+    // Every following board is started in DOM order without waiting for scrolling.
+    const first = queue[cursor++];
+    if (first) {
+      void ensureDeferredSection(first.id).finally(() => {
+        document.body.dataset.deferredHydrationScheduled = String(cursor);
+        if (cursor < queue.length) scheduleNext();
       });
-    };
-    const schedule = () => {
-      if (frame) return;
-      frame = window.requestAnimationFrame(hydrateNearby);
-    };
-    window.addEventListener("scroll", schedule, { passive: true });
-    window.addEventListener("resize", schedule, { passive: true });
-    schedule();
+    } else {
+      document.body.dataset.deferredHydrationQueue = "scheduled";
+    }
   }
 
   function setupDeferredSections() {
@@ -5588,10 +5588,7 @@
     updateDeferredHydrationStatus();
     setupPriceBoardPreload();
     setupDecisionHistoryPreload();
-    observeDeferredSections(definitions);
-    // The strategy board is the first content after the hero and has no secondary
-    // data dependency, so make it ready immediately while every deep section waits.
-    void ensureDeferredSection("strategy-consulting");
+    scheduleProgressiveDeferredSections(definitions);
   }
 
   /* ---------------- Hyperscaler memory demand · scenario planning ---------------- */
@@ -13638,7 +13635,31 @@
   function renderNumberLiveRibbon() {
     const wrap = $("#numberLiveRibbon");
     if (!wrap) return;
-    const items = ["projection", "china-nand"].map(sectionTelemetry);
+    // The ribbon only needs two compact metrics. Calling sectionTelemetry here
+    // previously calculated every hidden market, talent and backtest model for
+    // each card, making the Numbers board the slowest progressive step.
+    const projectionSignals = projectionTotalSignals();
+    const nandSignals = CHINA_NAND_BUSINESS_LAYERS.reduce((sum, item) => sum + nandBusinessSignalCount(item), 0);
+    const items = [
+      {
+        section: "projection",
+        label: SECTION_LABELS.projection || "Projection",
+        value: projectionSignals,
+        unit: "원문",
+        status: "Projection",
+        score: clamp(58 + Math.min(projectionSignals, 180) * .18),
+        note: "고유 원문 기반 30개월 후~5년 모델",
+      },
+      {
+        section: "china-nand",
+        label: SECTION_LABELS["china-nand"] || "NAND",
+        value: nandSignals,
+        unit: "signal",
+        status: "NAND",
+        score: clamp(54 + Math.min(nandSignals, 40)),
+        note: "YMTC·XMC·eSSD·장비",
+      },
+    ];
     wrap.innerHTML = items.map((item) => `
       <button class="quant-ribbon-card reveal" type="button" data-jump="${escapeHTML(item.section)}" style="--local-accent:${categoryAccent((item.section === "projection" && "hbm") || (item.section === "china-nand" && "nand") || (item.section === "china-dynamics" && "china") || (item.section === "prices" && "dram") || (item.section === "news" && "geopolitics") || "operations")}">
         <span class="score-ring compact" data-score-to="${item.score}" style="--score:0">
@@ -13682,6 +13703,7 @@
     const meta = $("#numberMeta");
     if (meta) meta.textContent = `${numberLensData().label} · ${fmtNum(items.length)}개 지표 · ${activeCategoryData()?.label || "전체"} · ${fmtDate(LIVE.updatedAt)}`;
     grid.innerHTML = "";
+    const fragment = document.createDocumentFragment();
     items.forEach((item, index) => {
       const payload = {
         type: item.kind || "정량 분석",
@@ -13763,8 +13785,9 @@
         renderNumberAnalysis();
       });
       makeInspectable(card, payload);
-      grid.appendChild(card);
+      fragment.appendChild(card);
     });
+    grid.appendChild(fragment);
     if (!grid.children.length) grid.appendChild(el("div", "empty", "선택한 카테고리의 숫자 지표가 없습니다."));
     animateCounts(grid);
     animateMeters(grid);
@@ -20960,7 +20983,8 @@
     toggle.setAttribute("aria-controls", "qaDrop");
 
     const openDrop = () => {
-      renderQADrop(input.value);
+      const filter = input.value.trim();
+      if (drop.dataset.qaFilter !== filter || drop.dataset.qaCategory !== selectedQaCategory) renderQADrop(filter);
       drop.hidden = false;
       box.classList.add("open");
       toggle.setAttribute("aria-expanded", "true");
@@ -21002,6 +21026,17 @@
     document.addEventListener("click", (event) => {
       if (!$("#qaBox").contains(event.target)) closeDrop();
     });
+
+    const prepareDrop = () => {
+      if (!drop.dataset.qaPrepared) {
+        renderQADrop("");
+        drop.dataset.qaPrepared = "1";
+      }
+    };
+    toggle.addEventListener("pointerenter", prepareDrop, { once: true, passive: true });
+    input.addEventListener("pointerenter", prepareDrop, { once: true, passive: true });
+    if ("requestIdleCallback" in window) window.requestIdleCallback(prepareDrop, { timeout: 700 });
+    else window.setTimeout(prepareDrop, 120);
   }
 
   function currentQAData() {
@@ -21038,6 +21073,8 @@
     const drop = $("#qaDrop");
     const data = currentQAData();
     const q = String(filter || "").trim();
+    drop.dataset.qaFilter = q;
+    drop.dataset.qaCategory = selectedQaCategory;
     const cats = data.cats || [];
     const scored = (data.pairs || []).map((pair) => ({ pair, score: qaMatchScore(pair, q) }));
     const matchedPairs = q
@@ -21463,7 +21500,14 @@
   }
 
   /* ---------------- Prices ---------------- */
+  let priceRenderCache = null;
+
+  function priceRowKey(row = {}) {
+    return String(row.historyKey || row.key || `${row.sectionTitle || ""}::${row.item || ""}`).toLowerCase();
+  }
+
   function allPriceRows() {
+    if (priceRenderCache?.allRows) return priceRenderCache.allRows;
     const sections = LIVE.prices?.sections || [];
     const rows = sections.flatMap((section) => (section.rows || []).map((row) => ({
       ...row,
@@ -21472,8 +21516,7 @@
       lastUpdate: section.lastUpdate,
       sourceUrl: section.sourceUrl,
     })));
-    if (rows.length) return rows.filter((row) => !isCrawlExcluded("price", row));
-    return (LIVE.prices?.watchedItems || []).map((row) => ({
+    const result = rows.length ? rows.filter((row) => !isCrawlExcluded("price", row)) : (LIVE.prices?.watchedItems || []).map((row) => ({
       ...row,
       sectionTitle: row.sectionTitle,
       group: row.group,
@@ -21481,6 +21524,8 @@
       sourceUrl: row.sourceUrl,
       fallback: true,
     })).filter((row) => !isCrawlExcluded("price", row));
+    if (priceRenderCache) priceRenderCache.allRows = result;
+    return result;
   }
 
   function priceCategoryFor(row = {}) {
@@ -21502,6 +21547,9 @@
   }
 
   function enrichedPriceRows(categoryId = activeCategory) {
+    const cacheKey = String(categoryId || "all");
+    const cached = priceRenderCache?.enriched.get(cacheKey);
+    if (cached) return cached;
     let rows = allPriceRows().map((row) => {
       const category = priceCategoryFor(row);
       return {
@@ -21513,13 +21561,18 @@
     });
     if (categoryId === "dram") rows = rows.filter((row) => ["dram-chip", "dram-module", "graphics"].includes(row.priceCategoryId));
     if (categoryId === "nand") rows = rows.filter((row) => ["nand-flash", "nand-wafer", "storage"].includes(row.priceCategoryId));
+    priceRenderCache?.enriched.set(cacheKey, rows);
     return rows;
   }
 
   function priceRowsFor(categoryId = activeCategory) {
+    const cacheKey = `${categoryId || "all"}:${priceFilter}`;
+    const cached = priceRenderCache?.filtered.get(cacheKey);
+    if (cached) return cached;
     let rows = enrichedPriceRows(categoryId);
     const filter = PRICE_CATEGORY_FILTERS.find((item) => item.id === priceFilter) || PRICE_CATEGORY_FILTERS[0];
     rows = rows.filter((row) => filter.test(row));
+    priceRenderCache?.filtered.set(cacheKey, rows);
     return rows;
   }
 
@@ -21573,15 +21626,20 @@
   }
 
   function priceHistoryFor(row = {}) {
-    const key = row.historyKey || row.key || `${row.sectionTitle || ""}::${row.item || ""}`.toLowerCase();
+    const key = priceRowKey(row);
+    const cached = priceRenderCache?.history.get(key);
+    if (cached) return cached;
     const points = HISTORY?.items?.[key]?.points || row.history || [];
-    return points
+    const result = points
       .map((point) => ({ ...point, time: pricePointTime(point) }))
       .filter((point) => point.time && point.average != null && !Number.isNaN(Number(point.average)))
       .sort((a, b) => a.time - b.time);
+    priceRenderCache?.history.set(key, result);
+    return result;
   }
 
   function priceDateEntries() {
+    if (priceRenderCache?.dateEntries) return priceRenderCache.dateEntries;
     const byDate = new Map();
     allPriceRows().forEach((row) => {
       priceHistoryFor(row).forEach((point) => {
@@ -21591,7 +21649,9 @@
         if (!prev || point.time > prev.time) byDate.set(key, { key, time: point.time });
       });
     });
-    return Array.from(byDate.values()).sort((a, b) => b.time - a.time);
+    const entries = Array.from(byDate.values()).sort((a, b) => b.time - a.time);
+    if (priceRenderCache) priceRenderCache.dateEntries = entries;
+    return entries;
   }
 
   function activePriceDateEntry() {
@@ -21681,10 +21741,13 @@
   }
 
   function priceTrendForRow(row = {}) {
+    const cacheKey = priceRowKey(row);
+    const cached = priceRenderCache?.trends.get(cacheKey);
+    if (cached) return cached;
     const points = priceHistoryFor(row);
     activePriceDateEntry();
     if (!points.length) {
-      return {
+      const trend = {
         points: (row.history || []).map((point) => Number(point.average)).filter((value) => !Number.isNaN(value)),
         startAverage: row.average,
         latestAverage: row.average,
@@ -21698,6 +21761,8 @@
         pointCount: 0,
         coverageDays: 0,
       };
+      priceRenderCache?.trends.set(cacheKey, trend);
+      return trend;
     }
     const { scoped, start, end, isPeriodComplete, coverageDays } = scopedPricePoints(points);
     const period = activePricePeriod();
@@ -21715,7 +21780,7 @@
         ? `선택 ${period.label} 전체 관측`
         : `최대 관측 ${fmtNum(Math.round(coverageDays))}일`
       : `선택 ${period.label}`;
-    return {
+    const trend = {
       points: scoped.map((point) => Number(point.average)).filter((value) => !Number.isNaN(value)),
       average: end.average,
       averageRaw: end.averageRaw || formatPrice(end.average),
@@ -21737,6 +21802,8 @@
       sourceUpdate: end.sourceUpdate,
       crawledAt: end.crawledAt,
     };
+    priceRenderCache?.trends.set(cacheKey, trend);
+    return trend;
   }
 
   function renderPriceControls() {
@@ -21771,35 +21838,48 @@
   }
 
   function renderPrices() {
-    const tabs = $("#priceTabs");
-    tabs.innerHTML = "";
-    const tabRows = enrichedPriceRows(activeCategory);
-    PRICE_CATEGORY_FILTERS.forEach(({ id, label }) => {
-      const count = id === "all"
-        ? tabRows.length
-        : tabRows.filter((row) => row.priceCategoryId === id).length;
-      const btn = el("button", id === priceFilter ? "active" : "", `${label}${count ? ` · ${fmtNum(count)}` : ""}`);
-      btn.type = "button";
-      btn.addEventListener("click", () => {
-        priceFilter = id;
-        renderPrices();
+    const previousCache = priceRenderCache;
+    priceRenderCache = {
+      allRows: null,
+      enriched: new Map(),
+      filtered: new Map(),
+      history: new Map(),
+      dateEntries: null,
+      trends: new Map(),
+    };
+    try {
+      const tabs = $("#priceTabs");
+      tabs.innerHTML = "";
+      const tabRows = enrichedPriceRows(activeCategory);
+      PRICE_CATEGORY_FILTERS.forEach(({ id, label }) => {
+        const count = id === "all"
+          ? tabRows.length
+          : tabRows.filter((row) => row.priceCategoryId === id).length;
+        const btn = el("button", id === priceFilter ? "active" : "", `${label}${count ? ` · ${fmtNum(count)}` : ""}`);
+        btn.type = "button";
+        btn.addEventListener("click", () => {
+          priceFilter = id;
+          renderPrices();
+        });
+        tabs.appendChild(btn);
       });
-      tabs.appendChild(btn);
-    });
 
-    renderPriceControls();
-    renderPriceSummary();
-    renderPriceMeceSummary();
-    renderMarketIndexPanel();
-    renderPriceRows();
-    setFreshness("#priceFreshness", {
-      label: "가격",
-      updatedAt: LIVE.prices?.updatedAt || LIVE.updatedAt,
-      source: LIVE.prices?.source || "TrendForce",
-      count: allPriceRows().length,
-      healthKeys: ["가격:"],
-      staleHours: 30,
-    });
+      renderPriceControls();
+      renderPriceSummary();
+      renderPriceMeceSummary();
+      renderMarketIndexPanel();
+      renderPriceRows();
+      setFreshness("#priceFreshness", {
+        label: "가격",
+        updatedAt: LIVE.prices?.updatedAt || LIVE.updatedAt,
+        source: LIVE.prices?.source || "TrendForce",
+        count: allPriceRows().length,
+        healthKeys: ["가격:"],
+        staleHours: 30,
+      });
+    } finally {
+      priceRenderCache = previousCache;
+    }
   }
 
   function renderPriceSummary() {
@@ -23525,9 +23605,10 @@
     const groups = categoryFilters
       .map((filter) => ({ ...filter, rows: rows.filter((row) => row.priceCategoryId === filter.id) }))
       .filter((group) => group.rows.length > 0);
+    const fragment = document.createDocumentFragment();
     groups.forEach((group, groupIndex) => {
       if (groupIndex) {
-        tbody.appendChild(el("tr", "price-group-spacer", '<td colspan="7" aria-hidden="true"></td>'));
+        fragment.appendChild(el("tr", "price-group-spacer", '<td colspan="7" aria-hidden="true"></td>'));
       }
 
       const trends = group.rows.map((row) => priceTrendForRow(row));
@@ -23560,7 +23641,7 @@
       const chartHost = groupCell.querySelector(".price-category-chart i");
       chartHost.appendChild(sparkline(aggregate.points, aggregate.direction));
       groupRow.appendChild(groupCell);
-      tbody.appendChild(groupRow);
+      fragment.appendChild(groupRow);
 
       group.rows.forEach((row, rowIndex) => {
         const tr = el("tr", "price-data-row");
@@ -23580,9 +23661,10 @@
         `;
         tr.children[6].appendChild(sparkline(trend.points, trend.direction));
         attachCrawlModerationControl(tr, "price", row, row.item, renderPrices, tr.children[6]);
-        tbody.appendChild(tr);
+        fragment.appendChild(tr);
       });
     });
+    tbody.appendChild(fragment);
   }
 
   function aggregatePriceTrend(trends = []) {

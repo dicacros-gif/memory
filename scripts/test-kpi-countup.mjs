@@ -144,14 +144,14 @@ const pricePreloadSource = app.slice(
   app.indexOf("let decisionHistoryPreloadStarted"),
 );
 assert.doesNotMatch(pricePreloadSource, /requestIdleCallback\(start|setTimeout\(start/, "full market history must not load automatically after first paint");
-assert.match(app, /function observeDeferredSections\(definitions\)[\s\S]*?new IntersectionObserver[\s\S]*?ensureDeferredSection\(entry\.target\.id\)[\s\S]*?rootMargin: "900px 0px"/, "deep sections should hydrate just ahead of the viewport");
-assert.doesNotMatch(app, /hydrateDeferredSectionsSequentially|deferredDefinitionsInDocumentOrder|Promise\.allSettled\(\[[\s\S]*?enterpriseProfiles/, "initial loading must not construct every board or fetch every secondary dataset");
-assert.match(app, /document\.body\.dataset\.deferredHydration = ready === definitions\.length \? "ready" : "on-demand"/, "the site should expose on-demand hydration progress");
+assert.match(app, /function scheduleProgressiveDeferredSections\(definitions\)[\s\S]*?await ensureDeferredSection\(definition\.id\)[\s\S]*?requestIdleCallback\(\(\) => \{ void run\(\); \}, \{ timeout: 460 \}\)/, "deep sections should hydrate progressively from top to bottom");
+assert.doesNotMatch(app, /Promise\.allSettled\(\[[\s\S]*?enterpriseProfiles/, "progressive loading must not fetch every secondary dataset in one burst");
+assert.match(app, /document\.body\.dataset\.deferredHydration = ready === definitions\.length \? "ready" : "progressive"/, "the site should expose progressive hydration status");
 assert.match(app, /loadManagedJSON\("live", "data\/live-client\.json"[\s\S]*?loadManagedJSON\("quant", "data\/quant-client\.json"/, "initial managed-data fallbacks must remain browser-sized client artifacts");
 assert.match(app, /priceHistory: \{[\s\S]*?path: "data\/price-history-client\.json"[\s\S]*?marketHistory: \{[\s\S]*?path: "data\/market-history-client\.json"/, "secondary fallbacks must never download database-sized history files");
 assert.match(css, /\.agent-debate-title \.agent-tts-toggle \{[\s\S]*?min-width: 190px;[\s\S]*?min-height: 44px;/, "the English TTS control should be large and readable");
 assert.match(css, /\.agent-tts-state \{[\s\S]*?min-width: 31px;/, "the TTS control should expose a dedicated on-or-off state badge");
-assert.match(html, /landing\.min\.js\?v=infra-20260816-28/, "the public landing controller should include the minified AI Infra revision");
+assert.match(html, /landing\.min\.js\?v=infra-20260816-29/, "the public landing controller should include the minified AI Infra revision");
 assert.match(css, /\.consulting-system \.news-card:is\(:hover, :focus-within\) \.news-insights > span \{[\s\S]*?background: rgba\(255, 255, 255, \.9\);[\s\S]*?color: var\(--consulting-slate\) !important;[\s\S]*?-webkit-text-fill-color: var\(--consulting-slate\);/, "light consulting news cards must keep high-contrast insight copy on hover");
 assert.match(css, /\.consulting-system \.news-card:is\(:hover, :focus-within\) :is\(\.strategy-highlight, \.answer-term\) \{[\s\S]*?--term-color: #334155;[\s\S]*?text-shadow: none;/, "light consulting news cards must restore dark semantic terms on hover");
 assert.doesNotMatch(html, /<script[^>]+src="assets\/js\/app\.js/, "the dashboard JavaScript must load only when the Intelligence Console is opened");

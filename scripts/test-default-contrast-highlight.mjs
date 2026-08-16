@@ -82,7 +82,7 @@ assert.match(landing, /parent\.closest\("mark, script, style[\s\S]*?business-key
 assert.match(landing, /maxPerSection[\s\S]*?maxTotal[\s\S]*?total >= maxTotal/);
 assert.match(landing, /highlightBusinessKeyTerms\(site, content\.presentation\)/, "every generated refresh must reapply the sparse emphasis policy");
 assert.match(landing, /applyPresentationPolicy\(content\.presentation\)/);
-assert.match(html, /infra-20260816-28/);
+assert.match(html, /infra-20260816-29/);
 assert.match(css, /@media \(max-width: 760px\)[\s\S]*?\.business-competency-output[\s\S]*?grid-column:\s*2 !important[\s\S]*?\.business-llm-causal-chain,[\s\S]*?\.business-contract-funnel[\s\S]*?overflow-x:\s*visible/);
 
 console.log(JSON.stringify({

@@ -698,9 +698,9 @@ const deferredSectionBlock = appText.slice(
   appText.indexOf("function setupDeferredSections"),
   appText.indexOf("/* ---------------- Hyperscaler"),
 );
-assert.match(appText, /function observeDeferredSections\(definitions\)[\s\S]*?new IntersectionObserver[\s\S]*?ensureDeferredSection\(entry\.target\.id\)[\s\S]*?rootMargin: "900px 0px"/, "below-the-fold boards must hydrate shortly before viewport arrival");
-assert.match(deferredSectionBlock, /observeDeferredSections\(definitions\)/, "on-demand viewport hydration must start after core rendering");
-assert.doesNotMatch(appText, /hydrateDeferredSectionsSequentially|scheduleSequentialDeferredHydration/, "deep boards must not auto-hydrate during initial loading");
+assert.match(appText, /function scheduleProgressiveDeferredSections\(definitions\)[\s\S]*?await ensureDeferredSection\(definition\.id\)[\s\S]*?requestIdleCallback\(\(\) => \{ void run\(\); \}, \{ timeout: 460 \}\)/, "below-the-fold boards must start progressively without a scroll trigger");
+assert.match(deferredSectionBlock, /scheduleProgressiveDeferredSections\(definitions\)/, "progressive hydration must start after core rendering");
+assert.doesNotMatch(appText, /function observeDeferredSections\(|rootMargin: "900px 0px"/, "deep board hydration must not depend on scrolling");
 const jumpNavigationBlock = appText.slice(
   appText.indexOf("async function jumpTo"),
   appText.indexOf("function setupScrollSpy"),

@@ -3,7 +3,7 @@
 
   const BUSINESS_TITLE = "AI Infra Strategy OS · Customer Pain to Growth";
   const CONSOLE_HASH = "#console";
-  const CONSOLE_REVISION = "infra-20260816-28";
+  const CONSOLE_REVISION = "infra-20260816-29";
   const DECISION_CLIENT_PATH = "data/landing-decision-client.json";
   const SITE_CONTENT_PATH = "data/site-content-client.json";
   const site = document.querySelector("#businessSite");
@@ -23,6 +23,8 @@
   let consultingMotionObserver = null;
   let presentationPolicy = null;
   let businessReady = false;
+  let businessWarmupStarted = false;
+  let consoleWarmupStarted = false;
   let consoleStartupTimer = 0;
   let view = "business";
 
@@ -75,15 +77,25 @@
     return consoleLayer;
   }
 
-  function ensurePreload(id, as, href, priority = "auto") {
-    if (document.getElementById(id)) return;
+  function ensureResourceHint(id, rel, as, href, priority = "auto") {
+    const existing = document.getElementById(id);
+    if (existing) {
+      if (rel === "preload" && existing.rel !== "preload") existing.rel = "preload";
+      existing.fetchPriority = priority;
+      return existing;
+    }
     const link = document.createElement("link");
     link.id = id;
-    link.rel = "preload";
+    link.rel = rel;
     link.as = as;
     link.href = href;
     link.fetchPriority = priority;
     document.head.appendChild(link);
+    return link;
+  }
+
+  function ensurePreload(id, as, href, priority = "auto") {
+    return ensureResourceHint(id, "preload", as, href, priority);
   }
 
   function primeConsoleAssets() {
@@ -307,6 +319,32 @@
       const footerLink = panel.querySelector(":scope > .business-decision-footer a");
       if (footerLink) footerLink.href = safeBusinessUrl(decision.deepLink);
     }
+  }
+
+  function scheduleIdleStep(task, timeout = 420) {
+    if ("requestIdleCallback" in window) {
+      window.requestIdleCallback(task, { timeout });
+    } else {
+      window.setTimeout(() => task({ didTimeout: true, timeRemaining: () => 0 }), 72);
+    }
+  }
+
+  function scheduleConsoleAssetWarmup() {
+    if (consoleWarmupStarted || isConsoleHash()) return;
+    consoleWarmupStarted = true;
+    const resources = [
+      ["consoleStylesPreload", "style", `assets/css/styles.min.css?v=${CONSOLE_REVISION}`],
+      ["consoleAppPreload", "script", `assets/js/app.min.js?v=${CONSOLE_REVISION}`],
+      ["consolePosterPreload", "image", "assets/media/memory-hero-poster.webp"],
+    ];
+    let cursor = 0;
+    const warmNext = () => scheduleIdleStep(() => {
+      const resource = resources[cursor++];
+      if (resource) ensureResourceHint(resource[0], "prefetch", resource[1], resource[2], "low");
+      if (cursor < resources.length) warmNext();
+      else document.body.dataset.consoleWarmup = "ready";
+    }, 650);
+    warmNext();
   }
 
   function renderOrganizationOperatingModel(content = {}) {
@@ -1055,7 +1093,7 @@
   }
 
   function setupReveal() {
-    const candidates = document.querySelectorAll([
+    const candidates = [...document.querySelectorAll([
       ".business-hero-visual",
       ".business-section-heading",
       ".business-heading-points",
@@ -1096,22 +1134,34 @@
       ".business-data-status",
       ".business-status-rules",
       ".business-about-card",
-    ].join(","));
-    if (!("IntersectionObserver" in window)) {
-      for (const element of candidates) element.classList.add("is-visible");
-      return;
-    }
-    const observer = new IntersectionObserver((entries) => {
-      for (const entry of entries) {
-        if (!entry.isIntersecting) continue;
-        entry.target.classList.add("is-visible");
-        observer.unobserve(entry.target);
+    ].join(","))];
+    for (const element of candidates) element.classList.add("business-reveal");
+    setupSequentialBusinessWarmup(candidates);
+  }
+
+  function setupSequentialBusinessWarmup(candidates = []) {
+    if (businessWarmupStarted) return;
+    businessWarmupStarted = true;
+    const sections = [...document.querySelectorAll(".business-site > main > .business-section")];
+    const revealSection = (section) => {
+      section.dataset.progressiveState = "ready";
+      for (const element of candidates) {
+        if (element === section || section.contains(element)) element.classList.add("is-visible");
       }
-    }, { rootMargin: "0px 0px -8%", threshold: 0.08 });
-    for (const element of candidates) {
-      element.classList.add("business-reveal");
-      observer.observe(element);
-    }
+    };
+    candidates.filter((element) => !element.closest(".business-section")).forEach((element) => element.classList.add("is-visible"));
+    if (!sections.length) return;
+
+    let cursor = 0;
+    revealSection(sections[cursor++]);
+    const revealNext = () => scheduleIdleStep(() => {
+      const section = sections[cursor++];
+      if (section) revealSection(section);
+      document.body.dataset.businessWarmupReady = String(cursor);
+      if (cursor < sections.length) revealNext();
+      else document.body.dataset.businessWarmup = "ready";
+    });
+    if (cursor < sections.length) revealNext();
   }
 
   function setupInfographicSequence() {
@@ -1342,7 +1392,7 @@
   function setupBusinessExperience() {
     if (businessReady) return;
     businessReady = true;
-    void loadSiteContent();
+    void loadSiteContent().then(scheduleConsoleAssetWarmup);
     scheduleSiteContentRefresh();
     setupAudienceTabs();
     setupPainPointFramework();

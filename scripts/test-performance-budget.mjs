@@ -25,13 +25,19 @@ const entries = await Promise.all(Object.entries(paths).map(async ([key, path]) 
 const files = Object.fromEntries(entries);
 
 assert.match(files.html.text, /<template id="consoleTemplate">[\s\S]*?id="intelligenceConsole"[\s\S]*?<\/template>/);
-assert.match(files.html.text, /assets\/css\/landing\.min\.css\?v=infra-20260816-28/);
-assert.match(files.html.text, /assets\/js\/landing\.min\.js\?v=infra-20260816-28/);
+assert.match(files.html.text, /assets\/css\/landing\.min\.css\?v=infra-20260816-29/);
+assert.match(files.html.text, /assets\/js\/landing\.min\.js\?v=infra-20260816-29/);
 assert.match(files.landingJs.text, /function ensureConsoleMarkup\(\)/);
 assert.match(files.landingJs.text, /assets\/css\/styles\.min\.css/);
 assert.match(files.landingJs.text, /assets\/js\/app\.min\.js/);
 assert.match(files.landingCss.text, /content-visibility:\s*auto/);
 assert.match(files.landingCss.text, /contain-intrinsic-size:\s*auto 2400px/);
+assert.match(files.landingJs.text, /function setupSequentialBusinessWarmup\(/);
+assert.match(files.landingJs.text, /function scheduleConsoleAssetWarmup\(/);
+assert.doesNotMatch(files.landingJs.text, /rootMargin:\s*"0px 0px -8%"/);
+assert.match(files.appJs.text, /function scheduleProgressiveDeferredSections\(/);
+assert.doesNotMatch(files.appJs.text, /function observeDeferredSections\(/);
+assert.match(files.appJs.text, /window\.requestIdleCallback\(prepareDrop/);
 assert.match(files.appJs.text, /memory-console-ready", scheduleHeroVideo/);
 assert.match(files.html.text, /data-src="assets\/media\/memory-hero-lite\.mp4"/);
 
@@ -55,10 +61,10 @@ assert.ok(files.heroVideoLite.bytes < 1_100_000, "console hero video must stay b
 assert.ok(files.heroVideoLite.bytes < files.heroVideo.bytes * 0.4, "console hero video must reduce transfer size by at least 60%");
 
 console.log(JSON.stringify({
-  revision: "infra-20260816-28",
+  revision: "infra-20260816-29",
   rootRuntimeGzipKb: Math.round((files.html.gzipBytes + files.landingMinCss.gzipBytes + files.landingMinJs.gzipBytes) / 1024),
   consoleRuntimeGzipKb: Math.round((files.stylesMinCss.gzipBytes + files.appMinJs.gzipBytes) / 1024),
   heroVideoKb: Math.round(files.heroVideoLite.bytes / 1024),
   lazyConsoleTemplate: true,
-  belowFoldContainment: true,
+  progressiveNoScrollHydration: true,
 }, null, 2));

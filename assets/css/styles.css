@@ -1463,6 +1463,12 @@ body.console-startup #intelligenceConsole *::after {
   min-height: 0;
 }
 
+.main > section[data-progressive-paint="ready"],
+.deferred-section[data-progressive-paint="ready"] {
+  content-visibility: visible;
+  contain-intrinsic-size: auto;
+}
+
 .page-status-footer {
   order: 99;
   display: flex;
@@ -28328,6 +28334,11 @@ button.ni-trend-chip:hover { box-shadow: 0 4px 12px color-mix(in srgb, #0891B2 2
 .consulting-system #main > :is(.board, .memory-visual-story, .memory-scroll-story) {
   content-visibility: auto;
   contain-intrinsic-size: auto 920px;
+}
+
+.consulting-system #main > :is(.board, .memory-visual-story, .memory-scroll-story)[data-progressive-paint="ready"] {
+  content-visibility: visible;
+  contain-intrinsic-size: auto;
 }
 
 .consulting-system #main > .board {
