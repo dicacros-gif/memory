@@ -2386,7 +2386,7 @@
   let selectedQaCategory = "all";
   let numberOrder = [];
   let draggedNumberId = null;
-  const QA_PLACEHOLDER = "메모리 시장에 대해 물어보세요 · Pain Point·Workload·신규 Biz";
+  const QA_PLACEHOLDER = "고객 Pain·Workload·신규 Memory Biz·AI Infra 실행전략을 물어보세요";
   const AI_INFRA_QA_CATEGORIES = Object.freeze([
     { id: "customer", name: "Customer Pain", color: "#0F766E" },
     { id: "workload", name: "Workload & DC", color: "#1D4ED8" },
@@ -6282,7 +6282,7 @@
   ].join(",");
 
   function executiveBulletText(value = "") {
-    return String(value ?? "")
+    return normalizeBrandName(String(value ?? ""))
       .replace(/할 수 없습니다(?=[.!。]|$)/g, "불가")
       .replace(/할 수 있습니다(?=[.!。]|$)/g, "가능")
       .replace(/해야 합니다(?=[.!。]|$)/g, "필요")
@@ -6359,6 +6359,7 @@
 
   function normalizeBrandName(value) {
     return String(value ?? "")
+      .replace(/솔리드다임/g, "솔리다임")
       .replace(/SK\s*하이닉스/g, "SKHY")
       .replace(/SK하이닉스/g, "SKHY")
       .replace(/\bSK\s+hynix\b/gi, "SKHY");
@@ -12847,8 +12848,8 @@
       <section class="sc-framework" aria-labelledby="strategyFrameworkTitle">
         <header class="sc-framework-head">
           <span>CONSULTING OPERATING SYSTEM</span>
-          <h3 id="strategyFrameworkTitle">고객의 문제를 메모리 사업 안건으로 전환하는 5단계</h3>
-          <p>JTBD로 고객가치를 정의하고, 워크로드를 HW·SW 요구사항으로 번역한 뒤 Where to Play / How to Win과 사업성을 검증해 90일 실행 게이트로 연결합니다.</p>
+          <h3 id="strategyFrameworkTitle">고객 전략 · 신규 Biz · AI Infra 실행을 연결하는 5단계</h3>
+          <p>고객 현황·기술·전략에서 Pain Point를 구조화하고, Workload를 HW·SW·Memory 요구사항으로 번역한 뒤 Where to Play / How to Win·파트너·사업성을 검증해 90일 실행 Gate로 연결합니다.</p>
         </header>
         <ol class="sc-framework-steps">
           <li><b>01</b><span>DISCOVER</span><strong>고객 JTBD</strong><small>Pain point·구매 기준·미충족 성과</small></li>
@@ -12868,7 +12869,7 @@
       <div class="sc-section-lead">
         <div>
           <span>OPPORTUNITY PORTFOLIO · THREE HORIZONS</span>
-          <h3>근거량 순 고객·사업 기회</h3>
+          <h3>고객 Pain과 기술 변곡점 기반 Opportunity Portfolio</h3>
         </div>
         <p>H1은 핵심사업 확대·방어, H2는 인접사업 구축, H3는 차세대 옵션을 뜻합니다.</p>
       </div>
@@ -24012,6 +24013,7 @@
 
   function cleanKoreanTitle(title) {
     return String(title || "")
+      .replace(/솔리드다임/g, "솔리다임")
       .replace(SOURCE_SUFFIX_RE, "")
       .replace(/^\s*(?:\[(?:news|뉴스)\]|(?:news|뉴스))\s*[:：-]?\s*/i, "")
       .replace(/\s*\[(?:news|뉴스)\]\s*/gi, " ")

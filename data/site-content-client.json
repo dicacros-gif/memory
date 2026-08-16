@@ -1,12 +1,12 @@
 {
-  "schemaVersion": "1.0",
+  "schemaVersion": "1.1",
   "runId": "31943025958",
   "generatedAt": "2026-08-16T11:06:03.029Z",
   "expiresAt": "2026-08-17T13:06:00.913Z",
   "clientArtifact": true,
   "generation": {
     "method": "verified-data-plus-approved-framework",
-    "frameworkVersion": "1.0",
+    "frameworkVersion": "1.1",
     "failClosed": true,
     "sourceRunId": "31943025958"
   },
@@ -1056,7 +1056,7 @@
             {
               "score": 2.75,
               "chunkId": "6398f225cfca0ef22abd",
-              "title": "솔리드다임 뉴스룸 - news.solidigm.com",
+              "title": "솔리다임 뉴스룸 - news.solidigm.com",
               "excerpt": "Solidigm Newsroom - news.solidigm.com Co-CEO Xin Guo talks NAND supply dynamics, the rise of the KV cache, and why storage has become a day-zero design decision for AI infrastructure.",
               "sourceId": "solidigm-newsroom",
               "source": ".solidigm.com",
@@ -1389,7 +1389,7 @@
               "stale": false
             },
             {
-              "title": "솔리드다임 뉴스룸 - news.solidigm.com",
+              "title": "솔리다임 뉴스룸 - news.solidigm.com",
               "source": ".solidigm.com",
               "sourceClass": "official",
               "url": "https://news.solidigm.com/en-WW",
@@ -1610,7 +1610,7 @@
               "stale": false
             },
             {
-              "title": "솔리드다임 뉴스룸 - news.solidigm.com",
+              "title": "솔리다임 뉴스룸 - news.solidigm.com",
               "source": ".solidigm.com",
               "sourceClass": "official",
               "url": "https://news.solidigm.com/en-WW",
@@ -1851,24 +1851,171 @@
   "hero": {
     "titleLines": [
       "AI Infra Strategy",
-      "Bottleneck to Scale"
+      "Customer Pain to Growth"
     ],
     "thesis": [
+      "고객 현황·기술·전략 → Pain Point → 맞춤형 메모리 전략",
+      "AI Application·HW·SW 변화 → 신규 Memory Biz·파트너 기회",
+      "내·외부 Roadmap → PoC·Qualification·Ramp → AI Infra 실행전략"
+    ],
+    "currentDecisions": [
       "고객 인증·공급 일정·베이스 다이·패키징 병목을 함께 확인한 뒤 프리미엄 캐파를 배분합니다.",
       "출하량과 대당 탑재량을 분리하고 고객 CapEx·전력·패키징 제약을 반영해 제품군 시나리오를 갱신합니다.",
       "NAND 계약가·웨이퍼 가격·eSSD 고객 신호를 분리해 Dalian/Solidigm의 제품 믹스와 가격 방어를 결정합니다."
     ],
     "scope": [
-      "Business Outcome → Workload·SLO → 지배 병목을 먼저 계측",
-      "Serving SW·Compute·Memory·Network·Storage·Power/Cooling 대안을 동일 Benchmark로 비교",
-      "Proof → Qualification → Capacity → Ramp → Revenue를 경영진 Gate로 실행"
+      "고객 현황·기술·전략 → Pain Point → 맞춤형 메모리 전략",
+      "AI Application·HW·SW 변화 → 신규 Memory Biz·파트너 기회",
+      "내·외부 Roadmap → PoC·Qualification·Ramp → AI Infra 실행전략"
     ],
     "capabilities": [
-      "Bottleneck First · 메모리를 먼저 가정하지 않고 고객 KPI·SLO에서 출발",
-      "AI Infra & Data Center · Serving SW·Accelerator·Network·Storage·Power/Cooling 통합 분석",
-      "Executive Decision OS · 근거·선택지·경제성·Owner·Trigger·Kill Criteria를 한 장으로 제시"
+      "Customer Insight · 고객 전략과 Workload Trace에서 실제 Pain Point 도출",
+      "Tech-to-Business · AI·Data Center·반도체 변화를 제품·사업기회로 번역",
+      "Executive Decision · 근거·경제성·Owner·KPI·Trigger·Kill Criteria로 실행 통제"
     ],
     "status": "VERIFIED · 출처 7개 관측 · 2026-08-16"
+  },
+  "organizationOperatingModel": {
+    "title": "AI Infra Strategy Team Operating Model",
+    "thesis": "고객 Pain Point를 출발점으로 메모리 전략·신규 Biz·AI Infra 실행을 하나의 반복 가능한 의사결정 체계로 연결합니다.",
+    "decisionLoop": [
+      "Customer / Market Signal",
+      "Pain & Workload Diagnosis",
+      "Memory / New Biz Options",
+      "Executive Decision",
+      "PoC · Qualification · Ramp"
+    ],
+    "workstreams": [
+      {
+        "id": "customer-strategy",
+        "index": "01",
+        "label": "CUSTOMER STRATEGY",
+        "title": "Pain Point 기반 맞춤형 메모리 전략",
+        "mandate": "주요 B2B 고객의 현황·기술·전략과 실제 Workload를 함께 분석해 구매 기준과 지배 병목을 명확히 정의",
+        "inputs": [
+          "Account Strategy",
+          "Product·Architecture Roadmap",
+          "Workload Trace·SLO",
+          "Buying Criteria"
+        ],
+        "questions": [
+          "고객의 최상위 Business Outcome은 무엇인가",
+          "Compute·Memory·Network·Storage·Facility 중 지배 병목은 무엇인가",
+          "고객 인증과 구매 결정을 움직이는 조건은 무엇인가"
+        ],
+        "outputs": [
+          "Customer Fact Base",
+          "Pain Map",
+          "Requirement Matrix",
+          "Memory Solution Proposal"
+        ],
+        "gate": "Pain·Decision Owner·Buying Criteria가 검증되기 전 Custom 범위를 확정하지 않음",
+        "kpis": [
+          "Qualification Lead Time",
+          "Design Win",
+          "Revenue Conversion"
+        ]
+      },
+      {
+        "id": "new-biz",
+        "index": "02",
+        "label": "NEW BUSINESS",
+        "title": "AI 변화에서 신규 Biz 기회 창출",
+        "mandate": "AI Application·HW·SW와 LLM Serving 변화를 Memory Demand·서비스 모델·파트너십 기회로 번역",
+        "inputs": [
+          "AI App·Model Trend",
+          "Accelerator·ASIC Roadmap",
+          "Serving·RAG·Vector DB",
+          "Partner Capability"
+        ],
+        "questions": [
+          "어떤 기술 변곡점이 새로운 Memory JTBD를 만드는가",
+          "Where to Play와 Right to Win은 무엇인가",
+          "누구와 어떤 방식으로 공동 검증해야 하는가"
+        ],
+        "outputs": [
+          "Opportunity Thesis",
+          "Market·Competitor Map",
+          "Partner Screen",
+          "Business Case"
+        ],
+        "gate": "고객 지불의사·차별화 근거·파트너 역할·단위경제성 가운데 하나라도 없으면 PoC 승격을 보류",
+        "kpis": [
+          "Qualified Pipeline",
+          "PoC Conversion",
+          "Expected Value"
+        ]
+      },
+      {
+        "id": "execution-strategy",
+        "index": "03",
+        "label": "AI INFRA EXECUTION",
+        "title": "내·외부 실행전략과 경영진 의사결정",
+        "mandate": "전략 안건을 선택지·경제성·책임자·90일 Action·Trigger·Kill Criteria가 있는 실행 Portfolio로 운영",
+        "inputs": [
+          "Verified Evidence",
+          "Architecture·TCO",
+          "Qualification·Capacity",
+          "Risk·Scenario"
+        ],
+        "questions": [
+          "지금 결정해야 할 사안과 보류할 사안은 무엇인가",
+          "누가 언제까지 어떤 KPI를 책임지는가",
+          "어떤 조건에서 확대·축소·중단할 것인가"
+        ],
+        "outputs": [
+          "Executive Decision Pack",
+          "90-Day Roadmap",
+          "RACI·Stage Gate",
+          "KPI·Trigger Dashboard"
+        ],
+        "gate": "Owner·KPI·Trigger·Kill Criteria가 없는 전략은 실행 안건으로 게시하지 않음",
+        "kpis": [
+          "Decision Lead Time",
+          "Gate Pass Rate",
+          "Benefit Realization"
+        ]
+      }
+    ],
+    "capabilityProofs": [
+      {
+        "title": "Data Center & HW/SW",
+        "proof": "Training·Inference·RAG·Agent별 Workload와 Accelerator·Memory·Network·Storage·Power/Cooling 통합 진단"
+      },
+      {
+        "title": "Strategy & Consulting",
+        "proof": "Issue Tree·MECE·Where to Play/How to Win·Business Case·Stage Gate 기반 문제 해결"
+      },
+      {
+        "title": "AI & LLM Technology",
+        "proof": "Transformer·MoE·KV Cache·Prompt/Context Engineering·RAG·Vector DB를 Memory Implication으로 변환"
+      },
+      {
+        "title": "Semiconductor & Market",
+        "proof": "HBM·DRAM·NAND·eSSD·CXL·Package·Foundry의 기술·시장·경쟁 변곡점 추적"
+      },
+      {
+        "title": "Global Source Intelligence",
+        "proof": "영문·중문 공식 원문·IR·표준·기술 문서를 날짜·출처·제품 Stage와 함께 검증"
+      }
+    ],
+    "cadence": [
+      {
+        "label": "WEEKLY",
+        "title": "Signal-to-Decision Review",
+        "output": "고객·기술 Signal, ClaimEvent, 가설 변화, 즉시 검증 과제"
+      },
+      {
+        "label": "MONTHLY",
+        "title": "Customer & Opportunity Portfolio",
+        "output": "Pain Map, Opportunity Score, Partner Gap, PoC 우선순위"
+      },
+      {
+        "label": "QUARTERLY",
+        "title": "Executive Strategy Gate",
+        "output": "Scale·Hold·Stop 판단, Capacity·투자·고객 인증 Roadmap"
+      }
+    ]
   },
   "decisionCases": [
     {
@@ -2303,7 +2450,7 @@
       },
       "stop": "공식 출하 전망 또는 고객 CapEx가 기준 시나리오 대비 10% 이상 변경",
       "latest": {
-        "title": "솔리드다임 뉴스룸 - news.solidigm.com",
+        "title": "솔리다임 뉴스룸 - news.solidigm.com",
         "summary": "공동 CEO인 Xin Guo는 NAND 공급 역학, KV 캐시의 증가, 스토리지가 AI 인프라에 대한 첫 번째 설계 결정이 된 이유에 대해 설명합니다.",
         "source": ".solidigm.com",
         "url": "https://news.solidigm.com/en-WW/",
@@ -2315,7 +2462,7 @@
       "signals": [
         [
           "Watch · OFFICIAL",
-          "솔리드다임 뉴스룸 - news.solidigm.com",
+          "솔리다임 뉴스룸 - news.solidigm.com",
           "공동 CEO인 Xin Guo는 NAND 공급 역학, KV 캐시의 증가, 스토리지가 AI 인프라에 대한 첫 번째 설계 결정이 된 이유에 대해 설명합니다."
         ],
         [
@@ -2626,7 +2773,7 @@
     }
   ],
   "partnerSpotlight": {
-    "title": "솔리드다임 뉴스룸 - news.solidigm.com",
+    "title": "솔리다임 뉴스룸 - news.solidigm.com",
     "summary": "공동 CEO인 Xin Guo는 NAND 공급 역학, KV 캐시의 증가, 스토리지가 AI 인프라에 대한 첫 번째 설계 결정이 된 이유에 대해 설명합니다.",
     "source": ".solidigm.com",
     "url": "https://news.solidigm.com/en-WW/",
@@ -4538,7 +4685,7 @@
         },
         "stop": "공식 출하 전망 또는 고객 CapEx가 기준 시나리오 대비 10% 이상 변경",
         "latest": {
-          "title": "솔리드다임 뉴스룸 - news.solidigm.com",
+          "title": "솔리다임 뉴스룸 - news.solidigm.com",
           "summary": "공동 CEO인 Xin Guo는 NAND 공급 역학, KV 캐시의 증가, 스토리지가 AI 인프라에 대한 첫 번째 설계 결정이 된 이유에 대해 설명합니다.",
           "source": ".solidigm.com",
           "url": "https://news.solidigm.com/en-WW/",
@@ -4550,7 +4697,7 @@
         "signals": [
           [
             "Watch · OFFICIAL",
-            "솔리드다임 뉴스룸 - news.solidigm.com",
+            "솔리다임 뉴스룸 - news.solidigm.com",
             "공동 CEO인 Xin Guo는 NAND 공급 역학, KV 캐시의 증가, 스토리지가 AI 인프라에 대한 첫 번째 설계 결정이 된 이유에 대해 설명합니다."
           ],
           [

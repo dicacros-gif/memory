@@ -21,7 +21,7 @@ const panels = [...html.matchAll(/data-decision-panel="([^"]+)"/g)].map((match) 
 assert.deepEqual(tabs, ["hbm", "demand", "nand", "partner"], "decision lab must expose four focused consulting cases");
 assert.deepEqual(panels, tabs, "each decision tab must have an indexable answer panel");
 for (const phrase of [
-  "Executive Answer",
+  "EXECUTIVE ANSWER",
   "CUSTOMER JTBD",
   "WORKLOAD DIAGNOSIS",
   "OPTION ECONOMICS",

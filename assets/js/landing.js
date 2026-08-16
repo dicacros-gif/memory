@@ -1,9 +1,9 @@
 (() => {
   "use strict";
 
-  const BUSINESS_TITLE = "AI Infra Strategy OS · Bottleneck to Scale";
+  const BUSINESS_TITLE = "AI Infra Strategy OS · Customer Pain to Growth";
   const CONSOLE_HASH = "#console";
-  const CONSOLE_REVISION = "infra-20260816-22";
+  const CONSOLE_REVISION = "infra-20260816-23";
   const DECISION_CLIENT_PATH = "data/landing-decision-client.json";
   const SITE_CONTENT_PATH = "data/site-content-client.json";
   const site = document.querySelector("#businessSite");
@@ -235,6 +235,7 @@
 
   function escapeBusinessHTML(value = "") {
     return String(value || "")
+      .replace(/솔리드다임/g, "솔리다임")
       .replace(/&/g, "&amp;")
       .replace(/</g, "&lt;")
       .replace(/>/g, "&gt;")
@@ -305,6 +306,47 @@
       if (footerModel && decision.partners?.length) footerModel.textContent = decision.partners.join(" · ");
       const footerLink = panel.querySelector(":scope > .business-decision-footer a");
       if (footerLink) footerLink.href = safeBusinessUrl(decision.deepLink);
+    }
+  }
+
+  function renderOrganizationOperatingModel(content = {}) {
+    const model = content.organizationOperatingModel;
+    if (!model) return;
+    const title = document.querySelector("#teamOperatingTitle");
+    const thesis = document.querySelector("#teamOperatingThesis");
+    if (title) title.textContent = model.title || title.textContent;
+    if (thesis) thesis.textContent = model.thesis || thesis.textContent;
+
+    const loop = document.querySelector("#teamDecisionLoop");
+    if (loop && model.decisionLoop?.length) {
+      loop.innerHTML = model.decisionLoop.map((step, index) => `<li><span>${String(index + 1).padStart(2, "0")}</span><strong>${escapeBusinessHTML(step)}</strong></li>`).join("");
+    }
+
+    const workstreams = document.querySelector("#teamWorkstreams");
+    if (workstreams && model.workstreams?.length) {
+      workstreams.innerHTML = model.workstreams.map((item) => `
+        <article data-team-workstream="${escapeBusinessHTML(item.id)}" tabindex="0">
+          <header><span>${escapeBusinessHTML(item.index)} · ${escapeBusinessHTML(item.label)}</span><b>${escapeBusinessHTML(item.index)}</b></header>
+          <h3>${escapeBusinessHTML(item.title)}</h3>
+          <p>${escapeBusinessHTML(item.mandate)}</p>
+          <dl>
+            <div><dt>INPUT</dt><dd>${escapeBusinessHTML((item.inputs || []).join(" · "))}</dd></div>
+            <div><dt>KEY QUESTIONS</dt><dd><ul>${(item.questions || []).map((question) => `<li>${escapeBusinessHTML(question)}</li>`).join("")}</ul></dd></div>
+            <div><dt>OUTPUT</dt><dd>${escapeBusinessHTML((item.outputs || []).join(" · "))}</dd></div>
+            <div class="business-team-gate"><dt>DECISION GATE</dt><dd>${escapeBusinessHTML(item.gate)}</dd></div>
+          </dl>
+          <footer><small>KPI</small><strong>${escapeBusinessHTML((item.kpis || []).join(" · "))}</strong></footer>
+        </article>`).join("");
+    }
+
+    const capabilities = document.querySelector("#teamCapabilityProofs");
+    if (capabilities && model.capabilityProofs?.length) {
+      capabilities.innerHTML = model.capabilityProofs.map((item, index) => `<article><span>${String(index + 1).padStart(2, "0")}</span><div><strong>${escapeBusinessHTML(item.title)}</strong><p>${escapeBusinessHTML(item.proof)}</p></div></article>`).join("");
+    }
+
+    const cadence = document.querySelector("#teamCadence");
+    if (cadence && model.cadence?.length) {
+      cadence.innerHTML = model.cadence.map((item) => `<article><span>${escapeBusinessHTML(item.label)}</span><strong>${escapeBusinessHTML(item.title)}</strong><p>${escapeBusinessHTML(item.output)}</p></article>`).join("");
     }
   }
 
@@ -757,6 +799,7 @@
     if (staticSnapshot) staticSnapshot.textContent = content.agentCouncil?.subtitle || staticSnapshot.textContent;
 
     renderDecisionContent(content);
+    renderOrganizationOperatingModel(content);
     renderDecisionAutomation(content);
     renderCurrentInsights(content);
     renderAIFactorySystem(content);

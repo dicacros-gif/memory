@@ -9,11 +9,22 @@ const sourceCatalog = loadSourceCatalog();
 
 const directUrl = (value = "") => /^https?:\/\//i.test(String(value || "")) && !/news\.google\.com/i.test(String(value || ""));
 const compact = (value = "", limit = 180) => {
-  const text = String(value || "").replace(/\s+/g, " ").trim();
+  const text = String(value || "")
+    .replace(/솔리드다임/g, "솔리다임")
+    .replace(/\s+/g, " ")
+    .trim();
   if (text.length <= limit) return text;
   return `${text.slice(0, Math.max(1, limit - 1)).trimEnd()}…`;
 };
 const publishedAt = (item = {}, fallback = null) => item.publishedAt || item.date || item.observedAt || item.crawledAt || fallback || null;
+const normalizeDisplayPayload = (value) => {
+  if (typeof value === "string") return value.replace(/솔리드다임/g, "솔리다임");
+  if (Array.isArray(value)) return value.map(normalizeDisplayPayload);
+  if (value && typeof value === "object") return Object.fromEntries(
+    Object.entries(value).map(([key, item]) => [key, normalizeDisplayPayload(item)]),
+  );
+  return value;
+};
 const sourceClass = (item = {}) => item.sourceClass || item.verification?.sourceClass || "unclassified";
 const evidenceLevel = (item = {}) => item.evidenceLevel || item.verification?.evidenceLevel || item.verification?.label || "Watch";
 const briefLatest = (brief = {}, fallbackAt = null) => {
@@ -639,7 +650,7 @@ function buildProfile(profile = {}, brief = {}, partner = {}, generatedAt = null
 
 export function validateSiteContent(content = {}) {
   const errors = [];
-  if (content.schemaVersion !== "1.0") errors.push("schemaVersion");
+  if (content.schemaVersion !== "1.1") errors.push("schemaVersion");
   if (!content.runId) errors.push("runId");
   if (!content.generatedAt || Number.isNaN(Date.parse(content.generatedAt))) errors.push("generatedAt");
   if (!Array.isArray(content.decisionCases) || content.decisionCases.length < 4) errors.push("decisionCases");
@@ -664,6 +675,11 @@ export function validateSiteContent(content = {}) {
   if (content.presentation?.emphasisPolicy?.style !== "underline-only") errors.push("presentation.emphasisPolicy");
   if (Number(content.presentation?.emphasisPolicy?.maxTotal || 0) > 12) errors.push("presentation.emphasisPolicy.maxTotal");
   if (!Array.isArray(content.presentation?.readabilityPolicy?.hoverModes) || content.presentation.readabilityPolicy.hoverModes.length !== 2) errors.push("presentation.readabilityPolicy.hoverModes");
+  if (!Array.isArray(content.organizationOperatingModel?.decisionLoop) || content.organizationOperatingModel.decisionLoop.length < 5) errors.push("organizationOperatingModel.decisionLoop");
+  if (!Array.isArray(content.organizationOperatingModel?.workstreams) || content.organizationOperatingModel.workstreams.length !== 3) errors.push("organizationOperatingModel.workstreams");
+  if (!(content.organizationOperatingModel?.workstreams || []).every((item) => item?.mandate && item?.inputs?.length >= 4 && item?.questions?.length >= 3 && item?.outputs?.length >= 4 && item?.gate && item?.kpis?.length >= 3)) errors.push("organizationOperatingModel.workstreamContract");
+  if (!Array.isArray(content.organizationOperatingModel?.capabilityProofs) || content.organizationOperatingModel.capabilityProofs.length < 5) errors.push("organizationOperatingModel.capabilityProofs");
+  if (!Array.isArray(content.organizationOperatingModel?.cadence) || content.organizationOperatingModel.cadence.length < 3) errors.push("organizationOperatingModel.cadence");
   if (!Array.isArray(content.caseClassification) || content.caseClassification.length !== 3) errors.push("caseClassification");
   if (!content.decisionControl?.integrity?.status || !content.decisionControl?.freshness?.status || !content.decisionControl?.coverage?.status || !content.decisionControl?.confidence?.status) errors.push("decisionControl");
   if (content.decisionIntelligence?.evaluation?.failClosed !== true) errors.push("decisionIntelligence.evaluation.failClosed");
@@ -724,7 +740,7 @@ export function buildSiteContentClient({ payload = {}, quant = {} } = {}) {
     targetPct: 90,
   };
   const content = {
-    schemaVersion: "1.0",
+    schemaVersion: "1.1",
     runId: payload.runId || quant.runId || null,
     generatedAt,
     expiresAt,
@@ -769,11 +785,13 @@ export function buildSiteContentClient({ payload = {}, quant = {} } = {}) {
     decisionIntelligence,
     hero: {
       titleLines: model.strategyMandate?.titleLines || [],
-      thesis: topDecisions.length ? topDecisions : model.strategyMandate?.scope || [],
+      thesis: model.strategyMandate?.scope || [],
+      currentDecisions: topDecisions,
       scope: model.strategyMandate?.scope || [],
       capabilities: model.strategyMandate?.capabilities || [],
       status: `${String(payload.quality?.status || "review").toUpperCase()} · 출처 ${sourceCoverage.observedSources || 0}개 관측 · ${String(generatedAt).slice(0, 10)}`,
     },
+    organizationOperatingModel: model.organizationOperatingModel || {},
     decisionCases,
     insights,
     competitors: buildCompetitors(quant),
@@ -791,9 +809,10 @@ export function buildSiteContentClient({ payload = {}, quant = {} } = {}) {
       disclosure: "Independent strategy portfolio based on public information; not an official SK hynix website.",
     },
   };
-  const validation = validateSiteContent(content);
+  const normalizedContent = normalizeDisplayPayload(content);
+  const validation = validateSiteContent(normalizedContent);
   if (!validation.ok) throw new Error(`site content validation failed: ${validation.errors.join(", ")}`);
-  return content;
+  return normalizedContent;
 }
 
 export { model as siteContentModel };

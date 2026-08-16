@@ -13,6 +13,10 @@ function normalizeSourceText(value = "") {
   return String(value || "").replace(/\s+/g, " ").trim();
 }
 
+export function normalizeKoreanTerminology(value = "") {
+  return normalizeSourceText(value).replace(/솔리드다임/g, "솔리다임");
+}
+
 export function translationCacheKey(value = "") {
   return createHash("sha256")
     .update(`ko\n${normalizeSourceText(value)}`)
@@ -87,7 +91,7 @@ export function parseMarkerTranslation(value = "", expectedCount = 0) {
     if (!Number.isInteger(id) || id < 0 || id >= expectedCount) return null;
     const start = Number(matches[index].index) + matches[index][0].length;
     const end = index + 1 < matches.length ? Number(matches[index + 1].index) : text.length;
-    output[id] = normalizeSourceText(text.slice(start, end));
+    output[id] = normalizeKoreanTerminology(text.slice(start, end));
   }
   return output.every(Boolean) ? output : null;
 }
@@ -158,7 +162,7 @@ export function createGoogleKoTranslator({
         }
         const body = await response.arrayBuffer();
         const json = JSON.parse(new TextDecoder("utf-8").decode(body));
-        return normalizeSourceText((json[0] || []).map((segment) => (segment && segment[0]) || "").join(""));
+        return normalizeKoreanTerminology((json[0] || []).map((segment) => (segment && segment[0]) || "").join(""));
       } catch {
         // Network timeouts and transient endpoint errors use the same bounded
         // exponential retry path. A final failure is intentionally not cached.
@@ -170,15 +174,16 @@ export function createGoogleKoTranslator({
   function cachedTranslation(original) {
     const key = translationCacheKey(original);
     const entry = entries.get(key);
-    const translated = normalizeSourceText(entry?.translated);
+    const translated = normalizeKoreanTerminology(entry?.translated);
     if (!translated || !qualityGate(original, translated)) return "";
+    entry.translated = translated;
     entry.lastUsedAt = new Date().toISOString();
     stats.cacheHits += 1;
     return translated;
   }
 
   function storeTranslation(original, translated) {
-    const clean = normalizeSourceText(translated);
+    const clean = normalizeKoreanTerminology(translated);
     if (!qualityGate(original, clean)) {
       stats.qualityRejected += 1;
       return "";
@@ -230,7 +235,11 @@ export function createGoogleKoTranslator({
   function snapshot() {
     const sorted = [...entries.entries()]
       .sort((left, right) => String(right[1]?.lastUsedAt || right[1]?.updatedAt || "").localeCompare(String(left[1]?.lastUsedAt || left[1]?.updatedAt || "")))
-      .slice(0, maxCacheEntries);
+      .slice(0, maxCacheEntries)
+      .map(([key, entry]) => [key, {
+        ...entry,
+        translated: normalizeKoreanTerminology(entry?.translated),
+      }]);
     return {
       schemaVersion: KO_TRANSLATION_CACHE_SCHEMA_VERSION,
       targetLanguage: "ko",

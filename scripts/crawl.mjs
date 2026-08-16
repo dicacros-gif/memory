@@ -31,6 +31,7 @@ import {
 import {
   createGoogleKoTranslator,
   koreanTranslationQualityGate,
+  normalizeKoreanTerminology,
   translationCacheKey,
 } from "./translation-pipeline.mjs";
 import {
@@ -6010,11 +6011,12 @@ function seedTranslationCache(cache = {}, payload = {}) {
   };
   const visited = new WeakSet();
   const add = (original, translated) => {
-    if (!original || !translated || translationQuality(original, translated).status !== "verified") return;
+    const normalized = normalizeKoreanTerminology(translated);
+    if (!original || !normalized || translationQuality(original, normalized).status !== "verified") return;
     const key = translationCacheKey(original);
-    if (entries[key]?.translated === translated) return;
+    if (entries[key]?.translated === normalized) return;
     entries[key] = {
-      translated: String(translated).replace(/\s+/g, " ").trim(),
+      translated: normalized,
       updatedAt: new Date().toISOString(),
       lastUsedAt: new Date().toISOString(),
     };

@@ -3,7 +3,9 @@ import {
   buildMarkerBatches,
   createGoogleKoTranslator,
   koreanTranslationQualityGate,
+  normalizeKoreanTerminology,
   parseMarkerTranslation,
+  translationCacheKey,
 } from "./translation-pipeline.mjs";
 
 const originals = [
@@ -21,6 +23,7 @@ const parsed = parseMarkerTranslation(
   2,
 );
 assert.deepEqual(parsed, ["메모리 공급이 빠듯합니다", "설비투자 계획을 상향했습니다"]);
+assert.equal(normalizeKoreanTerminology("솔리드다임 뉴스룸"), "솔리다임 뉴스룸");
 assert.equal(koreanTranslationQualityGate(originals[0], originals[0]).status, "unverified");
 assert.equal(koreanTranslationQualityGate(originals[0], "메모리 공급이 빠듯한 가운데 수요가 확대되고 있습니다").status, "verified");
 assert.equal(
@@ -84,5 +87,21 @@ const cachedTranslator = createGoogleKoTranslator({
 const cached = await cachedTranslator.translateTexts(originals);
 assert.equal(cached.size, 3);
 assert.equal(cachedTranslator.stats.cacheHits, 3);
+
+const typoOriginal = "Solidigm Newsroom";
+const typoKey = translationCacheKey(typoOriginal);
+const typoTranslator = createGoogleKoTranslator({
+  cache: {
+    entries: {
+      [typoKey]: { translated: "솔리드다임 뉴스룸", updatedAt: "2026-08-16T00:00:00.000Z" },
+    },
+  },
+  fetchImpl: async () => { throw new Error("normalized cache hit must not call the endpoint"); },
+  minIntervalMs: 0,
+  qualityGate: (original, localized) => koreanTranslationQualityGate(original, localized).status === "verified",
+});
+const typoResult = await typoTranslator.translateTexts([typoOriginal]);
+assert.equal(typoResult.get(typoOriginal), "솔리다임 뉴스룸");
+assert.equal(typoTranslator.snapshot().entries[typoKey].translated, "솔리다임 뉴스룸");
 
 console.log("Translation pipeline checks passed");
