@@ -5235,7 +5235,19 @@ body.landing-mode {
     #f4f7fa;
   background-size: 58px 58px;
 }
-.business-insights .business-section-heading h2 { color: var(--business-ink); }
+.business-insights .business-section-heading--split > div {
+  min-width: 0;
+  max-width: 100%;
+}
+
+.business-insights .business-section-heading h2 {
+  width: 100%;
+  max-width: 100%;
+  color: var(--business-ink);
+  overflow-wrap: break-word;
+  word-break: normal;
+  text-wrap: balance;
+}
 .business-tech-decision-grid > article { position: relative; border-radius: 0; clip-path: polygon(0 0, calc(100% - 20px) 0, 100% 20px, 100% 100%, 20px 100%, 0 calc(100% - 20px)); }
 .business-tech-decision-grid > article::before { content: "WHAT → SO WHAT → NOW WHAT"; display: block; margin-bottom: 17px; color: var(--consulting-blue); font: 850 8px/1 var(--mono); letter-spacing: .1em; }
 .business-tech-decision-grid > article:nth-child(2)::before { color: var(--consulting-violet); }

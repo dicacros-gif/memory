@@ -113,7 +113,7 @@ assert.deepEqual(businessNavLabels, [
 assert.match(html, /id="intelligenceConsole" hidden/, "the Intelligence Console must stay outside the initial visible layer");
 assert.doesNotMatch(html, /<script[^>]+src="assets\/js\/app\.js/, "the heavy console app must not load with the public landing page");
 assert.doesNotMatch(html, /<link[^>]+href="assets\/css\/styles\.css/, "the heavy console stylesheet must not load with the public landing page");
-assert.match(html, /assets\/js\/landing\.min\.js\?v=infra-20260816-12/, "the lightweight landing controller must use the minified AI Infra revision");
+assert.match(html, /assets\/js\/landing\.min\.js\?v=infra-20260816-13/, "the lightweight landing controller must use the minified AI Infra revision");
 assert.match(html, /class="business-footer"[\s\S]*?href="https:\/\/www\.linkedin\.com\/in\/dicacross\/"[\s\S]*?© 2026 dicacross · Independent strategy portfolio based on public information/, "the public portfolio credit must link to the dicacross LinkedIn profile");
 assert.doesNotMatch(html, /메모리를 판매하는 것이 아니라/, "the removed sales-negation headline must stay deleted");
 assert.doesNotMatch(html, /직무 적합성을 세 가지|검증 가능한 역량으로 압축합니다/, "the removed role-fit headline must stay deleted");
@@ -197,6 +197,8 @@ assert.match(app, /function finalizeConsoleLoadingLabels\(\)[\s\S]*?LIVE DATA UN
 assert.doesNotMatch(html, /Prompt Engineering/, "prompt engineering must not appear as a top-level AI memory theme");
 assert.match(html, /aria-label="AI Infra 전략 질문"/, "the console question field must state its bounded AI Infra strategy purpose");
 assert.match(landingCss, /\.business-reveal[\s\S]*?\.business-reveal\.is-visible/, "business sections should progressively reveal without blocking layout");
+assert.match(landingCss, /\.business-insights \.business-section-heading--split > div \{[\s\S]*?min-width:\s*0;[\s\S]*?max-width:\s*100%;/, "the insight heading column must stay within its grid track");
+assert.match(landingCss, /\.business-insights \.business-section-heading h2 \{[\s\S]*?width:\s*100%;[\s\S]*?max-width:\s*100%;[\s\S]*?overflow-wrap:\s*break-word;/, "the issue-tree title must wrap instead of overflowing into the evidence column");
 
 console.log(JSON.stringify({
   ok: true,
