@@ -58,7 +58,7 @@ assert.match(landing, /consultingMotionBound[\s\S]*?pointermove/);
 assert.match(landing, /requestAnimationFrame[\s\S]*?--tilt-x[\s\S]*?--tilt-y/);
 assert.match(landing, /setupReveal\(\);\s*setupConsultingCardMotion\(\);/);
 assert.match(landing, /renderPartnerContent\(content\);\s*setupConsultingCardMotion\(\);/, "dynamically regenerated cards must receive the same motion and contrast behavior");
-assert.match(landing, /infra-20260816-14/);
+assert.match(landing, /infra-20260816-15/);
 
 console.log(JSON.stringify({
   decisionThemes: "generated-current",

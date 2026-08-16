@@ -1,7 +1,7 @@
 import { readFileSync } from "node:fs";
 import { dirname, resolve } from "node:path";
 import { fileURLToPath } from "node:url";
-import { buildSourceCatalogSnapshot, loadSourceCatalog } from "./source-catalog.mjs";
+import { buildSourceCatalogSnapshot, catalogSourceForUrl, loadSourceCatalog } from "./source-catalog.mjs";
 
 const root = resolve(dirname(fileURLToPath(import.meta.url)), "..");
 const model = Object.freeze(JSON.parse(readFileSync(resolve(root, "data", "site-content-model.json"), "utf8")));
@@ -102,6 +102,65 @@ function buildCompetitors(quant = {}) {
     }));
 }
 
+function buildWorkloadSignals(payload = {}, allowedSourceIds = []) {
+  const allowed = new Set(allowedSourceIds);
+  const workloadTerms = /kv.?cache|context cach|context engineering|prompt cach|offload|tiered memory|rag|vector|workload|benchmark|data.?center/i;
+  const classScore = { official: 20, research: 12, "authoritative-media": 8 };
+  return (payload.news || [])
+    .map((item) => {
+      const url = item?.verification?.canonicalUrl || item.sourceUrl || item.link || item.url || "";
+      const catalogSource = catalogSourceForUrl(url, sourceCatalog);
+      const title = item.titleKo || item.title || "";
+      const summary = item.summaryKo || item.summary || "";
+      if (!catalogSource || !allowed.has(catalogSource.id) || !directUrl(url) || !workloadTerms.test(`${title} ${summary}`)) return null;
+      const date = publishedAt(item, payload.updatedAt);
+      const timestamp = Date.parse(String(date || ""));
+      return {
+        id: `${catalogSource.id}-${String(date || "watch").slice(0, 10)}`,
+        title: compact(title, 150),
+        summary: compact(summary, 240),
+        source: catalogSource.name,
+        sourceId: catalogSource.id,
+        url,
+        publishedAt: date,
+        evidenceLevel: evidenceLevel(item),
+        sourceClass: catalogSource.sourceClass,
+        score: (classScore[catalogSource.sourceClass] || 0) + (Number.isFinite(timestamp) ? timestamp / 8.64e7 / 100000 : 0),
+      };
+    })
+    .filter(Boolean)
+    .sort((a, b) => b.score - a.score)
+    .slice(0, 4)
+    .map(({ score: _score, ...item }) => item);
+}
+
+function buildWorkloadOptimization(payload = {}, sourceCoverage = {}, generatedAt = null) {
+  const framework = model.workloadOptimization || {};
+  const observed = new Set(sourceCoverage.observedSourceIds || []);
+  const fresh = new Set(sourceCoverage.freshSourceIds || []);
+  const sourceIds = framework.sourceIds || [];
+  const sources = sourceIds.map((id) => sourceCatalog.sources.find((source) => source.id === id)).filter(Boolean).map((source) => ({
+    id: source.id,
+    name: source.name,
+    tier: source.tier,
+    sourceClass: source.sourceClass,
+    url: source.url,
+    topics: source.topics,
+    status: fresh.has(source.id) ? "fresh" : observed.has(source.id) ? "observed" : "monitoring",
+  }));
+  return {
+    title: framework.title || "Data Center Workload Optimization",
+    thesis: framework.thesis || "고객 Workload를 실측하고 Memory Architecture 대안을 동일 KPI에서 비교합니다.",
+    process: framework.process || [],
+    serviceLines: framework.serviceLines || [],
+    evidencePolicy: framework.evidencePolicy || [],
+    sources,
+    currentSignals: buildWorkloadSignals(payload, sourceIds),
+    generatedAt,
+    runId: payload.runId || null,
+  };
+}
+
 function buildProfile(profile = {}, brief = {}, partner = {}, generatedAt = null) {
   const isPartner = profile.panelId === "partner";
   const latest = isPartner ? partner : briefLatest(brief, generatedAt);
@@ -155,6 +214,9 @@ export function validateSiteContent(content = {}) {
   if (!Array.isArray(content.decisionCases) || content.decisionCases.length < 4) errors.push("decisionCases");
   if (!Array.isArray(content.insights) || content.insights.length < 4) errors.push("insights");
   if (!Array.isArray(content.agentCouncil?.agendas) || content.agentCouncil.agendas.length < 4) errors.push("agentCouncil.agendas");
+  if (!Array.isArray(content.workloadOptimization?.process) || content.workloadOptimization.process.length < 6) errors.push("workloadOptimization.process");
+  if (!Array.isArray(content.workloadOptimization?.serviceLines) || content.workloadOptimization.serviceLines.length < 3) errors.push("workloadOptimization.serviceLines");
+  if (!Array.isArray(content.workloadOptimization?.sources) || content.workloadOptimization.sources.length < 4) errors.push("workloadOptimization.sources");
   if (Number(content.freshness?.configuredSources || 0) < 20) errors.push("freshness.configuredSources");
   if (Number(content.freshness?.officialConfigured || 0) < 15) errors.push("freshness.officialConfigured");
   for (const item of content.insights || []) {
@@ -170,7 +232,7 @@ export function buildSiteContentClient({ payload = {}, quant = {} } = {}) {
   const insights = (payload.intelligence?.briefs || []).map((brief) => buildInsight(brief, generatedAt));
   const fallbackPartner = briefLatest(briefMap.get("demand") || briefMap.get("hbm") || {}, generatedAt);
   const partnerSpotlight = latestPartnerSignal(payload, fallbackPartner);
-  const sourceCoverage = payload.sourceRegistry?.catalog || buildSourceCatalogSnapshot({
+  const sourceCoverage = buildSourceCatalogSnapshot({
     catalog: sourceCatalog,
     news: payload.news || [],
     industrySourceChecks: quant.industrySourceChecks || {},
@@ -227,6 +289,7 @@ export function buildSiteContentClient({ payload = {}, quant = {} } = {}) {
     insights,
     competitors: buildCompetitors(quant),
     partnerSpotlight,
+    workloadOptimization: buildWorkloadOptimization(payload, sourceCoverage, generatedAt),
     agentCouncil: {
       title: "AI Infra Strategy Agent Council",
       subtitle: `최신 검증 근거 ${insights.length}개 축을 고객 Pain·Workload·사업성·실행 Gate로 재구성`,

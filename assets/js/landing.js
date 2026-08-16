@@ -3,7 +3,7 @@
 
   const BUSINESS_TITLE = "AI Infra Strategy OS · Workload to Revenue";
   const CONSOLE_HASH = "#console";
-  const CONSOLE_REVISION = "infra-20260816-14";
+  const CONSOLE_REVISION = "infra-20260816-15";
   const DECISION_CLIENT_PATH = "data/landing-decision-client.json";
   const SITE_CONTENT_PATH = "data/site-content-client.json";
   const BUSINESS_KEY_TERM_PATTERN = /(System Bottleneck|Memory Option|Business Value|Right to Win|Kill Criteria|Execution Gates?|Decision Gate|Agentic AI|Pain Point|Qualification|Benchmark|Workload|Capacity|HBM4?|CXL|HBF|eSSD|TCO|Ramp|고객 인증|판단 변경 조건|실행 전략|시스템 병목|메모리 대안|사업 가치)/gi;
@@ -382,6 +382,60 @@
     }
   }
 
+  function renderWorkloadOptimization(content = {}) {
+    const workload = content.workloadOptimization;
+    if (!workload) return;
+    const title = document.querySelector("#workloadOptimizationTitle");
+    const thesis = document.querySelector("#workloadOptimizationThesis");
+    if (title) title.textContent = workload.title || title.textContent;
+    if (thesis) thesis.textContent = workload.thesis || thesis.textContent;
+
+    const process = document.querySelector("#workloadConsultingProcess");
+    if (process && workload.process?.length) {
+      process.innerHTML = workload.process.map((step) => `
+        <li>
+          <span>${escapeBusinessHTML(step.index)}</span>
+          <div><small>${escapeBusinessHTML(step.label)}</small><strong>${escapeBusinessHTML(step.title)}</strong><ul>${(step.bullets || []).map((item) => `<li>${escapeBusinessHTML(item)}</li>`).join("")}</ul></div>
+        </li>`).join("");
+    }
+
+    const services = document.querySelector("#workloadServiceLines");
+    if (services && workload.serviceLines?.length) {
+      services.innerHTML = workload.serviceLines.map((service) => `
+        <article data-workload-service="${escapeBusinessHTML(service.id)}">
+          <span>${escapeBusinessHTML(service.label)}</span>
+          <h4>${escapeBusinessHTML(service.title)}</h4>
+          <dl>
+            <div><dt>PAIN</dt><dd>${escapeBusinessHTML(service.pain)}</dd></div>
+            <div><dt>HYPOTHESIS</dt><dd>${escapeBusinessHTML(service.hypothesis)}</dd></div>
+            <div><dt>KPI</dt><dd>${escapeBusinessHTML((service.metrics || []).join(" · "))}</dd></div>
+            <div><dt>KILL</dt><dd>${escapeBusinessHTML(service.killCriteria)}</dd></div>
+          </dl>
+        </article>`).join("");
+    }
+
+    renderBusinessList(document.querySelector("#workloadEvidencePolicy"), workload.evidencePolicy);
+    const sources = document.querySelector("#workloadEvidenceSources");
+    if (sources && workload.sources?.length) {
+      const signals = new Map((workload.currentSignals || []).map((signal) => [signal.sourceId, signal]));
+      sources.innerHTML = workload.sources.map((source) => {
+        const signal = signals.get(source.id);
+        const detail = signal?.title || (source.topics || []).slice(0, 3).join(" · ");
+        return `<a href="${escapeBusinessHTML(safeBusinessUrl(signal?.url || source.url, "#console"))}" target="_blank" rel="noopener noreferrer">
+          <span>${escapeBusinessHTML(String(source.status || "monitoring").toUpperCase())} · ${escapeBusinessHTML(String(source.sourceClass || "source").toUpperCase())}</span>
+          <strong>${escapeBusinessHTML(source.name)}</strong>
+          <small>${escapeBusinessHTML(detail)} ↗</small>
+        </a>`;
+      }).join("");
+    }
+
+    const control = document.querySelector(".business-workload-evidence > div:first-child p");
+    if (control) {
+      const signalCount = Number(workload.currentSignals?.length || 0);
+      control.textContent = `검증 실행 ${workload.runId || content.runId || "확인 필요"} · 현재 승격 신호 ${signalCount}건. 실제 협업·검증 사례와 향후 운영 모델을 분리하고, 조건 없는 성능 배수·가격·시장 수치는 게시하지 않습니다.`;
+    }
+  }
+
   function renderCompetitorContent(content = {}) {
     const competitors = content.competitors || [];
     if (!competitors.length) return;
@@ -461,6 +515,7 @@
 
     renderDecisionContent(content);
     renderCurrentInsights(content);
+    renderWorkloadOptimization(content);
     renderCompetitorContent(content);
     renderPartnerContent(content);
     setupConsultingCardMotion();
@@ -713,6 +768,9 @@
       ".business-pain-framework",
       ".business-solution-card",
       ".business-strategy-artifact > div",
+      ".business-workload-advisory",
+      ".business-consulting-process > li",
+      ".business-workload-services > article",
       ".business-workload-matrix > article",
       ".business-memory-fabric",
       ".business-tco-module",
@@ -754,6 +812,8 @@
       ".business-competency-grid",
       ".business-strategy-chain",
       ".business-strategy-artifact",
+      ".business-consulting-process",
+      ".business-workload-services",
       ".business-workload-matrix",
       ".business-tech-decision-grid",
       ".business-execution-evidence-grid",
@@ -775,6 +835,9 @@
       ".business-competency-grid > article",
       ".business-strategy-chain > li",
       ".business-strategy-artifact > div",
+      ".business-consulting-process > li",
+      ".business-workload-services > article",
+      ".business-workload-sources > a",
       ".business-workload-matrix > article",
       ".business-fabric-stack > article",
       ".business-tco-metrics > article",

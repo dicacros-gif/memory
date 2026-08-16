@@ -140,6 +140,7 @@ export function buildSourceCatalogSnapshot({ catalog = loadSourceCatalog(), news
     officialObserved: observed.filter((source) => source.sourceClass === "official").length,
     officialFreshObserved: fresh.filter((source) => source.sourceClass === "official").length,
     observedSourceIds: [...observedIds].sort(),
+    freshSourceIds: fresh.map((source) => source.id).sort(),
     byTier: countBy("tier"),
     observedByTier: countBy("tier", observed),
     roleCoverage: countBy("roles"),

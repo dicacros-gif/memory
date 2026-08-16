@@ -16,6 +16,90 @@
       "Executive Strategy · 근거·선택지·Trigger·Owner·KPI를 한 장으로 제시"
     ]
   },
+  "workloadOptimization": {
+    "title": "Data Center Workload Optimization · Evidence-to-PoC",
+    "thesis": "메모리 증설부터 제안하지 않고, 고객 Workload Trace로 병목과 데이터 수명주기를 먼저 계측한 뒤 계층화·소프트웨어·용량 대안을 같은 KPI에서 검증합니다.",
+    "process": [
+      {
+        "id": "intake",
+        "index": "01",
+        "label": "Customer Intake",
+        "title": "고객 문제 구조화",
+        "bullets": ["서비스 SLA·구매 기준·의사결정 Owner 확인", "대표 Prompt·Context·Corpus·동시성 범위 고정", "공개 근거와 고객 비공개 데이터를 분리"]
+      },
+      {
+        "id": "baseline",
+        "index": "02",
+        "label": "Trace & Baseline",
+        "title": "실측 기준선 확보",
+        "bullets": ["TTFT·TPOT/P99·GPU Idle·HBM 점유율 계측", "KV Reuse·Cache TTL·Index Resident Ratio 확인", "Cost/Token·Cost/Query·Power/Token 기준선 설정"]
+      },
+      {
+        "id": "diagnose",
+        "index": "03",
+        "label": "Bottleneck Tree",
+        "title": "병목 원인 분리",
+        "bullets": ["대역폭·용량·데이터 이동·재계산을 MECE 분해", "Prefill·Decode·Retrieval 경로별 병목 구분", "Memory Wall과 Compute·Network·Power 병목 교차검증"]
+      },
+      {
+        "id": "options",
+        "index": "04",
+        "label": "Architecture Options",
+        "title": "대안 포트폴리오 설계",
+        "bullets": ["HBM Hot·Host DRAM/CXL Warm·SSD Reuse Tier 비교", "Context 압축·RAG·Cache Eviction·Prefetch 병행", "표준·Semi-Custom·Custom Memory 범위 비교"]
+      },
+      {
+        "id": "poc",
+        "index": "05",
+        "label": "PoC & TCO",
+        "title": "동일 Workload 검증",
+        "bullets": ["Baseline과 대안을 같은 데이터셋·부하로 재현", "성능·전력·신뢰성·CapEx/OpEx 동시 평가", "민감도·Break-even·Kill Criteria 명시"]
+      },
+      {
+        "id": "scale",
+        "index": "06",
+        "label": "Qualify & Repeat",
+        "title": "사업화·재검증",
+        "bullets": ["Qualification·Capacity·가격·Ramp Gate 연결", "Pain Map·Requirement Matrix·TCO를 표준 산출물화", "3시간 소스 갱신·15분 브라우저 재확인·변경 Trigger 추적"]
+      }
+    ],
+    "serviceLines": [
+      {
+        "id": "kv-cache-tiering",
+        "label": "01 · AGENTIC INFERENCE",
+        "title": "KV Cache Tiering Advisory",
+        "pain": "Long Context·Multi-agent에서 KV 재계산과 HBM 상주 비용이 함께 증가",
+        "hypothesis": "재사용 빈도와 SLA에 따라 GPU HBM·Host DRAM/CXL·SSD로 승격·퇴거하면 GPU 여유와 Token 원가를 함께 개선 가능",
+        "metrics": ["TTFT·TPOT/P99", "KV Hit·Reuse·TTL", "HBM Occupancy·GPU Idle", "Cost/Token·Power/Token"],
+        "killCriteria": "전송 지연을 포함한 P99 또는 System TCO가 Baseline을 통과하지 못하면 Offload 범위를 축소"
+      },
+      {
+        "id": "rag-memory-economics",
+        "label": "02 · ENTERPRISE RAG",
+        "title": "RAG Memory Economics",
+        "pain": "Corpus·Embedding·Index 증가로 DRAM 상주 비용과 Retrieval P99가 동시 상승",
+        "hypothesis": "Active Index는 DRAM/CXL, Vector·Document Capacity는 TLC/QLC eSSD에 배치하고 Context Cache와 RAG를 동일 비용축에서 비교",
+        "metrics": ["Index Resident Ratio", "Cache Hit·QPS·P99", "Cost/Query", "Endurance·Recovery"],
+        "killCriteria": "검색 SLA·신뢰성·Cost/Query 가운데 하나라도 고객 기준선을 넘지 못하면 데이터 배치를 재설계"
+      },
+      {
+        "id": "customer-validation-lab",
+        "label": "03 · CUSTOM MEMORY",
+        "title": "Customer Workload Validation Lab",
+        "pain": "제품 사양과 고객 실사용 Workload의 간극으로 인증 지연·과잉 설계·사업성 불확실성이 발생",
+        "hypothesis": "공개 SMRC 모델처럼 고객·파트너가 실제 환경에서 공동 Benchmark하고, 결과를 Requirement·Architecture·Qualification에 연결하는 운영체계를 제안",
+        "metrics": ["Trace Coverage", "PoC → Qualification", "Qualification Cycle", "Reference Reuse·Repeat Order"],
+        "killCriteria": "Workload Trace 접근·Decision Owner·Qualification 경로 중 2개 이상이 없으면 Custom 투자를 보류"
+      }
+    ],
+    "sourceIds": ["samsung-smrc", "google-context-caching", "anthropic-context-engineering", "nvidia-dynamo", "vllm-kv-offloading"],
+    "evidencePolicy": [
+      "공식 원문·표준·공개 기술 문서를 우선하고 날짜·URL·실행 ID를 보존",
+      "실제 파트너십·검증 사례와 향후 운영 모델을 명확히 분리",
+      "성능 배수·가격·시장 수치는 Workload·모델·버전 조건이 확인될 때만 게시",
+      "최신성 Gate 실패 시 새 결론을 게시하지 않고 마지막 검증본을 유지"
+    ]
+  },
   "profiles": [
     {
       "id": "hbm4-foundry",
@@ -57,11 +141,11 @@
       "answerTitle": "Agentic Inference를 Context Economics로 판단",
       "recommendation": "TIERED MEMORY PoC",
       "question": "Long Context·Multi-agent·RAG 확대로 커지는 KV Cache와 데이터 이동을 어떤 Memory Tier로 배치해야 Token 원가와 SLA가 함께 개선되는가?",
-      "fallbackDecision": "HBM Hot–DRAM/CXL Warm–HBF/eSSD Reuse Tier를 동일 Workload에서 비교하고 $/Million Tokens와 P99 기준으로 상용화 범위를 정합니다.",
-      "fallbackStop": "KV Reuse, P99 Latency, GPU Idle, System TCO가 고객 Baseline을 충족하지 못하면 Context Tier 범위를 축소합니다.",
+      "fallbackDecision": "Prompt·Context Cache의 TTL·재사용률과 RAG·압축 대안을 함께 계측하고, HBM Hot–DRAM/CXL Warm–HBF/eSSD Reuse Tier를 동일 Workload의 Cost/Token과 P99로 비교합니다.",
+      "fallbackStop": "KV Reuse, Cache TTL, P99 Latency, GPU Idle, System TCO가 고객 Baseline을 충족하지 못하면 Context Tier 범위를 축소하거나 Context 압축·RAG로 전환합니다.",
       "lenses": [
         ["01 · CUSTOMER", "Serving JTBD", ["TTFT·TPOT/P99와 동시 Session", "Token 원가·전력·Rack Capacity", "고객 SLA와 구매 기준"]],
-        ["02 · AI TECH", "Context Flow", ["KV Cache reuse·offload·prefetch", "Prompt·Prefix·Multi-agent state", "Bytes/token·GPU idle 계측"]],
+        ["02 · AI TECH", "Context Flow", ["KV Cache reuse·offload·prefetch", "Prompt·Context Cache TTL·Multi-agent state", "압축·RAG의 반대 가설과 Bytes/token 계측"]],
         ["03 · MEMORY", "Tiered Architecture", ["HBM Hot Tier", "DRAM/CXL Warm Tier", "HBF/eSSD Reuse Tier"]],
         ["04 · BUSINESS", "Reference Offer", ["Architecture·SW·Memory 공동 PoC", "System TCO와 고객 지불의사", "Qualification·반복주문"]]
       ],
@@ -70,7 +154,7 @@
         ["NEXT · 31–60D", "Tier Placement PoC", "HBM-only와 DRAM/CXL/HBF/eSSD 배치를 비교", "P99·Reuse·Power/token"],
         ["SCALE · 61–90D", "Commercial Gate", "TCO·성능보증·Qualification 범위를 확정", "Cost/token·Repeatability"]
       ],
-      "kpis": ["TTFT / TPOT P99", "KV reuse", "GPU utilization", "Cost per million tokens"],
+      "kpis": ["TTFT / TPOT P99", "KV reuse / cache TTL", "GPU utilization", "Cost per million tokens"],
       "partners": ["AI model/serving · workload", "CSP/Data center · operations", "CXL/HBF/eSSD · tier integration"],
       "useCase": "익명화 Agentic AI 운영사 · Context 병목 → Tiered Memory PoC → 공동 Qualification",
       "deepLink": "#console/c-level-cockpit/post-hbm"
@@ -150,7 +234,7 @@
         ["01 · AI DEVELOPER", "Workload Owner", ["Model·Prompt·Serving Trace", "성능 목표·Test Workload", "SW Integration 책임"]],
         ["02 · DATA CENTER", "Operations Owner", ["Rack·Power·Cooling·Network", "Reliability·SLA·TCO", "PoC 운영 환경"]],
         ["03 · OEM / PLATFORM", "Qualification Owner", ["Interoperability·BOM", "Sample·인증 일정", "Volume Ramp"]],
-        ["04 · CONSULTING / SI", "Value Realization", ["Business Case·Roadmap", "Change Management·PMO", "Reference 재사용"]]
+        ["04 · CONSULTING / SI", "Future Operating Model", ["공식 협업 확인 전 검토 방향으로 표기", "Business Case·Roadmap·PMO", "Reference 재사용"]]
       ],
       "horizons": [
         ["NOW · 0–30D", "Opportunity Screen", "Customer Value·Market·Right to Win", "Trace access·Decision owner"],

@@ -110,7 +110,7 @@
     (() => {
       if (!location.hash.startsWith("#console")) return;
       document.documentElement.classList.add("console-entry");
-      const revision = "infra-20260816-14";
+      const revision = "infra-20260816-15";
       const assets = [
         ["consoleStylesPreload", "style", `assets/css/styles.min.css?v=${revision}`, "high"],
         ["consoleAppPreload", "script", `assets/js/app.min.js?v=${revision}`, "low"],
@@ -127,7 +127,7 @@
       }
     })();
   </script>
-  <link rel="stylesheet" href="assets/css/landing.min.css?v=infra-20260816-14" />
+  <link rel="stylesheet" href="assets/css/landing.min.css?v=infra-20260816-15" />
 </head>
 <body class="landing-mode">
   <div class="business-site" id="businessSite">
@@ -523,6 +523,36 @@
               <p class="business-framework-note">공개 사실을 바탕으로 재구성한 전략 산출물이며 실제 고객 성과가 아닙니다.</p>
             </article>
           </div>
+
+          <section class="business-workload-advisory" id="workload-optimization" aria-labelledby="workloadOptimizationTitle">
+            <div class="business-module-heading business-module-heading--workload">
+              <span>BAIN · RESULTS DELIVERY · EVIDENCE-TO-PoC</span>
+              <h3 id="workloadOptimizationTitle">Data Center Workload Optimization</h3>
+              <p id="workloadOptimizationThesis">메모리 증설부터 제안하지 않고, 고객 Workload Trace로 병목과 데이터 수명주기를 먼저 계측한 뒤 계층화·소프트웨어·용량 대안을 같은 KPI에서 검증합니다.</p>
+            </div>
+            <ol class="business-consulting-process" id="workloadConsultingProcess" aria-label="맞춤형 메모리 컨설팅 프로세스">
+              <li><span>01</span><div><small>CUSTOMER INTAKE</small><strong>고객 문제 구조화</strong><ul><li>서비스 SLA·구매 기준·Owner 확인</li><li>대표 Workload 범위 고정</li></ul></div></li>
+              <li><span>02</span><div><small>TRACE &amp; BASELINE</small><strong>실측 기준선 확보</strong><ul><li>지연·GPU Idle·HBM 점유율</li><li>Token·Query·전력 원가</li></ul></div></li>
+              <li><span>03</span><div><small>BOTTLENECK TREE</small><strong>병목 원인 분리</strong><ul><li>대역폭·용량·이동·재계산</li><li>Compute·Network·Power 교차검증</li></ul></div></li>
+              <li><span>04</span><div><small>ARCHITECTURE OPTIONS</small><strong>대안 포트폴리오</strong><ul><li>HBM·DRAM/CXL·eSSD Tier</li><li>압축·RAG·Eviction·Prefetch</li></ul></div></li>
+              <li><span>05</span><div><small>PoC &amp; TCO</small><strong>동일 Workload 검증</strong><ul><li>성능·전력·신뢰성·비용</li><li>Break-even·Kill Criteria</li></ul></div></li>
+              <li><span>06</span><div><small>QUALIFY &amp; REPEAT</small><strong>사업화·재검증</strong><ul><li>Qualification·Capacity·Ramp</li><li>표준 산출물·변경 Trigger</li></ul></div></li>
+            </ol>
+            <div class="business-workload-services" id="workloadServiceLines">
+              <article><span>01 · AGENTIC INFERENCE</span><h4>KV Cache Tiering Advisory</h4><dl><div><dt>PAIN</dt><dd>KV 재계산과 HBM 상주 비용 동시 증가</dd></div><div><dt>HYPOTHESIS</dt><dd>HBM·Host DRAM/CXL·SSD 승격·퇴거 정책 비교</dd></div><div><dt>KPI</dt><dd>TTFT·TPOT/P99 · KV Reuse · GPU Idle · Cost/Token</dd></div><div><dt>KILL</dt><dd>P99 또는 System TCO가 Baseline 미달 시 Offload 범위 축소</dd></div></dl></article>
+              <article><span>02 · ENTERPRISE RAG</span><h4>RAG Memory Economics</h4><dl><div><dt>PAIN</dt><dd>Index 상주 비용과 Retrieval P99 동시 상승</dd></div><div><dt>HYPOTHESIS</dt><dd>DRAM/CXL Active Tier와 TLC/QLC eSSD Capacity Tier 비교</dd></div><div><dt>KPI</dt><dd>Index Resident · Cache Hit · QPS/P99 · Cost/Query</dd></div><div><dt>KILL</dt><dd>SLA·신뢰성·Query 원가 미달 시 데이터 배치 재설계</dd></div></dl></article>
+              <article><span>03 · CUSTOM MEMORY</span><h4>Customer Workload Validation Lab</h4><dl><div><dt>BENCHMARK</dt><dd>삼성 SMRC의 실사용 Workload 공동 검증 모델</dd></div><div><dt>PROPOSAL</dt><dd>SK hynix 적용안은 공개 사례를 참조한 향후 운영 모델</dd></div><div><dt>OUTPUT</dt><dd>Pain Map · Requirement Matrix · TCO · Qualification Plan</dd></div><div><dt>KILL</dt><dd>Trace·Owner·인증 경로 중 2개 이상 미확인 시 Custom 보류</dd></div></dl></article>
+            </div>
+            <div class="business-workload-evidence">
+              <div><span>AUTOMATED EVIDENCE CONTROL</span><strong>공식 원문 → 최신성 → Workload Signal → PoC Gate</strong><p>실제 협업·검증 사례와 향후 운영 모델을 분리하며, 조건 없는 성능 배수·가격·시장 수치는 게시하지 않습니다.</p></div>
+              <ul id="workloadEvidencePolicy"><li>공식 원문·표준·공개 기술 문서 우선</li><li>3시간 수집 · 15분 브라우저 재확인</li><li>최신성 실패 시 마지막 검증본 유지</li></ul>
+              <div class="business-workload-sources" id="workloadEvidenceSources">
+                <a href="https://smrc.biz.samsung.com/html/about-us_new.html" target="_blank" rel="noopener noreferrer"><span>MONITORING</span><strong>Samsung SMRC</strong><small>실사용 데이터센터 검증 벤치마크 ↗</small></a>
+                <a href="https://developer.nvidia.com/blog/introducing-nvidia-dynamo-a-low-latency-distributed-inference-framework-for-scaling-reasoning-ai-models/" target="_blank" rel="noopener noreferrer"><span>MONITORING</span><strong>NVIDIA Dynamo</strong><small>KV Cache 다단계 Offload ↗</small></a>
+                <a href="https://ai.google.dev/gemini-api/docs/optimization" target="_blank" rel="noopener noreferrer"><span>MONITORING</span><strong>Google Context Caching</strong><small>TTL·저장 비용·재사용 조건 ↗</small></a>
+              </div>
+            </div>
+          </section>
 
           <section class="business-workload-map" id="workload-map" aria-labelledby="workloadMapTitle">
             <div class="business-module-heading"><span>McKINSEY · ISSUE TREE</span><h3 id="workloadMapTitle">Workload-to-Memory Map</h3><p>워크로드 → 병목 → 메모리 대안 → 의사결정</p></div>
@@ -1820,6 +1850,6 @@
   <div class="qa-answer" id="qaAnswer" hidden></div>
   <div class="inspector" id="inspector" hidden></div>
   <div class="backdrop" id="backdrop"></div>
-  <script src="assets/js/landing.min.js?v=infra-20260816-14" defer></script>
+  <script src="assets/js/landing.min.js?v=infra-20260816-15" defer></script>
 </body>
 </html>
