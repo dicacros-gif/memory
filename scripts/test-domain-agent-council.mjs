@@ -23,22 +23,22 @@ assert.doesNotMatch(scenarioBlock, /중국 공급압력|정책 강화|BIS|VEU/, 
 for (const phrase of [
   "Customized Memory Consulting · Custom HBM",
   "AI Application & HW/SW · On-device",
-  "LLM Tech & Enterprise RAG Architecture",
+  "LLM Serving & Context Economics · Enterprise RAG",
   "Data Center Workload Optimization",
   "Partners & Clients · Repeatable New Biz",
 ]) assert.ok(app.includes(phrase), `missing council agenda: ${phrase}`);
 
 for (const agent of [
   "Customer Strategist",
-  "Workload Architect",
+  "Serving & Rack Architect",
   "AI Application & LLM Lead",
-  "Memory Solution Lead",
+  "Architecture & Qualification Lead",
   "New Biz & Partner Lead",
   "Evidence Auditor",
   "Executive Decision Lead",
 ]) assert.ok(agentBlock.includes(agent), `missing context-specific agent: ${agent}`);
 
-assert.ok(app.includes("Transformer · Prompt · RAG · Vector DB"), "domain contexts must connect current AI architecture to memory decisions");
+assert.ok(app.includes("Paged KV · Scheduler · Prefill/Decode · RAG"), "domain contexts must connect current AI serving architecture to infrastructure decisions");
 for (const phrase of ["영역별 실행 전략", "domain-council-context", "domain-council-flow", "domain-council-delivery", "STOP / REFRAME"]) {
   assert.ok(renderBlock.includes(phrase), `domain council must render ${phrase}`);
 }
@@ -47,7 +47,7 @@ assert.doesNotMatch(renderBlock, /class="agent-roster"|class="agent-chat/, "exec
 assert.match(renderBlock, /영역별 전략 팩 생성/);
 
 assert.match(html, /AI Infra 영역별 전략 검증 · Backtest/);
-assert.match(html, /infra-20260816-15/);
+assert.match(html, /infra-20260816-16/);
 assert.match(css, /AI Infra Domain Council - context-specific consulting workstreams/);
 assert.match(css, /#executive-decision \.domain-agent-council\s*\{[\s\S]*?background:\s*#eef3f7 !important/, "domain council must remain legible in dark and inverted themes");
 assert.match(css, /#execDecisionCouncilSelect\s*\{[\s\S]*?color:\s*#10243a !important/, "domain selector text must remain visible in dark and inverted themes");
@@ -61,5 +61,5 @@ console.log(JSON.stringify({
   contexts: 6,
   agents: 7,
   agendas: 5,
-  revision: "infra-20260816-15",
+  revision: "infra-20260816-16",
 }, null, 2));

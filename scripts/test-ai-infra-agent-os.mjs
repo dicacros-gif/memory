@@ -24,8 +24,8 @@ for (const label of [
 
 for (const agent of [
   "Customer Strategist",
-  "Workload Architect",
-  "Memory Solution Lead",
+  "Serving & Rack Architect",
+  "Architecture & Qualification Lead",
   "New Biz & Partner Lead",
   "Evidence Auditor",
   "Executive Decision Lead",
@@ -33,7 +33,7 @@ for (const agent of [
   assert.ok(app.includes(agent), `missing AI Infra strategy agent: ${agent}`);
 }
 
-assert.match(app, /Customer Pain → Workload → Memory Option → Business Case → 90-Day Action/, "agent flow must follow the consulting value chain");
+assert.match(app, /Business Outcome → Workload\/SLO → Dominant Bottleneck → HW\/SW Options → 90-Day Gate/, "agent flow must follow the bottleneck-first consulting value chain");
 assert.match(app, /AI Infra 전략 실행/, "agent surfaces must use action-oriented run labels");
 assert.doesNotMatch(app, /토론 실행|Agent 실행 대기|Memory 시장에 대해 물어보세요/, "legacy market-search and debate labels must be removed");
 assert.match(app, /let agentTtsEnabled = false/, "speech must remain disabled so it cannot block the result");

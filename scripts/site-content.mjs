@@ -104,7 +104,7 @@ function buildCompetitors(quant = {}) {
 
 function buildWorkloadSignals(payload = {}, allowedSourceIds = []) {
   const allowed = new Set(allowedSourceIds);
-  const workloadTerms = /kv.?cache|context cach|context engineering|prompt cach|offload|tiered memory|rag|vector|workload|benchmark|data.?center/i;
+  const workloadTerms = /kv.?cache|pagedattention|distserve|mooncake|prefill|decode|goodput|scheduler|context cach|context engineering|prompt cach|offload|tiered memory|rag|vector|workload|benchmark|rack.?scale|liquid.?cool|data.?center/i;
   const classScore = { official: 20, research: 12, "authoritative-media": 8 };
   return (payload.news || [])
     .map((item) => {
@@ -132,6 +132,31 @@ function buildWorkloadSignals(payload = {}, allowedSourceIds = []) {
     .sort((a, b) => b.score - a.score)
     .slice(0, 4)
     .map(({ score: _score, ...item }) => item);
+}
+
+function buildDecisionControl(payload = {}, sourceCoverage = {}, generatedAt = null, expiresAt = null) {
+  const qualityStatus = String(payload.quality?.status || "unavailable").toLowerCase();
+  const integrityPassed = /verified|pass|current|healthy/.test(qualityStatus);
+  const configured = Number(sourceCoverage.configuredSources || 0);
+  const observed = Number(sourceCoverage.observedSources || 0);
+  const fresh = Number(sourceCoverage.freshObservedSources || 0);
+  const observedRatio = configured ? observed / configured : 0;
+  const freshRatio = configured ? fresh / configured : 0;
+  const generatedTime = Date.parse(String(generatedAt || ""));
+  const expiryTime = Date.parse(String(expiresAt || ""));
+  const current = Number.isFinite(generatedTime) && Number.isFinite(expiryTime) && generatedTime <= expiryTime;
+  const coverage = observedRatio >= 0.7 ? "FULL" : observedRatio >= 0.15 ? "PARTIAL" : "LOW";
+  const confidence = integrityPassed && current && observedRatio >= 0.7
+    ? "HIGH"
+    : integrityPassed && current && observedRatio >= 0.15
+      ? "CONDITIONAL"
+      : "REVIEW";
+  return {
+    integrity: { status: integrityPassed ? "PASS" : "REVIEW", detail: qualityStatus || "unavailable" },
+    freshness: { status: current ? "CURRENT" : "CHECK", generatedAt, expiresAt },
+    coverage: { status: coverage, observed, configured, ratio: Number(observedRatio.toFixed(3)), freshRatio: Number(freshRatio.toFixed(3)) },
+    confidence: { status: confidence, basis: "integrity × freshness × source coverage" },
+  };
 }
 
 function buildWorkloadOptimization(payload = {}, sourceCoverage = {}, generatedAt = null) {
@@ -217,6 +242,8 @@ export function validateSiteContent(content = {}) {
   if (!Array.isArray(content.workloadOptimization?.process) || content.workloadOptimization.process.length < 6) errors.push("workloadOptimization.process");
   if (!Array.isArray(content.workloadOptimization?.serviceLines) || content.workloadOptimization.serviceLines.length < 3) errors.push("workloadOptimization.serviceLines");
   if (!Array.isArray(content.workloadOptimization?.sources) || content.workloadOptimization.sources.length < 4) errors.push("workloadOptimization.sources");
+  if (!Array.isArray(content.caseClassification) || content.caseClassification.length !== 3) errors.push("caseClassification");
+  if (!content.decisionControl?.integrity?.status || !content.decisionControl?.freshness?.status || !content.decisionControl?.coverage?.status || !content.decisionControl?.confidence?.status) errors.push("decisionControl");
   if (Number(content.freshness?.configuredSources || 0) < 20) errors.push("freshness.configuredSources");
   if (Number(content.freshness?.officialConfigured || 0) < 15) errors.push("freshness.officialConfigured");
   for (const item of content.insights || []) {
@@ -247,11 +274,12 @@ export function buildSiteContentClient({ payload = {}, quant = {} } = {}) {
   const topDecisions = ["hbm", "demand", "nand"]
     .map((id) => insights.find((item) => item.id === id)?.decision)
     .filter(Boolean);
+  const expiresAt = payload.expiresAt || quant.expiresAt || null;
   const content = {
     schemaVersion: "1.0",
     runId: payload.runId || quant.runId || null,
     generatedAt,
-    expiresAt: payload.expiresAt || quant.expiresAt || null,
+    expiresAt,
     clientArtifact: true,
     generation: {
       method: "verified-data-plus-approved-framework",
@@ -278,6 +306,7 @@ export function buildSiteContentClient({ payload = {}, quant = {} } = {}) {
       browserRecheckMinutes: Number(sourceCoverage.browserRecheckMinutes || sourceCatalog.refreshPolicy.browserRecheckMinutes),
       sourceCatalogVersion: sourceCoverage.version || sourceCatalog.schemaVersion,
     },
+    decisionControl: buildDecisionControl(payload, sourceCoverage, generatedAt, expiresAt),
     hero: {
       titleLines: model.strategyMandate?.titleLines || [],
       thesis: topDecisions.length ? topDecisions : model.strategyMandate?.scope || [],
@@ -290,9 +319,10 @@ export function buildSiteContentClient({ payload = {}, quant = {} } = {}) {
     competitors: buildCompetitors(quant),
     partnerSpotlight,
     workloadOptimization: buildWorkloadOptimization(payload, sourceCoverage, generatedAt),
+    caseClassification: model.caseClassification || [],
     agentCouncil: {
       title: "AI Infra Strategy Agent Council",
-      subtitle: `최신 검증 근거 ${insights.length}개 축을 고객 Pain·Workload·사업성·실행 Gate로 재구성`,
+      subtitle: `최신 검증 근거 ${insights.length}개 축을 Business Outcome·Workload/SLO·지배 병목·경제성·실행 Gate로 재구성`,
       agendas: profiles,
     },
     footer: {

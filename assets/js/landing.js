@@ -1,12 +1,12 @@
 (() => {
   "use strict";
 
-  const BUSINESS_TITLE = "AI Infra Strategy OS · Workload to Revenue";
+  const BUSINESS_TITLE = "AI Infra Strategy OS · Bottleneck to Scale";
   const CONSOLE_HASH = "#console";
-  const CONSOLE_REVISION = "infra-20260816-15";
+  const CONSOLE_REVISION = "infra-20260816-16";
   const DECISION_CLIENT_PATH = "data/landing-decision-client.json";
   const SITE_CONTENT_PATH = "data/site-content-client.json";
-  const BUSINESS_KEY_TERM_PATTERN = /(System Bottleneck|Memory Option|Business Value|Right to Win|Kill Criteria|Execution Gates?|Decision Gate|Agentic AI|Pain Point|Qualification|Benchmark|Workload|Capacity|HBM4?|CXL|HBF|eSSD|TCO|Ramp|고객 인증|판단 변경 조건|실행 전략|시스템 병목|메모리 대안|사업 가치)/gi;
+  const BUSINESS_KEY_TERM_PATTERN = /(Dominant Bottleneck|Root Bottleneck|Bottleneck First|System Bottleneck|Serving SW|PagedAttention|Prefill|Decode|Goodput|Business Outcome|Memory Option|Business Value|Right to Win|Kill Criteria|Execution Gates?|Decision Gate|Agentic AI|Pain Point|Qualification|Benchmark|Workload|Capacity|HBM4?|CXL|HBF|eSSD|TCO|Ramp|고객 인증|판단 변경 조건|실행 전략|지배 병목|시스템 병목|메모리 대안|사업 가치)/gi;
   const site = document.querySelector("#businessSite");
   let consoleLayer = document.querySelector("#intelligenceConsole");
   const header = document.querySelector("#businessHeader");
@@ -485,6 +485,28 @@
     if (caveat) caveat.textContent = `${partner.summary} 공개 발표·보도는 확정 계약과 구분하며 고객 인증·물량 약정·출하·매출 인식 Gate를 별도로 검증합니다.`;
   }
 
+  function renderCaseClassification(content = {}) {
+    const target = document.querySelector("#caseClassification");
+    if (!target || !content.caseClassification?.length) return;
+    target.innerHTML = content.caseClassification.map((item, index) => `
+      <article data-case-classification="${escapeBusinessHTML(item.id || "case")}">
+        <span>${String(index + 1).padStart(2, "0")} · ${escapeBusinessHTML(item.label)}</span>
+        <p>${escapeBusinessHTML(item.description)}</p>
+      </article>`).join("");
+  }
+
+  function applyDecisionControl(content = {}) {
+    const control = content.decisionControl || {};
+    const integrity = document.querySelector("#businessDataIntegrity");
+    const freshness = document.querySelector("#businessDataFreshness");
+    const coverage = document.querySelector("#businessDataCoverage");
+    const confidence = document.querySelector("#businessDecisionConfidence");
+    if (integrity) integrity.textContent = `INTEGRITY · ${control.integrity?.status || "CHECK"}`;
+    if (freshness) freshness.textContent = `FRESHNESS · ${control.freshness?.status || "CHECK"}`;
+    if (coverage) coverage.textContent = `COVERAGE · ${control.coverage?.status || "CHECK"}`;
+    if (confidence) confidence.textContent = `CONFIDENCE · ${control.confidence?.status || "CHECK"}`;
+  }
+
   function applySiteContent(content = {}) {
     if (!content?.clientArtifact) return;
     document.documentElement.dataset.contentRun = String(content.runId || "");
@@ -504,12 +526,8 @@
     if (sourceMetric) sourceMetric.textContent = configuredSources
       ? `관측 ${content.freshness?.observedSources || 0} · 구성 ${configuredSources} · 공식 ${content.freshness?.officialObserved || 0}`
       : "다음 검증 실행 반영";
-    const sourceBadge = document.querySelector("#businessDataSourceBadge");
-    if (sourceBadge) sourceBadge.textContent = configuredSources
-      ? `${configuredSources} SOURCES · ${content.freshness?.freshObservedSources || 0} FRESH`
-      : "CATALOG CHECK";
     const cadence = document.querySelector("#businessDataCadence");
-    if (cadence) cadence.textContent = `${content.freshness?.scheduleHours || 3}-HOUR CYCLE`;
+    if (cadence) cadence.textContent = `SCHEDULED ${content.freshness?.scheduleHours || 3}H REFRESH`;
     const staticSnapshot = document.querySelector(".console-static-snapshot header p");
     if (staticSnapshot) staticSnapshot.textContent = content.agentCouncil?.subtitle || staticSnapshot.textContent;
 
@@ -518,6 +536,8 @@
     renderWorkloadOptimization(content);
     renderCompetitorContent(content);
     renderPartnerContent(content);
+    renderCaseClassification(content);
+    applyDecisionControl(content);
     setupConsultingCardMotion();
     highlightBusinessKeyTerms();
 
@@ -590,13 +610,18 @@
       const manifest = await getDataManifest({ force });
       const expiresAt = new Date(manifest.expiresAt).getTime();
       const current = Number.isFinite(expiresAt) && Date.now() <= expiresAt;
-      status.textContent = current ? "Verified · current" : "Update delayed · freshness gate exceeded";
+      const decisionControl = window.MEMORY_SITE_CONTENT?.decisionControl || {};
+      status.textContent = current
+        ? `Integrity ${decisionControl.integrity?.status || "PASS"} · Freshness current · Confidence ${decisionControl.confidence?.status || "CHECK"}`
+        : "Update delayed · freshness gate exceeded · last verified bundle retained";
       dot?.classList.toggle("is-current", current);
       dot?.classList.toggle("is-delayed", !current);
       if (updated) updated.textContent = formatKst(manifest.generatedAt);
       if (expiry) expiry.textContent = formatKst(manifest.expiresAt);
       if (artifacts) artifacts.textContent = `${Object.keys(manifest.artifacts || {}).length} datasets`;
       if (run) run.textContent = String(manifest.runId || "unavailable").slice(0, 18);
+      const freshnessBadge = document.querySelector("#businessDataFreshness");
+      if (freshnessBadge) freshnessBadge.textContent = `FRESHNESS · ${current ? "CURRENT" : "DELAYED"}`;
       if (panel) panel.hidden = false;
     } catch (error) {
       console.warn("Data freshness status unavailable", error);
@@ -608,6 +633,10 @@
       if (artifacts) artifacts.textContent = "새 게시 중단";
       if (sources) sources.textContent = "검증본 유지";
       if (run) run.textContent = "unavailable";
+      for (const id of ["businessDataIntegrity", "businessDataFreshness", "businessDataCoverage", "businessDecisionConfidence"]) {
+        const badge = document.getElementById(id);
+        if (badge) badge.textContent = `${badge.textContent.split("·")[0].trim()} · CHECK`;
+      }
       if (panel) panel.hidden = false;
     }
   }
@@ -819,6 +848,7 @@
       ".business-execution-evidence-grid",
       ".business-automation-flow",
       ".business-partnership-types",
+      ".business-case-classification",
       ".business-role-outputs",
     ].join(","));
     for (const group of groups) {
@@ -849,6 +879,7 @@
       ".business-status-rules > li",
       ".business-flagship-partnership",
       ".business-partnership-types > article",
+      ".business-case-classification > article",
       ".business-deep-case-grid > section",
       ".business-macro-grid > article",
       ".business-role-fit-grid > article",

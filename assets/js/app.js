@@ -1208,7 +1208,7 @@
       partners: "Model company · Serving framework · CSP · CXL ecosystem · Server OEM",
       kpis: ["TTFT/TPOT P99", "KV hit ratio", "GPU idle", "Bytes/token", "System TCO"],
       gates: ["Serving baseline", "Tier placement PoC", "SW integration", "OEM qualification"],
-      kill: "P99가 5% 이상 악화되거나 System TCO 개선이 10% 미만이면 CXL·Warm Tier 범위를 재설계",
+      kill: "P99·Quality·System TCO가 합의 Baseline을 통과하지 못하면 CXL·Warm Tier 범위를 재설계",
     },
     "enterprise-ssd": {
       customer: "Enterprise RAG 사업자 · Data Center Operator · Storage OEM",
@@ -1271,7 +1271,7 @@
       workload: "Training · Inference · RAG · On-device/Edge",
       hwSw: "Application–Model–Accelerator–Host–Network–Storage end-to-end trace",
       aiTech: "Transformer · Prompt Engineering · RAG · Vector DB",
-      memory: "HBM · DRAM/SOCAMM · CXL · HBF · eSSD",
+      memory: "HBM Hot · DRAM/SOCAMM System · CXL Elastic · eSSD Reuse · HBF Emerging",
       offer: "Pain Point 기반 Memory Architecture·TCO·Qualification 패키지",
       partners: "AI developer · Data center · OEM · Consulting/SI",
       kpis: ["System performance", "TCO", "Qualification", "Committed volume"],
@@ -2407,7 +2407,7 @@
       strategy: {
         pain: "동시 사용자·Context 길이 증가로 GPU가 계산보다 KV 재계산과 Data Movement를 기다림",
         workload: "Serving trace → TTFT·TPOT/P99·KV hit·GPU utilization·rack power를 동일 부하에서 측정",
-        memory: "HBM Hot Tier · Server DRAM/CXL Warm Tier · HBF/eSSD Reuse Tier를 대안별 비교",
+        memory: "HBM Hot · Server DRAM System · CXL Elastic · eSSD Reuse를 비교하고 HBF는 Emerging으로 분리",
         business: "추가 메모리 비용 ↔ GPU Idle 감소·Throughput 증가·Power/Token 개선을 TCO로 환산",
         partner: "AI 개발사 + 데이터센터 운영사 + 메모리/SW 팀 공동 Benchmark",
         action: "30일 Baseline → 60일 Architecture PoC → 90일 Qualification 안건",
@@ -2483,7 +2483,7 @@
       strategy: {
         pain: "모델·Prompt·검색 구조 변화가 실제 Memory 수요로 전환되는 중간 지표가 없어 전망 오차가 큼",
         workload: "Context length·Batch/Concurrency·KV reuse·Embedding index·Read amplification을 추적",
-        memory: "Bandwidth·Capacity·Latency·Endurance 요구를 HBM·DRAM/CXL·HBF/eSSD별로 매핑",
+        memory: "Bandwidth·Capacity·Latency·Endurance 요구를 HBM·DRAM/CXL·eSSD에 매핑하고 HBF는 Emerging으로 관리",
         business: "기술 신호 → 고객 Architecture 변경 → Qualification → Unit/Content growth 순으로 수요를 산정",
         partner: "AI Lab·Framework/Vector DB 업체·CSP Architecture 팀과 Benchmark 데이터 교환",
         action: "월간 Tech Signal Map + 분기별 Workload Benchmark + 제품 Roadmap Trigger 갱신",
@@ -9198,10 +9198,10 @@
       label: "검증 기반 실행",
       horizon: "0–90일",
       tilt: "base",
-      premise: "고객 Pain과 Workload baseline을 먼저 고정하고 Architecture·TCO·Qualification을 순차 검증하는 경우",
+      premise: "Business Outcome과 Workload/SLO baseline을 먼저 고정하고 지배 병목·Architecture·Economics·Qualification을 순차 검증하는 경우",
       ceo: "고객 KPI와 90일 Gate가 확인된 범위만 승인합니다.",
       cfo: "System TCO와 고객 지불 의사가 확인된 옵션만 예산 안건으로 올립니다.",
-      cto: "HW/SW 병목과 Memory tier 효과를 같은 benchmark로 검증합니다.",
+      cto: "Serving SW·Compute·Memory·Network·Storage·Power/Cooling 병목과 대안 효과를 같은 benchmark로 검증합니다.",
       policy: "파트너 RACI와 IP·데이터 경계를 실행 전에 잠급니다.",
       market: "가격 신호는 고객 전환·계약·Qualification과 교차 확인합니다.",
       audit: "사실·가설·모델 임계치를 분리하고 판단 변경 조건을 함께 표시합니다.",
@@ -9226,14 +9226,14 @@
       label: "Agentic Inference 전환",
       horizon: "6–18개월",
       tilt: "up",
-      premise: "Long context·multi-agent state·RAG 확대로 HBM 외 DRAM/CXL/eSSD tier 가치가 커지는 경우",
-      ceo: "HBM 단품이 아니라 Context Economics 기반 포트폴리오로 판단합니다.",
+      premise: "Long context·multi-agent state·RAG에서 Serving SW 최적화 후 Memory·Network·Storage 병목이 확인되는 경우",
+      ceo: "HBM 단품이 아니라 SLO-constrained Goodput과 Context Economics 기반 포트폴리오로 판단합니다.",
       cfo: "추가 Memory 비용과 GPU idle 회피·token throughput을 같은 단위로 비교합니다.",
-      cto: "KV cache reuse·offload·prefetch를 HW/SW 공동 PoC로 검증합니다.",
+      cto: "Paged KV·Scheduler·Batching·Prefill/Decode·reuse·offload·prefetch를 HW/SW 공동 PoC로 검증합니다.",
       policy: "Model·Serving·CXL·Storage 파트너를 하나의 Reference Architecture RACI로 묶습니다.",
       market: "TTFT/TPOT·Cost/token 개선이 확인된 고객군부터 확대합니다.",
       audit: "Modeled threshold와 실제 고객 baseline의 차이를 명시합니다.",
-      conclusion: "Tiered Memory PoC",
+      conclusion: "Bottleneck-first PoC",
     },
     {
       id: "partner-scale",
@@ -9246,7 +9246,7 @@
       cto: "공통 Architecture와 고객별 Custom 요소의 경계를 명확히 합니다.",
       policy: "AI 개발사·데이터센터·OEM·컨설팅/SI의 RACI와 데이터 권한을 고정합니다.",
       market: "Lighthouse → Reference → Repeat의 전환율을 고객군별로 추적합니다.",
-      audit: "성공 사례는 익명화하고 실제 성과와 modeled benefit을 분리합니다.",
+      audit: "Public Reconstruction·Modeled Strategy·승인된 Anonymized Client Case를 분리하고 실제 성과와 가설을 혼용하지 않습니다.",
       conclusion: "Reference 확장",
     },
     {
@@ -9960,7 +9960,7 @@
       index: "01",
       phase: "NOW",
       title: "Customized Memory Consulting · Custom HBM",
-      subtitle: "고객 Pain과 Workload를 Base-Die·Package·Capacity 공동설계로 전환",
+      subtitle: "고객 Business Outcome과 Workload를 Base-Die·Package·Capacity 공동설계로 전환",
       question: "TSMC 선단공정·패키징 의존을 통제하면서 HBM4/HBM4E의 고객별 PPA·TCO 우위를 어떻게 확보할 것인가?",
       decision: "N12 표준 HBM4와 N3P Custom HBM4E를 하나의 동맹 로드맵으로 묶고, 캐파·인증·대체노드를 독립 게이트로 운영",
       signals: [
@@ -9980,9 +9980,9 @@
         ["SCALE · 61–90D", "투자 Gate", "Ramp와 대체 시나리오를 경영진 결재안으로 전환", "Yield·LT·고객 물량 약정"],
       ],
       kpis: ["Qualification cycle", "Reserved capacity coverage", "Base-die PPA", "Package lead time"],
-      stop: "MODELED · 예약 Capacity가 승인 수요의 80% 미만, Qualification/Ramp가 1분기 이상 지연, Package Yield Gate가 2회 연속 미달 중 하나가 발생하면 Scale CAPEX 재배분",
+      stop: "BASELINE-RELATIVE · 예약 Capacity·Qualification/Ramp·Package Yield가 합의 Gate를 통과하지 못하면 Scale CAPEX를 재배분",
       partners: ["AI chip developer · architecture co-design", "Foundry/packaging · capacity & yield governance", "Data center operator · system TCO validation"],
-      useCase: "익명화 Case A · AI accelerator 고객 — base-die 요구사항 → 공동 PPA 검증 → 공급·인증 gate",
+      useCase: "MODELED STRATEGY CASE · AI accelerator — base-die 요구사항 → 공동 PPA 검증 → 공급·인증 gate",
       sources: [
         ["OFFICIAL · SK hynix", "HBM4 base die에 TSMC advanced logic 도입", "https://news.skhynix.com/sk-hynix-partners-with-tsmc-to-strengthen-hbm-technological-leadership/"],
         ["OFFICIAL · TSMC", "N12 HBM4 · N3P Custom HBM4E logic base die", "https://www.tsmc.com/english/node/233"],
@@ -10014,9 +10014,9 @@
         ["SCALE · 61–90D", "제품 믹스", "고객별 allocation·가격·용량 패키지 확정", "12GB+ mix·계약 커버리지"],
       ],
       kpis: ["BOM/ASP ratio", "P95 AI latency", "Energy per task", "Sell-through by tier"],
-      stop: "MODELED · Sell-through가 2개월 연속 계획 대비 10% 이상 하회, BOM/ASP가 5%p 이상 상승, AI 기능 가치가 추가 Memory 비용 미만 중 하나가 발생하면 SKU·Capacity 재설계",
+      stop: "BASELINE-RELATIVE · Sell-through·BOM/ASP·AI 기능 가치가 합의 사업성 기준을 통과하지 못하면 SKU·Capacity를 재설계",
       partners: ["Mobile OEM · SKU/BOM co-planning", "AI application developer · workload profiling", "Platform/IT consulting · launch PMO & value case"],
-      useCase: "익명화 Case B · Mobile OEM — AI feature memory footprint → 3-tier SKU 재설계 → 가격·allocation 실행",
+      useCase: "MODELED STRATEGY CASE · Mobile OEM — AI feature memory footprint → 3-tier SKU 재설계 → 가격·allocation 실행",
       sources: [
         ["OFFICIAL · Micron", "12GB+ flagship 비중·공급 제약·온디바이스 AI 수요", "https://investors.micron.com/static-files/e089f8c0-065d-47b8-9d02-bfa863cdb357"],
         ["OFFICIAL · SK hynix", "LPDDR5X를 포함한 on-device AI 포트폴리오", "https://news.skhynix.com/gtc-2026-ai-partnership/"],
@@ -10027,8 +10027,8 @@
       id: "llm-rag-architecture",
       index: "03",
       phase: "NEXT",
-      title: "LLM Tech & Enterprise RAG Architecture",
-      subtitle: "Transformer·Prompt·RAG·Vector DB 변화를 Memory/Storage 사업 기회로 전환",
+      title: "LLM Serving & Context Economics · Enterprise RAG",
+      subtitle: "Serving SW·RAG·Vector DB 변화를 Quality·Memory/Storage 경제성으로 전환",
       question: "Long context와 Vector Search가 확대될 때 DRAM/CXL과 eSSD의 최적 배치·성능보증·고객 지불의사를 어떻게 검증할 것인가?",
       decision: "AI Application trace에서 Retrieval P99·KV reuse·Index residency를 측정하고, DRAM/CXL + TLC/QLC eSSD Reference Offer로 공동 검증",
       signals: [
@@ -10047,10 +10047,10 @@
         ["NEXT · 31–60D", "Architecture PoC", "DRAM/CXL/eSSD 비중별 benchmark", "Cost/query·power/query"],
         ["SCALE · 61–90D", "Reference Offer", "성능보증·Qualification·가격 패키지", "Design win·repeat order"],
       ],
-      kpis: ["Retrieval P99", "QPS", "Cache hit", "Cost/query", "Qualification"],
-      stop: "MODELED · Retrieval P99 개선 15% 미만, Cost/query 개선 10% 미만, Endurance/Reliability Gate 미통과 중 하나가 발생하면 Architecture를 재설계",
+      kpis: ["Retrieval P99", "QPS", "Recall / Quality", "Cache hit", "Cost/query", "Qualification"],
+      stop: "BASELINE-RELATIVE · Retrieval P99·Recall/Quality·Cost/query·Endurance/Reliability가 합의 기준을 통과하지 못하면 Architecture를 재설계",
       partners: ["Enterprise · data/SLA owner", "Vector DB/RAG software · index tuning", "Data center/OEM · platform qualification"],
-      useCase: "익명화 Case C · Enterprise RAG — Retrieval path 진단 → DRAM/CXL·eSSD PoC → 고객 Qualification",
+      useCase: "MODELED STRATEGY CASE · Enterprise RAG — Retrieval path 진단 → DRAM/CXL·eSSD PoC → 고객 Qualification",
       sources: [
         ["OFFICIAL · SK hynix", "HBM부터 eSSD까지 full-stack memory hierarchy", "https://news.skhynix.com/hbm-to-essd/"],
         ["CONTROL", "RAG 고객 benchmark·TCO·계약", ""],
@@ -10062,18 +10062,18 @@
       index: "04",
       phase: "SCALE",
       title: "Data Center Workload Optimization",
-      subtitle: "HBM 단일 제품을 Workload별 Tiered Memory·System TCO 사업으로 확장",
-      question: "Training·Inference·RAG·On-device의 서로 다른 병목을 HBM–DRAM–CXL–HBF–eSSD 포트폴리오로 어떻게 연결할 것인가?",
-      decision: "제품별 전망이 아니라 Workload–Memory tier–Partner–Qualification을 하나의 7-gate 사업개발 체계로 운영",
+      subtitle: "Serving SW·Rack·Memory·Network·Storage·Facility를 Workload별 System Economics로 통합",
+      question: "Training·Inference·RAG·On-device의 서로 다른 지배 병목에 어떤 HW/SW 대안을 배치하고 Qualification·Scale로 연결할 것인가?",
+      decision: "제품별 전망이 아니라 Business Outcome–Bottleneck–Option–Benchmark–Partner–Qualification을 하나의 사업개발 체계로 운영",
       signals: [
         ["CONFIRMED", "HBM4 2,048 I/O", "대역폭 2배·logic base-die 중요성 확대"],
         ["CONFIRMED", "Full-stack AI memory", "HBM + system DRAM + NAND/eSSD hierarchy"],
-        ["OPTION", "CXL · HBF · 3D DRAM", "PoC·표준·고객 인증 단계별 관리"],
+        ["OPTION", "CXL Elastic · HBF Emerging", "Workload PoC·표준·생태계·고객 인증 단계별 관리"],
       ],
       lenses: [
         ["01 · TRAINING", "HBM4 / Custom HBM", ["GPU utilization·bandwidth·thermal", "ASIC별 base-die co-design", "Performance/Watt·rack TCO"]],
-        ["02 · INFERENCE", "HBM + DRAM/CXL", ["TTFT·TPOT/P99·KV cache", "Memory pooling·capacity expansion", "Bytes/token·cache hit"]],
-        ["03 · RAG / VECTOR", "eSSD + HBF Option", ["QPS·read amplification·DRAM resident ratio", "Hot/Warm/Cold data placement", "Qualification·interoperability·repeat order"]],
+        ["02 · INFERENCE", "Serving SW + Data Placement", ["Paged KV·Scheduler·Prefill/Decode", "HBM·Host DRAM·CXL·eSSD placement", "Goodput·P99·quality·cost/token"]],
+        ["03 · RAG / VECTOR", "Retrieval SW + eSSD", ["Recall/Quality·QPS·read amplification", "DRAM/CXL active tier·eSSD capacity tier", "HBF는 Emerging Option으로 분리"]],
         ["04 · ON-DEVICE", "LPDDR / 3D DRAM", ["Latency·power·footprint", "NPU·OS·model joint tuning", "Device tier별 capacity curve"]],
       ],
       horizons: [
@@ -10082,9 +10082,9 @@
         ["SCALE · RAMP", "New Biz", "Qualification → volume → repeat order", "Design win·ramp yield·ARR"],
       ],
       kpis: ["TTFT / TPOT P99", "Bytes per token", "Cache hit / QPS", "Qualification → repeat order"],
-      stop: "MODELED · PoC System TCO 개선이 10% 미만, P99 SLA가 5% 초과 악화, Qualification이 1개 Gate 이상 지연 중 하나가 발생하면 Option 단계로 환원",
+      stop: "BASELINE-RELATIVE · SLO·Quality·Goodput·System TCO·Qualification이 합의 Gate를 통과하지 못하면 Option 단계로 환원",
       partners: ["AI developer · model/workload benchmark", "Data center operator · fabric PoC & TCO", "IT consulting firm · transformation roadmap & PMO"],
-      useCase: "익명화 Case C · RAG 서비스 사업자 — latency·QPS 병목 → tiered architecture PoC → qualification·반복주문",
+      useCase: "MODELED STRATEGY CASE · AI Infra — bottleneck trace → HW/SW architecture PoC → qualification·반복주문",
       sources: [
         ["OFFICIAL · SK hynix", "HBM4 2,048 I/O와 전력 효율", "https://news.skhynix.com/sk-hynix-completes-worlds-first-hbm4-development-and-readies-mass-production/"],
         ["OFFICIAL · SK hynix", "HBM부터 eSSD까지 full-stack memory hierarchy", "https://news.skhynix.com/hbm-to-essd/"],
@@ -10096,13 +10096,13 @@
       index: "05",
       phase: "SCALE",
       title: "Partners & Clients · Repeatable New Biz",
-      subtitle: "Lighthouse 고객의 검증 결과를 반복 가능한 공동사업과 익명화 Use Case로 전환",
+      subtitle: "Lighthouse 고객의 검증 결과를 근거 등급이 명시된 반복 가능한 공동사업으로 전환",
       question: "AI 개발사·데이터센터·OEM·컨설팅 파트너를 어떤 RACI로 묶어 Pain 진단부터 Qualification·반복주문까지 연결할 것인가?",
       decision: "AI Infra Memory Blueprint를 표준 산출물로 정의하고 Lighthouse → Reference → Repeat의 3단계 사업개발 Funnel로 운영",
       signals: [
         ["OFFER", "AI Infra Memory Blueprint", "Pain map·trace·architecture·TCO·qualification"],
         ["PARTNER", "Joint execution RACI", "Workload·operations·platform·value realization owner"],
-        ["CONTROL", "Anonymous use case", "고객 기밀과 modeled benefit을 실제 성과와 분리"],
+        ["CONTROL", "Case classification", "Public Reconstruction·Modeled Strategy·승인된 Client Case를 분리"],
       ],
       lenses: [
         ["01 · AI DEVELOPER", "Workload Owner", ["Model·Prompt·Serving trace", "성능 목표와 test workload", "SW integration 책임"]],
@@ -10118,7 +10118,7 @@
       kpis: ["PoC → Qualification", "Qualification → contract", "Reference reuse", "Repeat order"],
       stop: "Decision owner·Trace access·Reference 재사용성·Qualification 경로 중 2개 이상이 확인되지 않으면 Scale 투자를 중단하고 Option 단계로 환원",
       partners: ["AI developer · workload", "Data center · operations", "OEM/platform · qualification", "Consulting/SI · adoption"],
-      useCase: "익명화 Case D · Agentic AI 운영사 — Context 병목 → Tiered Memory 공동검증 → Reference Offer",
+      useCase: "MODELED STRATEGY CASE · Agentic AI — Context 병목 → HW/SW 공동검증 → Reference Offer",
       sources: [
         ["OFFICIAL · SK hynix", "AI ecosystem collaboration과 full-stack portfolio", "https://news.skhynix.com/gtc-2026-ai-partnership/"],
         ["CONTROL", "고객명·계약·매출 수치", ""],
@@ -10188,9 +10188,9 @@
     const capabilities = generatedCapabilities.length
       ? generatedCapabilities.slice(0, 3).map((copy, index) => [String(index + 1).padStart(2, "0"), String(copy).split(" · ")[0], String(copy).split(" · ").slice(1).join(" · ")])
       : [
-          ["01", "Pain Point 분석", "고객 현황·기술·전략 → 정량 병목"],
-          ["02", "Data Center & IT", "Workload → HW/SW → memory tier"],
-          ["03", "Executive Strategy", "근거 → 선택지 → Trigger·Owner·KPI"],
+          ["01", "Bottleneck First", "Business Pain·SLO → System Symptom → Root Cause"],
+          ["02", "Serving & Rack", "Runtime·Compute·Memory·Network·Storage·Facility"],
+          ["03", "Executive Decision OS", "Evidence → Options → Economics → Owner·KPI·Kill"],
         ];
     const workstreams = aiInfraCouncilAgendas().slice(0, 5).map((item) => [
       `${item.phase || "CURRENT"} · ${item.index || ""}`,
@@ -10201,7 +10201,7 @@
       <div class="ai-infra-council ai-infra-council-waiting">
         <header class="ai-council-mandate">
           <span>AI INFRA STRATEGY AGENT OS</span>
-          <strong>Customer Pain → Workload → Memory Option → Business Case → 90-Day Action</strong>
+          <strong>Business Outcome → Workload/SLO → Dominant Bottleneck → HW/SW Options → 90-Day Gate</strong>
           <small>5개 전문 Agent가 병렬 검토 · 영상·음성 없이 즉시 실행 · 공식 근거와 검증 가설 분리</small>
         </header>
         <div class="ai-council-capabilities" aria-label="핵심 역량 3가지">
@@ -10267,7 +10267,7 @@
             <article><span>VALUE KPI</span>${aiInfraCouncilList(agenda.kpis)}</article>
             <article><span>PARTNER MODEL</span>${aiInfraCouncilList(agenda.partners)}</article>
             <article><span>USE CASE</span><strong>${escapeHTML(agenda.useCase)}</strong></article>
-            <article class="ai-council-stop"><span>MODELED KILL CRITERIA · STOP / REFRAME</span><strong>${escapeHTML(agenda.stop)}</strong></article>
+            <article class="ai-council-stop"><span>BASELINE-RELATIVE KILL CRITERIA · STOP / REFRAME</span><strong>${escapeHTML(agenda.stop)}</strong></article>
           </div>
         </section>
 
@@ -15241,9 +15241,9 @@
   function agentDecisionFrameHTML(frame = {}) {
     if (!frame || !frame.diagnosis) return "";
     const items = [
-      ["PAIN / EVIDENCE", frame.diagnosis],
-      ["WORKLOAD / BUSINESS", frame.implication],
-      ["MEMORY / RECOMMENDATION", frame.recommendation],
+      ["OUTCOME / EVIDENCE", frame.diagnosis],
+      ["WORKLOAD / BOTTLENECK", frame.implication],
+      ["HW/SW OPTION / ECONOMICS", frame.recommendation],
       ["90D GATE / KILL", frame.gate],
     ].filter(([, value]) => String(value || "").trim());
     return `
@@ -15256,7 +15256,7 @@
   function agentDebateHTML({ mode = "default", title = "Expert debate", subtitle = "", metrics = [], turns = [], kpis = [], accent = "", conclusion = null, ttsLanguage = "", defaultConfidence = null, defaultSource = null } = {}) {
     const colors = ["#06B6D4", "#8B5CF6", "#22C55E", "#F59E0B", "#EF4444", "#0EA5E9"];
     const forcedTtsLanguage = /^(?:ko|en)$/.test(ttsLanguage) ? ttsLanguage : "";
-    const challengeOrder = ["Customer Strategist", "Workload Architect", "AI Application & LLM Lead", "Memory Solution Lead", "New Biz & Partner Lead", "Evidence Auditor", "Executive Decision Lead"];
+    const challengeOrder = ["Customer Strategist", "Serving & Rack Architect", "AI Application & LLM Lead", "Architecture & Qualification Lead", "New Biz & Partner Lead", "Evidence Auditor", "Executive Decision Lead"];
     const orderedTurns = turns.filter((turn) => turn?.message).slice(0, 12).sort((a, b) => {
       if (mode !== "ceo-challenge") return 0;
       return challengeOrder.indexOf(a.name) - challengeOrder.indexOf(b.name);
@@ -15766,8 +15766,8 @@
         id: "customer",
         initials: "CX",
         name: "Customer Strategist",
-        title: "Customer Pain & JTBD",
-        role: "고객 Pain Point 분석",
+        title: "Business Pain · JTBD · SLO",
+        role: "고객 성과·구매 기준 분석",
         color: "#0F766E",
         stance: "CUSTOMER",
         message: `대상 고객은 **${domain.customer}**입니다. 핵심 Pain은 ${domain.pain}입니다. ${productScope} 제안 전에 고객 JTBD·구매 기준·${domain.kpis.slice(0, 2).join("·")} baseline을 공동 승인하고, 고객 신호가 없는 시장 움직임은 실행 근거로 올리지 않습니다.`,
@@ -15775,32 +15775,32 @@
       {
         id: "workload-technology",
         initials: "WA",
-        name: "Workload Architect",
-        title: "AI Application · HW/SW · Data Center",
-        role: "Workload·데이터센터 진단",
+        name: "Serving & Rack Architect",
+        title: "Runtime · HW/SW · Rack-scale Data Center",
+        role: "지배 병목·데이터센터 진단",
         color: "#1D4ED8",
         stance: "WORKLOAD",
-        message: `핵심 Workload는 **${domain.workload}**입니다. ${domain.hwSw}. Application–Accelerator–Host–Network–Storage 전체 경로를 추적해 병목 기여도를 분리하고, ${domain.gates.slice(0, 2).join(" → ")}가 확인된 범위만 다음 설계로 넘깁니다.`,
+        message: `핵심 Workload는 **${domain.workload}**입니다. ${domain.hwSw}. Runtime–Accelerator/HBM–CPU/Host–Network–NVMe–Power/Cooling 전체 경로를 추적해 Compute·Memory·Network·Storage·Serving SW·Facility의 병목 기여도를 분리하고, ${domain.gates.slice(0, 2).join(" → ")}가 확인된 범위만 다음 설계로 넘깁니다.`,
       },
       {
         id: "ai-application",
         initials: "AI",
         name: "AI Application & LLM Lead",
-        title: "Transformer · Prompt · RAG · Vector DB",
-        role: "AI Application·HW/SW 변화",
+        title: "Paged KV · Scheduler · Prefill/Decode · RAG",
+        role: "AI Serving·Context Economics",
         color: "#0E7490",
         stance: "AI TECH",
-        message: `기술 변화의 핵심은 **${domain.aiTech}**입니다. 모델 구조·Prompt/Context 운용·Serving/Retrieval 방식이 capacity·bandwidth·latency·data movement 요구를 어떻게 바꾸는지 버전별로 연결하고, 동일한 test workload로 재현되지 않는 주장은 Memory 요구사항에서 제외합니다.`,
+        message: `기술 변화의 핵심은 **${domain.aiTech}**입니다. Paged KV·Scheduler·Batching·Prefix Reuse·Prefill/Decode·Serving/Retrieval 방식이 Goodput·Quality·capacity·latency·data movement를 어떻게 바꾸는지 연결하고, 동일 test workload로 재현되지 않는 주장은 요구사항에서 제외합니다.`,
       },
       {
         id: "memory-technology",
-        initials: "MS",
-        name: "Memory Solution Lead",
-        title: "Full-Stack Memory Architecture",
-        role: "맞춤형 Memory Solution",
+        initials: "AR",
+        name: "Architecture & Qualification Lead",
+        title: "HW/SW Options · Economics · Qualification",
+        role: "대안 설계·검증·고객 인증",
         color: "#6D28D9",
         stance: "SOLUTION",
-        message: `권고 Architecture는 **${domain.memory}**입니다. ${profile.data} ${point} 기준 사전 신호 ${prior}, ${horizon.label} 실측 ${actual}를 시장 baseline으로 두되, 제품별 성능은 고객 Workload benchmark와 ${domain.gates.slice(1, 3).join(" → ")}에서 별도로 검증합니다.`,
+        message: `현재 Option Set은 **${domain.memory}**입니다. ${profile.data} ${point} 기준 사전 신호 ${prior}, ${horizon.label} 실측 ${actual}를 시장 baseline으로 두되, Runtime·Compute·Fabric·Storage·Facility와 Memory 대안의 성능·Quality·TCO는 고객 Workload benchmark와 ${domain.gates.slice(1, 3).join(" → ")}에서 별도로 검증합니다.`,
       },
       {
         id: "growth-strategy",
@@ -18300,9 +18300,9 @@
       verdict: response.verdict || "Watch",
     };
     const aiInfraRoleMap = {
-      "Market/Sales": { name: "Customer Strategist", role: "고객 Pain Point·JTBD", avatar: "CX", color: "#0F766E" },
-      CTO: { name: "Workload Architect", role: "AI Application·HW/SW·Data Center", avatar: "WA", color: "#1D4ED8" },
-      Operations: { name: "Memory Solution Lead", role: "Full-Stack Memory·Qualification", avatar: "MS", color: "#6D28D9" },
+      "Market/Sales": { name: "Customer Strategist", role: "Business Pain·JTBD·Buying Criteria", avatar: "CX", color: "#0F766E" },
+      CTO: { name: "Serving & Rack Architect", role: "Runtime·HW/SW·Data Center", avatar: "WA", color: "#1D4ED8" },
+      Operations: { name: "Architecture & Qualification Lead", role: "Option Set·Benchmark·Qualification", avatar: "AR", color: "#6D28D9" },
       Strategy: { name: "New Biz & Partner Lead", role: "Business Model·Partner·Use Case", avatar: "NB", color: "#B45309" },
       "Data Auditor": { name: "Evidence Auditor", role: "Tech & Market 근거·반증", avatar: "EV", color: "#0369A1" },
       CEO: { name: "Executive Decision Lead", role: "결론·Owner·KPI·90일 Gate", avatar: "EX", color: "#334155" },
@@ -18312,34 +18312,34 @@
       {
         id: "customer",
         name: "Customer Strategist",
-        role: "고객 Pain Point·JTBD",
+        role: "Business Pain·JTBD·Buying Criteria",
         avatar: "CX",
         color: "#0F766E",
-        message: `${targetLabel} 안건의 고객을 AI 개발사·데이터센터 운영사·IT Enterprise로 분리합니다. 질문은 “${challenge.question}”이며, 구매 기준과 고객 KPI가 확인되지 않은 시장 신호는 실행 근거로 사용하지 않습니다.`,
+        message: `${targetLabel} 안건의 고객을 AI 개발사·데이터센터 운영사·IT Enterprise로 분리합니다. Business Outcome·구매 기준·Service KPI/SLO가 확인되지 않은 시장 신호는 실행 근거로 사용하지 않습니다. 질문은 “${challenge.question}”입니다.`,
       },
       {
         id: "workload-technology",
-        name: "Workload Architect",
-        role: "데이터센터·HW/SW 진단",
+        name: "Serving & Rack Architect",
+        role: "Serving SW·Rack-scale 병목 진단",
         avatar: "WA",
         color: "#1D4ED8",
-        message: `${targetLabel}을 Training·Inference·RAG·On-device/Edge 중 해당 Workload에 연결하고 Application–Accelerator–Host–Network–Storage 경로를 추적합니다. Compute·Memory·Data movement 병목을 분리한 뒤에만 Architecture 대안을 비교합니다.`,
+        message: `${targetLabel}을 Training·Inference·RAG·On-device/Edge로 분류하고 Runtime–Accelerator/HBM–CPU/Host Memory–NVLink/Network–NVMe–Power/Cooling 경로를 추적합니다. Compute·Memory·Network·Storage·Serving SW·Facility·Supply/Qualification 중 지배 병목을 분리한 뒤에만 Architecture 대안을 비교합니다.`,
       },
       {
         id: "ai-application",
         name: "AI Application & LLM Lead",
-        role: "Transformer·Prompt·RAG·Vector DB",
+        role: "Paged KV·Scheduler·Prefill/Decode·RAG",
         avatar: "AI",
         color: "#0E7490",
-        message: `Transformer 구조, Prompt/Context 운용, RAG와 Vector DB가 ${targetLabel}의 capacity·bandwidth·latency·storage 요구를 어떻게 바꾸는지 검증합니다. 동일한 모델·Prompt·Serving 조건에서 재현되지 않는 수치는 요구사항에서 제외합니다.`,
+        message: `Paged KV·Scheduler·Batching·Prefix Reuse·Prefill/Decode·Offload와 RAG/Vector DB가 ${targetLabel}의 Goodput·Quality·capacity·latency·data movement를 어떻게 바꾸는지 검증합니다. 동일 모델·Prompt·Concurrency·Serving 조건에서 재현되지 않는 수치는 요구사항에서 제외합니다.`,
       },
       {
         id: "memory-technology",
-        name: "Memory Solution Lead",
-        role: "맞춤형 Full-Stack Memory",
-        avatar: "MS",
+        name: "Architecture & Qualification Lead",
+        role: "HW/SW Option·Economics·Qualification",
+        avatar: "AR",
         color: "#6D28D9",
-        message: `고객 Pain과 Workload trace를 HBM·Server DRAM/SOCAMM·CXL·HBF·eSSD 조합으로 전환합니다. 제품 단품 비교가 아니라 System TCO·Reliability·Qualification 기준으로 최소 Architecture를 선택합니다.`,
+        message: `지배 병목이 확인된 뒤 Runtime·Compute·Fabric·Storage·Facility와 HBM Hot–Host DRAM/SOCAMM2–CXL Elastic–eSSD Reuse 대안을 같은 Benchmark로 비교합니다. HBF는 공개 규격·생태계·Qualification이 확인되기 전까지 Emerging Option으로 분리합니다.`,
       },
       {
         id: "growth-strategy",
@@ -18347,7 +18347,7 @@
         role: "Business Model·Partner·Use Case",
         avatar: "NB",
         color: "#B45309",
-        message: `AI 개발사·데이터센터·OEM·컨설팅/SI의 RACI를 고정하고 공동 Benchmark → Qualification → 장기공급을 하나의 Offer로 묶습니다. Lighthouse 고객의 검증 결과가 Reference와 Repeat Order로 재사용될 때만 신규 Biz로 Scale합니다.`,
+        message: `AI 개발사·데이터센터·OEM·Foundry/Packaging·Serving SW 파트너가 제거할 불확실성과 RACI를 고정합니다. 공동 Benchmark → Qualification → 장기공급을 하나의 Offer로 묶고, 검증 결과가 Reference와 Repeat Order로 재사용될 때만 신규 Biz로 Scale합니다.`,
       },
       {
         id: "evidence-audit",
@@ -18372,7 +18372,7 @@
     return agentDebateHTML({
       mode: "ceo-challenge",
       title: `${challenge.angle} · AI Infra 실행 검증`,
-      subtitle: `Customer Pain → Workload → Memory → New Biz → Evidence → Executive Action · ${targetLabel}`,
+       subtitle: `Business Outcome → Workload/SLO → Bottleneck → Options/Economics → Evidence → Executive Action · ${targetLabel}`,
       accent,
       ttsLanguage: "en",
       defaultConfidence: challengeConfidence,
@@ -18574,7 +18574,7 @@
         ${ceoChallengeQuestionBriefHTML(scenario, target, challenge, response)}
         <div class="agent-waiting">
           <strong>AI Infra 전략 실행 대기</strong>
-          <p>Customer Strategist, Workload Architect, Memory Solution, New Biz & Partner, Evidence Auditor, Executive Decision Agent가 고객 Pain에서 90일 Gate까지 하나의 실행 팩으로 정리합니다.</p>
+          <p>Customer Strategist, Serving &amp; Rack Architect, Architecture &amp; Qualification, New Biz &amp; Partner, Evidence Auditor, Executive Decision Agent가 Business Outcome에서 90일 Gate까지 하나의 실행 팩으로 정리합니다.</p>
         </div>
       `;
       return;
@@ -21009,7 +21009,7 @@
         };
       });
     return {
-      intro: "Customer Pain → Workload/HW·SW → Memory Option → Business Case → 실행 Gate 순서로 질문하세요.",
+      intro: "Business Outcome → Workload/SLO → 지배 병목 → HW/SW Option → Economics → 실행 Gate 순서로 질문하세요.",
       cats: AI_INFRA_QA_CATEGORIES,
       pairs: [...AI_INFRA_QA_PRESETS, ...livePairs],
     };

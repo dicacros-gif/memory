@@ -15,8 +15,8 @@ const index = text("index.html");
 
 const rebuilt = buildSiteContentClient({ payload, quant });
 assert.deepEqual(validateSiteContent(rebuilt), { ok: true, errors: [] });
-assert.ok(rebuilt.freshness.configuredSources >= 35);
-assert.ok(rebuilt.freshness.officialConfigured >= 25);
+assert.ok(rebuilt.freshness.configuredSources >= 37);
+assert.ok(rebuilt.freshness.officialConfigured >= 28);
 assert.equal(rebuilt.freshness.scheduleHours, 3);
 assert.equal(artifact.runId, payload.runId, "site content must use the verified live runId");
 assert.equal(manifest.runId, artifact.runId, "manifest and site content must be atomic");
@@ -27,6 +27,11 @@ assert.ok(artifact.agentCouncil.agendas.length >= 4);
 assert.equal(artifact.workloadOptimization.process.length, 6);
 assert.equal(artifact.workloadOptimization.serviceLines.length, 3);
 assert.ok(artifact.workloadOptimization.sources.length >= 5);
+assert.equal(artifact.caseClassification.length, 3);
+assert.ok(artifact.decisionControl.integrity.status);
+assert.ok(artifact.decisionControl.freshness.status);
+assert.ok(artifact.decisionControl.coverage.status);
+assert.ok(artifact.decisionControl.confidence.status);
 assert.ok(artifact.workloadOptimization.sources.every((item) => item.url && item.status));
 assert.ok(artifact.insights.every((item) => item.latest.title && item.decision && item.action));
 assert.ok(artifact.decisionCases.every((item) => item.signals.length === 3 && item.sources.length >= 3));
@@ -60,7 +65,11 @@ assert.match(landing, /function renderWorkloadOptimization\(content = \{\}\)/);
 assert.match(index, /id="workload-optimization"/);
 assert.match(index, /Samsung SMRC/);
 assert.match(app, /window\.MEMORY_SITE_CONTENT\?\.agentCouncil\?\.agendas/);
-assert.match(index, /infra-20260816-15/);
+assert.match(index, /infra-20260816-16/);
+assert.match(index, /Bottleneck to Scale/);
+assert.match(index, /PUBLIC CASE RECONSTRUCTION[\s\S]*?MODELED STRATEGY CASE[\s\S]*?ANONYMIZED CLIENT CASE/);
+assert.doesNotMatch(index, /ANONYMIZED USE CASE|GPU Compute보다|MODELED THRESHOLD/);
+assert.doesNotMatch(app, /익명화 Case/);
 
 console.log(JSON.stringify({
   ok: true,

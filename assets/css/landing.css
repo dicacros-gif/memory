@@ -2094,6 +2094,27 @@ body.landing-mode :is(.scroll-prog, .scroll-top, .qa-answer, .inspector, #backdr
   border-right: 0;
 }
 
+.business-case-classification {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 10px;
+  margin-top: 18px;
+}
+
+.business-case-classification article {
+  min-height: 104px;
+  padding: 20px 22px;
+  border: 1px solid #d9e3ea;
+  border-left: 4px solid #2585ff;
+  background: #fff;
+  box-shadow: 0 10px 26px rgba(9, 37, 57, .06);
+}
+
+.business-case-classification article:nth-child(2) { border-left-color: #7a62ff; }
+.business-case-classification article:nth-child(3) { border-left-color: #b77a16; }
+.business-case-classification span { color: #0b5e91; font: 850 9px/1.4 var(--mono); letter-spacing: .05em; }
+.business-case-classification p { margin: 12px 0 0; color: #243f53; font-size: 12px; font-weight: 720; line-height: 1.55; }
+
 .business-case-heading {
   display: grid;
   grid-template-columns: 260px 280px 1fr;
@@ -2805,7 +2826,7 @@ body.landing-mode :is(.scroll-prog, .scroll-top, .qa-answer, .inspector, #backdr
 
 .business-fabric-stack {
   display: grid;
-  grid-template-columns: repeat(3, minmax(0, 1fr));
+  grid-template-columns: repeat(5, minmax(0, 1fr));
   gap: 10px;
 }
 
@@ -5637,6 +5658,7 @@ body.landing-mode {
   .business-partnership-types { grid-template-columns: repeat(3, minmax(0, 1fr)); }
   .business-framework-panel dl { grid-template-columns: repeat(3, minmax(0, 1fr)); }
   .business-framework-panel dl > div:nth-child(3)::after { display: none; }
+  .business-fabric-stack { grid-template-columns: repeat(3, minmax(0, 1fr)); }
 }
 
 @media (max-width: 980px) {
@@ -5687,6 +5709,7 @@ body.landing-mode {
   .business-competency-card > ul:last-child { grid-row: 4; }
   .business-strategy-chain,
   .business-framework-panel dl,
+  .business-case-classification,
   .business-partnership-types,
   .business-status-rules { grid-template-columns: 1fr; }
   .business-framework-panel dl > div::after { display: none !important; }

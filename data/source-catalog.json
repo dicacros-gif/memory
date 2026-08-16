@@ -466,6 +466,36 @@
       "enabled": true
     },
     {
+      "id": "llm-serving-systems-research",
+      "name": "LLM Serving Systems Research",
+      "tier": "industry-research",
+      "sourceClass": "research",
+      "url": "https://arxiv.org/abs/2309.06180",
+      "domains": ["arxiv.org", "usenix.org"],
+      "topics": ["paged-attention", "prefill-decode", "kv-cache", "scheduler", "goodput", "offloading"],
+      "roles": ["workload", "technology", "execution"],
+      "languages": ["en"],
+      "freshnessHours": 720,
+      "discoveryQueries": ["site:arxiv.org (PagedAttention OR DistServe OR Mooncake) LLM serving KV cache"],
+      "healthCheck": { "markers": ["PagedAttention", "KV cache"] },
+      "enabled": true
+    },
+    {
+      "id": "nvidia-nvl72-architecture",
+      "name": "NVIDIA NVL72 AI Factory Reference Architecture",
+      "tier": "primary-company",
+      "sourceClass": "official",
+      "url": "https://docs.nvidia.com/enterprise-reference-architectures/nvl72-ai-factory/latest/overview.html",
+      "domains": ["docs.nvidia.com"],
+      "topics": ["rack-scale", "network", "nvme", "power", "liquid-cooling", "ai-factory"],
+      "roles": ["customer", "workload", "technology", "execution"],
+      "languages": ["en"],
+      "freshnessHours": 336,
+      "discoveryQueries": ["site:docs.nvidia.com/enterprise-reference-architectures/nvl72-ai-factory (power OR cooling OR NVMe OR network OR rack)"],
+      "healthCheck": { "markers": ["NVL72", "liquid-cooled"] },
+      "enabled": true
+    },
+    {
       "id": "reuters",
       "name": "Reuters",
       "tier": "authoritative-media",

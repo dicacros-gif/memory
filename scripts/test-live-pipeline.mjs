@@ -673,22 +673,22 @@ assert.match(stylesText, /\.agent-decision-frame\s*\{/, "decision frames must us
 assert.match(appText, /const STATIC_AI_INFRA_COUNCIL_AGENDAS = Object\.freeze\(\[/, "the C-level board must retain a bounded fallback agenda");
 assert.match(appText, /window\.MEMORY_SITE_CONTENT\?\.agentCouncil\?\.agendas/, "the C-level board must prefer the current generated strategy agenda");
 assert.match(appText, /function consoleDeepLinkState\([\s\S]*?function applyConsoleDeepLink\(/, "the C-level board must support stable section and agenda deep links");
-assert.match(appText, /MODELED · 예약 Capacity가 승인 수요의 80% 미만[\s\S]*?Package Yield Gate가 2회 연속 미달/, "the foundry agenda must include quantified modeled reversal thresholds");
-assert.match(appText, /MODELED KILL CRITERIA · STOP \/ REFRAME/, "the decision pack must distinguish modeled kill criteria from reported facts");
+assert.match(appText, /BASELINE-RELATIVE · 예약 Capacity·Qualification\/Ramp·Package Yield[\s\S]*?Scale CAPEX를 재배분/, "the foundry agenda must use customer-baseline reversal criteria");
+assert.match(appText, /BASELINE-RELATIVE KILL CRITERIA · STOP \/ REFRAME/, "the decision pack must distinguish customer-baseline kill criteria from reported facts");
 assert.match(appText, /function aiInfraCouncilDeepLink\([\s\S]*?id="cLevelCopyLink"/, "the decision pack must provide a copyable agenda deep link");
 for (const agenda of [
   "Customized Memory Consulting · Custom HBM",
   "AI Application & HW/SW · On-device",
-  "LLM Tech & Enterprise RAG Architecture",
+  "LLM Serving & Context Economics · Enterprise RAG",
   "Data Center Workload Optimization",
   "Partners & Clients · Repeatable New Biz",
 ]) {
   assert.match(appText, new RegExp(agenda.replace(/[.*+?^${}()|[\]\\]/g, "\\$&")), `the AI Infra council must expose ${agenda}`);
 }
-for (const capability of ["Pain Point 분석", "Data Center & IT", "Executive Strategy"]) {
+for (const capability of ["Bottleneck First", "Serving & Rack", "Executive Decision OS"]) {
   assert.match(appText, new RegExp(capability), `the strategy council must make ${capability} explicit`);
 }
-assert.match(appText, /Customer Pain → Workload → Memory Option → Business Case → 90-Day Action/, "the council must expose a customer-to-execution consulting flow");
+assert.match(appText, /Business Outcome → Workload\/SLO → Dominant Bottleneck → HW\/SW Options → 90-Day Gate/, "the council must expose a bottleneck-first consulting flow");
 assert.match(appText, /OFFICIAL · TSMC[\s\S]*?N12 HBM4 · N3P Custom HBM4E/, "the foundry decision must separate official HBM4 and custom HBM4E process evidence");
 assert.match(appText, /검증 전 결재 사용 금지/, "unverified mobile pricing and contract claims must be excluded from decision use");
 const aiInfraCouncilRenderBlock = appText.slice(appText.indexOf("function renderCLevelCockpit"), appText.indexOf("function clearCouncilTimers"));

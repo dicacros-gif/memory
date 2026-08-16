@@ -19,8 +19,8 @@ const enabled = catalog.sources.filter((source) => source.enabled);
 const official = enabled.filter((source) => source.sourceClass === "official");
 const tiers = new Set(enabled.map((source) => source.tier));
 const roles = new Set(enabled.flatMap((source) => source.roles));
-assert.ok(enabled.length >= 35, "source catalog must preserve broad AI Infra coverage");
-assert.ok(official.length >= 25, "primary sources must remain the majority");
+assert.ok(enabled.length >= 37, "source catalog must preserve broad AI Infra coverage");
+assert.ok(official.length >= 28, "primary sources must remain the majority");
 assert.ok(tiers.has("primary-company") && tiers.has("primary-customer") && tiers.has("primary-standard"));
 assert.ok(tiers.has("primary-regulatory") && tiers.has("industry-research") && tiers.has("authoritative-media"));
 for (const role of ["customer", "technology", "market", "financial", "standard", "competitor"]) assert.ok(roles.has(role), `missing role coverage: ${role}`);
@@ -36,6 +36,8 @@ assert.equal(catalogSourceForUrl("https://cloud.google.com/blog/topics/tpus", ca
 assert.equal(catalogSourceForUrl("https://smrc.biz.samsung.com/html/about-us_new.html", catalog)?.id, "samsung-smrc");
 assert.equal(catalogSourceForUrl("https://developer.nvidia.com/blog/example", catalog)?.id, "nvidia-dynamo");
 assert.equal(catalogSourceForUrl("https://docs.vllm.ai/en/latest/features/kv_offloading_usage/", catalog)?.id, "vllm-kv-offloading");
+assert.equal(catalogSourceForUrl("https://arxiv.org/abs/2309.06180", catalog)?.id, "llm-serving-systems-research");
+assert.equal(catalogSourceForUrl("https://docs.nvidia.com/enterprise-reference-architectures/nvl72-ai-factory/latest/components.html", catalog)?.id, "nvidia-nvl72-architecture");
 
 const snapshot = buildSourceCatalogSnapshot({
   catalog,
@@ -50,7 +52,7 @@ const snapshot = buildSourceCatalogSnapshot({
   },
   now: new Date("2026-08-16T12:00:00.000Z"),
 });
-assert.ok(snapshot.configuredSources >= 35);
+assert.ok(snapshot.configuredSources >= 37);
 assert.equal(snapshot.observedSources, 3);
 assert.equal(snapshot.officialObserved, 2);
 assert.equal(snapshot.freshObservedSources, 3);
@@ -61,8 +63,8 @@ assert.equal(snapshot.failClosed, true);
 const payload = json("data/live.json");
 const quant = json("data/quant.json");
 const siteContent = buildSiteContentClient({ payload, quant });
-assert.ok(siteContent.freshness.configuredSources >= 35);
-assert.ok(siteContent.freshness.officialConfigured >= 25);
+assert.ok(siteContent.freshness.configuredSources >= 37);
+assert.ok(siteContent.freshness.officialConfigured >= 28);
 assert.equal(siteContent.freshness.scheduleHours, 3);
 assert.equal(siteContent.workloadOptimization.process.length, 6);
 assert.equal(siteContent.workloadOptimization.serviceLines.length, 3);

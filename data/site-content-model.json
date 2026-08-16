@@ -2,23 +2,23 @@
   "schemaVersion": "1.0",
   "strategyMandate": {
     "titleLines": [
-      "Customer Pain을",
-      "AI Infra 실행안으로 전환"
+      "AI Infra Strategy",
+      "Bottleneck to Scale"
     ],
     "scope": [
-      "고객 Workload별 병목·구매 기준·사업 기회 진단",
-      "HBM–DRAM/CXL–HBF/eSSD 대안과 System TCO 비교",
-      "공동 검증 → Qualification → Capacity → Ramp 실행"
+      "Business Outcome → Workload·SLO → 지배 병목을 먼저 계측",
+      "Serving SW·Compute·Memory·Network·Storage·Power/Cooling 대안을 동일 Benchmark로 비교",
+      "Proof → Qualification → Capacity → Ramp → Revenue를 경영진 Gate로 실행"
     ],
     "capabilities": [
-      "Pain Point 분석 · 고객 현황·기술·전략을 정량 병목으로 구조화",
-      "Data Center & IT · HW/SW·인프라를 Memory Tier와 연결",
-      "Executive Strategy · 근거·선택지·Trigger·Owner·KPI를 한 장으로 제시"
+      "Bottleneck First · 메모리를 먼저 가정하지 않고 고객 KPI·SLO에서 출발",
+      "AI Infra & Data Center · Serving SW·Accelerator·Network·Storage·Power/Cooling 통합 분석",
+      "Executive Decision OS · 근거·선택지·경제성·Owner·Trigger·Kill Criteria를 한 장으로 제시"
     ]
   },
   "workloadOptimization": {
-    "title": "Data Center Workload Optimization · Evidence-to-PoC",
-    "thesis": "메모리 증설부터 제안하지 않고, 고객 Workload Trace로 병목과 데이터 수명주기를 먼저 계측한 뒤 계층화·소프트웨어·용량 대안을 같은 KPI에서 검증합니다.",
+    "title": "Data Center Workload Optimization · Bottleneck-to-PoC",
+    "thesis": "메모리 증설부터 제안하지 않습니다. Customer KPI와 SLO를 기준으로 Compute·Memory·Network·Storage·Serving SW·Power/Cooling·Qualification을 먼저 계측하고, 지배 병목에 맞는 최소 Architecture를 검증합니다.",
     "process": [
       {
         "id": "intake",
@@ -39,14 +39,14 @@
         "index": "03",
         "label": "Bottleneck Tree",
         "title": "병목 원인 분리",
-        "bullets": ["대역폭·용량·데이터 이동·재계산을 MECE 분해", "Prefill·Decode·Retrieval 경로별 병목 구분", "Memory Wall과 Compute·Network·Power 병목 교차검증"]
+        "bullets": ["Compute·Bandwidth·Capacity·Network·Storage·Power를 MECE 분해", "Prefill·Decode·Retrieval·Checkpoint 경로별 병목 구분", "Serving SW·Qualification·Supply 병목까지 교차검증"]
       },
       {
         "id": "options",
         "index": "04",
         "label": "Architecture Options",
         "title": "대안 포트폴리오 설계",
-        "bullets": ["HBM Hot·Host DRAM/CXL Warm·SSD Reuse Tier 비교", "Context 압축·RAG·Cache Eviction·Prefetch 병행", "표준·Semi-Custom·Custom Memory 범위 비교"]
+        "bullets": ["Scheduler·Batching·Prefix/KV Reuse·Prefill/Decode 대안 비교", "HBM·Host DRAM/SOCAMM2·CXL·eSSD Placement 검증", "HBF는 Emerging Option으로 별도 관리"]
       },
       {
         "id": "poc",
@@ -69,18 +69,18 @@
         "label": "01 · AGENTIC INFERENCE",
         "title": "KV Cache Tiering Advisory",
         "pain": "Long Context·Multi-agent에서 KV 재계산과 HBM 상주 비용이 함께 증가",
-        "hypothesis": "재사용 빈도와 SLA에 따라 GPU HBM·Host DRAM/CXL·SSD로 승격·퇴거하면 GPU 여유와 Token 원가를 함께 개선 가능",
-        "metrics": ["TTFT·TPOT/P99", "KV Hit·Reuse·TTL", "HBM Occupancy·GPU Idle", "Cost/Token·Power/Token"],
-        "killCriteria": "전송 지연을 포함한 P99 또는 System TCO가 Baseline을 통과하지 못하면 Offload 범위를 축소"
+        "hypothesis": "Scheduler·Batching·Prefill/Decode와 Cache 정책을 먼저 최적화하고, 재사용 빈도와 SLA에 따라 HBM·Host DRAM·CXL·SSD Placement를 조정하면 Goodput과 경제성을 함께 개선 가능",
+        "metrics": ["TTFT·TPOT/P99·Goodput", "KV Hit·Reuse·TTL", "HBM Occupancy·GPU Idle", "Cost/Token·Tokens/W"],
+        "killCriteria": "Serving SW 최적화와 Tiering 중 어느 대안도 SLO·Quality·Baseline-relative Economics를 통과하지 못하면 Architecture를 재설계"
       },
       {
         "id": "rag-memory-economics",
         "label": "02 · ENTERPRISE RAG",
         "title": "RAG Memory Economics",
         "pain": "Corpus·Embedding·Index 증가로 DRAM 상주 비용과 Retrieval P99가 동시 상승",
-        "hypothesis": "Active Index는 DRAM/CXL, Vector·Document Capacity는 TLC/QLC eSSD에 배치하고 Context Cache와 RAG를 동일 비용축에서 비교",
-        "metrics": ["Index Resident Ratio", "Cache Hit·QPS·P99", "Cost/Query", "Endurance·Recovery"],
-        "killCriteria": "검색 SLA·신뢰성·Cost/Query 가운데 하나라도 고객 기준선을 넘지 못하면 데이터 배치를 재설계"
+        "hypothesis": "Hot Metadata·Cache, Active Index, Vector·Document Tier를 workload-dependent하게 배치하고 Memory·Storage 대안을 Retrieval Quality와 같은 비용축에서 비교",
+        "metrics": ["Index Resident Ratio", "Cache Hit·QPS·P99", "Recall·Quality Guardrail", "Cost/Query·Power/Query"],
+        "killCriteria": "검색 SLA·Quality·신뢰성·Cost/Query 가운데 하나라도 고객 기준선을 통과하지 못하면 데이터 배치를 재설계"
       },
       {
         "id": "customer-validation-lab",
@@ -92,7 +92,7 @@
         "killCriteria": "Workload Trace 접근·Decision Owner·Qualification 경로 중 2개 이상이 없으면 Custom 투자를 보류"
       }
     ],
-    "sourceIds": ["samsung-smrc", "google-context-caching", "anthropic-context-engineering", "nvidia-dynamo", "vllm-kv-offloading"],
+    "sourceIds": ["samsung-smrc", "google-context-caching", "anthropic-context-engineering", "nvidia-dynamo", "vllm-kv-offloading", "llm-serving-systems-research", "nvidia-nvl72-architecture", "cxl-consortium", "sandisk-newsroom"],
     "evidencePolicy": [
       "공식 원문·표준·공개 기술 문서를 우선하고 날짜·URL·실행 ID를 보존",
       "실제 파트너십·검증 사례와 향후 운영 모델을 명확히 분리",
@@ -100,6 +100,11 @@
       "최신성 Gate 실패 시 새 결론을 게시하지 않고 마지막 검증본을 유지"
     ]
   },
+  "caseClassification": [
+    { "id": "public", "label": "PUBLIC CASE RECONSTRUCTION", "description": "공개 원문과 검증 자료를 기반으로 재구성" },
+    { "id": "modeled", "label": "MODELED STRATEGY CASE", "description": "가상의 고객 Workload와 합의 전 Benchmark 조건으로 설계" },
+    { "id": "client", "label": "ANONYMIZED CLIENT CASE", "description": "실제 수행·공개 허가·비식별 검증이 모두 확인된 경우에만 사용" }
+  ],
   "profiles": [
     {
       "id": "hbm4-foundry",
@@ -127,7 +132,7 @@
       ],
       "kpis": ["Qualification cycle", "Committed volume coverage", "Package yield", "Contribution margin"],
       "partners": ["Accelerator/ASIC · architecture owner", "Foundry/Packaging · capacity & yield", "CSP/Data center · workload & TCO"],
-      "useCase": "익명화 AI Accelerator 고객 · Workload Trace → Base-Die 공동설계 → Qualification → Capacity Gate",
+      "useCase": "MODELED STRATEGY CASE · AI Accelerator · Workload Trace → Base-Die 공동설계 → Qualification → Capacity Gate",
       "deepLink": "#console/c-level-cockpit/hbm4-foundry"
     },
     {
@@ -138,25 +143,25 @@
       "phase": "NEXT",
       "tabLabel": "Agentic Inference",
       "title": "Data Center Workload Optimization · Agentic AI",
-      "answerTitle": "Agentic Inference를 Context Economics로 판단",
-      "recommendation": "TIERED MEMORY PoC",
-      "question": "Long Context·Multi-agent·RAG 확대로 커지는 KV Cache와 데이터 이동을 어떤 Memory Tier로 배치해야 Token 원가와 SLA가 함께 개선되는가?",
-      "fallbackDecision": "Prompt·Context Cache의 TTL·재사용률과 RAG·압축 대안을 함께 계측하고, HBM Hot–DRAM/CXL Warm–HBF/eSSD Reuse Tier를 동일 Workload의 Cost/Token과 P99로 비교합니다.",
-      "fallbackStop": "KV Reuse, Cache TTL, P99 Latency, GPU Idle, System TCO가 고객 Baseline을 충족하지 못하면 Context Tier 범위를 축소하거나 Context 압축·RAG로 전환합니다.",
+      "answerTitle": "Agentic Inference를 Serving SW × Data Placement로 판단",
+      "recommendation": "BOTTLENECK-FIRST PoC",
+      "question": "Compute·Memory·Network·Serving SW 가운데 무엇이 SLO-constrained Goodput을 제한하며, 어떤 조합이 고객 경제성을 개선하는가?",
+      "fallbackDecision": "Scheduler·Batching·Prefix/KV Reuse·Prefill/Decode·Offload를 먼저 계측하고, 메모리가 지배 병목일 때 HBM–Host DRAM/SOCAMM2–CXL–eSSD 배치를 검증합니다. HBF는 Emerging Option으로 분리합니다.",
+      "fallbackStop": "SLO·Quality·Goodput·System TCO가 고객 Baseline을 충족하지 못하면 Memory Tier를 확대하지 않고 Serving SW·Compute·Network 대안으로 재구성합니다.",
       "lenses": [
         ["01 · CUSTOMER", "Serving JTBD", ["TTFT·TPOT/P99와 동시 Session", "Token 원가·전력·Rack Capacity", "고객 SLA와 구매 기준"]],
-        ["02 · AI TECH", "Context Flow", ["KV Cache reuse·offload·prefetch", "Prompt·Context Cache TTL·Multi-agent state", "압축·RAG의 반대 가설과 Bytes/token 계측"]],
-        ["03 · MEMORY", "Tiered Architecture", ["HBM Hot Tier", "DRAM/CXL Warm Tier", "HBF/eSSD Reuse Tier"]],
+        ["02 · SERVING SW", "Runtime & Scheduler", ["Paged KV·Batching·Prefix Reuse", "Prefill/Decode 배치·간섭", "Offload·Prefetch·Eviction"]],
+        ["03 · DATA PLACEMENT", "Tiered Architecture", ["HBM Hot Tier", "Host DRAM/SOCAMM2 System Tier", "CXL Elastic · eSSD Context · HBF Emerging"]],
         ["04 · BUSINESS", "Reference Offer", ["Architecture·SW·Memory 공동 PoC", "System TCO와 고객 지불의사", "Qualification·반복주문"]]
       ],
       "horizons": [
         ["NOW · 0–30D", "Serving Baseline", "대표 Prompt·Context·Concurrency와 KPI를 고정", "TTFT·TPOT·GPU idle"],
-        ["NEXT · 31–60D", "Tier Placement PoC", "HBM-only와 DRAM/CXL/HBF/eSSD 배치를 비교", "P99·Reuse·Power/token"],
+        ["NEXT · 31–60D", "SW × Placement PoC", "Serving policy와 HBM/Host/CXL/eSSD 배치를 교차 비교", "Goodput·P99·Reuse·Tokens/W"],
         ["SCALE · 61–90D", "Commercial Gate", "TCO·성능보증·Qualification 범위를 확정", "Cost/token·Repeatability"]
       ],
       "kpis": ["TTFT / TPOT P99", "KV reuse / cache TTL", "GPU utilization", "Cost per million tokens"],
-      "partners": ["AI model/serving · workload", "CSP/Data center · operations", "CXL/HBF/eSSD · tier integration"],
-      "useCase": "익명화 Agentic AI 운영사 · Context 병목 → Tiered Memory PoC → 공동 Qualification",
+      "partners": ["AI model/serving · workload", "CSP/Data center · operations", "CXL/eSSD · tier integration", "HBF · emerging ecosystem"],
+      "useCase": "MODELED STRATEGY CASE · Agentic AI Serving · Bottleneck Trace → SW/Placement PoC → Qualification Gate",
       "deepLink": "#console/c-level-cockpit/post-hbm"
     },
     {
@@ -171,7 +176,7 @@
       "recommendation": "eSSD ATTACH",
       "question": "RAG의 Index·Cache·Document 경로에서 DRAM/CXL과 TLC/QLC eSSD를 어떻게 배치해야 P99·신뢰성·Cost/Query가 개선되는가?",
       "fallbackDecision": "Retrieval Trace를 기반으로 Active Index는 DRAM/CXL, Vector·Document Tier는 eSSD에 배치하고 Controller·Firmware·Vector DB 튜닝을 공동 Offer로 묶습니다.",
-      "fallbackStop": "Retrieval P99, Cost/Query, Endurance/Reliability 중 하나라도 고객 Baseline을 통과하지 못하면 Architecture를 재설계합니다.",
+      "fallbackStop": "Retrieval P99, Recall/Quality, Cost/Query, Endurance/Reliability 중 하나라도 고객 Baseline을 통과하지 못하면 Architecture를 재설계합니다.",
       "lenses": [
         ["01 · CUSTOMER", "Enterprise JTBD", ["Fresh answer·보안·예측 가능한 비용", "Corpus·Freshness·SLA", "운영 신뢰성과 구매 기준"]],
         ["02 · AI TECH", "RAG Flow", ["Embedding·Index·Retrieval·Generation", "Vector DB·reranking·cache", "Index resident ratio·QPS"]],
@@ -183,9 +188,9 @@
         ["NEXT · 31–60D", "Architecture PoC", "DRAM/CXL/eSSD 비중별 Benchmark", "Cost/query·Power/query"],
         ["SCALE · 61–90D", "Reference Offer", "성능보증·Qualification·가격 패키지", "Design win·Repeat order"]
       ],
-      "kpis": ["Retrieval P99", "QPS", "Cache hit", "Cost/query", "Qualification"],
+      "kpis": ["Retrieval P99", "QPS", "Recall / Quality", "Cache hit", "Cost/query", "Qualification"],
       "partners": ["Enterprise · data/SLA", "Vector DB/RAG · index tuning", "OEM/Data center · platform qualification"],
-      "useCase": "익명화 Enterprise RAG 고객 · Retrieval Trace → DRAM/CXL·eSSD PoC → Qualification",
+      "useCase": "MODELED STRATEGY CASE · Enterprise RAG · Retrieval Trace → DRAM/CXL·eSSD PoC → Qualification",
       "deepLink": "#console/ai-matrix"
     },
     {
@@ -214,7 +219,7 @@
       ],
       "kpis": ["BOM/ASP ratio", "P95 AI latency", "Energy per task", "Sell-through by tier"],
       "partners": ["Mobile/PC OEM · SKU/BOM", "AI Application · workload profiling", "Platform · launch optimization"],
-      "useCase": "익명화 Device OEM · AI Feature Footprint → SKU 재설계 → 가격·Allocation 실행",
+      "useCase": "MODELED STRATEGY CASE · Device OEM · AI Feature Footprint → SKU 재설계 → 가격·Allocation 실행",
       "deepLink": "#console/ai-matrix"
     },
     {
@@ -243,7 +248,7 @@
       ],
       "kpis": ["PoC → Qualification", "Qualification → Contract", "Reference reuse", "Repeat order"],
       "partners": ["AI Developer · workload", "Data Center · operations", "OEM/Platform · qualification", "Consulting/SI · adoption"],
-      "useCase": "익명화 Lighthouse 고객 · Pain 진단 → 공동 Benchmark → Qualification → Reference Offer",
+      "useCase": "MODELED STRATEGY CASE · Lighthouse Opportunity · Pain 진단 → 공동 Benchmark → Qualification → Reference Offer",
       "deepLink": "#console/c-level-cockpit/partner-new-biz"
     }
   ]
