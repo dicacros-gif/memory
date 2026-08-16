@@ -110,7 +110,7 @@
     (() => {
       if (!location.hash.startsWith("#console")) return;
       document.documentElement.classList.add("console-entry");
-      const revision = "infra-20260816-27";
+      const revision = "infra-20260816-28";
       const assets = [
         ["consoleStylesPreload", "style", `assets/css/styles.min.css?v=${revision}`, "high"],
         ["consoleAppPreload", "script", `assets/js/app.min.js?v=${revision}`, "low"],
@@ -127,7 +127,7 @@
       }
     })();
   </script>
-  <link rel="stylesheet" href="assets/css/landing.min.css?v=infra-20260816-27" />
+  <link rel="stylesheet" href="assets/css/landing.min.css?v=infra-20260816-28" />
 </head>
 <body class="landing-mode">
   <div class="business-site" id="businessSite">
@@ -942,10 +942,6 @@
             </article>
           </div>
 
-          <div class="business-team-enablers">
-            <section><span>CAPABILITY SYSTEM</span><h3>업무를 지탱하는 검증 가능한 역량</h3><div id="teamCapabilityProofs" class="business-team-capabilities"><article><span>01</span><div><strong>Data Center &amp; HW/SW</strong><p>Workload와 Accelerator·Memory·Network·Storage·Power/Cooling 통합 진단</p></div></article><article><span>02</span><div><strong>Strategy &amp; Consulting</strong><p>Issue Tree·MECE·Business Case·Stage Gate 기반 문제 해결</p></div></article><article><span>03</span><div><strong>AI &amp; LLM Technology</strong><p>Transformer·KV Cache·RAG·Vector DB를 Memory Implication으로 변환</p></div></article><article><span>04</span><div><strong>Semiconductor &amp; Market</strong><p>HBM·DRAM·NAND·CXL·Package·Foundry 변곡점 추적</p></div></article><article><span>05</span><div><strong>Global Source Intelligence</strong><p>영문·중문 원문·IR·표준을 날짜·출처·제품 Stage와 함께 검증</p></div></article></div></section>
-            <section><span>MANAGEMENT CADENCE</span><h3>회의가 아니라 산출물이 남는 운영 주기</h3><div id="teamCadence" class="business-team-cadence"><article><span>WEEKLY</span><strong>Signal-to-Decision Review</strong><p>Signal·ClaimEvent·가설 변화·검증 과제</p></article><article><span>MONTHLY</span><strong>Customer &amp; Opportunity Portfolio</strong><p>Pain Map·Opportunity Score·PoC 우선순위</p></article><article><span>QUARTERLY</span><strong>Executive Strategy Gate</strong><p>Scale·Hold·Stop·Capacity·인증 Roadmap</p></article></div></section>
-          </div>
           <div class="business-team-actions"><a href="#decision-lab">조직용 Decision Pack 보기 →</a><button type="button" data-open-console>AI Infra Intelligence Console ↗</button></div>
         </div>
       </section>
@@ -1996,6 +1992,6 @@
   <div class="qa-answer" id="qaAnswer" hidden></div>
   <div class="inspector" id="inspector" hidden></div>
   <div class="backdrop" id="backdrop"></div>
-  <script src="assets/js/landing.min.js?v=infra-20260816-27" defer></script>
+  <script src="assets/js/landing.min.js?v=infra-20260816-28" defer></script>
 </body>
 </html>

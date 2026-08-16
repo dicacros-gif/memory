@@ -3,7 +3,7 @@
 
   const BUSINESS_TITLE = "AI Infra Strategy OS · Customer Pain to Growth";
   const CONSOLE_HASH = "#console";
-  const CONSOLE_REVISION = "infra-20260816-27";
+  const CONSOLE_REVISION = "infra-20260816-28";
   const DECISION_CLIENT_PATH = "data/landing-decision-client.json";
   const SITE_CONTENT_PATH = "data/site-content-client.json";
   const site = document.querySelector("#businessSite");
@@ -339,15 +339,6 @@
         </article>`).join("");
     }
 
-    const capabilities = document.querySelector("#teamCapabilityProofs");
-    if (capabilities && model.capabilityProofs?.length) {
-      capabilities.innerHTML = model.capabilityProofs.map((item, index) => `<article><span>${String(index + 1).padStart(2, "0")}</span><div><strong>${escapeBusinessHTML(item.title)}</strong><p>${escapeBusinessHTML(item.proof)}</p></div></article>`).join("");
-    }
-
-    const cadence = document.querySelector("#teamCadence");
-    if (cadence && model.cadence?.length) {
-      cadence.innerHTML = model.cadence.map((item) => `<article><span>${escapeBusinessHTML(item.label)}</span><strong>${escapeBusinessHTML(item.title)}</strong><p>${escapeBusinessHTML(item.output)}</p></article>`).join("");
-    }
   }
 
   function renderDecisionAutomation(content = {}) {
