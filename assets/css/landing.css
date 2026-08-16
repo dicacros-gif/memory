@@ -5779,6 +5779,34 @@ body.landing-mode {
   font-weight: 720;
 }
 
+/* Automation status is always legible on the light insights section. */
+.business-data-status {
+  color: #f7fbff;
+  border-color: #36566b;
+  background:
+    radial-gradient(circle at 92% 7%, rgba(98, 230, 196, .14), transparent 28%),
+    #071522;
+  box-shadow: 0 22px 48px rgba(7, 21, 34, .18);
+}
+
+.business-data-status.business-reveal {
+  opacity: 1;
+}
+
+.business-data-status :is(.business-data-status-main strong, .business-automation-flow strong, dd) {
+  color: #f7fbff;
+  opacity: 1;
+}
+
+.business-data-status :is(small, dt, .business-automation-flow small) {
+  color: #c5d4de;
+  opacity: 1;
+}
+
+.business-data-status .business-status-rules li {
+  color: #d9e6ee;
+}
+
 .business-hero-proof dd span,
 .business-visual-head,
 .business-flow-node span,
