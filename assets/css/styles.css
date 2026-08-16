@@ -25432,6 +25432,70 @@ button.ni-trend-chip:hover { box-shadow: 0 4px 12px color-mix(in srgb, #0891B2 2
   box-shadow: 0 0 0 4px rgba(11, 33, 55, .9);
 }
 
+/* Executive flow contrast contract: the cluster header sits on a dark
+   consulting canvas, while each node starts light and inverts as one surface.
+   Keep every nested label tied to the surface instead of a shared hover rule. */
+.consulting-system .exec-layout > .exec-brief .exec-cluster-head > span {
+  color: #72e5d1;
+  -webkit-text-fill-color: currentColor;
+}
+
+.consulting-system .exec-layout > .exec-brief .exec-cluster-head > strong {
+  color: #f8fbff;
+  -webkit-text-fill-color: currentColor;
+  text-shadow: none;
+}
+
+.consulting-system .exec-layout .exec-flow-node {
+  border-color: color-mix(in srgb, var(--exec-flow-accent) 52%, #b9c9d8) !important;
+  background:
+    linear-gradient(135deg, color-mix(in srgb, var(--exec-flow-accent) 10%, transparent), transparent 58%),
+    #f8fbff;
+  color: #102a43;
+}
+
+.consulting-system .exec-layout .exec-flow-node :is(.exec-flow-copy strong, .exec-flow-signal) {
+  color: #243b53;
+  -webkit-text-fill-color: currentColor;
+}
+
+.consulting-system .exec-layout .exec-flow-node :is(.exec-flow-step, .exec-flow-label, .exec-flow-signal b, .exec-flow-marker) {
+  color: var(--exec-flow-accent);
+  -webkit-text-fill-color: currentColor;
+}
+
+.consulting-system .exec-layout .exec-flow-node:is(:hover, :focus-visible) {
+  border-color: #7dd3fc !important;
+  background: linear-gradient(145deg, #123451 0%, #0b263a 58%, #0b3f45 100%);
+  color: #f8fbff;
+  box-shadow: 0 18px 38px rgba(2, 8, 23, .34);
+}
+
+.consulting-system .exec-layout .exec-flow-node:is(:hover, :focus-visible)
+  :is(.exec-flow-step, .exec-flow-label, .exec-flow-copy strong, .exec-flow-signal, .exec-flow-signal b, .exec-flow-marker) {
+  color: #f8fbff !important;
+  -webkit-text-fill-color: #f8fbff !important;
+  text-shadow: none;
+}
+
+.consulting-system .exec-layout .exec-flow-node:is(:hover, :focus-visible) .exec-flow-label,
+.consulting-system .exec-layout .exec-flow-node:is(:hover, :focus-visible) .exec-flow-signal b {
+  color: #7ee8d8 !important;
+  -webkit-text-fill-color: #7ee8d8 !important;
+}
+
+.consulting-system .exec-layout .exec-flow-node:is(:hover, :focus-visible)
+  :is(.exec-flow-step, .exec-flow-marker) {
+  border-color: rgba(248, 251, 255, .72);
+  background: rgba(248, 251, 255, .12);
+}
+
+.consulting-system .exec-layout .exec-flow-node:is(:hover, :focus-visible):not(:last-child)::after {
+  border-color: rgba(248, 251, 255, .68);
+  background: #0b263a;
+  color: #f8fbff;
+}
+
 .exec-strategy {
   grid-template-columns: minmax(0, 1fr);
   grid-auto-rows: auto;

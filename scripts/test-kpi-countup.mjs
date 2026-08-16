@@ -151,7 +151,7 @@ assert.match(app, /loadManagedJSON\("live", "data\/live-client\.json"[\s\S]*?loa
 assert.match(app, /priceHistory: \{[\s\S]*?path: "data\/price-history-client\.json"[\s\S]*?marketHistory: \{[\s\S]*?path: "data\/market-history-client\.json"/, "secondary fallbacks must never download database-sized history files");
 assert.match(css, /\.agent-debate-title \.agent-tts-toggle \{[\s\S]*?min-width: 190px;[\s\S]*?min-height: 44px;/, "the English TTS control should be large and readable");
 assert.match(css, /\.agent-tts-state \{[\s\S]*?min-width: 31px;/, "the TTS control should expose a dedicated on-or-off state badge");
-assert.match(html, /landing\.min\.js\?v=infra-20260816-24/, "the public landing controller should include the minified AI Infra revision");
+assert.match(html, /landing\.min\.js\?v=infra-20260816-25/, "the public landing controller should include the minified AI Infra revision");
 assert.match(css, /\.consulting-system \.news-card:is\(:hover, :focus-within\) \.news-insights > span \{[\s\S]*?background: rgba\(255, 255, 255, \.9\);[\s\S]*?color: var\(--consulting-slate\) !important;[\s\S]*?-webkit-text-fill-color: var\(--consulting-slate\);/, "light consulting news cards must keep high-contrast insight copy on hover");
 assert.match(css, /\.consulting-system \.news-card:is\(:hover, :focus-within\) :is\(\.strategy-highlight, \.answer-term\) \{[\s\S]*?--term-color: #334155;[\s\S]*?text-shadow: none;/, "light consulting news cards must restore dark semantic terms on hover");
 assert.doesNotMatch(html, /<script[^>]+src="assets\/js\/app\.js/, "the dashboard JavaScript must load only when the Intelligence Console is opened");
@@ -235,6 +235,8 @@ assert.match(app, /01 · STRATEGIC LOGIC/, "Executive infographic should label i
 assert.match(app, /02 · EXECUTION MAP/, "Executive infographic should label its execution lane");
 assert.match(css, /\.exec-layout[\s\S]*?linear-gradient\(135deg,\s*#071526/, "Executive infographic should use the consulting canvas background");
 assert.match(css, /\.exec-strategy-grid[\s\S]*?repeat\(2,\s*minmax\(0,\s*1fr\)\)/, "Execution map should preserve a two-column consulting grid");
+assert.match(css, /Executive flow contrast contract[\s\S]*?\.consulting-system \.exec-layout > \.exec-brief \.exec-cluster-head > strong \{[\s\S]*?color:\s*#f8fbff;[\s\S]*?\.consulting-system \.exec-layout \.exec-flow-node:is\(:hover, :focus-visible\) \{[\s\S]*?background:\s*linear-gradient\(145deg, #123451 0%, #0b263a 58%, #0b3f45 100%\);/, "executive flow header and hovered cards must retain explicit high-contrast surfaces");
+assert.match(css, /\.consulting-system \.exec-layout \.exec-flow-node:is\(:hover, :focus-visible\)[\s\S]*?:is\(\.exec-flow-step, \.exec-flow-label, \.exec-flow-copy strong, \.exec-flow-signal, \.exec-flow-signal b, \.exec-flow-marker\) \{[\s\S]*?color:\s*#f8fbff !important;[\s\S]*?-webkit-text-fill-color:\s*#f8fbff !important;/, "all nested executive flow text must stay visible after hover inversion");
 assert.match(app, /<li><span class="exec-report-bullet-copy">/, "Report bullets should keep mixed-script emphasis inside one grid item");
 assert.match(css, /\.exec-report-bullet-copy[\s\S]*?overflow-wrap:\s*anywhere/, "Report bullet copy should wrap without overlapping adjacent text");
 assert.match(app, /document\.corePoints[\s\S]*?strategicHighlightHTML/, "Provided report copy should color important semantic terms");

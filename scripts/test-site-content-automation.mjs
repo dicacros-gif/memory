@@ -146,7 +146,7 @@ assert.match(index, /Coverage Drift/);
 assert.match(index, /Samsung SMRC/);
 assert.match(app, /window\.MEMORY_SITE_CONTENT\?\.agentCouncil\?\.agendas/);
 assert.match(app, /replace\(\/솔리드다임\/g, "솔리다임"\)/, "the interactive console must normalize stale Solidigm labels at render time");
-assert.match(index, /infra-20260816-24/);
+assert.match(index, /infra-20260816-25/);
 assert.match(index, /Customer Pain to Growth/);
 assert.match(index, /PUBLIC CASE RECONSTRUCTION[\s\S]*?MODELED STRATEGY CASE[\s\S]*?ANONYMIZED CLIENT CASE/);
 assert.doesNotMatch(index, /ANONYMIZED USE CASE|GPU Compute보다|MODELED THRESHOLD/);
