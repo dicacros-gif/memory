@@ -113,7 +113,7 @@ assert.deepEqual(businessNavLabels, [
 assert.match(html, /id="intelligenceConsole" hidden/, "the Intelligence Console must stay outside the initial visible layer");
 assert.doesNotMatch(html, /<script[^>]+src="assets\/js\/app\.js/, "the heavy console app must not load with the public landing page");
 assert.doesNotMatch(html, /<link[^>]+href="assets\/css\/styles\.css/, "the heavy console stylesheet must not load with the public landing page");
-assert.match(html, /assets\/js\/landing\.min\.js\?v=infra-20260816-10/, "the lightweight landing controller must use the minified AI Infra revision");
+assert.match(html, /assets\/js\/landing\.min\.js\?v=infra-20260816-11/, "the lightweight landing controller must use the minified AI Infra revision");
 assert.match(html, /class="business-footer"[\s\S]*?href="https:\/\/www\.linkedin\.com\/in\/dicacross\/"[\s\S]*?© 2026 dicacross · Independent strategy portfolio based on public information/, "the public portfolio credit must link to the dicacross LinkedIn profile");
 assert.doesNotMatch(html, /메모리를 판매하는 것이 아니라/, "the removed sales-negation headline must stay deleted");
 assert.doesNotMatch(html, /직무 적합성을 세 가지|검증 가능한 역량으로 압축합니다/, "the removed role-fit headline must stay deleted");
@@ -188,7 +188,7 @@ assert.match(html, /id="deep-cases"[\s\S]*?data-deep-case="agentic"[\s\S]*?data-
 assert.equal((html.match(/WHAT WOULD CHANGE MY MIND\?/g) || []).length, 3, "every deep case must declare decision reversal conditions");
 assert.match(html, /Reuse ≥ 35%[\s\S]*?Training Time −10%[\s\S]*?Retrieval P99 −15%/, "deep cases must declare measurable modeled decision triggers");
 assert.match(landing, /function setupDeepCases\(\)[\s\S]*?data-deep-case-panel/, "deep-case tabs must switch the visible strategy case");
-assert.match(html, /id="automation" aria-live="polite"[\s\S]*?6-HOUR CYCLE[\s\S]*?FAIL-CLOSED[\s\S]*?id="businessDataRun"/, "the public site must expose the automated intelligence control loop and traceable run");
+assert.match(html, /id="automation" aria-live="polite"[\s\S]*?3-HOUR CYCLE[\s\S]*?FAIL-CLOSED[\s\S]*?id="businessDataSources"[\s\S]*?id="businessDataRun"/, "the public site must expose source coverage, automated refresh, and traceable run");
 assert.match(landing, /Status unavailable · fail-closed[\s\S]*?마지막 검증 Bundle 유지[\s\S]*?panel\.hidden = false/, "automation status failures must remain visible and fail closed");
 assert.doesNotMatch(html, /console-data-health|Data Health · Decision Use Gate|DECISION OBJECT STANDARD/, "the redundant console data-health board must stay removed");
 assert.doesNotMatch(app, /renderConsoleDataHealth|renderCrawlHeartbeat|crawlHeartbeat/, "removed console status panels must not retain rendering work");

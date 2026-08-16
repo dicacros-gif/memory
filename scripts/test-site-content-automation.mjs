@@ -15,6 +15,9 @@ const index = text("index.html");
 
 const rebuilt = buildSiteContentClient({ payload, quant });
 assert.deepEqual(validateSiteContent(rebuilt), { ok: true, errors: [] });
+assert.ok(rebuilt.freshness.configuredSources >= 30);
+assert.ok(rebuilt.freshness.officialConfigured >= 20);
+assert.equal(rebuilt.freshness.scheduleHours, 3);
 assert.equal(artifact.runId, payload.runId, "site content must use the verified live runId");
 assert.equal(manifest.runId, artifact.runId, "manifest and site content must be atomic");
 assert.equal(manifest.artifacts.siteContent.path, "data/site-content-client.json");
@@ -44,13 +47,13 @@ assert.equal(changedHbm.decision, hbm.decision);
 assert.equal(changedHbm.stop, hbm.reversalKpi);
 assert.ok(changed.hero.thesis.includes(hbm.decision));
 
-assert.match(workflow, /cron: "0 3,9,15,21 \* \* \*"/);
+assert.match(workflow, /cron: "17 \*\/3 \* \* \*"/);
 assert.match(workflow, /data\/site-content-client\.json/);
 assert.match(landing, /SITE_CONTENT_PATH = "data\/site-content-client\.json"/);
 assert.match(landing, /content\.runId !== manifest\.runId/);
 assert.match(landing, /15 \* 60 \* 1000/);
 assert.match(app, /window\.MEMORY_SITE_CONTENT\?\.agentCouncil\?\.agendas/);
-assert.match(index, /infra-20260816-10/);
+assert.match(index, /infra-20260816-11/);
 
 console.log(JSON.stringify({
   ok: true,
@@ -59,5 +62,5 @@ console.log(JSON.stringify({
   insights: artifact.insights.length,
   agendas: artifact.agentCouncil.agendas.length,
   competitors: artifact.competitors.length,
-  refresh: "6-hour publish + 15-minute in-page revalidation",
+  refresh: "3-hour publish + 15-minute in-page revalidation",
 }, null, 2));

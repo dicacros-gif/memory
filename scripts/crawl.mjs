@@ -39,6 +39,13 @@ import {
   purgeCrawlExclusions,
 } from "./crawl-exclusions.mjs";
 import { buildSiteContentClient } from "./site-content.mjs";
+import {
+  buildSourceCatalogSnapshot,
+  catalogSourceForUrl,
+  loadSourceCatalog,
+  sourceCatalogDiscoveryMonitors,
+  sourceCatalogHealthProbes,
+} from "./source-catalog.mjs";
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
 const OUT = resolve(__dirname, "..", "data", "live.json");
@@ -61,6 +68,9 @@ const TRANSLATION_CACHE_OUT = resolve(__dirname, "..", "data", "translation-cach
 const QUANT_OUT = resolve(__dirname, "..", "data", "quant.json");
 const QUANT_MODEL_IN = resolve(__dirname, "..", "data", "quant-model.json");
 const BASELINE_IN = resolve(__dirname, "..", "data", "baseline.json");
+const SOURCE_CATALOG = loadSourceCatalog();
+const CATALOG_DISCOVERY_MONITORS = sourceCatalogDiscoveryMonitors(SOURCE_CATALOG);
+const CATALOG_OFFICIAL_PROBES = sourceCatalogHealthProbes(SOURCE_CATALOG);
 const LIVE_SCHEMA_VERSION = "4.0";
 const EVIDENCE_METHODOLOGY_VERSION = "4.0-source-provenance";
 const TRENDFORCE_ORIGIN = "https://www.trendforce.com";
@@ -4122,6 +4132,12 @@ async function collectNews(previousNews = [], previousReferenceNews = []) {
     mergeNewsCategory(categories, cat, items);
   }
 
+  for (const monitor of CATALOG_DISCOVERY_MONITORS) {
+    const items = (await fetchCategory(monitor, seen)).filter((item) => !isCrawlerExcluded("news", item));
+    all = all.concat(items);
+    mergeNewsCategory(categories, { id: "source-catalog", label: "AI Infra 공식·산업 출처 카탈로그" }, items, 16);
+  }
+
   for (const cat of CHINESE_CATEGORIES.concat(CHINESE_AUTHORITY_MONITORS)) {
     const items = (await fetchCategory(cat, seen, "zh")).filter((item) => !isCrawlerExcluded("news", item));
     all = all.concat(items);
@@ -6457,9 +6473,15 @@ function buildSourceRegistry({ prices = {}, news = [], communitySignals = {}, br
   const factEvents = Array.isArray(facts.events) ? facts.events.length : 0;
   const marketSeries = Object.values(marketHistory.indexes || {}).length
     + Object.values(marketHistory.stocks || {}).length;
+  const catalog = buildSourceCatalogSnapshot({
+    catalog: SOURCE_CATALOG,
+    news,
+    industrySourceChecks: quant.industrySourceChecks || {},
+  });
   return {
-    version: "2.0-crawl-channel-registry",
+    version: "3.0-catalog-driven-registry",
     generatedAt: new Date().toISOString(),
+    catalog,
     promotionPolicy: [
       "direct canonical URL required",
       "published date and source summary required",
@@ -6468,7 +6490,8 @@ function buildSourceRegistry({ prices = {}, news = [], communitySignals = {}, br
     ],
     channels: [
       { id: "prices", mode: "structured-daily", sources: priceTables, records: intelligencePriceRows(prices).length },
-      { id: "english-news", mode: "authority-monitor-and-search", sources: ENGLISH_AUTHORITY_MONITORS.length, records: news.filter((item) => verifiedNewsLanguage(item) === "english").length },
+      { id: "english-news", mode: "authority-monitor-and-search", sources: ENGLISH_AUTHORITY_MONITORS.length + CATALOG_DISCOVERY_MONITORS.length, records: news.filter((item) => verifiedNewsLanguage(item) === "english").length },
+      { id: "source-catalog", mode: "catalog-driven-discovery-and-health", sources: catalog.configuredSources, records: catalog.observedSources },
       { id: "chinese-news", mode: "authority-monitor-and-search", sources: CHINESE_AUTHORITY_MONITORS.length, records: news.filter((item) => verifiedNewsLanguage(item) === "chinese").length },
       { id: "broker-research", mode: "direct-report-and-citation", sources: BROKER_RESEARCH_MONITORS.length, records: brokerItems },
       { id: "community-hiring", mode: "public-signal-monitor", sources: Object.keys(COMMUNITY_PLATFORM_RULES).length, records: communityItems, promotion: "signal-only" },
@@ -6609,6 +6632,8 @@ function evidenceId(value = "") {
 
 function newsSourceClass(item = {}) {
   const sourceText = `${item.source || ""} ${directNewsUrl(item)}`;
+  const catalogSource = catalogSourceForUrl(directNewsUrl(item), SOURCE_CATALOG);
+  if (catalogSource?.sourceClass) return catalogSource.sourceClass;
   if (OFFICIAL_SOURCE_RE.test(sourceText)
     || /(?:news\.samsung\.com|news\.skhynix\.com|investors\.micron\.com|sandisk\.com\/company\/newsroom|english\.sse\.com\.cn)/i.test(sourceText)) {
     return "official";
@@ -6835,6 +6860,7 @@ function buildCrawlAudit(payload = {}, quarantine = {}) {
       crossCheckStatus: priceSources.length >= 2 ? "cross-checked" : "single-source",
       reviewRequired: priceReviewRequired,
     },
+    sourceCatalog: payload.sourceRegistry?.catalog || null,
     channelAsOf: payload.quality?.channels || {},
     checks: payload.quality?.checks || [],
   };
@@ -6851,6 +6877,7 @@ function buildQualityReport(payload = {}) {
   const brokerFramework = payload.brokerResearch?.framework || null;
   const factEvents = Array.isArray(payload.facts?.events) ? payload.facts.events : [];
   const sourceChannels = Array.isArray(payload.sourceRegistry?.channels) ? payload.sourceRegistry.channels : [];
+  const sourceCatalog = payload.sourceRegistry?.catalog || {};
   const essentialSourceChannels = sourceChannels.filter((channel) => !["broker-research", "fact-timeline"].includes(channel.id));
   const priceRows = (payload.prices?.sections || []).flatMap((section) => section.rows || []);
   const marketIndexes = Object.values(payload.marketHistory?.indexes || {});
@@ -6969,6 +6996,23 @@ function buildQualityReport(payload = {}) {
       observed: essentialSourceChannels.filter((channel) => Number(channel.records || 0) > 0).length,
       threshold: essentialSourceChannels.length,
     },
+    {
+      id: "source_catalog",
+      critical: true,
+      passed: Number(sourceCatalog.configuredSources || 0) >= 24
+        && Number(sourceCatalog.officialConfigured || 0) >= 16
+        && Number(sourceCatalog.discoveryQueries || 0) >= 20
+        && sourceCatalog.failClosed === true,
+      observed: Number(sourceCatalog.configuredSources || 0),
+      threshold: 24,
+    },
+    {
+      id: "source_catalog_observed",
+      critical: false,
+      passed: Number(sourceCatalog.observedSources || 0) >= 4,
+      observed: Number(sourceCatalog.observedSources || 0),
+      threshold: 4,
+    },
     { id: "broker_research", critical: false, passed: validBrokerItems.length >= 1, observed: validBrokerItems.length, threshold: 1 },
     { id: "broker_framework", critical: false, passed: validBrokerFramework, observed: validBrokerFramework ? 1 : 0, threshold: 1 },
     { id: "market_indexes", critical: true, passed: validMarkets.length >= 3, observed: validMarkets.length, threshold: 3 },
@@ -7004,6 +7048,11 @@ function buildQualityReport(payload = {}) {
       decisionBriefs: validBriefs.length,
       factEvents: validFacts.length,
       sourceChannels: sourceChannels.length,
+      configuredSources: Number(sourceCatalog.configuredSources || 0),
+      observedCatalogSources: Number(sourceCatalog.observedSources || 0),
+      officialCatalogSources: Number(sourceCatalog.officialConfigured || 0),
+      officialObservedSources: Number(sourceCatalog.officialObserved || 0),
+      catalogDiscoveryQueries: Number(sourceCatalog.discoveryQueries || 0),
       brokerResearch: validBrokerItems.length,
       brokerResearchCurrent: currentBrokerItems.length,
       brokerFramework: validBrokerFramework ? 1 : 0,
@@ -7749,7 +7798,13 @@ export async function checkOfficialIndustryProbe(probe = {}, {
 
 export async function collectOfficialIndustrySourceChecks(options = {}) {
   const checkedAt = new Date().toISOString();
-  const entries = await Promise.all(OFFICIAL_INDUSTRY_PROBES.map(async (probe) => {
+  const probeIds = new Set();
+  const probes = OFFICIAL_INDUSTRY_PROBES.concat(CATALOG_OFFICIAL_PROBES).filter((probe) => {
+    if (probeIds.has(probe.id)) return false;
+    probeIds.add(probe.id);
+    return true;
+  });
+  const entries = await Promise.all(probes.map(async (probe) => {
     const result = await checkOfficialIndustryProbe(probe, options);
     const status = result.reachable ? (result.fallbackUsed ? "connected-fallback" : "connected") : "failed";
     const detail = result.reachable

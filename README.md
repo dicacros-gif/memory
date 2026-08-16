@@ -17,7 +17,8 @@ The published dashboard is generated through a fail-closed evidence pipeline:
 - The landing hero, decision cases, evidence synthesis, same-metric competitor cards, partner spotlight, and Console agent agendas share one verified `runId`.
 - Time-sensitive values, dates, sources, and recommendations are generated from the current intelligence briefs. HTML contains neutral fail-closed placeholders rather than fixed market claims.
 - The browser checks for a new manifest every 15 minutes while the page remains open. A partially published or mismatched artifact is never mixed with the prior run.
-- The GitHub Actions agent refreshes the evidence and derived site content every six hours. If collection or validation fails, the last verified bundle remains published.
+- The GitHub Actions agent refreshes the evidence and derived site content every three hours from `data/source-catalog.json`. If collection or validation fails, the last verified bundle remains published.
+- The catalog separates primary company/customer sources, standards, filings, market data, industry research, and authoritative media. Source coverage and the observed/configured ratio are generated into the landing bundle on every verified run.
 
 ### Integrity safeguards
 
@@ -46,7 +47,7 @@ The published dashboard is generated through a fail-closed evidence pipeline:
 | Spot / Contract Prices | TrendForce spot·contract + Wayback 공개 스냅샷 60개월 월별 증분 백필 | `data/price-history.json` |
 | Foreign / China News | 한국 출처를 제외한 외신·중국 중심 메모리 기사 | Google News RSS + 증거 게이트 |
 
-크롤링과 사이트 콘텐츠 재생성은 GitHub Actions에서 6시간마다 실행됩니다. 1·3·5년 성과는 cadence별 시작 허용 오차, 최소 실제 커버리지, 최소 관측 수, 최대 공백, 종료점 최신성을 모두 충족할 때만 계산합니다. 각 시작·종료값에는 포인트 원문/Wayback 근거와 단순 시리즈 출처를 구분해 기록합니다. 제품군 판단은 버전이 고정된 대표 품목만 동일가중 proxy로 사용하고 구성 품목과 실제 관측 구간을 노출합니다. 공개 메모리 가격 아카이브는 빈 구간을 보간하지 않으며 연속성이 부족하면 `데이터 부족`으로 표시합니다.
+크롤링과 사이트 콘텐츠 재생성은 GitHub Actions에서 3시간마다 실행됩니다. 1·3·5년 성과는 cadence별 시작 허용 오차, 최소 실제 커버리지, 최소 관측 수, 최대 공백, 종료점 최신성을 모두 충족할 때만 계산합니다. 각 시작·종료값에는 포인트 원문/Wayback 근거와 단순 시리즈 출처를 구분해 기록합니다. 제품군 판단은 버전이 고정된 대표 품목만 동일가중 proxy로 사용하고 구성 품목과 실제 관측 구간을 노출합니다. 공개 메모리 가격 아카이브는 빈 구간을 보간하지 않으며 연속성이 부족하면 `데이터 부족`으로 표시합니다.
 
 전망 숫자는 `2026E third-party forecast`로 표시하며, 링크 접근 성공과 숫자 본문 대조 성공을 분리합니다. PDF에 접속할 수 있어도 해당 값이 본문에서 기계적으로 확인되지 않으면 계산 입력으로 승격하지 않습니다. 원문 정량 수치(liveFigures)는 이번 실행에서 직접 확인된 기사 문장에서 추출해 출처·날짜와 함께 표시합니다.
 
@@ -76,6 +77,7 @@ The published dashboard is generated through a fail-closed evidence pipeline:
 | `data/baseline.json` | 중국 벤치마킹 기준 데이터 모델 (live 대조로 신선도 표시) |
 | `data/live.json` | daily crawler가 갱신하는 라이브 번들 + 집계에서 제외된 reference/discovery archive |
 | `data/site-content-model.json` | 수집 데이터와 분리된 승인형 컨설팅 프레임워크·업무 축 |
+| `data/source-catalog.json` | 공식·고객·표준·공시·시장·리서치 출처, 탐색 질의, 최신성 SLA |
 | `data/site-content-client.json` | 최신 검증 근거로 자동 생성되는 메인·Console 공통 콘텐츠 |
 | `data/quant.json` | 정량 지표·시나리오 보정·원문 수치·계정 신호 (매 크롤 재계산) |
 | `data/quant-backtest.json` | 1·3·5년 고정 기간 통계와 시리즈별 커버리지 감사 계약 |

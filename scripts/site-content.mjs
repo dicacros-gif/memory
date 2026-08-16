@@ -1,9 +1,11 @@
 import { readFileSync } from "node:fs";
 import { dirname, resolve } from "node:path";
 import { fileURLToPath } from "node:url";
+import { buildSourceCatalogSnapshot, loadSourceCatalog } from "./source-catalog.mjs";
 
 const root = resolve(dirname(fileURLToPath(import.meta.url)), "..");
 const model = Object.freeze(JSON.parse(readFileSync(resolve(root, "data", "site-content-model.json"), "utf8")));
+const sourceCatalog = loadSourceCatalog();
 
 const directUrl = (value = "") => /^https?:\/\//i.test(String(value || "")) && !/news\.google\.com/i.test(String(value || ""));
 const compact = (value = "", limit = 180) => {
@@ -153,6 +155,8 @@ export function validateSiteContent(content = {}) {
   if (!Array.isArray(content.decisionCases) || content.decisionCases.length < 4) errors.push("decisionCases");
   if (!Array.isArray(content.insights) || content.insights.length < 4) errors.push("insights");
   if (!Array.isArray(content.agentCouncil?.agendas) || content.agentCouncil.agendas.length < 4) errors.push("agentCouncil.agendas");
+  if (Number(content.freshness?.configuredSources || 0) < 20) errors.push("freshness.configuredSources");
+  if (Number(content.freshness?.officialConfigured || 0) < 15) errors.push("freshness.officialConfigured");
   for (const item of content.insights || []) {
     if (!item?.latest?.title || !item?.decision || !item?.action) errors.push(`insight:${item?.id || "unknown"}`);
     if (item?.latest?.url && !directUrl(item.latest.url)) errors.push(`insight-url:${item?.id || "unknown"}`);
@@ -166,6 +170,11 @@ export function buildSiteContentClient({ payload = {}, quant = {} } = {}) {
   const insights = (payload.intelligence?.briefs || []).map((brief) => buildInsight(brief, generatedAt));
   const fallbackPartner = briefLatest(briefMap.get("demand") || briefMap.get("hbm") || {}, generatedAt);
   const partnerSpotlight = latestPartnerSignal(payload, fallbackPartner);
+  const sourceCoverage = payload.sourceRegistry?.catalog || buildSourceCatalogSnapshot({
+    catalog: sourceCatalog,
+    news: payload.news || [],
+    industrySourceChecks: quant.industrySourceChecks || {},
+  });
   const profiles = (model.profiles || []).map((profile) => buildProfile(
     profile,
     briefMap.get(profile.briefId) || {},
@@ -193,13 +202,26 @@ export function buildSiteContentClient({ payload = {}, quant = {} } = {}) {
       evidenceCount: Number(payload.evidence?.promotedCount || payload.news?.length || 0),
       briefCount: insights.length,
       sourceCount: new Set(insights.map((item) => item.latest.source).filter(Boolean)).size,
+      configuredSources: Number(sourceCoverage.configuredSources || 0),
+      observedSources: Number(sourceCoverage.observedSources || 0),
+      freshObservedSources: Number(sourceCoverage.freshObservedSources || 0),
+      staleObservedSources: Number(sourceCoverage.staleObservedSources || 0),
+      officialConfigured: Number(sourceCoverage.officialConfigured || 0),
+      officialObserved: Number(sourceCoverage.officialObserved || 0),
+      officialFreshObserved: Number(sourceCoverage.officialFreshObserved || 0),
+      discoveryQueries: Number(sourceCoverage.discoveryQueries || 0),
+      connectedHealthChecks: Number(sourceCoverage.connectedHealthChecks || 0),
+      healthChecks: Number(sourceCoverage.healthChecks || 0),
+      scheduleHours: Number(sourceCoverage.scheduleHours || sourceCatalog.refreshPolicy.scheduleHours),
+      browserRecheckMinutes: Number(sourceCoverage.browserRecheckMinutes || sourceCatalog.refreshPolicy.browserRecheckMinutes),
+      sourceCatalogVersion: sourceCoverage.version || sourceCatalog.schemaVersion,
     },
     hero: {
       titleLines: model.strategyMandate?.titleLines || [],
       thesis: topDecisions.length ? topDecisions : model.strategyMandate?.scope || [],
       scope: model.strategyMandate?.scope || [],
       capabilities: model.strategyMandate?.capabilities || [],
-      status: `${String(payload.quality?.status || "review").toUpperCase()} · ${insights.length}개 전략 Brief · ${String(generatedAt).slice(0, 10)}`,
+      status: `${String(payload.quality?.status || "review").toUpperCase()} · 출처 ${sourceCoverage.observedSources || 0}개 관측 · ${String(generatedAt).slice(0, 10)}`,
     },
     decisionCases,
     insights,

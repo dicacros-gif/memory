@@ -3,7 +3,7 @@
 
   const BUSINESS_TITLE = "AI Infra Strategy OS · Workload to Revenue";
   const CONSOLE_HASH = "#console";
-  const CONSOLE_REVISION = "infra-20260816-10";
+  const CONSOLE_REVISION = "infra-20260816-11";
   const DECISION_CLIENT_PATH = "data/landing-decision-client.json";
   const SITE_CONTENT_PATH = "data/site-content-client.json";
   const BUSINESS_KEY_TERM_PATTERN = /(System Bottleneck|Memory Option|Business Value|Right to Win|Kill Criteria|Execution Gates?|Decision Gate|Agentic AI|Pain Point|Qualification|Benchmark|Workload|Capacity|HBM4?|CXL|HBF|eSSD|TCO|Ramp|고객 인증|판단 변경 조건|실행 전략|시스템 병목|메모리 대안|사업 가치)/gi;
@@ -445,6 +445,17 @@
     if (liveDot) liveDot.textContent = content.hero?.status || "Decision-ready";
     const visualResult = document.querySelector(".business-visual-result small");
     if (visualResult) visualResult.textContent = `검증 실행 ${content.runId || "확인 필요"} · 근거 ${content.freshness?.evidenceCount || 0}건 · 자동 생성 ${formatKst(content.generatedAt)}`;
+    const configuredSources = Number(content.freshness?.configuredSources || 0);
+    const sourceMetric = document.querySelector("#businessDataSources");
+    if (sourceMetric) sourceMetric.textContent = configuredSources
+      ? `관측 ${content.freshness?.observedSources || 0} · 구성 ${configuredSources} · 공식 ${content.freshness?.officialObserved || 0}`
+      : "다음 검증 실행 반영";
+    const sourceBadge = document.querySelector("#businessDataSourceBadge");
+    if (sourceBadge) sourceBadge.textContent = configuredSources
+      ? `${configuredSources} SOURCES · ${content.freshness?.freshObservedSources || 0} FRESH`
+      : "CATALOG CHECK";
+    const cadence = document.querySelector("#businessDataCadence");
+    if (cadence) cadence.textContent = `${content.freshness?.scheduleHours || 3}-HOUR CYCLE`;
     const staticSnapshot = document.querySelector(".console-static-snapshot header p");
     if (staticSnapshot) staticSnapshot.textContent = content.agentCouncil?.subtitle || staticSnapshot.textContent;
 
@@ -516,6 +527,7 @@
     const updated = document.querySelector("#businessDataUpdated");
     const expiry = document.querySelector("#businessDataExpiry");
     const artifacts = document.querySelector("#businessDataArtifacts");
+    const sources = document.querySelector("#businessDataSources");
     const run = document.querySelector("#businessDataRun");
     if (!status) return;
 
@@ -539,6 +551,7 @@
       if (updated) updated.textContent = "마지막 검증 Bundle 유지";
       if (expiry) expiry.textContent = "Console에서 재확인";
       if (artifacts) artifacts.textContent = "새 게시 중단";
+      if (sources) sources.textContent = "검증본 유지";
       if (run) run.textContent = "unavailable";
       if (panel) panel.hidden = false;
     }

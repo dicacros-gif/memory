@@ -110,7 +110,7 @@
     (() => {
       if (!location.hash.startsWith("#console")) return;
       document.documentElement.classList.add("console-entry");
-      const revision = "infra-20260816-10";
+      const revision = "infra-20260816-11";
       const assets = [
         ["consoleStylesPreload", "style", `assets/css/styles.min.css?v=${revision}`, "high"],
         ["consoleAppPreload", "script", `assets/js/app.min.js?v=${revision}`, "low"],
@@ -127,7 +127,7 @@
       }
     })();
   </script>
-  <link rel="stylesheet" href="assets/css/landing.min.css?v=infra-20260816-10" />
+  <link rel="stylesheet" href="assets/css/landing.min.css?v=infra-20260816-11" />
 </head>
 <body class="landing-mode">
   <div class="business-site" id="businessSite">
@@ -649,7 +649,7 @@
           </article>
           <aside class="business-data-status" id="automation" aria-live="polite">
             <div class="business-data-status-main"><span class="business-status-dot" id="businessStatusDot"></span><div><small>AUTONOMOUS INTELLIGENCE LOOP</small><strong id="businessDataStatus">Freshness gate 확인 중</strong></div></div>
-            <div class="business-automation-badges"><span>6-HOUR CYCLE</span><span>FAIL-CLOSED</span><span>SOURCE CONFIDENCE</span><span>TRACEABLE RUN</span></div>
+            <div class="business-automation-badges"><span id="businessDataCadence">3-HOUR CYCLE</span><span>FAIL-CLOSED</span><span id="businessDataSourceBadge">CATALOG CHECK</span><span>TRACEABLE RUN</span></div>
             <ol class="business-automation-flow" aria-label="자동 인텔리전스 운영 흐름">
               <li><span>01</span><strong>Collect</strong><small>뉴스 · 가격 · 시장 · 리서치</small></li>
               <li><span>02</span><strong>Verify</strong><small>원문 · 최신성 · 실행 ID 검증</small></li>
@@ -657,7 +657,7 @@
               <li><span>04</span><strong>Publish</strong><small>검증 Bundle만 게시</small></li>
               <li><span>05</span><strong>Recheck</strong><small>만료 Gate · 다음 갱신</small></li>
             </ol>
-            <dl class="business-automation-metrics"><div><dt>최종 검증 시각</dt><dd id="businessDataUpdated">확인 중</dd></div><div><dt>다음 최신성 Gate</dt><dd id="businessDataExpiry">확인 중</dd></div><div><dt>게시 데이터셋</dt><dd id="businessDataArtifacts">확인 중</dd></div><div><dt>추적 실행 ID</dt><dd id="businessDataRun">확인 중</dd></div></dl>
+            <dl class="business-automation-metrics"><div><dt>최종 검증 시각</dt><dd id="businessDataUpdated">확인 중</dd></div><div><dt>다음 최신성 Gate</dt><dd id="businessDataExpiry">확인 중</dd></div><div><dt>출처 커버리지</dt><dd id="businessDataSources">확인 중</dd></div><div><dt>게시 데이터셋</dt><dd id="businessDataArtifacts">확인 중</dd></div><div><dt>추적 실행 ID</dt><dd id="businessDataRun">확인 중</dd></div></dl>
             <ul class="business-status-rules"><li>PASS · 검증 Bundle 게시</li><li>FAIL · 신규 게시 중단</li><li>FALLBACK · 최종 검증본 유지</li><li>TRACE · 출처 · 교차검증 · Trigger</li></ul>
           </aside>
         </div>
@@ -1820,6 +1820,6 @@
   <div class="qa-answer" id="qaAnswer" hidden></div>
   <div class="inspector" id="inspector" hidden></div>
   <div class="backdrop" id="backdrop"></div>
-  <script src="assets/js/landing.min.js?v=infra-20260816-10" defer></script>
+  <script src="assets/js/landing.min.js?v=infra-20260816-11" defer></script>
 </body>
 </html>

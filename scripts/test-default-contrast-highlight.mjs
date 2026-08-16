@@ -42,7 +42,7 @@ assert.match(landing, /function highlightBusinessKeyTerms\(root = site\)/);
 assert.match(landing, /createTreeWalker[\s\S]*?NodeFilter\.SHOW_TEXT/);
 assert.match(landing, /parent\.closest\("mark, script, style[\s\S]*?business-key-term/);
 assert.ok((landing.match(/highlightBusinessKeyTerms\(\);/g) || []).length >= 2, "static and dynamically refreshed content must both receive highlights");
-assert.match(html, /infra-20260816-10/);
+assert.match(html, /infra-20260816-11/);
 
 console.log(JSON.stringify({
   defaultContrast: `${minimumDefaultContrast.toFixed(2)}:1`,
