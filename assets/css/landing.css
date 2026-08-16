@@ -5367,49 +5367,99 @@ body.landing-mode {
 .business-evidence-case-framework a { color: #173f66; }
 .business-evidence-case > p { color: #5b7183; }
 
-/* Consulting cards: restrained drift, pointer-responsive 3D lift and high-contrast inversion. */
-.business-insights .business-consulting-motion {
+/* Consulting cards: restrained drift, pointer-responsive 3D lift and controlled high-contrast inversion. */
+.business-site .business-consulting-motion {
   --tilt-x: 0deg;
   --tilt-y: 0deg;
+  --motion-surface-hover: #102c43;
+  --motion-copy-hover: #f7fbff;
+  --motion-muted-hover: #d4e2eb;
+  --motion-accent-hover: #72ddca;
+  --motion-panel-hover: rgba(255, 255, 255, .075);
+  --motion-line-hover: rgba(255, 255, 255, .2);
+  --motion-badge-hover: #ffe4a3;
+  --motion-shadow-hover: rgba(7, 25, 40, .3);
+  z-index: 0;
+  isolation: isolate;
+  backface-visibility: hidden;
   transform-style: preserve-3d;
   transform-origin: 50% 50%;
-  transition: color .22s ease, background-color .22s ease, border-color .22s ease, box-shadow .28s ease, transform .28s cubic-bezier(.2, .75, .2, 1);
+  transition: color .22s ease, background-color .22s ease, border-color .22s ease, box-shadow .28s ease, filter .28s ease, transform .28s cubic-bezier(.2, .75, .2, 1);
 }
-.business-insights .business-consulting-motion.is-visible {
-  animation: consultingCardDrift 6.8s ease-in-out calc(var(--sequence-index, 0) * -.75s) infinite alternate;
+.business-site .business-consulting-motion > * {
+  position: relative;
+  z-index: 1;
+  transform: translateZ(0);
+  transition: color .2s ease, background-color .2s ease, border-color .2s ease, opacity .2s ease, transform .28s ease;
 }
-.business-insights .business-consulting-motion:is(:hover, :focus-within) {
+.business-site .business-consulting-motion.is-visible {
+  animation: consultingCardDrift 7.6s ease-in-out calc(var(--sequence-index, 0) * -.82s) infinite alternate;
+}
+.business-site .business-consulting-motion:is(:hover, :focus-within) {
+  z-index: 6;
   animation: none;
-  color: #f7fbff;
-  border-color: #173f66;
-  background: #102c43;
-  box-shadow: 0 28px 48px rgba(7, 25, 40, .28), 0 8px 0 rgba(13, 117, 110, .2);
-  transform: perspective(950px) translate3d(0, -9px, 24px) rotateX(var(--tilt-y)) rotateY(var(--tilt-x));
+  color: var(--motion-copy-hover) !important;
+  border-color: var(--motion-accent-hover) !important;
+  background: var(--motion-surface-hover) !important;
+  box-shadow: 0 30px 54px var(--motion-shadow-hover), 0 8px 0 color-mix(in srgb, var(--motion-accent-hover) 26%, transparent);
+  transform: perspective(1100px) translate3d(0, -8px, 22px) rotateX(var(--tilt-y)) rotateY(var(--tilt-x)) scale(1.006);
 }
-.business-insights .business-consulting-motion:is(:hover, :focus-within) :is(h3, h4, strong, dd, p, a) {
-  color: #f7fbff;
+.business-site .business-consulting-motion:is(:hover, :focus-within) > * {
+  transform: translateZ(18px);
 }
-.business-insights .business-consulting-motion:is(:hover, :focus-within) :is(dt, small),
-.business-insights .business-consulting-motion:is(:hover, :focus-within) .business-evidence-decision-path span,
-.business-insights .business-consulting-motion:is(:hover, :focus-within) .business-evidence-title > span {
-  color: #72ddca;
+.business-site .business-consulting-motion:is(:hover, :focus-within) :where(h1, h2, h3, h4, h5, h6, p, li, dd, strong, span, em, time, cite, a) {
+  color: var(--motion-copy-hover) !important;
+  -webkit-text-fill-color: currentColor;
+  text-shadow: none;
+  opacity: 1 !important;
 }
-.business-insights .business-consulting-motion:is(:hover, :focus-within) b {
-  color: #ffe4a3;
-  border-color: rgba(255, 228, 163, .4);
-  background: rgba(154, 101, 0, .28);
+.business-site .business-consulting-motion:is(:hover, :focus-within) :where(dt, small, .business-card-index),
+.business-site .business-consulting-motion:is(:hover, :focus-within) .business-evidence-decision-path span,
+.business-site .business-consulting-motion:is(:hover, :focus-within) .business-evidence-title > span,
+.business-site .business-consulting-motion:is(:hover, :focus-within) > span:first-child {
+  color: var(--motion-accent-hover) !important;
+  -webkit-text-fill-color: currentColor;
 }
-.business-insights .business-consulting-motion:is(:hover, :focus-within) :is(dl > div, .business-evidence-case-framework li) {
-  border-color: rgba(255, 255, 255, .17);
-  background: rgba(255, 255, 255, .055);
+.business-site .business-consulting-motion:is(:hover, :focus-within) b {
+  color: var(--motion-badge-hover) !important;
+  -webkit-text-fill-color: currentColor;
+  border-color: color-mix(in srgb, var(--motion-badge-hover) 42%, transparent) !important;
+  background: color-mix(in srgb, var(--motion-badge-hover) 16%, transparent) !important;
 }
-.business-insights .business-consulting-motion:is(:hover, :focus-within) .business-evidence-decision-path,
-.business-insights .business-consulting-motion:is(:hover, :focus-within) .business-evidence-decision-path li {
-  border-color: rgba(255, 255, 255, .16);
+.business-site .business-consulting-motion:is(:hover, :focus-within) :is(dl > div, .business-evidence-case-framework li, .business-deep-case-grid > section) {
+  color: var(--motion-copy-hover) !important;
+  border-color: var(--motion-line-hover) !important;
+  background: var(--motion-panel-hover) !important;
 }
-.business-insights .business-consulting-motion:is(:hover, :focus-within) .business-evidence-case-framework li::after {
-  color: #72ddca;
-  background: #102c43;
+.business-site .business-consulting-motion:is(:hover, :focus-within) :is(.business-evidence-decision-path, .business-evidence-decision-path li) {
+  border-color: var(--motion-line-hover) !important;
+}
+.business-site .business-consulting-motion:is(:hover, :focus-within) :where(p, li)::before {
+  color: var(--motion-accent-hover) !important;
+  opacity: 1 !important;
+}
+.business-site .business-consulting-motion:is(:hover, :focus-within) .business-evidence-case-framework li::after {
+  color: var(--motion-accent-hover);
+  background: var(--motion-surface-hover);
+}
+
+/* Cards on dark sections invert to paper instead of becoming darker. */
+.business-site :is(.business-data-status, .business-partners, .business-about) .business-consulting-motion {
+  --motion-surface-hover: #f7fbff;
+  --motion-copy-hover: #102c43;
+  --motion-muted-hover: #40596c;
+  --motion-accent-hover: #08766f;
+  --motion-panel-hover: rgba(16, 44, 67, .065);
+  --motion-line-hover: rgba(16, 44, 67, .2);
+  --motion-badge-hover: #8a5600;
+  --motion-shadow-hover: rgba(0, 0, 0, .34);
+}
+.business-site .business-consulting-motion:is(:hover, :focus-within) :where(p, li, dd) {
+  color: var(--motion-muted-hover) !important;
+}
+.business-site .business-contact-card:is(:hover, :focus-within) :is(a, button) {
+  color: #fff !important;
+  -webkit-text-fill-color: currentColor;
 }
 
 .business-automation-flow { gap: 7px; background: transparent; }
@@ -5667,9 +5717,9 @@ body.landing-mode {
     transform: none !important;
     transition: none !important;
   }
-  .business-insights .business-consulting-motion,
-  .business-insights .business-consulting-motion.is-visible,
-  .business-insights .business-consulting-motion:is(:hover, :focus-within) {
+  .business-site .business-consulting-motion,
+  .business-site .business-consulting-motion.is-visible,
+  .business-site .business-consulting-motion:is(:hover, :focus-within) {
     animation: none !important;
     transform: none !important;
     transition: none !important;

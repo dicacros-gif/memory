@@ -3,7 +3,7 @@
 
   const BUSINESS_TITLE = "AI Infra Strategy OS · Workload to Revenue";
   const CONSOLE_HASH = "#console";
-  const CONSOLE_REVISION = "infra-20260816-08";
+  const CONSOLE_REVISION = "infra-20260816-09";
   const DECISION_CLIENT_PATH = "data/landing-decision-client.json";
   const SITE_CONTENT_PATH = "data/site-content-client.json";
   const site = document.querySelector("#businessSite");
@@ -20,6 +20,7 @@
   let manifestPromise = null;
   let siteContentPromise = null;
   let siteContentRefreshTimer = 0;
+  let consultingMotionObserver = null;
   let businessReady = false;
   let consoleStartupTimer = 0;
   let view = "business";
@@ -450,6 +451,7 @@
     renderCurrentInsights(content);
     renderCompetitorContent(content);
     renderPartnerContent(content);
+    setupConsultingCardMotion();
 
     const footer = document.querySelector(".business-footer a");
     if (footer) footer.textContent = `© ${content.footer?.year || new Date().getFullYear()} dicacross · ${content.footer?.disclosure || "Independent strategy portfolio based on public information."}`;
@@ -751,10 +753,29 @@
 
   function setupConsultingCardMotion() {
     const cards = [...document.querySelectorAll([
-      ".business-insights .business-tech-decision-grid > article",
-      ".business-insights .business-competitor-grid > article",
+      ".business-case-logic > li",
+      ".business-option-portfolio > article",
+      ".business-delivery-grid > *",
+      ".business-partner-raci > article",
+      ".business-competency-grid > article",
+      ".business-strategy-chain > li",
+      ".business-strategy-artifact > div",
+      ".business-workload-matrix > article",
+      ".business-fabric-stack > article",
+      ".business-tco-metrics > article",
+      ".business-tech-decision-grid > article",
+      ".business-competitor-grid > article",
       ".business-execution-evidence-grid > article",
       ".business-evidence-case",
+      ".business-automation-flow > li",
+      ".business-status-rules > li",
+      ".business-flagship-partnership",
+      ".business-partnership-types > article",
+      ".business-deep-case-grid > section",
+      ".business-macro-grid > article",
+      ".business-role-fit-grid > article",
+      ".business-role-outputs > article",
+      ".business-contact-card",
     ].join(","))];
     cards.forEach((card, index) => {
       card.classList.add("business-consulting-motion");
@@ -763,11 +784,30 @@
       }
     });
 
+    if (!("IntersectionObserver" in window)) {
+      cards.forEach((card) => card.classList.add("is-visible"));
+    } else {
+      consultingMotionObserver ||= new IntersectionObserver((entries) => {
+        for (const entry of entries) {
+          if (!entry.isIntersecting) continue;
+          entry.target.classList.add("is-visible");
+          consultingMotionObserver.unobserve(entry.target);
+        }
+      }, { rootMargin: "80px 0px", threshold: 0.04 });
+      cards.forEach((card) => {
+        if (card.dataset.consultingMotionObserved === "1") return;
+        card.dataset.consultingMotionObserved = "1";
+        consultingMotionObserver.observe(card);
+      });
+    }
+
     const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
     const finePointer = window.matchMedia("(hover: hover) and (pointer: fine)").matches;
     if (reduceMotion || !finePointer) return;
 
     for (const card of cards) {
+      if (card.dataset.consultingMotionBound === "1") continue;
+      card.dataset.consultingMotionBound = "1";
       let frame = 0;
       card.addEventListener("pointermove", (event) => {
         cancelAnimationFrame(frame);
@@ -775,8 +815,8 @@
           const bounds = card.getBoundingClientRect();
           const x = ((event.clientX - bounds.left) / bounds.width) - .5;
           const y = ((event.clientY - bounds.top) / bounds.height) - .5;
-          card.style.setProperty("--tilt-x", `${(x * 5).toFixed(2)}deg`);
-          card.style.setProperty("--tilt-y", `${(-y * 4).toFixed(2)}deg`);
+          card.style.setProperty("--tilt-x", `${(x * 4).toFixed(2)}deg`);
+          card.style.setProperty("--tilt-y", `${(-y * 3).toFixed(2)}deg`);
         });
       }, { passive: true });
       card.addEventListener("pointerleave", () => {
