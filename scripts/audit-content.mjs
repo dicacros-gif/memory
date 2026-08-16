@@ -1409,12 +1409,24 @@ for (const requiredStage of cxmtOfferingFact ? ["registration-plan", "final-base
 const sourceRegistry = live.sourceRegistry || {};
 const sourceChannels = Array.isArray(sourceRegistry.channels) ? sourceRegistry.channels : [];
 const sourceChannelIds = new Set(sourceChannels.map((channel) => channel.id));
-if (sourceRegistry.version !== "2.0-crawl-channel-registry") {
+const supportedSourceRegistryVersions = new Set(["2.0-crawl-channel-registry", "3.0-catalog-driven-registry"]);
+if (!supportedSourceRegistryVersions.has(sourceRegistry.version)) {
   addIssue("error", "data/live.json", "source registry version is missing or obsolete", String(sourceRegistry.version || "missing"));
 }
-for (const requiredChannel of ["prices", "english-news", "chinese-news", "broker-research", "community-hiring", "market-history", "quantitative-metrics", "fact-timeline"]) {
+const requiredSourceChannels = ["prices", "english-news", "chinese-news", "broker-research", "community-hiring", "market-history", "quantitative-metrics", "fact-timeline"];
+if (sourceRegistry.version === "3.0-catalog-driven-registry") requiredSourceChannels.push("source-catalog");
+for (const requiredChannel of requiredSourceChannels) {
   if (!sourceChannelIds.has(requiredChannel)) {
     addIssue("error", "data/live.json", "source registry is missing a required crawl channel", requiredChannel);
+  }
+}
+if (sourceRegistry.version === "3.0-catalog-driven-registry") {
+  const catalog = sourceRegistry.catalog || {};
+  if (Number(catalog.configuredSources || 0) < 24
+    || Number(catalog.officialConfigured || 0) < 16
+    || Number(catalog.discoveryQueries || 0) < 20
+    || catalog.failClosed !== true) {
+    addIssue("error", "data/live.json", "source catalog coverage or fail-closed policy is incomplete", JSON.stringify(catalog));
   }
 }
 for (const channel of sourceChannels) {

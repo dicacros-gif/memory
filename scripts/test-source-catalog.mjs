@@ -65,11 +65,14 @@ assert.equal(siteContent.freshness.scheduleHours, 3);
 const crawler = readFileSync("scripts/crawl.mjs", "utf8");
 const workflow = readFileSync(".github/workflows/pages.yml", "utf8");
 const landing = readFileSync("assets/js/landing.js", "utf8");
+const audit = readFileSync("scripts/audit-content.mjs", "utf8");
 assert.match(crawler, /sourceCatalogDiscoveryMonitors/);
 assert.match(crawler, /sourceCatalogHealthProbes/);
 assert.match(crawler, /source_catalog_observed/);
 assert.match(workflow, /cron: "17 \*\/3 \* \* \*"/);
 assert.match(landing, /businessDataSources/);
+assert.match(audit, /3\.0-catalog-driven-registry/);
+assert.match(audit, /source catalog coverage or fail-closed policy is incomplete/);
 
 console.log(JSON.stringify({
   ok: true,
