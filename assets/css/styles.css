@@ -29392,3 +29392,170 @@ button.ni-trend-chip:hover { box-shadow: 0 4px 12px color-mix(in srgb, #0891B2 2
     min-height: 62px;
   }
 }
+
+/* -------------------------------------------------------------------
+   2026-08-17 · Console typography, inversion and infographic contract
+   The landing controller tags computed text below the floor, including cards
+   produced later from refreshed JSON, so dynamic sections remain readable.
+   ------------------------------------------------------------------- */
+body.consulting-system {
+  --display: var(--font);
+  --mono: var(--font);
+  --sans: var(--font);
+  --console-readable-ink: #13263a;
+  --console-readable-muted: #40546a;
+  --console-readable-paper: #f8fbff;
+  --console-readable-paper-muted: #d6e4ee;
+  font-family: var(--font);
+  font-kerning: normal;
+  font-synthesis: none;
+}
+
+.consulting-system :is(h1, h2, h3, h4, h5, h6, p, li, dt, dd, small, strong, b, em, i, span, a, button, label, time, cite, figcaption, header, footer, section, article, div, th, td, text, input, select, textarea) {
+  font-family: var(--font) !important;
+}
+.consulting-system .ui-text-floor {
+  font-family: var(--font) !important;
+  font-size: clamp(12px, .65vw, 13px) !important;
+  line-height: 1.48 !important;
+}
+.consulting-system .ui-readable-opacity { opacity: 1 !important; }
+.consulting-system .ui-contrast-on-dark {
+  color: #f8fbff !important;
+  -webkit-text-fill-color: currentColor;
+  text-shadow: none !important;
+}
+.consulting-system .ui-contrast-on-light {
+  color: #17324d !important;
+  -webkit-text-fill-color: currentColor;
+  text-shadow: none !important;
+}
+.consulting-system :is(p, li, dd, small) {
+  overflow-wrap: anywhere;
+  word-break: keep-all;
+}
+.consulting-system :is(.kpi, [class*="metric"], [class*="score"], [class*="value"]) {
+  font-variant-numeric: tabular-nums;
+}
+
+/* Important terms remain selective: stronger ink plus one amber baseline. */
+.consulting-system :is(.strategy-highlight, .answer-term):not(.ui-key-term) {
+  background: transparent !important;
+  box-shadow: none !important;
+  text-decoration: none !important;
+  text-shadow: none !important;
+}
+.consulting-system :is(.strategy-highlight, .answer-term).ui-key-term {
+  color: inherit;
+  background: transparent !important;
+  box-shadow: inset 0 -2px 0 #d5a400 !important;
+  text-decoration: none !important;
+  text-shadow: none !important;
+}
+
+/* Turn narrative bridges into numbered consulting decision maps. */
+.consulting-system .visual-insight-route { counter-reset: insight-route; }
+.consulting-system .visual-insight-route span {
+  counter-increment: insight-route;
+  position: relative;
+  display: block;
+  min-height: 84px;
+  padding: 15px 24px 14px 58px;
+  border-color: #b9c7d2;
+  clip-path: polygon(0 0, calc(100% - 15px) 0, 100% 50%, calc(100% - 15px) 100%, 0 100%, 10px 50%);
+  background: #f8fafc;
+  color: #17324d;
+  font-size: 13px;
+  line-height: 1.45;
+}
+.consulting-system .visual-insight-route span::before {
+  content: counter(insight-route, decimal-leading-zero);
+  position: absolute;
+  left: 14px;
+  top: 50%;
+  width: 32px;
+  height: 32px;
+  display: grid;
+  place-items: center;
+  color: #fff;
+  border-radius: 50%;
+  background: #173f66;
+  font: 900 13px/1 var(--font);
+  transform: translateY(-50%);
+}
+.consulting-system .visual-insight-route b {
+  display: block;
+  margin-bottom: 5px;
+  color: #08766f;
+  font: 900 12px/1.2 var(--font);
+}
+.consulting-system .visual-insight-route i {
+  align-self: center;
+  width: 28px;
+  height: 28px;
+  margin-inline: -5px;
+  color: #173f66;
+  border: 1px solid #8ea3b3;
+  border-radius: 50%;
+  background: #fff;
+  font-size: 15px;
+}
+
+/* Shared bidirectional inversion for decision cards, including nested copy. */
+.consulting-system :is(.decision-card, .decision-flip-card, .domain-agent-workstream) {
+  --console-hover-surface: #102b3d;
+  --console-hover-ink: #f8fbff;
+  --console-hover-muted: #d6e4ee;
+  --console-hover-accent: #79ead0;
+  --console-hover-line: rgba(224, 242, 254, .4);
+}
+[data-theme="dark"] .consulting-system :is(.decision-card, .decision-flip-card, .domain-agent-workstream) {
+  --console-hover-surface: #f8fafc;
+  --console-hover-ink: #13263a;
+  --console-hover-muted: #40546a;
+  --console-hover-accent: #08766f;
+  --console-hover-line: rgba(15, 23, 42, .24);
+}
+.consulting-system :is(.decision-card, .decision-flip-card, .domain-agent-workstream):is(:hover, :focus-visible, :focus-within) {
+  color: var(--console-hover-ink) !important;
+  border-color: var(--console-hover-accent) !important;
+  background: var(--console-hover-surface) !important;
+  box-shadow: 0 16px 30px rgba(15, 23, 42, .18);
+}
+.consulting-system :is(.decision-card, .decision-flip-card, .domain-agent-workstream):is(:hover, :focus-visible, :focus-within)
+  :is(h1, h2, h3, h4, h5, h6, strong, a, button, label) {
+  color: var(--console-hover-ink) !important;
+  -webkit-text-fill-color: currentColor;
+  opacity: 1 !important;
+}
+.consulting-system :is(.decision-card, .decision-flip-card, .domain-agent-workstream):is(:hover, :focus-visible, :focus-within)
+  :is(p, li, dd, small, time, cite, em) {
+  color: var(--console-hover-muted) !important;
+  -webkit-text-fill-color: currentColor;
+  opacity: 1 !important;
+}
+.consulting-system :is(.decision-card, .decision-flip-card, .domain-agent-workstream):is(:hover, :focus-visible, :focus-within)
+  :is(dt, [class*="label"], [class*="eyebrow"], [class*="index"]) {
+  color: var(--console-hover-accent) !important;
+  -webkit-text-fill-color: currentColor;
+}
+.consulting-system :is(.decision-card, .decision-flip-card, .domain-agent-workstream):is(:hover, :focus-visible, :focus-within)
+  :is(article, section, li, dl > div) {
+  border-color: var(--console-hover-line) !important;
+  background: transparent !important;
+}
+.consulting-system :is(.decision-card, .decision-flip-card, .domain-agent-workstream):is(:hover, :focus-visible, :focus-within)
+  :is(.strategy-highlight, .answer-term).ui-key-term {
+  color: var(--console-hover-ink) !important;
+  -webkit-text-fill-color: currentColor;
+  box-shadow: inset 0 -2px 0 #f2c94c !important;
+}
+
+@media (max-width: 680px) {
+  .consulting-system .ui-text-floor { font-size: 12px !important; }
+  .consulting-system .visual-insight-route span { padding-left: 56px; }
+  .consulting-system .visual-insight-route i {
+    margin: -3px auto;
+    transform: rotate(90deg);
+  }
+}

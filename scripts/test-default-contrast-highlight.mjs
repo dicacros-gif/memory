@@ -82,12 +82,24 @@ assert.match(landing, /parent\.closest\("mark, script, style[\s\S]*?business-key
 assert.match(landing, /maxPerSection[\s\S]*?maxTotal[\s\S]*?total >= maxTotal/);
 assert.match(landing, /highlightBusinessKeyTerms\(site, content\.presentation\)/, "every generated refresh must reapply the sparse emphasis policy");
 assert.match(landing, /applyPresentationPolicy\(content\.presentation\)/);
-assert.match(html, /infra-20260816-31/);
+assert.match(landing, /function applyReadabilityGuard\(root = document\.body\)[\s\S]*?fontSize < 12/, "rendered and refreshed text must receive the global 12px readability floor");
+assert.match(landing, /function setupReadabilityGuard\(\)[\s\S]*?MutationObserver[\s\S]*?memory-console-ready/, "the readability audit must cover both initial and asynchronously rendered Console content");
+assert.match(landing, /READABILITY_TEXT_SELECTOR[\s\S]*?"th", "td", "i", "text"/, "dense tables and chart labels must be included in the computed typography audit");
+assert.match(landing, /function applySparseConsoleEmphasis[\s\S]*?total >= 36[\s\S]*?consoleKeyTerms/, "Console emphasis must remain sparse across dynamically rendered sections");
+assert.match(css, /Site-wide readability and consulting visual governance[\s\S]*?\.business-site :is\(\.ui-text-floor\)[\s\S]*?font-size:\s*clamp\(12px, \.65vw, 13px\) !important;/, "landing typography must define a computed minimum-size contract");
+assert.match(css, /data-hover-mode="light-to-dark"[\s\S]*?--motion-surface-hover:\s*#102c43;[\s\S]*?data-hover-mode="dark-to-light"[\s\S]*?--motion-surface-hover:\s*#f7fbff;/, "landing hover inversion must provide explicit palettes in both directions");
+assert.match(consoleCss, /Console typography, inversion and infographic contract[\s\S]*?\.consulting-system \.ui-text-floor[\s\S]*?font-size:\s*clamp\(12px, \.65vw, 13px\) !important;/, "Console typography must share the computed minimum-size contract");
+assert.match(consoleCss, /\.visual-insight-route span::before[\s\S]*?counter\(insight-route, decimal-leading-zero\)[\s\S]*?border-radius:\s*50%;/, "visual synthesis routes must use numbered consulting badges");
+assert.match(consoleCss, /\.strategy-highlight, \.answer-term\):not\(\.ui-key-term\)[\s\S]*?box-shadow:\s*none !important;[\s\S]*?\.strategy-highlight, \.answer-term\)\.ui-key-term[\s\S]*?inset 0 -2px 0 #d5a400/, "only selected Console terms may receive the amber underline");
+assert.match(consoleCss, /\.decision-card, \.decision-flip-card, \.domain-agent-workstream[\s\S]*?--console-hover-surface:\s*#102b3d;[\s\S]*?\[data-theme="dark"\][\s\S]*?--console-hover-surface:\s*#f8fafc;/, "Console decision cards must invert legibly in light and dark modes");
+assert.match(html, /infra-20260817-34/);
 assert.match(css, /@media \(max-width: 760px\)[\s\S]*?\.business-competency-output[\s\S]*?grid-column:\s*2 !important[\s\S]*?\.business-llm-causal-chain,[\s\S]*?\.business-contract-funnel[\s\S]*?overflow-x:\s*visible/);
 
 console.log(JSON.stringify({
   defaultContrast: `${minimumDefaultContrast.toFixed(2)}:1`,
   correctedSurface: "framework-panel + workload-map",
   keywordHighlight: "sparse amber underline only",
+  typographyFloor: "computed 12px",
+  inversionModes: "light-to-dark + dark-to-light",
   dynamicRefresh: true,
 }, null, 2));

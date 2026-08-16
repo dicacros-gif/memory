@@ -3,7 +3,7 @@
 
   const BUSINESS_TITLE = "AI Infra Strategy Workbench · Customer Pain to Executive Action";
   const CONSOLE_HASH = "#console";
-  const CONSOLE_REVISION = "infra-20260816-31";
+  const CONSOLE_REVISION = "infra-20260817-34";
   const DECISION_CLIENT_PATH = "data/landing-decision-client.json";
   const SITE_CONTENT_PATH = "data/site-content-client.json";
   const site = document.querySelector("#businessSite");
@@ -1406,6 +1406,144 @@
     return surfaceLuminance(card) < .32 ? "dark-to-light" : "light-to-dark";
   }
 
+  const READABILITY_TEXT_SELECTOR = [
+    "h1", "h2", "h3", "h4", "h5", "h6", "p", "li", "dd", "dt",
+    "small", "strong", "b", "em", "span", "a", "button", "label", "time", "cite", "figcaption",
+    "header", "footer", "section", "article", "div", "th", "td", "i", "text",
+  ].join(",");
+
+  function directReadableText(node) {
+    return [...(node?.childNodes || [])]
+      .filter((child) => child.nodeType === Node.TEXT_NODE)
+      .some((child) => String(child.nodeValue || "").trim());
+  }
+
+  function colorChannels(value = "") {
+    const channels = String(value).match(/[\d.]+/g)?.map(Number) || [];
+    if (channels.length < 3) return null;
+    return { rgb: channels.slice(0, 3), alpha: channels[3] ?? 1 };
+  }
+
+  function relativeLuminance(rgb = []) {
+    const channels = rgb.map((value) => {
+      const normalized = value / 255;
+      return normalized <= .03928 ? normalized / 12.92 : ((normalized + .055) / 1.055) ** 2.4;
+    });
+    return .2126 * channels[0] + .7152 * channels[1] + .0722 * channels[2];
+  }
+
+  function solidReadableSurface(node) {
+    let current = node;
+    while (current && current !== document.documentElement) {
+      const style = getComputedStyle(current);
+      if (style.backgroundImage && style.backgroundImage !== "none") return null;
+      const color = colorChannels(style.backgroundColor);
+      if (color && color.alpha >= .6) return color.rgb;
+      current = current.parentElement;
+    }
+    return [255, 255, 255];
+  }
+
+  function applySparseConsoleEmphasis(root = document.body) {
+    if (!root?.querySelectorAll || !document.body.classList.contains("consulting-system")) return;
+    const candidates = [...root.querySelectorAll(".strategy-highlight, .answer-term")];
+    candidates.forEach((node) => node.classList.remove("ui-key-term"));
+    const scopeCounts = new Map();
+    let total = 0;
+    for (const node of candidates) {
+      if (total >= 36) break;
+      const scope = node.closest(".sc-card, .decision-card, .decision-flip-card, article, section, .board") || node.parentElement;
+      if (!scope || (scopeCounts.get(scope) || 0) >= 1) continue;
+      node.classList.add("ui-key-term");
+      scopeCounts.set(scope, 1);
+      total += 1;
+    }
+    document.body.dataset.consoleKeyTerms = String(total);
+  }
+
+  function applyReadabilityGuard(root = document.body) {
+    if (!root) return;
+    const nodes = [];
+    if (root.nodeType === Node.ELEMENT_NODE && root.matches?.(READABILITY_TEXT_SELECTOR)) nodes.push(root);
+    if (root.querySelectorAll) nodes.push(...root.querySelectorAll(READABILITY_TEXT_SELECTOR));
+
+    let adjusted = 0;
+    let errors = 0;
+    for (const node of nodes) {
+      try {
+      if (!directReadableText(node) || node.closest("script, style, template, [aria-hidden='true']")) continue;
+      const bounds = node.getBoundingClientRect();
+      const style = getComputedStyle(node);
+      if (!bounds.width || !bounds.height || style.display === "none" || style.visibility === "hidden") continue;
+
+      const fontSize = Number.parseFloat(style.fontSize || "0");
+      if (Number.isFinite(fontSize) && fontSize < 12) {
+        node.classList.add("ui-text-floor");
+        adjusted += 1;
+      }
+
+      const foreground = colorChannels(style.color);
+      const opacity = Number.parseFloat(style.opacity || "1");
+      if (Boolean(foreground && foreground.alpha < .72) || opacity < .72) node.classList.add("ui-readable-opacity");
+
+      const background = solidReadableSurface(node);
+      if (!foreground || !background) continue;
+      const foregroundLum = relativeLuminance(foreground.rgb);
+      const backgroundLum = relativeLuminance(background);
+      const contrast = (Math.max(foregroundLum, backgroundLum) + .05) / (Math.min(foregroundLum, backgroundLum) + .05);
+      if (contrast >= 4.5) continue;
+      node.classList.add(backgroundLum < .32 ? "ui-contrast-on-dark" : "ui-contrast-on-light");
+      } catch {
+        errors += 1;
+      }
+    }
+    document.body.dataset.readabilityAdjusted = String(adjusted);
+    document.body.dataset.readabilityErrors = String(errors);
+    if (root === document.body || root === document.documentElement) applySparseConsoleEmphasis(document.body);
+  }
+
+  function setupReadabilityGuard() {
+    if (!document.body || document.body.dataset.readabilityGuard === "1") return;
+    document.body.dataset.readabilityGuard = "1";
+    let frame = 0;
+    const pendingRoots = new Set([document.body]);
+    const flush = () => {
+      frame = 0;
+      const roots = [...pendingRoots];
+      pendingRoots.clear();
+      roots.forEach((root) => {
+        try { applyReadabilityGuard(root); } catch { /* keep later refreshes alive */ }
+      });
+    };
+    const schedule = (root = document.body) => {
+      if (root) pendingRoots.add(root.nodeType === Node.TEXT_NODE ? root.parentElement : root);
+      if (!frame) frame = requestAnimationFrame(flush);
+    };
+    const observer = new MutationObserver((mutations) => {
+      for (const mutation of mutations) {
+        if (mutation.type === "characterData") schedule(mutation.target);
+        else if (mutation.type === "attributes") schedule(mutation.target);
+        else mutation.addedNodes.forEach((node) => schedule(node));
+      }
+    });
+    observer.observe(document.body, {
+      childList: true,
+      subtree: true,
+      characterData: true,
+      attributes: true,
+      attributeFilter: ["hidden", "data-progressive-state", "data-deferred-state"],
+    });
+    schedule(document.body);
+    window.addEventListener("memory-console-ready", () => {
+      schedule(document.body);
+      [250, 1200, 4200].forEach((delay) => window.setTimeout(() => applyReadabilityGuard(document.body), delay));
+    });
+    window.setTimeout(() => applyReadabilityGuard(document.body), 8200);
+    window.__applyReadabilityGuard = applyReadabilityGuard;
+    window.addEventListener("resize", () => schedule(document.body), { passive: true });
+    window.addEventListener("pagehide", () => observer.disconnect(), { once: true });
+  }
+
   function applyPresentationPolicy(policy = {}) {
     presentationPolicy = policy || null;
     if (!site || !policy) return;
@@ -1536,6 +1674,7 @@
     updateBusinessScrollState();
   }, { passive: true });
 
+  setupReadabilityGuard();
   if (isConsoleHash()) void openConsole({ updateHistory: false });
   else {
     view = "business";

@@ -7080,3 +7080,133 @@ body.landing-mode {
   .business-decision-queue-grid > a { transition: none; }
   .business-decision-queue-grid > a:is(:hover, :focus-visible) { transform: none; }
 }
+
+/* -------------------------------------------------------------------
+   2026-08-17 · Site-wide readability and consulting visual governance
+   Typography is measured after render so refreshed data and Console cards
+   receive the same 12px floor without shrinking larger hierarchy text.
+   ------------------------------------------------------------------- */
+.business-site {
+  --business-readable-ink: #102c43;
+  --business-readable-muted: #40596c;
+  --business-readable-paper: #f7fbff;
+  --business-readable-paper-muted: #d7e4ec;
+  --business-key-line: #d5a400;
+  --mono: var(--font);
+  --business-mono: var(--font);
+  font-family: var(--font);
+  font-kerning: normal;
+  font-synthesis: none;
+}
+
+.business-site :is(h1, h2, h3, h4, h5, h6, p, li, dt, dd, small, strong, b, em, i, span, a, button, label, time, cite, figcaption, header, footer, section, article, div, th, td, text, input, select, textarea) {
+  font-family: var(--font) !important;
+}
+.business-site :is(.ui-text-floor) {
+  font-size: clamp(12px, .65vw, 13px) !important;
+  line-height: 1.48 !important;
+}
+.business-site .ui-readable-opacity { opacity: 1 !important; }
+.business-site .ui-contrast-on-dark {
+  color: #f7fbff !important;
+  -webkit-text-fill-color: currentColor;
+  text-shadow: none !important;
+}
+.business-site .ui-contrast-on-light {
+  color: #17324d !important;
+  -webkit-text-fill-color: currentColor;
+  text-shadow: none !important;
+}
+
+.business-site :is(p, li, dd, small) {
+  overflow-wrap: anywhere;
+  word-break: keep-all;
+}
+
+/* Important words use a restrained consulting underline, never a filled glow. */
+.business-site mark.business-key-term {
+  color: inherit !important;
+  background: transparent !important;
+  box-shadow: inset 0 -2px 0 var(--business-key-line) !important;
+  text-decoration: none !important;
+  -webkit-text-fill-color: currentColor;
+}
+
+/* Numbered gates share one visual grammar: circle, decision body and connector. */
+.business-site :is(.business-strategy-chain, .business-ai-factory-sequence, .business-consulting-process) {
+  counter-reset: consulting-step;
+}
+.business-site :is(.business-strategy-chain, .business-ai-factory-sequence, .business-consulting-process) > li {
+  counter-increment: consulting-step;
+  isolation: isolate;
+  transform-style: preserve-3d;
+}
+.business-site :is(.business-strategy-chain, .business-ai-factory-sequence, .business-consulting-process) > li > span:first-child {
+  min-width: 36px;
+  width: 36px;
+  height: 36px;
+  display: grid;
+  place-items: center;
+  padding: 0;
+  border: 2px solid currentColor;
+  border-radius: 50%;
+  background: color-mix(in srgb, currentColor 10%, transparent);
+  font-family: var(--font) !important;
+  font-size: 14px !important;
+  font-weight: 900 !important;
+  line-height: 1 !important;
+  letter-spacing: -.02em;
+  font-variant-numeric: tabular-nums;
+}
+
+/* A flipped card and every retained nested panel always use the same surface. */
+.business-site .business-consulting-motion[data-hover-mode="light-to-dark"]:is(:hover, :focus-within) {
+  --motion-surface-hover: #102c43;
+  --motion-copy-hover: #f7fbff;
+  --motion-muted-hover: #d7e4ec;
+  --motion-accent-hover: #79ead0;
+}
+.business-site .business-consulting-motion[data-hover-mode="dark-to-light"]:is(:hover, :focus-within) {
+  --motion-surface-hover: #f7fbff;
+  --motion-copy-hover: #102c43;
+  --motion-muted-hover: #40596c;
+  --motion-accent-hover: #08766f;
+}
+.business-site .business-consulting-motion:is(:hover, :focus-within)
+  :is(article, section, li, dl > div):not([class*="chart"]):not([class*="meter"]) {
+  border-color: var(--motion-line-hover) !important;
+  background: transparent !important;
+}
+.business-site .business-consulting-motion:is(:hover, :focus-within)
+  :is(h1, h2, h3, h4, h5, h6, strong, a, button, label) {
+  color: var(--motion-copy-hover) !important;
+  -webkit-text-fill-color: currentColor;
+}
+.business-site .business-consulting-motion:is(:hover, :focus-within)
+  :is(p, li, dd, small, time, cite, figcaption) {
+  color: var(--motion-muted-hover) !important;
+  -webkit-text-fill-color: currentColor;
+  opacity: 1 !important;
+}
+.business-site .business-consulting-motion:is(:hover, :focus-within)
+  :is(dt, [class*="kicker"], [class*="label"], [class*="index"]),
+.business-site .business-consulting-motion:is(:hover, :focus-within) > span:first-child {
+  color: var(--motion-accent-hover) !important;
+  -webkit-text-fill-color: currentColor;
+}
+.business-site .business-consulting-motion:is(:hover, :focus-within) mark.business-key-term {
+  color: inherit !important;
+  box-shadow: inset 0 -2px 0 #f2c94c !important;
+}
+.business-site .business-consulting-motion[data-hover-mode="dark-to-light"]:is(:hover, :focus-within) mark.business-key-term {
+  box-shadow: inset 0 -2px 0 #b7791f !important;
+}
+
+@media (max-width: 720px) {
+  .business-site :is(.ui-text-floor) { font-size: 12px !important; }
+  .business-site :is(.business-strategy-chain, .business-ai-factory-sequence, .business-consulting-process) > li > span:first-child {
+    min-width: 34px;
+    width: 34px;
+    height: 34px;
+  }
+}
