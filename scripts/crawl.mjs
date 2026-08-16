@@ -31,6 +31,7 @@ import {
 import {
   createGoogleKoTranslator,
   koreanTranslationQualityGate,
+  normalizeKoreanPayload,
   normalizeKoreanTerminology,
   translationCacheKey,
 } from "./translation-pipeline.mjs";
@@ -10359,12 +10360,12 @@ async function main() {
   payload.priceHistory.expiresAt = quant.expiresAt;
   payload.quantBacktest.validatedAt = payload.updatedAt;
   payload.quantBacktest.expiresAt = quant.expiresAt;
-  const publishedPayload = purgeCrawlExclusions(payload, crawlExclusionKeys).value;
-  const publishedQuant = purgeCrawlExclusions(quant, crawlExclusionKeys).value;
-  const publishedPriceHistory = purgeCrawlExclusions(priceHistory, crawlExclusionKeys).value;
-  const publishedMarketHistory = purgeCrawlExclusions(marketHistory, crawlExclusionKeys).value;
-  const publishedQuantBacktest = purgeCrawlExclusions(quantBacktest, crawlExclusionKeys).value;
-  const publishedQuarantine = purgeCrawlExclusions(quarantineReport, crawlExclusionKeys).value;
+  const publishedPayload = normalizeKoreanPayload(purgeCrawlExclusions(payload, crawlExclusionKeys).value);
+  const publishedQuant = normalizeKoreanPayload(purgeCrawlExclusions(quant, crawlExclusionKeys).value);
+  const publishedPriceHistory = normalizeKoreanPayload(purgeCrawlExclusions(priceHistory, crawlExclusionKeys).value);
+  const publishedMarketHistory = normalizeKoreanPayload(purgeCrawlExclusions(marketHistory, crawlExclusionKeys).value);
+  const publishedQuantBacktest = normalizeKoreanPayload(purgeCrawlExclusions(quantBacktest, crawlExclusionKeys).value);
+  const publishedQuarantine = normalizeKoreanPayload(purgeCrawlExclusions(quarantineReport, crawlExclusionKeys).value);
   const publishedRefreshLedger = recordRefreshRequest(
     refreshLedger,
     refreshRequest,

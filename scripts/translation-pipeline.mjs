@@ -17,6 +17,16 @@ export function normalizeKoreanTerminology(value = "") {
   return normalizeSourceText(value).replace(/솔리드다임/g, "솔리다임");
 }
 
+export function normalizeKoreanPayload(value, seen = new WeakMap()) {
+  if (typeof value === "string") return value.replace(/솔리드다임/g, "솔리다임");
+  if (!value || typeof value !== "object") return value;
+  if (seen.has(value)) return seen.get(value);
+  const output = Array.isArray(value) ? [] : {};
+  seen.set(value, output);
+  for (const [key, item] of Object.entries(value)) output[key] = normalizeKoreanPayload(item, seen);
+  return output;
+}
+
 export function translationCacheKey(value = "") {
   return createHash("sha256")
     .update(`ko\n${normalizeSourceText(value)}`)

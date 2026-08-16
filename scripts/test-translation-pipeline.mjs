@@ -3,6 +3,7 @@ import {
   buildMarkerBatches,
   createGoogleKoTranslator,
   koreanTranslationQualityGate,
+  normalizeKoreanPayload,
   normalizeKoreanTerminology,
   parseMarkerTranslation,
   translationCacheKey,
@@ -24,6 +25,11 @@ const parsed = parseMarkerTranslation(
 );
 assert.deepEqual(parsed, ["메모리 공급이 빠듯합니다", "설비투자 계획을 상향했습니다"]);
 assert.equal(normalizeKoreanTerminology("솔리드다임 뉴스룸"), "솔리다임 뉴스룸");
+assert.deepEqual(
+  normalizeKoreanPayload({ title: "솔리드다임 뉴스룸", nested: [{ summary: "솔리드다임 eSSD" }] }),
+  { title: "솔리다임 뉴스룸", nested: [{ summary: "솔리다임 eSSD" }] },
+  "published nested payloads must normalize stale terminology before serialization",
+);
 assert.equal(koreanTranslationQualityGate(originals[0], originals[0]).status, "unverified");
 assert.equal(koreanTranslationQualityGate(originals[0], "메모리 공급이 빠듯한 가운데 수요가 확대되고 있습니다").status, "verified");
 assert.equal(
