@@ -12875,7 +12875,7 @@
       </div>
       <div class="sc-grid">
         ${lenses.map(({ lens, ev }, index) => `
-          <article class="sc-card" style="--sc-accent:${lens.accent}">
+          <article class="sc-card" tabindex="0" style="--sc-accent:${lens.accent}">
             <div class="sc-card-top">
               <div class="sc-card-rank"><span>#${String(index + 1).padStart(2, "0")} · EVIDENCE RANK</span><b>${escapeHTML(lens.horizon)}</b></div>
               <div class="sc-card-signals">

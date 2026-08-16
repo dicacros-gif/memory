@@ -2,9 +2,11 @@ import assert from "node:assert/strict";
 import { readFile } from "node:fs/promises";
 
 const root = new URL("../", import.meta.url);
-const [html, css, landing, modelText, artifactText] = await Promise.all([
+const [html, css, consoleCss, consoleApp, landing, modelText, artifactText] = await Promise.all([
   readFile(new URL("index.html", root), "utf8"),
   readFile(new URL("assets/css/landing.css", root), "utf8"),
+  readFile(new URL("assets/css/styles.css", root), "utf8"),
+  readFile(new URL("assets/js/app.js", root), "utf8"),
   readFile(new URL("assets/js/landing.js", root), "utf8"),
   readFile(new URL("data/site-content-model.json", root), "utf8"),
   readFile(new URL("data/site-content-client.json", root), "utf8"),
@@ -29,6 +31,10 @@ const defaultContrastPairs = [
   ["#40596c", "#f5f8fa"],
   ["#c5d4de", "#071522"],
   ["#102c43", "#f7fbff"],
+  ["#13263a", "#ffffff"],
+  ["#344b61", "#ffffff"],
+  ["#f8fbff", "#102b3d"],
+  ["#d6e4ee", "#102b3d"],
 ];
 const minimumDefaultContrast = Math.min(...defaultContrastPairs.map(([foreground, background]) => contrastRatio(foreground, background)));
 assert.ok(minimumDefaultContrast >= 4.5, `default text contrast must remain WCAG AA; received ${minimumDefaultContrast.toFixed(2)}:1`);
@@ -44,6 +50,11 @@ assert.match(css, /Automation status is always legible[\s\S]*?\.business-data-st
 assert.match(css, /\.business-data-status :is\(\.business-data-status-main strong, \.business-automation-flow strong, dd\)[\s\S]*?color:\s*#f7fbff;[\s\S]*?\.business-data-status :is\(small, dt, \.business-automation-flow small\)[\s\S]*?color:\s*#c5d4de;/, "automation labels and values must use high-contrast default colors");
 assert.match(css, /\.business-team-workstreams h3 \{[\s\S]*?color:\s*#fff;[\s\S]*?\.business-team-workstreams dd \{[\s\S]*?color:\s*#edf6fb;/, "team workstream cards must remain legible before hover");
 assert.match(css, /\.business-team-workstreams > article:is\(:hover, :focus-visible\)[\s\S]*?background:\s*#fff;[\s\S]*?\.business-team-workstreams > article:is\(:hover, :focus-visible\) dd \{ color:\s*#29465c;/, "inverted workstream cards must retain readable text");
+assert.match(consoleCss, /\.consulting-system \.sc-card \{[\s\S]*?--sc-readable-ink:\s*#13263a;[\s\S]*?--sc-hover-surface:\s*#102b3d;/, "consulting strategy cards must define explicit readable and inverted palettes");
+assert.match(consoleCss, /\.consulting-system \.sc-card:is\(:hover, :focus-visible, :focus-within\)[\s\S]*?background:\s*var\(--sc-hover-surface\);[\s\S]*?color:\s*var\(--sc-hover-ink\);/, "consulting strategy cards must invert their full surface on hover and keyboard focus");
+assert.match(consoleCss, /\.consulting-system \.sc-card:is\(:hover, :focus-visible, :focus-within\) \.strategy-highlight \{[\s\S]*?color:\s*var\(--sc-hover-key\) !important;[\s\S]*?-webkit-text-fill-color:\s*var\(--sc-hover-key\);/, "highlighted strategy terms must remain readable on the inverted surface");
+assert.match(consoleCss, /\.consulting-system \.sc-card-flow \{[\s\S]*?width:\s*100%;[\s\S]*?max-width:\s*100%;[\s\S]*?min-width:\s*0;/, "the five-step consulting map must remain within the card width");
+assert.match(consoleApp, /<article class="sc-card" tabindex="0"/, "consulting strategy cards must expose the same inversion to keyboard users");
 
 assert.deepEqual(artifact.presentation.emphasisTerms, model.presentation.emphasisTerms);
 assert.equal(artifact.presentation.emphasisPolicy.style, "underline-only");
@@ -55,7 +66,7 @@ assert.match(landing, /parent\.closest\("mark, script, style[\s\S]*?business-key
 assert.match(landing, /maxPerSection[\s\S]*?maxTotal[\s\S]*?total >= maxTotal/);
 assert.match(landing, /highlightBusinessKeyTerms\(site, content\.presentation\)/, "every generated refresh must reapply the sparse emphasis policy");
 assert.match(landing, /applyPresentationPolicy\(content\.presentation\)/);
-assert.match(html, /infra-20260816-23/);
+assert.match(html, /infra-20260816-24/);
 assert.match(css, /@media \(max-width: 760px\)[\s\S]*?\.business-competency-output[\s\S]*?grid-column:\s*2 !important[\s\S]*?\.business-llm-causal-chain,[\s\S]*?\.business-contract-funnel[\s\S]*?overflow-x:\s*visible/);
 
 console.log(JSON.stringify({

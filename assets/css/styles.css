@@ -28369,20 +28369,45 @@ button.ni-trend-chip:hover { box-shadow: 0 4px 12px color-mix(in srgb, #0891B2 2
 }
 
 .consulting-system .sc-card {
+  --sc-readable-ink: #13263a;
+  --sc-readable-muted: #344b61;
+  --sc-hover-surface: #102b3d;
+  --sc-hover-ink: #f8fbff;
+  --sc-hover-muted: #d6e4ee;
+  --sc-hover-line: rgba(224, 242, 254, .42);
+  --sc-hover-key: #fff0ad;
+  --sc-hover-key-line: #f2c94c;
   gap: 12px;
+  width: 100%;
+  max-width: 100%;
   overflow: hidden;
   border: 1px solid var(--line);
   border-top: 1px solid var(--line);
   border-radius: 2px;
   background: var(--panel);
+  color: var(--sc-readable-ink);
   box-shadow: none;
-  transition: border-color .15s ease;
+  transition: transform .18s cubic-bezier(.2, .7, .2, 1), border-color .18s ease, background-color .18s ease, box-shadow .18s ease;
 }
 
-.consulting-system .sc-card:hover {
-  transform: none;
-  border-color: color-mix(in srgb, var(--ink) 46%, var(--line));
-  box-shadow: none;
+[data-theme="dark"] .consulting-system .sc-card {
+  --sc-readable-ink: #edf4fb;
+  --sc-readable-muted: #c3cfdd;
+  --sc-hover-surface: #f8fafc;
+  --sc-hover-ink: #13263a;
+  --sc-hover-muted: #40546a;
+  --sc-hover-line: rgba(15, 23, 42, .26);
+  --sc-hover-key: #714500;
+  --sc-hover-key-line: #b7791f;
+}
+
+.consulting-system .sc-card:is(:hover, :focus-visible, :focus-within) {
+  transform: translateY(-3px);
+  border-color: var(--sc-hover-surface);
+  background: var(--sc-hover-surface);
+  color: var(--sc-hover-ink);
+  box-shadow: 0 15px 30px rgba(15, 23, 42, .18);
+  outline: none;
 }
 
 .consulting-system .sc-card-rank > b,
@@ -28401,12 +28426,18 @@ button.ni-trend-chip:hover { box-shadow: 0 4px 12px color-mix(in srgb, #0891B2 2
 }
 
 .consulting-system .sc-card .strategy-highlight {
+  --term-color: var(--sc-readable-ink);
+  --term-hover: var(--sc-readable-ink);
   border: 0;
   background: transparent;
   box-shadow: none;
-  color: inherit;
-  text-decoration: none;
-  -webkit-text-fill-color: currentColor;
+  color: var(--sc-readable-ink) !important;
+  text-decoration-line: underline !important;
+  text-decoration-color: #c89200 !important;
+  text-decoration-thickness: 2px !important;
+  text-underline-offset: .22em !important;
+  text-shadow: none !important;
+  -webkit-text-fill-color: var(--sc-readable-ink);
 }
 
 .consulting-system .sc-case-thesis {
@@ -28443,6 +28474,9 @@ button.ni-trend-chip:hover { box-shadow: 0 4px 12px color-mix(in srgb, #0891B2 2
   display: grid;
   grid-template-columns: 1.18fr 1fr 1fr 1.14fr 1.24fr;
   gap: 6px;
+  width: 100%;
+  max-width: 100%;
+  min-width: 0;
   margin: 0;
   padding: 0;
   list-style: none;
@@ -28459,11 +28493,14 @@ button.ni-trend-chip:hover { box-shadow: 0 4px 12px color-mix(in srgb, #0891B2 2
   border: 1px solid var(--line);
   border-radius: 0;
   background: var(--panel);
+  color: var(--sc-readable-ink);
+  overflow-wrap: anywhere;
+  word-break: keep-all;
 }
 
 .consulting-system .sc-map-node::before {
   content: attr(data-step);
-  color: color-mix(in srgb, var(--ink) 28%, var(--panel));
+  color: var(--sc-readable-muted);
   font: 900 25px/1 var(--display, sans-serif);
 }
 
@@ -28486,18 +28523,19 @@ button.ni-trend-chip:hover { box-shadow: 0 4px 12px color-mix(in srgb, #0891B2 2
 .consulting-system .sc-map-node .sc-proof-grid span,
 .consulting-system .sc-map-node.sc-gate > span {
   margin: 0;
-  color: var(--ink);
-  font: 900 8px/1.2 var(--display, sans-serif);
+  color: var(--sc-readable-ink);
+  font: 900 8.5px/1.25 var(--display, sans-serif);
   letter-spacing: .1em;
 }
 
 .consulting-system .sc-map-node p,
 .consulting-system .sc-map-node strong,
 .consulting-system .sc-map-node .sc-wl-row span {
-  color: var(--ink-2);
-  font-size: 10.5px;
-  font-weight: 680;
-  line-height: 1.48;
+  min-width: 0;
+  color: var(--sc-readable-muted);
+  font-size: 11px;
+  font-weight: 720;
+  line-height: 1.52;
 }
 
 .consulting-system .sc-map-node.sc-workload,
@@ -28517,10 +28555,88 @@ button.ni-trend-chip:hover { box-shadow: 0 4px 12px color-mix(in srgb, #0891B2 2
   background: transparent;
 }
 
-.consulting-system .sc-map-node.sc-gate strong { color: var(--ink); }
-.consulting-system .sc-map-node.sc-gate p b { color: var(--ink); }
+.consulting-system .sc-map-node.sc-gate strong { color: var(--sc-readable-ink); }
+.consulting-system .sc-map-node.sc-gate p b { color: var(--sc-readable-ink); }
 .consulting-system .sc-evidence-list { border-top: 1px solid var(--line); padding-top: 8px; }
 .consulting-system .sc-evidence-list li:hover { background: var(--panel-2); }
+
+/* Strategy cards are readable before interaction and invert as one surface.
+   Explicit descendant colors prevent the global semantic-term hover palette
+   from placing pastel text on the default white consulting canvas. */
+.consulting-system .sc-card .sc-card-rank > span,
+.consulting-system .sc-card .sc-pain small,
+.consulting-system .sc-card .sc-case-thesis small,
+.consulting-system .sc-card .sc-evidence-list small,
+.consulting-system .sc-card .sc-empty {
+  color: var(--sc-readable-muted);
+}
+
+.consulting-system .sc-card :is(.sc-pain strong, .sc-evidence-list a, .sc-card-rank > b) {
+  color: var(--sc-readable-ink);
+}
+
+.consulting-system .sc-card:is(:hover, :focus-visible, :focus-within)
+  :is(.sc-case-thesis, .sc-map-node, .sc-map-node.sc-workload, .sc-map-node.sc-gate, .sc-map-node.sc-proof-grid) {
+  border-color: var(--sc-hover-line);
+  background: transparent;
+}
+
+.consulting-system .sc-card:is(:hover, :focus-visible, :focus-within) .sc-case-thesis strong {
+  border-color: var(--sc-hover-line);
+}
+
+.consulting-system .sc-card:is(:hover, :focus-visible, :focus-within) .sc-map-node::before {
+  color: var(--sc-hover-muted);
+}
+
+.consulting-system .sc-card:is(:hover, :focus-visible, :focus-within) .sc-map-node:not(:last-child)::after {
+  border-color: var(--sc-hover-line);
+  background: var(--sc-hover-surface);
+}
+
+.consulting-system .sc-card:is(:hover, :focus-visible, :focus-within)
+  :is(.sc-card-rank > span, .sc-pain small, .sc-case-thesis small, .sc-map-node p, .sc-map-node strong, .sc-map-node .sc-wl-row span, .sc-evidence-list small, .sc-empty) {
+  color: var(--sc-hover-muted);
+  -webkit-text-fill-color: currentColor;
+  text-shadow: none;
+}
+
+.consulting-system .sc-card:is(:hover, :focus-visible, :focus-within)
+  :is(.sc-card-rank > b, .sc-pain strong, .sc-case-thesis > span, .sc-case-thesis strong, .sc-map-node > span, .sc-map-node .sc-wl-name, .sc-map-node .sc-proof-grid span, .sc-map-node.sc-gate strong, .sc-map-node.sc-gate p b, .sc-evidence-list a, .sc-ev-src, .sc-wl-row b, .sc-trend b) {
+  color: var(--sc-hover-ink);
+  -webkit-text-fill-color: currentColor;
+  text-shadow: none;
+}
+
+.consulting-system .sc-card:is(:hover, :focus-visible, :focus-within)
+  :is(.sc-card-rank > b, .sc-evidence, .sc-mom, .sc-trend) {
+  border-color: var(--sc-hover-line);
+  background: color-mix(in srgb, var(--sc-hover-ink) 8%, transparent);
+  color: var(--sc-hover-ink);
+}
+
+.consulting-system .sc-card:is(:hover, :focus-visible, :focus-within) .strategy-highlight {
+  --term-color: var(--sc-hover-key);
+  --term-hover: var(--sc-hover-key);
+  color: var(--sc-hover-key) !important;
+  background: transparent !important;
+  text-decoration-color: var(--sc-hover-key-line) !important;
+  text-shadow: none !important;
+  -webkit-text-fill-color: var(--sc-hover-key);
+}
+
+.consulting-system .sc-card:is(:hover, :focus-visible, :focus-within) .sc-evidence-list {
+  border-color: var(--sc-hover-line);
+}
+
+.consulting-system .sc-card:is(:hover, :focus-visible, :focus-within) .sc-evidence-list li:hover {
+  background: color-mix(in srgb, var(--sc-hover-ink) 9%, transparent);
+}
+
+.consulting-system .sc-card:focus-visible {
+  outline: 3px solid color-mix(in srgb, var(--sc-hover-key-line) 82%, transparent);
+  outline-offset: 3px;
+}
 
 /* Technology & Memory: reserve the destination, then replace it with the
    evidence board without a late page jump. */
