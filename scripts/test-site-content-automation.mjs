@@ -12,6 +12,8 @@ const workflow = text(".github/workflows/pages.yml");
 const landing = text("assets/js/landing.js");
 const app = text("assets/js/app.js");
 const index = text("index.html");
+const consoleSnapshot = text("console/index.html");
+const executiveSnapshot = json("data/executive-latest.json");
 
 const rebuilt = buildSiteContentClient({ payload, quant });
 assert.deepEqual(validateSiteContent(rebuilt), { ok: true, errors: [] });
@@ -31,6 +33,10 @@ assert.equal(artifact.presentation.refreshPolicy.scheduleHours, artifact.freshne
 assert.equal(artifact.decisionIntelligence.retrieval.mode, "incremental-extractive");
 assert.equal(artifact.decisionIntelligence.evaluation.failClosed, true);
 assert.equal(artifact.decisionIntelligence.evaluation.metrics.unsupportedClaimPct, 0);
+assert.ok(Number.isInteger(artifact.decisionIntelligence.claimEvents.stats.structuredEvents));
+assert.equal(artifact.decisionIntelligence.decisionAutomation.briefs.length, 4);
+assert.equal(artifact.decisionIntelligence.decisionAutomation.catalogCoverage.configured, artifact.freshness.configuredSources);
+assert.ok(artifact.decisionIntelligence.decisionAutomation.briefs.every((brief) => brief.trigger && brief.killCriteria && brief.action90d));
 assert.equal(rebuilt.decisionIntelligence.freshness.thresholds.current, 85);
 assert.equal(rebuilt.decisionIntelligence.freshness.thresholds.warning, 70);
 assert.deepEqual(Object.keys(rebuilt.decisionIntelligence.freshness.components).sort(), ["contentAge", "coverageDrift", "embeddingLag", "staleRetrievalRate"].sort());
@@ -95,6 +101,10 @@ assert.equal(changed.presentation.refreshPolicy.generatedAt, changedPayload.upda
 assert.match(workflow, /cron: "17 \*\/3 \* \* \*"/);
 assert.match(workflow, /repository_dispatch:[\s\S]*earnings-release[\s\S]*industry-report[\s\S]*source-update/);
 assert.match(workflow, /data\/site-content-client\.json/);
+assert.match(workflow, /npm run prerender:decision/);
+assert.match(workflow, /npm run check:fast/);
+assert.match(workflow, /data\/executive-latest\.json/);
+assert.match(workflow, /console\/index\.html/);
 assert.match(workflow, /data\/refresh-events\.json/);
 assert.match(workflow, /INTELLIGENCE_EVENT_KEY/);
 assert.match(landing, /SITE_CONTENT_PATH = "data\/site-content-client\.json"/);
@@ -116,17 +126,25 @@ assert.match(index, /id="acceleratorScorecard"/);
 assert.match(index, /id="ragOperatingModel"/);
 assert.match(index, /Useful AI Work/);
 assert.match(index, /id="businessFreshnessBoard"/);
+assert.match(index, /id="decision-automation"/);
+assert.match(index, /id="decisionAutomationBriefs"/);
+assert.match(index, /Source → ClaimEvent → Decision → Execution/);
 assert.match(index, /Content Age/);
 assert.match(index, /Embedding Lag/);
 assert.match(index, /Stale Retrieval/);
 assert.match(index, /Coverage Drift/);
 assert.match(index, /Samsung SMRC/);
 assert.match(app, /window\.MEMORY_SITE_CONTENT\?\.agentCouncil\?\.agendas/);
-assert.match(index, /infra-20260816-21/);
+assert.match(index, /infra-20260816-22/);
 assert.match(index, /Bottleneck to Scale/);
 assert.match(index, /PUBLIC CASE RECONSTRUCTION[\s\S]*?MODELED STRATEGY CASE[\s\S]*?ANONYMIZED CLIENT CASE/);
 assert.doesNotMatch(index, /ANONYMIZED USE CASE|GPU Compute보다|MODELED THRESHOLD/);
 assert.doesNotMatch(app, /익명화 Case/);
+assert.equal(executiveSnapshot.runId, artifact.runId);
+assert.equal(executiveSnapshot.decisions.length, artifact.decisionIntelligence.decisionAutomation.briefs.length);
+assert.match(consoleSnapshot, /AI Infra Decision Intelligence · Executive Snapshot/);
+assert.match(consoleSnapshot, /ClaimEvent/);
+assert.doesNotMatch(consoleSnapshot, /로드 중|연결 중/);
 
 console.log(JSON.stringify({
   ok: true,

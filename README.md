@@ -23,6 +23,16 @@ The published dashboard is generated through a fail-closed evidence pipeline:
 - Official IEA, ASHRAE, Kubernetes/Kueue, Kubernetes DRA, Slurm, NVIDIA, and vLLM sources are monitored through catalog-driven discovery and health checks. Vendor performance claims remain `Watch` unless workload, model, version, SLO, and observation date are reproducible.
 - The generated `aiFactorySystem` contract carries the 9-layer architecture, six workload KPI sets, eight execution gates, source status, pillar coverage, and the latest promoted signal into the landing page and Console agent council.
 
+### Decision automation
+
+- `scripts/decision-intelligence.mjs` converts eligible official and research evidence into a versioned `ClaimEvent` ledger: entity, product, event, stage, metric, event date, source, evidence span, confidence, supersession, and contradiction state.
+- Product progress is handled as an explicit state machine (`ANNOUNCED → SAMPLE → QUALIFICATION → MASS_PRODUCTION → COMMERCIAL_SHIPMENT → PLATFORM_ADOPTION → REVENUE`). Search relevance alone cannot advance a stage.
+- Four consulting briefs—custom memory, agentic memory tiering, enterprise RAG, and AI Factory—are rebuilt from the current evidence. Each exposes customer pain, options, economics, 90-day action, owner, KPI, trigger, and kill criteria.
+- A brief reaches `DECISION_READY` only when retrieval quality passes, independent-source coverage passes, and at least one linked `ClaimEvent` is verified. Otherwise it remains `EVIDENCE_READY` or `MONITORING`.
+- Source operations are measured by configured-versus-observed coverage and decision-useful yield, not catalog size. Coverage gaps remain visible instead of being replaced by an inferred claim.
+- `scripts/prerender-decision.mjs` produces `console/index.html` and `data/executive-latest.json`, so crawlers, link previews, and readers without JavaScript receive the latest verified executive snapshot.
+- The publishing workflow uses a fast fail-closed gate on every refresh. `.github/workflows/deep-qa.yml` runs the broader regression suite nightly so slow checks do not delay every verified update.
+
 ### Integrity safeguards
 
 - Korean convenience translations are token-audited against the source: numeric, percentage, magnitude, and currency values must agree after normalising units (for example, CNY 29.5bn and 295억 위안). Failed checks retain the source-language text and are recorded in `crawl-audit.json` as `unverified`.

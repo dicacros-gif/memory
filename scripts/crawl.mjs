@@ -9547,7 +9547,7 @@ async function collectQuantMetrics(priceHistory, context = {}) {
   note(
     "derived:decision-intelligence",
     quant.decisionIntelligence.evaluation?.status === "pass",
-    `직접 피드 ${fetchedDecisionFeeds}/${decisionDocuments.feedStatus.length} · 지표 ${quant.decisionIntelligence.metrics?.latest?.length || 0}개 · 증분 재색인 ${quant.decisionIntelligence.retrieval?.stats?.reindexed || 0}건 · 평가 ${quant.decisionIntelligence.evaluation?.status || "review"}`,
+    `직접 피드 ${fetchedDecisionFeeds}/${decisionDocuments.feedStatus.length} · ClaimEvent ${quant.decisionIntelligence.claimEvents?.stats?.structuredEvents || 0}건 · Decision Ready ${quant.decisionIntelligence.decisionAutomation?.funnel?.decisionReadyBriefs || 0}건 · 증분 재색인 ${quant.decisionIntelligence.retrieval?.stats?.reindexed || 0}건 · 평가 ${quant.decisionIntelligence.evaluation?.status || "review"}`,
   );
   quant.accountSignals = buildDemandAccountSignals(context, previous.accountSignals);
   note(

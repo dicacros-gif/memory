@@ -148,27 +148,140 @@
       "id": "earnings-release",
       "label": "분기 실적·어닝콜",
       "patterns": ["quarterly results|earnings release|earnings call|financial results|분기 실적"],
-      "priority": "immediate"
+      "priority": "immediate",
+      "eventType": "financial-disclosure",
+      "defaultStage": "DISCLOSED"
     },
     {
       "id": "hbm4-production-stage",
       "label": "HBM4 Sample → Qualification → Ramp",
       "patterns": ["hbm4", "mass production|commercial shipment|qualification|ramp|양산|출하|인증"],
-      "priority": "immediate"
+      "priority": "immediate",
+      "eventType": "product-stage",
+      "productPatterns": ["hbm4e?"],
+      "defaultStage": "ANNOUNCED"
     },
     {
       "id": "capacity-commitment",
       "label": "CapEx·Capacity·장기 물량",
       "patterns": ["capex|capital expenditure|capacity|long-term agreement|sold out|설비투자|장기 계약|완판"],
-      "priority": "quarterly"
+      "priority": "quarterly",
+      "eventType": "commercial-commitment",
+      "defaultStage": "DISCLOSED"
     },
     {
       "id": "competitor-ramp",
       "label": "경쟁사 Ramp·고객 공급",
       "patterns": ["samsung|micron|sk hynix", "hbm4|hbm4e", "shipment|production|ramp|qualification"],
-      "priority": "immediate"
+      "priority": "immediate",
+      "eventType": "competitive-stage",
+      "productPatterns": ["hbm4e?"],
+      "defaultStage": "ANNOUNCED"
     }
   ],
+  "claimEvents": {
+    "schemaVersion": "1.0",
+    "eligibleSourceClasses": ["official", "research"],
+    "requirePublishedAt": true,
+    "requireEvidenceSpan": true,
+    "minimumEvidenceCharacters": 28,
+    "maxEvents": 48,
+    "entityPatterns": [
+      { "id": "sk-hynix", "label": "SK hynix", "patterns": ["sk hynix|sk hynix newsroom|하이닉스"] },
+      { "id": "samsung", "label": "Samsung", "patterns": ["samsung|삼성"] },
+      { "id": "micron", "label": "Micron", "patterns": ["micron|마이크론"] },
+      { "id": "nvidia", "label": "NVIDIA", "patterns": ["nvidia|엔비디아"] },
+      { "id": "industry", "label": "Memory industry", "patterns": ["hbm|dram|memory|메모리"] }
+    ],
+    "productPatterns": [
+      { "id": "hbm4e", "label": "HBM4E", "patterns": ["hbm4e"] },
+      { "id": "hbm4", "label": "HBM4", "patterns": ["hbm4"] },
+      { "id": "socamm2", "label": "SOCAMM2", "patterns": ["socamm2"] },
+      { "id": "cxl", "label": "CXL", "patterns": ["cxl\\s*(?:3|4)?(?:\\.0)?"] },
+      { "id": "hbf", "label": "HBF", "patterns": ["\\bhbf\\b|high bandwidth flash"] },
+      { "id": "ai-memory", "label": "AI Memory", "patterns": ["hbm|dram|memory|메모리"] }
+    ],
+    "stages": [
+      { "id": "ROADMAP", "rank": 10, "patterns": ["roadmap|plan(?:s|ned)?|target|aim|목표|계획|검토"] },
+      { "id": "STANDARDIZATION", "rank": 20, "patterns": ["standardization|standard workstream|specification|표준화|규격"] },
+      { "id": "ANNOUNCED", "rank": 30, "patterns": ["announce|unveil|introduc|공개|발표"] },
+      { "id": "SAMPLE", "rank": 40, "patterns": ["sample|sampling|샘플"] },
+      { "id": "QUALIFICATION", "rank": 50, "patterns": ["qualif|certif|validation|인증|검증"] },
+      { "id": "MASS_PRODUCTION", "rank": 60, "patterns": ["mass production|volume production|양산"] },
+      { "id": "COMMERCIAL_SHIPMENT", "rank": 70, "patterns": ["commercial shipment|commercial hbm|ships? industry|상용 출하|출하"] },
+      { "id": "PLATFORM_ADOPTION", "rank": 80, "patterns": ["platform adoption|selected for|powered by|탑재|채택"] },
+      { "id": "REVENUE", "rank": 90, "patterns": ["revenue contribution|recognized revenue|매출 인식|매출 기여"] },
+      { "id": "DISCLOSED", "rank": 25, "patterns": ["quarterly results|filing|disclosed|실적|공시"] }
+    ]
+  },
+  "decisionAutomation": {
+    "schemaVersion": "1.0",
+    "states": ["MONITORING", "EVIDENCE_READY", "CONFLICT_REVIEW", "DECISION_READY", "EXECUTION_TRACKING"],
+    "minimumIndependentEvidence": 2,
+    "minimumPrimaryEvidence": 1,
+    "briefs": [
+      {
+        "id": "custom-memory",
+        "label": "Custom Memory Co-Design",
+        "claimRuleIds": ["hbm4-production-stage", "competitor-ramp", "capacity-commitment"],
+        "trackIds": ["hbm-market-and-ramp", "capacity-and-contract"],
+        "customerPain": "가속기 세대 전환 일정과 고객 인증·패키징·물량 약정을 동시에 맞춰야 함",
+        "hypothesis": "표준 HBM과 Semi-Custom을 분리하고 확정 물량·NRE 회수·Qualification Gate를 통과한 고객에만 Custom 범위를 확대",
+        "options": ["Standard HBM Scale", "Semi-Custom Base-Die / Interface", "Full-Custom Platform"],
+        "economics": ["NRE 회수", "개발 Lead Time", "Qualification 비용", "Package Allocation", "Revenue Visibility"],
+        "action90d": "고객별 Stage Map과 Binding Volume·Margin Floor를 연결한 Qualification Board 구축",
+        "owner": "AI Infra Strategy · Memory Product · Packaging · Customer Team",
+        "kpis": ["Qualification Lead Time", "Yield", "Committed Volume", "Gross Margin", "Revenue Conversion"],
+        "trigger": "SAMPLE 이후 고객 Qualification 또는 Commercial Shipment 단계가 공식 원문으로 확인",
+        "killCriteria": "Trace 접근권·Qualification 경로·확정 물량·NRE 회수 중 2개 이상이 확인되지 않으면 Full-Custom 투자를 중단"
+      },
+      {
+        "id": "agentic-tiering",
+        "label": "Agentic Inference Memory Tiering",
+        "claimRuleIds": ["hbm4-production-stage", "capacity-commitment"],
+        "trackIds": ["workload-and-tco", "realtime-inference-kv-latency", "agent-tools-concurrency-latency"],
+        "customerPain": "긴 Context·동시 실행·KV 이동으로 TTFT/TPOT와 Cost per Successful Task가 악화",
+        "hypothesis": "Serving SW 최적화 후에도 KV Capacity가 지배 병목이면 HBM·Host DRAM/CXL·eSSD Tiering이 증설보다 경제적",
+        "options": ["Scheduler / Prefix Reuse", "HBM Expansion", "Host DRAM / CXL Tier", "eSSD Context Tier", "Hybrid"],
+        "economics": ["Cost / 1M Useful Tokens", "Goodput / MW", "GPU Idle Avoided", "Energy / Task"],
+        "action90d": "동일 Model·Context·Concurrency·SLO로 SW-only와 Memory Tier A/B Benchmark 수행",
+        "owner": "Serving Platform · AI Infra Architecture · Memory Solution",
+        "kpis": ["TTFT P95", "TPOT P95", "Goodput", "KV Reuse", "GPU Idle", "Tokens / kWh"],
+        "trigger": "SW-only 기준선 이후에도 Active KV 또는 KV 이동이 SLO를 제한",
+        "killCriteria": "SW-only가 동일 품질·SLO에서 Memory Tier보다 경제적이면 HW 제안을 중단"
+      },
+      {
+        "id": "enterprise-rag",
+        "label": "Enterprise RAG Economics",
+        "claimRuleIds": ["capacity-commitment"],
+        "trackIds": ["rag-and-vector-memory", "rag-quality-metadata-freshness"],
+        "customerPain": "검색 품질·권한·색인 최신성과 Query P99를 유지하면서 Corpus 비용을 통제해야 함",
+        "hypothesis": "Vector DB 교체보다 Metadata·ACL·Hybrid Retrieval·Rerank를 먼저 통과한 뒤 Hot Index·Warm Document·Cold Corpus를 계층화",
+        "options": ["DRAM-Resident Index", "DRAM/CXL + TLC/QLC eSSD", "eSSD-Heavy Retrieval"],
+        "economics": ["Cost / Successful Query", "Index Resident Ratio", "Reindex Cost", "Power / Query"],
+        "action90d": "Golden Set과 권한 오류·Recall·P99 기준선을 고정하고 Tier별 Retrieval Benchmark 수행",
+        "owner": "Knowledge Platform · Data Infra · Storage Solution",
+        "kpis": ["Recall@k", "Citation Precision", "Retrieval P99", "Freshness Lag", "Cost / Query"],
+        "trigger": "검색 품질 Gate 통과 후 Active Index Capacity 또는 Storage I/O가 지배 병목으로 확인",
+        "killCriteria": "Recall·권한·인용 품질 Gate를 통과하지 못하면 Memory/Storage 증설 제안을 중단"
+      },
+      {
+        "id": "ai-factory",
+        "label": "AI Factory Scale Gate",
+        "claimRuleIds": ["capacity-commitment", "earnings-release"],
+        "trackIds": ["training-communication-checkpoint-power", "rack-scale-power-cooling-fabric", "accelerator-runtime-portability"],
+        "customerPain": "가속기·Fabric·Storage·전력·냉각의 병목이 Rack/POD 단위 확장을 제한",
+        "hypothesis": "서버 단품이 아니라 Useful AI Work / Total Cost와 Qualification / Time 기준으로 Rack Cell을 공동 최적화",
+        "options": ["Retrofit", "Colocation / Managed AI Factory", "Greenfield Sovereign AI Factory", "Hybrid Burst"],
+        "economics": ["Goodput / MW", "Cost / Successful Task", "Energization Lead Time", "Effective AI Capacity"],
+        "action90d": "Workload Trace·전력·열·Fabric·Checkpoint를 한 부하에서 계측하는 Rack Cell Baseline 확정",
+        "owner": "AI Platform · Data Center Facilities · Network / Storage · FinOps",
+        "kpis": ["Goodput", "MFU", "Rack kW", "PUE/WUE", "Checkpoint Recovery", "SLO Pass Rate"],
+        "trigger": "실제 로그와 업무 성공 기준·가동 가능 전력이 함께 확정",
+        "killCriteria": "전력 인입·열 제거·복구 SLO·수요 기준선 중 하나라도 검증되지 않으면 대규모 CAPEX를 승인하지 않음"
+      }
+    ]
+  },
   "retrieval": {
     "mode": "incremental-extractive",
     "onlyChangedDocuments": true,
@@ -281,6 +394,14 @@
     "strategy": "webhook-first-poll-reconciliation",
     "safetyPollHours": 3,
     "idempotencyLedgerLimit": 100,
+    "cadenceHours": {
+      "earnings-release": 3,
+      "press-release": 3,
+      "filing": 3,
+      "market-report": 24,
+      "knowledge": 24,
+      "research": 24
+    },
     "latencyTargets": {
       "earnings-release": { "minutes": 10 },
       "press-release": { "minutes": 15 },

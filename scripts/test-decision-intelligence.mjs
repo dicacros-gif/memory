@@ -1,5 +1,7 @@
 import assert from "node:assert/strict";
 import {
+  buildAutomatedDecisionBriefs,
+  buildClaimEventLedger,
   buildDecisionIntelligence,
   buildIncrementalKnowledgeIndex,
   buildMetricConsensus,
@@ -148,7 +150,15 @@ assert.equal(built.retrieval.packs.length, policy.retrieval.tracks.length);
 assert.ok(built.retrieval.packs.every((pack) => pack.evidence.every((item) => item.url)));
 assert.equal(built.evaluation.metrics.unsupportedClaimPct, 0);
 assert.equal(built.evaluation.metrics.citationCoveragePct, 100);
-assert.equal(built.schemaVersion, "1.1");
+assert.equal(built.schemaVersion, "1.2");
+assert.ok(built.claimEvents.stats.structuredEvents > 0, "verified documents must become structured ClaimEvents");
+assert.ok(built.claimEvents.events.every((event) => event.evidenceSpan && event.entity?.id && event.product?.id && event.stage?.id));
+assert.ok(built.claimEvents.events.every((event) => ["official", "research"].includes(event.sourceClass)), "media summaries must not enter the ClaimEvent ledger");
+assert.equal(built.decisionAutomation.briefs.length, policy.decisionAutomation.briefs.length);
+assert.ok(built.decisionAutomation.briefs.every((brief) => brief.customerPain && brief.hypothesis && brief.trigger && brief.killCriteria));
+assert.ok(["MONITORING", "EVIDENCE_READY", "CONFLICT_REVIEW", "DECISION_READY"].includes(built.decisionAutomation.state));
+assert.equal(built.decisionAutomation.sourceOperations.configured, policy.directFeeds.length);
+assert.equal(built.decisionAutomation.sourceOperations.observed, policy.directFeeds.length);
 assert.ok(built.freshness.score >= 85);
 assert.equal(built.freshness.status, "current");
 assert.deepEqual(Object.keys(built.freshness.components).sort(), ["contentAge", "coverageDrift", "embeddingLag", "staleRetrievalRate"].sort());
@@ -163,4 +173,6 @@ console.log(JSON.stringify({
   index: built.retrieval.stats,
   evaluation: built.evaluation,
   freshness: built.freshness,
+  claimEvents: built.claimEvents.stats,
+  decisionState: built.decisionAutomation.state,
 }, null, 2));

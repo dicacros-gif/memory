@@ -3,7 +3,7 @@
 
   const BUSINESS_TITLE = "AI Infra Strategy OS · Bottleneck to Scale";
   const CONSOLE_HASH = "#console";
-  const CONSOLE_REVISION = "infra-20260816-21";
+  const CONSOLE_REVISION = "infra-20260816-22";
   const DECISION_CLIENT_PATH = "data/landing-decision-client.json";
   const SITE_CONTENT_PATH = "data/site-content-client.json";
   const site = document.querySelector("#businessSite");
@@ -305,6 +305,52 @@
       if (footerModel && decision.partners?.length) footerModel.textContent = decision.partners.join(" · ");
       const footerLink = panel.querySelector(":scope > .business-decision-footer a");
       if (footerLink) footerLink.href = safeBusinessUrl(decision.deepLink);
+    }
+  }
+
+  function renderDecisionAutomation(content = {}) {
+    const automation = content.decisionIntelligence?.decisionAutomation;
+    if (!automation) return;
+    const funnel = automation.funnel || {};
+    const catalog = automation.catalogCoverage || {};
+    const sourceOperations = automation.sourceOperations || {};
+    const state = document.querySelector("#decisionAutomationState");
+    const asOf = document.querySelector("#decisionAutomationAsOf");
+    const catalogCoverage = document.querySelector("#decisionCatalogCoverage");
+    const claimEvents = document.querySelector("#decisionClaimEvents");
+    const verifiedEvents = document.querySelector("#decisionVerifiedEvents");
+    const readyBriefs = document.querySelector("#decisionReadyBriefs");
+    const observationRate = document.querySelector("#decisionObservationRate");
+    const observationGauge = document.querySelector("#decisionObservationGauge");
+    const observationHeadline = document.querySelector("#decisionObservationHeadline");
+    const observationCopy = document.querySelector("#decisionObservationCopy");
+    const rate = Math.max(0, Math.min(100, Number(catalog.observationRatePct || 0)));
+    if (state) state.textContent = String(automation.state || "MONITORING").replaceAll("_", " ");
+    if (asOf) asOf.textContent = `${formatKst(content.generatedAt)} · Run ${String(content.runId || "-").slice(0, 14)}`;
+    if (catalogCoverage) catalogCoverage.textContent = `${catalog.observed || 0} / ${catalog.configured || 0}`;
+    if (claimEvents) claimEvents.textContent = `${funnel.structuredEvents || 0}건`;
+    if (verifiedEvents) verifiedEvents.textContent = `${funnel.verifiedEvents || 0}건`;
+    if (readyBriefs) readyBriefs.textContent = `${funnel.decisionReadyBriefs || 0} / ${(automation.briefs || []).length || 0}`;
+    if (observationRate) observationRate.textContent = `${rate.toFixed(1)}%`;
+    if (observationGauge) observationGauge.style.setProperty("--decision-progress", `${rate}%`);
+    if (observationHeadline) observationHeadline.textContent = `전체 ${catalog.configured || 0}개 중 ${catalog.observed || 0}개 관측 · 공식 Fresh ${catalog.officialFresh || 0}/${catalog.officialConfigured || 0}`;
+    if (observationCopy) observationCopy.textContent = `직접 피드 ${sourceOperations.observed || 0}/${sourceOperations.configured || 0} 연결 · 의미 있는 추출 ${sourceOperations.useful || 0}개 · 관측 목표 ${catalog.targetPct || 90}%`;
+
+    const briefs = document.querySelector("#decisionAutomationBriefs");
+    if (briefs && automation.briefs?.length) {
+      briefs.innerHTML = automation.briefs.map((brief, index) => {
+        const source = (brief.evidence || []).find((item) => item.url);
+        const sourceLink = source
+          ? `<a href="${escapeBusinessHTML(safeBusinessUrl(source.url, "console/"))}" target="_blank" rel="noopener noreferrer">${escapeBusinessHTML(source.source || "원문")} · ${escapeBusinessHTML(String(source.publishedAt || "").slice(0, 10) || "기준일 확인")} ↗</a>`
+          : `<span>구조화 Event 관측 대기</span>`;
+        return `<article tabindex="0" data-decision-brief="${escapeBusinessHTML(brief.id)}">
+          <header><span>${String(index + 1).padStart(2, "0")} · ${escapeBusinessHTML(brief.label)}</span><b>${escapeBusinessHTML(String(brief.status || "MONITORING").replaceAll("_", " "))}</b></header>
+          <h3>${escapeBusinessHTML(brief.whatChanged || brief.hypothesis)}</h3>
+          <ul><li>${escapeBusinessHTML(brief.customerPain)}</li><li>${escapeBusinessHTML(brief.hypothesis)}</li><li>90D · ${escapeBusinessHTML(brief.action90d)}</li></ul>
+          <div class="decision-os-brief-meta"><span>STAGE · ${escapeBusinessHTML(brief.stage || "MONITORING")}</span><span>PRIMARY · ${Number(brief.primaryEvidence || 0)}</span><span>SOURCES · ${Number(brief.independentSources || 0)}</span>${sourceLink}</div>
+          <footer><small>KILL CRITERIA</small><strong>${escapeBusinessHTML(brief.killCriteria)}</strong></footer>
+        </article>`;
+      }).join("");
     }
   }
 
@@ -711,6 +757,7 @@
     if (staticSnapshot) staticSnapshot.textContent = content.agentCouncil?.subtitle || staticSnapshot.textContent;
 
     renderDecisionContent(content);
+    renderDecisionAutomation(content);
     renderCurrentInsights(content);
     renderAIFactorySystem(content);
     renderWorkloadOptimization(content);

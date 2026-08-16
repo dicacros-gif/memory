@@ -52,5 +52,5 @@ assert.match(css, /@media \(max-width: 680px\)[\s\S]*?\.visual-insight-route\s*\
 console.log(JSON.stringify({
   bridges: 3,
   visualModules: 3,
-  revision: "infra-20260816-21",
+  revision: "infra-20260816-22",
 }, null, 2));

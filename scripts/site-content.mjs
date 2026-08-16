@@ -167,6 +167,66 @@ function buildDecisionIntelligenceContent(quant = {}) {
       })),
     })),
     eventTriggers: (current.eventTriggers || []).slice(0, 12),
+    claimEvents: {
+      schemaVersion: current.claimEvents?.schemaVersion || "1.0",
+      generatedAt: current.claimEvents?.generatedAt || current.generatedAt || null,
+      stats: current.claimEvents?.stats || {
+        eligibleDocuments: 0,
+        structuredEvents: 0,
+        verifiedEvents: 0,
+        currentStages: 0,
+        newEvents: 0,
+        contradictionReviews: 0,
+      },
+      events: (current.claimEvents?.events || []).slice(0, 16).map((event) => ({
+        id: event.id,
+        ruleId: event.ruleId,
+        eventType: event.eventType,
+        label: event.label,
+        entity: event.entity,
+        product: event.product,
+        stage: event.stage,
+        metrics: event.metrics || [],
+        evidenceSpan: compact(event.evidenceSpan, 420),
+        source: event.source,
+        sourceId: event.sourceId,
+        sourceClass: event.sourceClass,
+        sourceUrl: directUrl(event.sourceUrl) ? event.sourceUrl : "",
+        publishedAt: event.publishedAt || null,
+        confidence: event.confidence,
+        promotionStatus: event.promotionStatus,
+        contradictionStatus: event.contradictionStatus,
+        isCurrentStage: event.isCurrentStage === true,
+        supersededBy: event.supersededBy || null,
+      })),
+    },
+    decisionAutomation: {
+      schemaVersion: current.decisionAutomation?.schemaVersion || "1.0",
+      state: current.decisionAutomation?.state || "MONITORING",
+      funnel: current.decisionAutomation?.funnel || {
+        sourceDocuments: 0,
+        structuredEvents: 0,
+        verifiedEvents: 0,
+        decisionReadyBriefs: 0,
+        executionTrackingBriefs: 0,
+      },
+      sourceOperations: current.decisionAutomation?.sourceOperations || {
+        configured: 0,
+        observed: 0,
+        useful: 0,
+        observationRatePct: 0,
+        usefulYieldPct: 0,
+        sources: [],
+      },
+      briefs: (current.decisionAutomation?.briefs || []).map((brief) => ({
+        ...brief,
+        evidence: (brief.evidence || []).slice(0, 5).map((item) => ({
+          ...item,
+          excerpt: compact(item.excerpt, 320),
+          url: directUrl(item.url) ? item.url : "",
+        })),
+      })),
+    },
     feedStatus: (current.feedStatus || []).map((feed) => ({
       id: feed.id,
       sourceId: feed.sourceId,
@@ -612,6 +672,9 @@ export function validateSiteContent(content = {}) {
   const freshnessScore = Number(content.decisionIntelligence?.freshness?.score);
   if (!Number.isFinite(freshnessScore) || freshnessScore < 0 || freshnessScore > 100) errors.push("decisionIntelligence.freshness.score");
   if (Number(content.decisionIntelligence?.freshness?.thresholds?.current) !== 85 || Number(content.decisionIntelligence?.freshness?.thresholds?.warning) !== 70) errors.push("decisionIntelligence.freshness.thresholds");
+  if (!Number.isInteger(Number(content.decisionIntelligence?.claimEvents?.stats?.structuredEvents))) errors.push("decisionIntelligence.claimEvents");
+  if (!Array.isArray(content.decisionIntelligence?.decisionAutomation?.briefs) || content.decisionIntelligence.decisionAutomation.briefs.length < 3) errors.push("decisionIntelligence.decisionAutomation.briefs");
+  if (!content.decisionIntelligence?.decisionAutomation?.state) errors.push("decisionIntelligence.decisionAutomation.state");
   for (const key of ["contentAge", "embeddingLag", "staleRetrievalRate", "coverageDrift"]) {
     const value = Number(content.decisionIntelligence?.freshness?.components?.[key]);
     if (!Number.isFinite(value) || value < 0 || value > 100) errors.push(`decisionIntelligence.freshness.components.${key}`);
@@ -650,6 +713,16 @@ export function buildSiteContentClient({ payload = {}, quant = {} } = {}) {
     .filter(Boolean);
   const expiresAt = payload.expiresAt || quant.expiresAt || null;
   const decisionIntelligence = buildDecisionIntelligenceContent(quant);
+  decisionIntelligence.decisionAutomation.catalogCoverage = {
+    configured: Number(sourceCoverage.configuredSources || 0),
+    observed: Number(sourceCoverage.observedSources || 0),
+    fresh: Number(sourceCoverage.freshObservedSources || 0),
+    observationRatePct: Number(sourceCoverage.observationCoveragePct || 0),
+    officialConfigured: Number(sourceCoverage.officialConfigured || 0),
+    officialObserved: Number(sourceCoverage.officialObserved || 0),
+    officialFresh: Number(sourceCoverage.officialFreshObserved || 0),
+    targetPct: 90,
+  };
   const content = {
     schemaVersion: "1.0",
     runId: payload.runId || quant.runId || null,

@@ -61,6 +61,10 @@ export function validateIntelligencePolicy(policy = {}) {
   if (!Array.isArray(policy.directFeeds) || policy.directFeeds.length < 4) errors.push("directFeeds");
   if (!Array.isArray(policy.metrics) || policy.metrics.length < 2) errors.push("metrics");
   if (!Array.isArray(policy.eventRules) || policy.eventRules.length < 3) errors.push("eventRules");
+  if (!Array.isArray(policy.claimEvents?.stages) || policy.claimEvents.stages.length < 5) errors.push("claimEvents.stages");
+  if (!Array.isArray(policy.claimEvents?.eligibleSourceClasses) || !policy.claimEvents.eligibleSourceClasses.includes("official")) errors.push("claimEvents.eligibleSourceClasses");
+  if (!Array.isArray(policy.decisionAutomation?.briefs) || policy.decisionAutomation.briefs.length < 3) errors.push("decisionAutomation.briefs");
+  if (!Array.isArray(policy.decisionAutomation?.states) || !policy.decisionAutomation.states.includes("DECISION_READY")) errors.push("decisionAutomation.states");
   if (!Array.isArray(policy.retrieval?.tracks) || policy.retrieval.tracks.length < 3) errors.push("retrieval.tracks");
   if (policy.retrieval?.onlyChangedDocuments !== true) errors.push("retrieval.onlyChangedDocuments");
   if (policy.evaluation?.failClosed !== true) errors.push("evaluation.failClosed");
@@ -460,6 +464,7 @@ function buildRetrievalPacks(index = {}, policy = loadIntelligencePolicy()) {
           chunkId: chunk.id,
           title: document.title,
           excerpt: compact(chunk.text, 340),
+          sourceId: document.sourceId,
           source: document.source,
           sourceClass: document.sourceClass,
           url: document.url,
@@ -531,7 +536,7 @@ export function buildFreshnessScore({ index = {}, packs = [], consensus = {}, fe
   const staleRetrievalRatePct = citations.length ? 100 * staleCitations.length / citations.length : 100;
   const staleRetrievalRate = 100 - staleRetrievalRatePct;
   const feedsConfigured = Math.max(1, (policy.directFeeds || []).length);
-  const feedCoveragePct = 100 * feedStatus.filter((item) => item.status === "fetched" || item.status === "fixture").length / feedsConfigured;
+  const feedCoveragePct = 100 * feedStatus.filter((item) => ["fetched", "fixture", "retained-not-due"].includes(item.status)).length / feedsConfigured;
   const trackCoveragePct = packs.length ? 100 * packs.filter((pack) => pack.status !== "coverage-gap").length / packs.length : 0;
   const expectedMetrics = Math.max(1, (policy.metrics || []).reduce((sum, metric) => sum + Math.max(1, metric.entities?.length || 0), 0));
   const metricCoveragePct = 100 * Math.min(expectedMetrics, consensus.latest?.length || 0) / expectedMetrics;
@@ -611,6 +616,240 @@ function detectEvents(documents = [], previousIndex = {}, policy = loadIntellige
   return output.sort((a, b) => Number(b.changed) - Number(a.changed) || String(b.publishedAt || "").localeCompare(String(a.publishedAt || ""))).slice(0, 24);
 }
 
+function firstPatternLabel(value = "", definitions = []) {
+  const definition = definitions.find((item) => matchesAny(value, item.patterns));
+  return definition ? { id: definition.id, label: definition.label } : null;
+}
+
+function evidenceSpan(value = "", rule = {}, minimumCharacters = 28) {
+  const text = String(value || "");
+  const segments = text
+    .split(/\n+|(?<=[.!?])\s+/)
+    .map((item) => compact(item, 760))
+    .filter((item) => item.length >= minimumCharacters);
+  const ranked = segments.map((segment) => ({
+    segment,
+    score: (rule.patterns || []).reduce((sum, pattern) => sum + (compile(pattern).test(segment) ? 4 : 0), 0)
+      + (rule.productPatterns || []).reduce((sum, pattern) => sum + (compile(pattern).test(segment) ? 2 : 0), 0),
+  })).filter((item) => item.score > 0).sort((left, right) => right.score - left.score || right.segment.length - left.segment.length);
+  if (ranked[0]) return ranked[0].segment;
+  const anchor = (rule.patterns || []).map((pattern) => text.search(compile(pattern))).find((index) => index >= 0);
+  if (!Number.isFinite(anchor)) return "";
+  return compact(text.slice(Math.max(0, anchor - 220), anchor + 520), 760);
+}
+
+function numericEvidence(value = "") {
+  const tokens = [...String(value || "").matchAll(/(?<![\w.])(\d+(?:\.\d+)?)\s*(%|gbps(?:\/pin)?|tb\/s|gb|tb|mw|gw|w|billion|million|trillion|억|조|년|개)/gi)]
+    .map((match) => `${match[1]} ${match[2]}`.replace(/\s+%/, "%"));
+  return [...new Set(tokens)].slice(0, 8);
+}
+
+function resolveClaimStage(value = "", rule = {}, policy = loadIntelligencePolicy()) {
+  const stages = (policy.claimEvents?.stages || [])
+    .filter((stage) => matchesAny(value, stage.patterns))
+    .sort((left, right) => Number(right.rank || 0) - Number(left.rank || 0));
+  const fallback = (policy.claimEvents?.stages || []).find((stage) => stage.id === rule.defaultStage);
+  const stage = stages[0] || fallback || { id: "DISCLOSED", rank: 0 };
+  return { id: stage.id, rank: Number(stage.rank || 0) };
+}
+
+/**
+ * Converts source documents into an immutable, citation-bearing event ledger.
+ * No date, number, stage, entity or product is inferred from model knowledge:
+ * each field must resolve from the source text, title or deterministic policy.
+ */
+export function buildClaimEventLedger({ documents = [], previous = {}, policy = loadIntelligencePolicy(), now = new Date() } = {}) {
+  const config = policy.claimEvents || {};
+  const eligible = new Set(config.eligibleSourceClasses || ["official", "research"]);
+  const rules = policy.eventRules || [];
+  const raw = [];
+  for (const document of documents) {
+    if (!eligible.has(document.sourceClass) || !validUrl(document.url)) continue;
+    if (config.requirePublishedAt && !document.publishedAt) continue;
+    const fullText = `${document.title || ""}\n${document.text || ""}`;
+    for (const rule of rules) {
+      if (!matchesAll(fullText, rule.patterns)) continue;
+      const span = evidenceSpan(fullText, rule, Number(config.minimumEvidenceCharacters || 28));
+      if (config.requireEvidenceSpan && span.length < Number(config.minimumEvidenceCharacters || 28)) continue;
+      const entity = firstPatternLabel(`${document.source || ""} ${document.title || ""} ${span}`, config.entityPatterns || []);
+      const product = firstPatternLabel(`${document.title || ""} ${span}`, config.productPatterns || []);
+      if (!entity || !product) continue;
+      const stage = resolveClaimStage(`${document.title || ""} ${span}`, rule, policy);
+      const sourceUrl = canonicalUrl(document.url);
+      raw.push({
+        id: hash(`${rule.id}|${entity.id}|${product.id}|${stage.id}|${document.sourceId}|${sourceUrl}|${document.publishedAt}`),
+        ruleId: rule.id,
+        eventType: rule.eventType || "source-change",
+        label: rule.label,
+        entity,
+        product,
+        stage,
+        metrics: numericEvidence(span),
+        evidenceSpan: span,
+        sourceId: document.sourceId,
+        source: document.source,
+        sourceClass: document.sourceClass,
+        sourceUrl,
+        publishedAt: document.publishedAt,
+        observedAt: document.observedAt || now.toISOString(),
+        confidence: document.sourceClass === "official" ? "confirmed-primary" : "research-observed",
+      });
+    }
+  }
+
+  const unique = new Map();
+  for (const event of raw) unique.set(`${event.ruleId}|${event.entity.id}|${event.product.id}|${event.stage.id}|${event.sourceId}`, event);
+  const events = [...unique.values()];
+  const groups = new Map();
+  for (const event of events) {
+    const key = `${event.entity.id}|${event.product.id}`;
+    if (!groups.has(key)) groups.set(key, []);
+    groups.get(key).push(event);
+  }
+  for (const group of groups.values()) {
+    group.sort((left, right) => Number(right.stage.rank) - Number(left.stage.rank) || String(right.publishedAt).localeCompare(String(left.publishedAt)));
+    for (const event of group) {
+      const peers = group.filter((item) => item.stage.id === event.stage.id);
+      const independentSources = new Set(peers.map((item) => item.sourceId)).size;
+      const hasPrimary = peers.some((item) => item.sourceClass === "official");
+      const affirmative = peers.some((item) => !/(?:\bnot\b|den(?:y|ies|ied)|cancel(?:s|led)?|withdraw(?:s|n)?|중단|철회|부인)/i.test(item.evidenceSpan));
+      const opposing = peers.some((item) => /(?:\bnot\b|den(?:y|ies|ied)|cancel(?:s|led)?|withdraw(?:s|n)?|중단|철회|부인)/i.test(item.evidenceSpan));
+      event.independentSources = independentSources;
+      event.promotionStatus = hasPrimary ? "verified-primary" : independentSources >= 2 ? "corroborated" : "review";
+      // Different documents commonly disclose complementary capacity, speed
+      // and thermal figures.  A numerical-token difference is not itself a
+      // contradiction; only explicit affirmative/opposing stage language is.
+      event.contradictionStatus = affirmative && opposing ? "review" : "clear";
+    }
+    const trusted = group.filter((event) => event.promotionStatus !== "review" && event.contradictionStatus === "clear");
+    const latest = trusted[0] || group[0];
+    for (const event of group) {
+      event.isCurrentStage = event.id === latest.id;
+      event.supersededBy = Number(event.stage.rank) < Number(latest.stage.rank) ? latest.id : null;
+    }
+  }
+  events.sort((left, right) => Number(right.isCurrentStage) - Number(left.isCurrentStage)
+    || Number(right.stage.rank) - Number(left.stage.rank)
+    || String(right.publishedAt).localeCompare(String(left.publishedAt)));
+  const limited = events.slice(0, Number(config.maxEvents || 48));
+  const previousEvents = previous.events || [];
+  const previousIds = new Set(previousEvents.map((item) => item.id));
+  return {
+    schemaVersion: config.schemaVersion || "1.0",
+    generatedAt: now.toISOString(),
+    stats: {
+      eligibleDocuments: documents.filter((document) => eligible.has(document.sourceClass) && validUrl(document.url)).length,
+      structuredEvents: limited.length,
+      verifiedEvents: limited.filter((event) => event.promotionStatus !== "review" && event.contradictionStatus === "clear").length,
+      currentStages: limited.filter((event) => event.isCurrentStage).length,
+      newEvents: limited.filter((event) => !previousIds.has(event.id)).length,
+      contradictionReviews: limited.filter((event) => event.contradictionStatus === "review").length,
+    },
+    events: limited,
+  };
+}
+
+function uniqueEvidence(items = []) {
+  const byUrl = new Map();
+  for (const item of items) {
+    const url = canonicalUrl(item.url || item.sourceUrl);
+    if (!url || byUrl.has(url)) continue;
+    byUrl.set(url, { ...item, url });
+  }
+  return [...byUrl.values()];
+}
+
+export function buildAutomatedDecisionBriefs({ claimLedger = {}, packs = [], evaluation = {}, policy = loadIntelligencePolicy(), now = new Date() } = {}) {
+  const packMap = new Map(packs.map((pack) => [pack.id, pack]));
+  const minIndependent = Number(policy.decisionAutomation?.minimumIndependentEvidence || 2);
+  const minPrimary = Number(policy.decisionAutomation?.minimumPrimaryEvidence || 1);
+  return (policy.decisionAutomation?.briefs || []).map((brief) => {
+    const claims = (claimLedger.events || []).filter((event) => (brief.claimRuleIds || []).includes(event.ruleId));
+    const claimEvidence = claims.map((event) => ({
+      id: event.id,
+      title: `${event.entity.label} · ${event.product.label} · ${event.stage.id}`,
+      source: event.source,
+      sourceId: event.sourceId,
+      sourceClass: event.sourceClass,
+      url: event.sourceUrl,
+      publishedAt: event.publishedAt,
+      stage: event.stage.id,
+      confidence: event.confidence,
+      excerpt: event.evidenceSpan,
+    }));
+    const retrievalEvidence = (brief.trackIds || []).flatMap((trackId) => packMap.get(trackId)?.evidence || []);
+    const evidence = uniqueEvidence([...claimEvidence, ...retrievalEvidence]).slice(0, 8);
+    const independentSources = new Set(evidence.map((item) => item.sourceId || item.source).filter(Boolean)).size;
+    const primaryEvidence = evidence.filter((item) => item.sourceClass === "official").length;
+    const hasConflict = claims.some((event) => event.contradictionStatus === "review");
+    const verifiedClaims = claims.filter((event) => event.promotionStatus !== "review" && event.contradictionStatus === "clear").length;
+    const latestClaim = claims.filter((event) => event.isCurrentStage)[0] || claims[0] || null;
+    const status = hasConflict
+      ? "CONFLICT_REVIEW"
+      : evaluation.status === "pass" && verifiedClaims > 0 && independentSources >= minIndependent && primaryEvidence >= minPrimary
+        ? "DECISION_READY"
+        : evidence.length ? "EVIDENCE_READY" : "MONITORING";
+    return {
+      id: brief.id,
+      label: brief.label,
+      status,
+      updatedAt: now.toISOString(),
+      whatChanged: latestClaim ? `${latestClaim.entity.label}의 ${latestClaim.product.label}가 ${latestClaim.stage.id} 단계로 관측됨` : "구조화된 Stage Event 관측 대기",
+      stage: latestClaim?.stage.id || "MONITORING",
+      confidence: latestClaim?.promotionStatus || "evidence-gap",
+      customerPain: brief.customerPain,
+      hypothesis: brief.hypothesis,
+      options: brief.options || [],
+      economics: brief.economics || [],
+      action90d: brief.action90d,
+      owner: brief.owner,
+      kpis: brief.kpis || [],
+      trigger: brief.trigger,
+      killCriteria: brief.killCriteria,
+      evidenceCount: evidence.length,
+      independentSources,
+      primaryEvidence,
+      verifiedClaims,
+      evidence,
+    };
+  });
+}
+
+function buildSourceOperations({ documents = [], feedStatus = [], observations = [], claimLedger = {}, packs = [], policy = loadIntelligencePolicy(), now = new Date() } = {}) {
+  const usefulIds = new Set([
+    ...observations.map((item) => item.sourceId),
+    ...(claimLedger.events || []).map((item) => item.sourceId),
+    ...packs.flatMap((pack) => pack.evidence || []).map((item) => item.sourceId),
+  ].filter(Boolean));
+  const documentByFeed = new Map(documents.filter((item) => item.feedId).map((item) => [item.feedId, item]));
+  const sources = (policy.directFeeds || []).map((feed) => {
+    const status = feedStatus.find((item) => item.id === feed.id) || {};
+    const document = documentByFeed.get(feed.id);
+    return {
+      id: feed.id,
+      sourceId: feed.sourceId,
+      latencyClass: feed.latencyClass,
+      refreshMode: feed.refreshMode,
+      transportStatus: status.status || "not-observed",
+      attempts: Number(status.attempts || 0),
+      lastSuccessAt: document?.observedAt || status.lastSuccessAt || null,
+      lastUsefulObservationAt: usefulIds.has(feed.sourceId) ? document?.observedAt || now.toISOString() : null,
+      usefulObservation: usefulIds.has(feed.sourceId),
+      eventYield: (claimLedger.events || []).filter((item) => item.sourceId === feed.sourceId).length,
+    };
+  });
+  const fetched = sources.filter((item) => ["fetched", "fixture", "retained-not-due"].includes(item.transportStatus)).length;
+  const useful = sources.filter((item) => item.usefulObservation).length;
+  return {
+    configured: sources.length,
+    observed: fetched,
+    useful,
+    observationRatePct: sources.length ? Number((100 * fetched / sources.length).toFixed(1)) : 0,
+    usefulYieldPct: fetched ? Number((100 * useful / fetched).toFixed(1)) : 0,
+    sources,
+  };
+}
+
 function evaluate({ index, packs, consensus, policy, now }) {
   const citations = packs.flatMap((pack) => pack.evidence || []);
   const citationCoveragePct = citations.length ? 100 * citations.filter((item) => validUrl(item.url)).length / citations.length : 0;
@@ -655,8 +894,12 @@ export function buildDecisionIntelligence({ documents = [], previous = {}, polic
   const events = detectEvents(documents, previous.knowledgeIndex || {}, policy);
   const evaluation = evaluate({ index, packs: retrievalPacks, consensus, policy, now });
   const freshness = buildFreshnessScore({ index, packs: retrievalPacks, consensus, feedStatus, previous, policy, now });
+  const claimEvents = buildClaimEventLedger({ documents, previous: previous.claimEvents || {}, policy, now });
+  const decisionBriefs = buildAutomatedDecisionBriefs({ claimLedger: claimEvents, packs: retrievalPacks, evaluation, policy, now });
+  const sourceOperations = buildSourceOperations({ documents, feedStatus, observations, claimLedger: claimEvents, packs: retrievalPacks, policy, now });
+  const readyBriefs = decisionBriefs.filter((brief) => brief.status === "DECISION_READY").length;
   return {
-    schemaVersion: "1.1",
+    schemaVersion: "1.2",
     runId,
     generatedAt: now.toISOString(),
     refreshTrigger,
@@ -664,6 +907,20 @@ export function buildDecisionIntelligence({ documents = [], previous = {}, polic
     feedStatus,
     metrics: consensus,
     eventTriggers: events,
+    claimEvents,
+    decisionAutomation: {
+      schemaVersion: policy.decisionAutomation?.schemaVersion || "1.0",
+      state: claimEvents.stats.contradictionReviews > 0 ? "CONFLICT_REVIEW" : readyBriefs > 0 ? "DECISION_READY" : claimEvents.stats.structuredEvents > 0 ? "EVIDENCE_READY" : "MONITORING",
+      funnel: {
+        sourceDocuments: index.stats.documents,
+        structuredEvents: claimEvents.stats.structuredEvents,
+        verifiedEvents: claimEvents.stats.verifiedEvents,
+        decisionReadyBriefs: readyBriefs,
+        executionTrackingBriefs: decisionBriefs.filter((brief) => brief.status === "EXECUTION_TRACKING").length,
+      },
+      sourceOperations,
+      briefs: decisionBriefs,
+    },
     retrieval: {
       mode: policy.retrieval?.mode,
       stats: index.stats,

@@ -1,0 +1,27 @@
+name: Nightly Decision Intelligence Deep QA
+
+on:
+  schedule:
+    - cron: "47 18 * * *"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  deep-qa:
+    runs-on: ubuntu-latest
+    timeout-minutes: 25
+    steps:
+      - name: Checkout latest verified main
+        uses: actions/checkout@v7
+        with:
+          ref: main
+
+      - name: Setup Node
+        uses: actions/setup-node@v7
+        with:
+          node-version: "24"
+
+      - name: Run full regression, performance and content audit
+        run: npm run check:deep

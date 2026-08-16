@@ -45,6 +45,17 @@ const quant = {
   updatedAt: payload.updatedAt,
   sourceHealth: { ok: 1 },
   fx: { usdkrw: { history30d: { points: [{ date: "2026-07-01", value: 1 }] }, history5y: { points: [{ date: "2021-07-01", value: 1 }] } } },
+  decisionIntelligence: {
+    decisionAutomation: {
+      state: "EVIDENCE_READY",
+      briefs: ["custom-memory", "agentic-tiering", "enterprise-rag", "ai-factory"].map((id) => ({
+        id,
+        label: id,
+        status: "EVIDENCE_READY",
+        evidence: [],
+      })),
+    },
+  },
 };
 const priceHistory = {
   schemaVersion: "2.0",

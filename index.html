@@ -110,7 +110,7 @@
     (() => {
       if (!location.hash.startsWith("#console")) return;
       document.documentElement.classList.add("console-entry");
-      const revision = "infra-20260816-21";
+      const revision = "infra-20260816-22";
       const assets = [
         ["consoleStylesPreload", "style", `assets/css/styles.min.css?v=${revision}`, "high"],
         ["consoleAppPreload", "script", `assets/js/app.min.js?v=${revision}`, "low"],
@@ -127,7 +127,7 @@
       }
     })();
   </script>
-  <link rel="stylesheet" href="assets/css/landing.min.css?v=infra-20260816-21" />
+  <link rel="stylesheet" href="assets/css/landing.min.css?v=infra-20260816-22" />
 </head>
 <body class="landing-mode">
   <div class="business-site" id="businessSite">
@@ -379,6 +379,65 @@
           </article>
 
           <div class="business-decision-data-note"><span class="business-live-dot" id="decisionDataDot">Console sync</span><p id="decisionDataStatus">정적 전략 답안을 먼저 표시하고, 검증된 Console 경량 데이터만 비동기로 연결합니다.</p><time id="decisionDataUpdated">업데이트 확인 중</time></div>
+        </div>
+      </section>
+
+      <section class="business-section business-decision-automation" id="decision-automation" data-frame="DECISION OS · CLAIM EVENT · EXECUTION GATE">
+        <div class="business-container">
+          <div class="business-section-heading business-section-heading--split">
+            <div>
+              <p class="business-kicker">Decision Automation OS · Evidence to Action</p>
+              <h2>Source → ClaimEvent → Decision → Execution</h2>
+            </div>
+            <ul class="business-heading-points">
+              <li>원문 문장·날짜·제품 Stage 없으면 승격하지 않음</li>
+              <li>Memory를 답으로 먼저 정하지 않고 지배 병목부터 진단</li>
+              <li>모든 판단에 Owner·KPI·Trigger·Kill Criteria 연결</li>
+            </ul>
+          </div>
+
+          <div class="decision-os-control" aria-label="의사결정 자동화 현재 상태">
+            <div><span>DECISION STATE</span><strong id="decisionAutomationState">EVIDENCE READY</strong><small id="decisionAutomationAsOf">검증 Bundle 기준</small></div>
+            <dl>
+              <div><dt>CATALOG OBSERVED</dt><dd id="decisionCatalogCoverage">7 / 42</dd></div>
+              <div><dt>CLAIM EVENTS</dt><dd id="decisionClaimEvents">자동 구조화</dd></div>
+              <div><dt>VERIFIED EVENTS</dt><dd id="decisionVerifiedEvents">원문 Gate</dd></div>
+              <div><dt>DECISION READY</dt><dd id="decisionReadyBriefs">안건별 판정</dd></div>
+            </dl>
+          </div>
+
+          <ol class="decision-os-funnel" aria-label="수집부터 실행 추적까지의 자동화 단계">
+            <li><span>01</span><div><small>OBSERVE</small><strong>Primary Source</strong><p>ETag·날짜·본문·출처 등급을 코드로 확인</p></div></li>
+            <li><span>02</span><div><small>STRUCTURE</small><strong>ClaimEvent Ledger</strong><p>Entity·Product·Stage·수치·근거 문장을 구조화</p></div></li>
+            <li><span>03</span><div><small>VERIFY</small><strong>Evidence Gate</strong><p>원문·독립 출처·모순·Superseded 상태 판정</p></div></li>
+            <li><span>04</span><div><small>DECIDE</small><strong>Executive Brief</strong><p>Pain·옵션·경제성·위험·중단 조건을 한 장에 연결</p></div></li>
+            <li><span>05</span><div><small>EXECUTE</small><strong>90-Day Board</strong><p>Owner·KPI·Trigger·Qualification·Revenue 전환 추적</p></div></li>
+          </ol>
+
+          <div class="decision-os-source-gate">
+            <div>
+              <span>OBSERVABILITY GATE</span>
+              <strong id="decisionObservationHeadline">소스 개수보다 실제 관측·구조화 성공률을 관리</strong>
+              <p id="decisionObservationCopy">공식 원문 관측률, Event 추출률, 독립 교차검증, 게시 지연을 자동 측정합니다.</p>
+            </div>
+            <div class="decision-os-gauge" aria-label="공식 소스 관측 목표">
+              <i id="decisionObservationGauge" style="--decision-progress: 17%"></i>
+              <span><b id="decisionObservationRate">16.7%</b><small>현재 관측</small></span>
+              <span><b>90%</b><small>핵심 1차 소스 목표</small></span>
+            </div>
+          </div>
+
+          <div class="decision-os-briefs" id="decisionAutomationBriefs" aria-live="polite">
+            <article><header><span>01 · CUSTOM MEMORY</span><b>EVIDENCE READY</b></header><h3>표준형과 Custom 투자를 Stage Gate로 분리</h3><ul><li>고객 인증·Base-Die·Package·Yield 동시 확인</li><li>Binding Volume·NRE 회수·Margin Floor 충족 시 확대</li></ul><footer><small>KILL</small><strong>확정 물량과 Qualification 경로가 없으면 Full-Custom 중단</strong></footer></article>
+            <article><header><span>02 · AGENTIC INFERENCE</span><b>EVIDENCE READY</b></header><h3>Serving SW 이후 Memory Tiering을 검증</h3><ul><li>Context·Concurrency·KV Reuse·TTFT/TPOT 고정</li><li>HBM·Host DRAM/CXL·eSSD를 동일 SLO에서 비교</li></ul><footer><small>KILL</small><strong>SW-only가 더 경제적이면 HW 제안 중단</strong></footer></article>
+            <article><header><span>03 · ENTERPRISE RAG</span><b>EVIDENCE READY</b></header><h3>Vector DB보다 검색 품질 Gate를 먼저 통과</h3><ul><li>ACL·Metadata·Hybrid Retrieval·Rerank 검증</li><li>Hot Index·Warm Document·Cold Corpus 계층화</li></ul><footer><small>KILL</small><strong>Recall·권한·인용 품질 실패 시 증설 중단</strong></footer></article>
+            <article><header><span>04 · AI FACTORY</span><b>EVIDENCE READY</b></header><h3>서버가 아니라 Rack Cell 단위로 투자 판단</h3><ul><li>Accelerator·Fabric·Storage·Power/Cooling 통합 계측</li><li>Useful AI Work / Cost와 Qualification / Time 적용</li></ul><footer><small>KILL</small><strong>전력·열·복구 SLO 미검증 시 대규모 CAPEX 보류</strong></footer></article>
+          </div>
+
+          <div class="decision-os-links">
+            <a href="console/">검색·공유 가능한 Executive Snapshot 열기 <span aria-hidden="true">→</span></a>
+            <p>HTML에는 최신 경영진 답안을, JSON에는 상세 Evidence를, JavaScript에는 상호작용만 배치합니다.</p>
+          </div>
         </div>
       </section>
 
@@ -894,11 +953,11 @@
       <span>05 · EXECUTE<br />Owner·KPI·90일 Gate</span>
     </div>
     <nav class="console-static-links" aria-label="AI Infra 의사결정 안건 바로가기">
-      <a href="#console/c-level-cockpit/hbm4-foundry">HBM4 Base-Die · Foundry Alliance →</a>
+      <a href="console/">Executive Decision Snapshot →</a>
       <a href="#console/c-level-cockpit/ondevice-lpddr">On-device AI · LPDDR Portfolio →</a>
       <a href="#console/c-level-cockpit/post-hbm">Post-HBM · Tiered Memory Portfolio →</a>
     </nav>
-    <small>정적 Decision OS를 먼저 표시한 뒤 검증 데이터 기반 Console로 전환합니다.</small>
+    <small>검색·공유 가능한 /console/ 정적 문서와 검증 데이터 기반 Interactive Console을 함께 제공합니다.</small>
   </aside>
   <template id="consoleTemplate">
   <div class="app console-layer" id="intelligenceConsole" hidden>
@@ -1918,6 +1977,6 @@
   <div class="qa-answer" id="qaAnswer" hidden></div>
   <div class="inspector" id="inspector" hidden></div>
   <div class="backdrop" id="backdrop"></div>
-  <script src="assets/js/landing.min.js?v=infra-20260816-21" defer></script>
+  <script src="assets/js/landing.min.js?v=infra-20260816-22" defer></script>
 </body>
 </html>
