@@ -46,6 +46,12 @@ import {
   sourceCatalogDiscoveryMonitors,
   sourceCatalogHealthProbes,
 } from "./source-catalog.mjs";
+import {
+  buildDecisionIntelligence,
+  decisionMetric,
+  htmlToDecisionText,
+  loadIntelligencePolicy,
+} from "./decision-intelligence.mjs";
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
 const OUT = resolve(__dirname, "..", "data", "live.json");
@@ -69,6 +75,7 @@ const QUANT_OUT = resolve(__dirname, "..", "data", "quant.json");
 const QUANT_MODEL_IN = resolve(__dirname, "..", "data", "quant-model.json");
 const BASELINE_IN = resolve(__dirname, "..", "data", "baseline.json");
 const SOURCE_CATALOG = loadSourceCatalog();
+const INTELLIGENCE_POLICY = loadIntelligencePolicy();
 const CATALOG_DISCOVERY_MONITORS = sourceCatalogDiscoveryMonitors(SOURCE_CATALOG);
 const CATALOG_OFFICIAL_PROBES = sourceCatalogHealthProbes(SOURCE_CATALOG);
 const LIVE_SCHEMA_VERSION = "4.0";
@@ -4432,6 +4439,10 @@ function compactQuantForClient(quant = {}) {
   for (const group of [next.fx, next.aiDemandProxy]) {
     for (const item of Object.values(group || {})) delete item.history5y;
   }
+  // The full incremental retrieval corpus remains in quant.json for the next
+  // automation run. Browsers receive only evaluation, metric consensus and
+  // retrieval-pack summaries, avoiding a large first-load parse.
+  if (next.decisionIntelligence?.knowledgeIndex) delete next.decisionIntelligence.knowledgeIndex;
   return { ...next, clientArtifact: true };
 }
 
@@ -4636,17 +4647,31 @@ export function buildLandingDecisionClient({ payload = {}, quant = {} } = {}) {
         dataStatus: brief.latest.dataStatus || "live-observed",
       },
     }));
+  const automatedMetrics = quant.decisionIntelligence?.metrics?.latest || [];
   const companies = (quant.marketStructure?.companies || [])
     .filter((company) => ["SKHY", "삼성전자", "마이크론"].includes(company?.company))
-    .map((company) => ({
-      company: company.company,
-      hbmShare: company.hbmShare || null,
-      dramShare: company.dramShare2026 || null,
-      asOf: company.asOf || null,
-      source: company.source || null,
-      sourceUrl: company.sourceUrl || null,
-      dataStatus: company.dataStatus || null,
-    }));
+    .map((company) => {
+      const metric = hbmMetricForCompany({ metrics: { latest: automatedMetrics } }, company.company);
+      const primarySource = metric?.sources?.[0] || null;
+      return {
+        company: company.company,
+        // Never ship a volatile HBM share from the editorial baseline.
+        hbmShare: metric?.display || null,
+        dramShare: company.dramShare2026 || null,
+        asOf: metric?.period || null,
+        source: metric?.sources?.map((source) => source.name).filter(Boolean).join(" · ") || null,
+        sourceUrl: primarySource?.url || null,
+        dataStatus: metric ? (metric.representation === "range" ? `range-${metric.sourceCount}-sources` : metric.confidence) : "automation-pending",
+        trend: metric ? {
+          direction: metric.direction || "new",
+          changePctPoint: metric.changePctPoint ?? null,
+          priorPeriod: metric.priorPeriod || null,
+          yearAgoPeriod: metric.yearAgoPeriod || null,
+          yearAgoChangePctPoint: metric.yearAgoChangePctPoint ?? null,
+          sourceCount: Number(metric.sourceCount || 0),
+        } : null,
+      };
+    });
   const priceSections = (payload.prices?.sections || [])
     .filter((section) => ["DRAM Spot Price", "DRAM Contract Price", "PC-Client OEM SSD Contract Price"].includes(section?.title))
     .map((section) => ({
@@ -5798,6 +5823,82 @@ export async function fetchSourceTextWithRetry(source = {}, {
     }
   }
   throw lastError || new Error("source fetch failed");
+}
+
+function currentDecisionDocuments(context = {}) {
+  const rows = [
+    ...(context.news || []).map((item) => ({
+      sourceId: catalogSourceForUrl(directNewsUrl(item), SOURCE_CATALOG)?.id || item.verification?.sourceClass || "news",
+      source: item.source || item.publisher || "News source",
+      sourceClass: item.verification?.sourceClass || newsSourceClass(item),
+      title: item.titleKo || item.title || "Memory intelligence source",
+      url: directNewsUrl(item),
+      publishedAt: exactEvidenceDate(item),
+      observedAt: item.verification?.validatedAt || context.generatedAt || new Date().toISOString(),
+      text: `${item.originalTitle || item.title || ""}\n${item.summaryOriginal || item.summary || ""}`,
+      feedId: null,
+    })),
+    ...(context.brokerResearch?.items || []).map((item) => ({
+      sourceId: item.institutionId || "broker-research",
+      source: item.institution || item.source || "Research",
+      sourceClass: "research",
+      title: item.title || "Memory research",
+      url: item.sourceUrl || item.url || "",
+      publishedAt: exactEvidenceDate(item),
+      observedAt: item.observedAt || context.generatedAt || new Date().toISOString(),
+      text: `${item.title || ""}\n${item.summary || ""}\n${item.insight || ""}`,
+      feedId: null,
+    })),
+  ];
+  return rows.filter((item) => validHttpUrl(item.url) && item.text.trim());
+}
+
+async function collectDecisionIntelligenceDocuments(context = {}) {
+  const observedAt = new Date().toISOString();
+  const settled = await Promise.all((INTELLIGENCE_POLICY.directFeeds || []).map(async (feed) => {
+    const catalogSource = SOURCE_CATALOG.sources.find((source) => source.id === feed.sourceId);
+    if (!catalogSource) return { feed, status: "invalid-source", error: "source catalog id missing" };
+    try {
+      const { html, attempts, url } = await fetchSourceTextWithRetry({
+        url: feed.url,
+        retryAttempts: 2,
+      });
+      const text = htmlToDecisionText(html).slice(0, 180000);
+      if (text.length < 120) throw new Error("source text too short");
+      const rawTitle = html.match(/<title[^>]*>([\s\S]*?)<\/title>/i)?.[1] || catalogSource.name;
+      return {
+        feed,
+        status: "fetched",
+        attempts,
+        document: {
+          feedId: feed.id,
+          sourceId: catalogSource.id,
+          source: catalogSource.name,
+          sourceClass: catalogSource.sourceClass,
+          title: stripHTML(rawTitle).slice(0, 180),
+          url,
+          publishedAt: documentPublicationDate(html, url),
+          observedAt,
+          text,
+        },
+      };
+    } catch (error) {
+      return { feed, status: "unavailable", error: String(error?.message || error).slice(0, 240) };
+    }
+  }));
+  const direct = settled.map((item) => item.document).filter(Boolean);
+  const current = currentDecisionDocuments({ ...context, generatedAt: observedAt });
+  const byUrl = new Map();
+  for (const document of [...current, ...direct]) byUrl.set(normalizeCrawlExclusionUrl(document.url), document);
+  const feedStatus = settled.map((item) => ({
+    id: item.feed.id,
+    sourceId: item.feed.sourceId,
+    kind: item.feed.kind,
+    status: item.status,
+    attempts: item.attempts || 0,
+    error: item.error || null,
+  }));
+  return { documents: [...byUrl.values()], feedStatus };
 }
 
 async function collectChinaInfra() {
@@ -8514,8 +8615,57 @@ function corroborateKpi(item = {}, liveFigures = {}) {
 /* Account, council, relationship, freshness, and official-industry transforms
  * live in scripts/live-pipeline.mjs so fixtures can test them without network. */
 
-function buildMarketStructure(previous = {}, baseline = {}, liveFigures = {}) {
+function marketMetricProvenance(metric = null) {
+  if (!metric) return null;
+  const sources = metric.sources || [];
+  return {
+    asOf: metric.period || null,
+    source: sources.map((source) => source.name).filter(Boolean).join(" · ") || null,
+    sourceUrl: sources[0]?.url || null,
+    basis: "automated-metric-consensus",
+    dataStatus: metric.representation === "range" ? `range-${metric.sourceCount}-sources` : metric.confidence || "single-source",
+    sourceCount: metric.sourceCount || 0,
+    representation: metric.representation || "point",
+    direction: metric.direction || "new",
+    changePctPoint: metric.changePctPoint ?? null,
+    priorPeriod: metric.priorPeriod || null,
+    yearAgoPeriod: metric.yearAgoPeriod || null,
+    yearAgoChangePctPoint: metric.yearAgoChangePctPoint ?? null,
+  };
+}
+
+function hbmMetricForCompany(decisionIntelligence = {}, company = "") {
+  const id = /skhy|hynix|하이닉스/i.test(company)
+    ? "skhynix"
+    : /samsung|삼성/i.test(company)
+      ? "samsung"
+      : /micron|마이크론/i.test(company)
+        ? "micron"
+        : "";
+  return id ? decisionMetric(decisionIntelligence, "hbm-revenue-share", id) : null;
+}
+
+function buildMarketStructure(previous = {}, baseline = {}, liveFigures = {}, decisionIntelligence = {}) {
+  const automatedSkhynixHbm = decisionMetric(decisionIntelligence, "hbm-revenue-share", "skhynix");
   const kpis = (baseline.kpis || []).map((item, index) => {
+    if (/SKHY.*HBM.*점유|SK hynix.*HBM.*share/i.test(String(item.label || ""))) {
+      const provenance = marketMetricProvenance(automatedSkhynixHbm);
+      return {
+        id: item.id || `kpi-${index}`,
+        baselineIndex: index,
+        label: item.label,
+        value: automatedSkhynixHbm?.display || null,
+        prefix: "",
+        unit: "",
+        asOf: provenance?.asOf || null,
+        source: provenance?.source || null,
+        sourceUrl: provenance?.sourceUrl || null,
+        basis: provenance?.basis || "automation-unavailable",
+        dataStatus: provenance?.dataStatus || "unavailable",
+        liveCorroboration: automatedSkhynixHbm || null,
+        status: automatedSkhynixHbm ? "reported" : "watch",
+      };
+    }
     const corroboration = corroborateKpi(item, liveFigures);
     const sourceUrl = item.sourceUrl || item.url || null;
     const isWatch = /watch|확인/i.test(`${item.status || ""} ${item.source || ""}`);
@@ -8538,7 +8688,6 @@ function buildMarketStructure(previous = {}, baseline = {}, liveFigures = {}) {
     };
   });
   const findKpi = (pattern) => kpis.find((item) => pattern.test(String(item.label || "")));
-  const hbmKpi = findKpi(/SKHY.*HBM.*점유/i);
   const dramKpi = findKpi(/DRAM.*Top3.*점유/i);
   const cxmtKpi = findKpi(/CXMT.*점유/i);
   const ymtcKpi = findKpi(/YMTC.*NAND.*점유/i);
@@ -8552,8 +8701,9 @@ function buildMarketStructure(previous = {}, baseline = {}, liveFigures = {}) {
   const companies = (baseline.architectureMatrix?.shareMatrix || []).map((item) => {
     const company = String(item.company || "");
     const isGlobalDramVendor = /skhy|samsung|micron|삼성|마이크론/i.test(company);
+    const automatedHbm = hbmMetricForCompany(decisionIntelligence, company);
     const fieldProvenance = {
-      hbmShare: isGlobalDramVendor ? provenanceFromKpi(hbmKpi) : null,
+      hbmShare: isGlobalDramVendor ? marketMetricProvenance(automatedHbm) : null,
       dramShare2025: isGlobalDramVendor ? {
         ...provenanceFromKpi(dramKpi),
         asOf: "2025 Q1",
@@ -8566,7 +8716,7 @@ function buildMarketStructure(previous = {}, baseline = {}, liveFigures = {}) {
     const reference = Object.values(fieldProvenance).find(Boolean) || null;
     return {
       company: item.company,
-      hbmShare: fieldProvenance.hbmShare ? item.hbmShare : null,
+      hbmShare: automatedHbm?.display || null,
       dramShare2025: fieldProvenance.dramShare2025 ? item.dramShare2025 : null,
       dramShare2026: fieldProvenance.dramShare2026 ? item.dramShare2026 : null,
       nandShare2026: fieldProvenance.nandShare2026 ? item.nandShare2026 : null,
@@ -8574,7 +8724,18 @@ function buildMarketStructure(previous = {}, baseline = {}, liveFigures = {}) {
       asOf: reference?.asOf || null,
       source: reference?.source || null,
       sourceUrl: reference?.sourceUrl || null,
-      basis: "source-baseline",
+      hbmMetric: automatedHbm ? {
+        period: automatedHbm.period,
+        display: automatedHbm.display,
+        representation: automatedHbm.representation,
+        sourceCount: automatedHbm.sourceCount,
+        direction: automatedHbm.direction,
+        changePctPoint: automatedHbm.changePctPoint,
+        priorPeriod: automatedHbm.priorPeriod,
+        yearAgoPeriod: automatedHbm.yearAgoPeriod,
+        yearAgoChangePctPoint: automatedHbm.yearAgoChangePctPoint,
+      } : null,
+      basis: reference?.basis || "source-baseline",
       dataStatus: reference?.dataStatus || "last-verified",
     };
   });
@@ -9343,6 +9504,37 @@ async function collectQuantMetrics(priceHistory, context = {}) {
   }
   quant.liveFigures = extractLiveFigures(context);
   note("quant:라이브 수치", quant.liveFigures.total > 0, `원문 정량 수치 ${quant.liveFigures.total}건 추출`);
+  const decisionDocuments = await collectDecisionIntelligenceDocuments(context);
+  const candidateDecisionIntelligence = buildDecisionIntelligence({
+    documents: decisionDocuments.documents,
+    previous: previous.decisionIntelligence || {},
+    policy: INTELLIGENCE_POLICY,
+    runId: context.runId || null,
+    now: new Date(),
+    feedStatus: decisionDocuments.feedStatus,
+    refreshTrigger: process.env.INTELLIGENCE_REFRESH_TRIGGER || "scheduled-3h",
+  });
+  quant.decisionIntelligence = candidateDecisionIntelligence.evaluation?.status === "pass"
+    ? { ...candidateDecisionIntelligence, publishStatus: "verified-current" }
+    : previous.decisionIntelligence?.evaluation?.status === "pass"
+      ? {
+          ...previous.decisionIntelligence,
+          publishStatus: "retained-last-verified",
+          lastAttempt: {
+            runId: context.runId || null,
+            generatedAt: candidateDecisionIntelligence.generatedAt,
+            refreshTrigger: candidateDecisionIntelligence.refreshTrigger,
+            evaluation: candidateDecisionIntelligence.evaluation,
+            feedStatus: candidateDecisionIntelligence.feedStatus,
+          },
+        }
+      : { ...candidateDecisionIntelligence, publishStatus: "review-no-prior-bundle" };
+  const fetchedDecisionFeeds = decisionDocuments.feedStatus.filter((item) => item.status === "fetched").length;
+  note(
+    "derived:decision-intelligence",
+    quant.decisionIntelligence.evaluation?.status === "pass",
+    `직접 피드 ${fetchedDecisionFeeds}/${decisionDocuments.feedStatus.length} · 지표 ${quant.decisionIntelligence.metrics?.latest?.length || 0}개 · 증분 재색인 ${quant.decisionIntelligence.retrieval?.stats?.reindexed || 0}건 · 평가 ${quant.decisionIntelligence.evaluation?.status || "review"}`,
+  );
   quant.accountSignals = buildDemandAccountSignals(context, previous.accountSignals);
   note(
     "derived:account-signals",
@@ -9358,7 +9550,7 @@ async function collectQuantMetrics(priceHistory, context = {}) {
   note("derived:official-industry", true, `공식 산업 통계 연결 ${quant.industryPulse.connected}/${quant.industryPulse.total} · 최신 기사 관측 ${quant.industryPulse.observed}/${quant.industryPulse.total}`);
   quant.agentBriefing = buildAgentBriefing(context, quant);
   note("derived:agent-briefing", quant.agentBriefing.sourceCount > 0, `역할별 최신 근거 ${quant.agentBriefing.sourceCount}개 출처`);
-  quant.marketStructure = buildMarketStructure(previous.marketStructure, context.baseline, quant.liveFigures);
+  quant.marketStructure = buildMarketStructure(previous.marketStructure, context.baseline, quant.liveFigures, quant.decisionIntelligence);
   const drivers = buildQuantDrivers(quant, context);
   quant.scenarioCalibration = buildScenarioCalibration(previous.scenarioCalibration, drivers, model);
   quant.projectionCalibration = buildProjectionCalibration(previous.projectionCalibration, quant.scenarioCalibration, model);

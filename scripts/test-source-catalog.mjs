@@ -9,11 +9,17 @@ import {
   validateSourceCatalog,
 } from "./source-catalog.mjs";
 import { buildSiteContentClient } from "./site-content.mjs";
+import { loadIntelligencePolicy, validateIntelligencePolicy } from "./decision-intelligence.mjs";
 
 const json = (path) => JSON.parse(readFileSync(path, "utf8"));
 const catalog = loadSourceCatalog();
 const validation = validateSourceCatalog(catalog);
 assert.deepEqual(validation, { ok: true, errors: [] });
+const intelligencePolicy = loadIntelligencePolicy();
+assert.deepEqual(validateIntelligencePolicy(intelligencePolicy), { ok: true, errors: [] });
+assert.ok(intelligencePolicy.directFeeds.every((feed) => catalog.sources.some((source) => source.id === feed.sourceId)), "every direct feed must map to the governed source catalog");
+assert.ok(intelligencePolicy.metrics.some((metric) => metric.id === "hbm-revenue-share" && metric.dimension === "revenue-share"));
+assert.ok(intelligencePolicy.metrics.some((metric) => metric.id === "hbm-wafer-input-share" && metric.dimension === "wafer-input-share"));
 
 const enabled = catalog.sources.filter((source) => source.enabled);
 const official = enabled.filter((source) => source.sourceClass === "official");
@@ -32,6 +38,7 @@ assert.ok(probes.length >= 5);
 assert.equal(new Set(monitors.map((monitor) => monitor.id)).size, monitors.length);
 assert.equal(new Set(probes.map((probe) => probe.id)).size, probes.length);
 assert.equal(catalogSourceForUrl("https://news.skhynix.com/example", catalog)?.id, "skhynix-newsroom");
+assert.equal(catalogSourceForUrl("https://news.samsung.com/global/example", catalog)?.id, "samsung-semiconductor");
 assert.equal(catalogSourceForUrl("https://cloud.google.com/blog/topics/tpus", catalog)?.id, "google-cloud-tpu");
 assert.equal(catalogSourceForUrl("https://smrc.biz.samsung.com/html/about-us_new.html", catalog)?.id, "samsung-smrc");
 assert.equal(catalogSourceForUrl("https://developer.nvidia.com/blog/example", catalog)?.id, "nvidia-dynamo");
@@ -86,6 +93,7 @@ assert.match(crawler, /sourceCatalogDiscoveryMonitors/);
 assert.match(crawler, /sourceCatalogHealthProbes/);
 assert.match(crawler, /source_catalog_observed/);
 assert.match(workflow, /cron: "17 \*\/3 \* \* \*"/);
+assert.match(workflow, /repository_dispatch:[\s\S]*earnings-release[\s\S]*industry-report[\s\S]*source-update/);
 assert.match(landing, /businessDataSources/);
 assert.match(audit, /3\.0-catalog-driven-registry/);
 assert.match(audit, /source catalog coverage or fail-closed policy is incomplete/);

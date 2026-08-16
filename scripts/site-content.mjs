@@ -88,18 +88,117 @@ function buildInsight(brief = {}, fallbackAt = null) {
 }
 
 function buildCompetitors(quant = {}) {
+  const automatedMetrics = quant.decisionIntelligence?.metrics?.latest || [];
+  const entityId = (company = "") => /skhy|hynix|하이닉스/i.test(company)
+    ? "skhynix"
+    : /samsung|삼성/i.test(company)
+      ? "samsung"
+      : /micron|마이크론/i.test(company)
+        ? "micron"
+        : "";
   return (quant.marketStructure?.companies || [])
     .filter((company) => ["SKHY", "삼성전자", "마이크론"].includes(company?.company))
-    .map((company) => ({
-      company: company.company,
-      hbmShare: company.hbmShare || null,
-      dramShare: company.dramShare2026 || company.dramShare2025 || null,
-      nandShare: company.nandShare2026 || null,
-      asOf: company.asOf || null,
-      source: company.source || null,
-      sourceUrl: directUrl(company.sourceUrl) ? company.sourceUrl : "",
-      dataStatus: company.dataStatus || company.basis || "review",
-    }));
+    .map((company) => {
+      const metric = automatedMetrics.find((item) => item.metricId === "hbm-revenue-share" && item.entityId === entityId(company.company));
+      const primarySource = metric?.sources?.[0] || null;
+      return {
+        company: company.company,
+        // Volatile HBM figures are never read from baseline/shareMatrix.
+        hbmShare: metric?.display || null,
+        dramShare: company.dramShare2026 || company.dramShare2025 || null,
+        nandShare: company.nandShare2026 || null,
+        asOf: metric?.period || null,
+        source: metric?.sources?.map((source) => source.name).filter(Boolean).join(" · ") || null,
+        sourceUrl: directUrl(primarySource?.url) ? primarySource.url : "",
+        dataStatus: metric ? (metric.representation === "range" ? `range-${metric.sourceCount}-sources` : metric.confidence) : "automation-pending",
+        trend: metric ? {
+          direction: metric.direction || "new",
+          changePctPoint: metric.changePctPoint ?? null,
+          priorPeriod: metric.priorPeriod || null,
+          yearAgoPeriod: metric.yearAgoPeriod || null,
+          yearAgoChangePctPoint: metric.yearAgoChangePctPoint ?? null,
+          sourceCount: Number(metric.sourceCount || 0),
+          representation: metric.representation || "point",
+        } : null,
+      };
+    });
+}
+
+function buildDecisionIntelligenceContent(quant = {}) {
+  const current = quant.decisionIntelligence || {};
+  const evaluation = current.evaluation || {};
+  const retrieval = current.retrieval || {};
+  return {
+    schemaVersion: current.schemaVersion || "1.0",
+    status: evaluation.status || "pending-next-verified-run",
+    generatedAt: current.generatedAt || quant.updatedAt || null,
+    runId: current.runId || quant.runId || null,
+    refreshTrigger: current.refreshTrigger || "pending-next-verified-run",
+    metrics: (current.metrics?.latest || []).map((metric) => ({
+      metricId: metric.metricId,
+      metricLabel: metric.metricLabel,
+      dimension: metric.dimension,
+      entityId: metric.entityId,
+      company: metric.company,
+      period: metric.period,
+      display: metric.display,
+      representation: metric.representation,
+      sourceCount: Number(metric.sourceCount || 0),
+      confidence: metric.confidence,
+      direction: metric.direction,
+      changePctPoint: metric.changePctPoint ?? null,
+      priorPeriod: metric.priorPeriod || null,
+      yearAgoPeriod: metric.yearAgoPeriod || null,
+      yearAgoChangePctPoint: metric.yearAgoChangePctPoint ?? null,
+      sources: (metric.sources || []).map((source) => ({
+        id: source.id,
+        name: source.name,
+        sourceClass: source.sourceClass,
+        url: directUrl(source.url) ? source.url : "",
+        publishedAt: source.publishedAt || null,
+        value: source.value,
+      })),
+    })),
+    eventTriggers: (current.eventTriggers || []).slice(0, 12),
+    feedStatus: (current.feedStatus || []).map((feed) => ({
+      id: feed.id,
+      sourceId: feed.sourceId,
+      kind: feed.kind,
+      status: feed.status,
+    })),
+    retrieval: {
+      mode: retrieval.mode || "incremental-extractive",
+      stats: retrieval.stats || { documents: 0, chunks: 0, reindexed: 0 },
+      packs: (retrieval.packs || []).map((pack) => ({
+        id: pack.id,
+        label: pack.label,
+        decisionQuestion: pack.decisionQuestion,
+        status: pack.status,
+        evidenceCount: Number(pack.evidence?.length || 0),
+        citations: (pack.evidence || []).slice(0, 3).map((item) => ({
+          title: item.title,
+          source: item.source,
+          sourceClass: item.sourceClass,
+          url: directUrl(item.url) ? item.url : "",
+          publishedAt: item.publishedAt || null,
+        })),
+      })),
+    },
+    evaluation: {
+      framework: evaluation.framework || "grounded-retrieval-quality-loop",
+      status: evaluation.status || "pending",
+      failClosed: evaluation.failClosed !== false,
+      groundingMode: evaluation.groundingMode || "extractive-only",
+      metrics: evaluation.metrics || {
+        citationCoveragePct: 0,
+        trackCoveragePct: 0,
+        freshDocumentPct: 0,
+        primaryOrResearchPct: 0,
+        conflictDisclosurePct: 100,
+        unsupportedClaimPct: 0,
+      },
+    },
+  };
 }
 
 function buildWorkloadSignals(payload = {}, allowedSourceIds = []) {
@@ -358,6 +457,9 @@ export function validateSiteContent(content = {}) {
   if (!Array.isArray(content.presentation?.readabilityPolicy?.hoverModes) || content.presentation.readabilityPolicy.hoverModes.length !== 2) errors.push("presentation.readabilityPolicy.hoverModes");
   if (!Array.isArray(content.caseClassification) || content.caseClassification.length !== 3) errors.push("caseClassification");
   if (!content.decisionControl?.integrity?.status || !content.decisionControl?.freshness?.status || !content.decisionControl?.coverage?.status || !content.decisionControl?.confidence?.status) errors.push("decisionControl");
+  if (content.decisionIntelligence?.evaluation?.failClosed !== true) errors.push("decisionIntelligence.evaluation.failClosed");
+  if (content.decisionIntelligence?.retrieval?.mode !== "incremental-extractive") errors.push("decisionIntelligence.retrieval.mode");
+  if (Number(content.decisionIntelligence?.evaluation?.metrics?.unsupportedClaimPct ?? 1) !== 0) errors.push("decisionIntelligence.unsupportedClaimPct");
   if (Number(content.freshness?.configuredSources || 0) < 20) errors.push("freshness.configuredSources");
   if (Number(content.freshness?.officialConfigured || 0) < 15) errors.push("freshness.officialConfigured");
   for (const item of content.insights || []) {
@@ -432,6 +534,7 @@ export function buildSiteContentClient({ payload = {}, quant = {} } = {}) {
       },
     },
     decisionControl: buildDecisionControl(payload, sourceCoverage, generatedAt, expiresAt),
+    decisionIntelligence: buildDecisionIntelligenceContent(quant),
     hero: {
       titleLines: model.strategyMandate?.titleLines || [],
       thesis: topDecisions.length ? topDecisions : model.strategyMandate?.scope || [],

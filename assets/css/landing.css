@@ -6317,6 +6317,27 @@ body.landing-mode {
   }
 }
 
+/* Generated intelligence loop: six explicit controls with responsive wrap. */
+.business-automation-flow {
+  grid-template-columns: repeat(6, minmax(0, 1fr));
+}
+
+.business-status-rules {
+  grid-template-columns: repeat(5, minmax(0, 1fr));
+}
+
+@media (max-width: 980px) {
+  .business-automation-flow { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+  .business-status-rules { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .business-status-rules li:last-child { grid-column: 1 / -1; }
+}
+
+@media (max-width: 660px) {
+  .business-automation-flow,
+  .business-status-rules { grid-template-columns: minmax(0, 1fr); }
+  .business-status-rules li:last-child { grid-column: auto; }
+}
+
 @media (prefers-reduced-motion: reduce) {
   .business-architecture-flow > i::before,
   .business-strategy-chain > li.is-visible,

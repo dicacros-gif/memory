@@ -25,7 +25,16 @@ on:
     # Refresh catalog-driven official, customer, standards, research, price,
     # and market sources every three hours. Browser bundles still fail closed.
     - cron: "17 */3 * * *"
+  repository_dispatch:
+    types: [earnings-release, industry-report, source-update]
   workflow_dispatch:
+    inputs:
+      refresh_scope:
+        description: "Refresh scope"
+        required: true
+        default: "full"
+        type: choice
+        options: [full, earnings, market, retrieval]
 
 permissions:
   contents: write
@@ -56,6 +65,8 @@ jobs:
           node-version: "24"
 
       - name: Run intelligence agent
+        env:
+          INTELLIGENCE_REFRESH_TRIGGER: ${{ github.event.action || inputs.refresh_scope || github.event_name }}
         run: npm run crawl
 
       - name: Validate refreshed intelligence

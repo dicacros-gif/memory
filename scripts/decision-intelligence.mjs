@@ -1,0 +1,555 @@
+import { createHash } from "node:crypto";
+import { readFileSync } from "node:fs";
+import { dirname, resolve } from "node:path";
+import { fileURLToPath } from "node:url";
+
+const root = resolve(dirname(fileURLToPath(import.meta.url)), "..");
+export const INTELLIGENCE_POLICY_PATH = resolve(root, "data", "intelligence-policy.json");
+
+const hash = (value = "") => createHash("sha256").update(String(value)).digest("hex").slice(0, 20);
+const compact = (value = "", max = 12000) => String(value || "").replace(/[ \t]+/g, " ").replace(/\n{3,}/g, "\n\n").trim().slice(0, max);
+const sourceRank = { official: 3, research: 2, "authoritative-media": 1 };
+
+function compile(pattern = "") {
+  try { return new RegExp(String(pattern), "i"); } catch { return /$a/; }
+}
+
+function matchesAll(value = "", patterns = []) {
+  return (patterns || []).every((pattern) => compile(pattern).test(value));
+}
+
+function matchesAny(value = "", patterns = []) {
+  return (patterns || []).some((pattern) => compile(pattern).test(value));
+}
+
+function validUrl(value = "") {
+  try { return new URL(String(value)).protocol === "https:"; } catch { return false; }
+}
+
+function canonicalUrl(value = "") {
+  try {
+    const url = new URL(String(value));
+    url.hash = "";
+    for (const key of ["utm_source", "utm_medium", "utm_campaign", "utm_term", "utm_content"]) url.searchParams.delete(key);
+    return url.toString().replace(/\/$/, "");
+  } catch { return ""; }
+}
+
+export function htmlToDecisionText(html = "") {
+  return String(html || "")
+    .replace(/<script[\s\S]*?<\/script>/gi, " ")
+    .replace(/<style[\s\S]*?<\/style>/gi, " ")
+    .replace(/<(?:br|hr)\s*\/?\s*>/gi, "\n")
+    .replace(/<\/(?:p|li|tr|h[1-6]|section|article|div)>/gi, "\n")
+    .replace(/<\/(?:td|th)>/gi, " | ")
+    .replace(/<[^>]+>/g, " ")
+    .replace(/&#x([0-9a-f]+);/gi, (_, value) => String.fromCodePoint(Number.parseInt(value, 16)))
+    .replace(/&#(\d+);/g, (_, value) => String.fromCodePoint(Number(value)))
+    .replace(/&nbsp;/gi, " ")
+    .replace(/&amp;/gi, "&")
+    .replace(/&quot;/gi, '"')
+    .replace(/&#39;|&apos;/gi, "'")
+    .replace(/[ \t]+/g, " ")
+    .replace(/[ \t]*\|[ \t]*/g, " | ")
+    .replace(/\n{3,}/g, "\n\n")
+    .trim();
+}
+
+export function validateIntelligencePolicy(policy = {}) {
+  const errors = [];
+  if (policy.schemaVersion !== "1.0") errors.push("schemaVersion");
+  if (!Array.isArray(policy.directFeeds) || policy.directFeeds.length < 4) errors.push("directFeeds");
+  if (!Array.isArray(policy.metrics) || policy.metrics.length < 2) errors.push("metrics");
+  if (!Array.isArray(policy.eventRules) || policy.eventRules.length < 3) errors.push("eventRules");
+  if (!Array.isArray(policy.retrieval?.tracks) || policy.retrieval.tracks.length < 3) errors.push("retrieval.tracks");
+  if (policy.retrieval?.onlyChangedDocuments !== true) errors.push("retrieval.onlyChangedDocuments");
+  if (policy.evaluation?.failClosed !== true) errors.push("evaluation.failClosed");
+  const ids = new Set();
+  for (const feed of policy.directFeeds || []) {
+    if (!feed.id || ids.has(`feed:${feed.id}`)) errors.push(`feed:${feed.id || "missing"}`);
+    ids.add(`feed:${feed.id}`);
+    if (!feed.sourceId || !validUrl(feed.url)) errors.push(`feed:${feed.id}:source`);
+  }
+  for (const metric of policy.metrics || []) {
+    if (!metric.id || ids.has(`metric:${metric.id}`)) errors.push(`metric:${metric.id || "missing"}`);
+    ids.add(`metric:${metric.id}`);
+    if (!metric.dimension || metric.unit !== "%" || !Array.isArray(metric.entities)) errors.push(`metric:${metric.id}:shape`);
+  }
+  return { ok: errors.length === 0, errors };
+}
+
+export function loadIntelligencePolicy(path = INTELLIGENCE_POLICY_PATH) {
+  const policy = JSON.parse(readFileSync(path, "utf8"));
+  const validation = validateIntelligencePolicy(policy);
+  if (!validation.ok) throw new Error(`intelligence policy validation failed: ${validation.errors.join(", ")}`);
+  return Object.freeze(policy);
+}
+
+export function canonicalPeriod(value = "") {
+  const text = String(value || "");
+  const qFirst = text.match(/\bQ([1-4])\s*[-/]?\s*(20\d{2})\b/i);
+  if (qFirst) return `${qFirst[2]}-Q${qFirst[1]}`;
+  const yearFirst = text.match(/(20\d{2})\s*(?:년)?\s*[-/]?\s*(?:Q([1-4])|([1-4])\s*분기)/i);
+  if (yearFirst) return `${yearFirst[1]}-Q${yearFirst[2] || yearFirst[3]}`;
+  const year = text.match(/\b(20\d{2})\b/);
+  return year ? year[1] : "";
+}
+
+function periodTokens(value = "", { quarterOnly = false } = {}) {
+  const tokens = [];
+  const re = /(?:\bQ[1-4]\s*[-/]?\s*20\d{2}\b|20\d{2}\s*(?:년)?\s*[-/]?\s*(?:Q[1-4]\b|[1-4]\s*분기)|\b20\d{2}\b)/gi;
+  for (const match of String(value || "").matchAll(re)) {
+    const period = canonicalPeriod(match[0]);
+    if (!period || (quarterOnly && !/-Q[1-4]$/.test(period)) || tokens.includes(period)) continue;
+    tokens.push(period);
+  }
+  return tokens;
+}
+
+function percentValues(value = "") {
+  return [...String(value || "").matchAll(/(?<![\d.])(-?\d{1,3}(?:\.\d+)?)\s*%/g)]
+    .map((match) => Number(match[1]))
+    .filter((number) => Number.isFinite(number) && number >= 0 && number <= 100);
+}
+
+function sectionText(text = "", anchors = []) {
+  const lower = text.toLowerCase();
+  const starts = anchors.map((anchor) => lower.indexOf(String(anchor).toLowerCase())).filter((index) => index >= 0);
+  if (!starts.length) return text;
+  const start = Math.max(0, Math.min(...starts) - 400);
+  return text.slice(start, start + 16000);
+}
+
+function observation({ metric, entity, period, value, document, feed }) {
+  const sourceUrl = canonicalUrl(document.url || feed.url);
+  const key = `${metric.id}|${entity.id}|${period}|${document.sourceId}|${sourceUrl}`;
+  return {
+    id: hash(key),
+    metricId: metric.id,
+    metricLabel: metric.label,
+    dimension: metric.dimension,
+    entityId: entity.id,
+    company: entity.company,
+    period,
+    value: Number(value),
+    unit: metric.unit,
+    sourceId: document.sourceId,
+    source: document.source,
+    sourceClass: document.sourceClass,
+    sourceUrl,
+    publishedAt: document.publishedAt || null,
+    observedAt: document.observedAt || null,
+    feedId: feed.id || null,
+    observedThisRun: true,
+  };
+}
+
+function extractMetricTable(document, feed, metric) {
+  const lines = String(document.text || "").split(/\n+/).map((line) => line.trim()).filter(Boolean);
+  const anchors = (feed.sectionAnchors || []).map((anchor) => compile(anchor));
+  const anchorIndexes = lines
+    .map((line, index) => anchors.some((anchor) => anchor.test(line)) && !matchesAny(line, feed.sectionExcludePatterns) ? index : -1)
+    .filter((index) => index >= 0);
+  const candidates = [];
+
+  // A publisher page may contain DRAM and HBM tables with identical vendor
+  // rows. Only inspect a table immediately following the requested section
+  // anchor, then select the candidate with the newest terminal period.
+  for (const anchorIndex of anchorIndexes) {
+    const headerCandidates = lines.slice(anchorIndex + 1, anchorIndex + 38)
+      .map((line, offset) => ({ offset, periods: periodTokens(line, { quarterOnly: true }) }))
+      .filter((candidate) => candidate.periods.length >= 2)
+      .sort((left, right) => right.periods.length - left.periods.length || left.offset - right.offset);
+    if (!headerCandidates.length) continue;
+    const absoluteHeaderIndex = anchorIndex + 1 + headerCandidates[0].offset;
+    const periods = periodTokens(lines[absoluteHeaderIndex], { quarterOnly: true });
+    const block = lines.slice(absoluteHeaderIndex + 1, absoluteHeaderIndex + 12);
+    const observations = [];
+    for (const entity of metric.entities || []) {
+      const entityPattern = new RegExp(entity.aliases.map((alias) => alias.replace(/[.*+?^${}()|[\]\\]/g, "\\$&")).join("|"), "i");
+      const row = block.find((line) => entityPattern.test(line) && percentValues(line).length >= periods.length);
+      if (!row || matchesAny(row, metric.excludePatterns)) continue;
+      const values = percentValues(row).slice(-periods.length);
+      periods.forEach((period, valueIndex) => observations.push(observation({ metric, entity, period, value: values[valueIndex], document, feed })));
+    }
+    if (observations.length) candidates.push({ observations, terminalPeriod: periods.at(-1) });
+  }
+  candidates.sort((left, right) => periodOrder(right.terminalPeriod) - periodOrder(left.terminalPeriod));
+  return candidates[0]?.observations || [];
+}
+
+function extractParallelSeries(document, feed, metric) {
+  const scoped = sectionText(document.text, feed.sectionAnchors);
+  const lines = scoped.split(/\n+|(?<=[.!?])\s+/).map((line) => line.trim()).filter(Boolean);
+  const output = [];
+  const entity = metric.entities?.[0];
+  if (!entity) return output;
+  for (const line of lines) {
+    if (!matchesAll(line, metric.requiredPatterns) || matchesAny(line, metric.excludePatterns)) continue;
+    const values = percentValues(line);
+    const periods = periodTokens(line).filter((period) => /^20\d{2}$/.test(period));
+    if (values.length < 2 || periods.length < 2) continue;
+    const pairCount = Math.min(values.length, periods.length);
+    const pairedValues = values.slice(-pairCount);
+    const pairedPeriods = periods.slice(-pairCount);
+    pairedPeriods.forEach((period, index) => output.push(observation({ metric, entity, period, value: pairedValues[index], document, feed })));
+    break;
+  }
+  return output;
+}
+
+function extractNarrativeMetrics(document, policy) {
+  const output = [];
+  const lines = String(document.text || "").split(/\n+|(?<=[.!?])\s+/).map((line) => line.trim()).filter(Boolean);
+  for (const metric of policy.metrics || []) {
+    for (const line of lines) {
+      if (!matchesAll(line, metric.requiredPatterns) || matchesAny(line, metric.excludePatterns)) continue;
+      const values = percentValues(line);
+      if (!values.length) continue;
+      for (const entity of metric.entities || []) {
+        if (!entity.aliases.some((alias) => line.toLowerCase().includes(alias.toLowerCase()))) continue;
+        const aliasIndex = Math.max(...entity.aliases.map((alias) => line.toLowerCase().indexOf(alias.toLowerCase())));
+        const near = line.slice(Math.max(0, aliasIndex - 80), aliasIndex + 260);
+        const nearValues = percentValues(near);
+        const value = nearValues[0] ?? values[0];
+        const period = canonicalPeriod(line) || canonicalPeriod(document.publishedAt);
+        if (period) output.push(observation({ metric, entity, period, value, document, feed: { id: document.feedId || "narrative" } }));
+      }
+    }
+  }
+  return output;
+}
+
+export function extractMetricObservations(documents = [], policy = loadIntelligencePolicy()) {
+  const feeds = new Map((policy.directFeeds || []).map((feed) => [feed.id, feed]));
+  const metrics = new Map((policy.metrics || []).map((metric) => [metric.id, metric]));
+  const output = [];
+  for (const document of documents) {
+    const feed = feeds.get(document.feedId);
+    if (feed?.metricId && metrics.has(feed.metricId)) {
+      const metric = metrics.get(feed.metricId);
+      if (feed.kind === "metric-table") output.push(...extractMetricTable(document, feed, metric));
+      if (feed.kind === "parallel-series") output.push(...extractParallelSeries(document, feed, metric));
+    }
+    // A direct metric feed has a publisher-specific parser and denominator.
+    // Re-running generic narrative extraction over that page can confuse a
+    // nearby DRAM or margin percentage for the HBM metric.
+    const narrative = extractNarrativeMetrics(document, policy)
+      .filter((item) => item.metricId !== feed?.metricId);
+    output.push(...narrative);
+  }
+  const byKey = new Map();
+  for (const item of output) byKey.set(`${item.metricId}|${item.entityId}|${item.period}|${item.sourceId}`, item);
+  return [...byKey.values()];
+}
+
+function periodOrder(value = "") {
+  const match = String(value).match(/^(20\d{2})(?:-Q([1-4]))?$/);
+  return match ? Number(match[1]) * 10 + Number(match[2] || 4) : 0;
+}
+
+function displayRange(min, max, unit = "%") {
+  const clean = (value) => Number.isInteger(value) ? String(value) : Number(value).toFixed(1).replace(/\.0$/, "");
+  return min === max ? `${clean(min)}${unit}` : `${clean(min)}–${clean(max)}${unit}`;
+}
+
+export function buildMetricConsensus({ current = [], previous = {}, policy = loadIntelligencePolicy(), now = new Date() } = {}) {
+  const metricMap = new Map((policy.metrics || []).map((metric) => [metric.id, metric]));
+  const merged = new Map();
+  for (const item of previous.observations || []) {
+    const metric = metricMap.get(item.metricId);
+    const age = Date.parse(item.publishedAt || item.observedAt || "");
+    const retentionDays = Number(metric?.freshnessDays || policy.scope?.retentionDays || 540) * 2;
+    if (Number.isFinite(age) && now.getTime() - age > retentionDays * 864e5) continue;
+    merged.set(`${item.metricId}|${item.entityId}|${item.period}|${item.sourceId}`, { ...item, observedThisRun: false });
+  }
+  for (const item of current) merged.set(`${item.metricId}|${item.entityId}|${item.period}|${item.sourceId}`, { ...item, observedThisRun: true });
+
+  const groups = new Map();
+  for (const item of merged.values()) {
+    const key = `${item.metricId}|${item.entityId}|${item.period}|${item.dimension}`;
+    const group = groups.get(key) || [];
+    group.push(item);
+    groups.set(key, group);
+  }
+  const series = [...groups.values()].map((items) => {
+    const values = items.map((item) => Number(item.value)).filter(Number.isFinite).sort((a, b) => a - b);
+    const sources = [...new Map(items.map((item) => [item.sourceId, {
+      id: item.sourceId,
+      name: item.source,
+      sourceClass: item.sourceClass,
+      url: item.sourceUrl,
+      publishedAt: item.publishedAt,
+      value: item.value,
+    }])).values()].sort((a, b) => (sourceRank[b.sourceClass] || 0) - (sourceRank[a.sourceClass] || 0));
+    const min = values[0];
+    const max = values.at(-1);
+    const difference = max - min;
+    const tolerance = Number(policy.consensus?.differenceTolerancePctPoint || 0.5);
+    return {
+      metricId: items[0].metricId,
+      metricLabel: items[0].metricLabel,
+      dimension: items[0].dimension,
+      entityId: items[0].entityId,
+      company: items[0].company,
+      period: items[0].period,
+      unit: items[0].unit,
+      min,
+      max,
+      midpoint: Number(((min + max) / 2).toFixed(2)),
+      display: displayRange(min, max, items[0].unit),
+      representation: difference > tolerance ? "range" : "point",
+      sourceCount: sources.length,
+      confidence: sources.length >= Number(policy.consensus?.minimumIndependentSourcesForHighConfidence || 2) ? "high" : "single-source",
+      sources,
+      observedThisRun: items.some((item) => item.observedThisRun),
+    };
+  }).sort((left, right) => periodOrder(left.period) - periodOrder(right.period));
+
+  const latest = [];
+  const entityGroups = new Map();
+  for (const item of series) {
+    const key = `${item.metricId}|${item.entityId}`;
+    const rows = entityGroups.get(key) || [];
+    rows.push(item);
+    entityGroups.set(key, rows);
+  }
+  for (const rows of entityGroups.values()) {
+    const currentRow = rows.at(-1);
+    const previousRow = rows.at(-2);
+    const currentPeriodMatch = String(currentRow.period).match(/^(20\d{2})(?:-Q([1-4]))?$/);
+    const yearAgoPeriod = currentPeriodMatch
+      ? `${Number(currentPeriodMatch[1]) - 1}${currentPeriodMatch[2] ? `-Q${currentPeriodMatch[2]}` : ""}`
+      : null;
+    const yearAgoRow = rows.find((item) => item.period === yearAgoPeriod) || null;
+    latest.push({
+      ...currentRow,
+      priorPeriod: previousRow?.period || null,
+      priorMidpoint: previousRow?.midpoint ?? null,
+      changePctPoint: previousRow ? Number((currentRow.midpoint - previousRow.midpoint).toFixed(2)) : null,
+      direction: previousRow ? currentRow.midpoint > previousRow.midpoint ? "up" : currentRow.midpoint < previousRow.midpoint ? "down" : "flat" : "new",
+      yearAgoPeriod: yearAgoRow?.period || null,
+      yearAgoMidpoint: yearAgoRow?.midpoint ?? null,
+      yearAgoChangePctPoint: yearAgoRow ? Number((currentRow.midpoint - yearAgoRow.midpoint).toFixed(2)) : null,
+    });
+  }
+  return {
+    method: policy.consensus?.method,
+    observations: [...merged.values()],
+    series,
+    latest,
+    conflictCount: series.filter((item) => item.representation === "range").length,
+  };
+}
+
+function chunkText(value = "", size = 900, overlap = 120, limit = 14) {
+  const text = compact(value, size * limit * 2);
+  if (!text) return [];
+  const chunks = [];
+  let offset = 0;
+  while (offset < text.length && chunks.length < limit) {
+    let end = Math.min(text.length, offset + size);
+    if (end < text.length) {
+      const breakAt = Math.max(text.lastIndexOf(". ", end), text.lastIndexOf("\n", end));
+      if (breakAt > offset + size * 0.55) end = breakAt + 1;
+    }
+    const body = text.slice(offset, end).trim();
+    if (body) chunks.push({ id: hash(`${offset}:${body}`), text: body });
+    if (end >= text.length) break;
+    offset = Math.max(offset + 1, end - overlap);
+  }
+  return chunks;
+}
+
+export function buildIncrementalKnowledgeIndex({ documents = [], previous = {}, policy = loadIntelligencePolicy(), now = new Date() } = {}) {
+  const allowed = new Set(policy.retrieval?.allowedSourceClasses || []);
+  const previousMap = new Map((previous.documents || []).map((document) => [document.id, document]));
+  const currentIds = new Set();
+  const next = [];
+  let added = 0;
+  let changed = 0;
+  let unchanged = 0;
+  for (const raw of documents.slice(0, Number(policy.scope?.maxDocuments || 240))) {
+    const url = canonicalUrl(raw.url);
+    const text = compact(raw.text);
+    if (!url || !text || !allowed.has(raw.sourceClass)) continue;
+    const id = hash(url);
+    const contentHash = hash(text);
+    currentIds.add(id);
+    const before = previousMap.get(id);
+    if (before?.contentHash === contentHash) {
+      unchanged += 1;
+      next.push({ ...before, observedAt: raw.observedAt || before.observedAt, status: "current" });
+      continue;
+    }
+    if (before) changed += 1; else added += 1;
+    next.push({
+      id,
+      sourceId: raw.sourceId,
+      source: raw.source,
+      sourceClass: raw.sourceClass,
+      title: compact(raw.title || raw.source || "Source document", 180),
+      url,
+      publishedAt: raw.publishedAt || null,
+      observedAt: raw.observedAt || now.toISOString(),
+      indexedAt: now.toISOString(),
+      contentHash,
+      status: "current",
+      chunks: chunkText(text, Number(policy.retrieval?.chunkCharacters || 900), Number(policy.retrieval?.chunkOverlapCharacters || 120), Number(policy.retrieval?.maxChunksPerDocument || 14)),
+    });
+  }
+
+  let retained = 0;
+  for (const before of previousMap.values()) {
+    if (currentIds.has(before.id)) continue;
+    const observed = Date.parse(before.observedAt || before.indexedAt || before.publishedAt || "");
+    if (!Number.isFinite(observed) || now.getTime() - observed > Number(policy.scope?.retentionDays || 540) * 864e5) continue;
+    retained += 1;
+    next.push({ ...before, status: "retained-last-verified" });
+  }
+  next.sort((a, b) => String(b.publishedAt || b.observedAt || "").localeCompare(String(a.publishedAt || a.observedAt || "")));
+  return {
+    schemaVersion: "1.0",
+    mode: policy.retrieval?.mode,
+    generatedAt: now.toISOString(),
+    stats: {
+      documents: next.length,
+      chunks: next.reduce((sum, document) => sum + (document.chunks?.length || 0), 0),
+      added,
+      changed,
+      unchanged,
+      retained,
+      reindexed: added + changed,
+    },
+    documents: next.slice(0, Number(policy.scope?.maxDocuments || 240)),
+  };
+}
+
+function buildRetrievalPacks(index = {}, policy = loadIntelligencePolicy()) {
+  return (policy.retrieval?.tracks || []).map((track) => {
+    const ranked = [];
+    for (const document of index.documents || []) {
+      for (const chunk of document.chunks || []) {
+        const text = chunk.text.toLowerCase();
+        const score = track.terms.reduce((sum, term) => sum + (text.includes(String(term).toLowerCase()) ? 1 : 0), 0)
+          + (sourceRank[document.sourceClass] || 0) * 0.25;
+        if (score <= 0) continue;
+        ranked.push({
+          score,
+          chunkId: chunk.id,
+          title: document.title,
+          excerpt: compact(chunk.text, 340),
+          source: document.source,
+          sourceClass: document.sourceClass,
+          url: document.url,
+          publishedAt: document.publishedAt,
+        });
+      }
+    }
+    const evidence = ranked.sort((a, b) => b.score - a.score || String(b.publishedAt || "").localeCompare(String(a.publishedAt || ""))).slice(0, 4);
+    return {
+      id: track.id,
+      label: track.label,
+      decisionQuestion: track.decisionQuestion,
+      status: evidence.length >= 2 ? "grounded" : evidence.length ? "partial" : "coverage-gap",
+      evidence,
+    };
+  });
+}
+
+function detectEvents(documents = [], previousIndex = {}, policy = loadIntelligencePolicy()) {
+  const previousMap = new Map((previousIndex.documents || []).map((document) => [document.id, document]));
+  const feedMap = new Map((policy.directFeeds || []).map((feed) => [feed.id, feed]));
+  const rules = new Map((policy.eventRules || []).map((rule) => [rule.id, rule]));
+  const output = [];
+  for (const document of documents) {
+    const feed = feedMap.get(document.feedId);
+    const candidateRules = feed?.eventRuleIds?.map((id) => rules.get(id)).filter(Boolean) || [...rules.values()];
+    for (const rule of candidateRules) {
+      const documentId = hash(canonicalUrl(document.url));
+      const contentHash = hash(compact(document.text));
+      const changed = previousMap.get(documentId)?.contentHash !== contentHash;
+      if (!matchesAll(document.text, rule.patterns) && !(feed?.triggerOnChange === true && changed)) continue;
+      output.push({
+        id: hash(`${rule.id}|${documentId}|${contentHash}`),
+        ruleId: rule.id,
+        label: rule.label,
+        priority: rule.priority,
+        sourceId: document.sourceId,
+        source: document.source,
+        sourceClass: document.sourceClass,
+        title: document.title,
+        url: canonicalUrl(document.url),
+        publishedAt: document.publishedAt || null,
+        changed,
+      });
+    }
+  }
+  return output.sort((a, b) => Number(b.changed) - Number(a.changed) || String(b.publishedAt || "").localeCompare(String(a.publishedAt || ""))).slice(0, 24);
+}
+
+function evaluate({ index, packs, consensus, policy, now }) {
+  const citations = packs.flatMap((pack) => pack.evidence || []);
+  const citationCoveragePct = citations.length ? 100 * citations.filter((item) => validUrl(item.url)).length / citations.length : 0;
+  const trackCoveragePct = packs.length ? 100 * packs.filter((pack) => pack.status !== "coverage-gap").length / packs.length : 0;
+  const allDocuments = index.documents || [];
+  const freshDocuments = allDocuments.filter((document) => {
+    const observed = Date.parse(document.publishedAt || document.observedAt || "");
+    return Number.isFinite(observed) && now.getTime() - observed <= 180 * 864e5;
+  });
+  const freshDocumentPct = allDocuments.length ? 100 * freshDocuments.length / allDocuments.length : 0;
+  const primaryOrResearchPct = allDocuments.length ? 100 * allDocuments.filter((document) => ["official", "research"].includes(document.sourceClass)).length / allDocuments.length : 0;
+  const conflicting = (consensus.series || []).filter((item) => item.sourceCount > 1 && item.min !== item.max);
+  const conflictDisclosurePct = conflicting.length ? 100 * conflicting.filter((item) => item.representation === "range").length / conflicting.length : 100;
+  const metrics = {
+    citationCoveragePct: Number(citationCoveragePct.toFixed(1)),
+    trackCoveragePct: Number(trackCoveragePct.toFixed(1)),
+    freshDocumentPct: Number(freshDocumentPct.toFixed(1)),
+    primaryOrResearchPct: Number(primaryOrResearchPct.toFixed(1)),
+    conflictDisclosurePct: Number(conflictDisclosurePct.toFixed(1)),
+    unsupportedClaimPct: 0,
+  };
+  const thresholds = policy.evaluation || {};
+  const passed = metrics.citationCoveragePct >= Number(thresholds.minimumCitationCoveragePct || 100)
+    && metrics.trackCoveragePct >= Number(thresholds.minimumTrackCoveragePct || 75)
+    && metrics.freshDocumentPct >= Number(thresholds.minimumFreshDocumentPct || 60)
+    && metrics.primaryOrResearchPct >= Number(thresholds.minimumPrimaryOrResearchPct || 80)
+    && metrics.unsupportedClaimPct <= Number(thresholds.maximumUnsupportedClaimPct || 0);
+  return {
+    framework: thresholds.framework,
+    status: passed ? "pass" : "review",
+    failClosed: thresholds.failClosed === true,
+    groundingMode: "extractive-only; no uncited generated claim is published",
+    metrics,
+  };
+}
+
+export function buildDecisionIntelligence({ documents = [], previous = {}, policy = loadIntelligencePolicy(), runId = null, now = new Date(), feedStatus = [], refreshTrigger = "scheduled" } = {}) {
+  const observations = extractMetricObservations(documents, policy);
+  const consensus = buildMetricConsensus({ current: observations, previous: previous.metrics || {}, policy, now });
+  const index = buildIncrementalKnowledgeIndex({ documents, previous: previous.knowledgeIndex || {}, policy, now });
+  const retrievalPacks = buildRetrievalPacks(index, policy);
+  const events = detectEvents(documents, previous.knowledgeIndex || {}, policy);
+  const evaluation = evaluate({ index, packs: retrievalPacks, consensus, policy, now });
+  return {
+    schemaVersion: "1.0",
+    runId,
+    generatedAt: now.toISOString(),
+    refreshTrigger,
+    scope: policy.scope?.id,
+    feedStatus,
+    metrics: consensus,
+    eventTriggers: events,
+    retrieval: {
+      mode: policy.retrieval?.mode,
+      stats: index.stats,
+      packs: retrievalPacks,
+    },
+    evaluation,
+    knowledgeIndex: index,
+  };
+}
+
+export function decisionMetric(decisionIntelligence = {}, metricId = "", entityId = "") {
+  return (decisionIntelligence.metrics?.latest || []).find((item) => item.metricId === metricId && item.entityId === entityId) || null;
+}

@@ -110,7 +110,7 @@
     (() => {
       if (!location.hash.startsWith("#console")) return;
       document.documentElement.classList.add("console-entry");
-      const revision = "infra-20260816-18";
+      const revision = "infra-20260816-19";
       const assets = [
         ["consoleStylesPreload", "style", `assets/css/styles.min.css?v=${revision}`, "high"],
         ["consoleAppPreload", "script", `assets/js/app.min.js?v=${revision}`, "low"],
@@ -127,7 +127,7 @@
       }
     })();
   </script>
-  <link rel="stylesheet" href="assets/css/landing.min.css?v=infra-20260816-18" />
+  <link rel="stylesheet" href="assets/css/landing.min.css?v=infra-20260816-19" />
 </head>
 <body class="landing-mode">
   <div class="business-site" id="businessSite">
@@ -715,16 +715,17 @@
           </article>
           <aside class="business-data-status" id="automation" aria-live="polite">
             <div class="business-data-status-main"><span class="business-status-dot" id="businessStatusDot"></span><div><small>AUTOMATED · FAIL-CLOSED INTELLIGENCE LOOP</small><strong id="businessDataStatus">검증 상태 확인 중</strong></div></div>
-            <div class="business-automation-badges"><span id="businessDataIntegrity">INTEGRITY · CHECK</span><span id="businessDataFreshness">FRESHNESS · CHECK</span><span id="businessDataCoverage">COVERAGE · CHECK</span><span id="businessDecisionConfidence">CONFIDENCE · CHECK</span><span id="businessDataCadence">SCHEDULED 3H REFRESH</span></div>
+            <div class="business-automation-badges"><span id="businessDataIntegrity">INTEGRITY · CHECK</span><span id="businessDataFreshness">FRESHNESS · CHECK</span><span id="businessDataCoverage">COVERAGE · CHECK</span><span id="businessDecisionConfidence">CONFIDENCE · CHECK</span><span id="businessRagQuality">RAG EVAL · PENDING</span><span id="businessDataCadence">SCHEDULED 3H REFRESH</span></div>
             <ol class="business-automation-flow" aria-label="자동 인텔리전스 운영 흐름">
               <li><span>01</span><strong>Collect</strong><small>공식 · 표준 · 논문 · 시장 신호</small></li>
-              <li><span>02</span><strong>Verify</strong><small>원문 · 최신성 · 실행 ID 검증</small></li>
-              <li><span>03</span><strong>Synthesize</strong><small>근거 → 사업 영향 → Gate</small></li>
-              <li><span>04</span><strong>Publish</strong><small>검증 Bundle만 게시</small></li>
-              <li><span>05</span><strong>Recheck</strong><small>만료 Gate · 다음 갱신</small></li>
+              <li><span>02</span><strong>Normalize</strong><small>기관 · 기간 · 분모 · 단위 분리</small></li>
+              <li><span>03</span><strong>Consensus</strong><small>동일 지표 합성 · 충돌은 Range</small></li>
+              <li><span>04</span><strong>Retrieve</strong><small>변경 문서만 증분 재색인</small></li>
+              <li><span>05</span><strong>Evaluate</strong><small>인용 · 최신성 · 출처 · 비근거율</small></li>
+              <li><span>06</span><strong>Publish</strong><small>평가를 통과한 Bundle만 게시</small></li>
             </ol>
             <dl class="business-automation-metrics"><div><dt>최종 검증 시각</dt><dd id="businessDataUpdated">확인 중</dd></div><div><dt>다음 최신성 Gate</dt><dd id="businessDataExpiry">확인 중</dd></div><div><dt>출처 커버리지</dt><dd id="businessDataSources">확인 중</dd></div><div><dt>게시 데이터셋</dt><dd id="businessDataArtifacts">확인 중</dd></div><div><dt>추적 실행 ID</dt><dd id="businessDataRun">확인 중</dd></div></dl>
-            <ul class="business-status-rules"><li>SCHEDULE · 3시간마다 갱신 시도</li><li>PASS · 검증 Bundle만 게시</li><li>FAIL · 신규 게시 중단</li><li>FALLBACK · 최종 검증본 유지</li></ul>
+            <ul class="business-status-rules"><li>SCHEDULE · 3시간 + 실적 이벤트 갱신</li><li>RANGE · 기관별 차이 자동 공개</li><li>PASS · 검증 Bundle만 게시</li><li>FAIL · 신규 게시 중단</li><li>FALLBACK · 최종 검증본 유지</li></ul>
           </aside>
         </div>
       </section>
@@ -1892,6 +1893,6 @@
   <div class="qa-answer" id="qaAnswer" hidden></div>
   <div class="inspector" id="inspector" hidden></div>
   <div class="backdrop" id="backdrop"></div>
-  <script src="assets/js/landing.min.js?v=infra-20260816-18" defer></script>
+  <script src="assets/js/landing.min.js?v=infra-20260816-19" defer></script>
 </body>
 </html>

@@ -12,6 +12,7 @@ import { fileURLToPath } from "node:url";
 import { DEMAND_ACCOUNT_REGISTRY, RELATION_ENTITY_REGISTRY } from "./live-pipeline.mjs";
 import { buildQuantBacktestSummary } from "./quant-history.mjs";
 import { quantMetricSeriesIdentity } from "./crawl.mjs";
+import { loadIntelligencePolicy, validateIntelligencePolicy } from "./decision-intelligence.mjs";
 
 const root = resolve(dirname(fileURLToPath(import.meta.url)), "..");
 const textFiles = [
@@ -37,6 +38,7 @@ const textFiles = [
   "data/crawl-audit.json",
   "data/crawl-quarantine.json",
   "data/crawl-exclusions.json",
+  "data/intelligence-policy.json",
 ];
 
 const checks = [];
@@ -408,6 +410,30 @@ for (const [key, item] of Object.entries(priceHistory.items || {})) {
 
 const live = JSON.parse(await readFile(resolve(root, "data/live.json"), "utf8"));
 const quant = JSON.parse(await readFile(resolve(root, "data/quant.json"), "utf8"));
+const intelligencePolicy = loadIntelligencePolicy();
+const intelligencePolicyValidation = validateIntelligencePolicy(intelligencePolicy);
+if (!intelligencePolicyValidation.ok
+  || intelligencePolicy.retrieval?.mode !== "incremental-extractive"
+  || intelligencePolicy.retrieval?.onlyChangedDocuments !== true
+  || intelligencePolicy.evaluation?.failClosed !== true
+  || Number(intelligencePolicy.evaluation?.maximumUnsupportedClaimPct ?? 1) !== 0
+  || (intelligencePolicy.directFeeds || []).length < 8) {
+  addIssue("error", "data/intelligence-policy.json", "decision intelligence policy is incomplete or not fail-closed", intelligencePolicyValidation.errors.join(", "));
+}
+const decisionIntelligence = quant.decisionIntelligence || null;
+if (!decisionIntelligence) {
+  addIssue("warn", "data/quant.json", "decision intelligence will be populated by the next verified crawl");
+} else {
+  if (decisionIntelligence.evaluation?.status !== "pass"
+    || decisionIntelligence.evaluation?.failClosed !== true
+    || Number(decisionIntelligence.evaluation?.metrics?.unsupportedClaimPct ?? 1) !== 0) {
+    addIssue("error", "data/quant.json", "decision intelligence evaluation did not pass its publication gate", JSON.stringify(decisionIntelligence.evaluation || {}));
+  }
+  if (decisionIntelligence.retrieval?.mode !== "incremental-extractive"
+    || Number(decisionIntelligence.retrieval?.stats?.documents || 0) < 1) {
+    addIssue("error", "data/quant.json", "incremental decision knowledge index is missing", JSON.stringify(decisionIntelligence.retrieval?.stats || {}));
+  }
+}
 const quantBacktest = JSON.parse(await readFile(resolve(root, "data/quant-backtest.json"), "utf8"));
 const quantModel = JSON.parse(await readFile(resolve(root, "data/quant-model.json"), "utf8"));
 const crawlAudit = JSON.parse(await readFile(resolve(root, "data/crawl-audit.json"), "utf8"));

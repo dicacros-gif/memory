@@ -1,0 +1,195 @@
+{
+  "schemaVersion": "1.0",
+  "scope": {
+    "id": "memory-ai-infra",
+    "topics": ["hbm", "dram", "ai-infra", "data-center", "llm-serving", "rag", "vector-db", "memory-economics"],
+    "maxDocuments": 240,
+    "retentionDays": 540
+  },
+  "directFeeds": [
+    {
+      "id": "counterpoint-hbm-quarterly-share",
+      "sourceId": "counterpoint",
+      "url": "https://korea.counterpointresearch.com/global-dram-and-hbm-market-share-quarterly/",
+      "kind": "metric-table",
+      "metricId": "hbm-revenue-share",
+      "sectionAnchors": ["전세계 HBM 시장 점유율", "Global HBM Market Share"],
+      "sectionExcludePatterns": ["D램 및 HBM", "DRAM and HBM"],
+      "freshnessDays": 190
+    },
+    {
+      "id": "trendforce-hbm-wafer-input",
+      "sourceId": "trendforce",
+      "url": "https://www.trendforce.com/presscenter/news/20260602-13074.html",
+      "kind": "parallel-series",
+      "metricId": "hbm-wafer-input-share",
+      "sectionAnchors": ["HBM wafer input among the top three suppliers", "HBM wafer input"],
+      "freshnessDays": 550
+    },
+    {
+      "id": "samsung-hbm4-stage",
+      "sourceId": "samsung-semiconductor",
+      "url": "https://semiconductor.samsung.com/news-events/news/samsung-ships-industry-first-commercial-hbm4-with-ultimate-performance-for-ai-computing/",
+      "kind": "event",
+      "eventRuleIds": ["hbm4-production-stage", "competitor-ramp"],
+      "freshnessDays": 365
+    },
+    {
+      "id": "micron-quarterly-results",
+      "sourceId": "sec-edgar",
+      "url": "https://data.sec.gov/submissions/CIK0000723125.json",
+      "kind": "event-index",
+      "eventRuleIds": ["earnings-release", "hbm4-production-stage", "capacity-commitment"],
+      "triggerOnChange": true,
+      "freshnessDays": 140
+    },
+    {
+      "id": "skhynix-results-and-hbm",
+      "sourceId": "skhynix-newsroom",
+      "url": "https://news.skhynix.com/category/press-release/",
+      "kind": "event",
+      "eventRuleIds": ["earnings-release", "hbm4-production-stage", "capacity-commitment"],
+      "freshnessDays": 140
+    },
+    {
+      "id": "samsung-memory-validation-lab",
+      "sourceId": "samsung-smrc",
+      "url": "https://smrc.biz.samsung.com/html/about-us_new.html",
+      "kind": "knowledge",
+      "freshnessDays": 365
+    },
+    {
+      "id": "nvidia-dynamo-inference",
+      "sourceId": "nvidia-dynamo",
+      "url": "https://developer.nvidia.com/blog/introducing-nvidia-dynamo-a-low-latency-distributed-inference-framework-for-scaling-reasoning-ai-models/",
+      "kind": "knowledge",
+      "freshnessDays": 365
+    },
+    {
+      "id": "vllm-kv-offloading",
+      "sourceId": "vllm-kv-offloading",
+      "url": "https://docs.vllm.ai/en/latest/features/kv_offloading_usage/",
+      "kind": "knowledge",
+      "freshnessDays": 365
+    },
+    {
+      "id": "llm-serving-systems-research",
+      "sourceId": "llm-serving-systems-research",
+      "url": "https://arxiv.org/abs/2309.06180",
+      "kind": "knowledge",
+      "freshnessDays": 1095
+    },
+    {
+      "id": "nvidia-ai-factory-reference",
+      "sourceId": "nvidia-nvl72-architecture",
+      "url": "https://docs.nvidia.com/enterprise-reference-architectures/nvl72-ai-factory/latest/overview.html",
+      "kind": "knowledge",
+      "freshnessDays": 365
+    }
+  ],
+  "metrics": [
+    {
+      "id": "hbm-revenue-share",
+      "label": "HBM 매출 점유율",
+      "dimension": "revenue-share",
+      "unit": "%",
+      "requiredPatterns": ["hbm", "share|점유율|份额"],
+      "excludePatterns": ["gross margin|operating margin|free cash flow|payout|utilization|총마진|영업이익률"],
+      "entities": [
+        { "id": "skhynix", "company": "SKHY", "aliases": ["SK hynix", "SK Hynix", "SKHY", "하이닉스"] },
+        { "id": "samsung", "company": "삼성전자", "aliases": ["Samsung", "삼성전자", "삼성"] },
+        { "id": "micron", "company": "마이크론", "aliases": ["Micron", "마이크론"] }
+      ],
+      "freshnessDays": 190
+    },
+    {
+      "id": "hbm-wafer-input-share",
+      "label": "HBM DRAM 웨이퍼 투입 비중",
+      "dimension": "wafer-input-share",
+      "unit": "%",
+      "requiredPatterns": ["hbm", "wafer input|웨이퍼 투입"],
+      "excludePatterns": ["bit supply|bit shipment|revenue share"],
+      "entities": [
+        { "id": "top-three-suppliers", "company": "Top 3 suppliers", "aliases": ["top three suppliers", "three major suppliers", "top 3 suppliers"] }
+      ],
+      "freshnessDays": 550
+    }
+  ],
+  "consensus": {
+    "method": "same-metric-same-period",
+    "display": "range-when-sources-disagree",
+    "differenceTolerancePctPoint": 0.5,
+    "minimumIndependentSourcesForHighConfidence": 2,
+    "preserveSourceAndPeriod": true,
+    "neverMixDimensions": true
+  },
+  "eventRules": [
+    {
+      "id": "earnings-release",
+      "label": "분기 실적·어닝콜",
+      "patterns": ["quarterly results|earnings release|earnings call|financial results|분기 실적"],
+      "priority": "immediate"
+    },
+    {
+      "id": "hbm4-production-stage",
+      "label": "HBM4 Sample → Qualification → Ramp",
+      "patterns": ["hbm4", "mass production|commercial shipment|qualification|ramp|양산|출하|인증"],
+      "priority": "immediate"
+    },
+    {
+      "id": "capacity-commitment",
+      "label": "CapEx·Capacity·장기 물량",
+      "patterns": ["capex|capital expenditure|capacity|long-term agreement|sold out|설비투자|장기 계약|완판"],
+      "priority": "quarterly"
+    },
+    {
+      "id": "competitor-ramp",
+      "label": "경쟁사 Ramp·고객 공급",
+      "patterns": ["samsung|micron|sk hynix", "hbm4|hbm4e", "shipment|production|ramp|qualification"],
+      "priority": "immediate"
+    }
+  ],
+  "retrieval": {
+    "mode": "incremental-extractive",
+    "onlyChangedDocuments": true,
+    "chunkCharacters": 900,
+    "chunkOverlapCharacters": 120,
+    "maxChunksPerDocument": 14,
+    "allowedSourceClasses": ["official", "research", "authoritative-media"],
+    "tracks": [
+      {
+        "id": "hbm-market-and-ramp",
+        "label": "HBM Market & Ramp",
+        "terms": ["hbm", "share", "wafer", "qualification", "ramp", "capacity"],
+        "decisionQuestion": "점유율 변화가 인증·패키징·공급 배분 중 어느 Gate에서 발생했는가?"
+      },
+      {
+        "id": "workload-and-tco",
+        "label": "Workload & TCO",
+        "terms": ["kv cache", "offload", "scheduler", "goodput", "tco", "memory tier"],
+        "decisionQuestion": "HBM 증설보다 먼저 제거할 Runtime·Memory Placement 병목은 무엇인가?"
+      },
+      {
+        "id": "rag-and-vector-memory",
+        "label": "RAG & Vector Memory",
+        "terms": ["rag", "retrieval", "vector", "embedding", "cache", "context"],
+        "decisionQuestion": "Quality Guardrail 아래 DRAM·CXL·eSSD 배치의 비용 교차점은 어디인가?"
+      },
+      {
+        "id": "capacity-and-contract",
+        "label": "Qualification & Capacity",
+        "terms": ["capex", "capacity", "long-term", "contract", "shipment", "customer"],
+        "decisionQuestion": "발표 물량이 Qualification·Binding Volume·Shipment·매출로 전환되는 조건은 무엇인가?"
+      }
+    ]
+  },
+  "evaluation": {
+    "framework": "grounded-retrieval-quality-loop",
+    "minimumCitationCoveragePct": 100,
+    "minimumTrackCoveragePct": 75,
+    "minimumFreshDocumentPct": 60,
+    "minimumPrimaryOrResearchPct": 80,
+    "maximumUnsupportedClaimPct": 0,
+    "failClosed": true
+  }
+}

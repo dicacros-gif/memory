@@ -18,7 +18,10 @@
       "roles": ["technology", "execution", "financial"],
       "languages": ["en"],
       "freshnessHours": 168,
-      "discoveryQueries": ["site:news.skhynix.com (HBM OR CXL OR eSSD OR \"AI memory\")"],
+      "discoveryQueries": [
+        "site:news.skhynix.com (HBM OR CXL OR eSSD OR \"AI memory\")",
+        "site:news.skhynix.com (quarterly results OR earnings OR HBM4 OR capacity)"
+      ],
       "healthCheck": { "markers": ["SK hynix", "Newsroom"] },
       "enabled": true
     },
@@ -28,12 +31,15 @@
       "tier": "primary-company",
       "sourceClass": "official",
       "url": "https://semiconductor.samsung.com/news-events/news/",
-      "domains": ["semiconductor.samsung.com"],
+      "domains": ["semiconductor.samsung.com", "news.samsung.com"],
       "topics": ["hbm", "dram", "nand", "cxl", "packaging"],
       "roles": ["technology", "competitor", "execution"],
       "languages": ["en", "ko"],
       "freshnessHours": 168,
-      "discoveryQueries": ["site:semiconductor.samsung.com/news-events (HBM OR CXL OR enterprise SSD OR AI memory)"],
+      "discoveryQueries": [
+        "site:semiconductor.samsung.com/news-events (HBM OR CXL OR enterprise SSD OR AI memory)",
+        "site:news.samsung.com/global (HBM4 OR HBM4E OR quarterly results)"
+      ],
       "healthCheck": { "markers": ["Samsung Semiconductor", "News"] },
       "enabled": true
     },
@@ -48,7 +54,10 @@
       "roles": ["competitor", "financial", "execution"],
       "languages": ["en"],
       "freshnessHours": 336,
-      "discoveryQueries": ["site:investors.micron.com (HBM4 OR data center SSD OR quarterly results OR strategic agreement)"],
+      "discoveryQueries": [
+        "site:investors.micron.com (HBM4 OR data center SSD OR quarterly results OR strategic agreement)",
+        "site:investors.micron.com/quarterly-results (earnings OR HBM OR capex OR capacity)"
+      ],
       "enabled": true
     },
     {
@@ -331,7 +340,10 @@
       "roles": ["market", "competitor", "pricing"],
       "languages": ["en"],
       "freshnessHours": 168,
-      "discoveryQueries": ["site:trendforce.com/presscenter (HBM OR DRAM OR NAND OR enterprise SSD)"],
+      "discoveryQueries": [
+        "site:trendforce.com/presscenter (HBM OR DRAM OR NAND OR enterprise SSD)",
+        "site:trendforce.com/presscenter HBM \"wafer input\""
+      ],
       "enabled": true
     },
     {
@@ -345,7 +357,10 @@
       "roles": ["market", "competitor", "demand"],
       "languages": ["en"],
       "freshnessHours": 336,
-      "discoveryQueries": ["site:counterpointresearch.com/insights (HBM OR DRAM OR memory market share)"],
+      "discoveryQueries": [
+        "site:counterpointresearch.com/insights (HBM OR DRAM OR memory market share)",
+        "site:counterpointresearch.com \"Global HBM Market Share\" quarterly"
+      ],
       "enabled": true
     },
     {

@@ -3,7 +3,7 @@
 
   const BUSINESS_TITLE = "AI Infra Strategy OS · Bottleneck to Scale";
   const CONSOLE_HASH = "#console";
-  const CONSOLE_REVISION = "infra-20260816-18";
+  const CONSOLE_REVISION = "infra-20260816-19";
   const DECISION_CLIENT_PATH = "data/landing-decision-client.json";
   const SITE_CONTENT_PATH = "data/site-content-client.json";
   const site = document.querySelector("#businessSite");
@@ -487,16 +487,24 @@
   function renderCompetitorContent(content = {}) {
     const competitors = content.competitors || [];
     if (!competitors.length) return;
+    const metricPolicy = content.decisionIntelligence || {};
     const heading = document.querySelector(".business-competitor-benchmark .business-module-heading p");
-    if (heading) heading.textContent = `${competitors.map((item) => item.asOf).filter(Boolean)[0] || String(content.generatedAt || "").slice(0, 10)} 기준 · 동일 출처·동일 지표 비교 · 최신 검증본 자동 반영`;
+    if (heading) heading.textContent = `${competitors.map((item) => item.asOf).filter(Boolean)[0] || String(content.generatedAt || "").slice(0, 10)} 기준 · 동일 분모·동일 기간 비교 · 기관 차이는 RANGE로 자동 공개 · ${String(metricPolicy.status || "pending").toUpperCase()}`;
     const grid = document.querySelector(".business-competitor-grid");
     if (!grid) return;
-    grid.innerHTML = competitors.map((item) => `
+    grid.innerHTML = competitors.map((item) => {
+      const hasYearAgo = Number.isFinite(Number(item.trend?.yearAgoChangePctPoint));
+      const delta = Number(hasYearAgo ? item.trend?.yearAgoChangePctPoint : item.trend?.changePctPoint);
+      const trend = Number.isFinite(delta)
+        ? `${delta > 0 ? "+" : ""}${delta.toFixed(1).replace(/\.0$/, "")}%p · ${hasYearAgo ? "YoY" : item.trend?.priorPeriod || "이전"}`
+        : "새 관측";
+      return `
       <article>
         <header><span>${escapeBusinessHTML(item.company)}</span><strong>${escapeBusinessHTML(item.dataStatus || "review")}</strong></header>
-        <dl><div><dt>HBM SHARE</dt><dd>${escapeBusinessHTML(item.hbmShare || "미공개")}</dd></div><div><dt>DRAM SHARE</dt><dd>${escapeBusinessHTML(item.dramShare || "미공개")}</dd></div><div><dt>AS OF</dt><dd>${escapeBusinessHTML(item.asOf || "확인 필요")}</dd></div></dl>
+        <dl><div><dt>HBM SHARE</dt><dd>${escapeBusinessHTML(item.hbmShare || "미공개")}</dd></div><div><dt>TREND</dt><dd>${escapeBusinessHTML(trend)}</dd></div><div><dt>DRAM SHARE</dt><dd>${escapeBusinessHTML(item.dramShare || "미공개")}</dd></div><div><dt>SOURCES</dt><dd>${escapeBusinessHTML(String(item.trend?.sourceCount || 0))}</dd></div><div><dt>AS OF</dt><dd>${escapeBusinessHTML(item.asOf || "확인 필요")}</dd></div></dl>
         <div><a href="${escapeBusinessHTML(safeBusinessUrl(item.sourceUrl, "#console"))}" target="_blank" rel="noopener noreferrer">${escapeBusinessHTML(item.source || "근거") } ↗</a></div>
-      </article>`).join("");
+      </article>`;
+    }).join("");
   }
 
   function renderPartnerContent(content = {}) {
@@ -549,10 +557,15 @@
     const freshness = document.querySelector("#businessDataFreshness");
     const coverage = document.querySelector("#businessDataCoverage");
     const confidence = document.querySelector("#businessDecisionConfidence");
+    const ragQuality = document.querySelector("#businessRagQuality");
     if (integrity) integrity.textContent = `INTEGRITY · ${control.integrity?.status || "CHECK"}`;
     if (freshness) freshness.textContent = `FRESHNESS · ${control.freshness?.status || "CHECK"}`;
     if (coverage) coverage.textContent = `COVERAGE · ${control.coverage?.status || "CHECK"}`;
     if (confidence) confidence.textContent = `CONFIDENCE · ${control.confidence?.status || "CHECK"}`;
+    if (ragQuality) {
+      const evaluation = content.decisionIntelligence?.evaluation || {};
+      ragQuality.textContent = `RAG EVAL · ${String(evaluation.status || "PENDING").toUpperCase()} · CITE ${evaluation.metrics?.citationCoveragePct ?? 0}%`;
+    }
   }
 
   function applySiteContent(content = {}) {
@@ -570,9 +583,10 @@
     const visualResult = document.querySelector(".business-visual-result small");
     if (visualResult) visualResult.textContent = `검증 실행 ${content.runId || "확인 필요"} · 근거 ${content.freshness?.evidenceCount || 0}건 · 자동 생성 ${formatKst(content.generatedAt)}`;
     const configuredSources = Number(content.freshness?.configuredSources || 0);
+    const retrievalStats = content.decisionIntelligence?.retrieval?.stats || {};
     const sourceMetric = document.querySelector("#businessDataSources");
     if (sourceMetric) sourceMetric.textContent = configuredSources
-      ? `관측 ${content.freshness?.observedSources || 0} · 구성 ${configuredSources} · 공식 ${content.freshness?.officialObserved || 0}`
+      ? `관측 ${content.freshness?.observedSources || 0} · 구성 ${configuredSources} · 검색 문서 ${retrievalStats.documents || 0} · 증분 ${retrievalStats.reindexed || 0}`
       : "다음 검증 실행 반영";
     const cadence = document.querySelector("#businessDataCadence");
     if (cadence) cadence.textContent = `SCHEDULED ${content.freshness?.scheduleHours || 3}H REFRESH`;
@@ -683,7 +697,7 @@
       if (artifacts) artifacts.textContent = "새 게시 중단";
       if (sources) sources.textContent = "검증본 유지";
       if (run) run.textContent = "unavailable";
-      for (const id of ["businessDataIntegrity", "businessDataFreshness", "businessDataCoverage", "businessDecisionConfidence"]) {
+      for (const id of ["businessDataIntegrity", "businessDataFreshness", "businessDataCoverage", "businessDecisionConfidence", "businessRagQuality"]) {
         const badge = document.getElementById(id);
         if (badge) badge.textContent = `${badge.textContent.split("·")[0].trim()} · CHECK`;
       }

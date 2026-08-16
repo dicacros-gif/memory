@@ -22,7 +22,7 @@
     "officialConfigured": 33,
     "officialObserved": 3,
     "officialFreshObserved": 2,
-    "discoveryQueries": 40,
+    "discoveryQueries": 45,
     "connectedHealthChecks": 14,
     "healthChecks": 17,
     "scheduleHours": 3,
@@ -92,6 +92,39 @@
     "confidence": {
       "status": "CONDITIONAL",
       "basis": "integrity × freshness × source coverage"
+    }
+  },
+  "decisionIntelligence": {
+    "schemaVersion": "1.0",
+    "status": "pending-next-verified-run",
+    "generatedAt": "2026-08-16T07:51:44.043Z",
+    "runId": "31934707940",
+    "refreshTrigger": "pending-next-verified-run",
+    "metrics": [],
+    "eventTriggers": [],
+    "feedStatus": [],
+    "retrieval": {
+      "mode": "incremental-extractive",
+      "stats": {
+        "documents": 0,
+        "chunks": 0,
+        "reindexed": 0
+      },
+      "packs": []
+    },
+    "evaluation": {
+      "framework": "grounded-retrieval-quality-loop",
+      "status": "pending",
+      "failClosed": true,
+      "groundingMode": "extractive-only",
+      "metrics": {
+        "citationCoveragePct": 0,
+        "trackCoveragePct": 0,
+        "freshDocumentPct": 0,
+        "primaryOrResearchPct": 0,
+        "conflictDisclosurePct": 100,
+        "unsupportedClaimPct": 0
+      }
     }
   },
   "hero": {
@@ -755,33 +788,36 @@
   "competitors": [
     {
       "company": "SKHY",
-      "hbmShare": "58%",
+      "hbmShare": null,
       "dramShare": "29%",
       "nandShare": null,
-      "asOf": "2026 Q1",
-      "source": "Counterpoint Research",
-      "sourceUrl": "https://counterpointresearch.com/en/insights/global-dram-and-hbm-market-share",
-      "dataStatus": "last-verified"
+      "asOf": null,
+      "source": null,
+      "sourceUrl": "",
+      "dataStatus": "automation-pending",
+      "trend": null
     },
     {
       "company": "삼성전자",
-      "hbmShare": "21%",
+      "hbmShare": null,
       "dramShare": "38%",
       "nandShare": null,
-      "asOf": "2026 Q1",
-      "source": "Counterpoint Research",
-      "sourceUrl": "https://counterpointresearch.com/en/insights/global-dram-and-hbm-market-share",
-      "dataStatus": "last-verified"
+      "asOf": null,
+      "source": null,
+      "sourceUrl": "",
+      "dataStatus": "automation-pending",
+      "trend": null
     },
     {
       "company": "마이크론",
-      "hbmShare": "21%",
+      "hbmShare": null,
       "dramShare": "22%",
       "nandShare": null,
-      "asOf": "2026 Q1",
-      "source": "Counterpoint Research",
-      "sourceUrl": "https://counterpointresearch.com/en/insights/global-dram-and-hbm-market-share",
-      "dataStatus": "last-verified"
+      "asOf": null,
+      "source": null,
+      "sourceUrl": "",
+      "dataStatus": "automation-pending",
+      "trend": null
     }
   ],
   "partnerSpotlight": {
