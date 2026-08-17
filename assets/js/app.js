@@ -12887,20 +12887,20 @@
             </div>
             <ol class="sc-card-flow" aria-label="JTBD에서 90일 실행 게이트까지">
               <li class="sc-map-node sc-workload" data-step="01">
-                <span class="sc-wl-name">INPUT · ${escapeHTML(lens.workload.name)}</span>
-                <div class="sc-wl-row"><b>HW</b><span>${escapeHTML(lens.workload.hw)}</span></div>
-                <div class="sc-wl-row"><b>SW</b><span>${escapeHTML(lens.workload.sw)}</span></div>
+                <div class="sc-wl-name"><b class="sc-level-index is-input">INPUT</b><span>${escapeHTML(lens.workload.name)}</span></div>
+                <div class="sc-wl-row"><b class="sc-level-index is-hw">HW</b><span>${escapeHTML(lens.workload.hw)}</span></div>
+                <div class="sc-wl-row"><b class="sc-level-index is-sw">SW</b><span>${escapeHTML(lens.workload.sw)}</span></div>
               </li>
-              <li class="sc-map-node sc-opportunity" data-step="02"><span>WHERE TO PLAY</span><p>${strategicHighlightHTML(lens.opportunity)}</p></li>
-              <li class="sc-map-node sc-solution" data-step="03"><span>HOW TO WIN</span><p>${strategicHighlightHTML(lens.solution)}</p></li>
+              <li class="sc-map-node sc-opportunity" data-step="02"><span class="sc-level-index is-opportunity">WHERE TO PLAY</span><p>${strategicHighlightHTML(lens.opportunity)}</p></li>
+              <li class="sc-map-node sc-solution" data-step="03"><span class="sc-level-index is-solution">HOW TO WIN</span><p>${strategicHighlightHTML(lens.solution)}</p></li>
               <li class="sc-map-node sc-proof-grid" data-step="04">
-                <div><span>VALUE KPI</span><p>${escapeHTML(lens.valueMetric)}</p></div>
-                <div><span>RIGHT TO WIN</span><p>${escapeHTML(lens.rightToWin)}</p></div>
+                <div><span class="sc-level-index is-kpi">VALUE KPI</span><p>${escapeHTML(lens.valueMetric)}</p></div>
+                <div><span class="sc-level-index is-win">RIGHT TO WIN</span><p>${escapeHTML(lens.rightToWin)}</p></div>
               </li>
               <li class="sc-map-node sc-gate" data-step="05">
-                <span>DECISION GATE</span>
+                <span class="sc-level-index is-gate">DECISION GATE</span>
                 <strong>${escapeHTML(lens.gate)}</strong>
-                <p><b>90D ACTION</b> ${escapeHTML(lens.nextAction)}</p>
+                <p><b class="sc-level-index is-action">90D ACTION</b> ${escapeHTML(lens.nextAction)}</p>
               </li>
             </ol>
             ${ev.trends.length ? `<div class="sc-trends">${ev.trends.map((t) => `<button type="button" class="sc-trend" data-trend-term="${escapeHTML(t.term)}">${escapeHTML(t.term)}<b>${fmtNum(t.count)}</b></button>`).join("")}</div>` : ""}

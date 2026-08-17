@@ -28174,8 +28174,8 @@ button.ni-trend-chip:hover { box-shadow: 0 4px 12px color-mix(in srgb, #0891B2 2
   border: 1px solid color-mix(in srgb, var(--sc-accent) 22%, var(--line));
 }
 .sc-wl-name { font: 800 11px/1.2 var(--display, "Space Grotesk", sans-serif); color: var(--ink); }
-.sc-wl-row { display: flex; gap: 8px; align-items: baseline; font-size: 10.5px; }
-.sc-wl-row b { flex: 0 0 20px; color: var(--sc-accent); font-weight: 900; font-size: 9px; letter-spacing: .05em; }
+.sc-wl-row { display: grid; grid-template-columns: max-content minmax(0, 1fr); gap: 8px; align-items: start; font-size: 10.5px; }
+.sc-wl-row b { color: var(--sc-accent); font-weight: 900; font-size: 9px; letter-spacing: .05em; }
 .sc-wl-row span { color: var(--ink-2); font-weight: 640; line-height: 1.4; }
 .sc-strategy-pair,
 .sc-proof-grid {
@@ -28601,6 +28601,66 @@ button.ni-trend-chip:hover { box-shadow: 0 4px 12px color-mix(in srgb, #0891B2 2
   color: var(--sc-readable-ink);
   font: 900 8.5px/1.25 var(--display, sans-serif);
   letter-spacing: .1em;
+}
+
+/* Compact color indices keep INPUT / HW / SW and every decision level
+   scannable without allowing short labels to wrap into vertical letters. */
+.consulting-system .sc-wl-name {
+  display: grid;
+  grid-template-columns: max-content minmax(0, 1fr);
+  gap: 8px;
+  align-items: center;
+  min-width: 0;
+}
+
+.consulting-system .sc-wl-name > span:last-child {
+  min-width: 0;
+  color: var(--sc-readable-ink);
+  font-size: 11px;
+  font-weight: 820;
+  line-height: 1.35;
+  overflow-wrap: anywhere;
+  word-break: keep-all;
+}
+
+.consulting-system .sc-level-index {
+  --sc-level-bg: #173f66;
+  display: inline-grid;
+  place-items: center;
+  width: max-content;
+  min-width: 34px;
+  min-height: 23px;
+  max-width: 100%;
+  margin: 0;
+  padding: 4px 8px;
+  border: 1px solid color-mix(in srgb, var(--sc-level-bg) 72%, #ffffff);
+  border-radius: 2px;
+  background: var(--sc-level-bg);
+  color: #ffffff !important;
+  font: 900 9px/1 var(--font, sans-serif) !important;
+  letter-spacing: .055em !important;
+  white-space: nowrap;
+  word-break: normal;
+  overflow-wrap: normal;
+  text-transform: uppercase;
+  text-shadow: none !important;
+  -webkit-text-fill-color: #ffffff !important;
+}
+
+.consulting-system .sc-level-index.is-input { --sc-level-bg: #173f66; }
+.consulting-system .sc-level-index.is-hw,
+.consulting-system .sc-level-index.is-kpi { --sc-level-bg: #08766f; }
+.consulting-system .sc-level-index.is-sw,
+.consulting-system .sc-level-index.is-solution { --sc-level-bg: #5b428f; }
+.consulting-system .sc-level-index.is-opportunity,
+.consulting-system .sc-level-index.is-win { --sc-level-bg: #005f7a; }
+.consulting-system .sc-level-index.is-gate { --sc-level-bg: #714500; }
+.consulting-system .sc-level-index.is-action { --sc-level-bg: #7a274f; }
+
+.consulting-system .sc-map-node.sc-gate p .sc-level-index {
+  display: inline-grid;
+  margin: 0 5px 4px 0;
+  vertical-align: middle;
 }
 
 .consulting-system .sc-map-node p,
@@ -29581,6 +29641,12 @@ body.consulting-system {
   color: var(--sc-hover-key) !important;
   -webkit-text-fill-color: var(--sc-hover-key) !important;
   text-decoration-color: var(--sc-hover-key-line) !important;
+}
+.consulting-system .sc-card:is(:hover, :focus-visible, :focus-within) .sc-level-index {
+  border-color: color-mix(in srgb, var(--sc-level-bg) 68%, #ffffff) !important;
+  background: var(--sc-level-bg) !important;
+  color: #ffffff !important;
+  -webkit-text-fill-color: #ffffff !important;
 }
 
 @media (max-width: 680px) {
