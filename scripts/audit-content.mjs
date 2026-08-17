@@ -134,10 +134,10 @@ if (!/function articleFigureSignalsHTML\(/.test(appText)
 if (!/\.article-figure-signals\s*\{/.test(stylesText)) {
   addIssue("error", "assets/css/styles.css", "routed quantitative evidence needs a readable inline treatment");
 }
-if (!indexText.includes('id="consultingLogic"')
-  || !appText.includes("function renderConsultingLogic")
-  || !stylesText.includes(".consulting-logic-flow")) {
-  addIssue("error", "index.html", "executive dashboard is missing the MECE source-to-decision architecture");
+if (indexText.includes('id="consultingLogic"')
+  || appText.includes("function renderConsultingLogic")
+  || stylesText.includes(".consulting-logic-flow")) {
+  addIssue("error", "index.html", "deleted Decision Architecture module must not be restored");
 }
 if (!appText.includes("available: unitSourceVerified && Object.values(values).every(Number.isFinite)")) {
   addIssue("error", "assets/js/app.js", "unverified forecast values can still render as decision-grade numbers");

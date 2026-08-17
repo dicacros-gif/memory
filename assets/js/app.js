@@ -8236,93 +8236,6 @@
     animateCounts(hero);
   }
 
-  function consultingEvidenceSnapshot() {
-    const articles = currentRunNews().filter((item) => (
-      isDirectEvidenceUrl(item.sourceUrl || item.link)
-      && Boolean(newsTimestamp(item))
-    ));
-    const research = brokerResearchSummaries().filter((item) => (
-      isDirectEvidenceUrl(item.sourceUrl)
-      && Boolean(item.publishedAt)
-    ));
-    const prices = allPriceRows().filter((row) => {
-      const values = [row.current, row.latest, row.price, row.value, row.average, row.low, row.high]
-        .map(Number)
-        .filter(Number.isFinite);
-      return isDirectEvidenceUrl(row.sourceUrl) && values.length > 0;
-    });
-    const sources = new Set(
-      articles.concat(research)
-        .map((item) => {
-          try {
-            return new URL(item.sourceUrl || item.link).hostname.replace(/^www\./, "");
-          } catch {
-            return "";
-          }
-        })
-        .filter(Boolean),
-    );
-    return { articles, research, prices, sourceCount: sources.size };
-  }
-
-  function renderConsultingLogic() {
-    const wrap = $("#consultingLogic");
-    if (!wrap) return;
-    const evidence = consultingEvidenceSnapshot();
-    const nodes = [
-      {
-        index: "01",
-        eyebrow: "SOURCE",
-        title: "직접 근거",
-        body: "공개 원문 URL · 발행일 · 출처 식별",
-        value: `${fmtNum(evidence.sourceCount)}개 출처`,
-      },
-      {
-        index: "02",
-        eyebrow: "SIGNAL",
-        title: "시장 신호",
-        body: "가격 · 수요 · 공급 · 경쟁을 중복 없이 분류",
-        value: `${fmtNum(evidence.articles.length)}개 기사 · ${fmtNum(evidence.prices.length)}개 가격 행`,
-      },
-      {
-        index: "03",
-        eyebrow: "SYNTHESIS",
-        title: "MECE 종합",
-        body: "시장성 · 경쟁력 · 실행성 · 리스크로 교차검증",
-        value: `${fmtNum(evidence.research.length)}개 리서치 근거`,
-      },
-      {
-        index: "04",
-        eyebrow: "DECISION",
-        title: "경영 판단",
-        body: "결론 · 전환 조건 · 확인 KPI를 한 화면에 연결",
-        value: "Go · Watch · No-Go",
-      },
-    ];
-    wrap.innerHTML = `
-      <header class="consulting-logic-head">
-        <div>
-          <span>DECISION ARCHITECTURE</span>
-          <strong>근거에서 실행까지 한 방향으로 연결</strong>
-        </div>
-        <small>검증되지 않은 수치는 결론 계산에서 제외</small>
-      </header>
-      <div class="consulting-logic-flow">
-        ${nodes.map((node) => `
-          <article class="consulting-logic-node reveal">
-            <span class="consulting-logic-index">${escapeHTML(node.index)}</span>
-            <div>
-              <small>${escapeHTML(node.eyebrow)}</small>
-              <strong>${escapeHTML(node.title)}</strong>
-              <p>${escapeHTML(node.body)}</p>
-              <em>${escapeHTML(node.value)}</em>
-            </div>
-          </article>
-        `).join("")}
-      </div>
-    `;
-  }
-
   function renderExecutiveSummary() {
     const brief = $("#execBrief");
     const strategy = $("#execStrategy");
@@ -8330,8 +8243,6 @@
     if (!brief || !strategy || !research) return;
 
     renderTodayHub();
-    renderConsultingLogic();
-
     brief.innerHTML = `
       <header class="exec-cluster-head">
         <span>01 · STRATEGIC LOGIC</span>

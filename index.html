@@ -110,7 +110,7 @@
     (() => {
       if (!location.hash.startsWith("#console")) return;
       document.documentElement.classList.add("console-entry");
-      const revision = "infra-20260817-42";
+      const revision = "infra-20260817-43";
       const assets = [
         ["consoleStylesPreload", "style", `assets/css/styles.min.css?v=${revision}`, "high"],
         ["consoleAppPreload", "script", `assets/js/app.min.js?v=${revision}`, "low"],
@@ -127,7 +127,7 @@
       }
     })();
   </script>
-  <link rel="stylesheet" href="assets/css/landing.min.css?v=infra-20260817-42" />
+  <link rel="stylesheet" href="assets/css/landing.min.css?v=infra-20260817-43" />
 </head>
 <body class="landing-mode">
   <div class="business-site" id="businessSite">
@@ -1025,7 +1025,6 @@
             <section class="exec-brief" id="execBrief"></section>
             <section class="exec-strategy" id="execStrategy"></section>
           </div>
-          <section class="consulting-logic" id="consultingLogic" aria-label="MECE 의사결정 프레임"></section>
           <section class="exec-research" id="execResearch" aria-label="증권사 리서치 핵심 요약"></section>
           <section class="memory-bypass" id="memoryBypass" aria-label="메모리 우회 경로 · AMD MEXT 신호"></section>
           <section class="news-insight" id="newsInsight" aria-label="최신 뉴스 인사이트 요약"></section>
@@ -1952,6 +1951,6 @@
   <div class="qa-answer" id="qaAnswer" hidden></div>
   <div class="inspector" id="inspector" hidden></div>
   <div class="backdrop" id="backdrop"></div>
-  <script src="assets/js/landing.min.js?v=infra-20260817-42" defer></script>
+  <script src="assets/js/landing.min.js?v=infra-20260817-43" defer></script>
 </body>
 </html>

@@ -201,7 +201,7 @@ assert.match(app, /window\.MEMORY_SITE_CONTENT\?\.agentCouncil\?\.agendas/);
 assert.match(landing, /previousRunId && previousRunId !== String\(content\.runId\) && isConsoleHash\(\)/);
 assert.match(landing, /window\.location\.reload\(\)/);
 assert.match(app, /replace\(\/솔리드다임\/g, "솔리다임"\)/, "the interactive console must normalize stale Solidigm labels at render time");
-assert.match(index, /infra-20260817-42/);
+assert.match(index, /infra-20260817-43/);
 assert.match(index, /Customer Pain to Executive Action/);
 assert.match(index, /LIVE DECISION QUEUE · CONSOLE-CONNECTED/);
 assert.match(index, /id="departmentDecisionQueue"/);
