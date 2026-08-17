@@ -408,18 +408,6 @@
         `판단 변경 조건 · ${decision.stop}`,
       ].filter(Boolean));
       if (recommendation) recommendation.innerHTML = `RECOMMENDATION<br>${escapeBusinessHTML(decision.recommendation || "CONDITIONAL")}`;
-      let hypothesisBadge = answer?.querySelector(":scope > .business-hypothesis-badge");
-      if (answer && !hypothesisBadge) {
-        hypothesisBadge = document.createElement("span");
-        hypothesisBadge.className = "business-hypothesis-badge";
-        answer.appendChild(hypothesisBadge);
-      }
-      if (hypothesisBadge) {
-        const isUnverified = decision.hypothesis?.status !== "verified";
-        hypothesisBadge.hidden = !isUnverified;
-        hypothesisBadge.textContent = `! · ${decision.hypothesis?.label || "근거 미검증"}`;
-        hypothesisBadge.title = decision.hypothesis?.scope || "전략 가설은 고객 내부 근거 확인 전입니다.";
-      }
 
       const live = panel.querySelector(":scope > .business-live-evidence");
       const liveTitle = live?.querySelector("[data-live-title]");
@@ -563,7 +551,6 @@
             <div><span>${escapeBusinessHTML(item.label)}</span><b>${escapeBusinessHTML(latest.evidenceLevel || "WATCH")} · ${escapeBusinessHTML(String(latest.sourceClass || "SOURCE").toUpperCase())}</b></div>
             <h4>${escapeBusinessHTML(latest.title || item.label)}</h4>
             <dl><div><dt>SOURCE</dt><dd>${escapeBusinessHTML(latest.source || "확인 필요")}</dd></div><div><dt>AS OF</dt><dd>${escapeBusinessHTML(String(latest.publishedAt || "").slice(0, 10) || "확인 필요")}</dd></div><div><dt>EVIDENCE</dt><dd>${escapeBusinessHTML(item.evidenceCount || 0)}건</dd></div></dl>
-            ${item.hypothesis?.status !== "verified" ? `<span class="business-hypothesis-badge" title="${escapeBusinessHTML(item.hypothesis?.scope || "전략 가설")}">! · ${escapeBusinessHTML(item.hypothesis?.label || "근거 미검증")}</span>` : ""}
             <ol class="business-evidence-decision-path">
               <li><span>01 · FACT</span><strong>${escapeBusinessHTML(item.fact)}</strong></li>
               <li><span>02 · IMPLICATION</span><strong>${escapeBusinessHTML(item.implication)}</strong></li>

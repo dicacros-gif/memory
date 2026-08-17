@@ -190,7 +190,7 @@ assert.match(landing, /#workloadMatrix/);
 assert.match(landing, /#acceleratorScorecard/);
 assert.match(landing, /#ragQualityPipeline/);
 assert.doesNotMatch(landing, /businessRagQuality|businessFreshnessScore|retrievalStats\.reindexed|renderCaseClassification|applyDecisionControl|updateDataStatus/);
-assert.match(landing, /business-hypothesis-badge/);
+assert.doesNotMatch(landing, /business-hypothesis-badge/, "the removed unverified evidence badge must stay absent");
 assert.match(index, /id="workload-optimization"/);
 assert.match(index, /id="team-operating-model"/);
 assert.match(index, /id="ai-factory-system"/);
