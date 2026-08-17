@@ -3,7 +3,7 @@
 
   const BUSINESS_TITLE = "AI Infra Strategy · Customer Pain to Executive Action";
   const CONSOLE_HASH = "#console";
-  const CONSOLE_REVISION = "infra-20260817-37";
+  const CONSOLE_REVISION = "infra-20260817-38";
   const DECISION_CLIENT_PATH = "data/landing-decision-client.json";
   const SITE_CONTENT_PATH = "data/site-content-client.json";
   const site = document.querySelector("#businessSite");
@@ -842,10 +842,6 @@
           <small>OUTPUT · ${escapeBusinessHTML(item.deliverable || "Decision Brief")} · 근거 ${evidence}건/${sources}개 출처</small>
         </a>`;
       }).join("");
-    }
-    const metrics = document.querySelector("#businessHomeQueueMetrics");
-    if (metrics && Array.isArray(workbench.metrics) && workbench.metrics.length) {
-      metrics.innerHTML = workbench.metrics.map((item) => `<div><dt>${escapeBusinessHTML(item.label || "METRIC")}</dt><dd>${escapeBusinessHTML(String(item.value ?? "--"))}${escapeBusinessHTML(item.suffix || "")}</dd><small>${escapeBusinessHTML(item.detail || "")}</small></div>`).join("");
     }
     const queueStatus = document.querySelector("#businessHomeQueueStatus");
     if (queueStatus) {
