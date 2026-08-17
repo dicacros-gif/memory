@@ -120,7 +120,7 @@ assert.match(landingCss, /@media \(max-width: 1120px\)[\s\S]*?\.business-menu-bu
 assert.match(html, /id="intelligenceConsole" hidden/, "the Intelligence Console must stay outside the initial visible layer");
 assert.doesNotMatch(html, /<script[^>]+src="assets\/js\/app\.js/, "the heavy console app must not load with the public landing page");
 assert.doesNotMatch(html, /<link[^>]+href="assets\/css\/styles\.css/, "the heavy console stylesheet must not load with the public landing page");
-assert.match(html, /assets\/js\/landing\.min\.js\?v=infra-20260817-71/, "the lightweight landing controller must use the minified AI Infra revision");
+assert.match(html, /assets\/js\/landing\.min\.js\?v=infra-20260817-72/, "the lightweight landing controller must use the minified AI Infra revision");
 assert.doesNotMatch(html, /LIVE DECISION QUEUE · CONSOLE-CONNECTED|businessHomeQueueStatus/, "the removed live decision queue header must stay deleted");
 const homepageDecisionQueue = html.match(/<div class="business-decision-queue-grid"[\s\S]*?<\/div>/)?.[0] || "";
 assert.doesNotMatch(homepageDecisionQueue, /<small>OUTPUT ·/, "the removed homepage decision output row must stay deleted");
@@ -142,10 +142,10 @@ assert.doesNotMatch(html, /메모리를 판매하는 것이 아니라/, "the rem
 assert.doesNotMatch(html, /직무 적합성을 세 가지|검증 가능한 역량으로 압축합니다/, "the removed role-fit headline must stay deleted");
 assert.doesNotMatch(html, /SK hynix AI Infra에서 만들고 싶은/, "the removed aspiration heading must stay deleted");
 assert.doesNotMatch(html, /Memory Strategy 조직은 전망을 만드는 데서 끝나지 않습니다/, "the removed narrative sentence must stay deleted");
-assert.match(html, /data-frame="McKINSEY · THREE HORIZONS"/, "the initiative system must expose a consulting-frame label");
+assert.doesNotMatch(html, /data-frame="McKINSEY · THREE HORIZONS"/, "the removed Three Horizons frame label must stay deleted");
 assert.match(html, /class="business-initiative-foundation"/, "the initiative infographic must include a visible foundation layer");
 assert.match(html, /data-frame="BAIN · RESULTS DELIVERY"/, "the capability system must expose its results-delivery frame");
-assert.match(html, /data-frame="BCG · 2×2 SCENARIO MATRIX"/, "external context must use a 2x2 scenario frame");
+assert.doesNotMatch(html, /data-frame="BCG · 2×2 SCENARIO MATRIX"/, "the removed scenario-matrix frame label must stay deleted");
 assert.match(html, /Hypothesis → Test → Trigger → Decision/, "deep cases must show the decision-validation sequence");
 assert.match(landing, /function setupInfographicSequence\(\)/, "the landing controller must stagger infographic sequences");
 assert.match(landingCss, /@keyframes consultingArrowPulse/, "the infographic system must animate directional flow");
@@ -173,7 +173,7 @@ assert.match(app, /id="cLevelCopyLink"[\s\S]*?copyTextToClipboard/, "executive a
 assert.match(css, /\.main > section:not\(#overview\):not\(#strategy-consulting\) \{[\s\S]*?content-visibility:\s*auto;/, "below-fold console sections must skip initial layout and paint");
 assert.match(landing, /nav\?\.classList\.toggle\("is-open", open\)/, "the mobile menu controller must activate the responsive navigation state");
 assert.match(landing, /fetch\("data\/data-manifest\.json", \{ cache: "no-store" \}\)/, "the business site must disclose current manifest freshness");
-for (const evidenceLabel of ["RECONSTRUCTED", "HYPOTHESIS", "MODELED"]) {
+for (const evidenceLabel of ["HYPOTHESIS", "MODELED"]) {
   assert.match(html, new RegExp(evidenceLabel), `the portfolio must expose the ${evidenceLabel} evidence label`);
 }
 assert.match(html, /id="pain-framework"[\s\S]*?Business Pain → Root Bottleneck[\s\S]*?data-framework="edge"/, "the landing must provide a customer-selectable bottleneck-first diagnostic");
@@ -188,7 +188,7 @@ assert.match(html, /What Would Change Our Mind\?/, "the strategy loop must expos
 assert.match(html, /SLO·Quality·Goodput·System Economics가 합의 Baseline을 통과하지 못함/, "the strategy loop must define a baseline-relative technology kill criterion");
 assert.match(html, /Qualification·Package\/Yield·Interoperability·Capacity가 합의 Readiness를 충족하지 못함/, "the strategy loop must define a baseline-relative supply kill criterion");
 assert.match(html, /Committed Volume·지불의사·Reference 재사용성이 합의 사업성 기준에 미달/, "the strategy loop must define a baseline-relative commercial kill criterion");
-assert.match(html, /RECONSTRUCTED · DECISION PACK[\s\S]*?CUSTOMER SITUATION[\s\S]*?BOTTLENECK TEST[\s\S]*?ARCHITECTURE OPTIONS[\s\S]*?EXECUTION GATES/, "solutions must show a strategy deliverable instead of another process diagram");
+assert.match(html, /id="solutions"[\s\S]*?CUSTOMER SITUATION[\s\S]*?BOTTLENECK TEST[\s\S]*?ARCHITECTURE OPTIONS[\s\S]*?EXECUTION GATES/, "solutions must retain the strategy deliverable after removing its decorative header");
 assert.match(html, /id="workload-map"[\s\S]*?TRAINING[\s\S]*?REAL-TIME INFERENCE[\s\S]*?BATCH INFERENCE[\s\S]*?ENTERPRISE RAG[\s\S]*?AI AGENT[\s\S]*?MULTIMODAL/, "the workload contract must cover six distinct workload families");
 assert.match(html, /Performance[\s\S]*?per Watt[\s\S]*?Token \/ Query[\s\S]*?Total Cost of/, "technology options must connect to system-economics metrics");
 assert.match(html, /id="macro"[\s\S]*?Competition &amp; Supply Chain[\s\S]*?글로벌 경쟁 · Packaging[\s\S]*?Policy &amp; Geopolitics/, "competition and policy must remain subordinate macro decision inputs");
@@ -213,8 +213,25 @@ assert.match(html, /id="deep-cases"[\s\S]*?data-deep-case="agentic"[\s\S]*?data-
 assert.equal((html.match(/WHAT WOULD CHANGE MY MIND\?/g) || []).length, 3, "every deep case must declare decision reversal conditions");
 assert.match(html, /Goodput·P99·Quality·System TCO[\s\S]*?Goodput·Utilization·Recovery·Qualification[\s\S]*?Recall\/Quality·Retrieval P99·Cost\/Query·Reliability/, "deep cases must declare baseline-relative decision triggers");
 assert.match(landing, /function setupDeepCases\(\)[\s\S]*?data-deep-case-panel/, "deep-case tabs must switch the visible strategy case");
-assert.match(html, /id="automation" aria-live="polite"[\s\S]*?FAIL-CLOSED[\s\S]*?businessDataIntegrity[\s\S]*?businessDataFreshness[\s\S]*?businessDataCoverage[\s\S]*?businessDecisionConfidence[\s\S]*?HYBRID REFRESH[\s\S]*?businessFreshnessScore[\s\S]*?id="businessDataSources"[\s\S]*?id="businessDataRun"/, "the public site must separate integrity, quantitative freshness, coverage, confidence, and traceable run");
-assert.match(landing, /Status unavailable · fail-closed[\s\S]*?마지막 검증 Bundle 유지[\s\S]*?panel\.hidden = false/, "automation status failures must remain visible and fail closed");
+assert.doesNotMatch(html, /id="automation"|businessFreshnessBoard|AUTOMATED · FAIL-CLOSED INTELLIGENCE LOOP/, "the removed automation status board must stay deleted");
+for (const removedVisual of [
+  /HTML에는 최신 경영진 답안/,
+  /진단 항목은 실제 고객 성과/,
+  /RECONSTRUCTED · DECISION PACK/,
+  /공개 사실 기반 재구성 전략 산출물/,
+  /CURRENT VERIFIED SIGNALS/,
+  /id="aiFactoryEvidenceNote"/,
+  /id="workloadOptimizationThesis"/,
+  /id="ragLiveControl"/,
+  /id="ragQualityKpis"/,
+  /business-collaboration-models/,
+  /id="caseClassification"/,
+  /data-frame="(?:BCG · STRATEGY PALETTE|ECOSYSTEM MAP · COMMERCIAL GATES|TEAM OPERATING MODEL · 3 WORKSTREAMS)"/,
+  /Organization Mandate · Repeatable Decisions/,
+  /External Context · Decision Input/,
+]) assert.doesNotMatch(html, removedVisual, `removed screenshot content must stay deleted: ${removedVisual}`);
+assert.doesNotMatch(landing, /decision-os-brief-meta|<small>KILL CRITERIA<\/small>/, "decision cards must not recreate deleted metadata and kill rows");
+assert.doesNotMatch(landing, /updateDataStatus|applyDecisionControl|renderCaseClassification/, "deleted visual controls must not retain dead rendering work");
 assert.doesNotMatch(html, /console-data-health|Data Health · Decision Use Gate|DECISION OBJECT STANDARD/, "the redundant console data-health board must stay removed");
 assert.doesNotMatch(app, /renderConsoleDataHealth|renderCrawlHeartbeat|crawlHeartbeat/, "removed console status panels must not retain rendering work");
 assert.doesNotMatch(css, /\.console-data-health|\.crawl-heartbeat/, "removed console status panels must not retain unused styling");

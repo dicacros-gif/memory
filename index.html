@@ -110,7 +110,7 @@
     (() => {
       if (!location.hash.startsWith("#console")) return;
       document.documentElement.classList.add("console-entry");
-      const revision = "infra-20260817-71";
+      const revision = "infra-20260817-72";
       const assets = [
         ["consoleStylesPreload", "style", `assets/css/styles.min.css?v=${revision}`, "high"],
         ["consoleAppPreload", "script", `assets/js/app.min.js?v=${revision}`, "low"],
@@ -127,7 +127,7 @@
       }
     })();
   </script>
-  <link rel="stylesheet" href="assets/css/landing.min.css?v=infra-20260817-71" />
+  <link rel="stylesheet" href="assets/css/landing.min.css?v=infra-20260817-72" />
 </head>
 <body class="landing-mode">
   <div class="business-site" id="businessSite">
@@ -393,20 +393,19 @@
           </ol>
 
           <div class="decision-os-briefs" id="decisionAutomationBriefs" aria-live="polite">
-            <article><header><span>01 · CUSTOM MEMORY</span><b>EVIDENCE READY</b></header><h3>표준형과 Custom 투자를 Stage Gate로 분리</h3><ul><li>고객 인증·Base-Die·Package·Yield 동시 확인</li><li>Binding Volume·NRE 회수·Margin Floor 충족 시 확대</li></ul><footer><small>KILL</small><strong>확정 물량과 Qualification 경로가 없으면 Full-Custom 중단</strong></footer></article>
-            <article><header><span>02 · AGENTIC INFERENCE</span><b>EVIDENCE READY</b></header><h3>Serving SW 이후 Memory Tiering을 검증</h3><ul><li>Context·Concurrency·KV Reuse·TTFT/TPOT 고정</li><li>HBM·Host DRAM/CXL·eSSD를 동일 SLO에서 비교</li></ul><footer><small>KILL</small><strong>SW-only가 더 경제적이면 HW 제안 중단</strong></footer></article>
-            <article><header><span>03 · ENTERPRISE RAG</span><b>EVIDENCE READY</b></header><h3>Vector DB보다 검색 품질 Gate를 먼저 통과</h3><ul><li>ACL·Metadata·Hybrid Retrieval·Rerank 검증</li><li>Hot Index·Warm Document·Cold Corpus 계층화</li></ul><footer><small>KILL</small><strong>Recall·권한·인용 품질 실패 시 증설 중단</strong></footer></article>
-            <article><header><span>04 · AI FACTORY</span><b>EVIDENCE READY</b></header><h3>서버가 아니라 Rack Cell 단위로 투자 판단</h3><ul><li>Accelerator·Fabric·Storage·Power/Cooling 통합 계측</li><li>Useful AI Work / Cost와 Qualification / Time 적용</li></ul><footer><small>KILL</small><strong>전력·열·복구 SLO 미검증 시 대규모 CAPEX 보류</strong></footer></article>
+            <article><header><span>01 · CUSTOM MEMORY</span><b>EVIDENCE READY</b></header><h3>표준형과 Custom 투자를 Stage Gate로 분리</h3><ul><li>고객 인증·Base-Die·Package·Yield 동시 확인</li><li>Binding Volume·NRE 회수·Margin Floor 충족 시 확대</li></ul></article>
+            <article><header><span>02 · AGENTIC INFERENCE</span><b>EVIDENCE READY</b></header><h3>Serving SW 이후 Memory Tiering을 검증</h3><ul><li>Context·Concurrency·KV Reuse·TTFT/TPOT 고정</li><li>HBM·Host DRAM/CXL·eSSD를 동일 SLO에서 비교</li></ul></article>
+            <article><header><span>03 · ENTERPRISE RAG</span><b>EVIDENCE READY</b></header><h3>Vector DB보다 검색 품질 Gate를 먼저 통과</h3><ul><li>ACL·Metadata·Hybrid Retrieval·Rerank 검증</li><li>Hot Index·Warm Document·Cold Corpus 계층화</li></ul></article>
+            <article><header><span>04 · AI FACTORY</span><b>EVIDENCE READY</b></header><h3>서버가 아니라 Rack Cell 단위로 투자 판단</h3><ul><li>Accelerator·Fabric·Storage·Power/Cooling 통합 계측</li><li>Useful AI Work / Cost와 Qualification / Time 적용</li></ul></article>
           </div>
 
           <div class="decision-os-links">
             <a href="console/">검색·공유 가능한 Executive Snapshot 열기 <span aria-hidden="true">→</span></a>
-            <p>HTML에는 최신 경영진 답안을, JSON에는 상세 Evidence를, JavaScript에는 상호작용만 배치</p>
           </div>
         </div>
       </section>
 
-      <section class="business-section business-initiatives" id="initiatives" data-frame="McKINSEY · THREE HORIZONS">
+      <section class="business-section business-initiatives" id="initiatives">
         <div class="business-container">
           <div class="business-section-heading business-section-heading--split">
             <div><p class="business-kicker">North Star · Growth System</p><h2>3 Strategic Initiatives</h2></div>
@@ -519,12 +518,11 @@
             <div class="business-framework-panel" data-framework-panel="edge" hidden>
               <dl><div><dt>BUSINESS PAIN</dt><dd>실시간 경험·BOM·배터리·제품 일정</dd></div><div><dt>SERVICE KPI / SLO</dt><dd>Latency·Accuracy·Energy/Task·Thermal</dd></div><div><dt>SYSTEM SYMPTOM</dt><dd>Memory Footprint·Thermal Throttle·Storage Stall</dd></div><div><dt>ROOT BOTTLENECK</dt><dd>Model·Compute·LPDDR·Storage·전력/발열</dd></div><div><dt>DECISION OPTIONS</dt><dd>Model 효율화 · LPDDR/UFS · SKU/BOM 재설계</dd></div><div><dt>EXECUTION</dt><dd>Experience Test → Reliability → Ramp</dd></div></dl>
             </div>
-            <p class="business-framework-note">진단 항목은 실제 고객 성과를 주장하지 않는 전략 가설이며, 고객 데이터와 Benchmark를 통해 검증</p>
           </section>
         </div>
       </section>
 
-      <section class="business-section business-solutions" id="solutions" data-frame="BCG · STRATEGY PALETTE">
+      <section class="business-section business-solutions" id="solutions">
         <div class="business-container">
           <div class="business-section-heading">
             <p class="business-kicker">Decision Architecture · So What</p>
@@ -533,7 +531,6 @@
           </div>
           <div class="business-solution-grid">
             <article class="business-solution-card business-solution-card--wide">
-              <div class="business-artifact-head"><span class="business-card-tag">RECONSTRUCTED · DECISION PACK</span><strong>가설 · 실제 고객 데이터 검증 필요</strong></div>
               <h3>Agentic AI Bottleneck-First Strategy</h3>
               <ul class="business-inline-points"><li>문제 · Business Outcome/SLO</li><li>진단 · 지배 병목</li><li>실행 · HW/SW Architecture · 사업화 Gate</li></ul>
               <div class="business-strategy-artifact">
@@ -544,7 +541,6 @@
                 <div><span>BUSINESS CASE</span><p>추가 HW/SW 비용 · Goodput · GPU 유휴 · Power/Token · 위험조정 TCO 비교</p></div>
                 <div><span>EXECUTION GATES</span><p>Trace 수집 → Benchmark → Architecture PoC → SW 통합 → 신뢰성 → 고객 인증 → 양산 준비</p></div>
               </div>
-              <p class="business-framework-note">공개 사실 기반 재구성 전략 산출물 · 실제 고객 성과 아님</p>
             </article>
           </div>
 
@@ -579,22 +575,17 @@
             <ol class="business-ai-factory-sequence" id="aiFactorySequence" aria-label="AI Factory 실행 순서">
               <li><span>01</span><strong>전력·열 Feasibility</strong></li><li><span>02</span><strong>Workload Census</strong></li><li><span>03</span><strong>동일 Benchmark</strong></li><li><span>04</span><strong>Network·Storage</strong></li><li><span>05</span><strong>Scheduler</strong></li><li><span>06</span><strong>Serving</strong></li><li><span>07</span><strong>RAG·Evaluation</strong></li><li><span>08</span><strong>Modular Scale-out</strong></li>
             </ol>
-            <div class="business-ai-factory-control">
-              <div><span>CURRENT VERIFIED SIGNALS</span><div class="business-ai-factory-signals" id="aiFactorySignals"><p>공식 원문이 최신성·출처·주제 Gate를 통과하면 Pillar별 한 건씩 자동 승격</p></div></div>
-            </div>
             <div class="business-ai-factory-decision-grid">
               <section class="business-accelerator-scorecard" id="acceleratorScorecard" aria-labelledby="acceleratorScorecardTitle"><header><span>WEIGHTED DECISION MATRIX</span><h4 id="acceleratorScorecardTitle">Accelerator Decision Scorecard</h4><p>동일 Workload·Model·Version·Precision·Quality·Latency SLO에서만 비교</p></header><div><b style="--weight:25">25<small>WORKLOAD</small></b><b style="--weight:20">20<small>COST/TASK</small></b><b style="--weight:15">15<small>HBM/FABRIC</small></b><b style="--weight:15">15<small>SOFTWARE</small></b><b style="--weight:10">10<small>POWER</small></b><b style="--weight:10">10<small>SUPPLY</small></b><b style="--weight:5">5<small>SECURITY</small></b></div><footer>Accelerator · Runtime/Serving · Application/RAG 공급 계층 분리</footer></section>
               <section class="business-kpi-tree" id="aiFactoryKpiTree" aria-labelledby="aiFactoryKpiTitle"><header><span>VALUE TREE</span><h4 id="aiFactoryKpiTitle">Successful Task Economics</h4></header><div><article><small>BUSINESS</small><strong>업무 성공률 · 시간 · 채택</strong></article><article><small>APPLICATION</small><strong>Groundedness · Citation</strong></article><article><small>PLATFORM</small><strong>Goodput · TTFT · Cache</strong></article><article><small>FACILITY</small><strong>PUE · kWh/Task · Goodput/W</strong></article></div><p>Cost per Successful Task = 총비용 ÷ 품질 기준 통과 업무</p></section>
             </div>
             <ol class="business-ai-factory-roadmap" id="aiFactoryRoadmap" aria-label="AI Infra 실행 로드맵"><li><span>PHASE 0 · 0–30D</span><strong>Discovery &amp; Baseline</strong><p>로그·업무 성공기준 없이는 대규모 CAPEX 보류</p></li><li><span>PHASE 1 · 31–90D</span><strong>Benchmark &amp; Pilot</strong><p>품질·P95·Cost/Task·보안·복구 Gate</p></li><li><span>PHASE 2 · 3–6M</span><strong>Shared Platform</strong><p>Gateway·RAG·Serving·Observability</p></li><li><span>PHASE 3 · 6–18M</span><strong>Modular AI Factory</strong><p>전력·열·SLO·복구 역량 검증</p></li><li><span>PHASE 4 · 18–36M</span><strong>Grid-interactive Autonomy</strong><p>전력·탄소·수요 기반 Routing</p></li></ol>
-            <p class="business-framework-note" id="aiFactoryEvidenceNote">벤더 성능 배수와 전망 수치는 Workload·Model·Version·SLO·기준일이 확인될 때만 의사결정 근거로 승격</p>
           </section>
 
           <section class="business-workload-advisory" id="workload-optimization" aria-labelledby="workloadOptimizationTitle">
             <div class="business-module-heading business-module-heading--workload">
               <span>BAIN · RESULTS DELIVERY · EVIDENCE-TO-PoC</span>
               <h3 id="workloadOptimizationTitle">Data Center Workload Optimization</h3>
-              <p id="workloadOptimizationThesis">메모리 증설부터 제안하지 않고, 고객 Workload Trace로 병목과 데이터 수명주기를 먼저 계측한 뒤 계층화·소프트웨어·용량 대안을 같은 KPI에서 검증</p>
             </div>
             <ol class="business-consulting-process" id="workloadConsultingProcess" aria-label="맞춤형 메모리 컨설팅 프로세스">
               <li><span>01</span><div><small>CUSTOMER INTAKE</small><strong>고객 문제 구조화</strong><ul><li>서비스 SLA·구매 기준·Owner 확인</li><li>대표 Workload 범위 고정</li></ul></div></li>
@@ -613,10 +604,9 @@
               <article><span>06 · FINOPS / GREENOPS</span><h4>AI FinOps &amp; GreenOps</h4><dl><div><dt>PAIN</dt><dd>비용·전력과 업무 성과 연결 불가</dd></div><div><dt>OFFER</dt><dd>Showback · Cache/Queue/Idle · 전력기반 Scheduling</dd></div><div><dt>KPI</dt><dd>Cost/Task · kWh/Task · Goodput/W</dd></div><div><dt>KILL</dt><dd>절감이 품질·지연 악화로 상쇄되면 정책 원복</dd></div></dl></article>
             </div>
             <section class="business-rag-operating-model" id="ragOperatingModel" aria-labelledby="ragOperatingModelTitle">
-              <header><div><span>RAG QUALITY CONTROL</span><h4 id="ragOperatingModelTitle">Vector DB가 아니라 데이터·검색 품질을 운영</h4></div><strong id="ragLiveControl">FRESHNESS · CHECK</strong></header>
+              <header><div><span>RAG QUALITY CONTROL</span><h4 id="ragOperatingModelTitle">Vector DB가 아니라 데이터·검색 품질을 운영</h4></div></header>
               <ol id="ragQualityPipeline"><li>Identity / ACL</li><li>수집·변경 감지</li><li>Parsing·OCR</li><li>Chunking</li><li>Metadata</li><li>Embedding</li><li>Hybrid Search</li><li>Query Rewrite</li><li>Retrieval</li><li>Rerank·Dedup</li><li>Evidence·Citation</li><li>Generation</li><li>Evaluation</li></ol>
               <div class="business-rag-maturity" id="ragMaturity"><article><b>L0</b><strong>Document Chat</strong></article><article><b>L1</b><strong>Vector Retrieval</strong></article><article><b>L2</b><strong>Hybrid + Rerank</strong></article><article><b>L3</b><strong>Governed RAG</strong></article><article><b>L4</b><strong>Agentic Retrieval</strong></article><article><b>L5</b><strong>Adaptive System</strong></article></div>
-              <footer id="ragQualityKpis">Recall@k · nDCG · Citation Precision · Index Freshness · ACL Error · Unsupported Answer</footer>
             </section>
           </section>
 
@@ -710,7 +700,6 @@
             <div class="business-module-heading">
               <span>RIGHT TO WIN · SAME-METRIC BENCHMARK</span>
               <h3 id="competitorBenchmarkTitle">HBM4 / HBM4E 경쟁사 동종 지표 비교</h3>
-              <p>동일 출처·동일 지표의 최신 검증본 연결 중</p>
             </div>
             <div class="business-competitor-grid">
               <article class="business-data-placeholder"><header><span>CURRENT BENCHMARK</span><strong>최신 경쟁 지표 연결 중</strong></header><dl><div><dt>SOURCE</dt><dd>검증 데이터 Bundle</dd></div><div><dt>STATUS</dt><dd>자동 갱신</dd></div><div><dt>GATE</dt><dd>동일 기준 비교</dd></div></dl></article>
@@ -742,32 +731,11 @@
               <li><span>03</span><div><small>DECISION QUESTION</small><strong>의사결정 질문 생성 중</strong><p>선택지·사업성·Right to Win을 비교</p></div></li>
               <li><span>04</span><div><small>ACTION / KILL GATE</small><strong>판단 변경 KPI 연결 중</strong><p>Owner·KPI·다음 검증 시점을 연결</p></div></li>
             </ol>
-            <p>공개 근거와 전략 가설을 분리하고 고객 Baseline·Qualification·반복 발주를 순차 Gate로 검증</p>
           </article>
-          <aside class="business-data-status" id="automation" aria-live="polite">
-            <div class="business-data-status-main"><span class="business-status-dot" id="businessStatusDot"></span><div><small>AUTOMATED · FAIL-CLOSED INTELLIGENCE LOOP</small><strong id="businessDataStatus">검증 상태 확인 중</strong></div></div>
-            <div class="business-automation-badges"><span id="businessDataIntegrity">INTEGRITY · CHECK</span><span id="businessDataFreshness">FRESHNESS · SCORING</span><span id="businessDataCoverage">COVERAGE · CHECK</span><span id="businessDecisionConfidence">CONFIDENCE · CHECK</span><span id="businessRagQuality">RAG EVAL · PENDING</span><span id="businessDataCadence">HYBRID REFRESH · EVENT + 3H</span></div>
-            <section class="business-freshness-board" id="businessFreshnessBoard" data-state="pending" aria-label="근거 최신성 정량 평가">
-              <div class="business-freshness-ring" aria-hidden="true"><span>FRESHNESS</span><strong id="businessFreshnessScore">--</strong><small>/ 100</small></div>
-              <div class="business-freshness-summary"><small>EVIDENCE BASE · QUANTIFIED CONTROL</small><strong id="businessFreshnessMode">다음 검증 실행 대기</strong><p>85점 미만은 <b>재검증 필요</b>, 70점 미만은 <b>저하 모드</b>로 자동 전환</p></div>
-              <dl class="business-freshness-components"><div><dt>Content Age</dt><dd id="businessFreshnessAge">--</dd></div><div><dt>Embedding Lag</dt><dd id="businessFreshnessLag">--</dd></div><div><dt>Stale Retrieval</dt><dd id="businessFreshnessStale">--</dd></div><div><dt>Coverage Drift</dt><dd id="businessFreshnessDrift">--</dd></div></dl>
-              <dl class="business-freshness-timestamps"><div><dt>최종 인간 검증일</dt><dd id="businessHumanVerifiedAt">미등록</dd></div><div><dt>소스 변경 감지일</dt><dd id="businessSourceChangedAt">확인 중</dd></div><div><dt>색인 반영일</dt><dd id="businessIndexedAt">확인 중</dd></div></dl>
-            </section>
-            <ol class="business-automation-flow" aria-label="자동 인텔리전스 운영 흐름">
-              <li><span>01</span><strong>Collect</strong><small>공식 · 표준 · 논문 · 시장 신호</small></li>
-              <li><span>02</span><strong>Normalize</strong><small>기관 · 기간 · 분모 · 단위 분리</small></li>
-              <li><span>03</span><strong>Consensus</strong><small>동일 지표 합성 · 충돌은 Range</small></li>
-              <li><span>04</span><strong>Retrieve</strong><small>변경 문서만 증분 재색인</small></li>
-              <li><span>05</span><strong>Evaluate</strong><small>인용 · 최신성 · 출처 · 비근거율</small></li>
-              <li><span>06</span><strong>Publish</strong><small>평가를 통과한 Bundle만 게시</small></li>
-            </ol>
-            <dl class="business-automation-metrics"><div><dt>최종 검증 시각</dt><dd id="businessDataUpdated">확인 중</dd></div><div><dt>다음 최신성 Gate</dt><dd id="businessDataExpiry">확인 중</dd></div><div><dt>출처 커버리지</dt><dd id="businessDataSources">확인 중</dd></div><div><dt>게시 데이터셋</dt><dd id="businessDataArtifacts">확인 중</dd></div><div><dt>추적 실행 ID</dt><dd id="businessDataRun">확인 중</dd></div></dl>
-            <ul class="business-status-rules"><li>EVENT · 실적·공시·보도자료 분 단위 반영</li><li>SAFETY POLL · 3시간마다 유실 재확인</li><li>IDEMPOTENT · 중복 이벤트 자동 억제</li><li>RANGE · 기관별 차이 자동 공개</li><li>FAIL · 신규 게시 중단</li><li>FALLBACK · 최종 검증본 유지</li></ul>
-          </aside>
         </div>
       </section>
 
-      <section class="business-section business-partners" id="partners" data-frame="ECOSYSTEM MAP · COMMERCIAL GATES">
+      <section class="business-section business-partners" id="partners">
         <div class="business-container">
           <div class="business-section-heading">
             <p class="business-kicker">Partner System · Value Chain</p>
@@ -786,14 +754,6 @@
             <div class="business-partner-core"><span>AI INFRA<br />VALUE CHAIN</span><strong>CO-DESIGN</strong></div>
             <ul><li><strong>AI Accelerator &amp; Custom ASIC</strong><span>칩 Roadmap · 메모리 요구사항</span></li><li><strong>Hyperscaler / CSP / AI Datacenter</strong><span>Workload · 검증 · TCO</span></li><li><strong>CPU / Server Platform</strong><span>시스템 Memory · 고객 인증</span></li><li><strong>Foundry &amp; Advanced Packaging</strong><span>Logic Base Die · 통합 · 수율</span></li><li><strong>Storage / NAND Ecosystem</strong><span>eSSD 실행 · HBF Emerging Option</span></li><li><strong>CXL / Open Standards</strong><span>Pooling · 상호운용성 · 생태계</span></li><li><strong>Network / Power / Cooling</strong><span>Rack · Cluster 병목</span></li><li><strong>AI Model &amp; Software Platform</strong><span>Serving Stack · 데이터 흐름</span></li></ul>
           </div>
-          <div class="business-collaboration-models"><span>요구사항 정의</span><span>Workload Benchmark</span><span>메모리 공동설계</span><span>PoC · 참조 구조</span><span>고객 인증</span><span>Capacity · 양산 확대</span></div>
-
-          <div class="business-case-classification" id="caseClassification" aria-label="사례 근거 분류">
-            <article><span>01 · PUBLIC CASE RECONSTRUCTION</span><p>공개 원문과 검증 자료를 기반으로 재구성</p></article>
-            <article><span>02 · MODELED STRATEGY CASE</span><p>가상의 고객 Workload와 합의 전 Benchmark 조건으로 설계</p></article>
-            <article><span>03 · ANONYMIZED CLIENT CASE</span><p>실제 수행·공개 허가·비식별 검증이 모두 확인된 경우에만 사용</p></article>
-          </div>
-
           <section class="business-deep-cases" id="deep-cases" aria-labelledby="deepCasesTitle">
             <div class="business-case-heading"><span>THREE DEEP BUSINESS CASES</span><h3 id="deepCasesTitle">Hypothesis → Test → Trigger → Decision</h3><ul class="business-inline-points"><li>STATUS · 가설 / 모델링</li><li>VALIDATION · 고객 Trace · 합의 Baseline</li><li>GATE · 판단 변경 조건</li></ul></div>
             <div class="business-case-tabs" role="tablist" aria-label="Deep Business Case 선택">
@@ -823,10 +783,10 @@
         </div>
       </section>
 
-      <section class="business-section business-macro" id="macro" data-frame="BCG · 2×2 SCENARIO MATRIX">
+      <section class="business-section business-macro" id="macro">
         <div class="business-container">
           <div class="business-section-heading business-section-heading--split">
-            <div><p class="business-kicker">External Context · Decision Input</p><h2>Signal Portfolio → Memory Decision</h2></div>
+            <div><h2>Signal Portfolio → Memory Decision</h2></div>
             <ul class="business-heading-points"><li>DEMAND · 고객 수요 · Accelerator</li><li>SUPPLY · Capacity · Packaging · 가격</li><li>RISK · 경쟁 · 정책 · 지정학</li></ul>
           </div>
           <div class="business-decision-inputs" aria-label="시장과 사업 의사결정 입력 변수"><span>고객 수요</span><span>Accelerator Roadmap</span><span>고객 인증 상태</span><span>메모리 가격</span><span>Capacity / Packaging</span><span>정책 / 지정학</span></div>
@@ -840,11 +800,10 @@
         </div>
       </section>
 
-      <section class="business-section business-about business-team-operating" id="team-operating-model" data-frame="TEAM OPERATING MODEL · 3 WORKSTREAMS">
+      <section class="business-section business-about business-team-operating" id="team-operating-model">
         <div class="business-container">
           <div class="business-section-heading business-section-heading--split">
             <div>
-              <p class="business-kicker">Organization Mandate · Repeatable Decisions</p>
               <h2 id="teamOperatingTitle">AI Infra Strategy Team Operating Model</h2>
               <p id="teamOperatingThesis">고객 Pain Point를 출발점으로 메모리 전략·신규 Biz·AI Infra 실행을 하나의 반복 가능한 의사결정 체계로 연결</p>
             </div>
@@ -1935,6 +1894,6 @@
   <div class="qa-answer" id="qaAnswer" hidden></div>
   <div class="inspector" id="inspector" hidden></div>
   <div class="backdrop" id="backdrop"></div>
-  <script src="assets/js/landing.min.js?v=infra-20260817-71" defer></script>
+  <script src="assets/js/landing.min.js?v=infra-20260817-72" defer></script>
 </body>
 </html>

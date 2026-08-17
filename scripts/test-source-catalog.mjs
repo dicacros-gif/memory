@@ -97,7 +97,7 @@ assert.match(crawler, /sourceCatalogHealthProbes/);
 assert.match(crawler, /source_catalog_observed/);
 assert.match(workflow, /cron: "17 \* \* \* \*"/);
 assert.match(workflow, /repository_dispatch:[\s\S]*earnings-release[\s\S]*industry-report[\s\S]*source-update/);
-assert.match(landing, /businessDataSources/);
+assert.doesNotMatch(landing, /businessDataSources/, "removed catalog status panel must not be rendered again");
 assert.match(audit, /3\.0-catalog-driven-registry/);
 assert.match(audit, /source catalog coverage or fail-closed policy is incomplete/);
 

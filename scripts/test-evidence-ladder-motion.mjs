@@ -60,8 +60,8 @@ assert.match(landing, /hasInteractiveContent[\s\S]*?card\.tabIndex = 0/, "non-in
 assert.match(landing, /function surfaceLuminance\(node\)[\s\S]*?function inferHoverContrastMode\(card\)/);
 assert.match(landing, /requestAnimationFrame[\s\S]*?--tilt-x[\s\S]*?--tilt-y/);
 assert.match(landing, /setupReveal\(\);\s*setupConsultingCardMotion\(\);/);
-assert.match(landing, /renderCompetitorContent\(content\);[\s\S]*?renderCaseClassification\(content\);[\s\S]*?setupConsultingCardMotion\(\);/, "dynamically regenerated cards must receive the same motion and contrast behavior");
-assert.match(landing, /infra-20260817-71/);
+assert.match(landing, /renderCompetitorContent\(content\);[\s\S]*?applyUniversalSectionBindings\(content\);[\s\S]*?setupConsultingCardMotion\(\);/, "remaining dynamically regenerated cards must receive the same motion and contrast behavior");
+assert.match(landing, /infra-20260817-72/);
 
 console.log(JSON.stringify({
   decisionThemes: "generated-current",

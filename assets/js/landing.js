@@ -3,7 +3,7 @@
 
   const BUSINESS_TITLE = "AI Infra Strategy · Customer Pain to Executive Action";
   const CONSOLE_HASH = "#console";
-  const CONSOLE_REVISION = "infra-20260817-71";
+  const CONSOLE_REVISION = "infra-20260817-72";
   const DECISION_CLIENT_PATH = "data/landing-decision-client.json";
   const SITE_CONTENT_PATH = "data/site-content-client.json";
   const site = document.querySelector("#businessSite");
@@ -192,8 +192,6 @@
       document.querySelector("#consoleStyles:not([data-ready='1'])")?.remove();
       document.querySelector("#consoleApp:not([data-ready='1'])")?.remove();
       consoleLoadPromise = null;
-      const status = document.querySelector("#businessDataStatus");
-      if (status) status.textContent = "Console 로딩 실패 · 다시 시도해 주세요";
       openBusiness("home", { updateHistory: true });
     } finally {
       for (const trigger of document.querySelectorAll("[data-open-console]")) trigger.removeAttribute("aria-busy");
@@ -511,16 +509,10 @@
     const briefs = document.querySelector("#decisionAutomationBriefs");
     if (briefs && automation.briefs?.length) {
       briefs.innerHTML = automation.briefs.map((brief, index) => {
-        const source = (brief.evidence || []).find((item) => item.url);
-        const sourceLink = source
-          ? `<a href="${escapeBusinessHTML(safeBusinessUrl(source.url, "console/"))}" target="_blank" rel="noopener noreferrer">${escapeBusinessHTML(source.source || "원문")} · ${escapeBusinessHTML(String(source.publishedAt || "").slice(0, 10) || "기준일 확인")} ↗</a>`
-          : `<span>구조화 Event 관측 대기</span>`;
         return `<article tabindex="0" data-decision-brief="${escapeBusinessHTML(brief.id)}">
           <header><span>${String(index + 1).padStart(2, "0")} · ${escapeBusinessHTML(brief.label)}</span><b>${escapeBusinessHTML(String(brief.status || "MONITORING").replaceAll("_", " "))}</b></header>
           <h3>${escapeBusinessHTML(brief.whatChanged || brief.hypothesis)}</h3>
           <ul><li>${escapeBusinessHTML(brief.customerPain)}</li><li>${escapeBusinessHTML(brief.hypothesis)}</li><li>90D · ${escapeBusinessHTML(brief.action90d)}</li></ul>
-          <div class="decision-os-brief-meta"><span>STAGE · ${escapeBusinessHTML(brief.stage || "MONITORING")}</span><span>PRIMARY · ${Number(brief.primaryEvidence || 0)}</span><span>SOURCES · ${Number(brief.independentSources || 0)}</span>${sourceLink}</div>
-          <footer><small>KILL CRITERIA</small><strong>${escapeBusinessHTML(brief.killCriteria)}</strong></footer>
         </article>`;
       }).join("");
     }
@@ -759,72 +751,6 @@
     }).join("");
   }
 
-  function renderCaseClassification(content = {}) {
-    const target = document.querySelector("#caseClassification");
-    if (!target || !content.caseClassification?.length) return;
-    target.innerHTML = content.caseClassification.map((item, index) => `
-      <article data-case-classification="${escapeBusinessHTML(item.id || "case")}">
-        <span>${String(index + 1).padStart(2, "0")} · ${escapeBusinessHTML(item.label)}</span>
-        <p>${escapeBusinessHTML(item.description)}</p>
-      </article>`).join("");
-  }
-
-  function applyDecisionControl(content = {}) {
-    const control = content.decisionControl || {};
-    const integrity = document.querySelector("#businessDataIntegrity");
-    const freshness = document.querySelector("#businessDataFreshness");
-    const coverage = document.querySelector("#businessDataCoverage");
-    const confidence = document.querySelector("#businessDecisionConfidence");
-    const ragQuality = document.querySelector("#businessRagQuality");
-    if (integrity) integrity.textContent = `INTEGRITY · ${control.integrity?.status || "CHECK"}`;
-    const freshnessControl = content.decisionIntelligence?.freshness || {};
-    const hasFreshnessScore = ["current", "warning", "degraded"].includes(freshnessControl.status) && Number.isFinite(Number(freshnessControl.score));
-    const score = hasFreshnessScore ? Math.max(0, Math.min(100, Number(freshnessControl.score))) : 0;
-    const scoreText = hasFreshnessScore ? String(Math.round(score)) : "--";
-    if (freshness) {
-      freshness.textContent = `FRESHNESS · ${scoreText}/100 · ${String(freshnessControl.status || "PENDING").toUpperCase()}`;
-      freshness.dataset.state = freshnessControl.status || "pending";
-    }
-    if (coverage) coverage.textContent = `COVERAGE · ${control.coverage?.status || "CHECK"}`;
-    if (confidence) confidence.textContent = `CONFIDENCE · ${control.confidence?.status || "CHECK"}`;
-    if (ragQuality) {
-      const evaluation = content.decisionIntelligence?.evaluation || {};
-      ragQuality.textContent = `RAG EVAL · ${String(evaluation.status || "PENDING").toUpperCase()} · CITE ${evaluation.metrics?.citationCoveragePct ?? 0}%`;
-    }
-    const freshnessBoard = document.querySelector("#businessFreshnessBoard");
-    if (freshnessBoard) {
-      freshnessBoard.dataset.state = freshnessControl.status || "pending";
-      freshnessBoard.style.setProperty("--freshness-score", String(score));
-    }
-    const scoreNode = document.querySelector("#businessFreshnessScore");
-    if (scoreNode) {
-      scoreNode.textContent = scoreText;
-      scoreNode.parentElement?.setAttribute("aria-label", hasFreshnessScore ? `Freshness Score ${scoreText}점, ${freshnessControl.label || "검증 대기"}` : "Freshness Score 다음 검증 실행 대기");
-    }
-    const modeNode = document.querySelector("#businessFreshnessMode");
-    if (modeNode) modeNode.textContent = freshnessControl.label || "다음 검증 실행 대기";
-    const componentNodes = {
-      contentAge: "#businessFreshnessAge",
-      embeddingLag: "#businessFreshnessLag",
-      staleRetrievalRate: "#businessFreshnessStale",
-      coverageDrift: "#businessFreshnessDrift",
-    };
-    for (const [key, selector] of Object.entries(componentNodes)) {
-      const node = document.querySelector(selector);
-      if (node) node.textContent = hasFreshnessScore ? `${Math.round(Number(freshnessControl.components?.[key] || 0))} / 100` : "--";
-    }
-    const timestampNodes = {
-      lastHumanVerifiedAt: ["#businessHumanVerifiedAt", "미등록 · 자동 검증과 분리"],
-      sourceChangeDetectedAt: ["#businessSourceChangedAt", "확인 중"],
-      indexedAt: ["#businessIndexedAt", "확인 중"],
-    };
-    for (const [key, [selector, fallback]] of Object.entries(timestampNodes)) {
-      const node = document.querySelector(selector);
-      const value = freshnessControl.timestamps?.[key];
-      if (node) node.textContent = value ? formatKst(value) : fallback;
-    }
-  }
-
   function renderDepartmentHomepage(content = {}) {
     const hero = content.hero || {};
     const workbench = hero.departmentWorkbench || {};
@@ -870,14 +796,6 @@
     renderBusinessList(document.querySelector(".business-hero-thesis"), content.hero?.thesis);
     renderBusinessList(document.querySelector(".business-hero-bullets"), content.hero?.capabilities);
     renderDepartmentHomepage(content);
-    const configuredSources = Number(content.freshness?.configuredSources || 0);
-    const retrievalStats = content.decisionIntelligence?.retrieval?.stats || {};
-    const sourceMetric = document.querySelector("#businessDataSources");
-    if (sourceMetric) sourceMetric.textContent = configuredSources
-      ? `관측 ${content.freshness?.observedSources || 0} · 구성 ${configuredSources} · 검색 문서 ${retrievalStats.documents || 0} · 증분 ${retrievalStats.reindexed || 0}`
-      : "다음 검증 실행 반영";
-    const cadence = document.querySelector("#businessDataCadence");
-    if (cadence) cadence.textContent = `HYBRID REFRESH · EVENT + ${content.freshness?.scheduleHours || 1}H SAFETY POLL`;
     const staticSnapshot = document.querySelector(".console-static-snapshot header p");
     if (staticSnapshot) staticSnapshot.textContent = content.agentCouncil?.subtitle || staticSnapshot.textContent;
 
@@ -888,9 +806,7 @@
     renderAIFactorySystem(content);
     renderWorkloadOptimization(content);
     renderCompetitorContent(content);
-    renderCaseClassification(content);
     applyUniversalSectionBindings(content);
-    applyDecisionControl(content);
     applyPresentationPolicy(content.presentation);
     setupConsultingCardMotion();
     applyExecutiveCopyStyle(site, content.presentation?.readabilityPolicy);
@@ -977,7 +893,6 @@
     siteContentRefreshTimer = window.setTimeout(async () => {
       if (!document.hidden) {
         await loadSiteContent({ force: true });
-        void updateDataStatus({ force: true });
       }
       scheduleSiteContentRefresh();
     }, minutes * 60 * 1000);
@@ -986,60 +901,8 @@
   function recheckSiteContentNow() {
     if (document.hidden) return;
     void loadSiteContent({ force: true }).then(() => {
-      void updateDataStatus({ force: true });
       scheduleSiteContentRefresh();
     });
-  }
-
-  async function updateDataStatus({ force = false } = {}) {
-    const panel = document.querySelector(".business-data-status");
-    const dot = document.querySelector("#businessStatusDot");
-    const status = document.querySelector("#businessDataStatus");
-    const updated = document.querySelector("#businessDataUpdated");
-    const expiry = document.querySelector("#businessDataExpiry");
-    const artifacts = document.querySelector("#businessDataArtifacts");
-    const sources = document.querySelector("#businessDataSources");
-    const run = document.querySelector("#businessDataRun");
-    if (!status) return;
-
-    try {
-      const manifest = await getDataManifest({ force });
-      const expiresAt = new Date(manifest.expiresAt).getTime();
-      const current = Number.isFinite(expiresAt) && Date.now() <= expiresAt;
-      const decisionControl = window.MEMORY_SITE_CONTENT?.decisionControl || {};
-      const evidenceFreshness = window.MEMORY_SITE_CONTENT?.decisionIntelligence?.freshness || {};
-      const hasFreshnessScore = ["current", "warning", "degraded"].includes(evidenceFreshness.status) && Number.isFinite(Number(evidenceFreshness.score));
-      const scoreText = hasFreshnessScore ? String(Math.round(Number(evidenceFreshness.score))) : "--";
-      status.textContent = current
-        ? `Integrity ${decisionControl.integrity?.status || "PASS"} · Freshness ${scoreText}/100 ${evidenceFreshness.label || "검증 대기"} · Confidence ${decisionControl.confidence?.status || "CHECK"}`
-        : "Update delayed · freshness gate exceeded · last verified bundle retained";
-      dot?.classList.toggle("is-current", current);
-      dot?.classList.toggle("is-delayed", !current);
-      if (updated) updated.textContent = formatKst(manifest.generatedAt);
-      if (expiry) expiry.textContent = formatKst(manifest.expiresAt);
-      if (artifacts) artifacts.textContent = `${Object.keys(manifest.artifacts || {}).length} datasets`;
-      if (run) run.textContent = String(manifest.runId || "unavailable").slice(0, 18);
-      const freshnessBadge = document.querySelector("#businessDataFreshness");
-      if (freshnessBadge) freshnessBadge.textContent = current
-        ? `FRESHNESS · ${scoreText}/100 · ${String(evidenceFreshness.status || "PENDING").toUpperCase()}`
-        : `FRESHNESS · ${scoreText}/100 · DELAYED`;
-      if (panel) panel.hidden = false;
-    } catch (error) {
-      console.warn("Data freshness status unavailable", error);
-      status.textContent = "Status unavailable · fail-closed";
-      dot?.classList.remove("is-current");
-      dot?.classList.add("is-delayed");
-      if (updated) updated.textContent = "마지막 검증 Bundle 유지";
-      if (expiry) expiry.textContent = "Console에서 재확인";
-      if (artifacts) artifacts.textContent = "새 게시 중단";
-      if (sources) sources.textContent = "검증본 유지";
-      if (run) run.textContent = "unavailable";
-      for (const id of ["businessDataIntegrity", "businessDataFreshness", "businessDataCoverage", "businessDecisionConfidence", "businessRagQuality"]) {
-        const badge = document.getElementById(id);
-        if (badge) badge.textContent = `${badge.textContent.split("·")[0].trim()} · CHECK`;
-      }
-      if (panel) panel.hidden = false;
-    }
   }
 
   function setupAudienceTabs() {
@@ -1687,7 +1550,6 @@
     setupInfographicSequence();
     setupReveal();
     setupConsultingCardMotion();
-    void updateDataStatus();
     void loadDecisionEvidence();
   }
 

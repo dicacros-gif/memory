@@ -189,9 +189,7 @@ assert.match(landing, /function renderAIFactorySystem\(content = \{\}\)/);
 assert.match(landing, /#workloadMatrix/);
 assert.match(landing, /#acceleratorScorecard/);
 assert.match(landing, /#ragQualityPipeline/);
-assert.match(landing, /businessRagQuality/);
-assert.match(landing, /retrievalStats\.reindexed/);
-assert.match(landing, /businessFreshnessScore/);
+assert.doesNotMatch(landing, /businessRagQuality|businessFreshnessScore|retrievalStats\.reindexed|renderCaseClassification|applyDecisionControl|updateDataStatus/);
 assert.match(landing, /business-hypothesis-badge/);
 assert.match(index, /id="workload-optimization"/);
 assert.match(index, /id="team-operating-model"/);
@@ -200,7 +198,7 @@ assert.match(index, /id="aiFactoryRoadmap"/);
 assert.match(index, /id="acceleratorScorecard"/);
 assert.match(index, /id="ragOperatingModel"/);
 assert.match(index, /Useful AI Work/);
-assert.match(index, /id="businessFreshnessBoard"/);
+assert.doesNotMatch(index, /id="businessFreshnessBoard"|id="automation"/);
 assert.match(index, /id="decision-automation"/);
 assert.match(index, /id="decisionAutomationBriefs"/);
 assert.doesNotMatch(
@@ -234,15 +232,12 @@ assert.doesNotMatch(
   "the landing renderer must not recreate the deleted decision-state summary control",
 );
 assert.match(index, /Source → ClaimEvent → Decision → Execution/);
-assert.match(index, /Content Age/);
-assert.match(index, /Embedding Lag/);
-assert.match(index, /Stale Retrieval/);
-assert.match(index, /Coverage Drift/);
+assert.doesNotMatch(index, /Content Age|Embedding Lag|Stale Retrieval|Coverage Drift/);
 assert.match(app, /window\.MEMORY_SITE_CONTENT\?\.agentCouncil\?\.agendas/);
 assert.match(landing, /previousRunId && previousRunId !== String\(content\.runId\) && isConsoleHash\(\)/);
 assert.match(landing, /window\.location\.reload\(\)/);
 assert.match(app, /replace\(\/솔리드다임\/g, "솔리다임"\)/, "the interactive console must normalize stale Solidigm labels at render time");
-assert.match(index, /infra-20260817-71/);
+assert.match(index, /infra-20260817-72/);
 assert.doesNotMatch(
   index,
   /data-live-source[^>]*>[\s\S]*?<\/a><\/div>\s*<dl>/,
@@ -253,7 +248,7 @@ assert.doesNotMatch(index, /LIVE DECISION QUEUE · CONSOLE-CONNECTED|businessHom
 assert.match(index, /id="departmentDecisionQueue"/);
 assert.match(index, /CUSTOMER ACCOUNT BRIEF/);
 assert.match(index, /WORKLOAD-TO-MEMORY/);
-assert.match(index, /PUBLIC CASE RECONSTRUCTION[\s\S]*?MODELED STRATEGY CASE[\s\S]*?ANONYMIZED CLIENT CASE/);
+assert.doesNotMatch(index, /PUBLIC CASE RECONSTRUCTION|ANONYMIZED CLIENT CASE|id="caseClassification"/);
 assert.doesNotMatch(index, /ANONYMIZED USE CASE|GPU Compute보다|MODELED THRESHOLD/);
 assert.doesNotMatch(app, /익명화 Case/);
 assert.equal(executiveSnapshot.runId, artifact.runId);
@@ -263,6 +258,7 @@ assert.match(consoleSnapshot, /AI Infra Strategy &amp; New Biz · Executive Snap
 assert.match(consoleSnapshot, /TEAM OPERATING MODEL · THREE WORKSTREAMS/);
 assert.match(consoleSnapshot, /MECE DECISION ARCHITECTURE · ONE OWNER PER QUESTION/);
 assert.match(consoleSnapshot, /ClaimEvent/);
+assert.doesNotMatch(consoleSnapshot, /STAGE · (?:CUSTOMER_QUALIFICATION|ARCHITECTURE_BENCHMARK|BUSINESS_CASE|SCALE_GATE)|KILL CRITERIA/);
 assert.doesNotMatch(consoleSnapshot, /로드 중|연결 중/);
 const consoleVisibleCopy = consoleSnapshot
   .replace(/<(script|style|code|pre|textarea|option)\b[\s\S]*?<\/\1>/gi, "")

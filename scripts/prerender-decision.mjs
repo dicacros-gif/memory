@@ -79,9 +79,6 @@ const executive = {
 };
 
 const list = (items = []) => items.map((item) => `<li>${escape(item)}</li>`).join("");
-const evidenceLinks = (items = []) => items.filter((item) => item.url).slice(0, 4).map((item) => (
-  `<a href="${escape(item.url)}" target="_blank" rel="noopener noreferrer">${escape(item.source || "원문")} · ${escape(date(item.publishedAt))} ↗</a>`
-)).join("") || "<span>구조화 원문 관측 대기</span>";
 const decisionCards = briefs.map((brief, index) => `
   <article class="decision-card">
     <header><span>${String(index + 1).padStart(2, "0")} · ${escape(brief.label)}</span><b>${escape(String(brief.status || "MONITORING").replaceAll("_", " "))}</b></header>
@@ -95,8 +92,6 @@ const decisionCards = briefs.map((brief, index) => `
       <section><small>90-DAY ACTION</small><p>${escape(brief.action90d)}</p></section>
       <section><small>OWNER / KPI</small><p>${escape(brief.owner)}</p><ul>${list(brief.kpis)}</ul></section>
     </div>
-    <div class="gates"><div><small>TRIGGER</small><strong>${escape(brief.trigger)}</strong></div><div><small>KILL CRITERIA</small><strong>${escape(brief.killCriteria)}</strong></div></div>
-    <footer><span>STAGE · ${escape(brief.stage)} · PRIMARY ${Number(brief.primaryEvidence || 0)} · SOURCES ${Number(brief.independentSources || 0)}</span>${evidenceLinks(brief.evidence)}</footer>
   </article>`).join("");
 const meceCards = meceAxes.map((axis, index) => `
   <article class="mece-card">
