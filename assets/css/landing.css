@@ -732,9 +732,10 @@ body.landing-mode :is(.scroll-prog, .scroll-top, .qa-answer, .inspector, #backdr
 }
 
 .business-container {
-  width: min(1180px, calc(100% - 64px));
+  width: 100%;
   max-width: 100%;
   margin-inline: auto;
+  padding-inline: clamp(24px, 4vw, 72px);
 }
 
 .business-skip-link {
@@ -3415,7 +3416,8 @@ body.landing-mode :is(.scroll-prog, .scroll-top, .qa-answer, .inspector, #backdr
 
 @media (max-width: 980px) {
   .business-container {
-    width: min(100% - 40px, 760px);
+    width: 100%;
+    padding-inline: 20px;
   }
   .business-hero {
     min-height: 0;
@@ -3583,7 +3585,8 @@ body.landing-mode :is(.scroll-prog, .scroll-top, .qa-answer, .inspector, #backdr
 
 @media (max-width: 660px) {
   .business-container {
-    width: calc(100% - 28px);
+    width: 100%;
+    padding-inline: 14px;
   }
   .business-brand small,
   .business-console-button--compact {
@@ -5428,8 +5431,33 @@ body.landing-mode {
   border-top-color: #c8d4df;
 }
 .business-module-heading--evidence > span { color: #0d756e; }
-.business-module-heading--evidence h3 { color: #102c43; }
-.business-module-heading--evidence p { color: #52697c; }
+.business-module-heading--evidence {
+  width: 100%;
+  max-width: 100%;
+  grid-template-columns: minmax(220px, .72fr) minmax(0, 1.6fr) minmax(300px, 1fr);
+  gap: clamp(18px, 2.5vw, 48px);
+}
+.business-module-heading--evidence > * {
+  min-width: 0;
+  width: 100%;
+  max-width: 100%;
+}
+.business-module-heading--evidence > span {
+  font-size: clamp(9px, .72vw, 11px);
+  line-height: 1.45;
+  overflow-wrap: anywhere;
+}
+.business-module-heading--evidence h3 {
+  color: #102c43;
+  font-size: clamp(28px, 2.5vw, 42px);
+  overflow-wrap: anywhere;
+  text-wrap: balance;
+}
+.business-module-heading--evidence p {
+  color: #52697c;
+  font-size: clamp(10px, .85vw, 13px);
+  overflow-wrap: anywhere;
+}
 
 .business-execution-evidence-grid {
   gap: 10px;
@@ -5804,6 +5832,7 @@ body.landing-mode {
 }
 
 @media (max-width: 980px) {
+  .business-module-heading--evidence { grid-template-columns: 1fr; gap: 10px; }
   .business-execution-evidence-grid { grid-template-columns: 1fr; }
   .business-execution-evidence-grid > article { min-height: 0; }
   .business-evidence-case-framework { grid-template-columns: repeat(2, minmax(0, 1fr)); }
@@ -6054,7 +6083,8 @@ body.landing-mode {
 }
 
 .business-site main :where(p, dd) {
-  max-width: min(100%, var(--business-copy-max, 72ch));
+  width: 100%;
+  max-width: 100%;
   line-height: var(--business-body-leading, 1.65);
   overflow-wrap: anywhere;
   word-break: keep-all;

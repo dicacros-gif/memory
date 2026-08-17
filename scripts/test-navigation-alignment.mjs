@@ -111,6 +111,7 @@ assert.deepEqual(businessNavLabels, [
 ], "the public site must expose the AI Infra strategy information architecture");
 assert.match(html, /business-console-label--full">Open Intelligence Console<\/span>[\s\S]*?business-console-label--short"[^>]*>Console<\/span>/, "the header CTA must expose full and compact non-overlapping labels");
 assert.match(landingCss, /body\.landing-mode\s*\{[^}]*margin:\s*0;[^}]*max-width:\s*100%;[^}]*overflow-x:\s*clip;/, "the public page must stay within the viewport width without the browser's default body margin");
+assert.match(landingCss, /\.business-container\s*\{[^}]*width:\s*100%;[^}]*max-width:\s*100%;[^}]*padding-inline:\s*clamp\(24px, 4vw, 72px\);/, "every landing section must use the full viewport width with responsive gutters");
 assert.match(landingCss, /\.business-site :is\(img, picture, video, svg, canvas, iframe, table\)\s*\{[^}]*max-width:\s*100%;/, "site media and data visuals must respect max-width 100%");
 assert.doesNotMatch(html, /business-contract-funnel/, "the removed partnership spotlight funnel must stay deleted");
 assert.match(landingCss, /\.business-header\s*\{[^}]*width:\s*100%;[^}]*max-width:\s*100%;[^}]*grid-template-columns:\s*auto minmax\(0, 1fr\) auto;/, "the fixed header must use a shrink-safe full-width grid");
@@ -119,7 +120,7 @@ assert.match(landingCss, /@media \(max-width: 1120px\)[\s\S]*?\.business-menu-bu
 assert.match(html, /id="intelligenceConsole" hidden/, "the Intelligence Console must stay outside the initial visible layer");
 assert.doesNotMatch(html, /<script[^>]+src="assets\/js\/app\.js/, "the heavy console app must not load with the public landing page");
 assert.doesNotMatch(html, /<link[^>]+href="assets\/css\/styles\.css/, "the heavy console stylesheet must not load with the public landing page");
-assert.match(html, /assets\/js\/landing\.min\.js\?v=infra-20260817-59/, "the lightweight landing controller must use the minified AI Infra revision");
+assert.match(html, /assets\/js\/landing\.min\.js\?v=infra-20260817-60/, "the lightweight landing controller must use the minified AI Infra revision");
 assert.match(html, /class="business-footer"[\s\S]*?href="https:\/\/www\.linkedin\.com\/in\/dicacross\/"[\s\S]*?© 2026 dicacross · Independent strategy portfolio based on public information/, "the public portfolio credit must link to the dicacross LinkedIn profile");
 assert.doesNotMatch(html, /메모리를 판매하는 것이 아니라/, "the removed sales-negation headline must stay deleted");
 assert.doesNotMatch(html, /직무 적합성을 세 가지|검증 가능한 역량으로 압축합니다/, "the removed role-fit headline must stay deleted");
@@ -207,6 +208,8 @@ assert.match(html, /aria-label="AI Infra 전략 질문"/, "the console question 
 assert.match(landingCss, /\.business-reveal[\s\S]*?\.business-reveal\.is-visible/, "business sections should progressively reveal without blocking layout");
 assert.match(landingCss, /\.business-insights \.business-section-heading--split > div \{[\s\S]*?min-width:\s*0;[\s\S]*?max-width:\s*100%;/, "the insight heading column must stay within its grid track");
 assert.match(landingCss, /\.business-insights \.business-section-heading h2 \{[\s\S]*?width:\s*100%;[\s\S]*?max-width:\s*100%;[\s\S]*?overflow-wrap:\s*break-word;/, "the issue-tree title must wrap instead of overflowing into the evidence column");
+assert.match(landingCss, /\.business-module-heading--evidence\s*\{[^}]*width:\s*100%;[^}]*max-width:\s*100%;[^}]*grid-template-columns:\s*minmax\(220px, \.72fr\) minmax\(0, 1\.6fr\) minmax\(300px, 1fr\);/, "the evidence ladder heading must use the full row without clipping any column");
+assert.match(landingCss, /\.business-site main :where\(p, dd\)\s*\{[^}]*width:\s*100%;[^}]*max-width:\s*100%;/, "body copy must be allowed to use its full grid track");
 
 console.log(JSON.stringify({
   ok: true,
