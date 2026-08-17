@@ -196,6 +196,16 @@ assert.match(index, /id="decision-automation"/);
 assert.match(index, /id="decisionAutomationBriefs"/);
 assert.doesNotMatch(
   index,
+  /AUTOMATED EVIDENCE CONTROL|business-workload-evidence|workloadEvidencePolicy|workloadEvidenceSources/,
+  "the deleted workload evidence control must not be regenerated",
+);
+assert.doesNotMatch(
+  landing,
+  /workloadEvidencePolicy|workloadEvidenceSources|business-workload-evidence|business-workload-sources/,
+  "the landing renderer must not recreate the deleted workload evidence control",
+);
+assert.doesNotMatch(
+  index,
   /decision-os-control|decisionAutomationState|decisionAutomationAsOf|decisionCatalogCoverage|decisionClaimEvents|decisionVerifiedEvents|decisionReadyBriefs/,
   "the deleted decision-state summary control must not be regenerated",
 );
@@ -209,12 +219,11 @@ assert.match(index, /Content Age/);
 assert.match(index, /Embedding Lag/);
 assert.match(index, /Stale Retrieval/);
 assert.match(index, /Coverage Drift/);
-assert.match(index, /Samsung SMRC/);
 assert.match(app, /window\.MEMORY_SITE_CONTENT\?\.agentCouncil\?\.agendas/);
 assert.match(landing, /previousRunId && previousRunId !== String\(content\.runId\) && isConsoleHash\(\)/);
 assert.match(landing, /window\.location\.reload\(\)/);
 assert.match(app, /replace\(\/솔리드다임\/g, "솔리다임"\)/, "the interactive console must normalize stale Solidigm labels at render time");
-assert.match(index, /infra-20260817-57/);
+assert.match(index, /infra-20260817-58/);
 assert.doesNotMatch(
   index,
   /data-live-source[^>]*>[\s\S]*?<\/a><\/div>\s*<dl>/,

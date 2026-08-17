@@ -110,7 +110,7 @@
     (() => {
       if (!location.hash.startsWith("#console")) return;
       document.documentElement.classList.add("console-entry");
-      const revision = "infra-20260817-57";
+      const revision = "infra-20260817-58";
       const assets = [
         ["consoleStylesPreload", "style", `assets/css/styles.min.css?v=${revision}`, "high"],
         ["consoleAppPreload", "script", `assets/js/app.min.js?v=${revision}`, "low"],
@@ -127,7 +127,7 @@
       }
     })();
   </script>
-  <link rel="stylesheet" href="assets/css/landing.min.css?v=infra-20260817-57" />
+  <link rel="stylesheet" href="assets/css/landing.min.css?v=infra-20260817-58" />
 </head>
 <body class="landing-mode">
   <div class="business-site" id="businessSite">
@@ -633,15 +633,6 @@
               <div class="business-rag-maturity" id="ragMaturity"><article><b>L0</b><strong>Document Chat</strong></article><article><b>L1</b><strong>Vector Retrieval</strong></article><article><b>L2</b><strong>Hybrid + Rerank</strong></article><article><b>L3</b><strong>Governed RAG</strong></article><article><b>L4</b><strong>Agentic Retrieval</strong></article><article><b>L5</b><strong>Adaptive System</strong></article></div>
               <footer id="ragQualityKpis">Recall@k · nDCG · Citation Precision · Index Freshness · ACL Error · Unsupported Answer</footer>
             </section>
-            <div class="business-workload-evidence">
-              <div><span>AUTOMATED EVIDENCE CONTROL</span><strong>공식 원문 → 최신성 → Workload Signal → PoC Gate</strong><p>실제 협업·검증 사례와 향후 운영 모델을 분리하며, 조건 없는 성능 배수·가격·시장 수치는 게시하지 않습니다.</p></div>
-              <ul id="workloadEvidencePolicy"><li>공식 원문·표준·공개 기술 문서 우선</li><li>3시간 수집 · 15분 브라우저 재확인</li><li>최신성 실패 시 마지막 검증본 유지</li></ul>
-              <div class="business-workload-sources" id="workloadEvidenceSources">
-                <a href="https://smrc.biz.samsung.com/html/about-us_new.html" target="_blank" rel="noopener noreferrer"><span>MONITORING</span><strong>Samsung SMRC</strong><small>실사용 데이터센터 검증 벤치마크 ↗</small></a>
-                <a href="https://developer.nvidia.com/blog/introducing-nvidia-dynamo-a-low-latency-distributed-inference-framework-for-scaling-reasoning-ai-models/" target="_blank" rel="noopener noreferrer"><span>MONITORING</span><strong>NVIDIA Dynamo</strong><small>KV Cache 다단계 Offload ↗</small></a>
-                <a href="https://ai.google.dev/gemini-api/docs/optimization" target="_blank" rel="noopener noreferrer"><span>MONITORING</span><strong>Google Context Caching</strong><small>TTL·저장 비용·재사용 조건 ↗</small></a>
-              </div>
-            </div>
           </section>
 
           <section class="business-workload-map" id="workload-map" aria-labelledby="workloadMapTitle">
@@ -1961,6 +1952,6 @@
   <div class="qa-answer" id="qaAnswer" hidden></div>
   <div class="inspector" id="inspector" hidden></div>
   <div class="backdrop" id="backdrop"></div>
-  <script src="assets/js/landing.min.js?v=infra-20260817-57" defer></script>
+  <script src="assets/js/landing.min.js?v=infra-20260817-58" defer></script>
 </body>
 </html>

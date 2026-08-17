@@ -3,7 +3,7 @@
 
   const BUSINESS_TITLE = "AI Infra Strategy · Customer Pain to Executive Action";
   const CONSOLE_HASH = "#console";
-  const CONSOLE_REVISION = "infra-20260817-57";
+  const CONSOLE_REVISION = "infra-20260817-58";
   const DECISION_CLIENT_PATH = "data/landing-decision-client.json";
   const SITE_CONTENT_PATH = "data/site-content-client.json";
   const site = document.querySelector("#businessSite");
@@ -679,27 +679,6 @@
         </article>`).join("");
     }
 
-    renderBusinessList(document.querySelector("#workloadEvidencePolicy"), workload.evidencePolicy);
-    const sources = document.querySelector("#workloadEvidenceSources");
-    if (sources && workload.sources?.length) {
-      const signals = new Map((workload.currentSignals || []).map((signal) => [signal.sourceId, signal]));
-      sources.innerHTML = workload.sources.map((source) => {
-        const signal = signals.get(source.id);
-        const detail = signal?.title || (source.topics || []).slice(0, 3).join(" · ");
-        return `<a href="${escapeBusinessHTML(safeBusinessUrl(signal?.url || source.url, "#console"))}" target="_blank" rel="noopener noreferrer">
-          <span>${escapeBusinessHTML(String(source.status || "monitoring").toUpperCase())} · ${escapeBusinessHTML(String(source.sourceClass || "source").toUpperCase())}</span>
-          <strong>${escapeBusinessHTML(source.name)}</strong>
-          <small>${escapeBusinessHTML(detail)} ↗</small>
-        </a>`;
-      }).join("");
-    }
-
-    const control = document.querySelector(".business-workload-evidence > div:first-child p");
-    if (control) {
-      const signalCount = Number(workload.currentSignals?.length || 0);
-      control.textContent = `검증 실행 ${workload.runId || content.runId || "확인 필요"} · 현재 승격 신호 ${signalCount}건. 실제 협업·검증 사례와 향후 운영 모델을 분리하고, 조건 없는 성능 배수·가격·시장 수치는 게시하지 않습니다.`;
-    }
-
     const rag = workload.ragOperatingModel || {};
     const ragTitle = document.querySelector("#ragOperatingModelTitle");
     const ragControl = document.querySelector("#ragLiveControl");
@@ -1298,7 +1277,6 @@
       ".business-ai-factory-signals > a",
       ".business-consulting-process > li",
       ".business-workload-services > article",
-      ".business-workload-sources > a",
       ".business-workload-matrix > article",
       ".business-demand-shift",
       ".business-accelerator-scorecard",

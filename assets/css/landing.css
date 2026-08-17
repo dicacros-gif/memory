@@ -6394,8 +6394,7 @@ body.landing-mode {
 }
 
 .business-consulting-process small,
-.business-workload-services > article > span,
-.business-workload-evidence > div:first-child > span {
+.business-workload-services > article > span {
   display: block;
   margin-bottom: 8px;
   color: var(--process-accent, #08766f);
@@ -6459,56 +6458,17 @@ body.landing-mode {
 .business-workload-services dt { margin-bottom: 5px; color: var(--service-accent); font: 850 9px/1 var(--mono); letter-spacing: .08em; }
 .business-workload-services dd { margin: 0; color: #29465c; font-size: 12px; font-weight: 690; line-height: 1.55; overflow-wrap: anywhere; }
 
-.business-workload-evidence {
-  display: grid;
-  grid-template-columns: minmax(260px, .9fr) minmax(260px, .75fr) minmax(420px, 1.35fr);
-  gap: 18px;
-  margin-top: 12px;
-  padding: 24px;
-  color: #f7fbff;
-  background: #071522;
-}
-
-.business-workload-evidence > div:first-child strong { display: block; color: #fff; font-size: 17px; line-height: 1.4; }
-.business-workload-evidence > div:first-child p { margin: 12px 0 0; color: #c5d4de; font-size: 12px; line-height: 1.6; }
-.business-workload-evidence > ul { margin: 0; padding: 0; list-style: none; }
-.business-workload-evidence > ul li { padding: 8px 0; color: #d9e6ee; border-bottom: 1px solid rgba(255,255,255,.12); font-size: 11px; line-height: 1.45; }
-
-.business-workload-sources {
-  display: grid;
-  grid-template-columns: repeat(2, minmax(0, 1fr));
-  gap: 7px;
-}
-
-.business-workload-sources a {
-  min-width: 0;
-  padding: 12px;
-  color: #eaf3f8;
-  border: 1px solid #36566b;
-  background: #0d2131;
-  text-decoration: none;
-}
-
-.business-workload-sources a span { display: block; margin-bottom: 6px; color: #69dfc3; font: 850 8px/1 var(--mono); letter-spacing: .08em; }
-.business-workload-sources a strong { display: block; color: #fff; font-size: 12px; line-height: 1.35; overflow-wrap: anywhere; }
-.business-workload-sources a small { display: block; margin-top: 5px; color: #aebfca; font-size: 10px; line-height: 1.4; }
-
 @media (max-width: 1100px) {
   .business-consulting-process { grid-template-columns: repeat(3, minmax(0, 1fr)); }
   .business-consulting-process > li:nth-child(3)::after { display: none; }
-  .business-workload-evidence { grid-template-columns: 1fr 1fr; }
-  .business-workload-sources { grid-column: 1 / -1; }
 }
 
 @media (max-width: 760px) {
   .business-workload-advisory { padding: 28px 18px 24px; }
   .business-consulting-process,
-  .business-workload-services,
-  .business-workload-evidence,
-  .business-workload-sources { grid-template-columns: 1fr; }
+  .business-workload-services { grid-template-columns: 1fr; }
   .business-consulting-process > li { min-height: 0; }
   .business-consulting-process > li::after { display: none; }
-  .business-workload-sources { grid-column: auto; }
 
   .business-competency-output {
     grid-column: 2 !important;
