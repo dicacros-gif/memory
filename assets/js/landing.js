@@ -3,7 +3,7 @@
 
   const BUSINESS_TITLE = "AI Infra Strategy · Customer Pain to Executive Action";
   const CONSOLE_HASH = "#console";
-  const CONSOLE_REVISION = "infra-20260817-39";
+  const CONSOLE_REVISION = "infra-20260817-40";
   const DECISION_CLIENT_PATH = "data/landing-decision-client.json";
   const SITE_CONTENT_PATH = "data/site-content-client.json";
   const site = document.querySelector("#businessSite");
@@ -448,28 +448,18 @@
     if (!automation) return;
     const funnel = automation.funnel || {};
     const catalog = automation.catalogCoverage || {};
-    const sourceOperations = automation.sourceOperations || {};
     const state = document.querySelector("#decisionAutomationState");
     const asOf = document.querySelector("#decisionAutomationAsOf");
     const catalogCoverage = document.querySelector("#decisionCatalogCoverage");
     const claimEvents = document.querySelector("#decisionClaimEvents");
     const verifiedEvents = document.querySelector("#decisionVerifiedEvents");
     const readyBriefs = document.querySelector("#decisionReadyBriefs");
-    const observationRate = document.querySelector("#decisionObservationRate");
-    const observationGauge = document.querySelector("#decisionObservationGauge");
-    const observationHeadline = document.querySelector("#decisionObservationHeadline");
-    const observationCopy = document.querySelector("#decisionObservationCopy");
-    const rate = Math.max(0, Math.min(100, Number(catalog.observationRatePct || 0)));
     if (state) state.textContent = String(automation.state || "MONITORING").replaceAll("_", " ");
     if (asOf) asOf.textContent = `${formatKst(content.generatedAt)} · Run ${String(content.runId || "-").slice(0, 14)}`;
     if (catalogCoverage) catalogCoverage.textContent = `${catalog.observed || 0} / ${catalog.configured || 0}`;
     if (claimEvents) claimEvents.textContent = `${funnel.structuredEvents || 0}건`;
     if (verifiedEvents) verifiedEvents.textContent = `${funnel.verifiedEvents || 0}건`;
     if (readyBriefs) readyBriefs.textContent = `${funnel.decisionReadyBriefs || 0} / ${(automation.briefs || []).length || 0}`;
-    if (observationRate) observationRate.textContent = `${rate.toFixed(1)}%`;
-    if (observationGauge) observationGauge.style.setProperty("--decision-progress", `${rate}%`);
-    if (observationHeadline) observationHeadline.textContent = `전체 ${catalog.configured || 0}개 중 ${catalog.observed || 0}개 관측 · 공식 Fresh ${catalog.officialFresh || 0}/${catalog.officialConfigured || 0}`;
-    if (observationCopy) observationCopy.textContent = `직접 피드 ${sourceOperations.observed || 0}/${sourceOperations.configured || 0} 연결 · 의미 있는 추출 ${sourceOperations.useful || 0}개 · 관측 목표 ${catalog.targetPct || 90}%`;
 
     const briefs = document.querySelector("#decisionAutomationBriefs");
     if (briefs && automation.briefs?.length) {
@@ -659,11 +649,6 @@
       if (formula) formula.textContent = (system.kpiTree.formulas || []).join(" · ");
     }
 
-    const coverage = document.querySelector("#aiFactoryCoverage");
-    if (coverage && system.pillarCoverage?.length) {
-      coverage.innerHTML = system.pillarCoverage.map((pillar) => `<b data-coverage="${escapeBusinessHTML(pillar.status)}">${escapeBusinessHTML(pillar.label)} · ${escapeBusinessHTML(String(pillar.status || "check").toUpperCase())} ${escapeBusinessHTML(String(pillar.observed || 0))}/${escapeBusinessHTML(String(pillar.configured || 0))}</b>`).join("");
-    }
-
     const signals = document.querySelector("#aiFactorySignals");
     if (signals) {
       if (system.signals?.length) {
@@ -764,40 +749,6 @@
         <div><a href="${escapeBusinessHTML(safeBusinessUrl(item.sourceUrl, "#console"))}" target="_blank" rel="noopener noreferrer">${escapeBusinessHTML(item.source || "근거") } ↗</a></div>
       </article>`;
     }).join("");
-  }
-
-  function renderPartnerContent(content = {}) {
-    const partner = content.partnerSpotlight;
-    const card = document.querySelector(".business-flagship-partnership");
-    if (!partner || !card) return;
-    const title = card.querySelector("#flagshipPartnershipTitle");
-    const status = card.querySelector(".business-flagship-status strong");
-    const time = card.querySelector(".business-flagship-status time");
-    if (title) title.textContent = partner.title;
-    if (status) status.textContent = `${partner.evidenceLevel || "WATCH"} · ${String(partner.sourceClass || "SOURCE").toUpperCase()}`;
-    if (time) {
-      const date = String(partner.publishedAt || content.generatedAt || "").slice(0, 10);
-      time.dateTime = date;
-      time.textContent = date || "기준일 확인";
-    }
-    const metrics = card.querySelector(".business-flagship-metrics");
-    if (metrics) metrics.innerHTML = `
-      <div><strong>${escapeBusinessHTML(content.freshness?.evidenceCount || 0)}</strong><span>승격 근거<br>전체 건수</span></div>
-      <div><strong>${escapeBusinessHTML(partner.evidenceLevel || "WATCH")}</strong><span>현재 근거<br>등급</span></div>
-      <div><strong>${escapeBusinessHTML(String(partner.publishedAt || "").slice(0, 10) || "N/A")}</strong><span>원문<br>기준일</span></div>
-      <div><strong>${escapeBusinessHTML(content.freshness?.briefCount || 0)}</strong><span>전략 Brief<br>자동 연결</span></div>`;
-    const values = card.querySelector(".business-contract-values");
-    if (values) values.innerHTML = `
-      <div><dt>PUBLIC SIGNAL</dt><dd>${escapeBusinessHTML(partner.title)}</dd></div>
-      <div><dt>BINDING VALUE</dt><dd>확정 계약·물량은 공식 원문 확인 전 미확정</dd></div>
-      <div><dt>REVENUE GATE</dt><dd>Qualification → Capacity → Shipment → 매출 인식 분리</dd></div>`;
-    const source = card.querySelector(".business-flagship-bottom a");
-    if (source) {
-      source.href = safeBusinessUrl(partner.url, "#console");
-      source.textContent = `${partner.source || "원문"} ↗`;
-    }
-    const caveat = card.querySelector(".business-flagship-caveat");
-    if (caveat) caveat.textContent = `${partner.summary} 공개 발표·보도는 확정 계약과 구분하며 고객 인증·물량 약정·출하·매출 인식 Gate를 별도로 검증합니다.`;
   }
 
   function renderCaseClassification(content = {}) {
@@ -948,7 +899,6 @@
     renderAIFactorySystem(content);
     renderWorkloadOptimization(content);
     renderCompetitorContent(content);
-    renderPartnerContent(content);
     renderCaseClassification(content);
     applyUniversalSectionBindings(content);
     applyDecisionControl(content);
@@ -1283,7 +1233,6 @@
       ".business-tech-proofline",
       ".business-evidence-case",
       ".business-execution-evidence-grid > article",
-      ".business-flagship-partnership",
       ".business-partnership-types > article",
       ".business-partner-map",
       ".business-deep-cases",
@@ -1380,7 +1329,6 @@
       ".business-evidence-case",
       ".business-automation-flow > li",
       ".business-status-rules > li",
-      ".business-flagship-partnership",
       ".business-partnership-types > article",
       ".business-case-classification > article",
       ".business-deep-case-grid > section",
