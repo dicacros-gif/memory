@@ -161,7 +161,6 @@
     "talent-radar",
     "workbench",
     "memory-market-map",
-    "competitive-scroll-story",
     "china-benchmark-video-story",
     "china-deep-dive",
     "categories",
@@ -2958,6 +2957,7 @@
       ["visual-bridge-system", "memory-visual-story"],
       ["visual-bridge-execution", "memory-scroll-story"],
       ["visual-bridge-demand", "ai-demand-scroll-story"],
+      ["visual-bridge-competition", "competitive-scroll-story"],
     ];
     let distributed = 0;
     placements.forEach(([mountId, storyId]) => {

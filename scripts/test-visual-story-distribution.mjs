@@ -29,8 +29,13 @@ assert.ok(
     && position('id="visual-bridge-demand"') < position('id="workbench"'),
   "demand visual bridge must follow customer demand forecasting",
 );
+assert.ok(
+  position('id="ai-matrix"') < position('id="visual-bridge-competition"')
+    && position('id="visual-bridge-competition"') < position('id="china-benchmark-video-story"'),
+  "competitive visual bridge must follow the text-heavy AI memory matrix",
+);
 
-assert.match(app, /function distributeVisualStories\(\)[\s\S]*?visual-bridge-system[\s\S]*?memory-visual-story[\s\S]*?visual-bridge-execution[\s\S]*?memory-scroll-story[\s\S]*?visual-bridge-demand[\s\S]*?ai-demand-scroll-story/);
+assert.match(app, /function distributeVisualStories\(\)[\s\S]*?visual-bridge-system[\s\S]*?memory-visual-story[\s\S]*?visual-bridge-execution[\s\S]*?memory-scroll-story[\s\S]*?visual-bridge-demand[\s\S]*?ai-demand-scroll-story[\s\S]*?visual-bridge-competition[\s\S]*?competitive-scroll-story/);
 assert.match(app, /document\.body\.classList\.add\("consulting-system"\);\s*distributeVisualStories\(\);\s*setupMediaExperience\(\);/, "visuals must be distributed before media initialization");
 assert.match(app, /let storyInView = false;[\s\S]*?const canAutoPlay = \(\) => storyInView/, "offscreen visual stories must not autoplay");
 assert.match(app, /storyVisibilityObserver[\s\S]*?rootMargin: "240px 0px"[\s\S]*?storyVisibilityObserver\.observe\(story\)/, "the carousel must hydrate near its new reading position");
@@ -38,8 +43,10 @@ assert.match(app, /storyVisibilityObserver[\s\S]*?rootMargin: "240px 0px"[\s\S]*
 for (const phrase of [
   "워크로드 병목에서 메모리 요구사항을 도출",
   "검증된 판단을 Owner·KPI·Stage-Gate로 전환",
-  "RAG·Vector DB가",
-  "LOI와 전망을 확정 주문으로 계산하지 않음",
+  "Agentic·RAG 수요는",
+  "PoC → Qualification → Binding Order → Revenue Recognition",
+  "경쟁사 비교를 고객 승률과 실행 조건으로 전환",
+  "점유율보다 고객·Workload별",
   "Partner RACI",
   "Kill Criteria",
 ]) assert.ok(html.includes(phrase) || app.includes(phrase), `missing contextual visual insight: ${phrase}`);
@@ -48,9 +55,10 @@ assert.match(css, /Distributed visual synthesis bridges/);
 assert.match(css, /\.visual-insight-bridge-head\s*\{[\s\S]*?grid-template-columns:/);
 assert.match(css, /\.visual-insight-route\s*\{[\s\S]*?grid-template-columns:/);
 assert.match(css, /@media \(max-width: 680px\)[\s\S]*?\.visual-insight-route\s*\{[\s\S]*?grid-template-columns:\s*minmax\(0, 1fr\)/);
+assert.match(css, /Hidden-state layout contract[\s\S]*?\.consulting-system \[hidden\][\s\S]*?display:\s*none !important;/, "hidden image modules must not leak into the main reading flow");
 
 console.log(JSON.stringify({
-  bridges: 3,
-  visualModules: 3,
-  revision: "infra-20260817-45",
+  bridges: 4,
+  visualModules: 4,
+  revision: "infra-20260817-46",
 }, null, 2));

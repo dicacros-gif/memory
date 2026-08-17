@@ -110,7 +110,7 @@
     (() => {
       if (!location.hash.startsWith("#console")) return;
       document.documentElement.classList.add("console-entry");
-      const revision = "infra-20260817-45";
+      const revision = "infra-20260817-46";
       const assets = [
         ["consoleStylesPreload", "style", `assets/css/styles.min.css?v=${revision}`, "high"],
         ["consoleAppPreload", "script", `assets/js/app.min.js?v=${revision}`, "low"],
@@ -127,7 +127,7 @@
       }
     })();
   </script>
-  <link rel="stylesheet" href="assets/css/landing.min.css?v=infra-20260817-45" />
+  <link rel="stylesheet" href="assets/css/landing.min.css?v=infra-20260817-46" />
 </head>
 <body class="landing-mode">
   <div class="business-site" id="businessSite">
@@ -1349,34 +1349,34 @@
           <div class="memory-scroll-copy">
             <article class="memory-scroll-chapter active" data-scroll-chapter="0">
               <div class="memory-scroll-panel">
-                <span>01 · SEGMENT THE DEMAND</span>
-                <h2>AI 수요를 하나의<br />성장률로 보지 않음</h2>
-                <p>학습, Agentic inference, Enterprise RAG, On-device AI는 도입 속도와 메모리 구성이 다릅니다. Workload와 고객별로 수요 풀을 분리합니다.</p>
-                <div><em>Training</em><em>Inference</em><em>RAG</em><em>On-device</em></div>
+                <span>01 · SEGMENT THE BUYING SIGNAL</span>
+                <h2>수요 총량보다 고객별<br />구매 전환율을 분리</h2>
+                <p>Training은 Accelerator·HBM, Agentic inference는 CPU·DRAM·eSSD, RAG는 검색 품질, On-device는 전력·원가가 구매 기준</p>
+                <div><em>Training ramp</em><em>Agentic load</em><em>RAG quality</em><em>Device TCO</em></div>
               </div>
             </article>
             <article class="memory-scroll-chapter align-right" data-scroll-chapter="1">
               <div class="memory-scroll-panel">
-                <span>02 · MAP THE HIERARCHY</span>
-                <h2>RAG·Vector DB가<br />전체 계층을 함께 움직임</h2>
-                <p>Active index는 DRAM/CXL, 대규모 corpus는 TLC·QLC eSSD, 가속 연산은 HBM을 요구합니다. Prompt와 context 재사용까지 용량 모델에 반영합니다.</p>
-                <div><em>DRAM / CXL</em><em>Vector DB</em><em>QLC eSSD</em><em>HBM</em></div>
+                <span>02 · TRANSLATE THE WORKLOAD</span>
+                <h2>Agentic·RAG 수요는<br />HBM만 늘리지 않음</h2>
+                <p>Prefill·Decode, KV Cache, Vector Index, Corpus를 분리해 HBM–Host DRAM/CXL–eSSD의 계층별 용량과 병목을 계산</p>
+                <div><em>HBM</em><em>Host DRAM / CXL</em><em>eSSD</em><em>KV Cache</em></div>
               </div>
             </article>
             <article class="memory-scroll-chapter" data-scroll-chapter="2">
               <div class="memory-scroll-panel">
-                <span>03 · VERIFY ADOPTION</span>
-                <h2>전망보다 고객의<br />채택 증거를 우선</h2>
-                <p>Hyperscaler, Enterprise, Device 고객별로 PoC, Qualification, Binding order를 분리 추적합니다. 발표나 LOI는 확정 매출과 구분합니다.</p>
-                <div><em>PoC</em><em>Qualification</em><em>Binding order</em><em>LOI ≠ Contract</em></div>
+                <span>03 · VERIFY REVENUE CONVERSION</span>
+                <h2>발표가 아니라 채택 증거로<br />수요를 확정</h2>
+                <p>PoC → Qualification → Binding Order → Revenue Recognition을 고객별로 추적하고 LOI·전망은 확정 매출과 분리</p>
+                <div><em>PoC</em><em>Qualification</em><em>Binding order</em><em>Revenue gate</em></div>
               </div>
             </article>
             <article class="memory-scroll-chapter align-right" data-scroll-chapter="3">
               <div class="memory-scroll-panel">
-                <span>04 · ALLOCATE TO VALUE</span>
-                <h2>검증된 수요를<br />제품·파트너·캐파로 전환</h2>
-                <p>고객 KPI 개선, 파트너 준비도, 패키징·컨트롤러 병목, 계약 전환율을 함께 평가해 HBM·서버 DRAM·CXL·eSSD의 우선순위를 조정합니다.</p>
-                <div><em>Product mix</em><em>Partner RACI</em><em>Capacity</em><em>Revenue gate</em></div>
+                <span>04 · ALLOCATE WITH GATES</span>
+                <h2>전환율이 검증된 수요만<br />캐파에 배분</h2>
+                <p>고객 KPI 개선, 파트너 준비도, 패키징 수율, 계약 마진을 한 화면에서 비교해 제품·파트너·캐파의 Scale·Hold·Stop을 결정</p>
+                <div><em>Value KPI</em><em>Partner RACI</em><em>Capacity</em><em>Scale / Hold / Stop</em></div>
               </div>
             </article>
           </div>
@@ -1767,7 +1767,7 @@
           </div>
         </section>
 
-        <section class="memory-scroll-story competitive-scroll-story" id="competitive-scroll-story" data-scroll-story aria-label="메모리 경쟁 다이나믹스 스크롤 스토리" hidden>
+        <section class="memory-scroll-story competitive-scroll-story" id="competitive-scroll-story" data-scroll-story aria-label="메모리 경쟁 우위와 실행 조건 스크롤 스토리">
           <div class="memory-scroll-sticky">
             <img src="assets/media/competitive-dynamics-scroll.webp" alt="메모리 칩과 반도체 밸류체인 연결을 시각화한 경쟁 다이나믹스" loading="lazy" decoding="async" />
             <div class="memory-scroll-shade" aria-hidden="true"></div>
@@ -1779,34 +1779,34 @@
           <div class="memory-scroll-copy">
             <article class="memory-scroll-chapter active" data-scroll-chapter="0">
               <div class="memory-scroll-panel">
-                <span>01 · COMPETITIVE SYSTEM</span>
-                <h2>경쟁은 제품이 아니라<br />밸류체인 전체에서 전개</h2>
-                <p>메모리 다이, 파운드리, 첨단 패키징, 장비와 고객 인증이 하나의 경쟁 시스템을 형성. 단일 점유율보다 연결 구조의 변화가 선행 신호.</p>
-                <div><em>Memory</em><em>Foundry</em><em>Packaging</em><em>Equipment</em></div>
+                <span>01 · COMPARE THE CUSTOMER JOB</span>
+                <h2>점유율보다 고객·Workload별<br />승률을 먼저 비교</h2>
+                <p>Training·Inference·Custom ASIC별 구매 기준을 분리하고 경쟁사의 고객 인증·제품 세대·공급 가능 시점을 같은 축으로 비교</p>
+                <div><em>Customer JTBD</em><em>Workload</em><em>Qualification</em><em>Supply timing</em></div>
               </div>
             </article>
             <article class="memory-scroll-chapter align-right" data-scroll-chapter="1">
               <div class="memory-scroll-panel">
-                <span>02 · PARTNERSHIP LEVERAGE</span>
-                <h2>파트너십은 기술보다<br />출하 속도를 결정</h2>
-                <p>베이스 다이, 패키징 할당, 가속기 인증을 연결한 협업 구조가 고객 램프 속도를 좌우. 제휴의 가치는 발표보다 실제 양산 연결성으로 평가.</p>
-                <div><em>Base die</em><em>Packaging allocation</em><em>Customer ramp</em></div>
+                <span>02 · TRACE THE DELIVERY SYSTEM</span>
+                <h2>제품 사양보다 공급 시스템이<br />Ramp 속도를 결정</h2>
+                <p>Base Die·Foundry·Packaging Allocation·Accelerator 인증을 하나의 경로로 추적하고 가장 느린 Gate를 실제 병목으로 지정</p>
+                <div><em>Base die</em><em>Foundry</em><em>Package allocation</em><em>Customer ramp</em></div>
               </div>
             </article>
             <article class="memory-scroll-chapter" data-scroll-chapter="2">
               <div class="memory-scroll-panel">
-                <span>03 · CHINA SUPPLY NETWORK</span>
-                <h2>중국 생태계는<br />역할 분업으로 추격</h2>
-                <p>CXMT의 DRAM, YMTC의 NAND, JCET·TFME의 OSAT, XMC의 특화 파운드리·3D 집적, Naura·AMEC의 장비 역량을 역할별로 추적. 개별 기업보다 자국 내 연결 강도가 핵심 위험 변수.</p>
-                <div><em>CXMT</em><em>YMTC</em><em>JCET · TFME</em><em>XMC · 3D IC</em><em>Naura · AMEC</em></div>
+                <span>03 · TEST THE RIGHT TO WIN</span>
+                <h2>기술 우위를 고객 가치와<br />계약 조건으로 검증</h2>
+                <p>수율·인증 리드타임·패키징 처리량·공동 Roadmap이 고객 KPI와 Margin Floor를 동시에 충족할 때만 Right to Win으로 인정</p>
+                <div><em>Yield</em><em>Lead time</em><em>Customer KPI</em><em>Margin floor</em></div>
               </div>
             </article>
             <article class="memory-scroll-chapter align-right" data-scroll-chapter="3">
               <div class="memory-scroll-panel">
-                <span>04 · MONEY FLOW</span>
-                <h2>돈의 흐름을<br />실행 신호로 전환</h2>
-                <p>장기 공급계약, 설비 발주, 정책자금, 고객 인증의 순서를 함께 확인. 자금 유입이 캐파와 출하로 연결될 때 경쟁 관계도를 실행 우선순위로 전환.</p>
-                <div><em>Supply contract</em><em>CapEx</em><em>Policy capital</em><em>Qualification</em></div>
+                <span>04 · COMMIT WITH TRIGGERS</span>
+                <h2>경쟁 판단을 Scale·Hold·Stop<br />실행 조건으로 전환</h2>
+                <p>Binding Volume·Qualification·Package Capacity·Margin을 단계별 Trigger로 연결하고 미달 시 투자 범위와 고객 우선순위를 즉시 재조정</p>
+                <div><em>Binding volume</em><em>Capacity gate</em><em>Margin</em><em>Kill criteria</em></div>
               </div>
             </article>
           </div>
@@ -1825,14 +1825,14 @@
           <section class="arch-panel advanced-module-panel">
             <div class="intel-panel-head">
               <h3>고도화 인사이트 모듈</h3>
-              <span>파운드리-메모리 융합 · 중국 캐파 경보 · Post-HBM 아키텍처</span>
+              <span>파운드리-메모리 융합 · 경쟁사 캐파·인증 경보 · Post-HBM 아키텍처</span>
             </div>
             <div class="advanced-module-grid" id="advancedInsightModules"></div>
           </section>
           <div class="architecture-split">
             <section class="arch-panel">
               <div class="intel-panel-head">
-                <h3>Samsung · SKHY · Micron · China 벤치마크</h3>
+                <h3>Samsung · SKHY · Micron 벤치마크</h3>
                 <span>HBM / DRAM / NAND 포지셔닝</span>
               </div>
               <div class="share-matrix" id="architectureShareMatrix"></div>
@@ -1852,6 +1852,19 @@
             </div>
             <div class="value-chain-map" id="valueChainMap"></div>
           </section>
+        </section>
+
+        <section class="visual-insight-bridge" id="visual-bridge-competition" data-visual-story-mount="competitive-scroll-story" aria-labelledby="visualBridgeCompetitionTitle">
+          <header class="visual-insight-bridge-head">
+            <div>
+              <span>VISUAL SYNTHESIS 04 · COMPETITIVE BENCHMARK → RIGHT TO WIN</span>
+              <h2 id="visualBridgeCompetitionTitle">경쟁사 비교를 고객 승률과 실행 조건으로 전환</h2>
+              <p>단순 점유율 대신 고객 JTBD·Qualification·Base Die·Package Allocation·Binding Volume을 같은 지표로 교차검증</p>
+            </div>
+            <div class="visual-insight-route" aria-label="경쟁 우위 판단 흐름">
+              <span><b>COMPARE</b>Customer·Workload</span><i>→</i><span><b>TRACE</b>Qualification·Supply</span><i>→</i><span><b>DECIDE</b>Right to Win·Gate</span>
+            </div>
+          </header>
         </section>
 
         <section class="china-benchmark-video-story" id="china-benchmark-video-story" aria-labelledby="chinaBenchmarkStoryTitle" hidden>
@@ -1951,6 +1964,6 @@
   <div class="qa-answer" id="qaAnswer" hidden></div>
   <div class="inspector" id="inspector" hidden></div>
   <div class="backdrop" id="backdrop"></div>
-  <script src="assets/js/landing.min.js?v=infra-20260817-45" defer></script>
+  <script src="assets/js/landing.min.js?v=infra-20260817-46" defer></script>
 </body>
 </html>

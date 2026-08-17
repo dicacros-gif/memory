@@ -29708,3 +29708,10 @@ body.consulting-system {
 ) {
   color: color-mix(in srgb, var(--mbp-accent, var(--mbp-phase, #60a5fa)) 62%, #ffffff) !important;
 }
+
+/* Hidden-state layout contract
+   Disabled research modules must never override the native hidden state with
+   their own grid or block display rules */
+.consulting-system [hidden] {
+  display: none !important;
+}
