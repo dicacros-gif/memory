@@ -3,7 +3,7 @@
 
   const BUSINESS_TITLE = "AI Infra Strategy · Customer Pain to Executive Action";
   const CONSOLE_HASH = "#console";
-  const CONSOLE_REVISION = "infra-20260817-72";
+  const CONSOLE_REVISION = "infra-20260817-73";
   const DECISION_CLIENT_PATH = "data/landing-decision-client.json";
   const SITE_CONTENT_PATH = "data/site-content-client.json";
   const site = document.querySelector("#businessSite");
@@ -1447,7 +1447,6 @@
       const surface = target?.closest?.("[data-hover-mode], a, button, article, li, [class*='card'], [class*='panel'], [class*='tile'], .sc-card, .decision-card, .decision-flip-card, .domain-agent-workstream, .ai-council-agenda-card") || target;
       if (!surface) return;
       schedule(surface);
-      window.setTimeout(() => schedule(surface), 240);
     };
     window.addEventListener("pointerover", refreshInteractiveContrast, { passive: true, capture: true });
     window.addEventListener("pointerout", refreshInteractiveContrast, { passive: true, capture: true });

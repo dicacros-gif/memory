@@ -29984,3 +29984,123 @@ body.consulting-system {
 .consulting-system [hidden] {
   display: none !important;
 }
+
+/* Instant card inversion and contrast lock
+   Cached readability classes must never out-rank the active hover surface */
+#intelligenceConsole {
+  --instant-hover-surface: #102b3d;
+  --instant-hover-ink: #f8fbff;
+  --instant-hover-muted: #d6e4ee;
+  --instant-hover-accent: #79ead0;
+  --instant-hover-line: rgba(224, 242, 254, .4);
+}
+
+[data-theme="dark"] #intelligenceConsole,
+#intelligenceConsole[data-theme="dark"] {
+  --instant-hover-surface: #f8fafc;
+  --instant-hover-ink: #13263a;
+  --instant-hover-muted: #40546a;
+  --instant-hover-accent: #08766f;
+  --instant-hover-line: rgba(15, 23, 42, .24);
+}
+
+#intelligenceConsole :where(
+  [data-hover-mode],
+  [class$="-card"],
+  [class*="-card "],
+  [class$="-report"],
+  [class*="-report "],
+  [class$="-document"],
+  [class*="-document "],
+  [class$="-tile"],
+  [class*="-tile "],
+  article[tabindex],
+  li[tabindex]
+):is(:hover, :focus-visible, :focus-within) {
+  color: var(--instant-hover-ink) !important;
+  border-color: var(--instant-hover-accent) !important;
+  background: var(--instant-hover-surface) !important;
+  transition-delay: 0s !important;
+  transition-duration: .08s, .08s, .08s, .14s, .14s, .14s !important;
+}
+
+#intelligenceConsole :where(
+  [data-hover-mode],
+  [class$="-card"],
+  [class*="-card "],
+  [class$="-report"],
+  [class*="-report "],
+  [class$="-document"],
+  [class*="-document "],
+  [class$="-tile"],
+  [class*="-tile "],
+  article[tabindex],
+  li[tabindex]
+):is(:hover, :focus-visible, :focus-within)
+  :is(h1, h2, h3, h4, h5, h6, strong, b, a, button, label, dt, span, .ui-contrast-on-dark, .ui-contrast-on-light) {
+  color: var(--instant-hover-ink) !important;
+  -webkit-text-fill-color: currentColor !important;
+  text-shadow: none !important;
+  opacity: 1 !important;
+  transition-delay: 0s !important;
+}
+
+#intelligenceConsole :where(
+  [data-hover-mode],
+  [class$="-card"],
+  [class*="-card "],
+  [class$="-report"],
+  [class*="-report "],
+  [class$="-document"],
+  [class*="-document "],
+  [class$="-tile"],
+  [class*="-tile "],
+  article[tabindex],
+  li[tabindex]
+):is(:hover, :focus-visible, :focus-within)
+  :is(p, li, dd, small, time, cite, em, figcaption) {
+  color: var(--instant-hover-muted) !important;
+  -webkit-text-fill-color: currentColor !important;
+  text-shadow: none !important;
+  opacity: 1 !important;
+  transition-delay: 0s !important;
+}
+
+#intelligenceConsole :where(
+  [data-hover-mode],
+  [class$="-card"],
+  [class*="-card "],
+  [class$="-report"],
+  [class*="-report "],
+  [class$="-document"],
+  [class*="-document "],
+  [class$="-tile"],
+  [class*="-tile "],
+  article[tabindex],
+  li[tabindex]
+):is(:hover, :focus-visible, :focus-within)
+  :is([class*="label"], [class*="eyebrow"], [class*="index"], .strategy-highlight, .answer-term) {
+  color: var(--instant-hover-accent) !important;
+  -webkit-text-fill-color: currentColor !important;
+  opacity: 1 !important;
+}
+
+#intelligenceConsole :where(
+  [data-hover-mode],
+  [class$="-card"],
+  [class*="-card "],
+  [class$="-report"],
+  [class*="-report "],
+  [class$="-document"],
+  [class*="-document "],
+  [class$="-tile"],
+  [class*="-tile "],
+  article[tabindex],
+  li[tabindex]
+):is(:hover, :focus-visible, :focus-within)
+  :is(.exec-baseline-level-index, .sc-level-index) {
+  border-color: color-mix(in srgb, var(--instant-hover-accent) 68%, #ffffff) !important;
+  background: color-mix(in srgb, var(--instant-hover-accent) 64%, #17324d) !important;
+  color: #ffffff !important;
+  -webkit-text-fill-color: #ffffff !important;
+}
