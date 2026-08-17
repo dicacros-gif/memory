@@ -14,6 +14,8 @@ const heroList = html.match(/<ul class="business-hero-thesis business-copy-list"
 assert.equal((heroList.match(/<li>/g) ?? []).length, 3, "hero thesis must contain three Korean bullets");
 const heroScope = html.match(/<ul class="business-hero-bullets"[\s\S]*?<\/ul>/)?.[0] ?? "";
 assert.equal((heroScope.match(/<li>/g) ?? []).length, 3, "hero scope must contain three intact strategy rows");
+const heroOpening = html.match(/<section class="business-hero"[\s\S]*?<h1>/)?.[0] ?? "";
+assert.doesNotMatch(heroOpening, /data-frame=|AI INFRA STRATEGY/, "the removed hero frame and strategy kicker must stay absent");
 assert.doesNotMatch(heroScope, /Partner &amp; Execution/, "the clipped Partner & Execution row must stay removed");
 assert.doesNotMatch(html, />[^<]*Workbench[^<]*</i, "Workbench must not appear in user-facing copy");
 assert.doesNotMatch(html, /id="businessHomeQueueMetrics"/, "the redundant homepage automation metrics row must stay removed");
