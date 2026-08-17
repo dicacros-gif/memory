@@ -130,6 +130,7 @@ assert.match(landingCss, /@media \(max-width: 1200px\)[\s\S]*?\.business-decisio
 assert.doesNotMatch(html, /DEPARTMENT DECISION SYSTEM|business-visual-head/, "the removed hero decision-status header must stay deleted");
 assert.doesNotMatch(html, /DEPARTMENT OUTPUT|business-visual-result/, "the removed hero department-output card must stay deleted");
 assert.doesNotMatch(html, /business-decision-data-note|decisionDataDot|decisionDataStatus|decisionDataUpdated/, "the removed Console verified status bar must stay deleted");
+assert.doesNotMatch(html, /원문 문장·날짜·제품 Stage 없으면 승격하지 않음/, "the removed evidence-promotion sentence must stay deleted");
 const decisionAutomationSection = html.match(/<section class="business-section business-decision-automation"[\s\S]*?<\/section>/)?.[0] || "";
 assert.doesNotMatch(decisionAutomationSection.match(/^<section[^>]*>/)?.[0] || "", /data-frame=/, "the removed Decision Automation frame label must stay deleted");
 const decisionEvidenceLoader = landing.match(/async function loadDecisionEvidence\(\)[\s\S]*?\n  \}/)?.[0] || "";
