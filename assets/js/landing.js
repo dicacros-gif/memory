@@ -3,7 +3,7 @@
 
   const BUSINESS_TITLE = "AI Infra Strategy · Customer Pain to Executive Action";
   const CONSOLE_HASH = "#console";
-  const CONSOLE_REVISION = "infra-20260817-51";
+  const CONSOLE_REVISION = "infra-20260817-52";
   const DECISION_CLIENT_PATH = "data/landing-decision-client.json";
   const SITE_CONTENT_PATH = "data/site-content-client.json";
   const site = document.querySelector("#businessSite");
@@ -267,7 +267,7 @@
       .trim();
   }
 
-  function compactBusinessCopy(value = "", maxCharacters = 96) {
+  function compactBusinessCopy(value = "", maxCharacters = 84) {
     const original = String(value || "").replace(/\s+/g, " ").trim();
     if (!original) return "";
     const firstSentence = original.split(/(?<=[A-Za-z\u3131-\u318e\uac00-\ud7a3\d%)\]"'”’])[.\u3002](?=\s|$)/, 1)[0];
@@ -296,9 +296,9 @@
 
   function applyExecutiveCopyStyle(root = site, policy = {}) {
     if (!root) return;
-    const paragraphLimit = Number(policy.paragraphMaxCharacters || 116);
-    const listLimit = Number(policy.listMaxCharacters || 96);
-    const detailLimit = Number(policy.detailMaxCharacters || 88);
+    const paragraphLimit = Number(policy.paragraphMaxCharacters || 92);
+    const listLimit = Number(policy.listMaxCharacters || 78);
+    const detailLimit = Number(policy.detailMaxCharacters || 72);
     const walker = document.createTreeWalker(root, NodeFilter.SHOW_TEXT);
     const textNodes = [];
     while (walker.nextNode()) textNodes.push(walker.currentNode);
@@ -326,7 +326,7 @@
 
   function renderBusinessList(node, items = []) {
     if (!node || !Array.isArray(items) || !items.length) return;
-    node.innerHTML = items.map((item) => `<li>${escapeBusinessHTML(compactBusinessCopy(item, 96))}</li>`).join("");
+    node.innerHTML = items.map((item) => `<li>${escapeBusinessHTML(compactBusinessCopy(item, 78))}</li>`).join("");
   }
 
   function renderDecisionContent(content = {}) {
@@ -1402,10 +1402,24 @@
     return source.startsWith("color(") ? rgb.map((channel) => channel * 255) : rgb;
   }
 
+  function gradientReadableSurface(value = "") {
+    const colors = String(value || "").match(/(?:rgba?|color)\([^)]*\)/gi) || [];
+    const samples = colors.map(parseRgb).filter(Boolean);
+    if (!samples.length) return null;
+    return [0, 1, 2].map((channel) => samples.reduce((sum, sample) => sum + sample[channel], 0) / samples.length);
+  }
+
+  function computedReadableSurface(style) {
+    const gradient = style?.backgroundImage && style.backgroundImage !== "none"
+      ? gradientReadableSurface(style.backgroundImage)
+      : null;
+    return gradient || parseRgb(style?.backgroundColor || "");
+  }
+
   function surfaceLuminance(node) {
     let current = node;
     while (current && current !== document.documentElement) {
-      const rgb = parseRgb(getComputedStyle(current).backgroundColor);
+      const rgb = computedReadableSurface(getComputedStyle(current));
       if (rgb) {
         const channels = rgb.map((value) => {
           const normalized = value / 255;
@@ -1460,7 +1474,8 @@
     let current = node;
     while (current && current !== document.documentElement) {
       const style = getComputedStyle(current);
-      if (style.backgroundImage && style.backgroundImage !== "none") return null;
+      const gradient = gradientReadableSurface(style.backgroundImage);
+      if (gradient) return gradient;
       const color = colorChannels(style.backgroundColor);
       if (color && color.alpha >= .6) return color.rgb;
       current = current.parentElement;
@@ -1537,7 +1552,10 @@
       const roots = [...pendingRoots];
       pendingRoots.clear();
       roots.forEach((root) => {
-        try { applyReadabilityGuard(root); } catch { /* keep later refreshes alive */ }
+        try {
+          applyExecutiveCopyStyle(root, presentationPolicy?.readabilityPolicy || {});
+          applyReadabilityGuard(root);
+        } catch { /* keep later refreshes alive */ }
       });
     };
     const schedule = (root = document.body) => {
@@ -1560,7 +1578,9 @@
     });
     schedule(document.body);
     window.addEventListener("memory-console-ready", () => {
-      schedule(document.body);
+      const consoleRoot = document.querySelector("#intelligenceConsole") || document.body;
+      applyExecutiveCopyStyle(consoleRoot, presentationPolicy?.readabilityPolicy || {});
+      schedule(consoleRoot);
       [250, 1200, 4200].forEach((delay) => window.setTimeout(() => applyReadabilityGuard(document.body), delay));
     });
     window.setTimeout(() => applyReadabilityGuard(document.body), 8200);
@@ -1568,7 +1588,7 @@
     window.addEventListener("resize", () => schedule(document.body), { passive: true });
     const refreshInteractiveContrast = (event) => {
       const target = event.target instanceof Element ? event.target : event.target?.parentElement;
-      const surface = target?.closest?.("[data-hover-mode], .sc-card, .decision-card, .decision-flip-card, .domain-agent-workstream, .ai-council-agenda-card") || target;
+      const surface = target?.closest?.("[data-hover-mode], a, button, article, li, [class*='card'], [class*='panel'], [class*='tile'], .sc-card, .decision-card, .decision-flip-card, .domain-agent-workstream, .ai-council-agenda-card") || target;
       if (!surface) return;
       schedule(surface);
       window.setTimeout(() => schedule(surface), 240);
@@ -1584,7 +1604,7 @@
     presentationPolicy = policy || null;
     if (!site || !policy) return;
     const readability = policy.readabilityPolicy || {};
-    const maxCharacters = Math.min(82, Math.max(58, Number(readability.bodyMaxCharacters || 72)));
+    const maxCharacters = Math.min(76, Math.max(56, Number(readability.bodyMaxCharacters || 68)));
     const minimumLineHeight = Math.min(1.9, Math.max(1.55, Number(readability.minimumBodyLineHeight || 1.65)));
     site.style.setProperty("--business-copy-max", `${maxCharacters}ch`);
     site.style.setProperty("--business-body-leading", String(minimumLineHeight));

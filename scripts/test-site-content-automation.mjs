@@ -9,6 +9,7 @@ const quant = json("data/quant.json");
 const artifact = json("data/site-content-client.json");
 const manifest = json("data/data-manifest.json");
 const workflow = text(".github/workflows/pages.yml");
+const packageConfig = text("package.json");
 const landing = text("assets/js/landing.js");
 const app = text("assets/js/app.js");
 const index = text("index.html");
@@ -60,8 +61,10 @@ assert.ok(artifact.presentation.emphasisPolicy.maxTotal <= 10);
 assert.deepEqual(artifact.presentation.readabilityPolicy.hoverModes, ["light-to-dark", "dark-to-light"]);
 assert.equal(rebuilt.presentation.readabilityPolicy.copyStyle, "executive-bullets");
 assert.equal(rebuilt.presentation.readabilityPolicy.sentenceStops, "omit");
-assert.ok(rebuilt.presentation.readabilityPolicy.paragraphMaxCharacters <= 120);
-assert.ok(rebuilt.presentation.readabilityPolicy.listMaxCharacters <= 100);
+assert.ok(rebuilt.presentation.readabilityPolicy.paragraphMaxCharacters <= 92);
+assert.ok(rebuilt.presentation.readabilityPolicy.listMaxCharacters <= 78);
+assert.ok(rebuilt.presentation.readabilityPolicy.detailMaxCharacters <= 72);
+assert.match(packageConfig, /check:fast[\s\S]*?test-default-contrast-highlight\.mjs[\s\S]*?test-korean-bullet-copy\.mjs/, "every scheduled refresh must reject contrast and copy regressions");
 assert.equal(artifact.presentation.refreshPolicy.runId, artifact.runId);
 assert.equal(artifact.presentation.refreshPolicy.scheduleHours, artifact.freshness.scheduleHours);
 assert.equal(artifact.decisionIntelligence.retrieval.mode, "incremental-extractive");
@@ -201,7 +204,7 @@ assert.match(app, /window\.MEMORY_SITE_CONTENT\?\.agentCouncil\?\.agendas/);
 assert.match(landing, /previousRunId && previousRunId !== String\(content\.runId\) && isConsoleHash\(\)/);
 assert.match(landing, /window\.location\.reload\(\)/);
 assert.match(app, /replace\(\/솔리드다임\/g, "솔리다임"\)/, "the interactive console must normalize stale Solidigm labels at render time");
-assert.match(index, /infra-20260817-51/);
+assert.match(index, /infra-20260817-52/);
 assert.doesNotMatch(
   index,
   /data-live-source[^>]*>[\s\S]*?<\/a><\/div>\s*<dl>/,

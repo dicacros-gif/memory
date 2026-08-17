@@ -34,18 +34,19 @@ for (const phrase of [
 
 assert.doesNotMatch(html, /메모리를 판매하는 것이 아니라/);
 assert.doesNotMatch(html, /직무 적합성을 세 가지/);
-assert.match(html, /infra-20260817-51/);
+assert.match(html, /infra-20260817-52/);
 assert.match(css, /\.business-copy-list li::before/);
 assert.match(css, /Korean supporting copy uses compact consulting-style bullets/);
 assert.match(css, /\.business-site p\.business-copy-point::before/);
 assert.match(landing, /function removeBusinessSentenceStops\(value = ""\)/);
-assert.match(landing, /function compactBusinessCopy\(value = "", maxCharacters = 96\)/);
+assert.match(landing, /function compactBusinessCopy\(value = "", maxCharacters = 84\)/);
 assert.match(landing, /function applyExecutiveCopyStyle\(root = site, policy = \{\}\)/);
-assert.match(landing, /paragraphMaxCharacters \|\| 116/);
-assert.match(landing, /listMaxCharacters \|\| 96/);
+assert.match(landing, /paragraphMaxCharacters \|\| 92/);
+assert.match(landing, /listMaxCharacters \|\| 78/);
+assert.match(landing, /memory-console-ready[\s\S]*?applyExecutiveCopyStyle\(consoleRoot/, "dynamically rendered Console copy must use the executive bullet policy");
 
 console.log(JSON.stringify({
   heroBullets: 3,
   decisionAnswerLists: answerLists.length,
-  revision: "infra-20260817-51",
+  revision: "infra-20260817-52",
 }, null, 2));
