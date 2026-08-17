@@ -1,20 +1,20 @@
 {
   "schemaVersion": "1.1",
-  "runId": "32027290422",
-  "generatedAt": "2026-08-17T12:05:23.254Z",
-  "expiresAt": "2026-08-18T14:05:21.079Z",
+  "runId": "32032167089",
+  "generatedAt": "2026-08-17T13:03:08.463Z",
+  "expiresAt": "2026-08-18T15:03:06.371Z",
   "clientArtifact": true,
   "generation": {
     "method": "verified-data-plus-approved-framework",
     "frameworkVersion": "1.1",
     "failClosed": true,
-    "sourceRunId": "32027290422"
+    "sourceRunId": "32032167089"
   },
   "siteAutomation": {
     "schemaVersion": "1.0",
     "status": "all-sections-bound",
-    "runId": "32027290422",
-    "generatedAt": "2026-08-17T12:05:23.254Z",
+    "runId": "32032167089",
+    "generatedAt": "2026-08-17T13:03:08.463Z",
     "totalSections": 69,
     "boundSections": 69,
     "refresh": {
@@ -206,9 +206,9 @@
   },
   "freshness": {
     "status": "verified",
-    "evidenceCount": 78,
+    "evidenceCount": 77,
     "briefCount": 6,
-    "sourceCount": 4,
+    "sourceCount": 3,
     "configuredSources": 42,
     "observedSources": 6,
     "freshObservedSources": 5,
@@ -270,8 +270,8 @@
       "scheduleHours": 1,
       "browserRecheckMinutes": 5,
       "sourceCatalogVersion": "1.0",
-      "runId": "32027290422",
-      "generatedAt": "2026-08-17T12:05:23.254Z"
+      "runId": "32032167089",
+      "generatedAt": "2026-08-17T13:03:08.463Z"
     }
   },
   "decisionControl": {
@@ -281,8 +281,8 @@
     },
     "freshness": {
       "status": "CURRENT",
-      "generatedAt": "2026-08-17T12:05:23.254Z",
-      "expiresAt": "2026-08-18T14:05:21.079Z"
+      "generatedAt": "2026-08-17T13:03:08.463Z",
+      "expiresAt": "2026-08-18T15:03:06.371Z"
     },
     "coverage": {
       "status": "LOW",
@@ -299,8 +299,8 @@
   "decisionIntelligence": {
     "schemaVersion": "1.2",
     "status": "pass",
-    "generatedAt": "2026-08-17T12:04:46.759Z",
-    "runId": "32027290422",
+    "generatedAt": "2026-08-17T13:02:23.096Z",
+    "runId": "32032167089",
     "refreshTrigger": "push",
     "metrics": [
       {
@@ -414,12 +414,25 @@
     ],
     "eventTriggers": [
       {
-        "id": "2a74e86d59e9964a98a9",
+        "id": "0f9f68f0741e5c2b445f",
+        "ruleId": "capacity-commitment",
+        "label": "CapEx·Capacity·장기 물량",
+        "priority": "quarterly",
+        "sourceId": "trendforce",
+        "source": "TrendForce",
+        "sourceClass": "research",
+        "title": "삼성, SKHY 1H26 칩설비투자 35% 증가 · NVIDIA는 삼성의 상위 5대 고객에 포함되지 않습니다 - TrendForce",
+        "url": "https://www.trendforce.com/news/2026/08/17/news-samsung-sk-hynix-1h26-chip-facility-investment-up-35-nvidia-not-among-samsungs-top-five-customers",
+        "publishedAt": "2026-08-17",
+        "changed": true
+      },
+      {
+        "id": "28b48d7a426003ef5e5f",
         "ruleId": "capacity-commitment",
         "label": "CapEx·Capacity·장기 물량",
         "priority": "quarterly",
         "sourceId": "general-media",
-        "source": "techspot.com",
+        "source": "TechSpot",
         "sourceClass": "general-media",
         "title": "기업용 SSD는 이제 전 세계 NAND 플래시 공급량의 48%를 소비",
         "url": "https://www.techspot.com/news/113478-enterprise-ssds-now-consume-48-global-nand-flash.html",
@@ -555,30 +568,17 @@
         "url": "https://korea.counterpointresearch.com/global-dram-and-hbm-market-share-quarterly",
         "publishedAt": "2026-06-10",
         "changed": false
-      },
-      {
-        "id": "969aca3dde04109beb2f",
-        "ruleId": "capacity-commitment",
-        "label": "CapEx·Capacity·장기 물량",
-        "priority": "quarterly",
-        "sourceId": "trendforce",
-        "source": "TrendForce",
-        "sourceClass": "research",
-        "title": "Tight DRAM Supply Gives Suppliers Greater Pricing Power in HBM, with HBM Contract Prices Expected to Surge Multiples Higher in 2027, Says TrendForce",
-        "url": "https://www.trendforce.com/presscenter/news/20260602-13074.html",
-        "publishedAt": "2026-06-02",
-        "changed": false
       }
     ],
     "claimEvents": {
       "schemaVersion": "1.0",
-      "generatedAt": "2026-08-17T12:04:46.759Z",
+      "generatedAt": "2026-08-17T13:02:23.096Z",
       "stats": {
         "eligibleDocuments": 27,
-        "structuredEvents": 6,
+        "structuredEvents": 7,
         "verifiedEvents": 4,
-        "currentStages": 2,
-        "newEvents": 0,
+        "currentStages": 3,
+        "newEvents": 1,
         "contradictionReviews": 0
       },
       "events": [
@@ -608,6 +608,39 @@
           "publishedAt": "2026-02-19",
           "confidence": "confirmed-primary",
           "promotionStatus": "verified-primary",
+          "contradictionStatus": "clear",
+          "isCurrentStage": true,
+          "supersededBy": null
+        },
+        {
+          "id": "0549be51e38ab80b9909",
+          "ruleId": "capacity-commitment",
+          "eventType": "commercial-commitment",
+          "label": "CapEx·Capacity·장기 물량",
+          "entity": {
+            "id": "samsung",
+            "label": "Samsung"
+          },
+          "product": {
+            "id": "ai-memory",
+            "label": "AI Memory"
+          },
+          "stage": {
+            "id": "DISCLOSED",
+            "rank": 25
+          },
+          "metrics": [
+            "25.603 trillion",
+            "23.5%"
+          ],
+          "evidenceSpan": "Samsung invested KRW 25.603 trillion in its Device Solutions (DS) division, up 23.5%, focusing on next-generation memory technologies, advanced-process capacity expansion and infrastructure",
+          "source": "TrendForce",
+          "sourceId": "trendforce",
+          "sourceClass": "research",
+          "sourceUrl": "https://www.trendforce.com/news/2026/08/17/news-samsung-sk-hynix-1h26-chip-facility-investment-up-35-nvidia-not-among-samsungs-top-five-customers",
+          "publishedAt": "2026-08-17",
+          "confidence": "research-observed",
+          "promotionStatus": "review",
           "contradictionStatus": "clear",
           "isCurrentStage": true,
           "supersededBy": null
@@ -800,8 +833,8 @@
       ],
       "state": "DECISION_READY",
       "funnel": {
-        "sourceDocuments": 30,
-        "structuredEvents": 6,
+        "sourceDocuments": 31,
+        "structuredEvents": 7,
         "verifiedEvents": 4,
         "decisionReadyBriefs": 4,
         "executionTrackingBriefs": 0
@@ -820,8 +853,8 @@
             "refreshMode": "poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-08-17T12:04:45.011Z",
-            "lastUsefulObservationAt": "2026-08-17T12:04:45.011Z",
+            "lastSuccessAt": "2026-08-17T13:02:20.561Z",
+            "lastUsefulObservationAt": "2026-08-17T13:02:20.561Z",
             "usefulObservation": true,
             "eventYield": 1
           },
@@ -832,10 +865,10 @@
             "refreshMode": "poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-08-17T12:04:45.011Z",
-            "lastUsefulObservationAt": "2026-08-17T12:04:45.011Z",
+            "lastSuccessAt": "2026-08-17T13:02:20.561Z",
+            "lastUsefulObservationAt": "2026-08-17T13:02:20.561Z",
             "usefulObservation": true,
-            "eventYield": 1
+            "eventYield": 2
           },
           {
             "id": "samsung-hbm4-stage",
@@ -844,8 +877,8 @@
             "refreshMode": "event+poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-08-17T12:04:45.011Z",
-            "lastUsefulObservationAt": "2026-08-17T12:04:45.011Z",
+            "lastSuccessAt": "2026-08-17T13:02:20.561Z",
+            "lastUsefulObservationAt": "2026-08-17T13:02:20.561Z",
             "usefulObservation": true,
             "eventYield": 3
           },
@@ -856,7 +889,7 @@
             "refreshMode": "event+poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-08-17T12:04:45.011Z",
+            "lastSuccessAt": "2026-08-17T13:02:20.561Z",
             "lastUsefulObservationAt": null,
             "usefulObservation": false,
             "eventYield": 0
@@ -868,7 +901,7 @@
             "refreshMode": "event+poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-08-17T12:04:45.011Z",
+            "lastSuccessAt": "2026-08-17T13:02:20.561Z",
             "lastUsefulObservationAt": null,
             "usefulObservation": false,
             "eventYield": 0
@@ -880,7 +913,7 @@
             "refreshMode": "poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-08-17T12:04:45.011Z",
+            "lastSuccessAt": "2026-08-17T13:02:20.561Z",
             "lastUsefulObservationAt": null,
             "usefulObservation": false,
             "eventYield": 0
@@ -892,8 +925,8 @@
             "refreshMode": "poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-08-17T12:04:45.011Z",
-            "lastUsefulObservationAt": "2026-08-17T12:04:45.011Z",
+            "lastSuccessAt": "2026-08-17T13:02:20.561Z",
+            "lastUsefulObservationAt": "2026-08-17T13:02:20.561Z",
             "usefulObservation": true,
             "eventYield": 0
           },
@@ -904,8 +937,8 @@
             "refreshMode": "poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-08-17T12:04:45.011Z",
-            "lastUsefulObservationAt": "2026-08-17T12:04:45.011Z",
+            "lastSuccessAt": "2026-08-17T13:02:20.561Z",
+            "lastUsefulObservationAt": "2026-08-17T13:02:20.561Z",
             "usefulObservation": true,
             "eventYield": 0
           },
@@ -916,8 +949,8 @@
             "refreshMode": "poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-08-17T12:04:45.011Z",
-            "lastUsefulObservationAt": "2026-08-17T12:04:45.011Z",
+            "lastSuccessAt": "2026-08-17T13:02:20.561Z",
+            "lastUsefulObservationAt": "2026-08-17T13:02:20.561Z",
             "usefulObservation": true,
             "eventYield": 0
           },
@@ -928,8 +961,8 @@
             "refreshMode": "poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-08-17T12:04:45.011Z",
-            "lastUsefulObservationAt": "2026-08-17T12:04:45.011Z",
+            "lastSuccessAt": "2026-08-17T13:02:20.561Z",
+            "lastUsefulObservationAt": "2026-08-17T13:02:20.561Z",
             "usefulObservation": true,
             "eventYield": 0
           }
@@ -944,7 +977,7 @@
           "decisionStage": "CUSTOMER_QUALIFICATION",
           "deliverable": "Customer Fact Base · Pain Map · Requirement Matrix · Memory Proposal",
           "status": "DECISION_READY",
-          "updatedAt": "2026-08-17T12:04:46.759Z",
+          "updatedAt": "2026-08-17T13:02:23.096Z",
           "whatChanged": "HBM4 상업화 신호를 고객별 Custom Qualification·계약 Gate로 전환할 것인가",
           "latestSignal": "Samsung · HBM4 · COMMERCIAL_SHIPMENT",
           "sourceStage": "COMMERCIAL_SHIPMENT",
@@ -976,8 +1009,8 @@
           "trigger": "SAMPLE 이후 고객 Qualification 또는 Commercial Shipment 단계가 공식 원문으로 확인",
           "killCriteria": "Trace 접근권·Qualification 경로·확정 물량·NRE 회수 중 2개 이상이 확인되지 않으면 Full-Custom 투자를 중단",
           "evidenceCount": 5,
-          "independentSources": 5,
-          "primaryEvidence": 2,
+          "independentSources": 4,
+          "primaryEvidence": 1,
           "verifiedClaims": 4,
           "evidence": [
             {
@@ -991,6 +1024,18 @@
               "stage": "COMMERCIAL_SHIPMENT",
               "confidence": "confirmed-primary",
               "excerpt": "Samsung Electronics, a global leader in advanced memory technology, today announced that it has begun mass production of its industry-leading HBM4 and has shipped commercial products to customers"
+            },
+            {
+              "id": "0549be51e38ab80b9909",
+              "title": "Samsung · AI Memory · DISCLOSED",
+              "source": "TrendForce",
+              "sourceId": "trendforce",
+              "sourceClass": "research",
+              "url": "https://www.trendforce.com/news/2026/08/17/news-samsung-sk-hynix-1h26-chip-facility-investment-up-35-nvidia-not-among-samsungs-top-five-customers",
+              "publishedAt": "2026-08-17",
+              "stage": "DISCLOSED",
+              "confidence": "research-observed",
+              "excerpt": "Samsung invested KRW 25.603 trillion in its Device Solutions (DS) division, up 23.5%, focusing on next-generation memory technologies, advanced-process capacity expansion and infrastructure"
             },
             {
               "id": "a6e2ed0895636b3b2518",
@@ -1027,22 +1072,6 @@
               "stage": "COMMERCIAL_SHIPMENT",
               "confidence": "research-observed",
               "excerpt": "UBS가 인용한 예측에 따르면, 삼성전자는 HBM4의 출하량 확대로 2027년 SKHY를 제치고 글로벌 고대역폭 메모리 시장을 선도할 수 있을 것으로 전망"
-            },
-            {
-              "score": 1.75,
-              "chunkId": "cfa59185ea4d84d147d4",
-              "title": "Sandisk Details Growth Strategy and Long-Term Financial Model at 2026 Investor Day | Thu, 08/13/2026 - 10:59 - Sandisk",
-              "excerpt": "Sandisk Details Growth Strategy and Long-Term Financial Model at 2026 Investor Day | Thu, 08/13/2026 - 10:59 - Sandisk NEW YORK --(BUSINESS WIRE)--Aug · 13, 2026-- Sandisk (Nasdaq: SNDK) today highlighted its long-term growth strategy and sustainable long-term financial model at its 2026 Investor Day, Sandisk In Focus…",
-              "sourceId": "sandisk-newsroom",
-              "source": "Sandisk",
-              "sourceClass": "official",
-              "url": "https://investor.sandisk.com/news-releases/news-release-details/sandisk-details-growth-strategy-and-long-term-financial-model",
-              "publishedAt": "2026-08-13",
-              "indexedAt": "2026-08-17T10:13:58.615Z",
-              "sourceChangeDetectedAt": "2026-08-17T10:12:01.965Z",
-              "lastHumanVerifiedAt": null,
-              "freshnessDays": 180,
-              "documentStatus": "current"
             }
           ]
         },
@@ -1054,7 +1083,7 @@
           "decisionStage": "ARCHITECTURE_BENCHMARK",
           "deliverable": "Workload Trace · Bottleneck Tree · Architecture Benchmark · TCO",
           "status": "DECISION_READY",
-          "updatedAt": "2026-08-17T12:04:46.759Z",
+          "updatedAt": "2026-08-17T13:02:23.096Z",
           "whatChanged": "KV Cache 지배 병목을 HBM·Host DRAM/CXL·eSSD 계층화로 낮출 것인가",
           "latestSignal": "Samsung · HBM4 · COMMERCIAL_SHIPMENT",
           "sourceStage": "COMMERCIAL_SHIPMENT",
@@ -1087,7 +1116,7 @@
           ],
           "trigger": "SW-only 기준선 이후에도 Active KV 또는 KV 이동이 SLO를 제한",
           "killCriteria": "SW-only가 동일 품질·SLO에서 Memory Tier보다 경제적이면 HW 제안을 중단",
-          "evidenceCount": 6,
+          "evidenceCount": 7,
           "independentSources": 6,
           "primaryEvidence": 3,
           "verifiedClaims": 3,
@@ -1103,6 +1132,18 @@
               "stage": "COMMERCIAL_SHIPMENT",
               "confidence": "confirmed-primary",
               "excerpt": "Samsung Electronics, a global leader in advanced memory technology, today announced that it has begun mass production of its industry-leading HBM4 and has shipped commercial products to customers"
+            },
+            {
+              "id": "0549be51e38ab80b9909",
+              "title": "Samsung · AI Memory · DISCLOSED",
+              "source": "TrendForce",
+              "sourceId": "trendforce",
+              "sourceClass": "research",
+              "url": "https://www.trendforce.com/news/2026/08/17/news-samsung-sk-hynix-1h26-chip-facility-investment-up-35-nvidia-not-among-samsungs-top-five-customers",
+              "publishedAt": "2026-08-17",
+              "stage": "DISCLOSED",
+              "confidence": "research-observed",
+              "excerpt": "Samsung invested KRW 25.603 trillion in its Device Solutions (DS) division, up 23.5%, focusing on next-generation memory technologies, advanced-process capacity expansion and infrastructure"
             },
             {
               "id": "a6e2ed0895636b3b2518",
@@ -1139,22 +1180,6 @@
               "stage": "COMMERCIAL_SHIPMENT",
               "confidence": "research-observed",
               "excerpt": "UBS가 인용한 예측에 따르면, 삼성전자는 HBM4의 출하량 확대로 2027년 SKHY를 제치고 글로벌 고대역폭 메모리 시장을 선도할 수 있을 것으로 전망"
-            },
-            {
-              "score": 2.75,
-              "chunkId": "6d4a34701ff68a739b56",
-              "title": "KV Offloading Usage Guide - vLLM",
-              "excerpt": "rs Tuning Tips Per-Request Selective Offload Further Reading LoRA Adapters MooncakeConnector Usage Guide MooncakeStoreConnector Usage Guide MoRIIOConnector Usage Guide Multimodal Inputs NixlConnector Compatibility Matrix NixlConnector Usage Guide Per-Request Metrics Prompt Embedding Inputs Reasoning Outputs",
-              "sourceId": "vllm-kv-offloading",
-              "source": "vLLM KV Offloading",
-              "sourceClass": "official",
-              "url": "https://docs.vllm.ai/en/latest/features/kv_offloading_usage",
-              "publishedAt": "2026-01-08",
-              "indexedAt": "2026-08-17T02:34:48.994Z",
-              "sourceChangeDetectedAt": "2026-08-17T02:34:47.528Z",
-              "lastHumanVerifiedAt": null,
-              "freshnessDays": 365,
-              "documentStatus": "current"
             }
           ]
         },
@@ -1166,9 +1191,9 @@
           "decisionStage": "BUSINESS_CASE",
           "deliverable": "Tech/Market Insight · Opportunity Thesis · Partner Screen · Business Case",
           "status": "DECISION_READY",
-          "updatedAt": "2026-08-17T12:04:46.759Z",
+          "updatedAt": "2026-08-17T13:02:23.096Z",
           "whatChanged": "RAG 품질 Gate 통과 후 Index·Corpus 계층을 어떤 사업모델로 확장할 것인가",
-          "latestSignal": "Memory industry · AI Memory · DISCLOSED",
+          "latestSignal": "Samsung · AI Memory · DISCLOSED",
           "sourceStage": "DISCLOSED",
           "stage": "BUSINESS_CASE",
           "confidence": "review",
@@ -1196,11 +1221,23 @@
           ],
           "trigger": "검색 품질 Gate 통과 후 Active Index Capacity 또는 Storage I/O가 지배 병목으로 확인",
           "killCriteria": "Recall·권한·인용 품질 Gate를 통과하지 못하면 Memory/Storage 증설 제안을 중단",
-          "evidenceCount": 5,
+          "evidenceCount": 6,
           "independentSources": 5,
           "primaryEvidence": 4,
           "verifiedClaims": 1,
           "evidence": [
+            {
+              "id": "0549be51e38ab80b9909",
+              "title": "Samsung · AI Memory · DISCLOSED",
+              "source": "TrendForce",
+              "sourceId": "trendforce",
+              "sourceClass": "research",
+              "url": "https://www.trendforce.com/news/2026/08/17/news-samsung-sk-hynix-1h26-chip-facility-investment-up-35-nvidia-not-among-samsungs-top-five-customers",
+              "publishedAt": "2026-08-17",
+              "stage": "DISCLOSED",
+              "confidence": "research-observed",
+              "excerpt": "Samsung invested KRW 25.603 trillion in its Device Solutions (DS) division, up 23.5%, focusing on next-generation memory technologies, advanced-process capacity expansion and infrastructure"
+            },
             {
               "id": "a6e2ed0895636b3b2518",
               "title": "Memory industry · AI Memory · DISCLOSED",
@@ -1256,22 +1293,6 @@
               "lastHumanVerifiedAt": null,
               "freshnessDays": 180,
               "documentStatus": "current"
-            },
-            {
-              "score": 1.75,
-              "chunkId": "9901d1c75477bbb20467",
-              "title": "Kioxia와 Sandisk, AI 및 데이터 집약적 애플리케이션을 위해 설계된 새로운 고성능 QLC 3D 플래시 메모리 기술 공개 - Sandisk",
-              "excerpt": "Kioxia and Sandisk Unveil New High-Performance QLC 3D Flash Memory Technology Designed for AI and Data-Intensive Applications - Sandisk Kioxia and Sandisk today unveiled their new 9th-generation, high-performance 2Tb QLC 3D flash memory technology designed to support the growing storage demands of AI-driven infrastruc…",
-              "sourceId": "sandisk-newsroom",
-              "source": "Sandisk",
-              "sourceClass": "official",
-              "url": "https://www.sandisk.com/company/newsroom/press-releases/2026/2026-08-12-kioxia-and-sandisk-unveil-new-high-performance-qlc-3d-flash-memory-for-ai-and-data-intensive-apps",
-              "publishedAt": "2026-08-12",
-              "indexedAt": "2026-08-17T10:13:58.615Z",
-              "sourceChangeDetectedAt": "2026-08-17T10:12:01.965Z",
-              "lastHumanVerifiedAt": null,
-              "freshnessDays": 180,
-              "documentStatus": "current"
             }
           ]
         },
@@ -1283,9 +1304,9 @@
           "decisionStage": "SCALE_GATE",
           "deliverable": "Partner Model · 90-Day Roadmap · RACI · KPI/Trigger/Kill Dashboard",
           "status": "DECISION_READY",
-          "updatedAt": "2026-08-17T12:04:46.759Z",
+          "updatedAt": "2026-08-17T13:02:23.096Z",
           "whatChanged": "전력·냉각·Fabric·Storage Gate를 통과한 Rack Cell만 파트너와 확장할 것인가",
-          "latestSignal": "Memory industry · AI Memory · DISCLOSED",
+          "latestSignal": "Samsung · AI Memory · DISCLOSED",
           "sourceStage": "DISCLOSED",
           "stage": "SCALE_GATE",
           "confidence": "review",
@@ -1315,11 +1336,23 @@
           ],
           "trigger": "실제 로그와 업무 성공 기준·가동 가능 전력이 함께 확정",
           "killCriteria": "전력 인입·열 제거·복구 SLO·수요 기준선 중 하나라도 검증되지 않으면 대규모 CAPEX를 승인하지 않음",
-          "evidenceCount": 6,
+          "evidenceCount": 7,
           "independentSources": 6,
           "primaryEvidence": 4,
           "verifiedClaims": 1,
           "evidence": [
+            {
+              "id": "0549be51e38ab80b9909",
+              "title": "Samsung · AI Memory · DISCLOSED",
+              "source": "TrendForce",
+              "sourceId": "trendforce",
+              "sourceClass": "research",
+              "url": "https://www.trendforce.com/news/2026/08/17/news-samsung-sk-hynix-1h26-chip-facility-investment-up-35-nvidia-not-among-samsungs-top-five-customers",
+              "publishedAt": "2026-08-17",
+              "stage": "DISCLOSED",
+              "confidence": "research-observed",
+              "excerpt": "Samsung invested KRW 25.603 trillion in its Device Solutions (DS) division, up 23.5%, focusing on next-generation memory technologies, advanced-process capacity expansion and infrastructure"
+            },
             {
               "id": "a6e2ed0895636b3b2518",
               "title": "Memory industry · AI Memory · DISCLOSED",
@@ -1370,22 +1403,6 @@
               "sourceClass": "official",
               "url": "https://developer.nvidia.com/blog/introducing-nvidia-dynamo-a-low-latency-distributed-inference-framework-for-scaling-reasoning-ai-models",
               "publishedAt": "2025-03-18",
-              "indexedAt": "2026-08-17T02:34:48.994Z",
-              "sourceChangeDetectedAt": "2026-08-17T02:34:47.528Z",
-              "lastHumanVerifiedAt": null,
-              "freshnessDays": 365,
-              "documentStatus": "current"
-            },
-            {
-              "score": 1.75,
-              "chunkId": "1640fd2fe7d5fe1e5b1b",
-              "title": "Overview — NVIDIA NVL72 AI Factory",
-              "excerpt": "Overview — NVIDIA NVL72 AI Factory Skip to main content Back to top Ctrl + K NVIDIA NVL72 AI Factory Se",
-              "sourceId": "nvidia-nvl72-architecture",
-              "source": "NVIDIA NVL72 AI Factory Reference Architecture",
-              "sourceClass": "official",
-              "url": "https://docs.nvidia.com/enterprise-reference-architectures/nvl72-ai-factory/latest/overview.html",
-              "publishedAt": null,
               "indexedAt": "2026-08-17T02:34:48.994Z",
               "sourceChangeDetectedAt": "2026-08-17T02:34:47.528Z",
               "lastHumanVerifiedAt": null,
@@ -1471,13 +1488,13 @@
     "retrieval": {
       "mode": "incremental-extractive",
       "stats": {
-        "documents": 30,
-        "chunks": 119,
-        "added": 0,
+        "documents": 31,
+        "chunks": 120,
+        "added": 1,
         "changed": 0,
-        "unchanged": 27,
-        "retained": 3,
-        "reindexed": 0
+        "unchanged": 26,
+        "retained": 4,
+        "reindexed": 1
       },
       "packs": [
         {
@@ -1614,13 +1631,13 @@
           "evidenceCount": 4,
           "citations": [
             {
-              "title": "Tight DRAM Supply Gives Suppliers Greater Pricing Power in HBM, with HBM Contract Prices Expected to Surge Multiples Higher in 2027, Says TrendForce",
+              "title": "삼성, SKHY 1H26 칩설비투자 35% 증가 · NVIDIA는 삼성의 상위 5대 고객에 포함되지 않습니다 - TrendForce",
               "source": "TrendForce",
               "sourceClass": "research",
-              "url": "https://www.trendforce.com/presscenter/news/20260602-13074.html",
-              "publishedAt": "2026-06-02",
-              "indexedAt": "2026-08-17T10:30:52.656Z",
-              "sourceChangeDetectedAt": "2026-08-17T10:30:50.758Z",
+              "url": "https://www.trendforce.com/news/2026/08/17/news-samsung-sk-hynix-1h26-chip-facility-investment-up-35-nvidia-not-among-samsungs-top-five-customers",
+              "publishedAt": "2026-08-17",
+              "indexedAt": "2026-08-17T13:02:23.096Z",
+              "sourceChangeDetectedAt": "2026-08-17T13:00:54.244Z",
               "lastHumanVerifiedAt": null,
               "stale": false
             },
@@ -2022,10 +2039,10 @@
       },
       "timestamps": {
         "lastHumanVerifiedAt": null,
-        "sourceChangeDetectedAt": "2026-08-17T10:30:50.758Z",
-        "indexedAt": "2026-08-17T10:30:52.656Z"
+        "sourceChangeDetectedAt": "2026-08-17T13:00:54.244Z",
+        "indexedAt": "2026-08-17T13:02:23.096Z"
       },
-      "generatedAt": "2026-08-17T12:04:46.759Z"
+      "generatedAt": "2026-08-17T13:02:23.096Z"
     },
     "evaluation": {
       "framework": "grounded-retrieval-quality-loop",
@@ -2035,7 +2052,7 @@
       "metrics": {
         "citationCoveragePct": 100,
         "trackCoveragePct": 100,
-        "freshDocumentPct": 93.3,
+        "freshDocumentPct": 93.5,
         "primaryOrResearchPct": 100,
         "conflictDisclosurePct": 100,
         "unsupportedClaimPct": 0
@@ -2126,8 +2143,8 @@
     "output": {},
     "departmentWorkbench": {
       "source": "decisionIntelligence.decisionAutomation.briefs",
-      "runId": "32027290422",
-      "generatedAt": "2026-08-17T12:05:23.254Z",
+      "runId": "32032167089",
+      "generatedAt": "2026-08-17T13:03:08.463Z",
       "status": "DECISION_READY",
       "agenda": [
         {
@@ -2151,7 +2168,7 @@
             "Committed Volume"
           ],
           "evidenceCount": 5,
-          "independentSources": 5,
+          "independentSources": 4,
           "confidence": "verified-primary",
           "deepLink": "#console/c-level-cockpit/hbm4-foundry"
         },
@@ -2175,7 +2192,7 @@
             "TPOT P95",
             "Goodput"
           ],
-          "evidenceCount": 6,
+          "evidenceCount": 7,
           "independentSources": 6,
           "confidence": "verified-primary",
           "deepLink": "#console/c-level-cockpit/post-hbm"
@@ -2189,7 +2206,7 @@
           "stage": "BUSINESS_CASE",
           "decisionQuestion": "RAG 품질 Gate 통과 후 Index·Corpus 계층을 어떤 사업모델로 확장할 것인가",
           "whatChanged": "RAG 품질 Gate 통과 후 Index·Corpus 계층을 어떤 사업모델로 확장할 것인가",
-          "latestSignal": "Memory industry · AI Memory · DISCLOSED",
+          "latestSignal": "Samsung · AI Memory · DISCLOSED",
           "customerPain": "검색 품질·권한·색인 최신성과 Query P99를 유지하면서 Corpus 비용을 통제해야 함",
           "recommendation": "Vector DB 교체보다 Metadata·ACL·Hybrid Retrieval·Rerank를 먼저 통과한 뒤 Hot Index·Warm Document·Cold Corpus를 계층화",
           "action90d": "Golden Set과 권한 오류·Recall·P99 기준선을 고정하고 Tier별 Retrieval Benchmark 수행",
@@ -2200,7 +2217,7 @@
             "Citation Precision",
             "Retrieval P99"
           ],
-          "evidenceCount": 5,
+          "evidenceCount": 6,
           "independentSources": 5,
           "confidence": "review",
           "deepLink": "#console/ai-matrix"
@@ -2214,7 +2231,7 @@
           "stage": "SCALE_GATE",
           "decisionQuestion": "전력·냉각·Fabric·Storage Gate를 통과한 Rack Cell만 파트너와 확장할 것인가",
           "whatChanged": "전력·냉각·Fabric·Storage Gate를 통과한 Rack Cell만 파트너와 확장할 것인가",
-          "latestSignal": "Memory industry · AI Memory · DISCLOSED",
+          "latestSignal": "Samsung · AI Memory · DISCLOSED",
           "customerPain": "가속기·Fabric·Storage·전력·냉각의 병목이 Rack/POD 단위 확장을 제한",
           "recommendation": "서버 단품이 아니라 Useful AI Work / Total Cost와 Qualification / Time 기준으로 Rack Cell을 공동 최적화",
           "action90d": "Workload Trace·전력·열·Fabric·Checkpoint를 한 부하에서 계측하는 Rack Cell Baseline 확정",
@@ -2225,7 +2242,7 @@
             "MFU",
             "Rack kW"
           ],
-          "evidenceCount": 6,
+          "evidenceCount": 7,
           "independentSources": 6,
           "confidence": "review",
           "deepLink": "#console/ai-factory"
@@ -2256,7 +2273,7 @@
         }
       ],
       "revalidationRequired": false,
-      "indexedAt": "2026-08-17T10:30:52.656Z"
+      "indexedAt": "2026-08-17T13:02:23.096Z"
     },
     "status": "VERIFIED · 출처 6개 관측 · 2026-08-17"
   },
@@ -2393,7 +2410,7 @@
         "evidenceLevel": "Watch",
         "sourceClass": "research"
       },
-      "evidenceCount": 8,
+      "evidenceCount": 7,
       "signals": [
         [
           "Watch · RESEARCH",
@@ -2529,7 +2546,7 @@
         "evidenceLevel": "Reported",
         "sourceClass": "research"
       },
-      "evidenceCount": 4,
+      "evidenceCount": 5,
       "signals": [
         [
           "Reported · RESEARCH",
@@ -2804,7 +2821,7 @@
         "evidenceLevel": "Watch",
         "sourceClass": "official"
       },
-      "evidenceCount": 4,
+      "evidenceCount": 5,
       "signals": [
         [
           "Watch · OFFICIAL",
@@ -2917,7 +2934,7 @@
     {
       "id": "hbm",
       "label": "HBM·AI 서버",
-      "evidenceCount": 8,
+      "evidenceCount": 7,
       "latest": {
         "title": "Micron은 HBM4E를 맞춤형 HBM 시대의 시작으로 표시 · HBM 시장은 이중 또는 단일 공급업체 쪽으로 기울 수 있음",
         "summary": "메모리 거대 기업들은 점점 더 차세대 성장 엔진으로 맞춤형 HBM을 선택하고 있음 · Investing.com에 따르면 KeyBanc 기술 리더십 포럼 2026에서 Micron EVP Sumit Sadana는 맞춤형 HBM으로의 전환이 HBM4E에서 시작될 것이며 회사는 맞춤형 SKU에 대해 고객과 협력할 계획이라고 말",
@@ -3013,7 +3030,7 @@
     {
       "id": "demand",
       "label": "수요·고객",
-      "evidenceCount": 4,
+      "evidenceCount": 5,
       "latest": {
         "title": "고객이 \"매우 높은\" 가격으로 메모리를 확보하려고 서두르는 가운데 Micron은 데이터 센터 수요의 절반 미만을 충족",
         "summary": "81%의 분기별 영업 이익률을 보고한 지 거의 6주 만에 Micron은 8월 10일 KeyBanc 기술 리더십 포럼 2026에서 더욱 낙관적인 어조를 밝혔음 · Investing.com에 따르면 Micron은 데이터 센터의 공급이 가장 부족하기 때문에 \"매우 높은\" 가격에도 불구하고 메모리 확보에 여전히 열의가 있다고 말 · Micron은 종종 고객 수요의 절반도 채울 수 없음",
@@ -3037,18 +3054,18 @@
     {
       "id": "capital",
       "label": "자본시장·CAPEX",
-      "evidenceCount": 7,
+      "evidenceCount": 8,
       "latest": {
-        "title": "메모리 제조업체 CXMT, IPO 후 17일 만에 Tencent를 제치고 중국에서 가장 가치 있는 기업으로 등극 - 현재 가치 5,240억 달러",
-        "summary": "DRAM 제조업체는 목요일에 Tencent의 5,100억 달러 대비 가치가 5,240억 달러로 마감",
-        "source": "Tom's Hardware",
-        "url": "https://www.tomshardware.com/tech-industry/cxmt-overtakes-tencent-to-become-chinas-most-valuable-company-17-days-after-its-ipo",
-        "publishedAt": "2026-08-13",
+        "title": "삼성, SKHY 1H26 칩설비투자 35% 증가 · NVIDIA는 삼성의 상위 5대 고객에 포함되지 않음",
+        "summary": "Samsung and SK hynix are accelerating semiconductor investment as AI demand drives capacity expansion and advanced-process upgrades · According to Etoday , citing the companies’ 2026 semi-annual reports, Samsung Electronics and SK hynix invested a combined K",
+        "source": "TrendForce",
+        "url": "https://www.trendforce.com/news/2026/08/17/news-samsung-sk-hynix-1h26-chip-facility-investment-up-35-nvidia-not-among-samsungs-top-five-customers/",
+        "publishedAt": "2026-08-17",
         "evidenceLevel": "Reported",
-        "sourceClass": "authoritative-media"
+        "sourceClass": "research"
       },
-      "fact": "DRAM 제조업체는 목요일에 Tencent의 5,100억 달러 대비 가치가 5,240억 달러로 마감",
-      "implication": "DRAM 제조업체는 목요일에 Tencent의 5,100억 달러 대비 가치가 5,240억 달러로 마감",
+      "fact": "Samsung and SK hynix are accelerating semiconductor investment as AI demand drives capacity expansion and advanced-process upgrades · According to Etoday , citing the companies’ 2026 semi-annual reports, Samsung Electronics and SK hynix invested a combined K",
+      "implication": "Samsung and SK hynix are accelerating semiconductor investment as AI demand drives capacity expansion and advanced-process upgrades · According to Etoday , citing the companies’ 2026 semi-annual reports, Samsung Electronics and SK hynix invested a c…",
       "decision": "공모 계획액, 확정 조달액, 조건부 초과배정과 연간 CAPEX를 같은 숫자로 합치지 않고 자금 용도와 공급 증가 시점을 따로 판단",
       "action": "최종 투자설명서, 거래소 공시, 이사회 CAPEX 가이던스 또는 실제 자금 집행 일정 변경",
       "hypothesis": {
@@ -3916,8 +3933,8 @@
       "scheduleHours": 1,
       "failClosed": true
     },
-    "generatedAt": "2026-08-17T12:05:23.254Z",
-    "runId": "32027290422"
+    "generatedAt": "2026-08-17T13:03:08.463Z",
+    "runId": "32032167089"
   },
   "workloadOptimization": {
     "title": "Data Center Workload Optimization · Bottleneck-to-PoC",
@@ -4163,7 +4180,7 @@
         "retrievalStatus": "pass",
         "citationCoveragePct": 100,
         "trackCoveragePct": 100,
-        "indexedAt": "2026-08-17T10:30:52.656Z"
+        "indexedAt": "2026-08-17T13:02:23.096Z"
       }
     },
     "sources": [
@@ -4300,8 +4317,8 @@
       }
     ],
     "currentSignals": [],
-    "generatedAt": "2026-08-17T12:05:23.254Z",
-    "runId": "32027290422"
+    "generatedAt": "2026-08-17T13:03:08.463Z",
+    "runId": "32032167089"
   },
   "caseClassification": [
     {
@@ -4353,7 +4370,7 @@
           "evidenceLevel": "Watch",
           "sourceClass": "research"
         },
-        "evidenceCount": 8,
+        "evidenceCount": 7,
         "signals": [
           [
             "Watch · RESEARCH",
@@ -4489,7 +4506,7 @@
           "evidenceLevel": "Reported",
           "sourceClass": "research"
         },
-        "evidenceCount": 4,
+        "evidenceCount": 5,
         "signals": [
           [
             "Reported · RESEARCH",
@@ -4900,7 +4917,7 @@
           "evidenceLevel": "Reported",
           "sourceClass": "research"
         },
-        "evidenceCount": 4,
+        "evidenceCount": 5,
         "signals": [
           [
             "Reported · RESEARCH",
@@ -5039,7 +5056,7 @@
           "evidenceLevel": "Watch",
           "sourceClass": "official"
         },
-        "evidenceCount": 4,
+        "evidenceCount": 5,
         "signals": [
           [
             "Watch · OFFICIAL",
