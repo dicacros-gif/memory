@@ -106,7 +106,7 @@ assert.match(landing, /function applyReadabilityGuard\(root = document\.body\)[\
 assert.match(landing, /function colorChannels\(value = ""\)[\s\S]*?source\.startsWith\("color\("\)[\s\S]*?channel \* 255/, "computed color-mix values must be normalized from CSS color() channels before contrast scoring");
 assert.match(landing, /function gradientReadableSurface\(value = ""\)[\s\S]*?const colors = [\s\S]*?samples\.reduce/, "gradient cards must be sampled before assigning an inversion palette");
 assert.match(landing, /function computedReadableSurface\(style\)[\s\S]*?gradientReadableSurface\(style\.backgroundImage\)[\s\S]*?parseRgb\(style\?\.backgroundColor/, "hover mode detection must prefer the visible gradient surface");
-assert.match(landing, /node\.classList\.remove\("ui-contrast-on-dark", "ui-contrast-on-light"\)[\s\S]*?const style = getComputedStyle\(node\)/, "the readability guard must recalculate contrast from the current interactive surface");
+assert.match(landing, /const style = getComputedStyle\(node\)[\s\S]*?if \(contrast >= 4\.5\) continue;[\s\S]*?node\.classList\.remove\("ui-contrast-on-dark", "ui-contrast-on-light"\)/, "a valid correction must remain stable until the interactive surface actually loses contrast");
 assert.match(landing, /function setupReadabilityGuard\(\)[\s\S]*?MutationObserver[\s\S]*?memory-console-ready/, "the readability audit must cover both initial and asynchronously rendered Console content");
 assert.match(landing, /refreshInteractiveContrast[\s\S]*?\.ai-council-agenda-card[\s\S]*?pointerover[\s\S]*?pointerout[\s\S]*?focusin[\s\S]*?focusout/, "hover and keyboard inversion must trigger a fresh contrast audit for council agendas");
 assert.match(landing, /READABILITY_TEXT_SELECTOR[\s\S]*?"th", "td", "i", "text"/, "dense tables and chart labels must be included in the computed typography audit");
@@ -118,7 +118,7 @@ assert.match(consoleCss, /\.visual-insight-route span::before[\s\S]*?counter\(in
 assert.match(consoleCss, /\.strategy-highlight, \.answer-term\):not\(\.ui-key-term\)[\s\S]*?box-shadow:\s*none !important;[\s\S]*?\.strategy-highlight, \.answer-term\)\.ui-key-term[\s\S]*?inset 0 -2px 0 #d5a400/, "only selected Console terms may receive the amber underline");
 assert.match(consoleCss, /\.decision-card, \.decision-flip-card, \.domain-agent-workstream[\s\S]*?--console-hover-surface:\s*#102b3d;[\s\S]*?\[data-theme="dark"\][\s\S]*?--console-hover-surface:\s*#f8fafc;/, "Console decision cards must invert legibly in light and dark modes");
 assert.match(landing, /averageAlpha < \.6[\s\S]*?backgroundLum < \.18/, "transparent gradients must inherit their base surface and mid-tone panels must use dark ink");
-assert.match(html, /infra-20260817-53/);
+assert.match(html, /infra-20260817-54/);
 assert.match(css, /@media \(max-width: 760px\)[\s\S]*?\.business-competency-output[\s\S]*?grid-column:\s*2 !important[\s\S]*?\.business-llm-causal-chain,[\s\S]*?\.business-contract-funnel[\s\S]*?overflow-x:\s*visible/);
 
 console.log(JSON.stringify({

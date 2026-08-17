@@ -3,7 +3,7 @@
 
   const BUSINESS_TITLE = "AI Infra Strategy · Customer Pain to Executive Action";
   const CONSOLE_HASH = "#console";
-  const CONSOLE_REVISION = "infra-20260817-53";
+  const CONSOLE_REVISION = "infra-20260817-54";
   const DECISION_CLIENT_PATH = "data/landing-decision-client.json";
   const SITE_CONTENT_PATH = "data/site-content-client.json";
   const site = document.querySelector("#businessSite");
@@ -1514,7 +1514,6 @@
       try {
       if (!directReadableText(node) || node.closest("script, style, template, [aria-hidden='true']")) continue;
       const bounds = node.getBoundingClientRect();
-      node.classList.remove("ui-contrast-on-dark", "ui-contrast-on-light");
       const style = getComputedStyle(node);
       if (!bounds.width || !bounds.height || style.display === "none" || style.visibility === "hidden") continue;
 
@@ -1534,6 +1533,7 @@
       const backgroundLum = relativeLuminance(background);
       const contrast = (Math.max(foregroundLum, backgroundLum) + .05) / (Math.min(foregroundLum, backgroundLum) + .05);
       if (contrast >= 4.5) continue;
+      node.classList.remove("ui-contrast-on-dark", "ui-contrast-on-light");
       node.classList.add(backgroundLum < .18 ? "ui-contrast-on-dark" : "ui-contrast-on-light");
       } catch {
         errors += 1;
