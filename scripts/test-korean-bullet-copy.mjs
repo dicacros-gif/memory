@@ -35,7 +35,7 @@ for (const phrase of [
 
 assert.doesNotMatch(html, /메모리를 판매하는 것이 아니라/);
 assert.doesNotMatch(html, /직무 적합성을 세 가지/);
-assert.match(html, /infra-20260817-75/);
+assert.match(html, /infra-20260817-76/);
 assert.match(css, /\.business-copy-list li::before/);
 assert.match(css, /Korean supporting copy uses compact consulting-style bullets/);
 assert.match(css, /\.business-site p\.business-copy-point::before/);
@@ -49,7 +49,8 @@ assert.match(landing, /liveSummary\.hidden = !summaryCopy/, "an empty evidence s
 assert.match(landing, /summary\.hidden = !summaryCopy/, "refreshed evidence must use the same removal policy");
 assert.match(landing, /paragraphMaxCharacters \|\| 92/);
 assert.match(landing, /listMaxCharacters \|\| 78/);
-assert.match(landing, /memory-console-ready[\s\S]*?applyExecutiveCopyStyle\(consoleRoot/, "dynamically rendered Console copy must use the executive bullet policy");
+assert.match(landing, /memory-console-ready[\s\S]*?scheduleSequence\(sections\.length \? sections : \[consoleRoot\]/, "dynamically rendered Console copy must be scheduled section by section");
+assert.match(landing, /const flushCopy = \(\) => \{[\s\S]*?applyExecutiveCopyStyle\(root, presentationPolicy\?\.readabilityPolicy \|\| \{\}\)/, "the sequential Console pass must retain the executive bullet policy");
 assert.match(app, /function executiveBulletText\(value = ""\)/);
 assert.doesNotMatch(app.match(/const BRIEF_COPY_EXEMPT_SELECTOR[\s\S]*?\.join\(","\);/)?.[0] || "", /\.agent-answer|\.qa-answer|\.answer-panel/, "generated answers must follow the bullet-copy policy");
 
@@ -79,5 +80,5 @@ assert.equal(normalizeHtmlExecutiveCopy(html), html, "checked-in HTML must alrea
 console.log(JSON.stringify({
   heroBullets: 3,
   decisionAnswerLists: answerLists.length,
-  revision: "infra-20260817-75",
+  revision: "infra-20260817-76",
 }, null, 2));

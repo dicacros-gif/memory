@@ -25,15 +25,23 @@ const entries = await Promise.all(Object.entries(paths).map(async ([key, path]) 
 const files = Object.fromEntries(entries);
 
 assert.match(files.html.text, /<template id="consoleTemplate">[\s\S]*?id="intelligenceConsole"[\s\S]*?<\/template>/);
-assert.match(files.html.text, /assets\/css\/landing\.min\.css\?v=infra-20260817-75/);
-assert.match(files.html.text, /assets\/js\/landing\.min\.js\?v=infra-20260817-75/);
+assert.match(files.html.text, /assets\/css\/landing\.min\.css\?v=infra-20260817-76/);
+assert.match(files.html.text, /assets\/js\/landing\.min\.js\?v=infra-20260817-76/);
 assert.match(files.landingJs.text, /function ensureConsoleMarkup\(\)/);
 assert.match(files.landingJs.text, /assets\/css\/styles\.min\.css/);
 assert.match(files.landingJs.text, /assets\/js\/app\.min\.js/);
 assert.match(files.landingCss.text, /content-visibility:\s*auto/);
 assert.match(files.landingCss.text, /contain-intrinsic-size:\s*auto 2400px/);
+assert.match(files.landingCss.text, /business-section\[data-progressive-state="ready"\][\s\S]*?content-visibility:\s*auto/);
+assert.match(files.landingCss.text, /business-hero-media\[data-rotation-ready="1"\][\s\S]*?businessHeroMediaSlide/);
 assert.match(files.landingJs.text, /function setupSequentialBusinessWarmup\(/);
 assert.match(files.landingJs.text, /function scheduleConsoleAssetWarmup\(/);
+assert.match(files.landingJs.text, /function setupHeroMediaRotation\([\s\S]*?dataset\.rotationReady = "1"[\s\S]*?Promise\.allSettled/);
+assert.match(files.landingJs.text, /window\.setTimeout\(\(\) => scheduleIdleStep\(\(\) => void loadSiteContent\(\)\.then\(scheduleConsoleAssetWarmup\), 600\), 900\)/);
+assert.match(files.landingJs.text, /function setupBusinessNavObserver\([\s\S]*?IntersectionObserver[\s\S]*?entry\.boundingClientRect\.top/);
+assert.match(files.landingJs.text, /const updates = \[\];[\s\S]*?updates\.push[\s\S]*?for \(const update of updates\)/);
+assert.doesNotMatch(files.landingJs.text.match(/function applyReadabilityGuard\([\s\S]*?\n  \}\n\n  function setupReadabilityGuard/)?.[0] || "", /getBoundingClientRect/);
+assert.match(files.html.text, /hbm-system\.webp" alt="" width="1920" height="1072" fetchpriority="high"/);
 assert.doesNotMatch(files.landingJs.text, /rootMargin:\s*"0px 0px -8%"/);
 assert.match(files.appJs.text, /function scheduleProgressiveDeferredSections\(/);
 assert.doesNotMatch(files.appJs.text, /function observeDeferredSections\(/);
@@ -61,7 +69,7 @@ assert.ok(files.heroVideoLite.bytes < 1_100_000, "console hero video must stay b
 assert.ok(files.heroVideoLite.bytes < files.heroVideo.bytes * 0.4, "console hero video must reduce transfer size by at least 60%");
 
 console.log(JSON.stringify({
-  revision: "infra-20260817-75",
+  revision: "infra-20260817-76",
   rootRuntimeGzipKb: Math.round((files.html.gzipBytes + files.landingMinCss.gzipBytes + files.landingMinJs.gzipBytes) / 1024),
   consoleRuntimeGzipKb: Math.round((files.stylesMinCss.gzipBytes + files.appMinJs.gzipBytes) / 1024),
   heroVideoKb: Math.round(files.heroVideoLite.bytes / 1024),

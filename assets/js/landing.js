@@ -3,7 +3,7 @@
 
   const BUSINESS_TITLE = "AI Infra Strategy · Customer Pain to Executive Action";
   const CONSOLE_HASH = "#console";
-  const CONSOLE_REVISION = "infra-20260817-75";
+  const CONSOLE_REVISION = "infra-20260817-76";
   const DECISION_CLIENT_PATH = "data/landing-decision-client.json";
   const SITE_CONTENT_PATH = "data/site-content-client.json";
   const site = document.querySelector("#businessSite");
@@ -21,6 +21,7 @@
   let siteContentPromise = null;
   let siteContentRefreshTimer = 0;
   let consultingMotionObserver = null;
+  let businessNavObserver = null;
   let presentationPolicy = null;
   let businessReady = false;
   let businessWarmupStarted = false;
@@ -453,6 +454,35 @@
     }
   }
 
+  function setupHeroMediaRotation() {
+    const media = document.querySelector(".business-hero-media");
+    if (!media || media.dataset.rotationSetup === "1") return;
+    media.dataset.rotationSetup = "1";
+    const images = [...media.querySelectorAll("img")];
+    let fallback = 0;
+    const activate = () => {
+      window.clearTimeout(fallback);
+      if (media.dataset.rotationReady === "1") return;
+      media.dataset.rotationReady = "1";
+      document.body.dataset.heroMedia = "ready";
+    };
+    const prepare = () => window.setTimeout(() => scheduleIdleStep(() => {
+      const secondary = images.slice(1);
+      fallback = window.setTimeout(activate, 1400);
+      if (!secondary.length) {
+        activate();
+        return;
+      }
+      Promise.allSettled(secondary.map((image) => {
+        image.loading = "eager";
+        image.fetchPriority = "low";
+        return typeof image.decode === "function" ? image.decode() : Promise.resolve();
+      })).then(activate);
+    }, 900), 8000);
+    if (document.readyState === "complete") prepare();
+    else window.addEventListener("load", prepare, { once: true });
+  }
+
   function scheduleConsoleAssetWarmup() {
     if (consoleWarmupStarted || isConsoleHash()) return;
     consoleWarmupStarted = true;
@@ -842,7 +872,7 @@
   async function getDataManifest({ force = false } = {}) {
     if (force) manifestPromise = null;
     if (!manifestPromise) {
-      manifestPromise = fetch("data/data-manifest.json", { cache: "no-store" }).then((response) => {
+      manifestPromise = fetch("data/data-manifest.json", { cache: force ? "reload" : "no-cache" }).then((response) => {
         if (!response.ok) throw new Error(`Manifest HTTP ${response.status}`);
         return response.json();
       }).catch((error) => {
@@ -859,7 +889,7 @@
     siteContentPromise = (async () => {
       const manifest = await getDataManifest({ force });
       const cacheVersion = encodeURIComponent(manifest.cacheVersion || manifest.runId || Date.now());
-      const response = await fetch(`${SITE_CONTENT_PATH}?v=${cacheVersion}`, { cache: "no-store" });
+      const response = await fetch(`${SITE_CONTENT_PATH}?v=${cacheVersion}`, { cache: force ? "reload" : "force-cache" });
       if (!response.ok) throw new Error(`Site content HTTP ${response.status}`);
       const content = await response.json();
       if (content?.clientArtifact !== true || !content.runId || content.runId !== manifest.runId) {
@@ -1191,9 +1221,12 @@
       ".business-role-outputs > article",
       ".business-contact-card",
     ].join(","))];
+    const styleCache = new WeakMap();
+    const surfaceCache = new WeakMap();
+    const hoverModes = cards.map((card) => inferHoverContrastMode(card, styleCache, surfaceCache));
     cards.forEach((card, index) => {
       card.classList.add("business-consulting-motion");
-      card.dataset.hoverMode = inferHoverContrastMode(card);
+      card.dataset.hoverMode = hoverModes[index];
       const hasInteractiveContent = card.matches("a, button, input, select, textarea, [tabindex]")
         || Boolean(card.querySelector("a, button, input, select, textarea, [tabindex]"));
       if (!hasInteractiveContent) card.tabIndex = 0;
@@ -1272,24 +1305,36 @@
     return gradient || parseRgb(style?.backgroundColor || "");
   }
 
-  function surfaceLuminance(node) {
+  function cachedComputedStyle(node, cache) {
+    if (!cache) return getComputedStyle(node);
+    if (!cache.has(node)) cache.set(node, getComputedStyle(node));
+    return cache.get(node);
+  }
+
+  function surfaceLuminance(node, styleCache = null, surfaceCache = null) {
+    if (surfaceCache?.has(node)) return surfaceCache.get(node);
+    const visited = [];
     let current = node;
     while (current && current !== document.documentElement) {
-      const rgb = computedReadableSurface(getComputedStyle(current));
+      visited.push(current);
+      const rgb = computedReadableSurface(cachedComputedStyle(current, styleCache));
       if (rgb) {
         const channels = rgb.map((value) => {
           const normalized = value / 255;
           return normalized <= .03928 ? normalized / 12.92 : ((normalized + .055) / 1.055) ** 2.4;
         });
-        return .2126 * channels[0] + .7152 * channels[1] + .0722 * channels[2];
+        const luminance = .2126 * channels[0] + .7152 * channels[1] + .0722 * channels[2];
+        visited.forEach((element) => surfaceCache?.set(element, luminance));
+        return luminance;
       }
       current = current.parentElement;
     }
+    visited.forEach((element) => surfaceCache?.set(element, 1));
     return 1;
   }
 
-  function inferHoverContrastMode(card) {
-    return surfaceLuminance(card) < .32 ? "dark-to-light" : "light-to-dark";
+  function inferHoverContrastMode(card, styleCache = null, surfaceCache = null) {
+    return surfaceLuminance(card, styleCache, surfaceCache) < .32 ? "dark-to-light" : "light-to-dark";
   }
 
   const READABILITY_TEXT_SELECTOR = [
@@ -1326,17 +1371,28 @@
     return .2126 * channels[0] + .7152 * channels[1] + .0722 * channels[2];
   }
 
-  function solidReadableSurface(node) {
+  function solidReadableSurface(node, styleCache = null, surfaceCache = null) {
+    if (surfaceCache?.has(node)) return surfaceCache.get(node);
+    const visited = [];
     let current = node;
     while (current && current !== document.documentElement) {
-      const style = getComputedStyle(current);
+      visited.push(current);
+      const style = cachedComputedStyle(current, styleCache);
       const gradient = gradientReadableSurface(style.backgroundImage);
-      if (gradient) return gradient;
+      if (gradient) {
+        visited.forEach((element) => surfaceCache?.set(element, gradient));
+        return gradient;
+      }
       const color = colorChannels(style.backgroundColor);
-      if (color && color.alpha >= .6) return color.rgb;
+      if (color && color.alpha >= .6) {
+        visited.forEach((element) => surfaceCache?.set(element, color.rgb));
+        return color.rgb;
+      }
       current = current.parentElement;
     }
-    return [255, 255, 255];
+    const fallback = [255, 255, 255];
+    visited.forEach((element) => surfaceCache?.set(element, fallback));
+    return fallback;
   }
 
   function applySparseConsoleEmphasis(root = document.body) {
@@ -1362,36 +1418,44 @@
     if (root.nodeType === Node.ELEMENT_NODE && root.matches?.(READABILITY_TEXT_SELECTOR)) nodes.push(root);
     if (root.querySelectorAll) nodes.push(...root.querySelectorAll(READABILITY_TEXT_SELECTOR));
 
+    const styleCache = new WeakMap();
+    const surfaceCache = new WeakMap();
+    const updates = [];
     let adjusted = 0;
     let errors = 0;
     for (const node of nodes) {
       try {
-      if (!directReadableText(node) || node.closest("script, style, template, [aria-hidden='true']")) continue;
-      const bounds = node.getBoundingClientRect();
-      const style = getComputedStyle(node);
-      if (!bounds.width || !bounds.height || style.display === "none" || style.visibility === "hidden") continue;
+      if (!directReadableText(node) || node.closest("script, style, template, [hidden], [aria-hidden='true']")) continue;
+      const style = cachedComputedStyle(node, styleCache);
+      if (style.display === "none" || style.visibility === "hidden" || style.contentVisibility === "hidden") continue;
 
       const fontSize = Number.parseFloat(style.fontSize || "0");
-      if (Number.isFinite(fontSize) && fontSize < 12) {
-        node.classList.add("ui-text-floor");
-        adjusted += 1;
-      }
+      const needsFloor = Number.isFinite(fontSize) && fontSize < 12;
+      if (needsFloor) adjusted += 1;
 
       const foreground = colorChannels(style.color);
       const opacity = Number.parseFloat(style.opacity || "1");
-      if (Boolean(foreground && foreground.alpha < .72) || opacity < .72) node.classList.add("ui-readable-opacity");
+      const needsOpacity = Boolean(foreground && foreground.alpha < .72) || opacity < .72;
 
-      const background = solidReadableSurface(node);
-      if (!foreground || !background) continue;
-      const foregroundLum = relativeLuminance(foreground.rgb);
-      const backgroundLum = relativeLuminance(background);
-      const contrast = (Math.max(foregroundLum, backgroundLum) + .05) / (Math.min(foregroundLum, backgroundLum) + .05);
-      if (contrast >= 4.5) continue;
-      node.classList.remove("ui-contrast-on-dark", "ui-contrast-on-light");
-      node.classList.add(backgroundLum < .18 ? "ui-contrast-on-dark" : "ui-contrast-on-light");
+      let contrastMode = "";
+      const background = solidReadableSurface(node, styleCache, surfaceCache);
+      if (foreground && background) {
+        const foregroundLum = relativeLuminance(foreground.rgb);
+        const backgroundLum = relativeLuminance(background);
+        const contrast = (Math.max(foregroundLum, backgroundLum) + .05) / (Math.min(foregroundLum, backgroundLum) + .05);
+        if (contrast < 4.5) contrastMode = backgroundLum < .18 ? "ui-contrast-on-dark" : "ui-contrast-on-light";
+      }
+      updates.push({ node, needsFloor, needsOpacity, contrastMode });
       } catch {
         errors += 1;
       }
+    }
+    for (const update of updates) {
+      if (update.needsFloor) update.node.classList.add("ui-text-floor");
+      if (update.needsOpacity) update.node.classList.add("ui-readable-opacity");
+      if (!update.contrastMode) continue;
+      update.node.classList.remove("ui-contrast-on-dark", "ui-contrast-on-light");
+      update.node.classList.add(update.contrastMode);
     }
     document.body.dataset.readabilityAdjusted = String(adjusted);
     document.body.dataset.readabilityErrors = String(errors);
@@ -1401,24 +1465,48 @@
   function setupReadabilityGuard() {
     if (!document.body || document.body.dataset.readabilityGuard === "1") return;
     document.body.dataset.readabilityGuard = "1";
-    let frame = 0;
-    const pendingRoots = new Set([document.body]);
-    const flush = () => {
-      frame = 0;
+    let copyFrame = 0;
+    let auditFrame = 0;
+    const pendingRoots = new Set();
+    const auditRoots = new Set();
+    const flushAudit = () => {
+      auditFrame = 0;
+      const roots = [...auditRoots];
+      auditRoots.clear();
+      roots.forEach((root) => {
+        try { applyReadabilityGuard(root); } catch { /* keep later refreshes alive */ }
+      });
+    };
+    const flushCopy = () => {
+      copyFrame = 0;
       const roots = [...pendingRoots];
       pendingRoots.clear();
       roots.forEach((root) => {
         try {
           applyExecutiveCopyStyle(root, presentationPolicy?.readabilityPolicy || {});
-          applyReadabilityGuard(root);
+          auditRoots.add(root);
         } catch { /* keep later refreshes alive */ }
       });
+      if (!auditFrame) auditFrame = requestAnimationFrame(flushAudit);
     };
     const schedule = (root = document.body) => {
       if (root) pendingRoots.add(root.nodeType === Node.TEXT_NODE ? root.parentElement : root);
-      if (!frame) frame = requestAnimationFrame(flush);
+      if (!copyFrame) copyFrame = requestAnimationFrame(flushCopy);
     };
+    const scheduleSequence = (roots = [], delay = 0, onComplete = null) => {
+      const queue = [...new Set(roots.filter(Boolean))];
+      let cursor = 0;
+      const next = () => scheduleIdleStep(() => {
+        const root = queue[cursor++];
+        if (root) schedule(root);
+        if (cursor < queue.length) window.setTimeout(next, 90);
+        else onComplete?.();
+      }, 500);
+      window.setTimeout(next, delay);
+    };
+    let observerActive = false;
     const observer = new MutationObserver((mutations) => {
+      if (!observerActive) return;
       for (const mutation of mutations) {
         if (mutation.type === "characterData") schedule(mutation.target);
         else if (mutation.type === "attributes") schedule(mutation.target);
@@ -1432,16 +1520,17 @@
       attributes: true,
       attributeFilter: ["hidden", "data-progressive-state", "data-deferred-state"],
     });
-    schedule(document.body);
+    window.setTimeout(() => { observerActive = true; }, 2500);
     window.addEventListener("memory-console-ready", () => {
       const consoleRoot = document.querySelector("#intelligenceConsole") || document.body;
-      applyExecutiveCopyStyle(consoleRoot, presentationPolicy?.readabilityPolicy || {});
-      schedule(consoleRoot);
-      [250, 1200, 4200].forEach((delay) => window.setTimeout(() => applyReadabilityGuard(document.body), delay));
+      const sections = [...consoleRoot.querySelectorAll(":scope .main > section")];
+      scheduleSequence(sections.length ? sections : [consoleRoot], 120, () => applySparseConsoleEmphasis(consoleRoot));
     });
-    window.setTimeout(() => applyReadabilityGuard(document.body), 8200);
     window.__applyReadabilityGuard = applyReadabilityGuard;
-    window.addEventListener("resize", () => schedule(document.body), { passive: true });
+    window.addEventListener("resize", () => {
+      const visibleSection = document.elementFromPoint(window.innerWidth / 2, Math.min(window.innerHeight / 2, 480))?.closest("section");
+      if (visibleSection) schedule(visibleSection);
+    }, { passive: true });
     const refreshInteractiveContrast = (event) => {
       const target = event.target instanceof Element ? event.target : event.target?.parentElement;
       const surface = target?.closest?.("[data-hover-mode], a, button, article, li, [class*='card'], [class*='panel'], [class*='tile'], .sc-card, .decision-card, .decision-flip-card, .domain-agent-workstream, .ai-council-agenda-card") || target;
@@ -1538,7 +1627,8 @@
     if (businessReady) return;
     businessReady = true;
     applyExecutiveCopyStyle(site);
-    void loadSiteContent().then(scheduleConsoleAssetWarmup);
+    setupHeroMediaRotation();
+    window.setTimeout(() => scheduleIdleStep(() => void loadSiteContent().then(scheduleConsoleAssetWarmup), 600), 900);
     scheduleSiteContentRefresh();
     document.addEventListener("visibilitychange", recheckSiteContentNow);
     window.addEventListener("online", recheckSiteContentNow);
@@ -1549,6 +1639,7 @@
     setupInfographicSequence();
     setupReveal();
     setupConsultingCardMotion();
+    setupBusinessNavObserver();
     void loadDecisionEvidence();
   }
 
@@ -1557,15 +1648,23 @@
     applyUniversalSectionBindings(window.MEMORY_SITE_CONTENT || {});
   });
 
+  function setupBusinessNavObserver() {
+    if (businessNavObserver || !("IntersectionObserver" in window) || !businessSections.length) return;
+    const visibleSections = new Map();
+    businessNavObserver = new IntersectionObserver((entries) => {
+      for (const entry of entries) {
+        if (entry.isIntersecting) visibleSections.set(entry.target, entry.boundingClientRect.top);
+        else visibleSections.delete(entry.target);
+      }
+      const current = [...visibleSections.entries()].sort((a, b) => Math.abs(a[1]) - Math.abs(b[1]))[0]?.[0];
+      if (current?.id) setActiveNav(current.id);
+    }, { rootMargin: "-108px 0px -68% 0px", threshold: [0, .01] });
+    businessSections.forEach((section) => businessNavObserver.observe(section));
+  }
+
   function updateBusinessScrollState() {
     if (view !== "business") return;
     header?.classList.toggle("is-scrolled", window.scrollY > 18);
-    const offset = (header?.offsetHeight || 76) + 40;
-    let current = "home";
-    for (const section of businessSections) {
-      if (section.getBoundingClientRect().top <= offset) current = section.id;
-    }
-    setActiveNav(current);
   }
 
   menuButton?.addEventListener("click", () => setMenu(!document.body.classList.contains("business-menu-open")));
@@ -1591,9 +1690,9 @@
     view = "business";
     setupBusinessExperience();
     const initialId = location.hash.slice(1) || "home";
-    requestAnimationFrame(() => {
-      document.getElementById(initialId)?.scrollIntoView({ behavior: "instant", block: "start" });
-      updateBusinessScrollState();
-    });
+    setActiveNav(initialId);
+    if (initialId !== "home") {
+      requestAnimationFrame(() => document.getElementById(initialId)?.scrollIntoView({ behavior: "instant", block: "start" }));
+    }
   }
 })();

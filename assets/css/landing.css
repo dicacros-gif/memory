@@ -23,8 +23,7 @@
   }
 
   .business-site > main > .business-section[data-progressive-state="ready"] {
-    content-visibility: visible;
-    contain-intrinsic-size: auto;
+    content-visibility: auto;
   }
 }
 
@@ -947,12 +946,18 @@ body.landing-mode :is(.scroll-prog, .scroll-top, .qa-answer, .inspector, #backdr
   z-index: 1;
   margin: 0;
   opacity: 0;
+  transform: scale(1.04) translate3d(0, 0, 0);
+}
+
+.business-hero-media-slide:first-child { opacity: 1; }
+
+.business-hero-media[data-rotation-ready="1"] .business-hero-media-slide {
   animation: businessHeroMediaSlide 24s ease-in-out infinite both;
   will-change: opacity, transform;
 }
 
-.business-hero-media-slide:nth-child(2) { animation-delay: -16s; }
-.business-hero-media-slide:nth-child(3) { animation-delay: -8s; }
+.business-hero-media[data-rotation-ready="1"] .business-hero-media-slide:nth-child(2) { animation-delay: -16s; }
+.business-hero-media[data-rotation-ready="1"] .business-hero-media-slide:nth-child(3) { animation-delay: -8s; }
 
 .business-hero-media-slide img {
   width: 100%;

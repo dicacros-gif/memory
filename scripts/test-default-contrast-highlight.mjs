@@ -106,7 +106,8 @@ assert.match(landing, /function applyReadabilityGuard\(root = document\.body\)[\
 assert.match(landing, /function colorChannels\(value = ""\)[\s\S]*?source\.startsWith\("color\("\)[\s\S]*?channel \* 255/, "computed color-mix values must be normalized from CSS color() channels before contrast scoring");
 assert.match(landing, /function gradientReadableSurface\(value = ""\)[\s\S]*?const colors = [\s\S]*?samples\.reduce/, "gradient cards must be sampled before assigning an inversion palette");
 assert.match(landing, /function computedReadableSurface\(style\)[\s\S]*?gradientReadableSurface\(style\.backgroundImage\)[\s\S]*?parseRgb\(style\?\.backgroundColor/, "hover mode detection must prefer the visible gradient surface");
-assert.match(landing, /const style = getComputedStyle\(node\)[\s\S]*?if \(contrast >= 4\.5\) continue;[\s\S]*?node\.classList\.remove\("ui-contrast-on-dark", "ui-contrast-on-light"\)/, "a valid correction must remain stable until the interactive surface actually loses contrast");
+assert.match(landing, /const styleCache = new WeakMap\(\);[\s\S]*?const updates = \[\];[\s\S]*?updates\.push\(\{ node, needsFloor, needsOpacity, contrastMode \}\)[\s\S]*?for \(const update of updates\)/, "contrast checks must batch computed-style reads before class mutations");
+assert.doesNotMatch(landing.match(/function applyReadabilityGuard\([\s\S]*?\n  \}\n\n  function setupReadabilityGuard/)?.[0] || "", /getBoundingClientRect/, "the readability audit must not force geometry for every text node");
 assert.match(landing, /function setupReadabilityGuard\(\)[\s\S]*?MutationObserver[\s\S]*?memory-console-ready/, "the readability audit must cover both initial and asynchronously rendered Console content");
 assert.match(landing, /refreshInteractiveContrast[\s\S]*?\.ai-council-agenda-card[\s\S]*?pointerover[\s\S]*?pointerout[\s\S]*?focusin[\s\S]*?focusout/, "hover and keyboard inversion must trigger a fresh contrast audit for council agendas");
 assert.doesNotMatch(landing, /setTimeout\(\(\) => schedule\(surface\), 240\)/, "hover contrast must not wait for a delayed second audit");
@@ -124,7 +125,7 @@ assert.match(consoleCss, /Progressive market modules[\s\S]*?\.equity-company-mon
 assert.match(consoleCss, /Instant card inversion and contrast lock[\s\S]*?--instant-hover-surface:\s*#102b3d;[\s\S]*?\[data-theme="dark"\] #intelligenceConsole[\s\S]*?--instant-hover-surface:\s*#f8fafc;/, "Console hover surfaces must invert immediately in both themes");
 assert.match(consoleCss, /#intelligenceConsole :where\([\s\S]*?\):is\(:hover, :focus-visible, :focus-within\)[\s\S]*?transition-delay:\s*0s !important;[\s\S]*?\.ui-contrast-on-dark, \.ui-contrast-on-light[\s\S]*?color:\s*var\(--instant-hover-ink\) !important;/, "active card colors must outrank cached readability classes without delay");
 assert.match(landing, /averageAlpha < \.6[\s\S]*?backgroundLum < \.18/, "transparent gradients must inherit their base surface and mid-tone panels must use dark ink");
-assert.match(html, /infra-20260817-75/);
+assert.match(html, /infra-20260817-76/);
 assert.match(css, /@media \(max-width: 760px\)[\s\S]*?\.business-competency-output[\s\S]*?grid-column:\s*2 !important[\s\S]*?\.business-llm-causal-chain,[\s\S]*?\.business-contract-funnel[\s\S]*?overflow-x:\s*visible/);
 
 console.log(JSON.stringify({

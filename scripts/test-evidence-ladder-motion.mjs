@@ -55,13 +55,13 @@ assert.match(landing, /function setupConsultingCardMotion\(\)/);
 assert.match(landing, /\.business-competency-grid > article[\s\S]*?\.business-partnership-types > article[\s\S]*?\.business-role-outputs > article/);
 assert.match(landing, /consultingMotionObserver[\s\S]*?IntersectionObserver[\s\S]*?consultingMotionObserved/);
 assert.match(landing, /consultingMotionBound[\s\S]*?pointermove/);
-assert.match(landing, /card\.dataset\.hoverMode = inferHoverContrastMode\(card\)/);
+assert.match(landing, /const hoverModes = cards\.map\(\(card\) => inferHoverContrastMode\(card, styleCache, surfaceCache\)\)[\s\S]*?card\.dataset\.hoverMode = hoverModes\[index\]/);
 assert.match(landing, /hasInteractiveContent[\s\S]*?card\.tabIndex = 0/, "non-interactive consulting cards must expose the focus inversion state to keyboard users");
-assert.match(landing, /function surfaceLuminance\(node\)[\s\S]*?function inferHoverContrastMode\(card\)/);
+assert.match(landing, /function surfaceLuminance\(node, styleCache = null, surfaceCache = null\)[\s\S]*?function inferHoverContrastMode\(card, styleCache = null, surfaceCache = null\)/);
 assert.match(landing, /requestAnimationFrame[\s\S]*?--tilt-x[\s\S]*?--tilt-y/);
 assert.match(landing, /setupReveal\(\);\s*setupConsultingCardMotion\(\);/);
 assert.match(landing, /renderCompetitorContent\(content\);[\s\S]*?applyUniversalSectionBindings\(content\);[\s\S]*?setupConsultingCardMotion\(\);/, "remaining dynamically regenerated cards must receive the same motion and contrast behavior");
-assert.match(landing, /infra-20260817-75/);
+assert.match(landing, /infra-20260817-76/);
 
 console.log(JSON.stringify({
   decisionThemes: "generated-current",
