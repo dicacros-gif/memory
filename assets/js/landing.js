@@ -3,7 +3,7 @@
 
   const BUSINESS_TITLE = "AI Infra Strategy · Customer Pain to Executive Action";
   const CONSOLE_HASH = "#console";
-  const CONSOLE_REVISION = "infra-20260817-69";
+  const CONSOLE_REVISION = "infra-20260817-70";
   const DECISION_CLIENT_PATH = "data/landing-decision-client.json";
   const SITE_CONTENT_PATH = "data/site-content-client.json";
   const site = document.querySelector("#businessSite");
@@ -311,8 +311,15 @@
       .trim();
   }
 
+  function removeDiscardedBusinessSentence(value = "") {
+    return String(value || "")
+      .replace(/(?:^|[.!?…·]\s*)Investing\.com에 따르면 KeyBanc 기술 리더십 포럼 2026에서[\s\S]*?계획이라고 말(?:했습니다)?[.!?…]?/giu, " ")
+      .replace(/\s+/g, " ")
+      .trim();
+  }
+
   function compactBusinessCopy(value = "", maxCharacters = 84) {
-    const original = String(value || "").replace(/\s+/g, " ").trim();
+    const original = removeDiscardedBusinessSentence(value);
     if (!original) return "";
     const firstSentence = original.split(/(?<=[A-Za-z\u3131-\u318e\uac00-\ud7a3\d%)\]"'”’])[.\u3002](?=\s|$)/, 1)[0];
     let compact = removeBusinessSentenceStops(firstSentence)
@@ -349,8 +356,11 @@
     for (const textNode of textNodes) {
       const parent = textNode.parentElement;
       if (!parent || parent.closest("script, style, code, pre, [data-copy-verbatim]")) continue;
-      textNode.nodeValue = executiveBusinessBulletText(textNode.nodeValue)
+      const originalText = String(textNode.nodeValue || "").trim();
+      const cleaned = removeDiscardedBusinessSentence(textNode.nodeValue);
+      textNode.nodeValue = executiveBusinessBulletText(cleaned)
         .replace(/([A-Za-z\u3131-\u318e\uac00-\ud7a3\d%)\]"'”’])[.\u3002](?=\s|$)/g, "$1");
+      if (originalText && !cleaned && parent.matches("p, li, dd, figcaption")) parent.hidden = true;
     }
     for (const node of root.querySelectorAll("p, li, dd, figcaption")) {
       if (node.childElementCount || node.closest("[data-copy-verbatim]")) continue;
@@ -370,7 +380,11 @@
 
   function renderBusinessList(node, items = []) {
     if (!node || !Array.isArray(items) || !items.length) return;
-    node.innerHTML = items.map((item) => `<li>${escapeBusinessHTML(compactBusinessCopy(item, 78))}</li>`).join("");
+    node.innerHTML = items
+      .map((item) => compactBusinessCopy(item, 78))
+      .filter(Boolean)
+      .map((item) => `<li>${escapeBusinessHTML(item)}</li>`)
+      .join("");
   }
 
   function renderDecisionContent(content = {}) {
@@ -410,7 +424,11 @@
       const liveSummary = live?.querySelector("[data-live-summary]");
       const liveSource = live?.querySelector("[data-live-source]");
       if (liveTitle) liveTitle.textContent = decision.latest?.title || "최신 근거 확인 필요";
-      if (liveSummary) liveSummary.textContent = decision.latest?.summary || "검증된 근거가 수집되면 자동 갱신됩니다.";
+      if (liveSummary) {
+        const summaryCopy = removeDiscardedBusinessSentence(decision.latest?.summary || "검증된 근거가 수집되면 자동 갱신");
+        liveSummary.hidden = !summaryCopy;
+        liveSummary.textContent = summaryCopy;
+      }
       if (liveSource) {
         liveSource.href = safeBusinessUrl(decision.latest?.url, decision.deepLink || "#console");
         if (/^https?:/i.test(liveSource.href)) {
@@ -1112,7 +1130,11 @@
     const summary = panel.querySelector("[data-live-summary]");
     const source = panel.querySelector("[data-live-source]");
     if (title && latest.title) title.textContent = latest.title;
-    if (summary && latest.summary) summary.textContent = latest.summary;
+    if (summary && latest.summary) {
+      const summaryCopy = removeDiscardedBusinessSentence(latest.summary);
+      summary.hidden = !summaryCopy;
+      summary.textContent = summaryCopy;
+    }
     if (source && latest.url) {
       source.href = latest.url;
       source.target = "_blank";

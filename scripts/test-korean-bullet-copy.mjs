@@ -36,7 +36,7 @@ for (const phrase of [
 
 assert.doesNotMatch(html, /메모리를 판매하는 것이 아니라/);
 assert.doesNotMatch(html, /직무 적합성을 세 가지/);
-assert.match(html, /infra-20260817-69/);
+assert.match(html, /infra-20260817-70/);
 assert.match(css, /\.business-copy-list li::before/);
 assert.match(css, /Korean supporting copy uses compact consulting-style bullets/);
 assert.match(css, /\.business-site p\.business-copy-point::before/);
@@ -44,11 +44,23 @@ assert.match(landing, /function removeBusinessSentenceStops\(value = ""\)/);
 assert.match(landing, /function compactBusinessCopy\(value = "", maxCharacters = 84\)/);
 assert.match(landing, /function applyExecutiveCopyStyle\(root = site, policy = \{\}\)/);
 assert.match(landing, /function executiveBusinessBulletText\(value = ""\)/);
+assert.match(landing, /function removeDiscardedBusinessSentence\(value = ""\)/, "the landing page must remove the discarded clipped evidence sentence");
+assert.match(landing, /Investing\\\.com에 따르면 KeyBanc 기술 리더십 포럼 2026에서/, "the clipped KeyBanc attribution must remain covered by the display filter");
+assert.match(landing, /liveSummary\.hidden = !summaryCopy/, "an empty evidence summary must leave no visual gap");
+assert.match(landing, /summary\.hidden = !summaryCopy/, "refreshed evidence must use the same removal policy");
 assert.match(landing, /paragraphMaxCharacters \|\| 92/);
 assert.match(landing, /listMaxCharacters \|\| 78/);
 assert.match(landing, /memory-console-ready[\s\S]*?applyExecutiveCopyStyle\(consoleRoot/, "dynamically rendered Console copy must use the executive bullet policy");
 assert.match(app, /function executiveBulletText\(value = ""\)/);
 assert.doesNotMatch(app.match(/const BRIEF_COPY_EXEMPT_SELECTOR[\s\S]*?\.join\(","\);/)?.[0] || "", /\.agent-answer|\.qa-answer|\.answer-panel/, "generated answers must follow the bullet-copy policy");
+
+const discardedCopyFunction = landing.match(/function removeDiscardedBusinessSentence\(value = ""\) \{[\s\S]*?\n  \}/)?.[0] || "";
+const removeDiscardedBusinessSentence = Function(`${discardedCopyFunction}; return removeDiscardedBusinessSentence;`)();
+assert.equal(
+  removeDiscardedBusinessSentence("메모리 거대 기업은 맞춤형 HBM을 선택 중. Investing.com에 따르면 KeyBanc 기술 리더십 포럼 2026에서 Micron EVP는 맞춤형 SKU에 대해 고객과 협력할 계획이라고 말했습니다."),
+  "메모리 거대 기업은 맞춤형 HBM을 선택 중",
+  "the clipped attribution sentence must be removed without deleting the useful lead",
+);
 
 for (const [source, expected] of [
   ["검증된 근거를 표시합니다.", "검증된 근거를 표시"],
@@ -68,5 +80,5 @@ assert.equal(normalizeHtmlExecutiveCopy(html), html, "checked-in HTML must alrea
 console.log(JSON.stringify({
   heroBullets: 3,
   decisionAnswerLists: answerLists.length,
-  revision: "infra-20260817-69",
+  revision: "infra-20260817-70",
 }, null, 2));
