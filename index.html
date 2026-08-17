@@ -110,7 +110,7 @@
     (() => {
       if (!location.hash.startsWith("#console")) return;
       document.documentElement.classList.add("console-entry");
-      const revision = "infra-20260817-35";
+      const revision = "infra-20260817-36";
       const assets = [
         ["consoleStylesPreload", "style", `assets/css/styles.min.css?v=${revision}`, "high"],
         ["consoleAppPreload", "script", `assets/js/app.min.js?v=${revision}`, "low"],
@@ -127,7 +127,7 @@
       }
     })();
   </script>
-  <link rel="stylesheet" href="assets/css/landing.min.css?v=infra-20260817-35" />
+  <link rel="stylesheet" href="assets/css/landing.min.css?v=infra-20260817-36" />
 </head>
 <body class="landing-mode">
   <div class="business-site" id="businessSite">
@@ -151,8 +151,10 @@
         <a href="#macro">Macro Intel</a>
       </nav>
       <div class="business-header-actions">
-        <button class="business-console-button business-console-button--compact" type="button" data-open-console>
-          <span>Open Intelligence Console</span><b aria-hidden="true">↗</b>
+        <button class="business-console-button business-console-button--compact" type="button" data-open-console aria-label="Open Intelligence Console">
+          <span class="business-console-label business-console-label--full">Open Intelligence Console</span>
+          <span class="business-console-label business-console-label--short" aria-hidden="true">Console</span>
+          <b aria-hidden="true">↗</b>
         </button>
         <button class="business-menu-button" id="businessMenuButton" type="button" aria-label="메뉴 열기" aria-controls="businessNav" aria-expanded="false">
           <span></span><span></span><span></span>
@@ -1993,6 +1995,6 @@
   <div class="qa-answer" id="qaAnswer" hidden></div>
   <div class="inspector" id="inspector" hidden></div>
   <div class="backdrop" id="backdrop"></div>
-  <script src="assets/js/landing.min.js?v=infra-20260817-35" defer></script>
+  <script src="assets/js/landing.min.js?v=infra-20260817-36" defer></script>
 </body>
 </html>

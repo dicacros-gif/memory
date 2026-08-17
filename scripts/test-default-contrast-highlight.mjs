@@ -92,7 +92,7 @@ assert.match(consoleCss, /Console typography, inversion and infographic contract
 assert.match(consoleCss, /\.visual-insight-route span::before[\s\S]*?counter\(insight-route, decimal-leading-zero\)[\s\S]*?border-radius:\s*50%;/, "visual synthesis routes must use numbered consulting badges");
 assert.match(consoleCss, /\.strategy-highlight, \.answer-term\):not\(\.ui-key-term\)[\s\S]*?box-shadow:\s*none !important;[\s\S]*?\.strategy-highlight, \.answer-term\)\.ui-key-term[\s\S]*?inset 0 -2px 0 #d5a400/, "only selected Console terms may receive the amber underline");
 assert.match(consoleCss, /\.decision-card, \.decision-flip-card, \.domain-agent-workstream[\s\S]*?--console-hover-surface:\s*#102b3d;[\s\S]*?\[data-theme="dark"\][\s\S]*?--console-hover-surface:\s*#f8fafc;/, "Console decision cards must invert legibly in light and dark modes");
-assert.match(html, /infra-20260817-35/);
+assert.match(html, /infra-20260817-36/);
 assert.match(css, /@media \(max-width: 760px\)[\s\S]*?\.business-competency-output[\s\S]*?grid-column:\s*2 !important[\s\S]*?\.business-llm-causal-chain,[\s\S]*?\.business-contract-funnel[\s\S]*?overflow-x:\s*visible/);
 
 console.log(JSON.stringify({

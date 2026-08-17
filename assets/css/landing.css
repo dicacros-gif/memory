@@ -758,6 +758,10 @@ body.landing-mode {
   color: var(--business-ink);
   background: var(--business-paper);
   background-attachment: scroll;
+  margin: 0;
+  width: 100%;
+  max-width: 100%;
+  overflow-x: clip;
   word-break: keep-all;
 }
 
@@ -793,6 +797,8 @@ body.landing-mode :is(.scroll-prog, .scroll-top, .qa-answer, .inspector, #backdr
 }
 
 .business-site {
+  width: 100%;
+  max-width: 100%;
   min-height: 100vh;
   overflow: clip;
   color: var(--business-ink);
@@ -802,6 +808,20 @@ body.landing-mode :is(.scroll-prog, .scroll-top, .qa-answer, .inspector, #backdr
 
 .business-site * {
   box-sizing: border-box;
+}
+
+.business-site :is(main, header, footer, nav, section, article, aside, div, ul, ol, dl, figure) {
+  min-width: 0;
+  max-width: 100%;
+}
+
+.business-site :is(img, picture, video, svg, canvas, iframe, table) {
+  max-width: 100%;
+}
+
+.business-site :is(h1, h2, h3, h4, h5, h6, p, li, dt, dd, figcaption) {
+  max-width: 100%;
+  overflow-wrap: anywhere;
 }
 
 .business-site a {
@@ -815,6 +835,7 @@ body.landing-mode :is(.scroll-prog, .scroll-top, .qa-answer, .inspector, #backdr
 
 .business-container {
   width: min(1180px, calc(100% - 64px));
+  max-width: 100%;
   margin-inline: auto;
 }
 
@@ -839,12 +860,14 @@ body.landing-mode :is(.scroll-prog, .scroll-top, .qa-answer, .inspector, #backdr
   position: fixed;
   inset: 0 0 auto;
   z-index: 100;
+  width: 100%;
+  max-width: 100%;
   min-height: 76px;
   display: grid;
   grid-template-columns: auto minmax(0, 1fr) auto;
   align-items: center;
   gap: 28px;
-  padding: 12px max(28px, calc((100vw - 1180px) / 2));
+  padding: 12px clamp(18px, 2.2vw, 42px);
   color: #fff;
   border-bottom: 1px solid rgba(255, 255, 255, .1);
   background: rgba(7, 21, 34, .72);
@@ -898,6 +921,8 @@ body.landing-mode :is(.scroll-prog, .scroll-top, .qa-answer, .inspector, #backdr
 }
 
 .business-nav {
+  min-width: 0;
+  max-width: 100%;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -936,8 +961,11 @@ body.landing-mode :is(.scroll-prog, .scroll-top, .qa-answer, .inspector, #backdr
 }
 
 .business-header-actions {
+  min-width: 0;
+  max-width: 100%;
   display: flex;
   align-items: center;
+  justify-self: end;
   gap: 10px;
 }
 
@@ -967,9 +995,15 @@ body.landing-mode :is(.scroll-prog, .scroll-top, .qa-answer, .inspector, #backdr
 }
 
 .business-console-button--compact {
+  max-width: 100%;
   min-height: 38px;
   padding-inline: 14px;
   font-size: 10px;
+  white-space: nowrap;
+}
+
+.business-console-label--short {
+  display: none;
 }
 
 .business-console-button:is(:hover, :focus-visible),
@@ -3365,6 +3399,24 @@ body.landing-mode :is(.scroll-prog, .scroll-top, .qa-answer, .inspector, #backdr
   transform: none;
 }
 
+@media (max-width: 1440px) {
+  .business-header {
+    gap: clamp(12px, 1.4vw, 18px);
+  }
+  .business-nav {
+    gap: clamp(10px, 1vw, 14px);
+  }
+  .business-nav a {
+    font-size: 10px;
+  }
+  .business-console-label--full {
+    display: none;
+  }
+  .business-console-label--short {
+    display: inline;
+  }
+}
+
 @media (max-width: 1180px) {
   .business-header {
     gap: 18px;
@@ -3375,12 +3427,9 @@ body.landing-mode :is(.scroll-prog, .scroll-top, .qa-answer, .inspector, #backdr
   .business-nav a {
     font-size: 9px;
   }
-  .business-console-button--compact span {
-    display: none;
-  }
   .business-console-button--compact {
-    width: 38px;
-    padding: 0;
+    min-width: 76px;
+    padding-inline: 12px;
   }
   .business-horizon-layout {
     grid-template-columns: repeat(3, minmax(0, 1fr));
@@ -3430,13 +3479,10 @@ body.landing-mode :is(.scroll-prog, .scroll-top, .qa-answer, .inspector, #backdr
   }
 }
 
-@media (max-width: 980px) {
-  .business-container {
-    width: min(100% - 40px, 760px);
-  }
+@media (max-width: 1120px) {
   .business-header {
     min-height: 68px;
-    grid-template-columns: 1fr auto;
+    grid-template-columns: minmax(0, 1fr) auto;
     padding-inline: 20px;
   }
   .business-menu-button {
@@ -3444,11 +3490,12 @@ body.landing-mode :is(.scroll-prog, .scroll-top, .qa-answer, .inspector, #backdr
   }
   .business-nav {
     position: absolute;
-    inset: calc(100% + 1px) 14px auto;
+    inset: calc(100% + 1px) 14px auto auto;
     display: none;
     align-items: stretch;
     flex-direction: column;
     gap: 0;
+    width: min(360px, calc(100% - 28px));
     padding: 10px;
     border: 1px solid rgba(255, 255, 255, .12);
     border-radius: 11px;
@@ -3468,6 +3515,12 @@ body.landing-mode :is(.scroll-prog, .scroll-top, .qa-answer, .inspector, #backdr
   }
   .business-nav a:hover {
     background: rgba(255, 255, 255, .07);
+  }
+}
+
+@media (max-width: 980px) {
+  .business-container {
+    width: min(100% - 40px, 760px);
   }
   .business-hero {
     min-height: 0;
@@ -4108,20 +4161,23 @@ body.console-loading::after {
 
 .business-contract-funnel {
   display: grid;
-  grid-template-columns: repeat(13, auto);
+  grid-template-columns: repeat(6, minmax(0, 1fr) 14px) minmax(0, 1fr);
   align-items: center;
   gap: 5px;
   margin-top: 14px;
-  overflow-x: auto;
+  overflow: clip;
 }
 
 .business-contract-funnel span {
-  min-width: max-content;
+  min-width: 0;
+  max-width: 100%;
   padding: 9px 10px;
   color: #5f6c7b;
   border: 1px solid #9aabba;
   background: #fff;
   font: 850 9px/1.2 var(--mono);
+  overflow-wrap: anywhere;
+  text-align: center;
 }
 
 .business-contract-funnel span.is-current {
