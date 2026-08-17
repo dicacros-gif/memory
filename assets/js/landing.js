@@ -3,7 +3,7 @@
 
   const BUSINESS_TITLE = "AI Infra Strategy · Customer Pain to Executive Action";
   const CONSOLE_HASH = "#console";
-  const CONSOLE_REVISION = "infra-20260817-38";
+  const CONSOLE_REVISION = "infra-20260817-39";
   const DECISION_CLIENT_PATH = "data/landing-decision-client.json";
   const SITE_CONTENT_PATH = "data/site-content-client.json";
   const site = document.querySelector("#businessSite");
@@ -260,9 +260,73 @@
     return /^(https?:\/\/|#)/i.test(url) ? url : fallback;
   }
 
+  function removeBusinessSentenceStops(value = "") {
+    return String(value || "")
+      .replace(/([A-Za-z\u3131-\u318e\uac00-\ud7a3\d%)\]"'”’])[.\u3002](?=\s|$)/g, "$1")
+      .replace(/\s+/g, " ")
+      .trim();
+  }
+
+  function compactBusinessCopy(value = "", maxCharacters = 96) {
+    const original = String(value || "").replace(/\s+/g, " ").trim();
+    if (!original) return "";
+    const firstSentence = original.split(/(?<=[A-Za-z\u3131-\u318e\uac00-\ud7a3\d%)\]"'”’])[.\u3002](?=\s|$)/, 1)[0];
+    let compact = removeBusinessSentenceStops(firstSentence)
+      .replace(/\s+(?:이라고|라고)\s+(?:말했습니다|밝혔습니다|설명했습니다)$/u, " 발표")
+      .replace(/\s+(?:하고|해오고)\s+있습니다$/u, " 중")
+      .replace(/\s+할\s+수\s+있습니다$/u, " 가능")
+      .replace(/\s+해야\s+합니다$/u, " 필요")
+      .replace(/(?:필요합니다|제안합니다|권고합니다)$/u, (ending) => ({
+        "필요합니다": "필요",
+        "제안합니다": "제안",
+        "권고합니다": "권고",
+      })[ending]);
+    if (compact.length <= maxCharacters) return compact;
+    const clauses = compact.split(/[,;]\s*|\s+(?:그리고|또한|다만)\s+/u).filter(Boolean);
+    const selected = [];
+    for (const clause of clauses) {
+      const candidate = [...selected, clause].join(" · ");
+      if (candidate.length > maxCharacters) break;
+      selected.push(clause);
+    }
+    if (selected.length) return selected.join(" · ");
+    const boundary = compact.lastIndexOf(" ", maxCharacters - 1);
+    return `${compact.slice(0, boundary > 48 ? boundary : maxCharacters - 1).trimEnd()}…`;
+  }
+
+  function applyExecutiveCopyStyle(root = site, policy = {}) {
+    if (!root) return;
+    const paragraphLimit = Number(policy.paragraphMaxCharacters || 116);
+    const listLimit = Number(policy.listMaxCharacters || 96);
+    const detailLimit = Number(policy.detailMaxCharacters || 88);
+    const walker = document.createTreeWalker(root, NodeFilter.SHOW_TEXT);
+    const textNodes = [];
+    while (walker.nextNode()) textNodes.push(walker.currentNode);
+    for (const textNode of textNodes) {
+      const parent = textNode.parentElement;
+      if (!parent || parent.closest("script, style, code, pre, [data-copy-verbatim]")) continue;
+      textNode.nodeValue = String(textNode.nodeValue || "")
+        .replace(/([A-Za-z\u3131-\u318e\uac00-\ud7a3\d%)\]"'”’])[.\u3002](?=\s|$)/g, "$1");
+    }
+    for (const node of root.querySelectorAll("p, li, dd, figcaption")) {
+      if (node.childElementCount || node.closest("[data-copy-verbatim]")) continue;
+      const original = node.textContent.replace(/\s+/g, " ").trim();
+      const limit = node.matches("li") ? listLimit : node.matches("dd, figcaption") ? detailLimit : paragraphLimit;
+      const compact = compactBusinessCopy(original, limit);
+      if (compact !== original) {
+        if (!node.hasAttribute("aria-label")) node.setAttribute("aria-label", original);
+        node.textContent = compact;
+        node.classList.add("business-copy-condensed");
+      }
+      if (node.matches("p") && compact.length >= 48 && !node.closest("li, .business-kicker, .eyebrow, header, footer")) {
+        node.classList.add("business-copy-point");
+      }
+    }
+  }
+
   function renderBusinessList(node, items = []) {
     if (!node || !Array.isArray(items) || !items.length) return;
-    node.innerHTML = items.map((item) => `<li>${escapeBusinessHTML(item)}</li>`).join("");
+    node.innerHTML = items.map((item) => `<li>${escapeBusinessHTML(compactBusinessCopy(item, 96))}</li>`).join("");
   }
 
   function renderDecisionContent(content = {}) {
@@ -890,6 +954,7 @@
     applyDecisionControl(content);
     applyPresentationPolicy(content.presentation);
     setupConsultingCardMotion();
+    applyExecutiveCopyStyle(site, content.presentation?.readabilityPolicy);
     highlightBusinessKeyTerms(site, content.presentation);
 
     const footer = document.querySelector(".business-footer a");
@@ -1181,6 +1246,8 @@
       if (dot) dot.textContent = "Static answer";
       status.textContent = "Console 연결 지연 · 검증된 정적 전략 답안을 유지합니다.";
       if (updated) updated.textContent = "Console에서 최신 근거 재확인";
+    } finally {
+      applyExecutiveCopyStyle(site, window.MEMORY_SITE_CONTENT?.presentation?.readabilityPolicy);
     }
   }
 
@@ -1622,6 +1689,7 @@
   function setupBusinessExperience() {
     if (businessReady) return;
     businessReady = true;
+    applyExecutiveCopyStyle(site);
     void loadSiteContent().then(scheduleConsoleAssetWarmup);
     scheduleSiteContentRefresh();
     document.addEventListener("visibilitychange", recheckSiteContentNow);

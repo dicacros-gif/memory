@@ -5985,6 +5985,24 @@ body.landing-mode {
 }
 
 /* Korean supporting copy uses compact consulting-style bullets. */
+.business-site .business-copy-condensed {
+  text-wrap: pretty;
+}
+
+.business-site p.business-copy-point {
+  position: relative;
+  padding-left: 14px;
+}
+
+.business-site p.business-copy-point::before {
+  content: "·";
+  position: absolute;
+  left: 0;
+  top: 0;
+  color: var(--initiative-accent, var(--business-mint));
+  font-weight: 950;
+}
+
 .business-case-logic p,
 .business-option-portfolio article p,
 .business-partner-raci article p,

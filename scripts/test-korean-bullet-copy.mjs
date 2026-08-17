@@ -2,9 +2,10 @@ import assert from "node:assert/strict";
 import { readFile } from "node:fs/promises";
 
 const root = new URL("../", import.meta.url);
-const [html, css] = await Promise.all([
+const [html, css, landing] = await Promise.all([
   readFile(new URL("index.html", root), "utf8"),
   readFile(new URL("assets/css/landing.css", root), "utf8"),
+  readFile(new URL("assets/js/landing.js", root), "utf8"),
 ]);
 
 const heroList = html.match(/<ul class="business-hero-thesis business-copy-list"[\s\S]*?<\/ul>/)?.[0] ?? "";
@@ -33,12 +34,18 @@ for (const phrase of [
 
 assert.doesNotMatch(html, /메모리를 판매하는 것이 아니라/);
 assert.doesNotMatch(html, /직무 적합성을 세 가지/);
-assert.match(html, /infra-20260817-38/);
+assert.match(html, /infra-20260817-39/);
 assert.match(css, /\.business-copy-list li::before/);
 assert.match(css, /Korean supporting copy uses compact consulting-style bullets/);
+assert.match(css, /\.business-site p\.business-copy-point::before/);
+assert.match(landing, /function removeBusinessSentenceStops\(value = ""\)/);
+assert.match(landing, /function compactBusinessCopy\(value = "", maxCharacters = 96\)/);
+assert.match(landing, /function applyExecutiveCopyStyle\(root = site, policy = \{\}\)/);
+assert.match(landing, /paragraphMaxCharacters \|\| 116/);
+assert.match(landing, /listMaxCharacters \|\| 96/);
 
 console.log(JSON.stringify({
   heroBullets: 3,
   decisionAnswerLists: answerLists.length,
-  revision: "infra-20260817-38",
+  revision: "infra-20260817-39",
 }, null, 2));
