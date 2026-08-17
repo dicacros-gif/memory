@@ -14005,6 +14005,66 @@ body.consulting-system {
   letter-spacing: .05em;
 }
 
+/* Council agenda contrast lock: surface and every text tier switch together. */
+.consulting-system .ai-council-agenda-card {
+  --agenda-surface: #ffffff;
+  --agenda-ink: #17324d;
+  --agenda-muted: #40546a;
+  --agenda-accent: #08766f;
+  color: var(--agenda-ink) !important;
+  background: var(--agenda-surface) !important;
+}
+
+.consulting-system .ai-council-agenda-card:is(.is-selected, [aria-pressed="true"]) {
+  --agenda-surface: #edf7f5;
+  border-color: #68bdb3 !important;
+}
+
+[data-theme="dark"] .consulting-system .ai-council-agenda-card {
+  --agenda-surface: #111827;
+  --agenda-ink: #f5f9ff;
+  --agenda-muted: #c3cfdd;
+  --agenda-accent: #79ead0;
+}
+
+[data-theme="dark"] .consulting-system .ai-council-agenda-card:is(.is-selected, [aria-pressed="true"]) {
+  --agenda-surface: #143349;
+  border-color: #79ead0 !important;
+}
+
+.consulting-system .ai-council-agenda-card:is(:hover, :focus-visible) {
+  --agenda-surface: #17394f;
+  --agenda-ink: #f7fbff;
+  --agenda-muted: #d4e2eb;
+  --agenda-accent: #7de8d3;
+}
+
+[data-theme="dark"] .consulting-system .ai-council-agenda-card:is(:hover, :focus-visible) {
+  --agenda-surface: #f8fafc;
+  --agenda-ink: #13263a;
+  --agenda-muted: #40546a;
+  --agenda-accent: #08766f;
+}
+
+.consulting-system .ai-council-agenda-card > :is(strong, span),
+.consulting-system .ai-council-agenda-card > span > b {
+  color: var(--agenda-ink) !important;
+  -webkit-text-fill-color: var(--agenda-ink) !important;
+  opacity: 1 !important;
+}
+
+.consulting-system .ai-council-agenda-card > small {
+  color: var(--agenda-muted) !important;
+  -webkit-text-fill-color: var(--agenda-muted) !important;
+  opacity: 1 !important;
+}
+
+.consulting-system .ai-council-agenda-card > em {
+  color: var(--agenda-accent) !important;
+  -webkit-text-fill-color: var(--agenda-accent) !important;
+  opacity: 1 !important;
+}
+
 .ai-council-shell {
   display: grid;
   gap: 12px;
