@@ -4065,7 +4065,6 @@
     host.innerHTML = `
       <div class="ni-head">
         <div class="ni-title">
-          <span class="ni-eyebrow">최신 원문 요약</span>
           <h3>주요 뉴스 <span>${fmtNum(briefs.length)}개 테마 · 근거 ${fmtNum(totalEvidence)}건</span></h3>
         </div>
         <span class="ni-asof">${escapeHTML(asOf)} 기준</span>

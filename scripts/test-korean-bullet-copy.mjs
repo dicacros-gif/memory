@@ -35,7 +35,7 @@ for (const phrase of [
 
 assert.doesNotMatch(html, /메모리를 판매하는 것이 아니라/);
 assert.doesNotMatch(html, /직무 적합성을 세 가지/);
-assert.match(html, /infra-20260817-73/);
+assert.match(html, /infra-20260817-74/);
 assert.match(css, /\.business-copy-list li::before/);
 assert.match(css, /Korean supporting copy uses compact consulting-style bullets/);
 assert.match(css, /\.business-site p\.business-copy-point::before/);
@@ -79,5 +79,5 @@ assert.equal(normalizeHtmlExecutiveCopy(html), html, "checked-in HTML must alrea
 console.log(JSON.stringify({
   heroBullets: 3,
   decisionAnswerLists: answerLists.length,
-  revision: "infra-20260817-73",
+  revision: "infra-20260817-74",
 }, null, 2));
