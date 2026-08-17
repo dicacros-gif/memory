@@ -247,6 +247,7 @@ assert.match(index, /Customer Pain to Executive Action/);
 assert.doesNotMatch(index, /LIVE DECISION QUEUE · CONSOLE-CONNECTED|businessHomeQueueStatus/);
 assert.match(index, /id="departmentDecisionQueue"/);
 assert.doesNotMatch(index, /business-hero-proof|CUSTOMER ACCOUNT BRIEF|WORKLOAD-TO-MEMORY|EXECUTIVE EXECUTION PACK/, "the removed homepage output summary row must stay absent");
+assert.doesNotMatch(index, /CONSOLE · LATEST EVIDENCE/, "the removed latest evidence label must stay absent");
 assert.doesNotMatch(index, /PUBLIC CASE RECONSTRUCTION|ANONYMIZED CLIENT CASE|id="caseClassification"/);
 assert.doesNotMatch(index, /ANONYMIZED USE CASE|GPU Compute보다|MODELED THRESHOLD/);
 assert.doesNotMatch(app, /익명화 Case/);
