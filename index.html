@@ -110,7 +110,7 @@
     (() => {
       if (!location.hash.startsWith("#console")) return;
       document.documentElement.classList.add("console-entry");
-      const revision = "infra-20260817-61";
+      const revision = "infra-20260817-62";
       const assets = [
         ["consoleStylesPreload", "style", `assets/css/styles.min.css?v=${revision}`, "high"],
         ["consoleAppPreload", "script", `assets/js/app.min.js?v=${revision}`, "low"],
@@ -127,7 +127,7 @@
       }
     })();
   </script>
-  <link rel="stylesheet" href="assets/css/landing.min.css?v=infra-20260817-61" />
+  <link rel="stylesheet" href="assets/css/landing.min.css?v=infra-20260817-62" />
 </head>
 <body class="landing-mode">
   <div class="business-site" id="businessSite">
@@ -142,7 +142,7 @@
       </a>
       <nav class="business-nav" id="businessNav" aria-label="주요 메뉴">
         <a href="#home">Home</a>
-        <a href="#team-operating-model">Team OS</a>
+        <a href="#team-operating-model">Team Model</a>
         <a href="#decision-lab">Decision Lab</a>
         <a href="#ai-strategy">Strategy</a>
         <a href="#solutions">Solutions</a>
@@ -385,11 +385,11 @@
         </div>
       </section>
 
-      <section class="business-section business-decision-automation" id="decision-automation" data-frame="DECISION OS · CLAIM EVENT · EXECUTION GATE">
+      <section class="business-section business-decision-automation" id="decision-automation" data-frame="DECISION AUTOMATION · CLAIM EVENT · EXECUTION GATE">
         <div class="business-container">
           <div class="business-section-heading business-section-heading--split">
             <div>
-              <p class="business-kicker">Decision Automation OS · Evidence to Action</p>
+              <p class="business-kicker">Decision Automation · Evidence to Action</p>
               <h2>Source → ClaimEvent → Decision → Execution</h2>
             </div>
             <ul class="business-heading-points">
@@ -628,7 +628,7 @@
               <article><span>06 · FINOPS / GREENOPS</span><h4>AI FinOps &amp; GreenOps</h4><dl><div><dt>PAIN</dt><dd>비용·전력과 업무 성과 연결 불가</dd></div><div><dt>OFFER</dt><dd>Showback · Cache/Queue/Idle · 전력기반 Scheduling</dd></div><div><dt>KPI</dt><dd>Cost/Task · kWh/Task · Goodput/W</dd></div><div><dt>KILL</dt><dd>절감이 품질·지연 악화로 상쇄되면 정책 원복</dd></div></dl></article>
             </div>
             <section class="business-rag-operating-model" id="ragOperatingModel" aria-labelledby="ragOperatingModelTitle">
-              <header><div><span>RAG QUALITY OPERATING SYSTEM</span><h4 id="ragOperatingModelTitle">Vector DB가 아니라 데이터·검색 품질을 운영</h4></div><strong id="ragLiveControl">FRESHNESS · CHECK</strong></header>
+              <header><div><span>RAG QUALITY CONTROL</span><h4 id="ragOperatingModelTitle">Vector DB가 아니라 데이터·검색 품질을 운영</h4></div><strong id="ragLiveControl">FRESHNESS · CHECK</strong></header>
               <ol id="ragQualityPipeline"><li>Identity / ACL</li><li>수집·변경 감지</li><li>Parsing·OCR</li><li>Chunking</li><li>Metadata</li><li>Embedding</li><li>Hybrid Search</li><li>Query Rewrite</li><li>Retrieval</li><li>Rerank·Dedup</li><li>Evidence·Citation</li><li>Generation</li><li>Evaluation</li></ol>
               <div class="business-rag-maturity" id="ragMaturity"><article><b>L0</b><strong>Document Chat</strong></article><article><b>L1</b><strong>Vector Retrieval</strong></article><article><b>L2</b><strong>Hybrid + Rerank</strong></article><article><b>L3</b><strong>Governed RAG</strong></article><article><b>L4</b><strong>Agentic Retrieval</strong></article><article><b>L5</b><strong>Adaptive System</strong></article></div>
               <footer id="ragQualityKpis">Recall@k · nDCG · Citation Precision · Index Freshness · ACL Error · Unsupported Answer</footer>
@@ -855,7 +855,7 @@
         </div>
       </section>
 
-      <section class="business-section business-about business-team-operating" id="team-operating-model" data-frame="TEAM OPERATING SYSTEM · 3 WORKSTREAMS">
+      <section class="business-section business-about business-team-operating" id="team-operating-model" data-frame="TEAM OPERATING MODEL · 3 WORKSTREAMS">
         <div class="business-container">
           <div class="business-section-heading business-section-heading--split">
             <div>
@@ -894,7 +894,7 @@
     </main>
 
     <footer class="business-footer">
-      <div class="business-container"><div><strong>AI INFRA STRATEGY OS</strong><span>From Workload to Revenue</span></div><p><a href="https://www.linkedin.com/in/dicacross/" target="_blank" rel="noopener noreferrer" aria-label="dicacross LinkedIn 프로필 열기">© 2026 dicacross · Independent strategy portfolio based on public information; not an official SK hynix website.</a></p></div>
+      <div class="business-container"><div><strong>AI INFRA STRATEGY</strong><span>From Workload to Revenue</span></div><p><a href="https://www.linkedin.com/in/dicacross/" target="_blank" rel="noopener noreferrer" aria-label="dicacross LinkedIn 프로필 열기">© 2026 dicacross · Independent strategy portfolio based on public information; not an official SK hynix website.</a></p></div>
     </footer>
   </div>
 
@@ -1950,6 +1950,6 @@
   <div class="qa-answer" id="qaAnswer" hidden></div>
   <div class="inspector" id="inspector" hidden></div>
   <div class="backdrop" id="backdrop"></div>
-  <script src="assets/js/landing.min.js?v=infra-20260817-61" defer></script>
+  <script src="assets/js/landing.min.js?v=infra-20260817-62" defer></script>
 </body>
 </html>

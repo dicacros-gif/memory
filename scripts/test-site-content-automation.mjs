@@ -233,7 +233,7 @@ assert.match(app, /window\.MEMORY_SITE_CONTENT\?\.agentCouncil\?\.agendas/);
 assert.match(landing, /previousRunId && previousRunId !== String\(content\.runId\) && isConsoleHash\(\)/);
 assert.match(landing, /window\.location\.reload\(\)/);
 assert.match(app, /replace\(\/솔리드다임\/g, "솔리다임"\)/, "the interactive console must normalize stale Solidigm labels at render time");
-assert.match(index, /infra-20260817-61/);
+assert.match(index, /infra-20260817-62/);
 assert.doesNotMatch(
   index,
   /data-live-source[^>]*>[\s\S]*?<\/a><\/div>\s*<dl>/,
@@ -251,7 +251,7 @@ assert.equal(executiveSnapshot.runId, artifact.runId);
 assert.equal(executiveSnapshot.decisions.length, artifact.decisionIntelligence.decisionAutomation.briefs.length);
 assert.equal(new Set(executiveSnapshot.decisions.map((brief) => brief.decisionQuestion)).size, executiveSnapshot.decisions.length, "pre-rendered executive decisions must have unique questions");
 assert.match(consoleSnapshot, /AI Infra Strategy &amp; New Biz · Executive Snapshot/);
-assert.match(consoleSnapshot, /TEAM OPERATING SYSTEM · THREE WORKSTREAMS/);
+assert.match(consoleSnapshot, /TEAM OPERATING MODEL · THREE WORKSTREAMS/);
 assert.match(consoleSnapshot, /MECE DECISION ARCHITECTURE · ONE OWNER PER QUESTION/);
 assert.match(consoleSnapshot, /ClaimEvent/);
 assert.doesNotMatch(consoleSnapshot, /로드 중|연결 중/);

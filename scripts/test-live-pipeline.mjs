@@ -685,7 +685,7 @@ for (const agenda of [
 ]) {
   assert.match(appText, new RegExp(agenda.replace(/[.*+?^${}()|[\]\\]/g, "\\$&")), `the AI Infra council must expose ${agenda}`);
 }
-for (const capability of ["Bottleneck First", "Serving & Rack", "Executive Decision OS"]) {
+for (const capability of ["Bottleneck First", "Serving & Rack", "Executive Decision"]) {
   assert.match(appText, new RegExp(capability), `the strategy council must make ${capability} explicit`);
 }
 assert.match(appText, /Business Outcome → Workload\/SLO → Dominant Bottleneck → HW\/SW Options → 90-Day Gate/, "the council must expose a bottleneck-first consulting flow");

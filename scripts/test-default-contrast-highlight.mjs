@@ -120,7 +120,7 @@ assert.match(consoleCss, /\.decision-card, \.decision-flip-card, \.domain-agent-
 assert.match(consoleCss, /Memory-bypass index contrast lock[\s\S]*?\.mbp-thesis-arrow, \.mbp-band-n, \.mbp-tl-marker[\s\S]*?color:\s*#17324d !important;[\s\S]*?\.mbp-route-n[\s\S]*?color:\s*#ffffff !important;[\s\S]*?background:\s*#17324d !important;/, "memory-tier arrows and level indices must retain readable ink over accent surfaces");
 assert.match(consoleCss, /Progressive market modules[\s\S]*?\.equity-company-monogram[\s\S]*?color:\s*#17324d !important;[\s\S]*?\.price-sub[\s\S]*?color:\s*#4b5e73 !important;[\s\S]*?data-theme="dark"[\s\S]*?color:\s*#d7e2ee !important;/, "delayed market modules must use mode-safe text colors");
 assert.match(landing, /averageAlpha < \.6[\s\S]*?backgroundLum < \.18/, "transparent gradients must inherit their base surface and mid-tone panels must use dark ink");
-assert.match(html, /infra-20260817-61/);
+assert.match(html, /infra-20260817-62/);
 assert.match(css, /@media \(max-width: 760px\)[\s\S]*?\.business-competency-output[\s\S]*?grid-column:\s*2 !important[\s\S]*?\.business-llm-causal-chain,[\s\S]*?\.business-contract-funnel[\s\S]*?overflow-x:\s*visible/);
 
 console.log(JSON.stringify({

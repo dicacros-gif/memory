@@ -1223,14 +1223,14 @@
       kill: "Retrieval P99 개선이 15% 미만이거나 Cost/query 개선이 10% 미만이면 제품·Index 구성을 재설계",
     },
     "mobile-pc-terminal": {
-      customer: "Mobile/PC OEM · OS Platform · On-device AI App",
+      customer: "Mobile/PC OEM · Device Platform · On-device AI App",
       pain: "제한된 BOM·전력 안에서 온디바이스 AI 응답성·개인정보·오프라인 경험을 차별화해야 함",
       workload: "On-device LLM · Multimodal Assistant · Local RAG",
-      hwSw: "App–OS–NPU–Memory–Storage 경로에서 peak footprint·latency·energy/task를 계측",
+      hwSw: "App–NPU–Memory–Storage 경로에서 peak footprint·latency·energy/task를 계측",
       aiTech: "Quantized Transformer · Prompt cache · Local RAG · speculative decoding",
       memory: "LPDDR5X/LPDDR6 + UFS/Client SSD + NPU shared memory",
       offer: "AI 기능별 Memory Footprint와 Premium–Mainstream–Entry SKU/BOM 공동 설계",
-      partners: "Device OEM · OS/NPU platform · AI app developer · Module/Storage ecosystem",
+      partners: "Device OEM · NPU platform · AI app developer · Module/Storage ecosystem",
       kpis: ["P95 AI latency", "Energy/task", "BOM/ASP", "12GB+ mix", "Sell-through"],
       gates: ["Feature footprint", "Device benchmark", "SKU economics", "Launch allocation"],
       kill: "BOM/ASP가 5%p 이상 상승하거나 Sell-through가 2개월 연속 계획 대비 10% 하회하면 SKU 용량을 재설계",
@@ -9919,7 +9919,7 @@
       ],
       lenses: [
         ["01 · CUSTOMER", "Need State", ["온디바이스 latency·privacy·offline 가치", "Premium/Mainstream/Entry 사용 시나리오", "AI feature별 최소 memory footprint"]],
-        ["02 · TECHNOLOGY", "HW/SW Translation", ["모델 압축·KV cache·memory bandwidth", "LPDDR5X/LPDDR6 전력·용량 trade-off", "App–OS–NPU–memory 공동 benchmark"]],
+        ["02 · TECHNOLOGY", "HW/SW Translation", ["모델 압축·KV cache·memory bandwidth", "LPDDR5X/LPDDR6 전력·용량 trade-off", "App–NPU–memory 공동 benchmark"]],
         ["03 · BUSINESS", "Portfolio & Price", ["SKU별 BOM·ASP·sell-through 민감도", "우선 고객 allocation·장기계약 옵션", "메모리 원가 전가와 AI 가치 패키징"]],
         ["04 · EXECUTION", "Trigger & Owner", ["Mobile OEM·AI app 업체 공동 PoC", "제품 믹스와 수요 forecast 주간 연결", "가격 보도는 계약 확인 후만 결재 반영"]],
       ],
@@ -9989,7 +9989,7 @@
         ["01 · TRAINING", "HBM4 / Custom HBM", ["GPU utilization·bandwidth·thermal", "ASIC별 base-die co-design", "Performance/Watt·rack TCO"]],
         ["02 · INFERENCE", "Serving SW + Data Placement", ["Paged KV·Scheduler·Prefill/Decode", "HBM·Host DRAM·CXL·eSSD placement", "Goodput·P99·quality·cost/token"]],
         ["03 · RAG / VECTOR", "Retrieval SW + eSSD", ["Recall/Quality·QPS·read amplification", "DRAM/CXL active tier·eSSD capacity tier", "HBF는 Emerging Option으로 분리"]],
-        ["04 · ON-DEVICE", "LPDDR / 3D DRAM", ["Latency·power·footprint", "NPU·OS·model joint tuning", "Device tier별 capacity curve"]],
+        ["04 · ON-DEVICE", "LPDDR / 3D DRAM", ["Latency·power·footprint", "NPU·model joint tuning", "Device tier별 capacity curve"]],
       ],
       horizons: [
         ["NOW · CAPTURE", "Pain Point", "고객 workload와 HW/SW 병목을 정량화", "TTFT·TPOT·QPS·TCO"],
@@ -10105,7 +10105,7 @@
       : [
           ["01", "Bottleneck First", "Business Pain·SLO → System Symptom → Root Cause"],
           ["02", "Serving & Rack", "Runtime·Compute·Memory·Network·Storage·Facility"],
-          ["03", "Executive Decision OS", "Evidence → Options → Economics → Owner·KPI·Kill"],
+          ["03", "Executive Decision", "Evidence → Options → Economics → Owner·KPI·Kill"],
         ];
     const workstreams = aiInfraCouncilAgendas().slice(0, 6).map((item) => [
       `${item.phase || "CURRENT"} · ${item.index || ""}`,
@@ -10115,7 +10115,7 @@
     return `
       <div class="ai-infra-council ai-infra-council-waiting">
         <header class="ai-council-mandate">
-          <span>AI INFRA STRATEGY AGENT OS</span>
+          <span>AI INFRA STRATEGY AGENTS</span>
           <strong>Business Outcome → Workload/SLO → Dominant Bottleneck → HW/SW Options → 90-Day Gate</strong>
           <small>8개 전문 Agent가 병렬 검토 · 영상·음성 없이 즉시 실행 · 공식 근거와 검증 가설 분리</small>
         </header>
@@ -12761,7 +12761,7 @@
     host.innerHTML = `
       <section class="sc-framework" aria-labelledby="strategyFrameworkTitle">
         <header class="sc-framework-head">
-          <span>CONSULTING OPERATING SYSTEM</span>
+          <span>CONSULTING FRAMEWORK</span>
           <h3 id="strategyFrameworkTitle">고객 전략 · 신규 Biz · AI Infra 실행을 연결하는 5단계</h3>
           <p>고객 현황·기술·전략에서 Pain Point를 구조화하고, Workload를 HW·SW·Memory 요구사항으로 번역한 뒤 Where to Play / How to Win·파트너·사업성을 검증해 90일 실행 Gate로 연결합니다.</p>
         </header>
@@ -15234,7 +15234,7 @@
     return `
       <div class="agent-debate agent-debate-${escapeHTML(mode)}" data-tts-mode="${escapeHTML(forcedTtsLanguage || "role")}" style="--local-accent:${escapeHTML(accent || colors[0])}">
         <div class="agent-debate-title">
-          <span>AI INFRA STRATEGY AGENT OS</span>
+          <span>AI INFRA STRATEGY AGENTS</span>
           <strong>${escapeHTML(title)}</strong>
           ${subtitle ? `<small>${escapeHTML(subtitle)}</small>` : ""}
         </div>
