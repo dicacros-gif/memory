@@ -34,7 +34,7 @@ for (const phrase of [
 
 assert.doesNotMatch(html, /메모리를 판매하는 것이 아니라/);
 assert.doesNotMatch(html, /직무 적합성을 세 가지/);
-assert.match(html, /infra-20260817-64/);
+assert.match(html, /infra-20260817-65/);
 assert.match(css, /\.business-copy-list li::before/);
 assert.match(css, /Korean supporting copy uses compact consulting-style bullets/);
 assert.match(css, /\.business-site p\.business-copy-point::before/);
@@ -48,5 +48,5 @@ assert.match(landing, /memory-console-ready[\s\S]*?applyExecutiveCopyStyle\(cons
 console.log(JSON.stringify({
   heroBullets: 3,
   decisionAnswerLists: answerLists.length,
-  revision: "infra-20260817-64",
+  revision: "infra-20260817-65",
 }, null, 2));

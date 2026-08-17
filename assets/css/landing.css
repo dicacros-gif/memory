@@ -1077,6 +1077,15 @@ body.landing-mode :is(.scroll-prog, .scroll-top, .qa-answer, .inspector, #backdr
   margin-top: 34px;
 }
 
+.business-hero-actions :is(a, button) {
+  min-height: 48px;
+  padding-block: 12px;
+  line-height: 1.35;
+  text-align: center;
+  white-space: normal;
+  overflow: visible;
+}
+
 .business-primary-button {
   color: #fff !important;
   background: var(--business-blue);
@@ -6936,7 +6945,7 @@ body.landing-mode {
 .business-decision-queue-grid > a:is(:hover, :focus-visible) > span { color: #08745f; }
 .business-decision-queue-grid > a:is(:hover, :focus-visible) > small { color: #49687c; }
 
-@media (max-width: 1100px) {
+@media (max-width: 1200px) {
   .business-hero { min-height: 0; padding-bottom: 70px; }
   .business-decision-queue { position: relative; inset: auto; margin-top: 54px; }
   .business-decision-queue-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }

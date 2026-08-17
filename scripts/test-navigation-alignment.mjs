@@ -120,7 +120,9 @@ assert.match(landingCss, /@media \(max-width: 1120px\)[\s\S]*?\.business-menu-bu
 assert.match(html, /id="intelligenceConsole" hidden/, "the Intelligence Console must stay outside the initial visible layer");
 assert.doesNotMatch(html, /<script[^>]+src="assets\/js\/app\.js/, "the heavy console app must not load with the public landing page");
 assert.doesNotMatch(html, /<link[^>]+href="assets\/css\/styles\.css/, "the heavy console stylesheet must not load with the public landing page");
-assert.match(html, /assets\/js\/landing\.min\.js\?v=infra-20260817-64/, "the lightweight landing controller must use the minified AI Infra revision");
+assert.match(html, /assets\/js\/landing\.min\.js\?v=infra-20260817-65/, "the lightweight landing controller must use the minified AI Infra revision");
+assert.match(landingCss, /\.business-hero-actions :is\(a, button\)\s*\{[^}]*min-height:\s*48px;[^}]*line-height:\s*1\.35;[^}]*overflow:\s*visible;/, "hero actions must preserve complete text glyphs at every zoom level");
+assert.match(landingCss, /@media \(max-width: 1200px\)[\s\S]*?\.business-decision-queue\s*\{[^}]*position:\s*relative;/, "the decision queue must leave the overlay layer before it can cover hero actions");
 assert.doesNotMatch(html, /DEPARTMENT DECISION SYSTEM|business-visual-head/, "the removed hero decision-status header must stay deleted");
 assert.doesNotMatch(html, /DEPARTMENT OUTPUT|business-visual-result/, "the removed hero department-output card must stay deleted");
 assert.doesNotMatch(html, />[^<]*\bOS\b[^<]*</, "standalone OS wording must not appear in public landing copy");
