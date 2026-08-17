@@ -7693,6 +7693,15 @@
     const reports = brokerBaselineReports();
     if (!reports.length) return "";
     const documents = brokerBaselineDocuments(baseline);
+    const reportCutoffDate = reports
+      .map((item) => item.publishedAt)
+      .filter(Boolean)
+      .sort((left, right) => Date.parse(left) - Date.parse(right))
+      .at(-1) || baseline.asOf || "";
+    const reportCutoffParts = String(reportCutoffDate).match(/^(\d{4})-(\d{2})-(\d{2})/);
+    const reportCutoffLabel = reportCutoffParts
+      ? `${Number(reportCutoffParts[2])}/${Number(reportCutoffParts[3])}`
+      : "기준일 확인";
     return `
       <section class="exec-baseline-reports" aria-label="차세대 메모리 리서치 인포그래픽">
         <header class="exec-baseline-head">
@@ -7735,9 +7744,11 @@
           ${reports.map((item, index) => `
             <li class="exec-baseline-report" tabindex="0" style="--report-accent:${escapeHTML(item.accent || "#64748b")};--baseline-report-order:${index}">
               <header>
-                <span>${String(index + 1).padStart(2, "0")}</span>
+                <span class="exec-baseline-level-index">L${String(index + 1).padStart(2, "0")}</span>
                 <strong>${escapeHTML(withoutTerminalStop(item.label || "제공 리포트"))}</strong>
-                <small>${escapeHTML(item.publishedAt || baseline.asOf || "작성일 미상")}</small>
+                <small class="exec-baseline-date" data-source-date="${escapeHTML(item.publishedAt || "")}" title="원문 기준일 ${escapeHTML(item.publishedAt || "미상")}">
+                  <time datetime="${escapeHTML(reportCutoffDate)}">${escapeHTML(reportCutoffLabel)}</time>
+                </small>
               </header>
               <h5>${strategicHighlightHTML(withoutTerminalStop(item.title))}</h5>
               <ul class="exec-baseline-points">

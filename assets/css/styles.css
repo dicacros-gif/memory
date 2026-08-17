@@ -29493,3 +29493,126 @@ body.consulting-system {
     transform: rotate(90deg);
   }
 }
+
+/* Broker baseline hierarchy: boxed level indices and readable cutoff labels */
+.consulting-system .exec-baseline-report {
+  --report-level-bg: color-mix(in srgb, var(--report-accent) 58%, #102c43);
+  gap: 10px;
+  padding: 14px;
+}
+
+.consulting-system .exec-baseline-report > header {
+  grid-template-columns: max-content minmax(0, 1fr) max-content;
+  gap: 8px;
+}
+
+.consulting-system .exec-baseline-report > header > .exec-baseline-level-index {
+  display: inline-grid;
+  place-items: center;
+  width: auto;
+  min-width: 42px;
+  height: 28px;
+  padding: 0 8px;
+  border: 1px solid color-mix(in srgb, var(--report-accent) 68%, #102c43);
+  border-radius: 4px;
+  background: var(--report-level-bg);
+  color: #ffffff;
+  font-size: 12px;
+  font-weight: 950;
+  letter-spacing: .04em;
+  white-space: nowrap;
+  -webkit-text-fill-color: #ffffff;
+}
+
+.consulting-system .exec-baseline-report > header > strong {
+  color: color-mix(in srgb, var(--report-accent) 68%, #102c43);
+  font-size: 12px;
+  line-height: 1.35;
+}
+
+.consulting-system .exec-baseline-date {
+  display: inline-flex;
+  align-items: center;
+  min-height: 28px;
+  padding: 0 8px;
+  border: 1px solid color-mix(in srgb, var(--report-accent) 30%, #cfd7e2);
+  border-radius: 4px;
+  background: color-mix(in srgb, var(--report-accent) 8%, #ffffff);
+  color: #29465c;
+  font-size: 12px;
+  line-height: 1;
+  font-weight: 950;
+  white-space: nowrap;
+  -webkit-text-fill-color: #29465c;
+}
+
+.consulting-system .exec-baseline-report h5 {
+  font-size: 14px;
+  line-height: 1.5;
+}
+
+.consulting-system .exec-baseline-points {
+  gap: 8px;
+}
+
+.consulting-system .exec-baseline-points li {
+  grid-template-columns: 96px minmax(0, 1fr);
+  gap: 10px;
+  align-items: start;
+}
+
+.consulting-system .exec-baseline-points b {
+  display: inline-grid;
+  place-items: center;
+  width: 100%;
+  min-height: 26px;
+  padding: 4px 8px;
+  border: 1px solid color-mix(in srgb, var(--report-accent) 68%, #102c43);
+  border-radius: 3px;
+  background: var(--report-level-bg);
+  color: #ffffff !important;
+  font-size: 12px;
+  line-height: 1.2;
+  font-weight: 950;
+  white-space: nowrap;
+  word-break: normal;
+  overflow-wrap: normal;
+  -webkit-text-fill-color: #ffffff !important;
+}
+
+.consulting-system .exec-baseline-points span {
+  color: #344b61;
+  font-size: 12px;
+  line-height: 1.65;
+  font-weight: 720;
+}
+
+.consulting-system .exec-baseline-report:is(:hover, :focus-visible) > header > .exec-baseline-level-index,
+.consulting-system .exec-baseline-report:is(:hover, :focus-visible) .exec-baseline-points b {
+  border-color: rgba(255, 255, 255, .58);
+  background: rgba(255, 255, 255, .14);
+  color: #ffffff !important;
+  -webkit-text-fill-color: #ffffff !important;
+}
+
+.consulting-system .exec-baseline-report:is(:hover, :focus-visible) .exec-baseline-date {
+  border-color: rgba(255, 255, 255, .48);
+  background: rgba(255, 255, 255, .14);
+  color: #ffffff !important;
+  -webkit-text-fill-color: #ffffff !important;
+}
+
+@media (max-width: 680px) {
+  .consulting-system .exec-baseline-report > header {
+    grid-template-columns: max-content minmax(0, 1fr) max-content;
+  }
+
+  .consulting-system .exec-baseline-points li {
+    grid-template-columns: 1fr;
+  }
+
+  .consulting-system .exec-baseline-points b {
+    width: max-content;
+    min-width: 96px;
+  }
+}
