@@ -3913,10 +3913,9 @@
     const leadingTheme = visibleThemes[0]?.label || "핵심 주제";
     const strategy = researchStrategicFrame(map, citations);
     return `
-      <section class="ni-research ni-research-infographic" aria-label="원문 근거 지도">
+      <section class="ni-research ni-research-infographic" aria-label="근거 연결 구조">
         <header class="ni-research-head">
           <div>
-            <span class="ni-research-kicker">원문 근거 지도</span>
             <strong>근거에서 전략 판단까지 연결</strong>
           </div>
           <span>최근 ${fmtNum(citations.length)}건 · 누적 ${fmtNum(archiveTotal)}건</span>
@@ -3928,7 +3927,7 @@
           <i aria-hidden="true">→</i>
           <span><b>Decision</b>검증 게이트 통과 후 실행 강도 조정</span>
         </div>
-        <div class="ni-research-map" aria-label="출처에서 주제로 이어지는 원문 근거 지도">
+        <div class="ni-research-map" aria-label="출처에서 주제로 이어지는 근거 연결 구조">
           <section class="ni-research-lane ni-research-sources">
             <span class="ni-research-lane-label">01 · EVIDENCE BASE</span>
             <strong>출처 신뢰도와 편중 점검</strong>
