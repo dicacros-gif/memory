@@ -68,5 +68,5 @@ assert.match(landingCss, /prefers-reduced-motion:\s*reduce[\s\S]*?business-hero-
 console.log(JSON.stringify({
   bridges: 4,
   visualModules: 4,
-  revision: "infra-20260817-67",
+  revision: "infra-20260817-68",
 }, null, 2));

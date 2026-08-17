@@ -120,10 +120,11 @@ assert.match(landingCss, /@media \(max-width: 1120px\)[\s\S]*?\.business-menu-bu
 assert.match(html, /id="intelligenceConsole" hidden/, "the Intelligence Console must stay outside the initial visible layer");
 assert.doesNotMatch(html, /<script[^>]+src="assets\/js\/app\.js/, "the heavy console app must not load with the public landing page");
 assert.doesNotMatch(html, /<link[^>]+href="assets\/css\/styles\.css/, "the heavy console stylesheet must not load with the public landing page");
-assert.match(html, /assets\/js\/landing\.min\.js\?v=infra-20260817-67/, "the lightweight landing controller must use the minified AI Infra revision");
+assert.match(html, /assets\/js\/landing\.min\.js\?v=infra-20260817-68/, "the lightweight landing controller must use the minified AI Infra revision");
 assert.doesNotMatch(html, /LIVE DECISION QUEUE · CONSOLE-CONNECTED|businessHomeQueueStatus/, "the removed live decision queue header must stay deleted");
 const homepageDecisionQueue = html.match(/<div class="business-decision-queue-grid"[\s\S]*?<\/div>/)?.[0] || "";
 assert.doesNotMatch(homepageDecisionQueue, /<small>OUTPUT ·/, "the removed homepage decision output row must stay deleted");
+assert.doesNotMatch(html, /을 하나의 답안으로 연결/, "the removed decision-lab heading suffix must stay deleted");
 assert.match(landingCss, /\.business-hero-actions :is\(a, button\)\s*\{[^}]*min-height:\s*48px;[^}]*line-height:\s*1\.35;[^}]*overflow:\s*visible;/, "hero actions must preserve complete text glyphs at every zoom level");
 assert.match(landingCss, /@media \(max-width: 1200px\)[\s\S]*?\.business-decision-queue\s*\{[^}]*position:\s*relative;/, "the decision queue must leave the overlay layer before it can cover hero actions");
 assert.doesNotMatch(html, /DEPARTMENT DECISION SYSTEM|business-visual-head/, "the removed hero decision-status header must stay deleted");
