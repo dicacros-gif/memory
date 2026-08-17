@@ -3,7 +3,7 @@
 
   const BUSINESS_TITLE = "AI Infra Strategy · Customer Pain to Executive Action";
   const CONSOLE_HASH = "#console";
-  const CONSOLE_REVISION = "infra-20260817-52";
+  const CONSOLE_REVISION = "infra-20260817-53";
   const DECISION_CLIENT_PATH = "data/landing-decision-client.json";
   const SITE_CONTENT_PATH = "data/site-content-client.json";
   const site = document.querySelector("#businessSite");
@@ -1404,9 +1404,11 @@
 
   function gradientReadableSurface(value = "") {
     const colors = String(value || "").match(/(?:rgba?|color)\([^)]*\)/gi) || [];
-    const samples = colors.map(parseRgb).filter(Boolean);
+    const samples = colors.map(colorChannels).filter(Boolean);
     if (!samples.length) return null;
-    return [0, 1, 2].map((channel) => samples.reduce((sum, sample) => sum + sample[channel], 0) / samples.length);
+    const averageAlpha = samples.reduce((sum, sample) => sum + sample.alpha, 0) / samples.length;
+    if (averageAlpha < .6) return null;
+    return [0, 1, 2].map((channel) => samples.reduce((sum, sample) => sum + sample.rgb[channel], 0) / samples.length);
   }
 
   function computedReadableSurface(style) {
@@ -1532,7 +1534,7 @@
       const backgroundLum = relativeLuminance(background);
       const contrast = (Math.max(foregroundLum, backgroundLum) + .05) / (Math.min(foregroundLum, backgroundLum) + .05);
       if (contrast >= 4.5) continue;
-      node.classList.add(backgroundLum < .32 ? "ui-contrast-on-dark" : "ui-contrast-on-light");
+      node.classList.add(backgroundLum < .18 ? "ui-contrast-on-dark" : "ui-contrast-on-light");
       } catch {
         errors += 1;
       }

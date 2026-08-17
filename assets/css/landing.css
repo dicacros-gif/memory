@@ -7144,9 +7144,19 @@ body.landing-mode {
   text-shadow: none !important;
 }
 .business-site .ui-contrast-on-light {
-  color: #17324d !important;
+  color: #061523 !important;
   -webkit-text-fill-color: currentColor;
   text-shadow: none !important;
+}
+
+#businessSite :is(.ui-contrast-on-dark) {
+  color: #f7fbff !important;
+  -webkit-text-fill-color: currentColor !important;
+}
+
+#businessSite :is(.ui-contrast-on-light) {
+  color: #061523 !important;
+  -webkit-text-fill-color: currentColor !important;
 }
 
 .business-site :is(p, li, dd, small) {
