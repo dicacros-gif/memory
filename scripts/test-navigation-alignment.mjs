@@ -145,6 +145,7 @@ assert.doesNotMatch(html, /Memory Strategy 조직은 전망을 만드는 데서 
 assert.doesNotMatch(html, /data-frame="McKINSEY · THREE HORIZONS"/, "the removed Three Horizons frame label must stay deleted");
 assert.match(html, /class="business-initiative-foundation"/, "the initiative infographic must include a visible foundation layer");
 assert.match(html, /data-frame="BAIN · RESULTS DELIVERY"/, "the capability system must expose its results-delivery frame");
+assert.doesNotMatch(html, /id="decision-lab"[^>]*data-frame=/, "the removed decision-lab frame label must stay absent");
 assert.doesNotMatch(html, /data-frame="BCG · 2×2 SCENARIO MATRIX"/, "the removed scenario-matrix frame label must stay deleted");
 assert.match(html, /Hypothesis → Test → Trigger → Decision/, "deep cases must show the decision-validation sequence");
 assert.match(landing, /function setupInfographicSequence\(\)/, "the landing controller must stagger infographic sequences");
