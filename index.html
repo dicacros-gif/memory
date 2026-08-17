@@ -110,7 +110,7 @@
     (() => {
       if (!location.hash.startsWith("#console")) return;
       document.documentElement.classList.add("console-entry");
-      const revision = "infra-20260817-56";
+      const revision = "infra-20260817-57";
       const assets = [
         ["consoleStylesPreload", "style", `assets/css/styles.min.css?v=${revision}`, "high"],
         ["consoleAppPreload", "script", `assets/js/app.min.js?v=${revision}`, "low"],
@@ -127,7 +127,7 @@
       }
     })();
   </script>
-  <link rel="stylesheet" href="assets/css/landing.min.css?v=infra-20260817-56" />
+  <link rel="stylesheet" href="assets/css/landing.min.css?v=infra-20260817-57" />
 </head>
 <body class="landing-mode">
   <div class="business-site" id="businessSite">
@@ -397,16 +397,6 @@
               <li>Memory를 답으로 먼저 정하지 않고 지배 병목부터 진단</li>
               <li>모든 판단에 Owner·KPI·Trigger·Kill Criteria 연결</li>
             </ul>
-          </div>
-
-          <div class="decision-os-control" aria-label="의사결정 자동화 현재 상태">
-            <div><span>DECISION STATE</span><strong id="decisionAutomationState">EVIDENCE READY</strong><small id="decisionAutomationAsOf">검증 Bundle 기준</small></div>
-            <dl>
-              <div><dt>CATALOG OBSERVED</dt><dd id="decisionCatalogCoverage">7 / 42</dd></div>
-              <div><dt>CLAIM EVENTS</dt><dd id="decisionClaimEvents">자동 구조화</dd></div>
-              <div><dt>VERIFIED EVENTS</dt><dd id="decisionVerifiedEvents">원문 Gate</dd></div>
-              <div><dt>DECISION READY</dt><dd id="decisionReadyBriefs">안건별 판정</dd></div>
-            </dl>
           </div>
 
           <ol class="decision-os-funnel" aria-label="수집부터 실행 추적까지의 자동화 단계">
@@ -1971,6 +1961,6 @@
   <div class="qa-answer" id="qaAnswer" hidden></div>
   <div class="inspector" id="inspector" hidden></div>
   <div class="backdrop" id="backdrop"></div>
-  <script src="assets/js/landing.min.js?v=infra-20260817-56" defer></script>
+  <script src="assets/js/landing.min.js?v=infra-20260817-57" defer></script>
 </body>
 </html>

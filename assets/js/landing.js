@@ -3,7 +3,7 @@
 
   const BUSINESS_TITLE = "AI Infra Strategy · Customer Pain to Executive Action";
   const CONSOLE_HASH = "#console";
-  const CONSOLE_REVISION = "infra-20260817-56";
+  const CONSOLE_REVISION = "infra-20260817-57";
   const DECISION_CLIENT_PATH = "data/landing-decision-client.json";
   const SITE_CONTENT_PATH = "data/site-content-client.json";
   const site = document.querySelector("#businessSite");
@@ -446,21 +446,6 @@
   function renderDecisionAutomation(content = {}) {
     const automation = content.decisionIntelligence?.decisionAutomation;
     if (!automation) return;
-    const funnel = automation.funnel || {};
-    const catalog = automation.catalogCoverage || {};
-    const state = document.querySelector("#decisionAutomationState");
-    const asOf = document.querySelector("#decisionAutomationAsOf");
-    const catalogCoverage = document.querySelector("#decisionCatalogCoverage");
-    const claimEvents = document.querySelector("#decisionClaimEvents");
-    const verifiedEvents = document.querySelector("#decisionVerifiedEvents");
-    const readyBriefs = document.querySelector("#decisionReadyBriefs");
-    if (state) state.textContent = String(automation.state || "MONITORING").replaceAll("_", " ");
-    if (asOf) asOf.textContent = `${formatKst(content.generatedAt)} · Run ${String(content.runId || "-").slice(0, 14)}`;
-    if (catalogCoverage) catalogCoverage.textContent = `${catalog.observed || 0} / ${catalog.configured || 0}`;
-    if (claimEvents) claimEvents.textContent = `${funnel.structuredEvents || 0}건`;
-    if (verifiedEvents) verifiedEvents.textContent = `${funnel.verifiedEvents || 0}건`;
-    if (readyBriefs) readyBriefs.textContent = `${funnel.decisionReadyBriefs || 0} / ${(automation.briefs || []).length || 0}`;
-
     const briefs = document.querySelector("#decisionAutomationBriefs");
     if (briefs && automation.briefs?.length) {
       briefs.innerHTML = automation.briefs.map((brief, index) => {

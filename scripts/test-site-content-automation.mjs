@@ -194,6 +194,16 @@ assert.match(index, /Useful AI Work/);
 assert.match(index, /id="businessFreshnessBoard"/);
 assert.match(index, /id="decision-automation"/);
 assert.match(index, /id="decisionAutomationBriefs"/);
+assert.doesNotMatch(
+  index,
+  /decision-os-control|decisionAutomationState|decisionAutomationAsOf|decisionCatalogCoverage|decisionClaimEvents|decisionVerifiedEvents|decisionReadyBriefs/,
+  "the deleted decision-state summary control must not be regenerated",
+);
+assert.doesNotMatch(
+  landing,
+  /decisionAutomationState|decisionAutomationAsOf|decisionCatalogCoverage|decisionClaimEvents|decisionVerifiedEvents|decisionReadyBriefs/,
+  "the landing renderer must not recreate the deleted decision-state summary control",
+);
 assert.match(index, /Source → ClaimEvent → Decision → Execution/);
 assert.match(index, /Content Age/);
 assert.match(index, /Embedding Lag/);
@@ -204,7 +214,7 @@ assert.match(app, /window\.MEMORY_SITE_CONTENT\?\.agentCouncil\?\.agendas/);
 assert.match(landing, /previousRunId && previousRunId !== String\(content\.runId\) && isConsoleHash\(\)/);
 assert.match(landing, /window\.location\.reload\(\)/);
 assert.match(app, /replace\(\/솔리드다임\/g, "솔리다임"\)/, "the interactive console must normalize stale Solidigm labels at render time");
-assert.match(index, /infra-20260817-56/);
+assert.match(index, /infra-20260817-57/);
 assert.doesNotMatch(
   index,
   /data-live-source[^>]*>[\s\S]*?<\/a><\/div>\s*<dl>/,
