@@ -233,14 +233,14 @@ assert.match(app, /window\.MEMORY_SITE_CONTENT\?\.agentCouncil\?\.agendas/);
 assert.match(landing, /previousRunId && previousRunId !== String\(content\.runId\) && isConsoleHash\(\)/);
 assert.match(landing, /window\.location\.reload\(\)/);
 assert.match(app, /replace\(\/솔리드다임\/g, "솔리다임"\)/, "the interactive console must normalize stale Solidigm labels at render time");
-assert.match(index, /infra-20260817-65/);
+assert.match(index, /infra-20260817-66/);
 assert.doesNotMatch(
   index,
   /data-live-source[^>]*>[\s\S]*?<\/a><\/div>\s*<dl>/,
   "decision evidence panels must not restore the deleted summary metric blocks",
 );
 assert.match(index, /Customer Pain to Executive Action/);
-assert.match(index, /LIVE DECISION QUEUE · CONSOLE-CONNECTED/);
+assert.doesNotMatch(index, /LIVE DECISION QUEUE · CONSOLE-CONNECTED|businessHomeQueueStatus/);
 assert.match(index, /id="departmentDecisionQueue"/);
 assert.match(index, /CUSTOMER ACCOUNT BRIEF/);
 assert.match(index, /WORKLOAD-TO-MEMORY/);
