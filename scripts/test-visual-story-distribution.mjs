@@ -2,10 +2,11 @@ import assert from "node:assert/strict";
 import { readFile } from "node:fs/promises";
 
 const root = new URL("../", import.meta.url);
-const [html, app, css] = await Promise.all([
+const [html, app, css, landingCss] = await Promise.all([
   readFile(new URL("index.html", root), "utf8"),
   readFile(new URL("assets/js/app.js", root), "utf8"),
   readFile(new URL("assets/css/styles.css", root), "utf8"),
+  readFile(new URL("assets/css/landing.css", root), "utf8"),
 ]);
 
 const position = (token) => {
@@ -60,9 +61,12 @@ assert.match(html, /class="memory-visual-story"[^>]*data-surface="dark"[^>]*data
 assert.equal((html.match(/data-memory-slide=/g) || []).length, 3, "the dark carousel must keep exactly three slides");
 assert.match(app, /const transitionModes = \["fade", "sweep", "glide"\]/, "the dark carousel must use only gentle transitions");
 assert.match(css, /Dark three-slide carousel treatment[\s\S]*?memoryStoryDarkSlide[\s\S]*?memoryStoryDarkLeave/, "the dark carousel must combine a black image treatment with subtle horizontal motion");
+assert.equal((html.match(/class="business-hero-media-slide"/g) || []).length, 3, "the first-page black surface must contain exactly three background images");
+assert.match(landingCss, /@keyframes businessHeroMediaSlide[\s\S]*?opacity:\s*1[\s\S]*?opacity:\s*0/, "the hero background must crossfade gently");
+assert.match(landingCss, /prefers-reduced-motion:\s*reduce[\s\S]*?business-hero-media-slide[\s\S]*?animation:\s*none/, "the hero background must respect reduced motion");
 
 console.log(JSON.stringify({
   bridges: 4,
   visualModules: 4,
-  revision: "infra-20260817-50",
+  revision: "infra-20260817-51",
 }, null, 2));
