@@ -3,7 +3,7 @@
 
   const BUSINESS_TITLE = "AI Infra Strategy · Customer Pain to Executive Action";
   const CONSOLE_HASH = "#console";
-  const CONSOLE_REVISION = "infra-20260817-70";
+  const CONSOLE_REVISION = "infra-20260817-71";
   const DECISION_CLIENT_PATH = "data/landing-decision-client.json";
   const SITE_CONTENT_PATH = "data/site-content-client.json";
   const site = document.querySelector("#businessSite");
@@ -1147,7 +1147,6 @@
     const dot = document.querySelector("#decisionDataDot");
     const status = document.querySelector("#decisionDataStatus");
     const updated = document.querySelector("#decisionDataUpdated");
-    if (!status) return;
     try {
       await loadSiteContent();
       const response = await fetch(DECISION_CLIENT_PATH, { cache: "no-store" });
@@ -1180,14 +1179,14 @@
       dot?.classList.toggle("is-current", current);
       dot?.classList.toggle("is-delayed", !current);
       if (dot) dot.textContent = current ? "Console verified" : "Freshness review";
-      status.textContent = `Console 승격 근거 ${evidenceCount || "-"}건 · ${quality} · 전략 답안 자동 연결`;
+      if (status) status.textContent = `Console 승격 근거 ${evidenceCount || "-"}건 · ${quality} · 전략 답안 자동 연결`;
       if (updated) updated.textContent = `기준 ${formatKst(data.updatedAt)}`;
     } catch (error) {
       console.warn("Decision evidence unavailable", error);
       dot?.classList.remove("is-current");
       dot?.classList.add("is-delayed");
       if (dot) dot.textContent = "Static answer";
-      status.textContent = "Console 연결 지연 · 검증된 정적 전략 답안을 유지합니다.";
+      if (status) status.textContent = "Console 연결 지연 · 검증된 정적 전략 답안 유지";
       if (updated) updated.textContent = "Console에서 최신 근거 재확인";
     } finally {
       applyExecutiveCopyStyle(site, window.MEMORY_SITE_CONTENT?.presentation?.readabilityPolicy);

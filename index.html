@@ -110,7 +110,7 @@
     (() => {
       if (!location.hash.startsWith("#console")) return;
       document.documentElement.classList.add("console-entry");
-      const revision = "infra-20260817-70";
+      const revision = "infra-20260817-71";
       const assets = [
         ["consoleStylesPreload", "style", `assets/css/styles.min.css?v=${revision}`, "high"],
         ["consoleAppPreload", "script", `assets/js/app.min.js?v=${revision}`, "low"],
@@ -127,7 +127,7 @@
       }
     })();
   </script>
-  <link rel="stylesheet" href="assets/css/landing.min.css?v=infra-20260817-70" />
+  <link rel="stylesheet" href="assets/css/landing.min.css?v=infra-20260817-71" />
 </head>
 <body class="landing-mode">
   <div class="business-site" id="businessSite">
@@ -368,11 +368,10 @@
             <footer class="business-decision-footer"><div><span>MODELED STRATEGY CASE</span><strong>Agentic AI Serving · Bottleneck Trace → SW/Placement PoC → 공동 Qualification</strong></div><a href="#console/c-level-cockpit/post-hbm">파트너 실행 근거 열기 →</a></footer>
           </article>
 
-          <div class="business-decision-data-note"><span class="business-live-dot" id="decisionDataDot">Console sync</span><p id="decisionDataStatus">정적 전략 답안을 먼저 표시하고, 검증된 Console 경량 데이터만 비동기로 연결</p><time id="decisionDataUpdated">업데이트 확인 중</time></div>
         </div>
       </section>
 
-      <section class="business-section business-decision-automation" id="decision-automation" data-frame="DECISION AUTOMATION · CLAIM EVENT · EXECUTION GATE">
+      <section class="business-section business-decision-automation" id="decision-automation">
         <div class="business-container">
           <div class="business-section-heading business-section-heading--split">
             <div>
@@ -1937,6 +1936,6 @@
   <div class="qa-answer" id="qaAnswer" hidden></div>
   <div class="inspector" id="inspector" hidden></div>
   <div class="backdrop" id="backdrop"></div>
-  <script src="assets/js/landing.min.js?v=infra-20260817-70" defer></script>
+  <script src="assets/js/landing.min.js?v=infra-20260817-71" defer></script>
 </body>
 </html>

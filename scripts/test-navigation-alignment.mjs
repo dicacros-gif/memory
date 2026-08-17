@@ -120,7 +120,7 @@ assert.match(landingCss, /@media \(max-width: 1120px\)[\s\S]*?\.business-menu-bu
 assert.match(html, /id="intelligenceConsole" hidden/, "the Intelligence Console must stay outside the initial visible layer");
 assert.doesNotMatch(html, /<script[^>]+src="assets\/js\/app\.js/, "the heavy console app must not load with the public landing page");
 assert.doesNotMatch(html, /<link[^>]+href="assets\/css\/styles\.css/, "the heavy console stylesheet must not load with the public landing page");
-assert.match(html, /assets\/js\/landing\.min\.js\?v=infra-20260817-70/, "the lightweight landing controller must use the minified AI Infra revision");
+assert.match(html, /assets\/js\/landing\.min\.js\?v=infra-20260817-71/, "the lightweight landing controller must use the minified AI Infra revision");
 assert.doesNotMatch(html, /LIVE DECISION QUEUE · CONSOLE-CONNECTED|businessHomeQueueStatus/, "the removed live decision queue header must stay deleted");
 const homepageDecisionQueue = html.match(/<div class="business-decision-queue-grid"[\s\S]*?<\/div>/)?.[0] || "";
 assert.doesNotMatch(homepageDecisionQueue, /<small>OUTPUT ·/, "the removed homepage decision output row must stay deleted");
@@ -129,6 +129,12 @@ assert.match(landingCss, /\.business-hero-actions :is\(a, button\)\s*\{[^}]*min-
 assert.match(landingCss, /@media \(max-width: 1200px\)[\s\S]*?\.business-decision-queue\s*\{[^}]*position:\s*relative;/, "the decision queue must leave the overlay layer before it can cover hero actions");
 assert.doesNotMatch(html, /DEPARTMENT DECISION SYSTEM|business-visual-head/, "the removed hero decision-status header must stay deleted");
 assert.doesNotMatch(html, /DEPARTMENT OUTPUT|business-visual-result/, "the removed hero department-output card must stay deleted");
+assert.doesNotMatch(html, /business-decision-data-note|decisionDataDot|decisionDataStatus|decisionDataUpdated/, "the removed Console verified status bar must stay deleted");
+const decisionAutomationSection = html.match(/<section class="business-section business-decision-automation"[\s\S]*?<\/section>/)?.[0] || "";
+assert.doesNotMatch(decisionAutomationSection.match(/^<section[^>]*>/)?.[0] || "", /data-frame=/, "the removed Decision Automation frame label must stay deleted");
+const decisionEvidenceLoader = landing.match(/async function loadDecisionEvidence\(\)[\s\S]*?\n  \}/)?.[0] || "";
+assert.doesNotMatch(decisionEvidenceLoader, /if \(!status\) return;/, "removing the status bar must not stop decision-data refresh");
+assert.match(decisionEvidenceLoader, /if \(status\) status\.textContent/, "the optional deleted status node must remain safely guarded");
 assert.doesNotMatch(html, />[^<]*\bOS\b[^<]*</, "standalone OS wording must not appear in public landing copy");
 assert.match(html, /class="business-footer"[\s\S]*?href="https:\/\/www\.linkedin\.com\/in\/dicacross\/"[\s\S]*?© 2026 dicacross · Independent strategy portfolio based on public information/, "the public portfolio credit must link to the dicacross LinkedIn profile");
 assert.doesNotMatch(html, /메모리를 판매하는 것이 아니라/, "the removed sales-negation headline must stay deleted");

@@ -540,24 +540,6 @@
   color: #fff;
 }
 
-.business-decision-data-note {
-  display: grid;
-  grid-template-columns: auto minmax(0, 1fr) auto;
-  gap: 14px;
-  align-items: center;
-  margin-top: 12px;
-  padding: 11px 14px;
-  border: 1px solid #cbd6df;
-  background: #f8fafc;
-}
-
-.business-decision-data-note p,
-.business-decision-data-note time {
-  color: #637181;
-  font-size: 10px;
-  font-weight: 720;
-}
-
 @media (max-width: 1180px) {
   .business-decision-method {
     grid-template-columns: repeat(5, minmax(0, 1fr));
@@ -619,8 +601,7 @@
 @media (max-width: 560px) {
   .business-decision-method,
   .business-delivery-grid,
-  .business-decision-footer,
-  .business-decision-data-note {
+  .business-decision-footer {
     grid-template-columns: minmax(0, 1fr);
   }
 
