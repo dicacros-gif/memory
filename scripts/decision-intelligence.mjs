@@ -65,6 +65,12 @@ export function validateIntelligencePolicy(policy = {}) {
   if (!Array.isArray(policy.claimEvents?.eligibleSourceClasses) || !policy.claimEvents.eligibleSourceClasses.includes("official")) errors.push("claimEvents.eligibleSourceClasses");
   if (!Array.isArray(policy.decisionAutomation?.briefs) || policy.decisionAutomation.briefs.length < 3) errors.push("decisionAutomation.briefs");
   if (!Array.isArray(policy.decisionAutomation?.states) || !policy.decisionAutomation.states.includes("DECISION_READY")) errors.push("decisionAutomation.states");
+  const meceAxes = policy.decisionAutomation?.meceAxes || [];
+  const briefs = policy.decisionAutomation?.briefs || [];
+  const axisIds = new Set(meceAxes.map((axis) => axis.id).filter(Boolean));
+  if (meceAxes.length !== 4 || axisIds.size !== 4 || !meceAxes.every((axis) => axis.label && axis.owns && axis.excludes)) errors.push("decisionAutomation.meceAxes");
+  if (new Set(briefs.map((brief) => brief.meceAxis)).size !== briefs.length || !briefs.every((brief) => axisIds.has(brief.meceAxis))) errors.push("decisionAutomation.briefs.meceAxis");
+  if (new Set(briefs.map((brief) => compact(brief.decisionQuestion).toLowerCase())).size !== briefs.length || !briefs.every((brief) => brief.decisionQuestion && brief.decisionStage && brief.deliverable)) errors.push("decisionAutomation.briefs.decisionContract");
   if (!Array.isArray(policy.retrieval?.tracks) || policy.retrieval.tracks.length < 3) errors.push("retrieval.tracks");
   if (policy.retrieval?.onlyChangedDocuments !== true) errors.push("retrieval.onlyChangedDocuments");
   if (policy.evaluation?.failClosed !== true) errors.push("evaluation.failClosed");
@@ -801,10 +807,19 @@ export function buildAutomatedDecisionBriefs({ claimLedger = {}, packs = [], eva
     return {
       id: brief.id,
       label: brief.label,
+      meceAxis: brief.meceAxis,
+      decisionQuestion: brief.decisionQuestion,
+      decisionStage: brief.decisionStage,
+      deliverable: brief.deliverable,
       status,
       updatedAt: now.toISOString(),
-      whatChanged: latestClaim ? `${latestClaim.entity.label}의 ${latestClaim.product.label}가 ${latestClaim.stage.id} 단계로 관측됨` : "구조화된 Stage Event 관측 대기",
-      stage: latestClaim?.stage.id || "MONITORING",
+      // The source event is shared evidence.  The card headline is the
+      // track-specific executive question so one market event can inform
+      // several decisions without cloning the same conclusion across cards.
+      whatChanged: brief.decisionQuestion,
+      latestSignal: latestClaim ? `${latestClaim.entity.label} · ${latestClaim.product.label} · ${latestClaim.stage.id}` : "구조화된 Stage Event 관측 대기",
+      sourceStage: latestClaim?.stage.id || "MONITORING",
+      stage: brief.decisionStage,
       confidence: latestClaim?.promotionStatus || "evidence-gap",
       customerPain: brief.customerPain,
       hypothesis: brief.hypothesis,
@@ -919,6 +934,7 @@ export function buildDecisionIntelligence({ documents = [], previous = {}, polic
     claimEvents,
     decisionAutomation: {
       schemaVersion: policy.decisionAutomation?.schemaVersion || "1.0",
+      meceAxes: policy.decisionAutomation?.meceAxes || [],
       state: claimEvents.stats.contradictionReviews > 0 ? "CONFLICT_REVIEW" : readyBriefs > 0 ? "DECISION_READY" : claimEvents.stats.structuredEvents > 0 ? "EVIDENCE_READY" : "MONITORING",
       funnel: {
         sourceDocuments: index.stats.documents,

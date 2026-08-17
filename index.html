@@ -110,7 +110,7 @@
     (() => {
       if (!location.hash.startsWith("#console")) return;
       document.documentElement.classList.add("console-entry");
-      const revision = "infra-20260817-34";
+      const revision = "infra-20260817-35";
       const assets = [
         ["consoleStylesPreload", "style", `assets/css/styles.min.css?v=${revision}`, "high"],
         ["consoleAppPreload", "script", `assets/js/app.min.js?v=${revision}`, "low"],
@@ -127,7 +127,7 @@
       }
     })();
   </script>
-  <link rel="stylesheet" href="assets/css/landing.min.css?v=infra-20260817-34" />
+  <link rel="stylesheet" href="assets/css/landing.min.css?v=infra-20260817-35" />
 </head>
 <body class="landing-mode">
   <div class="business-site" id="businessSite">
@@ -173,9 +173,10 @@
               <li>검증 근거·경제성·Owner·KPI·Kill Criteria를 묶어 경영진 실행안으로 제시</li>
             </ul>
             <ul class="business-hero-bullets" aria-label="핵심 전략 범위">
-              <li>Customer Strategy · Account Fact Base → Pain Map → Buying Criteria → 맞춤형 제안</li>
-              <li>New Business · Tech Inflection → Where to Play → Partner → Business Case</li>
-              <li>AI Infra Execution · PoC → Qualification → Capacity → Scale·Hold·Stop</li>
+              <li>Customer Strategy · B2B Fact Base → Pain Map → Buying Criteria → 맞춤형 Memory Proposal</li>
+              <li>Workload Optimization · Training/Inference/RAG/Agent → Bottleneck → HW/SW·Memory TCO</li>
+              <li>New Biz &amp; Insight · AI/LLM 변곡점 → Where to Play → Partner → Business Case</li>
+              <li>Partner &amp; Execution · PoC → Qualification → Capacity → Scale·Hold·Stop</li>
             </ul>
             <div class="business-hero-actions">
               <a class="business-primary-button" href="#departmentDecisionQueue">오늘의 의사결정 보기 <span aria-hidden="true">↓</span></a>
@@ -218,10 +219,10 @@
             <small id="businessHomeQueueStatus">검증 데이터 연결 중</small>
           </header>
           <div class="business-decision-queue-grid" id="businessHomeDecisionQueue">
-            <a href="#console/c-level-cockpit/hbm4-foundry"><span>01 · CUSTOM MEMORY</span><strong>고객 인증·패키징·물량 약정 Gate</strong><p>표준 HBM과 Custom Co-Design의 투자 조건을 분리합니다.</p><small>CONSOLE EVIDENCE → 90-DAY ACTION</small></a>
-            <a href="#console/c-level-cockpit/post-hbm"><span>02 · AGENTIC INFERENCE</span><strong>Serving 병목과 Memory Tier 경제성</strong><p>SW 최적화 이후 지배 병목을 기준으로 대안을 비교합니다.</p><small>CONSOLE EVIDENCE → 90-DAY ACTION</small></a>
-            <a href="#console/ai-matrix"><span>03 · ENTERPRISE RAG</span><strong>검색 품질과 eSSD·DRAM 기회</strong><p>Freshness·P99·Cost/Query를 사업안으로 연결합니다.</p><small>CONSOLE EVIDENCE → 90-DAY ACTION</small></a>
-            <a href="#console/ai-factory"><span>04 · AI FACTORY</span><strong>랙 단위 AI Infra 실행전략</strong><p>전력·냉각·Network·Memory를 하나의 Gate로 운영합니다.</p><small>CONSOLE EVIDENCE → 90-DAY ACTION</small></a>
+            <a href="#console/c-level-cockpit/hbm4-foundry"><span>01 · CUSTOMER STRATEGY</span><strong>HBM4 상업화 신호를 고객별 Custom Qualification·계약 Gate로 전환할 것인가</strong><p><b>PAIN</b> · 인증·패키징·물량 약정을 동시에 맞춰야 함</p><small>OUTPUT · CUSTOMER FACT BASE · MEMORY PROPOSAL</small></a>
+            <a href="#console/c-level-cockpit/post-hbm"><span>02 · WORKLOAD &amp; ARCHITECTURE</span><strong>KV Cache 지배 병목을 HBM·Host DRAM/CXL·eSSD 계층화로 낮출 것인가</strong><p><b>PAIN</b> · TTFT/TPOT와 Cost per Successful Task 악화</p><small>OUTPUT · BOTTLENECK TREE · ARCHITECTURE TCO</small></a>
+            <a href="#console/ai-matrix"><span>03 · NEW BIZ &amp; TECH INSIGHT</span><strong>RAG 품질 Gate 통과 후 Index·Corpus 계층을 어떤 사업모델로 확장할 것인가</strong><p><b>PAIN</b> · 검색 품질·권한·색인 최신성과 비용의 동시 통제</p><small>OUTPUT · OPPORTUNITY THESIS · BUSINESS CASE</small></a>
+            <a href="#console/ai-factory"><span>04 · PARTNER &amp; EXECUTION</span><strong>전력·냉각·Fabric·Storage Gate를 통과한 Rack Cell만 파트너와 확장할 것인가</strong><p><b>PAIN</b> · Rack/POD 확장을 제한하는 시스템 병목</p><small>OUTPUT · PARTNER MODEL · 90-DAY ROADMAP</small></a>
           </div>
           <dl class="business-decision-queue-metrics" id="businessHomeQueueMetrics" aria-label="자동화 상태">
             <div><dt>DECISION READY</dt><dd>4</dd><small>실행 검토 가능 안건</small></div>
@@ -236,8 +237,8 @@
         <div class="business-container">
           <div class="business-section-heading business-section-heading--split">
             <div>
-              <p class="business-kicker">Three Mandates · Console-connected</p>
-              <h2>고객 전략·신규 Biz·실행전략을 하나의 답안으로 연결</h2>
+              <p class="business-kicker">Four MECE Decision Domains · Console-connected</p>
+              <h2>고객 전략·워크로드·신규 Biz·파트너 실행을 하나의 답안으로 연결</h2>
             </div>
             <ul class="business-heading-points">
               <li>진단 · 고객 과업 → Workload 병목</li>
@@ -1992,6 +1993,6 @@
   <div class="qa-answer" id="qaAnswer" hidden></div>
   <div class="inspector" id="inspector" hidden></div>
   <div class="backdrop" id="backdrop"></div>
-  <script src="assets/js/landing.min.js?v=infra-20260817-34" defer></script>
+  <script src="assets/js/landing.min.js?v=infra-20260817-35" defer></script>
 </body>
 </html>

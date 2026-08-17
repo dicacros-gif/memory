@@ -3,7 +3,7 @@
 
   const BUSINESS_TITLE = "AI Infra Strategy Workbench · Customer Pain to Executive Action";
   const CONSOLE_HASH = "#console";
-  const CONSOLE_REVISION = "infra-20260817-34";
+  const CONSOLE_REVISION = "infra-20260817-35";
   const DECISION_CLIENT_PATH = "data/landing-decision-client.json";
   const SITE_CONTENT_PATH = "data/site-content-client.json";
   const site = document.querySelector("#businessSite");
@@ -837,9 +837,9 @@
         const sources = Number(item.independentSources || 0);
         return `<a href="${deepLink}" data-decision-id="${escapeBusinessHTML(item.id || String(index + 1))}" data-state="${escapeBusinessHTML(String(item.state || "monitoring").toLowerCase())}">
           <span>${escapeBusinessHTML(item.index || String(index + 1).padStart(2, "0"))} · ${escapeBusinessHTML(item.label || "AI INFRA DECISION")}</span>
-          <strong>${escapeBusinessHTML(item.customerPain || item.whatChanged || "고객 문제 검증 중")}</strong>
-          <p>${escapeBusinessHTML(item.recommendation || "검증된 선택지를 비교합니다.")}</p>
-          <small>90D · ${escapeBusinessHTML(item.action90d || "Owner와 다음 검증 과제를 지정합니다.")} · 근거 ${evidence}건/${sources}개 출처</small>
+          <strong>${escapeBusinessHTML(item.decisionQuestion || item.whatChanged || "다음 의사결정 질문을 검증합니다.")}</strong>
+          <p><b>PAIN</b> · ${escapeBusinessHTML(item.customerPain || "고객 문제 검증 중")}</p>
+          <small>OUTPUT · ${escapeBusinessHTML(item.deliverable || "Decision Brief")} · 근거 ${evidence}건/${sources}개 출처</small>
         </a>`;
       }).join("");
     }

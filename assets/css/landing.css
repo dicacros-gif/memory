@@ -6968,7 +6968,7 @@ body.landing-mode {
 
 .business-decision-queue-grid > a {
   min-width: 0;
-  min-height: 172px;
+  min-height: 204px;
   display: flex;
   flex-direction: column;
   padding: 17px;
@@ -7013,10 +7013,8 @@ body.landing-mode {
   padding-top: 12px;
   color: #8fb4c8;
   font: 730 7.5px/1.45 var(--mono);
-  display: -webkit-box;
-  overflow: hidden;
-  -webkit-box-orient: vertical;
-  -webkit-line-clamp: 2;
+  display: block;
+  overflow-wrap: anywhere;
 }
 
 .business-decision-queue-grid > a:is(:hover, :focus-visible) {

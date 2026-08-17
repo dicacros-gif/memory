@@ -48,6 +48,9 @@ assert.equal(rebuilt.hero.departmentWorkbench.source, "decisionIntelligence.deci
 assert.equal(rebuilt.hero.departmentWorkbench.agenda.length, 4);
 assert.equal(rebuilt.hero.departmentWorkbench.metrics.length, 4);
 assert.ok(rebuilt.hero.departmentWorkbench.agenda.every((item) => item.customerPain && item.recommendation && item.action90d && item.owner && item.evidenceCount >= 0));
+assert.equal(new Set(rebuilt.hero.departmentWorkbench.agenda.map((item) => item.meceAxis)).size, 4, "homepage decision cards must be MECE");
+assert.equal(new Set(rebuilt.hero.departmentWorkbench.agenda.map((item) => item.decisionQuestion)).size, 4, "homepage decision questions must not repeat");
+assert.ok(rebuilt.hero.departmentWorkbench.agenda.every((item) => item.deliverable), "each homepage decision must name its output");
 assert.equal(artifact.presentation.emphasisPolicy.style, "underline-only");
 assert.equal(artifact.presentation.emphasisPolicy.maxPerSection, 1);
 assert.ok(artifact.presentation.emphasisPolicy.maxTotal <= 10);
@@ -59,6 +62,8 @@ assert.equal(artifact.decisionIntelligence.evaluation.failClosed, true);
 assert.equal(artifact.decisionIntelligence.evaluation.metrics.unsupportedClaimPct, 0);
 assert.ok(Number.isInteger(artifact.decisionIntelligence.claimEvents.stats.structuredEvents));
 assert.equal(artifact.decisionIntelligence.decisionAutomation.briefs.length, 4);
+assert.equal(artifact.decisionIntelligence.decisionAutomation.meceAxes.length, 4);
+assert.equal(new Set(artifact.decisionIntelligence.decisionAutomation.briefs.map((brief) => brief.decisionQuestion)).size, 4);
 assert.equal(artifact.decisionIntelligence.decisionAutomation.catalogCoverage.configured, artifact.freshness.configuredSources);
 assert.ok(artifact.decisionIntelligence.decisionAutomation.briefs.every((brief) => brief.trigger && brief.killCriteria && brief.action90d));
 assert.equal(rebuilt.decisionIntelligence.freshness.thresholds.current, 85);
@@ -189,7 +194,7 @@ assert.match(app, /window\.MEMORY_SITE_CONTENT\?\.agentCouncil\?\.agendas/);
 assert.match(landing, /previousRunId && previousRunId !== String\(content\.runId\) && isConsoleHash\(\)/);
 assert.match(landing, /window\.location\.reload\(\)/);
 assert.match(app, /replace\(\/솔리드다임\/g, "솔리다임"\)/, "the interactive console must normalize stale Solidigm labels at render time");
-assert.match(index, /infra-20260817-34/);
+assert.match(index, /infra-20260817-35/);
 assert.match(index, /Customer Pain to Executive Action/);
 assert.match(index, /LIVE DECISION QUEUE · CONSOLE-CONNECTED/);
 assert.match(index, /id="departmentDecisionQueue"/);
@@ -200,10 +205,15 @@ assert.doesNotMatch(index, /ANONYMIZED USE CASE|GPU Compute보다|MODELED THRESH
 assert.doesNotMatch(app, /익명화 Case/);
 assert.equal(executiveSnapshot.runId, artifact.runId);
 assert.equal(executiveSnapshot.decisions.length, artifact.decisionIntelligence.decisionAutomation.briefs.length);
+assert.equal(new Set(executiveSnapshot.decisions.map((brief) => brief.decisionQuestion)).size, executiveSnapshot.decisions.length, "pre-rendered executive decisions must have unique questions");
 assert.match(consoleSnapshot, /AI Infra Strategy &amp; New Biz · Executive Snapshot/);
 assert.match(consoleSnapshot, /TEAM OPERATING SYSTEM · THREE WORKSTREAMS/);
+assert.match(consoleSnapshot, /MECE DECISION ARCHITECTURE · ONE OWNER PER QUESTION/);
 assert.match(consoleSnapshot, /ClaimEvent/);
 assert.doesNotMatch(consoleSnapshot, /로드 중|연결 중/);
+const consoleDecisionTitles = [...consoleSnapshot.matchAll(/<article class="decision-card">[\s\S]*?<h2>(.*?)<\/h2>/g)].map((match) => match[1]);
+assert.equal(consoleDecisionTitles.length, 4);
+assert.equal(new Set(consoleDecisionTitles).size, 4, "pre-rendered decision card headlines must never repeat");
 
 console.log(JSON.stringify({
   ok: true,

@@ -48,9 +48,21 @@ const quant = {
   decisionIntelligence: {
     decisionAutomation: {
       state: "EVIDENCE_READY",
-      briefs: ["custom-memory", "agentic-tiering", "enterprise-rag", "ai-factory"].map((id) => ({
+      meceAxes: ["customer-strategy", "workload-architecture", "new-biz-insight", "partner-execution"].map((id) => ({
+        id,
+        label: id.toUpperCase(),
+        owns: `${id} owned scope`,
+        excludes: `${id} excluded scope`,
+      })),
+      briefs: ["custom-memory", "agentic-tiering", "enterprise-rag", "ai-factory"].map((id, index) => ({
         id,
         label: id,
+        meceAxis: ["customer-strategy", "workload-architecture", "new-biz-insight", "partner-execution"][index],
+        decisionQuestion: `${id} decision question`,
+        whatChanged: `${id} decision question`,
+        latestSignal: `${id} latest signal`,
+        stage: ["CUSTOMER_QUALIFICATION", "ARCHITECTURE_BENCHMARK", "BUSINESS_CASE", "SCALE_GATE"][index],
+        deliverable: `${id} deliverable`,
         status: "EVIDENCE_READY",
         evidence: [],
       })),

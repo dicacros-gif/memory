@@ -258,6 +258,12 @@ function buildDecisionIntelligenceContent(quant = {}) {
     },
     decisionAutomation: {
       schemaVersion: current.decisionAutomation?.schemaVersion || "1.0",
+      meceAxes: (current.decisionAutomation?.meceAxes || []).map((axis) => ({
+        id: axis.id,
+        label: compact(axis.label, 72),
+        owns: compact(axis.owns, 180),
+        excludes: compact(axis.excludes, 180),
+      })),
       state: current.decisionAutomation?.state || "MONITORING",
       funnel: current.decisionAutomation?.funnel || {
         sourceDocuments: 0,
@@ -703,18 +709,21 @@ function buildDepartmentHomepage({ decisionIntelligence = {}, sourceCoverage = {
     "ai-factory": "#console/ai-factory",
   };
   const agenda = (automation.briefs || [])
-    .filter((brief) => brief?.status === "DECISION_READY" || brief?.status === "EXECUTION_TRACKING")
     .slice(0, 4)
     .map((brief, index) => ({
       id: brief.id || `decision-${index + 1}`,
       index: String(index + 1).padStart(2, "0"),
       label: compact(brief.label || "AI Infra Decision", 72),
+      meceAxis: compact(brief.meceAxis || "decision", 48),
       state: brief.status || "MONITORING",
       stage: brief.stage || "EVIDENCE_REVIEW",
-      whatChanged: compact(brief.whatChanged || "새 근거가 수집되면 변경 내용을 갱신합니다.", 120),
+      decisionQuestion: compact(brief.decisionQuestion || brief.whatChanged || "다음 의사결정 질문을 검증합니다.", 140),
+      whatChanged: compact(brief.whatChanged || "새 근거가 수집되면 변경 내용을 갱신합니다.", 140),
+      latestSignal: compact(brief.latestSignal || "새 근거 관측 대기", 100),
       customerPain: compact(brief.customerPain || "고객 Pain과 Workload 근거를 확인합니다.", 150),
       recommendation: compact(brief.hypothesis || "검증된 선택지를 비교합니다.", 180),
       action90d: compact(brief.action90d || "Owner와 다음 검증 과제를 지정합니다.", 160),
+      deliverable: compact(brief.deliverable || "Decision Brief · 90-Day Action", 120),
       owner: compact(brief.owner || "AI Infra Strategy", 100),
       kpis: (brief.kpis || []).slice(0, 3).map((item) => compact(item, 48)),
       evidenceCount: Number(brief.evidenceCount || 0),
@@ -735,12 +744,16 @@ function buildDepartmentHomepage({ decisionIntelligence = {}, sourceCoverage = {
         id: insight.id || `verified-brief-${agenda.length + 1}`,
         index: String(agenda.length + 1).padStart(2, "0"),
         label: compact(insight.label || "Verified Intelligence", 72),
+        meceAxis: `fallback-${insight.id || agenda.length + 1}`,
         state: "MONITORING",
         stage: "EVIDENCE_REVIEW",
+        decisionQuestion: compact(insight.decision || insight.latest?.title || "다음 의사결정 질문을 검증합니다.", 140),
         whatChanged: compact(insight.latest?.title || "최신 근거 검토", 120),
+        latestSignal: compact(insight.latest?.title || "새 근거 관측 대기", 100),
         customerPain: compact(insight.implication || insight.fact || "고객 Pain과 Workload 근거를 확인합니다.", 150),
         recommendation: compact(insight.decision || "검증된 선택지를 비교합니다.", 180),
         action90d: compact(insight.action || "Owner와 다음 검증 과제를 지정합니다.", 160),
+        deliverable: "Evidence Review · Decision Brief",
         owner: "AI Infra Strategy",
         kpis: [],
         evidenceCount: Number(insight.evidenceCount || 0),
@@ -760,7 +773,7 @@ function buildDepartmentHomepage({ decisionIntelligence = {}, sourceCoverage = {
     status: automation.state || "MONITORING",
     agenda,
     metrics: [
-      { label: "DECISION READY", value: Number(funnel.decisionReadyBriefs || agenda.length), detail: "실행 검토 가능 안건" },
+      { label: "DECISION READY", value: Number(funnel.decisionReadyBriefs ?? 0), detail: "실행 검토 가능 안건" },
       { label: "VERIFIED EVENTS", value: Number(funnel.verifiedEvents || 0), detail: "교차 검증된 변화" },
       { label: "FRESHNESS", value: Number(freshness.score || 0), suffix: "/100", detail: freshness.label || freshness.status || "검증 대기" },
       { label: "SOURCE COVERAGE", value: observed, suffix: configured ? `/${configured}` : "", detail: "관측/구성 소스" },
@@ -809,6 +822,9 @@ export function validateSiteContent(content = {}) {
   if (!Array.isArray(content.hero?.workProducts) || content.hero.workProducts.length !== 4) errors.push("hero.workProducts");
   if (!Array.isArray(content.hero?.workflow) || content.hero.workflow.length !== 4) errors.push("hero.workflow");
   if (!Array.isArray(content.hero?.departmentWorkbench?.agenda) || content.hero.departmentWorkbench.agenda.length < 3) errors.push("hero.departmentWorkbench.agenda");
+  const agenda = content.hero?.departmentWorkbench?.agenda || [];
+  if (new Set(agenda.map((item) => item.meceAxis)).size !== agenda.length) errors.push("hero.departmentWorkbench.agenda.meceAxis");
+  if (new Set(agenda.map((item) => compact(item.decisionQuestion).toLowerCase())).size !== agenda.length || !agenda.every((item) => item.deliverable)) errors.push("hero.departmentWorkbench.agenda.decisionContract");
   if (!Array.isArray(content.hero?.departmentWorkbench?.metrics) || content.hero.departmentWorkbench.metrics.length !== 4) errors.push("hero.departmentWorkbench.metrics");
   if (content.hero?.departmentWorkbench?.source !== "decisionIntelligence.decisionAutomation.briefs") errors.push("hero.departmentWorkbench.source");
   if (!Array.isArray(content.caseClassification) || content.caseClassification.length !== 3) errors.push("caseClassification");
@@ -821,6 +837,7 @@ export function validateSiteContent(content = {}) {
   if (Number(content.decisionIntelligence?.freshness?.thresholds?.current) !== 85 || Number(content.decisionIntelligence?.freshness?.thresholds?.warning) !== 70) errors.push("decisionIntelligence.freshness.thresholds");
   if (!Number.isInteger(Number(content.decisionIntelligence?.claimEvents?.stats?.structuredEvents))) errors.push("decisionIntelligence.claimEvents");
   if (!Array.isArray(content.decisionIntelligence?.decisionAutomation?.briefs) || content.decisionIntelligence.decisionAutomation.briefs.length < 3) errors.push("decisionIntelligence.decisionAutomation.briefs");
+  if (!Array.isArray(content.decisionIntelligence?.decisionAutomation?.meceAxes) || content.decisionIntelligence.decisionAutomation.meceAxes.length !== 4) errors.push("decisionIntelligence.decisionAutomation.meceAxes");
   if (!content.decisionIntelligence?.decisionAutomation?.state) errors.push("decisionIntelligence.decisionAutomation.state");
   for (const key of ["contentAge", "embeddingLag", "staleRetrievalRate", "coverageDrift"]) {
     const value = Number(content.decisionIntelligence?.freshness?.components?.[key]);

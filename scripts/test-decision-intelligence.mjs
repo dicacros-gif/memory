@@ -158,6 +158,12 @@ assert.ok(built.claimEvents.events.every((event) => event.promotionStatus !== "v
 assert.ok(built.claimEvents.events.every((event) => !event.isCurrentStage || event.sourceClass === "official" || !built.claimEvents.events.some((peer) => peer.entity.id === event.entity.id && peer.product.id === event.product.id && peer.stage.id === event.stage.id && peer.sourceClass === "official")), "an official claim must lead same-stage research claims");
 assert.equal(built.decisionAutomation.briefs.length, policy.decisionAutomation.briefs.length);
 assert.ok(built.decisionAutomation.briefs.every((brief) => brief.customerPain && brief.hypothesis && brief.trigger && brief.killCriteria));
+assert.equal(built.decisionAutomation.meceAxes.length, 4, "the decision layer must expose four non-overlapping strategy domains");
+assert.equal(new Set(built.decisionAutomation.meceAxes.map((axis) => axis.id)).size, 4);
+assert.equal(new Set(built.decisionAutomation.briefs.map((brief) => brief.meceAxis)).size, built.decisionAutomation.briefs.length, "each executive brief must own one MECE axis");
+assert.equal(new Set(built.decisionAutomation.briefs.map((brief) => brief.decisionQuestion)).size, built.decisionAutomation.briefs.length, "executive questions must never repeat across cards");
+assert.equal(new Set(built.decisionAutomation.briefs.map((brief) => brief.stage)).size, built.decisionAutomation.briefs.length, "each decision brief must use its own execution stage rather than cloning a source stage");
+assert.ok(built.decisionAutomation.briefs.every((brief) => brief.whatChanged === brief.decisionQuestion && brief.deliverable && brief.latestSignal));
 assert.ok(["MONITORING", "EVIDENCE_READY", "CONFLICT_REVIEW", "DECISION_READY"].includes(built.decisionAutomation.state));
 assert.equal(built.decisionAutomation.sourceOperations.configured, policy.directFeeds.length);
 assert.equal(built.decisionAutomation.sourceOperations.observed, policy.directFeeds.length);

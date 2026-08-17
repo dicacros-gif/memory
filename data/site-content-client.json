@@ -297,9 +297,9 @@
   "decisionIntelligence": {
     "schemaVersion": "1.2",
     "status": "pass",
-    "generatedAt": "2026-08-17T02:06:03.950Z",
+    "generatedAt": "2026-08-17T02:06:25.888Z",
     "runId": "31986502933",
-    "refreshTrigger": "schedule",
+    "refreshTrigger": "derived-policy-refresh",
     "metrics": [
       {
         "metricId": "hbm-revenue-share",
@@ -412,68 +412,81 @@
     ],
     "eventTriggers": [
       {
-        "id": "28b48d7a426003ef5e5f",
-        "ruleId": "capacity-commitment",
-        "label": "CapEx·Capacity·장기 물량",
-        "priority": "quarterly",
-        "sourceId": "general-media",
-        "source": "TechSpot",
-        "sourceClass": "general-media",
-        "title": "기업용 SSD는 이제 전 세계 NAND 플래시 공급량의 48%를 소비합니다.",
-        "url": "https://www.techspot.com/news/113478-enterprise-ssds-now-consume-48-global-nand-flash.html",
-        "publishedAt": "2026-08-14",
+        "id": "6c626c54feff13301608",
+        "ruleId": "earnings-release",
+        "label": "분기 실적·어닝콜",
+        "priority": "immediate",
+        "sourceId": "sec-edgar",
+        "source": "SEC EDGAR",
+        "sourceClass": "official",
+        "title": "SEC EDGAR",
+        "url": "https://data.sec.gov/submissions/CIK0000723125.json",
+        "publishedAt": "2026-07-28",
         "changed": true
       },
       {
-        "id": "f9a1a47534a2644a3eda",
-        "ruleId": "capacity-commitment",
-        "label": "CapEx·Capacity·장기 물량",
-        "priority": "quarterly",
-        "sourceId": "authoritative-media",
-        "source": "digitimes",
-        "sourceClass": "authoritative-media",
-        "title": "삼성, HBM의 용량 확보를 위해 레거시 메모리 백엔드 작업을 베트남으로 이전하는 방안 검토 - digittimes",
-        "url": "https://www.digitimes.com/news/a20260814VL222/samsung-hbm-dram-capacity-vietnam.html",
-        "publishedAt": "2026-08-14",
+        "id": "4a683ba65d57a241e81f",
+        "ruleId": "hbm4-production-stage",
+        "label": "HBM4 Sample → Qualification → Ramp",
+        "priority": "immediate",
+        "sourceId": "sec-edgar",
+        "source": "SEC EDGAR",
+        "sourceClass": "official",
+        "title": "SEC EDGAR",
+        "url": "https://data.sec.gov/submissions/CIK0000723125.json",
+        "publishedAt": "2026-07-28",
         "changed": true
       },
       {
-        "id": "655388bf4e57d5f60549",
+        "id": "be082f42a7b984298826",
         "ruleId": "capacity-commitment",
         "label": "CapEx·Capacity·장기 물량",
         "priority": "quarterly",
-        "sourceId": "authoritative-media",
-        "source": "Caixin Global",
-        "sourceClass": "authoritative-media",
-        "title": "YMTC, 출하량 기준 키옥시아 제치고 글로벌 NAND 시장 3위 - Caixin Global",
-        "url": "https://www.caixinglobal.com/2026-08-13/ymtc-overtakes-kioxia-by-shipments-to-rank-no-3-in-global-nand-market-102473570.html",
-        "publishedAt": "2026-08-12",
+        "sourceId": "sec-edgar",
+        "source": "SEC EDGAR",
+        "sourceClass": "official",
+        "title": "SEC EDGAR",
+        "url": "https://data.sec.gov/submissions/CIK0000723125.json",
+        "publishedAt": "2026-07-28",
         "changed": true
       },
       {
-        "id": "0f9de40cf2f48388a69c",
-        "ruleId": "capacity-commitment",
-        "label": "CapEx·Capacity·장기 물량",
-        "priority": "quarterly",
-        "sourceId": "authoritative-media",
-        "source": "digitimes",
-        "sourceClass": "authoritative-media",
-        "title": "SKHY, YMTC와 글로벌 경쟁사들이 AI 스토리지 수요를 충족시키기 위해 경쟁함에 따라 중국 NAND 확장을 재개한 것으로 알려짐 - 디지털타임스",
-        "url": "https://www.digitimes.com/news/a20260812VL205/sk-hynix-nand-expansion-dalian-ymtc.html",
-        "publishedAt": "2026-08-12",
+        "id": "8d56de7824986026a3c0",
+        "ruleId": "hbm4-production-stage",
+        "label": "HBM4 Sample → Qualification → Ramp",
+        "priority": "immediate",
+        "sourceId": "counterpoint",
+        "source": "Counterpoint Research",
+        "sourceClass": "research",
+        "title": "전세계 D램 및 HBM 시장 점유율: 분기별 데이터 - 카운터포인트",
+        "url": "https://korea.counterpointresearch.com/global-dram-and-hbm-market-share-quarterly",
+        "publishedAt": "2026-06-10",
         "changed": true
       },
       {
-        "id": "deb1d8612d6ba7b0fb14",
+        "id": "1e61e8c0bdd386c160fd",
         "ruleId": "capacity-commitment",
         "label": "CapEx·Capacity·장기 물량",
         "priority": "quarterly",
-        "sourceId": "authoritative-media",
-        "source": "Tom's Hardware",
-        "sourceClass": "authoritative-media",
-        "title": "SKHY, Solidigm IPO를 검토하면서 중국 내 생산 능력 확대 - 2단계 팹을 통해 현지 생산량을 50% 늘릴 수 있다고 주장",
-        "url": "https://www.tomshardware.com/pc-components/ssds/sk-hynix-to-expand-production-capacity-in-china-as-it-mulls-solidigm-ipo-report-claims-second-phase-of-fab-could-boost-local-production-by-50-percent",
-        "publishedAt": "2026-08-11",
+        "sourceId": "trendforce",
+        "source": "TrendForce",
+        "sourceClass": "research",
+        "title": "Tight DRAM Supply Gives Suppliers Greater Pricing Power in HBM, with HBM Contract Prices Expected to Surge Multiples Higher in 2027, Says TrendForce",
+        "url": "https://www.trendforce.com/presscenter/news/20260602-13074.html",
+        "publishedAt": "2026-06-02",
+        "changed": true
+      },
+      {
+        "id": "b8fe4e9b2baa3d1cc966",
+        "ruleId": "earnings-release",
+        "label": "분기 실적·어닝콜",
+        "priority": "immediate",
+        "sourceId": "skhynix-newsroom",
+        "source": "SK hynix Newsroom",
+        "sourceClass": "official",
+        "title": "PRESS – SK hynix Newsroom",
+        "url": "https://news.skhynix.com/category/press-release",
+        "publishedAt": null,
         "changed": true
       },
       {
@@ -503,19 +516,6 @@
         "changed": false
       },
       {
-        "id": "d2fd7036a6be27fefb90",
-        "ruleId": "earnings-release",
-        "label": "분기 실적·어닝콜",
-        "priority": "immediate",
-        "sourceId": "sec-edgar",
-        "source": "SEC EDGAR",
-        "sourceClass": "official",
-        "title": "SEC EDGAR",
-        "url": "https://data.sec.gov/submissions/CIK0000723125.json",
-        "publishedAt": "2026-07-28",
-        "changed": false
-      },
-      {
         "id": "6251b7b00cf166c589f8",
         "ruleId": "hbm4-production-stage",
         "label": "HBM4 Sample → Qualification → Ramp",
@@ -527,61 +527,22 @@
         "url": "https://www.digitimes.com/news/a20260720PD215/samsung-2027-hbm4-market-sk-hynix.html",
         "publishedAt": "2026-07-20",
         "changed": false
-      },
-      {
-        "id": "1f5d53792a50a4d987ef",
-        "ruleId": "hbm4-production-stage",
-        "label": "HBM4 Sample → Qualification → Ramp",
-        "priority": "immediate",
-        "sourceId": "counterpoint",
-        "source": "Counterpoint Research",
-        "sourceClass": "research",
-        "title": "전세계 D램 및 HBM 시장 점유율: 분기별 데이터 - 카운터포인트",
-        "url": "https://korea.counterpointresearch.com/global-dram-and-hbm-market-share-quarterly",
-        "publishedAt": "2026-06-10",
-        "changed": false
-      },
-      {
-        "id": "fc107a7c126c5539564e",
-        "ruleId": "capacity-commitment",
-        "label": "CapEx·Capacity·장기 물량",
-        "priority": "quarterly",
-        "sourceId": "trendforce",
-        "source": "TrendForce",
-        "sourceClass": "research",
-        "title": "Tight DRAM Supply Gives Suppliers Greater Pricing Power in HBM, with HBM Contract Prices Expected to Surge Multiples Higher in 2027, Says TrendForce",
-        "url": "https://www.trendforce.com/presscenter/news/20260602-13074.html",
-        "publishedAt": "2026-06-02",
-        "changed": false
-      },
-      {
-        "id": "c9ad62aa66dccb09053b",
-        "ruleId": "hbm4-production-stage",
-        "label": "HBM4 Sample → Qualification → Ramp",
-        "priority": "immediate",
-        "sourceId": "samsung-semiconductor",
-        "source": "Samsung Semiconductor",
-        "sourceClass": "official",
-        "title": "Samsung Ships Industry-First Commercial HBM4 With Ultimate Performance for AI Computing | Samsung Semiconductor Global",
-        "url": "https://semiconductor.samsung.com/news-events/news/samsung-ships-industry-first-commercial-hbm4-with-ultimate-performance-for-ai-computing",
-        "publishedAt": "2026-02-19",
-        "changed": false
       }
     ],
     "claimEvents": {
       "schemaVersion": "1.0",
-      "generatedAt": "2026-08-17T02:06:03.950Z",
+      "generatedAt": "2026-08-17T02:06:25.888Z",
       "stats": {
-        "eligibleDocuments": 27,
-        "structuredEvents": 8,
-        "verifiedEvents": 4,
+        "eligibleDocuments": 29,
+        "structuredEvents": 5,
+        "verifiedEvents": 0,
         "currentStages": 2,
         "newEvents": 0,
         "contradictionReviews": 0
       },
       "events": [
         {
-          "id": "070784294c689958463d",
+          "id": "f20a2c18c54e16286b21",
           "ruleId": "hbm4-production-stage",
           "eventType": "product-stage",
           "label": "HBM4 Sample → Qualification → Ramp",
@@ -594,18 +555,20 @@
             "label": "HBM4"
           },
           "stage": {
-            "id": "COMMERCIAL_SHIPMENT",
-            "rank": 70
+            "id": "PLATFORM_ADOPTION",
+            "rank": 80
           },
-          "metrics": [],
-          "evidenceSpan": "Samsung Electronics, a global leader in advanced memory technology, today announced that it has begun mass production of its industry-leading HBM4 and has shipped commercial products to customers.",
-          "source": "Samsung Semiconductor",
-          "sourceId": "samsung-semiconductor",
-          "sourceClass": "official",
-          "sourceUrl": "https://semiconductor.samsung.com/news-events/news/samsung-ships-industry-first-commercial-hbm4-with-ultimate-performance-for-ai-computing",
-          "publishedAt": "2026-02-19",
-          "confidence": "confirmed-primary",
-          "promotionStatus": "verified-primary",
+          "metrics": [
+            "2026 년"
+          ],
+          "evidenceSpan": "HBM4 는 2026년 1분기에 삼성의 출하를 시작으로 NVIDIA Rubin 에 탑재될 예정",
+          "source": "Counterpoint Research",
+          "sourceId": "counterpoint",
+          "sourceClass": "research",
+          "sourceUrl": "https://korea.counterpointresearch.com/global-dram-and-hbm-market-share-quarterly",
+          "publishedAt": "2026-06-10",
+          "confidence": "research-observed",
+          "promotionStatus": "review",
           "contradictionStatus": "clear",
           "isCurrentStage": true,
           "supersededBy": null
@@ -641,38 +604,6 @@
           "supersededBy": null
         },
         {
-          "id": "f20a2c18c54e16286b21",
-          "ruleId": "hbm4-production-stage",
-          "eventType": "product-stage",
-          "label": "HBM4 Sample → Qualification → Ramp",
-          "entity": {
-            "id": "samsung",
-            "label": "Samsung"
-          },
-          "product": {
-            "id": "hbm4",
-            "label": "HBM4"
-          },
-          "stage": {
-            "id": "PLATFORM_ADOPTION",
-            "rank": 80
-          },
-          "metrics": [
-            "2026 년"
-          ],
-          "evidenceSpan": "HBM4 는 2026년 1분기에 삼성의 출하를 시작으로 NVIDIA Rubin 에 탑재될 예정",
-          "source": "Counterpoint Research",
-          "sourceId": "counterpoint",
-          "sourceClass": "research",
-          "sourceUrl": "https://korea.counterpointresearch.com/global-dram-and-hbm-market-share-quarterly",
-          "publishedAt": "2026-06-10",
-          "confidence": "research-observed",
-          "promotionStatus": "review",
-          "contradictionStatus": "clear",
-          "isCurrentStage": false,
-          "supersededBy": null
-        },
-        {
           "id": "69b65258a4f08a3725e8",
           "ruleId": "hbm4-production-stage",
           "eventType": "product-stage",
@@ -699,72 +630,10 @@
           "sourceUrl": "https://www.digitimes.com/news/a20260720PD215/samsung-2027-hbm4-market-sk-hynix.html",
           "publishedAt": "2026-07-20",
           "confidence": "research-observed",
-          "promotionStatus": "corroborated",
+          "promotionStatus": "review",
           "contradictionStatus": "clear",
           "isCurrentStage": false,
-          "supersededBy": null
-        },
-        {
-          "id": "3d865d42d5a09a257f5c",
-          "ruleId": "capacity-commitment",
-          "eventType": "commercial-commitment",
-          "label": "CapEx·Capacity·장기 물량",
-          "entity": {
-            "id": "samsung",
-            "label": "Samsung"
-          },
-          "product": {
-            "id": "hbm4",
-            "label": "HBM4"
-          },
-          "stage": {
-            "id": "COMMERCIAL_SHIPMENT",
-            "rank": 70
-          },
-          "metrics": [
-            "48 GB"
-          ],
-          "evidenceSpan": "The company will also keep its capacity options aligned with future customer timelines by utilizing 16-layer stacking, which will expand offerings to up to 48GB.",
-          "source": "Samsung Semiconductor",
-          "sourceId": "samsung-semiconductor",
-          "sourceClass": "official",
-          "sourceUrl": "https://semiconductor.samsung.com/news-events/news/samsung-ships-industry-first-commercial-hbm4-with-ultimate-performance-for-ai-computing",
-          "publishedAt": "2026-02-19",
-          "confidence": "confirmed-primary",
-          "promotionStatus": "verified-primary",
-          "contradictionStatus": "clear",
-          "isCurrentStage": false,
-          "supersededBy": null
-        },
-        {
-          "id": "0c158c24dad292b3801b",
-          "ruleId": "competitor-ramp",
-          "eventType": "competitive-stage",
-          "label": "경쟁사 Ramp·고객 공급",
-          "entity": {
-            "id": "samsung",
-            "label": "Samsung"
-          },
-          "product": {
-            "id": "hbm4",
-            "label": "HBM4"
-          },
-          "stage": {
-            "id": "COMMERCIAL_SHIPMENT",
-            "rank": 70
-          },
-          "metrics": [],
-          "evidenceSpan": "Samsung is committed to advancing its HBM roadmap through its comprehensive manufacturing resources — including one of the largest DRAM production capacities and dedicated infrastructures in the industry — ensuring a resilient supply chain to meet the projected surge in HBM4 demand.",
-          "source": "Samsung Semiconductor",
-          "sourceId": "samsung-semiconductor",
-          "sourceClass": "official",
-          "sourceUrl": "https://semiconductor.samsung.com/news-events/news/samsung-ships-industry-first-commercial-hbm4-with-ultimate-performance-for-ai-computing",
-          "publishedAt": "2026-02-19",
-          "confidence": "confirmed-primary",
-          "promotionStatus": "verified-primary",
-          "contradictionStatus": "clear",
-          "isCurrentStage": false,
-          "supersededBy": null
+          "supersededBy": "f20a2c18c54e16286b21"
         },
         {
           "id": "956ddf821bd60656a703",
@@ -797,7 +666,7 @@
           "promotionStatus": "review",
           "contradictionStatus": "clear",
           "isCurrentStage": false,
-          "supersededBy": "070784294c689958463d"
+          "supersededBy": "f20a2c18c54e16286b21"
         },
         {
           "id": "e518cc9a57dd90d75b09",
@@ -830,18 +699,44 @@
           "promotionStatus": "review",
           "contradictionStatus": "clear",
           "isCurrentStage": false,
-          "supersededBy": "070784294c689958463d"
+          "supersededBy": "f20a2c18c54e16286b21"
         }
       ]
     },
     "decisionAutomation": {
-      "schemaVersion": "1.0",
-      "state": "DECISION_READY",
+      "schemaVersion": "1.1",
+      "meceAxes": [
+        {
+          "id": "customer-strategy",
+          "label": "CUSTOMER STRATEGY & CUSTOM MEMORY",
+          "owns": "고객 Pain·Buying Criteria·Requirement·Qualification·맞춤형 Memory Proposal",
+          "excludes": "공통 Serving 최적화·신규 서비스 사업모델·AI Factory 시설 확장"
+        },
+        {
+          "id": "workload-architecture",
+          "label": "WORKLOAD & ARCHITECTURE",
+          "owns": "Training·Inference 병목·HW/SW·Memory Tier·Data Center TCO",
+          "excludes": "고객별 계약조건·RAG 사업모델·파트너 운영계약"
+        },
+        {
+          "id": "new-biz-insight",
+          "label": "NEW BIZ & TECH INSIGHT",
+          "owns": "LLM·RAG·Vector DB 기술 변화·Where to Play·수익모델·Use Case",
+          "excludes": "개별 고객 Qualification·범용 Rack 시설 설계·실행 Portfolio 통제"
+        },
+        {
+          "id": "partner-execution",
+          "label": "PARTNER & EXECUTION",
+          "owns": "파트너 역할·PoC·Capacity·Scale/Hold/Stop·Owner·KPI·Kill Criteria",
+          "excludes": "기술 전망 자체·개별 Workload 알고리즘·제품 단품 제안"
+        }
+      ],
+      "state": "EVIDENCE_READY",
       "funnel": {
         "sourceDocuments": 29,
-        "structuredEvents": 8,
-        "verifiedEvents": 4,
-        "decisionReadyBriefs": 4,
+        "structuredEvents": 5,
+        "verifiedEvents": 0,
+        "decisionReadyBriefs": 0,
         "executionTrackingBriefs": 0
       },
       "sourceOperations": {
@@ -885,7 +780,7 @@
             "lastSuccessAt": "2026-08-17T02:06:01.998Z",
             "lastUsefulObservationAt": "2026-08-17T02:06:01.998Z",
             "usefulObservation": true,
-            "eventYield": 3
+            "eventYield": 0
           },
           {
             "id": "micron-quarterly-results",
@@ -976,12 +871,18 @@
       "briefs": [
         {
           "id": "custom-memory",
-          "label": "Custom Memory Co-Design",
-          "status": "DECISION_READY",
-          "updatedAt": "2026-08-17T02:06:03.950Z",
-          "whatChanged": "Samsung의 HBM4가 COMMERCIAL_SHIPMENT 단계로 관측됨",
-          "stage": "COMMERCIAL_SHIPMENT",
-          "confidence": "verified-primary",
+          "label": "Customer Strategy · Custom Memory",
+          "meceAxis": "customer-strategy",
+          "decisionQuestion": "HBM4 상업화 신호를 고객별 Custom Qualification·계약 Gate로 전환할 것인가",
+          "decisionStage": "CUSTOMER_QUALIFICATION",
+          "deliverable": "Customer Fact Base · Pain Map · Requirement Matrix · Memory Proposal",
+          "status": "EVIDENCE_READY",
+          "updatedAt": "2026-08-17T02:06:25.888Z",
+          "whatChanged": "HBM4 상업화 신호를 고객별 Custom Qualification·계약 Gate로 전환할 것인가",
+          "latestSignal": "Samsung · HBM4 · PLATFORM_ADOPTION",
+          "sourceStage": "PLATFORM_ADOPTION",
+          "stage": "CUSTOMER_QUALIFICATION",
+          "confidence": "review",
           "customerPain": "가속기 세대 전환 일정과 고객 인증·패키징·물량 약정을 동시에 맞춰야 함",
           "hypothesis": "표준 HBM과 Semi-Custom을 분리하고 확정 물량·NRE 회수·Qualification Gate를 통과한 고객에만 Custom 범위를 확대",
           "options": [
@@ -1007,22 +908,22 @@
           ],
           "trigger": "SAMPLE 이후 고객 Qualification 또는 Commercial Shipment 단계가 공식 원문으로 확인",
           "killCriteria": "Trace 접근권·Qualification 경로·확정 물량·NRE 회수 중 2개 이상이 확인되지 않으면 Full-Custom 투자를 중단",
-          "evidenceCount": 5,
-          "independentSources": 4,
-          "primaryEvidence": 1,
-          "verifiedClaims": 4,
+          "evidenceCount": 4,
+          "independentSources": 3,
+          "primaryEvidence": 0,
+          "verifiedClaims": 0,
           "evidence": [
             {
-              "id": "070784294c689958463d",
-              "title": "Samsung · HBM4 · COMMERCIAL_SHIPMENT",
-              "source": "Samsung Semiconductor",
-              "sourceId": "samsung-semiconductor",
-              "sourceClass": "official",
-              "url": "https://semiconductor.samsung.com/news-events/news/samsung-ships-industry-first-commercial-hbm4-with-ultimate-performance-for-ai-computing",
-              "publishedAt": "2026-02-19",
-              "stage": "COMMERCIAL_SHIPMENT",
-              "confidence": "confirmed-primary",
-              "excerpt": "Samsung Electronics, a global leader in advanced memory technology, today announced that it has begun mass production of its industry-leading HBM4 and has shipped commercial products to customers."
+              "id": "f20a2c18c54e16286b21",
+              "title": "Samsung · HBM4 · PLATFORM_ADOPTION",
+              "source": "Counterpoint Research",
+              "sourceId": "counterpoint",
+              "sourceClass": "research",
+              "url": "https://korea.counterpointresearch.com/global-dram-and-hbm-market-share-quarterly",
+              "publishedAt": "2026-06-10",
+              "stage": "PLATFORM_ADOPTION",
+              "confidence": "research-observed",
+              "excerpt": "HBM4 는 2026년 1분기에 삼성의 출하를 시작으로 NVIDIA Rubin 에 탑재될 예정"
             },
             {
               "id": "a6e2ed0895636b3b2518",
@@ -1035,18 +936,6 @@
               "stage": "DISCLOSED",
               "confidence": "research-observed",
               "excerpt": "Overall, as HBM generations continue evolving in 2027, with larger die sizes and simultaneously rising demand, the crowding-out effect on conventional DRAM capacity is expected to intensify further."
-            },
-            {
-              "id": "f20a2c18c54e16286b21",
-              "title": "Samsung · HBM4 · PLATFORM_ADOPTION",
-              "source": "Counterpoint Research",
-              "sourceId": "counterpoint",
-              "sourceClass": "research",
-              "url": "https://korea.counterpointresearch.com/global-dram-and-hbm-market-share-quarterly",
-              "publishedAt": "2026-06-10",
-              "stage": "PLATFORM_ADOPTION",
-              "confidence": "research-observed",
-              "excerpt": "HBM4 는 2026년 1분기에 삼성의 출하를 시작으로 NVIDIA Rubin 에 탑재될 예정"
             },
             {
               "id": "69b65258a4f08a3725e8",
@@ -1076,12 +965,18 @@
         },
         {
           "id": "agentic-tiering",
-          "label": "Agentic Inference Memory Tiering",
-          "status": "DECISION_READY",
-          "updatedAt": "2026-08-17T02:06:03.950Z",
-          "whatChanged": "Samsung의 HBM4가 COMMERCIAL_SHIPMENT 단계로 관측됨",
-          "stage": "COMMERCIAL_SHIPMENT",
-          "confidence": "verified-primary",
+          "label": "Workload Optimization · AI Serving",
+          "meceAxis": "workload-architecture",
+          "decisionQuestion": "KV Cache 지배 병목을 HBM·Host DRAM/CXL·eSSD 계층화로 낮출 것인가",
+          "decisionStage": "ARCHITECTURE_BENCHMARK",
+          "deliverable": "Workload Trace · Bottleneck Tree · Architecture Benchmark · TCO",
+          "status": "EVIDENCE_READY",
+          "updatedAt": "2026-08-17T02:06:25.888Z",
+          "whatChanged": "KV Cache 지배 병목을 HBM·Host DRAM/CXL·eSSD 계층화로 낮출 것인가",
+          "latestSignal": "Samsung · HBM4 · PLATFORM_ADOPTION",
+          "sourceStage": "PLATFORM_ADOPTION",
+          "stage": "ARCHITECTURE_BENCHMARK",
+          "confidence": "review",
           "customerPain": "긴 Context·동시 실행·KV 이동으로 TTFT/TPOT와 Cost per Successful Task가 악화",
           "hypothesis": "Serving SW 최적화 후에도 KV Capacity가 지배 병목이면 HBM·Host DRAM/CXL·eSSD Tiering이 증설보다 경제적",
           "options": [
@@ -1112,19 +1007,19 @@
           "evidenceCount": 7,
           "independentSources": 6,
           "primaryEvidence": 3,
-          "verifiedClaims": 3,
+          "verifiedClaims": 0,
           "evidence": [
             {
-              "id": "070784294c689958463d",
-              "title": "Samsung · HBM4 · COMMERCIAL_SHIPMENT",
-              "source": "Samsung Semiconductor",
-              "sourceId": "samsung-semiconductor",
-              "sourceClass": "official",
-              "url": "https://semiconductor.samsung.com/news-events/news/samsung-ships-industry-first-commercial-hbm4-with-ultimate-performance-for-ai-computing",
-              "publishedAt": "2026-02-19",
-              "stage": "COMMERCIAL_SHIPMENT",
-              "confidence": "confirmed-primary",
-              "excerpt": "Samsung Electronics, a global leader in advanced memory technology, today announced that it has begun mass production of its industry-leading HBM4 and has shipped commercial products to customers."
+              "id": "f20a2c18c54e16286b21",
+              "title": "Samsung · HBM4 · PLATFORM_ADOPTION",
+              "source": "Counterpoint Research",
+              "sourceId": "counterpoint",
+              "sourceClass": "research",
+              "url": "https://korea.counterpointresearch.com/global-dram-and-hbm-market-share-quarterly",
+              "publishedAt": "2026-06-10",
+              "stage": "PLATFORM_ADOPTION",
+              "confidence": "research-observed",
+              "excerpt": "HBM4 는 2026년 1분기에 삼성의 출하를 시작으로 NVIDIA Rubin 에 탑재될 예정"
             },
             {
               "id": "a6e2ed0895636b3b2518",
@@ -1137,18 +1032,6 @@
               "stage": "DISCLOSED",
               "confidence": "research-observed",
               "excerpt": "Overall, as HBM generations continue evolving in 2027, with larger die sizes and simultaneously rising demand, the crowding-out effect on conventional DRAM capacity is expected to intensify further."
-            },
-            {
-              "id": "f20a2c18c54e16286b21",
-              "title": "Samsung · HBM4 · PLATFORM_ADOPTION",
-              "source": "Counterpoint Research",
-              "sourceId": "counterpoint",
-              "sourceClass": "research",
-              "url": "https://korea.counterpointresearch.com/global-dram-and-hbm-market-share-quarterly",
-              "publishedAt": "2026-06-10",
-              "stage": "PLATFORM_ADOPTION",
-              "confidence": "research-observed",
-              "excerpt": "HBM4 는 2026년 1분기에 삼성의 출하를 시작으로 NVIDIA Rubin 에 탑재될 예정"
             },
             {
               "id": "69b65258a4f08a3725e8",
@@ -1173,16 +1056,38 @@
               "stage": "MASS_PRODUCTION",
               "confidence": "research-observed",
               "excerpt": "According to Seoul Economic Daily , Samsung’s HBM4 yield has climbed to 80% from below 60% when mass production began in February, highlighting rapid process improvements amid tight HBM supply."
+            },
+            {
+              "score": 2.75,
+              "chunkId": "229a9cffb549b8a16f0d",
+              "title": "KV Offloading Usage Guide - vLLM",
+              "excerpt": "LoRA Adapters MooncakeConnector Usage Guide rs Tuning Tips Per-Request Selective Offload Further Reading LoRA Adapters MooncakeConnector Usage Guide MooncakeStoreConnector Usage Guide MoRIIOConnector Usage Guide Multimodal Inputs NixlConnector Compatibility Matrix NixlConnector Usage Guide Per-Request Metrics",
+              "sourceId": "vllm-kv-offloading",
+              "source": "vLLM KV Offloading",
+              "sourceClass": "official",
+              "url": "https://docs.vllm.ai/en/latest/features/kv_offloading_usage",
+              "publishedAt": "2026-01-08",
+              "indexedAt": "2026-08-17T02:06:25.888Z",
+              "sourceChangeDetectedAt": "2026-08-17T02:06:01.998Z",
+              "lastHumanVerifiedAt": null,
+              "freshnessDays": 365,
+              "documentStatus": "current"
             }
           ]
         },
         {
           "id": "enterprise-rag",
-          "label": "Enterprise RAG Economics",
-          "status": "DECISION_READY",
-          "updatedAt": "2026-08-17T02:06:03.950Z",
-          "whatChanged": "Memory industry의 AI Memory가 DISCLOSED 단계로 관측됨",
-          "stage": "DISCLOSED",
+          "label": "New Biz · RAG Memory Economics",
+          "meceAxis": "new-biz-insight",
+          "decisionQuestion": "RAG 품질 Gate 통과 후 Index·Corpus 계층을 어떤 사업모델로 확장할 것인가",
+          "decisionStage": "BUSINESS_CASE",
+          "deliverable": "Tech/Market Insight · Opportunity Thesis · Partner Screen · Business Case",
+          "status": "EVIDENCE_READY",
+          "updatedAt": "2026-08-17T02:06:25.888Z",
+          "whatChanged": "RAG 품질 Gate 통과 후 Index·Corpus 계층을 어떤 사업모델로 확장할 것인가",
+          "latestSignal": "Memory industry · AI Memory · DISCLOSED",
+          "sourceStage": "DISCLOSED",
+          "stage": "BUSINESS_CASE",
           "confidence": "review",
           "customerPain": "검색 품질·권한·색인 최신성과 Query P99를 유지하면서 Corpus 비용을 통제해야 함",
           "hypothesis": "Vector DB 교체보다 Metadata·ACL·Hybrid Retrieval·Rerank를 먼저 통과한 뒤 Hot Index·Warm Document·Cold Corpus를 계층화",
@@ -1211,7 +1116,7 @@
           "evidenceCount": 5,
           "independentSources": 5,
           "primaryEvidence": 4,
-          "verifiedClaims": 1,
+          "verifiedClaims": 0,
           "evidence": [
             {
               "id": "a6e2ed0895636b3b2518",
@@ -1224,34 +1129,6 @@
               "stage": "DISCLOSED",
               "confidence": "research-observed",
               "excerpt": "Overall, as HBM generations continue evolving in 2027, with larger die sizes and simultaneously rising demand, the crowding-out effect on conventional DRAM capacity is expected to intensify further."
-            },
-            {
-              "id": "3d865d42d5a09a257f5c",
-              "title": "Samsung · HBM4 · COMMERCIAL_SHIPMENT",
-              "source": "Samsung Semiconductor",
-              "sourceId": "samsung-semiconductor",
-              "sourceClass": "official",
-              "url": "https://semiconductor.samsung.com/news-events/news/samsung-ships-industry-first-commercial-hbm4-with-ultimate-performance-for-ai-computing",
-              "publishedAt": "2026-02-19",
-              "stage": "COMMERCIAL_SHIPMENT",
-              "confidence": "confirmed-primary",
-              "excerpt": "The company will also keep its capacity options aligned with future customer timelines by utilizing 16-layer stacking, which will expand offerings to up to 48GB."
-            },
-            {
-              "score": 3.75,
-              "chunkId": "abd8a2c2c66e596153aa",
-              "title": "KV Offloading Usage Guide - vLLM",
-              "excerpt": "all_reduce_utils base_device_communicator cpu_communicator cuda_communicator cuda_wrapper custom_all_reduce flashinfer_all_reduce mnnvl_compat pynccl pynccl_allocator pynccl_wrapper quick_all_reduce ray_communicator shm_broadcast shm_object_storage symm_mem xpu_communicator ec_transfer ec_transfer ec_",
-              "sourceId": "vllm-kv-offloading",
-              "source": "vLLM KV Offloading",
-              "sourceClass": "official",
-              "url": "https://docs.vllm.ai/en/latest/features/kv_offloading_usage",
-              "publishedAt": "2026-01-08",
-              "indexedAt": "2026-08-16T10:54:14.715Z",
-              "sourceChangeDetectedAt": "2026-08-16T10:54:13.430Z",
-              "lastHumanVerifiedAt": null,
-              "freshnessDays": 365,
-              "documentStatus": "current"
             },
             {
               "score": 2.75,
@@ -1270,6 +1147,22 @@
               "documentStatus": "current"
             },
             {
+              "score": 2.75,
+              "chunkId": "f2e0005883e2d1d96681",
+              "title": "KV Offloading Usage Guide - vLLM",
+              "excerpt": "Disaggregated Serving Ec Both Encoder Disaggregated Prefill V1 Flexkv Connector KV Load Failure Recovery Test Disaggregated Serving Ec Both Encoder Disaggregated Prefill V1 Flexkv Connector KV Load Failure Recovery Test LMCache Examples Mooncake Connector Features Features Automatic Prefix Caching Batch Invarianc",
+              "sourceId": "vllm-kv-offloading",
+              "source": "vLLM KV Offloading",
+              "sourceClass": "official",
+              "url": "https://docs.vllm.ai/en/latest/features/kv_offloading_usage",
+              "publishedAt": "2026-01-08",
+              "indexedAt": "2026-08-17T02:06:25.888Z",
+              "sourceChangeDetectedAt": "2026-08-17T02:06:01.998Z",
+              "lastHumanVerifiedAt": null,
+              "freshnessDays": 365,
+              "documentStatus": "current"
+            },
+            {
               "score": 1.75,
               "chunkId": "9901d1c75477bbb20467",
               "title": "Kioxia와 Sandisk, AI 및 데이터 집약적 애플리케이션을 위해 설계된 새로운 고성능 QLC 3D 플래시 메모리 기술 공개 - Sandisk",
@@ -1284,16 +1177,38 @@
               "lastHumanVerifiedAt": null,
               "freshnessDays": 180,
               "documentStatus": "current"
+            },
+            {
+              "score": 1.75,
+              "chunkId": "909fabd7276e6e73a0ae",
+              "title": "Samsung Ships Industry-First Commercial HBM4 With Ultimate Performance for AI Computing | Samsung Semiconductor Global",
+              "excerpt": "Datacenter SSD Enterprise SSD Automotive SSD --> --> --> --> --> --> --> eStorage SD --> --> --> --> --> --> --> eStorage",
+              "sourceId": "samsung-semiconductor",
+              "source": "Samsung Semiconductor",
+              "sourceClass": "official",
+              "url": "https://semiconductor.samsung.com/news-events/news/samsung-ships-industry-first-commercial-hbm4-with-ultimate-performance-for-ai-computing",
+              "publishedAt": "2026-02-19",
+              "indexedAt": "2026-08-17T02:06:25.888Z",
+              "sourceChangeDetectedAt": "2026-08-17T02:06:01.998Z",
+              "lastHumanVerifiedAt": null,
+              "freshnessDays": 365,
+              "documentStatus": "current"
             }
           ]
         },
         {
           "id": "ai-factory",
-          "label": "AI Factory Scale Gate",
-          "status": "DECISION_READY",
-          "updatedAt": "2026-08-17T02:06:03.950Z",
-          "whatChanged": "Memory industry의 AI Memory가 DISCLOSED 단계로 관측됨",
-          "stage": "DISCLOSED",
+          "label": "Partner Execution · AI Factory",
+          "meceAxis": "partner-execution",
+          "decisionQuestion": "전력·냉각·Fabric·Storage Gate를 통과한 Rack Cell만 파트너와 확장할 것인가",
+          "decisionStage": "SCALE_GATE",
+          "deliverable": "Partner Model · 90-Day Roadmap · RACI · KPI/Trigger/Kill Dashboard",
+          "status": "EVIDENCE_READY",
+          "updatedAt": "2026-08-17T02:06:25.888Z",
+          "whatChanged": "전력·냉각·Fabric·Storage Gate를 통과한 Rack Cell만 파트너와 확장할 것인가",
+          "latestSignal": "Memory industry · AI Memory · DISCLOSED",
+          "sourceStage": "DISCLOSED",
+          "stage": "SCALE_GATE",
           "confidence": "review",
           "customerPain": "가속기·Fabric·Storage·전력·냉각의 병목이 Rack/POD 단위 확장을 제한",
           "hypothesis": "서버 단품이 아니라 Useful AI Work / Total Cost와 Qualification / Time 기준으로 Rack Cell을 공동 최적화",
@@ -1324,7 +1239,7 @@
           "evidenceCount": 6,
           "independentSources": 6,
           "primaryEvidence": 4,
-          "verifiedClaims": 1,
+          "verifiedClaims": 0,
           "evidence": [
             {
               "id": "a6e2ed0895636b3b2518",
@@ -1339,45 +1254,49 @@
               "excerpt": "Overall, as HBM generations continue evolving in 2027, with larger die sizes and simultaneously rising demand, the crowding-out effect on conventional DRAM capacity is expected to intensify further."
             },
             {
-              "id": "3d865d42d5a09a257f5c",
-              "title": "Samsung · HBM4 · COMMERCIAL_SHIPMENT",
-              "source": "Samsung Semiconductor",
+              "score": 1.75,
+              "chunkId": "603a11ac7a0bc7e3af2e",
+              "title": "Samsung Ships Industry-First Commercial HBM4 With Ultimate Performance for AI Computing | Samsung Semiconductor Global",
+              "excerpt": "NFC eSE/eSIM/SIM Mobile & IoT SE --> --> --> --> --> --> --> Power IC Overview Mobile Power IC Accessory Power I",
               "sourceId": "samsung-semiconductor",
+              "source": "Samsung Semiconductor",
               "sourceClass": "official",
               "url": "https://semiconductor.samsung.com/news-events/news/samsung-ships-industry-first-commercial-hbm4-with-ultimate-performance-for-ai-computing",
               "publishedAt": "2026-02-19",
-              "stage": "COMMERCIAL_SHIPMENT",
-              "confidence": "confirmed-primary",
-              "excerpt": "The company will also keep its capacity options aligned with future customer timelines by utilizing 16-layer stacking, which will expand offerings to up to 48GB."
-            },
-            {
-              "score": 1.75,
-              "chunkId": "fd9ee872d8589a75515f",
-              "title": "KV Offloading Usage Guide - vLLM",
-              "excerpt": "Integrations Claude Code Codex LangChain LlamaIndex Deployment Deployment Using Docker Using Kubernetes Using Nginx Frameworks Frameworks Anyscale AnythingLLM AutoGen BentoML Cerebrium Chatbox Crusoe Dify dstack Haystack Helm Hugging Face Inference Endpoints LiteLLM Lobe Chat LWS Modal Ope",
-              "sourceId": "vllm-kv-offloading",
-              "source": "vLLM KV Offloading",
-              "sourceClass": "official",
-              "url": "https://docs.vllm.ai/en/latest/features/kv_offloading_usage",
-              "publishedAt": "2026-01-08",
-              "indexedAt": "2026-08-16T10:54:14.715Z",
-              "sourceChangeDetectedAt": "2026-08-16T10:54:13.430Z",
+              "indexedAt": "2026-08-17T02:06:25.888Z",
+              "sourceChangeDetectedAt": "2026-08-17T02:06:01.998Z",
               "lastHumanVerifiedAt": null,
               "freshnessDays": 365,
               "documentStatus": "current"
             },
             {
               "score": 1.75,
-              "chunkId": "1f436dfbcfef17bfdbea",
+              "chunkId": "f6f717ce498b2d5c9f37",
+              "title": "KV Offloading Usage Guide - vLLM",
+              "excerpt": "obe Chat LWS Modal Open WebUI Retrieval-Augmented Generation RunPod SkyPilot Streamlit NVIDIA Triton Integrations Integrations AIBrix NVIDIA Dynamo KAITO KServe Kthena KubeAI KubeRay Llama Stack llm-d llmaz Production stack Training Training Async Reinforcement Learning What is Layerwise (Re",
+              "sourceId": "vllm-kv-offloading",
+              "source": "vLLM KV Offloading",
+              "sourceClass": "official",
+              "url": "https://docs.vllm.ai/en/latest/features/kv_offloading_usage",
+              "publishedAt": "2026-01-08",
+              "indexedAt": "2026-08-17T02:06:25.888Z",
+              "sourceChangeDetectedAt": "2026-08-17T02:06:01.998Z",
+              "lastHumanVerifiedAt": null,
+              "freshnessDays": 365,
+              "documentStatus": "current"
+            },
+            {
+              "score": 1.75,
+              "chunkId": "027ebc4c3b4809461017",
               "title": "NVIDIA Dynamo, A Low-Latency Distributed Inference Framework for Scaling Reasoning AI Models | NVIDIA Technical Blog",
-              "excerpt": "boosts the number of requests served by up to 30x, when running the open-source DeepSeek-R1 models on NVIDIA Blackwell. NVIDIA Dynamo is compatible with open-source tools, including PyTorch, SGLang, NVIDIA TensorRT-LLM , and vLLM, joining the expanding community of inference tools that empower developers and AI resear…",
+              "excerpt": "ce inference serving framework for deploying generative AI and reasoning models in large-scale distributed environments. The framework boosts the number of requests served by up to 30x, when running the open-source DeepSeek-R1 models on NVIDIA Blackwell. boosts the number of requests served by up to 30x, when running…",
               "sourceId": "nvidia-dynamo",
               "source": "NVIDIA Dynamo",
               "sourceClass": "official",
               "url": "https://developer.nvidia.com/blog/introducing-nvidia-dynamo-a-low-latency-distributed-inference-framework-for-scaling-reasoning-ai-models",
               "publishedAt": "2025-03-18",
-              "indexedAt": "2026-08-16T10:54:14.715Z",
-              "sourceChangeDetectedAt": "2026-08-16T10:54:13.430Z",
+              "indexedAt": "2026-08-17T02:06:25.888Z",
+              "sourceChangeDetectedAt": "2026-08-17T02:06:01.998Z",
               "lastHumanVerifiedAt": null,
               "freshnessDays": 365,
               "documentStatus": "current"
@@ -1392,8 +1311,8 @@
               "sourceClass": "official",
               "url": "https://docs.nvidia.com/enterprise-reference-architectures/nvl72-ai-factory/latest/overview.html",
               "publishedAt": null,
-              "indexedAt": "2026-08-16T10:54:14.715Z",
-              "sourceChangeDetectedAt": "2026-08-16T10:54:13.430Z",
+              "indexedAt": "2026-08-17T02:06:25.888Z",
+              "sourceChangeDetectedAt": "2026-08-17T02:06:01.998Z",
               "lastHumanVerifiedAt": null,
               "freshnessDays": 365,
               "documentStatus": "current"
@@ -1478,12 +1397,12 @@
       "mode": "incremental-extractive",
       "stats": {
         "documents": 29,
-        "chunks": 118,
+        "chunks": 122,
         "added": 0,
-        "changed": 2,
-        "unchanged": 25,
-        "retained": 2,
-        "reindexed": 2
+        "changed": 10,
+        "unchanged": 19,
+        "retained": 0,
+        "reindexed": 10
       },
       "packs": [
         {
@@ -1499,8 +1418,8 @@
               "sourceClass": "research",
               "url": "https://www.trendforce.com/presscenter/news/20260602-13074.html",
               "publishedAt": "2026-06-02",
-              "indexedAt": "2026-08-16T10:54:14.715Z",
-              "sourceChangeDetectedAt": "2026-08-16T10:54:13.430Z",
+              "indexedAt": "2026-08-17T02:06:25.888Z",
+              "sourceChangeDetectedAt": "2026-08-17T02:06:01.998Z",
               "lastHumanVerifiedAt": null,
               "stale": false
             },
@@ -1510,8 +1429,8 @@
               "sourceClass": "research",
               "url": "https://www.trendforce.com/presscenter/news/20260602-13074.html",
               "publishedAt": "2026-06-02",
-              "indexedAt": "2026-08-16T10:54:14.715Z",
-              "sourceChangeDetectedAt": "2026-08-16T10:54:13.430Z",
+              "indexedAt": "2026-08-17T02:06:25.888Z",
+              "sourceChangeDetectedAt": "2026-08-17T02:06:01.998Z",
               "lastHumanVerifiedAt": null,
               "stale": false
             },
@@ -1521,8 +1440,8 @@
               "sourceClass": "research",
               "url": "https://www.trendforce.com/presscenter/news/20260602-13074.html",
               "publishedAt": "2026-06-02",
-              "indexedAt": "2026-08-16T10:54:14.715Z",
-              "sourceChangeDetectedAt": "2026-08-16T10:54:13.430Z",
+              "indexedAt": "2026-08-17T02:06:25.888Z",
+              "sourceChangeDetectedAt": "2026-08-17T02:06:01.998Z",
               "lastHumanVerifiedAt": null,
               "stale": false
             }
@@ -1541,19 +1460,8 @@
               "sourceClass": "official",
               "url": "https://docs.vllm.ai/en/latest/features/kv_offloading_usage",
               "publishedAt": "2026-01-08",
-              "indexedAt": "2026-08-16T10:54:14.715Z",
-              "sourceChangeDetectedAt": "2026-08-16T10:54:13.430Z",
-              "lastHumanVerifiedAt": null,
-              "stale": false
-            },
-            {
-              "title": "KV Offloading Usage Guide - vLLM",
-              "source": "vLLM KV Offloading",
-              "sourceClass": "official",
-              "url": "https://docs.vllm.ai/en/latest/features/kv_offloading_usage",
-              "publishedAt": "2026-01-08",
-              "indexedAt": "2026-08-16T10:54:14.715Z",
-              "sourceChangeDetectedAt": "2026-08-16T10:54:13.430Z",
+              "indexedAt": "2026-08-17T02:06:25.888Z",
+              "sourceChangeDetectedAt": "2026-08-17T02:06:01.998Z",
               "lastHumanVerifiedAt": null,
               "stale": false
             },
@@ -1563,8 +1471,19 @@
               "sourceClass": "official",
               "url": "https://developer.nvidia.com/blog/introducing-nvidia-dynamo-a-low-latency-distributed-inference-framework-for-scaling-reasoning-ai-models",
               "publishedAt": "2025-03-18",
-              "indexedAt": "2026-08-16T10:54:14.715Z",
-              "sourceChangeDetectedAt": "2026-08-16T10:54:13.430Z",
+              "indexedAt": "2026-08-17T02:06:25.888Z",
+              "sourceChangeDetectedAt": "2026-08-17T02:06:01.998Z",
+              "lastHumanVerifiedAt": null,
+              "stale": false
+            },
+            {
+              "title": "솔리다임 뉴스룸 - news.solidigm.com",
+              "source": ".solidigm.com",
+              "sourceClass": "official",
+              "url": "https://news.solidigm.com/en-WW",
+              "publishedAt": "2026-08-12",
+              "indexedAt": "2026-08-16T09:07:15.999Z",
+              "sourceChangeDetectedAt": "2026-08-16T09:07:15.999Z",
               "lastHumanVerifiedAt": null,
               "stale": false
             }
@@ -1577,17 +1496,6 @@
           "status": "grounded",
           "evidenceCount": 4,
           "citations": [
-            {
-              "title": "KV Offloading Usage Guide - vLLM",
-              "source": "vLLM KV Offloading",
-              "sourceClass": "official",
-              "url": "https://docs.vllm.ai/en/latest/features/kv_offloading_usage",
-              "publishedAt": "2026-01-08",
-              "indexedAt": "2026-08-16T10:54:14.715Z",
-              "sourceChangeDetectedAt": "2026-08-16T10:54:13.430Z",
-              "lastHumanVerifiedAt": null,
-              "stale": false
-            },
             {
               "title": "솔리다임 뉴스룸 - news.solidigm.com",
               "source": ".solidigm.com",
@@ -1605,8 +1513,19 @@
               "sourceClass": "official",
               "url": "https://docs.vllm.ai/en/latest/features/kv_offloading_usage",
               "publishedAt": "2026-01-08",
-              "indexedAt": "2026-08-16T10:54:14.715Z",
-              "sourceChangeDetectedAt": "2026-08-16T10:54:13.430Z",
+              "indexedAt": "2026-08-17T02:06:25.888Z",
+              "sourceChangeDetectedAt": "2026-08-17T02:06:01.998Z",
+              "lastHumanVerifiedAt": null,
+              "stale": false
+            },
+            {
+              "title": "KV Offloading Usage Guide - vLLM",
+              "source": "vLLM KV Offloading",
+              "sourceClass": "official",
+              "url": "https://docs.vllm.ai/en/latest/features/kv_offloading_usage",
+              "publishedAt": "2026-01-08",
+              "indexedAt": "2026-08-17T02:06:25.888Z",
+              "sourceChangeDetectedAt": "2026-08-17T02:06:01.998Z",
               "lastHumanVerifiedAt": null,
               "stale": false
             }
@@ -1625,8 +1544,8 @@
               "sourceClass": "research",
               "url": "https://www.trendforce.com/presscenter/news/20260602-13074.html",
               "publishedAt": "2026-06-02",
-              "indexedAt": "2026-08-16T10:54:14.715Z",
-              "sourceChangeDetectedAt": "2026-08-16T10:54:13.430Z",
+              "indexedAt": "2026-08-17T02:06:25.888Z",
+              "sourceChangeDetectedAt": "2026-08-17T02:06:01.998Z",
               "lastHumanVerifiedAt": null,
               "stale": false
             },
@@ -1636,8 +1555,8 @@
               "sourceClass": "research",
               "url": "https://www.trendforce.com/presscenter/news/20260602-13074.html",
               "publishedAt": "2026-06-02",
-              "indexedAt": "2026-08-16T10:54:14.715Z",
-              "sourceChangeDetectedAt": "2026-08-16T10:54:13.430Z",
+              "indexedAt": "2026-08-17T02:06:25.888Z",
+              "sourceChangeDetectedAt": "2026-08-17T02:06:01.998Z",
               "lastHumanVerifiedAt": null,
               "stale": false
             },
@@ -1647,8 +1566,8 @@
               "sourceClass": "research",
               "url": "https://www.trendforce.com/presscenter/news/20260602-13074.html",
               "publishedAt": "2026-06-02",
-              "indexedAt": "2026-08-16T10:54:14.715Z",
-              "sourceChangeDetectedAt": "2026-08-16T10:54:13.430Z",
+              "indexedAt": "2026-08-17T02:06:25.888Z",
+              "sourceChangeDetectedAt": "2026-08-17T02:06:01.998Z",
               "lastHumanVerifiedAt": null,
               "stale": false
             }
@@ -1667,8 +1586,8 @@
               "sourceClass": "official",
               "url": "https://semiconductor.samsung.com/news-events/news/samsung-ships-industry-first-commercial-hbm4-with-ultimate-performance-for-ai-computing",
               "publishedAt": "2026-02-19",
-              "indexedAt": "2026-08-16T10:54:14.715Z",
-              "sourceChangeDetectedAt": "2026-08-16T10:54:13.430Z",
+              "indexedAt": "2026-08-17T02:06:25.888Z",
+              "sourceChangeDetectedAt": "2026-08-17T02:06:01.998Z",
               "lastHumanVerifiedAt": null,
               "stale": false
             },
@@ -1678,8 +1597,8 @@
               "sourceClass": "official",
               "url": "https://semiconductor.samsung.com/news-events/news/samsung-ships-industry-first-commercial-hbm4-with-ultimate-performance-for-ai-computing",
               "publishedAt": "2026-02-19",
-              "indexedAt": "2026-08-16T10:54:14.715Z",
-              "sourceChangeDetectedAt": "2026-08-16T10:54:13.430Z",
+              "indexedAt": "2026-08-17T02:06:25.888Z",
+              "sourceChangeDetectedAt": "2026-08-17T02:06:01.998Z",
               "lastHumanVerifiedAt": null,
               "stale": false
             },
@@ -1689,8 +1608,8 @@
               "sourceClass": "official",
               "url": "https://docs.vllm.ai/en/latest/features/kv_offloading_usage",
               "publishedAt": "2026-01-08",
-              "indexedAt": "2026-08-16T10:54:14.715Z",
-              "sourceChangeDetectedAt": "2026-08-16T10:54:13.430Z",
+              "indexedAt": "2026-08-17T02:06:25.888Z",
+              "sourceChangeDetectedAt": "2026-08-17T02:06:01.998Z",
               "lastHumanVerifiedAt": null,
               "stale": false
             }
@@ -1709,8 +1628,8 @@
               "sourceClass": "official",
               "url": "https://developer.nvidia.com/blog/introducing-nvidia-dynamo-a-low-latency-distributed-inference-framework-for-scaling-reasoning-ai-models",
               "publishedAt": "2025-03-18",
-              "indexedAt": "2026-08-16T10:54:14.715Z",
-              "sourceChangeDetectedAt": "2026-08-16T10:54:13.430Z",
+              "indexedAt": "2026-08-17T02:06:25.888Z",
+              "sourceChangeDetectedAt": "2026-08-17T02:06:01.998Z",
               "lastHumanVerifiedAt": null,
               "stale": false
             },
@@ -1720,8 +1639,8 @@
               "sourceClass": "official",
               "url": "https://developer.nvidia.com/blog/introducing-nvidia-dynamo-a-low-latency-distributed-inference-framework-for-scaling-reasoning-ai-models",
               "publishedAt": "2025-03-18",
-              "indexedAt": "2026-08-16T10:54:14.715Z",
-              "sourceChangeDetectedAt": "2026-08-16T10:54:13.430Z",
+              "indexedAt": "2026-08-17T02:06:25.888Z",
+              "sourceChangeDetectedAt": "2026-08-17T02:06:01.998Z",
               "lastHumanVerifiedAt": null,
               "stale": false
             },
@@ -1731,8 +1650,8 @@
               "sourceClass": "official",
               "url": "https://developer.nvidia.com/blog/introducing-nvidia-dynamo-a-low-latency-distributed-inference-framework-for-scaling-reasoning-ai-models",
               "publishedAt": "2025-03-18",
-              "indexedAt": "2026-08-16T10:54:14.715Z",
-              "sourceChangeDetectedAt": "2026-08-16T10:54:13.430Z",
+              "indexedAt": "2026-08-17T02:06:25.888Z",
+              "sourceChangeDetectedAt": "2026-08-17T02:06:01.998Z",
               "lastHumanVerifiedAt": null,
               "stale": false
             }
@@ -1751,19 +1670,8 @@
               "sourceClass": "official",
               "url": "https://developer.nvidia.com/blog/introducing-nvidia-dynamo-a-low-latency-distributed-inference-framework-for-scaling-reasoning-ai-models",
               "publishedAt": "2025-03-18",
-              "indexedAt": "2026-08-16T10:54:14.715Z",
-              "sourceChangeDetectedAt": "2026-08-16T10:54:13.430Z",
-              "lastHumanVerifiedAt": null,
-              "stale": false
-            },
-            {
-              "title": "NVIDIA Dynamo, A Low-Latency Distributed Inference Framework for Scaling Reasoning AI Models | NVIDIA Technical Blog",
-              "source": "NVIDIA Dynamo",
-              "sourceClass": "official",
-              "url": "https://developer.nvidia.com/blog/introducing-nvidia-dynamo-a-low-latency-distributed-inference-framework-for-scaling-reasoning-ai-models",
-              "publishedAt": "2025-03-18",
-              "indexedAt": "2026-08-16T10:54:14.715Z",
-              "sourceChangeDetectedAt": "2026-08-16T10:54:13.430Z",
+              "indexedAt": "2026-08-17T02:06:25.888Z",
+              "sourceChangeDetectedAt": "2026-08-17T02:06:01.998Z",
               "lastHumanVerifiedAt": null,
               "stale": false
             },
@@ -1773,8 +1681,19 @@
               "sourceClass": "research",
               "url": "https://arxiv.org/abs/2309.06180",
               "publishedAt": null,
-              "indexedAt": "2026-08-16T10:54:14.715Z",
-              "sourceChangeDetectedAt": "2026-08-16T10:54:13.430Z",
+              "indexedAt": "2026-08-17T02:06:25.888Z",
+              "sourceChangeDetectedAt": "2026-08-17T02:06:01.998Z",
+              "lastHumanVerifiedAt": null,
+              "stale": false
+            },
+            {
+              "title": "KV Offloading Usage Guide - vLLM",
+              "source": "vLLM KV Offloading",
+              "sourceClass": "official",
+              "url": "https://docs.vllm.ai/en/latest/features/kv_offloading_usage",
+              "publishedAt": "2026-01-08",
+              "indexedAt": "2026-08-17T02:06:25.888Z",
+              "sourceChangeDetectedAt": "2026-08-17T02:06:01.998Z",
               "lastHumanVerifiedAt": null,
               "stale": false
             }
@@ -1793,8 +1712,8 @@
               "sourceClass": "official",
               "url": "https://docs.vllm.ai/en/latest/features/kv_offloading_usage",
               "publishedAt": "2026-01-08",
-              "indexedAt": "2026-08-16T10:54:14.715Z",
-              "sourceChangeDetectedAt": "2026-08-16T10:54:13.430Z",
+              "indexedAt": "2026-08-17T02:06:25.888Z",
+              "sourceChangeDetectedAt": "2026-08-17T02:06:01.998Z",
               "lastHumanVerifiedAt": null,
               "stale": false
             },
@@ -1835,8 +1754,8 @@
               "sourceClass": "official",
               "url": "https://docs.vllm.ai/en/latest/features/kv_offloading_usage",
               "publishedAt": "2026-01-08",
-              "indexedAt": "2026-08-16T10:54:14.715Z",
-              "sourceChangeDetectedAt": "2026-08-16T10:54:13.430Z",
+              "indexedAt": "2026-08-17T02:06:25.888Z",
+              "sourceChangeDetectedAt": "2026-08-17T02:06:01.998Z",
               "lastHumanVerifiedAt": null,
               "stale": false
             },
@@ -1846,19 +1765,19 @@
               "sourceClass": "official",
               "url": "https://docs.vllm.ai/en/latest/features/kv_offloading_usage",
               "publishedAt": "2026-01-08",
-              "indexedAt": "2026-08-16T10:54:14.715Z",
-              "sourceChangeDetectedAt": "2026-08-16T10:54:13.430Z",
+              "indexedAt": "2026-08-17T02:06:25.888Z",
+              "sourceChangeDetectedAt": "2026-08-17T02:06:01.998Z",
               "lastHumanVerifiedAt": null,
               "stale": false
             },
             {
-              "title": "KV Offloading Usage Guide - vLLM",
-              "source": "vLLM KV Offloading",
+              "title": "NVIDIA Dynamo, A Low-Latency Distributed Inference Framework for Scaling Reasoning AI Models | NVIDIA Technical Blog",
+              "source": "NVIDIA Dynamo",
               "sourceClass": "official",
-              "url": "https://docs.vllm.ai/en/latest/features/kv_offloading_usage",
-              "publishedAt": "2026-01-08",
-              "indexedAt": "2026-08-16T10:54:14.715Z",
-              "sourceChangeDetectedAt": "2026-08-16T10:54:13.430Z",
+              "url": "https://developer.nvidia.com/blog/introducing-nvidia-dynamo-a-low-latency-distributed-inference-framework-for-scaling-reasoning-ai-models",
+              "publishedAt": "2025-03-18",
+              "indexedAt": "2026-08-17T02:06:25.888Z",
+              "sourceChangeDetectedAt": "2026-08-17T02:06:01.998Z",
               "lastHumanVerifiedAt": null,
               "stale": false
             }
@@ -1877,8 +1796,8 @@
               "sourceClass": "official",
               "url": "https://docs.vllm.ai/en/latest/features/kv_offloading_usage",
               "publishedAt": "2026-01-08",
-              "indexedAt": "2026-08-16T10:54:14.715Z",
-              "sourceChangeDetectedAt": "2026-08-16T10:54:13.430Z",
+              "indexedAt": "2026-08-17T02:06:25.888Z",
+              "sourceChangeDetectedAt": "2026-08-17T02:06:01.998Z",
               "lastHumanVerifiedAt": null,
               "stale": false
             },
@@ -1888,8 +1807,8 @@
               "sourceClass": "official",
               "url": "https://docs.vllm.ai/en/latest/features/kv_offloading_usage",
               "publishedAt": "2026-01-08",
-              "indexedAt": "2026-08-16T10:54:14.715Z",
-              "sourceChangeDetectedAt": "2026-08-16T10:54:13.430Z",
+              "indexedAt": "2026-08-17T02:06:25.888Z",
+              "sourceChangeDetectedAt": "2026-08-17T02:06:01.998Z",
               "lastHumanVerifiedAt": null,
               "stale": false
             },
@@ -1899,8 +1818,8 @@
               "sourceClass": "research",
               "url": "https://www.trendforce.com/presscenter/news/20260602-13074.html",
               "publishedAt": "2026-06-02",
-              "indexedAt": "2026-08-16T10:54:14.715Z",
-              "sourceChangeDetectedAt": "2026-08-16T10:54:13.430Z",
+              "indexedAt": "2026-08-17T02:06:25.888Z",
+              "sourceChangeDetectedAt": "2026-08-17T02:06:01.998Z",
               "lastHumanVerifiedAt": null,
               "stale": false
             }
@@ -1919,8 +1838,8 @@
               "sourceClass": "official",
               "url": "https://semiconductor.samsung.com/news-events/news/samsung-ships-industry-first-commercial-hbm4-with-ultimate-performance-for-ai-computing",
               "publishedAt": "2026-02-19",
-              "indexedAt": "2026-08-16T10:54:14.715Z",
-              "sourceChangeDetectedAt": "2026-08-16T10:54:13.430Z",
+              "indexedAt": "2026-08-17T02:06:25.888Z",
+              "sourceChangeDetectedAt": "2026-08-17T02:06:01.998Z",
               "lastHumanVerifiedAt": null,
               "stale": false
             },
@@ -1930,8 +1849,8 @@
               "sourceClass": "official",
               "url": "https://developer.nvidia.com/blog/introducing-nvidia-dynamo-a-low-latency-distributed-inference-framework-for-scaling-reasoning-ai-models",
               "publishedAt": "2025-03-18",
-              "indexedAt": "2026-08-16T10:54:14.715Z",
-              "sourceChangeDetectedAt": "2026-08-16T10:54:13.430Z",
+              "indexedAt": "2026-08-17T02:06:25.888Z",
+              "sourceChangeDetectedAt": "2026-08-17T02:06:01.998Z",
               "lastHumanVerifiedAt": null,
               "stale": false
             },
@@ -1941,8 +1860,8 @@
               "sourceClass": "official",
               "url": "https://docs.nvidia.com/enterprise-reference-architectures/nvl72-ai-factory/latest/overview.html",
               "publishedAt": null,
-              "indexedAt": "2026-08-16T10:54:14.715Z",
-              "sourceChangeDetectedAt": "2026-08-16T10:54:13.430Z",
+              "indexedAt": "2026-08-17T02:06:25.888Z",
+              "sourceChangeDetectedAt": "2026-08-17T02:06:01.998Z",
               "lastHumanVerifiedAt": null,
               "stale": false
             }
@@ -1961,8 +1880,8 @@
               "sourceClass": "official",
               "url": "https://docs.vllm.ai/en/latest/features/kv_offloading_usage",
               "publishedAt": "2026-01-08",
-              "indexedAt": "2026-08-16T10:54:14.715Z",
-              "sourceChangeDetectedAt": "2026-08-16T10:54:13.430Z",
+              "indexedAt": "2026-08-17T02:06:25.888Z",
+              "sourceChangeDetectedAt": "2026-08-17T02:06:01.998Z",
               "lastHumanVerifiedAt": null,
               "stale": false
             },
@@ -1972,19 +1891,19 @@
               "sourceClass": "official",
               "url": "https://developer.nvidia.com/blog/introducing-nvidia-dynamo-a-low-latency-distributed-inference-framework-for-scaling-reasoning-ai-models",
               "publishedAt": "2025-03-18",
-              "indexedAt": "2026-08-16T10:54:14.715Z",
-              "sourceChangeDetectedAt": "2026-08-16T10:54:13.430Z",
+              "indexedAt": "2026-08-17T02:06:25.888Z",
+              "sourceChangeDetectedAt": "2026-08-17T02:06:01.998Z",
               "lastHumanVerifiedAt": null,
               "stale": false
             },
             {
-              "title": "NVIDIA Dynamo, A Low-Latency Distributed Inference Framework for Scaling Reasoning AI Models | NVIDIA Technical Blog",
-              "source": "NVIDIA Dynamo",
+              "title": "KV Offloading Usage Guide - vLLM",
+              "source": "vLLM KV Offloading",
               "sourceClass": "official",
-              "url": "https://developer.nvidia.com/blog/introducing-nvidia-dynamo-a-low-latency-distributed-inference-framework-for-scaling-reasoning-ai-models",
-              "publishedAt": "2025-03-18",
-              "indexedAt": "2026-08-16T10:54:14.715Z",
-              "sourceChangeDetectedAt": "2026-08-16T10:54:13.430Z",
+              "url": "https://docs.vllm.ai/en/latest/features/kv_offloading_usage",
+              "publishedAt": "2026-01-08",
+              "indexedAt": "2026-08-17T02:06:25.888Z",
+              "sourceChangeDetectedAt": "2026-08-17T02:06:01.998Z",
               "lastHumanVerifiedAt": null,
               "stale": false
             }
@@ -1994,7 +1913,7 @@
     },
     "freshness": {
       "framework": "evidence-freshness-v1",
-      "score": 92.1,
+      "score": 93.2,
       "status": "current",
       "label": "최신",
       "revalidationRequired": false,
@@ -2011,11 +1930,11 @@
       "components": {
         "contentAge": 95.4,
         "embeddingLag": 100,
-        "staleRetrievalRate": 75,
+        "staleRetrievalRate": 79.2,
         "coverageDrift": 100
       },
       "diagnostics": {
-        "staleRetrievalRatePct": 25,
+        "staleRetrievalRatePct": 20.8,
         "feedCoveragePct": 100,
         "trackCoveragePct": 100,
         "metricCoveragePct": 100,
@@ -2028,10 +1947,10 @@
       },
       "timestamps": {
         "lastHumanVerifiedAt": null,
-        "sourceChangeDetectedAt": "2026-08-17T02:04:11.555Z",
-        "indexedAt": "2026-08-17T02:06:03.950Z"
+        "sourceChangeDetectedAt": "2026-08-17T02:06:01.998Z",
+        "indexedAt": "2026-08-17T02:06:25.888Z"
       },
-      "generatedAt": "2026-08-17T02:06:03.950Z"
+      "generatedAt": "2026-08-17T02:06:25.888Z"
     },
     "evaluation": {
       "framework": "grounded-retrieval-quality-loop",
@@ -2069,9 +1988,10 @@
       "검증 근거·경제성·Owner·KPI·Kill Criteria를 묶어 경영진 실행안으로 제시"
     ],
     "capabilities": [
-      "Customer Strategy · Account Fact Base → Pain Map → Buying Criteria → 맞춤형 제안",
-      "New Business · Tech Inflection → Where to Play → Partner → Business Case",
-      "AI Infra Execution · PoC → Qualification → Capacity → Scale·Hold·Stop"
+      "Customer Strategy · B2B Fact Base → Pain Map → Buying Criteria → 맞춤형 Memory Proposal",
+      "Workload Optimization · Training/Inference/RAG/Agent → Bottleneck → HW/SW·Memory TCO",
+      "New Biz & Insight · AI/LLM 변곡점 → Where to Play → Partner → Business Case",
+      "Partner & Execution · PoC → Qualification → Capacity → Scale·Hold·Stop"
     ],
     "workProducts": [
       {
@@ -2138,39 +2058,47 @@
       "source": "decisionIntelligence.decisionAutomation.briefs",
       "runId": "31986502933",
       "generatedAt": "2026-08-17T02:06:25.888Z",
-      "status": "DECISION_READY",
+      "status": "EVIDENCE_READY",
       "agenda": [
         {
           "id": "custom-memory",
           "index": "01",
-          "label": "Custom Memory Co-Design",
-          "state": "DECISION_READY",
-          "stage": "COMMERCIAL_SHIPMENT",
-          "whatChanged": "Samsung의 HBM4가 COMMERCIAL_SHIPMENT 단계로 관측됨",
+          "label": "Customer Strategy · Custom Memory",
+          "meceAxis": "customer-strategy",
+          "state": "EVIDENCE_READY",
+          "stage": "CUSTOMER_QUALIFICATION",
+          "decisionQuestion": "HBM4 상업화 신호를 고객별 Custom Qualification·계약 Gate로 전환할 것인가",
+          "whatChanged": "HBM4 상업화 신호를 고객별 Custom Qualification·계약 Gate로 전환할 것인가",
+          "latestSignal": "Samsung · HBM4 · PLATFORM_ADOPTION",
           "customerPain": "가속기 세대 전환 일정과 고객 인증·패키징·물량 약정을 동시에 맞춰야 함",
           "recommendation": "표준 HBM과 Semi-Custom을 분리하고 확정 물량·NRE 회수·Qualification Gate를 통과한 고객에만 Custom 범위를 확대",
           "action90d": "고객별 Stage Map과 Binding Volume·Margin Floor를 연결한 Qualification Board 구축",
+          "deliverable": "Customer Fact Base · Pain Map · Requirement Matrix · Memory Proposal",
           "owner": "AI Infra Strategy · Memory Product · Packaging · Customer Team",
           "kpis": [
             "Qualification Lead Time",
             "Yield",
             "Committed Volume"
           ],
-          "evidenceCount": 5,
-          "independentSources": 4,
-          "confidence": "verified-primary",
+          "evidenceCount": 4,
+          "independentSources": 3,
+          "confidence": "review",
           "deepLink": "#console/c-level-cockpit/hbm4-foundry"
         },
         {
           "id": "agentic-tiering",
           "index": "02",
-          "label": "Agentic Inference Memory Tiering",
-          "state": "DECISION_READY",
-          "stage": "COMMERCIAL_SHIPMENT",
-          "whatChanged": "Samsung의 HBM4가 COMMERCIAL_SHIPMENT 단계로 관측됨",
+          "label": "Workload Optimization · AI Serving",
+          "meceAxis": "workload-architecture",
+          "state": "EVIDENCE_READY",
+          "stage": "ARCHITECTURE_BENCHMARK",
+          "decisionQuestion": "KV Cache 지배 병목을 HBM·Host DRAM/CXL·eSSD 계층화로 낮출 것인가",
+          "whatChanged": "KV Cache 지배 병목을 HBM·Host DRAM/CXL·eSSD 계층화로 낮출 것인가",
+          "latestSignal": "Samsung · HBM4 · PLATFORM_ADOPTION",
           "customerPain": "긴 Context·동시 실행·KV 이동으로 TTFT/TPOT와 Cost per Successful Task가 악화",
           "recommendation": "Serving SW 최적화 후에도 KV Capacity가 지배 병목이면 HBM·Host DRAM/CXL·eSSD Tiering이 증설보다 경제적",
           "action90d": "동일 Model·Context·Concurrency·SLO로 SW-only와 Memory Tier A/B Benchmark 수행",
+          "deliverable": "Workload Trace · Bottleneck Tree · Architecture Benchmark · TCO",
           "owner": "Serving Platform · AI Infra Architecture · Memory Solution",
           "kpis": [
             "TTFT P95",
@@ -2179,19 +2107,23 @@
           ],
           "evidenceCount": 7,
           "independentSources": 6,
-          "confidence": "verified-primary",
+          "confidence": "review",
           "deepLink": "#console/c-level-cockpit/post-hbm"
         },
         {
           "id": "enterprise-rag",
           "index": "03",
-          "label": "Enterprise RAG Economics",
-          "state": "DECISION_READY",
-          "stage": "DISCLOSED",
-          "whatChanged": "Memory industry의 AI Memory가 DISCLOSED 단계로 관측됨",
+          "label": "New Biz · RAG Memory Economics",
+          "meceAxis": "new-biz-insight",
+          "state": "EVIDENCE_READY",
+          "stage": "BUSINESS_CASE",
+          "decisionQuestion": "RAG 품질 Gate 통과 후 Index·Corpus 계층을 어떤 사업모델로 확장할 것인가",
+          "whatChanged": "RAG 품질 Gate 통과 후 Index·Corpus 계층을 어떤 사업모델로 확장할 것인가",
+          "latestSignal": "Memory industry · AI Memory · DISCLOSED",
           "customerPain": "검색 품질·권한·색인 최신성과 Query P99를 유지하면서 Corpus 비용을 통제해야 함",
           "recommendation": "Vector DB 교체보다 Metadata·ACL·Hybrid Retrieval·Rerank를 먼저 통과한 뒤 Hot Index·Warm Document·Cold Corpus를 계층화",
           "action90d": "Golden Set과 권한 오류·Recall·P99 기준선을 고정하고 Tier별 Retrieval Benchmark 수행",
+          "deliverable": "Tech/Market Insight · Opportunity Thesis · Partner Screen · Business Case",
           "owner": "Knowledge Platform · Data Infra · Storage Solution",
           "kpis": [
             "Recall@k",
@@ -2206,13 +2138,17 @@
         {
           "id": "ai-factory",
           "index": "04",
-          "label": "AI Factory Scale Gate",
-          "state": "DECISION_READY",
-          "stage": "DISCLOSED",
-          "whatChanged": "Memory industry의 AI Memory가 DISCLOSED 단계로 관측됨",
+          "label": "Partner Execution · AI Factory",
+          "meceAxis": "partner-execution",
+          "state": "EVIDENCE_READY",
+          "stage": "SCALE_GATE",
+          "decisionQuestion": "전력·냉각·Fabric·Storage Gate를 통과한 Rack Cell만 파트너와 확장할 것인가",
+          "whatChanged": "전력·냉각·Fabric·Storage Gate를 통과한 Rack Cell만 파트너와 확장할 것인가",
+          "latestSignal": "Memory industry · AI Memory · DISCLOSED",
           "customerPain": "가속기·Fabric·Storage·전력·냉각의 병목이 Rack/POD 단위 확장을 제한",
           "recommendation": "서버 단품이 아니라 Useful AI Work / Total Cost와 Qualification / Time 기준으로 Rack Cell을 공동 최적화",
           "action90d": "Workload Trace·전력·열·Fabric·Checkpoint를 한 부하에서 계측하는 Rack Cell Baseline 확정",
+          "deliverable": "Partner Model · 90-Day Roadmap · RACI · KPI/Trigger/Kill Dashboard",
           "owner": "AI Platform · Data Center Facilities · Network / Storage · FinOps",
           "kpis": [
             "Goodput",
@@ -2228,17 +2164,17 @@
       "metrics": [
         {
           "label": "DECISION READY",
-          "value": 4,
+          "value": 0,
           "detail": "실행 검토 가능 안건"
         },
         {
           "label": "VERIFIED EVENTS",
-          "value": 4,
+          "value": 0,
           "detail": "교차 검증된 변화"
         },
         {
           "label": "FRESHNESS",
-          "value": 92.1,
+          "value": 93.2,
           "suffix": "/100",
           "detail": "최신"
         },
@@ -2250,7 +2186,7 @@
         }
       ],
       "revalidationRequired": false,
-      "indexedAt": "2026-08-17T02:06:03.950Z"
+      "indexedAt": "2026-08-17T02:06:25.888Z"
     },
     "status": "VERIFIED · 출처 6개 관측 · 2026-08-17"
   },
@@ -4152,12 +4088,12 @@
         "근거 없는 답변율"
       ],
       "liveControl": {
-        "freshnessScore": 92.1,
+        "freshnessScore": 93.2,
         "freshnessStatus": "current",
         "retrievalStatus": "pass",
         "citationCoveragePct": 100,
         "trackCoveragePct": 100,
-        "indexedAt": "2026-08-17T02:06:03.950Z"
+        "indexedAt": "2026-08-17T02:06:25.888Z"
       }
     },
     "sources": [
