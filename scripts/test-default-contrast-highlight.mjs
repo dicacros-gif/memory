@@ -85,6 +85,9 @@ assert.match(consoleCss, /Memory-bypass readability lock[\s\S]*?--mbp-readable-i
 assert.match(consoleCss, /Council agenda contrast lock[\s\S]*?--agenda-surface:\s*#ffffff;[\s\S]*?--agenda-ink:\s*#17324d;[\s\S]*?--agenda-muted:\s*#40546a;/, "council agendas must define an explicit readable palette on light surfaces");
 assert.match(consoleCss, /\.ai-council-agenda-card:is\(:hover, :focus-visible\)[\s\S]*?--agenda-surface:\s*#17394f;[\s\S]*?--agenda-ink:\s*#f7fbff;[\s\S]*?\[data-theme="dark"\][\s\S]*?--agenda-surface:\s*#f8fafc;[\s\S]*?--agenda-ink:\s*#13263a;/, "council agendas must invert surface and copy together in both themes");
 assert.match(consoleCss, /\.ai-council-agenda-card > :is\(strong, span\),[\s\S]*?color:\s*var\(--agenda-ink\) !important;[\s\S]*?-webkit-text-fill-color:\s*var\(--agenda-ink\) !important;/, "cached automatic contrast classes must not hide council agenda copy");
+assert.match(consoleCss, /Equity value-chain readability lock[\s\S]*?--equity-readable-ink:\s*#17324d;[\s\S]*?--equity-readable-muted:\s*#40546a;[\s\S]*?--equity-readable-accent:\s*#08766f;/, "the listed value-chain must define an explicit light-surface palette");
+assert.match(consoleCss, /\.equity-chain-lane button > span[\s\S]*?color:\s*var\(--equity-item-ink\) !important;[\s\S]*?font-size:\s*11px;[\s\S]*?\.equity-chain-lane button > em[\s\S]*?font-size:\s*10px;/, "value-chain labels and company counts must remain large and readable");
+assert.match(consoleCss, /\.equity-chain-lane button:is\(:hover, :focus-visible\)[\s\S]*?--equity-item-ink:\s*#f7fbff;[\s\S]*?background:\s*#17394f !important;[\s\S]*?\[data-theme="dark"\][\s\S]*?--equity-item-ink:\s*#13263a;[\s\S]*?background:\s*#f8fafc !important;/, "value-chain buttons must invert surface and copy together in both themes");
 
 assert.deepEqual(artifact.presentation.emphasisTerms, model.presentation.emphasisTerms);
 assert.equal(artifact.presentation.emphasisPolicy.style, "underline-only");
@@ -100,6 +103,7 @@ assert.match(landing, /maxPerSection[\s\S]*?maxTotal[\s\S]*?total >= maxTotal/);
 assert.match(landing, /highlightBusinessKeyTerms\(site, content\.presentation\)/, "every generated refresh must reapply the sparse emphasis policy");
 assert.match(landing, /applyPresentationPolicy\(content\.presentation\)/);
 assert.match(landing, /function applyReadabilityGuard\(root = document\.body\)[\s\S]*?fontSize < 12/, "rendered and refreshed text must receive the global 12px readability floor");
+assert.match(landing, /function colorChannels\(value = ""\)[\s\S]*?source\.startsWith\("color\("\)[\s\S]*?channel \* 255/, "computed color-mix values must be normalized from CSS color() channels before contrast scoring");
 assert.match(landing, /node\.classList\.remove\("ui-contrast-on-dark", "ui-contrast-on-light"\)[\s\S]*?const style = getComputedStyle\(node\)/, "the readability guard must recalculate contrast from the current interactive surface");
 assert.match(landing, /function setupReadabilityGuard\(\)[\s\S]*?MutationObserver[\s\S]*?memory-console-ready/, "the readability audit must cover both initial and asynchronously rendered Console content");
 assert.match(landing, /refreshInteractiveContrast[\s\S]*?\.ai-council-agenda-card[\s\S]*?pointerover[\s\S]*?pointerout[\s\S]*?focusin[\s\S]*?focusout/, "hover and keyboard inversion must trigger a fresh contrast audit for council agendas");
@@ -111,7 +115,7 @@ assert.match(consoleCss, /Console typography, inversion and infographic contract
 assert.match(consoleCss, /\.visual-insight-route span::before[\s\S]*?counter\(insight-route, decimal-leading-zero\)[\s\S]*?border-radius:\s*50%;/, "visual synthesis routes must use numbered consulting badges");
 assert.match(consoleCss, /\.strategy-highlight, \.answer-term\):not\(\.ui-key-term\)[\s\S]*?box-shadow:\s*none !important;[\s\S]*?\.strategy-highlight, \.answer-term\)\.ui-key-term[\s\S]*?inset 0 -2px 0 #d5a400/, "only selected Console terms may receive the amber underline");
 assert.match(consoleCss, /\.decision-card, \.decision-flip-card, \.domain-agent-workstream[\s\S]*?--console-hover-surface:\s*#102b3d;[\s\S]*?\[data-theme="dark"\][\s\S]*?--console-hover-surface:\s*#f8fafc;/, "Console decision cards must invert legibly in light and dark modes");
-assert.match(html, /infra-20260817-48/);
+assert.match(html, /infra-20260817-49/);
 assert.match(css, /@media \(max-width: 760px\)[\s\S]*?\.business-competency-output[\s\S]*?grid-column:\s*2 !important[\s\S]*?\.business-llm-causal-chain,[\s\S]*?\.business-contract-funnel[\s\S]*?overflow-x:\s*visible/);
 
 console.log(JSON.stringify({

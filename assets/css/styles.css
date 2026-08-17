@@ -14065,6 +14065,98 @@ body.consulting-system {
   opacity: 1 !important;
 }
 
+/* Equity value-chain readability lock for generated color-mix surfaces. */
+.consulting-system .equity-value-chain-board {
+  --equity-readable-ink: #17324d;
+  --equity-readable-muted: #40546a;
+  --equity-readable-accent: #08766f;
+}
+
+[data-theme="dark"] .consulting-system .equity-value-chain-board {
+  --equity-readable-ink: #f5f9ff;
+  --equity-readable-muted: #c3cfdd;
+  --equity-readable-accent: #79ead0;
+}
+
+.consulting-system .equity-chain-lane header b,
+.consulting-system .equity-region-head p,
+.consulting-system .equity-region-meta em {
+  color: var(--equity-readable-accent) !important;
+  -webkit-text-fill-color: var(--equity-readable-accent) !important;
+  opacity: 1 !important;
+}
+
+.consulting-system .equity-chain-lane header span,
+.consulting-system .equity-region-head > div:first-child > span,
+.consulting-system .equity-region-meta :is(small, em) {
+  color: var(--equity-readable-muted) !important;
+  -webkit-text-fill-color: var(--equity-readable-muted) !important;
+  opacity: 1 !important;
+}
+
+.consulting-system .equity-chain-lane header b { font-size: 12px; }
+.consulting-system .equity-chain-lane header span {
+  font-size: 11px;
+  line-height: 1.45;
+}
+
+.consulting-system .equity-chain-lane button {
+  --equity-item-ink: var(--equity-readable-ink);
+  --equity-item-muted: var(--equity-readable-muted);
+  color: var(--equity-item-ink) !important;
+}
+
+.consulting-system .equity-chain-lane button > span {
+  color: var(--equity-item-ink) !important;
+  -webkit-text-fill-color: var(--equity-item-ink) !important;
+  font-size: 11px;
+  line-height: 1.35;
+  opacity: 1 !important;
+}
+
+.consulting-system .equity-chain-lane button > em {
+  color: var(--equity-item-muted) !important;
+  -webkit-text-fill-color: var(--equity-item-muted) !important;
+  font-size: 10px;
+  opacity: 1 !important;
+}
+
+.consulting-system .equity-chain-lane button:is(:hover, :focus-visible) {
+  --equity-item-ink: #f7fbff;
+  --equity-item-muted: #d4e2eb;
+  background: #17394f !important;
+}
+
+[data-theme="dark"] .consulting-system .equity-chain-lane button:is(:hover, :focus-visible) {
+  --equity-item-ink: #13263a;
+  --equity-item-muted: #40546a;
+  background: #f8fafc !important;
+}
+
+.consulting-system :is(.equity-period-controls, .equity-mode-controls, .equity-category-controls) button {
+  color: var(--equity-readable-muted) !important;
+  -webkit-text-fill-color: var(--equity-readable-muted) !important;
+  opacity: 1 !important;
+}
+
+.consulting-system :is(.equity-period-controls, .equity-mode-controls, .equity-category-controls) button:is(.active, [aria-pressed="true"]) {
+  color: #ffffff !important;
+  -webkit-text-fill-color: #ffffff !important;
+}
+
+.consulting-system .equity-ticker-grid button:not(:hover):not(:focus-visible) :is(b, strong, small, em),
+.consulting-system .equity-chain-card:not(:hover):not(:focus-visible) :is(b, strong, small, em) {
+  color: var(--equity-readable-ink) !important;
+  -webkit-text-fill-color: var(--equity-readable-ink) !important;
+  opacity: 1 !important;
+}
+
+.consulting-system .equity-ticker-grid button:is(:hover, :focus-visible) :is(b, strong, small, em) {
+  color: #ffffff !important;
+  -webkit-text-fill-color: #ffffff !important;
+  opacity: 1 !important;
+}
+
 .ai-council-shell {
   display: grid;
   gap: 12px;

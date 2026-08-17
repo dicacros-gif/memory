@@ -3,7 +3,7 @@
 
   const BUSINESS_TITLE = "AI Infra Strategy · Customer Pain to Executive Action";
   const CONSOLE_HASH = "#console";
-  const CONSOLE_REVISION = "infra-20260817-48";
+  const CONSOLE_REVISION = "infra-20260817-49";
   const DECISION_CLIENT_PATH = "data/landing-decision-client.json";
   const SITE_CONTENT_PATH = "data/site-content-client.json";
   const site = document.querySelector("#businessSite");
@@ -1392,9 +1392,14 @@
   }
 
   function parseRgb(value = "") {
-    const channels = value.match(/[\d.]+/g)?.map(Number) || [];
+    const source = String(value || "").trim().toLowerCase();
+    const numericSource = source.startsWith("color(")
+      ? source.replace(/^color\(\s*[a-z0-9-]+\s+/, "")
+      : source;
+    const channels = numericSource.match(/[\d.]+/g)?.map(Number) || [];
     if (channels.length < 3 || (channels.length > 3 && channels[3] < .35)) return null;
-    return channels.slice(0, 3);
+    const rgb = channels.slice(0, 3);
+    return source.startsWith("color(") ? rgb.map((channel) => channel * 255) : rgb;
   }
 
   function surfaceLuminance(node) {
@@ -1430,9 +1435,17 @@
   }
 
   function colorChannels(value = "") {
-    const channels = String(value).match(/[\d.]+/g)?.map(Number) || [];
+    const source = String(value || "").trim().toLowerCase();
+    const numericSource = source.startsWith("color(")
+      ? source.replace(/^color\(\s*[a-z0-9-]+\s+/, "")
+      : source;
+    const channels = numericSource.match(/[\d.]+/g)?.map(Number) || [];
     if (channels.length < 3) return null;
-    return { rgb: channels.slice(0, 3), alpha: channels[3] ?? 1 };
+    const rgb = channels.slice(0, 3);
+    return {
+      rgb: source.startsWith("color(") ? rgb.map((channel) => channel * 255) : rgb,
+      alpha: channels[3] ?? 1,
+    };
   }
 
   function relativeLuminance(rgb = []) {

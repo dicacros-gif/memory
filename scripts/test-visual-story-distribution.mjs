@@ -64,5 +64,5 @@ assert.match(css, /Dark three-slide carousel treatment[\s\S]*?memoryStoryDarkSli
 console.log(JSON.stringify({
   bridges: 4,
   visualModules: 4,
-  revision: "infra-20260817-48",
+  revision: "infra-20260817-49",
 }, null, 2));
