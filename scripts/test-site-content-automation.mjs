@@ -175,6 +175,7 @@ assert.match(landing, /function renderWorkloadOptimization\(content = \{\}\)/);
 assert.match(landing, /function renderDepartmentHomepage\(content = \{\}\)/);
 assert.match(landing, /hero\.departmentWorkbench/);
 assert.match(landing, /#businessHomeDecisionQueue/);
+assert.doesNotMatch(landing, /<small>OUTPUT · \$\{escapeBusinessHTML\(item\.deliverable/, "automated refresh must not restore the removed homepage output row");
 assert.match(landing, /function renderOrganizationOperatingModel\(content = \{\}\)/);
 assert.match(landing, /function renderAIFactorySystem\(content = \{\}\)/);
 assert.match(landing, /#workloadMatrix/);
@@ -233,7 +234,7 @@ assert.match(app, /window\.MEMORY_SITE_CONTENT\?\.agentCouncil\?\.agendas/);
 assert.match(landing, /previousRunId && previousRunId !== String\(content\.runId\) && isConsoleHash\(\)/);
 assert.match(landing, /window\.location\.reload\(\)/);
 assert.match(app, /replace\(\/솔리드다임\/g, "솔리다임"\)/, "the interactive console must normalize stale Solidigm labels at render time");
-assert.match(index, /infra-20260817-66/);
+assert.match(index, /infra-20260817-67/);
 assert.doesNotMatch(
   index,
   /data-live-source[^>]*>[\s\S]*?<\/a><\/div>\s*<dl>/,

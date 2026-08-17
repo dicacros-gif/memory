@@ -6890,15 +6890,6 @@ body.landing-mode {
   -webkit-line-clamp: 3;
 }
 
-.business-decision-queue-grid > a > small {
-  margin-top: auto;
-  padding-top: 12px;
-  color: #8fb4c8;
-  font: 730 7.5px/1.45 var(--mono);
-  display: block;
-  overflow-wrap: anywhere;
-}
-
 .business-decision-queue-grid > a:is(:hover, :focus-visible) {
   z-index: 2;
   color: #102a3d;
@@ -6911,8 +6902,6 @@ body.landing-mode {
 
 .business-decision-queue-grid > a:is(:hover, :focus-visible) :is(strong, p) { color: #102a3d; }
 .business-decision-queue-grid > a:is(:hover, :focus-visible) > span { color: #08745f; }
-.business-decision-queue-grid > a:is(:hover, :focus-visible) > small { color: #49687c; }
-
 @media (max-width: 1200px) {
   .business-hero { min-height: 0; padding-bottom: 70px; }
   .business-decision-queue { position: relative; inset: auto; margin-top: 54px; }
@@ -6926,7 +6915,6 @@ body.landing-mode {
   .business-hero-proof,
   .business-decision-queue-grid { grid-template-columns: 1fr; }
   .business-decision-queue-grid > a { min-height: 0; }
-  .business-decision-queue-grid > a > small { margin-top: 15px; }
   .business-flow-node { grid-template-columns: 1fr; }
   .business-flow-node span { grid-column: 1; }
 }

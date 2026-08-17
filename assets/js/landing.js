@@ -3,7 +3,7 @@
 
   const BUSINESS_TITLE = "AI Infra Strategy · Customer Pain to Executive Action";
   const CONSOLE_HASH = "#console";
-  const CONSOLE_REVISION = "infra-20260817-66";
+  const CONSOLE_REVISION = "infra-20260817-67";
   const DECISION_CLIENT_PATH = "data/landing-decision-client.json";
   const SITE_CONTENT_PATH = "data/site-content-client.json";
   const site = document.querySelector("#businessSite");
@@ -788,13 +788,10 @@
     if (queue && Array.isArray(workbench.agenda) && workbench.agenda.length) {
       queue.innerHTML = workbench.agenda.map((item, index) => {
         const deepLink = /^#console(?:$|\/)/.test(String(item.deepLink || "")) ? item.deepLink : "#console";
-        const evidence = Number(item.evidenceCount || 0);
-        const sources = Number(item.independentSources || 0);
         return `<a href="${deepLink}" data-decision-id="${escapeBusinessHTML(item.id || String(index + 1))}" data-state="${escapeBusinessHTML(String(item.state || "monitoring").toLowerCase())}">
           <span>${escapeBusinessHTML(item.index || String(index + 1).padStart(2, "0"))} · ${escapeBusinessHTML(item.label || "AI INFRA DECISION")}</span>
           <strong>${escapeBusinessHTML(item.decisionQuestion || item.whatChanged || "다음 의사결정 질문을 검증합니다.")}</strong>
           <p><b>PAIN</b> · ${escapeBusinessHTML(item.customerPain || "고객 문제 검증 중")}</p>
-          <small>OUTPUT · ${escapeBusinessHTML(item.deliverable || "Decision Brief")} · 근거 ${evidence}건/${sources}개 출처</small>
         </a>`;
       }).join("");
     }
