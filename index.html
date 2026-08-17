@@ -110,7 +110,7 @@
     (() => {
       if (!location.hash.startsWith("#console")) return;
       document.documentElement.classList.add("console-entry");
-      const revision = "infra-20260817-76";
+      const revision = "infra-20260817-77";
       const assets = [
         ["consoleStylesPreload", "style", `assets/css/styles.min.css?v=${revision}`, "high"],
         ["consoleAppPreload", "script", `assets/js/app.min.js?v=${revision}`, "low"],
@@ -127,7 +127,7 @@
       }
     })();
   </script>
-  <link rel="stylesheet" href="assets/css/landing.min.css?v=infra-20260817-76" />
+  <link rel="stylesheet" href="assets/css/landing.min.css?v=infra-20260817-77" />
 </head>
 <body class="landing-mode">
   <div class="business-site" id="businessSite">
@@ -184,7 +184,7 @@
               <li>AI Application·HW·SW 변화를 맞춤형 Memory Solution과 신규 Biz 기회로 전환</li>
               <li>검증 근거·경제성·Owner·KPI·Kill Criteria를 묶어 경영진 실행안으로 제시</li>
             </ul>
-            <ul class="business-hero-bullets" aria-label="핵심 전략 범위">
+            <ul class="business-hero-bullets" aria-label="핵심 전략 범위" data-copy-verbatim>
               <li>Customer Strategy · B2B Fact Base → Pain Map → Buying Criteria → 맞춤형 Memory Proposal</li>
               <li>Workload Optimization · Training/Inference/RAG/Agent → Bottleneck → HW/SW·Memory TCO</li>
               <li>New Biz &amp; Insight · AI/LLM 변곡점 → Where to Play → Partner → Business Case</li>
@@ -1892,6 +1892,6 @@
   <div class="qa-answer" id="qaAnswer" hidden></div>
   <div class="inspector" id="inspector" hidden></div>
   <div class="backdrop" id="backdrop"></div>
-  <script src="assets/js/landing.min.js?v=infra-20260817-76" defer></script>
+  <script src="assets/js/landing.min.js?v=infra-20260817-77" defer></script>
 </body>
 </html>

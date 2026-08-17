@@ -4966,12 +4966,17 @@ body.landing-mode {
 
 .business-hero-bullets li {
   position: relative;
+  min-width: 0;
+  max-width: 100%;
   padding: 12px 18px 12px 34px;
   color: rgba(255, 255, 255, .76);
   border-left: 2px solid var(--bullet-color, var(--consulting-cyan));
   background: linear-gradient(90deg, color-mix(in srgb, var(--bullet-color) 14%, transparent), transparent 86%);
   font: 750 11px/1.45 var(--mono);
   letter-spacing: .035em;
+  white-space: normal;
+  overflow-wrap: anywhere;
+  word-break: keep-all;
 }
 
 .business-hero-bullets li:nth-child(2) { --bullet-color: var(--consulting-violet); }

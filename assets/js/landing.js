@@ -3,7 +3,7 @@
 
   const BUSINESS_TITLE = "AI Infra Strategy · Customer Pain to Executive Action";
   const CONSOLE_HASH = "#console";
-  const CONSOLE_REVISION = "infra-20260817-76";
+  const CONSOLE_REVISION = "infra-20260817-77";
   const DECISION_CLIENT_PATH = "data/landing-decision-client.json";
   const SITE_CONTENT_PATH = "data/site-content-client.json";
   const site = document.querySelector("#businessSite");
@@ -379,8 +379,11 @@
 
   function renderBusinessList(node, items = []) {
     if (!node || !Array.isArray(items) || !items.length) return;
+    const preserveFullCopy = node.hasAttribute("data-copy-verbatim");
     node.innerHTML = items
-      .map((item) => compactBusinessCopy(item, 78))
+      .map((item) => preserveFullCopy
+        ? removeBusinessSentenceStops(removeDiscardedBusinessSentence(item))
+        : compactBusinessCopy(item, 78))
       .filter(Boolean)
       .map((item) => `<li>${escapeBusinessHTML(item)}</li>`)
       .join("");

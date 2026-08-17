@@ -14,6 +14,8 @@ const heroList = html.match(/<ul class="business-hero-thesis business-copy-list"
 assert.equal((heroList.match(/<li>/g) ?? []).length, 3, "hero thesis must contain three Korean bullets");
 const heroScope = html.match(/<ul class="business-hero-bullets"[\s\S]*?<\/ul>/)?.[0] ?? "";
 assert.equal((heroScope.match(/<li>/g) ?? []).length, 3, "hero scope must contain three intact strategy rows");
+assert.match(heroScope, /data-copy-verbatim/, "hero strategy rows must preserve full copy instead of adding ellipses");
+assert.doesNotMatch(heroScope, /…/, "hero strategy rows must not ship with clipped copy");
 const heroOpening = html.match(/<section class="business-hero"[\s\S]*?<h1>/)?.[0] ?? "";
 assert.doesNotMatch(heroOpening, /data-frame=|AI INFRA STRATEGY/, "the removed hero frame and strategy kicker must stay absent");
 assert.doesNotMatch(heroScope, /Partner &amp; Execution/, "the clipped Partner & Execution row must stay removed");
@@ -37,12 +39,13 @@ for (const phrase of [
 
 assert.doesNotMatch(html, /메모리를 판매하는 것이 아니라/);
 assert.doesNotMatch(html, /직무 적합성을 세 가지/);
-assert.match(html, /infra-20260817-76/);
+assert.match(html, /infra-20260817-77/);
 assert.match(css, /\.business-copy-list li::before/);
 assert.match(css, /Korean supporting copy uses compact consulting-style bullets/);
 assert.match(css, /\.business-site p\.business-copy-point::before/);
 assert.match(landing, /function removeBusinessSentenceStops\(value = ""\)/);
 assert.match(landing, /function compactBusinessCopy\(value = "", maxCharacters = 84\)/);
+assert.match(landing, /preserveFullCopy[\s\S]*?removeBusinessSentenceStops\(removeDiscardedBusinessSentence\(item\)\)/, "verbatim lists must retain their full generated copy");
 assert.match(landing, /function applyExecutiveCopyStyle\(root = site, policy = \{\}\)/);
 assert.match(landing, /function executiveBusinessBulletText\(value = ""\)/);
 assert.match(landing, /function removeDiscardedBusinessSentence\(value = ""\)/, "the landing page must remove the discarded clipped evidence sentence");
@@ -82,5 +85,5 @@ assert.equal(normalizeHtmlExecutiveCopy(html), html, "checked-in HTML must alrea
 console.log(JSON.stringify({
   heroBullets: 3,
   decisionAnswerLists: answerLists.length,
-  revision: "infra-20260817-76",
+  revision: "infra-20260817-77",
 }, null, 2));
