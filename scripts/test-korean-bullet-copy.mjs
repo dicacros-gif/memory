@@ -9,6 +9,10 @@ const [html, css] = await Promise.all([
 
 const heroList = html.match(/<ul class="business-hero-thesis business-copy-list"[\s\S]*?<\/ul>/)?.[0] ?? "";
 assert.equal((heroList.match(/<li>/g) ?? []).length, 3, "hero thesis must contain three Korean bullets");
+const heroScope = html.match(/<ul class="business-hero-bullets"[\s\S]*?<\/ul>/)?.[0] ?? "";
+assert.equal((heroScope.match(/<li>/g) ?? []).length, 3, "hero scope must contain three intact strategy rows");
+assert.doesNotMatch(heroScope, /Partner &amp; Execution/, "the clipped Partner & Execution row must stay removed");
+assert.doesNotMatch(html, />[^<]*Workbench[^<]*</i, "Workbench must not appear in user-facing copy");
 
 const answerLists = [...html.matchAll(/<ul class="business-answer-bullets">([\s\S]*?)<\/ul>/g)];
 assert.equal(answerLists.length, 4, "each decision case must use a bullet answer");
@@ -27,12 +31,12 @@ for (const phrase of [
 
 assert.doesNotMatch(html, /메모리를 판매하는 것이 아니라/);
 assert.doesNotMatch(html, /직무 적합성을 세 가지/);
-assert.match(html, /infra-20260817-36/);
+assert.match(html, /infra-20260817-37/);
 assert.match(css, /\.business-copy-list li::before/);
 assert.match(css, /Korean supporting copy uses compact consulting-style bullets/);
 
 console.log(JSON.stringify({
   heroBullets: 3,
   decisionAnswerLists: answerLists.length,
-  revision: "infra-20260817-36",
+  revision: "infra-20260817-37",
 }, null, 2));
