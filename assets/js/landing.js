@@ -3,7 +3,7 @@
 
   const BUSINESS_TITLE = "AI Infra Strategy · Customer Pain to Executive Action";
   const CONSOLE_HASH = "#console";
-  const CONSOLE_REVISION = "infra-20260817-40";
+  const CONSOLE_REVISION = "infra-20260817-41";
   const DECISION_CLIENT_PATH = "data/landing-decision-client.json";
   const SITE_CONTENT_PATH = "data/site-content-client.json";
   const site = document.querySelector("#businessSite");
@@ -1484,6 +1484,7 @@
       try {
       if (!directReadableText(node) || node.closest("script, style, template, [aria-hidden='true']")) continue;
       const bounds = node.getBoundingClientRect();
+      node.classList.remove("ui-contrast-on-dark", "ui-contrast-on-light");
       const style = getComputedStyle(node);
       if (!bounds.width || !bounds.height || style.display === "none" || style.visibility === "hidden") continue;
 
@@ -1552,6 +1553,17 @@
     window.setTimeout(() => applyReadabilityGuard(document.body), 8200);
     window.__applyReadabilityGuard = applyReadabilityGuard;
     window.addEventListener("resize", () => schedule(document.body), { passive: true });
+    const refreshInteractiveContrast = (event) => {
+      const target = event.target instanceof Element ? event.target : event.target?.parentElement;
+      const surface = target?.closest?.("[data-hover-mode], .sc-card, .decision-card, .decision-flip-card, .domain-agent-workstream") || target;
+      if (!surface) return;
+      schedule(surface);
+      window.setTimeout(() => schedule(surface), 240);
+    };
+    window.addEventListener("pointerover", refreshInteractiveContrast, { passive: true, capture: true });
+    window.addEventListener("pointerout", refreshInteractiveContrast, { passive: true, capture: true });
+    window.addEventListener("focusin", refreshInteractiveContrast, { passive: true, capture: true });
+    window.addEventListener("focusout", refreshInteractiveContrast, { passive: true, capture: true });
     window.addEventListener("pagehide", () => observer.disconnect(), { once: true });
   }
 

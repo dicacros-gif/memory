@@ -35,6 +35,8 @@ const defaultContrastPairs = [
   ["#344b61", "#ffffff"],
   ["#f8fbff", "#102b3d"],
   ["#d6e4ee", "#102b3d"],
+  ["#13263a", "#f8fafc"],
+  ["#40546a", "#f8fafc"],
   ["#102c43", "#eaf1f5"],
   ["#40596c", "#eaf1f5"],
   ["#f7fbff", "#17394f"],
@@ -66,6 +68,7 @@ assert.match(css, /\.business-contact-card\[data-hover-mode="dark-to-light"\]:is
 assert.match(consoleCss, /\.consulting-system \.sc-card \{[\s\S]*?--sc-readable-ink:\s*#13263a;[\s\S]*?--sc-hover-surface:\s*#102b3d;/, "consulting strategy cards must define explicit readable and inverted palettes");
 assert.match(consoleCss, /\.consulting-system \.sc-card:is\(:hover, :focus-visible, :focus-within\)[\s\S]*?background:\s*var\(--sc-hover-surface\);[\s\S]*?color:\s*var\(--sc-hover-ink\);/, "consulting strategy cards must invert their full surface on hover and keyboard focus");
 assert.match(consoleCss, /\.consulting-system \.sc-card:is\(:hover, :focus-visible, :focus-within\) \.strategy-highlight \{[\s\S]*?color:\s*var\(--sc-hover-key\) !important;[\s\S]*?-webkit-text-fill-color:\s*var\(--sc-hover-key\);/, "highlighted strategy terms must remain readable on the inverted surface");
+assert.match(consoleCss, /Strategy-card inversion lock[\s\S]*?\.sc-card:is\(:hover, :focus-visible, :focus-within\)[\s\S]*?\.ui-contrast-on-dark, \.ui-contrast-on-light[\s\S]*?color:\s*var\(--sc-hover-ink\) !important;/, "strategy-card hover colors must outrank cached automatic contrast tags");
 assert.match(consoleCss, /\.consulting-system \.sc-card-flow \{[\s\S]*?width:\s*100%;[\s\S]*?max-width:\s*100%;[\s\S]*?min-width:\s*0;/, "the five-step consulting map must remain within the card width");
 assert.match(consoleApp, /<article class="sc-card" tabindex="0"/, "consulting strategy cards must expose the same inversion to keyboard users");
 
@@ -83,7 +86,9 @@ assert.match(landing, /maxPerSection[\s\S]*?maxTotal[\s\S]*?total >= maxTotal/);
 assert.match(landing, /highlightBusinessKeyTerms\(site, content\.presentation\)/, "every generated refresh must reapply the sparse emphasis policy");
 assert.match(landing, /applyPresentationPolicy\(content\.presentation\)/);
 assert.match(landing, /function applyReadabilityGuard\(root = document\.body\)[\s\S]*?fontSize < 12/, "rendered and refreshed text must receive the global 12px readability floor");
+assert.match(landing, /node\.classList\.remove\("ui-contrast-on-dark", "ui-contrast-on-light"\)[\s\S]*?const style = getComputedStyle\(node\)/, "the readability guard must recalculate contrast from the current interactive surface");
 assert.match(landing, /function setupReadabilityGuard\(\)[\s\S]*?MutationObserver[\s\S]*?memory-console-ready/, "the readability audit must cover both initial and asynchronously rendered Console content");
+assert.match(landing, /refreshInteractiveContrast[\s\S]*?pointerover[\s\S]*?pointerout[\s\S]*?focusin[\s\S]*?focusout/, "hover and keyboard inversion must trigger a fresh contrast audit");
 assert.match(landing, /READABILITY_TEXT_SELECTOR[\s\S]*?"th", "td", "i", "text"/, "dense tables and chart labels must be included in the computed typography audit");
 assert.match(landing, /function applySparseConsoleEmphasis[\s\S]*?total >= 36[\s\S]*?consoleKeyTerms/, "Console emphasis must remain sparse across dynamically rendered sections");
 assert.match(css, /Site-wide readability and consulting visual governance[\s\S]*?\.business-site :is\(\.ui-text-floor\)[\s\S]*?font-size:\s*clamp\(12px, \.65vw, 13px\) !important;/, "landing typography must define a computed minimum-size contract");
@@ -92,7 +97,7 @@ assert.match(consoleCss, /Console typography, inversion and infographic contract
 assert.match(consoleCss, /\.visual-insight-route span::before[\s\S]*?counter\(insight-route, decimal-leading-zero\)[\s\S]*?border-radius:\s*50%;/, "visual synthesis routes must use numbered consulting badges");
 assert.match(consoleCss, /\.strategy-highlight, \.answer-term\):not\(\.ui-key-term\)[\s\S]*?box-shadow:\s*none !important;[\s\S]*?\.strategy-highlight, \.answer-term\)\.ui-key-term[\s\S]*?inset 0 -2px 0 #d5a400/, "only selected Console terms may receive the amber underline");
 assert.match(consoleCss, /\.decision-card, \.decision-flip-card, \.domain-agent-workstream[\s\S]*?--console-hover-surface:\s*#102b3d;[\s\S]*?\[data-theme="dark"\][\s\S]*?--console-hover-surface:\s*#f8fafc;/, "Console decision cards must invert legibly in light and dark modes");
-assert.match(html, /infra-20260817-40/);
+assert.match(html, /infra-20260817-41/);
 assert.match(css, /@media \(max-width: 760px\)[\s\S]*?\.business-competency-output[\s\S]*?grid-column:\s*2 !important[\s\S]*?\.business-llm-causal-chain,[\s\S]*?\.business-contract-funnel[\s\S]*?overflow-x:\s*visible/);
 
 console.log(JSON.stringify({

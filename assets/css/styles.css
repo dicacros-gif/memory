@@ -29551,6 +29551,38 @@ body.consulting-system {
   box-shadow: inset 0 -2px 0 #f2c94c !important;
 }
 
+/* Strategy-card inversion lock
+   The computed readability guard can tag copy before a card flips. These
+   final-state selectors intentionally outrank those cached utility classes so
+   every label, body line, source and date follows the active card surface. */
+.consulting-system .sc-card:is(:hover, :focus-visible, :focus-within) {
+  color: var(--sc-hover-ink) !important;
+  border-color: var(--sc-hover-surface) !important;
+  background: var(--sc-hover-surface) !important;
+}
+.consulting-system .sc-card:is(:hover, :focus-visible, :focus-within)
+  :is(h1, h2, h3, h4, h5, h6, strong, b, a, button, label, span, p, li, small, time, cite, em, .ui-contrast-on-dark, .ui-contrast-on-light) {
+  color: var(--sc-hover-ink) !important;
+  -webkit-text-fill-color: currentColor !important;
+  text-shadow: none !important;
+  opacity: 1 !important;
+}
+.consulting-system .sc-card:is(:hover, :focus-visible, :focus-within)
+  :is(.sc-card-rank > span, .sc-pain small, .sc-case-thesis small, .sc-map-node p, .sc-map-node strong, .sc-map-node .sc-wl-row span, .sc-evidence-list small, .sc-empty) {
+  color: var(--sc-hover-muted) !important;
+  -webkit-text-fill-color: currentColor !important;
+}
+.consulting-system .sc-card:is(:hover, :focus-visible, :focus-within)
+  :is(.sc-card-rank > b, .sc-pain strong, .sc-case-thesis > span, .sc-case-thesis strong, .sc-map-node > span, .sc-map-node .sc-wl-name, .sc-map-node .sc-proof-grid span, .sc-map-node.sc-gate strong, .sc-map-node.sc-gate p b, .sc-evidence-list a, .sc-ev-src, .sc-wl-row b, .sc-trend b) {
+  color: var(--sc-hover-ink) !important;
+  -webkit-text-fill-color: currentColor !important;
+}
+.consulting-system .sc-card:is(:hover, :focus-visible, :focus-within) .strategy-highlight {
+  color: var(--sc-hover-key) !important;
+  -webkit-text-fill-color: var(--sc-hover-key) !important;
+  text-decoration-color: var(--sc-hover-key-line) !important;
+}
+
 @media (max-width: 680px) {
   .consulting-system .ui-text-floor { font-size: 12px !important; }
   .consulting-system .visual-insight-route span { padding-left: 56px; }
