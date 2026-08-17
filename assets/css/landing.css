@@ -3001,8 +3001,7 @@ body.landing-mode :is(.scroll-prog, .scroll-top, .qa-answer, .inspector, #backdr
   background: linear-gradient(145deg, rgba(98, 230, 196, .09), rgba(19, 105, 255, .07));
 }
 
-.business-fabric-stack article > span,
-.business-source-note > span {
+.business-fabric-stack article > span {
   color: var(--business-mint);
   font: 820 8px/1.35 var(--mono);
   letter-spacing: .06em;
@@ -3019,56 +3018,6 @@ body.landing-mode :is(.scroll-prog, .scroll-top, .qa-answer, .inspector, #backdr
   color: rgba(255, 255, 255, .48);
   font-size: 9px;
   line-height: 1.55;
-}
-
-.business-fabric-output {
-  display: grid;
-  grid-template-columns: auto 1fr auto auto 1fr;
-  align-items: center;
-  gap: 14px;
-  margin-top: 10px;
-  padding: 18px 20px;
-  border-radius: 9px;
-  background: rgba(255, 255, 255, .06);
-}
-
-.business-fabric-output span {
-  color: rgba(255, 255, 255, .38);
-  font: 760 8px/1 var(--mono);
-  letter-spacing: .08em;
-}
-
-.business-fabric-output strong {
-  color: #fff;
-  font-size: 10px;
-  line-height: 1.5;
-}
-
-.business-fabric-output i {
-  color: var(--business-mint);
-  font-style: normal;
-}
-
-.business-source-note {
-  display: flex;
-  align-items: center;
-  gap: 14px;
-  margin: 18px 0 0;
-  color: rgba(255, 255, 255, .42);
-  font-size: 9px;
-}
-
-.business-source-note a {
-  color: #fff;
-  font-weight: 730;
-  text-decoration: underline;
-  text-decoration-color: rgba(98, 230, 196, .42);
-  text-underline-offset: 4px;
-}
-
-.business-source-note time {
-  margin-left: auto;
-  font-family: var(--mono);
 }
 
 .business-execution-evidence {
@@ -3735,20 +3684,8 @@ body.landing-mode :is(.scroll-prog, .scroll-top, .qa-answer, .inspector, #backdr
   .business-fabric-workloads {
     grid-template-columns: repeat(2, minmax(0, 1fr));
   }
-  .business-fabric-stack,
-  .business-fabric-output {
+  .business-fabric-stack {
     grid-template-columns: 1fr;
-  }
-  .business-fabric-output i {
-    transform: rotate(90deg);
-    text-align: center;
-  }
-  .business-source-note {
-    align-items: flex-start;
-    flex-direction: column;
-  }
-  .business-source-note time {
-    margin-left: 0;
   }
   .business-execution-evidence-grid article {
     padding: 23px;
@@ -6064,8 +6001,6 @@ body.landing-mode {
 .business-flagship-caveat,
 .business-tco-metrics span,
 .business-fabric-stack p,
-.business-fabric-output span,
-.business-source-note,
 .business-macro-action p,
 .business-role-fit-grid span,
 .business-role-outputs p,

@@ -110,7 +110,7 @@
     (() => {
       if (!location.hash.startsWith("#console")) return;
       document.documentElement.classList.add("console-entry");
-      const revision = "infra-20260817-58";
+      const revision = "infra-20260817-59";
       const assets = [
         ["consoleStylesPreload", "style", `assets/css/styles.min.css?v=${revision}`, "high"],
         ["consoleAppPreload", "script", `assets/js/app.min.js?v=${revision}`, "low"],
@@ -127,7 +127,7 @@
       }
     })();
   </script>
-  <link rel="stylesheet" href="assets/css/landing.min.css?v=infra-20260817-58" />
+  <link rel="stylesheet" href="assets/css/landing.min.css?v=infra-20260817-59" />
 </head>
 <body class="landing-mode">
   <div class="business-site" id="businessSite">
@@ -661,8 +661,6 @@
               <article><span>04 · REUSE</span><strong>High-capacity eSSD</strong><p>Context 재사용 · 검색 · Checkpoint · Data Lake</p></article>
               <article><span>05 · EMERGING</span><strong>HBF Context Tier</strong><p>공개 규격·생태계·Qualification·채택 확인 전 전략 Option</p></article>
             </div>
-            <div class="business-fabric-output"><span>MINIMIZE</span><strong>Data Movement · GPU Idle · Power · Cooling</strong><i aria-hidden="true">→</i><span>MAXIMIZE</span><strong>Tokens/Watt · Tokens/$ · Utilization · TCO</strong></div>
-            <p class="business-source-note"><span>CONFIRMED / WATCH · CURRENT EVIDENCE</span><a href="#console">최신 검증 원문 연결 중 ↗</a><time>확인 중</time></p>
           </section>
 
           <section class="business-storage-track" aria-labelledby="storageTrackTitle">
@@ -1952,6 +1950,6 @@
   <div class="qa-answer" id="qaAnswer" hidden></div>
   <div class="inspector" id="inspector" hidden></div>
   <div class="backdrop" id="backdrop"></div>
-  <script src="assets/js/landing.min.js?v=infra-20260817-58" defer></script>
+  <script src="assets/js/landing.min.js?v=infra-20260817-59" defer></script>
 </body>
 </html>

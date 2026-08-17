@@ -3,7 +3,7 @@
 
   const BUSINESS_TITLE = "AI Infra Strategy · Customer Pain to Executive Action";
   const CONSOLE_HASH = "#console";
-  const CONSOLE_REVISION = "infra-20260817-58";
+  const CONSOLE_REVISION = "infra-20260817-59";
   const DECISION_CLIENT_PATH = "data/landing-decision-client.json";
   const SITE_CONTENT_PATH = "data/site-content-client.json";
   const site = document.querySelector("#businessSite");
@@ -495,24 +495,6 @@
       proofline.innerHTML = insights.slice(0, 2).map((item) => `
         <div><span>${escapeBusinessHTML(item.latest?.evidenceLevel || "WATCH")} · CURRENT EVIDENCE</span><strong>${escapeBusinessHTML(item.latest?.title || item.label)}</strong><a href="${escapeBusinessHTML(safeBusinessUrl(item.latest?.url, "#console"))}" target="_blank" rel="noopener noreferrer">${escapeBusinessHTML(item.latest?.source || "원문")} ↗</a></div>
       `).join("");
-    }
-
-    const primarySourceNote = document.querySelector(".business-memory-fabric .business-source-note");
-    const primaryInsight = insights[0];
-    if (primarySourceNote && primaryInsight) {
-      const label = primarySourceNote.querySelector("span");
-      const link = primarySourceNote.querySelector("a");
-      const time = primarySourceNote.querySelector("time");
-      if (label) label.textContent = `${primaryInsight.latest?.evidenceLevel || "WATCH"} · CURRENT`;
-      if (link) {
-        link.href = safeBusinessUrl(primaryInsight.latest?.url, "#console");
-        link.textContent = `${primaryInsight.latest?.source || "원문"} · ${primaryInsight.latest?.title || primaryInsight.label} ↗`;
-      }
-      if (time) {
-        const date = String(primaryInsight.latest?.publishedAt || content.generatedAt || "").slice(0, 10);
-        time.dateTime = date;
-        time.textContent = date || "기준일 확인";
-      }
     }
 
     const storageSources = document.querySelector(".business-storage-sources");

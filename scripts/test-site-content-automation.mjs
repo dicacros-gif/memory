@@ -206,6 +206,16 @@ assert.doesNotMatch(
 );
 assert.doesNotMatch(
   index,
+  /business-fabric-output|business-source-note|MINIMIZE[\s\S]*?MAXIMIZE/,
+  "the deleted memory-fabric outcome and source rows must not be regenerated",
+);
+assert.doesNotMatch(
+  landing,
+  /business-memory-fabric \.business-source-note|primarySourceNote/,
+  "the landing renderer must not recreate the deleted memory-fabric source row",
+);
+assert.doesNotMatch(
+  index,
   /decision-os-control|decisionAutomationState|decisionAutomationAsOf|decisionCatalogCoverage|decisionClaimEvents|decisionVerifiedEvents|decisionReadyBriefs/,
   "the deleted decision-state summary control must not be regenerated",
 );
@@ -223,7 +233,7 @@ assert.match(app, /window\.MEMORY_SITE_CONTENT\?\.agentCouncil\?\.agendas/);
 assert.match(landing, /previousRunId && previousRunId !== String\(content\.runId\) && isConsoleHash\(\)/);
 assert.match(landing, /window\.location\.reload\(\)/);
 assert.match(app, /replace\(\/솔리드다임\/g, "솔리다임"\)/, "the interactive console must normalize stale Solidigm labels at render time");
-assert.match(index, /infra-20260817-58/);
+assert.match(index, /infra-20260817-59/);
 assert.doesNotMatch(
   index,
   /data-live-source[^>]*>[\s\S]*?<\/a><\/div>\s*<dl>/,
