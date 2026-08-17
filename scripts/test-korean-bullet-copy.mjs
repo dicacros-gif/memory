@@ -1,11 +1,13 @@
 import assert from "node:assert/strict";
 import { readFile } from "node:fs/promises";
+import { executiveBulletCopy, normalizeHtmlExecutiveCopy } from "./executive-copy.mjs";
 
 const root = new URL("../", import.meta.url);
-const [html, css, landing] = await Promise.all([
+const [html, css, landing, app] = await Promise.all([
   readFile(new URL("index.html", root), "utf8"),
   readFile(new URL("assets/css/landing.css", root), "utf8"),
   readFile(new URL("assets/js/landing.js", root), "utf8"),
+  readFile(new URL("assets/js/app.js", root), "utf8"),
 ]);
 
 const heroList = html.match(/<ul class="business-hero-thesis business-copy-list"[\s\S]*?<\/ul>/)?.[0] ?? "";
@@ -34,19 +36,37 @@ for (const phrase of [
 
 assert.doesNotMatch(html, /메모리를 판매하는 것이 아니라/);
 assert.doesNotMatch(html, /직무 적합성을 세 가지/);
-assert.match(html, /infra-20260817-68/);
+assert.match(html, /infra-20260817-69/);
 assert.match(css, /\.business-copy-list li::before/);
 assert.match(css, /Korean supporting copy uses compact consulting-style bullets/);
 assert.match(css, /\.business-site p\.business-copy-point::before/);
 assert.match(landing, /function removeBusinessSentenceStops\(value = ""\)/);
 assert.match(landing, /function compactBusinessCopy\(value = "", maxCharacters = 84\)/);
 assert.match(landing, /function applyExecutiveCopyStyle\(root = site, policy = \{\}\)/);
+assert.match(landing, /function executiveBusinessBulletText\(value = ""\)/);
 assert.match(landing, /paragraphMaxCharacters \|\| 92/);
 assert.match(landing, /listMaxCharacters \|\| 78/);
 assert.match(landing, /memory-console-ready[\s\S]*?applyExecutiveCopyStyle\(consoleRoot/, "dynamically rendered Console copy must use the executive bullet policy");
+assert.match(app, /function executiveBulletText\(value = ""\)/);
+assert.doesNotMatch(app.match(/const BRIEF_COPY_EXEMPT_SELECTOR[\s\S]*?\.join\(","\);/)?.[0] || "", /\.agent-answer|\.qa-answer|\.answer-panel/, "generated answers must follow the bullet-copy policy");
+
+for (const [source, expected] of [
+  ["검증된 근거를 표시합니다.", "검증된 근거를 표시"],
+  ["투자를 확대하지 않습니다.", "투자를 확대하지 않음"],
+  ["세 가지 옵션이 있습니다.", "세 가지 옵션이 있음"],
+  ["고객 검증이 필요합니다.", "고객 검증이 필요"],
+  ["실제 고객 성과가 아닙니다.", "실제 고객 성과가 아님"],
+  ["경제성 관점에서 봅니다.", "경제성 관점에서 판단"],
+]) assert.equal(executiveBulletCopy(source), expected, `sentence ending must become an executive bullet: ${source}`);
+
+const visibleMarkup = html
+  .replace(/<(script|style|code|pre|textarea|option)\b[\s\S]*?<\/\1>/gi, "")
+  .replace(/<[^>]+>/g, "\n");
+assert.doesNotMatch(visibleMarkup, /[가-힣]+다(?:[.!?。]|\s*$)/m, "static user-facing copy must not end in 다");
+assert.equal(normalizeHtmlExecutiveCopy(html), html, "checked-in HTML must already use normalized executive bullets");
 
 console.log(JSON.stringify({
   heroBullets: 3,
   decisionAnswerLists: answerLists.length,
-  revision: "infra-20260817-68",
+  revision: "infra-20260817-69",
 }, null, 2));

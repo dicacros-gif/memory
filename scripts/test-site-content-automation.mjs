@@ -18,6 +18,14 @@ const executiveSnapshot = json("data/executive-latest.json");
 
 const rebuilt = buildSiteContentClient({ payload, quant });
 assert.deepEqual(validateSiteContent(rebuilt), { ok: true, errors: [] });
+const rebuiltCopy = [];
+const collectCopy = (value) => {
+  if (typeof value === "string") rebuiltCopy.push(value);
+  else if (Array.isArray(value)) value.forEach(collectCopy);
+  else if (value && typeof value === "object") Object.values(value).forEach(collectCopy);
+};
+collectCopy(rebuilt);
+assert.doesNotMatch(rebuiltCopy.join("\n"), /[가-힣]+다(?:[.!?。]|\s*$)/m, "automated site content must use executive bullet endings");
 assert.ok(rebuilt.freshness.configuredSources >= 42);
 assert.ok(rebuilt.freshness.officialConfigured >= 33);
 assert.equal(rebuilt.freshness.scheduleHours, 1);
@@ -234,7 +242,7 @@ assert.match(app, /window\.MEMORY_SITE_CONTENT\?\.agentCouncil\?\.agendas/);
 assert.match(landing, /previousRunId && previousRunId !== String\(content\.runId\) && isConsoleHash\(\)/);
 assert.match(landing, /window\.location\.reload\(\)/);
 assert.match(app, /replace\(\/솔리드다임\/g, "솔리다임"\)/, "the interactive console must normalize stale Solidigm labels at render time");
-assert.match(index, /infra-20260817-68/);
+assert.match(index, /infra-20260817-69/);
 assert.doesNotMatch(
   index,
   /data-live-source[^>]*>[\s\S]*?<\/a><\/div>\s*<dl>/,
@@ -256,6 +264,11 @@ assert.match(consoleSnapshot, /TEAM OPERATING MODEL · THREE WORKSTREAMS/);
 assert.match(consoleSnapshot, /MECE DECISION ARCHITECTURE · ONE OWNER PER QUESTION/);
 assert.match(consoleSnapshot, /ClaimEvent/);
 assert.doesNotMatch(consoleSnapshot, /로드 중|연결 중/);
+const consoleVisibleCopy = consoleSnapshot
+  .replace(/<(script|style|code|pre|textarea|option)\b[\s\S]*?<\/\1>/gi, "")
+  .replace(/<[^>]+>/g, "\n");
+assert.doesNotMatch(consoleVisibleCopy, /[가-힣]+다(?:[.!?。]|\s*$)/m, "pre-rendered Console copy must use executive bullet endings");
+assert.match(text("scripts/prerender-decision.mjs"), /normalizeHtmlExecutiveCopy/, "daily pre-render must retain the bullet-copy policy");
 const consoleDecisionTitles = [...consoleSnapshot.matchAll(/<article class="decision-card">[\s\S]*?<h2>(.*?)<\/h2>/g)].map((match) => match[1]);
 assert.equal(consoleDecisionTitles.length, 4);
 assert.equal(new Set(consoleDecisionTitles).size, 4, "pre-rendered decision card headlines must never repeat");

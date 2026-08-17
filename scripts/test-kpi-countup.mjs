@@ -151,7 +151,7 @@ assert.match(app, /loadManagedJSON\("live", "data\/live-client\.json"[\s\S]*?loa
 assert.match(app, /priceHistory: \{[\s\S]*?path: "data\/price-history-client\.json"[\s\S]*?marketHistory: \{[\s\S]*?path: "data\/market-history-client\.json"/, "secondary fallbacks must never download database-sized history files");
 assert.match(css, /\.agent-debate-title \.agent-tts-toggle \{[\s\S]*?min-width: 190px;[\s\S]*?min-height: 44px;/, "the English TTS control should be large and readable");
 assert.match(css, /\.agent-tts-state \{[\s\S]*?min-width: 31px;/, "the TTS control should expose a dedicated on-or-off state badge");
-assert.match(html, /landing\.min\.js\?v=infra-20260817-68/, "the public landing controller should include the minified AI Infra revision");
+assert.match(html, /landing\.min\.js\?v=infra-20260817-69/, "the public landing controller should include the minified AI Infra revision");
 assert.match(css, /\.consulting-system \.news-card:is\(:hover, :focus-within\) \.news-insights > span \{[\s\S]*?background: rgba\(255, 255, 255, \.9\);[\s\S]*?color: var\(--consulting-slate\) !important;[\s\S]*?-webkit-text-fill-color: var\(--consulting-slate\);/, "light consulting news cards must keep high-contrast insight copy on hover");
 assert.match(css, /\.consulting-system \.news-card:is\(:hover, :focus-within\) :is\(\.strategy-highlight, \.answer-term\) \{[\s\S]*?--term-color: #334155;[\s\S]*?text-shadow: none;/, "light consulting news cards must restore dark semantic terms on hover");
 assert.doesNotMatch(html, /<script[^>]+src="assets\/js\/app\.js/, "the dashboard JavaScript must load only when the Intelligence Console is opened");
@@ -221,8 +221,10 @@ assert.match(css, /\.share-card:hover,[\s\S]*?linear-gradient\(135deg,\s*#234761
 assert.doesNotMatch(app, /공개 출처로 확인되는 것은 중국 회사법의 당조직 조항/, "Unverified political-organization interpretation copy should not remain in the client");
 assert.doesNotMatch(app, /중국 내 고객 대응은 유지하되, 선단 공정 업그레이드/, "Removed China strategy copy should not remain in the client");
 assert.doesNotMatch(app, /<strong>관련 최신 기사(?:\/신호)?<\/strong>/, "Supplemental related-latest-article lists should not render in detail panels");
-assert.match(app, /function executiveBulletText\(value = ""\)[\s\S]*?\.replace\(\/\(\[가-힣\]\+\)합니다[\s\S]*?"\$1함"\)/, "Non-agent copy should convert formal prose into concise bullet endings");
-assert.match(app, /BRIEF_COPY_EXEMPT_SELECTOR[\s\S]*?"\.agent-question"[\s\S]*?"\.agent-answer"[\s\S]*?"\.qa-answer"/, "Agent questions and answers should remain verbatim");
+assert.match(app, /function executiveBulletText\(value = ""\)[\s\S]*?\.replace\(\/\(\[가-힣\]\+\)합니다[\s\S]*?"\$1"\)/, "Site copy should convert formal prose into concise bullet endings");
+const briefCopyExemptions = app.match(/const BRIEF_COPY_EXEMPT_SELECTOR[\s\S]*?\.join\(","\);/)?.[0] || "";
+assert.match(briefCopyExemptions, /"\.agent-question"/, "User-authored questions should remain verbatim");
+assert.doesNotMatch(briefCopyExemptions, /"\.agent-answer"|"\.qa-answer"|"\.answer-panel"/, "Generated answers must use bullet endings");
 assert.match(app, /function setupBriefCopyObserver\(\)[\s\S]*?MutationObserver[\s\S]*?characterData: true/, "Dynamically rendered cards should also receive bullet-style normalization");
 assert.match(css, /#policy-makers[\s\S]*?--term-hover:\s*#334155;[\s\S]*?text-shadow:\s*none;/, "Light Policy Maker cards should retain dark semantic emphasis on hover");
 assert.match(css, /font-synthesis:\s*none/, "Mixed Hangul and Latin emphasis should disable synthetic glyph weights");

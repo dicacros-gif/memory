@@ -2,6 +2,7 @@ import { readFileSync } from "node:fs";
 import { dirname, resolve } from "node:path";
 import { fileURLToPath } from "node:url";
 import { buildSourceCatalogSnapshot, catalogSourceForUrl, loadSourceCatalog } from "./source-catalog.mjs";
+import { executiveBulletCopy } from "./executive-copy.mjs";
 
 const root = resolve(dirname(fileURLToPath(import.meta.url)), "..");
 const model = Object.freeze(JSON.parse(readFileSync(resolve(root, "data", "site-content-model.json"), "utf8")));
@@ -54,7 +55,7 @@ function buildSiteAutomation({ runId = null, generatedAt = null, sourceCoverage 
 
 const directUrl = (value = "") => /^https?:\/\//i.test(String(value || "")) && !/news\.google\.com/i.test(String(value || ""));
 const compact = (value = "", limit = 180) => {
-  const text = String(value || "")
+  const text = executiveBulletCopy(String(value || ""))
     .replace(/솔리드다임/g, "솔리다임")
     .replace(/\s+/g, " ")
     .trim();
@@ -63,7 +64,7 @@ const compact = (value = "", limit = 180) => {
 };
 const publishedAt = (item = {}, fallback = null) => item.publishedAt || item.date || item.observedAt || item.crawledAt || fallback || null;
 const normalizeDisplayPayload = (value) => {
-  if (typeof value === "string") return value.replace(/솔리드다임/g, "솔리다임");
+  if (typeof value === "string") return executiveBulletCopy(value).replace(/솔리드다임/g, "솔리다임");
   if (Array.isArray(value)) return value.map(normalizeDisplayPayload);
   if (value && typeof value === "object") return Object.fromEntries(
     Object.entries(value).map(([key, item]) => [key, normalizeDisplayPayload(item)]),

@@ -3,6 +3,7 @@
 import { mkdir, readFile, writeFile } from "node:fs/promises";
 import { dirname, resolve } from "node:path";
 import { fileURLToPath } from "node:url";
+import { normalizeHtmlExecutiveCopy } from "./executive-copy.mjs";
 
 const root = resolve(dirname(fileURLToPath(import.meta.url)), "..");
 const contentPath = resolve(root, "data", "site-content-client.json");
@@ -126,7 +127,7 @@ const jsonLd = JSON.stringify({
   distribution: { "@type": "DataDownload", encodingFormat: "application/json", contentUrl: "https://dicacros-gif.github.io/memory/data/executive-latest.json" },
 }).replace(/</g, "\\u003c");
 
-const html = `<!DOCTYPE html>
+const html = normalizeHtmlExecutiveCopy(`<!DOCTYPE html>
 <html lang="ko">
 <head>
   <meta charset="utf-8" />
@@ -154,7 +155,7 @@ const html = `<!DOCTYPE html>
   </main>
   <footer class="page"><div class="wrap"><a href="https://www.linkedin.com/in/dicacross/" target="_blank" rel="noopener noreferrer">© ${new Date(content.generatedAt).getUTCFullYear()} dicacross · Independent strategy portfolio based on public information; not an official SK hynix website.</a></div></footer>
 </body>
-</html>\n`;
+</html>\n`);
 
 await mkdir(dirname(executivePath), { recursive: true });
 await mkdir(dirname(consolePath), { recursive: true });

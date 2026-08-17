@@ -3,7 +3,7 @@
 
   const BUSINESS_TITLE = "AI Infra Strategy · Customer Pain to Executive Action";
   const CONSOLE_HASH = "#console";
-  const CONSOLE_REVISION = "infra-20260817-68";
+  const CONSOLE_REVISION = "infra-20260817-69";
   const DECISION_CLIENT_PATH = "data/landing-decision-client.json";
   const SITE_CONTENT_PATH = "data/site-content-client.json";
   const site = document.querySelector("#businessSite");
@@ -260,8 +260,52 @@
     return /^(https?:\/\/|#)/i.test(url) ? url : fallback;
   }
 
+  function executiveBusinessBulletText(value = "") {
+    return String(value ?? "")
+      .replace(/할 수 없습니다(?=[.!?。]|\s*$)/g, "불가")
+      .replace(/할 수 있습니다(?=[.!?。]|\s*$)/g, "가능")
+      .replace(/해야 합니다(?=[.!?。]|\s*$)/g, "필요")
+      .replace(/필요가 있습니다(?=[.!?。]|\s*$)/g, "필요")
+      .replace(/가능성이 (?:큽니다|높습니다)(?=[.!?。]|\s*$)/g, "가능성 높음")
+      .replace(/가능성이 낮습니다(?=[.!?。]|\s*$)/g, "가능성 낮음")
+      .replace(/아닙니다(?=[.!?。]|\s*$)/g, "아님")
+      .replace(/봅니다(?=[.!?。]|\s*$)/g, "판단")
+      .replace(/([가-힣]+)납니다(?=[.!?。]|\s*$)/g, "$1남")
+      .replace(/([가-힣]+)줍니다(?=[.!?。]|\s*$)/g, "$1줌")
+      .replace(/([가-힣]+)둡니다(?=[.!?。]|\s*$)/g, "$1둠")
+      .replace(/([가-힣]+)되었습니다(?=[.!?。]|\s*$)/g, "$1")
+      .replace(/([가-힣]+)했습니다(?=[.!?。]|\s*$)/g, "$1")
+      .replace(/([가-힣]+)됐습니다(?=[.!?。]|\s*$)/g, "$1")
+      .replace(/([가-힣]+)았습니다(?=[.!?。]|\s*$)/g, "$1았음")
+      .replace(/([가-힣]+)었습니다(?=[.!?。]|\s*$)/g, "$1었음")
+      .replace(/([가-힣]+)였습니다(?=[.!?。]|\s*$)/g, "$1였음")
+      .replace(/([가-힣]+)입니다(?=[.!?。]|\s*$)/g, "$1")
+      .replace(/([가-힣]+)합니다(?=[.!?。]|\s*$)/g, "$1")
+      .replace(/([가-힣]+)됩니다(?=[.!?。]|\s*$)/g, "$1")
+      .replace(/([가-힣]+)집니다(?=[.!?。]|\s*$)/g, "$1짐")
+      .replace(/([가-힣]+)립니다(?=[.!?。]|\s*$)/g, "$1림")
+      .replace(/([가-힣]+)듭니다(?=[.!?。]|\s*$)/g, "$1듦")
+      .replace(/([가-힣]+)봅니다(?=[.!?。]|\s*$)/g, "$1 판단")
+      .replace(/([가-힣]+)습니다(?=[.!?。]|\s*$)/g, "$1음")
+      .replace(/입니다(?=[.!?。]|\s*$)/g, "")
+      .replace(/합니다(?=[.!?。]|\s*$)/g, "")
+      .replace(/됩니다(?=[.!?。]|\s*$)/g, "됨")
+      .replace(/습니다(?=[.!?。]|\s*$)/g, "음")
+      .replace(/([가-힣]+)니다(?=[.!?。]|\s*$)/g, "$1")
+      .replace(/([가-힣]+)였다(?=[.!?。]|\s*$)/g, "$1")
+      .replace(/([가-힣]+)했다(?=[.!?。]|\s*$)/g, "$1")
+      .replace(/([가-힣]+)됐다(?=[.!?。]|\s*$)/g, "$1")
+      .replace(/([가-힣]+)이다(?=[.!?。]|\s*$)/g, "$1")
+      .replace(/([가-힣]+)있다(?=[.!?。]|\s*$)/g, "$1있음")
+      .replace(/([가-힣]+)없다(?=[.!?。]|\s*$)/g, "$1없음")
+      .replace(/([가-힣]+)한다(?=[.!?。]|\s*$)/g, "$1")
+      .replace(/([가-힣]+)된다(?=[.!?。]|\s*$)/g, "$1")
+      .replace(/([가-힣]+)하다(?=[.!?。]|\s*$)/g, "$1")
+      .replace(/([가-힣]+)다(?=[.!?。]|\s*$)/g, "$1");
+  }
+
   function removeBusinessSentenceStops(value = "") {
-    return String(value || "")
+    return executiveBusinessBulletText(value)
       .replace(/([A-Za-z\u3131-\u318e\uac00-\ud7a3\d%)\]"'”’])[.\u3002](?=\s|$)/g, "$1")
       .replace(/\s+/g, " ")
       .trim();
@@ -305,7 +349,7 @@
     for (const textNode of textNodes) {
       const parent = textNode.parentElement;
       if (!parent || parent.closest("script, style, code, pre, [data-copy-verbatim]")) continue;
-      textNode.nodeValue = String(textNode.nodeValue || "")
+      textNode.nodeValue = executiveBusinessBulletText(textNode.nodeValue)
         .replace(/([A-Za-z\u3131-\u318e\uac00-\ud7a3\d%)\]"'”’])[.\u3002](?=\s|$)/g, "$1");
     }
     for (const node of root.querySelectorAll("p, li, dd, figcaption")) {
