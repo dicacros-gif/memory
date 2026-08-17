@@ -29946,13 +29946,35 @@ body.consulting-system {
 }
 
 .consulting-system .memory-bypass .mbp-route-n {
-  color: #02070d !important;
+  color: #ffffff !important;
+  background: #17324d !important;
   -webkit-text-fill-color: currentColor !important;
 }
 
 .consulting-system .memory-bypass :is(.mbp-band, .mbp-tl-stage):is(:hover, :focus-visible) :is(.mbp-band-n, .mbp-tl-marker),
 .consulting-system .memory-bypass .mbp-route:is(:hover, :focus-visible) .mbp-route-n {
-  color: #02070d !important;
+  color: #ffffff !important;
+  background: #17324d !important;
+  -webkit-text-fill-color: currentColor !important;
+}
+
+/* Progressive market modules: readable before and after delayed hydration */
+#intelligenceConsole .equity-company-monogram {
+  color: #17324d !important;
+  -webkit-text-fill-color: currentColor !important;
+  opacity: 1 !important;
+}
+
+#intelligenceConsole .price-sub {
+  color: #4b5e73 !important;
+  -webkit-text-fill-color: currentColor !important;
+  opacity: 1 !important;
+}
+
+[data-theme="dark"] #intelligenceConsole .equity-company-monogram,
+[data-theme="dark"] #intelligenceConsole .price-sub,
+#intelligenceConsole[data-theme="dark"] :is(.equity-company-monogram, .price-sub) {
+  color: #d7e2ee !important;
   -webkit-text-fill-color: currentColor !important;
 }
 

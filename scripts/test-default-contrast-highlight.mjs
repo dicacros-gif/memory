@@ -117,9 +117,10 @@ assert.match(consoleCss, /Console typography, inversion and infographic contract
 assert.match(consoleCss, /\.visual-insight-route span::before[\s\S]*?counter\(insight-route, decimal-leading-zero\)[\s\S]*?border-radius:\s*50%;/, "visual synthesis routes must use numbered consulting badges");
 assert.match(consoleCss, /\.strategy-highlight, \.answer-term\):not\(\.ui-key-term\)[\s\S]*?box-shadow:\s*none !important;[\s\S]*?\.strategy-highlight, \.answer-term\)\.ui-key-term[\s\S]*?inset 0 -2px 0 #d5a400/, "only selected Console terms may receive the amber underline");
 assert.match(consoleCss, /\.decision-card, \.decision-flip-card, \.domain-agent-workstream[\s\S]*?--console-hover-surface:\s*#102b3d;[\s\S]*?\[data-theme="dark"\][\s\S]*?--console-hover-surface:\s*#f8fafc;/, "Console decision cards must invert legibly in light and dark modes");
-assert.match(consoleCss, /Memory-bypass index contrast lock[\s\S]*?\.mbp-thesis-arrow, \.mbp-band-n, \.mbp-tl-marker[\s\S]*?color:\s*#17324d !important;[\s\S]*?\.mbp-route-n[\s\S]*?color:\s*#02070d !important;/, "memory-tier arrows and level indices must retain readable ink over accent surfaces");
+assert.match(consoleCss, /Memory-bypass index contrast lock[\s\S]*?\.mbp-thesis-arrow, \.mbp-band-n, \.mbp-tl-marker[\s\S]*?color:\s*#17324d !important;[\s\S]*?\.mbp-route-n[\s\S]*?color:\s*#ffffff !important;[\s\S]*?background:\s*#17324d !important;/, "memory-tier arrows and level indices must retain readable ink over accent surfaces");
+assert.match(consoleCss, /Progressive market modules[\s\S]*?\.equity-company-monogram[\s\S]*?color:\s*#17324d !important;[\s\S]*?\.price-sub[\s\S]*?color:\s*#4b5e73 !important;[\s\S]*?data-theme="dark"[\s\S]*?color:\s*#d7e2ee !important;/, "delayed market modules must use mode-safe text colors");
 assert.match(landing, /averageAlpha < \.6[\s\S]*?backgroundLum < \.18/, "transparent gradients must inherit their base surface and mid-tone panels must use dark ink");
-assert.match(html, /infra-20260817-55/);
+assert.match(html, /infra-20260817-56/);
 assert.match(css, /@media \(max-width: 760px\)[\s\S]*?\.business-competency-output[\s\S]*?grid-column:\s*2 !important[\s\S]*?\.business-llm-causal-chain,[\s\S]*?\.business-contract-funnel[\s\S]*?overflow-x:\s*visible/);
 
 console.log(JSON.stringify({
