@@ -42,6 +42,10 @@ const defaultContrastPairs = [
   ["#f7fbff", "#17394f"],
   ["#d4e2eb", "#17394f"],
   ["#6f4c00", "#fff4cf"],
+  ["#17324d", "#ffffff"],
+  ["#44566d", "#ffffff"],
+  ["#f5f9ff", "#111827"],
+  ["#c3cfdd", "#111827"],
 ];
 const minimumDefaultContrast = Math.min(...defaultContrastPairs.map(([foreground, background]) => contrastRatio(foreground, background)));
 assert.ok(minimumDefaultContrast >= 4.5, `default text contrast must remain WCAG AA; received ${minimumDefaultContrast.toFixed(2)}:1`);
@@ -77,6 +81,7 @@ assert.match(consoleCss, /\.sc-level-index\.is-input[\s\S]*?\.sc-level-index\.is
 assert.match(consoleApp, /const reportCutoffDate = reports[\s\S]*?const reportCutoffLabel = reportCutoffParts[\s\S]*?data-source-date="\$\{escapeHTML\(item\.publishedAt \|\| ""\)\}"[\s\S]*?<time datetime="\$\{escapeHTML\(reportCutoffDate\)\}">\$\{escapeHTML\(reportCutoffLabel\)\}<\/time>/, "broker cards must display one data-derived short cutoff date while preserving each source date");
 assert.match(consoleApp, /class="exec-baseline-level-index">L\$\{String\(index \+ 1\)\.padStart\(2, "0"\)\}<\/span>/, "broker cards must render a boxed level index instead of a circular number");
 assert.match(consoleCss, /Broker baseline hierarchy[\s\S]*?--report-level-bg:\s*color-mix\(in srgb, var\(--report-accent\) 58%, #102c43\);[\s\S]*?\.exec-baseline-level-index[\s\S]*?border-radius:\s*4px;[\s\S]*?\.exec-baseline-points b[\s\S]*?white-space:\s*nowrap;/, "broker card indices must use accessible colored boxes with non-wrapping labels");
+assert.match(consoleCss, /Memory-bypass readability lock[\s\S]*?--mbp-readable-ink:\s*#17324d;[\s\S]*?--mbp-readable-muted:\s*#44566d;[\s\S]*?\.mbp-route-copy strong[\s\S]*?color:\s*var\(--mbp-readable-ink\) !important;[\s\S]*?\.mbp-tl-items li[\s\S]*?color:\s*var\(--mbp-readable-muted\) !important;/, "memory bypass route and timeline copy must stay legible on light cards despite cached contrast classes");
 
 assert.deepEqual(artifact.presentation.emphasisTerms, model.presentation.emphasisTerms);
 assert.equal(artifact.presentation.emphasisPolicy.style, "underline-only");
@@ -103,7 +108,7 @@ assert.match(consoleCss, /Console typography, inversion and infographic contract
 assert.match(consoleCss, /\.visual-insight-route span::before[\s\S]*?counter\(insight-route, decimal-leading-zero\)[\s\S]*?border-radius:\s*50%;/, "visual synthesis routes must use numbered consulting badges");
 assert.match(consoleCss, /\.strategy-highlight, \.answer-term\):not\(\.ui-key-term\)[\s\S]*?box-shadow:\s*none !important;[\s\S]*?\.strategy-highlight, \.answer-term\)\.ui-key-term[\s\S]*?inset 0 -2px 0 #d5a400/, "only selected Console terms may receive the amber underline");
 assert.match(consoleCss, /\.decision-card, \.decision-flip-card, \.domain-agent-workstream[\s\S]*?--console-hover-surface:\s*#102b3d;[\s\S]*?\[data-theme="dark"\][\s\S]*?--console-hover-surface:\s*#f8fafc;/, "Console decision cards must invert legibly in light and dark modes");
-assert.match(html, /infra-20260817-44/);
+assert.match(html, /infra-20260817-45/);
 assert.match(css, /@media \(max-width: 760px\)[\s\S]*?\.business-competency-output[\s\S]*?grid-column:\s*2 !important[\s\S]*?\.business-llm-causal-chain,[\s\S]*?\.business-contract-funnel[\s\S]*?overflow-x:\s*visible/);
 
 console.log(JSON.stringify({

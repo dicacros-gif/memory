@@ -29616,3 +29616,95 @@ body.consulting-system {
     min-width: 96px;
   }
 }
+
+/* Memory-bypass readability lock
+   Cached contrast utility classes must not turn copy white on light cards */
+.consulting-system .memory-bypass {
+  --mbp-readable-ink: #17324d;
+  --mbp-readable-muted: #44566d;
+}
+
+[data-theme="dark"] .consulting-system .memory-bypass,
+.consulting-system[data-theme="dark"] .memory-bypass {
+  --mbp-readable-ink: #f5f9ff;
+  --mbp-readable-muted: #c3cfdd;
+}
+
+.consulting-system .memory-bypass :is(
+  .mbp-band h4,
+  .mbp-route-copy strong,
+  .mbp-tl-stage > header strong,
+  .mbp-sub h4
+) {
+  color: var(--mbp-readable-ink) !important;
+  -webkit-text-fill-color: var(--mbp-readable-ink) !important;
+  text-shadow: none !important;
+  opacity: 1 !important;
+}
+
+.consulting-system .memory-bypass :is(
+  .mbp-band-summary,
+  .mbp-route-copy p,
+  .mbp-route-copy small,
+  .mbp-band-foot span:last-child,
+  .mbp-note,
+  .mbp-tl-signal,
+  .mbp-tl-items li
+) {
+  color: var(--mbp-readable-muted) !important;
+  -webkit-text-fill-color: var(--mbp-readable-muted) !important;
+  text-shadow: none !important;
+  opacity: 1 !important;
+}
+
+.consulting-system .memory-bypass .mbp-route-copy strong {
+  font-size: 13px;
+  line-height: 1.35;
+}
+
+.consulting-system .memory-bypass :is(
+  .mbp-route-copy p,
+  .mbp-route-copy small,
+  .mbp-band-summary,
+  .mbp-tl-signal,
+  .mbp-tl-items li
+) {
+  font-size: 12px;
+  line-height: 1.52;
+}
+
+.consulting-system .memory-bypass :is(
+  .mbp-band-head > div > span,
+  .mbp-band-foot > span:first-child,
+  .mbp-route-copy small b,
+  .mbp-tl-stage > header span,
+  .mbp-tl-signal b
+) {
+  color: color-mix(in srgb, var(--mbp-accent, var(--mbp-phase, #2563eb)) 72%, #17324d) !important;
+  -webkit-text-fill-color: currentColor !important;
+  opacity: 1 !important;
+}
+
+.consulting-system .memory-bypass .mbp-tl-stage :is(
+  .mbp-tl-stage > header span,
+  .mbp-tl-signal b
+) {
+  color: color-mix(in srgb, var(--mbp-phase) 72%, #17324d) !important;
+}
+
+[data-theme="dark"] .consulting-system .memory-bypass :is(
+  .mbp-band-head > div > span,
+  .mbp-band-foot > span:first-child,
+  .mbp-route-copy small b,
+  .mbp-tl-stage > header span,
+  .mbp-tl-signal b
+),
+.consulting-system[data-theme="dark"] .memory-bypass :is(
+  .mbp-band-head > div > span,
+  .mbp-band-foot > span:first-child,
+  .mbp-route-copy small b,
+  .mbp-tl-stage > header span,
+  .mbp-tl-signal b
+) {
+  color: color-mix(in srgb, var(--mbp-accent, var(--mbp-phase, #60a5fa)) 62%, #ffffff) !important;
+}
