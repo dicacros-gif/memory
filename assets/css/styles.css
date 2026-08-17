@@ -1955,6 +1955,75 @@ body.console-startup #intelligenceConsole *::after {
   outline: none;
 }
 
+/* Dark three-slide carousel treatment */
+.memory-visual-story[data-surface="dark"] {
+  background: #02060a;
+  border-color: rgba(148, 163, 184, .18);
+  box-shadow: inset 0 0 90px rgba(0, 0, 0, .46);
+}
+
+.memory-visual-story[data-surface="dark"] .memory-story-slide {
+  transform: translate3d(2.4%, 0, 0);
+  transition: opacity 1.1s ease, transform 1.2s cubic-bezier(.2, .72, .2, 1);
+}
+
+.memory-visual-story[data-surface="dark"] .memory-story-slide.active {
+  transform: translate3d(0, 0, 0);
+}
+
+.memory-visual-story[data-surface="dark"] .memory-story-slide.leaving {
+  animation: memoryStoryDarkLeave 1.15s cubic-bezier(.4, 0, .2, 1) forwards;
+}
+
+.memory-visual-story[data-surface="dark"] .memory-story-slide::after {
+  z-index: 1;
+  background:
+    linear-gradient(var(--story-shade-angle), rgba(0, 0, 0, .92) 0%, rgba(0, 0, 0, .58) 46%, rgba(0, 0, 0, .34) 78%),
+    linear-gradient(var(--story-shade-vertical), rgba(0, 0, 0, .88) 0%, rgba(0, 0, 0, .38) 58%, rgba(0, 0, 0, .22) 100%);
+}
+
+.memory-visual-story[data-surface="dark"] .memory-story-slide img {
+  filter: grayscale(.16) saturate(.58) contrast(1.08) brightness(.48);
+  transition: filter 1.1s ease;
+}
+
+.memory-visual-story[data-surface="dark"] .memory-story-slide.active img {
+  animation-duration: 9.5s;
+  filter: grayscale(.1) saturate(.64) contrast(1.1) brightness(.54);
+}
+
+.memory-visual-story[data-surface="dark"] .memory-story-slide.active.transition-fade {
+  animation: memoryStoryDarkFade 1.1s ease both;
+}
+
+.memory-visual-story[data-surface="dark"] .memory-story-slide.active.transition-sweep {
+  animation: memoryStoryDarkSlide 1.18s cubic-bezier(.2, .72, .2, 1) both;
+}
+
+.memory-visual-story[data-surface="dark"] .memory-story-slide.active.transition-glide {
+  animation: memoryStoryDarkSlideReverse 1.18s cubic-bezier(.2, .72, .2, 1) both;
+}
+
+@keyframes memoryStoryDarkFade {
+  from { opacity: 0; transform: translate3d(1.2%, 0, 0); }
+  to { opacity: 1; transform: translate3d(0, 0, 0); }
+}
+
+@keyframes memoryStoryDarkSlide {
+  from { opacity: .28; transform: translate3d(2.8%, 0, 0); }
+  to { opacity: 1; transform: translate3d(0, 0, 0); }
+}
+
+@keyframes memoryStoryDarkSlideReverse {
+  from { opacity: .28; transform: translate3d(-2.8%, 0, 0); }
+  to { opacity: 1; transform: translate3d(0, 0, 0); }
+}
+
+@keyframes memoryStoryDarkLeave {
+  from { opacity: 1; transform: translate3d(0, 0, 0); }
+  to { opacity: 0; transform: translate3d(-2%, 0, 0); }
+}
+
 .memory-visual-story:focus-visible {
   box-shadow: 0 0 0 3px color-mix(in srgb, var(--accent) 34%, transparent);
 }

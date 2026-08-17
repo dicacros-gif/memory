@@ -3134,18 +3134,13 @@
       toggle.setAttribute("title", userPaused ? "자동 전환 재생" : "자동 전환 일시정지");
       toggle.setAttribute("aria-pressed", userPaused ? "true" : "false");
     };
-    const transitionModes = ["fade", "sweep", "reveal", "depth", "shutter", "glide", "diagonal", "iris", "prism", "flash"];
+    const transitionModes = ["fade", "sweep", "glide"];
     const transitionClasses = transitionModes.map((mode) => `transition-${mode}`);
     const captionPositions = ["left-bottom", "left-top", "right-top", "right-bottom"];
     const zoomPresets = [
-      { startScale: 1.01, endScale: 1.56, startX: "-4%", startY: "3%", endX: "6%", endY: "-5%", focusX: "45%", focusY: "48%" },
-      { startScale: 1.55, endScale: 1.08, startX: "6%", startY: "-5%", endX: "-4%", endY: "3%", focusX: "58%", focusY: "45%" },
-      { startScale: 1.07, endScale: 1.49, startX: "1%", startY: "6%", endX: "-3%", endY: "-6%", focusX: "50%", focusY: "58%" },
-      { startScale: 1.47, endScale: 1.04, startX: "-5%", startY: "-4%", endX: "4%", endY: "4%", focusX: "48%", focusY: "43%" },
-      { startScale: 1.11, endScale: 1.61, startX: "5%", startY: "3%", endX: "-7%", endY: "-4%", focusX: "60%", focusY: "52%" },
-      { startScale: 1.62, endScale: 1.09, startX: "-2%", startY: "-6%", endX: "3%", endY: "5%", focusX: "52%", focusY: "44%" },
-      { startScale: 1.03, endScale: 1.53, startX: "-7%", startY: "0%", endX: "4%", endY: "2%", focusX: "43%", focusY: "52%" },
-      { startScale: 1.52, endScale: 1.06, startX: "4%", startY: "4%", endX: "-6%", endY: "-3%", focusX: "57%", focusY: "55%" }
+      { startScale: 1.035, endScale: 1.08, startX: "1.4%", startY: "0%", endX: "-1.4%", endY: "0%", focusX: "45%", focusY: "48%" },
+      { startScale: 1.08, endScale: 1.035, startX: "-1.4%", startY: "0%", endX: "1.4%", endY: "0%", focusX: "58%", focusY: "45%" },
+      { startScale: 1.04, endScale: 1.085, startX: "1.2%", startY: ".4%", endX: "-1.2%", endY: "-.4%", focusX: "50%", focusY: "56%" }
     ];
     const insightPools = [
       [

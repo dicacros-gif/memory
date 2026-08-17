@@ -56,9 +56,13 @@ assert.match(css, /\.visual-insight-bridge-head\s*\{[\s\S]*?grid-template-column
 assert.match(css, /\.visual-insight-route\s*\{[\s\S]*?grid-template-columns:/);
 assert.match(css, /@media \(max-width: 680px\)[\s\S]*?\.visual-insight-route\s*\{[\s\S]*?grid-template-columns:\s*minmax\(0, 1fr\)/);
 assert.match(css, /Hidden-state layout contract[\s\S]*?\.consulting-system \[hidden\][\s\S]*?display:\s*none !important;/, "hidden image modules must not leak into the main reading flow");
+assert.match(html, /class="memory-visual-story"[^>]*data-surface="dark"[^>]*data-slide-tone="subtle-black"/, "the three-image carousel must declare its subdued dark surface");
+assert.equal((html.match(/data-memory-slide=/g) || []).length, 3, "the dark carousel must keep exactly three slides");
+assert.match(app, /const transitionModes = \["fade", "sweep", "glide"\]/, "the dark carousel must use only gentle transitions");
+assert.match(css, /Dark three-slide carousel treatment[\s\S]*?memoryStoryDarkSlide[\s\S]*?memoryStoryDarkLeave/, "the dark carousel must combine a black image treatment with subtle horizontal motion");
 
 console.log(JSON.stringify({
   bridges: 4,
   visualModules: 4,
-  revision: "infra-20260817-46",
+  revision: "infra-20260817-47",
 }, null, 2));

@@ -110,7 +110,7 @@
     (() => {
       if (!location.hash.startsWith("#console")) return;
       document.documentElement.classList.add("console-entry");
-      const revision = "infra-20260817-46";
+      const revision = "infra-20260817-47";
       const assets = [
         ["consoleStylesPreload", "style", `assets/css/styles.min.css?v=${revision}`, "high"],
         ["consoleAppPreload", "script", `assets/js/app.min.js?v=${revision}`, "low"],
@@ -127,7 +127,7 @@
       }
     })();
   </script>
-  <link rel="stylesheet" href="assets/css/landing.min.css?v=infra-20260817-46" />
+  <link rel="stylesheet" href="assets/css/landing.min.css?v=infra-20260817-47" />
 </head>
 <body class="landing-mode">
   <div class="business-site" id="businessSite">
@@ -1231,7 +1231,7 @@
           <div class="investment-evidence" id="strategicDecisionEvidence"></div>
         </section>
 
-        <section class="memory-visual-story" id="memory-visual-story" aria-label="Executive Summary를 시스템 진단으로 연결하는 시각화" aria-roledescription="carousel" tabindex="0">
+        <section class="memory-visual-story" id="memory-visual-story" data-surface="dark" data-slide-tone="subtle-black" aria-label="Executive Summary를 시스템 진단으로 연결하는 시각화" aria-roledescription="carousel" tabindex="0">
           <div class="memory-story-viewport">
             <div class="memory-story-track" id="memoryStoryTrack">
               <figure class="memory-story-slide active" data-memory-slide="0" aria-hidden="false">
@@ -1964,6 +1964,6 @@
   <div class="qa-answer" id="qaAnswer" hidden></div>
   <div class="inspector" id="inspector" hidden></div>
   <div class="backdrop" id="backdrop"></div>
-  <script src="assets/js/landing.min.js?v=infra-20260817-46" defer></script>
+  <script src="assets/js/landing.min.js?v=infra-20260817-47" defer></script>
 </body>
 </html>
