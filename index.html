@@ -110,7 +110,7 @@
     (() => {
       if (!location.hash.startsWith("#console")) return;
       document.documentElement.classList.add("console-entry");
-      const revision = "infra-20260817-63";
+      const revision = "infra-20260817-64";
       const assets = [
         ["consoleStylesPreload", "style", `assets/css/styles.min.css?v=${revision}`, "high"],
         ["consoleAppPreload", "script", `assets/js/app.min.js?v=${revision}`, "low"],
@@ -127,7 +127,7 @@
       }
     })();
   </script>
-  <link rel="stylesheet" href="assets/css/landing.min.css?v=infra-20260817-63" />
+  <link rel="stylesheet" href="assets/css/landing.min.css?v=infra-20260817-64" />
 </head>
 <body class="landing-mode">
   <div class="business-site" id="businessSite">
@@ -212,11 +212,6 @@
               <div class="business-flow-node business-flow-node--accent"><small>03 · STRATEGIC OPTIONS</small><strong>Memory Solution · New Biz · Partner</strong><span>시장성 · 차별화 · 단위경제성</span></div>
               <i aria-hidden="true">↓</i>
               <div class="business-flow-node"><small>04 · EXECUTION GATE</small><strong>PoC · Qualification · Capacity</strong><span>Owner · KPI · Trigger · Kill Criteria</span></div>
-            </div>
-            <div class="business-visual-result">
-              <span>DEPARTMENT OUTPUT</span>
-              <strong>Customer Strategy · New Biz · AI Infra Execution</strong>
-              <small>Answer First · Evidence · Options · Economics · 90-Day Action</small>
             </div>
           </div>
         </div>
@@ -1946,6 +1941,6 @@
   <div class="qa-answer" id="qaAnswer" hidden></div>
   <div class="inspector" id="inspector" hidden></div>
   <div class="backdrop" id="backdrop"></div>
-  <script src="assets/js/landing.min.js?v=infra-20260817-63" defer></script>
+  <script src="assets/js/landing.min.js?v=infra-20260817-64" defer></script>
 </body>
 </html>
