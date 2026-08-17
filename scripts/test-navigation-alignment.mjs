@@ -115,12 +115,12 @@ assert.match(landingCss, /\.business-container\s*\{[^}]*width:\s*100%;[^}]*max-w
 assert.match(landingCss, /\.business-site :is\(img, picture, video, svg, canvas, iframe, table\)\s*\{[^}]*max-width:\s*100%;/, "site media and data visuals must respect max-width 100%");
 assert.doesNotMatch(html, /business-contract-funnel/, "the removed partnership spotlight funnel must stay deleted");
 assert.match(landingCss, /\.business-header\s*\{[^}]*width:\s*100%;[^}]*max-width:\s*100%;[^}]*grid-template-columns:\s*auto minmax\(0, 1fr\) auto;/, "the fixed header must use a shrink-safe full-width grid");
-assert.match(landingCss, /@media \(max-width: 1440px\)[\s\S]*?\.business-console-label--full\s*\{[^}]*display:\s*none;[\s\S]*?\.business-console-label--short\s*\{[^}]*display:\s*inline;/, "the console CTA must shorten before it can collide with navigation");
+assert.match(landingCss, /@media \(max-width: 1600px\)[\s\S]*?\.business-console-label--full\s*\{[^}]*display:\s*none;[\s\S]*?\.business-console-label--short\s*\{[^}]*display:\s*inline;/, "the console CTA must shorten before it can collide with navigation");
 assert.match(landingCss, /@media \(max-width: 1120px\)[\s\S]*?\.business-menu-button\s*\{[^}]*display:\s*grid;[\s\S]*?\.business-nav\s*\{[^}]*position:\s*absolute;[^}]*display:\s*none;/, "medium-width navigation must collapse before header items overlap");
 assert.match(html, /id="intelligenceConsole" hidden/, "the Intelligence Console must stay outside the initial visible layer");
 assert.doesNotMatch(html, /<script[^>]+src="assets\/js\/app\.js/, "the heavy console app must not load with the public landing page");
 assert.doesNotMatch(html, /<link[^>]+href="assets\/css\/styles\.css/, "the heavy console stylesheet must not load with the public landing page");
-assert.match(html, /assets\/js\/landing\.min\.js\?v=infra-20260817-60/, "the lightweight landing controller must use the minified AI Infra revision");
+assert.match(html, /assets\/js\/landing\.min\.js\?v=infra-20260817-61/, "the lightweight landing controller must use the minified AI Infra revision");
 assert.match(html, /class="business-footer"[\s\S]*?href="https:\/\/www\.linkedin\.com\/in\/dicacross\/"[\s\S]*?© 2026 dicacross · Independent strategy portfolio based on public information/, "the public portfolio credit must link to the dicacross LinkedIn profile");
 assert.doesNotMatch(html, /메모리를 판매하는 것이 아니라/, "the removed sales-negation headline must stay deleted");
 assert.doesNotMatch(html, /직무 적합성을 세 가지|검증 가능한 역량으로 압축합니다/, "the removed role-fit headline must stay deleted");
