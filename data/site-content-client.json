@@ -1,20 +1,20 @@
 {
   "schemaVersion": "1.1",
-  "runId": "32194099289",
-  "generatedAt": "2026-08-18T22:53:20.055Z",
-  "expiresAt": "2026-08-20T00:53:17.893Z",
+  "runId": "32198153556",
+  "generatedAt": "2026-08-18T23:49:34.218Z",
+  "expiresAt": "2026-08-20T01:49:32.045Z",
   "clientArtifact": true,
   "generation": {
     "method": "verified-data-plus-approved-framework",
     "frameworkVersion": "1.1",
     "failClosed": true,
-    "sourceRunId": "32194099289"
+    "sourceRunId": "32198153556"
   },
   "siteAutomation": {
     "schemaVersion": "1.0",
     "status": "all-sections-bound",
-    "runId": "32194099289",
-    "generatedAt": "2026-08-18T22:53:20.055Z",
+    "runId": "32198153556",
+    "generatedAt": "2026-08-18T23:49:34.218Z",
     "totalSections": 69,
     "boundSections": 69,
     "refresh": {
@@ -206,7 +206,7 @@
   },
   "freshness": {
     "status": "verified",
-    "evidenceCount": 73,
+    "evidenceCount": 72,
     "briefCount": 6,
     "sourceCount": 3,
     "configuredSources": 42,
@@ -270,8 +270,8 @@
       "scheduleHours": 1,
       "browserRecheckMinutes": 5,
       "sourceCatalogVersion": "1.0",
-      "runId": "32194099289",
-      "generatedAt": "2026-08-18T22:53:20.055Z"
+      "runId": "32198153556",
+      "generatedAt": "2026-08-18T23:49:34.218Z"
     }
   },
   "decisionControl": {
@@ -281,8 +281,8 @@
     },
     "freshness": {
       "status": "CURRENT",
-      "generatedAt": "2026-08-18T22:53:20.055Z",
-      "expiresAt": "2026-08-20T00:53:17.893Z"
+      "generatedAt": "2026-08-18T23:49:34.218Z",
+      "expiresAt": "2026-08-20T01:49:32.045Z"
     },
     "coverage": {
       "status": "PARTIAL",
@@ -299,8 +299,8 @@
   "decisionIntelligence": {
     "schemaVersion": "1.2",
     "status": "pass",
-    "generatedAt": "2026-08-18T22:52:52.702Z",
-    "runId": "32194099289",
+    "generatedAt": "2026-08-18T23:49:12.635Z",
+    "runId": "32198153556",
     "refreshTrigger": "schedule",
     "metrics": [
       {
@@ -414,45 +414,6 @@
     ],
     "eventTriggers": [
       {
-        "id": "f065d0e5273013108826",
-        "ruleId": "earnings-release",
-        "label": "분기 실적·어닝콜",
-        "priority": "immediate",
-        "sourceId": "sec-edgar",
-        "source": "SEC EDGAR",
-        "sourceClass": "official",
-        "title": "SEC EDGAR",
-        "url": "https://data.sec.gov/submissions/CIK0000723125.json",
-        "publishedAt": "2026-08-18",
-        "changed": true
-      },
-      {
-        "id": "354752fb95e90cacfc02",
-        "ruleId": "hbm4-production-stage",
-        "label": "HBM4 Sample → Qualification → Ramp",
-        "priority": "immediate",
-        "sourceId": "sec-edgar",
-        "source": "SEC EDGAR",
-        "sourceClass": "official",
-        "title": "SEC EDGAR",
-        "url": "https://data.sec.gov/submissions/CIK0000723125.json",
-        "publishedAt": "2026-08-18",
-        "changed": true
-      },
-      {
-        "id": "2936312a752fda0d267d",
-        "ruleId": "capacity-commitment",
-        "label": "CapEx·Capacity·장기 물량",
-        "priority": "quarterly",
-        "sourceId": "sec-edgar",
-        "source": "SEC EDGAR",
-        "sourceClass": "official",
-        "title": "SEC EDGAR",
-        "url": "https://data.sec.gov/submissions/CIK0000723125.json",
-        "publishedAt": "2026-08-18",
-        "changed": true
-      },
-      {
         "id": "f745d345692c0f74ad9a",
         "ruleId": "capacity-commitment",
         "label": "CapEx·Capacity·장기 물량",
@@ -503,6 +464,19 @@
         "url": "https://www.tomshardware.com/pc-components/ssds/sk-hynix-to-expand-production-capacity-in-china-as-it-mulls-solidigm-ipo-report-claims-second-phase-of-fab-could-boost-local-production-by-50-percent",
         "publishedAt": "2026-08-11",
         "changed": true
+      },
+      {
+        "id": "f065d0e5273013108826",
+        "ruleId": "earnings-release",
+        "label": "분기 실적·어닝콜",
+        "priority": "immediate",
+        "sourceId": "sec-edgar",
+        "source": "SEC EDGAR",
+        "sourceClass": "official",
+        "title": "SEC EDGAR",
+        "url": "https://data.sec.gov/submissions/CIK0000723125.json",
+        "publishedAt": "2026-08-18",
+        "changed": false
       },
       {
         "id": "0f9f68f0741e5c2b445f",
@@ -568,11 +542,37 @@
         "url": "https://www.trendforce.com/presscenter/news/20260602-13074.html",
         "publishedAt": "2026-06-02",
         "changed": false
+      },
+      {
+        "id": "08e2a7812544add59a99",
+        "ruleId": "competitor-ramp",
+        "label": "경쟁사 Ramp·고객 공급",
+        "priority": "immediate",
+        "sourceId": "trendforce",
+        "source": "TrendForce",
+        "sourceClass": "research",
+        "title": "Tight DRAM Supply Gives Suppliers Greater Pricing Power in HBM, with HBM Contract Prices Expected to Surge Multiples Higher in 2027, Says TrendForce",
+        "url": "https://www.trendforce.com/presscenter/news/20260602-13074.html",
+        "publishedAt": "2026-06-02",
+        "changed": false
+      },
+      {
+        "id": "c9ad62aa66dccb09053b",
+        "ruleId": "hbm4-production-stage",
+        "label": "HBM4 Sample → Qualification → Ramp",
+        "priority": "immediate",
+        "sourceId": "samsung-semiconductor",
+        "source": "Samsung Semiconductor",
+        "sourceClass": "official",
+        "title": "Samsung Ships Industry-First Commercial HBM4 With Ultimate Performance for AI Computing | Samsung Semiconductor Global",
+        "url": "https://semiconductor.samsung.com/news-events/news/samsung-ships-industry-first-commercial-hbm4-with-ultimate-performance-for-ai-computing",
+        "publishedAt": "2026-02-19",
+        "changed": false
       }
     ],
     "claimEvents": {
       "schemaVersion": "1.0",
-      "generatedAt": "2026-08-18T22:52:52.702Z",
+      "generatedAt": "2026-08-18T23:49:12.635Z",
       "stats": {
         "eligibleDocuments": 32,
         "structuredEvents": 8,
@@ -883,8 +883,8 @@
             "refreshMode": "poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-08-18T22:52:50.461Z",
-            "lastUsefulObservationAt": "2026-08-18T22:52:50.461Z",
+            "lastSuccessAt": "2026-08-18T23:49:10.102Z",
+            "lastUsefulObservationAt": "2026-08-18T23:49:10.102Z",
             "usefulObservation": true,
             "eventYield": 1
           },
@@ -895,8 +895,8 @@
             "refreshMode": "poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-08-18T22:52:50.461Z",
-            "lastUsefulObservationAt": "2026-08-18T22:52:50.461Z",
+            "lastSuccessAt": "2026-08-18T23:49:10.102Z",
+            "lastUsefulObservationAt": "2026-08-18T23:49:10.102Z",
             "usefulObservation": true,
             "eventYield": 3
           },
@@ -907,8 +907,8 @@
             "refreshMode": "event+poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-08-18T22:52:50.461Z",
-            "lastUsefulObservationAt": "2026-08-18T22:52:50.461Z",
+            "lastSuccessAt": "2026-08-18T23:49:10.102Z",
+            "lastUsefulObservationAt": "2026-08-18T23:49:10.102Z",
             "usefulObservation": true,
             "eventYield": 3
           },
@@ -919,7 +919,7 @@
             "refreshMode": "event+poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-08-18T22:52:50.461Z",
+            "lastSuccessAt": "2026-08-18T23:49:10.102Z",
             "lastUsefulObservationAt": null,
             "usefulObservation": false,
             "eventYield": 0
@@ -931,7 +931,7 @@
             "refreshMode": "event+poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-08-18T22:52:50.461Z",
+            "lastSuccessAt": "2026-08-18T23:49:10.102Z",
             "lastUsefulObservationAt": null,
             "usefulObservation": false,
             "eventYield": 0
@@ -943,7 +943,7 @@
             "refreshMode": "poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-08-18T22:52:50.461Z",
+            "lastSuccessAt": "2026-08-18T23:49:10.102Z",
             "lastUsefulObservationAt": null,
             "usefulObservation": false,
             "eventYield": 0
@@ -955,8 +955,8 @@
             "refreshMode": "poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-08-18T22:52:50.461Z",
-            "lastUsefulObservationAt": "2026-08-18T22:52:50.461Z",
+            "lastSuccessAt": "2026-08-18T23:49:10.102Z",
+            "lastUsefulObservationAt": "2026-08-18T23:49:10.102Z",
             "usefulObservation": true,
             "eventYield": 0
           },
@@ -967,8 +967,8 @@
             "refreshMode": "poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-08-18T22:52:50.461Z",
-            "lastUsefulObservationAt": "2026-08-18T22:52:50.461Z",
+            "lastSuccessAt": "2026-08-18T23:49:10.102Z",
+            "lastUsefulObservationAt": "2026-08-18T23:49:10.102Z",
             "usefulObservation": true,
             "eventYield": 0
           },
@@ -979,8 +979,8 @@
             "refreshMode": "poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-08-18T22:52:50.461Z",
-            "lastUsefulObservationAt": "2026-08-18T22:52:50.461Z",
+            "lastSuccessAt": "2026-08-18T23:49:10.102Z",
+            "lastUsefulObservationAt": "2026-08-18T23:49:10.102Z",
             "usefulObservation": true,
             "eventYield": 0
           },
@@ -991,8 +991,8 @@
             "refreshMode": "poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-08-18T22:52:50.461Z",
-            "lastUsefulObservationAt": "2026-08-18T22:52:50.461Z",
+            "lastSuccessAt": "2026-08-18T23:49:10.102Z",
+            "lastUsefulObservationAt": "2026-08-18T23:49:10.102Z",
             "usefulObservation": true,
             "eventYield": 0
           }
@@ -1007,7 +1007,7 @@
           "decisionStage": "CUSTOMER_QUALIFICATION",
           "deliverable": "Customer Fact Base · Pain Map · Requirement Matrix · Memory Proposal",
           "status": "DECISION_READY",
-          "updatedAt": "2026-08-18T22:52:52.702Z",
+          "updatedAt": "2026-08-18T23:49:12.635Z",
           "whatChanged": "HBM4 상업화 신호를 고객별 Custom Qualification·계약 Gate로 전환할 것인가",
           "latestSignal": "Samsung · HBM4 · COMMERCIAL_SHIPMENT",
           "sourceStage": "COMMERCIAL_SHIPMENT",
@@ -1113,7 +1113,7 @@
           "decisionStage": "ARCHITECTURE_BENCHMARK",
           "deliverable": "Workload Trace · Bottleneck Tree · Architecture Benchmark · TCO",
           "status": "DECISION_READY",
-          "updatedAt": "2026-08-18T22:52:52.702Z",
+          "updatedAt": "2026-08-18T23:49:12.635Z",
           "whatChanged": "KV Cache 지배 병목을 HBM·Host DRAM/CXL·eSSD 계층화로 낮출 것인가",
           "latestSignal": "Samsung · HBM4 · COMMERCIAL_SHIPMENT",
           "sourceStage": "COMMERCIAL_SHIPMENT",
@@ -1221,7 +1221,7 @@
           "decisionStage": "BUSINESS_CASE",
           "deliverable": "Tech/Market Insight · Opportunity Thesis · Partner Screen · Business Case",
           "status": "DECISION_READY",
-          "updatedAt": "2026-08-18T22:52:52.702Z",
+          "updatedAt": "2026-08-18T23:49:12.635Z",
           "whatChanged": "RAG 품질 Gate 통과 후 Index·Corpus 계층을 어떤 사업모델로 확장할 것인가",
           "latestSignal": "Samsung · AI Memory · DISCLOSED",
           "sourceStage": "DISCLOSED",
@@ -1334,7 +1334,7 @@
           "decisionStage": "SCALE_GATE",
           "deliverable": "Partner Model · 90-Day Roadmap · RACI · KPI/Trigger/Kill Dashboard",
           "status": "DECISION_READY",
-          "updatedAt": "2026-08-18T22:52:52.702Z",
+          "updatedAt": "2026-08-18T23:49:12.635Z",
           "whatChanged": "전력·냉각·Fabric·Storage Gate를 통과한 Rack Cell만 파트너와 확장할 것인가",
           "latestSignal": "Samsung · AI Memory · DISCLOSED",
           "sourceStage": "DISCLOSED",
@@ -1521,10 +1521,10 @@
         "documents": 36,
         "chunks": 125,
         "added": 0,
-        "changed": 1,
-        "unchanged": 31,
+        "changed": 0,
+        "unchanged": 32,
         "retained": 4,
-        "reindexed": 1
+        "reindexed": 0
       },
       "packs": [
         {
@@ -2072,7 +2072,7 @@
         "sourceChangeDetectedAt": "2026-08-18T21:48:30.317Z",
         "indexedAt": "2026-08-18T21:50:36.727Z"
       },
-      "generatedAt": "2026-08-18T22:52:52.702Z"
+      "generatedAt": "2026-08-18T23:49:12.635Z"
     },
     "evaluation": {
       "framework": "grounded-retrieval-quality-loop",
@@ -2174,8 +2174,8 @@
     "output": {},
     "departmentWorkbench": {
       "source": "decisionIntelligence.decisionAutomation.briefs",
-      "runId": "32194099289",
-      "generatedAt": "2026-08-18T22:53:20.055Z",
+      "runId": "32198153556",
+      "generatedAt": "2026-08-18T23:49:34.218Z",
       "status": "DECISION_READY",
       "agenda": [
         {
@@ -2714,7 +2714,7 @@
         "evidenceLevel": "Reported",
         "sourceClass": "research"
       },
-      "evidenceCount": 17,
+      "evidenceCount": 18,
       "signals": [
         [
           "Reported · RESEARCH",
@@ -2989,7 +2989,7 @@
     {
       "id": "dram",
       "label": "DRAM·범용 가격",
-      "evidenceCount": 8,
+      "evidenceCount": 9,
       "latest": {
         "title": "CXMT DDR5는 AMD 플랫폼에서 9,000MT/s를 넘어 글로벌 리더와의 성능 격차를 줄인 것으로 알려졌음",
         "summary": "중국 D램 제조사 CXMT가 빠른 속도로 발전하고 있 · TechPowerUp에 따르면, Colourful의 CXMT 기반 DDR5 메모리는 AMD 플랫폼에서 9,000MT/s를 넘어섰으며, 이는 향상된 오버클럭 잠재력을 강조 · Colourful의 iGame X870E VULCAN W OC 마더보드에서 실행되는 48GB(24GB×2) iGame Shadow II 키트는 4,507MHz에 도달했는데, 이는 DDR에서 9,014MT/s 이상의 유효 속도에",
@@ -3013,7 +3013,7 @@
     {
       "id": "nand",
       "label": "NAND·eSSD",
-      "evidenceCount": 17,
+      "evidenceCount": 18,
       "latest": {
         "title": "서버 주도 eSSD는 NAND 출하량의 48%를 기록 · YMTC, 글로벌 톱 3 진입",
         "summary": "AI 추론 워크로드로 인해 기업용 SSD는 2026년 2분기 전 세계 NAND 출하량의 48%를 차지했으며, 이는 1년 전 26% 점유율의 거의 두 배에 달하는 수치",
@@ -3964,8 +3964,8 @@
       "scheduleHours": 1,
       "failClosed": true
     },
-    "generatedAt": "2026-08-18T22:53:20.055Z",
-    "runId": "32194099289"
+    "generatedAt": "2026-08-18T23:49:34.218Z",
+    "runId": "32198153556"
   },
   "workloadOptimization": {
     "title": "Data Center Workload Optimization · Bottleneck-to-PoC",
@@ -4348,8 +4348,8 @@
       }
     ],
     "currentSignals": [],
-    "generatedAt": "2026-08-18T22:53:20.055Z",
-    "runId": "32194099289"
+    "generatedAt": "2026-08-18T23:49:34.218Z",
+    "runId": "32198153556"
   },
   "caseClassification": [
     {
@@ -4674,7 +4674,7 @@
           "evidenceLevel": "Reported",
           "sourceClass": "research"
         },
-        "evidenceCount": 17,
+        "evidenceCount": 18,
         "signals": [
           [
             "Reported · RESEARCH",
@@ -4812,7 +4812,7 @@
           "evidenceLevel": "Watch",
           "sourceClass": "research"
         },
-        "evidenceCount": 8,
+        "evidenceCount": 9,
         "signals": [
           [
             "Watch · RESEARCH",
