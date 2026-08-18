@@ -41,6 +41,11 @@
     html.console-entry #intelligenceConsole {
       display: none !important;
     }
+    /* Critical hero-video styles (cache-proof, paints before landing.min.css). */
+    .business-hero-media { position: absolute; inset: 0; z-index: 0; overflow: hidden; background: #030912; }
+    .business-hero-video { position: absolute; inset: 0; z-index: 1; width: 100%; height: 100%; object-fit: cover; filter: brightness(.74) saturate(.92) contrast(1.04); }
+    .business-hero-video-shade { position: absolute; inset: 0; z-index: 1; pointer-events: none; background: rgba(3, 9, 18, .12); }
+    .business-hero-media-slide { z-index: 0; }
     html.console-entry .console-static-snapshot {
       position: fixed;
       inset: 0;
@@ -110,7 +115,7 @@
     (() => {
       if (!location.hash.startsWith("#console")) return;
       document.documentElement.classList.add("console-entry");
-      const revision = "infra-20260818-01";
+      const revision = "infra-20260901-02";
       const assets = [
         ["consoleStylesPreload", "style", `assets/css/styles.min.css?v=${revision}`, "high"],
         ["consoleAppPreload", "script", `assets/js/app.min.js?v=${revision}`, "low"],
@@ -127,7 +132,7 @@
       }
     })();
   </script>
-  <link rel="stylesheet" href="assets/css/landing.min.css?v=infra-20260818-01" />
+  <link rel="stylesheet" href="assets/css/landing.min.css?v=infra-20260901-02" />
 </head>
 <body class="landing-mode">
   <div class="business-site" id="businessSite">
@@ -169,7 +174,7 @@
           </video>
           <div class="business-hero-video-shade"></div>
           <figure class="business-hero-media-slide">
-            <img src="assets/media/hbm-system.webp" alt="" width="1920" height="1072" fetchpriority="high" decoding="async" />
+            <img src="assets/media/hbm-system.webp" alt="" width="1920" height="1072" loading="lazy" decoding="async" />
           </figure>
           <figure class="business-hero-media-slide">
             <img src="assets/media/memory-fabric.webp" alt="" width="1920" height="1072" loading="lazy" decoding="async" />
@@ -1890,6 +1895,6 @@
   <div class="qa-answer" id="qaAnswer" hidden></div>
   <div class="inspector" id="inspector" hidden></div>
   <div class="backdrop" id="backdrop"></div>
-  <script src="assets/js/landing.min.js?v=infra-20260818-01" defer></script>
+  <script src="assets/js/landing.min.js?v=infra-20260901-02" defer></script>
 </body>
 </html>
