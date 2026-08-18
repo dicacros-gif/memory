@@ -1,9 +1,9 @@
 {
   "schemaVersion": "1.1",
   "type": "executive-decision-snapshot",
-  "runId": "32123808087",
-  "generatedAt": "2026-08-18T10:01:08.185Z",
-  "expiresAt": "2026-08-19T12:01:05.996Z",
+  "runId": "32128661414",
+  "generatedAt": "2026-08-18T10:57:40.291Z",
+  "expiresAt": "2026-08-19T12:57:38.629Z",
   "state": "DECISION_READY",
   "freshness": {
     "score": 92.4,
@@ -21,8 +21,8 @@
     "targetPct": 90
   },
   "funnel": {
-    "sourceDocuments": 34,
-    "structuredEvents": 7,
+    "sourceDocuments": 35,
+    "structuredEvents": 8,
     "verifiedEvents": 4,
     "decisionReadyBriefs": 4,
     "executionTrackingBriefs": 0
@@ -80,6 +80,18 @@
           "excerpt": "Samsung Electronics, a global leader in advanced memory technology, today announced that it has begun mass production of its industry-leading HBM4 and has shipped commercial products to customers"
         },
         {
+          "id": "7c25b9c482c44f86be38",
+          "title": "Memory industry · HBM4 · ANNOUNCED",
+          "source": "TrendForce",
+          "sourceId": "trendforce",
+          "sourceClass": "research",
+          "url": "https://www.trendforce.com/presscenter/news/20260602-13074.html",
+          "publishedAt": "2026-06-02",
+          "stage": "ANNOUNCED",
+          "confidence": "research-observed",
+          "excerpt": "As the market enters 2Q26, negotiations between buyers and suppliers have shifted toward HBM4 supply agreements for 2027, which is expected to become the market’s mainstream project generation"
+        },
+        {
           "id": "0549be51e38ab80b9909",
           "title": "Samsung · AI Memory · DISCLOSED",
           "source": "TrendForce",
@@ -90,18 +102,6 @@
           "stage": "DISCLOSED",
           "confidence": "research-observed",
           "excerpt": "Samsung invested KRW 25.603 trillion in its Device Solutions (DS) division, up 23.5%, focusing on next-generation memory technologies, advanced-process capacity expansion and infrastructure"
-        },
-        {
-          "id": "a6e2ed0895636b3b2518",
-          "title": "Memory industry · AI Memory · DISCLOSED",
-          "source": "TrendForce",
-          "sourceId": "trendforce",
-          "sourceClass": "research",
-          "url": "https://www.trendforce.com/presscenter/news/20260602-13074.html",
-          "publishedAt": "2026-06-02",
-          "stage": "DISCLOSED",
-          "confidence": "research-observed",
-          "excerpt": "Overall, as HBM generations continue evolving in 2027, with larger die sizes and simultaneously rising demand, the crowding-out effect on conventional DRAM capacity is expected to intensify further"
         },
         {
           "id": "f20a2c18c54e16286b21",
@@ -581,6 +581,36 @@
       "publishedAt": "2026-02-19",
       "confidence": "confirmed-primary",
       "promotionStatus": "verified-primary",
+      "contradictionStatus": "clear",
+      "isCurrentStage": true,
+      "supersededBy": null
+    },
+    {
+      "id": "7c25b9c482c44f86be38",
+      "ruleId": "competitor-ramp",
+      "eventType": "competitive-stage",
+      "label": "경쟁사 Ramp·고객 공급",
+      "entity": {
+        "id": "industry",
+        "label": "Memory industry"
+      },
+      "product": {
+        "id": "hbm4",
+        "label": "HBM4"
+      },
+      "stage": {
+        "id": "ANNOUNCED",
+        "rank": 30
+      },
+      "metrics": [],
+      "evidenceSpan": "As the market enters 2Q26, negotiations between buyers and suppliers have shifted toward HBM4 supply agreements for 2027, which is expected to become the market’s mainstream project generation",
+      "source": "TrendForce",
+      "sourceId": "trendforce",
+      "sourceClass": "research",
+      "sourceUrl": "https://www.trendforce.com/presscenter/news/20260602-13074.html",
+      "publishedAt": "2026-06-02",
+      "confidence": "research-observed",
+      "promotionStatus": "review",
       "contradictionStatus": "clear",
       "isCurrentStage": true,
       "supersededBy": null
