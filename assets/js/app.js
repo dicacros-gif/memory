@@ -1915,39 +1915,31 @@
     {
       id: "home",
       label: "영상 브리핑",
-      desc: "AI Infra Decision System 오프닝",
+      desc: "SK hynix AI Infra 전략 오프닝",
       cadence: "Briefing",
       jump: "overview",
       sections: ["overview"],
     },
     {
       id: "biz-consulting",
-      label: "Customer & Workload",
-      desc: "고객 Pain point·Workload·신규 Biz",
+      label: "Customer Pain & Workload",
+      desc: "B2B 고객 Pain Point·구매 기준·지배 병목",
       cadence: "Customer signal",
       jump: "strategy-consulting",
       sections: ["strategy-consulting"],
     },
     {
-      id: "executive-summary",
-      label: "Executive Brief",
-      desc: "핵심 변화·근거·실행 판단",
-      cadence: "Decision brief",
-      jump: "overview-content",
-      sections: ["overview-content"],
-    },
-    {
       id: "c-level",
-      label: "Executive Decisions",
-      desc: "안건·대안·Trigger·Owner·KPI",
+      label: "경영진 의사결정",
+      desc: "선택지·경제성·Owner·KPI·중단 조건",
       cadence: "Decision cockpit",
       jump: "c-level-cockpit",
       sections: ["c-level-cockpit"],
     },
     {
       id: "analysis",
-      label: "Technology & Memory",
-      desc: "Workload·Memory Fabric·Backtest",
+      label: "Business Strategy & Solutions",
+      desc: "맞춤형 Memory·Workload 최적화·TCO",
       cadence: "Architecture lab",
       jump: "executive-decision",
       sections: [
@@ -1959,72 +1951,51 @@
     },
     {
       id: "market",
-      label: "Market & Signals",
-      desc: "가격·기사·외부 의사결정 변수",
+      label: "Tech & Market Insights",
+      desc: "AI App·HW/SW·LLM·Memory 시장 신호",
       cadence: "External context",
       jump: "prices",
       sections: ["prices", "news"],
     },
     {
-      id: "numbers",
-      label: "Supply & Commercialization",
-      desc: "수치·시나리오·Capacity Gate",
-      cadence: "Commercial review",
-      jump: "numbers",
-      sections: ["numbers"],
-    },
-    {
-      id: "projection",
-      label: "Portfolio Roadmap",
-      desc: "제품 믹스·Qualification·Ramp",
+      id: "partnerships",
+      label: "New Biz & Partners",
+      desc: "기회·파트너 모델·Qualification·Capacity",
       cadence: "Portfolio gate",
-      jump: "projection",
-      sections: ["projection"],
+      jump: "numbers",
+      sections: ["numbers", "projection"],
     },
     {
       id: "hyperscaler-demand",
-      label: "Customer Demand",
-      desc: "Hyperscaler·Enterprise·Device",
+      label: "Customer Demand & Use Cases",
+      desc: "Hyperscaler·Enterprise·Device 수요와 사례",
       cadence: "Workload demand",
       jump: "hyperscaler-demand",
-      sections: ["hyperscaler-demand"],
+      sections: ["hyperscaler-demand", "ai-matrix"],
     },
     {
-      id: "ai-architecture",
-      label: "Memory Architecture",
-      desc: "HBM·SOCAMM·CXL·HBF·eSSD",
-      cadence: "Technology map",
-      jump: "ai-matrix",
-      sections: ["ai-matrix"],
-    },
-    {
-      id: "stock",
-      label: "Market & Competitor",
-      desc: "글로벌 경쟁·중국·밸류체인",
-      cadence: "Competitive context",
+      id: "ecosystem",
+      label: "Partner Ecosystem",
+      desc: "AI 개발사·운영사·기술 파트너 협력 모델",
+      cadence: "Partner review",
       jump: "equity-value-chain",
-      sections: ["equity-value-chain", "marketIndexPanel"],
+      sections: ["equity-value-chain"],
     },
   ];
   const ROUTE_DISPLAY = {
     home: {
       label: "영상 브리핑",
-      desc: "AI Infra Decision System 오프닝",
+      desc: "SK hynix AI Infra 전략 오프닝",
       cadence: "Briefing",
     },
     "biz-consulting": {
-      label: "Customer & Workload",
-      desc: "고객 Pain point·Workload·신규 Biz",
+      label: "Customer Pain & Workload",
+      desc: "B2B 고객 Pain Point·구매 기준·지배 병목",
       cadence: "Customer signal",
     },
-    "executive-summary": {
-      label: "Executive Brief",
-      desc: "핵심 변화·근거·실행 판단",
-      cadence: "Decision brief",
-    },
     "c-level": {
-      label: "Executive Decisions",
-      desc: "안건·대안·Trigger·Owner·KPI",
+      label: "경영진 의사결정",
+      desc: "선택지·경제성·Owner·KPI·중단 조건",
       cadence: "Decision cockpit",
     },
     workbench: {
@@ -2043,8 +2014,8 @@
       cadence: "Portfolio gate",
     },
     "hyperscaler-demand": {
-      label: "Customer Demand",
-      desc: "Hyperscaler·Enterprise·Device",
+      label: "Customer Demand & Use Cases",
+      desc: "Hyperscaler·Enterprise·Device 수요와 사례",
       cadence: "Workload demand",
     },
     "china-workforce": {
@@ -2068,14 +2039,24 @@
       cadence: "Action plan",
     },
     analysis: {
-      label: "Technology & Memory",
-      desc: "Workload·Memory Fabric·Backtest",
+      label: "Business Strategy & Solutions",
+      desc: "맞춤형 Memory·Workload 최적화·TCO",
       cadence: "Architecture lab",
     },
     market: {
-      label: "Market & Signals",
-      desc: "가격·기사·외부 의사결정 변수",
+      label: "Tech & Market Insights",
+      desc: "AI App·HW/SW·LLM·Memory 시장 신호",
       cadence: "External context",
+    },
+    partnerships: {
+      label: "New Biz & Partners",
+      desc: "기회·파트너 모델·Qualification·Capacity",
+      cadence: "Portfolio gate",
+    },
+    ecosystem: {
+      label: "Partner Ecosystem",
+      desc: "AI 개발사·운영사·기술 파트너 협력 모델",
+      cadence: "Partner review",
     },
     stock: {
       label: "Market & Competitor",
@@ -2112,22 +2093,18 @@
     talent: { label: "인재 · IP", en: "Talent / IP", desc: "채용, 핵심 수율 인력 이동, IP 방어 신호" },
   };
   const SIDE_NAV_GROUPS = [
-    { label: "AI Infra Decisions", routes: ["home", "biz-consulting", "executive-summary", "c-level"] },
-    { label: "Technology & Commercialization", routes: ["analysis", "market", "numbers", "projection", "hyperscaler-demand", "ai-architecture"] },
-    { label: "Market & External Context", routes: ["stock"] },
+    { label: "SK hynix AI Infra", routes: ["home", "biz-consulting", "c-level"] },
+    { label: "Strategy & Solutions", routes: ["analysis", "market", "partnerships", "hyperscaler-demand", "ecosystem"] },
   ];
   const SIDE_NAV_ICONS = {
     home: "01",
     "biz-consulting": "02",
-    "executive-summary": "03",
-    "c-level": "04",
-    analysis: "05",
-    market: "06",
-    numbers: "07",
-    projection: "08",
-    "hyperscaler-demand": "09",
-    "ai-architecture": "10",
-    stock: "11",
+    "c-level": "03",
+    analysis: "04",
+    market: "05",
+    partnerships: "06",
+    "hyperscaler-demand": "07",
+    ecosystem: "08",
   };
   const TOPIC_FILTER_GROUPS = [
     { label: "전체", hint: "All", categories: ["all"] },
@@ -2152,21 +2129,21 @@
     { id: "hbm", label: "HBM/Post-HBM", sub: "HBM4 · CXL · 3D DRAM", categories: ["hbm", "cxl", "packaging", "aidemand"], keywords: ["hbm", "rubin", "cxl", "pim", "3d dram", "cowos", "tsmc"] },
   ];
   const SECTION_LABELS = {
-    overview: "영상 브리핑",
-    "overview-content": "Executive Summary",
-    "strategy-consulting": "전략 컨설팅",
-    "c-level-cockpit": "C-level 전략 보드",
-    "executive-decision": "경영진 의사결정",
+    overview: "SK hynix AI Infra 영상 브리핑",
+    "overview-content": "과거 분석",
+    "strategy-consulting": "Customer Pain & Workload",
+    "c-level-cockpit": "경영진 의사결정",
+    "executive-decision": "Business Strategy & Solutions",
     "management-strategy": "중국 경영전략 수립",
     "strategic-investment-decision": "중국 전략적 의사 결정",
     "policy-makers": "정책 방향성",
     "china-fab-infra": "중국 Fab 인프라",
     "china-talent-strategy": "중국 인력 전략",
-    numbers: "정량 분석",
-    projection: "제품군 프로젝션",
-    "hyperscaler-demand": "메모리 수요 예측",
+    numbers: "New Biz Opportunity",
+    projection: "Partner & Portfolio Roadmap",
+    "hyperscaler-demand": "Customer Demand & Use Cases",
     "memory-market-map": "경쟁·돈의 흐름",
-    "ai-matrix": "AI 메모리 매트릭스",
+    "ai-matrix": "AI Application & Memory Architecture",
     "china-dynamics": "중국 반도체 다이내믹스",
     "china-nand": "중국 NAND 사업 강화",
     "talent-radar": "인재·채용 레이더",
@@ -2174,10 +2151,10 @@
     workbench: "분석실",
     response: "대응 전략",
     categories: "메모리 카테고리",
-    news: "중국·외신 기사",
+    news: "Tech & Market Signals",
     "china-community": "중국 반도체 현장 신호",
-    prices: "TrendForce 가격",
-    "equity-value-chain": "밸류체인 주가",
+    prices: "Memory Market Signals",
+    "equity-value-chain": "Partner Ecosystem",
   };
   const SECTION_ORDER = SIDE_NAV_ROUTES.flatMap((route) => route.sections || []);
   const NAV_SECTION_TARGETS = Object.fromEntries(
@@ -5323,7 +5300,7 @@
   const secondaryDataPromises = new Map();
   const secondaryDataReady = new Set();
   const deferredSectionRuns = new Map();
-  const deferredRenderedSections = new Set(["overview", "overview-content"]);
+  const deferredRenderedSections = new Set(["overview"]);
   let priceBoardPreloadStarted = false;
   let deferredHydrationQueueStarted = false;
 
@@ -6363,9 +6340,10 @@
   function normalizeBrandName(value) {
     return String(value ?? "")
       .replace(/솔리드다임/g, "솔리다임")
-      .replace(/SK\s*하이닉스/g, "SKHY")
-      .replace(/SK하이닉스/g, "SKHY")
-      .replace(/\bSK\s+hynix\b/gi, "SKHY");
+      .replace(/SK\s*하이닉스/g, "SK hynix")
+      .replace(/SK하이닉스/g, "SK hynix")
+      .replace(/\bSK\s+hynix\b/gi, "SK hynix")
+      .replace(/\bSKHY\b/gi, "SK hynix");
   }
 
   function escapeHTML(value) {
@@ -7354,7 +7332,6 @@
 
   function categoryRenderSteps() {
     return [
-      { id: "overview-content", render: renderExecutiveSummary, always: true },
       { id: "c-level-cockpit", render: renderCLevelCockpit },
       { id: "executive-decision", render: renderExecutiveDecision },
       { id: "numbers", render: renderNumberAnalysis },
@@ -8364,7 +8341,6 @@
   }
 
   function renderKpis() {
-    renderExecutiveSummary();
     const strip = $("#kpiStrip") || $("#overview");
     strip.innerHTML = "";
     const kpiOutlines = {
@@ -20830,6 +20806,15 @@
     alignTarget();
     syncSidebarRoute(id);
     scheduleScrollSpyGeometryRefresh();
+    // Charts and progressive copy can settle one or two frames later on a cold
+    // data load. Re-anchor the selected board so the first click never leaves
+    // the user inside an intrinsic-size placeholder.
+    window.setTimeout(() => {
+      if (token === jumpNavigationToken) alignTarget();
+    }, 160);
+    window.setTimeout(() => {
+      if (token === jumpNavigationToken) alignTarget();
+    }, 520);
   }
 
   function refreshScrollSpyGeometry() {

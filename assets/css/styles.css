@@ -14144,6 +14144,29 @@ body.consulting-system {
   -webkit-text-fill-color: #ffffff !important;
 }
 
+/* SK hynix AI Infra 공개 화면에서는 과거 지역·정책 중심 분석을 노출하지 않음 */
+#overview-content,
+#management-strategy,
+#strategic-investment-decision,
+#policy-makers,
+#china-fab-infra,
+#china-talent-strategy,
+#china-community,
+#china-nand,
+#china-dynamics,
+#talent-radar,
+#workbench,
+#memory-market-map,
+#competitive-scroll-story,
+#visual-bridge-competition,
+#china-benchmark-video-story,
+#china-deep-dive,
+#categories,
+#response,
+#marketIndexPanel {
+  display: none !important;
+}
+
 .consulting-system .equity-ticker-grid button:not(:hover):not(:focus-visible) :is(b, strong, small, em),
 .consulting-system .equity-chain-card:not(:hover):not(:focus-visible) :is(b, strong, small, em) {
   color: var(--equity-readable-ink) !important;

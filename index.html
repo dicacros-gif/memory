@@ -3,15 +3,15 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>AI Infra Strategy · Customer Pain to Executive Action</title>
-  <meta name="description" content="고객 Business Outcome와 Workload·SLO에서 출발해 Compute·Memory·Network·Storage·Serving SW·Power/Cooling의 지배 병목을 판별하고 실행 Gate까지 연결하는 AI Infra 전략 포트폴리오" />
+  <title>SK hynix AI Infra Strategy · Customer Pain to Memory Business</title>
+  <meta name="description" content="SK hynix B2B 고객 Pain Point를 데이터센터 Workload와 연결하고 맞춤형 Memory Solution·신규 Biz·파트너십·경영진 실행안으로 전환하는 전략 포트폴리오" />
   <meta name="theme-color" content="#071522" />
   <link rel="canonical" href="https://dicacros-gif.github.io/memory/" />
   <meta property="og:type" content="website" />
   <meta property="og:locale" content="ko_KR" />
   <meta property="og:site_name" content="Memory Intelligence" />
-  <meta property="og:title" content="AI Infra Strategy · Customer Pain to Executive Action" />
-  <meta property="og:description" content="Business Outcome → Workload/SLO → Dominant Bottleneck → Architecture → Qualification → Scale" />
+  <meta property="og:title" content="SK hynix AI Infra Strategy · Customer Pain to Memory Business" />
+  <meta property="og:description" content="Customer Pain → Workload Diagnosis → Memory Solution → New Biz → Executive Action" />
   <meta property="og:url" content="https://dicacros-gif.github.io/memory/" />
   <meta property="og:image" content="https://dicacros-gif.github.io/memory/assets/media/memory-intelligence-og.jpg?v=20260717" />
   <meta property="og:image:secure_url" content="https://dicacros-gif.github.io/memory/assets/media/memory-intelligence-og.jpg?v=20260717" />
@@ -20,8 +20,8 @@
   <meta property="og:image:height" content="630" />
   <meta property="og:image:alt" content="HBM 시스템을 배경으로 한 Memory Intelligence 전략 인텔리전스" />
   <meta name="twitter:card" content="summary_large_image" />
-  <meta name="twitter:title" content="AI Infra Strategy · Customer Pain to Executive Action" />
-  <meta name="twitter:description" content="Business Outcome × Bottleneck Diagnosis × HW/SW Architecture × Qualification × Scale" />
+  <meta name="twitter:title" content="SK hynix AI Infra Strategy · Customer Pain to Memory Business" />
+  <meta name="twitter:description" content="Customer Pain × Data Center Workload × Memory Business × Executive Action" />
   <meta name="twitter:image" content="https://dicacros-gif.github.io/memory/assets/media/memory-intelligence-og.jpg?v=20260717" />
   <meta name="twitter:image:alt" content="HBM 시스템을 배경으로 한 Memory Intelligence 전략 인텔리전스" />
   <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='8' fill='%234322A8'/%3E%3Cpath d='M8 21V10h4v4h8v-4h4v11h-4v-4h-8v4z' fill='white'/%3E%3C/svg%3E" />
@@ -110,7 +110,7 @@
     (() => {
       if (!location.hash.startsWith("#console")) return;
       document.documentElement.classList.add("console-entry");
-      const revision = "infra-20260817-77";
+      const revision = "infra-20260818-01";
       const assets = [
         ["consoleStylesPreload", "style", `assets/css/styles.min.css?v=${revision}`, "high"],
         ["consoleAppPreload", "script", `assets/js/app.min.js?v=${revision}`, "low"],
@@ -127,28 +127,27 @@
       }
     })();
   </script>
-  <link rel="stylesheet" href="assets/css/landing.min.css?v=infra-20260817-77" />
+  <link rel="stylesheet" href="assets/css/landing.min.css?v=infra-20260818-01" />
 </head>
 <body class="landing-mode">
   <div class="business-site" id="businessSite">
     <a class="business-skip-link" href="#businessMain">본문으로 건너뛰기</a>
     <header class="business-header" id="businessHeader">
-      <a class="business-brand" href="#home" aria-label="Memory Intelligence 홈">
+      <a class="business-brand" href="#home" aria-label="SK hynix AI Infra Strategy 홈">
         <span class="business-brand-mark" aria-hidden="true">MI</span>
         <span>
           <strong>MEMORY INTELLIGENCE</strong>
-          <small>AI Memory Strategy &amp; Execution</small>
+          <small>SK hynix AI Infra Strategy</small>
         </span>
       </a>
       <nav class="business-nav" id="businessNav" aria-label="주요 메뉴">
         <a href="#home">Home</a>
-        <a href="#team-operating-model">Team Model</a>
-        <a href="#decision-lab">Decision Lab</a>
-        <a href="#ai-strategy">Strategy</a>
-        <a href="#solutions">Solutions</a>
+        <a href="#decision-lab">Customer Pain</a>
+        <a href="#solutions">Workload Solutions</a>
+        <a href="#ai-strategy">New Biz</a>
         <a href="#insights">Tech &amp; Market</a>
         <a href="#partners">Partners &amp; Cases</a>
-        <a href="#macro">Macro Intel</a>
+        <a href="#team-operating-model">Execution Model</a>
       </nav>
       <div class="business-header-actions">
         <button class="business-console-button business-console-button--compact" type="button" data-open-console aria-label="Open Intelligence Console">
@@ -178,16 +177,17 @@
         <div class="business-hero-grid" aria-hidden="true"></div>
         <div class="business-hero-content business-container">
           <div class="business-hero-copy">
-            <h1>AI Infra Strategy<br /><em>Customer Pain to Executive Action</em></h1>
+            <h1>SK hynix AI Infra Strategy<br /><em>Customer Pain to Memory Business</em></h1>
             <ul class="business-hero-thesis business-copy-list" aria-label="핵심 방향">
-              <li>고객 현황·기술·전략과 Workload Trace에서 우선 해결할 Pain Point 구조화</li>
-              <li>AI Application·HW·SW 변화를 맞춤형 Memory Solution과 신규 Biz 기회로 전환</li>
-              <li>검증 근거·경제성·Owner·KPI·Kill Criteria를 묶어 경영진 실행안으로 제시</li>
+              <li>SK hynix B2B 고객 현황·기술·전략 기반 Pain Point 구조화</li>
+              <li>데이터센터 HW·SW·Memory·Network·Storage·Power/Cooling 통합 진단</li>
+              <li>검증 근거·경제성·Owner·KPI·중단 조건 기반 경영진 실행안</li>
             </ul>
             <ul class="business-hero-bullets" aria-label="핵심 전략 범위" data-copy-verbatim>
               <li>Customer Strategy · B2B Fact Base → Pain Map → Buying Criteria → 맞춤형 Memory Proposal</li>
               <li>Workload Optimization · Training/Inference/RAG/Agent → Bottleneck → HW/SW·Memory TCO</li>
               <li>New Biz &amp; Insight · AI/LLM 변곡점 → Where to Play → Partner → Business Case</li>
+              <li>Partners &amp; Cases · 공동 PoC → 고객 인증 → Capacity → 익명화 성과</li>
             </ul>
             <div class="business-hero-actions">
               <a class="business-primary-button" href="#departmentDecisionQueue">오늘의 의사결정 보기 <span aria-hidden="true">↓</span></a>
@@ -398,7 +398,7 @@
         </div>
       </section>
 
-      <section class="business-section business-initiatives" id="initiatives">
+      <section class="business-section business-initiatives" id="initiatives" hidden>
         <div class="business-container">
           <div class="business-section-heading business-section-heading--split">
             <div><p class="business-kicker">North Star · Growth System</p><h2>3 Strategic Initiatives</h2></div>
@@ -417,7 +417,7 @@
         </div>
       </section>
 
-      <section class="business-section business-competencies" id="competencies" data-frame="BAIN · RESULTS DELIVERY">
+      <section class="business-section business-competencies" id="competencies" data-frame="BAIN · RESULTS DELIVERY" hidden>
         <div class="business-container">
           <div class="business-section-heading">
             <p class="business-kicker">Capability System · MECE</p>
@@ -776,7 +776,7 @@
         </div>
       </section>
 
-      <section class="business-section business-macro" id="macro">
+      <section class="business-section business-macro" id="macro" hidden>
         <div class="business-container">
           <div class="business-section-heading business-section-heading--split">
             <div><h2>Signal Portfolio → Memory Decision</h2></div>
@@ -797,7 +797,7 @@
         <div class="business-container">
           <div class="business-section-heading business-section-heading--split">
             <div>
-              <h2 id="teamOperatingTitle">AI Infra Strategy Team Operating Model</h2>
+              <h2 id="teamOperatingTitle">SK hynix AI Infra Strategy Operating Model</h2>
               <p id="teamOperatingThesis">고객 Pain Point를 출발점으로 메모리 전략·신규 Biz·AI Infra 실행을 하나의 반복 가능한 의사결정 체계로 연결</p>
             </div>
             <ul class="business-heading-points"><li>CUSTOMER · Pain → Requirement</li><li>NEW BIZ · Inflection → Business Case</li><li>EXECUTION · Decision → Ramp / Stop</li></ul>
@@ -840,7 +840,7 @@
   <aside class="console-static-snapshot" id="consoleStaticSnapshot" aria-label="Intelligence Console 정적 요약">
     <header>
       <span>MEMORY INTELLIGENCE · INDEXABLE DECISION SNAPSHOT</span>
-      <h1>AI Infra Strategy &amp; New Biz Intelligence</h1>
+      <h1>SK hynix AI Infra Strategy Console</h1>
       <p>고객 현황·기술·전략에서 Pain Point를 진단하고, 맞춤형 Memory Option·신규 Biz·파트너·90일 실행전략을 한 흐름에서 관리</p>
     </header>
     <div class="console-static-flow" aria-label="의사결정 5단계">
@@ -895,7 +895,7 @@
         </button>
         <div class="tb-title">
           <button class="console-exit" id="consoleExit" type="button" aria-label="비즈니스 사이트로 돌아가기">← Site</button>
-          <h1>AI Infra Strategy &amp; New Biz Intelligence</h1>
+          <h1>SK hynix AI Infra Strategy Console</h1>
         </div>
         <div class="tb-actions">
           <div class="qa" id="qaBox">
@@ -920,12 +920,12 @@
           </video>
           <div class="memory-hero-shade" aria-hidden="true"></div>
           <div class="memory-hero-content">
-            <p class="memory-hero-kicker">AI INFRA DECISION INTELLIGENCE SYSTEM</p>
-            <h2 id="memoryHeroTitle">Customer Pain에서 실행전략까지</h2>
-            <p>고객·Workload·AI 기술 신호를 검증하고, 맞춤형 Memory Solution·신규 Biz·Partner Model·Owner·KPI를 결정</p>
+            <p class="memory-hero-kicker">SK HYNIX AI INFRA STRATEGY</p>
+            <h2 id="memoryHeroTitle">Customer Pain에서 Memory Business까지</h2>
+            <p>고객·Workload·AI 기술 신호 → 맞춤형 Memory Solution → 신규 Biz·Partner → 경영진 실행</p>
             <div class="memory-hero-actions">
               <button type="button" data-hero-jump="strategy-consulting">전략 컨설팅 보기</button>
-              <button type="button" data-hero-jump="overview-content">Executive Summary</button>
+              <button type="button" data-hero-jump="c-level-cockpit">경영진 의사결정</button>
             </div>
             <div class="memory-hero-scroll-cue" aria-hidden="true"><span></span></div>
           </div>
@@ -935,15 +935,15 @@
         <section class="board strategy-consulting-board" id="strategy-consulting" aria-label="고객 전략 · 신규 비즈니스 · AI Infra 실행전략">
           <div class="board-head">
             <div>
-              <p class="eyebrow">Customer strategy · new business · AI Infra execution</p>
-              <h2>고객 전략 · 신규 Biz · AI Infra 실행전략</h2>
+              <p class="eyebrow">Customer pain · workload solution · new business · execution</p>
+              <h2>SK hynix 고객 전략 · 솔루션 · 신규 Biz · 실행</h2>
             </div>
             <span class="board-meta" id="strategyConsultingMeta">크롤 근거 연결 중</span>
           </div>
           <div id="strategyConsulting"></div>
         </section>
 
-        <section class="executive-summary" id="overview-content" aria-label="Executive Summary">
+        <section class="executive-summary" id="overview-content" aria-label="Executive Summary" hidden>
           <div class="exec-layout">
             <section class="exec-brief" id="execBrief"></section>
             <section class="exec-strategy" id="execStrategy"></section>
@@ -1689,7 +1689,7 @@
           </div>
         </section>
 
-        <section class="memory-scroll-story competitive-scroll-story" id="competitive-scroll-story" data-scroll-story aria-label="메모리 경쟁 우위와 실행 조건 스크롤 스토리">
+        <section class="memory-scroll-story competitive-scroll-story" id="competitive-scroll-story" data-scroll-story aria-label="메모리 경쟁 우위와 실행 조건 스크롤 스토리" hidden>
           <div class="memory-scroll-sticky">
             <img src="assets/media/competitive-dynamics-scroll.webp" alt="메모리 칩과 반도체 밸류체인 연결을 시각화한 경쟁 다이나믹스" loading="lazy" decoding="async" />
             <div class="memory-scroll-shade" aria-hidden="true"></div>
@@ -1776,7 +1776,7 @@
           </section>
         </section>
 
-        <section class="visual-insight-bridge" id="visual-bridge-competition" data-visual-story-mount="competitive-scroll-story" aria-labelledby="visualBridgeCompetitionTitle">
+        <section class="visual-insight-bridge" id="visual-bridge-competition" data-visual-story-mount="competitive-scroll-story" aria-labelledby="visualBridgeCompetitionTitle" hidden>
           <header class="visual-insight-bridge-head">
             <div>
               <span>VISUAL SYNTHESIS 04 · COMPETITIVE BENCHMARK → RIGHT TO WIN</span>
@@ -1886,6 +1886,6 @@
   <div class="qa-answer" id="qaAnswer" hidden></div>
   <div class="inspector" id="inspector" hidden></div>
   <div class="backdrop" id="backdrop"></div>
-  <script src="assets/js/landing.min.js?v=infra-20260817-77" defer></script>
+  <script src="assets/js/landing.min.js?v=infra-20260818-01" defer></script>
 </body>
 </html>

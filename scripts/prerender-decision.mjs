@@ -127,10 +127,10 @@ const html = normalizeHtmlExecutiveCopy(`<!DOCTYPE html>
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>AI Infra Strategy &amp; New Biz · Executive Snapshot</title>
+  <title>SK hynix AI Infra Strategy · Executive Snapshot</title>
   <meta name="description" content="고객 Pain·맞춤형 Memory Strategy·신규 Biz·AI Infra 실행을 검증된 ClaimEvent·Owner·KPI·Kill Criteria로 연결한 경영진 Snapshot" />
   <link rel="canonical" href="https://dicacros-gif.github.io/memory/console/" />
-  <meta property="og:title" content="AI Infra Strategy &amp; New Biz · Executive Snapshot" />
+  <meta property="og:title" content="SK hynix AI Infra Strategy · Executive Snapshot" />
   <meta property="og:description" content="Source → ClaimEvent → Decision → Execution" />
   <meta property="og:url" content="https://dicacros-gif.github.io/memory/console/" />
   <script type="application/ld+json">${jsonLd}</script>
@@ -142,7 +142,7 @@ const html = normalizeHtmlExecutiveCopy(`<!DOCTYPE html>
   <header class="top"><div class="wrap"><div class="brand">MEMORY INTELLIGENCE · DECISION SYSTEM</div><nav><a href="../">Business Site</a><a href="../#console">Interactive Console</a><a href="../data/executive-latest.json">JSON Snapshot</a></nav></div></header>
   <main>
     <section class="hero"><div class="wrap"><span class="eyebrow">CUSTOMER STRATEGY · NEW BIZ · AI INFRA EXECUTION</span><h1>Customer Pain → Business Option → Execution</h1><p>고객 현황·기술·전략과 Workload를 진단하고, 검증된 근거만 맞춤형 Memory Solution·신규 Biz·파트너·90일 실행 Gate로 연결합니다.</p><div class="control"><div class="state"><span>DECISION STATE</span><b>${escape(String(automation.state || "MONITORING").replaceAll("_", " "))}</b><small>${escape(content.runId)} · ${escape(content.generatedAt)}</small></div><dl class="metrics"><div><dt>CATALOG OBSERVED</dt><dd>${Number(catalog.observed || 0)} / ${Number(catalog.configured || 0)}</dd></div><div><dt>CLAIM EVENTS</dt><dd>${Number(automation.funnel?.structuredEvents || 0)}</dd></div><div><dt>VERIFIED</dt><dd>${Number(automation.funnel?.verifiedEvents || 0)}</dd></div><div><dt>FRESHNESS</dt><dd>${Number(freshness.score || 0).toFixed(1)}</dd></div></dl></div></div></section>
-    <section class="section"><div class="wrap"><div class="section-head"><div><span class="eyebrow">TEAM OPERATING MODEL · THREE WORKSTREAMS</span><h2>${escape(organization.title || "AI Infra Strategy Team Operating Model")}</h2></div><p>${escape(organization.thesis || "고객 Pain에서 실행까지 반복 가능한 의사결정 체계")}</p></div><div class="workstreams">${workstreamCards}</div></div></section>
+    <section class="section"><div class="wrap"><div class="section-head"><div><span class="eyebrow">SK HYNIX AI INFRA · THREE WORKSTREAMS</span><h2>${escape(organization.title || "SK hynix AI Infra Strategy Operating Model")}</h2></div><p>${escape(organization.thesis || "고객 Pain → 맞춤형 Memory Solution → 신규 Biz·Partner → 경영진 실행 판단")}</p></div><div class="workstreams">${workstreamCards}</div></div></section>
     <section class="section"><div class="wrap"><div class="section-head"><div><span class="eyebrow">MECE DECISION ARCHITECTURE · ONE OWNER PER QUESTION</span><h2>근거는 공유하고, 판단 책임은 네 영역으로 분리</h2></div><p>Tech &amp; Market Signal은 공용 Evidence Base에서 한 번만 관리합니다. 각 의사결정 카드는 고유한 Pain·산출물·경계·Gate를 소유합니다.</p></div><div class="mece">${meceCards}</div></div></section>
     <section class="section"><div class="wrap"><div class="section-head"><div><span class="eyebrow">WHAT CHANGED · STRUCTURED EVENT LEDGER</span><h2>발표와 양산·출하·채택을 같은 말로 보지 않습니다</h2></div><p>Entity·Product·Stage·수치·근거 문장이 원문에서 확인된 사건만 표시하며, 더 높은 Stage가 나오면 이전 Claim을 Superseded로 전환합니다.</p></div><div class="claims">${claimCards}</div></div></section>
     <section class="section"><div class="wrap"><div class="section-head"><div><span class="eyebrow">EXECUTIVE DECISION BRIEFS</span><h2>한 안건에 Pain·선택지·경제성·중단 조건을 연결</h2></div><p>AI는 근거를 구조화하고 가설을 비교합니다. 날짜·수치·제품 Stage·승격 여부는 deterministic Gate가 통제합니다.</p></div><div class="decisions">${decisionCards}</div></div></section>

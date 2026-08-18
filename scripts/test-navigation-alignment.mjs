@@ -41,17 +41,17 @@ for (const match of html.matchAll(/<(?:main|section)\b[^>]*\bid="([^"]+)"/g)) {
   if (!sectionOrder.has(match[1])) sectionOrder.set(match[1], sectionOrder.size);
 }
 
-assert.ok(routes.length >= 10, "sidebar routes should cover the full dashboard");
+assert.equal(routes.length, 8, "sidebar routes should cover the eight SK hynix AI Infra work areas");
 assert.equal(new Set(routes.map((route) => route.id)).size, routes.length, "route ids must be unique");
 assert.equal(new Set(routes.map((route) => route.jump)).size, routes.length, "route landmarks must be unique");
 assert.deepEqual(
   routes.slice(0, 3).map((route) => route.id),
-  ["home", "biz-consulting", "executive-summary"],
-  "opening route must stay video → strategy consulting → executive summary",
+  ["home", "biz-consulting", "c-level"],
+  "opening route must stay video → customer diagnosis → executive decision",
 );
 assert.deepEqual(
   routes.slice(0, 3).map((route) => route.jump),
-  ["overview", "strategy-consulting", "overview-content"],
+  ["overview", "strategy-consulting", "c-level-cockpit"],
   "opening tab targets must match the right-hand document order",
 );
 
@@ -74,16 +74,16 @@ for (const route of routes) {
 
 const groupedRoutes = groups.flatMap((group) => group.routes);
 assert.deepEqual(groupedRoutes, routes.map((route) => route.id), "sidebar groups must preserve route order");
-assert.equal(routes.at(-1).id, "stock", "Stock analysis must remain at the bottom");
+assert.equal(routes.at(-1).id, "ecosystem", "Partner ecosystem must remain at the bottom");
 assert.deepEqual(
   groups.map((group) => group.label),
-  ["AI Infra Decisions", "Technology & Commercialization", "Market & External Context"],
+  ["SK hynix AI Infra", "Strategy & Solutions"],
   "navigation should use the customer-first decision information architecture",
 );
-for (const retiredRoute of ["policy", "china-workforce", "competitors", "talent", "workbench", "market-map", "strategy-actions"]) {
+for (const retiredRoute of ["executive-summary", "policy", "china-workforce", "competitors", "talent", "workbench", "market-map", "strategy-actions", "stock"]) {
   assert.ok(!routes.some((route) => route.id === retiredRoute), `retired route must stay removed: ${retiredRoute}`);
 }
-for (const retiredSection of ["policy-makers", "china-fab-infra", "china-talent-strategy", "china-community", "china-nand", "china-dynamics", "talent-radar", "workbench", "memory-market-map", "china-deep-dive"]) {
+for (const retiredSection of ["overview-content", "policy-makers", "china-fab-infra", "china-talent-strategy", "china-community", "china-nand", "china-dynamics", "talent-radar", "workbench", "memory-market-map", "china-deep-dive"]) {
   assert.match(html, new RegExp(`id="${retiredSection}"[^>]*\\shidden(?:\\s|>)`), `retired section must remain hidden: ${retiredSection}`);
 }
 assert.doesNotMatch(html, /CEO 챌린지|id="ceoChallengeSelect"|id="ceoAgentAnswer"/, "the casual CEO challenge must not appear in the executive board");
@@ -101,13 +101,12 @@ const businessNavLabels = [...html.matchAll(/<nav class="business-nav"[\s\S]*?<\
   .flatMap((match) => [...match[0].matchAll(/<a href="#[^"]+">([^<]+)<\/a>/g)].map((link) => link[1]));
 assert.deepEqual(businessNavLabels, [
   "Home",
-  "Team Model",
-  "Decision Lab",
-  "Strategy",
-  "Solutions",
+  "Customer Pain",
+  "Workload Solutions",
+  "New Biz",
   "Tech &amp; Market",
   "Partners &amp; Cases",
-  "Macro Intel",
+  "Execution Model",
 ], "the public site must expose the AI Infra strategy information architecture");
 assert.match(html, /business-console-label--full">Open Intelligence Console<\/span>[\s\S]*?business-console-label--short"[^>]*>Console<\/span>/, "the header CTA must expose full and compact non-overlapping labels");
 assert.match(landingCss, /body\.landing-mode\s*\{[^}]*margin:\s*0;[^}]*max-width:\s*100%;[^}]*overflow-x:\s*clip;/, "the public page must stay within the viewport width without the browser's default body margin");
@@ -120,7 +119,7 @@ assert.match(landingCss, /@media \(max-width: 1120px\)[\s\S]*?\.business-menu-bu
 assert.match(html, /id="intelligenceConsole" hidden/, "the Intelligence Console must stay outside the initial visible layer");
 assert.doesNotMatch(html, /<script[^>]+src="assets\/js\/app\.js/, "the heavy console app must not load with the public landing page");
 assert.doesNotMatch(html, /<link[^>]+href="assets\/css\/styles\.css/, "the heavy console stylesheet must not load with the public landing page");
-assert.match(html, /assets\/js\/landing\.min\.js\?v=infra-20260817-77/, "the lightweight landing controller must use the minified AI Infra revision");
+assert.match(html, /assets\/js\/landing\.min\.js\?v=infra-20260818-01/, "the lightweight landing controller must use the minified AI Infra revision");
 assert.doesNotMatch(html, /LIVE DECISION QUEUE · CONSOLE-CONNECTED|businessHomeQueueStatus/, "the removed live decision queue header must stay deleted");
 const homepageDecisionQueue = html.match(/<div class="business-decision-queue-grid"[\s\S]*?<\/div>/)?.[0] || "";
 assert.doesNotMatch(homepageDecisionQueue, /<small>OUTPUT ·/, "the removed homepage decision output row must stay deleted");

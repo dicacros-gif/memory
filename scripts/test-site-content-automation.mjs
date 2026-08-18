@@ -30,9 +30,8 @@ assert.ok(rebuilt.freshness.configuredSources >= 42);
 assert.ok(rebuilt.freshness.officialConfigured >= 33);
 assert.equal(rebuilt.freshness.scheduleHours, 1);
 assert.equal(rebuilt.freshness.browserRecheckMinutes, 5);
-assert.deepEqual(rebuilt.hero.titleLines, ["AI Infra Strategy", "Customer Pain to Executive Action"]);
-assert.equal(rebuilt.hero.capabilities.length, 3, "the homepage strategy scope must remain unclipped and MECE");
-assert.ok(rebuilt.hero.capabilities.every((item) => !/Partner & Execution/i.test(item)));
+assert.deepEqual(rebuilt.hero.titleLines, ["SK hynix AI Infra Strategy", "Customer Pain to Memory Business"]);
+assert.equal(rebuilt.hero.capabilities.length, 4, "the homepage strategy scope must cover four MECE workstreams");
 assert.equal(artifact.runId, payload.runId, "site content must use the verified live runId");
 assert.equal(manifest.runId, artifact.runId, "manifest and site content must be atomic");
 assert.equal(manifest.artifacts.siteContent.path, "data/site-content-client.json");
@@ -237,13 +236,13 @@ assert.match(app, /window\.MEMORY_SITE_CONTENT\?\.agentCouncil\?\.agendas/);
 assert.match(landing, /previousRunId && previousRunId !== String\(content\.runId\) && isConsoleHash\(\)/);
 assert.match(landing, /window\.location\.reload\(\)/);
 assert.match(app, /replace\(\/솔리드다임\/g, "솔리다임"\)/, "the interactive console must normalize stale Solidigm labels at render time");
-assert.match(index, /infra-20260817-77/);
+assert.match(index, /infra-20260818-01/);
 assert.doesNotMatch(
   index,
   /data-live-source[^>]*>[\s\S]*?<\/a><\/div>\s*<dl>/,
   "decision evidence panels must not restore the deleted summary metric blocks",
 );
-assert.match(index, /Customer Pain to Executive Action/);
+assert.match(index, /Customer Pain to Memory Business/);
 assert.doesNotMatch(index, /LIVE DECISION QUEUE · CONSOLE-CONNECTED|businessHomeQueueStatus/);
 assert.match(index, /id="departmentDecisionQueue"/);
 assert.doesNotMatch(index, /business-hero-proof|CUSTOMER ACCOUNT BRIEF|WORKLOAD-TO-MEMORY|EXECUTIVE EXECUTION PACK/, "the removed homepage output summary row must stay absent");
@@ -254,8 +253,8 @@ assert.doesNotMatch(app, /익명화 Case/);
 assert.equal(executiveSnapshot.runId, artifact.runId);
 assert.equal(executiveSnapshot.decisions.length, artifact.decisionIntelligence.decisionAutomation.briefs.length);
 assert.equal(new Set(executiveSnapshot.decisions.map((brief) => brief.decisionQuestion)).size, executiveSnapshot.decisions.length, "pre-rendered executive decisions must have unique questions");
-assert.match(consoleSnapshot, /AI Infra Strategy &amp; New Biz · Executive Snapshot/);
-assert.match(consoleSnapshot, /TEAM OPERATING MODEL · THREE WORKSTREAMS/);
+assert.match(consoleSnapshot, /SK hynix AI Infra Strategy · Executive Snapshot/);
+assert.match(consoleSnapshot, /SK HYNIX AI INFRA · THREE WORKSTREAMS/);
 assert.match(consoleSnapshot, /MECE DECISION ARCHITECTURE · ONE OWNER PER QUESTION/);
 assert.match(consoleSnapshot, /ClaimEvent/);
 assert.doesNotMatch(consoleSnapshot, /STAGE · (?:CUSTOMER_QUALIFICATION|ARCHITECTURE_BENCHMARK|BUSINESS_CASE|SCALE_GATE)|KILL CRITERIA/);
