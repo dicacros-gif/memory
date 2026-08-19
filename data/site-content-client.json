@@ -1,20 +1,20 @@
 {
   "schemaVersion": "1.1",
-  "runId": "32300550095",
-  "generatedAt": "2026-08-19T20:57:30.013Z",
-  "expiresAt": "2026-08-20T22:57:28.334Z",
+  "runId": "32305363337",
+  "generatedAt": "2026-08-19T21:51:52.470Z",
+  "expiresAt": "2026-08-20T23:51:50.373Z",
   "clientArtifact": true,
   "generation": {
     "method": "verified-data-plus-approved-framework",
     "frameworkVersion": "1.1",
     "failClosed": true,
-    "sourceRunId": "32300550095"
+    "sourceRunId": "32305363337"
   },
   "siteAutomation": {
     "schemaVersion": "1.0",
     "status": "all-sections-bound",
-    "runId": "32300550095",
-    "generatedAt": "2026-08-19T20:57:30.013Z",
+    "runId": "32305363337",
+    "generatedAt": "2026-08-19T21:51:52.470Z",
     "totalSections": 69,
     "boundSections": 69,
     "refresh": {
@@ -206,16 +206,16 @@
   },
   "freshness": {
     "status": "verified",
-    "evidenceCount": 80,
+    "evidenceCount": 82,
     "briefCount": 6,
-    "sourceCount": 3,
+    "sourceCount": 4,
     "configuredSources": 42,
-    "observedSources": 7,
-    "freshObservedSources": 6,
+    "observedSources": 6,
+    "freshObservedSources": 5,
     "staleObservedSources": 1,
     "officialConfigured": 33,
-    "officialObserved": 4,
-    "officialFreshObserved": 3,
+    "officialObserved": 3,
+    "officialFreshObserved": 2,
     "discoveryQueries": 45,
     "connectedHealthChecks": 14,
     "healthChecks": 17,
@@ -270,8 +270,8 @@
       "scheduleHours": 1,
       "browserRecheckMinutes": 5,
       "sourceCatalogVersion": "1.0",
-      "runId": "32300550095",
-      "generatedAt": "2026-08-19T20:57:30.013Z"
+      "runId": "32305363337",
+      "generatedAt": "2026-08-19T21:51:52.470Z"
     }
   },
   "decisionControl": {
@@ -281,26 +281,26 @@
     },
     "freshness": {
       "status": "CURRENT",
-      "generatedAt": "2026-08-19T20:57:30.013Z",
-      "expiresAt": "2026-08-20T22:57:28.334Z"
+      "generatedAt": "2026-08-19T21:51:52.470Z",
+      "expiresAt": "2026-08-20T23:51:50.373Z"
     },
     "coverage": {
-      "status": "PARTIAL",
-      "observed": 7,
+      "status": "LOW",
+      "observed": 6,
       "configured": 42,
-      "ratio": 0.167,
-      "freshRatio": 0.143
+      "ratio": 0.143,
+      "freshRatio": 0.119
     },
     "confidence": {
-      "status": "CONDITIONAL",
+      "status": "REVIEW",
       "basis": "integrity × freshness × source coverage"
     }
   },
   "decisionIntelligence": {
     "schemaVersion": "1.2",
     "status": "pass",
-    "generatedAt": "2026-08-19T20:56:55.149Z",
-    "runId": "32300550095",
+    "generatedAt": "2026-08-19T21:51:17.557Z",
+    "runId": "32305363337",
     "refreshTrigger": "schedule",
     "metrics": [
       {
@@ -414,19 +414,6 @@
     ],
     "eventTriggers": [
       {
-        "id": "6f0cbc22e5d6e0c4d5c1",
-        "ruleId": "capacity-commitment",
-        "label": "CapEx·Capacity·장기 물량",
-        "priority": "quarterly",
-        "sourceId": "techinsights",
-        "source": "TechInsights",
-        "sourceClass": "research",
-        "title": "300mm Fab Capacity to Surpass 10M Wafers per Month in 2025 - TechInsights",
-        "url": "https://www.techinsights.com/blog/300mm-fab-capacity-surpass-10m-wafers-month-2025",
-        "publishedAt": "2026-08-17",
-        "changed": true
-      },
-      {
         "id": "655388bf4e57d5f60549",
         "ruleId": "capacity-commitment",
         "label": "CapEx·Capacity·장기 물량",
@@ -436,19 +423,6 @@
         "sourceClass": "authoritative-media",
         "title": "YMTC, 출하량 기준 키옥시아 제치고 글로벌 NAND 시장 3위 - Caixin Global",
         "url": "https://www.caixinglobal.com/2026-08-13/ymtc-overtakes-kioxia-by-shipments-to-rank-no-3-in-global-nand-market-102473570.html",
-        "publishedAt": "2026-08-12",
-        "changed": true
-      },
-      {
-        "id": "0f9de40cf2f48388a69c",
-        "ruleId": "capacity-commitment",
-        "label": "CapEx·Capacity·장기 물량",
-        "priority": "quarterly",
-        "sourceId": "authoritative-media",
-        "source": "digitimes",
-        "sourceClass": "authoritative-media",
-        "title": "SKHY, YMTC와 글로벌 경쟁사들이 AI 스토리지 수요를 충족시키기 위해 경쟁함에 따라 중국 NAND 확장을 재개한 것으로 알려짐 - 디지털타임스",
-        "url": "https://www.digitimes.com/news/a20260812VL205/sk-hynix-nand-expansion-dalian-ymtc.html",
         "publishedAt": "2026-08-12",
         "changed": true
       },
@@ -568,13 +542,39 @@
         "url": "https://www.trendforce.com/presscenter/news/20260602-13074.html",
         "publishedAt": "2026-06-02",
         "changed": false
+      },
+      {
+        "id": "e16576f4d2c6a226da36",
+        "ruleId": "hbm4-production-stage",
+        "label": "HBM4 Sample → Qualification → Ramp",
+        "priority": "immediate",
+        "sourceId": "samsung-semiconductor",
+        "source": "Samsung Semiconductor",
+        "sourceClass": "official",
+        "title": "Samsung Ships Industry-First Commercial HBM4 With Ultimate Performance for AI Computing | Samsung Semiconductor Global",
+        "url": "https://semiconductor.samsung.com/news-events/news/samsung-ships-industry-first-commercial-hbm4-with-ultimate-performance-for-ai-computing",
+        "publishedAt": "2026-02-19",
+        "changed": false
+      },
+      {
+        "id": "1426070813c296b82fa2",
+        "ruleId": "competitor-ramp",
+        "label": "경쟁사 Ramp·고객 공급",
+        "priority": "immediate",
+        "sourceId": "samsung-semiconductor",
+        "source": "Samsung Semiconductor",
+        "sourceClass": "official",
+        "title": "Samsung Ships Industry-First Commercial HBM4 With Ultimate Performance for AI Computing | Samsung Semiconductor Global",
+        "url": "https://semiconductor.samsung.com/news-events/news/samsung-ships-industry-first-commercial-hbm4-with-ultimate-performance-for-ai-computing",
+        "publishedAt": "2026-02-19",
+        "changed": false
       }
     ],
     "claimEvents": {
       "schemaVersion": "1.0",
-      "generatedAt": "2026-08-19T20:56:55.149Z",
+      "generatedAt": "2026-08-19T21:51:17.557Z",
       "stats": {
-        "eligibleDocuments": 36,
+        "eligibleDocuments": 35,
         "structuredEvents": 9,
         "verifiedEvents": 6,
         "currentStages": 4,
@@ -893,7 +893,7 @@
       ],
       "state": "DECISION_READY",
       "funnel": {
-        "sourceDocuments": 44,
+        "sourceDocuments": 45,
         "structuredEvents": 9,
         "verifiedEvents": 6,
         "decisionReadyBriefs": 4,
@@ -913,8 +913,8 @@
             "refreshMode": "poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-08-19T20:56:52.497Z",
-            "lastUsefulObservationAt": "2026-08-19T20:56:52.497Z",
+            "lastSuccessAt": "2026-08-19T21:51:16.148Z",
+            "lastUsefulObservationAt": "2026-08-19T21:51:16.148Z",
             "usefulObservation": true,
             "eventYield": 2
           },
@@ -925,8 +925,8 @@
             "refreshMode": "poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-08-19T20:56:52.497Z",
-            "lastUsefulObservationAt": "2026-08-19T20:56:52.497Z",
+            "lastSuccessAt": "2026-08-19T21:51:16.148Z",
+            "lastUsefulObservationAt": "2026-08-19T21:51:16.148Z",
             "usefulObservation": true,
             "eventYield": 3
           },
@@ -937,8 +937,8 @@
             "refreshMode": "event+poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-08-19T20:56:52.497Z",
-            "lastUsefulObservationAt": "2026-08-19T20:56:52.497Z",
+            "lastSuccessAt": "2026-08-19T21:51:16.148Z",
+            "lastUsefulObservationAt": "2026-08-19T21:51:16.148Z",
             "usefulObservation": true,
             "eventYield": 3
           },
@@ -949,7 +949,7 @@
             "refreshMode": "event+poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-08-19T20:56:52.497Z",
+            "lastSuccessAt": "2026-08-19T21:51:16.148Z",
             "lastUsefulObservationAt": null,
             "usefulObservation": false,
             "eventYield": 0
@@ -961,7 +961,7 @@
             "refreshMode": "event+poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-08-19T20:56:52.497Z",
+            "lastSuccessAt": "2026-08-19T21:51:16.148Z",
             "lastUsefulObservationAt": null,
             "usefulObservation": false,
             "eventYield": 0
@@ -973,7 +973,7 @@
             "refreshMode": "poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-08-19T20:56:52.497Z",
+            "lastSuccessAt": "2026-08-19T21:51:16.148Z",
             "lastUsefulObservationAt": null,
             "usefulObservation": false,
             "eventYield": 0
@@ -985,8 +985,8 @@
             "refreshMode": "poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-08-19T20:56:52.497Z",
-            "lastUsefulObservationAt": "2026-08-19T20:56:52.497Z",
+            "lastSuccessAt": "2026-08-19T21:51:16.148Z",
+            "lastUsefulObservationAt": "2026-08-19T21:51:16.148Z",
             "usefulObservation": true,
             "eventYield": 0
           },
@@ -997,8 +997,8 @@
             "refreshMode": "poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-08-19T20:56:52.497Z",
-            "lastUsefulObservationAt": "2026-08-19T20:56:52.497Z",
+            "lastSuccessAt": "2026-08-19T21:51:16.148Z",
+            "lastUsefulObservationAt": "2026-08-19T21:51:16.148Z",
             "usefulObservation": true,
             "eventYield": 0
           },
@@ -1009,8 +1009,8 @@
             "refreshMode": "poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-08-19T20:56:52.497Z",
-            "lastUsefulObservationAt": "2026-08-19T20:56:52.497Z",
+            "lastSuccessAt": "2026-08-19T21:51:16.148Z",
+            "lastUsefulObservationAt": "2026-08-19T21:51:16.148Z",
             "usefulObservation": true,
             "eventYield": 0
           },
@@ -1021,8 +1021,8 @@
             "refreshMode": "poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-08-19T20:56:52.497Z",
-            "lastUsefulObservationAt": "2026-08-19T20:56:52.497Z",
+            "lastSuccessAt": "2026-08-19T21:51:16.148Z",
+            "lastUsefulObservationAt": "2026-08-19T21:51:16.148Z",
             "usefulObservation": true,
             "eventYield": 0
           }
@@ -1037,7 +1037,7 @@
           "decisionStage": "CUSTOMER_QUALIFICATION",
           "deliverable": "Customer Fact Base · Pain Map · Requirement Matrix · Memory Proposal",
           "status": "DECISION_READY",
-          "updatedAt": "2026-08-19T20:56:55.149Z",
+          "updatedAt": "2026-08-19T21:51:17.557Z",
           "whatChanged": "HBM4 상업화 신호를 고객별 Custom Qualification·계약 Gate로 전환할 것인가",
           "latestSignal": "Samsung · HBM4 · COMMERCIAL_SHIPMENT",
           "sourceStage": "COMMERCIAL_SHIPMENT",
@@ -1143,7 +1143,7 @@
           "decisionStage": "ARCHITECTURE_BENCHMARK",
           "deliverable": "Workload Trace · Bottleneck Tree · Architecture Benchmark · TCO",
           "status": "DECISION_READY",
-          "updatedAt": "2026-08-19T20:56:55.149Z",
+          "updatedAt": "2026-08-19T21:51:17.557Z",
           "whatChanged": "KV Cache 지배 병목을 HBM·Host DRAM/CXL·eSSD 계층화로 낮출 것인가",
           "latestSignal": "Samsung · HBM4 · COMMERCIAL_SHIPMENT",
           "sourceStage": "COMMERCIAL_SHIPMENT",
@@ -1251,7 +1251,7 @@
           "decisionStage": "BUSINESS_CASE",
           "deliverable": "Tech/Market Insight · Opportunity Thesis · Partner Screen · Business Case",
           "status": "DECISION_READY",
-          "updatedAt": "2026-08-19T20:56:55.149Z",
+          "updatedAt": "2026-08-19T21:51:17.557Z",
           "whatChanged": "RAG 품질 Gate 통과 후 Index·Corpus 계층을 어떤 사업모델로 확장할 것인가",
           "latestSignal": "Memory industry · AI Memory · DISCLOSED",
           "sourceStage": "DISCLOSED",
@@ -1360,7 +1360,7 @@
           "decisionStage": "SCALE_GATE",
           "deliverable": "Partner Model · 90-Day Roadmap · RACI · KPI/Trigger/Kill Dashboard",
           "status": "DECISION_READY",
-          "updatedAt": "2026-08-19T20:56:55.149Z",
+          "updatedAt": "2026-08-19T21:51:17.557Z",
           "whatChanged": "전력·냉각·Fabric·Storage Gate를 통과한 Rack Cell만 파트너와 확장할 것인가",
           "latestSignal": "Memory industry · AI Memory · DISCLOSED",
           "sourceStage": "DISCLOSED",
@@ -1447,16 +1447,16 @@
             },
             {
               "score": 1.75,
-              "chunkId": "579a99372b144bf204ca",
-              "title": "새로운 AI 인프라 사이클을 뒷받침하는 메모리 혁신 1부 - samsung.com",
-              "excerpt": "Memory Innovation Powering a New AI Infrastructure Cycle Part 1 - samsung.com Today, AI is rapidly expanding beyond large-scale data centers into smartphones, AI PCs, vehicles, robots, and industrial environments",
+              "chunkId": "a8761d0ef3d9f9663b3a",
+              "title": "새로운 AI 인프라 사이클을 뒷받침하는 메모리 혁신 1부 - Semiconductor.samsung.com",
+              "excerpt": "Memory Innovation Powering a New AI Infrastructure Cycle Part 1 - semiconductor.samsung.com Today, AI is rapidly expanding beyond large-scale data centers into smartphones, AI PCs, vehicles, robots, and industrial environments",
               "sourceId": "samsung-semiconductor",
-              "source": "samsung.com",
+              "source": "semiconductor.samsung.com",
               "sourceClass": "official",
               "url": "https://semiconductor.samsung.com/news-events/tech-blog/memory-innovation-powering-a-new-ai-infrastructure-cycle-ep1",
               "publishedAt": "2026-08-19",
-              "indexedAt": "2026-08-19T16:58:28.437Z",
-              "sourceChangeDetectedAt": "2026-08-19T16:56:27.823Z",
+              "indexedAt": "2026-08-19T21:51:17.557Z",
+              "sourceChangeDetectedAt": "2026-08-19T21:50:14.120Z",
               "lastHumanVerifiedAt": null,
               "freshnessDays": 180,
               "documentStatus": "current"
@@ -1466,12 +1466,12 @@
       ],
       "catalogCoverage": {
         "configured": 42,
-        "observed": 7,
-        "fresh": 6,
-        "observationRatePct": 16.7,
+        "observed": 6,
+        "fresh": 5,
+        "observationRatePct": 14.3,
         "officialConfigured": 33,
-        "officialObserved": 4,
-        "officialFresh": 3,
+        "officialObserved": 3,
+        "officialFresh": 2,
         "targetPct": 90
       }
     },
@@ -1540,12 +1540,12 @@
     "retrieval": {
       "mode": "incremental-extractive",
       "stats": {
-        "documents": 44,
-        "chunks": 133,
-        "added": 2,
-        "changed": 0,
-        "unchanged": 34,
-        "retained": 8,
+        "documents": 45,
+        "chunks": 134,
+        "added": 1,
+        "changed": 1,
+        "unchanged": 33,
+        "retained": 10,
         "reindexed": 2
       },
       "packs": [
@@ -1576,7 +1576,7 @@
               "indexedAt": "2026-08-19T20:56:55.149Z",
               "sourceChangeDetectedAt": "2026-08-19T20:54:46.465Z",
               "lastHumanVerifiedAt": null,
-              "stale": false
+              "stale": true
             },
             {
               "title": "HBM 시장 게시판 - 2026년 8월 17일 - trendforce.com",
@@ -1660,7 +1660,7 @@
               "indexedAt": "2026-08-16T09:07:15.999Z",
               "sourceChangeDetectedAt": "2026-08-16T09:07:15.999Z",
               "lastHumanVerifiedAt": null,
-              "stale": false
+              "stale": true
             },
             {
               "title": "KV Offloading Usage Guide - vLLM",
@@ -1725,13 +1725,13 @@
           "evidenceCount": 4,
           "citations": [
             {
-              "title": "새로운 AI 인프라 사이클을 뒷받침하는 메모리 혁신 1부 - samsung.com",
-              "source": "samsung.com",
+              "title": "새로운 AI 인프라 사이클을 뒷받침하는 메모리 혁신 1부 - Semiconductor.samsung.com",
+              "source": "semiconductor.samsung.com",
               "sourceClass": "official",
               "url": "https://semiconductor.samsung.com/news-events/tech-blog/memory-innovation-powering-a-new-ai-infrastructure-cycle-ep1",
               "publishedAt": "2026-08-19",
-              "indexedAt": "2026-08-19T16:58:28.437Z",
-              "sourceChangeDetectedAt": "2026-08-19T16:56:27.823Z",
+              "indexedAt": "2026-08-19T21:51:17.557Z",
+              "sourceChangeDetectedAt": "2026-08-19T21:50:14.120Z",
               "lastHumanVerifiedAt": null,
               "stale": false
             },
@@ -1881,7 +1881,7 @@
               "indexedAt": "2026-08-16T09:07:15.999Z",
               "sourceChangeDetectedAt": "2026-08-16T09:07:15.999Z",
               "lastHumanVerifiedAt": null,
-              "stale": false
+              "stale": true
             }
           ]
         },
@@ -1977,13 +1977,13 @@
           "evidenceCount": 4,
           "citations": [
             {
-              "title": "새로운 AI 인프라 사이클을 뒷받침하는 메모리 혁신 1부 - samsung.com",
-              "source": "samsung.com",
+              "title": "새로운 AI 인프라 사이클을 뒷받침하는 메모리 혁신 1부 - Semiconductor.samsung.com",
+              "source": "semiconductor.samsung.com",
               "sourceClass": "official",
               "url": "https://semiconductor.samsung.com/news-events/tech-blog/memory-innovation-powering-a-new-ai-infrastructure-cycle-ep1",
               "publishedAt": "2026-08-19",
-              "indexedAt": "2026-08-19T16:58:28.437Z",
-              "sourceChangeDetectedAt": "2026-08-19T16:56:27.823Z",
+              "indexedAt": "2026-08-19T21:51:17.557Z",
+              "sourceChangeDetectedAt": "2026-08-19T21:50:14.120Z",
               "lastHumanVerifiedAt": null,
               "stale": false
             },
@@ -2057,7 +2057,7 @@
     },
     "freshness": {
       "framework": "evidence-freshness-v1",
-      "score": 91,
+      "score": 89.5,
       "status": "current",
       "label": "최신",
       "revalidationRequired": false,
@@ -2074,11 +2074,11 @@
       "components": {
         "contentAge": 96.7,
         "embeddingLag": 100,
-        "staleRetrievalRate": 68.8,
+        "staleRetrievalRate": 62.5,
         "coverageDrift": 100
       },
       "diagnostics": {
-        "staleRetrievalRatePct": 31.3,
+        "staleRetrievalRatePct": 37.5,
         "feedCoveragePct": 100,
         "trackCoveragePct": 100,
         "metricCoveragePct": 100,
@@ -2091,10 +2091,10 @@
       },
       "timestamps": {
         "lastHumanVerifiedAt": null,
-        "sourceChangeDetectedAt": "2026-08-19T20:54:46.465Z",
-        "indexedAt": "2026-08-19T20:56:55.149Z"
+        "sourceChangeDetectedAt": "2026-08-19T21:50:14.120Z",
+        "indexedAt": "2026-08-19T21:51:17.557Z"
       },
-      "generatedAt": "2026-08-19T20:56:55.149Z"
+      "generatedAt": "2026-08-19T21:51:17.557Z"
     },
     "evaluation": {
       "framework": "grounded-retrieval-quality-loop",
@@ -2104,7 +2104,7 @@
       "metrics": {
         "citationCoveragePct": 100,
         "trackCoveragePct": 100,
-        "freshDocumentPct": 93.2,
+        "freshDocumentPct": 93.3,
         "primaryOrResearchPct": 100,
         "conflictDisclosurePct": 100,
         "unsupportedClaimPct": 0
@@ -2196,8 +2196,8 @@
     "output": {},
     "departmentWorkbench": {
       "source": "decisionIntelligence.decisionAutomation.briefs",
-      "runId": "32300550095",
-      "generatedAt": "2026-08-19T20:57:30.013Z",
+      "runId": "32305363337",
+      "generatedAt": "2026-08-19T21:51:52.470Z",
       "status": "DECISION_READY",
       "agenda": [
         {
@@ -2314,21 +2314,21 @@
         },
         {
           "label": "FRESHNESS",
-          "value": 91,
+          "value": 89.5,
           "suffix": "/100",
           "detail": "최신"
         },
         {
           "label": "SOURCE COVERAGE",
-          "value": 7,
+          "value": 6,
           "suffix": "/42",
           "detail": "관측/구성 소스"
         }
       ],
       "revalidationRequired": false,
-      "indexedAt": "2026-08-19T20:56:55.149Z"
+      "indexedAt": "2026-08-19T21:51:17.557Z"
     },
-    "status": "VERIFIED · 출처 7개 관측 · 2026-08-19"
+    "status": "VERIFIED · 출처 6개 관측 · 2026-08-19"
   },
   "organizationOperatingModel": {
     "title": "SK hynix AI Infra Strategy Operating Model",
@@ -2578,7 +2578,7 @@
       "phase": "NEXT",
       "tabLabel": "Agentic Inference",
       "title": "Data Center Workload Optimization · Agentic AI",
-      "subtitle": "TrendForce 최신 근거 · 2026-08-12",
+      "subtitle": "TrendForce 최신 근거 · 2026-08-17",
       "answerTitle": "Agentic Inference를 Serving SW × Data Placement로 판단",
       "recommendation": "BOTTLENECK-FIRST PoC",
       "question": "Compute·Memory·Network·Serving SW 가운데 무엇이 SLO-constrained Goodput을 제한하며, 어떤 조합이 고객 경제성을 개선하는가?",
@@ -2591,20 +2591,20 @@
       },
       "stop": "공식 출하 전망 또는 고객 CapEx가 기준 시나리오 대비 10% 이상 변경",
       "latest": {
-        "title": "고객이 \"매우 높은\" 가격으로 메모리를 확보하려고 서두르는 가운데 Micron은 데이터 센터 수요의 절반 미만을 충족",
-        "summary": "81%의 분기별 영업 이익률을 보고한 지 거의 6주 만에 Micron은 8월 10일 KeyBanc 기술 리더십 포럼 2026에서 더욱 낙관적인 어조를 밝혔음 · Investing.com에 따르면 Micron은 데이터 센터의 공급이 가장 부족하기 때문에 \"매우 높은\" 가격에도 불구하고 메모리 확보에 여전히 열의가 있다고 말 · Micron은 종종 고객 수요의 절반도 채울 수 없음",
+        "title": "삼성, SKHY 1H26 칩설비투자 35% 증가 · NVIDIA는 삼성의 상위 5대 고객에 포함되지 않음",
+        "summary": "Samsung and SK hynix are accelerating semiconductor investment as AI demand drives capacity expansion and advanced-process upgrades · According to Etoday , citing the companies’ 2026 semi-annual reports, Samsung Electronics and SK hynix invested a combined K",
         "source": "TrendForce",
-        "url": "https://www.trendforce.com/news/2026/08/12/news-micron-can-meet-less-than-half-of-data-center-demand-as-customers-rush-to-secure-memory-at-very-high-prices/",
-        "publishedAt": "2026-08-12",
+        "url": "https://www.trendforce.com/news/2026/08/17/news-samsung-sk-hynix-1h26-chip-facility-investment-up-35-nvidia-not-among-samsungs-top-five-customers/",
+        "publishedAt": "2026-08-17",
         "evidenceLevel": "Reported",
         "sourceClass": "research"
       },
-      "evidenceCount": 5,
+      "evidenceCount": 4,
       "signals": [
         [
           "Reported · RESEARCH",
-          "고객이 \"매우 높은\" 가격으로 메모리를 확보하려고 서두르는 가운데 Micron은 데이터 센터 수요의 절반 미만을 충족",
-          "81%의 분기별 영업 이익률을 보고한 지 거의 6주 만에 Micron은 8월 10일 KeyBanc 기술 리더십 포럼 2026에서 더욱 낙관적인 어조를 밝혔음 · Investing.com에 따르면 Micron은 데이터 센터의 공급이 가장 부족하기 때문에 \"매우 높은\" 가격에도 불구하고 메모리 확보에 여전히 열의가 있다고 말 · Micron은 종종 고객 수요의 절반도 채울 수 없음"
+          "삼성, SKHY 1H26 칩설비투자 35% 증가 · NVIDIA는 삼성의 상위 5대 고객에 포함되지 않음",
+          "Samsung and SK hynix are accelerating semiconductor investment as AI demand drives capacity expansion and advanced-process upgrades · According to Etoday , citing the companies’ 2026 semi-annual reports, Samsung Electronics and SK hynix invested a combined K"
         ],
         [
           "EXECUTIVE DECISION",
@@ -2691,8 +2691,8 @@
       "sources": [
         [
           "Reported",
-          "TrendForce · 2026-08-12",
-          "https://www.trendforce.com/news/2026/08/12/news-micron-can-meet-less-than-half-of-data-center-demand-as-customers-rush-to-secure-memory-at-very-high-prices/"
+          "TrendForce · 2026-08-17",
+          "https://www.trendforce.com/news/2026/08/17/news-samsung-sk-hynix-1h26-chip-facility-investment-up-35-nvidia-not-among-samsungs-top-five-customers/"
         ],
         [
           "CONTROL",
@@ -2736,7 +2736,7 @@
         "evidenceLevel": "Reported",
         "sourceClass": "research"
       },
-      "evidenceCount": 20,
+      "evidenceCount": 19,
       "signals": [
         [
           "Reported · RESEARCH",
@@ -2853,7 +2853,7 @@
       "phase": "SCALE",
       "tabLabel": "Partner-led New Biz",
       "title": "Partners & Clients · Repeatable New Biz",
-      "subtitle": ".solidigm.com 최신 근거 · 2026-08-12",
+      "subtitle": "TrendForce 최신 근거 · 2026-08-12",
       "answerTitle": "검증 결과를 반복 가능한 공동사업 패키지로 전환",
       "recommendation": "LIGHTHOUSE → REPEAT",
       "question": "AI 개발사·데이터센터·OEM·컨설팅 파트너를 어떤 RACI로 묶어 Pain 진단부터 Qualification·반복주문까지 연결할 것인가?",
@@ -2866,20 +2866,20 @@
       },
       "stop": "공식 출하 전망 또는 고객 CapEx가 기준 시나리오 대비 10% 이상 변경",
       "latest": {
-        "title": "솔리다임 뉴스룸 - news.solidigm.com",
-        "summary": "공동 CEO인 Xin Guo는 NAND 공급 역학, KV 캐시의 증가, 스토리지가 AI 인프라에 대한 첫 번째 설계 결정이 된 이유에 대해 설명",
-        "source": ".solidigm.com",
-        "url": "https://news.solidigm.com/en-WW/",
+        "title": "Micron은 HBM4E를 맞춤형 HBM 시대의 시작으로 표시 · HBM 시장은 이중 또는 단일 공급업체 쪽으로 기울 수 있습니다 - TrendForce",
+        "summary": "메모리 거대 기업들은 점점 더 차세대 성장 엔진으로 맞춤형 HBM을 선택하고 있음 · Investing.com에 따르면 KeyBanc 기술 리더십 포럼 2026에서 Micron EVP Sumit Sadana는 맞춤형 HBM으로의 전환이 HBM4E에서 시작될 것이며 회사는 맞춤형 SKU에 대해 고객과 협력할 계획이라고 말",
+        "source": "TrendForce",
+        "url": "https://www.trendforce.com/news/2026/08/12/news-micron-flags-hbm4e-as-start-of-custom-hbm-era-hbm-market-could-tilt-toward-dual-or-single-suppliers/",
         "publishedAt": "2026-08-12",
         "evidenceLevel": "Watch",
-        "sourceClass": "official"
+        "sourceClass": "research"
       },
-      "evidenceCount": 5,
+      "evidenceCount": 4,
       "signals": [
         [
-          "Watch · OFFICIAL",
-          "솔리다임 뉴스룸 - news.solidigm.com",
-          "공동 CEO인 Xin Guo는 NAND 공급 역학, KV 캐시의 증가, 스토리지가 AI 인프라에 대한 첫 번째 설계 결정이 된 이유에 대해 설명"
+          "Watch · RESEARCH",
+          "Micron은 HBM4E를 맞춤형 HBM 시대의 시작으로 표시 · HBM 시장은 이중 또는 단일 공급업체 쪽으로 기울 수 있습니다 - TrendForce",
+          "메모리 거대 기업들은 점점 더 차세대 성장 엔진으로 맞춤형 HBM을 선택하고 있음 · Investing.com에 따르면 KeyBanc 기술 리더십 포럼 2026에서 Micron EVP Sumit Sadana는 맞춤형 HBM으로의 전환이 HBM4E에서 시작될 것이며 회사는 맞춤형 SKU에 대해 고객과 협력할 계획이라고 말"
         ],
         [
           "EXECUTIVE DECISION",
@@ -2966,8 +2966,8 @@
       "sources": [
         [
           "Watch",
-          ".solidigm.com · 2026-08-12",
-          "https://news.solidigm.com/en-WW/"
+          "TrendForce · 2026-08-12",
+          "https://www.trendforce.com/news/2026/08/12/news-micron-flags-hbm4e-as-start-of-custom-hbm-era-hbm-market-could-tilt-toward-dual-or-single-suppliers/"
         ],
         [
           "CONTROL",
@@ -3011,18 +3011,18 @@
     {
       "id": "dram",
       "label": "DRAM·범용 가격",
-      "evidenceCount": 11,
+      "evidenceCount": 13,
       "latest": {
-        "title": "CXMT DDR5는 AMD 플랫폼에서 9,000MT/s를 넘어 글로벌 리더와의 성능 격차를 줄인 것으로 알려졌음",
-        "summary": "중국 D램 제조사 CXMT가 빠른 속도로 발전하고 있 · TechPowerUp에 따르면, Colourful의 CXMT 기반 DDR5 메모리는 AMD 플랫폼에서 9,000MT/s를 넘어섰으며, 이는 향상된 오버클럭 잠재력을 강조 · Colourful의 iGame X870E VULCAN W OC 마더보드에서 실행되는 48GB(24GB×2) iGame Shadow II 키트는 4,507MHz에 도달했는데, 이는 DDR에서 9,014MT/s 이상의 유효 속도에",
-        "source": "TrendForce",
-        "url": "https://www.trendforce.com/news/2026/08/18/news-cxmt-ddr5-reportedly-tops-9000-mts-on-amd-platform-narrowing-performance-gap-with-global-leaders/",
-        "publishedAt": "2026-08-18",
-        "evidenceLevel": "Watch",
+        "title": "Micron D1β LPDDR5X DRAM 트랜지스터 특성 보고서",
+        "summary": "이 보고서는 Micron Technology MT62F1G64D4AM-031_XT_C LPDDR5 SDRAM 구성 요소 내부에 있는 Micron Technology Y52P 다이의 워드 라인 드라이버 및 감지 증폭기 영역에 위치한 NMOS 및 PMOS 트랜지스터의 주요 DC 특성을 제시",
+        "source": "TechInsights",
+        "url": "https://www.techinsights.com/blog/micron-d1b-lpddr5x-dram-transistor-characterization-report",
+        "publishedAt": "2026-08-17",
+        "evidenceLevel": "Reported",
         "sourceClass": "research"
       },
-      "fact": "중국 D램 제조사 CXMT가 빠른 속도로 발전하고 있 · TechPowerUp에 따르면, Colourful의 CXMT 기반 DDR5 메모리는 AMD 플랫폼에서 9,000MT/s를 넘어섰으며, 이는 향상된 오버클럭 잠재력을 강조 · Colourful의 iGame X870E VULCAN W OC 마더보드에서 실행되는 48GB(24GB×2) iGame Shadow II 키트는 4,507MHz에 도달했는데, 이는 DDR에서 9,014MT/s 이상의 유효 속도에",
-      "implication": "중국 D램 제조사 CXMT가 빠른 속도로 발전하고 있 · TechPowerUp에 따르면, Colourful의 CXMT 기반 DDR5 메모리는 AMD 플랫폼에서 9,000MT/s를 넘어섰으며, 이는 향상된 오버클럭 잠재력을 강조 · Colourful의 iGame X870E VULCAN W OC 마더보드에서 실행되는 48GB(24GB×2) iGame Shadow II 키트는 4,507MHz에 도달했는데, 이는 DDR에서 9,014MT/s 이상의…",
+      "fact": "이 보고서는 Micron Technology MT62F1G64D4AM-031_XT_C LPDDR5 SDRAM 구성 요소 내부에 있는 Micron Technology Y52P 다이의 워드 라인 드라이버 및 감지 증폭기 영역에 위치한 NMOS 및 PMOS 트랜지스터의 주요 DC 특성을 제시",
+      "implication": "이 보고서는 Micron Technology MT62F1G64D4AM-031_XT_C LPDDR5 SDRAM 구성 요소 내부에 있는 Micron Technology Y52P 다이의 워드 라인 드라이버 및 감지 증폭기 영역에 위치한 NMOS 및 PMOS 트랜지스터의 주요 DC 특성을 제시 · DDR4 16Gb (2Gx8) 3200의 누적 변동률은 관측 구간 또는 이상치 검증이 필요해 의사결정 수치로 사용하지 않음",
       "decision": "Spot 방향이 계약가로 전이되는지와 CXMT 고객·캐파 신호를 함께 확인해 범용 DRAM 가격 방어 강도를 정",
       "action": "DDR5 Spot 누적 하락 뒤 계약가 하락이 확인되거나 CXMT 매출 점유율이 2%p 이상 변동",
       "hypothesis": {
@@ -3035,7 +3035,7 @@
     {
       "id": "nand",
       "label": "NAND·eSSD",
-      "evidenceCount": 20,
+      "evidenceCount": 19,
       "latest": {
         "title": "서버 주도 eSSD는 NAND 출하량의 48%를 기록 · YMTC, 글로벌 톱 3 진입",
         "summary": "AI 추론 워크로드로 인해 기업용 SSD는 2026년 2분기 전 세계 NAND 출하량의 48%를 차지했으며, 이는 1년 전 26% 점유율의 거의 두 배에 달하는 수치",
@@ -3059,7 +3059,7 @@
     {
       "id": "china",
       "label": "중국 경쟁",
-      "evidenceCount": 12,
+      "evidenceCount": 11,
       "latest": {
         "title": "글로벌 메모리 랠리가 중국 칩 챔피언을 끌어올리면서 CXMT 가치가 4조 위안을 넘어섰음",
         "summary": "SanDisk의 강세 신호가 AI 기반 메모리 수요가 공급을 부족하게 유지할 것이라는 기대를 강화함에 따라 주가는 기록적으로 12% 급등",
@@ -3083,18 +3083,18 @@
     {
       "id": "demand",
       "label": "수요·고객",
-      "evidenceCount": 5,
+      "evidenceCount": 4,
       "latest": {
-        "title": "고객이 \"매우 높은\" 가격으로 메모리를 확보하려고 서두르는 가운데 Micron은 데이터 센터 수요의 절반 미만을 충족",
-        "summary": "81%의 분기별 영업 이익률을 보고한 지 거의 6주 만에 Micron은 8월 10일 KeyBanc 기술 리더십 포럼 2026에서 더욱 낙관적인 어조를 밝혔음 · Investing.com에 따르면 Micron은 데이터 센터의 공급이 가장 부족하기 때문에 \"매우 높은\" 가격에도 불구하고 메모리 확보에 여전히 열의가 있다고 말 · Micron은 종종 고객 수요의 절반도 채울 수 없음",
+        "title": "삼성, SKHY 1H26 칩설비투자 35% 증가 · NVIDIA는 삼성의 상위 5대 고객에 포함되지 않음",
+        "summary": "Samsung and SK hynix are accelerating semiconductor investment as AI demand drives capacity expansion and advanced-process upgrades · According to Etoday , citing the companies’ 2026 semi-annual reports, Samsung Electronics and SK hynix invested a combined K",
         "source": "TrendForce",
-        "url": "https://www.trendforce.com/news/2026/08/12/news-micron-can-meet-less-than-half-of-data-center-demand-as-customers-rush-to-secure-memory-at-very-high-prices/",
-        "publishedAt": "2026-08-12",
+        "url": "https://www.trendforce.com/news/2026/08/17/news-samsung-sk-hynix-1h26-chip-facility-investment-up-35-nvidia-not-among-samsungs-top-five-customers/",
+        "publishedAt": "2026-08-17",
         "evidenceLevel": "Reported",
         "sourceClass": "research"
       },
-      "fact": "81%의 분기별 영업 이익률을 보고한 지 거의 6주 만에 Micron은 8월 10일 KeyBanc 기술 리더십 포럼 2026에서 더욱 낙관적인 어조를 밝혔음 · Investing.com에 따르면 Micron은 데이터 센터의 공급이 가장 부족하기 때문에 \"매우 높은\" 가격에도 불구하고 메모리 확보에 여전히 열의가 있다고 말 · Micron은 종종 고객 수요의 절반도 채울 수 없음",
-      "implication": "81%의 분기별 영업 이익률을 보고한 지 거의 6주 만에 Micron은 8월 10일 KeyBanc 기술 리더십 포럼 2026에서 더욱 낙관적인 어조를 밝혔음 · Investing.com에 따르면 Micron은 데이터 센터의 공급이 가장 부족하기 때문에 \"매우 높은\" 가격에도 불구하고 메모리 확보에 여전히 열의가 있다고 말 · Micron은 종종 고객 수요의 절반도 채울 수 없음 · DDR5 RDIMM 32GB 4800/5600은 공개 누적 2…",
+      "fact": "Samsung and SK hynix are accelerating semiconductor investment as AI demand drives capacity expansion and advanced-process upgrades · According to Etoday , citing the companies’ 2026 semi-annual reports, Samsung Electronics and SK hynix invested a combined K",
+      "implication": "Samsung and SK hynix are accelerating semiconductor investment as AI demand drives capacity expansion and advanced-process upgrades · According to Etoday , citing the companies’ 2026 semi-annual reports, Samsung Electronics and SK hynix invested a c…",
       "decision": "출하량과 대당 탑재량을 분리하고 고객 CapEx·전력·패키징 제약을 반영해 제품군 시나리오를 갱신",
       "action": "공식 출하 전망 또는 고객 CapEx가 기준 시나리오 대비 10% 이상 변경",
       "hypothesis": {
@@ -3189,13 +3189,13 @@
     }
   ],
   "partnerSpotlight": {
-    "title": "솔리다임 뉴스룸 - news.solidigm.com",
-    "summary": "공동 CEO인 Xin Guo는 NAND 공급 역학, KV 캐시의 증가, 스토리지가 AI 인프라에 대한 첫 번째 설계 결정이 된 이유에 대해 설명",
-    "source": ".solidigm.com",
-    "url": "https://news.solidigm.com/en-WW/",
+    "title": "Micron은 HBM4E를 맞춤형 HBM 시대의 시작으로 표시 · HBM 시장은 이중 또는 단일 공급업체 쪽으로 기울 수 있습니다 - TrendForce",
+    "summary": "메모리 거대 기업들은 점점 더 차세대 성장 엔진으로 맞춤형 HBM을 선택하고 있음 · Investing.com에 따르면 KeyBanc 기술 리더십 포럼 2026에서 Micron EVP Sumit Sadana는 맞춤형 HBM으로의 전환이 HBM4E에서 시작될 것이며 회사는 맞춤형 SKU에 대해 고객과 협력할 계획이라고 말",
+    "source": "TrendForce",
+    "url": "https://www.trendforce.com/news/2026/08/12/news-micron-flags-hbm4e-as-start-of-custom-hbm-era-hbm-market-could-tilt-toward-dual-or-single-suppliers/",
     "publishedAt": "2026-08-12",
     "evidenceLevel": "Watch",
-    "sourceClass": "official"
+    "sourceClass": "research"
   },
   "aiFactorySystem": {
     "title": "AI Factory System Optimization · Useful Work per MW",
@@ -3986,8 +3986,8 @@
       "scheduleHours": 1,
       "failClosed": true
     },
-    "generatedAt": "2026-08-19T20:57:30.013Z",
-    "runId": "32300550095"
+    "generatedAt": "2026-08-19T21:51:52.470Z",
+    "runId": "32305363337"
   },
   "workloadOptimization": {
     "title": "Data Center Workload Optimization · Bottleneck-to-PoC",
@@ -4228,12 +4228,12 @@
         "근거 없는 답변율"
       ],
       "liveControl": {
-        "freshnessScore": 91,
+        "freshnessScore": 89.5,
         "freshnessStatus": "current",
         "retrievalStatus": "pass",
         "citationCoveragePct": 100,
         "trackCoveragePct": 100,
-        "indexedAt": "2026-08-19T20:56:55.149Z"
+        "indexedAt": "2026-08-19T21:51:17.557Z"
       }
     },
     "sources": [
@@ -4370,8 +4370,8 @@
       }
     ],
     "currentSignals": [],
-    "generatedAt": "2026-08-19T20:57:30.013Z",
-    "runId": "32300550095"
+    "generatedAt": "2026-08-19T21:51:52.470Z",
+    "runId": "32305363337"
   },
   "caseClassification": [
     {
@@ -4538,7 +4538,7 @@
         "phase": "NEXT",
         "tabLabel": "Agentic Inference",
         "title": "Data Center Workload Optimization · Agentic AI",
-        "subtitle": "TrendForce 최신 근거 · 2026-08-12",
+        "subtitle": "TrendForce 최신 근거 · 2026-08-17",
         "answerTitle": "Agentic Inference를 Serving SW × Data Placement로 판단",
         "recommendation": "BOTTLENECK-FIRST PoC",
         "question": "Compute·Memory·Network·Serving SW 가운데 무엇이 SLO-constrained Goodput을 제한하며, 어떤 조합이 고객 경제성을 개선하는가?",
@@ -4551,20 +4551,20 @@
         },
         "stop": "공식 출하 전망 또는 고객 CapEx가 기준 시나리오 대비 10% 이상 변경",
         "latest": {
-          "title": "고객이 \"매우 높은\" 가격으로 메모리를 확보하려고 서두르는 가운데 Micron은 데이터 센터 수요의 절반 미만을 충족",
-          "summary": "81%의 분기별 영업 이익률을 보고한 지 거의 6주 만에 Micron은 8월 10일 KeyBanc 기술 리더십 포럼 2026에서 더욱 낙관적인 어조를 밝혔음 · Investing.com에 따르면 Micron은 데이터 센터의 공급이 가장 부족하기 때문에 \"매우 높은\" 가격에도 불구하고 메모리 확보에 여전히 열의가 있다고 말 · Micron은 종종 고객 수요의 절반도 채울 수 없음",
+          "title": "삼성, SKHY 1H26 칩설비투자 35% 증가 · NVIDIA는 삼성의 상위 5대 고객에 포함되지 않음",
+          "summary": "Samsung and SK hynix are accelerating semiconductor investment as AI demand drives capacity expansion and advanced-process upgrades · According to Etoday , citing the companies’ 2026 semi-annual reports, Samsung Electronics and SK hynix invested a combined K",
           "source": "TrendForce",
-          "url": "https://www.trendforce.com/news/2026/08/12/news-micron-can-meet-less-than-half-of-data-center-demand-as-customers-rush-to-secure-memory-at-very-high-prices/",
-          "publishedAt": "2026-08-12",
+          "url": "https://www.trendforce.com/news/2026/08/17/news-samsung-sk-hynix-1h26-chip-facility-investment-up-35-nvidia-not-among-samsungs-top-five-customers/",
+          "publishedAt": "2026-08-17",
           "evidenceLevel": "Reported",
           "sourceClass": "research"
         },
-        "evidenceCount": 5,
+        "evidenceCount": 4,
         "signals": [
           [
             "Reported · RESEARCH",
-            "고객이 \"매우 높은\" 가격으로 메모리를 확보하려고 서두르는 가운데 Micron은 데이터 센터 수요의 절반 미만을 충족",
-            "81%의 분기별 영업 이익률을 보고한 지 거의 6주 만에 Micron은 8월 10일 KeyBanc 기술 리더십 포럼 2026에서 더욱 낙관적인 어조를 밝혔음 · Investing.com에 따르면 Micron은 데이터 센터의 공급이 가장 부족하기 때문에 \"매우 높은\" 가격에도 불구하고 메모리 확보에 여전히 열의가 있다고 말 · Micron은 종종 고객 수요의 절반도 채울 수 없음"
+            "삼성, SKHY 1H26 칩설비투자 35% 증가 · NVIDIA는 삼성의 상위 5대 고객에 포함되지 않음",
+            "Samsung and SK hynix are accelerating semiconductor investment as AI demand drives capacity expansion and advanced-process upgrades · According to Etoday , citing the companies’ 2026 semi-annual reports, Samsung Electronics and SK hynix invested a combined K"
           ],
           [
             "EXECUTIVE DECISION",
@@ -4651,8 +4651,8 @@
         "sources": [
           [
             "Reported",
-            "TrendForce · 2026-08-12",
-            "https://www.trendforce.com/news/2026/08/12/news-micron-can-meet-less-than-half-of-data-center-demand-as-customers-rush-to-secure-memory-at-very-high-prices/"
+            "TrendForce · 2026-08-17",
+            "https://www.trendforce.com/news/2026/08/17/news-samsung-sk-hynix-1h26-chip-facility-investment-up-35-nvidia-not-among-samsungs-top-five-customers/"
           ],
           [
             "CONTROL",
@@ -4696,7 +4696,7 @@
           "evidenceLevel": "Reported",
           "sourceClass": "research"
         },
-        "evidenceCount": 20,
+        "evidenceCount": 19,
         "signals": [
           [
             "Reported · RESEARCH",
@@ -4813,7 +4813,7 @@
         "phase": "OPTION",
         "tabLabel": "On-device Memory",
         "title": "AI Application & HW/SW · On-device",
-        "subtitle": "TrendForce 최신 근거 · 2026-08-18",
+        "subtitle": "TechInsights 최신 근거 · 2026-08-17",
         "answerTitle": "AI 경험·Memory Footprint·BOM을 SKU별로 재설계",
         "recommendation": "PORTFOLIO GATE",
         "question": "AI 서버 수요와 공급 제약이 모바일·PC 메모리 원가로 전이될 때 어떤 고객·SKU·용량 구간을 우선 방어할 것인가?",
@@ -4826,20 +4826,20 @@
         },
         "stop": "DDR5 Spot 누적 하락 뒤 계약가 하락이 확인되거나 CXMT 매출 점유율이 2%p 이상 변동",
         "latest": {
-          "title": "CXMT DDR5는 AMD 플랫폼에서 9,000MT/s를 넘어 글로벌 리더와의 성능 격차를 줄인 것으로 알려졌음",
-          "summary": "중국 D램 제조사 CXMT가 빠른 속도로 발전하고 있 · TechPowerUp에 따르면, Colourful의 CXMT 기반 DDR5 메모리는 AMD 플랫폼에서 9,000MT/s를 넘어섰으며, 이는 향상된 오버클럭 잠재력을 강조 · Colourful의 iGame X870E VULCAN W OC 마더보드에서 실행되는 48GB(24GB×2) iGame Shadow II 키트는 4,507MHz에 도달했는데, 이는 DDR에서 9,014MT/s 이상의 유효 속도에",
-          "source": "TrendForce",
-          "url": "https://www.trendforce.com/news/2026/08/18/news-cxmt-ddr5-reportedly-tops-9000-mts-on-amd-platform-narrowing-performance-gap-with-global-leaders/",
-          "publishedAt": "2026-08-18",
-          "evidenceLevel": "Watch",
+          "title": "Micron D1β LPDDR5X DRAM 트랜지스터 특성 보고서",
+          "summary": "이 보고서는 Micron Technology MT62F1G64D4AM-031_XT_C LPDDR5 SDRAM 구성 요소 내부에 있는 Micron Technology Y52P 다이의 워드 라인 드라이버 및 감지 증폭기 영역에 위치한 NMOS 및 PMOS 트랜지스터의 주요 DC 특성을 제시",
+          "source": "TechInsights",
+          "url": "https://www.techinsights.com/blog/micron-d1b-lpddr5x-dram-transistor-characterization-report",
+          "publishedAt": "2026-08-17",
+          "evidenceLevel": "Reported",
           "sourceClass": "research"
         },
-        "evidenceCount": 11,
+        "evidenceCount": 13,
         "signals": [
           [
-            "Watch · RESEARCH",
-            "CXMT DDR5는 AMD 플랫폼에서 9,000MT/s를 넘어 글로벌 리더와의 성능 격차를 줄인 것으로 알려졌음",
-            "중국 D램 제조사 CXMT가 빠른 속도로 발전하고 있 · TechPowerUp에 따르면, Colourful의 CXMT 기반 DDR5 메모리는 AMD 플랫폼에서 9,000MT/s를 넘어섰으며, 이는 향상된 오버클럭 잠재력을 강조 · Colourful의 iGame X870E VULCAN W OC 마더보드에서 실행되는 48GB(24GB×2) iGame Shadow II 키트는 4,507MHz에 도달했는데, 이는 DDR에서 9,014MT/s 이상의 유효 속도에"
+            "Reported · RESEARCH",
+            "Micron D1β LPDDR5X DRAM 트랜지스터 특성 보고서",
+            "이 보고서는 Micron Technology MT62F1G64D4AM-031_XT_C LPDDR5 SDRAM 구성 요소 내부에 있는 Micron Technology Y52P 다이의 워드 라인 드라이버 및 감지 증폭기 영역에 위치한 NMOS 및 PMOS 트랜지스터의 주요 DC 특성을 제시"
           ],
           [
             "EXECUTIVE DECISION",
@@ -4924,9 +4924,9 @@
         "useCase": "MODELED STRATEGY CASE · Device OEM · AI Feature Footprint → SKU 재설계 → 가격·Allocation 실행",
         "sources": [
           [
-            "Watch",
-            "TrendForce · 2026-08-18",
-            "https://www.trendforce.com/news/2026/08/18/news-cxmt-ddr5-reportedly-tops-9000-mts-on-amd-platform-narrowing-performance-gap-with-global-leaders/"
+            "Reported",
+            "TechInsights · 2026-08-17",
+            "https://www.techinsights.com/blog/micron-d1b-lpddr5x-dram-transistor-characterization-report"
           ],
           [
             "CONTROL",
@@ -4949,7 +4949,7 @@
         "phase": "SCALE",
         "tabLabel": "AI Factory System",
         "title": "AI Factory · System Co-Optimization",
-        "subtitle": "TrendForce 최신 근거 · 2026-08-12",
+        "subtitle": "TrendForce 최신 근거 · 2026-08-17",
         "answerTitle": "Useful AI Work/MW/원을 단일 North Star로 운영",
         "recommendation": "MODULAR CELL → SCALE",
         "question": "전력·냉각·Fabric·Storage·Scheduler·Serving·Memory 가운데 어느 병목을 먼저 제거해야 고객 SLO와 단위경제성이 동시에 개선되는가?",
@@ -4962,20 +4962,20 @@
         },
         "stop": "공식 출하 전망 또는 고객 CapEx가 기준 시나리오 대비 10% 이상 변경",
         "latest": {
-          "title": "고객이 \"매우 높은\" 가격으로 메모리를 확보하려고 서두르는 가운데 Micron은 데이터 센터 수요의 절반 미만을 충족",
-          "summary": "81%의 분기별 영업 이익률을 보고한 지 거의 6주 만에 Micron은 8월 10일 KeyBanc 기술 리더십 포럼 2026에서 더욱 낙관적인 어조를 밝혔음 · Investing.com에 따르면 Micron은 데이터 센터의 공급이 가장 부족하기 때문에 \"매우 높은\" 가격에도 불구하고 메모리 확보에 여전히 열의가 있다고 말 · Micron은 종종 고객 수요의 절반도 채울 수 없음",
+          "title": "삼성, SKHY 1H26 칩설비투자 35% 증가 · NVIDIA는 삼성의 상위 5대 고객에 포함되지 않음",
+          "summary": "Samsung and SK hynix are accelerating semiconductor investment as AI demand drives capacity expansion and advanced-process upgrades · According to Etoday , citing the companies’ 2026 semi-annual reports, Samsung Electronics and SK hynix invested a combined K",
           "source": "TrendForce",
-          "url": "https://www.trendforce.com/news/2026/08/12/news-micron-can-meet-less-than-half-of-data-center-demand-as-customers-rush-to-secure-memory-at-very-high-prices/",
-          "publishedAt": "2026-08-12",
+          "url": "https://www.trendforce.com/news/2026/08/17/news-samsung-sk-hynix-1h26-chip-facility-investment-up-35-nvidia-not-among-samsungs-top-five-customers/",
+          "publishedAt": "2026-08-17",
           "evidenceLevel": "Reported",
           "sourceClass": "research"
         },
-        "evidenceCount": 5,
+        "evidenceCount": 4,
         "signals": [
           [
             "Reported · RESEARCH",
-            "고객이 \"매우 높은\" 가격으로 메모리를 확보하려고 서두르는 가운데 Micron은 데이터 센터 수요의 절반 미만을 충족",
-            "81%의 분기별 영업 이익률을 보고한 지 거의 6주 만에 Micron은 8월 10일 KeyBanc 기술 리더십 포럼 2026에서 더욱 낙관적인 어조를 밝혔음 · Investing.com에 따르면 Micron은 데이터 센터의 공급이 가장 부족하기 때문에 \"매우 높은\" 가격에도 불구하고 메모리 확보에 여전히 열의가 있다고 말 · Micron은 종종 고객 수요의 절반도 채울 수 없음"
+            "삼성, SKHY 1H26 칩설비투자 35% 증가 · NVIDIA는 삼성의 상위 5대 고객에 포함되지 않음",
+            "Samsung and SK hynix are accelerating semiconductor investment as AI demand drives capacity expansion and advanced-process upgrades · According to Etoday , citing the companies’ 2026 semi-annual reports, Samsung Electronics and SK hynix invested a combined K"
           ],
           [
             "EXECUTIVE DECISION",
@@ -5064,8 +5064,8 @@
         "sources": [
           [
             "Reported",
-            "TrendForce · 2026-08-12",
-            "https://www.trendforce.com/news/2026/08/12/news-micron-can-meet-less-than-half-of-data-center-demand-as-customers-rush-to-secure-memory-at-very-high-prices/"
+            "TrendForce · 2026-08-17",
+            "https://www.trendforce.com/news/2026/08/17/news-samsung-sk-hynix-1h26-chip-facility-investment-up-35-nvidia-not-among-samsungs-top-five-customers/"
           ],
           [
             "CONTROL",
@@ -5088,7 +5088,7 @@
         "phase": "SCALE",
         "tabLabel": "Partner-led New Biz",
         "title": "Partners & Clients · Repeatable New Biz",
-        "subtitle": ".solidigm.com 최신 근거 · 2026-08-12",
+        "subtitle": "TrendForce 최신 근거 · 2026-08-12",
         "answerTitle": "검증 결과를 반복 가능한 공동사업 패키지로 전환",
         "recommendation": "LIGHTHOUSE → REPEAT",
         "question": "AI 개발사·데이터센터·OEM·컨설팅 파트너를 어떤 RACI로 묶어 Pain 진단부터 Qualification·반복주문까지 연결할 것인가?",
@@ -5101,20 +5101,20 @@
         },
         "stop": "공식 출하 전망 또는 고객 CapEx가 기준 시나리오 대비 10% 이상 변경",
         "latest": {
-          "title": "솔리다임 뉴스룸 - news.solidigm.com",
-          "summary": "공동 CEO인 Xin Guo는 NAND 공급 역학, KV 캐시의 증가, 스토리지가 AI 인프라에 대한 첫 번째 설계 결정이 된 이유에 대해 설명",
-          "source": ".solidigm.com",
-          "url": "https://news.solidigm.com/en-WW/",
+          "title": "Micron은 HBM4E를 맞춤형 HBM 시대의 시작으로 표시 · HBM 시장은 이중 또는 단일 공급업체 쪽으로 기울 수 있습니다 - TrendForce",
+          "summary": "메모리 거대 기업들은 점점 더 차세대 성장 엔진으로 맞춤형 HBM을 선택하고 있음 · Investing.com에 따르면 KeyBanc 기술 리더십 포럼 2026에서 Micron EVP Sumit Sadana는 맞춤형 HBM으로의 전환이 HBM4E에서 시작될 것이며 회사는 맞춤형 SKU에 대해 고객과 협력할 계획이라고 말",
+          "source": "TrendForce",
+          "url": "https://www.trendforce.com/news/2026/08/12/news-micron-flags-hbm4e-as-start-of-custom-hbm-era-hbm-market-could-tilt-toward-dual-or-single-suppliers/",
           "publishedAt": "2026-08-12",
           "evidenceLevel": "Watch",
-          "sourceClass": "official"
+          "sourceClass": "research"
         },
-        "evidenceCount": 5,
+        "evidenceCount": 4,
         "signals": [
           [
-            "Watch · OFFICIAL",
-            "솔리다임 뉴스룸 - news.solidigm.com",
-            "공동 CEO인 Xin Guo는 NAND 공급 역학, KV 캐시의 증가, 스토리지가 AI 인프라에 대한 첫 번째 설계 결정이 된 이유에 대해 설명"
+            "Watch · RESEARCH",
+            "Micron은 HBM4E를 맞춤형 HBM 시대의 시작으로 표시 · HBM 시장은 이중 또는 단일 공급업체 쪽으로 기울 수 있습니다 - TrendForce",
+            "메모리 거대 기업들은 점점 더 차세대 성장 엔진으로 맞춤형 HBM을 선택하고 있음 · Investing.com에 따르면 KeyBanc 기술 리더십 포럼 2026에서 Micron EVP Sumit Sadana는 맞춤형 HBM으로의 전환이 HBM4E에서 시작될 것이며 회사는 맞춤형 SKU에 대해 고객과 협력할 계획이라고 말"
           ],
           [
             "EXECUTIVE DECISION",
@@ -5201,8 +5201,8 @@
         "sources": [
           [
             "Watch",
-            ".solidigm.com · 2026-08-12",
-            "https://news.solidigm.com/en-WW/"
+            "TrendForce · 2026-08-12",
+            "https://www.trendforce.com/news/2026/08/12/news-micron-flags-hbm4e-as-start-of-custom-hbm-era-hbm-market-could-tilt-toward-dual-or-single-suppliers/"
           ],
           [
             "CONTROL",
