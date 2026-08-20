@@ -197,6 +197,36 @@ function buildStrategyBoard(payload = {}, generatedAt = null) {
   };
 }
 
+function buildOrganizationOperatingModel(insights = [], generatedAt = null, runId = null) {
+  const operatingModel = model.organizationOperatingModel || {};
+  const insightMap = new Map((insights || []).map((item) => [item.id, item]));
+  const workstreams = (operatingModel.workstreams || []).map((workstream) => {
+    const candidates = (workstream.evidenceIds || [])
+      .map((id) => insightMap.get(id))
+      .filter((item) => item?.latest?.title && directUrl(item.latest?.url))
+      .sort((a, b) => String(b.latest?.publishedAt || "").localeCompare(String(a.latest?.publishedAt || "")));
+    const current = candidates[0];
+    return {
+      ...workstream,
+      currentSignal: current ? {
+        title: compact(current.latest.title, 112),
+        decision: compact(current.decision || current.implication, 126),
+        source: compact(current.latest.source || "원문", 54),
+        url: current.latest.url,
+        publishedAt: current.latest.publishedAt || generatedAt,
+        evidenceLevel: current.latest.evidenceLevel || "Watch",
+      } : null,
+    };
+  });
+  return {
+    ...operatingModel,
+    runId,
+    generatedAt,
+    workstreams,
+    liveEvidenceCount: workstreams.filter((item) => item.currentSignal).length,
+  };
+}
+
 function buildInsight(brief = {}, fallbackAt = null) {
   const latest = briefLatest(brief, fallbackAt);
   return {
@@ -892,7 +922,7 @@ export function validateSiteContent(content = {}) {
   if (Number(content.presentation?.emphasisPolicy?.maxTotal || 0) > 12) errors.push("presentation.emphasisPolicy.maxTotal");
   if (!Array.isArray(content.presentation?.readabilityPolicy?.hoverModes) || content.presentation.readabilityPolicy.hoverModes.length !== 2) errors.push("presentation.readabilityPolicy.hoverModes");
   if (!Array.isArray(content.organizationOperatingModel?.decisionLoop) || content.organizationOperatingModel.decisionLoop.length < 5) errors.push("organizationOperatingModel.decisionLoop");
-  if (!Array.isArray(content.organizationOperatingModel?.workstreams) || content.organizationOperatingModel.workstreams.length !== 3) errors.push("organizationOperatingModel.workstreams");
+  if (!Array.isArray(content.organizationOperatingModel?.workstreams) || content.organizationOperatingModel.workstreams.length !== 4) errors.push("organizationOperatingModel.workstreams");
   if (!(content.organizationOperatingModel?.workstreams || []).every((item) => item?.mandate && item?.inputs?.length >= 4 && item?.questions?.length >= 3 && item?.outputs?.length >= 4 && item?.gate && item?.kpis?.length >= 3)) errors.push("organizationOperatingModel.workstreamContract");
   if (!Array.isArray(content.hero?.workProducts) || content.hero.workProducts.length !== 4) errors.push("hero.workProducts");
   if (!Array.isArray(content.hero?.workflow) || content.hero.workflow.length !== 4) errors.push("hero.workflow");
@@ -1031,7 +1061,11 @@ export function buildSiteContentClient({ payload = {}, quant = {} } = {}) {
       departmentWorkbench,
       status: `${String(payload.quality?.status || "review").toUpperCase()} · 출처 ${sourceCoverage.observedSources || 0}개 관측 · ${String(generatedAt).slice(0, 10)}`,
     },
-    organizationOperatingModel: model.organizationOperatingModel || {},
+    organizationOperatingModel: buildOrganizationOperatingModel(
+      insights,
+      generatedAt,
+      payload.runId || quant.runId || null,
+    ),
     decisionCases,
     insights,
     competitors: buildCompetitors(quant),

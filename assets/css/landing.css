@@ -6708,16 +6708,21 @@ body.landing-mode {
 .business-team-loop li:not(:last-child)::after { content: "→"; position: absolute; right: -7px; z-index: 2; color: #69dfc3; font-weight: 950; }
 .business-team-loop span { display: grid; place-items: center; width: 38px; height: 38px; color: #071522; border-radius: 50%; background: #69dfc3; font: 950 13px/1 var(--mono); }
 .business-team-loop strong { max-width: 100%; color: #fff; font-size: 12px; line-height: 1.4; overflow-wrap: anywhere; }
-.business-team-workstreams { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 10px; }
-.business-team-workstreams > article { --team-accent: #69dfc3; display: flex; flex-direction: column; min-width: 0; min-height: 610px; padding: 26px 24px; border: 1px solid #36566b; border-top: 5px solid var(--team-accent); background: #0d2131; box-shadow: 0 16px 35px #0003; transform-style: preserve-3d; transition: transform .07s ease, background-color .07s ease, border-color .07s ease, box-shadow .07s ease, color .07s ease; }
+.business-team-workstreams { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 10px; }
+.business-team-workstreams > article { --team-accent: #69dfc3; display: flex; flex-direction: column; min-width: 0; min-height: 590px; padding: 26px 24px; border: 1px solid #36566b; border-top: 5px solid var(--team-accent); background: #0d2131; box-shadow: 0 16px 35px #0003; transform-style: preserve-3d; transition: transform .05s ease, border-color .05s ease, box-shadow .05s ease, opacity .05s ease; }
 .business-team-workstreams > article:nth-child(2) { --team-accent: #83aef2; }
 .business-team-workstreams > article:nth-child(3) { --team-accent: #d99adb; }
+.business-team-workstreams > article:nth-child(4) { --team-accent: #e4bb52; }
 .business-team-workstreams > article:is(:hover, :focus-visible) { color: #102c43; border-color: #9fb3c0; background: #fff; box-shadow: 0 24px 50px #0007; transform: perspective(900px) translateY(-7px) rotateX(1.2deg) rotateY(-1deg); }
 .business-team-workstreams header { display: flex; align-items: center; justify-content: space-between; gap: 12px; }
 .business-team-workstreams header > span { color: var(--team-accent); font: 850 9px/1.3 var(--mono); letter-spacing: .08em; }
 .business-team-workstreams header > b { display: grid; place-items: center; width: 48px; height: 48px; color: #071522; border-radius: 50%; background: var(--team-accent); font: 950 18px/1 var(--mono); }
 .business-team-workstreams h3 { margin: 22px 0 0; color: #fff; font-size: clamp(21px, 1.8vw, 29px); line-height: 1.18; text-wrap: balance; }
 .business-team-workstreams > article > p { min-height: 76px; margin: 14px 0 0; color: #c5d4de; font-size: 12px; font-weight: 680; line-height: 1.65; }
+.business-team-live { display: grid; gap: 7px; margin-top: 16px; padding: 13px 14px; border: 1px solid color-mix(in srgb, var(--team-accent) 42%, #36566b); background: color-mix(in srgb, var(--team-accent) 8%, #102838); }
+.business-team-live small { color: var(--team-accent); font: 850 8px/1.3 var(--mono); letter-spacing: .08em; }
+.business-team-live strong { color: #f7fbff; font-size: 12px; line-height: 1.45; }
+.business-team-live a { width: fit-content; max-width: 100%; color: #c5d4de; font-size: 10px; font-weight: 760; line-height: 1.45; text-decoration: underline; text-underline-offset: 3px; overflow-wrap: anywhere; }
 .business-team-workstreams dl { display: grid; gap: 1px; margin: 22px 0 0; background: #314b5d; }
 .business-team-workstreams dl > div { min-width: 0; padding: 14px; background: #102838; }
 .business-team-workstreams dt { color: var(--team-accent); font: 850 8px/1.3 var(--mono); letter-spacing: .08em; }
@@ -6732,6 +6737,8 @@ body.landing-mode {
 .business-team-workstreams footer strong { display: block; margin-top: 8px; color: #fff; font-size: 11px; line-height: 1.5; }
 .business-team-workstreams > article:is(:hover, :focus-visible) :is(h3, footer strong) { color: #102c43; }
 .business-team-workstreams > article:is(:hover, :focus-visible) > p { color: #40596c; }
+.business-team-workstreams > article:is(:hover, :focus-visible) .business-team-live { border-color: #9fb3c0; background: #eaf1f5; }
+.business-team-workstreams > article:is(:hover, :focus-visible) .business-team-live :is(strong, a) { color: #29465c; }
 .business-team-workstreams > article:is(:hover, :focus-visible) dl { background: #c7d3db; }
 .business-team-workstreams > article:is(:hover, :focus-visible) dl > div { background: #f3f7fa; }
 .business-team-workstreams > article:is(:hover, :focus-visible) dd { color: #29465c; }
@@ -7048,7 +7055,8 @@ body.landing-mode {
 }
 
 .business-site .business-consulting-motion:is(:hover, :focus-visible, :focus-within) {
-  transition-duration: .08s, .08s, .08s, .14s, .14s, .14s !important;
+  transition-property: transform, box-shadow, border-color, opacity !important;
+  transition-duration: .05s !important;
 }
 
 .business-site .business-consulting-motion:is(:hover, :focus-visible, :focus-within)

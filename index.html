@@ -122,7 +122,7 @@
     (() => {
       if (!location.hash.startsWith("#console")) return;
       document.documentElement.classList.add("console-entry");
-      const revision = "infra-28a400a4048b";
+      const revision = "infra-833f1b793ea0";
       const assets = [
         ["consoleStylesPreload", "style", `assets/css/styles.min.css?v=${revision}`, "high"],
         ["consoleAppPreload", "script", `assets/js/app.min.js?v=${revision}`, "low"],
@@ -139,7 +139,7 @@
       }
     })();
   </script>
-  <link rel="stylesheet" href="assets/css/landing.min.css?v=infra-28a400a4048b" />
+  <link rel="stylesheet" href="assets/css/landing.min.css?v=infra-833f1b793ea0" />
 </head>
 <body class="landing-mode">
   <div class="business-site" id="businessSite">
@@ -813,8 +813,8 @@
         <div class="business-container">
           <div class="business-section-heading business-section-heading--split">
             <div>
-              <h2 id="teamOperatingTitle">SK hynix AI Infra Strategy Operating Model</h2>
-              <p id="teamOperatingThesis">고객 Pain Point를 출발점으로 메모리 전략·신규 Biz·AI Infra 실행을 하나의 반복 가능한 의사결정 체계로 연결</p>
+              <h2 id="teamOperatingTitle">SK hynix AI Infra 실행 전략</h2>
+              <p id="teamOperatingThesis">고객 Pain Point → Workload 진단 → Memory·신규 Biz 대안 → 파트너 실행 → 경영진 판단</p>
             </div>
             <ul class="business-heading-points"><li>CUSTOMER · Pain → Requirement</li><li>NEW BIZ · Inflection → Business Case</li><li>EXECUTION · Decision → Ramp / Stop</li></ul>
           </div>
@@ -829,15 +829,20 @@
               <dl><div><dt>INPUT</dt><dd>Account Strategy · Product Roadmap · Workload Trace · Buying Criteria</dd></div><div><dt>KEY QUESTIONS</dt><dd><ul><li>고객의 최상위 Business Outcome은 무엇인가</li><li>지배 병목과 구매 결정 조건은 무엇인가</li></ul></dd></div><div><dt>OUTPUT</dt><dd>Customer Fact Base · Pain Map · Requirement Matrix · Memory Proposal</dd></div><div class="business-team-gate"><dt>DECISION GATE</dt><dd>Pain·Decision Owner·Buying Criteria 검증 전 Custom 범위를 확정하지 않음</dd></div></dl>
               <footer><small>KPI</small><strong>Qualification Lead Time · Design Win · Revenue Conversion</strong></footer>
             </article>
-            <article data-team-workstream="new-biz" tabindex="0">
-              <header><span>02 · NEW BUSINESS</span><b>02</b></header><h3>AI 변화에서 신규 Biz 기회 창출</h3><p>AI Application·HW·SW와 LLM Serving 변화를 Memory Demand·서비스 모델·파트너십 기회로 번역</p>
-              <dl><div><dt>INPUT</dt><dd>AI App·Model Trend · Accelerator Roadmap · RAG·Vector DB · Partner Capability</dd></div><div><dt>KEY QUESTIONS</dt><dd><ul><li>어떤 변곡점이 새로운 Memory JTBD를 만드는가</li><li>Where to Play와 Right to Win은 무엇인가</li></ul></dd></div><div><dt>OUTPUT</dt><dd>Opportunity Thesis · Market Map · Partner Screen · Business Case</dd></div><div class="business-team-gate"><dt>DECISION GATE</dt><dd>지불의사·차별화·파트너 역할·단위경제성 확인 전 PoC 승격을 보류</dd></div></dl>
+            <article data-team-workstream="workload-optimization" tabindex="0">
+              <header><span>02 · WORKLOAD OPTIMIZATION</span><b>02</b></header><h3>데이터센터 Workload 최적화</h3><p>Training·Inference·RAG·Agent별 SLO와 지배 병목을 HW·SW·Memory·Network·Storage·Power/Cooling 관점에서 진단</p>
+              <dl><div><dt>INPUT</dt><dd>Workload Trace·SLO · Application·Serving SW · System Telemetry · Facility Constraint</dd></div><div><dt>KEY QUESTIONS</dt><dd><ul><li>고객 Business Outcome을 제한하는 지배 병목은 무엇인가</li><li>SW 최적화와 Memory Tier 중 어떤 대안이 우선인가</li></ul></dd></div><div><dt>OUTPUT</dt><dd>Bottleneck Tree · Architecture Benchmark · Memory Tier Proposal · System TCO</dd></div><div class="business-team-gate"><dt>DECISION GATE</dt><dd>Trace·Baseline·SLO·TCO 재현 전 증설 또는 Custom 투자를 보류</dd></div></dl>
+              <footer><small>KPI</small><strong>Goodput·P99 · Cost/Successful Task · Qualification Lead Time</strong></footer>
+            </article>
+            <article data-team-workstream="new-biz-insights" tabindex="0">
+              <header><span>03 · NEW BIZ &amp; INSIGHTS</span><b>03</b></header><h3>AI·LLM 변곡점에서 신규 Biz 발굴</h3><p>AI Application·HW/SW·Transformer·RAG·Vector DB 변화를 Memory Demand·서비스 모델·수익성 기회로 번역</p>
+              <dl><div><dt>INPUT</dt><dd>AI App·Model Trend · Accelerator·ASIC Roadmap · Tech·Market Evidence · Partner Signal</dd></div><div><dt>KEY QUESTIONS</dt><dd><ul><li>어떤 변곡점이 새로운 Memory JTBD를 만드는가</li><li>Where to Play와 Right to Win은 무엇인가</li></ul></dd></div><div><dt>OUTPUT</dt><dd>Tech·Market Brief · Opportunity Thesis · Partner Screen · Business Case</dd></div><div class="business-team-gate"><dt>DECISION GATE</dt><dd>고객 가치·차별화·시장성·단위경제성 근거가 없으면 PoC 승격을 보류</dd></div></dl>
               <footer><small>KPI</small><strong>Qualified Pipeline · PoC Conversion · Expected Value</strong></footer>
             </article>
-            <article data-team-workstream="execution-strategy" tabindex="0">
-              <header><span>03 · AI INFRA EXECUTION</span><b>03</b></header><h3>내·외부 실행전략과 경영진 의사결정</h3><p>전략 안건을 선택지·경제성·책임자·90일 Action·Trigger·Kill Criteria가 있는 실행 Portfolio로 운영</p>
-              <dl><div><dt>INPUT</dt><dd>Verified Evidence · Architecture·TCO · Qualification·Capacity · Risk</dd></div><div><dt>KEY QUESTIONS</dt><dd><ul><li>지금 결정·보류할 사안은 무엇인가</li><li>누가 어떤 KPI를 책임지고 언제 방향을 바꿀 것인가</li></ul></dd></div><div><dt>OUTPUT</dt><dd>Executive Decision Pack · 90-Day Roadmap · RACI · KPI Dashboard</dd></div><div class="business-team-gate"><dt>DECISION GATE</dt><dd>Owner·KPI·Trigger·Kill Criteria가 없는 전략은 실행 안건으로 게시하지 않음</dd></div></dl>
-              <footer><small>KPI</small><strong>Decision Lead Time · Gate Pass Rate · Benefit Realization</strong></footer>
+            <article data-team-workstream="partner-execution" tabindex="0">
+              <header><span>04 · PARTNERS &amp; EXECUTION</span><b>04</b></header><h3>파트너 공동 검증과 경영진 실행</h3><p>AI 개발사·데이터센터·OEM·Consulting/SI의 역할을 PoC·Qualification·Capacity·90일 Action으로 연결</p>
+              <dl><div><dt>INPUT</dt><dd>Partner Capability·RACI · Verified Evidence · Qualification·Capacity · Risk·Scenario</dd></div><div><dt>KEY QUESTIONS</dt><dd><ul><li>누가 어떤 불확실성을 제거할 것인가</li><li>어떤 조건에서 확대·축소·중단할 것인가</li></ul></dd></div><div><dt>OUTPUT</dt><dd>Partner Model · Executive Decision Pack · 90-Day Roadmap · KPI·Trigger Dashboard</dd></div><div class="business-team-gate"><dt>DECISION GATE</dt><dd>Owner·KPI·Trigger·고객 인증 경로가 없는 안건은 실행 Portfolio에서 제외</dd></div></dl>
+              <footer><small>KPI</small><strong>Gate Pass Rate · Partner PoC Conversion · Benefit Realization</strong></footer>
             </article>
           </div>
 
@@ -1902,6 +1907,6 @@
   <div class="qa-answer" id="qaAnswer" hidden></div>
   <div class="inspector" id="inspector" hidden></div>
   <div class="backdrop" id="backdrop"></div>
-  <script src="assets/js/landing.min.js?v=infra-28a400a4048b" defer></script>
+  <script src="assets/js/landing.min.js?v=infra-833f1b793ea0" defer></script>
 </body>
 </html>

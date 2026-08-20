@@ -55,7 +55,7 @@ assert.match(landing, /function setupConsultingCardMotion\(\)/);
 assert.match(landing, /\.business-competency-grid > article[\s\S]*?\.business-partnership-types > article[\s\S]*?\.business-role-outputs > article/);
 assert.match(landing, /consultingMotionObserver[\s\S]*?IntersectionObserver[\s\S]*?consultingMotionObserved/);
 assert.match(landing, /consultingMotionBound[\s\S]*?pointermove/);
-assert.match(landing, /const hoverModes = cards\.map\(\(card\) => inferHoverContrastMode\(card, styleCache, surfaceCache\)\)[\s\S]*?card\.dataset\.hoverMode = hoverModes\[index\]/);
+assert.match(landing, /const unresolvedCards = cards\.filter[\s\S]*?scheduleIdleStep\(\(\) => \{[\s\S]*?const hoverModes = unresolvedCards\.map\(\(card\) => inferHoverContrastMode\(card, styleCache, surfaceCache\)\)[\s\S]*?unresolvedCards\[index\]\.dataset\.hoverMode = mode/, "exact surface scans must run after the critical render path");
 assert.match(landing, /hasInteractiveContent[\s\S]*?card\.tabIndex = 0/, "non-interactive consulting cards must expose the focus inversion state to keyboard users");
 assert.match(landing, /function surfaceLuminance\(node, styleCache = null, surfaceCache = null\)[\s\S]*?function inferHoverContrastMode\(card, styleCache = null, surfaceCache = null\)/);
 assert.match(landing, /requestAnimationFrame[\s\S]*?--tilt-x[\s\S]*?--tilt-y/);

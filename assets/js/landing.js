@@ -3,7 +3,7 @@
 
   const BUSINESS_TITLE = "AI Infra Strategy · Customer Pain to Executive Action";
   const CONSOLE_HASH = "#console";
-  const CONSOLE_REVISION = "infra-28a400a4048b";
+  const CONSOLE_REVISION = "infra-833f1b793ea0";
   const DECISION_CLIENT_PATH = "data/landing-decision-client.json";
   const SITE_CONTENT_PATH = "data/site-content-client.json";
   const site = document.querySelector("#businessSite");
@@ -507,19 +507,28 @@
 
     const workstreams = document.querySelector("#teamWorkstreams");
     if (workstreams && model.workstreams?.length) {
-      workstreams.innerHTML = model.workstreams.map((item) => `
-        <article data-team-workstream="${escapeBusinessHTML(item.id)}" tabindex="0">
-          <header><span>${escapeBusinessHTML(item.index)} · ${escapeBusinessHTML(item.label)}</span><b>${escapeBusinessHTML(item.index)}</b></header>
-          <h3>${escapeBusinessHTML(item.title)}</h3>
-          <p>${escapeBusinessHTML(item.mandate)}</p>
-          <dl>
-            <div><dt>INPUT</dt><dd>${escapeBusinessHTML((item.inputs || []).join(" · "))}</dd></div>
-            <div><dt>KEY QUESTIONS</dt><dd><ul>${(item.questions || []).map((question) => `<li>${escapeBusinessHTML(question)}</li>`).join("")}</ul></dd></div>
-            <div><dt>OUTPUT</dt><dd>${escapeBusinessHTML((item.outputs || []).join(" · "))}</dd></div>
-            <div class="business-team-gate"><dt>DECISION GATE</dt><dd>${escapeBusinessHTML(item.gate)}</dd></div>
-          </dl>
-          <footer><small>KPI</small><strong>${escapeBusinessHTML((item.kpis || []).join(" · "))}</strong></footer>
-        </article>`).join("");
+      workstreams.innerHTML = model.workstreams.map((item) => {
+        const signal = item.currentSignal;
+        const liveSignal = signal ? `<aside class="business-team-live">
+          <small>LIVE SIGNAL · ${escapeBusinessHTML(String(signal.evidenceLevel || "WATCH").toUpperCase())}</small>
+          <strong>${escapeBusinessHTML(signal.title)}</strong>
+          <a href="${escapeBusinessHTML(safeBusinessUrl(signal.url, "#console"))}" target="_blank" rel="noopener noreferrer">${escapeBusinessHTML(signal.source || "원문")} · ${escapeBusinessHTML(String(signal.publishedAt || "").slice(0, 10) || "기준일 확인")} ↗</a>
+        </aside>` : "";
+        return `
+          <article data-team-workstream="${escapeBusinessHTML(item.id)}" tabindex="0">
+            <header><span>${escapeBusinessHTML(item.index)} · ${escapeBusinessHTML(item.label)}</span><b>${escapeBusinessHTML(item.index)}</b></header>
+            <h3>${escapeBusinessHTML(item.title)}</h3>
+            <p>${escapeBusinessHTML(item.mandate)}</p>
+            ${liveSignal}
+            <dl>
+              <div><dt>INPUT</dt><dd>${escapeBusinessHTML((item.inputs || []).join(" · "))}</dd></div>
+              <div><dt>KEY QUESTIONS</dt><dd><ul>${(item.questions || []).map((question) => `<li>${escapeBusinessHTML(question)}</li>`).join("")}</ul></dd></div>
+              <div><dt>OUTPUT</dt><dd>${escapeBusinessHTML((item.outputs || []).join(" · "))}</dd></div>
+              <div class="business-team-gate"><dt>DECISION GATE</dt><dd>${escapeBusinessHTML(item.gate)}</dd></div>
+            </dl>
+            <footer><small>KPI</small><strong>${escapeBusinessHTML((item.kpis || []).join(" · "))}</strong></footer>
+          </article>`;
+      }).join("");
     }
 
   }
@@ -1211,12 +1220,12 @@
       ".business-role-outputs > article",
       ".business-contact-card",
     ].join(","))];
-    const styleCache = new WeakMap();
-    const surfaceCache = new WeakMap();
-    const hoverModes = cards.map((card) => inferHoverContrastMode(card, styleCache, surfaceCache));
+    const darkSectionSelector = ".business-hero, .business-solutions, .business-partners, .business-about, .business-team-operating";
     cards.forEach((card, index) => {
       card.classList.add("business-consulting-motion");
-      card.dataset.hoverMode = hoverModes[index];
+      if (!card.dataset.hoverMode) {
+        card.dataset.hoverMode = card.closest(darkSectionSelector) ? "dark-to-light" : "light-to-dark";
+      }
       const hasInteractiveContent = card.matches("a, button, input, select, textarea, [tabindex]")
         || Boolean(card.querySelector("a, button, input, select, textarea, [tabindex]"));
       if (!hasInteractiveContent) card.tabIndex = 0;
@@ -1224,6 +1233,17 @@
         card.style.setProperty("--sequence-index", String(index % 4));
       }
     });
+
+    const unresolvedCards = cards.filter((card) => card.dataset.hoverModeResolved !== "1");
+    if (unresolvedCards.length) scheduleIdleStep(() => {
+      const styleCache = new WeakMap();
+      const surfaceCache = new WeakMap();
+      const hoverModes = unresolvedCards.map((card) => inferHoverContrastMode(card, styleCache, surfaceCache));
+      hoverModes.forEach((mode, index) => {
+        unresolvedCards[index].dataset.hoverMode = mode;
+        unresolvedCards[index].dataset.hoverModeResolved = "1";
+      });
+    }, 1200);
 
     if (!("IntersectionObserver" in window)) {
       cards.forEach((card) => card.classList.add("is-visible"));

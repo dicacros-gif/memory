@@ -30043,8 +30043,26 @@ body.consulting-system {
   color: var(--instant-hover-ink) !important;
   border-color: var(--instant-hover-accent) !important;
   background: var(--instant-hover-surface) !important;
+  transition-property: transform, box-shadow, border-color, opacity !important;
   transition-delay: 0s !important;
-  transition-duration: .08s, .08s, .08s, .14s, .14s, .14s !important;
+  transition-duration: .05s !important;
+}
+
+#intelligenceConsole :where(
+  [data-hover-mode],
+  [class$="-card"],
+  [class*="-card "],
+  [class$="-report"],
+  [class*="-report "],
+  [class$="-document"],
+  [class*="-document "],
+  [class$="-tile"],
+  [class*="-tile "],
+  article[tabindex],
+  li[tabindex]
+) * {
+  transition-property: transform, box-shadow, border-color, opacity !important;
+  transition-delay: 0s !important;
 }
 
 #intelligenceConsole :where(

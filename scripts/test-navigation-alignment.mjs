@@ -192,7 +192,7 @@ assert.match(html, /id="solutions"[\s\S]*?CUSTOMER SITUATION[\s\S]*?BOTTLENECK T
 assert.match(html, /id="workload-map"[\s\S]*?TRAINING[\s\S]*?REAL-TIME INFERENCE[\s\S]*?BATCH INFERENCE[\s\S]*?ENTERPRISE RAG[\s\S]*?AI AGENT[\s\S]*?MULTIMODAL/, "the workload contract must cover six distinct workload families");
 assert.match(html, /Performance[\s\S]*?per Watt[\s\S]*?Token \/ Query[\s\S]*?Total Cost of/, "technology options must connect to system-economics metrics");
 assert.match(html, /id="macro"[\s\S]*?Competition &amp; Supply Chain[\s\S]*?글로벌 경쟁 · Packaging[\s\S]*?Policy &amp; Geopolitics/, "competition and policy must remain subordinate macro decision inputs");
-assert.match(html, /id="team-operating-model"[\s\S]*?CUSTOMER STRATEGY[\s\S]*?NEW BUSINESS[\s\S]*?AI INFRA EXECUTION/, "the portfolio must expose the organization's three operating workstreams");
+assert.match(html, /id="team-operating-model"[\s\S]*?CUSTOMER STRATEGY[\s\S]*?WORKLOAD OPTIMIZATION[\s\S]*?NEW BIZ &amp; INSIGHTS[\s\S]*?PARTNERS &amp; EXECUTION/, "the portfolio must expose the organization's four MECE operating workstreams");
 assert.match(html, /id="teamDecisionLoop"[\s\S]*?Customer \/ Market Signal[\s\S]*?PoC · Qualification · Ramp/, "the team operating model must connect signal to ramp");
 assert.match(landing, /function renderOrganizationOperatingModel\(content = \{\}\)/, "the operating model must refresh from generated content");
 assert.match(html, /id="tco-evidence"[\s\S]*?최신 검증 근거 연결 중[\s\S]*?판단 변경 KPI 연결 중/, "the worked case must start from a neutral current-data placeholder");

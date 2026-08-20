@@ -444,8 +444,8 @@
     }
   ],
   "organizationOperatingModel": {
-    "title": "SK hynix AI Infra Strategy Operating Model",
-    "thesis": "고객 Pain Point → 맞춤형 Memory Solution → 신규 Biz·Partner → 경영진 실행 판단",
+    "title": "SK hynix AI Infra 실행 전략",
+    "thesis": "고객 Pain Point → Workload 진단 → Memory·신규 Biz 대안 → 파트너 실행 → 경영진 판단",
     "decisionLoop": [
       "Customer / Market Signal",
       "Pain & Workload Diagnosis",
@@ -482,69 +482,150 @@
           "Qualification Lead Time",
           "Design Win",
           "Revenue Conversion"
-        ]
+        ],
+        "evidenceIds": [
+          "hbm"
+        ],
+        "currentSignal": {
+          "title": "SKHY의 새로운 HBM 팀이 Nvidia와 AMD의 뒷마당에 상륙 - 공동 설계가 HBM4 주문을 획득하는 방법이 되고 있음 - digittimes",
+          "decision": "고객 인증·공급 일정·베이스 다이·패키징 병목을 함께 확인한 뒤 프리미엄 캐파를 배분",
+          "source": "digitimes",
+          "url": "https://www.digitimes.com/news/a20260820PD219/sk-hynix-hbm-hbm4-design-amd.html",
+          "publishedAt": "2026-08-20",
+          "evidenceLevel": "Reported"
+        }
       },
       {
-        "id": "new-biz",
+        "id": "workload-optimization",
         "index": "02",
-        "label": "NEW BUSINESS",
-        "title": "AI 변화에서 신규 Biz 기회 창출",
-        "mandate": "AI Application·HW·SW와 LLM Serving 변화를 Memory Demand·서비스 모델·파트너십 기회로 번역",
+        "label": "WORKLOAD OPTIMIZATION",
+        "title": "데이터센터 Workload 최적화",
+        "mandate": "Training·Inference·RAG·Agent별 SLO와 지배 병목을 HW·SW·Memory·Network·Storage·Power/Cooling 관점에서 진단",
+        "inputs": [
+          "Workload Trace·SLO",
+          "Application·Serving SW",
+          "System Telemetry",
+          "Facility·Supply Constraint"
+        ],
+        "questions": [
+          "고객 Business Outcome을 제한하는 지배 병목은 무엇인가",
+          "SW 최적화와 Memory Tier 중 어떤 대안이 우선인가",
+          "동일 Workload에서 TCO와 성능을 재현할 수 있는가"
+        ],
+        "outputs": [
+          "Bottleneck Tree",
+          "Architecture Benchmark",
+          "Memory Tier Proposal",
+          "System TCO"
+        ],
+        "gate": "Trace·Baseline·SLO·TCO가 같은 조건에서 재현되기 전 증설 또는 Custom 투자를 보류",
+        "kpis": [
+          "Goodput·P99",
+          "Cost/Successful Task",
+          "Qualification Lead Time"
+        ],
+        "evidenceIds": [
+          "demand",
+          "nand"
+        ],
+        "currentSignal": {
+          "title": "YMTC 모기업, NAND 주가 14% 도달 및 AI 스토리지 규모로 IPO 추진 - digittimes",
+          "decision": "NAND 계약가·웨이퍼 가격·eSSD 고객 신호를 분리해 Dalian/Solidigm의 제품 믹스와 가격 방어를 결정",
+          "source": "digitimes",
+          "url": "https://www.digitimes.com/news/a20260819VL211/ymtc-ipo-nand-flash-market.html",
+          "publishedAt": "2026-08-20",
+          "evidenceLevel": "Reported"
+        }
+      },
+      {
+        "id": "new-biz-insights",
+        "index": "03",
+        "label": "NEW BIZ & INSIGHTS",
+        "title": "AI·LLM 변곡점에서 신규 Biz 발굴",
+        "mandate": "AI Application·HW/SW·Transformer·RAG·Vector DB 변화를 Memory Demand·서비스 모델·수익성 기회로 번역",
         "inputs": [
           "AI App·Model Trend",
           "Accelerator·ASIC Roadmap",
-          "Serving·RAG·Vector DB",
-          "Partner Capability"
+          "Tech·Market Evidence",
+          "Competitor·Partner Signal"
         ],
         "questions": [
-          "어떤 기술 변곡점이 새로운 Memory JTBD를 만드는가",
+          "어떤 변곡점이 새로운 Memory JTBD를 만드는가",
           "Where to Play와 Right to Win은 무엇인가",
-          "누구와 어떤 방식으로 공동 검증해야 하는가"
+          "고객 지불의사와 단위경제성을 검증할 수 있는가"
         ],
         "outputs": [
+          "Tech·Market Brief",
           "Opportunity Thesis",
-          "Market·Competitor Map",
           "Partner Screen",
           "Business Case"
         ],
-        "gate": "고객 지불의사·차별화 근거·파트너 역할·단위경제성 가운데 하나라도 없으면 PoC 승격을 보류",
+        "gate": "고객 가치·차별화·시장성·단위경제성 가운데 하나라도 근거가 없으면 PoC 승격을 보류",
         "kpis": [
           "Qualified Pipeline",
           "PoC Conversion",
           "Expected Value"
-        ]
+        ],
+        "evidenceIds": [
+          "hbm",
+          "demand",
+          "nand"
+        ],
+        "currentSignal": {
+          "title": "SKHY의 새로운 HBM 팀이 Nvidia와 AMD의 뒷마당에 상륙 - 공동 설계가 HBM4 주문을 획득하는 방법이 되고 있음 - digittimes",
+          "decision": "고객 인증·공급 일정·베이스 다이·패키징 병목을 함께 확인한 뒤 프리미엄 캐파를 배분",
+          "source": "digitimes",
+          "url": "https://www.digitimes.com/news/a20260820PD219/sk-hynix-hbm-hbm4-design-amd.html",
+          "publishedAt": "2026-08-20",
+          "evidenceLevel": "Reported"
+        }
       },
       {
-        "id": "execution-strategy",
-        "index": "03",
-        "label": "AI INFRA EXECUTION",
-        "title": "내·외부 실행전략과 경영진 의사결정",
-        "mandate": "전략 안건을 선택지·경제성·책임자·90일 Action·Trigger·Kill Criteria가 있는 실행 Portfolio로 운영",
+        "id": "partner-execution",
+        "index": "04",
+        "label": "PARTNERS & EXECUTION",
+        "title": "파트너 공동 검증과 경영진 실행",
+        "mandate": "AI 개발사·데이터센터·OEM·Consulting/SI의 역할을 PoC·Qualification·Capacity·90일 Action으로 연결",
         "inputs": [
+          "Partner Capability·RACI",
           "Verified Evidence",
-          "Architecture·TCO",
           "Qualification·Capacity",
           "Risk·Scenario"
         ],
         "questions": [
-          "지금 결정해야 할 사안과 보류할 사안은 무엇인가",
-          "누가 언제까지 어떤 KPI를 책임지는가",
+          "누가 어떤 불확실성을 제거할 것인가",
+          "지금 결정·보류할 안건은 무엇인가",
           "어떤 조건에서 확대·축소·중단할 것인가"
         ],
         "outputs": [
+          "Partner Model",
           "Executive Decision Pack",
           "90-Day Roadmap",
-          "RACI·Stage Gate",
           "KPI·Trigger Dashboard"
         ],
-        "gate": "Owner·KPI·Trigger·Kill Criteria가 없는 전략은 실행 안건으로 게시하지 않음",
+        "gate": "Owner·KPI·Trigger·Kill Criteria와 고객 인증 경로가 없는 안건은 실행 Portfolio에서 제외",
         "kpis": [
-          "Decision Lead Time",
           "Gate Pass Rate",
+          "Partner PoC Conversion",
           "Benefit Realization"
-        ]
+        ],
+        "evidenceIds": [
+          "partner",
+          "demand"
+        ],
+        "currentSignal": {
+          "title": "삼성, SKHY 1H26 칩설비투자 35% 증가 · NVIDIA는 삼성의 상위 5대 고객에 포함되지 않음",
+          "decision": "출하량과 대당 탑재량을 분리하고 고객 CapEx·전력·패키징 제약을 반영해 제품군 시나리오를 갱신",
+          "source": "TrendForce",
+          "url": "https://www.trendforce.com/news/2026/08/17/news-samsung-sk-hynix-1h26-chip-facility-investment-up-35-nvidia-not-among-samsungs-top-five-customers/",
+          "publishedAt": "2026-08-17",
+          "evidenceLevel": "Reported"
+        }
       }
-    ]
+    ],
+    "runId": "32360889919",
+    "generatedAt": "2026-08-20T10:58:44.862Z",
+    "liveEvidenceCount": 4
   },
   "claimEvents": [
     {

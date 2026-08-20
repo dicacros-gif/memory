@@ -2331,8 +2331,8 @@
     "status": "VERIFIED · 출처 6개 관측 · 2026-08-20"
   },
   "organizationOperatingModel": {
-    "title": "SK hynix AI Infra Strategy Operating Model",
-    "thesis": "고객 Pain Point → 맞춤형 Memory Solution → 신규 Biz·Partner → 경영진 실행 판단",
+    "title": "SK hynix AI Infra 실행 전략",
+    "thesis": "고객 Pain Point → Workload 진단 → Memory·신규 Biz 대안 → 파트너 실행 → 경영진 판단",
     "decisionLoop": [
       "Customer / Market Signal",
       "Pain & Workload Diagnosis",
@@ -2369,69 +2369,150 @@
           "Qualification Lead Time",
           "Design Win",
           "Revenue Conversion"
-        ]
+        ],
+        "evidenceIds": [
+          "hbm"
+        ],
+        "currentSignal": {
+          "title": "SKHY의 새로운 HBM 팀이 Nvidia와 AMD의 뒷마당에 상륙 - 공동 설계가 HBM4 주문을 획득하는 방법이 되고 있음 - digittimes",
+          "decision": "고객 인증·공급 일정·베이스 다이·패키징 병목을 함께 확인한 뒤 프리미엄 캐파를 배분",
+          "source": "digitimes",
+          "url": "https://www.digitimes.com/news/a20260820PD219/sk-hynix-hbm-hbm4-design-amd.html",
+          "publishedAt": "2026-08-20",
+          "evidenceLevel": "Reported"
+        }
       },
       {
-        "id": "new-biz",
+        "id": "workload-optimization",
         "index": "02",
-        "label": "NEW BUSINESS",
-        "title": "AI 변화에서 신규 Biz 기회 창출",
-        "mandate": "AI Application·HW·SW와 LLM Serving 변화를 Memory Demand·서비스 모델·파트너십 기회로 번역",
+        "label": "WORKLOAD OPTIMIZATION",
+        "title": "데이터센터 Workload 최적화",
+        "mandate": "Training·Inference·RAG·Agent별 SLO와 지배 병목을 HW·SW·Memory·Network·Storage·Power/Cooling 관점에서 진단",
+        "inputs": [
+          "Workload Trace·SLO",
+          "Application·Serving SW",
+          "System Telemetry",
+          "Facility·Supply Constraint"
+        ],
+        "questions": [
+          "고객 Business Outcome을 제한하는 지배 병목은 무엇인가",
+          "SW 최적화와 Memory Tier 중 어떤 대안이 우선인가",
+          "동일 Workload에서 TCO와 성능을 재현할 수 있는가"
+        ],
+        "outputs": [
+          "Bottleneck Tree",
+          "Architecture Benchmark",
+          "Memory Tier Proposal",
+          "System TCO"
+        ],
+        "gate": "Trace·Baseline·SLO·TCO가 같은 조건에서 재현되기 전 증설 또는 Custom 투자를 보류",
+        "kpis": [
+          "Goodput·P99",
+          "Cost/Successful Task",
+          "Qualification Lead Time"
+        ],
+        "evidenceIds": [
+          "demand",
+          "nand"
+        ],
+        "currentSignal": {
+          "title": "YMTC 모기업, NAND 주가 14% 도달 및 AI 스토리지 규모로 IPO 추진 - digittimes",
+          "decision": "NAND 계약가·웨이퍼 가격·eSSD 고객 신호를 분리해 Dalian/Solidigm의 제품 믹스와 가격 방어를 결정",
+          "source": "digitimes",
+          "url": "https://www.digitimes.com/news/a20260819VL211/ymtc-ipo-nand-flash-market.html",
+          "publishedAt": "2026-08-20",
+          "evidenceLevel": "Reported"
+        }
+      },
+      {
+        "id": "new-biz-insights",
+        "index": "03",
+        "label": "NEW BIZ & INSIGHTS",
+        "title": "AI·LLM 변곡점에서 신규 Biz 발굴",
+        "mandate": "AI Application·HW/SW·Transformer·RAG·Vector DB 변화를 Memory Demand·서비스 모델·수익성 기회로 번역",
         "inputs": [
           "AI App·Model Trend",
           "Accelerator·ASIC Roadmap",
-          "Serving·RAG·Vector DB",
-          "Partner Capability"
+          "Tech·Market Evidence",
+          "Competitor·Partner Signal"
         ],
         "questions": [
-          "어떤 기술 변곡점이 새로운 Memory JTBD를 만드는가",
+          "어떤 변곡점이 새로운 Memory JTBD를 만드는가",
           "Where to Play와 Right to Win은 무엇인가",
-          "누구와 어떤 방식으로 공동 검증해야 하는가"
+          "고객 지불의사와 단위경제성을 검증할 수 있는가"
         ],
         "outputs": [
+          "Tech·Market Brief",
           "Opportunity Thesis",
-          "Market·Competitor Map",
           "Partner Screen",
           "Business Case"
         ],
-        "gate": "고객 지불의사·차별화 근거·파트너 역할·단위경제성 가운데 하나라도 없으면 PoC 승격을 보류",
+        "gate": "고객 가치·차별화·시장성·단위경제성 가운데 하나라도 근거가 없으면 PoC 승격을 보류",
         "kpis": [
           "Qualified Pipeline",
           "PoC Conversion",
           "Expected Value"
-        ]
+        ],
+        "evidenceIds": [
+          "hbm",
+          "demand",
+          "nand"
+        ],
+        "currentSignal": {
+          "title": "SKHY의 새로운 HBM 팀이 Nvidia와 AMD의 뒷마당에 상륙 - 공동 설계가 HBM4 주문을 획득하는 방법이 되고 있음 - digittimes",
+          "decision": "고객 인증·공급 일정·베이스 다이·패키징 병목을 함께 확인한 뒤 프리미엄 캐파를 배분",
+          "source": "digitimes",
+          "url": "https://www.digitimes.com/news/a20260820PD219/sk-hynix-hbm-hbm4-design-amd.html",
+          "publishedAt": "2026-08-20",
+          "evidenceLevel": "Reported"
+        }
       },
       {
-        "id": "execution-strategy",
-        "index": "03",
-        "label": "AI INFRA EXECUTION",
-        "title": "내·외부 실행전략과 경영진 의사결정",
-        "mandate": "전략 안건을 선택지·경제성·책임자·90일 Action·Trigger·Kill Criteria가 있는 실행 Portfolio로 운영",
+        "id": "partner-execution",
+        "index": "04",
+        "label": "PARTNERS & EXECUTION",
+        "title": "파트너 공동 검증과 경영진 실행",
+        "mandate": "AI 개발사·데이터센터·OEM·Consulting/SI의 역할을 PoC·Qualification·Capacity·90일 Action으로 연결",
         "inputs": [
+          "Partner Capability·RACI",
           "Verified Evidence",
-          "Architecture·TCO",
           "Qualification·Capacity",
           "Risk·Scenario"
         ],
         "questions": [
-          "지금 결정해야 할 사안과 보류할 사안은 무엇인가",
-          "누가 언제까지 어떤 KPI를 책임지는가",
+          "누가 어떤 불확실성을 제거할 것인가",
+          "지금 결정·보류할 안건은 무엇인가",
           "어떤 조건에서 확대·축소·중단할 것인가"
         ],
         "outputs": [
+          "Partner Model",
           "Executive Decision Pack",
           "90-Day Roadmap",
-          "RACI·Stage Gate",
           "KPI·Trigger Dashboard"
         ],
-        "gate": "Owner·KPI·Trigger·Kill Criteria가 없는 전략은 실행 안건으로 게시하지 않음",
+        "gate": "Owner·KPI·Trigger·Kill Criteria와 고객 인증 경로가 없는 안건은 실행 Portfolio에서 제외",
         "kpis": [
-          "Decision Lead Time",
           "Gate Pass Rate",
+          "Partner PoC Conversion",
           "Benefit Realization"
-        ]
+        ],
+        "evidenceIds": [
+          "partner",
+          "demand"
+        ],
+        "currentSignal": {
+          "title": "삼성, SKHY 1H26 칩설비투자 35% 증가 · NVIDIA는 삼성의 상위 5대 고객에 포함되지 않음",
+          "decision": "출하량과 대당 탑재량을 분리하고 고객 CapEx·전력·패키징 제약을 반영해 제품군 시나리오를 갱신",
+          "source": "TrendForce",
+          "url": "https://www.trendforce.com/news/2026/08/17/news-samsung-sk-hynix-1h26-chip-facility-investment-up-35-nvidia-not-among-samsungs-top-five-customers/",
+          "publishedAt": "2026-08-17",
+          "evidenceLevel": "Reported"
+        }
       }
-    ]
+    ],
+    "runId": "32360889919",
+    "generatedAt": "2026-08-20T10:58:44.862Z",
+    "liveEvidenceCount": 4
   },
   "decisionCases": [
     {
@@ -4358,6 +4439,278 @@
     "currentSignals": [],
     "generatedAt": "2026-08-20T10:58:44.862Z",
     "runId": "32360889919"
+  },
+  "strategyBoard": {
+    "schemaVersion": "1.0",
+    "generatedAt": "2026-08-20T10:58:44.862Z",
+    "status": "evidence-connected",
+    "tech": {
+      "eyebrow": "TECH & MARKET INSIGHTS",
+      "title": "LLM 기술 변곡점 → Memory Requirement",
+      "description": "AI Application·HW/SW 변화를 Workload 병목과 메모리 요구사항으로 변환",
+      "memoryMap": [
+        {
+          "id": "transformer",
+          "tech": "Transformer · MoE",
+          "context": "Attention · Expert Routing",
+          "impact": "Parameter·Activation 상주와 Collective 증가",
+          "memory": "HBM4·HBM4E · Fabric",
+          "accent": "#2D6BFF"
+        },
+        {
+          "id": "context-kv",
+          "tech": "Long Context · KV Cache",
+          "context": "Prompt · Prefill · Decode",
+          "impact": "Token·동시 Session에 비례한 KV 용량 증가",
+          "memory": "HBM · Host DRAM · CXL",
+          "accent": "#00A88F"
+        },
+        {
+          "id": "rag",
+          "tech": "Enterprise RAG",
+          "context": "Hybrid Retrieval · Rerank",
+          "impact": "Index Freshness·P99·ACL이 데이터 배치 결정",
+          "memory": "DRAM · CXL · eSSD",
+          "accent": "#0A84B8"
+        },
+        {
+          "id": "vector-data",
+          "tech": "Vector DB · Data Pipeline",
+          "context": "Embedding · Checkpoint",
+          "impact": "Active Index와 대용량 Corpus의 계층화",
+          "memory": "고용량 DRAM · TLC/QLC eSSD",
+          "accent": "#7656C9"
+        }
+      ]
+    },
+    "partners": {
+      "eyebrow": "PARTNERS & CLIENTS",
+      "title": "Pain 진단 → 공동 PoC → Qualification → Repeat",
+      "description": "파트너 역할과 검증 Gate를 반복 가능한 공동사업 구조로 연결",
+      "models": [
+        {
+          "id": "ai-developer",
+          "type": "AI 개발사",
+          "role": "Model·Serving Workload와 SLO 정의",
+          "value": "Memory Requirement·공동 Benchmark",
+          "gate": "대표 Trace·Decision Owner",
+          "accent": "#2D6BFF"
+        },
+        {
+          "id": "data-center",
+          "type": "데이터센터·CSP",
+          "role": "전력·열·Fabric·Storage 운영",
+          "value": "Rack TCO·Qualification 환경",
+          "gate": "운영 Baseline·반복 재현",
+          "accent": "#00A88F"
+        },
+        {
+          "id": "oem-si",
+          "type": "OEM·Platform·Consulting/SI",
+          "role": "통합·고객 인증·확산",
+          "value": "Reference Offer·Go-to-Market",
+          "gate": "공식 협업·RACI 확인",
+          "accent": "#C88600"
+        }
+      ]
+    },
+    "playbooks": [
+      {
+        "id": "agentic-serving",
+        "segment": "Agentic AI Serving",
+        "pain": "KV Cache·TTFT·Token 원가",
+        "solution": "Serving SW × HBM/Host/CXL/eSSD 배치",
+        "outcome": "SLO-constrained Goodput·Cost/Task",
+        "gate": "동일 Trace·Quality·P99 재현"
+      },
+      {
+        "id": "training-ramp",
+        "segment": "AI Training Cluster",
+        "pain": "대역폭·Collective·Checkpoint 병목",
+        "solution": "HBM·Fabric·eSSD 공동 Roadmap",
+        "outcome": "Time-to-Train·가동률·Ramp 방어",
+        "gate": "Qualification·Capacity·Margin"
+      },
+      {
+        "id": "enterprise-rag",
+        "segment": "Enterprise RAG",
+        "pain": "검색 품질·Index Freshness·P99",
+        "solution": "Hybrid Retrieval × DRAM/CXL/eSSD Tier",
+        "outcome": "Citation 품질·Cost/Query·운영 신뢰성",
+        "gate": "Recall·ACL·Freshness·P99"
+      }
+    ],
+    "disclosure": "전략 플레이북 · 실제 고객 성과가 아닌 공개 근거 기반 검증 가설",
+    "reports": [
+      {
+        "title": "세 개의 드라이브, 하나의 목표: SANDISK Optimus™ SSD로 더 많은 작업을 수행할 수 있도록 지원 - Sandisk",
+        "summary": "게임, 스트리밍 및 주요 성능을 위해 특별히 제작된 SANDISK Optimus™ 내부 SSD 제품군에 대해 자세히 알아보세요",
+        "url": "https://www.sandisk.com/company/newsroom/blogs/2026/three-drives-one-goal-helping-do-more-with-sandisk-optimus-ssds",
+        "source": "Sandisk",
+        "publishedAt": "2026-08-20",
+        "sourceClass": "official",
+        "evidenceLevel": "Watch",
+        "topics": [
+          {
+            "id": "accelerator",
+            "label": "ACCELERATOR / MEMORY"
+          }
+        ],
+        "freshness": "fresh",
+        "ageDays": 0
+      },
+      {
+        "title": "NVIDIA Vera Rubin: 대규모 상황 AI 추론에서 메모리 병목 현상 해결 - TechInsights",
+        "summary": "NVIDIA Vera Rubin은 BlueField-4, 랙 규모 CPU-GPU 설계 및 대규모 컨텍스트 LLM에 최적화된 KV 캐시를 통해 AI 추론 메모리 병목 현상을 해결",
+        "url": "https://www.techinsights.com/blog/nvidia-vera-rubin-solving-memory-bottleneck-large-context-ai-inference",
+        "source": "TechInsights",
+        "publishedAt": "2026-08-17",
+        "sourceClass": "research",
+        "evidenceLevel": "Watch",
+        "topics": [
+          {
+            "id": "serving",
+            "label": "LLM SERVING"
+          },
+          {
+            "id": "rag",
+            "label": "RAG / VECTOR"
+          },
+          {
+            "id": "accelerator",
+            "label": "ACCELERATOR / MEMORY"
+          }
+        ],
+        "freshness": "fresh",
+        "ageDays": 3
+      },
+      {
+        "title": "헤드라인 뒤에 숨겨진 이야기: AI 메모리 투자, Apple 가격 인상, IBM 0.7nm 및 물리적 AI - TechInsights",
+        "summary": "AI 기반 메모리 투자, Apple 가격 인상, IBM의 0.7nm 기술, Physical AI 및 AI 추론에 대한 반도체 헤드라인을 살펴보세요",
+        "url": "https://www.techinsights.com/behind-the-headlines/ai-memory-apple-prices-ibm-07nm-physical-ai",
+        "source": "TechInsights",
+        "publishedAt": "2026-08-17",
+        "sourceClass": "research",
+        "evidenceLevel": "Watch",
+        "topics": [
+          {
+            "id": "serving",
+            "label": "LLM SERVING"
+          },
+          {
+            "id": "accelerator",
+            "label": "ACCELERATOR / MEMORY"
+          }
+        ],
+        "freshness": "fresh",
+        "ageDays": 3
+      },
+      {
+        "title": "SKHY, CPO 로드맵 공개, HBM 넘어 AI 인프라까지 - TrendForce",
+        "summary": "SKHY는 메모리 공급업체에서 AI 인프라 분야의 더 큰 역할로 전환하고 있음 · 회사에 따르면, 전 세계 주요 연구자들과 협력하여 Nature Electronics 저널에 공동 패키지 광학(CPO)에 대한 로드맵을 제시",
+        "url": "https://www.trendforce.com/news/2026/08/20/news-sk-hynix-unveils-cpo-roadmap-looks-beyond-hbm-to-ai-infrastructure/",
+        "source": "TrendForce",
+        "publishedAt": "2026-08-20",
+        "sourceClass": "research",
+        "evidenceLevel": "Watch",
+        "topics": [
+          {
+            "id": "accelerator",
+            "label": "ACCELERATOR / MEMORY"
+          }
+        ],
+        "freshness": "fresh",
+        "ageDays": 0
+      },
+      {
+        "title": "NVIDIA HGX B300의 고대역폭 메모리: Micron HBM3E 패키지 검사 - TechInsights",
+        "summary": "NVIDIA HGX B300 플랫폼용 Micron 12Hi HBM3E 메모리 패키지에 대한 TechInsights의 상호 연결 및 패키징 분석에 액세스하세요",
+        "url": "https://www.techinsights.com/blog/high-bandwidth-memory-package-NVIDIA-HGX-B300",
+        "source": "TechInsights",
+        "publishedAt": "2026-08-19",
+        "sourceClass": "research",
+        "evidenceLevel": "Watch",
+        "topics": [
+          {
+            "id": "accelerator",
+            "label": "ACCELERATOR / MEMORY"
+          }
+        ],
+        "freshness": "fresh",
+        "ageDays": 1
+      },
+      {
+        "title": "메모리 환경 디코딩: Intel의 통합 플레이, NAND 공급 위기 및 2028년 지평선 - Counterpoint Research",
+        "summary": "메모리 시장의 급속한 변화는 클라우드 AI 인프라에 대한 수요 증가에 의해 주도 · 주류 헤드라인은 고대역폭 메모리(HBM) 공급 할당에 초점을 맞추고 있지만 제조 CAPEX, 엔터프라이즈 스토리지 및 시스템 아키텍처 전반의 기본 역학은 보다 미묘한 이야기를 전달",
+        "url": "https://counterpointresearch.com/en/insights/decoding-the-memory-landscape-intels-integration-play-nand-supply-crunches-and-the-2028-horizon",
+        "source": "Counterpoint Research",
+        "publishedAt": "2026-08-19",
+        "sourceClass": "research",
+        "evidenceLevel": "Watch",
+        "topics": [
+          {
+            "id": "accelerator",
+            "label": "ACCELERATOR / MEMORY"
+          }
+        ],
+        "freshness": "fresh",
+        "ageDays": 1
+      }
+    ],
+    "reportPolicy": {
+      "limit": 6,
+      "freshDays": 120,
+      "topics": [
+        {
+          "id": "serving",
+          "label": "LLM SERVING",
+          "terms": [
+            "llm",
+            "inference",
+            "serving",
+            "vllm",
+            "dynamo",
+            "prefill",
+            "decode",
+            "kv cache",
+            "추론",
+            "서빙"
+          ]
+        },
+        {
+          "id": "rag",
+          "label": "RAG / VECTOR",
+          "terms": [
+            "rag",
+            "retrieval",
+            "vector",
+            "embedding",
+            "rerank",
+            "context",
+            "검색",
+            "벡터"
+          ]
+        },
+        {
+          "id": "accelerator",
+          "label": "ACCELERATOR / MEMORY",
+          "terms": [
+            "gpu",
+            "accelerator",
+            "asic",
+            "hbm",
+            "cxl",
+            "dram",
+            "nand",
+            "ssd",
+            "가속기",
+            "메모리"
+          ]
+        }
+      ]
+    },
+    "evidenceCount": 6,
+    "freshEvidenceCount": 6
   },
   "caseClassification": [
     {
