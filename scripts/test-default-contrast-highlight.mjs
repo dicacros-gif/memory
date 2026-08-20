@@ -125,7 +125,7 @@ assert.match(consoleCss, /Progressive market modules[\s\S]*?\.equity-company-mon
 assert.match(consoleCss, /Instant card inversion and contrast lock[\s\S]*?--instant-hover-surface:\s*#102b3d;[\s\S]*?\[data-theme="dark"\] #intelligenceConsole[\s\S]*?--instant-hover-surface:\s*#f8fafc;/, "Console hover surfaces must invert immediately in both themes");
 assert.match(consoleCss, /#intelligenceConsole :where\([\s\S]*?\):is\(:hover, :focus-visible, :focus-within\)[\s\S]*?transition-delay:\s*0s !important;[\s\S]*?\.ui-contrast-on-dark, \.ui-contrast-on-light[\s\S]*?color:\s*var\(--instant-hover-ink\) !important;/, "active card colors must outrank cached readability classes without delay");
 assert.match(landing, /averageAlpha < \.6[\s\S]*?backgroundLum < \.18/, "transparent gradients must inherit their base surface and mid-tone panels must use dark ink");
-assert.match(html, /infra-20260901-03/);
+assert.match(html, /infra-20260901-04/);
 assert.match(css, /@media \(max-width: 760px\)[\s\S]*?\.business-competency-output[\s\S]*?grid-column:\s*2 !important[\s\S]*?\.business-llm-causal-chain,[\s\S]*?\.business-contract-funnel[\s\S]*?overflow-x:\s*visible/);
 
 console.log(JSON.stringify({

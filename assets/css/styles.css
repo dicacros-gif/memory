@@ -30179,3 +30179,12 @@ body.consulting-system {
 .sc-playbook-table td b { color: var(--ink); font-weight: 850; }
 .sc-playbook-table tr:hover td { background: color-mix(in srgb, var(--accent, #4322A8) 5%, transparent); }
 @media (max-width: 640px) { .sc-playbook { overflow-x: auto; } .sc-playbook-table { min-width: 560px; } }
+
+/* Instant hover colour inversion for console cards — colour/background recolour
+   with no transition delay; motion (transform/shadow) still animates. */
+.ni-card, .ni-card *, .sc-card, .sc-card *, .mbp-front, .mbp-front *,
+.agent-turn, .agent-turn *, .community-card, .community-card *,
+.deep-implication, .deep-implication *, .sc-tech-card, .sc-tech-card *,
+.sc-partner, .sc-partner * {
+  transition-property: transform, box-shadow, border-color, opacity !important;
+}

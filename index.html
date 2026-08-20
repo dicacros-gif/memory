@@ -110,12 +110,19 @@
       .console-static-flow { grid-template-columns: 1fr; }
       .console-static-links { grid-template-columns: 1fr; }
     }
+    /* Instant hover colour inversion (cache-proof): keep motion (transform/
+       shadow) animated but recolour text/background with no delay, so hovered
+       text flips immediately. Applies even if landing.min.css is cached. */
+    [class*="business-"], [class*="business-"] *,
+    [class*="decision-os"], [class*="decision-os"] * {
+      transition-property: transform, box-shadow, border-color, opacity !important;
+    }
   </style>
   <script>
     (() => {
       if (!location.hash.startsWith("#console")) return;
       document.documentElement.classList.add("console-entry");
-      const revision = "infra-20260901-03";
+      const revision = "infra-20260901-04";
       const assets = [
         ["consoleStylesPreload", "style", `assets/css/styles.min.css?v=${revision}`, "high"],
         ["consoleAppPreload", "script", `assets/js/app.min.js?v=${revision}`, "low"],
@@ -132,7 +139,7 @@
       }
     })();
   </script>
-  <link rel="stylesheet" href="assets/css/landing.min.css?v=infra-20260901-03" />
+  <link rel="stylesheet" href="assets/css/landing.min.css?v=infra-20260901-04" />
 </head>
 <body class="landing-mode">
   <div class="business-site" id="businessSite">
@@ -1895,6 +1902,6 @@
   <div class="qa-answer" id="qaAnswer" hidden></div>
   <div class="inspector" id="inspector" hidden></div>
   <div class="backdrop" id="backdrop"></div>
-  <script src="assets/js/landing.min.js?v=infra-20260901-03" defer></script>
+  <script src="assets/js/landing.min.js?v=infra-20260901-04" defer></script>
 </body>
 </html>

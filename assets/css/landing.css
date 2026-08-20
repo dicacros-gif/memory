@@ -7112,3 +7112,10 @@ body.landing-mode {
   content-visibility: auto;
   contain-intrinsic-size: auto 760px;
 }
+
+/* Instant hover colour inversion — motion animates, colour/background flips with
+   no delay (user directive: hover invert must be immediate). */
+[class*="business-"], [class*="business-"] *,
+[class*="decision-os"], [class*="decision-os"] * {
+  transition-property: transform, box-shadow, border-color, opacity !important;
+}
