@@ -16174,9 +16174,9 @@
         ? `당시 ${item.priorMomentum == null ? "NA" : `${fmtNum(item.priorMomentum, 2)}%`}`
         : `${horizon.label} ${item.actualChange == null ? "NA" : `${fmtNum(item.actualChange, 2)}%`}`;
     };
-    grid.innerHTML = items.map((item, index) => `
+    grid.innerHTML = items.map((item) => `
       <div class="decision-card-stack">
-        <button class="decision-card reveal${item.id === active?.id ? " active" : ""}" type="button" data-decision-product="${escapeHTML(item.id)}" style="--local-accent:${categoryAccent(item.category)}; animation-delay:${index * 25}ms">
+        <button class="decision-card reveal${item.id === active?.id ? " active" : ""}" type="button" data-decision-product="${escapeHTML(item.id)}" style="--local-accent:${categoryAccent(item.category)}">
           <div class="decision-card-top">
             ${scoreRingHTML(item.confidence, "Data")}
             <span>

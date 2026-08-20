@@ -23250,9 +23250,9 @@ body.crawl-moderation-open {
     .kpi
   ):not(.agent-avatar-card):not(.memory-scroll-panel) {
     transition-property: translate, scale, border-color, box-shadow, background-color;
-    transition-duration: .26s;
-    transition-timing-function: cubic-bezier(.2, .8, .2, 1);
-    will-change: translate, scale;
+    transition-duration: .025s, .025s, 0s, .025s, 0s;
+    transition-timing-function: ease-out;
+    will-change: auto;
   }
 
   .main :where(
@@ -23274,8 +23274,8 @@ body.crawl-moderation-open {
     .metric,
     .kpi
   ):not(.agent-avatar-card):not(.memory-scroll-panel):is(:hover, :focus-visible, :focus-within) {
-    translate: 0 -5px;
-    scale: 1.008;
+    translate: 0 -2px;
+    scale: 1.003;
     border-color: color-mix(in srgb, var(--local-accent, var(--accent)) 58%, var(--line));
     box-shadow: 0 18px 38px rgba(2, 8, 23, .2), 0 0 0 1px color-mix(in srgb, var(--local-accent, var(--accent)) 16%, transparent);
   }
@@ -29981,7 +29981,7 @@ body.consulting-system {
   background: var(--instant-hover-surface) !important;
   transition-property: transform, box-shadow, border-color, opacity !important;
   transition-delay: 0s !important;
-  transition-duration: .05s !important;
+  transition-duration: .025s !important;
 }
 
 #intelligenceConsole :where(
@@ -29998,7 +29998,98 @@ body.consulting-system {
   li[tabindex]
 ):not(.sc-card) * {
   transition-property: transform, box-shadow, border-color, opacity !important;
+  transition-duration: 0s !important;
   transition-delay: 0s !important;
+}
+
+/* Executive decision cards
+   Keep every label and metric visible instead of clipping long Korean copy */
+#intelligenceConsole #executive-decision :is(
+  .decision-layout,
+  .decision-panel,
+  .decision-control,
+  .decision-grid,
+  .decision-card-stack,
+  .decision-card,
+  .decision-card-top,
+  .decision-card-top > span,
+  .decision-card-metrics,
+  .decision-focus
+) {
+  width: 100%;
+  max-width: 100%;
+  min-width: 0;
+  box-sizing: border-box;
+}
+
+#intelligenceConsole #executive-decision .decision-card,
+#intelligenceConsole #executive-decision .decision-card * {
+  animation-delay: 0s !important;
+  transition-delay: 0s !important;
+}
+
+#intelligenceConsole #executive-decision .decision-card {
+  transition: transform .02s ease-out, box-shadow .02s ease-out, border-color 0s !important;
+}
+
+#intelligenceConsole #executive-decision .decision-card :is(strong, em),
+#intelligenceConsole #executive-decision .decision-card-metrics span {
+  overflow: visible;
+  text-overflow: clip;
+  white-space: normal;
+  overflow-wrap: anywhere;
+  word-break: keep-all;
+}
+
+#intelligenceConsole #executive-decision .decision-card strong {
+  line-height: 1.35;
+}
+
+#intelligenceConsole #executive-decision .decision-card em,
+#intelligenceConsole #executive-decision .decision-card-metrics span {
+  line-height: 1.45;
+}
+
+#intelligenceConsole #executive-decision .decision-card-metrics span {
+  display: flex;
+  align-items: center;
+  min-height: 36px;
+}
+
+/* The score tile stays light inside an inverted card */
+#intelligenceConsole #executive-decision .decision-card:is(:hover, :focus-visible, :focus-within) .score-ring {
+  border-color: rgba(255, 255, 255, .78) !important;
+  border-left-color: var(--instant-hover-accent) !important;
+  background: #f8fafc !important;
+}
+
+#intelligenceConsole #executive-decision .decision-card:is(:hover, :focus-visible, :focus-within) .score-ring :is(.score-value, small),
+#intelligenceConsole #executive-decision .decision-card:is(:hover, :focus-visible, :focus-within) .score-ring::after {
+  color: #17324d !important;
+  -webkit-text-fill-color: #17324d !important;
+  opacity: 1 !important;
+}
+
+@media (max-width: 1180px) {
+  #intelligenceConsole #executive-decision .decision-control {
+    grid-template-columns: max-content minmax(0, 1fr);
+    align-items: center;
+  }
+
+  #intelligenceConsole #executive-decision .decision-control > span:last-child {
+    grid-column: 1 / -1;
+  }
+}
+
+@media (max-width: 760px) {
+  #intelligenceConsole #executive-decision .decision-grid,
+  #intelligenceConsole #executive-decision .decision-card-stack.has-executive-slider {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  #intelligenceConsole #executive-decision .decision-card-metrics {
+    grid-template-columns: minmax(0, 1fr);
+  }
 }
 
 #intelligenceConsole :where(
