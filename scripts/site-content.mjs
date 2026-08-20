@@ -130,6 +130,73 @@ function latestPartnerSignal(payload = {}, fallback = {}) {
   };
 }
 
+function strategyBoardTopicMatches(text = "", topics = []) {
+  const haystack = String(text || "").toLocaleLowerCase("en-US");
+  return (topics || []).filter((topic) => (topic.terms || []).some((term) => haystack.includes(String(term || "").toLocaleLowerCase("en-US"))));
+}
+
+function buildStrategyBoard(payload = {}, generatedAt = null) {
+  const board = model.strategyBoard || {};
+  const reportPolicy = board.reportPolicy || {};
+  const topics = reportPolicy.topics || [];
+  const limit = Math.max(1, Number(reportPolicy.limit || 6));
+  const freshDays = Math.max(1, Number(reportPolicy.freshDays || 120));
+  const generatedMs = Date.parse(String(generatedAt || ""));
+  const sourceScore = { official: 50, filing: 48, research: 38, "authoritative-media": 30, "general-media": 12, unclassified: 0 };
+  const seen = new Set();
+  const reports = (payload.news || []).map((item) => {
+    const title = item.titleKo || item.title || "";
+    const summary = item.summaryKo || item.summary || "";
+    const matches = strategyBoardTopicMatches(`${title} ${item.originalTitle || ""} ${summary}`, topics);
+    const url = item.sourceUrl || item.link || "";
+    if (!matches.length || !directUrl(url)) return null;
+    const canonical = String(url).replace(/[?#].*$/, "").replace(/\/$/, "").toLowerCase();
+    if (!canonical || seen.has(canonical)) return null;
+    seen.add(canonical);
+    const date = publishedAt(item, generatedAt);
+    const timestamp = Date.parse(String(date || ""));
+    const ageDays = Number.isFinite(generatedMs) && Number.isFinite(timestamp)
+      ? Math.max(0, Math.round((generatedMs - timestamp) / 86400000))
+      : null;
+    const itemSourceClass = sourceClass(item);
+    return {
+      title: compact(title, 128),
+      summary: compact(summary, 180),
+      url,
+      source: compact(item.source || item.publisher || "원문", 64),
+      publishedAt: date,
+      sourceClass: itemSourceClass,
+      evidenceLevel: evidenceLevel(item),
+      topics: matches.map((topic) => ({ id: topic.id, label: topic.label })),
+      freshness: ageDays == null ? "unknown" : ageDays <= freshDays ? "fresh" : "stale",
+      ageDays,
+      score: (sourceScore[itemSourceClass] || 0)
+        + (ageDays == null ? 0 : Math.max(0, freshDays - ageDays) / freshDays * 20)
+        + matches.length * 4,
+    };
+  }).filter(Boolean).sort((a, b) => b.score - a.score || String(b.publishedAt || "").localeCompare(String(a.publishedAt || "")))
+    .slice(0, limit)
+    .map(({ score, ...item }) => item);
+
+  return {
+    schemaVersion: board.schemaVersion || "1.0",
+    generatedAt,
+    status: reports.length ? "evidence-connected" : "evidence-pending",
+    tech: board.tech || {},
+    partners: board.partners || {},
+    playbooks: board.playbooks || [],
+    disclosure: board.disclosure || "전략 플레이북 · 공개 근거 기반 검증 가설",
+    reports,
+    reportPolicy: {
+      limit,
+      freshDays,
+      topics: topics.map((topic) => ({ id: topic.id, label: topic.label, terms: topic.terms || [] })),
+    },
+    evidenceCount: reports.length,
+    freshEvidenceCount: reports.filter((item) => item.freshness === "fresh").length,
+  };
+}
+
 function buildInsight(brief = {}, fallbackAt = null) {
   const latest = briefLatest(brief, fallbackAt);
   return {
@@ -803,6 +870,13 @@ export function validateSiteContent(content = {}) {
   if (!Array.isArray(content.workloadOptimization?.sources) || content.workloadOptimization.sources.length < 4) errors.push("workloadOptimization.sources");
   if (!Array.isArray(content.workloadOptimization?.ragOperatingModel?.pipeline) || content.workloadOptimization.ragOperatingModel.pipeline.length < 13) errors.push("workloadOptimization.ragOperatingModel.pipeline");
   if (!Array.isArray(content.workloadOptimization?.ragOperatingModel?.maturity) || content.workloadOptimization.ragOperatingModel.maturity.length < 6) errors.push("workloadOptimization.ragOperatingModel.maturity");
+  const strategyBoard = content.strategyBoard || {};
+  if (!Array.isArray(strategyBoard.tech?.memoryMap) || strategyBoard.tech.memoryMap.length < 4) errors.push("strategyBoard.tech.memoryMap");
+  if (!Array.isArray(strategyBoard.partners?.models) || strategyBoard.partners.models.length < 3) errors.push("strategyBoard.partners.models");
+  if (!Array.isArray(strategyBoard.playbooks) || strategyBoard.playbooks.length < 3) errors.push("strategyBoard.playbooks");
+  if (!Array.isArray(strategyBoard.reports)) errors.push("strategyBoard.reports");
+  if ((strategyBoard.reports || []).some((item) => !directUrl(item.url))) errors.push("strategyBoard.reportUrls");
+  if (Number(strategyBoard.evidenceCount || 0) !== (strategyBoard.reports || []).length) errors.push("strategyBoard.evidenceCount");
   if (!Array.isArray(content.aiFactorySystem?.architectureLayers) || content.aiFactorySystem.architectureLayers.length < 8) errors.push("aiFactorySystem.architectureLayers");
   if (!Array.isArray(content.aiFactorySystem?.workloads) || content.aiFactorySystem.workloads.length < 6) errors.push("aiFactorySystem.workloads");
   if (!(content.aiFactorySystem?.workloads || []).every((item) => item?.evidence?.status)) errors.push("aiFactorySystem.workloads.evidence");
@@ -895,6 +969,7 @@ export function buildSiteContentClient({ payload = {}, quant = {} } = {}) {
     insights,
     generatedAt,
   });
+  const strategyBoard = buildStrategyBoard(payload, generatedAt);
   const content = {
     schemaVersion: "1.1",
     runId: payload.runId || quant.runId || null,
@@ -963,6 +1038,7 @@ export function buildSiteContentClient({ payload = {}, quant = {} } = {}) {
     partnerSpotlight,
     aiFactorySystem: buildAIFactorySystem(payload, sourceCoverage, generatedAt),
     workloadOptimization: buildWorkloadOptimization(payload, sourceCoverage, generatedAt, decisionIntelligence),
+    strategyBoard,
     caseClassification: model.caseClassification || [],
     agentCouncil: {
       title: "AI Infra Strategy Agent Council",

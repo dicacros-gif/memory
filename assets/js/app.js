@@ -12738,6 +12738,13 @@
   function renderStrategyConsulting() {
     const host = $("#strategyConsulting");
     if (!host) return;
+    const strategyBoard = window.MEMORY_SITE_CONTENT?.strategyBoard || {};
+    const techBoard = strategyBoard.tech || {};
+    const partnerBoard = strategyBoard.partners || {};
+    const techMap = Array.isArray(techBoard.memoryMap) ? techBoard.memoryMap : [];
+    const reports = Array.isArray(strategyBoard.reports) ? strategyBoard.reports : [];
+    const partnerModels = Array.isArray(partnerBoard.models) ? partnerBoard.models : [];
+    const playbooks = Array.isArray(strategyBoard.playbooks) ? strategyBoard.playbooks : [];
     const meta = $("#strategyConsultingMeta");
     const lenses = STRATEGY_CONSULTING_LENSES.map((lens) => ({ lens, ev: strategyConsultingEvidence(lens) }));
     const totalEvidence = lenses.reduce((s, x) => s + x.ev.count, 0);
@@ -12819,94 +12826,53 @@
           </article>
         `).join("")}
       </div>
-      ${(() => {
-        // Tech & Market Insights — how the current LLM stack translates into
-        // memory requirements. Mapping is a strategy framework; the "AI HW/SW
-        // 리포트" evidence strip below pulls real crawled headlines.
-        const llmMap = [
-          { tech: "Transformer 구조", en: "Attention · Parameters", impact: "어텐션·파라미터 상주로 대역폭·용량 동시 폭증", mem: "HBM4 / HBM4E", accent: "#2D6BFF" },
-          { tech: "Prompt Eng · 롱컨텍스트", en: "Long context", impact: "컨텍스트 확장이 KV-cache 메모리를 선형 이상으로 증가", mem: "CXL · 고용량 DDR5", accent: "#00C2A8" },
-          { tech: "RAG · 검색증강생성", en: "Retrieval-Augmented", impact: "검색 파이프라인이 저지연 스토리지·인덱스 I/O를 요구", mem: "eSSD · 고속 NAND", accent: "#0EA5E9" },
-          { tech: "Vector DB", en: "Embeddings", impact: "임베딩 인덱스 상주·근접검색이 대용량 메모리를 요구", mem: "고용량 DRAM · eSSD", accent: "#8B5CF6" },
-        ];
-        const aiRe = /transformer|\bLLM\b|\bGPT\b|inference|추론|\bRAG\b|vector|embedding|\bGPU\b|\bCUDA\b|\bHBM\b|CXL|prompt|양자화|quantiz/i;
-        const seen = new Set();
-        const reports = (LIVE.news || []).filter((n) => {
-          const hay = `${n.title || ""} ${n.titleKo || ""} ${n.summary || ""}`;
-          if (!aiRe.test(hay)) return false;
-          const key = normalizeCrawlExclusionUrl(String(n.link || n.sourceUrl || "")) || n.title;
-          if (seen.has(key)) return false;
-          seen.add(key);
-          return true;
-        }).sort((a, b) => String(b.date || b.publishedAt || "").localeCompare(String(a.date || a.publishedAt || "")))
-          .slice(0, 6)
-          .map((n) => ({ title: n.titleKo || n.title, url: n.link || n.sourceUrl, source: n.source, date: String(n.date || n.publishedAt || "").slice(0, 10) }));
-        return `
-        <div class="sc-section-lead">
-          <div><span>TECH &amp; MARKET INSIGHTS</span><h3>LLM 기술 트렌드가 메모리에 미치는 영향</h3></div>
-          <p>Transformer·Prompt·RAG·Vector DB 등 최신 AI 기술 변화를 메모리 요구사항으로 번역해, 조직의 인사이트로 공유합니다.</p>
-        </div>
-        <div class="sc-tech-grid">
-          ${llmMap.map((t) => `
-            <article class="sc-tech-card" style="--sc-accent:${t.accent}">
-              <span class="sc-tech-en">${escapeHTML(t.en)}</span>
-              <strong>${escapeHTML(t.tech)}</strong>
-              <p>${escapeHTML(t.impact)}</p>
-              <div class="sc-tech-mem"><b>MEMORY</b><span>${escapeHTML(t.mem)}</span></div>
-            </article>
-          `).join("")}
-        </div>
-        ${reports.length ? `
-          <div class="sc-report">
-            <div class="sc-report-head"><strong>AI Application · HW/SW 리포트</strong><span>${fmtNum(reports.length)}건 · 이번 크롤 관측</span></div>
-            <ul class="sc-evidence-list">
-              ${reports.map((c) => `<li>
-                <span class="sc-ev-src">${escapeHTML(c.source || "출처")}</span>
-                ${c.url ? `<a href="${escapeHTML(c.url)}" target="_blank" rel="noopener">${escapeHTML(String(c.title).slice(0, 84))} ↗</a>` : `<span>${escapeHTML(String(c.title).slice(0, 84))}</span>`}
-                <small>${escapeHTML(c.date)}</small>
-              </li>`).join("")}
-            </ul>
-          </div>` : ""}
-        `;
-      })()}
-      ${(() => {
-        // Partners & Clients — collaboration model + application playbooks.
-        // Playbooks are illustrative frameworks (labelled), not real client data.
-        const partners = [
-          { type: "AI 개발 업체", role: "모델·워크로드 요구사항 정의", value: "차세대 메모리 스펙 공동 정의", accent: "#2D6BFF" },
-          { type: "데이터센터 운영사 · 하이퍼스케일러", role: "인프라 배치·TCO 최적화", value: "HBM·eSSD 장기 공급계약", accent: "#00C2A8" },
-          { type: "IT 컨설팅 펌", role: "고객 발굴·PoC 채널", value: "솔루션 제안·확산 채널 확장", accent: "#F59E0B" },
-        ];
-        const plays = [
-          { seg: "글로벌 클라우드 · 추론", pain: "추론 TCO·컨텍스트 한계", solution: "CXL 메모리 풀링 + 고용량 DDR5 티어링", outcome: "토큰당 비용 절감·컨텍스트 확장" },
-          { seg: "AI 학습 클러스터", pain: "학습 대역폭·용량 병목", solution: "HBM4/HBM4E 장기 공급·베이스다이 공동 로드맵", outcome: "학습 처리량·스케줄 방어" },
-          { seg: "엔터프라이즈 데이터레이크", pain: "벡터검색·체크포인트 I/O", solution: "고밀도 QLC eSSD·데이터 파이프라인", outcome: "검색·학습 데이터 처리량 가속" },
-        ];
-        return `
-        <div class="sc-section-lead">
-          <div><span>PARTNERS &amp; CLIENTS</span><h3>협력 모델과 솔루션 적용 플레이북</h3></div>
-          <p>AI 개발사·데이터센터 운영사·IT 컨설팅 펌과의 협력 모델과, Pain point를 해결하는 솔루션 적용 시나리오입니다.</p>
-        </div>
-        <div class="sc-partner-grid">
-          ${partners.map((p) => `
-            <article class="sc-partner" style="--sc-accent:${p.accent}">
-              <strong>${escapeHTML(p.type)}</strong>
-              <div class="sc-partner-row"><b>ROLE</b><span>${escapeHTML(p.role)}</span></div>
-              <div class="sc-partner-row"><b>VALUE</b><span>${escapeHTML(p.value)}</span></div>
-            </article>
-          `).join("")}
-        </div>
-        <div class="sc-playbook">
-          <div class="sc-report-head"><strong>솔루션 적용 플레이북</strong><span>적용 시나리오 · 실제 고객 데이터 아님</span></div>
-          <table class="sc-playbook-table">
-            <thead><tr><th>세그먼트</th><th>Pain point</th><th>맞춤 메모리 솔루션</th><th>기대 성과</th></tr></thead>
-            <tbody>
-              ${plays.map((p) => `<tr><td><b>${escapeHTML(p.seg)}</b></td><td>${escapeHTML(p.pain)}</td><td>${escapeHTML(p.solution)}</td><td>${escapeHTML(p.outcome)}</td></tr>`).join("")}
-            </tbody>
-          </table>
-        </div>
-        `;
-      })()}
+      <div class="sc-section-lead">
+        <div><span>${escapeHTML(techBoard.eyebrow || "TECH & MARKET INSIGHTS")}</span><h3>${escapeHTML(techBoard.title || "LLM Tech → Memory Implication")}</h3></div>
+        <p>${escapeHTML(techBoard.description || "검증 데이터 연결 대기")}</p>
+      </div>
+      ${techMap.length ? `<div class="sc-tech-grid">
+        ${techMap.map((item) => `
+          <article class="sc-tech-card" style="--sc-accent:${escapeHTML(item.accent || "#0A84B8")}">
+            <span class="sc-tech-en">${escapeHTML(item.context || "TECH CONTEXT")}</span>
+            <strong>${escapeHTML(item.tech || "")}</strong>
+            <p>${escapeHTML(item.impact || "")}</p>
+            <div class="sc-tech-mem"><b>MEMORY</b><span>${escapeHTML(item.memory || "")}</span></div>
+          </article>
+        `).join("")}
+      </div>` : `<p class="sc-empty">기술-메모리 매핑 검증 대기</p>`}
+      <div class="sc-report">
+        <div class="sc-report-head"><strong>AI Application · HW/SW 리포트</strong><span>${fmtNum(strategyBoard.freshEvidenceCount || 0)}/${fmtNum(strategyBoard.evidenceCount || 0)}건 Fresh</span></div>
+        ${reports.length ? `<ul class="sc-evidence-list">
+          ${reports.map((item) => `<li>
+            <span class="sc-ev-src">${escapeHTML(item.source || "출처")}</span>
+            <a href="${escapeHTML(item.url)}" target="_blank" rel="noopener">${escapeHTML(String(item.title || "").slice(0, 84))} ↗</a>
+            <small>${escapeHTML(item.publishedAt || "")}</small>
+          </li>`).join("")}
+        </ul>` : `<p class="sc-empty">직접 URL 근거 미관측 · 자동 수집 후 재구성</p>`}
+      </div>
+      <div class="sc-section-lead">
+        <div><span>${escapeHTML(partnerBoard.eyebrow || "PARTNERS & CLIENTS")}</span><h3>${escapeHTML(partnerBoard.title || "공동 검증 모델")}</h3></div>
+        <p>${escapeHTML(partnerBoard.description || "검증 가능한 역할과 Gate")}</p>
+      </div>
+      ${partnerModels.length ? `<div class="sc-partner-grid">
+        ${partnerModels.map((item) => `
+          <article class="sc-partner" style="--sc-accent:${escapeHTML(item.accent || "#00A88F")}">
+            <strong>${escapeHTML(item.type || "")}</strong>
+            <div class="sc-partner-row"><b>ROLE</b><span>${escapeHTML(item.role || "")}</span></div>
+            <div class="sc-partner-row"><b>VALUE</b><span>${escapeHTML(item.value || "")}</span></div>
+            <div class="sc-partner-row"><b>GATE</b><span>${escapeHTML(item.gate || "")}</span></div>
+          </article>
+        `).join("")}
+      </div>` : `<p class="sc-empty">파트너 역할 모델 검증 대기</p>`}
+      ${playbooks.length ? `<div class="sc-playbook">
+        <div class="sc-report-head"><strong>솔루션 적용 플레이북</strong><span>${escapeHTML(strategyBoard.disclosure || "공개 근거 기반 검증 가설")}</span></div>
+        <table class="sc-playbook-table">
+          <thead><tr><th>세그먼트</th><th>Pain point</th><th>통합 대안</th><th>경영 성과</th><th>검증 Gate</th></tr></thead>
+          <tbody>
+            ${playbooks.map((item) => `<tr><td><b>${escapeHTML(item.segment || "")}</b></td><td>${escapeHTML(item.pain || "")}</td><td>${escapeHTML(item.solution || "")}</td><td>${escapeHTML(item.outcome || "")}</td><td>${escapeHTML(item.gate || "")}</td></tr>`).join("")}
+          </tbody>
+        </table>
+      </div>` : ""}
       <p class="sc-note">우선순위는 최신 크롤의 연결 근거량 순 · 프레임워크 문구는 전략 가설이며, 수치·인용은 연결된 원문 근거로 검증 · 트렌드 키워드 클릭 시 관련 기사로 이동</p>
     `;
     host.querySelectorAll("[data-trend-term]").forEach((btn) => {

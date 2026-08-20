@@ -61,7 +61,7 @@ assert.match(landing, /function surfaceLuminance\(node, styleCache = null, surfa
 assert.match(landing, /requestAnimationFrame[\s\S]*?--tilt-x[\s\S]*?--tilt-y/);
 assert.match(landing, /setupReveal\(\);\s*setupConsultingCardMotion\(\);/);
 assert.match(landing, /renderCompetitorContent\(content\);[\s\S]*?applyUniversalSectionBindings\(content\);[\s\S]*?setupConsultingCardMotion\(\);/, "remaining dynamically regenerated cards must receive the same motion and contrast behavior");
-assert.match(landing, /infra-20260901-04/);
+assert.match(landing, /infra-[a-f0-9]{12}/);
 
 console.log(JSON.stringify({
   decisionThemes: "generated-current",

@@ -94,6 +94,11 @@ assert.equal(artifact.workloadOptimization.ragOperatingModel.pipeline.length, 13
 assert.equal(artifact.workloadOptimization.ragOperatingModel.maturity.length, 6);
 assert.ok(Number.isFinite(artifact.workloadOptimization.ragOperatingModel.liveControl.freshnessScore));
 assert.ok(artifact.workloadOptimization.sources.length >= 5);
+assert.ok(rebuilt.strategyBoard.tech.memoryMap.length >= 4);
+assert.ok(rebuilt.strategyBoard.partners.models.length >= 3);
+assert.ok(rebuilt.strategyBoard.playbooks.length >= 3);
+assert.equal(rebuilt.strategyBoard.reports.length, rebuilt.strategyBoard.evidenceCount);
+assert.ok(rebuilt.strategyBoard.reports.every((item) => item.url && item.source && item.evidenceLevel && item.topics.length));
 assert.equal(artifact.aiFactorySystem.architectureLayers.length, 9);
 assert.equal(artifact.aiFactorySystem.workloads.length, 6);
 assert.deepEqual(artifact.aiFactorySystem.workloads.map((item) => item.id), ["training", "realtime-inference", "batch-inference", "rag", "agentic", "multimodal"]);
@@ -129,6 +134,14 @@ const changedPayload = structuredClone(payload);
 changedPayload.runId = "automation-contract-test";
 changedPayload.updatedAt = "2031-01-02T03:04:05.000Z";
 changedPayload.expiresAt = "2031-01-03T03:04:05.000Z";
+changedPayload.news.unshift({
+  title: "AUTOMATED RAG SERVING MEMORY SIGNAL",
+  summary: "KV cache and retrieval memory architecture update",
+  link: "https://example.com/automated-rag-memory-signal",
+  source: "Official Test Source",
+  sourceClass: "official",
+  date: "2031-01-02",
+});
 const hbm = changedPayload.intelligence.briefs.find((item) => item.id === "hbm");
 hbm.latest.title = "AUTOMATED CURRENT HBM SIGNAL";
 hbm.latest.summary = "AUTOMATED CURRENT HBM SUMMARY";
@@ -159,6 +172,7 @@ assert.equal(changedHomepageAgenda.evidenceCount, 99);
 assert.equal(changed.hero.departmentWorkbench.runId, changedPayload.runId);
 assert.equal(changed.presentation.refreshPolicy.runId, changedPayload.runId);
 assert.equal(changed.presentation.refreshPolicy.generatedAt, changedPayload.updatedAt);
+assert.ok(changed.strategyBoard.reports.some((item) => item.title === "AUTOMATED RAG SERVING MEMORY SIGNAL"));
 
 assert.match(workflow, /cron: "17 \* \* \* \*"/);
 assert.match(workflow, /repository_dispatch:[\s\S]*earnings-release[\s\S]*industry-report[\s\S]*source-update/);
@@ -233,10 +247,12 @@ assert.doesNotMatch(
 assert.match(index, /Source → ClaimEvent → Decision → Execution/);
 assert.doesNotMatch(index, /Content Age|Embedding Lag|Stale Retrieval|Coverage Drift/);
 assert.match(app, /window\.MEMORY_SITE_CONTENT\?\.agentCouncil\?\.agendas/);
+assert.match(app, /window\.MEMORY_SITE_CONTENT\?\.strategyBoard/);
+assert.doesNotMatch(app, /const llmMap = \[|const partners = \[|const plays = \[/, "strategy board content must come from the generated site model");
 assert.match(landing, /previousRunId && previousRunId !== String\(content\.runId\) && isConsoleHash\(\)/);
 assert.match(landing, /window\.location\.reload\(\)/);
 assert.match(app, /replace\(\/솔리드다임\/g, "솔리다임"\)/, "the interactive console must normalize stale Solidigm labels at render time");
-assert.match(index, /infra-20260901-04/);
+assert.match(index, /infra-[a-f0-9]{12}/);
 assert.doesNotMatch(
   index,
   /data-live-source[^>]*>[\s\S]*?<\/a><\/div>\s*<dl>/,

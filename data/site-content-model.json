@@ -115,6 +115,73 @@
       "failClosed": true
     }
   },
+  "strategyBoard": {
+    "schemaVersion": "1.0",
+    "tech": {
+      "eyebrow": "TECH & MARKET INSIGHTS",
+      "title": "LLM 기술 변곡점 → Memory Requirement",
+      "description": "AI Application·HW/SW 변화를 Workload 병목과 메모리 요구사항으로 변환",
+      "memoryMap": [
+        {
+          "id": "transformer",
+          "tech": "Transformer · MoE",
+          "context": "Attention · Expert Routing",
+          "impact": "Parameter·Activation 상주와 Collective 증가",
+          "memory": "HBM4·HBM4E · Fabric",
+          "accent": "#2D6BFF"
+        },
+        {
+          "id": "context-kv",
+          "tech": "Long Context · KV Cache",
+          "context": "Prompt · Prefill · Decode",
+          "impact": "Token·동시 Session에 비례한 KV 용량 증가",
+          "memory": "HBM · Host DRAM · CXL",
+          "accent": "#00A88F"
+        },
+        {
+          "id": "rag",
+          "tech": "Enterprise RAG",
+          "context": "Hybrid Retrieval · Rerank",
+          "impact": "Index Freshness·P99·ACL이 데이터 배치 결정",
+          "memory": "DRAM · CXL · eSSD",
+          "accent": "#0A84B8"
+        },
+        {
+          "id": "vector-data",
+          "tech": "Vector DB · Data Pipeline",
+          "context": "Embedding · Checkpoint",
+          "impact": "Active Index와 대용량 Corpus의 계층화",
+          "memory": "고용량 DRAM · TLC/QLC eSSD",
+          "accent": "#7656C9"
+        }
+      ]
+    },
+    "reportPolicy": {
+      "limit": 6,
+      "freshDays": 120,
+      "topics": [
+        { "id": "serving", "label": "LLM SERVING", "terms": ["llm", "inference", "serving", "vllm", "dynamo", "prefill", "decode", "kv cache", "추론", "서빙"] },
+        { "id": "rag", "label": "RAG / VECTOR", "terms": ["rag", "retrieval", "vector", "embedding", "rerank", "context", "검색", "벡터"] },
+        { "id": "accelerator", "label": "ACCELERATOR / MEMORY", "terms": ["gpu", "accelerator", "asic", "hbm", "cxl", "dram", "nand", "ssd", "가속기", "메모리"] }
+      ]
+    },
+    "partners": {
+      "eyebrow": "PARTNERS & CLIENTS",
+      "title": "Pain 진단 → 공동 PoC → Qualification → Repeat",
+      "description": "파트너 역할과 검증 Gate를 반복 가능한 공동사업 구조로 연결",
+      "models": [
+        { "id": "ai-developer", "type": "AI 개발사", "role": "Model·Serving Workload와 SLO 정의", "value": "Memory Requirement·공동 Benchmark", "gate": "대표 Trace·Decision Owner", "accent": "#2D6BFF" },
+        { "id": "data-center", "type": "데이터센터·CSP", "role": "전력·열·Fabric·Storage 운영", "value": "Rack TCO·Qualification 환경", "gate": "운영 Baseline·반복 재현", "accent": "#00A88F" },
+        { "id": "oem-si", "type": "OEM·Platform·Consulting/SI", "role": "통합·고객 인증·확산", "value": "Reference Offer·Go-to-Market", "gate": "공식 협업·RACI 확인", "accent": "#C88600" }
+      ]
+    },
+    "playbooks": [
+      { "id": "agentic-serving", "segment": "Agentic AI Serving", "pain": "KV Cache·TTFT·Token 원가", "solution": "Serving SW × HBM/Host/CXL/eSSD 배치", "outcome": "SLO-constrained Goodput·Cost/Task", "gate": "동일 Trace·Quality·P99 재현" },
+      { "id": "training-ramp", "segment": "AI Training Cluster", "pain": "대역폭·Collective·Checkpoint 병목", "solution": "HBM·Fabric·eSSD 공동 Roadmap", "outcome": "Time-to-Train·가동률·Ramp 방어", "gate": "Qualification·Capacity·Margin" },
+      { "id": "enterprise-rag", "segment": "Enterprise RAG", "pain": "검색 품질·Index Freshness·P99", "solution": "Hybrid Retrieval × DRAM/CXL/eSSD Tier", "outcome": "Citation 품질·Cost/Query·운영 신뢰성", "gate": "Recall·ACL·Freshness·P99" }
+    ],
+    "disclosure": "전략 플레이북 · 실제 고객 성과가 아닌 공개 근거 기반 검증 가설"
+  },
   "aiFactorySystem": {
     "title": "AI Factory System Optimization · Useful Work per MW",
     "thesis": "가속기·메모리·네트워크·스토리지·스케줄러·LLM Serving·전력·냉각을 개별 구매 항목이 아니라 하나의 Workload SLO와 단위경제성으로 공동 최적화합니다.",
