@@ -2221,6 +2221,7 @@
   let newsSearch = "";
   let newsCompany = "all";
   let newsSource = "english";
+  let newsRenderToken = 0;
   let communityType = "all";
   let communityPlatform = "all";
   let workbenchMode = "executive";
@@ -24485,13 +24486,16 @@
   }
 
   function renderNewsBucket(list, items, emptyMessage) {
+    const renderToken = ++newsRenderToken;
     list.innerHTML = "";
     if (!items.length) {
       list.appendChild(el("li", "news-empty-row", `<span class="empty empty-action"><strong>${escapeHTML(emptyMessage)}</strong><em>업체 드롭다운을 전체 업체로 바꾸면 즉시 다시 계산됩니다.</em></span>`));
       return;
     }
 
-    items.slice().sort(compareNewsItems).forEach((item) => {
+    const sortedItems = items.slice().sort(compareNewsItems);
+    let cursor = 0;
+    const appendItem = (item) => {
       const li = el("li", "news-card-item");
       const card = el("article", "news-card");
       const a = el("a", "news-title");
@@ -24522,7 +24526,21 @@
       attachCrawlModerationControl(card, "news", item, newsTitle(item), renderNews);
       li.appendChild(card);
       list.appendChild(li);
-    });
+    };
+    const appendBatch = (deadline = { didTimeout: true, timeRemaining: () => 8 }) => {
+      if (renderToken !== newsRenderToken || !list.isConnected) return;
+      let rendered = 0;
+      while (cursor < sortedItems.length && rendered < 12) {
+        if (rendered >= 4 && !deadline.didTimeout && deadline.timeRemaining() < 4) break;
+        appendItem(sortedItems[cursor++]);
+        rendered += 1;
+      }
+      list.dataset.renderedItems = `${cursor}/${sortedItems.length}`;
+      if (cursor >= sortedItems.length) return;
+      if ("requestIdleCallback" in window) window.requestIdleCallback(appendBatch, { timeout: 320 });
+      else window.setTimeout(() => appendBatch(), 32);
+    };
+    appendBatch();
   }
 
   /* ---------------- China public community and hiring signals ---------------- */

@@ -54,7 +54,7 @@ assert.match(landing, /liveSummary\.hidden = !summaryCopy/, "an empty evidence s
 assert.match(landing, /summary\.hidden = !summaryCopy/, "refreshed evidence must use the same removal policy");
 assert.match(landing, /paragraphMaxCharacters \|\| 92/);
 assert.match(landing, /listMaxCharacters \|\| 78/);
-assert.match(landing, /memory-console-ready[\s\S]*?scheduleSequence\(sections\.length \? sections : \[consoleRoot\]/, "dynamically rendered Console copy must be scheduled section by section");
+assert.match(landing, /memory-console-ready[\s\S]*?const targets = sections\.length \? sections : \[consoleRoot\][\s\S]*?IntersectionObserver[\s\S]*?sectionObserver\.unobserve/, "dynamically rendered Console copy must be scheduled near the viewport section by section");
 assert.match(landing, /const flushCopy = \(\) => \{[\s\S]*?applyExecutiveCopyStyle\(root, presentationPolicy\?\.readabilityPolicy \|\| \{\}\)/, "the sequential Console pass must retain the executive bullet policy");
 assert.match(app, /function executiveBulletText\(value = ""\)/);
 assert.doesNotMatch(app.match(/const BRIEF_COPY_EXEMPT_SELECTOR[\s\S]*?\.join\(","\);/)?.[0] || "", /\.agent-answer|\.qa-answer|\.answer-panel/, "generated answers must follow the bullet-copy policy");

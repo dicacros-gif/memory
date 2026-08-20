@@ -152,8 +152,8 @@ assert.match(app, /priceHistory: \{[\s\S]*?path: "data\/price-history-client\.js
 assert.match(css, /\.agent-debate-title \.agent-tts-toggle \{[\s\S]*?min-width: 190px;[\s\S]*?min-height: 44px;/, "the English TTS control should be large and readable");
 assert.match(css, /\.agent-tts-state \{[\s\S]*?min-width: 31px;/, "the TTS control should expose a dedicated on-or-off state badge");
 assert.match(html, /landing\.min\.js\?v=infra-[a-f0-9]{12}/, "the public landing controller should include the minified AI Infra revision");
-assert.match(css, /\.consulting-system \.news-card:is\(:hover, :focus-within\) \.news-insights > span \{[\s\S]*?background: rgba\(255, 255, 255, \.9\);[\s\S]*?color: var\(--consulting-slate\) !important;[\s\S]*?-webkit-text-fill-color: var\(--consulting-slate\);/, "light consulting news cards must keep high-contrast insight copy on hover");
-assert.match(css, /\.consulting-system \.news-card:is\(:hover, :focus-within\) :is\(\.strategy-highlight, \.answer-term\) \{[\s\S]*?--term-color: #334155;[\s\S]*?text-shadow: none;/, "light consulting news cards must restore dark semantic terms on hover");
+assert.match(css, /Nested news-card contrast lock[\s\S]*?\.news-insights > span \{[\s\S]*?background: rgba\(248, 250, 252, \.97\) !important;[\s\S]*?color: #334155 !important;/, "nested consulting news rows must keep high-contrast insight copy on hover");
+assert.match(css, /Nested news-card contrast lock[\s\S]*?\.news-insights > span :is\(\.strategy-highlight, \.answer-term\) \{[\s\S]*?--term-color: #334155;[\s\S]*?text-shadow: none !important;/, "light news rows must restore dark semantic terms on hover");
 assert.doesNotMatch(html, /<script[^>]+src="assets\/js\/app\.js/, "the dashboard JavaScript must load only when the Intelligence Console is opened");
 assert.doesNotMatch(html, /<link[^>]+href="assets\/css\/styles\.css/, "the dashboard stylesheet must load only when the Intelligence Console is opened");
 assert.match(html, /class="strategic-decision-side"[\s\S]*?id="chinaDecisionVideoPanel"[\s\S]*?id="strategicDecisionFocus"/, "the China decision video should lead the right-hand decision column");

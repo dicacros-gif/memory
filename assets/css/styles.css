@@ -19671,6 +19671,8 @@ body.consulting-system {
 .news-card-item {
   min-width: 0;
   display: flex;
+  content-visibility: auto;
+  contain-intrinsic-size: auto 340px;
 }
 
 .news-empty-row {
@@ -28348,52 +28350,6 @@ button.ni-trend-chip:hover { box-shadow: 0 4px 12px color-mix(in srgb, #0891B2 2
   .sc-card:hover { transform: none; }
 }
 
-/* Consulting news cards keep a light surface on hover. The shared news-card
-   inversion rules are declared earlier for dark gradients, so restore dark
-   ink here after the full cascade and keep semantic terms readable. */
-.consulting-system .news-card:is(:hover, :focus-within) .news-title {
-  color: var(--consulting-navy) !important;
-  -webkit-text-fill-color: var(--consulting-navy);
-}
-
-.consulting-system .news-card:is(:hover, :focus-within) .news-meta {
-  color: var(--consulting-slate) !important;
-  -webkit-text-fill-color: var(--consulting-slate);
-}
-
-.consulting-system .news-card:is(:hover, :focus-within) .news-insights > span {
-  border-color: var(--consulting-line);
-  background: rgba(255, 255, 255, .9);
-  color: var(--consulting-slate) !important;
-  -webkit-text-fill-color: var(--consulting-slate);
-}
-
-.consulting-system .news-card:is(:hover, :focus-within) .news-insights > span > b {
-  color: var(--consulting-teal) !important;
-  -webkit-text-fill-color: var(--consulting-teal);
-}
-
-.consulting-system .news-card:is(:hover, :focus-within) .news-insights > span > em {
-  color: var(--consulting-slate) !important;
-  -webkit-text-fill-color: var(--consulting-slate);
-}
-
-.consulting-system .news-card:is(:hover, :focus-within) :is(.strategy-highlight, .answer-term) {
-  --term-color: #334155;
-  --term-hover: #334155;
-  color: var(--term-color) !important;
-  -webkit-text-fill-color: var(--term-color);
-  text-shadow: none;
-}
-
-.consulting-system .news-card:is(:hover, :focus-within) .term-company { --term-color: #5b21b6; }
-.consulting-system .news-card:is(:hover, :focus-within) .term-source { --term-color: #1e40af; }
-.consulting-system .news-card:is(:hover, :focus-within) .term-policy { --term-color: #9a3412; }
-.consulting-system .news-card:is(:hover, :focus-within) .term-tech { --term-color: #006d63; }
-.consulting-system .news-card:is(:hover, :focus-within) .term-metric { --term-color: #a61b12; }
-.consulting-system .news-card:is(:hover, :focus-within) .term-action { --term-color: #047857; }
-.consulting-system .news-card:is(:hover, :focus-within) .term-key { --term-color: #9d174d; }
-
 /* -------------------------------------------------------------------
    2026-08-15 · Executive consulting geometry system
    Flat evidence architecture: no AI glow, gradient highlight, or colored
@@ -30300,4 +30256,49 @@ body.consulting-system {
 #intelligenceConsole .sb-cat.active:is(:hover, :focus-visible, :focus-within) small {
   color: rgba(255, 255, 255, .78) !important;
   -webkit-text-fill-color: rgba(255, 255, 255, .78) !important;
+}
+
+/* Nested news-card contrast lock
+   The parent card may invert to navy, while its compact evidence rows remain
+   light surfaces with dark ink in both themes and every interaction state */
+.consulting-system #intelligenceConsole .news-card:is(:hover, :focus-visible, :focus-within) .source-tag {
+  border-color: rgba(255, 255, 255, .9) !important;
+  background: rgba(255, 255, 255, .96) !important;
+  color: #17324d !important;
+  -webkit-text-fill-color: #17324d !important;
+}
+
+.consulting-system #intelligenceConsole .news-card:is(:hover, :focus-visible, :focus-within) .news-insights > span {
+  border-color: #cbd5e1 !important;
+  background: rgba(248, 250, 252, .97) !important;
+  color: #334155 !important;
+  -webkit-text-fill-color: #334155 !important;
+}
+
+.consulting-system #intelligenceConsole .news-card:is(:hover, :focus-visible, :focus-within) .news-insights > span > b {
+  color: #08766f !important;
+  -webkit-text-fill-color: #08766f !important;
+}
+
+.consulting-system #intelligenceConsole .news-card:is(:hover, :focus-visible, :focus-within) .news-insights > span > em {
+  color: #334155 !important;
+  -webkit-text-fill-color: #334155 !important;
+}
+
+.consulting-system #intelligenceConsole .news-card:is(:hover, :focus-visible, :focus-within) .news-insights > span :is(
+  .ui-contrast-on-dark,
+  .ui-contrast-on-light,
+  .ui-readable-opacity
+) {
+  opacity: 1 !important;
+  color: inherit !important;
+  -webkit-text-fill-color: currentColor !important;
+}
+
+.consulting-system #intelligenceConsole .news-card:is(:hover, :focus-visible, :focus-within) .news-insights > span :is(.strategy-highlight, .answer-term) {
+  --term-color: #334155;
+  --term-hover: #334155;
+  color: var(--term-color) !important;
+  -webkit-text-fill-color: var(--term-color) !important;
+  text-shadow: none !important;
 }

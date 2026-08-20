@@ -122,7 +122,7 @@
     (() => {
       if (!location.hash.startsWith("#console")) return;
       document.documentElement.classList.add("console-entry");
-      const revision = "infra-b128e57279e2";
+      const revision = "infra-bcf059524dcf";
       const assets = [
         ["consoleStylesPreload", "style", `assets/css/styles.min.css?v=${revision}`, "high"],
         ["consoleAppPreload", "script", `assets/js/app.min.js?v=${revision}`, "high"],
@@ -139,7 +139,7 @@
       }
     })();
   </script>
-  <link rel="stylesheet" href="assets/css/landing.min.css?v=infra-b128e57279e2" />
+  <link rel="stylesheet" href="assets/css/landing.min.css?v=infra-bcf059524dcf" />
 </head>
 <body class="landing-mode">
   <div class="business-site" id="businessSite">
@@ -177,7 +177,7 @@
       <section class="business-hero" id="home">
         <div class="business-hero-media" aria-hidden="true">
           <video class="business-hero-video" autoplay muted loop playsinline preload="metadata" poster="assets/media/memory-hero-poster.webp" disablepictureinpicture>
-            <source src="assets/media/ai-infra-hero.mp4" type="video/mp4" />
+            <source data-src="assets/media/ai-infra-hero.mp4" type="video/mp4" />
           </video>
           <div class="business-hero-video-shade"></div>
           <figure class="business-hero-media-slide">
@@ -1907,6 +1907,6 @@
   <div class="qa-answer" id="qaAnswer" hidden></div>
   <div class="inspector" id="inspector" hidden></div>
   <div class="backdrop" id="backdrop"></div>
-  <script src="assets/js/landing.min.js?v=infra-b128e57279e2" defer></script>
+  <script src="assets/js/landing.min.js?v=infra-bcf059524dcf" defer></script>
 </body>
 </html>

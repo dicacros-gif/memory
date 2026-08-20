@@ -3,7 +3,7 @@
 
   const BUSINESS_TITLE = "AI Infra Strategy · Customer Pain to Executive Action";
   const CONSOLE_HASH = "#console";
-  const CONSOLE_REVISION = "infra-b128e57279e2";
+  const CONSOLE_REVISION = "infra-bcf059524dcf";
   const DECISION_CLIENT_PATH = "data/landing-decision-client.json";
   const SITE_CONTENT_PATH = "data/site-content-client.json";
   const site = document.querySelector("#businessSite");
@@ -456,8 +456,18 @@
     const media = document.querySelector(".business-hero-media");
     if (!media || media.dataset.rotationSetup === "1") return;
     media.dataset.rotationSetup = "1";
+    const video = media.querySelector(".business-hero-video");
     const images = [...media.querySelectorAll("img")];
     let fallback = 0;
+    const hydrateVideo = () => {
+      if (!video || video.dataset.hydrated === "1") return;
+      const source = video.querySelector("source[data-src]");
+      if (!source?.dataset.src) return;
+      source.src = source.dataset.src;
+      video.dataset.hydrated = "1";
+      video.load();
+      video.play().catch(() => { /* Poster remains visible when autoplay is unavailable */ });
+    };
     const activate = () => {
       window.clearTimeout(fallback);
       if (media.dataset.rotationReady === "1") return;
@@ -465,6 +475,7 @@
       document.body.dataset.heroMedia = "ready";
     };
     const prepare = () => window.setTimeout(() => scheduleIdleStep(() => {
+      hydrateVideo();
       const secondary = images.slice(1);
       fallback = window.setTimeout(activate, 1400);
       if (!secondary.length) {
@@ -476,7 +487,7 @@
         image.fetchPriority = "low";
         return typeof image.decode === "function" ? image.decode() : Promise.resolve();
       })).then(activate);
-    }, 900), 8000);
+    }, 900), 1200);
     if (document.readyState === "complete") prepare();
     else window.addEventListener("load", prepare, { once: true });
   }
@@ -1538,27 +1549,35 @@
       attributeFilter: ["hidden", "data-progressive-state", "data-deferred-state"],
     });
     window.setTimeout(() => { observerActive = true; }, 2500);
+    let sectionObserver = null;
     window.addEventListener("memory-console-ready", () => {
       const consoleRoot = document.querySelector("#intelligenceConsole") || document.body;
       const sections = [...consoleRoot.querySelectorAll(":scope .main > section")];
-      scheduleSequence(sections.length ? sections : [consoleRoot], 120, () => applySparseConsoleEmphasis(consoleRoot));
+      const targets = sections.length ? sections : [consoleRoot];
+      if (!("IntersectionObserver" in window)) {
+        scheduleSequence(targets, 120, () => applySparseConsoleEmphasis(consoleRoot));
+        return;
+      }
+      sectionObserver?.disconnect();
+      sectionObserver = new IntersectionObserver((entries) => {
+        for (const entry of entries) {
+          if (!entry.isIntersecting) continue;
+          schedule(entry.target);
+          sectionObserver.unobserve(entry.target);
+        }
+      }, { rootMargin: "360px 0px", threshold: .01 });
+      targets.forEach((section) => sectionObserver.observe(section));
+      scheduleIdleStep(() => applySparseConsoleEmphasis(consoleRoot), 700);
     });
     window.__applyReadabilityGuard = applyReadabilityGuard;
     window.addEventListener("resize", () => {
       const visibleSection = document.elementFromPoint(window.innerWidth / 2, Math.min(window.innerHeight / 2, 480))?.closest("section");
       if (visibleSection) schedule(visibleSection);
     }, { passive: true });
-    const refreshInteractiveContrast = (event) => {
-      const target = event.target instanceof Element ? event.target : event.target?.parentElement;
-      const surface = target?.closest?.("[data-hover-mode], a, button, article, li, [class*='card'], [class*='panel'], [class*='tile'], .sc-card, .decision-card, .decision-flip-card, .domain-agent-workstream, .ai-council-agenda-card") || target;
-      if (!surface) return;
-      schedule(surface);
-    };
-    window.addEventListener("pointerover", refreshInteractiveContrast, { passive: true, capture: true });
-    window.addEventListener("pointerout", refreshInteractiveContrast, { passive: true, capture: true });
-    window.addEventListener("focusin", refreshInteractiveContrast, { passive: true, capture: true });
-    window.addEventListener("focusout", refreshInteractiveContrast, { passive: true, capture: true });
-    window.addEventListener("pagehide", () => observer.disconnect(), { once: true });
+    window.addEventListener("pagehide", () => {
+      observer.disconnect();
+      sectionObserver?.disconnect();
+    }, { once: true });
   }
 
   function applyPresentationPolicy(policy = {}) {

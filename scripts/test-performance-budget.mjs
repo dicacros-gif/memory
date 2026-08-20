@@ -47,6 +47,11 @@ assert.match(files.landingJs.text, /function setupBusinessNavObserver\([\s\S]*?I
 assert.match(files.landingJs.text, /const updates = \[\];[\s\S]*?updates\.push[\s\S]*?for \(const update of updates\)/);
 assert.doesNotMatch(files.landingJs.text.match(/function applyReadabilityGuard\([\s\S]*?\n  \}\n\n  function setupReadabilityGuard/)?.[0] || "", /getBoundingClientRect/);
 assert.match(files.html.text, /business-hero-video"[^>]*preload="metadata"/);
+assert.match(files.html.text, /business-hero-video"[\s\S]*?<source data-src="assets\/media\/ai-infra-hero\.mp4"/);
+assert.doesNotMatch(files.html.text, /<source src="assets\/media\/ai-infra-hero\.mp4"/);
+assert.match(files.landingJs.text, /function setupHeroMediaRotation\([\s\S]*?source\[data-src\][\s\S]*?video\.dataset\.hydrated = "1"/);
+assert.match(files.landingJs.text, /memory-console-ready[\s\S]*?new IntersectionObserver[\s\S]*?rootMargin: "360px 0px"/);
+assert.doesNotMatch(files.landingJs.text, /refreshInteractiveContrast/);
 assert.match(files.html.text, /hbm-system\.webp" alt="" width="1920" height="1072" loading="lazy"/);
 assert.doesNotMatch(files.html.text, /hbm-system\.webp"[^>]*fetchpriority="high"/);
 assert.doesNotMatch(files.landingJs.text, /rootMargin:\s*"0px 0px -8%"/);
@@ -59,6 +64,8 @@ assert.doesNotMatch(files.appJs.text, /function observeDeferredSections\(/);
 assert.match(files.appJs.text, /window\.requestIdleCallback\(prepareDrop/);
 assert.match(files.appJs.text, /memory-console-ready", scheduleHeroVideo/);
 assert.match(files.html.text, /data-src="assets\/media\/memory-hero-lite\.mp4"/);
+assert.match(files.appJs.text, /function renderNewsBucket\([\s\S]*?rendered < 12[\s\S]*?requestIdleCallback\(appendBatch, \{ timeout: 320 \}\)/);
+assert.match(files.stylesCss.text, /\.news-card-item \{[\s\S]*?content-visibility:\s*auto;[\s\S]*?contain-intrinsic-size:\s*auto 340px;/);
 
 for (const [sourceKey, minKey, minimumRawSaving] of [
   ["landingCss", "landingMinCss", 0.15],
