@@ -163,7 +163,7 @@ assert.match(html, /id="memoryHeroVideo"[\s\S]*?preload="none"[\s\S]*?data-poste
 assert.match(html, /id="talentStrategyVideoMedia"[\s\S]*?preload="none"[\s\S]*?data-poster="assets\/media\/china-talent-strategy-poster\.webp"[\s\S]*?<source data-src="assets\/media\/china-talent-strategy\.mp4"/, "below-fold talent media should not load during first paint");
 assert.doesNotMatch(html, /family=Noto\+Sans\+KR/, "Pretendard should replace the duplicate Korean webfont download");
 assert.doesNotMatch(html, /fonts\.googleapis\.com|fonts\.gstatic\.com|cdn\.jsdelivr\.net|pretendard\.min\.css/, "initial rendering should use local system fonts without external font requests");
-assert.match(app, /function ensureResearchArchiveLoaded\(\)[\s\S]*?requestIdleCallback\(enrichResearchTimeline/, "the persistent research archive should load after the first dashboard paint");
+assert.match(app, /function scheduleOverviewDetails\(\)[\s\S]*?renderNewsInsightSummary[\s\S]*?ensureResearchArchiveLoaded\(\)\.then\(renderNewsInsightSummary\)[\s\S]*?requestIdleCallback\(run/, "the persistent research archive should load after the first dashboard paint");
 assert.match(css, /\.market-peer-card \{[\s\S]*?--peer-frame: color-mix\(in srgb, #68778b 56%, var\(--line\)\);[\s\S]*?border: 2px solid var\(--peer-frame\);[\s\S]*?linear-gradient\(145deg,[\s\S]*?#64748b 7%/, "peer cards should use a restrained shared slate frame");
 assert.doesNotMatch(css, /\.market-peer-card \{[\s\S]*?border: 2px solid color-mix\(in srgb, var\(--peer-brand\)/, "peer card borders should not vary by company brand");
 assert.doesNotMatch(css, /\.market-peer-card \{[\s\S]*?box-shadow: inset 0 3px 0 var\(--peer-brand\);/, "peer cards should not use an isolated top-edge highlight");

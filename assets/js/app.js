@@ -4352,27 +4352,21 @@
   }
 
   async function init() {
-    // Start critical data requests before synchronous UI setup. On a cold
-    // GitHub Pages visit this overlaps JSON latency with shell construction.
+    // Only decision-critical artifacts participate in the interactive gate.
+    // Crawl policy and audit detail are below-fold controls and load after the
+    // shell is usable.
     const manifestPromise = loadDataManifest();
-    const auditPromise = loadJSON("data/crawl-audit.json", null, { cache: "no-cache" });
     const baselinePromise = loadJSON("data/baseline.json", null);
-    const crawlExclusionsPromise = loadJSON("data/crawl-exclusions.json", emptyCrawlExclusions);
     document.body.classList.add("consulting-system");
-    distributeVisualStories();
-    setupMediaExperience();
-    setupMemoryScrollStory();
     // Paint the persistent shell before any JSON request completes. Navigation
     // is static, so it stays usable even on a cold GitHub Pages cache.
     renderChrome();
     renderSidebarNav();
     DATA_MANIFEST = await manifestPromise;
-    [BASE, LIVE, REPO_CRAWL_EXCLUSIONS, QUANT, DATA_AUDIT] = await Promise.all([
+    [BASE, LIVE, QUANT] = await Promise.all([
       baselinePromise,
       loadManagedJSON("live", "data/live-client.json", emptyLive),
-      crawlExclusionsPromise,
       loadManagedJSON("quant", "data/quant-client.json", null),
-      auditPromise,
     ]);
     LIVE = selectVerifiedLiveData(LIVE);
     LIVE = normalizeLiveData(LIVE);
@@ -4389,31 +4383,72 @@
     document.title = BASE.meta?.title || document.title;
     renderSidebarCategories();
     renderKpis();
-    renderMemoryBypassRoutes();
-    renderNewsInsightSummary();
-    // The persistent research timeline is below the first viewport. Load it
-    // after the core dashboard is interactive, then enrich that section without
-    // holding back first paint.
-    const enrichResearchTimeline = () => {
-      ensureResearchArchiveLoaded().then(renderNewsInsightSummary);
-    };
-    if ("requestIdleCallback" in window) window.requestIdleCallback(enrichResearchTimeline, { timeout: 1800 });
-    else window.setTimeout(enrichResearchTimeline, 450);
     setupQA();
     setupInteractions();
     setupScrollSpy();
-    normalizeBriefCopy(document.body);
     setupBriefCopyObserver();
-    animateCounts();
-    animateMeters();
-    setupKpiCountReplay();
-    schedulePostPaintEnhancements();
-    setupDeferredSections();
     window.addEventListener("hashchange", () => void applyConsoleDeepLink());
-    window.setTimeout(() => void applyConsoleDeepLink(), 0);
     window.setTimeout(finalizeConsoleLoadingLabels, 8000);
     document.body.dataset.consoleReady = "1";
+    performance.mark("memory-console-interactive");
     window.dispatchEvent(new Event("memory-console-ready"));
+    scheduleInteractiveEnhancements();
+    scheduleOverviewDetails();
+    schedulePolicyArtifacts();
+  }
+
+  function scheduleInteractiveEnhancements() {
+    const run = () => {
+      normalizeBriefCopy(document.body);
+      animateCounts();
+      animateMeters();
+      setupKpiCountReplay();
+      schedulePostPaintEnhancements();
+      setupDeferredSections();
+      window.setTimeout(() => void applyConsoleDeepLink(), 0);
+      document.body.dataset.interactiveEnhancements = "ready";
+    };
+    if ("requestIdleCallback" in window) window.requestIdleCallback(run, { timeout: 360 });
+    else window.setTimeout(run, 48);
+  }
+
+  function scheduleOverviewDetails() {
+    const tasks = [
+      () => {
+        distributeVisualStories();
+        setupMediaExperience();
+        setupMemoryScrollStory();
+      },
+      renderMemoryBypassRoutes,
+      renderNewsInsightSummary,
+      () => { void ensureResearchArchiveLoaded().then(renderNewsInsightSummary); },
+    ];
+    let cursor = 0;
+    const next = () => {
+      const run = () => {
+        const task = tasks[cursor++];
+        if (task) task();
+        document.body.dataset.overviewHydration = `${cursor}/${tasks.length}`;
+        if (cursor < tasks.length) next();
+        else document.body.dataset.overviewHydration = "ready";
+      };
+      if ("requestIdleCallback" in window) window.requestIdleCallback(run, { timeout: 520 });
+      else window.setTimeout(run, 72);
+    };
+    next();
+  }
+
+  function schedulePolicyArtifacts() {
+    const load = async () => {
+      [DATA_AUDIT, REPO_CRAWL_EXCLUSIONS] = await Promise.all([
+        loadJSON("data/crawl-audit.json", null, { cache: "no-cache" }),
+        loadJSON("data/crawl-exclusions.json", emptyCrawlExclusions),
+      ]);
+      refreshCrawlExclusionKeys();
+      document.body.dataset.policyArtifacts = "ready";
+    };
+    if ("requestIdleCallback" in window) window.requestIdleCallback(() => { void load(); }, { timeout: 2400 });
+    else window.setTimeout(() => { void load(); }, 900);
   }
 
   function schedulePostPaintEnhancements() {

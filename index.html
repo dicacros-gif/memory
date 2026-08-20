@@ -122,10 +122,10 @@
     (() => {
       if (!location.hash.startsWith("#console")) return;
       document.documentElement.classList.add("console-entry");
-      const revision = "infra-833f1b793ea0";
+      const revision = "infra-3829574d7f1f";
       const assets = [
         ["consoleStylesPreload", "style", `assets/css/styles.min.css?v=${revision}`, "high"],
-        ["consoleAppPreload", "script", `assets/js/app.min.js?v=${revision}`, "low"],
+        ["consoleAppPreload", "script", `assets/js/app.min.js?v=${revision}`, "high"],
         ["consolePosterPreload", "image", "assets/media/memory-hero-poster.webp", "high"],
       ];
       for (const [id, as, href, priority] of assets) {
@@ -139,7 +139,7 @@
       }
     })();
   </script>
-  <link rel="stylesheet" href="assets/css/landing.min.css?v=infra-833f1b793ea0" />
+  <link rel="stylesheet" href="assets/css/landing.min.css?v=infra-3829574d7f1f" />
 </head>
 <body class="landing-mode">
   <div class="business-site" id="businessSite">
@@ -1907,6 +1907,6 @@
   <div class="qa-answer" id="qaAnswer" hidden></div>
   <div class="inspector" id="inspector" hidden></div>
   <div class="backdrop" id="backdrop"></div>
-  <script src="assets/js/landing.min.js?v=infra-833f1b793ea0" defer></script>
+  <script src="assets/js/landing.min.js?v=infra-3829574d7f1f" defer></script>
 </body>
 </html>

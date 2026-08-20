@@ -90,7 +90,7 @@ assert.doesNotMatch(html, /CEO 챌린지|id="ceoChallengeSelect"|id="ceoAgentAns
 assert.doesNotMatch(app, /id: "china-dram"/, "China DRAM decision axis should be retired");
 assert.doesNotMatch(app, /id: "china",\s+accent: "#DB2777"/, "China consulting lens should be retired");
 assert.match(app, /const manifestPromise = loadDataManifest\(\);/, "critical manifest request must start early");
-assert.match(app, /const auditPromise = loadJSON\("data\/crawl-audit\.json"/, "the evidence audit must load with the decision control plane");
+assert.match(app, /function schedulePolicyArtifacts\(\)[\s\S]*?loadJSON\("data\/crawl-audit\.json"[\s\S]*?loadJSON\("data\/crawl-exclusions\.json"[\s\S]*?requestIdleCallback/, "the evidence audit must load after the decision control plane is interactive");
 assert.match(app, /function updateScrollSpyFromGeometry\(\)/, "scroll spy must use cached geometry");
 assert.match(app, /function scheduleProgressiveDeferredSections\(definitions\)[\s\S]*?const first = queue\[cursor\+\+\][\s\S]*?ensureDeferredSection\(first\.id\)\.finally/, "the first strategy section should be ready immediately and later sections should follow without scrolling");
 assert.doesNotMatch(app, /function observeDeferredSections\(|rootMargin: "900px 0px"/, "deferred loading must not wait for viewport intersection");
@@ -164,7 +164,7 @@ assert.match(landing, /function loadAppScript\(\)[\s\S]*?assets\/js\/app\.min\.j
 assert.match(landing, /assets\/css\/styles\.min\.css\?v=\$\{CONSOLE_REVISION\}/, "minified console-only styling must load on demand");
 assert.match(html, /location\.hash\.startsWith\("#console"\)[\s\S]*?consolePosterPreload[\s\S]*?memory-hero-poster\.webp/, "direct console and deep-link entry must discover the LCP poster during head parsing");
 assert.match(landing, /function primeConsoleAssets\(\)[\s\S]*?consoleAppPreload[\s\S]*?consolePosterPreload/, "console assets must be primed in parallel before activation");
-assert.match(landing, /await loadStylesheet\(\);[\s\S]*?activeConsoleLayer\.hidden = false;[\s\S]*?await loadConsole\(\);/, "the console must stay hidden until its stylesheet is ready");
+assert.match(landing, /const consoleReady = loadConsole\(\);[\s\S]*?await loadStylesheet\(\);[\s\S]*?activeConsoleLayer\.hidden = false;[\s\S]*?finishConsoleStartup\(\);[\s\S]*?await consoleReady;/, "the styled console shell must appear while data hydration continues");
 assert.match(html, /id="consoleStaticSnapshot"[\s\S]*?SIGNAL[\s\S]*?DIAGNOSE[\s\S]*?KILL Criteria|id="consoleStaticSnapshot"[\s\S]*?Kill Criteria/, "direct console entry must expose an indexable decision snapshot instead of an empty loader");
 assert.match(html, /#console\/c-level-cockpit\/hbm4-foundry[\s\S]*?#console\/c-level-cockpit\/post-hbm/, "the static console snapshot must expose stable decision deep links");
 assert.match(landing, /function isConsoleHash\([\s\S]*?startsWith\(`\$\{CONSOLE_HASH\}\//, "the landing controller must keep console deep links inside the console view");

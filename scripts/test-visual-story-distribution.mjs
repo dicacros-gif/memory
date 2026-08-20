@@ -37,7 +37,7 @@ assert.ok(
 );
 
 assert.match(app, /function distributeVisualStories\(\)[\s\S]*?visual-bridge-system[\s\S]*?memory-visual-story[\s\S]*?visual-bridge-execution[\s\S]*?memory-scroll-story[\s\S]*?visual-bridge-demand[\s\S]*?ai-demand-scroll-story[\s\S]*?visual-bridge-competition[\s\S]*?competitive-scroll-story/);
-assert.match(app, /document\.body\.classList\.add\("consulting-system"\);\s*distributeVisualStories\(\);\s*setupMediaExperience\(\);/, "visuals must be distributed before media initialization");
+assert.match(app, /function scheduleOverviewDetails\(\)[\s\S]*?distributeVisualStories\(\);\s*setupMediaExperience\(\);\s*setupMemoryScrollStory\(\);[\s\S]*?requestIdleCallback\(run/, "visuals must be distributed before media initialization without blocking the interactive shell");
 assert.match(app, /let storyInView = false;[\s\S]*?const canAutoPlay = \(\) => storyInView/, "offscreen visual stories must not autoplay");
 assert.match(app, /storyVisibilityObserver[\s\S]*?rootMargin: "240px 0px"[\s\S]*?storyVisibilityObserver\.observe\(story\)/, "the carousel must hydrate near its new reading position");
 

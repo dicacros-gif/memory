@@ -3,7 +3,7 @@
 
   const BUSINESS_TITLE = "AI Infra Strategy · Customer Pain to Executive Action";
   const CONSOLE_HASH = "#console";
-  const CONSOLE_REVISION = "infra-833f1b793ea0";
+  const CONSOLE_REVISION = "infra-3829574d7f1f";
   const DECISION_CLIENT_PATH = "data/landing-decision-client.json";
   const SITE_CONTENT_PATH = "data/site-content-client.json";
   const site = document.querySelector("#businessSite");
@@ -39,6 +39,7 @@
     requestAnimationFrame(() => requestAnimationFrame(() => {
       document.documentElement.classList.remove("console-entry");
       document.body.classList.remove("console-startup");
+      if (!performance.getEntriesByName("memory-console-shell").length) performance.mark("memory-console-shell");
     }));
   }
 
@@ -101,7 +102,7 @@
 
   function primeConsoleAssets() {
     ensurePreload("consoleStylesPreload", "style", `assets/css/styles.min.css?v=${CONSOLE_REVISION}`, "high");
-    ensurePreload("consoleAppPreload", "script", `assets/js/app.min.js?v=${CONSOLE_REVISION}`, "low");
+    ensurePreload("consoleAppPreload", "script", `assets/js/app.min.js?v=${CONSOLE_REVISION}`, isConsoleHash() ? "high" : "low");
     ensurePreload("consolePosterPreload", "image", "assets/media/memory-hero-poster.webp", "high");
   }
 
@@ -156,10 +157,11 @@
   function loadConsole() {
     if (consoleLoadPromise) return consoleLoadPromise;
     primeConsoleAssets();
-    consoleLoadPromise = Promise.all([loadStylesheet(), loadSiteContent()]).then(async () => {
-      await new Promise((resolve) => requestAnimationFrame(resolve));
-      return loadAppScript();
-    });
+    // The console owns its live/quant artifacts. Landing site-content only
+    // updates the hidden business page, so it must never block console boot.
+    // Start CSS and JavaScript together because both resources are already
+    // preloaded for an explicit #console visit.
+    consoleLoadPromise = Promise.all([loadStylesheet(), loadAppScript()]);
     return consoleLoadPromise;
   }
 
@@ -181,11 +183,15 @@
 
     for (const trigger of document.querySelectorAll("[data-open-console]")) trigger.setAttribute("aria-busy", "true");
     try {
+      const consoleReady = loadConsole();
       await loadStylesheet();
       activeConsoleLayer.hidden = false;
       document.body.classList.remove("landing-mode", "business-menu-open", "console-loading");
       document.body.classList.add("console-mode", "console-startup");
-      await loadConsole();
+      // Reveal the styled shell immediately. Data boards continue hydrating in
+      // document order instead of keeping the static loading snapshot on top.
+      finishConsoleStartup();
+      await consoleReady;
       if (document.body.dataset.consoleReady === "1") finishConsoleStartup();
       else consoleStartupTimer = window.setTimeout(finishConsoleStartup, 6000);
     } catch (error) {
@@ -209,6 +215,7 @@
     document.documentElement.classList.remove("console-entry");
     if (consoleLayer) consoleLayer.hidden = true;
     site.hidden = false;
+    if (window.MEMORY_SITE_CONTENT?.clientArtifact) applySiteContent(window.MEMORY_SITE_CONTENT);
     setMenu(false);
     document.querySelector("#qaAnswer")?.setAttribute("hidden", "");
     document.querySelector("#inspector")?.setAttribute("hidden", "");

@@ -32,6 +32,9 @@ assert.match(files.html.text, /assets\/js\/landing\.min\.js\?v=infra-[a-f0-9]{12
 assert.match(files.landingJs.text, /function ensureConsoleMarkup\(\)/);
 assert.match(files.landingJs.text, /assets\/css\/styles\.min\.css/);
 assert.match(files.landingJs.text, /assets\/js\/app\.min\.js/);
+assert.match(files.landingJs.text, /consoleLoadPromise = Promise\.all\(\[loadStylesheet\(\), loadAppScript\(\)\]\)/);
+assert.doesNotMatch(files.landingJs.text.match(/function loadConsole\(\)[\s\S]*?\n  \}/)?.[0] || "", /loadSiteContent/);
+assert.match(files.landingJs.text, /const consoleReady = loadConsole\(\)[\s\S]*?await loadStylesheet\(\)[\s\S]*?finishConsoleStartup\(\)[\s\S]*?await consoleReady/);
 assert.match(files.landingCss.text, /content-visibility:\s*auto/);
 assert.match(files.landingCss.text, /contain-intrinsic-size:\s*auto 2400px/);
 assert.match(files.landingCss.text, /business-section\[data-progressive-state="ready"\][\s\S]*?content-visibility:\s*auto/);
@@ -48,6 +51,10 @@ assert.match(files.html.text, /hbm-system\.webp" alt="" width="1920" height="107
 assert.doesNotMatch(files.html.text, /hbm-system\.webp"[^>]*fetchpriority="high"/);
 assert.doesNotMatch(files.landingJs.text, /rootMargin:\s*"0px 0px -8%"/);
 assert.match(files.appJs.text, /function scheduleProgressiveDeferredSections\(/);
+assert.match(files.appJs.text, /function scheduleOverviewDetails\(\)/);
+assert.match(files.appJs.text, /function scheduleInteractiveEnhancements\(\)/);
+assert.match(files.appJs.text, /function schedulePolicyArtifacts\(\)/);
+assert.match(files.appJs.text, /performance\.mark\("memory-console-interactive"\);[\s\S]*?window\.dispatchEvent\(new Event\("memory-console-ready"\)\);[\s\S]*?scheduleInteractiveEnhancements\(\);[\s\S]*?scheduleOverviewDetails\(\);[\s\S]*?schedulePolicyArtifacts\(\);/);
 assert.doesNotMatch(files.appJs.text, /function observeDeferredSections\(/);
 assert.match(files.appJs.text, /window\.requestIdleCallback\(prepareDrop/);
 assert.match(files.appJs.text, /memory-console-ready", scheduleHeroVideo/);
