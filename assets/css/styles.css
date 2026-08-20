@@ -28546,9 +28546,9 @@ button.ni-trend-chip:hover { box-shadow: 0 4px 12px color-mix(in srgb, #0891B2 2
 
 .consulting-system .sc-card:is(:hover, :focus-visible, :focus-within) {
   transform: translateY(-3px);
-  border-color: var(--sc-hover-surface);
-  background: var(--sc-hover-surface);
-  color: var(--sc-hover-ink);
+  border-color: var(--line);
+  background: var(--panel);
+  color: var(--sc-readable-ink);
   box-shadow: 0 15px 30px rgba(15, 23, 42, .18);
   outline: none;
 }
@@ -28639,6 +28639,7 @@ button.ni-trend-chip:hover { box-shadow: 0 4px 12px color-mix(in srgb, #0891B2 2
   color: var(--sc-readable-ink);
   overflow-wrap: anywhere;
   word-break: keep-all;
+  transition: transform .05s cubic-bezier(.2, .7, .2, 1), box-shadow .05s ease;
 }
 
 .consulting-system .sc-map-node::before {
@@ -28763,9 +28764,8 @@ button.ni-trend-chip:hover { box-shadow: 0 4px 12px color-mix(in srgb, #0891B2 2
 .consulting-system .sc-evidence-list { border-top: 1px solid var(--line); padding-top: 8px; }
 .consulting-system .sc-evidence-list li:hover { background: var(--panel-2); }
 
-/* Strategy cards are readable before interaction and invert as one surface.
-   Explicit descendant colors prevent the global semantic-term hover palette
-   from placing pastel text on the default white consulting canvas. */
+/* Strategy cards stay readable as a fixed canvas
+   JTBD and 01–05 decision boxes invert independently */
 .consulting-system .sc-card .sc-card-rank > span,
 .consulting-system .sc-card .sc-pain small,
 .consulting-system .sc-card .sc-case-thesis small,
@@ -28778,47 +28778,48 @@ button.ni-trend-chip:hover { box-shadow: 0 4px 12px color-mix(in srgb, #0891B2 2
   color: var(--sc-readable-ink);
 }
 
-.consulting-system .sc-card:is(:hover, :focus-visible, :focus-within)
-  :is(.sc-case-thesis, .sc-map-node, .sc-map-node.sc-workload, .sc-map-node.sc-gate, .sc-map-node.sc-proof-grid) {
+.consulting-system :is(.sc-case-thesis, .sc-map-node):is(:hover, :focus-visible, :focus-within) {
   border-color: var(--sc-hover-line);
-  background: transparent;
+  background: var(--sc-hover-surface);
+  color: var(--sc-hover-ink);
+  transform: translateY(-2px);
+  box-shadow: 0 10px 22px rgba(15, 23, 42, .16);
+  z-index: 3;
 }
 
-.consulting-system .sc-card:is(:hover, :focus-visible, :focus-within) .sc-case-thesis strong {
+.consulting-system :is(.sc-case-thesis, .sc-map-node):focus-visible {
+  outline: 3px solid color-mix(in srgb, var(--sc-hover-key-line) 82%, transparent);
+  outline-offset: 2px;
+}
+
+.consulting-system .sc-case-thesis:is(:hover, :focus-visible, :focus-within) strong {
   border-color: var(--sc-hover-line);
 }
 
-.consulting-system .sc-card:is(:hover, :focus-visible, :focus-within) .sc-map-node::before {
+.consulting-system .sc-map-node:is(:hover, :focus-visible, :focus-within)::before {
   color: var(--sc-hover-muted);
 }
 
-.consulting-system .sc-card:is(:hover, :focus-visible, :focus-within) .sc-map-node:not(:last-child)::after {
+.consulting-system .sc-map-node:is(:hover, :focus-visible, :focus-within):not(:last-child)::after {
   border-color: var(--sc-hover-line);
   background: var(--sc-hover-surface);
 }
 
-.consulting-system .sc-card:is(:hover, :focus-visible, :focus-within)
-  :is(.sc-card-rank > span, .sc-pain small, .sc-case-thesis small, .sc-map-node p, .sc-map-node strong, .sc-map-node .sc-wl-row span, .sc-evidence-list small, .sc-empty) {
+.consulting-system :is(.sc-case-thesis, .sc-map-node):is(:hover, :focus-visible, :focus-within)
+  :is(small, p, strong, .sc-wl-row span) {
   color: var(--sc-hover-muted);
   -webkit-text-fill-color: currentColor;
   text-shadow: none;
 }
 
-.consulting-system .sc-card:is(:hover, :focus-visible, :focus-within)
-  :is(.sc-card-rank > b, .sc-pain strong, .sc-case-thesis > span, .sc-case-thesis strong, .sc-map-node > span, .sc-map-node .sc-wl-name, .sc-map-node .sc-proof-grid span, .sc-map-node.sc-gate strong, .sc-map-node.sc-gate p b, .sc-evidence-list a, .sc-ev-src, .sc-wl-row b, .sc-trend b) {
+.consulting-system :is(.sc-case-thesis, .sc-map-node):is(:hover, :focus-visible, :focus-within)
+  :is(.sc-case-thesis > span, .sc-case-thesis strong, .sc-map-node > span, .sc-wl-name, .sc-proof-grid span, .sc-map-node.sc-gate strong, .sc-map-node.sc-gate p b, .sc-wl-row b) {
   color: var(--sc-hover-ink);
   -webkit-text-fill-color: currentColor;
   text-shadow: none;
 }
 
-.consulting-system .sc-card:is(:hover, :focus-visible, :focus-within)
-  :is(.sc-card-rank > b, .sc-evidence, .sc-mom, .sc-trend) {
-  border-color: var(--sc-hover-line);
-  background: color-mix(in srgb, var(--sc-hover-ink) 8%, transparent);
-  color: var(--sc-hover-ink);
-}
-
-.consulting-system .sc-card:is(:hover, :focus-visible, :focus-within) .strategy-highlight {
+.consulting-system :is(.sc-case-thesis, .sc-map-node):is(:hover, :focus-visible, :focus-within) .strategy-highlight {
   --term-color: var(--sc-hover-key);
   --term-hover: var(--sc-hover-key);
   color: var(--sc-hover-key) !important;
@@ -28826,14 +28827,6 @@ button.ni-trend-chip:hover { box-shadow: 0 4px 12px color-mix(in srgb, #0891B2 2
   text-decoration-color: var(--sc-hover-key-line) !important;
   text-shadow: none !important;
   -webkit-text-fill-color: var(--sc-hover-key);
-}
-
-.consulting-system .sc-card:is(:hover, :focus-visible, :focus-within) .sc-evidence-list {
-  border-color: var(--sc-hover-line);
-}
-
-.consulting-system .sc-card:is(:hover, :focus-visible, :focus-within) .sc-evidence-list li:hover {
-  background: color-mix(in srgb, var(--sc-hover-ink) 9%, transparent);
 }
 
 .consulting-system .sc-card:focus-visible {
@@ -29687,38 +29680,37 @@ body.consulting-system {
   box-shadow: inset 0 -2px 0 #f2c94c !important;
 }
 
-/* Strategy-card inversion lock
-   The computed readability guard can tag copy before a card flips. These
-   final-state selectors intentionally outrank those cached utility classes so
-   every label, body line, source and date follows the active card surface. */
-.consulting-system .sc-card:is(:hover, :focus-visible, :focus-within) {
+/* Decision-box inversion lock
+   The fixed parent canvas never flips; only the hovered JTBD or 01–05 box
+   changes surface and foreground colours */
+.consulting-system :is(.sc-case-thesis, .sc-map-node):is(:hover, :focus-visible, :focus-within) {
   color: var(--sc-hover-ink) !important;
-  border-color: var(--sc-hover-surface) !important;
+  border-color: var(--sc-hover-line) !important;
   background: var(--sc-hover-surface) !important;
 }
-.consulting-system .sc-card:is(:hover, :focus-visible, :focus-within)
+.consulting-system :is(.sc-case-thesis, .sc-map-node):is(:hover, :focus-visible, :focus-within)
   :is(h1, h2, h3, h4, h5, h6, strong, b, a, button, label, span, p, li, small, time, cite, em, .ui-contrast-on-dark, .ui-contrast-on-light) {
   color: var(--sc-hover-ink) !important;
   -webkit-text-fill-color: currentColor !important;
   text-shadow: none !important;
   opacity: 1 !important;
 }
-.consulting-system .sc-card:is(:hover, :focus-visible, :focus-within)
-  :is(.sc-card-rank > span, .sc-pain small, .sc-case-thesis small, .sc-map-node p, .sc-map-node strong, .sc-map-node .sc-wl-row span, .sc-evidence-list small, .sc-empty) {
+.consulting-system :is(.sc-case-thesis, .sc-map-node):is(:hover, :focus-visible, :focus-within)
+  :is(.sc-case-thesis small, .sc-map-node p, .sc-map-node strong, .sc-map-node .sc-wl-row span) {
   color: var(--sc-hover-muted) !important;
   -webkit-text-fill-color: currentColor !important;
 }
-.consulting-system .sc-card:is(:hover, :focus-visible, :focus-within)
-  :is(.sc-card-rank > b, .sc-pain strong, .sc-case-thesis > span, .sc-case-thesis strong, .sc-map-node > span, .sc-map-node .sc-wl-name, .sc-map-node .sc-proof-grid span, .sc-map-node.sc-gate strong, .sc-map-node.sc-gate p b, .sc-evidence-list a, .sc-ev-src, .sc-wl-row b, .sc-trend b) {
+.consulting-system :is(.sc-case-thesis, .sc-map-node):is(:hover, :focus-visible, :focus-within)
+  :is(.sc-case-thesis > span, .sc-case-thesis strong, .sc-map-node > span, .sc-map-node .sc-wl-name, .sc-map-node .sc-proof-grid span, .sc-map-node.sc-gate strong, .sc-map-node.sc-gate p b, .sc-wl-row b) {
   color: var(--sc-hover-ink) !important;
   -webkit-text-fill-color: currentColor !important;
 }
-.consulting-system .sc-card:is(:hover, :focus-visible, :focus-within) .strategy-highlight {
+.consulting-system :is(.sc-case-thesis, .sc-map-node):is(:hover, :focus-visible, :focus-within) .strategy-highlight {
   color: var(--sc-hover-key) !important;
   -webkit-text-fill-color: var(--sc-hover-key) !important;
   text-decoration-color: var(--sc-hover-key-line) !important;
 }
-.consulting-system .sc-card:is(:hover, :focus-visible, :focus-within) .sc-level-index {
+.consulting-system :is(.sc-case-thesis, .sc-map-node):is(:hover, :focus-visible, :focus-within) .sc-level-index {
   border-color: color-mix(in srgb, var(--sc-level-bg) 68%, #ffffff) !important;
   background: var(--sc-level-bg) !important;
   color: #ffffff !important;
@@ -30027,7 +30019,7 @@ body.consulting-system {
   [class*="-tile "],
   article[tabindex],
   li[tabindex]
-):is(:hover, :focus-visible, :focus-within) {
+):not(.sc-card):is(:hover, :focus-visible, :focus-within) {
   color: var(--instant-hover-ink) !important;
   border-color: var(--instant-hover-accent) !important;
   background: var(--instant-hover-surface) !important;
@@ -30048,7 +30040,7 @@ body.consulting-system {
   [class*="-tile "],
   article[tabindex],
   li[tabindex]
-) * {
+):not(.sc-card) * {
   transition-property: transform, box-shadow, border-color, opacity !important;
   transition-delay: 0s !important;
 }
@@ -30065,7 +30057,7 @@ body.consulting-system {
   [class*="-tile "],
   article[tabindex],
   li[tabindex]
-):is(:hover, :focus-visible, :focus-within)
+):not(.sc-card):is(:hover, :focus-visible, :focus-within)
   :is(h1, h2, h3, h4, h5, h6, strong, b, a, button, label, dt, span, .ui-contrast-on-dark, .ui-contrast-on-light) {
   color: var(--instant-hover-ink) !important;
   -webkit-text-fill-color: currentColor !important;
@@ -30086,7 +30078,7 @@ body.consulting-system {
   [class*="-tile "],
   article[tabindex],
   li[tabindex]
-):is(:hover, :focus-visible, :focus-within)
+):not(.sc-card):is(:hover, :focus-visible, :focus-within)
   :is(p, li, dd, small, time, cite, em, figcaption) {
   color: var(--instant-hover-muted) !important;
   -webkit-text-fill-color: currentColor !important;
@@ -30107,7 +30099,7 @@ body.consulting-system {
   [class*="-tile "],
   article[tabindex],
   li[tabindex]
-):is(:hover, :focus-visible, :focus-within)
+):not(.sc-card):is(:hover, :focus-visible, :focus-within)
   :is([class*="label"], [class*="eyebrow"], [class*="index"], .strategy-highlight, .answer-term) {
   color: var(--instant-hover-accent) !important;
   -webkit-text-fill-color: currentColor !important;
@@ -30126,7 +30118,7 @@ body.consulting-system {
   [class*="-tile "],
   article[tabindex],
   li[tabindex]
-):is(:hover, :focus-visible, :focus-within)
+):not(.sc-card):is(:hover, :focus-visible, :focus-within)
   :is(.exec-baseline-level-index, .sc-level-index) {
   border-color: color-mix(in srgb, var(--instant-hover-accent) 68%, #ffffff) !important;
   background: color-mix(in srgb, var(--instant-hover-accent) 64%, #17324d) !important;

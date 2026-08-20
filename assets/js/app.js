@@ -12831,24 +12831,24 @@
                 ${ev.momentum ? `<span class="sc-mom ${ev.momentum.dir}">${escapeHTML(ev.momentum.kind)} ${ev.momentum.pct > 0 ? "+" : ""}${fmtNum(ev.momentum.pct, 1)}%</span>` : ""}
               </div>
             </div>
-            <div class="sc-case-thesis">
+            <div class="sc-case-thesis" tabindex="0">
               <span>CUSTOMER · JTBD</span>
               <small>${escapeHTML(lens.customer)}</small>
               <strong>${strategicHighlightHTML(lens.pain)}</strong>
             </div>
             <ol class="sc-card-flow" aria-label="JTBD에서 90일 실행 게이트까지">
-              <li class="sc-map-node sc-workload" data-step="01">
+              <li class="sc-map-node sc-workload" data-step="01" tabindex="0">
                 <div class="sc-wl-name"><b class="sc-level-index is-input">INPUT</b><span>${escapeHTML(lens.workload.name)}</span></div>
                 <div class="sc-wl-row"><b class="sc-level-index is-hw">HW</b><span>${escapeHTML(lens.workload.hw)}</span></div>
                 <div class="sc-wl-row"><b class="sc-level-index is-sw">SW</b><span>${escapeHTML(lens.workload.sw)}</span></div>
               </li>
-              <li class="sc-map-node sc-opportunity" data-step="02"><span class="sc-level-index is-opportunity">WHERE TO PLAY</span><p>${strategicHighlightHTML(lens.opportunity)}</p></li>
-              <li class="sc-map-node sc-solution" data-step="03"><span class="sc-level-index is-solution">HOW TO WIN</span><p>${strategicHighlightHTML(lens.solution)}</p></li>
-              <li class="sc-map-node sc-proof-grid" data-step="04">
+              <li class="sc-map-node sc-opportunity" data-step="02" tabindex="0"><span class="sc-level-index is-opportunity">WHERE TO PLAY</span><p>${strategicHighlightHTML(lens.opportunity)}</p></li>
+              <li class="sc-map-node sc-solution" data-step="03" tabindex="0"><span class="sc-level-index is-solution">HOW TO WIN</span><p>${strategicHighlightHTML(lens.solution)}</p></li>
+              <li class="sc-map-node sc-proof-grid" data-step="04" tabindex="0">
                 <div><span class="sc-level-index is-kpi">VALUE KPI</span><p>${escapeHTML(lens.valueMetric)}</p></div>
                 <div><span class="sc-level-index is-win">RIGHT TO WIN</span><p>${escapeHTML(lens.rightToWin)}</p></div>
               </li>
-              <li class="sc-map-node sc-gate" data-step="05">
+              <li class="sc-map-node sc-gate" data-step="05" tabindex="0">
                 <span class="sc-level-index is-gate">DECISION GATE</span>
                 <strong>${escapeHTML(lens.gate)}</strong>
                 <p><b class="sc-level-index is-action">90D ACTION</b> ${escapeHTML(lens.nextAction)}</p>
