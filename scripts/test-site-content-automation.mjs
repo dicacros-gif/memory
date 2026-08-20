@@ -56,6 +56,7 @@ assert.ok(artifact.organizationOperatingModel.workstreams.every((item) => item.i
 assert.deepEqual(artifact.organizationOperatingModel.workstreams.map((item) => item.id), ["customer-strategy", "workload-optimization", "new-biz-insights", "partner-execution"]);
 assert.equal(artifact.organizationOperatingModel.liveEvidenceCount, 4);
 assert.ok(artifact.organizationOperatingModel.workstreams.every((item) => item.currentSignal?.title && /^https?:\/\//.test(item.currentSignal?.url || "")), "each strategy workstream must connect to a current Console source");
+assert.equal(new Set(artifact.organizationOperatingModel.workstreams.map((item) => item.currentSignal?.url)).size, 4, "MECE workstreams must not repeat the same current source");
 assert.equal(rebuilt.hero.workProducts.length, 4);
 assert.equal(rebuilt.hero.workflow.length, 4);
 assert.equal(rebuilt.hero.departmentWorkbench.source, "decisionIntelligence.decisionAutomation.briefs");

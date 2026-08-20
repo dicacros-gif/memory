@@ -200,12 +200,14 @@ function buildStrategyBoard(payload = {}, generatedAt = null) {
 function buildOrganizationOperatingModel(insights = [], generatedAt = null, runId = null) {
   const operatingModel = model.organizationOperatingModel || {};
   const insightMap = new Map((insights || []).map((item) => [item.id, item]));
+  const usedInsightIds = new Set();
   const workstreams = (operatingModel.workstreams || []).map((workstream) => {
     const candidates = (workstream.evidenceIds || [])
       .map((id) => insightMap.get(id))
       .filter((item) => item?.latest?.title && directUrl(item.latest?.url))
       .sort((a, b) => String(b.latest?.publishedAt || "").localeCompare(String(a.latest?.publishedAt || "")));
-    const current = candidates[0];
+    const current = candidates.find((item) => !usedInsightIds.has(item.id)) || candidates[0];
+    if (current?.id) usedInsightIds.add(current.id);
     return {
       ...workstream,
       currentSignal: current ? {
