@@ -390,7 +390,7 @@ button {
   text-align: left;
   font-size: 12px;
   font-weight: 700;
-  transition: background .07s, border-color .07s, box-shadow .07s, color .07s, transform .07s;
+  transition: transform .05s ease-out, box-shadow .05s ease-out, border-color 0s, background-color 0s, color 0s;
 }
 
 .sb-item {
@@ -466,7 +466,8 @@ button {
   background: rgba(255, 255, 255, .97);
   color: #121826;
   box-shadow: 0 13px 26px rgba(3, 7, 18, .24);
-  animation: sb-tab-lift .46s cubic-bezier(.2, .8, .25, 1) both;
+  transform: translateY(-2px);
+  animation: none;
 }
 
 .sb-item:hover .sb-ico {
@@ -475,7 +476,8 @@ button {
 }
 
 .sb-item:hover .sb-label {
-  animation: sb-label-bounce .4s cubic-bezier(.2, .8, .25, 1) both;
+  transform: none;
+  animation: none;
 }
 
 .sb-item:hover .sb-label small {
@@ -539,21 +541,6 @@ button {
   color: #fff;
 }
 
-@keyframes sb-tab-lift {
-  0% { transform: translateY(0) scale(1); }
-  38% { transform: translateY(-7px) scale(1.012); }
-  64% { transform: translateY(-1px) scale(.998); }
-  82% { transform: translateY(-4px) scale(1.004); }
-  100% { transform: translateY(-3px) scale(1); }
-}
-
-@keyframes sb-label-bounce {
-  0% { transform: translateY(0); }
-  42% { transform: translateY(-3px); }
-  68% { transform: translateY(1px); }
-  100% { transform: translateY(0); }
-}
-
 .sidebar:hover .sb-fold {
   background: rgba(255, 255, 255, .24);
   color: #fff;
@@ -590,7 +577,8 @@ button {
 }
 
 .sb-cat:hover {
-  animation: sb-tab-lift .46s cubic-bezier(.2, .8, .25, 1) both;
+  transform: translateY(-2px);
+  animation: none;
 }
 
 .sb-cat.active:hover {
@@ -30205,4 +30193,119 @@ body.consulting-system {
 .deep-implication, .deep-implication *, .sc-tech-card, .sc-tech-card *,
 .sc-partner, .sc-partner * {
   transition-property: transform, box-shadow, border-color, opacity !important;
+}
+
+/* Site-wide instant inversion contract
+   Colour and text contrast switch in the same frame as pointer entry
+   Motion remains short and never inherits entrance-sequence delays */
+#intelligenceConsole :where(
+  a,
+  button,
+  [role="button"],
+  [tabindex],
+  [data-hover-mode],
+  [class$="-card"],
+  [class*="-card "],
+  [class$="-tile"],
+  [class*="-tile "],
+  [class$="-report"],
+  [class*="-report "]
+):is(:hover, :focus-visible, :focus-within),
+#intelligenceConsole :where(
+  a,
+  button,
+  [role="button"],
+  [tabindex],
+  [data-hover-mode],
+  [class$="-card"],
+  [class*="-card "],
+  [class$="-tile"],
+  [class*="-tile "],
+  [class$="-report"],
+  [class*="-report "]
+):is(:hover, :focus-visible, :focus-within) * {
+  transition-delay: 0s !important;
+  animation-delay: 0s !important;
+}
+
+#intelligenceConsole .sb-item,
+#intelligenceConsole .sb-item * {
+  transition-delay: 0s !important;
+  animation-delay: 0s !important;
+}
+
+#intelligenceConsole .sb-item:is(:hover, :focus-visible, :focus-within) {
+  transition: transform .05s ease-out, box-shadow .05s ease-out, border-color 0s, background-color 0s, color 0s !important;
+  animation: none !important;
+}
+
+#intelligenceConsole .sb-item:is(:hover, :focus-visible, :focus-within) :is(
+  .sb-ico,
+  .sb-label,
+  .sb-label strong,
+  .sb-label small,
+  .ui-contrast-on-dark,
+  .ui-contrast-on-light,
+  .ui-readable-opacity
+) {
+  transition: none !important;
+  animation: none !important;
+  opacity: 1 !important;
+}
+
+#intelligenceConsole .sb-item:not(.active):is(:hover, :focus-visible, :focus-within) :is(.sb-label strong, .ui-contrast-on-dark, .ui-contrast-on-light) {
+  color: #121826 !important;
+  -webkit-text-fill-color: #121826 !important;
+}
+
+#intelligenceConsole .sb-item:not(.active):is(:hover, :focus-visible, :focus-within) .sb-label small {
+  color: #596275 !important;
+  -webkit-text-fill-color: #596275 !important;
+}
+
+#intelligenceConsole .sb-item.active:is(:hover, :focus-visible, :focus-within) :is(.sb-label strong, .ui-contrast-on-dark, .ui-contrast-on-light) {
+  color: #ffffff !important;
+  -webkit-text-fill-color: #ffffff !important;
+}
+
+#intelligenceConsole .sb-item.active:is(:hover, :focus-visible, :focus-within) .sb-label small {
+  color: rgba(255, 255, 255, .78) !important;
+  -webkit-text-fill-color: rgba(255, 255, 255, .78) !important;
+}
+
+#intelligenceConsole .sb-cat,
+#intelligenceConsole .sb-cat * {
+  transition-delay: 0s !important;
+  animation-delay: 0s !important;
+}
+
+#intelligenceConsole .sb-cat:is(:hover, :focus-visible, :focus-within) {
+  transition: transform .05s ease-out, box-shadow .05s ease-out, border-color 0s, background-color 0s, color 0s !important;
+  animation: none !important;
+}
+
+#intelligenceConsole .sb-cat:is(:hover, :focus-visible, :focus-within) :is(span, small, .ui-contrast-on-dark, .ui-contrast-on-light, .ui-readable-opacity) {
+  transition: none !important;
+  animation: none !important;
+  opacity: 1 !important;
+}
+
+#intelligenceConsole .sb-cat:not(.active):is(:hover, :focus-visible, :focus-within) span {
+  color: #121826 !important;
+  -webkit-text-fill-color: #121826 !important;
+}
+
+#intelligenceConsole .sb-cat:not(.active):is(:hover, :focus-visible, :focus-within) small {
+  color: #596275 !important;
+  -webkit-text-fill-color: #596275 !important;
+}
+
+#intelligenceConsole .sb-cat.active:is(:hover, :focus-visible, :focus-within) span {
+  color: #ffffff !important;
+  -webkit-text-fill-color: #ffffff !important;
+}
+
+#intelligenceConsole .sb-cat.active:is(:hover, :focus-visible, :focus-within) small {
+  color: rgba(255, 255, 255, .78) !important;
+  -webkit-text-fill-color: rgba(255, 255, 255, .78) !important;
 }

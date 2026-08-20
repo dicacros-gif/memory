@@ -96,6 +96,13 @@ assert.match(app, /function scheduleProgressiveDeferredSections\(definitions\)[\
 assert.doesNotMatch(app, /function observeDeferredSections\(|rootMargin: "900px 0px"/, "deferred loading must not wait for viewport intersection");
 assert.match(css, /\.deferred-section\s*\{[\s\S]*?content-visibility:\s*auto;/, "offscreen sections must skip paint");
 assert.doesNotMatch(css, /#(?:overview|strategy-consulting|overview-content)\s*\{[^}]*\border\s*:/, "opening sections must not be visually reordered with CSS");
+assert.match(css, /\.sb-item,\s*\.sb-cat\s*\{[\s\S]*?background-color 0s, color 0s;/, "sidebar inversion colours must switch without interpolation");
+assert.match(css, /#intelligenceConsole \.sb-item:is\(:hover, :focus-visible, :focus-within\)[\s\S]*?animation:\s*none !important;/, "sidebar hover motion must not reuse delayed entrance animation");
+assert.match(css, /#intelligenceConsole \.sb-cat:is\(:hover, :focus-visible, :focus-within\)[\s\S]*?animation:\s*none !important;/, "sidebar category inversion must not reuse delayed entrance animation");
+assert.doesNotMatch(css, /@keyframes sb-(?:tab-lift|label-bounce)/, "retired slow sidebar hover keyframes must stay removed");
+assert.match(css, /Site-wide instant inversion contract[\s\S]*?animation-delay:\s*0s !important;/, "console hover descendants must never inherit stagger delays");
+assert.match(landingCss, /Site-wide instant inversion contract[\s\S]*?animation-delay:\s*0s !important;/, "landing hover descendants must never inherit stagger delays");
+assert.match(app, /btn\.removeAttribute\("title"\);[\s\S]*?btn\.dataset\.tooltip = label;/, "sidebar navigation must not use delayed native title tooltips");
 
 const businessNavLabels = [...html.matchAll(/<nav class="business-nav"[\s\S]*?<\/nav>/g)]
   .flatMap((match) => [...match[0].matchAll(/<a href="#[^"]+">([^<]+)<\/a>/g)].map((link) => link[1]));

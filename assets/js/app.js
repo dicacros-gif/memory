@@ -7234,7 +7234,12 @@
   function decorateSidebarItems() {
     $$(".sb-item").forEach((btn) => {
       const label = btn.querySelector(".sb-label strong")?.textContent?.trim();
-      if (label) btn.title = label;
+      const detail = btn.querySelector(".sb-label small")?.textContent?.trim();
+      btn.removeAttribute("title");
+      if (label) {
+        btn.dataset.tooltip = label;
+        btn.setAttribute("aria-label", [label, detail].filter(Boolean).join(" · "));
+      }
     });
   }
 
@@ -7284,7 +7289,7 @@
             const route = routeDisplay(routeSource);
             const isActive = routeSource.jump === "overview";
             return `
-              <button class="sb-item${isActive ? " active" : ""}" type="button" data-jump="${escapeHTML(routeSource.jump)}" data-route="${escapeHTML(routeSource.id)}"${isActive ? ' aria-current="page"' : ""} title="${escapeHTML(route.desc)}">
+              <button class="sb-item${isActive ? " active" : ""}" type="button" data-jump="${escapeHTML(routeSource.jump)}" data-route="${escapeHTML(routeSource.id)}"${isActive ? ' aria-current="page"' : ""} aria-label="${escapeHTML([route.label, route.desc].filter(Boolean).join(" · "))}" data-tooltip="${escapeHTML(route.label)}">
                 <span class="sb-ico" aria-hidden="true">${escapeHTML(SIDE_NAV_ICONS[routeSource.id] || route.label.slice(0, 1))}</span>
                 <span class="sb-label">
                   <strong>${escapeHTML(route.label)}</strong>

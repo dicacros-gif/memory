@@ -7127,3 +7127,37 @@ body.landing-mode {
 [class*="decision-os"], [class*="decision-os"] * {
   transition-property: transform, box-shadow, border-color, opacity !important;
 }
+
+/* Site-wide instant inversion contract
+   Entrance sequencing never delays pointer or keyboard contrast changes */
+#businessSite :where(
+  a,
+  button,
+  [role="button"],
+  [tabindex],
+  [data-hover-mode],
+  .business-consulting-motion,
+  [class$="-card"],
+  [class*="-card "],
+  [class$="-tile"],
+  [class*="-tile "],
+  [class$="-panel"],
+  [class*="-panel "]
+):is(:hover, :focus-visible, :focus-within),
+#businessSite :where(
+  a,
+  button,
+  [role="button"],
+  [tabindex],
+  [data-hover-mode],
+  .business-consulting-motion,
+  [class$="-card"],
+  [class*="-card "],
+  [class$="-tile"],
+  [class*="-tile "],
+  [class$="-panel"],
+  [class*="-panel "]
+):is(:hover, :focus-visible, :focus-within) * {
+  transition-delay: 0s !important;
+  animation-delay: 0s !important;
+}
