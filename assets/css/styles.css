@@ -927,9 +927,16 @@ body.sidebar-collapsed .sb-ico {
 }
 
 .tb-title {
-  min-width: 190px;
-  min-width: min(190px, 26vw);
+  min-width: 0;
+  max-width: min(270px, 30vw);
   flex: 0 1 auto;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.tb-title .console-exit {
+  flex: 0 0 auto;
 }
 
 .tb-title h1 {
@@ -21178,7 +21185,7 @@ body.consulting-system {
   .tb-title {
     flex: 0 1 auto;
     min-width: 0;
-    max-width: clamp(118px, 22vw, 190px);
+    max-width: clamp(190px, 28vw, 240px);
   }
 
   .tb-title h1 {
@@ -21442,7 +21449,7 @@ body.consulting-system {
 
   .tb-title {
     min-width: 0;
-    max-width: 158px;
+    max-width: 190px;
   }
 
   .tb-title h1 {
@@ -21667,7 +21674,7 @@ body.consulting-system {
   }
 
   .tb-title {
-    max-width: 106px;
+    max-width: 150px;
   }
 
   .tb-title h1 {

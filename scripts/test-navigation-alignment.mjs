@@ -174,6 +174,9 @@ assert.match(landing, /function primeConsoleAssets\(\)[\s\S]*?consoleAppPreload[
 assert.match(landing, /const consoleReady = loadConsole\(\);[\s\S]*?await loadStylesheet\(\);[\s\S]*?activeConsoleLayer\.hidden = false;[\s\S]*?finishConsoleStartup\(\);[\s\S]*?await consoleReady;/, "the styled console shell must appear while data hydration continues");
 assert.match(html, /id="consoleStaticSnapshot"[\s\S]*?SIGNAL[\s\S]*?DIAGNOSE[\s\S]*?KILL Criteria|id="consoleStaticSnapshot"[\s\S]*?Kill Criteria/, "direct console entry must expose an indexable decision snapshot instead of an empty loader");
 assert.match(html, /#console\/c-level-cockpit\/hbm4-foundry[\s\S]*?#console\/c-level-cockpit\/post-hbm/, "the static console snapshot must expose stable decision deep links");
+assert.match(html, /class="tb-title"[\s\S]*?id="consoleExit"[\s\S]*?← Site<\/button>[\s\S]*?<h1>AI Infra Strategy Console<\/h1>/, "the Site control and console title must share one title group");
+assert.doesNotMatch(html, /SK hynix AI Infra Strategy Console/, "the compact console title must not repeat the SK hynix label");
+assert.match(css, /\.tb-title \{[\s\S]*?display:\s*flex;[\s\S]*?align-items:\s*center;[\s\S]*?gap:\s*8px;/, "the Site control and console title must render on one row");
 assert.match(landing, /function isConsoleHash\([\s\S]*?startsWith\(`\$\{CONSOLE_HASH\}\//, "the landing controller must keep console deep links inside the console view");
 assert.match(app, /function consoleDeepLinkState\([\s\S]*?function applyConsoleDeepLink\(/, "the console must parse and apply section/item deep links");
 assert.doesNotMatch(app, /cLevelCopyLink|copyTextToClipboard|data-(?:agent|advanced|number|talent|work|decision|infra|inspector|investment|nand|policy|projection)-copy/, "the console must not render clipboard controls");
