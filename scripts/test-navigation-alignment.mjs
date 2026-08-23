@@ -93,6 +93,11 @@ assert.match(app, /const manifestPromise = loadDataManifest\(\);/, "critical man
 assert.match(app, /function schedulePolicyArtifacts\(\)[\s\S]*?loadJSON\("data\/crawl-audit\.json"[\s\S]*?loadJSON\("data\/crawl-exclusions\.json"[\s\S]*?requestIdleCallback/, "the evidence audit must load after the decision control plane is interactive");
 assert.match(app, /function updateScrollSpyFromGeometry\(\)/, "scroll spy must use cached geometry");
 assert.match(app, /function scheduleProgressiveDeferredSections\(definitions\)[\s\S]*?const first = queue\[cursor\+\+\][\s\S]*?ensureDeferredSection\(first\.id\)\.finally/, "the first strategy section should be ready immediately and later sections should follow without scrolling");
+assert.match(app, /function setupRouteAccordions\(\)[\s\S]*?routePanelNodes\.set[\s\S]*?console-route-toggle[\s\S]*?setActiveRoutePanel/, "left navigation routes must own foldable right-hand panels");
+assert.match(app, /function jumpTo\(id\)[\s\S]*?setActiveRoutePanel\(id, \{ expand: true \}\)[\s\S]*?await ensureDeferredSection\(id\)/, "a route panel must open before its deferred data finishes rendering");
+assert.match(app, /const prewarm = \(\) => prewarmRoutePanel[\s\S]*?pointerenter[\s\S]*?pointerdown/, "navigation intent must prewarm the selected route without waiting for a click-render round trip");
+assert.match(css, /\.console-route-inactive,\s*\.console-route-collapsed\s*\{\s*display:\s*none !important;/, "inactive and folded route content must leave the layout immediately");
+assert.match(css, /\.console-route-toggle\s*\{[\s\S]*?transition:\s*none;[\s\S]*?\.console-route-toggle:hover,/, "route folding must react without a delayed transition");
 assert.doesNotMatch(app, /function observeDeferredSections\(|rootMargin: "900px 0px"/, "deferred loading must not wait for viewport intersection");
 assert.match(css, /\.deferred-section\s*\{[\s\S]*?content-visibility:\s*auto;/, "offscreen sections must skip paint");
 assert.doesNotMatch(css, /#(?:overview|strategy-consulting|overview-content)\s*\{[^}]*\border\s*:/, "opening sections must not be visually reordered with CSS");

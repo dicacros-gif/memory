@@ -2209,6 +2209,10 @@
   let categoryRenderFrame = 0;
   let pendingSidebarRoute = "";
   let activeSidebarRoute = "";
+  const routePanelNodes = new Map();
+  const routePanelToolbars = new Map();
+  const collapsedRoutePanels = new Set();
+  let routeAccordionsReady = false;
   let scrollSpyFrame = 0;
   let scrollSpyRefreshFrame = 0;
   let scrollSpyLandmarks = [];
@@ -4363,6 +4367,7 @@
     // is static, so it stays usable even on a cold GitHub Pages cache.
     renderChrome();
     renderSidebarNav();
+    setupRouteAccordions();
     DATA_MANIFEST = await manifestPromise;
     [BASE, LIVE, QUANT] = await Promise.all([
       baselinePromise,
@@ -5488,8 +5493,8 @@
       target.addEventListener("focusin", start, { once: true });
     });
     const schedule = () => {
-      if ("requestIdleCallback" in window) window.requestIdleCallback(start, { timeout: 2200 });
-      else window.setTimeout(start, 700);
+      if ("requestIdleCallback" in window) window.requestIdleCallback(start, { timeout: 760 });
+      else window.setTimeout(start, 180);
     };
     if (document.readyState === "complete") schedule();
     else window.addEventListener("load", schedule, { once: true });
@@ -5563,8 +5568,8 @@
         if (cursor < queue.length) scheduleNext();
         else document.body.dataset.deferredHydrationQueue = "scheduled";
       };
-      if ("requestIdleCallback" in window) window.requestIdleCallback(() => { void run(); }, { timeout: 460 });
-      else window.setTimeout(() => { void run(); }, 84);
+      if ("requestIdleCallback" in window) window.requestIdleCallback(() => { void run(); }, { timeout: 180 });
+      else window.setTimeout(() => { void run(); }, 36);
     };
     const scheduleNext = () => startNext();
 
@@ -7256,6 +7261,120 @@
     return { ...category, ...(CATEGORY_DISPLAY[category.id] || {}) };
   }
 
+  function routeForJump(id) {
+    const routeTarget = NAV_SECTION_TARGETS[id] || id;
+    const direct = SIDE_NAV_ROUTES.find((route) => route.jump === routeTarget);
+    if (direct) return direct;
+    const owner = document.getElementById(id)?.closest("[data-route-owner]")?.dataset.routeOwner;
+    return SIDE_NAV_ROUTES.find((route) => route.jump === owner) || null;
+  }
+
+  function updateRouteToolbar(route, expanded) {
+    const toolbar = routePanelToolbars.get(route.jump);
+    if (!toolbar) return;
+    const button = toolbar.querySelector(".console-route-toggle");
+    toolbar.dataset.routeState = expanded ? "expanded" : "collapsed";
+    if (!button) return;
+    button.setAttribute("aria-expanded", expanded ? "true" : "false");
+    const state = button.querySelector(".console-route-toggle-state");
+    if (state) state.textContent = expanded ? "접기" : "열기";
+    const icon = button.querySelector(".console-route-toggle-icon");
+    if (icon) icon.textContent = expanded ? "−" : "+";
+  }
+
+  function setActiveRoutePanel(id, { expand = true, scroll = false } = {}) {
+    if (!routeAccordionsReady) return null;
+    const route = routeForJump(id) || routeForJump(activeSidebarRoute) || SIDE_NAV_ROUTES[0];
+    if (!route) return null;
+    if (expand) collapsedRoutePanels.delete(route.jump);
+    const expanded = !collapsedRoutePanels.has(route.jump);
+
+    SIDE_NAV_ROUTES.forEach((candidate) => {
+      const isActive = candidate.jump === route.jump;
+      const candidateExpanded = isActive && !collapsedRoutePanels.has(candidate.jump);
+      const toolbar = routePanelToolbars.get(candidate.jump);
+      if (toolbar) {
+        toolbar.hidden = !isActive;
+        toolbar.classList.toggle("is-active", isActive);
+      }
+      (routePanelNodes.get(candidate.jump) || []).forEach((node) => {
+        node.classList.toggle("console-route-inactive", !isActive);
+        node.classList.toggle("console-route-collapsed", isActive && !candidateExpanded);
+        node.setAttribute("aria-hidden", isActive && candidateExpanded && !node.hidden ? "false" : "true");
+      });
+      updateRouteToolbar(candidate, candidateExpanded);
+    });
+
+    document.body.dataset.activeConsoleRoute = route.jump;
+    document.body.dataset.activeConsoleRouteState = expanded ? "expanded" : "collapsed";
+    if (scroll) {
+      const toolbar = routePanelToolbars.get(route.jump);
+      toolbar?.scrollIntoView({ block: "start", behavior: "auto" });
+    }
+    scheduleScrollSpyGeometryRefresh();
+    return route;
+  }
+
+  function toggleActiveRoutePanel(id) {
+    const route = routeForJump(id);
+    if (!route) return;
+    if (collapsedRoutePanels.has(route.jump)) collapsedRoutePanels.delete(route.jump);
+    else collapsedRoutePanels.add(route.jump);
+    setActiveRoutePanel(route.jump, { expand: false });
+  }
+
+  function setupRouteAccordions() {
+    if (routeAccordionsReady) return;
+    const main = $("#main");
+    if (!main) return;
+    const children = Array.from(main.children);
+    const routeStarts = SIDE_NAV_ROUTES.map((route) => ({
+      route,
+      index: children.findIndex((node) => node.id === route.jump),
+    })).filter((item) => item.index >= 0);
+    if (!routeStarts.length) return;
+
+    routeStarts.forEach((entry, routeIndex) => {
+      const end = routeStarts[routeIndex + 1]?.index ?? children.length;
+      const nodes = children.slice(entry.index, end);
+      routePanelNodes.set(entry.route.jump, nodes);
+      nodes.forEach((node) => {
+        node.dataset.routeOwner = entry.route.jump;
+      });
+
+      const route = routeDisplay(entry.route);
+      const toolbar = el("div", "console-route-toolbar");
+      toolbar.dataset.routeToolbar = entry.route.jump;
+      toolbar.hidden = entry.route.jump !== "overview";
+      toolbar.innerHTML = `
+        <div class="console-route-toolbar-copy">
+          <b>${escapeHTML(SIDE_NAV_ICONS[entry.route.id] || String(routeIndex + 1).padStart(2, "0"))}</b>
+          <span><strong>${escapeHTML(route.label)}</strong><small>${escapeHTML(route.desc || route.cadence || "")}</small></span>
+        </div>
+        <button class="console-route-toggle" type="button" aria-controls="${escapeHTML(entry.route.jump)}" aria-expanded="true">
+          <span class="console-route-toggle-state">접기</span>
+          <span class="console-route-toggle-icon" aria-hidden="true">−</span>
+        </button>
+      `;
+      toolbar.querySelector(".console-route-toggle")?.addEventListener("click", () => {
+        toggleActiveRoutePanel(entry.route.jump);
+      });
+      main.insertBefore(toolbar, children[entry.index]);
+      routePanelToolbars.set(entry.route.jump, toolbar);
+    });
+
+    routeAccordionsReady = true;
+    setActiveRoutePanel(activeSidebarRoute || "overview", { expand: true });
+  }
+
+  function prewarmRoutePanel(id) {
+    const route = routeForJump(id);
+    if (!route) return;
+    const deferredIds = (route.sections || []).filter((sectionId) => deferredDefinition(sectionId));
+    if (!deferredIds.length && deferredDefinition(route.jump)) deferredIds.push(route.jump);
+    if (deferredIds[0]) void ensureDeferredSection(deferredIds[0]);
+  }
+
   function syncSidebarRoute(id, { pending = false, reveal = false } = {}) {
     const routeTarget = NAV_SECTION_TARGETS[id] || id;
     if (!routeTarget) return;
@@ -7304,6 +7423,12 @@
     }).join("");
 
     decorateSidebarItems();
+    nav.querySelectorAll(".sb-item[data-jump]").forEach((item) => {
+      const prewarm = () => prewarmRoutePanel(item.dataset.jump);
+      item.addEventListener("pointerenter", prewarm, { passive: true });
+      item.addEventListener("pointerdown", prewarm, { passive: true });
+      item.addEventListener("focusin", prewarm);
+    });
     syncSidebarRoute(activeSidebarRoute || "overview");
   }
 
@@ -20738,6 +20863,7 @@
 
   async function jumpTo(id) {
     const token = ++jumpNavigationToken;
+    const route = setActiveRoutePanel(id, { expand: true });
     const target = document.getElementById(id);
     if (!target) return;
     // Set the navigation state immediately, then prepare only the board that
@@ -20747,7 +20873,8 @@
     document.body.classList.remove("menu-open");
 
     const alignTarget = () => {
-      const y = Math.max(0, target.getBoundingClientRect().top + window.scrollY - chromeOffset());
+      const anchor = routePanelToolbars.get(route?.jump || id) || target;
+      const y = Math.max(0, anchor.getBoundingClientRect().top + window.scrollY - chromeOffset());
       window.scrollTo({ top: y, behavior: "auto" });
     };
 
@@ -20769,15 +20896,11 @@
     alignTarget();
     syncSidebarRoute(id);
     scheduleScrollSpyGeometryRefresh();
-    // Charts and progressive copy can settle one or two frames later on a cold
-    // data load. Re-anchor the selected board so the first click never leaves
-    // the user inside an intrinsic-size placeholder.
+    // Re-anchor once after the selected panel has painted. Avoid repeated late
+    // scroll corrections, which made navigation feel delayed after the click.
     window.setTimeout(() => {
       if (token === jumpNavigationToken) alignTarget();
-    }, 160);
-    window.setTimeout(() => {
-      if (token === jumpNavigationToken) alignTarget();
-    }, 520);
+    }, 96);
   }
 
   function refreshScrollSpyGeometry() {

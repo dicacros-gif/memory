@@ -1431,6 +1431,82 @@ body.sidebar-collapsed .sb-ico {
   scroll-margin-top: calc(var(--topbar-h) + 18px);
 }
 
+/* Route accordion: one concise right-hand workspace per left navigation tab */
+.console-route-toolbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 18px;
+  padding: 11px 14px;
+  border: 1px solid var(--line);
+  border-left: 4px solid var(--accent);
+  background: var(--panel);
+  color: var(--text);
+}
+
+.console-route-toolbar[hidden] {
+  display: none !important;
+}
+
+.console-route-toolbar-copy {
+  min-width: 0;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.console-route-toolbar-copy > b {
+  width: 36px;
+  height: 36px;
+  display: grid;
+  place-items: center;
+  flex: 0 0 auto;
+  border-radius: 50%;
+  background: var(--ink);
+  color: #fff;
+  font-size: 13px;
+  line-height: 1;
+}
+
+.console-route-toolbar-copy strong,
+.console-route-toolbar-copy small {
+  display: block;
+}
+
+.console-route-toolbar-copy strong {
+  color: var(--text);
+  font-size: 16px;
+}
+
+.console-route-toggle {
+  min-width: 82px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 9px;
+  flex: 0 0 auto;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  padding: 8px 12px;
+  background: transparent;
+  color: var(--text);
+  font: inherit;
+  font-size: 13px;
+  font-weight: 850;
+  transition: none;
+}
+
+.console-route-toggle:hover,
+.console-route-toggle:focus-visible {
+  background: var(--ink);
+  color: #fff;
+}
+
+.console-route-inactive,
+.console-route-collapsed {
+  display: none !important;
+}
+
 .main > section:not(#overview):not(#strategy-consulting) {
   content-visibility: auto;
   contain-intrinsic-size: auto 900px;
