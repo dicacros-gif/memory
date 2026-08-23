@@ -1,20 +1,20 @@
 {
   "schemaVersion": "1.1",
-  "runId": "32626604412",
-  "generatedAt": "2026-08-23T08:03:00.154Z",
-  "expiresAt": "2026-08-24T10:02:58.087Z",
+  "runId": "32628745454",
+  "generatedAt": "2026-08-23T08:49:35.629Z",
+  "expiresAt": "2026-08-24T10:49:33.439Z",
   "clientArtifact": true,
   "generation": {
     "method": "verified-data-plus-approved-framework",
     "frameworkVersion": "1.1",
     "failClosed": true,
-    "sourceRunId": "32626604412"
+    "sourceRunId": "32628745454"
   },
   "siteAutomation": {
     "schemaVersion": "1.0",
     "status": "all-sections-bound",
-    "runId": "32626604412",
-    "generatedAt": "2026-08-23T08:03:00.154Z",
+    "runId": "32628745454",
+    "generatedAt": "2026-08-23T08:49:35.629Z",
     "totalSections": 68,
     "boundSections": 68,
     "refresh": {
@@ -266,8 +266,8 @@
       "scheduleHours": 1,
       "browserRecheckMinutes": 5,
       "sourceCatalogVersion": "1.0",
-      "runId": "32626604412",
-      "generatedAt": "2026-08-23T08:03:00.154Z"
+      "runId": "32628745454",
+      "generatedAt": "2026-08-23T08:49:35.629Z"
     }
   },
   "decisionControl": {
@@ -277,8 +277,8 @@
     },
     "freshness": {
       "status": "CURRENT",
-      "generatedAt": "2026-08-23T08:03:00.154Z",
-      "expiresAt": "2026-08-24T10:02:58.087Z"
+      "generatedAt": "2026-08-23T08:49:35.629Z",
+      "expiresAt": "2026-08-24T10:49:33.439Z"
     },
     "coverage": {
       "status": "LOW",
@@ -295,9 +295,9 @@
   "decisionIntelligence": {
     "schemaVersion": "1.2",
     "status": "pass",
-    "generatedAt": "2026-08-23T08:02:24.440Z",
-    "runId": "32626604412",
-    "refreshTrigger": "schedule",
+    "generatedAt": "2026-08-23T08:48:59.053Z",
+    "runId": "32628745454",
+    "refreshTrigger": "push",
     "metrics": [
       {
         "metricId": "hbm-revenue-share",
@@ -568,13 +568,13 @@
     ],
     "claimEvents": {
       "schemaVersion": "1.0",
-      "generatedAt": "2026-08-23T08:02:24.440Z",
+      "generatedAt": "2026-08-23T08:48:59.053Z",
       "stats": {
-        "eligibleDocuments": 35,
-        "structuredEvents": 10,
+        "eligibleDocuments": 36,
+        "structuredEvents": 11,
         "verifiedEvents": 6,
         "currentStages": 5,
-        "newEvents": 0,
+        "newEvents": 1,
         "contradictionReviews": 0
       },
       "events": [
@@ -609,6 +609,36 @@
           "supersededBy": null
         },
         {
+          "id": "0f652d28a88cd4d3b1e9",
+          "ruleId": "capacity-commitment",
+          "eventType": "commercial-commitment",
+          "label": "CapEx·Capacity·장기 물량",
+          "entity": {
+            "id": "samsung",
+            "label": "Samsung"
+          },
+          "product": {
+            "id": "ai-memory",
+            "label": "AI Memory"
+          },
+          "stage": {
+            "id": "MASS_PRODUCTION",
+            "rank": 60
+          },
+          "metrics": [],
+          "evidenceSpan": "The facility would primarily target mass production of 2nm base (logic) dies for next-generation HBM, allowing Samsung to secure additional capacity ahead of expected demand growth from key customers including NVIDIA",
+          "source": "TrendForce",
+          "sourceId": "trendforce",
+          "sourceClass": "research",
+          "sourceUrl": "https://www.trendforce.com/news/2026/08/14/news-samsung-may-repurpose-rd-line-for-foundry-targeting-2nm-hbm-base-dies-for-future-nvidia-demand",
+          "publishedAt": "2026-08-14",
+          "confidence": "research-observed",
+          "promotionStatus": "review",
+          "contradictionStatus": "clear",
+          "isCurrentStage": true,
+          "supersededBy": null
+        },
+        {
           "id": "7c25b9c482c44f86be38",
           "ruleId": "competitor-ramp",
           "eventType": "competitive-stage",
@@ -632,36 +662,6 @@
           "sourceClass": "research",
           "sourceUrl": "https://www.trendforce.com/presscenter/news/20260602-13074.html",
           "publishedAt": "2026-06-02",
-          "confidence": "research-observed",
-          "promotionStatus": "review",
-          "contradictionStatus": "clear",
-          "isCurrentStage": true,
-          "supersededBy": null
-        },
-        {
-          "id": "ad1fe730a17bcd7b5f78",
-          "ruleId": "capacity-commitment",
-          "eventType": "commercial-commitment",
-          "label": "CapEx·Capacity·장기 물량",
-          "entity": {
-            "id": "samsung",
-            "label": "Samsung"
-          },
-          "product": {
-            "id": "ai-memory",
-            "label": "AI Memory"
-          },
-          "stage": {
-            "id": "DISCLOSED",
-            "rank": 25
-          },
-          "metrics": [],
-          "evidenceSpan": "Samsung is stepping up its capacity expansion",
-          "source": "TrendForce",
-          "sourceId": "trendforce",
-          "sourceClass": "research",
-          "sourceUrl": "https://www.trendforce.com/news/2026/08/20/news-samsung-to-break-ground-on-krw-6t-onyang-hbm-fab-in-sept-p5-eyes-triple-fab-shift-as-expansion-accelerates",
-          "publishedAt": "2026-08-20",
           "confidence": "research-observed",
           "promotionStatus": "review",
           "contradictionStatus": "clear",
@@ -858,6 +858,36 @@
           "supersededBy": null
         },
         {
+          "id": "ad1fe730a17bcd7b5f78",
+          "ruleId": "capacity-commitment",
+          "eventType": "commercial-commitment",
+          "label": "CapEx·Capacity·장기 물량",
+          "entity": {
+            "id": "samsung",
+            "label": "Samsung"
+          },
+          "product": {
+            "id": "ai-memory",
+            "label": "AI Memory"
+          },
+          "stage": {
+            "id": "DISCLOSED",
+            "rank": 25
+          },
+          "metrics": [],
+          "evidenceSpan": "Samsung is stepping up its capacity expansion",
+          "source": "TrendForce",
+          "sourceId": "trendforce",
+          "sourceClass": "research",
+          "sourceUrl": "https://www.trendforce.com/news/2026/08/20/news-samsung-to-break-ground-on-krw-6t-onyang-hbm-fab-in-sept-p5-eyes-triple-fab-shift-as-expansion-accelerates",
+          "publishedAt": "2026-08-20",
+          "confidence": "research-observed",
+          "promotionStatus": "review",
+          "contradictionStatus": "clear",
+          "isCurrentStage": false,
+          "supersededBy": "0f652d28a88cd4d3b1e9"
+        },
+        {
           "id": "a6e2ed0895636b3b2518",
           "ruleId": "capacity-commitment",
           "eventType": "commercial-commitment",
@@ -920,7 +950,7 @@
       "state": "DECISION_READY",
       "funnel": {
         "sourceDocuments": 54,
-        "structuredEvents": 10,
+        "structuredEvents": 11,
         "verifiedEvents": 6,
         "decisionReadyBriefs": 4,
         "executionTrackingBriefs": 0
@@ -939,8 +969,8 @@
             "refreshMode": "poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-08-23T08:02:21.693Z",
-            "lastUsefulObservationAt": "2026-08-23T08:02:21.693Z",
+            "lastSuccessAt": "2026-08-23T08:48:57.494Z",
+            "lastUsefulObservationAt": "2026-08-23T08:48:57.494Z",
             "usefulObservation": true,
             "eventYield": 2
           },
@@ -951,10 +981,10 @@
             "refreshMode": "poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-08-23T08:02:21.693Z",
-            "lastUsefulObservationAt": "2026-08-23T08:02:21.693Z",
+            "lastSuccessAt": "2026-08-23T08:48:57.494Z",
+            "lastUsefulObservationAt": "2026-08-23T08:48:57.494Z",
             "usefulObservation": true,
-            "eventYield": 4
+            "eventYield": 5
           },
           {
             "id": "samsung-hbm4-stage",
@@ -963,8 +993,8 @@
             "refreshMode": "event+poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-08-23T08:02:21.693Z",
-            "lastUsefulObservationAt": "2026-08-23T08:02:21.693Z",
+            "lastSuccessAt": "2026-08-23T08:48:57.494Z",
+            "lastUsefulObservationAt": "2026-08-23T08:48:57.494Z",
             "usefulObservation": true,
             "eventYield": 3
           },
@@ -975,7 +1005,7 @@
             "refreshMode": "event+poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-08-23T08:02:21.693Z",
+            "lastSuccessAt": "2026-08-23T08:48:57.494Z",
             "lastUsefulObservationAt": null,
             "usefulObservation": false,
             "eventYield": 0
@@ -987,7 +1017,7 @@
             "refreshMode": "event+poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-08-23T08:02:21.693Z",
+            "lastSuccessAt": "2026-08-23T08:48:57.494Z",
             "lastUsefulObservationAt": null,
             "usefulObservation": false,
             "eventYield": 0
@@ -999,7 +1029,7 @@
             "refreshMode": "poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-08-23T08:02:21.693Z",
+            "lastSuccessAt": "2026-08-23T08:48:57.494Z",
             "lastUsefulObservationAt": null,
             "usefulObservation": false,
             "eventYield": 0
@@ -1011,8 +1041,8 @@
             "refreshMode": "poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-08-23T08:02:21.693Z",
-            "lastUsefulObservationAt": "2026-08-23T08:02:21.693Z",
+            "lastSuccessAt": "2026-08-23T08:48:57.494Z",
+            "lastUsefulObservationAt": "2026-08-23T08:48:57.494Z",
             "usefulObservation": true,
             "eventYield": 0
           },
@@ -1023,8 +1053,8 @@
             "refreshMode": "poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-08-23T08:02:21.693Z",
-            "lastUsefulObservationAt": "2026-08-23T08:02:21.693Z",
+            "lastSuccessAt": "2026-08-23T08:48:57.494Z",
+            "lastUsefulObservationAt": "2026-08-23T08:48:57.494Z",
             "usefulObservation": true,
             "eventYield": 0
           },
@@ -1035,8 +1065,8 @@
             "refreshMode": "poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-08-23T08:02:21.693Z",
-            "lastUsefulObservationAt": "2026-08-23T08:02:21.693Z",
+            "lastSuccessAt": "2026-08-23T08:48:57.494Z",
+            "lastUsefulObservationAt": "2026-08-23T08:48:57.494Z",
             "usefulObservation": true,
             "eventYield": 0
           },
@@ -1047,7 +1077,7 @@
             "refreshMode": "poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-08-23T08:02:21.693Z",
+            "lastSuccessAt": "2026-08-23T08:48:57.494Z",
             "lastUsefulObservationAt": null,
             "usefulObservation": false,
             "eventYield": 0
@@ -1063,7 +1093,7 @@
           "decisionStage": "CUSTOMER_QUALIFICATION",
           "deliverable": "Customer Fact Base · Pain Map · Requirement Matrix · Memory Proposal",
           "status": "DECISION_READY",
-          "updatedAt": "2026-08-23T08:02:24.440Z",
+          "updatedAt": "2026-08-23T08:48:59.053Z",
           "whatChanged": "HBM4 상업화 신호를 고객별 Custom Qualification·계약 Gate로 전환할 것인가",
           "latestSignal": "Samsung · HBM4 · COMMERCIAL_SHIPMENT",
           "sourceStage": "COMMERCIAL_SHIPMENT",
@@ -1095,7 +1125,7 @@
           "trigger": "SAMPLE 이후 고객 Qualification 또는 Commercial Shipment 단계가 공식 원문으로 확인",
           "killCriteria": "Trace 접근권·Qualification 경로·확정 물량·NRE 회수 중 2개 이상이 확인되지 않으면 Full-Custom 투자를 중단",
           "evidenceCount": 8,
-          "independentSources": 5,
+          "independentSources": 4,
           "primaryEvidence": 1,
           "verifiedClaims": 6,
           "evidence": [
@@ -1112,6 +1142,18 @@
               "excerpt": "Samsung Electronics, a global leader in advanced memory technology, today announced that it has begun mass production of its industry-leading HBM4 and has shipped commercial products to customers"
             },
             {
+              "id": "0f652d28a88cd4d3b1e9",
+              "title": "Samsung · AI Memory · MASS_PRODUCTION",
+              "source": "TrendForce",
+              "sourceId": "trendforce",
+              "sourceClass": "research",
+              "url": "https://www.trendforce.com/news/2026/08/14/news-samsung-may-repurpose-rd-line-for-foundry-targeting-2nm-hbm-base-dies-for-future-nvidia-demand",
+              "publishedAt": "2026-08-14",
+              "stage": "MASS_PRODUCTION",
+              "confidence": "research-observed",
+              "excerpt": "The facility would primarily target mass production of 2nm base (logic) dies for next-generation HBM, allowing Samsung to secure additional capacity ahead of expected demand growth from key customers including NVIDIA"
+            },
+            {
               "id": "7c25b9c482c44f86be38",
               "title": "Memory industry · HBM4 · ANNOUNCED",
               "source": "TrendForce",
@@ -1122,18 +1164,6 @@
               "stage": "ANNOUNCED",
               "confidence": "research-observed",
               "excerpt": "As the market enters 2Q26, negotiations between buyers and suppliers have shifted toward HBM4 supply agreements for 2027, which is expected to become the market’s mainstream project generation"
-            },
-            {
-              "id": "ad1fe730a17bcd7b5f78",
-              "title": "Samsung · AI Memory · DISCLOSED",
-              "source": "TrendForce",
-              "sourceId": "trendforce",
-              "sourceClass": "research",
-              "url": "https://www.trendforce.com/news/2026/08/20/news-samsung-to-break-ground-on-krw-6t-onyang-hbm-fab-in-sept-p5-eyes-triple-fab-shift-as-expansion-accelerates",
-              "publishedAt": "2026-08-20",
-              "stage": "DISCLOSED",
-              "confidence": "research-observed",
-              "excerpt": "Samsung is stepping up its capacity expansion"
             },
             {
               "id": "39e7ac26429e73c7acb5",
@@ -1169,7 +1199,7 @@
           "decisionStage": "ARCHITECTURE_BENCHMARK",
           "deliverable": "Workload Trace · Bottleneck Tree · Architecture Benchmark · TCO",
           "status": "DECISION_READY",
-          "updatedAt": "2026-08-23T08:02:24.440Z",
+          "updatedAt": "2026-08-23T08:48:59.053Z",
           "whatChanged": "KV Cache 지배 병목을 HBM·Host DRAM/CXL·eSSD 계층화로 낮출 것인가",
           "latestSignal": "Samsung · HBM4 · COMMERCIAL_SHIPMENT",
           "sourceStage": "COMMERCIAL_SHIPMENT",
@@ -1203,8 +1233,8 @@
           "trigger": "SW-only 기준선 이후에도 Active KV 또는 KV 이동이 SLO를 제한",
           "killCriteria": "SW-only가 동일 품질·SLO에서 Memory Tier보다 경제적이면 HW 제안을 중단",
           "evidenceCount": 8,
-          "independentSources": 5,
-          "primaryEvidence": 2,
+          "independentSources": 4,
+          "primaryEvidence": 1,
           "verifiedClaims": 5,
           "evidence": [
             {
@@ -1220,16 +1250,16 @@
               "excerpt": "Samsung Electronics, a global leader in advanced memory technology, today announced that it has begun mass production of its industry-leading HBM4 and has shipped commercial products to customers"
             },
             {
-              "id": "ad1fe730a17bcd7b5f78",
-              "title": "Samsung · AI Memory · DISCLOSED",
+              "id": "0f652d28a88cd4d3b1e9",
+              "title": "Samsung · AI Memory · MASS_PRODUCTION",
               "source": "TrendForce",
               "sourceId": "trendforce",
               "sourceClass": "research",
-              "url": "https://www.trendforce.com/news/2026/08/20/news-samsung-to-break-ground-on-krw-6t-onyang-hbm-fab-in-sept-p5-eyes-triple-fab-shift-as-expansion-accelerates",
-              "publishedAt": "2026-08-20",
-              "stage": "DISCLOSED",
+              "url": "https://www.trendforce.com/news/2026/08/14/news-samsung-may-repurpose-rd-line-for-foundry-targeting-2nm-hbm-base-dies-for-future-nvidia-demand",
+              "publishedAt": "2026-08-14",
+              "stage": "MASS_PRODUCTION",
               "confidence": "research-observed",
-              "excerpt": "Samsung is stepping up its capacity expansion"
+              "excerpt": "The facility would primarily target mass production of 2nm base (logic) dies for next-generation HBM, allowing Samsung to secure additional capacity ahead of expected demand growth from key customers including NVIDIA"
             },
             {
               "id": "39e7ac26429e73c7acb5",
@@ -1277,10 +1307,10 @@
           "decisionStage": "BUSINESS_CASE",
           "deliverable": "Tech/Market Insight · Opportunity Thesis · Partner Screen · Business Case",
           "status": "DECISION_READY",
-          "updatedAt": "2026-08-23T08:02:24.440Z",
+          "updatedAt": "2026-08-23T08:48:59.053Z",
           "whatChanged": "RAG 품질 Gate 통과 후 Index·Corpus 계층을 어떤 사업모델로 확장할 것인가",
-          "latestSignal": "Samsung · AI Memory · DISCLOSED",
-          "sourceStage": "DISCLOSED",
+          "latestSignal": "Samsung · AI Memory · MASS_PRODUCTION",
+          "sourceStage": "MASS_PRODUCTION",
           "stage": "BUSINESS_CASE",
           "confidence": "review",
           "customerPain": "검색 품질·권한·색인 최신성과 Query P99를 유지하면서 Corpus 비용을 통제해야 함",
@@ -1308,21 +1338,21 @@
           "trigger": "검색 품질 Gate 통과 후 Active Index Capacity 또는 Storage I/O가 지배 병목으로 확인",
           "killCriteria": "Recall·권한·인용 품질 Gate를 통과하지 못하면 Memory/Storage 증설 제안을 중단",
           "evidenceCount": 8,
-          "independentSources": 6,
-          "primaryEvidence": 4,
+          "independentSources": 5,
+          "primaryEvidence": 3,
           "verifiedClaims": 3,
           "evidence": [
             {
-              "id": "ad1fe730a17bcd7b5f78",
-              "title": "Samsung · AI Memory · DISCLOSED",
+              "id": "0f652d28a88cd4d3b1e9",
+              "title": "Samsung · AI Memory · MASS_PRODUCTION",
               "source": "TrendForce",
               "sourceId": "trendforce",
               "sourceClass": "research",
-              "url": "https://www.trendforce.com/news/2026/08/20/news-samsung-to-break-ground-on-krw-6t-onyang-hbm-fab-in-sept-p5-eyes-triple-fab-shift-as-expansion-accelerates",
-              "publishedAt": "2026-08-20",
-              "stage": "DISCLOSED",
+              "url": "https://www.trendforce.com/news/2026/08/14/news-samsung-may-repurpose-rd-line-for-foundry-targeting-2nm-hbm-base-dies-for-future-nvidia-demand",
+              "publishedAt": "2026-08-14",
+              "stage": "MASS_PRODUCTION",
               "confidence": "research-observed",
-              "excerpt": "Samsung is stepping up its capacity expansion"
+              "excerpt": "The facility would primarily target mass production of 2nm base (logic) dies for next-generation HBM, allowing Samsung to secure additional capacity ahead of expected demand growth from key customers including NVIDIA"
             },
             {
               "id": "39e7ac26429e73c7acb5",
@@ -1361,16 +1391,16 @@
               "excerpt": "The company will also keep its capacity options aligned with future customer timelines by utilizing 16-layer stacking, which will expand offerings to up to 48GB"
             },
             {
-              "id": "a6e2ed0895636b3b2518",
-              "title": "Memory industry · AI Memory · DISCLOSED",
+              "id": "ad1fe730a17bcd7b5f78",
+              "title": "Samsung · AI Memory · DISCLOSED",
               "source": "TrendForce",
               "sourceId": "trendforce",
               "sourceClass": "research",
-              "url": "https://www.trendforce.com/presscenter/news/20260602-13074.html",
-              "publishedAt": "2026-06-02",
+              "url": "https://www.trendforce.com/news/2026/08/20/news-samsung-to-break-ground-on-krw-6t-onyang-hbm-fab-in-sept-p5-eyes-triple-fab-shift-as-expansion-accelerates",
+              "publishedAt": "2026-08-20",
               "stage": "DISCLOSED",
               "confidence": "research-observed",
-              "excerpt": "Overall, as HBM generations continue evolving in 2027, with larger die sizes and simultaneously rising demand, the crowding-out effect on conventional DRAM capacity is expected to intensify further"
+              "excerpt": "Samsung is stepping up its capacity expansion"
             }
           ]
         },
@@ -1382,10 +1412,10 @@
           "decisionStage": "SCALE_GATE",
           "deliverable": "Partner Model · 90-Day Roadmap · RACI · KPI/Trigger/Kill Dashboard",
           "status": "DECISION_READY",
-          "updatedAt": "2026-08-23T08:02:24.440Z",
+          "updatedAt": "2026-08-23T08:48:59.053Z",
           "whatChanged": "전력·냉각·Fabric·Storage Gate를 통과한 Rack Cell만 파트너와 확장할 것인가",
-          "latestSignal": "Samsung · AI Memory · DISCLOSED",
-          "sourceStage": "DISCLOSED",
+          "latestSignal": "Samsung · AI Memory · MASS_PRODUCTION",
+          "sourceStage": "MASS_PRODUCTION",
           "stage": "SCALE_GATE",
           "confidence": "review",
           "customerPain": "가속기·Fabric·Storage·전력·냉각의 병목이 Rack/POD 단위 확장을 제한",
@@ -1415,21 +1445,21 @@
           "trigger": "실제 로그와 업무 성공 기준·가동 가능 전력이 함께 확정",
           "killCriteria": "전력 인입·열 제거·복구 SLO·수요 기준선 중 하나라도 검증되지 않으면 대규모 CAPEX를 승인하지 않음",
           "evidenceCount": 8,
-          "independentSources": 5,
-          "primaryEvidence": 4,
+          "independentSources": 4,
+          "primaryEvidence": 3,
           "verifiedClaims": 3,
           "evidence": [
             {
-              "id": "ad1fe730a17bcd7b5f78",
-              "title": "Samsung · AI Memory · DISCLOSED",
+              "id": "0f652d28a88cd4d3b1e9",
+              "title": "Samsung · AI Memory · MASS_PRODUCTION",
               "source": "TrendForce",
               "sourceId": "trendforce",
               "sourceClass": "research",
-              "url": "https://www.trendforce.com/news/2026/08/20/news-samsung-to-break-ground-on-krw-6t-onyang-hbm-fab-in-sept-p5-eyes-triple-fab-shift-as-expansion-accelerates",
-              "publishedAt": "2026-08-20",
-              "stage": "DISCLOSED",
+              "url": "https://www.trendforce.com/news/2026/08/14/news-samsung-may-repurpose-rd-line-for-foundry-targeting-2nm-hbm-base-dies-for-future-nvidia-demand",
+              "publishedAt": "2026-08-14",
+              "stage": "MASS_PRODUCTION",
               "confidence": "research-observed",
-              "excerpt": "Samsung is stepping up its capacity expansion"
+              "excerpt": "The facility would primarily target mass production of 2nm base (logic) dies for next-generation HBM, allowing Samsung to secure additional capacity ahead of expected demand growth from key customers including NVIDIA"
             },
             {
               "id": "39e7ac26429e73c7acb5",
@@ -1468,16 +1498,16 @@
               "excerpt": "The company will also keep its capacity options aligned with future customer timelines by utilizing 16-layer stacking, which will expand offerings to up to 48GB"
             },
             {
-              "id": "a6e2ed0895636b3b2518",
-              "title": "Memory industry · AI Memory · DISCLOSED",
+              "id": "ad1fe730a17bcd7b5f78",
+              "title": "Samsung · AI Memory · DISCLOSED",
               "source": "TrendForce",
               "sourceId": "trendforce",
               "sourceClass": "research",
-              "url": "https://www.trendforce.com/presscenter/news/20260602-13074.html",
-              "publishedAt": "2026-06-02",
+              "url": "https://www.trendforce.com/news/2026/08/20/news-samsung-to-break-ground-on-krw-6t-onyang-hbm-fab-in-sept-p5-eyes-triple-fab-shift-as-expansion-accelerates",
+              "publishedAt": "2026-08-20",
               "stage": "DISCLOSED",
               "confidence": "research-observed",
-              "excerpt": "Overall, as HBM generations continue evolving in 2027, with larger die sizes and simultaneously rising demand, the crowding-out effect on conventional DRAM capacity is expected to intensify further"
+              "excerpt": "Samsung is stepping up its capacity expansion"
             }
           ]
         }
@@ -1562,8 +1592,8 @@
         "chunks": 143,
         "added": 0,
         "changed": 0,
-        "unchanged": 35,
-        "retained": 19,
+        "unchanged": 36,
+        "retained": 18,
         "reindexed": 0
       },
       "packs": [
@@ -1720,7 +1750,7 @@
               "indexedAt": "2026-08-23T07:23:34.980Z",
               "sourceChangeDetectedAt": "2026-08-23T07:16:57.741Z",
               "lastHumanVerifiedAt": null,
-              "stale": true
+              "stale": false
             },
             {
               "title": "Tight DRAM Supply Gives Suppliers Greater Pricing Power in HBM, with HBM Contract Prices Expected to Surge Multiples Higher in 2027, Says TrendForce",
@@ -2075,7 +2105,7 @@
     },
     "freshness": {
       "framework": "evidence-freshness-v1",
-      "score": 88.6,
+      "score": 89.1,
       "status": "current",
       "label": "최신",
       "revalidationRequired": false,
@@ -2092,11 +2122,11 @@
       "components": {
         "contentAge": 97.1,
         "embeddingLag": 100,
-        "staleRetrievalRate": 58.3,
+        "staleRetrievalRate": 60.4,
         "coverageDrift": 100
       },
       "diagnostics": {
-        "staleRetrievalRatePct": 41.7,
+        "staleRetrievalRatePct": 39.6,
         "feedCoveragePct": 100,
         "trackCoveragePct": 100,
         "metricCoveragePct": 100,
@@ -2112,7 +2142,7 @@
         "sourceChangeDetectedAt": "2026-08-23T07:23:33.000Z",
         "indexedAt": "2026-08-23T07:23:34.980Z"
       },
-      "generatedAt": "2026-08-23T08:02:24.440Z"
+      "generatedAt": "2026-08-23T08:48:59.053Z"
     },
     "evaluation": {
       "framework": "grounded-retrieval-quality-loop",
@@ -2206,8 +2236,8 @@
     "output": {},
     "departmentWorkbench": {
       "source": "decisionIntelligence.decisionAutomation.briefs",
-      "runId": "32626604412",
-      "generatedAt": "2026-08-23T08:03:00.154Z",
+      "runId": "32628745454",
+      "generatedAt": "2026-08-23T08:49:35.629Z",
       "status": "DECISION_READY",
       "agenda": [
         {
@@ -2231,7 +2261,7 @@
             "Committed Volume"
           ],
           "evidenceCount": 8,
-          "independentSources": 5,
+          "independentSources": 4,
           "confidence": "verified-primary",
           "deepLink": "#console/c-level-cockpit/hbm4-foundry"
         },
@@ -2256,7 +2286,7 @@
             "Goodput"
           ],
           "evidenceCount": 8,
-          "independentSources": 5,
+          "independentSources": 4,
           "confidence": "verified-primary",
           "deepLink": "#console/c-level-cockpit/post-hbm"
         },
@@ -2269,7 +2299,7 @@
           "stage": "BUSINESS_CASE",
           "decisionQuestion": "RAG 품질 Gate 통과 후 Index·Corpus 계층을 어떤 사업모델로 확장할 것인가",
           "whatChanged": "RAG 품질 Gate 통과 후 Index·Corpus 계층을 어떤 사업모델로 확장할 것인가",
-          "latestSignal": "Samsung · AI Memory · DISCLOSED",
+          "latestSignal": "Samsung · AI Memory · MASS_PRODUCTION",
           "customerPain": "검색 품질·권한·색인 최신성과 Query P99를 유지하면서 Corpus 비용을 통제해야 함",
           "recommendation": "Vector DB 교체보다 Metadata·ACL·Hybrid Retrieval·Rerank를 먼저 통과한 뒤 Hot Index·Warm Document·Cold Corpus를 계층화",
           "action90d": "Golden Set과 권한 오류·Recall·P99 기준선을 고정하고 Tier별 Retrieval Benchmark 수행",
@@ -2281,7 +2311,7 @@
             "Retrieval P99"
           ],
           "evidenceCount": 8,
-          "independentSources": 6,
+          "independentSources": 5,
           "confidence": "review",
           "deepLink": "#console/ai-matrix"
         },
@@ -2294,7 +2324,7 @@
           "stage": "SCALE_GATE",
           "decisionQuestion": "전력·냉각·Fabric·Storage Gate를 통과한 Rack Cell만 파트너와 확장할 것인가",
           "whatChanged": "전력·냉각·Fabric·Storage Gate를 통과한 Rack Cell만 파트너와 확장할 것인가",
-          "latestSignal": "Samsung · AI Memory · DISCLOSED",
+          "latestSignal": "Samsung · AI Memory · MASS_PRODUCTION",
           "customerPain": "가속기·Fabric·Storage·전력·냉각의 병목이 Rack/POD 단위 확장을 제한",
           "recommendation": "서버 단품이 아니라 Useful AI Work / Total Cost와 Qualification / Time 기준으로 Rack Cell을 공동 최적화",
           "action90d": "Workload Trace·전력·열·Fabric·Checkpoint를 한 부하에서 계측하는 Rack Cell Baseline 확정",
@@ -2306,7 +2336,7 @@
             "Rack kW"
           ],
           "evidenceCount": 8,
-          "independentSources": 5,
+          "independentSources": 4,
           "confidence": "review",
           "deepLink": "#console/ai-factory"
         }
@@ -2324,7 +2354,7 @@
         },
         {
           "label": "FRESHNESS",
-          "value": 88.6,
+          "value": 89.1,
           "suffix": "/100",
           "detail": "최신"
         },
@@ -2520,8 +2550,8 @@
         }
       }
     ],
-    "runId": "32626604412",
-    "generatedAt": "2026-08-23T08:03:00.154Z",
+    "runId": "32628745454",
+    "generatedAt": "2026-08-23T08:49:35.629Z",
     "liveEvidenceCount": 4
   },
   "decisionCases": [
@@ -2554,7 +2584,7 @@
         "evidenceLevel": "Reported",
         "sourceClass": "authoritative-media"
       },
-      "evidenceCount": 9,
+      "evidenceCount": 10,
       "signals": [
         [
           "Reported · AUTHORITATIVE-MEDIA",
@@ -3078,7 +3108,7 @@
     {
       "id": "hbm",
       "label": "HBM·AI 서버",
-      "evidenceCount": 9,
+      "evidenceCount": 10,
       "latest": {
         "title": "SK Hynix's new HBM team lands in Nvidia and AMD's backyard — co-design is becoming the way to win HBM4 orders",
         "summary": "실리콘밸리 HBM 설계팀 구축 · 주요 고객 공동 설계 확대 · Custom HBM 경쟁 전환 신호",
@@ -3102,7 +3132,7 @@
     {
       "id": "dram",
       "label": "DRAM·범용 가격",
-      "evidenceCount": 12,
+      "evidenceCount": 13,
       "latest": {
         "title": "Micron D1β LPDDR5X DRAM Transistor Characterization Report",
         "summary": "이 보고서는 Micron Technology MT62F1G64D4AM-031_XT_C LPDDR5 SDRAM 구성 요소 내부에 있는 Micron Technology Y52P 다이의 워드 라인 드라이버 및 감지 증폭기 영역에 위치한 NMOS 및 PMOS 트랜지스터의 주요 DC 특성을 제시",
@@ -4033,8 +4063,8 @@
       "scheduleHours": 1,
       "failClosed": true
     },
-    "generatedAt": "2026-08-23T08:03:00.154Z",
-    "runId": "32626604412"
+    "generatedAt": "2026-08-23T08:49:35.629Z",
+    "runId": "32628745454"
   },
   "workloadOptimization": {
     "title": "Data Center Workload Optimization · Bottleneck-to-PoC",
@@ -4275,7 +4305,7 @@
         "근거 없는 답변율"
       ],
       "liveControl": {
-        "freshnessScore": 88.6,
+        "freshnessScore": 89.1,
         "freshnessStatus": "current",
         "retrievalStatus": "pass",
         "citationCoveragePct": 100,
@@ -4429,12 +4459,12 @@
         "sourceClass": "official"
       }
     ],
-    "generatedAt": "2026-08-23T08:03:00.154Z",
-    "runId": "32626604412"
+    "generatedAt": "2026-08-23T08:49:35.629Z",
+    "runId": "32628745454"
   },
   "strategyBoard": {
     "schemaVersion": "1.0",
-    "generatedAt": "2026-08-23T08:03:00.154Z",
+    "generatedAt": "2026-08-23T08:49:35.629Z",
     "status": "evidence-connected",
     "tech": {
       "eyebrow": "TECH & MARKET INSIGHTS",
@@ -4750,7 +4780,7 @@
           "evidenceLevel": "Reported",
           "sourceClass": "authoritative-media"
         },
-        "evidenceCount": 9,
+        "evidenceCount": 10,
         "signals": [
           [
             "Reported · AUTHORITATIVE-MEDIA",
@@ -5161,7 +5191,7 @@
           "evidenceLevel": "Reported",
           "sourceClass": "research"
         },
-        "evidenceCount": 12,
+        "evidenceCount": 13,
         "signals": [
           [
             "Reported · RESEARCH",
