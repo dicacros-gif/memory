@@ -58,8 +58,8 @@ assert.match(files.appJs.text, /performance\.mark\("memory-console-interactive"\
 assert.doesNotMatch(files.appJs.text, /function observeDeferredSections\(/);
 assert.match(files.appJs.text, /window\.requestIdleCallback\(prepareDrop/);
 assert.doesNotMatch(files.appJs.text, /scheduleHeroVideo|memoryHeroVideo/);
-assert.doesNotMatch(files.html.text, /memory-hero-lite\.mp4|memoryHeroVideo/);
-assert.match(files.html.text, /class="memory-hero-static"[^>]*memory-hero-poster\.webp/);
+assert.doesNotMatch(files.html.text, /memory-hero-lite\.mp4|memoryHeroVideo|memory-hero-static|memory-hero-poster\.webp/);
+assert.doesNotMatch(files.stylesCss.text, /\.memory-video-hero|\.memory-hero-static|\.memory-hero-content/);
 assert.match(files.appJs.text, /function renderNewsBucket\([\s\S]*?rendered < 12[\s\S]*?requestIdleCallback\(appendBatch, \{ timeout: 320 \}\)/);
 assert.match(files.stylesCss.text, /\.news-card-item \{[\s\S]*?content-visibility:\s*auto;[\s\S]*?contain-intrinsic-size:\s*auto 340px;/);
 

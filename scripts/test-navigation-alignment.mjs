@@ -41,18 +41,18 @@ for (const match of html.matchAll(/<(?:main|section)\b[^>]*\bid="([^"]+)"/g)) {
   if (!sectionOrder.has(match[1])) sectionOrder.set(match[1], sectionOrder.size);
 }
 
-assert.equal(routes.length, 8, "sidebar routes should cover the eight SK hynix AI Infra work areas");
+assert.equal(routes.length, 7, "sidebar routes should cover the seven active SK hynix AI Infra work areas");
 assert.equal(new Set(routes.map((route) => route.id)).size, routes.length, "route ids must be unique");
 assert.equal(new Set(routes.map((route) => route.jump)).size, routes.length, "route landmarks must be unique");
 assert.deepEqual(
-  routes.slice(0, 3).map((route) => route.id),
-  ["home", "biz-consulting", "c-level"],
-  "opening route must stay video → customer diagnosis → executive decision",
+  routes.slice(0, 2).map((route) => route.id),
+  ["biz-consulting", "c-level"],
+  "the console must start with customer diagnosis followed by executive decision",
 );
 assert.deepEqual(
-  routes.slice(0, 3).map((route) => route.jump),
-  ["overview", "strategy-consulting", "c-level-cockpit"],
-  "opening tab targets must match the right-hand document order",
+  routes.slice(0, 2).map((route) => route.jump),
+  ["strategy-consulting", "c-level-cockpit"],
+  "the first tab targets must match the right-hand document order",
 );
 
 let previousJump = -1;
@@ -176,8 +176,10 @@ assert.match(css, /\.consulting-system \.sc-card-flow \{[\s\S]*?grid-template-co
 assert.match(css, /#execDecisionRunCouncil[\s\S]*?background: transparent;[\s\S]*?box-shadow: none;/, "the executive framework must not use glowing AI-style action controls");
 assert.match(landing, /function loadAppScript\(\)[\s\S]*?assets\/js\/app\.min\.js\?v=\$\{CONSOLE_REVISION\}/, "the minified console app must load only after an explicit console request");
 assert.match(landing, /assets\/css\/styles\.min\.css\?v=\$\{CONSOLE_REVISION\}/, "minified console-only styling must load on demand");
-assert.match(html, /location\.hash\.startsWith\("#console"\)[\s\S]*?consolePosterPreload[\s\S]*?memory-hero-poster\.webp/, "direct console and deep-link entry must discover the LCP poster during head parsing");
-assert.match(landing, /function primeConsoleAssets\(\)[\s\S]*?consoleAppPreload[\s\S]*?consolePosterPreload/, "console assets must be primed in parallel before activation");
+assert.match(html, /location\.hash\.startsWith\("#console"\)[\s\S]*?consoleStylesPreload[\s\S]*?consoleAppPreload/, "direct console and deep-link entry must discover the console bundles during head parsing");
+assert.doesNotMatch(html, /consolePosterPreload|memory-hero-poster\.webp/, "the deleted opening image must not be preloaded");
+assert.match(landing, /function primeConsoleAssets\(\)[\s\S]*?consoleStylesPreload[\s\S]*?consoleAppPreload/, "console bundles must be primed in parallel before activation");
+assert.doesNotMatch(landing, /consolePosterPreload|memory-hero-poster\.webp/, "console warmup must not fetch deleted opening media");
 assert.match(landing, /const consoleReady = loadConsole\(\);[\s\S]*?await loadStylesheet\(\);[\s\S]*?activeConsoleLayer\.hidden = false;[\s\S]*?finishConsoleStartup\(\);[\s\S]*?await consoleReady;/, "the styled console shell must appear while data hydration continues");
 assert.match(html, /id="consoleStaticSnapshot"[\s\S]*?SIGNAL[\s\S]*?DIAGNOSE[\s\S]*?KILL Criteria|id="consoleStaticSnapshot"[\s\S]*?Kill Criteria/, "direct console entry must expose an indexable decision snapshot instead of an empty loader");
 assert.match(html, /#console\/c-level-cockpit\/hbm4-foundry[\s\S]*?#console\/c-level-cockpit\/post-hbm/, "the static console snapshot must expose stable decision deep links");
@@ -188,7 +190,7 @@ assert.match(landing, /function isConsoleHash\([\s\S]*?startsWith\(`\$\{CONSOLE_
 assert.match(app, /function consoleDeepLinkState\([\s\S]*?function applyConsoleDeepLink\(/, "the console must parse and apply section/item deep links");
 assert.doesNotMatch(app, /cLevelCopyLink|copyTextToClipboard|data-(?:agent|advanced|number|talent|work|decision|infra|inspector|investment|nand|policy|projection)-copy/, "the console must not render clipboard controls");
 assert.match(app, /function aiInfraCouncilDeepLink\([\s\S]*?syncAiInfraCouncilDeepLink/, "agenda selection must keep a stable URL without a copy control");
-assert.match(css, /\.main > section:not\(#overview\):not\(#strategy-consulting\) \{[\s\S]*?content-visibility:\s*auto;/, "below-fold console sections must skip initial layout and paint");
+assert.match(css, /\.main > section:not\(#strategy-consulting\) \{[\s\S]*?content-visibility:\s*auto;/, "below-fold console sections must skip initial layout and paint");
 assert.match(landing, /nav\?\.classList\.toggle\("is-open", open\)/, "the mobile menu controller must activate the responsive navigation state");
 assert.match(landing, /fetch\("data\/data-manifest\.json", \{ cache: force \? "reload" : "no-cache" \}\)/, "the business site must revalidate the current manifest without disabling repeat-visit caching");
 for (const evidenceLabel of ["HYPOTHESIS", "MODELED"]) {

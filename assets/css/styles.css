@@ -1507,7 +1507,7 @@ body.sidebar-collapsed .sb-ico {
   display: none !important;
 }
 
-.main > section:not(#overview):not(#strategy-consulting) {
+.main > section:not(#strategy-consulting) {
   content-visibility: auto;
   contain-intrinsic-size: auto 900px;
 }
@@ -1627,158 +1627,6 @@ body.console-startup #intelligenceConsole *::after {
   box-shadow: var(--shadow);
 }
 
-.memory-video-hero {
-  --hero-copy-shift: 0px;
-  --hero-copy-opacity: 1;
-  position: relative;
-  isolation: isolate;
-  display: grid;
-  width: calc(100% + 48px);
-  min-width: calc(100% + 48px);
-  max-width: none;
-  justify-self: start;
-  min-height: 168svh;
-  margin-top: -20px;
-  margin-left: -24px;
-  margin-right: -24px;
-  overflow: clip;
-  border: 0;
-  border-radius: 0;
-  background: #07101a;
-  color: #fff;
-}
-
-.memory-hero-static,
-.memory-hero-shade {
-  position: sticky;
-  top: var(--topbar-h);
-  grid-area: 1 / 1;
-  align-self: start;
-  width: 100%;
-  height: calc(100svh - var(--topbar-h));
-}
-
-.memory-hero-static {
-  z-index: 0;
-  object-fit: cover;
-  object-position: center center;
-  filter: saturate(.92) contrast(1.04);
-}
-
-.memory-hero-shade {
-  z-index: 1;
-  background:
-    linear-gradient(90deg, rgba(2, 8, 17, .96) 0%, rgba(2, 8, 17, .86) 31%, rgba(2, 8, 17, .48) 58%, rgba(2, 8, 17, .18) 100%),
-    linear-gradient(0deg, rgba(2, 8, 17, .66) 0%, transparent 48%);
-}
-
-.memory-hero-content {
-  position: relative;
-  z-index: 2;
-  grid-area: 1 / 1;
-  min-height: 168svh;
-  width: 100%;
-  display: grid;
-  align-content: start;
-  gap: 13px;
-  padding: clamp(120px, 25svh, 240px) clamp(48px, 7vw, 104px) 44svh;
-  opacity: var(--hero-copy-opacity);
-  transform: translate3d(0, var(--hero-copy-shift), 0);
-  transform-origin: left center;
-  transition: opacity .12s linear;
-  will-change: transform, opacity;
-}
-
-.memory-hero-content > * {
-  max-width: 650px;
-}
-
-.memory-hero-kicker {
-  width: fit-content;
-  border-left: 3px solid #3dd6d0;
-  color: #b8fff8;
-  padding-left: 10px;
-  font-size: 11px;
-  font-weight: 900;
-  letter-spacing: .08em;
-  text-transform: uppercase;
-}
-
-.memory-video-hero h2 {
-  color: #fff;
-  font-family: var(--display);
-  font-size: 48px;
-  line-height: 1.04;
-  font-weight: 800;
-  letter-spacing: 0;
-  text-wrap: balance;
-}
-
-.memory-hero-content > p:not(.memory-hero-kicker) {
-  max-width: 590px;
-  color: rgba(241, 245, 249, .9);
-  font-size: 15px;
-  line-height: 1.68;
-  font-weight: 650;
-  text-shadow: 0 2px 16px rgba(0, 0, 0, .5);
-}
-
-.memory-hero-actions {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  flex-wrap: wrap;
-  margin-top: 5px;
-}
-
-.memory-hero-actions button {
-  min-height: 38px;
-  border: 1px solid rgba(255, 255, 255, .34);
-  border-radius: 6px;
-  background: rgba(5, 15, 28, .62);
-  color: #fff;
-  padding: 0 14px;
-  font-size: 12px;
-  font-weight: 850;
-  backdrop-filter: blur(8px);
-  transition: background .07s, border-color .07s, color .07s, transform .07s;
-}
-
-.memory-hero-actions button:hover,
-.memory-hero-actions button:focus-visible {
-  border-color: #6ee7df;
-  background: #e6fffb;
-  color: #07101a;
-  transform: translateY(-2px);
-}
-
-.memory-hero-scroll-cue {
-  position: relative;
-  width: 28px;
-  height: 54px;
-  margin-top: clamp(30px, 7svh, 72px);
-  border: 1px solid rgba(255, 255, 255, .42);
-  border-radius: 18px;
-}
-
-.memory-hero-scroll-cue span {
-  position: absolute;
-  top: 9px;
-  left: 50%;
-  width: 3px;
-  height: 10px;
-  border-radius: 3px;
-  background: #8ef4ec;
-  transform: translateX(-50%);
-  animation: memoryHeroScrollCue 1.55s ease-in-out infinite;
-}
-
-@keyframes memoryHeroScrollCue {
-  0% { opacity: 0; transform: translate(-50%, 0); }
-  35% { opacity: 1; }
-  100% { opacity: 0; transform: translate(-50%, 24px); }
-}
-
 .memory-story-arrow,
 .memory-story-toggle {
   display: grid;
@@ -1789,10 +1637,6 @@ body.console-startup #intelligenceConsole *::after {
   color: #fff;
   backdrop-filter: blur(9px);
   transition: background .07s, border-color .07s, color .07s, transform .07s;
-}
-
-.memory-video-hero.hero-copy-hidden .memory-hero-content {
-  pointer-events: none;
 }
 
 .china-benchmark-video-story {
@@ -22950,25 +22794,6 @@ body.crawl-moderation-open {
     padding-inline: 34px;
   }
 
-  .memory-video-hero,
-  .memory-hero-content {
-    min-height: 160svh;
-  }
-
-  .memory-hero-content {
-    padding: clamp(112px, 23svh, 190px) 34px 40svh;
-  }
-
-  .memory-video-hero h2 {
-    font-size: 38px;
-  }
-
-  .memory-hero-shade {
-    background:
-      linear-gradient(90deg, rgba(2, 8, 17, .96) 0%, rgba(2, 8, 17, .78) 50%, rgba(2, 8, 17, .28) 100%),
-      linear-gradient(0deg, rgba(2, 8, 17, .7) 0%, transparent 52%);
-  }
-
   .memory-visual-story,
   .memory-story-viewport,
   .memory-story-track,
@@ -23105,62 +22930,6 @@ body.crawl-moderation-open {
   .memory-scroll-status {
     right: 16px;
     bottom: 18px;
-  }
-
-  .memory-video-hero,
-  .memory-hero-content {
-    min-height: 156svh;
-  }
-
-  .memory-video-hero {
-    width: calc(100% + 28px);
-    min-width: calc(100% + 28px);
-    margin-left: -14px;
-    margin-right: -14px;
-  }
-
-  .memory-hero-static {
-    object-position: 58% center;
-  }
-
-  .memory-hero-shade {
-    background:
-      linear-gradient(90deg, rgba(2, 8, 17, .94) 0%, rgba(2, 8, 17, .7) 70%, rgba(2, 8, 17, .38) 100%),
-      linear-gradient(0deg, rgba(2, 8, 17, .84) 0%, rgba(2, 8, 17, .24) 68%, transparent 100%);
-  }
-
-  .memory-hero-content {
-    align-content: start;
-    padding: clamp(104px, 20svh, 170px) 22px 38svh;
-  }
-
-  .memory-hero-content > * {
-    max-width: min(100%, 520px);
-  }
-
-  .memory-hero-kicker {
-    max-width: 100%;
-    line-height: 1.35;
-    white-space: normal;
-  }
-
-  .memory-video-hero h2 {
-    max-width: 100%;
-    font-size: 29px;
-    line-height: 1.08;
-    overflow-wrap: anywhere;
-  }
-
-  .memory-hero-content > p:not(.memory-hero-kicker) {
-    max-width: 520px;
-    font-size: 13px;
-    line-height: 1.58;
-  }
-
-  .memory-hero-actions button {
-    min-height: 36px;
-    padding: 0 12px;
-    font-size: 11px;
   }
 
   .memory-visual-story,

@@ -212,7 +212,6 @@
     { name: "Amber", sidebar: "#4A2605", sidebarHi: "#B96A0A", sidebarLow: "#201003", accent: "#FF9500", accent1: "#FF9500", accent2: "#FFB830", accent3: "#FF6B28", accentRgb1: "255, 149, 0", accentRgb2: "255, 184, 48", blue: "#3C82FF", teal: "#00AFA0", purple: "#A050FF", green: "#10B981" },
   ];
   const NAV_ACCENTS = {
-    overview: "#FFFFFF",
     "executive-decision": "#FDE68A",
     "management-strategy": "#A7F3D0",
     "strategic-investment-decision": "#FBCFE8",
@@ -1913,14 +1912,6 @@
   // jumps backward to a tab whose content is elsewhere on the page.
   const SIDE_NAV_ROUTES = [
     {
-      id: "home",
-      label: "영상 브리핑",
-      desc: "SK hynix AI Infra 전략 오프닝",
-      cadence: "Briefing",
-      jump: "overview",
-      sections: ["overview"],
-    },
-    {
       id: "biz-consulting",
       label: "Customer Pain & Workload",
       desc: "B2B 고객 Pain Point·구매 기준·지배 병목",
@@ -1983,11 +1974,6 @@
     },
   ];
   const ROUTE_DISPLAY = {
-    home: {
-      label: "영상 브리핑",
-      desc: "SK hynix AI Infra 전략 오프닝",
-      cadence: "Briefing",
-    },
     "biz-consulting": {
       label: "Customer Pain & Workload",
       desc: "B2B 고객 Pain Point·구매 기준·지배 병목",
@@ -2093,16 +2079,15 @@
     talent: { label: "인재 · IP", en: "Talent / IP", desc: "채용, 핵심 수율 인력 이동, IP 방어 신호" },
   };
   const SIDE_NAV_GROUPS = [
-    { label: "SK hynix AI Infra", routes: ["home", "biz-consulting", "c-level"] },
+    { label: "SK hynix AI Infra", routes: ["biz-consulting", "c-level"] },
     { label: "Strategy & Solutions", routes: ["analysis", "market", "partnerships", "hyperscaler-demand", "ecosystem"] },
   ];
   const SIDE_NAV_ICONS = {
-    home: "01",
-    "biz-consulting": "02",
-    "c-level": "03",
-    analysis: "04",
-    market: "05",
-    partnerships: "06",
+    "biz-consulting": "01",
+    "c-level": "02",
+    analysis: "03",
+    market: "04",
+    partnerships: "05",
     "hyperscaler-demand": "07",
     ecosystem: "08",
   };
@@ -2129,7 +2114,6 @@
     { id: "hbm", label: "HBM/Post-HBM", sub: "HBM4 · CXL · 3D DRAM", categories: ["hbm", "cxl", "packaging", "aidemand"], keywords: ["hbm", "rubin", "cxl", "pim", "3d dram", "cowos", "tsmc"] },
   ];
   const SECTION_LABELS = {
-    overview: "SK hynix AI Infra 영상 브리핑",
     "overview-content": "과거 분석",
     "strategy-consulting": "Customer Pain & Workload",
     "c-level-cockpit": "경영진 의사결정",
@@ -2953,55 +2937,6 @@
   }
 
   function setupMediaExperience() {
-    document.querySelectorAll("[data-hero-jump]").forEach((button) => {
-      if (button.dataset.ready === "1") return;
-      button.dataset.ready = "1";
-      button.addEventListener("click", () => jumpTo(button.dataset.heroJump));
-    });
-
-    const hero = $("#overview");
-    if (hero && hero.dataset.scrollMotion !== "1") {
-      hero.dataset.scrollMotion = "1";
-      const reducedMotion = window.matchMedia?.("(prefers-reduced-motion: reduce)")?.matches;
-      let frame = 0;
-      let topbarHeight = window.innerWidth <= 480 ? 44 : 49;
-      const syncHeroScroll = () => {
-        frame = 0;
-        const viewportHeight = Math.max(1, window.innerHeight - topbarHeight);
-        const travel = Math.max(1, hero.offsetHeight - viewportHeight);
-        const rect = hero.getBoundingClientRect();
-        const progress = clamp((topbarHeight - rect.top) / travel, 0, 1);
-        const opacity = reducedMotion ? 1 : clamp(1 - progress * 1.25, 0, 1);
-        const shift = reducedMotion ? 0 : -Math.round(progress * Math.min(180, viewportHeight * 0.22));
-        hero.style.setProperty("--hero-progress", progress.toFixed(4));
-        hero.style.setProperty("--hero-copy-opacity", opacity.toFixed(3));
-        hero.style.setProperty("--hero-copy-shift", `${shift}px`);
-        hero.classList.toggle("hero-copy-hidden", opacity < 0.08);
-      };
-      const scheduleHeroScroll = () => {
-        if (frame) return;
-        frame = window.requestAnimationFrame(syncHeroScroll);
-      };
-      const scheduleHeroResize = () => {
-        topbarHeight = Number.parseFloat(getComputedStyle(document.documentElement).getPropertyValue("--topbar-h")) || 64;
-        scheduleHeroScroll();
-      };
-      window.addEventListener("scroll", scheduleHeroScroll, { passive: true });
-      window.addEventListener("resize", scheduleHeroResize, { passive: true });
-      const heroResizeObserver = "ResizeObserver" in window ? new ResizeObserver(scheduleHeroScroll) : null;
-      heroResizeObserver?.observe(hero);
-      hero.style.setProperty("--hero-progress", "0");
-      hero.style.setProperty("--hero-copy-opacity", "1");
-      hero.style.setProperty("--hero-copy-shift", "0px");
-
-      window.addEventListener("pagehide", () => {
-        if (frame) window.cancelAnimationFrame(frame);
-        window.removeEventListener("scroll", scheduleHeroScroll);
-        window.removeEventListener("resize", scheduleHeroScroll);
-        heroResizeObserver?.disconnect();
-      }, { once: true });
-    }
-
     const story = $("#memory-visual-story");
     const track = $("#memoryStoryTrack");
     const slides = story ? Array.from(story.querySelectorAll(".memory-story-slide")) : [];
@@ -5270,7 +5205,7 @@
   const deferredDataPreloadRuns = new Map();
   const deferredDataPreloadReady = new Set();
   const deferredSectionShells = new Map();
-  const deferredRenderedSections = new Set(["overview"]);
+  const deferredRenderedSections = new Set(["strategy-consulting"]);
   let priceBoardPreloadStarted = false;
   let deferredHydrationQueueStarted = false;
 
@@ -5393,7 +5328,7 @@
     if (!board) return;
     const start = () => { void prewarmPriceBoardData(); };
 
-    const intentTargets = $$('[data-jump="prices"], [data-jump="equity-value-chain"], [data-hero-jump="prices"]');
+    const intentTargets = $$('[data-jump="prices"], [data-jump="equity-value-chain"]');
     intentTargets.forEach((target) => {
       target.addEventListener("pointerenter", start, { once: true, passive: true });
       target.addEventListener("focusin", start, { once: true });
@@ -7311,7 +7246,7 @@
       const route = routeDisplay(entry.route);
       const toolbar = el("div", "console-route-toolbar");
       toolbar.dataset.routeToolbar = entry.route.jump;
-      toolbar.hidden = entry.route.jump !== "overview";
+      toolbar.hidden = entry.route.jump !== SIDE_NAV_ROUTES[0]?.jump;
       toolbar.innerHTML = `
         <div class="console-route-toolbar-copy">
           <b>${escapeHTML(SIDE_NAV_ICONS[entry.route.id] || String(routeIndex + 1).padStart(2, "0"))}</b>
@@ -7330,7 +7265,7 @@
     });
 
     routeAccordionsReady = true;
-    setActiveRoutePanel(activeSidebarRoute || "overview", { expand: true });
+    setActiveRoutePanel(activeSidebarRoute || "strategy-consulting", { expand: true });
   }
 
   function prewarmRoutePanel(id) {
@@ -7349,10 +7284,10 @@
   }
 
   function releaseInactiveDeferredSections(activeRoute) {
-    const keep = new Set(routeDeferredSectionIds(activeRoute?.jump || activeRoute?.id || "overview"));
+    const keep = new Set(routeDeferredSectionIds(activeRoute?.jump || activeRoute?.id || "strategy-consulting"));
     let released = 0;
     Array.from(deferredRenderedSections).forEach((sectionId) => {
-      if (sectionId === "overview" || keep.has(sectionId)) return;
+      if (sectionId === "strategy-consulting" || keep.has(sectionId)) return;
       const section = document.getElementById(sectionId);
       const shell = deferredSectionShells.get(sectionId);
       if (!section || shell == null) return;
@@ -7424,7 +7359,7 @@
           <div class="sb-nav-group-label">${escapeHTML(group.label)}</div>
           ${items.map((routeSource) => {
             const route = routeDisplay(routeSource);
-            const isActive = routeSource.jump === "overview";
+            const isActive = routeSource.jump === SIDE_NAV_ROUTES[0]?.jump;
             return `
               <button class="sb-item${isActive ? " active" : ""}" type="button" data-jump="${escapeHTML(routeSource.jump)}" data-route="${escapeHTML(routeSource.id)}"${isActive ? ' aria-current="page"' : ""} aria-label="${escapeHTML([route.label, route.desc].filter(Boolean).join(" · "))}" data-tooltip="${escapeHTML(route.label)}">
                 <span class="sb-ico" aria-hidden="true">${escapeHTML(SIDE_NAV_ICONS[routeSource.id] || route.label.slice(0, 1))}</span>
@@ -7446,7 +7381,7 @@
       item.addEventListener("pointerdown", prewarm, { passive: true });
       item.addEventListener("focusin", prewarm);
     });
-    syncSidebarRoute(activeSidebarRoute || "overview");
+    syncSidebarRoute(activeSidebarRoute || "strategy-consulting");
   }
 
   function renderSidebarCategories() {
@@ -8524,7 +8459,7 @@
   }
 
   function renderKpis() {
-    const strip = $("#kpiStrip") || $("#overview");
+    const strip = $("#kpiStrip");
     strip.innerHTML = "";
     const kpiOutlines = {
       "2026 글로벌 반도체 시장": [
@@ -21472,7 +21407,7 @@
     $("#answerClose").addEventListener("click", closeAnswer);
     $("#answerJump").addEventListener("click", () => {
       closeAnswer();
-      jumpTo(pair.nav || "overview");
+      jumpTo(pair.nav || "strategy-consulting");
     });
     overlay.addEventListener("click", (event) => {
       if (event.target === overlay) closeAnswer();

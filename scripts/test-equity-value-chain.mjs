@@ -36,7 +36,7 @@ assert.match(app, /id: "ecosystem"[\s\S]*?label: "Partner Ecosystem"[\s\S]*?jump
   "the sidebar must expose a dedicated partner ecosystem route");
 assert.match(app, /\{ label: "Strategy & Solutions", routes: \["analysis", "market", "partnerships", "hyperscaler-demand", "ecosystem"\] \},\s*\];/,
   "partner ecosystem should close the strategy and solutions group");
-assert.match(app, /const SIDE_NAV_ROUTES = \[[\s\S]*?id: "home"[\s\S]*?id: "biz-consulting"[\s\S]*?id: "c-level"[\s\S]*?id: "analysis"[\s\S]*?id: "market"[\s\S]*?id: "partnerships"[\s\S]*?id: "hyperscaler-demand"[\s\S]*?id: "ecosystem"/,
+assert.match(app, /const SIDE_NAV_ROUTES = \[[\s\S]*?id: "biz-consulting"[\s\S]*?id: "c-level"[\s\S]*?id: "analysis"[\s\S]*?id: "market"[\s\S]*?id: "partnerships"[\s\S]*?id: "hyperscaler-demand"[\s\S]*?id: "ecosystem"/,
   "focused sidebar routes should follow the real SK hynix AI Infra document flow");
 assert.match(app, /function refreshScrollSpyGeometry[\s\S]*?getBoundingClientRect\(\)\.top \+ window\.scrollY[\s\S]*?sort\(\(left, right\) => left\.top - right\.top\)[\s\S]*?function updateScrollSpyFromGeometry/,
   "scroll spy must cache real document landmarks rather than force layout on every scroll");
