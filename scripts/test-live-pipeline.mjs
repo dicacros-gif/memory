@@ -699,7 +699,7 @@ const deferredSectionBlock = appText.slice(
   appText.indexOf("function setupDeferredSections"),
   appText.indexOf("/* ---------------- Hyperscaler"),
 );
-assert.match(appText, /function scheduleProgressiveDeferredSections\(definitions\)[\s\S]*?await ensureDeferredSection\(definition\.id\)[\s\S]*?requestIdleCallback\(\(\) => \{ void run\(\); \}, \{ timeout: 180 \}\)/, "below-the-fold boards must start progressively without a scroll trigger or a long idle delay");
+assert.match(appText, /function scheduleProgressiveDeferredSections\(definitions\)[\s\S]*?await preloadDeferredSectionData\(definition\.id\)[\s\S]*?requestIdleCallback\(\(\) => \{ void run\(\); \}, \{ timeout: 180 \}\)/, "below-the-fold data must prewarm without rendering hidden boards or waiting for scroll");
 assert.match(deferredSectionBlock, /scheduleProgressiveDeferredSections\(definitions\)/, "progressive hydration must start after core rendering");
 assert.doesNotMatch(appText, /function observeDeferredSections\(|rootMargin: "900px 0px"/, "deep board hydration must not depend on scrolling");
 const jumpNavigationBlock = appText.slice(

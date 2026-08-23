@@ -15,8 +15,10 @@ function read(relativePath) {
   return fs.readFileSync(path.join(root, relativePath), "utf8");
 }
 
-function normalizeForHash(text) {
-  return text.replace(/infra-(?:[a-f0-9]{12}|[0-9]{8}-[0-9]{2})/gi, "infra-REVISION");
+export function normalizeForHash(text) {
+  return text
+    .replace(/\r\n?/g, "\n")
+    .replace(/infra-(?:[a-f0-9]{12}|[0-9]{8}-[0-9]{2})/gi, "infra-REVISION");
 }
 
 export function computeClientRevision() {

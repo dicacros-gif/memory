@@ -92,9 +92,11 @@ assert.doesNotMatch(app, /id: "china",\s+accent: "#DB2777"/, "China consulting l
 assert.match(app, /const manifestPromise = loadDataManifest\(\);/, "critical manifest request must start early");
 assert.match(app, /function schedulePolicyArtifacts\(\)[\s\S]*?loadJSON\("data\/crawl-audit\.json"[\s\S]*?loadJSON\("data\/crawl-exclusions\.json"[\s\S]*?requestIdleCallback/, "the evidence audit must load after the decision control plane is interactive");
 assert.match(app, /function updateScrollSpyFromGeometry\(\)/, "scroll spy must use cached geometry");
-assert.match(app, /function scheduleProgressiveDeferredSections\(definitions\)[\s\S]*?const first = queue\[cursor\+\+\][\s\S]*?ensureDeferredSection\(first\.id\)\.finally/, "the first strategy section should be ready immediately and later sections should follow without scrolling");
+assert.match(app, /function scheduleProgressiveDeferredSections\(definitions\)[\s\S]*?const first = queue\[cursor\+\+\][\s\S]*?preloadDeferredSectionData\(first\.id\)\.finally/, "deferred route data should prewarm without rendering hidden boards");
 assert.match(app, /function setupRouteAccordions\(\)[\s\S]*?routePanelNodes\.set[\s\S]*?console-route-toggle[\s\S]*?setActiveRoutePanel/, "left navigation routes must own foldable right-hand panels");
-assert.match(app, /function jumpTo\(id\)[\s\S]*?setActiveRoutePanel\(id, \{ expand: true \}\)[\s\S]*?await ensureDeferredSection\(id\)/, "a route panel must open before its deferred data finishes rendering");
+assert.match(app, /function jumpTo\(id\)[\s\S]*?setActiveRoutePanel\(id, \{ expand: true \}\)[\s\S]*?await ensureDeferredSection\(id, \{ refreshGeometry: false \}\)/, "a route panel must open before its deferred data finishes rendering");
+assert.match(app, /function ensureRouteDeferredSections\(id\)[\s\S]*?routeDeferredSectionIds\(id\)[\s\S]*?await ensureDeferredSection\(ids\[index\], \{ refreshGeometry: false \}\)/, "all boards owned by the active route must hydrate without scrolling");
+assert.match(app, /function releaseInactiveDeferredSections\(activeRoute\)[\s\S]*?section\.innerHTML = shell[\s\S]*?deferredRenderedSections\.delete\(sectionId\)/, "inactive route DOM must be released while its validated data remains cached");
 assert.match(app, /const prewarm = \(\) => prewarmRoutePanel[\s\S]*?pointerenter[\s\S]*?pointerdown/, "navigation intent must prewarm the selected route without waiting for a click-render round trip");
 assert.match(css, /\.console-route-inactive,\s*\.console-route-collapsed\s*\{\s*display:\s*none !important;/, "inactive and folded route content must leave the layout immediately");
 assert.match(css, /\.console-route-toggle\s*\{[\s\S]*?transition:\s*none;[\s\S]*?\.console-route-toggle:hover,/, "route folding must react without a delayed transition");
@@ -166,7 +168,7 @@ assert.match(app, /path: "data\/decision-history-client\.json"/, "the compact de
 assert.match(app, /function setupDecisionHistoryPreload\(\)/, "Technology & Memory history must prewarm on navigation intent and idle time");
 assert.match(app, /BACKTEST_YEAR_OPTIONS_CACHE[\s\S]*?BACKTEST_CLOSE_CACHE/, "Technology & Memory must cache repeated backtest option scans");
 assert.match(app, /section\.dataset\.deferredDataMs[\s\S]*?section\.dataset\.deferredRenderMs/, "deferred performance timings must remain observable in the DOM");
-assert.match(app, /Move to the reserved framework shell immediately[\s\S]*?alignTarget\(\);[\s\S]*?await ensureDeferredSection\(id\)/, "deferred navigation must reveal its reserved shell before waiting for data");
+assert.match(app, /Move to the reserved framework shell immediately[\s\S]*?alignTarget\(\);[\s\S]*?await ensureDeferredSection\(id, \{ refreshGeometry: false \}\)/, "deferred navigation must reveal its reserved shell before waiting for data");
 assert.match(html, /class="decision-loading-framework"[\s\S]*?01<\/b> SIGNAL[\s\S]*?05<\/b> ACTION/, "Technology & Memory must expose a consulting-framework loading shell");
 assert.match(html, /exec-backtest-memory-wave-960\.webp/, "the decision board must use the responsive backtest image");
 assert.match(css, /Executive consulting geometry system[\s\S]*?\.consulting-system \.sc-card \{[\s\S]*?border-top: 1px solid var\(--line\);[\s\S]*?box-shadow: none;/, "strategy cards must remove colored top rails and glow shadows");

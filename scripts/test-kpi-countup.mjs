@@ -144,7 +144,7 @@ const pricePreloadSource = app.slice(
   app.indexOf("let decisionHistoryPreloadStarted"),
 );
 assert.doesNotMatch(pricePreloadSource, /requestIdleCallback\(start|setTimeout\(start/, "full market history must not load automatically after first paint");
-assert.match(app, /function scheduleProgressiveDeferredSections\(definitions\)[\s\S]*?await ensureDeferredSection\(definition\.id\)[\s\S]*?requestIdleCallback\(\(\) => \{ void run\(\); \}, \{ timeout: 460 \}\)/, "deep sections should hydrate progressively from top to bottom");
+assert.match(app, /function scheduleProgressiveDeferredSections\(definitions\)[\s\S]*?await preloadDeferredSectionData\(definition\.id\)[\s\S]*?requestIdleCallback\(\(\) => \{ void run\(\); \}, \{ timeout: 180 \}\)/, "deep-section data should prewarm progressively without hidden DOM rendering");
 assert.doesNotMatch(app, /Promise\.allSettled\(\[[\s\S]*?enterpriseProfiles/, "progressive loading must not fetch every secondary dataset in one burst");
 assert.match(app, /document\.body\.dataset\.deferredHydration = ready === definitions\.length \? "ready" : "progressive"/, "the site should expose progressive hydration status");
 assert.match(app, /loadManagedJSON\("live", "data\/live-client\.json"[\s\S]*?loadManagedJSON\("quant", "data\/quant-client\.json"/, "initial managed-data fallbacks must remain browser-sized client artifacts");

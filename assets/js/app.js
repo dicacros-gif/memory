@@ -4394,7 +4394,7 @@
     setupScrollSpy();
     setupBriefCopyObserver();
     window.addEventListener("hashchange", () => void applyConsoleDeepLink());
-    window.setTimeout(finalizeConsoleLoadingLabels, 8000);
+    window.setTimeout(finalizeConsoleLoadingLabels, 1400);
     document.body.dataset.consoleReady = "1";
     performance.mark("memory-console-interactive");
     window.dispatchEvent(new Event("memory-console-ready"));
@@ -5341,6 +5341,9 @@
   const secondaryDataPromises = new Map();
   const secondaryDataReady = new Set();
   const deferredSectionRuns = new Map();
+  const deferredDataPreloadRuns = new Map();
+  const deferredDataPreloadReady = new Set();
+  const deferredSectionShells = new Map();
   const deferredRenderedSections = new Set(["overview"]);
   let priceBoardPreloadStarted = false;
   let deferredHydrationQueueStarted = false;
@@ -5504,18 +5507,48 @@
     return deferredSectionDefinitions().find((item) => item.id === id) || null;
   }
 
-  function ensureDeferredSection(id) {
+  function preloadDeferredSectionData(id) {
+    const definition = deferredDefinition(id);
+    if (!definition || deferredDataPreloadReady.has(id)) return Promise.resolve();
+    if (deferredDataPreloadRuns.has(id)) return deferredDataPreloadRuns.get(id);
+    const section = document.getElementById(id);
+    if (!section) return Promise.resolve();
+
+    section.dataset.deferredDataState = "loading";
+    const run = loadSecondaryData(definition.data || [])
+      .then(() => {
+        deferredDataPreloadReady.add(id);
+        section.dataset.deferredDataState = "ready";
+      })
+      .catch((error) => {
+        section.dataset.deferredDataState = "retry";
+        deferredDataPreloadRuns.delete(id);
+        console.warn(`Deferred data preload failed: ${id}`, error);
+      });
+    deferredDataPreloadRuns.set(id, run);
+    return run;
+  }
+
+  function markDeferredSectionFallback(section, id) {
+    const meta = section.querySelector(".board-meta");
+    if (meta) meta.textContent = "현재 검증 근거 준비 중 · 선택 시 자동 재시도";
+    section.dataset.contentHealth = "retry";
+    section.dataset.deferredFailure = id;
+  }
+
+  function ensureDeferredSection(id, { refreshGeometry = true } = {}) {
     const definition = deferredDefinition(id);
     if (!definition || deferredRenderedSections.has(id)) return Promise.resolve();
     if (deferredSectionRuns.has(id)) return deferredSectionRuns.get(id);
     const section = document.getElementById(id);
     if (!section) return Promise.resolve();
+    if (!deferredSectionShells.has(id)) deferredSectionShells.set(id, section.innerHTML);
 
     const run = (async () => {
       section.dataset.deferredState = "loading";
       section.setAttribute("aria-busy", "true");
       const dataStartedAt = performance.now();
-      if (definition.data?.length) await loadSecondaryData(definition.data);
+      await preloadDeferredSectionData(id);
       section.dataset.deferredDataMs = String(Math.round(performance.now() - dataStartedAt));
       const renderStartedAt = performance.now();
       definition.render();
@@ -5526,6 +5559,8 @@
       section.dataset.progressivePaint = "ready";
       deferredRenderedSections.add(id);
       section.dataset.deferredState = "ready";
+      section.dataset.contentHealth = "ready";
+      delete section.dataset.deferredFailure;
       section.removeAttribute("aria-busy");
       if (definition.normalize !== false) normalizeBriefCopy(section);
       if (!definition.selfAnimates) {
@@ -5533,10 +5568,12 @@
         animateMeters(section);
       }
       updateDeferredHydrationStatus();
-      scheduleScrollSpyGeometryRefresh();
+      if (refreshGeometry) scheduleScrollSpyGeometryRefresh();
     })().catch((error) => {
       section.dataset.deferredState = "error";
       section.removeAttribute("aria-busy");
+      markDeferredSectionFallback(section, id);
+      deferredSectionRuns.delete(id);
       updateDeferredHydrationStatus();
       console.warn(`Deferred section failed: ${id}`, error);
     });
@@ -5562,27 +5599,28 @@
         const definition = queue[cursor++];
         const section = definition && document.getElementById(definition.id);
         if (section) {
-          await ensureDeferredSection(definition.id);
+          await preloadDeferredSectionData(definition.id);
         }
-        document.body.dataset.deferredHydrationScheduled = String(cursor);
+        document.body.dataset.deferredDataScheduled = String(cursor);
         if (cursor < queue.length) scheduleNext();
-        else document.body.dataset.deferredHydrationQueue = "scheduled";
+        else document.body.dataset.deferredDataQueue = "ready";
       };
       if ("requestIdleCallback" in window) window.requestIdleCallback(() => { void run(); }, { timeout: 180 });
       else window.setTimeout(() => { void run(); }, 36);
     };
     const scheduleNext = () => startNext();
 
-    // The first board is lightweight and becomes ready with the interactive shell.
-    // Every following board is started in DOM order without waiting for scrolling.
+    // Keep every source warm without building thousands of hidden nodes. Boards
+    // render only after their route is selected, while source refresh continues
+    // in document order without waiting for scrolling.
     const first = queue[cursor++];
     if (first) {
-      void ensureDeferredSection(first.id).finally(() => {
-        document.body.dataset.deferredHydrationScheduled = String(cursor);
+      void preloadDeferredSectionData(first.id).finally(() => {
+        document.body.dataset.deferredDataScheduled = String(cursor);
         if (cursor < queue.length) scheduleNext();
       });
     } else {
-      document.body.dataset.deferredHydrationQueue = "scheduled";
+      document.body.dataset.deferredDataQueue = "ready";
     }
   }
 
@@ -5592,6 +5630,7 @@
       .map((definition) => document.getElementById(definition.id))
       .filter(Boolean);
     sections.forEach((section) => {
+      if (!deferredSectionShells.has(section.id)) deferredSectionShells.set(section.id, section.innerHTML);
       section.classList.add("deferred-section");
       section.dataset.deferredState = "waiting";
     });
@@ -7286,6 +7325,7 @@
     if (!routeAccordionsReady) return null;
     const route = routeForJump(id) || routeForJump(activeSidebarRoute) || SIDE_NAV_ROUTES[0];
     if (!route) return null;
+    releaseInactiveDeferredSections(route);
     if (expand) collapsedRoutePanels.delete(route.jump);
     const expanded = !collapsedRoutePanels.has(route.jump);
 
@@ -7372,7 +7412,58 @@
     if (!route) return;
     const deferredIds = (route.sections || []).filter((sectionId) => deferredDefinition(sectionId));
     if (!deferredIds.length && deferredDefinition(route.jump)) deferredIds.push(route.jump);
-    if (deferredIds[0]) void ensureDeferredSection(deferredIds[0]);
+    deferredIds.forEach((sectionId) => { void preloadDeferredSectionData(sectionId); });
+  }
+
+  function routeDeferredSectionIds(id) {
+    const route = routeForJump(id);
+    if (!route) return deferredDefinition(id) ? [id] : [];
+    return Array.from(new Set([route.jump, ...(route.sections || [])]))
+      .filter((sectionId) => deferredDefinition(sectionId) && document.getElementById(sectionId));
+  }
+
+  function releaseInactiveDeferredSections(activeRoute) {
+    const keep = new Set(routeDeferredSectionIds(activeRoute?.jump || activeRoute?.id || "overview"));
+    let released = 0;
+    Array.from(deferredRenderedSections).forEach((sectionId) => {
+      if (sectionId === "overview" || keep.has(sectionId)) return;
+      const section = document.getElementById(sectionId);
+      const shell = deferredSectionShells.get(sectionId);
+      if (!section || shell == null) return;
+      section.innerHTML = shell;
+      section.dataset.deferredState = "waiting";
+      section.dataset.contentHealth = "waiting";
+      delete section.dataset.progressivePaint;
+      delete section.dataset.deferredFailure;
+      section.removeAttribute("aria-busy");
+      deferredRenderedSections.delete(sectionId);
+      deferredSectionRuns.delete(sectionId);
+      released += 1;
+    });
+    if (released) {
+      document.body.dataset.deferredReleased = String(released);
+      updateDeferredHydrationStatus();
+    }
+  }
+
+  function nextRouteHydrationSlot() {
+    return new Promise((resolve) => {
+      if ("requestIdleCallback" in window) window.requestIdleCallback(resolve, { timeout: 120 });
+      else window.setTimeout(resolve, 24);
+    });
+  }
+
+  async function ensureRouteDeferredSections(id) {
+    const ids = routeDeferredSectionIds(id);
+    if (!ids.length) return;
+    document.body.dataset.routeHydration = "loading";
+    for (let index = 0; index < ids.length; index += 1) {
+      if (index > 0) await nextRouteHydrationSlot();
+      await ensureDeferredSection(ids[index], { refreshGeometry: false });
+    }
+    document.body.dataset.routeHydration = "ready";
+    finalizeConsoleLoadingLabels();
+    scheduleScrollSpyGeometryRefresh();
   }
 
   function syncSidebarRoute(id, { pending = false, reveal = false } = {}) {
@@ -20885,8 +20976,9 @@
     await new Promise((resolve) => requestAnimationFrame(resolve));
     if (token !== jumpNavigationToken) return;
 
-    await ensureDeferredSection(id);
+    await ensureDeferredSection(id, { refreshGeometry: false });
     if (token !== jumpNavigationToken) return;
+    void ensureRouteDeferredSections(id);
     refreshScrollSpyGeometry();
 
     alignTarget();
@@ -21815,8 +21907,18 @@
         dateSelect.disabled = true;
       } else {
         const active = activePriceDateEntry();
+        const optionLimit = 60;
+        const interval = Math.max(1, Math.ceil(entries.length / optionLimit));
+        const compactEntries = entries.length <= optionLimit
+          ? entries
+          : entries.filter((entry, index) => (
+            index < 12
+            || index === entries.length - 1
+            || index % interval === 0
+            || entry.key === active?.key
+          )).slice(0, optionLimit);
         dateSelect.disabled = false;
-        dateSelect.innerHTML = entries.map((entry, index) => `
+        dateSelect.innerHTML = compactEntries.map((entry, index) => `
           <option value="${escapeHTML(entry.key)}"${entry.key === active?.key ? " selected" : ""}>${escapeHTML(shortKstDate(entry.time))}${index === 0 ? " · 최근" : ""}</option>
         `).join("");
         dateSelect.onchange = (event) => {
