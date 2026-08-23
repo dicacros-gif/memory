@@ -1,9 +1,9 @@
 {
   "schemaVersion": "1.1",
   "type": "executive-decision-snapshot",
-  "runId": "32665230214",
-  "generatedAt": "2026-08-23T20:56:14.850Z",
-  "expiresAt": "2026-08-24T22:56:12.779Z",
+  "runId": "32671362269",
+  "generatedAt": "2026-08-23T22:53:20.494Z",
+  "expiresAt": "2026-08-25T00:53:18.890Z",
   "state": "DECISION_READY",
   "freshness": {
     "score": 91.4,
@@ -21,8 +21,8 @@
     "targetPct": 90
   },
   "funnel": {
-    "sourceDocuments": 71,
-    "structuredEvents": 39,
+    "sourceDocuments": 72,
+    "structuredEvents": 37,
     "verifiedEvents": 31,
     "decisionReadyBriefs": 4,
     "executionTrackingBriefs": 0
@@ -170,8 +170,8 @@
       "customerPain": "긴 Context·동시 실행·KV 이동으로 TTFT/TPOT와 Cost per Successful Task가 악화",
       "factBoundary": "공식 원문·제품 Stage·날짜가 확인된 내용만 사실로 승격 · 전망 수치는 시장 추정치로 분리",
       "hypothesisStatus": "strategy-hypothesis",
-      "officialFactCount": 5,
-      "marketEstimateCount": 3,
+      "officialFactCount": 6,
+      "marketEstimateCount": 2,
       "hypothesis": "Serving SW 최적화 후에도 KV Capacity가 지배 병목이면 HBM·AI-D·AI-N·HBF Tiering이 단일 계층 증설보다 경제적",
       "options": [
         "Scheduler / Prefix Reuse",
@@ -232,22 +232,6 @@
           "excerpt": "Samsung Electronics, a global leader in advanced memory technology, today announced that it has begun mass production of its industry-leading HBM4 and has shipped commercial products to customers"
         },
         {
-          "id": "ad1fe730a17bcd7b5f78",
-          "ruleId": "capacity-commitment",
-          "feedId": null,
-          "title": "Samsung · AI Memory · DISCLOSED",
-          "source": "TrendForce",
-          "sourceId": "trendforce",
-          "sourceClass": "research",
-          "url": "https://www.trendforce.com/news/2026/08/20/news-samsung-to-break-ground-on-krw-6t-onyang-hbm-fab-in-sept-p5-eyes-triple-fab-shift-as-expansion-accelerates",
-          "publishedAt": "2026-08-20",
-          "stage": "DISCLOSED",
-          "confidence": "research-observed",
-          "claimType": "market-estimate",
-          "asOf": "2026-08-20",
-          "excerpt": "Samsung is stepping up its capacity expansion"
-        },
-        {
           "id": "39e7ac26429e73c7acb5",
           "ruleId": "capacity-commitment",
           "feedId": null,
@@ -278,6 +262,22 @@
           "claimType": "market-estimate",
           "asOf": "2026-08-14",
           "excerpt": "지난 8월 초 SKHY와 함께 최초의 고대역폭 플래시(HBF) 표준 사양을 공개한 지 불과 며칠 만에 샌디스크는 8월 13일 투자자의 날에서 더 자세한 내용을 공개"
+        },
+        {
+          "id": "7c64b0051b9767050f5a",
+          "ruleId": "hbf-standardization-stage",
+          "feedId": "skhynix-hbf-open-standard",
+          "title": "SK hynix · HBF · STANDARDIZATION",
+          "source": "SK hynix Newsroom",
+          "sourceId": "skhynix-newsroom",
+          "sourceClass": "official",
+          "url": "https://news.skhynix.com/en/hbf-at-fms-2026",
+          "publishedAt": "2026-08-04",
+          "stage": "STANDARDIZATION",
+          "confidence": "confirmed-primary",
+          "claimType": "verified-fact",
+          "asOf": "2026-08-04",
+          "excerpt": "SK hynix and Sandisk released the first open HBF standard via OCP to ease AI memory bottlenecks, with up to 512GB and 3TB/s bandwidth, UCIe support, and a 375‑layer 4D NAND that is 2.5 times more power efficient"
         }
       ]
     },
@@ -290,15 +290,15 @@
       "deliverable": "Tech/Market Insight · Opportunity Thesis · Partner Screen · Business Case",
       "status": "DECISION_READY",
       "whatChanged": "RAG·Agentic AI의 Memory Tier를 CXL Pool·AI-N/HBF 서비스로 확장할 것인가",
-      "latestSignal": "Samsung · AI Memory · DISCLOSED",
+      "latestSignal": "Memory industry · AI Memory · DISCLOSED",
       "sourceStage": "DISCLOSED",
       "stage": "BUSINESS_CASE",
-      "confidence": "review",
+      "confidence": "corroborated",
       "customerPain": "검색 품질·P99를 유지하면서 서버별 유휴 Memory와 Peak 증설 비용을 함께 통제",
       "factBoundary": "공식 근거는 CXL 용량 확장·Memory Pooling·MaaS 기술 방향까지 · 구독 과금·SLA는 미검증",
       "hypothesisStatus": "strategy-hypothesis",
-      "officialFactCount": 5,
-      "marketEstimateCount": 3,
+      "officialFactCount": 6,
+      "marketEstimateCount": 2,
       "hypothesis": "품질 Gate 통과 후 AI-D·AI-N/HBF와 CXL Pool을 계층화하고 사용량 계측형 서비스 모델을 검증",
       "options": [
         "AI-D Active Index",
@@ -324,22 +324,6 @@
       "trigger": "품질 Gate 통과 후 Memory Capacity 또는 Storage I/O가 지배 병목으로 확인",
       "killCriteria": "Recall·권한·P99·상호운용성·계측 정확도 중 하나라도 Baseline 미달이면 서비스 승격을 중단",
       "evidence": [
-        {
-          "id": "ad1fe730a17bcd7b5f78",
-          "ruleId": "capacity-commitment",
-          "feedId": null,
-          "title": "Samsung · AI Memory · DISCLOSED",
-          "source": "TrendForce",
-          "sourceId": "trendforce",
-          "sourceClass": "research",
-          "url": "https://www.trendforce.com/news/2026/08/20/news-samsung-to-break-ground-on-krw-6t-onyang-hbm-fab-in-sept-p5-eyes-triple-fab-shift-as-expansion-accelerates",
-          "publishedAt": "2026-08-20",
-          "stage": "DISCLOSED",
-          "confidence": "research-observed",
-          "claimType": "market-estimate",
-          "asOf": "2026-08-20",
-          "excerpt": "Samsung is stepping up its capacity expansion"
-        },
         {
           "id": "39e7ac26429e73c7acb5",
           "ruleId": "capacity-commitment",
@@ -403,6 +387,22 @@
           "claimType": "market-estimate",
           "asOf": "2026-08-14",
           "excerpt": "지난 8월 초 SKHY와 함께 최초의 고대역폭 플래시(HBF) 표준 사양을 공개한 지 불과 며칠 만에 샌디스크는 8월 13일 투자자의 날에서 더 자세한 내용을 공개"
+        },
+        {
+          "id": "7c64b0051b9767050f5a",
+          "ruleId": "hbf-standardization-stage",
+          "feedId": "skhynix-hbf-open-standard",
+          "title": "SK hynix · HBF · STANDARDIZATION",
+          "source": "SK hynix Newsroom",
+          "sourceId": "skhynix-newsroom",
+          "sourceClass": "official",
+          "url": "https://news.skhynix.com/en/hbf-at-fms-2026",
+          "publishedAt": "2026-08-04",
+          "stage": "STANDARDIZATION",
+          "confidence": "confirmed-primary",
+          "claimType": "verified-fact",
+          "asOf": "2026-08-04",
+          "excerpt": "SK hynix and Sandisk released the first open HBF standard via OCP to ease AI memory bottlenecks, with up to 512GB and 3TB/s bandwidth, UCIe support, and a 375‑layer 4D NAND that is 2.5 times more power efficient"
         }
       ]
     },
@@ -422,8 +422,8 @@
       "customerPain": "가속기·Fabric·Storage·전력·냉각의 병목이 Rack/POD 단위 확장을 제한",
       "factBoundary": "공식 원문·제품 Stage·날짜가 확인된 내용만 사실로 승격 · 전망 수치는 시장 추정치로 분리",
       "hypothesisStatus": "strategy-hypothesis",
-      "officialFactCount": 6,
-      "marketEstimateCount": 2,
+      "officialFactCount": 7,
+      "marketEstimateCount": 1,
       "hypothesis": "서버 단품이 아니라 Useful AI Work / Total Cost와 Qualification / Time 기준으로 Rack Cell을 공동 최적화",
       "options": [
         "Retrofit",
@@ -515,20 +515,20 @@
           "excerpt": "(or “the company”, www.skhynix.com ) announced today that it has recently signed a memorandum of understanding with TSMC for collaboration to produce next-generation HBM and enhance logic and HBM integration through advanced packaging technology"
         },
         {
-          "id": "ad1fe730a17bcd7b5f78",
+          "id": "39e7ac26429e73c7acb5",
           "ruleId": "capacity-commitment",
           "feedId": null,
-          "title": "Samsung · AI Memory · DISCLOSED",
-          "source": "TrendForce",
-          "sourceId": "trendforce",
+          "title": "Memory industry · AI Memory · DISCLOSED",
+          "source": "Counterpoint Research",
+          "sourceId": "counterpoint",
           "sourceClass": "research",
-          "url": "https://www.trendforce.com/news/2026/08/20/news-samsung-to-break-ground-on-krw-6t-onyang-hbm-fab-in-sept-p5-eyes-triple-fab-shift-as-expansion-accelerates",
-          "publishedAt": "2026-08-20",
+          "url": "https://counterpointresearch.com/en/insights/decoding-the-memory-landscape-intels-integration-play-nand-supply-crunches-and-the-2028-horizon",
+          "publishedAt": "2026-08-19",
           "stage": "DISCLOSED",
           "confidence": "research-observed",
           "claimType": "market-estimate",
-          "asOf": "2026-08-20",
-          "excerpt": "Samsung is stepping up its capacity expansion"
+          "asOf": "2026-08-19",
+          "excerpt": "While mainstream headlines focus on high-bandwidth memory (HBM) supply allocations, the underlying dynamics across manufacturing CAPEX, enterprise storage, and system architectures tell a more nuanced story"
         }
       ]
     }
@@ -713,8 +713,8 @@
         }
       }
     ],
-    "runId": "32665230214",
-    "generatedAt": "2026-08-23T20:56:14.850Z",
+    "runId": "32671362269",
+    "generatedAt": "2026-08-23T22:53:20.494Z",
     "liveEvidenceCount": 4
   },
   "claimEvents": [
