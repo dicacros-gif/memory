@@ -7,13 +7,20 @@ import { normalizeHtmlExecutiveCopy } from "./executive-copy.mjs";
 
 const root = resolve(dirname(fileURLToPath(import.meta.url)), "..");
 const contentPath = resolve(root, "data", "site-content-client.json");
+const extendedContentPath = resolve(root, "data", "site-content-extended-client.json");
 const executivePath = resolve(root, "data", "executive-latest.json");
 const consolePath = resolve(root, "console", "index.html");
 const manifestPath = resolve(root, "data", "data-manifest.json");
-const content = JSON.parse(await readFile(contentPath, "utf8"));
+const initialContent = JSON.parse(await readFile(contentPath, "utf8"));
+const extendedContent = JSON.parse(await readFile(extendedContentPath, "utf8"));
+const content = {
+  ...initialContent,
+  ...extendedContent,
+  agentCouncil: { ...(initialContent.agentCouncil || {}), ...(extendedContent.agentCouncil || {}) },
+};
 const manifest = JSON.parse(await readFile(manifestPath, "utf8"));
 
-if (!content.clientArtifact || !content.runId || !content.generatedAt) {
+if (!content.clientArtifact || !content.runId || !content.generatedAt || initialContent.runId !== extendedContent.runId) {
   throw new Error("verified site-content-client.json is required for pre-render");
 }
 if (manifest.runId !== content.runId) throw new Error("manifest and site content runId must match before pre-render");
@@ -133,10 +140,10 @@ const html = normalizeHtmlExecutiveCopy(`<!DOCTYPE html>
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>SK hynix AI Infra Strategy · Executive Snapshot</title>
+  <title>AI Infra Strategy · Executive Snapshot</title>
   <meta name="description" content="고객 Pain·맞춤형 Memory Strategy·신규 Biz·AI Infra 실행을 검증된 ClaimEvent·Owner·KPI·Kill Criteria로 연결한 경영진 Snapshot" />
   <link rel="canonical" href="https://dicacros-gif.github.io/memory/console/" />
-  <meta property="og:title" content="SK hynix AI Infra Strategy · Executive Snapshot" />
+  <meta property="og:title" content="AI Infra Strategy · Executive Snapshot" />
   <meta property="og:description" content="Source → ClaimEvent → Decision → Execution" />
   <meta property="og:url" content="https://dicacros-gif.github.io/memory/console/" />
   <script type="application/ld+json">${jsonLd}</script>

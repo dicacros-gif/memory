@@ -179,14 +179,20 @@ function buildStrategyBoard(payload = {}, generatedAt = null, decisionIntelligen
     .map(({ score, ...item }) => item);
 
   const claimEvents = decisionIntelligence.claimEvents?.events || [];
+  const sourceById = new Map((sourceCatalog.sources || []).map((source) => [source.id, source]));
   const bindClaimEvidence = (item = {}) => {
-    const { claimRuleIds = [], ...displayItem } = item;
+    const { claimRuleIds = [], sourceIds = [], matchTerms = [], ...displayItem } = item;
     const ruleIds = new Set(claimRuleIds);
+    const sourceIdSet = new Set(sourceIds);
+    const normalizedTerms = matchTerms.map((term) => String(term || "").toLocaleLowerCase("en-US")).filter(Boolean);
     const candidates = claimEvents.filter((event) => ruleIds.has(event.ruleId))
+      .filter((event) => !sourceIdSet.size || sourceIdSet.has(event.sourceId))
+      .filter((event) => !normalizedTerms.length || normalizedTerms.some((term) => `${event.entity?.label || ""} ${event.product?.label || ""} ${event.evidenceSpan || ""}`.toLocaleLowerCase("en-US").includes(term)))
       .sort((left, right) => Number(right.isCurrentStage) - Number(left.isCurrentStage)
         || Number(right.claimType === "verified-fact") - Number(left.claimType === "verified-fact")
         || String(right.asOf || right.publishedAt || "").localeCompare(String(left.asOf || left.publishedAt || "")));
     const current = candidates[0] || null;
+    const fallbackSource = sourceIds.map((id) => sourceById.get(id)).find((source) => directUrl(source?.url));
     return {
       ...displayItem,
       evidence: current ? {
@@ -198,10 +204,21 @@ function buildStrategyBoard(payload = {}, generatedAt = null, decisionIntelligen
         asOf: current.asOf || current.publishedAt || null,
       } : {
         status: "monitoring",
+        label: fallbackSource ? "OFFICIAL SOURCE MONITOR" : "SOURCE MONITORING",
+        source: fallbackSource?.name || "",
+        url: fallbackSource?.url || "",
+        asOf: null,
       },
     };
   };
   const tech = board.tech || {};
+  const customerPortfolio = board.customerPortfolio || {};
+  const accounts = (customerPortfolio.accounts || []).map(bindClaimEvidence);
+  const groupCounts = new Map();
+  for (const account of accounts) groupCounts.set(account.group, Number(groupCounts.get(account.group) || 0) + 1);
+  const contractEvent = claimEvents.filter((event) => event.ruleId === customerPortfolio.contractGate?.ruleId)
+    .filter((event) => /(?:LTA|long[- ]term|prepay|binding volume|contract|장기|선급|계약)/i.test(`${event.entity?.label || ""} ${event.product?.label || ""} ${event.evidenceSpan || ""}`))
+    .sort((left, right) => String(right.asOf || right.publishedAt || "").localeCompare(String(left.asOf || left.publishedAt || "")))[0] || null;
   return {
     schemaVersion: board.schemaVersion || "1.0",
     generatedAt,
@@ -209,6 +226,29 @@ function buildStrategyBoard(payload = {}, generatedAt = null, decisionIntelligen
     tech: {
       ...tech,
       memoryMap: (tech.memoryMap || []).map(bindClaimEvidence),
+    },
+    customerPortfolio: {
+      ...customerPortfolio,
+      groups: (customerPortfolio.groups || []).map((group) => ({ ...group, accountCount: Number(groupCounts.get(group.id) || 0) })),
+      accounts,
+      verifiedAccounts: accounts.filter((account) => account.evidence?.status === "official-fact").length,
+      monitoredAccounts: accounts.length,
+      contractGate: {
+        ...(customerPortfolio.contractGate || {}),
+        evidence: contractEvent ? {
+          status: contractEvent.claimType === "verified-fact" ? "official-fact" : "market-estimate",
+          label: contractEvent.claimType === "verified-fact" ? "OFFICIAL FACT" : "MARKET ESTIMATE",
+          source: compact(contractEvent.source || "원문", 60),
+          url: directUrl(contractEvent.sourceUrl) ? contractEvent.sourceUrl : "",
+          asOf: contractEvent.asOf || contractEvent.publishedAt || null,
+        } : { status: "monitoring", label: "CONTRACT DISCLOSURE MONITOR" },
+      },
+      competitiveFrame: (customerPortfolio.competitiveFrame || []).map((item) => ({
+        company: item.company,
+        focus: item.focus,
+        gate: item.gate,
+        sources: (item.sourceIds || []).map((id) => sourceById.get(id)).filter(Boolean).map((source) => ({ id: source.id, name: source.name, url: source.url })),
+      })),
     },
     partners: board.partners || {},
     playbooks: (board.playbooks || []).map(bindClaimEvidence),
@@ -931,6 +971,9 @@ export function validateSiteContent(content = {}) {
   const maasTrack = (strategyBoard.tech?.memoryMap || []).find((item) => item.id === "memory-as-a-service");
   if (!maasTrack || maasTrack.commercialStatus !== "strategy-hypothesis") errors.push("strategyBoard.tech.maas");
   if (!Array.isArray(strategyBoard.partners?.models) || strategyBoard.partners.models.length < 3) errors.push("strategyBoard.partners.models");
+  if (!Array.isArray(strategyBoard.customerPortfolio?.accounts) || strategyBoard.customerPortfolio.accounts.length < 10) errors.push("strategyBoard.customerPortfolio.accounts");
+  if (!(strategyBoard.customerPortfolio?.accounts || []).every((item) => item.evidence?.status)) errors.push("strategyBoard.customerPortfolio.evidence");
+  if (!Array.isArray(strategyBoard.customerPortfolio?.groups) || strategyBoard.customerPortfolio.groups.length < 4) errors.push("strategyBoard.customerPortfolio.groups");
   if (!Array.isArray(strategyBoard.playbooks) || strategyBoard.playbooks.length < 3) errors.push("strategyBoard.playbooks");
   if (!(strategyBoard.playbooks || []).every((item) => item.evidence?.status)) errors.push("strategyBoard.playbooks.evidence");
   const maasPlaybook = (strategyBoard.playbooks || []).find((item) => item.id === "memory-as-a-service");

@@ -20,6 +20,7 @@ on:
       - "data/decision-history-client.json"
       - "data/landing-decision-client.json"
       - "data/site-content-client.json"
+      - "data/site-content-extended-client.json"
       - "data/executive-latest.json"
       - "console/index.html"
       - "data/translation-cache.json"
@@ -101,7 +102,7 @@ jobs:
             echo "::notice::main advanced during this crawl; a newer queued run will refresh from the latest code"
             exit 0
           fi
-          git add data/live.json data/price-history.json data/market-history.json data/quant.json data/quant-backtest.json data/crawl-audit.json data/crawl-quarantine.json data/data-manifest.json data/live-client.json data/quant-client.json data/price-history-client.json data/market-history-client.json data/quant-backtest-client.json data/decision-history-client.json data/landing-decision-client.json data/site-content-client.json data/executive-latest.json console/index.html data/translation-cache.json data/refresh-events.json
+          git add data/live.json data/price-history.json data/market-history.json data/quant.json data/quant-backtest.json data/crawl-audit.json data/crawl-quarantine.json data/data-manifest.json data/live-client.json data/quant-client.json data/price-history-client.json data/market-history-client.json data/quant-backtest-client.json data/decision-history-client.json data/landing-decision-client.json data/site-content-client.json data/site-content-extended-client.json data/executive-latest.json console/index.html data/translation-cache.json data/refresh-events.json
           if git diff --cached --quiet; then
             echo "No data changes to commit."
           else

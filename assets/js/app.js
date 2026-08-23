@@ -4311,7 +4311,7 @@
     }
 
     hideDisabledSections();
-    document.title = BASE.meta?.title || document.title;
+    document.title = "AI Infra Strategy";
     renderSidebarCategories();
     renderKpis();
     setupQA();
@@ -5269,7 +5269,7 @@
   const deferredSectionRuns = new Map();
   const deferredDataPreloadRuns = new Map();
   const deferredDataPreloadReady = new Set();
-  const deferredRenderedSections = new Set(["strategy-consulting"]);
+  const deferredRenderedSections = new Set();
   const deferredRetryAttempts = new Map();
   const deferredRetryTimers = new Map();
   const DEFERRED_RETRY_DELAYS = [900, 2_400, 6_000];
@@ -5692,6 +5692,9 @@
     updateDeferredHydrationStatus();
     setupPriceBoardPreload();
     setupDecisionHistoryPreload();
+    // The first strategy board is small and decision-critical. Render it as
+    // soon as the shell is ready so it never depends on scrolling or hover.
+    void ensureDeferredSection("strategy-consulting", { refreshGeometry: false });
     scheduleProgressiveDeferredSections(definitions);
     setupDeferredRecovery(definitions);
     routeScrollHydrationReady = true;
@@ -10532,6 +10535,10 @@
   }
 
   window.addEventListener("memory-site-content-ready", () => {
+    // The console shell can become interactive before the landing content
+    // artifact arrives. Re-render the compact strategy board with the verified
+    // customer portfolio as soon as the shared artifact is ready.
+    if (document.getElementById("strategyConsulting")) renderStrategyConsulting();
     if (document.getElementById("cLevelDecisionGrid") && document.getElementById("cLevelAgentGrid")) {
       renderCLevelCockpit();
     }
@@ -13023,15 +13030,28 @@
     return { count: items.length, items: items.slice(0, 3), trends, momentum };
   }
 
+  function ensureCustomerRadarContrastStyle() {
+    if (document.querySelector("#customerRadarContrastStyle")) return;
+    const style = document.createElement("style");
+    style.id = "customerRadarContrastStyle";
+    style.textContent = `.consulting-system #intelligenceConsole details.sc-report,.consulting-system #intelligenceConsole details.sc-report:is(:hover,:focus-within){--ink:#12263a;--ink-2:#4b5e72;--line:#cbd6e2;--panel:#fff;background:#f4f8fb!important;color:#12263a!important;-webkit-text-fill-color:initial!important}.consulting-system #intelligenceConsole details.sc-report>.sc-report-head :is(strong,span){color:#12263a!important;-webkit-text-fill-color:#12263a!important}.consulting-system #intelligenceConsole .sc-partner{background:#fff!important;color:#12263a!important;transition:transform .05s ease-out,box-shadow .05s ease-out,border-color 0s,background-color 0s,color 0s!important}.consulting-system #intelligenceConsole .sc-partner :is(strong,.sc-partner-row span,.sc-playbook-source){color:#12263a!important;-webkit-text-fill-color:#12263a!important}.consulting-system #intelligenceConsole .sc-partner .sc-partner-row b{color:var(--sc-accent)!important;-webkit-text-fill-color:var(--sc-accent)!important}.consulting-system #intelligenceConsole .sc-partner:is(:hover,:focus-within){background:#102f43!important;border-color:color-mix(in srgb,var(--sc-accent) 68%,#fff)!important;box-shadow:0 10px 22px #0820302e!important;color:#fff!important;transform:translateY(-2px)}.consulting-system #intelligenceConsole .sc-partner:is(:hover,:focus-within) :is(strong,.sc-partner-row span,.sc-playbook-source){color:#fff!important;-webkit-text-fill-color:#fff!important}.consulting-system #intelligenceConsole .sc-partner:is(:hover,:focus-within) .sc-partner-row b{color:#71e6d4!important;-webkit-text-fill-color:#71e6d4!important}.consulting-system #intelligenceConsole .sc-partner:is(:hover,:focus-within) .sc-playbook-status{background:#f3c94c!important;border-color:#f3c94c!important;color:#13263a!important;-webkit-text-fill-color:#13263a!important}.consulting-system #intelligenceConsole .sc-partner:is(:hover,:focus-within) :is(.business-key-term,mark){color:#fff2a8!important;-webkit-text-fill-color:#fff2a8!important;text-decoration-color:#f3c94c!important}`;
+    document.head.appendChild(style);
+  }
+
   function renderStrategyConsulting() {
+    ensureCustomerRadarContrastStyle();
     const host = $("#strategyConsulting");
     if (!host) return;
     const strategyBoard = window.MEMORY_SITE_CONTENT?.strategyBoard || {};
     const techBoard = strategyBoard.tech || {};
+    const customerBoard = strategyBoard.customerPortfolio || {};
     const partnerBoard = strategyBoard.partners || {};
     const techPillars = Array.isArray(techBoard.pillars) ? techBoard.pillars : [];
     const techMap = Array.isArray(techBoard.memoryMap) ? techBoard.memoryMap : [];
     const reports = Array.isArray(strategyBoard.reports) ? strategyBoard.reports : [];
+    const customerGroups = Array.isArray(customerBoard.groups) ? customerBoard.groups : [];
+    const customerAccounts = Array.isArray(customerBoard.accounts) ? customerBoard.accounts : [];
+    const competitiveFrame = Array.isArray(customerBoard.competitiveFrame) ? customerBoard.competitiveFrame : [];
     const partnerModels = Array.isArray(partnerBoard.models) ? partnerBoard.models : [];
     const playbooks = Array.isArray(strategyBoard.playbooks) ? strategyBoard.playbooks : [];
     const meta = $("#strategyConsultingMeta");
@@ -13115,6 +13135,44 @@
           </article>
         `).join("")}
       </div>
+      <div class="sc-section-lead">
+        <div><span>${escapeHTML(customerBoard.eyebrow || "CUSTOMER & ASIC RADAR")}</span><h3>${escapeHTML(customerBoard.title || "GPU · Custom ASIC Roadmap → Memory Proposal")}</h3></div>
+        <p>${escapeHTML(customerBoard.description || "고객별 Roadmap과 Memory Gate를 분리")}</p>
+      </div>
+      <div class="sc-report">
+        <div class="sc-report-head"><strong>${escapeHTML(customerBoard.mixTracker?.label || "GPU vs ASIC DEMAND MIX")}</strong><span>${fmtNum(customerBoard.verifiedAccounts || 0)}/${fmtNum(customerBoard.monitoredAccounts || customerAccounts.length)}개 공식 Event 연결</span></div>
+        <div class="sc-partner-grid">
+          <article class="sc-partner" style="--sc-accent:#2D6BFF"><strong>DEMAND MIX</strong><div class="sc-partner-row"><b>RULE</b><span>${escapeHTML(customerBoard.mixTracker?.display || "동일 기준 Range만 공개")}</span></div><div class="sc-partner-row"><b>DECISION</b><span>${escapeHTML(customerBoard.mixTracker?.decision || "GPU·ASIC 분리 추적")}</span></div></article>
+          <article class="sc-partner" style="--sc-accent:#C88600"><strong>${escapeHTML(customerBoard.contractGate?.label || "LTA · PREPAYMENT · CAPACITY")}</strong><div class="sc-partner-row"><b>FIELDS</b><span>${escapeHTML((customerBoard.contractGate?.fields || []).join(" · "))}</span></div><div class="sc-partner-row"><b>STATUS</b><span>${escapeHTML(customerBoard.contractGate?.evidence?.label || customerBoard.contractGate?.fallback || "공식 계약 조건 미공개")}</span></div></article>
+          <article class="sc-partner" style="--sc-accent:#00A88F"><strong>EVIDENCE BOUNDARY</strong><div class="sc-partner-row"><b>FACT</b><span>공식 Chip·Memory·Deployment Roadmap</span></div><div class="sc-partner-row"><b>REVIEW</b><span>${escapeHTML(customerBoard.disclosure || "공급 비중·계약 조건 분리")}</span></div></article>
+        </div>
+      </div>
+      ${customerGroups.map((group, groupIndex) => {
+        const accounts = customerAccounts.filter((account) => account.group === group.id);
+        return `<details class="sc-report" ${groupIndex === 0 ? "open" : ""}>
+          <summary class="sc-report-head"><strong>${escapeHTML(`${group.index || ""} · ${group.label || "CUSTOMER GROUP"}`)}</strong><span>${escapeHTML(group.question || "")} · ${fmtNum(accounts.length)}개</span></summary>
+          <div class="sc-partner-grid">
+            ${accounts.map((account) => {
+              const evidence = account.evidence || {};
+              const evidenceClass = evidence.status === "official-fact" ? "is-fact" : evidence.status === "market-estimate" ? "is-estimate" : "is-monitoring";
+              return `<article class="sc-partner" style="--sc-accent:${escapeHTML(account.accent || "#0A84B8")}">
+                <strong>${escapeHTML(account.company || "")} · ${escapeHTML(account.chip || "")}</strong>
+                <span class="sc-playbook-status ${evidenceClass}">${escapeHTML(evidence.label || "SOURCE MONITORING")}</span>
+                <div class="sc-partner-row"><b>STAGE</b><span>${escapeHTML(account.stage || "공식 Roadmap 확인 필요")}</span></div>
+                <div class="sc-partner-row"><b>PAIN</b><span>${strategicHighlightHTML(account.pain || "")}</span></div>
+                <div class="sc-partner-row"><b>MEMORY</b><span>${strategicHighlightHTML(account.memory || "")}</span></div>
+                <div class="sc-partner-row"><b>GATE</b><span>${escapeHTML(account.gate || "")}</span></div>
+                <div class="sc-partner-row"><b>RELATION</b><span>${escapeHTML(account.relationship || "")}</span></div>
+                ${evidence.url ? `<a class="sc-playbook-source" href="${escapeHTML(evidence.url)}" target="_blank" rel="noopener noreferrer">${escapeHTML(evidence.source || "공식 원문")} ${evidence.asOf ? `· ${escapeHTML(String(evidence.asOf).slice(0, 10))}` : ""} ↗</a>` : ""}
+              </article>`;
+            }).join("")}
+          </div>
+        </details>`;
+      }).join("")}
+      ${competitiveFrame.length ? `<div class="sc-report">
+        <div class="sc-report-head"><strong>COMPETITIVE FRAME · MEMORY SUPPLIER</strong><span>Samsung · Micron · CXMT</span></div>
+        <div class="sc-partner-grid">${competitiveFrame.map((item) => `<article class="sc-partner" style="--sc-accent:#D05A2B"><strong>${escapeHTML(item.company || "")}</strong><div class="sc-partner-row"><b>FOCUS</b><span>${escapeHTML(item.focus || "")}</span></div><div class="sc-partner-row"><b>GATE</b><span>${escapeHTML(item.gate || "")}</span></div>${item.sources?.[0]?.url ? `<a class="sc-playbook-source" href="${escapeHTML(item.sources[0].url)}" target="_blank" rel="noopener noreferrer">${escapeHTML(item.sources[0].name || "원문")} ↗</a>` : ""}</article>`).join("")}</div>
+      </div>` : ""}
       <div class="sc-section-lead">
         <div><span>${escapeHTML(techBoard.eyebrow || "TECH & MARKET INSIGHTS")}</span><h3>${escapeHTML(techBoard.title || "LLM Tech → Memory Implication")}</h3></div>
         <p>${escapeHTML(techBoard.description || "검증 데이터 연결 대기")}</p>

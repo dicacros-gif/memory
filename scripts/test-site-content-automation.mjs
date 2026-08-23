@@ -6,7 +6,13 @@ const json = (path) => JSON.parse(readFileSync(path, "utf8"));
 const text = (path) => readFileSync(path, "utf8");
 const payload = json("data/live.json");
 const quant = json("data/quant.json");
-const artifact = json("data/site-content-client.json");
+const artifactCore = json("data/site-content-client.json");
+const artifactExtended = json("data/site-content-extended-client.json");
+const artifact = {
+  ...artifactCore,
+  ...artifactExtended,
+  agentCouncil: { ...(artifactCore.agentCouncil || {}), ...(artifactExtended.agentCouncil || {}) },
+};
 const manifest = json("data/data-manifest.json");
 const workflow = text(".github/workflows/pages.yml");
 const packageConfig = text("package.json");
@@ -30,11 +36,13 @@ assert.ok(rebuilt.freshness.configuredSources >= 42);
 assert.ok(rebuilt.freshness.officialConfigured >= 33);
 assert.equal(rebuilt.freshness.scheduleHours, 1);
 assert.equal(rebuilt.freshness.browserRecheckMinutes, 5);
-assert.deepEqual(rebuilt.hero.titleLines, ["AI Infra Strategy", "Customer Pain to Memory Business"]);
+assert.deepEqual(rebuilt.hero.titleLines, ["AI Infra Strategy", "Hyperscaler Roadmap to Memory Business"]);
 assert.equal(rebuilt.hero.capabilities.length, 4, "the homepage strategy scope must cover four MECE workstreams");
 assert.equal(artifact.runId, payload.runId, "site content must use the verified live runId");
 assert.equal(manifest.runId, artifact.runId, "manifest and site content must be atomic");
 assert.equal(manifest.artifacts.siteContent.path, "data/site-content-client.json");
+assert.equal(manifest.artifacts.siteContentExtended.path, "data/site-content-extended-client.json");
+assert.equal(artifactExtended.runId, artifactCore.runId, "extended site content must share the atomic runId");
 assert.equal(artifact.generation.failClosed, true);
 assert.equal(artifact.schemaVersion, "1.1");
 const sectionIds = [...index.matchAll(/<section\b[^>]*\bid=["']([^"']+)["']/gi)].map((match) => match[1]);
@@ -110,6 +118,12 @@ const maasTrack = rebuilt.strategyBoard.tech.memoryMap.find((item) => item.id ==
 assert.equal(maasTrack?.commercialStatus, "strategy-hypothesis", "MaaS subscription economics must remain a strategy hypothesis");
 assert.ok(maasTrack?.evidence?.status, "MaaS must retain an automated evidence status");
 assert.ok(rebuilt.strategyBoard.tech.memoryMap.every((item) => item.evidence?.status), "every memory track must expose evidence status");
+assert.equal(rebuilt.strategyBoard.customerPortfolio.accounts.length, 10);
+assert.deepEqual(rebuilt.strategyBoard.customerPortfolio.groups.map((item) => item.id), ["gpu", "hyperscaler-asic", "design-ecosystem", "edge-physical"]);
+assert.ok(rebuilt.strategyBoard.customerPortfolio.accounts.every((item) => item.evidence?.status));
+assert.ok(rebuilt.strategyBoard.customerPortfolio.accounts.some((item) => item.company === "SpaceX"));
+assert.ok(rebuilt.strategyBoard.customerPortfolio.competitiveFrame.some((item) => item.company === "CXMT"));
+assert.equal(rebuilt.strategyBoard.customerPortfolio.contractGate.ruleId, "contract-structure");
 assert.ok(rebuilt.strategyBoard.partners.models.length >= 3);
 assert.ok(rebuilt.strategyBoard.playbooks.length >= 3);
 const maasPlaybook = rebuilt.strategyBoard.playbooks.find((item) => /MaaS|Memory-as-a-Service/i.test(item.segment || ""));
@@ -195,6 +209,7 @@ assert.ok(changed.strategyBoard.reports.some((item) => item.title === "AUTOMATED
 assert.match(workflow, /cron: "17 \* \* \* \*"/);
 assert.match(workflow, /repository_dispatch:[\s\S]*earnings-release[\s\S]*industry-report[\s\S]*source-update/);
 assert.match(workflow, /data\/site-content-client\.json/);
+assert.match(workflow, /data\/site-content-extended-client\.json/);
 assert.match(workflow, /npm run prerender:decision/);
 assert.match(workflow, /npm run check:fast/);
 assert.match(workflow, /data\/executive-latest\.json/);
@@ -202,6 +217,7 @@ assert.match(workflow, /console\/index\.html/);
 assert.match(workflow, /data\/refresh-events\.json/);
 assert.match(workflow, /INTELLIGENCE_EVENT_KEY/);
 assert.match(landing, /SITE_CONTENT_PATH = "data\/site-content-client\.json"/);
+assert.match(landing, /SITE_CONTENT_EXTENDED_PATH = "data\/site-content-extended-client\.json"/);
 assert.doesNotMatch(landing, /teamCapabilityProofs|teamCadence/);
 assert.doesNotMatch(index, /CAPABILITY SYSTEM|MANAGEMENT CADENCE|업무를 지탱하는 검증 가능한 역량|회의가 아니라 산출물이 남는 운영 주기/);
 assert.match(landing, /content\.runId !== manifest\.runId/);
@@ -266,6 +282,8 @@ assert.match(index, /Source → ClaimEvent → Decision → Execution/);
 assert.doesNotMatch(index, /Content Age|Embedding Lag|Stale Retrieval|Coverage Drift/);
 assert.match(app, /window\.MEMORY_SITE_CONTENT\?\.agentCouncil\?\.agendas/);
 assert.match(app, /window\.MEMORY_SITE_CONTENT\?\.strategyBoard/);
+assert.match(app, /CUSTOMER & ASIC RADAR/);
+assert.match(app, /GPU vs ASIC DEMAND MIX/);
 assert.doesNotMatch(app, /const llmMap = \[|const partners = \[|const plays = \[/, "strategy board content must come from the generated site model");
 assert.match(landing, /previousRunId && previousRunId !== String\(content\.runId\) && isConsoleHash\(\)/);
 assert.match(landing, /window\.location\.reload\(\)/);
@@ -276,7 +294,7 @@ assert.doesNotMatch(
   /data-live-source[^>]*>[\s\S]*?<\/a><\/div>\s*<dl>/,
   "decision evidence panels must not restore the deleted summary metric blocks",
 );
-assert.match(index, /Customer Pain to Memory Business/);
+assert.match(index, /Hyperscaler Roadmap to Memory Business/);
 assert.doesNotMatch(index, /LIVE DECISION QUEUE · CONSOLE-CONNECTED|businessHomeQueueStatus/);
 assert.match(index, /id="departmentDecisionQueue"/);
 assert.doesNotMatch(index, /business-hero-proof|CUSTOMER ACCOUNT BRIEF|WORKLOAD-TO-MEMORY|EXECUTIVE EXECUTION PACK/, "the removed homepage output summary row must stay absent");
@@ -288,7 +306,7 @@ assert.equal(executiveSnapshot.runId, artifact.runId);
 assert.equal(executiveSnapshot.decisions.length, artifact.decisionIntelligence.decisionAutomation.briefs.length);
 assert.ok(executiveSnapshot.decisions.every((brief) => brief.factBoundary && brief.hypothesisStatus === "strategy-hypothesis"));
 assert.equal(new Set(executiveSnapshot.decisions.map((brief) => brief.decisionQuestion)).size, executiveSnapshot.decisions.length, "pre-rendered executive decisions must have unique questions");
-assert.match(consoleSnapshot, /SK hynix AI Infra Strategy · Executive Snapshot/);
+assert.match(consoleSnapshot, /AI Infra Strategy · Executive Snapshot/);
 assert.match(consoleSnapshot, /SK HYNIX AI INFRA · FOUR WORKSTREAMS/);
 assert.equal((consoleSnapshot.match(/class="workstream-card"/g) || []).length, 4);
 assert.equal((consoleSnapshot.match(/class="workstream-signal"/g) || []).length, 4);

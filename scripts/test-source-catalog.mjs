@@ -20,6 +20,11 @@ assert.deepEqual(validateIntelligencePolicy(intelligencePolicy), { ok: true, err
 assert.ok(intelligencePolicy.directFeeds.every((feed) => catalog.sources.some((source) => source.id === feed.sourceId)), "every direct feed must map to the governed source catalog");
 assert.ok(intelligencePolicy.metrics.some((metric) => metric.id === "hbm-revenue-share" && metric.dimension === "revenue-share"));
 assert.ok(intelligencePolicy.metrics.some((metric) => metric.id === "hbm-wafer-input-share" && metric.dimension === "wafer-input-share"));
+assert.ok(intelligencePolicy.eventRules.some((rule) => rule.id === "customer-silicon-roadmap"));
+assert.ok(intelligencePolicy.eventRules.some((rule) => rule.id === "contract-structure"));
+for (const feedId of ["nvidia-vera-rubin-roadmap", "microsoft-maia-200-roadmap", "aws-trainium3-roadmap", "google-ironwood-roadmap", "meta-mtia-roadmap", "broadcom-xpu-roadmap", "apple-private-cloud-roadmap", "tesla-ai5-roadmap"]) {
+  assert.ok(intelligencePolicy.directFeeds.some((feed) => feed.id === feedId), `missing governed customer feed: ${feedId}`);
+}
 assert.deepEqual(intelligencePolicy.retrieval.allowedSourceClasses, ["official", "research"]);
 
 const enabled = catalog.sources.filter((source) => source.enabled);
@@ -51,6 +56,10 @@ assert.equal(catalogSourceForUrl("https://www.ashrae.org/technical-resources/ai-
 assert.equal(catalogSourceForUrl("https://kueue.sigs.k8s.io/docs/overview/", catalog)?.id, "kubernetes-kueue");
 assert.equal(catalogSourceForUrl("https://kubernetes.io/docs/concepts/scheduling-eviction/dynamic-resource-allocation/", catalog)?.id, "kubernetes-dra");
 assert.equal(catalogSourceForUrl("https://slurm.schedmd.com/gres.html", catalog)?.id, "slurm-gres");
+assert.equal(catalogSourceForUrl("https://www.broadcom.com/info/ai/3point5d", catalog)?.id, "broadcom-ai");
+assert.equal(catalogSourceForUrl("https://security.apple.com/blog/private-cloud-compute/", catalog)?.id, "apple-ai-infra");
+assert.equal(catalogSourceForUrl("https://ir.tesla.com/example", catalog)?.id, "tesla-ai");
+assert.equal(catalogSourceForUrl("https://content.spacex.com/example.pdf", catalog)?.id, "spacex-official");
 
 const snapshot = buildSourceCatalogSnapshot({
   catalog,

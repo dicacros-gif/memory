@@ -195,6 +195,86 @@
       "freshnessDays": 365,
       "refreshMode": "poll",
       "latencyClass": "knowledge"
+    },
+    {
+      "id": "nvidia-vera-rubin-roadmap",
+      "sourceId": "nvidia-newsroom",
+      "url": "https://nvidianews.nvidia.com/news/nvidia-vera-rubin-platform",
+      "kind": "event",
+      "eventRuleIds": ["customer-silicon-roadmap"],
+      "freshnessDays": 365,
+      "refreshMode": "event+poll",
+      "latencyClass": "customer-roadmap"
+    },
+    {
+      "id": "microsoft-maia-200-roadmap",
+      "sourceId": "microsoft-ai-infra",
+      "url": "https://blogs.microsoft.com/blog/2026/01/26/maia-200-the-ai-accelerator-built-for-inference/",
+      "kind": "event",
+      "eventRuleIds": ["customer-silicon-roadmap"],
+      "freshnessDays": 365,
+      "refreshMode": "event+poll",
+      "latencyClass": "customer-roadmap"
+    },
+    {
+      "id": "aws-trainium3-roadmap",
+      "sourceId": "aws-trainium",
+      "url": "https://aws.amazon.com/ai/machine-learning/trainium/",
+      "kind": "event",
+      "eventRuleIds": ["customer-silicon-roadmap"],
+      "freshnessDays": 365,
+      "refreshMode": "event+poll",
+      "latencyClass": "customer-roadmap"
+    },
+    {
+      "id": "google-ironwood-roadmap",
+      "sourceId": "google-cloud-tpu",
+      "url": "https://cloud.google.com/blog/products/compute/inside-the-ironwood-tpu-codesigned-ai-stack",
+      "kind": "event",
+      "eventRuleIds": ["customer-silicon-roadmap"],
+      "freshnessDays": 365,
+      "refreshMode": "event+poll",
+      "latencyClass": "customer-roadmap"
+    },
+    {
+      "id": "meta-mtia-roadmap",
+      "sourceId": "meta-engineering",
+      "url": "https://engineering.fb.com/2025/09/29/data-infrastructure/metas-infrastructure-evolution-and-the-advent-of-ai/",
+      "kind": "event",
+      "eventRuleIds": ["customer-silicon-roadmap"],
+      "freshnessDays": 540,
+      "refreshMode": "event+poll",
+      "latencyClass": "customer-roadmap"
+    },
+    {
+      "id": "broadcom-xpu-roadmap",
+      "sourceId": "broadcom-ai",
+      "url": "https://www.broadcom.com/info/ai/3point5d",
+      "kind": "event",
+      "eventRuleIds": ["customer-silicon-roadmap", "partner-codesign"],
+      "freshnessDays": 540,
+      "refreshMode": "event+poll",
+      "latencyClass": "partner-roadmap"
+    },
+    {
+      "id": "apple-private-cloud-roadmap",
+      "sourceId": "apple-ai-infra",
+      "url": "https://www.apple.com/newsroom/2025/08/apple-increases-us-commitment-to-600-billion-usd-announces-ambitious-program/",
+      "kind": "event",
+      "eventRuleIds": ["customer-silicon-roadmap"],
+      "freshnessDays": 540,
+      "refreshMode": "event+poll",
+      "latencyClass": "customer-roadmap"
+    },
+    {
+      "id": "tesla-ai5-roadmap",
+      "sourceId": "tesla-ai",
+      "url": "https://ir.tesla.com/_flysystem/s3/sec/000162828026026551/tsla-20260422-gen.pdf",
+      "kind": "event",
+      "eventRuleIds": ["customer-silicon-roadmap"],
+      "freshnessDays": 365,
+      "refreshMode": "event+poll",
+      "latencyClass": "customer-roadmap"
     }
   ],
   "metrics": [
@@ -331,6 +411,29 @@
       "productPatterns": ["advanced packaging|hbm"],
       "defaultStage": "ROADMAP",
       "fixedStage": true
+    },
+    {
+      "id": "customer-silicon-roadmap",
+      "label": "Customer Silicon · Memory Requirement",
+      "patterns": [
+        "rubin|maia|trainium|tpu|ironwood|mtia|xpu|ai5|apple silicon|custom silicon|custom accelerator",
+        "hbm|memory|bandwidth|data movement|inference|training|ai infrastructure|data center"
+      ],
+      "priority": "immediate",
+      "eventType": "customer-roadmap",
+      "productPatterns": ["rubin|maia|trainium|tpu|ironwood|mtia|xpu|ai5|apple silicon|custom silicon"],
+      "defaultStage": "DISCLOSED"
+    },
+    {
+      "id": "contract-structure",
+      "label": "LTA · Prepayment · Committed Volume",
+      "patterns": [
+        "long-term agreement|long-term supply|lta|capacity reservation|committed volume|binding volume|prepayment|advance payment",
+        "year|volume|capacity|supply|contract|agreement"
+      ],
+      "priority": "immediate",
+      "eventType": "contract-structure",
+      "defaultStage": "DISCLOSED"
     }
   ],
   "claimEvents": {
@@ -348,6 +451,15 @@
       { "id": "industry", "label": "Memory industry", "patterns": ["hbm|dram|memory|메모리"] },
       { "id": "tsmc", "label": "TSMC", "patterns": ["tsmc"] },
       { "id": "sandisk", "label": "Sandisk", "patterns": ["sandisk|샌디스크"] }
+      ,{ "id": "google", "label": "Google", "patterns": ["google|ironwood|tpu"] }
+      ,{ "id": "aws", "label": "AWS", "patterns": ["amazon|aws|trainium"] }
+      ,{ "id": "microsoft", "label": "Microsoft", "patterns": ["microsoft|azure|maia"] }
+      ,{ "id": "meta", "label": "Meta", "patterns": ["meta|mtia"] }
+      ,{ "id": "broadcom", "label": "Broadcom", "patterns": ["broadcom|xdsip|xpu"] }
+      ,{ "id": "apple", "label": "Apple", "patterns": ["apple|private cloud compute"] }
+      ,{ "id": "tesla", "label": "Tesla", "patterns": ["tesla|ai5"] }
+      ,{ "id": "spacex", "label": "SpaceX", "patterns": ["spacex|starlink"] }
+      ,{ "id": "openai", "label": "OpenAI", "patterns": ["openai|jalapeño|jalapeno"] }
     ],
     "productPatterns": [
       { "id": "hbm4e", "label": "HBM4E", "patterns": ["hbm4e"] },
@@ -358,6 +470,15 @@
       { "id": "ai-n", "label": "AI-N", "patterns": ["\\bai-n(?:\\s+[pbd])?\\b|ai nand"] },
       { "id": "ai-d", "label": "AI-D", "patterns": ["\\bai-d(?:\\s+[obe])?\\b|ai dram"] },
       { "id": "advanced-packaging", "label": "Advanced Packaging", "patterns": ["advanced packaging|packaging facility|첨단 패키징"] },
+      { "id": "rubin", "label": "Vera Rubin", "patterns": ["vera rubin|rubin"] },
+      { "id": "maia", "label": "Maia", "patterns": ["maia\\s*200|maia"] },
+      { "id": "trainium", "label": "Trainium", "patterns": ["trainium\\s*3|trainium"] },
+      { "id": "tpu", "label": "TPU", "patterns": ["tpu7x|ironwood|tpu"] },
+      { "id": "mtia", "label": "MTIA", "patterns": ["mtia"] },
+      { "id": "xpu", "label": "Custom XPU", "patterns": ["xdsip|xpu|custom accelerator"] },
+      { "id": "ai5", "label": "AI5", "patterns": ["ai5"] },
+      { "id": "apple-silicon", "label": "Apple Silicon", "patterns": ["apple silicon|private cloud compute"] },
+      { "id": "custom-silicon", "label": "Custom Silicon", "patterns": ["custom silicon"] },
       { "id": "ai-memory", "label": "AI Memory", "patterns": ["hbm|dram|memory|메모리"] }
     ],
     "stages": [

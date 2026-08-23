@@ -106,7 +106,7 @@ const bundle = buildClientDataBundle({ payload, quant, priceHistory, marketHisto
 const marketSummary = summarizeMarketHistory(marketHistory);
 
 assert.equal(bundle.manifest.runId, runId);
-assert.deepEqual(Object.keys(bundle.manifest.artifacts).sort(), ["decisionHistory", "landingDecision", "live", "marketHistory", "priceHistory", "quant", "quantBacktest", "siteContent"]);
+assert.deepEqual(Object.keys(bundle.manifest.artifacts).sort(), ["decisionHistory", "landingDecision", "live", "marketHistory", "priceHistory", "quant", "quantBacktest", "siteContent", "siteContentExtended"]);
 assert.equal(bundle.live.quant, undefined, "live client must not duplicate quant.json");
 assert.equal(bundle.live.priceHistory, undefined, "live client must not duplicate price history");
 assert.equal(bundle.live.prices.sections[0].rows[0].history, undefined, "price row history belongs in the deferred artifact");
@@ -129,6 +129,9 @@ assert.ok(bundle.manifest.artifacts.landingDecision.bytes < 20_000, "landing dec
 assert.equal(bundle.siteContent.runId, runId);
 assert.equal(bundle.siteContent.clientArtifact, true);
 assert.ok(bundle.manifest.artifacts.siteContent.bytes < 80_000, "site content artifact must remain first-page friendly");
+assert.equal(bundle.siteContentExtended.runId, runId);
+assert.equal(bundle.siteContentExtended.clientArtifact, true);
+assert.equal(bundle.manifest.artifacts.siteContentExtended.path, "data/site-content-extended-client.json");
 assert.equal(marketSummary.runId, runId, "embedded market summary must preserve the verified runId");
 assert.equal(marketSummary.validatedAt, payload.updatedAt, "embedded market summary must preserve validation time");
 assert.equal(marketSummary.expiresAt, payload.expiresAt, "embedded market summary must preserve the shared freshness gate");

@@ -4711,6 +4711,80 @@ export function buildLandingDecisionClient({ payload = {}, quant = {} } = {}) {
   };
 }
 
+function compactDecisionIntelligenceForInitial(content = {}) {
+  const automation = content.decisionAutomation || {};
+  return {
+    schemaVersion: content.schemaVersion || null,
+    status: content.status || null,
+    generatedAt: content.generatedAt || null,
+    runId: content.runId || null,
+    freshness: content.freshness || {},
+    evaluation: content.evaluation || {},
+    decisionAutomation: {
+      state: automation.state || null,
+      funnel: automation.funnel || {},
+      catalogCoverage: automation.catalogCoverage || {},
+      briefs: (automation.briefs || []).map((brief) => ({
+        id: brief.id || null,
+        label: brief.label || null,
+        status: brief.status || null,
+        whatChanged: brief.whatChanged || null,
+        hypothesis: brief.hypothesis || null,
+        factBoundary: brief.factBoundary || null,
+        customerPain: brief.customerPain || null,
+        action90d: brief.action90d || null,
+      })),
+    },
+  };
+}
+
+/**
+ * Splits the generated strategy model into a first-paint contract and a
+ * background extension.  The initial artifact contains the homepage,
+ * customer/ASIC portfolio and decision cards; long RAG, AI Factory and agent
+ * operating models hydrate immediately afterwards without blocking paint.
+ */
+function splitSiteContentForClient(content = {}) {
+  const siteContent = {
+    schemaVersion: content.schemaVersion,
+    runId: content.runId,
+    generatedAt: content.generatedAt,
+    expiresAt: content.expiresAt,
+    clientArtifact: true,
+    generation: content.generation,
+    siteAutomation: content.siteAutomation,
+    freshness: content.freshness,
+    presentation: content.presentation,
+    decisionControl: content.decisionControl,
+    decisionIntelligence: compactDecisionIntelligenceForInitial(content.decisionIntelligence),
+    hero: content.hero,
+    decisionCases: content.decisionCases,
+    insights: content.insights,
+    competitors: content.competitors,
+    partnerSpotlight: content.partnerSpotlight,
+    strategyBoard: content.strategyBoard,
+    caseClassification: content.caseClassification,
+    agentCouncil: {
+      title: content.agentCouncil?.title || null,
+      subtitle: content.agentCouncil?.subtitle || null,
+    },
+    footer: content.footer,
+  };
+  const siteContentExtended = {
+    schemaVersion: content.schemaVersion,
+    runId: content.runId,
+    generatedAt: content.generatedAt,
+    expiresAt: content.expiresAt,
+    clientArtifact: true,
+    decisionIntelligence: content.decisionIntelligence,
+    organizationOperatingModel: content.organizationOperatingModel,
+    aiFactorySystem: content.aiFactorySystem,
+    workloadOptimization: content.workloadOptimization,
+    agentCouncil: content.agentCouncil,
+  };
+  return { siteContent, siteContentExtended };
+}
+
 /**
  * Builds browser-specific artifacts from the fully provenanced data bundle.
  * Database files retain every source and audit field; these copies contain
@@ -4726,7 +4800,8 @@ export function buildClientDataBundle({ payload = {}, quant = {}, priceHistory =
   const backtest = compactQuantBacktestForClient(quantBacktest);
   const decisionHistory = compactDecisionHistoryForClient({ priceHistory, marketHistory, quantBacktest });
   const landingDecision = buildLandingDecisionClient({ payload, quant });
-  const siteContent = buildSiteContentClient({ payload, quant });
+  const fullSiteContent = buildSiteContentClient({ payload, quant });
+  const { siteContent, siteContentExtended } = splitSiteContentForClient(fullSiteContent);
   const artifacts = {
     live: { path: "data/live-client.json", bytes: Buffer.byteLength(JSON.stringify(live), "utf8") },
     quant: { path: "data/quant-client.json", bytes: Buffer.byteLength(JSON.stringify(clientQuant), "utf8") },
@@ -4736,6 +4811,7 @@ export function buildClientDataBundle({ payload = {}, quant = {}, priceHistory =
     decisionHistory: { path: "data/decision-history-client.json", bytes: Buffer.byteLength(JSON.stringify(decisionHistory), "utf8") },
     landingDecision: { path: "data/landing-decision-client.json", bytes: Buffer.byteLength(JSON.stringify(landingDecision), "utf8") },
     siteContent: { path: "data/site-content-client.json", bytes: Buffer.byteLength(JSON.stringify(siteContent), "utf8") },
+    siteContentExtended: { path: "data/site-content-extended-client.json", bytes: Buffer.byteLength(JSON.stringify(siteContentExtended), "utf8") },
   };
   return {
     manifest: {
@@ -4754,6 +4830,7 @@ export function buildClientDataBundle({ payload = {}, quant = {}, priceHistory =
     decisionHistory,
     landingDecision,
     siteContent,
+    siteContentExtended,
   };
 }
 
@@ -5876,6 +5953,28 @@ async function collectDecisionIntelligenceDocuments(context = {}) {
         url: feed.url,
         retryAttempts: 2,
       });
+      const isPdf = /\.pdf(?:$|[?#])/i.test(String(url || feed.url || ""))
+        || /^%PDF-/i.test(String(html || "").slice(0, 12));
+      if (isPdf) {
+        return {
+          feed,
+          status: "fetched-metadata",
+          attempts,
+          document: {
+            feedId: feed.id,
+            sourceId: catalogSource.id,
+            source: catalogSource.name,
+            sourceClass: catalogSource.sourceClass,
+            title: catalogSource.name,
+            url,
+            publishedAt: documentPublicationDate("", url),
+            observedAt,
+            lastHumanVerifiedAt: feed.lastHumanVerifiedAt || null,
+            freshnessDays: Number(feed.freshnessDays || 180),
+            text: `Official PDF source metadata only · ${catalogSource.name} · ${feed.kind || "document"} · locator-based extraction required before any numeric or strategic claim is promoted`,
+          },
+        };
+      }
       const text = htmlToDecisionText(html).slice(0, 180000);
       if (text.length < 120) throw new Error("source text too short");
       const rawTitle = html.match(/<title[^>]*>([\s\S]*?)<\/title>/i)?.[1] || catalogSource.name;

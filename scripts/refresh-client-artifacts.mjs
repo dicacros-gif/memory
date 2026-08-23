@@ -51,6 +51,7 @@ await writeAtomically([
   [dataPath("decision-history-client.json"), bundle.decisionHistory],
   [dataPath("landing-decision-client.json"), bundle.landingDecision],
   [dataPath("site-content-client.json"), bundle.siteContent],
+  [dataPath("site-content-extended-client.json"), bundle.siteContentExtended],
   [dataPath("data-manifest.json"), bundle.manifest],
 ]);
 

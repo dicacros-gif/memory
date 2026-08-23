@@ -3,9 +3,10 @@
 
   const BUSINESS_TITLE = "AI Infra Strategy · Customer Pain to Executive Action";
   const CONSOLE_HASH = "#console";
-  const CONSOLE_REVISION = "infra-83871c4d1d2c";
+  const CONSOLE_REVISION = "infra-b71d689f31f6";
   const DECISION_CLIENT_PATH = "data/landing-decision-client.json";
   const SITE_CONTENT_PATH = "data/site-content-client.json";
+  const SITE_CONTENT_EXTENDED_PATH = "data/site-content-extended-client.json";
   const site = document.querySelector("#businessSite");
   let consoleLayer = document.querySelector("#intelligenceConsole");
   const header = document.querySelector("#businessHeader");
@@ -19,6 +20,7 @@
   let consoleLoadPromise = null;
   let manifestPromise = null;
   let siteContentPromise = null;
+  let siteContentExtendedPromise = null;
   let siteContentRefreshTimer = 0;
   let consultingMotionObserver = null;
   let businessNavObserver = null;
@@ -157,11 +159,12 @@
   function loadConsole() {
     if (consoleLoadPromise) return consoleLoadPromise;
     primeConsoleAssets();
-    // The console owns its live/quant artifacts. Landing site-content only
-    // updates the hidden business page, so it must never block console boot.
     // Start CSS and JavaScript together because both resources are already
     // preloaded for an explicit #console visit.
     consoleLoadPromise = Promise.all([loadStylesheet(), loadAppScript()]);
+    // Customer/ASIC data is warmed only after the interactive console bundle
+    // is ready, so the portfolio refresh cannot compete with first paint.
+    void consoleLoadPromise.then(() => scheduleIdleStep(warmConsolePortfolio, 0));
     return consoleLoadPromise;
   }
 
@@ -879,7 +882,10 @@
   }
 
   async function loadSiteContent({ force = false } = {}) {
-    if (force) siteContentPromise = null;
+    if (force) {
+      siteContentPromise = null;
+      siteContentExtendedPromise = null;
+    }
     if (siteContentPromise) return siteContentPromise;
     siteContentPromise = (async () => {
       const manifest = await getDataManifest({ force });
@@ -900,6 +906,7 @@
       window.MEMORY_SITE_CONTENT = content;
       applySiteContent(content);
       window.dispatchEvent(new CustomEvent("memory-site-content-ready", { detail: { runId: content.runId } }));
+      void loadExtendedSiteContent({ content, cacheVersion, force });
       return content;
     })().catch((error) => {
       siteContentPromise = null;
@@ -908,6 +915,37 @@
       return null;
     });
     return siteContentPromise;
+  }
+
+  async function loadExtendedSiteContent({ content, cacheVersion, force = false } = {}) {
+    if (force) siteContentExtendedPromise = null;
+    if (siteContentExtendedPromise) return siteContentExtendedPromise;
+    siteContentExtendedPromise = (async () => {
+      const response = await fetch(`${SITE_CONTENT_EXTENDED_PATH}?v=${cacheVersion}`, { cache: force ? "reload" : "force-cache" });
+      if (!response.ok) throw new Error(`Extended site content HTTP ${response.status}`);
+      const extended = await response.json();
+      if (extended?.clientArtifact !== true || !extended.runId || extended.runId !== content?.runId) {
+        throw new Error("Extended site content runId mismatch");
+      }
+      const merged = {
+        ...content,
+        ...extended,
+        agentCouncil: { ...(content.agentCouncil || {}), ...(extended.agentCouncil || {}) },
+      };
+      window.MEMORY_SITE_CONTENT = merged;
+      applySiteContent(merged);
+      window.dispatchEvent(new CustomEvent("memory-site-content-ready", { detail: { runId: merged.runId, extended: true } }));
+      return merged;
+    })().catch((error) => {
+      siteContentExtendedPromise = null;
+      console.warn("Extended strategy content unavailable; retaining the initial decision contract", error);
+      return content;
+    });
+    return siteContentExtendedPromise;
+  }
+
+  function warmConsolePortfolio() {
+    void loadSiteContent();
   }
 
   function scheduleSiteContentRefresh() {
