@@ -675,7 +675,8 @@ assert.match(appText, /window\.MEMORY_SITE_CONTENT\?\.agentCouncil\?\.agendas/, 
 assert.match(appText, /function consoleDeepLinkState\([\s\S]*?function applyConsoleDeepLink\(/, "the C-level board must support stable section and agenda deep links");
 assert.match(appText, /BASELINE-RELATIVE · 예약 Capacity·Qualification\/Ramp·Package Yield[\s\S]*?Scale CAPEX를 재배분/, "the foundry agenda must use customer-baseline reversal criteria");
 assert.match(appText, /BASELINE-RELATIVE KILL CRITERIA · STOP \/ REFRAME/, "the decision pack must distinguish customer-baseline kill criteria from reported facts");
-assert.match(appText, /function aiInfraCouncilDeepLink\([\s\S]*?id="cLevelCopyLink"/, "the decision pack must provide a copyable agenda deep link");
+assert.match(appText, /function aiInfraCouncilDeepLink\([\s\S]*?syncAiInfraCouncilDeepLink/, "the decision pack must preserve a stable agenda deep link");
+assert.doesNotMatch(appText, /cLevelCopyLink|copyTextToClipboard|data-(?:agent|advanced|number|talent|work|decision|infra|inspector|investment|nand|policy|projection)-copy/, "the decision pack must not expose clipboard controls");
 for (const agenda of [
   "Customized Memory Consulting · Custom HBM",
   "AI Application & HW/SW · On-device",

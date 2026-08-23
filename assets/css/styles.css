@@ -6197,15 +6197,15 @@ body.console-startup #intelligenceConsole *::after {
 .number-card.drop-target .chip,
 .number-card:hover .claim-badge,
 .number-card.drop-target .claim-badge,
-.number-card:hover .copy-btn,
-.number-card.drop-target .copy-btn {
+.number-card:hover .detail-btn,
+.number-card.drop-target .detail-btn {
   border-color: rgba(255, 255, 255, .34);
   background: rgba(255, 255, 255, .16);
   color: #fff;
 }
 
-.number-card:hover .copy-btn:hover,
-.number-card.drop-target .copy-btn:hover {
+.number-card:hover .detail-btn:hover,
+.number-card.drop-target .detail-btn:hover {
   background: #fff;
   color: color-mix(in srgb, var(--local-accent, var(--accent)) 82%, #111827);
 }
@@ -6311,7 +6311,7 @@ body.console-startup #intelligenceConsole *::after {
   font-weight: 850;
 }
 
-.copy-btn {
+.detail-btn {
   display: inline-flex;
   align-items: center;
   justify-content: center;
@@ -6319,70 +6319,22 @@ body.console-startup #intelligenceConsole *::after {
   max-width: 100%;
   border: 1px solid transparent;
   border-radius: 9px;
-  background: linear-gradient(135deg, var(--local-accent, var(--accent-1)), var(--accent-2));
-  color: #fff;
+  background: var(--panel);
+  color: var(--ink-2);
   padding: 5px 8px;
   font-size: 10.5px;
   font-weight: 900;
   line-height: 1;
   white-space: nowrap;
-  box-shadow: 0 0 18px color-mix(in srgb, var(--local-accent, var(--accent-2)) 25%, transparent), 0 4px 12px color-mix(in srgb, var(--local-accent, var(--accent-1)) 16%, transparent);
-  transition: transform .16s, box-shadow .16s, filter .16s;
+  box-shadow: none;
+  transition: transform .025s, border-color .025s, background-color 0s, color 0s;
 }
 
-.copy-btn:hover,
-.copy-btn.copied {
+.detail-btn:hover,
+.detail-btn:focus-visible {
   background: linear-gradient(135deg, var(--local-accent, var(--accent-1)), var(--accent-2));
   color: #fff;
-  filter: saturate(1.08);
-  transform: translateY(-1px) scale(1.035);
-  box-shadow: 0 0 26px color-mix(in srgb, var(--local-accent, var(--accent-2)) 40%, transparent), 0 6px 18px color-mix(in srgb, var(--local-accent, var(--accent-1)) 24%, transparent);
-}
-
-.copy-btn.ghost {
-  border-color: var(--line);
-  background: var(--panel);
-  color: var(--muted);
-}
-
-.copy-fallback {
-  position: fixed;
-  right: 18px;
-  bottom: 18px;
-  z-index: 90;
-  width: min(420px, calc(100vw - 28px));
-  display: grid;
-  gap: 8px;
-  border: 1px solid var(--line);
-  border-radius: 8px;
-  background: var(--panel);
-  box-shadow: var(--shadow-lg);
-  padding: 10px;
-}
-
-.copy-fallback[hidden] {
-  display: none;
-}
-
-.copy-fallback-head {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 8px;
-}
-
-.copy-fallback-head strong {
-  font-size: 12px;
-}
-
-.copy-fallback-head button {
-  border: 1px solid var(--line);
-  border-radius: 7px;
-  background: var(--panel-2);
-  color: var(--muted);
-  padding: 5px 8px;
-  font-size: 10.5px;
-  font-weight: 900;
+  transform: translateY(-1px);
 }
 
 .executive-decision-board {
@@ -15371,18 +15323,6 @@ body.consulting-system {
   line-height: 1;
 }
 
-.copy-fallback textarea {
-  width: 100%;
-  min-height: 150px;
-  resize: vertical;
-  border: 1px solid var(--line);
-  border-radius: 7px;
-  background: var(--panel-2);
-  color: var(--ink);
-  padding: 9px;
-  font: 12px/1.55 var(--sans);
-}
-
 .board {
   padding: 16px;
 }
@@ -23568,7 +23508,7 @@ body.crawl-moderation-open {
 .strategy-highlight,
 .answer-term {
   --term-color: #334155;
-  --term-line: #94a3b8;
+  --term-line: #e5ad13;
   --term-hover: #f8fafc;
   display: inline;
   padding: 0;
@@ -23614,7 +23554,7 @@ body.crawl-moderation-open {
 
 .term-policy {
   --term-color: #b45309;
-  --term-line: #f97316;
+  --term-line: #e5ad13;
   --term-hover: #fed7aa;
 }
 
@@ -23626,19 +23566,19 @@ body.crawl-moderation-open {
 
 .term-metric {
   --term-color: #b42318;
-  --term-line: #ef4444;
+  --term-line: #e5ad13;
   --term-hover: #fecaca;
 }
 
 .term-action {
   --term-color: #047857;
-  --term-line: #10b981;
+  --term-line: #e5ad13;
   --term-hover: #a7f3d0;
 }
 
 .term-key {
   --term-color: #9d174d;
-  --term-line: #ec4899;
+  --term-line: #e5ad13;
   --term-hover: #fbcfe8;
 }
 
@@ -28402,22 +28342,24 @@ button.ni-trend-chip:hover { box-shadow: 0 4px 12px color-mix(in srgb, #0891B2 2
   border-radius: 2px;
   background: var(--panel);
   box-shadow: none;
+  grid-template-rows: auto auto;
+  align-content: center;
+  justify-items: center;
+  gap: 5px;
+  padding: 7px 4px;
 }
 
 .consulting-system .score-ring::after {
-  content: "SCORE";
-  position: absolute;
-  inset: auto 5px 5px;
-  color: var(--muted);
-  font: 800 6px/1 var(--mono, monospace);
-  letter-spacing: .12em;
-  text-align: center;
+  content: none;
+  display: none;
 }
 
 .consulting-system .score-ring small {
   position: static;
   color: var(--muted);
-  font-size: 6.5px;
+  font-size: 7px;
+  line-height: 1;
+  white-space: nowrap;
 }
 
 .consulting-system .metric-motion-active .score-ring,
@@ -28470,7 +28412,7 @@ button.ni-trend-chip:hover { box-shadow: 0 4px 12px color-mix(in srgb, #0891B2 2
 .consulting-system .sc-card {
   --sc-readable-ink: #13263a;
   --sc-readable-muted: #344b61;
-  --sc-hover-surface: #102b3d;
+  --sc-hover-surface: color-mix(in srgb, var(--sc-accent, #2d6bff) 24%, #102b3d);
   --sc-hover-ink: #f8fbff;
   --sc-hover-muted: #d6e4ee;
   --sc-hover-line: rgba(224, 242, 254, .42);
@@ -28492,7 +28434,7 @@ button.ni-trend-chip:hover { box-shadow: 0 4px 12px color-mix(in srgb, #0891B2 2
 [data-theme="dark"] .consulting-system .sc-card {
   --sc-readable-ink: #edf4fb;
   --sc-readable-muted: #c3cfdd;
-  --sc-hover-surface: #f8fafc;
+  --sc-hover-surface: color-mix(in srgb, var(--sc-accent, #2d6bff) 7%, #f8fafc);
   --sc-hover-ink: #13263a;
   --sc-hover-muted: #40546a;
   --sc-hover-line: rgba(15, 23, 42, .26);
@@ -29950,7 +29892,7 @@ body.consulting-system {
   --instant-hover-surface: #102b3d;
   --instant-hover-ink: #f8fbff;
   --instant-hover-muted: #d6e4ee;
-  --instant-hover-accent: #79ead0;
+  --instant-hover-accent: color-mix(in srgb, var(--local-accent, #18b7a1) 62%, #ffffff);
   --instant-hover-line: rgba(224, 242, 254, .4);
 }
 
@@ -29959,7 +29901,7 @@ body.consulting-system {
   --instant-hover-surface: #f8fafc;
   --instant-hover-ink: #13263a;
   --instant-hover-muted: #40546a;
-  --instant-hover-accent: #08766f;
+  --instant-hover-accent: color-mix(in srgb, var(--local-accent, #08766f) 74%, #102b3d);
   --instant-hover-line: rgba(15, 23, 42, .24);
 }
 
@@ -30393,4 +30335,3 @@ body.consulting-system {
   -webkit-text-fill-color: var(--term-color) !important;
   text-shadow: none !important;
 }
-

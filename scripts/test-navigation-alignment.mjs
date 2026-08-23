@@ -176,7 +176,8 @@ assert.match(html, /id="consoleStaticSnapshot"[\s\S]*?SIGNAL[\s\S]*?DIAGNOSE[\s\
 assert.match(html, /#console\/c-level-cockpit\/hbm4-foundry[\s\S]*?#console\/c-level-cockpit\/post-hbm/, "the static console snapshot must expose stable decision deep links");
 assert.match(landing, /function isConsoleHash\([\s\S]*?startsWith\(`\$\{CONSOLE_HASH\}\//, "the landing controller must keep console deep links inside the console view");
 assert.match(app, /function consoleDeepLinkState\([\s\S]*?function applyConsoleDeepLink\(/, "the console must parse and apply section/item deep links");
-assert.match(app, /id="cLevelCopyLink"[\s\S]*?copyTextToClipboard/, "executive agenda cards must expose a shareable link control");
+assert.doesNotMatch(app, /cLevelCopyLink|copyTextToClipboard|data-(?:agent|advanced|number|talent|work|decision|infra|inspector|investment|nand|policy|projection)-copy/, "the console must not render clipboard controls");
+assert.match(app, /function aiInfraCouncilDeepLink\([\s\S]*?syncAiInfraCouncilDeepLink/, "agenda selection must keep a stable URL without a copy control");
 assert.match(css, /\.main > section:not\(#overview\):not\(#strategy-consulting\) \{[\s\S]*?content-visibility:\s*auto;/, "below-fold console sections must skip initial layout and paint");
 assert.match(landing, /nav\?\.classList\.toggle\("is-open", open\)/, "the mobile menu controller must activate the responsive navigation state");
 assert.match(landing, /fetch\("data\/data-manifest\.json", \{ cache: force \? "reload" : "no-cache" \}\)/, "the business site must revalidate the current manifest without disabling repeat-visit caching");

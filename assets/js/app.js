@@ -4352,24 +4352,6 @@
     });
   }
 
-  // User directive: remove every copy button from the console. Done in JS (not
-  // CSS) to keep the styles bundle under its gzip budget. A debounced observer
-  // strips them from every (re-)render.
-  const COPY_BUTTON_SELECTOR = 'button[class*="copy"],#cLevelCopyLink,[data-agent-copy],[data-brief-copy],[data-copy-advanced],[data-copy-number],[data-copy-talent],[data-copy-work],[data-decision-copy],[data-infra-copy],[data-inspector-copy],[data-investment-copy],[data-nand-copy],[data-policy-copy],[data-projection-copy],[data-talent-strategy-copy]';
-  function stripConsoleCopyButtons(root = document) {
-    try { root.querySelectorAll(COPY_BUTTON_SELECTOR).forEach((el) => el.remove()); } catch (_) {}
-  }
-  function watchCopyButtons() {
-    stripConsoleCopyButtons();
-    let queued = false;
-    const observer = new MutationObserver(() => {
-      if (queued) return;
-      queued = true;
-      window.requestAnimationFrame(() => { queued = false; stripConsoleCopyButtons(); });
-    });
-    observer.observe(document.body, { childList: true, subtree: true });
-  }
-
   async function init() {
     // Only decision-critical artifacts participate in the interactive gate.
     // Crawl policy and audit detail are below-fold controls and load after the
@@ -4381,7 +4363,6 @@
     // is static, so it stays usable even on a cold GitHub Pages cache.
     renderChrome();
     renderSidebarNav();
-    watchCopyButtons();
     DATA_MANIFEST = await manifestPromise;
     [BASE, LIVE, QUANT] = await Promise.all([
       baselinePromise,
@@ -10273,7 +10254,6 @@
             </select>
           </label>
           <button type="button" id="cLevelRunCouncil">${cLevelCouncilRan ? "전략 팩 재생성" : "AI Infra 전략 실행"}</button>
-          <button class="is-secondary" type="button" id="cLevelCopyLink" aria-label="선택한 의사결정 안건 링크 복사">안건 링크 복사</button>
         </div>
         <div id="aiInfraCouncilOutput" aria-live="polite">
           ${cLevelCouncilRan ? aiInfraCouncilPackHTML(selectedAgenda) : aiInfraCouncilWaitingHTML(selectedAgenda)}
@@ -10293,10 +10273,6 @@
       syncAiInfraCouncilDeepLink(cLevelCouncilDecisionId);
       renderCLevelCockpit();
       $("#aiInfraCouncilOutput")?.focus?.({ preventScroll: true });
-    });
-    $("#cLevelCopyLink")?.addEventListener("click", (event) => {
-      const url = syncAiInfraCouncilDeepLink(cLevelCouncilDecisionId);
-      void copyTextToClipboard(url, event.currentTarget);
     });
     grid.querySelectorAll("[data-council-pick]").forEach((button) => {
       button.addEventListener("click", () => chooseCouncilAgenda(button.dataset.councilPick));
@@ -13203,96 +13179,6 @@
     animateMeters(graph);
   }
 
-  function setCopyState(button, label = "복사됨") {
-    if (!button) return;
-    const original = button.dataset.originalText || button.textContent || "복사";
-    button.dataset.originalText = original;
-    button.classList.add("copied");
-    button.textContent = label;
-    window.setTimeout(() => {
-      button.classList.remove("copied");
-      button.textContent = original;
-    }, 1100);
-  }
-
-  async function copyTextToClipboard(text, button) {
-    const value = String(text || "").trim();
-    if (!value) return;
-    try {
-      if (navigator.clipboard?.writeText) {
-        try {
-          await navigator.clipboard.writeText(value);
-          setCopyState(button);
-          return;
-        } catch {
-          // Fall through to the legacy path for localhost and embedded browsers.
-        }
-      }
-      const area = document.createElement("textarea");
-      area.value = value;
-      area.setAttribute("readonly", "");
-      area.style.position = "fixed";
-      area.style.left = "-9999px";
-      document.body.appendChild(area);
-      area.select();
-      const ok = document.execCommand("copy");
-      area.remove();
-      if (!ok) throw new Error("execCommand copy returned false");
-      setCopyState(button);
-    } catch (error) {
-      console.warn("copy failed", error);
-      showCopyFallback(value);
-      setCopyState(button, "복사 준비");
-    }
-  }
-
-  function showCopyFallback(value) {
-    let panel = $(".copy-fallback");
-    if (!panel) {
-      panel = el("div", "copy-fallback", `
-        <div class="copy-fallback-head">
-          <strong>복사 텍스트</strong>
-          <button type="button" data-copy-fallback-close>닫기</button>
-        </div>
-        <textarea readonly></textarea>
-      `);
-      document.body.appendChild(panel);
-      panel.querySelector("[data-copy-fallback-close]")?.addEventListener("click", () => {
-        panel.hidden = true;
-      });
-    }
-    const area = panel.querySelector("textarea");
-    area.value = value;
-    panel.hidden = false;
-    area.focus();
-    area.select();
-  }
-
-  function payloadPlainText(payload) {
-    const data = normalizePayload(payload);
-    const lines = [
-      `[${data.type}] ${data.title}`,
-      data.body,
-    ];
-    if (data.metrics.length) {
-      lines.push("", "숫자/지표");
-      data.metrics.forEach((metric) => {
-        lines.push(`- ${metric.label || "Metric"}: ${metric.value ?? metric}`);
-      });
-    }
-    if (data.watch.length) {
-      lines.push("", "체크포인트");
-      data.watch.forEach((item) => lines.push(`- ${item}`));
-    }
-    if (data.tags.length) lines.push("", `관련 플레이어: ${data.tags.join(" · ")}`);
-    if (data.categories.length) lines.push(`카테고리: ${data.categories.map(categoryName).join(" · ")}`);
-    return lines.filter((line) => line !== null && line !== undefined).join("\n");
-  }
-
-  function copyPayload(payload, button) {
-    copyTextToClipboard(payloadPlainText(payload), button);
-  }
-
   function inferKpiCategories(kpi) {
     const hay = `${kpi.label || ""} ${kpi.note || ""} ${kpi.alt || ""}`.toLowerCase();
     const out = [];
@@ -13698,18 +13584,6 @@
     animateMeters(wrap);
   }
 
-  function numberPlainText(item) {
-    return [
-      `[${item.kind || "KPI"}] ${item.title}`,
-      `값: ${numberDisplayValue(item)}`,
-      `상태: ${item.badge || item.statusClass || "Watch"}`,
-      `출처: ${item.source || "baseline"}${item.sourceDate ? ` · ${item.sourceDate}` : ""}`,
-      item.note ? `요약: ${item.note}` : "",
-      item.alt ? `비교: ${item.alt}` : "",
-      item.linkedCategories?.length ? `카테고리: ${item.linkedCategories.map(categoryName).join(" · ")}` : "",
-    ].filter(Boolean).join("\n");
-  }
-
   function renderNumberAnalysis() {
     const grid = $("#numberGrid");
     if (!grid) return;
@@ -13746,8 +13620,7 @@
         <div class="number-card-head">
           <span class="chip accent">${escapeHTML(item.kind || "KPI")}</span>
           <div class="number-actions">
-            <button class="copy-btn" type="button" data-copy-number="${escapeHTML(item.id)}">복사</button>
-            <button class="copy-btn ghost" type="button" data-number-detail="${escapeHTML(item.id)}" aria-label="${escapeHTML(item.title)} 상세 보기">상세</button>
+            <button class="detail-btn" type="button" data-number-detail="${escapeHTML(item.id)}" aria-label="${escapeHTML(item.title)} 상세 보기">상세</button>
           </div>
         </div>
         <h3>${escapeHTML(item.title)}</h3>
@@ -13768,7 +13641,6 @@
           <div class="number-source">${escapeHTML(item.source || "baseline")}</div>
         </div>
       `;
-      card.querySelector("[data-copy-number]")?.addEventListener("click", (event) => copyTextToClipboard(numberPlainText(item), event.currentTarget));
       card.querySelector("[data-number-detail]")?.addEventListener("click", () => openInspector(payload));
       card.addEventListener("dragstart", () => {
         draggedNumberId = item.id;
@@ -14031,9 +13903,8 @@
   // Lenient lookup for the display badge: require the contract to be internally
   // consistent (present, right schema, same crawl run) but do NOT hard-gate on
   // the expiry timestamp — the badge already shows the underlying evidence date,
-  // so a slightly-stale-but-valid audit should still surface as real data
-  // instead of the broken-looking "감사 미연결". (Strict expiry stays enforced by
-  // verifiedDerivedContract for anything that feeds calculations.)
+  // so a slightly-stale-but-valid audit still surfaces as real data. Strict
+  // expiry remains enforced by verifiedDerivedContract for calculations.
   function baselineFreshnessContract() {
     const contract = QUANT?.baselineFreshness;
     const sameRun = Boolean(QUANT?.runId && LIVE?.runId && QUANT.runId === LIVE.runId);
@@ -14046,10 +13917,10 @@
     // No audit for this item → show nothing rather than a broken "미연결" chip.
     if (!audit) return "";
     const label = audit.status === "conflict-candidate"
-      ? `모순 후보 · 근거일 ${audit.conflictEvidence?.date || audit.lastEvidenceAt || "미상"}`
+      ? `감사 모순 후보 · ${audit.conflictEvidence?.date || audit.lastEvidenceAt || "미상"}`
       : audit.status === "revalidate"
-        ? `재검증 필요 · 근거일 ${audit.lastEvidenceAt || "없음"}`
-        : `근거 기준 ${audit.lastEvidenceAt} · ${fmtNum(audit.evidenceCount)}건`;
+        ? `감사 재검증 · ${audit.lastEvidenceAt || audit.lastCheckedAt || "근거 없음"}`
+        : `감사 완료 · ${audit.lastEvidenceAt} · ${fmtNum(audit.evidenceCount)}건`;
     const link = audit.status === "conflict-candidate" ? audit.conflictEvidence?.url : audit.evidence?.[0]?.url;
     return `<span class="baseline-freshness ${escapeHTML(audit.status)}">${escapeHTML(label)}${link ? ` <a href="${escapeHTML(link)}" target="_blank" rel="noopener">근거 ↗</a>` : ""}</span>`;
   }
@@ -14213,7 +14084,6 @@
           <div class="advanced-module-actions">
             ${factBadge(module.badge || "Watch", module.status || "watch")}
             ${baselineFreshnessBadgeHTML(module)}
-            <button class="copy-btn" type="button" data-copy-advanced>복사</button>
           </div>
         </div>
         <p>${escapeHTML(module.thesis || "")}</p>
@@ -14230,7 +14100,6 @@
         ${(module.actions || []).length ? `<ul class="watch-list">${module.actions.map((action) => `<li>${escapeHTML(action)}</li>`).join("")}</ul>` : ""}
         ${(module.sources || []).length ? `<div class="source-row">${module.sources.map((source) => `<a href="${escapeHTML(source.url || "#")}" target="_blank" rel="noopener">${escapeHTML(source.label || source.url || "Source")}</a>`).join("")}</div>` : ""}
       `;
-      card.querySelector("[data-copy-advanced]")?.addEventListener("click", (event) => copyPayload(payload, event.currentTarget));
       makeInspectable(card, payload);
       advancedWrap.appendChild(card);
     });
@@ -14505,12 +14374,10 @@
           <ul class="watch-list">${(selected.decisions || []).map((line) => `<li>${strategicHighlightHTML(line)}</li>`).join("")}</ul>
         </div>
         <div class="focus-actions">
-          <button type="button" data-nand-copy>복사</button>
           <button type="button" data-nand-inspector>상세 패널</button>
           <button type="button" data-nand-news>기사 보기</button>
         </div>
       `;
-      focus.querySelector("[data-nand-copy]")?.addEventListener("click", (event) => copyPayload(payload, event.currentTarget));
       focus.querySelector("[data-nand-inspector]")?.addEventListener("click", () => openInspector(payload));
       focus.querySelector("[data-nand-news]")?.addEventListener("click", () => jumpTo("news"));
     } else {
@@ -16278,7 +16145,6 @@
           </ul>
         </div>
         <div class="focus-actions">
-          <button type="button" data-decision-copy>복사</button>
           <button type="button" data-decision-inspector>상세 패널</button>
           <button type="button" data-decision-prices>가격표 보기</button>
         </div>
@@ -16303,7 +16169,6 @@
         renderExecutiveDecision();
         prepareAgentSpeechFromGesture($("#execDecisionRunCouncil"));
       });
-      focus.querySelector("[data-decision-copy]")?.addEventListener("click", (event) => copyPayload(payload, event.currentTarget));
       focus.querySelector("[data-decision-inspector]")?.addEventListener("click", () => openInspector(payload));
       focus.querySelector("[data-decision-prices]")?.addEventListener("click", () => jumpTo("prices"));
 
@@ -16575,12 +16440,10 @@
         </div>
       </div>
       <div class="focus-actions">
-        <button type="button" data-investment-copy>복사</button>
         <button type="button" data-investment-inspector>상세 패널</button>
         <button type="button" data-investment-workbench>워크벤치</button>
       </div>
     `;
-    target.querySelector("[data-investment-copy]")?.addEventListener("click", (event) => copyPayload(payload, event.currentTarget));
     target.querySelector("[data-investment-inspector]")?.addEventListener("click", () => openInspector(payload));
     target.querySelector("[data-investment-workbench]")?.addEventListener("click", () => {
       workbenchMode = section === "management-strategy" ? "strategy-formulation" : "investment-decision";
@@ -17024,12 +16887,10 @@
         <ul class="watch-list">${(lens.actions || []).map((line) => `<li>${escapeHTML(line)}</li>`).join("")}</ul>
       </div>
       <div class="focus-actions">
-        <button type="button" data-policy-copy>복사</button>
         <button type="button" data-policy-inspector>상세 패널</button>
         <button type="button" data-policy-workbench>워크벤치</button>
       </div>
     `;
-    focus.querySelector("[data-policy-copy]")?.addEventListener("click", (event) => copyPayload(payload, event.currentTarget));
     focus.querySelector("[data-policy-inspector]")?.addEventListener("click", () => openInspector(payload));
     focus.querySelector("[data-policy-workbench]")?.addEventListener("click", () => {
       workbenchMode = "policy-makers";
@@ -17261,12 +17122,10 @@
         </div>
       </div>
       <div class="focus-actions">
-        <button type="button" data-infra-copy>복사</button>
         <button type="button" data-infra-inspector>상세 패널</button>
         <button type="button" data-infra-workbench>워크벤치</button>
       </div>
     `;
-    focus.querySelector("[data-infra-copy]")?.addEventListener("click", (event) => copyPayload(payload, event.currentTarget));
     focus.querySelector("[data-infra-inspector]")?.addEventListener("click", () => openInspector(payload));
     focus.querySelector("[data-infra-workbench]")?.addEventListener("click", () => {
       workbenchMode = "china-fab-infra";
@@ -18661,23 +18520,8 @@
         <strong>재검토 KPI</strong>
         ${(response.kpis || []).slice(0, 4).map((kpi) => `<span>${escapeHTML(kpi)}</span>`).join("")}
       </div>
-      <div class="focus-actions agent-copy-actions">
-        <button type="button" data-agent-copy>답변 복사</button>
-      </div>
     `;
     activateDebatesIn(answerWrap);
-    answerWrap.querySelector("[data-agent-copy]")?.addEventListener("click", (event) => {
-      copyPayload({
-        type: "CEO 챌린지 전문가 답변",
-        tag: challenge.angle,
-        title: challenge.question,
-        body: `${response.verdict}\n\n최신 기사: ${response.liveContext?.newsNarrative || "연결 기사 없음"}\n\n최신 가격: ${response.liveContext?.priceNarrative || "연결 가격 없음"}\n\n논리: ${response.logic}\n\n반론 답변: ${response.counter}\n\n실행 조건: ${response.action}`,
-        section: "executive-decision",
-        categories: [scenario.accentCategory || "talent"],
-        metrics: response.metrics || [],
-        watch: response.kpis || [],
-      }, event.currentTarget);
-    });
   }
 
   function renderChinaTalentStrategy() {
@@ -18790,12 +18634,10 @@
         </ul>
       </div>
       <div class="focus-actions">
-        <button type="button" data-talent-strategy-copy>복사</button>
         <button type="button" data-talent-strategy-inspector>상세 패널</button>
         <button type="button" data-talent-strategy-workbench>워크벤치</button>
       </div>
     `;
-    focus.querySelector("[data-talent-strategy-copy]")?.addEventListener("click", (event) => copyPayload(payload, event.currentTarget));
     focus.querySelector("[data-talent-strategy-inspector]")?.addEventListener("click", () => openInspector(payload));
     focus.querySelector("[data-talent-strategy-workbench]")?.addEventListener("click", () => {
       workbenchMode = "china-talent-strategy";
@@ -19501,12 +19343,10 @@
         </div>
         <div class="insight-box"><span>리스크</span>${escapeHTML(selected.risk)}</div>
         <div class="focus-actions">
-          <button type="button" data-projection-copy>복사</button>
           <button type="button" data-projection-inspector>상세 패널</button>
           <button type="button" data-projection-news>기사 보기</button>
         </div>
       `;
-      focus.querySelector("[data-projection-copy]")?.addEventListener("click", (event) => copyPayload(payload, event.currentTarget));
       focus.querySelector("[data-projection-inspector]")?.addEventListener("click", () => openInspector(payload));
       focus.querySelector("[data-projection-news]")?.addEventListener("click", () => jumpTo("news"));
     }
@@ -19691,14 +19531,13 @@
             <span class="chip accent">${escapeHTML(item.company)}</span>
             <h3>${escapeHTML(item.title)}</h3>
           </div>
-          <div class="talent-card-actions">${baselineFreshnessBadgeHTML(item)}<button class="copy-btn" type="button" data-copy-talent>복사</button></div>
+          <div class="talent-card-actions">${baselineFreshnessBadgeHTML(item)}</div>
         </div>
         <p>${escapeHTML(item.thesis || "")}</p>
         <div class="talent-metric-grid">${metricCards(item.metrics || [], 4)}</div>
         <div class="tag-row">${(item.signals || []).map((signal) => `<span class="tag">${escapeHTML(signal)}</span>`).join("")}</div>
         <div class="insight-box"><span>Risk interpretation</span>${escapeHTML(item.risk || "")}</div>
       `;
-      card.querySelector("[data-copy-talent]")?.addEventListener("click", (event) => copyPayload(payload, event.currentTarget));
       makeInspectable(card, payload);
       companies.appendChild(card);
     });
@@ -20653,13 +20492,11 @@
         </div>
       ` : ""}
       <div class="work-detail-actions">
-        <button type="button" data-copy-work>인사이트 복사</button>
         <button type="button" data-open-inspector>상세 패널 열기</button>
         <button type="button" data-work-jump="${escapeHTML(item.section)}">관련 보드로 이동</button>
       </div>
     `;
 
-    detail.querySelector("[data-copy-work]")?.addEventListener("click", (event) => copyPayload(item, event.currentTarget));
     detail.querySelector("[data-open-inspector]")?.addEventListener("click", () => openInspector(item));
     detail.querySelectorAll("[data-work-jump]").forEach((btn) => {
       btn.addEventListener("click", () => jumpTo(btn.dataset.workJump));
@@ -20745,13 +20582,11 @@
           ` : ""}
         </div>
         <div class="inspector-actions">
-          <button type="button" data-inspector-copy>인사이트 복사</button>
           <button type="button" data-inspector-jump="${escapeHTML(data.section)}">관련 보드로 이동</button>
         </div>
       </div>
     `;
     overlay.querySelector("[data-close-inspector]")?.addEventListener("click", closeInspector);
-    overlay.querySelector("[data-inspector-copy]")?.addEventListener("click", (event) => copyTextToClipboard(payloadPlainText(data), event.currentTarget));
     overlay.addEventListener("click", (event) => {
       if (event.target === overlay) closeInspector();
     }, { once: true });
