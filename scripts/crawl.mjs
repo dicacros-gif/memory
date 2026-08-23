@@ -75,6 +75,7 @@ const QUANT_BACKTEST_CLIENT_OUT = resolve(__dirname, "..", "data", "quant-backte
 const DECISION_HISTORY_CLIENT_OUT = resolve(__dirname, "..", "data", "decision-history-client.json");
 const LANDING_DECISION_CLIENT_OUT = resolve(__dirname, "..", "data", "landing-decision-client.json");
 const SITE_CONTENT_CLIENT_OUT = resolve(__dirname, "..", "data", "site-content-client.json");
+const SITE_CONTENT_EXTENDED_CLIENT_OUT = resolve(__dirname, "..", "data", "site-content-extended-client.json");
 const DATA_MANIFEST_OUT = resolve(__dirname, "..", "data", "data-manifest.json");
 const CRAWL_EXCLUSIONS_OUT = resolve(__dirname, "..", "data", "crawl-exclusions.json");
 const CRAWL_AUDIT_OUT = resolve(__dirname, "..", "data", "crawl-audit.json");
@@ -10530,6 +10531,7 @@ async function main() {
     [DECISION_HISTORY_CLIENT_OUT, clientBundle.decisionHistory],
     [LANDING_DECISION_CLIENT_OUT, clientBundle.landingDecision],
     [SITE_CONTENT_CLIENT_OUT, clientBundle.siteContent],
+    [SITE_CONTENT_EXTENDED_CLIENT_OUT, clientBundle.siteContentExtended],
     [CRAWL_QUARANTINE_OUT, publishedQuarantine],
     [CRAWL_AUDIT_OUT, crawlAudit],
     [TRANSLATION_CACHE_OUT, koTranslator?.snapshot() || previous.translationCache],

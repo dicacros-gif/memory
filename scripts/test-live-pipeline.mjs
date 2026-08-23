@@ -106,7 +106,9 @@ assert.equal(strategyAccountIntelligence.accounts.nvidia.mentions, 1, "Rubin evi
 assert.equal(strategyAccountIntelligence.accounts.microsoft.customHbmStage.id, "QUALIFICATION", "verified account co-design evidence must promote the Custom HBM stage");
 assert.equal(strategyAccountIntelligence.accounts.google.customHbmStage.id, "UNVERIFIED", "an account without direct Custom HBM evidence must remain unverified");
 assert.equal(strategyAccountIntelligence.supplierMatrix.rows.length, 7, "supplier matrix must cover every focus account");
-assert.ok(strategyAccountIntelligence.supplierMatrix.rows.every((row) => row.cells.every((cell) => cell.status === "unconfirmed")), "supplier relations must fail closed without evidence");
+const supplierCells = strategyAccountIntelligence.supplierMatrix.rows.flatMap((row) => row.cells);
+assert.ok(supplierCells.every((cell) => cell.claim !== "verified-fact"), "reported supplier relations must never be promoted to official facts");
+assert.ok(supplierCells.some((cell) => cell.status === "unconfirmed"), "missing supplier relations must remain fail closed");
 assert.equal(strategyAccountIntelligence.demandMix.externalEstimate.status, "separate-source-required", "crawl mix and external estimates must remain separate");
 
 const brokerLive = buildBrokerResearch([

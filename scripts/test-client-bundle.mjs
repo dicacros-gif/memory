@@ -1,7 +1,16 @@
 #!/usr/bin/env node
 
 import assert from "node:assert/strict";
+import { readFile } from "node:fs/promises";
 import { buildClientDataBundle, summarizeMarketHistory } from "./crawl.mjs";
+
+const crawlSource = await readFile(new URL("./crawl.mjs", import.meta.url), "utf8");
+assert.match(crawlSource, /SITE_CONTENT_EXTENDED_CLIENT_OUT/, "crawler must define the extended site-content output");
+assert.match(
+  crawlSource,
+  /\[SITE_CONTENT_EXTENDED_CLIENT_OUT,\s*clientBundle\.siteContentExtended\]/,
+  "crawler must publish both site-content artifacts in the same verified bundle",
+);
 
 const runId = "test-client-run";
 const payload = {
