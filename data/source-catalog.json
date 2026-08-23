@@ -14,13 +14,15 @@
       "sourceClass": "official",
       "url": "https://news.skhynix.com/",
       "domains": ["news.skhynix.com"],
-      "topics": ["hbm", "dram", "nand", "ai-infra", "partnership"],
-      "roles": ["technology", "execution", "financial"],
+      "topics": ["hbm", "dram", "nand", "hbf", "ai-d", "ai-n", "ai-infra", "partnership", "advanced-packaging"],
+      "roles": ["technology", "execution", "financial", "partner", "standard"],
       "languages": ["en"],
       "freshnessHours": 168,
       "discoveryQueries": [
         "site:news.skhynix.com (HBM OR CXL OR eSSD OR \"AI memory\")",
-        "site:news.skhynix.com (quarterly results OR earnings OR HBM4 OR capacity)"
+        "site:news.skhynix.com (quarterly results OR earnings OR HBM4 OR capacity)",
+        "site:news.skhynix.com (HBF OR \"AI-N\" OR \"AI-D\" OR \"Full-Stack AI Memory\")",
+        "site:news.skhynix.com (NVIDIA OR TSMC OR Indiana OR \"advanced packaging\")"
       ],
       "healthCheck": { "markers": ["SK hynix", "Newsroom"] },
       "enabled": true

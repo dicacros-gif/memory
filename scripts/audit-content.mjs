@@ -419,7 +419,7 @@ if (!intelligencePolicyValidation.ok
   || Number(intelligencePolicy.evaluation?.maximumUnsupportedClaimPct ?? 1) !== 0
   || Number(intelligencePolicy.freshnessScoring?.thresholds?.current) !== 85
   || Number(intelligencePolicy.freshnessScoring?.thresholds?.warning) !== 70
-  || Number(intelligencePolicy.refreshOrchestration?.safetyPollHours) !== 3
+  || Number(intelligencePolicy.refreshOrchestration?.safetyPollHours) !== 1
   || (intelligencePolicy.directFeeds || []).length < 8) {
   addIssue("error", "data/intelligence-policy.json", "decision intelligence policy is incomplete or not fail-closed", intelligencePolicyValidation.errors.join(", "));
 }

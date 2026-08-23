@@ -52,14 +52,74 @@
       "latencyClass": "filing"
     },
     {
-      "id": "skhynix-results-and-hbm",
+      "id": "skhynix-q2-2026-results",
       "sourceId": "skhynix-newsroom",
-      "url": "https://news.skhynix.com/category/press-release/",
+      "url": "https://news.skhynix.com/en/q2-2026-business-results/",
       "kind": "event",
       "eventRuleIds": ["earnings-release", "hbm4-production-stage", "capacity-commitment"],
       "freshnessDays": 140,
       "refreshMode": "event+poll",
       "latencyClass": "earnings-release"
+    },
+    {
+      "id": "skhynix-full-stack-ai-memory",
+      "sourceId": "skhynix-newsroom",
+      "url": "https://news.skhynix.com/en/sk-hynix-redefines-its-vision-at-sk-ai-summit-2025-from-ai-memory-provider-to-creator/",
+      "kind": "event",
+      "eventRuleIds": ["full-stack-memory-portfolio", "ai-n-product-stage"],
+      "freshnessDays": 540,
+      "refreshMode": "event+poll",
+      "latencyClass": "strategy-disclosure"
+    },
+    {
+      "id": "skhynix-hbf-open-standard",
+      "sourceId": "skhynix-newsroom",
+      "url": "https://news.skhynix.com/en/hbf-at-fms-2026/",
+      "kind": "event",
+      "eventRuleIds": ["hbf-standardization-stage", "partner-codesign"],
+      "freshnessDays": 365,
+      "refreshMode": "event+poll",
+      "latencyClass": "standard-release"
+    },
+    {
+      "id": "skhynix-tsmc-hbm-partnership",
+      "sourceId": "skhynix-newsroom",
+      "url": "https://news.skhynix.com/en/sk-hynix-partners-with-tsmc-to-strengthen-hbm-technological-leadership/",
+      "kind": "event",
+      "eventRuleIds": ["partner-codesign", "foundry-concentration"],
+      "freshnessDays": 1095,
+      "refreshMode": "event+poll",
+      "latencyClass": "partnership-release"
+    },
+    {
+      "id": "skhynix-tsmc-symposium-2026",
+      "sourceId": "skhynix-newsroom",
+      "url": "https://news.skhynix.com/en/tsmc-technology-symposium-2026/",
+      "kind": "event",
+      "eventRuleIds": ["partner-codesign", "full-stack-memory-portfolio", "hbf-standardization-stage"],
+      "freshnessDays": 540,
+      "refreshMode": "event+poll",
+      "latencyClass": "technology-release"
+    },
+    {
+      "id": "skhynix-nvidia-partnership-2026",
+      "sourceId": "skhynix-newsroom",
+      "url": "https://news.skhynix.com/en/skhynix-nvidia-partnership-2026/",
+      "kind": "event",
+      "eventRuleIds": ["partner-codesign", "capacity-commitment"],
+      "freshnessDays": 365,
+      "refreshMode": "event+poll",
+      "latencyClass": "partnership-release"
+    },
+    {
+      "id": "skhynix-indiana-packaging",
+      "sourceId": "skhynix-newsroom",
+      "url": "https://news.skhynix.com/en/one-team-spirit-vision-for-a-tech-revolution/",
+      "kind": "event",
+      "eventRuleIds": ["packaging-readiness"],
+      "freshnessDays": 730,
+      "refreshMode": "event+poll",
+      "latencyClass": "execution-roadmap"
     },
     {
       "id": "samsung-memory-validation-lab",
@@ -177,10 +237,64 @@
       "eventType": "competitive-stage",
       "productPatterns": ["hbm4e?"],
       "defaultStage": "ANNOUNCED"
+    },
+    {
+      "id": "hbf-standardization-stage",
+      "label": "HBF Standard → Lighthouse PoC",
+      "patterns": ["hbf|high bandwidth flash", "open standard|specification|ocp|standardization|표준|규격"],
+      "priority": "immediate",
+      "eventType": "open-standard-stage",
+      "productPatterns": ["hbf|high bandwidth flash"],
+      "defaultStage": "STANDARDIZATION",
+      "fixedStage": true
+    },
+    {
+      "id": "full-stack-memory-portfolio",
+      "label": "Full-Stack AI Memory Portfolio",
+      "patterns": ["full-stack ai memory|custom hbm|ai-d|ai-n", "creator|portfolio|pillar|제품군|포트폴리오"],
+      "priority": "quarterly",
+      "eventType": "strategy-portfolio",
+      "defaultStage": "DISCLOSED"
+    },
+    {
+      "id": "ai-n-product-stage",
+      "label": "AI-N Product Roadmap",
+      "patterns": ["ai-n", "sample|sampling|launch|roadmap|샘플|출시|로드맵"],
+      "priority": "quarterly",
+      "eventType": "product-stage",
+      "productPatterns": ["ai-n"],
+      "defaultStage": "ROADMAP"
+    },
+    {
+      "id": "partner-codesign",
+      "label": "Customer·Foundry Co-Design",
+      "patterns": ["nvidia|tsmc|sandisk|google|tenstorrent", "co-develop|co-design|partnership|collaborat|공동 개발|공동 설계|파트너십|협력"],
+      "priority": "immediate",
+      "eventType": "partner-execution",
+      "defaultStage": "ANNOUNCED"
+    },
+    {
+      "id": "foundry-concentration",
+      "label": "Logic Base-Die Foundry Dependency",
+      "patterns": ["tsmc", "base die|logic process|foundry|로직 공정|베이스 다이|파운드리"],
+      "priority": "quarterly",
+      "eventType": "supply-risk",
+      "productPatterns": ["hbm4|hbm"],
+      "defaultStage": "DISCLOSED"
+    },
+    {
+      "id": "packaging-readiness",
+      "label": "Advanced Packaging Readiness",
+      "patterns": ["indiana|advanced packaging|packaging facility|인디애나|첨단 패키징", "2028|production|complete|양산|완공"],
+      "priority": "quarterly",
+      "eventType": "capacity-roadmap",
+      "productPatterns": ["advanced packaging|hbm"],
+      "defaultStage": "ROADMAP",
+      "fixedStage": true
     }
   ],
   "claimEvents": {
-    "schemaVersion": "1.0",
+      "schemaVersion": "1.1",
     "eligibleSourceClasses": ["official", "research"],
     "requirePublishedAt": true,
     "requireEvidenceSpan": true,
@@ -191,7 +305,9 @@
       { "id": "samsung", "label": "Samsung", "patterns": ["samsung|삼성"] },
       { "id": "micron", "label": "Micron", "patterns": ["micron|마이크론"] },
       { "id": "nvidia", "label": "NVIDIA", "patterns": ["nvidia|엔비디아"] },
-      { "id": "industry", "label": "Memory industry", "patterns": ["hbm|dram|memory|메모리"] }
+      { "id": "industry", "label": "Memory industry", "patterns": ["hbm|dram|memory|메모리"] },
+      { "id": "tsmc", "label": "TSMC", "patterns": ["tsmc"] },
+      { "id": "sandisk", "label": "Sandisk", "patterns": ["sandisk|샌디스크"] }
     ],
     "productPatterns": [
       { "id": "hbm4e", "label": "HBM4E", "patterns": ["hbm4e"] },
@@ -199,6 +315,9 @@
       { "id": "socamm2", "label": "SOCAMM2", "patterns": ["socamm2"] },
       { "id": "cxl", "label": "CXL", "patterns": ["cxl\\s*(?:3|4)?(?:\\.0)?"] },
       { "id": "hbf", "label": "HBF", "patterns": ["\\bhbf\\b|high bandwidth flash"] },
+      { "id": "ai-n", "label": "AI-N", "patterns": ["\\bai-n(?:\\s+[pbd])?\\b|ai nand"] },
+      { "id": "ai-d", "label": "AI-D", "patterns": ["\\bai-d(?:\\s+[obe])?\\b|ai dram"] },
+      { "id": "advanced-packaging", "label": "Advanced Packaging", "patterns": ["advanced packaging|packaging facility|첨단 패키징"] },
       { "id": "ai-memory", "label": "AI Memory", "patterns": ["hbm|dram|memory|메모리"] }
     ],
     "stages": [
@@ -208,7 +327,7 @@
       { "id": "SAMPLE", "rank": 40, "patterns": ["sample|sampling|샘플"] },
       { "id": "QUALIFICATION", "rank": 50, "patterns": ["qualif|certif|validation|인증|검증"] },
       { "id": "MASS_PRODUCTION", "rank": 60, "patterns": ["mass production|volume production|양산"] },
-      { "id": "COMMERCIAL_SHIPMENT", "rank": 70, "patterns": ["commercial shipment|commercial hbm|ships? industry|상용 출하|출하"] },
+      { "id": "COMMERCIAL_SHIPMENT", "rank": 70, "patterns": ["commercial shipment|mass shipments?|shipments? began|commercial hbm|ships? industry|상용 출하|출하"] },
       { "id": "PLATFORM_ADOPTION", "rank": 80, "patterns": ["platform adoption|selected for|powered by|탑재|채택"] },
       { "id": "REVENUE", "rank": 90, "patterns": ["revenue contribution|recognized revenue|매출 인식|매출 기여"] },
       { "id": "DISCLOSED", "rank": 25, "patterns": ["quarterly results|filing|disclosed|실적|공시"] }
@@ -253,12 +372,12 @@
         "decisionStage": "CUSTOMER_QUALIFICATION",
         "decisionQuestion": "HBM4 상업화 신호를 고객별 Custom Qualification·계약 Gate로 전환할 것인가",
         "deliverable": "Customer Fact Base · Pain Map · Requirement Matrix · Memory Proposal",
-        "claimRuleIds": ["hbm4-production-stage", "competitor-ramp", "capacity-commitment"],
+        "claimRuleIds": ["hbm4-production-stage", "competitor-ramp", "capacity-commitment", "partner-codesign", "foundry-concentration", "packaging-readiness"],
         "trackIds": ["hbm-market-and-ramp", "capacity-and-contract"],
-        "customerPain": "가속기 세대 전환 일정과 고객 인증·패키징·물량 약정을 동시에 맞춰야 함",
-        "hypothesis": "표준 HBM과 Semi-Custom을 분리하고 확정 물량·NRE 회수·Qualification Gate를 통과한 고객에만 Custom 범위를 확대",
-        "options": ["Standard HBM Scale", "Semi-Custom Base-Die / Interface", "Full-Custom Platform"],
-        "economics": ["NRE 회수", "개발 Lead Time", "Qualification 비용", "Package Allocation", "Revenue Visibility"],
+        "customerPain": "HBM4 Ramp·HBM4E 준비·고객 인증·TSMC Base-Die·패키징·확정 물량을 같은 일정으로 잠금",
+        "hypothesis": "양산 Ramp와 Custom Co-Design을 분리하고 확정 물량·NRE 회수·Qualification·Foundry Capacity를 통과한 고객에만 Custom 범위를 확대",
+        "options": ["HBM4 Ramp & Capacity", "Custom HBM Co-Design", "TSMC Base-Die & Package", "Alternative Foundry Trigger"],
+        "economics": ["NRE 회수", "개발 Lead Time", "Qualification 비용", "Foundry·Package Allocation", "Revenue Visibility"],
         "action90d": "고객별 Stage Map과 Binding Volume·Margin Floor를 연결한 Qualification Board 구축",
         "owner": "AI Infra Strategy · Memory Product · Packaging · Customer Team",
         "kpis": ["Qualification Lead Time", "Yield", "Committed Volume", "Gross Margin", "Revenue Conversion"],
@@ -272,11 +391,11 @@
         "decisionStage": "ARCHITECTURE_BENCHMARK",
         "decisionQuestion": "KV Cache 지배 병목을 HBM·Host DRAM/CXL·eSSD 계층화로 낮출 것인가",
         "deliverable": "Workload Trace · Bottleneck Tree · Architecture Benchmark · TCO",
-        "claimRuleIds": ["hbm4-production-stage", "capacity-commitment"],
+        "claimRuleIds": ["hbm4-production-stage", "capacity-commitment", "hbf-standardization-stage", "ai-n-product-stage"],
         "trackIds": ["workload-and-tco", "realtime-inference-kv-latency", "agent-tools-concurrency-latency"],
         "customerPain": "긴 Context·동시 실행·KV 이동으로 TTFT/TPOT와 Cost per Successful Task가 악화",
-        "hypothesis": "Serving SW 최적화 후에도 KV Capacity가 지배 병목이면 HBM·Host DRAM/CXL·eSSD Tiering이 증설보다 경제적",
-        "options": ["Scheduler / Prefix Reuse", "HBM Expansion", "Host DRAM / CXL Tier", "eSSD Context Tier", "Hybrid"],
+        "hypothesis": "Serving SW 최적화 후에도 KV Capacity가 지배 병목이면 HBM·AI-D·AI-N·HBF Tiering이 단일 계층 증설보다 경제적",
+        "options": ["Scheduler / Prefix Reuse", "HBM Hot", "AI-D System Tier", "AI-N eSSD Tier", "HBF Lighthouse PoC"],
         "economics": ["Cost / 1M Useful Tokens", "Goodput / MW", "GPU Idle Avoided", "Energy / Task"],
         "action90d": "동일 Model·Context·Concurrency·SLO로 SW-only와 Memory Tier A/B Benchmark 수행",
         "owner": "Serving Platform · AI Infra Architecture · Memory Solution",
@@ -291,11 +410,11 @@
         "decisionStage": "BUSINESS_CASE",
         "decisionQuestion": "RAG 품질 Gate 통과 후 Index·Corpus 계층을 어떤 사업모델로 확장할 것인가",
         "deliverable": "Tech/Market Insight · Opportunity Thesis · Partner Screen · Business Case",
-        "claimRuleIds": ["capacity-commitment"],
+        "claimRuleIds": ["capacity-commitment", "ai-n-product-stage", "hbf-standardization-stage", "full-stack-memory-portfolio"],
         "trackIds": ["rag-and-vector-memory", "rag-quality-metadata-freshness"],
         "customerPain": "검색 품질·권한·색인 최신성과 Query P99를 유지하면서 Corpus 비용을 통제해야 함",
-        "hypothesis": "Vector DB 교체보다 Metadata·ACL·Hybrid Retrieval·Rerank를 먼저 통과한 뒤 Hot Index·Warm Document·Cold Corpus를 계층화",
-        "options": ["DRAM-Resident Index", "DRAM/CXL + TLC/QLC eSSD", "eSSD-Heavy Retrieval"],
+        "hypothesis": "검색 품질 Gate 통과 후 AI-D Active Tier·AI-N P/B/D·HBF를 Workload별로 배치해 추론 Storage 사업을 확대",
+        "options": ["AI-D Active Index", "AI-N P Performance", "AI-N B HBF", "AI-N D QLC Capacity"],
         "economics": ["Cost / Successful Query", "Index Resident Ratio", "Reindex Cost", "Power / Query"],
         "action90d": "Golden Set과 권한 오류·Recall·P99 기준선을 고정하고 Tier별 Retrieval Benchmark 수행",
         "owner": "Knowledge Platform · Data Infra · Storage Solution",
@@ -310,7 +429,7 @@
         "decisionStage": "SCALE_GATE",
         "decisionQuestion": "전력·냉각·Fabric·Storage Gate를 통과한 Rack Cell만 파트너와 확장할 것인가",
         "deliverable": "Partner Model · 90-Day Roadmap · RACI · KPI/Trigger/Kill Dashboard",
-        "claimRuleIds": ["capacity-commitment", "earnings-release"],
+        "claimRuleIds": ["capacity-commitment", "earnings-release", "partner-codesign", "packaging-readiness", "full-stack-memory-portfolio"],
         "trackIds": ["training-communication-checkpoint-power", "rack-scale-power-cooling-fabric", "accelerator-runtime-portability"],
         "customerPain": "가속기·Fabric·Storage·전력·냉각의 병목이 Rack/POD 단위 확장을 제한",
         "hypothesis": "서버 단품이 아니라 Useful AI Work / Total Cost와 Qualification / Time 기준으로 Rack Cell을 공동 최적화",
@@ -434,12 +553,12 @@
   },
   "refreshOrchestration": {
     "strategy": "webhook-first-poll-reconciliation",
-    "safetyPollHours": 3,
+    "safetyPollHours": 1,
     "idempotencyLedgerLimit": 100,
     "cadenceHours": {
-      "earnings-release": 3,
-      "press-release": 3,
-      "filing": 3,
+      "earnings-release": 1,
+      "press-release": 1,
+      "filing": 1,
       "market-report": 24,
       "knowledge": 24,
       "research": 24
@@ -451,7 +570,7 @@
       "source-update": { "minutes": 30 },
       "industry-report": { "hours": 6 },
       "market-report": { "hours": 24 },
-      "scheduled": { "hours": 3 }
+      "scheduled": { "hours": 1 }
     }
   }
 }

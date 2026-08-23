@@ -69,7 +69,7 @@ export function recordRefreshRequest(ledger = {}, request = {}, { runId = null, 
   return {
     schemaVersion: "1.0",
     strategy: policy.refreshOrchestration?.strategy || "webhook-first-poll-reconciliation",
-    safetyPollHours: Number(policy.refreshOrchestration?.safetyPollHours || 3),
+    safetyPollHours: Number(policy.refreshOrchestration?.safetyPollHours || 1),
     updatedAt: processedAt,
     events,
   };

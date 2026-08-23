@@ -1189,7 +1189,7 @@
       hwSw: "GPU/ASIC–Fabric–Host–Storage 병목과 HBM occupancy·GPU idle·checkpoint time을 동시 계측",
       aiTech: "Transformer scale-out 학습 · MoE communication · distributed checkpoint",
       memory: "HBM4/4E + Server DRAM + Checkpoint eSSD + Logic Base-Die/Package",
-      offer: "Standard HBM Scale과 Semi-Custom Co-Design을 분리한 고객별 Capacity·Qualification 계약",
+      offer: "HBM4 Ramp Delivery와 Custom Co-Design을 분리한 고객별 Capacity·Qualification 계약",
       partners: "AI chip developer · CSP · Foundry · Advanced Packaging · AI framework",
       kpis: ["Training time", "GPU utilization", "Performance/W", "Qualification cycle", "Committed volume"],
       gates: ["Workload trace 승인", "Architecture lock", "Package/Yield readiness", "Binding volume"],
@@ -1269,7 +1269,7 @@
       workload: "Training · Inference · RAG · On-device/Edge",
       hwSw: "Application–Model–Accelerator–Host–Network–Storage end-to-end trace",
       aiTech: "Transformer · Prompt Engineering · RAG · Vector DB",
-      memory: "HBM Hot · DRAM/SOCAMM System · CXL Elastic · eSSD Reuse · HBF Emerging",
+      memory: "Custom HBM Hot · AI-D System · AI-N eSSD/HBF Scale",
       offer: "Pain Point 기반 Memory Architecture·TCO·Qualification 패키지",
       partners: "AI developer · Data center · OEM · Consulting/SI",
       kpis: ["System performance", "TCO", "Qualification", "Committed volume"],
@@ -2016,7 +2016,7 @@
     },
     "ai-architecture": {
       label: "Memory Architecture",
-      desc: "HBM·SOCAMM·CXL·HBF·eSSD",
+      desc: "Custom HBM·AI-D·AI-N·HBF",
       cadence: "Technology map",
     },
     "strategy-actions": {
@@ -2374,7 +2374,7 @@
       strategy: {
         pain: "동시 사용자·Context 길이 증가로 GPU가 계산보다 KV 재계산과 Data Movement를 기다림",
         workload: "Serving trace → TTFT·TPOT/P99·KV hit·GPU utilization·rack power를 동일 부하에서 측정",
-        memory: "HBM Hot · Server DRAM System · CXL Elastic · eSSD Reuse를 비교하고 HBF는 Emerging으로 분리",
+        memory: "Custom HBM Hot · AI-D System · AI-N eSSD/HBF Scale을 동일 Workload로 비교",
         business: "추가 메모리 비용 ↔ GPU Idle 감소·Throughput 증가·Power/Token 개선을 TCO로 환산",
         partner: "AI 개발사 + 데이터센터 운영사 + 메모리/SW 팀 공동 Benchmark",
         action: "30일 Baseline → 60일 Architecture PoC → 90일 Qualification 안건",
@@ -2393,7 +2393,7 @@
       strategy: {
         pain: "GPU 증설 이후에도 Host Memory·Interconnect·Storage I/O가 Token 처리량과 가동률을 제한",
         workload: "Training·Inference·RAG별 Compute/Memory/Network/Storage utilization을 MECE하게 분해",
-        memory: "HBM·SOCAMM/DDR5·CXL·HBF·eSSD의 Hot/Warm/Scale 배치와 SW tiering을 공동 설계",
+        memory: "Custom HBM·AI-D·AI-N의 Hot/System/Scale 배치와 SW tiering을 공동 설계",
         business: "성능/Watt·GPU당 유효 Token·Rack TCO·증설 회피 CAPEX를 기준으로 대안 비교",
         partner: "CSP 운영팀 + AI Framework/Compiler + Server/OEM + Memory 공동 Reference Architecture",
         action: "대표 Workload 2종을 고정해 Baseline·PoC·Reliability·Qualification Gate로 운영",
@@ -2423,7 +2423,7 @@
     {
       cat: "newbiz",
       q: "Agentic AI와 RAG 확산에서 신규 메모리 Biz 기회는 무엇인가?",
-      preview: "Context economics와 데이터 재사용을 중심으로 HBM 이후 DRAM·CXL·HBF·eSSD의 수익 모델을 설계합니다.",
+      preview: "Context economics와 데이터 재사용을 중심으로 AI-D·AI-N·HBF의 수익 모델을 설계합니다.",
       a: "신규 Biz는 기술 목록이 아니라 고객 Workload의 지불 의사, 반복 가능한 Architecture, 파트너 역할, Qualification 경로가 동시에 있는 기회만 선별합니다.",
       keywords: ["신규 biz", "new biz", "agentic", "rag", "vector db", "파트너", "사업 기회", "hbf", "essd", "cxl"],
       nav: "projection",
@@ -2431,7 +2431,7 @@
       strategy: {
         pain: "Long Context·도구 호출·Vector Retrieval이 데이터 이동과 KV/Index 용량 비용을 구조적으로 확대",
         workload: "Agentic loop·RAG retrieval·Checkpoint의 Hot/Warm/Cold 데이터 수명과 재사용률을 계측",
-        memory: "HBM 단품이 아닌 CXL Pooling·HBF Context Tier·High-capacity eSSD를 묶은 Memory Fabric",
+        memory: "Custom HBM·AI-D CXL·AI-N eSSD/HBF를 묶은 Full-Stack Memory Fabric",
         business: "NRE·공동설계 IP·Reference Architecture·장기 공급을 결합한 반복 매출 모델",
         partner: "AI 개발사·Vector DB/RAG SW·데이터센터 운영사·IT 컨설팅 펌 공동 Go-to-Market",
         action: "TAM 가설 → Lighthouse 고객 → PoC → Qualification → Partner Playbook → Repeat Order",
@@ -2450,7 +2450,7 @@
       strategy: {
         pain: "모델·Prompt·검색 구조 변화가 실제 Memory 수요로 전환되는 중간 지표가 없어 전망 오차가 큼",
         workload: "Context length·Batch/Concurrency·KV reuse·Embedding index·Read amplification을 추적",
-        memory: "Bandwidth·Capacity·Latency·Endurance 요구를 HBM·DRAM/CXL·eSSD에 매핑하고 HBF는 Emerging으로 관리",
+        memory: "Bandwidth·Capacity·Latency·Endurance 요구를 Custom HBM·AI-D·AI-N에 매핑하고 HBF는 Lighthouse PoC로 관리",
         business: "기술 신호 → 고객 Architecture 변경 → Qualification → Unit/Content growth 순으로 수요를 산정",
         partner: "AI Lab·Framework/Vector DB 업체·CSP Architecture 팀과 Benchmark 데이터 교환",
         action: "월간 Tech Signal Map + 분기별 Workload Benchmark + 제품 Roadmap Trigger 갱신",
@@ -3504,7 +3504,7 @@
     {
       label: "2027~2028", phase: "중기", cls: "mid", color: "#8b5cf6",
       signal: "NAND를 추론 데이터 계층으로 끌어올리는 표준화 구간",
-      decision: "HBF 샘플 성능과 고객 인증 조건을 제품 로드맵에 연결",
+      decision: "HBF OCP 규격을 Lighthouse 성능·상호운용성·고객 인증으로 연결",
       items: ["[1] HBF"],
     },
     {
@@ -7782,10 +7782,10 @@
         documentId: "ms-next-gen-memory-20260716",
         label: "NAND MOVES UP",
         title: "AI 추론은 NAND를 저장장치에서 메모리 계층으로 끌어올림",
-        body: "HBF는 HBM과 유사한 대역폭에 8~16배 용량을 목표로 하고, Kioxia는 KV cache와 GPU 직접 연결용 SSD 계층을 제시합니다. 보고서 내 샘플 시점은 2H26~1H27 범위로 읽어야 합니다.",
-        metrics: ["HBF 용량 8~16x", "샘플 2H26~1H27"],
-        implication: "SKHY는 SanDisk와 HBF 표준화를 진행하면서 Solidigm eSSD를 포함한 workload tier별 제품·고객 로드맵을 함께 설계해야 합니다.",
-        reversal: "샘플 성능 미달, 고객 피드백 지연, HBF 표준화 일정 후퇴",
+        body: "HBF는 OCP 공개 규격과 초기 생태계가 확인된 AI-N B 축이며, 실제 Workload 성능·상호운용성·고객 Qualification을 Lighthouse PoC에서 검증해야 합니다.",
+        metrics: ["HBF 8/16-Hi", "최대 512GB · 0.4~3.0TB/s"],
+        implication: "SKHY는 Sandisk HBF와 솔리다임 eSSD를 AI-N P/B/D로 묶어 Workload·고객별 로드맵을 설계해야 합니다.",
+        reversal: "Lighthouse 성능 미달, 상호운용성 실패, 고객 Qualification 지연",
         source: "Morgan Stanley",
         sourceRef: "Global Technology: Innovating the Next-Generation Memory",
         institution: "Morgan Stanley",
@@ -8242,13 +8242,13 @@
       ],
       options: [
         { label: "HBM4E", metric: "ASP +15% · gross die/wafer -20%", gate: "수율 · 고객 가격 공식 · 패키징" },
-        { label: "HBF · AI SSD", metric: "HBF 용량 8~16x", gate: "샘플 · 표준화 · workload 인증" },
+        { label: "HBF · AI-N B", metric: "8/16-Hi · 최대 512GB", gate: "Lighthouse · 상호운용성 · 고객 인증" },
         { label: "MRDIMM · CXL", metric: "12,800MT/s · 2030E $4.0B", gate: "지연시간 · 고객 PoC · 총비용" },
       ],
       decisions: [
         { label: "시스템 배분", action: "HBM·서버 DRAM·eSSD·패키징을 고객별 하나의 용량 로드맵으로 배분" },
         { label: "계약 수익성", action: "가격 공식에 수율·웨이퍼 생산성·최소구매·재협상 조항을 함께 반영" },
-        { label: "NAND 상향", action: "HBF 표준화와 Solidigm eSSD를 workload tier별 공동 로드맵으로 연결" },
+        { label: "AI-N 상향", action: "HBF OCP 표준과 솔리다임 eSSD를 P/B/D Workload 로드맵으로 연결" },
         { label: "효율형 옵션", action: "CXL·MRDIMM은 고객 PoC에서 지연시간과 서버 총비용 절감을 함께 검증" },
       ],
       scenarios: [
@@ -10263,12 +10263,12 @@
       signals: [
         ["CONFIRMED", "HBM4 2,048 I/O", "대역폭 2배·logic base-die 중요성 확대"],
         ["CONFIRMED", "Full-stack AI memory", "HBM + system DRAM + NAND/eSSD hierarchy"],
-        ["OPTION", "CXL Elastic · HBF Emerging", "Workload PoC·표준·생태계·고객 인증 단계별 관리"],
+        ["OPTION", "AI-D CXL · AI-N HBF", "HBF 공개 규격 이후 Workload·상호운용성·고객 인증 단계별 관리"],
       ],
       lenses: [
         ["01 · TRAINING", "HBM4 / Custom HBM", ["GPU utilization·bandwidth·thermal", "ASIC별 base-die co-design", "Performance/Watt·rack TCO"]],
         ["02 · INFERENCE", "Serving SW + Data Placement", ["Paged KV·Scheduler·Prefill/Decode", "HBM·Host DRAM·CXL·eSSD placement", "Goodput·P99·quality·cost/token"]],
-        ["03 · RAG / VECTOR", "Retrieval SW + eSSD", ["Recall/Quality·QPS·read amplification", "DRAM/CXL active tier·eSSD capacity tier", "HBF는 Emerging Option으로 분리"]],
+        ["03 · RAG / VECTOR", "Retrieval SW + AI-N", ["Recall/Quality·QPS·read amplification", "AI-D active tier·AI-N eSSD capacity tier", "HBF는 Lighthouse PoC로 상호운용성 검증"]],
         ["04 · ON-DEVICE", "LPDDR / 3D DRAM", ["Latency·power·footprint", "NPU·model joint tuning", "Device tier별 capacity curve"]],
       ],
       horizons: [
@@ -13029,6 +13029,7 @@
     const strategyBoard = window.MEMORY_SITE_CONTENT?.strategyBoard || {};
     const techBoard = strategyBoard.tech || {};
     const partnerBoard = strategyBoard.partners || {};
+    const techPillars = Array.isArray(techBoard.pillars) ? techBoard.pillars : [];
     const techMap = Array.isArray(techBoard.memoryMap) ? techBoard.memoryMap : [];
     const reports = Array.isArray(strategyBoard.reports) ? strategyBoard.reports : [];
     const partnerModels = Array.isArray(partnerBoard.models) ? partnerBoard.models : [];
@@ -13118,6 +13119,16 @@
         <div><span>${escapeHTML(techBoard.eyebrow || "TECH & MARKET INSIGHTS")}</span><h3>${escapeHTML(techBoard.title || "LLM Tech → Memory Implication")}</h3></div>
         <p>${escapeHTML(techBoard.description || "검증 데이터 연결 대기")}</p>
       </div>
+      ${techPillars.length ? `<div class="sc-pillar-grid" aria-label="Full-Stack AI Memory 공식 제품축">
+        ${techPillars.map((item) => `
+          <article class="sc-pillar-card" style="--sc-accent:${escapeHTML(item.accent || "#0A84B8")}">
+            <span>${escapeHTML(item.index || "")} · OFFICIAL PORTFOLIO</span>
+            <strong>${escapeHTML(item.label || "")}</strong>
+            <p>${escapeHTML(item.role || "")}</p>
+            <small>GATE · ${escapeHTML(item.gate || "")}</small>
+          </article>
+        `).join("")}
+      </div>` : ""}
       ${techMap.length ? `<div class="sc-tech-grid">
         ${techMap.map((item) => `
           <article class="sc-tech-card" style="--sc-accent:${escapeHTML(item.accent || "#0A84B8")}">
@@ -18524,7 +18535,7 @@
         role: "HW/SW Option·Economics·Qualification",
         avatar: "AR",
         color: "#6D28D9",
-        message: `지배 병목이 확인된 뒤 Runtime·Compute·Fabric·Storage·Facility와 HBM Hot–Host DRAM/SOCAMM2–CXL Elastic–eSSD Reuse 대안을 같은 Benchmark로 비교합니다. HBF는 공개 규격·생태계·Qualification이 확인되기 전까지 Emerging Option으로 분리합니다.`,
+        message: `지배 병목 확인 후 Runtime·Compute·Fabric·Storage·Facility와 Custom HBM–AI-D–AI-N 대안을 같은 Benchmark로 비교합니다. HBF는 OCP 규격 확인 이후 Lighthouse PoC에서 상호운용성·고객 Qualification을 검증합니다.`,
       },
       {
         id: "growth-strategy",
@@ -21412,7 +21423,7 @@
       strategy: {
         pain: `질문에서 고객·사업 목표와 관측 가능한 Pain Point를 분리: ${query}`,
         workload: "AI Application → SW stack → HW/Network/Storage → Memory access 흐름을 추적",
-        memory: "HBM·DRAM/SOCAMM·CXL·HBF·eSSD 옵션을 Bandwidth·Capacity·Power·Reliability 기준으로 비교",
+        memory: "Custom HBM·AI-D·AI-N 옵션을 Bandwidth·Capacity·Power·Reliability 기준으로 비교",
         business: "고객 KPI·TCO·매출 가능성·SK hynix Right to Win을 같은 의사결정 표에 배치",
         partner: "AI 개발사·데이터센터 운영사·IT 컨설팅/기술 파트너의 역할과 검증 책임을 지정",
         action: "30일 Baseline → 60일 PoC/Business Case → 90일 Qualification 또는 Stop",

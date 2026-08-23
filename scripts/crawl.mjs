@@ -8221,6 +8221,7 @@ function findQuantRuleObservation(text = "", rule = {}, expectedValue = null) {
 }
 
 function documentPublicationDate(html = "", url = "") {
+  const source = String(html || "");
   const candidates = [
     /(?:article:published_time|datePublished)[^>\n]{0,180}?(20\d{2}-\d{2}-\d{2})/i,
     /"datePublished"\s*:\s*"(20\d{2}-\d{2}-\d{2})/i,
@@ -8228,8 +8229,23 @@ function documentPublicationDate(html = "", url = "") {
     /\b(20\d{2}-\d{2}-\d{2})\b/,
   ];
   for (const pattern of candidates) {
-    const match = String(html).match(pattern);
+    const match = source.match(pattern);
     if (match?.[1]) return match[1];
+  }
+  // Several official newsrooms expose the publication date only as visible
+  // English copy (for example "August 4, 2026") instead of ISO metadata.
+  // Preserve the source date rather than substituting the crawl timestamp.
+  const englishDate = source.match(/\b(January|February|March|April|May|June|July|August|September|October|November|December)\s+(\d{1,2}),\s+(20\d{2})\b/i);
+  if (englishDate) {
+    const months = {
+      january: 1, february: 2, march: 3, april: 4, may: 5, june: 6,
+      july: 7, august: 8, september: 9, october: 10, november: 11, december: 12,
+    };
+    const month = months[englishDate[1].toLowerCase()];
+    const day = Number(englishDate[2]);
+    if (month && day >= 1 && day <= 31) {
+      return `${englishDate[3]}-${String(month).padStart(2, "0")}-${String(day).padStart(2, "0")}`;
+    }
   }
   const pathDate = String(url).match(/\/(20\d{2})\/(0[1-9]|1[0-2])\/(0[1-9]|[12]\d|3[01])\//);
   return pathDate ? `${pathDate[1]}-${pathDate[2]}-${pathDate[3]}` : null;

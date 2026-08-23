@@ -100,6 +100,28 @@ const documents = [
     observedAt: "2026-08-16T00:00:00.000Z",
     text: "Quarterly results include HBM4 capacity, long-term customer contract and shipment commitments.",
   },
+  {
+    feedId: "skhynix-hbf-open-standard",
+    sourceId: "skhynix-newsroom",
+    source: "SK hynix Newsroom",
+    sourceClass: "official",
+    title: "SK hynix Unveils First HBF Standard Specifications with Sandisk",
+    url: "https://news.skhynix.com/en/hbf-at-fms-2026",
+    publishedAt: "2026-08-04",
+    observedAt: "2026-08-16T00:00:00.000Z",
+    text: "SK hynix and Sandisk released the first open HBF standard specifications via OCP for High Bandwidth Flash.",
+  },
+  {
+    feedId: "skhynix-full-stack-ai-memory",
+    sourceId: "skhynix-newsroom",
+    source: "SK hynix Newsroom",
+    sourceClass: "official",
+    title: "SK hynix becomes a Full-Stack AI Memory Creator",
+    url: "https://news.skhynix.com/en/sk-hynix-redefines-its-vision-at-sk-ai-summit-2025-from-ai-memory-provider-to-creator",
+    publishedAt: "2025-11-20",
+    observedAt: "2026-08-16T00:00:00.000Z",
+    text: "The Full-Stack AI Memory Creator portfolio has three pillars: Custom HBM, AI-D and AI-N roadmap products.",
+  },
 ];
 
 const observations = extractMetricObservations(documents, policy);
@@ -130,6 +152,11 @@ const secondIndex = buildIncrementalKnowledgeIndex({ documents, previous: firstI
 assert.equal(secondIndex.stats.unchanged, documents.length);
 assert.equal(secondIndex.stats.reindexed, 0);
 assert.ok(secondIndex.documents.every((item) => item.indexedAt === firstIndex.documents.find((before) => before.id === item.id)?.indexedAt), "unchanged documents must not be reindexed");
+const missingDateIndex = structuredClone(firstIndex);
+missingDateIndex.documents[0].publishedAt = null;
+const repairedMetadataIndex = buildIncrementalKnowledgeIndex({ documents, previous: missingDateIndex, policy, now: new Date("2026-08-16T04:00:00.000Z") });
+const repairedSource = documents.find((item) => item.url.replace(/\/$/, "") === missingDateIndex.documents[0].url.replace(/\/$/, ""));
+assert.equal(repairedMetadataIndex.documents.find((item) => item.id === missingDateIndex.documents[0].id)?.publishedAt, repairedSource?.publishedAt, "source-date repairs must update metadata without re-embedding unchanged text");
 const changedDocuments = structuredClone(documents);
 changedDocuments[0].text += " Updated source text.";
 const thirdIndex = buildIncrementalKnowledgeIndex({ documents: changedDocuments, previous: secondIndex, policy, now: new Date("2026-08-16T06:00:00.000Z") });
@@ -150,9 +177,15 @@ assert.equal(built.retrieval.packs.length, policy.retrieval.tracks.length);
 assert.ok(built.retrieval.packs.every((pack) => pack.evidence.every((item) => item.url)));
 assert.equal(built.evaluation.metrics.unsupportedClaimPct, 0);
 assert.equal(built.evaluation.metrics.citationCoveragePct, 100);
-assert.equal(built.schemaVersion, "1.2");
+assert.equal(built.schemaVersion, "1.3");
 assert.ok(built.claimEvents.stats.structuredEvents > 0, "verified documents must become structured ClaimEvents");
 assert.ok(built.claimEvents.events.every((event) => event.evidenceSpan && event.entity?.id && event.product?.id && event.stage?.id));
+assert.ok(built.claimEvents.events.every((event) => ["verified-fact", "market-estimate"].includes(event.claimType)), "every ClaimEvent must separate facts from estimates");
+assert.ok(built.claimEvents.events.every((event) => event.asOf === event.publishedAt), "every ClaimEvent must retain an explicit as-of date");
+assert.ok(built.claimEvents.events.every((event) => event.feedId), "direct ClaimEvents must retain their feed lineage");
+const hbfStandard = built.claimEvents.events.find((event) => event.ruleId === "hbf-standardization-stage" && event.sourceClass === "official");
+assert.equal(hbfStandard?.stage.id, "STANDARDIZATION", "an HBF standard disclosure must not be overwritten by generic announcement language");
+assert.ok(built.claimEvents.events.some((event) => event.ruleId === "full-stack-memory-portfolio" && event.product.id === "ai-n"), "the official Full-Stack portfolio must reach the ClaimEvent ledger");
 assert.ok(built.claimEvents.events.every((event) => ["official", "research"].includes(event.sourceClass)), "media summaries must not enter the ClaimEvent ledger");
 assert.ok(built.claimEvents.events.every((event) => event.promotionStatus !== "verified-primary" || event.sourceClass === "official"), "research claims must never inherit a verified-primary label");
 assert.ok(built.claimEvents.events.every((event) => !event.isCurrentStage || event.sourceClass === "official" || !built.claimEvents.events.some((peer) => peer.entity.id === event.entity.id && peer.product.id === event.product.id && peer.stage.id === event.stage.id && peer.sourceClass === "official")), "an official claim must lead same-stage research claims");

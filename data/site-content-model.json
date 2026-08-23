@@ -130,8 +130,13 @@
     "schemaVersion": "1.0",
     "tech": {
       "eyebrow": "TECH & MARKET INSIGHTS",
-      "title": "LLM 기술 변곡점 → Memory Requirement",
-      "description": "AI Application·HW/SW 변화를 Workload 병목과 메모리 요구사항으로 변환",
+      "title": "Full-Stack AI Memory → Customer Outcome",
+      "description": "공식 제품축과 LLM Workload 변화를 고객 병목·시스템 TCO·실행 Gate로 변환",
+      "pillars": [
+        { "id": "custom-hbm", "index": "01", "label": "CUSTOM HBM", "role": "가속기·ASIC별 Logic Base-Die·Package 공동설계", "gate": "Architecture Lock · Qualification · Foundry Capacity", "accent": "#2D6BFF" },
+        { "id": "ai-d", "index": "02", "label": "AI-D", "role": "SOCAMM2·MRDIMM·CXL 기반 System Memory", "gate": "Latency · Capacity · Interoperability · TCO", "accent": "#00A88F" },
+        { "id": "ai-n", "index": "03", "label": "AI-N", "role": "P·B·D로 추론 성능·대역폭·용량 확장", "gate": "Workload PoC · Endurance · Ecosystem · Qualification", "accent": "#7656C9" }
+      ],
       "memoryMap": [
         {
           "id": "transformer",
@@ -146,7 +151,7 @@
           "tech": "Long Context · KV Cache",
           "context": "Prompt · Prefill · Decode",
           "impact": "Token·동시 Session에 비례한 KV 용량 증가",
-          "memory": "HBM · Host DRAM · CXL",
+          "memory": "HBM Hot · AI-D System · AI-N/HBF Scale",
           "accent": "#00A88F"
         },
         {
@@ -162,8 +167,16 @@
           "tech": "Vector DB · Data Pipeline",
           "context": "Embedding · Checkpoint",
           "impact": "Active Index와 대용량 Corpus의 계층화",
-          "memory": "고용량 DRAM · TLC/QLC eSSD",
+          "memory": "AI-D Active · AI-N P/D eSSD",
           "accent": "#7656C9"
+        },
+        {
+          "id": "hbf-open-standard",
+          "tech": "HBF · Open Standard",
+          "context": "OCP · UCIe · Lighthouse PoC",
+          "impact": "HBM과 SSD 사이 추론 Capacity Tier 검증",
+          "memory": "AI-N B · HBF 8/16-Hi · 0.4–3.0 TB/s",
+          "accent": "#C88600"
         }
       ]
     },
@@ -187,7 +200,7 @@
       ]
     },
     "playbooks": [
-      { "id": "agentic-serving", "segment": "Agentic AI Serving", "pain": "KV Cache·TTFT·Token 원가", "solution": "Serving SW × HBM/Host/CXL/eSSD 배치", "outcome": "SLO-constrained Goodput·Cost/Task", "gate": "동일 Trace·Quality·P99 재현" },
+      { "id": "agentic-serving", "segment": "Agentic AI Serving", "pain": "KV Cache·TTFT·Token 원가", "solution": "Serving SW × HBM/AI-D/AI-N/HBF 배치", "outcome": "SLO-constrained Goodput·Cost/Task", "gate": "동일 Trace·Quality·P99·HBF 상호운용성" },
       { "id": "training-ramp", "segment": "AI Training Cluster", "pain": "대역폭·Collective·Checkpoint 병목", "solution": "HBM·Fabric·eSSD 공동 Roadmap", "outcome": "Time-to-Train·가동률·Ramp 방어", "gate": "Qualification·Capacity·Margin" },
       { "id": "enterprise-rag", "segment": "Enterprise RAG", "pain": "검색 품질·Index Freshness·P99", "solution": "Hybrid Retrieval × DRAM/CXL/eSSD Tier", "outcome": "Citation 품질·Cost/Query·운영 신뢰성", "gate": "Recall·ACL·Freshness·P99" }
     ],
@@ -295,7 +308,7 @@
         "index": "04",
         "label": "Architecture Options",
         "title": "대안 포트폴리오 설계",
-        "bullets": ["Scheduler·Batching·Prefix/KV Reuse·Prefill/Decode 대안 비교", "HBM·Host DRAM/SOCAMM2·CXL·eSSD Placement 검증", "HBF는 Emerging Option으로 별도 관리"]
+        "bullets": ["Scheduler·Batching·Prefix/KV Reuse·Prefill/Decode 대안 비교", "Custom HBM·AI-D·AI-N Placement 검증", "HBF는 Lighthouse PoC에서 상호운용성·고객 인증 검증"]
       },
       {
         "id": "poc",
@@ -309,7 +322,7 @@
         "index": "06",
         "label": "Qualify & Repeat",
         "title": "사업화·재검증",
-        "bullets": ["Qualification·Capacity·가격·Ramp Gate 연결", "Pain Map·Requirement Matrix·TCO를 표준 산출물화", "3시간 소스 갱신·15분 브라우저 재확인·변경 Trigger 추적"]
+        "bullets": ["Qualification·Capacity·가격·Ramp Gate 연결", "Pain Map·Requirement Matrix·TCO를 표준 산출물화", "이벤트 우선·1시간 안전 폴링·5분 브라우저 재확인"]
       }
     ],
     "serviceLines": [
@@ -408,12 +421,12 @@
       "answerTitle": "검증된 Ramp와 Custom Co-Design을 분리 운영",
       "recommendation": "TWO-TRACK",
       "question": "고객별 Workload 요구를 HBM·Base-Die·Package·Capacity 공동설계와 수익성으로 어떻게 연결할 것인가?",
-      "fallbackDecision": "검증된 고객 Ramp에는 표준 HBM Capacity를 우선 배분하고, Architecture Lock·공동 TCO·확정 물량이 확인된 고객만 Custom 단계로 승격합니다.",
-      "fallbackStop": "고객 인증 일정, 패키징 수율, 확정 물량 가운데 핵심 Gate가 악화되면 Custom 범위와 Capacity 배분을 재검토합니다.",
+      "fallbackDecision": "HBM4는 Q2 상업 출하·H2 Ramp 실행으로 관리하고, Architecture Lock·공동 TCO·확정 물량·TSMC Base-Die Capacity가 확인된 고객만 Custom 단계로 승격합니다.",
+      "fallbackStop": "고객 인증·패키징 수율·확정 물량·TSMC Capacity 가운데 핵심 Gate가 악화되면 Custom 범위와 Capacity 배분을 재검토합니다.",
       "lenses": [
         ["01 · CUSTOMER", "Customer JTBD", ["Training·Inference별 성능·전력·일정 요구", "고객 Buying Criteria와 Qualification 일정", "확정 물량·반복 발주 가능성"]],
-        ["02 · TECHNOLOGY", "Architecture", ["HBM·Logic Base-Die·Package 공동 최적화", "PPA·열·수율·신뢰성 분리 검증", "표준형과 Custom 사양 경계"]],
-        ["03 · BUSINESS", "Option Economics", ["NRE·Margin floor·Committed volume", "Foundry·Packaging Capacity 조건", "고객 집중·공급 의존 위험"]],
+        ["02 · TECHNOLOGY", "Architecture", ["HBM·Logic Base-Die·Package 공동 최적화", "PPA·열·수율·신뢰성 분리 검증", "HBM4 Ramp와 HBM4E 준비 분리"]],
+        ["03 · BUSINESS", "Option Economics", ["NRE·Margin floor·Committed volume", "TSMC·Packaging Capacity 조건", "Reliability·Cluster uptime·고객 집중 위험"]],
         ["04 · EXECUTION", "Qualification & Ramp", ["Requirement Lock → Sample → Qual", "Capacity allocation → Shipment", "Owner·KPI·Kill Criteria"]]
       ],
       "horizons": [
@@ -421,8 +434,8 @@
         ["NEXT · 31–60D", "Architecture / TCO", "Standard와 Semi-Custom의 PPA·TCO를 비교", "PPA·Yield·System TCO"],
         ["SCALE · 61–90D", "Qualification / Capacity", "인증·물량·가격·Ramp 조건을 계약 Gate로 연결", "Qual-to-volume·Margin floor"]
       ],
-      "kpis": ["Qualification cycle", "Committed volume coverage", "Package yield", "Contribution margin"],
-      "partners": ["Accelerator/ASIC · architecture owner", "Foundry/Packaging · capacity & yield", "CSP/Data center · workload & TCO"],
+      "kpis": ["Qualification cycle", "Committed volume coverage", "Package yield", "Cluster availability", "Contribution margin"],
+      "partners": ["NVIDIA/Accelerator/ASIC · architecture owner", "TSMC · base-die capacity & yield", "Indiana/Advanced Packaging · 2028 readiness", "CSP/Data center · workload & TCO"],
       "useCase": "MODELED STRATEGY CASE · AI Accelerator · Workload Trace → Base-Die 공동설계 → Qualification → Capacity Gate",
       "deepLink": "#console/c-level-cockpit/hbm4-foundry"
     },
@@ -437,12 +450,12 @@
       "answerTitle": "Agentic Inference를 Serving SW × Data Placement로 판단",
       "recommendation": "BOTTLENECK-FIRST PoC",
       "question": "Compute·Memory·Network·Serving SW 가운데 무엇이 SLO-constrained Goodput을 제한하며, 어떤 조합이 고객 경제성을 개선하는가?",
-      "fallbackDecision": "Scheduler·Batching·Prefix/KV Reuse·Prefill/Decode·Offload를 먼저 계측하고, 메모리가 지배 병목일 때 HBM–Host DRAM/SOCAMM2–CXL–eSSD 배치를 검증합니다. HBF는 Emerging Option으로 분리합니다.",
+      "fallbackDecision": "Scheduler·Batching·Prefix/KV Reuse·Prefill/Decode·Offload를 먼저 계측하고, 메모리가 지배 병목일 때 HBM–AI-D–AI-N 배치를 검증합니다. HBF는 규격 확인 단계를 통과했으므로 Lighthouse PoC에서 상호운용성·고객 인증을 검증합니다.",
       "fallbackStop": "SLO·Quality·Goodput·System TCO가 고객 Baseline을 충족하지 못하면 Memory Tier를 확대하지 않고 Serving SW·Compute·Network 대안으로 재구성합니다.",
       "lenses": [
         ["01 · CUSTOMER", "Serving JTBD", ["TTFT·TPOT/P99와 동시 Session", "Token 원가·전력·Rack Capacity", "고객 SLA와 구매 기준"]],
         ["02 · SERVING SW", "Runtime & Scheduler", ["Paged KV·Batching·Prefix Reuse", "Prefill/Decode 배치·간섭", "Offload·Prefetch·Eviction"]],
-        ["03 · DATA PLACEMENT", "Tiered Architecture", ["HBM Hot Tier", "Host DRAM/SOCAMM2 System Tier", "CXL Elastic · eSSD Context · HBF Emerging"]],
+        ["03 · DATA PLACEMENT", "Tiered Architecture", ["HBM Hot Tier", "AI-D · Host DRAM/SOCAMM2/CXL", "AI-N · eSSD/HBF Scale Tier"]],
         ["04 · BUSINESS", "Reference Offer", ["Architecture·SW·Memory 공동 PoC", "System TCO와 고객 지불의사", "Qualification·반복주문"]]
       ],
       "horizons": [
@@ -451,7 +464,7 @@
         ["SCALE · 61–90D", "Commercial Gate", "TCO·성능보증·Qualification 범위를 확정", "Cost/token·Repeatability"]
       ],
       "kpis": ["TTFT / TPOT P99", "KV reuse / cache TTL", "GPU utilization", "Cost per million tokens"],
-      "partners": ["AI model/serving · workload", "CSP/Data center · operations", "CXL/eSSD · tier integration", "HBF · emerging ecosystem"],
+      "partners": ["AI model/serving · workload", "CSP/Data center · operations", "CXL/eSSD · tier integration", "HBF · OCP ecosystem & Lighthouse"],
       "useCase": "MODELED STRATEGY CASE · Agentic AI Serving · Bottleneck Trace → SW/Placement PoC → Qualification Gate",
       "deepLink": "#console/c-level-cockpit/post-hbm"
     },

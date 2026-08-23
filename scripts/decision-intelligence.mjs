@@ -80,7 +80,7 @@ export function validateIntelligencePolicy(policy = {}) {
     .reduce((sum, key) => sum + Number(weights[key] || 0), 0);
   if (Math.abs(weightTotal - 1) > 0.0001) errors.push("freshnessScoring.weights");
   if (Number(freshness.thresholds?.current) !== 85 || Number(freshness.thresholds?.warning) !== 70) errors.push("freshnessScoring.thresholds");
-  if (!policy.refreshOrchestration?.latencyTargets || Number(policy.refreshOrchestration?.safetyPollHours) !== 3) errors.push("refreshOrchestration");
+  if (!policy.refreshOrchestration?.latencyTargets || Number(policy.refreshOrchestration?.safetyPollHours) !== 1) errors.push("refreshOrchestration");
   const ids = new Set();
   for (const feed of policy.directFeeds || []) {
     if (!feed.id || ids.has(`feed:${feed.id}`)) errors.push(`feed:${feed.id || "missing"}`);
@@ -382,6 +382,7 @@ function chunkText(value = "", size = 900, overlap = 120, limit = 14) {
 
 export function buildIncrementalKnowledgeIndex({ documents = [], previous = {}, policy = loadIntelligencePolicy(), now = new Date() } = {}) {
   const allowed = new Set(policy.retrieval?.allowedSourceClasses || []);
+  const configuredFeedIds = new Set((policy.directFeeds || []).map((feed) => feed.id));
   const previousMap = new Map((previous.documents || []).map((document) => [document.id, document]));
   const currentIds = new Set();
   const next = [];
@@ -389,6 +390,7 @@ export function buildIncrementalKnowledgeIndex({ documents = [], previous = {}, 
   let changed = 0;
   let unchanged = 0;
   for (const raw of documents.slice(0, Number(policy.scope?.maxDocuments || 240))) {
+    if (raw.feedId && raw.feedId !== "narrative" && !configuredFeedIds.has(raw.feedId)) continue;
     const url = canonicalUrl(raw.url);
     const text = compact(raw.text);
     if (!url || !text || !allowed.has(raw.sourceClass)) continue;
@@ -401,6 +403,14 @@ export function buildIncrementalKnowledgeIndex({ documents = [], previous = {}, 
       next.push({
         ...before,
         feedId: raw.feedId || before.feedId || null,
+        sourceId: raw.sourceId || before.sourceId,
+        source: raw.source || before.source,
+        sourceClass: raw.sourceClass || before.sourceClass,
+        title: compact(raw.title || before.title || raw.source || "Source document", 180),
+        url,
+        // Metadata repairs do not require re-embedding unchanged body text.
+        // A newly parsed source date must still replace the prior null value.
+        publishedAt: raw.publishedAt || before.publishedAt || null,
         observedAt: raw.observedAt || before.observedAt,
         freshnessDays: Number(raw.freshnessDays || before.freshnessDays || policy.freshnessScoring?.defaults?.contentAgeDays || 180),
         lastHumanVerifiedAt: raw.lastHumanVerifiedAt || before.lastHumanVerifiedAt || null,
@@ -433,6 +443,9 @@ export function buildIncrementalKnowledgeIndex({ documents = [], previous = {}, 
   let retained = 0;
   for (const before of previousMap.values()) {
     if (currentIds.has(before.id)) continue;
+    // A removed direct feed is a deliberate retirement, not a transient
+    // outage.  Never keep its old document alive as dead console content.
+    if (before.feedId && !configuredFeedIds.has(before.feedId)) continue;
     const observed = Date.parse(before.observedAt || before.indexedAt || before.publishedAt || "");
     if (!Number.isFinite(observed) || now.getTime() - observed > Number(policy.scope?.retentionDays || 540) * 864e5) continue;
     retained += 1;
@@ -471,6 +484,7 @@ function buildRetrievalPacks(index = {}, policy = loadIntelligencePolicy()) {
           title: document.title,
           excerpt: compact(chunk.text, 340),
           sourceId: document.sourceId,
+          feedId: document.feedId || null,
           source: document.source,
           sourceClass: document.sourceClass,
           url: document.url,
@@ -650,7 +664,17 @@ function numericEvidence(value = "") {
   return [...new Set(tokens)].slice(0, 8);
 }
 
+function explicitOpposition(value = "") {
+  const negative = "(?:\\bnot\\b|den(?:y|ies|ied)|cancel(?:s|led)?|withdraw(?:s|n)?|중단|철회|부인)";
+  const lifecycle = "(?:production|shipment|qualification|certification|partnership|agreement|collaboration|standard(?:ization)?|sample|roadmap|plan|양산|출하|인증|협력|계약|표준|샘플|계획)";
+  return new RegExp(`${negative}.{0,90}${lifecycle}|${lifecycle}.{0,90}${negative}`, "i").test(String(value || ""));
+}
+
 function resolveClaimStage(value = "", rule = {}, policy = loadIntelligencePolicy()) {
+  if (rule.fixedStage === true) {
+    const fixed = (policy.claimEvents?.stages || []).find((stage) => stage.id === rule.defaultStage);
+    if (fixed) return { id: fixed.id, rank: Number(fixed.rank || 0) };
+  }
   const stages = (policy.claimEvents?.stages || [])
     .filter((stage) => matchesAny(value, stage.patterns))
     .sort((left, right) => Number(right.rank || 0) - Number(left.rank || 0));
@@ -668,12 +692,16 @@ export function buildClaimEventLedger({ documents = [], previous = {}, policy = 
   const config = policy.claimEvents || {};
   const eligible = new Set(config.eligibleSourceClasses || ["official", "research"]);
   const rules = policy.eventRules || [];
+  const rulesById = new Map(rules.map((rule) => [rule.id, rule]));
+  const feedsById = new Map((policy.directFeeds || []).map((feed) => [feed.id, feed]));
   const raw = [];
   for (const document of documents) {
     if (!eligible.has(document.sourceClass) || !validUrl(document.url)) continue;
     if (config.requirePublishedAt && !document.publishedAt) continue;
     const fullText = `${document.title || ""}\n${document.text || ""}`;
-    for (const rule of rules) {
+    const feed = feedsById.get(document.feedId);
+    const candidateRules = feed?.eventRuleIds?.map((id) => rulesById.get(id)).filter(Boolean) || rules;
+    for (const rule of candidateRules) {
       if (!matchesAll(fullText, rule.patterns)) continue;
       const span = evidenceSpan(fullText, rule, Number(config.minimumEvidenceCharacters || 28));
       if (config.requireEvidenceSpan && span.length < Number(config.minimumEvidenceCharacters || 28)) continue;
@@ -693,22 +721,28 @@ export function buildClaimEventLedger({ documents = [], previous = {}, policy = 
         metrics: numericEvidence(span),
         evidenceSpan: span,
         sourceId: document.sourceId,
+        feedId: document.feedId || null,
         source: document.source,
         sourceClass: document.sourceClass,
         sourceUrl,
         publishedAt: document.publishedAt,
         observedAt: document.observedAt || now.toISOString(),
         confidence: document.sourceClass === "official" ? "confirmed-primary" : "research-observed",
+        claimType: document.sourceClass === "official" ? "verified-fact" : "market-estimate",
+        asOf: document.publishedAt,
       });
     }
   }
 
   const unique = new Map();
-  for (const event of raw) unique.set(`${event.ruleId}|${event.entity.id}|${event.product.id}|${event.stage.id}|${event.sourceId}`, event);
+  for (const event of raw) unique.set(`${event.ruleId}|${event.entity.id}|${event.product.id}|${event.stage.id}|${event.sourceUrl}`, event);
   const events = [...unique.values()];
   const groups = new Map();
   for (const event of events) {
-    const key = `${event.entity.id}|${event.product.id}`;
+    // Product maturity, partnership execution and supply risk are independent
+    // lifecycles.  Do not let a partnership announcement supersede a product
+    // standardization event merely because both mention the same product.
+    const key = `${event.entity.id}|${event.product.id}|${event.eventType}`;
     if (!groups.has(key)) groups.set(key, []);
     groups.get(key).push(event);
   }
@@ -720,8 +754,8 @@ export function buildClaimEventLedger({ documents = [], previous = {}, policy = 
       const peers = group.filter((item) => item.stage.id === event.stage.id);
       const independentSources = new Set(peers.map((item) => item.sourceId)).size;
       const hasPrimary = peers.some((item) => item.sourceClass === "official");
-      const affirmative = peers.some((item) => !/(?:\bnot\b|den(?:y|ies|ied)|cancel(?:s|led)?|withdraw(?:s|n)?|중단|철회|부인)/i.test(item.evidenceSpan));
-      const opposing = peers.some((item) => /(?:\bnot\b|den(?:y|ies|ied)|cancel(?:s|led)?|withdraw(?:s|n)?|중단|철회|부인)/i.test(item.evidenceSpan));
+      const affirmative = peers.some((item) => !explicitOpposition(item.evidenceSpan));
+      const opposing = peers.some((item) => explicitOpposition(item.evidenceSpan));
       event.independentSources = independentSources;
       // Promotion is attached to the individual claim, not inherited from a
       // peer at the same product stage.  A research report can corroborate a
@@ -740,7 +774,10 @@ export function buildClaimEventLedger({ documents = [], previous = {}, policy = 
     const latest = trusted[0] || group[0];
     for (const event of group) {
       event.isCurrentStage = event.id === latest.id;
-      event.supersededBy = Number(event.stage.rank) < Number(latest.stage.rank) ? latest.id : null;
+      const lowerStage = Number(event.stage.rank) < Number(latest.stage.rank);
+      const olderSameRule = event.ruleId === latest.ruleId
+        && String(event.publishedAt || "") < String(latest.publishedAt || "");
+      event.supersededBy = event.id !== latest.id && (lowerStage || olderSameRule) ? latest.id : null;
     }
   }
   events.sort((left, right) => Number(right.isCurrentStage) - Number(left.isCurrentStage)
@@ -840,10 +877,10 @@ export function buildAutomatedDecisionBriefs({ claimLedger = {}, packs = [], eva
 }
 
 function buildSourceOperations({ documents = [], feedStatus = [], observations = [], claimLedger = {}, packs = [], policy = loadIntelligencePolicy(), now = new Date() } = {}) {
-  const usefulIds = new Set([
-    ...observations.map((item) => item.sourceId),
-    ...(claimLedger.events || []).map((item) => item.sourceId),
-    ...packs.flatMap((pack) => pack.evidence || []).map((item) => item.sourceId),
+  const usefulFeedIds = new Set([
+    ...observations.map((item) => item.feedId),
+    ...(claimLedger.events || []).map((item) => item.feedId),
+    ...packs.flatMap((pack) => pack.evidence || []).map((item) => item.feedId),
   ].filter(Boolean));
   const documentByFeed = new Map(documents.filter((item) => item.feedId).map((item) => [item.feedId, item]));
   const sources = (policy.directFeeds || []).map((feed) => {
@@ -857,9 +894,9 @@ function buildSourceOperations({ documents = [], feedStatus = [], observations =
       transportStatus: status.status || "not-observed",
       attempts: Number(status.attempts || 0),
       lastSuccessAt: document?.observedAt || status.lastSuccessAt || null,
-      lastUsefulObservationAt: usefulIds.has(feed.sourceId) ? document?.observedAt || now.toISOString() : null,
-      usefulObservation: usefulIds.has(feed.sourceId),
-      eventYield: (claimLedger.events || []).filter((item) => item.sourceId === feed.sourceId).length,
+      lastUsefulObservationAt: usefulFeedIds.has(feed.id) ? document?.observedAt || now.toISOString() : null,
+      usefulObservation: usefulFeedIds.has(feed.id),
+      eventYield: (claimLedger.events || []).filter((item) => item.feedId === feed.id).length,
     };
   });
   const fetched = sources.filter((item) => ["fetched", "fixture", "retained-not-due"].includes(item.transportStatus)).length;
@@ -923,7 +960,7 @@ export function buildDecisionIntelligence({ documents = [], previous = {}, polic
   const sourceOperations = buildSourceOperations({ documents, feedStatus, observations, claimLedger: claimEvents, packs: retrievalPacks, policy, now });
   const readyBriefs = decisionBriefs.filter((brief) => brief.status === "DECISION_READY").length;
   return {
-    schemaVersion: "1.2",
+    schemaVersion: "1.3",
     runId,
     generatedAt: now.toISOString(),
     refreshTrigger,

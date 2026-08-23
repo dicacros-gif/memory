@@ -99,6 +99,11 @@ assert.equal(artifact.workloadOptimization.ragOperatingModel.maturity.length, 6)
 assert.ok(Number.isFinite(artifact.workloadOptimization.ragOperatingModel.liveControl.freshnessScore));
 assert.ok(artifact.workloadOptimization.sources.length >= 5);
 assert.ok(rebuilt.strategyBoard.tech.memoryMap.length >= 4);
+assert.deepEqual(rebuilt.strategyBoard.tech.pillars.map((item) => item.id), ["custom-hbm", "ai-d", "ai-n"]);
+const hbfTrack = rebuilt.strategyBoard.tech.memoryMap.find((item) => item.id === "hbf-open-standard");
+assert.ok(hbfTrack, "HBF must be present as an explicit architecture track");
+assert.match(`${hbfTrack.tech} ${hbfTrack.context} ${hbfTrack.impact}`, /Open Standard.*Lighthouse PoC/i);
+assert.doesNotMatch(JSON.stringify(hbfTrack), /Emerging|Watch/i, "HBF must advance from watch to standardized Lighthouse PoC");
 assert.ok(rebuilt.strategyBoard.partners.models.length >= 3);
 assert.ok(rebuilt.strategyBoard.playbooks.length >= 3);
 assert.equal(rebuilt.strategyBoard.reports.length, rebuilt.strategyBoard.evidenceCount);

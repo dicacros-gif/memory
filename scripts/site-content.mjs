@@ -350,6 +350,8 @@ function buildDecisionIntelligenceContent(quant = {}) {
         sourceUrl: directUrl(event.sourceUrl) ? event.sourceUrl : "",
         publishedAt: event.publishedAt || null,
         confidence: event.confidence,
+        claimType: event.claimType || (event.sourceClass === "official" ? "verified-fact" : "market-estimate"),
+        asOf: event.asOf || event.publishedAt || null,
         promotionStatus: event.promotionStatus,
         contradictionStatus: event.contradictionStatus,
         isCurrentStage: event.isCurrentStage === true,

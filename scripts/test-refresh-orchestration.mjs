@@ -51,6 +51,6 @@ const safetyPoll = buildRefreshRequest({ policy, now, runId: "scheduled-run", en
 assert.equal(safetyPoll.channel, "poll");
 assert.equal(safetyPoll.dedupeEligible, false);
 assert.equal(isDuplicateRefreshRequest(ledger, safetyPoll), false);
-assert.equal(policy.refreshOrchestration.safetyPollHours, 3);
+assert.equal(policy.refreshOrchestration.safetyPollHours, 1);
 
 console.log(JSON.stringify({ ok: true, strategy: ledger.strategy, latency: event.latencyStatus, duplicateSuppressed: true }, null, 2));
