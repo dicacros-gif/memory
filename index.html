@@ -120,10 +120,11 @@
     (() => {
       if (!location.hash.startsWith("#console")) return;
       document.documentElement.classList.add("console-entry");
-      const revision = "infra-09caafc76ae6";
+      const revision = "infra-ae9188a16601";
       const assets = [
         ["consoleStylesPreload", "style", `assets/css/styles.min.css?v=${revision}`, "high"],
         ["consoleAppPreload", "script", `assets/js/app.min.js?v=${revision}`, "high"],
+        ["consolePosterPreload", "image", "assets/media/memory-hero-poster.webp", "high"],
       ];
       for (const [id, as, href, priority] of assets) {
         const link = document.createElement("link");
@@ -136,7 +137,7 @@
       }
     })();
   </script>
-  <link rel="stylesheet" href="assets/css/landing.min.css?v=infra-09caafc76ae6" />
+  <link rel="stylesheet" href="assets/css/landing.min.css?v=infra-ae9188a16601" />
 </head>
 <body class="landing-mode">
   <div class="business-site" id="businessSite">
@@ -917,6 +918,20 @@
       </header>
 
       <main class="main" id="main">
+        <section class="memory-video-hero" id="overview" aria-labelledby="memoryHeroTitle">
+          <img class="memory-hero-static" src="assets/media/memory-hero-poster.webp" alt="" width="1280" height="720" decoding="async" fetchpriority="high" aria-hidden="true" />
+          <div class="memory-hero-shade" aria-hidden="true"></div>
+          <div class="memory-hero-content">
+            <h2 id="memoryHeroTitle">Customer Pain에서 Memory Business까지</h2>
+            <p>고객·Workload·AI 기술 신호 → 맞춤형 Memory Solution → 신규 Biz·Partner → 경영진 실행</p>
+            <div class="memory-hero-actions">
+              <button type="button" data-hero-jump="strategy-consulting">전략 컨설팅 보기</button>
+              <button type="button" data-hero-jump="c-level-cockpit">경영진 의사결정</button>
+            </div>
+            <div class="memory-hero-scroll-cue" aria-hidden="true"><span></span></div>
+          </div>
+        </section>
+
         <section class="board strategy-consulting-board" id="strategy-consulting" aria-label="고객 전략 · 신규 비즈니스 · AI Infra 실행전략">
           <div class="board-head">
             <div>
@@ -1871,6 +1886,6 @@
   <div class="qa-answer" id="qaAnswer" hidden></div>
   <div class="inspector" id="inspector" hidden></div>
   <div class="backdrop" id="backdrop"></div>
-  <script src="assets/js/landing.min.js?v=infra-09caafc76ae6" defer></script>
+  <script src="assets/js/landing.min.js?v=infra-ae9188a16601" defer></script>
 </body>
 </html>

@@ -3,7 +3,7 @@
 
   const BUSINESS_TITLE = "AI Infra Strategy · Customer Pain to Executive Action";
   const CONSOLE_HASH = "#console";
-  const CONSOLE_REVISION = "infra-09caafc76ae6";
+  const CONSOLE_REVISION = "infra-ae9188a16601";
   const DECISION_CLIENT_PATH = "data/landing-decision-client.json";
   const SITE_CONTENT_PATH = "data/site-content-client.json";
   const site = document.querySelector("#businessSite");
@@ -59,6 +59,11 @@
     }
   }
 
+  function prepareConsoleMedia() {
+    const heroImage = document.querySelector(".memory-hero-static");
+    if (heroImage?.decode) heroImage.decode().catch(() => {});
+  }
+
   function ensureConsoleMarkup() {
     if (consoleLayer) return consoleLayer;
     const template = document.querySelector("#consoleTemplate");
@@ -98,6 +103,7 @@
   function primeConsoleAssets() {
     ensurePreload("consoleStylesPreload", "style", `assets/css/styles.min.css?v=${CONSOLE_REVISION}`, "high");
     ensurePreload("consoleAppPreload", "script", `assets/js/app.min.js?v=${CONSOLE_REVISION}`, isConsoleHash() ? "high" : "low");
+    ensurePreload("consolePosterPreload", "image", "assets/media/memory-hero-poster.webp", "high");
   }
 
   function loadStylesheet() {
@@ -171,6 +177,7 @@
     activeConsoleLayer.hidden = true;
     document.body.classList.remove("business-menu-open");
     document.body.classList.add("console-loading");
+    prepareConsoleMedia();
     if (updateHistory && !isConsoleHash()) history.pushState({ view: "console" }, "", CONSOLE_HASH);
     window.scrollTo({ top: 0, behavior: "instant" });
 
@@ -480,6 +487,7 @@
     const resources = [
       ["consoleStylesPreload", "style", `assets/css/styles.min.css?v=${CONSOLE_REVISION}`],
       ["consoleAppPreload", "script", `assets/js/app.min.js?v=${CONSOLE_REVISION}`],
+      ["consolePosterPreload", "image", "assets/media/memory-hero-poster.webp"],
     ];
     let cursor = 0;
     const warmNext = () => scheduleIdleStep(() => {

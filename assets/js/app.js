@@ -2937,6 +2937,55 @@
   }
 
   function setupMediaExperience() {
+    document.querySelectorAll("[data-hero-jump]").forEach((button) => {
+      if (button.dataset.ready === "1") return;
+      button.dataset.ready = "1";
+      button.addEventListener("click", () => jumpTo(button.dataset.heroJump));
+    });
+
+    const hero = $("#overview");
+    if (hero && hero.dataset.scrollMotion !== "1") {
+      hero.dataset.scrollMotion = "1";
+      const reducedMotion = window.matchMedia?.("(prefers-reduced-motion: reduce)")?.matches;
+      let frame = 0;
+      let topbarHeight = window.innerWidth <= 480 ? 44 : 49;
+      const syncHeroScroll = () => {
+        frame = 0;
+        const viewportHeight = Math.max(1, window.innerHeight - topbarHeight);
+        const travel = Math.max(1, hero.offsetHeight - viewportHeight);
+        const rect = hero.getBoundingClientRect();
+        const progress = clamp((topbarHeight - rect.top) / travel, 0, 1);
+        const opacity = reducedMotion ? 1 : clamp(1 - progress * 1.25, 0, 1);
+        const shift = reducedMotion ? 0 : -Math.round(progress * Math.min(180, viewportHeight * 0.22));
+        hero.style.setProperty("--hero-progress", progress.toFixed(4));
+        hero.style.setProperty("--hero-copy-opacity", opacity.toFixed(3));
+        hero.style.setProperty("--hero-copy-shift", `${shift}px`);
+        hero.classList.toggle("hero-copy-hidden", opacity < 0.08);
+      };
+      const scheduleHeroScroll = () => {
+        if (frame) return;
+        frame = window.requestAnimationFrame(syncHeroScroll);
+      };
+      const scheduleHeroResize = () => {
+        topbarHeight = Number.parseFloat(getComputedStyle(document.documentElement).getPropertyValue("--topbar-h")) || 64;
+        scheduleHeroScroll();
+      };
+      window.addEventListener("scroll", scheduleHeroScroll, { passive: true });
+      window.addEventListener("resize", scheduleHeroResize, { passive: true });
+      const heroResizeObserver = "ResizeObserver" in window ? new ResizeObserver(scheduleHeroScroll) : null;
+      heroResizeObserver?.observe(hero);
+      hero.style.setProperty("--hero-progress", "0");
+      hero.style.setProperty("--hero-copy-opacity", "1");
+      hero.style.setProperty("--hero-copy-shift", "0px");
+
+      window.addEventListener("pagehide", () => {
+        if (frame) window.cancelAnimationFrame(frame);
+        window.removeEventListener("scroll", scheduleHeroScroll);
+        window.removeEventListener("resize", scheduleHeroResize);
+        heroResizeObserver?.disconnect();
+      }, { once: true });
+    }
+
     const story = $("#memory-visual-story");
     const track = $("#memoryStoryTrack");
     const slides = story ? Array.from(story.querySelectorAll(".memory-story-slide")) : [];

@@ -177,9 +177,9 @@ assert.match(css, /#execDecisionRunCouncil[\s\S]*?background: transparent;[\s\S]
 assert.match(landing, /function loadAppScript\(\)[\s\S]*?assets\/js\/app\.min\.js\?v=\$\{CONSOLE_REVISION\}/, "the minified console app must load only after an explicit console request");
 assert.match(landing, /assets\/css\/styles\.min\.css\?v=\$\{CONSOLE_REVISION\}/, "minified console-only styling must load on demand");
 assert.match(html, /location\.hash\.startsWith\("#console"\)[\s\S]*?consoleStylesPreload[\s\S]*?consoleAppPreload/, "direct console and deep-link entry must discover the console bundles during head parsing");
-assert.doesNotMatch(html, /consolePosterPreload|memory-hero-poster\.webp/, "the deleted opening image must not be preloaded");
+assert.match(html, /consolePosterPreload[\s\S]*?memory-hero-poster\.webp/, "the persistent opening image must be preloaded for direct console entry");
 assert.match(landing, /function primeConsoleAssets\(\)[\s\S]*?consoleStylesPreload[\s\S]*?consoleAppPreload/, "console bundles must be primed in parallel before activation");
-assert.doesNotMatch(landing, /consolePosterPreload|memory-hero-poster\.webp/, "console warmup must not fetch deleted opening media");
+assert.match(landing, /function primeConsoleAssets\(\)[\s\S]*?consolePosterPreload[\s\S]*?memory-hero-poster\.webp/, "console warmup must include the persistent opening image");
 assert.match(landing, /const consoleReady = loadConsole\(\);[\s\S]*?await loadStylesheet\(\);[\s\S]*?activeConsoleLayer\.hidden = false;[\s\S]*?finishConsoleStartup\(\);[\s\S]*?await consoleReady;/, "the styled console shell must appear while data hydration continues");
 assert.match(html, /id="consoleStaticSnapshot"[\s\S]*?SIGNAL[\s\S]*?DIAGNOSE[\s\S]*?KILL Criteria|id="consoleStaticSnapshot"[\s\S]*?Kill Criteria/, "direct console entry must expose an indexable decision snapshot instead of an empty loader");
 assert.match(html, /#console\/c-level-cockpit\/hbm4-foundry[\s\S]*?#console\/c-level-cockpit\/post-hbm/, "the static console snapshot must expose stable decision deep links");
@@ -190,7 +190,7 @@ assert.match(landing, /function isConsoleHash\([\s\S]*?startsWith\(`\$\{CONSOLE_
 assert.match(app, /function consoleDeepLinkState\([\s\S]*?function applyConsoleDeepLink\(/, "the console must parse and apply section/item deep links");
 assert.doesNotMatch(app, /cLevelCopyLink|copyTextToClipboard|data-(?:agent|advanced|number|talent|work|decision|infra|inspector|investment|nand|policy|projection)-copy/, "the console must not render clipboard controls");
 assert.match(app, /function aiInfraCouncilDeepLink\([\s\S]*?syncAiInfraCouncilDeepLink/, "agenda selection must keep a stable URL without a copy control");
-assert.match(css, /\.main > section:not\(#strategy-consulting\) \{[\s\S]*?content-visibility:\s*auto;/, "below-fold console sections must skip initial layout and paint");
+assert.match(css, /\.main > section:not\(#overview\):not\(#strategy-consulting\) \{[\s\S]*?content-visibility:\s*auto;/, "below-fold console sections must skip initial layout and paint while the opening visual stays fully rendered");
 assert.match(landing, /nav\?\.classList\.toggle\("is-open", open\)/, "the mobile menu controller must activate the responsive navigation state");
 assert.match(landing, /fetch\("data\/data-manifest\.json", \{ cache: force \? "reload" : "no-cache" \}\)/, "the business site must revalidate the current manifest without disabling repeat-visit caching");
 for (const evidenceLabel of ["HYPOTHESIS", "MODELED"]) {
