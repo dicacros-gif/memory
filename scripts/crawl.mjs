@@ -15,6 +15,7 @@ import {
   buildAgentBriefing,
   buildBaselineFreshness,
   buildDemandAccountSignals,
+  buildStrategyAccountIntelligence,
   buildIndustryPulse,
   buildRelationCandidates,
 } from "./live-pipeline.mjs";
@@ -9673,6 +9674,15 @@ async function collectQuantMetrics(priceHistory, context = {}) {
     quant.accountSignals.accountCount === 27,
     `수요처 27개 전수 · 직접 근거 ${quant.accountSignals.evidencedAccountCount > 0 ? `${quant.accountSignals.evidencedAccountCount}개` : "미관측"}`,
   );
+  quant.strategyAccountIntelligence = buildStrategyAccountIntelligence(
+    { ...context, decisionIntelligence: quant.decisionIntelligence },
+    previous.strategyAccountIntelligence,
+  );
+  note(
+    "derived:strategy-account-intelligence",
+    quant.strategyAccountIntelligence.focusAccountCount === 7,
+    `핵심 계정 ${quant.strategyAccountIntelligence.focusAccountCount}개 · 전체 렌즈 ${quant.strategyAccountIntelligence.accountCount}개 · 주간 GPU/ASIC 실측 ${quant.strategyAccountIntelligence.demandMix?.latest?.total || 0}건`,
+  );
   quant.relationCandidates = buildRelationCandidates(context);
   note("derived:relation-candidates", true, `신규 관계 후보 ${quant.relationCandidates.candidateCount}개 · 승격 검토 ${quant.relationCandidates.promotionReviewCount}개`);
   quant.baselineFreshness = buildBaselineFreshness(context.baseline, context, previous.baselineFreshness);
@@ -10376,7 +10386,7 @@ async function main() {
   });
   quant.validatedAt = new Date().toISOString();
   quant.expiresAt = new Date(Date.now() + 26 * 60 * 60 * 1000).toISOString();
-  for (const key of ["accountSignals", "agentBriefing", "relationCandidates", "baselineFreshness", "industryPulse"]) {
+  for (const key of ["accountSignals", "strategyAccountIntelligence", "agentBriefing", "relationCandidates", "baselineFreshness", "industryPulse"]) {
     if (!quant[key] || typeof quant[key] !== "object") continue;
     quant[key].runId = runId;
     quant[key].validatedAt = quant.validatedAt;

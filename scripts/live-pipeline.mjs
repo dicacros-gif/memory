@@ -1,3 +1,5 @@
+import { readFileSync } from "node:fs";
+
 /**
  * Pure, deterministic transforms for the daily intelligence pipeline.
  *
@@ -8,6 +10,8 @@
  */
 
 const DAY_MS = 86_400_000;
+const STRATEGY_ACCOUNT_MODEL = Object.freeze(JSON.parse(readFileSync(new URL("../data/accounts.json", import.meta.url), "utf8")));
+export const STRATEGY_ACCOUNT_REGISTRY = Object.freeze(STRATEGY_ACCOUNT_MODEL.accounts || []);
 
 const ACCOUNT_ACTION_RE = /(capex|capital expenditure|data ?center|cloud|server|storage|accelerator|gpu|asic|shipment|production|demand|order|contract|capacity|expand|increase|ramp|invest|launch|adoption|upgrade|delay|cut|cancel|slowdown|출하|생산|수요|발주|계약|투자|증설|확대|증가|도입|전환|지연|축소|감산|취소|云|服务器|存储|出货|产量|需求|订单|合同|投资|扩产|增加|采用|升级|推迟|削减|减产)/i;
 const ACCOUNT_UP_RE = /(expand|expansion|increase|surge|ramp|accelerat|record|invest|order|contract|launch|upgrade|adopt|확대|증가|급증|증설|상향|투자|발주|계약|확보|출시|도입|扩产|增设|加码|投资|合同|中标|上调|抢购|激增|采用|升级)/i;
@@ -331,6 +335,185 @@ export function buildDemandAccountSignals(context = {}, previous = {}, nowInput 
     accounts,
     method: "versioned account registry · current-run entity/context co-match · 30d direct-link evidence · 2 independent sources or 1 official/filing source before scoring; no seed or static score fallback",
     previousUpdatedAt: previous?.updatedAt || null,
+  };
+}
+
+function strategyAccountCorpus(context = {}, now = new Date(), windowDays = 56) {
+  const rows = []
+    .concat(context.news || [])
+    .concat(context.communitySignals?.items || [])
+    .concat(context.benchmarkSignals?.stream || [])
+    .concat(context.brokerResearch?.items || []);
+  const seen = new Set();
+  return rows.map((item, index) => {
+    const title = item.titleKo || item.title || item.originalTitle || "";
+    const summary = item.summaryOriginal || item.summary || item.snippet || item.contextKo || "";
+    const url = directUrl(item.verification?.canonicalUrl || item.link || item.sourceUrl || item.url || "");
+    const date = exactDate(item.date || item.publishedAt || item.sourceDate || item.updatedAt || "");
+    const origin = String(item.verification?.origin || item.origin || "");
+    const sourceClass = item.verification?.sourceClass || item.sourceClass || "news";
+    return {
+      id: item.verification?.id || item.id || `${date}:${index}`,
+      title: String(title).trim(),
+      summary: String(summary).trim(),
+      text: normalizeText(`${item.source || ""} ${item.category || ""} ${item.originalTitle || ""} ${title} ${summary}`),
+      source: item.source || item.platform || "News",
+      sourceClass,
+      origin,
+      url,
+      date,
+    };
+  }).filter((item) => {
+    if (!item.text || !item.url || !item.date || ageInDays(item.date, now) > windowDays) return false;
+    if (/curated|seed|archive|continuity|previous/i.test(item.origin)) return false;
+    const key = item.url || `${item.date}:${item.title}`;
+    if (seen.has(key)) return false;
+    seen.add(key);
+    return true;
+  });
+}
+
+function mondayStamp(value = "") {
+  const date = new Date(`${value}T00:00:00Z`);
+  if (!Number.isFinite(date.getTime())) return "";
+  const day = date.getUTCDay();
+  date.setUTCDate(date.getUTCDate() - (day === 0 ? 6 : day - 1));
+  return date.toISOString().slice(0, 10);
+}
+
+function weeklySeries(corpus = [], weeks = 8, now = new Date()) {
+  const current = new Date(now);
+  const currentMonday = new Date(`${mondayStamp(current.toISOString().slice(0, 10))}T00:00:00Z`);
+  const points = [];
+  for (let offset = weeks - 1; offset >= 0; offset -= 1) {
+    const start = new Date(currentMonday);
+    start.setUTCDate(start.getUTCDate() - offset * 7);
+    points.push({ week: start.toISOString().slice(0, 10), count: 0 });
+  }
+  const byWeek = new Map(points.map((point) => [point.week, point]));
+  for (const item of corpus) {
+    const point = byWeek.get(mondayStamp(item.date));
+    if (point) point.count += 1;
+  }
+  return points;
+}
+
+function accountHit(item = {}, account = {}) {
+  return (account.aliases || []).some((alias) => aliasMatch(item.text, [alias]));
+}
+
+export function buildStrategyAccountIntelligence(context = {}, previous = {}, nowInput = new Date()) {
+  const now = new Date(nowInput);
+  const corpus = strategyAccountCorpus(context, now, 56);
+  const accounts = {};
+  for (const account of STRATEGY_ACCOUNT_REGISTRY) {
+    const hits = corpus.filter((item) => accountHit(item, account))
+      .sort((left, right) => String(right.date).localeCompare(String(left.date)) || authorityWeight(right.sourceClass) - authorityWeight(left.sourceClass));
+    accounts[account.id] = {
+      id: account.id,
+      mentions: hits.length,
+      sourceCount: new Set(hits.map(evidenceSourceId)).size,
+      officialEvidenceCount: hits.filter(officialEvidence).length,
+      weekly: weeklySeries(hits, 8, now),
+      latest: hits[0] || null,
+      evidence: hits.slice(0, 4).map((item) => ({
+        title: item.title,
+        source: item.source,
+        sourceClass: item.sourceClass,
+        url: item.url,
+        date: item.date,
+      })),
+    };
+  }
+  const focusAccounts = STRATEGY_ACCOUNT_REGISTRY.filter((account) => account.focus !== false);
+  const gpuIds = new Set(focusAccounts.filter((account) => account.demandClass === "gpu").map((account) => account.id));
+  const asicIds = new Set(focusAccounts.filter((account) => account.demandClass === "asic").map((account) => account.id));
+  const demandRows = corpus.map((item) => ({
+    item,
+    gpu: [...gpuIds].some((id) => accountHit(item, STRATEGY_ACCOUNT_REGISTRY.find((account) => account.id === id))),
+    asic: [...asicIds].some((id) => accountHit(item, STRATEGY_ACCOUNT_REGISTRY.find((account) => account.id === id))),
+  }));
+  const demandWeekly = weeklySeries(corpus, 8, now).map((point) => {
+    const rows = demandRows.filter(({ item }) => mondayStamp(item.date) === point.week);
+    const gpu = rows.filter((row) => row.gpu).length;
+    const asic = rows.filter((row) => row.asic).length;
+    const total = gpu + asic;
+    return { week: point.week, gpu, asic, total, gpuPct: total ? Math.round(gpu / total * 1000) / 10 : 0, asicPct: total ? Math.round(asic / total * 1000) / 10 : 0 };
+  });
+  const claimEvents = context.decisionIntelligence?.claimEvents?.events || [];
+  const customStageRank = { REQUEST: 10, DESIGN: 20, QUALIFICATION: 30, PRODUCTION: 40 };
+  const stageFromEvent = (event = {}) => {
+    const stage = String(event.stage?.id || "").toUpperCase();
+    if (/COMMERCIAL|PRODUCTION|PLATFORM_ADOPTION/.test(stage)) return { id: "PRODUCTION", label: "Custom HBM 양산 근거" };
+    if (/QUALIFICATION|SAMPLE|VALIDATION/.test(stage)) return { id: "QUALIFICATION", label: "Custom HBM 인증 근거" };
+    if (/ANNOUNCED|DISCLOSED|ROADMAP|DESIGN/.test(stage)) return { id: "DESIGN", label: "Custom HBM 공동설계 근거" };
+    return { id: "REQUEST", label: "Custom HBM 요청 근거" };
+  };
+  for (const account of focusAccounts) {
+    const matches = claimEvents.filter((event) => {
+      if (event.claimType !== "verified-fact" || event.contradictionStatus === "conflict") return false;
+      const text = normalizeText(`${event.entity?.label || ""} ${event.product?.label || ""} ${event.evidenceSpan || ""}`);
+      return accountHit({ text }, account) && /custom hbm|custom memory|co[- ]design|공동설계|맞춤형 hbm/i.test(text);
+    }).map((event) => ({ ...stageFromEvent(event), event }))
+      .sort((left, right) => customStageRank[right.id] - customStageRank[left.id] || String(right.event.asOf || "").localeCompare(String(left.event.asOf || "")));
+    const promoted = matches[0];
+    accounts[account.id].customHbmStage = promoted ? {
+      id: promoted.id,
+      label: promoted.label,
+      sourceId: promoted.event.sourceId || null,
+      sourceUrl: directUrl(promoted.event.sourceUrl),
+      asOf: promoted.event.asOf || promoted.event.publishedAt || null,
+    } : { id: "UNVERIFIED", label: "Custom HBM 근거 미관측", sourceId: null, sourceUrl: null, asOf: null };
+  }
+  const dealEvents = claimEvents.filter((event) => event.ruleId === STRATEGY_ACCOUNT_MODEL.dealSchema?.ruleId)
+    .filter((event) => /(?:LTA|long[- ]term|prepay|binding volume|contract|장기|선급|계약)/i.test(`${event.entity?.label || ""} ${event.product?.label || ""} ${event.evidenceSpan || ""}`))
+    .map((event) => ({
+      accountId: STRATEGY_ACCOUNT_REGISTRY.find((account) => accountHit({ text: normalizeText(`${event.entity?.label || ""} ${event.evidenceSpan || ""}`) }, account))?.id || null,
+      status: event.claimType === "verified-fact" ? "official-fact" : "market-estimate",
+      source: event.source || "원문",
+      sourceUrl: directUrl(event.sourceUrl),
+      asOf: event.asOf || event.publishedAt || null,
+      evidenceSpan: event.evidenceSpan || "",
+    }));
+  const applicationSignals = (STRATEGY_ACCOUNT_MODEL.applicationMap || []).map((application) => {
+    const hits = corpus.filter((item) => (application.aliases || []).some((alias) => exactTermMatch(item.text, alias)));
+    return { ...application, mentions: hits.length, weekly: weeklySeries(hits, 8, now), latest: hits[0] || null };
+  });
+  return {
+    schemaVersion: "1.0",
+    registryVersion: STRATEGY_ACCOUNT_MODEL.registryVersion,
+    updatedAt: now.toISOString(),
+    windowDays: 56,
+    accountCount: STRATEGY_ACCOUNT_REGISTRY.length,
+    focusAccountCount: focusAccounts.length,
+    accounts,
+    demandMix: {
+      label: "GPU vs ASIC CRAWL MIX",
+      measurement: "동일 크롤 Corpus 내 계정 언급 비중",
+      weekly: demandWeekly,
+      latest: demandWeekly.at(-1) || { gpu: 0, asic: 0, total: 0, gpuPct: 0, asicPct: 0 },
+      externalEstimate: { status: "separate-source-required", range: null },
+    },
+    supplierMatrix: {
+      suppliers: STRATEGY_ACCOUNT_MODEL.suppliers || [],
+      rows: focusAccounts.map((account) => ({
+        accountId: account.id,
+        cells: (STRATEGY_ACCOUNT_MODEL.suppliers || []).map((supplier) => {
+          const relation = (STRATEGY_ACCOUNT_MODEL.supplierRelations || []).find((item) => item.accountId === account.id && item.supplierId === supplier.id);
+          return relation || { accountId: account.id, supplierId: supplier.id, status: "unconfirmed", sourceId: null, asOf: null };
+        }),
+      })),
+    },
+    deals: {
+      schema: STRATEGY_ACCOUNT_MODEL.dealSchema || {},
+      events: dealEvents,
+      status: dealEvents.length ? "evidence-connected" : "monitoring",
+    },
+    productMap: STRATEGY_ACCOUNT_MODEL.productMap || [],
+    applicationSignals,
+    roadmap90d: STRATEGY_ACCOUNT_MODEL.roadmap90d || [],
+    previousUpdatedAt: previous?.updatedAt || null,
+    method: "accounts.json aliases → direct-link corpus tagging → weekly measured mentions; stages, supplier relations and deals remain fail-closed until evidence is linked",
   };
 }
 

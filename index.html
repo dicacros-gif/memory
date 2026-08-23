@@ -120,7 +120,7 @@
     (() => {
       if (!location.hash.startsWith("#console")) return;
       document.documentElement.classList.add("console-entry");
-      const revision = "infra-b71d689f31f6";
+      const revision = "infra-3eb0a00a6589";
       const assets = [
         ["consoleStylesPreload", "style", `assets/css/styles.min.css?v=${revision}`, "high"],
         ["consoleAppPreload", "script", `assets/js/app.min.js?v=${revision}`, "high"],
@@ -137,7 +137,7 @@
       }
     })();
   </script>
-  <link rel="stylesheet" href="assets/css/landing.min.css?v=infra-b71d689f31f6" />
+  <link rel="stylesheet" href="assets/css/landing.min.css?v=infra-3eb0a00a6589" />
 </head>
 <body class="landing-mode">
   <div class="business-site" id="businessSite">
@@ -221,6 +221,11 @@
             <a href="#console/ai-matrix"><span>03 · NEW BIZ &amp; TECH INSIGHT</span><strong>RAG 품질 Gate 통과 후 Index·Corpus 계층을 어떤 사업모델로 확장할 것인가</strong><p><b>PAIN</b> · 검색 품질·권한·색인 최신성과 비용의 동시 통제</p></a>
             <a href="#console/ai-factory"><span>04 · PARTNER &amp; EXECUTION</span><strong>전력·냉각·Fabric·Storage Gate를 통과한 Rack Cell만 파트너와 확장할 것인가</strong><p><b>PAIN</b> · Rack/POD 확장을 제한하는 시스템 병목</p></a>
           </div>
+        </section>
+        <section class="business-account-strip business-container" id="keyAccounts" aria-labelledby="keyAccountsTitle">
+          <header><div><span>ACCOUNT INTELLIGENCE</span><h2 id="keyAccountsTitle">Key Accounts → Next Memory</h2></div><p>공식 Baseline · 최근 크롤 · 고객별 딥링크</p></header>
+          <div id="businessKeyAccounts" class="business-account-strip-grid" aria-live="polite"></div>
+          <div id="businessDemandMix" class="business-account-mix"></div>
         </section>
       </section>
 
@@ -1886,6 +1891,6 @@
   <div class="qa-answer" id="qaAnswer" hidden></div>
   <div class="inspector" id="inspector" hidden></div>
   <div class="backdrop" id="backdrop"></div>
-  <script src="assets/js/landing.min.js?v=infra-b71d689f31f6" defer></script>
+  <script src="assets/js/landing.min.js?v=infra-3eb0a00a6589" defer></script>
 </body>
 </html>

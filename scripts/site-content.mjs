@@ -7,11 +7,12 @@ import { normalizeKoreanTerminology } from "./translation-pipeline.mjs";
 
 const root = resolve(dirname(fileURLToPath(import.meta.url)), "..");
 const model = Object.freeze(JSON.parse(readFileSync(resolve(root, "data", "site-content-model.json"), "utf8")));
+const accountModel = Object.freeze(JSON.parse(readFileSync(resolve(root, "data", "accounts.json"), "utf8")));
 const sourceCatalog = loadSourceCatalog();
 const siteMarkup = readFileSync(resolve(root, "index.html"), "utf8");
 
 const LANDING_SECTION_IDS = new Set([
-  "home", "departmentDecisionQueue", "decision-lab", "decision-automation", "initiatives",
+  "home", "departmentDecisionQueue", "keyAccounts", "decision-lab", "decision-automation", "initiatives",
   "competencies", "ai-strategy", "pain-framework", "solutions", "ai-factory-system",
   "aiFactoryKpiTree", "workload-optimization", "ragOperatingModel",
   "workload-map", "memory-fabric", "insights", "execution-evidence", "businessFreshnessBoard",
@@ -135,7 +136,7 @@ function strategyBoardTopicMatches(text = "", topics = []) {
   return (topics || []).filter((topic) => (topic.terms || []).some((term) => haystack.includes(String(term || "").toLocaleLowerCase("en-US"))));
 }
 
-function buildStrategyBoard(payload = {}, generatedAt = null, decisionIntelligence = {}) {
+function buildStrategyBoard(payload = {}, generatedAt = null, decisionIntelligence = {}, strategyAccountIntelligence = {}) {
   const board = model.strategyBoard || {};
   const reportPolicy = board.reportPolicy || {};
   const topics = reportPolicy.topics || [];
@@ -212,8 +213,57 @@ function buildStrategyBoard(payload = {}, generatedAt = null, decisionIntelligen
     };
   };
   const tech = board.tech || {};
-  const customerPortfolio = board.customerPortfolio || {};
-  const accounts = (customerPortfolio.accounts || []).map(bindClaimEvidence);
+  const customerPortfolio = {
+    ...(board.customerPortfolio || {}),
+    eyebrow: accountModel.title || "ACCOUNT INTELLIGENCE",
+    title: "Key Account Roadmap → Next Memory → Deal Gate",
+    description: accountModel.description || "고객별 Chip Roadmap을 Pain Point·Memory Requirement·계약 Gate로 분리",
+    disclosure: accountModel.evidencePolicy || "공급 관계와 계약 조건은 직접 근거 전까지 미확인",
+    pillars: accountModel.pillars || [],
+    groups: accountModel.groups || [],
+    accounts: accountModel.accounts || [],
+    mixTracker: {
+      label: strategyAccountIntelligence.demandMix?.label || "GPU vs ASIC CRAWL MIX",
+      status: "measured-crawl-separate-from-estimate",
+      display: strategyAccountIntelligence.demandMix?.measurement || "동일 크롤 Corpus 내 계정 언급 비중",
+      decision: "크롤 실측과 제3자 수요 추정은 분리 표기",
+    },
+    contractGate: {
+      label: "LTA · PREPAYMENT · CAPACITY",
+      fields: accountModel.dealSchema?.fields || [],
+      ruleId: accountModel.dealSchema?.ruleId || "contract-structure",
+      fallback: accountModel.dealSchema?.fallback || "공식 계약 조건 미공개",
+    },
+  };
+  const accounts = (customerPortfolio.accounts || []).map((item) => {
+    const accountSignal = strategyAccountIntelligence.accounts?.[item.id] || {};
+    const customHbmStage = accountSignal.customHbmStage || item.customHbmStage || { id: "UNVERIFIED", label: "Custom HBM 근거 미관측", sourceId: null };
+    const bound = bindClaimEvidence({
+      ...item,
+      matchTerms: item.aliases || [],
+      stage: customHbmStage.label,
+    });
+    return {
+      ...bound,
+      focus: item.focus !== false,
+      demandClass: item.demandClass || "other",
+      mentions: Number(accountSignal.mentions || 0),
+      sourceCount: Number(accountSignal.sourceCount || 0),
+      officialEvidenceCount: Number(accountSignal.officialEvidenceCount || 0),
+      weekly: accountSignal.weekly || [],
+      evidenceStream: accountSignal.evidence || [],
+      chipStage: item.stage?.label || item.stage?.id || "Chip Roadmap 확인 필요",
+      baseline: (item.baseline || []).map((metric) => {
+        const source = sourceById.get(metric.sourceId);
+        return { ...metric, source: source ? { id: source.id, name: source.name, url: source.url } : null };
+      }),
+      stageLedger: {
+        stage: customHbmStage.id,
+        label: customHbmStage.label,
+        source: sourceById.get(customHbmStage.sourceId) || null,
+      },
+    };
+  });
   const groupCounts = new Map();
   for (const account of accounts) groupCounts.set(account.group, Number(groupCounts.get(account.group) || 0) + 1);
   const contractEvent = claimEvents.filter((event) => event.ruleId === customerPortfolio.contractGate?.ruleId)
@@ -231,8 +281,11 @@ function buildStrategyBoard(payload = {}, generatedAt = null, decisionIntelligen
       ...customerPortfolio,
       groups: (customerPortfolio.groups || []).map((group) => ({ ...group, accountCount: Number(groupCounts.get(group.id) || 0) })),
       accounts,
+      pillars: customerPortfolio.pillars || [],
       verifiedAccounts: accounts.filter((account) => account.evidence?.status === "official-fact").length,
       monitoredAccounts: accounts.length,
+      focusAccounts: accounts.filter((account) => account.focus),
+      demandMix: strategyAccountIntelligence.demandMix || {},
       contractGate: {
         ...(customerPortfolio.contractGate || {}),
         evidence: contractEvent ? {
@@ -243,12 +296,32 @@ function buildStrategyBoard(payload = {}, generatedAt = null, decisionIntelligen
           asOf: contractEvent.asOf || contractEvent.publishedAt || null,
         } : { status: "monitoring", label: "CONTRACT DISCLOSURE MONITOR" },
       },
-      competitiveFrame: (customerPortfolio.competitiveFrame || []).map((item) => ({
-        company: item.company,
-        focus: item.focus,
-        gate: item.gate,
-        sources: (item.sourceIds || []).map((id) => sourceById.get(id)).filter(Boolean).map((source) => ({ id: source.id, name: source.name, url: source.url })),
+      dealDashboard: strategyAccountIntelligence.deals || { status: "monitoring", events: [], schema: accountModel.dealSchema || {} },
+      supplierMatrix: {
+        ...(strategyAccountIntelligence.supplierMatrix || {}),
+        suppliers: (accountModel.suppliers || []).map((supplier) => ({
+          ...supplier,
+          sources: (supplier.sourceIds || []).map((id) => sourceById.get(id)).filter(Boolean).map((source) => ({ id: source.id, name: source.name, url: source.url })),
+        })),
+        rows: strategyAccountIntelligence.supplierMatrix?.rows || accounts.filter((account) => account.focus).map((account) => ({
+          accountId: account.id,
+          cells: (accountModel.suppliers || []).map((supplier) => ({ accountId: account.id, supplierId: supplier.id, status: "unconfirmed", sourceId: null, asOf: null })),
+        })),
+      },
+      competitiveFrame: (accountModel.suppliers || []).filter((supplier) => supplier.id !== "skhynix").map((supplier) => ({
+        company: supplier.label,
+        focus: supplier.id === "samsung" ? "HBM·Foundry·Package 통합" : supplier.id === "micron" ? "HBM 효율·미국 공급망" : "범용 DRAM·중국 고객 침투",
+        gate: supplier.id === "cxmt" ? "DDR5/LPDDR 승인 · 캐파 · Contract Price" : "HBM4 Ramp · Yield · Customer Qualification",
+        sources: (supplier.sourceIds || []).map((id) => sourceById.get(id)).filter(Boolean).map((source) => ({ id: source.id, name: source.name, url: source.url })),
       })),
+      productMap: (strategyAccountIntelligence.productMap || accountModel.productMap || []).map((item) => ({
+        ...item,
+        accountLabels: (item.accounts || []).map((id) => accounts.find((account) => account.id === id)?.company).filter(Boolean),
+        source: sourceById.get(item.sourceId) || null,
+        status: "strategy-mapping",
+      })),
+      applicationSignals: strategyAccountIntelligence.applicationSignals || [],
+      roadmap90d: strategyAccountIntelligence.roadmap90d || accountModel.roadmap90d || [],
     },
     partners: board.partners || {},
     playbooks: (board.playbooks || []).map(bindClaimEvidence),
@@ -1072,7 +1145,7 @@ export function buildSiteContentClient({ payload = {}, quant = {} } = {}) {
     insights,
     generatedAt,
   });
-  const strategyBoard = buildStrategyBoard(payload, generatedAt, decisionIntelligence);
+  const strategyBoard = buildStrategyBoard(payload, generatedAt, decisionIntelligence, quant.strategyAccountIntelligence || {});
   const content = {
     schemaVersion: "1.1",
     runId: payload.runId || quant.runId || null,

@@ -124,6 +124,13 @@ assert.ok(rebuilt.strategyBoard.customerPortfolio.accounts.every((item) => item.
 assert.ok(rebuilt.strategyBoard.customerPortfolio.accounts.some((item) => item.company === "SpaceX"));
 assert.ok(rebuilt.strategyBoard.customerPortfolio.competitiveFrame.some((item) => item.company === "CXMT"));
 assert.equal(rebuilt.strategyBoard.customerPortfolio.contractGate.ruleId, "contract-structure");
+assert.equal(rebuilt.strategyBoard.customerPortfolio.focusAccounts.length, 7);
+assert.ok(rebuilt.strategyBoard.customerPortfolio.focusAccounts.every((item) => ["UNVERIFIED", "REQUEST", "DESIGN", "QUALIFICATION", "PRODUCTION"].includes(item.stageLedger.stage)), "every account must expose an evidence-gated Custom HBM stage");
+assert.ok(rebuilt.strategyBoard.customerPortfolio.focusAccounts.filter((item) => item.stageLedger.stage === "UNVERIFIED").every((item) => item.stageLedger.label.includes("근거 미관측")), "unverified stages must stay visibly fail-closed");
+assert.equal(rebuilt.strategyBoard.customerPortfolio.pillars.length, 3);
+assert.equal(rebuilt.strategyBoard.customerPortfolio.supplierMatrix.rows.length, 7);
+assert.ok(rebuilt.strategyBoard.customerPortfolio.productMap.some((item) => item.id === "ai-d-e"));
+assert.equal(rebuilt.strategyBoard.customerPortfolio.roadmap90d.length, 3);
 assert.ok(rebuilt.strategyBoard.partners.models.length >= 3);
 assert.ok(rebuilt.strategyBoard.playbooks.length >= 3);
 const maasPlaybook = rebuilt.strategyBoard.playbooks.find((item) => /MaaS|Memory-as-a-Service/i.test(item.segment || ""));

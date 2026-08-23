@@ -13034,7 +13034,7 @@
     if (document.querySelector("#customerRadarContrastStyle")) return;
     const style = document.createElement("style");
     style.id = "customerRadarContrastStyle";
-    style.textContent = `.consulting-system #intelligenceConsole details.sc-report,.consulting-system #intelligenceConsole details.sc-report:is(:hover,:focus-within){--ink:#12263a;--ink-2:#4b5e72;--line:#cbd6e2;--panel:#fff;background:#f4f8fb!important;color:#12263a!important;-webkit-text-fill-color:initial!important}.consulting-system #intelligenceConsole details.sc-report>.sc-report-head :is(strong,span){color:#12263a!important;-webkit-text-fill-color:#12263a!important}.consulting-system #intelligenceConsole .sc-partner{background:#fff!important;color:#12263a!important;transition:transform .05s ease-out,box-shadow .05s ease-out,border-color 0s,background-color 0s,color 0s!important}.consulting-system #intelligenceConsole .sc-partner :is(strong,.sc-partner-row span,.sc-playbook-source){color:#12263a!important;-webkit-text-fill-color:#12263a!important}.consulting-system #intelligenceConsole .sc-partner .sc-partner-row b{color:var(--sc-accent)!important;-webkit-text-fill-color:var(--sc-accent)!important}.consulting-system #intelligenceConsole .sc-partner:is(:hover,:focus-within){background:#102f43!important;border-color:color-mix(in srgb,var(--sc-accent) 68%,#fff)!important;box-shadow:0 10px 22px #0820302e!important;color:#fff!important;transform:translateY(-2px)}.consulting-system #intelligenceConsole .sc-partner:is(:hover,:focus-within) :is(strong,.sc-partner-row span,.sc-playbook-source){color:#fff!important;-webkit-text-fill-color:#fff!important}.consulting-system #intelligenceConsole .sc-partner:is(:hover,:focus-within) .sc-partner-row b{color:#71e6d4!important;-webkit-text-fill-color:#71e6d4!important}.consulting-system #intelligenceConsole .sc-partner:is(:hover,:focus-within) .sc-playbook-status{background:#f3c94c!important;border-color:#f3c94c!important;color:#13263a!important;-webkit-text-fill-color:#13263a!important}.consulting-system #intelligenceConsole .sc-partner:is(:hover,:focus-within) :is(.business-key-term,mark){color:#fff2a8!important;-webkit-text-fill-color:#fff2a8!important;text-decoration-color:#f3c94c!important}`;
+    style.textContent = `.consulting-system #intelligenceConsole details.sc-report,.consulting-system #intelligenceConsole details.sc-report:is(:hover,:focus-within){--ink:#12263a;--ink-2:#4b5e72;--line:#cbd6e2;--panel:#fff;background:#f4f8fb!important;color:#12263a!important;-webkit-text-fill-color:initial!important}.consulting-system #intelligenceConsole details.sc-report>.sc-report-head :is(strong,span){color:#12263a!important;-webkit-text-fill-color:#12263a!important}.consulting-system #intelligenceConsole .sc-partner{background:#fff!important;color:#12263a!important;transition:transform .05s ease-out,box-shadow .05s ease-out,border-color 0s,background-color 0s,color 0s!important}.consulting-system #intelligenceConsole .sc-partner :is(strong,.sc-partner-row span,.sc-playbook-source,.sc-mix-value,.sc-account-signal>span,.sc-account-evidence a,.sc-account-evidence span,.sc-account-evidence small,.sc-monitor-note){color:#12263a!important;-webkit-text-fill-color:#12263a!important}.consulting-system #intelligenceConsole .sc-partner .sc-partner-row b{color:var(--sc-accent)!important;-webkit-text-fill-color:var(--sc-accent)!important}.consulting-system #intelligenceConsole .sc-partner:is(:hover,:focus-within){background:#102f43!important;border-color:color-mix(in srgb,var(--sc-accent) 68%,#fff)!important;box-shadow:0 10px 22px #0820302e!important;color:#fff!important;transform:translateY(-2px)}.consulting-system #intelligenceConsole .sc-partner:is(:hover,:focus-within) :is(strong,.sc-partner-row span,.sc-playbook-source,.sc-mix-value,.sc-account-signal>span,.sc-account-evidence a,.sc-account-evidence span,.sc-account-evidence small,.sc-monitor-note){color:#fff!important;-webkit-text-fill-color:#fff!important}.consulting-system #intelligenceConsole .sc-partner:is(:hover,:focus-within) .sc-partner-row b{color:#71e6d4!important;-webkit-text-fill-color:#71e6d4!important}.consulting-system #intelligenceConsole .sc-partner:is(:hover,:focus-within) .sc-playbook-status{background:#f3c94c!important;border-color:#f3c94c!important;color:#13263a!important;-webkit-text-fill-color:#13263a!important}.consulting-system #intelligenceConsole .sc-partner:is(:hover,:focus-within) :is(.business-key-term,mark){color:#fff2a8!important;-webkit-text-fill-color:#fff2a8!important;text-decoration-color:#f3c94c!important}`;
     document.head.appendChild(style);
   }
 
@@ -13051,12 +13051,25 @@
     const reports = Array.isArray(strategyBoard.reports) ? strategyBoard.reports : [];
     const customerGroups = Array.isArray(customerBoard.groups) ? customerBoard.groups : [];
     const customerAccounts = Array.isArray(customerBoard.accounts) ? customerBoard.accounts : [];
+    const customerPillars = Array.isArray(customerBoard.pillars) ? customerBoard.pillars : [];
     const competitiveFrame = Array.isArray(customerBoard.competitiveFrame) ? customerBoard.competitiveFrame : [];
+    const demandMix = customerBoard.demandMix || {};
+    const supplierMatrix = customerBoard.supplierMatrix || {};
+    const dealDashboard = customerBoard.dealDashboard || {};
+    const accountProductMap = Array.isArray(customerBoard.productMap) ? customerBoard.productMap : [];
+    const applicationSignals = Array.isArray(customerBoard.applicationSignals) ? customerBoard.applicationSignals : [];
+    const accountRoadmap = Array.isArray(customerBoard.roadmap90d) ? customerBoard.roadmap90d : [];
     const partnerModels = Array.isArray(partnerBoard.models) ? partnerBoard.models : [];
     const playbooks = Array.isArray(strategyBoard.playbooks) ? strategyBoard.playbooks : [];
     const meta = $("#strategyConsultingMeta");
     const lenses = STRATEGY_CONSULTING_LENSES.map((lens) => ({ lens, ev: strategyConsultingEvidence(lens) }));
     const totalEvidence = lenses.reduce((s, x) => s + x.ev.count, 0);
+    const sparkline = (series = [], key = "count", color = "#2D6BFF") => {
+      const values = series.map((item) => Number(item?.[key] || 0));
+      const max = Math.max(1, ...values);
+      const points = values.map((value, index) => `${values.length <= 1 ? 4 : 4 + index * (132 / (values.length - 1))},${32 - value / max * 24}`).join(" ");
+      return `<svg width="100%" height="36" viewBox="0 0 140 36" role="img" aria-label="최근 ${values.length}주 언급 추이"><polyline points="${points}" fill="none" stroke="${escapeHTML(color)}" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></svg>`;
+    };
     const asOf = String(LIVE.intelligence?.generatedAt || LIVE.updatedAt || "").slice(0, 10);
     if (meta) { meta.hidden = false; meta.textContent = `연결 근거 ${fmtNum(totalEvidence)}건${asOf ? ` · ${asOf} 기준` : ""}`; }
     // Rank lenses by live evidence so the hottest pain-point leads.
@@ -13139,40 +13152,58 @@
         <div><span>${escapeHTML(customerBoard.eyebrow || "CUSTOMER & ASIC RADAR")}</span><h3>${escapeHTML(customerBoard.title || "GPU · Custom ASIC Roadmap → Memory Proposal")}</h3></div>
         <p>${escapeHTML(customerBoard.description || "고객별 Roadmap과 Memory Gate를 분리")}</p>
       </div>
+      ${customerPillars.length ? `<div class="sc-partner-grid" aria-label="조직 미션 3필러">
+        ${customerPillars.map((item) => `<article class="sc-partner" style="--sc-accent:#0a7f7d"><strong>${escapeHTML(item.index || "")} · ${escapeHTML(item.label || "")}</strong><div class="sc-partner-row"><b>QUESTION</b><span>${escapeHTML(item.question || "")}</span></div></article>`).join("")}
+      </div>` : ""}
       <div class="sc-report">
         <div class="sc-report-head"><strong>${escapeHTML(customerBoard.mixTracker?.label || "GPU vs ASIC DEMAND MIX")}</strong><span>${fmtNum(customerBoard.verifiedAccounts || 0)}/${fmtNum(customerBoard.monitoredAccounts || customerAccounts.length)}개 공식 Event 연결</span></div>
-        <div class="sc-partner-grid">
-          <article class="sc-partner" style="--sc-accent:#2D6BFF"><strong>DEMAND MIX</strong><div class="sc-partner-row"><b>RULE</b><span>${escapeHTML(customerBoard.mixTracker?.display || "동일 기준 Range만 공개")}</span></div><div class="sc-partner-row"><b>DECISION</b><span>${escapeHTML(customerBoard.mixTracker?.decision || "GPU·ASIC 분리 추적")}</span></div></article>
+        <div class="sc-partner-grid sc-demand-summary">
+          <article class="sc-partner" style="--sc-accent:#2D6BFF"><strong>CRAWL MEASURED · GPU</strong><div class="sc-mix-value">${fmtNum(demandMix.latest?.gpuPct || 0, 1)}<small>%</small></div>${sparkline(demandMix.weekly || [], "gpu", "#2D6BFF")}<div class="sc-partner-row"><b>RULE</b><span>${escapeHTML(customerBoard.mixTracker?.display || "동일 크롤 Corpus 내 언급 비중")}</span></div></article>
+          <article class="sc-partner" style="--sc-accent:#7656C9"><strong>CRAWL MEASURED · ASIC</strong><div class="sc-mix-value">${fmtNum(demandMix.latest?.asicPct || 0, 1)}<small>%</small></div>${sparkline(demandMix.weekly || [], "asic", "#7656C9")}<div class="sc-partner-row"><b>BOUNDARY</b><span>제3자 수요 추정과 분리 · 기사 언급량은 시장점유율 아님</span></div></article>
           <article class="sc-partner" style="--sc-accent:#C88600"><strong>${escapeHTML(customerBoard.contractGate?.label || "LTA · PREPAYMENT · CAPACITY")}</strong><div class="sc-partner-row"><b>FIELDS</b><span>${escapeHTML((customerBoard.contractGate?.fields || []).join(" · "))}</span></div><div class="sc-partner-row"><b>STATUS</b><span>${escapeHTML(customerBoard.contractGate?.evidence?.label || customerBoard.contractGate?.fallback || "공식 계약 조건 미공개")}</span></div></article>
-          <article class="sc-partner" style="--sc-accent:#00A88F"><strong>EVIDENCE BOUNDARY</strong><div class="sc-partner-row"><b>FACT</b><span>공식 Chip·Memory·Deployment Roadmap</span></div><div class="sc-partner-row"><b>REVIEW</b><span>${escapeHTML(customerBoard.disclosure || "공급 비중·계약 조건 분리")}</span></div></article>
         </div>
       </div>
       ${customerGroups.map((group, groupIndex) => {
         const accounts = customerAccounts.filter((account) => account.group === group.id);
         return `<details class="sc-report" ${groupIndex === 0 ? "open" : ""}>
           <summary class="sc-report-head"><strong>${escapeHTML(`${group.index || ""} · ${group.label || "CUSTOMER GROUP"}`)}</strong><span>${escapeHTML(group.question || "")} · ${fmtNum(accounts.length)}개</span></summary>
-          <div class="sc-partner-grid">
+          <div class="sc-partner-grid" style="grid-template-columns:repeat(auto-fit,minmax(320px,1fr))">
             ${accounts.map((account) => {
               const evidence = account.evidence || {};
               const evidenceClass = evidence.status === "official-fact" ? "is-fact" : evidence.status === "market-estimate" ? "is-estimate" : "is-monitoring";
-              return `<article class="sc-partner" style="--sc-accent:${escapeHTML(account.accent || "#0A84B8")}">
-                <strong>${escapeHTML(account.company || "")} · ${escapeHTML(account.chip || "")}</strong>
+              return `<article id="account-${escapeHTML(account.id || "")}" class="sc-partner sc-account-card" tabindex="0" style="--sc-accent:${escapeHTML(account.accent || "#0A84B8")}">
+                <div class="sc-account-head"><strong>${escapeHTML(account.company || "")} · ${escapeHTML(account.chip || "")}</strong><a href="#console/account/${escapeHTML(account.id || "")}" data-account-deep-link="${escapeHTML(account.id || "")}" aria-label="${escapeHTML(account.company || "")} 계정 딥링크">↗</a></div>
                 <span class="sc-playbook-status ${evidenceClass}">${escapeHTML(evidence.label || "SOURCE MONITORING")}</span>
-                <div class="sc-partner-row"><b>STAGE</b><span>${escapeHTML(account.stage || "공식 Roadmap 확인 필요")}</span></div>
+                ${(account.baseline || []).map((item) => `<div class="sc-partner-row"><b>${escapeHTML(item.label || "FACT")}</b><span>${escapeHTML(item.value || "")}${item.source?.url ? ` · <a href="${escapeHTML(item.source.url)}" target="_blank" rel="noopener noreferrer">원문 ↗</a>` : ""}</span></div>`).join("")}
+                <div class="sc-partner-row"><b>CHIP</b><span>${escapeHTML(account.chipStage || "Chip Roadmap 확인 필요")}</span></div>
+                <div class="sc-partner-row"><b>HBM</b><span>${escapeHTML(account.stage || "Custom HBM 근거 미관측")}</span></div>
                 <div class="sc-partner-row"><b>PAIN</b><span>${strategicHighlightHTML(account.pain || "")}</span></div>
                 <div class="sc-partner-row"><b>MEMORY</b><span>${strategicHighlightHTML(account.memory || "")}</span></div>
                 <div class="sc-partner-row"><b>GATE</b><span>${escapeHTML(account.gate || "")}</span></div>
                 <div class="sc-partner-row"><b>RELATION</b><span>${escapeHTML(account.relationship || "")}</span></div>
+                <div class="sc-account-signal"><span>최근 8주 크롤 ${fmtNum(account.mentions || 0)}건 · ${fmtNum(account.sourceCount || 0)}개 출처</span>${sparkline(account.weekly || [], "count", account.accent || "#0A84B8")}</div>
+                ${(account.evidenceStream || []).length ? `<ul class="sc-evidence-list">${account.evidenceStream.slice(0, 1).map((item) => `<li><a href="${escapeHTML(item.url || "")}" target="_blank" rel="noopener noreferrer">${escapeHTML(String(item.title || "").slice(0, 74))} ↗</a><small>${escapeHTML(item.date || "")}</small></li>`).join("")}</ul>` : `<small class="sc-note">최근 직접 기사 미관측 · 공식 Baseline 유지</small>`}
                 ${evidence.url ? `<a class="sc-playbook-source" href="${escapeHTML(evidence.url)}" target="_blank" rel="noopener noreferrer">${escapeHTML(evidence.source || "공식 원문")} ${evidence.asOf ? `· ${escapeHTML(String(evidence.asOf).slice(0, 10))}` : ""} ↗</a>` : ""}
               </article>`;
             }).join("")}
           </div>
         </details>`;
       }).join("")}
-      ${competitiveFrame.length ? `<div class="sc-report">
-        <div class="sc-report-head"><strong>COMPETITIVE FRAME · MEMORY SUPPLIER</strong><span>Samsung · Micron · CXMT</span></div>
-        <div class="sc-partner-grid">${competitiveFrame.map((item) => `<article class="sc-partner" style="--sc-accent:#D05A2B"><strong>${escapeHTML(item.company || "")}</strong><div class="sc-partner-row"><b>FOCUS</b><span>${escapeHTML(item.focus || "")}</span></div><div class="sc-partner-row"><b>GATE</b><span>${escapeHTML(item.gate || "")}</span></div>${item.sources?.[0]?.url ? `<a class="sc-playbook-source" href="${escapeHTML(item.sources[0].url)}" target="_blank" rel="noopener noreferrer">${escapeHTML(item.sources[0].name || "원문")} ↗</a>` : ""}</article>`).join("")}</div>
-      </div>` : ""}
+      <details class="sc-report">
+        <summary class="sc-report-head"><strong>ACCOUNT × SUPPLIER MATRIX</strong><span>SK hynix · Samsung · Micron · CXMT · 근거 없으면 미확인</span></summary>
+        <div style="overflow-x:auto"><table class="sc-playbook-table sc-account-matrix"><thead><tr><th>ACCOUNT</th>${(supplierMatrix.suppliers || []).map((supplier) => `<th>${escapeHTML(supplier.label || supplier.id || "")}</th>`).join("")}</tr></thead><tbody>${(supplierMatrix.rows || []).map((row) => {
+          const account = customerAccounts.find((item) => item.id === row.accountId) || {};
+          return `<tr><th>${escapeHTML(account.company || row.accountId || "")}</th>${(row.cells || []).map((cell) => `<td><span class="sc-playbook-status is-monitoring">${escapeHTML(cell.status === "unconfirmed" ? "미확인" : cell.status || "미확인")}</span></td>`).join("")}</tr>`;
+        }).join("")}</tbody></table></div>
+      </details>
+      <details class="sc-report">
+        <summary class="sc-report-head"><strong>LTA · PREPAYMENT DEAL DASHBOARD</strong><span>${fmtNum(dealDashboard.events?.length || 0)}개 공개 계약 Event</span></summary>
+        <div class="sc-deal-schema">${Object.values(dealDashboard.schema?.fields || customerBoard.contractGate?.fields || []).map((field) => `<span>${escapeHTML(field)}</span>`).join("")}</div>
+        ${(dealDashboard.events || []).length ? `<ul class="sc-evidence-list">${dealDashboard.events.map((event) => `<li>${event.sourceUrl ? `<a href="${escapeHTML(event.sourceUrl)}" target="_blank" rel="noopener noreferrer">${escapeHTML(event.evidenceSpan || event.source || "계약 근거")} ↗</a>` : `<span>${escapeHTML(event.evidenceSpan || "계약 Event")}</span>`}<small>${escapeHTML(event.asOf || "")}</small></li>`).join("")}</ul>` : `<p class="sc-note">공식 LTA·선급금·Binding Volume 원문 미관측 · 조건값 미공개</p>`}
+      </details>
+      ${accountProductMap.length ? `<details class="sc-report"><summary class="sc-report-head"><strong>TECH RADAR → NEXT MEMORY</strong><span>Account Pain → Custom HBM · AI-D · AI-N</span></summary><p class="sc-note">제품 분류는 공식 원문 · 계정 매핑은 전략 가설</p><div class="sc-partner-grid">${accountProductMap.map((item) => `<article class="sc-partner" style="--sc-accent:${escapeHTML(item.accent || "#0A84B8")}"><strong>${escapeHTML(item.label || "")}</strong><div class="sc-partner-row"><b>ROLE</b><span>${escapeHTML(item.role || "")}</span></div><div class="sc-partner-row"><b>ACCOUNT</b><span>${escapeHTML((item.accountLabels || []).join(" · "))}</span></div><span class="sc-playbook-status is-estimate">STRATEGY MAPPING</span>${item.source?.url ? `<a class="sc-playbook-source" href="${escapeHTML(item.source.url)}" target="_blank" rel="noopener noreferrer">${escapeHTML(item.source.name || "공식 원문")} ↗</a>` : ""}</article>`).join("")}</div></details>` : ""}
+      ${applicationSignals.length ? `<details class="sc-report"><summary class="sc-report-head"><strong>AI APPLICATION EXPANSION</strong><span>AI-D E · Robotics · Autonomous · Industrial</span></summary><div class="sc-partner-grid">${applicationSignals.map((item) => `<article class="sc-partner" style="--sc-accent:#E24545"><strong>${escapeHTML(item.label || "")}</strong><div class="sc-mix-value">${fmtNum(item.mentions || 0)}<small>건</small></div>${sparkline(item.weekly || [], "count", "#E24545")}<div class="sc-partner-row"><b>MAP</b><span>${escapeHTML(item.productId || "ai-d-e")}</span></div></article>`).join("")}</div></details>` : ""}
+      ${accountRoadmap.length ? `<div class="sc-partner-grid" aria-label="90일 실행 로드맵">${accountRoadmap.map((item, index) => `<article class="sc-partner" style="--sc-accent:#c88600"><strong>${String(index + 1).padStart(2, "0")} · ${escapeHTML(item.phase || "")}</strong><div class="sc-partner-row"><b>GATE</b><span>${escapeHTML(item.label || "")}</span></div><div class="sc-partner-row"><b>OUTPUT</b><span>${escapeHTML(item.output || "")}</span></div></article>`).join("")}</div>` : ""}
       <div class="sc-section-lead">
         <div><span>${escapeHTML(techBoard.eyebrow || "TECH & MARKET INSIGHTS")}</span><h3>${escapeHTML(techBoard.title || "LLM Tech → Memory Implication")}</h3></div>
         <p>${escapeHTML(techBoard.description || "검증 데이터 연결 대기")}</p>
@@ -13236,6 +13267,29 @@
       </div>` : ""}
       <p class="sc-note">우선순위는 최신 크롤의 연결 근거량 순 · 프레임워크 문구는 전략 가설이며, 수치·인용은 연결된 원문 근거로 검증 · 트렌드 키워드 클릭 시 관련 기사로 이동</p>
     `;
+    host.querySelectorAll("[data-account-deep-link]").forEach((link) => link.addEventListener("click", (event) => {
+      event.preventDefault();
+      const id = link.dataset.accountDeepLink;
+      const card = host.querySelector(`#account-${CSS.escape(id || "")}`);
+      if (!card) return;
+      const group = card.closest("details");
+      if (group) group.open = true;
+      history.replaceState({ view: "console", account: id }, "", `#console/account/${encodeURIComponent(id)}`);
+      card.scrollIntoView({ behavior: "smooth", block: "center" });
+      card.focus({ preventScroll: true });
+    }));
+    const deepLinkId = decodeURIComponent(String(location.hash.match(/^#console\/account\/([^/?#]+)/)?.[1] || ""));
+    const revealDeepLinkedAccount = () => {
+      const card = host.querySelector(`#account-${CSS.escape(deepLinkId)}`);
+      const group = card?.closest("details");
+      if (group) group.open = true;
+      card?.scrollIntoView({ behavior: "auto", block: "center" });
+    };
+    if (deepLinkId) {
+      requestAnimationFrame(revealDeepLinkedAccount);
+      window.setTimeout(revealDeepLinkedAccount, 350);
+      window.setTimeout(revealDeepLinkedAccount, 1_400);
+    }
     host.querySelectorAll("[data-trend-term]").forEach((btn) => {
       btn.addEventListener("click", () => highlightNewsForTerm(btn.dataset.trendTerm));
     });

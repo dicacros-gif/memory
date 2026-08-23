@@ -7,6 +7,7 @@ import {
   buildAgentBriefing,
   buildBaselineFreshness,
   buildDemandAccountSignals,
+  buildStrategyAccountIntelligence,
   buildIndustryPulse,
   buildRelationCandidates,
 } from "./live-pipeline.mjs";
@@ -43,11 +44,15 @@ for (const index of Object.values(marketHistory.indexes || {})) {
 quant.runId = live.runId || quant.runId || null;
 quant.memoryMomentum = quantMemoryMomentum(priceHistory);
 quant.accountSignals = buildDemandAccountSignals(context, quant.accountSignals);
+quant.strategyAccountIntelligence = buildStrategyAccountIntelligence(
+  { ...context, decisionIntelligence: quant.decisionIntelligence },
+  quant.strategyAccountIntelligence,
+);
 quant.relationCandidates = buildRelationCandidates(context);
 quant.baselineFreshness = buildBaselineFreshness(baseline, context, quant.baselineFreshness);
 quant.industryPulse = buildIndustryPulse(context, new Date(), quant.industrySourceChecks || {});
 quant.agentBriefing = buildAgentBriefing(context, quant);
-for (const key of ["accountSignals", "agentBriefing", "relationCandidates", "baselineFreshness", "industryPulse"]) {
+for (const key of ["accountSignals", "strategyAccountIntelligence", "agentBriefing", "relationCandidates", "baselineFreshness", "industryPulse"]) {
   if (!quant[key] || typeof quant[key] !== "object") continue;
   quant[key].runId = quant.runId || null;
   quant[key].validatedAt = quant.validatedAt || null;

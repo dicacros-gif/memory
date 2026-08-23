@@ -5,10 +5,12 @@ import { dirname, resolve } from "node:path";
 import { fileURLToPath } from "node:url";
 import {
   DEMAND_ACCOUNT_REGISTRY,
+  STRATEGY_ACCOUNT_REGISTRY,
   RELATION_ENTITY_REGISTRY,
   buildAgentBriefing,
   buildBaselineFreshness,
   buildDemandAccountSignals,
+  buildStrategyAccountIntelligence,
   buildIndustryPulse,
   buildRelationCandidates,
 } from "./live-pipeline.mjs";
@@ -39,6 +41,8 @@ const article = (title, url, date = "2026-07-20", summary = title, source = "Off
 });
 
 assert.equal(DEMAND_ACCOUNT_REGISTRY.length, 27, "demand registry must contain exactly 27 accounts");
+assert.equal(STRATEGY_ACCOUNT_REGISTRY.filter((item) => item.focus !== false).length, 7, "strategy account registry must expose seven focus accounts");
+assert.ok(STRATEGY_ACCOUNT_REGISTRY.some((item) => item.id === "microsoft" && item.aliases.includes("maia 200")), "Maia must be an explicit account lens");
 assert.equal(new Set(DEMAND_ACCOUNT_REGISTRY.map((item) => item.id)).size, 27, "demand account ids must be unique");
 assert.equal(new Set(RELATION_ENTITY_REGISTRY.map((item) => item.id)).size, RELATION_ENTITY_REGISTRY.length, "relation entity ids must be unique");
 
@@ -80,6 +84,30 @@ assert.equal(accountSignals.accounts.aws.evidenceCount, 0, "curated seeds must n
 assert.equal(accountSignals.accounts.google.status, "insufficient", "'output' must not match TPU");
 assert.equal(accountSignals.accounts.dell.status, "insufficient", "'모델' must not match Dell");
 assert.equal(accountSignals.accounts.aws.pullScore, null, "missing evidence must never fall back to a static score");
+
+const strategyAccountIntelligence = buildStrategyAccountIntelligence({
+  news: [
+    article("NVIDIA Vera Rubin platform expands rack-scale AI", "https://official.example/nvidia", "2026-07-19"),
+    article("Microsoft Maia 200 expands inference infrastructure", "https://official.example/maia", "2026-07-18"),
+    article("AWS Trainium capacity expands", "https://official.example/trainium", "2026-07-17"),
+  ],
+  decisionIntelligence: { claimEvents: { events: [{
+    ruleId: "partner-codesign", claimType: "verified-fact", contradictionStatus: "clear",
+    entity: { label: "Microsoft Maia 200" }, product: { label: "Custom HBM" },
+    stage: { id: "QUALIFICATION" }, sourceId: "microsoft-ai-infra",
+    sourceUrl: "https://official.example/maia-custom-hbm", asOf: "2026-07-18",
+    evidenceSpan: "Microsoft Maia 200 Custom HBM co-design qualification",
+  }] } },
+}, {}, now);
+assert.equal(strategyAccountIntelligence.focusAccountCount, 7);
+assert.equal(strategyAccountIntelligence.accountCount, STRATEGY_ACCOUNT_REGISTRY.length);
+assert.equal(strategyAccountIntelligence.accounts.microsoft.mentions, 1, "Maia evidence must map to Microsoft account");
+assert.equal(strategyAccountIntelligence.accounts.nvidia.mentions, 1, "Rubin evidence must map to NVIDIA account");
+assert.equal(strategyAccountIntelligence.accounts.microsoft.customHbmStage.id, "QUALIFICATION", "verified account co-design evidence must promote the Custom HBM stage");
+assert.equal(strategyAccountIntelligence.accounts.google.customHbmStage.id, "UNVERIFIED", "an account without direct Custom HBM evidence must remain unverified");
+assert.equal(strategyAccountIntelligence.supplierMatrix.rows.length, 7, "supplier matrix must cover every focus account");
+assert.ok(strategyAccountIntelligence.supplierMatrix.rows.every((row) => row.cells.every((cell) => cell.status === "unconfirmed")), "supplier relations must fail closed without evidence");
+assert.equal(strategyAccountIntelligence.demandMix.externalEstimate.status, "separate-source-required", "crawl mix and external estimates must remain separate");
 
 const brokerLive = buildBrokerResearch([
   article(

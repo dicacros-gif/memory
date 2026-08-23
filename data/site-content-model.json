@@ -206,45 +206,7 @@
       ]
     },
     "customerPortfolio": {
-      "eyebrow": "CUSTOMER & ASIC RADAR",
-      "title": "GPU · Custom ASIC Roadmap → Memory Proposal",
-      "description": "고객별 Chip Roadmap을 Pain Point·Memory Requirement·계약 Gate로 분리",
-      "disclosure": "공급사·물량·독점·LTA 조건은 공식 공개 또는 복수 독립 출처 전까지 미공개",
-      "groups": [
-        { "id": "gpu", "index": "01", "label": "GPU PLATFORM", "question": "차세대 Rack 성능·전력·HBM Ramp" },
-        { "id": "hyperscaler-asic", "index": "02", "label": "HYPERSCALER ASIC", "question": "고객별 용량·대역폭·TCO 차별화" },
-        { "id": "design-ecosystem", "index": "03", "label": "ASIC DESIGN ECOSYSTEM", "question": "Logic·Memory·Package 공동설계" },
-        { "id": "edge-physical", "index": "04", "label": "EDGE · PHYSICAL AI", "question": "저전력·보안·현장 추론 확장" }
-      ],
-      "accounts": [
-        { "id": "nvidia", "group": "gpu", "company": "NVIDIA", "chip": "Vera Rubin", "stage": "Full production · 공식", "pain": "Rack-scale Agentic AI의 Memory·Fabric·전력 동시 병목", "memory": "Custom HBM · AI-D · AI-N/eSSD", "gate": "Qualification · Ramp · Package Capacity", "relationship": "SK hynix 공식 파트너십 근거 연결", "claimRuleIds": ["customer-silicon-roadmap", "partner-codesign"], "sourceIds": ["nvidia-newsroom", "skhynix-newsroom"], "matchTerms": ["vera rubin", "nvidia partnership"], "accent": "#2D6BFF" },
-        { "id": "google", "group": "hyperscaler-asic", "company": "Google", "chip": "TPU7x · Ironwood", "stage": "Available · 공식", "pain": "192GB HBM·7.38TB/s에서도 Vector 연산·Data Movement 병목", "memory": "Custom HBM · HBM/VMEM/Host Tier", "gate": "MXU Feeding · D2D · Pod TCO", "relationship": "공급 비중·계약 조건 공개 검증 필요", "claimRuleIds": ["customer-silicon-roadmap"], "sourceIds": ["google-cloud-tpu"], "matchTerms": ["tpu7", "ironwood"], "accent": "#00A88F" },
-        { "id": "aws", "group": "hyperscaler-asic", "company": "AWS", "chip": "Trainium3", "stage": "Available · 공식", "pain": "MoE Routing·Collective·HBM Data Movement의 경제성", "memory": "144GB HBM3e · 4.9TB/s · System Memory", "gate": "Neuron Runtime · UltraServer Goodput/TCO", "relationship": "공급사·물량 공개 검증 필요", "claimRuleIds": ["customer-silicon-roadmap"], "sourceIds": ["aws-trainium"], "matchTerms": ["trainium3", "trainium"], "accent": "#C88600" },
-        { "id": "microsoft", "group": "hyperscaler-asic", "company": "Microsoft", "chip": "Maia 200", "stage": "Deployed · 공식", "pain": "Inference Token 경제성·Memory Feeding·Scale-up Network", "memory": "216GB HBM3e · 7TB/s · On-chip SRAM", "gate": "Model Portability · Region Ramp · TCO", "relationship": "HBM 공급 관계 공식 원문 분리 검증", "claimRuleIds": ["customer-silicon-roadmap"], "sourceIds": ["microsoft-ai-infra"], "matchTerms": ["maia 200", "maia"], "accent": "#0A84B8" },
-        { "id": "meta", "group": "hyperscaler-asic", "company": "Meta", "chip": "MTIA", "stage": "Deployed · Roadmap 공개", "pain": "추천·광고 추론의 HBM I/O·Chiplet·Package Scaling", "memory": "HBM Adjacent · Custom HBM · Fabric", "gate": "Generation Roadmap · Package · TCO", "relationship": "Broadcom 공동설계와 Memory 공급 분리", "claimRuleIds": ["customer-silicon-roadmap"], "sourceIds": ["meta-engineering", "broadcom-ai"], "matchTerms": ["mtia"], "accent": "#7656C9" },
-        { "id": "broadcom", "group": "design-ecosystem", "company": "Broadcom", "chip": "3.5D XDSiP · XPU", "stage": "Production · 공식", "pain": "Customer-owned Compute와 HBM PHY·Package·Network 통합", "memory": "6–12 HBM3 · 8 HBM4 구성", "gate": "3자 Co-Design · Package Yield · NRE", "relationship": "ASIC 설계 파트너를 Buying Center로 관리", "claimRuleIds": ["customer-silicon-roadmap", "partner-codesign"], "sourceIds": ["broadcom-ai"], "matchTerms": ["3.5d", "xdsi", "xpu"], "accent": "#D05A2B" },
-        { "id": "openai", "group": "design-ecosystem", "company": "OpenAI", "chip": "Custom Accelerator", "stage": "공식 발표 자동 탐색", "pain": "LLM Inference의 Data Movement·Utilization·Reliability", "memory": "HBM · Network · Rack Co-Design", "gate": "Tape-out · Deployment · Supplier Disclosure", "relationship": "공식 발표와 Broadcom 생태계 교차검증", "claimRuleIds": ["customer-silicon-roadmap"], "sourceIds": ["openai-infrastructure", "broadcom-ai"], "accent": "#4A6B78" },
-        { "id": "apple", "group": "edge-physical", "company": "Apple", "chip": "Apple Silicon · Private Cloud Compute", "stage": "Production · 공식", "pain": "On-device/Cloud 분기·Privacy·저전력 Inference", "memory": "Unified Memory · AI-D E · Secure Cloud Tier", "gate": "Workload Placement · Privacy · Energy/Task", "relationship": "Custom HBM 요청 여부는 시장 추정으로 격리", "claimRuleIds": ["customer-silicon-roadmap"], "sourceIds": ["apple-ai-infra"], "accent": "#68758A" },
-        { "id": "tesla", "group": "edge-physical", "company": "Tesla", "chip": "AI5", "stage": "Design complete · 공식", "pain": "차량·로봇 추론의 Latency·전력·학습 Data Loop", "memory": "AI-D E · LPDDR · High-capacity Training Tier", "gate": "Silicon Sample · Vehicle Validation · Ramp", "relationship": "Memory 공급 관계 공개 검증 필요", "claimRuleIds": ["customer-silicon-roadmap"], "sourceIds": ["tesla-ai"], "accent": "#E24545" },
-        { "id": "spacex", "group": "edge-physical", "company": "SpaceX", "chip": "Starlink Custom Silicon", "stage": "Official reference · Monitoring", "pain": "Edge Compute의 전력·방사선·통신·신뢰성", "memory": "Low-power DRAM/NAND · AI-D E 후보", "gate": "공식 Memory Spec · Qualification · Volume", "relationship": "공식 Memory 근거 전까지 Opportunity Watch", "claimRuleIds": ["customer-silicon-roadmap"], "sourceIds": ["spacex-official"], "accent": "#566678" }
-      ],
-      "mixTracker": {
-        "label": "GPU vs ASIC DEMAND MIX",
-        "status": "market-estimate-only",
-        "display": "동일 기준·기간·출처가 확인된 Range만 공개",
-        "decision": "GPU 집중도·ASIC 고객별 Qualification·Supplier Mix를 분리 추적"
-      },
-      "contractGate": {
-        "label": "LTA · PREPAYMENT · CAPACITY",
-        "fields": ["기간", "선급금", "Binding Volume", "Qualification", "Supplier Mix", "Margin Floor"],
-        "ruleId": "contract-structure",
-        "fallback": "공식 계약 조건 미공개"
-      },
-      "competitiveFrame": [
-        { "company": "Samsung", "focus": "HBM·Foundry·Package 통합", "gate": "HBM4 Ramp · Yield · Customer Qualification", "sourceIds": ["samsung-semiconductor"] },
-        { "company": "Micron", "focus": "HBM 효율·미국 공급망", "gate": "HBM4 Ramp · Customer Mix · Capacity", "sourceIds": ["micron-investor"] },
-        { "company": "CXMT", "focus": "범용 DRAM 가격·중국 고객 침투", "gate": "DDR5/LPDDR 승인 · 캐파 · Contract Price", "sourceIds": ["semi-analysis"] }
-      ]
+      "registrySource": "data/accounts.json"
     },
     "partners": {
       "eyebrow": "PARTNERS & CLIENTS",

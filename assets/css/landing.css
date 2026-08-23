@@ -7006,6 +7006,58 @@ body.landing-mode {
   .business-hero-media-slide { z-index: 1; }
 }
 
+/* Account-first landing strip — hydrated from data/accounts.json via site content */
+.business-account-strip {
+  position: relative;
+  z-index: 3;
+  margin-top: 20px;
+  padding: 20px;
+  border: 1px solid rgba(109,226,211,.28);
+  border-radius: 18px;
+  background: rgba(4,17,30,.84);
+  backdrop-filter: blur(12px);
+  color: #fff;
+}
+.business-account-strip > header { display: flex; align-items: end; justify-content: space-between; gap: 16px; margin-bottom: 12px; }
+.business-account-strip > header span { color: #65e0cf; font: 850 10px/1 var(--business-mono, monospace); letter-spacing: .12em; }
+.business-account-strip > header h2 { margin: 5px 0 0; color: #fff; font-size: clamp(20px, 2.8vw, 34px); line-height: 1; }
+.business-account-strip > header p { margin: 0; color: #a9bbca; font-size: 11px; font-weight: 750; }
+.business-account-strip-grid { display: grid; grid-template-columns: repeat(7, minmax(0, 1fr)); gap: 7px; }
+.business-account-strip-grid a {
+  display: grid;
+  align-content: start;
+  gap: 5px;
+  min-width: 0;
+  min-height: 112px;
+  padding: 11px;
+  border: 1px solid rgba(255,255,255,.14);
+  border-top: 3px solid var(--account-accent);
+  border-radius: 10px;
+  background: rgba(255,255,255,.04);
+  color: #fff;
+  text-decoration: none;
+  transition: transform .05s ease-out, box-shadow .05s ease-out, background-color 0s, color 0s;
+}
+.business-account-strip-grid a:hover,
+.business-account-strip-grid a:focus-visible { transform: translateY(-2px); background: #f7fbff; box-shadow: 0 10px 22px rgba(0,0,0,.24); }
+.business-account-strip-grid a:hover :is(span,strong,small,b),
+.business-account-strip-grid a:focus-visible :is(span,strong,small,b) { color: #10263a; }
+.business-account-strip-grid span { color: #65e0cf; font-size: 9px; font-weight: 900; letter-spacing: .06em; }
+.business-account-strip-grid strong { color: #fff; font-size: 12px; line-height: 1.25; overflow-wrap: anywhere; }
+.business-account-strip-grid small { color: #b8c5d1; font-size: 9.5px; line-height: 1.35; }
+.business-account-strip-grid b { margin-top: auto; color: #f3c94c; font-size: 8.5px; }
+.business-account-mix { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin-top: 10px; }
+.business-account-mix > div { position: relative; display: flex; justify-content: space-between; gap: 12px; padding: 9px 10px 12px; overflow: hidden; border: 1px solid rgba(255,255,255,.12); border-radius: 8px; }
+.business-account-mix span { color: #a9bbca; font-size: 9px; font-weight: 800; }
+.business-account-mix strong { color: #fff; font-size: 10px; }
+.business-account-mix i { position: absolute; left: 0; bottom: 0; height: 3px; background: #65e0cf; }
+@media (max-width: 1100px) { .business-account-strip-grid { grid-template-columns: repeat(4, minmax(0, 1fr)); } }
+@media (max-width: 680px) {
+  .business-account-strip > header { align-items: start; flex-direction: column; }
+  .business-account-strip-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .business-account-mix { grid-template-columns: 1fr; }
+}
+
 
 /* Loading: skip rendering below-the-fold sections until scrolled near.
    Cuts initial render/layout cost; intrinsic-size limits scrollbar jitter. */

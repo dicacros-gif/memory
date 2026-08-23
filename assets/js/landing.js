@@ -3,7 +3,7 @@
 
   const BUSINESS_TITLE = "AI Infra Strategy · Customer Pain to Executive Action";
   const CONSOLE_HASH = "#console";
-  const CONSOLE_REVISION = "infra-b71d689f31f6";
+  const CONSOLE_REVISION = "infra-3eb0a00a6589";
   const DECISION_CLIENT_PATH = "data/landing-decision-client.json";
   const SITE_CONTENT_PATH = "data/site-content-client.json";
   const SITE_CONTENT_EXTENDED_PATH = "data/site-content-extended-client.json";
@@ -814,6 +814,28 @@
     }
   }
 
+  function renderLandingAccountStrip(content = {}) {
+    const board = content.strategyBoard?.customerPortfolio || {};
+    const accounts = Array.isArray(board.focusAccounts) ? board.focusAccounts : [];
+    const host = document.querySelector("#businessKeyAccounts");
+    if (host && accounts.length) {
+      host.innerHTML = accounts.map((account) => `
+        <a href="#console/account/${escapeBusinessHTML(account.id || "")}" style="--account-accent:${escapeBusinessHTML(account.accent || "#0A84B8")}">
+          <span>${escapeBusinessHTML(account.company || "")}</span>
+          <strong>${escapeBusinessHTML(account.chip || "")}</strong>
+          <small>${escapeBusinessHTML(account.pain || "")}</small>
+          <b>${escapeBusinessHTML(account.stageLedger?.label || "근거 모니터")}</b>
+        </a>`).join("");
+    }
+    const mix = board.demandMix || {};
+    const mixHost = document.querySelector("#businessDemandMix");
+    if (mixHost) {
+      const gpu = Number(mix.latest?.gpuPct || 0);
+      const asic = Number(mix.latest?.asicPct || 0);
+      mixHost.innerHTML = `<div><span>CRAWL MEASURED</span><strong>GPU ${gpu.toFixed(1)}%</strong><i style="width:${Math.max(0, Math.min(100, gpu))}%"></i></div><div><span>동일 Corpus · 시장점유율 아님</span><strong>ASIC ${asic.toFixed(1)}%</strong><i style="width:${Math.max(0, Math.min(100, asic))}%"></i></div>`;
+    }
+  }
+
   function applySiteContent(content = {}) {
     if (!content?.clientArtifact) return;
     document.documentElement.dataset.contentRun = String(content.runId || "");
@@ -824,6 +846,7 @@
     }
     renderBusinessList(document.querySelector(".business-hero-bullets"), content.hero?.capabilities);
     renderDepartmentHomepage(content);
+    renderLandingAccountStrip(content);
     const staticSnapshot = document.querySelector(".console-static-snapshot header p");
     if (staticSnapshot) staticSnapshot.textContent = content.agentCouncil?.subtitle || staticSnapshot.textContent;
 
