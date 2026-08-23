@@ -1,9 +1,9 @@
 {
   "schemaVersion": "1.1",
   "type": "executive-decision-snapshot",
-  "runId": "local-1787486797220",
-  "generatedAt": "2026-08-23T12:18:58.973Z",
-  "expiresAt": "2026-08-24T14:18:57.550Z",
+  "runId": "32639457759",
+  "generatedAt": "2026-08-23T12:40:16.706Z",
+  "expiresAt": "2026-08-24T14:40:14.628Z",
   "state": "DECISION_READY",
   "freshness": {
     "score": 87.8,
@@ -22,7 +22,7 @@
   },
   "funnel": {
     "sourceDocuments": 64,
-    "structuredEvents": 27,
+    "structuredEvents": 26,
     "verifiedEvents": 21,
     "decisionReadyBriefs": 4,
     "executionTrackingBriefs": 0
@@ -105,22 +105,6 @@
           "excerpt": "Samsung Electronics, a global leader in advanced memory technology, today announced that it has begun mass production of its industry-leading HBM4 and has shipped commercial products to customers"
         },
         {
-          "id": "0f652d28a88cd4d3b1e9",
-          "ruleId": "capacity-commitment",
-          "feedId": null,
-          "title": "Samsung · AI Memory · MASS_PRODUCTION",
-          "source": "TrendForce",
-          "sourceId": "trendforce",
-          "sourceClass": "research",
-          "url": "https://www.trendforce.com/news/2026/08/14/news-samsung-may-repurpose-rd-line-for-foundry-targeting-2nm-hbm-base-dies-for-future-nvidia-demand",
-          "publishedAt": "2026-08-14",
-          "stage": "MASS_PRODUCTION",
-          "confidence": "research-observed",
-          "claimType": "market-estimate",
-          "asOf": "2026-08-14",
-          "excerpt": "The facility would primarily target mass production of 2nm base (logic) dies for next-generation HBM, allowing Samsung to secure additional capacity ahead of expected demand growth from key customers including NVIDIA"
-        },
-        {
           "id": "23573c07e31f7af6e053",
           "ruleId": "partner-codesign",
           "feedId": "skhynix-hbf-open-standard",
@@ -151,6 +135,22 @@
           "claimType": "verified-fact",
           "asOf": "2026-07-25",
           "excerpt": "Certain statements in this press release including, but not limited to, statements as to: together with SK Telecom and SK hynix, NVIDIA helping accelerate Korea’s AI infrastructure — building world-class AI factories that turn compute into intelligence, productivity and growth; expectations with respect to growth, per…"
+        },
+        {
+          "id": "bd5f84b2590468a32a79",
+          "ruleId": "partner-codesign",
+          "feedId": "skhynix-hbm-to-essd-2026",
+          "title": "SK hynix · HBM4 · ANNOUNCED",
+          "source": "SK hynix Newsroom",
+          "sourceId": "skhynix-newsroom",
+          "sourceClass": "official",
+          "url": "https://news.skhynix.com/en/hbm-to-essd",
+          "publishedAt": "2026-07-08",
+          "stage": "ANNOUNCED",
+          "confidence": "confirmed-primary",
+          "claimType": "verified-fact",
+          "asOf": "2026-07-08",
+          "excerpt": "Through its collaboration with TSMC, SK hynix is applying advanced logic process technology to the base die * starting with HBM4, expanding the basis of HBM competitiveness beyond bandwidth to include logic dies, packaging, power efficiency, and customer system optimization"
         }
       ]
     },
@@ -232,20 +232,20 @@
           "excerpt": "Samsung Electronics, a global leader in advanced memory technology, today announced that it has begun mass production of its industry-leading HBM4 and has shipped commercial products to customers"
         },
         {
-          "id": "0f652d28a88cd4d3b1e9",
+          "id": "ad1fe730a17bcd7b5f78",
           "ruleId": "capacity-commitment",
           "feedId": null,
-          "title": "Samsung · AI Memory · MASS_PRODUCTION",
+          "title": "Samsung · AI Memory · DISCLOSED",
           "source": "TrendForce",
           "sourceId": "trendforce",
           "sourceClass": "research",
-          "url": "https://www.trendforce.com/news/2026/08/14/news-samsung-may-repurpose-rd-line-for-foundry-targeting-2nm-hbm-base-dies-for-future-nvidia-demand",
-          "publishedAt": "2026-08-14",
-          "stage": "MASS_PRODUCTION",
+          "url": "https://www.trendforce.com/news/2026/08/20/news-samsung-to-break-ground-on-krw-6t-onyang-hbm-fab-in-sept-p5-eyes-triple-fab-shift-as-expansion-accelerates",
+          "publishedAt": "2026-08-20",
+          "stage": "DISCLOSED",
           "confidence": "research-observed",
           "claimType": "market-estimate",
-          "asOf": "2026-08-14",
-          "excerpt": "The facility would primarily target mass production of 2nm base (logic) dies for next-generation HBM, allowing Samsung to secure additional capacity ahead of expected demand growth from key customers including NVIDIA"
+          "asOf": "2026-08-20",
+          "excerpt": "Samsung is stepping up its capacity expansion"
         },
         {
           "id": "39e7ac26429e73c7acb5",
@@ -290,8 +290,8 @@
       "deliverable": "Tech/Market Insight · Opportunity Thesis · Partner Screen · Business Case",
       "status": "DECISION_READY",
       "whatChanged": "RAG·Agentic AI의 Memory Tier를 CXL Pool·AI-N/HBF 서비스로 확장할 것인가",
-      "latestSignal": "Samsung · AI Memory · MASS_PRODUCTION",
-      "sourceStage": "MASS_PRODUCTION",
+      "latestSignal": "Samsung · AI Memory · DISCLOSED",
+      "sourceStage": "DISCLOSED",
       "stage": "BUSINESS_CASE",
       "confidence": "review",
       "customerPain": "검색 품질·P99를 유지하면서 서버별 유휴 Memory와 Peak 증설 비용을 함께 통제",
@@ -325,20 +325,20 @@
       "killCriteria": "Recall·권한·P99·상호운용성·계측 정확도 중 하나라도 Baseline 미달이면 서비스 승격을 중단",
       "evidence": [
         {
-          "id": "0f652d28a88cd4d3b1e9",
+          "id": "ad1fe730a17bcd7b5f78",
           "ruleId": "capacity-commitment",
           "feedId": null,
-          "title": "Samsung · AI Memory · MASS_PRODUCTION",
+          "title": "Samsung · AI Memory · DISCLOSED",
           "source": "TrendForce",
           "sourceId": "trendforce",
           "sourceClass": "research",
-          "url": "https://www.trendforce.com/news/2026/08/14/news-samsung-may-repurpose-rd-line-for-foundry-targeting-2nm-hbm-base-dies-for-future-nvidia-demand",
-          "publishedAt": "2026-08-14",
-          "stage": "MASS_PRODUCTION",
+          "url": "https://www.trendforce.com/news/2026/08/20/news-samsung-to-break-ground-on-krw-6t-onyang-hbm-fab-in-sept-p5-eyes-triple-fab-shift-as-expansion-accelerates",
+          "publishedAt": "2026-08-20",
+          "stage": "DISCLOSED",
           "confidence": "research-observed",
           "claimType": "market-estimate",
-          "asOf": "2026-08-14",
-          "excerpt": "The facility would primarily target mass production of 2nm base (logic) dies for next-generation HBM, allowing Samsung to secure additional capacity ahead of expected demand growth from key customers including NVIDIA"
+          "asOf": "2026-08-20",
+          "excerpt": "Samsung is stepping up its capacity expansion"
         },
         {
           "id": "39e7ac26429e73c7acb5",
@@ -415,10 +415,10 @@
       "deliverable": "Partner Model · 90-Day Roadmap · RACI · KPI/Trigger/Kill Dashboard",
       "status": "DECISION_READY",
       "whatChanged": "전력·냉각·Fabric·Storage Gate를 통과한 Rack Cell만 파트너와 확장할 것인가",
-      "latestSignal": "Samsung · AI Memory · MASS_PRODUCTION",
-      "sourceStage": "MASS_PRODUCTION",
+      "latestSignal": "SK hynix · HBF · ANNOUNCED",
+      "sourceStage": "ANNOUNCED",
       "stage": "SCALE_GATE",
-      "confidence": "review",
+      "confidence": "verified-primary",
       "customerPain": "가속기·Fabric·Storage·전력·냉각의 병목이 Rack/POD 단위 확장을 제한",
       "factBoundary": "공식 원문·제품 Stage·날짜가 확인된 내용만 사실로 승격 · 전망 수치는 시장 추정치로 분리",
       "hypothesisStatus": "strategy-hypothesis",
@@ -450,22 +450,6 @@
       "trigger": "실제 로그와 업무 성공 기준·가동 가능 전력이 함께 확정",
       "killCriteria": "전력 인입·열 제거·복구 SLO·수요 기준선 중 하나라도 검증되지 않으면 대규모 CAPEX를 승인하지 않음",
       "evidence": [
-        {
-          "id": "0f652d28a88cd4d3b1e9",
-          "ruleId": "capacity-commitment",
-          "feedId": null,
-          "title": "Samsung · AI Memory · MASS_PRODUCTION",
-          "source": "TrendForce",
-          "sourceId": "trendforce",
-          "sourceClass": "research",
-          "url": "https://www.trendforce.com/news/2026/08/14/news-samsung-may-repurpose-rd-line-for-foundry-targeting-2nm-hbm-base-dies-for-future-nvidia-demand",
-          "publishedAt": "2026-08-14",
-          "stage": "MASS_PRODUCTION",
-          "confidence": "research-observed",
-          "claimType": "market-estimate",
-          "asOf": "2026-08-14",
-          "excerpt": "The facility would primarily target mass production of 2nm base (logic) dies for next-generation HBM, allowing Samsung to secure additional capacity ahead of expected demand growth from key customers including NVIDIA"
-        },
         {
           "id": "23573c07e31f7af6e053",
           "ruleId": "partner-codesign",
@@ -529,6 +513,22 @@
           "claimType": "verified-fact",
           "asOf": "2024-04-19",
           "excerpt": "(or “the company”, www.skhynix.com ) announced today that it has recently signed a memorandum of understanding with TSMC for collaboration to produce next-generation HBM and enhance logic and HBM integration through advanced packaging technology"
+        },
+        {
+          "id": "ad1fe730a17bcd7b5f78",
+          "ruleId": "capacity-commitment",
+          "feedId": null,
+          "title": "Samsung · AI Memory · DISCLOSED",
+          "source": "TrendForce",
+          "sourceId": "trendforce",
+          "sourceClass": "research",
+          "url": "https://www.trendforce.com/news/2026/08/20/news-samsung-to-break-ground-on-krw-6t-onyang-hbm-fab-in-sept-p5-eyes-triple-fab-shift-as-expansion-accelerates",
+          "publishedAt": "2026-08-20",
+          "stage": "DISCLOSED",
+          "confidence": "research-observed",
+          "claimType": "market-estimate",
+          "asOf": "2026-08-20",
+          "excerpt": "Samsung is stepping up its capacity expansion"
         }
       ]
     }
@@ -713,8 +713,8 @@
         }
       }
     ],
-    "runId": "local-1787486797220",
-    "generatedAt": "2026-08-23T12:18:58.973Z",
+    "runId": "32639457759",
+    "generatedAt": "2026-08-23T12:40:16.706Z",
     "liveEvidenceCount": 4
   },
   "claimEvents": [
@@ -810,38 +810,6 @@
       "claimType": "verified-fact",
       "asOf": "2026-02-19",
       "promotionStatus": "verified-primary",
-      "contradictionStatus": "clear",
-      "isCurrentStage": true,
-      "supersededBy": null
-    },
-    {
-      "id": "0f652d28a88cd4d3b1e9",
-      "ruleId": "capacity-commitment",
-      "eventType": "commercial-commitment",
-      "label": "CapEx·Capacity·장기 물량",
-      "entity": {
-        "id": "samsung",
-        "label": "Samsung"
-      },
-      "product": {
-        "id": "ai-memory",
-        "label": "AI Memory"
-      },
-      "stage": {
-        "id": "MASS_PRODUCTION",
-        "rank": 60
-      },
-      "metrics": [],
-      "evidenceSpan": "The facility would primarily target mass production of 2nm base (logic) dies for next-generation HBM, allowing Samsung to secure additional capacity ahead of expected demand growth from key customers including NVIDIA",
-      "source": "TrendForce",
-      "sourceId": "trendforce",
-      "sourceClass": "research",
-      "sourceUrl": "https://www.trendforce.com/news/2026/08/14/news-samsung-may-repurpose-rd-line-for-foundry-targeting-2nm-hbm-base-dies-for-future-nvidia-demand",
-      "publishedAt": "2026-08-14",
-      "confidence": "research-observed",
-      "claimType": "market-estimate",
-      "asOf": "2026-08-14",
-      "promotionStatus": "review",
       "contradictionStatus": "clear",
       "isCurrentStage": true,
       "supersededBy": null
@@ -970,6 +938,38 @@
       "claimType": "market-estimate",
       "asOf": "2026-06-02",
       "promotionStatus": "review",
+      "contradictionStatus": "clear",
+      "isCurrentStage": true,
+      "supersededBy": null
+    },
+    {
+      "id": "59d1dde9c515f89266cf",
+      "ruleId": "partner-codesign",
+      "eventType": "partner-execution",
+      "label": "Customer·Foundry Co-Design",
+      "entity": {
+        "id": "sk-hynix",
+        "label": "SK hynix"
+      },
+      "product": {
+        "id": "advanced-packaging",
+        "label": "Advanced Packaging"
+      },
+      "stage": {
+        "id": "ANNOUNCED",
+        "rank": 30
+      },
+      "metrics": [],
+      "evidenceSpan": "(or “the company”, www.skhynix.com ) announced today that it has recently signed a memorandum of understanding with TSMC for collaboration to produce next-generation HBM and enhance logic and HBM integration through advanced packaging technology",
+      "source": "SK hynix Newsroom",
+      "sourceId": "skhynix-newsroom",
+      "sourceClass": "official",
+      "sourceUrl": "https://news.skhynix.com/en/sk-hynix-partners-with-tsmc-to-strengthen-hbm-technological-leadership",
+      "publishedAt": "2024-04-19",
+      "confidence": "confirmed-primary",
+      "claimType": "verified-fact",
+      "asOf": "2024-04-19",
+      "promotionStatus": "verified-primary",
       "contradictionStatus": "clear",
       "isCurrentStage": true,
       "supersededBy": null
