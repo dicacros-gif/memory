@@ -303,11 +303,54 @@ function buildStrategyBoard(payload = {}, generatedAt = null, decisionIntelligen
           ...supplier,
           sources: (supplier.sourceIds || []).map((id) => sourceById.get(id)).filter(Boolean).map((source) => ({ id: source.id, name: source.name, url: source.url })),
         })),
-        rows: strategyAccountIntelligence.supplierMatrix?.rows || accounts.filter((account) => account.focus).map((account) => ({
-          accountId: account.id,
-          cells: (accountModel.suppliers || []).map((supplier) => ({ accountId: account.id, supplierId: supplier.id, status: "unconfirmed", sourceId: null, asOf: null })),
+        legend: accountModel.supplierRelationLegend || {},
+        // Cell precedence: crawl-derived rows first, then the sourced relation
+        // registry, then fail-closed "unconfirmed". Every registry cell carries
+        // its claim tier (공식/보도/추적) and source so a reported relation is
+        // never shown as a confirmed fact.
+        rows: (strategyAccountIntelligence.supplierMatrix?.rows
+          || accounts.filter((account) => account.focus).map((account) => ({
+            accountId: account.id,
+            cells: (accountModel.suppliers || []).map((supplier) => ({ accountId: account.id, supplierId: supplier.id, status: "unconfirmed", sourceId: null, asOf: null })),
+          }))
+        ).map((row) => ({
+          ...row,
+          // Crawl-derived evidence wins. Any cell still unconfirmed is enriched
+          // from the sourced relation registry, tagged with its claim tier so a
+          // reported relation is never displayed as a confirmed fact.
+          cells: (row.cells || []).map((cell) => {
+            if (cell.status && cell.status !== "unconfirmed") return cell;
+            const relation = (accountModel.supplierRelations || [])
+              .find((item) => item.accountId === row.accountId && item.supplierId === cell.supplierId);
+            if (!relation) return { ...cell, claim: "watch" };
+            const source = sourceById.get(relation.sourceId) || null;
+            return {
+              ...cell,
+              status: relation.status || "unconfirmed",
+              claim: relation.claim || "watch",
+              claimLabel: (accountModel.supplierRelationLegend || {})[relation.claim || "watch"]?.label || "추적",
+              note: relation.note || "",
+              sourceId: relation.sourceId || null,
+              source: source ? { id: source.id, name: source.name, url: source.url } : null,
+              asOf: relation.asOf || null,
+            };
+          }),
         })),
       },
+      baseDieStrategy: accountModel.baseDieStrategy ? {
+        ...accountModel.baseDieStrategy,
+        source: sourceById.get(accountModel.baseDieStrategy.sourceId) || null,
+        foundryDependency: accountModel.baseDieStrategy.foundryDependency ? {
+          ...accountModel.baseDieStrategy.foundryDependency,
+          source: sourceById.get(accountModel.baseDieStrategy.foundryDependency.sourceId) || null,
+        } : null,
+        chipletTracking: accountModel.baseDieStrategy.chipletTracking ? {
+          ...accountModel.baseDieStrategy.chipletTracking,
+          source: sourceById.get(accountModel.baseDieStrategy.chipletTracking.sourceId) || null,
+          accountLabels: (accountModel.baseDieStrategy.chipletTracking.accounts || [])
+            .map((id) => accounts.find((account) => account.id === id)?.company).filter(Boolean),
+        } : null,
+      } : null,
       competitiveFrame: (accountModel.suppliers || []).filter((supplier) => supplier.id !== "skhynix").map((supplier) => ({
         company: supplier.label,
         focus: supplier.id === "samsung" ? "HBM·Foundry·Package 통합" : supplier.id === "micron" ? "HBM 효율·미국 공급망" : "범용 DRAM·중국 고객 침투",

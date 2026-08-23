@@ -3385,30 +3385,55 @@
               {
                 "accountId": "nvidia",
                 "supplierId": "skhynix",
-                "status": "unconfirmed",
-                "sourceId": null,
-                "asOf": null
+                "status": "공급 참여",
+                "sourceId": "trendforce",
+                "asOf": null,
+                "claim": "market-estimate",
+                "claimLabel": "보도",
+                "note": "HBM 주요 공급사 보도 · 세대별 물량 비중은 미확인",
+                "source": {
+                  "id": "trendforce",
+                  "name": "TrendForce",
+                  "url": "https://www.trendforce.com/presscenter/"
+                }
               },
               {
                 "accountId": "nvidia",
                 "supplierId": "samsung",
                 "status": "unconfirmed",
                 "sourceId": null,
-                "asOf": null
+                "asOf": null,
+                "claim": "watch"
               },
               {
                 "accountId": "nvidia",
                 "supplierId": "micron",
-                "status": "unconfirmed",
-                "sourceId": null,
-                "asOf": null
+                "status": "스펙 게이트",
+                "sourceId": "semi-analysis",
+                "asOf": null,
+                "claim": "market-estimate",
+                "claimLabel": "보도",
+                "note": "HBM4 pin speed 요구 충족 여부가 진입 게이트로 보도",
+                "source": {
+                  "id": "semi-analysis",
+                  "name": "SemiAnalysis",
+                  "url": "https://newsletter.semianalysis.com/"
+                }
               },
               {
                 "accountId": "nvidia",
                 "supplierId": "cxmt",
-                "status": "unconfirmed",
-                "sourceId": null,
-                "asOf": null
+                "status": "해당 없음",
+                "sourceId": "semi-analysis",
+                "asOf": null,
+                "claim": "watch",
+                "claimLabel": "추적",
+                "note": "HBM 진입 근거 없음",
+                "source": {
+                  "id": "semi-analysis",
+                  "name": "SemiAnalysis",
+                  "url": "https://newsletter.semianalysis.com/"
+                }
               }
             ]
           },
@@ -3418,30 +3443,62 @@
               {
                 "accountId": "google",
                 "supplierId": "skhynix",
-                "status": "unconfirmed",
-                "sourceId": null,
-                "asOf": null
+                "status": "공급 참여",
+                "sourceId": "trendforce",
+                "asOf": null,
+                "claim": "market-estimate",
+                "claimLabel": "보도",
+                "note": "TPU 세대별 공급 참여 보도 · 세대별 비중 미확인",
+                "source": {
+                  "id": "trendforce",
+                  "name": "TrendForce",
+                  "url": "https://www.trendforce.com/presscenter/"
+                }
               },
               {
                 "accountId": "google",
                 "supplierId": "samsung",
-                "status": "unconfirmed",
-                "sourceId": null,
-                "asOf": null
+                "status": "비중 확대",
+                "sourceId": "trendforce",
+                "asOf": null,
+                "claim": "market-estimate",
+                "claimLabel": "보도",
+                "note": "TPU向 HBM 물량 비중 확대 보도 · 연간 점유율 수치는 미확인",
+                "source": {
+                  "id": "trendforce",
+                  "name": "TrendForce",
+                  "url": "https://www.trendforce.com/presscenter/"
+                }
               },
               {
                 "accountId": "google",
                 "supplierId": "micron",
-                "status": "unconfirmed",
-                "sourceId": null,
-                "asOf": null
+                "status": "추적",
+                "sourceId": "google-cloud-tpu",
+                "asOf": null,
+                "claim": "watch",
+                "claimLabel": "추적",
+                "note": "TPU 공급 참여 근거 미확인",
+                "source": {
+                  "id": "google-cloud-tpu",
+                  "name": "Google Cloud TPU",
+                  "url": "https://docs.cloud.google.com/tpu/docs/tpu7x"
+                }
               },
               {
                 "accountId": "google",
                 "supplierId": "cxmt",
-                "status": "unconfirmed",
-                "sourceId": null,
-                "asOf": null
+                "status": "해당 없음",
+                "sourceId": "semi-analysis",
+                "asOf": null,
+                "claim": "watch",
+                "claimLabel": "추적",
+                "note": "HBM 진입 근거 없음 · 범용 DRAM 침투만 추적",
+                "source": {
+                  "id": "semi-analysis",
+                  "name": "SemiAnalysis",
+                  "url": "https://newsletter.semianalysis.com/"
+                }
               }
             ]
           },
@@ -3451,30 +3508,41 @@
               {
                 "accountId": "microsoft",
                 "supplierId": "skhynix",
-                "status": "unconfirmed",
-                "sourceId": null,
-                "asOf": null
+                "status": "추적",
+                "sourceId": "microsoft-ai-infra",
+                "asOf": null,
+                "claim": "watch",
+                "claimLabel": "추적",
+                "note": "Maia 200 HBM 공급사 공식 미공개 · 단독 공급 주장은 미확인",
+                "source": {
+                  "id": "microsoft-ai-infra",
+                  "name": "Microsoft Official Blog",
+                  "url": "https://blogs.microsoft.com/blog/2026/01/26/maia-200-the-ai-accelerator-built-for-inference/"
+                }
               },
               {
                 "accountId": "microsoft",
                 "supplierId": "samsung",
                 "status": "unconfirmed",
                 "sourceId": null,
-                "asOf": null
+                "asOf": null,
+                "claim": "watch"
               },
               {
                 "accountId": "microsoft",
                 "supplierId": "micron",
                 "status": "unconfirmed",
                 "sourceId": null,
-                "asOf": null
+                "asOf": null,
+                "claim": "watch"
               },
               {
                 "accountId": "microsoft",
                 "supplierId": "cxmt",
                 "status": "unconfirmed",
                 "sourceId": null,
-                "asOf": null
+                "asOf": null,
+                "claim": "watch"
               }
             ]
           },
@@ -3484,30 +3552,62 @@
               {
                 "accountId": "aws",
                 "supplierId": "skhynix",
-                "status": "unconfirmed",
-                "sourceId": null,
-                "asOf": null
+                "status": "이원화",
+                "sourceId": "semi-analysis",
+                "asOf": null,
+                "claim": "market-estimate",
+                "claimLabel": "보도",
+                "note": "Trainium3 HBM3E 12-High · pin speed 상향 목표로 공급사 이원화 보도",
+                "source": {
+                  "id": "semi-analysis",
+                  "name": "SemiAnalysis",
+                  "url": "https://newsletter.semianalysis.com/"
+                }
               },
               {
                 "accountId": "aws",
                 "supplierId": "samsung",
-                "status": "unconfirmed",
-                "sourceId": null,
-                "asOf": null
+                "status": "추적",
+                "sourceId": "aws-trainium",
+                "asOf": null,
+                "claim": "watch",
+                "claimLabel": "추적",
+                "note": "Trainium 세대 공급 참여 근거 미확인",
+                "source": {
+                  "id": "aws-trainium",
+                  "name": "AWS Trainium",
+                  "url": "https://aws.amazon.com/ai/machine-learning/trainium/"
+                }
               },
               {
                 "accountId": "aws",
                 "supplierId": "micron",
-                "status": "unconfirmed",
-                "sourceId": null,
-                "asOf": null
+                "status": "이원화",
+                "sourceId": "semi-analysis",
+                "asOf": null,
+                "claim": "market-estimate",
+                "claimLabel": "보도",
+                "note": "Trainium3 공급사에 합류했다는 보도 · 물량 비중 미확인",
+                "source": {
+                  "id": "semi-analysis",
+                  "name": "SemiAnalysis",
+                  "url": "https://newsletter.semianalysis.com/"
+                }
               },
               {
                 "accountId": "aws",
                 "supplierId": "cxmt",
-                "status": "unconfirmed",
-                "sourceId": null,
-                "asOf": null
+                "status": "해당 없음",
+                "sourceId": "semi-analysis",
+                "asOf": null,
+                "claim": "watch",
+                "claimLabel": "추적",
+                "note": "HBM 진입 근거 없음 · 범용 DRAM 침투만 추적",
+                "source": {
+                  "id": "semi-analysis",
+                  "name": "SemiAnalysis",
+                  "url": "https://newsletter.semianalysis.com/"
+                }
               }
             ]
           },
@@ -3517,30 +3617,41 @@
               {
                 "accountId": "meta",
                 "supplierId": "skhynix",
-                "status": "unconfirmed",
-                "sourceId": null,
-                "asOf": null
+                "status": "추적",
+                "sourceId": "meta-engineering",
+                "asOf": null,
+                "claim": "watch",
+                "claimLabel": "추적",
+                "note": "MTIA 세대별 HBM 공급사 공식 미공개",
+                "source": {
+                  "id": "meta-engineering",
+                  "name": "Meta Engineering",
+                  "url": "https://engineering.fb.com/2025/09/29/data-infrastructure/metas-infrastructure-evolution-and-the-advent-of-ai/"
+                }
               },
               {
                 "accountId": "meta",
                 "supplierId": "samsung",
                 "status": "unconfirmed",
                 "sourceId": null,
-                "asOf": null
+                "asOf": null,
+                "claim": "watch"
               },
               {
                 "accountId": "meta",
                 "supplierId": "micron",
                 "status": "unconfirmed",
                 "sourceId": null,
-                "asOf": null
+                "asOf": null,
+                "claim": "watch"
               },
               {
                 "accountId": "meta",
                 "supplierId": "cxmt",
                 "status": "unconfirmed",
                 "sourceId": null,
-                "asOf": null
+                "asOf": null,
+                "claim": "watch"
               }
             ]
           },
@@ -3552,28 +3663,32 @@
                 "supplierId": "skhynix",
                 "status": "unconfirmed",
                 "sourceId": null,
-                "asOf": null
+                "asOf": null,
+                "claim": "watch"
               },
               {
                 "accountId": "tesla",
                 "supplierId": "samsung",
                 "status": "unconfirmed",
                 "sourceId": null,
-                "asOf": null
+                "asOf": null,
+                "claim": "watch"
               },
               {
                 "accountId": "tesla",
                 "supplierId": "micron",
                 "status": "unconfirmed",
                 "sourceId": null,
-                "asOf": null
+                "asOf": null,
+                "claim": "watch"
               },
               {
                 "accountId": "tesla",
                 "supplierId": "cxmt",
                 "status": "unconfirmed",
                 "sourceId": null,
-                "asOf": null
+                "asOf": null,
+                "claim": "watch"
               }
             ]
           },
@@ -3585,32 +3700,252 @@
                 "supplierId": "skhynix",
                 "status": "unconfirmed",
                 "sourceId": null,
-                "asOf": null
+                "asOf": null,
+                "claim": "watch"
               },
               {
                 "accountId": "apple",
                 "supplierId": "samsung",
                 "status": "unconfirmed",
                 "sourceId": null,
-                "asOf": null
+                "asOf": null,
+                "claim": "watch"
               },
               {
                 "accountId": "apple",
                 "supplierId": "micron",
                 "status": "unconfirmed",
                 "sourceId": null,
-                "asOf": null
+                "asOf": null,
+                "claim": "watch"
               },
               {
                 "accountId": "apple",
                 "supplierId": "cxmt",
                 "status": "unconfirmed",
                 "sourceId": null,
-                "asOf": null
+                "asOf": null,
+                "claim": "watch"
               }
             ]
           }
-        ]
+        ],
+        "legend": {
+          "verified-fact": {
+            "label": "공식",
+            "note": "공급사 직접 원문 또는 고객 공식 공개"
+          },
+          "market-estimate": {
+            "label": "보도",
+            "note": "업계 매체·리서치 보도 · 공식 확인 전"
+          },
+          "watch": {
+            "label": "추적",
+            "note": "공식·복수 출처 확인 전까지 미확정"
+          }
+        }
+      },
+      "baseDieStrategy": {
+        "id": "base-die",
+        "label": "BASE DIE · 로직 이관",
+        "definition": "HBM은 DRAM 코어 다이 아래에 베이스 다이(로직 칩)를 깔고 TSV로 연결한 구조 · 베이스 다이는 스택 전체의 읽기·쓰기·리프레시·리페어를 제어하는 컨트롤 플레인이자 GPU/ASIC과 데이터를 주고받는 PHY I/O를 담음",
+        "thesis": "HBM4부터 베이스 다이를 첨단 로직 공정으로 만들어 GPU 쪽 메모리 컨트롤러·인터페이스 일부를 끌어내림 · GPU 다이 면적을 연산에 더 쓰고, 압축·해제·전처리·데이터 이동을 메모리에 가깝게 옮겨 전력을 줄이는 것이 목적",
+        "sourceId": "skhynix-newsroom",
+        "status": "strategy-mapping",
+        "ladder": [
+          {
+            "step": "01",
+            "id": "standard-hbm",
+            "label": "표준 HBM (~HBM3E)",
+            "baseDie": "단순 신호 통과",
+            "lockIn": "낮음",
+            "implication": "범용 판매 가능 · 고객 교체 용이",
+            "accent": "#68758A"
+          },
+          {
+            "step": "02",
+            "id": "custom-hbm",
+            "label": "Custom HBM (HBM4~)",
+            "baseDie": "컨트롤러·PHY 일부 이관 · 로직 공정 적용",
+            "lockIn": "중간",
+            "implication": "고객 공동 최적화 시작 · 공정 파트너 의존 발생",
+            "accent": "#2D6BFF"
+          },
+          {
+            "step": "03",
+            "id": "c-hbm4e",
+            "label": "C-HBM4E (완전 맞춤)",
+            "baseDie": "고객별 로직 완전 통합",
+            "lockIn": "높음",
+            "implication": "재판매 불가 · 공급사 전환 비용 급증 → LTA 협상 지렛대",
+            "accent": "#7656C9"
+          },
+          {
+            "step": "04",
+            "id": "hbm-on-processor",
+            "label": "HBM-on-Processor (차세대)",
+            "baseDie": "독립 베이스 다이 제거 · 컴퓨트 다이 위 직접 적층",
+            "lockIn": "구조적",
+            "implication": "패키지 경계 재정의 · 로드맵 선점 여부가 진입 조건",
+            "accent": "#D05A2B"
+          }
+        ],
+        "capabilityRoadmap": [
+          {
+            "label": "HBM/LPDDR 컨트롤러·PHY",
+            "note": "베이스 다이가 흡수하는 1차 기능"
+          },
+          {
+            "label": "압축 · 해제",
+            "note": "데이터 이동량 자체를 줄여 대역폭·전력 동시 완화"
+          },
+          {
+            "label": "양자화(Quantization)",
+            "note": "정밀도 변환을 메모리 근처에서 수행"
+          },
+          {
+            "label": "소형 NPU 코어",
+            "note": "메모리의 시스템반도체화 · 연산 보조 기능 흡수"
+          }
+        ],
+        "foundryDependency": {
+          "label": "파운드리 의존 리스크",
+          "note": "자체 파운드리가 없어 베이스 다이를 파운드리에 위탁하는 분업형 구조 · DRAM 코어 다이는 안정적 공정을 유지하고 베이스 다이만 최선단 로직으로 고도화해 수율 안정을 우선하되, 파운드리의 로직 캐파·일정이 곧 로드맵 병목이 되므로 지속 추적이 필요",
+          "watchItems": [
+            "로직 공정 노드 확보",
+            "캐파 슬롯·일정",
+            "패키징 스케줄 연동",
+            "경쟁사 자체 파운드리 통합 대비"
+          ],
+          "sourceId": "tsmc-3dfabric",
+          "claim": "market-estimate",
+          "source": {
+            "id": "tsmc-3dfabric",
+            "name": "TSMC 3DFabric",
+            "tier": "primary-company",
+            "sourceClass": "official",
+            "url": "https://3dfabric.tsmc.com/english/dedicatedFoundry/technology/3DFabric.htm",
+            "domains": [
+              "3dfabric.tsmc.com",
+              "tsmc.com"
+            ],
+            "topics": [
+              "cowos",
+              "packaging",
+              "chiplet",
+              "hbm"
+            ],
+            "roles": [
+              "technology",
+              "partner"
+            ],
+            "languages": [
+              "en"
+            ],
+            "freshnessHours": 720,
+            "discoveryQueries": [
+              "site:tsmc.com (3DFabric OR CoWoS OR SoIC) HBM"
+            ],
+            "enabled": true
+          }
+        },
+        "chipletTracking": {
+          "label": "고객 칩렛 분리도 추적",
+          "note": "컴퓨트 다이와 HBM 스택을 별도 칩렛으로 분리하는 고객이 늘수록 베이스 다이가 로직을 흡수할 여지가 커짐 · 계정별 칩렛 분리 정도가 곧 Custom HBM 제안 가능 범위를 결정",
+          "accounts": [
+            "google",
+            "meta",
+            "nvidia",
+            "aws"
+          ],
+          "sourceId": "semi-analysis",
+          "claim": "market-estimate",
+          "source": {
+            "id": "semi-analysis",
+            "name": "SemiAnalysis",
+            "tier": "industry-research",
+            "sourceClass": "research",
+            "url": "https://newsletter.semianalysis.com/",
+            "domains": [
+              "newsletter.semianalysis.com",
+              "semianalysis.com"
+            ],
+            "topics": [
+              "ai-infra",
+              "accelerator",
+              "hbm",
+              "economics"
+            ],
+            "roles": [
+              "technology",
+              "market",
+              "economics"
+            ],
+            "languages": [
+              "en"
+            ],
+            "freshnessHours": 168,
+            "discoveryQueries": [
+              "site:newsletter.semianalysis.com (HBM OR AI infrastructure OR accelerator memory)"
+            ],
+            "enabled": true
+          },
+          "accountLabels": [
+            "Google",
+            "Meta",
+            "NVIDIA",
+            "AWS"
+          ]
+        },
+        "expansion": "커스텀화는 HBM을 넘어 DRAM·NAND·HBF까지 확장되므로, ASIC 고객별 요구를 메모리 전 제품군에서 대응할 준비가 필요",
+        "source": {
+          "id": "skhynix-newsroom",
+          "name": "SK hynix Newsroom",
+          "tier": "primary-company",
+          "sourceClass": "official",
+          "url": "https://news.skhynix.com/",
+          "domains": [
+            "news.skhynix.com"
+          ],
+          "topics": [
+            "hbm",
+            "dram",
+            "nand",
+            "hbf",
+            "ai-d",
+            "ai-n",
+            "cxl",
+            "maas",
+            "ai-infra",
+            "partnership",
+            "advanced-packaging"
+          ],
+          "roles": [
+            "technology",
+            "execution",
+            "financial",
+            "partner",
+            "standard"
+          ],
+          "languages": [
+            "en"
+          ],
+          "freshnessHours": 168,
+          "discoveryQueries": [
+            "site:news.skhynix.com (HBM OR CXL OR eSSD OR \"AI memory\")",
+            "site:news.skhynix.com (quarterly results OR earnings OR HBM4 OR capacity)",
+            "site:news.skhynix.com (HBF OR \"AI-N\" OR \"AI-D\" OR \"Full-Stack AI Memory\")",
+            "site:news.skhynix.com (\"memory-as-a-service\" OR \"memory pooling\" OR CXL)",
+            "site:news.skhynix.com (NVIDIA OR TSMC OR Indiana OR \"advanced packaging\")"
+          ],
+          "healthCheck": {
+            "markers": [
+              "SK hynix",
+              "Newsroom"
+            ]
+          },
+          "enabled": true
+        }
       },
       "competitiveFrame": [
         {

@@ -13055,6 +13055,7 @@
     const competitiveFrame = Array.isArray(customerBoard.competitiveFrame) ? customerBoard.competitiveFrame : [];
     const demandMix = customerBoard.demandMix || {};
     const supplierMatrix = customerBoard.supplierMatrix || {};
+    const baseDieStrategy = customerBoard.baseDieStrategy || null;
     const dealDashboard = customerBoard.dealDashboard || {};
     const accountProductMap = Array.isArray(customerBoard.productMap) ? customerBoard.productMap : [];
     const applicationSignals = Array.isArray(customerBoard.applicationSignals) ? customerBoard.applicationSignals : [];
@@ -13193,9 +13194,50 @@
         <summary class="sc-report-head"><strong>ACCOUNT × SUPPLIER MATRIX</strong><span>SK hynix · Samsung · Micron · CXMT · 근거 없으면 미확인</span></summary>
         <div style="overflow-x:auto"><table class="sc-playbook-table sc-account-matrix"><thead><tr><th>ACCOUNT</th>${(supplierMatrix.suppliers || []).map((supplier) => `<th>${escapeHTML(supplier.label || supplier.id || "")}</th>`).join("")}</tr></thead><tbody>${(supplierMatrix.rows || []).map((row) => {
           const account = customerAccounts.find((item) => item.id === row.accountId) || {};
-          return `<tr><th>${escapeHTML(account.company || row.accountId || "")}</th>${(row.cells || []).map((cell) => `<td><span class="sc-playbook-status is-monitoring">${escapeHTML(cell.status === "unconfirmed" ? "미확인" : cell.status || "미확인")}</span></td>`).join("")}</tr>`;
+          return `<tr><th>${escapeHTML(account.company || row.accountId || "")}</th>${(row.cells || []).map((cell) => {
+            const status = cell.status === "unconfirmed" ? "미확인" : (cell.status || "미확인");
+            const claim = cell.claim || "watch";
+            const claimLabel = cell.claimLabel || (claim === "verified-fact" ? "공식" : claim === "market-estimate" ? "보도" : "추적");
+            const src = cell.source && cell.source.url
+              ? `<a href="${escapeHTML(cell.source.url)}" target="_blank" rel="noopener">${escapeHTML(cell.source.name || "출처")} ↗</a>`
+              : "";
+            return `<td title="${escapeHTML(cell.note || "")}"><span class="sc-playbook-status is-monitoring">${escapeHTML(status)}</span> <b class="sc-ev-src">${escapeHTML(claimLabel)}</b>${src ? `<br>${src}` : ""}</td>`;
+          }).join("")}</tr>`;
         }).join("")}</tbody></table></div>
+        ${supplierMatrix.legend ? `<p class="sc-note">${Object.entries(supplierMatrix.legend).map(([key, value]) => `<b class="sc-ev-src">${escapeHTML(value.label || key)}</b> ${escapeHTML(value.note || "")}`).join(" · ")}</p>` : ""}
       </details>
+      ${(() => {
+        // Base Die (logic die) migration ladder — why Custom HBM is a lock-in
+        // lever, what the base die absorbs, and the foundry/chiplet watch items.
+        const bd = baseDieStrategy;
+        if (!bd || !Array.isArray(bd.ladder) || !bd.ladder.length) return "";
+        return `
+        <details class="sc-report" open>
+          <summary class="sc-report-head"><strong>BASE DIE · 로직 이관 사다리</strong><span>${fmtNum(bd.ladder.length)}단계 · 커스텀화 심화 → 락인·협상력</span></summary>
+          <p class="sc-note">${strategicHighlightHTML(bd.definition || "")}</p>
+          <p class="sc-note">${strategicHighlightHTML(bd.thesis || "")}</p>
+          <div class="sc-partner-grid">
+            ${bd.ladder.map((step) => `
+              <article class="sc-partner" style="--sc-accent:${escapeHTML(step.accent || "#2D6BFF")}">
+                <span class="sc-tech-en">${escapeHTML(step.step || "")}</span>
+                <strong>${escapeHTML(step.label || "")}</strong>
+                <div class="sc-partner-row"><b>BASE DIE</b><span>${escapeHTML(step.baseDie || "")}</span></div>
+                <div class="sc-partner-row"><b>LOCK-IN</b><span>${escapeHTML(step.lockIn || "")}</span></div>
+                <p>${escapeHTML(step.implication || "")}</p>
+              </article>
+            `).join("")}
+          </div>
+          ${Array.isArray(bd.capabilityRoadmap) && bd.capabilityRoadmap.length ? `
+            <div class="sc-partner-grid">
+              ${bd.capabilityRoadmap.map((cap) => `<article class="sc-partner"><strong>${escapeHTML(cap.label || "")}</strong><p>${escapeHTML(cap.note || "")}</p></article>`).join("")}
+            </div>` : ""}
+          <div class="sc-partner-grid">
+            ${bd.foundryDependency ? `<article class="sc-partner"><strong>${escapeHTML(bd.foundryDependency.label || "파운드리 의존")}</strong><p>${escapeHTML(bd.foundryDependency.note || "")}</p><div class="sc-trends">${(bd.foundryDependency.watchItems || []).map((item) => `<span class="sc-trend">${escapeHTML(item)}</span>`).join("")}</div>${bd.foundryDependency.source?.url ? `<a class="sc-ev-src" href="${escapeHTML(bd.foundryDependency.source.url)}" target="_blank" rel="noopener">${escapeHTML(bd.foundryDependency.source.name || "출처")} ↗</a>` : ""}</article>` : ""}
+            ${bd.chipletTracking ? `<article class="sc-partner"><strong>${escapeHTML(bd.chipletTracking.label || "칩렛 분리 추적")}</strong><p>${escapeHTML(bd.chipletTracking.note || "")}</p><div class="sc-trends">${(bd.chipletTracking.accountLabels || []).map((label) => `<span class="sc-trend">${escapeHTML(label)}</span>`).join("")}</div>${bd.chipletTracking.source?.url ? `<a class="sc-ev-src" href="${escapeHTML(bd.chipletTracking.source.url)}" target="_blank" rel="noopener">${escapeHTML(bd.chipletTracking.source.name || "출처")} ↗</a>` : ""}</article>` : ""}
+          </div>
+          ${bd.expansion ? `<p class="sc-note">${escapeHTML(bd.expansion)}</p>` : ""}
+        </details>`;
+      })()}
       <details class="sc-report">
         <summary class="sc-report-head"><strong>LTA · PREPAYMENT DEAL DASHBOARD</strong><span>${fmtNum(dealDashboard.events?.length || 0)}개 공개 계약 Event</span></summary>
         <div class="sc-deal-schema">${Object.values(dealDashboard.schema?.fields || customerBoard.contractGate?.fields || []).map((field) => `<span>${escapeHTML(field)}</span>`).join("")}</div>
