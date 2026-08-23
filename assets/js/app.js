@@ -4258,9 +4258,13 @@
   function finalizeConsoleLoadingLabels() {
     const verified = document.body.dataset.liveDataState === "verified"
       && document.body.dataset.quantDataState === "verified";
+    const promotedCount = Number(LIVE?.evidence?.promotedCount || LIVE?.news?.length || 0);
+    const asOf = String(LIVE?.intelligence?.generatedAt || LIVE?.updatedAt || "").slice(0, 10);
     const fallback = verified
-      ? "현재 실행에서 승격 근거 없음 · Reference only"
-      : "LIVE DATA UNAVAILABLE · Decision use disabled";
+      ? promotedCount > 0
+        ? `검증 근거 ${fmtNum(promotedCount)}건${asOf ? ` · ${asOf} 기준` : ""}`
+        : "검증 근거 자동 연결 대기"
+      : "데이터 재검증 중 · 검증 완료본 유지";
     $$(".board-meta").forEach((node) => {
       if (/로드 중|연결 중|집계 전|확인 중/.test(node.textContent || "")) node.textContent = fallback;
     });
