@@ -51,6 +51,13 @@ assert.match(files.html.text, /hbm-system\.webp" alt="" width="1920" height="107
 assert.doesNotMatch(files.html.text, /hbm-system\.webp"[^>]*fetchpriority="high"/);
 assert.doesNotMatch(files.landingJs.text, /rootMargin:\s*"0px 0px -8%"/);
 assert.match(files.appJs.text, /function scheduleProgressiveDeferredSections\(/);
+assert.match(files.appJs.text, /DEFERRED_HEAVY_WARMUP_DELAY_MS\s*=\s*6_500/);
+assert.match(files.appJs.text, /waitForWarmupWindow\(definition\)[\s\S]*?preloadDeferredSectionData\(definition\.id\)/);
+assert.match(files.appJs.text, /function loadSecondaryData\(requirements = \[\], \{ sequential = false \} = \{\}\)[\s\S]*?ids\.reduce/);
+assert.match(files.appJs.text, /section\.dataset\.backgroundPreload = "true";[\s\S]*?preloadDeferredSectionData\(definition\.id\)/);
+assert.match(files.appJs.text, /function setupDeferredRecovery\(definitions\)[\s\S]*?window\.addEventListener\("online"[\s\S]*?window\.setInterval\(recover, 60_000\)/);
+assert.match(files.appJs.text, /DEFERRED_RETRY_DELAYS\s*=\s*\[900, 2_400, 6_000\][\s\S]*?DEFERRED_RETRY_COOLDOWN_MS\s*=\s*120_000/);
+assert.match(files.appJs.text, /function loadJSON\(path, fallback, options = \{\}\)[\s\S]*?options\.attempts[\s\S]*?options\.onFallback/);
 assert.match(files.appJs.text, /function scheduleOverviewDetails\(\)/);
 assert.match(files.appJs.text, /function scheduleInteractiveEnhancements\(\)/);
 assert.match(files.appJs.text, /function schedulePolicyArtifacts\(\)/);
@@ -88,4 +95,6 @@ console.log(JSON.stringify({
   heroMedia: "three-image-rotation",
   lazyConsoleTemplate: true,
   progressiveNoScrollHydration: true,
+  stagedHeavyDataWarmupMs: 6500,
+  deferredRecovery: "bounded-retry-plus-cooldown",
 }, null, 2));

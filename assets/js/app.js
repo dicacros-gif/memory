@@ -2488,17 +2488,26 @@
   }
 
   async function loadJSON(path, fallback, options = {}) {
-    try {
-      const res = await fetch(path, {
-        cache: options.cache || "no-cache",
-        credentials: "omit",
-      });
-      if (!res.ok) throw new Error(`${path} ${res.status}`);
-      return await res.json();
-    } catch (error) {
-      console.warn(error.message);
-      return fallback;
+    const attempts = Math.max(1, Math.min(3, Number(options.attempts || 1)));
+    let lastError = null;
+    for (let attempt = 0; attempt < attempts; attempt += 1) {
+      try {
+        const res = await fetch(path, {
+          cache: options.cache || "no-cache",
+          credentials: "omit",
+        });
+        if (!res.ok) throw new Error(`${path} ${res.status}`);
+        return await res.json();
+      } catch (error) {
+        lastError = error;
+        if (attempt + 1 < attempts && navigator.onLine !== false) {
+          await new Promise((resolve) => window.setTimeout(resolve, 240 * (attempt + 1)));
+        }
+      }
     }
+    console.warn(lastError?.message || `${path} unavailable`);
+    if (typeof options.onFallback === "function") options.onFallback(lastError);
+    return fallback;
   }
 
   async function loadDataManifest() {
@@ -5256,12 +5265,20 @@
 
   const secondaryDataPromises = new Map();
   const secondaryDataReady = new Set();
+  const secondaryDataFallback = new Set();
   const deferredSectionRuns = new Map();
   const deferredDataPreloadRuns = new Map();
   const deferredDataPreloadReady = new Set();
   const deferredRenderedSections = new Set(["strategy-consulting"]);
+  const deferredRetryAttempts = new Map();
+  const deferredRetryTimers = new Map();
+  const DEFERRED_RETRY_DELAYS = [900, 2_400, 6_000];
+  const DEFERRED_RETRY_COOLDOWN_MS = 120_000;
+  const DEFERRED_HEAVY_WARMUP_DELAY_MS = 6_500;
+  const DEFERRED_HEAVY_DATA = new Set(["priceHistory", "marketHistory", "enterpriseProfiles"]);
   let priceBoardPreloadStarted = false;
   let deferredHydrationQueueStarted = false;
+  let deferredWarmupStartedAt = 0;
 
   function deferredSectionDefinitions() {
     return [
@@ -5344,19 +5361,42 @@
     };
     const definition = definitions[id];
     if (!definition) return Promise.resolve();
-    const promise = (definition.managed === false
-      ? loadJSON(definition.path, definition.fallback)
-      : loadManagedJSON(id, definition.path, definition.fallback))
+    let usedFallback = false;
+    const path = definition.managed === false
+      ? definition.path
+      : managedDataPath(id, definition.path);
+    const promise = loadJSON(path, definition.fallback, {
+      cache: definition.managed === false || DATA_MANIFEST?.artifacts?.[id] ? "force-cache" : "no-cache",
+      attempts: 3,
+      onFallback: () => { usedFallback = true; },
+    })
       .then((value) => {
         definition.assign(value);
-        secondaryDataReady.add(id);
+        if (usedFallback) {
+          secondaryDataFallback.add(id);
+          secondaryDataReady.delete(id);
+        } else {
+          secondaryDataFallback.delete(id);
+          secondaryDataReady.add(id);
+        }
+      })
+      .finally(() => {
+        // A fallback remains usable for truthful rendering, but must not become
+        // a permanent cache entry. The recovery watchdog can request it again.
+        if (usedFallback) secondaryDataPromises.delete(id);
       });
     secondaryDataPromises.set(id, promise);
     return promise;
   }
 
-  function loadSecondaryData(requirements = []) {
+  function loadSecondaryData(requirements = [], { sequential = false } = {}) {
     const ids = Array.from(new Set(requirements)).filter(Boolean);
+    if (sequential) {
+      return ids.reduce(
+        (chain, id) => chain.then(() => loadSecondaryArtifact(id)),
+        Promise.resolve(),
+      );
+    }
     return Promise.all(ids.map(loadSecondaryArtifact));
   }
 
@@ -5430,10 +5470,20 @@
     if (!section) return Promise.resolve();
 
     section.dataset.deferredDataState = "loading";
-    const run = loadSecondaryData(definition.data || [])
+    const sequential = section.dataset.backgroundPreload === "true";
+    const run = loadSecondaryData(definition.data || [], { sequential })
       .then(() => {
+        const unavailable = (definition.data || []).filter((key) => secondaryDataFallback.has(key));
+        if (unavailable.length) {
+          deferredDataPreloadReady.delete(id);
+          section.dataset.deferredDataState = "fallback";
+          section.dataset.deferredDataMissing = unavailable.join(",");
+          scheduleDeferredSectionRetry(section, id);
+          return;
+        }
         deferredDataPreloadReady.add(id);
         section.dataset.deferredDataState = "ready";
+        delete section.dataset.deferredDataMissing;
       })
       .catch((error) => {
         section.dataset.deferredDataState = "retry";
@@ -5446,9 +5496,63 @@
 
   function markDeferredSectionFallback(section, id) {
     const meta = section.querySelector(".board-meta");
-    if (meta) meta.textContent = "현재 검증 근거 준비 중 · 선택 시 자동 재시도";
+    if (meta) meta.textContent = "마지막 검증본 유지 · 자동 재연결 중";
     section.dataset.contentHealth = "retry";
     section.dataset.deferredFailure = id;
+  }
+
+  function clearDeferredSectionRetry(id) {
+    const timer = deferredRetryTimers.get(id);
+    if (timer) window.clearTimeout(timer);
+    deferredRetryTimers.delete(id);
+    deferredRetryAttempts.delete(id);
+    const section = document.getElementById(id);
+    if (section) delete section.dataset.deferredRetryAttempt;
+  }
+
+  function resetDeferredSectionForRetry(id) {
+    const definition = deferredDefinition(id);
+    deferredSectionRuns.delete(id);
+    deferredDataPreloadRuns.delete(id);
+    deferredDataPreloadReady.delete(id);
+    deferredRenderedSections.delete(id);
+    for (const key of definition?.data || []) {
+      if (!secondaryDataFallback.has(key)) continue;
+      secondaryDataPromises.delete(key);
+      secondaryDataReady.delete(key);
+    }
+  }
+
+  function scheduleDeferredSectionRetry(section, id, { immediate = false } = {}) {
+    const healthyRendered = deferredRenderedSections.has(id)
+      && section?.dataset.deferredDataState !== "fallback"
+      && section?.dataset.contentHealth !== "retry";
+    if (!section || deferredRetryTimers.has(id) || healthyRendered) return;
+    const attempt = Number(deferredRetryAttempts.get(id) || 0);
+    if (attempt >= DEFERRED_RETRY_DELAYS.length) {
+      section.dataset.contentHealth = "fallback";
+      section.dataset.deferredState = "fallback";
+      const retryAfterCooldown = () => {
+        deferredRetryTimers.delete(id);
+        deferredRetryAttempts.set(id, 0);
+        scheduleDeferredSectionRetry(section, id, { immediate: true });
+      };
+      deferredRetryTimers.set(id, window.setTimeout(retryAfterCooldown, DEFERRED_RETRY_COOLDOWN_MS));
+      return;
+    }
+    const delay = immediate ? 0 : DEFERRED_RETRY_DELAYS[attempt];
+    deferredRetryAttempts.set(id, attempt + 1);
+    section.dataset.deferredRetryAttempt = String(attempt + 1);
+    const retry = () => {
+      deferredRetryTimers.delete(id);
+      if (navigator.onLine === false) {
+        window.addEventListener("online", () => scheduleDeferredSectionRetry(section, id, { immediate: true }), { once: true });
+        return;
+      }
+      resetDeferredSectionForRetry(id);
+      void ensureDeferredSection(id, { refreshGeometry: false });
+    };
+    deferredRetryTimers.set(id, window.setTimeout(retry, delay));
   }
 
   function ensureDeferredSection(id, { refreshGeometry = true } = {}) {
@@ -5473,7 +5577,8 @@
       section.dataset.progressivePaint = "ready";
       deferredRenderedSections.add(id);
       section.dataset.deferredState = "ready";
-      section.dataset.contentHealth = "ready";
+      const dataFallback = section.dataset.deferredDataState === "fallback";
+      section.dataset.contentHealth = dataFallback ? "fallback" : "ready";
       delete section.dataset.deferredFailure;
       section.removeAttribute("aria-busy");
       if (definition.normalize !== false) normalizeBriefCopy(section);
@@ -5482,12 +5587,15 @@
         animateMeters(section);
       }
       updateDeferredHydrationStatus();
+      if (dataFallback) scheduleDeferredSectionRetry(section, id);
+      else clearDeferredSectionRetry(id);
       if (refreshGeometry) scheduleScrollSpyGeometryRefresh();
     })().catch((error) => {
       section.dataset.deferredState = "error";
       section.removeAttribute("aria-busy");
       markDeferredSectionFallback(section, id);
       deferredSectionRuns.delete(id);
+      scheduleDeferredSectionRetry(section, id);
       updateDeferredHydrationStatus();
       console.warn(`Deferred section failed: ${id}`, error);
     });
@@ -5505,19 +5613,36 @@
   function scheduleProgressiveDeferredSections(definitions) {
     if (deferredHydrationQueueStarted) return;
     deferredHydrationQueueStarted = true;
+    deferredWarmupStartedAt = performance.now();
     const queue = definitions.filter((definition) => document.getElementById(definition.id));
     let cursor = 0;
+
+    const waitForWarmupWindow = async (definition) => {
+      const heavy = (definition?.data || []).some((id) => DEFERRED_HEAVY_DATA.has(id));
+      if (!heavy) return;
+      const remaining = DEFERRED_HEAVY_WARMUP_DELAY_MS - (performance.now() - deferredWarmupStartedAt);
+      if (remaining <= 0) return;
+      document.body.dataset.deferredHeavyWarmup = "scheduled";
+      await new Promise((resolve) => window.setTimeout(resolve, remaining));
+      document.body.dataset.deferredHeavyWarmup = "running";
+    };
 
     const startNext = () => {
       const run = async () => {
         const definition = queue[cursor++];
         const section = definition && document.getElementById(definition.id);
         if (section) {
+          await waitForWarmupWindow(definition);
+          section.dataset.backgroundPreload = "true";
           await preloadDeferredSectionData(definition.id);
+          delete section.dataset.backgroundPreload;
         }
         document.body.dataset.deferredDataScheduled = String(cursor);
         if (cursor < queue.length) scheduleNext();
-        else document.body.dataset.deferredDataQueue = "ready";
+        else {
+          document.body.dataset.deferredDataQueue = "ready";
+          document.body.dataset.deferredHeavyWarmup = "ready";
+        }
       };
       if ("requestIdleCallback" in window) window.requestIdleCallback(() => { void run(); }, { timeout: 180 });
       else window.setTimeout(() => { void run(); }, 36);
@@ -5538,6 +5663,22 @@
     }
   }
 
+  function setupDeferredRecovery(definitions) {
+    const recover = ({ immediate = false } = {}) => {
+      if (document.hidden || navigator.onLine === false) return;
+      definitions.forEach((definition) => {
+        const section = document.getElementById(definition.id);
+        if (!section) return;
+        const unhealthy = ["error", "fallback"].includes(section.dataset.deferredState)
+          || ["retry", "fallback"].includes(section.dataset.contentHealth)
+          || section.dataset.deferredDataState === "fallback";
+        if (unhealthy) scheduleDeferredSectionRetry(section, definition.id, { immediate });
+      });
+    };
+    window.addEventListener("online", () => recover({ immediate: true }));
+    window.setInterval(recover, 60_000);
+  }
+
   function setupDeferredSections() {
     const definitions = deferredSectionDefinitions();
     const sections = definitions
@@ -5552,6 +5693,7 @@
     setupPriceBoardPreload();
     setupDecisionHistoryPreload();
     scheduleProgressiveDeferredSections(definitions);
+    setupDeferredRecovery(definitions);
     routeScrollHydrationReady = true;
     scheduleScrollSpyGeometryRefresh();
   }
