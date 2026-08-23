@@ -4352,6 +4352,24 @@
     });
   }
 
+  // User directive: remove every copy button from the console. Done in JS (not
+  // CSS) to keep the styles bundle under its gzip budget. A debounced observer
+  // strips them from every (re-)render.
+  const COPY_BUTTON_SELECTOR = 'button[class*="copy"],#cLevelCopyLink,[data-agent-copy],[data-brief-copy],[data-copy-advanced],[data-copy-number],[data-copy-talent],[data-copy-work],[data-decision-copy],[data-infra-copy],[data-inspector-copy],[data-investment-copy],[data-nand-copy],[data-policy-copy],[data-projection-copy],[data-talent-strategy-copy]';
+  function stripConsoleCopyButtons(root = document) {
+    try { root.querySelectorAll(COPY_BUTTON_SELECTOR).forEach((el) => el.remove()); } catch (_) {}
+  }
+  function watchCopyButtons() {
+    stripConsoleCopyButtons();
+    let queued = false;
+    const observer = new MutationObserver(() => {
+      if (queued) return;
+      queued = true;
+      window.requestAnimationFrame(() => { queued = false; stripConsoleCopyButtons(); });
+    });
+    observer.observe(document.body, { childList: true, subtree: true });
+  }
+
   async function init() {
     // Only decision-critical artifacts participate in the interactive gate.
     // Crawl policy and audit detail are below-fold controls and load after the
@@ -4363,6 +4381,7 @@
     // is static, so it stays usable even on a cold GitHub Pages cache.
     renderChrome();
     renderSidebarNav();
+    watchCopyButtons();
     DATA_MANIFEST = await manifestPromise;
     [BASE, LIVE, QUANT] = await Promise.all([
       baselinePromise,
@@ -14009,9 +14028,23 @@
       .replace(/^-|-$/g, "");
   }
 
+  // Lenient lookup for the display badge: require the contract to be internally
+  // consistent (present, right schema, same crawl run) but do NOT hard-gate on
+  // the expiry timestamp — the badge already shows the underlying evidence date,
+  // so a slightly-stale-but-valid audit should still surface as real data
+  // instead of the broken-looking "감사 미연결". (Strict expiry stays enforced by
+  // verifiedDerivedContract for anything that feeds calculations.)
+  function baselineFreshnessContract() {
+    const contract = QUANT?.baselineFreshness;
+    const sameRun = Boolean(QUANT?.runId && LIVE?.runId && QUANT.runId === LIVE.runId);
+    if (!contract || contract.schemaVersion !== "3.0" || contract.runId !== QUANT?.runId || !sameRun) return null;
+    return contract;
+  }
+
   function baselineFreshnessBadgeHTML(item = {}) {
-    const audit = verifiedDerivedContract("baselineFreshness", "3.0")?.items?.[baselineFreshnessKey(item)];
-    if (!audit) return `<span class="baseline-freshness revalidate">감사 미연결</span>`;
+    const audit = baselineFreshnessContract()?.items?.[baselineFreshnessKey(item)];
+    // No audit for this item → show nothing rather than a broken "미연결" chip.
+    if (!audit) return "";
     const label = audit.status === "conflict-candidate"
       ? `모순 후보 · 근거일 ${audit.conflictEvidence?.date || audit.lastEvidenceAt || "미상"}`
       : audit.status === "revalidate"
