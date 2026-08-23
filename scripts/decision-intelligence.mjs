@@ -819,6 +819,8 @@ export function buildAutomatedDecisionBriefs({ claimLedger = {}, packs = [], eva
     const claims = (claimLedger.events || []).filter((event) => (brief.claimRuleIds || []).includes(event.ruleId));
     const claimEvidence = claims.map((event) => ({
       id: event.id,
+      ruleId: event.ruleId,
+      feedId: event.feedId,
       title: `${event.entity.label} · ${event.product.label} · ${event.stage.id}`,
       source: event.source,
       sourceId: event.sourceId,
@@ -827,12 +829,18 @@ export function buildAutomatedDecisionBriefs({ claimLedger = {}, packs = [], eva
       publishedAt: event.publishedAt,
       stage: event.stage.id,
       confidence: event.confidence,
+      claimType: event.claimType,
+      asOf: event.asOf || event.publishedAt,
       excerpt: event.evidenceSpan,
     }));
     const retrievalEvidence = (brief.trackIds || []).flatMap((trackId) => packMap.get(trackId)?.evidence || []);
     const evidence = uniqueEvidence([...claimEvidence, ...retrievalEvidence]).slice(0, 8);
     const independentSources = new Set(evidence.map((item) => item.sourceId || item.source).filter(Boolean)).size;
     const primaryEvidence = evidence.filter((item) => item.sourceClass === "official").length;
+    const officialFactCount = evidence.filter((item) => item.claimType === "verified-fact"
+      || (item.sourceClass === "official" && item.claimType !== "market-estimate")).length;
+    const marketEstimateCount = evidence.filter((item) => item.claimType === "market-estimate"
+      || item.sourceClass === "research").length;
     const hasConflict = claims.some((event) => event.contradictionStatus === "review");
     const verifiedClaims = claims.filter((event) => event.promotionStatus !== "review" && event.contradictionStatus === "clear").length;
     const latestClaim = claims.filter((event) => event.isCurrentStage)[0] || claims[0] || null;
@@ -859,6 +867,8 @@ export function buildAutomatedDecisionBriefs({ claimLedger = {}, packs = [], eva
       stage: brief.decisionStage,
       confidence: latestClaim?.promotionStatus || "evidence-gap",
       customerPain: brief.customerPain,
+      factBoundary: brief.factBoundary || "공식 원문·제품 Stage·날짜가 확인된 내용만 사실로 승격 · 전망 수치는 시장 추정치로 분리",
+      hypothesisStatus: brief.hypothesisStatus || "strategy-hypothesis",
       hypothesis: brief.hypothesis,
       options: brief.options || [],
       economics: brief.economics || [],
@@ -868,6 +878,8 @@ export function buildAutomatedDecisionBriefs({ claimLedger = {}, packs = [], eva
       trigger: brief.trigger,
       killCriteria: brief.killCriteria,
       evidenceCount: evidence.length,
+      officialFactCount,
+      marketEstimateCount,
       independentSources,
       primaryEvidence,
       verifiedClaims,

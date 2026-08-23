@@ -99,6 +99,7 @@
       "경영진 의사결정",
       "RAG",
       "Vector DB",
+      "Memory-as-a-Service",
       "Customer Problem",
       "Full-Stack AI Infra",
       "Business Case"
@@ -144,7 +145,8 @@
           "context": "Attention · Expert Routing",
           "impact": "Parameter·Activation 상주와 Collective 증가",
           "memory": "HBM4·HBM4E · Fabric",
-          "accent": "#2D6BFF"
+          "accent": "#2D6BFF",
+          "claimRuleIds": ["hbm4-production-stage", "full-stack-memory-portfolio"]
         },
         {
           "id": "context-kv",
@@ -152,7 +154,8 @@
           "context": "Prompt · Prefill · Decode",
           "impact": "Token·동시 Session에 비례한 KV 용량 증가",
           "memory": "HBM Hot · AI-D System · AI-N/HBF Scale",
-          "accent": "#00A88F"
+          "accent": "#00A88F",
+          "claimRuleIds": ["full-stack-memory-portfolio", "ai-n-product-stage"]
         },
         {
           "id": "rag",
@@ -160,7 +163,8 @@
           "context": "Hybrid Retrieval · Rerank",
           "impact": "Index Freshness·P99·ACL이 데이터 배치 결정",
           "memory": "DRAM · CXL · eSSD",
-          "accent": "#0A84B8"
+          "accent": "#0A84B8",
+          "claimRuleIds": ["ai-n-product-stage", "maas-service-model"]
         },
         {
           "id": "vector-data",
@@ -168,7 +172,8 @@
           "context": "Embedding · Checkpoint",
           "impact": "Active Index와 대용량 Corpus의 계층화",
           "memory": "AI-D Active · AI-N P/D eSSD",
-          "accent": "#7656C9"
+          "accent": "#7656C9",
+          "claimRuleIds": ["ai-n-product-stage", "full-stack-memory-portfolio"]
         },
         {
           "id": "hbf-open-standard",
@@ -176,7 +181,18 @@
           "context": "OCP · UCIe · Lighthouse PoC",
           "impact": "HBM과 SSD 사이 추론 Capacity Tier 검증",
           "memory": "AI-N B · HBF 8/16-Hi · 0.4–3.0 TB/s",
-          "accent": "#C88600"
+          "accent": "#C88600",
+          "claimRuleIds": ["hbf-standardization-stage"]
+        },
+        {
+          "id": "memory-as-a-service",
+          "tech": "Memory-as-a-Service",
+          "context": "CXL · Pooling · Composable Memory",
+          "impact": "분리·공유 Memory Pool로 유휴 Capacity와 Peak 증설 비용 절감",
+          "memory": "AI-D · CXL Pool · Metering/SLA",
+          "accent": "#D05A2B",
+          "claimRuleIds": ["maas-service-model"],
+          "commercialStatus": "strategy-hypothesis"
         }
       ]
     },
@@ -186,7 +202,7 @@
       "topics": [
         { "id": "serving", "label": "LLM SERVING", "terms": ["llm", "inference", "serving", "vllm", "dynamo", "prefill", "decode", "kv cache", "추론", "서빙"] },
         { "id": "rag", "label": "RAG / VECTOR", "terms": ["rag", "retrieval", "vector", "embedding", "rerank", "context", "검색", "벡터"] },
-        { "id": "accelerator", "label": "ACCELERATOR / MEMORY", "terms": ["gpu", "accelerator", "asic", "hbm", "cxl", "dram", "nand", "ssd", "가속기", "메모리"] }
+        { "id": "accelerator", "label": "ACCELERATOR / MEMORY", "terms": ["gpu", "accelerator", "asic", "hbm", "cxl", "maas", "memory-as-a-service", "pooling", "dram", "nand", "ssd", "가속기", "메모리"] }
       ]
     },
     "partners": {
@@ -200,9 +216,10 @@
       ]
     },
     "playbooks": [
-      { "id": "agentic-serving", "segment": "Agentic AI Serving", "pain": "KV Cache·TTFT·Token 원가", "solution": "Serving SW × HBM/AI-D/AI-N/HBF 배치", "outcome": "SLO-constrained Goodput·Cost/Task", "gate": "동일 Trace·Quality·P99·HBF 상호운용성" },
-      { "id": "training-ramp", "segment": "AI Training Cluster", "pain": "대역폭·Collective·Checkpoint 병목", "solution": "HBM·Fabric·eSSD 공동 Roadmap", "outcome": "Time-to-Train·가동률·Ramp 방어", "gate": "Qualification·Capacity·Margin" },
-      { "id": "enterprise-rag", "segment": "Enterprise RAG", "pain": "검색 품질·Index Freshness·P99", "solution": "Hybrid Retrieval × DRAM/CXL/eSSD Tier", "outcome": "Citation 품질·Cost/Query·운영 신뢰성", "gate": "Recall·ACL·Freshness·P99" }
+      { "id": "agentic-serving", "segment": "Agentic AI Serving", "pain": "KV Cache·TTFT·Token 원가", "solution": "Serving SW × HBM/AI-D/AI-N/HBF 배치", "outcome": "SLO-constrained Goodput·Cost/Task", "gate": "동일 Trace·Quality·P99·HBF 상호운용성", "claimRuleIds": ["full-stack-memory-portfolio", "hbf-standardization-stage"] },
+      { "id": "training-ramp", "segment": "AI Training Cluster", "pain": "대역폭·Collective·Checkpoint 병목", "solution": "HBM·Fabric·eSSD 공동 Roadmap", "outcome": "Time-to-Train·가동률·Ramp 방어", "gate": "Qualification·Capacity·Margin", "claimRuleIds": ["hbm4-production-stage", "capacity-commitment"] },
+      { "id": "enterprise-rag", "segment": "Enterprise RAG", "pain": "검색 품질·Index Freshness·P99", "solution": "Hybrid Retrieval × DRAM/CXL/eSSD Tier", "outcome": "Citation 품질·Cost/Query·운영 신뢰성", "gate": "Recall·ACL·Freshness·P99", "claimRuleIds": ["ai-n-product-stage", "hbf-standardization-stage"] },
+      { "id": "memory-as-a-service", "segment": "Memory-as-a-Service", "pain": "서버별 고정 Memory·유휴 Capacity·Peak 증설 비용", "solution": "CXL Pooling × Metering × SLA", "outcome": "Memory 활용률·TCO·반복 수익", "gate": "상호운용성·Pool 활용률·계측 정확도·SLA", "claimRuleIds": ["maas-service-model"], "commercialStatus": "strategy-hypothesis" }
     ],
     "disclosure": "전략 플레이북 · 실제 고객 성과가 아닌 공개 근거 기반 검증 가설"
   },

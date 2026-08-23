@@ -122,6 +122,17 @@ const documents = [
     observedAt: "2026-08-16T00:00:00.000Z",
     text: "The Full-Stack AI Memory Creator portfolio has three pillars: Custom HBM, AI-D and AI-N roadmap products.",
   },
+  {
+    feedId: "skhynix-cxl-maas",
+    sourceId: "skhynix-newsroom",
+    source: "SK hynix Newsroom",
+    sourceClass: "official",
+    title: "SK hynix unlocks NAND memory potential at FMS",
+    url: "https://news.skhynix.com/en/sk-hynix-unlocks-nand-memory-potential-with-innovative-products-at-fms-2022/",
+    publishedAt: "2022-08-04",
+    observedAt: "2026-08-16T00:00:00.000Z",
+    text: "SK hynix presented CXL memory bandwidth and capacity expansion with memory pooling, redefining memory-as-a-service.",
+  },
 ];
 
 const observations = extractMetricObservations(documents, policy);
@@ -186,6 +197,9 @@ assert.ok(built.claimEvents.events.every((event) => event.feedId), "direct Claim
 const hbfStandard = built.claimEvents.events.find((event) => event.ruleId === "hbf-standardization-stage" && event.sourceClass === "official");
 assert.equal(hbfStandard?.stage.id, "STANDARDIZATION", "an HBF standard disclosure must not be overwritten by generic announcement language");
 assert.ok(built.claimEvents.events.some((event) => event.ruleId === "full-stack-memory-portfolio" && event.product.id === "ai-n"), "the official Full-Stack portfolio must reach the ClaimEvent ledger");
+const maasDirection = built.claimEvents.events.find((event) => event.ruleId === "maas-service-model");
+assert.equal(maasDirection?.product.id, "cxl", "MaaS direction must bind to CXL");
+assert.equal(maasDirection?.claimType, "verified-fact", "official MaaS direction must remain a verified fact");
 assert.ok(built.claimEvents.events.every((event) => ["official", "research"].includes(event.sourceClass)), "media summaries must not enter the ClaimEvent ledger");
 assert.ok(built.claimEvents.events.every((event) => event.promotionStatus !== "verified-primary" || event.sourceClass === "official"), "research claims must never inherit a verified-primary label");
 assert.ok(built.claimEvents.events.every((event) => !event.isCurrentStage || event.sourceClass === "official" || !built.claimEvents.events.some((peer) => peer.entity.id === event.entity.id && peer.product.id === event.product.id && peer.stage.id === event.stage.id && peer.sourceClass === "official")), "an official claim must lead same-stage research claims");
@@ -197,6 +211,9 @@ assert.equal(new Set(built.decisionAutomation.briefs.map((brief) => brief.meceAx
 assert.equal(new Set(built.decisionAutomation.briefs.map((brief) => brief.decisionQuestion)).size, built.decisionAutomation.briefs.length, "executive questions must never repeat across cards");
 assert.equal(new Set(built.decisionAutomation.briefs.map((brief) => brief.stage)).size, built.decisionAutomation.briefs.length, "each decision brief must use its own execution stage rather than cloning a source stage");
 assert.ok(built.decisionAutomation.briefs.every((brief) => brief.whatChanged === brief.decisionQuestion && brief.deliverable && brief.latestSignal));
+assert.ok(built.decisionAutomation.briefs.every((brief) => brief.factBoundary && brief.hypothesisStatus === "strategy-hypothesis"));
+assert.ok(built.decisionAutomation.briefs.every((brief) => Number.isInteger(brief.officialFactCount) && Number.isInteger(brief.marketEstimateCount)));
+assert.ok(built.decisionAutomation.briefs.find((brief) => brief.id === "enterprise-rag")?.evidence.some((item) => item.ruleId === "maas-service-model"), "MaaS official evidence must reach the New Biz decision brief");
 assert.ok(["MONITORING", "EVIDENCE_READY", "CONFLICT_REVIEW", "DECISION_READY"].includes(built.decisionAutomation.state));
 assert.equal(built.decisionAutomation.sourceOperations.configured, policy.directFeeds.length);
 assert.equal(built.decisionAutomation.sourceOperations.observed, policy.directFeeds.length);

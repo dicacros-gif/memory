@@ -72,6 +72,36 @@
       "latencyClass": "strategy-disclosure"
     },
     {
+      "id": "skhynix-hbm-to-essd-2026",
+      "sourceId": "skhynix-newsroom",
+      "url": "https://news.skhynix.com/en/hbm-to-essd/",
+      "kind": "event",
+      "eventRuleIds": ["full-stack-memory-portfolio", "ai-n-product-stage", "partner-codesign"],
+      "freshnessDays": 365,
+      "refreshMode": "event+poll",
+      "latencyClass": "strategy-disclosure"
+    },
+    {
+      "id": "skhynix-cxl-maas",
+      "sourceId": "skhynix-newsroom",
+      "url": "https://news.skhynix.com/en/sk-hynix-unlocks-nand-memory-potential-with-innovative-products-at-fms-2022/",
+      "kind": "event",
+      "eventRuleIds": ["maas-service-model"],
+      "freshnessDays": 2190,
+      "refreshMode": "event+poll",
+      "latencyClass": "strategy-disclosure"
+    },
+    {
+      "id": "skhynix-fab-capacity-2026",
+      "sourceId": "skhynix-newsroom",
+      "url": "https://news.skhynix.com/en/fab-facility-investment-2026/",
+      "kind": "event",
+      "eventRuleIds": ["capacity-commitment", "ai-n-product-stage"],
+      "freshnessDays": 365,
+      "refreshMode": "event+poll",
+      "latencyClass": "investment-disclosure"
+    },
+    {
       "id": "skhynix-hbf-open-standard",
       "sourceId": "skhynix-newsroom",
       "url": "https://news.skhynix.com/en/hbf-at-fms-2026/",
@@ -266,6 +296,16 @@
       "defaultStage": "ROADMAP"
     },
     {
+      "id": "maas-service-model",
+      "label": "CXL Pooling → Memory-as-a-Service",
+      "patterns": ["memory-as-a-service|memory as a service|maas", "cxl|pooling|pooled memory|메모리 풀링"],
+      "priority": "quarterly",
+      "eventType": "service-model-direction",
+      "productPatterns": ["cxl"],
+      "defaultStage": "DISCLOSED",
+      "fixedStage": true
+    },
+    {
       "id": "partner-codesign",
       "label": "Customer·Foundry Co-Design",
       "patterns": ["nvidia|tsmc|sandisk|google|tenstorrent", "co-develop|co-design|partnership|collaborat|공동 개발|공동 설계|파트너십|협력"],
@@ -405,22 +445,24 @@
       },
       {
         "id": "enterprise-rag",
-        "label": "New Biz · RAG Memory Economics",
+        "label": "New Biz · RAG & Memory Service",
         "meceAxis": "new-biz-insight",
         "decisionStage": "BUSINESS_CASE",
-        "decisionQuestion": "RAG 품질 Gate 통과 후 Index·Corpus 계층을 어떤 사업모델로 확장할 것인가",
+        "decisionQuestion": "RAG·Agentic AI의 Memory Tier를 CXL Pool·AI-N/HBF 서비스로 확장할 것인가",
         "deliverable": "Tech/Market Insight · Opportunity Thesis · Partner Screen · Business Case",
-        "claimRuleIds": ["capacity-commitment", "ai-n-product-stage", "hbf-standardization-stage", "full-stack-memory-portfolio"],
-        "trackIds": ["rag-and-vector-memory", "rag-quality-metadata-freshness"],
-        "customerPain": "검색 품질·권한·색인 최신성과 Query P99를 유지하면서 Corpus 비용을 통제해야 함",
-        "hypothesis": "검색 품질 Gate 통과 후 AI-D Active Tier·AI-N P/B/D·HBF를 Workload별로 배치해 추론 Storage 사업을 확대",
-        "options": ["AI-D Active Index", "AI-N P Performance", "AI-N B HBF", "AI-N D QLC Capacity"],
-        "economics": ["Cost / Successful Query", "Index Resident Ratio", "Reindex Cost", "Power / Query"],
-        "action90d": "Golden Set과 권한 오류·Recall·P99 기준선을 고정하고 Tier별 Retrieval Benchmark 수행",
+        "claimRuleIds": ["capacity-commitment", "ai-n-product-stage", "hbf-standardization-stage", "full-stack-memory-portfolio", "maas-service-model"],
+        "trackIds": ["rag-and-vector-memory", "rag-quality-metadata-freshness", "maas-cxl-service"],
+        "customerPain": "검색 품질·P99를 유지하면서 서버별 유휴 Memory와 Peak 증설 비용을 함께 통제",
+        "factBoundary": "공식 근거는 CXL 용량 확장·Memory Pooling·MaaS 기술 방향까지 · 구독 과금·SLA는 미검증",
+        "hypothesisStatus": "strategy-hypothesis",
+        "hypothesis": "품질 Gate 통과 후 AI-D·AI-N/HBF와 CXL Pool을 계층화하고 사용량 계측형 서비스 모델을 검증",
+        "options": ["AI-D Active Index", "AI-N P/D eSSD", "AI-N B HBF", "CXL Pool · MaaS PoC"],
+        "economics": ["Cost / Successful Query", "Pool Utilization", "Power / Query", "Recurring Revenue / Account"],
+        "action90d": "Golden Set·P99와 CXL Pool 활용률·계측·격리·SLA 기준선을 같은 PoC에서 검증",
         "owner": "Knowledge Platform · Data Infra · Storage Solution",
-        "kpis": ["Recall@k", "Citation Precision", "Retrieval P99", "Freshness Lag", "Cost / Query"],
-        "trigger": "검색 품질 Gate 통과 후 Active Index Capacity 또는 Storage I/O가 지배 병목으로 확인",
-        "killCriteria": "Recall·권한·인용 품질 Gate를 통과하지 못하면 Memory/Storage 증설 제안을 중단"
+        "kpis": ["Recall@k", "Retrieval P99", "Pool Utilization", "Cost / Query", "SLA Pass Rate"],
+        "trigger": "품질 Gate 통과 후 Memory Capacity 또는 Storage I/O가 지배 병목으로 확인",
+        "killCriteria": "Recall·권한·P99·상호운용성·계측 정확도 중 하나라도 Baseline 미달이면 서비스 승격을 중단"
       },
       {
         "id": "ai-factory",
@@ -468,6 +510,12 @@
         "label": "RAG & Vector Memory",
         "terms": ["rag", "retrieval", "vector", "embedding", "cache", "context"],
         "decisionQuestion": "Quality Guardrail 아래 DRAM·CXL·eSSD 배치의 비용 교차점은 어디인가?"
+      },
+      {
+        "id": "maas-cxl-service",
+        "label": "CXL Memory-as-a-Service",
+        "terms": ["memory-as-a-service", "maas", "cxl", "pooling", "pooled memory", "composable memory", "metering", "utilization"],
+        "decisionQuestion": "CXL Pooling의 기술 방향을 어떤 계측·격리·SLA Gate로 반복 수익 모델에 연결할 것인가?"
       },
       {
         "id": "capacity-and-contract",

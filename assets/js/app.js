@@ -13130,14 +13130,18 @@
         `).join("")}
       </div>` : ""}
       ${techMap.length ? `<div class="sc-tech-grid">
-        ${techMap.map((item) => `
+        ${techMap.map((item) => {
+          const evidence = item.evidence || {};
+          const evidenceClass = evidence.status === "official-fact" ? "is-fact" : evidence.status === "market-estimate" ? "is-estimate" : "is-monitoring";
+          return `
           <article class="sc-tech-card" style="--sc-accent:${escapeHTML(item.accent || "#0A84B8")}">
             <span class="sc-tech-en">${escapeHTML(item.context || "TECH CONTEXT")}</span>
             <strong>${escapeHTML(item.tech || "")}</strong>
             <p>${escapeHTML(item.impact || "")}</p>
             <div class="sc-tech-mem"><b>MEMORY</b><span>${escapeHTML(item.memory || "")}</span></div>
+            <div class="sc-tech-status"><span class="${evidenceClass}">${escapeHTML(evidence.label || "SOURCE MONITORING")}</span>${item.commercialStatus === "strategy-hypothesis" ? `<span class="is-hypothesis">COMMERCIAL MODEL · HYPOTHESIS</span>` : ""}${evidence.url ? `<a href="${escapeHTML(evidence.url)}" target="_blank" rel="noopener noreferrer">${escapeHTML(evidence.source || "원문")} · ${escapeHTML(String(evidence.asOf || "").slice(0, 10))} ↗</a>` : ""}</div>
           </article>
-        `).join("")}
+        `;}).join("")}
       </div>` : `<p class="sc-empty">기술-메모리 매핑 검증 대기</p>`}
       <div class="sc-report">
         <div class="sc-report-head"><strong>AI Application · HW/SW 리포트</strong><span>${fmtNum(strategyBoard.freshEvidenceCount || 0)}/${fmtNum(strategyBoard.evidenceCount || 0)}건 Fresh</span></div>
@@ -13168,7 +13172,7 @@
         <table class="sc-playbook-table">
           <thead><tr><th>세그먼트</th><th>Pain point</th><th>통합 대안</th><th>경영 성과</th><th>검증 Gate</th></tr></thead>
           <tbody>
-            ${playbooks.map((item) => `<tr><td><b>${escapeHTML(item.segment || "")}</b></td><td>${escapeHTML(item.pain || "")}</td><td>${escapeHTML(item.solution || "")}</td><td>${escapeHTML(item.outcome || "")}</td><td>${escapeHTML(item.gate || "")}</td></tr>`).join("")}
+            ${playbooks.map((item) => { const evidence = item.evidence || {}; return `<tr><td><b>${escapeHTML(item.segment || "")}</b><span class="sc-playbook-status ${evidence.status === "official-fact" ? "is-fact" : evidence.status === "market-estimate" ? "is-estimate" : "is-monitoring"}">${escapeHTML(evidence.label || "SOURCE MONITORING")}</span>${item.commercialStatus === "strategy-hypothesis" ? `<span class="sc-playbook-status is-hypothesis">COMMERCIAL MODEL · HYPOTHESIS</span>` : ""}</td><td>${escapeHTML(item.pain || "")}</td><td>${escapeHTML(item.solution || "")}</td><td>${escapeHTML(item.outcome || "")}</td><td>${escapeHTML(item.gate || "")}${evidence.url ? `<a class="sc-playbook-source" href="${escapeHTML(evidence.url)}" target="_blank" rel="noopener noreferrer">${escapeHTML(evidence.source || "원문")} · ${escapeHTML(String(evidence.asOf || "").slice(0, 10))} ↗</a>` : ""}</td></tr>`; }).join("")}
           </tbody>
         </table>
       </div>` : ""}

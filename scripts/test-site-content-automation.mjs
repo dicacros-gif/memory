@@ -87,6 +87,8 @@ assert.equal(artifact.decisionIntelligence.decisionAutomation.meceAxes.length, 4
 assert.equal(new Set(artifact.decisionIntelligence.decisionAutomation.briefs.map((brief) => brief.decisionQuestion)).size, 4);
 assert.equal(artifact.decisionIntelligence.decisionAutomation.catalogCoverage.configured, artifact.freshness.configuredSources);
 assert.ok(artifact.decisionIntelligence.decisionAutomation.briefs.every((brief) => brief.trigger && brief.killCriteria && brief.action90d));
+assert.ok(artifact.decisionIntelligence.decisionAutomation.briefs.every((brief) => brief.factBoundary && brief.hypothesisStatus === "strategy-hypothesis"));
+assert.ok(artifact.decisionIntelligence.decisionAutomation.briefs.every((brief) => Number.isInteger(brief.officialFactCount) && Number.isInteger(brief.marketEstimateCount)));
 assert.equal(rebuilt.decisionIntelligence.freshness.thresholds.current, 85);
 assert.equal(rebuilt.decisionIntelligence.freshness.thresholds.warning, 70);
 assert.deepEqual(Object.keys(rebuilt.decisionIntelligence.freshness.components).sort(), ["contentAge", "coverageDrift", "embeddingLag", "staleRetrievalRate"].sort());
@@ -104,8 +106,15 @@ const hbfTrack = rebuilt.strategyBoard.tech.memoryMap.find((item) => item.id ===
 assert.ok(hbfTrack, "HBF must be present as an explicit architecture track");
 assert.match(`${hbfTrack.tech} ${hbfTrack.context} ${hbfTrack.impact}`, /Open Standard.*Lighthouse PoC/i);
 assert.doesNotMatch(JSON.stringify(hbfTrack), /Emerging|Watch/i, "HBF must advance from watch to standardized Lighthouse PoC");
+const maasTrack = rebuilt.strategyBoard.tech.memoryMap.find((item) => item.id === "memory-as-a-service");
+assert.equal(maasTrack?.commercialStatus, "strategy-hypothesis", "MaaS subscription economics must remain a strategy hypothesis");
+assert.ok(maasTrack?.evidence?.status, "MaaS must retain an automated evidence status");
+assert.ok(rebuilt.strategyBoard.tech.memoryMap.every((item) => item.evidence?.status), "every memory track must expose evidence status");
 assert.ok(rebuilt.strategyBoard.partners.models.length >= 3);
 assert.ok(rebuilt.strategyBoard.playbooks.length >= 3);
+const maasPlaybook = rebuilt.strategyBoard.playbooks.find((item) => /MaaS|Memory-as-a-Service/i.test(item.segment || ""));
+assert.equal(maasPlaybook?.commercialStatus, "strategy-hypothesis");
+assert.ok(rebuilt.strategyBoard.playbooks.every((item) => item.evidence?.status), "every playbook must expose evidence status");
 assert.equal(rebuilt.strategyBoard.reports.length, rebuilt.strategyBoard.evidenceCount);
 assert.ok(rebuilt.strategyBoard.reports.every((item) => item.url && item.source && item.evidenceLevel && item.topics.length));
 assert.equal(artifact.aiFactorySystem.architectureLayers.length, 9);
@@ -277,6 +286,7 @@ assert.doesNotMatch(index, /ANONYMIZED USE CASE|GPU Compute보다|MODELED THRESH
 assert.doesNotMatch(app, /익명화 Case/);
 assert.equal(executiveSnapshot.runId, artifact.runId);
 assert.equal(executiveSnapshot.decisions.length, artifact.decisionIntelligence.decisionAutomation.briefs.length);
+assert.ok(executiveSnapshot.decisions.every((brief) => brief.factBoundary && brief.hypothesisStatus === "strategy-hypothesis"));
 assert.equal(new Set(executiveSnapshot.decisions.map((brief) => brief.decisionQuestion)).size, executiveSnapshot.decisions.length, "pre-rendered executive decisions must have unique questions");
 assert.match(consoleSnapshot, /SK hynix AI Infra Strategy · Executive Snapshot/);
 assert.match(consoleSnapshot, /SK HYNIX AI INFRA · FOUR WORKSTREAMS/);

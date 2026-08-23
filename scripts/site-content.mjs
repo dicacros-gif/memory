@@ -135,7 +135,7 @@ function strategyBoardTopicMatches(text = "", topics = []) {
   return (topics || []).filter((topic) => (topic.terms || []).some((term) => haystack.includes(String(term || "").toLocaleLowerCase("en-US"))));
 }
 
-function buildStrategyBoard(payload = {}, generatedAt = null) {
+function buildStrategyBoard(payload = {}, generatedAt = null, decisionIntelligence = {}) {
   const board = model.strategyBoard || {};
   const reportPolicy = board.reportPolicy || {};
   const topics = reportPolicy.topics || [];
@@ -178,13 +178,40 @@ function buildStrategyBoard(payload = {}, generatedAt = null) {
     .slice(0, limit)
     .map(({ score, ...item }) => item);
 
+  const claimEvents = decisionIntelligence.claimEvents?.events || [];
+  const bindClaimEvidence = (item = {}) => {
+    const { claimRuleIds = [], ...displayItem } = item;
+    const ruleIds = new Set(claimRuleIds);
+    const candidates = claimEvents.filter((event) => ruleIds.has(event.ruleId))
+      .sort((left, right) => Number(right.isCurrentStage) - Number(left.isCurrentStage)
+        || Number(right.claimType === "verified-fact") - Number(left.claimType === "verified-fact")
+        || String(right.asOf || right.publishedAt || "").localeCompare(String(left.asOf || left.publishedAt || "")));
+    const current = candidates[0] || null;
+    return {
+      ...displayItem,
+      evidence: current ? {
+        status: current.claimType === "verified-fact" ? "official-fact" : "market-estimate",
+        label: current.claimType === "verified-fact" ? "OFFICIAL FACT" : "MARKET ESTIMATE",
+        stage: current.stage?.id || current.stage || "DISCLOSED",
+        source: compact(current.source || "원문", 60),
+        url: directUrl(current.sourceUrl) ? current.sourceUrl : "",
+        asOf: current.asOf || current.publishedAt || null,
+      } : {
+        status: "monitoring",
+      },
+    };
+  };
+  const tech = board.tech || {};
   return {
     schemaVersion: board.schemaVersion || "1.0",
     generatedAt,
     status: reports.length ? "evidence-connected" : "evidence-pending",
-    tech: board.tech || {},
+    tech: {
+      ...tech,
+      memoryMap: (tech.memoryMap || []).map(bindClaimEvidence),
+    },
     partners: board.partners || {},
-    playbooks: board.playbooks || [],
+    playbooks: (board.playbooks || []).map(bindClaimEvidence),
     disclosure: board.disclosure || "전략 플레이북 · 공개 근거 기반 검증 가설",
     reports,
     reportPolicy: {
@@ -900,8 +927,14 @@ export function validateSiteContent(content = {}) {
   if (!Array.isArray(content.workloadOptimization?.ragOperatingModel?.maturity) || content.workloadOptimization.ragOperatingModel.maturity.length < 6) errors.push("workloadOptimization.ragOperatingModel.maturity");
   const strategyBoard = content.strategyBoard || {};
   if (!Array.isArray(strategyBoard.tech?.memoryMap) || strategyBoard.tech.memoryMap.length < 4) errors.push("strategyBoard.tech.memoryMap");
+  if (!(strategyBoard.tech?.memoryMap || []).every((item) => item.evidence?.status)) errors.push("strategyBoard.tech.memoryMap.evidence");
+  const maasTrack = (strategyBoard.tech?.memoryMap || []).find((item) => item.id === "memory-as-a-service");
+  if (!maasTrack || maasTrack.commercialStatus !== "strategy-hypothesis") errors.push("strategyBoard.tech.maas");
   if (!Array.isArray(strategyBoard.partners?.models) || strategyBoard.partners.models.length < 3) errors.push("strategyBoard.partners.models");
   if (!Array.isArray(strategyBoard.playbooks) || strategyBoard.playbooks.length < 3) errors.push("strategyBoard.playbooks");
+  if (!(strategyBoard.playbooks || []).every((item) => item.evidence?.status)) errors.push("strategyBoard.playbooks.evidence");
+  const maasPlaybook = (strategyBoard.playbooks || []).find((item) => item.id === "memory-as-a-service");
+  if (!maasPlaybook || maasPlaybook.commercialStatus !== "strategy-hypothesis") errors.push("strategyBoard.playbooks.maas");
   if (!Array.isArray(strategyBoard.reports)) errors.push("strategyBoard.reports");
   if ((strategyBoard.reports || []).some((item) => !directUrl(item.url))) errors.push("strategyBoard.reportUrls");
   if (Number(strategyBoard.evidenceCount || 0) !== (strategyBoard.reports || []).length) errors.push("strategyBoard.evidenceCount");
@@ -996,7 +1029,7 @@ export function buildSiteContentClient({ payload = {}, quant = {} } = {}) {
     insights,
     generatedAt,
   });
-  const strategyBoard = buildStrategyBoard(payload, generatedAt);
+  const strategyBoard = buildStrategyBoard(payload, generatedAt, decisionIntelligence);
   const content = {
     schemaVersion: "1.1",
     runId: payload.runId || quant.runId || null,

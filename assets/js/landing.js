@@ -3,7 +3,7 @@
 
   const BUSINESS_TITLE = "AI Infra Strategy · Customer Pain to Executive Action";
   const CONSOLE_HASH = "#console";
-  const CONSOLE_REVISION = "infra-4d2d508adae5";
+  const CONSOLE_REVISION = "infra-83871c4d1d2c";
   const DECISION_CLIENT_PATH = "data/landing-decision-client.json";
   const SITE_CONTENT_PATH = "data/site-content-client.json";
   const site = document.querySelector("#businessSite");
@@ -549,7 +549,8 @@
         return `<article tabindex="0" data-decision-brief="${escapeBusinessHTML(brief.id)}">
           <header><span>${String(index + 1).padStart(2, "0")} · ${escapeBusinessHTML(brief.label)}</span><b>${escapeBusinessHTML(String(brief.status || "MONITORING").replaceAll("_", " "))}</b></header>
           <h3>${escapeBusinessHTML(brief.whatChanged || brief.hypothesis)}</h3>
-          <ul><li>${escapeBusinessHTML(brief.customerPain)}</li><li>${escapeBusinessHTML(brief.hypothesis)}</li><li>90D · ${escapeBusinessHTML(brief.action90d)}</li></ul>
+          <dl class="decision-os-evidence-split"><div><dt>FACT BOUNDARY</dt><dd>${escapeBusinessHTML(brief.factBoundary || "공식 원문·Stage·날짜가 확인된 내용만 사실로 승격")}</dd></div><div><dt>HYPOTHESIS</dt><dd>${escapeBusinessHTML(brief.hypothesis)}</dd></div></dl>
+          <ul><li>${escapeBusinessHTML(brief.customerPain)}</li><li>90D · ${escapeBusinessHTML(brief.action90d)}</li></ul>
         </article>`;
       }).join("");
     }
