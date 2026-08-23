@@ -1,20 +1,20 @@
 {
   "schemaVersion": "1.1",
-  "runId": "32360889919",
-  "generatedAt": "2026-08-20T10:58:44.862Z",
-  "expiresAt": "2026-08-21T12:58:42.698Z",
+  "runId": "32624639996",
+  "generatedAt": "2026-08-23T07:24:13.882Z",
+  "expiresAt": "2026-08-24T09:24:11.755Z",
   "clientArtifact": true,
   "generation": {
     "method": "verified-data-plus-approved-framework",
     "frameworkVersion": "1.1",
     "failClosed": true,
-    "sourceRunId": "32360889919"
+    "sourceRunId": "32624639996"
   },
   "siteAutomation": {
     "schemaVersion": "1.0",
     "status": "all-sections-bound",
-    "runId": "32360889919",
-    "generatedAt": "2026-08-20T10:58:44.862Z",
+    "runId": "32624639996",
+    "generatedAt": "2026-08-23T07:24:13.882Z",
     "totalSections": 69,
     "boundSections": 69,
     "refresh": {
@@ -206,15 +206,15 @@
   },
   "freshness": {
     "status": "verified",
-    "evidenceCount": 86,
+    "evidenceCount": 78,
     "briefCount": 6,
     "sourceCount": 4,
     "configuredSources": 42,
-    "observedSources": 6,
+    "observedSources": 5,
     "freshObservedSources": 5,
-    "staleObservedSources": 1,
+    "staleObservedSources": 0,
     "officialConfigured": 33,
-    "officialObserved": 2,
+    "officialObserved": 1,
     "officialFreshObserved": 1,
     "discoveryQueries": 45,
     "connectedHealthChecks": 13,
@@ -269,8 +269,8 @@
       "scheduleHours": 1,
       "browserRecheckMinutes": 5,
       "sourceCatalogVersion": "1.0",
-      "runId": "32360889919",
-      "generatedAt": "2026-08-20T10:58:44.862Z"
+      "runId": "32624639996",
+      "generatedAt": "2026-08-23T07:24:13.882Z"
     }
   },
   "decisionControl": {
@@ -280,14 +280,14 @@
     },
     "freshness": {
       "status": "CURRENT",
-      "generatedAt": "2026-08-20T10:58:44.862Z",
-      "expiresAt": "2026-08-21T12:58:42.698Z"
+      "generatedAt": "2026-08-23T07:24:13.882Z",
+      "expiresAt": "2026-08-24T09:24:11.755Z"
     },
     "coverage": {
       "status": "LOW",
-      "observed": 6,
+      "observed": 5,
       "configured": 42,
-      "ratio": 0.143,
+      "ratio": 0.119,
       "freshRatio": 0.119
     },
     "confidence": {
@@ -298,8 +298,8 @@
   "decisionIntelligence": {
     "schemaVersion": "1.2",
     "status": "pass",
-    "generatedAt": "2026-08-20T10:58:09.346Z",
-    "runId": "32360889919",
+    "generatedAt": "2026-08-23T07:23:34.980Z",
+    "runId": "32624639996",
     "refreshTrigger": "schedule",
     "metrics": [
       {
@@ -413,6 +413,71 @@
     ],
     "eventTriggers": [
       {
+        "id": "0b98ad5953047f036a43",
+        "ruleId": "capacity-commitment",
+        "label": "CapEx·Capacity·장기 물량",
+        "priority": "quarterly",
+        "sourceId": "authoritative-media",
+        "source": "Tom's Hardware",
+        "sourceClass": "authoritative-media",
+        "title": "Enterprise SSDs cost 18.6 times more than HDDs as 30TB drives hit $22,600 — hard drive supply is sold out through 2027 - Tom's Hardware",
+        "url": "https://www.tomshardware.com/pc-components/ssds/enterprise-ssds-now-cost-18-times-more-than-hard-drives-per-terabyte",
+        "publishedAt": "2026-08-21",
+        "changed": true
+      },
+      {
+        "id": "f034bbc171ddd2e14921",
+        "ruleId": "earnings-release",
+        "label": "분기 실적·어닝콜",
+        "priority": "immediate",
+        "sourceId": "sec-edgar",
+        "source": "SEC EDGAR",
+        "sourceClass": "official",
+        "title": "SEC EDGAR",
+        "url": "https://data.sec.gov/submissions/CIK0000723125.json",
+        "publishedAt": "2026-08-21",
+        "changed": true
+      },
+      {
+        "id": "f64c76421c403dec1775",
+        "ruleId": "hbm4-production-stage",
+        "label": "HBM4 Sample → Qualification → Ramp",
+        "priority": "immediate",
+        "sourceId": "sec-edgar",
+        "source": "SEC EDGAR",
+        "sourceClass": "official",
+        "title": "SEC EDGAR",
+        "url": "https://data.sec.gov/submissions/CIK0000723125.json",
+        "publishedAt": "2026-08-21",
+        "changed": true
+      },
+      {
+        "id": "3862a3b680130daeec22",
+        "ruleId": "capacity-commitment",
+        "label": "CapEx·Capacity·장기 물량",
+        "priority": "quarterly",
+        "sourceId": "sec-edgar",
+        "source": "SEC EDGAR",
+        "sourceClass": "official",
+        "title": "SEC EDGAR",
+        "url": "https://data.sec.gov/submissions/CIK0000723125.json",
+        "publishedAt": "2026-08-21",
+        "changed": true
+      },
+      {
+        "id": "fe61ecee91427553685c",
+        "ruleId": "capacity-commitment",
+        "label": "CapEx·Capacity·장기 물량",
+        "priority": "quarterly",
+        "sourceId": "trendforce",
+        "source": "TrendForce",
+        "sourceClass": "research",
+        "title": "Samsung to Break Ground on KRW 6T Onyang HBM Fab in Sept., P5 Eyes Triple-Fab Shift as Expansion Accelerates - TrendForce",
+        "url": "https://www.trendforce.com/news/2026/08/20/news-samsung-to-break-ground-on-krw-6t-onyang-hbm-fab-in-sept-p5-eyes-triple-fab-shift-as-expansion-accelerates",
+        "publishedAt": "2026-08-20",
+        "changed": true
+      },
+      {
         "id": "778e8d051781de4f37be",
         "ruleId": "capacity-commitment",
         "label": "CapEx·Capacity·장기 물량",
@@ -420,7 +485,7 @@
         "sourceId": "authoritative-media",
         "source": "digitimes",
         "sourceClass": "authoritative-media",
-        "title": "삼성전자, 9월 6조원 규모 온양HBM 패키징 공장 착공 - 디지털타임스",
+        "title": "Samsung to break ground on KRW6 trillion Onyang HBM packaging plant in September - digitimes",
         "url": "https://www.digitimes.com/news/a20260820VL203/samsung-hbm-packaging-plant-production.html",
         "publishedAt": "2026-08-20",
         "changed": true
@@ -433,7 +498,7 @@
         "sourceId": "authoritative-media",
         "source": "digitimes",
         "sourceClass": "authoritative-media",
-        "title": "YMTC 모기업, NAND 주가 14% 도달 및 AI 스토리지 규모로 IPO 추진 - digittimes",
+        "title": "YMTC parent advances IPO as NAND share hits 14% and AI storage scales - digitimes",
         "url": "https://www.digitimes.com/news/a20260819VL211/ymtc-ipo-nand-flash-market.html",
         "publishedAt": "2026-08-20",
         "changed": true
@@ -446,138 +511,73 @@
         "sourceId": "authoritative-media",
         "source": "digitimes",
         "sourceClass": "authoritative-media",
-        "title": "Phison CEO는 수년간의 NAND 부족, AI 성장 기회를 판단",
+        "title": "Phison CEO sees years of NAND shortage, AI growth chance - digitimes",
         "url": "https://www.digitimes.com/news/a20260814PD232/phison-ceo-nand-2027.html",
         "publishedAt": "2026-08-17",
         "changed": true
       },
       {
-        "id": "6a5e1feace2579f721fe",
+        "id": "9fb9b5aecb65ebdaa132",
         "ruleId": "capacity-commitment",
         "label": "CapEx·Capacity·장기 물량",
         "priority": "quarterly",
-        "sourceId": "counterpoint",
-        "source": "Counterpoint Research",
+        "sourceId": "trendforce",
+        "source": "TrendForce",
         "sourceClass": "research",
-        "title": "메모리 환경 디코딩: Intel의 통합 플레이, NAND 공급 위기 및 2028년 지평선 - Counterpoint Research",
-        "url": "https://counterpointresearch.com/en/insights/decoding-the-memory-landscape-intels-integration-play-nand-supply-crunches-and-the-2028-horizon",
-        "publishedAt": "2026-08-19",
-        "changed": false
+        "title": "Samsung May Repurpose R&D Line for Foundry, Targeting 2nm HBM Base Dies for Future NVIDIA Demand - TrendForce",
+        "url": "https://www.trendforce.com/news/2026/08/14/news-samsung-may-repurpose-rd-line-for-foundry-targeting-2nm-hbm-base-dies-for-future-nvidia-demand",
+        "publishedAt": "2026-08-14",
+        "changed": true
       },
       {
-        "id": "f065d0e5273013108826",
+        "id": "deb1d8612d6ba7b0fb14",
+        "ruleId": "capacity-commitment",
+        "label": "CapEx·Capacity·장기 물량",
+        "priority": "quarterly",
+        "sourceId": "authoritative-media",
+        "source": "Tom's Hardware",
+        "sourceClass": "authoritative-media",
+        "title": "SK hynix to expand production capacity in China as it mulls Solidigm IPO, report claims — second phase of fab could boost local production by 50% - Tom's Hardware",
+        "url": "https://www.tomshardware.com/pc-components/ssds/sk-hynix-to-expand-production-capacity-in-china-as-it-mulls-solidigm-ipo-report-claims-second-phase-of-fab-could-boost-local-production-by-50-percent",
+        "publishedAt": "2026-08-11",
+        "changed": true
+      },
+      {
+        "id": "c063bbf30550796f3a59",
+        "ruleId": "capacity-commitment",
+        "label": "CapEx·Capacity·장기 물량",
+        "priority": "quarterly",
+        "sourceId": "authoritative-media",
+        "source": "CNBC",
+        "sourceClass": "authoritative-media",
+        "title": "Amazon hikes 2026 capex to $220 billion due to higher memory costs - CNBC",
+        "url": "https://www.cnbc.com/2026/07/30/amazon-amzn-q2-earnings-report-2026.html",
+        "publishedAt": "2026-07-30",
+        "changed": true
+      },
+      {
+        "id": "a1b34abec9d9bac1211c",
         "ruleId": "earnings-release",
         "label": "분기 실적·어닝콜",
         "priority": "immediate",
-        "sourceId": "sec-edgar",
-        "source": "SEC EDGAR",
+        "sourceId": "skhynix-newsroom",
+        "source": "SK hynix Newsroom",
         "sourceClass": "official",
-        "title": "SEC EDGAR",
-        "url": "https://data.sec.gov/submissions/CIK0000723125.json",
-        "publishedAt": "2026-08-18",
-        "changed": false
-      },
-      {
-        "id": "6f0cbc22e5d6e0c4d5c1",
-        "ruleId": "capacity-commitment",
-        "label": "CapEx·Capacity·장기 물량",
-        "priority": "quarterly",
-        "sourceId": "techinsights",
-        "source": "TechInsights",
-        "sourceClass": "research",
-        "title": "300mm Fab Capacity to Surpass 10M Wafers per Month in 2025 - TechInsights",
-        "url": "https://www.techinsights.com/blog/300mm-fab-capacity-surpass-10m-wafers-month-2025",
-        "publishedAt": "2026-08-17",
-        "changed": false
-      },
-      {
-        "id": "0f9f68f0741e5c2b445f",
-        "ruleId": "capacity-commitment",
-        "label": "CapEx·Capacity·장기 물량",
-        "priority": "quarterly",
-        "sourceId": "trendforce",
-        "source": "TrendForce",
-        "sourceClass": "research",
-        "title": "삼성, SKHY 1H26 칩설비투자 35% 증가 · NVIDIA는 삼성의 상위 5대 고객에 포함되지 않습니다 - TrendForce",
-        "url": "https://www.trendforce.com/news/2026/08/17/news-samsung-sk-hynix-1h26-chip-facility-investment-up-35-nvidia-not-among-samsungs-top-five-customers",
-        "publishedAt": "2026-08-17",
-        "changed": false
-      },
-      {
-        "id": "896b053f3f28c5ee896f",
-        "ruleId": "capacity-commitment",
-        "label": "CapEx·Capacity·장기 물량",
-        "priority": "quarterly",
-        "sourceId": "trendforce",
-        "source": "TrendForce",
-        "sourceClass": "research",
-        "title": "독일 DDR5 가격은 8월에 전년 대비 5배 가까이 올랐음 · 중국, 글로벌 랠리가 계속되면서 WoW가 14% 증가한 것으로 알려졌습니다 - TrendForce",
-        "url": "https://www.trendforce.com/news/2026/08/17/news-germany-ddr5-prices-near-5x-yoy-in-august-china-reportedly-sees-14-wow-jump-as-global-rally-continues",
-        "publishedAt": "2026-08-17",
-        "changed": false
-      },
-      {
-        "id": "6251b7b00cf166c589f8",
-        "ruleId": "hbm4-production-stage",
-        "label": "HBM4 Sample → Qualification → Ramp",
-        "priority": "immediate",
-        "sourceId": "ubs",
-        "source": "UBS",
-        "sourceClass": "research",
-        "title": "삼성, 2027년 HBM 시장에서 SKHY 추월할 수도",
-        "url": "https://www.digitimes.com/news/a20260720PD215/samsung-2027-hbm4-market-sk-hynix.html",
-        "publishedAt": "2026-07-20",
-        "changed": false
-      },
-      {
-        "id": "1f5d53792a50a4d987ef",
-        "ruleId": "hbm4-production-stage",
-        "label": "HBM4 Sample → Qualification → Ramp",
-        "priority": "immediate",
-        "sourceId": "counterpoint",
-        "source": "Counterpoint Research",
-        "sourceClass": "research",
-        "title": "전세계 D램 및 HBM 시장 점유율: 분기별 데이터 - 카운터포인트",
-        "url": "https://korea.counterpointresearch.com/global-dram-and-hbm-market-share-quarterly",
-        "publishedAt": "2026-06-10",
-        "changed": false
-      },
-      {
-        "id": "1ea39aec2525527ef734",
-        "ruleId": "capacity-commitment",
-        "label": "CapEx·Capacity·장기 물량",
-        "priority": "quarterly",
-        "sourceId": "trendforce",
-        "source": "TrendForce",
-        "sourceClass": "research",
-        "title": "Tight DRAM Supply Gives Suppliers Greater Pricing Power in HBM, with HBM Contract Prices Expected to Surge Multiples Higher in 2027, Says TrendForce",
-        "url": "https://www.trendforce.com/presscenter/news/20260602-13074.html",
-        "publishedAt": "2026-06-02",
-        "changed": false
-      },
-      {
-        "id": "22a8b602522f445a9adc",
-        "ruleId": "competitor-ramp",
-        "label": "경쟁사 Ramp·고객 공급",
-        "priority": "immediate",
-        "sourceId": "trendforce",
-        "source": "TrendForce",
-        "sourceClass": "research",
-        "title": "Tight DRAM Supply Gives Suppliers Greater Pricing Power in HBM, with HBM Contract Prices Expected to Surge Multiples Higher in 2027, Says TrendForce",
-        "url": "https://www.trendforce.com/presscenter/news/20260602-13074.html",
-        "publishedAt": "2026-06-02",
-        "changed": false
+        "title": "PRESS – SK hynix Newsroom",
+        "url": "https://news.skhynix.com/category/press-release",
+        "publishedAt": null,
+        "changed": true
       }
     ],
     "claimEvents": {
       "schemaVersion": "1.0",
-      "generatedAt": "2026-08-20T10:58:09.346Z",
+      "generatedAt": "2026-08-23T07:23:34.980Z",
       "stats": {
-        "eligibleDocuments": 33,
-        "structuredEvents": 9,
+        "eligibleDocuments": 36,
+        "structuredEvents": 11,
         "verifiedEvents": 6,
-        "currentStages": 4,
-        "newEvents": 0,
+        "currentStages": 5,
+        "newEvents": 3,
         "contradictionReviews": 0
       },
       "events": [
@@ -607,6 +607,36 @@
           "publishedAt": "2026-02-19",
           "confidence": "confirmed-primary",
           "promotionStatus": "verified-primary",
+          "contradictionStatus": "clear",
+          "isCurrentStage": true,
+          "supersededBy": null
+        },
+        {
+          "id": "0f652d28a88cd4d3b1e9",
+          "ruleId": "capacity-commitment",
+          "eventType": "commercial-commitment",
+          "label": "CapEx·Capacity·장기 물량",
+          "entity": {
+            "id": "samsung",
+            "label": "Samsung"
+          },
+          "product": {
+            "id": "ai-memory",
+            "label": "AI Memory"
+          },
+          "stage": {
+            "id": "MASS_PRODUCTION",
+            "rank": 60
+          },
+          "metrics": [],
+          "evidenceSpan": "The facility would primarily target mass production of 2nm base (logic) dies for next-generation HBM, allowing Samsung to secure additional capacity ahead of expected demand growth from key customers including NVIDIA",
+          "source": "TrendForce",
+          "sourceId": "trendforce",
+          "sourceClass": "research",
+          "sourceUrl": "https://www.trendforce.com/news/2026/08/14/news-samsung-may-repurpose-rd-line-for-foundry-targeting-2nm-hbm-base-dies-for-future-nvidia-demand",
+          "publishedAt": "2026-08-14",
+          "confidence": "research-observed",
+          "promotionStatus": "review",
           "contradictionStatus": "clear",
           "isCurrentStage": true,
           "supersededBy": null
@@ -672,13 +702,13 @@
           "supersededBy": null
         },
         {
-          "id": "0549be51e38ab80b9909",
+          "id": "cf80b8cc43902f076062",
           "ruleId": "capacity-commitment",
           "eventType": "commercial-commitment",
           "label": "CapEx·Capacity·장기 물량",
           "entity": {
-            "id": "samsung",
-            "label": "Samsung"
+            "id": "sk-hynix",
+            "label": "SK hynix"
           },
           "product": {
             "id": "ai-memory",
@@ -831,6 +861,36 @@
           "supersededBy": null
         },
         {
+          "id": "ad1fe730a17bcd7b5f78",
+          "ruleId": "capacity-commitment",
+          "eventType": "commercial-commitment",
+          "label": "CapEx·Capacity·장기 물량",
+          "entity": {
+            "id": "samsung",
+            "label": "Samsung"
+          },
+          "product": {
+            "id": "ai-memory",
+            "label": "AI Memory"
+          },
+          "stage": {
+            "id": "DISCLOSED",
+            "rank": 25
+          },
+          "metrics": [],
+          "evidenceSpan": "Samsung is stepping up its capacity expansion",
+          "source": "TrendForce",
+          "sourceId": "trendforce",
+          "sourceClass": "research",
+          "sourceUrl": "https://www.trendforce.com/news/2026/08/20/news-samsung-to-break-ground-on-krw-6t-onyang-hbm-fab-in-sept-p5-eyes-triple-fab-shift-as-expansion-accelerates",
+          "publishedAt": "2026-08-20",
+          "confidence": "research-observed",
+          "promotionStatus": "review",
+          "contradictionStatus": "clear",
+          "isCurrentStage": false,
+          "supersededBy": "0f652d28a88cd4d3b1e9"
+        },
+        {
           "id": "a6e2ed0895636b3b2518",
           "ruleId": "capacity-commitment",
           "eventType": "commercial-commitment",
@@ -892,18 +952,18 @@
       ],
       "state": "DECISION_READY",
       "funnel": {
-        "sourceDocuments": 47,
-        "structuredEvents": 9,
+        "sourceDocuments": 54,
+        "structuredEvents": 11,
         "verifiedEvents": 6,
         "decisionReadyBriefs": 4,
         "executionTrackingBriefs": 0
       },
       "sourceOperations": {
         "configured": 10,
-        "observed": 9,
-        "useful": 7,
-        "observationRatePct": 90,
-        "usefulYieldPct": 77.8,
+        "observed": 10,
+        "useful": 6,
+        "observationRatePct": 100,
+        "usefulYieldPct": 60,
         "sources": [
           {
             "id": "counterpoint-hbm-quarterly-share",
@@ -912,8 +972,8 @@
             "refreshMode": "poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-08-20T10:58:07.148Z",
-            "lastUsefulObservationAt": "2026-08-20T10:58:07.148Z",
+            "lastSuccessAt": "2026-08-23T07:23:33.000Z",
+            "lastUsefulObservationAt": "2026-08-23T07:23:33.000Z",
             "usefulObservation": true,
             "eventYield": 2
           },
@@ -924,10 +984,10 @@
             "refreshMode": "poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-08-20T10:58:07.148Z",
-            "lastUsefulObservationAt": "2026-08-20T10:58:07.148Z",
+            "lastSuccessAt": "2026-08-23T07:23:33.000Z",
+            "lastUsefulObservationAt": "2026-08-23T07:23:33.000Z",
             "usefulObservation": true,
-            "eventYield": 3
+            "eventYield": 5
           },
           {
             "id": "samsung-hbm4-stage",
@@ -936,8 +996,8 @@
             "refreshMode": "event+poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-08-20T10:58:07.148Z",
-            "lastUsefulObservationAt": "2026-08-20T10:58:07.148Z",
+            "lastSuccessAt": "2026-08-23T07:23:33.000Z",
+            "lastUsefulObservationAt": "2026-08-23T07:23:33.000Z",
             "usefulObservation": true,
             "eventYield": 3
           },
@@ -948,7 +1008,7 @@
             "refreshMode": "event+poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-08-20T10:58:07.148Z",
+            "lastSuccessAt": "2026-08-23T07:23:33.000Z",
             "lastUsefulObservationAt": null,
             "usefulObservation": false,
             "eventYield": 0
@@ -960,7 +1020,7 @@
             "refreshMode": "event+poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-08-20T10:58:07.148Z",
+            "lastSuccessAt": "2026-08-23T07:23:33.000Z",
             "lastUsefulObservationAt": null,
             "usefulObservation": false,
             "eventYield": 0
@@ -972,7 +1032,7 @@
             "refreshMode": "poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-08-20T10:58:07.148Z",
+            "lastSuccessAt": "2026-08-23T07:23:33.000Z",
             "lastUsefulObservationAt": null,
             "usefulObservation": false,
             "eventYield": 0
@@ -984,8 +1044,8 @@
             "refreshMode": "poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-08-20T10:58:07.148Z",
-            "lastUsefulObservationAt": "2026-08-20T10:58:07.148Z",
+            "lastSuccessAt": "2026-08-23T07:23:33.000Z",
+            "lastUsefulObservationAt": "2026-08-23T07:23:33.000Z",
             "usefulObservation": true,
             "eventYield": 0
           },
@@ -994,10 +1054,10 @@
             "sourceId": "vllm-kv-offloading",
             "latencyClass": "knowledge",
             "refreshMode": "poll",
-            "transportStatus": "unavailable",
-            "attempts": 0,
-            "lastSuccessAt": null,
-            "lastUsefulObservationAt": "2026-08-20T10:58:09.346Z",
+            "transportStatus": "fetched",
+            "attempts": 1,
+            "lastSuccessAt": "2026-08-23T07:23:33.000Z",
+            "lastUsefulObservationAt": "2026-08-23T07:23:33.000Z",
             "usefulObservation": true,
             "eventYield": 0
           },
@@ -1008,8 +1068,8 @@
             "refreshMode": "poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-08-20T10:58:07.148Z",
-            "lastUsefulObservationAt": "2026-08-20T10:58:07.148Z",
+            "lastSuccessAt": "2026-08-23T07:23:33.000Z",
+            "lastUsefulObservationAt": "2026-08-23T07:23:33.000Z",
             "usefulObservation": true,
             "eventYield": 0
           },
@@ -1020,9 +1080,9 @@
             "refreshMode": "poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-08-20T10:58:07.148Z",
-            "lastUsefulObservationAt": "2026-08-20T10:58:07.148Z",
-            "usefulObservation": true,
+            "lastSuccessAt": "2026-08-23T07:23:33.000Z",
+            "lastUsefulObservationAt": null,
+            "usefulObservation": false,
             "eventYield": 0
           }
         ]
@@ -1036,7 +1096,7 @@
           "decisionStage": "CUSTOMER_QUALIFICATION",
           "deliverable": "Customer Fact Base · Pain Map · Requirement Matrix · Memory Proposal",
           "status": "DECISION_READY",
-          "updatedAt": "2026-08-20T10:58:09.346Z",
+          "updatedAt": "2026-08-23T07:23:34.980Z",
           "whatChanged": "HBM4 상업화 신호를 고객별 Custom Qualification·계약 Gate로 전환할 것인가",
           "latestSignal": "Samsung · HBM4 · COMMERCIAL_SHIPMENT",
           "sourceStage": "COMMERCIAL_SHIPMENT",
@@ -1068,7 +1128,7 @@
           "trigger": "SAMPLE 이후 고객 Qualification 또는 Commercial Shipment 단계가 공식 원문으로 확인",
           "killCriteria": "Trace 접근권·Qualification 경로·확정 물량·NRE 회수 중 2개 이상이 확인되지 않으면 Full-Custom 투자를 중단",
           "evidenceCount": 8,
-          "independentSources": 5,
+          "independentSources": 4,
           "primaryEvidence": 1,
           "verifiedClaims": 6,
           "evidence": [
@@ -1083,6 +1143,18 @@
               "stage": "COMMERCIAL_SHIPMENT",
               "confidence": "confirmed-primary",
               "excerpt": "Samsung Electronics, a global leader in advanced memory technology, today announced that it has begun mass production of its industry-leading HBM4 and has shipped commercial products to customers"
+            },
+            {
+              "id": "0f652d28a88cd4d3b1e9",
+              "title": "Samsung · AI Memory · MASS_PRODUCTION",
+              "source": "TrendForce",
+              "sourceId": "trendforce",
+              "sourceClass": "research",
+              "url": "https://www.trendforce.com/news/2026/08/14/news-samsung-may-repurpose-rd-line-for-foundry-targeting-2nm-hbm-base-dies-for-future-nvidia-demand",
+              "publishedAt": "2026-08-14",
+              "stage": "MASS_PRODUCTION",
+              "confidence": "research-observed",
+              "excerpt": "The facility would primarily target mass production of 2nm base (logic) dies for next-generation HBM, allowing Samsung to secure additional capacity ahead of expected demand growth from key customers including NVIDIA"
             },
             {
               "id": "7c25b9c482c44f86be38",
@@ -1109,8 +1181,8 @@
               "excerpt": "While mainstream headlines focus on high-bandwidth memory (HBM) supply allocations, the underlying dynamics across manufacturing CAPEX, enterprise storage, and system architectures tell a more nuanced story"
             },
             {
-              "id": "0549be51e38ab80b9909",
-              "title": "Samsung · AI Memory · DISCLOSED",
+              "id": "cf80b8cc43902f076062",
+              "title": "SK hynix · AI Memory · DISCLOSED",
               "source": "TrendForce",
               "sourceId": "trendforce",
               "sourceClass": "research",
@@ -1119,18 +1191,6 @@
               "stage": "DISCLOSED",
               "confidence": "research-observed",
               "excerpt": "Samsung invested KRW 25.603 trillion in its Device Solutions (DS) division, up 23.5%, focusing on next-generation memory technologies, advanced-process capacity expansion and infrastructure"
-            },
-            {
-              "id": "f20a2c18c54e16286b21",
-              "title": "Samsung · HBM4 · PLATFORM_ADOPTION",
-              "source": "Counterpoint Research",
-              "sourceId": "counterpoint",
-              "sourceClass": "research",
-              "url": "https://korea.counterpointresearch.com/global-dram-and-hbm-market-share-quarterly",
-              "publishedAt": "2026-06-10",
-              "stage": "PLATFORM_ADOPTION",
-              "confidence": "research-observed",
-              "excerpt": "HBM4 는 2026년 1분기에 삼성의 출하를 시작으로 NVIDIA Rubin 에 탑재될 예정"
             }
           ]
         },
@@ -1142,7 +1202,7 @@
           "decisionStage": "ARCHITECTURE_BENCHMARK",
           "deliverable": "Workload Trace · Bottleneck Tree · Architecture Benchmark · TCO",
           "status": "DECISION_READY",
-          "updatedAt": "2026-08-20T10:58:09.346Z",
+          "updatedAt": "2026-08-23T07:23:34.980Z",
           "whatChanged": "KV Cache 지배 병목을 HBM·Host DRAM/CXL·eSSD 계층화로 낮출 것인가",
           "latestSignal": "Samsung · HBM4 · COMMERCIAL_SHIPMENT",
           "sourceStage": "COMMERCIAL_SHIPMENT",
@@ -1176,8 +1236,8 @@
           "trigger": "SW-only 기준선 이후에도 Active KV 또는 KV 이동이 SLO를 제한",
           "killCriteria": "SW-only가 동일 품질·SLO에서 Memory Tier보다 경제적이면 HW 제안을 중단",
           "evidenceCount": 8,
-          "independentSources": 6,
-          "primaryEvidence": 3,
+          "independentSources": 4,
+          "primaryEvidence": 1,
           "verifiedClaims": 5,
           "evidence": [
             {
@@ -1193,6 +1253,18 @@
               "excerpt": "Samsung Electronics, a global leader in advanced memory technology, today announced that it has begun mass production of its industry-leading HBM4 and has shipped commercial products to customers"
             },
             {
+              "id": "0f652d28a88cd4d3b1e9",
+              "title": "Samsung · AI Memory · MASS_PRODUCTION",
+              "source": "TrendForce",
+              "sourceId": "trendforce",
+              "sourceClass": "research",
+              "url": "https://www.trendforce.com/news/2026/08/14/news-samsung-may-repurpose-rd-line-for-foundry-targeting-2nm-hbm-base-dies-for-future-nvidia-demand",
+              "publishedAt": "2026-08-14",
+              "stage": "MASS_PRODUCTION",
+              "confidence": "research-observed",
+              "excerpt": "The facility would primarily target mass production of 2nm base (logic) dies for next-generation HBM, allowing Samsung to secure additional capacity ahead of expected demand growth from key customers including NVIDIA"
+            },
+            {
               "id": "39e7ac26429e73c7acb5",
               "title": "Memory industry · AI Memory · DISCLOSED",
               "source": "Counterpoint Research",
@@ -1205,8 +1277,8 @@
               "excerpt": "While mainstream headlines focus on high-bandwidth memory (HBM) supply allocations, the underlying dynamics across manufacturing CAPEX, enterprise storage, and system architectures tell a more nuanced story"
             },
             {
-              "id": "0549be51e38ab80b9909",
-              "title": "Samsung · AI Memory · DISCLOSED",
+              "id": "cf80b8cc43902f076062",
+              "title": "SK hynix · AI Memory · DISCLOSED",
               "source": "TrendForce",
               "sourceId": "trendforce",
               "sourceClass": "research",
@@ -1227,18 +1299,6 @@
               "stage": "PLATFORM_ADOPTION",
               "confidence": "research-observed",
               "excerpt": "HBM4 는 2026년 1분기에 삼성의 출하를 시작으로 NVIDIA Rubin 에 탑재될 예정"
-            },
-            {
-              "id": "69b65258a4f08a3725e8",
-              "title": "Samsung · HBM4 · COMMERCIAL_SHIPMENT",
-              "source": "UBS",
-              "sourceId": "ubs",
-              "sourceClass": "research",
-              "url": "https://www.digitimes.com/news/a20260720PD215/samsung-2027-hbm4-market-sk-hynix.html",
-              "publishedAt": "2026-07-20",
-              "stage": "COMMERCIAL_SHIPMENT",
-              "confidence": "research-observed",
-              "excerpt": "UBS가 인용한 예측에 따르면, 삼성전자는 HBM4의 출하량 확대로 2027년 SKHY를 제치고 글로벌 고대역폭 메모리 시장을 선도할 수 있을 것으로 전망"
             }
           ]
         },
@@ -1250,12 +1310,12 @@
           "decisionStage": "BUSINESS_CASE",
           "deliverable": "Tech/Market Insight · Opportunity Thesis · Partner Screen · Business Case",
           "status": "DECISION_READY",
-          "updatedAt": "2026-08-20T10:58:09.346Z",
+          "updatedAt": "2026-08-23T07:23:34.980Z",
           "whatChanged": "RAG 품질 Gate 통과 후 Index·Corpus 계층을 어떤 사업모델로 확장할 것인가",
-          "latestSignal": "Memory industry · AI Memory · DISCLOSED",
-          "sourceStage": "DISCLOSED",
+          "latestSignal": "Samsung · AI Memory · MASS_PRODUCTION",
+          "sourceStage": "MASS_PRODUCTION",
           "stage": "BUSINESS_CASE",
-          "confidence": "corroborated",
+          "confidence": "review",
           "customerPain": "검색 품질·권한·색인 최신성과 Query P99를 유지하면서 Corpus 비용을 통제해야 함",
           "hypothesis": "Vector DB 교체보다 Metadata·ACL·Hybrid Retrieval·Rerank를 먼저 통과한 뒤 Hot Index·Warm Document·Cold Corpus를 계층화",
           "options": [
@@ -1281,10 +1341,22 @@
           "trigger": "검색 품질 Gate 통과 후 Active Index Capacity 또는 Storage I/O가 지배 병목으로 확인",
           "killCriteria": "Recall·권한·인용 품질 Gate를 통과하지 못하면 Memory/Storage 증설 제안을 중단",
           "evidenceCount": 8,
-          "independentSources": 6,
-          "primaryEvidence": 5,
+          "independentSources": 5,
+          "primaryEvidence": 3,
           "verifiedClaims": 3,
           "evidence": [
+            {
+              "id": "0f652d28a88cd4d3b1e9",
+              "title": "Samsung · AI Memory · MASS_PRODUCTION",
+              "source": "TrendForce",
+              "sourceId": "trendforce",
+              "sourceClass": "research",
+              "url": "https://www.trendforce.com/news/2026/08/14/news-samsung-may-repurpose-rd-line-for-foundry-targeting-2nm-hbm-base-dies-for-future-nvidia-demand",
+              "publishedAt": "2026-08-14",
+              "stage": "MASS_PRODUCTION",
+              "confidence": "research-observed",
+              "excerpt": "The facility would primarily target mass production of 2nm base (logic) dies for next-generation HBM, allowing Samsung to secure additional capacity ahead of expected demand growth from key customers including NVIDIA"
+            },
             {
               "id": "39e7ac26429e73c7acb5",
               "title": "Memory industry · AI Memory · DISCLOSED",
@@ -1298,8 +1370,8 @@
               "excerpt": "While mainstream headlines focus on high-bandwidth memory (HBM) supply allocations, the underlying dynamics across manufacturing CAPEX, enterprise storage, and system architectures tell a more nuanced story"
             },
             {
-              "id": "0549be51e38ab80b9909",
-              "title": "Samsung · AI Memory · DISCLOSED",
+              "id": "cf80b8cc43902f076062",
+              "title": "SK hynix · AI Memory · DISCLOSED",
               "source": "TrendForce",
               "sourceId": "trendforce",
               "sourceClass": "research",
@@ -1322,32 +1394,16 @@
               "excerpt": "The company will also keep its capacity options aligned with future customer timelines by utilizing 16-layer stacking, which will expand offerings to up to 48GB"
             },
             {
-              "id": "a6e2ed0895636b3b2518",
-              "title": "Memory industry · AI Memory · DISCLOSED",
+              "id": "ad1fe730a17bcd7b5f78",
+              "title": "Samsung · AI Memory · DISCLOSED",
               "source": "TrendForce",
               "sourceId": "trendforce",
               "sourceClass": "research",
-              "url": "https://www.trendforce.com/presscenter/news/20260602-13074.html",
-              "publishedAt": "2026-06-02",
+              "url": "https://www.trendforce.com/news/2026/08/20/news-samsung-to-break-ground-on-krw-6t-onyang-hbm-fab-in-sept-p5-eyes-triple-fab-shift-as-expansion-accelerates",
+              "publishedAt": "2026-08-20",
               "stage": "DISCLOSED",
               "confidence": "research-observed",
-              "excerpt": "Overall, as HBM generations continue evolving in 2027, with larger die sizes and simultaneously rising demand, the crowding-out effect on conventional DRAM capacity is expected to intensify further"
-            },
-            {
-              "score": 3.75,
-              "chunkId": "2160d066d0395d15117f",
-              "title": "KV Offloading Usage Guide - vLLM",
-              "excerpt": "all_reduce_utils base_device_communicator cpu_communicator cuda_communicator cuda_wrapper custom_all_reduce flashinfer_all_reduce mnnvl_compat pynccl pynccl_allocator pynccl_wrapper quick_all_reduce ray_communicator shm_broadcast shm_object_storage symm_mem xpu_communicator ec_transfer ec_transfer ec_",
-              "sourceId": "vllm-kv-offloading",
-              "source": "vLLM KV Offloading",
-              "sourceClass": "official",
-              "url": "https://docs.vllm.ai/en/latest/features/kv_offloading_usage",
-              "publishedAt": "2026-01-08",
-              "indexedAt": "2026-08-17T17:56:11.563Z",
-              "sourceChangeDetectedAt": "2026-08-17T17:56:09.202Z",
-              "lastHumanVerifiedAt": null,
-              "freshnessDays": 365,
-              "documentStatus": "retained-last-verified"
+              "excerpt": "Samsung is stepping up its capacity expansion"
             }
           ]
         },
@@ -1359,12 +1415,12 @@
           "decisionStage": "SCALE_GATE",
           "deliverable": "Partner Model · 90-Day Roadmap · RACI · KPI/Trigger/Kill Dashboard",
           "status": "DECISION_READY",
-          "updatedAt": "2026-08-20T10:58:09.346Z",
+          "updatedAt": "2026-08-23T07:23:34.980Z",
           "whatChanged": "전력·냉각·Fabric·Storage Gate를 통과한 Rack Cell만 파트너와 확장할 것인가",
-          "latestSignal": "Memory industry · AI Memory · DISCLOSED",
-          "sourceStage": "DISCLOSED",
+          "latestSignal": "Samsung · AI Memory · MASS_PRODUCTION",
+          "sourceStage": "MASS_PRODUCTION",
           "stage": "SCALE_GATE",
-          "confidence": "corroborated",
+          "confidence": "review",
           "customerPain": "가속기·Fabric·Storage·전력·냉각의 병목이 Rack/POD 단위 확장을 제한",
           "hypothesis": "서버 단품이 아니라 Useful AI Work / Total Cost와 Qualification / Time 기준으로 Rack Cell을 공동 최적화",
           "options": [
@@ -1392,10 +1448,22 @@
           "trigger": "실제 로그와 업무 성공 기준·가동 가능 전력이 함께 확정",
           "killCriteria": "전력 인입·열 제거·복구 SLO·수요 기준선 중 하나라도 검증되지 않으면 대규모 CAPEX를 승인하지 않음",
           "evidenceCount": 8,
-          "independentSources": 6,
-          "primaryEvidence": 5,
+          "independentSources": 4,
+          "primaryEvidence": 3,
           "verifiedClaims": 3,
           "evidence": [
+            {
+              "id": "0f652d28a88cd4d3b1e9",
+              "title": "Samsung · AI Memory · MASS_PRODUCTION",
+              "source": "TrendForce",
+              "sourceId": "trendforce",
+              "sourceClass": "research",
+              "url": "https://www.trendforce.com/news/2026/08/14/news-samsung-may-repurpose-rd-line-for-foundry-targeting-2nm-hbm-base-dies-for-future-nvidia-demand",
+              "publishedAt": "2026-08-14",
+              "stage": "MASS_PRODUCTION",
+              "confidence": "research-observed",
+              "excerpt": "The facility would primarily target mass production of 2nm base (logic) dies for next-generation HBM, allowing Samsung to secure additional capacity ahead of expected demand growth from key customers including NVIDIA"
+            },
             {
               "id": "39e7ac26429e73c7acb5",
               "title": "Memory industry · AI Memory · DISCLOSED",
@@ -1409,8 +1477,8 @@
               "excerpt": "While mainstream headlines focus on high-bandwidth memory (HBM) supply allocations, the underlying dynamics across manufacturing CAPEX, enterprise storage, and system architectures tell a more nuanced story"
             },
             {
-              "id": "0549be51e38ab80b9909",
-              "title": "Samsung · AI Memory · DISCLOSED",
+              "id": "cf80b8cc43902f076062",
+              "title": "SK hynix · AI Memory · DISCLOSED",
               "source": "TrendForce",
               "sourceId": "trendforce",
               "sourceClass": "research",
@@ -1433,43 +1501,27 @@
               "excerpt": "The company will also keep its capacity options aligned with future customer timelines by utilizing 16-layer stacking, which will expand offerings to up to 48GB"
             },
             {
-              "id": "a6e2ed0895636b3b2518",
-              "title": "Memory industry · AI Memory · DISCLOSED",
+              "id": "ad1fe730a17bcd7b5f78",
+              "title": "Samsung · AI Memory · DISCLOSED",
               "source": "TrendForce",
               "sourceId": "trendforce",
               "sourceClass": "research",
-              "url": "https://www.trendforce.com/presscenter/news/20260602-13074.html",
-              "publishedAt": "2026-06-02",
+              "url": "https://www.trendforce.com/news/2026/08/20/news-samsung-to-break-ground-on-krw-6t-onyang-hbm-fab-in-sept-p5-eyes-triple-fab-shift-as-expansion-accelerates",
+              "publishedAt": "2026-08-20",
               "stage": "DISCLOSED",
               "confidence": "research-observed",
-              "excerpt": "Overall, as HBM generations continue evolving in 2027, with larger die sizes and simultaneously rising demand, the crowding-out effect on conventional DRAM capacity is expected to intensify further"
-            },
-            {
-              "score": 1.75,
-              "chunkId": "579a99372b144bf204ca",
-              "title": "새로운 AI 인프라 사이클을 뒷받침하는 메모리 혁신 1부 - samsung.com",
-              "excerpt": "Memory Innovation Powering a New AI Infrastructure Cycle Part 1 - samsung.com Today, AI is rapidly expanding beyond large-scale data centers into smartphones, AI PCs, vehicles, robots, and industrial environments",
-              "sourceId": "samsung-semiconductor",
-              "source": "samsung.com",
-              "sourceClass": "official",
-              "url": "https://semiconductor.samsung.com/news-events/tech-blog/memory-innovation-powering-a-new-ai-infrastructure-cycle-ep1",
-              "publishedAt": "2026-08-19",
-              "indexedAt": "2026-08-20T02:02:53.639Z",
-              "sourceChangeDetectedAt": "2026-08-20T02:00:16.940Z",
-              "lastHumanVerifiedAt": null,
-              "freshnessDays": 180,
-              "documentStatus": "retained-last-verified"
+              "excerpt": "Samsung is stepping up its capacity expansion"
             }
           ]
         }
       ],
       "catalogCoverage": {
         "configured": 42,
-        "observed": 6,
+        "observed": 5,
         "fresh": 5,
-        "observationRatePct": 14.3,
+        "observationRatePct": 11.9,
         "officialConfigured": 33,
-        "officialObserved": 2,
+        "officialObserved": 1,
         "officialFresh": 1,
         "targetPct": 90
       }
@@ -1521,7 +1573,7 @@
         "id": "vllm-kv-offloading",
         "sourceId": "vllm-kv-offloading",
         "kind": "knowledge",
-        "status": "unavailable"
+        "status": "fetched"
       },
       {
         "id": "llm-serving-systems-research",
@@ -1539,13 +1591,13 @@
     "retrieval": {
       "mode": "incremental-extractive",
       "stats": {
-        "documents": 47,
-        "chunks": 136,
-        "added": 0,
-        "changed": 0,
-        "unchanged": 33,
-        "retained": 14,
-        "reindexed": 0
+        "documents": 54,
+        "chunks": 143,
+        "added": 7,
+        "changed": 3,
+        "unchanged": 26,
+        "retained": 18,
+        "reindexed": 10
       },
       "packs": [
         {
@@ -1567,6 +1619,17 @@
               "stale": false
             },
             {
+              "title": "Samsung to Break Ground on KRW 6T Onyang HBM Fab in Sept., P5 Eyes Triple-Fab Shift as Expansion Accelerates - TrendForce",
+              "source": "TrendForce",
+              "sourceClass": "research",
+              "url": "https://www.trendforce.com/news/2026/08/20/news-samsung-to-break-ground-on-krw-6t-onyang-hbm-fab-in-sept-p5-eyes-triple-fab-shift-as-expansion-accelerates",
+              "publishedAt": "2026-08-20",
+              "indexedAt": "2026-08-23T07:23:34.980Z",
+              "sourceChangeDetectedAt": "2026-08-23T07:16:57.741Z",
+              "lastHumanVerifiedAt": null,
+              "stale": false
+            },
+            {
               "title": "300mm Fab Capacity to Surpass 10M Wafers per Month in 2025 - TechInsights",
               "source": "TechInsights",
               "sourceClass": "research",
@@ -1576,17 +1639,6 @@
               "sourceChangeDetectedAt": "2026-08-19T20:54:46.465Z",
               "lastHumanVerifiedAt": null,
               "stale": false
-            },
-            {
-              "title": "HBM 시장 게시판 - 2026년 8월 17일 - trendforce.com",
-              "source": "trendforce.com",
-              "sourceClass": "research",
-              "url": "https://www.trendforce.com/research/download/RP260817WP3",
-              "publishedAt": "2026-08-17",
-              "indexedAt": "2026-08-19T16:58:28.437Z",
-              "sourceChangeDetectedAt": "2026-08-19T16:56:27.823Z",
-              "lastHumanVerifiedAt": null,
-              "stale": true
             }
           ]
         },
@@ -1603,10 +1655,10 @@
               "sourceClass": "official",
               "url": "https://docs.vllm.ai/en/latest/features/kv_offloading_usage",
               "publishedAt": "2026-01-08",
-              "indexedAt": "2026-08-17T17:56:11.563Z",
-              "sourceChangeDetectedAt": "2026-08-17T17:56:09.202Z",
+              "indexedAt": "2026-08-23T07:23:34.980Z",
+              "sourceChangeDetectedAt": "2026-08-23T07:23:33.000Z",
               "lastHumanVerifiedAt": null,
-              "stale": true
+              "stale": false
             },
             {
               "title": "KV Offloading Usage Guide - vLLM",
@@ -1614,10 +1666,10 @@
               "sourceClass": "official",
               "url": "https://docs.vllm.ai/en/latest/features/kv_offloading_usage",
               "publishedAt": "2026-01-08",
-              "indexedAt": "2026-08-17T17:56:11.563Z",
-              "sourceChangeDetectedAt": "2026-08-17T17:56:09.202Z",
+              "indexedAt": "2026-08-23T07:23:34.980Z",
+              "sourceChangeDetectedAt": "2026-08-23T07:23:33.000Z",
               "lastHumanVerifiedAt": null,
-              "stale": true
+              "stale": false
             },
             {
               "title": "NVIDIA Dynamo, A Low-Latency Distributed Inference Framework for Scaling Reasoning AI Models | NVIDIA Technical Blog",
@@ -1645,10 +1697,10 @@
               "sourceClass": "official",
               "url": "https://docs.vllm.ai/en/latest/features/kv_offloading_usage",
               "publishedAt": "2026-01-08",
-              "indexedAt": "2026-08-17T17:56:11.563Z",
-              "sourceChangeDetectedAt": "2026-08-17T17:56:09.202Z",
+              "indexedAt": "2026-08-23T07:23:34.980Z",
+              "sourceChangeDetectedAt": "2026-08-23T07:23:33.000Z",
               "lastHumanVerifiedAt": null,
-              "stale": true
+              "stale": false
             },
             {
               "title": "솔리다임 뉴스룸 - news.solidigm.com",
@@ -1667,10 +1719,10 @@
               "sourceClass": "official",
               "url": "https://docs.vllm.ai/en/latest/features/kv_offloading_usage",
               "publishedAt": "2026-01-08",
-              "indexedAt": "2026-08-17T17:56:11.563Z",
-              "sourceChangeDetectedAt": "2026-08-17T17:56:09.202Z",
+              "indexedAt": "2026-08-23T07:23:34.980Z",
+              "sourceChangeDetectedAt": "2026-08-23T07:23:33.000Z",
               "lastHumanVerifiedAt": null,
-              "stale": true
+              "stale": false
             }
           ]
         },
@@ -1693,13 +1745,13 @@
               "stale": false
             },
             {
-              "title": "Tight DRAM Supply Gives Suppliers Greater Pricing Power in HBM, with HBM Contract Prices Expected to Surge Multiples Higher in 2027, Says TrendForce",
+              "title": "Samsung May Repurpose R&D Line for Foundry, Targeting 2nm HBM Base Dies for Future NVIDIA Demand - TrendForce",
               "source": "TrendForce",
               "sourceClass": "research",
-              "url": "https://www.trendforce.com/presscenter/news/20260602-13074.html",
-              "publishedAt": "2026-06-02",
-              "indexedAt": "2026-08-20T07:18:26.928Z",
-              "sourceChangeDetectedAt": "2026-08-20T07:18:24.974Z",
+              "url": "https://www.trendforce.com/news/2026/08/14/news-samsung-may-repurpose-rd-line-for-foundry-targeting-2nm-hbm-base-dies-for-future-nvidia-demand",
+              "publishedAt": "2026-08-14",
+              "indexedAt": "2026-08-23T07:23:34.980Z",
+              "sourceChangeDetectedAt": "2026-08-23T07:16:57.741Z",
               "lastHumanVerifiedAt": null,
               "stale": false
             },
@@ -1724,6 +1776,17 @@
           "evidenceCount": 4,
           "citations": [
             {
+              "title": "Sandisk Introduces SANDISK® NAS SSDs to Power Fast, High-Endurance Storage for Prosumers and Small Businesses - Sandisk",
+              "source": "Sandisk",
+              "sourceClass": "official",
+              "url": "https://www.sandisk.com/company/newsroom/press-releases/2026/2026-08-20-sandisk-introduces-nas-ssds-to-power-fast-high-endurance-storage-for-prosumers-and-small-businesses",
+              "publishedAt": "2026-08-21",
+              "indexedAt": "2026-08-23T07:23:34.980Z",
+              "sourceChangeDetectedAt": "2026-08-23T07:16:57.741Z",
+              "lastHumanVerifiedAt": null,
+              "stale": false
+            },
+            {
               "title": "새로운 AI 인프라 사이클을 뒷받침하는 메모리 혁신 1부 - samsung.com",
               "source": "samsung.com",
               "sourceClass": "official",
@@ -1733,17 +1796,6 @@
               "sourceChangeDetectedAt": "2026-08-20T02:00:16.940Z",
               "lastHumanVerifiedAt": null,
               "stale": true
-            },
-            {
-              "title": "Samsung Ships Industry-First Commercial HBM4 With Ultimate Performance for AI Computing | Samsung Semiconductor Global",
-              "source": "Samsung Semiconductor",
-              "sourceClass": "official",
-              "url": "https://semiconductor.samsung.com/news-events/news/samsung-ships-industry-first-commercial-hbm4-with-ultimate-performance-for-ai-computing",
-              "publishedAt": "2026-02-19",
-              "indexedAt": "2026-08-19T05:02:49.158Z",
-              "sourceChangeDetectedAt": "2026-08-19T05:02:47.180Z",
-              "lastHumanVerifiedAt": null,
-              "stale": false
             },
             {
               "title": "Samsung Ships Industry-First Commercial HBM4 With Ultimate Performance for AI Computing | Samsung Semiconductor Global",
@@ -1855,10 +1907,21 @@
               "sourceClass": "official",
               "url": "https://docs.vllm.ai/en/latest/features/kv_offloading_usage",
               "publishedAt": "2026-01-08",
-              "indexedAt": "2026-08-17T17:56:11.563Z",
-              "sourceChangeDetectedAt": "2026-08-17T17:56:09.202Z",
+              "indexedAt": "2026-08-23T07:23:34.980Z",
+              "sourceChangeDetectedAt": "2026-08-23T07:23:33.000Z",
               "lastHumanVerifiedAt": null,
-              "stale": true
+              "stale": false
+            },
+            {
+              "title": "Sandisk Introduces SANDISK® NAS SSDs to Power Fast, High-Endurance Storage for Prosumers and Small Businesses - Sandisk",
+              "source": "Sandisk",
+              "sourceClass": "official",
+              "url": "https://www.sandisk.com/company/newsroom/press-releases/2026/2026-08-20-sandisk-introduces-nas-ssds-to-power-fast-high-endurance-storage-for-prosumers-and-small-businesses",
+              "publishedAt": "2026-08-21",
+              "indexedAt": "2026-08-23T07:23:34.980Z",
+              "sourceChangeDetectedAt": "2026-08-23T07:16:57.741Z",
+              "lastHumanVerifiedAt": null,
+              "stale": false
             },
             {
               "title": "Kioxia와 Sandisk, AI 및 데이터 집약적 애플리케이션을 위해 설계된 새로운 고성능 QLC 3D 플래시 메모리 기술 공개 - Sandisk",
@@ -1868,17 +1931,6 @@
               "publishedAt": "2026-08-12",
               "indexedAt": "2026-08-18T21:50:36.727Z",
               "sourceChangeDetectedAt": "2026-08-18T21:48:30.317Z",
-              "lastHumanVerifiedAt": null,
-              "stale": true
-            },
-            {
-              "title": "솔리다임 뉴스룸 - news.solidigm.com",
-              "source": ".solidigm.com",
-              "sourceClass": "official",
-              "url": "https://news.solidigm.com/en-WW",
-              "publishedAt": "2026-08-12",
-              "indexedAt": "2026-08-16T09:07:15.999Z",
-              "sourceChangeDetectedAt": "2026-08-16T09:07:15.999Z",
               "lastHumanVerifiedAt": null,
               "stale": true
             }
@@ -1897,10 +1949,10 @@
               "sourceClass": "official",
               "url": "https://docs.vllm.ai/en/latest/features/kv_offloading_usage",
               "publishedAt": "2026-01-08",
-              "indexedAt": "2026-08-17T17:56:11.563Z",
-              "sourceChangeDetectedAt": "2026-08-17T17:56:09.202Z",
+              "indexedAt": "2026-08-23T07:23:34.980Z",
+              "sourceChangeDetectedAt": "2026-08-23T07:23:33.000Z",
               "lastHumanVerifiedAt": null,
-              "stale": true
+              "stale": false
             },
             {
               "title": "KV Offloading Usage Guide - vLLM",
@@ -1908,10 +1960,10 @@
               "sourceClass": "official",
               "url": "https://docs.vllm.ai/en/latest/features/kv_offloading_usage",
               "publishedAt": "2026-01-08",
-              "indexedAt": "2026-08-17T17:56:11.563Z",
-              "sourceChangeDetectedAt": "2026-08-17T17:56:09.202Z",
+              "indexedAt": "2026-08-23T07:23:34.980Z",
+              "sourceChangeDetectedAt": "2026-08-23T07:23:33.000Z",
               "lastHumanVerifiedAt": null,
-              "stale": true
+              "stale": false
             },
             {
               "title": "KV Offloading Usage Guide - vLLM",
@@ -1919,10 +1971,10 @@
               "sourceClass": "official",
               "url": "https://docs.vllm.ai/en/latest/features/kv_offloading_usage",
               "publishedAt": "2026-01-08",
-              "indexedAt": "2026-08-17T17:56:11.563Z",
-              "sourceChangeDetectedAt": "2026-08-17T17:56:09.202Z",
+              "indexedAt": "2026-08-23T07:23:34.980Z",
+              "sourceChangeDetectedAt": "2026-08-23T07:23:33.000Z",
               "lastHumanVerifiedAt": null,
-              "stale": true
+              "stale": false
             }
           ]
         },
@@ -1939,10 +1991,10 @@
               "sourceClass": "official",
               "url": "https://docs.vllm.ai/en/latest/features/kv_offloading_usage",
               "publishedAt": "2026-01-08",
-              "indexedAt": "2026-08-17T17:56:11.563Z",
-              "sourceChangeDetectedAt": "2026-08-17T17:56:09.202Z",
+              "indexedAt": "2026-08-23T07:23:34.980Z",
+              "sourceChangeDetectedAt": "2026-08-23T07:23:33.000Z",
               "lastHumanVerifiedAt": null,
-              "stale": true
+              "stale": false
             },
             {
               "title": "KV Offloading Usage Guide - vLLM",
@@ -1950,10 +2002,10 @@
               "sourceClass": "official",
               "url": "https://docs.vllm.ai/en/latest/features/kv_offloading_usage",
               "publishedAt": "2026-01-08",
-              "indexedAt": "2026-08-17T17:56:11.563Z",
-              "sourceChangeDetectedAt": "2026-08-17T17:56:09.202Z",
+              "indexedAt": "2026-08-23T07:23:34.980Z",
+              "sourceChangeDetectedAt": "2026-08-23T07:23:33.000Z",
               "lastHumanVerifiedAt": null,
-              "stale": true
+              "stale": false
             },
             {
               "title": "Tight DRAM Supply Gives Suppliers Greater Pricing Power in HBM, with HBM Contract Prices Expected to Surge Multiples Higher in 2027, Says TrendForce",
@@ -1976,6 +2028,17 @@
           "evidenceCount": 4,
           "citations": [
             {
+              "title": "Sandisk Introduces SANDISK® NAS SSDs to Power Fast, High-Endurance Storage for Prosumers and Small Businesses - Sandisk",
+              "source": "Sandisk",
+              "sourceClass": "official",
+              "url": "https://www.sandisk.com/company/newsroom/press-releases/2026/2026-08-20-sandisk-introduces-nas-ssds-to-power-fast-high-endurance-storage-for-prosumers-and-small-businesses",
+              "publishedAt": "2026-08-21",
+              "indexedAt": "2026-08-23T07:23:34.980Z",
+              "sourceChangeDetectedAt": "2026-08-23T07:16:57.741Z",
+              "lastHumanVerifiedAt": null,
+              "stale": false
+            },
+            {
               "title": "새로운 AI 인프라 사이클을 뒷받침하는 메모리 혁신 1부 - samsung.com",
               "source": "samsung.com",
               "sourceClass": "official",
@@ -1996,17 +2059,6 @@
               "sourceChangeDetectedAt": "2026-08-19T05:02:47.180Z",
               "lastHumanVerifiedAt": null,
               "stale": false
-            },
-            {
-              "title": "NVIDIA Dynamo, A Low-Latency Distributed Inference Framework for Scaling Reasoning AI Models | NVIDIA Technical Blog",
-              "source": "NVIDIA Dynamo",
-              "sourceClass": "official",
-              "url": "https://developer.nvidia.com/blog/introducing-nvidia-dynamo-a-low-latency-distributed-inference-framework-for-scaling-reasoning-ai-models",
-              "publishedAt": "2025-03-18",
-              "indexedAt": "2026-08-17T02:34:48.994Z",
-              "sourceChangeDetectedAt": "2026-08-17T02:34:47.528Z",
-              "lastHumanVerifiedAt": null,
-              "stale": false
             }
           ]
         },
@@ -2023,10 +2075,10 @@
               "sourceClass": "official",
               "url": "https://docs.vllm.ai/en/latest/features/kv_offloading_usage",
               "publishedAt": "2026-01-08",
-              "indexedAt": "2026-08-17T17:56:11.563Z",
-              "sourceChangeDetectedAt": "2026-08-17T17:56:09.202Z",
+              "indexedAt": "2026-08-23T07:23:34.980Z",
+              "sourceChangeDetectedAt": "2026-08-23T07:23:33.000Z",
               "lastHumanVerifiedAt": null,
-              "stale": true
+              "stale": false
             },
             {
               "title": "NVIDIA Dynamo, A Low-Latency Distributed Inference Framework for Scaling Reasoning AI Models | NVIDIA Technical Blog",
@@ -2056,10 +2108,10 @@
     },
     "freshness": {
       "framework": "evidence-freshness-v1",
-      "score": 79.3,
-      "status": "warning",
-      "label": "재검증 필요",
-      "revalidationRequired": true,
+      "score": 89.1,
+      "status": "current",
+      "label": "최신",
+      "revalidationRequired": false,
       "thresholds": {
         "current": 85,
         "warning": 70
@@ -2071,29 +2123,29 @@
         "coverageDrift": 0.2
       },
       "components": {
-        "contentAge": 96.7,
+        "contentAge": 97.1,
         "embeddingLag": 100,
-        "staleRetrievalRate": 27.1,
-        "coverageDrift": 93.3
+        "staleRetrievalRate": 60.4,
+        "coverageDrift": 100
       },
       "diagnostics": {
-        "staleRetrievalRatePct": 72.9,
-        "feedCoveragePct": 90,
+        "staleRetrievalRatePct": 39.6,
+        "feedCoveragePct": 100,
         "trackCoveragePct": 100,
         "metricCoveragePct": 100,
-        "coverageDropPctPoint": 3.3,
-        "activeDocumentCount": 13
+        "coverageDropPctPoint": 0,
+        "activeDocumentCount": 15
       },
       "coverage": {
-        "currentPct": 96.7,
-        "previousPct": 100
+        "currentPct": 100,
+        "previousPct": 96.7
       },
       "timestamps": {
         "lastHumanVerifiedAt": null,
-        "sourceChangeDetectedAt": "2026-08-20T07:18:24.974Z",
-        "indexedAt": "2026-08-20T07:18:26.928Z"
+        "sourceChangeDetectedAt": "2026-08-23T07:23:33.000Z",
+        "indexedAt": "2026-08-23T07:23:34.980Z"
       },
-      "generatedAt": "2026-08-20T10:58:09.346Z"
+      "generatedAt": "2026-08-23T07:23:34.980Z"
     },
     "evaluation": {
       "framework": "grounded-retrieval-quality-loop",
@@ -2103,7 +2155,7 @@
       "metrics": {
         "citationCoveragePct": 100,
         "trackCoveragePct": 100,
-        "freshDocumentPct": 93.6,
+        "freshDocumentPct": 94.4,
         "primaryOrResearchPct": 100,
         "conflictDisclosurePct": 100,
         "unsupportedClaimPct": 0
@@ -2195,8 +2247,8 @@
     "output": {},
     "departmentWorkbench": {
       "source": "decisionIntelligence.decisionAutomation.briefs",
-      "runId": "32360889919",
-      "generatedAt": "2026-08-20T10:58:44.862Z",
+      "runId": "32624639996",
+      "generatedAt": "2026-08-23T07:24:13.882Z",
       "status": "DECISION_READY",
       "agenda": [
         {
@@ -2220,7 +2272,7 @@
             "Committed Volume"
           ],
           "evidenceCount": 8,
-          "independentSources": 5,
+          "independentSources": 4,
           "confidence": "verified-primary",
           "deepLink": "#console/c-level-cockpit/hbm4-foundry"
         },
@@ -2245,7 +2297,7 @@
             "Goodput"
           ],
           "evidenceCount": 8,
-          "independentSources": 6,
+          "independentSources": 4,
           "confidence": "verified-primary",
           "deepLink": "#console/c-level-cockpit/post-hbm"
         },
@@ -2258,7 +2310,7 @@
           "stage": "BUSINESS_CASE",
           "decisionQuestion": "RAG 품질 Gate 통과 후 Index·Corpus 계층을 어떤 사업모델로 확장할 것인가",
           "whatChanged": "RAG 품질 Gate 통과 후 Index·Corpus 계층을 어떤 사업모델로 확장할 것인가",
-          "latestSignal": "Memory industry · AI Memory · DISCLOSED",
+          "latestSignal": "Samsung · AI Memory · MASS_PRODUCTION",
           "customerPain": "검색 품질·권한·색인 최신성과 Query P99를 유지하면서 Corpus 비용을 통제해야 함",
           "recommendation": "Vector DB 교체보다 Metadata·ACL·Hybrid Retrieval·Rerank를 먼저 통과한 뒤 Hot Index·Warm Document·Cold Corpus를 계층화",
           "action90d": "Golden Set과 권한 오류·Recall·P99 기준선을 고정하고 Tier별 Retrieval Benchmark 수행",
@@ -2270,8 +2322,8 @@
             "Retrieval P99"
           ],
           "evidenceCount": 8,
-          "independentSources": 6,
-          "confidence": "corroborated",
+          "independentSources": 5,
+          "confidence": "review",
           "deepLink": "#console/ai-matrix"
         },
         {
@@ -2283,7 +2335,7 @@
           "stage": "SCALE_GATE",
           "decisionQuestion": "전력·냉각·Fabric·Storage Gate를 통과한 Rack Cell만 파트너와 확장할 것인가",
           "whatChanged": "전력·냉각·Fabric·Storage Gate를 통과한 Rack Cell만 파트너와 확장할 것인가",
-          "latestSignal": "Memory industry · AI Memory · DISCLOSED",
+          "latestSignal": "Samsung · AI Memory · MASS_PRODUCTION",
           "customerPain": "가속기·Fabric·Storage·전력·냉각의 병목이 Rack/POD 단위 확장을 제한",
           "recommendation": "서버 단품이 아니라 Useful AI Work / Total Cost와 Qualification / Time 기준으로 Rack Cell을 공동 최적화",
           "action90d": "Workload Trace·전력·열·Fabric·Checkpoint를 한 부하에서 계측하는 Rack Cell Baseline 확정",
@@ -2295,8 +2347,8 @@
             "Rack kW"
           ],
           "evidenceCount": 8,
-          "independentSources": 6,
-          "confidence": "corroborated",
+          "independentSources": 4,
+          "confidence": "review",
           "deepLink": "#console/ai-factory"
         }
       ],
@@ -2313,21 +2365,21 @@
         },
         {
           "label": "FRESHNESS",
-          "value": 79.3,
+          "value": 89.1,
           "suffix": "/100",
-          "detail": "재검증 필요"
+          "detail": "최신"
         },
         {
           "label": "SOURCE COVERAGE",
-          "value": 6,
+          "value": 5,
           "suffix": "/42",
           "detail": "관측/구성 소스"
         }
       ],
-      "revalidationRequired": true,
-      "indexedAt": "2026-08-20T07:18:26.928Z"
+      "revalidationRequired": false,
+      "indexedAt": "2026-08-23T07:23:34.980Z"
     },
-    "status": "VERIFIED · 출처 6개 관측 · 2026-08-20"
+    "status": "VERIFIED · 출처 5개 관측 · 2026-08-23"
   },
   "organizationOperatingModel": {
     "title": "SK hynix AI Infra 실행 전략",
@@ -2373,7 +2425,7 @@
           "hbm"
         ],
         "currentSignal": {
-          "title": "SKHY의 새로운 HBM 팀이 Nvidia와 AMD의 뒷마당에 상륙 - 공동 설계가 HBM4 주문을 획득하는 방법이 되고 있음 - digittimes",
+          "title": "SK Hynix's new HBM team lands in Nvidia and AMD's backyard — co-design is becoming the way to win HBM4 orders",
           "decision": "고객 인증·공급 일정·베이스 다이·패키징 병목을 함께 확인한 뒤 프리미엄 캐파를 배분",
           "source": "digitimes",
           "url": "https://www.digitimes.com/news/a20260820PD219/sk-hynix-hbm-hbm4-design-amd.html",
@@ -2415,10 +2467,10 @@
           "demand"
         ],
         "currentSignal": {
-          "title": "YMTC 모기업, NAND 주가 14% 도달 및 AI 스토리지 규모로 IPO 추진 - digittimes",
+          "title": "YMTC YMN09TF1B1JCAE_die 160L (Xtacking4.0) 512 Gb TLC 3D NAND Process Analysis",
           "decision": "NAND 계약가·웨이퍼 가격·eSSD 고객 신호를 분리해 Dalian/Solidigm의 제품 믹스와 가격 방어를 결정",
-          "source": "digitimes",
-          "url": "https://www.digitimes.com/news/a20260819VL211/ymtc-ipo-nand-flash-market.html",
+          "source": "TechInsights",
+          "url": "https://www.techinsights.com/blog/ymtc-ymn09tf1b1jcaedie-160l-xtacking40-512-gb-tlc-3d-nand-process-analysis",
           "publishedAt": "2026-08-20",
           "evidenceLevel": "Reported"
         }
@@ -2458,7 +2510,7 @@
           "hbm"
         ],
         "currentSignal": {
-          "title": "Micron D1β LPDDR5X DRAM 트랜지스터 특성 보고서",
+          "title": "Micron D1β LPDDR5X DRAM Transistor Characterization Report",
           "decision": "Spot 방향이 계약가로 전이되는지와 CXMT 고객·캐파 신호를 함께 확인해 범용 DRAM 가격 방어 강도를 정",
           "source": "TechInsights",
           "url": "https://www.techinsights.com/blog/micron-d1b-lpddr5x-dram-transistor-characterization-report",
@@ -2500,7 +2552,7 @@
           "hbm"
         ],
         "currentSignal": {
-          "title": "삼성, SKHY 1H26 칩설비투자 35% 증가 · NVIDIA는 삼성의 상위 5대 고객에 포함되지 않음",
+          "title": "Samsung, SK hynix 1H26 Chip Facility Investment Up 35%; NVIDIA Not Among Samsung’s Top Five Customers",
           "decision": "출하량과 대당 탑재량을 분리하고 고객 CapEx·전력·패키징 제약을 반영해 제품군 시나리오를 갱신",
           "source": "TrendForce",
           "url": "https://www.trendforce.com/news/2026/08/17/news-samsung-sk-hynix-1h26-chip-facility-investment-up-35-nvidia-not-among-samsungs-top-five-customers/",
@@ -2509,8 +2561,8 @@
         }
       }
     ],
-    "runId": "32360889919",
-    "generatedAt": "2026-08-20T10:58:44.862Z",
+    "runId": "32624639996",
+    "generatedAt": "2026-08-23T07:24:13.882Z",
     "liveEvidenceCount": 4
   },
   "decisionCases": [
@@ -2535,7 +2587,7 @@
       },
       "stop": "고객별 HBM4 인증 일정, 패키징 할당 또는 양산 수율의 공식 변경",
       "latest": {
-        "title": "SKHY의 새로운 HBM 팀이 Nvidia와 AMD의 뒷마당에 상륙 - 공동 설계가 HBM4 주문을 획득하는 방법이 되고 있음 - digittimes",
+        "title": "SK Hynix's new HBM team lands in Nvidia and AMD's backyard — co-design is becoming the way to win HBM4 orders",
         "summary": "SKHY가 실리콘밸리에 고대역폭 메모리(HBM) 설계팀을 꾸리는 것으로 알려지면서 미국의 주요 칩 고객사와 공동 설계 작업을 심화할 예정 · 분석가들은 이를 HBM 경쟁이 맞춤형, 공동 개발 단계로 전환하고 있다는 증거로 보고 있음",
         "source": "digitimes",
         "url": "https://www.digitimes.com/news/a20260820PD219/sk-hynix-hbm-hbm4-design-amd.html",
@@ -2543,11 +2595,11 @@
         "evidenceLevel": "Reported",
         "sourceClass": "authoritative-media"
       },
-      "evidenceCount": 10,
+      "evidenceCount": 9,
       "signals": [
         [
           "Reported · AUTHORITATIVE-MEDIA",
-          "SKHY의 새로운 HBM 팀이 Nvidia와 AMD의 뒷마당에 상륙 - 공동 설계가 HBM4 주문을 획득하는 방법이 되고 있음 - digittimes",
+          "SK Hynix's new HBM team lands in Nvidia and AMD's backyard — co-design is becoming the way to win HBM4 orders",
           "SKHY가 실리콘밸리에 고대역폭 메모리(HBM) 설계팀을 꾸리는 것으로 알려지면서 미국의 주요 칩 고객사와 공동 설계 작업을 심화할 예정 · 분석가들은 이를 HBM 경쟁이 맞춤형, 공동 개발 단계로 전환하고 있다는 증거로 보고 있음"
         ],
         [
@@ -2671,7 +2723,7 @@
       },
       "stop": "공식 출하 전망 또는 고객 CapEx가 기준 시나리오 대비 10% 이상 변경",
       "latest": {
-        "title": "삼성, SKHY 1H26 칩설비투자 35% 증가 · NVIDIA는 삼성의 상위 5대 고객에 포함되지 않음",
+        "title": "Samsung, SK hynix 1H26 Chip Facility Investment Up 35%; NVIDIA Not Among Samsung’s Top Five Customers",
         "summary": "Samsung and SK hynix are accelerating semiconductor investment as AI demand drives capacity expansion and advanced-process upgrades · According to Etoday , citing the companies’ 2026 semi-annual reports, Samsung Electronics and SK hynix invested a combined K",
         "source": "TrendForce",
         "url": "https://www.trendforce.com/news/2026/08/17/news-samsung-sk-hynix-1h26-chip-facility-investment-up-35-nvidia-not-among-samsungs-top-five-customers/",
@@ -2679,11 +2731,11 @@
         "evidenceLevel": "Reported",
         "sourceClass": "research"
       },
-      "evidenceCount": 3,
+      "evidenceCount": 2,
       "signals": [
         [
           "Reported · RESEARCH",
-          "삼성, SKHY 1H26 칩설비투자 35% 증가 · NVIDIA는 삼성의 상위 5대 고객에 포함되지 않음",
+          "Samsung, SK hynix 1H26 Chip Facility Investment Up 35%; NVIDIA Not Among Samsung’s Top Five Customers",
           "Samsung and SK hynix are accelerating semiconductor investment as AI demand drives capacity expansion and advanced-process upgrades · According to Etoday , citing the companies’ 2026 semi-annual reports, Samsung Electronics and SK hynix invested a combined K"
         ],
         [
@@ -2795,7 +2847,7 @@
       "phase": "NEXT",
       "tabLabel": "Enterprise RAG",
       "title": "LLM Tech & Enterprise RAG Architecture",
-      "subtitle": "digitimes 최신 근거 · 2026-08-20",
+      "subtitle": "TechInsights 최신 근거 · 2026-08-20",
       "answerTitle": "eSSD를 AI 추론의 독립 성장축으로 운영",
       "recommendation": "eSSD ATTACH",
       "question": "RAG의 Index·Cache·Document 경로에서 DRAM/CXL과 TLC/QLC eSSD를 어떻게 배치해야 P99·신뢰성·Cost/Query가 개선되는가?",
@@ -2808,20 +2860,20 @@
       },
       "stop": "NAND 계약가와 웨이퍼 가격이 동시에 반전하거나 YMTC 고객 인증·가동률이 공식 확인",
       "latest": {
-        "title": "YMTC 모기업, NAND 주가 14% 도달 및 AI 스토리지 규모로 IPO 추진 - digittimes",
-        "summary": "중국 NAND 플래시 제조업체인 YMTC의 모회사인 Yangtze Memory Technologies Holding은 메모리 제조업체가 글로벌 시장 점유율을 확보하고 기업용 스토리지 제품을 확장하며 또 다른 용량 성장을 준비하는 가운데 사전 IPO 프로세스의 핵심 단계를 완료",
-        "source": "digitimes",
-        "url": "https://www.digitimes.com/news/a20260819VL211/ymtc-ipo-nand-flash-market.html",
+        "title": "YMTC YMN09TF1B1JCAE_die 160L (Xtacking4.0) 512 Gb TLC 3D NAND Process Analysis",
+        "summary": "Explore the Advanced Memory Essentials (AME) report of the YMTC YMN09TF1B1JCAE_die featuring the YMTC’s fifth-generation (Xtacking4.0) 3D NAND flash memory",
+        "source": "TechInsights",
+        "url": "https://www.techinsights.com/blog/ymtc-ymn09tf1b1jcaedie-160l-xtacking40-512-gb-tlc-3d-nand-process-analysis",
         "publishedAt": "2026-08-20",
         "evidenceLevel": "Reported",
-        "sourceClass": "authoritative-media"
+        "sourceClass": "research"
       },
-      "evidenceCount": 18,
+      "evidenceCount": 19,
       "signals": [
         [
-          "Reported · AUTHORITATIVE-MEDIA",
-          "YMTC 모기업, NAND 주가 14% 도달 및 AI 스토리지 규모로 IPO 추진 - digittimes",
-          "중국 NAND 플래시 제조업체인 YMTC의 모회사인 Yangtze Memory Technologies Holding은 메모리 제조업체가 글로벌 시장 점유율을 확보하고 기업용 스토리지 제품을 확장하며 또 다른 용량 성장을 준비하는 가운데 사전 IPO 프로세스의 핵심 단계를 완료"
+          "Reported · RESEARCH",
+          "YMTC YMN09TF1B1JCAE_die 160L (Xtacking4.0) 512 Gb TLC 3D NAND Process Analysis",
+          "Explore the Advanced Memory Essentials (AME) report of the YMTC YMN09TF1B1JCAE_die featuring the YMTC’s fifth-generation (Xtacking4.0) 3D NAND flash memory"
         ],
         [
           "EXECUTIVE DECISION",
@@ -2909,8 +2961,8 @@
       "sources": [
         [
           "Reported",
-          "digitimes · 2026-08-20",
-          "https://www.digitimes.com/news/a20260819VL211/ymtc-ipo-nand-flash-market.html"
+          "TechInsights · 2026-08-20",
+          "https://www.techinsights.com/blog/ymtc-ymn09tf1b1jcaedie-160l-xtacking40-512-gb-tlc-3d-nand-process-analysis"
         ],
         [
           "CONTROL",
@@ -2933,7 +2985,7 @@
       "phase": "SCALE",
       "tabLabel": "Partner-led New Biz",
       "title": "Partners & Clients · Repeatable New Biz",
-      "subtitle": "TrendForce 최신 근거 · 2026-08-20",
+      "subtitle": "digitimes 최신 근거 · 2026-08-20",
       "answerTitle": "검증 결과를 반복 가능한 공동사업 패키지로 전환",
       "recommendation": "LIGHTHOUSE → REPEAT",
       "question": "AI 개발사·데이터센터·OEM·컨설팅 파트너를 어떤 RACI로 묶어 Pain 진단부터 Qualification·반복주문까지 연결할 것인가?",
@@ -2946,20 +2998,20 @@
       },
       "stop": "공식 출하 전망 또는 고객 CapEx가 기준 시나리오 대비 10% 이상 변경",
       "latest": {
-        "title": "SKHY, CPO 로드맵 공개, HBM 넘어 AI 인프라까지 - TrendForce",
-        "summary": "SKHY는 메모리 공급업체에서 AI 인프라 분야의 더 큰 역할로 전환하고 있음 · 회사에 따르면, 전 세계 주요 연구자들과 협력하여 Nature Electronics 저널에 공동 패키지 광학(CPO)에 대한 로드맵을 제시",
-        "source": "TrendForce",
-        "url": "https://www.trendforce.com/news/2026/08/20/news-sk-hynix-unveils-cpo-roadmap-looks-beyond-hbm-to-ai-infrastructure/",
+        "title": "SK Hynix's new HBM team lands in Nvidia and AMD's backyard — co-design is becoming the way to win HBM4 orders - digitimes",
+        "summary": "SKHY가 실리콘밸리에 고대역폭 메모리(HBM) 설계팀을 꾸리는 것으로 알려지면서 미국의 주요 칩 고객사와 공동 설계 작업을 심화할 예정 · 분석가들은 이를 HBM 경쟁이 맞춤형, 공동 개발 단계로 전환하고 있다는 증거로 보고 있음",
+        "source": "digitimes",
+        "url": "https://www.digitimes.com/news/a20260820PD219/sk-hynix-hbm-hbm4-design-amd.html",
         "publishedAt": "2026-08-20",
         "evidenceLevel": "Watch",
-        "sourceClass": "research"
+        "sourceClass": "authoritative-media"
       },
-      "evidenceCount": 3,
+      "evidenceCount": 2,
       "signals": [
         [
-          "Watch · RESEARCH",
-          "SKHY, CPO 로드맵 공개, HBM 넘어 AI 인프라까지 - TrendForce",
-          "SKHY는 메모리 공급업체에서 AI 인프라 분야의 더 큰 역할로 전환하고 있음 · 회사에 따르면, 전 세계 주요 연구자들과 협력하여 Nature Electronics 저널에 공동 패키지 광학(CPO)에 대한 로드맵을 제시"
+          "Watch · AUTHORITATIVE-MEDIA",
+          "SK Hynix's new HBM team lands in Nvidia and AMD's backyard — co-design is becoming the way to win HBM4 orders - digitimes",
+          "SKHY가 실리콘밸리에 고대역폭 메모리(HBM) 설계팀을 꾸리는 것으로 알려지면서 미국의 주요 칩 고객사와 공동 설계 작업을 심화할 예정 · 분석가들은 이를 HBM 경쟁이 맞춤형, 공동 개발 단계로 전환하고 있다는 증거로 보고 있음"
         ],
         [
           "EXECUTIVE DECISION",
@@ -3046,8 +3098,8 @@
       "sources": [
         [
           "Watch",
-          "TrendForce · 2026-08-20",
-          "https://www.trendforce.com/news/2026/08/20/news-sk-hynix-unveils-cpo-roadmap-looks-beyond-hbm-to-ai-infrastructure/"
+          "digitimes · 2026-08-20",
+          "https://www.digitimes.com/news/a20260820PD219/sk-hynix-hbm-hbm4-design-amd.html"
         ],
         [
           "CONTROL",
@@ -3067,9 +3119,9 @@
     {
       "id": "hbm",
       "label": "HBM·AI 서버",
-      "evidenceCount": 10,
+      "evidenceCount": 9,
       "latest": {
-        "title": "SKHY의 새로운 HBM 팀이 Nvidia와 AMD의 뒷마당에 상륙 - 공동 설계가 HBM4 주문을 획득하는 방법이 되고 있음 - digittimes",
+        "title": "SK Hynix's new HBM team lands in Nvidia and AMD's backyard — co-design is becoming the way to win HBM4 orders",
         "summary": "SKHY가 실리콘밸리에 고대역폭 메모리(HBM) 설계팀을 꾸리는 것으로 알려지면서 미국의 주요 칩 고객사와 공동 설계 작업을 심화할 예정 · 분석가들은 이를 HBM 경쟁이 맞춤형, 공동 개발 단계로 전환하고 있다는 증거로 보고 있음",
         "source": "digitimes",
         "url": "https://www.digitimes.com/news/a20260820PD219/sk-hynix-hbm-hbm4-design-amd.html",
@@ -3091,9 +3143,9 @@
     {
       "id": "dram",
       "label": "DRAM·범용 가격",
-      "evidenceCount": 10,
+      "evidenceCount": 13,
       "latest": {
-        "title": "Micron D1β LPDDR5X DRAM 트랜지스터 특성 보고서",
+        "title": "Micron D1β LPDDR5X DRAM Transistor Characterization Report",
         "summary": "이 보고서는 Micron Technology MT62F1G64D4AM-031_XT_C LPDDR5 SDRAM 구성 요소 내부에 있는 Micron Technology Y52P 다이의 워드 라인 드라이버 및 감지 증폭기 영역에 위치한 NMOS 및 PMOS 트랜지스터의 주요 DC 특성을 제시",
         "source": "TechInsights",
         "url": "https://www.techinsights.com/blog/micron-d1b-lpddr5x-dram-transistor-characterization-report",
@@ -3115,18 +3167,18 @@
     {
       "id": "nand",
       "label": "NAND·eSSD",
-      "evidenceCount": 18,
+      "evidenceCount": 19,
       "latest": {
-        "title": "YMTC 모기업, NAND 주가 14% 도달 및 AI 스토리지 규모로 IPO 추진 - digittimes",
-        "summary": "중국 NAND 플래시 제조업체인 YMTC의 모회사인 Yangtze Memory Technologies Holding은 메모리 제조업체가 글로벌 시장 점유율을 확보하고 기업용 스토리지 제품을 확장하며 또 다른 용량 성장을 준비하는 가운데 사전 IPO 프로세스의 핵심 단계를 완료",
-        "source": "digitimes",
-        "url": "https://www.digitimes.com/news/a20260819VL211/ymtc-ipo-nand-flash-market.html",
+        "title": "YMTC YMN09TF1B1JCAE_die 160L (Xtacking4.0) 512 Gb TLC 3D NAND Process Analysis",
+        "summary": "Explore the Advanced Memory Essentials (AME) report of the YMTC YMN09TF1B1JCAE_die featuring the YMTC’s fifth-generation (Xtacking4.0) 3D NAND flash memory",
+        "source": "TechInsights",
+        "url": "https://www.techinsights.com/blog/ymtc-ymn09tf1b1jcaedie-160l-xtacking40-512-gb-tlc-3d-nand-process-analysis",
         "publishedAt": "2026-08-20",
         "evidenceLevel": "Reported",
-        "sourceClass": "authoritative-media"
+        "sourceClass": "research"
       },
-      "fact": "중국 NAND 플래시 제조업체인 YMTC의 모회사인 Yangtze Memory Technologies Holding은 메모리 제조업체가 글로벌 시장 점유율을 확보하고 기업용 스토리지 제품을 확장하며 또 다른 용량 성장을 준비하는 가운데 사전 IPO 프로세스의 핵심 단계를 완료",
-      "implication": "중국 NAND 플래시 제조업체인 YMTC의 모회사인 Yangtze Memory Technologies Holding은 메모리 제조업체가 글로벌 시장 점유율을 확보하고 기업용 스토리지 제품을 확장하며 또 다른 용량 성장을 준비하는 가운데 사전 IPO 프로세스의 핵심 단계를 완료 · 1TB-mSATA/M.2 TLC PCIe-Value Grade은 공개 누적 5개 관측에서 +343.51% 변",
+      "fact": "Explore the Advanced Memory Essentials (AME) report of the YMTC YMN09TF1B1JCAE_die featuring the YMTC’s fifth-generation (Xtacking4.0) 3D NAND flash memory",
+      "implication": "Explore the Advanced Memory Essentials (AME) report of the YMTC YMN09TF1B1JCAE_die featuring the YMTC’s fifth-generation (Xtacking4.0) 3D NAND flash memory · 1TB-mSATA/M.2 TLC PCIe-Value Grade은 공개 누적 5개 관측에서 +343.51% 변",
       "decision": "NAND 계약가·웨이퍼 가격·eSSD 고객 신호를 분리해 Dalian/Solidigm의 제품 믹스와 가격 방어를 결정",
       "action": "NAND 계약가와 웨이퍼 가격이 동시에 반전하거나 YMTC 고객 인증·가동률이 공식 확인",
       "hypothesis": {
@@ -3139,18 +3191,18 @@
     {
       "id": "china",
       "label": "중국 경쟁",
-      "evidenceCount": 6,
+      "evidenceCount": 8,
       "latest": {
-        "title": "글로벌 메모리 랠리가 중국 칩 챔피언을 끌어올리면서 CXMT 가치가 4조 위안을 넘어섰음",
-        "summary": "SanDisk의 강세 신호가 AI 기반 메모리 수요가 공급을 부족하게 유지할 것이라는 기대를 강화함에 따라 주가는 기록적으로 12% 급등",
-        "source": "South China Morning Post",
-        "url": "https://www.scmp.com/tech/article/3364288/cxmt-tops-4-trillion-yuan-ai-fuelled-memory-rally-lifts-chinas-chip-champion",
-        "publishedAt": "2026-08-17",
+        "title": "YMTC parent seeks $4.9bn Shanghai IPO on AI memory boom",
+        "summary": "TAIPEI/NEW YORK -- CCSH Corporation, the parent of Chinese memory chip giant Yangtze Memory Technologies Corp (YMTC), announced Friday that it plans t",
+        "source": "Nikkei Asia",
+        "url": "https://asia.nikkei.com/business/markets/ipo/ymtc-parent-seeks-4.9bn-shanghai-ipo-on-ai-memory-boom",
+        "publishedAt": "2026-08-21",
         "evidenceLevel": "Reported",
         "sourceClass": "authoritative-media"
       },
-      "fact": "SanDisk의 강세 신호가 AI 기반 메모리 수요가 공급을 부족하게 유지할 것이라는 기대를 강화함에 따라 주가는 기록적으로 12% 급등",
-      "implication": "SanDisk의 강세 신호가 AI 기반 메모리 수요가 공급을 부족하게 유지할 것이라는 기대를 강화함에 따라 주가는 기록적으로 12% 급등 · 512Gb TLC은 공개 누적 90개 관측에서 +332.00% 변했습니다(직접 가격이 아닌 proxy)",
+      "fact": "TAIPEI/NEW YORK -- CCSH Corporation, the parent of Chinese memory chip giant Yangtze Memory Technologies Corp (YMTC), announced Friday that it plans t",
+      "implication": "TAIPEI/NEW YORK -- CCSH Corporation, the parent of Chinese memory chip giant Yangtze Memory Technologies Corp (YMTC), announced Friday that it plans t 512Gb TLC은 공개 누적 90개 관측에서 +332.00% 변했습니다(직접 가격이 아닌 proxy)",
       "decision": "DRAM 가격, NAND·eSSD, 패키징, 장비 내재화를 별도 축으로 보고 공식 투자·고객·양산 신호가 겹칠 때만 경보를 높",
       "action": "공식 공시·고객 계약·장비 반입·양산 램프 가운데 두 개 이상의 독립 근거가 같은 방향으로 확인",
       "hypothesis": {
@@ -3163,9 +3215,9 @@
     {
       "id": "demand",
       "label": "수요·고객",
-      "evidenceCount": 3,
+      "evidenceCount": 2,
       "latest": {
-        "title": "삼성, SKHY 1H26 칩설비투자 35% 증가 · NVIDIA는 삼성의 상위 5대 고객에 포함되지 않음",
+        "title": "Samsung, SK hynix 1H26 Chip Facility Investment Up 35%; NVIDIA Not Among Samsung’s Top Five Customers",
         "summary": "Samsung and SK hynix are accelerating semiconductor investment as AI demand drives capacity expansion and advanced-process upgrades · According to Etoday , citing the companies’ 2026 semi-annual reports, Samsung Electronics and SK hynix invested a combined K",
         "source": "TrendForce",
         "url": "https://www.trendforce.com/news/2026/08/17/news-samsung-sk-hynix-1h26-chip-facility-investment-up-35-nvidia-not-among-samsungs-top-five-customers/",
@@ -3187,18 +3239,18 @@
     {
       "id": "capital",
       "label": "자본시장·CAPEX",
-      "evidenceCount": 9,
+      "evidenceCount": 6,
       "latest": {
-        "title": "YMTC 모기업, NAND 주가 14% 도달 및 AI 스토리지 규모로 IPO 추진 - digittimes",
-        "summary": "중국 NAND 플래시 제조업체인 YMTC의 모회사인 Yangtze Memory Technologies Holding은 메모리 제조업체가 글로벌 시장 점유율을 확보하고 기업용 스토리지 제품을 확장하며 또 다른 용량 성장을 준비하는 가운데 사전 IPO 프로세스의 핵심 단계를 완료",
-        "source": "digitimes",
-        "url": "https://www.digitimes.com/news/a20260819VL211/ymtc-ipo-nand-flash-market.html",
-        "publishedAt": "2026-08-20",
+        "title": "YMTC parent seeks $4.9bn Shanghai IPO on AI memory boom",
+        "summary": "TAIPEI/NEW YORK -- CCSH Corporation, the parent of Chinese memory chip giant Yangtze Memory Technologies Corp (YMTC), announced Friday that it plans t",
+        "source": "Nikkei Asia",
+        "url": "https://asia.nikkei.com/business/markets/ipo/ymtc-parent-seeks-4.9bn-shanghai-ipo-on-ai-memory-boom",
+        "publishedAt": "2026-08-21",
         "evidenceLevel": "Reported",
         "sourceClass": "authoritative-media"
       },
-      "fact": "중국 NAND 플래시 제조업체인 YMTC의 모회사인 Yangtze Memory Technologies Holding은 메모리 제조업체가 글로벌 시장 점유율을 확보하고 기업용 스토리지 제품을 확장하며 또 다른 용량 성장을 준비하는 가운데 사전 IPO 프로세스의 핵심 단계를 완료",
-      "implication": "중국 NAND 플래시 제조업체인 YMTC의 모회사인 Yangtze Memory Technologies Holding은 메모리 제조업체가 글로벌 시장 점유율을 확보하고 기업용 스토리지 제품을 확장하며 또 다른 용량 성장을 준비하는 가운데 사전 IPO 프로세스의 핵심 단계를 완료",
+      "fact": "TAIPEI/NEW YORK -- CCSH Corporation, the parent of Chinese memory chip giant Yangtze Memory Technologies Corp (YMTC), announced Friday that it plans t",
+      "implication": "TAIPEI/NEW YORK -- CCSH Corporation, the parent of Chinese memory chip giant Yangtze Memory Technologies Corp (YMTC), announced Friday that it plans t",
       "decision": "공모 계획액, 확정 조달액, 조건부 초과배정과 연간 CAPEX를 같은 숫자로 합치지 않고 자금 용도와 공급 증가 시점을 따로 판단",
       "action": "최종 투자설명서, 거래소 공시, 이사회 CAPEX 가이던스 또는 실제 자금 집행 일정 변경",
       "hypothesis": {
@@ -3269,13 +3321,13 @@
     }
   ],
   "partnerSpotlight": {
-    "title": "SKHY, CPO 로드맵 공개, HBM 넘어 AI 인프라까지 - TrendForce",
-    "summary": "SKHY는 메모리 공급업체에서 AI 인프라 분야의 더 큰 역할로 전환하고 있음 · 회사에 따르면, 전 세계 주요 연구자들과 협력하여 Nature Electronics 저널에 공동 패키지 광학(CPO)에 대한 로드맵을 제시",
-    "source": "TrendForce",
-    "url": "https://www.trendforce.com/news/2026/08/20/news-sk-hynix-unveils-cpo-roadmap-looks-beyond-hbm-to-ai-infrastructure/",
+    "title": "SK Hynix's new HBM team lands in Nvidia and AMD's backyard — co-design is becoming the way to win HBM4 orders - digitimes",
+    "summary": "SKHY가 실리콘밸리에 고대역폭 메모리(HBM) 설계팀을 꾸리는 것으로 알려지면서 미국의 주요 칩 고객사와 공동 설계 작업을 심화할 예정 · 분석가들은 이를 HBM 경쟁이 맞춤형, 공동 개발 단계로 전환하고 있다는 증거로 보고 있음",
+    "source": "digitimes",
+    "url": "https://www.digitimes.com/news/a20260820PD219/sk-hynix-hbm-hbm4-design-amd.html",
     "publishedAt": "2026-08-20",
     "evidenceLevel": "Watch",
-    "sourceClass": "research"
+    "sourceClass": "authoritative-media"
   },
   "aiFactorySystem": {
     "title": "AI Factory System Optimization · Useful Work per MW",
@@ -3381,15 +3433,17 @@
           "slurm-gres"
         ],
         "evidence": {
-          "status": "monitoring",
-          "title": "공식·연구 원문 증분 모니터링",
-          "summary": "소스 변경이 감지되면 이 Workload의 Retrieval Track을 증분 재색인",
-          "source": "AWS Trainium",
-          "sourceId": "aws-trainium",
+          "status": "Watch",
+          "title": "Sandisk Introduces SANDISK® NAS SSDs to Power Fast, High-Endurance Storage for Prosumers and Small Businesses - Sandisk",
+          "summary": "",
+          "source": "Sandisk Newsroom",
+          "sourceId": "sandisk-newsroom",
           "sourceClass": "official",
-          "url": "https://aws.amazon.com/blogs/machine-learning/category/artificial-intelligence/aws-trainium/",
-          "publishedAt": null,
-          "matchedTerms": []
+          "url": "https://www.sandisk.com/company/newsroom/press-releases/2026/2026-08-20-sandisk-introduces-nas-ssds-to-power-fast-high-endurance-storage-for-prosumers-and-small-businesses",
+          "publishedAt": "2026-08-21",
+          "matchedTerms": [
+            "power"
+          ]
         }
       },
       {
@@ -3506,15 +3560,17 @@
           "llm-serving-systems-research"
         ],
         "evidence": {
-          "status": "monitoring",
-          "title": "공식·연구 원문 증분 모니터링",
-          "summary": "소스 변경이 감지되면 이 Workload의 Retrieval Track을 증분 재색인",
-          "source": "Google Gemini Context Caching",
-          "sourceId": "google-context-caching",
+          "status": "Watch",
+          "title": "Sandisk Introduces SANDISK® NAS SSDs to Power Fast, High-Endurance Storage for Prosumers and Small Businesses - Sandisk",
+          "summary": "",
+          "source": "Sandisk Newsroom",
+          "sourceId": "sandisk-newsroom",
           "sourceClass": "official",
-          "url": "https://ai.google.dev/gemini-api/docs/optimization",
-          "publishedAt": null,
-          "matchedTerms": []
+          "url": "https://www.sandisk.com/company/newsroom/press-releases/2026/2026-08-20-sandisk-introduces-nas-ssds-to-power-fast-high-endurance-storage-for-prosumers-and-small-businesses",
+          "publishedAt": "2026-08-21",
+          "matchedTerms": [
+            "rag"
+          ]
         }
       },
       {
@@ -3982,7 +4038,21 @@
         "status": "fresh"
       }
     ],
-    "signals": [],
+    "signals": [
+      {
+        "id": "sandisk-newsroom-facility-2026-08-21",
+        "pillar": "facility",
+        "pillarLabel": "POWER / COOLING",
+        "title": "Sandisk Introduces SANDISK® NAS SSDs to Power Fast, High-Endurance Storage for Prosumers and Small Businesses - Sandisk",
+        "summary": "",
+        "source": "Sandisk Newsroom",
+        "sourceId": "sandisk-newsroom",
+        "url": "https://www.sandisk.com/company/newsroom/press-releases/2026/2026-08-20-sandisk-introduces-nas-ssds-to-power-fast-high-endurance-storage-for-prosumers-and-small-businesses",
+        "publishedAt": "2026-08-21",
+        "evidenceLevel": "Watch",
+        "sourceClass": "official"
+      }
+    ],
     "pillarCoverage": [
       {
         "id": "facility",
@@ -4046,14 +4116,14 @@
       "activePillars": 1,
       "totalPillars": 7,
       "activeWorkloads": 6,
-      "promotedWorkloads": 0,
+      "promotedWorkloads": 2,
       "totalWorkloads": 6,
       "refreshMode": "event + safety-poll + incremental-reindex",
       "scheduleHours": 1,
       "failClosed": true
     },
-    "generatedAt": "2026-08-20T10:58:44.862Z",
-    "runId": "32360889919"
+    "generatedAt": "2026-08-23T07:24:13.882Z",
+    "runId": "32624639996"
   },
   "workloadOptimization": {
     "title": "Data Center Workload Optimization · Bottleneck-to-PoC",
@@ -4294,12 +4364,12 @@
         "근거 없는 답변율"
       ],
       "liveControl": {
-        "freshnessScore": 79.3,
-        "freshnessStatus": "warning",
+        "freshnessScore": 89.1,
+        "freshnessStatus": "current",
         "retrievalStatus": "pass",
         "citationCoveragePct": 100,
         "trackCoveragePct": 100,
-        "indexedAt": "2026-08-20T07:18:26.928Z"
+        "indexedAt": "2026-08-23T07:23:34.980Z"
       }
     },
     "sources": [
@@ -4435,13 +4505,25 @@
         "status": "fresh"
       }
     ],
-    "currentSignals": [],
-    "generatedAt": "2026-08-20T10:58:44.862Z",
-    "runId": "32360889919"
+    "currentSignals": [
+      {
+        "id": "sandisk-newsroom-2026-08-21",
+        "title": "Sandisk Introduces SANDISK® NAS SSDs to Power Fast, High-Endurance Storage for Prosumers and Small Businesses - Sandisk",
+        "summary": "",
+        "source": "Sandisk Newsroom",
+        "sourceId": "sandisk-newsroom",
+        "url": "https://www.sandisk.com/company/newsroom/press-releases/2026/2026-08-20-sandisk-introduces-nas-ssds-to-power-fast-high-endurance-storage-for-prosumers-and-small-businesses",
+        "publishedAt": "2026-08-21",
+        "evidenceLevel": "Watch",
+        "sourceClass": "official"
+      }
+    ],
+    "generatedAt": "2026-08-23T07:24:13.882Z",
+    "runId": "32624639996"
   },
   "strategyBoard": {
     "schemaVersion": "1.0",
-    "generatedAt": "2026-08-20T10:58:44.862Z",
+    "generatedAt": "2026-08-23T07:24:13.882Z",
     "status": "evidence-connected",
     "tech": {
       "eyebrow": "TECH & MARKET INSIGHTS",
@@ -4542,8 +4624,29 @@
     "disclosure": "전략 플레이북 · 실제 고객 성과가 아닌 공개 근거 기반 검증 가설",
     "reports": [
       {
-        "title": "세 개의 드라이브, 하나의 목표: SANDISK Optimus™ SSD로 더 많은 작업을 수행할 수 있도록 지원 - Sandisk",
-        "summary": "게임, 스트리밍 및 주요 성능을 위해 특별히 제작된 SANDISK Optimus™ 내부 SSD 제품군에 대해 자세히 알아보세요",
+        "title": "Sandisk Introduces SANDISK® NAS SSDs to Power Fast, High-Endurance Storage for Prosumers and Small Businesses - Sandisk",
+        "summary": "",
+        "url": "https://www.sandisk.com/company/newsroom/press-releases/2026/2026-08-20-sandisk-introduces-nas-ssds-to-power-fast-high-endurance-storage-for-prosumers-and-small-businesses",
+        "source": "Sandisk",
+        "publishedAt": "2026-08-21",
+        "sourceClass": "official",
+        "evidenceLevel": "Watch",
+        "topics": [
+          {
+            "id": "rag",
+            "label": "RAG / VECTOR"
+          },
+          {
+            "id": "accelerator",
+            "label": "ACCELERATOR / MEMORY"
+          }
+        ],
+        "freshness": "fresh",
+        "ageDays": 2
+      },
+      {
+        "title": "Three Drives, One Goal: Helping You Do More with SANDISK Optimus™ SSDs - Sandisk",
+        "summary": "",
         "url": "https://www.sandisk.com/company/newsroom/blogs/2026/three-drives-one-goal-helping-do-more-with-sandisk-optimus-ssds",
         "source": "Sandisk",
         "publishedAt": "2026-08-20",
@@ -4556,11 +4659,11 @@
           }
         ],
         "freshness": "fresh",
-        "ageDays": 0
+        "ageDays": 3
       },
       {
-        "title": "NVIDIA Vera Rubin: 대규모 상황 AI 추론에서 메모리 병목 현상 해결 - TechInsights",
-        "summary": "NVIDIA Vera Rubin은 BlueField-4, 랙 규모 CPU-GPU 설계 및 대규모 컨텍스트 LLM에 최적화된 KV 캐시를 통해 AI 추론 메모리 병목 현상을 해결",
+        "title": "NVIDIA Vera Rubin: Solving the Memory Bottleneck in Large-Context AI Inference - TechInsights",
+        "summary": "",
         "url": "https://www.techinsights.com/blog/nvidia-vera-rubin-solving-memory-bottleneck-large-context-ai-inference",
         "source": "TechInsights",
         "publishedAt": "2026-08-17",
@@ -4574,28 +4677,37 @@
           {
             "id": "rag",
             "label": "RAG / VECTOR"
-          },
-          {
-            "id": "accelerator",
-            "label": "ACCELERATOR / MEMORY"
           }
         ],
         "freshness": "fresh",
-        "ageDays": 3
+        "ageDays": 6
       },
       {
-        "title": "헤드라인 뒤에 숨겨진 이야기: AI 메모리 투자, Apple 가격 인상, IBM 0.7nm 및 물리적 AI - TechInsights",
-        "summary": "AI 기반 메모리 투자, Apple 가격 인상, IBM의 0.7nm 기술, Physical AI 및 AI 추론에 대한 반도체 헤드라인을 살펴보세요",
-        "url": "https://www.techinsights.com/behind-the-headlines/ai-memory-apple-prices-ibm-07nm-physical-ai",
+        "title": "Memory Technology Roadmap Webinar | DRAM, NAND, HBM & Emerging Memory - TechInsights",
+        "summary": "",
+        "url": "https://www.techinsights.com/webinar/memory-technology-roadmap-webinar-dram-nand-hbm-emerging-memory",
         "source": "TechInsights",
-        "publishedAt": "2026-08-17",
+        "publishedAt": "2026-08-20",
         "sourceClass": "research",
         "evidenceLevel": "Watch",
         "topics": [
           {
-            "id": "serving",
-            "label": "LLM SERVING"
-          },
+            "id": "accelerator",
+            "label": "ACCELERATOR / MEMORY"
+          }
+        ],
+        "freshness": "fresh",
+        "ageDays": 3
+      },
+      {
+        "title": "YMTC YMN09TF1B1JCAE_die 160L (Xtacking4.0) 512 Gb TLC 3D NAND Process Analysis - TechInsights",
+        "summary": "Explore the Advanced Memory Essentials (AME) report of the YMTC YMN09TF1B1JCAE_die featuring the YMTC’s fifth-generation (Xtacking4.0) 3D NAND flash memory",
+        "url": "https://www.techinsights.com/blog/ymtc-ymn09tf1b1jcaedie-160l-xtacking40-512-gb-tlc-3d-nand-process-analysis",
+        "source": "TechInsights",
+        "publishedAt": "2026-08-20",
+        "sourceClass": "research",
+        "evidenceLevel": "Watch",
+        "topics": [
           {
             "id": "accelerator",
             "label": "ACCELERATOR / MEMORY"
@@ -4605,9 +4717,9 @@
         "ageDays": 3
       },
       {
-        "title": "SKHY, CPO 로드맵 공개, HBM 넘어 AI 인프라까지 - TrendForce",
-        "summary": "SKHY는 메모리 공급업체에서 AI 인프라 분야의 더 큰 역할로 전환하고 있음 · 회사에 따르면, 전 세계 주요 연구자들과 협력하여 Nature Electronics 저널에 공동 패키지 광학(CPO)에 대한 로드맵을 제시",
-        "url": "https://www.trendforce.com/news/2026/08/20/news-sk-hynix-unveils-cpo-roadmap-looks-beyond-hbm-to-ai-infrastructure/",
+        "title": "Samsung to Break Ground on KRW 6T Onyang HBM Fab in Sept., P5 Eyes Triple-Fab Shift as Expansion Accelerates - TrendForce",
+        "summary": "",
+        "url": "https://www.trendforce.com/news/2026/08/20/news-samsung-to-break-ground-on-krw-6t-onyang-hbm-fab-in-sept-p5-eyes-triple-fab-shift-as-expansion-accelerates/",
         "source": "TrendForce",
         "publishedAt": "2026-08-20",
         "sourceClass": "research",
@@ -4619,41 +4731,7 @@
           }
         ],
         "freshness": "fresh",
-        "ageDays": 0
-      },
-      {
-        "title": "NVIDIA HGX B300의 고대역폭 메모리: Micron HBM3E 패키지 검사 - TechInsights",
-        "summary": "NVIDIA HGX B300 플랫폼용 Micron 12Hi HBM3E 메모리 패키지에 대한 TechInsights의 상호 연결 및 패키징 분석에 액세스하세요",
-        "url": "https://www.techinsights.com/blog/high-bandwidth-memory-package-NVIDIA-HGX-B300",
-        "source": "TechInsights",
-        "publishedAt": "2026-08-19",
-        "sourceClass": "research",
-        "evidenceLevel": "Watch",
-        "topics": [
-          {
-            "id": "accelerator",
-            "label": "ACCELERATOR / MEMORY"
-          }
-        ],
-        "freshness": "fresh",
-        "ageDays": 1
-      },
-      {
-        "title": "메모리 환경 디코딩: Intel의 통합 플레이, NAND 공급 위기 및 2028년 지평선 - Counterpoint Research",
-        "summary": "메모리 시장의 급속한 변화는 클라우드 AI 인프라에 대한 수요 증가에 의해 주도 · 주류 헤드라인은 고대역폭 메모리(HBM) 공급 할당에 초점을 맞추고 있지만 제조 CAPEX, 엔터프라이즈 스토리지 및 시스템 아키텍처 전반의 기본 역학은 보다 미묘한 이야기를 전달",
-        "url": "https://counterpointresearch.com/en/insights/decoding-the-memory-landscape-intels-integration-play-nand-supply-crunches-and-the-2028-horizon",
-        "source": "Counterpoint Research",
-        "publishedAt": "2026-08-19",
-        "sourceClass": "research",
-        "evidenceLevel": "Watch",
-        "topics": [
-          {
-            "id": "accelerator",
-            "label": "ACCELERATOR / MEMORY"
-          }
-        ],
-        "freshness": "fresh",
-        "ageDays": 1
+        "ageDays": 3
       }
     ],
     "reportPolicy": {
@@ -4753,7 +4831,7 @@
         },
         "stop": "고객별 HBM4 인증 일정, 패키징 할당 또는 양산 수율의 공식 변경",
         "latest": {
-          "title": "SKHY의 새로운 HBM 팀이 Nvidia와 AMD의 뒷마당에 상륙 - 공동 설계가 HBM4 주문을 획득하는 방법이 되고 있음 - digittimes",
+          "title": "SK Hynix's new HBM team lands in Nvidia and AMD's backyard — co-design is becoming the way to win HBM4 orders",
           "summary": "SKHY가 실리콘밸리에 고대역폭 메모리(HBM) 설계팀을 꾸리는 것으로 알려지면서 미국의 주요 칩 고객사와 공동 설계 작업을 심화할 예정 · 분석가들은 이를 HBM 경쟁이 맞춤형, 공동 개발 단계로 전환하고 있다는 증거로 보고 있음",
           "source": "digitimes",
           "url": "https://www.digitimes.com/news/a20260820PD219/sk-hynix-hbm-hbm4-design-amd.html",
@@ -4761,11 +4839,11 @@
           "evidenceLevel": "Reported",
           "sourceClass": "authoritative-media"
         },
-        "evidenceCount": 10,
+        "evidenceCount": 9,
         "signals": [
           [
             "Reported · AUTHORITATIVE-MEDIA",
-            "SKHY의 새로운 HBM 팀이 Nvidia와 AMD의 뒷마당에 상륙 - 공동 설계가 HBM4 주문을 획득하는 방법이 되고 있음 - digittimes",
+            "SK Hynix's new HBM team lands in Nvidia and AMD's backyard — co-design is becoming the way to win HBM4 orders",
             "SKHY가 실리콘밸리에 고대역폭 메모리(HBM) 설계팀을 꾸리는 것으로 알려지면서 미국의 주요 칩 고객사와 공동 설계 작업을 심화할 예정 · 분석가들은 이를 HBM 경쟁이 맞춤형, 공동 개발 단계로 전환하고 있다는 증거로 보고 있음"
           ],
           [
@@ -4889,7 +4967,7 @@
         },
         "stop": "공식 출하 전망 또는 고객 CapEx가 기준 시나리오 대비 10% 이상 변경",
         "latest": {
-          "title": "삼성, SKHY 1H26 칩설비투자 35% 증가 · NVIDIA는 삼성의 상위 5대 고객에 포함되지 않음",
+          "title": "Samsung, SK hynix 1H26 Chip Facility Investment Up 35%; NVIDIA Not Among Samsung’s Top Five Customers",
           "summary": "Samsung and SK hynix are accelerating semiconductor investment as AI demand drives capacity expansion and advanced-process upgrades · According to Etoday , citing the companies’ 2026 semi-annual reports, Samsung Electronics and SK hynix invested a combined K",
           "source": "TrendForce",
           "url": "https://www.trendforce.com/news/2026/08/17/news-samsung-sk-hynix-1h26-chip-facility-investment-up-35-nvidia-not-among-samsungs-top-five-customers/",
@@ -4897,11 +4975,11 @@
           "evidenceLevel": "Reported",
           "sourceClass": "research"
         },
-        "evidenceCount": 3,
+        "evidenceCount": 2,
         "signals": [
           [
             "Reported · RESEARCH",
-            "삼성, SKHY 1H26 칩설비투자 35% 증가 · NVIDIA는 삼성의 상위 5대 고객에 포함되지 않음",
+            "Samsung, SK hynix 1H26 Chip Facility Investment Up 35%; NVIDIA Not Among Samsung’s Top Five Customers",
             "Samsung and SK hynix are accelerating semiconductor investment as AI demand drives capacity expansion and advanced-process upgrades · According to Etoday , citing the companies’ 2026 semi-annual reports, Samsung Electronics and SK hynix invested a combined K"
           ],
           [
@@ -5013,7 +5091,7 @@
         "phase": "NEXT",
         "tabLabel": "Enterprise RAG",
         "title": "LLM Tech & Enterprise RAG Architecture",
-        "subtitle": "digitimes 최신 근거 · 2026-08-20",
+        "subtitle": "TechInsights 최신 근거 · 2026-08-20",
         "answerTitle": "eSSD를 AI 추론의 독립 성장축으로 운영",
         "recommendation": "eSSD ATTACH",
         "question": "RAG의 Index·Cache·Document 경로에서 DRAM/CXL과 TLC/QLC eSSD를 어떻게 배치해야 P99·신뢰성·Cost/Query가 개선되는가?",
@@ -5026,20 +5104,20 @@
         },
         "stop": "NAND 계약가와 웨이퍼 가격이 동시에 반전하거나 YMTC 고객 인증·가동률이 공식 확인",
         "latest": {
-          "title": "YMTC 모기업, NAND 주가 14% 도달 및 AI 스토리지 규모로 IPO 추진 - digittimes",
-          "summary": "중국 NAND 플래시 제조업체인 YMTC의 모회사인 Yangtze Memory Technologies Holding은 메모리 제조업체가 글로벌 시장 점유율을 확보하고 기업용 스토리지 제품을 확장하며 또 다른 용량 성장을 준비하는 가운데 사전 IPO 프로세스의 핵심 단계를 완료",
-          "source": "digitimes",
-          "url": "https://www.digitimes.com/news/a20260819VL211/ymtc-ipo-nand-flash-market.html",
+          "title": "YMTC YMN09TF1B1JCAE_die 160L (Xtacking4.0) 512 Gb TLC 3D NAND Process Analysis",
+          "summary": "Explore the Advanced Memory Essentials (AME) report of the YMTC YMN09TF1B1JCAE_die featuring the YMTC’s fifth-generation (Xtacking4.0) 3D NAND flash memory",
+          "source": "TechInsights",
+          "url": "https://www.techinsights.com/blog/ymtc-ymn09tf1b1jcaedie-160l-xtacking40-512-gb-tlc-3d-nand-process-analysis",
           "publishedAt": "2026-08-20",
           "evidenceLevel": "Reported",
-          "sourceClass": "authoritative-media"
+          "sourceClass": "research"
         },
-        "evidenceCount": 18,
+        "evidenceCount": 19,
         "signals": [
           [
-            "Reported · AUTHORITATIVE-MEDIA",
-            "YMTC 모기업, NAND 주가 14% 도달 및 AI 스토리지 규모로 IPO 추진 - digittimes",
-            "중국 NAND 플래시 제조업체인 YMTC의 모회사인 Yangtze Memory Technologies Holding은 메모리 제조업체가 글로벌 시장 점유율을 확보하고 기업용 스토리지 제품을 확장하며 또 다른 용량 성장을 준비하는 가운데 사전 IPO 프로세스의 핵심 단계를 완료"
+            "Reported · RESEARCH",
+            "YMTC YMN09TF1B1JCAE_die 160L (Xtacking4.0) 512 Gb TLC 3D NAND Process Analysis",
+            "Explore the Advanced Memory Essentials (AME) report of the YMTC YMN09TF1B1JCAE_die featuring the YMTC’s fifth-generation (Xtacking4.0) 3D NAND flash memory"
           ],
           [
             "EXECUTIVE DECISION",
@@ -5127,8 +5205,8 @@
         "sources": [
           [
             "Reported",
-            "digitimes · 2026-08-20",
-            "https://www.digitimes.com/news/a20260819VL211/ymtc-ipo-nand-flash-market.html"
+            "TechInsights · 2026-08-20",
+            "https://www.techinsights.com/blog/ymtc-ymn09tf1b1jcaedie-160l-xtacking40-512-gb-tlc-3d-nand-process-analysis"
           ],
           [
             "CONTROL",
@@ -5164,7 +5242,7 @@
         },
         "stop": "DDR5 Spot 누적 하락 뒤 계약가 하락이 확인되거나 CXMT 매출 점유율이 2%p 이상 변동",
         "latest": {
-          "title": "Micron D1β LPDDR5X DRAM 트랜지스터 특성 보고서",
+          "title": "Micron D1β LPDDR5X DRAM Transistor Characterization Report",
           "summary": "이 보고서는 Micron Technology MT62F1G64D4AM-031_XT_C LPDDR5 SDRAM 구성 요소 내부에 있는 Micron Technology Y52P 다이의 워드 라인 드라이버 및 감지 증폭기 영역에 위치한 NMOS 및 PMOS 트랜지스터의 주요 DC 특성을 제시",
           "source": "TechInsights",
           "url": "https://www.techinsights.com/blog/micron-d1b-lpddr5x-dram-transistor-characterization-report",
@@ -5172,11 +5250,11 @@
           "evidenceLevel": "Reported",
           "sourceClass": "research"
         },
-        "evidenceCount": 10,
+        "evidenceCount": 13,
         "signals": [
           [
             "Reported · RESEARCH",
-            "Micron D1β LPDDR5X DRAM 트랜지스터 특성 보고서",
+            "Micron D1β LPDDR5X DRAM Transistor Characterization Report",
             "이 보고서는 Micron Technology MT62F1G64D4AM-031_XT_C LPDDR5 SDRAM 구성 요소 내부에 있는 Micron Technology Y52P 다이의 워드 라인 드라이버 및 감지 증폭기 영역에 위치한 NMOS 및 PMOS 트랜지스터의 주요 DC 특성을 제시"
           ],
           [
@@ -5300,7 +5378,7 @@
         },
         "stop": "공식 출하 전망 또는 고객 CapEx가 기준 시나리오 대비 10% 이상 변경",
         "latest": {
-          "title": "삼성, SKHY 1H26 칩설비투자 35% 증가 · NVIDIA는 삼성의 상위 5대 고객에 포함되지 않음",
+          "title": "Samsung, SK hynix 1H26 Chip Facility Investment Up 35%; NVIDIA Not Among Samsung’s Top Five Customers",
           "summary": "Samsung and SK hynix are accelerating semiconductor investment as AI demand drives capacity expansion and advanced-process upgrades · According to Etoday , citing the companies’ 2026 semi-annual reports, Samsung Electronics and SK hynix invested a combined K",
           "source": "TrendForce",
           "url": "https://www.trendforce.com/news/2026/08/17/news-samsung-sk-hynix-1h26-chip-facility-investment-up-35-nvidia-not-among-samsungs-top-five-customers/",
@@ -5308,11 +5386,11 @@
           "evidenceLevel": "Reported",
           "sourceClass": "research"
         },
-        "evidenceCount": 3,
+        "evidenceCount": 2,
         "signals": [
           [
             "Reported · RESEARCH",
-            "삼성, SKHY 1H26 칩설비투자 35% 증가 · NVIDIA는 삼성의 상위 5대 고객에 포함되지 않음",
+            "Samsung, SK hynix 1H26 Chip Facility Investment Up 35%; NVIDIA Not Among Samsung’s Top Five Customers",
             "Samsung and SK hynix are accelerating semiconductor investment as AI demand drives capacity expansion and advanced-process upgrades · According to Etoday , citing the companies’ 2026 semi-annual reports, Samsung Electronics and SK hynix invested a combined K"
           ],
           [
@@ -5426,7 +5504,7 @@
         "phase": "SCALE",
         "tabLabel": "Partner-led New Biz",
         "title": "Partners & Clients · Repeatable New Biz",
-        "subtitle": "TrendForce 최신 근거 · 2026-08-20",
+        "subtitle": "digitimes 최신 근거 · 2026-08-20",
         "answerTitle": "검증 결과를 반복 가능한 공동사업 패키지로 전환",
         "recommendation": "LIGHTHOUSE → REPEAT",
         "question": "AI 개발사·데이터센터·OEM·컨설팅 파트너를 어떤 RACI로 묶어 Pain 진단부터 Qualification·반복주문까지 연결할 것인가?",
@@ -5439,20 +5517,20 @@
         },
         "stop": "공식 출하 전망 또는 고객 CapEx가 기준 시나리오 대비 10% 이상 변경",
         "latest": {
-          "title": "SKHY, CPO 로드맵 공개, HBM 넘어 AI 인프라까지 - TrendForce",
-          "summary": "SKHY는 메모리 공급업체에서 AI 인프라 분야의 더 큰 역할로 전환하고 있음 · 회사에 따르면, 전 세계 주요 연구자들과 협력하여 Nature Electronics 저널에 공동 패키지 광학(CPO)에 대한 로드맵을 제시",
-          "source": "TrendForce",
-          "url": "https://www.trendforce.com/news/2026/08/20/news-sk-hynix-unveils-cpo-roadmap-looks-beyond-hbm-to-ai-infrastructure/",
+          "title": "SK Hynix's new HBM team lands in Nvidia and AMD's backyard — co-design is becoming the way to win HBM4 orders - digitimes",
+          "summary": "SKHY가 실리콘밸리에 고대역폭 메모리(HBM) 설계팀을 꾸리는 것으로 알려지면서 미국의 주요 칩 고객사와 공동 설계 작업을 심화할 예정 · 분석가들은 이를 HBM 경쟁이 맞춤형, 공동 개발 단계로 전환하고 있다는 증거로 보고 있음",
+          "source": "digitimes",
+          "url": "https://www.digitimes.com/news/a20260820PD219/sk-hynix-hbm-hbm4-design-amd.html",
           "publishedAt": "2026-08-20",
           "evidenceLevel": "Watch",
-          "sourceClass": "research"
+          "sourceClass": "authoritative-media"
         },
-        "evidenceCount": 3,
+        "evidenceCount": 2,
         "signals": [
           [
-            "Watch · RESEARCH",
-            "SKHY, CPO 로드맵 공개, HBM 넘어 AI 인프라까지 - TrendForce",
-            "SKHY는 메모리 공급업체에서 AI 인프라 분야의 더 큰 역할로 전환하고 있음 · 회사에 따르면, 전 세계 주요 연구자들과 협력하여 Nature Electronics 저널에 공동 패키지 광학(CPO)에 대한 로드맵을 제시"
+            "Watch · AUTHORITATIVE-MEDIA",
+            "SK Hynix's new HBM team lands in Nvidia and AMD's backyard — co-design is becoming the way to win HBM4 orders - digitimes",
+            "SKHY가 실리콘밸리에 고대역폭 메모리(HBM) 설계팀을 꾸리는 것으로 알려지면서 미국의 주요 칩 고객사와 공동 설계 작업을 심화할 예정 · 분석가들은 이를 HBM 경쟁이 맞춤형, 공동 개발 단계로 전환하고 있다는 증거로 보고 있음"
           ],
           [
             "EXECUTIVE DECISION",
@@ -5539,8 +5617,8 @@
         "sources": [
           [
             "Watch",
-            "TrendForce · 2026-08-20",
-            "https://www.trendforce.com/news/2026/08/20/news-sk-hynix-unveils-cpo-roadmap-looks-beyond-hbm-to-ai-infrastructure/"
+            "digitimes · 2026-08-20",
+            "https://www.digitimes.com/news/a20260820PD219/sk-hynix-hbm-hbm4-design-amd.html"
           ],
           [
             "CONTROL",
