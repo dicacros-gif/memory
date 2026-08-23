@@ -13,12 +13,17 @@ function normalizeSourceText(value = "") {
   return String(value || "").replace(/\s+/g, " ").trim();
 }
 
+const CUSTOM_HBM_CO_DESIGN_PATTERN = /SKHY가 실리콘밸리에 고대역폭 메모리\(HBM\) 설계팀을 꾸리는 것으로 알려지면서 미국의 주요 칩 고객사와 공동 설계 작업을 심화할 (?:예정이다|예정)\.?\s*(?:·\s*)?분석가들은 이를 HBM 경쟁이 맞춤형, 공동 개발 단계로 전환하고 있다는 증거로 보고 (?:있습니다|있음)\.?/gu;
+const CUSTOM_HBM_CO_DESIGN_BULLET = "실리콘밸리 HBM 설계팀 구축 · 주요 고객 공동 설계 확대 · Custom HBM 경쟁 전환 신호";
+
 export function normalizeKoreanTerminology(value = "") {
-  return normalizeSourceText(value).replace(/솔리드다임/g, "솔리다임");
+  return normalizeSourceText(value)
+    .replace(/솔리드다임/g, "솔리다임")
+    .replace(CUSTOM_HBM_CO_DESIGN_PATTERN, CUSTOM_HBM_CO_DESIGN_BULLET);
 }
 
 export function normalizeKoreanPayload(value, seen = new WeakMap()) {
-  if (typeof value === "string") return value.replace(/솔리드다임/g, "솔리다임");
+  if (typeof value === "string") return normalizeKoreanTerminology(value);
   if (!value || typeof value !== "object") return value;
   if (seen.has(value)) return seen.get(value);
   const output = Array.isArray(value) ? [] : {};

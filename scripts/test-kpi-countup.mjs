@@ -159,7 +159,8 @@ assert.doesNotMatch(html, /<link[^>]+href="assets\/css\/styles\.css/, "the dashb
 assert.match(html, /class="strategic-decision-side"[\s\S]*?id="chinaDecisionVideoPanel"[\s\S]*?id="strategicDecisionFocus"/, "the China decision video should lead the right-hand decision column");
 assert.match(app, /decisionId: "china-key-account-lock"[\s\S]*?decisionId: "china-legacy-capex"[\s\S]*?syncChinaDecisionVideoToDecision\(selected\?\.id\)/, "video messages and left-hand decision cards should stay synchronized");
 assert.match(css, /\.strategic-decision-side \{[\s\S]*?position: sticky;[\s\S]*?display: grid;/, "the right-hand decision column should keep the video above the supporting detail");
-assert.match(html, /id="memoryHeroVideo"[\s\S]*?preload="none"[\s\S]*?data-poster="assets\/media\/memory-hero-poster\.webp"[\s\S]*?<source data-src="assets\/media\/memory-hero-lite\.mp4"/, "optimized console hero media should remain dormant until the console opens");
+assert.match(html, /class="memory-hero-static"[\s\S]*?src="assets\/media\/memory-hero-poster\.webp"[\s\S]*?fetchpriority="high"/, "the console hero should use one immediately decodable static image");
+assert.doesNotMatch(html, /id="memoryHeroVideo"|memory-hero-lite\.mp4/, "the removed console hero video must stay absent");
 assert.match(html, /id="talentStrategyVideoMedia"[\s\S]*?preload="none"[\s\S]*?data-poster="assets\/media\/china-talent-strategy-poster\.webp"[\s\S]*?<source data-src="assets\/media\/china-talent-strategy\.mp4"/, "below-fold talent media should not load during first paint");
 assert.doesNotMatch(html, /family=Noto\+Sans\+KR/, "Pretendard should replace the duplicate Korean webfont download");
 assert.doesNotMatch(html, /fonts\.googleapis\.com|fonts\.gstatic\.com|cdn\.jsdelivr\.net|pretendard\.min\.css/, "initial rendering should use local system fonts without external font requests");

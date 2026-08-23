@@ -41,10 +41,8 @@
     html.console-entry #intelligenceConsole {
       display: none !important;
     }
-    /* Critical hero-video styles (cache-proof, paints before landing.min.css). */
+    /* Critical hero-media styles (cache-proof, paints before landing.min.css). */
     .business-hero-media { position: absolute; inset: 0; z-index: 0; overflow: hidden; background: #030912; }
-    .business-hero-video { position: absolute; inset: 0; z-index: 1; width: 100%; height: 100%; object-fit: cover; filter: brightness(.74) saturate(.92) contrast(1.04); }
-    .business-hero-video-shade { position: absolute; inset: 0; z-index: 1; pointer-events: none; background: rgba(3, 9, 18, .12); }
     .business-hero-media-slide { z-index: 0; }
     html.console-entry .console-static-snapshot {
       position: fixed;
@@ -122,7 +120,7 @@
     (() => {
       if (!location.hash.startsWith("#console")) return;
       document.documentElement.classList.add("console-entry");
-      const revision = "infra-b6d349f07f04";
+      const revision = "infra-1a151c820584";
       const assets = [
         ["consoleStylesPreload", "style", `assets/css/styles.min.css?v=${revision}`, "high"],
         ["consoleAppPreload", "script", `assets/js/app.min.js?v=${revision}`, "high"],
@@ -139,7 +137,7 @@
       }
     })();
   </script>
-  <link rel="stylesheet" href="assets/css/landing.min.css?v=infra-b6d349f07f04" />
+  <link rel="stylesheet" href="assets/css/landing.min.css?v=infra-1a151c820584" />
 </head>
 <body class="landing-mode">
   <div class="business-site" id="businessSite">
@@ -176,10 +174,6 @@
     <main id="businessMain">
       <section class="business-hero" id="home">
         <div class="business-hero-media" aria-hidden="true">
-          <video class="business-hero-video" autoplay muted loop playsinline preload="metadata" poster="assets/media/memory-hero-poster.webp" disablepictureinpicture>
-            <source data-src="assets/media/ai-infra-hero.mp4" type="video/mp4" />
-          </video>
-          <div class="business-hero-video-shade"></div>
           <figure class="business-hero-media-slide">
             <img src="assets/media/hbm-system.webp" alt="" width="1920" height="1072" loading="lazy" decoding="async" />
           </figure>
@@ -193,12 +187,7 @@
         <div class="business-hero-grid" aria-hidden="true"></div>
         <div class="business-hero-content business-container">
           <div class="business-hero-copy">
-            <h1>SK hynix AI Infra Strategy<br /><em>Customer Pain to Memory Business</em></h1>
-            <ul class="business-hero-thesis business-copy-list" aria-label="핵심 방향">
-              <li>SK hynix B2B 고객 현황·기술·전략 기반 Pain Point 구조화</li>
-              <li>데이터센터 HW·SW·Memory·Network·Storage·Power/Cooling 통합 진단</li>
-              <li>검증 근거·경제성·Owner·KPI·중단 조건 기반 경영진 실행안</li>
-            </ul>
+            <h1>AI Infra Strategy<br /><em>Customer Pain to Memory Business</em></h1>
             <ul class="business-hero-bullets" aria-label="핵심 전략 범위" data-copy-verbatim>
               <li>Customer Strategy · B2B Fact Base → Pain Map → Buying Criteria → 맞춤형 Memory Proposal</li>
               <li>Workload Optimization · Training/Inference/RAG/Agent → Bottleneck → HW/SW·Memory TCO</li>
@@ -247,10 +236,6 @@
               <li>판단 · 메모리 대안 → 사업성</li>
               <li>실행 · 파트너 → 고객 인증 → 90일 Gate</li>
             </ul>
-          </div>
-
-          <div class="business-decision-method" aria-label="컨설팅 답안 작성 원칙">
-            <span>01 · ANSWER FIRST</span><i>→</i><span>02 · FACT / HYPOTHESIS</span><i>→</i><span>03 · OPTION ECONOMICS</span><i>→</i><span>04 · OWNER / KPI</span><i>→</i><span>05 · KILL CRITERIA</span>
           </div>
 
           <div class="business-decision-tabs" role="tablist" aria-label="AI Infra 전략 안건 선택">
@@ -472,10 +457,10 @@
         </div>
       </section>
 
-      <section class="business-section business-ai-strategy" id="ai-strategy" data-frame="McKINSEY · END-TO-END VALUE LOOP">
+      <section class="business-section business-ai-strategy" id="ai-strategy">
         <div class="business-container">
           <div class="business-section-heading business-section-heading--split">
-            <div><p class="business-kicker">Bottleneck-to-Scale</p><h2>AI Infra Decision Process · 10 Gates</h2></div>
+            <div><h2>AI Infra Decision Process · 10 Gates</h2></div>
             <ul class="business-heading-points"><li>입력 · Business Outcome · SLO</li><li>분석 · Bottleneck · Options · Economics</li><li>산출 · Qualification · Capacity · Revenue</li></ul>
           </div>
           <ol class="business-strategy-chain" aria-label="AI Memory Strategy 실행 프레임">
@@ -585,7 +570,6 @@
               <li><span>01</span><strong>전력·열 Feasibility</strong></li><li><span>02</span><strong>Workload Census</strong></li><li><span>03</span><strong>동일 Benchmark</strong></li><li><span>04</span><strong>Network·Storage</strong></li><li><span>05</span><strong>Scheduler</strong></li><li><span>06</span><strong>Serving</strong></li><li><span>07</span><strong>RAG·Evaluation</strong></li><li><span>08</span><strong>Modular Scale-out</strong></li>
             </ol>
             <div class="business-ai-factory-decision-grid">
-              <section class="business-accelerator-scorecard" id="acceleratorScorecard" aria-labelledby="acceleratorScorecardTitle"><header><span>WEIGHTED DECISION MATRIX</span><h4 id="acceleratorScorecardTitle">Accelerator Decision Scorecard</h4><p>동일 Workload·Model·Version·Precision·Quality·Latency SLO에서만 비교</p></header><div><b style="--weight:25">25<small>WORKLOAD</small></b><b style="--weight:20">20<small>COST/TASK</small></b><b style="--weight:15">15<small>HBM/FABRIC</small></b><b style="--weight:15">15<small>SOFTWARE</small></b><b style="--weight:10">10<small>POWER</small></b><b style="--weight:10">10<small>SUPPLY</small></b><b style="--weight:5">5<small>SECURITY</small></b></div><footer>Accelerator · Runtime/Serving · Application/RAG 공급 계층 분리</footer></section>
               <section class="business-kpi-tree" id="aiFactoryKpiTree" aria-labelledby="aiFactoryKpiTitle"><header><span>VALUE TREE</span><h4 id="aiFactoryKpiTitle">Successful Task Economics</h4></header><div><article><small>BUSINESS</small><strong>업무 성공률 · 시간 · 채택</strong></article><article><small>APPLICATION</small><strong>Groundedness · Citation</strong></article><article><small>PLATFORM</small><strong>Goodput · TTFT · Cache</strong></article><article><small>FACILITY</small><strong>PUE · kWh/Task · Goodput/W</strong></article></div><p>Cost per Successful Task = 총비용 ÷ 품질 기준 통과 업무</p></section>
             </div>
             <ol class="business-ai-factory-roadmap" id="aiFactoryRoadmap" aria-label="AI Infra 실행 로드맵"><li><span>PHASE 0 · 0–30D</span><strong>Discovery &amp; Baseline</strong><p>로그·업무 성공기준 없이는 대규모 CAPEX 보류</p></li><li><span>PHASE 1 · 31–90D</span><strong>Benchmark &amp; Pilot</strong><p>품질·P95·Cost/Task·보안·복구 Gate</p></li><li><span>PHASE 2 · 3–6M</span><strong>Shared Platform</strong><p>Gateway·RAG·Serving·Observability</p></li><li><span>PHASE 3 · 6–18M</span><strong>Modular AI Factory</strong><p>전력·열·SLO·복구 역량 검증</p></li><li><span>PHASE 4 · 18–36M</span><strong>Grid-interactive Autonomy</strong><p>전력·탄소·수요 기반 Routing</p></li></ol>
@@ -637,7 +621,6 @@
               <h3 id="memoryFabricTitle">Memory Hierarchy · Five Maturity-Aware Tiers</h3>
               <p>검증된 계층과 Emerging Option을 분리해 Latency·Capacity·Topology·경제성을 판단</p>
             </div>
-            <div class="business-fabric-workloads" aria-label="AI 워크로드"><span>Training</span><span>Large-scale Inference</span><span>Agentic / Long Context</span><span>Physical AI</span></div>
             <div class="business-fabric-stack" aria-label="Full-Stack AI Memory 계층">
               <article><span>01 · HOT</span><strong>HBM4 · Custom HBM</strong><p>Accelerator 근접 데이터 · 학습 · Token 생성</p></article>
               <article><span>02 · SYSTEM</span><strong>Host DRAM · SOCAMM2 · RDIMM/MRDIMM</strong><p>CPU Memory · Active KV · 시스템 용량</p></article>
@@ -813,7 +796,7 @@
         <div class="business-container">
           <div class="business-section-heading business-section-heading--split">
             <div>
-              <h2 id="teamOperatingTitle">SK hynix AI Infra 실행 전략</h2>
+              <h2 id="teamOperatingTitle">AI Infra 실행 전략</h2>
               <p id="teamOperatingThesis">고객 Pain Point → Workload 진단 → Memory·신규 Biz 대안 → 파트너 실행 → 경영진 판단</p>
             </div>
             <ul class="business-heading-points"><li>CUSTOMER · Pain → Requirement</li><li>NEW BIZ · Inflection → Business Case</li><li>EXECUTION · Decision → Ramp / Stop</li></ul>
@@ -936,12 +919,9 @@
 
       <main class="main" id="main">
         <section class="memory-video-hero" id="overview" aria-labelledby="memoryHeroTitle">
-          <video class="memory-hero-video" id="memoryHeroVideo" autoplay muted loop playsinline preload="none" disablepictureinpicture data-poster="assets/media/memory-hero-poster.webp" aria-hidden="true">
-            <source data-src="assets/media/memory-hero-lite.mp4" type="video/mp4" />
-          </video>
+          <img class="memory-hero-static" src="assets/media/memory-hero-poster.webp" alt="" width="1280" height="720" decoding="async" fetchpriority="high" aria-hidden="true" />
           <div class="memory-hero-shade" aria-hidden="true"></div>
           <div class="memory-hero-content">
-            <p class="memory-hero-kicker">SK HYNIX AI INFRA STRATEGY</p>
             <h2 id="memoryHeroTitle">Customer Pain에서 Memory Business까지</h2>
             <p>고객·Workload·AI 기술 신호 → 맞춤형 Memory Solution → 신규 Biz·Partner → 경영진 실행</p>
             <div class="memory-hero-actions">
@@ -950,14 +930,13 @@
             </div>
             <div class="memory-hero-scroll-cue" aria-hidden="true"><span></span></div>
           </div>
-          <button class="memory-hero-toggle" id="memoryHeroToggle" type="button" aria-label="배경 영상 일시정지" title="배경 영상 일시정지"><span aria-hidden="true">Ⅱ</span></button>
         </section>
 
         <section class="board strategy-consulting-board" id="strategy-consulting" aria-label="고객 전략 · 신규 비즈니스 · AI Infra 실행전략">
           <div class="board-head">
             <div>
               <p class="eyebrow">Customer pain · workload solution · new business · execution</p>
-              <h2>SK hynix 고객 전략 · 솔루션 · 신규 Biz · 실행</h2>
+              <h2>고객 전략 · 솔루션 · 신규 Biz · 실행</h2>
             </div>
             <span class="board-meta" id="strategyConsultingMeta">크롤 근거 연결 중</span>
           </div>
@@ -1907,6 +1886,6 @@
   <div class="qa-answer" id="qaAnswer" hidden></div>
   <div class="inspector" id="inspector" hidden></div>
   <div class="backdrop" id="backdrop"></div>
-  <script src="assets/js/landing.min.js?v=infra-b6d349f07f04" defer></script>
+  <script src="assets/js/landing.min.js?v=infra-1a151c820584" defer></script>
 </body>
 </html>

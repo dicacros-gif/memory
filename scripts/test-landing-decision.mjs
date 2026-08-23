@@ -24,11 +24,11 @@ for (const phrase of [
   "EXECUTIVE ANSWER",
   "CUSTOMER JTBD",
   "WORKLOAD DIAGNOSIS",
-  "OPTION ECONOMICS",
   "61–90 DAYS",
   "STOP / REFRAME",
   "PARTNERS &amp; CLIENTS · RACI",
 ]) assert.ok(html.includes(phrase), `decision lab must include ${phrase}`);
+assert.doesNotMatch(html, /business-decision-method|01 · ANSWER FIRST/, "the removed five-step answer strip must stay absent");
 
 assert.equal(decision.clientArtifact, true, "landing data must be a client-safe artifact");
 assert.equal(decision.runId, manifest.runId, "landing artifact and manifest must be atomic");

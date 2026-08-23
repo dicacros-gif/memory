@@ -25,9 +25,12 @@ const parsed = parseMarkerTranslation(
 );
 assert.deepEqual(parsed, ["메모리 공급이 빠듯합니다", "설비투자 계획을 상향했습니다"]);
 assert.equal(normalizeKoreanTerminology("솔리드다임 뉴스룸"), "솔리다임 뉴스룸");
+const longCoDesignCopy = "SKHY가 실리콘밸리에 고대역폭 메모리(HBM) 설계팀을 꾸리는 것으로 알려지면서 미국의 주요 칩 고객사와 공동 설계 작업을 심화할 예정이다. 분석가들은 이를 HBM 경쟁이 맞춤형, 공동 개발 단계로 전환하고 있다는 증거로 보고 있습니다.";
+const conciseCoDesignCopy = "실리콘밸리 HBM 설계팀 구축 · 주요 고객 공동 설계 확대 · Custom HBM 경쟁 전환 신호";
+assert.equal(normalizeKoreanTerminology(longCoDesignCopy), conciseCoDesignCopy);
 assert.deepEqual(
-  normalizeKoreanPayload({ title: "솔리드다임 뉴스룸", nested: [{ summary: "솔리드다임 eSSD" }] }),
-  { title: "솔리다임 뉴스룸", nested: [{ summary: "솔리다임 eSSD" }] },
+  normalizeKoreanPayload({ title: "솔리드다임 뉴스룸", nested: [{ summary: longCoDesignCopy }] }),
+  { title: "솔리다임 뉴스룸", nested: [{ summary: conciseCoDesignCopy }] },
   "published nested payloads must normalize stale terminology before serialization",
 );
 assert.equal(koreanTranslationQualityGate(originals[0], originals[0]).status, "unverified");

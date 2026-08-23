@@ -28,18 +28,6 @@
 }
 
 /* ---------- Executive Answer Lab: deep, evidence-connected consulting output ---------- */
-.business-hero-thesis {
-  max-width: 760px;
-  margin: 22px 0 0;
-  padding: 14px 16px;
-  border-left: 4px solid var(--business-mint);
-  background: rgba(255, 255, 255, .07);
-  color: rgba(255, 255, 255, .9);
-  font-size: clamp(13px, 1.15vw, 16px);
-  font-weight: 720;
-  line-height: 1.65;
-}
-
 .business-copy-list,
 .business-answer-bullets {
   list-style: none;
@@ -67,33 +55,6 @@
 
 .business-decision-lab {
   background: #eaf0f5;
-}
-
-.business-decision-method {
-  display: grid;
-  grid-template-columns: minmax(0, 1fr) auto minmax(0, 1fr) auto minmax(0, 1fr) auto minmax(0, 1fr) auto minmax(0, 1fr);
-  align-items: stretch;
-  margin: 28px 0 18px;
-  border: 1px solid #cbd6df;
-  background: #fff;
-}
-
-.business-decision-method span {
-  min-height: 58px;
-  display: grid;
-  place-items: center;
-  padding: 10px;
-  color: var(--business-navy);
-  font: 900 10px/1.35 var(--business-font, sans-serif);
-  letter-spacing: .05em;
-  text-align: center;
-}
-
-.business-decision-method i {
-  display: grid;
-  place-items: center;
-  color: #7f8b98;
-  font-style: normal;
 }
 
 .business-decision-tabs {
@@ -540,14 +501,6 @@
 }
 
 @media (max-width: 1180px) {
-  .business-decision-method {
-    grid-template-columns: repeat(5, minmax(0, 1fr));
-  }
-
-  .business-decision-method i {
-    display: none;
-  }
-
   .business-delivery-grid {
     grid-template-columns: repeat(2, minmax(0, 1fr));
   }
@@ -598,15 +551,9 @@
 }
 
 @media (max-width: 560px) {
-  .business-decision-method,
   .business-delivery-grid,
   .business-decision-footer {
     grid-template-columns: minmax(0, 1fr);
-  }
-
-  .business-decision-method span {
-    min-height: 44px;
-    border-bottom: 1px solid #dbe3ea;
   }
 
   .business-delivery-grid > *,
@@ -2925,26 +2872,6 @@ body.landing-mode :is(.scroll-prog, .scroll-top, .qa-answer, .inspector, #backdr
   box-shadow: 0 24px 64px rgba(7, 21, 34, .17);
 }
 
-.business-fabric-workloads {
-  display: grid;
-  grid-template-columns: repeat(4, minmax(0, 1fr));
-  gap: 8px;
-  margin-bottom: 10px;
-}
-
-.business-fabric-workloads span {
-  min-height: 48px;
-  display: grid;
-  place-items: center;
-  padding: 10px;
-  border: 1px solid rgba(255, 255, 255, .11);
-  border-radius: 8px;
-  color: rgba(255, 255, 255, .72);
-  background: rgba(255, 255, 255, .035);
-  font: 720 9px/1.35 var(--mono);
-  text-align: center;
-}
-
 .business-fabric-stack {
   display: grid;
   grid-template-columns: repeat(5, minmax(0, 1fr));
@@ -3643,9 +3570,6 @@ body.landing-mode :is(.scroll-prog, .scroll-top, .qa-answer, .inspector, #backdr
   .business-evidence-case,
   .business-flagship-partnership {
     padding: 24px;
-  }
-  .business-fabric-workloads {
-    grid-template-columns: repeat(2, minmax(0, 1fr));
   }
   .business-fabric-stack {
     grid-template-columns: 1fr;
@@ -6567,20 +6491,10 @@ body.landing-mode {
 .business-demand-shift a { color: #9ce9da; text-decoration-color: currentColor; text-underline-offset: 3px; }
 .business-demand-shift em { color: #ffd978; font-style: normal; }
 
-.business-ai-factory-decision-grid { display: grid; grid-template-columns: minmax(0, 1.25fr) minmax(0, .75fr); gap: 10px; margin-top: 10px; }
-.business-accelerator-scorecard,
+.business-ai-factory-decision-grid { display: grid; grid-template-columns: minmax(0, 1fr); gap: 10px; margin-top: 10px; }
 .business-kpi-tree { min-width: 0; padding: 22px; color: #102c43; border: 1px solid #c0ced8; background: #fff; }
-.business-accelerator-scorecard header > span,
 .business-kpi-tree header > span { color: #08766f; font: 850 8px/1.2 var(--mono); letter-spacing: .08em; }
-.business-accelerator-scorecard h4,
 .business-kpi-tree h4 { margin: 7px 0 0; color: #102c43; font-size: clamp(18px, 1.7vw, 26px); }
-.business-accelerator-scorecard header p { margin: 8px 0 0; color: #52697c; font-size: 10px; }
-.business-accelerator-scorecard > div { display: grid; grid-template-columns: repeat(7, minmax(0, 1fr)); gap: 5px; margin-top: 18px; }
-.business-accelerator-scorecard > div b { display: grid; place-items: center; align-content: center; gap: 6px; min-width: 0; aspect-ratio: 1; color: #102c43; border: 2px solid #08766f; border-radius: 50%; background: #f4faf8; font: 950 clamp(16px, 1.7vw, 25px)/1 var(--mono); }
-.business-accelerator-scorecard > div b:nth-child(2n) { border-color: #2f68bd; background: #f3f7fd; }
-.business-accelerator-scorecard > div b:nth-child(3n) { border-color: #8a55d2; background: #f8f4fd; }
-.business-accelerator-scorecard > div b small { max-width: 72px; color: #40596c; font: 780 7px/1.25 var(--mono); text-align: center; overflow-wrap: anywhere; }
-.business-accelerator-scorecard > footer { margin-top: 16px; padding-top: 12px; color: #40596c; border-top: 1px solid #dce5eb; font-size: 9px; line-height: 1.55; }
 .business-kpi-tree > div { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 5px; margin-top: 18px; }
 .business-kpi-tree article { min-width: 0; padding: 12px; border-left: 3px solid #2f68bd; background: #f3f7fa; }
 .business-kpi-tree article small { color: #08766f; font: 850 7px/1.2 var(--mono); }
@@ -6675,7 +6589,6 @@ body.landing-mode {
 .business-workload-matrix dd a { color: #173f66; font-weight: 800; text-decoration-color: #d5a400; text-underline-offset: 3px; }
 
 @media (max-width: 1180px) {
-  .business-accelerator-scorecard > div { grid-template-columns: repeat(4, minmax(0, 1fr)); }
   .business-rag-operating-model > ol { grid-template-columns: repeat(7, minmax(0, 1fr)); }
   .business-rag-maturity { grid-template-columns: repeat(3, minmax(0, 1fr)); }
 }
@@ -6689,7 +6602,6 @@ body.landing-mode {
 }
 
 @media (max-width: 620px) {
-  .business-accelerator-scorecard > div { grid-template-columns: repeat(2, minmax(0, 1fr)); }
   .business-ai-factory-roadmap,
   .business-rag-operating-model > ol,
   .business-rag-maturity,
@@ -7082,26 +6994,8 @@ body.landing-mode {
   }
 }
 
-/* ---- Landing hero background video (muted, slightly darkened) ---- */
-.business-hero-video {
-  position: absolute;
-  inset: 0;
-  z-index: 1;
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  filter: brightness(.74) saturate(.92) contrast(1.04);
-}
 .business-hero-media-slide { z-index: 0; }
-.business-hero-video-shade {
-  position: absolute;
-  inset: 0;
-  z-index: 1;
-  pointer-events: none;
-  background: rgba(3, 9, 18, .12);
-}
 @media (prefers-reduced-motion: reduce) {
-  .business-hero-video { display: none; }
   .business-hero-media-slide { z-index: 1; }
 }
 

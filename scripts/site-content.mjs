@@ -3,6 +3,7 @@ import { dirname, resolve } from "node:path";
 import { fileURLToPath } from "node:url";
 import { buildSourceCatalogSnapshot, catalogSourceForUrl, loadSourceCatalog } from "./source-catalog.mjs";
 import { executiveBulletCopy } from "./executive-copy.mjs";
+import { normalizeKoreanTerminology } from "./translation-pipeline.mjs";
 
 const root = resolve(dirname(fileURLToPath(import.meta.url)), "..");
 const model = Object.freeze(JSON.parse(readFileSync(resolve(root, "data", "site-content-model.json"), "utf8")));
@@ -12,7 +13,7 @@ const siteMarkup = readFileSync(resolve(root, "index.html"), "utf8");
 const LANDING_SECTION_IDS = new Set([
   "home", "departmentDecisionQueue", "decision-lab", "decision-automation", "initiatives",
   "competencies", "ai-strategy", "pain-framework", "solutions", "ai-factory-system",
-  "acceleratorScorecard", "aiFactoryKpiTree", "workload-optimization", "ragOperatingModel",
+  "aiFactoryKpiTree", "workload-optimization", "ragOperatingModel",
   "workload-map", "memory-fabric", "insights", "execution-evidence", "businessFreshnessBoard",
   "partners", "deep-cases", "macro", "team-operating-model",
 ]);
@@ -55,8 +56,7 @@ function buildSiteAutomation({ runId = null, generatedAt = null, sourceCoverage 
 
 const directUrl = (value = "") => /^https?:\/\//i.test(String(value || "")) && !/news\.google\.com/i.test(String(value || ""));
 const compact = (value = "", limit = 180) => {
-  const text = executiveBulletCopy(String(value || ""))
-    .replace(/솔리드다임/g, "솔리다임")
+  const text = normalizeKoreanTerminology(executiveBulletCopy(String(value || "")))
     .replace(/\s+/g, " ")
     .trim();
   if (text.length <= limit) return text;
@@ -64,7 +64,7 @@ const compact = (value = "", limit = 180) => {
 };
 const publishedAt = (item = {}, fallback = null) => item.publishedAt || item.date || item.observedAt || item.crawledAt || fallback || null;
 const normalizeDisplayPayload = (value) => {
-  if (typeof value === "string") return executiveBulletCopy(value).replace(/솔리드다임/g, "솔리다임");
+  if (typeof value === "string") return normalizeKoreanTerminology(executiveBulletCopy(value));
   if (Array.isArray(value)) return value.map(normalizeDisplayPayload);
   if (value && typeof value === "object") return Object.fromEntries(
     Object.entries(value).map(([key, item]) => [key, normalizeDisplayPayload(item)]),
@@ -649,7 +649,6 @@ function buildAIFactorySystem(payload = {}, sourceCoverage = {}, generatedAt = n
   const workloads = buildWorkloadEvidence(payload, sourceIds, framework.workloads || []);
   const connectedWorkloads = workloads.filter((workload) => Boolean(workload.evidence?.url)).length;
   const promotedWorkloads = workloads.filter((workload) => !["coverage-gap", "monitoring"].includes(workload.evidence?.status)).length;
-  const acceleratorDecision = framework.acceleratorDecision || {};
   return {
     title: framework.title || "AI Factory System Optimization",
     thesis: framework.thesis || "Workload SLO와 단위경제성으로 AI Factory 전체 시스템을 공동 최적화합니다.",
@@ -659,11 +658,6 @@ function buildAIFactorySystem(payload = {}, sourceCoverage = {}, generatedAt = n
     decisionSequence: framework.decisionSequence || [],
     roadmap: framework.roadmap || [],
     demandShift: buildForecastSignal(payload, sourceIds, framework.demandShift || {}),
-    acceleratorDecision: {
-      ...acceleratorDecision,
-      totalWeight: (acceleratorDecision.criteria || []).reduce((sum, item) => sum + Number(item.weight || 0), 0),
-      currentEvidence: signals.filter((item) => ["accelerator", "fabric", "economics"].includes(item.pillar)).slice(0, 3),
-    },
     kpiTree: framework.kpiTree || {},
     evidencePolicy: framework.evidencePolicy || [],
     sources,
@@ -916,7 +910,6 @@ export function validateSiteContent(content = {}) {
   if (!Array.isArray(content.aiFactorySystem?.roadmap) || content.aiFactorySystem.roadmap.length < 5) errors.push("aiFactorySystem.roadmap");
   if (!Array.isArray(content.aiFactorySystem?.sources) || content.aiFactorySystem.sources.length < 8) errors.push("aiFactorySystem.sources");
   if (!Array.isArray(content.aiFactorySystem?.pillarCoverage) || content.aiFactorySystem.pillarCoverage.length < 6) errors.push("aiFactorySystem.pillarCoverage");
-  if (Number(content.aiFactorySystem?.acceleratorDecision?.totalWeight || 0) !== 100) errors.push("aiFactorySystem.acceleratorDecision.totalWeight");
   if (!Array.isArray(content.aiFactorySystem?.kpiTree?.formulas) || content.aiFactorySystem.kpiTree.formulas.length < 4) errors.push("aiFactorySystem.kpiTree.formulas");
   if (!content.aiFactorySystem?.automation?.status) errors.push("aiFactorySystem.automation");
   if (!Array.isArray(content.presentation?.emphasisTerms) || content.presentation.emphasisTerms.length < 4) errors.push("presentation.emphasisTerms");

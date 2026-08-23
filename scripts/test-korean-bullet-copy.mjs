@@ -10,8 +10,10 @@ const [html, css, landing, app] = await Promise.all([
   readFile(new URL("assets/js/app.js", root), "utf8"),
 ]);
 
-const heroList = html.match(/<ul class="business-hero-thesis business-copy-list"[\s\S]*?<\/ul>/)?.[0] ?? "";
-assert.equal((heroList.match(/<li>/g) ?? []).length, 3, "hero thesis must contain three Korean bullets");
+assert.doesNotMatch(html, /business-hero-thesis/, "the removed hero thesis block must stay absent");
+assert.doesNotMatch(html, /business-decision-method/, "the removed five-step strip must stay absent");
+assert.doesNotMatch(html, /acceleratorScorecard|Accelerator Decision Scorecard/, "the removed accelerator scorecard must stay absent");
+assert.doesNotMatch(html, /business-fabric-workloads/, "the removed workload tab strip must stay absent");
 const heroScope = html.match(/<ul class="business-hero-bullets"[\s\S]*?<\/ul>/)?.[0] ?? "";
 assert.equal((heroScope.match(/<li>/g) ?? []).length, 4, "hero scope must contain four intact MECE strategy rows");
 assert.match(heroScope, /data-copy-verbatim/, "hero strategy rows must preserve full copy instead of adding ellipses");
@@ -30,7 +32,6 @@ for (const [, content] of answerLists) {
 }
 
 for (const phrase of [
-  "SK hynix B2B 고객 현황·기술·전략 기반 Pain Point 구조화",
   "고객 문제와 구매 기준",
   "칩 Roadmap · 메모리 요구사항",
   "의사결정 변화 · 실행 Trigger 우선",
@@ -83,7 +84,7 @@ assert.doesNotMatch(visibleMarkup, /[가-힣]+다(?:[.!?。]|\s*$)/m, "static us
 assert.equal(normalizeHtmlExecutiveCopy(html), html, "checked-in HTML must already use normalized executive bullets");
 
 console.log(JSON.stringify({
-  heroBullets: 3,
+  heroBullets: 4,
   decisionAnswerLists: answerLists.length,
   revision: "infra-[a-f0-9]{12}",
 }, null, 2));

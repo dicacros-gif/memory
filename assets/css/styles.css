@@ -1648,7 +1648,7 @@ body.console-startup #intelligenceConsole *::after {
   color: #fff;
 }
 
-.memory-hero-video,
+.memory-hero-static,
 .memory-hero-shade {
   position: sticky;
   top: var(--topbar-h);
@@ -1658,7 +1658,7 @@ body.console-startup #intelligenceConsole *::after {
   height: calc(100svh - var(--topbar-h));
 }
 
-.memory-hero-video {
+.memory-hero-static {
   z-index: 0;
   object-fit: cover;
   object-position: center center;
@@ -1779,7 +1779,6 @@ body.console-startup #intelligenceConsole *::after {
   100% { opacity: 0; transform: translate(-50%, 24px); }
 }
 
-.memory-hero-toggle,
 .memory-story-arrow,
 .memory-story-toggle {
   display: grid;
@@ -1790,19 +1789,6 @@ body.console-startup #intelligenceConsole *::after {
   color: #fff;
   backdrop-filter: blur(9px);
   transition: background .07s, border-color .07s, color .07s, transform .07s;
-}
-
-.memory-hero-toggle {
-  position: sticky;
-  top: calc(var(--topbar-h) + 16px);
-  z-index: 3;
-  grid-area: 1 / 1;
-  align-self: start;
-  justify-self: end;
-  width: 40px;
-  height: 40px;
-  margin: 16px;
-  font-size: 14px;
 }
 
 .memory-video-hero.hero-copy-hidden .memory-hero-content {
@@ -2002,8 +1988,6 @@ body.console-startup #intelligenceConsole *::after {
   pointer-events: none;
 }
 
-.memory-hero-toggle:hover,
-.memory-hero-toggle:focus-visible,
 .memory-story-arrow:hover,
 .memory-story-arrow:focus-visible,
 .memory-story-toggle:hover,
@@ -23135,7 +23119,7 @@ body.crawl-moderation-open {
     margin-right: -14px;
   }
 
-  .memory-hero-video {
+  .memory-hero-static {
     object-position: 58% center;
   }
 
@@ -23177,13 +23161,6 @@ body.crawl-moderation-open {
     min-height: 36px;
     padding: 0 12px;
     font-size: 11px;
-  }
-
-  .memory-hero-toggle {
-    top: calc(var(--topbar-h) + 12px);
-    width: 36px;
-    height: 36px;
-    margin: 12px;
   }
 
   .memory-visual-story,

@@ -3,7 +3,7 @@
 
   const BUSINESS_TITLE = "AI Infra Strategy · Customer Pain to Executive Action";
   const CONSOLE_HASH = "#console";
-  const CONSOLE_REVISION = "infra-b6d349f07f04";
+  const CONSOLE_REVISION = "infra-1a151c820584";
   const DECISION_CLIENT_PATH = "data/landing-decision-client.json";
   const SITE_CONTENT_PATH = "data/site-content-client.json";
   const site = document.querySelector("#businessSite");
@@ -60,8 +60,8 @@
   }
 
   function prepareConsoleMedia() {
-    const heroVideo = document.querySelector("#memoryHeroVideo[data-poster]");
-    if (heroVideo && !heroVideo.poster) heroVideo.poster = heroVideo.dataset.poster;
+    const heroImage = document.querySelector(".memory-hero-static");
+    if (heroImage?.decode) heroImage.decode().catch(() => {});
   }
 
   function ensureConsoleMarkup() {
@@ -456,18 +456,8 @@
     const media = document.querySelector(".business-hero-media");
     if (!media || media.dataset.rotationSetup === "1") return;
     media.dataset.rotationSetup = "1";
-    const video = media.querySelector(".business-hero-video");
     const images = [...media.querySelectorAll("img")];
     let fallback = 0;
-    const hydrateVideo = () => {
-      if (!video || video.dataset.hydrated === "1") return;
-      const source = video.querySelector("source[data-src]");
-      if (!source?.dataset.src) return;
-      source.src = source.dataset.src;
-      video.dataset.hydrated = "1";
-      video.load();
-      video.play().catch(() => { /* Poster remains visible when autoplay is unavailable */ });
-    };
     const activate = () => {
       window.clearTimeout(fallback);
       if (media.dataset.rotationReady === "1") return;
@@ -475,7 +465,6 @@
       document.body.dataset.heroMedia = "ready";
     };
     const prepare = () => window.setTimeout(() => scheduleIdleStep(() => {
-      hydrateVideo();
       const secondary = images.slice(1);
       fallback = window.setTimeout(activate, 1400);
       if (!secondary.length) {
@@ -697,17 +686,6 @@
       roadmap.innerHTML = system.roadmap.map((phase) => `<li><span>${escapeBusinessHTML(phase.phase)}</span><strong>${escapeBusinessHTML(phase.goal)}</strong><p>${escapeBusinessHTML(phase.gate)}</p></li>`).join("");
     }
 
-    const accelerator = document.querySelector("#acceleratorScorecard");
-    if (accelerator && system.acceleratorDecision) {
-      const matrix = system.acceleratorDecision;
-      const score = accelerator.querySelector(":scope > div");
-      const copy = accelerator.querySelector("header p");
-      const footer = accelerator.querySelector("footer");
-      if (copy) copy.textContent = matrix.guardrail || copy.textContent;
-      if (score) score.innerHTML = (matrix.criteria || []).map((item) => `<b style="--weight:${Number(item.weight || 0)}"><span>${escapeBusinessHTML(String(item.weight || 0))}</span><small>${escapeBusinessHTML(item.label)}</small></b>`).join("");
-      if (footer) footer.textContent = `${(matrix.supplyLayers || []).join(" · ")} · 합계 ${matrix.totalWeight || 0}점 · 벤더 Peak 수치는 조건 불일치 시 Watch`;
-    }
-
     const kpiTree = document.querySelector("#aiFactoryKpiTree");
     if (kpiTree && system.kpiTree) {
       const groups = [["BUSINESS", system.kpiTree.business], ["APPLICATION", system.kpiTree.application], ["PLATFORM", system.kpiTree.platform], ["FACILITY", system.kpiTree.facility]];
@@ -840,7 +818,6 @@
       const [first, ...rest] = content.hero.titleLines;
       title.innerHTML = `${escapeBusinessHTML(first)}<br><em>${escapeBusinessHTML(rest.join(" "))}</em>`;
     }
-    renderBusinessList(document.querySelector(".business-hero-thesis"), content.hero?.thesis);
     renderBusinessList(document.querySelector(".business-hero-bullets"), content.hero?.capabilities);
     renderDepartmentHomepage(content);
     const staticSnapshot = document.querySelector(".console-static-snapshot header p");
@@ -1124,7 +1101,6 @@
       ".business-workload-services > article",
       ".business-workload-matrix > article",
       ".business-demand-shift",
-      ".business-accelerator-scorecard",
       ".business-kpi-tree",
       ".business-ai-factory-roadmap > li",
       ".business-rag-operating-model",
@@ -1217,7 +1193,6 @@
       ".business-workload-services > article",
       ".business-workload-matrix > article",
       ".business-demand-shift",
-      ".business-accelerator-scorecard",
       ".business-kpi-tree",
       ".business-ai-factory-roadmap > li",
       ".business-rag-operating-model",

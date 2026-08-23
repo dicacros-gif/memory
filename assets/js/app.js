@@ -2953,63 +2953,6 @@
   }
 
   function setupMediaExperience() {
-    const video = $("#memoryHeroVideo");
-    const videoToggle = $("#memoryHeroToggle");
-    let heroVideoStartTimer = 0;
-    let heroVideoIdleId = 0;
-    const hydrateHeroVideo = () => {
-      if (!video || video.dataset.hydrated === "1") return;
-      const source = video.querySelector("source[data-src]");
-      if (!source?.dataset.src) return;
-      source.src = source.dataset.src;
-      video.dataset.hydrated = "1";
-      video.load();
-    };
-    const startHeroVideo = async () => {
-      if (!video || video.dataset.userPaused === "1") return;
-      hydrateHeroVideo();
-      try { await video.play(); } catch { /* The poster remains visible until playback is available. */ }
-    };
-    const scheduleHeroVideo = () => {
-      if (!video || video.dataset.hydrated === "1" || heroVideoStartTimer || video.dataset.userPaused === "1") return;
-      heroVideoStartTimer = window.setTimeout(() => {
-        heroVideoStartTimer = 0;
-        if ("requestIdleCallback" in window) {
-          heroVideoIdleId = window.requestIdleCallback(() => {
-            heroVideoIdleId = 0;
-            startHeroVideo();
-          }, { timeout: 1800 });
-        } else {
-          startHeroVideo();
-        }
-      }, 900);
-    };
-    if (video && videoToggle && videoToggle.dataset.ready !== "1") {
-      videoToggle.dataset.ready = "1";
-      video.muted = true;
-      const syncVideoControl = () => {
-        const paused = video.paused;
-        videoToggle.querySelector("span").textContent = paused ? "▶" : "Ⅱ";
-        videoToggle.setAttribute("aria-label", paused ? "배경 영상 재생" : "배경 영상 일시정지");
-        videoToggle.setAttribute("title", paused ? "배경 영상 재생" : "배경 영상 일시정지");
-      };
-      videoToggle.addEventListener("click", async () => {
-        if (video.paused) {
-          video.dataset.userPaused = "0";
-          await startHeroVideo();
-        } else {
-          video.dataset.userPaused = "1";
-          video.pause();
-        }
-        syncVideoControl();
-      });
-      video.addEventListener("play", syncVideoControl);
-      video.addEventListener("pause", syncVideoControl);
-      syncVideoControl();
-      if (document.body.dataset.consoleReady === "1") scheduleHeroVideo();
-      else window.addEventListener("memory-console-ready", scheduleHeroVideo, { once: true });
-    }
-
     document.querySelectorAll("[data-hero-jump]").forEach((button) => {
       if (button.dataset.ready === "1") return;
       button.dataset.ready = "1";
@@ -3051,24 +2994,7 @@
       hero.style.setProperty("--hero-copy-opacity", "1");
       hero.style.setProperty("--hero-copy-shift", "0px");
 
-      if (video && "IntersectionObserver" in window) {
-        const heroVideoObserver = new IntersectionObserver((entries) => {
-          entries.forEach((entry) => {
-            if (entry.isIntersecting) {
-              if (video.dataset.hydrated === "1") startHeroVideo();
-              else scheduleHeroVideo();
-            } else {
-              video.pause();
-            }
-          });
-        }, { threshold: 0.02 });
-        heroVideoObserver.observe(hero);
-        window.addEventListener("pagehide", () => heroVideoObserver.disconnect(), { once: true });
-      }
-
       window.addEventListener("pagehide", () => {
-        if (heroVideoStartTimer) window.clearTimeout(heroVideoStartTimer);
-        if (heroVideoIdleId && "cancelIdleCallback" in window) window.cancelIdleCallback(heroVideoIdleId);
         if (frame) window.cancelAnimationFrame(frame);
         window.removeEventListener("scroll", scheduleHeroScroll);
         window.removeEventListener("resize", scheduleHeroScroll);

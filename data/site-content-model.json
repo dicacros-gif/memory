@@ -2,14 +2,10 @@
   "schemaVersion": "1.1",
   "strategyMandate": {
     "titleLines": [
-      "SK hynix AI Infra Strategy",
+      "AI Infra Strategy",
       "Customer Pain to Memory Business"
     ],
-    "scope": [
-      "SK hynix B2B 고객 현황·기술·전략과 Workload Trace 기반 Pain Point 구조화",
-      "데이터센터 HW·SW·Memory·Network·Storage·Power/Cooling 통합 진단",
-      "검증 근거·경제성·Owner·KPI·중단 조건 기반 경영진 실행안"
-    ],
+    "scope": [],
     "capabilities": [
       "Customer Strategy · B2B Fact Base → Pain Map → Buying Criteria → 맞춤형 Memory Proposal",
       "Workload Optimization · Training/Inference/RAG/Agent → Bottleneck → HW/SW·Memory TCO",
@@ -255,20 +251,6 @@
       "decision": "Training·Inference 설치량이 아니라 검증된 업무 수요·SLO·Goodput 변화로 Capacity Mix 조정",
       "signalTerms": ["training to inference", "inference demand", "ai workload share", "data center demand"],
       "guardrail": "전망은 기준연도·시나리오·출처를 보존하고 실적과 분리"
-    },
-    "acceleratorDecision": {
-      "title": "Accelerator Decision Scorecard",
-      "guardrail": "동일 Workload·Model·Version·Precision·Batch·Quality·Latency SLO에서만 비교",
-      "criteria": [
-        { "id": "workload", "label": "실제 Workload 성능", "weight": 25 },
-        { "id": "economics", "label": "품질 제약 Cost/Task", "weight": 20 },
-        { "id": "memory", "label": "HBM·Fabric 적합성", "weight": 15 },
-        { "id": "software", "label": "SW·모델 호환성", "weight": 15 },
-        { "id": "facility", "label": "전력·냉각 적합성", "weight": 10 },
-        { "id": "supply", "label": "공급·지원·이식성", "weight": 10 },
-        { "id": "security", "label": "보안·운영 도구", "weight": 5 }
-      ],
-      "supplyLayers": ["Accelerator", "Runtime / Serving", "Application / RAG"]
     },
     "kpiTree": {
       "business": ["검증된 업무 성공률", "업무 처리시간", "사용자 채택", "오류·재작업"],
