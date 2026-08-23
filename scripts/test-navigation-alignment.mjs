@@ -76,9 +76,14 @@ const groupedRoutes = groups.flatMap((group) => group.routes);
 assert.deepEqual(groupedRoutes, routes.map((route) => route.id), "sidebar groups must preserve route order");
 assert.equal(routes.at(-1).id, "ecosystem", "Partner ecosystem must remain at the bottom");
 assert.deepEqual(
+  routes.map((route) => route.label),
+  ["고객 문제", "경영 판단", "솔루션 설계", "시장 인사이트", "신규 Biz", "수요·사례", "협력 생태계"],
+  "left navigation must stay MECE and show only the decision-critical labels",
+);
+assert.deepEqual(
   groups.map((group) => group.label),
-  ["SK hynix AI Infra", "Strategy & Solutions"],
-  "navigation should use the customer-first decision information architecture",
+  ["판단 기준", "실행 영역"],
+  "navigation groups must separate decision inputs from execution domains",
 );
 for (const retiredRoute of ["executive-summary", "policy", "china-workforce", "competitors", "talent", "workbench", "market-map", "strategy-actions", "stock"]) {
   assert.ok(!routes.some((route) => route.id === retiredRoute), `retired route must stay removed: ${retiredRoute}`);
@@ -94,11 +99,12 @@ assert.match(app, /function schedulePolicyArtifacts\(\)[\s\S]*?loadJSON\("data\/
 assert.match(app, /function updateScrollSpyFromGeometry\(\)/, "scroll spy must use cached geometry");
 assert.match(app, /function scheduleProgressiveDeferredSections\(definitions\)[\s\S]*?const first = queue\[cursor\+\+\][\s\S]*?preloadDeferredSectionData\(first\.id\)\.finally/, "deferred route data should prewarm without rendering hidden boards");
 assert.match(app, /function setupRouteAccordions\(\)[\s\S]*?routePanelNodes\.set[\s\S]*?console-route-toggle[\s\S]*?setActiveRoutePanel/, "left navigation routes must own foldable right-hand panels");
+assert.match(app, /toolbar\.hidden = false;[\s\S]*?node\.classList\.remove\("console-route-inactive"\)/, "all route panels must remain in the natural right-hand scroll stream");
 assert.match(app, /function jumpTo\(id\)[\s\S]*?setActiveRoutePanel\(id, \{ expand: true \}\)[\s\S]*?await ensureDeferredSection\(id, \{ refreshGeometry: false \}\)/, "a route panel must open before its deferred data finishes rendering");
 assert.match(app, /function ensureRouteDeferredSections\(id\)[\s\S]*?routeDeferredSectionIds\(id\)[\s\S]*?await ensureDeferredSection\(ids\[index\], \{ refreshGeometry: false \}\)/, "all boards owned by the active route must hydrate without scrolling");
-assert.match(app, /function releaseInactiveDeferredSections\(activeRoute\)[\s\S]*?section\.innerHTML = shell[\s\S]*?deferredRenderedSections\.delete\(sectionId\)/, "inactive route DOM must be released while its validated data remains cached");
+assert.match(app, /function updateScrollSpyFromGeometry\(\)[\s\S]*?syncSidebarRoute\(navTarget, \{ reveal: true \}\)[\s\S]*?\[activeIndex, activeIndex \+ 1\][\s\S]*?ensureRouteDeferredSections\(route\.jump\)/, "right-hand scrolling must update the left tab and hydrate the next route ahead");
 assert.match(app, /const prewarm = \(\) => prewarmRoutePanel[\s\S]*?pointerenter[\s\S]*?pointerdown/, "navigation intent must prewarm the selected route without waiting for a click-render round trip");
-assert.match(css, /\.console-route-inactive,\s*\.console-route-collapsed\s*\{\s*display:\s*none !important;/, "inactive and folded route content must leave the layout immediately");
+assert.match(css, /\.console-route-collapsed\s*\{\s*display:\s*none !important;/, "only explicitly folded route content may leave the natural scroll layout");
 assert.match(css, /\.console-route-toggle\s*\{[\s\S]*?transition:\s*none;[\s\S]*?\.console-route-toggle:hover,/, "route folding must react without a delayed transition");
 assert.doesNotMatch(app, /function observeDeferredSections\(|rootMargin: "900px 0px"/, "deferred loading must not wait for viewport intersection");
 assert.match(css, /\.deferred-section\s*\{[\s\S]*?content-visibility:\s*auto;/, "offscreen sections must skip paint");

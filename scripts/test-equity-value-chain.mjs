@@ -32,9 +32,9 @@ assert.match(app, /\{ id: "equity-value-chain", render: renderEquityValueChain, 
   "the heavy equity dashboard must load market history and company intelligence together");
 assert.match(app, /enterpriseProfiles:\s*\{[\s\S]*?data\/company-intelligence\.json[\s\S]*?managed:\s*false/,
   "company profiles must load as a small static evidence artifact without the run-manifest gate");
-assert.match(app, /id: "ecosystem"[\s\S]*?label: "Partner Ecosystem"[\s\S]*?jump: "equity-value-chain"/,
+assert.match(app, /id: "ecosystem"[\s\S]*?label: "협력 생태계"[\s\S]*?jump: "equity-value-chain"/,
   "the sidebar must expose a dedicated partner ecosystem route");
-assert.match(app, /\{ label: "Strategy & Solutions", routes: \["analysis", "market", "partnerships", "hyperscaler-demand", "ecosystem"\] \},\s*\];/,
+assert.match(app, /\{ label: "실행 영역", routes: \["analysis", "market", "partnerships", "hyperscaler-demand", "ecosystem"\] \},\s*\];/,
   "partner ecosystem should close the strategy and solutions group");
 assert.match(app, /const SIDE_NAV_ROUTES = \[[\s\S]*?id: "biz-consulting"[\s\S]*?id: "c-level"[\s\S]*?id: "analysis"[\s\S]*?id: "market"[\s\S]*?id: "partnerships"[\s\S]*?id: "hyperscaler-demand"[\s\S]*?id: "ecosystem"/,
   "focused sidebar routes should follow the real SK hynix AI Infra document flow");

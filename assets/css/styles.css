@@ -1431,7 +1431,8 @@ body.sidebar-collapsed .sb-ico {
   scroll-margin-top: calc(var(--topbar-h) + 18px);
 }
 
-/* Route accordion: one concise right-hand workspace per left navigation tab */
+/* Route stream: every workspace stays in document order while the left tab
+   follows the reader's position. Each route remains independently foldable. */
 .console-route-toolbar {
   display: flex;
   align-items: center;
@@ -1442,10 +1443,17 @@ body.sidebar-collapsed .sb-ico {
   border-left: 4px solid var(--accent);
   background: var(--panel);
   color: var(--text);
+  scroll-margin-top: calc(var(--topbar-h) + 18px);
 }
 
 .console-route-toolbar[hidden] {
   display: none !important;
+}
+
+.console-route-toolbar.is-active {
+  border-color: color-mix(in srgb, var(--accent) 52%, var(--line));
+  border-left-color: var(--accent);
+  background: color-mix(in srgb, var(--accent) 5%, var(--panel));
 }
 
 .console-route-toolbar-copy {
@@ -1502,7 +1510,6 @@ body.sidebar-collapsed .sb-ico {
   color: #fff;
 }
 
-.console-route-inactive,
 .console-route-collapsed {
   display: none !important;
 }

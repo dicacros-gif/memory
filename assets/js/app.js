@@ -1913,24 +1913,24 @@
   const SIDE_NAV_ROUTES = [
     {
       id: "biz-consulting",
-      label: "Customer Pain & Workload",
-      desc: "B2B 고객 Pain Point·구매 기준·지배 병목",
+      label: "고객 문제",
+      desc: "Pain Point · 구매 기준",
       cadence: "Customer signal",
       jump: "strategy-consulting",
       sections: ["strategy-consulting"],
     },
     {
       id: "c-level",
-      label: "경영진 의사결정",
-      desc: "선택지·경제성·Owner·KPI·중단 조건",
+      label: "경영 판단",
+      desc: "선택지 · 경제성 · 실행 Gate",
       cadence: "Decision cockpit",
       jump: "c-level-cockpit",
       sections: ["c-level-cockpit"],
     },
     {
       id: "analysis",
-      label: "Business Strategy & Solutions",
-      desc: "맞춤형 Memory·Workload 최적화·TCO",
+      label: "솔루션 설계",
+      desc: "맞춤형 Memory · Workload TCO",
       cadence: "Architecture lab",
       jump: "executive-decision",
       sections: [
@@ -1942,32 +1942,32 @@
     },
     {
       id: "market",
-      label: "Tech & Market Insights",
-      desc: "AI App·HW/SW·LLM·Memory 시장 신호",
+      label: "시장 인사이트",
+      desc: "AI · HW/SW · Memory 신호",
       cadence: "External context",
       jump: "prices",
       sections: ["prices", "news"],
     },
     {
       id: "partnerships",
-      label: "New Biz & Partners",
-      desc: "기회·파트너 모델·Qualification·Capacity",
+      label: "신규 Biz",
+      desc: "기회 · 파트너 · 사업성",
       cadence: "Portfolio gate",
       jump: "numbers",
       sections: ["numbers", "projection"],
     },
     {
       id: "hyperscaler-demand",
-      label: "Customer Demand & Use Cases",
-      desc: "Hyperscaler·Enterprise·Device 수요와 사례",
+      label: "수요·사례",
+      desc: "고객 수요 · Use Case",
       cadence: "Workload demand",
       jump: "hyperscaler-demand",
       sections: ["hyperscaler-demand", "ai-matrix"],
     },
     {
       id: "ecosystem",
-      label: "Partner Ecosystem",
-      desc: "AI 개발사·운영사·기술 파트너 협력 모델",
+      label: "협력 생태계",
+      desc: "협력 모델 · 실행 역할",
       cadence: "Partner review",
       jump: "equity-value-chain",
       sections: ["equity-value-chain"],
@@ -1975,13 +1975,13 @@
   ];
   const ROUTE_DISPLAY = {
     "biz-consulting": {
-      label: "Customer Pain & Workload",
-      desc: "B2B 고객 Pain Point·구매 기준·지배 병목",
+      label: "고객 문제",
+      desc: "Pain Point · 구매 기준",
       cadence: "Customer signal",
     },
     "c-level": {
-      label: "경영진 의사결정",
-      desc: "선택지·경제성·Owner·KPI·중단 조건",
+      label: "경영 판단",
+      desc: "선택지 · 경제성 · 실행 Gate",
       cadence: "Decision cockpit",
     },
     workbench: {
@@ -2000,8 +2000,8 @@
       cadence: "Portfolio gate",
     },
     "hyperscaler-demand": {
-      label: "Customer Demand & Use Cases",
-      desc: "Hyperscaler·Enterprise·Device 수요와 사례",
+      label: "수요·사례",
+      desc: "고객 수요 · Use Case",
       cadence: "Workload demand",
     },
     "china-workforce": {
@@ -2025,23 +2025,23 @@
       cadence: "Action plan",
     },
     analysis: {
-      label: "Business Strategy & Solutions",
-      desc: "맞춤형 Memory·Workload 최적화·TCO",
+      label: "솔루션 설계",
+      desc: "맞춤형 Memory · Workload TCO",
       cadence: "Architecture lab",
     },
     market: {
-      label: "Tech & Market Insights",
-      desc: "AI App·HW/SW·LLM·Memory 시장 신호",
+      label: "시장 인사이트",
+      desc: "AI · HW/SW · Memory 신호",
       cadence: "External context",
     },
     partnerships: {
-      label: "New Biz & Partners",
-      desc: "기회·파트너 모델·Qualification·Capacity",
+      label: "신규 Biz",
+      desc: "기회 · 파트너 · 사업성",
       cadence: "Portfolio gate",
     },
     ecosystem: {
-      label: "Partner Ecosystem",
-      desc: "AI 개발사·운영사·기술 파트너 협력 모델",
+      label: "협력 생태계",
+      desc: "협력 모델 · 실행 역할",
       cadence: "Partner review",
     },
     stock: {
@@ -2079,8 +2079,8 @@
     talent: { label: "인재 · IP", en: "Talent / IP", desc: "채용, 핵심 수율 인력 이동, IP 방어 신호" },
   };
   const SIDE_NAV_GROUPS = [
-    { label: "SK hynix AI Infra", routes: ["biz-consulting", "c-level"] },
-    { label: "Strategy & Solutions", routes: ["analysis", "market", "partnerships", "hyperscaler-demand", "ecosystem"] },
+    { label: "판단 기준", routes: ["biz-consulting", "c-level"] },
+    { label: "실행 영역", routes: ["analysis", "market", "partnerships", "hyperscaler-demand", "ecosystem"] },
   ];
   const SIDE_NAV_ICONS = {
     "biz-consulting": "01",
@@ -2088,8 +2088,8 @@
     analysis: "03",
     market: "04",
     partnerships: "05",
-    "hyperscaler-demand": "07",
-    ecosystem: "08",
+    "hyperscaler-demand": "06",
+    ecosystem: "07",
   };
   const TOPIC_FILTER_GROUPS = [
     { label: "전체", hint: "All", categories: ["all"] },
@@ -2196,7 +2196,9 @@
   const routePanelNodes = new Map();
   const routePanelToolbars = new Map();
   const collapsedRoutePanels = new Set();
+  const scrollHydrationRequested = new Set();
   let routeAccordionsReady = false;
+  let routeScrollHydrationReady = false;
   let scrollSpyFrame = 0;
   let scrollSpyRefreshFrame = 0;
   let scrollSpyLandmarks = [];
@@ -5257,7 +5259,6 @@
   const deferredSectionRuns = new Map();
   const deferredDataPreloadRuns = new Map();
   const deferredDataPreloadReady = new Set();
-  const deferredSectionShells = new Map();
   const deferredRenderedSections = new Set(["strategy-consulting"]);
   let priceBoardPreloadStarted = false;
   let deferredHydrationQueueStarted = false;
@@ -5456,7 +5457,6 @@
     if (deferredSectionRuns.has(id)) return deferredSectionRuns.get(id);
     const section = document.getElementById(id);
     if (!section) return Promise.resolve();
-    if (!deferredSectionShells.has(id)) deferredSectionShells.set(id, section.innerHTML);
 
     const run = (async () => {
       section.dataset.deferredState = "loading";
@@ -5524,9 +5524,9 @@
     };
     const scheduleNext = () => startNext();
 
-    // Keep every source warm without building thousands of hidden nodes. Boards
-    // render only after their route is selected, while source refresh continues
-    // in document order without waiting for scrolling.
+    // Keep every source warm without building thousands of offscreen nodes.
+    // Boards render when their route is selected or approaches the reading line,
+    // while source refresh continues in document order without waiting for input.
     const first = queue[cursor++];
     if (first) {
       void preloadDeferredSectionData(first.id).finally(() => {
@@ -5544,7 +5544,6 @@
       .map((definition) => document.getElementById(definition.id))
       .filter(Boolean);
     sections.forEach((section) => {
-      if (!deferredSectionShells.has(section.id)) deferredSectionShells.set(section.id, section.innerHTML);
       section.classList.add("deferred-section");
       section.dataset.deferredState = "waiting";
     });
@@ -5553,6 +5552,8 @@
     setupPriceBoardPreload();
     setupDecisionHistoryPreload();
     scheduleProgressiveDeferredSections(definitions);
+    routeScrollHydrationReady = true;
+    scheduleScrollSpyGeometryRefresh();
   }
 
   /* ---------------- Hyperscaler memory demand · scenario planning ---------------- */
@@ -7239,22 +7240,21 @@
     if (!routeAccordionsReady) return null;
     const route = routeForJump(id) || routeForJump(activeSidebarRoute) || SIDE_NAV_ROUTES[0];
     if (!route) return null;
-    releaseInactiveDeferredSections(route);
     if (expand) collapsedRoutePanels.delete(route.jump);
     const expanded = !collapsedRoutePanels.has(route.jump);
 
     SIDE_NAV_ROUTES.forEach((candidate) => {
       const isActive = candidate.jump === route.jump;
-      const candidateExpanded = isActive && !collapsedRoutePanels.has(candidate.jump);
+      const candidateExpanded = !collapsedRoutePanels.has(candidate.jump);
       const toolbar = routePanelToolbars.get(candidate.jump);
       if (toolbar) {
-        toolbar.hidden = !isActive;
+        toolbar.hidden = false;
         toolbar.classList.toggle("is-active", isActive);
       }
       (routePanelNodes.get(candidate.jump) || []).forEach((node) => {
-        node.classList.toggle("console-route-inactive", !isActive);
-        node.classList.toggle("console-route-collapsed", isActive && !candidateExpanded);
-        node.setAttribute("aria-hidden", isActive && candidateExpanded && !node.hidden ? "false" : "true");
+        node.classList.remove("console-route-inactive");
+        node.classList.toggle("console-route-collapsed", !candidateExpanded);
+        node.setAttribute("aria-hidden", candidateExpanded && !node.hidden ? "false" : "true");
       });
       updateRouteToolbar(candidate, candidateExpanded);
     });
@@ -7299,7 +7299,7 @@
       const route = routeDisplay(entry.route);
       const toolbar = el("div", "console-route-toolbar");
       toolbar.dataset.routeToolbar = entry.route.jump;
-      toolbar.hidden = entry.route.jump !== SIDE_NAV_ROUTES[0]?.jump;
+      toolbar.hidden = false;
       toolbar.innerHTML = `
         <div class="console-route-toolbar-copy">
           <b>${escapeHTML(SIDE_NAV_ICONS[entry.route.id] || String(routeIndex + 1).padStart(2, "0"))}</b>
@@ -7334,30 +7334,6 @@
     if (!route) return deferredDefinition(id) ? [id] : [];
     return Array.from(new Set([route.jump, ...(route.sections || [])]))
       .filter((sectionId) => deferredDefinition(sectionId) && document.getElementById(sectionId));
-  }
-
-  function releaseInactiveDeferredSections(activeRoute) {
-    const keep = new Set(routeDeferredSectionIds(activeRoute?.jump || activeRoute?.id || "strategy-consulting"));
-    let released = 0;
-    Array.from(deferredRenderedSections).forEach((sectionId) => {
-      if (sectionId === "strategy-consulting" || keep.has(sectionId)) return;
-      const section = document.getElementById(sectionId);
-      const shell = deferredSectionShells.get(sectionId);
-      if (!section || shell == null) return;
-      section.innerHTML = shell;
-      section.dataset.deferredState = "waiting";
-      section.dataset.contentHealth = "waiting";
-      delete section.dataset.progressivePaint;
-      delete section.dataset.deferredFailure;
-      section.removeAttribute("aria-busy");
-      deferredRenderedSections.delete(sectionId);
-      deferredSectionRuns.delete(sectionId);
-      released += 1;
-    });
-    if (released) {
-      document.body.dataset.deferredReleased = String(released);
-      updateDeferredHydrationStatus();
-    }
   }
 
   function nextRouteHydrationSlot() {
@@ -7398,6 +7374,10 @@
         item.removeAttribute("aria-current");
       }
     });
+    routePanelToolbars.forEach((toolbar, jump) => {
+      toolbar.classList.toggle("is-active", jump === routeTarget);
+    });
+    document.body.dataset.activeConsoleRoute = routeTarget;
     if (reveal && activeButton) activeButton.scrollIntoView({ block: "nearest", behavior: "auto" });
   }
 
@@ -20916,7 +20896,7 @@
     }
     scrollSpyLandmarks = SIDE_NAV_ROUTES
       .map((route) => {
-        const node = document.getElementById(route.jump);
+        const node = routePanelToolbars.get(route.jump) || document.getElementById(route.jump);
         if (!node || node.hidden) return null;
         return {
           id: route.jump,
@@ -20947,16 +20927,32 @@
     // viewport, matching the section the user is actually reading.
     const readingLine = window.scrollY + chromeOffset()
       + Math.min(180, Math.max(36, window.innerHeight * 0.16));
-    let active = scrollSpyLandmarks[0].id;
-    for (const landmark of scrollSpyLandmarks) {
+    let activeIndex = 0;
+    for (let index = 0; index < scrollSpyLandmarks.length; index += 1) {
+      const landmark = scrollSpyLandmarks[index];
       if (landmark.top > readingLine) break;
-      active = landmark.id;
+      activeIndex = index;
     }
     if (window.innerHeight + window.scrollY >= document.documentElement.scrollHeight - 8) {
-      active = scrollSpyLandmarks.at(-1).id;
+      activeIndex = scrollSpyLandmarks.length - 1;
     }
+    const active = scrollSpyLandmarks[activeIndex].id;
     const navTarget = NAV_SECTION_TARGETS[active] || active;
     if (navTarget !== activeSidebarRoute) syncSidebarRoute(navTarget, { reveal: true });
+
+    // Hydrate the current route and one route ahead. The document keeps every
+    // route in natural order, while heavy boards are built just before the
+    // reader reaches them instead of waiting for a click or loading all at once.
+    if (routeScrollHydrationReady) {
+      [activeIndex, activeIndex + 1].forEach((index) => {
+        const route = routeForJump(scrollSpyLandmarks[index]?.id || "");
+        if (!route || scrollHydrationRequested.has(route.jump)) return;
+        scrollHydrationRequested.add(route.jump);
+        void ensureRouteDeferredSections(route.jump).catch(() => {
+          scrollHydrationRequested.delete(route.jump);
+        });
+      });
+    }
   }
 
   function scheduleScrollSpyUpdate() {
