@@ -3,7 +3,7 @@
 
   const BUSINESS_TITLE = "AI Infra Strategy · Customer Pain to Executive Action";
   const CONSOLE_HASH = "#console";
-  const CONSOLE_REVISION = "infra-498f1deed108";
+  const CONSOLE_REVISION = "infra-daf51ef93c08";
   const DECISION_CLIENT_PATH = "data/landing-decision-client.json";
   const SITE_CONTENT_PATH = "data/site-content-client.json";
   const SITE_CONTENT_EXTENDED_PATH = "data/site-content-extended-client.json";
@@ -328,7 +328,12 @@
   }
 
   function compactBusinessCopy(value = "", maxCharacters = 84) {
-    const original = removeDiscardedBusinessSentence(value);
+    const original = removeDiscardedBusinessSentence(value)
+      .replace(/\s*(?:…|\.{3})+\s*$/u, "")
+      .replace(/…/gu, " · ")
+      .replace(/\s+·\s+·\s+/gu, " · ")
+      .replace(/\s{2,}/g, " ")
+      .trim();
     if (!original) return "";
     const firstSentence = original.split(/(?<=[A-Za-z\u3131-\u318e\uac00-\ud7a3\d%)\]"'”’])[.\u3002](?=\s|$)/, 1)[0];
     let compact = removeBusinessSentenceStops(firstSentence)
@@ -351,7 +356,7 @@
     }
     if (selected.length) return selected.join(" · ");
     const boundary = compact.lastIndexOf(" ", maxCharacters - 1);
-    return `${compact.slice(0, boundary > 48 ? boundary : maxCharacters - 1).trimEnd()}…`;
+    return compact.slice(0, boundary > 48 ? boundary : maxCharacters).trimEnd();
   }
 
   function applyExecutiveCopyStyle(root = site, policy = {}) {
@@ -368,7 +373,10 @@
       const originalText = String(textNode.nodeValue || "").trim();
       const cleaned = removeDiscardedBusinessSentence(textNode.nodeValue);
       textNode.nodeValue = executiveBusinessBulletText(cleaned)
-        .replace(/([A-Za-z\u3131-\u318e\uac00-\ud7a3\d%)\]"'”’])[.\u3002](?=\s|$)/g, "$1");
+        .replace(/([A-Za-z\u3131-\u318e\uac00-\ud7a3\d%)\]"'”’])[.\u3002](?=\s|$)/g, "$1")
+        .replace(/\s*(?:…|\.{3})+\s*$/u, "")
+        .replace(/…/gu, " · ")
+        .replace(/\s+·\s+·\s+/gu, " · ");
       if (originalText && !cleaned && parent.matches("p, li, dd, figcaption")) parent.hidden = true;
     }
     for (const node of root.querySelectorAll("p, li, dd, figcaption")) {
@@ -1254,26 +1262,20 @@
       ".business-consulting-process > li",
       ".business-workload-services > article",
       ".business-workload-matrix > article",
-      ".business-demand-shift",
-      ".business-kpi-tree",
       ".business-ai-factory-roadmap > li",
-      ".business-rag-operating-model",
       ".business-rag-maturity > article",
       ".business-fabric-stack > article",
       ".business-tco-metrics > article",
       ".business-tech-decision-grid > article",
       ".business-competitor-grid > article",
       ".business-execution-evidence-grid > article",
-      ".business-evidence-case",
       ".business-automation-flow > li",
       ".business-status-rules > li",
       ".business-partnership-types > article",
       ".business-case-classification > article",
-      ".business-deep-case-grid > section",
       ".business-macro-grid > article",
       ".business-role-fit-grid > article",
       ".business-role-outputs > article",
-      ".business-contact-card",
     ].join(","))];
     const darkSectionSelector = ".business-hero, .business-solutions, .business-partners, .business-about, .business-team-operating";
     cards.forEach((card, index) => {
@@ -1281,6 +1283,7 @@
       if (!card.dataset.hoverMode) {
         card.dataset.hoverMode = card.closest(darkSectionSelector) ? "dark-to-light" : "light-to-dark";
       }
+      card.dataset.hoverModeResolved = "1";
       const hasInteractiveContent = card.matches("a, button, input, select, textarea, [tabindex]")
         || Boolean(card.querySelector("a, button, input, select, textarea, [tabindex]"));
       if (!hasInteractiveContent) card.tabIndex = 0;
@@ -1288,17 +1291,6 @@
         card.style.setProperty("--sequence-index", String(index % 4));
       }
     });
-
-    const unresolvedCards = cards.filter((card) => card.dataset.hoverModeResolved !== "1");
-    if (unresolvedCards.length) scheduleIdleStep(() => {
-      const styleCache = new WeakMap();
-      const surfaceCache = new WeakMap();
-      const hoverModes = unresolvedCards.map((card) => inferHoverContrastMode(card, styleCache, surfaceCache));
-      hoverModes.forEach((mode, index) => {
-        unresolvedCards[index].dataset.hoverMode = mode;
-        unresolvedCards[index].dataset.hoverModeResolved = "1";
-      });
-    }, 1200);
 
     if (!("IntersectionObserver" in window)) {
       cards.forEach((card) => card.classList.add("is-visible"));
@@ -1317,30 +1309,6 @@
       });
     }
 
-    const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-    const finePointer = window.matchMedia("(hover: hover) and (pointer: fine)").matches;
-    if (reduceMotion || !finePointer) return;
-
-    for (const card of cards) {
-      if (card.dataset.consultingMotionBound === "1") continue;
-      card.dataset.consultingMotionBound = "1";
-      let frame = 0;
-      card.addEventListener("pointermove", (event) => {
-        cancelAnimationFrame(frame);
-        frame = requestAnimationFrame(() => {
-          const bounds = card.getBoundingClientRect();
-          const x = ((event.clientX - bounds.left) / bounds.width) - .5;
-          const y = ((event.clientY - bounds.top) / bounds.height) - .5;
-          card.style.setProperty("--tilt-x", `${(x * 4).toFixed(2)}deg`);
-          card.style.setProperty("--tilt-y", `${(-y * 3).toFixed(2)}deg`);
-        });
-      }, { passive: true });
-      card.addEventListener("pointerleave", () => {
-        cancelAnimationFrame(frame);
-        card.style.setProperty("--tilt-x", "0deg");
-        card.style.setProperty("--tilt-y", "0deg");
-      }, { passive: true });
-    }
   }
 
   function parseRgb(value = "") {
@@ -1405,7 +1373,7 @@
   const READABILITY_TEXT_SELECTOR = [
     "h1", "h2", "h3", "h4", "h5", "h6", "p", "li", "dd", "dt",
     "small", "strong", "b", "em", "span", "a", "button", "label", "time", "cite", "figcaption",
-    "header", "footer", "section", "article", "div", "th", "td", "i", "text",
+    "th", "td", "i", "text",
   ].join(",");
 
   function directReadableText(node) {
@@ -1530,7 +1498,7 @@
   function setupReadabilityGuard() {
     if (!document.body || document.body.dataset.readabilityGuard === "1") return;
     document.body.dataset.readabilityGuard = "1";
-    let copyFrame = 0;
+    let copyTimer = 0;
     let auditFrame = 0;
     const pendingRoots = new Set();
     const auditRoots = new Set();
@@ -1543,7 +1511,7 @@
       });
     };
     const flushCopy = () => {
-      copyFrame = 0;
+      copyTimer = 0;
       const roots = [...pendingRoots];
       pendingRoots.clear();
       roots.forEach((root) => {
@@ -1555,8 +1523,16 @@
       if (!auditFrame) auditFrame = requestAnimationFrame(flushAudit);
     };
     const schedule = (root = document.body) => {
-      if (root) pendingRoots.add(root.nodeType === Node.TEXT_NODE ? root.parentElement : root);
-      if (!copyFrame) copyFrame = requestAnimationFrame(flushCopy);
+      const element = root?.nodeType === Node.TEXT_NODE ? root.parentElement : root;
+      if (element) {
+        const scopedRoot = element.closest?.("#intelligenceConsole .main > section") || element;
+        for (const pending of [...pendingRoots]) {
+          if (pending === scopedRoot || pending.contains?.(scopedRoot)) return;
+          if (scopedRoot.contains?.(pending)) pendingRoots.delete(pending);
+        }
+        pendingRoots.add(scopedRoot);
+      }
+      if (!copyTimer) copyTimer = window.setTimeout(flushCopy, 80);
     };
     const scheduleSequence = (roots = [], delay = 0, onComplete = null) => {
       const queue = [...new Set(roots.filter(Boolean))];
@@ -1569,23 +1545,17 @@
       }, 500);
       window.setTimeout(next, delay);
     };
-    let observerActive = false;
     const observer = new MutationObserver((mutations) => {
-      if (!observerActive) return;
       for (const mutation of mutations) {
-        if (mutation.type === "characterData") schedule(mutation.target);
-        else if (mutation.type === "attributes") schedule(mutation.target);
-        else mutation.addedNodes.forEach((node) => schedule(node));
+        mutation.addedNodes.forEach((node) => {
+          if (node.nodeType === Node.ELEMENT_NODE) schedule(node);
+        });
       }
     });
     observer.observe(document.body, {
       childList: true,
       subtree: true,
-      characterData: true,
-      attributes: true,
-      attributeFilter: ["hidden", "data-progressive-state", "data-deferred-state"],
     });
-    window.setTimeout(() => { observerActive = true; }, 2500);
     let sectionObserver = null;
     window.addEventListener("memory-console-ready", () => {
       const consoleRoot = document.querySelector("#intelligenceConsole") || document.body;
@@ -1612,6 +1582,7 @@
       if (visibleSection) schedule(visibleSection);
     }, { passive: true });
     window.addEventListener("pagehide", () => {
+      window.clearTimeout(copyTimer);
       observer.disconnect();
       sectionObserver?.disconnect();
     }, { once: true });

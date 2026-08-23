@@ -3666,36 +3666,44 @@
             "step": "01",
             "id": "standard-hbm",
             "label": "표준 HBM (~HBM3E)",
-            "baseDie": "단순 신호 통과",
+            "baseDie": "신호 전달·스택 제어 중심",
             "lockIn": "낮음",
-            "implication": "범용 판매 가능 · 고객 교체 용이",
+            "implication": "범용 판매 · 고객 전환 상대적으로 용이",
+            "claim": "official-fact",
+            "gate": "표준 규격·양산 수율",
             "accent": "#68758A"
           },
           {
             "step": "02",
             "id": "custom-hbm",
             "label": "Custom HBM (HBM4~)",
-            "baseDie": "컨트롤러·PHY 일부 이관 · 로직 공정 적용",
+            "baseDie": "컨트롤러·PHY 공동 최적화",
             "lockIn": "중간",
-            "implication": "고객 공동 최적화 시작 · 공정 파트너 의존 발생",
+            "implication": "고객별 성능·전력 최적화 · 파운드리 협업 확대",
+            "claim": "strategy-mapping",
+            "gate": "IP 범위·NRE·Qualification",
             "accent": "#2D6BFF"
           },
           {
             "step": "03",
             "id": "c-hbm4e",
             "label": "C-HBM4E (완전 맞춤)",
-            "baseDie": "고객별 로직 완전 통합",
+            "baseDie": "고객별 로직 통합 범위 확대",
             "lockIn": "높음",
-            "implication": "재판매 불가 · 공급사 전환 비용 급증 → LTA 협상 지렛대",
+            "implication": "재판매 제약 · 전환 비용 상승 · LTA 연계 필요",
+            "claim": "strategy-hypothesis",
+            "gate": "Binding Volume·Margin Floor·재판매 위험",
             "accent": "#7656C9"
           },
           {
             "step": "04",
             "id": "hbm-on-processor",
             "label": "HBM-on-Processor (차세대)",
-            "baseDie": "독립 베이스 다이 제거 · 컴퓨트 다이 위 직접 적층",
+            "baseDie": "컴퓨트·메모리 적층 경계 재설계",
             "lockIn": "구조적",
-            "implication": "패키지 경계 재정의 · 로드맵 선점 여부가 진입 조건",
+            "implication": "공식 로드맵 확인 전 옵션 관리",
+            "claim": "watch",
+            "gate": "공식 제품 로드맵·열·수율",
             "accent": "#D05A2B"
           }
         ],
@@ -3806,7 +3814,33 @@
             "AWS"
           ]
         },
-        "expansion": "커스텀화는 HBM을 넘어 DRAM·NAND·HBF까지 확장되므로, ASIC 고객별 요구를 메모리 전 제품군에서 대응할 준비가 필요",
+        "decisionFrame": [
+          {
+            "index": "01",
+            "label": "CUSTOMER VALUE",
+            "question": "GPU/ASIC 면적·전력·데이터 이동을 얼마나 줄이는가",
+            "kpi": "W/token · GB/s/W · Cost/Successful Task"
+          },
+          {
+            "index": "02",
+            "label": "ARCHITECTURE",
+            "question": "어떤 컨트롤러·PHY·데이터플로우를 이관할 것인가",
+            "kpi": "이관 IP 범위 · Latency · Package Yield"
+          },
+          {
+            "index": "03",
+            "label": "ECONOMICS",
+            "question": "고객 전용화 비용과 장기 물량이 균형을 이루는가",
+            "kpi": "NRE 회수 · Margin Floor · Binding Volume"
+          },
+          {
+            "index": "04",
+            "label": "EXECUTION GATE",
+            "question": "파운드리·패키징·인증 일정이 고객 Ramp와 맞는가",
+            "kpi": "Logic Slot · Qualification Slip · Ramp"
+          }
+        ],
+        "expansion": "Custom HBM의 검증 방식을 DRAM·NAND·HBF까지 확장 · ASIC 계정별 요구를 전 제품군 Requirement Matrix로 관리",
         "source": {
           "id": "skhynix-newsroom",
           "name": "SK hynix Newsroom",
@@ -3855,6 +3889,130 @@
           },
           "enabled": true
         }
+      },
+      "transformerMemory": {
+        "id": "transformer-kv-memory",
+        "label": "TRANSFORMER → KV CACHE → MEMORY TIER",
+        "thesis": "Decode는 새 토큰의 Query와 누적 Key·Value를 반복 조회 · Context·Batch·Layer 증가에 따라 KV Cache가 커지며 메모리 용량·대역폭이 TPOT와 Goodput을 좌우",
+        "claim": "technical-framework",
+        "sourceIds": [
+          "google-context-caching",
+          "anthropic-context-engineering",
+          "nvidia-dynamo",
+          "vllm-kv-offloading",
+          "llm-serving-systems-research"
+        ],
+        "qkv": [
+          {
+            "label": "QUERY",
+            "short": "Q",
+            "role": "현재 토큰이 찾는 정보"
+          },
+          {
+            "label": "KEY",
+            "short": "K",
+            "role": "이전 토큰의 검색 인덱스"
+          },
+          {
+            "label": "VALUE",
+            "short": "V",
+            "role": "선택될 실제 정보"
+          }
+        ],
+        "flow": [
+          {
+            "index": "01",
+            "label": "PREFILL",
+            "body": "입력 토큰 병렬 처리 · K/V 생성",
+            "bottleneck": "Compute·Fabric"
+          },
+          {
+            "index": "02",
+            "label": "CACHE",
+            "body": "계산된 K/V를 계층별 저장",
+            "bottleneck": "Capacity·Placement"
+          },
+          {
+            "index": "03",
+            "label": "DECODE",
+            "body": "토큰마다 누적 K/V 반복 조회",
+            "bottleneck": "Bandwidth·Latency"
+          },
+          {
+            "index": "04",
+            "label": "SERVICE",
+            "body": "동시성·긴 Context·Agent 반복",
+            "bottleneck": "TPOT·Goodput·Cost"
+          }
+        ],
+        "options": [
+          {
+            "tier": "SOFTWARE FIRST",
+            "role": "PagedAttention·Prefix Reuse·Quantization·Eviction·Prefill/Decode 분리",
+            "gate": "동일 품질·SLO에서 증설 대비 우위"
+          },
+          {
+            "tier": "HOT · HBM",
+            "role": "활성 KV·저지연 Decode",
+            "gate": "TPOT P95·HBM Occupancy·Goodput/W"
+          },
+          {
+            "tier": "WARM · AI-D/CXL",
+            "role": "공유 Prefix·저활성 KV·Host Memory",
+            "gate": "Hit Rate·Interconnect Latency·TCO"
+          },
+          {
+            "tier": "SCALE · AI-N/eSSD/HBF",
+            "role": "긴 Context·재사용 Cache·대용량 Retrieval",
+            "gate": "TTFT·Read Amplification·Endurance"
+          }
+        ],
+        "kpis": [
+          "TTFT P95",
+          "TPOT P95",
+          "KV Bytes/Token",
+          "Prefix Hit Rate",
+          "Goodput/W",
+          "Cost/Successful Task"
+        ],
+        "decision": "SW 최적화 기준선 통과 후 Hot/Warm/Scale 계층 A/B Benchmark · 품질·지연·전력·비용을 동일 Workload로 비교",
+        "sources": [
+          {
+            "id": "google-context-caching",
+            "name": "Google Gemini Context Caching",
+            "url": "https://ai.google.dev/gemini-api/docs/optimization",
+            "sourceClass": "official",
+            "tier": "primary-customer"
+          },
+          {
+            "id": "anthropic-context-engineering",
+            "name": "Anthropic Context Engineering",
+            "url": "https://www.anthropic.com/engineering/effective-context-engineering-for-ai-agents",
+            "sourceClass": "official",
+            "tier": "primary-customer"
+          },
+          {
+            "id": "nvidia-dynamo",
+            "name": "NVIDIA Dynamo",
+            "url": "https://developer.nvidia.com/blog/introducing-nvidia-dynamo-a-low-latency-distributed-inference-framework-for-scaling-reasoning-ai-models/",
+            "sourceClass": "official",
+            "tier": "primary-company"
+          },
+          {
+            "id": "vllm-kv-offloading",
+            "name": "vLLM KV Offloading",
+            "url": "https://docs.vllm.ai/en/latest/features/kv_offloading_usage/",
+            "sourceClass": "official",
+            "tier": "primary-standard"
+          },
+          {
+            "id": "llm-serving-systems-research",
+            "name": "LLM Serving Systems Research",
+            "url": "https://arxiv.org/abs/2309.06180",
+            "sourceClass": "research",
+            "tier": "industry-research"
+          }
+        ]
       },
       "competitiveFrame": [
         {

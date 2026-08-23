@@ -2201,6 +2201,7 @@
   let routeScrollHydrationReady = false;
   let scrollSpyFrame = 0;
   let scrollSpyRefreshFrame = 0;
+  let scrollSpyRefreshTimer = 0;
   let scrollSpyLandmarks = [];
   let scrollSpyResizeObserver = null;
   let scrollProgressFrame = 0;
@@ -4384,7 +4385,6 @@
 
   function schedulePostPaintEnhancements() {
     const run = () => {
-      setupMouseDrivenMetrics();
       setupAgentDebateBackdrops();
     };
     if ("requestIdleCallback" in window) {
@@ -6529,14 +6529,14 @@
     let html = escapeReadableHTML(String(value ?? ""));
     html = html.replace(/==([^=]+)==/g, '<span class="ag-hl">$1</span>');
     html = html.replace(/\*\*([^*]+)\*\*/g, '<b class="ag-key">$1</b>');
-    html = html.replace(/(No-Go|Go|Watch|Hold)/g, (m) => {
+    html = html.replace(/(No-Go|\b(?:Go|Watch|Hold)\b)/g, (m) => {
       const cls = m === "Go" ? "go" : m === "Watch" ? "watch" : "hold";
       return `<b class="ag-verdict ag-${cls}">${m}</b>`;
     });
     return html;
   }
 
-  const STRATEGIC_HIGHLIGHT_RE = /(장기\s*공급계약|공동\s*로드맵|고객\s*인증|가격\s*spread|가격\s*방어|수출통제|자본\s*배분|우선\s*집행|판단\s*전환|패키징\s*병목|공급망|수율|캐파|HBM4|HBM|eSSD|DDR5|CXMT|YMTC|SKHY|BIS|VEU|C79|H-prefix|CoWoS|Go|Watch|Action|\+?\d+(?:\.\d+)?(?:~\d+(?:\.\d+)?)?(?:%|B|T|Gbps|PB|억\s*위안|조\s*원))/gi;
+  const STRATEGIC_HIGHLIGHT_RE = /(장기\s*공급계약|공동\s*로드맵|고객\s*인증|가격\s*spread|가격\s*방어|수출통제|자본\s*배분|우선\s*집행|판단\s*전환|패키징\s*병목|공급망|수율|캐파|HBM4|HBM|eSSD|DDR5|CXMT|YMTC|SKHY|BIS|VEU|C79|H-prefix|CoWoS|\b(?:Go|Watch|Action)\b|\+?\d+(?:\.\d+)?(?:~\d+(?:\.\d+)?)?(?:%|B|T|Gbps|PB|억\s*위안|조\s*원))/gi;
 
   const EMPHASIS_COMPANY_RE = /^(?:SKHY|CXMT|YMTC|XMC|JCET|Naura|AMEC|ACM|Samsung|Micron|Nvidia|TSMC)$/i;
   const EMPHASIS_SOURCE_RE = /^(?:WSTS|TrendForce|Counterpoint|Reuters|TechInsights|Yole)$/i;
@@ -13056,6 +13056,7 @@
     const demandMix = customerBoard.demandMix || {};
     const supplierMatrix = customerBoard.supplierMatrix || {};
     const baseDieStrategy = customerBoard.baseDieStrategy || null;
+    const transformerMemory = customerBoard.transformerMemory || null;
     const dealDashboard = customerBoard.dealDashboard || {};
     const accountProductMap = Array.isArray(customerBoard.productMap) ? customerBoard.productMap : [];
     const applicationSignals = Array.isArray(customerBoard.applicationSignals) ? customerBoard.applicationSignals : [];
@@ -13207,15 +13208,38 @@
         ${supplierMatrix.legend ? `<p class="sc-note">${Object.entries(supplierMatrix.legend).map(([key, value]) => `<b class="sc-ev-src">${escapeHTML(value.label || key)}</b> ${escapeHTML(value.note || "")}`).join(" · ")}</p>` : ""}
       </details>
       ${(() => {
+        const tm = transformerMemory;
+        if (!tm || !Array.isArray(tm.flow) || !tm.flow.length) return "";
+        return `
+        <details class="sc-report sc-memory-framework">
+          <summary class="sc-report-head"><strong>${escapeHTML(tm.label || "TRANSFORMER → KV CACHE → MEMORY TIER")}</strong><span>Workload · Bottleneck · Option · Gate</span></summary>
+          <div class="sc-framework-thesis">
+            <span>ANSWER FIRST</span>
+            <strong>${strategicHighlightHTML(tm.thesis || "")}</strong>
+          </div>
+          <div class="sc-qkv-grid" aria-label="Query Key Value 역할">
+            ${(tm.qkv || []).map((item) => `<article><b>${escapeHTML(item.short || "")}</b><div><strong>${escapeHTML(item.label || "")}</strong><span>${escapeHTML(item.role || "")}</span></div></article>`).join("")}
+          </div>
+          <ol class="sc-memory-flow" aria-label="Prefill에서 서비스 경제성까지">
+            ${tm.flow.map((item) => `<li><b>${escapeHTML(item.index || "")}</b><span>${escapeHTML(item.label || "")}</span><strong>${escapeHTML(item.body || "")}</strong><small>${escapeHTML(item.bottleneck || "")}</small></li>`).join("")}
+          </ol>
+          <div class="sc-memory-options" aria-label="KV Cache 메모리 계층 옵션">
+            ${(tm.options || []).map((item) => `<article><strong>${escapeHTML(item.tier || "")}</strong><p>${escapeHTML(item.role || "")}</p><small>GATE · ${escapeHTML(item.gate || "")}</small></article>`).join("")}
+          </div>
+          <div class="sc-kpi-strip">${(tm.kpis || []).map((item) => `<span>${escapeHTML(item)}</span>`).join("")}</div>
+          <div class="sc-decision-gate"><b>DECISION GATE</b><span>${escapeHTML(tm.decision || "")}</span></div>
+          ${(tm.sources || []).length ? `<div class="sc-source-strip"><b>검증 소스</b>${tm.sources.map((source) => `<a href="${escapeHTML(source.url || "")}" target="_blank" rel="noopener noreferrer">${escapeHTML(source.name || source.id || "원문")} ↗</a>`).join("")}</div>` : ""}
+        </details>`;
+      })()}
+      ${(() => {
         // Base Die (logic die) migration ladder — why Custom HBM is a lock-in
         // lever, what the base die absorbs, and the foundry/chiplet watch items.
         const bd = baseDieStrategy;
         if (!bd || !Array.isArray(bd.ladder) || !bd.ladder.length) return "";
         return `
-        <details class="sc-report" open>
+        <details class="sc-report sc-base-die-framework">
           <summary class="sc-report-head"><strong>BASE DIE · 로직 이관 사다리</strong><span>${fmtNum(bd.ladder.length)}단계 · 커스텀화 심화 → 락인·협상력</span></summary>
-          <p class="sc-note">${strategicHighlightHTML(bd.definition || "")}</p>
-          <p class="sc-note">${strategicHighlightHTML(bd.thesis || "")}</p>
+          <div class="sc-framework-thesis"><span>ANSWER FIRST</span><strong>${strategicHighlightHTML(bd.thesis || "")}</strong><small>${escapeHTML(bd.definition || "")}</small></div>
           <div class="sc-partner-grid">
             ${bd.ladder.map((step) => `
               <article class="sc-partner" style="--sc-accent:${escapeHTML(step.accent || "#2D6BFF")}">
@@ -13224,9 +13248,12 @@
                 <div class="sc-partner-row"><b>BASE DIE</b><span>${escapeHTML(step.baseDie || "")}</span></div>
                 <div class="sc-partner-row"><b>LOCK-IN</b><span>${escapeHTML(step.lockIn || "")}</span></div>
                 <p>${escapeHTML(step.implication || "")}</p>
+                <small>GATE · ${escapeHTML(step.gate || "")}</small>
+                <span class="sc-playbook-status ${step.claim === "official-fact" ? "is-fact" : step.claim === "strategy-hypothesis" || step.claim === "watch" ? "is-monitoring" : "is-estimate"}">${escapeHTML(step.claim === "official-fact" ? "OFFICIAL FACT" : step.claim === "strategy-hypothesis" ? "HYPOTHESIS" : step.claim === "watch" ? "WATCH" : "STRATEGY MAPPING")}</span>
               </article>
             `).join("")}
           </div>
+          ${Array.isArray(bd.decisionFrame) && bd.decisionFrame.length ? `<ol class="sc-memory-flow sc-base-die-gates">${bd.decisionFrame.map((item) => `<li><b>${escapeHTML(item.index || "")}</b><span>${escapeHTML(item.label || "")}</span><strong>${escapeHTML(item.question || "")}</strong><small>${escapeHTML(item.kpi || "")}</small></li>`).join("")}</ol>` : ""}
           ${Array.isArray(bd.capabilityRoadmap) && bd.capabilityRoadmap.length ? `
             <div class="sc-partner-grid">
               ${bd.capabilityRoadmap.map((cap) => `<article class="sc-partner"><strong>${escapeHTML(cap.label || "")}</strong><p>${escapeHTML(cap.note || "")}</p></article>`).join("")}
@@ -21220,15 +21247,20 @@
   }
 
   function scheduleScrollSpyGeometryRefresh() {
-    if (scrollSpyRefreshFrame) return;
-    scrollSpyRefreshFrame = requestAnimationFrame(() => {
-      // Wait through one completed paint so geometry reads do not force layout
-      // while deferred content or responsive chrome styles are still settling.
+    if (scrollSpyRefreshTimer) window.clearTimeout(scrollSpyRefreshTimer);
+    if (scrollSpyRefreshFrame) {
+      cancelAnimationFrame(scrollSpyRefreshFrame);
+      scrollSpyRefreshFrame = 0;
+    }
+    // ResizeObserver fires repeatedly while deferred boards mount. Debounce the
+    // read pass until the batch settles, then measure once in the next frame.
+    scrollSpyRefreshTimer = window.setTimeout(() => {
+      scrollSpyRefreshTimer = 0;
       scrollSpyRefreshFrame = requestAnimationFrame(() => {
         scrollSpyRefreshFrame = 0;
         refreshScrollSpyGeometry();
       });
-    });
+    }, 120);
   }
 
   function updateScrollSpyFromGeometry() {
@@ -21280,6 +21312,11 @@
       const main = $("#main");
       if (main) scrollSpyResizeObserver.observe(main);
     }
+    window.addEventListener("pagehide", () => {
+      if (scrollSpyRefreshTimer) window.clearTimeout(scrollSpyRefreshTimer);
+      if (scrollSpyRefreshFrame) cancelAnimationFrame(scrollSpyRefreshFrame);
+      scrollSpyResizeObserver?.disconnect();
+    }, { once: true });
     scheduleScrollSpyGeometryRefresh();
   }
 

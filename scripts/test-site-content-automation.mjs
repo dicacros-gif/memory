@@ -131,6 +131,25 @@ assert.equal(rebuilt.strategyBoard.customerPortfolio.pillars.length, 3);
 assert.equal(rebuilt.strategyBoard.customerPortfolio.supplierMatrix.rows.length, 7);
 assert.ok(rebuilt.strategyBoard.customerPortfolio.productMap.some((item) => item.id === "ai-d-e"));
 assert.equal(rebuilt.strategyBoard.customerPortfolio.roadmap90d.length, 3);
+assert.equal(rebuilt.strategyBoard.customerPortfolio.baseDieStrategy.ladder.length, 4);
+assert.deepEqual(
+  rebuilt.strategyBoard.customerPortfolio.baseDieStrategy.decisionFrame.map((item) => item.label),
+  ["CUSTOMER VALUE", "ARCHITECTURE", "ECONOMICS", "EXECUTION GATE"],
+);
+assert.ok(
+  rebuilt.strategyBoard.customerPortfolio.baseDieStrategy.ladder.every((item) => item.claim && item.gate),
+  "every Base Die option must separate claim status from its decision gate",
+);
+assert.equal(rebuilt.strategyBoard.customerPortfolio.transformerMemory.qkv.length, 3);
+assert.equal(rebuilt.strategyBoard.customerPortfolio.transformerMemory.sources.length, 5);
+assert.ok(
+  rebuilt.strategyBoard.customerPortfolio.transformerMemory.sources.every((item) => item.url && item.sourceClass && item.tier),
+  "KV Cache strategy sources must stay traceable after client generation",
+);
+assert.deepEqual(
+  rebuilt.strategyBoard.customerPortfolio.transformerMemory.flow.map((item) => item.label),
+  ["PREFILL", "CACHE", "DECODE", "SERVICE"],
+);
 assert.ok(rebuilt.strategyBoard.partners.models.length >= 3);
 assert.ok(rebuilt.strategyBoard.playbooks.length >= 3);
 const maasPlaybook = rebuilt.strategyBoard.playbooks.find((item) => /MaaS|Memory-as-a-Service/i.test(item.segment || ""));

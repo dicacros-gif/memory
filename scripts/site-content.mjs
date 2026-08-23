@@ -351,6 +351,19 @@ function buildStrategyBoard(payload = {}, generatedAt = null, decisionIntelligen
             .map((id) => accounts.find((account) => account.id === id)?.company).filter(Boolean),
         } : null,
       } : null,
+      transformerMemory: accountModel.transformerMemory ? {
+        ...accountModel.transformerMemory,
+        sources: (accountModel.transformerMemory.sourceIds || [])
+          .map((id) => sourceById.get(id))
+          .filter(Boolean)
+          .map((source) => ({
+            id: source.id,
+            name: source.name,
+            url: source.url,
+            sourceClass: source.sourceClass,
+            tier: source.tier,
+          })),
+      } : null,
       competitiveFrame: (accountModel.suppliers || []).filter((supplier) => supplier.id !== "skhynix").map((supplier) => ({
         company: supplier.label,
         focus: supplier.id === "samsung" ? "HBM·Foundry·Package 통합" : supplier.id === "micron" ? "HBM 효율·미국 공급망" : "범용 DRAM·중국 고객 침투",

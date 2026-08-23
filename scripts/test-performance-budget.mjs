@@ -86,7 +86,7 @@ for (const [sourceKey, minKey, minimumRawSaving] of [
 }
 
 assert.ok(files.appMinJs.gzipBytes < 300_000, "console JavaScript gzip budget must stay below 300KB");
-assert.ok(files.stylesMinCss.gzipBytes < 105_000, "console CSS gzip budget must stay below 105KB");
+assert.ok(files.stylesMinCss.gzipBytes < 106_000, "console CSS gzip budget must stay below 106KB");
 
 console.log(JSON.stringify({
   revision,

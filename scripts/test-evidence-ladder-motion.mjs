@@ -44,7 +44,7 @@ assert.match(html, /business-evidence-case-framework[\s\S]*?FACT · CURRENT[\s\S
 assert.match(css, /\.business-module-heading--evidence h3\s*\{\s*color:\s*#102c43/);
 assert.match(css, /\.business-execution-evidence-grid h4\s*\{\s*color:\s*#102c43/);
 assert.match(css, /\.business-execution-evidence-grid dd\s*\{\s*color:\s*#102c43/);
-assert.match(css, /\.business-site \.business-consulting-motion:is\(:hover, :focus-within\)[\s\S]*?background:\s*var\(--motion-surface-hover\) !important[\s\S]*?box-shadow:[\s\S]*?translate3d\(0, -8px, 22px\)/);
+assert.match(css, /\.business-site \.business-consulting-motion:is\(:hover, :focus-within\)[\s\S]*?background:\s*var\(--motion-surface-hover\) !important[\s\S]*?box-shadow:[\s\S]*?translateY\(-2px\)/);
 assert.match(css, /--motion-copy-hover:\s*#f7fbff[\s\S]*?--motion-muted-hover:\s*#d4e2eb[\s\S]*?--motion-accent-hover:\s*#72ddca/);
 assert.match(css, /:where\(h1, h2, h3, h4, h5, h6, p, li, dd, strong, span, em, time, cite, a\)[\s\S]*?color:\s*var\(--motion-copy-hover\) !important[\s\S]*?-webkit-text-fill-color:\s*currentColor/);
 assert.match(css, /Dark surfaces are detected at runtime[\s\S]*?\[data-hover-mode="dark-to-light"\][\s\S]*?--motion-surface-hover:\s*#f7fbff[\s\S]*?--motion-copy-hover:\s*#102c43/);
@@ -54,11 +54,12 @@ assert.match(css, /@media \(prefers-reduced-motion: reduce\)[\s\S]*?\.business-s
 assert.match(landing, /function setupConsultingCardMotion\(\)/);
 assert.match(landing, /\.business-competency-grid > article[\s\S]*?\.business-partnership-types > article[\s\S]*?\.business-role-outputs > article/);
 assert.match(landing, /consultingMotionObserver[\s\S]*?IntersectionObserver[\s\S]*?consultingMotionObserved/);
-assert.match(landing, /consultingMotionBound[\s\S]*?pointermove/);
-assert.match(landing, /const unresolvedCards = cards\.filter[\s\S]*?scheduleIdleStep\(\(\) => \{[\s\S]*?const hoverModes = unresolvedCards\.map\(\(card\) => inferHoverContrastMode\(card, styleCache, surfaceCache\)\)[\s\S]*?unresolvedCards\[index\]\.dataset\.hoverMode = mode/, "exact surface scans must run after the critical render path");
+assert.doesNotMatch(landing, /consultingMotionBound[\s\S]*?pointermove/, "hover must not bind per-card pointer geometry work");
+assert.match(landing, /card\.dataset\.hoverModeResolved = "1"/, "hover palette must resolve synchronously");
+assert.doesNotMatch(landing, /const unresolvedCards = cards\.filter[\s\S]*?scheduleIdleStep/, "hover inversion must not wait for an idle color scan");
 assert.match(landing, /hasInteractiveContent[\s\S]*?card\.tabIndex = 0/, "non-interactive consulting cards must expose the focus inversion state to keyboard users");
 assert.match(landing, /function surfaceLuminance\(node, styleCache = null, surfaceCache = null\)[\s\S]*?function inferHoverContrastMode\(card, styleCache = null, surfaceCache = null\)/);
-assert.match(landing, /requestAnimationFrame[\s\S]*?--tilt-x[\s\S]*?--tilt-y/);
+assert.doesNotMatch(landing, /--tilt-x[\s\S]*?--tilt-y/, "small-card hover must not run 3D pointer tracking");
 assert.match(landing, /setupReveal\(\);\s*setupConsultingCardMotion\(\);/);
 assert.match(landing, /renderCompetitorContent\(content\);[\s\S]*?applyUniversalSectionBindings\(content\);[\s\S]*?setupConsultingCardMotion\(\);/, "remaining dynamically regenerated cards must receive the same motion and contrast behavior");
 assert.match(landing, /infra-[a-f0-9]{12}/);
