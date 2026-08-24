@@ -231,6 +231,8 @@ assert.match(html, /id="memory-fabric"[\s\S]*?HBM4 · Custom HBM[\s\S]*?Host DRA
 assert.match(html, /NAND\/eSSD를 독립 의사결정 축으로[\s\S]*?TLC eSSD[\s\S]*?HBF Option[\s\S]*?QLC eSSD/, "AI storage must be elevated to an equal performance, bandwidth, and density decision track");
 assert.match(landing, /function renderCurrentInsights\([\s\S]*?business-execution-evidence-grid/, "the execution proofboard must be generated from current briefs");
 assert.match(landing, /function renderCompetitorContent\([\s\S]*?content\.competitors/, "Right to Win must bind to same-run competitor metrics");
+const competitorRenderer = landing.match(/function renderCompetitorContent\(content = \{\}\)[\s\S]*?\n  \}/)?.[0] || "";
+assert.doesNotMatch(competitorRenderer, /item\.dataStatus|<dt>SOURCES<\/dt>|<dt>AS OF<\/dt>/, "competitor cards must not repeat shared status, source count, or period metadata");
 assert.doesNotMatch(html, /ANNOUNCEMENT[\s\S]*?LOI[\s\S]*?DEFINITIVE CONTRACT[\s\S]*?REVENUE RECOGNITION/, "the deleted flagship record must not return");
 assert.doesNotMatch(html, /skhynix-nvidia-partnership-2026/, "the partnership must not retain the invalid SK hynix source URL");
 assert.equal((html.match(/<div><span>0[1-4] · (?:PAGED|PREFILL|RACK-SCALE|RAG)/g) || []).length, 4, "tech insights must expose four change-to-decision cards");

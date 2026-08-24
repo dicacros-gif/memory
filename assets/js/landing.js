@@ -3,7 +3,7 @@
 
   const BUSINESS_TITLE = "AI Infra Strategy · Customer Pain to Executive Action";
   const CONSOLE_HASH = "#console";
-  const CONSOLE_REVISION = "infra-046064bc0e33";
+  const CONSOLE_REVISION = "infra-5f00d7a34536";
   const DECISION_CLIENT_PATH = "data/landing-decision-client.json";
   const SITE_CONTENT_PATH = "data/site-content-client.json";
   const SITE_CONTENT_EXTENDED_PATH = "data/site-content-extended-client.json";
@@ -794,8 +794,8 @@
         : "새 관측";
       return `
       <article>
-        <header><span>${escapeBusinessHTML(item.company)}</span><strong>${escapeBusinessHTML(item.dataStatus || "review")}</strong></header>
-        <dl><div><dt>HBM SHARE</dt><dd>${escapeBusinessHTML(item.hbmShare || "미공개")}</dd></div><div><dt>TREND</dt><dd>${escapeBusinessHTML(trend)}</dd></div><div><dt>DRAM SHARE</dt><dd>${escapeBusinessHTML(item.dramShare || "미공개")}</dd></div><div><dt>SOURCES</dt><dd>${escapeBusinessHTML(String(item.trend?.sourceCount || 0))}</dd></div><div><dt>AS OF</dt><dd>${escapeBusinessHTML(item.asOf || "확인 필요")}</dd></div></dl>
+        <header><span>${escapeBusinessHTML(item.company)}</span></header>
+        <dl><div><dt>HBM SHARE</dt><dd>${escapeBusinessHTML(item.hbmShare || "미공개")}</dd></div><div><dt>TREND</dt><dd>${escapeBusinessHTML(trend)}</dd></div><div><dt>DRAM SHARE</dt><dd>${escapeBusinessHTML(item.dramShare || "미공개")}</dd></div></dl>
         <div><a href="${escapeBusinessHTML(safeBusinessUrl(item.sourceUrl, "#console"))}" target="_blank" rel="noopener noreferrer">${escapeBusinessHTML(item.source || "근거") } ↗</a></div>
       </article>`;
     }).join("");
