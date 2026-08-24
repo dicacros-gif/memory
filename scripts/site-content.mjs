@@ -460,6 +460,10 @@ function buildStrategyBoard(payload = {}, generatedAt = null, decisionIntelligen
     status: "capacity-watch",
     source: tsmcSource && directUrl(tsmcSource.url) ? { name: tsmcSource.name, url: tsmcSource.url } : null,
   });
+  const dynamicsCompanies = dynamicsNodes.map((node) => ({
+    ...node,
+    relationCount: dynamicsRelations.filter((relation) => relation.from === node.id || relation.to === node.id).length,
+  }));
   const dynamicsRelationCounts = dynamicsRelations.reduce((counts, relation) => {
     counts[relation.type] = Number(counts[relation.type] || 0) + 1;
     return counts;
@@ -475,14 +479,14 @@ function buildStrategyBoard(payload = {}, generatedAt = null, decisionIntelligen
       { id: "investment", label: "투자", count: Number(dynamicsRelationCounts.investment || 0) },
       { id: "supply", label: "공급", count: Number(dynamicsRelationCounts.supply || 0) },
     ],
+    // Enrich once so the layered view and the flat company list share the same
+    // relationCount. The layered nodes previously shipped without it, so every
+    // company rendered "0 RELATIONS" in the value-chain map.
     layers: dynamicsLayers.map((layer) => ({
       ...layer,
-      companies: dynamicsNodes.filter((node) => node.layer === layer.id),
+      companies: dynamicsCompanies.filter((node) => node.layer === layer.id),
     })),
-    companies: dynamicsNodes.map((node) => ({
-      ...node,
-      relationCount: dynamicsRelations.filter((relation) => relation.from === node.id || relation.to === node.id).length,
-    })),
+    companies: dynamicsCompanies,
     relations: dynamicsRelations,
   };
   return {

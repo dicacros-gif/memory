@@ -12,6 +12,7 @@ import { request as httpsRequest } from "node:https";
 import { dirname, resolve } from "node:path";
 import { fileURLToPath, pathToFileURL } from "node:url";
 import {
+  STRATEGY_ACCOUNT_REGISTRY,
   buildAgentBriefing,
   buildBaselineFreshness,
   buildDemandAccountSignals,
@@ -569,6 +570,11 @@ const CATEGORIES = [
   { id: "china", label: "China·Geopolitics", queries: ["CXMT YMTC China memory", "China DRAM NAND export control", "CXMT revenue 2025 DRAM capacity", "YMTC Wuhan Phase 3 domestic equipment Naura AMEC", "YMTC existing Wuhan fabs 160000 200000 wpm source discrepancy", "YMTC sells XMC stake state-backed buyer Caixin Global June 2026", "XMC STAR Market review withdrawn May 2026", "BIS China memory export control VEU", "Reuters H200 China shipments CXMT Entity List held off July 2026", "US VEU revocation SK hynix Samsung Intel China fabs annual license 2026", "MATCH Act DUV restriction cryogenic etch blanket ban removed Reuters", "HR 8170 MATCH Act House Foreign Affairs Committee latest official action", "S.4281 MATCH Act Senate Banking Housing Urban Affairs latest official action", "Apple seeks approval buy CXMT memory China devices Reuters", "CXMT HBM3 mass production order materials components unlikely 2026", "CXMT DDR5 yield cost per bit die size Samsung 40 percent December 2024", "CXMT yield engineer HBM TSV recruitment", "YMTC Xtacking eSSD engineer recruitment", "Huawei Ascend memory supply YMTC CXMT", "Tencent Alibaba ByteDance CXMT DRAM supply", "Tsinghua career CXMT YMTC semiconductor recruitment", "Nvidia H20 export controls China HBM memory demand The Diplomat"] },
   { id: "china_infra", label: "China Fab Infra", queries: ["SK hynix Wuxi fab water power land expansion", "SK hynix Wuxi 1z 1a 180000 190000 wafer capacity upgrade", "SK hynix Wuxi 581 billion won investment 2025 TrendForce", "SK hynix Wuxi K7 environmental impact assessment cleanroom expansion", "Wuxi high-tech bonded zone SK hynix land water electricity", "SK hynix Wuxi C2F additional cleanroom equipment installation", "BIS VEU SK hynix Wuxi fab capacity upgrade"] },
   { id: "china_talent_strategy", label: "China Talent Strategy", queries: ["SK hynix China hiring Wuxi Dalian Chongqing semiconductor", "China memory talent retention IP compliance semiconductor", "CXMT YMTC hiring yield TSV HBM engineer", "China enterprise SSD firmware FAE hiring memory", "Wuxi semiconductor EHS facility utilities hiring fab", "CXMT IPO filing Micron Samsung alumni international talent base DIGITIMES"] },
+  // Account-scoped coverage. Topic queries above are product-centric, so only
+  // NVIDIA surfaced often enough to classify; every other account resolved to
+  // zero pain-axis hits. Queries come from the account registry so adding an
+  // account to accounts.json automatically extends crawl coverage.
+  { id: "account_intel", label: "Account Intelligence", queries: STRATEGY_ACCOUNT_REGISTRY.flatMap((account) => account.newsQueries || []) },
 ];
 
 const CHINESE_CATEGORIES = [
@@ -4176,7 +4182,10 @@ async function collectNews(previousNews = [], previousReferenceNews = []) {
   const selected = ["english", "chinese"]
     .flatMap((language) => {
       const languageItems = all.filter((item) => verifiedNewsLanguage(item) === language);
-      const fixed = languageItems.filter((item) => ["account-demand", "industry"].includes(item.category));
+      // account_intel is account-scoped coverage, the same class of signal as
+      // account-demand, so it is guaranteed rather than competing for the
+      // recency-ranked discovery slots (where topic categories crowded it out).
+      const fixed = languageItems.filter((item) => ["account-demand", "account_intel", "industry"].includes(item.category));
       const discovered = languageItems.filter((item) => !fixed.includes(item));
       return fixed.concat(discovered.slice(0, Math.max(0, NEWS_STREAM_LIMIT - fixed.length)));
     })

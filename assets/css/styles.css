@@ -3850,6 +3850,14 @@ body.console-startup #intelligenceConsole *::after {
   transition: transform .07s ease, border-color .07s ease, background-color .07s ease, color .07s ease, box-shadow .07s ease;
 }
 
+.exec-report-dismiss:is(:hover, :focus-visible) {
+  transform: rotate(90deg);
+  border-color: #94a3b8;
+  background: #f1f5f9;
+  color: #0f172a;
+  box-shadow: 0 4px 12px rgba(8, 23, 39, .16);
+}
+
 .exec-report-hidden-state {
   display: flex;
   align-items: center;
@@ -21376,6 +21384,7 @@ button.ni-trend-chip:hover { box-shadow: 0 4px 12px color-mix(in srgb, #0891B2 2
 .ni-research-node b { font-family: var(--display); font-size: 11px; font-weight: 950; color: var(--accent, #4322A8); }
 .ni-research-node i { position: absolute; right: 7px; bottom: 3px; left: 7px; height: 3px; border-radius: 999px; background: color-mix(in srgb, var(--accent, #4322A8) 12%, transparent); }
 .ni-research-node i::after { content: ""; display: block; width: calc(var(--share) * 100%); height: 100%; border-radius: inherit; background: var(--node-color, var(--accent, #4322A8)); transition: width .28s ease; }
+.ni-research-lane:is(:hover, :focus-within), .ni-research-focus:is(:hover, :focus-within) { transform: translateY(-4px); border-color: color-mix(in srgb, var(--accent, #4322A8) 52%, var(--line)); }
 .ni-research-lane:hover .ni-research-node i::after { width: min(100%, calc(var(--share) * 100% + 5%)); }
 .ni-research-arrow { display: grid; place-items: center; align-content: center; gap: 5px; color: var(--accent, #4322A8); }
 .ni-research-arrow span { font-size: 8px; font-weight: 950; letter-spacing: .04em; writing-mode: vertical-rl; }
