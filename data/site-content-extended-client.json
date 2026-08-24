@@ -1,14 +1,14 @@
 {
   "schemaVersion": "1.1",
-  "runId": "32754142938",
-  "generatedAt": "2026-08-24T17:10:09.065Z",
-  "expiresAt": "2026-08-25T19:10:06.947Z",
+  "runId": "32760724569",
+  "generatedAt": "2026-08-24T18:23:49.114Z",
+  "expiresAt": "2026-08-25T20:23:46.925Z",
   "clientArtifact": true,
   "decisionIntelligence": {
     "schemaVersion": "1.3",
     "status": "pass",
-    "generatedAt": "2026-08-24T17:09:33.570Z",
-    "runId": "32754142938",
+    "generatedAt": "2026-08-24T18:23:13.140Z",
+    "runId": "32760724569",
     "refreshTrigger": "push",
     "metrics": [
       {
@@ -161,6 +161,19 @@
         "changed": true
       },
       {
+        "id": "129cd319dbd3d46ea869",
+        "ruleId": "partner-codesign",
+        "label": "Customer·Foundry Co-Design",
+        "priority": "immediate",
+        "sourceId": "authoritative-media",
+        "source": "digitimes",
+        "sourceClass": "authoritative-media",
+        "title": "SKHY의 새로운 HBM 팀이 Nvidia와 AMD의 뒷마당에 상륙 - 공동 설계가 HBM4 주문을 획득하는 방법이 되고 있음 - digittimes",
+        "url": "https://www.digitimes.com/news/a20260820PD219/sk-hynix-hbm-hbm4-design-amd.html",
+        "publishedAt": "2026-08-20",
+        "changed": true
+      },
+      {
         "id": "b93ba64f099ede10388d",
         "ruleId": "capacity-commitment",
         "label": "CapEx·Capacity·장기 물량",
@@ -197,6 +210,19 @@
         "title": "SEC EDGAR",
         "url": "https://data.sec.gov/submissions/CIK0000723125.json",
         "publishedAt": "2026-08-21",
+        "changed": false
+      },
+      {
+        "id": "26c97c75282bdbe0dd43",
+        "ruleId": "capacity-commitment",
+        "label": "CapEx·Capacity·장기 물량",
+        "priority": "quarterly",
+        "sourceId": "techinsights",
+        "source": "TechInsights",
+        "sourceClass": "research",
+        "title": "슬라이드: 2026년 2분기 DRAM 시장 보고서 - TechInsights",
+        "url": "https://www.techinsights.com/blog/slides-dram-market-report-q2-2026",
+        "publishedAt": "2026-08-20",
         "changed": false
       },
       {
@@ -250,43 +276,17 @@
         "url": "https://news.skhynix.com/en/hbf-at-fms-2026",
         "publishedAt": "2026-08-04",
         "changed": false
-      },
-      {
-        "id": "f41a2f5ea2380388297c",
-        "ruleId": "partner-codesign",
-        "label": "Customer·Foundry Co-Design",
-        "priority": "immediate",
-        "sourceId": "skhynix-newsroom",
-        "source": "SK hynix Newsroom",
-        "sourceClass": "official",
-        "title": "SK hynix Unveils First HBF Standard Specifications with Sandisk, Presenting AI Memory Solutions at ‘FMS 2026’ – SK hynix Newsroom",
-        "url": "https://news.skhynix.com/en/hbf-at-fms-2026",
-        "publishedAt": "2026-08-04",
-        "changed": false
-      },
-      {
-        "id": "414239aede5f3349847a",
-        "ruleId": "earnings-release",
-        "label": "분기 실적·어닝콜",
-        "priority": "immediate",
-        "sourceId": "skhynix-newsroom",
-        "source": "SK hynix Newsroom",
-        "sourceClass": "official",
-        "title": "SK hynix Announces 2Q26 Financial Results – SK hynix Newsroom",
-        "url": "https://news.skhynix.com/en/q2-2026-business-results",
-        "publishedAt": "2026-07-29",
-        "changed": false
       }
     ],
     "claimEvents": {
       "schemaVersion": "1.1",
-      "generatedAt": "2026-08-24T17:09:33.570Z",
+      "generatedAt": "2026-08-24T18:23:13.140Z",
       "stats": {
-        "eligibleDocuments": 49,
-        "structuredEvents": 35,
-        "verifiedEvents": 29,
+        "eligibleDocuments": 47,
+        "structuredEvents": 36,
+        "verifiedEvents": 30,
         "currentStages": 29,
-        "newEvents": 0,
+        "newEvents": 1,
         "contradictionReviews": 0
       },
       "events": [
@@ -645,7 +645,7 @@
           "supersededBy": null
         },
         {
-          "id": "39e7ac26429e73c7acb5",
+          "id": "96b2c649c97fd7284606",
           "ruleId": "capacity-commitment",
           "eventType": "commercial-commitment",
           "label": "CapEx·Capacity·장기 물량",
@@ -662,15 +662,15 @@
             "rank": 25
           },
           "metrics": [],
-          "evidenceSpan": "While mainstream headlines focus on high-bandwidth memory (HBM) supply allocations, the underlying dynamics across manufacturing CAPEX, enterprise storage, and system architectures tell a more nuanced story",
-          "source": "Counterpoint Research",
-          "sourceId": "counterpoint",
+          "evidenceSpan": "Quarterly DRAM report analyzes supply, demand, pricing, and market share across key segments, tracking capacity, trends, and technology shifts",
+          "source": "TechInsights",
+          "sourceId": "techinsights",
           "sourceClass": "research",
-          "sourceUrl": "https://counterpointresearch.com/en/insights/decoding-the-memory-landscape-intels-integration-play-nand-supply-crunches-and-the-2028-horizon",
-          "publishedAt": "2026-08-19",
+          "sourceUrl": "https://www.techinsights.com/blog/slides-dram-market-report-q2-2026",
+          "publishedAt": "2026-08-20",
           "confidence": "research-observed",
           "claimType": "market-estimate",
-          "asOf": "2026-08-19",
+          "asOf": "2026-08-20",
           "promotionStatus": "corroborated",
           "contradictionStatus": "clear",
           "isCurrentStage": true,
@@ -837,8 +837,8 @@
       "state": "DECISION_READY",
       "funnel": {
         "sourceDocuments": 78,
-        "structuredEvents": 35,
-        "verifiedEvents": 29,
+        "structuredEvents": 36,
+        "verifiedEvents": 30,
         "decisionReadyBriefs": 4,
         "executionTrackingBriefs": 0
       },
@@ -856,8 +856,8 @@
             "refreshMode": "poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-08-24T17:09:30.368Z",
-            "lastUsefulObservationAt": "2026-08-24T17:09:30.368Z",
+            "lastSuccessAt": "2026-08-24T18:23:11.245Z",
+            "lastUsefulObservationAt": "2026-08-24T18:23:11.245Z",
             "usefulObservation": true,
             "eventYield": 2
           },
@@ -868,8 +868,8 @@
             "refreshMode": "poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-08-24T17:09:30.368Z",
-            "lastUsefulObservationAt": "2026-08-24T17:09:30.368Z",
+            "lastSuccessAt": "2026-08-24T18:23:11.245Z",
+            "lastUsefulObservationAt": "2026-08-24T18:23:11.245Z",
             "usefulObservation": true,
             "eventYield": 4
           },
@@ -880,8 +880,8 @@
             "refreshMode": "event+poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-08-24T17:09:30.368Z",
-            "lastUsefulObservationAt": "2026-08-24T17:09:30.368Z",
+            "lastSuccessAt": "2026-08-24T18:23:11.245Z",
+            "lastUsefulObservationAt": "2026-08-24T18:23:11.245Z",
             "usefulObservation": true,
             "eventYield": 2
           },
@@ -892,7 +892,7 @@
             "refreshMode": "event+poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-08-24T17:09:30.368Z",
+            "lastSuccessAt": "2026-08-24T18:23:11.245Z",
             "lastUsefulObservationAt": null,
             "usefulObservation": false,
             "eventYield": 0
@@ -904,8 +904,8 @@
             "refreshMode": "event+poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-08-24T17:09:30.368Z",
-            "lastUsefulObservationAt": "2026-08-24T17:09:30.368Z",
+            "lastSuccessAt": "2026-08-24T18:23:11.245Z",
+            "lastUsefulObservationAt": "2026-08-24T18:23:11.245Z",
             "usefulObservation": true,
             "eventYield": 1
           },
@@ -916,8 +916,8 @@
             "refreshMode": "event+poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-08-24T17:09:30.368Z",
-            "lastUsefulObservationAt": "2026-08-24T17:09:30.368Z",
+            "lastSuccessAt": "2026-08-24T18:23:11.245Z",
+            "lastUsefulObservationAt": "2026-08-24T18:23:11.245Z",
             "usefulObservation": true,
             "eventYield": 2
           },
@@ -928,8 +928,8 @@
             "refreshMode": "event+poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-08-24T17:09:30.368Z",
-            "lastUsefulObservationAt": "2026-08-24T17:09:30.368Z",
+            "lastSuccessAt": "2026-08-24T18:23:11.245Z",
+            "lastUsefulObservationAt": "2026-08-24T18:23:11.245Z",
             "usefulObservation": true,
             "eventYield": 3
           },
@@ -940,8 +940,8 @@
             "refreshMode": "event+poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-08-24T17:09:30.368Z",
-            "lastUsefulObservationAt": "2026-08-24T17:09:30.368Z",
+            "lastSuccessAt": "2026-08-24T18:23:11.245Z",
+            "lastUsefulObservationAt": "2026-08-24T18:23:11.245Z",
             "usefulObservation": true,
             "eventYield": 1
           },
@@ -952,8 +952,8 @@
             "refreshMode": "event+poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-08-24T17:09:30.368Z",
-            "lastUsefulObservationAt": "2026-08-24T17:09:30.368Z",
+            "lastSuccessAt": "2026-08-24T18:23:11.245Z",
+            "lastUsefulObservationAt": "2026-08-24T18:23:11.245Z",
             "usefulObservation": true,
             "eventYield": 1
           },
@@ -964,8 +964,8 @@
             "refreshMode": "event+poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-08-24T17:09:30.368Z",
-            "lastUsefulObservationAt": "2026-08-24T17:09:30.368Z",
+            "lastSuccessAt": "2026-08-24T18:23:11.245Z",
+            "lastUsefulObservationAt": "2026-08-24T18:23:11.245Z",
             "usefulObservation": true,
             "eventYield": 2
           },
@@ -976,8 +976,8 @@
             "refreshMode": "event+poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-08-24T17:09:30.368Z",
-            "lastUsefulObservationAt": "2026-08-24T17:09:30.368Z",
+            "lastSuccessAt": "2026-08-24T18:23:11.245Z",
+            "lastUsefulObservationAt": "2026-08-24T18:23:11.245Z",
             "usefulObservation": true,
             "eventYield": 2
           },
@@ -988,8 +988,8 @@
             "refreshMode": "event+poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-08-24T17:09:30.368Z",
-            "lastUsefulObservationAt": "2026-08-24T17:09:30.368Z",
+            "lastSuccessAt": "2026-08-24T18:23:11.245Z",
+            "lastUsefulObservationAt": "2026-08-24T18:23:11.245Z",
             "usefulObservation": true,
             "eventYield": 2
           },
@@ -1000,8 +1000,8 @@
             "refreshMode": "event+poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-08-24T17:09:30.368Z",
-            "lastUsefulObservationAt": "2026-08-24T17:09:30.368Z",
+            "lastSuccessAt": "2026-08-24T18:23:11.245Z",
+            "lastUsefulObservationAt": "2026-08-24T18:23:11.245Z",
             "usefulObservation": true,
             "eventYield": 1
           },
@@ -1012,8 +1012,8 @@
             "refreshMode": "event+poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-08-24T17:09:30.368Z",
-            "lastUsefulObservationAt": "2026-08-24T17:09:30.368Z",
+            "lastSuccessAt": "2026-08-24T18:23:11.245Z",
+            "lastUsefulObservationAt": "2026-08-24T18:23:11.245Z",
             "usefulObservation": true,
             "eventYield": 1
           },
@@ -1024,7 +1024,7 @@
             "refreshMode": "poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-08-24T17:09:30.368Z",
+            "lastSuccessAt": "2026-08-24T18:23:11.245Z",
             "lastUsefulObservationAt": null,
             "usefulObservation": false,
             "eventYield": 0
@@ -1036,8 +1036,8 @@
             "refreshMode": "poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-08-24T17:09:30.368Z",
-            "lastUsefulObservationAt": "2026-08-24T17:09:30.368Z",
+            "lastSuccessAt": "2026-08-24T18:23:11.245Z",
+            "lastUsefulObservationAt": "2026-08-24T18:23:11.245Z",
             "usefulObservation": true,
             "eventYield": 1
           },
@@ -1048,8 +1048,8 @@
             "refreshMode": "poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-08-24T17:09:30.368Z",
-            "lastUsefulObservationAt": "2026-08-24T17:09:30.368Z",
+            "lastSuccessAt": "2026-08-24T18:23:11.245Z",
+            "lastUsefulObservationAt": "2026-08-24T18:23:11.245Z",
             "usefulObservation": true,
             "eventYield": 1
           },
@@ -1060,8 +1060,8 @@
             "refreshMode": "poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-08-24T17:09:30.368Z",
-            "lastUsefulObservationAt": "2026-08-24T17:09:30.368Z",
+            "lastSuccessAt": "2026-08-24T18:23:11.245Z",
+            "lastUsefulObservationAt": "2026-08-24T18:23:11.245Z",
             "usefulObservation": true,
             "eventYield": 0
           },
@@ -1072,7 +1072,7 @@
             "refreshMode": "poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-08-24T17:09:30.368Z",
+            "lastSuccessAt": "2026-08-24T18:23:11.245Z",
             "lastUsefulObservationAt": null,
             "usefulObservation": false,
             "eventYield": 0
@@ -1084,8 +1084,8 @@
             "refreshMode": "event+poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-08-24T17:09:30.368Z",
-            "lastUsefulObservationAt": "2026-08-24T17:09:30.368Z",
+            "lastSuccessAt": "2026-08-24T18:23:11.245Z",
+            "lastUsefulObservationAt": "2026-08-24T18:23:11.245Z",
             "usefulObservation": true,
             "eventYield": 1
           },
@@ -1096,8 +1096,8 @@
             "refreshMode": "event+poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-08-24T17:09:30.368Z",
-            "lastUsefulObservationAt": "2026-08-24T17:09:30.368Z",
+            "lastSuccessAt": "2026-08-24T18:23:11.245Z",
+            "lastUsefulObservationAt": "2026-08-24T18:23:11.245Z",
             "usefulObservation": true,
             "eventYield": 1
           },
@@ -1108,7 +1108,7 @@
             "refreshMode": "event+poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-08-24T17:09:30.368Z",
+            "lastSuccessAt": "2026-08-24T18:23:11.245Z",
             "lastUsefulObservationAt": null,
             "usefulObservation": false,
             "eventYield": 0
@@ -1120,8 +1120,8 @@
             "refreshMode": "event+poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-08-24T17:09:30.368Z",
-            "lastUsefulObservationAt": "2026-08-24T17:09:30.368Z",
+            "lastSuccessAt": "2026-08-24T18:23:11.245Z",
+            "lastUsefulObservationAt": "2026-08-24T18:23:11.245Z",
             "usefulObservation": true,
             "eventYield": 1
           },
@@ -1132,8 +1132,8 @@
             "refreshMode": "event+poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-08-24T17:09:30.368Z",
-            "lastUsefulObservationAt": "2026-08-24T17:09:30.368Z",
+            "lastSuccessAt": "2026-08-24T18:23:11.245Z",
+            "lastUsefulObservationAt": "2026-08-24T18:23:11.245Z",
             "usefulObservation": true,
             "eventYield": 1
           },
@@ -1156,8 +1156,8 @@
             "refreshMode": "event+poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-08-24T17:09:30.368Z",
-            "lastUsefulObservationAt": "2026-08-24T17:09:30.368Z",
+            "lastSuccessAt": "2026-08-24T18:23:11.245Z",
+            "lastUsefulObservationAt": "2026-08-24T18:23:11.245Z",
             "usefulObservation": true,
             "eventYield": 1
           },
@@ -1168,7 +1168,7 @@
             "refreshMode": "event+poll",
             "transportStatus": "fetched-metadata",
             "attempts": 1,
-            "lastSuccessAt": "2026-08-24T17:09:30.368Z",
+            "lastSuccessAt": "2026-08-24T18:23:11.245Z",
             "lastUsefulObservationAt": null,
             "usefulObservation": false,
             "eventYield": 0
@@ -1184,7 +1184,7 @@
           "decisionStage": "CUSTOMER_QUALIFICATION",
           "deliverable": "Customer Fact Base · Pain Map · Requirement Matrix · Memory Proposal",
           "status": "DECISION_READY",
-          "updatedAt": "2026-08-24T17:09:33.570Z",
+          "updatedAt": "2026-08-24T18:23:13.140Z",
           "whatChanged": "HBM4 상업화 신호를 고객별 Custom Qualification·계약 Gate로 전환할 것인가",
           "latestSignal": "SK hynix · HBM4 · COMMERCIAL_SHIPMENT",
           "sourceStage": "COMMERCIAL_SHIPMENT",
@@ -1223,7 +1223,7 @@
           "marketEstimateCount": 2,
           "independentSources": 4,
           "primaryEvidence": 6,
-          "verifiedClaims": 14,
+          "verifiedClaims": 15,
           "evidence": [
             {
               "id": "3baccbc6165bf453265f",
@@ -1315,7 +1315,7 @@
           "decisionStage": "ARCHITECTURE_BENCHMARK",
           "deliverable": "Workload Trace · Bottleneck Tree · Architecture Benchmark · TCO",
           "status": "DECISION_READY",
-          "updatedAt": "2026-08-24T17:09:33.570Z",
+          "updatedAt": "2026-08-24T18:23:13.140Z",
           "whatChanged": "KV Cache 지배 병목을 HBM·Host DRAM/CXL·eSSD 계층화로 낮출 것인가",
           "latestSignal": "SK hynix · HBM4 · COMMERCIAL_SHIPMENT",
           "sourceStage": "COMMERCIAL_SHIPMENT",
@@ -1355,7 +1355,7 @@
           "marketEstimateCount": 2,
           "independentSources": 4,
           "primaryEvidence": 6,
-          "verifiedClaims": 9,
+          "verifiedClaims": 10,
           "evidence": [
             {
               "id": "3baccbc6165bf453265f",
@@ -1390,20 +1390,20 @@
               "excerpt": "Samsung Electronics, a global leader in advanced memory technology, today announced that it has begun mass production of its industry-leading HBM4 and has shipped commercial products to customers"
             },
             {
-              "id": "39e7ac26429e73c7acb5",
+              "id": "96b2c649c97fd7284606",
               "ruleId": "capacity-commitment",
               "feedId": null,
               "title": "Memory industry · AI Memory · DISCLOSED",
-              "source": "Counterpoint Research",
-              "sourceId": "counterpoint",
+              "source": "TechInsights",
+              "sourceId": "techinsights",
               "sourceClass": "research",
-              "url": "https://counterpointresearch.com/en/insights/decoding-the-memory-landscape-intels-integration-play-nand-supply-crunches-and-the-2028-horizon",
-              "publishedAt": "2026-08-19",
+              "url": "https://www.techinsights.com/blog/slides-dram-market-report-q2-2026",
+              "publishedAt": "2026-08-20",
               "stage": "DISCLOSED",
               "confidence": "research-observed",
               "claimType": "market-estimate",
-              "asOf": "2026-08-19",
-              "excerpt": "While mainstream headlines focus on high-bandwidth memory (HBM) supply allocations, the underlying dynamics across manufacturing CAPEX, enterprise storage, and system architectures tell a more nuanced story"
+              "asOf": "2026-08-20",
+              "excerpt": "Quarterly DRAM report analyzes supply, demand, pricing, and market share across key segments, tracking capacity, trends, and technology shifts"
             },
             {
               "id": "c45829925fa53f7d2586",
@@ -1447,7 +1447,7 @@
           "decisionStage": "BUSINESS_CASE",
           "deliverable": "Tech/Market Insight · Opportunity Thesis · Partner Screen · Business Case",
           "status": "DECISION_READY",
-          "updatedAt": "2026-08-24T17:09:33.570Z",
+          "updatedAt": "2026-08-24T18:23:13.140Z",
           "whatChanged": "RAG·Agentic AI의 Memory Tier를 CXL Pool·AI-N/HBF 서비스로 확장할 것인가",
           "latestSignal": "Memory industry · AI Memory · DISCLOSED",
           "sourceStage": "DISCLOSED",
@@ -1485,23 +1485,23 @@
           "marketEstimateCount": 2,
           "independentSources": 3,
           "primaryEvidence": 6,
-          "verifiedClaims": 10,
+          "verifiedClaims": 11,
           "evidence": [
             {
-              "id": "39e7ac26429e73c7acb5",
+              "id": "96b2c649c97fd7284606",
               "ruleId": "capacity-commitment",
               "feedId": null,
               "title": "Memory industry · AI Memory · DISCLOSED",
-              "source": "Counterpoint Research",
-              "sourceId": "counterpoint",
+              "source": "TechInsights",
+              "sourceId": "techinsights",
               "sourceClass": "research",
-              "url": "https://counterpointresearch.com/en/insights/decoding-the-memory-landscape-intels-integration-play-nand-supply-crunches-and-the-2028-horizon",
-              "publishedAt": "2026-08-19",
+              "url": "https://www.techinsights.com/blog/slides-dram-market-report-q2-2026",
+              "publishedAt": "2026-08-20",
               "stage": "DISCLOSED",
               "confidence": "research-observed",
               "claimType": "market-estimate",
-              "asOf": "2026-08-19",
-              "excerpt": "While mainstream headlines focus on high-bandwidth memory (HBM) supply allocations, the underlying dynamics across manufacturing CAPEX, enterprise storage, and system architectures tell a more nuanced story"
+              "asOf": "2026-08-20",
+              "excerpt": "Quarterly DRAM report analyzes supply, demand, pricing, and market share across key segments, tracking capacity, trends, and technology shifts"
             },
             {
               "id": "966d81f1ea767fe232f5",
@@ -1577,7 +1577,7 @@
           "decisionStage": "SCALE_GATE",
           "deliverable": "Partner Model · 90-Day Roadmap · RACI · KPI/Trigger/Kill Dashboard",
           "status": "DECISION_READY",
-          "updatedAt": "2026-08-24T17:09:33.570Z",
+          "updatedAt": "2026-08-24T18:23:13.140Z",
           "whatChanged": "전력·냉각·Fabric·Storage Gate를 통과한 Rack Cell만 파트너와 확장할 것인가",
           "latestSignal": "SK hynix · HBF · ANNOUNCED",
           "sourceStage": "ANNOUNCED",
@@ -1616,7 +1616,7 @@
           "marketEstimateCount": 1,
           "independentSources": 2,
           "primaryEvidence": 7,
-          "verifiedClaims": 12,
+          "verifiedClaims": 13,
           "evidence": [
             {
               "id": "23573c07e31f7af6e053",
@@ -1683,20 +1683,20 @@
               "excerpt": "(or “the company”, www.skhynix.com ) announced today that it has recently signed a memorandum of understanding with TSMC for collaboration to produce next-generation HBM and enhance logic and HBM integration through advanced packaging technology"
             },
             {
-              "id": "39e7ac26429e73c7acb5",
+              "id": "96b2c649c97fd7284606",
               "ruleId": "capacity-commitment",
               "feedId": null,
               "title": "Memory industry · AI Memory · DISCLOSED",
-              "source": "Counterpoint Research",
-              "sourceId": "counterpoint",
+              "source": "TechInsights",
+              "sourceId": "techinsights",
               "sourceClass": "research",
-              "url": "https://counterpointresearch.com/en/insights/decoding-the-memory-landscape-intels-integration-play-nand-supply-crunches-and-the-2028-horizon",
-              "publishedAt": "2026-08-19",
+              "url": "https://www.techinsights.com/blog/slides-dram-market-report-q2-2026",
+              "publishedAt": "2026-08-20",
               "stage": "DISCLOSED",
               "confidence": "research-observed",
               "claimType": "market-estimate",
-              "asOf": "2026-08-19",
-              "excerpt": "While mainstream headlines focus on high-bandwidth memory (HBM) supply allocations, the underlying dynamics across manufacturing CAPEX, enterprise storage, and system architectures tell a more nuanced story"
+              "asOf": "2026-08-20",
+              "excerpt": "Quarterly DRAM report analyzes supply, demand, pricing, and market share across key segments, tracking capacity, trends, and technology shifts"
             }
           ]
         }
@@ -1883,8 +1883,8 @@
         "chunks": 366,
         "added": 0,
         "changed": 0,
-        "unchanged": 49,
-        "retained": 29,
+        "unchanged": 47,
+        "retained": 31,
         "reindexed": 0
       },
       "packs": [
@@ -2475,7 +2475,7 @@
         "sourceChangeDetectedAt": "2026-08-24T15:18:32.777Z",
         "indexedAt": "2026-08-24T15:18:37.334Z"
       },
-      "generatedAt": "2026-08-24T17:09:33.570Z"
+      "generatedAt": "2026-08-24T18:23:13.140Z"
     },
     "evaluation": {
       "framework": "grounded-retrieval-quality-loop",
@@ -2494,7 +2494,7 @@
   },
   "strategyBoard": {
     "schemaVersion": "1.0",
-    "generatedAt": "2026-08-24T17:10:09.065Z",
+    "generatedAt": "2026-08-24T18:23:49.114Z",
     "status": "evidence-connected",
     "tech": {
       "eyebrow": "TECH & MARKET INSIGHTS",
@@ -5188,8 +5188,8 @@
             },
             "servesAccounts": [],
             "buyingCriteria": [],
-            "mentions": 1,
-            "sourceCount": 1,
+            "mentions": 0,
+            "sourceCount": 0,
             "officialEvidenceCount": 0,
             "weekly": [
               {
@@ -5206,7 +5206,7 @@
               },
               {
                 "week": "2026-07-27",
-                "count": 1
+                "count": 0
               },
               {
                 "week": "2026-08-03",
@@ -5659,15 +5659,7 @@
               "bandwidthMultiplier": null,
               "capacityMultiplier": null
             },
-            "evidenceStream": [
-              {
-                "title": "중국 최대 DRAM 생산업체인 CXMT, 상하이 상장에서 470% 상승 - CNBC TV18",
-                "source": "CNBC TV18",
-                "sourceClass": "news",
-                "url": "https://www.cnbctv18.com/market/changxin-technology-group-cxmt-stellar-debut-shanghai-stock-exchange-strong-retail-subscription-ipo-star-market-valuations-peers-19954343.htm",
-                "date": "2026-07-27"
-              }
-            ],
+            "evidenceStream": [],
             "chipStage": "Reference Monitor",
             "xpuEcosystem": null,
             "broadcomStrategy": null,
@@ -8873,8 +8865,8 @@
           },
           "servesAccounts": [],
           "buyingCriteria": [],
-          "mentions": 3,
-          "sourceCount": 3,
+          "mentions": 5,
+          "sourceCount": 5,
           "officialEvidenceCount": 0,
           "weekly": [
             {
@@ -8903,11 +8895,11 @@
             },
             {
               "week": "2026-08-17",
-              "count": 1
+              "count": 2
             },
             {
               "week": "2026-08-24",
-              "count": 1
+              "count": 2
             }
           ],
           "painAxes": [
@@ -8920,8 +8912,8 @@
                 "custom-hbm",
                 "ai-n-b"
               ],
-              "mentions": 0,
-              "sourceCount": 0,
+              "mentions": 1,
+              "sourceCount": 1,
               "weekly": [
                 {
                   "week": "2026-07-06",
@@ -8949,16 +8941,26 @@
                 },
                 {
                   "week": "2026-08-17",
-                  "count": 0
+                  "count": 1
                 },
                 {
                   "week": "2026-08-24",
                   "count": 0
                 }
               ],
-              "trend": "flat",
-              "delta": 0,
-              "latest": null
+              "trend": "down",
+              "delta": -1,
+              "latest": {
+                "id": "82c68745768d7b14f288",
+                "title": "SKHY의 새로운 HBM 팀이 Nvidia와 AMD의 뒷마당에 상륙 - 공동 설계가 HBM4 주문을 획득하는 방법이 되고 있음 - digittimes",
+                "summary": "SK Hynix is reported to be assembling a high-bandwidth memory (HBM) design team in Silicon Valley, a move that would deepen its co-design work with major US chip customers · Analysts see it as evidence that HBM competition is shifting into a customized, jointly developed phase",
+                "text": "digitimes hbm sk hynix's new hbm team lands in nvidia and amd's backyard — co-design is becoming the way to win hbm4 orders - digitimes skhy의 새로운 hbm 팀이 nvidia와 amd의 뒷마당에 상륙 - 공동 설계가 hbm4 주문을 획득하는 방법이 되고 있음 - digittimes sk hynix is reported to be assembling a high-bandwidth memory (hbm) design team in silicon valley, a move that would deepen its co-design work with major us chip customers · analysts see it as evidence that hbm competition is shifting into a customized, jointly developed phase",
+                "source": "digitimes",
+                "sourceClass": "authoritative-media",
+                "origin": "live-crawl",
+                "url": "https://www.digitimes.com/news/a20260820pd219/sk-hynix-hbm-hbm4-design-amd.html",
+                "date": "2026-08-20"
+              }
             },
             {
               "id": "capacity",
@@ -9356,6 +9358,13 @@
           },
           "evidenceStream": [
             {
+              "title": "핫 칩 깊이: HBM은 맞춤화 및 3차원 스태킹을 향해 나아가고 있으며 Samsung, NVIDIA 및 Micron은 각각 밝은 로드맵을 가지고 있습니다 - Sina Finance",
+              "source": "新浪财经",
+              "sourceClass": "general-media",
+              "url": "https://finance.sina.com.cn/stock/t/2026-08-24/doc-inipkvrw6209456.shtml",
+              "date": "2026-08-24"
+            },
+            {
               "title": "에 따르면 메모리 가격 급등으로 인해 NVIDIA AI 서버 가격이 15% 이상 오를 것이라고 합니다 - CFM 플래시 메모리 시장",
               "source": "CFM闪存市场",
               "sourceClass": "general-media",
@@ -9370,11 +9379,11 @@
               "date": "2026-08-23"
             },
             {
-              "title": "AMD Helios AI 랙은 HBM4 메모리 에지로 NVIDIA에 도전 · Microsoft가 최신 고객으로 합류",
-              "source": "TrendForce",
-              "sourceClass": "research",
-              "url": "https://www.trendforce.com/news/2026/07/21/news-amds-first-rack-scale-ai-system-helios-challenges-nvidia-with-hbm4-memory-edge-but-reportedly-comes-at-a-higher-price",
-              "date": "2026-07-21"
+              "title": "SKHY의 새로운 HBM 팀이 Nvidia와 AMD의 뒷마당에 상륙 - 공동 설계가 HBM4 주문을 획득하는 방법이 되고 있음 - digittimes",
+              "source": "digitimes",
+              "sourceClass": "authoritative-media",
+              "url": "https://www.digitimes.com/news/a20260820pd219/sk-hynix-hbm-hbm4-design-amd.html",
+              "date": "2026-08-20"
             }
           ],
           "chipStage": "공식 플랫폼 공개",
@@ -15206,8 +15215,8 @@
           },
           "servesAccounts": [],
           "buyingCriteria": [],
-          "mentions": 1,
-          "sourceCount": 1,
+          "mentions": 0,
+          "sourceCount": 0,
           "officialEvidenceCount": 0,
           "weekly": [
             {
@@ -15224,7 +15233,7 @@
             },
             {
               "week": "2026-07-27",
-              "count": 1
+              "count": 0
             },
             {
               "week": "2026-08-03",
@@ -15677,15 +15686,7 @@
             "bandwidthMultiplier": null,
             "capacityMultiplier": null
           },
-          "evidenceStream": [
-            {
-              "title": "중국 최대 DRAM 생산업체인 CXMT, 상하이 상장에서 470% 상승 - CNBC TV18",
-              "source": "CNBC TV18",
-              "sourceClass": "news",
-              "url": "https://www.cnbctv18.com/market/changxin-technology-group-cxmt-stellar-debut-shanghai-stock-exchange-strong-retail-subscription-ipo-star-market-valuations-peers-19954343.htm",
-              "date": "2026-07-27"
-            }
-          ],
+          "evidenceStream": [],
           "chipStage": "Reference Monitor",
           "xpuEcosystem": null,
           "broadcomStrategy": null,
@@ -16262,7 +16263,7 @@
         "eyebrow": "COMPETITIVE DYNAMICS · VALUE CHAIN",
         "title": "경쟁 · 파트너십 · 투자 · 공급 관계 지도",
         "description": "고객 Roadmap부터 ASIC 설계·파운드리·메모리 공급까지 의사결정 사슬 연결",
-        "updatedAt": "2026-08-24T17:10:09.065Z",
+        "updatedAt": "2026-08-24T18:23:49.114Z",
         "types": [
           {
             "id": "competition",
@@ -17116,7 +17117,67 @@
           "headline": "NVIDIA · Vera Rubin",
           "layer": "end-customer",
           "decisionQuestion": "Qualification · Ramp · Package Capacity",
-          "topPainAxes": [],
+          "topPainAxes": [
+            {
+              "id": "bandwidth",
+              "index": "01",
+              "label": "대역폭",
+              "accent": "#2D6BFF",
+              "productIds": [
+                "custom-hbm",
+                "ai-n-b"
+              ],
+              "mentions": 1,
+              "sourceCount": 1,
+              "weekly": [
+                {
+                  "week": "2026-07-06",
+                  "count": 0
+                },
+                {
+                  "week": "2026-07-13",
+                  "count": 0
+                },
+                {
+                  "week": "2026-07-20",
+                  "count": 0
+                },
+                {
+                  "week": "2026-07-27",
+                  "count": 0
+                },
+                {
+                  "week": "2026-08-03",
+                  "count": 0
+                },
+                {
+                  "week": "2026-08-10",
+                  "count": 0
+                },
+                {
+                  "week": "2026-08-17",
+                  "count": 1
+                },
+                {
+                  "week": "2026-08-24",
+                  "count": 0
+                }
+              ],
+              "trend": "down",
+              "delta": -1,
+              "latest": {
+                "id": "82c68745768d7b14f288",
+                "title": "SKHY의 새로운 HBM 팀이 Nvidia와 AMD의 뒷마당에 상륙 - 공동 설계가 HBM4 주문을 획득하는 방법이 되고 있음 - digittimes",
+                "summary": "SK Hynix is reported to be assembling a high-bandwidth memory (HBM) design team in Silicon Valley, a move that would deepen its co-design work with major US chip customers · Analysts see it as evidence that HBM competition is shifting into a customized, jointly developed phase",
+                "text": "digitimes hbm sk hynix's new hbm team lands in nvidia and amd's backyard — co-design is becoming the way to win hbm4 orders - digitimes skhy의 새로운 hbm 팀이 nvidia와 amd의 뒷마당에 상륙 - 공동 설계가 hbm4 주문을 획득하는 방법이 되고 있음 - digittimes sk hynix is reported to be assembling a high-bandwidth memory (hbm) design team in silicon valley, a move that would deepen its co-design work with major us chip customers · analysts see it as evidence that hbm competition is shifting into a customized, jointly developed phase",
+                "source": "digitimes",
+                "sourceClass": "authoritative-media",
+                "origin": "live-crawl",
+                "url": "https://www.digitimes.com/news/a20260820pd219/sk-hynix-hbm-hbm4-design-amd.html",
+                "date": "2026-08-20"
+              }
+            }
+          ],
           "whyLost": [
             {
               "id": "pricing",
@@ -17182,10 +17243,20 @@
             "bandwidthMultiplier": null,
             "capacityMultiplier": null
           },
-          "recommendedProductIds": [],
+          "recommendedProductIds": [
+            "custom-hbm",
+            "ai-n-b"
+          ],
           "dealEvents": [],
           "supplierAlerts": [],
           "evidence": [
+            {
+              "title": "핫 칩 깊이: HBM은 맞춤화 및 3차원 스태킹을 향해 나아가고 있으며 Samsung, NVIDIA 및 Micron은 각각 밝은 로드맵을 가지고 있습니다 - Sina Finance",
+              "source": "新浪财经",
+              "sourceClass": "general-media",
+              "url": "https://finance.sina.com.cn/stock/t/2026-08-24/doc-inipkvrw6209456.shtml",
+              "date": "2026-08-24"
+            },
             {
               "title": "에 따르면 메모리 가격 급등으로 인해 NVIDIA AI 서버 가격이 15% 이상 오를 것이라고 합니다 - CFM 플래시 메모리 시장",
               "source": "CFM闪存市场",
@@ -17201,11 +17272,11 @@
               "date": "2026-08-23"
             },
             {
-              "title": "AMD Helios AI 랙은 HBM4 메모리 에지로 NVIDIA에 도전 · Microsoft가 최신 고객으로 합류",
-              "source": "TrendForce",
-              "sourceClass": "research",
-              "url": "https://www.trendforce.com/news/2026/07/21/news-amds-first-rack-scale-ai-system-helios-challenges-nvidia-with-hbm4-memory-edge-but-reportedly-comes-at-a-higher-price",
-              "date": "2026-07-21"
+              "title": "SKHY의 새로운 HBM 팀이 Nvidia와 AMD의 뒷마당에 상륙 - 공동 설계가 HBM4 주문을 획득하는 방법이 되고 있음 - digittimes",
+              "source": "digitimes",
+              "sourceClass": "authoritative-media",
+              "url": "https://www.digitimes.com/news/a20260820pd219/sk-hynix-hbm-hbm4-design-amd.html",
+              "date": "2026-08-20"
             }
           ]
         },
@@ -17401,15 +17472,7 @@
           "recommendedProductIds": [],
           "dealEvents": [],
           "supplierAlerts": [],
-          "evidence": [
-            {
-              "title": "중국 최대 DRAM 생산업체인 CXMT, 상하이 상장에서 470% 상승 - CNBC TV18",
-              "source": "CNBC TV18",
-              "sourceClass": "news",
-              "url": "https://www.cnbctv18.com/market/changxin-technology-group-cxmt-stellar-debut-shanghai-stock-exchange-strong-retail-subscription-ipo-star-market-valuations-peers-19954343.htm",
-              "date": "2026-07-27"
-            }
-          ]
+          "evidence": []
         }
       ],
       "verifiedAccounts": 3,
@@ -17459,8 +17522,8 @@
           },
           "servesAccounts": [],
           "buyingCriteria": [],
-          "mentions": 3,
-          "sourceCount": 3,
+          "mentions": 5,
+          "sourceCount": 5,
           "officialEvidenceCount": 0,
           "weekly": [
             {
@@ -17489,11 +17552,11 @@
             },
             {
               "week": "2026-08-17",
-              "count": 1
+              "count": 2
             },
             {
               "week": "2026-08-24",
-              "count": 1
+              "count": 2
             }
           ],
           "painAxes": [
@@ -17506,8 +17569,8 @@
                 "custom-hbm",
                 "ai-n-b"
               ],
-              "mentions": 0,
-              "sourceCount": 0,
+              "mentions": 1,
+              "sourceCount": 1,
               "weekly": [
                 {
                   "week": "2026-07-06",
@@ -17535,16 +17598,26 @@
                 },
                 {
                   "week": "2026-08-17",
-                  "count": 0
+                  "count": 1
                 },
                 {
                   "week": "2026-08-24",
                   "count": 0
                 }
               ],
-              "trend": "flat",
-              "delta": 0,
-              "latest": null
+              "trend": "down",
+              "delta": -1,
+              "latest": {
+                "id": "82c68745768d7b14f288",
+                "title": "SKHY의 새로운 HBM 팀이 Nvidia와 AMD의 뒷마당에 상륙 - 공동 설계가 HBM4 주문을 획득하는 방법이 되고 있음 - digittimes",
+                "summary": "SK Hynix is reported to be assembling a high-bandwidth memory (HBM) design team in Silicon Valley, a move that would deepen its co-design work with major US chip customers · Analysts see it as evidence that HBM competition is shifting into a customized, jointly developed phase",
+                "text": "digitimes hbm sk hynix's new hbm team lands in nvidia and amd's backyard — co-design is becoming the way to win hbm4 orders - digitimes skhy의 새로운 hbm 팀이 nvidia와 amd의 뒷마당에 상륙 - 공동 설계가 hbm4 주문을 획득하는 방법이 되고 있음 - digittimes sk hynix is reported to be assembling a high-bandwidth memory (hbm) design team in silicon valley, a move that would deepen its co-design work with major us chip customers · analysts see it as evidence that hbm competition is shifting into a customized, jointly developed phase",
+                "source": "digitimes",
+                "sourceClass": "authoritative-media",
+                "origin": "live-crawl",
+                "url": "https://www.digitimes.com/news/a20260820pd219/sk-hynix-hbm-hbm4-design-amd.html",
+                "date": "2026-08-20"
+              }
             },
             {
               "id": "capacity",
@@ -17942,6 +18015,13 @@
           },
           "evidenceStream": [
             {
+              "title": "핫 칩 깊이: HBM은 맞춤화 및 3차원 스태킹을 향해 나아가고 있으며 Samsung, NVIDIA 및 Micron은 각각 밝은 로드맵을 가지고 있습니다 - Sina Finance",
+              "source": "新浪财经",
+              "sourceClass": "general-media",
+              "url": "https://finance.sina.com.cn/stock/t/2026-08-24/doc-inipkvrw6209456.shtml",
+              "date": "2026-08-24"
+            },
+            {
               "title": "에 따르면 메모리 가격 급등으로 인해 NVIDIA AI 서버 가격이 15% 이상 오를 것이라고 합니다 - CFM 플래시 메모리 시장",
               "source": "CFM闪存市场",
               "sourceClass": "general-media",
@@ -17956,11 +18036,11 @@
               "date": "2026-08-23"
             },
             {
-              "title": "AMD Helios AI 랙은 HBM4 메모리 에지로 NVIDIA에 도전 · Microsoft가 최신 고객으로 합류",
-              "source": "TrendForce",
-              "sourceClass": "research",
-              "url": "https://www.trendforce.com/news/2026/07/21/news-amds-first-rack-scale-ai-system-helios-challenges-nvidia-with-hbm4-memory-edge-but-reportedly-comes-at-a-higher-price",
-              "date": "2026-07-21"
+              "title": "SKHY의 새로운 HBM 팀이 Nvidia와 AMD의 뒷마당에 상륙 - 공동 설계가 HBM4 주문을 획득하는 방법이 되고 있음 - digittimes",
+              "source": "digitimes",
+              "sourceClass": "authoritative-media",
+              "url": "https://www.digitimes.com/news/a20260820pd219/sk-hynix-hbm-hbm4-design-amd.html",
+              "date": "2026-08-20"
             }
           ],
           "chipStage": "공식 플랫폼 공개",
@@ -21504,8 +21584,8 @@
           },
           "servesAccounts": [],
           "buyingCriteria": [],
-          "mentions": 1,
-          "sourceCount": 1,
+          "mentions": 0,
+          "sourceCount": 0,
           "officialEvidenceCount": 0,
           "weekly": [
             {
@@ -21522,7 +21602,7 @@
             },
             {
               "week": "2026-07-27",
-              "count": 1
+              "count": 0
             },
             {
               "week": "2026-08-03",
@@ -21975,15 +22055,7 @@
             "bandwidthMultiplier": null,
             "capacityMultiplier": null
           },
-          "evidenceStream": [
-            {
-              "title": "중국 최대 DRAM 생산업체인 CXMT, 상하이 상장에서 470% 상승 - CNBC TV18",
-              "source": "CNBC TV18",
-              "sourceClass": "news",
-              "url": "https://www.cnbctv18.com/market/changxin-technology-group-cxmt-stellar-debut-shanghai-stock-exchange-strong-retail-subscription-ipo-star-market-valuations-peers-19954343.htm",
-              "date": "2026-07-27"
-            }
-          ],
+          "evidenceStream": [],
           "chipStage": "Reference Monitor",
           "xpuEcosystem": null,
           "broadcomStrategy": null,
@@ -23772,7 +23844,7 @@
     "reports": [
       {
         "title": "Sandisk, 프로슈머 및 중소기업을 위한 빠르고 내구성 높은 스토리지를 위한 SANDISK® NAS SSD 출시 - Sandisk",
-        "summary": "Sandisk는 오늘 최신 NAS(Network Attached Storage) 환경을 위해 특별히 제작된 내구성이 뛰어난 SSD로 구성된 SANDISK® NAS 포트폴리오를 발표",
+        "summary": "",
         "url": "https://www.sandisk.com/company/newsroom/press-releases/2026/2026-08-20-sandisk-introduces-nas-ssds-to-power-fast-high-endurance-storage-for-prosumers-and-small-businesses",
         "source": "Sandisk",
         "publishedAt": "2026-08-21",
@@ -23793,7 +23865,7 @@
       },
       {
         "title": "세 개의 드라이브, 하나의 목표: SANDISK Optimus™ SSD로 더 많은 작업을 수행할 수 있도록 지원 - Sandisk",
-        "summary": "게임, 스트리밍 및 주요 성능을 위해 특별히 제작된 SANDISK Optimus™ 내부 SSD 제품군에 대해 자세히 알아보세요",
+        "summary": "",
         "url": "https://www.sandisk.com/company/newsroom/blogs/2026/three-drives-one-goal-helping-do-more-with-sandisk-optimus-ssds",
         "source": "Sandisk",
         "publishedAt": "2026-08-20",
@@ -23809,29 +23881,8 @@
         "ageDays": 5
       },
       {
-        "title": "2026년 스토리지 NAND - 고급 메모리 필수 사항 브리핑 1 - TechInsights",
-        "summary": "비디오 브리핑에서는 3D NAND 로드맵 업데이트를 검토하고 주요 공급업체의 장치 설계, 확장 및 프로세스 추세를 분석",
-        "url": "https://www.techinsights.com/blog/2026-storage-nand-advanced-memory-essentials-briefing-1",
-        "source": "TechInsights",
-        "publishedAt": "2026-08-20",
-        "sourceClass": "research",
-        "evidenceLevel": "Watch",
-        "topics": [
-          {
-            "id": "rag",
-            "label": "RAG / VECTOR"
-          },
-          {
-            "id": "accelerator",
-            "label": "ACCELERATOR / MEMORY"
-          }
-        ],
-        "freshness": "fresh",
-        "ageDays": 5
-      },
-      {
         "title": "Hot Chips 2026: 삼성의 zHBM은 70%의 전력 효율성 향상을 주장 · SKHY, 인텔 EMIB 평가 - TrendForce",
-        "summary": "한국의 거대 메모리 기업인 삼성과 SKHY는 Hot Chips 2026에서 HBM 로드맵을 선보이기 위해 서로 다른 경로를 택 · Wccftech와 ServerTheHome에 따르면, 삼성은 표준 HBM에서 맞춤형 HBM, 그리고 궁극적으로 zHBM으로 3단계 진화를 계획했으며, zHBM은 표준 HBM4e 스택에 비해…",
+        "summary": "",
         "url": "https://www.trendforce.com/news/2026/08/24/news-hot-chips-2026-samsungs-zhbm-claims-70-power-efficiency-gain-sk-hynix-evaluates-intel-emib/",
         "source": "TrendForce",
         "publishedAt": "2026-08-24",
@@ -23848,7 +23899,7 @@
       },
       {
         "title": "AI 메모리 부족으로 인해 DRAM 및 NAND 가격이 수년간 높은 수준으로 유지될 수 있는 이유 - TechInsights",
-        "summary": "AI 중심 수요로 인해 역사상 최대 규모의 메모리 부족이 발생하고 있음 · DRAM 및 NAND 가격이 향후 10년 동안 계속 상승할 것으로 예상되는 이유를 알아보세요",
+        "summary": "",
         "url": "https://www.techinsights.com/blog/why-ai-memory-shortage-could-keep-dram-and-nand-prices-high-years",
         "source": "TechInsights",
         "publishedAt": "2026-08-20",
@@ -23865,8 +23916,25 @@
       },
       {
         "title": "SK hynix 128L 3D PUC NAND (4D NAND) - TechInsights",
-        "summary": "경쟁력 있는 기술 및 시장 인텔리전스를 활용하여 혁신을 주도하고 정보에 입각한 전략적 제품 로드맵 결정을 내림",
+        "summary": "",
         "url": "https://www.techinsights.com/blog/sk-hynix-128l-3d-puc-nand-4d-nand",
+        "source": "TechInsights",
+        "publishedAt": "2026-08-20",
+        "sourceClass": "research",
+        "evidenceLevel": "Watch",
+        "topics": [
+          {
+            "id": "accelerator",
+            "label": "ACCELERATOR / MEMORY"
+          }
+        ],
+        "freshness": "fresh",
+        "ageDays": 5
+      },
+      {
+        "title": "4F² 혁신: VCT DRAM과 10nm 이하 DRAM을 위한 하이브리드 본딩 시대 - TechInsights",
+        "summary": "",
+        "url": "https://www.techinsights.com/blog/4f2-breakthrough-vct-dram-and-hybrid-bonding-era-sub-10nm-dram",
         "source": "TechInsights",
         "publishedAt": "2026-08-20",
         "sourceClass": "research",
@@ -24021,12 +24089,12 @@
           "nvidia-newsroom"
         ],
         "currentSignal": {
-          "title": "AMD Helios AI 랙은 HBM4 메모리 에지로 NVIDIA에 도전 · Microsoft가 최신 고객으로 합류",
+          "title": "SKHY의 새로운 HBM 팀이 Nvidia와 AMD의 뒷마당에 상륙 - 공동 설계가 HBM4 주문을 획득하는 방법이 되고 있음 - digittimes",
           "decision": "고객 인증·공급 일정·베이스 다이·패키징 병목을 함께 확인한 뒤 프리미엄 캐파를 배분",
-          "source": "TrendForce",
-          "url": "https://www.trendforce.com/news/2026/07/21/news-amds-first-rack-scale-ai-system-helios-challenges-nvidia-with-hbm4-memory-edge-but-reportedly-comes-at-a-higher-price/",
-          "publishedAt": "2026-07-21",
-          "evidenceLevel": "Watch"
+          "source": "digitimes",
+          "url": "https://www.digitimes.com/news/a20260820PD219/sk-hynix-hbm-hbm4-design-amd.html",
+          "publishedAt": "2026-08-20",
+          "evidenceLevel": "Reported"
         }
       },
       {
@@ -24167,7 +24235,7 @@
           "decision": "AI 개발사·데이터센터·OEM·Consulting/SI의 역할을 PoC·Qualification·Capacity·90일 Action으로 연결",
           "source": "Broadcom × Meta MTIA",
           "url": "https://investors.broadcom.com/node/64236/pdf",
-          "publishedAt": "2026-08-24T17:10:09.065Z",
+          "publishedAt": "2026-08-24T18:23:49.114Z",
           "evidenceLevel": "Official baseline"
         }
       }
@@ -24212,8 +24280,8 @@
       },
       "enabled": true
     },
-    "runId": "32754142938",
-    "generatedAt": "2026-08-24T17:10:09.065Z",
+    "runId": "32760724569",
+    "generatedAt": "2026-08-24T18:23:49.114Z",
     "liveEvidenceCount": 4
   },
   "aiFactorySystem": {
@@ -24322,7 +24390,7 @@
         "evidence": {
           "status": "Watch",
           "title": "Sandisk, 프로슈머 및 중소기업을 위한 빠르고 내구성 높은 스토리지를 위한 SANDISK® NAS SSD 출시 - Sandisk",
-          "summary": "Sandisk는 오늘 최신 NAS(Network Attached Storage) 환경을 위해 특별히 제작된 내구성이 뛰어난 SSD로 구성된 SANDISK® NAS 포트폴리오를 발표",
+          "summary": "",
           "source": "Sandisk Newsroom",
           "sourceId": "sandisk-newsroom",
           "sourceClass": "official",
@@ -24449,7 +24517,7 @@
         "evidence": {
           "status": "Watch",
           "title": "Sandisk, 프로슈머 및 중소기업을 위한 빠르고 내구성 높은 스토리지를 위한 SANDISK® NAS SSD 출시 - Sandisk",
-          "summary": "Sandisk는 오늘 최신 NAS(Network Attached Storage) 환경을 위해 특별히 제작된 내구성이 뛰어난 SSD로 구성된 SANDISK® NAS 포트폴리오를 발표",
+          "summary": "",
           "source": "Sandisk Newsroom",
           "sourceId": "sandisk-newsroom",
           "sourceClass": "official",
@@ -24883,7 +24951,7 @@
         "pillar": "facility",
         "pillarLabel": "POWER / COOLING",
         "title": "Sandisk, 프로슈머 및 중소기업을 위한 빠르고 내구성 높은 스토리지를 위한 SANDISK® NAS SSD 출시 - Sandisk",
-        "summary": "Sandisk는 오늘 최신 NAS(Network Attached Storage) 환경을 위해 특별히 제작된 내구성이 뛰어난 SSD로 구성된 SANDISK® NAS 포트폴리오를 발표",
+        "summary": "",
         "source": "Sandisk Newsroom",
         "sourceId": "sandisk-newsroom",
         "url": "https://www.sandisk.com/company/newsroom/press-releases/2026/2026-08-20-sandisk-introduces-nas-ssds-to-power-fast-high-endurance-storage-for-prosumers-and-small-businesses",
@@ -24961,8 +25029,8 @@
       "scheduleHours": 1,
       "failClosed": true
     },
-    "generatedAt": "2026-08-24T17:10:09.065Z",
-    "runId": "32754142938"
+    "generatedAt": "2026-08-24T18:23:49.114Z",
+    "runId": "32760724569"
   },
   "workloadOptimization": {
     "title": "Data Center Workload Optimization · Bottleneck-to-PoC",
@@ -25344,21 +25412,9 @@
         "status": "fresh"
       }
     ],
-    "currentSignals": [
-      {
-        "id": "sandisk-newsroom-2026-08-21",
-        "title": "Sandisk, 프로슈머 및 중소기업을 위한 빠르고 내구성 높은 스토리지를 위한 SANDISK® NAS SSD 출시 - Sandisk",
-        "summary": "Sandisk는 오늘 최신 NAS(Network Attached Storage) 환경을 위해 특별히 제작된 내구성이 뛰어난 SSD로 구성된 SANDISK® NAS 포트폴리오를 발표",
-        "source": "Sandisk Newsroom",
-        "sourceId": "sandisk-newsroom",
-        "url": "https://www.sandisk.com/company/newsroom/press-releases/2026/2026-08-20-sandisk-introduces-nas-ssds-to-power-fast-high-endurance-storage-for-prosumers-and-small-businesses",
-        "publishedAt": "2026-08-21",
-        "evidenceLevel": "Watch",
-        "sourceClass": "official"
-      }
-    ],
-    "generatedAt": "2026-08-24T17:10:09.065Z",
-    "runId": "32754142938"
+    "currentSignals": [],
+    "generatedAt": "2026-08-24T18:23:49.114Z",
+    "runId": "32760724569"
   },
   "agentCouncil": {
     "title": "AI Infra Strategy Agent Council",
@@ -25372,7 +25428,7 @@
         "phase": "NOW",
         "tabLabel": "Custom HBM",
         "title": "Customized Memory Consulting · Custom HBM",
-        "subtitle": "TrendForce 최신 근거 · 2026-07-21",
+        "subtitle": "digitimes 최신 근거 · 2026-08-20",
         "answerTitle": "검증된 Ramp와 Custom Co-Design을 분리 운영",
         "recommendation": "TWO-TRACK",
         "question": "고객별 Workload 요구를 HBM·Base-Die·Package·Capacity 공동설계와 수익성으로 어떻게 연결할 것인가?",
@@ -25385,20 +25441,20 @@
         },
         "stop": "고객별 HBM4 인증 일정, 패키징 할당 또는 양산 수율의 공식 변경",
         "latest": {
-          "title": "AMD Helios AI 랙은 HBM4 메모리 에지로 NVIDIA에 도전 · Microsoft가 최신 고객으로 합류",
-          "summary": "NVIDIA의 블록버스터 Grace Blackwell과 곧 출시될 Vera Rubin 플랫폼은 직접적인 도전자에 직면해 있음 · CNBC가 보도한 바와 같이, AMD는 올해 말 자사의 첫 번째 랙 규모 AI 시스템인 Helios를 출시할 예정이며, Microsoft는 Meta, OpenAI 및 Oracle에 합류한 최신 고객이 되었음",
-          "source": "TrendForce",
-          "url": "https://www.trendforce.com/news/2026/07/21/news-amds-first-rack-scale-ai-system-helios-challenges-nvidia-with-hbm4-memory-edge-but-reportedly-comes-at-a-higher-price/",
-          "publishedAt": "2026-07-21",
-          "evidenceLevel": "Watch",
-          "sourceClass": "research"
+          "title": "SKHY의 새로운 HBM 팀이 Nvidia와 AMD의 뒷마당에 상륙 - 공동 설계가 HBM4 주문을 획득하는 방법이 되고 있음 - digittimes",
+          "summary": "실리콘밸리 HBM 설계팀 구축 · 주요 고객 공동 설계 확대 · Custom HBM 경쟁 전환 신호",
+          "source": "digitimes",
+          "url": "https://www.digitimes.com/news/a20260820PD219/sk-hynix-hbm-hbm4-design-amd.html",
+          "publishedAt": "2026-08-20",
+          "evidenceLevel": "Reported",
+          "sourceClass": "authoritative-media"
         },
-        "evidenceCount": 7,
+        "evidenceCount": 8,
         "signals": [
           [
-            "Watch · RESEARCH",
-            "AMD Helios AI 랙은 HBM4 메모리 에지로 NVIDIA에 도전 · Microsoft가 최신 고객으로 합류",
-            "NVIDIA의 블록버스터 Grace Blackwell과 곧 출시될 Vera Rubin 플랫폼은 직접적인 도전자에 직면해 있음 · CNBC가 보도한 바와 같이, AMD는 올해 말 자사의 첫 번째 랙 규모 AI 시스템인 Helios를 출시할 예정이며, Microsoft는 Meta, OpenAI 및 Oracle에 합류한 최신 고객이 되었음"
+            "Reported · AUTHORITATIVE-MEDIA",
+            "SKHY의 새로운 HBM 팀이 Nvidia와 AMD의 뒷마당에 상륙 - 공동 설계가 HBM4 주문을 획득하는 방법이 되고 있음 - digittimes",
+            "실리콘밸리 HBM 설계팀 구축 · 주요 고객 공동 설계 확대 · Custom HBM 경쟁 전환 신호"
           ],
           [
             "EXECUTIVE DECISION",
@@ -25485,9 +25541,9 @@
         "useCase": "MODELED STRATEGY CASE · AI Accelerator · Workload Trace → Base-Die 공동설계 → Qualification → Capacity Gate",
         "sources": [
           [
-            "Watch",
-            "TrendForce · 2026-07-21",
-            "https://www.trendforce.com/news/2026/07/21/news-amds-first-rack-scale-ai-system-helios-challenges-nvidia-with-hbm4-memory-edge-but-reportedly-comes-at-a-higher-price/"
+            "Reported",
+            "digitimes · 2026-08-20",
+            "https://www.digitimes.com/news/a20260820PD219/sk-hynix-hbm-hbm4-design-amd.html"
           ],
           [
             "CONTROL",
@@ -25668,7 +25724,7 @@
           "evidenceLevel": "Reported",
           "sourceClass": "research"
         },
-        "evidenceCount": 22,
+        "evidenceCount": 19,
         "signals": [
           [
             "Reported · RESEARCH",
@@ -25806,7 +25862,7 @@
           "evidenceLevel": "Watch",
           "sourceClass": "research"
         },
-        "evidenceCount": 13,
+        "evidenceCount": 14,
         "signals": [
           [
             "Watch · RESEARCH",
@@ -26060,7 +26116,7 @@
         "phase": "SCALE",
         "tabLabel": "Partner-led New Biz",
         "title": "Partners & Clients · Repeatable New Biz",
-        "subtitle": "TrendForce 최신 근거 · 2026-08-20",
+        "subtitle": "digitimes 최신 근거 · 2026-08-20",
         "answerTitle": "검증 결과를 반복 가능한 공동사업 패키지로 전환",
         "recommendation": "LIGHTHOUSE → REPEAT",
         "question": "AI 개발사·데이터센터·OEM·컨설팅 파트너를 어떤 RACI로 묶어 Pain 진단부터 Qualification·반복주문까지 연결할 것인가?",
@@ -26073,20 +26129,20 @@
         },
         "stop": "공식 출하 전망 또는 고객 CapEx가 기준 시나리오 대비 10% 이상 변경",
         "latest": {
-          "title": "SKHY, CPO 로드맵 공개, HBM 넘어 AI 인프라까지 - TrendForce",
-          "summary": "SKHY는 메모리 공급업체에서 AI 인프라 분야의 더 큰 역할로 전환하고 있음 · 회사에 따르면, 전 세계 주요 연구자들과 협력하여 Nature Electronics 저널에 공동 패키지 광학(CPO)에 대한 로드맵을 제시",
-          "source": "TrendForce",
-          "url": "https://www.trendforce.com/news/2026/08/20/news-sk-hynix-unveils-cpo-roadmap-looks-beyond-hbm-to-ai-infrastructure/",
+          "title": "SKHY의 새로운 HBM 팀이 Nvidia와 AMD의 뒷마당에 상륙 - 공동 설계가 HBM4 주문을 획득하는 방법이 되고 있음 - digittimes",
+          "summary": "실리콘밸리 HBM 설계팀 구축 · 주요 고객 공동 설계 확대 · Custom HBM 경쟁 전환 신호",
+          "source": "digitimes",
+          "url": "https://www.digitimes.com/news/a20260820PD219/sk-hynix-hbm-hbm4-design-amd.html",
           "publishedAt": "2026-08-20",
           "evidenceLevel": "Watch",
-          "sourceClass": "research"
+          "sourceClass": "authoritative-media"
         },
         "evidenceCount": 2,
         "signals": [
           [
-            "Watch · RESEARCH",
-            "SKHY, CPO 로드맵 공개, HBM 넘어 AI 인프라까지 - TrendForce",
-            "SKHY는 메모리 공급업체에서 AI 인프라 분야의 더 큰 역할로 전환하고 있음 · 회사에 따르면, 전 세계 주요 연구자들과 협력하여 Nature Electronics 저널에 공동 패키지 광학(CPO)에 대한 로드맵을 제시"
+            "Watch · AUTHORITATIVE-MEDIA",
+            "SKHY의 새로운 HBM 팀이 Nvidia와 AMD의 뒷마당에 상륙 - 공동 설계가 HBM4 주문을 획득하는 방법이 되고 있음 - digittimes",
+            "실리콘밸리 HBM 설계팀 구축 · 주요 고객 공동 설계 확대 · Custom HBM 경쟁 전환 신호"
           ],
           [
             "EXECUTIVE DECISION",
@@ -26173,8 +26229,8 @@
         "sources": [
           [
             "Watch",
-            "TrendForce · 2026-08-20",
-            "https://www.trendforce.com/news/2026/08/20/news-sk-hynix-unveils-cpo-roadmap-looks-beyond-hbm-to-ai-infrastructure/"
+            "digitimes · 2026-08-20",
+            "https://www.digitimes.com/news/a20260820PD219/sk-hynix-hbm-hbm4-design-amd.html"
           ],
           [
             "CONTROL",
