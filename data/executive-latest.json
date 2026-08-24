@@ -1,9 +1,9 @@
 {
   "schemaVersion": "1.1",
   "type": "executive-decision-snapshot",
-  "runId": "32760724569",
-  "generatedAt": "2026-08-24T18:23:49.114Z",
-  "expiresAt": "2026-08-25T20:23:46.925Z",
+  "runId": "32767114262",
+  "generatedAt": "2026-08-24T19:29:44.826Z",
+  "expiresAt": "2026-08-25T21:29:42.668Z",
   "state": "DECISION_READY",
   "freshness": {
     "score": 91.6,
@@ -21,9 +21,9 @@
     "targetPct": 90
   },
   "funnel": {
-    "sourceDocuments": 78,
-    "structuredEvents": 36,
-    "verifiedEvents": 30,
+    "sourceDocuments": 80,
+    "structuredEvents": 40,
+    "verifiedEvents": 31,
     "decisionReadyBriefs": 4,
     "executionTrackingBriefs": 0
   },
@@ -170,8 +170,8 @@
       "customerPain": "긴 Context·동시 실행·KV 이동으로 TTFT/TPOT와 Cost per Successful Task가 악화",
       "factBoundary": "공식 원문·제품 Stage·날짜가 확인된 내용만 사실로 승격 · 전망 수치는 시장 추정치로 분리",
       "hypothesisStatus": "strategy-hypothesis",
-      "officialFactCount": 6,
-      "marketEstimateCount": 2,
+      "officialFactCount": 4,
+      "marketEstimateCount": 4,
       "hypothesis": "Serving SW 최적화 후에도 KV Capacity가 지배 병목이면 HBM·AI-D·AI-N·HBF Tiering이 단일 계층 증설보다 경제적",
       "options": [
         "Scheduler / Prefix Reuse",
@@ -248,36 +248,36 @@
           "excerpt": "Quarterly DRAM report analyzes supply, demand, pricing, and market share across key segments, tracking capacity, trends, and technology shifts"
         },
         {
-          "id": "c45829925fa53f7d2586",
-          "ruleId": "hbf-standardization-stage",
+          "id": "ad1fe730a17bcd7b5f78",
+          "ruleId": "capacity-commitment",
           "feedId": null,
-          "title": "Sandisk · HBF · STANDARDIZATION",
-          "source": "Goldman Sachs",
-          "sourceId": "goldman-sachs",
+          "title": "Samsung · AI Memory · DISCLOSED",
+          "source": "TrendForce",
+          "sourceId": "trendforce",
           "sourceClass": "research",
-          "url": "https://www.trendforce.com/news/2026/08/14/news-sandisk-reportedly-tapes-out-first-hbf-product-targets-2027-samples-and-2028-production",
-          "publishedAt": "2026-08-14",
-          "stage": "STANDARDIZATION",
+          "url": "https://www.trendforce.com/news/2026/08/20/news-samsung-to-break-ground-on-krw-6t-onyang-hbm-fab-in-sept-p5-eyes-triple-fab-shift-as-expansion-accelerates",
+          "publishedAt": "2026-08-20",
+          "stage": "DISCLOSED",
           "confidence": "research-observed",
           "claimType": "market-estimate",
-          "asOf": "2026-08-14",
-          "excerpt": "지난 8월 초 SKHY와 함께 최초의 고대역폭 플래시(HBF) 표준 사양을 공개한 지 불과 며칠 만에 샌디스크는 8월 13일 투자자의 날에서 더 자세한 내용을 공개"
+          "asOf": "2026-08-20",
+          "excerpt": "Samsung is stepping up its capacity expansion"
         },
         {
-          "id": "7c64b0051b9767050f5a",
-          "ruleId": "hbf-standardization-stage",
-          "feedId": "skhynix-hbf-open-standard",
-          "title": "SK hynix · HBF · STANDARDIZATION",
-          "source": "SK hynix Newsroom",
-          "sourceId": "skhynix-newsroom",
-          "sourceClass": "official",
-          "url": "https://news.skhynix.com/en/hbf-at-fms-2026",
-          "publishedAt": "2026-08-04",
-          "stage": "STANDARDIZATION",
-          "confidence": "confirmed-primary",
-          "claimType": "verified-fact",
-          "asOf": "2026-08-04",
-          "excerpt": "SK hynix and Sandisk released the first open HBF standard via OCP to ease AI memory bottlenecks, with up to 512GB and 3TB/s bandwidth, UCIe support, and a 375‑layer 4D NAND that is 2.5 times more power efficient"
+          "id": "bddb4c277db34b733418",
+          "ruleId": "capacity-commitment",
+          "feedId": null,
+          "title": "NVIDIA · Vera Rubin · DISCLOSED",
+          "source": "TrendForce",
+          "sourceId": "trendforce",
+          "sourceClass": "research",
+          "url": "https://www.trendforce.com/news/2026/07/28/news-nvidia-reportedly-halves-vera-rubin-socamm-capacity-as-memory-costs-near-29-of-system-bom",
+          "publishedAt": "2026-07-28",
+          "stage": "DISCLOSED",
+          "confidence": "research-observed",
+          "claimType": "market-estimate",
+          "asOf": "2026-07-28",
+          "excerpt": "According to Wccftech , citing analysis from GF Securities, NVIDIA is reportedly reducing the memory capacity of its Vera Rubin NVL72 rack-scale AI system to cope with elevated memory prices and ongoing supply shortages"
         }
       ]
     },
@@ -297,8 +297,8 @@
       "customerPain": "검색 품질·P99를 유지하면서 서버별 유휴 Memory와 Peak 증설 비용을 함께 통제",
       "factBoundary": "공식 근거는 CXL 용량 확장·Memory Pooling·MaaS 기술 방향까지 · 구독 과금·SLA는 미검증",
       "hypothesisStatus": "strategy-hypothesis",
-      "officialFactCount": 6,
-      "marketEstimateCount": 2,
+      "officialFactCount": 4,
+      "marketEstimateCount": 4,
       "hypothesis": "품질 Gate 통과 후 AI-D·AI-N/HBF와 CXL Pool을 계층화하고 사용량 계측형 서비스 모델을 검증",
       "options": [
         "AI-D Active Index",
@@ -341,6 +341,38 @@
           "excerpt": "Quarterly DRAM report analyzes supply, demand, pricing, and market share across key segments, tracking capacity, trends, and technology shifts"
         },
         {
+          "id": "ad1fe730a17bcd7b5f78",
+          "ruleId": "capacity-commitment",
+          "feedId": null,
+          "title": "Samsung · AI Memory · DISCLOSED",
+          "source": "TrendForce",
+          "sourceId": "trendforce",
+          "sourceClass": "research",
+          "url": "https://www.trendforce.com/news/2026/08/20/news-samsung-to-break-ground-on-krw-6t-onyang-hbm-fab-in-sept-p5-eyes-triple-fab-shift-as-expansion-accelerates",
+          "publishedAt": "2026-08-20",
+          "stage": "DISCLOSED",
+          "confidence": "research-observed",
+          "claimType": "market-estimate",
+          "asOf": "2026-08-20",
+          "excerpt": "Samsung is stepping up its capacity expansion"
+        },
+        {
+          "id": "bddb4c277db34b733418",
+          "ruleId": "capacity-commitment",
+          "feedId": null,
+          "title": "NVIDIA · Vera Rubin · DISCLOSED",
+          "source": "TrendForce",
+          "sourceId": "trendforce",
+          "sourceClass": "research",
+          "url": "https://www.trendforce.com/news/2026/07/28/news-nvidia-reportedly-halves-vera-rubin-socamm-capacity-as-memory-costs-near-29-of-system-bom",
+          "publishedAt": "2026-07-28",
+          "stage": "DISCLOSED",
+          "confidence": "research-observed",
+          "claimType": "market-estimate",
+          "asOf": "2026-07-28",
+          "excerpt": "According to Wccftech , citing analysis from GF Securities, NVIDIA is reportedly reducing the memory capacity of its Vera Rubin NVL72 rack-scale AI system to cope with elevated memory prices and ongoing supply shortages"
+        },
+        {
           "id": "966d81f1ea767fe232f5",
           "ruleId": "full-stack-memory-portfolio",
           "feedId": "skhynix-tsmc-symposium-2026",
@@ -371,38 +403,6 @@
           "claimType": "verified-fact",
           "asOf": "2022-08-05",
           "excerpt": "The new product redefines memory-as-a-service thanks to CXL memory’s bandwidth/capacity expansion, media differentiation, controller differentiation, and pooling"
-        },
-        {
-          "id": "c45829925fa53f7d2586",
-          "ruleId": "hbf-standardization-stage",
-          "feedId": null,
-          "title": "Sandisk · HBF · STANDARDIZATION",
-          "source": "Goldman Sachs",
-          "sourceId": "goldman-sachs",
-          "sourceClass": "research",
-          "url": "https://www.trendforce.com/news/2026/08/14/news-sandisk-reportedly-tapes-out-first-hbf-product-targets-2027-samples-and-2028-production",
-          "publishedAt": "2026-08-14",
-          "stage": "STANDARDIZATION",
-          "confidence": "research-observed",
-          "claimType": "market-estimate",
-          "asOf": "2026-08-14",
-          "excerpt": "지난 8월 초 SKHY와 함께 최초의 고대역폭 플래시(HBF) 표준 사양을 공개한 지 불과 며칠 만에 샌디스크는 8월 13일 투자자의 날에서 더 자세한 내용을 공개"
-        },
-        {
-          "id": "7c64b0051b9767050f5a",
-          "ruleId": "hbf-standardization-stage",
-          "feedId": "skhynix-hbf-open-standard",
-          "title": "SK hynix · HBF · STANDARDIZATION",
-          "source": "SK hynix Newsroom",
-          "sourceId": "skhynix-newsroom",
-          "sourceClass": "official",
-          "url": "https://news.skhynix.com/en/hbf-at-fms-2026",
-          "publishedAt": "2026-08-04",
-          "stage": "STANDARDIZATION",
-          "confidence": "confirmed-primary",
-          "claimType": "verified-fact",
-          "asOf": "2026-08-04",
-          "excerpt": "SK hynix and Sandisk released the first open HBF standard via OCP to ease AI memory bottlenecks, with up to 512GB and 3TB/s bandwidth, UCIe support, and a 375‑layer 4D NAND that is 2.5 times more power efficient"
         }
       ]
     },
@@ -422,8 +422,8 @@
       "customerPain": "가속기·Fabric·Storage·전력·냉각의 병목이 Rack/POD 단위 확장을 제한",
       "factBoundary": "공식 원문·제품 Stage·날짜가 확인된 내용만 사실로 승격 · 전망 수치는 시장 추정치로 분리",
       "hypothesisStatus": "strategy-hypothesis",
-      "officialFactCount": 7,
-      "marketEstimateCount": 1,
+      "officialFactCount": 5,
+      "marketEstimateCount": 3,
       "hypothesis": "서버 단품이 아니라 Useful AI Work / Total Cost와 Qualification / Time 기준으로 Rack Cell을 공동 최적화",
       "options": [
         "Retrofit",
@@ -615,11 +615,11 @@
           "nvidia-newsroom"
         ],
         "currentSignal": {
-          "title": "SKHY의 새로운 HBM 팀이 Nvidia와 AMD의 뒷마당에 상륙 - 공동 설계가 HBM4 주문을 획득하는 방법이 되고 있음 - digittimes",
+          "title": "메모리는 Nvidia Vera Rubin 비용의 62%를 차지 · HBM4가 아닌 SOCAMM2가 비용을 주도합니다 - digittimes",
           "decision": "고객 인증·공급 일정·베이스 다이·패키징 병목을 함께 확인한 뒤 프리미엄 캐파를 배분",
           "source": "digitimes",
-          "url": "https://www.digitimes.com/news/a20260820PD219/sk-hynix-hbm-hbm4-design-amd.html",
-          "publishedAt": "2026-08-20",
+          "url": "https://www.digitimes.com/news/a20260810PD241/rubin-hbm4-cost-nvidia-chips.html",
+          "publishedAt": "2026-08-11",
           "evidenceLevel": "Reported"
         }
       },
@@ -710,12 +710,12 @@
           "skhynix-newsroom"
         ],
         "currentSignal": {
-          "title": "CXMT DDR5는 AMD 플랫폼에서 9,000MT/s를 넘어 글로벌 리더와의 성능 격차를 줄인 것으로 알려졌음",
-          "decision": "Spot 방향이 계약가로 전이되는지와 CXMT 고객·캐파 신호를 함께 확인해 범용 DRAM 가격 방어 강도를 정",
-          "source": "TrendForce",
-          "url": "https://www.trendforce.com/news/2026/08/18/news-cxmt-ddr5-reportedly-tops-9000-mts-on-amd-platform-narrowing-performance-gap-with-global-leaders/",
-          "publishedAt": "2026-08-18",
-          "evidenceLevel": "Watch"
+          "title": "OpenAI Infrastructure · 공식 Baseline",
+          "decision": "AI Application·HW/SW·Transformer·RAG·Vector DB 변화를 Memory Demand·서비스 모델·수익성 기회로 번역",
+          "source": "OpenAI Infrastructure",
+          "url": "https://openai.com/index/openai-and-broadcom-announce-strategic-collaboration/",
+          "publishedAt": "2026-08-24T19:29:44.826Z",
+          "evidenceLevel": "Official baseline"
         }
       },
       {
@@ -761,7 +761,7 @@
           "decision": "AI 개발사·데이터센터·OEM·Consulting/SI의 역할을 PoC·Qualification·Capacity·90일 Action으로 연결",
           "source": "Broadcom × Meta MTIA",
           "url": "https://investors.broadcom.com/node/64236/pdf",
-          "publishedAt": "2026-08-24T18:23:49.114Z",
+          "publishedAt": "2026-08-24T19:29:44.826Z",
           "evidenceLevel": "Official baseline"
         }
       }
@@ -806,8 +806,8 @@
       },
       "enabled": true
     },
-    "runId": "32760724569",
-    "generatedAt": "2026-08-24T18:23:49.114Z",
+    "runId": "32767114262",
+    "generatedAt": "2026-08-24T19:29:44.826Z",
     "liveEvidenceCount": 4
   },
   "claimEvents": [
