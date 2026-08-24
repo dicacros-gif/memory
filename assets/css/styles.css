@@ -28078,51 +28078,77 @@ button.ni-trend-chip:hover { box-shadow: 0 4px 12px color-mix(in srgb, #0891B2 2
   counter-reset: sc-step;
   display: grid;
   grid-template-columns: repeat(5, minmax(0, 1fr));
+  gap: 12px;
   margin: 0;
   padding: 0;
   list-style: none;
-  border: 1px solid var(--line);
-  overflow: hidden;
-  background: var(--panel);
+  border: 0;
+  overflow: visible;
+  background: transparent;
 }
 .sc-framework-steps li {
+  --stage-accent: #08766f;
   position: relative;
   display: grid;
+  grid-template-columns: 38px minmax(0, 1fr);
   align-content: start;
-  gap: 5px;
-  min-height: 126px;
-  padding: 15px 14px 14px;
-  border-right: 1px solid var(--line);
+  gap: 11px;
+  min-height: 176px;
+  padding: 22px 24px 18px 18px;
+  color: var(--ink);
+  isolation: isolate;
+  outline: none;
+}
+.sc-framework-steps > li:nth-child(2) { --stage-accent: #2d6bca; }
+.sc-framework-steps > li:nth-child(3) { --stage-accent: #8053cb; }
+.sc-framework-steps > li:nth-child(4) { --stage-accent: #b66d00; }
+.sc-framework-steps > li:nth-child(5) { --stage-accent: #1968b3; }
+.sc-framework-steps > li::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  border-top: 3px solid var(--stage-accent);
+  background: var(--panel);
+  clip-path: polygon(0 0, calc(100% - 16px) 0, 100% 50%, calc(100% - 16px) 100%, 0 100%, 8px 50%);
+  box-shadow: inset 0 0 0 1px var(--line);
+  transition: background-color 0s, border-color 0s;
 }
 .sc-framework-steps li:last-child { border-right: 0; }
 .sc-framework-steps li:not(:last-child)::after {
-  content: "›";
+  content: "→";
   position: absolute;
-  z-index: 1;
+  z-index: 2;
   top: 50%;
-  right: -9px;
-  display: grid;
-  width: 18px;
-  height: 18px;
-  place-items: center;
-  border: 1px solid var(--line);
-  border-radius: 0;
-  background: var(--panel);
-  color: var(--accent);
-  font: 900 15px/1 sans-serif;
+  right: -12px;
+  color: var(--stage-accent);
+  font: 900 13px/1 sans-serif;
   transform: translateY(-50%);
 }
 .sc-framework-steps b {
-  color: color-mix(in srgb, var(--accent) 26%, var(--line));
-  font: 850 28px/1 var(--display, "Space Grotesk", sans-serif);
+  display: grid;
+  width: 38px;
+  height: 38px;
+  place-items: center;
+  border: 1px solid var(--ink);
+  border-radius: 50%;
+  color: var(--ink);
+  font: 850 13px/1 var(--display, "Space Grotesk", sans-serif);
 }
+.sc-framework-steps li > div { display: grid; align-content: start; gap: 8px; min-width: 0; }
 .sc-framework-steps span {
-  color: var(--accent);
-  font: 850 8px/1 var(--display, "Space Grotesk", sans-serif);
-  letter-spacing: .13em;
+  color: var(--stage-accent);
+  font: 850 11px/1.2 var(--display, "Space Grotesk", sans-serif);
+  letter-spacing: .04em;
 }
-.sc-framework-steps strong { color: var(--ink); font-size: 12px; line-height: 1.25; }
-.sc-framework-steps small { color: var(--ink-2); font-size: 9.5px; font-weight: 650; line-height: 1.45; }
+.sc-framework-steps strong { color: var(--ink); font-size: 13px; line-height: 1.3; }
+.sc-framework-steps ul { display: grid; gap: 7px; margin: 2px 0 0; padding: 0; list-style: none; }
+.sc-framework-steps ul li { display: block; min-height: 0; padding: 0 0 0 12px; color: var(--ink-2); font-size: 10px; font-weight: 650; line-height: 1.5; }
+.sc-framework-steps ul li::before { content: "·"; position: absolute; inset: 0 auto auto 0; border: 0; background: none; box-shadow: none; clip-path: none; color: var(--stage-accent); font-weight: 900; }
+.sc-framework-steps ul li:not(:last-child)::after { display: none; }
+.sc-framework-steps > li:is(:hover, :focus-visible)::before { border-color: var(--stage-accent); background: var(--stage-accent); }
+.sc-framework-steps > li:is(:hover, :focus-visible) :is(span, strong, ul li) { color: #fff; -webkit-text-fill-color: #fff; }
+.sc-framework-steps > li:is(:hover, :focus-visible) b { border-color: #fff; background: #fff; color: var(--stage-accent); -webkit-text-fill-color: var(--stage-accent); }
 .sc-scorecard {
   display: grid;
   grid-template-columns: auto repeat(4, minmax(0, 1fr));
@@ -28299,10 +28325,10 @@ button.ni-trend-chip:hover { box-shadow: 0 4px 12px color-mix(in srgb, #0891B2 2
 
 @media (max-width: 1120px) {
   .sc-framework-steps { grid-template-columns: repeat(3, minmax(0, 1fr)); }
-  .sc-framework-steps li { border-bottom: 1px solid var(--line); }
-  .sc-framework-steps li:nth-child(3) { border-right: 0; }
-  .sc-framework-steps li:nth-last-child(-n + 2) { border-bottom: 0; }
-  .sc-framework-steps li::after { display: none; }
+  .sc-framework-steps > li { border-bottom: 1px solid var(--line); }
+  .sc-framework-steps > li:nth-child(3) { border-right: 0; }
+  .sc-framework-steps > li:nth-last-child(-n + 2) { border-bottom: 0; }
+  .sc-framework-steps > li::after { display: none; }
   .sc-scorecard { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 10px; }
   .sc-scorecard > span { grid-column: 1 / -1; }
   .sc-scorecard > div { padding-left: 10px; }
@@ -28319,9 +28345,9 @@ button.ni-trend-chip:hover { box-shadow: 0 4px 12px color-mix(in srgb, #0891B2 2
 @media (max-width: 560px) {
   .sc-framework { padding: 15px; }
   .sc-framework-steps { grid-template-columns: 1fr; }
-  .sc-framework-steps li,
-  .sc-framework-steps li:nth-last-child(-n + 2) { min-height: 0; border-right: 0; border-bottom: 1px solid var(--line); }
-  .sc-framework-steps li:last-child { border-bottom: 0; }
+  .sc-framework-steps > li,
+  .sc-framework-steps > li:nth-last-child(-n + 2) { min-height: 0; border-right: 0; border-bottom: 1px solid var(--line); }
+  .sc-framework-steps > li:last-child { border-bottom: 0; }
   .sc-scorecard,
   .sc-strategy-pair,
   .sc-proof-grid { grid-template-columns: 1fr; }
@@ -28426,28 +28452,31 @@ button.ni-trend-chip:hover { box-shadow: 0 4px 12px color-mix(in srgb, #0891B2 2
 }
 
 .consulting-system .sc-framework-steps {
-  border-radius: 2px;
   background: transparent;
 }
 
 .consulting-system .sc-framework-steps li {
-  background: var(--panel);
+  background: transparent;
 }
 
-.consulting-system .sc-framework-steps li::before {
-  content: "";
-  position: absolute;
-  inset: 0 auto 0 0;
-  width: 3px;
-  background: var(--ink);
-  opacity: calc(.18 + var(--sequence-index, 0) * .06);
+.consulting-system .sc-framework-steps > li::before {
+  inset: 0;
+  width: auto;
+  border-top: 3px solid var(--stage-accent);
+  background: var(--panel);
+  opacity: 1;
 }
 
 .consulting-system .sc-framework-steps li:not(:last-child)::after {
   border: 0;
   border-radius: 0;
-  background: var(--panel);
-  color: var(--ink);
+  background: transparent;
+  color: var(--stage-accent);
+}
+
+.consulting-system .sc-framework-steps > li:is(:hover, :focus-visible)::before {
+  border-color: var(--stage-accent);
+  background: var(--stage-accent);
 }
 
 .consulting-system .sc-grid {

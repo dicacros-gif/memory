@@ -13099,11 +13099,11 @@
           <p>고객 현황·기술·전략에서 Pain Point를 구조화하고, Workload를 HW·SW·Memory 요구사항으로 번역한 뒤 Where to Play / How to Win·파트너·사업성을 검증해 90일 실행 Gate로 연결합니다.</p>
         </header>
         <ol class="sc-framework-steps">
-          <li><b>01</b><span>DISCOVER</span><strong>고객 JTBD</strong><small>Pain point·구매 기준·미충족 성과</small></li>
-          <li><b>02</b><span>TRANSLATE</span><strong>워크로드 분해</strong><small>AI App → SW → HW → Memory requirement</small></li>
-          <li><b>03</b><span>CHOOSE</span><strong>WTP / HTW</strong><small>고객군·제품·차별화 방식 선택</small></li>
-          <li><b>04</b><span>PROVE</span><strong>사업성 검증</strong><small>고객가치·시장성·Right-to-Win·리스크</small></li>
-          <li><b>05</b><span>EXECUTE</span><strong>90일 Stage-Gate</strong><small>PoC·계약·캐파·파트너·O/X 조건</small></li>
+          <li tabindex="0"><b>01</b><div><span>Customer Intake</span><strong>고객 문제 구조화</strong><ul><li>서비스 KPI·구매 기준·의사결정 Owner</li><li>공개 근거와 고객 비공개 데이터 분리</li></ul></div></li>
+          <li tabindex="0"><b>02</b><div><span>Trace &amp; Baseline</span><strong>실측 기준선 확보</strong><ul><li>TTFT·TPOT·P99·GPU Idle·HBM 점유율</li><li>Cost/Token·Power/Token 기준선 설정</li></ul></div></li>
+          <li tabindex="0"><b>03</b><div><span>Bottleneck Tree</span><strong>병목 원인 분리</strong><ul><li>Compute·Bandwidth·Capacity·Network</li><li>Serving SW·Qualification·Supply 교차검증</li></ul></div></li>
+          <li tabindex="0"><b>04</b><div><span>Architecture Options</span><strong>대안 포트폴리오 설계</strong><ul><li>SW 최적화·Custom HBM·AI-D·AI-N 비교</li><li>성능·전력·공급·파트너 RACI 동시 평가</li></ul></div></li>
+          <li tabindex="0"><b>05</b><div><span>PoC &amp; TCO</span><strong>동일 Workload 검증</strong><ul><li>Baseline과 대안을 같은 데이터셋으로 비교</li><li>Break-even·Owner·KPI·Kill Criteria 확정</li></ul></div></li>
         </ol>
         <div class="sc-scorecard" aria-label="기회 평가 기준">
           <span>기회 평가 기준</span>
