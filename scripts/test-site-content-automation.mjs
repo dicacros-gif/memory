@@ -188,6 +188,23 @@ assert.ok(rebuilt.strategyBoard.customerPortfolio.accounts.some((item) => item.c
 assert.ok(rebuilt.strategyBoard.customerPortfolio.accounts.some((item) => item.company === "Anthropic" && item.xpuEcosystem?.source?.url));
 assert.ok(rebuilt.strategyBoard.customerPortfolio.accounts.some((item) => item.company === "OpenAI" && item.xpuEcosystem?.claim === "verified-fact"));
 assert.ok(rebuilt.strategyBoard.customerPortfolio.competitiveFrame.some((item) => item.company === "CXMT"));
+const competitiveDynamics = rebuilt.strategyBoard.customerPortfolio.competitiveDynamics;
+assert.deepEqual(
+  competitiveDynamics.layers.map((item) => item.id),
+  ["end-customer", "asic-partner", "foundry-package", "memory-supply"],
+  "competitive dynamics must preserve the end-customer-to-memory value chain",
+);
+assert.deepEqual(
+  competitiveDynamics.types.map((item) => item.id),
+  ["competition", "partnership", "investment", "supply"],
+  "competitive dynamics must expose the four executive relationship lenses",
+);
+assert.ok(competitiveDynamics.relations.some((item) => item.type === "partnership" && item.from === "broadcom" && item.to === "google"));
+assert.ok(competitiveDynamics.relations.some((item) => item.type === "partnership" && item.from === "marvell" && item.to === "aws"));
+assert.ok(competitiveDynamics.relations.some((item) => item.type === "competition" && item.from === "skhynix" && item.to === "samsung"));
+assert.ok(competitiveDynamics.relations.some((item) => item.type === "investment" && item.from === "skhynix" && item.to === "tsmc"));
+assert.ok(competitiveDynamics.relations.some((item) => item.type === "supply" && item.from === "skhynix"));
+assert.ok(competitiveDynamics.companies.every((item) => item.company && item.layer && item.portfolio && Number.isInteger(item.relationCount)));
 assert.equal(rebuilt.strategyBoard.customerPortfolio.contractGate.ruleId, "contract-structure");
 assert.equal(rebuilt.strategyBoard.customerPortfolio.focusAccounts.length, 8);
 assert.ok(rebuilt.strategyBoard.customerPortfolio.focusAccounts.every((item) => ["UNVERIFIED", "REQUEST", "DESIGN", "QUALIFICATION", "PRODUCTION"].includes(item.stageLedger.stage)), "every account must expose an evidence-gated Custom HBM stage");

@@ -357,6 +357,134 @@ function buildStrategyBoard(payload = {}, generatedAt = null, decisionIntelligen
   const contractEvent = claimEvents.filter((event) => event.ruleId === customerPortfolio.contractGate?.ruleId)
     .filter((event) => /(?:LTA|long[- ]term|prepay|binding volume|contract|장기|선급|계약)/i.test(`${event.entity?.label || ""} ${event.product?.label || ""} ${event.evidenceSpan || ""}`))
     .sort((left, right) => String(right.asOf || right.publishedAt || "").localeCompare(String(left.asOf || left.publishedAt || "")))[0] || null;
+  const dynamicsLayers = [
+    { id: "end-customer", index: "01", label: "BIG TECH / HYPERSCALER", role: "AI Chip Roadmap · Workload · Buying Criteria" },
+    { id: "asic-partner", index: "02", label: "ASIC DESIGN PARTNER", role: "XPU Architecture · Cost · Qualification" },
+    { id: "foundry-package", index: "03", label: "FOUNDRY & PACKAGE", role: "Logic Node · CoWoS · Ramp" },
+    { id: "memory-supply", index: "04", label: "MEMORY SUPPLIER", role: "HBM · AI-D · AI-N · Capacity" },
+  ];
+  const supplierProfiles = new Map([
+    ["skhynix", { portfolio: "Custom HBM · AI-D · AI-N", position: "AI Memory 공동설계 · Full-stack Memory", decision: "계정별 Architecture Lock · LTA · Capacity" }],
+    ["samsung", { portfolio: "HBM · Foundry · Package", position: "로직·메모리·패키징 통합 경쟁", decision: "HBM4 Ramp · Yield · Qualification" }],
+    ["micron", { portfolio: "HBM · DRAM · NAND", position: "미국 공급망 · 효율 경쟁", decision: "Customer Qualification · Supply Mix" }],
+    ["cxmt", { portfolio: "DRAM · LPDDR", position: "중국 범용 메모리 경쟁", decision: "승인 · 캐파 · Contract Price" }],
+  ]);
+  const dynamicsNodes = [
+    ...accounts.filter((account) => ["end-customer", "asic-partner", "foundry-package"].includes(account.layer)).map((account) => ({
+      id: account.id,
+      company: account.company,
+      layer: account.layer,
+      role: dynamicsLayers.find((layer) => layer.id === account.layer)?.role || "Value Chain",
+      portfolio: account.chip || account.memory || "",
+      position: account.relationship || account.pain || "",
+      decision: account.gate || "",
+      accent: account.accent || "#255ba8",
+      source: account.evidence?.url ? { name: account.evidence.source || "원문", url: account.evidence.url } : null,
+    })),
+    ...(accountModel.suppliers || []).map((supplier) => {
+      const profile = supplierProfiles.get(supplier.id) || {};
+      const source = (supplier.sourceIds || []).map((id) => sourceById.get(id)).find((item) => directUrl(item?.url));
+      return {
+        id: supplier.id,
+        company: supplier.label,
+        layer: "memory-supply",
+        role: dynamicsLayers.find((layer) => layer.id === "memory-supply")?.role,
+        portfolio: profile.portfolio || "Memory Portfolio",
+        position: profile.position || "Memory Supply",
+        decision: profile.decision || "Supply · Qualification · Economics",
+        accent: supplier.id === "skhynix" ? "#0b625f" : supplier.id === "samsung" ? "#255ba8" : supplier.id === "micron" ? "#62429b" : "#8a5700",
+        source: source ? { name: source.name, url: source.url } : null,
+      };
+    }),
+  ];
+  const dynamicsNodeById = new Map(dynamicsNodes.map((node) => [node.id, node]));
+  const dynamicsRelations = [];
+  const dynamicsRelationKeys = new Set();
+  const addDynamicsRelation = (relation) => {
+    if (!dynamicsNodeById.has(relation.from) || !dynamicsNodeById.has(relation.to)) return;
+    const key = `${relation.type}:${relation.from}:${relation.to}`;
+    if (dynamicsRelationKeys.has(key)) return;
+    dynamicsRelationKeys.add(key);
+    dynamicsRelations.push({ id: key, ...relation });
+  };
+  for (const partner of accounts.filter((account) => Array.isArray(account.servesAccounts) && account.servesAccounts.length)) {
+    for (const targetId of partner.servesAccounts) {
+      const target = accountById.get(targetId);
+      if (!target) continue;
+      addDynamicsRelation({
+        type: "partnership",
+        from: partner.id,
+        to: targetId,
+        title: `${partner.company} × ${target.company}`,
+        detail: partner.layer === "asic-partner" ? "XPU 설계 · Memory 선정 · Qualification 공동 실행" : "Logic Node · Package · Ramp 실행 연계",
+        status: partner.evidence?.status || "monitoring",
+        source: partner.evidence?.url ? { name: partner.evidence.source || "원문", url: partner.evidence.url } : null,
+      });
+    }
+  }
+  for (const relation of accountModel.supplierRelations || []) {
+    if (!relation.status || /해당 없음|unconfirmed/i.test(relation.status)) continue;
+    const supplier = dynamicsNodeById.get(relation.supplierId);
+    const customer = dynamicsNodeById.get(relation.accountId);
+    const source = sourceById.get(relation.sourceId);
+    if (!supplier || !customer) continue;
+    addDynamicsRelation({
+      type: "supply",
+      from: relation.supplierId,
+      to: relation.accountId,
+      title: `${supplier.company} → ${customer.company}`,
+      detail: relation.note || relation.status,
+      status: relation.status,
+      source: source && directUrl(source.url) ? { name: source.name, url: source.url } : null,
+    });
+  }
+  for (const competitor of (accountModel.suppliers || []).filter((supplier) => supplier.id !== "skhynix")) {
+    const source = (competitor.sourceIds || []).map((id) => sourceById.get(id)).find((item) => directUrl(item?.url));
+    addDynamicsRelation({
+      type: "competition",
+      from: "skhynix",
+      to: competitor.id,
+      title: `SK hynix ↔ ${competitor.label}`,
+      detail: supplierProfiles.get(competitor.id)?.position || "Memory Portfolio · Qualification · Supply 경쟁",
+      status: "competitive-monitor",
+      source: source ? { name: source.name, url: source.url } : null,
+    });
+  }
+  const tsmcSource = sourceById.get(accountModel.baseDieStrategy?.foundryDependency?.sourceId || "tsmc-3dfabric");
+  addDynamicsRelation({
+    type: "investment",
+    from: "skhynix",
+    to: "tsmc",
+    title: "SK hynix → TSMC Logic Base Die",
+    detail: "공정 Slot · CoWoS Capacity · 공동개발 투자 의사결정 추적",
+    status: "capacity-watch",
+    source: tsmcSource && directUrl(tsmcSource.url) ? { name: tsmcSource.name, url: tsmcSource.url } : null,
+  });
+  const dynamicsRelationCounts = dynamicsRelations.reduce((counts, relation) => {
+    counts[relation.type] = Number(counts[relation.type] || 0) + 1;
+    return counts;
+  }, {});
+  const competitiveDynamics = {
+    eyebrow: "COMPETITIVE DYNAMICS · VALUE CHAIN",
+    title: "경쟁 · 파트너십 · 투자 · 공급 관계 지도",
+    description: "고객 Roadmap부터 ASIC 설계·파운드리·메모리 공급까지 의사결정 사슬 연결",
+    updatedAt: generatedAt,
+    types: [
+      { id: "competition", label: "경쟁", count: Number(dynamicsRelationCounts.competition || 0) },
+      { id: "partnership", label: "파트너십", count: Number(dynamicsRelationCounts.partnership || 0) },
+      { id: "investment", label: "투자", count: Number(dynamicsRelationCounts.investment || 0) },
+      { id: "supply", label: "공급", count: Number(dynamicsRelationCounts.supply || 0) },
+    ],
+    layers: dynamicsLayers.map((layer) => ({
+      ...layer,
+      companies: dynamicsNodes.filter((node) => node.layer === layer.id),
+    })),
+    companies: dynamicsNodes.map((node) => ({
+      ...node,
+      relationCount: dynamicsRelations.filter((relation) => relation.from === node.id || relation.to === node.id).length,
+    })),
+    relations: dynamicsRelations,
+  };
   return {
     schemaVersion: board.schemaVersion || "1.0",
     generatedAt,
@@ -383,6 +511,7 @@ function buildStrategyBoard(payload = {}, generatedAt = null, decisionIntelligen
         ...(customerPortfolio.partnerEcosystem || {}),
         partners: partnerEcosystemPartners,
       },
+      competitiveDynamics,
       layerModel: {
         ...(customerPortfolio.layerModel || {}),
         summary: (customerPortfolio.layerModel?.layers || []).map((layer) => ({

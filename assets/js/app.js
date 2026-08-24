@@ -13064,6 +13064,7 @@
     const priorityAsicAccounts = Array.isArray(asicPortfolio.accounts) ? asicPortfolio.accounts : [];
     const partnerEcosystem = customerBoard.partnerEcosystem || {};
     const partnerNodes = Array.isArray(partnerEcosystem.partners) ? partnerEcosystem.partners : [];
+    const competitiveDynamics = customerBoard.competitiveDynamics || {};
     const layerModel = customerBoard.layerModel || {};
     const executiveOnePagers = Array.isArray(customerBoard.executiveOnePagers) ? customerBoard.executiveOnePagers : [];
     const customerPillars = Array.isArray(customerBoard.pillars) ? customerBoard.pillars : [];
@@ -13151,6 +13152,7 @@
         <p>${escapeHTML(customerBoard.description || "고객별 Roadmap과 Memory Gate를 분리")}</p>
       </div>
       <div id="scPartnerEcosystem"></div>
+      <div id="scCompetitiveDynamics"></div>
       ${priorityAsicAccounts.length ? `<section class="sc-asic-portfolio" aria-labelledby="asicPortfolioTitle">
         <header class="sc-asic-portfolio-head">
           <div><span>${escapeHTML(asicPortfolio.eyebrow || "CUSTOMER ASIC PORTFOLIO")}</span><h4 id="asicPortfolioTitle">${escapeHTML(asicPortfolio.title || "Customer Chip → Memory Bottleneck → Account Action")}</h4></div>
@@ -13383,7 +13385,8 @@
     `;
     const onePagerMount = host.querySelector("#scExecutiveOnePagers");
     const ecosystemMount = host.querySelector("#scPartnerEcosystem");
-    if ((onePagerMount && executiveOnePagers.length) || (ecosystemMount && partnerNodes.length)) {
+    const dynamicsMount = host.querySelector("#scCompetitiveDynamics");
+    if ((onePagerMount && executiveOnePagers.length) || (ecosystemMount && partnerNodes.length) || (dynamicsMount && competitiveDynamics.relations?.length)) {
       const revision = document.querySelector('script[src*="assets/js/app.min.js"]')?.src.match(/[?&]v=([^&]+)/)?.[1] || "current";
       const renderAccountViews = () => {
         const views = window.AccountStrategyViews;
@@ -13393,6 +13396,10 @@
           ecosystem: partnerEcosystem,
           layerModel,
         });
+        if (dynamicsMount) {
+          dynamicsMount.innerHTML = views.renderCompetitiveDynamics(competitiveDynamics);
+          views.bindCompetitiveDynamics(dynamicsMount, competitiveDynamics);
+        }
       };
       if (window.AccountStrategyViews) renderAccountViews();
       else {
@@ -13405,7 +13412,7 @@
           document.head.appendChild(lazyScript);
         }
         lazyScript.addEventListener("load", renderAccountViews, { once: true });
-        lazyScript.addEventListener("error", () => { onePagerMount?.remove(); ecosystemMount?.remove(); }, { once: true });
+        lazyScript.addEventListener("error", () => { onePagerMount?.remove(); ecosystemMount?.remove(); dynamicsMount?.remove(); }, { once: true });
       }
     }
     host.querySelectorAll("[data-account-deep-link]").forEach((link) => link.addEventListener("click", (event) => {
