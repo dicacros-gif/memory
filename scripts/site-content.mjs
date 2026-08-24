@@ -230,6 +230,7 @@ function buildStrategyBoard(payload = {}, generatedAt = null, decisionIntelligen
     description: accountModel.description || "고객별 Chip Roadmap을 Pain Point·Memory Requirement·계약 Gate로 분리",
     disclosure: accountModel.evidencePolicy || "공급 관계와 계약 조건은 직접 근거 전까지 미확인",
     pillars: accountModel.pillars || [],
+    asicPortfolio: accountModel.asicPortfolio || {},
     projects: accountModel.projects || [],
     groups: accountModel.groups || [],
     accounts: accountModel.accounts || [],
@@ -274,6 +275,10 @@ function buildStrategyBoard(payload = {}, generatedAt = null, decisionIntelligen
         const source = sourceById.get(metric.sourceId);
         return { ...metric, source: source ? { id: source.id, name: source.name, url: source.url } : null };
       }),
+      chipPortfolio: (item.chipPortfolio || []).map((chip) => {
+        const source = sourceById.get(chip.sourceId);
+        return { ...chip, source: source ? { id: source.id, name: source.name, url: source.url, sourceClass: source.sourceClass } : null };
+      }),
       xpuEcosystem: item.xpuEcosystem ? {
         ...item.xpuEcosystem,
         source: sourceById.get(item.xpuEcosystem.sourceId) || null,
@@ -288,6 +293,8 @@ function buildStrategyBoard(payload = {}, generatedAt = null, decisionIntelligen
   const groupCounts = new Map();
   for (const account of accounts) groupCounts.set(account.group, Number(groupCounts.get(account.group) || 0) + 1);
   const accountById = new Map(accounts.map((account) => [account.id, account]));
+  const priorityAccountIds = customerPortfolio.asicPortfolio?.priorityAccountIds || [];
+  const priorityAsicAccounts = priorityAccountIds.map((id) => accountById.get(id)).filter(Boolean);
   const projects = (customerPortfolio.projects || []).map((project) => {
     const projectAccounts = (project.accounts || []).map((id) => accountById.get(id)).filter(Boolean);
     const signalTerms = (project.signalTerms || []).map((term) => String(term || "").toLocaleLowerCase()).filter(Boolean);
@@ -321,6 +328,10 @@ function buildStrategyBoard(payload = {}, generatedAt = null, decisionIntelligen
       ...customerPortfolio,
       groups: (customerPortfolio.groups || []).map((group) => ({ ...group, accountCount: Number(groupCounts.get(group.id) || 0) })),
       accounts,
+      asicPortfolio: {
+        ...(customerPortfolio.asicPortfolio || {}),
+        accounts: priorityAsicAccounts,
+      },
       projects,
       pillars: customerPortfolio.pillars || [],
       verifiedAccounts: accounts.filter((account) => account.evidence?.status === "official-fact").length,

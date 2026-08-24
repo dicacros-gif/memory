@@ -158,11 +158,24 @@ assert.ok(rebuilt.strategyBoard.customerPortfolio.accounts.some((item) => item.c
 assert.ok(rebuilt.strategyBoard.customerPortfolio.accounts.some((item) => item.company === "OpenAI" && item.xpuEcosystem?.claim === "verified-fact"));
 assert.ok(rebuilt.strategyBoard.customerPortfolio.competitiveFrame.some((item) => item.company === "CXMT"));
 assert.equal(rebuilt.strategyBoard.customerPortfolio.contractGate.ruleId, "contract-structure");
-assert.equal(rebuilt.strategyBoard.customerPortfolio.focusAccounts.length, 7);
+assert.equal(rebuilt.strategyBoard.customerPortfolio.focusAccounts.length, 8);
 assert.ok(rebuilt.strategyBoard.customerPortfolio.focusAccounts.every((item) => ["UNVERIFIED", "REQUEST", "DESIGN", "QUALIFICATION", "PRODUCTION"].includes(item.stageLedger.stage)), "every account must expose an evidence-gated Custom HBM stage");
 assert.ok(rebuilt.strategyBoard.customerPortfolio.focusAccounts.filter((item) => item.stageLedger.stage === "UNVERIFIED").every((item) => item.stageLedger.label === "고객 제안 단계 검토"), "unverified stages must use audience-facing review language without crawl jargon");
 assert.equal(rebuilt.strategyBoard.customerPortfolio.pillars.length, 3);
-assert.equal(rebuilt.strategyBoard.customerPortfolio.supplierMatrix.rows.length, 7);
+assert.deepEqual(
+  rebuilt.strategyBoard.customerPortfolio.asicPortfolio.accounts.map((item) => item.id),
+  ["google", "microsoft", "aws", "apple", "spacex"],
+  "priority ASIC portfolio must keep the customer decision order",
+);
+assert.ok(
+  rebuilt.strategyBoard.customerPortfolio.asicPortfolio.accounts.every((item) => item.chipPortfolio?.length && item.chipPortfolio.every((chip) => chip.memoryPain && chip.memoryProposal && chip.source?.url)),
+  "every priority ASIC card must connect workload, memory implication, proposal, and source",
+);
+assert.ok(
+  rebuilt.strategyBoard.customerPortfolio.asicPortfolio.accounts.filter((item) => ["apple", "spacex"].includes(item.id)).every((item) => item.chipPortfolio.every((chip) => chip.publicSpec.includes("미공개"))),
+  "Apple and SpaceX cards must not invent undisclosed memory specifications",
+);
+assert.equal(rebuilt.strategyBoard.customerPortfolio.supplierMatrix.rows.length, 8);
 assert.ok(rebuilt.strategyBoard.customerPortfolio.productMap.some((item) => item.id === "ai-d-e"));
 assert.equal(rebuilt.strategyBoard.customerPortfolio.roadmap90d.length, 3);
 assert.equal(rebuilt.strategyBoard.customerPortfolio.baseDieStrategy.ladder.length, 4);

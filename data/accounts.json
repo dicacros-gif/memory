@@ -9,6 +9,13 @@
     { "id": "next-memory", "index": "02", "label": "TECH RADAR → NEXT MEMORY", "question": "AI App·HW/SW 변화 → Custom HBM·AI-D·AI-N" },
     { "id": "deal-support", "index": "03", "label": "EXECUTIVE DEAL SUPPORT", "question": "경쟁·LTA·Capacity → 90일 의사결정" }
   ],
+  "asicPortfolio": {
+    "eyebrow": "CUSTOMER ASIC PORTFOLIO",
+    "title": "Customer Chip → Memory Bottleneck → Account Action",
+    "description": "공개 ASIC·AI 플랫폼 사양과 미공개 Memory Spec을 분리",
+    "priorityAccountIds": ["google", "microsoft", "aws", "apple", "spacex"],
+    "evidencePolicy": "수치는 공식 원문만 표시 · 미공개 사양은 추정하지 않음"
+  },
   "projects": [
     {
       "id": "nvidia-base-die",
@@ -75,6 +82,11 @@
       "aliases": ["google", "alphabet", "google cloud", "tpu", "tpu7", "ironwood"],
       "sourceIds": ["google-cloud-tpu", "broadcom-ai"], "claimRuleIds": ["customer-silicon-roadmap"],
       "baseline": [{ "label": "MEMORY", "value": "192GB HBM · 7.38TB/s", "sourceId": "google-cloud-tpu" }],
+      "chipPortfolio": [{
+        "name": "TPU7x · Ironwood", "type": "HYPERSCALER ASIC", "workload": "Training · Inference · MoE",
+        "publicSpec": "192GB HBM · 7.38TB/s · 9,216-chip Pod", "memoryPain": "MXU Feeding · HBM/VMEM/Host Data Movement · Pod Fabric",
+        "memoryProposal": "Custom HBM · AI-D B · AI-N B", "evidenceLabel": "OFFICIAL SPEC", "sourceId": "google-cloud-tpu"
+      }],
       "stage": { "id": "PRODUCTION", "label": "TPU7x 제공", "sourceId": "google-cloud-tpu" },
       "pain": "MXU Feeding·Pod Data Movement·전력 효율", "memory": "Custom HBM · HBM/Host Tier · AI-N", "gate": "MXU Feeding · D2D · Pod TCO",
       "relationship": "Broadcom XPU 설계 협력은 보도 근거 · HBM 공급 관계와 분리", "accent": "#00A88F",
@@ -85,15 +97,25 @@
       "aliases": ["microsoft", "azure", "maia", "maia 200", "마이크로소프트"],
       "sourceIds": ["microsoft-ai-infra"], "claimRuleIds": ["customer-silicon-roadmap"],
       "baseline": [{ "label": "MEMORY", "value": "216GB HBM3e · 7TB/s", "sourceId": "microsoft-ai-infra" }],
+      "chipPortfolio": [{
+        "name": "Maia 200", "type": "INFERENCE ASIC", "workload": "Token Generation · Reasoning · Agentic AI",
+        "publicSpec": "216GB HBM3e · 7TB/s · TSMC 3nm", "memoryPain": "HBM Feeding · Data Movement · Scale-up Efficiency",
+        "memoryProposal": "Custom HBM · AI-D O/B · Network Co-Design", "evidenceLabel": "OFFICIAL SPEC", "sourceId": "microsoft-ai-infra"
+      }],
       "stage": { "id": "PRODUCTION", "label": "Region 배포", "sourceId": "microsoft-ai-infra" },
       "pain": "Inference Token 경제성·Memory Feeding·Scale-up Network", "memory": "Custom HBM · AI-D · Network Co-Design", "gate": "Model Portability · Region Ramp · TCO",
       "relationship": "HBM 공급 관계는 별도 직접 원문 필요", "accent": "#0A84B8"
     },
     {
-      "id": "aws", "focus": true, "demandClass": "asic", "group": "hyperscaler-asic", "company": "AWS", "chip": "Trainium",
+      "id": "aws", "focus": true, "demandClass": "asic", "group": "hyperscaler-asic", "company": "Amazon AWS", "chip": "Trainium3",
       "aliases": ["amazon", "aws", "amazon web services", "trainium", "trn3", "neuron"],
       "sourceIds": ["aws-trainium"], "claimRuleIds": ["customer-silicon-roadmap"],
-      "baseline": [{ "label": "PLATFORM", "value": "Trainium · Neuron", "sourceId": "aws-trainium" }],
+      "baseline": [{ "label": "MEMORY", "value": "144GB HBM3e · 4.9TB/s", "sourceId": "aws-trainium" }],
+      "chipPortfolio": [{
+        "name": "Trainium3", "type": "TRAINING · INFERENCE ASIC", "workload": "MoE · Long Context · Multimodal",
+        "publicSpec": "144GB HBM3e · 4.9TB/s · 144-chip UltraServer", "memoryPain": "Expert Routing · Collective · HBM Data Movement",
+        "memoryProposal": "Custom HBM · AI-D B · AI-N Tier", "evidenceLabel": "OFFICIAL SPEC", "sourceId": "aws-trainium"
+      }],
       "stage": { "id": "PRODUCTION", "label": "공식 서비스", "sourceId": "aws-trainium" },
       "pain": "MoE Routing·Collective·HBM Data Movement 경제성", "memory": "Custom HBM · AI-D · System Memory", "gate": "Neuron Runtime · UltraServer Goodput/TCO",
       "relationship": "공급사·물량 공개 검증 필요", "accent": "#C88600"
@@ -122,6 +144,11 @@
       "aliases": ["apple", "apple silicon", "private cloud compute", "apple intelligence", "애플"],
       "sourceIds": ["apple-ai-infra"], "claimRuleIds": ["customer-silicon-roadmap"],
       "baseline": [{ "label": "PLATFORM", "value": "On-device + Private Cloud", "sourceId": "apple-ai-infra" }],
+      "chipPortfolio": [{
+        "name": "Apple Silicon · PCC", "type": "CUSTOM CLOUD SILICON", "workload": "Private Inference · On-device/Cloud Routing",
+        "publicSpec": "최대 8-node 분산 추론 · Memory Spec 미공개", "memoryPain": "Privacy · Stateless Serving · Energy/Task",
+        "memoryProposal": "Unified Memory · AI-D E · Secure Memory Tier", "evidenceLabel": "OFFICIAL ARCHITECTURE", "sourceId": "apple-ai-infra"
+      }],
       "stage": { "id": "PRODUCTION", "label": "공식 인프라 공개", "sourceId": "apple-ai-infra" },
       "pain": "On-device/Cloud 분기·Privacy·저전력 Inference", "memory": "Unified Memory · AI-D E · Secure Cloud Tier", "gate": "Workload Placement · Privacy · Energy/Task",
       "relationship": "Custom HBM 요청은 시장 추정으로 격리", "accent": "#68758A"
@@ -156,10 +183,15 @@
       "xpuEcosystem": { "partner": "Google · Broadcom", "status": "공식", "role": "2027년부터 차세대 TPU 다중 GW 용량 · Claude용 HBM 수요 추적", "sourceId": "anthropic-compute", "claim": "verified-fact" }
     },
     {
-      "id": "spacex", "focus": false, "demandClass": "asic", "group": "edge-physical", "company": "SpaceX", "chip": "Starlink Custom Silicon",
+      "id": "spacex", "focus": true, "demandClass": "asic", "group": "edge-physical", "company": "SpaceX", "chip": "Starlink Silicon · STARMIND",
       "aliases": ["spacex", "space x", "starlink", "스페이스엑스"],
-      "sourceIds": ["spacex-official"], "claimRuleIds": ["customer-silicon-roadmap"],
-      "baseline": [{ "label": "STATUS", "value": "공식 Memory Spec 모니터", "sourceId": "spacex-official" }],
+      "sourceIds": ["spacex-official", "spacex-ai-compute"], "claimRuleIds": ["customer-silicon-roadmap"],
+      "baseline": [{ "label": "PLATFORM", "value": "Custom Silicon · Orbital AI Compute", "sourceId": "spacex-ai-compute" }],
+      "chipPortfolio": [{
+        "name": "Starlink Silicon · STARMIND", "type": "CUSTOM SILICON · ORBITAL AI", "workload": "Connectivity · Edge Processing · Orbital Inference",
+        "publicSpec": "AI chip vendor-neutral · Memory Spec 미공개", "memoryPain": "전력 · 열 · 방사선 · 고신뢰 Data Movement",
+        "memoryProposal": "AI-D E · Low-power DRAM · High-endurance NAND", "evidenceLabel": "OFFICIAL PLATFORM", "sourceId": "spacex-ai-compute"
+      }],
       "stage": { "id": "REQUEST", "label": "Reference Monitor", "sourceId": "spacex-official" },
       "pain": "Edge Compute의 전력·방사선·통신·신뢰성", "memory": "Low-power DRAM/NAND · AI-D E 후보", "gate": "공식 Memory Spec · Qualification · Volume",
       "relationship": "공식 Memory 근거 전까지 Opportunity Watch", "accent": "#566678"

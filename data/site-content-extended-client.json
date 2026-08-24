@@ -1705,11 +1705,11 @@
         }
       ],
       "catalogCoverage": {
-        "configured": 58,
+        "configured": 59,
         "observed": 5,
         "fresh": 5,
-        "observationRatePct": 8.6,
-        "officialConfigured": 46,
+        "observationRatePct": 8.5,
+        "officialConfigured": 47,
         "officialObserved": 1,
         "officialFresh": 1,
         "targetPct": 90
@@ -2803,6 +2803,600 @@
           "question": "경쟁·LTA·Capacity → 90일 의사결정"
         }
       ],
+      "asicPortfolio": {
+        "eyebrow": "CUSTOMER ASIC PORTFOLIO",
+        "title": "Customer Chip → Memory Bottleneck → Account Action",
+        "description": "공개 ASIC·AI 플랫폼 사양과 미공개 Memory Spec을 분리",
+        "priorityAccountIds": [
+          "google",
+          "microsoft",
+          "aws",
+          "apple",
+          "spacex"
+        ],
+        "evidencePolicy": "수치는 공식 원문만 표시 · 미공개 사양은 추정하지 않음",
+        "accounts": [
+          {
+            "id": "google",
+            "focus": true,
+            "demandClass": "asic",
+            "group": "hyperscaler-asic",
+            "company": "Google",
+            "chip": "TPU7x · Ironwood",
+            "aliases": [
+              "google",
+              "alphabet",
+              "google cloud",
+              "tpu",
+              "tpu7",
+              "ironwood"
+            ],
+            "baseline": [
+              {
+                "label": "MEMORY",
+                "value": "192GB HBM · 7.38TB/s",
+                "sourceId": "google-cloud-tpu",
+                "source": {
+                  "id": "google-cloud-tpu",
+                  "name": "Google Cloud TPU",
+                  "url": "https://docs.cloud.google.com/tpu/docs/tpu7x"
+                }
+              }
+            ],
+            "chipPortfolio": [
+              {
+                "name": "TPU7x · Ironwood",
+                "type": "HYPERSCALER ASIC",
+                "workload": "Training · Inference · MoE",
+                "publicSpec": "192GB HBM · 7.38TB/s · 9,216-chip Pod",
+                "memoryPain": "MXU Feeding · HBM/VMEM/Host Data Movement · Pod Fabric",
+                "memoryProposal": "Custom HBM · AI-D B · AI-N B",
+                "evidenceLabel": "OFFICIAL SPEC",
+                "sourceId": "google-cloud-tpu",
+                "source": {
+                  "id": "google-cloud-tpu",
+                  "name": "Google Cloud TPU",
+                  "url": "https://docs.cloud.google.com/tpu/docs/tpu7x",
+                  "sourceClass": "official"
+                }
+              }
+            ],
+            "stage": "고객 제안 단계 검토",
+            "pain": "MXU Feeding·Pod Data Movement·전력 효율",
+            "memory": "Custom HBM · HBM/Host Tier · AI-N",
+            "gate": "MXU Feeding · D2D · Pod TCO",
+            "relationship": "Broadcom XPU 설계 협력은 보도 근거 · HBM 공급 관계와 분리",
+            "accent": "#00A88F",
+            "xpuEcosystem": {
+              "partner": "Broadcom",
+              "status": "보도 기반",
+              "role": "TPU 로직·HBM PHY·Package 공동 최적화 추적",
+              "sourceId": "trendforce",
+              "claim": "market-estimate",
+              "source": {
+                "id": "trendforce",
+                "name": "TrendForce",
+                "tier": "industry-research",
+                "sourceClass": "research",
+                "url": "https://www.trendforce.com/presscenter/",
+                "domains": [
+                  "trendforce.com"
+                ],
+                "topics": [
+                  "memory-price",
+                  "hbm",
+                  "dram",
+                  "nand",
+                  "forecast"
+                ],
+                "roles": [
+                  "market",
+                  "competitor",
+                  "pricing"
+                ],
+                "languages": [
+                  "en"
+                ],
+                "freshnessHours": 168,
+                "discoveryQueries": [
+                  "site:trendforce.com/presscenter (HBM OR DRAM OR NAND OR enterprise SSD)",
+                  "site:trendforce.com/presscenter HBM \"wafer input\""
+                ],
+                "enabled": true
+              }
+            },
+            "evidence": {
+              "status": "official-fact",
+              "label": "OFFICIAL FACT",
+              "stage": "PLATFORM_ADOPTION",
+              "source": "Google Cloud TPU",
+              "url": "https://cloud.google.com/blog/products/compute/inside-the-ironwood-tpu-codesigned-ai-stack",
+              "asOf": "2025-11-06"
+            },
+            "mentions": 0,
+            "sourceCount": 0,
+            "officialEvidenceCount": 0,
+            "weekly": [
+              {
+                "week": "2026-07-06",
+                "count": 0
+              },
+              {
+                "week": "2026-07-13",
+                "count": 0
+              },
+              {
+                "week": "2026-07-20",
+                "count": 0
+              },
+              {
+                "week": "2026-07-27",
+                "count": 0
+              },
+              {
+                "week": "2026-08-03",
+                "count": 0
+              },
+              {
+                "week": "2026-08-10",
+                "count": 0
+              },
+              {
+                "week": "2026-08-17",
+                "count": 0
+              },
+              {
+                "week": "2026-08-24",
+                "count": 0
+              }
+            ],
+            "evidenceStream": [],
+            "chipStage": "TPU7x 제공",
+            "stageLedger": {
+              "stage": "UNVERIFIED",
+              "label": "고객 제안 단계 검토",
+              "source": null
+            }
+          },
+          {
+            "id": "microsoft",
+            "focus": true,
+            "demandClass": "asic",
+            "group": "hyperscaler-asic",
+            "company": "Microsoft",
+            "chip": "Maia 200",
+            "aliases": [
+              "microsoft",
+              "azure",
+              "maia",
+              "maia 200",
+              "마이크로소프트"
+            ],
+            "baseline": [
+              {
+                "label": "MEMORY",
+                "value": "216GB HBM3e · 7TB/s",
+                "sourceId": "microsoft-ai-infra",
+                "source": {
+                  "id": "microsoft-ai-infra",
+                  "name": "Microsoft Official Blog",
+                  "url": "https://blogs.microsoft.com/blog/2026/01/26/maia-200-the-ai-accelerator-built-for-inference/"
+                }
+              }
+            ],
+            "chipPortfolio": [
+              {
+                "name": "Maia 200",
+                "type": "INFERENCE ASIC",
+                "workload": "Token Generation · Reasoning · Agentic AI",
+                "publicSpec": "216GB HBM3e · 7TB/s · TSMC 3nm",
+                "memoryPain": "HBM Feeding · Data Movement · Scale-up Efficiency",
+                "memoryProposal": "Custom HBM · AI-D O/B · Network Co-Design",
+                "evidenceLabel": "OFFICIAL SPEC",
+                "sourceId": "microsoft-ai-infra",
+                "source": {
+                  "id": "microsoft-ai-infra",
+                  "name": "Microsoft Official Blog",
+                  "url": "https://blogs.microsoft.com/blog/2026/01/26/maia-200-the-ai-accelerator-built-for-inference/",
+                  "sourceClass": "official"
+                }
+              }
+            ],
+            "stage": "고객 제안 단계 검토",
+            "pain": "Inference Token 경제성·Memory Feeding·Scale-up Network",
+            "memory": "Custom HBM · AI-D · Network Co-Design",
+            "gate": "Model Portability · Region Ramp · TCO",
+            "relationship": "HBM 공급 관계는 별도 직접 원문 필요",
+            "accent": "#0A84B8",
+            "evidence": {
+              "status": "official-monitoring",
+              "label": "OFFICIAL SOURCE MONITOR",
+              "source": "Microsoft Official Blog",
+              "url": "https://blogs.microsoft.com/blog/2026/01/26/maia-200-the-ai-accelerator-built-for-inference/",
+              "asOf": null
+            },
+            "mentions": 1,
+            "sourceCount": 1,
+            "officialEvidenceCount": 0,
+            "weekly": [
+              {
+                "week": "2026-07-06",
+                "count": 0
+              },
+              {
+                "week": "2026-07-13",
+                "count": 0
+              },
+              {
+                "week": "2026-07-20",
+                "count": 1
+              },
+              {
+                "week": "2026-07-27",
+                "count": 0
+              },
+              {
+                "week": "2026-08-03",
+                "count": 0
+              },
+              {
+                "week": "2026-08-10",
+                "count": 0
+              },
+              {
+                "week": "2026-08-17",
+                "count": 0
+              },
+              {
+                "week": "2026-08-24",
+                "count": 0
+              }
+            ],
+            "evidenceStream": [
+              {
+                "title": "AMD Helios AI 랙은 HBM4 메모리 에지로 NVIDIA에 도전 · Microsoft가 최신 고객으로 합류",
+                "source": "TrendForce",
+                "sourceClass": "research",
+                "url": "https://www.trendforce.com/news/2026/07/21/news-amds-first-rack-scale-ai-system-helios-challenges-nvidia-with-hbm4-memory-edge-but-reportedly-comes-at-a-higher-price",
+                "date": "2026-07-21"
+              }
+            ],
+            "chipStage": "Region 배포",
+            "xpuEcosystem": null,
+            "stageLedger": {
+              "stage": "UNVERIFIED",
+              "label": "고객 제안 단계 검토",
+              "source": null
+            }
+          },
+          {
+            "id": "aws",
+            "focus": true,
+            "demandClass": "asic",
+            "group": "hyperscaler-asic",
+            "company": "Amazon AWS",
+            "chip": "Trainium3",
+            "aliases": [
+              "amazon",
+              "aws",
+              "amazon web services",
+              "trainium",
+              "trn3",
+              "neuron"
+            ],
+            "baseline": [
+              {
+                "label": "MEMORY",
+                "value": "144GB HBM3e · 4.9TB/s",
+                "sourceId": "aws-trainium",
+                "source": {
+                  "id": "aws-trainium",
+                  "name": "AWS Trainium",
+                  "url": "https://aws.amazon.com/ai/machine-learning/trainium/"
+                }
+              }
+            ],
+            "chipPortfolio": [
+              {
+                "name": "Trainium3",
+                "type": "TRAINING · INFERENCE ASIC",
+                "workload": "MoE · Long Context · Multimodal",
+                "publicSpec": "144GB HBM3e · 4.9TB/s · 144-chip UltraServer",
+                "memoryPain": "Expert Routing · Collective · HBM Data Movement",
+                "memoryProposal": "Custom HBM · AI-D B · AI-N Tier",
+                "evidenceLabel": "OFFICIAL SPEC",
+                "sourceId": "aws-trainium",
+                "source": {
+                  "id": "aws-trainium",
+                  "name": "AWS Trainium",
+                  "url": "https://aws.amazon.com/ai/machine-learning/trainium/",
+                  "sourceClass": "official"
+                }
+              }
+            ],
+            "stage": "고객 제안 단계 검토",
+            "pain": "MoE Routing·Collective·HBM Data Movement 경제성",
+            "memory": "Custom HBM · AI-D · System Memory",
+            "gate": "Neuron Runtime · UltraServer Goodput/TCO",
+            "relationship": "공급사·물량 공개 검증 필요",
+            "accent": "#C88600",
+            "evidence": {
+              "status": "official-monitoring",
+              "label": "OFFICIAL SOURCE MONITOR",
+              "source": "AWS Trainium",
+              "url": "https://aws.amazon.com/ai/machine-learning/trainium/",
+              "asOf": null
+            },
+            "mentions": 1,
+            "sourceCount": 1,
+            "officialEvidenceCount": 0,
+            "weekly": [
+              {
+                "week": "2026-07-06",
+                "count": 0
+              },
+              {
+                "week": "2026-07-13",
+                "count": 0
+              },
+              {
+                "week": "2026-07-20",
+                "count": 0
+              },
+              {
+                "week": "2026-07-27",
+                "count": 1
+              },
+              {
+                "week": "2026-08-03",
+                "count": 0
+              },
+              {
+                "week": "2026-08-10",
+                "count": 0
+              },
+              {
+                "week": "2026-08-17",
+                "count": 0
+              },
+              {
+                "week": "2026-08-24",
+                "count": 0
+              }
+            ],
+            "evidenceStream": [
+              {
+                "title": "Amazon hikes 2026 capex to $220 billion due to higher memory costs - CNBC",
+                "source": "CNBC",
+                "sourceClass": "authoritative-media",
+                "url": "https://www.cnbc.com/2026/07/30/amazon-amzn-q2-earnings-report-2026.html",
+                "date": "2026-07-30"
+              }
+            ],
+            "chipStage": "공식 서비스",
+            "xpuEcosystem": null,
+            "stageLedger": {
+              "stage": "UNVERIFIED",
+              "label": "고객 제안 단계 검토",
+              "source": null
+            }
+          },
+          {
+            "id": "apple",
+            "focus": true,
+            "demandClass": "asic",
+            "group": "edge-physical",
+            "company": "Apple",
+            "chip": "Apple Silicon · Private Cloud Compute",
+            "aliases": [
+              "apple",
+              "apple silicon",
+              "private cloud compute",
+              "apple intelligence",
+              "애플"
+            ],
+            "baseline": [
+              {
+                "label": "PLATFORM",
+                "value": "On-device + Private Cloud",
+                "sourceId": "apple-ai-infra",
+                "source": {
+                  "id": "apple-ai-infra",
+                  "name": "Apple AI Infrastructure",
+                  "url": "https://security.apple.com/documentation/private-cloud-compute/"
+                }
+              }
+            ],
+            "chipPortfolio": [
+              {
+                "name": "Apple Silicon · PCC",
+                "type": "CUSTOM CLOUD SILICON",
+                "workload": "Private Inference · On-device/Cloud Routing",
+                "publicSpec": "최대 8-node 분산 추론 · Memory Spec 미공개",
+                "memoryPain": "Privacy · Stateless Serving · Energy/Task",
+                "memoryProposal": "Unified Memory · AI-D E · Secure Memory Tier",
+                "evidenceLabel": "OFFICIAL ARCHITECTURE",
+                "sourceId": "apple-ai-infra",
+                "source": {
+                  "id": "apple-ai-infra",
+                  "name": "Apple AI Infrastructure",
+                  "url": "https://security.apple.com/documentation/private-cloud-compute/",
+                  "sourceClass": "official"
+                }
+              }
+            ],
+            "stage": "고객 제안 단계 검토",
+            "pain": "On-device/Cloud 분기·Privacy·저전력 Inference",
+            "memory": "Unified Memory · AI-D E · Secure Cloud Tier",
+            "gate": "Workload Placement · Privacy · Energy/Task",
+            "relationship": "Custom HBM 요청은 시장 추정으로 격리",
+            "accent": "#68758A",
+            "evidence": {
+              "status": "official-fact",
+              "label": "OFFICIAL FACT",
+              "stage": "ANNOUNCED",
+              "source": "Apple AI Infrastructure",
+              "url": "https://www.apple.com/newsroom/2025/08/apple-increases-us-commitment-to-600-billion-usd-announces-ambitious-program",
+              "asOf": "2025-08-06"
+            },
+            "mentions": 0,
+            "sourceCount": 0,
+            "officialEvidenceCount": 0,
+            "weekly": [
+              {
+                "week": "2026-07-06",
+                "count": 0
+              },
+              {
+                "week": "2026-07-13",
+                "count": 0
+              },
+              {
+                "week": "2026-07-20",
+                "count": 0
+              },
+              {
+                "week": "2026-07-27",
+                "count": 0
+              },
+              {
+                "week": "2026-08-03",
+                "count": 0
+              },
+              {
+                "week": "2026-08-10",
+                "count": 0
+              },
+              {
+                "week": "2026-08-17",
+                "count": 0
+              },
+              {
+                "week": "2026-08-24",
+                "count": 0
+              }
+            ],
+            "evidenceStream": [],
+            "chipStage": "공식 인프라 공개",
+            "xpuEcosystem": null,
+            "stageLedger": {
+              "stage": "UNVERIFIED",
+              "label": "고객 제안 단계 검토",
+              "source": null
+            }
+          },
+          {
+            "id": "spacex",
+            "focus": true,
+            "demandClass": "asic",
+            "group": "edge-physical",
+            "company": "SpaceX",
+            "chip": "Starlink Silicon · STARMIND",
+            "aliases": [
+              "spacex",
+              "space x",
+              "starlink",
+              "스페이스엑스"
+            ],
+            "baseline": [
+              {
+                "label": "PLATFORM",
+                "value": "Custom Silicon · Orbital AI Compute",
+                "sourceId": "spacex-ai-compute",
+                "source": {
+                  "id": "spacex-ai-compute",
+                  "name": "SpaceX STARMIND",
+                  "url": "https://new.spacex.com/spacexai/starmind"
+                }
+              }
+            ],
+            "chipPortfolio": [
+              {
+                "name": "Starlink Silicon · STARMIND",
+                "type": "CUSTOM SILICON · ORBITAL AI",
+                "workload": "Connectivity · Edge Processing · Orbital Inference",
+                "publicSpec": "AI chip vendor-neutral · Memory Spec 미공개",
+                "memoryPain": "전력 · 열 · 방사선 · 고신뢰 Data Movement",
+                "memoryProposal": "AI-D E · Low-power DRAM · High-endurance NAND",
+                "evidenceLabel": "OFFICIAL PLATFORM",
+                "sourceId": "spacex-ai-compute",
+                "source": {
+                  "id": "spacex-ai-compute",
+                  "name": "SpaceX STARMIND",
+                  "url": "https://new.spacex.com/spacexai/starmind",
+                  "sourceClass": "official"
+                }
+              }
+            ],
+            "stage": "고객 제안 단계 검토",
+            "pain": "Edge Compute의 전력·방사선·통신·신뢰성",
+            "memory": "Low-power DRAM/NAND · AI-D E 후보",
+            "gate": "공식 Memory Spec · Qualification · Volume",
+            "relationship": "공식 Memory 근거 전까지 Opportunity Watch",
+            "accent": "#566678",
+            "evidence": {
+              "status": "official-monitoring",
+              "label": "OFFICIAL SOURCE MONITOR",
+              "source": "SpaceX Official",
+              "url": "https://www.spacex.com/careers/jobs?keyword=ASIC",
+              "asOf": null
+            },
+            "mentions": 1,
+            "sourceCount": 1,
+            "officialEvidenceCount": 0,
+            "weekly": [
+              {
+                "week": "2026-07-06",
+                "count": 0
+              },
+              {
+                "week": "2026-07-13",
+                "count": 0
+              },
+              {
+                "week": "2026-07-20",
+                "count": 0
+              },
+              {
+                "week": "2026-07-27",
+                "count": 1
+              },
+              {
+                "week": "2026-08-03",
+                "count": 0
+              },
+              {
+                "week": "2026-08-10",
+                "count": 0
+              },
+              {
+                "week": "2026-08-17",
+                "count": 0
+              },
+              {
+                "week": "2026-08-24",
+                "count": 0
+              }
+            ],
+            "evidenceStream": [
+              {
+                "title": "CXMT, the largest Chinese DRAM producer, jumps 470% on Shanghai listing - CNBC TV18",
+                "source": "CNBC TV18",
+                "sourceClass": "news",
+                "url": "https://www.cnbctv18.com/market/changxin-technology-group-cxmt-stellar-debut-shanghai-stock-exchange-strong-retail-subscription-ipo-star-market-valuations-peers-19954343.htm",
+                "date": "2026-07-27"
+              }
+            ],
+            "chipStage": "Reference Monitor",
+            "xpuEcosystem": null,
+            "stageLedger": {
+              "stage": "UNVERIFIED",
+              "label": "고객 제안 단계 검토",
+              "source": null
+            }
+          }
+        ]
+      },
       "projects": [
         {
           "id": "nvidia-base-die",
@@ -2904,7 +3498,7 @@
           "accent": "#00A88F",
           "accountLabels": [
             "Anthropic",
-            "AWS",
+            "Amazon AWS",
             "Google",
             "Broadcom"
           ],
@@ -3051,6 +3645,7 @@
             }
           ],
           "chipStage": "공식 플랫폼 공개",
+          "chipPortfolio": [],
           "xpuEcosystem": null,
           "stageLedger": {
             "stage": "UNVERIFIED",
@@ -3082,6 +3677,24 @@
                 "id": "google-cloud-tpu",
                 "name": "Google Cloud TPU",
                 "url": "https://docs.cloud.google.com/tpu/docs/tpu7x"
+              }
+            }
+          ],
+          "chipPortfolio": [
+            {
+              "name": "TPU7x · Ironwood",
+              "type": "HYPERSCALER ASIC",
+              "workload": "Training · Inference · MoE",
+              "publicSpec": "192GB HBM · 7.38TB/s · 9,216-chip Pod",
+              "memoryPain": "MXU Feeding · HBM/VMEM/Host Data Movement · Pod Fabric",
+              "memoryProposal": "Custom HBM · AI-D B · AI-N B",
+              "evidenceLabel": "OFFICIAL SPEC",
+              "sourceId": "google-cloud-tpu",
+              "source": {
+                "id": "google-cloud-tpu",
+                "name": "Google Cloud TPU",
+                "url": "https://docs.cloud.google.com/tpu/docs/tpu7x",
+                "sourceClass": "official"
               }
             }
           ],
@@ -3208,6 +3821,24 @@
               }
             }
           ],
+          "chipPortfolio": [
+            {
+              "name": "Maia 200",
+              "type": "INFERENCE ASIC",
+              "workload": "Token Generation · Reasoning · Agentic AI",
+              "publicSpec": "216GB HBM3e · 7TB/s · TSMC 3nm",
+              "memoryPain": "HBM Feeding · Data Movement · Scale-up Efficiency",
+              "memoryProposal": "Custom HBM · AI-D O/B · Network Co-Design",
+              "evidenceLabel": "OFFICIAL SPEC",
+              "sourceId": "microsoft-ai-infra",
+              "source": {
+                "id": "microsoft-ai-infra",
+                "name": "Microsoft Official Blog",
+                "url": "https://blogs.microsoft.com/blog/2026/01/26/maia-200-the-ai-accelerator-built-for-inference/",
+                "sourceClass": "official"
+              }
+            }
+          ],
           "stage": "고객 제안 단계 검토",
           "pain": "Inference Token 경제성·Memory Feeding·Scale-up Network",
           "memory": "Custom HBM · AI-D · Network Co-Design",
@@ -3280,8 +3911,8 @@
           "focus": true,
           "demandClass": "asic",
           "group": "hyperscaler-asic",
-          "company": "AWS",
-          "chip": "Trainium",
+          "company": "Amazon AWS",
+          "chip": "Trainium3",
           "aliases": [
             "amazon",
             "aws",
@@ -3292,13 +3923,31 @@
           ],
           "baseline": [
             {
-              "label": "PLATFORM",
-              "value": "Trainium · Neuron",
+              "label": "MEMORY",
+              "value": "144GB HBM3e · 4.9TB/s",
               "sourceId": "aws-trainium",
               "source": {
                 "id": "aws-trainium",
                 "name": "AWS Trainium",
                 "url": "https://aws.amazon.com/ai/machine-learning/trainium/"
+              }
+            }
+          ],
+          "chipPortfolio": [
+            {
+              "name": "Trainium3",
+              "type": "TRAINING · INFERENCE ASIC",
+              "workload": "MoE · Long Context · Multimodal",
+              "publicSpec": "144GB HBM3e · 4.9TB/s · 144-chip UltraServer",
+              "memoryPain": "Expert Routing · Collective · HBM Data Movement",
+              "memoryProposal": "Custom HBM · AI-D B · AI-N Tier",
+              "evidenceLabel": "OFFICIAL SPEC",
+              "sourceId": "aws-trainium",
+              "source": {
+                "id": "aws-trainium",
+                "name": "AWS Trainium",
+                "url": "https://aws.amazon.com/ai/machine-learning/trainium/",
+                "sourceClass": "official"
               }
             }
           ],
@@ -3491,6 +4140,7 @@
             }
           ],
           "chipStage": "인프라 배포 공개",
+          "chipPortfolio": [],
           "stageLedger": {
             "stage": "UNVERIFIED",
             "label": "고객 제안 단계 검토",
@@ -3575,6 +4225,7 @@
           ],
           "evidenceStream": [],
           "chipStage": "공식 Roadmap 모니터",
+          "chipPortfolio": [],
           "xpuEcosystem": null,
           "stageLedger": {
             "stage": "UNVERIFIED",
@@ -3604,7 +4255,25 @@
               "source": {
                 "id": "apple-ai-infra",
                 "name": "Apple AI Infrastructure",
-                "url": "https://www.apple.com/newsroom/2025/08/apple-increases-us-commitment-to-600-billion-usd-announces-ambitious-program/"
+                "url": "https://security.apple.com/documentation/private-cloud-compute/"
+              }
+            }
+          ],
+          "chipPortfolio": [
+            {
+              "name": "Apple Silicon · PCC",
+              "type": "CUSTOM CLOUD SILICON",
+              "workload": "Private Inference · On-device/Cloud Routing",
+              "publicSpec": "최대 8-node 분산 추론 · Memory Spec 미공개",
+              "memoryPain": "Privacy · Stateless Serving · Energy/Task",
+              "memoryProposal": "Unified Memory · AI-D E · Secure Memory Tier",
+              "evidenceLabel": "OFFICIAL ARCHITECTURE",
+              "sourceId": "apple-ai-infra",
+              "source": {
+                "id": "apple-ai-infra",
+                "name": "Apple AI Infrastructure",
+                "url": "https://security.apple.com/documentation/private-cloud-compute/",
+                "sourceClass": "official"
               }
             }
           ],
@@ -3745,6 +4414,7 @@
           ],
           "evidenceStream": [],
           "chipStage": "공식 플랫폼",
+          "chipPortfolio": [],
           "xpuEcosystem": null,
           "stageLedger": {
             "stage": "UNVERIFIED",
@@ -3887,6 +4557,7 @@
             }
           ],
           "chipStage": "공식 공동개발·샘플 공개",
+          "chipPortfolio": [],
           "stageLedger": {
             "stage": "UNVERIFIED",
             "label": "고객 제안 단계 검토",
@@ -4020,6 +4691,7 @@
           ],
           "evidenceStream": [],
           "chipStage": "멀티플랫폼 Training·Serving 공개",
+          "chipPortfolio": [],
           "stageLedger": {
             "stage": "UNVERIFIED",
             "label": "고객 제안 단계 검토",
@@ -4028,11 +4700,11 @@
         },
         {
           "id": "spacex",
-          "focus": false,
+          "focus": true,
           "demandClass": "asic",
           "group": "edge-physical",
           "company": "SpaceX",
-          "chip": "Starlink Custom Silicon",
+          "chip": "Starlink Silicon · STARMIND",
           "aliases": [
             "spacex",
             "space x",
@@ -4041,13 +4713,31 @@
           ],
           "baseline": [
             {
-              "label": "STATUS",
-              "value": "공식 Memory Spec 모니터",
-              "sourceId": "spacex-official",
+              "label": "PLATFORM",
+              "value": "Custom Silicon · Orbital AI Compute",
+              "sourceId": "spacex-ai-compute",
               "source": {
-                "id": "spacex-official",
-                "name": "SpaceX Official",
-                "url": "https://www.spacex.com/"
+                "id": "spacex-ai-compute",
+                "name": "SpaceX STARMIND",
+                "url": "https://new.spacex.com/spacexai/starmind"
+              }
+            }
+          ],
+          "chipPortfolio": [
+            {
+              "name": "Starlink Silicon · STARMIND",
+              "type": "CUSTOM SILICON · ORBITAL AI",
+              "workload": "Connectivity · Edge Processing · Orbital Inference",
+              "publicSpec": "AI chip vendor-neutral · Memory Spec 미공개",
+              "memoryPain": "전력 · 열 · 방사선 · 고신뢰 Data Movement",
+              "memoryProposal": "AI-D E · Low-power DRAM · High-endurance NAND",
+              "evidenceLabel": "OFFICIAL PLATFORM",
+              "sourceId": "spacex-ai-compute",
+              "source": {
+                "id": "spacex-ai-compute",
+                "name": "SpaceX STARMIND",
+                "url": "https://new.spacex.com/spacexai/starmind",
+                "sourceClass": "official"
               }
             }
           ],
@@ -4061,7 +4751,7 @@
             "status": "official-monitoring",
             "label": "OFFICIAL SOURCE MONITOR",
             "source": "SpaceX Official",
-            "url": "https://www.spacex.com/",
+            "url": "https://www.spacex.com/careers/jobs?keyword=ASIC",
             "asOf": null
           },
           "mentions": 1,
@@ -4260,6 +4950,7 @@
             }
           ],
           "chipStage": "공식 플랫폼 공개",
+          "chipPortfolio": [],
           "xpuEcosystem": null,
           "stageLedger": {
             "stage": "UNVERIFIED",
@@ -4291,6 +4982,24 @@
                 "id": "google-cloud-tpu",
                 "name": "Google Cloud TPU",
                 "url": "https://docs.cloud.google.com/tpu/docs/tpu7x"
+              }
+            }
+          ],
+          "chipPortfolio": [
+            {
+              "name": "TPU7x · Ironwood",
+              "type": "HYPERSCALER ASIC",
+              "workload": "Training · Inference · MoE",
+              "publicSpec": "192GB HBM · 7.38TB/s · 9,216-chip Pod",
+              "memoryPain": "MXU Feeding · HBM/VMEM/Host Data Movement · Pod Fabric",
+              "memoryProposal": "Custom HBM · AI-D B · AI-N B",
+              "evidenceLabel": "OFFICIAL SPEC",
+              "sourceId": "google-cloud-tpu",
+              "source": {
+                "id": "google-cloud-tpu",
+                "name": "Google Cloud TPU",
+                "url": "https://docs.cloud.google.com/tpu/docs/tpu7x",
+                "sourceClass": "official"
               }
             }
           ],
@@ -4417,6 +5126,24 @@
               }
             }
           ],
+          "chipPortfolio": [
+            {
+              "name": "Maia 200",
+              "type": "INFERENCE ASIC",
+              "workload": "Token Generation · Reasoning · Agentic AI",
+              "publicSpec": "216GB HBM3e · 7TB/s · TSMC 3nm",
+              "memoryPain": "HBM Feeding · Data Movement · Scale-up Efficiency",
+              "memoryProposal": "Custom HBM · AI-D O/B · Network Co-Design",
+              "evidenceLabel": "OFFICIAL SPEC",
+              "sourceId": "microsoft-ai-infra",
+              "source": {
+                "id": "microsoft-ai-infra",
+                "name": "Microsoft Official Blog",
+                "url": "https://blogs.microsoft.com/blog/2026/01/26/maia-200-the-ai-accelerator-built-for-inference/",
+                "sourceClass": "official"
+              }
+            }
+          ],
           "stage": "고객 제안 단계 검토",
           "pain": "Inference Token 경제성·Memory Feeding·Scale-up Network",
           "memory": "Custom HBM · AI-D · Network Co-Design",
@@ -4489,8 +5216,8 @@
           "focus": true,
           "demandClass": "asic",
           "group": "hyperscaler-asic",
-          "company": "AWS",
-          "chip": "Trainium",
+          "company": "Amazon AWS",
+          "chip": "Trainium3",
           "aliases": [
             "amazon",
             "aws",
@@ -4501,13 +5228,31 @@
           ],
           "baseline": [
             {
-              "label": "PLATFORM",
-              "value": "Trainium · Neuron",
+              "label": "MEMORY",
+              "value": "144GB HBM3e · 4.9TB/s",
               "sourceId": "aws-trainium",
               "source": {
                 "id": "aws-trainium",
                 "name": "AWS Trainium",
                 "url": "https://aws.amazon.com/ai/machine-learning/trainium/"
+              }
+            }
+          ],
+          "chipPortfolio": [
+            {
+              "name": "Trainium3",
+              "type": "TRAINING · INFERENCE ASIC",
+              "workload": "MoE · Long Context · Multimodal",
+              "publicSpec": "144GB HBM3e · 4.9TB/s · 144-chip UltraServer",
+              "memoryPain": "Expert Routing · Collective · HBM Data Movement",
+              "memoryProposal": "Custom HBM · AI-D B · AI-N Tier",
+              "evidenceLabel": "OFFICIAL SPEC",
+              "sourceId": "aws-trainium",
+              "source": {
+                "id": "aws-trainium",
+                "name": "AWS Trainium",
+                "url": "https://aws.amazon.com/ai/machine-learning/trainium/",
+                "sourceClass": "official"
               }
             }
           ],
@@ -4700,6 +5445,7 @@
             }
           ],
           "chipStage": "인프라 배포 공개",
+          "chipPortfolio": [],
           "stageLedger": {
             "stage": "UNVERIFIED",
             "label": "고객 제안 단계 검토",
@@ -4784,6 +5530,7 @@
           ],
           "evidenceStream": [],
           "chipStage": "공식 Roadmap 모니터",
+          "chipPortfolio": [],
           "xpuEcosystem": null,
           "stageLedger": {
             "stage": "UNVERIFIED",
@@ -4813,7 +5560,25 @@
               "source": {
                 "id": "apple-ai-infra",
                 "name": "Apple AI Infrastructure",
-                "url": "https://www.apple.com/newsroom/2025/08/apple-increases-us-commitment-to-600-billion-usd-announces-ambitious-program/"
+                "url": "https://security.apple.com/documentation/private-cloud-compute/"
+              }
+            }
+          ],
+          "chipPortfolio": [
+            {
+              "name": "Apple Silicon · PCC",
+              "type": "CUSTOM CLOUD SILICON",
+              "workload": "Private Inference · On-device/Cloud Routing",
+              "publicSpec": "최대 8-node 분산 추론 · Memory Spec 미공개",
+              "memoryPain": "Privacy · Stateless Serving · Energy/Task",
+              "memoryProposal": "Unified Memory · AI-D E · Secure Memory Tier",
+              "evidenceLabel": "OFFICIAL ARCHITECTURE",
+              "sourceId": "apple-ai-infra",
+              "source": {
+                "id": "apple-ai-infra",
+                "name": "Apple AI Infrastructure",
+                "url": "https://security.apple.com/documentation/private-cloud-compute/",
+                "sourceClass": "official"
               }
             }
           ],
@@ -4870,6 +5635,116 @@
           ],
           "evidenceStream": [],
           "chipStage": "공식 인프라 공개",
+          "xpuEcosystem": null,
+          "stageLedger": {
+            "stage": "UNVERIFIED",
+            "label": "고객 제안 단계 검토",
+            "source": null
+          }
+        },
+        {
+          "id": "spacex",
+          "focus": true,
+          "demandClass": "asic",
+          "group": "edge-physical",
+          "company": "SpaceX",
+          "chip": "Starlink Silicon · STARMIND",
+          "aliases": [
+            "spacex",
+            "space x",
+            "starlink",
+            "스페이스엑스"
+          ],
+          "baseline": [
+            {
+              "label": "PLATFORM",
+              "value": "Custom Silicon · Orbital AI Compute",
+              "sourceId": "spacex-ai-compute",
+              "source": {
+                "id": "spacex-ai-compute",
+                "name": "SpaceX STARMIND",
+                "url": "https://new.spacex.com/spacexai/starmind"
+              }
+            }
+          ],
+          "chipPortfolio": [
+            {
+              "name": "Starlink Silicon · STARMIND",
+              "type": "CUSTOM SILICON · ORBITAL AI",
+              "workload": "Connectivity · Edge Processing · Orbital Inference",
+              "publicSpec": "AI chip vendor-neutral · Memory Spec 미공개",
+              "memoryPain": "전력 · 열 · 방사선 · 고신뢰 Data Movement",
+              "memoryProposal": "AI-D E · Low-power DRAM · High-endurance NAND",
+              "evidenceLabel": "OFFICIAL PLATFORM",
+              "sourceId": "spacex-ai-compute",
+              "source": {
+                "id": "spacex-ai-compute",
+                "name": "SpaceX STARMIND",
+                "url": "https://new.spacex.com/spacexai/starmind",
+                "sourceClass": "official"
+              }
+            }
+          ],
+          "stage": "고객 제안 단계 검토",
+          "pain": "Edge Compute의 전력·방사선·통신·신뢰성",
+          "memory": "Low-power DRAM/NAND · AI-D E 후보",
+          "gate": "공식 Memory Spec · Qualification · Volume",
+          "relationship": "공식 Memory 근거 전까지 Opportunity Watch",
+          "accent": "#566678",
+          "evidence": {
+            "status": "official-monitoring",
+            "label": "OFFICIAL SOURCE MONITOR",
+            "source": "SpaceX Official",
+            "url": "https://www.spacex.com/careers/jobs?keyword=ASIC",
+            "asOf": null
+          },
+          "mentions": 1,
+          "sourceCount": 1,
+          "officialEvidenceCount": 0,
+          "weekly": [
+            {
+              "week": "2026-07-06",
+              "count": 0
+            },
+            {
+              "week": "2026-07-13",
+              "count": 0
+            },
+            {
+              "week": "2026-07-20",
+              "count": 0
+            },
+            {
+              "week": "2026-07-27",
+              "count": 1
+            },
+            {
+              "week": "2026-08-03",
+              "count": 0
+            },
+            {
+              "week": "2026-08-10",
+              "count": 0
+            },
+            {
+              "week": "2026-08-17",
+              "count": 0
+            },
+            {
+              "week": "2026-08-24",
+              "count": 0
+            }
+          ],
+          "evidenceStream": [
+            {
+              "title": "CXMT, the largest Chinese DRAM producer, jumps 470% on Shanghai listing - CNBC TV18",
+              "source": "CNBC TV18",
+              "sourceClass": "news",
+              "url": "https://www.cnbctv18.com/market/changxin-technology-group-cxmt-stellar-debut-shanghai-stock-exchange-strong-retail-subscription-ipo-star-market-valuations-peers-19954343.htm",
+              "date": "2026-07-27"
+            }
+          ],
+          "chipStage": "Reference Monitor",
           "xpuEcosystem": null,
           "stageLedger": {
             "stage": "UNVERIFIED",
@@ -5229,6 +6104,43 @@
                 "claim": "watch"
               }
             ]
+          },
+          {
+            "accountId": "spacex",
+            "cells": [
+              {
+                "accountId": "spacex",
+                "supplierId": "skhynix",
+                "status": "unconfirmed",
+                "sourceId": null,
+                "asOf": null,
+                "claim": "watch"
+              },
+              {
+                "accountId": "spacex",
+                "supplierId": "samsung",
+                "status": "unconfirmed",
+                "sourceId": null,
+                "asOf": null,
+                "claim": "watch"
+              },
+              {
+                "accountId": "spacex",
+                "supplierId": "micron",
+                "status": "unconfirmed",
+                "sourceId": null,
+                "asOf": null,
+                "claim": "watch"
+              },
+              {
+                "accountId": "spacex",
+                "supplierId": "cxmt",
+                "status": "unconfirmed",
+                "sourceId": null,
+                "asOf": null,
+                "claim": "watch"
+              }
+            ]
           }
         ],
         "legend": {
@@ -5403,7 +6315,7 @@
             "Google",
             "Meta",
             "NVIDIA",
-            "AWS"
+            "Amazon AWS"
           ]
         },
         "decisionFrame": [
@@ -5663,7 +6575,7 @@
             "NVIDIA",
             "Google",
             "Microsoft",
-            "AWS",
+            "Amazon AWS",
             "Meta",
             "OpenAI"
           ],
@@ -5730,7 +6642,7 @@
           "accent": "#00A88F",
           "accountLabels": [
             "Microsoft",
-            "AWS",
+            "Amazon AWS",
             "Apple"
           ],
           "source": {
@@ -5800,7 +6712,7 @@
           "accountLabels": [
             "Google",
             "Microsoft",
-            "AWS",
+            "Amazon AWS",
             "Meta",
             "OpenAI",
             "Anthropic"
@@ -5937,7 +6849,7 @@
           "accountLabels": [
             "Google",
             "Microsoft",
-            "AWS",
+            "Amazon AWS",
             "OpenAI",
             "Anthropic"
           ],
@@ -6006,7 +6918,7 @@
           "accountLabels": [
             "NVIDIA",
             "Google",
-            "AWS",
+            "Amazon AWS",
             "Meta"
           ],
           "source": {
@@ -6074,7 +6986,7 @@
           "accountLabels": [
             "Google",
             "Microsoft",
-            "AWS",
+            "Amazon AWS",
             "Meta"
           ],
           "source": {

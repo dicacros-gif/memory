@@ -13069,6 +13069,8 @@
     const reports = Array.isArray(strategyBoard.reports) ? strategyBoard.reports : [];
     const customerGroups = Array.isArray(customerBoard.groups) ? customerBoard.groups : [];
     const customerAccounts = Array.isArray(customerBoard.accounts) ? customerBoard.accounts : [];
+    const asicPortfolio = customerBoard.asicPortfolio || {};
+    const priorityAsicAccounts = Array.isArray(asicPortfolio.accounts) ? asicPortfolio.accounts : [];
     const customerPillars = Array.isArray(customerBoard.pillars) ? customerBoard.pillars : [];
     const customerProjects = Array.isArray(customerBoard.projects) ? customerBoard.projects : [];
     const competitiveFrame = Array.isArray(customerBoard.competitiveFrame) ? customerBoard.competitiveFrame : [];
@@ -13153,6 +13155,35 @@
         <div><span>${escapeHTML(customerBoard.eyebrow || "CUSTOMER & ASIC RADAR")}</span><h3>${escapeHTML(customerBoard.title || "GPU · Custom ASIC Roadmap → Memory Proposal")}</h3></div>
         <p>${escapeHTML(customerBoard.description || "고객별 Roadmap과 Memory Gate를 분리")}</p>
       </div>
+      ${priorityAsicAccounts.length ? `<section class="sc-asic-portfolio" aria-labelledby="asicPortfolioTitle">
+        <header class="sc-asic-portfolio-head">
+          <div><span>${escapeHTML(asicPortfolio.eyebrow || "CUSTOMER ASIC PORTFOLIO")}</span><h4 id="asicPortfolioTitle">${escapeHTML(asicPortfolio.title || "Customer Chip → Memory Bottleneck → Account Action")}</h4></div>
+          <p>${escapeHTML(asicPortfolio.description || "공개 사양과 미공개 항목을 분리")}</p>
+        </header>
+        <div class="sc-asic-priority-grid">
+          ${priorityAsicAccounts.flatMap((account) => (account.chipPortfolio || []).map((chip) => `
+            <article class="sc-asic-priority-card" tabindex="0" style="--asic-accent:${escapeHTML(account.accent || "#0A84B8")}">
+              <div class="sc-asic-card-head">
+                <span>${escapeHTML(account.company || "")}</span>
+                <em>${escapeHTML(chip.evidenceLabel || "PUBLIC STATUS")}</em>
+              </div>
+              <h5>${escapeHTML(chip.name || account.chip || "")}</h5>
+              <small>${escapeHTML(chip.type || "CUSTOM ASIC")}</small>
+              <dl>
+                <div><dt>WORKLOAD</dt><dd>${escapeHTML(chip.workload || "")}</dd></div>
+                <div><dt>PUBLIC</dt><dd>${strategicHighlightHTML(chip.publicSpec || "공개 사양 확인 필요")}</dd></div>
+                <div><dt>MEMORY PAIN</dt><dd>${strategicHighlightHTML(chip.memoryPain || account.pain || "")}</dd></div>
+                <div><dt>SKH OPTION</dt><dd>${strategicHighlightHTML(chip.memoryProposal || account.memory || "")}</dd></div>
+              </dl>
+              <div class="sc-asic-card-foot">
+                <span>${chip.publicSpec?.includes("미공개") ? "미공개 사양 추정 금지" : "공식 수치 기준"}</span>
+                ${chip.source?.url ? `<a href="${escapeHTML(chip.source.url)}" target="_blank" rel="noopener noreferrer">원문 ↗</a>` : ""}
+              </div>
+            </article>
+          `)).join("")}
+        </div>
+        <p class="sc-asic-policy">${escapeHTML(asicPortfolio.evidencePolicy || "공식 원문 기준")}</p>
+      </section>` : ""}
       ${customerPillars.length ? `<div class="sc-partner-grid" aria-label="조직 미션 3필러">
         ${customerPillars.map((item) => `<article class="sc-partner" style="--sc-accent:#0a7f7d"><strong>${escapeHTML(item.index || "")} · ${escapeHTML(item.label || "")}</strong><div class="sc-partner-row"><b>QUESTION</b><span>${escapeHTML(item.question || "")}</span></div></article>`).join("")}
       </div>` : ""}

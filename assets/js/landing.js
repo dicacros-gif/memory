@@ -3,7 +3,7 @@
 
   const BUSINESS_TITLE = "AI Infra Strategy · Customer Pain to Executive Action";
   const CONSOLE_HASH = "#console";
-  const CONSOLE_REVISION = "infra-68fb6e204553";
+  const CONSOLE_REVISION = "infra-13543f172c70";
   const DECISION_CLIENT_PATH = "data/landing-decision-client.json";
   const SITE_CONTENT_PATH = "data/site-content-client.json";
   const SITE_CONTENT_EXTENDED_PATH = "data/site-content-extended-client.json";
@@ -826,7 +826,14 @@
 
   function renderLandingAccountStrip(content = {}) {
     const board = content.strategyBoard?.customerPortfolio || {};
-    const accounts = Array.isArray(board.focusAccounts) ? board.focusAccounts : [];
+    const focusAccounts = Array.isArray(board.focusAccounts) ? board.focusAccounts : [];
+    const priorityIds = Array.isArray(board.asicPortfolio?.priorityAccountIds) ? board.asicPortfolio.priorityAccountIds : [];
+    const priorityRank = new Map(priorityIds.map((id, index) => [id, index]));
+    const accounts = focusAccounts.slice().sort((left, right) => {
+      const leftRank = priorityRank.has(left.id) ? priorityRank.get(left.id) : Number.MAX_SAFE_INTEGER;
+      const rightRank = priorityRank.has(right.id) ? priorityRank.get(right.id) : Number.MAX_SAFE_INTEGER;
+      return leftRank - rightRank;
+    });
     const host = document.querySelector("#businessKeyAccounts");
     if (host && accounts.length) {
       host.innerHTML = accounts.map((account) => `

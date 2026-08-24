@@ -30818,3 +30818,201 @@ body.consulting-system #main > #c-level-cockpit {
     grid-template-columns: minmax(0, 1fr);
   }
 }
+
+/* Priority customer ASIC portfolio
+   Public specifications stay distinct from disclosure-limited architecture cards. */
+.consulting-system #intelligenceConsole .sc-asic-portfolio {
+  margin: 14px 0;
+  padding: 16px;
+  border: 1px solid #cbd6e2;
+  border-radius: 14px;
+  background: #f4f8fb;
+  color: #12263a;
+}
+
+.consulting-system #intelligenceConsole .sc-asic-portfolio-head {
+  display: flex;
+  align-items: end;
+  justify-content: space-between;
+  gap: 12px;
+  margin-bottom: 12px;
+}
+
+.consulting-system #intelligenceConsole .sc-asic-portfolio-head span {
+  color: #087c78;
+  font: 850 10px/1.3 var(--display, "Space Grotesk", sans-serif);
+  letter-spacing: .1em;
+}
+
+.consulting-system #intelligenceConsole .sc-asic-portfolio-head h4 {
+  margin: 3px 0 0;
+  color: #12263a;
+  font-size: clamp(18px, 2vw, 26px);
+  line-height: 1.12;
+  overflow-wrap: anywhere;
+}
+
+.consulting-system #intelligenceConsole .sc-asic-portfolio-head p,
+.consulting-system #intelligenceConsole .sc-asic-policy {
+  margin: 0;
+  color: #4b5e72;
+  font-size: 11px;
+  font-weight: 750;
+  line-height: 1.45;
+}
+
+.consulting-system #intelligenceConsole .sc-asic-priority-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 250px), 1fr));
+  gap: 10px;
+}
+
+.consulting-system #intelligenceConsole .sc-asic-priority-card {
+  --asic-accent: #0a84b8;
+  min-width: 0;
+  display: grid;
+  align-content: start;
+  gap: 8px;
+  padding: 14px;
+  border: 1px solid #cbd6e2;
+  border-top: 4px solid var(--asic-accent);
+  border-radius: 12px;
+  background: #fff;
+  color: #12263a;
+  box-shadow: 0 4px 12px #102f4310;
+  transition: transform .04s ease-out, box-shadow .04s ease-out, border-color 0s, background-color 0s, color 0s !important;
+}
+
+.consulting-system #intelligenceConsole .sc-asic-card-head,
+.consulting-system #intelligenceConsole .sc-asic-card-foot {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  min-width: 0;
+}
+
+.consulting-system #intelligenceConsole .sc-asic-card-head span {
+  color: var(--asic-accent);
+  font: 900 12px/1.25 var(--display, "Space Grotesk", sans-serif);
+  letter-spacing: .06em;
+}
+
+.consulting-system #intelligenceConsole .sc-asic-card-head em {
+  flex: 0 0 auto;
+  padding: 4px 7px;
+  border: 1px solid color-mix(in srgb, var(--asic-accent) 50%, #cbd6e2);
+  border-radius: 999px;
+  background: color-mix(in srgb, var(--asic-accent) 9%, #fff);
+  color: #24384b;
+  font: 850 8.5px/1.2 var(--display, "Space Grotesk", sans-serif);
+  letter-spacing: .04em;
+  text-transform: uppercase;
+}
+
+.consulting-system #intelligenceConsole .sc-asic-priority-card h5 {
+  margin: 0;
+  color: #12263a;
+  font-size: 16px;
+  line-height: 1.25;
+  overflow-wrap: anywhere;
+  word-break: keep-all;
+}
+
+.consulting-system #intelligenceConsole .sc-asic-priority-card > small {
+  color: #4b5e72;
+  font-size: 9.5px;
+  font-weight: 800;
+  letter-spacing: .05em;
+}
+
+.consulting-system #intelligenceConsole .sc-asic-priority-card dl {
+  display: grid;
+  gap: 0;
+  margin: 2px 0 0;
+}
+
+.consulting-system #intelligenceConsole .sc-asic-priority-card dl > div {
+  display: grid;
+  grid-template-columns: 78px minmax(0, 1fr);
+  gap: 8px;
+  padding: 8px 0;
+  border-top: 1px solid #dbe3eb;
+}
+
+.consulting-system #intelligenceConsole .sc-asic-priority-card dt {
+  color: var(--asic-accent);
+  font: 850 9px/1.45 var(--display, "Space Grotesk", sans-serif);
+  letter-spacing: .05em;
+}
+
+.consulting-system #intelligenceConsole .sc-asic-priority-card dd {
+  min-width: 0;
+  margin: 0;
+  color: #334b60;
+  font-size: 11.5px;
+  font-weight: 700;
+  line-height: 1.48;
+  white-space: normal;
+  overflow-wrap: anywhere;
+  word-break: keep-all;
+}
+
+.consulting-system #intelligenceConsole .sc-asic-card-foot {
+  padding-top: 3px;
+  color: #5b6d7d;
+  font-size: 9.5px;
+  font-weight: 750;
+}
+
+.consulting-system #intelligenceConsole .sc-asic-card-foot a {
+  flex: 0 0 auto;
+  color: #075f83;
+  font-weight: 850;
+  text-underline-offset: 3px;
+}
+
+.consulting-system #intelligenceConsole .sc-asic-policy { margin-top: 10px; }
+
+.consulting-system #intelligenceConsole .sc-asic-priority-card:is(:hover, :focus-visible) {
+  background: #102f43;
+  border-color: var(--asic-accent);
+  color: #fff;
+  box-shadow: 0 10px 22px #08203030;
+  transform: translateY(-2px);
+}
+
+.consulting-system #intelligenceConsole .sc-asic-priority-card:is(:hover, :focus-visible) :is(h5, dd, .sc-asic-card-foot, .sc-asic-card-foot span, .sc-asic-card-foot a) {
+  color: #fff !important;
+  -webkit-text-fill-color: #fff !important;
+}
+
+.consulting-system #intelligenceConsole .sc-asic-priority-card:is(:hover, :focus-visible) > small {
+  color: #fff !important;
+  -webkit-text-fill-color: #fff !important;
+}
+
+.consulting-system #intelligenceConsole .sc-asic-priority-card:is(:hover, :focus-visible) :is(.sc-asic-card-head span, dt) {
+  color: #71e6d4 !important;
+  -webkit-text-fill-color: #71e6d4 !important;
+}
+
+.consulting-system #intelligenceConsole .sc-asic-priority-card:is(:hover, :focus-visible) .sc-asic-card-head em {
+  background: #f3c94c;
+  border-color: #f3c94c;
+  color: #12263a !important;
+  -webkit-text-fill-color: #12263a !important;
+}
+
+.consulting-system #intelligenceConsole .sc-asic-priority-card:is(:hover, :focus-visible) dl > div { border-color: #ffffff2e; }
+
+.consulting-system #intelligenceConsole .sc-asic-priority-card:is(:hover, :focus-visible) :is(.business-key-term, mark) {
+  color: #fff2a8 !important;
+  -webkit-text-fill-color: #fff2a8 !important;
+  text-decoration-color: #f3c94c !important;
+}
+
+@media (max-width: 720px) {
+  .consulting-system #intelligenceConsole .sc-asic-portfolio-head { align-items: start; flex-direction: column; }
+  .consulting-system #intelligenceConsole .sc-asic-priority-card dl > div { grid-template-columns: minmax(0, 1fr); gap: 3px; }
+}

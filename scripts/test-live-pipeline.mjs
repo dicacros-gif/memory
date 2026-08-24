@@ -41,7 +41,7 @@ const article = (title, url, date = "2026-07-20", summary = title, source = "Off
 });
 
 assert.equal(DEMAND_ACCOUNT_REGISTRY.length, 27, "demand registry must contain exactly 27 accounts");
-assert.equal(STRATEGY_ACCOUNT_REGISTRY.filter((item) => item.focus !== false).length, 7, "strategy account registry must expose seven focus accounts");
+assert.equal(STRATEGY_ACCOUNT_REGISTRY.filter((item) => item.focus !== false).length, 8, "strategy account registry must expose eight focus accounts");
 assert.ok(STRATEGY_ACCOUNT_REGISTRY.some((item) => item.id === "microsoft" && item.aliases.includes("maia 200")), "Maia must be an explicit account lens");
 assert.equal(new Set(DEMAND_ACCOUNT_REGISTRY.map((item) => item.id)).size, 27, "demand account ids must be unique");
 assert.equal(new Set(RELATION_ENTITY_REGISTRY.map((item) => item.id)).size, RELATION_ENTITY_REGISTRY.length, "relation entity ids must be unique");
@@ -99,13 +99,13 @@ const strategyAccountIntelligence = buildStrategyAccountIntelligence({
     evidenceSpan: "Microsoft Maia 200 Custom HBM co-design qualification",
   }] } },
 }, {}, now);
-assert.equal(strategyAccountIntelligence.focusAccountCount, 7);
+assert.equal(strategyAccountIntelligence.focusAccountCount, 8);
 assert.equal(strategyAccountIntelligence.accountCount, STRATEGY_ACCOUNT_REGISTRY.length);
 assert.equal(strategyAccountIntelligence.accounts.microsoft.mentions, 1, "Maia evidence must map to Microsoft account");
 assert.equal(strategyAccountIntelligence.accounts.nvidia.mentions, 1, "Rubin evidence must map to NVIDIA account");
 assert.equal(strategyAccountIntelligence.accounts.microsoft.customHbmStage.id, "QUALIFICATION", "verified account co-design evidence must promote the Custom HBM stage");
 assert.equal(strategyAccountIntelligence.accounts.google.customHbmStage.id, "UNVERIFIED", "an account without direct Custom HBM evidence must remain unverified");
-assert.equal(strategyAccountIntelligence.supplierMatrix.rows.length, 7, "supplier matrix must cover every focus account");
+assert.equal(strategyAccountIntelligence.supplierMatrix.rows.length, 8, "supplier matrix must cover every focus account");
 const supplierCells = strategyAccountIntelligence.supplierMatrix.rows.flatMap((row) => row.cells);
 assert.ok(supplierCells.every((cell) => cell.claim !== "verified-fact"), "reported supplier relations must never be promoted to official facts");
 assert.ok(supplierCells.some((cell) => cell.status === "unconfirmed"), "missing supplier relations must remain fail closed");
