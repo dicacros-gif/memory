@@ -11474,7 +11474,7 @@
         priceTerms: [],
         categories: ["hbm", "dram"],
         weight: 76,
-        interpretation: "Micron은 HBM4 ramp, 16개 SCA와 Anthropic 공동설계로 서버 메모리 물량과 고객 아키텍처를 함께 선점합니다.",
+        interpretation: "Anthropic은 AWS Trainium·Google TPU·NVIDIA GPU를 병행하며 플랫폼별 HBM·Kernel·Serving 품질 동등성을 핵심 구매 기준으로 관리합니다.",
       },
       {
         id: "skhy-cxmt-dram",
@@ -13160,6 +13160,7 @@
           ${customerProjects.map((project) => `<article class="sc-partner sc-project-card" style="--sc-accent:${escapeHTML(project.accent || "#0A84B8")}">
             <span class="sc-tech-en">${escapeHTML(project.index || "")} · ${escapeHTML(project.label || "CUSTOMER PROJECT")}</span>
             <strong>${escapeHTML(project.title || "")}</strong>
+            <div class="sc-partner-row"><b>ACCOUNTS</b><span>${escapeHTML((project.accountLabels || []).join(" · "))}</span></div>
             <div class="sc-partner-row"><b>PAIN</b><span>${strategicHighlightHTML(project.pain || "")}</span></div>
             <div class="sc-partner-row"><b>PROPOSAL</b><span>${strategicHighlightHTML(project.proposal || "")}</span></div>
             <div class="sc-partner-row"><b>OUTPUT</b><span>${escapeHTML(project.deliverable || "")}</span></div>
@@ -13183,7 +13184,7 @@
                 <div class="sc-partner-row"><b>MEMORY</b><span>${strategicHighlightHTML(account.memory || "")}</span></div>
                 <div class="sc-partner-row"><b>GATE</b><span>${escapeHTML(account.gate || "")}</span></div>
                 <div class="sc-partner-row"><b>RELATION</b><span>${escapeHTML(account.relationship || "")}</span></div>
-                ${(account.evidenceStream || []).length ? `<a class="sc-project-insight" href="${escapeHTML(account.evidenceStream[0].url || "")}" target="_blank" rel="noopener noreferrer"><b>SELECTED INSIGHT</b><span>${escapeHTML(String(account.evidenceStream[0].title || "").slice(0, 92))}</span></a>` : ""}
+                ${account.xpuEcosystem ? `<div class="sc-partner-row"><b>XPU MAP</b><span><strong>${escapeHTML(account.xpuEcosystem.partner || "Broadcom")}</strong> · ${escapeHTML(account.xpuEcosystem.role || "")}${account.xpuEcosystem.source?.url ? ` · <a href="${escapeHTML(account.xpuEcosystem.source.url)}" target="_blank" rel="noopener noreferrer">${escapeHTML(account.xpuEcosystem.status || "근거")} ↗</a>` : ""}</span></div>` : ""}
                 ${evidence.url ? `<a class="sc-playbook-source" href="${escapeHTML(evidence.url)}" target="_blank" rel="noopener noreferrer">${escapeHTML(evidence.source || "공식 원문")} ${evidence.asOf ? `· ${escapeHTML(String(evidence.asOf).slice(0, 10))}` : ""} ↗</a>` : ""}
               </article>`;
             }).join("")}

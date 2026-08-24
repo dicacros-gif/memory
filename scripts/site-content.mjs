@@ -264,6 +264,10 @@ function buildStrategyBoard(payload = {}, generatedAt = null, decisionIntelligen
         const source = sourceById.get(metric.sourceId);
         return { ...metric, source: source ? { id: source.id, name: source.name, url: source.url } : null };
       }),
+      xpuEcosystem: item.xpuEcosystem ? {
+        ...item.xpuEcosystem,
+        source: sourceById.get(item.xpuEcosystem.sourceId) || null,
+      } : null,
       stageLedger: {
         stage: customHbmStage.id,
         label: customHbmStage.label,

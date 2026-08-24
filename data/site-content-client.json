@@ -209,16 +209,16 @@
     "evidenceCount": 79,
     "briefCount": 6,
     "sourceCount": 5,
-    "configuredSources": 47,
+    "configuredSources": 49,
     "observedSources": 5,
     "freshObservedSources": 5,
     "staleObservedSources": 0,
-    "officialConfigured": 38,
+    "officialConfigured": 40,
     "officialObserved": 1,
     "officialFreshObserved": 1,
-    "discoveryQueries": 53,
+    "discoveryQueries": 55,
     "connectedHealthChecks": 15,
-    "healthChecks": 18,
+    "healthChecks": 21,
     "scheduleHours": 1,
     "browserRecheckMinutes": 5,
     "sourceCatalogVersion": "1.0"
@@ -287,9 +287,9 @@
     "coverage": {
       "status": "LOW",
       "observed": 5,
-      "configured": 47,
-      "ratio": 0.106,
-      "freshRatio": 0.106
+      "configured": 49,
+      "ratio": 0.102,
+      "freshRatio": 0.102
     },
     "confidence": {
       "status": "REVIEW",
@@ -366,11 +366,11 @@
         "executionTrackingBriefs": 0
       },
       "catalogCoverage": {
-        "configured": 47,
+        "configured": 49,
         "observed": 5,
         "fresh": 5,
-        "observationRatePct": 10.6,
-        "officialConfigured": 38,
+        "observationRatePct": 10.2,
+        "officialConfigured": 40,
         "officialObserved": 1,
         "officialFresh": 1,
         "targetPct": 90
@@ -527,19 +527,19 @@
           "deepLink": "#console/account/nvidia"
         },
         {
-          "id": "hyperscaler-asic-matrix",
+          "id": "broadcom-xpu-account-map",
           "index": "02",
-          "label": "GOOGLE · MS · AWS · META",
-          "meceAxis": "hyperscaler-asic-matrix",
+          "label": "BROADCOM XPU · GOOGLE · META · OPENAI",
+          "meceAxis": "broadcom-xpu-account-map",
           "state": "PROJECT",
           "stage": "90_DAY_GATE",
-          "decisionQuestion": "ASIC Account Requirement Matrix",
-          "whatChanged": "계정별 Workload와 Buying Criteria를 Custom HBM·AI-D·AI-N 조합으로 개별 설계",
-          "latestSignal": "TPU·Maia·Trainium·MTIA마다 용량·대역폭·전력·인터페이스 요구가 다른 고객 과제",
-          "customerPain": "TPU·Maia·Trainium·MTIA마다 용량·대역폭·전력·인터페이스 요구가 다른 고객 과제",
-          "recommendation": "계정별 Workload와 Buying Criteria를 Custom HBM·AI-D·AI-N 조합으로 개별 설계",
-          "action90d": "2개 Lighthouse PoC · TCO 우위 · 고객별 Qualification Plan",
-          "deliverable": "Account Pain Map · Supplier Matrix · 고객별 Memory Proposal",
+          "decisionQuestion": "Broadcom XPU 고객별 Memory Co-Design",
+          "whatChanged": "Broadcom을 공통 Buying Center로 두되 고객별 Workload·Memory Movement·Package Gate를 분리 설계",
+          "latestSignal": "Google TPU·Meta MTIA·OpenAI Intelligence Processor마다 HBM 용량·대역폭·전력·Package 요구가 다른 고객 과제",
+          "customerPain": "Google TPU·Meta MTIA·OpenAI Intelligence Processor마다 HBM 용량·대역폭·전력·Package 요구가 다른 고객 과제",
+          "recommendation": "Broadcom을 공통 Buying Center로 두되 고객별 Workload·Memory Movement·Package Gate를 분리 설계",
+          "action90d": "고객별 공개 Roadmap · HBM PHY/Package 요구 · Qualification Owner 확정",
+          "deliverable": "XPU Account Map · HBM Requirement Matrix · 고객별 Co-Design Proposal",
           "owner": "AI Infra Strategy",
           "kpis": [
             "GB/s/W",
@@ -547,29 +547,28 @@
             "PoC Conversion"
           ],
           "accounts": [
+            "broadcom",
             "google",
-            "microsoft",
-            "aws",
             "meta",
-            "broadcom"
+            "openai"
           ],
           "accent": "#7656C9",
-          "deepLink": "#console/account/google"
+          "deepLink": "#console"
         },
         {
           "id": "agentic-memory-tier",
           "index": "03",
-          "label": "AGENTIC AI · RAG",
+          "label": "ANTHROPIC · MULTI-PLATFORM MEMORY",
           "meceAxis": "agentic-memory-tier",
           "state": "PROJECT",
           "stage": "90_DAY_GATE",
-          "decisionQuestion": "KV Cache Memory Tiering",
-          "whatChanged": "HBM Hot · AI-D/CXL Warm · AI-N/eSSD·HBF Scale 계층을 동일 Workload로 비교",
-          "latestSignal": "Long Context와 동시 요청이 KV Cache를 키워 TTFT·TPOT·GPU Idle 비용을 높이는 서비스 과제",
-          "customerPain": "Long Context와 동시 요청이 KV Cache를 키워 TTFT·TPOT·GPU Idle 비용을 높이는 서비스 과제",
-          "recommendation": "HBM Hot · AI-D/CXL Warm · AI-N/eSSD·HBF Scale 계층을 동일 Workload로 비교",
+          "decisionQuestion": "Claude Chip·Memory Portability",
+          "whatChanged": "Training HBM·Collective와 Inference KV Cache를 플랫폼별로 계측해 AI-D/CXL·AI-N 계층 제안",
+          "latestSignal": "Claude가 Trainium·TPU·NVIDIA GPU를 함께 쓰며 플랫폼별 HBM·Kernel·Serving 일관성을 맞춰야 하는 고객 과제",
+          "customerPain": "Claude가 Trainium·TPU·NVIDIA GPU를 함께 쓰며 플랫폼별 HBM·Kernel·Serving 일관성을 맞춰야 하는 고객 과제",
+          "recommendation": "Training HBM·Collective와 Inference KV Cache를 플랫폼별로 계측해 AI-D/CXL·AI-N 계층 제안",
           "action90d": "p95 TTFT·TPOT · Goodput/W · Cost per Successful Task 개선",
-          "deliverable": "Memory Tier Benchmark · Reference Architecture · 공동 PoC 제안",
+          "deliverable": "Chip/Memory Use Map · Portability Benchmark · Memory Tier Proposal",
           "owner": "AI Infra Strategy",
           "kpis": [
             "p95 TTFT",
@@ -577,10 +576,10 @@
             "Goodput/W"
           ],
           "accounts": [
-            "google",
-            "microsoft",
+            "anthropic",
             "aws",
-            "meta"
+            "google",
+            "broadcom"
           ],
           "accent": "#00A88F",
           "deepLink": "#console/c-level-cockpit/post-hbm"
