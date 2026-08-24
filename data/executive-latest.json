@@ -1,9 +1,9 @@
 {
   "schemaVersion": "1.1",
   "type": "executive-decision-snapshot",
-  "runId": "32786281784",
-  "generatedAt": "2026-08-24T22:59:36.496Z",
-  "expiresAt": "2026-08-26T00:59:34.446Z",
+  "runId": "32790353297",
+  "generatedAt": "2026-08-24T23:53:57.940Z",
+  "expiresAt": "2026-08-26T01:53:55.755Z",
   "state": "DECISION_READY",
   "freshness": {
     "score": 91.6,
@@ -22,8 +22,8 @@
   },
   "funnel": {
     "sourceDocuments": 82,
-    "structuredEvents": 39,
-    "verifiedEvents": 30,
+    "structuredEvents": 38,
+    "verifiedEvents": 28,
     "decisionReadyBriefs": 4,
     "executionTrackingBriefs": 0
   },
@@ -232,22 +232,6 @@
           "excerpt": "Samsung Electronics, a global leader in advanced memory technology, today announced that it has begun mass production of its industry-leading HBM4 and has shipped commercial products to customers"
         },
         {
-          "id": "96b2c649c97fd7284606",
-          "ruleId": "capacity-commitment",
-          "feedId": null,
-          "title": "Memory industry · AI Memory · DISCLOSED",
-          "source": "TechInsights",
-          "sourceId": "techinsights",
-          "sourceClass": "research",
-          "url": "https://www.techinsights.com/blog/slides-dram-market-report-q2-2026",
-          "publishedAt": "2026-08-20",
-          "stage": "DISCLOSED",
-          "confidence": "research-observed",
-          "claimType": "market-estimate",
-          "asOf": "2026-08-20",
-          "excerpt": "Quarterly DRAM report analyzes supply, demand, pricing, and market share across key segments, tracking capacity, trends, and technology shifts"
-        },
-        {
           "id": "ad1fe730a17bcd7b5f78",
           "ruleId": "capacity-commitment",
           "feedId": null,
@@ -278,6 +262,22 @@
           "claimType": "market-estimate",
           "asOf": "2026-07-28",
           "excerpt": "According to Wccftech , citing analysis from GF Securities, NVIDIA is reportedly reducing the memory capacity of its Vera Rubin NVL72 rack-scale AI system to cope with elevated memory prices and ongoing supply shortages"
+        },
+        {
+          "id": "a6e2ed0895636b3b2518",
+          "ruleId": "capacity-commitment",
+          "feedId": "trendforce-hbm-wafer-input",
+          "title": "Memory industry · AI Memory · DISCLOSED",
+          "source": "TrendForce",
+          "sourceId": "trendforce",
+          "sourceClass": "research",
+          "url": "https://www.trendforce.com/presscenter/news/20260602-13074.html",
+          "publishedAt": "2026-06-02",
+          "stage": "DISCLOSED",
+          "confidence": "research-observed",
+          "claimType": "market-estimate",
+          "asOf": "2026-06-02",
+          "excerpt": "Overall, as HBM generations continue evolving in 2027, with larger die sizes and simultaneously rising demand, the crowding-out effect on conventional DRAM capacity is expected to intensify further"
         }
       ]
     },
@@ -290,10 +290,10 @@
       "deliverable": "Tech/Market Insight · Opportunity Thesis · Partner Screen · Business Case",
       "status": "DECISION_READY",
       "whatChanged": "RAG·Agentic AI의 Memory Tier를 CXL Pool·AI-N/HBF 서비스로 확장할 것인가",
-      "latestSignal": "Memory industry · AI Memory · DISCLOSED",
+      "latestSignal": "Samsung · AI Memory · DISCLOSED",
       "sourceStage": "DISCLOSED",
       "stage": "BUSINESS_CASE",
-      "confidence": "corroborated",
+      "confidence": "review",
       "customerPain": "검색 품질·P99를 유지하면서 서버별 유휴 Memory와 Peak 증설 비용을 함께 통제",
       "factBoundary": "공식 근거는 CXL 용량 확장·Memory Pooling·MaaS 기술 방향까지 · 구독 과금·SLA는 미검증",
       "hypothesisStatus": "strategy-hypothesis",
@@ -325,22 +325,6 @@
       "killCriteria": "Recall·권한·P99·상호운용성·계측 정확도 중 하나라도 Baseline 미달이면 서비스 승격을 중단",
       "evidence": [
         {
-          "id": "96b2c649c97fd7284606",
-          "ruleId": "capacity-commitment",
-          "feedId": null,
-          "title": "Memory industry · AI Memory · DISCLOSED",
-          "source": "TechInsights",
-          "sourceId": "techinsights",
-          "sourceClass": "research",
-          "url": "https://www.techinsights.com/blog/slides-dram-market-report-q2-2026",
-          "publishedAt": "2026-08-20",
-          "stage": "DISCLOSED",
-          "confidence": "research-observed",
-          "claimType": "market-estimate",
-          "asOf": "2026-08-20",
-          "excerpt": "Quarterly DRAM report analyzes supply, demand, pricing, and market share across key segments, tracking capacity, trends, and technology shifts"
-        },
-        {
           "id": "ad1fe730a17bcd7b5f78",
           "ruleId": "capacity-commitment",
           "feedId": null,
@@ -371,6 +355,22 @@
           "claimType": "market-estimate",
           "asOf": "2026-07-28",
           "excerpt": "According to Wccftech , citing analysis from GF Securities, NVIDIA is reportedly reducing the memory capacity of its Vera Rubin NVL72 rack-scale AI system to cope with elevated memory prices and ongoing supply shortages"
+        },
+        {
+          "id": "a6e2ed0895636b3b2518",
+          "ruleId": "capacity-commitment",
+          "feedId": "trendforce-hbm-wafer-input",
+          "title": "Memory industry · AI Memory · DISCLOSED",
+          "source": "TrendForce",
+          "sourceId": "trendforce",
+          "sourceClass": "research",
+          "url": "https://www.trendforce.com/presscenter/news/20260602-13074.html",
+          "publishedAt": "2026-06-02",
+          "stage": "DISCLOSED",
+          "confidence": "research-observed",
+          "claimType": "market-estimate",
+          "asOf": "2026-06-02",
+          "excerpt": "Overall, as HBM generations continue evolving in 2027, with larger die sizes and simultaneously rising demand, the crowding-out effect on conventional DRAM capacity is expected to intensify further"
         },
         {
           "id": "966d81f1ea767fe232f5",
@@ -515,20 +515,20 @@
           "excerpt": "(or “the company”, www.skhynix.com ) announced today that it has recently signed a memorandum of understanding with TSMC for collaboration to produce next-generation HBM and enhance logic and HBM integration through advanced packaging technology"
         },
         {
-          "id": "96b2c649c97fd7284606",
+          "id": "ad1fe730a17bcd7b5f78",
           "ruleId": "capacity-commitment",
           "feedId": null,
-          "title": "Memory industry · AI Memory · DISCLOSED",
-          "source": "TechInsights",
-          "sourceId": "techinsights",
+          "title": "Samsung · AI Memory · DISCLOSED",
+          "source": "TrendForce",
+          "sourceId": "trendforce",
           "sourceClass": "research",
-          "url": "https://www.techinsights.com/blog/slides-dram-market-report-q2-2026",
+          "url": "https://www.trendforce.com/news/2026/08/20/news-samsung-to-break-ground-on-krw-6t-onyang-hbm-fab-in-sept-p5-eyes-triple-fab-shift-as-expansion-accelerates",
           "publishedAt": "2026-08-20",
           "stage": "DISCLOSED",
           "confidence": "research-observed",
           "claimType": "market-estimate",
           "asOf": "2026-08-20",
-          "excerpt": "Quarterly DRAM report analyzes supply, demand, pricing, and market share across key segments, tracking capacity, trends, and technology shifts"
+          "excerpt": "Samsung is stepping up its capacity expansion"
         }
       ]
     }
@@ -714,7 +714,7 @@
           "decision": "AI Application·HW/SW·Transformer·RAG·Vector DB 변화를 Memory Demand·서비스 모델·수익성 기회로 번역",
           "source": "OpenAI Infrastructure",
           "url": "https://openai.com/index/openai-and-broadcom-announce-strategic-collaboration/",
-          "publishedAt": "2026-08-24T22:59:36.496Z",
+          "publishedAt": "2026-08-24T23:53:57.940Z",
           "evidenceLevel": "Official baseline"
         }
       },
@@ -761,7 +761,7 @@
           "decision": "AI 개발사·데이터센터·OEM·Consulting/SI의 역할을 PoC·Qualification·Capacity·90일 Action으로 연결",
           "source": "Broadcom × Meta MTIA",
           "url": "https://investors.broadcom.com/node/64236/pdf",
-          "publishedAt": "2026-08-24T22:59:36.496Z",
+          "publishedAt": "2026-08-24T23:53:57.940Z",
           "evidenceLevel": "Official baseline"
         }
       }
@@ -806,8 +806,8 @@
       },
       "enabled": true
     },
-    "runId": "32786281784",
-    "generatedAt": "2026-08-24T22:59:36.496Z",
+    "runId": "32790353297",
+    "generatedAt": "2026-08-24T23:53:57.940Z",
     "liveEvidenceCount": 4
   },
   "claimEvents": [
