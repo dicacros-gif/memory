@@ -42,6 +42,7 @@ import {
   purgeCrawlExclusions,
 } from "./crawl-exclusions.mjs";
 import { buildSiteContentClient } from "./site-content.mjs";
+import { buildCompanyDirectory } from "./company-directory.mjs";
 import {
   buildSourceCatalogSnapshot,
   catalogSourceForUrl,
@@ -76,6 +77,7 @@ const DECISION_HISTORY_CLIENT_OUT = resolve(__dirname, "..", "data", "decision-h
 const LANDING_DECISION_CLIENT_OUT = resolve(__dirname, "..", "data", "landing-decision-client.json");
 const SITE_CONTENT_CLIENT_OUT = resolve(__dirname, "..", "data", "site-content-client.json");
 const SITE_CONTENT_EXTENDED_CLIENT_OUT = resolve(__dirname, "..", "data", "site-content-extended-client.json");
+const COMPANY_DIRECTORY_CLIENT_OUT = resolve(__dirname, "..", "data", "company-directory-client.json");
 const DATA_MANIFEST_OUT = resolve(__dirname, "..", "data", "data-manifest.json");
 const CRAWL_EXCLUSIONS_OUT = resolve(__dirname, "..", "data", "crawl-exclusions.json");
 const CRAWL_AUDIT_OUT = resolve(__dirname, "..", "data", "crawl-audit.json");
@@ -4900,8 +4902,13 @@ export function buildClientDataBundle({ payload = {}, quant = {}, priceHistory =
   const landingDecision = buildLandingDecisionClient({ payload, quant });
   const fullSiteContent = buildSiteContentClient({ payload, quant });
   const { siteContent, siteContentExtended } = splitSiteContentForClient(fullSiteContent);
+  const companyDirectory = buildCompanyDirectory({
+    siteContentExtended,
+    runId,
+    generatedAt: payload.updatedAt || quant.updatedAt || null,
+  });
   const clientRevision = createHash("sha256")
-    .update(JSON.stringify({ runId, landingDecision, siteContent, siteContentExtended }))
+    .update(JSON.stringify({ runId, landingDecision, siteContent, siteContentExtended, companyDirectory }))
     .digest("hex")
     .slice(0, 16);
   const artifacts = {
@@ -4914,6 +4921,7 @@ export function buildClientDataBundle({ payload = {}, quant = {}, priceHistory =
     landingDecision: { path: "data/landing-decision-client.json", bytes: Buffer.byteLength(JSON.stringify(landingDecision), "utf8") },
     siteContent: { path: "data/site-content-client.json", bytes: Buffer.byteLength(JSON.stringify(siteContent), "utf8") },
     siteContentExtended: { path: "data/site-content-extended-client.json", bytes: Buffer.byteLength(JSON.stringify(siteContentExtended), "utf8") },
+    companyDirectory: { path: "data/company-directory-client.json", bytes: Buffer.byteLength(JSON.stringify(companyDirectory), "utf8") },
   };
   return {
     manifest: {
@@ -4933,6 +4941,7 @@ export function buildClientDataBundle({ payload = {}, quant = {}, priceHistory =
     landingDecision,
     siteContent,
     siteContentExtended,
+    companyDirectory,
   };
 }
 
@@ -10632,6 +10641,7 @@ async function main() {
     [LANDING_DECISION_CLIENT_OUT, clientBundle.landingDecision],
     [SITE_CONTENT_CLIENT_OUT, clientBundle.siteContent],
     [SITE_CONTENT_EXTENDED_CLIENT_OUT, clientBundle.siteContentExtended],
+    [COMPANY_DIRECTORY_CLIENT_OUT, clientBundle.companyDirectory],
     [CRAWL_QUARANTINE_OUT, publishedQuarantine],
     [CRAWL_AUDIT_OUT, crawlAudit],
     [TRANSLATION_CACHE_OUT, koTranslator?.snapshot() || previous.translationCache],

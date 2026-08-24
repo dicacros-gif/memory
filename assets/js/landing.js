@@ -3,7 +3,7 @@
 
   const BUSINESS_TITLE = "AI Infra Strategy · Customer Pain to Executive Action";
   const CONSOLE_HASH = "#console";
-  const CONSOLE_REVISION = "infra-35627242a54b";
+  const CONSOLE_REVISION = "infra-5560b68949ed";
   const DECISION_CLIENT_PATH = "data/landing-decision-client.json";
   const SITE_CONTENT_PATH = "data/site-content-client.json";
   const SITE_CONTENT_EXTENDED_PATH = "data/site-content-extended-client.json";
@@ -851,7 +851,7 @@
     if (host && accounts.length) {
       host.innerHTML = accounts.map((account) => `
         <a href="#console/account/${escapeBusinessHTML(account.id || "")}" style="--account-accent:${escapeBusinessHTML(account.accent || "#0A84B8")}">
-          <span>${escapeBusinessHTML(account.company || "")}</span>
+          <span data-company-id="${escapeBusinessHTML(account.id || "")}">${escapeBusinessHTML(account.company || "")}</span>
           <strong>${escapeBusinessHTML(account.chip || "")}</strong>
           <small>${escapeBusinessHTML(account.pain || "")}</small>
           <b>${escapeBusinessHTML(account.memory || "맞춤형 Memory Proposal")}</b>
@@ -874,7 +874,7 @@
       broadcomHost.innerHTML = broadcomAccounts.map((account) => {
         const strategy = account.broadcomStrategy || {};
         return `<article tabindex="0" data-status="${/공식/.test(String(strategy.status || "")) ? "official" : "reported"}" style="--account-accent:${escapeBusinessHTML(account.accent || "#0A84B8")}">
-          <header><div><span>${escapeBusinessHTML(account.company || "")}</span><h3>${escapeBusinessHTML(account.chip || "")}</h3></div><em>${escapeBusinessHTML(strategy.status || "관계 확인")}</em></header>
+          <header><div><span data-company-id="${escapeBusinessHTML(account.id || "")}">${escapeBusinessHTML(account.company || "")}</span><h3>${escapeBusinessHTML(account.chip || "")}</h3></div><em>${escapeBusinessHTML(strategy.status || "관계 확인")}</em></header>
           <p>${escapeBusinessHTML(strategy.accountQuestion || account.pain || "")}</p>
           <dl><div><dt>PAIN</dt><dd>${escapeBusinessHTML((strategy.pains || []).join(" · "))}</dd></div><div><dt>SKH OPTION</dt><dd>${escapeBusinessHTML((strategy.proposal || []).join(" · "))}</dd></div><div><dt>90D GATE</dt><dd>${escapeBusinessHTML(strategy.gate90d || account.gate || "")}</dd></div></dl>
           <a href="#console/account/${escapeBusinessHTML(account.id || "")}">계정 전략 열기 →</a>

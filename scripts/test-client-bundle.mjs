@@ -116,7 +116,7 @@ const marketSummary = summarizeMarketHistory(marketHistory);
 
 assert.equal(bundle.manifest.runId, runId);
 assert.match(bundle.manifest.cacheVersion, new RegExp(`^${runId}-[a-f0-9]{16}$`), "cache version must change when the browser artifact contract changes");
-assert.deepEqual(Object.keys(bundle.manifest.artifacts).sort(), ["decisionHistory", "landingDecision", "live", "marketHistory", "priceHistory", "quant", "quantBacktest", "siteContent", "siteContentExtended"]);
+assert.deepEqual(Object.keys(bundle.manifest.artifacts).sort(), ["companyDirectory", "decisionHistory", "landingDecision", "live", "marketHistory", "priceHistory", "quant", "quantBacktest", "siteContent", "siteContentExtended"]);
 assert.equal(bundle.live.quant, undefined, "live client must not duplicate quant.json");
 assert.equal(bundle.live.priceHistory, undefined, "live client must not duplicate price history");
 assert.equal(bundle.live.prices.sections[0].rows[0].history, undefined, "price row history belongs in the deferred artifact");
@@ -142,6 +142,9 @@ assert.ok(bundle.manifest.artifacts.siteContent.bytes < 80_000, "site content ar
 assert.equal(bundle.siteContentExtended.runId, runId);
 assert.equal(bundle.siteContentExtended.clientArtifact, true);
 assert.equal(bundle.manifest.artifacts.siteContentExtended.path, "data/site-content-extended-client.json");
+assert.equal(bundle.companyDirectory.runId, runId);
+assert.equal(bundle.manifest.artifacts.companyDirectory.path, "data/company-directory-client.json");
+assert.ok(bundle.companyDirectory.profiles.some((profile) => profile.id === "broadcom"));
 assert.equal(marketSummary.runId, runId, "embedded market summary must preserve the verified runId");
 assert.equal(marketSummary.validatedAt, payload.updatedAt, "embedded market summary must preserve validation time");
 assert.equal(marketSummary.expiresAt, payload.expiresAt, "embedded market summary must preserve the shared freshness gate");

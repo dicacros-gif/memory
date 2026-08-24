@@ -4,6 +4,7 @@ import { mkdir, readFile, writeFile } from "node:fs/promises";
 import { dirname, resolve } from "node:path";
 import { fileURLToPath } from "node:url";
 import { normalizeHtmlExecutiveCopy } from "./executive-copy.mjs";
+import { computeClientRevision } from "./sync-client-revision.mjs";
 
 const root = resolve(dirname(fileURLToPath(import.meta.url)), "..");
 const contentPath = resolve(root, "data", "site-content-client.json");
@@ -19,6 +20,7 @@ const content = {
   agentCouncil: { ...(initialContent.agentCouncil || {}), ...(extendedContent.agentCouncil || {}) },
 };
 const manifest = JSON.parse(await readFile(manifestPath, "utf8"));
+const clientRevision = computeClientRevision();
 
 if (!content.clientArtifact || !content.runId || !content.generatedAt || initialContent.runId !== extendedContent.runId) {
   throw new Error("verified site-content-client.json is required for pre-render");
@@ -170,6 +172,7 @@ const html = normalizeHtmlExecutiveCopy(`<!DOCTYPE html>
     <section class="section"><div class="wrap"><div class="section-head"><div><span class="eyebrow">EXECUTIVE DECISION BRIEFS</span><h2>한 안건에 Pain·선택지·경제성·중단 조건을 연결</h2></div><p>AI는 근거를 구조화하고 가설을 비교합니다. 날짜·수치·제품 Stage·승격 여부는 deterministic Gate가 통제합니다.</p></div><div class="decisions">${decisionCards}</div></div></section>
   </main>
   <footer class="page"><div class="wrap"><a href="https://www.linkedin.com/in/dicacross/" target="_blank" rel="noopener noreferrer">© ${new Date(content.generatedAt).getUTCFullYear()} dicacross · Independent strategy portfolio based on public information; not an official SK hynix website.</a></div></footer>
+  <script src="../assets/js/company-profile.min.js?v=${clientRevision}" defer></script>
 </body>
 </html>\n`);
 

@@ -7,8 +7,10 @@ const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "..");
 const sourceFiles = [
   "assets/js/landing.js",
   "assets/js/app.js",
+  "assets/js/company-profile.js",
   "assets/css/landing.css",
   "assets/css/styles.css",
+  "assets/css/company-profile.css",
 ];
 
 function read(relativePath) {
@@ -43,6 +45,7 @@ export function syncClientRevision() {
   const revision = computeClientRevision();
   replaceRevision("assets/js/landing.js", revision);
   replaceRevision("index.html", revision);
+  replaceRevision("console/index.html", revision);
   process.stdout.write(`${revision}\n`);
   return revision;
 }

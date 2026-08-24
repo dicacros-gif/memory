@@ -15,6 +15,10 @@ const paths = {
   appMinJs: "assets/js/app.min.js",
   accountOnePagerJs: "assets/js/account-one-pagers.js",
   accountOnePagerMinJs: "assets/js/account-one-pagers.min.js",
+  companyProfileJs: "assets/js/company-profile.js",
+  companyProfileMinJs: "assets/js/company-profile.min.js",
+  companyProfileCss: "assets/css/company-profile.css",
+  companyProfileMinCss: "assets/css/company-profile.min.css",
 };
 
 const entries = await Promise.all(Object.entries(paths).map(async ([key, path]) => {
@@ -28,6 +32,7 @@ const revision = files.html.text.match(/infra-[a-f0-9]{12}/)?.[0] || "revision-m
 assert.match(files.html.text, /<template id="consoleTemplate">[\s\S]*?id="intelligenceConsole"[\s\S]*?<\/template>/);
 assert.match(files.html.text, /assets\/css\/landing\.min\.css\?v=infra-[a-f0-9]{12}/);
 assert.match(files.html.text, /assets\/js\/landing\.min\.js\?v=infra-[a-f0-9]{12}/);
+assert.match(files.html.text, /assets\/js\/company-profile\.min\.js\?v=infra-[a-f0-9]{12}/);
 assert.match(files.landingJs.text, /function ensureConsoleMarkup\(\)/);
 assert.match(files.landingJs.text, /assets\/css\/styles\.min\.css/);
 assert.match(files.landingJs.text, /assets\/js\/app\.min\.js/);
@@ -80,6 +85,7 @@ for (const [sourceKey, minKey, minimumRawSaving] of [
   ["stylesCss", "stylesMinCss", 0.15],
   ["landingJs", "landingMinJs", 0.18],
   ["appJs", "appMinJs", 0.18],
+  ["companyProfileJs", "companyProfileMinJs", 0.18],
 ]) {
   const minimumPercent = Math.round(minimumRawSaving * 100);
   assert.ok(
@@ -91,11 +97,13 @@ for (const [sourceKey, minKey, minimumRawSaving] of [
 
 assert.ok(files.appMinJs.gzipBytes < 300_000, "console JavaScript gzip budget must stay below 300KB");
 assert.ok(files.accountOnePagerMinJs.gzipBytes < 3_000, "lazy account views chunk must stay below 3KB gzip");
+assert.ok(files.companyProfileMinJs.gzipBytes < 12_000, "company intelligence runtime must stay below 12KB gzip");
+assert.ok(files.companyProfileMinCss.gzipBytes < 6_000, "company intelligence styles must stay below 6KB gzip");
 assert.ok(files.stylesMinCss.gzipBytes < 106 * 1024, "console CSS gzip budget must stay below 106KiB");
 
 console.log(JSON.stringify({
   revision,
-  rootRuntimeGzipKb: Math.round((files.html.gzipBytes + files.landingMinCss.gzipBytes + files.landingMinJs.gzipBytes) / 1024),
+  rootRuntimeGzipKb: Math.round((files.html.gzipBytes + files.landingMinCss.gzipBytes + files.landingMinJs.gzipBytes + files.companyProfileMinJs.gzipBytes) / 1024),
   consoleRuntimeGzipKb: Math.round((files.stylesMinCss.gzipBytes + files.appMinJs.gzipBytes) / 1024),
   heroMedia: "three-image-rotation",
   lazyConsoleTemplate: true,
