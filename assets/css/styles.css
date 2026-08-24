@@ -28035,40 +28035,9 @@ button.ni-trend-chip:hover { box-shadow: 0 4px 12px color-mix(in srgb, #0891B2 2
   isolation: isolate;
   outline: none;
 }
-.sc-framework-steps > li:nth-child(2) { --stage-accent: #2d6bca; }
-.sc-framework-steps > li:nth-child(3) { --stage-accent: #8053cb; }
-.sc-framework-steps > li:nth-child(4) { --stage-accent: #b66d00; }
-.sc-framework-steps > li:nth-child(5) { --stage-accent: #1968b3; }
-.sc-framework-steps > li::before {
-  content: "";
-  position: absolute;
-  inset: 0;
-  z-index: -1;
-  border-top: 3px solid var(--stage-accent);
-  background: var(--panel);
-  clip-path: polygon(0 0, calc(100% - 16px) 0, 100% 50%, calc(100% - 16px) 100%, 0 100%, 8px 50%);
-  box-shadow: inset 0 0 0 1px var(--line);
-  transition: background-color 0s, border-color 0s;
-}
-.sc-framework-steps li:last-child { border-right: 0; }
-.sc-framework-steps li:not(:last-child)::after {
-  content: "→";
-  position: absolute;
-  z-index: 2;
-  top: 50%;
-  right: -12px;
-  color: var(--stage-accent);
-  font: 900 13px/1 sans-serif;
-  transform: translateY(-50%);
-}
 .sc-framework-steps b {
   display: grid;
-  width: 38px;
-  height: 38px;
   place-items: center;
-  border: 1px solid var(--ink);
-  border-radius: 50%;
-  color: var(--ink);
   font: 850 13px/1 var(--display, "Space Grotesk", sans-serif);
 }
 .sc-framework-steps li > div { display: grid; align-content: start; gap: 8px; min-width: 0; }
@@ -28082,9 +28051,6 @@ button.ni-trend-chip:hover { box-shadow: 0 4px 12px color-mix(in srgb, #0891B2 2
 .sc-framework-steps ul li { display: block; min-height: 0; padding: 0 0 0 12px; color: var(--ink-2); font-size: 10px; font-weight: 650; line-height: 1.5; }
 .sc-framework-steps ul li::before { content: "·"; position: absolute; inset: 0 auto auto 0; border: 0; background: none; box-shadow: none; clip-path: none; color: var(--stage-accent); font-weight: 900; }
 .sc-framework-steps ul li:not(:last-child)::after { display: none; }
-.sc-framework-steps > li:is(:hover, :focus-visible)::before { border-color: var(--stage-accent); background: var(--stage-accent); }
-.sc-framework-steps > li:is(:hover, :focus-visible) :is(span, strong, ul li) { color: #fff; -webkit-text-fill-color: #fff; }
-.sc-framework-steps > li:is(:hover, :focus-visible) b { border-color: #fff; background: #fff; color: var(--stage-accent); -webkit-text-fill-color: var(--stage-accent); }
 .sc-scorecard {
   display: grid;
   grid-template-columns: auto repeat(4, minmax(0, 1fr));
@@ -28381,34 +28347,6 @@ button.ni-trend-chip:hover { box-shadow: 0 4px 12px color-mix(in srgb, #0891B2 2
   border-radius: 2px;
   background: var(--panel);
   box-shadow: none;
-}
-
-.consulting-system .sc-framework-steps {
-  background: transparent;
-}
-
-.consulting-system .sc-framework-steps li {
-  background: transparent;
-}
-
-.consulting-system .sc-framework-steps > li::before {
-  inset: 0;
-  width: auto;
-  border-top: 3px solid var(--stage-accent);
-  background: var(--panel);
-  opacity: 1;
-}
-
-.consulting-system .sc-framework-steps li:not(:last-child)::after {
-  border: 0;
-  border-radius: 0;
-  background: transparent;
-  color: var(--stage-accent);
-}
-
-.consulting-system .sc-framework-steps > li:is(:hover, :focus-visible)::before {
-  border-color: var(--stage-accent);
-  background: var(--stage-accent);
 }
 
 .consulting-system .sc-grid {
@@ -29466,54 +29404,6 @@ body.consulting-system {
   box-shadow: inset 0 -2px 0 #d5a400 !important;
   text-decoration: none !important;
   text-shadow: none !important;
-}
-
-/* Turn narrative bridges into numbered consulting decision maps. */
-.consulting-system .visual-insight-route { counter-reset: insight-route; }
-.consulting-system .visual-insight-route span {
-  counter-increment: insight-route;
-  position: relative;
-  display: block;
-  min-height: 84px;
-  padding: 15px 24px 14px 58px;
-  border-color: #b9c7d2;
-  clip-path: polygon(0 0, calc(100% - 15px) 0, 100% 50%, calc(100% - 15px) 100%, 0 100%, 10px 50%);
-  background: #f8fafc;
-  color: #17324d;
-  font-size: 13px;
-  line-height: 1.45;
-}
-.consulting-system .visual-insight-route span::before {
-  content: counter(insight-route, decimal-leading-zero);
-  position: absolute;
-  left: 14px;
-  top: 50%;
-  width: 32px;
-  height: 32px;
-  display: grid;
-  place-items: center;
-  color: #fff;
-  border-radius: 50%;
-  background: #173f66;
-  font: 900 13px/1 var(--font);
-  transform: translateY(-50%);
-}
-.consulting-system .visual-insight-route b {
-  display: block;
-  margin-bottom: 5px;
-  color: #08766f;
-  font: 900 12px/1.2 var(--font);
-}
-.consulting-system .visual-insight-route i {
-  align-self: center;
-  width: 28px;
-  height: 28px;
-  margin-inline: -5px;
-  color: #173f66;
-  border: 1px solid #8ea3b3;
-  border-radius: 50%;
-  background: #fff;
-  font-size: 15px;
 }
 
 /* Shared bidirectional inversion for decision cards, including nested copy. */
@@ -30949,28 +30839,83 @@ body.consulting-system #main > #c-level-cockpit {
   outline-offset:2px;
 }
 
-/* MBB diagrams: linked chevrons, numbered tiles and decision gates. */
-#intelligenceConsole :is(.sc-card-flow,.sc-memory-flow,.sc-radar-layers,.decision-loading-framework,.visual-insight-route,.ai-council-signal-chain) {
+/* MBB stage ribbons: one continuous decision story, one local hover state. */
+#intelligenceConsole :is(.sc-framework-steps,.sc-card-flow,.sc-memory-flow,.sc-radar-layers,.visual-insight-route,.ai-council-signal-chain) {
   isolation:isolate;
+  gap:0 !important;
 }
-#intelligenceConsole .sc-card-flow .sc-map-node {
-  padding-inline:18px;
-  clip-path:polygon(0 0,calc(100% - 10px) 0,100% 50%,calc(100% - 10px) 100%,0 100%,10px 50%);
+#intelligenceConsole :is(.sc-framework-steps>li,.sc-card-flow>.sc-map-node,.sc-memory-flow>li,.sc-radar-layers>li,.visual-insight-route>span,.ai-council-signal-chain>div) {
+  --mbb-step:#0b2839;
+  --mbb-key:#6fe0cb;
+  min-width:0;
+  min-height:112px;
+  padding-inline:24px !important;
+  border:1px solid #245166 !important;
+  border-radius:0 !important;
+  background:var(--mbb-step) !important;
+  color:#f7fbfd !important;
+  box-shadow:none !important;
+  clip-path:polygon(0 0,calc(100% - 16px) 0,100% 50%,calc(100% - 16px) 100%,0 100%,16px 50%);
+  transition:background-color 0s,color 0s,border-color 0s !important;
 }
-#intelligenceConsole .sc-card-flow .sc-map-node:first-child {
-  clip-path:polygon(0 0,calc(100% - 10px) 0,100% 50%,calc(100% - 10px) 100%,0 100%);
+#intelligenceConsole :is(.sc-framework-steps>li,.sc-card-flow>.sc-map-node,.sc-memory-flow>li,.sc-radar-layers>li,.visual-insight-route>span,.ai-council-signal-chain>div):first-child {
+  clip-path:polygon(0 0,calc(100% - 16px) 0,100% 50%,calc(100% - 16px) 100%,0 100%);
 }
-#intelligenceConsole :is(.sc-memory-flow>li,.sc-radar-layers>li) {
-  position:relative;
-  border-color:var(--sc-frame) !important;
+#intelligenceConsole :is(.sc-framework-steps>li,.sc-card-flow>.sc-map-node,.sc-memory-flow>li,.sc-radar-layers>li,.visual-insight-route>span,.ai-council-signal-chain>div):nth-child(3n+2) { --mbb-step:#102f4f; }
+#intelligenceConsole :is(.sc-framework-steps>li,.sc-card-flow>.sc-map-node,.sc-memory-flow>li,.sc-radar-layers>li,.visual-insight-route>span,.ai-council-signal-chain>div):nth-child(3n) { --mbb-step:#16395f; }
+#intelligenceConsole :is(.sc-framework-steps>li,.sc-card-flow>.sc-map-node,.sc-memory-flow>li,.sc-radar-layers>li,.visual-insight-route>span,.ai-council-signal-chain>div) :is(strong,p,small,li,a,span,b,i) {
+  color:#f7fbfd !important;
+  -webkit-text-fill-color:#f7fbfd !important;
 }
+#intelligenceConsole .sc-card-flow>.sc-map-node::before,
+#intelligenceConsole .visual-insight-route>span::before,
+#intelligenceConsole .ai-council-signal-chain>div>i {
+  width:auto;
+  height:auto;
+  border:0;
+  border-radius:0;
+  background:transparent;
+  color:var(--mbb-key);
+}
+#intelligenceConsole .visual-insight-route>span::before {
+  content:counter(insight-route,decimal-leading-zero);
+  position:static;
+  display:block;
+  margin-bottom:7px;
+  transform:none;
+}
+#intelligenceConsole .visual-insight-route { counter-reset:insight-route; grid-template-columns:repeat(3,minmax(0,1fr)); }
+#intelligenceConsole .visual-insight-route>span { counter-increment:insight-route; }
+#intelligenceConsole .visual-insight-route>i { display:none; }
+#intelligenceConsole :is(.sc-framework-steps>li,.sc-card-flow>.sc-map-node,.sc-memory-flow>li,.sc-radar-layers>li,.visual-insight-route>span,.ai-council-signal-chain>div):is(:hover,:focus-visible,:focus-within) {
+  --mbb-key:var(--mbb-teal);
+  border-color:#70cfc1 !important;
+  background:#f7fafb !important;
+  color:var(--mbb-ink) !important;
+}
+#intelligenceConsole :is(.sc-framework-steps>li,.sc-card-flow>.sc-map-node,.sc-memory-flow>li,.sc-radar-layers>li,.visual-insight-route>span,.ai-council-signal-chain>div):is(:hover,:focus-visible,:focus-within) :is(strong,p,small,li,a,span,b,i) {
+  color:var(--mbb-ink) !important;
+  -webkit-text-fill-color:var(--mbb-ink) !important;
+}
+#intelligenceConsole#intelligenceConsole :is(.sc-level-index,.sc-framework-steps>li>div>span,.sc-framework-steps>li>b,.sc-memory-flow>li>span,.sc-memory-flow>li>b,.sc-radar-layers>li>span,.sc-radar-layers>li>b,.visual-insight-route>span>b,.ai-council-signal-chain>div>span,.ai-council-signal-chain>div>i) {
+  color:var(--mbb-key) !important;
+  -webkit-text-fill-color:var(--mbb-key) !important;
+  background:transparent !important;
+  border-color:currentColor !important;
+}
+#intelligenceConsole :is(.sc-framework-steps>li,.sc-card-flow>.sc-map-node,.sc-memory-flow>li,.sc-radar-layers>li,.visual-insight-route>span,.ai-council-signal-chain>div):focus-visible {
+  outline:3px solid #d4a72c;
+  outline-offset:-3px;
+}
+#intelligenceConsole .sc-framework-steps>li::before,
+#intelligenceConsole :is(.sc-framework-steps>li,.sc-card-flow>.sc-map-node,.sc-memory-flow>li,.sc-radar-layers>li):not(:last-child)::after { display:none !important; }
+#intelligenceConsole .sc-framework-steps>li>b,
 #intelligenceConsole :is(.sc-memory-flow>li,.sc-radar-layers>li)>b {
-  border:1px solid currentColor;
-  background:var(--mbb-local) !important;
-}
-#intelligenceConsole :is(.sc-memory-flow>li,.sc-radar-layers>li):not(:last-child)::after,
-#intelligenceConsole .sc-card-flow .sc-map-node:not(:last-child)::after {
-  animation:mbb-flow-pulse 2.6s ease-in-out infinite;
+  width:auto;
+  height:auto;
+  border:0;
+  border-radius:0;
+  font-size:11px;
 }
 #intelligenceConsole .sc-decision-gate {
   grid-template-columns:minmax(92px,.2fr) minmax(0,1fr);
@@ -30998,16 +30943,10 @@ body.consulting-system #main > #c-level-cockpit {
   from { opacity:.001; transform:translateY(8px); }
   to { opacity:1; transform:translateY(0); }
 }
-@keyframes mbb-flow-pulse {
-  0%,100% { opacity:.38; }
-  50% { opacity:1; }
-}
-
 @media (max-width:760px) {
-  #intelligenceConsole .sc-card-flow { grid-template-columns:1fr; }
-  #intelligenceConsole .sc-card-flow .sc-map-node,
-  #intelligenceConsole .sc-card-flow .sc-map-node:first-child { clip-path:none; }
-  #intelligenceConsole .sc-card-flow .sc-map-node:not(:last-child)::after { display:none; }
+  #intelligenceConsole :is(.sc-framework-steps,.sc-card-flow,.sc-memory-flow,.sc-radar-layers,.visual-insight-route,.ai-council-signal-chain) { grid-template-columns:1fr !important; }
+  #intelligenceConsole :is(.sc-framework-steps>li,.sc-card-flow>.sc-map-node,.sc-memory-flow>li,.sc-radar-layers>li,.visual-insight-route>span,.ai-council-signal-chain>div) { min-height:0; padding-inline:14px !important; clip-path:none !important; }
+  #intelligenceConsole :is(.visual-insight-route,.ai-council-signal-chain)>i { display:none; }
   #intelligenceConsole .sc-decision-gate { grid-template-columns:1fr; }
 }
 @media (prefers-reduced-motion:reduce) {
