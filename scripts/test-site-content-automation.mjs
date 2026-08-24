@@ -69,6 +69,19 @@ assert.deepEqual(artifact.organizationOperatingModel.workstreams.map((item) => i
 assert.equal(artifact.organizationOperatingModel.liveEvidenceCount, 4);
 assert.ok(artifact.organizationOperatingModel.workstreams.every((item) => item.currentSignal?.title && /^https?:\/\//.test(item.currentSignal?.url || "")), "each strategy workstream must connect to a current Console source");
 assert.equal(new Set(artifact.organizationOperatingModel.workstreams.map((item) => item.currentSignal?.url)).size, 4, "MECE workstreams must not repeat the same current source");
+const duplicateSignalPayload = structuredClone(payload);
+for (const brief of duplicateSignalPayload.intelligence?.briefs || []) {
+  if (["hbm", "dram", "nand", "demand"].includes(brief.id)) {
+    brief.latest = {
+      ...(brief.latest || {}),
+      title: "동일 최신 기사",
+      url: "https://example.com/shared-latest-signal",
+    };
+  }
+}
+const duplicateSignalContent = buildSiteContentClient({ payload: duplicateSignalPayload, quant });
+assert.equal(new Set(duplicateSignalContent.organizationOperatingModel.workstreams.map((item) => item.currentSignal?.url)).size, 4, "official baselines must prevent source collisions after a refresh");
+assert.ok(duplicateSignalContent.organizationOperatingModel.workstreams.some((item) => item.currentSignal?.evidenceLevel === "Official baseline"), "source collision fallback must remain explicit");
 assert.equal(rebuilt.hero.workProducts.length, 4);
 assert.equal(rebuilt.hero.workflow.length, 4);
 assert.equal(rebuilt.hero.departmentWorkbench.source, "accounts.projects");

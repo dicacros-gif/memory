@@ -483,13 +483,19 @@ function buildOrganizationOperatingModel(insights = [], generatedAt = null, runI
   const organizationSource = (sourceCatalog.sources || []).find((source) => source.id === operatingModel.sourceId) || null;
   const insightMap = new Map((insights || []).map((item) => [item.id, item]));
   const usedInsightIds = new Set();
+  const usedSignalUrls = new Set();
   const workstreams = (operatingModel.workstreams || []).map((workstream) => {
     const candidates = (workstream.evidenceIds || [])
       .map((id) => insightMap.get(id))
       .filter((item) => item?.latest?.title && directUrl(item.latest?.url))
       .sort((a, b) => String(b.latest?.publishedAt || "").localeCompare(String(a.latest?.publishedAt || "")));
-    const current = candidates.find((item) => !usedInsightIds.has(item.id)) || candidates[0];
+    const current = candidates.find((item) => !usedInsightIds.has(item.id) && !usedSignalUrls.has(item.latest.url));
+    const fallbackSource = current ? null : (workstream.fallbackSourceIds || [])
+      .map((id) => (sourceCatalog.sources || []).find((source) => source.id === id))
+      .find((source) => directUrl(source?.url) && !usedSignalUrls.has(source.url));
     if (current?.id) usedInsightIds.add(current.id);
+    const signalUrl = current?.latest?.url || fallbackSource?.url || null;
+    if (signalUrl) usedSignalUrls.add(signalUrl);
     return {
       ...workstream,
       currentSignal: current ? {
@@ -499,6 +505,13 @@ function buildOrganizationOperatingModel(insights = [], generatedAt = null, runI
         url: current.latest.url,
         publishedAt: current.latest.publishedAt || generatedAt,
         evidenceLevel: current.latest.evidenceLevel || "Watch",
+      } : fallbackSource ? {
+        title: compact(`${fallbackSource.name} · 공식 Baseline`, 112),
+        decision: compact(workstream.mandate, 126),
+        source: compact(fallbackSource.name || "공식 원문", 54),
+        url: fallbackSource.url,
+        publishedAt: generatedAt,
+        evidenceLevel: "Official baseline",
       } : null,
     };
   });
