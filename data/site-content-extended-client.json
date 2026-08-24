@@ -1705,11 +1705,11 @@
         }
       ],
       "catalogCoverage": {
-        "configured": 49,
+        "configured": 58,
         "observed": 5,
         "fresh": 5,
-        "observationRatePct": 10.2,
-        "officialConfigured": 40,
+        "observationRatePct": 8.6,
+        "officialConfigured": 46,
         "officialObserved": 1,
         "officialFresh": 1,
         "targetPct": 90
@@ -2529,96 +2529,249 @@
           "accent": "#7656C9"
         }
       ],
+      "trackingFramework": {
+        "eyebrow": "MEMORY TECHNOLOGY RADAR",
+        "title": "Compute → Interconnect → Package → Memory Tier",
+        "description": "기술 자체보다 고객 병목·메모리 영향·사업 선택·승격 Gate를 한 방향으로 추적",
+        "layers": [
+          {
+            "id": "compute",
+            "index": "01",
+            "label": "COMPUTE",
+            "question": "연산 패러다임이 데이터 이동과 상태 저장을 어떻게 바꾸는가",
+            "accent": "#D84A8A"
+          },
+          {
+            "id": "interconnect",
+            "index": "02",
+            "label": "INTERCONNECT",
+            "question": "칩·랙·센터 간 대역폭과 지연의 지배 병목은 무엇인가",
+            "accent": "#0A84B8"
+          },
+          {
+            "id": "package",
+            "index": "03",
+            "label": "PACKAGE",
+            "question": "적층·칩렛·기판이 메모리 근접성과 수율을 어떻게 바꾸는가",
+            "accent": "#7656C9"
+          },
+          {
+            "id": "memory-tier",
+            "index": "04",
+            "label": "MEMORY TIER",
+            "question": "성능·용량·비용에 맞춰 어떤 계층과 서비스 모델을 설계할 것인가",
+            "accent": "#C88600"
+          }
+        ]
+      },
       "memoryMap": [
         {
-          "id": "transformer",
-          "tech": "Transformer · MoE",
-          "context": "Attention · Expert Routing",
-          "impact": "Parameter·Activation 상주와 Collective 증가",
-          "memory": "HBM4·HBM4E · Fabric",
-          "accent": "#2D6BFF",
-          "evidence": {
-            "status": "official-fact",
-            "label": "OFFICIAL FACT",
-            "stage": "COMMERCIAL_SHIPMENT",
-            "source": "SK hynix Newsroom",
-            "url": "https://news.skhynix.com/en/q2-2026-business-results",
-            "asOf": "2026-07-29"
-          }
-        },
-        {
-          "id": "context-kv",
-          "tech": "Long Context · KV Cache",
-          "context": "Prompt · Prefill · Decode",
-          "impact": "Token·동시 Session에 비례한 KV 용량 증가",
-          "memory": "HBM Hot · AI-D System · AI-N/HBF Scale",
-          "accent": "#00A88F",
-          "evidence": {
-            "status": "monitoring",
-            "label": "SOURCE MONITORING",
-            "source": "",
-            "url": "",
-            "asOf": null
-          }
-        },
-        {
-          "id": "rag",
-          "tech": "Enterprise RAG",
-          "context": "Hybrid Retrieval · Rerank",
-          "impact": "Index Freshness·P99·ACL이 데이터 배치 결정",
-          "memory": "DRAM · CXL · eSSD",
-          "accent": "#0A84B8",
-          "evidence": {
-            "status": "monitoring",
-            "label": "SOURCE MONITORING",
-            "source": "",
-            "url": "",
-            "asOf": null
-          }
-        },
-        {
-          "id": "vector-data",
-          "tech": "Vector DB · Data Pipeline",
-          "context": "Embedding · Checkpoint",
-          "impact": "Active Index와 대용량 Corpus의 계층화",
-          "memory": "AI-D Active · AI-N P/D eSSD",
-          "accent": "#7656C9",
-          "evidence": {
-            "status": "monitoring",
-            "label": "SOURCE MONITORING",
-            "source": "",
-            "url": "",
-            "asOf": null
-          }
-        },
-        {
           "id": "hbf-open-standard",
+          "layer": "MEMORY TIER",
+          "horizon": "NOW · LIGHTHOUSE PoC",
           "tech": "HBF · Open Standard",
-          "context": "OCP · UCIe · Lighthouse PoC",
-          "impact": "HBM과 SSD 사이 추론 Capacity Tier 검증",
-          "memory": "AI-N B · HBF 8/16-Hi · 0.4–3.0 TB/s",
+          "context": "High Bandwidth Flash · Lighthouse PoC",
+          "impact": "HBM과 SSD 사이 고용량 추론 계층 표준화",
+          "memory": "AI-N B · 0.4–3.0 TB/s · 최대 512GB",
+          "decision": "HBM Hot + HBF Warm + eSSD Cold 공동 PoC",
+          "gate": "상호운용성 · Endurance · $/Token · Qualification",
           "accent": "#C88600",
           "evidence": {
-            "status": "monitoring",
-            "label": "SOURCE MONITORING",
-            "source": "",
-            "url": "",
+            "status": "official-monitoring",
+            "label": "OFFICIAL SOURCE MONITOR",
+            "source": "SK hynix Newsroom",
+            "url": "https://news.skhynix.com/",
+            "asOf": null
+          }
+        },
+        {
+          "id": "hbs-research",
+          "layer": "MEMORY TIER",
+          "horizon": "RESEARCH",
+          "tech": "HBS · High Bandwidth Storage",
+          "context": "Large Model · Long Context · Storage Bandwidth",
+          "impact": "저장장치를 추론 활성 데이터 계층으로 재설계",
+          "memory": "HBM/HBF/eSSD 경계 · 지연·대역폭 동시 최적화",
+          "decision": "HBS를 제품명이 아닌 연구 가설로 추적",
+          "gate": "재현 Benchmark · 인터페이스 · SW Stack · TCO",
+          "accent": "#D09A18",
+          "evidence": {
+            "status": "research-monitoring",
+            "label": "RESEARCH MONITOR",
+            "source": "High Bandwidth Storage Research",
+            "url": "https://arxiv.org/abs/2604.11128",
+            "asOf": null
+          }
+        },
+        {
+          "id": "three-d-packaging",
+          "layer": "PACKAGE",
+          "horizon": "NOW → 3Y",
+          "tech": "3D Packaging · Hybrid Bonding",
+          "context": "SoIC · Foveros · Logic-on-Memory",
+          "impact": "배선 길이·I/O 전력 감소와 열·수율 병목 동시 확대",
+          "memory": "HBM 적층 · Logic Base-Die · 열·Repair 설계",
+          "decision": "Bandwidth보다 Yield·Thermal·Known-Good-Die 공동 관리",
+          "gate": "열저항 · Bond Yield · Stack Height · Repairability",
+          "accent": "#7656C9",
+          "evidence": {
+            "status": "official-monitoring",
+            "label": "OFFICIAL SOURCE MONITOR",
+            "source": "TSMC 3DFabric",
+            "url": "https://3dfabric.tsmc.com/english/dedicatedFoundry/technology/3DFabric.htm",
+            "asOf": null
+          }
+        },
+        {
+          "id": "chiplet-ucie",
+          "layer": "PACKAGE",
+          "horizon": "NOW → 3Y",
+          "tech": "Chiplet · UCIe",
+          "context": "Die-to-Die · CXL.Mem · Heterogeneous XPU",
+          "impact": "Compute·I/O·Memory를 교체 가능한 칩렛으로 분리",
+          "memory": "Base-Die Logic · Shared Memory · PHY·Protocol IP",
+          "decision": "ASIC별 Controller 이관 범위와 UCIe 생태계 선점",
+          "gate": "64 GT/s · Latency · Coherency · Vendor Interop",
+          "accent": "#8654D8",
+          "evidence": {
+            "status": "official-monitoring",
+            "label": "OFFICIAL SOURCE MONITOR",
+            "source": "UCIe Consortium Specifications",
+            "url": "https://www.uciexpress.org/specifications",
+            "asOf": null
+          }
+        },
+        {
+          "id": "glass-substrate",
+          "layer": "PACKAGE",
+          "horizon": "2Y → 5Y",
+          "tech": "Glass Substrate",
+          "context": "Large Package · Fine Pitch · Optical Integration",
+          "impact": "대형 칩렛 복합체의 휨·배선 밀도·패키지 크기 제약 완화",
+          "memory": "더 많은 HBM Stack · 고밀도 D2D · 광 I/O 공존",
+          "decision": "기판 공급망과 패키지 공동설계 역량 조기 확보",
+          "gate": "Warpage · Via Yield · Cost Curve · 양산 공급망",
+          "accent": "#A56A22",
+          "evidence": {
+            "status": "official-monitoring",
+            "label": "OFFICIAL SOURCE MONITOR",
+            "source": "Intel Glass Substrate",
+            "url": "https://newsroom.intel.com/artificial-intelligence/intel-unveils-industry-leading-glass-substrates",
+            "asOf": null
+          }
+        },
+        {
+          "id": "silicon-photonics-cpo",
+          "layer": "INTERCONNECT",
+          "horizon": "NOW → 5Y",
+          "tech": "Silicon Photonics · CPO",
+          "context": "Optical I/O · Co-Packaged Optics",
+          "impact": "구리 SerDes 전력·거리 한계를 광 링크로 우회",
+          "memory": "Remote Memory Pool · 광 I/O 인접 배치 · Buffer DRAM",
+          "decision": "HBM 판매량보다 Memory Access Radius 변화 추적",
+          "gate": "pJ/bit · Link Reliability · Packaging · Serviceability",
+          "accent": "#0A84B8",
+          "evidence": {
+            "status": "official-monitoring",
+            "label": "OFFICIAL SOURCE MONITOR",
+            "source": "imec Silicon Photonics",
+            "url": "https://www.imec-int.com/en/press/umc-licenses-imecs-isipp300-technology-extend-silicon-photonics-capabilities-next-generation",
+            "asOf": null
+          }
+        },
+        {
+          "id": "ai-network-fabric",
+          "layer": "INTERCONNECT",
+          "horizon": "NOW",
+          "tech": "Scale-up · Scale-out · Scale-across",
+          "context": "NVLink · InfiniBand/Ethernet · Multi-Site Fabric",
+          "impact": "여러 XPU의 Collective·KV 이동·Remote Memory 지연 결정",
+          "memory": "HBM 일관성 · CXL Pool · NIC Buffer · Checkpoint Tier",
+          "decision": "칩이 아닌 Rack/POD 단위 Memory Bandwidth 제안",
+          "gate": "All-reduce · Tail Latency · Oversubscription · Failure Domain",
+          "accent": "#007A8A",
+          "evidence": {
+            "status": "official-monitoring",
+            "label": "OFFICIAL SOURCE MONITOR",
+            "source": "NVIDIA AI Factory Networking",
+            "url": "https://www.nvidia.com/en-us/networking/",
+            "asOf": null
+          }
+        },
+        {
+          "id": "quantum-computing",
+          "layer": "COMPUTE",
+          "horizon": "RESEARCH · OPTION",
+          "tech": "Quantum Computing",
+          "context": "QPU · Cryogenic I/O · Quantum-Classical Workflow",
+          "impact": "QPU보다 제어·오류정정·고전 처리의 데이터 이동이 초기 병목",
+          "memory": "Cryogenic Buffer · Control DRAM · Checkpoint·Result Store",
+          "decision": "HBM 수요 가정 대신 Hybrid Workflow 메모리 구조 탐색",
+          "gate": "Logical Qubit · Error Correction · I/O · 반복 Workload",
+          "accent": "#D84A8A",
+          "evidence": {
+            "status": "official-monitoring",
+            "label": "OFFICIAL SOURCE MONITOR",
+            "source": "IBM Quantum Roadmap",
+            "url": "https://www.ibm.com/roadmaps/quantum/2028/",
+            "asOf": null
+          }
+        },
+        {
+          "id": "neuromorphic-computing",
+          "layer": "COMPUTE",
+          "horizon": "RESEARCH · EDGE FIRST",
+          "tech": "Neuromorphic · In-Memory Compute",
+          "context": "SNN · PCM/ReRAM · Event-Driven",
+          "impact": "연산과 상태 저장을 결합해 데이터 이동 에너지 축소",
+          "memory": "SRAM·DRAM·Flash와 Emerging NVM의 역할 재분할",
+          "decision": "Edge AI-D E와 소자·정확도·내구성 공동 Benchmark",
+          "gate": "Accuracy · Endurance · Toolchain · Workload Fit",
+          "accent": "#C23F75",
+          "evidence": {
+            "status": "research-monitoring",
+            "label": "RESEARCH MONITOR",
+            "source": "Neuromorphic Computing at Scale",
+            "url": "https://www.nature.com/articles/s41586-024-08253-8",
+            "asOf": null
+          }
+        },
+        {
+          "id": "photonic-computing",
+          "layer": "COMPUTE",
+          "horizon": "RESEARCH",
+          "tech": "Photonic Computing",
+          "context": "Optical MAC · Analog AI · Electro-Optical Co-Integration",
+          "impact": "초저지연 행렬연산과 전자-광 변환·정확도 병목 공존",
+          "memory": "전자 Memory·Control 유지 · Optical Weight/PCM 탐색",
+          "decision": "광연산 성능보다 Memory Feed·ADC/DAC·Package 검증",
+          "gate": "Precision · Conversion Energy · Scale · Packaging",
+          "accent": "#E0509B",
+          "evidence": {
+            "status": "research-monitoring",
+            "label": "RESEARCH MONITOR",
+            "source": "Large-Scale Photonic Accelerator Research",
+            "url": "https://www.nature.com/articles/s41586-025-08786-6",
             "asOf": null
           }
         },
         {
           "id": "memory-as-a-service",
+          "layer": "MEMORY TIER",
+          "horizon": "BUSINESS MODEL · HYPOTHESIS",
           "tech": "Memory-as-a-Service",
           "context": "CXL · Pooling · Composable Memory",
           "impact": "분리·공유 Memory Pool로 유휴 Capacity와 Peak 증설 비용 절감",
           "memory": "AI-D · CXL Pool · Metering/SLA",
+          "decision": "칩 판매 + Pool 운영·계측·SLA 반복 수익 검증",
+          "gate": "Interop · Pool 활용률 · 계측 정확도 · SLA",
           "accent": "#D05A2B",
           "commercialStatus": "strategy-hypothesis",
           "evidence": {
-            "status": "monitoring",
-            "label": "SOURCE MONITORING",
-            "source": "",
-            "url": "",
+            "status": "official-monitoring",
+            "label": "OFFICIAL SOURCE MONITOR",
+            "source": "CXL Consortium",
+            "url": "https://computeexpresslink.org/news/",
             "asOf": null
           }
         }
@@ -3062,7 +3215,7 @@
           "relationship": "HBM 공급 관계는 별도 직접 원문 필요",
           "accent": "#0A84B8",
           "evidence": {
-            "status": "monitoring",
+            "status": "official-monitoring",
             "label": "OFFICIAL SOURCE MONITOR",
             "source": "Microsoft Official Blog",
             "url": "https://blogs.microsoft.com/blog/2026/01/26/maia-200-the-ai-accelerator-built-for-inference/",
@@ -3156,7 +3309,7 @@
           "relationship": "공급사·물량 공개 검증 필요",
           "accent": "#C88600",
           "evidence": {
-            "status": "monitoring",
+            "status": "official-monitoring",
             "label": "OFFICIAL SOURCE MONITOR",
             "source": "AWS Trainium",
             "url": "https://aws.amazon.com/ai/machine-learning/trainium/",
@@ -3285,7 +3438,7 @@
             }
           },
           "evidence": {
-            "status": "monitoring",
+            "status": "official-monitoring",
             "label": "OFFICIAL SOURCE MONITOR",
             "source": "Meta Engineering",
             "url": "https://engineering.fb.com/2025/09/29/data-infrastructure/metas-infrastructure-evolution-and-the-advent-of-ai/",
@@ -3377,7 +3530,7 @@
           "relationship": "Memory 공급 관계 공개 검증 필요",
           "accent": "#E24545",
           "evidence": {
-            "status": "monitoring",
+            "status": "official-monitoring",
             "label": "OFFICIAL SOURCE MONITOR",
             "source": "Tesla Investor Relations",
             "url": "https://ir.tesla.com/",
@@ -3547,7 +3700,7 @@
           "relationship": "ASIC 설계 파트너를 Buying Center로 관리",
           "accent": "#D05A2B",
           "evidence": {
-            "status": "monitoring",
+            "status": "official-monitoring",
             "label": "OFFICIAL SOURCE MONITOR",
             "source": "Broadcom AI Infrastructure",
             "url": "https://www.broadcom.com/info/ai/3point5d",
@@ -3681,7 +3834,7 @@
             }
           },
           "evidence": {
-            "status": "monitoring",
+            "status": "official-monitoring",
             "label": "OFFICIAL SOURCE MONITOR",
             "source": "OpenAI Infrastructure",
             "url": "https://openai.com/index/openai-broadcom-jalapeno-inference-chip/",
@@ -3822,7 +3975,7 @@
             }
           },
           "evidence": {
-            "status": "monitoring",
+            "status": "official-monitoring",
             "label": "OFFICIAL SOURCE MONITOR",
             "source": "Anthropic Compute Infrastructure",
             "url": "https://www.anthropic.com/news/google-broadcom-partnership-compute",
@@ -3905,7 +4058,7 @@
           "relationship": "공식 Memory 근거 전까지 Opportunity Watch",
           "accent": "#566678",
           "evidence": {
-            "status": "monitoring",
+            "status": "official-monitoring",
             "label": "OFFICIAL SOURCE MONITOR",
             "source": "SpaceX Official",
             "url": "https://www.spacex.com/",
@@ -4271,7 +4424,7 @@
           "relationship": "HBM 공급 관계는 별도 직접 원문 필요",
           "accent": "#0A84B8",
           "evidence": {
-            "status": "monitoring",
+            "status": "official-monitoring",
             "label": "OFFICIAL SOURCE MONITOR",
             "source": "Microsoft Official Blog",
             "url": "https://blogs.microsoft.com/blog/2026/01/26/maia-200-the-ai-accelerator-built-for-inference/",
@@ -4365,7 +4518,7 @@
           "relationship": "공급사·물량 공개 검증 필요",
           "accent": "#C88600",
           "evidence": {
-            "status": "monitoring",
+            "status": "official-monitoring",
             "label": "OFFICIAL SOURCE MONITOR",
             "source": "AWS Trainium",
             "url": "https://aws.amazon.com/ai/machine-learning/trainium/",
@@ -4494,7 +4647,7 @@
             }
           },
           "evidence": {
-            "status": "monitoring",
+            "status": "official-monitoring",
             "label": "OFFICIAL SOURCE MONITOR",
             "source": "Meta Engineering",
             "url": "https://engineering.fb.com/2025/09/29/data-infrastructure/metas-infrastructure-evolution-and-the-advent-of-ai/",
@@ -4586,7 +4739,7 @@
           "relationship": "Memory 공급 관계 공개 검증 필요",
           "accent": "#E24545",
           "evidence": {
-            "status": "monitoring",
+            "status": "official-monitoring",
             "label": "OFFICIAL SOURCE MONITOR",
             "source": "Tesla Investor Relations",
             "url": "https://ir.tesla.com/",

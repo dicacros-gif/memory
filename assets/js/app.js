@@ -13063,6 +13063,8 @@
     const customerBoard = strategyBoard.customerPortfolio || {};
     const partnerBoard = strategyBoard.partners || {};
     const techPillars = Array.isArray(techBoard.pillars) ? techBoard.pillars : [];
+    const techFramework = techBoard.trackingFramework || {};
+    const techLayers = Array.isArray(techFramework.layers) ? techFramework.layers : [];
     const techMap = Array.isArray(techBoard.memoryMap) ? techBoard.memoryMap : [];
     const reports = Array.isArray(strategyBoard.reports) ? strategyBoard.reports : [];
     const customerGroups = Array.isArray(customerBoard.groups) ? customerBoard.groups : [];
@@ -13286,16 +13288,31 @@
           </article>
         `).join("")}
       </div>` : ""}
-      ${techMap.length ? `<div class="sc-tech-grid">
+      ${techLayers.length ? `<section class="sc-radar-framework" aria-label="${escapeHTML(techFramework.title || "Memory Technology Radar")}">
+        <div class="sc-radar-framework-head">
+          <span>${escapeHTML(techFramework.eyebrow || "MEMORY TECHNOLOGY RADAR")}</span>
+          <strong>${escapeHTML(techFramework.title || "Compute → Interconnect → Package → Memory Tier")}</strong>
+          <p>${escapeHTML(techFramework.description || "기술 변화와 메모리 선택을 연결")}</p>
+        </div>
+        <ol class="sc-radar-layers">
+          ${techLayers.map((item) => `<li style="--sc-accent:${escapeHTML(item.accent || "#0A84B8")}"><b>${escapeHTML(item.index || "")}</b><span>${escapeHTML(item.label || "")}</span><small>${escapeHTML(item.question || "")}</small></li>`).join("")}
+        </ol>
+      </section>` : ""}
+      ${techMap.length ? `<div class="sc-tech-grid" aria-label="메모리 기술 변화 추적 카드">
         ${techMap.map((item) => {
           const evidence = item.evidence || {};
-          const evidenceClass = evidence.status === "official-fact" ? "is-fact" : evidence.status === "market-estimate" ? "is-estimate" : "is-monitoring";
+          const evidenceClass = evidence.status === "official-fact" ? "is-fact" : evidence.status === "market-estimate" ? "is-estimate" : evidence.status === "research-monitoring" ? "is-research" : "is-monitoring";
           return `
-          <article class="sc-tech-card" style="--sc-accent:${escapeHTML(item.accent || "#0A84B8")}">
-            <span class="sc-tech-en">${escapeHTML(item.context || "TECH CONTEXT")}</span>
+          <article class="sc-tech-card" tabindex="0" style="--sc-accent:${escapeHTML(item.accent || "#0A84B8")}">
+            <div class="sc-tech-meta"><span>${escapeHTML(item.layer || "MEMORY")}</span><b>${escapeHTML(item.horizon || "TRACK")}</b></div>
             <strong>${escapeHTML(item.tech || "")}</strong>
-            <p>${escapeHTML(item.impact || "")}</p>
-            <div class="sc-tech-mem"><b>MEMORY</b><span>${escapeHTML(item.memory || "")}</span></div>
+            <span class="sc-tech-en">${escapeHTML(item.context || "TECH CONTEXT")}</span>
+            <dl class="sc-tech-decision">
+              <div><dt>CHANGE</dt><dd>${escapeHTML(item.impact || "")}</dd></div>
+              <div><dt>MEMORY</dt><dd>${escapeHTML(item.memory || "")}</dd></div>
+              <div><dt>DECISION</dt><dd>${escapeHTML(item.decision || "관찰 신호를 사업 선택으로 전환")}</dd></div>
+              <div><dt>GATE</dt><dd>${escapeHTML(item.gate || "재현 Benchmark · 고객 검증 · 경제성")}</dd></div>
+            </dl>
             <div class="sc-tech-status"><span class="${evidenceClass}">${escapeHTML(evidence.label || "SOURCE MONITORING")}</span>${item.commercialStatus === "strategy-hypothesis" ? `<span class="is-hypothesis">COMMERCIAL MODEL · HYPOTHESIS</span>` : ""}${evidence.url ? `<a href="${escapeHTML(evidence.url)}" target="_blank" rel="noopener noreferrer">${escapeHTML(evidence.source || "원문")} · ${escapeHTML(String(evidence.asOf || "").slice(0, 10))} ↗</a>` : ""}</div>
           </article>
         `;}).join("")}

@@ -194,6 +194,16 @@ function buildStrategyBoard(payload = {}, generatedAt = null, decisionIntelligen
         || String(right.asOf || right.publishedAt || "").localeCompare(String(left.asOf || left.publishedAt || "")));
     const current = candidates[0] || null;
     const fallbackSource = sourceIds.map((id) => sourceById.get(id)).find((source) => directUrl(source?.url));
+    const fallbackStatus = fallbackSource?.sourceClass === "research"
+      ? "research-monitoring"
+      : fallbackSource?.sourceClass === "official"
+        ? "official-monitoring"
+        : "monitoring";
+    const fallbackLabel = fallbackSource?.sourceClass === "research"
+      ? "RESEARCH MONITOR"
+      : fallbackSource?.sourceClass === "official"
+        ? "OFFICIAL SOURCE MONITOR"
+        : "SOURCE MONITORING";
     return {
       ...displayItem,
       evidence: current ? {
@@ -204,8 +214,8 @@ function buildStrategyBoard(payload = {}, generatedAt = null, decisionIntelligen
         url: directUrl(current.sourceUrl) ? current.sourceUrl : "",
         asOf: current.asOf || current.publishedAt || null,
       } : {
-        status: "monitoring",
-        label: fallbackSource ? "OFFICIAL SOURCE MONITOR" : "SOURCE MONITORING",
+        status: fallbackStatus,
+        label: fallbackLabel,
         source: fallbackSource?.name || "",
         url: fallbackSource?.url || "",
         asOf: null,

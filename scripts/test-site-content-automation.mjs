@@ -118,6 +118,38 @@ const maasTrack = rebuilt.strategyBoard.tech.memoryMap.find((item) => item.id ==
 assert.equal(maasTrack?.commercialStatus, "strategy-hypothesis", "MaaS subscription economics must remain a strategy hypothesis");
 assert.ok(maasTrack?.evidence?.status, "MaaS must retain an automated evidence status");
 assert.ok(rebuilt.strategyBoard.tech.memoryMap.every((item) => item.evidence?.status), "every memory track must expose evidence status");
+assert.deepEqual(
+  rebuilt.strategyBoard.tech.trackingFramework.layers.map((item) => item.id),
+  ["compute", "interconnect", "package", "memory-tier"],
+  "technology radar must preserve the MECE compute-to-memory decision chain",
+);
+for (const trackId of [
+  "hbf-open-standard",
+  "hbs-research",
+  "three-d-packaging",
+  "chiplet-ucie",
+  "glass-substrate",
+  "silicon-photonics-cpo",
+  "ai-network-fabric",
+  "quantum-computing",
+  "neuromorphic-computing",
+  "photonic-computing",
+]) {
+  const track = rebuilt.strategyBoard.tech.memoryMap.find((item) => item.id === trackId);
+  assert.ok(track, `${trackId} must be present in the memory technology radar`);
+  assert.ok(track.layer && track.horizon && track.impact && track.memory && track.decision && track.gate, `${trackId} must expose memory impact and a decision gate`);
+}
+assert.equal(
+  rebuilt.strategyBoard.tech.memoryMap.find((item) => item.id === "hbs-research")?.evidence?.status,
+  "research-monitoring",
+  "HBS must remain clearly labeled as a research track",
+);
+assert.ok(
+  ["research-monitoring", "official-monitoring", "official-fact", "market-estimate"].includes(
+    rebuilt.strategyBoard.tech.memoryMap.find((item) => item.id === "photonic-computing")?.evidence?.status,
+  ),
+  "photonic computing must retain an explicit evidence class",
+);
 assert.equal(rebuilt.strategyBoard.customerPortfolio.accounts.length, 11);
 assert.deepEqual(rebuilt.strategyBoard.customerPortfolio.groups.map((item) => item.id), ["gpu", "hyperscaler-asic", "design-ecosystem", "edge-physical"]);
 assert.ok(rebuilt.strategyBoard.customerPortfolio.accounts.every((item) => item.evidence?.status));
