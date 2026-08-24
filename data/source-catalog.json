@@ -163,6 +163,21 @@
       "enabled": true
     },
     {
+      "id": "broadcom-meta-mtia",
+      "name": "Broadcom × Meta MTIA",
+      "tier": "primary-company",
+      "sourceClass": "official",
+      "url": "https://investors.broadcom.com/node/64236/pdf",
+      "domains": ["investors.broadcom.com", "about.fb.com"],
+      "topics": ["meta", "mtia", "xpu", "custom-asic", "memory-bandwidth", "ai-infra"],
+      "roles": ["partner", "customer", "technology", "demand"],
+      "languages": ["en"],
+      "freshnessHours": 168,
+      "discoveryQueries": ["site:investors.broadcom.com OR site:about.fb.com Broadcom Meta MTIA custom silicon"],
+      "healthCheck": { "markers": ["Broadcom", "Meta", "MTIA"] },
+      "enabled": true
+    },
+    {
       "id": "broadcom-ai",
       "name": "Broadcom AI Infrastructure",
       "tier": "primary-company",
@@ -239,14 +254,29 @@
       "name": "OpenAI Infrastructure",
       "tier": "primary-customer",
       "sourceClass": "official",
-      "url": "https://openai.com/index/openai-broadcom-jalapeno-inference-chip/",
+      "url": "https://openai.com/index/openai-and-broadcom-announce-strategic-collaboration/",
       "domains": ["openai.com"],
-      "topics": ["custom-accelerator", "jalapeno", "broadcom", "inference", "memory-movement", "ai-infra", "data-center"],
+      "topics": ["custom-accelerator", "broadcom", "inference", "memory-movement", "ethernet", "ai-infra", "data-center"],
       "roles": ["customer", "demand", "workload", "technology", "partnership"],
       "languages": ["en"],
       "freshnessHours": 168,
       "discoveryQueries": ["site:openai.com (Broadcom OR Jalapeño OR custom accelerator OR silicon OR AI infrastructure)"],
       "healthCheck": { "markers": ["OpenAI", "Broadcom", "accelerator"] },
+      "enabled": true
+    },
+    {
+      "id": "skhynix-ai-infra-org",
+      "name": "SK hynix AI Infra Organization",
+      "tier": "primary-company",
+      "sourceClass": "official",
+      "url": "https://news.skhynix.com/en/top-team-insights-ai-infra-head-justin-kim-strategy-in-the-ai-era/",
+      "domains": ["news.skhynix.com"],
+      "topics": ["ai-infra", "gsm", "hbm-business", "msr", "next-memory", "customer-codesign"],
+      "roles": ["organization", "strategy", "execution", "partner"],
+      "languages": ["en"],
+      "freshnessHours": 720,
+      "discoveryQueries": ["site:news.skhynix.com AI Infra GSM HBM Business MSR customer custom memory"],
+      "healthCheck": { "markers": ["AI Infra", "GSM", "HBM Business", "MSR"] },
       "enabled": true
     },
     {

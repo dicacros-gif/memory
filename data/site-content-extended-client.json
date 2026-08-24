@@ -1705,11 +1705,11 @@
         }
       ],
       "catalogCoverage": {
-        "configured": 59,
+        "configured": 61,
         "observed": 5,
         "fresh": 5,
-        "observationRatePct": 8.5,
-        "officialConfigured": 47,
+        "observationRatePct": 8.2,
+        "officialConfigured": 49,
         "officialObserved": 1,
         "officialFresh": 1,
         "targetPct": 90
@@ -2905,6 +2905,58 @@
                 "enabled": true
               }
             },
+            "broadcomStrategy": {
+              "status": "시장 보도",
+              "accountQuestion": "TPU7x의 192GB HBM·7.38TB/s 이후 세대에서 MXU Feeding과 Pod TCO를 어떻게 개선할 것인가",
+              "customerStrategy": "초대형 Pod · HBM/VMEM/Host 계층 · JAX/PyTorch 중심 Full-stack 최적화",
+              "pains": [
+                "Memory-bound Vector 연산",
+                "HBM↔VMEM↔Host Data Movement",
+                "9,216-chip Pod Fabric·전력"
+              ],
+              "proposal": [
+                "Custom HBM Base-Die 공동 최적화",
+                "AI-D B 기반 Host/CXL 계층",
+                "AI-N B 기반 대용량 Checkpoint·Retrieval"
+              ],
+              "gate90d": "공식 파트너 관계 확인 · Workload Trace · MXU Feeding GB/s/W · Package TCO",
+              "sourceId": "google-cloud-tpu",
+              "source": {
+                "id": "google-cloud-tpu",
+                "name": "Google Cloud TPU",
+                "tier": "primary-customer",
+                "sourceClass": "official",
+                "url": "https://docs.cloud.google.com/tpu/docs/tpu7x",
+                "domains": [
+                  "cloud.google.com"
+                ],
+                "topics": [
+                  "tpu",
+                  "ironwood",
+                  "inference",
+                  "ai-infra"
+                ],
+                "roles": [
+                  "customer",
+                  "demand",
+                  "workload"
+                ],
+                "languages": [
+                  "en"
+                ],
+                "freshnessHours": 168,
+                "discoveryQueries": [
+                  "site:cloud.google.com/blog (TPU OR Ironwood) (memory OR inference OR AI infrastructure)"
+                ],
+                "healthCheck": {
+                  "markers": [
+                    "TPU",
+                    "Google Cloud"
+                  ]
+                },
+                "enabled": true
+              }
+            },
             "evidence": {
               "status": "official-fact",
               "label": "OFFICIAL FACT",
@@ -3063,6 +3115,7 @@
             ],
             "chipStage": "Region 배포",
             "xpuEcosystem": null,
+            "broadcomStrategy": null,
             "stageLedger": {
               "stage": "UNVERIFIED",
               "label": "고객 제안 단계 검토",
@@ -3175,6 +3228,7 @@
             ],
             "chipStage": "공식 서비스",
             "xpuEcosystem": null,
+            "broadcomStrategy": null,
             "stageLedger": {
               "stage": "UNVERIFIED",
               "label": "고객 제안 단계 검토",
@@ -3279,6 +3333,7 @@
             "evidenceStream": [],
             "chipStage": "공식 인프라 공개",
             "xpuEcosystem": null,
+            "broadcomStrategy": null,
             "stageLedger": {
               "stage": "UNVERIFIED",
               "label": "고객 제안 단계 검토",
@@ -3389,6 +3444,631 @@
             ],
             "chipStage": "Reference Monitor",
             "xpuEcosystem": null,
+            "broadcomStrategy": null,
+            "stageLedger": {
+              "stage": "UNVERIFIED",
+              "label": "고객 제안 단계 검토",
+              "source": null
+            }
+          }
+        ]
+      },
+      "broadcomEcosystem": {
+        "eyebrow": "BROADCOM XPU ACCOUNT STRATEGY",
+        "title": "공통 XPU 파트너 · 고객별 Memory 전략은 분리",
+        "description": "OpenAI·Meta의 공식 공동개발과 Google의 시장 보도를 분리하고, 고객별 Workload·HBM·Package·Network Pain을 독립 관리",
+        "accountIds": [
+          "google",
+          "meta",
+          "openai"
+        ],
+        "decisionFlow": [
+          {
+            "index": "01",
+            "label": "ACCOUNT",
+            "value": "고객 AI 서비스·Chip Roadmap"
+          },
+          {
+            "index": "02",
+            "label": "PAIN",
+            "value": "Memory Movement·대역폭·전력·Package"
+          },
+          {
+            "index": "03",
+            "label": "OPTION",
+            "value": "Custom HBM·AI-D·AI-N·Fabric"
+          },
+          {
+            "index": "04",
+            "label": "DEAL GATE",
+            "value": "Architecture Lock·Qualification·LTA"
+          }
+        ],
+        "evidencePolicy": "공식 공동개발과 시장 보도 관계를 색상·라벨로 분리",
+        "accounts": [
+          {
+            "id": "google",
+            "focus": true,
+            "demandClass": "asic",
+            "group": "hyperscaler-asic",
+            "company": "Google",
+            "chip": "TPU7x · Ironwood",
+            "aliases": [
+              "google",
+              "alphabet",
+              "google cloud",
+              "tpu",
+              "tpu7",
+              "ironwood"
+            ],
+            "baseline": [
+              {
+                "label": "MEMORY",
+                "value": "192GB HBM · 7.38TB/s",
+                "sourceId": "google-cloud-tpu",
+                "source": {
+                  "id": "google-cloud-tpu",
+                  "name": "Google Cloud TPU",
+                  "url": "https://docs.cloud.google.com/tpu/docs/tpu7x"
+                }
+              }
+            ],
+            "chipPortfolio": [
+              {
+                "name": "TPU7x · Ironwood",
+                "type": "HYPERSCALER ASIC",
+                "workload": "Training · Inference · MoE",
+                "publicSpec": "192GB HBM · 7.38TB/s · 9,216-chip Pod",
+                "memoryPain": "MXU Feeding · HBM/VMEM/Host Data Movement · Pod Fabric",
+                "memoryProposal": "Custom HBM · AI-D B · AI-N B",
+                "evidenceLabel": "OFFICIAL SPEC",
+                "sourceId": "google-cloud-tpu",
+                "source": {
+                  "id": "google-cloud-tpu",
+                  "name": "Google Cloud TPU",
+                  "url": "https://docs.cloud.google.com/tpu/docs/tpu7x",
+                  "sourceClass": "official"
+                }
+              }
+            ],
+            "stage": "고객 제안 단계 검토",
+            "pain": "MXU Feeding·Pod Data Movement·전력 효율",
+            "memory": "Custom HBM · HBM/Host Tier · AI-N",
+            "gate": "MXU Feeding · D2D · Pod TCO",
+            "relationship": "Broadcom XPU 설계 협력은 보도 근거 · HBM 공급 관계와 분리",
+            "accent": "#00A88F",
+            "xpuEcosystem": {
+              "partner": "Broadcom",
+              "status": "보도 기반",
+              "role": "TPU 로직·HBM PHY·Package 공동 최적화 추적",
+              "sourceId": "trendforce",
+              "claim": "market-estimate",
+              "source": {
+                "id": "trendforce",
+                "name": "TrendForce",
+                "tier": "industry-research",
+                "sourceClass": "research",
+                "url": "https://www.trendforce.com/presscenter/",
+                "domains": [
+                  "trendforce.com"
+                ],
+                "topics": [
+                  "memory-price",
+                  "hbm",
+                  "dram",
+                  "nand",
+                  "forecast"
+                ],
+                "roles": [
+                  "market",
+                  "competitor",
+                  "pricing"
+                ],
+                "languages": [
+                  "en"
+                ],
+                "freshnessHours": 168,
+                "discoveryQueries": [
+                  "site:trendforce.com/presscenter (HBM OR DRAM OR NAND OR enterprise SSD)",
+                  "site:trendforce.com/presscenter HBM \"wafer input\""
+                ],
+                "enabled": true
+              }
+            },
+            "broadcomStrategy": {
+              "status": "시장 보도",
+              "accountQuestion": "TPU7x의 192GB HBM·7.38TB/s 이후 세대에서 MXU Feeding과 Pod TCO를 어떻게 개선할 것인가",
+              "customerStrategy": "초대형 Pod · HBM/VMEM/Host 계층 · JAX/PyTorch 중심 Full-stack 최적화",
+              "pains": [
+                "Memory-bound Vector 연산",
+                "HBM↔VMEM↔Host Data Movement",
+                "9,216-chip Pod Fabric·전력"
+              ],
+              "proposal": [
+                "Custom HBM Base-Die 공동 최적화",
+                "AI-D B 기반 Host/CXL 계층",
+                "AI-N B 기반 대용량 Checkpoint·Retrieval"
+              ],
+              "gate90d": "공식 파트너 관계 확인 · Workload Trace · MXU Feeding GB/s/W · Package TCO",
+              "sourceId": "google-cloud-tpu",
+              "source": {
+                "id": "google-cloud-tpu",
+                "name": "Google Cloud TPU",
+                "tier": "primary-customer",
+                "sourceClass": "official",
+                "url": "https://docs.cloud.google.com/tpu/docs/tpu7x",
+                "domains": [
+                  "cloud.google.com"
+                ],
+                "topics": [
+                  "tpu",
+                  "ironwood",
+                  "inference",
+                  "ai-infra"
+                ],
+                "roles": [
+                  "customer",
+                  "demand",
+                  "workload"
+                ],
+                "languages": [
+                  "en"
+                ],
+                "freshnessHours": 168,
+                "discoveryQueries": [
+                  "site:cloud.google.com/blog (TPU OR Ironwood) (memory OR inference OR AI infrastructure)"
+                ],
+                "healthCheck": {
+                  "markers": [
+                    "TPU",
+                    "Google Cloud"
+                  ]
+                },
+                "enabled": true
+              }
+            },
+            "evidence": {
+              "status": "official-fact",
+              "label": "OFFICIAL FACT",
+              "stage": "PLATFORM_ADOPTION",
+              "source": "Google Cloud TPU",
+              "url": "https://cloud.google.com/blog/products/compute/inside-the-ironwood-tpu-codesigned-ai-stack",
+              "asOf": "2025-11-06"
+            },
+            "mentions": 0,
+            "sourceCount": 0,
+            "officialEvidenceCount": 0,
+            "weekly": [
+              {
+                "week": "2026-07-06",
+                "count": 0
+              },
+              {
+                "week": "2026-07-13",
+                "count": 0
+              },
+              {
+                "week": "2026-07-20",
+                "count": 0
+              },
+              {
+                "week": "2026-07-27",
+                "count": 0
+              },
+              {
+                "week": "2026-08-03",
+                "count": 0
+              },
+              {
+                "week": "2026-08-10",
+                "count": 0
+              },
+              {
+                "week": "2026-08-17",
+                "count": 0
+              },
+              {
+                "week": "2026-08-24",
+                "count": 0
+              }
+            ],
+            "evidenceStream": [],
+            "chipStage": "TPU7x 제공",
+            "stageLedger": {
+              "stage": "UNVERIFIED",
+              "label": "고객 제안 단계 검토",
+              "source": null
+            }
+          },
+          {
+            "id": "meta",
+            "focus": true,
+            "demandClass": "asic",
+            "group": "hyperscaler-asic",
+            "company": "Meta",
+            "chip": "MTIA",
+            "aliases": [
+              "meta",
+              "meta platforms",
+              "mtia"
+            ],
+            "baseline": [
+              {
+                "label": "PLATFORM",
+                "value": "MTIA Roadmap",
+                "sourceId": "meta-engineering",
+                "source": {
+                  "id": "meta-engineering",
+                  "name": "Meta Engineering",
+                  "url": "https://engineering.fb.com/2025/09/29/data-infrastructure/metas-infrastructure-evolution-and-the-advent-of-ai/"
+                }
+              }
+            ],
+            "stage": "고객 제안 단계 검토",
+            "pain": "추천·광고 추론의 HBM I/O·Chiplet·Package Scaling",
+            "memory": "Custom HBM · AI-D · Fabric",
+            "gate": "Generation Roadmap · Package · TCO",
+            "relationship": "Broadcom과 다세대 MTIA 공동개발 공식 발표 · Memory 공급과 분리",
+            "accent": "#7656C9",
+            "xpuEcosystem": {
+              "partner": "Broadcom",
+              "status": "공식",
+              "role": "MTIA 다세대 Custom Silicon·Memory Bandwidth·전력·Rack 전개 공동 최적화",
+              "sourceId": "broadcom-meta-mtia",
+              "claim": "verified-fact",
+              "source": {
+                "id": "broadcom-meta-mtia",
+                "name": "Broadcom × Meta MTIA",
+                "tier": "primary-company",
+                "sourceClass": "official",
+                "url": "https://investors.broadcom.com/node/64236/pdf",
+                "domains": [
+                  "investors.broadcom.com",
+                  "broadcom.com",
+                  "about.fb.com"
+                ],
+                "topics": [
+                  "meta",
+                  "mtia",
+                  "xpu",
+                  "custom-asic",
+                  "memory-bandwidth",
+                  "ai-infra"
+                ],
+                "roles": [
+                  "partner",
+                  "customer",
+                  "technology",
+                  "demand"
+                ],
+                "languages": [
+                  "en"
+                ],
+                "freshnessHours": 168,
+                "discoveryQueries": [
+                  "site:investors.broadcom.com OR site:about.fb.com Broadcom Meta MTIA custom silicon"
+                ],
+                "healthCheck": {
+                  "markers": [
+                    "Broadcom",
+                    "Meta",
+                    "MTIA"
+                  ]
+                },
+                "enabled": true
+              }
+            },
+            "broadcomStrategy": {
+              "status": "공식 협력",
+              "accountQuestion": "6개월 이하 세대 전환 속도에서 Memory Bandwidth·Capacity·전력을 어떻게 동시 확장할 것인가",
+              "customerStrategy": "Inference-first · 다세대 MTIA · OCP·PyTorch·vLLM 기반 빠른 배포",
+              "pains": [
+                "세대별 Memory Bandwidth 확대",
+                "Inference Cost/Task",
+                "Rack 호환성과 빠른 Qualification"
+              ],
+              "proposal": [
+                "MTIA 세대별 Custom HBM Requirement Matrix",
+                "AI-D O/B 기반 Warm Memory",
+                "AI-N P 기반 Inference Data Tier"
+              ],
+              "gate90d": "MTIA Generation Map · p95/Goodput/W · Package Readiness · Qualification Owner",
+              "sourceId": "broadcom-meta-mtia",
+              "source": {
+                "id": "broadcom-meta-mtia",
+                "name": "Broadcom × Meta MTIA",
+                "tier": "primary-company",
+                "sourceClass": "official",
+                "url": "https://investors.broadcom.com/node/64236/pdf",
+                "domains": [
+                  "investors.broadcom.com",
+                  "broadcom.com",
+                  "about.fb.com"
+                ],
+                "topics": [
+                  "meta",
+                  "mtia",
+                  "xpu",
+                  "custom-asic",
+                  "memory-bandwidth",
+                  "ai-infra"
+                ],
+                "roles": [
+                  "partner",
+                  "customer",
+                  "technology",
+                  "demand"
+                ],
+                "languages": [
+                  "en"
+                ],
+                "freshnessHours": 168,
+                "discoveryQueries": [
+                  "site:investors.broadcom.com OR site:about.fb.com Broadcom Meta MTIA custom silicon"
+                ],
+                "healthCheck": {
+                  "markers": [
+                    "Broadcom",
+                    "Meta",
+                    "MTIA"
+                  ]
+                },
+                "enabled": true
+              }
+            },
+            "evidence": {
+              "status": "official-monitoring",
+              "label": "OFFICIAL SOURCE MONITOR",
+              "source": "Meta Engineering",
+              "url": "https://engineering.fb.com/2025/09/29/data-infrastructure/metas-infrastructure-evolution-and-the-advent-of-ai/",
+              "asOf": null
+            },
+            "mentions": 1,
+            "sourceCount": 1,
+            "officialEvidenceCount": 0,
+            "weekly": [
+              {
+                "week": "2026-07-06",
+                "count": 0
+              },
+              {
+                "week": "2026-07-13",
+                "count": 0
+              },
+              {
+                "week": "2026-07-20",
+                "count": 1
+              },
+              {
+                "week": "2026-07-27",
+                "count": 0
+              },
+              {
+                "week": "2026-08-03",
+                "count": 0
+              },
+              {
+                "week": "2026-08-10",
+                "count": 0
+              },
+              {
+                "week": "2026-08-17",
+                "count": 0
+              },
+              {
+                "week": "2026-08-24",
+                "count": 0
+              }
+            ],
+            "evidenceStream": [
+              {
+                "title": "AMD Helios AI 랙은 HBM4 메모리 에지로 NVIDIA에 도전 · Microsoft가 최신 고객으로 합류",
+                "source": "TrendForce",
+                "sourceClass": "research",
+                "url": "https://www.trendforce.com/news/2026/07/21/news-amds-first-rack-scale-ai-system-helios-challenges-nvidia-with-hbm4-memory-edge-but-reportedly-comes-at-a-higher-price",
+                "date": "2026-07-21"
+              }
+            ],
+            "chipStage": "인프라 배포 공개",
+            "chipPortfolio": [],
+            "stageLedger": {
+              "stage": "UNVERIFIED",
+              "label": "고객 제안 단계 검토",
+              "source": null
+            }
+          },
+          {
+            "id": "openai",
+            "focus": false,
+            "demandClass": "asic",
+            "group": "design-ecosystem",
+            "company": "OpenAI",
+            "chip": "OpenAI-designed AI accelerator",
+            "aliases": [
+              "openai",
+              "stargate",
+              "custom accelerator",
+              "intelligence processor"
+            ],
+            "baseline": [
+              {
+                "label": "PLATFORM",
+                "value": "OpenAI 설계 · Broadcom 구현·Network",
+                "sourceId": "openai-infrastructure",
+                "source": {
+                  "id": "openai-infrastructure",
+                  "name": "OpenAI Infrastructure",
+                  "url": "https://openai.com/index/openai-and-broadcom-announce-strategic-collaboration/"
+                }
+              }
+            ],
+            "stage": "고객 제안 단계 검토",
+            "pain": "LLM Inference의 Memory Movement·Utilization·전력·Reliability",
+            "memory": "HBM · Ethernet Scale-up/out · Rack Co-Design",
+            "gate": "Memory Balance · Tape-out · 2026 Deployment",
+            "relationship": "OpenAI 설계 XPU를 Broadcom이 Silicon·Network로 구현",
+            "accent": "#4A6B78",
+            "xpuEcosystem": {
+              "partner": "Broadcom",
+              "status": "공식",
+              "role": "Accelerator·HBM 균형·Ethernet Rack 공동개발",
+              "sourceId": "openai-infrastructure",
+              "claim": "verified-fact",
+              "source": {
+                "id": "openai-infrastructure",
+                "name": "OpenAI Infrastructure",
+                "tier": "primary-customer",
+                "sourceClass": "official",
+                "url": "https://openai.com/index/openai-and-broadcom-announce-strategic-collaboration/",
+                "domains": [
+                  "openai.com"
+                ],
+                "topics": [
+                  "custom-accelerator",
+                  "broadcom",
+                  "inference",
+                  "memory-movement",
+                  "ethernet",
+                  "ai-infra",
+                  "data-center"
+                ],
+                "roles": [
+                  "customer",
+                  "demand",
+                  "workload",
+                  "technology",
+                  "partnership"
+                ],
+                "languages": [
+                  "en"
+                ],
+                "freshnessHours": 168,
+                "discoveryQueries": [
+                  "site:openai.com (Broadcom OR Jalapeño OR custom accelerator OR silicon OR AI infrastructure)"
+                ],
+                "healthCheck": {
+                  "markers": [
+                    "OpenAI",
+                    "Broadcom",
+                    "accelerator"
+                  ]
+                },
+                "enabled": true
+              }
+            },
+            "broadcomStrategy": {
+              "status": "공식 협력",
+              "accountQuestion": "10GW Custom Accelerator 배포에서 Memory Movement·Ethernet Scale-up/out·전력 효율을 어떻게 잠글 것인가",
+              "customerStrategy": "OpenAI 설계 Accelerator · Broadcom Silicon·Ethernet · 2026 H2 이후 Rack 배포",
+              "pains": [
+                "Inference Memory Movement",
+                "10GW Ramp·Reliability",
+                "Accelerator↔Network 균형"
+              ],
+              "proposal": [
+                "Custom HBM·Base-Die Dataflow 공동설계",
+                "AI-D B 공유 Memory Pool",
+                "AI-N P/B 기반 Retrieval·Checkpoint Tier"
+              ],
+              "gate90d": "Architecture Lock · Memory Balance · Reliability SLO · Ramp·Capacity 계약",
+              "sourceId": "openai-infrastructure",
+              "source": {
+                "id": "openai-infrastructure",
+                "name": "OpenAI Infrastructure",
+                "tier": "primary-customer",
+                "sourceClass": "official",
+                "url": "https://openai.com/index/openai-and-broadcom-announce-strategic-collaboration/",
+                "domains": [
+                  "openai.com"
+                ],
+                "topics": [
+                  "custom-accelerator",
+                  "broadcom",
+                  "inference",
+                  "memory-movement",
+                  "ethernet",
+                  "ai-infra",
+                  "data-center"
+                ],
+                "roles": [
+                  "customer",
+                  "demand",
+                  "workload",
+                  "technology",
+                  "partnership"
+                ],
+                "languages": [
+                  "en"
+                ],
+                "freshnessHours": 168,
+                "discoveryQueries": [
+                  "site:openai.com (Broadcom OR Jalapeño OR custom accelerator OR silicon OR AI infrastructure)"
+                ],
+                "healthCheck": {
+                  "markers": [
+                    "OpenAI",
+                    "Broadcom",
+                    "accelerator"
+                  ]
+                },
+                "enabled": true
+              }
+            },
+            "evidence": {
+              "status": "official-monitoring",
+              "label": "OFFICIAL SOURCE MONITOR",
+              "source": "OpenAI Infrastructure",
+              "url": "https://openai.com/index/openai-and-broadcom-announce-strategic-collaboration/",
+              "asOf": null
+            },
+            "mentions": 1,
+            "sourceCount": 1,
+            "officialEvidenceCount": 0,
+            "weekly": [
+              {
+                "week": "2026-07-06",
+                "count": 0
+              },
+              {
+                "week": "2026-07-13",
+                "count": 0
+              },
+              {
+                "week": "2026-07-20",
+                "count": 1
+              },
+              {
+                "week": "2026-07-27",
+                "count": 0
+              },
+              {
+                "week": "2026-08-03",
+                "count": 0
+              },
+              {
+                "week": "2026-08-10",
+                "count": 0
+              },
+              {
+                "week": "2026-08-17",
+                "count": 0
+              },
+              {
+                "week": "2026-08-24",
+                "count": 0
+              }
+            ],
+            "evidenceStream": [
+              {
+                "title": "AMD Helios AI 랙은 HBM4 메모리 에지로 NVIDIA에 도전 · Microsoft가 최신 고객으로 합류",
+                "source": "TrendForce",
+                "sourceClass": "research",
+                "url": "https://www.trendforce.com/news/2026/07/21/news-amds-first-rack-scale-ai-system-helios-challenges-nvidia-with-hbm4-memory-edge-but-reportedly-comes-at-a-higher-price",
+                "date": "2026-07-21"
+              }
+            ],
+            "chipStage": "공식 공동개발",
+            "chipPortfolio": [],
             "stageLedger": {
               "stage": "UNVERIFIED",
               "label": "고객 제안 단계 검토",
@@ -3399,40 +4079,10 @@
       },
       "projects": [
         {
-          "id": "nvidia-base-die",
+          "id": "broadcom-account-intelligence",
           "index": "01",
-          "label": "NVIDIA · CUSTOM HBM",
-          "title": "Rubin Base-Die 공동설계 Gate",
-          "accounts": [
-            "nvidia"
-          ],
-          "signalTerms": [
-            "Rubin",
-            "HBM4E",
-            "base die",
-            "logic die",
-            "TSMC"
-          ],
-          "pain": "HBM4 Ramp와 HBM4E 로직 이관·패키징 일정을 동시에 잠가야 하는 고객 과제",
-          "proposal": "컨트롤러·PHY 이관 범위, TSMC 로직 슬롯, Package Capacity를 하나의 공동설계 표로 통합",
-          "deliverable": "Base-Die Requirement Matrix · Qualification Map · LTA 옵션",
-          "gate90d": "Architecture Lock · Qualification Slot · Binding Volume · Margin Floor",
-          "kpis": [
-            "W/token",
-            "Package Yield",
-            "Qualification Slip"
-          ],
-          "accent": "#2D6BFF",
-          "accountLabels": [
-            "NVIDIA"
-          ],
-          "selectedInsight": null
-        },
-        {
-          "id": "broadcom-xpu-account-map",
-          "index": "02",
-          "label": "BROADCOM XPU · GOOGLE · META · OPENAI",
-          "title": "Broadcom XPU 고객별 Memory Co-Design",
+          "label": "ACCOUNT INTELLIGENCE",
+          "title": "Broadcom XPU 고객별 Pain Map",
           "accounts": [
             "broadcom",
             "google",
@@ -3441,23 +4091,23 @@
           ],
           "signalTerms": [
             "Broadcom",
-            "XPU",
+            "Google",
+            "Meta",
+            "OpenAI",
             "TPU",
             "MTIA",
-            "OpenAI",
-            "Jalapeño",
             "custom accelerator"
           ],
-          "pain": "Google TPU·Meta MTIA·OpenAI Intelligence Processor마다 HBM 용량·대역폭·전력·Package 요구가 다른 고객 과제",
-          "proposal": "Broadcom을 공통 Buying Center로 두되 고객별 Workload·Memory Movement·Package Gate를 분리 설계",
-          "deliverable": "XPU Account Map · HBM Requirement Matrix · 고객별 Co-Design Proposal",
-          "gate90d": "고객별 공개 Roadmap · HBM PHY/Package 요구 · Qualification Owner 확정",
+          "pain": "공통 설계 파트너를 공유해도 Workload·Memory·Package 구매 기준은 고객마다 상이",
+          "proposal": "Google·Meta·OpenAI를 독립 계정으로 분리해 공개 Roadmap과 Memory Requirement를 관리",
+          "deliverable": "Account Fact Pack · Pain Map · Requirement Matrix",
+          "gate90d": "Decision Owner · Buying Criteria · Architecture Lock",
           "kpis": [
-            "GB/s/W",
-            "Cost/Task",
-            "PoC Conversion"
+            "Account Coverage",
+            "Design Win",
+            "Qualification Lead Time"
           ],
-          "accent": "#7656C9",
+          "accent": "#00A88F",
           "accountLabels": [
             "Broadcom",
             "Google",
@@ -3467,40 +4117,85 @@
           "selectedInsight": null
         },
         {
-          "id": "agentic-memory-tier",
-          "index": "03",
-          "label": "ANTHROPIC · MULTI-PLATFORM MEMORY",
-          "title": "Claude Chip·Memory Portability",
+          "id": "next-memory-portfolio",
+          "index": "02",
+          "label": "TECH RADAR → NEXT MEMORY",
+          "title": "AI App·HW/SW 변화를 제품 기회로 전환",
           "accounts": [
-            "anthropic",
-            "aws",
             "google",
-            "broadcom"
+            "meta",
+            "openai",
+            "microsoft",
+            "aws",
+            "anthropic"
           ],
           "signalTerms": [
-            "Anthropic",
-            "Claude",
-            "Trainium",
-            "TPU",
-            "Broadcom",
-            "KV cache",
-            "long context"
+            "inference",
+            "long context",
+            "HBM",
+            "CXL",
+            "AI-N",
+            "AI-D",
+            "memory bandwidth"
           ],
-          "pain": "Claude가 Trainium·TPU·NVIDIA GPU를 함께 쓰며 플랫폼별 HBM·Kernel·Serving 일관성을 맞춰야 하는 고객 과제",
-          "proposal": "Training HBM·Collective와 Inference KV Cache를 플랫폼별로 계측해 AI-D/CXL·AI-N 계층 제안",
-          "deliverable": "Chip/Memory Use Map · Portability Benchmark · Memory Tier Proposal",
-          "gate90d": "p95 TTFT·TPOT · Goodput/W · Cost per Successful Task 개선",
+          "pain": "Inference·Long Context·Agentic AI 확대로 HBM 단품이 아닌 Memory Tier 최적화 필요",
+          "proposal": "Custom HBM·AI-D O/B/E·AI-N P/B/D를 계정별 Workload와 1:1 매핑",
+          "deliverable": "Next Memory Option Map · PoC Business Case · Partner Screen",
+          "gate90d": "동일 Workload SLO · System TCO · 고객 지불의사",
           "kpis": [
-            "p95 TTFT",
-            "TPOT",
-            "Goodput/W"
+            "Goodput/W",
+            "Cost/Task",
+            "PoC Conversion"
           ],
-          "accent": "#00A88F",
+          "accent": "#7656C9",
           "accountLabels": [
-            "Anthropic",
-            "Amazon AWS",
             "Google",
-            "Broadcom"
+            "Meta",
+            "OpenAI",
+            "Microsoft",
+            "Amazon AWS",
+            "Anthropic"
+          ],
+          "selectedInsight": null
+        },
+        {
+          "id": "executive-deal-support",
+          "index": "03",
+          "label": "EXECUTIVE DEAL SUPPORT",
+          "title": "Qualification·Capacity·LTA 의사결정 팩",
+          "accounts": [
+            "nvidia",
+            "google",
+            "microsoft",
+            "aws",
+            "meta",
+            "openai"
+          ],
+          "signalTerms": [
+            "qualification",
+            "capacity",
+            "LTA",
+            "contract",
+            "prepayment",
+            "package"
+          ],
+          "pain": "고객 Roadmap·경쟁 공급·패키징 캐파·수익성을 하나의 계약 판단으로 통합할 필요",
+          "proposal": "고객별 Volume·NRE·Margin·Qualification을 90일 Stage-Gate로 연결",
+          "deliverable": "Executive One-Pager · LTA Option · Capacity Decision",
+          "gate90d": "Binding Volume · Margin Floor · Qualification · Package Allocation",
+          "kpis": [
+            "Revenue Conversion",
+            "Margin",
+            "Ramp Accuracy"
+          ],
+          "accent": "#C88600",
+          "accountLabels": [
+            "NVIDIA",
+            "Google",
+            "Microsoft",
+            "Amazon AWS",
+            "Meta",
+            "OpenAI"
           ],
           "selectedInsight": null
         }
@@ -3647,6 +4342,7 @@
           "chipStage": "공식 플랫폼 공개",
           "chipPortfolio": [],
           "xpuEcosystem": null,
+          "broadcomStrategy": null,
           "stageLedger": {
             "stage": "UNVERIFIED",
             "label": "고객 제안 단계 검토",
@@ -3739,6 +4435,58 @@
                 "site:trendforce.com/presscenter (HBM OR DRAM OR NAND OR enterprise SSD)",
                 "site:trendforce.com/presscenter HBM \"wafer input\""
               ],
+              "enabled": true
+            }
+          },
+          "broadcomStrategy": {
+            "status": "시장 보도",
+            "accountQuestion": "TPU7x의 192GB HBM·7.38TB/s 이후 세대에서 MXU Feeding과 Pod TCO를 어떻게 개선할 것인가",
+            "customerStrategy": "초대형 Pod · HBM/VMEM/Host 계층 · JAX/PyTorch 중심 Full-stack 최적화",
+            "pains": [
+              "Memory-bound Vector 연산",
+              "HBM↔VMEM↔Host Data Movement",
+              "9,216-chip Pod Fabric·전력"
+            ],
+            "proposal": [
+              "Custom HBM Base-Die 공동 최적화",
+              "AI-D B 기반 Host/CXL 계층",
+              "AI-N B 기반 대용량 Checkpoint·Retrieval"
+            ],
+            "gate90d": "공식 파트너 관계 확인 · Workload Trace · MXU Feeding GB/s/W · Package TCO",
+            "sourceId": "google-cloud-tpu",
+            "source": {
+              "id": "google-cloud-tpu",
+              "name": "Google Cloud TPU",
+              "tier": "primary-customer",
+              "sourceClass": "official",
+              "url": "https://docs.cloud.google.com/tpu/docs/tpu7x",
+              "domains": [
+                "cloud.google.com"
+              ],
+              "topics": [
+                "tpu",
+                "ironwood",
+                "inference",
+                "ai-infra"
+              ],
+              "roles": [
+                "customer",
+                "demand",
+                "workload"
+              ],
+              "languages": [
+                "en"
+              ],
+              "freshnessHours": 168,
+              "discoveryQueries": [
+                "site:cloud.google.com/blog (TPU OR Ironwood) (memory OR inference OR AI infrastructure)"
+              ],
+              "healthCheck": {
+                "markers": [
+                  "TPU",
+                  "Google Cloud"
+                ]
+              },
               "enabled": true
             }
           },
@@ -3900,6 +4648,7 @@
           ],
           "chipStage": "Region 배포",
           "xpuEcosystem": null,
+          "broadcomStrategy": null,
           "stageLedger": {
             "stage": "UNVERIFIED",
             "label": "고객 제안 단계 검토",
@@ -4012,6 +4761,7 @@
           ],
           "chipStage": "공식 서비스",
           "xpuEcosystem": null,
+          "broadcomStrategy": null,
           "stageLedger": {
             "stage": "UNVERIFIED",
             "label": "고객 제안 단계 검토",
@@ -4046,43 +4796,111 @@
           "pain": "추천·광고 추론의 HBM I/O·Chiplet·Package Scaling",
           "memory": "Custom HBM · AI-D · Fabric",
           "gate": "Generation Roadmap · Package · TCO",
-          "relationship": "Broadcom XPU 설계 협력은 보도 근거 · Memory 공급과 분리",
+          "relationship": "Broadcom과 다세대 MTIA 공동개발 공식 발표 · Memory 공급과 분리",
           "accent": "#7656C9",
           "xpuEcosystem": {
             "partner": "Broadcom",
-            "status": "보도 기반",
-            "role": "MTIA 세대별 Logic·HBM·Package 요구 추적",
-            "sourceId": "trendforce",
-            "claim": "market-estimate",
+            "status": "공식",
+            "role": "MTIA 다세대 Custom Silicon·Memory Bandwidth·전력·Rack 전개 공동 최적화",
+            "sourceId": "broadcom-meta-mtia",
+            "claim": "verified-fact",
             "source": {
-              "id": "trendforce",
-              "name": "TrendForce",
-              "tier": "industry-research",
-              "sourceClass": "research",
-              "url": "https://www.trendforce.com/presscenter/",
+              "id": "broadcom-meta-mtia",
+              "name": "Broadcom × Meta MTIA",
+              "tier": "primary-company",
+              "sourceClass": "official",
+              "url": "https://investors.broadcom.com/node/64236/pdf",
               "domains": [
-                "trendforce.com"
+                "investors.broadcom.com",
+                "broadcom.com",
+                "about.fb.com"
               ],
               "topics": [
-                "memory-price",
-                "hbm",
-                "dram",
-                "nand",
-                "forecast"
+                "meta",
+                "mtia",
+                "xpu",
+                "custom-asic",
+                "memory-bandwidth",
+                "ai-infra"
               ],
               "roles": [
-                "market",
-                "competitor",
-                "pricing"
+                "partner",
+                "customer",
+                "technology",
+                "demand"
               ],
               "languages": [
                 "en"
               ],
               "freshnessHours": 168,
               "discoveryQueries": [
-                "site:trendforce.com/presscenter (HBM OR DRAM OR NAND OR enterprise SSD)",
-                "site:trendforce.com/presscenter HBM \"wafer input\""
+                "site:investors.broadcom.com OR site:about.fb.com Broadcom Meta MTIA custom silicon"
               ],
+              "healthCheck": {
+                "markers": [
+                  "Broadcom",
+                  "Meta",
+                  "MTIA"
+                ]
+              },
+              "enabled": true
+            }
+          },
+          "broadcomStrategy": {
+            "status": "공식 협력",
+            "accountQuestion": "6개월 이하 세대 전환 속도에서 Memory Bandwidth·Capacity·전력을 어떻게 동시 확장할 것인가",
+            "customerStrategy": "Inference-first · 다세대 MTIA · OCP·PyTorch·vLLM 기반 빠른 배포",
+            "pains": [
+              "세대별 Memory Bandwidth 확대",
+              "Inference Cost/Task",
+              "Rack 호환성과 빠른 Qualification"
+            ],
+            "proposal": [
+              "MTIA 세대별 Custom HBM Requirement Matrix",
+              "AI-D O/B 기반 Warm Memory",
+              "AI-N P 기반 Inference Data Tier"
+            ],
+            "gate90d": "MTIA Generation Map · p95/Goodput/W · Package Readiness · Qualification Owner",
+            "sourceId": "broadcom-meta-mtia",
+            "source": {
+              "id": "broadcom-meta-mtia",
+              "name": "Broadcom × Meta MTIA",
+              "tier": "primary-company",
+              "sourceClass": "official",
+              "url": "https://investors.broadcom.com/node/64236/pdf",
+              "domains": [
+                "investors.broadcom.com",
+                "broadcom.com",
+                "about.fb.com"
+              ],
+              "topics": [
+                "meta",
+                "mtia",
+                "xpu",
+                "custom-asic",
+                "memory-bandwidth",
+                "ai-infra"
+              ],
+              "roles": [
+                "partner",
+                "customer",
+                "technology",
+                "demand"
+              ],
+              "languages": [
+                "en"
+              ],
+              "freshnessHours": 168,
+              "discoveryQueries": [
+                "site:investors.broadcom.com OR site:about.fb.com Broadcom Meta MTIA custom silicon"
+              ],
+              "healthCheck": {
+                "markers": [
+                  "Broadcom",
+                  "Meta",
+                  "MTIA"
+                ]
+              },
               "enabled": true
             }
           },
@@ -4227,6 +5045,7 @@
           "chipStage": "공식 Roadmap 모니터",
           "chipPortfolio": [],
           "xpuEcosystem": null,
+          "broadcomStrategy": null,
           "stageLedger": {
             "stage": "UNVERIFIED",
             "label": "고객 제안 단계 검토",
@@ -4331,6 +5150,7 @@
           "evidenceStream": [],
           "chipStage": "공식 인프라 공개",
           "xpuEcosystem": null,
+          "broadcomStrategy": null,
           "stageLedger": {
             "stage": "UNVERIFIED",
             "label": "고객 제안 단계 검토",
@@ -4416,6 +5236,7 @@
           "chipStage": "공식 플랫폼",
           "chipPortfolio": [],
           "xpuEcosystem": null,
+          "broadcomStrategy": null,
           "stageLedger": {
             "stage": "UNVERIFIED",
             "label": "고객 제안 단계 검토",
@@ -4428,13 +5249,11 @@
           "demandClass": "asic",
           "group": "design-ecosystem",
           "company": "OpenAI",
-          "chip": "Jalapeño Intelligence Processor",
+          "chip": "OpenAI-designed AI accelerator",
           "aliases": [
             "openai",
             "stargate",
             "custom accelerator",
-            "jalapeño",
-            "jalapeno",
             "intelligence processor"
           ],
           "baseline": [
@@ -4445,7 +5264,7 @@
               "source": {
                 "id": "openai-infrastructure",
                 "name": "OpenAI Infrastructure",
-                "url": "https://openai.com/index/openai-broadcom-jalapeno-inference-chip/"
+                "url": "https://openai.com/index/openai-and-broadcom-announce-strategic-collaboration/"
               }
             }
           ],
@@ -4466,16 +5285,74 @@
               "name": "OpenAI Infrastructure",
               "tier": "primary-customer",
               "sourceClass": "official",
-              "url": "https://openai.com/index/openai-broadcom-jalapeno-inference-chip/",
+              "url": "https://openai.com/index/openai-and-broadcom-announce-strategic-collaboration/",
               "domains": [
                 "openai.com"
               ],
               "topics": [
                 "custom-accelerator",
-                "jalapeno",
                 "broadcom",
                 "inference",
                 "memory-movement",
+                "ethernet",
+                "ai-infra",
+                "data-center"
+              ],
+              "roles": [
+                "customer",
+                "demand",
+                "workload",
+                "technology",
+                "partnership"
+              ],
+              "languages": [
+                "en"
+              ],
+              "freshnessHours": 168,
+              "discoveryQueries": [
+                "site:openai.com (Broadcom OR Jalapeño OR custom accelerator OR silicon OR AI infrastructure)"
+              ],
+              "healthCheck": {
+                "markers": [
+                  "OpenAI",
+                  "Broadcom",
+                  "accelerator"
+                ]
+              },
+              "enabled": true
+            }
+          },
+          "broadcomStrategy": {
+            "status": "공식 협력",
+            "accountQuestion": "10GW Custom Accelerator 배포에서 Memory Movement·Ethernet Scale-up/out·전력 효율을 어떻게 잠글 것인가",
+            "customerStrategy": "OpenAI 설계 Accelerator · Broadcom Silicon·Ethernet · 2026 H2 이후 Rack 배포",
+            "pains": [
+              "Inference Memory Movement",
+              "10GW Ramp·Reliability",
+              "Accelerator↔Network 균형"
+            ],
+            "proposal": [
+              "Custom HBM·Base-Die Dataflow 공동설계",
+              "AI-D B 공유 Memory Pool",
+              "AI-N P/B 기반 Retrieval·Checkpoint Tier"
+            ],
+            "gate90d": "Architecture Lock · Memory Balance · Reliability SLO · Ramp·Capacity 계약",
+            "sourceId": "openai-infrastructure",
+            "source": {
+              "id": "openai-infrastructure",
+              "name": "OpenAI Infrastructure",
+              "tier": "primary-customer",
+              "sourceClass": "official",
+              "url": "https://openai.com/index/openai-and-broadcom-announce-strategic-collaboration/",
+              "domains": [
+                "openai.com"
+              ],
+              "topics": [
+                "custom-accelerator",
+                "broadcom",
+                "inference",
+                "memory-movement",
+                "ethernet",
                 "ai-infra",
                 "data-center"
               ],
@@ -4507,7 +5384,7 @@
             "status": "official-monitoring",
             "label": "OFFICIAL SOURCE MONITOR",
             "source": "OpenAI Infrastructure",
-            "url": "https://openai.com/index/openai-broadcom-jalapeno-inference-chip/",
+            "url": "https://openai.com/index/openai-and-broadcom-announce-strategic-collaboration/",
             "asOf": null
           },
           "mentions": 1,
@@ -4556,7 +5433,7 @@
               "date": "2026-07-21"
             }
           ],
-          "chipStage": "공식 공동개발·샘플 공개",
+          "chipStage": "공식 공동개발",
           "chipPortfolio": [],
           "stageLedger": {
             "stage": "UNVERIFIED",
@@ -4692,6 +5569,7 @@
           "evidenceStream": [],
           "chipStage": "멀티플랫폼 Training·Serving 공개",
           "chipPortfolio": [],
+          "broadcomStrategy": null,
           "stageLedger": {
             "stage": "UNVERIFIED",
             "label": "고객 제안 단계 검토",
@@ -4802,6 +5680,7 @@
           ],
           "chipStage": "Reference Monitor",
           "xpuEcosystem": null,
+          "broadcomStrategy": null,
           "stageLedger": {
             "stage": "UNVERIFIED",
             "label": "고객 제안 단계 검토",
@@ -4952,6 +5831,7 @@
           "chipStage": "공식 플랫폼 공개",
           "chipPortfolio": [],
           "xpuEcosystem": null,
+          "broadcomStrategy": null,
           "stageLedger": {
             "stage": "UNVERIFIED",
             "label": "고객 제안 단계 검토",
@@ -5044,6 +5924,58 @@
                 "site:trendforce.com/presscenter (HBM OR DRAM OR NAND OR enterprise SSD)",
                 "site:trendforce.com/presscenter HBM \"wafer input\""
               ],
+              "enabled": true
+            }
+          },
+          "broadcomStrategy": {
+            "status": "시장 보도",
+            "accountQuestion": "TPU7x의 192GB HBM·7.38TB/s 이후 세대에서 MXU Feeding과 Pod TCO를 어떻게 개선할 것인가",
+            "customerStrategy": "초대형 Pod · HBM/VMEM/Host 계층 · JAX/PyTorch 중심 Full-stack 최적화",
+            "pains": [
+              "Memory-bound Vector 연산",
+              "HBM↔VMEM↔Host Data Movement",
+              "9,216-chip Pod Fabric·전력"
+            ],
+            "proposal": [
+              "Custom HBM Base-Die 공동 최적화",
+              "AI-D B 기반 Host/CXL 계층",
+              "AI-N B 기반 대용량 Checkpoint·Retrieval"
+            ],
+            "gate90d": "공식 파트너 관계 확인 · Workload Trace · MXU Feeding GB/s/W · Package TCO",
+            "sourceId": "google-cloud-tpu",
+            "source": {
+              "id": "google-cloud-tpu",
+              "name": "Google Cloud TPU",
+              "tier": "primary-customer",
+              "sourceClass": "official",
+              "url": "https://docs.cloud.google.com/tpu/docs/tpu7x",
+              "domains": [
+                "cloud.google.com"
+              ],
+              "topics": [
+                "tpu",
+                "ironwood",
+                "inference",
+                "ai-infra"
+              ],
+              "roles": [
+                "customer",
+                "demand",
+                "workload"
+              ],
+              "languages": [
+                "en"
+              ],
+              "freshnessHours": 168,
+              "discoveryQueries": [
+                "site:cloud.google.com/blog (TPU OR Ironwood) (memory OR inference OR AI infrastructure)"
+              ],
+              "healthCheck": {
+                "markers": [
+                  "TPU",
+                  "Google Cloud"
+                ]
+              },
               "enabled": true
             }
           },
@@ -5205,6 +6137,7 @@
           ],
           "chipStage": "Region 배포",
           "xpuEcosystem": null,
+          "broadcomStrategy": null,
           "stageLedger": {
             "stage": "UNVERIFIED",
             "label": "고객 제안 단계 검토",
@@ -5317,6 +6250,7 @@
           ],
           "chipStage": "공식 서비스",
           "xpuEcosystem": null,
+          "broadcomStrategy": null,
           "stageLedger": {
             "stage": "UNVERIFIED",
             "label": "고객 제안 단계 검토",
@@ -5351,43 +6285,111 @@
           "pain": "추천·광고 추론의 HBM I/O·Chiplet·Package Scaling",
           "memory": "Custom HBM · AI-D · Fabric",
           "gate": "Generation Roadmap · Package · TCO",
-          "relationship": "Broadcom XPU 설계 협력은 보도 근거 · Memory 공급과 분리",
+          "relationship": "Broadcom과 다세대 MTIA 공동개발 공식 발표 · Memory 공급과 분리",
           "accent": "#7656C9",
           "xpuEcosystem": {
             "partner": "Broadcom",
-            "status": "보도 기반",
-            "role": "MTIA 세대별 Logic·HBM·Package 요구 추적",
-            "sourceId": "trendforce",
-            "claim": "market-estimate",
+            "status": "공식",
+            "role": "MTIA 다세대 Custom Silicon·Memory Bandwidth·전력·Rack 전개 공동 최적화",
+            "sourceId": "broadcom-meta-mtia",
+            "claim": "verified-fact",
             "source": {
-              "id": "trendforce",
-              "name": "TrendForce",
-              "tier": "industry-research",
-              "sourceClass": "research",
-              "url": "https://www.trendforce.com/presscenter/",
+              "id": "broadcom-meta-mtia",
+              "name": "Broadcom × Meta MTIA",
+              "tier": "primary-company",
+              "sourceClass": "official",
+              "url": "https://investors.broadcom.com/node/64236/pdf",
               "domains": [
-                "trendforce.com"
+                "investors.broadcom.com",
+                "broadcom.com",
+                "about.fb.com"
               ],
               "topics": [
-                "memory-price",
-                "hbm",
-                "dram",
-                "nand",
-                "forecast"
+                "meta",
+                "mtia",
+                "xpu",
+                "custom-asic",
+                "memory-bandwidth",
+                "ai-infra"
               ],
               "roles": [
-                "market",
-                "competitor",
-                "pricing"
+                "partner",
+                "customer",
+                "technology",
+                "demand"
               ],
               "languages": [
                 "en"
               ],
               "freshnessHours": 168,
               "discoveryQueries": [
-                "site:trendforce.com/presscenter (HBM OR DRAM OR NAND OR enterprise SSD)",
-                "site:trendforce.com/presscenter HBM \"wafer input\""
+                "site:investors.broadcom.com OR site:about.fb.com Broadcom Meta MTIA custom silicon"
               ],
+              "healthCheck": {
+                "markers": [
+                  "Broadcom",
+                  "Meta",
+                  "MTIA"
+                ]
+              },
+              "enabled": true
+            }
+          },
+          "broadcomStrategy": {
+            "status": "공식 협력",
+            "accountQuestion": "6개월 이하 세대 전환 속도에서 Memory Bandwidth·Capacity·전력을 어떻게 동시 확장할 것인가",
+            "customerStrategy": "Inference-first · 다세대 MTIA · OCP·PyTorch·vLLM 기반 빠른 배포",
+            "pains": [
+              "세대별 Memory Bandwidth 확대",
+              "Inference Cost/Task",
+              "Rack 호환성과 빠른 Qualification"
+            ],
+            "proposal": [
+              "MTIA 세대별 Custom HBM Requirement Matrix",
+              "AI-D O/B 기반 Warm Memory",
+              "AI-N P 기반 Inference Data Tier"
+            ],
+            "gate90d": "MTIA Generation Map · p95/Goodput/W · Package Readiness · Qualification Owner",
+            "sourceId": "broadcom-meta-mtia",
+            "source": {
+              "id": "broadcom-meta-mtia",
+              "name": "Broadcom × Meta MTIA",
+              "tier": "primary-company",
+              "sourceClass": "official",
+              "url": "https://investors.broadcom.com/node/64236/pdf",
+              "domains": [
+                "investors.broadcom.com",
+                "broadcom.com",
+                "about.fb.com"
+              ],
+              "topics": [
+                "meta",
+                "mtia",
+                "xpu",
+                "custom-asic",
+                "memory-bandwidth",
+                "ai-infra"
+              ],
+              "roles": [
+                "partner",
+                "customer",
+                "technology",
+                "demand"
+              ],
+              "languages": [
+                "en"
+              ],
+              "freshnessHours": 168,
+              "discoveryQueries": [
+                "site:investors.broadcom.com OR site:about.fb.com Broadcom Meta MTIA custom silicon"
+              ],
+              "healthCheck": {
+                "markers": [
+                  "Broadcom",
+                  "Meta",
+                  "MTIA"
+                ]
+              },
               "enabled": true
             }
           },
@@ -5532,6 +6534,7 @@
           "chipStage": "공식 Roadmap 모니터",
           "chipPortfolio": [],
           "xpuEcosystem": null,
+          "broadcomStrategy": null,
           "stageLedger": {
             "stage": "UNVERIFIED",
             "label": "고객 제안 단계 검토",
@@ -5636,6 +6639,7 @@
           "evidenceStream": [],
           "chipStage": "공식 인프라 공개",
           "xpuEcosystem": null,
+          "broadcomStrategy": null,
           "stageLedger": {
             "stage": "UNVERIFIED",
             "label": "고객 제안 단계 검토",
@@ -5746,6 +6750,7 @@
           ],
           "chipStage": "Reference Monitor",
           "xpuEcosystem": null,
+          "broadcomStrategy": null,
           "stageLedger": {
             "stage": "UNVERIFIED",
             "label": "고객 제안 단계 검토",
@@ -7474,6 +8479,39 @@
   "organizationOperatingModel": {
     "title": "SK hynix AI Infra 실행 전략",
     "thesis": "고객 Pain Point → Workload 진단 → Memory·신규 Biz 대안 → 파트너 실행 → 경영진 판단",
+    "sourceId": "skhynix-ai-infra-org",
+    "units": [
+      {
+        "index": "01",
+        "label": "GSM",
+        "title": "Global Sales & Marketing",
+        "role": "글로벌 고객 접점 · Account Strategy · Buying Criteria · LTA 협상",
+        "output": "Customer Fact Pack · Pain Map · Deal Option"
+      },
+      {
+        "index": "02",
+        "label": "HBM BUSINESS",
+        "title": "HBM 사업 역량 통합",
+        "role": "제품·품질·Qualification·Package·Capacity 실행",
+        "output": "Requirement Matrix · Qualification Map · Ramp Plan"
+      },
+      {
+        "index": "03",
+        "label": "MSR",
+        "title": "Memory System Research",
+        "role": "HBM 이후 미래 제품·시장 Pathfinding · AI App/HW/SW 분석",
+        "output": "Next Memory Thesis · Architecture PoC · New Biz Case"
+      }
+    ],
+    "nextMemoryStrategy": {
+      "label": "NEXT MEMORY STRATEGY",
+      "role": "GSM 고객 신호·HBM Business 실행력·MSR 기술 탐색을 경영진 의사결정으로 연결",
+      "outputs": [
+        "고객별 Memory Strategy",
+        "Next Memory Portfolio",
+        "Executive Deal Pack"
+      ]
+    },
     "decisionLoop": [
       "Customer / Market Signal",
       "Pain & Workload Diagnosis",
@@ -7651,6 +8689,46 @@
         }
       }
     ],
+    "source": {
+      "id": "skhynix-ai-infra-org",
+      "name": "SK hynix AI Infra Organization",
+      "tier": "primary-company",
+      "sourceClass": "official",
+      "url": "https://news.skhynix.com/en/top-team-insights-ai-infra-head-justin-kim-strategy-in-the-ai-era/",
+      "domains": [
+        "news.skhynix.com"
+      ],
+      "topics": [
+        "ai-infra",
+        "gsm",
+        "hbm-business",
+        "msr",
+        "next-memory",
+        "customer-codesign"
+      ],
+      "roles": [
+        "organization",
+        "strategy",
+        "execution",
+        "partner"
+      ],
+      "languages": [
+        "en"
+      ],
+      "freshnessHours": 720,
+      "discoveryQueries": [
+        "site:news.skhynix.com AI Infra GSM HBM Business MSR customer custom memory"
+      ],
+      "healthCheck": {
+        "markers": [
+          "AI Infra",
+          "GSM",
+          "HBM Business",
+          "MSR"
+        ]
+      },
+      "enabled": true
+    },
     "runId": "32695317737",
     "generatedAt": "2026-08-24T06:09:35.645Z",
     "liveEvidenceCount": 4

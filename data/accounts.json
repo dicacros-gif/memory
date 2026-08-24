@@ -16,48 +16,61 @@
     "priorityAccountIds": ["google", "microsoft", "aws", "apple", "spacex"],
     "evidencePolicy": "수치는 공식 원문만 표시 · 미공개 사양은 추정하지 않음"
   },
+  "broadcomEcosystem": {
+    "eyebrow": "BROADCOM XPU ACCOUNT STRATEGY",
+    "title": "공통 XPU 파트너 · 고객별 Memory 전략은 분리",
+    "description": "OpenAI·Meta의 공식 공동개발과 Google의 시장 보도를 분리하고, 고객별 Workload·HBM·Package·Network Pain을 독립 관리",
+    "accountIds": ["google", "meta", "openai"],
+    "decisionFlow": [
+      { "index": "01", "label": "ACCOUNT", "value": "고객 AI 서비스·Chip Roadmap" },
+      { "index": "02", "label": "PAIN", "value": "Memory Movement·대역폭·전력·Package" },
+      { "index": "03", "label": "OPTION", "value": "Custom HBM·AI-D·AI-N·Fabric" },
+      { "index": "04", "label": "DEAL GATE", "value": "Architecture Lock·Qualification·LTA" }
+    ],
+    "evidencePolicy": "공식 공동개발과 시장 보도 관계를 색상·라벨로 분리"
+  },
   "projects": [
     {
-      "id": "nvidia-base-die",
+      "id": "broadcom-account-intelligence",
       "index": "01",
-      "label": "NVIDIA · CUSTOM HBM",
-      "title": "Rubin Base-Die 공동설계 Gate",
-      "accounts": ["nvidia"],
-      "signalTerms": ["Rubin", "HBM4E", "base die", "logic die", "TSMC"],
-      "pain": "HBM4 Ramp와 HBM4E 로직 이관·패키징 일정을 동시에 잠가야 하는 고객 과제",
-      "proposal": "컨트롤러·PHY 이관 범위, TSMC 로직 슬롯, Package Capacity를 하나의 공동설계 표로 통합",
-      "deliverable": "Base-Die Requirement Matrix · Qualification Map · LTA 옵션",
-      "gate90d": "Architecture Lock · Qualification Slot · Binding Volume · Margin Floor",
-      "kpis": ["W/token", "Package Yield", "Qualification Slip"],
-      "accent": "#2D6BFF"
+      "label": "ACCOUNT INTELLIGENCE",
+      "title": "Broadcom XPU 고객별 Pain Map",
+      "accounts": ["broadcom", "google", "meta", "openai"],
+      "signalTerms": ["Broadcom", "Google", "Meta", "OpenAI", "TPU", "MTIA", "custom accelerator"],
+      "pain": "공통 설계 파트너를 공유해도 Workload·Memory·Package 구매 기준은 고객마다 상이",
+      "proposal": "Google·Meta·OpenAI를 독립 계정으로 분리해 공개 Roadmap과 Memory Requirement를 관리",
+      "deliverable": "Account Fact Pack · Pain Map · Requirement Matrix",
+      "gate90d": "Decision Owner · Buying Criteria · Architecture Lock",
+      "kpis": ["Account Coverage", "Design Win", "Qualification Lead Time"],
+      "accent": "#00A88F"
     },
     {
-      "id": "broadcom-xpu-account-map",
+      "id": "next-memory-portfolio",
       "index": "02",
-      "label": "BROADCOM XPU · GOOGLE · META · OPENAI",
-      "title": "Broadcom XPU 고객별 Memory Co-Design",
-      "accounts": ["broadcom", "google", "meta", "openai"],
-      "signalTerms": ["Broadcom", "XPU", "TPU", "MTIA", "OpenAI", "Jalapeño", "custom accelerator"],
-      "pain": "Google TPU·Meta MTIA·OpenAI Intelligence Processor마다 HBM 용량·대역폭·전력·Package 요구가 다른 고객 과제",
-      "proposal": "Broadcom을 공통 Buying Center로 두되 고객별 Workload·Memory Movement·Package Gate를 분리 설계",
-      "deliverable": "XPU Account Map · HBM Requirement Matrix · 고객별 Co-Design Proposal",
-      "gate90d": "고객별 공개 Roadmap · HBM PHY/Package 요구 · Qualification Owner 확정",
-      "kpis": ["GB/s/W", "Cost/Task", "PoC Conversion"],
+      "label": "TECH RADAR → NEXT MEMORY",
+      "title": "AI App·HW/SW 변화를 제품 기회로 전환",
+      "accounts": ["google", "meta", "openai", "microsoft", "aws", "anthropic"],
+      "signalTerms": ["inference", "long context", "HBM", "CXL", "AI-N", "AI-D", "memory bandwidth"],
+      "pain": "Inference·Long Context·Agentic AI 확대로 HBM 단품이 아닌 Memory Tier 최적화 필요",
+      "proposal": "Custom HBM·AI-D O/B/E·AI-N P/B/D를 계정별 Workload와 1:1 매핑",
+      "deliverable": "Next Memory Option Map · PoC Business Case · Partner Screen",
+      "gate90d": "동일 Workload SLO · System TCO · 고객 지불의사",
+      "kpis": ["Goodput/W", "Cost/Task", "PoC Conversion"],
       "accent": "#7656C9"
     },
     {
-      "id": "agentic-memory-tier",
+      "id": "executive-deal-support",
       "index": "03",
-      "label": "ANTHROPIC · MULTI-PLATFORM MEMORY",
-      "title": "Claude Chip·Memory Portability",
-      "accounts": ["anthropic", "aws", "google", "broadcom"],
-      "signalTerms": ["Anthropic", "Claude", "Trainium", "TPU", "Broadcom", "KV cache", "long context"],
-      "pain": "Claude가 Trainium·TPU·NVIDIA GPU를 함께 쓰며 플랫폼별 HBM·Kernel·Serving 일관성을 맞춰야 하는 고객 과제",
-      "proposal": "Training HBM·Collective와 Inference KV Cache를 플랫폼별로 계측해 AI-D/CXL·AI-N 계층 제안",
-      "deliverable": "Chip/Memory Use Map · Portability Benchmark · Memory Tier Proposal",
-      "gate90d": "p95 TTFT·TPOT · Goodput/W · Cost per Successful Task 개선",
-      "kpis": ["p95 TTFT", "TPOT", "Goodput/W"],
-      "accent": "#00A88F"
+      "label": "EXECUTIVE DEAL SUPPORT",
+      "title": "Qualification·Capacity·LTA 의사결정 팩",
+      "accounts": ["nvidia", "google", "microsoft", "aws", "meta", "openai"],
+      "signalTerms": ["qualification", "capacity", "LTA", "contract", "prepayment", "package"],
+      "pain": "고객 Roadmap·경쟁 공급·패키징 캐파·수익성을 하나의 계약 판단으로 통합할 필요",
+      "proposal": "고객별 Volume·NRE·Margin·Qualification을 90일 Stage-Gate로 연결",
+      "deliverable": "Executive One-Pager · LTA Option · Capacity Decision",
+      "gate90d": "Binding Volume · Margin Floor · Qualification · Package Allocation",
+      "kpis": ["Revenue Conversion", "Margin", "Ramp Accuracy"],
+      "accent": "#C88600"
     }
   ],
   "groups": [
@@ -90,7 +103,16 @@
       "stage": { "id": "PRODUCTION", "label": "TPU7x 제공", "sourceId": "google-cloud-tpu" },
       "pain": "MXU Feeding·Pod Data Movement·전력 효율", "memory": "Custom HBM · HBM/Host Tier · AI-N", "gate": "MXU Feeding · D2D · Pod TCO",
       "relationship": "Broadcom XPU 설계 협력은 보도 근거 · HBM 공급 관계와 분리", "accent": "#00A88F",
-      "xpuEcosystem": { "partner": "Broadcom", "status": "보도 기반", "role": "TPU 로직·HBM PHY·Package 공동 최적화 추적", "sourceId": "trendforce", "claim": "market-estimate" }
+      "xpuEcosystem": { "partner": "Broadcom", "status": "보도 기반", "role": "TPU 로직·HBM PHY·Package 공동 최적화 추적", "sourceId": "trendforce", "claim": "market-estimate" },
+      "broadcomStrategy": {
+        "status": "시장 보도",
+        "accountQuestion": "TPU7x의 192GB HBM·7.38TB/s 이후 세대에서 MXU Feeding과 Pod TCO를 어떻게 개선할 것인가",
+        "customerStrategy": "초대형 Pod · HBM/VMEM/Host 계층 · JAX/PyTorch 중심 Full-stack 최적화",
+        "pains": ["Memory-bound Vector 연산", "HBM↔VMEM↔Host Data Movement", "9,216-chip Pod Fabric·전력"],
+        "proposal": ["Custom HBM Base-Die 공동 최적화", "AI-D B 기반 Host/CXL 계층", "AI-N B 기반 대용량 Checkpoint·Retrieval"],
+        "gate90d": "공식 파트너 관계 확인 · Workload Trace · MXU Feeding GB/s/W · Package TCO",
+        "sourceId": "google-cloud-tpu"
+      }
     },
     {
       "id": "microsoft", "focus": true, "demandClass": "asic", "group": "hyperscaler-asic", "company": "Microsoft", "chip": "Maia 200",
@@ -123,12 +145,21 @@
     {
       "id": "meta", "focus": true, "demandClass": "asic", "group": "hyperscaler-asic", "company": "Meta", "chip": "MTIA",
       "aliases": ["meta", "meta platforms", "mtia"],
-      "sourceIds": ["meta-engineering", "broadcom-ai"], "claimRuleIds": ["customer-silicon-roadmap"],
+      "sourceIds": ["meta-engineering", "broadcom-meta-mtia", "broadcom-ai"], "claimRuleIds": ["customer-silicon-roadmap"],
       "baseline": [{ "label": "PLATFORM", "value": "MTIA Roadmap", "sourceId": "meta-engineering" }],
       "stage": { "id": "PRODUCTION", "label": "인프라 배포 공개", "sourceId": "meta-engineering" },
       "pain": "추천·광고 추론의 HBM I/O·Chiplet·Package Scaling", "memory": "Custom HBM · AI-D · Fabric", "gate": "Generation Roadmap · Package · TCO",
-      "relationship": "Broadcom XPU 설계 협력은 보도 근거 · Memory 공급과 분리", "accent": "#7656C9",
-      "xpuEcosystem": { "partner": "Broadcom", "status": "보도 기반", "role": "MTIA 세대별 Logic·HBM·Package 요구 추적", "sourceId": "trendforce", "claim": "market-estimate" }
+      "relationship": "Broadcom과 다세대 MTIA 공동개발 공식 발표 · Memory 공급과 분리", "accent": "#7656C9",
+      "xpuEcosystem": { "partner": "Broadcom", "status": "공식", "role": "MTIA 다세대 Custom Silicon·Memory Bandwidth·전력·Rack 전개 공동 최적화", "sourceId": "broadcom-meta-mtia", "claim": "verified-fact" },
+      "broadcomStrategy": {
+        "status": "공식 협력",
+        "accountQuestion": "6개월 이하 세대 전환 속도에서 Memory Bandwidth·Capacity·전력을 어떻게 동시 확장할 것인가",
+        "customerStrategy": "Inference-first · 다세대 MTIA · OCP·PyTorch·vLLM 기반 빠른 배포",
+        "pains": ["세대별 Memory Bandwidth 확대", "Inference Cost/Task", "Rack 호환성과 빠른 Qualification"],
+        "proposal": ["MTIA 세대별 Custom HBM Requirement Matrix", "AI-D O/B 기반 Warm Memory", "AI-N P 기반 Inference Data Tier"],
+        "gate90d": "MTIA Generation Map · p95/Goodput/W · Package Readiness · Qualification Owner",
+        "sourceId": "broadcom-meta-mtia"
+      }
     },
     {
       "id": "tesla", "focus": true, "demandClass": "asic", "group": "edge-physical", "company": "Tesla", "chip": "AI5 · Dojo",
@@ -163,14 +194,23 @@
       "relationship": "ASIC 설계 파트너를 Buying Center로 관리", "accent": "#D05A2B"
     },
     {
-      "id": "openai", "focus": false, "demandClass": "asic", "group": "design-ecosystem", "company": "OpenAI", "chip": "Jalapeño Intelligence Processor",
-      "aliases": ["openai", "stargate", "custom accelerator", "jalapeño", "jalapeno", "intelligence processor"],
+      "id": "openai", "focus": false, "demandClass": "asic", "group": "design-ecosystem", "company": "OpenAI", "chip": "OpenAI-designed AI accelerator",
+      "aliases": ["openai", "stargate", "custom accelerator", "intelligence processor"],
       "sourceIds": ["openai-infrastructure", "broadcom-ai"], "claimRuleIds": ["customer-silicon-roadmap"],
       "baseline": [{ "label": "PLATFORM", "value": "OpenAI 설계 · Broadcom 구현·Network", "sourceId": "openai-infrastructure" }],
-      "stage": { "id": "DESIGN", "label": "공식 공동개발·샘플 공개", "sourceId": "openai-infrastructure" },
+      "stage": { "id": "DESIGN", "label": "공식 공동개발", "sourceId": "openai-infrastructure" },
       "pain": "LLM Inference의 Memory Movement·Utilization·전력·Reliability", "memory": "HBM · Ethernet Scale-up/out · Rack Co-Design", "gate": "Memory Balance · Tape-out · 2026 Deployment",
       "relationship": "OpenAI 설계 XPU를 Broadcom이 Silicon·Network로 구현", "accent": "#4A6B78",
-      "xpuEcosystem": { "partner": "Broadcom", "status": "공식", "role": "Accelerator·HBM 균형·Ethernet Rack 공동개발", "sourceId": "openai-infrastructure", "claim": "verified-fact" }
+      "xpuEcosystem": { "partner": "Broadcom", "status": "공식", "role": "Accelerator·HBM 균형·Ethernet Rack 공동개발", "sourceId": "openai-infrastructure", "claim": "verified-fact" },
+      "broadcomStrategy": {
+        "status": "공식 협력",
+        "accountQuestion": "10GW Custom Accelerator 배포에서 Memory Movement·Ethernet Scale-up/out·전력 효율을 어떻게 잠글 것인가",
+        "customerStrategy": "OpenAI 설계 Accelerator · Broadcom Silicon·Ethernet · 2026 H2 이후 Rack 배포",
+        "pains": ["Inference Memory Movement", "10GW Ramp·Reliability", "Accelerator↔Network 균형"],
+        "proposal": ["Custom HBM·Base-Die Dataflow 공동설계", "AI-D B 공유 Memory Pool", "AI-N P/B 기반 Retrieval·Checkpoint Tier"],
+        "gate90d": "Architecture Lock · Memory Balance · Reliability SLO · Ramp·Capacity 계약",
+        "sourceId": "openai-infrastructure"
+      }
     },
     {
       "id": "anthropic", "focus": false, "demandClass": "multi-platform-ai-lab", "group": "design-ecosystem", "company": "Anthropic", "chip": "AWS Trainium · Google TPU · NVIDIA GPU",

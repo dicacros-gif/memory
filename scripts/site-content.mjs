@@ -231,6 +231,7 @@ function buildStrategyBoard(payload = {}, generatedAt = null, decisionIntelligen
     disclosure: accountModel.evidencePolicy || "공급 관계와 계약 조건은 직접 근거 전까지 미확인",
     pillars: accountModel.pillars || [],
     asicPortfolio: accountModel.asicPortfolio || {},
+    broadcomEcosystem: accountModel.broadcomEcosystem || {},
     projects: accountModel.projects || [],
     groups: accountModel.groups || [],
     accounts: accountModel.accounts || [],
@@ -283,6 +284,10 @@ function buildStrategyBoard(payload = {}, generatedAt = null, decisionIntelligen
         ...item.xpuEcosystem,
         source: sourceById.get(item.xpuEcosystem.sourceId) || null,
       } : null,
+      broadcomStrategy: item.broadcomStrategy ? {
+        ...item.broadcomStrategy,
+        source: sourceById.get(item.broadcomStrategy.sourceId) || null,
+      } : null,
       stageLedger: {
         stage: customHbmStage.id,
         label: customHbmStage.label,
@@ -295,6 +300,8 @@ function buildStrategyBoard(payload = {}, generatedAt = null, decisionIntelligen
   const accountById = new Map(accounts.map((account) => [account.id, account]));
   const priorityAccountIds = customerPortfolio.asicPortfolio?.priorityAccountIds || [];
   const priorityAsicAccounts = priorityAccountIds.map((id) => accountById.get(id)).filter(Boolean);
+  const broadcomAccountIds = customerPortfolio.broadcomEcosystem?.accountIds || [];
+  const broadcomAccounts = broadcomAccountIds.map((id) => accountById.get(id)).filter((account) => account?.broadcomStrategy);
   const projects = (customerPortfolio.projects || []).map((project) => {
     const projectAccounts = (project.accounts || []).map((id) => accountById.get(id)).filter(Boolean);
     const signalTerms = (project.signalTerms || []).map((term) => String(term || "").toLocaleLowerCase()).filter(Boolean);
@@ -331,6 +338,10 @@ function buildStrategyBoard(payload = {}, generatedAt = null, decisionIntelligen
       asicPortfolio: {
         ...(customerPortfolio.asicPortfolio || {}),
         accounts: priorityAsicAccounts,
+      },
+      broadcomEcosystem: {
+        ...(customerPortfolio.broadcomEcosystem || {}),
+        accounts: broadcomAccounts,
       },
       projects,
       pillars: customerPortfolio.pillars || [],
@@ -447,6 +458,7 @@ function buildStrategyBoard(payload = {}, generatedAt = null, decisionIntelligen
 
 function buildOrganizationOperatingModel(insights = [], generatedAt = null, runId = null) {
   const operatingModel = model.organizationOperatingModel || {};
+  const organizationSource = (sourceCatalog.sources || []).find((source) => source.id === operatingModel.sourceId) || null;
   const insightMap = new Map((insights || []).map((item) => [item.id, item]));
   const usedInsightIds = new Set();
   const workstreams = (operatingModel.workstreams || []).map((workstream) => {
@@ -470,6 +482,7 @@ function buildOrganizationOperatingModel(insights = [], generatedAt = null, runI
   });
   return {
     ...operatingModel,
+    source: organizationSource,
     runId,
     generatedAt,
     workstreams,
@@ -1172,6 +1185,9 @@ export function validateSiteContent(content = {}) {
   if (!(strategyBoard.customerPortfolio?.accounts || []).every((item) => item.evidence?.status)) errors.push("strategyBoard.customerPortfolio.evidence");
   if (!Array.isArray(strategyBoard.customerPortfolio?.groups) || strategyBoard.customerPortfolio.groups.length < 4) errors.push("strategyBoard.customerPortfolio.groups");
   if (!Array.isArray(strategyBoard.customerPortfolio?.projects) || strategyBoard.customerPortfolio.projects.length !== 3) errors.push("strategyBoard.customerPortfolio.projects");
+  const broadcomAccounts = strategyBoard.customerPortfolio?.broadcomEcosystem?.accounts || [];
+  if (!Array.isArray(broadcomAccounts) || broadcomAccounts.length !== 3) errors.push("strategyBoard.customerPortfolio.broadcomEcosystem.accounts");
+  if (!broadcomAccounts.every((item) => item?.broadcomStrategy?.pains?.length >= 3 && item?.broadcomStrategy?.proposal?.length >= 3 && directUrl(item?.broadcomStrategy?.source?.url))) errors.push("strategyBoard.customerPortfolio.broadcomEcosystem.contract");
   if (!Array.isArray(strategyBoard.playbooks) || strategyBoard.playbooks.length < 3) errors.push("strategyBoard.playbooks");
   if (!(strategyBoard.playbooks || []).every((item) => item.evidence?.status)) errors.push("strategyBoard.playbooks.evidence");
   const maasPlaybook = (strategyBoard.playbooks || []).find((item) => item.id === "memory-as-a-service");
@@ -1193,6 +1209,8 @@ export function validateSiteContent(content = {}) {
   if (Number(content.presentation?.emphasisPolicy?.maxTotal || 0) > 12) errors.push("presentation.emphasisPolicy.maxTotal");
   if (!Array.isArray(content.presentation?.readabilityPolicy?.hoverModes) || content.presentation.readabilityPolicy.hoverModes.length !== 2) errors.push("presentation.readabilityPolicy.hoverModes");
   if (!Array.isArray(content.organizationOperatingModel?.decisionLoop) || content.organizationOperatingModel.decisionLoop.length < 5) errors.push("organizationOperatingModel.decisionLoop");
+  if (!Array.isArray(content.organizationOperatingModel?.units) || content.organizationOperatingModel.units.map((item) => item.label).join("|") !== "GSM|HBM BUSINESS|MSR") errors.push("organizationOperatingModel.units");
+  if (!directUrl(content.organizationOperatingModel?.source?.url)) errors.push("organizationOperatingModel.source");
   if (!Array.isArray(content.organizationOperatingModel?.workstreams) || content.organizationOperatingModel.workstreams.length !== 4) errors.push("organizationOperatingModel.workstreams");
   if (!(content.organizationOperatingModel?.workstreams || []).every((item) => item?.mandate && item?.inputs?.length >= 4 && item?.questions?.length >= 3 && item?.outputs?.length >= 4 && item?.gate && item?.kpis?.length >= 3)) errors.push("organizationOperatingModel.workstreamContract");
   if (!Array.isArray(content.hero?.workProducts) || content.hero.workProducts.length !== 4) errors.push("hero.workProducts");

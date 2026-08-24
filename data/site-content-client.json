@@ -15,8 +15,8 @@
     "status": "all-sections-bound",
     "runId": "32695317737",
     "generatedAt": "2026-08-24T06:09:35.645Z",
-    "totalSections": 69,
-    "boundSections": 69,
+    "totalSections": 70,
+    "boundSections": 70,
     "refresh": {
       "eventFirst": true,
       "safetyPollHours": 1,
@@ -35,6 +35,7 @@
       "home",
       "departmentDecisionQueue",
       "keyAccounts",
+      "broadcomAccountStrategy",
       "decision-lab",
       "decision-automation",
       "initiatives",
@@ -131,6 +132,7 @@
         "home",
         "departmentDecisionQueue",
         "keyAccounts",
+        "broadcomAccountStrategy",
         "decision-lab",
         "decision-automation",
         "initiatives",
@@ -209,16 +211,16 @@
     "evidenceCount": 79,
     "briefCount": 6,
     "sourceCount": 5,
-    "configuredSources": 59,
+    "configuredSources": 61,
     "observedSources": 5,
     "freshObservedSources": 5,
     "staleObservedSources": 0,
-    "officialConfigured": 47,
+    "officialConfigured": 49,
     "officialObserved": 1,
     "officialFreshObserved": 1,
-    "discoveryQueries": 65,
+    "discoveryQueries": 67,
     "connectedHealthChecks": 15,
-    "healthChecks": 31,
+    "healthChecks": 33,
     "scheduleHours": 1,
     "browserRecheckMinutes": 5,
     "sourceCatalogVersion": "1.0"
@@ -287,9 +289,9 @@
     "coverage": {
       "status": "LOW",
       "observed": 5,
-      "configured": 59,
-      "ratio": 0.085,
-      "freshRatio": 0.085
+      "configured": 61,
+      "ratio": 0.082,
+      "freshRatio": 0.082
     },
     "confidence": {
       "status": "REVIEW",
@@ -366,11 +368,11 @@
         "executionTrackingBriefs": 0
       },
       "catalogCoverage": {
-        "configured": 59,
+        "configured": 61,
         "observed": 5,
         "fresh": 5,
-        "observationRatePct": 8.5,
-        "officialConfigured": 47,
+        "observationRatePct": 8.2,
+        "officialConfigured": 49,
         "officialObserved": 1,
         "officialFresh": 1,
         "targetPct": 90
@@ -501,50 +503,24 @@
       "status": "PROJECT_PORTFOLIO",
       "agenda": [
         {
-          "id": "nvidia-base-die",
+          "id": "broadcom-account-intelligence",
           "index": "01",
-          "label": "NVIDIA · CUSTOM HBM",
-          "meceAxis": "nvidia-base-die",
+          "label": "ACCOUNT INTELLIGENCE",
+          "meceAxis": "broadcom-account-intelligence",
           "state": "PROJECT",
           "stage": "90_DAY_GATE",
-          "decisionQuestion": "Rubin Base-Die 공동설계 Gate",
-          "whatChanged": "컨트롤러·PHY 이관 범위, TSMC 로직 슬롯, Package Capacity를 하나의 공동설계 표로 통합",
-          "latestSignal": "HBM4 Ramp와 HBM4E 로직 이관·패키징 일정을 동시에 잠가야 하는 고객 과제",
-          "customerPain": "HBM4 Ramp와 HBM4E 로직 이관·패키징 일정을 동시에 잠가야 하는 고객 과제",
-          "recommendation": "컨트롤러·PHY 이관 범위, TSMC 로직 슬롯, Package Capacity를 하나의 공동설계 표로 통합",
-          "action90d": "Architecture Lock · Qualification Slot · Binding Volume · Margin Floor",
-          "deliverable": "Base-Die Requirement Matrix · Qualification Map · LTA 옵션",
+          "decisionQuestion": "Broadcom XPU 고객별 Pain Map",
+          "whatChanged": "Google·Meta·OpenAI를 독립 계정으로 분리해 공개 Roadmap과 Memory Requirement를 관리",
+          "latestSignal": "공통 설계 파트너를 공유해도 Workload·Memory·Package 구매 기준은 고객마다 상이",
+          "customerPain": "공통 설계 파트너를 공유해도 Workload·Memory·Package 구매 기준은 고객마다 상이",
+          "recommendation": "Google·Meta·OpenAI를 독립 계정으로 분리해 공개 Roadmap과 Memory Requirement를 관리",
+          "action90d": "Decision Owner · Buying Criteria · Architecture Lock",
+          "deliverable": "Account Fact Pack · Pain Map · Requirement Matrix",
           "owner": "AI Infra Strategy",
           "kpis": [
-            "W/token",
-            "Package Yield",
-            "Qualification Slip"
-          ],
-          "accounts": [
-            "nvidia"
-          ],
-          "accent": "#2D6BFF",
-          "deepLink": "#console/account/nvidia"
-        },
-        {
-          "id": "broadcom-xpu-account-map",
-          "index": "02",
-          "label": "BROADCOM XPU · GOOGLE · META · OPENAI",
-          "meceAxis": "broadcom-xpu-account-map",
-          "state": "PROJECT",
-          "stage": "90_DAY_GATE",
-          "decisionQuestion": "Broadcom XPU 고객별 Memory Co-Design",
-          "whatChanged": "Broadcom을 공통 Buying Center로 두되 고객별 Workload·Memory Movement·Package Gate를 분리 설계",
-          "latestSignal": "Google TPU·Meta MTIA·OpenAI Intelligence Processor마다 HBM 용량·대역폭·전력·Package 요구가 다른 고객 과제",
-          "customerPain": "Google TPU·Meta MTIA·OpenAI Intelligence Processor마다 HBM 용량·대역폭·전력·Package 요구가 다른 고객 과제",
-          "recommendation": "Broadcom을 공통 Buying Center로 두되 고객별 Workload·Memory Movement·Package Gate를 분리 설계",
-          "action90d": "고객별 공개 Roadmap · HBM PHY/Package 요구 · Qualification Owner 확정",
-          "deliverable": "XPU Account Map · HBM Requirement Matrix · 고객별 Co-Design Proposal",
-          "owner": "AI Infra Strategy",
-          "kpis": [
-            "GB/s/W",
-            "Cost/Task",
-            "PoC Conversion"
+            "Account Coverage",
+            "Design Win",
+            "Qualification Lead Time"
           ],
           "accounts": [
             "broadcom",
@@ -552,37 +528,70 @@
             "meta",
             "openai"
           ],
+          "accent": "#00A88F",
+          "deepLink": "#console"
+        },
+        {
+          "id": "next-memory-portfolio",
+          "index": "02",
+          "label": "TECH RADAR → NEXT MEMORY",
+          "meceAxis": "next-memory-portfolio",
+          "state": "PROJECT",
+          "stage": "90_DAY_GATE",
+          "decisionQuestion": "AI App·HW/SW 변화를 제품 기회로 전환",
+          "whatChanged": "Custom HBM·AI-D O/B/E·AI-N P/B/D를 계정별 Workload와 1:1 매핑",
+          "latestSignal": "Inference·Long Context·Agentic AI 확대로 HBM 단품이 아닌 Memory Tier 최적화 필요",
+          "customerPain": "Inference·Long Context·Agentic AI 확대로 HBM 단품이 아닌 Memory Tier 최적화 필요",
+          "recommendation": "Custom HBM·AI-D O/B/E·AI-N P/B/D를 계정별 Workload와 1:1 매핑",
+          "action90d": "동일 Workload SLO · System TCO · 고객 지불의사",
+          "deliverable": "Next Memory Option Map · PoC Business Case · Partner Screen",
+          "owner": "AI Infra Strategy",
+          "kpis": [
+            "Goodput/W",
+            "Cost/Task",
+            "PoC Conversion"
+          ],
+          "accounts": [
+            "google",
+            "meta",
+            "openai",
+            "microsoft",
+            "aws",
+            "anthropic"
+          ],
           "accent": "#7656C9",
           "deepLink": "#console"
         },
         {
-          "id": "agentic-memory-tier",
+          "id": "executive-deal-support",
           "index": "03",
-          "label": "ANTHROPIC · MULTI-PLATFORM MEMORY",
-          "meceAxis": "agentic-memory-tier",
+          "label": "EXECUTIVE DEAL SUPPORT",
+          "meceAxis": "executive-deal-support",
           "state": "PROJECT",
           "stage": "90_DAY_GATE",
-          "decisionQuestion": "Claude Chip·Memory Portability",
-          "whatChanged": "Training HBM·Collective와 Inference KV Cache를 플랫폼별로 계측해 AI-D/CXL·AI-N 계층 제안",
-          "latestSignal": "Claude가 Trainium·TPU·NVIDIA GPU를 함께 쓰며 플랫폼별 HBM·Kernel·Serving 일관성을 맞춰야 하는 고객 과제",
-          "customerPain": "Claude가 Trainium·TPU·NVIDIA GPU를 함께 쓰며 플랫폼별 HBM·Kernel·Serving 일관성을 맞춰야 하는 고객 과제",
-          "recommendation": "Training HBM·Collective와 Inference KV Cache를 플랫폼별로 계측해 AI-D/CXL·AI-N 계층 제안",
-          "action90d": "p95 TTFT·TPOT · Goodput/W · Cost per Successful Task 개선",
-          "deliverable": "Chip/Memory Use Map · Portability Benchmark · Memory Tier Proposal",
+          "decisionQuestion": "Qualification·Capacity·LTA 의사결정 팩",
+          "whatChanged": "고객별 Volume·NRE·Margin·Qualification을 90일 Stage-Gate로 연결",
+          "latestSignal": "고객 Roadmap·경쟁 공급·패키징 캐파·수익성을 하나의 계약 판단으로 통합할 필요",
+          "customerPain": "고객 Roadmap·경쟁 공급·패키징 캐파·수익성을 하나의 계약 판단으로 통합할 필요",
+          "recommendation": "고객별 Volume·NRE·Margin·Qualification을 90일 Stage-Gate로 연결",
+          "action90d": "Binding Volume · Margin Floor · Qualification · Package Allocation",
+          "deliverable": "Executive One-Pager · LTA Option · Capacity Decision",
           "owner": "AI Infra Strategy",
           "kpis": [
-            "p95 TTFT",
-            "TPOT",
-            "Goodput/W"
+            "Revenue Conversion",
+            "Margin",
+            "Ramp Accuracy"
           ],
           "accounts": [
-            "anthropic",
-            "aws",
+            "nvidia",
             "google",
-            "broadcom"
+            "microsoft",
+            "aws",
+            "meta",
+            "openai"
           ],
-          "accent": "#00A88F",
-          "deepLink": "#console/c-level-cockpit/post-hbm"
+          "accent": "#C88600",
+          "deepLink": "#console"
         }
       ],
       "metrics": [],

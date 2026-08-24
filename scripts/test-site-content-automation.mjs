@@ -269,11 +269,19 @@ assert.equal(changedHbm.decision, hbm.decision);
 assert.equal(changedHbm.stop, hbm.reversalKpi);
 assert.ok(changed.hero.currentDecisions.includes(hbm.decision));
 assert.deepEqual(changed.hero.thesis, changed.hero.scope);
-const changedHomepageAgenda = changed.hero.departmentWorkbench.agenda.find((item) => item.id === "nvidia-base-die");
-assert.ok(changedHomepageAgenda, "the main page must retain the curated customer-project portfolio");
+const changedHomepageAgenda = changed.hero.departmentWorkbench.agenda.find((item) => item.id === "broadcom-account-intelligence");
+assert.ok(changedHomepageAgenda, "the main page must retain the curated Broadcom account-strategy portfolio");
 assert.equal(changed.hero.departmentWorkbench.source, "accounts.projects");
 assert.equal(changed.hero.departmentWorkbench.agenda.length, 3);
 assert.notEqual(changedHomepageAgenda.customerPain, changedAutomationBrief.customerPain, "console automation briefs must not replace the main strategy summary");
+assert.deepEqual(
+  changed.strategyBoard.customerPortfolio.broadcomEcosystem.accounts.map((item) => item.id),
+  ["google", "meta", "openai"],
+  "Broadcom ecosystem must separate Google, Meta, and OpenAI account strategies",
+);
+assert.ok(changed.strategyBoard.customerPortfolio.broadcomEcosystem.accounts.every((item) => item.broadcomStrategy.pains.length >= 3 && item.broadcomStrategy.proposal.length >= 3));
+assert.deepEqual(changed.organizationOperatingModel.units.map((item) => item.label), ["GSM", "HBM BUSINESS", "MSR"]);
+assert.match(changed.organizationOperatingModel.source.url, /^https:\/\/news\.skhynix\.com\//);
 assert.equal(changed.hero.departmentWorkbench.runId, changedPayload.runId);
 assert.equal(changed.presentation.refreshPolicy.runId, changedPayload.runId);
 assert.equal(changed.presentation.refreshPolicy.generatedAt, changedPayload.updatedAt);

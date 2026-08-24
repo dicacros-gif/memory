@@ -131,7 +131,7 @@
     (() => {
       if (!location.hash.startsWith("#console")) return;
       document.documentElement.classList.add("console-entry");
-      const revision = "infra-13543f172c70";
+      const revision = "infra-8f057faafe5f";
       const assets = [
         ["consoleStylesPreload", "style", `assets/css/styles.min.css?v=${revision}`, "high"],
         ["consoleAppPreload", "script", `assets/js/app.min.js?v=${revision}`, "high"],
@@ -148,7 +148,7 @@
       }
     })();
   </script>
-  <link rel="stylesheet" href="assets/css/landing.min.css?v=infra-13543f172c70" />
+  <link rel="stylesheet" href="assets/css/landing.min.css?v=infra-8f057faafe5f" />
 </head>
 <body class="landing-mode">
   <h1 class="site-document-title">AI Infra Strategy</h1>
@@ -238,6 +238,11 @@
           <header><div><span>ACCOUNT INTELLIGENCE</span><h2 id="keyAccountsTitle">Key Accounts → Next Memory</h2></div><p>고객 Pain · 맞춤 제안 · 90일 Gate</p></header>
           <div id="businessKeyAccounts" class="business-account-strip-grid" aria-live="polite"></div>
           <div id="businessDemandMix" class="business-account-mix"></div>
+        </section>
+        <section class="business-broadcom-strategy business-container" id="broadcomAccountStrategy" aria-labelledby="broadcomAccountStrategyTitle">
+          <header><div><span>BROADCOM XPU ACCOUNT STRATEGY</span><h2 id="broadcomAccountStrategyTitle">공통 XPU 파트너 · 고객별 Memory 전략은 분리</h2></div><p>공식 공동개발과 시장 보도 관계를 분리</p></header>
+          <ol id="businessBroadcomFlow" class="business-broadcom-flow" aria-label="Broadcom XPU 계정 전략 흐름"></ol>
+          <div id="businessBroadcomAccounts" class="business-broadcom-grid" aria-live="polite"></div>
         </section>
       </section>
 
@@ -822,6 +827,8 @@
           <ol class="business-team-loop" id="teamDecisionLoop" aria-label="조직 의사결정 순환">
             <li><span>01</span><strong>Customer / Market Signal</strong></li><li><span>02</span><strong>Pain &amp; Workload Diagnosis</strong></li><li><span>03</span><strong>Memory / New Biz Options</strong></li><li><span>04</span><strong>Executive Decision</strong></li><li><span>05</span><strong>PoC · Qualification · Ramp</strong></li>
           </ol>
+
+          <div class="business-team-units" id="teamOperatingUnits" aria-label="AI Infra 산하 3개 조직 역할"></div>
 
           <div class="business-team-workstreams" id="teamWorkstreams">
             <article data-team-workstream="customer-strategy" tabindex="0">
@@ -1903,6 +1910,6 @@
   <div class="qa-answer" id="qaAnswer" hidden></div>
   <div class="inspector" id="inspector" hidden></div>
   <div class="backdrop" id="backdrop"></div>
-  <script src="assets/js/landing.min.js?v=infra-13543f172c70" defer></script>
+  <script src="assets/js/landing.min.js?v=infra-8f057faafe5f" defer></script>
 </body>
 </html>

@@ -13071,6 +13071,8 @@
     const customerAccounts = Array.isArray(customerBoard.accounts) ? customerBoard.accounts : [];
     const asicPortfolio = customerBoard.asicPortfolio || {};
     const priorityAsicAccounts = Array.isArray(asicPortfolio.accounts) ? asicPortfolio.accounts : [];
+    const broadcomEcosystem = customerBoard.broadcomEcosystem || {};
+    const broadcomAccounts = Array.isArray(broadcomEcosystem.accounts) ? broadcomEcosystem.accounts : [];
     const customerPillars = Array.isArray(customerBoard.pillars) ? customerBoard.pillars : [];
     const customerProjects = Array.isArray(customerBoard.projects) ? customerBoard.projects : [];
     const competitiveFrame = Array.isArray(customerBoard.competitiveFrame) ? customerBoard.competitiveFrame : [];
@@ -13155,6 +13157,33 @@
         <div><span>${escapeHTML(customerBoard.eyebrow || "CUSTOMER & ASIC RADAR")}</span><h3>${escapeHTML(customerBoard.title || "GPU · Custom ASIC Roadmap → Memory Proposal")}</h3></div>
         <p>${escapeHTML(customerBoard.description || "고객별 Roadmap과 Memory Gate를 분리")}</p>
       </div>
+      ${broadcomAccounts.length ? `<section class="sc-broadcom-board" aria-labelledby="broadcomBoardTitle">
+        <header class="sc-broadcom-head">
+          <div><span>${escapeHTML(broadcomEcosystem.eyebrow || "BROADCOM XPU ACCOUNT STRATEGY")}</span><h4 id="broadcomBoardTitle">${escapeHTML(broadcomEcosystem.title || "공통 XPU 파트너 · 고객별 Memory 전략은 분리")}</h4></div>
+          <p>${escapeHTML(broadcomEcosystem.description || "고객별 공개 전략과 Memory Pain을 분리")}</p>
+        </header>
+        <ol class="sc-broadcom-flow" aria-label="Broadcom XPU 계정 전략 흐름">
+          ${(broadcomEcosystem.decisionFlow || []).map((step) => `<li><b>${escapeHTML(step.index || "")}</b><span>${escapeHTML(step.label || "")}</span><strong>${escapeHTML(step.value || "")}</strong></li>`).join("")}
+        </ol>
+        <div class="sc-broadcom-grid">
+          ${broadcomAccounts.map((account) => {
+            const strategy = account.broadcomStrategy || {};
+            const isOfficial = /공식/.test(String(strategy.status || ""));
+            return `<article class="sc-broadcom-card${isOfficial ? " is-official" : " is-reported"}" tabindex="0" style="--account-accent:${escapeHTML(account.accent || "#0A84B8")}">
+              <header><div><span>${escapeHTML(account.company || "")}</span><h5>${escapeHTML(account.chip || "")}</h5></div><em>${escapeHTML(strategy.status || "관계 확인")}</em></header>
+              <p class="sc-broadcom-question">${strategicHighlightHTML(strategy.accountQuestion || account.pain || "")}</p>
+              <dl>
+                <div><dt>CUSTOMER STRATEGY</dt><dd>${escapeHTML(strategy.customerStrategy || "")}</dd></div>
+                <div><dt>MEMORY PAIN</dt><dd><ul>${(strategy.pains || []).map((pain) => `<li>${strategicHighlightHTML(pain)}</li>`).join("")}</ul></dd></div>
+                <div><dt>SKH PROPOSAL</dt><dd><ul>${(strategy.proposal || []).map((option) => `<li>${strategicHighlightHTML(option)}</li>`).join("")}</ul></dd></div>
+                <div><dt>90D GATE</dt><dd>${escapeHTML(strategy.gate90d || account.gate || "")}</dd></div>
+              </dl>
+              ${strategy.source?.url ? `<a href="${escapeHTML(strategy.source.url)}" target="_blank" rel="noopener noreferrer">${escapeHTML(strategy.source.name || "공식 원문")} ↗</a>` : ""}
+            </article>`;
+          }).join("")}
+        </div>
+        <p class="sc-broadcom-policy">${escapeHTML(broadcomEcosystem.evidencePolicy || "공식·보도 관계 분리")}</p>
+      </section>` : ""}
       ${priorityAsicAccounts.length ? `<section class="sc-asic-portfolio" aria-labelledby="asicPortfolioTitle">
         <header class="sc-asic-portfolio-head">
           <div><span>${escapeHTML(asicPortfolio.eyebrow || "CUSTOMER ASIC PORTFOLIO")}</span><h4 id="asicPortfolioTitle">${escapeHTML(asicPortfolio.title || "Customer Chip → Memory Bottleneck → Account Action")}</h4></div>

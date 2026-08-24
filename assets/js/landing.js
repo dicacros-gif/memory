@@ -3,7 +3,7 @@
 
   const BUSINESS_TITLE = "AI Infra Strategy · Customer Pain to Executive Action";
   const CONSOLE_HASH = "#console";
-  const CONSOLE_REVISION = "infra-13543f172c70";
+  const CONSOLE_REVISION = "infra-8f057faafe5f";
   const DECISION_CLIENT_PATH = "data/landing-decision-client.json";
   const SITE_CONTENT_PATH = "data/site-content-client.json";
   const SITE_CONTENT_EXTENDED_PATH = "data/site-content-extended-client.json";
@@ -518,6 +518,18 @@
     if (title) title.textContent = model.title || title.textContent;
     if (thesis) thesis.textContent = model.thesis || thesis.textContent;
 
+    const units = document.querySelector("#teamOperatingUnits");
+    if (units && model.units?.length) {
+      units.innerHTML = model.units.map((unit) => `<article tabindex="0">
+        <header><span>${escapeBusinessHTML(unit.index || "")} · ${escapeBusinessHTML(unit.label || "")}</span><b>${escapeBusinessHTML(unit.index || "")}</b></header>
+        <h3>${escapeBusinessHTML(unit.title || "")}</h3>
+        <p>${escapeBusinessHTML(unit.role || "")}</p>
+        <small>OUTPUT</small><strong>${escapeBusinessHTML(unit.output || "")}</strong>
+      </article>`).join("");
+      const next = model.nextMemoryStrategy;
+      if (next) units.insertAdjacentHTML("beforeend", `<aside><span>${escapeBusinessHTML(next.label || "NEXT MEMORY STRATEGY")}</span><strong>${escapeBusinessHTML(next.role || "")}</strong><p>${escapeBusinessHTML((next.outputs || []).join(" · "))}</p>${model.source?.url ? `<a href="${escapeBusinessHTML(model.source.url)}" target="_blank" rel="noopener noreferrer">SK hynix 공식 조직 설명 ↗</a>` : ""}</aside>`);
+    }
+
     const loop = document.querySelector("#teamDecisionLoop");
     if (loop && model.decisionLoop?.length) {
       loop.innerHTML = model.decisionLoop.map((step, index) => `<li><span>${String(index + 1).padStart(2, "0")}</span><strong>${escapeBusinessHTML(step)}</strong></li>`).join("");
@@ -846,6 +858,28 @@
     }
     const mixHost = document.querySelector("#businessDemandMix");
     if (mixHost) mixHost.replaceChildren();
+
+    const broadcom = board.broadcomEcosystem || {};
+    const broadcomHost = document.querySelector("#businessBroadcomAccounts");
+    const broadcomFlow = document.querySelector("#businessBroadcomFlow");
+    const broadcomTitle = document.querySelector("#broadcomAccountStrategyTitle");
+    const broadcomSection = document.querySelector("#broadcomAccountStrategy");
+    const broadcomAccounts = Array.isArray(broadcom.accounts) ? broadcom.accounts : [];
+    if (broadcomTitle && broadcom.title) broadcomTitle.textContent = broadcom.title;
+    if (broadcomFlow && broadcom.decisionFlow?.length) {
+      broadcomFlow.innerHTML = broadcom.decisionFlow.map((step) => `<li><b>${escapeBusinessHTML(step.index || "")}</b><span>${escapeBusinessHTML(step.label || "")}</span><strong>${escapeBusinessHTML(step.value || "")}</strong></li>`).join("");
+    }
+    if (broadcomHost && broadcomAccounts.length) {
+      broadcomHost.innerHTML = broadcomAccounts.map((account) => {
+        const strategy = account.broadcomStrategy || {};
+        return `<article tabindex="0" data-status="${/공식/.test(String(strategy.status || "")) ? "official" : "reported"}" style="--account-accent:${escapeBusinessHTML(account.accent || "#0A84B8")}">
+          <header><div><span>${escapeBusinessHTML(account.company || "")}</span><h3>${escapeBusinessHTML(account.chip || "")}</h3></div><em>${escapeBusinessHTML(strategy.status || "관계 확인")}</em></header>
+          <p>${escapeBusinessHTML(strategy.accountQuestion || account.pain || "")}</p>
+          <dl><div><dt>PAIN</dt><dd>${escapeBusinessHTML((strategy.pains || []).join(" · "))}</dd></div><div><dt>SKH OPTION</dt><dd>${escapeBusinessHTML((strategy.proposal || []).join(" · "))}</dd></div><div><dt>90D GATE</dt><dd>${escapeBusinessHTML(strategy.gate90d || account.gate || "")}</dd></div></dl>
+          <a href="#console/account/${escapeBusinessHTML(account.id || "")}">계정 전략 열기 →</a>
+        </article>`;
+      }).join("");
+    } else if (broadcomSection) broadcomSection.hidden = true;
   }
 
   function applySiteContent(content = {}) {

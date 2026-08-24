@@ -11,11 +11,11 @@
     "label": "최신"
   },
   "sourceCoverage": {
-    "configured": 59,
+    "configured": 61,
     "observed": 5,
     "fresh": 5,
-    "observationRatePct": 8.5,
-    "officialConfigured": 47,
+    "observationRatePct": 8.2,
+    "officialConfigured": 49,
     "officialObserved": 1,
     "officialFresh": 1,
     "targetPct": 90
@@ -536,6 +536,39 @@
   "organizationOperatingModel": {
     "title": "SK hynix AI Infra 실행 전략",
     "thesis": "고객 Pain Point → Workload 진단 → Memory·신규 Biz 대안 → 파트너 실행 → 경영진 판단",
+    "sourceId": "skhynix-ai-infra-org",
+    "units": [
+      {
+        "index": "01",
+        "label": "GSM",
+        "title": "Global Sales & Marketing",
+        "role": "글로벌 고객 접점 · Account Strategy · Buying Criteria · LTA 협상",
+        "output": "Customer Fact Pack · Pain Map · Deal Option"
+      },
+      {
+        "index": "02",
+        "label": "HBM BUSINESS",
+        "title": "HBM 사업 역량 통합",
+        "role": "제품·품질·Qualification·Package·Capacity 실행",
+        "output": "Requirement Matrix · Qualification Map · Ramp Plan"
+      },
+      {
+        "index": "03",
+        "label": "MSR",
+        "title": "Memory System Research",
+        "role": "HBM 이후 미래 제품·시장 Pathfinding · AI App/HW/SW 분석",
+        "output": "Next Memory Thesis · Architecture PoC · New Biz Case"
+      }
+    ],
+    "nextMemoryStrategy": {
+      "label": "NEXT MEMORY STRATEGY",
+      "role": "GSM 고객 신호·HBM Business 실행력·MSR 기술 탐색을 경영진 의사결정으로 연결",
+      "outputs": [
+        "고객별 Memory Strategy",
+        "Next Memory Portfolio",
+        "Executive Deal Pack"
+      ]
+    },
     "decisionLoop": [
       "Customer / Market Signal",
       "Pain & Workload Diagnosis",
@@ -713,6 +746,46 @@
         }
       }
     ],
+    "source": {
+      "id": "skhynix-ai-infra-org",
+      "name": "SK hynix AI Infra Organization",
+      "tier": "primary-company",
+      "sourceClass": "official",
+      "url": "https://news.skhynix.com/en/top-team-insights-ai-infra-head-justin-kim-strategy-in-the-ai-era/",
+      "domains": [
+        "news.skhynix.com"
+      ],
+      "topics": [
+        "ai-infra",
+        "gsm",
+        "hbm-business",
+        "msr",
+        "next-memory",
+        "customer-codesign"
+      ],
+      "roles": [
+        "organization",
+        "strategy",
+        "execution",
+        "partner"
+      ],
+      "languages": [
+        "en"
+      ],
+      "freshnessHours": 720,
+      "discoveryQueries": [
+        "site:news.skhynix.com AI Infra GSM HBM Business MSR customer custom memory"
+      ],
+      "healthCheck": {
+        "markers": [
+          "AI Infra",
+          "GSM",
+          "HBM Business",
+          "MSR"
+        ]
+      },
+      "enabled": true
+    },
     "runId": "32695317737",
     "generatedAt": "2026-08-24T06:09:35.645Z",
     "liveEvidenceCount": 4
