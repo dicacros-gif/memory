@@ -1,45 +1,47 @@
 {
   "schemaVersion": "1.0",
-  "runId": "32770222225",
-  "generatedAt": "2026-08-24T20:03:06.416Z",
+  "runId": "32776263349",
+  "generatedAt": "2026-08-24T21:04:40.221Z",
   "status": "verified",
   "methodologyVersion": "4.0-source-provenance",
   "promoted": {
-    "news": 82,
+    "news": 81,
     "priceRows": 41,
-    "communitySignals": 10,
-    "benchmarkSignals": 23,
+    "communitySignals": 12,
+    "benchmarkSignals": 21,
     "intelligenceBriefs": 6,
     "factEvents": 0,
     "sourceChannels": 9
   },
   "referenceOnly": {
-    "news": 595,
+    "news": 597,
     "communitySignals": 48,
     "benchmarkSignals": 8,
     "benchmarkDiscoveries": 7
   },
   "quarantined": {
-    "news": 12,
+    "news": 13,
     "reasonCounts": {
-      "source_summary_missing": 12
+      "source_summary_missing": 13,
+      "direct_source_missing": 1,
+      "canonical_url_missing": 1
     }
   },
   "sourceClasses": {
-    "authoritative-media": 19,
-    "general-media": 44,
-    "research": 16,
+    "authoritative-media": 20,
+    "general-media": 43,
+    "research": 15,
     "official": 3
   },
   "origins": {
-    "live-crawl": 82
+    "live-crawl": 81
   },
   "translation": {
     "verified": 84,
-    "unverified": 6,
-    "attempted": 90,
-    "sourceOriginal": 6,
-    "averageTokenMatchPct": 77.4
+    "unverified": 4,
+    "attempted": 88,
+    "sourceOriginal": 4,
+    "averageTokenMatchPct": 79.2
   },
   "priceVerification": {
     "sourceCount": 0,
@@ -54,7 +56,7 @@
     "configuredSources": 63,
     "discoveryQueries": 69,
     "healthChecks": 35,
-    "connectedHealthChecks": 30,
+    "connectedHealthChecks": 31,
     "observedSources": 5,
     "freshObservedSources": 4,
     "staleObservedSources": 1,
@@ -281,11 +283,11 @@
     }
   },
   "channelAsOf": {
-    "prices": "2026-08-24T19:48:50.317Z",
-    "news": "2026-08-24T20:03:06.416Z",
-    "community": "2026-08-24T19:49:03.791Z",
-    "brokerResearch": "2026-08-24T19:59:17.580Z",
-    "markets": "2026-08-24T19:53:35.680Z"
+    "prices": "2026-08-24T20:52:37.817Z",
+    "news": "2026-08-24T21:04:40.221Z",
+    "community": "2026-08-24T20:52:54.868Z",
+    "brokerResearch": "2026-08-24T21:02:42.212Z",
+    "markets": "2026-08-24T20:56:59.627Z"
   },
   "checks": [
     {
@@ -299,7 +301,7 @@
       "id": "news_total",
       "critical": true,
       "passed": true,
-      "observed": 82,
+      "observed": 81,
       "threshold": 24
     },
     {
@@ -313,7 +315,7 @@
       "id": "news_chinese",
       "critical": true,
       "passed": true,
-      "observed": 43,
+      "observed": 42,
       "threshold": 4
     },
     {
@@ -341,21 +343,21 @@
       "id": "news_live_only",
       "critical": true,
       "passed": true,
-      "observed": 82,
-      "threshold": 82
+      "observed": 81,
+      "threshold": 81
     },
     {
       "id": "news_current",
       "critical": true,
       "passed": true,
-      "observed": 82,
+      "observed": 81,
       "threshold": 12
     },
     {
       "id": "news_observed_this_run",
       "critical": true,
       "passed": true,
-      "observed": 82,
+      "observed": 81,
       "threshold": 12
     },
     {
@@ -369,7 +371,7 @@
       "id": "news_observed_chinese",
       "critical": true,
       "passed": true,
-      "observed": 43,
+      "observed": 42,
       "threshold": 2
     },
     {
@@ -383,22 +385,22 @@
       "id": "community_signals",
       "critical": true,
       "passed": true,
-      "observed": 10,
+      "observed": 12,
       "threshold": 5
     },
     {
       "id": "community_live_only",
       "critical": true,
       "passed": true,
-      "observed": 10,
-      "threshold": 10
+      "observed": 12,
+      "threshold": 12
     },
     {
       "id": "benchmark_live_only",
       "critical": true,
       "passed": true,
-      "observed": 23,
-      "threshold": 23
+      "observed": 21,
+      "threshold": 21
     },
     {
       "id": "decision_briefs",
