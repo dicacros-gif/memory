@@ -30751,208 +30751,143 @@ body.consulting-system #main > #c-level-cockpit {
 @media (max-width: 980px) { .sc-partner-hierarchy { grid-template-columns: 1fr; } }
 @media (max-width: 720px) { .sc-broadcom-board { padding: 12px; } .sc-partner-children { grid-template-columns: 1fr; } .sc-hierarchy-criteria { flex-direction: column; } }
 
-/* Professional consulting matrix — square, flat, neutral hierarchy.
-   MBB executive visual system: one frame language, local inversion and
-   transform-only motion across the complete Console. */
+/* Professional consulting infographic — dark decision canvas, angular stages,
+   evidence panels and value-chain lanes. MBB executive visual system. */
 #intelligenceConsole {
-  --sc-frame:#98a8b5;
+  --sc-frame:#31546b;
   --mbb-ink:#102f43;
-  --mbb-paper:#fff;
-  --mbb-canvas:#eef3f5;
-  --mbb-teal:#08766f;
-  --mbb-amber:#9b6200;
-  --mbb-hover:#102f43;
+  --info-cyan:#21d4e8;
+  --info-violet:#8c63ff;
+  --info-magenta:#ff58a7;
+  --info-amber:#f5a900;
+  --info-blue:#36a4ff;
 }
+.consulting-system #intelligenceConsole .strategy-consulting-board {
+  border:1px solid #18364b;
+  border-radius:0;
+  background:radial-gradient(circle at 76% 8%,rgba(54,164,255,.12),transparent 27%),#050d19;
+  box-shadow:none;
+}
+.consulting-system #intelligenceConsole .strategy-consulting-board>.board-head {
+  margin:-1px -1px 20px;
+  padding:18px 22px;
+  border:1px solid #1c4a61;
+  background:linear-gradient(110deg,#0a3346,#10233b 66%,#201d45);
+  clip-path:polygon(0 0,calc(100% - 26px) 0,100% 26px,100% 100%,0 100%);
+}
+.consulting-system #intelligenceConsole .strategy-consulting-board>.board-head :is(h2,p) { color:#f7fbff !important; }
 
-/* Chapter frames read as consulting pages, not floating AI cards. */
-#intelligenceConsole :is(.sc-report,.sc-playbook,.sc-radar-framework,.sc-asic-portfolio,.sc-broadcom-board) {
+/* Chapter surfaces follow one board language, with one cut corner instead of rounded AI cards. */
+#intelligenceConsole :is(.sc-framework,.sc-report,.sc-playbook,.sc-radar-framework,.sc-asic-portfolio,.sc-broadcom-board) {
   position:relative;
   max-width:100%;
   overflow:hidden;
   border:1px solid var(--sc-frame) !important;
   border-radius:0 !important;
-  background:var(--mbb-canvas) !important;
+  background:rgba(8,25,39,.92) !important;
   box-shadow:none !important;
+  clip-path:polygon(0 0,calc(100% - 18px) 0,100% 18px,100% 100%,0 100%);
 }
-#intelligenceConsole :is(.sc-report-head,.sc-asic-portfolio-head,.sc-radar-framework-head,.sc-broadcom-head) {
-  min-width:0;
-  border-bottom:1px solid var(--sc-frame);
+#intelligenceConsole .sc-framework { padding:22px !important; }
+#intelligenceConsole .sc-framework-head {
+  align-items:center;
+  padding:20px 28px 22px;
+  border:1px solid #17637a;
+  background:linear-gradient(115deg,rgba(0,104,124,.42),rgba(11,38,59,.94));
+  clip-path:polygon(0 0,calc(100% - 30px) 0,100% 50%,calc(100% - 30px) 100%,0 100%,18px 50%);
 }
-#intelligenceConsole .sc-report-head {
-  margin:-13px -15px 12px;
-  padding:11px 14px;
-  background:var(--mbb-ink);
-}
-#intelligenceConsole .sc-report-head :is(strong,span) {
-  color:#fff !important;
-  -webkit-text-fill-color:#fff !important;
-}
-#intelligenceConsole .sc-section-lead {
-  margin-top:24px;
-  padding:0 0 10px;
-  border-bottom:2px solid var(--mbb-ink);
-}
-#intelligenceConsole .sc-section-lead > div > span {
-  color:var(--mbb-teal);
-  letter-spacing:.12em;
-}
+#intelligenceConsole .sc-framework-head :is(h3,p) { color:#f3f8fc !important; }
+#intelligenceConsole .sc-framework-head>span { color:var(--info-cyan) !important; }
 
-/* Every information unit shares a full-perimeter, square card system. */
-#intelligenceConsole :is(.sc-card,.sc-partner,.sc-tech-card,.sc-pillar-card,.sc-asic-priority-card,.sc-partner-lane,.sc-hyperscaler-node,.sc-qkv-grid>article,.sc-memory-flow>li,.sc-memory-options>article,.sc-radar-layers>li,.sc-project-insight,.sc-framework-thesis,.sc-decision-gate,.sc-hierarchy-criteria,.sc-tech-status>span,.sc-playbook-status,.sc-kpi-strip>span,.sc-trend,.sc-deal-schema>span) {
-  --mbb-local:var(--mbb-hover);
+/* The scorecard closes the mandate with four executive decision ribbons. */
+#intelligenceConsole .sc-scorecard { gap:8px; border:0; padding-top:0; }
+#intelligenceConsole .sc-scorecard>span { padding:10px 12px; color:#07131f; background:var(--info-cyan); }
+#intelligenceConsole .sc-scorecard>div { --band:#0f3850; padding:10px 18px; border:1px solid #315a70; background:var(--band); clip-path:polygon(0 0,calc(100% - 12px) 0,100% 50%,calc(100% - 12px) 100%,0 100%,8px 50%); }
+#intelligenceConsole .sc-scorecard>div:nth-of-type(2) { --band:#292252; }
+#intelligenceConsole .sc-scorecard>div:nth-of-type(3) { --band:#512341; }
+#intelligenceConsole .sc-scorecard>div:nth-of-type(4) { --band:#493716; }
+#intelligenceConsole .sc-scorecard :is(b,small) { color:#f4f8fb !important; }
+
+/* Every information unit shares a crisp full-perimeter frame and restrained corner cut. */
+#intelligenceConsole #strategyConsulting :is(article,.sc-project-insight,.sc-framework-thesis,.sc-decision-gate,.sc-hierarchy-criteria,.sc-tech-status>span,.sc-playbook-status,.sc-kpi-strip>span,.sc-trend,.sc-deal-schema>span) {
+  --mbb-local:#0d6471;
   min-width:0;
   max-width:100%;
   border:1px solid var(--sc-frame) !important;
   border-radius:0 !important;
-  background:var(--mbb-paper) !important;
+  background:rgba(11,31,47,.96) !important;
   box-shadow:none !important;
   overflow-wrap:anywhere;
   word-break:keep-all;
+  clip-path:polygon(0 0,calc(100% - 12px) 0,100% 12px,100% 100%,0 100%);
 }
-#intelligenceConsole :is(.sc-partner-grid,.sc-tech-grid,.sc-pillar-grid,.sc-asic-priority-grid,.sc-partner-children,.sc-qkv-grid,.sc-memory-flow,.sc-memory-options,.sc-radar-layers) > :nth-child(4n+1) { --mbb-local:#0b625f; }
-#intelligenceConsole :is(.sc-partner-grid,.sc-tech-grid,.sc-pillar-grid,.sc-asic-priority-grid,.sc-partner-children,.sc-qkv-grid,.sc-memory-flow,.sc-memory-options,.sc-radar-layers) > :nth-child(4n+2) { --mbb-local:#255ba8; }
-#intelligenceConsole :is(.sc-partner-grid,.sc-tech-grid,.sc-pillar-grid,.sc-asic-priority-grid,.sc-partner-children,.sc-qkv-grid,.sc-memory-flow,.sc-memory-options,.sc-radar-layers) > :nth-child(4n+3) { --mbb-local:#62429b; }
-#intelligenceConsole :is(.sc-partner-grid,.sc-tech-grid,.sc-pillar-grid,.sc-asic-priority-grid,.sc-partner-children,.sc-qkv-grid,.sc-memory-flow,.sc-memory-options,.sc-radar-layers) > :nth-child(4n) { --mbb-local:#8a5700; }
+#intelligenceConsole #strategyConsulting :is(article,.sc-framework-thesis,.sc-decision-gate,.sc-hierarchy-criteria) * { color:#e9f2f8 !important; opacity:1; }
+#intelligenceConsole :is(.sc-partner-grid,.sc-tech-grid,.sc-pillar-grid,.sc-asic-priority-grid)>:nth-child(5n+1) { --mbb-local:#0b6871; }
+#intelligenceConsole :is(.sc-partner-grid,.sc-tech-grid,.sc-pillar-grid,.sc-asic-priority-grid)>:nth-child(5n+2) { --mbb-local:#22579a; }
+#intelligenceConsole :is(.sc-partner-grid,.sc-tech-grid,.sc-pillar-grid,.sc-asic-priority-grid)>:nth-child(5n+3) { --mbb-local:#50318b; }
+#intelligenceConsole :is(.sc-partner-grid,.sc-tech-grid,.sc-pillar-grid,.sc-asic-priority-grid)>:nth-child(5n+4) { --mbb-local:#81325f; }
+#intelligenceConsole :is(.sc-partner-grid,.sc-tech-grid,.sc-pillar-grid,.sc-asic-priority-grid)>:nth-child(5n) { --mbb-local:#76520a; }
 
-/* Small-box hover is immediate; only the local unit inverts. */
-#intelligenceConsole :is(.sc-partner,.sc-tech-card,.sc-pillar-card,.sc-asic-priority-card,.sc-hyperscaler-node,.sc-qkv-grid>article,.sc-memory-flow>li) {
-  transition:background-color 0s,color 0s,border-color 0s,transform .08s ease-out !important;
-  transition-delay:0s !important;
-}
-#intelligenceConsole :is(.sc-partner,.sc-tech-card,.sc-pillar-card,.sc-asic-priority-card,.sc-hyperscaler-node,.sc-qkv-grid>article,.sc-memory-flow>li):is(:hover,:focus-visible,:focus-within) {
-  border-color:var(--mbb-local) !important;
-  background:var(--mbb-local) !important;
-  box-shadow:none !important;
-  transform:none !important;
-}
-#intelligenceConsole :is(.sc-partner,.sc-tech-card,.sc-pillar-card,.sc-asic-priority-card,.sc-hyperscaler-node,.sc-qkv-grid>article,.sc-memory-flow>li):is(:hover,:focus-visible,:focus-within) :is(strong,p,small,span,b,a,dt,dd) {
-  color:#fff !important;
-  -webkit-text-fill-color:#fff !important;
-  opacity:1 !important;
-}
-#intelligenceConsole :is(.sc-partner,.sc-tech-card,.sc-pillar-card,.sc-asic-priority-card,.sc-hyperscaler-node,.sc-qkv-grid>article,.sc-memory-flow>li):is(:hover,:focus-visible,:focus-within) :is(.sc-partner-row>b,.sc-tech-en,dt) {
-  color:#a9f0e3 !important;
-  -webkit-text-fill-color:#a9f0e3 !important;
-}
-#intelligenceConsole :is(.sc-partner,.sc-tech-card,.sc-pillar-card,.sc-asic-priority-card,.sc-hyperscaler-node,.sc-qkv-grid>article,.sc-memory-flow>li):focus-visible {
-  outline:3px solid #d4a72c;
-  outline-offset:2px;
-}
+/* Small-box inversion is local, immediate and high-contrast. */
+#intelligenceConsole #strategyConsulting article:not(.sc-card) { transition:.06s linear !important; transition-delay:0s !important; }
+#intelligenceConsole #strategyConsulting article:not(.sc-card):is(:hover,:focus-visible,:focus-within) { border-color:#c5f7f2 !important; background:var(--mbb-local) !important; transform:translateY(-2px) !important; }
+#intelligenceConsole #strategyConsulting article:not(.sc-card):is(:hover,:focus-visible,:focus-within) * { color:#fff !important; opacity:1 !important; }
+#intelligenceConsole #strategyConsulting article:not(.sc-card):is(:hover,:focus-visible,:focus-within) :is(.sc-partner-row>b,.sc-tech-en,dt) { color:#9df6e7 !important; }
 
-/* MBB stage ribbons: one continuous decision story, one local hover state. */
-#intelligenceConsole :is(.sc-framework-steps,.sc-card-flow,.sc-memory-flow,.sc-radar-layers,.visual-insight-route,.ai-council-signal-chain) {
-  isolation:isolate;
-  gap:0 !important;
-}
-#intelligenceConsole :is(.sc-framework-steps>li,.sc-card-flow>.sc-map-node,.sc-memory-flow>li,.sc-radar-layers>li,.visual-insight-route>span,.ai-council-signal-chain>div) {
-  --mbb-step:#0b2839;
-  --mbb-key:#6fe0cb;
+/* Consulting stage ribbons: five distinct strategic colors, one connected decision story. */
+#intelligenceConsole #strategyConsulting :is(.sc-framework-steps,.sc-card-flow,.sc-memory-flow,.sc-radar-layers) { isolation:isolate; gap:10px !important; }
+#intelligenceConsole #strategyConsulting :is(.sc-framework-steps,.sc-card-flow,.sc-memory-flow,.sc-radar-layers)>li {
+  --mbb-step:#073a4b;
+  --mbb-key:var(--info-cyan);
   min-width:0;
-  min-height:112px;
+  min-height:124px;
   padding-inline:24px !important;
-  border:1px solid #245166 !important;
+  border:1px solid #16738a !important;
   border-radius:0 !important;
-  background:var(--mbb-step) !important;
+  background:linear-gradient(125deg,var(--mbb-step),color-mix(in srgb,var(--mbb-step) 70%,#07111d)) !important;
   color:#f7fbfd !important;
   box-shadow:none !important;
-  clip-path:polygon(0 0,calc(100% - 16px) 0,100% 50%,calc(100% - 16px) 100%,0 100%,16px 50%);
-  transition:background-color 0s,color 0s,border-color 0s !important;
-}
-#intelligenceConsole :is(.sc-framework-steps>li,.sc-card-flow>.sc-map-node,.sc-memory-flow>li,.sc-radar-layers>li,.visual-insight-route>span,.ai-council-signal-chain>div):first-child {
-  clip-path:polygon(0 0,calc(100% - 16px) 0,100% 50%,calc(100% - 16px) 100%,0 100%);
-}
-#intelligenceConsole :is(.sc-framework-steps>li,.sc-card-flow>.sc-map-node,.sc-memory-flow>li,.sc-radar-layers>li,.visual-insight-route>span,.ai-council-signal-chain>div):nth-child(3n+2) { --mbb-step:#102f4f; }
-#intelligenceConsole :is(.sc-framework-steps>li,.sc-card-flow>.sc-map-node,.sc-memory-flow>li,.sc-radar-layers>li,.visual-insight-route>span,.ai-council-signal-chain>div):nth-child(3n) { --mbb-step:#16395f; }
-#intelligenceConsole :is(.sc-framework-steps>li,.sc-card-flow>.sc-map-node,.sc-memory-flow>li,.sc-radar-layers>li,.visual-insight-route>span,.ai-council-signal-chain>div) :is(strong,p,small,li,a,span,b,i) {
-  color:#f7fbfd !important;
-  -webkit-text-fill-color:#f7fbfd !important;
-}
-#intelligenceConsole .sc-card-flow>.sc-map-node::before,
-#intelligenceConsole .visual-insight-route>span::before,
-#intelligenceConsole .ai-council-signal-chain>div>i {
-  width:auto;
-  height:auto;
-  border:0;
-  border-radius:0;
-  background:transparent;
-  color:var(--mbb-key);
-}
-#intelligenceConsole .visual-insight-route>span::before {
-  content:counter(insight-route,decimal-leading-zero);
-  position:static;
-  display:block;
-  margin-bottom:7px;
-  transform:none;
-}
-#intelligenceConsole .visual-insight-route { counter-reset:insight-route; grid-template-columns:repeat(3,minmax(0,1fr)); }
-#intelligenceConsole .visual-insight-route>span { counter-increment:insight-route; }
-#intelligenceConsole .visual-insight-route>i { display:none; }
-#intelligenceConsole :is(.sc-framework-steps>li,.sc-card-flow>.sc-map-node,.sc-memory-flow>li,.sc-radar-layers>li,.visual-insight-route>span,.ai-council-signal-chain>div):is(:hover,:focus-visible,:focus-within) {
-  --mbb-key:var(--mbb-teal);
-  border-color:#70cfc1 !important;
-  background:#f7fafb !important;
-  color:var(--mbb-ink) !important;
-}
-#intelligenceConsole :is(.sc-framework-steps>li,.sc-card-flow>.sc-map-node,.sc-memory-flow>li,.sc-radar-layers>li,.visual-insight-route>span,.ai-council-signal-chain>div):is(:hover,:focus-visible,:focus-within) :is(strong,p,small,li,a,span,b,i) {
-  color:var(--mbb-ink) !important;
-  -webkit-text-fill-color:var(--mbb-ink) !important;
-}
-#intelligenceConsole#intelligenceConsole :is(.sc-level-index,.sc-framework-steps>li>div>span,.sc-framework-steps>li>b,.sc-memory-flow>li>span,.sc-memory-flow>li>b,.sc-radar-layers>li>span,.sc-radar-layers>li>b,.visual-insight-route>span>b,.ai-council-signal-chain>div>span,.ai-council-signal-chain>div>i) {
-  color:var(--mbb-key) !important;
-  -webkit-text-fill-color:var(--mbb-key) !important;
-  background:transparent !important;
-  border-color:currentColor !important;
-}
-#intelligenceConsole :is(.sc-framework-steps>li,.sc-card-flow>.sc-map-node,.sc-memory-flow>li,.sc-radar-layers>li,.visual-insight-route>span,.ai-council-signal-chain>div):focus-visible {
-  outline:3px solid #d4a72c;
-  outline-offset:-3px;
-}
-#intelligenceConsole .sc-framework-steps>li::before,
-#intelligenceConsole :is(.sc-framework-steps>li,.sc-card-flow>.sc-map-node,.sc-memory-flow>li,.sc-radar-layers>li):not(:last-child)::after { display:none !important; }
-#intelligenceConsole .sc-framework-steps>li>b,
-#intelligenceConsole :is(.sc-memory-flow>li,.sc-radar-layers>li)>b {
-  width:auto;
-  height:auto;
-  border:0;
-  border-radius:0;
-  font-size:11px;
-}
-#intelligenceConsole .sc-decision-gate {
-  grid-template-columns:minmax(92px,.2fr) minmax(0,1fr);
-  border:2px solid var(--mbb-amber) !important;
-  background:#fff9e8 !important;
-}
-#intelligenceConsole .sc-decision-gate b {
-  color:#714500 !important;
-}
-
-/* Remove rounded/glowing card language from the rest of the Console. */
-#intelligenceConsole :is(.decision-card,.decision-flip-card,.domain-agent-workstream,.ai-council-agenda-card,.ai-council-capabilities>div,.ai-council-workstreams>div,.ai-council-signal-chain>div,.ai-council-lens-grid>article,.ai-council-horizons>article,.ai-council-delivery-grid>article,.exec-flow-node,.exec-strategy-card,.news-card,.ni-card,.community-card,.agent-turn,.deep-implication,.roadmap-card,.equity-chain-card) {
-  border-radius:0 !important;
-  box-shadow:none !important;
-}
-#intelligenceConsole :is(.decision-card,.decision-flip-card,.domain-agent-workstream,.ai-council-agenda-card,.exec-flow-node,.exec-strategy-card,.news-card,.ni-card,.community-card,.agent-turn,.deep-implication,.roadmap-card,.equity-chain-card):is(:hover,:focus-visible,:focus-within) {
+  clip-path:polygon(0 0,calc(100% - 18px) 0,100% 50%,calc(100% - 18px) 100%,0 100%,14px 50%);
+  transition:background .06s linear,color .06s linear,border-color .06s linear,transform .08s ease-out !important;
   transition-delay:0s !important;
 }
+#intelligenceConsole #strategyConsulting :is(.sc-framework-steps,.sc-card-flow,.sc-memory-flow,.sc-radar-layers)>li:first-child { clip-path:polygon(0 0,calc(100% - 18px) 0,100% 50%,calc(100% - 18px) 100%,0 100%); }
+#intelligenceConsole #strategyConsulting :is(.sc-framework-steps,.sc-card-flow,.sc-memory-flow,.sc-radar-layers)>li:nth-child(5n+2) { --mbb-step:#282050; --mbb-key:var(--info-violet); border-color:#5f49a3 !important; }
+#intelligenceConsole #strategyConsulting :is(.sc-framework-steps,.sc-card-flow,.sc-memory-flow,.sc-radar-layers)>li:nth-child(5n+3) { --mbb-step:#50213f; --mbb-key:var(--info-magenta); border-color:#914071 !important; }
+#intelligenceConsole #strategyConsulting :is(.sc-framework-steps,.sc-card-flow,.sc-memory-flow,.sc-radar-layers)>li:nth-child(5n+4) { --mbb-step:#463718; --mbb-key:var(--info-amber); border-color:#8a691b !important; }
+#intelligenceConsole #strategyConsulting :is(.sc-framework-steps,.sc-card-flow,.sc-memory-flow,.sc-radar-layers)>li:nth-child(5n) { --mbb-step:#0d3856; --mbb-key:var(--info-blue); border-color:#176d9d !important; }
+#intelligenceConsole #strategyConsulting :is(.sc-framework-steps,.sc-card-flow,.sc-memory-flow,.sc-radar-layers)>li * { color:#f7fbfd !important; }
+#intelligenceConsole .sc-card-flow>.sc-map-node::before { width:auto; height:auto; border:0; border-radius:0; background:transparent; color:var(--mbb-key); }
+#intelligenceConsole #strategyConsulting :is(.sc-framework-steps,.sc-card-flow,.sc-memory-flow,.sc-radar-layers)>li:is(:hover,:focus-visible,:focus-within) { --mbb-key:#08766f; border-color:#92eadb !important; background:#f7fafb !important; color:var(--mbb-ink) !important; transform:translateY(-2px) !important; }
+#intelligenceConsole #strategyConsulting :is(.sc-framework-steps,.sc-card-flow,.sc-memory-flow,.sc-radar-layers)>li:is(:hover,:focus-visible,:focus-within) * { color:var(--mbb-ink) !important; }
+#intelligenceConsole#intelligenceConsole :is(.sc-level-index,.sc-framework-steps>li>b,.sc-memory-flow>li>b,.sc-radar-layers>li>b) { color:var(--mbb-key) !important; background:transparent !important; border-color:currentColor !important; }
+#intelligenceConsole #strategyConsulting :is(.sc-framework-steps,.sc-card-flow,.sc-memory-flow,.sc-radar-layers)>li:focus-visible,#intelligenceConsole #strategyConsulting article:not(.sc-card):focus-visible { outline:3px solid #ffd166; outline-offset:2px; }
 
-/* Quiet page-build motion: no layout animation, no scroll dependency. */
-#intelligenceConsole :is(.sc-framework,.sc-card,.sc-report,.sc-playbook,.sc-radar-framework,.sc-asic-portfolio,.sc-broadcom-board) {
-  animation:mbb-section-in .24s cubic-bezier(.2,.75,.25,1) both;
-}
-@keyframes mbb-section-in {
-  from { opacity:.001; transform:translateY(8px); }
-  to { opacity:1; transform:translateY(0); }
+/* Thesis and decision bars reproduce the house/ribbon hierarchy in the reference set. */
+#intelligenceConsole :is(.sc-case-thesis,.sc-framework-thesis) { border:1px solid #17637a !important; background:linear-gradient(110deg,#073547,#12283e) !important; clip-path:polygon(4% 0,96% 0,100% 50%,96% 100%,4% 100%,0 50%); }
+#intelligenceConsole :is(.sc-case-thesis,.sc-framework-thesis) :is(strong,span,small) { color:#f4f9fc !important; }
+#intelligenceConsole .sc-decision-gate { grid-template-columns:minmax(92px,.2fr) minmax(0,1fr); border:1px solid #b47c16 !important; background:#463718 !important; clip-path:polygon(0 0,calc(100% - 14px) 0,100% 50%,calc(100% - 14px) 100%,0 100%); }
+#intelligenceConsole .sc-decision-gate :is(b,span) { color:#fff4cf !important; }
+
+/* Remove rounded/glowing language from remaining Console cards. */
+#intelligenceConsole :is(article,[class*="card"],[class*="workstream"]) { border-radius:0 !important; box-shadow:none !important; }
+
+/* Quiet page-build motion: transform and opacity only, with no scroll dependency. */
+#intelligenceConsole :is(.sc-framework,.sc-card,.sc-report,.sc-playbook,.sc-radar-framework,.sc-asic-portfolio,.sc-broadcom-board) { animation:mbb-section-in .24s cubic-bezier(.2,.75,.25,1) both; }
+@keyframes mbb-section-in { from { opacity:.001; transform:translateY(8px); } to { opacity:1; transform:translateY(0); } }
+@media (max-width:980px) {
+  #intelligenceConsole .sc-framework-head { grid-template-columns:1fr; clip-path:polygon(0 0,calc(100% - 20px) 0,100% 20px,100% 100%,0 100%); }
+  #intelligenceConsole .sc-scorecard { grid-template-columns:repeat(2,minmax(0,1fr)); }
+  #intelligenceConsole .sc-scorecard>span { grid-column:1/-1; }
 }
 @media (max-width:760px) {
-  #intelligenceConsole :is(.sc-framework-steps,.sc-card-flow,.sc-memory-flow,.sc-radar-layers,.visual-insight-route,.ai-council-signal-chain) { grid-template-columns:1fr !important; }
-  #intelligenceConsole :is(.sc-framework-steps>li,.sc-card-flow>.sc-map-node,.sc-memory-flow>li,.sc-radar-layers>li,.visual-insight-route>span,.ai-council-signal-chain>div) { min-height:0; padding-inline:14px !important; clip-path:none !important; }
-  #intelligenceConsole :is(.visual-insight-route,.ai-council-signal-chain)>i { display:none; }
+  .consulting-system #intelligenceConsole .strategy-consulting-board { background:#050d19; }
+  #intelligenceConsole #strategyConsulting :is(.sc-framework-steps,.sc-card-flow,.sc-memory-flow,.sc-radar-layers) { grid-template-columns:1fr !important; }
+  #intelligenceConsole #strategyConsulting :is(.sc-framework-steps,.sc-card-flow,.sc-memory-flow,.sc-radar-layers)>li,#intelligenceConsole :is(.sc-case-thesis,.sc-framework-thesis) { min-height:0; padding-inline:14px !important; clip-path:none !important; }
+  #intelligenceConsole .sc-scorecard { grid-template-columns:1fr; }
+  #intelligenceConsole .sc-scorecard>div,#intelligenceConsole .sc-section-lead,#intelligenceConsole .sc-decision-gate { clip-path:none; }
   #intelligenceConsole .sc-decision-gate { grid-template-columns:1fr; }
 }
 @media (prefers-reduced-motion:reduce) {
-  #intelligenceConsole *,#intelligenceConsole *::before,#intelligenceConsole *::after {
-    animation:none !important;
-    transition-duration:0s !important;
-    scroll-behavior:auto !important;
-  }
+  #intelligenceConsole *,#intelligenceConsole *::before,#intelligenceConsole *::after { animation:none !important; transition-duration:0s !important; scroll-behavior:auto !important; }
 }
