@@ -13,6 +13,7 @@ const index = read("index.html");
 const consoleIndex = read("console/index.html");
 const runtime = read("assets/js/company-profile.js");
 const styles = read("assets/css/company-profile.css");
+const workflow = read(".github/workflows/pages.yml");
 const profiles = new Map((directory.profiles || []).map((profile) => [profile.id, profile]));
 const required = [
   "nvidia", "google", "microsoft", "aws", "meta", "apple", "tesla", "openai", "anthropic", "spacex",
@@ -42,6 +43,8 @@ assert.match(runtime, /MutationObserver/);
 assert.match(runtime, /company-directory-client\.json/);
 assert.match(styles, /transition:color 70ms linear,background-color 70ms linear/);
 assert.match(styles, /\.company-profile-modal::backdrop/);
+assert.match(workflow, /paths-ignore:[\s\S]*data\/company-directory-client\.json/);
+assert.match(workflow, /git add[^\n]*data\/company-directory-client\.json/);
 
 console.log(JSON.stringify({
   ok: true,
