@@ -178,6 +178,8 @@ assert.match(app, /Move to the reserved framework shell immediately[\s\S]*?align
 assert.match(html, /class="decision-loading-framework"[\s\S]*?01<\/b> SIGNAL[\s\S]*?05<\/b> ACTION/, "Technology & Memory must expose a consulting-framework loading shell");
 assert.match(html, /exec-backtest-memory-wave-960\.webp/, "the decision board must use the responsive backtest image");
 assert.match(css, /Executive consulting geometry system[\s\S]*?\.consulting-system \.sc-card \{[\s\S]*?border-top: 1px solid var\(--line\);[\s\S]*?box-shadow: none;/, "strategy cards must remove colored top rails and glow shadows");
+assert.match(css, /Professional consulting matrix — square, flat, neutral hierarchy\.[\s\S]*?box-shadow:none !important;[\s\S]*?transform:none !important;/, "console strategy matrices must use square flat frames without decorative movement");
+assert.doesNotMatch(app, /class="[^"]*\bsc-(?:card|partner|tech-card|pillar-card|asic-priority-card)\b[^"]*"[^>]*style="--(?:sc|asic)-accent/, "strategy cards must not receive per-card decorative accent rails");
 assert.match(css, /\.consulting-system \.sc-card-flow \{[\s\S]*?grid-template-columns: 1\.18fr 1fr 1fr 1\.14fr 1\.24fr;/, "opportunity cards must use a five-step decision map");
 assert.match(css, /#execDecisionRunCouncil[\s\S]*?background: transparent;[\s\S]*?box-shadow: none;/, "the executive framework must not use glowing AI-style action controls");
 assert.match(landing, /function loadAppScript\(\)[\s\S]*?assets\/js\/app\.min\.js\?v=\$\{CONSOLE_REVISION\}/, "the minified console app must load only after an explicit console request");

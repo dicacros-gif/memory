@@ -13122,7 +13122,7 @@
       </div>
       <div class="sc-grid">
         ${lenses.map(({ lens, ev }, index) => `
-          <article class="sc-card" tabindex="0" style="--sc-accent:${lens.accent}">
+          <article class="sc-card" tabindex="0">
             <div class="sc-card-top">
               <div class="sc-card-rank"><span>#${String(index + 1).padStart(2, "0")} · STRATEGIC PRIORITY</span><b>${escapeHTML(lens.horizon)}</b></div>
               <div class="sc-card-signals">
@@ -13167,7 +13167,7 @@
         </header>
         <div class="sc-asic-priority-grid">
           ${priorityAsicAccounts.flatMap((account) => (account.chipPortfolio || []).map((chip) => `
-            <article class="sc-asic-priority-card" tabindex="0" style="--asic-accent:${escapeHTML(account.accent || "#0A84B8")}">
+            <article class="sc-asic-priority-card" tabindex="0">
               <div class="sc-asic-card-head">
                 <span>${escapeHTML(account.company || "")}</span>
                 <em>${escapeHTML(chip.evidenceLabel || "PUBLIC STATUS")}</em>
@@ -13190,12 +13190,12 @@
         <p class="sc-asic-policy">${escapeHTML(asicPortfolio.evidencePolicy || "공식 원문 기준")}</p>
       </section>` : ""}
       ${customerPillars.length ? `<div class="sc-partner-grid" aria-label="조직 미션 3필러">
-        ${customerPillars.map((item) => `<article class="sc-partner" style="--sc-accent:#0a7f7d"><strong>${escapeHTML(item.index || "")} · ${escapeHTML(item.label || "")}</strong><div class="sc-partner-row"><b>QUESTION</b><span>${escapeHTML(item.question || "")}</span></div></article>`).join("")}
+        ${customerPillars.map((item) => `<article class="sc-partner"><strong>${escapeHTML(item.index || "")} · ${escapeHTML(item.label || "")}</strong><div class="sc-partner-row"><b>QUESTION</b><span>${escapeHTML(item.question || "")}</span></div></article>`).join("")}
       </div>` : ""}
       ${customerProjects.length ? `<div class="sc-report sc-project-portfolio">
         <div class="sc-report-head"><strong>AI INFRA · 3 CUSTOMER PROJECTS</strong><span>고객 Pain → 맞춤 제안 → 90일 Gate</span></div>
         <div class="sc-partner-grid sc-project-grid">
-          ${customerProjects.map((project) => `<article class="sc-partner sc-project-card" style="--sc-accent:${escapeHTML(project.accent || "#0A84B8")}">
+          ${customerProjects.map((project) => `<article class="sc-partner sc-project-card">
             <span class="sc-tech-en">${escapeHTML(project.index || "")} · ${escapeHTML(project.label || "CUSTOMER PROJECT")}</span>
             <strong>${escapeHTML(project.title || "")}</strong>
             <div class="sc-partner-row"><b>ACCOUNTS</b><span>${escapeHTML((project.accountLabels || []).join(" · "))}</span></div>
@@ -13215,7 +13215,7 @@
           <div class="sc-partner-grid" style="grid-template-columns:repeat(auto-fit,minmax(320px,1fr))">
             ${accounts.map((account) => {
               const evidence = account.evidence || {};
-              return `<article id="account-${escapeHTML(account.id || "")}" class="sc-partner sc-account-card" tabindex="0" style="--sc-accent:${escapeHTML(account.accent || "#0A84B8")}">
+              return `<article id="account-${escapeHTML(account.id || "")}" class="sc-partner sc-account-card" tabindex="0">
                 <div class="sc-account-head"><strong>${escapeHTML(account.company || "")} · ${escapeHTML(account.chip || "")}</strong><a href="#console/account/${escapeHTML(account.id || "")}" data-account-deep-link="${escapeHTML(account.id || "")}" aria-label="${escapeHTML(account.company || "")} 계정 딥링크">↗</a></div>
                 ${(account.baseline || []).map((item) => `<div class="sc-partner-row"><b>${escapeHTML(item.label || "FACT")}</b><span>${escapeHTML(item.value || "")}${item.source?.url ? ` · <a href="${escapeHTML(item.source.url)}" target="_blank" rel="noopener noreferrer">원문 ↗</a>` : ""}</span></div>`).join("")}
                 <div class="sc-partner-row"><b>PAIN</b><span>${strategicHighlightHTML(account.pain || "")}</span></div>
@@ -13282,7 +13282,7 @@
           <div class="sc-framework-thesis"><span>ANSWER FIRST</span><strong>${strategicHighlightHTML(bd.thesis || "")}</strong><small>${escapeHTML(bd.definition || "")}</small></div>
           <div class="sc-partner-grid">
             ${bd.ladder.map((step) => `
-              <article class="sc-partner" style="--sc-accent:${escapeHTML(step.accent || "#2D6BFF")}">
+              <article class="sc-partner">
                 <span class="sc-tech-en">${escapeHTML(step.step || "")}</span>
                 <strong>${escapeHTML(step.label || "")}</strong>
                 <div class="sc-partner-row"><b>BASE DIE</b><span>${escapeHTML(step.baseDie || "")}</span></div>
@@ -13310,15 +13310,15 @@
         <div class="sc-deal-schema">${Object.values(dealDashboard.schema?.fields || customerBoard.contractGate?.fields || []).map((field) => `<span>${escapeHTML(field)}</span>`).join("")}</div>
         ${(dealDashboard.events || []).length ? `<ul class="sc-evidence-list">${dealDashboard.events.map((event) => `<li>${event.sourceUrl ? `<a href="${escapeHTML(event.sourceUrl)}" target="_blank" rel="noopener noreferrer">${escapeHTML(event.evidenceSpan || event.source || "계약 근거")} ↗</a>` : `<span>${escapeHTML(event.evidenceSpan || "계약 Event")}</span>`}<small>${escapeHTML(event.asOf || "")}</small></li>`).join("")}</ul>` : `<p class="sc-note">공개 계약 조건 업데이트 대기</p>`}
       </details>
-      ${accountProductMap.length ? `<details class="sc-report"><summary class="sc-report-head"><strong>TECH RADAR → NEXT MEMORY</strong><span>Account Pain → Custom HBM · AI-D · AI-N</span></summary><p class="sc-note">제품 분류는 공식 원문 · 계정 매핑은 전략 가설</p><div class="sc-partner-grid">${accountProductMap.map((item) => `<article class="sc-partner" style="--sc-accent:${escapeHTML(item.accent || "#0A84B8")}"><strong>${escapeHTML(item.label || "")}</strong><div class="sc-partner-row"><b>ROLE</b><span>${escapeHTML(item.role || "")}</span></div><div class="sc-partner-row"><b>ACCOUNT</b><span>${escapeHTML((item.accountLabels || []).join(" · "))}</span></div><span class="sc-playbook-status is-estimate">STRATEGY MAPPING</span>${item.source?.url ? `<a class="sc-playbook-source" href="${escapeHTML(item.source.url)}" target="_blank" rel="noopener noreferrer">${escapeHTML(item.source.name || "공식 원문")} ↗</a>` : ""}</article>`).join("")}</div></details>` : ""}
-      ${accountRoadmap.length ? `<div class="sc-partner-grid" aria-label="90일 실행 로드맵">${accountRoadmap.map((item, index) => `<article class="sc-partner" style="--sc-accent:#c88600"><strong>${String(index + 1).padStart(2, "0")} · ${escapeHTML(item.phase || "")}</strong><div class="sc-partner-row"><b>GATE</b><span>${escapeHTML(item.label || "")}</span></div><div class="sc-partner-row"><b>OUTPUT</b><span>${escapeHTML(item.output || "")}</span></div></article>`).join("")}</div>` : ""}
+      ${accountProductMap.length ? `<details class="sc-report"><summary class="sc-report-head"><strong>TECH RADAR → NEXT MEMORY</strong><span>Account Pain → Custom HBM · AI-D · AI-N</span></summary><p class="sc-note">제품 분류는 공식 원문 · 계정 매핑은 전략 가설</p><div class="sc-partner-grid">${accountProductMap.map((item) => `<article class="sc-partner"><strong>${escapeHTML(item.label || "")}</strong><div class="sc-partner-row"><b>ROLE</b><span>${escapeHTML(item.role || "")}</span></div><div class="sc-partner-row"><b>ACCOUNT</b><span>${escapeHTML((item.accountLabels || []).join(" · "))}</span></div><span class="sc-playbook-status is-estimate">STRATEGY MAPPING</span>${item.source?.url ? `<a class="sc-playbook-source" href="${escapeHTML(item.source.url)}" target="_blank" rel="noopener noreferrer">${escapeHTML(item.source.name || "공식 원문")} ↗</a>` : ""}</article>`).join("")}</div></details>` : ""}
+      ${accountRoadmap.length ? `<div class="sc-partner-grid" aria-label="90일 실행 로드맵">${accountRoadmap.map((item, index) => `<article class="sc-partner"><strong>${String(index + 1).padStart(2, "0")} · ${escapeHTML(item.phase || "")}</strong><div class="sc-partner-row"><b>GATE</b><span>${escapeHTML(item.label || "")}</span></div><div class="sc-partner-row"><b>OUTPUT</b><span>${escapeHTML(item.output || "")}</span></div></article>`).join("")}</div>` : ""}
       <div class="sc-section-lead">
         <div><span>${escapeHTML(techBoard.eyebrow || "TECH & MARKET INSIGHTS")}</span><h3>${escapeHTML(techBoard.title || "LLM Tech → Memory Implication")}</h3></div>
         <p>${escapeHTML(techBoard.description || "검증 데이터 연결 대기")}</p>
       </div>
       ${techPillars.length ? `<div class="sc-pillar-grid" aria-label="Full-Stack AI Memory 공식 제품축">
         ${techPillars.map((item) => `
-          <article class="sc-pillar-card" style="--sc-accent:${escapeHTML(item.accent || "#0A84B8")}">
+          <article class="sc-pillar-card">
             <span>${escapeHTML(item.index || "")} · OFFICIAL PORTFOLIO</span>
             <strong>${escapeHTML(item.label || "")}</strong>
             <p>${escapeHTML(item.role || "")}</p>
@@ -13333,7 +13333,7 @@
           <p>${escapeHTML(techFramework.description || "기술 변화와 메모리 선택을 연결")}</p>
         </div>
         <ol class="sc-radar-layers">
-          ${techLayers.map((item) => `<li style="--sc-accent:${escapeHTML(item.accent || "#0A84B8")}"><b>${escapeHTML(item.index || "")}</b><span>${escapeHTML(item.label || "")}</span><small>${escapeHTML(item.question || "")}</small></li>`).join("")}
+          ${techLayers.map((item) => `<li><b>${escapeHTML(item.index || "")}</b><span>${escapeHTML(item.label || "")}</span><small>${escapeHTML(item.question || "")}</small></li>`).join("")}
         </ol>
       </section>` : ""}
       ${techMap.length ? `<div class="sc-tech-grid" aria-label="메모리 기술 변화 추적 카드">
@@ -13341,7 +13341,7 @@
           const evidence = item.evidence || {};
           const evidenceClass = evidence.status === "official-fact" ? "is-fact" : evidence.status === "market-estimate" ? "is-estimate" : evidence.status === "research-monitoring" ? "is-research" : "is-monitoring";
           return `
-          <article class="sc-tech-card" tabindex="0" style="--sc-accent:${escapeHTML(item.accent || "#0A84B8")}">
+          <article class="sc-tech-card" tabindex="0">
             <div class="sc-tech-meta"><span>${escapeHTML(item.layer || "MEMORY")}</span><b>${escapeHTML(item.horizon || "TRACK")}</b></div>
             <strong>${escapeHTML(item.tech || "")}</strong>
             <span class="sc-tech-en">${escapeHTML(item.context || "TECH CONTEXT")}</span>
@@ -13371,7 +13371,7 @@
       </div>
       ${partnerModels.length ? `<div class="sc-partner-grid">
         ${partnerModels.map((item) => `
-          <article class="sc-partner" style="--sc-accent:${escapeHTML(item.accent || "#00A88F")}">
+          <article class="sc-partner">
             <strong>${escapeHTML(item.type || "")}</strong>
             <div class="sc-partner-row"><b>ROLE</b><span>${escapeHTML(item.role || "")}</span></div>
             <div class="sc-partner-row"><b>VALUE</b><span>${escapeHTML(item.value || "")}</span></div>
