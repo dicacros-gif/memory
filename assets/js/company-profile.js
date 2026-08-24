@@ -5,7 +5,7 @@
   const revision = new URL(script?.src || location.href).searchParams.get("v") || "current";
   const directoryUrl = new URL(`../../data/company-directory-client.json?v=${encodeURIComponent(revision)}`, script?.src || location.href);
   const styleUrl = new URL(`../css/company-profile.min.css?v=${encodeURIComponent(revision)}`, script?.src || location.href);
-  const excluded = "script,style,template,noscript,textarea,input,select,option,code,pre,a,button,[contenteditable],.company-profile-modal,.company-profile-link";
+  const excluded = "script,style,template,noscript,textarea,input,select,option,code,pre,a,button,summary,[contenteditable],.company-profile-modal,.company-profile-link";
   const state = { directory: null, byId: new Map(), aliasMap: new Map(), aliasPattern: null, activeLens: "memory" };
   let directoryPromise = null;
   let dialog = null;

@@ -3,7 +3,7 @@
 
   const BUSINESS_TITLE = "AI Infra Strategy · Customer Pain to Executive Action";
   const CONSOLE_HASH = "#console";
-  const CONSOLE_REVISION = "infra-5560b68949ed";
+  const CONSOLE_REVISION = "infra-820ba1776db4";
   const DECISION_CLIENT_PATH = "data/landing-decision-client.json";
   const SITE_CONTENT_PATH = "data/site-content-client.json";
   const SITE_CONTENT_EXTENDED_PATH = "data/site-content-extended-client.json";
@@ -814,13 +814,21 @@
     }
 
     const flow = document.querySelector(".business-architecture-flow");
-    if (flow && Array.isArray(hero.workflow) && hero.workflow.length) {
-      flow.innerHTML = hero.workflow.map((item, index) => `${index ? '<i aria-hidden="true">↓</i>' : ""}
-        <div class="business-flow-node${index === 2 ? " business-flow-node--accent" : ""}">
-          <small>${escapeBusinessHTML(item.index || String(index + 1).padStart(2, "0"))} · ${escapeBusinessHTML(item.label || "DECISION STEP")}</small>
-          <strong>${escapeBusinessHTML(item.title || "")}</strong>
-          <span>${escapeBusinessHTML(item.detail || "")}</span>
-        </div>`).join("");
+    const flowStages = [...(flow?.querySelectorAll("[data-flow-stage]") || [])];
+    if (flowStages.length && Array.isArray(hero.workflow) && hero.workflow.length) {
+      flowStages.forEach((stage, index) => {
+        const item = hero.workflow[index];
+        stage.hidden = !item;
+        if (!item) return;
+        const indexNode = stage.querySelector("[data-flow-index]");
+        const titleNode = stage.querySelector("[data-flow-title]");
+        const detailNode = stage.querySelector("[data-flow-detail]");
+        const stepLabel = `${item.index || String(index + 1).padStart(2, "0")} · ${item.label || "DECISION STEP"}`;
+        if (indexNode) indexNode.textContent = stepLabel;
+        if (titleNode) titleNode.textContent = item.title || "";
+        if (detailNode) detailNode.textContent = item.detail || "";
+        stage.setAttribute("aria-label", [stepLabel, item.title, item.detail].filter(Boolean).join(" · "));
+      });
     }
     const queue = document.querySelector("#businessHomeDecisionQueue");
     if (queue && Array.isArray(workbench.agenda) && workbench.agenda.length) {

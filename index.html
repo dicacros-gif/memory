@@ -131,7 +131,7 @@
     (() => {
       if (!location.hash.startsWith("#console")) return;
       document.documentElement.classList.add("console-entry");
-      const revision = "infra-5560b68949ed";
+      const revision = "infra-820ba1776db4";
       const assets = [
         ["consoleStylesPreload", "style", `assets/css/styles.min.css?v=${revision}`, "high"],
         ["consoleAppPreload", "script", `assets/js/app.min.js?v=${revision}`, "high"],
@@ -148,7 +148,7 @@
       }
     })();
   </script>
-  <link rel="stylesheet" href="assets/css/landing.min.css?v=infra-5560b68949ed" />
+  <link rel="stylesheet" href="assets/css/landing.min.css?v=infra-820ba1776db4" />
 </head>
 <body class="landing-mode">
   <h1 class="site-document-title">AI Infra Strategy</h1>
@@ -214,14 +214,27 @@
           </div>
 
           <div class="business-hero-visual" aria-label="고객 문제를 경영진 실행안으로 전환하는 전략 흐름">
-            <div class="business-architecture-flow">
-              <div class="business-flow-node"><small>01 · CUSTOMER PROBLEM</small><strong>Account · Strategy · Workload</strong><span>Business Outcome · Pain · 구매 기준</span></div>
-              <i aria-hidden="true">↓</i>
-              <div class="business-flow-node"><small>02 · FULL-STACK DIAGNOSIS</small><strong>Application · HW/SW · Data Center</strong><span>SLO · 지배 병목 · Memory Requirement</span></div>
-              <i aria-hidden="true">↓</i>
-              <div class="business-flow-node business-flow-node--accent"><small>03 · STRATEGIC OPTIONS</small><strong>Memory Solution · New Biz · Partner</strong><span>시장성 · 차별화 · 단위경제성</span></div>
-              <i aria-hidden="true">↓</i>
-              <div class="business-flow-node"><small>04 · EXECUTION GATE</small><strong>PoC · Qualification · Capacity</strong><span>Owner · KPI · Trigger · Kill Criteria</span></div>
+            <div class="business-architecture-flow business-decision-spine">
+              <svg viewBox="0 0 1180 286" role="img" aria-labelledby="businessSpineTitle businessSpineDesc" preserveAspectRatio="xMidYMid meet">
+                <title id="businessSpineTitle">고객 문제에서 실행 게이트까지의 네 단계 의사결정 흐름</title>
+                <desc id="businessSpineDesc">고객 문제, 풀스택 진단, 전략 대안, 실행 게이트를 차례로 연결</desc>
+                <g class="business-spine-stage" data-flow-stage tabindex="0" role="group" style="--spine-fill:#073c4d;--spine-key:#45e1d3">
+                  <polygon class="business-spine-shape" points="0,8 266,8 286,143 266,278 0,278" />
+                  <foreignObject x="24" y="32" width="224" height="220"><div xmlns="http://www.w3.org/1999/xhtml" class="business-spine-copy"><small data-flow-index>01 · CUSTOMER PROBLEM</small><strong data-flow-title>Account · Strategy · Workload</strong><span data-flow-detail>Business Outcome · Pain · 구매 기준</span></div></foreignObject>
+                </g>
+                <g class="business-spine-stage" data-flow-stage tabindex="0" role="group" transform="translate(296 0)" style="--spine-fill:#252052;--spine-key:#a887ff">
+                  <polygon class="business-spine-shape" points="0,8 266,8 286,143 266,278 0,278 16,143" />
+                  <foreignObject x="28" y="32" width="220" height="220"><div xmlns="http://www.w3.org/1999/xhtml" class="business-spine-copy"><small data-flow-index>02 · FULL-STACK DIAGNOSIS</small><strong data-flow-title>Application · HW/SW · Data Center</strong><span data-flow-detail>SLO · 지배 병목 · Memory Requirement</span></div></foreignObject>
+                </g>
+                <g class="business-spine-stage" data-flow-stage tabindex="0" role="group" transform="translate(592 0)" style="--spine-fill:#51233f;--spine-key:#ff70b4">
+                  <polygon class="business-spine-shape" points="0,8 266,8 286,143 266,278 0,278 16,143" />
+                  <foreignObject x="28" y="32" width="220" height="220"><div xmlns="http://www.w3.org/1999/xhtml" class="business-spine-copy"><small data-flow-index>03 · STRATEGIC OPTIONS</small><strong data-flow-title>Memory Solution · New Biz · Partner</strong><span data-flow-detail>시장성 · 차별화 · 단위경제성</span></div></foreignObject>
+                </g>
+                <g class="business-spine-stage" data-flow-stage tabindex="0" role="group" transform="translate(888 0)" style="--spine-fill:#443716;--spine-key:#ffc247">
+                  <polygon class="business-spine-shape" points="0,8 266,8 286,143 266,278 0,278 16,143" />
+                  <foreignObject x="28" y="32" width="220" height="220"><div xmlns="http://www.w3.org/1999/xhtml" class="business-spine-copy"><small data-flow-index>04 · EXECUTION GATE</small><strong data-flow-title>PoC · Qualification · Capacity</strong><span data-flow-detail>Owner · KPI · Trigger · Kill Criteria</span></div></foreignObject>
+                </g>
+              </svg>
             </div>
           </div>
         </div>
@@ -1910,7 +1923,7 @@
   <div class="qa-answer" id="qaAnswer" hidden></div>
   <div class="inspector" id="inspector" hidden></div>
   <div class="backdrop" id="backdrop"></div>
-  <script src="assets/js/company-profile.min.js?v=infra-5560b68949ed" defer></script>
-  <script src="assets/js/landing.min.js?v=infra-5560b68949ed" defer></script>
+  <script src="assets/js/company-profile.min.js?v=infra-820ba1776db4" defer></script>
+  <script src="assets/js/landing.min.js?v=infra-820ba1776db4" defer></script>
 </body>
 </html>
