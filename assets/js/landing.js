@@ -3,7 +3,7 @@
 
   const BUSINESS_TITLE = "AI Infra Strategy · Customer Pain to Executive Action";
   const CONSOLE_HASH = "#console";
-  const CONSOLE_REVISION = "infra-8f057faafe5f";
+  const CONSOLE_REVISION = "infra-b5e9e704d98f";
   const DECISION_CLIENT_PATH = "data/landing-decision-client.json";
   const SITE_CONTENT_PATH = "data/site-content-client.json";
   const SITE_CONTENT_EXTENDED_PATH = "data/site-content-extended-client.json";
@@ -162,9 +162,10 @@
     // Start CSS and JavaScript together because both resources are already
     // preloaded for an explicit #console visit.
     consoleLoadPromise = Promise.all([loadStylesheet(), loadAppScript()]);
-    // Customer/ASIC data is warmed only after the interactive console bundle
-    // is ready, so the portfolio refresh cannot compete with first paint.
-    void consoleLoadPromise.then(() => scheduleIdleStep(warmConsolePortfolio, 0));
+    // Start the customer/ASIC snapshot immediately after the interactive shell.
+    // requestIdleCallback can be postponed indefinitely in throttled/background
+    // tabs, which previously left lower console boards empty until scrolling.
+    void consoleLoadPromise.then(() => window.setTimeout(warmConsolePortfolio, 80));
     return consoleLoadPromise;
   }
 

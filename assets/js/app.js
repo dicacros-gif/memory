@@ -13073,6 +13073,8 @@
     const priorityAsicAccounts = Array.isArray(asicPortfolio.accounts) ? asicPortfolio.accounts : [];
     const broadcomEcosystem = customerBoard.broadcomEcosystem || {};
     const broadcomAccounts = Array.isArray(broadcomEcosystem.accounts) ? broadcomEcosystem.accounts : [];
+    const layerModel = customerBoard.layerModel || {};
+    const executiveOnePagers = Array.isArray(customerBoard.executiveOnePagers) ? customerBoard.executiveOnePagers : [];
     const customerPillars = Array.isArray(customerBoard.pillars) ? customerBoard.pillars : [];
     const customerProjects = Array.isArray(customerBoard.projects) ? customerBoard.projects : [];
     const competitiveFrame = Array.isArray(customerBoard.competitiveFrame) ? customerBoard.competitiveFrame : [];
@@ -13157,33 +13159,7 @@
         <div><span>${escapeHTML(customerBoard.eyebrow || "CUSTOMER & ASIC RADAR")}</span><h3>${escapeHTML(customerBoard.title || "GPU · Custom ASIC Roadmap → Memory Proposal")}</h3></div>
         <p>${escapeHTML(customerBoard.description || "고객별 Roadmap과 Memory Gate를 분리")}</p>
       </div>
-      ${broadcomAccounts.length ? `<section class="sc-broadcom-board" aria-labelledby="broadcomBoardTitle">
-        <header class="sc-broadcom-head">
-          <div><span>${escapeHTML(broadcomEcosystem.eyebrow || "BROADCOM XPU ACCOUNT STRATEGY")}</span><h4 id="broadcomBoardTitle">${escapeHTML(broadcomEcosystem.title || "공통 XPU 파트너 · 고객별 Memory 전략은 분리")}</h4></div>
-          <p>${escapeHTML(broadcomEcosystem.description || "고객별 공개 전략과 Memory Pain을 분리")}</p>
-        </header>
-        <ol class="sc-broadcom-flow" aria-label="Broadcom XPU 계정 전략 흐름">
-          ${(broadcomEcosystem.decisionFlow || []).map((step) => `<li><b>${escapeHTML(step.index || "")}</b><span>${escapeHTML(step.label || "")}</span><strong>${escapeHTML(step.value || "")}</strong></li>`).join("")}
-        </ol>
-        <div class="sc-broadcom-grid">
-          ${broadcomAccounts.map((account) => {
-            const strategy = account.broadcomStrategy || {};
-            const isOfficial = /공식/.test(String(strategy.status || ""));
-            return `<article class="sc-broadcom-card${isOfficial ? " is-official" : " is-reported"}" tabindex="0" style="--account-accent:${escapeHTML(account.accent || "#0A84B8")}">
-              <header><div><span>${escapeHTML(account.company || "")}</span><h5>${escapeHTML(account.chip || "")}</h5></div><em>${escapeHTML(strategy.status || "관계 확인")}</em></header>
-              <p class="sc-broadcom-question">${strategicHighlightHTML(strategy.accountQuestion || account.pain || "")}</p>
-              <dl>
-                <div><dt>CUSTOMER STRATEGY</dt><dd>${escapeHTML(strategy.customerStrategy || "")}</dd></div>
-                <div><dt>MEMORY PAIN</dt><dd><ul>${(strategy.pains || []).map((pain) => `<li>${strategicHighlightHTML(pain)}</li>`).join("")}</ul></dd></div>
-                <div><dt>SKH PROPOSAL</dt><dd><ul>${(strategy.proposal || []).map((option) => `<li>${strategicHighlightHTML(option)}</li>`).join("")}</ul></dd></div>
-                <div><dt>90D GATE</dt><dd>${escapeHTML(strategy.gate90d || account.gate || "")}</dd></div>
-              </dl>
-              ${strategy.source?.url ? `<a href="${escapeHTML(strategy.source.url)}" target="_blank" rel="noopener noreferrer">${escapeHTML(strategy.source.name || "공식 원문")} ↗</a>` : ""}
-            </article>`;
-          }).join("")}
-        </div>
-        <p class="sc-broadcom-policy">${escapeHTML(broadcomEcosystem.evidencePolicy || "공식·보도 관계 분리")}</p>
-      </section>` : ""}
+      <div id="scBroadcomEcosystem"></div>
       ${priorityAsicAccounts.length ? `<section class="sc-asic-portfolio" aria-labelledby="asicPortfolioTitle">
         <header class="sc-asic-portfolio-head">
           <div><span>${escapeHTML(asicPortfolio.eyebrow || "CUSTOMER ASIC PORTFOLIO")}</span><h4 id="asicPortfolioTitle">${escapeHTML(asicPortfolio.title || "Customer Chip → Memory Bottleneck → Account Action")}</h4></div>
@@ -13264,11 +13240,13 @@
             const src = cell.source && cell.source.url
               ? `<a href="${escapeHTML(cell.source.url)}" target="_blank" rel="noopener">${escapeHTML(cell.source.name || "출처")} ↗</a>`
               : "";
-            return `<td title="${escapeHTML(cell.note || "")}"><span class="sc-playbook-status is-monitoring">${escapeHTML(status)}</span> <b class="sc-ev-src">${escapeHTML(claimLabel)}</b>${src ? `<br>${src}` : ""}</td>`;
+            const alert = cell.latestAlert;
+            return `<td title="${escapeHTML(cell.note || "")}"><span class="sc-playbook-status is-monitoring">${escapeHTML(status)}</span> <b class="sc-ev-src">${escapeHTML(claimLabel)}</b>${alert ? `<br><strong>${escapeHTML(alert.changeType || "CHANGE")}</strong> · ${escapeHTML(alert.asOf || "")}` : ""}${src ? `<br>${src}` : ""}</td>`;
           }).join("")}</tr>`;
         }).join("")}</tbody></table></div>
         ${supplierMatrix.legend ? `<p class="sc-note">${Object.entries(supplierMatrix.legend).map(([key, value]) => `<b class="sc-ev-src">${escapeHTML(value.label || key)}</b> ${escapeHTML(value.note || "")}`).join(" · ")}</p>` : ""}
       </details>
+      <div id="scExecutiveOnePagers"></div>
       ${(() => {
         const tm = transformerMemory;
         if (!tm || !Array.isArray(tm.flow) || !tm.flow.length) return "";
@@ -13412,6 +13390,30 @@
       </div>` : ""}
       <p class="sc-note">고객 Pain과 사업 영향 기준으로 핵심 인사이트만 선별 · 유사 신호 통합 · 수치와 인용은 연결 원문에서 확인</p>
     `;
+    const onePagerMount = host.querySelector("#scExecutiveOnePagers");
+    const ecosystemMount = host.querySelector("#scBroadcomEcosystem");
+    if ((onePagerMount && executiveOnePagers.length) || (ecosystemMount && broadcomAccounts.length)) {
+      const revision = document.querySelector('script[src*="assets/js/app.min.js"]')?.src.match(/[?&]v=([^&]+)/)?.[1] || "current";
+      const renderAccountViews = () => {
+        const views = window.AccountStrategyViews;
+        if (!views) return;
+        if (onePagerMount) onePagerMount.innerHTML = views.renderExecutiveOnePagers(executiveOnePagers);
+        if (ecosystemMount) ecosystemMount.innerHTML = views.renderAccountEcosystem({ ecosystem: broadcomEcosystem, accounts: broadcomAccounts, layerModel });
+      };
+      if (window.AccountStrategyViews) renderAccountViews();
+      else {
+        let lazyScript = document.querySelector("#accountStrategyViewsScript");
+        if (!lazyScript) {
+          lazyScript = document.createElement("script");
+          lazyScript.id = "accountStrategyViewsScript";
+          lazyScript.src = `assets/js/account-one-pagers.min.js?v=${encodeURIComponent(revision)}`;
+          lazyScript.async = true;
+          document.head.appendChild(lazyScript);
+        }
+        lazyScript.addEventListener("load", renderAccountViews, { once: true });
+        lazyScript.addEventListener("error", () => { onePagerMount?.remove(); ecosystemMount?.remove(); }, { once: true });
+      }
+    }
     host.querySelectorAll("[data-account-deep-link]").forEach((link) => link.addEventListener("click", (event) => {
       event.preventDefault();
       const id = link.dataset.accountDeepLink;

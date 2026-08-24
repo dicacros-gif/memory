@@ -193,6 +193,36 @@
       "enabled": true
     },
     {
+      "id": "marvell-custom-asic",
+      "name": "Marvell Custom ASIC",
+      "tier": "primary-company",
+      "sourceClass": "official",
+      "url": "https://www.marvell.com/products/custom-asic.html",
+      "domains": ["marvell.com"],
+      "topics": ["custom-asic", "xpu", "chiplet", "advanced-packaging", "ai-infra"],
+      "roles": ["partner", "technology", "customer", "demand"],
+      "languages": ["en"],
+      "freshnessHours": 336,
+      "discoveryQueries": ["site:marvell.com (custom ASIC OR custom XPU) (HBM OR packaging OR chiplet)"],
+      "healthCheck": { "markers": ["Custom ASIC", "Marvell"] },
+      "enabled": true
+    },
+    {
+      "id": "marvell-custom-hbm",
+      "name": "Marvell Custom HBM Compute",
+      "tier": "primary-company",
+      "sourceClass": "official",
+      "url": "https://www.marvell.com/company/newsroom/marvell-announces-breakthrough-custom-hbm-compute-architecture.html",
+      "domains": ["marvell.com"],
+      "topics": ["custom-hbm", "base-die", "xpu", "advanced-packaging", "power-efficiency"],
+      "roles": ["partner", "technology", "memory", "demand"],
+      "languages": ["en"],
+      "freshnessHours": 336,
+      "discoveryQueries": ["site:marvell.com custom HBM compute architecture base die"],
+      "healthCheck": { "markers": ["custom HBM", "Marvell"] },
+      "enabled": true
+    },
+    {
       "id": "apple-ai-infra",
       "name": "Apple AI Infrastructure",
       "tier": "primary-customer",

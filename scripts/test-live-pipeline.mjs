@@ -43,6 +43,8 @@ const article = (title, url, date = "2026-07-20", summary = title, source = "Off
 assert.equal(DEMAND_ACCOUNT_REGISTRY.length, 27, "demand registry must contain exactly 27 accounts");
 assert.equal(STRATEGY_ACCOUNT_REGISTRY.filter((item) => item.focus !== false).length, 8, "strategy account registry must expose eight focus accounts");
 assert.ok(STRATEGY_ACCOUNT_REGISTRY.some((item) => item.id === "microsoft" && item.aliases.includes("maia 200")), "Maia must be an explicit account lens");
+assert.ok(STRATEGY_ACCOUNT_REGISTRY.some((item) => item.id === "broadcom" && item.layer === "asic-partner" && item.servesAccounts.includes("openai")), "Broadcom must roll up its end customers as an ASIC partner");
+assert.ok(STRATEGY_ACCOUNT_REGISTRY.some((item) => item.id === "marvell" && item.layer === "asic-partner"), "Marvell must be an explicit ASIC partner lens");
 assert.equal(new Set(DEMAND_ACCOUNT_REGISTRY.map((item) => item.id)).size, 27, "demand account ids must be unique");
 assert.equal(new Set(RELATION_ENTITY_REGISTRY.map((item) => item.id)).size, RELATION_ENTITY_REGISTRY.length, "relation entity ids must be unique");
 
@@ -90,6 +92,11 @@ const strategyAccountIntelligence = buildStrategyAccountIntelligence({
     article("NVIDIA Vera Rubin platform expands rack-scale AI", "https://official.example/nvidia", "2026-07-19"),
     article("Microsoft Maia 200 expands inference infrastructure", "https://official.example/maia", "2026-07-18"),
     article("AWS Trainium capacity expands", "https://official.example/trainium", "2026-07-17"),
+    article("Google TPU bandwidth and HBM capacity rise as Broadcom package qualification advances", "https://official.example/google-memory", "2026-07-19"),
+    article("Google TPU dual-source Samsung supplier agreement expands under a multi-year capacity commitment", "https://official.example/google-deal", "2026-07-19"),
+    article("Meta MTIA pricing and one-stop foundry packaging cost drive supplier review", "https://news.example/meta-risk", "2026-07-18", undefined, "Industry News", "news"),
+    article("Tesla robotics physical AI memory platform expands", "https://official.example/tesla-robotics", "2026-07-19"),
+    article("Tesla robotics physical AI memory deployment", "https://second.example/tesla-robotics", "2026-07-18", undefined, "Second Source", "news"),
   ],
   decisionIntelligence: { claimEvents: { events: [{
     ruleId: "partner-codesign", claimType: "verified-fact", contradictionStatus: "clear",
@@ -110,6 +117,17 @@ const supplierCells = strategyAccountIntelligence.supplierMatrix.rows.flatMap((r
 assert.ok(supplierCells.every((cell) => cell.claim !== "verified-fact"), "reported supplier relations must never be promoted to official facts");
 assert.ok(supplierCells.some((cell) => cell.status === "unconfirmed"), "missing supplier relations must remain fail closed");
 assert.equal(strategyAccountIntelligence.demandMix.externalEstimate.status, "separate-source-required", "crawl mix and external estimates must remain separate");
+assert.equal(strategyAccountIntelligence.schemaVersion, "2.0");
+assert.deepEqual(strategyAccountIntelligence.layerSummary.map((item) => item.id), ["end-customer", "asic-partner", "foundry-package"]);
+assert.ok(strategyAccountIntelligence.accounts.google.painAxes.find((item) => item.id === "bandwidth").mentions >= 1, "account alias plus technical term must classify bandwidth pain");
+assert.ok(strategyAccountIntelligence.accounts.meta.whyLost.find((item) => item.id === "pricing").mentions >= 1, "why-lost signals must be account scoped");
+assert.equal(strategyAccountIntelligence.accounts.google.generationProgression.status, "measured");
+assert.equal(strategyAccountIntelligence.accounts.google.generationProgression.bandwidthMultiplier, 2.67);
+assert.ok(strategyAccountIntelligence.partnerRollups.some((item) => item.partnerId === "broadcom" && item.accountIds.includes("openai")));
+assert.ok(strategyAccountIntelligence.deals.events.some((item) => item.accountId === "google" && item.eventType === "capacity-commitment"));
+assert.ok(strategyAccountIntelligence.supplierMatrix.alerts.some((item) => item.accountId === "google" && item.supplierId === "samsung" && item.changeType === "dual-source"));
+assert.equal(strategyAccountIntelligence.applicationSignals.find((item) => item.id === "robotics").promotionStatus, "ai-d-e-opportunity");
+assert.ok(strategyAccountIntelligence.executiveOnePagers.some((item) => item.accountId === "google" && item.topPainAxes.length));
 
 const brokerLive = buildBrokerResearch([
   article(

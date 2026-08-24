@@ -402,9 +402,79 @@ function accountHit(item = {}, account = {}) {
   return (account.aliases || []).some((alias) => aliasMatch(item.text, [alias]));
 }
 
+function taxonomyHit(item = {}, taxonomy = {}) {
+  return (taxonomy.aliases || []).some((alias) => exactTermMatch(item.text, alias));
+}
+
+function accountTechnicalHits(corpus = [], account = {}, taxonomy = [], now = new Date()) {
+  const accountRows = corpus.filter((item) => accountHit(item, account));
+  return taxonomy.map((axis) => {
+    const hits = accountRows.filter((item) => taxonomyHit(item, axis));
+    const weekly = weeklySeries(hits, 8, now);
+    const current = weekly.at(-1)?.count || 0;
+    const previous = weekly.at(-2)?.count || 0;
+    return {
+      id: axis.id,
+      index: axis.index,
+      label: axis.label,
+      accent: axis.accent,
+      productIds: axis.productIds || [],
+      mentions: hits.length,
+      sourceCount: new Set(hits.map(evidenceSourceId)).size,
+      weekly,
+      trend: current > previous ? "up" : current < previous ? "down" : "flat",
+      delta: current - previous,
+      latest: hits[0] || null,
+    };
+  }).sort((left, right) => right.mentions - left.mentions || right.sourceCount - left.sourceCount || String(left.index).localeCompare(String(right.index)));
+}
+
+function generationProgression(generations = []) {
+  const rows = (generations || []).filter((item) => Number.isFinite(Number(item.bandwidthTbps)) || Number.isFinite(Number(item.capacityGb)));
+  const latest = rows.at(-1) || null;
+  const previous = rows.at(-2) || null;
+  const ratio = (field) => {
+    const before = Number(previous?.[field]);
+    const after = Number(latest?.[field]);
+    return before > 0 && after > 0 ? Math.round(after / before * 100) / 100 : null;
+  };
+  return {
+    status: rows.length >= 2 ? "measured" : "insufficient",
+    generations: rows,
+    latest,
+    previous,
+    bandwidthMultiplier: ratio("bandwidthTbps"),
+    capacityMultiplier: ratio("capacityGb"),
+  };
+}
+
+function dealEventType(text = "") {
+  if (/prepay|prepayment|선급/i.test(text)) return "prepayment";
+  if (/capacity commitment|binding volume|물량 커밋|binding/i.test(text)) return "capacity-commitment";
+  if (/mou|memorandum|양해각서/i.test(text)) return "mou";
+  return "long-term-agreement";
+}
+
+function dealEvidenceStage(item = {}, lens = {}) {
+  const text = item.text || "";
+  const ranked = [...(lens.stages || [])].reverse().find((stage) => (stage.aliases || []).some((alias) => exactTermMatch(text, alias)));
+  if (ranked) return ranked.id;
+  return officialEvidence(item) ? "confirmed" : "reported";
+}
+
+function supplierChangeType(text = "") {
+  if (/disqualified|failed qualification|인증 탈락/i.test(text)) return "disqualified";
+  if (/qualified|인증 완료/i.test(text)) return "qualified";
+  if (/switch supplier|supplier switch|공급사 전환/i.test(text)) return "supplier-switch";
+  if (/dual-source|dual source|second source|이원화|세컨드 소스/i.test(text)) return "dual-source";
+  return "relationship-change";
+}
+
 export function buildStrategyAccountIntelligence(context = {}, previous = {}, nowInput = new Date()) {
   const now = new Date(nowInput);
   const corpus = strategyAccountCorpus(context, now, 56);
+  const painTaxonomy = STRATEGY_ACCOUNT_MODEL.painTaxonomy || [];
+  const whyLostTaxonomy = STRATEGY_ACCOUNT_MODEL.whyLostTaxonomy || [];
   const accounts = {};
   for (const account of STRATEGY_ACCOUNT_REGISTRY) {
     const hits = corpus.filter((item) => accountHit(item, account))
@@ -416,6 +486,11 @@ export function buildStrategyAccountIntelligence(context = {}, previous = {}, no
       officialEvidenceCount: hits.filter(officialEvidence).length,
       weekly: weeklySeries(hits, 8, now),
       latest: hits[0] || null,
+      layer: account.layer || "end-customer",
+      servesAccounts: account.servesAccounts || [],
+      painAxes: accountTechnicalHits(corpus, account, painTaxonomy, now),
+      whyLost: accountTechnicalHits(corpus, account, whyLostTaxonomy, now),
+      generationProgression: generationProgression(account.generations || []),
       evidence: hits.slice(0, 4).map((item) => ({
         title: item.title,
         source: item.source,
@@ -465,28 +540,120 @@ export function buildStrategyAccountIntelligence(context = {}, previous = {}, no
       asOf: promoted.event.asOf || promoted.event.publishedAt || null,
     } : { id: "UNVERIFIED", label: "고객 제안 단계 검토", sourceId: null, sourceUrl: null, asOf: null };
   }
-  const dealEvents = claimEvents.filter((event) => event.ruleId === STRATEGY_ACCOUNT_MODEL.dealSchema?.ruleId)
+  const claimDealEvents = claimEvents.filter((event) => event.ruleId === STRATEGY_ACCOUNT_MODEL.dealSchema?.ruleId)
     .filter((event) => /(?:LTA|long[- ]term|prepay|binding volume|contract|장기|선급|계약)/i.test(`${event.entity?.label || ""} ${event.product?.label || ""} ${event.evidenceSpan || ""}`))
     .map((event) => ({
       accountId: STRATEGY_ACCOUNT_REGISTRY.find((account) => accountHit({ text: normalizeText(`${event.entity?.label || ""} ${event.evidenceSpan || ""}`) }, account))?.id || null,
       status: event.claimType === "verified-fact" ? "official-fact" : "market-estimate",
+      evidenceStage: event.claimType === "verified-fact" ? "confirmed" : "reported",
+      eventType: dealEventType(`${event.entity?.label || ""} ${event.evidenceSpan || ""}`),
       source: event.source || "원문",
       sourceUrl: directUrl(event.sourceUrl),
       asOf: event.asOf || event.publishedAt || null,
       evidenceSpan: event.evidenceSpan || "",
     }));
+  const dealLens = STRATEGY_ACCOUNT_MODEL.dealEventLens || {};
+  const crawlDealEvents = corpus.filter((item) => (dealLens.terms || []).some((term) => exactTermMatch(item.text, term)))
+    .map((item) => {
+      const account = STRATEGY_ACCOUNT_REGISTRY.find((candidate) => accountHit(item, candidate));
+      if (!account) return null;
+      const evidenceStage = dealEvidenceStage(item, dealLens);
+      return {
+        accountId: account.id,
+        status: evidenceStage === "reported" ? "market-estimate" : "official-fact",
+        evidenceStage,
+        eventType: dealEventType(item.text),
+        source: item.source || "원문",
+        sourceUrl: directUrl(item.url),
+        asOf: item.date || null,
+        evidenceSpan: item.title || "계약 구조 변화",
+      };
+    }).filter(Boolean);
+  const dealEventSeen = new Set();
+  const dealEvents = [...claimDealEvents, ...crawlDealEvents]
+    .filter((event) => {
+      const key = `${event.accountId || ""}:${event.eventType || ""}:${event.sourceUrl || ""}:${event.asOf || ""}`;
+      if (dealEventSeen.has(key)) return false;
+      dealEventSeen.add(key);
+      return true;
+    })
+    .sort((left, right) => String(right.asOf || "").localeCompare(String(left.asOf || "")));
   const applicationSignals = (STRATEGY_ACCOUNT_MODEL.applicationMap || []).map((application) => {
     const hits = corpus.filter((item) => (application.aliases || []).some((alias) => exactTermMatch(item.text, alias)));
-    return { ...application, mentions: hits.length, weekly: weeklySeries(hits, 8, now), latest: hits[0] || null };
+    const sourceCount = new Set(hits.map(evidenceSourceId)).size;
+    const rule = application.promotionRule || {};
+    const promoted = hits.length >= Number(rule.minMentions || Infinity) && sourceCount >= Number(rule.minSources || Infinity);
+    return { ...application, mentions: hits.length, sourceCount, weekly: weeklySeries(hits, 8, now), latest: hits[0] || null, promotionStatus: promoted ? "ai-d-e-opportunity" : "monitoring" };
+  });
+  const supplierAliases = new Map((STRATEGY_ACCOUNT_MODEL.suppliers || []).map((supplier) => [supplier.id, supplier.aliases || [supplier.id, supplier.label]]));
+  const changeTerms = STRATEGY_ACCOUNT_MODEL.supplierChangeLens?.terms || [];
+  const supplierAlerts = corpus.flatMap((item) => {
+    if (!changeTerms.some((term) => exactTermMatch(item.text, term))) return [];
+    const account = STRATEGY_ACCOUNT_REGISTRY.find((candidate) => accountHit(item, candidate));
+    if (!account) return [];
+    return (STRATEGY_ACCOUNT_MODEL.suppliers || []).filter((supplier) => (supplierAliases.get(supplier.id) || []).some((alias) => exactTermMatch(item.text, alias)))
+      .map((supplier) => ({
+        accountId: account.id,
+        supplierId: supplier.id,
+        changeType: supplierChangeType(item.text),
+        status: officialEvidence(item) ? "official-fact" : "market-estimate",
+        source: item.source,
+        sourceUrl: item.url,
+        asOf: item.date,
+        title: item.title,
+      }));
+  }).sort((left, right) => String(right.asOf || "").localeCompare(String(left.asOf || "")));
+  const partnerRollups = STRATEGY_ACCOUNT_REGISTRY.filter((account) => account.layer === "asic-partner").map((partner) => {
+    const served = (partner.servesAccounts || []).map((id) => accounts[id]).filter(Boolean);
+    const axisTotals = painTaxonomy.map((axis) => ({
+      id: axis.id,
+      label: axis.label,
+      mentions: served.reduce((sum, item) => sum + Number(item.painAxes?.find((row) => row.id === axis.id)?.mentions || 0), 0),
+    })).sort((left, right) => right.mentions - left.mentions);
+    return {
+      partnerId: partner.id,
+      layer: partner.layer,
+      accountIds: partner.servesAccounts || [],
+      accountCount: served.length,
+      buyingCriteria: partner.buyingCriteria || [],
+      topPainAxes: axisTotals.slice(0, 3),
+    };
+  });
+  const executiveOnePagers = focusAccounts.map((account) => {
+    const intelligence = accounts[account.id] || {};
+    const topPainAxes = (intelligence.painAxes || []).filter((axis) => axis.mentions > 0).slice(0, 3);
+    const recommendedProductIds = [...new Set(topPainAxes.flatMap((axis) => axis.productIds || []))];
+    return {
+      accountId: account.id,
+      headline: `${account.company} · ${account.chip}`,
+      layer: account.layer || "end-customer",
+      decisionQuestion: account.gate,
+      topPainAxes,
+      whyLost: (intelligence.whyLost || []).filter((item) => item.mentions > 0).slice(0, 2),
+      generationProgression: intelligence.generationProgression,
+      recommendedProductIds,
+      dealEvents: dealEvents.filter((event) => event.accountId === account.id).slice(0, 3),
+      supplierAlerts: supplierAlerts.filter((event) => event.accountId === account.id).slice(0, 3),
+      evidence: intelligence.evidence || [],
+    };
   });
   return {
-    schemaVersion: "1.0",
+    schemaVersion: "2.0",
     registryVersion: STRATEGY_ACCOUNT_MODEL.registryVersion,
     updatedAt: now.toISOString(),
     windowDays: 56,
     accountCount: STRATEGY_ACCOUNT_REGISTRY.length,
     focusAccountCount: focusAccounts.length,
     accounts,
+    layerModel: STRATEGY_ACCOUNT_MODEL.layerModel || {},
+    layerSummary: (STRATEGY_ACCOUNT_MODEL.layerModel?.layers || []).map((layer) => ({
+      ...layer,
+      accountIds: STRATEGY_ACCOUNT_REGISTRY.filter((account) => account.layer === layer.id).map((account) => account.id),
+    })),
+    painTaxonomy,
+    whyLostTaxonomy,
+    partnerRollups,
+    executiveOnePagers,
     demandMix: {
       label: "GPU · ASIC CUSTOMER PORTFOLIO",
       measurement: "동일 크롤 Corpus 내 계정 언급 비중",
@@ -500,9 +667,11 @@ export function buildStrategyAccountIntelligence(context = {}, previous = {}, no
         accountId: account.id,
         cells: (STRATEGY_ACCOUNT_MODEL.suppliers || []).map((supplier) => {
           const relation = (STRATEGY_ACCOUNT_MODEL.supplierRelations || []).find((item) => item.accountId === account.id && item.supplierId === supplier.id);
-          return relation || { accountId: account.id, supplierId: supplier.id, status: "unconfirmed", sourceId: null, asOf: null };
+          const alerts = supplierAlerts.filter((item) => item.accountId === account.id && item.supplierId === supplier.id).slice(0, 3);
+          return { ...(relation || { accountId: account.id, supplierId: supplier.id, status: "unconfirmed", sourceId: null, asOf: null }), alerts, latestAlert: alerts[0] || null };
         }),
       })),
+      alerts: supplierAlerts,
     },
     deals: {
       schema: STRATEGY_ACCOUNT_MODEL.dealSchema || {},
@@ -513,7 +682,7 @@ export function buildStrategyAccountIntelligence(context = {}, previous = {}, no
     applicationSignals,
     roadmap90d: STRATEGY_ACCOUNT_MODEL.roadmap90d || [],
     previousUpdatedAt: previous?.updatedAt || null,
-    method: "accounts.json aliases → direct-link corpus tagging → weekly measured mentions; stages, supplier relations and deals remain fail-closed until evidence is linked",
+    method: "계정 별칭 1개 + 기술·계약·공급변화 용어 1개 교차 → MECE Pain·Why-lost·Deal·Supplier Alert 분류; 관계 승격은 근거 단계별 fail-closed",
   };
 }
 

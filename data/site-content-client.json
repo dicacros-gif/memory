@@ -211,16 +211,16 @@
     "evidenceCount": 79,
     "briefCount": 6,
     "sourceCount": 5,
-    "configuredSources": 61,
+    "configuredSources": 63,
     "observedSources": 5,
     "freshObservedSources": 5,
     "staleObservedSources": 0,
-    "officialConfigured": 49,
+    "officialConfigured": 51,
     "officialObserved": 1,
     "officialFreshObserved": 1,
-    "discoveryQueries": 67,
+    "discoveryQueries": 69,
     "connectedHealthChecks": 15,
-    "healthChecks": 33,
+    "healthChecks": 35,
     "scheduleHours": 1,
     "browserRecheckMinutes": 5,
     "sourceCatalogVersion": "1.0"
@@ -289,9 +289,9 @@
     "coverage": {
       "status": "LOW",
       "observed": 5,
-      "configured": 61,
-      "ratio": 0.082,
-      "freshRatio": 0.082
+      "configured": 63,
+      "ratio": 0.079,
+      "freshRatio": 0.079
     },
     "confidence": {
       "status": "REVIEW",
@@ -368,11 +368,11 @@
         "executionTrackingBriefs": 0
       },
       "catalogCoverage": {
-        "configured": 61,
+        "configured": 63,
         "observed": 5,
         "fresh": 5,
-        "observationRatePct": 8.2,
-        "officialConfigured": 49,
+        "observationRatePct": 7.9,
+        "officialConfigured": 51,
         "officialObserved": 1,
         "officialFresh": 1,
         "targetPct": 90
@@ -1432,6 +1432,501 @@
           "pain": "Edge Compute의 전력·방사선·통신·신뢰성",
           "memory": "Low-power DRAM/NAND · AI-D E 후보",
           "accent": "#566678"
+        }
+      ],
+      "broadcomEcosystem": {
+        "eyebrow": "BROADCOM XPU ACCOUNT STRATEGY",
+        "title": "공통 XPU 파트너 · 고객별 Memory 전략은 분리",
+        "description": "OpenAI·Meta의 공식 공동개발과 Google의 시장 보도를 분리하고, 고객별 Workload·HBM·Package·Network Pain을 독립 관리",
+        "decisionFlow": [
+          {
+            "index": "01",
+            "label": "ACCOUNT",
+            "value": "고객 AI 서비스·Chip Roadmap"
+          },
+          {
+            "index": "02",
+            "label": "PAIN",
+            "value": "Memory Movement·대역폭·전력·Package"
+          },
+          {
+            "index": "03",
+            "label": "OPTION",
+            "value": "Custom HBM·AI-D·AI-N·Fabric"
+          },
+          {
+            "index": "04",
+            "label": "DEAL GATE",
+            "value": "Architecture Lock·Qualification·LTA"
+          }
+        ],
+        "evidencePolicy": "공식 공동개발과 시장 보도 관계를 색상·라벨로 분리",
+        "partner": {
+          "company": "Broadcom",
+          "accent": "#D05A2B",
+          "buyingCriteria": [
+            "BOM·NRE",
+            "원스톱 통합",
+            "Qualification 일정",
+            "Package Yield"
+          ]
+        },
+        "rollup": {
+          "buyingCriteria": [
+            "BOM·NRE",
+            "원스톱 통합",
+            "Qualification 일정",
+            "Package Yield"
+          ],
+          "topPainAxes": [
+            {
+              "id": "bandwidth",
+              "label": "대역폭",
+              "mentions": 0
+            },
+            {
+              "id": "capacity",
+              "label": "용량",
+              "mentions": 0
+            },
+            {
+              "id": "power-thermal",
+              "label": "전력·열",
+              "mentions": 0
+            }
+          ]
+        },
+        "accounts": [
+          {
+            "id": "google",
+            "company": "Google",
+            "chip": "TPU7x · Ironwood",
+            "accent": "#00A88F",
+            "pain": "MXU Feeding·Pod Data Movement·전력 효율",
+            "gate": "MXU Feeding · D2D · Pod TCO",
+            "painAxes": [
+              {
+                "id": "bandwidth",
+                "label": "대역폭",
+                "mentions": 0
+              },
+              {
+                "id": "capacity",
+                "label": "용량",
+                "mentions": 0
+              },
+              {
+                "id": "power-thermal",
+                "label": "전력·열",
+                "mentions": 0
+              },
+              {
+                "id": "package-foundry",
+                "label": "패키징·파운드리",
+                "mentions": 0
+              },
+              {
+                "id": "logic-boundary",
+                "label": "로직 경계",
+                "mentions": 0
+              }
+            ],
+            "broadcomStrategy": {
+              "status": "시장 보도",
+              "accountQuestion": "TPU7x의 192GB HBM·7.38TB/s 이후 세대에서 MXU Feeding과 Pod TCO를 어떻게 개선할 것인가",
+              "customerStrategy": "초대형 Pod · HBM/VMEM/Host 계층 · JAX/PyTorch 중심 Full-stack 최적화",
+              "pains": [
+                "Memory-bound Vector 연산",
+                "HBM↔VMEM↔Host Data Movement",
+                "9,216-chip Pod Fabric·전력"
+              ],
+              "proposal": [
+                "Custom HBM Base-Die 공동 최적화",
+                "AI-D B 기반 Host/CXL 계층",
+                "AI-N B 기반 대용량 Checkpoint·Retrieval"
+              ],
+              "gate90d": "공식 파트너 관계 확인 · Workload Trace · MXU Feeding GB/s/W · Package TCO",
+              "source": {
+                "name": "Google Cloud TPU",
+                "url": "https://docs.cloud.google.com/tpu/docs/tpu7x"
+              }
+            }
+          },
+          {
+            "id": "meta",
+            "company": "Meta",
+            "chip": "MTIA",
+            "accent": "#7656C9",
+            "pain": "추천·광고 추론의 HBM I/O·Chiplet·Package Scaling",
+            "gate": "Generation Roadmap · Package · TCO",
+            "painAxes": [
+              {
+                "id": "bandwidth",
+                "label": "대역폭",
+                "mentions": 0
+              },
+              {
+                "id": "capacity",
+                "label": "용량",
+                "mentions": 0
+              },
+              {
+                "id": "power-thermal",
+                "label": "전력·열",
+                "mentions": 0
+              },
+              {
+                "id": "package-foundry",
+                "label": "패키징·파운드리",
+                "mentions": 0
+              },
+              {
+                "id": "logic-boundary",
+                "label": "로직 경계",
+                "mentions": 0
+              }
+            ],
+            "broadcomStrategy": {
+              "status": "공식 협력",
+              "accountQuestion": "6개월 이하 세대 전환 속도에서 Memory Bandwidth·Capacity·전력을 어떻게 동시 확장할 것인가",
+              "customerStrategy": "Inference-first · 다세대 MTIA · OCP·PyTorch·vLLM 기반 빠른 배포",
+              "pains": [
+                "세대별 Memory Bandwidth 확대",
+                "Inference Cost/Task",
+                "Rack 호환성과 빠른 Qualification"
+              ],
+              "proposal": [
+                "MTIA 세대별 Custom HBM Requirement Matrix",
+                "AI-D O/B 기반 Warm Memory",
+                "AI-N P 기반 Inference Data Tier"
+              ],
+              "gate90d": "MTIA Generation Map · p95/Goodput/W · Package Readiness · Qualification Owner",
+              "source": {
+                "name": "Broadcom × Meta MTIA",
+                "url": "https://investors.broadcom.com/node/64236/pdf"
+              }
+            }
+          },
+          {
+            "id": "openai",
+            "company": "OpenAI",
+            "chip": "OpenAI-designed AI accelerator",
+            "accent": "#4A6B78",
+            "pain": "LLM Inference의 Memory Movement·Utilization·전력·Reliability",
+            "gate": "Memory Balance · Tape-out · 2026 Deployment",
+            "painAxes": [
+              {
+                "id": "bandwidth",
+                "label": "대역폭",
+                "mentions": 0
+              },
+              {
+                "id": "capacity",
+                "label": "용량",
+                "mentions": 0
+              },
+              {
+                "id": "power-thermal",
+                "label": "전력·열",
+                "mentions": 0
+              },
+              {
+                "id": "package-foundry",
+                "label": "패키징·파운드리",
+                "mentions": 0
+              },
+              {
+                "id": "logic-boundary",
+                "label": "로직 경계",
+                "mentions": 0
+              }
+            ],
+            "broadcomStrategy": {
+              "status": "공식 협력",
+              "accountQuestion": "10GW Custom Accelerator 배포에서 Memory Movement·Ethernet Scale-up/out·전력 효율을 어떻게 잠글 것인가",
+              "customerStrategy": "OpenAI 설계 Accelerator · Broadcom Silicon·Ethernet · 2026 H2 이후 Rack 배포",
+              "pains": [
+                "Inference Memory Movement",
+                "10GW Ramp·Reliability",
+                "Accelerator↔Network 균형"
+              ],
+              "proposal": [
+                "Custom HBM·Base-Die Dataflow 공동설계",
+                "AI-D B 공유 Memory Pool",
+                "AI-N P/B 기반 Retrieval·Checkpoint Tier"
+              ],
+              "gate90d": "Architecture Lock · Memory Balance · Reliability SLO · Ramp·Capacity 계약",
+              "source": {
+                "name": "OpenAI Infrastructure",
+                "url": "https://openai.com/index/openai-and-broadcom-announce-strategic-collaboration/"
+              }
+            }
+          }
+        ]
+      },
+      "layerModel": {
+        "title": "CUSTOM SILICON DECISION CHAIN",
+        "description": "최종고객의 성능·TCO 요구를 ASIC 설계사의 원가·일정·통합 기준과 파운드리·패키지 실행 제약으로 연결",
+        "layers": [
+          {
+            "id": "end-customer",
+            "index": "01",
+            "label": "END CUSTOMER",
+            "buyingCriteria": [
+              "Workload 성능",
+              "전력·TCO",
+              "서비스 신뢰성",
+              "Capacity"
+            ]
+          },
+          {
+            "id": "asic-partner",
+            "index": "02",
+            "label": "ASIC PARTNER",
+            "buyingCriteria": [
+              "BOM·NRE",
+              "Time-to-Market",
+              "HBM·Package 통합",
+              "Qualification"
+            ]
+          },
+          {
+            "id": "foundry-package",
+            "index": "03",
+            "label": "FOUNDRY · PACKAGE",
+            "buyingCriteria": [
+              "공정 Slot",
+              "수율",
+              "CoWoS·기판",
+              "Ramp 일정"
+            ]
+          }
+        ],
+        "supplyLayer": {
+          "label": "MEMORY SUPPLIERS",
+          "accountIds": [
+            "skhynix",
+            "samsung",
+            "micron",
+            "cxmt"
+          ]
+        },
+        "summary": [
+          {
+            "id": "end-customer",
+            "index": "01",
+            "label": "END CUSTOMER",
+            "buyingCriteria": [
+              "Workload 성능",
+              "전력·TCO",
+              "서비스 신뢰성",
+              "Capacity"
+            ],
+            "accountIds": [
+              "nvidia",
+              "google",
+              "microsoft",
+              "aws",
+              "meta",
+              "tesla",
+              "apple",
+              "openai",
+              "anthropic",
+              "spacex"
+            ]
+          },
+          {
+            "id": "asic-partner",
+            "index": "02",
+            "label": "ASIC PARTNER",
+            "buyingCriteria": [
+              "BOM·NRE",
+              "Time-to-Market",
+              "HBM·Package 통합",
+              "Qualification"
+            ],
+            "accountIds": [
+              "broadcom",
+              "marvell"
+            ]
+          },
+          {
+            "id": "foundry-package",
+            "index": "03",
+            "label": "FOUNDRY · PACKAGE",
+            "buyingCriteria": [
+              "공정 Slot",
+              "수율",
+              "CoWoS·기판",
+              "Ramp 일정"
+            ],
+            "accountIds": [
+              "tsmc"
+            ]
+          }
+        ],
+        "partnerRollups": [
+          {
+            "partnerId": "broadcom",
+            "layer": "asic-partner",
+            "accountIds": [
+              "google",
+              "meta",
+              "openai"
+            ],
+            "accountCount": 3,
+            "buyingCriteria": [
+              "BOM·NRE",
+              "원스톱 통합",
+              "Qualification 일정",
+              "Package Yield"
+            ],
+            "topPainAxes": [
+              {
+                "id": "bandwidth",
+                "label": "대역폭",
+                "mentions": 0
+              },
+              {
+                "id": "capacity",
+                "label": "용량",
+                "mentions": 0
+              },
+              {
+                "id": "power-thermal",
+                "label": "전력·열",
+                "mentions": 0
+              }
+            ]
+          },
+          {
+            "partnerId": "marvell",
+            "layer": "asic-partner",
+            "accountIds": [
+              "aws",
+              "microsoft"
+            ],
+            "accountCount": 2,
+            "buyingCriteria": [
+              "PPA·TCO",
+              "NRE",
+              "3nm·Package 일정",
+              "HBM Interface Power"
+            ],
+            "topPainAxes": [
+              {
+                "id": "bandwidth",
+                "label": "대역폭",
+                "mentions": 0
+              },
+              {
+                "id": "capacity",
+                "label": "용량",
+                "mentions": 0
+              },
+              {
+                "id": "power-thermal",
+                "label": "전력·열",
+                "mentions": 0
+              }
+            ]
+          }
+        ]
+      },
+      "executiveOnePagers": [
+        {
+          "accountId": "nvidia",
+          "headline": "NVIDIA · Vera Rubin",
+          "layer": "end-customer",
+          "decisionQuestion": "Qualification · Ramp · Package Capacity",
+          "topPainAxes": [
+            {
+              "id": "capacity",
+              "label": "용량",
+              "mentions": 2
+            },
+            {
+              "id": "bandwidth",
+              "label": "대역폭",
+              "mentions": 1
+            }
+          ],
+          "whyLost": [
+            {
+              "id": "pricing",
+              "label": "가격 정책",
+              "mentions": 1
+            }
+          ],
+          "recommendedProductIds": [
+            "ai-d-b",
+            "ai-n-d",
+            "custom-hbm",
+            "ai-n-b"
+          ]
+        },
+        {
+          "accountId": "google",
+          "headline": "Google · TPU7x · Ironwood",
+          "layer": "end-customer",
+          "decisionQuestion": "MXU Feeding · D2D · Pod TCO",
+          "topPainAxes": [],
+          "whyLost": [],
+          "recommendedProductIds": []
+        },
+        {
+          "accountId": "microsoft",
+          "headline": "Microsoft · Maia 200",
+          "layer": "end-customer",
+          "decisionQuestion": "Model Portability · Region Ramp · TCO",
+          "topPainAxes": [],
+          "whyLost": [],
+          "recommendedProductIds": []
+        },
+        {
+          "accountId": "aws",
+          "headline": "Amazon AWS · Trainium3",
+          "layer": "end-customer",
+          "decisionQuestion": "Neuron Runtime · UltraServer Goodput/TCO",
+          "topPainAxes": [],
+          "whyLost": [],
+          "recommendedProductIds": []
+        },
+        {
+          "accountId": "meta",
+          "headline": "Meta · MTIA",
+          "layer": "end-customer",
+          "decisionQuestion": "Generation Roadmap · Package · TCO",
+          "topPainAxes": [],
+          "whyLost": [],
+          "recommendedProductIds": []
+        },
+        {
+          "accountId": "tesla",
+          "headline": "Tesla · AI5 · Dojo",
+          "layer": "end-customer",
+          "decisionQuestion": "Silicon Sample · Vehicle Validation · Ramp",
+          "topPainAxes": [],
+          "whyLost": [],
+          "recommendedProductIds": []
+        },
+        {
+          "accountId": "apple",
+          "headline": "Apple · Apple Silicon · Private Cloud Compute",
+          "layer": "end-customer",
+          "decisionQuestion": "Workload Placement · Privacy · Energy/Task",
+          "topPainAxes": [],
+          "whyLost": [],
+          "recommendedProductIds": []
+        },
+        {
+          "accountId": "spacex",
+          "headline": "SpaceX · Starlink Silicon · STARMIND",
+          "layer": "end-customer",
+          "decisionQuestion": "공식 Memory Spec · Qualification · Volume",
+          "topPainAxes": [],
+          "whyLost": [],
+          "recommendedProductIds": []
         }
       ]
     }

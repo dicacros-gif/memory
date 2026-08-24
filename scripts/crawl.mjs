@@ -4747,13 +4747,66 @@ function compactDecisionIntelligenceForInitial(content = {}) {
  * operating models hydrate immediately afterwards without blocking paint.
  */
 function splitSiteContentForClient(content = {}) {
-  const initialAccounts = (content.strategyBoard?.customerPortfolio?.focusAccounts || []).map((account) => ({
+  const portfolio = content.strategyBoard?.customerPortfolio || {};
+  const compactAxis = (axis = {}) => ({
+    id: axis.id || null,
+    label: axis.label || null,
+    mentions: Number(axis.mentions || 0),
+  });
+  const initialAccounts = (portfolio.focusAccounts || []).map((account) => ({
     id: account.id || null,
     company: account.company || null,
     chip: account.chip || null,
     pain: account.pain || null,
     memory: account.memory || null,
     accent: account.accent || null,
+  }));
+  const ecosystem = portfolio.broadcomEcosystem || {};
+  const initialEcosystem = {
+    eyebrow: ecosystem.eyebrow || null,
+    title: ecosystem.title || null,
+    description: ecosystem.description || null,
+    decisionFlow: ecosystem.decisionFlow || [],
+    evidencePolicy: ecosystem.evidencePolicy || null,
+    partner: ecosystem.partner ? {
+      company: ecosystem.partner.company || null,
+      accent: ecosystem.partner.accent || null,
+      buyingCriteria: ecosystem.partner.buyingCriteria || [],
+    } : null,
+    rollup: ecosystem.rollup ? {
+      buyingCriteria: ecosystem.rollup.buyingCriteria || [],
+      topPainAxes: (ecosystem.rollup.topPainAxes || []).map(compactAxis),
+    } : null,
+    accounts: (ecosystem.accounts || []).map((account) => ({
+      id: account.id || null,
+      company: account.company || null,
+      chip: account.chip || null,
+      accent: account.accent || null,
+      pain: account.pain || null,
+      gate: account.gate || null,
+      painAxes: (account.painAxes || []).map(compactAxis),
+      broadcomStrategy: account.broadcomStrategy ? {
+        status: account.broadcomStrategy.status || null,
+        accountQuestion: account.broadcomStrategy.accountQuestion || null,
+        customerStrategy: account.broadcomStrategy.customerStrategy || null,
+        pains: account.broadcomStrategy.pains || [],
+        proposal: account.broadcomStrategy.proposal || [],
+        gate90d: account.broadcomStrategy.gate90d || null,
+        source: account.broadcomStrategy.source ? {
+          name: account.broadcomStrategy.source.name || null,
+          url: account.broadcomStrategy.source.url || null,
+        } : null,
+      } : null,
+    })),
+  };
+  const initialOnePagers = (portfolio.executiveOnePagers || []).map((page) => ({
+    accountId: page.accountId || null,
+    headline: page.headline || null,
+    layer: page.layer || null,
+    decisionQuestion: page.decisionQuestion || null,
+    topPainAxes: (page.topPainAxes || []).map(compactAxis),
+    whyLost: (page.whyLost || []).map(compactAxis),
+    recommendedProductIds: page.recommendedProductIds || [],
   }));
   const siteContent = {
     schemaVersion: content.schemaVersion,
@@ -4773,7 +4826,12 @@ function splitSiteContentForClient(content = {}) {
     competitors: content.competitors,
     partnerSpotlight: content.partnerSpotlight,
     strategyBoard: {
-      customerPortfolio: { focusAccounts: initialAccounts },
+      customerPortfolio: {
+        focusAccounts: initialAccounts,
+        broadcomEcosystem: initialEcosystem,
+        layerModel: portfolio.layerModel || {},
+        executiveOnePagers: initialOnePagers,
+      },
     },
     caseClassification: content.caseClassification,
     agentCouncil: {
@@ -4815,6 +4873,10 @@ export function buildClientDataBundle({ payload = {}, quant = {}, priceHistory =
   const landingDecision = buildLandingDecisionClient({ payload, quant });
   const fullSiteContent = buildSiteContentClient({ payload, quant });
   const { siteContent, siteContentExtended } = splitSiteContentForClient(fullSiteContent);
+  const clientRevision = createHash("sha256")
+    .update(JSON.stringify({ runId, landingDecision, siteContent, siteContentExtended }))
+    .digest("hex")
+    .slice(0, 16);
   const artifacts = {
     live: { path: "data/live-client.json", bytes: Buffer.byteLength(JSON.stringify(live), "utf8") },
     quant: { path: "data/quant-client.json", bytes: Buffer.byteLength(JSON.stringify(clientQuant), "utf8") },
@@ -4832,7 +4894,7 @@ export function buildClientDataBundle({ payload = {}, quant = {}, priceHistory =
       runId,
       generatedAt: payload.updatedAt || quant.updatedAt || null,
       expiresAt: payload.expiresAt || quant.expiresAt || null,
-      cacheVersion: runId || payload.updatedAt || "unknown",
+      cacheVersion: `${runId || "run"}-${clientRevision}`,
       artifacts,
     },
     live,

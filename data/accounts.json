@@ -1,5 +1,5 @@
 {
-  "schemaVersion": "1.0",
+  "schemaVersion": "2.0",
   "registryVersion": "2026-08-24",
   "title": "Account Intelligence",
   "description": "고객 AI Chip Roadmap을 Pain Point·Memory Requirement·Deal Gate로 연결",
@@ -20,6 +20,7 @@
     "eyebrow": "BROADCOM XPU ACCOUNT STRATEGY",
     "title": "공통 XPU 파트너 · 고객별 Memory 전략은 분리",
     "description": "OpenAI·Meta의 공식 공동개발과 Google의 시장 보도를 분리하고, 고객별 Workload·HBM·Package·Network Pain을 독립 관리",
+    "partnerAccountId": "broadcom",
     "accountIds": ["google", "meta", "openai"],
     "decisionFlow": [
       { "index": "01", "label": "ACCOUNT", "value": "고객 AI 서비스·Chip Roadmap" },
@@ -28,6 +29,40 @@
       { "index": "04", "label": "DEAL GATE", "value": "Architecture Lock·Qualification·LTA" }
     ],
     "evidencePolicy": "공식 공동개발과 시장 보도 관계를 색상·라벨로 분리"
+  },
+  "layerModel": {
+    "title": "CUSTOM SILICON DECISION CHAIN",
+    "description": "최종고객의 성능·TCO 요구를 ASIC 설계사의 원가·일정·통합 기준과 파운드리·패키지 실행 제약으로 연결",
+    "layers": [
+      { "id": "end-customer", "index": "01", "label": "END CUSTOMER", "buyingCriteria": ["Workload 성능", "전력·TCO", "서비스 신뢰성", "Capacity"] },
+      { "id": "asic-partner", "index": "02", "label": "ASIC PARTNER", "buyingCriteria": ["BOM·NRE", "Time-to-Market", "HBM·Package 통합", "Qualification"] },
+      { "id": "foundry-package", "index": "03", "label": "FOUNDRY · PACKAGE", "buyingCriteria": ["공정 Slot", "수율", "CoWoS·기판", "Ramp 일정"] }
+    ],
+    "supplyLayer": { "label": "MEMORY SUPPLIERS", "accountIds": ["skhynix", "samsung", "micron", "cxmt"] }
+  },
+  "painTaxonomy": [
+    { "id": "bandwidth", "index": "01", "label": "대역폭", "aliases": ["bandwidth", "tb/s", "gb/s", "feeding", "mxu", "tpot", "memory wall", "대역폭"], "productIds": ["custom-hbm", "ai-n-b"], "accent": "#2D6BFF" },
+    { "id": "capacity", "index": "02", "label": "용량", "aliases": ["capacity", "memory pool", "gb hbm", "kv cache", "context", "12-high", "12-hi", "용량", "캐시"], "productIds": ["ai-d-b", "ai-n-d"], "accent": "#7656C9" },
+    { "id": "power-thermal", "index": "03", "label": "전력·열", "aliases": ["power", "watt", "thermal", "heat", "pin speed", "efficiency", "cooling", "전력", "발열", "냉각"], "productIds": ["ai-d-o"], "accent": "#00A88F" },
+    { "id": "package-foundry", "index": "04", "label": "패키징·파운드리", "aliases": ["cowos", "packaging", "package capacity", "3nm", "4nm", "foundry", "substrate", "yield", "파운드리", "패키징", "수율", "기판"], "productIds": ["custom-hbm"], "accent": "#C88600" },
+    { "id": "logic-boundary", "index": "05", "label": "로직 경계", "aliases": ["chiplet", "base die", "logic die", "phy", "controller", "die-to-die", "d2d", "칩렛", "베이스 다이", "로직 다이"], "productIds": ["custom-hbm"], "accent": "#D05A2B" }
+  ],
+  "whyLostTaxonomy": [
+    { "id": "pricing", "index": "01", "label": "가격 정책", "aliases": ["pricing", "price", "margin", "cost", "asp", "원가", "가격", "마진"] },
+    { "id": "one-stop", "index": "02", "label": "원스톱 통합", "aliases": ["one-stop", "turnkey", "foundry and packaging", "integrated supply", "통합 공급", "원스톱", "파운드리·패키징"] },
+    { "id": "spec-gate", "index": "03", "label": "스펙 게이트", "aliases": ["pin speed", "qualification", "disqualified", "failed qualification", "specification", "인증 미달", "스펙"] },
+    { "id": "diversification", "index": "04", "label": "의도적 다변화", "aliases": ["dual-source", "dual source", "second source", "multi-vendor", "supplier diversification", "이원화", "다변화", "세컨드 소스"] }
+  ],
+  "dealEventLens": {
+    "terms": ["long-term agreement", "long term agreement", "lta", "prepayment", "capacity commitment", "binding volume", "mou", "multi-year", "장기공급계약", "선급금", "물량 커밋", "다년 계약"],
+    "stages": [
+      { "id": "reported", "label": "보도", "aliases": ["reportedly", "sources said", "보도", "전망"] },
+      { "id": "confirmed", "label": "확인", "aliases": ["announced", "agreement", "signed", "발표", "체결"] },
+      { "id": "filing", "label": "공시", "aliases": ["filing", "sec", "10-k", "8-k", "공시", "사업보고서"] }
+    ]
+  },
+  "supplierChangeLens": {
+    "terms": ["dual-source", "dual source", "switch supplier", "supplier switch", "qualified", "disqualified", "second source", "이원화", "공급사 전환", "인증 완료", "인증 탈락", "세컨드 소스"]
   },
   "projects": [
     {
@@ -82,7 +117,7 @@
   "stageOrder": ["UNVERIFIED", "REQUEST", "DESIGN", "QUALIFICATION", "PRODUCTION"],
   "accounts": [
     {
-      "id": "nvidia", "focus": true, "demandClass": "gpu", "group": "gpu", "company": "NVIDIA", "chip": "Vera Rubin",
+      "id": "nvidia", "layer": "end-customer", "focus": true, "demandClass": "gpu", "group": "gpu", "company": "NVIDIA", "chip": "Vera Rubin",
       "aliases": ["nvidia", "엔비디아", "vera rubin", "rubin", "nvlink", "nvl72"],
       "sourceIds": ["nvidia-newsroom", "skhynix-newsroom"], "claimRuleIds": ["customer-silicon-roadmap", "partner-codesign"],
       "baseline": [{ "label": "PLATFORM", "value": "Vera Rubin", "sourceId": "nvidia-newsroom" }],
@@ -91,10 +126,14 @@
       "relationship": "공식 파트너십 근거만 연결", "accent": "#2D6BFF"
     },
     {
-      "id": "google", "focus": true, "demandClass": "asic", "group": "hyperscaler-asic", "company": "Google", "chip": "TPU7x · Ironwood",
+      "id": "google", "layer": "end-customer", "focus": true, "demandClass": "asic", "group": "hyperscaler-asic", "company": "Google", "chip": "TPU7x · Ironwood",
       "aliases": ["google", "alphabet", "google cloud", "tpu", "tpu7", "ironwood"],
       "sourceIds": ["google-cloud-tpu", "broadcom-ai"], "claimRuleIds": ["customer-silicon-roadmap"],
       "baseline": [{ "label": "MEMORY", "value": "192GB HBM · 7.38TB/s", "sourceId": "google-cloud-tpu" }],
+      "generations": [
+        { "name": "TPU v5p", "capacityGb": 95, "bandwidthTbps": 2.765, "sourceId": "google-cloud-tpu" },
+        { "name": "TPU7x · Ironwood", "capacityGb": 192, "bandwidthTbps": 7.38, "sourceId": "google-cloud-tpu" }
+      ],
       "chipPortfolio": [{
         "name": "TPU7x · Ironwood", "type": "HYPERSCALER ASIC", "workload": "Training · Inference · MoE",
         "publicSpec": "192GB HBM · 7.38TB/s · 9,216-chip Pod", "memoryPain": "MXU Feeding · HBM/VMEM/Host Data Movement · Pod Fabric",
@@ -115,7 +154,7 @@
       }
     },
     {
-      "id": "microsoft", "focus": true, "demandClass": "asic", "group": "hyperscaler-asic", "company": "Microsoft", "chip": "Maia 200",
+      "id": "microsoft", "layer": "end-customer", "focus": true, "demandClass": "asic", "group": "hyperscaler-asic", "company": "Microsoft", "chip": "Maia 200",
       "aliases": ["microsoft", "azure", "maia", "maia 200", "마이크로소프트"],
       "sourceIds": ["microsoft-ai-infra"], "claimRuleIds": ["customer-silicon-roadmap"],
       "baseline": [{ "label": "MEMORY", "value": "216GB HBM3e · 7TB/s", "sourceId": "microsoft-ai-infra" }],
@@ -129,7 +168,7 @@
       "relationship": "HBM 공급 관계는 별도 직접 원문 필요", "accent": "#0A84B8"
     },
     {
-      "id": "aws", "focus": true, "demandClass": "asic", "group": "hyperscaler-asic", "company": "Amazon AWS", "chip": "Trainium3",
+      "id": "aws", "layer": "end-customer", "focus": true, "demandClass": "asic", "group": "hyperscaler-asic", "company": "Amazon AWS", "chip": "Trainium3",
       "aliases": ["amazon", "aws", "amazon web services", "trainium", "trn3", "neuron"],
       "sourceIds": ["aws-trainium"], "claimRuleIds": ["customer-silicon-roadmap"],
       "baseline": [{ "label": "MEMORY", "value": "144GB HBM3e · 4.9TB/s", "sourceId": "aws-trainium" }],
@@ -143,7 +182,7 @@
       "relationship": "공급사·물량 공개 검증 필요", "accent": "#C88600"
     },
     {
-      "id": "meta", "focus": true, "demandClass": "asic", "group": "hyperscaler-asic", "company": "Meta", "chip": "MTIA",
+      "id": "meta", "layer": "end-customer", "focus": true, "demandClass": "asic", "group": "hyperscaler-asic", "company": "Meta", "chip": "MTIA",
       "aliases": ["meta", "meta platforms", "mtia"],
       "sourceIds": ["meta-engineering", "broadcom-meta-mtia", "broadcom-ai"], "claimRuleIds": ["customer-silicon-roadmap"],
       "baseline": [{ "label": "PLATFORM", "value": "MTIA Roadmap", "sourceId": "meta-engineering" }],
@@ -162,7 +201,7 @@
       }
     },
     {
-      "id": "tesla", "focus": true, "demandClass": "asic", "group": "edge-physical", "company": "Tesla", "chip": "AI5 · Dojo",
+      "id": "tesla", "layer": "end-customer", "focus": true, "demandClass": "asic", "group": "edge-physical", "company": "Tesla", "chip": "AI5 · Dojo",
       "aliases": ["tesla", "테슬라", "ai5", "dojo", "optimus"],
       "sourceIds": ["tesla-ai"], "claimRuleIds": ["customer-silicon-roadmap"],
       "baseline": [{ "label": "PLATFORM", "value": "AI Silicon · Robotics", "sourceId": "tesla-ai" }],
@@ -171,7 +210,7 @@
       "relationship": "Memory 공급 관계 공개 검증 필요", "accent": "#E24545"
     },
     {
-      "id": "apple", "focus": true, "demandClass": "asic", "group": "edge-physical", "company": "Apple", "chip": "Apple Silicon · Private Cloud Compute",
+      "id": "apple", "layer": "end-customer", "focus": true, "demandClass": "asic", "group": "edge-physical", "company": "Apple", "chip": "Apple Silicon · Private Cloud Compute",
       "aliases": ["apple", "apple silicon", "private cloud compute", "apple intelligence", "애플"],
       "sourceIds": ["apple-ai-infra"], "claimRuleIds": ["customer-silicon-roadmap"],
       "baseline": [{ "label": "PLATFORM", "value": "On-device + Private Cloud", "sourceId": "apple-ai-infra" }],
@@ -185,16 +224,25 @@
       "relationship": "Custom HBM 요청은 시장 추정으로 격리", "accent": "#68758A"
     },
     {
-      "id": "broadcom", "focus": false, "demandClass": "ecosystem", "group": "design-ecosystem", "company": "Broadcom", "chip": "3.5D XDSiP · XPU",
+      "id": "broadcom", "layer": "asic-partner", "servesAccounts": ["google", "meta", "openai"], "focus": false, "demandClass": "ecosystem", "group": "design-ecosystem", "company": "Broadcom", "chip": "3.5D XDSiP · XPU",
       "aliases": ["broadcom", "3.5d", "xdsi", "xpu"],
       "sourceIds": ["broadcom-ai"], "claimRuleIds": ["customer-silicon-roadmap", "partner-codesign"],
       "baseline": [{ "label": "PACKAGE", "value": "3.5D XDSiP", "sourceId": "broadcom-ai" }],
       "stage": { "id": "PRODUCTION", "label": "공식 플랫폼", "sourceId": "broadcom-ai" },
       "pain": "Customer-owned Compute와 HBM PHY·Package·Network 통합", "memory": "Custom HBM · Logic Base Die · Package", "gate": "3자 Co-Design · Package Yield · NRE",
-      "relationship": "ASIC 설계 파트너를 Buying Center로 관리", "accent": "#D05A2B"
+      "relationship": "ASIC 설계 파트너를 Buying Center로 관리", "buyingCriteria": ["BOM·NRE", "원스톱 통합", "Qualification 일정", "Package Yield"], "accent": "#D05A2B"
     },
     {
-      "id": "openai", "focus": false, "demandClass": "asic", "group": "design-ecosystem", "company": "OpenAI", "chip": "OpenAI-designed AI accelerator",
+      "id": "marvell", "layer": "asic-partner", "servesAccounts": ["aws", "microsoft"], "focus": false, "demandClass": "ecosystem", "group": "design-ecosystem", "company": "Marvell", "chip": "Custom HBM XPU · Multi-chip",
+      "aliases": ["marvell", "custom hbm compute", "custom asic", "custom xpu"],
+      "sourceIds": ["marvell-custom-asic", "marvell-custom-hbm"], "claimRuleIds": ["customer-silicon-roadmap", "partner-codesign"],
+      "baseline": [{ "label": "ARCHITECTURE", "value": "Custom HBM · 3nm IP · Advanced Packaging", "sourceId": "marvell-custom-hbm" }],
+      "stage": { "id": "PRODUCTION", "label": "공식 Custom ASIC 플랫폼", "sourceId": "marvell-custom-asic" },
+      "pain": "XPU 성능·전력·HBM Base Die·Package를 하나의 설계 일정으로 잠금", "memory": "Custom HBM · Logic Base Die · Optical/CXL Fabric", "gate": "NRE · Interface Power · Package Yield · Time-to-Market",
+      "relationship": "클라우드 고객을 롤업하되 개별 고객 관계는 직접 근거로만 승격", "buyingCriteria": ["PPA·TCO", "NRE", "3nm·Package 일정", "HBM Interface Power"], "accent": "#9A5D21"
+    },
+    {
+      "id": "openai", "layer": "end-customer", "focus": false, "demandClass": "asic", "group": "design-ecosystem", "company": "OpenAI", "chip": "OpenAI-designed AI accelerator",
       "aliases": ["openai", "stargate", "custom accelerator", "intelligence processor"],
       "sourceIds": ["openai-infrastructure", "broadcom-ai"], "claimRuleIds": ["customer-silicon-roadmap"],
       "baseline": [{ "label": "PLATFORM", "value": "OpenAI 설계 · Broadcom 구현·Network", "sourceId": "openai-infrastructure" }],
@@ -213,7 +261,7 @@
       }
     },
     {
-      "id": "anthropic", "focus": false, "demandClass": "multi-platform-ai-lab", "group": "design-ecosystem", "company": "Anthropic", "chip": "AWS Trainium · Google TPU · NVIDIA GPU",
+      "id": "anthropic", "layer": "end-customer", "focus": false, "demandClass": "multi-platform-ai-lab", "group": "design-ecosystem", "company": "Anthropic", "chip": "AWS Trainium · Google TPU · NVIDIA GPU",
       "aliases": ["anthropic", "claude", "project rainier", "rainier"],
       "sourceIds": ["anthropic-compute", "anthropic-trainium", "aws-trainium", "google-cloud-tpu", "broadcom-ai"], "claimRuleIds": ["customer-silicon-roadmap", "partner-codesign"],
       "baseline": [{ "label": "CHIP MIX", "value": "Trainium · TPU · NVIDIA GPU", "sourceId": "anthropic-compute" }],
@@ -223,7 +271,7 @@
       "xpuEcosystem": { "partner": "Google · Broadcom", "status": "공식", "role": "2027년부터 차세대 TPU 다중 GW 용량 · Claude용 HBM 수요 추적", "sourceId": "anthropic-compute", "claim": "verified-fact" }
     },
     {
-      "id": "spacex", "focus": true, "demandClass": "asic", "group": "edge-physical", "company": "SpaceX", "chip": "Starlink Silicon · STARMIND",
+      "id": "spacex", "layer": "end-customer", "focus": true, "demandClass": "asic", "group": "edge-physical", "company": "SpaceX", "chip": "Starlink Silicon · STARMIND",
       "aliases": ["spacex", "space x", "starlink", "스페이스엑스"],
       "sourceIds": ["spacex-official", "spacex-ai-compute"], "claimRuleIds": ["customer-silicon-roadmap"],
       "baseline": [{ "label": "PLATFORM", "value": "Custom Silicon · Orbital AI Compute", "sourceId": "spacex-ai-compute" }],
@@ -235,13 +283,22 @@
       "stage": { "id": "REQUEST", "label": "Reference Monitor", "sourceId": "spacex-official" },
       "pain": "Edge Compute의 전력·방사선·통신·신뢰성", "memory": "Low-power DRAM/NAND · AI-D E 후보", "gate": "공식 Memory Spec · Qualification · Volume",
       "relationship": "공식 Memory 근거 전까지 Opportunity Watch", "accent": "#566678"
+    },
+    {
+      "id": "tsmc", "layer": "foundry-package", "servesAccounts": ["broadcom", "marvell"], "focus": false, "demandClass": "ecosystem", "group": "design-ecosystem", "company": "TSMC", "chip": "Logic Base Die · 3DFabric",
+      "aliases": ["tsmc", "3dfabric", "cowos", "logic base die"],
+      "sourceIds": ["tsmc-3dfabric"], "claimRuleIds": ["partner-codesign"],
+      "baseline": [{ "label": "ROLE", "value": "Logic Process · CoWoS · Advanced Packaging", "sourceId": "tsmc-3dfabric" }],
+      "stage": { "id": "PRODUCTION", "label": "공식 플랫폼", "sourceId": "tsmc-3dfabric" },
+      "pain": "최선단 로직 Slot·CoWoS 캐파·수율을 고객 Ramp와 동기화", "memory": "HBM Logic Base Die · 2.5D/3D Package", "gate": "Node Slot · Yield · Package Allocation",
+      "relationship": "특정 고객 공급 관계가 아니라 실행 제약 계층으로 관리", "buyingCriteria": ["공정 Slot", "수율", "CoWoS Capacity", "Ramp 일정"], "accent": "#68758A"
     }
   ],
   "suppliers": [
-    { "id": "skhynix", "label": "SK hynix" },
-    { "id": "samsung", "label": "Samsung", "sourceIds": ["samsung-semiconductor"] },
-    { "id": "micron", "label": "Micron", "sourceIds": ["micron-investor"] },
-    { "id": "cxmt", "label": "CXMT", "sourceIds": ["semi-analysis"] }
+    { "id": "skhynix", "label": "SK hynix", "aliases": ["sk hynix", "skhynix", "sk하이닉스", "하이닉스"] },
+    { "id": "samsung", "label": "Samsung", "aliases": ["samsung", "samsung electronics", "삼성전자", "삼성"], "sourceIds": ["samsung-semiconductor"] },
+    { "id": "micron", "label": "Micron", "aliases": ["micron", "마이크론"], "sourceIds": ["micron-investor"] },
+    { "id": "cxmt", "label": "CXMT", "aliases": ["cxmt", "changxin", "창신메모리"], "sourceIds": ["semi-analysis"] }
   ],
   "supplierRelationLegend": {
     "verified-fact": { "label": "공식", "note": "공급사 직접 원문 또는 고객 공식 공개" },
@@ -267,7 +324,7 @@
   ],
   "dealSchema": {
     "ruleId": "contract-structure",
-    "fields": ["accountId", "duration", "prepayment", "bindingVolume", "qualification", "supplierMix", "marginFloor", "sourceId", "asOf"],
+    "fields": ["accountId", "eventType", "evidenceStage", "duration", "prepayment", "bindingVolume", "qualification", "supplierMix", "marginFloor", "sourceId", "asOf"],
     "fallback": "공식 계약 조건 미공개"
   },
   "productMap": [
@@ -332,10 +389,11 @@
       { "label": "VALUE", "short": "V", "role": "선택될 실제 정보" }
     ],
     "flow": [
-      { "index": "01", "label": "PREFILL", "body": "입력 토큰 병렬 처리 · K/V 생성", "bottleneck": "Compute·Fabric" },
-      { "index": "02", "label": "CACHE", "body": "계산된 K/V를 계층별 저장", "bottleneck": "Capacity·Placement" },
-      { "index": "03", "label": "DECODE", "body": "토큰마다 누적 K/V 반복 조회", "bottleneck": "Bandwidth·Latency" },
-      { "index": "04", "label": "SERVICE", "body": "동시성·긴 Context·Agent 반복", "bottleneck": "TPOT·Goodput·Cost" }
+      { "index": "01", "label": "Q · K · V", "body": "현재 Query와 과거 Key·Value 관계 계산", "bottleneck": "Attention", "painAxis": "logic-boundary", "productIds": ["custom-hbm"] },
+      { "index": "02", "label": "AUTOREGRESSIVE", "body": "토큰을 하나씩 생성하며 과거 Context 참조", "bottleneck": "Sequence Length", "painAxis": "capacity", "productIds": ["ai-d-b"] },
+      { "index": "03", "label": "KV CACHE", "body": "재계산 대신 누적 Key·Value를 메모리에 저장", "bottleneck": "Capacity·Placement", "painAxis": "capacity", "productIds": ["ai-d-b", "ai-n-d"] },
+      { "index": "04", "label": "FULL CACHE READ", "body": "Decode마다 누적 Cache를 반복 조회", "bottleneck": "Bandwidth·Latency", "painAxis": "bandwidth", "productIds": ["custom-hbm", "ai-n-b"] },
+      { "index": "05", "label": "TPOT · GOODPUT", "body": "동시성·긴 Context가 서비스 단가를 결정", "bottleneck": "TPOT·Goodput·Cost", "painAxis": "power-thermal", "productIds": ["ai-d-o", "ai-n-p"] }
     ],
     "options": [
       { "tier": "SOFTWARE FIRST", "role": "PagedAttention·Prefix Reuse·Quantization·Eviction·Prefill/Decode 분리", "gate": "동일 품질·SLO에서 증설 대비 우위" },
@@ -347,9 +405,9 @@
     "decision": "SW 최적화 기준선 통과 후 Hot/Warm/Scale 계층 A/B Benchmark · 품질·지연·전력·비용을 동일 Workload로 비교"
   },
   "applicationMap": [
-    { "id": "robotics", "label": "ROBOTICS", "aliases": ["robot", "robotics", "physical ai", "로봇"], "productId": "ai-d-e" },
-    { "id": "autonomous", "label": "AUTONOMOUS", "aliases": ["autonomous", "self-driving", "adas", "자율주행"], "productId": "ai-d-e" },
-    { "id": "industrial", "label": "INDUSTRIAL AI", "aliases": ["industrial automation", "factory ai", "manufacturing ai", "산업 자동화"], "productId": "ai-d-e" }
+    { "id": "robotics", "label": "ROBOTICS", "aliases": ["robot", "robotics", "physical ai", "로봇"], "productId": "ai-d-e", "promotionRule": { "minMentions": 2, "minSources": 2 } },
+    { "id": "autonomous", "label": "AUTONOMOUS", "aliases": ["autonomous", "self-driving", "adas", "자율주행"], "productId": "ai-d-e", "promotionRule": { "minMentions": 2, "minSources": 2 } },
+    { "id": "industrial", "label": "INDUSTRIAL AI", "aliases": ["industrial automation", "factory ai", "manufacturing ai", "산업 자동화"], "productId": "ai-d-e", "promotionRule": { "minMentions": 2, "minSources": 2 } }
   ],
   "roadmap90d": [
     { "phase": "0–30D", "label": "REQUIREMENT LOCK", "output": "Account Fact Pack · Pain Map · Buying Criteria" },

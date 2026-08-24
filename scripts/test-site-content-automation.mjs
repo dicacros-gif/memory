@@ -40,9 +40,13 @@ assert.deepEqual(rebuilt.hero.titleLines, ["AI Infra Strategy", "Hyperscaler Roa
 assert.equal(rebuilt.hero.capabilities.length, 4, "the homepage strategy scope must cover four MECE workstreams");
 assert.equal(artifact.runId, payload.runId, "site content must use the verified live runId");
 assert.equal(manifest.runId, artifact.runId, "manifest and site content must be atomic");
+assert.match(manifest.cacheVersion, new RegExp(`^${manifest.runId}-[a-f0-9]{16}$`), "content hash must invalidate browser caches independently of runId");
 assert.equal(manifest.artifacts.siteContent.path, "data/site-content-client.json");
 assert.equal(manifest.artifacts.siteContentExtended.path, "data/site-content-extended-client.json");
 assert.equal(artifactExtended.runId, artifactCore.runId, "extended site content must share the atomic runId");
+assert.equal(artifactCore.strategyBoard.customerPortfolio.broadcomEcosystem.accounts.length, 3, "Broadcom roll-up must hydrate with the first console snapshot");
+assert.equal(artifactCore.strategyBoard.customerPortfolio.executiveOnePagers.length, 8, "account one-pagers must hydrate without waiting for the extended payload");
+assert.equal(artifactCore.strategyBoard.customerPortfolio.layerModel.layers.length, 3, "the three-level account chain must be available at first paint");
 assert.equal(artifact.generation.failClosed, true);
 assert.equal(artifact.schemaVersion, "1.1");
 const sectionIds = [...index.matchAll(/<section\b[^>]*\bid=["']([^"']+)["']/gi)].map((match) => match[1]);
@@ -150,7 +154,10 @@ assert.ok(
   ),
   "photonic computing must retain an explicit evidence class",
 );
-assert.equal(rebuilt.strategyBoard.customerPortfolio.accounts.length, 11);
+assert.equal(rebuilt.strategyBoard.customerPortfolio.accounts.length, 13);
+assert.deepEqual(rebuilt.strategyBoard.customerPortfolio.layerModel.summary.map((item) => item.id), ["end-customer", "asic-partner", "foundry-package"]);
+assert.ok(rebuilt.strategyBoard.customerPortfolio.layerModel.partnerRollups.some((item) => item.partnerId === "broadcom" && item.accountIds.includes("openai")));
+assert.ok(rebuilt.strategyBoard.customerPortfolio.accounts.some((item) => item.id === "marvell" && item.layer === "asic-partner"));
 assert.deepEqual(rebuilt.strategyBoard.customerPortfolio.groups.map((item) => item.id), ["gpu", "hyperscaler-asic", "design-ecosystem", "edge-physical"]);
 assert.ok(rebuilt.strategyBoard.customerPortfolio.accounts.every((item) => item.evidence?.status));
 assert.ok(rebuilt.strategyBoard.customerPortfolio.accounts.some((item) => item.company === "SpaceX"));
@@ -195,8 +202,9 @@ assert.ok(
 );
 assert.deepEqual(
   rebuilt.strategyBoard.customerPortfolio.transformerMemory.flow.map((item) => item.label),
-  ["PREFILL", "CACHE", "DECODE", "SERVICE"],
+  ["Q · K · V", "AUTOREGRESSIVE", "KV CACHE", "FULL CACHE READ", "TPOT · GOODPUT"],
 );
+assert.ok(rebuilt.strategyBoard.customerPortfolio.transformerMemory.flow.every((item) => item.painAxis && item.productIds?.length));
 assert.ok(rebuilt.strategyBoard.partners.models.length >= 3);
 assert.ok(rebuilt.strategyBoard.playbooks.length >= 3);
 const maasPlaybook = rebuilt.strategyBoard.playbooks.find((item) => /MaaS|Memory-as-a-Service/i.test(item.segment || ""));

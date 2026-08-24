@@ -13,6 +13,8 @@ const paths = {
   landingMinJs: "assets/js/landing.min.js",
   appJs: "assets/js/app.js",
   appMinJs: "assets/js/app.min.js",
+  accountOnePagerJs: "assets/js/account-one-pagers.js",
+  accountOnePagerMinJs: "assets/js/account-one-pagers.min.js",
 };
 
 const entries = await Promise.all(Object.entries(paths).map(async ([key, path]) => {
@@ -51,6 +53,8 @@ assert.match(files.html.text, /hbm-system\.webp" alt="" width="1920" height="107
 assert.doesNotMatch(files.html.text, /hbm-system\.webp"[^>]*fetchpriority="high"/);
 assert.doesNotMatch(files.landingJs.text, /rootMargin:\s*"0px 0px -8%"/);
 assert.match(files.appJs.text, /function scheduleProgressiveDeferredSections\(/);
+assert.match(files.appJs.text, /account-one-pagers\.min\.js\?v=/, "account views must be code split from the primary console bundle");
+assert.match(files.appJs.text, /window\.AccountStrategyViews/, "lazy account views must use a resilient classic-script fallback");
 assert.match(files.appJs.text, /DEFERRED_HEAVY_WARMUP_DELAY_MS\s*=\s*6_500/);
 assert.match(files.appJs.text, /waitForWarmupWindow\(definition\)[\s\S]*?preloadDeferredSectionData\(definition\.id\)/);
 assert.match(files.appJs.text, /function loadSecondaryData\(requirements = \[\], \{ sequential = false \} = \{\}\)[\s\S]*?ids\.reduce/);
@@ -86,6 +90,7 @@ for (const [sourceKey, minKey, minimumRawSaving] of [
 }
 
 assert.ok(files.appMinJs.gzipBytes < 300_000, "console JavaScript gzip budget must stay below 300KB");
+assert.ok(files.accountOnePagerMinJs.gzipBytes < 3_000, "lazy account views chunk must stay below 3KB gzip");
 assert.ok(files.stylesMinCss.gzipBytes < 106 * 1024, "console CSS gzip budget must stay below 106KiB");
 
 console.log(JSON.stringify({

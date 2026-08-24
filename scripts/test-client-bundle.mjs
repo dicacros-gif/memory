@@ -115,6 +115,7 @@ const bundle = buildClientDataBundle({ payload, quant, priceHistory, marketHisto
 const marketSummary = summarizeMarketHistory(marketHistory);
 
 assert.equal(bundle.manifest.runId, runId);
+assert.match(bundle.manifest.cacheVersion, new RegExp(`^${runId}-[a-f0-9]{16}$`), "cache version must change when the browser artifact contract changes");
 assert.deepEqual(Object.keys(bundle.manifest.artifacts).sort(), ["decisionHistory", "landingDecision", "live", "marketHistory", "priceHistory", "quant", "quantBacktest", "siteContent", "siteContentExtended"]);
 assert.equal(bundle.live.quant, undefined, "live client must not duplicate quant.json");
 assert.equal(bundle.live.priceHistory, undefined, "live client must not duplicate price history");

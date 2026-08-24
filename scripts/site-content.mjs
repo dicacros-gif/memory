@@ -232,6 +232,9 @@ function buildStrategyBoard(payload = {}, generatedAt = null, decisionIntelligen
     pillars: accountModel.pillars || [],
     asicPortfolio: accountModel.asicPortfolio || {},
     broadcomEcosystem: accountModel.broadcomEcosystem || {},
+    layerModel: accountModel.layerModel || {},
+    painTaxonomy: accountModel.painTaxonomy || [],
+    whyLostTaxonomy: accountModel.whyLostTaxonomy || [],
     projects: accountModel.projects || [],
     groups: accountModel.groups || [],
     accounts: accountModel.accounts || [],
@@ -266,10 +269,16 @@ function buildStrategyBoard(payload = {}, generatedAt = null, decisionIntelligen
       ...bound,
       focus: item.focus !== false,
       demandClass: item.demandClass || "other",
+      layer: item.layer || "end-customer",
+      servesAccounts: item.servesAccounts || [],
+      buyingCriteria: item.buyingCriteria || [],
       mentions: Number(accountSignal.mentions || 0),
       sourceCount: Number(accountSignal.sourceCount || 0),
       officialEvidenceCount: Number(accountSignal.officialEvidenceCount || 0),
       weekly: accountSignal.weekly || [],
+      painAxes: accountSignal.painAxes || [],
+      whyLost: accountSignal.whyLost || [],
+      generationProgression: accountSignal.generationProgression || { status: "insufficient", generations: [] },
       evidenceStream: accountSignal.evidence || [],
       chipStage: item.stage?.label || item.stage?.id || "Chip Roadmap 확인 필요",
       baseline: (item.baseline || []).map((metric) => {
@@ -342,7 +351,17 @@ function buildStrategyBoard(payload = {}, generatedAt = null, decisionIntelligen
       broadcomEcosystem: {
         ...(customerPortfolio.broadcomEcosystem || {}),
         accounts: broadcomAccounts,
+        partner: accountById.get(customerPortfolio.broadcomEcosystem?.partnerAccountId || "broadcom") || null,
+        rollup: (strategyAccountIntelligence.partnerRollups || []).find((item) => item.partnerId === (customerPortfolio.broadcomEcosystem?.partnerAccountId || "broadcom")) || null,
       },
+      layerModel: {
+        ...(customerPortfolio.layerModel || {}),
+        summary: strategyAccountIntelligence.layerSummary || [],
+        partnerRollups: strategyAccountIntelligence.partnerRollups || [],
+      },
+      painTaxonomy: strategyAccountIntelligence.painTaxonomy || customerPortfolio.painTaxonomy || [],
+      whyLostTaxonomy: strategyAccountIntelligence.whyLostTaxonomy || customerPortfolio.whyLostTaxonomy || [],
+      executiveOnePagers: strategyAccountIntelligence.executiveOnePagers || [],
       projects,
       pillars: customerPortfolio.pillars || [],
       verifiedAccounts: accounts.filter((account) => account.evidence?.status === "official-fact").length,
@@ -382,13 +401,14 @@ function buildStrategyBoard(payload = {}, generatedAt = null, decisionIntelligen
           // from the sourced relation registry, tagged with its claim tier so a
           // reported relation is never displayed as a confirmed fact.
           cells: (row.cells || []).map((cell) => {
-            if (cell.status && cell.status !== "unconfirmed") return cell;
-            const relation = (accountModel.supplierRelations || [])
+            const registryRelation = (accountModel.supplierRelations || [])
               .find((item) => item.accountId === row.accountId && item.supplierId === cell.supplierId);
-            if (!relation) return { ...cell, claim: "watch" };
+            const relation = cell.status && cell.status !== "unconfirmed" ? cell : registryRelation;
+            if (!relation) return { ...cell, claim: "watch", alerts: cell.alerts || [], latestAlert: cell.latestAlert || null };
             const source = sourceById.get(relation.sourceId) || null;
             return {
               ...cell,
+              ...relation,
               status: relation.status || "unconfirmed",
               claim: relation.claim || "watch",
               claimLabel: (accountModel.supplierRelationLegend || {})[relation.claim || "watch"]?.label || "추적",
@@ -396,6 +416,8 @@ function buildStrategyBoard(payload = {}, generatedAt = null, decisionIntelligen
               sourceId: relation.sourceId || null,
               source: source ? { id: source.id, name: source.name, url: source.url } : null,
               asOf: relation.asOf || null,
+              alerts: cell.alerts || relation.alerts || [],
+              latestAlert: cell.latestAlert || relation.latestAlert || null,
             };
           }),
         })),
