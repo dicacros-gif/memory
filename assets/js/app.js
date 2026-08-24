@@ -13071,8 +13071,8 @@
     const customerAccounts = Array.isArray(customerBoard.accounts) ? customerBoard.accounts : [];
     const asicPortfolio = customerBoard.asicPortfolio || {};
     const priorityAsicAccounts = Array.isArray(asicPortfolio.accounts) ? asicPortfolio.accounts : [];
-    const broadcomEcosystem = customerBoard.broadcomEcosystem || {};
-    const broadcomAccounts = Array.isArray(broadcomEcosystem.accounts) ? broadcomEcosystem.accounts : [];
+    const partnerEcosystem = customerBoard.partnerEcosystem || {};
+    const partnerNodes = Array.isArray(partnerEcosystem.partners) ? partnerEcosystem.partners : [];
     const layerModel = customerBoard.layerModel || {};
     const executiveOnePagers = Array.isArray(customerBoard.executiveOnePagers) ? customerBoard.executiveOnePagers : [];
     const customerPillars = Array.isArray(customerBoard.pillars) ? customerBoard.pillars : [];
@@ -13159,7 +13159,7 @@
         <div><span>${escapeHTML(customerBoard.eyebrow || "CUSTOMER & ASIC RADAR")}</span><h3>${escapeHTML(customerBoard.title || "GPU · Custom ASIC Roadmap → Memory Proposal")}</h3></div>
         <p>${escapeHTML(customerBoard.description || "고객별 Roadmap과 Memory Gate를 분리")}</p>
       </div>
-      <div id="scBroadcomEcosystem"></div>
+      <div id="scPartnerEcosystem"></div>
       ${priorityAsicAccounts.length ? `<section class="sc-asic-portfolio" aria-labelledby="asicPortfolioTitle">
         <header class="sc-asic-portfolio-head">
           <div><span>${escapeHTML(asicPortfolio.eyebrow || "CUSTOMER ASIC PORTFOLIO")}</span><h4 id="asicPortfolioTitle">${escapeHTML(asicPortfolio.title || "Customer Chip → Memory Bottleneck → Account Action")}</h4></div>
@@ -13391,14 +13391,17 @@
       <p class="sc-note">고객 Pain과 사업 영향 기준으로 핵심 인사이트만 선별 · 유사 신호 통합 · 수치와 인용은 연결 원문에서 확인</p>
     `;
     const onePagerMount = host.querySelector("#scExecutiveOnePagers");
-    const ecosystemMount = host.querySelector("#scBroadcomEcosystem");
-    if ((onePagerMount && executiveOnePagers.length) || (ecosystemMount && broadcomAccounts.length)) {
+    const ecosystemMount = host.querySelector("#scPartnerEcosystem");
+    if ((onePagerMount && executiveOnePagers.length) || (ecosystemMount && partnerNodes.length)) {
       const revision = document.querySelector('script[src*="assets/js/app.min.js"]')?.src.match(/[?&]v=([^&]+)/)?.[1] || "current";
       const renderAccountViews = () => {
         const views = window.AccountStrategyViews;
         if (!views) return;
         if (onePagerMount) onePagerMount.innerHTML = views.renderExecutiveOnePagers(executiveOnePagers);
-        if (ecosystemMount) ecosystemMount.innerHTML = views.renderAccountEcosystem({ ecosystem: broadcomEcosystem, accounts: broadcomAccounts, layerModel });
+        if (ecosystemMount) ecosystemMount.innerHTML = views.renderAccountEcosystem({
+          ecosystem: partnerEcosystem,
+          layerModel,
+        });
       };
       if (window.AccountStrategyViews) renderAccountViews();
       else {

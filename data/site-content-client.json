@@ -1664,30 +1664,149 @@
           }
         ]
       },
-      "layerModel": {
-        "title": "CUSTOM SILICON DECISION CHAIN",
-        "description": "최종고객의 성능·TCO 요구를 ASIC 설계사의 원가·일정·통합 기준과 파운드리·패키지 실행 제약으로 연결",
-        "layers": [
+      "partnerEcosystem": {
+        "eyebrow": "CUSTOM SILICON PARTNER ECOSYSTEM",
+        "title": "Broadcom · Marvell → Big Tech / Hyperscaler",
+        "description": "ASIC 설계 파트너를 상위 Buying Center로 두고, 각 파트너가 연결하는 빅테크 고객의 Chip Roadmap·Memory Pain·제안 Gate를 하위 계정으로 관리",
+        "evidencePolicy": "파트너-고객 연결은 계정 레지스트리로 자동 롤업 · 공급 관계와 계약 조건은 직접 근거 전까지 별도 추적",
+        "partners": [
           {
-            "id": "end-customer",
-            "index": "01",
-            "label": "END CUSTOMER",
+            "id": "broadcom",
+            "company": "Broadcom",
+            "chip": "3.5D XDSiP · XPU",
+            "accent": "#D05A2B",
             "buyingCriteria": [
-              "Workload 성능",
-              "전력·TCO",
-              "서비스 신뢰성",
-              "Capacity"
+              "BOM·NRE",
+              "원스톱 통합",
+              "Qualification 일정",
+              "Package Yield"
+            ],
+            "rollup": {
+              "topPainAxes": [
+                {
+                  "id": "bandwidth",
+                  "label": "대역폭",
+                  "mentions": 0
+                },
+                {
+                  "id": "capacity",
+                  "label": "용량",
+                  "mentions": 0
+                },
+                {
+                  "id": "power-thermal",
+                  "label": "전력·열",
+                  "mentions": 0
+                }
+              ]
+            },
+            "accounts": [
+              {
+                "id": "google",
+                "company": "Google",
+                "chip": "TPU7x · Ironwood",
+                "accent": "#00A88F",
+                "pain": "MXU Feeding·Pod Data Movement·전력 효율",
+                "memory": "Custom HBM · HBM/Host Tier · AI-N",
+                "gate": "MXU Feeding · D2D · Pod TCO"
+              },
+              {
+                "id": "meta",
+                "company": "Meta",
+                "chip": "MTIA",
+                "accent": "#7656C9",
+                "pain": "추천·광고 추론의 HBM I/O·Chiplet·Package Scaling",
+                "memory": "Custom HBM · AI-D · Fabric",
+                "gate": "Generation Roadmap · Package · TCO"
+              },
+              {
+                "id": "openai",
+                "company": "OpenAI",
+                "chip": "OpenAI-designed AI accelerator",
+                "accent": "#4A6B78",
+                "pain": "LLM Inference의 Memory Movement·Utilization·전력·Reliability",
+                "memory": "HBM · Ethernet Scale-up/out · Rack Co-Design",
+                "gate": "Memory Balance · Tape-out · 2026 Deployment"
+              }
             ]
           },
           {
+            "id": "marvell",
+            "company": "Marvell",
+            "chip": "Custom HBM XPU · Multi-chip",
+            "accent": "#9A5D21",
+            "buyingCriteria": [
+              "PPA·TCO",
+              "NRE",
+              "3nm·Package 일정",
+              "HBM Interface Power"
+            ],
+            "rollup": {
+              "topPainAxes": [
+                {
+                  "id": "bandwidth",
+                  "label": "대역폭",
+                  "mentions": 0
+                },
+                {
+                  "id": "capacity",
+                  "label": "용량",
+                  "mentions": 0
+                },
+                {
+                  "id": "power-thermal",
+                  "label": "전력·열",
+                  "mentions": 0
+                }
+              ]
+            },
+            "accounts": [
+              {
+                "id": "microsoft",
+                "company": "Microsoft",
+                "chip": "Maia 200",
+                "accent": "#0A84B8",
+                "pain": "Inference Token 경제성·Memory Feeding·Scale-up Network",
+                "memory": "Custom HBM · AI-D · Network Co-Design",
+                "gate": "Model Portability · Region Ramp · TCO"
+              },
+              {
+                "id": "aws",
+                "company": "Amazon AWS",
+                "chip": "Trainium3",
+                "accent": "#C88600",
+                "pain": "MoE Routing·Collective·HBM Data Movement 경제성",
+                "memory": "Custom HBM · AI-D · System Memory",
+                "gate": "Neuron Runtime · UltraServer Goodput/TCO"
+              }
+            ]
+          }
+        ]
+      },
+      "layerModel": {
+        "title": "CUSTOM SILICON DECISION CHAIN",
+        "description": "ASIC 설계 파트너의 원가·일정·통합 기준 아래에 빅테크 고객의 성능·TCO 요구를 연결하고 파운드리·패키지 실행 제약까지 추적",
+        "layers": [
+          {
             "id": "asic-partner",
-            "index": "02",
+            "index": "01",
             "label": "ASIC PARTNER",
             "buyingCriteria": [
               "BOM·NRE",
               "Time-to-Market",
               "HBM·Package 통합",
               "Qualification"
+            ]
+          },
+          {
+            "id": "end-customer",
+            "index": "02",
+            "label": "BIG TECH · HYPERSCALER",
+            "buyingCriteria": [
+              "Workload 성능",
+              "전력·TCO",
+              "서비스 신뢰성",
+              "Capacity"
             ]
           },
           {
@@ -1713,9 +1832,24 @@
         },
         "summary": [
           {
-            "id": "end-customer",
+            "id": "asic-partner",
             "index": "01",
-            "label": "END CUSTOMER",
+            "label": "ASIC PARTNER",
+            "buyingCriteria": [
+              "BOM·NRE",
+              "Time-to-Market",
+              "HBM·Package 통합",
+              "Qualification"
+            ],
+            "accountIds": [
+              "broadcom",
+              "marvell"
+            ]
+          },
+          {
+            "id": "end-customer",
+            "index": "02",
+            "label": "BIG TECH · HYPERSCALER",
             "buyingCriteria": [
               "Workload 성능",
               "전력·TCO",
@@ -1733,21 +1867,6 @@
               "openai",
               "anthropic",
               "spacex"
-            ]
-          },
-          {
-            "id": "asic-partner",
-            "index": "02",
-            "label": "ASIC PARTNER",
-            "buyingCriteria": [
-              "BOM·NRE",
-              "Time-to-Market",
-              "HBM·Package 통합",
-              "Qualification"
-            ],
-            "accountIds": [
-              "broadcom",
-              "marvell"
             ]
           },
           {

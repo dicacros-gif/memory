@@ -232,6 +232,7 @@ function buildStrategyBoard(payload = {}, generatedAt = null, decisionIntelligen
     pillars: accountModel.pillars || [],
     asicPortfolio: accountModel.asicPortfolio || {},
     broadcomEcosystem: accountModel.broadcomEcosystem || {},
+    partnerEcosystem: accountModel.partnerEcosystem || {},
     layerModel: accountModel.layerModel || {},
     painTaxonomy: accountModel.painTaxonomy || [],
     whyLostTaxonomy: accountModel.whyLostTaxonomy || [],
@@ -311,6 +312,30 @@ function buildStrategyBoard(payload = {}, generatedAt = null, decisionIntelligen
   const priorityAsicAccounts = priorityAccountIds.map((id) => accountById.get(id)).filter(Boolean);
   const broadcomAccountIds = customerPortfolio.broadcomEcosystem?.accountIds || [];
   const broadcomAccounts = broadcomAccountIds.map((id) => accountById.get(id)).filter((account) => account?.broadcomStrategy);
+  const partnerAccountIds = customerPortfolio.partnerEcosystem?.partnerAccountIds
+    || (strategyAccountIntelligence.partnerRollups || []).map((item) => item.partnerId);
+  const partnerEcosystemPartners = partnerAccountIds.map((partnerId) => {
+    const partner = accountById.get(partnerId);
+    if (!partner) return null;
+    const rollup = (strategyAccountIntelligence.partnerRollups || []).find((item) => item.partnerId === partnerId) || null;
+    return {
+      id: partner.id,
+      company: partner.company,
+      chip: partner.chip,
+      accent: partner.accent,
+      buyingCriteria: partner.buyingCriteria || [],
+      rollup: rollup ? { topPainAxes: rollup.topPainAxes || [] } : null,
+      accounts: (partner.servesAccounts || []).map((id) => accountById.get(id)).filter(Boolean).map((account) => ({
+        id: account.id,
+        company: account.company,
+        chip: account.chip,
+        accent: account.accent,
+        pain: account.pain,
+        memory: account.memory,
+        gate: account.gate,
+      })),
+    };
+  }).filter(Boolean);
   const projects = (customerPortfolio.projects || []).map((project) => {
     const projectAccounts = (project.accounts || []).map((id) => accountById.get(id)).filter(Boolean);
     const signalTerms = (project.signalTerms || []).map((term) => String(term || "").toLocaleLowerCase()).filter(Boolean);
@@ -354,9 +379,17 @@ function buildStrategyBoard(payload = {}, generatedAt = null, decisionIntelligen
         partner: accountById.get(customerPortfolio.broadcomEcosystem?.partnerAccountId || "broadcom") || null,
         rollup: (strategyAccountIntelligence.partnerRollups || []).find((item) => item.partnerId === (customerPortfolio.broadcomEcosystem?.partnerAccountId || "broadcom")) || null,
       },
+      partnerEcosystem: {
+        ...(customerPortfolio.partnerEcosystem || {}),
+        partners: partnerEcosystemPartners,
+      },
       layerModel: {
         ...(customerPortfolio.layerModel || {}),
-        summary: strategyAccountIntelligence.layerSummary || [],
+        summary: (customerPortfolio.layerModel?.layers || []).map((layer) => ({
+          ...layer,
+          accountIds: (strategyAccountIntelligence.layerSummary || []).find((item) => item.id === layer.id)?.accountIds
+            || accounts.filter((account) => account.layer === layer.id).map((account) => account.id),
+        })),
         partnerRollups: strategyAccountIntelligence.partnerRollups || [],
       },
       painTaxonomy: strategyAccountIntelligence.painTaxonomy || customerPortfolio.painTaxonomy || [],
@@ -1223,6 +1256,10 @@ export function validateSiteContent(content = {}) {
   const broadcomAccounts = strategyBoard.customerPortfolio?.broadcomEcosystem?.accounts || [];
   if (!Array.isArray(broadcomAccounts) || broadcomAccounts.length !== 3) errors.push("strategyBoard.customerPortfolio.broadcomEcosystem.accounts");
   if (!broadcomAccounts.every((item) => item?.broadcomStrategy?.pains?.length >= 3 && item?.broadcomStrategy?.proposal?.length >= 3 && directUrl(item?.broadcomStrategy?.source?.url))) errors.push("strategyBoard.customerPortfolio.broadcomEcosystem.contract");
+  const partnerEcosystem = strategyBoard.customerPortfolio?.partnerEcosystem?.partners || [];
+  if (!Array.isArray(partnerEcosystem) || partnerEcosystem.length !== 2) errors.push("strategyBoard.customerPortfolio.partnerEcosystem.partners");
+  const marvellNode = partnerEcosystem.find((item) => item.id === "marvell");
+  if (!marvellNode || !["aws", "microsoft"].every((id) => (marvellNode.accounts || []).some((account) => account.id === id))) errors.push("strategyBoard.customerPortfolio.partnerEcosystem.marvell");
   if (!Array.isArray(strategyBoard.playbooks) || strategyBoard.playbooks.length < 3) errors.push("strategyBoard.playbooks");
   if (!(strategyBoard.playbooks || []).every((item) => item.evidence?.status)) errors.push("strategyBoard.playbooks.evidence");
   const maasPlaybook = (strategyBoard.playbooks || []).find((item) => item.id === "memory-as-a-service");

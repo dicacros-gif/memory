@@ -4799,6 +4799,32 @@ function splitSiteContentForClient(content = {}) {
       } : null,
     })),
   };
+  const partnerEcosystem = portfolio.partnerEcosystem || {};
+  const initialPartnerEcosystem = {
+    eyebrow: partnerEcosystem.eyebrow || null,
+    title: partnerEcosystem.title || null,
+    description: partnerEcosystem.description || null,
+    evidencePolicy: partnerEcosystem.evidencePolicy || null,
+    partners: (partnerEcosystem.partners || []).map((partner) => ({
+      id: partner.id || null,
+      company: partner.company || null,
+      chip: partner.chip || null,
+      accent: partner.accent || null,
+      buyingCriteria: partner.buyingCriteria || [],
+      rollup: partner.rollup ? {
+        topPainAxes: (partner.rollup.topPainAxes || []).map(compactAxis),
+      } : null,
+      accounts: (partner.accounts || []).map((account) => ({
+        id: account.id || null,
+        company: account.company || null,
+        chip: account.chip || null,
+        accent: account.accent || null,
+        pain: account.pain || null,
+        memory: account.memory || null,
+        gate: account.gate || null,
+      })),
+    })),
+  };
   const initialOnePagers = (portfolio.executiveOnePagers || []).map((page) => ({
     accountId: page.accountId || null,
     headline: page.headline || null,
@@ -4829,6 +4855,7 @@ function splitSiteContentForClient(content = {}) {
       customerPortfolio: {
         focusAccounts: initialAccounts,
         broadcomEcosystem: initialEcosystem,
+        partnerEcosystem: initialPartnerEcosystem,
         layerModel: portfolio.layerModel || {},
         executiveOnePagers: initialOnePagers,
       },

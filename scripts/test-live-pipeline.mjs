@@ -44,7 +44,7 @@ assert.equal(DEMAND_ACCOUNT_REGISTRY.length, 27, "demand registry must contain e
 assert.equal(STRATEGY_ACCOUNT_REGISTRY.filter((item) => item.focus !== false).length, 8, "strategy account registry must expose eight focus accounts");
 assert.ok(STRATEGY_ACCOUNT_REGISTRY.some((item) => item.id === "microsoft" && item.aliases.includes("maia 200")), "Maia must be an explicit account lens");
 assert.ok(STRATEGY_ACCOUNT_REGISTRY.some((item) => item.id === "broadcom" && item.layer === "asic-partner" && item.servesAccounts.includes("openai")), "Broadcom must roll up its end customers as an ASIC partner");
-assert.ok(STRATEGY_ACCOUNT_REGISTRY.some((item) => item.id === "marvell" && item.layer === "asic-partner"), "Marvell must be an explicit ASIC partner lens");
+assert.ok(STRATEGY_ACCOUNT_REGISTRY.some((item) => item.id === "marvell" && item.layer === "asic-partner" && item.servesAccounts.includes("microsoft") && item.servesAccounts.includes("aws")), "Marvell must roll up Microsoft and AWS as downstream customers");
 assert.equal(new Set(DEMAND_ACCOUNT_REGISTRY.map((item) => item.id)).size, 27, "demand account ids must be unique");
 assert.equal(new Set(RELATION_ENTITY_REGISTRY.map((item) => item.id)).size, RELATION_ENTITY_REGISTRY.length, "relation entity ids must be unique");
 
@@ -118,7 +118,7 @@ assert.ok(supplierCells.every((cell) => cell.claim !== "verified-fact"), "report
 assert.ok(supplierCells.some((cell) => cell.status === "unconfirmed"), "missing supplier relations must remain fail closed");
 assert.equal(strategyAccountIntelligence.demandMix.externalEstimate.status, "separate-source-required", "crawl mix and external estimates must remain separate");
 assert.equal(strategyAccountIntelligence.schemaVersion, "2.0");
-assert.deepEqual(strategyAccountIntelligence.layerSummary.map((item) => item.id), ["end-customer", "asic-partner", "foundry-package"]);
+assert.deepEqual(strategyAccountIntelligence.layerSummary.map((item) => item.id), ["asic-partner", "end-customer", "foundry-package"]);
 assert.ok(strategyAccountIntelligence.accounts.google.painAxes.find((item) => item.id === "bandwidth").mentions >= 1, "account alias plus technical term must classify bandwidth pain");
 assert.ok(strategyAccountIntelligence.accounts.meta.whyLost.find((item) => item.id === "pricing").mentions >= 1, "why-lost signals must be account scoped");
 assert.equal(strategyAccountIntelligence.accounts.google.generationProgression.status, "measured");

@@ -30,12 +30,19 @@
     ],
     "evidencePolicy": "공식 공동개발과 시장 보도 관계를 색상·라벨로 분리"
   },
+  "partnerEcosystem": {
+    "eyebrow": "CUSTOM SILICON PARTNER ECOSYSTEM",
+    "title": "Broadcom · Marvell → Big Tech / Hyperscaler",
+    "description": "ASIC 설계 파트너를 상위 Buying Center로 두고, 각 파트너가 연결하는 빅테크 고객의 Chip Roadmap·Memory Pain·제안 Gate를 하위 계정으로 관리",
+    "partnerAccountIds": ["broadcom", "marvell"],
+    "evidencePolicy": "파트너-고객 연결은 계정 레지스트리로 자동 롤업 · 공급 관계와 계약 조건은 직접 근거 전까지 별도 추적"
+  },
   "layerModel": {
     "title": "CUSTOM SILICON DECISION CHAIN",
-    "description": "최종고객의 성능·TCO 요구를 ASIC 설계사의 원가·일정·통합 기준과 파운드리·패키지 실행 제약으로 연결",
+    "description": "ASIC 설계 파트너의 원가·일정·통합 기준 아래에 빅테크 고객의 성능·TCO 요구를 연결하고 파운드리·패키지 실행 제약까지 추적",
     "layers": [
-      { "id": "end-customer", "index": "01", "label": "END CUSTOMER", "buyingCriteria": ["Workload 성능", "전력·TCO", "서비스 신뢰성", "Capacity"] },
-      { "id": "asic-partner", "index": "02", "label": "ASIC PARTNER", "buyingCriteria": ["BOM·NRE", "Time-to-Market", "HBM·Package 통합", "Qualification"] },
+      { "id": "asic-partner", "index": "01", "label": "ASIC PARTNER", "buyingCriteria": ["BOM·NRE", "Time-to-Market", "HBM·Package 통합", "Qualification"] },
+      { "id": "end-customer", "index": "02", "label": "BIG TECH · HYPERSCALER", "buyingCriteria": ["Workload 성능", "전력·TCO", "서비스 신뢰성", "Capacity"] },
       { "id": "foundry-package", "index": "03", "label": "FOUNDRY · PACKAGE", "buyingCriteria": ["공정 Slot", "수율", "CoWoS·기판", "Ramp 일정"] }
     ],
     "supplyLayer": { "label": "MEMORY SUPPLIERS", "accountIds": ["skhynix", "samsung", "micron", "cxmt"] }
@@ -233,7 +240,7 @@
       "relationship": "ASIC 설계 파트너를 Buying Center로 관리", "buyingCriteria": ["BOM·NRE", "원스톱 통합", "Qualification 일정", "Package Yield"], "accent": "#D05A2B"
     },
     {
-      "id": "marvell", "layer": "asic-partner", "servesAccounts": ["aws", "microsoft"], "focus": false, "demandClass": "ecosystem", "group": "design-ecosystem", "company": "Marvell", "chip": "Custom HBM XPU · Multi-chip",
+      "id": "marvell", "layer": "asic-partner", "servesAccounts": ["microsoft", "aws"], "focus": false, "demandClass": "ecosystem", "group": "design-ecosystem", "company": "Marvell", "chip": "Custom HBM XPU · Multi-chip",
       "aliases": ["marvell", "custom hbm compute", "custom asic", "custom xpu"],
       "sourceIds": ["marvell-custom-asic", "marvell-custom-hbm"], "claimRuleIds": ["customer-silicon-roadmap", "partner-codesign"],
       "baseline": [{ "label": "ARCHITECTURE", "value": "Custom HBM · 3nm IP · Advanced Packaging", "sourceId": "marvell-custom-hbm" }],
