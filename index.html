@@ -37,6 +37,17 @@
     .console-static-snapshot {
       display: none;
     }
+    .site-document-title {
+      position: absolute;
+      width: 1px;
+      height: 1px;
+      padding: 0;
+      margin: -1px;
+      overflow: hidden;
+      clip: rect(0, 0, 0, 0);
+      white-space: nowrap;
+      border: 0;
+    }
     html.console-entry .business-site,
     html.console-entry #intelligenceConsole {
       display: none !important;
@@ -70,9 +81,9 @@
       font-weight: 800;
       letter-spacing: .12em;
     }
-    .console-static-snapshot h1,
+    .console-static-snapshot h2,
     .console-static-snapshot p { margin: 0; }
-    .console-static-snapshot h1 {
+    .console-static-snapshot h2 {
       font-size: clamp(25px, 4vw, 48px);
       line-height: 1.12;
     }
@@ -120,7 +131,7 @@
     (() => {
       if (!location.hash.startsWith("#console")) return;
       document.documentElement.classList.add("console-entry");
-      const revision = "infra-daf51ef93c08";
+      const revision = "infra-e2fb1de626fd";
       const assets = [
         ["consoleStylesPreload", "style", `assets/css/styles.min.css?v=${revision}`, "high"],
         ["consoleAppPreload", "script", `assets/js/app.min.js?v=${revision}`, "high"],
@@ -137,9 +148,10 @@
       }
     })();
   </script>
-  <link rel="stylesheet" href="assets/css/landing.min.css?v=infra-daf51ef93c08" />
+  <link rel="stylesheet" href="assets/css/landing.min.css?v=infra-e2fb1de626fd" />
 </head>
 <body class="landing-mode">
+  <h1 class="site-document-title">AI Infra Strategy</h1>
   <div class="business-site" id="businessSite">
     <a class="business-skip-link" href="#businessMain">본문으로 건너뛰기</a>
     <header class="business-header" id="businessHeader">
@@ -187,7 +199,7 @@
         <div class="business-hero-grid" aria-hidden="true"></div>
         <div class="business-hero-content business-container">
           <div class="business-hero-copy">
-            <h1>AI Infra Strategy<br /><em>Hyperscaler Roadmap to Memory Business</em></h1>
+            <h2>AI Infra Strategy<br /><em>Hyperscaler Roadmap to Memory Business</em></h2>
             <ul class="business-hero-bullets" aria-label="핵심 전략 범위" data-copy-verbatim>
               <li>Customer Strategy · GPU·ASIC Roadmap → Pain Map → Buying Criteria → 맞춤형 Memory Proposal</li>
               <li>Workload Optimization · Training/Inference/RAG/Agent → Bottleneck → HW/SW·Memory TCO</li>
@@ -223,7 +235,7 @@
           </div>
         </section>
         <section class="business-account-strip business-container" id="keyAccounts" aria-labelledby="keyAccountsTitle">
-          <header><div><span>ACCOUNT INTELLIGENCE</span><h2 id="keyAccountsTitle">Key Accounts → Next Memory</h2></div><p>공식 Baseline · 최근 크롤 · 고객별 딥링크</p></header>
+          <header><div><span>ACCOUNT INTELLIGENCE</span><h2 id="keyAccountsTitle">Key Accounts → Next Memory</h2></div><p>고객 Pain · 맞춤 제안 · 90일 Gate</p></header>
           <div id="businessKeyAccounts" class="business-account-strip-grid" aria-live="polite"></div>
           <div id="businessDemandMix" class="business-account-mix"></div>
         </section>
@@ -849,7 +861,7 @@
   <aside class="console-static-snapshot" id="consoleStaticSnapshot" aria-label="Intelligence Console 정적 요약">
     <header>
       <span>MEMORY INTELLIGENCE · INDEXABLE DECISION SNAPSHOT</span>
-      <h1>AI Infra Strategy</h1>
+      <h2>AI Infra Strategy</h2>
       <p>고객 현황·기술·전략에서 Pain Point를 진단하고, 맞춤형 Memory Option·신규 Biz·파트너·90일 실행전략을 한 흐름에서 관리</p>
     </header>
     <div class="console-static-flow" aria-label="의사결정 5단계">
@@ -870,7 +882,7 @@
   <div class="app console-layer" id="intelligenceConsole" hidden>
     <aside class="sidebar" id="sidebar">
       <button class="sb-fold" id="sidebarFold" type="button" aria-label="사이드바 접기" title="사이드바 접기 · 색상 변경">‹</button>
-      <button class="sb-logo" type="button" data-jump="strategy-consulting" aria-label="고객 전략으로 이동">
+      <button class="sb-logo" type="button" data-jump="strategy-consulting">
         <span class="sb-mark">M</span>
         <span class="sb-logo-text">
           <strong>MEMORY</strong>
@@ -890,7 +902,7 @@
         </details>
       </div>
 
-      <a class="sb-foot author-credit" href="https://linkedin.com/in/dicacross" target="_blank" rel="noopener noreferrer" aria-label="작성자 dicacross LinkedIn 프로필 열기">
+      <a class="sb-foot author-credit" href="https://linkedin.com/in/dicacross" target="_blank" rel="noopener noreferrer">
         <span>© 2026 dicacross</span>
         <small>Author · LinkedIn ↗</small>
       </a>
@@ -903,8 +915,8 @@
           <span></span><span></span><span></span>
         </button>
         <div class="tb-title">
-          <button class="console-exit" id="consoleExit" type="button" aria-label="비즈니스 사이트로 돌아가기">← Site</button>
-          <h1>AI Infra Strategy</h1>
+          <button class="console-exit" id="consoleExit" type="button">← Site</button>
+          <h2>AI Infra Strategy</h2>
         </div>
         <div class="tb-actions">
           <div class="qa" id="qaBox">
@@ -1872,7 +1884,7 @@
             </div>
             <span class="freshness-badge" id="equityValueChainFreshness">로드 중 · 상장사 이력 연결</span>
           </div>
-          <div class="equity-period-controls" id="equityPeriodControls" aria-label="주가 관측 기간"></div>
+          <div class="equity-period-controls" id="equityPeriodControls" role="group" aria-label="주가 관측 기간"></div>
           <div class="equity-region-stack" id="equityValueChainPanels"></div>
         </section>
 
@@ -1891,6 +1903,6 @@
   <div class="qa-answer" id="qaAnswer" hidden></div>
   <div class="inspector" id="inspector" hidden></div>
   <div class="backdrop" id="backdrop"></div>
-  <script src="assets/js/landing.min.js?v=infra-daf51ef93c08" defer></script>
+  <script src="assets/js/landing.min.js?v=infra-e2fb1de626fd" defer></script>
 </body>
 </html>

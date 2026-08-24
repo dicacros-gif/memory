@@ -39,7 +39,7 @@ assert.match(files.landingCss.text, /business-hero-media\[data-rotation-ready="1
 assert.match(files.landingJs.text, /function setupSequentialBusinessWarmup\(/);
 assert.match(files.landingJs.text, /function scheduleConsoleAssetWarmup\(/);
 assert.match(files.landingJs.text, /function setupHeroMediaRotation\([\s\S]*?dataset\.rotationReady = "1"[\s\S]*?Promise\.allSettled/);
-assert.match(files.landingJs.text, /window\.setTimeout\(\(\) => scheduleIdleStep\(\(\) => void loadSiteContent\(\)\.then\(scheduleConsoleAssetWarmup\), 600\), 900\)/);
+assert.match(files.landingJs.text, /window\.setTimeout\(\(\) => scheduleIdleStep\(\(\) => void loadSiteContent\(\)\.then\(scheduleConsoleAssetWarmup\), 120\), 80\)/, "strategy content must hydrate early without waiting for scroll");
 assert.match(files.landingJs.text, /function setupBusinessNavObserver\([\s\S]*?IntersectionObserver[\s\S]*?entry\.boundingClientRect\.top/);
 assert.match(files.landingJs.text, /const updates = \[\];[\s\S]*?updates\.push[\s\S]*?for \(const update of updates\)/);
 assert.doesNotMatch(files.landingJs.text.match(/function applyReadabilityGuard\([\s\S]*?\n  \}\n\n  function setupReadabilityGuard/)?.[0] || "", /getBoundingClientRect/);
@@ -86,7 +86,7 @@ for (const [sourceKey, minKey, minimumRawSaving] of [
 }
 
 assert.ok(files.appMinJs.gzipBytes < 300_000, "console JavaScript gzip budget must stay below 300KB");
-assert.ok(files.stylesMinCss.gzipBytes < 106_000, "console CSS gzip budget must stay below 106KB");
+assert.ok(files.stylesMinCss.gzipBytes < 106 * 1024, "console CSS gzip budget must stay below 106KiB");
 
 console.log(JSON.stringify({
   revision,

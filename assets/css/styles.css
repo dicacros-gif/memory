@@ -939,7 +939,7 @@ body.sidebar-collapsed .sb-ico {
   flex: 0 0 auto;
 }
 
-.tb-title h1 {
+.tb-title h2 {
   width: fit-content;
   max-width: 100%;
   font-family: var(--font);
@@ -1488,6 +1488,7 @@ body.sidebar-collapsed .sb-ico {
 
 .console-route-toggle {
   min-width: 82px;
+  min-height: 44px;
   display: inline-flex;
   align-items: center;
   justify-content: center;
@@ -1517,6 +1518,14 @@ body.sidebar-collapsed .sb-ico {
 .main > section:not(#overview):not(#strategy-consulting) {
   content-visibility: auto;
   contain-intrinsic-size: auto 900px;
+}
+
+/* The executive council is taller than the generic offscreen estimate on
+   mobile. Resolve its real height up front so the next route control never
+   overlaps an agenda card while progressive data is hydrating. */
+#c-level-cockpit {
+  content-visibility: visible;
+  contain-intrinsic-size: auto;
 }
 
 body.console-startup #intelligenceConsole *,
@@ -21244,7 +21253,7 @@ body.consulting-system {
     max-width: clamp(190px, 28vw, 240px);
   }
 
-  .tb-title h1 {
+  .tb-title h2 {
     font-size: 16px;
     line-height: 1.25;
   }
@@ -21508,7 +21517,7 @@ body.consulting-system {
     max-width: 190px;
   }
 
-  .tb-title h1 {
+  .tb-title h2 {
     font-size: 16px;
   }
 
@@ -21730,11 +21739,16 @@ body.consulting-system {
   }
 
   .tb-title {
-    max-width: 150px;
+    max-width: 112px;
+    flex: 0 0 112px;
   }
 
-  .tb-title h1 {
-    font-size: 14px;
+  .tb-title h2 {
+    width: auto;
+    max-width: none;
+    font-size: 11.5px;
+    letter-spacing: -.025em;
+    animation: none;
   }
 
   .qa {
@@ -30489,4 +30503,256 @@ body.consulting-system {
 
 @media (max-width: 760px) {
   .sc-pillar-grid { grid-template-columns: 1fr; }
+}
+
+/* Interaction contract: immediate small-unit inversion with locked contrast */
+#intelligenceConsole .sb-item.active:not(:hover),
+#intelligenceConsole .sb-item.active:not(:hover) .sb-label,
+#intelligenceConsole .sb-item.active:not(:hover) .sb-label strong {
+  background: #ffffff !important;
+  color: #121826 !important;
+  -webkit-text-fill-color: #121826 !important;
+  opacity: 1 !important;
+}
+
+#intelligenceConsole .sb-item.active:not(:hover) .sb-label small {
+  color: #4b5565 !important;
+  -webkit-text-fill-color: #4b5565 !important;
+  opacity: 1 !important;
+}
+
+/* Active navigation also inverts in the pointer frame itself.  Keeping this
+   rule at the end prevents a focused tab from winning the cascade while the
+   pointer is already over the compact tab unit. */
+#intelligenceConsole .sb-item.active:hover {
+  background: #151b2a !important;
+  border-color: rgba(255, 255, 255, .64) !important;
+  color: #ffffff !important;
+  -webkit-text-fill-color: #ffffff !important;
+}
+
+#intelligenceConsole .sb-item.active:hover :is(.sb-label, .sb-label strong) {
+  color: #ffffff !important;
+  -webkit-text-fill-color: #ffffff !important;
+  opacity: 1 !important;
+}
+
+#intelligenceConsole .sb-item.active:hover .sb-label small {
+  color: #d7dfeb !important;
+  -webkit-text-fill-color: #d7dfeb !important;
+  opacity: 1 !important;
+}
+
+#intelligenceConsole .sb-item.active:hover .sb-ico {
+  background: #ffffff !important;
+  border-color: #ffffff !important;
+  color: #151b2a !important;
+  -webkit-text-fill-color: #151b2a !important;
+}
+
+/* Active indexes stay legible before, during, and after pointer inversion */
+#intelligenceConsole .sb-item.active .sb-ico,
+#intelligenceConsole .sb-item.active:focus-visible .sb-ico {
+  background: #ffffff !important;
+  border-color: #ffffff !important;
+  color: #151b2a !important;
+  -webkit-text-fill-color: #151b2a !important;
+  opacity: 1 !important;
+}
+
+/* Override the later generic board virtualization rule for this tall board */
+body.consulting-system #main > #c-level-cockpit {
+  content-visibility: visible !important;
+  contain-intrinsic-size: auto !important;
+}
+
+/* Keep every scroll-story chapter readable before it becomes the active step */
+#intelligenceConsole .memory-scroll-chapter:not(.active) .memory-scroll-panel {
+  opacity: .82;
+}
+
+/* Preserve the small visual dot while exposing a 24px touch target */
+#intelligenceConsole .memory-story-dots button {
+  position: relative;
+  width: 24px;
+  height: 24px;
+  background: transparent;
+}
+
+#intelligenceConsole .memory-story-dots button::before {
+  position: absolute;
+  inset: 50% auto auto 50%;
+  width: 7px;
+  height: 7px;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, .58);
+  content: "";
+  transform: translate(-50%, -50%);
+}
+
+#intelligenceConsole .memory-story-dots button.active::before {
+  width: 24px;
+  background: #8ef4ec;
+}
+
+#intelligenceConsole .sb-item,
+#intelligenceConsole .sb-item *,
+#intelligenceConsole .advanced-module-card,
+#intelligenceConsole .advanced-module-card * {
+  transition-delay: 0s !important;
+  animation-delay: 0s !important;
+}
+
+/* The large strategy module stays stable; only its compact score/tag/source units invert */
+.consulting-system #intelligenceConsole .advanced-module-card:is(:hover, :focus-within) {
+  background: var(--panel) !important;
+  color: var(--ink) !important;
+  -webkit-text-fill-color: initial !important;
+}
+
+.consulting-system #intelligenceConsole .advanced-module-card:is(:hover, :focus-within) :is(h3, p, li) {
+  color: var(--ink) !important;
+  -webkit-text-fill-color: var(--ink) !important;
+  opacity: 1 !important;
+}
+
+.consulting-system #intelligenceConsole .advanced-score,
+.consulting-system #intelligenceConsole .advanced-score:is(:hover, :focus-within) {
+  min-width: 0;
+  background: #f8fafc !important;
+  border-color: #cbd5e1 !important;
+  color: #17263a !important;
+  -webkit-text-fill-color: #17263a !important;
+  transition: transform .04s ease-out, box-shadow .04s ease-out, background-color 0s, color 0s !important;
+}
+
+.consulting-system #intelligenceConsole .advanced-score:is(:hover, :focus-within) {
+  background: #102f43 !important;
+  color: #ffffff !important;
+  -webkit-text-fill-color: #ffffff !important;
+  transform: translateY(-1px);
+}
+
+.consulting-system #intelligenceConsole .advanced-score :is(strong, span, small) {
+  color: #17263a !important;
+  -webkit-text-fill-color: #17263a !important;
+  opacity: 1 !important;
+  white-space: normal !important;
+  overflow-wrap: anywhere;
+}
+
+.consulting-system #intelligenceConsole .advanced-score:is(:hover, :focus-within) :is(strong, span, small) {
+  color: #ffffff !important;
+  -webkit-text-fill-color: #ffffff !important;
+}
+
+/* Console decision maps must remain readable without relying on hover */
+.consulting-system #intelligenceConsole .sc-map-node,
+.consulting-system #intelligenceConsole .sc-map-node > * {
+  min-width: 0;
+  max-width: 100%;
+}
+
+.consulting-system #intelligenceConsole .sc-map-node :is(.sc-wl-name, .sc-wl-row) {
+  font-size: 12px !important;
+}
+
+.consulting-system #intelligenceConsole .sc-map-node .sc-wl-name > span:last-child,
+.consulting-system #intelligenceConsole .sc-map-node .sc-wl-row span {
+  font-size: 12px !important;
+  line-height: 1.5 !important;
+  white-space: normal !important;
+  overflow: visible !important;
+  text-overflow: clip !important;
+  overflow-wrap: anywhere;
+  word-break: keep-all;
+}
+
+.consulting-system #intelligenceConsole .advanced-module-card .tag,
+.consulting-system #intelligenceConsole .advanced-module-card .source-row a {
+  background: #eef2f7 !important;
+  border-color: #cbd5e1 !important;
+  color: #17263a !important;
+  -webkit-text-fill-color: #17263a !important;
+  transition: transform .04s ease-out, background-color 0s, color 0s, border-color 0s !important;
+}
+
+.consulting-system #intelligenceConsole .advanced-module-card .chip {
+  background: #f1e9ff !important;
+  border-color: #c9b5ec !important;
+  color: #2f2055 !important;
+  -webkit-text-fill-color: #2f2055 !important;
+  opacity: 1 !important;
+}
+
+.consulting-system #intelligenceConsole .advanced-module-card :is(.claim-badge, .baseline-freshness) {
+  background: #e4fbf6 !important;
+  border-color: #8ed9ce !important;
+  color: #124b48 !important;
+  -webkit-text-fill-color: #124b48 !important;
+  opacity: 1 !important;
+}
+
+.consulting-system #intelligenceConsole .advanced-module-card .tag:is(:hover, :focus-visible),
+.consulting-system #intelligenceConsole .advanced-module-card .source-row a:is(:hover, :focus-visible) {
+  background: #102f43 !important;
+  border-color: #102f43 !important;
+  color: #ffffff !important;
+  -webkit-text-fill-color: #ffffff !important;
+}
+
+.consulting-system #intelligenceConsole .sc-partner-row {
+  display: grid !important;
+  grid-template-columns: minmax(68px, auto) minmax(0, 1fr);
+  align-items: start;
+}
+
+.consulting-system #intelligenceConsole .sc-partner-row b {
+  min-width: 0;
+  max-width: 100%;
+}
+
+.consulting-system #intelligenceConsole :is(.sc-partner-row span, .sc-project-insight span, .sc-decision-gate span) {
+  min-width: 0;
+  max-width: 100%;
+  white-space: normal !important;
+  overflow: visible !important;
+  text-overflow: clip !important;
+  overflow-wrap: anywhere;
+  line-height: 1.55;
+}
+
+.consulting-system #intelligenceConsole .sc-project-insight {
+  display: grid;
+  grid-template-columns: minmax(112px, auto) minmax(0, 1fr);
+  gap: 8px;
+  padding: 10px;
+  border: 1px solid #cbd5e1;
+  background: #f8fafc;
+  color: #17263a !important;
+  -webkit-text-fill-color: #17263a !important;
+}
+
+.consulting-system #intelligenceConsole .sc-project-insight:is(:hover, :focus-visible) {
+  background: #f3c94c !important;
+  border-color: #f3c94c !important;
+  color: #17263a !important;
+  -webkit-text-fill-color: #17263a !important;
+}
+
+.consulting-system #intelligenceConsole .sc-project-insight:is(:hover, :focus-visible) * {
+  color: #17263a !important;
+  -webkit-text-fill-color: #17263a !important;
+}
+
+@media (max-width: 640px) {
+  .consulting-system #intelligenceConsole .sc-partner-grid,
+  .consulting-system #intelligenceConsole .sc-project-grid {
+    grid-template-columns: minmax(0, 1fr) !important;
+  }
+
+  .consulting-system #intelligenceConsole .sc-project-insight,
+  .consulting-system #intelligenceConsole .sc-partner-row {
+    grid-template-columns: minmax(0, 1fr);
+  }
 }

@@ -4747,6 +4747,14 @@ function compactDecisionIntelligenceForInitial(content = {}) {
  * operating models hydrate immediately afterwards without blocking paint.
  */
 function splitSiteContentForClient(content = {}) {
+  const initialAccounts = (content.strategyBoard?.customerPortfolio?.focusAccounts || []).map((account) => ({
+    id: account.id || null,
+    company: account.company || null,
+    chip: account.chip || null,
+    pain: account.pain || null,
+    memory: account.memory || null,
+    accent: account.accent || null,
+  }));
   const siteContent = {
     schemaVersion: content.schemaVersion,
     runId: content.runId,
@@ -4764,7 +4772,9 @@ function splitSiteContentForClient(content = {}) {
     insights: content.insights,
     competitors: content.competitors,
     partnerSpotlight: content.partnerSpotlight,
-    strategyBoard: content.strategyBoard,
+    strategyBoard: {
+      customerPortfolio: { focusAccounts: initialAccounts },
+    },
     caseClassification: content.caseClassification,
     agentCouncil: {
       title: content.agentCouncil?.title || null,
@@ -4779,6 +4789,7 @@ function splitSiteContentForClient(content = {}) {
     expiresAt: content.expiresAt,
     clientArtifact: true,
     decisionIntelligence: content.decisionIntelligence,
+    strategyBoard: content.strategyBoard,
     organizationOperatingModel: content.organizationOperatingModel,
     aiFactorySystem: content.aiFactorySystem,
     workloadOptimization: content.workloadOptimization,

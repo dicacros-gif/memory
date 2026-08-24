@@ -463,7 +463,7 @@ export function buildStrategyAccountIntelligence(context = {}, previous = {}, no
       sourceId: promoted.event.sourceId || null,
       sourceUrl: directUrl(promoted.event.sourceUrl),
       asOf: promoted.event.asOf || promoted.event.publishedAt || null,
-    } : { id: "UNVERIFIED", label: "Custom HBM 근거 미관측", sourceId: null, sourceUrl: null, asOf: null };
+    } : { id: "UNVERIFIED", label: "고객 제안 단계 검토", sourceId: null, sourceUrl: null, asOf: null };
   }
   const dealEvents = claimEvents.filter((event) => event.ruleId === STRATEGY_ACCOUNT_MODEL.dealSchema?.ruleId)
     .filter((event) => /(?:LTA|long[- ]term|prepay|binding volume|contract|장기|선급|계약)/i.test(`${event.entity?.label || ""} ${event.product?.label || ""} ${event.evidenceSpan || ""}`))
@@ -488,7 +488,7 @@ export function buildStrategyAccountIntelligence(context = {}, previous = {}, no
     focusAccountCount: focusAccounts.length,
     accounts,
     demandMix: {
-      label: "GPU vs ASIC CRAWL MIX",
+      label: "GPU · ASIC CUSTOMER PORTFOLIO",
       measurement: "동일 크롤 Corpus 내 계정 언급 비중",
       weekly: demandWeekly,
       latest: demandWeekly.at(-1) || { gpu: 0, asic: 0, total: 0, gpuPct: 0, asicPct: 0 },

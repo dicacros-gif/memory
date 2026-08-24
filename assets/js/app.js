@@ -2512,7 +2512,11 @@
   }
 
   async function loadDataManifest() {
-    const manifest = await loadJSON("data/data-manifest.json", null, { cache: "no-cache" });
+    return loadDataManifestWithCache("no-cache");
+  }
+
+  async function loadDataManifestWithCache(cache = "no-cache") {
+    const manifest = await loadJSON("data/data-manifest.json", null, { cache });
     if (!manifest || typeof manifest !== "object" || !manifest.runId || !manifest.artifacts) return null;
     const required = ["live", "quant", "priceHistory", "marketHistory", "quantBacktest"];
     if (!required.every((key) => /^data\/[\w-]+\.json$/.test(String(manifest.artifacts?.[key]?.path || "")))) return null;
@@ -2527,9 +2531,13 @@
     return `${path}${path.includes("?") ? "&" : "?"}v=${encodeURIComponent(version)}`;
   }
 
-  function loadManagedJSON(key, legacyPath, fallback) {
+  function loadManagedJSON(key, legacyPath, fallback, { cache = null } = {}) {
     const managed = Boolean(DATA_MANIFEST?.artifacts?.[key]);
-    return loadJSON(managedDataPath(key, legacyPath), fallback, { cache: managed ? "force-cache" : "no-cache" });
+    return loadJSON(managedDataPath(key, legacyPath), fallback, { cache: cache || (managed ? "force-cache" : "no-cache") });
+  }
+
+  function isManifestRun(data, manifest = DATA_MANIFEST) {
+    return Boolean(data?.runId && manifest?.runId && String(data.runId) === String(manifest.runId));
   }
 
   function ensureResearchArchiveLoaded() {
@@ -4270,13 +4278,10 @@
   function finalizeConsoleLoadingLabels() {
     const verified = document.body.dataset.liveDataState === "verified"
       && document.body.dataset.quantDataState === "verified";
-    const promotedCount = Number(LIVE?.evidence?.promotedCount || LIVE?.news?.length || 0);
     const asOf = String(LIVE?.intelligence?.generatedAt || LIVE?.updatedAt || "").slice(0, 10);
     const fallback = verified
-      ? promotedCount > 0
-        ? `검증 근거 ${fmtNum(promotedCount)}건${asOf ? ` · ${asOf} 기준` : ""}`
-        : "검증 근거 자동 연결 대기"
-      : "데이터 재검증 중 · 검증 완료본 유지";
+      ? `선택 인사이트 최신화${asOf ? ` · ${asOf}` : ""}`
+      : "선택 인사이트 업데이트 확인";
     $$(".board-meta").forEach((node) => {
       if (/로드 중|연결 중|집계 전|확인 중/.test(node.textContent || "")) node.textContent = fallback;
     });
@@ -4300,6 +4305,21 @@
       loadManagedJSON("live", "data/live-client.json", emptyLive),
       loadManagedJSON("quant", "data/quant-client.json", null),
     ]);
+    if (!isManifestRun(LIVE) || !isManifestRun(QUANT)) {
+      DATA_MANIFEST = await loadDataManifestWithCache("reload");
+      [LIVE, QUANT] = await Promise.all([
+        loadManagedJSON("live", "data/live-client.json", emptyLive, { cache: "reload" }),
+        loadManagedJSON("quant", "data/quant-client.json", null, { cache: "reload" }),
+      ]);
+    }
+    const synchronizedRun = isManifestRun(LIVE)
+      && isManifestRun(QUANT)
+      && String(LIVE.runId) === String(QUANT.runId);
+    document.body.dataset.runSync = synchronizedRun ? "synced" : "blocked";
+    if (!synchronizedRun) {
+      LIVE = emptyLive;
+      QUANT = null;
+    }
     LIVE = selectVerifiedLiveData(LIVE);
     LIVE = normalizeLiveData(LIVE);
     if (!QUANT && LIVE && LIVE.quant) QUANT = LIVE.quant;
@@ -6703,9 +6723,7 @@
   }
 
   function selectVerifiedLiveData(data = emptyLive) {
-    // Never blank the site: use the accumulated bundle even when it is stale or
-    // fails the same-run check. Freshness is surfaced honestly via the state
-    // flag + heartbeat badge, but the last real crawl always stays on screen.
+    // init reconciles the manifest and artifacts before this gate.
     if (!data || !Object.keys(data).length) {
       document.body.dataset.liveDataState = "empty";
       return emptyLive;
@@ -6727,9 +6745,7 @@
   }
 
   function selectVerifiedQuantData(data = null, liveData = LIVE) {
-    // Keep the last real quant bundle on screen even if it is stale or from a
-    // different run than live.json; only a genuinely missing/empty file yields
-    // null. Staleness is labeled, not blanked.
+    // A mismatched quant artifact is never rendered alongside live data.
     if (!data || typeof data !== "object" || !Object.keys(data).length) {
       document.body.dataset.quantDataState = "empty";
       return null;
@@ -7539,7 +7555,7 @@
             const route = routeDisplay(routeSource);
             const isActive = routeSource.jump === SIDE_NAV_ROUTES[0]?.jump;
             return `
-              <button class="sb-item${isActive ? " active" : ""}" type="button" data-jump="${escapeHTML(routeSource.jump)}" data-route="${escapeHTML(routeSource.id)}"${isActive ? ' aria-current="page"' : ""} aria-label="${escapeHTML([route.label, route.desc].filter(Boolean).join(" · "))}" data-tooltip="${escapeHTML(route.label)}">
+              <button class="sb-item${isActive ? " active" : ""}" type="button" data-jump="${escapeHTML(routeSource.jump)}" data-route="${escapeHTML(routeSource.id)}"${isActive ? ' aria-current="page"' : ""} data-tooltip="${escapeHTML(route.label)}">
                 <span class="sb-ico" aria-hidden="true">${escapeHTML(SIDE_NAV_ICONS[routeSource.id] || route.label.slice(0, 1))}</span>
                 <span class="sb-label">
                   <strong>${escapeHTML(route.label)}</strong>
@@ -9776,7 +9792,7 @@
     const action = String(context.action || "조건 충족 전까지 단계 실행");
     const gate = String(context.gate || "핵심 판단 변경 KPI");
     const verdict = String(context.verdict || "Watch");
-    const diagnosis = `${evidenceText} · 공식 팩트 ${fmtNum(factCount)}건 · 기사 ${fmtNum(newsCount)}건 · 연결 근거 ${fmtNum(evidenceCount)}건`;
+    const diagnosis = `${evidenceText} · 핵심 인사이트만 선택 · 유사 신호 통합`;
     const frames = {
       brief: ["오늘·이전 수집 데이터 가운데 의사결정에 바로 쓸 관측값과 추가 검증값을 어떻게 구분할 것인가?", "관측값·추정치·가정을 분리해야 토론의 출발점이 흔들리지 않습니다.", "근거가 있는 수치부터 안건별로 연결하고, 누적 데이터는 기준일을 함께 표시합니다."],
       data: ["선택 기준일 이전의 신호와 이후의 실측을 같은 제품·기간·단위로 비교해도 되는가?", "기준일 이후 정보가 섞이면 백테스트와 현재 판단을 과대평가할 수 있습니다.", "실제 관측 구간과 결측 구간을 분리해, 계산 가능한 시계열만 판단에 사용합니다."],
@@ -13034,7 +13050,7 @@
     if (document.querySelector("#customerRadarContrastStyle")) return;
     const style = document.createElement("style");
     style.id = "customerRadarContrastStyle";
-    style.textContent = `.consulting-system #intelligenceConsole details.sc-report,.consulting-system #intelligenceConsole details.sc-report:is(:hover,:focus-within){--ink:#12263a;--ink-2:#4b5e72;--line:#cbd6e2;--panel:#fff;background:#f4f8fb!important;color:#12263a!important;-webkit-text-fill-color:initial!important}.consulting-system #intelligenceConsole details.sc-report>.sc-report-head :is(strong,span){color:#12263a!important;-webkit-text-fill-color:#12263a!important}.consulting-system #intelligenceConsole .sc-partner{background:#fff!important;color:#12263a!important;transition:transform .05s ease-out,box-shadow .05s ease-out,border-color 0s,background-color 0s,color 0s!important}.consulting-system #intelligenceConsole .sc-partner :is(strong,.sc-partner-row span,.sc-playbook-source,.sc-mix-value,.sc-account-signal>span,.sc-account-evidence a,.sc-account-evidence span,.sc-account-evidence small,.sc-monitor-note){color:#12263a!important;-webkit-text-fill-color:#12263a!important}.consulting-system #intelligenceConsole .sc-partner .sc-partner-row b{color:var(--sc-accent)!important;-webkit-text-fill-color:var(--sc-accent)!important}.consulting-system #intelligenceConsole .sc-partner:is(:hover,:focus-within){background:#102f43!important;border-color:color-mix(in srgb,var(--sc-accent) 68%,#fff)!important;box-shadow:0 10px 22px #0820302e!important;color:#fff!important;transform:translateY(-2px)}.consulting-system #intelligenceConsole .sc-partner:is(:hover,:focus-within) :is(strong,.sc-partner-row span,.sc-playbook-source,.sc-mix-value,.sc-account-signal>span,.sc-account-evidence a,.sc-account-evidence span,.sc-account-evidence small,.sc-monitor-note){color:#fff!important;-webkit-text-fill-color:#fff!important}.consulting-system #intelligenceConsole .sc-partner:is(:hover,:focus-within) .sc-partner-row b{color:#71e6d4!important;-webkit-text-fill-color:#71e6d4!important}.consulting-system #intelligenceConsole .sc-partner:is(:hover,:focus-within) .sc-playbook-status{background:#f3c94c!important;border-color:#f3c94c!important;color:#13263a!important;-webkit-text-fill-color:#13263a!important}.consulting-system #intelligenceConsole .sc-partner:is(:hover,:focus-within) :is(.business-key-term,mark){color:#fff2a8!important;-webkit-text-fill-color:#fff2a8!important;text-decoration-color:#f3c94c!important}`;
+    style.textContent = `.consulting-system #intelligenceConsole details.sc-report,.consulting-system #intelligenceConsole details.sc-report:is(:hover,:focus-within){--ink:#12263a;--ink-2:#4b5e72;--line:#cbd6e2;--panel:#fff;background:#f4f8fb!important;color:#12263a!important;-webkit-text-fill-color:initial!important}.consulting-system #intelligenceConsole details.sc-report>.sc-report-head :is(strong,span){color:#12263a!important;-webkit-text-fill-color:#12263a!important}.consulting-system #intelligenceConsole .sc-partner{background:#fff!important;color:#12263a!important;transition:transform .05s ease-out,box-shadow .05s ease-out,border-color 0s,background-color 0s,color 0s!important}.consulting-system #intelligenceConsole .sc-partner :is(strong,.sc-partner-row span,.sc-playbook-source,.sc-mix-value,.sc-account-signal>span,.sc-account-evidence a,.sc-account-evidence span,.sc-account-evidence small,.sc-monitor-note){color:#12263a!important;-webkit-text-fill-color:#12263a!important}.consulting-system #intelligenceConsole .sc-partner .sc-partner-row b{color:#075d59!important;-webkit-text-fill-color:#075d59!important}.consulting-system #intelligenceConsole .sc-partner:is(:hover,:focus-within){background:#102f43!important;border-color:color-mix(in srgb,var(--sc-accent) 68%,#fff)!important;box-shadow:0 10px 22px #0820302e!important;color:#fff!important;transform:translateY(-2px)}.consulting-system #intelligenceConsole .sc-partner:is(:hover,:focus-within) :is(strong,.sc-partner-row span,.sc-playbook-source,.sc-mix-value,.sc-account-signal>span,.sc-account-evidence a,.sc-account-evidence span,.sc-account-evidence small,.sc-monitor-note){color:#fff!important;-webkit-text-fill-color:#fff!important}.consulting-system #intelligenceConsole .sc-partner:is(:hover,:focus-within) .sc-partner-row b{color:#71e6d4!important;-webkit-text-fill-color:#71e6d4!important}.consulting-system #intelligenceConsole .sc-partner:is(:hover,:focus-within) .sc-playbook-status{background:#f3c94c!important;border-color:#f3c94c!important;color:#13263a!important;-webkit-text-fill-color:#13263a!important}.consulting-system #intelligenceConsole .sc-partner:is(:hover,:focus-within) :is(.business-key-term,mark){color:#fff2a8!important;-webkit-text-fill-color:#fff2a8!important;text-decoration-color:#f3c94c!important}`;
     document.head.appendChild(style);
   }
 
@@ -13052,8 +13068,8 @@
     const customerGroups = Array.isArray(customerBoard.groups) ? customerBoard.groups : [];
     const customerAccounts = Array.isArray(customerBoard.accounts) ? customerBoard.accounts : [];
     const customerPillars = Array.isArray(customerBoard.pillars) ? customerBoard.pillars : [];
+    const customerProjects = Array.isArray(customerBoard.projects) ? customerBoard.projects : [];
     const competitiveFrame = Array.isArray(customerBoard.competitiveFrame) ? customerBoard.competitiveFrame : [];
-    const demandMix = customerBoard.demandMix || {};
     const supplierMatrix = customerBoard.supplierMatrix || {};
     const baseDieStrategy = customerBoard.baseDieStrategy || null;
     const transformerMemory = customerBoard.transformerMemory || null;
@@ -13065,17 +13081,8 @@
     const playbooks = Array.isArray(strategyBoard.playbooks) ? strategyBoard.playbooks : [];
     const meta = $("#strategyConsultingMeta");
     const lenses = STRATEGY_CONSULTING_LENSES.map((lens) => ({ lens, ev: strategyConsultingEvidence(lens) }));
-    const totalEvidence = lenses.reduce((s, x) => s + x.ev.count, 0);
-    const sparkline = (series = [], key = "count", color = "#2D6BFF") => {
-      const values = series.map((item) => Number(item?.[key] || 0));
-      const max = Math.max(1, ...values);
-      const points = values.map((value, index) => `${values.length <= 1 ? 4 : 4 + index * (132 / (values.length - 1))},${32 - value / max * 24}`).join(" ");
-      return `<svg width="100%" height="36" viewBox="0 0 140 36" role="img" aria-label="최근 ${values.length}주 언급 추이"><polyline points="${points}" fill="none" stroke="${escapeHTML(color)}" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></svg>`;
-    };
-    const asOf = String(LIVE.intelligence?.generatedAt || LIVE.updatedAt || "").slice(0, 10);
-    if (meta) { meta.hidden = false; meta.textContent = `연결 근거 ${fmtNum(totalEvidence)}건${asOf ? ` · ${asOf} 기준` : ""}`; }
-    // Rank lenses by live evidence so the hottest pain-point leads.
-    lenses.sort((a, b) => b.ev.count - a.ev.count);
+    if (meta) { meta.hidden = true; meta.textContent = ""; }
+    // Keep the curated MECE order; source volume must not determine strategic importance.
     host.innerHTML = `
       <section class="sc-framework" aria-labelledby="strategyFrameworkTitle">
         <header class="sc-framework-head">
@@ -13109,9 +13116,8 @@
         ${lenses.map(({ lens, ev }, index) => `
           <article class="sc-card" tabindex="0" style="--sc-accent:${lens.accent}">
             <div class="sc-card-top">
-              <div class="sc-card-rank"><span>#${String(index + 1).padStart(2, "0")} · EVIDENCE RANK</span><b>${escapeHTML(lens.horizon)}</b></div>
+              <div class="sc-card-rank"><span>#${String(index + 1).padStart(2, "0")} · STRATEGIC PRIORITY</span><b>${escapeHTML(lens.horizon)}</b></div>
               <div class="sc-card-signals">
-                <span class="sc-evidence ${ev.count ? "" : "is-waiting"}">근거 ${fmtNum(ev.count)}건</span>
                 ${ev.momentum ? `<span class="sc-mom ${ev.momentum.dir}">${escapeHTML(ev.momentum.kind)} ${ev.momentum.pct > 0 ? "+" : ""}${fmtNum(ev.momentum.pct, 1)}%</span>` : ""}
               </div>
             </div>
@@ -13138,15 +13144,6 @@
                 <p><b class="sc-level-index is-action">90D ACTION</b> ${escapeHTML(lens.nextAction)}</p>
               </li>
             </ol>
-            ${ev.trends.length ? `<div class="sc-trends">${ev.trends.map((t) => `<button type="button" class="sc-trend" data-trend-term="${escapeHTML(t.term)}">${escapeHTML(t.term)}<b>${fmtNum(t.count)}</b></button>`).join("")}</div>` : ""}
-            ${ev.items.length ? `
-              <ul class="sc-evidence-list">
-                ${ev.items.map((c) => `<li>
-                  <span class="sc-ev-src">${escapeHTML(c.source || "출처")}</span>
-                  ${c.url ? `<a href="${escapeHTML(c.url)}" target="_blank" rel="noopener">${escapeHTML(String(c.title).slice(0, 82))} ↗</a>` : `<span>${escapeHTML(String(c.title).slice(0, 82))}</span>`}
-                  <small>${escapeHTML(c.date)}</small>
-                </li>`).join("")}
-              </ul>` : `<p class="sc-empty">이번 크롤에서 직접 근거 미관측 · 다음 갱신에서 재탐색</p>`}
           </article>
         `).join("")}
       </div>
@@ -13157,34 +13154,36 @@
       ${customerPillars.length ? `<div class="sc-partner-grid" aria-label="조직 미션 3필러">
         ${customerPillars.map((item) => `<article class="sc-partner" style="--sc-accent:#0a7f7d"><strong>${escapeHTML(item.index || "")} · ${escapeHTML(item.label || "")}</strong><div class="sc-partner-row"><b>QUESTION</b><span>${escapeHTML(item.question || "")}</span></div></article>`).join("")}
       </div>` : ""}
-      <div class="sc-report">
-        <div class="sc-report-head"><strong>${escapeHTML(customerBoard.mixTracker?.label || "GPU vs ASIC DEMAND MIX")}</strong><span>${fmtNum(customerBoard.verifiedAccounts || 0)}/${fmtNum(customerBoard.monitoredAccounts || customerAccounts.length)}개 공식 Event 연결</span></div>
-        <div class="sc-partner-grid sc-demand-summary">
-          <article class="sc-partner" style="--sc-accent:#2D6BFF"><strong>CRAWL MEASURED · GPU</strong><div class="sc-mix-value">${fmtNum(demandMix.latest?.gpuPct || 0, 1)}<small>%</small></div>${sparkline(demandMix.weekly || [], "gpu", "#2D6BFF")}<div class="sc-partner-row"><b>RULE</b><span>${escapeHTML(customerBoard.mixTracker?.display || "동일 크롤 Corpus 내 언급 비중")}</span></div></article>
-          <article class="sc-partner" style="--sc-accent:#7656C9"><strong>CRAWL MEASURED · ASIC</strong><div class="sc-mix-value">${fmtNum(demandMix.latest?.asicPct || 0, 1)}<small>%</small></div>${sparkline(demandMix.weekly || [], "asic", "#7656C9")}<div class="sc-partner-row"><b>BOUNDARY</b><span>제3자 수요 추정과 분리 · 기사 언급량은 시장점유율 아님</span></div></article>
-          <article class="sc-partner" style="--sc-accent:#C88600"><strong>${escapeHTML(customerBoard.contractGate?.label || "LTA · PREPAYMENT · CAPACITY")}</strong><div class="sc-partner-row"><b>FIELDS</b><span>${escapeHTML((customerBoard.contractGate?.fields || []).join(" · "))}</span></div><div class="sc-partner-row"><b>STATUS</b><span>${escapeHTML(customerBoard.contractGate?.evidence?.label || customerBoard.contractGate?.fallback || "공식 계약 조건 미공개")}</span></div></article>
+      ${customerProjects.length ? `<div class="sc-report sc-project-portfolio">
+        <div class="sc-report-head"><strong>AI INFRA · 3 CUSTOMER PROJECTS</strong><span>고객 Pain → 맞춤 제안 → 90일 Gate</span></div>
+        <div class="sc-partner-grid sc-project-grid">
+          ${customerProjects.map((project) => `<article class="sc-partner sc-project-card" style="--sc-accent:${escapeHTML(project.accent || "#0A84B8")}">
+            <span class="sc-tech-en">${escapeHTML(project.index || "")} · ${escapeHTML(project.label || "CUSTOMER PROJECT")}</span>
+            <strong>${escapeHTML(project.title || "")}</strong>
+            <div class="sc-partner-row"><b>PAIN</b><span>${strategicHighlightHTML(project.pain || "")}</span></div>
+            <div class="sc-partner-row"><b>PROPOSAL</b><span>${strategicHighlightHTML(project.proposal || "")}</span></div>
+            <div class="sc-partner-row"><b>OUTPUT</b><span>${escapeHTML(project.deliverable || "")}</span></div>
+            <div class="sc-decision-gate"><b>90D GATE</b><span>${escapeHTML(project.gate90d || "")}</span></div>
+            <div class="sc-kpi-strip">${(project.kpis || []).map((kpi) => `<span>${escapeHTML(kpi)}</span>`).join("")}</div>
+            ${project.selectedInsight?.url ? `<a class="sc-project-insight" href="${escapeHTML(project.selectedInsight.url)}" target="_blank" rel="noopener noreferrer"><b>SELECTED INSIGHT</b><span>${escapeHTML(project.selectedInsight.account || "")} · ${escapeHTML(String(project.selectedInsight.title || "").slice(0, 92))}</span></a>` : ""}
+          </article>`).join("")}
         </div>
-      </div>
+      </div>` : ""}
       ${customerGroups.map((group, groupIndex) => {
         const accounts = customerAccounts.filter((account) => account.group === group.id);
         return `<details class="sc-report" ${groupIndex === 0 ? "open" : ""}>
-          <summary class="sc-report-head"><strong>${escapeHTML(`${group.index || ""} · ${group.label || "CUSTOMER GROUP"}`)}</strong><span>${escapeHTML(group.question || "")} · ${fmtNum(accounts.length)}개</span></summary>
+          <summary class="sc-report-head"><strong>${escapeHTML(`${group.index || ""} · ${group.label || "CUSTOMER GROUP"}`)}</strong><span>${escapeHTML(group.question || "")}</span></summary>
           <div class="sc-partner-grid" style="grid-template-columns:repeat(auto-fit,minmax(320px,1fr))">
             ${accounts.map((account) => {
               const evidence = account.evidence || {};
-              const evidenceClass = evidence.status === "official-fact" ? "is-fact" : evidence.status === "market-estimate" ? "is-estimate" : "is-monitoring";
               return `<article id="account-${escapeHTML(account.id || "")}" class="sc-partner sc-account-card" tabindex="0" style="--sc-accent:${escapeHTML(account.accent || "#0A84B8")}">
                 <div class="sc-account-head"><strong>${escapeHTML(account.company || "")} · ${escapeHTML(account.chip || "")}</strong><a href="#console/account/${escapeHTML(account.id || "")}" data-account-deep-link="${escapeHTML(account.id || "")}" aria-label="${escapeHTML(account.company || "")} 계정 딥링크">↗</a></div>
-                <span class="sc-playbook-status ${evidenceClass}">${escapeHTML(evidence.label || "SOURCE MONITORING")}</span>
                 ${(account.baseline || []).map((item) => `<div class="sc-partner-row"><b>${escapeHTML(item.label || "FACT")}</b><span>${escapeHTML(item.value || "")}${item.source?.url ? ` · <a href="${escapeHTML(item.source.url)}" target="_blank" rel="noopener noreferrer">원문 ↗</a>` : ""}</span></div>`).join("")}
-                <div class="sc-partner-row"><b>CHIP</b><span>${escapeHTML(account.chipStage || "Chip Roadmap 확인 필요")}</span></div>
-                <div class="sc-partner-row"><b>HBM</b><span>${escapeHTML(account.stage || "Custom HBM 근거 미관측")}</span></div>
                 <div class="sc-partner-row"><b>PAIN</b><span>${strategicHighlightHTML(account.pain || "")}</span></div>
                 <div class="sc-partner-row"><b>MEMORY</b><span>${strategicHighlightHTML(account.memory || "")}</span></div>
                 <div class="sc-partner-row"><b>GATE</b><span>${escapeHTML(account.gate || "")}</span></div>
                 <div class="sc-partner-row"><b>RELATION</b><span>${escapeHTML(account.relationship || "")}</span></div>
-                <div class="sc-account-signal"><span>최근 8주 크롤 ${fmtNum(account.mentions || 0)}건 · ${fmtNum(account.sourceCount || 0)}개 출처</span>${sparkline(account.weekly || [], "count", account.accent || "#0A84B8")}</div>
-                ${(account.evidenceStream || []).length ? `<ul class="sc-evidence-list">${account.evidenceStream.slice(0, 1).map((item) => `<li><a href="${escapeHTML(item.url || "")}" target="_blank" rel="noopener noreferrer">${escapeHTML(String(item.title || "").slice(0, 74))} ↗</a><small>${escapeHTML(item.date || "")}</small></li>`).join("")}</ul>` : `<small class="sc-note">최근 직접 기사 미관측 · 공식 Baseline 유지</small>`}
+                ${(account.evidenceStream || []).length ? `<a class="sc-project-insight" href="${escapeHTML(account.evidenceStream[0].url || "")}" target="_blank" rel="noopener noreferrer"><b>SELECTED INSIGHT</b><span>${escapeHTML(String(account.evidenceStream[0].title || "").slice(0, 92))}</span></a>` : ""}
                 ${evidence.url ? `<a class="sc-playbook-source" href="${escapeHTML(evidence.url)}" target="_blank" rel="noopener noreferrer">${escapeHTML(evidence.source || "공식 원문")} ${evidence.asOf ? `· ${escapeHTML(String(evidence.asOf).slice(0, 10))}` : ""} ↗</a>` : ""}
               </article>`;
             }).join("")}
@@ -13266,12 +13265,11 @@
         </details>`;
       })()}
       <details class="sc-report">
-        <summary class="sc-report-head"><strong>LTA · PREPAYMENT DEAL DASHBOARD</strong><span>${fmtNum(dealDashboard.events?.length || 0)}개 공개 계약 Event</span></summary>
+        <summary class="sc-report-head"><strong>LTA · PREPAYMENT DEAL DASHBOARD</strong><span>기간 · 선급금 · 물량 커밋 · Margin Gate</span></summary>
         <div class="sc-deal-schema">${Object.values(dealDashboard.schema?.fields || customerBoard.contractGate?.fields || []).map((field) => `<span>${escapeHTML(field)}</span>`).join("")}</div>
-        ${(dealDashboard.events || []).length ? `<ul class="sc-evidence-list">${dealDashboard.events.map((event) => `<li>${event.sourceUrl ? `<a href="${escapeHTML(event.sourceUrl)}" target="_blank" rel="noopener noreferrer">${escapeHTML(event.evidenceSpan || event.source || "계약 근거")} ↗</a>` : `<span>${escapeHTML(event.evidenceSpan || "계약 Event")}</span>`}<small>${escapeHTML(event.asOf || "")}</small></li>`).join("")}</ul>` : `<p class="sc-note">공식 LTA·선급금·Binding Volume 원문 미관측 · 조건값 미공개</p>`}
+        ${(dealDashboard.events || []).length ? `<ul class="sc-evidence-list">${dealDashboard.events.map((event) => `<li>${event.sourceUrl ? `<a href="${escapeHTML(event.sourceUrl)}" target="_blank" rel="noopener noreferrer">${escapeHTML(event.evidenceSpan || event.source || "계약 근거")} ↗</a>` : `<span>${escapeHTML(event.evidenceSpan || "계약 Event")}</span>`}<small>${escapeHTML(event.asOf || "")}</small></li>`).join("")}</ul>` : `<p class="sc-note">공개 계약 조건 업데이트 대기</p>`}
       </details>
       ${accountProductMap.length ? `<details class="sc-report"><summary class="sc-report-head"><strong>TECH RADAR → NEXT MEMORY</strong><span>Account Pain → Custom HBM · AI-D · AI-N</span></summary><p class="sc-note">제품 분류는 공식 원문 · 계정 매핑은 전략 가설</p><div class="sc-partner-grid">${accountProductMap.map((item) => `<article class="sc-partner" style="--sc-accent:${escapeHTML(item.accent || "#0A84B8")}"><strong>${escapeHTML(item.label || "")}</strong><div class="sc-partner-row"><b>ROLE</b><span>${escapeHTML(item.role || "")}</span></div><div class="sc-partner-row"><b>ACCOUNT</b><span>${escapeHTML((item.accountLabels || []).join(" · "))}</span></div><span class="sc-playbook-status is-estimate">STRATEGY MAPPING</span>${item.source?.url ? `<a class="sc-playbook-source" href="${escapeHTML(item.source.url)}" target="_blank" rel="noopener noreferrer">${escapeHTML(item.source.name || "공식 원문")} ↗</a>` : ""}</article>`).join("")}</div></details>` : ""}
-      ${applicationSignals.length ? `<details class="sc-report"><summary class="sc-report-head"><strong>AI APPLICATION EXPANSION</strong><span>AI-D E · Robotics · Autonomous · Industrial</span></summary><div class="sc-partner-grid">${applicationSignals.map((item) => `<article class="sc-partner" style="--sc-accent:#E24545"><strong>${escapeHTML(item.label || "")}</strong><div class="sc-mix-value">${fmtNum(item.mentions || 0)}<small>건</small></div>${sparkline(item.weekly || [], "count", "#E24545")}<div class="sc-partner-row"><b>MAP</b><span>${escapeHTML(item.productId || "ai-d-e")}</span></div></article>`).join("")}</div></details>` : ""}
       ${accountRoadmap.length ? `<div class="sc-partner-grid" aria-label="90일 실행 로드맵">${accountRoadmap.map((item, index) => `<article class="sc-partner" style="--sc-accent:#c88600"><strong>${String(index + 1).padStart(2, "0")} · ${escapeHTML(item.phase || "")}</strong><div class="sc-partner-row"><b>GATE</b><span>${escapeHTML(item.label || "")}</span></div><div class="sc-partner-row"><b>OUTPUT</b><span>${escapeHTML(item.output || "")}</span></div></article>`).join("")}</div>` : ""}
       <div class="sc-section-lead">
         <div><span>${escapeHTML(techBoard.eyebrow || "TECH & MARKET INSIGHTS")}</span><h3>${escapeHTML(techBoard.title || "LLM Tech → Memory Implication")}</h3></div>
@@ -13302,14 +13300,14 @@
         `;}).join("")}
       </div>` : `<p class="sc-empty">기술-메모리 매핑 검증 대기</p>`}
       <div class="sc-report">
-        <div class="sc-report-head"><strong>AI Application · HW/SW 리포트</strong><span>${fmtNum(strategyBoard.freshEvidenceCount || 0)}/${fmtNum(strategyBoard.evidenceCount || 0)}건 Fresh</span></div>
+        <div class="sc-report-head"><strong>AI Application · HW/SW 리포트</strong><span>핵심 변화 선별</span></div>
         ${reports.length ? `<ul class="sc-evidence-list">
           ${reports.map((item) => `<li>
             <span class="sc-ev-src">${escapeHTML(item.source || "출처")}</span>
             <a href="${escapeHTML(item.url)}" target="_blank" rel="noopener">${escapeHTML(String(item.title || "").slice(0, 84))} ↗</a>
             <small>${escapeHTML(item.publishedAt || "")}</small>
           </li>`).join("")}
-        </ul>` : `<p class="sc-empty">직접 URL 근거 미관측 · 자동 수집 후 재구성</p>`}
+        </ul>` : `<p class="sc-empty">업데이트 대기</p>`}
       </div>
       <div class="sc-section-lead">
         <div><span>${escapeHTML(partnerBoard.eyebrow || "PARTNERS & CLIENTS")}</span><h3>${escapeHTML(partnerBoard.title || "공동 검증 모델")}</h3></div>
@@ -13334,7 +13332,7 @@
           </tbody>
         </table>
       </div>` : ""}
-      <p class="sc-note">우선순위는 최신 크롤의 연결 근거량 순 · 프레임워크 문구는 전략 가설이며, 수치·인용은 연결된 원문 근거로 검증 · 트렌드 키워드 클릭 시 관련 기사로 이동</p>
+      <p class="sc-note">고객 Pain과 사업 영향 기준으로 핵심 인사이트만 선별 · 유사 신호 통합 · 수치와 인용은 연결 원문에서 확인</p>
     `;
     host.querySelectorAll("[data-account-deep-link]").forEach((link) => link.addEventListener("click", (event) => {
       event.preventDefault();
@@ -14365,12 +14363,12 @@
     // No audit for this item → show nothing rather than a broken "미연결" chip.
     if (!audit) return "";
     const label = audit.status === "conflict-candidate"
-      ? `감사 모순 후보 · ${audit.conflictEvidence?.date || audit.lastEvidenceAt || "미상"}`
+      ? `수치 확인 필요 · ${audit.conflictEvidence?.date || audit.lastEvidenceAt || "업데이트 대기"}`
       : audit.status === "revalidate"
-        ? `감사 재검증 · ${audit.lastEvidenceAt || audit.lastCheckedAt || "근거 없음"}`
-        : `감사 완료 · ${audit.lastEvidenceAt} · ${fmtNum(audit.evidenceCount)}건`;
+        ? `업데이트 확인 필요 · ${audit.lastEvidenceAt || audit.lastCheckedAt || "업데이트 대기"}`
+        : `최신 반영 · ${audit.lastEvidenceAt}`;
     const link = audit.status === "conflict-candidate" ? audit.conflictEvidence?.url : audit.evidence?.[0]?.url;
-    return `<span class="baseline-freshness ${escapeHTML(audit.status)}">${escapeHTML(label)}${link ? ` <a href="${escapeHTML(link)}" target="_blank" rel="noopener">근거 ↗</a>` : ""}</span>`;
+    return `<span class="baseline-freshness ${escapeHTML(audit.status)}">${escapeHTML(label)}${link ? ` <a href="${escapeHTML(link)}" target="_blank" rel="noopener">원문 ↗</a>` : ""}</span>`;
   }
 
   let postHbmContextSliderCleanup = null;
@@ -14462,8 +14460,7 @@
     const roadmap = matrix.roadmap || [];
     const valueChain = (matrix.valueChain || []).filter(architectureRelated);
     if (meta) {
-      const objectCount = tracks.length + advancedModules.length + shareRows.length + roadmap.length + valueChain.length;
-      meta.textContent = `${fmtNum(objectCount)}개 객체 · ${activeCategoryData().label} · ${matrix.sourceNote || "첨부 보고서 반영"}`;
+      meta.textContent = `${activeCategoryData().label} · 고객 병목과 사업 영향을 연결`;
     }
 
     summary.innerHTML = (matrix.summary || []).map((line, index) => `
@@ -19945,9 +19942,8 @@
     const companyItems = (data.companySignals || []).filter(talentRelated);
     const keywordItems = data.keywordTaxonomy || [];
     const ruleItems = data.warningRules || [];
-    const liveTalentSignals = axisSignalCount(CHINA_DYNAMIC_AXES.find((axis) => axis.id === "talent"));
     if (meta) {
-      meta.textContent = `${fmtNum(companyItems.length + keywordItems.length + ruleItems.length)}개 객체 · ${activeCategoryData().label} · 채용 신호 ${fmtNum(liveTalentSignals)}건`;
+      meta.textContent = `${activeCategoryData().label} · 핵심 조직 변화 선별`;
     }
 
     summary.innerHTML = (data.summary || []).map((line, index) => `
@@ -20849,8 +20845,8 @@
     }
     const selected = items.find((item) => item.id === selectedInsightId) || items[0];
     $("#workbenchMeta").textContent = mode.usingAllEvidence
-      ? `${mode.label} · 전체 근거 ${fmtNum(items.length)}개`
-      : `${mode.label} · ${activeCategoryData().label} · ${fmtNum(items.length)}개 객체`;
+      ? `${mode.label} · 통합 전략 관점`
+      : `${mode.label} · ${activeCategoryData().label}`;
 
     stage.innerHTML = "";
     if (!items.length) {

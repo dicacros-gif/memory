@@ -9,6 +9,50 @@
     { "id": "next-memory", "index": "02", "label": "TECH RADAR → NEXT MEMORY", "question": "AI App·HW/SW 변화 → Custom HBM·AI-D·AI-N" },
     { "id": "deal-support", "index": "03", "label": "EXECUTIVE DEAL SUPPORT", "question": "경쟁·LTA·Capacity → 90일 의사결정" }
   ],
+  "projects": [
+    {
+      "id": "nvidia-base-die",
+      "index": "01",
+      "label": "NVIDIA · CUSTOM HBM",
+      "title": "Rubin Base-Die 공동설계 Gate",
+      "accounts": ["nvidia"],
+      "signalTerms": ["Rubin", "HBM4E", "base die", "logic die", "TSMC"],
+      "pain": "HBM4 Ramp와 HBM4E 로직 이관·패키징 일정을 동시에 잠가야 하는 고객 과제",
+      "proposal": "컨트롤러·PHY 이관 범위, TSMC 로직 슬롯, Package Capacity를 하나의 공동설계 표로 통합",
+      "deliverable": "Base-Die Requirement Matrix · Qualification Map · LTA 옵션",
+      "gate90d": "Architecture Lock · Qualification Slot · Binding Volume · Margin Floor",
+      "kpis": ["W/token", "Package Yield", "Qualification Slip"],
+      "accent": "#2D6BFF"
+    },
+    {
+      "id": "hyperscaler-asic-matrix",
+      "index": "02",
+      "label": "GOOGLE · MS · AWS · META",
+      "title": "ASIC Account Requirement Matrix",
+      "accounts": ["google", "microsoft", "aws", "meta", "broadcom"],
+      "signalTerms": ["TPU", "Maia", "Trainium", "MTIA", "ASIC", "Broadcom"],
+      "pain": "TPU·Maia·Trainium·MTIA마다 용량·대역폭·전력·인터페이스 요구가 다른 고객 과제",
+      "proposal": "계정별 Workload와 Buying Criteria를 Custom HBM·AI-D·AI-N 조합으로 개별 설계",
+      "deliverable": "Account Pain Map · Supplier Matrix · 고객별 Memory Proposal",
+      "gate90d": "2개 Lighthouse PoC · TCO 우위 · 고객별 Qualification Plan",
+      "kpis": ["GB/s/W", "Cost/Task", "PoC Conversion"],
+      "accent": "#7656C9"
+    },
+    {
+      "id": "agentic-memory-tier",
+      "index": "03",
+      "label": "AGENTIC AI · RAG",
+      "title": "KV Cache Memory Tiering",
+      "accounts": ["google", "microsoft", "aws", "meta"],
+      "signalTerms": ["KV cache", "TTFT", "TPOT", "long context", "RAG", "memory tier"],
+      "pain": "Long Context와 동시 요청이 KV Cache를 키워 TTFT·TPOT·GPU Idle 비용을 높이는 서비스 과제",
+      "proposal": "HBM Hot · AI-D/CXL Warm · AI-N/eSSD·HBF Scale 계층을 동일 Workload로 비교",
+      "deliverable": "Memory Tier Benchmark · Reference Architecture · 공동 PoC 제안",
+      "gate90d": "p95 TTFT·TPOT · Goodput/W · Cost per Successful Task 개선",
+      "kpis": ["p95 TTFT", "TPOT", "Goodput/W"],
+      "accent": "#00A88F"
+    }
+  ],
   "groups": [
     { "id": "gpu", "index": "01", "label": "GPU PLATFORM", "question": "Rack 성능·전력·HBM Ramp" },
     { "id": "hyperscaler-asic", "index": "02", "label": "HYPERSCALER ASIC", "question": "고객별 용량·대역폭·TCO" },

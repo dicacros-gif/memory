@@ -3,7 +3,7 @@
 
   const BUSINESS_TITLE = "AI Infra Strategy · Customer Pain to Executive Action";
   const CONSOLE_HASH = "#console";
-  const CONSOLE_REVISION = "infra-daf51ef93c08";
+  const CONSOLE_REVISION = "infra-e2fb1de626fd";
   const DECISION_CLIENT_PATH = "data/landing-decision-client.json";
   const SITE_CONTENT_PATH = "data/site-content-client.json";
   const SITE_CONTENT_EXTENDED_PATH = "data/site-content-extended-client.json";
@@ -817,6 +817,8 @@
           <span>${escapeBusinessHTML(item.index || String(index + 1).padStart(2, "0"))} · ${escapeBusinessHTML(item.label || "AI INFRA DECISION")}</span>
           <strong>${escapeBusinessHTML(item.decisionQuestion || item.whatChanged || "다음 의사결정 질문을 검증합니다.")}</strong>
           <p><b>PAIN</b> · ${escapeBusinessHTML(item.customerPain || "고객 문제 검증 중")}</p>
+          <p><b>PROPOSAL</b> · ${escapeBusinessHTML(item.recommendation || "맞춤형 메모리 제안")}</p>
+          <small><b>90D GATE</b> · ${escapeBusinessHTML(item.action90d || "고객 합의 Gate")}</small>
         </a>`;
       }).join("");
     }
@@ -832,22 +834,17 @@
           <span>${escapeBusinessHTML(account.company || "")}</span>
           <strong>${escapeBusinessHTML(account.chip || "")}</strong>
           <small>${escapeBusinessHTML(account.pain || "")}</small>
-          <b>${escapeBusinessHTML(account.stageLedger?.label || "근거 모니터")}</b>
+          <b>${escapeBusinessHTML(account.memory || "맞춤형 Memory Proposal")}</b>
         </a>`).join("");
     }
-    const mix = board.demandMix || {};
     const mixHost = document.querySelector("#businessDemandMix");
-    if (mixHost) {
-      const gpu = Number(mix.latest?.gpuPct || 0);
-      const asic = Number(mix.latest?.asicPct || 0);
-      mixHost.innerHTML = `<div><span>CRAWL MEASURED</span><strong>GPU ${gpu.toFixed(1)}%</strong><i style="width:${Math.max(0, Math.min(100, gpu))}%"></i></div><div><span>동일 Corpus · 시장점유율 아님</span><strong>ASIC ${asic.toFixed(1)}%</strong><i style="width:${Math.max(0, Math.min(100, asic))}%"></i></div>`;
-    }
+    if (mixHost) mixHost.replaceChildren();
   }
 
   function applySiteContent(content = {}) {
     if (!content?.clientArtifact) return;
     document.documentElement.dataset.contentRun = String(content.runId || "");
-    const title = document.querySelector(".business-hero-copy h1");
+    const title = document.querySelector(".business-hero-copy h2");
     if (title && content.hero?.titleLines?.length) {
       const [first, ...rest] = content.hero.titleLines;
       title.innerHTML = `${escapeBusinessHTML(first)}<br><em>${escapeBusinessHTML(rest.join(" "))}</em>`;
@@ -919,21 +916,25 @@
     }
     if (siteContentPromise) return siteContentPromise;
     siteContentPromise = (async () => {
-      const manifest = await getDataManifest({ force });
-      const cacheVersion = encodeURIComponent(manifest.cacheVersion || manifest.runId || Date.now());
-      const response = await fetch(`${SITE_CONTENT_PATH}?v=${cacheVersion}`, { cache: force ? "reload" : "force-cache" });
-      if (!response.ok) throw new Error(`Site content HTTP ${response.status}`);
-      const content = await response.json();
+      const fetchSnapshot = async (manifest, reload = false) => {
+        const cacheVersion = encodeURIComponent(manifest.cacheVersion || manifest.runId || Date.now());
+        const response = await fetch(`${SITE_CONTENT_PATH}?v=${cacheVersion}`, { cache: reload ? "reload" : "force-cache" });
+        if (!response.ok) throw new Error(`Site content HTTP ${response.status}`);
+        return { content: await response.json(), cacheVersion };
+      };
+      let manifest = await getDataManifest({ force });
+      let snapshot = await fetchSnapshot(manifest, force);
+      if (snapshot.content?.clientArtifact !== true || !snapshot.content.runId || snapshot.content.runId !== manifest.runId) {
+        manifest = await getDataManifest({ force: true });
+        snapshot = await fetchSnapshot(manifest, true);
+      }
+      const { content, cacheVersion } = snapshot;
       if (content?.clientArtifact !== true || !content.runId || content.runId !== manifest.runId) {
-        throw new Error("Site content runId mismatch");
+        document.body.dataset.snapshotUpdate = "blocked";
+        throw new Error("Site content runId mismatch after reconciliation");
       }
-      const previousRunId = String(window.MEMORY_SITE_CONTENT?.runId || "");
-      if (previousRunId && previousRunId !== String(content.runId) && isConsoleHash()) {
-        document.body.dataset.snapshotUpdate = "reloading";
-        document.body.dataset.nextAutomationRun = String(content.runId);
-        window.location.reload();
-        return content;
-      }
+      document.body.dataset.snapshotUpdate = "applied";
+      document.body.dataset.snapshotRun = String(content.runId);
       window.MEMORY_SITE_CONTENT = content;
       applySiteContent(content);
       window.dispatchEvent(new CustomEvent("memory-site-content-ready", { detail: { runId: content.runId } }));
@@ -1106,10 +1107,23 @@
     const updated = document.querySelector("#decisionDataUpdated");
     try {
       await loadSiteContent();
-      const response = await fetch(DECISION_CLIENT_PATH, { cache: "no-store" });
-      if (!response.ok) throw new Error(`HTTP ${response.status}`);
-      const data = await response.json();
-      if (data?.clientArtifact !== true) throw new Error("Unverified landing artifact");
+      const fetchDecisionSnapshot = async (manifest, reload = false) => {
+        const version = encodeURIComponent(manifest.cacheVersion || manifest.runId || Date.now());
+        const response = await fetch(`${DECISION_CLIENT_PATH}?v=${version}`, { cache: reload ? "reload" : "force-cache" });
+        if (!response.ok) throw new Error(`HTTP ${response.status}`);
+        return response.json();
+      };
+      let manifest = await getDataManifest();
+      let data = await fetchDecisionSnapshot(manifest);
+      const siteRunId = String(window.MEMORY_SITE_CONTENT?.runId || "");
+      if (data?.clientArtifact !== true || data.runId !== manifest.runId || (siteRunId && data.runId !== siteRunId)) {
+        manifest = await getDataManifest({ force: true });
+        await loadSiteContent({ force: true });
+        data = await fetchDecisionSnapshot(manifest, true);
+      }
+      if (data?.clientArtifact !== true || data.runId !== manifest.runId || data.runId !== String(window.MEMORY_SITE_CONTENT?.runId || "")) {
+        throw new Error("Decision artifact runId mismatch after reconciliation");
+      }
 
       for (const panel of document.querySelectorAll("[data-decision-brief]")) {
         const brief = data.briefs?.find((item) => item.id === panel.dataset.decisionBrief);
@@ -1135,8 +1149,8 @@
       const current = Number.isFinite(expiresAt) && Date.now() <= expiresAt;
       dot?.classList.toggle("is-current", current);
       dot?.classList.toggle("is-delayed", !current);
-      if (dot) dot.textContent = current ? "Console verified" : "Freshness review";
-      if (status) status.textContent = `Console 승격 근거 ${evidenceCount || "-"}건 · ${quality} · 전략 답안 자동 연결`;
+      if (dot) dot.textContent = current ? "Console current" : "Update review";
+      if (status) status.textContent = current ? "고객 과제와 선택 인사이트 최신화" : "선택 인사이트 업데이트 확인";
       if (updated) updated.textContent = `기준 ${formatKst(data.updatedAt)}`;
     } catch (error) {
       console.warn("Decision evidence unavailable", error);
@@ -1672,7 +1686,7 @@
     businessReady = true;
     applyExecutiveCopyStyle(site);
     setupHeroMediaRotation();
-    window.setTimeout(() => scheduleIdleStep(() => void loadSiteContent().then(scheduleConsoleAssetWarmup), 600), 900);
+    window.setTimeout(() => scheduleIdleStep(() => void loadSiteContent().then(scheduleConsoleAssetWarmup), 120), 80);
     scheduleSiteContentRefresh();
     document.addEventListener("visibilitychange", recheckSiteContentNow);
     window.addEventListener("online", recheckSiteContentNow);

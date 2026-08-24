@@ -2495,6 +2495,3559 @@
       }
     }
   },
+  "strategyBoard": {
+    "schemaVersion": "1.0",
+    "generatedAt": "2026-08-24T06:09:35.645Z",
+    "status": "evidence-connected",
+    "tech": {
+      "eyebrow": "TECH & MARKET INSIGHTS",
+      "title": "Full-Stack AI Memory → Customer Outcome",
+      "description": "공식 제품축과 LLM Workload 변화를 고객 병목·시스템 TCO·실행 Gate로 변환",
+      "pillars": [
+        {
+          "id": "custom-hbm",
+          "index": "01",
+          "label": "CUSTOM HBM",
+          "role": "가속기·ASIC별 Logic Base-Die·Package 공동설계",
+          "gate": "Architecture Lock · Qualification · Foundry Capacity",
+          "accent": "#2D6BFF"
+        },
+        {
+          "id": "ai-d",
+          "index": "02",
+          "label": "AI-D",
+          "role": "SOCAMM2·MRDIMM·CXL 기반 System Memory",
+          "gate": "Latency · Capacity · Interoperability · TCO",
+          "accent": "#00A88F"
+        },
+        {
+          "id": "ai-n",
+          "index": "03",
+          "label": "AI-N",
+          "role": "P·B·D로 추론 성능·대역폭·용량 확장",
+          "gate": "Workload PoC · Endurance · Ecosystem · Qualification",
+          "accent": "#7656C9"
+        }
+      ],
+      "memoryMap": [
+        {
+          "id": "transformer",
+          "tech": "Transformer · MoE",
+          "context": "Attention · Expert Routing",
+          "impact": "Parameter·Activation 상주와 Collective 증가",
+          "memory": "HBM4·HBM4E · Fabric",
+          "accent": "#2D6BFF",
+          "evidence": {
+            "status": "official-fact",
+            "label": "OFFICIAL FACT",
+            "stage": "COMMERCIAL_SHIPMENT",
+            "source": "SK hynix Newsroom",
+            "url": "https://news.skhynix.com/en/q2-2026-business-results",
+            "asOf": "2026-07-29"
+          }
+        },
+        {
+          "id": "context-kv",
+          "tech": "Long Context · KV Cache",
+          "context": "Prompt · Prefill · Decode",
+          "impact": "Token·동시 Session에 비례한 KV 용량 증가",
+          "memory": "HBM Hot · AI-D System · AI-N/HBF Scale",
+          "accent": "#00A88F",
+          "evidence": {
+            "status": "monitoring",
+            "label": "SOURCE MONITORING",
+            "source": "",
+            "url": "",
+            "asOf": null
+          }
+        },
+        {
+          "id": "rag",
+          "tech": "Enterprise RAG",
+          "context": "Hybrid Retrieval · Rerank",
+          "impact": "Index Freshness·P99·ACL이 데이터 배치 결정",
+          "memory": "DRAM · CXL · eSSD",
+          "accent": "#0A84B8",
+          "evidence": {
+            "status": "monitoring",
+            "label": "SOURCE MONITORING",
+            "source": "",
+            "url": "",
+            "asOf": null
+          }
+        },
+        {
+          "id": "vector-data",
+          "tech": "Vector DB · Data Pipeline",
+          "context": "Embedding · Checkpoint",
+          "impact": "Active Index와 대용량 Corpus의 계층화",
+          "memory": "AI-D Active · AI-N P/D eSSD",
+          "accent": "#7656C9",
+          "evidence": {
+            "status": "monitoring",
+            "label": "SOURCE MONITORING",
+            "source": "",
+            "url": "",
+            "asOf": null
+          }
+        },
+        {
+          "id": "hbf-open-standard",
+          "tech": "HBF · Open Standard",
+          "context": "OCP · UCIe · Lighthouse PoC",
+          "impact": "HBM과 SSD 사이 추론 Capacity Tier 검증",
+          "memory": "AI-N B · HBF 8/16-Hi · 0.4–3.0 TB/s",
+          "accent": "#C88600",
+          "evidence": {
+            "status": "monitoring",
+            "label": "SOURCE MONITORING",
+            "source": "",
+            "url": "",
+            "asOf": null
+          }
+        },
+        {
+          "id": "memory-as-a-service",
+          "tech": "Memory-as-a-Service",
+          "context": "CXL · Pooling · Composable Memory",
+          "impact": "분리·공유 Memory Pool로 유휴 Capacity와 Peak 증설 비용 절감",
+          "memory": "AI-D · CXL Pool · Metering/SLA",
+          "accent": "#D05A2B",
+          "commercialStatus": "strategy-hypothesis",
+          "evidence": {
+            "status": "monitoring",
+            "label": "SOURCE MONITORING",
+            "source": "",
+            "url": "",
+            "asOf": null
+          }
+        }
+      ]
+    },
+    "customerPortfolio": {
+      "registrySource": "data/accounts.json",
+      "eyebrow": "Account Intelligence",
+      "title": "Key Account Roadmap → Next Memory → Deal Gate",
+      "description": "고객 AI Chip Roadmap을 Pain Point·Memory Requirement·Deal Gate로 연결",
+      "disclosure": "공급 관계·물량·점유율·LTA 조건은 직접 원문 또는 복수 독립 출처 전까지 미확인",
+      "pillars": [
+        {
+          "id": "account-intelligence",
+          "index": "01",
+          "label": "ACCOUNT INTELLIGENCE",
+          "question": "고객 Roadmap → Pain Point → Buying Criteria"
+        },
+        {
+          "id": "next-memory",
+          "index": "02",
+          "label": "TECH RADAR → NEXT MEMORY",
+          "question": "AI App·HW/SW 변화 → Custom HBM·AI-D·AI-N"
+        },
+        {
+          "id": "deal-support",
+          "index": "03",
+          "label": "EXECUTIVE DEAL SUPPORT",
+          "question": "경쟁·LTA·Capacity → 90일 의사결정"
+        }
+      ],
+      "projects": [
+        {
+          "id": "nvidia-base-die",
+          "index": "01",
+          "label": "NVIDIA · CUSTOM HBM",
+          "title": "Rubin Base-Die 공동설계 Gate",
+          "accounts": [
+            "nvidia"
+          ],
+          "signalTerms": [
+            "Rubin",
+            "HBM4E",
+            "base die",
+            "logic die",
+            "TSMC"
+          ],
+          "pain": "HBM4 Ramp와 HBM4E 로직 이관·패키징 일정을 동시에 잠가야 하는 고객 과제",
+          "proposal": "컨트롤러·PHY 이관 범위, TSMC 로직 슬롯, Package Capacity를 하나의 공동설계 표로 통합",
+          "deliverable": "Base-Die Requirement Matrix · Qualification Map · LTA 옵션",
+          "gate90d": "Architecture Lock · Qualification Slot · Binding Volume · Margin Floor",
+          "kpis": [
+            "W/token",
+            "Package Yield",
+            "Qualification Slip"
+          ],
+          "accent": "#2D6BFF",
+          "accountLabels": [
+            "NVIDIA"
+          ],
+          "selectedInsight": null
+        },
+        {
+          "id": "hyperscaler-asic-matrix",
+          "index": "02",
+          "label": "GOOGLE · MS · AWS · META",
+          "title": "ASIC Account Requirement Matrix",
+          "accounts": [
+            "google",
+            "microsoft",
+            "aws",
+            "meta",
+            "broadcom"
+          ],
+          "signalTerms": [
+            "TPU",
+            "Maia",
+            "Trainium",
+            "MTIA",
+            "ASIC",
+            "Broadcom"
+          ],
+          "pain": "TPU·Maia·Trainium·MTIA마다 용량·대역폭·전력·인터페이스 요구가 다른 고객 과제",
+          "proposal": "계정별 Workload와 Buying Criteria를 Custom HBM·AI-D·AI-N 조합으로 개별 설계",
+          "deliverable": "Account Pain Map · Supplier Matrix · 고객별 Memory Proposal",
+          "gate90d": "2개 Lighthouse PoC · TCO 우위 · 고객별 Qualification Plan",
+          "kpis": [
+            "GB/s/W",
+            "Cost/Task",
+            "PoC Conversion"
+          ],
+          "accent": "#7656C9",
+          "accountLabels": [
+            "Google",
+            "Microsoft",
+            "AWS",
+            "Meta",
+            "Broadcom"
+          ],
+          "selectedInsight": null
+        },
+        {
+          "id": "agentic-memory-tier",
+          "index": "03",
+          "label": "AGENTIC AI · RAG",
+          "title": "KV Cache Memory Tiering",
+          "accounts": [
+            "google",
+            "microsoft",
+            "aws",
+            "meta"
+          ],
+          "signalTerms": [
+            "KV cache",
+            "TTFT",
+            "TPOT",
+            "long context",
+            "RAG",
+            "memory tier"
+          ],
+          "pain": "Long Context와 동시 요청이 KV Cache를 키워 TTFT·TPOT·GPU Idle 비용을 높이는 서비스 과제",
+          "proposal": "HBM Hot · AI-D/CXL Warm · AI-N/eSSD·HBF Scale 계층을 동일 Workload로 비교",
+          "deliverable": "Memory Tier Benchmark · Reference Architecture · 공동 PoC 제안",
+          "gate90d": "p95 TTFT·TPOT · Goodput/W · Cost per Successful Task 개선",
+          "kpis": [
+            "p95 TTFT",
+            "TPOT",
+            "Goodput/W"
+          ],
+          "accent": "#00A88F",
+          "accountLabels": [
+            "Google",
+            "Microsoft",
+            "AWS",
+            "Meta"
+          ],
+          "selectedInsight": null
+        }
+      ],
+      "groups": [
+        {
+          "id": "gpu",
+          "index": "01",
+          "label": "GPU PLATFORM",
+          "question": "Rack 성능·전력·HBM Ramp",
+          "accountCount": 1
+        },
+        {
+          "id": "hyperscaler-asic",
+          "index": "02",
+          "label": "HYPERSCALER ASIC",
+          "question": "고객별 용량·대역폭·TCO",
+          "accountCount": 4
+        },
+        {
+          "id": "design-ecosystem",
+          "index": "03",
+          "label": "ASIC DESIGN ECOSYSTEM",
+          "question": "Logic·Memory·Package 공동설계",
+          "accountCount": 2
+        },
+        {
+          "id": "edge-physical",
+          "index": "04",
+          "label": "EDGE · PHYSICAL AI",
+          "question": "저전력·보안·현장 추론",
+          "accountCount": 3
+        }
+      ],
+      "accounts": [
+        {
+          "id": "nvidia",
+          "focus": true,
+          "demandClass": "gpu",
+          "group": "gpu",
+          "company": "NVIDIA",
+          "chip": "Vera Rubin",
+          "aliases": [
+            "nvidia",
+            "엔비디아",
+            "vera rubin",
+            "rubin",
+            "nvlink",
+            "nvl72"
+          ],
+          "baseline": [
+            {
+              "label": "PLATFORM",
+              "value": "Vera Rubin",
+              "sourceId": "nvidia-newsroom",
+              "source": {
+                "id": "nvidia-newsroom",
+                "name": "NVIDIA Newsroom",
+                "url": "https://nvidianews.nvidia.com/news/nvidia-vera-rubin-platform"
+              }
+            }
+          ],
+          "stage": "고객 제안 단계 검토",
+          "pain": "Rack-scale Agentic AI의 Memory·Fabric·전력 동시 병목",
+          "memory": "Custom HBM · AI-D · AI-N/eSSD",
+          "gate": "Qualification · Ramp · Package Capacity",
+          "relationship": "공식 파트너십 근거만 연결",
+          "accent": "#2D6BFF",
+          "evidence": {
+            "status": "official-fact",
+            "label": "OFFICIAL FACT",
+            "stage": "ANNOUNCED",
+            "source": "SK hynix Newsroom",
+            "url": "https://news.skhynix.com/en/skhynix-nvidia-partnership-2026",
+            "asOf": "2026-07-25"
+          },
+          "mentions": 6,
+          "sourceCount": 5,
+          "officialEvidenceCount": 0,
+          "weekly": [
+            {
+              "week": "2026-07-06",
+              "count": 0
+            },
+            {
+              "week": "2026-07-13",
+              "count": 0
+            },
+            {
+              "week": "2026-07-20",
+              "count": 1
+            },
+            {
+              "week": "2026-07-27",
+              "count": 0
+            },
+            {
+              "week": "2026-08-03",
+              "count": 0
+            },
+            {
+              "week": "2026-08-10",
+              "count": 0
+            },
+            {
+              "week": "2026-08-17",
+              "count": 4
+            },
+            {
+              "week": "2026-08-24",
+              "count": 1
+            }
+          ],
+          "evidenceStream": [
+            {
+              "title": "消息称英伟达AI服务器价格将上涨15%_快讯 - CFM闪存市场",
+              "source": "CFM闪存市场",
+              "sourceClass": "general-media",
+              "url": "https://www.chinaflashmarket.com/newsflash/38648",
+              "date": "2026-08-24"
+            },
+            {
+              "title": "Nvidia reportedly warns biggest customers of 15% price hikes on AI servers — memory costs continue to soar - Tom's Hardware",
+              "source": "Tom's Hardware",
+              "sourceClass": "authoritative-media",
+              "url": "https://www.tomshardware.com/pc-components/dram/nvidia-reportedly-warns-biggest-customers-of-15-percent-price-hikes-on-ai-servers",
+              "date": "2026-08-23"
+            },
+            {
+              "title": "SKHY의 새로운 HBM 팀이 Nvidia와 AMD의 뒷마당에 상륙 - 공동 설계가 HBM4 주문을 획득하는 방법이 되고 있음 - digittimes",
+              "source": "digitimes",
+              "sourceClass": "authoritative-media",
+              "url": "https://www.digitimes.com/news/a20260820pd219/sk-hynix-hbm-hbm4-design-amd.html",
+              "date": "2026-08-20"
+            },
+            {
+              "title": "NVIDIA Vera Rubin: 대규모 상황 AI 추론에서 메모리 병목 현상 해결 - TechInsights",
+              "source": "TechInsights",
+              "sourceClass": "research",
+              "url": "https://www.techinsights.com/blog/nvidia-vera-rubin-solving-memory-bottleneck-large-context-ai-inference",
+              "date": "2026-08-17"
+            }
+          ],
+          "chipStage": "공식 플랫폼 공개",
+          "stageLedger": {
+            "stage": "UNVERIFIED",
+            "label": "고객 제안 단계 검토",
+            "source": null
+          }
+        },
+        {
+          "id": "google",
+          "focus": true,
+          "demandClass": "asic",
+          "group": "hyperscaler-asic",
+          "company": "Google",
+          "chip": "TPU7x · Ironwood",
+          "aliases": [
+            "google",
+            "alphabet",
+            "google cloud",
+            "tpu",
+            "tpu7",
+            "ironwood"
+          ],
+          "baseline": [
+            {
+              "label": "MEMORY",
+              "value": "192GB HBM · 7.38TB/s",
+              "sourceId": "google-cloud-tpu",
+              "source": {
+                "id": "google-cloud-tpu",
+                "name": "Google Cloud TPU",
+                "url": "https://docs.cloud.google.com/tpu/docs/tpu7x"
+              }
+            }
+          ],
+          "stage": "고객 제안 단계 검토",
+          "pain": "MXU Feeding·Pod Data Movement·전력 효율",
+          "memory": "Custom HBM · HBM/Host Tier · AI-N",
+          "gate": "MXU Feeding · D2D · Pod TCO",
+          "relationship": "Broadcom 설계 생태계와 공급 관계 분리",
+          "accent": "#00A88F",
+          "evidence": {
+            "status": "official-fact",
+            "label": "OFFICIAL FACT",
+            "stage": "PLATFORM_ADOPTION",
+            "source": "Google Cloud TPU",
+            "url": "https://cloud.google.com/blog/products/compute/inside-the-ironwood-tpu-codesigned-ai-stack",
+            "asOf": "2025-11-06"
+          },
+          "mentions": 0,
+          "sourceCount": 0,
+          "officialEvidenceCount": 0,
+          "weekly": [
+            {
+              "week": "2026-07-06",
+              "count": 0
+            },
+            {
+              "week": "2026-07-13",
+              "count": 0
+            },
+            {
+              "week": "2026-07-20",
+              "count": 0
+            },
+            {
+              "week": "2026-07-27",
+              "count": 0
+            },
+            {
+              "week": "2026-08-03",
+              "count": 0
+            },
+            {
+              "week": "2026-08-10",
+              "count": 0
+            },
+            {
+              "week": "2026-08-17",
+              "count": 0
+            },
+            {
+              "week": "2026-08-24",
+              "count": 0
+            }
+          ],
+          "evidenceStream": [],
+          "chipStage": "TPU7x 제공",
+          "stageLedger": {
+            "stage": "UNVERIFIED",
+            "label": "고객 제안 단계 검토",
+            "source": null
+          }
+        },
+        {
+          "id": "microsoft",
+          "focus": true,
+          "demandClass": "asic",
+          "group": "hyperscaler-asic",
+          "company": "Microsoft",
+          "chip": "Maia 200",
+          "aliases": [
+            "microsoft",
+            "azure",
+            "maia",
+            "maia 200",
+            "마이크로소프트"
+          ],
+          "baseline": [
+            {
+              "label": "MEMORY",
+              "value": "216GB HBM3e · 7TB/s",
+              "sourceId": "microsoft-ai-infra",
+              "source": {
+                "id": "microsoft-ai-infra",
+                "name": "Microsoft Official Blog",
+                "url": "https://blogs.microsoft.com/blog/2026/01/26/maia-200-the-ai-accelerator-built-for-inference/"
+              }
+            }
+          ],
+          "stage": "고객 제안 단계 검토",
+          "pain": "Inference Token 경제성·Memory Feeding·Scale-up Network",
+          "memory": "Custom HBM · AI-D · Network Co-Design",
+          "gate": "Model Portability · Region Ramp · TCO",
+          "relationship": "HBM 공급 관계는 별도 직접 원문 필요",
+          "accent": "#0A84B8",
+          "evidence": {
+            "status": "monitoring",
+            "label": "OFFICIAL SOURCE MONITOR",
+            "source": "Microsoft Official Blog",
+            "url": "https://blogs.microsoft.com/blog/2026/01/26/maia-200-the-ai-accelerator-built-for-inference/",
+            "asOf": null
+          },
+          "mentions": 1,
+          "sourceCount": 1,
+          "officialEvidenceCount": 0,
+          "weekly": [
+            {
+              "week": "2026-07-06",
+              "count": 0
+            },
+            {
+              "week": "2026-07-13",
+              "count": 0
+            },
+            {
+              "week": "2026-07-20",
+              "count": 1
+            },
+            {
+              "week": "2026-07-27",
+              "count": 0
+            },
+            {
+              "week": "2026-08-03",
+              "count": 0
+            },
+            {
+              "week": "2026-08-10",
+              "count": 0
+            },
+            {
+              "week": "2026-08-17",
+              "count": 0
+            },
+            {
+              "week": "2026-08-24",
+              "count": 0
+            }
+          ],
+          "evidenceStream": [
+            {
+              "title": "AMD Helios AI 랙은 HBM4 메모리 에지로 NVIDIA에 도전 · Microsoft가 최신 고객으로 합류",
+              "source": "TrendForce",
+              "sourceClass": "research",
+              "url": "https://www.trendforce.com/news/2026/07/21/news-amds-first-rack-scale-ai-system-helios-challenges-nvidia-with-hbm4-memory-edge-but-reportedly-comes-at-a-higher-price",
+              "date": "2026-07-21"
+            }
+          ],
+          "chipStage": "Region 배포",
+          "stageLedger": {
+            "stage": "UNVERIFIED",
+            "label": "고객 제안 단계 검토",
+            "source": null
+          }
+        },
+        {
+          "id": "aws",
+          "focus": true,
+          "demandClass": "asic",
+          "group": "hyperscaler-asic",
+          "company": "AWS",
+          "chip": "Trainium",
+          "aliases": [
+            "amazon",
+            "aws",
+            "amazon web services",
+            "trainium",
+            "trn3",
+            "neuron"
+          ],
+          "baseline": [
+            {
+              "label": "PLATFORM",
+              "value": "Trainium · Neuron",
+              "sourceId": "aws-trainium",
+              "source": {
+                "id": "aws-trainium",
+                "name": "AWS Trainium",
+                "url": "https://aws.amazon.com/ai/machine-learning/trainium/"
+              }
+            }
+          ],
+          "stage": "고객 제안 단계 검토",
+          "pain": "MoE Routing·Collective·HBM Data Movement 경제성",
+          "memory": "Custom HBM · AI-D · System Memory",
+          "gate": "Neuron Runtime · UltraServer Goodput/TCO",
+          "relationship": "공급사·물량 공개 검증 필요",
+          "accent": "#C88600",
+          "evidence": {
+            "status": "monitoring",
+            "label": "OFFICIAL SOURCE MONITOR",
+            "source": "AWS Trainium",
+            "url": "https://aws.amazon.com/ai/machine-learning/trainium/",
+            "asOf": null
+          },
+          "mentions": 1,
+          "sourceCount": 1,
+          "officialEvidenceCount": 0,
+          "weekly": [
+            {
+              "week": "2026-07-06",
+              "count": 0
+            },
+            {
+              "week": "2026-07-13",
+              "count": 0
+            },
+            {
+              "week": "2026-07-20",
+              "count": 0
+            },
+            {
+              "week": "2026-07-27",
+              "count": 1
+            },
+            {
+              "week": "2026-08-03",
+              "count": 0
+            },
+            {
+              "week": "2026-08-10",
+              "count": 0
+            },
+            {
+              "week": "2026-08-17",
+              "count": 0
+            },
+            {
+              "week": "2026-08-24",
+              "count": 0
+            }
+          ],
+          "evidenceStream": [
+            {
+              "title": "Amazon hikes 2026 capex to $220 billion due to higher memory costs - CNBC",
+              "source": "CNBC",
+              "sourceClass": "authoritative-media",
+              "url": "https://www.cnbc.com/2026/07/30/amazon-amzn-q2-earnings-report-2026.html",
+              "date": "2026-07-30"
+            }
+          ],
+          "chipStage": "공식 서비스",
+          "stageLedger": {
+            "stage": "UNVERIFIED",
+            "label": "고객 제안 단계 검토",
+            "source": null
+          }
+        },
+        {
+          "id": "meta",
+          "focus": true,
+          "demandClass": "asic",
+          "group": "hyperscaler-asic",
+          "company": "Meta",
+          "chip": "MTIA",
+          "aliases": [
+            "meta",
+            "meta platforms",
+            "mtia"
+          ],
+          "baseline": [
+            {
+              "label": "PLATFORM",
+              "value": "MTIA Roadmap",
+              "sourceId": "meta-engineering",
+              "source": {
+                "id": "meta-engineering",
+                "name": "Meta Engineering",
+                "url": "https://engineering.fb.com/2025/09/29/data-infrastructure/metas-infrastructure-evolution-and-the-advent-of-ai/"
+              }
+            }
+          ],
+          "stage": "고객 제안 단계 검토",
+          "pain": "추천·광고 추론의 HBM I/O·Chiplet·Package Scaling",
+          "memory": "Custom HBM · AI-D · Fabric",
+          "gate": "Generation Roadmap · Package · TCO",
+          "relationship": "Broadcom 설계와 Memory 공급 분리",
+          "accent": "#7656C9",
+          "evidence": {
+            "status": "monitoring",
+            "label": "OFFICIAL SOURCE MONITOR",
+            "source": "Meta Engineering",
+            "url": "https://engineering.fb.com/2025/09/29/data-infrastructure/metas-infrastructure-evolution-and-the-advent-of-ai/",
+            "asOf": null
+          },
+          "mentions": 1,
+          "sourceCount": 1,
+          "officialEvidenceCount": 0,
+          "weekly": [
+            {
+              "week": "2026-07-06",
+              "count": 0
+            },
+            {
+              "week": "2026-07-13",
+              "count": 0
+            },
+            {
+              "week": "2026-07-20",
+              "count": 1
+            },
+            {
+              "week": "2026-07-27",
+              "count": 0
+            },
+            {
+              "week": "2026-08-03",
+              "count": 0
+            },
+            {
+              "week": "2026-08-10",
+              "count": 0
+            },
+            {
+              "week": "2026-08-17",
+              "count": 0
+            },
+            {
+              "week": "2026-08-24",
+              "count": 0
+            }
+          ],
+          "evidenceStream": [
+            {
+              "title": "AMD Helios AI 랙은 HBM4 메모리 에지로 NVIDIA에 도전 · Microsoft가 최신 고객으로 합류",
+              "source": "TrendForce",
+              "sourceClass": "research",
+              "url": "https://www.trendforce.com/news/2026/07/21/news-amds-first-rack-scale-ai-system-helios-challenges-nvidia-with-hbm4-memory-edge-but-reportedly-comes-at-a-higher-price",
+              "date": "2026-07-21"
+            }
+          ],
+          "chipStage": "인프라 배포 공개",
+          "stageLedger": {
+            "stage": "UNVERIFIED",
+            "label": "고객 제안 단계 검토",
+            "source": null
+          }
+        },
+        {
+          "id": "tesla",
+          "focus": true,
+          "demandClass": "asic",
+          "group": "edge-physical",
+          "company": "Tesla",
+          "chip": "AI5 · Dojo",
+          "aliases": [
+            "tesla",
+            "테슬라",
+            "ai5",
+            "dojo",
+            "optimus"
+          ],
+          "baseline": [
+            {
+              "label": "PLATFORM",
+              "value": "AI Silicon · Robotics",
+              "sourceId": "tesla-ai",
+              "source": {
+                "id": "tesla-ai",
+                "name": "Tesla Investor Relations",
+                "url": "https://ir.tesla.com/"
+              }
+            }
+          ],
+          "stage": "고객 제안 단계 검토",
+          "pain": "차량·로봇 추론의 Latency·전력·학습 Data Loop",
+          "memory": "AI-D E · LPDDR · High-capacity Training Tier",
+          "gate": "Silicon Sample · Vehicle Validation · Ramp",
+          "relationship": "Memory 공급 관계 공개 검증 필요",
+          "accent": "#E24545",
+          "evidence": {
+            "status": "monitoring",
+            "label": "OFFICIAL SOURCE MONITOR",
+            "source": "Tesla Investor Relations",
+            "url": "https://ir.tesla.com/",
+            "asOf": null
+          },
+          "mentions": 0,
+          "sourceCount": 0,
+          "officialEvidenceCount": 0,
+          "weekly": [
+            {
+              "week": "2026-07-06",
+              "count": 0
+            },
+            {
+              "week": "2026-07-13",
+              "count": 0
+            },
+            {
+              "week": "2026-07-20",
+              "count": 0
+            },
+            {
+              "week": "2026-07-27",
+              "count": 0
+            },
+            {
+              "week": "2026-08-03",
+              "count": 0
+            },
+            {
+              "week": "2026-08-10",
+              "count": 0
+            },
+            {
+              "week": "2026-08-17",
+              "count": 0
+            },
+            {
+              "week": "2026-08-24",
+              "count": 0
+            }
+          ],
+          "evidenceStream": [],
+          "chipStage": "공식 Roadmap 모니터",
+          "stageLedger": {
+            "stage": "UNVERIFIED",
+            "label": "고객 제안 단계 검토",
+            "source": null
+          }
+        },
+        {
+          "id": "apple",
+          "focus": true,
+          "demandClass": "asic",
+          "group": "edge-physical",
+          "company": "Apple",
+          "chip": "Apple Silicon · Private Cloud Compute",
+          "aliases": [
+            "apple",
+            "apple silicon",
+            "private cloud compute",
+            "apple intelligence",
+            "애플"
+          ],
+          "baseline": [
+            {
+              "label": "PLATFORM",
+              "value": "On-device + Private Cloud",
+              "sourceId": "apple-ai-infra",
+              "source": {
+                "id": "apple-ai-infra",
+                "name": "Apple AI Infrastructure",
+                "url": "https://www.apple.com/newsroom/2025/08/apple-increases-us-commitment-to-600-billion-usd-announces-ambitious-program/"
+              }
+            }
+          ],
+          "stage": "고객 제안 단계 검토",
+          "pain": "On-device/Cloud 분기·Privacy·저전력 Inference",
+          "memory": "Unified Memory · AI-D E · Secure Cloud Tier",
+          "gate": "Workload Placement · Privacy · Energy/Task",
+          "relationship": "Custom HBM 요청은 시장 추정으로 격리",
+          "accent": "#68758A",
+          "evidence": {
+            "status": "official-fact",
+            "label": "OFFICIAL FACT",
+            "stage": "ANNOUNCED",
+            "source": "Apple AI Infrastructure",
+            "url": "https://www.apple.com/newsroom/2025/08/apple-increases-us-commitment-to-600-billion-usd-announces-ambitious-program",
+            "asOf": "2025-08-06"
+          },
+          "mentions": 0,
+          "sourceCount": 0,
+          "officialEvidenceCount": 0,
+          "weekly": [
+            {
+              "week": "2026-07-06",
+              "count": 0
+            },
+            {
+              "week": "2026-07-13",
+              "count": 0
+            },
+            {
+              "week": "2026-07-20",
+              "count": 0
+            },
+            {
+              "week": "2026-07-27",
+              "count": 0
+            },
+            {
+              "week": "2026-08-03",
+              "count": 0
+            },
+            {
+              "week": "2026-08-10",
+              "count": 0
+            },
+            {
+              "week": "2026-08-17",
+              "count": 0
+            },
+            {
+              "week": "2026-08-24",
+              "count": 0
+            }
+          ],
+          "evidenceStream": [],
+          "chipStage": "공식 인프라 공개",
+          "stageLedger": {
+            "stage": "UNVERIFIED",
+            "label": "고객 제안 단계 검토",
+            "source": null
+          }
+        },
+        {
+          "id": "broadcom",
+          "focus": false,
+          "demandClass": "ecosystem",
+          "group": "design-ecosystem",
+          "company": "Broadcom",
+          "chip": "3.5D XDSiP · XPU",
+          "aliases": [
+            "broadcom",
+            "3.5d",
+            "xdsi",
+            "xpu"
+          ],
+          "baseline": [
+            {
+              "label": "PACKAGE",
+              "value": "3.5D XDSiP",
+              "sourceId": "broadcom-ai",
+              "source": {
+                "id": "broadcom-ai",
+                "name": "Broadcom AI Infrastructure",
+                "url": "https://www.broadcom.com/info/ai/3point5d"
+              }
+            }
+          ],
+          "stage": "고객 제안 단계 검토",
+          "pain": "Customer-owned Compute와 HBM PHY·Package·Network 통합",
+          "memory": "Custom HBM · Logic Base Die · Package",
+          "gate": "3자 Co-Design · Package Yield · NRE",
+          "relationship": "ASIC 설계 파트너를 Buying Center로 관리",
+          "accent": "#D05A2B",
+          "evidence": {
+            "status": "monitoring",
+            "label": "OFFICIAL SOURCE MONITOR",
+            "source": "Broadcom AI Infrastructure",
+            "url": "https://www.broadcom.com/info/ai/3point5d",
+            "asOf": null
+          },
+          "mentions": 0,
+          "sourceCount": 0,
+          "officialEvidenceCount": 0,
+          "weekly": [
+            {
+              "week": "2026-07-06",
+              "count": 0
+            },
+            {
+              "week": "2026-07-13",
+              "count": 0
+            },
+            {
+              "week": "2026-07-20",
+              "count": 0
+            },
+            {
+              "week": "2026-07-27",
+              "count": 0
+            },
+            {
+              "week": "2026-08-03",
+              "count": 0
+            },
+            {
+              "week": "2026-08-10",
+              "count": 0
+            },
+            {
+              "week": "2026-08-17",
+              "count": 0
+            },
+            {
+              "week": "2026-08-24",
+              "count": 0
+            }
+          ],
+          "evidenceStream": [],
+          "chipStage": "공식 플랫폼",
+          "stageLedger": {
+            "stage": "UNVERIFIED",
+            "label": "고객 제안 단계 검토",
+            "source": null
+          }
+        },
+        {
+          "id": "openai",
+          "focus": false,
+          "demandClass": "asic",
+          "group": "design-ecosystem",
+          "company": "OpenAI",
+          "chip": "Custom Accelerator",
+          "aliases": [
+            "openai",
+            "stargate",
+            "custom accelerator"
+          ],
+          "baseline": [
+            {
+              "label": "STATUS",
+              "value": "공식 발표 자동 탐색",
+              "sourceId": "openai-infrastructure",
+              "source": {
+                "id": "openai-infrastructure",
+                "name": "OpenAI Infrastructure",
+                "url": "https://openai.com/news/"
+              }
+            }
+          ],
+          "stage": "고객 제안 단계 검토",
+          "pain": "LLM Inference의 Data Movement·Utilization·Reliability",
+          "memory": "HBM · Network · Rack Co-Design",
+          "gate": "Tape-out · Deployment · Supplier Disclosure",
+          "relationship": "공식 발표와 설계 생태계 교차검증",
+          "accent": "#4A6B78",
+          "evidence": {
+            "status": "monitoring",
+            "label": "OFFICIAL SOURCE MONITOR",
+            "source": "OpenAI Infrastructure",
+            "url": "https://openai.com/news/",
+            "asOf": null
+          },
+          "mentions": 1,
+          "sourceCount": 1,
+          "officialEvidenceCount": 0,
+          "weekly": [
+            {
+              "week": "2026-07-06",
+              "count": 0
+            },
+            {
+              "week": "2026-07-13",
+              "count": 0
+            },
+            {
+              "week": "2026-07-20",
+              "count": 1
+            },
+            {
+              "week": "2026-07-27",
+              "count": 0
+            },
+            {
+              "week": "2026-08-03",
+              "count": 0
+            },
+            {
+              "week": "2026-08-10",
+              "count": 0
+            },
+            {
+              "week": "2026-08-17",
+              "count": 0
+            },
+            {
+              "week": "2026-08-24",
+              "count": 0
+            }
+          ],
+          "evidenceStream": [
+            {
+              "title": "AMD Helios AI 랙은 HBM4 메모리 에지로 NVIDIA에 도전 · Microsoft가 최신 고객으로 합류",
+              "source": "TrendForce",
+              "sourceClass": "research",
+              "url": "https://www.trendforce.com/news/2026/07/21/news-amds-first-rack-scale-ai-system-helios-challenges-nvidia-with-hbm4-memory-edge-but-reportedly-comes-at-a-higher-price",
+              "date": "2026-07-21"
+            }
+          ],
+          "chipStage": "공식 근거 모니터",
+          "stageLedger": {
+            "stage": "UNVERIFIED",
+            "label": "고객 제안 단계 검토",
+            "source": null
+          }
+        },
+        {
+          "id": "spacex",
+          "focus": false,
+          "demandClass": "asic",
+          "group": "edge-physical",
+          "company": "SpaceX",
+          "chip": "Starlink Custom Silicon",
+          "aliases": [
+            "spacex",
+            "space x",
+            "starlink",
+            "스페이스엑스"
+          ],
+          "baseline": [
+            {
+              "label": "STATUS",
+              "value": "공식 Memory Spec 모니터",
+              "sourceId": "spacex-official",
+              "source": {
+                "id": "spacex-official",
+                "name": "SpaceX Official",
+                "url": "https://www.spacex.com/"
+              }
+            }
+          ],
+          "stage": "고객 제안 단계 검토",
+          "pain": "Edge Compute의 전력·방사선·통신·신뢰성",
+          "memory": "Low-power DRAM/NAND · AI-D E 후보",
+          "gate": "공식 Memory Spec · Qualification · Volume",
+          "relationship": "공식 Memory 근거 전까지 Opportunity Watch",
+          "accent": "#566678",
+          "evidence": {
+            "status": "monitoring",
+            "label": "OFFICIAL SOURCE MONITOR",
+            "source": "SpaceX Official",
+            "url": "https://www.spacex.com/",
+            "asOf": null
+          },
+          "mentions": 1,
+          "sourceCount": 1,
+          "officialEvidenceCount": 0,
+          "weekly": [
+            {
+              "week": "2026-07-06",
+              "count": 0
+            },
+            {
+              "week": "2026-07-13",
+              "count": 0
+            },
+            {
+              "week": "2026-07-20",
+              "count": 0
+            },
+            {
+              "week": "2026-07-27",
+              "count": 1
+            },
+            {
+              "week": "2026-08-03",
+              "count": 0
+            },
+            {
+              "week": "2026-08-10",
+              "count": 0
+            },
+            {
+              "week": "2026-08-17",
+              "count": 0
+            },
+            {
+              "week": "2026-08-24",
+              "count": 0
+            }
+          ],
+          "evidenceStream": [
+            {
+              "title": "CXMT, the largest Chinese DRAM producer, jumps 470% on Shanghai listing - CNBC TV18",
+              "source": "CNBC TV18",
+              "sourceClass": "news",
+              "url": "https://www.cnbctv18.com/market/changxin-technology-group-cxmt-stellar-debut-shanghai-stock-exchange-strong-retail-subscription-ipo-star-market-valuations-peers-19954343.htm",
+              "date": "2026-07-27"
+            }
+          ],
+          "chipStage": "Reference Monitor",
+          "stageLedger": {
+            "stage": "UNVERIFIED",
+            "label": "고객 제안 단계 검토",
+            "source": null
+          }
+        }
+      ],
+      "mixTracker": {
+        "label": "GPU · ASIC CUSTOMER PORTFOLIO",
+        "status": "measured-crawl-separate-from-estimate",
+        "display": "동일 크롤 Corpus 내 계정 언급 비중",
+        "decision": "크롤 실측과 제3자 수요 추정은 분리 표기"
+      },
+      "contractGate": {
+        "label": "LTA · PREPAYMENT · CAPACITY",
+        "fields": [
+          "accountId",
+          "duration",
+          "prepayment",
+          "bindingVolume",
+          "qualification",
+          "supplierMix",
+          "marginFloor",
+          "sourceId",
+          "asOf"
+        ],
+        "ruleId": "contract-structure",
+        "fallback": "공식 계약 조건 미공개",
+        "evidence": {
+          "status": "market-estimate",
+          "label": "MARKET ESTIMATE",
+          "source": "Counterpoint Research",
+          "url": "https://counterpointresearch.com/en/reports/memory-crisis-automotive-industry-suppliers-automakers-response",
+          "asOf": "2026-08-21"
+        }
+      },
+      "verifiedAccounts": 3,
+      "monitoredAccounts": 10,
+      "focusAccounts": [
+        {
+          "id": "nvidia",
+          "focus": true,
+          "demandClass": "gpu",
+          "group": "gpu",
+          "company": "NVIDIA",
+          "chip": "Vera Rubin",
+          "aliases": [
+            "nvidia",
+            "엔비디아",
+            "vera rubin",
+            "rubin",
+            "nvlink",
+            "nvl72"
+          ],
+          "baseline": [
+            {
+              "label": "PLATFORM",
+              "value": "Vera Rubin",
+              "sourceId": "nvidia-newsroom",
+              "source": {
+                "id": "nvidia-newsroom",
+                "name": "NVIDIA Newsroom",
+                "url": "https://nvidianews.nvidia.com/news/nvidia-vera-rubin-platform"
+              }
+            }
+          ],
+          "stage": "고객 제안 단계 검토",
+          "pain": "Rack-scale Agentic AI의 Memory·Fabric·전력 동시 병목",
+          "memory": "Custom HBM · AI-D · AI-N/eSSD",
+          "gate": "Qualification · Ramp · Package Capacity",
+          "relationship": "공식 파트너십 근거만 연결",
+          "accent": "#2D6BFF",
+          "evidence": {
+            "status": "official-fact",
+            "label": "OFFICIAL FACT",
+            "stage": "ANNOUNCED",
+            "source": "SK hynix Newsroom",
+            "url": "https://news.skhynix.com/en/skhynix-nvidia-partnership-2026",
+            "asOf": "2026-07-25"
+          },
+          "mentions": 6,
+          "sourceCount": 5,
+          "officialEvidenceCount": 0,
+          "weekly": [
+            {
+              "week": "2026-07-06",
+              "count": 0
+            },
+            {
+              "week": "2026-07-13",
+              "count": 0
+            },
+            {
+              "week": "2026-07-20",
+              "count": 1
+            },
+            {
+              "week": "2026-07-27",
+              "count": 0
+            },
+            {
+              "week": "2026-08-03",
+              "count": 0
+            },
+            {
+              "week": "2026-08-10",
+              "count": 0
+            },
+            {
+              "week": "2026-08-17",
+              "count": 4
+            },
+            {
+              "week": "2026-08-24",
+              "count": 1
+            }
+          ],
+          "evidenceStream": [
+            {
+              "title": "消息称英伟达AI服务器价格将上涨15%_快讯 - CFM闪存市场",
+              "source": "CFM闪存市场",
+              "sourceClass": "general-media",
+              "url": "https://www.chinaflashmarket.com/newsflash/38648",
+              "date": "2026-08-24"
+            },
+            {
+              "title": "Nvidia reportedly warns biggest customers of 15% price hikes on AI servers — memory costs continue to soar - Tom's Hardware",
+              "source": "Tom's Hardware",
+              "sourceClass": "authoritative-media",
+              "url": "https://www.tomshardware.com/pc-components/dram/nvidia-reportedly-warns-biggest-customers-of-15-percent-price-hikes-on-ai-servers",
+              "date": "2026-08-23"
+            },
+            {
+              "title": "SKHY의 새로운 HBM 팀이 Nvidia와 AMD의 뒷마당에 상륙 - 공동 설계가 HBM4 주문을 획득하는 방법이 되고 있음 - digittimes",
+              "source": "digitimes",
+              "sourceClass": "authoritative-media",
+              "url": "https://www.digitimes.com/news/a20260820pd219/sk-hynix-hbm-hbm4-design-amd.html",
+              "date": "2026-08-20"
+            },
+            {
+              "title": "NVIDIA Vera Rubin: 대규모 상황 AI 추론에서 메모리 병목 현상 해결 - TechInsights",
+              "source": "TechInsights",
+              "sourceClass": "research",
+              "url": "https://www.techinsights.com/blog/nvidia-vera-rubin-solving-memory-bottleneck-large-context-ai-inference",
+              "date": "2026-08-17"
+            }
+          ],
+          "chipStage": "공식 플랫폼 공개",
+          "stageLedger": {
+            "stage": "UNVERIFIED",
+            "label": "고객 제안 단계 검토",
+            "source": null
+          }
+        },
+        {
+          "id": "google",
+          "focus": true,
+          "demandClass": "asic",
+          "group": "hyperscaler-asic",
+          "company": "Google",
+          "chip": "TPU7x · Ironwood",
+          "aliases": [
+            "google",
+            "alphabet",
+            "google cloud",
+            "tpu",
+            "tpu7",
+            "ironwood"
+          ],
+          "baseline": [
+            {
+              "label": "MEMORY",
+              "value": "192GB HBM · 7.38TB/s",
+              "sourceId": "google-cloud-tpu",
+              "source": {
+                "id": "google-cloud-tpu",
+                "name": "Google Cloud TPU",
+                "url": "https://docs.cloud.google.com/tpu/docs/tpu7x"
+              }
+            }
+          ],
+          "stage": "고객 제안 단계 검토",
+          "pain": "MXU Feeding·Pod Data Movement·전력 효율",
+          "memory": "Custom HBM · HBM/Host Tier · AI-N",
+          "gate": "MXU Feeding · D2D · Pod TCO",
+          "relationship": "Broadcom 설계 생태계와 공급 관계 분리",
+          "accent": "#00A88F",
+          "evidence": {
+            "status": "official-fact",
+            "label": "OFFICIAL FACT",
+            "stage": "PLATFORM_ADOPTION",
+            "source": "Google Cloud TPU",
+            "url": "https://cloud.google.com/blog/products/compute/inside-the-ironwood-tpu-codesigned-ai-stack",
+            "asOf": "2025-11-06"
+          },
+          "mentions": 0,
+          "sourceCount": 0,
+          "officialEvidenceCount": 0,
+          "weekly": [
+            {
+              "week": "2026-07-06",
+              "count": 0
+            },
+            {
+              "week": "2026-07-13",
+              "count": 0
+            },
+            {
+              "week": "2026-07-20",
+              "count": 0
+            },
+            {
+              "week": "2026-07-27",
+              "count": 0
+            },
+            {
+              "week": "2026-08-03",
+              "count": 0
+            },
+            {
+              "week": "2026-08-10",
+              "count": 0
+            },
+            {
+              "week": "2026-08-17",
+              "count": 0
+            },
+            {
+              "week": "2026-08-24",
+              "count": 0
+            }
+          ],
+          "evidenceStream": [],
+          "chipStage": "TPU7x 제공",
+          "stageLedger": {
+            "stage": "UNVERIFIED",
+            "label": "고객 제안 단계 검토",
+            "source": null
+          }
+        },
+        {
+          "id": "microsoft",
+          "focus": true,
+          "demandClass": "asic",
+          "group": "hyperscaler-asic",
+          "company": "Microsoft",
+          "chip": "Maia 200",
+          "aliases": [
+            "microsoft",
+            "azure",
+            "maia",
+            "maia 200",
+            "마이크로소프트"
+          ],
+          "baseline": [
+            {
+              "label": "MEMORY",
+              "value": "216GB HBM3e · 7TB/s",
+              "sourceId": "microsoft-ai-infra",
+              "source": {
+                "id": "microsoft-ai-infra",
+                "name": "Microsoft Official Blog",
+                "url": "https://blogs.microsoft.com/blog/2026/01/26/maia-200-the-ai-accelerator-built-for-inference/"
+              }
+            }
+          ],
+          "stage": "고객 제안 단계 검토",
+          "pain": "Inference Token 경제성·Memory Feeding·Scale-up Network",
+          "memory": "Custom HBM · AI-D · Network Co-Design",
+          "gate": "Model Portability · Region Ramp · TCO",
+          "relationship": "HBM 공급 관계는 별도 직접 원문 필요",
+          "accent": "#0A84B8",
+          "evidence": {
+            "status": "monitoring",
+            "label": "OFFICIAL SOURCE MONITOR",
+            "source": "Microsoft Official Blog",
+            "url": "https://blogs.microsoft.com/blog/2026/01/26/maia-200-the-ai-accelerator-built-for-inference/",
+            "asOf": null
+          },
+          "mentions": 1,
+          "sourceCount": 1,
+          "officialEvidenceCount": 0,
+          "weekly": [
+            {
+              "week": "2026-07-06",
+              "count": 0
+            },
+            {
+              "week": "2026-07-13",
+              "count": 0
+            },
+            {
+              "week": "2026-07-20",
+              "count": 1
+            },
+            {
+              "week": "2026-07-27",
+              "count": 0
+            },
+            {
+              "week": "2026-08-03",
+              "count": 0
+            },
+            {
+              "week": "2026-08-10",
+              "count": 0
+            },
+            {
+              "week": "2026-08-17",
+              "count": 0
+            },
+            {
+              "week": "2026-08-24",
+              "count": 0
+            }
+          ],
+          "evidenceStream": [
+            {
+              "title": "AMD Helios AI 랙은 HBM4 메모리 에지로 NVIDIA에 도전 · Microsoft가 최신 고객으로 합류",
+              "source": "TrendForce",
+              "sourceClass": "research",
+              "url": "https://www.trendforce.com/news/2026/07/21/news-amds-first-rack-scale-ai-system-helios-challenges-nvidia-with-hbm4-memory-edge-but-reportedly-comes-at-a-higher-price",
+              "date": "2026-07-21"
+            }
+          ],
+          "chipStage": "Region 배포",
+          "stageLedger": {
+            "stage": "UNVERIFIED",
+            "label": "고객 제안 단계 검토",
+            "source": null
+          }
+        },
+        {
+          "id": "aws",
+          "focus": true,
+          "demandClass": "asic",
+          "group": "hyperscaler-asic",
+          "company": "AWS",
+          "chip": "Trainium",
+          "aliases": [
+            "amazon",
+            "aws",
+            "amazon web services",
+            "trainium",
+            "trn3",
+            "neuron"
+          ],
+          "baseline": [
+            {
+              "label": "PLATFORM",
+              "value": "Trainium · Neuron",
+              "sourceId": "aws-trainium",
+              "source": {
+                "id": "aws-trainium",
+                "name": "AWS Trainium",
+                "url": "https://aws.amazon.com/ai/machine-learning/trainium/"
+              }
+            }
+          ],
+          "stage": "고객 제안 단계 검토",
+          "pain": "MoE Routing·Collective·HBM Data Movement 경제성",
+          "memory": "Custom HBM · AI-D · System Memory",
+          "gate": "Neuron Runtime · UltraServer Goodput/TCO",
+          "relationship": "공급사·물량 공개 검증 필요",
+          "accent": "#C88600",
+          "evidence": {
+            "status": "monitoring",
+            "label": "OFFICIAL SOURCE MONITOR",
+            "source": "AWS Trainium",
+            "url": "https://aws.amazon.com/ai/machine-learning/trainium/",
+            "asOf": null
+          },
+          "mentions": 1,
+          "sourceCount": 1,
+          "officialEvidenceCount": 0,
+          "weekly": [
+            {
+              "week": "2026-07-06",
+              "count": 0
+            },
+            {
+              "week": "2026-07-13",
+              "count": 0
+            },
+            {
+              "week": "2026-07-20",
+              "count": 0
+            },
+            {
+              "week": "2026-07-27",
+              "count": 1
+            },
+            {
+              "week": "2026-08-03",
+              "count": 0
+            },
+            {
+              "week": "2026-08-10",
+              "count": 0
+            },
+            {
+              "week": "2026-08-17",
+              "count": 0
+            },
+            {
+              "week": "2026-08-24",
+              "count": 0
+            }
+          ],
+          "evidenceStream": [
+            {
+              "title": "Amazon hikes 2026 capex to $220 billion due to higher memory costs - CNBC",
+              "source": "CNBC",
+              "sourceClass": "authoritative-media",
+              "url": "https://www.cnbc.com/2026/07/30/amazon-amzn-q2-earnings-report-2026.html",
+              "date": "2026-07-30"
+            }
+          ],
+          "chipStage": "공식 서비스",
+          "stageLedger": {
+            "stage": "UNVERIFIED",
+            "label": "고객 제안 단계 검토",
+            "source": null
+          }
+        },
+        {
+          "id": "meta",
+          "focus": true,
+          "demandClass": "asic",
+          "group": "hyperscaler-asic",
+          "company": "Meta",
+          "chip": "MTIA",
+          "aliases": [
+            "meta",
+            "meta platforms",
+            "mtia"
+          ],
+          "baseline": [
+            {
+              "label": "PLATFORM",
+              "value": "MTIA Roadmap",
+              "sourceId": "meta-engineering",
+              "source": {
+                "id": "meta-engineering",
+                "name": "Meta Engineering",
+                "url": "https://engineering.fb.com/2025/09/29/data-infrastructure/metas-infrastructure-evolution-and-the-advent-of-ai/"
+              }
+            }
+          ],
+          "stage": "고객 제안 단계 검토",
+          "pain": "추천·광고 추론의 HBM I/O·Chiplet·Package Scaling",
+          "memory": "Custom HBM · AI-D · Fabric",
+          "gate": "Generation Roadmap · Package · TCO",
+          "relationship": "Broadcom 설계와 Memory 공급 분리",
+          "accent": "#7656C9",
+          "evidence": {
+            "status": "monitoring",
+            "label": "OFFICIAL SOURCE MONITOR",
+            "source": "Meta Engineering",
+            "url": "https://engineering.fb.com/2025/09/29/data-infrastructure/metas-infrastructure-evolution-and-the-advent-of-ai/",
+            "asOf": null
+          },
+          "mentions": 1,
+          "sourceCount": 1,
+          "officialEvidenceCount": 0,
+          "weekly": [
+            {
+              "week": "2026-07-06",
+              "count": 0
+            },
+            {
+              "week": "2026-07-13",
+              "count": 0
+            },
+            {
+              "week": "2026-07-20",
+              "count": 1
+            },
+            {
+              "week": "2026-07-27",
+              "count": 0
+            },
+            {
+              "week": "2026-08-03",
+              "count": 0
+            },
+            {
+              "week": "2026-08-10",
+              "count": 0
+            },
+            {
+              "week": "2026-08-17",
+              "count": 0
+            },
+            {
+              "week": "2026-08-24",
+              "count": 0
+            }
+          ],
+          "evidenceStream": [
+            {
+              "title": "AMD Helios AI 랙은 HBM4 메모리 에지로 NVIDIA에 도전 · Microsoft가 최신 고객으로 합류",
+              "source": "TrendForce",
+              "sourceClass": "research",
+              "url": "https://www.trendforce.com/news/2026/07/21/news-amds-first-rack-scale-ai-system-helios-challenges-nvidia-with-hbm4-memory-edge-but-reportedly-comes-at-a-higher-price",
+              "date": "2026-07-21"
+            }
+          ],
+          "chipStage": "인프라 배포 공개",
+          "stageLedger": {
+            "stage": "UNVERIFIED",
+            "label": "고객 제안 단계 검토",
+            "source": null
+          }
+        },
+        {
+          "id": "tesla",
+          "focus": true,
+          "demandClass": "asic",
+          "group": "edge-physical",
+          "company": "Tesla",
+          "chip": "AI5 · Dojo",
+          "aliases": [
+            "tesla",
+            "테슬라",
+            "ai5",
+            "dojo",
+            "optimus"
+          ],
+          "baseline": [
+            {
+              "label": "PLATFORM",
+              "value": "AI Silicon · Robotics",
+              "sourceId": "tesla-ai",
+              "source": {
+                "id": "tesla-ai",
+                "name": "Tesla Investor Relations",
+                "url": "https://ir.tesla.com/"
+              }
+            }
+          ],
+          "stage": "고객 제안 단계 검토",
+          "pain": "차량·로봇 추론의 Latency·전력·학습 Data Loop",
+          "memory": "AI-D E · LPDDR · High-capacity Training Tier",
+          "gate": "Silicon Sample · Vehicle Validation · Ramp",
+          "relationship": "Memory 공급 관계 공개 검증 필요",
+          "accent": "#E24545",
+          "evidence": {
+            "status": "monitoring",
+            "label": "OFFICIAL SOURCE MONITOR",
+            "source": "Tesla Investor Relations",
+            "url": "https://ir.tesla.com/",
+            "asOf": null
+          },
+          "mentions": 0,
+          "sourceCount": 0,
+          "officialEvidenceCount": 0,
+          "weekly": [
+            {
+              "week": "2026-07-06",
+              "count": 0
+            },
+            {
+              "week": "2026-07-13",
+              "count": 0
+            },
+            {
+              "week": "2026-07-20",
+              "count": 0
+            },
+            {
+              "week": "2026-07-27",
+              "count": 0
+            },
+            {
+              "week": "2026-08-03",
+              "count": 0
+            },
+            {
+              "week": "2026-08-10",
+              "count": 0
+            },
+            {
+              "week": "2026-08-17",
+              "count": 0
+            },
+            {
+              "week": "2026-08-24",
+              "count": 0
+            }
+          ],
+          "evidenceStream": [],
+          "chipStage": "공식 Roadmap 모니터",
+          "stageLedger": {
+            "stage": "UNVERIFIED",
+            "label": "고객 제안 단계 검토",
+            "source": null
+          }
+        },
+        {
+          "id": "apple",
+          "focus": true,
+          "demandClass": "asic",
+          "group": "edge-physical",
+          "company": "Apple",
+          "chip": "Apple Silicon · Private Cloud Compute",
+          "aliases": [
+            "apple",
+            "apple silicon",
+            "private cloud compute",
+            "apple intelligence",
+            "애플"
+          ],
+          "baseline": [
+            {
+              "label": "PLATFORM",
+              "value": "On-device + Private Cloud",
+              "sourceId": "apple-ai-infra",
+              "source": {
+                "id": "apple-ai-infra",
+                "name": "Apple AI Infrastructure",
+                "url": "https://www.apple.com/newsroom/2025/08/apple-increases-us-commitment-to-600-billion-usd-announces-ambitious-program/"
+              }
+            }
+          ],
+          "stage": "고객 제안 단계 검토",
+          "pain": "On-device/Cloud 분기·Privacy·저전력 Inference",
+          "memory": "Unified Memory · AI-D E · Secure Cloud Tier",
+          "gate": "Workload Placement · Privacy · Energy/Task",
+          "relationship": "Custom HBM 요청은 시장 추정으로 격리",
+          "accent": "#68758A",
+          "evidence": {
+            "status": "official-fact",
+            "label": "OFFICIAL FACT",
+            "stage": "ANNOUNCED",
+            "source": "Apple AI Infrastructure",
+            "url": "https://www.apple.com/newsroom/2025/08/apple-increases-us-commitment-to-600-billion-usd-announces-ambitious-program",
+            "asOf": "2025-08-06"
+          },
+          "mentions": 0,
+          "sourceCount": 0,
+          "officialEvidenceCount": 0,
+          "weekly": [
+            {
+              "week": "2026-07-06",
+              "count": 0
+            },
+            {
+              "week": "2026-07-13",
+              "count": 0
+            },
+            {
+              "week": "2026-07-20",
+              "count": 0
+            },
+            {
+              "week": "2026-07-27",
+              "count": 0
+            },
+            {
+              "week": "2026-08-03",
+              "count": 0
+            },
+            {
+              "week": "2026-08-10",
+              "count": 0
+            },
+            {
+              "week": "2026-08-17",
+              "count": 0
+            },
+            {
+              "week": "2026-08-24",
+              "count": 0
+            }
+          ],
+          "evidenceStream": [],
+          "chipStage": "공식 인프라 공개",
+          "stageLedger": {
+            "stage": "UNVERIFIED",
+            "label": "고객 제안 단계 검토",
+            "source": null
+          }
+        }
+      ],
+      "demandMix": {
+        "label": "GPU · ASIC CUSTOMER PORTFOLIO",
+        "status": "measured-crawl-separate-from-estimate",
+        "display": "동일 크롤 Corpus 내 계정 언급 비중",
+        "decision": "크롤 실측과 제3자 수요 추정은 분리 표기"
+      },
+      "dealDashboard": {
+        "schema": {
+          "ruleId": "contract-structure",
+          "fields": [
+            "accountId",
+            "duration",
+            "prepayment",
+            "bindingVolume",
+            "qualification",
+            "supplierMix",
+            "marginFloor",
+            "sourceId",
+            "asOf"
+          ],
+          "fallback": "공식 계약 조건 미공개"
+        },
+        "events": [
+          {
+            "accountId": null,
+            "status": "market-estimate",
+            "source": "Counterpoint Research",
+            "sourceUrl": "https://counterpointresearch.com/en/reports/memory-crisis-automotive-industry-suppliers-automakers-response",
+            "asOf": "2026-08-21",
+            "evidenceSpan": "The automotive industry is managing the tight market for DRAM through a mix of long-term supply agreements and a shift to next-generation memory types, such as DDR5"
+          },
+          {
+            "accountId": null,
+            "status": "market-estimate",
+            "source": "TrendForce",
+            "sourceUrl": "https://www.trendforce.com/presscenter/news/20260602-13074.html",
+            "asOf": "2026-06-02",
+            "evidenceSpan": "Overall, as HBM generations continue evolving in 2027, with larger die sizes and simultaneously rising demand, the crowding-out effect on conventional DRAM capacity is expected to intensify further"
+          }
+        ],
+        "status": "evidence-connected"
+      },
+      "supplierMatrix": {
+        "suppliers": [
+          {
+            "id": "skhynix",
+            "label": "SK hynix",
+            "sources": []
+          },
+          {
+            "id": "samsung",
+            "label": "Samsung",
+            "sourceIds": [
+              "samsung-semiconductor"
+            ],
+            "sources": [
+              {
+                "id": "samsung-semiconductor",
+                "name": "Samsung Semiconductor",
+                "url": "https://semiconductor.samsung.com/news-events/news/"
+              }
+            ]
+          },
+          {
+            "id": "micron",
+            "label": "Micron",
+            "sourceIds": [
+              "micron-investor"
+            ],
+            "sources": [
+              {
+                "id": "micron-investor",
+                "name": "Micron Investor Relations",
+                "url": "https://investors.micron.com/quarterly-results"
+              }
+            ]
+          },
+          {
+            "id": "cxmt",
+            "label": "CXMT",
+            "sourceIds": [
+              "semi-analysis"
+            ],
+            "sources": [
+              {
+                "id": "semi-analysis",
+                "name": "SemiAnalysis",
+                "url": "https://newsletter.semianalysis.com/"
+              }
+            ]
+          }
+        ],
+        "rows": [
+          {
+            "accountId": "nvidia",
+            "cells": [
+              {
+                "accountId": "nvidia",
+                "supplierId": "skhynix",
+                "status": "공급 참여",
+                "claim": "market-estimate",
+                "note": "HBM 주요 공급사 보도 · 세대별 물량 비중은 미확인",
+                "sourceId": "trendforce"
+              },
+              {
+                "accountId": "nvidia",
+                "supplierId": "samsung",
+                "status": "unconfirmed",
+                "sourceId": null,
+                "asOf": null,
+                "claim": "watch"
+              },
+              {
+                "accountId": "nvidia",
+                "supplierId": "micron",
+                "status": "스펙 게이트",
+                "claim": "market-estimate",
+                "note": "HBM4 pin speed 요구 충족 여부가 진입 게이트로 보도",
+                "sourceId": "semi-analysis"
+              },
+              {
+                "accountId": "nvidia",
+                "supplierId": "cxmt",
+                "status": "해당 없음",
+                "claim": "watch",
+                "note": "HBM 진입 근거 없음",
+                "sourceId": "semi-analysis"
+              }
+            ]
+          },
+          {
+            "accountId": "google",
+            "cells": [
+              {
+                "accountId": "google",
+                "supplierId": "skhynix",
+                "status": "공급 참여",
+                "claim": "market-estimate",
+                "note": "TPU 세대별 공급 참여 보도 · 세대별 비중 미확인",
+                "sourceId": "trendforce"
+              },
+              {
+                "accountId": "google",
+                "supplierId": "samsung",
+                "status": "비중 확대",
+                "claim": "market-estimate",
+                "note": "TPU向 HBM 물량 비중 확대 보도 · 연간 점유율 수치는 미확인",
+                "sourceId": "trendforce"
+              },
+              {
+                "accountId": "google",
+                "supplierId": "micron",
+                "status": "추적",
+                "claim": "watch",
+                "note": "TPU 공급 참여 근거 미확인",
+                "sourceId": "google-cloud-tpu"
+              },
+              {
+                "accountId": "google",
+                "supplierId": "cxmt",
+                "status": "해당 없음",
+                "claim": "watch",
+                "note": "HBM 진입 근거 없음 · 범용 DRAM 침투만 추적",
+                "sourceId": "semi-analysis"
+              }
+            ]
+          },
+          {
+            "accountId": "microsoft",
+            "cells": [
+              {
+                "accountId": "microsoft",
+                "supplierId": "skhynix",
+                "status": "추적",
+                "claim": "watch",
+                "note": "Maia 200 HBM 공급사 공식 미공개 · 단독 공급 주장은 미확인",
+                "sourceId": "microsoft-ai-infra"
+              },
+              {
+                "accountId": "microsoft",
+                "supplierId": "samsung",
+                "status": "unconfirmed",
+                "sourceId": null,
+                "asOf": null,
+                "claim": "watch"
+              },
+              {
+                "accountId": "microsoft",
+                "supplierId": "micron",
+                "status": "unconfirmed",
+                "sourceId": null,
+                "asOf": null,
+                "claim": "watch"
+              },
+              {
+                "accountId": "microsoft",
+                "supplierId": "cxmt",
+                "status": "unconfirmed",
+                "sourceId": null,
+                "asOf": null,
+                "claim": "watch"
+              }
+            ]
+          },
+          {
+            "accountId": "aws",
+            "cells": [
+              {
+                "accountId": "aws",
+                "supplierId": "skhynix",
+                "status": "이원화",
+                "claim": "market-estimate",
+                "note": "Trainium3 HBM3E 12-High · pin speed 상향 목표로 공급사 이원화 보도",
+                "sourceId": "semi-analysis"
+              },
+              {
+                "accountId": "aws",
+                "supplierId": "samsung",
+                "status": "추적",
+                "claim": "watch",
+                "note": "Trainium 세대 공급 참여 근거 미확인",
+                "sourceId": "aws-trainium"
+              },
+              {
+                "accountId": "aws",
+                "supplierId": "micron",
+                "status": "이원화",
+                "claim": "market-estimate",
+                "note": "Trainium3 공급사에 합류했다는 보도 · 물량 비중 미확인",
+                "sourceId": "semi-analysis"
+              },
+              {
+                "accountId": "aws",
+                "supplierId": "cxmt",
+                "status": "해당 없음",
+                "claim": "watch",
+                "note": "HBM 진입 근거 없음 · 범용 DRAM 침투만 추적",
+                "sourceId": "semi-analysis"
+              }
+            ]
+          },
+          {
+            "accountId": "meta",
+            "cells": [
+              {
+                "accountId": "meta",
+                "supplierId": "skhynix",
+                "status": "추적",
+                "claim": "watch",
+                "note": "MTIA 세대별 HBM 공급사 공식 미공개",
+                "sourceId": "meta-engineering"
+              },
+              {
+                "accountId": "meta",
+                "supplierId": "samsung",
+                "status": "unconfirmed",
+                "sourceId": null,
+                "asOf": null,
+                "claim": "watch"
+              },
+              {
+                "accountId": "meta",
+                "supplierId": "micron",
+                "status": "unconfirmed",
+                "sourceId": null,
+                "asOf": null,
+                "claim": "watch"
+              },
+              {
+                "accountId": "meta",
+                "supplierId": "cxmt",
+                "status": "unconfirmed",
+                "sourceId": null,
+                "asOf": null,
+                "claim": "watch"
+              }
+            ]
+          },
+          {
+            "accountId": "tesla",
+            "cells": [
+              {
+                "accountId": "tesla",
+                "supplierId": "skhynix",
+                "status": "unconfirmed",
+                "sourceId": null,
+                "asOf": null,
+                "claim": "watch"
+              },
+              {
+                "accountId": "tesla",
+                "supplierId": "samsung",
+                "status": "unconfirmed",
+                "sourceId": null,
+                "asOf": null,
+                "claim": "watch"
+              },
+              {
+                "accountId": "tesla",
+                "supplierId": "micron",
+                "status": "unconfirmed",
+                "sourceId": null,
+                "asOf": null,
+                "claim": "watch"
+              },
+              {
+                "accountId": "tesla",
+                "supplierId": "cxmt",
+                "status": "unconfirmed",
+                "sourceId": null,
+                "asOf": null,
+                "claim": "watch"
+              }
+            ]
+          },
+          {
+            "accountId": "apple",
+            "cells": [
+              {
+                "accountId": "apple",
+                "supplierId": "skhynix",
+                "status": "unconfirmed",
+                "sourceId": null,
+                "asOf": null,
+                "claim": "watch"
+              },
+              {
+                "accountId": "apple",
+                "supplierId": "samsung",
+                "status": "unconfirmed",
+                "sourceId": null,
+                "asOf": null,
+                "claim": "watch"
+              },
+              {
+                "accountId": "apple",
+                "supplierId": "micron",
+                "status": "unconfirmed",
+                "sourceId": null,
+                "asOf": null,
+                "claim": "watch"
+              },
+              {
+                "accountId": "apple",
+                "supplierId": "cxmt",
+                "status": "unconfirmed",
+                "sourceId": null,
+                "asOf": null,
+                "claim": "watch"
+              }
+            ]
+          }
+        ],
+        "legend": {
+          "verified-fact": {
+            "label": "공식",
+            "note": "공급사 직접 원문 또는 고객 공식 공개"
+          },
+          "market-estimate": {
+            "label": "보도",
+            "note": "업계 매체·리서치 보도 · 공식 확인 전"
+          },
+          "watch": {
+            "label": "추적",
+            "note": "공식·복수 출처 확인 전까지 미확정"
+          }
+        }
+      },
+      "baseDieStrategy": {
+        "id": "base-die",
+        "label": "BASE DIE · 로직 이관",
+        "definition": "HBM은 DRAM 코어 다이 아래에 베이스 다이(로직 칩)를 깔고 TSV로 연결한 구조 · 베이스 다이는 스택 전체의 읽기·쓰기·리프레시·리페어를 제어하는 컨트롤 플레인이자 GPU/ASIC과 데이터를 주고받는 PHY I/O를 담음",
+        "thesis": "HBM4부터 베이스 다이를 첨단 로직 공정으로 만들어 GPU 쪽 메모리 컨트롤러·인터페이스 일부를 끌어내림 · GPU 다이 면적을 연산에 더 쓰고, 압축·해제·전처리·데이터 이동을 메모리에 가깝게 옮겨 전력을 줄이는 것이 목적",
+        "sourceId": "skhynix-newsroom",
+        "status": "strategy-mapping",
+        "ladder": [
+          {
+            "step": "01",
+            "id": "standard-hbm",
+            "label": "표준 HBM (~HBM3E)",
+            "baseDie": "신호 전달·스택 제어 중심",
+            "lockIn": "낮음",
+            "implication": "범용 판매 · 고객 전환 상대적으로 용이",
+            "claim": "official-fact",
+            "gate": "표준 규격·양산 수율",
+            "accent": "#68758A"
+          },
+          {
+            "step": "02",
+            "id": "custom-hbm",
+            "label": "Custom HBM (HBM4~)",
+            "baseDie": "컨트롤러·PHY 공동 최적화",
+            "lockIn": "중간",
+            "implication": "고객별 성능·전력 최적화 · 파운드리 협업 확대",
+            "claim": "strategy-mapping",
+            "gate": "IP 범위·NRE·Qualification",
+            "accent": "#2D6BFF"
+          },
+          {
+            "step": "03",
+            "id": "c-hbm4e",
+            "label": "C-HBM4E (완전 맞춤)",
+            "baseDie": "고객별 로직 통합 범위 확대",
+            "lockIn": "높음",
+            "implication": "재판매 제약 · 전환 비용 상승 · LTA 연계 필요",
+            "claim": "strategy-hypothesis",
+            "gate": "Binding Volume·Margin Floor·재판매 위험",
+            "accent": "#7656C9"
+          },
+          {
+            "step": "04",
+            "id": "hbm-on-processor",
+            "label": "HBM-on-Processor (차세대)",
+            "baseDie": "컴퓨트·메모리 적층 경계 재설계",
+            "lockIn": "구조적",
+            "implication": "공식 로드맵 확인 전 옵션 관리",
+            "claim": "watch",
+            "gate": "공식 제품 로드맵·열·수율",
+            "accent": "#D05A2B"
+          }
+        ],
+        "capabilityRoadmap": [
+          {
+            "label": "HBM/LPDDR 컨트롤러·PHY",
+            "note": "베이스 다이가 흡수하는 1차 기능"
+          },
+          {
+            "label": "압축 · 해제",
+            "note": "데이터 이동량 자체를 줄여 대역폭·전력 동시 완화"
+          },
+          {
+            "label": "양자화(Quantization)",
+            "note": "정밀도 변환을 메모리 근처에서 수행"
+          },
+          {
+            "label": "소형 NPU 코어",
+            "note": "메모리의 시스템반도체화 · 연산 보조 기능 흡수"
+          }
+        ],
+        "foundryDependency": {
+          "label": "파운드리 의존 리스크",
+          "note": "자체 파운드리가 없어 베이스 다이를 파운드리에 위탁하는 분업형 구조 · DRAM 코어 다이는 안정적 공정을 유지하고 베이스 다이만 최선단 로직으로 고도화해 수율 안정을 우선하되, 파운드리의 로직 캐파·일정이 곧 로드맵 병목이 되므로 지속 추적이 필요",
+          "watchItems": [
+            "로직 공정 노드 확보",
+            "캐파 슬롯·일정",
+            "패키징 스케줄 연동",
+            "경쟁사 자체 파운드리 통합 대비"
+          ],
+          "sourceId": "tsmc-3dfabric",
+          "claim": "market-estimate",
+          "source": {
+            "id": "tsmc-3dfabric",
+            "name": "TSMC 3DFabric",
+            "tier": "primary-company",
+            "sourceClass": "official",
+            "url": "https://3dfabric.tsmc.com/english/dedicatedFoundry/technology/3DFabric.htm",
+            "domains": [
+              "3dfabric.tsmc.com",
+              "tsmc.com"
+            ],
+            "topics": [
+              "cowos",
+              "packaging",
+              "chiplet",
+              "hbm"
+            ],
+            "roles": [
+              "technology",
+              "partner"
+            ],
+            "languages": [
+              "en"
+            ],
+            "freshnessHours": 720,
+            "discoveryQueries": [
+              "site:tsmc.com (3DFabric OR CoWoS OR SoIC) HBM"
+            ],
+            "enabled": true
+          }
+        },
+        "chipletTracking": {
+          "label": "고객 칩렛 분리도 추적",
+          "note": "컴퓨트 다이와 HBM 스택을 별도 칩렛으로 분리하는 고객이 늘수록 베이스 다이가 로직을 흡수할 여지가 커짐 · 계정별 칩렛 분리 정도가 곧 Custom HBM 제안 가능 범위를 결정",
+          "accounts": [
+            "google",
+            "meta",
+            "nvidia",
+            "aws"
+          ],
+          "sourceId": "semi-analysis",
+          "claim": "market-estimate",
+          "source": {
+            "id": "semi-analysis",
+            "name": "SemiAnalysis",
+            "tier": "industry-research",
+            "sourceClass": "research",
+            "url": "https://newsletter.semianalysis.com/",
+            "domains": [
+              "newsletter.semianalysis.com",
+              "semianalysis.com"
+            ],
+            "topics": [
+              "ai-infra",
+              "accelerator",
+              "hbm",
+              "economics"
+            ],
+            "roles": [
+              "technology",
+              "market",
+              "economics"
+            ],
+            "languages": [
+              "en"
+            ],
+            "freshnessHours": 168,
+            "discoveryQueries": [
+              "site:newsletter.semianalysis.com (HBM OR AI infrastructure OR accelerator memory)"
+            ],
+            "enabled": true
+          },
+          "accountLabels": [
+            "Google",
+            "Meta",
+            "NVIDIA",
+            "AWS"
+          ]
+        },
+        "decisionFrame": [
+          {
+            "index": "01",
+            "label": "CUSTOMER VALUE",
+            "question": "GPU/ASIC 면적·전력·데이터 이동을 얼마나 줄이는가",
+            "kpi": "W/token · GB/s/W · Cost/Successful Task"
+          },
+          {
+            "index": "02",
+            "label": "ARCHITECTURE",
+            "question": "어떤 컨트롤러·PHY·데이터플로우를 이관할 것인가",
+            "kpi": "이관 IP 범위 · Latency · Package Yield"
+          },
+          {
+            "index": "03",
+            "label": "ECONOMICS",
+            "question": "고객 전용화 비용과 장기 물량이 균형을 이루는가",
+            "kpi": "NRE 회수 · Margin Floor · Binding Volume"
+          },
+          {
+            "index": "04",
+            "label": "EXECUTION GATE",
+            "question": "파운드리·패키징·인증 일정이 고객 Ramp와 맞는가",
+            "kpi": "Logic Slot · Qualification Slip · Ramp"
+          }
+        ],
+        "expansion": "Custom HBM의 검증 방식을 DRAM·NAND·HBF까지 확장 · ASIC 계정별 요구를 전 제품군 Requirement Matrix로 관리",
+        "source": {
+          "id": "skhynix-newsroom",
+          "name": "SK hynix Newsroom",
+          "tier": "primary-company",
+          "sourceClass": "official",
+          "url": "https://news.skhynix.com/",
+          "domains": [
+            "news.skhynix.com"
+          ],
+          "topics": [
+            "hbm",
+            "dram",
+            "nand",
+            "hbf",
+            "ai-d",
+            "ai-n",
+            "cxl",
+            "maas",
+            "ai-infra",
+            "partnership",
+            "advanced-packaging"
+          ],
+          "roles": [
+            "technology",
+            "execution",
+            "financial",
+            "partner",
+            "standard"
+          ],
+          "languages": [
+            "en"
+          ],
+          "freshnessHours": 168,
+          "discoveryQueries": [
+            "site:news.skhynix.com (HBM OR CXL OR eSSD OR \"AI memory\")",
+            "site:news.skhynix.com (quarterly results OR earnings OR HBM4 OR capacity)",
+            "site:news.skhynix.com (HBF OR \"AI-N\" OR \"AI-D\" OR \"Full-Stack AI Memory\")",
+            "site:news.skhynix.com (\"memory-as-a-service\" OR \"memory pooling\" OR CXL)",
+            "site:news.skhynix.com (NVIDIA OR TSMC OR Indiana OR \"advanced packaging\")"
+          ],
+          "healthCheck": {
+            "markers": [
+              "SK hynix",
+              "Newsroom"
+            ]
+          },
+          "enabled": true
+        }
+      },
+      "transformerMemory": {
+        "id": "transformer-kv-memory",
+        "label": "TRANSFORMER → KV CACHE → MEMORY TIER",
+        "thesis": "Decode는 새 토큰의 Query와 누적 Key·Value를 반복 조회 · Context·Batch·Layer 증가에 따라 KV Cache가 커지며 메모리 용량·대역폭이 TPOT와 Goodput을 좌우",
+        "claim": "technical-framework",
+        "sourceIds": [
+          "google-context-caching",
+          "anthropic-context-engineering",
+          "nvidia-dynamo",
+          "vllm-kv-offloading",
+          "llm-serving-systems-research"
+        ],
+        "qkv": [
+          {
+            "label": "QUERY",
+            "short": "Q",
+            "role": "현재 토큰이 찾는 정보"
+          },
+          {
+            "label": "KEY",
+            "short": "K",
+            "role": "이전 토큰의 검색 인덱스"
+          },
+          {
+            "label": "VALUE",
+            "short": "V",
+            "role": "선택될 실제 정보"
+          }
+        ],
+        "flow": [
+          {
+            "index": "01",
+            "label": "PREFILL",
+            "body": "입력 토큰 병렬 처리 · K/V 생성",
+            "bottleneck": "Compute·Fabric"
+          },
+          {
+            "index": "02",
+            "label": "CACHE",
+            "body": "계산된 K/V를 계층별 저장",
+            "bottleneck": "Capacity·Placement"
+          },
+          {
+            "index": "03",
+            "label": "DECODE",
+            "body": "토큰마다 누적 K/V 반복 조회",
+            "bottleneck": "Bandwidth·Latency"
+          },
+          {
+            "index": "04",
+            "label": "SERVICE",
+            "body": "동시성·긴 Context·Agent 반복",
+            "bottleneck": "TPOT·Goodput·Cost"
+          }
+        ],
+        "options": [
+          {
+            "tier": "SOFTWARE FIRST",
+            "role": "PagedAttention·Prefix Reuse·Quantization·Eviction·Prefill/Decode 분리",
+            "gate": "동일 품질·SLO에서 증설 대비 우위"
+          },
+          {
+            "tier": "HOT · HBM",
+            "role": "활성 KV·저지연 Decode",
+            "gate": "TPOT P95·HBM Occupancy·Goodput/W"
+          },
+          {
+            "tier": "WARM · AI-D/CXL",
+            "role": "공유 Prefix·저활성 KV·Host Memory",
+            "gate": "Hit Rate·Interconnect Latency·TCO"
+          },
+          {
+            "tier": "SCALE · AI-N/eSSD/HBF",
+            "role": "긴 Context·재사용 Cache·대용량 Retrieval",
+            "gate": "TTFT·Read Amplification·Endurance"
+          }
+        ],
+        "kpis": [
+          "TTFT P95",
+          "TPOT P95",
+          "KV Bytes/Token",
+          "Prefix Hit Rate",
+          "Goodput/W",
+          "Cost/Successful Task"
+        ],
+        "decision": "SW 최적화 기준선 통과 후 Hot/Warm/Scale 계층 A/B Benchmark · 품질·지연·전력·비용을 동일 Workload로 비교",
+        "sources": [
+          {
+            "id": "google-context-caching",
+            "name": "Google Gemini Context Caching",
+            "url": "https://ai.google.dev/gemini-api/docs/optimization",
+            "sourceClass": "official",
+            "tier": "primary-customer"
+          },
+          {
+            "id": "anthropic-context-engineering",
+            "name": "Anthropic Context Engineering",
+            "url": "https://www.anthropic.com/engineering/effective-context-engineering-for-ai-agents",
+            "sourceClass": "official",
+            "tier": "primary-customer"
+          },
+          {
+            "id": "nvidia-dynamo",
+            "name": "NVIDIA Dynamo",
+            "url": "https://developer.nvidia.com/blog/introducing-nvidia-dynamo-a-low-latency-distributed-inference-framework-for-scaling-reasoning-ai-models/",
+            "sourceClass": "official",
+            "tier": "primary-company"
+          },
+          {
+            "id": "vllm-kv-offloading",
+            "name": "vLLM KV Offloading",
+            "url": "https://docs.vllm.ai/en/latest/features/kv_offloading_usage/",
+            "sourceClass": "official",
+            "tier": "primary-standard"
+          },
+          {
+            "id": "llm-serving-systems-research",
+            "name": "LLM Serving Systems Research",
+            "url": "https://arxiv.org/abs/2309.06180",
+            "sourceClass": "research",
+            "tier": "industry-research"
+          }
+        ]
+      },
+      "competitiveFrame": [
+        {
+          "company": "Samsung",
+          "focus": "HBM·Foundry·Package 통합",
+          "gate": "HBM4 Ramp · Yield · Customer Qualification",
+          "sources": [
+            {
+              "id": "samsung-semiconductor",
+              "name": "Samsung Semiconductor",
+              "url": "https://semiconductor.samsung.com/news-events/news/"
+            }
+          ]
+        },
+        {
+          "company": "Micron",
+          "focus": "HBM 효율·미국 공급망",
+          "gate": "HBM4 Ramp · Yield · Customer Qualification",
+          "sources": [
+            {
+              "id": "micron-investor",
+              "name": "Micron Investor Relations",
+              "url": "https://investors.micron.com/quarterly-results"
+            }
+          ]
+        },
+        {
+          "company": "CXMT",
+          "focus": "범용 DRAM·중국 고객 침투",
+          "gate": "DDR5/LPDDR 승인 · 캐파 · Contract Price",
+          "sources": [
+            {
+              "id": "semi-analysis",
+              "name": "SemiAnalysis",
+              "url": "https://newsletter.semianalysis.com/"
+            }
+          ]
+        }
+      ],
+      "productMap": [
+        {
+          "id": "custom-hbm",
+          "label": "CUSTOM HBM",
+          "role": "Logic 이관·대역폭·전력 공동 최적화",
+          "accounts": [
+            "nvidia",
+            "google",
+            "microsoft",
+            "aws",
+            "meta"
+          ],
+          "sourceId": "skhynix-newsroom",
+          "accent": "#2D6BFF",
+          "accountLabels": [
+            "NVIDIA",
+            "Google",
+            "Microsoft",
+            "AWS",
+            "Meta"
+          ],
+          "source": {
+            "id": "skhynix-newsroom",
+            "name": "SK hynix Newsroom",
+            "tier": "primary-company",
+            "sourceClass": "official",
+            "url": "https://news.skhynix.com/",
+            "domains": [
+              "news.skhynix.com"
+            ],
+            "topics": [
+              "hbm",
+              "dram",
+              "nand",
+              "hbf",
+              "ai-d",
+              "ai-n",
+              "cxl",
+              "maas",
+              "ai-infra",
+              "partnership",
+              "advanced-packaging"
+            ],
+            "roles": [
+              "technology",
+              "execution",
+              "financial",
+              "partner",
+              "standard"
+            ],
+            "languages": [
+              "en"
+            ],
+            "freshnessHours": 168,
+            "discoveryQueries": [
+              "site:news.skhynix.com (HBM OR CXL OR eSSD OR \"AI memory\")",
+              "site:news.skhynix.com (quarterly results OR earnings OR HBM4 OR capacity)",
+              "site:news.skhynix.com (HBF OR \"AI-N\" OR \"AI-D\" OR \"Full-Stack AI Memory\")",
+              "site:news.skhynix.com (\"memory-as-a-service\" OR \"memory pooling\" OR CXL)",
+              "site:news.skhynix.com (NVIDIA OR TSMC OR Indiana OR \"advanced packaging\")"
+            ],
+            "healthCheck": {
+              "markers": [
+                "SK hynix",
+                "Newsroom"
+              ]
+            },
+            "enabled": true
+          },
+          "status": "strategy-mapping"
+        },
+        {
+          "id": "ai-d-o",
+          "label": "AI-D O",
+          "role": "MRDIMM·SOCAMM2·LPDDR 최적화",
+          "accounts": [
+            "microsoft",
+            "aws",
+            "apple"
+          ],
+          "sourceId": "skhynix-newsroom",
+          "accent": "#00A88F",
+          "accountLabels": [
+            "Microsoft",
+            "AWS",
+            "Apple"
+          ],
+          "source": {
+            "id": "skhynix-newsroom",
+            "name": "SK hynix Newsroom",
+            "tier": "primary-company",
+            "sourceClass": "official",
+            "url": "https://news.skhynix.com/",
+            "domains": [
+              "news.skhynix.com"
+            ],
+            "topics": [
+              "hbm",
+              "dram",
+              "nand",
+              "hbf",
+              "ai-d",
+              "ai-n",
+              "cxl",
+              "maas",
+              "ai-infra",
+              "partnership",
+              "advanced-packaging"
+            ],
+            "roles": [
+              "technology",
+              "execution",
+              "financial",
+              "partner",
+              "standard"
+            ],
+            "languages": [
+              "en"
+            ],
+            "freshnessHours": 168,
+            "discoveryQueries": [
+              "site:news.skhynix.com (HBM OR CXL OR eSSD OR \"AI memory\")",
+              "site:news.skhynix.com (quarterly results OR earnings OR HBM4 OR capacity)",
+              "site:news.skhynix.com (HBF OR \"AI-N\" OR \"AI-D\" OR \"Full-Stack AI Memory\")",
+              "site:news.skhynix.com (\"memory-as-a-service\" OR \"memory pooling\" OR CXL)",
+              "site:news.skhynix.com (NVIDIA OR TSMC OR Indiana OR \"advanced packaging\")"
+            ],
+            "healthCheck": {
+              "markers": [
+                "SK hynix",
+                "Newsroom"
+              ]
+            },
+            "enabled": true
+          },
+          "status": "strategy-mapping"
+        },
+        {
+          "id": "ai-d-b",
+          "label": "AI-D B",
+          "role": "CXL·PIM·Memory Pooling",
+          "accounts": [
+            "google",
+            "microsoft",
+            "aws",
+            "meta"
+          ],
+          "sourceId": "skhynix-newsroom",
+          "accent": "#7656C9",
+          "accountLabels": [
+            "Google",
+            "Microsoft",
+            "AWS",
+            "Meta"
+          ],
+          "source": {
+            "id": "skhynix-newsroom",
+            "name": "SK hynix Newsroom",
+            "tier": "primary-company",
+            "sourceClass": "official",
+            "url": "https://news.skhynix.com/",
+            "domains": [
+              "news.skhynix.com"
+            ],
+            "topics": [
+              "hbm",
+              "dram",
+              "nand",
+              "hbf",
+              "ai-d",
+              "ai-n",
+              "cxl",
+              "maas",
+              "ai-infra",
+              "partnership",
+              "advanced-packaging"
+            ],
+            "roles": [
+              "technology",
+              "execution",
+              "financial",
+              "partner",
+              "standard"
+            ],
+            "languages": [
+              "en"
+            ],
+            "freshnessHours": 168,
+            "discoveryQueries": [
+              "site:news.skhynix.com (HBM OR CXL OR eSSD OR \"AI memory\")",
+              "site:news.skhynix.com (quarterly results OR earnings OR HBM4 OR capacity)",
+              "site:news.skhynix.com (HBF OR \"AI-N\" OR \"AI-D\" OR \"Full-Stack AI Memory\")",
+              "site:news.skhynix.com (\"memory-as-a-service\" OR \"memory pooling\" OR CXL)",
+              "site:news.skhynix.com (NVIDIA OR TSMC OR Indiana OR \"advanced packaging\")"
+            ],
+            "healthCheck": {
+              "markers": [
+                "SK hynix",
+                "Newsroom"
+              ]
+            },
+            "enabled": true
+          },
+          "status": "strategy-mapping"
+        },
+        {
+          "id": "ai-d-e",
+          "label": "AI-D E",
+          "role": "로보틱스·모빌리티·현장 추론",
+          "accounts": [
+            "tesla",
+            "apple",
+            "spacex"
+          ],
+          "sourceId": "skhynix-newsroom",
+          "accent": "#E24545",
+          "accountLabels": [
+            "Tesla",
+            "Apple",
+            "SpaceX"
+          ],
+          "source": {
+            "id": "skhynix-newsroom",
+            "name": "SK hynix Newsroom",
+            "tier": "primary-company",
+            "sourceClass": "official",
+            "url": "https://news.skhynix.com/",
+            "domains": [
+              "news.skhynix.com"
+            ],
+            "topics": [
+              "hbm",
+              "dram",
+              "nand",
+              "hbf",
+              "ai-d",
+              "ai-n",
+              "cxl",
+              "maas",
+              "ai-infra",
+              "partnership",
+              "advanced-packaging"
+            ],
+            "roles": [
+              "technology",
+              "execution",
+              "financial",
+              "partner",
+              "standard"
+            ],
+            "languages": [
+              "en"
+            ],
+            "freshnessHours": 168,
+            "discoveryQueries": [
+              "site:news.skhynix.com (HBM OR CXL OR eSSD OR \"AI memory\")",
+              "site:news.skhynix.com (quarterly results OR earnings OR HBM4 OR capacity)",
+              "site:news.skhynix.com (HBF OR \"AI-N\" OR \"AI-D\" OR \"Full-Stack AI Memory\")",
+              "site:news.skhynix.com (\"memory-as-a-service\" OR \"memory pooling\" OR CXL)",
+              "site:news.skhynix.com (NVIDIA OR TSMC OR Indiana OR \"advanced packaging\")"
+            ],
+            "healthCheck": {
+              "markers": [
+                "SK hynix",
+                "Newsroom"
+              ]
+            },
+            "enabled": true
+          },
+          "status": "strategy-mapping"
+        },
+        {
+          "id": "ai-n-p",
+          "label": "AI-N P",
+          "role": "Inference IOPS·Retrieval Latency",
+          "accounts": [
+            "google",
+            "microsoft",
+            "aws"
+          ],
+          "sourceId": "skhynix-newsroom",
+          "accent": "#C88600",
+          "accountLabels": [
+            "Google",
+            "Microsoft",
+            "AWS"
+          ],
+          "source": {
+            "id": "skhynix-newsroom",
+            "name": "SK hynix Newsroom",
+            "tier": "primary-company",
+            "sourceClass": "official",
+            "url": "https://news.skhynix.com/",
+            "domains": [
+              "news.skhynix.com"
+            ],
+            "topics": [
+              "hbm",
+              "dram",
+              "nand",
+              "hbf",
+              "ai-d",
+              "ai-n",
+              "cxl",
+              "maas",
+              "ai-infra",
+              "partnership",
+              "advanced-packaging"
+            ],
+            "roles": [
+              "technology",
+              "execution",
+              "financial",
+              "partner",
+              "standard"
+            ],
+            "languages": [
+              "en"
+            ],
+            "freshnessHours": 168,
+            "discoveryQueries": [
+              "site:news.skhynix.com (HBM OR CXL OR eSSD OR \"AI memory\")",
+              "site:news.skhynix.com (quarterly results OR earnings OR HBM4 OR capacity)",
+              "site:news.skhynix.com (HBF OR \"AI-N\" OR \"AI-D\" OR \"Full-Stack AI Memory\")",
+              "site:news.skhynix.com (\"memory-as-a-service\" OR \"memory pooling\" OR CXL)",
+              "site:news.skhynix.com (NVIDIA OR TSMC OR Indiana OR \"advanced packaging\")"
+            ],
+            "healthCheck": {
+              "markers": [
+                "SK hynix",
+                "Newsroom"
+              ]
+            },
+            "enabled": true
+          },
+          "status": "strategy-mapping"
+        },
+        {
+          "id": "ai-n-b",
+          "label": "AI-N B",
+          "role": "고대역폭 NAND·Memory Tier",
+          "accounts": [
+            "nvidia",
+            "google",
+            "aws",
+            "meta"
+          ],
+          "sourceId": "skhynix-newsroom",
+          "accent": "#D05A2B",
+          "accountLabels": [
+            "NVIDIA",
+            "Google",
+            "AWS",
+            "Meta"
+          ],
+          "source": {
+            "id": "skhynix-newsroom",
+            "name": "SK hynix Newsroom",
+            "tier": "primary-company",
+            "sourceClass": "official",
+            "url": "https://news.skhynix.com/",
+            "domains": [
+              "news.skhynix.com"
+            ],
+            "topics": [
+              "hbm",
+              "dram",
+              "nand",
+              "hbf",
+              "ai-d",
+              "ai-n",
+              "cxl",
+              "maas",
+              "ai-infra",
+              "partnership",
+              "advanced-packaging"
+            ],
+            "roles": [
+              "technology",
+              "execution",
+              "financial",
+              "partner",
+              "standard"
+            ],
+            "languages": [
+              "en"
+            ],
+            "freshnessHours": 168,
+            "discoveryQueries": [
+              "site:news.skhynix.com (HBM OR CXL OR eSSD OR \"AI memory\")",
+              "site:news.skhynix.com (quarterly results OR earnings OR HBM4 OR capacity)",
+              "site:news.skhynix.com (HBF OR \"AI-N\" OR \"AI-D\" OR \"Full-Stack AI Memory\")",
+              "site:news.skhynix.com (\"memory-as-a-service\" OR \"memory pooling\" OR CXL)",
+              "site:news.skhynix.com (NVIDIA OR TSMC OR Indiana OR \"advanced packaging\")"
+            ],
+            "healthCheck": {
+              "markers": [
+                "SK hynix",
+                "Newsroom"
+              ]
+            },
+            "enabled": true
+          },
+          "status": "strategy-mapping"
+        },
+        {
+          "id": "ai-n-d",
+          "label": "AI-N D",
+          "role": "QLC 기반 고밀도 AI Data Tier",
+          "accounts": [
+            "google",
+            "microsoft",
+            "aws",
+            "meta"
+          ],
+          "sourceId": "skhynix-newsroom",
+          "accent": "#68758A",
+          "accountLabels": [
+            "Google",
+            "Microsoft",
+            "AWS",
+            "Meta"
+          ],
+          "source": {
+            "id": "skhynix-newsroom",
+            "name": "SK hynix Newsroom",
+            "tier": "primary-company",
+            "sourceClass": "official",
+            "url": "https://news.skhynix.com/",
+            "domains": [
+              "news.skhynix.com"
+            ],
+            "topics": [
+              "hbm",
+              "dram",
+              "nand",
+              "hbf",
+              "ai-d",
+              "ai-n",
+              "cxl",
+              "maas",
+              "ai-infra",
+              "partnership",
+              "advanced-packaging"
+            ],
+            "roles": [
+              "technology",
+              "execution",
+              "financial",
+              "partner",
+              "standard"
+            ],
+            "languages": [
+              "en"
+            ],
+            "freshnessHours": 168,
+            "discoveryQueries": [
+              "site:news.skhynix.com (HBM OR CXL OR eSSD OR \"AI memory\")",
+              "site:news.skhynix.com (quarterly results OR earnings OR HBM4 OR capacity)",
+              "site:news.skhynix.com (HBF OR \"AI-N\" OR \"AI-D\" OR \"Full-Stack AI Memory\")",
+              "site:news.skhynix.com (\"memory-as-a-service\" OR \"memory pooling\" OR CXL)",
+              "site:news.skhynix.com (NVIDIA OR TSMC OR Indiana OR \"advanced packaging\")"
+            ],
+            "healthCheck": {
+              "markers": [
+                "SK hynix",
+                "Newsroom"
+              ]
+            },
+            "enabled": true
+          },
+          "status": "strategy-mapping"
+        }
+      ],
+      "applicationSignals": [
+        {
+          "id": "robotics",
+          "label": "ROBOTICS",
+          "aliases": [
+            "robot",
+            "robotics",
+            "physical ai",
+            "로봇"
+          ],
+          "productId": "ai-d-e",
+          "mentions": 0,
+          "weekly": [
+            {
+              "week": "2026-07-06",
+              "count": 0
+            },
+            {
+              "week": "2026-07-13",
+              "count": 0
+            },
+            {
+              "week": "2026-07-20",
+              "count": 0
+            },
+            {
+              "week": "2026-07-27",
+              "count": 0
+            },
+            {
+              "week": "2026-08-03",
+              "count": 0
+            },
+            {
+              "week": "2026-08-10",
+              "count": 0
+            },
+            {
+              "week": "2026-08-17",
+              "count": 0
+            },
+            {
+              "week": "2026-08-24",
+              "count": 0
+            }
+          ],
+          "latest": null
+        },
+        {
+          "id": "autonomous",
+          "label": "AUTONOMOUS",
+          "aliases": [
+            "autonomous",
+            "self-driving",
+            "adas",
+            "자율주행"
+          ],
+          "productId": "ai-d-e",
+          "mentions": 0,
+          "weekly": [
+            {
+              "week": "2026-07-06",
+              "count": 0
+            },
+            {
+              "week": "2026-07-13",
+              "count": 0
+            },
+            {
+              "week": "2026-07-20",
+              "count": 0
+            },
+            {
+              "week": "2026-07-27",
+              "count": 0
+            },
+            {
+              "week": "2026-08-03",
+              "count": 0
+            },
+            {
+              "week": "2026-08-10",
+              "count": 0
+            },
+            {
+              "week": "2026-08-17",
+              "count": 0
+            },
+            {
+              "week": "2026-08-24",
+              "count": 0
+            }
+          ],
+          "latest": null
+        },
+        {
+          "id": "industrial",
+          "label": "INDUSTRIAL AI",
+          "aliases": [
+            "industrial automation",
+            "factory ai",
+            "manufacturing ai",
+            "산업 자동화"
+          ],
+          "productId": "ai-d-e",
+          "mentions": 0,
+          "weekly": [
+            {
+              "week": "2026-07-06",
+              "count": 0
+            },
+            {
+              "week": "2026-07-13",
+              "count": 0
+            },
+            {
+              "week": "2026-07-20",
+              "count": 0
+            },
+            {
+              "week": "2026-07-27",
+              "count": 0
+            },
+            {
+              "week": "2026-08-03",
+              "count": 0
+            },
+            {
+              "week": "2026-08-10",
+              "count": 0
+            },
+            {
+              "week": "2026-08-17",
+              "count": 0
+            },
+            {
+              "week": "2026-08-24",
+              "count": 0
+            }
+          ],
+          "latest": null
+        }
+      ],
+      "roadmap90d": [
+        {
+          "phase": "0–30D",
+          "label": "REQUIREMENT LOCK",
+          "output": "Account Fact Pack · Pain Map · Buying Criteria"
+        },
+        {
+          "phase": "31–60D",
+          "label": "ARCHITECTURE / TCO",
+          "output": "Requirement Matrix · Option Benchmark · Partner RACI"
+        },
+        {
+          "phase": "61–90D",
+          "label": "QUALIFICATION / DEAL",
+          "output": "PoC Gate · Capacity · LTA Decision Pack"
+        }
+      ]
+    },
+    "partners": {
+      "eyebrow": "PARTNERS & CLIENTS",
+      "title": "Pain 진단 → 공동 PoC → Qualification → Repeat",
+      "description": "파트너 역할과 검증 Gate를 반복 가능한 공동사업 구조로 연결",
+      "models": [
+        {
+          "id": "ai-developer",
+          "type": "AI 개발사",
+          "role": "Model·Serving Workload와 SLO 정의",
+          "value": "Memory Requirement·공동 Benchmark",
+          "gate": "대표 Trace·Decision Owner",
+          "accent": "#2D6BFF"
+        },
+        {
+          "id": "data-center",
+          "type": "데이터센터·CSP",
+          "role": "전력·열·Fabric·Storage 운영",
+          "value": "Rack TCO·Qualification 환경",
+          "gate": "운영 Baseline·반복 재현",
+          "accent": "#00A88F"
+        },
+        {
+          "id": "oem-si",
+          "type": "OEM·Platform·Consulting/SI",
+          "role": "통합·고객 인증·확산",
+          "value": "Reference Offer·Go-to-Market",
+          "gate": "공식 협업·RACI 확인",
+          "accent": "#C88600"
+        }
+      ]
+    },
+    "playbooks": [
+      {
+        "id": "agentic-serving",
+        "segment": "Agentic AI Serving",
+        "pain": "KV Cache·TTFT·Token 원가",
+        "solution": "Serving SW × HBM/AI-D/AI-N/HBF 배치",
+        "outcome": "SLO-constrained Goodput·Cost/Task",
+        "gate": "동일 Trace·Quality·P99·HBF 상호운용성",
+        "evidence": {
+          "status": "monitoring",
+          "label": "SOURCE MONITORING",
+          "source": "",
+          "url": "",
+          "asOf": null
+        }
+      },
+      {
+        "id": "training-ramp",
+        "segment": "AI Training Cluster",
+        "pain": "대역폭·Collective·Checkpoint 병목",
+        "solution": "HBM·Fabric·eSSD 공동 Roadmap",
+        "outcome": "Time-to-Train·가동률·Ramp 방어",
+        "gate": "Qualification·Capacity·Margin",
+        "evidence": {
+          "status": "official-fact",
+          "label": "OFFICIAL FACT",
+          "stage": "COMMERCIAL_SHIPMENT",
+          "source": "SK hynix Newsroom",
+          "url": "https://news.skhynix.com/en/q2-2026-business-results",
+          "asOf": "2026-07-29"
+        }
+      },
+      {
+        "id": "enterprise-rag",
+        "segment": "Enterprise RAG",
+        "pain": "검색 품질·Index Freshness·P99",
+        "solution": "Hybrid Retrieval × DRAM/CXL/eSSD Tier",
+        "outcome": "Citation 품질·Cost/Query·운영 신뢰성",
+        "gate": "Recall·ACL·Freshness·P99",
+        "evidence": {
+          "status": "monitoring",
+          "label": "SOURCE MONITORING",
+          "source": "",
+          "url": "",
+          "asOf": null
+        }
+      },
+      {
+        "id": "memory-as-a-service",
+        "segment": "Memory-as-a-Service",
+        "pain": "서버별 고정 Memory·유휴 Capacity·Peak 증설 비용",
+        "solution": "CXL Pooling × Metering × SLA",
+        "outcome": "Memory 활용률·TCO·반복 수익",
+        "gate": "상호운용성·Pool 활용률·계측 정확도·SLA",
+        "commercialStatus": "strategy-hypothesis",
+        "evidence": {
+          "status": "monitoring",
+          "label": "SOURCE MONITORING",
+          "source": "",
+          "url": "",
+          "asOf": null
+        }
+      }
+    ],
+    "disclosure": "전략 플레이북 · 실제 고객 성과가 아닌 공개 근거 기반 검증 가설",
+    "reports": [
+      {
+        "title": "Sandisk Introduces SANDISK® NAS SSDs to Power Fast, High-Endurance Storage for Prosumers and Small Businesses - Sandisk",
+        "summary": "Sandisk today announced the SANDISK® NAS portfolio of high-endurance SSDs purpose-built for modern network-attached storage (NAS) environments",
+        "url": "https://www.sandisk.com/company/newsroom/press-releases/2026/2026-08-20-sandisk-introduces-nas-ssds-to-power-fast-high-endurance-storage-for-prosumers-and-small-businesses",
+        "source": "Sandisk",
+        "publishedAt": "2026-08-21",
+        "sourceClass": "official",
+        "evidenceLevel": "Watch",
+        "topics": [
+          {
+            "id": "rag",
+            "label": "RAG / VECTOR"
+          },
+          {
+            "id": "accelerator",
+            "label": "ACCELERATOR / MEMORY"
+          }
+        ],
+        "freshness": "fresh",
+        "ageDays": 3
+      },
+      {
+        "title": "세 개의 드라이브, 하나의 목표: SANDISK Optimus™ SSD로 더 많은 작업을 수행할 수 있도록 지원 - Sandisk",
+        "summary": "게임, 스트리밍 및 주요 성능을 위해 특별히 제작된 SANDISK Optimus™ 내부 SSD 제품군에 대해 자세히 알아보세요",
+        "url": "https://www.sandisk.com/company/newsroom/blogs/2026/three-drives-one-goal-helping-do-more-with-sandisk-optimus-ssds",
+        "source": "Sandisk",
+        "publishedAt": "2026-08-20",
+        "sourceClass": "official",
+        "evidenceLevel": "Watch",
+        "topics": [
+          {
+            "id": "accelerator",
+            "label": "ACCELERATOR / MEMORY"
+          }
+        ],
+        "freshness": "fresh",
+        "ageDays": 4
+      },
+      {
+        "title": "NVIDIA Vera Rubin: 대규모 상황 AI 추론에서 메모리 병목 현상 해결 - TechInsights",
+        "summary": "NVIDIA Vera Rubin은 BlueField-4, 랙 규모 CPU-GPU 설계 및 대규모 컨텍스트 LLM에 최적화된 KV 캐시를 통해 AI 추론 메모리 병목 현상을 해결",
+        "url": "https://www.techinsights.com/blog/nvidia-vera-rubin-solving-memory-bottleneck-large-context-ai-inference",
+        "source": "TechInsights",
+        "publishedAt": "2026-08-17",
+        "sourceClass": "research",
+        "evidenceLevel": "Watch",
+        "topics": [
+          {
+            "id": "serving",
+            "label": "LLM SERVING"
+          },
+          {
+            "id": "rag",
+            "label": "RAG / VECTOR"
+          },
+          {
+            "id": "accelerator",
+            "label": "ACCELERATOR / MEMORY"
+          }
+        ],
+        "freshness": "fresh",
+        "ageDays": 7
+      },
+      {
+        "title": "Hot Chips 2026: Samsung’s zHBM Claims 70% Power-Efficiency Gain; SK hynix Evaluates Intel EMIB - TrendForce",
+        "summary": "South Korean memory giants Samsung and SK hynix took different routes at Hot Chips 2026 in showcasing their HBM roadmaps · According to Wccftech and ServerTheHome , Samsung laid o…",
+        "url": "https://www.trendforce.com/news/2026/08/24/news-hot-chips-2026-samsungs-zhbm-claims-70-power-efficiency-gain-sk-hynix-evaluates-intel-emib/",
+        "source": "TrendForce",
+        "publishedAt": "2026-08-24",
+        "sourceClass": "research",
+        "evidenceLevel": "Watch",
+        "topics": [
+          {
+            "id": "accelerator",
+            "label": "ACCELERATOR / MEMORY"
+          }
+        ],
+        "freshness": "fresh",
+        "ageDays": 0
+      },
+      {
+        "title": "Memory Crisis in the Automotive Industry: How Suppliers and Automakers are Responding - Counterpoint Research",
+        "summary": "The automotive industry is managing the tight market for DRAM through a mix of long-term supply agreements and a shift to next-generation memory types, such as DDR5",
+        "url": "https://counterpointresearch.com/en/reports/memory-crisis-automotive-industry-suppliers-automakers-response",
+        "source": "Counterpoint Research",
+        "publishedAt": "2026-08-21",
+        "sourceClass": "research",
+        "evidenceLevel": "Watch",
+        "topics": [
+          {
+            "id": "accelerator",
+            "label": "ACCELERATOR / MEMORY"
+          }
+        ],
+        "freshness": "fresh",
+        "ageDays": 3
+      },
+      {
+        "title": "AI 메모리 부족으로 인해 DRAM 및 NAND 가격이 수년간 높은 수준으로 유지될 수 있는 이유 - TechInsights",
+        "summary": "AI 중심 수요로 인해 역사상 최대 규모의 메모리 부족이 발생하고 있음 · DRAM 및 NAND 가격이 향후 10년 동안 계속 상승할 것으로 예상되는 이유를 알아보세요",
+        "url": "https://www.techinsights.com/blog/why-ai-memory-shortage-could-keep-dram-and-nand-prices-high-years",
+        "source": "TechInsights",
+        "publishedAt": "2026-08-20",
+        "sourceClass": "research",
+        "evidenceLevel": "Watch",
+        "topics": [
+          {
+            "id": "accelerator",
+            "label": "ACCELERATOR / MEMORY"
+          }
+        ],
+        "freshness": "fresh",
+        "ageDays": 4
+      }
+    ],
+    "reportPolicy": {
+      "limit": 6,
+      "freshDays": 120,
+      "topics": [
+        {
+          "id": "serving",
+          "label": "LLM SERVING",
+          "terms": [
+            "llm",
+            "inference",
+            "serving",
+            "vllm",
+            "dynamo",
+            "prefill",
+            "decode",
+            "kv cache",
+            "추론",
+            "서빙"
+          ]
+        },
+        {
+          "id": "rag",
+          "label": "RAG / VECTOR",
+          "terms": [
+            "rag",
+            "retrieval",
+            "vector",
+            "embedding",
+            "rerank",
+            "context",
+            "검색",
+            "벡터"
+          ]
+        },
+        {
+          "id": "accelerator",
+          "label": "ACCELERATOR / MEMORY",
+          "terms": [
+            "gpu",
+            "accelerator",
+            "asic",
+            "hbm",
+            "cxl",
+            "maas",
+            "memory-as-a-service",
+            "pooling",
+            "dram",
+            "nand",
+            "ssd",
+            "가속기",
+            "메모리"
+          ]
+        }
+      ]
+    },
+    "evidenceCount": 6,
+    "freshEvidenceCount": 6
+  },
   "organizationOperatingModel": {
     "title": "SK hynix AI Infra 실행 전략",
     "thesis": "고객 Pain Point → Workload 진단 → Memory·신규 Biz 대안 → 파트너 실행 → 경영진 판단",
@@ -3825,7 +7378,7 @@
   },
   "agentCouncil": {
     "title": "AI Infra Strategy Agent Council",
-    "subtitle": "최신 검증 근거 6개 축을 Business Outcome·Workload/SLO·지배 병목·경제성·실행 Gate로 재구성",
+    "subtitle": "고객 Pain · Workload/SLO · 메모리 대안 · 경제성 · 90일 Gate",
     "agendas": [
       {
         "id": "hbm4-foundry",

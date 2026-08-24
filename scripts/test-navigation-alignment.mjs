@@ -189,7 +189,8 @@ assert.match(landing, /function primeConsoleAssets\(\)[\s\S]*?consolePosterPrelo
 assert.match(landing, /const consoleReady = loadConsole\(\);[\s\S]*?await loadStylesheet\(\);[\s\S]*?activeConsoleLayer\.hidden = false;[\s\S]*?finishConsoleStartup\(\);[\s\S]*?await consoleReady;/, "the styled console shell must appear while data hydration continues");
 assert.match(html, /id="consoleStaticSnapshot"[\s\S]*?SIGNAL[\s\S]*?DIAGNOSE[\s\S]*?KILL Criteria|id="consoleStaticSnapshot"[\s\S]*?Kill Criteria/, "direct console entry must expose an indexable decision snapshot instead of an empty loader");
 assert.match(html, /#console\/c-level-cockpit\/hbm4-foundry[\s\S]*?#console\/c-level-cockpit\/post-hbm/, "the static console snapshot must expose stable decision deep links");
-assert.match(html, /class="tb-title"[\s\S]*?id="consoleExit"[\s\S]*?← Site<\/button>[\s\S]*?<h1>AI Infra Strategy<\/h1>/, "the Site control and console title must share one title group");
+assert.equal((html.match(/<h1\b/g) || []).length, 1, "the document must expose exactly one H1");
+assert.match(html, /class="tb-title"[\s\S]*?id="consoleExit"[\s\S]*?← Site<\/button>[\s\S]*?<h2>AI Infra Strategy<\/h2>/, "the Site control and console title must share one title group");
 assert.doesNotMatch(html, /SK hynix AI Infra Strategy Console/, "the compact console title must not repeat the SK hynix label");
 assert.match(css, /\.tb-title \{[\s\S]*?display:\s*flex;[\s\S]*?align-items:\s*center;[\s\S]*?gap:\s*8px;/, "the Site control and console title must render on one row");
 assert.match(landing, /function isConsoleHash\([\s\S]*?startsWith\(`\$\{CONSOLE_HASH\}\//, "the landing controller must keep console deep links inside the console view");
@@ -261,7 +262,7 @@ assert.doesNotMatch(landing, /updateDataStatus|applyDecisionControl|renderCaseCl
 assert.doesNotMatch(html, /console-data-health|Data Health · Decision Use Gate|DECISION OBJECT STANDARD/, "the redundant console data-health board must stay removed");
 assert.doesNotMatch(app, /renderConsoleDataHealth|renderCrawlHeartbeat|crawlHeartbeat/, "removed console status panels must not retain rendering work");
 assert.doesNotMatch(css, /\.console-data-health|\.crawl-heartbeat/, "removed console status panels must not retain unused styling");
-assert.match(app, /function finalizeConsoleLoadingLabels\(\)[\s\S]*?검증 근거[\s\S]*?데이터 재검증 중 · 검증 완료본 유지/, "unresolved loading labels must show the current verified count or a Korean fail-closed state");
+assert.match(app, /function finalizeConsoleLoadingLabels\(\)[\s\S]*?선택 인사이트 최신화[\s\S]*?선택 인사이트 업데이트 확인/, "unresolved loading labels must show an audience-facing insight state without crawl counters");
 assert.doesNotMatch(app, /현재 실행에서 승격 근거 없음|Reference only|LIVE DATA UNAVAILABLE|Decision use disabled/, "empty-state metadata must not expose internal promotion jargon or English failure copy");
 assert.doesNotMatch(html, /Prompt Engineering/, "prompt engineering must not appear as a top-level AI memory theme");
 assert.match(html, /aria-label="AI Infra 전략 질문"/, "the console question field must state its bounded AI Infra strategy purpose");

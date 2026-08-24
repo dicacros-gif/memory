@@ -220,10 +220,11 @@ function buildStrategyBoard(payload = {}, generatedAt = null, decisionIntelligen
     description: accountModel.description || "고객별 Chip Roadmap을 Pain Point·Memory Requirement·계약 Gate로 분리",
     disclosure: accountModel.evidencePolicy || "공급 관계와 계약 조건은 직접 근거 전까지 미확인",
     pillars: accountModel.pillars || [],
+    projects: accountModel.projects || [],
     groups: accountModel.groups || [],
     accounts: accountModel.accounts || [],
     mixTracker: {
-      label: strategyAccountIntelligence.demandMix?.label || "GPU vs ASIC CRAWL MIX",
+      label: "GPU · ASIC CUSTOMER PORTFOLIO",
       status: "measured-crawl-separate-from-estimate",
       display: strategyAccountIntelligence.demandMix?.measurement || "동일 크롤 Corpus 내 계정 언급 비중",
       decision: "크롤 실측과 제3자 수요 추정은 분리 표기",
@@ -237,7 +238,13 @@ function buildStrategyBoard(payload = {}, generatedAt = null, decisionIntelligen
   };
   const accounts = (customerPortfolio.accounts || []).map((item) => {
     const accountSignal = strategyAccountIntelligence.accounts?.[item.id] || {};
-    const customHbmStage = accountSignal.customHbmStage || item.customHbmStage || { id: "UNVERIFIED", label: "Custom HBM 근거 미관측", sourceId: null };
+    const rawCustomHbmStage = accountSignal.customHbmStage || item.customHbmStage || { id: "UNVERIFIED", label: "고객 제안 단계 검토", sourceId: null };
+    const customHbmStage = {
+      ...rawCustomHbmStage,
+      label: /근거 미관측|crawl/i.test(String(rawCustomHbmStage.label || ""))
+        ? "고객 제안 단계 검토"
+        : rawCustomHbmStage.label,
+    };
     const bound = bindClaimEvidence({
       ...item,
       matchTerms: item.aliases || [],
@@ -266,6 +273,25 @@ function buildStrategyBoard(payload = {}, generatedAt = null, decisionIntelligen
   });
   const groupCounts = new Map();
   for (const account of accounts) groupCounts.set(account.group, Number(groupCounts.get(account.group) || 0) + 1);
+  const accountById = new Map(accounts.map((account) => [account.id, account]));
+  const projects = (customerPortfolio.projects || []).map((project) => {
+    const projectAccounts = (project.accounts || []).map((id) => accountById.get(id)).filter(Boolean);
+    const signalTerms = (project.signalTerms || []).map((term) => String(term || "").toLocaleLowerCase()).filter(Boolean);
+    const selectedInsight = projectAccounts.flatMap((account) => (account.evidenceStream || []).map((item) => ({
+      ...item,
+      account: account.company,
+    }))).filter((item) => {
+      if (!signalTerms.length) return false;
+      const haystack = `${item.title || ""} ${item.summary || ""} ${item.source || ""}`.toLocaleLowerCase();
+      const matchedTerms = signalTerms.filter((term) => haystack.includes(term));
+      return matchedTerms.length >= Math.min(2, signalTerms.length);
+    }).sort((left, right) => String(right.date || "").localeCompare(String(left.date || "")))[0] || null;
+    return {
+      ...project,
+      accountLabels: projectAccounts.map((account) => account.company),
+      selectedInsight,
+    };
+  });
   const contractEvent = claimEvents.filter((event) => event.ruleId === customerPortfolio.contractGate?.ruleId)
     .filter((event) => /(?:LTA|long[- ]term|prepay|binding volume|contract|장기|선급|계약)/i.test(`${event.entity?.label || ""} ${event.product?.label || ""} ${event.evidenceSpan || ""}`))
     .sort((left, right) => String(right.asOf || right.publishedAt || "").localeCompare(String(left.asOf || left.publishedAt || "")))[0] || null;
@@ -281,11 +307,12 @@ function buildStrategyBoard(payload = {}, generatedAt = null, decisionIntelligen
       ...customerPortfolio,
       groups: (customerPortfolio.groups || []).map((group) => ({ ...group, accountCount: Number(groupCounts.get(group.id) || 0) })),
       accounts,
+      projects,
       pillars: customerPortfolio.pillars || [],
       verifiedAccounts: accounts.filter((account) => account.evidence?.status === "official-fact").length,
       monitoredAccounts: accounts.length,
       focusAccounts: accounts.filter((account) => account.focus),
-      demandMix: strategyAccountIntelligence.demandMix || {},
+      demandMix: customerPortfolio.mixTracker,
       contractGate: {
         ...(customerPortfolio.contractGate || {}),
         evidence: contractEvent ? {
@@ -999,9 +1026,33 @@ function buildDepartmentHomepage({ decisionIntelligence = {}, sourceCoverage = {
     "agentic-tiering": "#console/c-level-cockpit/post-hbm",
     "enterprise-rag": "#console/ai-matrix",
     "ai-factory": "#console/ai-factory",
+    "nvidia-base-die": "#console/account/nvidia",
+    "hyperscaler-asic-matrix": "#console/account/google",
+    "agentic-memory-tier": "#console/c-level-cockpit/post-hbm",
   };
-  const agenda = (automation.briefs || [])
-    .slice(0, 4)
+  const strategicProjects = Array.isArray(accountModel.projects) ? accountModel.projects : [];
+  const agenda = strategicProjects.map((project, index) => ({
+      id: project.id || `project-${index + 1}`,
+      index: project.index || String(index + 1).padStart(2, "0"),
+      label: compact(project.label || "AI Infra Project", 72),
+      meceAxis: project.id || `project-${index + 1}`,
+      state: "PROJECT",
+      stage: "90_DAY_GATE",
+      decisionQuestion: compact(project.title || "고객 과제를 선택합니다", 140),
+      whatChanged: compact(project.proposal || "고객별 제안 구성", 140),
+      latestSignal: compact(project.pain || "고객 Pain 확인", 100),
+      customerPain: compact(project.pain || "고객 Pain 확인", 150),
+      recommendation: compact(project.proposal || "맞춤형 메모리 제안", 180),
+      action90d: compact(project.gate90d || "90일 Gate", 160),
+      deliverable: compact(project.deliverable || "Customer Decision Pack", 120),
+      owner: "AI Infra Strategy",
+      kpis: (project.kpis || []).slice(0, 3).map((item) => compact(item, 48)),
+      accounts: project.accounts || [],
+      accent: project.accent || "#0A84B8",
+      deepLink: deepLinks[project.id] || "#console",
+    }));
+  if (!agenda.length) agenda.push(...(automation.briefs || [])
+    .slice(0, 3)
     .map((brief, index) => ({
       id: brief.id || `decision-${index + 1}`,
       index: String(index + 1).padStart(2, "0"),
@@ -1022,7 +1073,7 @@ function buildDepartmentHomepage({ decisionIntelligence = {}, sourceCoverage = {
       independentSources: Number(brief.independentSources || 0),
       confidence: brief.confidence || "review",
       deepLink: deepLinks[brief.id] || "#console",
-    }));
+    })));
   if (agenda.length < 3) {
     const fallbackLinks = {
       hbm: "#console/c-level-cockpit/hbm4-foundry",
@@ -1055,21 +1106,13 @@ function buildDepartmentHomepage({ decisionIntelligence = {}, sourceCoverage = {
       });
     }
   }
-  const funnel = automation.funnel || {};
-  const configured = Number(sourceCoverage.configuredSources || 0);
-  const observed = Number(sourceCoverage.observedSources || 0);
   return {
-    source: "decisionIntelligence.decisionAutomation.briefs",
+    source: strategicProjects.length ? "accounts.projects" : "decisionIntelligence.decisionAutomation.briefs",
     runId: payload.runId || decisionIntelligence.runId || null,
     generatedAt,
-    status: automation.state || "MONITORING",
+    status: "PROJECT_PORTFOLIO",
     agenda,
-    metrics: [
-      { label: "DECISION READY", value: Number(funnel.decisionReadyBriefs ?? 0), detail: "실행 검토 가능 안건" },
-      { label: "VERIFIED EVENTS", value: Number(funnel.verifiedEvents || 0), detail: "교차 검증된 변화" },
-      { label: "FRESHNESS", value: Number(freshness.score || 0), suffix: "/100", detail: freshness.label || freshness.status || "검증 대기" },
-      { label: "SOURCE COVERAGE", value: observed, suffix: configured ? `/${configured}` : "", detail: "관측/구성 소스" },
-    ],
+    metrics: [],
     revalidationRequired: freshness.revalidationRequired === true,
     indexedAt: freshness.timestamps?.indexedAt || null,
   };
@@ -1103,6 +1146,7 @@ export function validateSiteContent(content = {}) {
   if (!Array.isArray(strategyBoard.customerPortfolio?.accounts) || strategyBoard.customerPortfolio.accounts.length < 10) errors.push("strategyBoard.customerPortfolio.accounts");
   if (!(strategyBoard.customerPortfolio?.accounts || []).every((item) => item.evidence?.status)) errors.push("strategyBoard.customerPortfolio.evidence");
   if (!Array.isArray(strategyBoard.customerPortfolio?.groups) || strategyBoard.customerPortfolio.groups.length < 4) errors.push("strategyBoard.customerPortfolio.groups");
+  if (!Array.isArray(strategyBoard.customerPortfolio?.projects) || strategyBoard.customerPortfolio.projects.length !== 3) errors.push("strategyBoard.customerPortfolio.projects");
   if (!Array.isArray(strategyBoard.playbooks) || strategyBoard.playbooks.length < 3) errors.push("strategyBoard.playbooks");
   if (!(strategyBoard.playbooks || []).every((item) => item.evidence?.status)) errors.push("strategyBoard.playbooks.evidence");
   const maasPlaybook = (strategyBoard.playbooks || []).find((item) => item.id === "memory-as-a-service");
@@ -1132,8 +1176,8 @@ export function validateSiteContent(content = {}) {
   const agenda = content.hero?.departmentWorkbench?.agenda || [];
   if (new Set(agenda.map((item) => item.meceAxis)).size !== agenda.length) errors.push("hero.departmentWorkbench.agenda.meceAxis");
   if (new Set(agenda.map((item) => compact(item.decisionQuestion).toLowerCase())).size !== agenda.length || !agenda.every((item) => item.deliverable)) errors.push("hero.departmentWorkbench.agenda.decisionContract");
-  if (!Array.isArray(content.hero?.departmentWorkbench?.metrics) || content.hero.departmentWorkbench.metrics.length !== 4) errors.push("hero.departmentWorkbench.metrics");
-  if (content.hero?.departmentWorkbench?.source !== "decisionIntelligence.decisionAutomation.briefs") errors.push("hero.departmentWorkbench.source");
+  if (!Array.isArray(content.hero?.departmentWorkbench?.metrics)) errors.push("hero.departmentWorkbench.metrics");
+  if (!["accounts.projects", "decisionIntelligence.decisionAutomation.briefs"].includes(content.hero?.departmentWorkbench?.source)) errors.push("hero.departmentWorkbench.source");
   if (!Array.isArray(content.caseClassification) || content.caseClassification.length !== 3) errors.push("caseClassification");
   if (!content.decisionControl?.integrity?.status || !content.decisionControl?.freshness?.status || !content.decisionControl?.coverage?.status || !content.decisionControl?.confidence?.status) errors.push("decisionControl");
   if (content.decisionIntelligence?.evaluation?.failClosed !== true) errors.push("decisionIntelligence.evaluation.failClosed");
@@ -1261,7 +1305,7 @@ export function buildSiteContentClient({ payload = {}, quant = {} } = {}) {
       workflow: model.strategyMandate?.workflow || [],
       output: model.strategyMandate?.output || {},
       departmentWorkbench,
-      status: `${String(payload.quality?.status || "review").toUpperCase()} · 출처 ${sourceCoverage.observedSources || 0}개 관측 · ${String(generatedAt).slice(0, 10)}`,
+      status: `3개 고객 과제 · ${String(generatedAt).slice(0, 10)}`,
     },
     organizationOperatingModel: buildOrganizationOperatingModel(
       insights,
@@ -1278,7 +1322,7 @@ export function buildSiteContentClient({ payload = {}, quant = {} } = {}) {
     caseClassification: model.caseClassification || [],
     agentCouncil: {
       title: "AI Infra Strategy Agent Council",
-      subtitle: `최신 검증 근거 ${insights.length}개 축을 Business Outcome·Workload/SLO·지배 병목·경제성·실행 Gate로 재구성`,
+      subtitle: "고객 Pain · Workload/SLO · 메모리 대안 · 경제성 · 90일 Gate",
       agendas: profiles,
     },
     footer: {

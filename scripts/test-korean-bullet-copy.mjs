@@ -18,7 +18,7 @@ const heroScope = html.match(/<ul class="business-hero-bullets"[\s\S]*?<\/ul>/)?
 assert.equal((heroScope.match(/<li>/g) ?? []).length, 4, "hero scope must contain four intact MECE strategy rows");
 assert.match(heroScope, /data-copy-verbatim/, "hero strategy rows must preserve full copy instead of adding ellipses");
 assert.doesNotMatch(heroScope, /…/, "hero strategy rows must not ship with clipped copy");
-const heroOpening = html.match(/<section class="business-hero"[\s\S]*?<h1>/)?.[0] ?? "";
+const heroOpening = html.match(/<section class="business-hero"[\s\S]*?<h2>/)?.[0] ?? "";
 assert.doesNotMatch(heroOpening, /data-frame=|AI INFRA STRATEGY/, "the removed hero frame and strategy kicker must stay absent");
 assert.doesNotMatch(heroScope, /Partner &amp; Execution/, "the clipped Partner & Execution row must stay removed");
 assert.doesNotMatch(html, />[^<]*Workbench[^<]*</i, "Workbench must not appear in user-facing copy");
