@@ -8,6 +8,7 @@ const readJson = (name) => JSON.parse(readFileSync(resolve(root, "data", name), 
 const accountModel = readJson("accounts.json");
 const sourceCatalog = readJson("source-catalog.json");
 const legacyIntelligence = readJson("company-intelligence.json");
+const PUBLIC_ARTICLE_YEAR = "2026";
 
 const layerLabels = Object.freeze({
   "end-customer": "Big Tech · Hyperscaler",
@@ -60,12 +61,17 @@ const plainStage = (stage) => typeof stage === "string"
     ? { id: stage.id || "", label: stage.label || stage.id || "공개 확인 필요", sourceId: stage.sourceId || "" }
     : { label: "공개 확인 필요" };
 
-const safeEvidence = (item = {}) => item?.url ? {
+const isCurrentPublicArticle = (item = {}) => {
+  const date = String(item.date || item.publishedAt || item.asOf || "").trim();
+  return Boolean(item?.url && date.startsWith(PUBLIC_ARTICLE_YEAR));
+};
+
+const safeEvidence = (item = {}) => isCurrentPublicArticle(item) ? {
   title: item.title || "공개 근거",
   source: item.source || "원문",
   sourceClass: item.sourceClass || "public",
   url: item.url,
-  date: item.date || item.asOf || "",
+  date: String(item.date || item.publishedAt || item.asOf).slice(0, 10),
 } : null;
 
 const profileAliases = (account = {}, legacy = {}) => unique([
@@ -84,7 +90,7 @@ const autoLinkAliases = (account = {}, legacy = {}) => unique([
   ...(legacy.entityAliases || []),
 ].filter((item) => String(item || "").replace(/[^a-z0-9가-힣]/gi, "").length >= 3));
 
-function accountProfile(account = {}, dynamic = {}, competitive = null, legacy = {}) {
+function accountProfile(account = {}, dynamic = {}, competitive = null, legacy = {}, executive = null) {
   const supplierRelations = (accountModel.supplierRelations || [])
     .filter((relation) => relation.accountId === account.id)
     .map((relation) => ({
@@ -163,6 +169,17 @@ function accountProfile(account = {}, dynamic = {}, competitive = null, legacy =
       executionGate: account.gate || "동일 Workload·SLO 기반 검증",
       operatingQuestion: account.broadcomStrategy?.accountQuestion || competitive?.decision || account.relationship || "고객 Workload와 Memory TCO를 같은 기준으로 검증",
     },
+    executiveLens: {
+      question: executive?.decisionQuestion || account.broadcomStrategy?.accountQuestion || account.gate || "고객 Workload와 Memory TCO를 같은 기준으로 검증",
+      painSignals: (executive?.topPainAxes || painAxes).map((axis) => axis.label).filter(Boolean).slice(0, 3),
+      riskSignals: (executive?.whyLost || []).map((axis) => axis.label).filter(Boolean).slice(0, 3),
+      recommendedProducts: executive?.recommendedProductIds || [],
+      actions: [
+        { phase: "0–30D", title: "Requirement Lock", detail: unique([...(account.buyingCriteria || []), ...(account.baseline || []).map((item) => item.label)]).slice(0, 3).join(" · ") || "Workload · SLO · Buying Criteria" },
+        { phase: "31–60D", title: "Architecture / TCO", detail: account.memory || "Memory Option · Partner RACI · TCO" },
+        { phase: "61–90D", title: "Qualification / Deal", detail: account.gate || "PoC · Capacity · LTA Gate" },
+      ],
+    },
     ecosystem: {
       partner: account.xpuEcosystem || null,
       servesAccounts: (account.servesAccounts || []).map((id) => ({ id, company: (accountModel.accounts || []).find((item) => item.id === id)?.company || id })),
@@ -222,6 +239,17 @@ function legacyProfile(id, legacy = {}) {
       executionGate: "공식 원문 · 제품 Stage · 고객 적용",
       operatingQuestion: legacy.decisionFocus?.[2] || "SK hynix 실행 전략에 미치는 영향은 무엇인가",
     },
+    executiveLens: {
+      question: legacy.decisionFocus?.[2] || "이 기업 변화가 Memory Buying Criteria를 어떻게 바꾸는가",
+      painSignals: (legacy.decisionFocus || []).slice(0, 3),
+      riskSignals: [],
+      recommendedProducts: [],
+      actions: [
+        { phase: "0–30D", title: "Signal Check", detail: "공식 Roadmap · 고객 적용 · 기준일" },
+        { phase: "31–60D", title: "Impact Model", detail: "Memory · Chip · Package 영향" },
+        { phase: "61–90D", title: "Decision Gate", detail: "Partner · PoC · Capacity" },
+      ],
+    },
     ecosystem: { partner: null, servesAccounts: [], supplierRelations: [] },
     organization: legacy.organization || [],
     priorities: legacy.officialPriorities || [],
@@ -275,6 +303,17 @@ function sourceCompanyProfile(id, company = {}, sources = []) {
       executionGate: "동일 Workload·SLO · 상호운용성 · TCO",
       operatingQuestion: "이 기술 변화가 고객 Memory Buying Criteria를 어떻게 바꾸는가",
     },
+    executiveLens: {
+      question: "이 기업의 Roadmap이 고객 Memory Buying Criteria를 어떻게 바꾸는가",
+      painSignals: topics.slice(0, 3),
+      riskSignals: [],
+      recommendedProducts: [],
+      actions: [
+        { phase: "0–30D", title: "Signal Check", detail: "공식 Roadmap · 제품 Stage" },
+        { phase: "31–60D", title: "System Impact", detail: "Memory · Chip · Data Center" },
+        { phase: "61–90D", title: "Execution Gate", detail: "PoC · Partner · Capacity" },
+      ],
+    },
     ecosystem: { partner: null, servesAccounts: [], supplierRelations: [] },
     organization: [], priorities: [], evidence: [], sources: compactSources,
   };
@@ -284,6 +323,7 @@ export function buildCompanyDirectory({ siteContentExtended = {}, runId = null, 
   const portfolio = siteContentExtended?.strategyBoard?.customerPortfolio || {};
   const dynamicAccounts = new Map((portfolio.accounts || []).map((account) => [account.id, account]));
   const competitiveCompanies = new Map((portfolio.competitiveDynamics?.companies || []).map((company) => [company.id, company]));
+  const executivePages = new Map((portfolio.executiveOnePagers || []).map((page) => [page.accountId, page]));
   const legacyByCanonicalId = new Map();
   for (const [legacyId, profile] of Object.entries(legacyIntelligence.profiles || {})) {
     legacyByCanonicalId.set(canonicalLegacyIds[legacyId] || legacyId.replace(/-stock$/, ""), profile);
@@ -295,6 +335,7 @@ export function buildCompanyDirectory({ siteContentExtended = {}, runId = null, 
       dynamicAccounts.get(account.id) || {},
       competitiveCompanies.get(account.id) || null,
       legacyByCanonicalId.get(account.id) || {},
+      executivePages.get(account.id) || null,
     ));
   }
   for (const supplier of accountModel.suppliers || []) {
@@ -317,6 +358,7 @@ export function buildCompanyDirectory({ siteContentExtended = {}, runId = null, 
       dynamicAccounts.get(supplier.id) || {},
       competitiveCompanies.get(supplier.id) || null,
       legacyByCanonicalId.get(supplier.id) || {},
+      executivePages.get(supplier.id) || null,
     ));
   }
   for (const [id, legacy] of legacyByCanonicalId.entries()) {

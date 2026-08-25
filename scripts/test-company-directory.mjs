@@ -29,6 +29,8 @@ for (const id of required) {
   assert.ok(profile.memoryLens?.pain && profile.memoryLens?.proposal && profile.memoryLens?.gate, `${id} requires a decision-ready memory lens`);
   assert.ok(profile.chipLens?.primaryChip, `${id} requires a chip lens`);
   assert.ok(profile.dataCenterLens?.systemBottleneck && profile.dataCenterLens?.executionGate, `${id} requires a data-center lens`);
+  assert.equal(profile.executiveLens?.actions?.length, 3, `${id} requires an automated 90-day executive action plan`);
+  assert.ok((profile.evidence || []).every((item) => String(item.date || "").startsWith("2026")), `${id} profile must expose only 2026 articles`);
 }
 assert.deepEqual(profiles.get("broadcom").chipLens.servesAccounts.map((item) => item.id), ["google", "meta", "openai"]);
 assert.deepEqual(profiles.get("marvell").chipLens.servesAccounts.map((item) => item.id), ["microsoft", "aws"]);
@@ -43,6 +45,8 @@ assert.match(runtime, /MutationObserver/);
 assert.match(runtime, /company-directory-client\.json/);
 assert.match(styles, /transition:color 70ms linear,background-color 70ms linear/);
 assert.match(styles, /\.company-profile-modal::backdrop/);
+assert.match(styles, /\.company-profile-modal\{position:fixed;inset:0;margin:auto/, "company profile dialog must be centered in the viewport");
+assert.match(runtime, /EXECUTIVE ACTION/);
 assert.match(workflow, /paths-ignore:[\s\S]*data\/company-directory-client\.json/);
 assert.match(workflow, /git add[^\n]*data\/company-directory-client\.json/);
 

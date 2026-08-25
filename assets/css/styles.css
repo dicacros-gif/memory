@@ -25246,6 +25246,13 @@ button.ni-trend-chip:hover { box-shadow: 0 4px 12px color-mix(in srgb, #0891B2 2
   line-height: 1.42;
 }
 
+/* The customer thesis is a two-field decision statement.  Removing the
+   decorative JTBD ribbon prevents clipping and leaves only useful content. */
+.consulting-system .sc-case-thesis {
+  grid-template-columns: minmax(150px, .34fr) minmax(0, 1fr);
+  clip-path: none !important;
+}
+
 .consulting-system .sc-card-flow {
   display: grid;
   grid-template-columns: 1.18fr 1fr 1fr 1.14fr 1.24fr;

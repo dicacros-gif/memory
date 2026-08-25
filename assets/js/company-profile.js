@@ -222,10 +222,23 @@
       </section>`;
   }
 
+  function executiveLensHTML(profile = {}) {
+    const lens = profile.executiveLens || {};
+    const actions = lens.actions || [];
+    if (!actions.length) return "";
+    const signals = unique([...(lens.painSignals || []), ...(lens.riskSignals || [])]).slice(0, 4);
+    return `<section class="company-executive-plan" aria-label="90일 실행 제안">
+      <header><div><small>EXECUTIVE ACTION</small><strong>${escapeHTML(lens.question || "다음 의사결정 질문")}</strong></div>${signals.length ? `<p>${signals.map((item) => `<span>${escapeHTML(item)}</span>`).join("")}</p>` : ""}</header>
+      <div>${actions.map((item) => `<article><small>${escapeHTML(item.phase)}</small><strong>${escapeHTML(item.title)}</strong><p>${escapeHTML(item.detail)}</p></article>`).join("")}</div>
+    </section>`;
+  }
+
   function evidenceHTML(profile = {}) {
-    const sources = unique([...(profile.evidence || []), ...(profile.sources || [])].filter((item) => item?.url).map((item) => JSON.stringify(item))).map((item) => JSON.parse(item)).slice(0, 8);
+    const sources = unique([...(profile.evidence || [])]
+      .filter((item) => item?.url && String(item.date || item.publishedAt || item.asOf || "").startsWith("2026"))
+      .map((item) => JSON.stringify(item))).map((item) => JSON.parse(item)).slice(0, 6);
     if (!sources.length) return "";
-    return `<footer class="company-profile-evidence"><header><b>PUBLIC EVIDENCE</b><span>공식·리서치·보도 출처 분리</span></header><div>${sources.map((item) => `<a href="${escapeHTML(item.url)}" target="_blank" rel="noopener noreferrer"><small>${escapeHTML(sourceLabel(item))}</small><strong>${escapeHTML(item.title || item.name || item.source || "공개 원문")}</strong><span>${escapeHTML(item.date || item.asOf || "")} ↗</span></a>`).join("")}</div></footer>`;
+    return `<footer class="company-profile-evidence"><header><b>2026 KEY SIGNALS</b><span>중복 제거 · 최신 기사만 표시</span></header><div>${sources.map((item) => `<a href="${escapeHTML(item.url)}" target="_blank" rel="noopener noreferrer"><small>${escapeHTML(sourceLabel(item))}</small><strong>${escapeHTML(item.title || item.name || item.source || "공개 원문")}</strong><span>${escapeHTML(item.date || item.asOf || "")} ↗</span></a>`).join("")}</div></footer>`;
   }
 
   function ensureDialog() {
@@ -280,6 +293,7 @@
           <button type="button" data-company-lens="datacenter" role="tab">Data Center</button>
         </nav>
         <main class="company-profile-body">
+          ${executiveLensHTML(profile)}
           ${memoryLensHTML(profile)}
           ${chipLensHTML(profile)}
           ${dataCenterLensHTML(profile)}

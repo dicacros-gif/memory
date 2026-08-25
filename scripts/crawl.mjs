@@ -4272,6 +4272,8 @@ function compactVerificationForClient(verification = null) {
 
 function compactNewsItemForClient(item = {}) {
   const next = { ...item };
+  const displayTitle = intelligenceTitle(next);
+  if (displayTitle) next.title = displayTitle;
   if (next.originalTitle === next.title) delete next.originalTitle;
   if (next.link === next.sourceUrl) delete next.link;
   if (next.translation) next.translation = compactTranslationForClient(next.translation);
@@ -4571,6 +4573,55 @@ function compactDecisionHistoryForClient({ priceHistory = {}, marketHistory = {}
   };
 }
 
+const CLIENT_NEWS_YEAR = "2026";
+
+function clientArticleDate(item = {}) {
+  return String(item.publishedAt || item.date || "").trim();
+}
+
+function isCurrentClientArticle(item = {}) {
+  return clientArticleDate(item).startsWith(CLIENT_NEWS_YEAR);
+}
+
+function compactCurrentNews(items = []) {
+  return items.filter(isCurrentClientArticle).map(compactNewsItemForClient);
+}
+
+function stripRepeatedPublisherSuffix(value = "") {
+  let text = String(value || "").trim();
+  let match = text.match(/^(.*?)(?:\s[|–—-]\s)([^|–—-]+?)\s[-–—]\s\2$/i);
+  while (match) {
+    text = `${match[1]} | ${match[2]}`.trim();
+    match = text.match(/^(.*?)(?:\s[|–—-]\s)([^|–—-]+?)\s[-–—]\s\2$/i);
+  }
+  return text;
+}
+
+function pruneOldDatedArticles(value, parentKey = "") {
+  if (Array.isArray(value)) return value
+    .map((item) => pruneOldDatedArticles(item, parentKey))
+    .filter((item) => item != null);
+  if (typeof value === "string" && /title|headline|evidence/i.test(parentKey)) {
+    return stripRepeatedPublisherSuffix(value);
+  }
+  if (!value || typeof value !== "object") return value;
+  const date = clientArticleDate(value);
+  const articleLike = Boolean(
+    date
+    && (value.url || value.link)
+    && (value.title || value.headline || value.source || /news|evidence|signal|event|article|document/i.test(parentKey)),
+  );
+  if (articleLike && !date.startsWith(CLIENT_NEWS_YEAR)) return null;
+  const normalized = Object.fromEntries(Object.entries(value)
+    .map(([key, item]) => [key, pruneOldDatedArticles(item, key)])
+    .filter(([, item]) => item != null));
+  if (articleLike) {
+    const displayTitle = intelligenceTitle(normalized);
+    if (displayTitle) normalized.title = displayTitle;
+  }
+  return normalized;
+}
+
 function compactLiveForClient(payload = {}) {
   const {
     quant: _quant,
@@ -4586,30 +4637,30 @@ function compactLiveForClient(payload = {}) {
   const evidence = payload.evidence ? {
     promotedCount: Number(payload.evidence.promotedCount || 0),
   } : null;
-  const news = (payload.news || []).map(compactNewsItemForClient);
+  const news = compactCurrentNews(payload.news || []);
   const referenceNews = payload.referenceNews && typeof payload.referenceNews === "object"
     ? {
         ...payload.referenceNews,
-        items: (payload.referenceNews.items || []).map(compactNewsItemForClient),
+        items: compactCurrentNews(payload.referenceNews.items || []),
       }
     : payload.referenceNews;
   const categories = (payload.categories || []).map((category) => ({
     ...category,
-    items: (category.items || []).map(compactNewsItemForClient),
+    items: compactCurrentNews(category.items || []),
   }));
   const communitySignals = payload.communitySignals && typeof payload.communitySignals === "object"
     ? {
         ...payload.communitySignals,
-        items: (payload.communitySignals.items || []).map(compactNewsItemForClient),
+        items: compactCurrentNews(payload.communitySignals.items || []),
       }
     : payload.communitySignals;
   const benchmarkSignals = payload.benchmarkSignals && typeof payload.benchmarkSignals === "object"
     ? {
         ...payload.benchmarkSignals,
-        stream: (payload.benchmarkSignals.stream || []).map(compactNewsItemForClient),
+        stream: compactCurrentNews(payload.benchmarkSignals.stream || []),
         themes: (payload.benchmarkSignals.themes || []).map((theme) => ({
           ...theme,
-          items: (theme.items || []).map(compactNewsItemForClient),
+          items: compactCurrentNews(theme.items || []),
         })),
         // Discovery/reference archives remain in live.json for audits and future
         // recomputation. They are not rendered and often contain RSS relay URLs,
@@ -4623,9 +4674,7 @@ function compactLiveForClient(payload = {}) {
         ...payload.startups,
         candidates: (payload.startups.candidates || []).map((candidate) => ({
           ...candidate,
-          recentNews: (candidate.recentNews || [])
-            .filter(hasDirectBrowserSource)
-            .map(compactNewsItemForClient),
+          recentNews: compactCurrentNews((candidate.recentNews || []).filter(hasDirectBrowserSource)),
         })),
       }
     : payload.startups;
@@ -4902,14 +4951,14 @@ function splitSiteContentForClient(content = {}) {
  */
 export function buildClientDataBundle({ payload = {}, quant = {}, priceHistory = {}, marketHistory = {}, quantBacktest = {} } = {}) {
   const runId = payload.runId || quant.runId || marketHistory.runId || priceHistory.runId || null;
-  const live = compactLiveForClient(payload);
+  const live = pruneOldDatedArticles(compactLiveForClient(payload));
   const clientQuant = compactQuantForClient(quant);
   const price = compactPriceHistoryForClient(priceHistory);
   const market = compactMarketHistoryForClient(marketHistory);
   const backtest = compactQuantBacktestForClient(quantBacktest);
   const decisionHistory = compactDecisionHistoryForClient({ priceHistory, marketHistory, quantBacktest });
-  const landingDecision = buildLandingDecisionClient({ payload, quant });
-  const fullSiteContent = buildSiteContentClient({ payload, quant });
+  const landingDecision = pruneOldDatedArticles(buildLandingDecisionClient({ payload, quant }));
+  const fullSiteContent = pruneOldDatedArticles(buildSiteContentClient({ payload, quant }));
   const { siteContent, siteContentExtended } = splitSiteContentForClient(fullSiteContent);
   const companyDirectory = buildCompanyDirectory({
     siteContentExtended,
@@ -6702,11 +6751,16 @@ function intelligenceTitle(item = {}) {
   let title = cleanKoNewsText(item.titleKo || item.title || "");
   const source = cleanKoNewsText(item.source || "");
   if (!title || !source) return title;
-  for (const separator of [" - ", " – ", " — ", " | "]) {
-    const suffix = `${separator}${source}`;
-    if (title.toLowerCase().endsWith(suffix.toLowerCase())) {
-      title = title.slice(0, -suffix.length).trim();
-      break;
+  let changed = true;
+  while (changed) {
+    changed = false;
+    for (const separator of [" - ", " – ", " — ", " | "]) {
+      const suffix = `${separator}${source}`;
+      if (title.toLowerCase().endsWith(suffix.toLowerCase())) {
+        title = title.slice(0, -suffix.length).trim();
+        changed = true;
+        break;
+      }
     }
   }
   return title;

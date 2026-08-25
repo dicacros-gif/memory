@@ -13122,7 +13122,6 @@
               </div>
             </div>
             <div class="sc-case-thesis" tabindex="0">
-              <span>CUSTOMER · JTBD</span>
               <small>${escapeHTML(lens.customer)}</small>
               <strong>${strategicHighlightHTML(lens.pain)}</strong>
             </div>

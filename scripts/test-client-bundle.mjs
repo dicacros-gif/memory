@@ -28,7 +28,10 @@ const payload = {
   marketHistory: { duplicate: true },
   evidence: { duplicate: true },
   sourceRegistry: { duplicate: true },
-  news: [{ title: "verified source article" }],
+  news: [
+    { title: "current article", url: "https://example.com/current", publishedAt: "2026-07-25" },
+    { title: "stale article", url: "https://example.com/stale", publishedAt: "2025-07-25" },
+  ],
   intelligence: {
     briefs: ["hbm", "dram", "nand", "demand"].map((id) => ({
       id,
@@ -133,6 +136,7 @@ assert.ok(bundle.manifest.artifacts.decisionHistory.bytes < bundle.manifest.arti
 assert.equal(bundle.quant.fx.usdkrw.history5y, undefined);
 assert.equal(bundle.quant.fx.usdkrw.history30d.points.length, 1);
 assert.ok(bundle.manifest.artifacts.live.bytes > 0);
+assert.deepEqual(bundle.live.news.map((item) => item.title), ["current article"], "browser news must contain only articles published in 2026");
 assert.equal(bundle.landingDecision.runId, runId);
 assert.equal(bundle.landingDecision.clientArtifact, true);
 assert.ok(bundle.manifest.artifacts.landingDecision.bytes < 20_000, "landing decision artifact must remain first-page friendly");
