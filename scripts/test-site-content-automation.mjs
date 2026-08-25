@@ -252,6 +252,13 @@ assert.doesNotMatch(accountViews, /sc-asic-policy|미공개 사양은 추정하�
 assert.match(app, /function shortKstDate\(value\)[\s\S]*?toLocaleDateString\("en-US"[\s\S]*?month: "numeric"[\s\S]*?day: "numeric"/, "date-only labels must use compact M/D formatting");
 assert.match(app, /reports\.map\([\s\S]*?shortKstDate\(item\.publishedAt\)/, "AI application report dates must render as M/D");
 assert.doesNotMatch(app, /고객 Pain과 사업 영향 기준으로 핵심 인사이트만 선별|유사 신호 통합 · 수치와 인용은 연결 원문에서 확인/, "removed insight-selection disclosure must not return");
+assert.doesNotMatch(app, /scoreRingHTML\(item\.confidence, "Data"\)/, "executive decision cards must not expose internal DATA scores");
+assert.match(app, /item\.directSignalModel === "hbm" \? "" : `<div class="decision-card-metrics">/, "HBM decision cards must hide internal evidence counts");
+assert.match(app, /direct \? "" : `<div class="agent-debate-metrics">/, "HBM council must hide internal count metrics");
+assert.doesNotMatch(app, /HBM 라이브 overlay|직접 신호 모델 · AI 수요/, "HBM decision header must not expose raw signal counts");
+assert.doesNotMatch(app, /직접 신호 점수 \$\{fmtNum\(active\.directMetrics\?\.score/, "HBM decision payload must not expose internal signal scores");
+assert.match(app, /hideCounts: active\.directSignalModel === "hbm"/, "HBM decision frames must suppress internal evidence counts");
+assert.doesNotMatch(app, /canonical 원문 \$\{fmtNum\(active\.directMetrics\?\.evidenceCount/, "HBM audit copy must not expose raw evidence counts");
 assert.ok(
   rebuilt.strategyBoard.customerPortfolio.asicPortfolio.accounts.every((item) => item.chipPortfolio?.length && item.chipPortfolio.every((chip) => chip.memoryPain && chip.memoryProposal && chip.source?.url)),
   "every priority ASIC card must connect workload, memory implication, proposal, and source",

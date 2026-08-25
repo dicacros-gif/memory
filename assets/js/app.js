@@ -9866,11 +9866,12 @@
     const action = String(context.action || "조건 충족 전까지 단계 실행");
     const gate = String(context.gate || "핵심 판단 변경 KPI");
     const verdict = String(context.verdict || "Watch");
+    const hideCounts = Boolean(context.hideCounts);
     const diagnosis = `${evidenceText} · 핵심 인사이트만 선택 · 유사 신호 통합`;
     const frames = {
       brief: ["오늘·이전 수집 데이터 가운데 의사결정에 바로 쓸 관측값과 추가 검증값을 어떻게 구분할 것인가?", "관측값·추정치·가정을 분리해야 토론의 출발점이 흔들리지 않습니다.", "근거가 있는 수치부터 안건별로 연결하고, 누적 데이터는 기준일을 함께 표시합니다."],
       data: ["선택 기준일 이전의 신호와 이후의 실측을 같은 제품·기간·단위로 비교해도 되는가?", "기준일 이후 정보가 섞이면 백테스트와 현재 판단을 과대평가할 수 있습니다.", "실제 관측 구간과 결측 구간을 분리해, 계산 가능한 시계열만 판단에 사용합니다."],
-      audit: [`이 안건의 근거 ${fmtNum(evidenceCount)}건은 같은 URL·기간·단위를 중복 없이 비교할 수 있는가?`, "검증 수준이 낮은 보도는 방향성 참고이지 확정 사실이 아닙니다.", "공식 팩트와 보도 근거를 분리해 유지하고 결론 등급은 낮은 쪽 근거에 맞춥니다."],
+      audit: [hideCounts ? "이 안건의 근거는 같은 URL·기간·단위를 중복 없이 비교할 수 있는가?" : `이 안건의 근거 ${fmtNum(evidenceCount)}건은 같은 URL·기간·단위를 중복 없이 비교할 수 있는가?`, "검증 수준이 낮은 보도는 방향성 참고이지 확정 사실이 아닙니다.", "공식 팩트와 보도 근거를 분리해 유지하고 결론 등급은 낮은 쪽 근거에 맞춥니다."],
       market: [`${priceText}가 고객 전환·장기계약·재고 변화와 같은 방향인지 확인한 뒤 배분을 바꿀 수 있는가?`, "가격만의 변동은 물량·마진·고객 락인을 보장하지 않습니다.", "가격·계약·고객 지표가 교차 확인되는 제품군에만 배분 변경을 제안합니다."],
       cto: ["현재 수요 신호를 물량 약속으로 바꾸기 전에 수율·패키징·고객 인증 중 어느 병목을 해소해야 하는가?", "시장 신호와 기술 준비도는 별도 게이트로 관리해야 CAPEX 과잉을 막을 수 있습니다.", "고객 인증과 수율 확인이 끝난 범위만 단계적으로 램프업합니다."],
       coo: ["공급 배분·Fab 연속성·인증 일정·재고 회전이 동시에 충족되는 실행 단위는 어디까지인가?", "한 축만 확인된 수요는 전사 CAPEX 결재 근거가 될 수 없습니다.", "고객·제품별 milestone에 맞춰 물량과 설비 투입을 나눕니다."],
@@ -16354,7 +16355,9 @@
         role: "근거·반증 검증",
         color: "#0369A1",
         stance: "EVIDENCE",
-        message: `${currentBriefing ? `${currentBriefing} ` : ""}직접 근거 ${fmtNum(directEvidence)}건과 가격 series ${fmtNum(selectedSeriesCount)}개를 기준일·출처·단위별로 분리했습니다. ${counterEvidence.text}. 공개 시장 신호와 고객 성과를 구분하고, 반대 근거·${primaryFlip.label}·**${domain.kill}**을 같은 기준으로 갱신합니다.`,
+        message: active.directSignalModel === "hbm"
+          ? `${currentBriefing ? `${currentBriefing} ` : ""}고객·양산·패키징 직접 신호와 범용 가격 series를 분리했습니다. ${counterEvidence.text}. 공개 시장 신호와 고객 성과를 구분하고, 반대 근거·${primaryFlip.label}·**${domain.kill}**을 같은 기준으로 갱신합니다.`
+          : `${currentBriefing ? `${currentBriefing} ` : ""}직접 근거 ${fmtNum(directEvidence)}건과 가격 series ${fmtNum(selectedSeriesCount)}개를 기준일·출처·단위별로 분리했습니다. ${counterEvidence.text}. 공개 시장 신호와 고객 성과를 구분하고, 반대 근거·${primaryFlip.label}·**${domain.kill}**을 같은 기준으로 갱신합니다.`,
       },
       {
         id: "executive",
@@ -16371,8 +16374,9 @@
       evidenceCount: directEvidence,
       factCount: Number(active.directMetrics?.evidenceCount || 0),
       newsCount: Number(active.directMetrics?.demand || 0),
+      hideCounts: active.directSignalModel === "hbm",
       priceText: active.directSignalModel === "hbm"
-        ? `HBM 직접 근거 ${fmtNum(active.directMetrics?.evidenceCount || 0)}건 · 범용 가격 proxy와 분리`
+        ? "HBM 직접 신호 · 범용 가격 proxy와 분리"
         : `사전 모멘텀 ${prior} · ${horizon.label} 고정 실측 ${actual}`,
       evidenceText: active.directSignalModel === "hbm"
         ? "고객·양산·수요·패키징 직접 근거"
@@ -16406,7 +16410,7 @@
     return {
       title: `${scenario.conclusion} · ${scenario.label}`,
       body: active?.directSignalModel === "hbm"
-        ? `경영진 결론: "${profile.question}" 현재 HBM 직접 근거 ${fmtNum(active?.directMetrics?.evidenceCount || 0)}건을 과거 가격 백테스트와 분리해 ${scenario.label}을 stress test했습니다.`
+        ? `경영진 결론: "${profile.question}" HBM 고객·양산·패키징 직접 신호를 과거 가격 백테스트와 분리해 ${scenario.label}을 stress test했습니다.`
         : `경영진 결론: "${profile.question}" ${yearLabel} 기준점 ${selectedIso ? pointDateLabel(selectedIso) : "없음"}에서 직전 모멘텀 ${prior}, ${horizon.label} 고정 실측 ${actual}, 검증 가능 관측 ${fmtNum(active?.observations?.length || 0)}개를 기준으로 ${scenario.label}을 stress test했습니다.`,
       next: `검증 결과: ${outcome}. 시나리오 액션: ${scenario.conclusion}. 재검토 KPI: ${primaryFlip.label}(${primaryFlip.trigger}). ${active?.decision?.logic || "근거가 더 쌓이면 재판단합니다."}`,
     };
@@ -16441,7 +16445,7 @@
         color: "#00A896",
         stance: "Capital Allocation",
         message: active.directSignalModel === "hbm"
-          ? `HBM 직접 근거 ${fmtNum(active.directMetrics?.evidenceCount || 0)}건에서 고객·계약 ${fmtNum(active.directMetrics?.customer || 0)}건, 양산·출하 ${fmtNum(active.directMetrics?.production || 0)}건을 확인했습니다. ${profile.cfo} 고객 확정과 패키징 실행 조건이 함께 충족되기 전에는 CAPEX를 확정하지 않습니다.`
+          ? `HBM 고객·계약과 양산·출하 직접 신호를 분리해 확인했습니다. ${profile.cfo} 고객 확정과 패키징 실행 조건이 함께 충족되기 전에는 CAPEX를 확정하지 않습니다.`
           : `${point} 기준 관측 ${fmtNum(active.observations.length)}개, 사전 모멘텀 ${prior}, 이후 실측 ${actual}입니다. ${profile.cfo} ${priceFlip.label} 기준이 충족되기 전에는 CAPEX나 가격 정책을 확정하지 않습니다.`,
       },
       {
@@ -16463,7 +16467,7 @@
         color: "#10B981",
         stance: "수요 검증",
         message: active.directSignalModel === "hbm"
-          ? `${profile.data} AI 가속기·하이퍼스케일러 수요 신호 ${fmtNum(active.directMetrics?.demand || 0)}건을 고객 인증 및 공급 계약과 대조했습니다. 범용 메모리 가격 변화는 HBM 수요의 증거로 사용하지 않습니다.`
+          ? `${profile.data} AI 가속기·하이퍼스케일러 수요 신호를 고객 인증 및 공급 계약과 대조했습니다. 범용 메모리 가격 변화는 HBM 수요의 증거로 사용하지 않습니다.`
           : `${profile.data} 가격은 사전 ${prior}, 이후 ${actual}입니다. ${profile.market || "spot과 contract, 고객 계약 신호가 같은 방향일 때만 결론 강도를 높입니다."} 고객 신호 없이 가격만 움직이면 재고·믹스 조정 안건으로 둡니다.`,
       },
       {
@@ -16485,7 +16489,7 @@
         color: "#EF4444",
         stance: "근거 정합성",
         message: active.directSignalModel === "hbm"
-          ? `HBM 판단에서는 DDR5·GDDR·모듈 가격 row를 제외했습니다. canonical 원문 ${fmtNum(active.directMetrics?.evidenceCount || 0)}건에서 고객·양산·수요·패키징·병목 신호만 분류해 계산했습니다.`
+          ? "HBM 판단에서는 DDR5·GDDR·모듈 가격 row를 제외하고 고객·양산·수요·패키징·병목 직접 신호만 분류했습니다."
           : `가격 series ${fmtNum(selectedSeriesCount)}개 중 실제 관측 ${fmtNum(active.observations.length)}개만 판단에 사용했습니다. 중국 신호 ${fmtNum(active.chinaSignalCount)}건은 현재 리스크로만 반영하고, 원문·가격 row가 없는 해석은 결론 강도를 올리지 않습니다.`,
       },
       {
@@ -16496,7 +16500,9 @@
         role: "Devil's Advocate",
         color: "#111827",
         stance: "Devil's Advocate",
-        message: `Devil's Advocate: 이 판단이 12개월 뒤 틀렸다면 원인은 세 가지입니다. ① 사전 모멘텀 ${prior}와 이후 실측 ${actual}를 사후적으로 해석했습니다. ② 관측 ${fmtNum(active.observations.length)}개가 제품군 전체를 대표하지 못했습니다. ③ ${primaryFlip.label}이 반대로 움직여도 결론을 고집했습니다. 반증 조건이 없으면 결론 강도를 낮춥니다.`,
+        message: active.directSignalModel === "hbm"
+          ? `Devil's Advocate: 이 판단이 12개월 뒤 틀렸다면 원인은 세 가지입니다. ① 고객 수요를 확정 계약으로 오인했습니다. ② 양산·패키징 준비도를 과대평가했습니다. ③ ${primaryFlip.label}이 반대로 움직여도 결론을 고집했습니다. 반증 조건이 없으면 결론 강도를 낮춥니다.`
+          : `Devil's Advocate: 이 판단이 12개월 뒤 틀렸다면 원인은 세 가지입니다. ① 사전 모멘텀 ${prior}와 이후 실측 ${actual}를 사후적으로 해석했습니다. ② 관측 ${fmtNum(active.observations.length)}개가 제품군 전체를 대표하지 못했습니다. ③ ${primaryFlip.label}이 반대로 움직여도 결론을 고집했습니다. 반증 조건이 없으면 결론 강도를 낮춥니다.`,
       },
       {
         id: "strategy",
@@ -16547,7 +16553,7 @@
           <label>
             <span>AI Infra 영역 선택</span>
             <select id="execDecisionCouncilSelect" aria-label="AI Infra 실행 전략 안건 선택">
-              ${items.map((item) => `<option value="${escapeHTML(item.id)}"${item.id === active.id ? " selected" : ""}>${escapeHTML(item.label)} · ${escapeHTML(item.decision.label)} · ${fmtNum(item.directMetrics?.evidenceCount ?? item.observations.length)}개 근거</option>`).join("")}
+              ${items.map((item) => `<option value="${escapeHTML(item.id)}"${item.id === active.id ? " selected" : ""}>${escapeHTML(item.label)} · ${escapeHTML(item.decision.label)}</option>`).join("")}
             </select>
           </label>
           <button type="button" id="execDecisionRunCouncil">${execDecisionCouncilRan ? "다음 시나리오 검증" : "영역별 전략 팩 생성"}</button>
@@ -16559,12 +16565,12 @@
           <small>${escapeHTML(yearLabel)} · ${escapeHTML(productLabel)} · 기준점 ${selectedIso ? escapeHTML(pointDateLabel(selectedIso)) : "없음"}</small>
         </div>
         ${scenarioBriefHTML(scenario)}
-        <div class="agent-debate-metrics">
+        ${direct ? "" : `<div class="agent-debate-metrics">
           <div><strong>${escapeHTML(active.decision.label)}</strong><span>판단</span></div>
           <div><strong>${escapeHTML(metricTwo)}</strong><span>${escapeHTML(metricTwoLabel)}</span></div>
           <div><strong>${escapeHTML(metricThree)}</strong><span>${escapeHTML(metricThreeLabel)}</span></div>
           <div><strong>${escapeHTML(metricFour)}</strong><span>검증 근거</span></div>
-        </div>
+        </div>`}
         <div class="domain-council-context" aria-label="선택 영역의 고객·기술·사업 맥락">
           ${contextTiles.map(([label, title, body], index) => `
             <article style="--context-index:${index + 1}">
@@ -16653,10 +16659,10 @@
     const executiveScenario = agentFutureScenario(execDecisionCouncilScenarioRun);
     renderBacktestPeriodSummary(summary);
     if (meta) meta.textContent = active?.directSignalModel === "hbm"
-      ? `${productLabel} · HBM 라이브 overlay ${fmtNum(active.directMetrics?.evidenceCount || 0)}건 · 과거 가격 점수와 분리`
+      ? `${productLabel} · HBM 고객·양산·패키징 실행 판단`
       : `${yearLabel} 기준 · ${horizon.label} 고정 · ${productLabel} · 직접 가격 ${fmtNum(historyCount)}개 · 시장 프록시 ${fmtNum(marketHistoryCount)}개 · 목표 종료 ${targetEndTime ? pointDateLabel(targetEndTime) : "없음"}`;
     if (coverage) coverage.textContent = active?.directSignalModel === "hbm"
-      ? `직접 신호 모델 · AI 수요 ${fmtNum(active.directMetrics?.demand || 0)}건 · 패키징 실행 ${fmtNum(active.directMetrics?.packaging || 0)}건 · 위험 신호 ${fmtNum(active.directMetrics?.risk || 0)}건`
+      ? "고객 인증 · 양산 실행 · 패키징 Gate"
       : `${yearLabel} → ${horizon.label} 고정 종료 · 검증 가능 ${fmtNum(active?.observations?.length || 0)}/${fmtNum(active?.evidenceRows?.length || selectedSeriesCount)}개 · ${active?.usesMarketProxy ? "시장 프록시 보조" : "직접 가격 우선"}`;
 
     const executiveSlider = $("#executiveBacktestSlider");
@@ -16679,18 +16685,17 @@
       <div class="decision-card-stack">
         <button class="decision-card reveal${item.id === active?.id ? " active" : ""}" type="button" data-decision-product="${escapeHTML(item.id)}" style="--local-accent:${categoryAccent(item.category)}">
           <div class="decision-card-top">
-            ${scoreRingHTML(item.confidence, "Data")}
             <span>
               <small>${escapeHTML(item.demand)}</small>
               <strong>${escapeHTML(item.label)}</strong>
               <em>${escapeHTML(item.decision.label)} · ${escapeHTML(item.outcome.label)}</em>
             </span>
           </div>
-          <div class="decision-card-metrics">
+          ${item.directSignalModel === "hbm" ? "" : `<div class="decision-card-metrics">
             <span>${escapeHTML(cardMetric(item, "first"))}</span>
             <span>${escapeHTML(cardMetric(item, "second"))}</span>
             <span>${escapeHTML(decisionClassLabel(item))}</span>
-          </div>
+          </div>`}
         </button>
       </div>
     `).join("") || `<div class="empty">선택한 카테고리에 연결된 경영진 의사결정 항목이 없습니다.</div>`;
@@ -16707,16 +16712,16 @@
         tag: active.demand,
         title: active.label,
         body: active.directSignalModel === "hbm"
-          ? `${active.rationale} 현재 판단: ${active.decision.label}. 직접 신호 점수 ${fmtNum(active.directMetrics?.score || 0)}점.`
+          ? `${active.rationale} 현재 판단: ${active.decision.label}. 고객·양산·패키징 실행 Gate로 검증합니다.`
           : `${active.rationale} 기준일 판단: ${active.decision.label}. 이후 실제 변화: ${active.actualChange == null ? "종료 시점 도래 전" : `${fmtNum(active.actualChange, 2)}%`}.`,
         section: "executive-decision",
         categories: [active.category],
         watch: [active.decision.logic, active.upside, active.downside],
         tags: active.products || [],
-        metrics: [
-          { label: active.directSignalModel === "hbm" ? "고객·계약" : "당시 모멘텀", value: active.directSignalModel === "hbm" ? fmtNum(active.directMetrics?.customer || 0) : active.priorMomentum == null ? "NA" : `${fmtNum(active.priorMomentum, 2)}%` },
-          { label: active.directSignalModel === "hbm" ? "양산·출하" : `${horizon.label} 실제 변화`, value: active.directSignalModel === "hbm" ? fmtNum(active.directMetrics?.production || 0) : active.actualChange == null ? "NA" : `${fmtNum(active.actualChange, 2)}%` },
-          { label: active.directSignalModel === "hbm" ? "직접 근거" : "관측 품목", value: fmtNum(active.directMetrics?.evidenceCount ?? active.observations.length) },
+        metrics: active.directSignalModel === "hbm" ? [] : [
+          { label: "당시 모멘텀", value: active.priorMomentum == null ? "NA" : `${fmtNum(active.priorMomentum, 2)}%` },
+          { label: `${horizon.label} 실제 변화`, value: active.actualChange == null ? "NA" : `${fmtNum(active.actualChange, 2)}%` },
+          { label: "관측 품목", value: fmtNum(active.observations.length) },
           { label: "검증 근거", value: fmtNum(active.directMetrics?.evidenceCount ?? active.observations.length) },
         ],
       };
