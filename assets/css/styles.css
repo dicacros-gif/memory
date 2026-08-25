@@ -27383,3 +27383,44 @@ body.consulting-system #main > #c-level-cockpit {
   transition-delay: 0s !important;
   animation-delay: 0s !important;
 }
+
+/* Console semantic-mark and source-pill contrast contract
+   Broad descendant inversion rules must never turn highlighted terms or
+   pale publisher pills into white-on-light text. Keep these exceptions last
+   so default, hover and keyboard-focus states share the same readable pair. */
+#intelligenceConsole #strategyConsulting :is(mark, .strategy-highlight.ui-key-term, .answer-term.ui-key-term),
+#intelligenceConsole #strategyConsulting article:not(.sc-card):is(:hover, :focus-visible, :focus-within)
+  :is(mark, .strategy-highlight.ui-key-term, .answer-term.ui-key-term) {
+  background: #ffe45e !important;
+  color: #16120a !important;
+  -webkit-text-fill-color: #16120a !important;
+  text-decoration-color: #9a6700 !important;
+  text-shadow: none !important;
+  opacity: 1 !important;
+}
+
+#intelligenceConsole .ni-cite-src,
+#intelligenceConsole .ni-research-list li.ni-cite:is(:hover, :focus-within) .ni-cite-src {
+  border: 1px solid #62cfc0 !important;
+  background: #dff8f2 !important;
+  color: #073b3a !important;
+  -webkit-text-fill-color: #073b3a !important;
+  text-shadow: none !important;
+  opacity: 1 !important;
+}
+
+#intelligenceConsole .ni-cite .crawl-remove-button,
+#intelligenceConsole .ni-cite:is(:hover, :focus-within) .crawl-remove-button {
+  border-color: #b8c5d1 !important;
+  background: #f8fafc !important;
+  color: #162033 !important;
+  -webkit-text-fill-color: #162033 !important;
+  opacity: 1;
+}
+
+#intelligenceConsole .ni-cite .crawl-remove-button:is(:hover, :focus-visible) {
+  border-color: #e0b432 !important;
+  background: #ffe45e !important;
+  color: #16120a !important;
+  -webkit-text-fill-color: #16120a !important;
+}
