@@ -23618,11 +23618,27 @@ button.ni-trend-chip:hover { box-shadow: 0 4px 12px color-mix(in srgb, #0891B2 2
   cursor: pointer;
   box-shadow: 0 3px 0 color-mix(in srgb, var(--ink) 10%, var(--line));
   transition:
-    transform .24s cubic-bezier(.2, .8, .2, 1),
-    border-color .24s ease,
-    box-shadow .24s ease,
-    background .24s ease,
-    color .24s ease;
+    transform .025s ease-out,
+    border-color .025s linear,
+    box-shadow .025s linear,
+    background .025s linear,
+    color .025s linear;
+}
+
+.equity-ticker-grid button:is(:hover, :focus-visible),
+.equity-ticker-grid button.active:is(:hover, :focus-visible) {
+  transform: translateY(-2px);
+  border-color: var(--console-accent-inverse);
+  background: var(--console-surface-inverse);
+  color: var(--console-ink-inverse);
+  box-shadow: 0 10px 22px color-mix(in srgb, var(--console-surface-inverse) 28%, transparent);
+}
+
+.equity-ticker-grid button:is(:hover, :focus-visible) :is(b, strong, small, em),
+.equity-ticker-grid button.active:is(:hover, :focus-visible) :is(b, strong, small, em) {
+  color: var(--console-ink-inverse);
+  -webkit-text-fill-color: var(--console-ink-inverse);
+  opacity: 1;
 }
 
 .equity-ticker-grid button.active {
@@ -26466,22 +26482,28 @@ body.consulting-system {
 }
 
 /* Instant card inversion and contrast lock
-   Cached readability classes must never out-rank the active hover surface */
+   Surface and ink are a paired token set so every inversion preserves contrast */
 #intelligenceConsole {
-  --instant-hover-surface: #102b3d;
-  --instant-hover-ink: #f8fbff;
-  --instant-hover-muted: #d6e4ee;
-  --instant-hover-accent: color-mix(in srgb, var(--local-accent, #18b7a1) 62%, #ffffff);
-  --instant-hover-line: rgba(224, 242, 254, .4);
+  --console-surface: #f8fafc;
+  --console-ink: #13263a;
+  --console-muted: #40546a;
+  --console-surface-inverse: #102b3d;
+  --console-ink-inverse: #f8fbff;
+  --console-muted-inverse: #d6e4ee;
+  --console-accent-inverse: color-mix(in srgb, var(--local-accent, #18b7a1) 62%, #ffffff);
+  --console-line-inverse: rgba(224, 242, 254, .4);
 }
 
 [data-theme="dark"] #intelligenceConsole,
 #intelligenceConsole[data-theme="dark"] {
-  --instant-hover-surface: #f8fafc;
-  --instant-hover-ink: #13263a;
-  --instant-hover-muted: #40546a;
-  --instant-hover-accent: color-mix(in srgb, var(--local-accent, #08766f) 74%, #102b3d);
-  --instant-hover-line: rgba(15, 23, 42, .24);
+  --console-surface: #102b3d;
+  --console-ink: #f8fbff;
+  --console-muted: #d6e4ee;
+  --console-surface-inverse: #f8fafc;
+  --console-ink-inverse: #13263a;
+  --console-muted-inverse: #40546a;
+  --console-accent-inverse: color-mix(in srgb, var(--local-accent, #08766f) 74%, #102b3d);
+  --console-line-inverse: rgba(15, 23, 42, .24);
 }
 
 #intelligenceConsole :where(
@@ -26493,10 +26515,10 @@ body.consulting-system {
   article[tabindex],
   li[tabindex]
 ):not(.sc-card):is(:hover, :focus-visible, :focus-within) {
-  color: var(--instant-hover-ink) !important;
-  border-color: var(--instant-hover-accent) !important;
-  background: var(--instant-hover-surface) !important;
-  transition-property: transform, box-shadow, border-color, opacity !important;
+  color: var(--console-ink-inverse) !important;
+  border-color: var(--console-accent-inverse) !important;
+  background: var(--console-surface-inverse) !important;
+  transition-property: transform, box-shadow, border-color, background-color, color !important;
   transition-delay: 0s !important;
   transition-duration: .025s !important;
 }
@@ -26511,7 +26533,7 @@ body.consulting-system {
   li[tabindex]
 ):not(.sc-card):is(:hover, :focus-visible, :focus-within)
   :is(h1, h2, h3, h4, h5, h6, strong, b, a, button, label, dt, span, .ui-contrast-on-dark, .ui-contrast-on-light) {
-  color: var(--instant-hover-ink) !important;
+  color: var(--console-ink-inverse) !important;
   -webkit-text-fill-color: currentColor !important;
   text-shadow: none !important;
   opacity: 1 !important;
@@ -27319,7 +27341,7 @@ body.consulting-system #main > #c-level-cockpit {
   color:#f7fbfd !important;
   box-shadow:none !important;
   clip-path:polygon(0 0,calc(100% - 18px) 0,100% 50%,calc(100% - 18px) 100%,0 100%,14px 50%);
-  transition:background .06s linear,color .06s linear,border-color .06s linear,transform .08s ease-out !important;
+  transition:background .025s linear,color .025s linear,border-color .025s linear,transform .025s ease-out !important;
   transition-delay:0s !important;
 }
 #intelligenceConsole #strategyConsulting :is(.sc-framework-steps,.sc-card-flow,.sc-memory-flow,.sc-radar-layers)>li:first-child { clip-path:polygon(0 0,calc(100% - 18px) 0,100% 50%,calc(100% - 18px) 100%,0 100%); }
@@ -27382,6 +27404,22 @@ body.consulting-system #main > #c-level-cockpit {
   [class*="-node"]) * {
   transition-delay: 0s !important;
   animation-delay: 0s !important;
+}
+
+#intelligenceConsole :where(
+  [data-hover-mode],
+  [class$="-card"],
+  [class*="-card "],
+  [class$="-tile"],
+  [class*="-tile "],
+  article[tabindex],
+  li[tabindex]
+):not(.sc-card):is(:hover, :focus-visible, :focus-within)
+  :is(p, small, dd, time, figcaption, .muted, .meta, .sub, [class*="-meta"], [class*="-sub"]) {
+  color: var(--console-muted-inverse) !important;
+  -webkit-text-fill-color: currentColor !important;
+  text-shadow: none !important;
+  opacity: 1 !important;
 }
 
 /* Console semantic-mark and source-pill contrast contract

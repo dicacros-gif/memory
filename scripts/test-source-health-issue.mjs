@@ -1,9 +1,13 @@
 #!/usr/bin/env node
 import assert from "node:assert/strict";
 import {
+  DECISION_SIGNAL_MARKER,
   PIPELINE_HEALTH_MARKER,
   SOURCE_HEALTH_MARKER,
+  activeDecisionSignals,
+  decisionSignalIssueBody,
   sourceHealthIssueBody,
+  syncDecisionSignalIssue,
   syncPipelineFailureIssue,
   syncSourceHealthIssue,
 } from "./report-source-health.mjs";
@@ -31,6 +35,16 @@ const inactiveAlertQuant = { ...alertQuant, sourceHealth: { sources: {
 } } };
 assert.ok(!sourceHealthIssueBody(inactiveAlertQuant).includes("### USD/KRW"), "unattempted historical failures must not keep an incident open");
 
+const decisionQuant = {
+  ...alertQuant,
+  strategyAccountIntelligence: { whatChanged: { items: [
+    { id: "supplier:google:samsung", kind: "supplier-change", headline: "Google · dual-source", accountId: "google", changeType: "dual-source", asOf: "2026-07-20", source: "Official", sourceUrl: "https://example.com/supply" },
+    { id: "pain-rise:google:bandwidth", kind: "pain-rise", headline: "Google · 대역폭 상승", accountId: "google", asOf: "2026-07-20" },
+  ] } },
+};
+assert.equal(activeDecisionSignals(decisionQuant).length, 1, "GitHub alerts must include only supplier and deal changes");
+assert.ok(decisionSignalIssueBody(decisionQuant).includes(DECISION_SIGNAL_MARKER));
+
 function mockFetch(responses, calls) {
   return async (url, options = {}) => {
     calls.push({ url, options });
@@ -49,6 +63,18 @@ function mockFetch(responses, calls) {
   });
   assert.equal(result.action, "created");
   assert.equal(calls.filter((call) => call.options.method === "POST").length, 1);
+}
+
+{
+  const calls = [];
+  const result = await syncDecisionSignalIssue({
+    quant: decisionQuant,
+    repository: "acme/repo",
+    token: "token",
+    fetchImpl: mockFetch([{ json: [] }, { json: { number: 11 } }], calls),
+  });
+  assert.equal(result.action, "created");
+  assert.ok(JSON.parse(calls.at(-1).options.body).body.includes(DECISION_SIGNAL_MARKER));
 }
 
 {

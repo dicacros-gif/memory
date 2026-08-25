@@ -102,8 +102,8 @@ assert.match(css, /\.equity-chart-shell \{[\s\S]*?width:\s*calc\(100% \+ var\(--
   "the Yahoo-style dark chart surface must extend to both edges of the equity panel");
 assert.match(css, /\.equity-chart-hover-dot \{[\s\S]*?var\(--series-color\)/,
   "the chart must expose a visible per-series marker at the hovered observation");
-assert.match(css, /\.equity-ticker-grid button:is\(:hover, :focus-visible\)[\s\S]*?translateY\(-4px\)/,
-  "listed-company controls should have a clear hover interaction");
+assert.match(css, /\.equity-ticker-grid button:is\(:hover, :focus-visible\),[\s\S]*?transform:\s*translateY\(-2px\)[\s\S]*?background:\s*var\(--console-surface-inverse\)[\s\S]*?color:\s*var\(--console-ink-inverse\)/,
+  "listed-company controls should invert through the shared surface/ink token pair");
 assert.match(app, /const EQUITY_LOCAL_LOGOS = Object\.freeze\([\s\S]*?function equityCompanyLogoHTML[\s\S]*?loading="lazy"/,
   "listed-company cards must reuse local logos and lazy-load remaining company marks");
 assert.match(app, /const EQUITY_COMPANY_DOMAINS = Object\.freeze\([\s\S]*?"amd-stock": "amd\.com"[\s\S]*?"cxmt-stock": "cxmt\.com"/,
@@ -141,10 +141,10 @@ assert.match(app, /<strong>SOX 대표 구성종목 12<\/strong>/,
   "the SOX summary must identify the 12 cards as index constituents");
 assert.doesNotMatch(app, /const chinaPeers = peerData\(/,
   "the SOX summary must not mix a separate China peer group into its 12 constituent cards");
-assert.match(css, /\.equity-ticker-grid button:is\(:hover, :focus-visible\) \{[\s\S]*?scale\(1\.018\)[\s\S]*?linear-gradient\(145deg, #172b46 0%, #0d4f5a 58%, #087f72 100%\)/,
-  "listed-company cards must invert to a professional animated gradient on hover");
-assert.match(css, /\.equity-ticker-grid button\.active:is\(:hover, :focus-visible\) \{[\s\S]*?linear-gradient\(145deg, #17324d 0%, #0d5963 56%, #08796d 100%\)[\s\S]*?\.equity-ticker-grid button\.active:is\(:hover, :focus-visible\) :is\(b, strong, small, em\) \{[\s\S]*?color:\s*#fff[\s\S]*?opacity:\s*1/,
-  "selected listed-company cards must retain high-contrast text when hover and focus states overlap");
+assert.match(css, /\.equity-ticker-grid button \{[\s\S]*?transform \.025s ease-out[\s\S]*?background \.025s linear[\s\S]*?color \.025s linear/,
+  "listed-company cards must switch hover state without a perceptible delay");
+assert.match(css, /\.equity-ticker-grid button\.active:is\(:hover, :focus-visible\) :is\(b, strong, small, em\) \{[\s\S]*?color:\s*var\(--console-ink-inverse\)[\s\S]*?opacity:\s*1/,
+  "selected listed-company cards must retain token-driven contrast when hover and focus overlap");
 assert.match(app, /function companyIntelligenceHTML[\s\S]*?companyOrganizationHTML\(profile\)[\s\S]*?companyStrategyHTML\(profile\)[\s\S]*?companyEvidenceHTML\(profile\)[\s\S]*?Corporate facts/,
   "company detail must separate market facts, leadership, official priorities, and recent evidence");
 assert.match(app, /function companyRecentNews[\s\S]*?canonicalNewsKey\(item\)[\s\S]*?canonicalNewsStoryKey\(item\)/,

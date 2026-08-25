@@ -1869,6 +1869,62 @@
       }
     }
   ],
+  "technologyOpportunityLenses": [
+    {
+      "id": "hbf-hbs",
+      "label": "HBF · HBS",
+      "horizon": "H2",
+      "aliases": ["HBF", "HBS", "high bandwidth flash", "high bandwidth storage"],
+      "painAxisIds": ["capacity", "bandwidth"],
+      "productIds": ["ai-n-b", "ai-n-d"],
+      "promotionRule": { "minMentions": 2, "minSources": 2 }
+    },
+    {
+      "id": "advanced-package-chiplet",
+      "label": "3D PACKAGE · CHIPLET",
+      "horizon": "H2",
+      "aliases": ["3d packaging", "3d package", "chiplet", "UCIe", "hybrid bonding", "하이브리드 본딩", "칩렛"],
+      "painAxisIds": ["package-foundry", "logic-boundary"],
+      "productIds": ["custom-hbm"],
+      "promotionRule": { "minMentions": 2, "minSources": 2 }
+    },
+    {
+      "id": "glass-substrate",
+      "label": "GLASS SUBSTRATE",
+      "horizon": "H3",
+      "aliases": ["glass substrate", "glass interposer", "glass core substrate", "유리 기판", "유리 인터포저"],
+      "painAxisIds": ["package-foundry"],
+      "productIds": ["custom-hbm"],
+      "promotionRule": { "minMentions": 2, "minSources": 2 }
+    },
+    {
+      "id": "silicon-photonics",
+      "label": "SILICON PHOTONICS · CPO",
+      "horizon": "H2",
+      "aliases": ["silicon photonics", "co-packaged optics", "CPO", "optical interconnect", "실리콘 포토닉스", "광 인터커넥트"],
+      "painAxisIds": ["bandwidth", "power-thermal"],
+      "productIds": ["custom-hbm", "ai-d-o"],
+      "promotionRule": { "minMentions": 2, "minSources": 2 }
+    },
+    {
+      "id": "next-compute",
+      "label": "NEXT COMPUTE",
+      "horizon": "H3",
+      "aliases": ["quantum computing", "neuromorphic", "optical computing", "photonic computing", "양자 컴퓨팅", "뉴로모픽", "광 컴퓨팅"],
+      "painAxisIds": ["logic-boundary", "power-thermal"],
+      "productIds": ["ai-d-b", "ai-d-e"],
+      "promotionRule": { "minMentions": 2, "minSources": 2 }
+    },
+    {
+      "id": "scale-network",
+      "label": "SCALE-UP · SCALE-OUT NETWORK",
+      "horizon": "H1",
+      "aliases": ["NVLink", "InfiniBand", "RoCE", "scale-up network", "scale-out network", "Ethernet fabric", "스케일업 네트워크", "스케일아웃 네트워크"],
+      "painAxisIds": ["bandwidth", "package-foundry"],
+      "productIds": ["custom-hbm", "ai-d-o"],
+      "promotionRule": { "minMentions": 2, "minSources": 2 }
+    }
+  ],
   "roadmap90d": [
     {
       "phase": "0–30D",

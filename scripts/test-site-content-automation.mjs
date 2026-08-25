@@ -22,6 +22,9 @@ const app = text("assets/js/app.js");
 const index = text("index.html");
 const consoleSnapshot = text("console/index.html");
 const executiveSnapshot = json("data/executive-latest.json");
+const quarantine = json("data/crawl-quarantine.json");
+const crawler = text("scripts/crawl.mjs");
+const alertReporter = text("scripts/report-source-health.mjs");
 
 const rebuilt = buildSiteContentClient({ payload, quant });
 assert.deepEqual(validateSiteContent(rebuilt), { ok: true, errors: [] });
@@ -41,6 +44,10 @@ assert.deepEqual(rebuilt.hero.titleLines, ["AI Infra Strategy", "Hyperscaler Roa
 assert.equal(rebuilt.hero.capabilities.length, 4, "the homepage strategy scope must cover four MECE workstreams");
 assert.equal(artifact.runId, payload.runId, "site content must use the verified live runId");
 assert.equal(manifest.runId, artifact.runId, "manifest and site content must be atomic");
+assert.ok((quarantine.items || []).every((item) => item.reason && item.reason !== "?" && item.reasonLabel && item.reasonLabel !== "?"), "every quarantine record must expose an auditable primary reason");
+assert.ok((quarantine.items || []).every((item) => item.reasons.length === item.reasonLabels.length), "quarantine reason codes and labels must map one-to-one");
+assert.match(crawler, /new Date\(publishedAt\)\.getUTCFullYear\(\) < 2026[\s\S]*?reasons\.push\("pre-2026-date"\)/, "pre-2026 content must be quarantined in the pipeline rather than hidden in the UI");
+assert.match(alertReporter, /DECISION_SIGNAL_MARKER[\s\S]*?activeDecisionSignals[\s\S]*?supplier-change[\s\S]*?deal-event/, "supplier and contract changes must feed the automated alert channel");
 assert.match(manifest.cacheVersion, new RegExp(`^${manifest.runId}-[a-f0-9]{16}$`), "content hash must invalidate browser caches independently of runId");
 assert.equal(manifest.artifacts.siteContent.path, "data/site-content-client.json");
 assert.equal(manifest.artifacts.siteContentExtended.path, "data/site-content-extended-client.json");

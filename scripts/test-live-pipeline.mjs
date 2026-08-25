@@ -93,6 +93,9 @@ const strategyAccountIntelligence = buildStrategyAccountIntelligence({
     article("Microsoft Maia 200 expands inference infrastructure", "https://official.example/maia", "2026-07-18"),
     article("AWS Trainium capacity expands", "https://official.example/trainium", "2026-07-17"),
     article("Google TPU bandwidth and HBM capacity rise as Broadcom package qualification advances", "https://official.example/google-memory", "2026-07-19"),
+    article("Google TPU v7 Ironwood delivers 192GB HBM3E and 7.37TB/s bandwidth", "https://cloud.google.com/tpu/spec-v7", "2026-07-19", undefined, "Google Cloud"),
+    article("Google TPU chiplet UCIe advanced packaging roadmap", "https://cloud.google.com/tpu/chiplet-package", "2026-07-19", undefined, "Google Cloud"),
+    article("Meta MTIA chiplet UCIe advanced packaging roadmap", "https://ai.meta.com/mtia/chiplet-package", "2026-07-18", undefined, "Meta AI"),
     article("Google TPU dual-source Samsung supplier agreement expands under a multi-year capacity commitment", "https://official.example/google-deal", "2026-07-19"),
     article("Meta MTIA pricing and one-stop foundry packaging cost drive supplier review", "https://news.example/meta-risk", "2026-07-18", undefined, "Industry News", "news"),
     article("Tesla robotics physical AI memory platform expands", "https://official.example/tesla-robotics", "2026-07-19"),
@@ -126,8 +129,26 @@ assert.equal(strategyAccountIntelligence.accounts.google.generationProgression.b
 assert.ok(strategyAccountIntelligence.partnerRollups.some((item) => item.partnerId === "broadcom" && item.accountIds.includes("openai")));
 assert.ok(strategyAccountIntelligence.deals.events.some((item) => item.accountId === "google" && item.eventType === "capacity-commitment"));
 assert.ok(strategyAccountIntelligence.supplierMatrix.alerts.some((item) => item.accountId === "google" && item.supplierId === "samsung" && item.changeType === "dual-source"));
+assert.ok(strategyAccountIntelligence.supplierMatrix.alerts.every((item) => item.id?.startsWith("supplier:")), "supplier changes must carry stable event ids for diffing and alerts");
+assert.ok(strategyAccountIntelligence.deals.events.every((item) => item.id?.startsWith("deal:")), "deal events must carry stable ids for weekly diffing");
 assert.equal(strategyAccountIntelligence.applicationSignals.find((item) => item.id === "robotics").promotionStatus, "ai-d-e-opportunity");
+assert.ok(strategyAccountIntelligence.accounts.tesla.applicationOpportunityTags.includes("ai-d-e"), "application signals must promote an account-level AI-D E opportunity tag");
+assert.ok(strategyAccountIntelligence.generationCandidates.some((item) => item.accountId === "google" && item.status === "pending-review" && item.capacityGb === 192), "official product specifications must enter the pending-review gate");
+assert.ok(strategyAccountIntelligence.technologyOpportunities.some((item) => item.id === "advanced-package-chiplet" && item.status === "opportunity-candidate"), "two independent technology sources must promote an opportunity candidate");
+assert.ok(strategyAccountIntelligence.horizonPortfolio.find((item) => item.horizon === "H2")?.items.some((item) => item.id === "advanced-package-chiplet"), "promoted technology candidates must enter the configured Three Horizons queue");
+assert.ok(strategyAccountIntelligence.whatChanged.items.some((item) => item.kind === "supplier-change"), "the weekly brief must surface newly detected supplier changes");
+assert.ok(strategyAccountIntelligence.whatChanged.items.some((item) => item.kind === "deal-event"), "the weekly brief must surface newly detected deal events");
 assert.ok(strategyAccountIntelligence.executiveOnePagers.some((item) => item.accountId === "google" && item.topPainAxes.length));
+
+const risingPainIntelligence = buildStrategyAccountIntelligence({ news: [
+  article("Google TPU HBM bandwidth update", "https://week-one.example/google-bandwidth-1", "2026-07-01"),
+  article("Google TPU HBM bandwidth expansion", "https://week-two.example/google-bandwidth-1", "2026-07-08"),
+  article("Google TPU HBM bandwidth roadmap", "https://week-two-b.example/google-bandwidth-2", "2026-07-09"),
+  article("Google TPU HBM bandwidth qualification", "https://week-three.example/google-bandwidth-1", "2026-07-15"),
+  article("Google TPU HBM bandwidth package", "https://week-three-b.example/google-bandwidth-2", "2026-07-16"),
+  article("Google TPU HBM bandwidth capacity", "https://week-three-c.example/google-bandwidth-3", "2026-07-17"),
+] }, {}, new Date("2026-07-19T12:00:00Z"));
+assert.ok(risingPainIntelligence.painAlerts.some((item) => item.accountId === "google" && item.axisId === "bandwidth"), "two consecutive weekly increases must trigger an account pain alert");
 
 const brokerLive = buildBrokerResearch([
   article(

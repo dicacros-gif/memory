@@ -5547,8 +5547,20 @@ body.landing-mode {
 }
 
 .business-site .business-consulting-motion:is(:hover, :focus-visible, :focus-within) {
-  transition-property: transform, box-shadow, border-color, opacity !important;
-  transition-duration: .04s !important;
+  border-color: var(--motion-accent-hover) !important;
+  background: var(--motion-surface-hover) !important;
+  color: var(--motion-copy-hover) !important;
+  box-shadow: 0 12px 26px var(--motion-shadow-hover) !important;
+  transform: translateY(-2px);
+  transition-property: transform, box-shadow, border-color, background-color, color, opacity !important;
+  transition-duration: .025s !important;
+}
+
+.business-site .business-consulting-motion:is(:hover, :focus-visible, :focus-within)
+  :where(h1, h2, h3, h4, h5, h6, p, li, dd, strong, span, em, time, cite, a) {
+  color: var(--motion-copy-hover) !important;
+  -webkit-text-fill-color: currentColor !important;
+  opacity: 1 !important;
 }
 
 .business-site .business-consulting-motion:is(:hover, :focus-visible, :focus-within)
@@ -5562,6 +5574,11 @@ body.landing-mode {
   :is(p, li, dd, small, time, cite, figcaption).ui-contrast-on-dark,
 .business-site .business-consulting-motion:is(:hover, :focus-visible, :focus-within)
   :is(p, li, dd, small, time, cite, figcaption).ui-contrast-on-light {
+  color: var(--motion-muted-hover) !important;
+}
+
+.business-site .business-consulting-motion:is(:hover, :focus-visible, :focus-within)
+  :where(p, li, dd, small, time, cite, figcaption) {
   color: var(--motion-muted-hover) !important;
 }
 

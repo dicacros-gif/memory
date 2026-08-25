@@ -5,6 +5,7 @@ import { fileURLToPath, pathToFileURL } from "node:url";
 
 export const SOURCE_HEALTH_MARKER = "<!-- memory-source-health -->";
 export const PIPELINE_HEALTH_MARKER = "<!-- memory-crawl-pipeline-health -->";
+export const DECISION_SIGNAL_MARKER = "<!-- memory-decision-signals -->";
 
 function clean(value = "", limit = 500) {
   return String(value || "")
@@ -56,6 +57,40 @@ export function sourceHealthIssueBody(quant = {}, runUrl = "") {
   return lines.join("\n");
 }
 
+export function activeDecisionSignals(quant = {}) {
+  return (quant.strategyAccountIntelligence?.whatChanged?.items || [])
+    .filter((item) => ["supplier-change", "deal-event"].includes(item?.kind))
+    .filter((item) => item?.id && item?.headline)
+    .slice(0, 12);
+}
+
+export function decisionSignalIssueBody(quant = {}, runUrl = "") {
+  const items = activeDecisionSignals(quant);
+  const lines = [
+    DECISION_SIGNAL_MARKER,
+    "## 공급·계약 변화 자동 경보",
+    "",
+    `검증 실행: ${clean(quant.runId || "unknown")}`,
+    `데이터 갱신: ${clean(quant.updatedAt || quant.strategyAccountIntelligence?.whatChanged?.generatedAt || "unknown")}`,
+    runUrl ? `워크플로: ${clean(runUrl, 900)}` : "워크플로: 링크 없음",
+    "",
+    "최근 7일 변화 중 공급관계 또는 LTA·물량·선급금 신호만 표시합니다.",
+    "",
+  ];
+  for (const item of items) {
+    lines.push(`### ${clean(item.headline)}`);
+    lines.push("");
+    lines.push(`- 유형: **${item.kind === "supplier-change" ? "공급관계" : "계약"}**`);
+    if (item.accountId) lines.push(`- 계정: ${clean(item.accountId)}`);
+    if (item.changeType || item.eventType) lines.push(`- 변화: ${clean(item.changeType || item.eventType)}`);
+    lines.push(`- 기준일: ${clean(item.asOf || "unknown")}`);
+    if (item.sourceUrl) lines.push(`- 근거: ${clean(item.source || "원문")} · ${clean(item.sourceUrl, 900)}`);
+    lines.push("");
+  }
+  lines.push("이 이슈는 동일 이벤트 ID로 중복을 억제하며 새 변화가 없으면 자동으로 닫습니다.");
+  return lines.join("\n");
+}
+
 async function githubRequest(fetchImpl, token, url, options = {}) {
   const response = await fetchImpl(url, {
     ...options,
@@ -96,6 +131,32 @@ export async function syncSourceHealthIssue({ quant, repository, token, runUrl =
     return { action: "closed", issue: issue.number, alerts: [] };
   }
   return { action: "none", alerts: [] };
+}
+
+export async function syncDecisionSignalIssue({ quant, repository, token, runUrl = "", fetchImpl = fetch, dryRun = false }) {
+  if (!repository || !/^[^/]+\/[^/]+$/.test(repository)) throw new Error("GITHUB_REPOSITORY is required");
+  const signals = activeDecisionSignals(quant);
+  const title = `[자동 경보] 공급·계약 변화 ${signals.length}건`;
+  const body = decisionSignalIssueBody(quant, runUrl);
+  if (dryRun) return { action: signals.length ? "would-open-or-update" : "would-close-if-open", signals: signals.map((item) => item.id), title, body };
+  if (!token) throw new Error("GITHUB_TOKEN is required");
+  const base = `https://api.github.com/repos/${repository}`;
+  const issues = await githubRequest(fetchImpl, token, `${base}/issues?state=all&per_page=100`);
+  const issue = issues.find((item) => !item.pull_request && String(item.body || "").includes(DECISION_SIGNAL_MARKER));
+  if (signals.length) {
+    if (issue) {
+      await githubRequest(fetchImpl, token, `${base}/issues/${issue.number}`, { method: "PATCH", body: JSON.stringify({ title, body, state: "open" }) });
+      return { action: issue.state === "open" ? "updated" : "reopened", issue: issue.number, signals: signals.map((item) => item.id) };
+    }
+    const created = await githubRequest(fetchImpl, token, `${base}/issues`, { method: "POST", body: JSON.stringify({ title, body }) });
+    return { action: "created", issue: created.number, signals: signals.map((item) => item.id) };
+  }
+  if (issue?.state === "open") {
+    await githubRequest(fetchImpl, token, `${base}/issues/${issue.number}/comments`, { method: "POST", body: JSON.stringify({ body: `자동 확인: ${clean(quant.updatedAt || new Date().toISOString())} 실행에서 새 공급·계약 변화가 없습니다.` }) });
+    await githubRequest(fetchImpl, token, `${base}/issues/${issue.number}`, { method: "PATCH", body: JSON.stringify({ state: "closed" }) });
+    return { action: "closed", issue: issue.number, signals: [] };
+  }
+  return { action: "none", signals: [] };
 }
 
 export async function syncPipelineFailureIssue({ jobResult = "success", repository, token, runUrl = "", fetchImpl = fetch, dryRun = false }) {
@@ -148,7 +209,10 @@ async function main() {
   const sources = jobResult === "success"
     ? await syncSourceHealthIssue({ quant, repository, token, runUrl, dryRun })
     : { action: "skipped-on-pipeline-failure" };
-  console.log(JSON.stringify({ pipeline, sources }, null, 2));
+  const decisions = jobResult === "success"
+    ? await syncDecisionSignalIssue({ quant, repository, token, runUrl, dryRun })
+    : { action: "skipped-on-pipeline-failure" };
+  console.log(JSON.stringify({ pipeline, sources, decisions }, null, 2));
 }
 
 if (process.argv[1] && import.meta.url === pathToFileURL(resolve(process.argv[1])).href) {

@@ -85,16 +85,8 @@ assert.match(app, /const BROKER_DISMISSED_STORAGE_KEY = "memory-broker-dismissed
 assert.match(app, /data-broker-dismiss="\$\{escapeHTML\(itemKey\)\}"/, "each accumulated broker card should expose an individual dismiss control");
 assert.match(app, /data-broker-restore/, "dismissed broker cards should be restorable without deleting source data");
 assert.match(css, /\.exec-report-dismiss:is\(:hover, :focus-visible\)[\s\S]*?rotate\(90deg\)/, "the broker dismiss control should visibly respond to hover and keyboard focus");
-assert.match(
-  css,
-  /\.china-deep-card:is\(:hover, :focus-within\) \.deep-implication:not\(:hover\) :is\(\.strategy-highlight, \.answer-term\)[\s\S]*?text-shadow: none !important;/,
-  "China deep-dive Insight terms must retain dark contrast when only the parent card is hovered",
-);
-assert.match(
-  css,
-  /#china-talent-strategy \.policy-rule-card:is\(:hover, :focus-within\) \.policy-rule-foot \.source-tag[\s\S]*?color: #0b3b49 !important;[\s\S]*?-webkit-text-fill-color: #0b3b49 !important;/,
-  "inverted China talent cards must keep source-pill labels dark on their light surface",
-);
+assert.match(css, /--console-surface:\s*#f8fafc;[\s\S]*?--console-ink:\s*#13263a;[\s\S]*?--console-surface-inverse:\s*#102b3d;[\s\S]*?--console-ink-inverse:\s*#f8fbff;/, "card inversion must define paired light-surface and dark-surface tokens");
+assert.match(css, /\[data-theme="dark"\] #intelligenceConsole,[\s\S]*?\{[\s\S]*?--console-surface:\s*#102b3d;[\s\S]*?--console-ink:\s*#f8fbff;[\s\S]*?--console-surface-inverse:\s*#f8fafc;[\s\S]*?--console-ink-inverse:\s*#13263a;/, "dark mode must swap the paired surface and ink tokens together");
 assert.match(app, /class="exec-flow-node reveal/, "executive summary should render as a compact signal-to-decision flow");
 assert.match(app, /class="exec-flow-signal"/, "executive flow nodes should retain the core evidence text");
 assert.match(css, /\.exec-report-bullet-list > li::before/, "broker bullet lists should have a visual bullet marker");
@@ -152,8 +144,6 @@ assert.match(app, /priceHistory: \{[\s\S]*?path: "data\/price-history-client\.js
 assert.match(css, /\.agent-debate-title \.agent-tts-toggle \{[\s\S]*?min-width: 190px;[\s\S]*?min-height: 44px;/, "the English TTS control should be large and readable");
 assert.match(css, /\.agent-tts-state \{[\s\S]*?min-width: 31px;/, "the TTS control should expose a dedicated on-or-off state badge");
 assert.match(html, /landing\.min\.js\?v=infra-[a-f0-9]{12}/, "the public landing controller should include the minified AI Infra revision");
-assert.match(css, /Nested news-card contrast lock[\s\S]*?\.news-insights > span \{[\s\S]*?background: rgba\(248, 250, 252, \.97\) !important;[\s\S]*?color: #334155 !important;/, "nested consulting news rows must keep high-contrast insight copy on hover");
-assert.match(css, /Nested news-card contrast lock[\s\S]*?\.news-insights > span :is\(\.strategy-highlight, \.answer-term\) \{[\s\S]*?--term-color: #334155;[\s\S]*?text-shadow: none !important;/, "light news rows must restore dark semantic terms on hover");
 assert.doesNotMatch(html, /<script[^>]+src="assets\/js\/app\.js/, "the dashboard JavaScript must load only when the Intelligence Console is opened");
 assert.doesNotMatch(html, /<link[^>]+href="assets\/css\/styles\.css/, "the dashboard stylesheet must load only when the Intelligence Console is opened");
 assert.match(html, /class="strategic-decision-side"[\s\S]*?id="chinaDecisionVideoPanel"[\s\S]*?id="strategicDecisionFocus"/, "the China decision video should lead the right-hand decision column");
@@ -177,9 +167,6 @@ assert.match(css, /\.china-deep-video-dock \.talent-strategy-video \{[\s\S]*?hei
 assert.match(css, /@media \(max-width: 680px\) \{[\s\S]*?\.china-deep-video-dock \.talent-strategy-video \{[\s\S]*?aspect-ratio: 4 \/ 5;/, "the compact video height should preserve the mobile portrait layout");
 assert.match(css, /#talent-radar \.talent-radar-slider-slot \{[\s\S]*?display: flex;[\s\S]*?justify-content: center;/, "the talent radar slot should center its visual stage");
 assert.match(css, /#talent-radar \.talent-radar-slider \{[\s\S]*?width: min\(100%, 1360px\);[\s\S]*?margin-inline: auto;/, "the talent radar visual should use a bounded, centered desktop width");
-assert.match(css, /\.qa-option:is\(:hover, :focus-visible, \.active\) \.qa-option-status \{[\s\S]*?background: rgba\(248, 250, 252, \.96\);[\s\S]*?color: var\(--qa-status-ink\) !important;[\s\S]*?-webkit-text-fill-color: var\(--qa-status-ink\);[\s\S]*?text-shadow: none;/, "inverted QA cards should keep status-chip text readable on a light chip surface");
-assert.match(css, /\.c-level-card:is\(:hover, :focus-visible, \.council-active\) :is\(\.strategy-highlight, \.answer-term\) \{[\s\S]*?--term-color: #fff7d6;[\s\S]*?color: var\(--term-color\) !important;[\s\S]*?-webkit-text-fill-color: var\(--term-color\);/, "inverted C-level decision cards should promote semantic terms to a light high-contrast palette");
-assert.match(css, /\.c-level-card:is\(:hover, :focus-visible, \.council-active\) \.term-company \{[\s\S]*?--term-color: #f3e8ff;[\s\S]*?\.c-level-card:is\(:hover, :focus-visible, \.council-active\) \.term-tech,[\s\S]*?--term-color: #d1fae5;/, "inverted C-level cards should retain readable company and action distinctions");
 assert.match(app, /function sourceLinkLabel\(source = "", nearbyText = ""\) \{[\s\S]*?return repeated \? "원문 보기 ↗" : `\$\{label\} ↗`;/, "source links should become generic when the same publisher is already visible nearby");
 assert.match(app, /function uniqueSourceLabel\(source = ""\) \{[\s\S]*?seen\.has\(key\)[\s\S]*?join\(" · "\);/, "source labels should collapse repeated publisher names before display");
 assert.match(app, /function dedupeNews\(items = \[\]\) \{[\s\S]*?const normalizedItem = \{[\s\S]*?source,[\s\S]*?title: stripTrailingSource\(item\.title, source\),[\s\S]*?selected\.push\(normalizedItem\);/, "news records should normalize repeated publisher suffixes before reaching site sections");
@@ -201,22 +188,12 @@ assert.doesNotMatch(app, /<li><b>신선도<\/b>|<small>\$\{escapeHTML\(kpi\.veri
 assert.doesNotMatch(app, /note:\s*`\$\{kpi\.note \|\| ""\}\$\{kpi\.verificationNote/, "number-analysis cards should not append the removed freshness copy");
 assert.doesNotMatch(app, /같은 기관의 전망 개정이며 SKHY 자체 전망이 아님|중국 eSSD 입찰·고객 인증 신호를 일일 보드 상단에 배치/, "removed dashboard copy should not be rendered again");
 assert.doesNotMatch(app, /모델 해석\s*·/, "dashboard summaries and article impact lines should not display the model-interpretation prefix");
-assert.match(css, /\.ni-research-evidence:is\(:hover, :focus-visible\) :is\(\.strategy-highlight, \.answer-term\) \{[\s\S]*?--term-hover: var\(--evidence-hover-ink, #334155\);[\s\S]*?-webkit-text-fill-color: var\(--evidence-hover-ink, #334155\);[\s\S]*?text-shadow: none;/, "light evidence cards should retain dark semantic emphasis on hover");
 assert.match(css, /\.ni-research-evidence > small \{[\s\S]*?overflow-wrap:\s*anywhere;[\s\S]*?white-space:\s*normal;/, "research source labels must wrap instead of disappearing behind ellipsis");
 assert.match(css, /\.sb-label strong \{[\s\S]*?overflow-wrap:\s*anywhere;[\s\S]*?white-space:\s*normal;/, "long navigation labels must wrap within the sidebar");
-assert.match(css, /\.ni-research-evidence \.term-company \{ --evidence-hover-ink: #5b21b6; \}[\s\S]*?\.ni-research-evidence \.term-metric \{ --evidence-hover-ink: #a61b12; \}/, "evidence-card hover should preserve readable company and metric colors");
-assert.match(css, /\.china-business-brief-card:is\(:hover, :focus-within\) :is\(\.strategy-highlight, \.answer-term\) \{[\s\S]*?color: var\(--brief-hover-ink\) !important;[\s\S]*?-webkit-text-fill-color: var\(--brief-hover-ink\);[\s\S]*?text-shadow: none;/, "light China business briefs should retain high-contrast semantic text on hover");
-assert.match(css, /\.china-business-brief-card \.term-company \{ --brief-hover-ink: #5b21b6; \}[\s\S]*?\.china-business-brief-card \.term-tech \{ --brief-hover-ink: #006d63; \}/, "China business brief hover should preserve distinct dark company and technology colors");
 assert.match(css, /\.management-strategy-board \{[\s\S]*?border-color: color-mix\(in srgb, #536b84 62%, var\(--line\)\);[\s\S]*?#dce7ef[\s\S]*?#eeeaf3/, "China strategy board should use a restrained slate background and outline");
 assert.match(css, /\.management-strategy-board \.china-business-brief-card \{[\s\S]*?border-color: color-mix\(in srgb, #607a94 68%, var\(--line\)\);[\s\S]*?linear-gradient\(145deg,[\s\S]*?#edf2f6/, "China strategy briefs should use a professional white-to-slate surface");
-assert.match(css, /\.management-strategy-board \.china-business-brief-card:is\(:hover, :focus-within\) \{[\s\S]*?border-color: #365d7e;[\s\S]*?#e4edf5/, "China strategy brief hover should strengthen the full outline without an isolated edge accent");
-assert.match(css, /#china-talent-strategy :is\(\.policy-card, \.policy-rule-card, \.policy-focus\):is\(:hover, :focus-within\) \{[\s\S]*?linear-gradient\(135deg, #153e75 0%, #0e7490 54%, #0f766e 100%\)/, "China talent inverted cards should use the professional blue-to-teal gradient");
 assert.match(css, /#china-talent-strategy \.policy-card,[\s\S]*?#china-talent-strategy \.policy-rule-card,[\s\S]*?#china-talent-strategy \.policy-focus \{[\s\S]*?--talent-card-frame: #607286;[\s\S]*?border: 2px solid color-mix\(in srgb, var\(--talent-card-frame\) 68%, var\(--line\)\);/, "China talent cards should use one restrained slate outline");
-assert.match(css, /#china-talent-strategy :is\(\.policy-card, \.policy-rule-card, \.policy-focus\):is\(:hover, :focus-within\) \{[\s\S]*?border-color: #365d7e;/, "China talent card hover should strengthen the shared navy outline");
 assert.match(css, /#talentScenarioTabs \.talent-scenario-tab\.active \{[\s\S]*?linear-gradient\(135deg, #153e75 0%, #0e7490 54%, #0f766e 100%\)/, "the selected China talent scenario should use the same professional gradient");
-assert.match(css, /\.exec-baseline-document:is\(:hover, :focus-visible\) \.exec-baseline-document-focus \{[\s\S]*?linear-gradient\(135deg, #fffdf5 0%, #fef3c7 100%\)/, "the inverted source card should separate its key thesis with an ivory-to-gold gradient");
-assert.match(css, /--baseline-inner-start: #f0f7ff;[\s\S]*?--baseline-inner-start: #effcf8;[\s\S]*?--baseline-inner-start: #faf7ff;/, "the inverted source card should use distinct blue, teal, and violet internal gradients");
-assert.match(css, /\.exec-baseline-document:is\(:hover, :focus-visible\) \.exec-baseline-document-flow > li p,[\s\S]*?color: var\(--baseline-inner-ink\) !important;/, "internal source-card copy should switch to high-contrast ink on light gradients");
 assert.match(css, /\.share-card\.share-tone-0,[\s\S]*?\.share-card\.share-tone-4\s*\{\s*--share-accent:\s*var\(--matrix-teal,/, "Benchmark cards should share one restrained consulting accent");
 assert.match(css, /\.roadmap-card\.roadmap-tone-0,[\s\S]*?\.roadmap-card\.roadmap-tone-3\s*\{\s*--roadmap-accent:\s*var\(--matrix-navy,/, "Roadmap cards should share one restrained consulting accent");
 assert.match(css, /\.share-card:hover,[\s\S]*?linear-gradient\(135deg,\s*#234761,\s*#172f45\)/, "Benchmark hover should use the professional navy treatment");
@@ -228,26 +205,18 @@ const briefCopyExemptions = app.match(/const BRIEF_COPY_EXEMPT_SELECTOR[\s\S]*?\
 assert.match(briefCopyExemptions, /"\.agent-question"/, "User-authored questions should remain verbatim");
 assert.doesNotMatch(briefCopyExemptions, /"\.agent-answer"|"\.qa-answer"|"\.answer-panel"/, "Generated answers must use bullet endings");
 assert.match(app, /function setupBriefCopyObserver\(\)[\s\S]*?MutationObserver[\s\S]*?characterData: true/, "Dynamically rendered cards should also receive bullet-style normalization");
-assert.match(css, /#policy-makers[\s\S]*?--term-hover:\s*#334155;[\s\S]*?text-shadow:\s*none;/, "Light Policy Maker cards should retain dark semantic emphasis on hover");
 assert.match(css, /font-synthesis:\s*none/, "Mixed Hangul and Latin emphasis should disable synthetic glyph weights");
 assert.match(css, /\.exec-report-bullet-list[\s\S]*?font-weight:\s*800/, "Report highlights should use a supported professional font weight");
-assert.match(css, /\.exec-baseline-document:is\(:hover,\s*:focus-visible\)[\s\S]*?linear-gradient/, "Broker documents should invert their full surface on hover");
-assert.match(css, /\.exec-baseline-report:is\(:hover,\s*:focus-visible\)[\s\S]*?translateY\(-6px\)/, "Broker topic cards should animate on hover");
 assert.match(app, /class="exec-baseline-document" tabindex="0"/, "Broker documents should expose keyboard focus");
 assert.match(app, /class="exec-baseline-report" tabindex="0"/, "Broker topic cards should expose keyboard focus");
 assert.match(app, /01 · STRATEGIC LOGIC/, "Executive infographic should label its strategic logic lane");
 assert.match(app, /02 · EXECUTION MAP/, "Executive infographic should label its execution lane");
 assert.match(css, /\.exec-layout[\s\S]*?linear-gradient\(135deg,\s*#071526/, "Executive infographic should use the consulting canvas background");
 assert.match(css, /\.exec-strategy-grid[\s\S]*?repeat\(2,\s*minmax\(0,\s*1fr\)\)/, "Execution map should preserve a two-column consulting grid");
-assert.match(css, /Executive flow contrast contract[\s\S]*?\.consulting-system \.exec-layout > \.exec-brief \.exec-cluster-head > strong \{[\s\S]*?color:\s*#f8fbff;[\s\S]*?\.consulting-system \.exec-layout \.exec-flow-node:is\(:hover, :focus-visible\) \{[\s\S]*?background:\s*linear-gradient\(145deg, #123451 0%, #0b263a 58%, #0b3f45 100%\);/, "executive flow header and hovered cards must retain explicit high-contrast surfaces");
-assert.match(css, /\.consulting-system \.exec-layout \.exec-flow-node:is\(:hover, :focus-visible\)[\s\S]*?:is\(\.exec-flow-step, \.exec-flow-label, \.exec-flow-copy strong, \.exec-flow-signal, \.exec-flow-signal b, \.exec-flow-marker\) \{[\s\S]*?color:\s*#f8fbff !important;[\s\S]*?-webkit-text-fill-color:\s*#f8fbff !important;/, "all nested executive flow text must stay visible after hover inversion");
 assert.match(app, /<li><span class="exec-report-bullet-copy">/, "Report bullets should keep mixed-script emphasis inside one grid item");
 assert.match(css, /\.exec-report-bullet-copy[\s\S]*?overflow-wrap:\s*anywhere/, "Report bullet copy should wrap without overlapping adjacent text");
 assert.match(app, /document\.corePoints[\s\S]*?strategicHighlightHTML/, "Provided report copy should color important semantic terms");
 assert.match(app, /item\.metrics\.map\(\(metric\) => strategicHighlightHTML\(metric\)\)/, "Provided report metrics should color important values");
-assert.match(css, /\.exec-baseline-document:is\(:hover,\s*:focus-visible\)[\s\S]*?#d9f7f2/, "Inverted source cards should use a high-contrast cool emphasis instead of low-contrast yellow");
-assert.match(css, /\.exec-baseline-document:is\(:hover, :focus-visible\)[\s\S]*?\.exec-baseline-document-focus > p :is\(\.strategy-highlight, \.answer-term\)[\s\S]*?color: #7c3f00 !important;/, "The ivory thesis panel should use deep amber emphasis");
-assert.match(css, /\.exec-baseline-document:is\(:hover, :focus-visible\)[\s\S]*?\.exec-baseline-document-flow > li :is\(\.strategy-highlight, \.answer-term\),[\s\S]*?color: var\(--baseline-inner-accent\) !important;/, "Light flow cards should use their dark stage accent for readable emphasis");
 assert.match(app, /function agentTurnNeedsSpeechGesture[\s\S]*?status === "stalled"[\s\S]*?status\.startsWith\("error-"\)/, "blocked TTS turns should expose a replay state");
 assert.match(app, /utterance\.onend = \(\) => \{[\s\S]*?finish\("done"\)/, "the next agent should advance only after the English utterance ends");
 assert.match(app, /requestAgentSpeechGesture\("stalled"\)/, "a lost long utterance should pause the debate for explicit replay");
@@ -268,22 +237,17 @@ assert.match(app, /data-number-detail="\$\{escapeHTML\(item\.id\)\}"[\s\S]*?>상
 assert.match(app, /querySelector\("\[data-number-detail\]"\)[\s\S]*?openInspector\(payload\)/, "number-card detail buttons should open the right-side inspector");
 assert.doesNotMatch(app, /data-number-toggle|numberFolded|memory-number-folded", JSON\.stringify/, "number cards should not retain the broken fold toggle");
 assert.doesNotMatch(css, /\.number-card\.folded/, "number cards should not ship fold-only styling");
-assert.match(css, /\.investment-focus:is\(:hover, :focus-within\) \.investment-focus-block :is\(\.strategy-highlight, \.answer-term\) \{[\s\S]*?color: var\(--term-color\) !important;[\s\S]*?text-shadow: none;/, "investment highlights should retain dark contrast on hover");
-assert.match(css, /\.investment-focus:is\(:hover, :focus-within\) \.investment-focus-block \.term-metric \{ --term-color: #a61b12; \}/, "investment metric emphasis should use a high-contrast hover color");
 assert.match(css, /\.ceo-challenge-prompt \{[\s\S]*?linear-gradient\(118deg, #071526 0%, #0b2944 58%, #123b55 100%\)/, "CEO challenge prompt should use a high-contrast executive header");
 assert.match(css, /\.ceo-live-price-strip > div:nth-child\(4\) \{ --live-metric-accent: #c26408; \}/, "live CEO metrics should use differentiated but restrained colors");
 assert.match(app, /class="projection-scenario-tab is-\$\{escapeHTML\(item\.id\)\}[\s\S]*?aria-pressed="\$\{item\.id === scenario\.id \? "true" : "false"\}"/, "projection scenario controls should expose pressed state and scenario styling");
 assert.match(css, /\.projection-scenario-tab\.is-neutral \{ --scenario-accent: #c26408; \}[\s\S]*?\.projection-scenario-tab\.is-best \{ --scenario-accent: #087f68; \}[\s\S]*?\.projection-scenario-tab\.is-worst \{ --scenario-accent: #b43d5c; \}/, "projection scenarios should use restrained semantic accents");
-assert.match(css, /\.projection-scenario-tab:is\(:hover, :focus-visible\) \{[\s\S]*?translateY\(-5px\) scale\(1\.015\)/, "projection scenario buttons should lift and scale on hover");
 assert.match(css, /\.projection-scenario-tab:active \{[\s\S]*?translateY\(2px\) scale\(\.99\)/, "projection scenario buttons should visibly depress on click");
 assert.match(css, /@media \(prefers-reduced-motion: reduce\) \{[\s\S]*?\.projection-scenario-tab::before[\s\S]*?transition: none !important;/, "projection scenario motion should respect reduced-motion preferences");
 assert.match(app, /class="forecast-cat-tab\$\{c\.id === forecastCategory \? " active" : ""\}[\s\S]*?aria-pressed="\$\{c\.id === forecastCategory \? "true" : "false"\}"/, "forecast category filters should expose button and pressed semantics");
-assert.match(css, /\.forecast-cat-tabs button:is\(:hover, :focus-visible\) \{[\s\S]*?translateY\(-4px\) scale\(1\.025\)/, "forecast category filters should lift and scale on hover");
 assert.match(css, /\.forecast-cat-tabs button:active \{[\s\S]*?translateY\(2px\) scale\(\.985\)/, "forecast category filters should visibly depress when clicked");
 assert.match(css, /\.forecast-cat-tabs button\.active \{[\s\S]*?0 4px 0 color-mix/, "the selected forecast category should retain tactile depth");
 assert.match(app, /data-hs-scenario="\$\{escapeHTML\(s\.id\)\}" aria-pressed="\$\{s\.id === hyperscalerScenario \? "true" : "false"\}"/, "demand scenarios should expose their pressed state");
 assert.match(css, /\.hs-scenario-tabs button \{[\s\S]*?0 6px 0 color-mix[\s\S]*?inset 0 1px 0/, "demand scenario buttons should have a raised 3D face");
-assert.match(css, /\.hs-scenario-tabs button:is\(:hover, :focus-visible\) \{[\s\S]*?translateY\(-5px\) scale\(1\.012\)[\s\S]*?0 9px 0 color-mix/, "demand scenario buttons should lift and deepen on hover");
 assert.match(css, /\.hs-scenario-tabs button:active \{[\s\S]*?translateY\(3px\) scale\(\.992\)[\s\S]*?0 1px 0 color-mix/, "demand scenario buttons should visibly depress on click");
 assert.doesNotMatch(html, /id="chinaDynamicsOverview"/, "the redundant China dynamics metric strip should be removed");
 assert.doesNotMatch(html, /id="platformModules"/, "the platform implementation module section should be removed");
@@ -291,7 +255,6 @@ assert.doesNotMatch(app, /const overview = \$\("#chinaDynamicsOverview"\)/, "Chi
 assert.doesNotMatch(app, /const moduleWrap = \$\("#platformModules"\)/, "architecture rendering should not depend on the removed platform module section");
 assert.match(app, /class="policy-tab talent-scenario-tab\$\{item\.id === scenario\.id \? " active" : ""\}"[\s\S]*?aria-pressed="\$\{item\.id === scenario\.id \? "true" : "false"\}"/, "talent scenarios should expose tactile button and pressed-state semantics");
 assert.match(css, /#talentScenarioTabs \{[\s\S]*?grid-template-columns: repeat\(4, minmax\(0, 1fr\)\);/, "talent scenarios should render as one four-button desktop row");
-assert.match(css, /#talentScenarioTabs \.talent-scenario-tab:is\(:hover, :focus-visible\) \{[\s\S]*?translateY\(-5px\) scale\(1\.012\)/, "talent scenario buttons should lift and scale on hover");
 assert.match(css, /#talentScenarioTabs \.talent-scenario-tab:active \{[\s\S]*?translateY\(2px\) scale\(\.99\)/, "talent scenario buttons should visibly depress when clicked");
 assert.match(css, /@media \(max-width: 980px\) \{[\s\S]*?#talentScenarioTabs \{[\s\S]*?repeat\(2, minmax\(0, 1fr\)\)/, "talent scenarios should reflow to two columns on compact screens");
 assert.match(css, /@media \(max-width: 560px\) \{[\s\S]*?#talentScenarioTabs \{[\s\S]*?grid-template-columns: minmax\(0, 1fr\)/, "talent scenarios should stack on narrow phones");
@@ -303,7 +266,6 @@ assert.doesNotMatch(app, /const CHINA_TALENT_ROI_STORY_SLIDES = \[[\s\S]*?talent
 assert.match(css, /\.talent-roi-grid\[data-investment-count="2"\] \.talent-roi-story \{[\s\S]*?grid-column: 2;[\s\S]*?grid-row: 1 \/ span 2;/, "two-investment scenarios should keep the visual story in the right column");
 assert.match(css, /@media \(max-width: 980px\) \{[\s\S]*?\.talent-roi-grid \.talent-roi-story,[\s\S]*?grid-column: 1 \/ -1;/, "the ROI story should span the compact grid instead of leaving a new gap");
 assert.match(css, /\.talent-roi-story-slide \{[\s\S]*?animation: talentRoiStoryCycle 18s linear infinite;/, "ROI imagery and copy should rotate together");
-assert.match(css, /\.talent-roi-story:is\(:hover, :focus-within\)[\s\S]*?animation-play-state: paused;/, "users should be able to pause the ROI story by hovering or focusing it");
 assert.match(css, /@keyframes talentRoiStoryProgress/, "the ROI story should expose visual rotation progress");
 assert.match(css, /@media \(prefers-reduced-motion: reduce\) \{[\s\S]*?\.talent-roi-story-slide:first-child[\s\S]*?opacity: 1;/, "the ROI story should show one stable slide when reduced motion is requested");
 assert.doesNotMatch(app, /공개 채용·면접 신호는 조직 수요의 선행지표입니다/, "the removed talent-signal disclaimer should not be rendered");

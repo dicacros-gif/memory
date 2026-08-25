@@ -51,6 +51,17 @@ const syndicatedNews = dedupeEnrichedNews([
 ]);
 assert.equal(syndicatedNews.length, 1, "the same article title must not survive under multiple syndication URLs");
 
+const publisherSuffixNews = dedupeEnrichedNews([{
+  id: "publisher-suffix",
+  title: "Introduces SANDISK NAS SSDs | Sandisk - Sandisk",
+  originalTitle: "Introduces SANDISK NAS SSDs | Sandisk - Sandisk",
+  source: "Sandisk",
+  sourceUrl: "https://example.com/sandisk-nas",
+  streamLanguage: "english",
+}]);
+assert.equal(publisherSuffixNews[0].title, "Introduces SANDISK NAS SSDs", "publisher suffixes must be removed repeatedly before publication");
+assert.equal(publisherSuffixNews[0].originalTitle, "Introduces SANDISK NAS SSDs", "original titles must use the same publisher-suffix normalization");
+
 const observedAt = trendForceObservationIso("2026-05-29 15:00 (GMT+8)");
 assert.equal(observedAt, "2026-05-29T07:00:00.000Z");
 

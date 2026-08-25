@@ -44,7 +44,7 @@ assert.match(html, /business-evidence-case-framework[\s\S]*?FACT · CURRENT[\s\S
 assert.match(css, /\.business-module-heading--evidence h3\s*\{\s*color:\s*#102c43/);
 assert.match(css, /\.business-execution-evidence-grid h4\s*\{\s*color:\s*#102c43/);
 assert.match(css, /\.business-execution-evidence-grid dd\s*\{\s*color:\s*#102c43/);
-assert.match(css, /\.business-site \.business-consulting-motion:is\(:hover, :focus-within\)[\s\S]*?background:\s*var\(--motion-surface-hover\) !important[\s\S]*?box-shadow:[\s\S]*?translateY\(-2px\)/);
+assert.match(css, /\.business-site \.business-consulting-motion:is\(:hover, :focus-visible, :focus-within\) \{[\s\S]*?background:\s*var\(--motion-surface-hover\) !important[\s\S]*?box-shadow:[\s\S]*?translateY\(-2px\)/);
 assert.match(css, /--motion-copy-hover:\s*#f7fbff[\s\S]*?--motion-muted-hover:\s*#d4e2eb[\s\S]*?--motion-accent-hover:\s*#72ddca/);
 assert.match(css, /:where\(h1, h2, h3, h4, h5, h6, p, li, dd, strong, span, em, time, cite, a\)[\s\S]*?color:\s*var\(--motion-copy-hover\) !important[\s\S]*?-webkit-text-fill-color:\s*currentColor/);
 assert.match(css, /Dark surfaces are detected at runtime[\s\S]*?\[data-hover-mode="dark-to-light"\][\s\S]*?--motion-surface-hover:\s*#f7fbff[\s\S]*?--motion-copy-hover:\s*#102c43/);

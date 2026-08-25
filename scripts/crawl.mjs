@@ -2343,6 +2343,34 @@ function cleanLocalizedTitle(value, locale = "en") {
   return stripNewsLabel(cleanTitle(value));
 }
 
+function stripPublisherSuffixBySource(value = "", source = "") {
+  let title = String(value || "").trim();
+  const publisher = String(source || "").trim();
+  if (!title || !publisher) return title;
+  let changed = true;
+  while (changed) {
+    changed = false;
+    for (const separator of [" - ", " – ", " — ", " | ", " : "]) {
+      const suffix = `${separator}${publisher}`;
+      if (!title.toLowerCase().endsWith(suffix.toLowerCase())) continue;
+      title = title.slice(0, -suffix.length).trim();
+      changed = true;
+      break;
+    }
+  }
+  return title;
+}
+
+function normalizeNewsPublisherSuffix(item = {}) {
+  const source = item.source || "";
+  return {
+    ...item,
+    title: stripPublisherSuffixBySource(item.title, source),
+    ...(item.originalTitle ? { originalTitle: stripPublisherSuffixBySource(item.originalTitle, source) } : {}),
+    ...(item.titleKo ? { titleKo: stripPublisherSuffixBySource(item.titleKo, source) } : {}),
+  };
+}
+
 function scriptCount(value = "", re) {
   return (String(value).match(re) || []).length;
 }
@@ -4030,6 +4058,7 @@ function mergeNewsCategory(categories, cat, items, sampleLimit = 12) {
 }
 
 export function dedupeEnrichedNews(items = [], { preferPreservedSeed = false } = {}) {
+  items = items.map(normalizeNewsPublisherSuffix);
   const selected = [];
   const byUrl = new Map();
   const byTitle = new Map();
@@ -7043,6 +7072,24 @@ function wasSourceObservedThisRun(item = {}) {
   return newsEvidenceOrigin(item) === "live-crawl" && item.summarySource === "source-meta";
 }
 
+const QUARANTINE_REASON_LABELS = Object.freeze({
+  direct_source_missing: "직접 원문 URL 없음",
+  canonical_url_missing: "정규 URL 확인 실패",
+  language_unverified: "언어 검증 실패",
+  source_summary_missing: "원문 요약 불충분",
+  published_date_invalid: "발행일 파싱 실패",
+  published_date_future: "미래 발행일",
+  published_date_outside_retention: "보존 기간 초과",
+  "pre-2026-date": "2026년 이전 발행",
+  canonical_duplicate: "정규 URL 중복",
+  story_duplicate: "동일 기사 중복",
+  moderation_excluded: "운영 제외 요청",
+});
+
+function quarantineReasonLabel(code = "") {
+  return QUARANTINE_REASON_LABELS[code] || (code.startsWith("numeric_claim_superseded") ? "최신 수치로 대체" : "기타 품질 조건");
+}
+
 function validateNewsEvidence(items = [], validatedAt = new Date().toISOString()) {
   const promoted = [];
   const quarantined = [];
@@ -7066,6 +7113,7 @@ function validateNewsEvidence(items = [], validatedAt = new Date().toISOString()
     if (!Number.isFinite(publishedAt) || publishedAt <= 0) reasons.push("published_date_invalid");
     if (Number.isFinite(publishedAt) && publishedAt > now + 48 * 3600e3) reasons.push("published_date_future");
     if (Number.isFinite(publishedAt) && now - publishedAt > maxAgeMs) reasons.push("published_date_outside_retention");
+    if (Number.isFinite(publishedAt) && publishedAt > 0 && new Date(publishedAt).getUTCFullYear() < 2026) reasons.push("pre-2026-date");
     if (canonicalUrl && seen.has(canonicalUrl)) reasons.push("canonical_duplicate");
     if (seenStories.some((existing) => sameNewsStory(existing, item))) reasons.push("story_duplicate");
     if (isCrawlerExcluded("news", item)) reasons.push("moderation_excluded");
@@ -7084,7 +7132,10 @@ function validateNewsEvidence(items = [], validatedAt = new Date().toISOString()
         language: language || String(item.streamLanguage || item.language || "unknown"),
         category: item.category || "uncategorized",
         origin: newsEvidenceOrigin(item),
+        reason: [...new Set(reasons)][0],
+        reasonLabel: quarantineReasonLabel([...new Set(reasons)][0]),
         reasons: [...new Set(reasons)],
+        reasonLabels: [...new Set(reasons)].map((code) => ({ code, label: quarantineReasonLabel(code) })),
         quarantinedAt: validatedAt,
       });
       continue;
@@ -7172,7 +7223,20 @@ function buildEvidenceLedger(news = [], validatedAt = new Date().toISOString()) 
 
 function buildQuarantineReport(runId, items = [], generatedAt = new Date().toISOString()) {
   const reasonCounts = {};
-  for (const item of items) {
+  const normalizedItems = items.map((item) => {
+    const reasons = [...new Set((item.reasons || []).filter(Boolean))];
+    const reason = item.reason || reasons[0] || "unknown-quality-condition";
+    return {
+      ...item,
+      reason,
+      reasonLabel: item.reasonLabel || quarantineReasonLabel(reason),
+      reasons: reasons.length ? reasons : [reason],
+      reasonLabels: reasons.length
+        ? reasons.map((code) => ({ code, label: quarantineReasonLabel(code) }))
+        : [{ code: reason, label: quarantineReasonLabel(reason) }],
+    };
+  });
+  for (const item of normalizedItems) {
     for (const reason of item.reasons || []) reasonCounts[reason] = (reasonCounts[reason] || 0) + 1;
   }
   return {
@@ -7180,9 +7244,9 @@ function buildQuarantineReport(runId, items = [], generatedAt = new Date().toISO
     runId,
     generatedAt,
     retention: "latest-200-metadata-only",
-    total: items.length,
+    total: normalizedItems.length,
     reasonCounts,
-    items: items.slice(0, 200),
+    items: normalizedItems.slice(0, 200),
   };
 }
 

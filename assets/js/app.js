@@ -13076,6 +13076,11 @@
     const dealDashboard = customerBoard.dealDashboard || {};
     const accountProductMap = Array.isArray(customerBoard.productMap) ? customerBoard.productMap : [];
     const applicationSignals = Array.isArray(customerBoard.applicationSignals) ? customerBoard.applicationSignals : [];
+    const painAlerts = Array.isArray(customerBoard.painAlerts) ? customerBoard.painAlerts : [];
+    const generationCandidates = Array.isArray(customerBoard.generationCandidates) ? customerBoard.generationCandidates : [];
+    const technologyOpportunities = Array.isArray(customerBoard.technologyOpportunities) ? customerBoard.technologyOpportunities : [];
+    const horizonPortfolio = Array.isArray(customerBoard.horizonPortfolio) ? customerBoard.horizonPortfolio : [];
+    const whatChanged = customerBoard.whatChanged || {};
     const accountRoadmap = Array.isArray(customerBoard.roadmap90d) ? customerBoard.roadmap90d : [];
     const partnerModels = Array.isArray(partnerBoard.models) ? partnerBoard.models : [];
     const playbooks = Array.isArray(strategyBoard.playbooks) ? strategyBoard.playbooks : [];
@@ -13200,6 +13205,18 @@
           </article>`).join("")}
         </div>
       </div>` : ""}
+      ${(whatChanged.items || []).length ? `<details class="sc-report sc-what-changed" open>
+        <summary class="sc-report-head"><strong>WHAT CHANGED · 7D</strong><span>공급 · 계약 · 고객 Pain · 기술 기회 변화만 표시</span></summary>
+        <div class="sc-partner-grid">
+          ${(whatChanged.items || []).map((item, index) => `<article class="sc-partner" tabindex="0">
+            <span class="sc-tech-en">${String(index + 1).padStart(2, "0")} · ${escapeHTML(String(item.kind || "CHANGE").replace(/-/g, " ").toUpperCase())}</span>
+            <strong>${strategicHighlightHTML(item.headline || "변화 신호")}</strong>
+            <div class="sc-partner-row"><b>ACCOUNT</b><span>${escapeHTML(customerAccounts.find((account) => account.id === item.accountId)?.company || item.accountId || "시장 공통")}</span></div>
+            <div class="sc-partner-row"><b>AS OF</b><span>${escapeHTML(item.asOf || "")}</span></div>
+            ${item.sourceUrl ? `<a class="sc-playbook-source" href="${escapeHTML(item.sourceUrl)}" target="_blank" rel="noopener noreferrer">${escapeHTML(item.source || "원문")} ↗</a>` : ""}
+          </article>`).join("")}
+        </div>
+      </details>` : ""}
       ${customerGroups.map((group, groupIndex) => {
         const accounts = customerAccounts.filter((account) => account.group === group.id);
         return `<details class="sc-report" ${groupIndex === 0 ? "open" : ""}>
@@ -13303,6 +13320,10 @@
         ${(dealDashboard.events || []).length ? `<ul class="sc-evidence-list">${dealDashboard.events.map((event) => `<li>${event.sourceUrl ? `<a href="${escapeHTML(event.sourceUrl)}" target="_blank" rel="noopener noreferrer">${escapeHTML(event.evidenceSpan || event.source || "계약 근거")} ↗</a>` : `<span>${escapeHTML(event.evidenceSpan || "계약 Event")}</span>`}<small>${escapeHTML(event.asOf || "")}</small></li>`).join("")}</ul>` : `<p class="sc-note">공개 계약 조건 업데이트 대기</p>`}
       </details>
       ${accountProductMap.length ? `<details class="sc-report"><summary class="sc-report-head"><strong>TECH RADAR → NEXT MEMORY</strong><span>Account Pain → Custom HBM · AI-D · AI-N</span></summary><p class="sc-note">제품 분류는 공식 원문 · 계정 매핑은 전략 가설</p><div class="sc-partner-grid">${accountProductMap.map((item) => `<article class="sc-partner"><strong>${escapeHTML(item.label || "")}</strong><div class="sc-partner-row"><b>ROLE</b><span>${escapeHTML(item.role || "")}</span></div><div class="sc-partner-row"><b>ACCOUNT</b><span>${escapeHTML((item.accountLabels || []).join(" · "))}</span></div><span class="sc-playbook-status is-estimate">STRATEGY MAPPING</span>${item.source?.url ? `<a class="sc-playbook-source" href="${escapeHTML(item.source.url)}" target="_blank" rel="noopener noreferrer">${escapeHTML(item.source.name || "공식 원문")} ↗</a>` : ""}</article>`).join("")}</div></details>` : ""}
+      ${technologyOpportunities.length ? `<details class="sc-report"><summary class="sc-report-head"><strong>TECH INFLECTION → OPPORTUNITY QUEUE</strong><span>독립 출처 2곳 이상 → Three Horizons 후보</span></summary>
+        <div class="sc-partner-grid">${horizonPortfolio.map((bucket) => `<article class="sc-partner"><strong>${escapeHTML(bucket.horizon)} · ${fmtNum((bucket.items || []).length)} CANDIDATES</strong>${(bucket.items || []).length ? (bucket.items || []).map((item) => `<div class="sc-partner-row"><b>${escapeHTML(item.label || "")}</b><span>${fmtNum(item.mentions)}건 · ${fmtNum(item.sourceCount)}개 출처</span></div>`).join("") : `<p>관측 기준 미달 · 모니터링</p>`}</article>`).join("")}</div>
+        ${generationCandidates.length ? `<p class="sc-note">공식 세대 사양 ${fmtNum(generationCandidates.length)}건 · 검토 대기 후 기준선 승격</p>` : ""}
+      </details>` : ""}
       ${accountRoadmap.length ? `<div class="sc-partner-grid" aria-label="90일 실행 로드맵">${accountRoadmap.map((item, index) => `<article class="sc-partner"><strong>${String(index + 1).padStart(2, "0")} · ${escapeHTML(item.phase || "")}</strong><div class="sc-partner-row"><b>GATE</b><span>${escapeHTML(item.label || "")}</span></div><div class="sc-partner-row"><b>OUTPUT</b><span>${escapeHTML(item.output || "")}</span></div></article>`).join("")}</div>` : ""}
       <div class="sc-section-lead">
         <div><span>${escapeHTML(techBoard.eyebrow || "TECH & MARKET INSIGHTS")}</span><h3>${escapeHTML(techBoard.title || "LLM Tech → Memory Implication")}</h3></div>

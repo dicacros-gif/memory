@@ -1672,6 +1672,12 @@ for (const item of crawlQuarantine.items || []) {
   if (!Array.isArray(item.reasons) || !item.reasons.length) {
     addIssue("error", "data/crawl-quarantine.json", "quarantined item has no rejection reason", item.id || item.title || "unknown");
   }
+  if (!item.reason || item.reason === "?" || !item.reasonLabel || item.reasonLabel === "?") {
+    addIssue("error", "data/crawl-quarantine.json", "quarantined item must expose a primary reason and audit label", item.id || item.title || "unknown");
+  }
+  if (!Array.isArray(item.reasonLabels) || item.reasonLabels.length !== item.reasons?.length || item.reasonLabels.some((label) => !label || label === "?")) {
+    addIssue("error", "data/crawl-quarantine.json", "quarantine reason labels must map one-to-one with rejection reasons", item.id || item.title || "unknown");
+  }
   if (item.canonicalUrl && promotedCanonicalUrls.has(item.canonicalUrl)) {
     addIssue("error", "data/crawl-quarantine.json", "same canonical URL appears in promoted and quarantined data", item.canonicalUrl);
   }
