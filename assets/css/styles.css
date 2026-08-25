@@ -27505,3 +27505,126 @@ body.consulting-system #main > #c-level-cockpit {
   -webkit-text-fill-color: #33465a !important;
   opacity: 1 !important;
 }
+
+/* Console disclosure button contract
+   Native details keep the control accessible while paired surface/ink tokens
+   make closed, hover and open states read as one immediate button system. */
+#intelligenceConsole details.sc-report > summary.sc-report-head {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(180px, .52fr) 34px;
+  align-items: center;
+  gap: 10px 16px;
+  min-height: 58px;
+  margin: -13px -15px;
+  padding: 11px 12px 11px 16px;
+  border: 1px solid var(--console-line-inverse);
+  border-radius: 0;
+  background: var(--console-surface-inverse);
+  color: var(--console-ink-inverse);
+  cursor: pointer;
+  list-style: none;
+  user-select: none;
+  -webkit-tap-highlight-color: transparent;
+  transition: background-color .025s linear, color .025s linear, border-color .025s linear, box-shadow .12s ease, transform .08s ease;
+  transition-delay: 0s;
+}
+
+#intelligenceConsole details.sc-report > summary.sc-report-head::-webkit-details-marker {
+  display: none;
+}
+
+#intelligenceConsole details.sc-report > summary.sc-report-head :is(strong, span) {
+  min-width: 0;
+  margin: 0;
+  color: inherit !important;
+  -webkit-text-fill-color: currentColor !important;
+  opacity: 1 !important;
+  overflow-wrap: anywhere;
+  word-break: keep-all;
+  text-shadow: none !important;
+}
+
+#intelligenceConsole details.sc-report > summary.sc-report-head strong {
+  font-size: clamp(12.5px, .72vw, 14px);
+  line-height: 1.35;
+  letter-spacing: .025em;
+  transition: transform .11s ease;
+}
+
+#intelligenceConsole details.sc-report > summary.sc-report-head span {
+  justify-self: end;
+  text-align: right;
+  font-size: clamp(10.5px, .62vw, 12px);
+  line-height: 1.4;
+}
+
+#intelligenceConsole details.sc-report > summary.sc-report-head::after {
+  content: "+";
+  display: grid;
+  place-items: center;
+  width: 32px;
+  height: 32px;
+  border: 1px solid currentColor;
+  background: transparent;
+  color: inherit;
+  font: 900 18px/1 var(--display, "Space Grotesk", sans-serif);
+  transition: transform .11s ease, background-color .025s linear, color .025s linear;
+}
+
+#intelligenceConsole details.sc-report > summary.sc-report-head:is(:hover, :focus-visible) {
+  border-color: #65d9c5;
+  background: var(--console-surface);
+  color: var(--console-ink);
+  box-shadow: inset 0 0 0 1px #65d9c5, inset 0 -3px 0 #65d9c5;
+}
+
+#intelligenceConsole details.sc-report > summary.sc-report-head:is(:hover, :focus-visible) strong {
+  transform: translateX(4px);
+}
+
+#intelligenceConsole details.sc-report > summary.sc-report-head:is(:hover, :focus-visible)::after {
+  transform: translateX(2px);
+  background: #65d9c5;
+  color: #102b3d;
+}
+
+#intelligenceConsole details.sc-report > summary.sc-report-head:focus-visible {
+  outline: 3px solid #ffd166;
+  outline-offset: -4px;
+}
+
+#intelligenceConsole details.sc-report > summary.sc-report-head:active {
+  transform: translateY(1px);
+  box-shadow: inset 0 3px 0 rgba(15, 23, 42, .22), inset 0 0 0 1px #65d9c5;
+}
+
+#intelligenceConsole details.sc-report[open] > summary.sc-report-head {
+  margin-bottom: 12px;
+  border-color: #65d9c5;
+  background: var(--console-surface);
+  color: var(--console-ink);
+  box-shadow: inset 0 -3px 0 #65d9c5;
+}
+
+#intelligenceConsole details.sc-report[open] > summary.sc-report-head::after {
+  content: "\2212";
+  background: #65d9c5;
+  color: #102b3d;
+}
+
+@media (max-width: 760px) {
+  #intelligenceConsole details.sc-report > summary.sc-report-head {
+    grid-template-columns: minmax(0, 1fr) 34px;
+    gap: 4px 10px;
+    min-height: 64px;
+  }
+  #intelligenceConsole details.sc-report > summary.sc-report-head span {
+    grid-column: 1;
+    justify-self: start;
+    text-align: left;
+  }
+  #intelligenceConsole details.sc-report > summary.sc-report-head::after {
+    grid-column: 2;
+    grid-row: 1 / 3;
+  }
+}
