@@ -3,7 +3,7 @@
 
   const BUSINESS_TITLE = "AI Infra Strategy · Customer Pain to Executive Action";
   const CONSOLE_HASH = "#console";
-  const CONSOLE_REVISION = "infra-7fffaef72791";
+  const CONSOLE_REVISION = "infra-87b4c4379a30";
   const DECISION_CLIENT_PATH = "data/landing-decision-client.json";
   const SITE_CONTENT_PATH = "data/site-content-client.json";
   const SITE_CONTENT_EXTENDED_PATH = "data/site-content-extended-client.json";
@@ -528,7 +528,7 @@
         <small>OUTPUT</small><strong>${escapeBusinessHTML(unit.output || "")}</strong>
       </article>`).join("");
       const next = model.nextMemoryStrategy;
-      if (next) units.insertAdjacentHTML("beforeend", `<aside><span>${escapeBusinessHTML(next.label || "NEXT MEMORY STRATEGY")}</span><strong>${escapeBusinessHTML(next.role || "")}</strong><p>${escapeBusinessHTML((next.outputs || []).join(" · "))}</p>${model.source?.url ? `<a href="${escapeBusinessHTML(model.source.url)}" target="_blank" rel="noopener noreferrer">SK hynix 공식 조직 설명 ↗</a>` : ""}</aside>`);
+      if (next) units.insertAdjacentHTML("beforeend", `<aside><span>${escapeBusinessHTML(next.label || "NEXT MEMORY STRATEGY")}</span><strong>${escapeBusinessHTML(next.role || "")}</strong><p>${escapeBusinessHTML((next.outputs || []).join(" · "))}</p></aside>`);
     }
 
     const loop = document.querySelector("#teamDecisionLoop");
