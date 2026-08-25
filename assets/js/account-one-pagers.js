@@ -25,6 +25,7 @@ const dynamicsTypeMeta = {
   partnership: { label: "파트너십", accent: "#4d7fff" },
   investment: { label: "투자", accent: "#20bfa6" },
   supply: { label: "공급", accent: "#e7a11a" },
+  adjacency: { label: "전략 유사", accent: "#a78bfa" },
 };
 
 const dynamicsLayerLabel = (layers = [], id = "") => layers.find((layer) => layer.id === id)?.label || "VALUE CHAIN";

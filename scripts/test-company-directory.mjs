@@ -34,7 +34,7 @@ for (const id of required) {
   assert.equal(profile.accountBrief?.decisionFlow?.length, 4, `${id} requires account-to-deal decision flow`);
   assert.ok((profile.evidence || []).every((item) => String(item.date || "").startsWith("2026")), `${id} profile must expose only 2026 articles`);
 }
-assert.deepEqual(profiles.get("broadcom").chipLens.servesAccounts.map((item) => item.id), ["google", "meta", "openai"]);
+assert.deepEqual(profiles.get("broadcom").chipLens.servesAccounts.map((item) => item.id), ["google", "meta", "openai", "anthropic"]);
 assert.deepEqual(profiles.get("marvell").chipLens.servesAccounts.map((item) => item.id), ["microsoft", "aws"]);
 for (const id of ["sandisk", "solidigm", "kioxia", "intel", "imec", "ibm"]) {
   assert.ok(profiles.get(id).sources.length > 0, `${id} must remain linked to its source-catalog automation entry`);
@@ -61,5 +61,5 @@ console.log(JSON.stringify({
   runId: directory.runId,
   profiles: directory.profiles.length,
   lenses: ["overview", "memory", "chip", "datacenter"],
-  partnerRollups: { broadcom: 3, marvell: 2 },
+  partnerRollups: { broadcom: 4, marvell: 2 },
 }, null, 2));

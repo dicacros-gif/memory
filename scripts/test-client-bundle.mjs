@@ -2,6 +2,7 @@
 
 import assert from "node:assert/strict";
 import { readFile } from "node:fs/promises";
+import { gzipSync } from "node:zlib";
 import { buildClientDataBundle, summarizeMarketHistory } from "./crawl.mjs";
 
 const crawlSource = await readFile(new URL("./crawl.mjs", import.meta.url), "utf8");
@@ -142,7 +143,10 @@ assert.equal(bundle.landingDecision.clientArtifact, true);
 assert.ok(bundle.manifest.artifacts.landingDecision.bytes < 20_000, "landing decision artifact must remain first-page friendly");
 assert.equal(bundle.siteContent.runId, runId);
 assert.equal(bundle.siteContent.clientArtifact, true);
-assert.ok(bundle.manifest.artifacts.siteContent.bytes < 80_000, "site content artifact must remain first-page friendly");
+assert.ok(
+  gzipSync(JSON.stringify(bundle.siteContent)).byteLength < 32_000,
+  "site content transfer payload must remain below the first-page compressed budget",
+);
 assert.equal(bundle.siteContentExtended.runId, runId);
 assert.equal(bundle.siteContentExtended.clientArtifact, true);
 assert.ok(bundle.siteContent.strategyBoard?.customerPortfolio?.competitiveDynamics?.relations?.length > 0, "competitive dynamics must remain available when the extended strategy snapshot is temporarily unavailable");

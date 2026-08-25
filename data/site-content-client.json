@@ -211,16 +211,16 @@
     "evidenceCount": 87,
     "briefCount": 6,
     "sourceCount": 4,
-    "configuredSources": 63,
+    "configuredSources": 72,
     "observedSources": 4,
     "freshObservedSources": 3,
     "staleObservedSources": 1,
-    "officialConfigured": 51,
+    "officialConfigured": 59,
     "officialObserved": 2,
     "officialFreshObserved": 1,
-    "discoveryQueries": 69,
+    "discoveryQueries": 78,
     "connectedHealthChecks": 30,
-    "healthChecks": 35,
+    "healthChecks": 43,
     "scheduleHours": 1,
     "browserRecheckMinutes": 5,
     "sourceCatalogVersion": "1.0"
@@ -289,9 +289,9 @@
     "coverage": {
       "status": "LOW",
       "observed": 4,
-      "configured": 63,
-      "ratio": 0.063,
-      "freshRatio": 0.048
+      "configured": 72,
+      "ratio": 0.056,
+      "freshRatio": 0.042
     },
     "confidence": {
       "status": "REVIEW",
@@ -367,11 +367,11 @@
         "executionTrackingBriefs": 0
       },
       "catalogCoverage": {
-        "configured": 63,
+        "configured": 72,
         "observed": 4,
         "fresh": 3,
-        "observationRatePct": 6.3,
-        "officialConfigured": 51,
+        "observationRatePct": 5.6,
+        "officialConfigured": 59,
         "officialObserved": 2,
         "officialFresh": 1,
         "targetPct": 90
@@ -1705,6 +1705,15 @@
                 "pain": "LLM Inference의 Memory Movement·Utilization·전력·Reliability",
                 "memory": "HBM · Ethernet Scale-up/out · Rack Co-Design",
                 "gate": "Memory Balance · Tape-out · 2026 Deployment"
+              },
+              {
+                "id": "anthropic",
+                "company": "Anthropic",
+                "chip": "AWS Trainium · Google TPU · NVIDIA GPU",
+                "accent": "#C56B45",
+                "pain": "플랫폼별 Kernel 최적화·HBM 용량/대역폭·Serving 품질 동등성",
+                "memory": "Training HBM · Collective · KV Cache · Host/Scale Tier",
+                "gate": "Model Equivalence · Goodput/W · Capacity Resilience"
               }
             ]
           },
@@ -2082,17 +2091,22 @@
           {
             "id": "partnership",
             "label": "파트너십",
-            "count": 7
+            "count": 9
           },
           {
             "id": "investment",
             "label": "투자",
-            "count": 1
+            "count": 9
           },
           {
             "id": "supply",
             "label": "공급",
-            "count": 12
+            "count": 18
+          },
+          {
+            "id": "adjacency",
+            "label": "전략 유사",
+            "count": 1
           }
         ],
         "layers": [
@@ -2141,7 +2155,7 @@
                   "name": "SK hynix Newsroom",
                   "url": "https://news.skhynix.com/en/skhynix-nvidia-partnership-2026"
                 },
-                "relationCount": 2
+                "relationCount": 8
               },
               {
                 "id": "google",
@@ -2182,7 +2196,7 @@
                   "name": "Google Cloud TPU",
                   "url": "https://cloud.google.com/blog/products/compute/inside-the-ironwood-tpu-codesigned-ai-stack"
                 },
-                "relationCount": 4
+                "relationCount": 6
               },
               {
                 "id": "microsoft",
@@ -2223,7 +2237,7 @@
                   "name": "Microsoft Official Blog",
                   "url": "https://blogs.microsoft.com/blog/2026/01/26/maia-200-the-ai-accelerator-built-for-inference/"
                 },
-                "relationCount": 2
+                "relationCount": 4
               },
               {
                 "id": "aws",
@@ -2264,7 +2278,7 @@
                   "name": "AWS Trainium",
                   "url": "https://aws.amazon.com/ai/machine-learning/trainium/"
                 },
-                "relationCount": 4
+                "relationCount": 8
               },
               {
                 "id": "meta",
@@ -2346,7 +2360,7 @@
                   "name": "Tesla Investor Relations",
                   "url": "https://ir.tesla.com/"
                 },
-                "relationCount": 0
+                "relationCount": 1
               },
               {
                 "id": "apple",
@@ -2428,7 +2442,7 @@
                   "name": "OpenAI Infrastructure",
                   "url": "https://openai.com/index/openai-and-broadcom-announce-strategic-collaboration/"
                 },
-                "relationCount": 1
+                "relationCount": 6
               },
               {
                 "id": "anthropic",
@@ -2462,7 +2476,7 @@
                   "name": "Anthropic Compute Infrastructure",
                   "url": "https://www.anthropic.com/news/google-broadcom-partnership-compute"
                 },
-                "relationCount": 0
+                "relationCount": 8
               },
               {
                 "id": "spacex",
@@ -2503,7 +2517,46 @@
                   "name": "SpaceX Official",
                   "url": "https://www.spacex.com/careers/jobs?keyword=ASIC"
                 },
-                "relationCount": 0
+                "relationCount": 2
+              },
+              {
+                "id": "coreweave",
+                "company": "CoreWeave",
+                "layer": "end-customer",
+                "role": "AI Chip Roadmap · Workload · Buying Criteria",
+                "portfolio": "NVIDIA AI Factory Cloud",
+                "position": "NVIDIA 투자·플랫폼 정렬 기반 AI Factory 확장",
+                "decision": "Power · Rack Ramp · GPU/HBM Allocation · TCO",
+                "pain": "GPU 세대 전환·전력·데이터센터 Ramp·Storage Fabric 동기화",
+                "memoryOption": "HBM · Host DRAM · AI Storage · Rack Fabric",
+                "buyingCriteria": [
+                  "전력 인입",
+                  "Rack Ramp",
+                  "GPU/HBM 배정",
+                  "AI Storage TCO"
+                ],
+                "baseline": [
+                  {
+                    "label": "PLATFORM",
+                    "value": "NVIDIA AI Factory · Rubin Roadmap",
+                    "sourceId": "nvidia-coreweave-2026",
+                    "source": {
+                      "id": "nvidia-coreweave-2026",
+                      "name": "NVIDIA × CoreWeave AI Factories",
+                      "url": "https://nvidianews.nvidia.com/news/nvidia-and-coreweave-strengthen-collaboration-to-accelerate-buildout-of-ai-factories"
+                    }
+                  }
+                ],
+                "stage": "고객 제안 단계 검토",
+                "demandClass": "gpu-cloud",
+                "servesAccounts": [],
+                "evidenceCount": 0,
+                "accent": "#2E73D2",
+                "source": {
+                  "name": "NVIDIA × CoreWeave AI Factories",
+                  "url": "https://nvidianews.nvidia.com/news/nvidia-and-coreweave-strengthen-collaboration-to-accelerate-buildout-of-ai-factories"
+                },
+                "relationCount": 2
               }
             ]
           },
@@ -2546,7 +2599,8 @@
                 "servesAccounts": [
                   "Google",
                   "Meta",
-                  "OpenAI"
+                  "OpenAI",
+                  "Anthropic"
                 ],
                 "evidenceCount": 0,
                 "accent": "#D05A2B",
@@ -2554,7 +2608,7 @@
                   "name": "Broadcom AI Infrastructure",
                   "url": "https://www.broadcom.com/info/ai/3point5d"
                 },
-                "relationCount": 6
+                "relationCount": 7
               },
               {
                 "id": "marvell",
@@ -2613,6 +2667,45 @@
             "label": "FOUNDRY & PACKAGE",
             "role": "Logic Node · CoWoS · Ramp",
             "companies": [
+              {
+                "id": "coherent",
+                "company": "Coherent",
+                "layer": "foundry-package",
+                "role": "Logic Node · CoWoS · Ramp",
+                "portfolio": "Silicon Photonics · Optical Interconnect",
+                "position": "NVIDIA 투자 기반 차세대 데이터센터 광연결 공동개발",
+                "decision": "Bandwidth/W · Yield · US Capacity · Qualification",
+                "pain": "AI Factory Scale-out에서 전송거리·전력·광부품 공급을 동시 최적화",
+                "memoryOption": "HBM Fabric · Silicon Photonics · Optical I/O",
+                "buyingCriteria": [
+                  "Bandwidth/W",
+                  "광부품 Yield",
+                  "공급 Capacity",
+                  "Qualification"
+                ],
+                "baseline": [
+                  {
+                    "label": "ROLE",
+                    "value": "Optics · Transceiver · US Manufacturing",
+                    "sourceId": "nvidia-coherent-2026",
+                    "source": {
+                      "id": "nvidia-coherent-2026",
+                      "name": "NVIDIA × Coherent Optics Partnership",
+                      "url": "https://nvidianews.nvidia.com/news/nvidia-and-coherent-announce-strategic-partnership-to-develop-optics-technology-to-scale-next-generation-data-center-architecture"
+                    }
+                  }
+                ],
+                "stage": "고객 제안 단계 검토",
+                "demandClass": "interconnect",
+                "servesAccounts": [],
+                "evidenceCount": 0,
+                "accent": "#1B7C87",
+                "source": {
+                  "name": "NVIDIA × Coherent Optics Partnership",
+                  "url": "https://nvidianews.nvidia.com/news/nvidia-and-coherent-announce-strategic-partnership-to-develop-optics-technology-to-scale-next-generation-data-center-architecture"
+                },
+                "relationCount": 1
+              },
               {
                 "id": "tsmc",
                 "company": "TSMC",
@@ -2833,7 +2926,7 @@
               "name": "SK hynix Newsroom",
               "url": "https://news.skhynix.com/en/skhynix-nvidia-partnership-2026"
             },
-            "relationCount": 2
+            "relationCount": 8
           },
           {
             "id": "google",
@@ -2874,7 +2967,7 @@
               "name": "Google Cloud TPU",
               "url": "https://cloud.google.com/blog/products/compute/inside-the-ironwood-tpu-codesigned-ai-stack"
             },
-            "relationCount": 4
+            "relationCount": 6
           },
           {
             "id": "microsoft",
@@ -2915,7 +3008,7 @@
               "name": "Microsoft Official Blog",
               "url": "https://blogs.microsoft.com/blog/2026/01/26/maia-200-the-ai-accelerator-built-for-inference/"
             },
-            "relationCount": 2
+            "relationCount": 4
           },
           {
             "id": "aws",
@@ -2956,7 +3049,7 @@
               "name": "AWS Trainium",
               "url": "https://aws.amazon.com/ai/machine-learning/trainium/"
             },
-            "relationCount": 4
+            "relationCount": 8
           },
           {
             "id": "meta",
@@ -3038,7 +3131,7 @@
               "name": "Tesla Investor Relations",
               "url": "https://ir.tesla.com/"
             },
-            "relationCount": 0
+            "relationCount": 1
           },
           {
             "id": "apple",
@@ -3114,7 +3207,8 @@
             "servesAccounts": [
               "Google",
               "Meta",
-              "OpenAI"
+              "OpenAI",
+              "Anthropic"
             ],
             "evidenceCount": 0,
             "accent": "#D05A2B",
@@ -3122,7 +3216,7 @@
               "name": "Broadcom AI Infrastructure",
               "url": "https://www.broadcom.com/info/ai/3point5d"
             },
-            "relationCount": 6
+            "relationCount": 7
           },
           {
             "id": "marvell",
@@ -3212,7 +3306,7 @@
               "name": "OpenAI Infrastructure",
               "url": "https://openai.com/index/openai-and-broadcom-announce-strategic-collaboration/"
             },
-            "relationCount": 1
+            "relationCount": 6
           },
           {
             "id": "anthropic",
@@ -3246,7 +3340,7 @@
               "name": "Anthropic Compute Infrastructure",
               "url": "https://www.anthropic.com/news/google-broadcom-partnership-compute"
             },
-            "relationCount": 0
+            "relationCount": 8
           },
           {
             "id": "spacex",
@@ -3287,7 +3381,85 @@
               "name": "SpaceX Official",
               "url": "https://www.spacex.com/careers/jobs?keyword=ASIC"
             },
-            "relationCount": 0
+            "relationCount": 2
+          },
+          {
+            "id": "coreweave",
+            "company": "CoreWeave",
+            "layer": "end-customer",
+            "role": "AI Chip Roadmap · Workload · Buying Criteria",
+            "portfolio": "NVIDIA AI Factory Cloud",
+            "position": "NVIDIA 투자·플랫폼 정렬 기반 AI Factory 확장",
+            "decision": "Power · Rack Ramp · GPU/HBM Allocation · TCO",
+            "pain": "GPU 세대 전환·전력·데이터센터 Ramp·Storage Fabric 동기화",
+            "memoryOption": "HBM · Host DRAM · AI Storage · Rack Fabric",
+            "buyingCriteria": [
+              "전력 인입",
+              "Rack Ramp",
+              "GPU/HBM 배정",
+              "AI Storage TCO"
+            ],
+            "baseline": [
+              {
+                "label": "PLATFORM",
+                "value": "NVIDIA AI Factory · Rubin Roadmap",
+                "sourceId": "nvidia-coreweave-2026",
+                "source": {
+                  "id": "nvidia-coreweave-2026",
+                  "name": "NVIDIA × CoreWeave AI Factories",
+                  "url": "https://nvidianews.nvidia.com/news/nvidia-and-coreweave-strengthen-collaboration-to-accelerate-buildout-of-ai-factories"
+                }
+              }
+            ],
+            "stage": "고객 제안 단계 검토",
+            "demandClass": "gpu-cloud",
+            "servesAccounts": [],
+            "evidenceCount": 0,
+            "accent": "#2E73D2",
+            "source": {
+              "name": "NVIDIA × CoreWeave AI Factories",
+              "url": "https://nvidianews.nvidia.com/news/nvidia-and-coreweave-strengthen-collaboration-to-accelerate-buildout-of-ai-factories"
+            },
+            "relationCount": 2
+          },
+          {
+            "id": "coherent",
+            "company": "Coherent",
+            "layer": "foundry-package",
+            "role": "Logic Node · CoWoS · Ramp",
+            "portfolio": "Silicon Photonics · Optical Interconnect",
+            "position": "NVIDIA 투자 기반 차세대 데이터센터 광연결 공동개발",
+            "decision": "Bandwidth/W · Yield · US Capacity · Qualification",
+            "pain": "AI Factory Scale-out에서 전송거리·전력·광부품 공급을 동시 최적화",
+            "memoryOption": "HBM Fabric · Silicon Photonics · Optical I/O",
+            "buyingCriteria": [
+              "Bandwidth/W",
+              "광부품 Yield",
+              "공급 Capacity",
+              "Qualification"
+            ],
+            "baseline": [
+              {
+                "label": "ROLE",
+                "value": "Optics · Transceiver · US Manufacturing",
+                "sourceId": "nvidia-coherent-2026",
+                "source": {
+                  "id": "nvidia-coherent-2026",
+                  "name": "NVIDIA × Coherent Optics Partnership",
+                  "url": "https://nvidianews.nvidia.com/news/nvidia-and-coherent-announce-strategic-partnership-to-develop-optics-technology-to-scale-next-generation-data-center-architecture"
+                }
+              }
+            ],
+            "stage": "고객 제안 단계 검토",
+            "demandClass": "interconnect",
+            "servesAccounts": [],
+            "evidenceCount": 0,
+            "accent": "#1B7C87",
+            "source": {
+              "name": "NVIDIA × Coherent Optics Partnership",
+              "url": "https://nvidianews.nvidia.com/news/nvidia-and-coherent-announce-strategic-partnership-to-develop-optics-technology-to-scale-next-generation-data-center-architecture"
+            },
+            "relationCount": 1
           },
           {
             "id": "tsmc",
@@ -3492,6 +3664,19 @@
             "from": "broadcom",
             "to": "openai",
             "title": "Broadcom × OpenAI",
+            "detail": "XPU 설계 · Memory 선정 · Qualification 공동 실행",
+            "status": "official-monitoring",
+            "source": {
+              "name": "Broadcom AI Infrastructure",
+              "url": "https://www.broadcom.com/info/ai/3point5d"
+            }
+          },
+          {
+            "id": "partnership:broadcom:anthropic",
+            "type": "partnership",
+            "from": "broadcom",
+            "to": "anthropic",
+            "title": "Broadcom × Anthropic",
             "detail": "XPU 설계 · Memory 선정 · Qualification 공동 실행",
             "status": "official-monitoring",
             "source": {
@@ -3747,17 +3932,221 @@
             }
           },
           {
-            "id": "investment:skhynix:tsmc",
-            "type": "investment",
+            "id": "partnership:skhynix:tsmc",
+            "type": "partnership",
             "from": "skhynix",
             "to": "tsmc",
-            "title": "SK hynix → TSMC Logic Base Die",
-            "detail": "공정 Slot · CoWoS Capacity · 공동개발 투자 의사결정 추적",
-            "status": "capacity-watch",
+            "title": "SK hynix × TSMC Logic Base Die",
+            "detail": "HBM Logic Base Die 공정·3DFabric·CoWoS Ramp 공동 실행",
+            "status": "공동개발",
             "source": {
               "name": "TSMC 3DFabric",
               "url": "https://3dfabric.tsmc.com/english/dedicatedFoundry/technology/3DFabric.htm"
             }
+          },
+          {
+            "id": "investment:microsoft:openai",
+            "type": "investment",
+            "from": "microsoft",
+            "to": "openai",
+            "title": "Microsoft → OpenAI",
+            "detail": "주요 주주·Azure 우선 파트너·차세대 Silicon 공동 실행",
+            "status": "주요 주주",
+            "source": {
+              "name": "Microsoft × OpenAI Partnership 2026",
+              "url": "https://blogs.microsoft.com/blog/2026/04/27/the-next-phase-of-the-microsoft-openai-partnership/"
+            }
+          },
+          {
+            "id": "investment:aws:openai",
+            "type": "investment",
+            "from": "aws",
+            "to": "openai",
+            "title": "Amazon → OpenAI",
+            "detail": "$50B 투자·Trainium 2GW·장기 AI 인프라 협력",
+            "status": "발표",
+            "source": {
+              "name": "Amazon × OpenAI Strategic Partnership",
+              "url": "https://www.aboutamazon.com/news/aws/amazon-open-ai-strategic-partnership-investment"
+            }
+          },
+          {
+            "id": "supply:aws:openai",
+            "type": "supply",
+            "from": "aws",
+            "to": "openai",
+            "title": "AWS Trainium → OpenAI",
+            "detail": "Trainium3·4 기반 약 2GW 장기 컴퓨트 Capacity",
+            "status": "장기 공급",
+            "source": {
+              "name": "Amazon × OpenAI Strategic Partnership",
+              "url": "https://www.aboutamazon.com/news/aws/amazon-open-ai-strategic-partnership-investment"
+            }
+          },
+          {
+            "id": "investment:nvidia:openai",
+            "type": "investment",
+            "from": "nvidia",
+            "to": "openai",
+            "title": "NVIDIA → OpenAI",
+            "detail": "10GW AI Factory 배포와 연동한 단계별 투자 의향",
+            "status": "투자 의향",
+            "source": {
+              "name": "NVIDIA × OpenAI Infrastructure Partnership",
+              "url": "https://nvidianews.nvidia.com/_gallery/download_pdf/68d173273d633288cb44040b/"
+            }
+          },
+          {
+            "id": "supply:nvidia:openai",
+            "type": "supply",
+            "from": "nvidia",
+            "to": "openai",
+            "title": "NVIDIA Vera Rubin → OpenAI",
+            "detail": "첫 1GW를 2026년 하반기 Vera Rubin으로 배포 계획",
+            "status": "배포 계획",
+            "source": {
+              "name": "NVIDIA × OpenAI Infrastructure Partnership",
+              "url": "https://nvidianews.nvidia.com/_gallery/download_pdf/68d173273d633288cb44040b/"
+            }
+          },
+          {
+            "id": "investment:google:anthropic",
+            "type": "investment",
+            "from": "google",
+            "to": "anthropic",
+            "title": "Google → Anthropic",
+            "detail": "현금·컴퓨트 연계 최대 $40B 투자 계획 보도",
+            "status": "투자 계획",
+            "source": {
+              "name": "Reuters · Google × Anthropic Investment",
+              "url": "https://www.reuters.com/business/google-plans-invest-up-40-billion-anthropic-bloomberg-news-reports-2026-04-24/"
+            }
+          },
+          {
+            "id": "supply:google:anthropic",
+            "type": "supply",
+            "from": "google",
+            "to": "anthropic",
+            "title": "Google TPU → Anthropic",
+            "detail": "TPU 최대 100만개·2027년부터 차세대 TPU 다중 GW Capacity",
+            "status": "공식 계약",
+            "source": {
+              "name": "Anthropic Compute Infrastructure",
+              "url": "https://www.anthropic.com/news/google-broadcom-partnership-compute"
+            }
+          },
+          {
+            "id": "investment:aws:anthropic",
+            "type": "investment",
+            "from": "aws",
+            "to": "anthropic",
+            "title": "Amazon → Anthropic",
+            "detail": "추가 $5B·조건부 최대 $20B와 장기 Trainium 협력",
+            "status": "발표",
+            "source": {
+              "name": "Amazon × Anthropic Strategic Collaboration",
+              "url": "https://www.aboutamazon.com/news/company-news/amazon-invests-additional-5-billion-anthropic-ai"
+            }
+          },
+          {
+            "id": "supply:aws:anthropic",
+            "type": "supply",
+            "from": "aws",
+            "to": "anthropic",
+            "title": "AWS Trainium → Anthropic",
+            "detail": "Trainium2·3·4 최대 5GW·10년 컴퓨트 Commitment",
+            "status": "장기 공급",
+            "source": {
+              "name": "Amazon × Anthropic Strategic Collaboration",
+              "url": "https://www.aboutamazon.com/news/company-news/amazon-invests-additional-5-billion-anthropic-ai"
+            }
+          },
+          {
+            "id": "investment:microsoft:anthropic",
+            "type": "investment",
+            "from": "microsoft",
+            "to": "anthropic",
+            "title": "Microsoft → Anthropic",
+            "detail": "Azure Capacity와 연계한 최대 $5B 투자",
+            "status": "전략 투자",
+            "source": {
+              "name": "Anthropic Series G 2026",
+              "url": "https://www.anthropic.com/news/anthropic-raises-30-billion-series-g-funding-380-billion-post-money-valuation"
+            }
+          },
+          {
+            "id": "investment:nvidia:anthropic",
+            "type": "investment",
+            "from": "nvidia",
+            "to": "anthropic",
+            "title": "NVIDIA → Anthropic",
+            "detail": "Grace Blackwell·Vera Rubin 공동 최적화와 최대 $10B 투자",
+            "status": "전략 투자",
+            "source": {
+              "name": "Anthropic Series G 2026",
+              "url": "https://www.anthropic.com/news/anthropic-raises-30-billion-series-g-funding-380-billion-post-money-valuation"
+            }
+          },
+          {
+            "id": "supply:spacex:anthropic",
+            "type": "supply",
+            "from": "spacex",
+            "to": "anthropic",
+            "title": "SpaceX Compute → Anthropic",
+            "detail": "300MW 이상·NVIDIA GPU 22만개 이상 컴퓨트 Capacity 제공",
+            "status": "공식 계약",
+            "source": {
+              "name": "Anthropic × SpaceX Compute Partnership",
+              "url": "https://www.anthropic.com/news/higher-limits-spacex"
+            }
+          },
+          {
+            "id": "investment:nvidia:coreweave",
+            "type": "investment",
+            "from": "nvidia",
+            "to": "coreweave",
+            "title": "NVIDIA → CoreWeave",
+            "detail": "$2B 지분 투자·2030년까지 5GW 이상 AI Factory 확장",
+            "status": "전략 투자",
+            "source": {
+              "name": "NVIDIA × CoreWeave AI Factories",
+              "url": "https://nvidianews.nvidia.com/news/nvidia-and-coreweave-strengthen-collaboration-to-accelerate-buildout-of-ai-factories"
+            }
+          },
+          {
+            "id": "supply:nvidia:coreweave",
+            "type": "supply",
+            "from": "nvidia",
+            "to": "coreweave",
+            "title": "NVIDIA Platform → CoreWeave",
+            "detail": "Rubin·CPU·Storage Platform 다세대 도입",
+            "status": "플랫폼 공급",
+            "source": {
+              "name": "NVIDIA × CoreWeave AI Factories",
+              "url": "https://nvidianews.nvidia.com/news/nvidia-and-coreweave-strengthen-collaboration-to-accelerate-buildout-of-ai-factories"
+            }
+          },
+          {
+            "id": "investment:nvidia:coherent",
+            "type": "investment",
+            "from": "nvidia",
+            "to": "coherent",
+            "title": "NVIDIA → Coherent",
+            "detail": "$2B 투자·차세대 데이터센터 Optics 공동개발·미국 생산 확대",
+            "status": "전략 투자",
+            "source": {
+              "name": "NVIDIA × Coherent Optics Partnership",
+              "url": "https://nvidianews.nvidia.com/news/nvidia-and-coherent-announce-strategic-partnership-to-develop-optics-technology-to-scale-next-generation-data-center-architecture"
+            }
+          },
+          {
+            "id": "adjacency:tesla:spacex",
+            "type": "adjacency",
+            "from": "tesla",
+            "to": "spacex",
+            "title": "Tesla ↔ SpaceX Physical AI",
+            "detail": "저전력·고신뢰 Custom Silicon과 Edge Memory 요구를 공통 비교",
+            "status": "전략 유사"
           }
         ]
       }

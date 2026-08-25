@@ -489,16 +489,18 @@ function buildStrategyBoard(payload = {}, generatedAt = null, decisionIntelligen
       source: source ? { name: source.name, url: source.url } : null,
     });
   }
-  const tsmcSource = sourceById.get(accountModel.baseDieStrategy?.foundryDependency?.sourceId || "tsmc-3dfabric");
-  addDynamicsRelation({
-    type: "investment",
-    from: "skhynix",
-    to: "tsmc",
-    title: "SK hynix → TSMC Logic Base Die",
-    detail: "공정 Slot · CoWoS Capacity · 공동개발 투자 의사결정 추적",
-    status: "capacity-watch",
-    source: tsmcSource && directUrl(tsmcSource.url) ? { name: tsmcSource.name, url: tsmcSource.url } : null,
-  });
+  for (const relation of accountModel.ecosystemRelations || []) {
+    const source = sourceById.get(relation.sourceId);
+    addDynamicsRelation({
+      type: relation.type,
+      from: relation.from,
+      to: relation.to,
+      title: relation.title || `${dynamicsNodeById.get(relation.from)?.company || relation.from} → ${dynamicsNodeById.get(relation.to)?.company || relation.to}`,
+      detail: relation.detail || "관계 변화 추적",
+      status: relation.status || "monitoring",
+      source: source && directUrl(source.url) ? { name: source.name, url: source.url } : null,
+    });
+  }
   const dynamicsCompanies = dynamicsNodes.map((node) => ({
     ...node,
     relationCount: dynamicsRelations.filter((relation) => relation.from === node.id || relation.to === node.id).length,
@@ -517,6 +519,7 @@ function buildStrategyBoard(payload = {}, generatedAt = null, decisionIntelligen
       { id: "partnership", label: "파트너십", count: Number(dynamicsRelationCounts.partnership || 0) },
       { id: "investment", label: "투자", count: Number(dynamicsRelationCounts.investment || 0) },
       { id: "supply", label: "공급", count: Number(dynamicsRelationCounts.supply || 0) },
+      { id: "adjacency", label: "전략 유사", count: Number(dynamicsRelationCounts.adjacency || 0) },
     ],
     // Enrich once so the layered view and the flat company list share the same
     // relationCount. The layered nodes previously shipped without it, so every

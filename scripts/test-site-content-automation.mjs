@@ -189,11 +189,12 @@ assert.ok(
   ),
   "photonic computing must retain an explicit evidence class",
 );
-assert.equal(rebuilt.strategyBoard.customerPortfolio.accounts.length, 13);
+assert.equal(rebuilt.strategyBoard.customerPortfolio.accounts.length, 15);
 assert.deepEqual(rebuilt.strategyBoard.customerPortfolio.layerModel.summary.map((item) => item.id), ["asic-partner", "end-customer", "foundry-package"]);
 assert.ok(rebuilt.strategyBoard.customerPortfolio.layerModel.partnerRollups.some((item) => item.partnerId === "broadcom" && item.accountIds.includes("openai")));
 assert.ok(rebuilt.strategyBoard.customerPortfolio.accounts.some((item) => item.id === "marvell" && item.layer === "asic-partner"));
 assert.equal(rebuilt.strategyBoard.customerPortfolio.partnerEcosystem.partners.length, 2);
+assert.ok(rebuilt.strategyBoard.customerPortfolio.partnerEcosystem.partners.find((item) => item.id === "broadcom")?.accounts.some((item) => item.id === "anthropic"));
 assert.deepEqual(
   rebuilt.strategyBoard.customerPortfolio.partnerEcosystem.partners.find((item) => item.id === "marvell")?.accounts.map((item) => item.id),
   ["microsoft", "aws"],
@@ -222,14 +223,27 @@ assert.deepEqual(
 );
 assert.deepEqual(
   competitiveDynamics.types.map((item) => item.id),
-  ["competition", "partnership", "investment", "supply"],
-  "competitive dynamics must expose the four executive relationship lenses",
+  ["competition", "partnership", "investment", "supply", "adjacency"],
+  "competitive dynamics must expose factual relationship lenses plus isolated strategic adjacency",
 );
 assert.ok(competitiveDynamics.relations.some((item) => item.type === "partnership" && item.from === "broadcom" && item.to === "google"));
+assert.ok(competitiveDynamics.relations.some((item) => item.type === "partnership" && item.from === "broadcom" && item.to === "anthropic"));
 assert.ok(competitiveDynamics.relations.some((item) => item.type === "partnership" && item.from === "marvell" && item.to === "aws"));
 assert.ok(competitiveDynamics.relations.some((item) => item.type === "competition" && item.from === "skhynix" && item.to === "samsung"));
-assert.ok(competitiveDynamics.relations.some((item) => item.type === "investment" && item.from === "skhynix" && item.to === "tsmc"));
+assert.ok(competitiveDynamics.relations.some((item) => item.type === "partnership" && item.from === "skhynix" && item.to === "tsmc"));
+assert.ok(competitiveDynamics.relations.some((item) => item.type === "investment" && item.from === "microsoft" && item.to === "openai"));
+assert.ok(competitiveDynamics.relations.some((item) => item.type === "investment" && item.from === "google" && item.to === "anthropic"));
+assert.ok(competitiveDynamics.relations.some((item) => item.type === "investment" && item.from === "aws" && item.to === "anthropic"));
+assert.ok(competitiveDynamics.relations.some((item) => item.type === "investment" && item.from === "nvidia" && item.to === "anthropic"));
+assert.ok(competitiveDynamics.relations.some((item) => item.type === "investment" && item.from === "nvidia" && item.to === "coreweave"));
+assert.ok(competitiveDynamics.relations.some((item) => item.type === "investment" && item.from === "nvidia" && item.to === "coherent"));
+assert.ok(competitiveDynamics.relations.some((item) => item.type === "supply" && item.from === "google" && item.to === "anthropic"));
+assert.ok(competitiveDynamics.relations.some((item) => item.type === "supply" && item.from === "aws" && item.to === "anthropic"));
+assert.ok(competitiveDynamics.relations.some((item) => item.type === "supply" && item.from === "spacex" && item.to === "anthropic"));
+assert.ok(competitiveDynamics.relations.some((item) => item.type === "adjacency" && item.from === "tesla" && item.to === "spacex"));
 assert.ok(competitiveDynamics.relations.some((item) => item.type === "supply" && item.from === "skhynix"));
+assert.ok(competitiveDynamics.companies.some((item) => item.id === "coreweave"));
+assert.ok(competitiveDynamics.companies.some((item) => item.id === "coherent"));
 assert.ok(competitiveDynamics.companies.every((item) => item.company && item.layer && item.portfolio && Number.isInteger(item.relationCount)));
 assert.ok(competitiveDynamics.companies.every((item) => item.pain && item.memoryOption && Array.isArray(item.buyingCriteria)), "each circular node must carry its right-panel decision context");
 assert.match(accountViews, /sc-dynamics-map[\s\S]*?sc-dynamics-node[\s\S]*?data-dynamics-detail/, "competitive dynamics must render circular nodes with a linked right-side detail panel");

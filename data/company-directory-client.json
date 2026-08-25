@@ -185,6 +185,11 @@
             "id": "openai",
             "company": "OpenAI",
             "chip": "OpenAI-designed AI accelerator"
+          },
+          {
+            "id": "anthropic",
+            "company": "Anthropic",
+            "chip": "AWS Trainium · Google TPU · NVIDIA GPU"
           }
         ]
       },
@@ -233,6 +238,10 @@
           {
             "id": "openai",
             "company": "OpenAI"
+          },
+          {
+            "id": "anthropic",
+            "company": "Anthropic"
           }
         ],
         "supplierRelations": [
@@ -1076,6 +1085,34 @@
           "url": "https://www.broadcom.com/info/ai/3point5d",
           "sourceClass": "official",
           "tier": "primary-company"
+        },
+        {
+          "id": "anthropic-funding-2026",
+          "name": "Anthropic Series G 2026",
+          "url": "https://www.anthropic.com/news/anthropic-raises-30-billion-series-g-funding-380-billion-post-money-valuation",
+          "sourceClass": "official",
+          "tier": "primary-customer"
+        },
+        {
+          "id": "amazon-anthropic-2026",
+          "name": "Amazon × Anthropic Strategic Collaboration",
+          "url": "https://www.aboutamazon.com/news/company-news/amazon-invests-additional-5-billion-anthropic-ai",
+          "sourceClass": "official",
+          "tier": "primary-customer"
+        },
+        {
+          "id": "google-anthropic-investment-2026",
+          "name": "Reuters · Google × Anthropic Investment",
+          "url": "https://www.reuters.com/business/google-plans-invest-up-40-billion-anthropic-bloomberg-news-reports-2026-04-24/",
+          "sourceClass": "authoritative-media",
+          "tier": "authoritative-media"
+        },
+        {
+          "id": "anthropic-spacex-compute-2026",
+          "name": "Anthropic × SpaceX Compute Partnership",
+          "url": "https://www.anthropic.com/news/higher-limits-spacex",
+          "sourceClass": "official",
+          "tier": "primary-customer"
         }
       ]
     },
@@ -1281,6 +1318,179 @@
           "id": "apple-ai-infra",
           "name": "Apple AI Infrastructure",
           "url": "https://security.apple.com/documentation/private-cloud-compute/",
+          "sourceClass": "official",
+          "tier": "primary-customer"
+        }
+      ]
+    },
+    {
+      "id": "coreweave",
+      "name": "CoreWeave",
+      "nameKo": "CoreWeave",
+      "aliases": [
+        "CoreWeave",
+        "neo cloud",
+        "neocloud"
+      ],
+      "autoLinkAliases": [
+        "CoreWeave"
+      ],
+      "layer": "end-customer",
+      "layerLabel": "Big Tech · Hyperscaler",
+      "group": "gpu-platform",
+      "accent": "#2E73D2",
+      "summary": "NVIDIA 투자·플랫폼 정렬 기반 AI Factory 확장",
+      "officialUrl": "https://nvidianews.nvidia.com/news/nvidia-and-coreweave-strengthen-collaboration-to-accelerate-buildout-of-ai-factories",
+      "verifiedAt": "",
+      "overview": {
+        "role": "AI Chip Roadmap · Workload · Buying Criteria",
+        "platform": "NVIDIA AI Factory Cloud",
+        "stage": {
+          "label": "AI Factory 확장"
+        },
+        "relationship": "NVIDIA 투자·플랫폼 정렬 기반 AI Factory 확장"
+      },
+      "accountBrief": {
+        "mandate": "고객 AI Chip Roadmap과 Workload 변화를 Memory Requirement로 변환",
+        "businessStatus": [
+          {
+            "label": "ACCOUNT ROLE",
+            "value": "Big Tech · Hyperscaler"
+          },
+          {
+            "label": "CHIP / PLATFORM",
+            "value": "NVIDIA AI Factory Cloud"
+          },
+          {
+            "label": "MARKET POSITION",
+            "value": "NVIDIA 투자·플랫폼 정렬 기반 AI Factory 확장"
+          },
+          {
+            "label": "EXECUTION STAGE",
+            "value": "AI Factory 확장"
+          }
+        ],
+        "decisionFlow": [
+          {
+            "index": "01",
+            "label": "ACCOUNT",
+            "value": "NVIDIA AI Factory Cloud"
+          },
+          {
+            "index": "02",
+            "label": "PAIN",
+            "value": "GPU 세대 전환·전력·데이터센터 Ramp·Storage Fabric 동기화"
+          },
+          {
+            "index": "03",
+            "label": "NEXT MEMORY",
+            "value": "HBM · Host DRAM · AI Storage · Rack Fabric"
+          },
+          {
+            "index": "04",
+            "label": "DEAL GATE",
+            "value": "Power · Rack Ramp · GPU/HBM Allocation · TCO"
+          }
+        ],
+        "organizationRaci": [
+          {
+            "owner": "GSM",
+            "role": "Account Intelligence",
+            "action": "NVIDIA 투자·플랫폼 정렬 기반 AI Factory 확장 · 전력 인입 · Rack Ramp"
+          },
+          {
+            "owner": "HBM BUSINESS",
+            "role": "Qualification & Capacity",
+            "action": "HBM · Host DRAM · AI Storage · Rack Fabric · Power · Rack Ramp · GPU/HBM Allocation · TCO · NVIDIA AI Factory · Rubin Roadmap"
+          },
+          {
+            "owner": "MSR",
+            "role": "Next Memory Pathfinding",
+            "action": "HBM · Host DRAM · AI Storage · Rack Fabric"
+          }
+        ],
+        "priorities": [
+          "GPU 세대 전환·전력·데이터센터 Ramp·Storage Fabric 동기화",
+          "HBM · Host DRAM · AI Storage · Rack Fabric",
+          "Power · Rack Ramp · GPU/HBM Allocation · TCO"
+        ]
+      },
+      "memoryLens": {
+        "pain": "GPU 세대 전환·전력·데이터센터 Ramp·Storage Fabric 동기화",
+        "proposal": "HBM · Host DRAM · AI Storage · Rack Fabric",
+        "gate": "Power · Rack Ramp · GPU/HBM Allocation · TCO",
+        "buyingCriteria": [
+          "전력 인입",
+          "Rack Ramp",
+          "GPU/HBM 배정",
+          "AI Storage TCO"
+        ],
+        "baseline": [
+          {
+            "label": "PLATFORM",
+            "value": "NVIDIA AI Factory · Rubin Roadmap",
+            "sourceId": "nvidia-coreweave-2026"
+          }
+        ],
+        "painAxes": [],
+        "supplierRelations": [],
+        "decisionFocus": []
+      },
+      "chipLens": {
+        "primaryChip": "NVIDIA AI Factory Cloud",
+        "portfolio": [],
+        "generations": [],
+        "generationProgression": {
+          "status": "insufficient",
+          "generations": []
+        },
+        "partner": null,
+        "servesAccounts": []
+      },
+      "dataCenterLens": {
+        "demandClass": "gpu-cloud",
+        "workloads": [],
+        "systemBottleneck": "GPU 세대 전환·전력·데이터센터 Ramp·Storage Fabric 동기화",
+        "architectureAction": "HBM · Host DRAM · AI Storage · Rack Fabric",
+        "executionGate": "Power · Rack Ramp · GPU/HBM Allocation · TCO",
+        "operatingQuestion": "Power · Rack Ramp · GPU/HBM Allocation · TCO"
+      },
+      "executiveLens": {
+        "question": "Power · Rack Ramp · GPU/HBM Allocation · TCO",
+        "painSignals": [],
+        "riskSignals": [],
+        "recommendedProducts": [],
+        "actions": [
+          {
+            "phase": "0–30D",
+            "title": "Requirement Lock",
+            "detail": "전력 인입 · Rack Ramp · GPU/HBM 배정"
+          },
+          {
+            "phase": "31–60D",
+            "title": "Architecture / TCO",
+            "detail": "HBM · Host DRAM · AI Storage · Rack Fabric"
+          },
+          {
+            "phase": "61–90D",
+            "title": "Qualification / Deal",
+            "detail": "Power · Rack Ramp · GPU/HBM Allocation · TCO"
+          }
+        ]
+      },
+      "ecosystem": {
+        "partner": null,
+        "servesAccounts": [],
+        "supplierRelations": []
+      },
+      "organization": [],
+      "priorities": [],
+      "evidence": [],
+      "sources": [
+        {
+          "id": "nvidia-coreweave-2026",
+          "name": "NVIDIA × CoreWeave AI Factories",
+          "url": "https://nvidianews.nvidia.com/news/nvidia-and-coreweave-strengthen-collaboration-to-accelerate-buildout-of-ai-factories",
           "sourceClass": "official",
           "tier": "primary-customer"
         }
@@ -2907,6 +3117,27 @@
           "url": "https://www.broadcom.com/info/ai/3point5d",
           "sourceClass": "official",
           "tier": "primary-company"
+        },
+        {
+          "id": "microsoft-openai-2026",
+          "name": "Microsoft × OpenAI Partnership 2026",
+          "url": "https://blogs.microsoft.com/blog/2026/04/27/the-next-phase-of-the-microsoft-openai-partnership/",
+          "sourceClass": "official",
+          "tier": "primary-customer"
+        },
+        {
+          "id": "amazon-openai-2026",
+          "name": "Amazon × OpenAI Strategic Partnership",
+          "url": "https://www.aboutamazon.com/news/aws/amazon-open-ai-strategic-partnership-investment",
+          "sourceClass": "official",
+          "tier": "primary-customer"
+        },
+        {
+          "id": "nvidia-openai-investment",
+          "name": "NVIDIA × OpenAI Infrastructure Partnership",
+          "url": "https://nvidianews.nvidia.com/_gallery/download_pdf/68d173273d633288cb44040b/",
+          "sourceClass": "official",
+          "tier": "primary-customer"
         }
       ]
     },
@@ -3102,6 +3333,13 @@
           "id": "spacex-ai-compute",
           "name": "SpaceX STARMIND",
           "url": "https://new.spacex.com/spacexai/starmind",
+          "sourceClass": "official",
+          "tier": "primary-customer"
+        },
+        {
+          "id": "anthropic-spacex-compute-2026",
+          "name": "Anthropic × SpaceX Compute Partnership",
+          "url": "https://www.anthropic.com/news/higher-limits-spacex",
           "sourceClass": "official",
           "tier": "primary-customer"
         }
@@ -3302,6 +3540,179 @@
           "id": "tesla-ai",
           "name": "Tesla Investor Relations",
           "url": "https://ir.tesla.com/",
+          "sourceClass": "official",
+          "tier": "primary-customer"
+        }
+      ]
+    },
+    {
+      "id": "coherent",
+      "name": "Coherent",
+      "nameKo": "Coherent",
+      "aliases": [
+        "Coherent",
+        "optical interconnect",
+        "silicon photonics"
+      ],
+      "autoLinkAliases": [
+        "Coherent"
+      ],
+      "layer": "foundry-package",
+      "layerLabel": "Foundry · Advanced Packaging",
+      "group": "design-ecosystem",
+      "accent": "#1B7C87",
+      "summary": "NVIDIA 투자 기반 차세대 데이터센터 광연결 공동개발",
+      "officialUrl": "https://nvidianews.nvidia.com/news/nvidia-and-coherent-announce-strategic-partnership-to-develop-optics-technology-to-scale-next-generation-data-center-architecture",
+      "verifiedAt": "",
+      "overview": {
+        "role": "Logic Node · CoWoS · Ramp",
+        "platform": "Silicon Photonics · Optical Interconnect",
+        "stage": {
+          "label": "전략 파트너십"
+        },
+        "relationship": "NVIDIA 투자 기반 차세대 데이터센터 광연결 공동개발"
+      },
+      "accountBrief": {
+        "mandate": "Logic Node·CoWoS·Package Yield·Ramp 일정을 Memory 공급 게이트로 관리",
+        "businessStatus": [
+          {
+            "label": "ACCOUNT ROLE",
+            "value": "Foundry · Advanced Packaging"
+          },
+          {
+            "label": "CHIP / PLATFORM",
+            "value": "Silicon Photonics · Optical Interconnect"
+          },
+          {
+            "label": "MARKET POSITION",
+            "value": "NVIDIA 투자 기반 차세대 데이터센터 광연결 공동개발"
+          },
+          {
+            "label": "EXECUTION STAGE",
+            "value": "전략 파트너십"
+          }
+        ],
+        "decisionFlow": [
+          {
+            "index": "01",
+            "label": "ACCOUNT",
+            "value": "Silicon Photonics · Optical Interconnect"
+          },
+          {
+            "index": "02",
+            "label": "PAIN",
+            "value": "AI Factory Scale-out에서 전송거리·전력·광부품 공급을 동시 최적화"
+          },
+          {
+            "index": "03",
+            "label": "NEXT MEMORY",
+            "value": "HBM Fabric · Silicon Photonics · Optical I/O"
+          },
+          {
+            "index": "04",
+            "label": "DEAL GATE",
+            "value": "Bandwidth/W · Yield · US Capacity · Qualification"
+          }
+        ],
+        "organizationRaci": [
+          {
+            "owner": "GSM",
+            "role": "Account Intelligence",
+            "action": "NVIDIA 투자 기반 차세대 데이터센터 광연결 공동개발 · Bandwidth/W · 광부품 Yield"
+          },
+          {
+            "owner": "HBM BUSINESS",
+            "role": "Qualification & Capacity",
+            "action": "HBM Fabric · Silicon Photonics · Optical I/O · Bandwidth/W · Yield · US Capacity · Qualification · Optics · Transceiver · US Manufacturing"
+          },
+          {
+            "owner": "MSR",
+            "role": "Next Memory Pathfinding",
+            "action": "HBM Fabric · Silicon Photonics · Optical I/O"
+          }
+        ],
+        "priorities": [
+          "AI Factory Scale-out에서 전송거리·전력·광부품 공급을 동시 최적화",
+          "HBM Fabric · Silicon Photonics · Optical I/O",
+          "Bandwidth/W · Yield · US Capacity · Qualification"
+        ]
+      },
+      "memoryLens": {
+        "pain": "AI Factory Scale-out에서 전송거리·전력·광부품 공급을 동시 최적화",
+        "proposal": "HBM Fabric · Silicon Photonics · Optical I/O",
+        "gate": "Bandwidth/W · Yield · US Capacity · Qualification",
+        "buyingCriteria": [
+          "Bandwidth/W",
+          "광부품 Yield",
+          "공급 Capacity",
+          "Qualification"
+        ],
+        "baseline": [
+          {
+            "label": "ROLE",
+            "value": "Optics · Transceiver · US Manufacturing",
+            "sourceId": "nvidia-coherent-2026"
+          }
+        ],
+        "painAxes": [],
+        "supplierRelations": [],
+        "decisionFocus": []
+      },
+      "chipLens": {
+        "primaryChip": "Silicon Photonics · Optical Interconnect",
+        "portfolio": [],
+        "generations": [],
+        "generationProgression": {
+          "status": "insufficient",
+          "generations": []
+        },
+        "partner": null,
+        "servesAccounts": []
+      },
+      "dataCenterLens": {
+        "demandClass": "interconnect",
+        "workloads": [],
+        "systemBottleneck": "AI Factory Scale-out에서 전송거리·전력·광부품 공급을 동시 최적화",
+        "architectureAction": "HBM Fabric · Silicon Photonics · Optical I/O",
+        "executionGate": "Bandwidth/W · Yield · US Capacity · Qualification",
+        "operatingQuestion": "Bandwidth/W · Yield · US Capacity · Qualification"
+      },
+      "executiveLens": {
+        "question": "Bandwidth/W · Yield · US Capacity · Qualification",
+        "painSignals": [],
+        "riskSignals": [],
+        "recommendedProducts": [],
+        "actions": [
+          {
+            "phase": "0–30D",
+            "title": "Requirement Lock",
+            "detail": "Bandwidth/W · 광부품 Yield · 공급 Capacity"
+          },
+          {
+            "phase": "31–60D",
+            "title": "Architecture / TCO",
+            "detail": "HBM Fabric · Silicon Photonics · Optical I/O"
+          },
+          {
+            "phase": "61–90D",
+            "title": "Qualification / Deal",
+            "detail": "Bandwidth/W · Yield · US Capacity · Qualification"
+          }
+        ]
+      },
+      "ecosystem": {
+        "partner": null,
+        "servesAccounts": [],
+        "supplierRelations": []
+      },
+      "organization": [],
+      "priorities": [],
+      "evidence": [],
+      "sources": [
+        {
+          "id": "nvidia-coherent-2026",
+          "name": "NVIDIA × Coherent Optics Partnership",
+          "url": "https://nvidianews.nvidia.com/news/nvidia-and-coherent-announce-strategic-partnership-to-develop-optics-technology-to-scale-next-generation-data-center-architecture",
           "sourceClass": "official",
           "tier": "primary-customer"
         }
