@@ -27339,12 +27339,12 @@ body.consulting-system #main > #c-level-cockpit {
 
 .consulting-system #intelligenceConsole .sc-asic-priority-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(min(100%, 250px), 1fr));
+  grid-template-columns: repeat(4, minmax(0, 1fr));
   gap: 10px;
 }
 
 .consulting-system #intelligenceConsole .sc-asic-priority-card {
-  --asic-accent: #08766f;
+  --asic-accent: var(--mbb-local, #08766f);
   min-width: 0;
   display: grid;
   align-content: start;
@@ -27356,8 +27356,7 @@ body.consulting-system #main > #c-level-cockpit {
   transition: border-color 0s, background-color 0s, color 0s !important;
 }
 
-.consulting-system #intelligenceConsole .sc-asic-card-head,
-.consulting-system #intelligenceConsole .sc-asic-card-foot {
+.consulting-system #intelligenceConsole .sc-asic-card-head {
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -27431,22 +27430,33 @@ body.consulting-system #main > #c-level-cockpit {
   word-break: keep-all;
 }
 
-.consulting-system #intelligenceConsole .sc-asic-card-foot {
-  padding-top: 3px;
-  color: #5b6d7d;
-  font-size: 9.5px;
-  font-weight: 750;
+.consulting-system #intelligenceConsole .sc-asic-priority-card:is(:hover, :focus-visible) {
+  outline: none;
+  border-color: var(--asic-accent);
+  background: #102b3d;
+  color: #fff;
 }
 
-.consulting-system #intelligenceConsole .sc-asic-card-foot a {
-  flex: 0 0 auto;
-  color: #075f83;
-  font-weight: 850;
-  text-underline-offset: 3px;
+.consulting-system #intelligenceConsole .sc-asic-priority-card:is(:hover, :focus-visible) :is(h5, dd) {
+  color: #fff;
+}
+
+.consulting-system #intelligenceConsole .sc-asic-priority-card:is(:hover, :focus-visible) > small {
+  color: #d9e6ed;
+}
+
+.consulting-system #intelligenceConsole .sc-asic-priority-card:is(:hover, :focus-visible) dt,
+.consulting-system #intelligenceConsole .sc-asic-priority-card:is(:hover, :focus-visible) .sc-asic-card-head span {
+  color: #7fe4d2;
+}
+
+@media (max-width: 1180px) {
+  .consulting-system #intelligenceConsole .sc-asic-priority-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
 }
 
 @media (max-width: 720px) {
   .consulting-system #intelligenceConsole .sc-asic-portfolio-head { align-items: start; flex-direction: column; }
+  .consulting-system #intelligenceConsole .sc-asic-priority-grid { grid-template-columns: minmax(0, 1fr); }
   .consulting-system #intelligenceConsole .sc-asic-priority-card dl > div { grid-template-columns: minmax(0, 1fr); gap: 3px; }
 }
 /* Broadcom XPU account strategy — immediate small-card inversion */
@@ -28339,8 +28349,8 @@ body.consulting-system #main > #c-level-cockpit {
 }
 
 #projection .projection-account-tabs {
-  grid-template-columns: repeat(5, minmax(0, 1fr));
-  gap: 6px;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 8px;
 }
 
 #projection .projection-account-tab {
@@ -28348,13 +28358,13 @@ body.consulting-system #main > #c-level-cockpit {
   --ink: #102638;
   --sub-ink: #52687a;
   min-width: 0;
-  min-height: 82px;
+  min-height: 176px;
   display: grid;
-  grid-template-columns: 28px minmax(0, 1fr);
-  grid-template-rows: auto 1fr;
+  grid-template-columns: minmax(0, 1fr);
+  grid-template-rows: auto auto 1fr;
   gap: 4px 9px;
   align-items: start;
-  padding: 10px;
+  padding: 12px;
   border: 1px solid #c9d5dd;
   border-top: 3px solid var(--account-accent, #08766f);
   background: var(--surface);
@@ -28363,17 +28373,6 @@ body.consulting-system #main > #c-level-cockpit {
   cursor: pointer;
   transform: translateY(0);
   transition: transform .06s linear, background-color .025s linear, color .025s linear, border-color .025s linear;
-}
-
-#projection .projection-account-tab > span {
-  grid-row: 1 / 3;
-  display: grid;
-  place-items: center;
-  width: 28px;
-  height: 28px;
-  border: 1px solid currentColor;
-  color: inherit;
-  font: 900 10px/1 var(--display);
 }
 
 #projection .projection-account-tab strong {
@@ -28391,6 +28390,39 @@ body.consulting-system #main > #c-level-cockpit {
   overflow-wrap: anywhere;
 }
 
+#projection .projection-account-tab dl {
+  display: grid;
+  gap: 0;
+  min-width: 0;
+  margin: 5px 0 0;
+}
+
+#projection .projection-account-tab dl > div {
+  display: grid;
+  grid-template-columns: 52px minmax(0, 1fr);
+  gap: 7px;
+  min-width: 0;
+  padding: 5px 0;
+  border-top: 1px solid color-mix(in srgb, var(--ink) 15%, transparent);
+}
+
+#projection .projection-account-tab dt {
+  color: var(--account-accent, #08766f);
+  font: 900 8px/1.35 var(--display);
+  letter-spacing: .05em;
+}
+
+#projection .projection-account-tab dd {
+  min-width: 0;
+  margin: 0;
+  color: var(--sub-ink);
+  font-size: 9.5px;
+  font-weight: 750;
+  line-height: 1.35;
+  overflow-wrap: anywhere;
+  word-break: keep-all;
+}
+
 #projection .projection-account-tab:is(:hover, :focus-visible, .active) {
   --surface: #102b3d;
   --ink: #fff;
@@ -28400,6 +28432,9 @@ body.consulting-system #main > #c-level-cockpit {
   transform: translateY(-2px);
   box-shadow: 0 5px 0 color-mix(in srgb, var(--account-accent, #08766f) 58%, #102638);
 }
+
+#projection .projection-account-tab:is(:hover, :focus-visible, .active) dt { color: #ffd166; }
+#projection .projection-account-tab:is(:hover, :focus-visible, .active) dd { color: var(--sub-ink); }
 
 #projection .projection-account-tab:active {
   transform: translateY(1px);
@@ -28508,7 +28543,7 @@ body.consulting-system #main > #c-level-cockpit {
 #projection .projection-project:is(:hover, :focus-within) span { color: #7fe4d2; }
 
 @media (max-width: 1100px) {
-  #projection .projection-account-tabs { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+  #projection .projection-account-tabs { grid-template-columns: repeat(2, minmax(0, 1fr)); }
   #projection .projection-account-map { grid-template-columns: 1fr; }
   #projection .projection-account-map > i { transform: rotate(90deg); }
   #projection .projection-account-flow { grid-template-columns: repeat(2, minmax(0, 1fr)); }
@@ -28519,7 +28554,7 @@ body.consulting-system #main > #c-level-cockpit {
 @media (max-width: 760px) {
   #projection .projection-summary,
   #projection .projection-project-grid { grid-template-columns: 1fr; }
-  #projection .projection-account-tabs { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  #projection .projection-account-tabs { grid-template-columns: minmax(0, 1fr); }
   #projection .projection-account-flow { grid-template-columns: 1fr; }
   #projection .projection-account-flow > li { min-height: 0; }
 }

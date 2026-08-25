@@ -1935,7 +1935,7 @@
           {
             "owner": "MSR",
             "role": "Next Memory Pathfinding",
-            "action": "Custom HBM · AI-D · Fabric"
+            "action": "Custom HBM · AI-D · Fabric · MTIA"
           }
         ],
         "priorities": [
@@ -1988,7 +1988,18 @@
       },
       "chipLens": {
         "primaryChip": "MTIA",
-        "portfolio": [],
+        "portfolio": [
+          {
+            "name": "MTIA",
+            "type": "INFERENCE ASIC",
+            "workload": "Recommendation · Ads · Generative AI Inference",
+            "publicSpec": "다세대 MTIA 인프라 배포 공개 · Memory Spec은 세대별 확인",
+            "memoryPain": "HBM I/O · Chiplet/Package Scaling · Cost/Task",
+            "memoryProposal": "Custom HBM · AI-D O/B · Fabric Co-Design",
+            "evidenceLabel": "OFFICIAL ROADMAP",
+            "sourceId": "meta-engineering"
+          }
+        ],
         "generations": [],
         "generationProgression": {
           "status": "insufficient",
@@ -2005,7 +2016,9 @@
       },
       "dataCenterLens": {
         "demandClass": "asic",
-        "workloads": [],
+        "workloads": [
+          "Recommendation · Ads · Generative AI Inference"
+        ],
         "systemBottleneck": "추천·광고 추론의 HBM I/O·Chiplet·Package Scaling",
         "architectureAction": "Custom HBM · AI-D · Fabric",
         "executionGate": "Generation Roadmap · Package · TCO",
@@ -2432,7 +2445,7 @@
           {
             "owner": "MSR",
             "role": "Next Memory Pathfinding",
-            "action": "Custom HBM · AI-D · AI-N/eSSD"
+            "action": "Custom HBM · AI-D · AI-N/eSSD · Vera Rubin"
           }
         ],
         "priorities": [
@@ -2528,7 +2541,18 @@
       },
       "chipLens": {
         "primaryChip": "Vera Rubin",
-        "portfolio": [],
+        "portfolio": [
+          {
+            "name": "Vera Rubin",
+            "type": "RACK-SCALE GPU PLATFORM",
+            "workload": "Training · Reasoning · Agentic Inference",
+            "publicSpec": "Vera Rubin 플랫폼 공개 · 세부 HBM 공급 수치는 공식 확인 필요",
+            "memoryPain": "HBM 대역폭·Capacity · NVLink Fabric · Rack 전력 동시 병목",
+            "memoryProposal": "Custom HBM · AI-D B · AI-N/eSSD Tier",
+            "evidenceLabel": "OFFICIAL PLATFORM",
+            "sourceId": "nvidia-newsroom"
+          }
+        ],
         "generations": [],
         "generationProgression": {
           "status": "insufficient",
@@ -2539,7 +2563,9 @@
       },
       "dataCenterLens": {
         "demandClass": "gpu",
-        "workloads": [],
+        "workloads": [
+          "Training · Reasoning · Agentic Inference"
+        ],
         "systemBottleneck": "Rack-scale Agentic AI의 Memory·Fabric·전력 동시 병목",
         "architectureAction": "Custom HBM · AI-D · AI-N/eSSD",
         "executionGate": "Qualification · Ramp · Package Capacity",
@@ -3189,7 +3215,7 @@
           {
             "owner": "MSR",
             "role": "Next Memory Pathfinding",
-            "action": "AI-D E · LPDDR · High-capacity Training Tier"
+            "action": "AI-D E · LPDDR · High-capacity Training Tier · AI5 · Dojo"
           }
         ],
         "priorities": [
@@ -3216,7 +3242,18 @@
       },
       "chipLens": {
         "primaryChip": "AI5 · Dojo",
-        "portfolio": [],
+        "portfolio": [
+          {
+            "name": "AI5 · Dojo",
+            "type": "EDGE · TRAINING SILICON",
+            "workload": "Vehicle Inference · Robotics · Training Data Loop",
+            "publicSpec": "AI Silicon·Robotics Roadmap 공개 · Memory Spec 미공개",
+            "memoryPain": "Latency · 저전력 · 열 · High-capacity Training Tier",
+            "memoryProposal": "AI-D E · LPDDR · High-endurance AI-N",
+            "evidenceLabel": "OFFICIAL ROADMAP",
+            "sourceId": "tesla-ai"
+          }
+        ],
         "generations": [],
         "generationProgression": {
           "status": "insufficient",
@@ -3227,7 +3264,9 @@
       },
       "dataCenterLens": {
         "demandClass": "asic",
-        "workloads": [],
+        "workloads": [
+          "Vehicle Inference · Robotics · Training Data Loop"
+        ],
         "systemBottleneck": "차량·로봇 추론의 Latency·전력·학습 Data Loop",
         "architectureAction": "AI-D E · LPDDR · High-capacity Training Tier",
         "executionGate": "Silicon Sample · Vehicle Validation · Ramp",

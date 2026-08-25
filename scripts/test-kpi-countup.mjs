@@ -246,7 +246,7 @@ assert.doesNotMatch(app, /data-number-toggle|numberFolded|memory-number-folded",
 assert.doesNotMatch(css, /\.number-card\.folded/, "number cards should not ship fold-only styling");
 assert.match(css, /\.ceo-challenge-prompt \{[\s\S]*?linear-gradient\(118deg, #071526 0%, #0b2944 58%, #123b55 100%\)/, "CEO challenge prompt should use a high-contrast executive header");
 assert.match(css, /\.ceo-live-price-strip > div:nth-child\(4\) \{ --live-metric-accent: #c26408; \}/, "live CEO metrics should use differentiated but restrained colors");
-assert.match(app, /const HYPERSCALER_PROJECTION_ORDER = \[[\s\S]*?"nvidia"[\s\S]*?"google"[\s\S]*?"microsoft"[\s\S]*?"aws"[\s\S]*?"meta"[\s\S]*?"openai"[\s\S]*?"anthropic"[\s\S]*?"apple"[\s\S]*?"tesla"[\s\S]*?"spacex"/, "projection should organize strategy by hyperscaler account");
+assert.match(app, /const HYPERSCALER_PROJECTION_ORDER = \[[\s\S]*?"google"[\s\S]*?"microsoft"[\s\S]*?"aws"[\s\S]*?"apple"[\s\S]*?"spacex"[\s\S]*?"nvidia"[\s\S]*?"meta"[\s\S]*?"tesla"/, "projection should preserve the four-by-two hyperscaler decision order");
 assert.match(app, /data-projection-account="\$\{escapeHTML\(account\.id\)\}" aria-pressed="\$\{account\.id === selected\.id \? "true" : "false"\}"/, "hyperscaler account controls should expose their pressed state");
 assert.match(css, /#projection \.projection-account-tab:is\(:hover, :focus-visible, \.active\) \{[\s\S]*?--surface: #102b3d;[\s\S]*?--ink: #fff;[\s\S]*?--sub-ink: #d9e6ed;/, "hyperscaler account controls should invert with readable text tokens");
 assert.match(css, /#projection \.projection-account-tab:active \{[\s\S]*?translateY\(1px\)[\s\S]*?box-shadow: none;/, "hyperscaler account controls should visibly depress on click");

@@ -2625,7 +2625,10 @@
           "microsoft",
           "aws",
           "apple",
-          "spacex"
+          "spacex",
+          "nvidia",
+          "meta",
+          "tesla"
         ],
         "evidencePolicy": "수치는 공식 원문만 표시 · 미공개 사양은 추정하지 않음",
         "accounts": [
@@ -5554,6 +5557,1854 @@
               "stage": "UNVERIFIED",
               "label": "고객 제안 단계 검토"
             }
+          },
+          {
+            "id": "nvidia",
+            "layer": "end-customer",
+            "focus": true,
+            "demandClass": "gpu",
+            "group": "gpu",
+            "company": "NVIDIA",
+            "chip": "Vera Rubin",
+            "aliases": [
+              "nvidia",
+              "엔비디아",
+              "vera rubin",
+              "rubin",
+              "nvlink",
+              "nvl72"
+            ],
+            "baseline": [
+              {
+                "label": "PLATFORM",
+                "value": "Vera Rubin",
+                "sourceId": "nvidia-newsroom",
+                "source": {
+                  "id": "nvidia-newsroom",
+                  "name": "NVIDIA Newsroom",
+                  "url": "https://nvidianews.nvidia.com/news/nvidia-vera-rubin-platform"
+                }
+              }
+            ],
+            "chipPortfolio": [
+              {
+                "name": "Vera Rubin",
+                "type": "RACK-SCALE GPU PLATFORM",
+                "workload": "Training · Reasoning · Agentic Inference",
+                "publicSpec": "Vera Rubin 플랫폼 공개 · 세부 HBM 공급 수치는 공식 확인 필요",
+                "memoryPain": "HBM 대역폭·Capacity · NVLink Fabric · Rack 전력 동시 병목",
+                "memoryProposal": "Custom HBM · AI-D B · AI-N/eSSD Tier",
+                "evidenceLabel": "OFFICIAL PLATFORM",
+                "sourceId": "nvidia-newsroom",
+                "source": {
+                  "id": "nvidia-newsroom",
+                  "name": "NVIDIA Newsroom",
+                  "url": "https://nvidianews.nvidia.com/news/nvidia-vera-rubin-platform",
+                  "sourceClass": "official"
+                }
+              }
+            ],
+            "stage": "고객 제안 단계 검토",
+            "pain": "Rack-scale Agentic AI의 Memory·Fabric·전력 동시 병목",
+            "memory": "Custom HBM · AI-D · AI-N/eSSD",
+            "gate": "Qualification · Ramp · Package Capacity",
+            "relationship": "공식 파트너십 근거만 연결",
+            "accent": "#2D6BFF",
+            "newsQueries": [
+              "NVIDIA Rubin HBM4",
+              "NVIDIA accelerator memory bandwidth"
+            ],
+            "evidence": {
+              "status": "official-fact",
+              "label": "OFFICIAL FACT",
+              "stage": "ANNOUNCED",
+              "source": "SK hynix Newsroom",
+              "url": "https://news.skhynix.com/en/skhynix-nvidia-partnership-2026",
+              "asOf": "2026-07-25"
+            },
+            "servesAccounts": [],
+            "buyingCriteria": [],
+            "mentions": 8,
+            "sourceCount": 5,
+            "officialEvidenceCount": 0,
+            "weekly": [
+              {
+                "week": "2026-07-06",
+                "count": 0
+              },
+              {
+                "week": "2026-07-13",
+                "count": 0
+              },
+              {
+                "week": "2026-07-20",
+                "count": 1
+              },
+              {
+                "week": "2026-07-27",
+                "count": 1
+              },
+              {
+                "week": "2026-08-03",
+                "count": 0
+              },
+              {
+                "week": "2026-08-10",
+                "count": 1
+              },
+              {
+                "week": "2026-08-17",
+                "count": 2
+              },
+              {
+                "week": "2026-08-24",
+                "count": 3
+              }
+            ],
+            "painAxes": [
+              {
+                "id": "bandwidth",
+                "index": "01",
+                "label": "대역폭",
+                "accent": "#2D6BFF",
+                "productIds": [
+                  "custom-hbm",
+                  "ai-n-b"
+                ],
+                "mentions": 1,
+                "sourceCount": 1,
+                "weekly": [
+                  {
+                    "week": "2026-07-06",
+                    "count": 0
+                  },
+                  {
+                    "week": "2026-07-13",
+                    "count": 0
+                  },
+                  {
+                    "week": "2026-07-20",
+                    "count": 0
+                  },
+                  {
+                    "week": "2026-07-27",
+                    "count": 0
+                  },
+                  {
+                    "week": "2026-08-03",
+                    "count": 0
+                  },
+                  {
+                    "week": "2026-08-10",
+                    "count": 0
+                  },
+                  {
+                    "week": "2026-08-17",
+                    "count": 1
+                  },
+                  {
+                    "week": "2026-08-24",
+                    "count": 0
+                  }
+                ],
+                "trend": "down",
+                "delta": -1,
+                "risingTwoWeeks": false,
+                "latest": {
+                  "id": "13212d04c48c61271bfd",
+                  "title": "China’s DFSX DF1000 AI Chip: A 14nm Accelerator Outperforming NVIDIA’s H200 on Memory Bandwidth",
+                  "summary": "China DF1000 AI chip debuts: 14nm accelerator hits 6.4 TB/s bandwidth, 33% over NVIDIA H200, using domestic Chinese supply chain",
+                  "text": "intelligent living china_nand china’s dfsx df1000 ai chip: a 14nm accelerator outperforming nvidia’s h200 on memory bandwidth china’s dfsx df1000 ai chip: a 14nm accelerator outperforming nvidia’s h200 on memory bandwidth china df1000 ai chip debuts: 14nm accelerator hits 6.4 tb/s bandwidth, 33% over nvidia h200, using domestic chinese supply chain",
+                  "source": "Intelligent Living",
+                  "sourceClass": "general-media",
+                  "origin": "live-crawl",
+                  "url": "https://www.intelligentliving.co/dfsx-df1000-ai-chip-14nm-accelerator",
+                  "date": "2026-08-21"
+                }
+              },
+              {
+                "id": "capacity",
+                "index": "02",
+                "label": "용량",
+                "accent": "#7656C9",
+                "productIds": [
+                  "ai-d-b",
+                  "ai-n-d"
+                ],
+                "mentions": 1,
+                "sourceCount": 1,
+                "weekly": [
+                  {
+                    "week": "2026-07-06",
+                    "count": 0
+                  },
+                  {
+                    "week": "2026-07-13",
+                    "count": 0
+                  },
+                  {
+                    "week": "2026-07-20",
+                    "count": 0
+                  },
+                  {
+                    "week": "2026-07-27",
+                    "count": 1
+                  },
+                  {
+                    "week": "2026-08-03",
+                    "count": 0
+                  },
+                  {
+                    "week": "2026-08-10",
+                    "count": 0
+                  },
+                  {
+                    "week": "2026-08-17",
+                    "count": 0
+                  },
+                  {
+                    "week": "2026-08-24",
+                    "count": 0
+                  }
+                ],
+                "trend": "flat",
+                "delta": 0,
+                "risingTwoWeeks": false,
+                "latest": {
+                  "id": "4f25d929f5e69e3e67a5",
+                  "title": "NVIDIA Reportedly Halves Vera Rubin SOCAMM Capacity as Memory Costs Near 29% of System BOM",
+                  "summary": "Rising memory costs are prompting AI hardware vendors to rethink their product strategies · According to Wccftech , citing analysis from GF Securities, NVIDIA is reportedly reducing the memory capacity of its Vera Rubin NVL72 rack-scale AI system to cope with elevated memory prices and ongoing supply shortages · Without these adjustments, memory could account for around 29% of the Vera Rubin VR200 system’s estimated US$2.1 million bill of materials (BOM), well above NVIDIA’s preferred level of 20%",
+                  "text": "trendforce account_intel nvidia reportedly halves vera rubin socamm capacity as memory costs near 29% of system bom nvidia reportedly halves vera rubin socamm capacity as memory costs near 29% of system bom rising memory costs are prompting ai hardware vendors to rethink their product strategies · according to wccftech , citing analysis from gf securities, nvidia is reportedly reducing the memory capacity of its vera rubin nvl72 rack-scale ai system to cope with elevated memory prices and ongoing supply shortages · without these adjustments, memory could account for around 29% of the vera rubin vr200 system’s estimated us$2.1 million bill of materials (bom), well above nvidia’s preferred level of 20%",
+                  "source": "TrendForce",
+                  "sourceClass": "research",
+                  "origin": "live-crawl",
+                  "url": "https://www.trendforce.com/news/2026/07/28/news-nvidia-reportedly-halves-vera-rubin-socamm-capacity-as-memory-costs-near-29-of-system-bom",
+                  "date": "2026-07-28"
+                }
+              },
+              {
+                "id": "power-thermal",
+                "index": "03",
+                "label": "전력·열",
+                "accent": "#00A88F",
+                "productIds": [
+                  "ai-d-o"
+                ],
+                "mentions": 0,
+                "sourceCount": 0,
+                "weekly": [
+                  {
+                    "week": "2026-07-06",
+                    "count": 0
+                  },
+                  {
+                    "week": "2026-07-13",
+                    "count": 0
+                  },
+                  {
+                    "week": "2026-07-20",
+                    "count": 0
+                  },
+                  {
+                    "week": "2026-07-27",
+                    "count": 0
+                  },
+                  {
+                    "week": "2026-08-03",
+                    "count": 0
+                  },
+                  {
+                    "week": "2026-08-10",
+                    "count": 0
+                  },
+                  {
+                    "week": "2026-08-17",
+                    "count": 0
+                  },
+                  {
+                    "week": "2026-08-24",
+                    "count": 0
+                  }
+                ],
+                "trend": "flat",
+                "delta": 0,
+                "risingTwoWeeks": false
+              },
+              {
+                "id": "package-foundry",
+                "index": "04",
+                "label": "패키징·파운드리",
+                "accent": "#C88600",
+                "productIds": [
+                  "custom-hbm"
+                ],
+                "mentions": 0,
+                "sourceCount": 0,
+                "weekly": [
+                  {
+                    "week": "2026-07-06",
+                    "count": 0
+                  },
+                  {
+                    "week": "2026-07-13",
+                    "count": 0
+                  },
+                  {
+                    "week": "2026-07-20",
+                    "count": 0
+                  },
+                  {
+                    "week": "2026-07-27",
+                    "count": 0
+                  },
+                  {
+                    "week": "2026-08-03",
+                    "count": 0
+                  },
+                  {
+                    "week": "2026-08-10",
+                    "count": 0
+                  },
+                  {
+                    "week": "2026-08-17",
+                    "count": 0
+                  },
+                  {
+                    "week": "2026-08-24",
+                    "count": 0
+                  }
+                ],
+                "trend": "flat",
+                "delta": 0,
+                "risingTwoWeeks": false
+              },
+              {
+                "id": "logic-boundary",
+                "index": "05",
+                "label": "로직 경계",
+                "accent": "#D05A2B",
+                "productIds": [
+                  "custom-hbm"
+                ],
+                "mentions": 0,
+                "sourceCount": 0,
+                "weekly": [
+                  {
+                    "week": "2026-07-06",
+                    "count": 0
+                  },
+                  {
+                    "week": "2026-07-13",
+                    "count": 0
+                  },
+                  {
+                    "week": "2026-07-20",
+                    "count": 0
+                  },
+                  {
+                    "week": "2026-07-27",
+                    "count": 0
+                  },
+                  {
+                    "week": "2026-08-03",
+                    "count": 0
+                  },
+                  {
+                    "week": "2026-08-10",
+                    "count": 0
+                  },
+                  {
+                    "week": "2026-08-17",
+                    "count": 0
+                  },
+                  {
+                    "week": "2026-08-24",
+                    "count": 0
+                  }
+                ],
+                "trend": "flat",
+                "delta": 0,
+                "risingTwoWeeks": false
+              }
+            ],
+            "whyLost": [
+              {
+                "id": "pricing",
+                "index": "01",
+                "label": "가격 정책",
+                "productIds": [],
+                "mentions": 3,
+                "sourceCount": 3,
+                "weekly": [
+                  {
+                    "week": "2026-07-06",
+                    "count": 0
+                  },
+                  {
+                    "week": "2026-07-13",
+                    "count": 0
+                  },
+                  {
+                    "week": "2026-07-20",
+                    "count": 0
+                  },
+                  {
+                    "week": "2026-07-27",
+                    "count": 0
+                  },
+                  {
+                    "week": "2026-08-03",
+                    "count": 0
+                  },
+                  {
+                    "week": "2026-08-10",
+                    "count": 1
+                  },
+                  {
+                    "week": "2026-08-17",
+                    "count": 1
+                  },
+                  {
+                    "week": "2026-08-24",
+                    "count": 1
+                  }
+                ],
+                "trend": "flat",
+                "delta": 0,
+                "risingTwoWeeks": false,
+                "latest": {
+                  "id": "0ee1f66bc5ad23f25c8b",
+                  "title": "NVIDIA’s Reported 15% Server Hike Boosts Samsung, SK hynix, With HBM Prices Potentially Up 50%+ in 2027",
+                  "summary": "NVIDIA is reportedly planning to raise prices for Vera Rubin and Grace Blackwell servers by more than 15% in early 2027, according to Bloomberg . The move could give major memory suppliers additional leverage in HBM pricing negotiations, with analysts cited by Bloter expecting HBM contract prices to rise by more than 50% next year from 2026 levels, potentially benefiting Samsung Electronics and SK hynix",
+                  "text": "trendforce dram nvidia’s reported 15% server hike boosts samsung, sk hynix, with hbm prices potentially up 50%+ in 2027 nvidia’s reported 15% server hike boosts samsung, sk hynix, with hbm prices potentially up 50%+ in 2027 nvidia is reportedly planning to raise prices for vera rubin and grace blackwell servers by more than 15% in early 2027, according to bloomberg . the move could give major memory suppliers additional leverage in hbm pricing negotiations, with analysts cited by bloter expecting hbm contract prices to rise by more than 50% next year from 2026 levels, potentially benefiting samsung electronics and sk hynix",
+                  "source": "TrendForce",
+                  "sourceClass": "research",
+                  "origin": "live-crawl",
+                  "url": "https://www.trendforce.com/news/2026/08/25/news-nvidias-reported-15-server-hike-boosts-samsung-sk-hynix-with-hbm-prices-potentially-up-50-in-2027",
+                  "date": "2026-08-25"
+                }
+              },
+              {
+                "id": "one-stop",
+                "index": "02",
+                "label": "원스톱 통합",
+                "productIds": [],
+                "mentions": 0,
+                "sourceCount": 0,
+                "weekly": [
+                  {
+                    "week": "2026-07-06",
+                    "count": 0
+                  },
+                  {
+                    "week": "2026-07-13",
+                    "count": 0
+                  },
+                  {
+                    "week": "2026-07-20",
+                    "count": 0
+                  },
+                  {
+                    "week": "2026-07-27",
+                    "count": 0
+                  },
+                  {
+                    "week": "2026-08-03",
+                    "count": 0
+                  },
+                  {
+                    "week": "2026-08-10",
+                    "count": 0
+                  },
+                  {
+                    "week": "2026-08-17",
+                    "count": 0
+                  },
+                  {
+                    "week": "2026-08-24",
+                    "count": 0
+                  }
+                ],
+                "trend": "flat",
+                "delta": 0,
+                "risingTwoWeeks": false
+              },
+              {
+                "id": "spec-gate",
+                "index": "03",
+                "label": "스펙 게이트",
+                "productIds": [],
+                "mentions": 0,
+                "sourceCount": 0,
+                "weekly": [
+                  {
+                    "week": "2026-07-06",
+                    "count": 0
+                  },
+                  {
+                    "week": "2026-07-13",
+                    "count": 0
+                  },
+                  {
+                    "week": "2026-07-20",
+                    "count": 0
+                  },
+                  {
+                    "week": "2026-07-27",
+                    "count": 0
+                  },
+                  {
+                    "week": "2026-08-03",
+                    "count": 0
+                  },
+                  {
+                    "week": "2026-08-10",
+                    "count": 0
+                  },
+                  {
+                    "week": "2026-08-17",
+                    "count": 0
+                  },
+                  {
+                    "week": "2026-08-24",
+                    "count": 0
+                  }
+                ],
+                "trend": "flat",
+                "delta": 0,
+                "risingTwoWeeks": false
+              },
+              {
+                "id": "diversification",
+                "index": "04",
+                "label": "의도적 다변화",
+                "productIds": [],
+                "mentions": 0,
+                "sourceCount": 0,
+                "weekly": [
+                  {
+                    "week": "2026-07-06",
+                    "count": 0
+                  },
+                  {
+                    "week": "2026-07-13",
+                    "count": 0
+                  },
+                  {
+                    "week": "2026-07-20",
+                    "count": 0
+                  },
+                  {
+                    "week": "2026-07-27",
+                    "count": 0
+                  },
+                  {
+                    "week": "2026-08-03",
+                    "count": 0
+                  },
+                  {
+                    "week": "2026-08-10",
+                    "count": 0
+                  },
+                  {
+                    "week": "2026-08-17",
+                    "count": 0
+                  },
+                  {
+                    "week": "2026-08-24",
+                    "count": 0
+                  }
+                ],
+                "trend": "flat",
+                "delta": 0,
+                "risingTwoWeeks": false
+              }
+            ],
+            "generationProgression": {
+              "status": "insufficient",
+              "generations": []
+            },
+            "evidenceStream": [
+              {
+                "title": "NVIDIA’s Reported 15% Server Hike Boosts Samsung, SK hynix, With HBM Prices Potentially Up 50%+ in 2027",
+                "source": "TrendForce",
+                "sourceClass": "research",
+                "url": "https://www.trendforce.com/news/2026/08/25/news-nvidias-reported-15-server-hike-boosts-samsung-sk-hynix-with-hbm-prices-potentially-up-50-in-2027",
+                "date": "2026-08-25"
+              },
+              {
+                "title": "NVIDIA는 Groq 3 LPX가 본격 생산에 들어갔다고 발표했으며, Nebius가 이를 최초로 채택했습니다_뉴스 - CFM 플래시 메모리 시장",
+                "source": "CFM闪存市场",
+                "sourceClass": "general-media",
+                "url": "https://www.chinaflashmarket.com/newsflash/38662",
+                "date": "2026-08-25"
+              },
+              {
+                "title": "Hot Chips 2026: SK hynix pushes hybrid bonding to HBM5 as AI memory hits 775-micron ceiling — firm extends MR-MUF through Nvidia Rubin",
+                "source": "Tom's Hardware",
+                "sourceClass": "authoritative-media",
+                "url": "https://www.tomshardware.com/tech-industry/semiconductors/sk-hynix-says-hybrid-bonding-wont-be-ready-for-hbm4e-as-ai-memory-runs-into-a-775-micron-ceiling",
+                "date": "2026-08-24"
+              },
+              {
+                "title": "Nvidia reportedly warns biggest customers of 15% price hikes on AI servers — memory costs continue to soar",
+                "source": "Tom's Hardware",
+                "sourceClass": "authoritative-media",
+                "url": "https://www.tomshardware.com/pc-components/dram/nvidia-reportedly-warns-biggest-customers-of-15-percent-price-hikes-on-ai-servers",
+                "date": "2026-08-23"
+              }
+            ],
+            "chipStage": "공식 플랫폼 공개",
+            "stageLedger": {
+              "stage": "UNVERIFIED",
+              "label": "고객 제안 단계 검토"
+            }
+          },
+          {
+            "id": "meta",
+            "layer": "end-customer",
+            "focus": true,
+            "demandClass": "asic",
+            "group": "hyperscaler-asic",
+            "company": "Meta",
+            "chip": "MTIA",
+            "aliases": [
+              "meta",
+              "meta platforms",
+              "mtia"
+            ],
+            "baseline": [
+              {
+                "label": "PLATFORM",
+                "value": "MTIA Roadmap",
+                "sourceId": "meta-engineering",
+                "source": {
+                  "id": "meta-engineering",
+                  "name": "Meta Engineering",
+                  "url": "https://engineering.fb.com/2025/09/29/data-infrastructure/metas-infrastructure-evolution-and-the-advent-of-ai/"
+                }
+              }
+            ],
+            "chipPortfolio": [
+              {
+                "name": "MTIA",
+                "type": "INFERENCE ASIC",
+                "workload": "Recommendation · Ads · Generative AI Inference",
+                "publicSpec": "다세대 MTIA 인프라 배포 공개 · Memory Spec은 세대별 확인",
+                "memoryPain": "HBM I/O · Chiplet/Package Scaling · Cost/Task",
+                "memoryProposal": "Custom HBM · AI-D O/B · Fabric Co-Design",
+                "evidenceLabel": "OFFICIAL ROADMAP",
+                "sourceId": "meta-engineering",
+                "source": {
+                  "id": "meta-engineering",
+                  "name": "Meta Engineering",
+                  "url": "https://engineering.fb.com/2025/09/29/data-infrastructure/metas-infrastructure-evolution-and-the-advent-of-ai/",
+                  "sourceClass": "official"
+                }
+              }
+            ],
+            "stage": "고객 제안 단계 검토",
+            "pain": "추천·광고 추론의 HBM I/O·Chiplet·Package Scaling",
+            "memory": "Custom HBM · AI-D · Fabric",
+            "gate": "Generation Roadmap · Package · TCO",
+            "relationship": "Broadcom과 다세대 MTIA 공동개발 공식 발표 · Memory 공급과 분리",
+            "accent": "#7656C9",
+            "xpuEcosystem": {
+              "partner": "Broadcom",
+              "status": "공식",
+              "role": "MTIA 다세대 Custom Silicon·Memory Bandwidth·전력·Rack 전개 공동 최적화",
+              "sourceId": "broadcom-meta-mtia",
+              "claim": "verified-fact",
+              "source": {
+                "id": "broadcom-meta-mtia",
+                "name": "Broadcom × Meta MTIA",
+                "tier": "primary-company",
+                "sourceClass": "official",
+                "url": "https://investors.broadcom.com/node/64236/pdf",
+                "domains": [
+                  "investors.broadcom.com",
+                  "about.fb.com"
+                ],
+                "topics": [
+                  "meta",
+                  "mtia",
+                  "xpu",
+                  "custom-asic",
+                  "memory-bandwidth",
+                  "ai-infra"
+                ],
+                "roles": [
+                  "partner",
+                  "customer",
+                  "technology",
+                  "demand"
+                ],
+                "languages": [
+                  "en"
+                ],
+                "freshnessHours": 168,
+                "discoveryQueries": [
+                  "site:investors.broadcom.com OR site:about.fb.com Broadcom Meta MTIA custom silicon"
+                ],
+                "healthCheck": {
+                  "markers": [
+                    "Broadcom",
+                    "Meta",
+                    "MTIA"
+                  ]
+                },
+                "enabled": true
+              }
+            },
+            "broadcomStrategy": {
+              "status": "공식 협력",
+              "accountQuestion": "6개월 이하 세대 전환 속도에서 Memory Bandwidth·Capacity·전력을 어떻게 동시 확장할 것인가",
+              "customerStrategy": "Inference-first · 다세대 MTIA · OCP·PyTorch·vLLM 기반 빠른 배포",
+              "pains": [
+                "세대별 Memory Bandwidth 확대",
+                "Inference Cost/Task",
+                "Rack 호환성과 빠른 Qualification"
+              ],
+              "proposal": [
+                "MTIA 세대별 Custom HBM Requirement Matrix",
+                "AI-D O/B 기반 Warm Memory",
+                "AI-N P 기반 Inference Data Tier"
+              ],
+              "gate90d": "MTIA Generation Map · p95/Goodput/W · Package Readiness · Qualification Owner",
+              "sourceId": "broadcom-meta-mtia",
+              "source": {
+                "id": "broadcom-meta-mtia",
+                "name": "Broadcom × Meta MTIA",
+                "tier": "primary-company",
+                "sourceClass": "official",
+                "url": "https://investors.broadcom.com/node/64236/pdf",
+                "domains": [
+                  "investors.broadcom.com",
+                  "about.fb.com"
+                ],
+                "topics": [
+                  "meta",
+                  "mtia",
+                  "xpu",
+                  "custom-asic",
+                  "memory-bandwidth",
+                  "ai-infra"
+                ],
+                "roles": [
+                  "partner",
+                  "customer",
+                  "technology",
+                  "demand"
+                ],
+                "languages": [
+                  "en"
+                ],
+                "freshnessHours": 168,
+                "discoveryQueries": [
+                  "site:investors.broadcom.com OR site:about.fb.com Broadcom Meta MTIA custom silicon"
+                ],
+                "healthCheck": {
+                  "markers": [
+                    "Broadcom",
+                    "Meta",
+                    "MTIA"
+                  ]
+                },
+                "enabled": true
+              }
+            },
+            "newsQueries": [
+              "Meta MTIA memory",
+              "Meta MTIA accelerator"
+            ],
+            "evidence": {
+              "status": "official-monitoring",
+              "label": "OFFICIAL SOURCE MONITOR",
+              "source": "Meta Engineering",
+              "url": "https://engineering.fb.com/2025/09/29/data-infrastructure/metas-infrastructure-evolution-and-the-advent-of-ai/"
+            },
+            "servesAccounts": [],
+            "buyingCriteria": [],
+            "mentions": 3,
+            "sourceCount": 2,
+            "officialEvidenceCount": 0,
+            "weekly": [
+              {
+                "week": "2026-07-06",
+                "count": 0
+              },
+              {
+                "week": "2026-07-13",
+                "count": 0
+              },
+              {
+                "week": "2026-07-20",
+                "count": 1
+              },
+              {
+                "week": "2026-07-27",
+                "count": 1
+              },
+              {
+                "week": "2026-08-03",
+                "count": 0
+              },
+              {
+                "week": "2026-08-10",
+                "count": 0
+              },
+              {
+                "week": "2026-08-17",
+                "count": 0
+              },
+              {
+                "week": "2026-08-24",
+                "count": 1
+              }
+            ],
+            "painAxes": [
+              {
+                "id": "bandwidth",
+                "index": "01",
+                "label": "대역폭",
+                "accent": "#2D6BFF",
+                "productIds": [
+                  "custom-hbm",
+                  "ai-n-b"
+                ],
+                "mentions": 1,
+                "sourceCount": 1,
+                "weekly": [
+                  {
+                    "week": "2026-07-06",
+                    "count": 0
+                  },
+                  {
+                    "week": "2026-07-13",
+                    "count": 0
+                  },
+                  {
+                    "week": "2026-07-20",
+                    "count": 0
+                  },
+                  {
+                    "week": "2026-07-27",
+                    "count": 0
+                  },
+                  {
+                    "week": "2026-08-03",
+                    "count": 0
+                  },
+                  {
+                    "week": "2026-08-10",
+                    "count": 0
+                  },
+                  {
+                    "week": "2026-08-17",
+                    "count": 0
+                  },
+                  {
+                    "week": "2026-08-24",
+                    "count": 1
+                  }
+                ],
+                "trend": "up",
+                "delta": 1,
+                "risingTwoWeeks": false,
+                "latest": {
+                  "id": "178c6a418d0dd3da2386",
+                  "title": "Micron Warns AI Memory Wall Worsens; Cites HBM in 17% of Meta Llama 3 Training Interruptions",
+                  "summary": "At Hot Chips 2026, Micron highlighted the growing “memory wall” challenge as AI compute advances outpace memory improvements · As noted by Maeil Business Newspaper , Micron Fellow Raghu Sriramaneni, who specializes in HBM design architecture, warned that the gap may be worsening in the AI era · He noted that AI accelerator compute performance roughly triples every two years, while High Bandwidth Memory (HBM) bandwidth grows by less than twofold over the same period",
+                  "text": "trendforce hbm micron warns ai memory wall worsens; cites hbm in 17% of meta llama 3 training interruptions micron warns ai memory wall worsens; cites hbm in 17% of meta llama 3 training interruptions at hot chips 2026, micron highlighted the growing “memory wall” challenge as ai compute advances outpace memory improvements · as noted by maeil business newspaper , micron fellow raghu sriramaneni, who specializes in hbm design architecture, warned that the gap may be worsening in the ai era · he noted that ai accelerator compute performance roughly triples every two years, while high bandwidth memory (hbm) bandwidth grows by less than twofold over the same period",
+                  "source": "TrendForce",
+                  "sourceClass": "research",
+                  "origin": "live-crawl",
+                  "url": "https://www.trendforce.com/news/2026/08/25/news-micron-warns-ai-memory-wall-worsens-cites-hbm-in-17-of-meta-llama-3-training-interruptions",
+                  "date": "2026-08-25"
+                }
+              },
+              {
+                "id": "capacity",
+                "index": "02",
+                "label": "용량",
+                "accent": "#7656C9",
+                "productIds": [
+                  "ai-d-b",
+                  "ai-n-d"
+                ],
+                "mentions": 0,
+                "sourceCount": 0,
+                "weekly": [
+                  {
+                    "week": "2026-07-06",
+                    "count": 0
+                  },
+                  {
+                    "week": "2026-07-13",
+                    "count": 0
+                  },
+                  {
+                    "week": "2026-07-20",
+                    "count": 0
+                  },
+                  {
+                    "week": "2026-07-27",
+                    "count": 0
+                  },
+                  {
+                    "week": "2026-08-03",
+                    "count": 0
+                  },
+                  {
+                    "week": "2026-08-10",
+                    "count": 0
+                  },
+                  {
+                    "week": "2026-08-17",
+                    "count": 0
+                  },
+                  {
+                    "week": "2026-08-24",
+                    "count": 0
+                  }
+                ],
+                "trend": "flat",
+                "delta": 0,
+                "risingTwoWeeks": false
+              },
+              {
+                "id": "power-thermal",
+                "index": "03",
+                "label": "전력·열",
+                "accent": "#00A88F",
+                "productIds": [
+                  "ai-d-o"
+                ],
+                "mentions": 0,
+                "sourceCount": 0,
+                "weekly": [
+                  {
+                    "week": "2026-07-06",
+                    "count": 0
+                  },
+                  {
+                    "week": "2026-07-13",
+                    "count": 0
+                  },
+                  {
+                    "week": "2026-07-20",
+                    "count": 0
+                  },
+                  {
+                    "week": "2026-07-27",
+                    "count": 0
+                  },
+                  {
+                    "week": "2026-08-03",
+                    "count": 0
+                  },
+                  {
+                    "week": "2026-08-10",
+                    "count": 0
+                  },
+                  {
+                    "week": "2026-08-17",
+                    "count": 0
+                  },
+                  {
+                    "week": "2026-08-24",
+                    "count": 0
+                  }
+                ],
+                "trend": "flat",
+                "delta": 0,
+                "risingTwoWeeks": false
+              },
+              {
+                "id": "package-foundry",
+                "index": "04",
+                "label": "패키징·파운드리",
+                "accent": "#C88600",
+                "productIds": [
+                  "custom-hbm"
+                ],
+                "mentions": 0,
+                "sourceCount": 0,
+                "weekly": [
+                  {
+                    "week": "2026-07-06",
+                    "count": 0
+                  },
+                  {
+                    "week": "2026-07-13",
+                    "count": 0
+                  },
+                  {
+                    "week": "2026-07-20",
+                    "count": 0
+                  },
+                  {
+                    "week": "2026-07-27",
+                    "count": 0
+                  },
+                  {
+                    "week": "2026-08-03",
+                    "count": 0
+                  },
+                  {
+                    "week": "2026-08-10",
+                    "count": 0
+                  },
+                  {
+                    "week": "2026-08-17",
+                    "count": 0
+                  },
+                  {
+                    "week": "2026-08-24",
+                    "count": 0
+                  }
+                ],
+                "trend": "flat",
+                "delta": 0,
+                "risingTwoWeeks": false
+              },
+              {
+                "id": "logic-boundary",
+                "index": "05",
+                "label": "로직 경계",
+                "accent": "#D05A2B",
+                "productIds": [
+                  "custom-hbm"
+                ],
+                "mentions": 0,
+                "sourceCount": 0,
+                "weekly": [
+                  {
+                    "week": "2026-07-06",
+                    "count": 0
+                  },
+                  {
+                    "week": "2026-07-13",
+                    "count": 0
+                  },
+                  {
+                    "week": "2026-07-20",
+                    "count": 0
+                  },
+                  {
+                    "week": "2026-07-27",
+                    "count": 0
+                  },
+                  {
+                    "week": "2026-08-03",
+                    "count": 0
+                  },
+                  {
+                    "week": "2026-08-10",
+                    "count": 0
+                  },
+                  {
+                    "week": "2026-08-17",
+                    "count": 0
+                  },
+                  {
+                    "week": "2026-08-24",
+                    "count": 0
+                  }
+                ],
+                "trend": "flat",
+                "delta": 0,
+                "risingTwoWeeks": false
+              }
+            ],
+            "whyLost": [
+              {
+                "id": "pricing",
+                "index": "01",
+                "label": "가격 정책",
+                "productIds": [],
+                "mentions": 1,
+                "sourceCount": 1,
+                "weekly": [
+                  {
+                    "week": "2026-07-06",
+                    "count": 0
+                  },
+                  {
+                    "week": "2026-07-13",
+                    "count": 0
+                  },
+                  {
+                    "week": "2026-07-20",
+                    "count": 0
+                  },
+                  {
+                    "week": "2026-07-27",
+                    "count": 1
+                  },
+                  {
+                    "week": "2026-08-03",
+                    "count": 0
+                  },
+                  {
+                    "week": "2026-08-10",
+                    "count": 0
+                  },
+                  {
+                    "week": "2026-08-17",
+                    "count": 0
+                  },
+                  {
+                    "week": "2026-08-24",
+                    "count": 0
+                  }
+                ],
+                "trend": "flat",
+                "delta": 0,
+                "risingTwoWeeks": false,
+                "latest": {
+                  "id": "98891210464e6167edec",
+                  "title": "Dwindling cash and soaring memory costs: Tech's AI buildout has ballooning price tag",
+                  "summary": "Amazon, Alphabet and Tesla all reported negative cash flow in the latest quarter, while Meta's cash generation plummeted by 91%",
+                  "text": "cnbc account_intel dwindling cash and soaring memory costs: tech's ai buildout has ballooning price tag dwindling cash and soaring memory costs: tech's ai buildout has ballooning price tag amazon, alphabet and tesla all reported negative cash flow in the latest quarter, while meta's cash generation plummeted by 91%",
+                  "source": "CNBC",
+                  "sourceClass": "authoritative-media",
+                  "origin": "live-crawl",
+                  "url": "https://www.cnbc.com/2026/07/31/tech-earnings-cash-memory-ai.html",
+                  "date": "2026-07-31"
+                }
+              },
+              {
+                "id": "one-stop",
+                "index": "02",
+                "label": "원스톱 통합",
+                "productIds": [],
+                "mentions": 0,
+                "sourceCount": 0,
+                "weekly": [
+                  {
+                    "week": "2026-07-06",
+                    "count": 0
+                  },
+                  {
+                    "week": "2026-07-13",
+                    "count": 0
+                  },
+                  {
+                    "week": "2026-07-20",
+                    "count": 0
+                  },
+                  {
+                    "week": "2026-07-27",
+                    "count": 0
+                  },
+                  {
+                    "week": "2026-08-03",
+                    "count": 0
+                  },
+                  {
+                    "week": "2026-08-10",
+                    "count": 0
+                  },
+                  {
+                    "week": "2026-08-17",
+                    "count": 0
+                  },
+                  {
+                    "week": "2026-08-24",
+                    "count": 0
+                  }
+                ],
+                "trend": "flat",
+                "delta": 0,
+                "risingTwoWeeks": false
+              },
+              {
+                "id": "spec-gate",
+                "index": "03",
+                "label": "스펙 게이트",
+                "productIds": [],
+                "mentions": 0,
+                "sourceCount": 0,
+                "weekly": [
+                  {
+                    "week": "2026-07-06",
+                    "count": 0
+                  },
+                  {
+                    "week": "2026-07-13",
+                    "count": 0
+                  },
+                  {
+                    "week": "2026-07-20",
+                    "count": 0
+                  },
+                  {
+                    "week": "2026-07-27",
+                    "count": 0
+                  },
+                  {
+                    "week": "2026-08-03",
+                    "count": 0
+                  },
+                  {
+                    "week": "2026-08-10",
+                    "count": 0
+                  },
+                  {
+                    "week": "2026-08-17",
+                    "count": 0
+                  },
+                  {
+                    "week": "2026-08-24",
+                    "count": 0
+                  }
+                ],
+                "trend": "flat",
+                "delta": 0,
+                "risingTwoWeeks": false
+              },
+              {
+                "id": "diversification",
+                "index": "04",
+                "label": "의도적 다변화",
+                "productIds": [],
+                "mentions": 0,
+                "sourceCount": 0,
+                "weekly": [
+                  {
+                    "week": "2026-07-06",
+                    "count": 0
+                  },
+                  {
+                    "week": "2026-07-13",
+                    "count": 0
+                  },
+                  {
+                    "week": "2026-07-20",
+                    "count": 0
+                  },
+                  {
+                    "week": "2026-07-27",
+                    "count": 0
+                  },
+                  {
+                    "week": "2026-08-03",
+                    "count": 0
+                  },
+                  {
+                    "week": "2026-08-10",
+                    "count": 0
+                  },
+                  {
+                    "week": "2026-08-17",
+                    "count": 0
+                  },
+                  {
+                    "week": "2026-08-24",
+                    "count": 0
+                  }
+                ],
+                "trend": "flat",
+                "delta": 0,
+                "risingTwoWeeks": false
+              }
+            ],
+            "generationProgression": {
+              "status": "insufficient",
+              "generations": []
+            },
+            "evidenceStream": [
+              {
+                "title": "Micron Warns AI Memory Wall Worsens; Cites HBM in 17% of Meta Llama 3 Training Interruptions",
+                "source": "TrendForce",
+                "sourceClass": "research",
+                "url": "https://www.trendforce.com/news/2026/08/25/news-micron-warns-ai-memory-wall-worsens-cites-hbm-in-17-of-meta-llama-3-training-interruptions",
+                "date": "2026-08-25"
+              },
+              {
+                "title": "Dwindling cash and soaring memory costs: Tech's AI buildout has ballooning price tag",
+                "source": "CNBC",
+                "sourceClass": "authoritative-media",
+                "url": "https://www.cnbc.com/2026/07/31/tech-earnings-cash-memory-ai.html",
+                "date": "2026-07-31"
+              },
+              {
+                "title": "AMD Helios AI rack challenges NVIDIA with HBM4 memory edge; Microsoft joins as latest customer",
+                "source": "TrendForce",
+                "sourceClass": "research",
+                "url": "https://www.trendforce.com/news/2026/07/21/news-amds-first-rack-scale-ai-system-helios-challenges-nvidia-with-hbm4-memory-edge-but-reportedly-comes-at-a-higher-price",
+                "date": "2026-07-21"
+              }
+            ],
+            "chipStage": "인프라 배포 공개",
+            "stageLedger": {
+              "stage": "UNVERIFIED",
+              "label": "고객 제안 단계 검토"
+            }
+          },
+          {
+            "id": "tesla",
+            "layer": "end-customer",
+            "focus": true,
+            "demandClass": "asic",
+            "group": "edge-physical",
+            "company": "Tesla",
+            "chip": "AI5 · Dojo",
+            "aliases": [
+              "tesla",
+              "테슬라",
+              "ai5",
+              "dojo",
+              "optimus"
+            ],
+            "baseline": [
+              {
+                "label": "PLATFORM",
+                "value": "AI Silicon · Robotics",
+                "sourceId": "tesla-ai",
+                "source": {
+                  "id": "tesla-ai",
+                  "name": "Tesla Investor Relations",
+                  "url": "https://ir.tesla.com/"
+                }
+              }
+            ],
+            "chipPortfolio": [
+              {
+                "name": "AI5 · Dojo",
+                "type": "EDGE · TRAINING SILICON",
+                "workload": "Vehicle Inference · Robotics · Training Data Loop",
+                "publicSpec": "AI Silicon·Robotics Roadmap 공개 · Memory Spec 미공개",
+                "memoryPain": "Latency · 저전력 · 열 · High-capacity Training Tier",
+                "memoryProposal": "AI-D E · LPDDR · High-endurance AI-N",
+                "evidenceLabel": "OFFICIAL ROADMAP",
+                "sourceId": "tesla-ai",
+                "source": {
+                  "id": "tesla-ai",
+                  "name": "Tesla Investor Relations",
+                  "url": "https://ir.tesla.com/",
+                  "sourceClass": "official"
+                }
+              }
+            ],
+            "stage": "고객 제안 단계 검토",
+            "pain": "차량·로봇 추론의 Latency·전력·학습 Data Loop",
+            "memory": "AI-D E · LPDDR · High-capacity Training Tier",
+            "gate": "Silicon Sample · Vehicle Validation · Ramp",
+            "relationship": "Memory 공급 관계 공개 검증 필요",
+            "accent": "#E24545",
+            "newsQueries": [
+              "Tesla AI chip memory",
+              "Tesla AI5 inference chip"
+            ],
+            "evidence": {
+              "status": "official-monitoring",
+              "label": "OFFICIAL SOURCE MONITOR",
+              "source": "Tesla Investor Relations",
+              "url": "https://ir.tesla.com/"
+            },
+            "servesAccounts": [],
+            "buyingCriteria": [],
+            "mentions": 2,
+            "sourceCount": 2,
+            "officialEvidenceCount": 0,
+            "weekly": [
+              {
+                "week": "2026-07-06",
+                "count": 0
+              },
+              {
+                "week": "2026-07-13",
+                "count": 0
+              },
+              {
+                "week": "2026-07-20",
+                "count": 0
+              },
+              {
+                "week": "2026-07-27",
+                "count": 1
+              },
+              {
+                "week": "2026-08-03",
+                "count": 1
+              },
+              {
+                "week": "2026-08-10",
+                "count": 0
+              },
+              {
+                "week": "2026-08-17",
+                "count": 0
+              },
+              {
+                "week": "2026-08-24",
+                "count": 0
+              }
+            ],
+            "painAxes": [
+              {
+                "id": "bandwidth",
+                "index": "01",
+                "label": "대역폭",
+                "accent": "#2D6BFF",
+                "productIds": [
+                  "custom-hbm",
+                  "ai-n-b"
+                ],
+                "mentions": 0,
+                "sourceCount": 0,
+                "weekly": [
+                  {
+                    "week": "2026-07-06",
+                    "count": 0
+                  },
+                  {
+                    "week": "2026-07-13",
+                    "count": 0
+                  },
+                  {
+                    "week": "2026-07-20",
+                    "count": 0
+                  },
+                  {
+                    "week": "2026-07-27",
+                    "count": 0
+                  },
+                  {
+                    "week": "2026-08-03",
+                    "count": 0
+                  },
+                  {
+                    "week": "2026-08-10",
+                    "count": 0
+                  },
+                  {
+                    "week": "2026-08-17",
+                    "count": 0
+                  },
+                  {
+                    "week": "2026-08-24",
+                    "count": 0
+                  }
+                ],
+                "trend": "flat",
+                "delta": 0,
+                "risingTwoWeeks": false
+              },
+              {
+                "id": "capacity",
+                "index": "02",
+                "label": "용량",
+                "accent": "#7656C9",
+                "productIds": [
+                  "ai-d-b",
+                  "ai-n-d"
+                ],
+                "mentions": 0,
+                "sourceCount": 0,
+                "weekly": [
+                  {
+                    "week": "2026-07-06",
+                    "count": 0
+                  },
+                  {
+                    "week": "2026-07-13",
+                    "count": 0
+                  },
+                  {
+                    "week": "2026-07-20",
+                    "count": 0
+                  },
+                  {
+                    "week": "2026-07-27",
+                    "count": 0
+                  },
+                  {
+                    "week": "2026-08-03",
+                    "count": 0
+                  },
+                  {
+                    "week": "2026-08-10",
+                    "count": 0
+                  },
+                  {
+                    "week": "2026-08-17",
+                    "count": 0
+                  },
+                  {
+                    "week": "2026-08-24",
+                    "count": 0
+                  }
+                ],
+                "trend": "flat",
+                "delta": 0,
+                "risingTwoWeeks": false
+              },
+              {
+                "id": "power-thermal",
+                "index": "03",
+                "label": "전력·열",
+                "accent": "#00A88F",
+                "productIds": [
+                  "ai-d-o"
+                ],
+                "mentions": 0,
+                "sourceCount": 0,
+                "weekly": [
+                  {
+                    "week": "2026-07-06",
+                    "count": 0
+                  },
+                  {
+                    "week": "2026-07-13",
+                    "count": 0
+                  },
+                  {
+                    "week": "2026-07-20",
+                    "count": 0
+                  },
+                  {
+                    "week": "2026-07-27",
+                    "count": 0
+                  },
+                  {
+                    "week": "2026-08-03",
+                    "count": 0
+                  },
+                  {
+                    "week": "2026-08-10",
+                    "count": 0
+                  },
+                  {
+                    "week": "2026-08-17",
+                    "count": 0
+                  },
+                  {
+                    "week": "2026-08-24",
+                    "count": 0
+                  }
+                ],
+                "trend": "flat",
+                "delta": 0,
+                "risingTwoWeeks": false
+              },
+              {
+                "id": "package-foundry",
+                "index": "04",
+                "label": "패키징·파운드리",
+                "accent": "#C88600",
+                "productIds": [
+                  "custom-hbm"
+                ],
+                "mentions": 0,
+                "sourceCount": 0,
+                "weekly": [
+                  {
+                    "week": "2026-07-06",
+                    "count": 0
+                  },
+                  {
+                    "week": "2026-07-13",
+                    "count": 0
+                  },
+                  {
+                    "week": "2026-07-20",
+                    "count": 0
+                  },
+                  {
+                    "week": "2026-07-27",
+                    "count": 0
+                  },
+                  {
+                    "week": "2026-08-03",
+                    "count": 0
+                  },
+                  {
+                    "week": "2026-08-10",
+                    "count": 0
+                  },
+                  {
+                    "week": "2026-08-17",
+                    "count": 0
+                  },
+                  {
+                    "week": "2026-08-24",
+                    "count": 0
+                  }
+                ],
+                "trend": "flat",
+                "delta": 0,
+                "risingTwoWeeks": false
+              },
+              {
+                "id": "logic-boundary",
+                "index": "05",
+                "label": "로직 경계",
+                "accent": "#D05A2B",
+                "productIds": [
+                  "custom-hbm"
+                ],
+                "mentions": 0,
+                "sourceCount": 0,
+                "weekly": [
+                  {
+                    "week": "2026-07-06",
+                    "count": 0
+                  },
+                  {
+                    "week": "2026-07-13",
+                    "count": 0
+                  },
+                  {
+                    "week": "2026-07-20",
+                    "count": 0
+                  },
+                  {
+                    "week": "2026-07-27",
+                    "count": 0
+                  },
+                  {
+                    "week": "2026-08-03",
+                    "count": 0
+                  },
+                  {
+                    "week": "2026-08-10",
+                    "count": 0
+                  },
+                  {
+                    "week": "2026-08-17",
+                    "count": 0
+                  },
+                  {
+                    "week": "2026-08-24",
+                    "count": 0
+                  }
+                ],
+                "trend": "flat",
+                "delta": 0,
+                "risingTwoWeeks": false
+              }
+            ],
+            "whyLost": [
+              {
+                "id": "pricing",
+                "index": "01",
+                "label": "가격 정책",
+                "productIds": [],
+                "mentions": 1,
+                "sourceCount": 1,
+                "weekly": [
+                  {
+                    "week": "2026-07-06",
+                    "count": 0
+                  },
+                  {
+                    "week": "2026-07-13",
+                    "count": 0
+                  },
+                  {
+                    "week": "2026-07-20",
+                    "count": 0
+                  },
+                  {
+                    "week": "2026-07-27",
+                    "count": 1
+                  },
+                  {
+                    "week": "2026-08-03",
+                    "count": 0
+                  },
+                  {
+                    "week": "2026-08-10",
+                    "count": 0
+                  },
+                  {
+                    "week": "2026-08-17",
+                    "count": 0
+                  },
+                  {
+                    "week": "2026-08-24",
+                    "count": 0
+                  }
+                ],
+                "trend": "flat",
+                "delta": 0,
+                "risingTwoWeeks": false,
+                "latest": {
+                  "id": "98891210464e6167edec",
+                  "title": "Dwindling cash and soaring memory costs: Tech's AI buildout has ballooning price tag",
+                  "summary": "Amazon, Alphabet and Tesla all reported negative cash flow in the latest quarter, while Meta's cash generation plummeted by 91%",
+                  "text": "cnbc account_intel dwindling cash and soaring memory costs: tech's ai buildout has ballooning price tag dwindling cash and soaring memory costs: tech's ai buildout has ballooning price tag amazon, alphabet and tesla all reported negative cash flow in the latest quarter, while meta's cash generation plummeted by 91%",
+                  "source": "CNBC",
+                  "sourceClass": "authoritative-media",
+                  "origin": "live-crawl",
+                  "url": "https://www.cnbc.com/2026/07/31/tech-earnings-cash-memory-ai.html",
+                  "date": "2026-07-31"
+                }
+              },
+              {
+                "id": "one-stop",
+                "index": "02",
+                "label": "원스톱 통합",
+                "productIds": [],
+                "mentions": 0,
+                "sourceCount": 0,
+                "weekly": [
+                  {
+                    "week": "2026-07-06",
+                    "count": 0
+                  },
+                  {
+                    "week": "2026-07-13",
+                    "count": 0
+                  },
+                  {
+                    "week": "2026-07-20",
+                    "count": 0
+                  },
+                  {
+                    "week": "2026-07-27",
+                    "count": 0
+                  },
+                  {
+                    "week": "2026-08-03",
+                    "count": 0
+                  },
+                  {
+                    "week": "2026-08-10",
+                    "count": 0
+                  },
+                  {
+                    "week": "2026-08-17",
+                    "count": 0
+                  },
+                  {
+                    "week": "2026-08-24",
+                    "count": 0
+                  }
+                ],
+                "trend": "flat",
+                "delta": 0,
+                "risingTwoWeeks": false
+              },
+              {
+                "id": "spec-gate",
+                "index": "03",
+                "label": "스펙 게이트",
+                "productIds": [],
+                "mentions": 0,
+                "sourceCount": 0,
+                "weekly": [
+                  {
+                    "week": "2026-07-06",
+                    "count": 0
+                  },
+                  {
+                    "week": "2026-07-13",
+                    "count": 0
+                  },
+                  {
+                    "week": "2026-07-20",
+                    "count": 0
+                  },
+                  {
+                    "week": "2026-07-27",
+                    "count": 0
+                  },
+                  {
+                    "week": "2026-08-03",
+                    "count": 0
+                  },
+                  {
+                    "week": "2026-08-10",
+                    "count": 0
+                  },
+                  {
+                    "week": "2026-08-17",
+                    "count": 0
+                  },
+                  {
+                    "week": "2026-08-24",
+                    "count": 0
+                  }
+                ],
+                "trend": "flat",
+                "delta": 0,
+                "risingTwoWeeks": false
+              },
+              {
+                "id": "diversification",
+                "index": "04",
+                "label": "의도적 다변화",
+                "productIds": [],
+                "mentions": 0,
+                "sourceCount": 0,
+                "weekly": [
+                  {
+                    "week": "2026-07-06",
+                    "count": 0
+                  },
+                  {
+                    "week": "2026-07-13",
+                    "count": 0
+                  },
+                  {
+                    "week": "2026-07-20",
+                    "count": 0
+                  },
+                  {
+                    "week": "2026-07-27",
+                    "count": 0
+                  },
+                  {
+                    "week": "2026-08-03",
+                    "count": 0
+                  },
+                  {
+                    "week": "2026-08-10",
+                    "count": 0
+                  },
+                  {
+                    "week": "2026-08-17",
+                    "count": 0
+                  },
+                  {
+                    "week": "2026-08-24",
+                    "count": 0
+                  }
+                ],
+                "trend": "flat",
+                "delta": 0,
+                "risingTwoWeeks": false
+              }
+            ],
+            "generationProgression": {
+              "status": "insufficient",
+              "generations": []
+            },
+            "evidenceStream": [
+              {
+                "title": "Tesla’s Terafab Takes Shape in Texas with $16.8B First Phase; Memory Engineering Hiring Signals DRAM Push",
+                "source": "TrendForce",
+                "sourceClass": "research",
+                "url": "https://www.trendforce.com/news/2026/08/07/news-teslas-terafab-takes-shape-in-texas-with-16-8b-first-phase-memory-engineering-hiring-signals-dram-push",
+                "date": "2026-08-07"
+              },
+              {
+                "title": "Dwindling cash and soaring memory costs: Tech's AI buildout has ballooning price tag",
+                "source": "CNBC",
+                "sourceClass": "authoritative-media",
+                "url": "https://www.cnbc.com/2026/07/31/tech-earnings-cash-memory-ai.html",
+                "date": "2026-07-31"
+              }
+            ],
+            "chipStage": "공식 Roadmap 모니터",
+            "stageLedger": {
+              "stage": "UNVERIFIED",
+              "label": "고객 제안 단계 검토"
+            }
           }
         ]
       },
@@ -6324,6 +8175,24 @@
                 }
               }
             ],
+            "chipPortfolio": [
+              {
+                "name": "MTIA",
+                "type": "INFERENCE ASIC",
+                "workload": "Recommendation · Ads · Generative AI Inference",
+                "publicSpec": "다세대 MTIA 인프라 배포 공개 · Memory Spec은 세대별 확인",
+                "memoryPain": "HBM I/O · Chiplet/Package Scaling · Cost/Task",
+                "memoryProposal": "Custom HBM · AI-D O/B · Fabric Co-Design",
+                "evidenceLabel": "OFFICIAL ROADMAP",
+                "sourceId": "meta-engineering",
+                "source": {
+                  "id": "meta-engineering",
+                  "name": "Meta Engineering",
+                  "url": "https://engineering.fb.com/2025/09/29/data-infrastructure/metas-infrastructure-evolution-and-the-advent-of-ai/",
+                  "sourceClass": "official"
+                }
+              }
+            ],
             "stage": "고객 제안 단계 검토",
             "pain": "추천·광고 추론의 HBM I/O·Chiplet·Package Scaling",
             "memory": "Custom HBM · AI-D · Fabric",
@@ -6959,7 +8828,6 @@
               }
             ],
             "chipStage": "인프라 배포 공개",
-            "chipPortfolio": [],
             "stageLedger": {
               "stage": "UNVERIFIED",
               "label": "고객 제안 단계 검토"
@@ -8848,6 +10716,24 @@
               }
             }
           ],
+          "chipPortfolio": [
+            {
+              "name": "Vera Rubin",
+              "type": "RACK-SCALE GPU PLATFORM",
+              "workload": "Training · Reasoning · Agentic Inference",
+              "publicSpec": "Vera Rubin 플랫폼 공개 · 세부 HBM 공급 수치는 공식 확인 필요",
+              "memoryPain": "HBM 대역폭·Capacity · NVLink Fabric · Rack 전력 동시 병목",
+              "memoryProposal": "Custom HBM · AI-D B · AI-N/eSSD Tier",
+              "evidenceLabel": "OFFICIAL PLATFORM",
+              "sourceId": "nvidia-newsroom",
+              "source": {
+                "id": "nvidia-newsroom",
+                "name": "NVIDIA Newsroom",
+                "url": "https://nvidianews.nvidia.com/news/nvidia-vera-rubin-platform",
+                "sourceClass": "official"
+              }
+            }
+          ],
           "stage": "고객 제안 단계 검토",
           "pain": "Rack-scale Agentic AI의 Memory·Fabric·전력 동시 병목",
           "memory": "Custom HBM · AI-D · AI-N/eSSD",
@@ -9399,7 +11285,6 @@
             }
           ],
           "chipStage": "공식 플랫폼 공개",
-          "chipPortfolio": [],
           "stageLedger": {
             "stage": "UNVERIFIED",
             "label": "고객 제안 단계 검토"
@@ -11254,6 +13139,24 @@
               }
             }
           ],
+          "chipPortfolio": [
+            {
+              "name": "MTIA",
+              "type": "INFERENCE ASIC",
+              "workload": "Recommendation · Ads · Generative AI Inference",
+              "publicSpec": "다세대 MTIA 인프라 배포 공개 · Memory Spec은 세대별 확인",
+              "memoryPain": "HBM I/O · Chiplet/Package Scaling · Cost/Task",
+              "memoryProposal": "Custom HBM · AI-D O/B · Fabric Co-Design",
+              "evidenceLabel": "OFFICIAL ROADMAP",
+              "sourceId": "meta-engineering",
+              "source": {
+                "id": "meta-engineering",
+                "name": "Meta Engineering",
+                "url": "https://engineering.fb.com/2025/09/29/data-infrastructure/metas-infrastructure-evolution-and-the-advent-of-ai/",
+                "sourceClass": "official"
+              }
+            }
+          ],
           "stage": "고객 제안 단계 검토",
           "pain": "추천·광고 추론의 HBM I/O·Chiplet·Package Scaling",
           "memory": "Custom HBM · AI-D · Fabric",
@@ -11889,7 +13792,6 @@
             }
           ],
           "chipStage": "인프라 배포 공개",
-          "chipPortfolio": [],
           "stageLedger": {
             "stage": "UNVERIFIED",
             "label": "고객 제안 단계 검토"
@@ -11919,6 +13821,24 @@
                 "id": "tesla-ai",
                 "name": "Tesla Investor Relations",
                 "url": "https://ir.tesla.com/"
+              }
+            }
+          ],
+          "chipPortfolio": [
+            {
+              "name": "AI5 · Dojo",
+              "type": "EDGE · TRAINING SILICON",
+              "workload": "Vehicle Inference · Robotics · Training Data Loop",
+              "publicSpec": "AI Silicon·Robotics Roadmap 공개 · Memory Spec 미공개",
+              "memoryPain": "Latency · 저전력 · 열 · High-capacity Training Tier",
+              "memoryProposal": "AI-D E · LPDDR · High-endurance AI-N",
+              "evidenceLabel": "OFFICIAL ROADMAP",
+              "sourceId": "tesla-ai",
+              "source": {
+                "id": "tesla-ai",
+                "name": "Tesla Investor Relations",
+                "url": "https://ir.tesla.com/",
+                "sourceClass": "official"
               }
             }
           ],
@@ -12435,7 +14355,6 @@
             }
           ],
           "chipStage": "공식 Roadmap 모니터",
-          "chipPortfolio": [],
           "stageLedger": {
             "stage": "UNVERIFIED",
             "label": "고객 제안 단계 검토"
@@ -19040,6 +20959,24 @@
               }
             }
           ],
+          "chipPortfolio": [
+            {
+              "name": "Vera Rubin",
+              "type": "RACK-SCALE GPU PLATFORM",
+              "workload": "Training · Reasoning · Agentic Inference",
+              "publicSpec": "Vera Rubin 플랫폼 공개 · 세부 HBM 공급 수치는 공식 확인 필요",
+              "memoryPain": "HBM 대역폭·Capacity · NVLink Fabric · Rack 전력 동시 병목",
+              "memoryProposal": "Custom HBM · AI-D B · AI-N/eSSD Tier",
+              "evidenceLabel": "OFFICIAL PLATFORM",
+              "sourceId": "nvidia-newsroom",
+              "source": {
+                "id": "nvidia-newsroom",
+                "name": "NVIDIA Newsroom",
+                "url": "https://nvidianews.nvidia.com/news/nvidia-vera-rubin-platform",
+                "sourceClass": "official"
+              }
+            }
+          ],
           "stage": "고객 제안 단계 검토",
           "pain": "Rack-scale Agentic AI의 Memory·Fabric·전력 동시 병목",
           "memory": "Custom HBM · AI-D · AI-N/eSSD",
@@ -19591,7 +21528,6 @@
             }
           ],
           "chipStage": "공식 플랫폼 공개",
-          "chipPortfolio": [],
           "stageLedger": {
             "stage": "UNVERIFIED",
             "label": "고객 제안 단계 검토"
@@ -21446,6 +23382,24 @@
               }
             }
           ],
+          "chipPortfolio": [
+            {
+              "name": "MTIA",
+              "type": "INFERENCE ASIC",
+              "workload": "Recommendation · Ads · Generative AI Inference",
+              "publicSpec": "다세대 MTIA 인프라 배포 공개 · Memory Spec은 세대별 확인",
+              "memoryPain": "HBM I/O · Chiplet/Package Scaling · Cost/Task",
+              "memoryProposal": "Custom HBM · AI-D O/B · Fabric Co-Design",
+              "evidenceLabel": "OFFICIAL ROADMAP",
+              "sourceId": "meta-engineering",
+              "source": {
+                "id": "meta-engineering",
+                "name": "Meta Engineering",
+                "url": "https://engineering.fb.com/2025/09/29/data-infrastructure/metas-infrastructure-evolution-and-the-advent-of-ai/",
+                "sourceClass": "official"
+              }
+            }
+          ],
           "stage": "고객 제안 단계 검토",
           "pain": "추천·광고 추론의 HBM I/O·Chiplet·Package Scaling",
           "memory": "Custom HBM · AI-D · Fabric",
@@ -22081,7 +24035,6 @@
             }
           ],
           "chipStage": "인프라 배포 공개",
-          "chipPortfolio": [],
           "stageLedger": {
             "stage": "UNVERIFIED",
             "label": "고객 제안 단계 검토"
@@ -22111,6 +24064,24 @@
                 "id": "tesla-ai",
                 "name": "Tesla Investor Relations",
                 "url": "https://ir.tesla.com/"
+              }
+            }
+          ],
+          "chipPortfolio": [
+            {
+              "name": "AI5 · Dojo",
+              "type": "EDGE · TRAINING SILICON",
+              "workload": "Vehicle Inference · Robotics · Training Data Loop",
+              "publicSpec": "AI Silicon·Robotics Roadmap 공개 · Memory Spec 미공개",
+              "memoryPain": "Latency · 저전력 · 열 · High-capacity Training Tier",
+              "memoryProposal": "AI-D E · LPDDR · High-endurance AI-N",
+              "evidenceLabel": "OFFICIAL ROADMAP",
+              "sourceId": "tesla-ai",
+              "source": {
+                "id": "tesla-ai",
+                "name": "Tesla Investor Relations",
+                "url": "https://ir.tesla.com/",
+                "sourceClass": "official"
               }
             }
           ],
@@ -22627,7 +24598,6 @@
             }
           ],
           "chipStage": "공식 Roadmap 모니터",
-          "chipPortfolio": [],
           "stageLedger": {
             "stage": "UNVERIFIED",
             "label": "고객 제안 단계 검토"

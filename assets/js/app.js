@@ -13239,7 +13239,10 @@
           <p>${escapeHTML(asicPortfolio.description || "공개 사양과 미공개 항목을 분리")}</p>
         </header>
         <div class="sc-asic-priority-grid">
-          ${priorityAsicAccounts.flatMap((account) => (account.chipPortfolio || []).map((chip) => `
+          ${priorityAsicAccounts.map((account) => {
+            const chip = account.chipPortfolio?.[0] || {};
+            const publicSpec = chip.publicSpec || account.baseline?.[0]?.value || "공개 사양 추가 확인";
+            return `
             <article class="sc-asic-priority-card" tabindex="0">
               <div class="sc-asic-card-head">
                 <span>${escapeHTML(account.company || "")}</span>
@@ -13248,17 +13251,14 @@
               <h5>${escapeHTML(chip.name || account.chip || "")}</h5>
               <small>${escapeHTML(chip.type || "CUSTOM ASIC")}</small>
               <dl>
-                <div><dt>WORKLOAD</dt><dd>${escapeHTML(chip.workload || "")}</dd></div>
-                <div><dt>PUBLIC</dt><dd>${strategicHighlightHTML(chip.publicSpec || "공개 사양 확인 필요")}</dd></div>
+                <div><dt>WORKLOAD</dt><dd>${escapeHTML(chip.workload || account.chip || "AI Workload")}</dd></div>
+                <div><dt>PUBLIC</dt><dd>${strategicHighlightHTML(publicSpec)}</dd></div>
                 <div><dt>MEMORY PAIN</dt><dd>${strategicHighlightHTML(chip.memoryPain || account.pain || "")}</dd></div>
                 <div><dt>SKH OPTION</dt><dd>${strategicHighlightHTML(chip.memoryProposal || account.memory || "")}</dd></div>
+                <div><dt>DECISION GATE</dt><dd>${escapeHTML(account.gate || "Qualification · Capacity")}</dd></div>
               </dl>
-              <div class="sc-asic-card-foot">
-                <span>${chip.publicSpec?.includes("미공개") ? "미공개 사양 추정 금지" : "공식 수치 기준"}</span>
-                ${chip.source?.url ? `<a href="${escapeHTML(chip.source.url)}" target="_blank" rel="noopener noreferrer">원문 ↗</a>` : ""}
-              </div>
             </article>
-          `)).join("")}
+          `}).join("")}
         </div>
         <p class="sc-asic-policy">${escapeHTML(asicPortfolio.evidencePolicy || "공식 원문 기준")}</p>
       </section>` : ""}
@@ -19600,7 +19600,7 @@
   }
 
   const HYPERSCALER_PROJECTION_ORDER = [
-    "nvidia", "google", "microsoft", "aws", "meta", "openai", "anthropic", "apple", "tesla", "spacex",
+    "google", "microsoft", "aws", "apple", "spacex", "nvidia", "meta", "tesla",
   ];
 
   function hyperscalerProjectionModel() {
@@ -19710,11 +19710,15 @@
     `).join("");
 
     accountTabs.className = "projection-scenario-tabs projection-account-tabs";
-    accountTabs.innerHTML = model.accounts.map((account, index) => `
-      <button class="projection-account-tab reveal${account.id === selected.id ? " active" : ""}" type="button" data-projection-account="${escapeHTML(account.id)}" aria-pressed="${account.id === selected.id ? "true" : "false"}" style="--account-accent:${escapeHTML(account.accent || "#08766f")};animation-delay:${index * 18}ms">
-        <span>${String(index + 1).padStart(2, "0")}</span>
+    accountTabs.innerHTML = model.accounts.map((account) => `
+      <button class="projection-account-tab reveal${account.id === selected.id ? " active" : ""}" type="button" data-projection-account="${escapeHTML(account.id)}" aria-pressed="${account.id === selected.id ? "true" : "false"}" style="--account-accent:${escapeHTML(account.accent || "#08766f")}">
         <strong>${escapeHTML(account.company)}</strong>
         <small>${escapeHTML(account.chip || "AI Platform")}</small>
+        <dl>
+          <div><dt>PAIN</dt><dd>${escapeHTML(account.pain || "")}</dd></div>
+          <div><dt>OPTION</dt><dd>${escapeHTML(account.memory || "")}</dd></div>
+          <div><dt>GATE</dt><dd>${escapeHTML(account.gate || "")}</dd></div>
+        </dl>
       </button>
     `).join("");
 

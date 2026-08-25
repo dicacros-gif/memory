@@ -242,7 +242,7 @@ assert.ok(rebuilt.strategyBoard.customerPortfolio.focusAccounts.filter((item) =>
 assert.equal(rebuilt.strategyBoard.customerPortfolio.pillars.length, 3);
 assert.deepEqual(
   rebuilt.strategyBoard.customerPortfolio.asicPortfolio.accounts.map((item) => item.id),
-  ["google", "microsoft", "aws", "apple", "spacex"],
+  ["google", "microsoft", "aws", "apple", "spacex", "nvidia", "meta", "tesla"],
   "priority ASIC portfolio must keep the customer decision order",
 );
 assert.ok(
