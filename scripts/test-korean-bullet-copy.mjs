@@ -15,7 +15,7 @@ assert.doesNotMatch(html, /business-decision-method/, "the removed five-step str
 assert.doesNotMatch(html, /acceleratorScorecard|Accelerator Decision Scorecard/, "the removed accelerator scorecard must stay absent");
 assert.doesNotMatch(html, /business-fabric-workloads/, "the removed workload tab strip must stay absent");
 const heroScope = html.match(/<ul class="business-hero-bullets"[\s\S]*?<\/ul>/)?.[0] ?? "";
-assert.equal((heroScope.match(/<li>/g) ?? []).length, 4, "hero scope must contain four intact MECE strategy rows");
+assert.equal((heroScope.match(/<li>/g) ?? []).length, 3, "hero scope must contain three intact MECE strategy pillars");
 assert.match(heroScope, /data-copy-verbatim/, "hero strategy rows must preserve full copy instead of adding ellipses");
 assert.doesNotMatch(heroScope, /…/, "hero strategy rows must not ship with clipped copy");
 const heroOpening = html.match(/<section class="business-hero"[\s\S]*?<h2>/)?.[0] ?? "";
@@ -84,7 +84,7 @@ assert.doesNotMatch(visibleMarkup, /[가-힣]+다(?:[.!?。]|\s*$)/m, "static us
 assert.equal(normalizeHtmlExecutiveCopy(html), html, "checked-in HTML must already use normalized executive bullets");
 
 console.log(JSON.stringify({
-  heroBullets: 4,
+  heroBullets: (heroScope.match(/<li>/g) ?? []).length,
   decisionAnswerLists: answerLists.length,
   revision: "infra-[a-f0-9]{12}",
 }, null, 2));

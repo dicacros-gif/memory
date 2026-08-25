@@ -63,6 +63,24 @@ const compact = (value = "", limit = 180) => {
   if (text.length <= limit) return text;
   return `${text.slice(0, Math.max(1, limit - 1)).trimEnd()}…`;
 };
+const canonicalExecutiveKey = (value = "") => compact(value, 500)
+  .toLocaleLowerCase("ko-KR")
+  .replace(/[^\p{L}\p{N}]+/gu, "");
+const dedupeExecutiveList = (items = [], seen = new Set()) => {
+  const unique = [];
+  let suppressed = 0;
+  for (const item of items || []) {
+    const value = compact(item, 220);
+    const key = canonicalExecutiveKey(value);
+    if (!key || seen.has(key)) {
+      suppressed += 1;
+      continue;
+    }
+    seen.add(key);
+    unique.push(value);
+  }
+  return { items: unique, suppressed };
+};
 const publishedAt = (item = {}, fallback = null) => item.publishedAt || item.date || item.observedAt || item.crawledAt || fallback || null;
 const normalizeDisplayPayload = (value) => {
   if (typeof value === "string") return normalizeKoreanTerminology(executiveBulletCopy(value));
@@ -655,6 +673,13 @@ function buildOrganizationOperatingModel(insights = [], generatedAt = null, runI
   const insightMap = new Map((insights || []).map((item) => [item.id, item]));
   const usedInsightIds = new Set();
   const usedSignalUrls = new Set();
+  const fieldSeen = {
+    inputs: new Set(),
+    questions: new Set(),
+    outputs: new Set(),
+    kpis: new Set(),
+  };
+  let suppressedItems = 0;
   const workstreams = (operatingModel.workstreams || []).map((workstream) => {
     const candidates = (workstream.evidenceIds || [])
       .map((id) => insightMap.get(id))
@@ -667,8 +692,14 @@ function buildOrganizationOperatingModel(insights = [], generatedAt = null, runI
     if (current?.id) usedInsightIds.add(current.id);
     const signalUrl = current?.latest?.url || fallbackSource?.url || null;
     if (signalUrl) usedSignalUrls.add(signalUrl);
+    const meceFields = Object.fromEntries(Object.entries(fieldSeen).map(([field, seen]) => {
+      const deduped = dedupeExecutiveList(workstream[field], seen);
+      suppressedItems += deduped.suppressed;
+      return [field, deduped.items];
+    }));
     return {
       ...workstream,
+      ...meceFields,
       currentSignal: current ? {
         title: compact(current.latest.title, 112),
         decision: compact(current.decision || current.implication, 126),
@@ -693,6 +724,13 @@ function buildOrganizationOperatingModel(insights = [], generatedAt = null, runI
     generatedAt,
     workstreams,
     liveEvidenceCount: workstreams.filter((item) => item.currentSignal).length,
+    automation: {
+      taxonomy: "three-pillar-mece",
+      duplicateSuppression: "canonical-field-key",
+      duplicateCount: 0,
+      suppressedItems,
+      dynamicEvidence: true,
+    },
   };
 }
 
@@ -1421,9 +1459,15 @@ export function validateSiteContent(content = {}) {
   if (!Array.isArray(content.organizationOperatingModel?.decisionLoop) || content.organizationOperatingModel.decisionLoop.length < 5) errors.push("organizationOperatingModel.decisionLoop");
   if (!Array.isArray(content.organizationOperatingModel?.units) || content.organizationOperatingModel.units.map((item) => item.label).join("|") !== "GSM|HBM BUSINESS|MSR") errors.push("organizationOperatingModel.units");
   if (!directUrl(content.organizationOperatingModel?.source?.url)) errors.push("organizationOperatingModel.source");
-  if (!Array.isArray(content.organizationOperatingModel?.workstreams) || content.organizationOperatingModel.workstreams.length !== 4) errors.push("organizationOperatingModel.workstreams");
+  if (!Array.isArray(content.organizationOperatingModel?.workstreams) || content.organizationOperatingModel.workstreams.length !== 3) errors.push("organizationOperatingModel.workstreams");
   if (!(content.organizationOperatingModel?.workstreams || []).every((item) => item?.mandate && item?.inputs?.length >= 4 && item?.questions?.length >= 3 && item?.outputs?.length >= 4 && item?.gate && item?.kpis?.length >= 3)) errors.push("organizationOperatingModel.workstreamContract");
-  if (!Array.isArray(content.hero?.workProducts) || content.hero.workProducts.length !== 4) errors.push("hero.workProducts");
+  if ((content.organizationOperatingModel?.workstreams || []).map((item) => item.id).join("|") !== "account-intelligence|tech-portfolio-strategy|executive-deal-execution") errors.push("organizationOperatingModel.meceIds");
+  if (content.organizationOperatingModel?.automation?.taxonomy !== "three-pillar-mece" || Number(content.organizationOperatingModel?.automation?.duplicateCount ?? 1) !== 0) errors.push("organizationOperatingModel.meceAutomation");
+  for (const field of ["inputs", "questions", "outputs", "kpis"]) {
+    const values = (content.organizationOperatingModel?.workstreams || []).flatMap((item) => item[field] || []).map(canonicalExecutiveKey);
+    if (new Set(values).size !== values.length) errors.push(`organizationOperatingModel.mece.${field}`);
+  }
+  if (!Array.isArray(content.hero?.workProducts) || content.hero.workProducts.length !== 3) errors.push("hero.workProducts");
   if (!Array.isArray(content.hero?.workflow) || content.hero.workflow.length !== 4) errors.push("hero.workflow");
   if (!Array.isArray(content.hero?.departmentWorkbench?.agenda) || content.hero.departmentWorkbench.agenda.length < 3) errors.push("hero.departmentWorkbench.agenda");
   const agenda = content.hero?.departmentWorkbench?.agenda || [];

@@ -41,7 +41,7 @@ assert.ok(rebuilt.freshness.officialConfigured >= 33);
 assert.equal(rebuilt.freshness.scheduleHours, 1);
 assert.equal(rebuilt.freshness.browserRecheckMinutes, 5);
 assert.deepEqual(rebuilt.hero.titleLines, ["AI Infra Strategy", "Hyperscaler Roadmap to Memory Business"]);
-assert.equal(rebuilt.hero.capabilities.length, 4, "the homepage strategy scope must cover four MECE workstreams");
+assert.equal(rebuilt.hero.capabilities.length, 3, "the homepage strategy scope must cover three MECE pillars");
 assert.equal(artifact.runId, payload.runId, "site content must use the verified live runId");
 assert.equal(manifest.runId, artifact.runId, "manifest and site content must be atomic");
 assert.ok((quarantine.items || []).every((item) => item.reason && item.reason !== "?" && item.reasonLabel && item.reasonLabel !== "?"), "every quarantine record must expose an auditable primary reason");
@@ -74,15 +74,21 @@ assert.equal(artifact.siteAutomation.refresh.atomicManifest, true);
 assert.equal(artifact.siteAutomation.refresh.failClosed, true);
 assert.deepEqual(artifact.siteAutomation.sectionIds.slice().sort(), uniqueSectionIds.sort());
 assert.equal(new Set(Object.values(artifact.siteAutomation.bindingGroups).flat()).size, uniqueSectionIds.length);
-assert.equal(artifact.organizationOperatingModel.workstreams.length, 4);
+assert.equal(artifact.organizationOperatingModel.workstreams.length, 3);
 assert.equal(artifact.organizationOperatingModel.decisionLoop.length, 5);
 assert.equal(Object.hasOwn(artifact.organizationOperatingModel, "capabilityProofs"), false);
 assert.equal(Object.hasOwn(artifact.organizationOperatingModel, "cadence"), false);
 assert.ok(artifact.organizationOperatingModel.workstreams.every((item) => item.inputs.length >= 4 && item.outputs.length >= 4 && item.gate && item.kpis.length >= 3));
-assert.deepEqual(artifact.organizationOperatingModel.workstreams.map((item) => item.id), ["customer-strategy", "workload-optimization", "new-biz-insights", "partner-execution"]);
-assert.equal(artifact.organizationOperatingModel.liveEvidenceCount, 4);
+assert.deepEqual(artifact.organizationOperatingModel.workstreams.map((item) => item.id), ["account-intelligence", "tech-portfolio-strategy", "executive-deal-execution"]);
+assert.equal(artifact.organizationOperatingModel.liveEvidenceCount, 3);
+assert.equal(artifact.organizationOperatingModel.automation.taxonomy, "three-pillar-mece");
+assert.equal(artifact.organizationOperatingModel.automation.duplicateCount, 0);
+for (const field of ["inputs", "questions", "outputs", "kpis"]) {
+  const values = artifact.organizationOperatingModel.workstreams.flatMap((item) => item[field]);
+  assert.equal(new Set(values.map((value) => value.toLocaleLowerCase("ko-KR").replace(/[^\p{L}\p{N}]+/gu, ""))).size, values.length, `${field} must stay MECE across pillars`);
+}
 assert.ok(artifact.organizationOperatingModel.workstreams.every((item) => item.currentSignal?.title && /^https?:\/\//.test(item.currentSignal?.url || "")), "each strategy workstream must connect to a current Console source");
-assert.equal(new Set(artifact.organizationOperatingModel.workstreams.map((item) => item.currentSignal?.url)).size, 4, "MECE workstreams must not repeat the same current source");
+assert.equal(new Set(artifact.organizationOperatingModel.workstreams.map((item) => item.currentSignal?.url)).size, 3, "MECE pillars must not repeat the same current source");
 const duplicateSignalPayload = structuredClone(payload);
 for (const brief of duplicateSignalPayload.intelligence?.briefs || []) {
   if (["hbm", "dram", "nand", "demand"].includes(brief.id)) {
@@ -94,9 +100,9 @@ for (const brief of duplicateSignalPayload.intelligence?.briefs || []) {
   }
 }
 const duplicateSignalContent = buildSiteContentClient({ payload: duplicateSignalPayload, quant });
-assert.equal(new Set(duplicateSignalContent.organizationOperatingModel.workstreams.map((item) => item.currentSignal?.url)).size, 4, "official baselines must prevent source collisions after a refresh");
+assert.equal(new Set(duplicateSignalContent.organizationOperatingModel.workstreams.map((item) => item.currentSignal?.url)).size, 3, "official baselines must prevent source collisions after a refresh");
 assert.ok(duplicateSignalContent.organizationOperatingModel.workstreams.some((item) => item.currentSignal?.evidenceLevel === "Official baseline"), "source collision fallback must remain explicit");
-assert.equal(rebuilt.hero.workProducts.length, 4);
+assert.equal(rebuilt.hero.workProducts.length, 3);
 assert.equal(rebuilt.hero.workflow.length, 4);
 assert.equal(rebuilt.hero.departmentWorkbench.source, "accounts.projects");
 assert.equal(rebuilt.hero.departmentWorkbench.agenda.length, 3);
@@ -453,9 +459,9 @@ assert.equal(executiveSnapshot.decisions.length, artifact.decisionIntelligence.d
 assert.ok(executiveSnapshot.decisions.every((brief) => brief.factBoundary && brief.hypothesisStatus === "strategy-hypothesis"));
 assert.equal(new Set(executiveSnapshot.decisions.map((brief) => brief.decisionQuestion)).size, executiveSnapshot.decisions.length, "pre-rendered executive decisions must have unique questions");
 assert.match(consoleSnapshot, /AI Infra Strategy · Executive Snapshot/);
-assert.match(consoleSnapshot, /SK HYNIX AI INFRA · FOUR WORKSTREAMS/);
-assert.equal((consoleSnapshot.match(/class="workstream-card"/g) || []).length, 4);
-assert.equal((consoleSnapshot.match(/class="workstream-signal"/g) || []).length, 4);
+assert.match(consoleSnapshot, /AI INFRA · THREE STRATEGY PILLARS/);
+assert.equal((consoleSnapshot.match(/class="workstream-card"/g) || []).length, 3);
+assert.equal((consoleSnapshot.match(/class="workstream-signal"/g) || []).length, 3);
 assert.match(consoleSnapshot, /MECE DECISION ARCHITECTURE · ONE OWNER PER QUESTION/);
 assert.match(consoleSnapshot, /ClaimEvent/);
 assert.doesNotMatch(consoleSnapshot, /STAGE · (?:CUSTOMER_QUALIFICATION|ARCHITECTURE_BENCHMARK|BUSINESS_CASE|SCALE_GATE)|KILL CRITERIA/);

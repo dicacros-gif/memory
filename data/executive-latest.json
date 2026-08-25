@@ -495,8 +495,8 @@
     }
   ],
   "organizationOperatingModel": {
-    "title": "SK hynix AI Infra 실행 전략",
-    "thesis": "고객 Pain Point → Workload 진단 → Memory·신규 Biz 대안 → 파트너 실행 → 경영진 판단",
+    "title": "AI Infra Strategy · Three-Pillar Operating Model",
+    "thesis": "Account Intelligence → Next Memory Portfolio → Executive Deal",
     "sourceId": "skhynix-ai-infra-org",
     "units": [
       {
@@ -523,10 +523,10 @@
     ],
     "nextMemoryStrategy": {
       "label": "NEXT MEMORY STRATEGY",
-      "role": "GSM 고객 신호·HBM Business 실행력·MSR 기술 탐색을 경영진 의사결정으로 연결",
+      "role": "GSM 고객 신호·HBM Business 실행력·MSR 기술 탐색을 하나의 투자·계약 판단으로 연결",
       "outputs": [
-        "고객별 Memory Strategy",
-        "Next Memory Portfolio",
+        "Account Decision Brief",
+        "Next Memory Business Case",
         "Executive Deal Pack"
       ]
     },
@@ -539,88 +539,43 @@
     ],
     "workstreams": [
       {
-        "id": "customer-strategy",
+        "id": "account-intelligence",
         "index": "01",
-        "label": "CUSTOMER STRATEGY",
-        "title": "Pain Point 기반 맞춤형 메모리 전략",
-        "mandate": "주요 B2B 고객의 현황·기술·전략과 실제 Workload를 함께 분석해 구매 기준과 지배 병목을 명확히 정의",
+        "label": "ACCOUNT INTELLIGENCE",
+        "title": "Hyperscaler Pain과 구매 조건",
+        "mandate": "GPU·ASIC Roadmap과 실제 Workload/SLO를 함께 분석해 고객별 지배 병목·구매 기준·메모리 요구를 정의",
         "inputs": [
-          "Account Strategy",
-          "Product·Architecture Roadmap",
+          "Account·Chip Roadmap",
+          "System Architecture",
           "Workload Trace·SLO",
-          "Buying Criteria"
+          "Buying Criteria·Decision Owner"
         ],
         "questions": [
-          "고객의 최상위 Business Outcome은 무엇인가",
-          "Compute·Memory·Network·Storage·Facility 중 지배 병목은 무엇인가",
-          "고객 인증과 구매 결정을 움직이는 조건은 무엇인가"
+          "어떤 Business Outcome이 우선인가",
+          "Compute·Memory·Network·Storage·Facility 중 무엇이 성과를 제한하는가",
+          "Qualification과 구매 결정을 움직이는 조건은 무엇인가"
         ],
         "outputs": [
-          "Customer Fact Base",
+          "Account Fact Pack",
           "Pain Map",
           "Requirement Matrix",
-          "Memory Solution Proposal"
+          "Tailored Memory Portfolio"
         ],
-        "gate": "Pain·Decision Owner·Buying Criteria가 검증되기 전 Custom 범위를 확정하지 않음",
+        "gate": "Pain·Owner·Buying Criteria·Baseline 검증 전 Custom 범위 확정 보류",
         "kpis": [
-          "Qualification Lead Time",
           "Design Win",
+          "Qualification Lead Time",
           "Revenue Conversion"
         ],
         "evidenceIds": [
-          "hbm"
-        ],
-        "fallbackSourceIds": [
-          "microsoft-ai-infra",
-          "google-cloud-tpu",
-          "nvidia-newsroom"
-        ],
-        "currentSignal": {
-          "title": "Memory drives 62% of Nvidia Vera Rubin's cost — SOCAMM2, not HBM4, leads the bill",
-          "decision": "고객 인증·공급 일정·베이스 다이·패키징 병목을 함께 확인한 뒤 프리미엄 캐파를 배분",
-          "source": "digitimes",
-          "url": "https://www.digitimes.com/news/a20260810PD241/rubin-hbm4-cost-nvidia-chips.html",
-          "publishedAt": "2026-08-11",
-          "evidenceLevel": "Reported"
-        }
-      },
-      {
-        "id": "workload-optimization",
-        "index": "02",
-        "label": "WORKLOAD OPTIMIZATION",
-        "title": "데이터센터 Workload 최적화",
-        "mandate": "Training·Inference·RAG·Agent별 SLO와 지배 병목을 HW·SW·Memory·Network·Storage·Power/Cooling 관점에서 진단",
-        "inputs": [
-          "Workload Trace·SLO",
-          "Application·Serving SW",
-          "System Telemetry",
-          "Facility·Supply Constraint"
-        ],
-        "questions": [
-          "고객 Business Outcome을 제한하는 지배 병목은 무엇인가",
-          "SW 최적화와 Memory Tier 중 어떤 대안이 우선인가",
-          "동일 Workload에서 TCO와 성능을 재현할 수 있는가"
-        ],
-        "outputs": [
-          "Bottleneck Tree",
-          "Architecture Benchmark",
-          "Memory Tier Proposal",
-          "System TCO"
-        ],
-        "gate": "Trace·Baseline·SLO·TCO가 같은 조건에서 재현되기 전 증설 또는 Custom 투자를 보류",
-        "kpis": [
-          "Goodput·P99",
-          "Cost/Successful Task",
-          "Qualification Lead Time"
-        ],
-        "evidenceIds": [
-          "nand",
+          "hbm",
           "demand"
         ],
         "fallbackSourceIds": [
-          "anthropic-trainium",
+          "nvidia-newsroom",
           "google-cloud-tpu",
-          "aws-trainium"
+          "aws-trainium",
+          "microsoft-ai-infra"
         ],
         "currentSignal": {
           "title": "Micron Warns AI Memory Wall Worsens; Cites HBM in 17% of Meta Llama 3 Training Interruptions",
@@ -632,29 +587,29 @@
         }
       },
       {
-        "id": "new-biz-insights",
-        "index": "03",
-        "label": "NEW BIZ & INSIGHTS",
-        "title": "AI·LLM 변곡점에서 신규 Biz 발굴",
-        "mandate": "AI Application·HW/SW·Transformer·RAG·Vector DB 변화를 Memory Demand·서비스 모델·수익성 기회로 번역",
+        "id": "tech-portfolio-strategy",
+        "index": "02",
+        "label": "TECH & PORTFOLIO STRATEGY",
+        "title": "AI 변곡점에서 Next Memory 발굴",
+        "mandate": "AI Application/HW/SW 변화를 Custom HBM·AI-D·AI-N 제품 조합과 신규 Memory Business로 번역",
         "inputs": [
           "AI App·Model Trend",
-          "Accelerator·ASIC Roadmap",
-          "Tech·Market Evidence",
-          "Competitor·Partner Signal"
+          "GPU·ASIC Generation Roadmap",
+          "Technology·Market Evidence",
+          "Competitor·Ecosystem Signal"
         ],
         "questions": [
-          "어떤 변곡점이 새로운 Memory JTBD를 만드는가",
-          "Where to Play와 Right to Win은 무엇인가",
-          "고객 지불의사와 단위경제성을 검증할 수 있는가"
+          "어떤 기술 변곡점이 새로운 Memory JTBD를 만드는가",
+          "어느 제품 계층과 서비스 모델이 고객 가치를 높이는가",
+          "Where to Play와 Right to Win을 수치로 검증할 수 있는가"
         ],
         "outputs": [
-          "Tech·Market Brief",
-          "Opportunity Thesis",
-          "Partner Screen",
+          "Tech Radar",
+          "Next Memory Thesis",
+          "Portfolio Option",
           "Business Case"
         ],
-        "gate": "고객 가치·차별화·시장성·단위경제성 가운데 하나라도 근거가 없으면 PoC 승격을 보류",
+        "gate": "고객 문제·기술 실현성·차별화·경제성 근거 중 하나라도 없으면 PoC 승격 보류",
         "kpis": [
           "Qualified Pipeline",
           "PoC Conversion",
@@ -662,13 +617,12 @@
         ],
         "evidenceIds": [
           "dram",
-          "demand",
-          "hbm"
+          "nand"
         ],
         "fallbackSourceIds": [
+          "skhynix-newsroom",
           "openai-infrastructure",
-          "marvell-custom-hbm",
-          "skhynix-newsroom"
+          "marvell-custom-hbm"
         ],
         "currentSignal": {
           "title": "Micron D1β LPDDR5X DRAM Process Full Flow Analysis",
@@ -680,32 +634,32 @@
         }
       },
       {
-        "id": "partner-execution",
-        "index": "04",
-        "label": "PARTNERS & EXECUTION",
-        "title": "파트너 공동 검증과 경영진 실행",
-        "mandate": "AI 개발사·데이터센터·OEM·Consulting/SI의 역할을 PoC·Qualification·Capacity·90일 Action으로 연결",
+        "id": "executive-deal-execution",
+        "index": "03",
+        "label": "EXECUTIVE DEAL & EXECUTION",
+        "title": "계약 판단과 대내외 실행",
+        "mandate": "GSM·HBM Business·MSR과 외부 파트너의 결정을 LTA·Qualification·Capacity·90일 실행으로 연결",
         "inputs": [
-          "Partner Capability·RACI",
-          "Verified Evidence",
-          "Qualification·Capacity",
-          "Risk·Scenario"
+          "Account Proposal",
+          "Partner RACI",
+          "Qualification·Capacity Plan",
+          "Deal Economics·Risk Scenario"
         ],
         "questions": [
-          "누가 어떤 불확실성을 제거할 것인가",
           "지금 결정·보류할 안건은 무엇인가",
+          "어느 파트너가 핵심 불확실성을 제거하는가",
           "어떤 조건에서 확대·축소·중단할 것인가"
         ],
         "outputs": [
-          "Partner Model",
-          "Executive Decision Pack",
-          "90-Day Roadmap",
-          "KPI·Trigger Dashboard"
+          "Executive One-Pager",
+          "Partner RACI",
+          "LTA·Capacity Scenario",
+          "90-Day Roadmap"
         ],
-        "gate": "Owner·KPI·Trigger·Kill Criteria와 고객 인증 경로가 없는 안건은 실행 Portfolio에서 제외",
+        "gate": "Owner·KPI·Trigger·Kill Criteria와 고객 인증 경로가 없는 안건은 실행 대상에서 제외",
         "kpis": [
           "Gate Pass Rate",
-          "Partner PoC Conversion",
+          "Deal Cycle Time",
           "Benefit Realization"
         ],
         "evidenceIds": [
@@ -715,15 +669,16 @@
         "fallbackSourceIds": [
           "broadcom-meta-mtia",
           "marvell-custom-asic",
-          "tsmc-3dfabric"
+          "tsmc-3dfabric",
+          "microsoft-ai-infra"
         ],
         "currentSignal": {
-          "title": "Broadcom × Meta MTIA · 공식 Baseline",
-          "decision": "AI 개발사·데이터센터·OEM·Consulting/SI의 역할을 PoC·Qualification·Capacity·90일 Action으로 연결",
-          "source": "Broadcom × Meta MTIA",
-          "url": "https://investors.broadcom.com/node/64236/pdf",
-          "publishedAt": "2026-08-25T10:17:37.700Z",
-          "evidenceLevel": "Official baseline"
+          "title": "Memory drives 62% of Nvidia Vera Rubin's cost — SOCAMM2, not HBM4, leads the bill",
+          "decision": "고객 인증·공급 일정·베이스 다이·패키징 병목을 함께 확인한 뒤 프리미엄 캐파를 배분",
+          "source": "digitimes",
+          "url": "https://www.digitimes.com/news/a20260810PD241/rubin-hbm4-cost-nvidia-chips.html",
+          "publishedAt": "2026-08-11",
+          "evidenceLevel": "Reported"
         }
       }
     ],
@@ -769,7 +724,14 @@
     },
     "runId": "32834724155",
     "generatedAt": "2026-08-25T10:17:37.700Z",
-    "liveEvidenceCount": 4
+    "liveEvidenceCount": 3,
+    "automation": {
+      "taxonomy": "three-pillar-mece",
+      "duplicateSuppression": "canonical-field-key",
+      "duplicateCount": 0,
+      "suppressedItems": 0,
+      "dynamicEvidence": true
+    }
   },
   "claimEvents": [
     {

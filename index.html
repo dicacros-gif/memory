@@ -131,7 +131,7 @@
     (() => {
       if (!location.hash.startsWith("#console")) return;
       document.documentElement.classList.add("console-entry");
-      const revision = "infra-03d3d4714113";
+      const revision = "infra-a87f97ae58cb";
       const assets = [
         ["consoleStylesPreload", "style", `assets/css/styles.min.css?v=${revision}`, "high"],
         ["consoleAppPreload", "script", `assets/js/app.min.js?v=${revision}`, "high"],
@@ -148,7 +148,7 @@
       }
     })();
   </script>
-  <link rel="stylesheet" href="assets/css/landing.min.css?v=infra-03d3d4714113" />
+  <link rel="stylesheet" href="assets/css/landing.min.css?v=infra-a87f97ae58cb" />
 </head>
 <body class="landing-mode">
   <h1 class="site-document-title">AI Infra Strategy</h1>
@@ -201,10 +201,9 @@
           <div class="business-hero-copy">
             <h2>AI Infra Strategy<br /><em>Hyperscaler Roadmap to Memory Business</em></h2>
             <ul class="business-hero-bullets" aria-label="핵심 전략 범위" data-copy-verbatim>
-              <li>Customer Strategy · GPU·ASIC Roadmap → Pain Map → Buying Criteria → 맞춤형 Memory Proposal</li>
-              <li>Workload Optimization · Training/Inference/RAG/Agent → Bottleneck → HW/SW·Memory TCO</li>
-              <li>New Biz &amp; Insight · AI/LLM 변곡점 → Where to Play → Partner → Business Case</li>
-              <li>Partners &amp; Cases · 공동 PoC → 고객 인증 → Capacity → 익명화 성과</li>
+              <li>Account Intelligence · Hyperscaler·GPU·ASIC Roadmap + Workload/SLO → Pain Map · Buying Criteria · Requirement</li>
+              <li>Tech &amp; Portfolio Strategy · AI App/HW/SW 변곡점 → Custom HBM·AI-D·AI-N → Next Memory Business</li>
+              <li>Executive Deal &amp; Execution · Partner/RACI + LTA·Qualification·Capacity → 90-Day Gate</li>
             </ul>
             <div class="business-hero-actions">
               <a class="business-primary-button" href="#departmentDecisionQueue">오늘의 의사결정 보기 <span aria-hidden="true">↓</span></a>
@@ -831,10 +830,10 @@
         <div class="business-container">
           <div class="business-section-heading business-section-heading--split">
             <div>
-              <h2 id="teamOperatingTitle">AI Infra 실행 전략</h2>
-              <p id="teamOperatingThesis">고객 Pain Point → Workload 진단 → Memory·신규 Biz 대안 → 파트너 실행 → 경영진 판단</p>
+              <h2 id="teamOperatingTitle">AI Infra Strategy · Three-Pillar Operating Model</h2>
+              <p id="teamOperatingThesis">Account Intelligence → Next Memory Portfolio → Executive Deal</p>
             </div>
-            <ul class="business-heading-points"><li>CUSTOMER · Pain → Requirement</li><li>NEW BIZ · Inflection → Business Case</li><li>EXECUTION · Decision → Ramp / Stop</li></ul>
+            <ul class="business-heading-points"><li>ACCOUNT · Roadmap → Pain → Requirement</li><li>PORTFOLIO · Tech Shift → Next Memory</li><li>DEAL · LTA → Qualification → 90-Day Gate</li></ul>
           </div>
 
           <ol class="business-team-loop" id="teamDecisionLoop" aria-label="조직 의사결정 순환">
@@ -844,25 +843,20 @@
           <div class="business-team-units" id="teamOperatingUnits" aria-label="AI Infra 산하 3개 조직 역할"></div>
 
           <div class="business-team-workstreams" id="teamWorkstreams">
-            <article data-team-workstream="customer-strategy" tabindex="0">
-              <header><span>01 · CUSTOMER STRATEGY</span><b>01</b></header><h3>Pain Point 기반 맞춤형 메모리 전략</h3><p>고객 현황·기술·전략과 실제 Workload를 함께 분석해 구매 기준과 지배 병목을 명확히 정의</p>
-              <dl><div><dt>INPUT</dt><dd>Account Strategy · Product Roadmap · Workload Trace · Buying Criteria</dd></div><div><dt>KEY QUESTIONS</dt><dd><ul><li>고객의 최상위 Business Outcome은 무엇인가</li><li>지배 병목과 구매 결정 조건은 무엇인가</li></ul></dd></div><div><dt>OUTPUT</dt><dd>Customer Fact Base · Pain Map · Requirement Matrix · Memory Proposal</dd></div><div class="business-team-gate"><dt>DECISION GATE</dt><dd>Pain·Decision Owner·Buying Criteria 검증 전 Custom 범위를 확정하지 않음</dd></div></dl>
-              <footer><small>KPI</small><strong>Qualification Lead Time · Design Win · Revenue Conversion</strong></footer>
+            <article data-team-workstream="account-intelligence" tabindex="0">
+              <header><span>01 · ACCOUNT INTELLIGENCE</span><b>01</b></header><h3>Hyperscaler Pain과 구매 조건</h3><p>GPU·ASIC Roadmap과 Workload/SLO를 결합해 고객별 지배 병목·구매 기준·메모리 요구를 정의</p>
+              <dl><div><dt>INPUT</dt><dd>Account·Chip Roadmap · System Architecture · Workload Trace·SLO · Buying Criteria</dd></div><div><dt>KEY QUESTIONS</dt><dd><ul><li>어떤 Business Outcome이 우선인가</li><li>무엇이 성과와 구매 결정을 제한하는가</li></ul></dd></div><div><dt>OUTPUT</dt><dd>Account Fact Pack · Pain Map · Requirement Matrix · Tailored Memory Portfolio</dd></div><div class="business-team-gate"><dt>DECISION GATE</dt><dd>Pain·Owner·Buying Criteria·Baseline 검증 전 Custom 범위 확정 보류</dd></div></dl>
+              <footer><small>KPI</small><strong>Design Win · Qualification Lead Time · Revenue Conversion</strong></footer>
             </article>
-            <article data-team-workstream="workload-optimization" tabindex="0">
-              <header><span>02 · WORKLOAD OPTIMIZATION</span><b>02</b></header><h3>데이터센터 Workload 최적화</h3><p>Training·Inference·RAG·Agent별 SLO와 지배 병목을 HW·SW·Memory·Network·Storage·Power/Cooling 관점에서 진단</p>
-              <dl><div><dt>INPUT</dt><dd>Workload Trace·SLO · Application·Serving SW · System Telemetry · Facility Constraint</dd></div><div><dt>KEY QUESTIONS</dt><dd><ul><li>고객 Business Outcome을 제한하는 지배 병목은 무엇인가</li><li>SW 최적화와 Memory Tier 중 어떤 대안이 우선인가</li></ul></dd></div><div><dt>OUTPUT</dt><dd>Bottleneck Tree · Architecture Benchmark · Memory Tier Proposal · System TCO</dd></div><div class="business-team-gate"><dt>DECISION GATE</dt><dd>Trace·Baseline·SLO·TCO 재현 전 증설 또는 Custom 투자를 보류</dd></div></dl>
-              <footer><small>KPI</small><strong>Goodput·P99 · Cost/Successful Task · Qualification Lead Time</strong></footer>
-            </article>
-            <article data-team-workstream="new-biz-insights" tabindex="0">
-              <header><span>03 · NEW BIZ &amp; INSIGHTS</span><b>03</b></header><h3>AI·LLM 변곡점에서 신규 Biz 발굴</h3><p>AI Application·HW/SW·Transformer·RAG·Vector DB 변화를 Memory Demand·서비스 모델·수익성 기회로 번역</p>
-              <dl><div><dt>INPUT</dt><dd>AI App·Model Trend · Accelerator·ASIC Roadmap · Tech·Market Evidence · Partner Signal</dd></div><div><dt>KEY QUESTIONS</dt><dd><ul><li>어떤 변곡점이 새로운 Memory JTBD를 만드는가</li><li>Where to Play와 Right to Win은 무엇인가</li></ul></dd></div><div><dt>OUTPUT</dt><dd>Tech·Market Brief · Opportunity Thesis · Partner Screen · Business Case</dd></div><div class="business-team-gate"><dt>DECISION GATE</dt><dd>고객 가치·차별화·시장성·단위경제성 근거가 없으면 PoC 승격을 보류</dd></div></dl>
+            <article data-team-workstream="tech-portfolio-strategy" tabindex="0">
+              <header><span>02 · TECH &amp; PORTFOLIO STRATEGY</span><b>02</b></header><h3>AI 변곡점에서 Next Memory 발굴</h3><p>AI Application/HW/SW 변화를 Custom HBM·AI-D·AI-N 제품 조합과 신규 Memory Business로 번역</p>
+              <dl><div><dt>INPUT</dt><dd>AI App·Model Trend · GPU·ASIC Generation Roadmap · Technology·Market Evidence · Ecosystem Signal</dd></div><div><dt>KEY QUESTIONS</dt><dd><ul><li>어떤 변곡점이 새로운 Memory JTBD를 만드는가</li><li>어느 제품 계층이 고객 가치를 높이는가</li></ul></dd></div><div><dt>OUTPUT</dt><dd>Tech Radar · Next Memory Thesis · Portfolio Option · Business Case</dd></div><div class="business-team-gate"><dt>DECISION GATE</dt><dd>고객 문제·기술 실현성·차별화·경제성 근거 없으면 PoC 승격 보류</dd></div></dl>
               <footer><small>KPI</small><strong>Qualified Pipeline · PoC Conversion · Expected Value</strong></footer>
             </article>
-            <article data-team-workstream="partner-execution" tabindex="0">
-              <header><span>04 · PARTNERS &amp; EXECUTION</span><b>04</b></header><h3>파트너 공동 검증과 경영진 실행</h3><p>AI 개발사·데이터센터·OEM·Consulting/SI의 역할을 PoC·Qualification·Capacity·90일 Action으로 연결</p>
-              <dl><div><dt>INPUT</dt><dd>Partner Capability·RACI · Verified Evidence · Qualification·Capacity · Risk·Scenario</dd></div><div><dt>KEY QUESTIONS</dt><dd><ul><li>누가 어떤 불확실성을 제거할 것인가</li><li>어떤 조건에서 확대·축소·중단할 것인가</li></ul></dd></div><div><dt>OUTPUT</dt><dd>Partner Model · Executive Decision Pack · 90-Day Roadmap · KPI·Trigger Dashboard</dd></div><div class="business-team-gate"><dt>DECISION GATE</dt><dd>Owner·KPI·Trigger·고객 인증 경로가 없는 안건은 실행 Portfolio에서 제외</dd></div></dl>
-              <footer><small>KPI</small><strong>Gate Pass Rate · Partner PoC Conversion · Benefit Realization</strong></footer>
+            <article data-team-workstream="executive-deal-execution" tabindex="0">
+              <header><span>03 · EXECUTIVE DEAL &amp; EXECUTION</span><b>03</b></header><h3>계약 판단과 대내외 실행</h3><p>GSM·HBM Business·MSR과 외부 파트너의 결정을 LTA·Qualification·Capacity·90일 실행으로 연결</p>
+              <dl><div><dt>INPUT</dt><dd>Account Proposal · Partner RACI · Qualification·Capacity Plan · Deal Economics·Risk</dd></div><div><dt>KEY QUESTIONS</dt><dd><ul><li>지금 결정·보류할 안건은 무엇인가</li><li>어떤 조건에서 확대·축소·중단할 것인가</li></ul></dd></div><div><dt>OUTPUT</dt><dd>Executive One-Pager · Partner RACI · LTA·Capacity Scenario · 90-Day Roadmap</dd></div><div class="business-team-gate"><dt>DECISION GATE</dt><dd>Owner·KPI·Trigger·Kill Criteria·고객 인증 경로 없는 안건 제외</dd></div></dl>
+              <footer><small>KPI</small><strong>Gate Pass Rate · Deal Cycle Time · Benefit Realization</strong></footer>
             </article>
           </div>
 
@@ -1923,7 +1917,7 @@
   <div class="qa-answer" id="qaAnswer" hidden></div>
   <div class="inspector" id="inspector" hidden></div>
   <div class="backdrop" id="backdrop"></div>
-  <script src="assets/js/company-profile.min.js?v=infra-03d3d4714113" defer></script>
-  <script src="assets/js/landing.min.js?v=infra-03d3d4714113" defer></script>
+  <script src="assets/js/company-profile.min.js?v=infra-a87f97ae58cb" defer></script>
+  <script src="assets/js/landing.min.js?v=infra-a87f97ae58cb" defer></script>
 </body>
 </html>
