@@ -2109,9 +2109,58 @@
     { id: "consumer", label: "소비자 체감" },
   ];
   const QUANT_LENSES = [
-    { id: "all", label: "전체", sub: "All KPI", categories: [] },
-    { id: "market", label: "시장/가격", sub: "Spot · Contract · WSTS", categories: ["dram", "nand", "aidemand"], keywords: ["가격", "spot", "contract", "wsts", "market", "성장", "매출", "규모"] },
-    { id: "hbm", label: "HBM/Post-HBM", sub: "HBM4 · CXL · 3D DRAM", categories: ["hbm", "cxl", "packaging", "aidemand"], keywords: ["hbm", "rubin", "cxl", "pim", "3d dram", "cowos", "tsmc"] },
+    { id: "all", label: "의사결정 전체", sub: "고객 → 시장 → 경쟁 → 실행", categories: [] },
+    { id: "market", label: "시장·수익성", sub: "성장 · NAND · 가격", categories: ["dram", "nand", "aidemand"], keywords: ["가격", "성장", "nand", "할인"] },
+    { id: "hbm", label: "고객·경쟁력", sub: "HBM4 · 점유율 · 경쟁", categories: ["hbm", "dram", "nand"], keywords: ["hbm", "rubin", "점유율", "cxmt", "ymtc"] },
+  ];
+  const NUMBER_DECISION_BLUEPRINT = [
+    {
+      id: "customer",
+      step: "01",
+      label: "CUSTOMER REQUIREMENT",
+      title: "고객 요구",
+      question: "가속기 로드맵이 요구하는 메모리 조건은 무엇인가",
+      decision: "Qualification 기준과 공동설계 범위 확정",
+      items: [
+        { title: "HBM4 Rubin 요구 속도", implication: "속도·베이스다이·패키징을 고객 인증 일정과 함께 관리" },
+      ],
+    },
+    {
+      id: "market",
+      step: "02",
+      label: "MARKET ATTRACTIVENESS",
+      title: "시장 기회",
+      question: "성장 구간과 다음 메모리 수익원은 어디인가",
+      decision: "HBM과 AI-N 투자 우선순위 조정",
+      items: [
+        { title: "메모리 성장률", implication: "시장 성장보다 AI 메모리 믹스와 수익성 전환 속도에 초점" },
+        { title: "NAND 2026 전망", implication: "AI 추론 스토리지와 고용량 eSSD의 수익 풀 점검" },
+      ],
+    },
+    {
+      id: "position",
+      step: "03",
+      label: "COMPETITIVE POSITION",
+      title: "경쟁 구도",
+      question: "우위가 유지되는 영역과 방어가 필요한 영역은 어디인가",
+      decision: "HBM 우위와 범용 메모리 하방을 분리 대응",
+      items: [
+        { title: "SKHY HBM 점유율", implication: "HBM4 고객 인증·패키징 배분·공급사 다변화와 함께 판단" },
+        { title: "범용 DRAM CXMT 점유율", implication: "중국 서버 DRAM 승인과 가격 하방의 선행 신호" },
+        { title: "YMTC NAND 매출 점유율", implication: "내수 고객 채택과 eSSD 확장 여부를 별도 추적" },
+      ],
+    },
+    {
+      id: "action",
+      step: "04",
+      label: "COMMERCIAL ACTION",
+      title: "실행 판단",
+      question: "어떤 조건에서 가격·물량·파트너 전략을 바꿀 것인가",
+      decision: "LTA·가격 방어·제품 믹스의 반전 조건 설정",
+      items: [
+        { title: "중국 메모리 가격 할인", implication: "실측 계약가 확인 전 Watch로 관리하고 가격 방어 조건에 연결" },
+      ],
+    },
   ];
   const SECTION_LABELS = {
     "overview-content": "과거 분석",
@@ -2353,8 +2402,6 @@
   let typeTimer = null;
   let selectedQaQuestion = "";
   let selectedQaCategory = "all";
-  let numberOrder = [];
-  let draggedNumberId = null;
   const QA_PLACEHOLDER = "고객 Pain·Workload·신규 Memory Biz·AI Infra 실행전략을 물어보세요";
   const AI_INFRA_QA_CATEGORIES = Object.freeze([
     { id: "customer", name: "Customer Pain", color: "#0F766E" },
@@ -13762,6 +13809,11 @@
   function numberLensRelated(item, lensId = numberLens) {
     const lens = numberLensData(lensId);
     if (!lens || lens.id === "all") return true;
+    if (item.decisionAxis) {
+      return lens.id === "market"
+        ? ["market", "action"].includes(item.decisionAxis)
+        : ["customer", "position"].includes(item.decisionAxis);
+    }
     const cats = item.linkedCategories || [];
     const hay = `${item.kind || ""} ${item.title || ""} ${item.note || ""} ${item.alt || ""} ${item.source || ""}`.toLowerCase();
     const categoryHit = (lens.categories || []).some((id) => cats.includes(id));
@@ -13769,16 +13821,15 @@
     return categoryHit || keywordHit;
   }
 
-  function renderNumberLensControls(allItems) {
+  function renderNumberLensControls() {
     const wrap = $("#numberLensTabs");
     if (!wrap) return;
     wrap.innerHTML = "";
     QUANT_LENSES.forEach((lens) => {
-      const count = allItems.filter((item) => numberLensRelated(item, lens.id)).length;
       const btn = el("button", lens.id === numberLens ? "active" : "");
       btn.type = "button";
       btn.dataset.numberLens = lens.id;
-      btn.innerHTML = `<strong>${escapeHTML(lens.label)}</strong><small>${escapeHTML(lens.sub)} · ${fmtNum(count)}</small>`;
+      btn.innerHTML = `<strong>${escapeHTML(lens.label)}</strong><small>${escapeHTML(lens.sub)}</small>`;
       btn.addEventListener("click", () => {
         numberLens = lens.id;
         renderNumberAnalysis();
@@ -13787,27 +13838,47 @@
     });
   }
 
-  function renderNumberLensSummary(items, allItems) {
+  function renderNumberLensSummary() {
     const wrap = $("#numberLensSummary");
     if (!wrap) return;
     const lens = numberLensData();
-    const ok = items.filter((item) => String(item.statusClass || item.status || "").toLowerCase() === "ok").length;
-    const watch = items.filter((item) => /watch|stale/i.test(`${item.statusClass || ""} ${item.status || ""} ${item.badge || ""}`)).length;
-    const visibleCats = Array.from(new Set(items.flatMap((item) => item.linkedCategories || []))).filter(Boolean);
-    const topCat = visibleCats.slice(0, 3).map(categoryName).join(" · ") || activeCategoryData()?.label || "전체";
-    const cards = [
-      { label: "Lens", value: lens.label, note: lens.sub },
-      { label: "Visible KPI", value: items.length, note: `${fmtNum(allItems.length)}개 중 선택` },
-      { label: "정상 / 관찰", value: `${ok}/${watch}`, note: "출처·전망 버전 상태" },
-      { label: "Topic", value: topCat, note: "정량 탭 분류 축" },
-    ];
-    wrap.innerHTML = cards.map((card) => `
-      <article class="number-lens-card">
-        <span>${escapeHTML(card.label)}</span>
-        <strong>${typeof card.value === "number" ? countHTML(card.value) : escapeHTML(card.value)}</strong>
-        <small>${escapeHTML(card.note)}</small>
+    const briefs = {
+      all: [
+        { label: "QUESTION", value: "고객 로드맵 변화가 어떤 메모리 요구를 만드는가" },
+        { label: "SYNTHESIS", value: "시장 성장과 경쟁 압력을 제품·고객별로 분리" },
+        { label: "DECISION", value: "Qualification·LTA·포트폴리오 우선순위 확정" },
+      ],
+      market: [
+        { label: "QUESTION", value: "성장과 가격 방어가 동시에 가능한 시장은 어디인가" },
+        { label: "SYNTHESIS", value: "AI 메모리 성장과 범용 제품 가격 하방을 분리" },
+        { label: "DECISION", value: "AI-N·eSSD 투자와 계약 가격 조건 조정" },
+      ],
+      hbm: [
+        { label: "QUESTION", value: "고객 인증과 공급사 경쟁에서 우위를 유지할 수 있는가" },
+        { label: "SYNTHESIS", value: "HBM4 요구와 중국 DRAM·NAND 진입을 교차 비교" },
+        { label: "DECISION", value: "공동설계·패키징·고객별 공급 배분 기준 확정" },
+      ],
+    };
+    wrap.innerHTML = (briefs[lens.id] || briefs.all).map((card, index) => `
+      <article class="number-brief-card">
+        <span>${String(index + 1).padStart(2, "0")} · ${escapeHTML(card.label)}</span>
+        <strong>${escapeHTML(card.value)}</strong>
       </article>
     `).join("");
+  }
+
+  function numberDecisionItems(items = []) {
+    const byTitle = new Map(items.map((item) => [cleanInsightText(item.title), item]));
+    return NUMBER_DECISION_BLUEPRINT.flatMap((lane, laneIndex) => lane.items.map((entry, itemIndex) => {
+      const item = byTitle.get(cleanInsightText(entry.title));
+      return item ? {
+        ...item,
+        decisionAxis: lane.id,
+        decisionStep: lane.step,
+        decisionImplication: entry.implication,
+        decisionOrder: laneIndex * 10 + itemIndex,
+      } : null;
+    })).filter(Boolean);
   }
 
   function numberAnalysisItems() {
@@ -13877,33 +13948,6 @@
       },
     ];
     return visibleItems(baseItems.concat(projectionItems));
-  }
-
-  function orderedNumberItems(items) {
-    if (!numberOrder.length) {
-      try {
-        numberOrder = JSON.parse(localStorage.getItem("memory-number-order") || "[]");
-      } catch {
-        numberOrder = [];
-      }
-    }
-    localStorage.removeItem("memory-number-folded");
-    const ids = items.map((item) => item.id);
-    const order = numberOrder.filter((id) => ids.includes(id)).concat(ids.filter((id) => !numberOrder.includes(id)));
-    return order.map((id) => items.find((item) => item.id === id)).filter(Boolean);
-  }
-
-  function saveNumberPrefs() {
-    localStorage.setItem("memory-number-order", JSON.stringify(numberOrder));
-  }
-
-  function numberProgress(item) {
-    const n = Number(item.value);
-    if (Number.isNaN(n)) return 64;
-    if (String(item.suffix || "").includes("%")) return Math.max(6, Math.min(100, n));
-    if (String(item.statusClass || "").toLowerCase() === "fail") return 22;
-    if (String(item.statusClass || "").toLowerCase() === "stale") return 58;
-    return Math.max(12, Math.min(100, n * 8));
   }
 
   function freshnessScore(state, count = 1) {
@@ -14087,148 +14131,78 @@
   function renderNumberLiveRibbon() {
     const wrap = $("#numberLiveRibbon");
     if (!wrap) return;
-    // The ribbon only needs two compact metrics. Calling sectionTelemetry here
-    // previously calculated every hidden market, talent and backtest model for
-    // each card, making the Numbers board the slowest progressive step.
-    const projectionSignals = projectionTotalSignals();
-    const nandSignals = CHINA_NAND_BUSINESS_LAYERS.reduce((sum, item) => sum + nandBusinessSignalCount(item), 0);
-    const items = [
-      {
-        section: "projection",
-        label: SECTION_LABELS.projection || "Projection",
-        value: projectionSignals,
-        unit: "원문",
-        status: "Projection",
-        score: clamp(58 + Math.min(projectionSignals, 180) * .18),
-        note: "고유 원문 기반 30개월 후~5년 모델",
-      },
-      {
-        section: "china-nand",
-        label: SECTION_LABELS["china-nand"] || "NAND",
-        value: nandSignals,
-        unit: "signal",
-        status: "NAND",
-        score: clamp(54 + Math.min(nandSignals, 40)),
-        note: "YMTC·XMC·eSSD·장비",
-      },
-    ];
-    wrap.innerHTML = items.map((item) => `
-      <button class="quant-ribbon-card reveal" type="button" data-jump="${escapeHTML(item.section)}" style="--local-accent:${categoryAccent((item.section === "projection" && "hbm") || (item.section === "china-nand" && "nand") || (item.section === "china-dynamics" && "china") || (item.section === "prices" && "dram") || (item.section === "news" && "geopolitics") || "operations")}">
-        <span class="score-ring compact" data-score-to="${item.score}" style="--score:0">
-          <span class="score-value">${countHTML(Math.round(item.score))}</span>
-          <small>/100</small>
-        </span>
-        <span class="quant-ribbon-copy">
-          <small>${escapeHTML(item.status)} · ${escapeHTML(item.note)}</small>
-          <strong>${escapeHTML(item.label)}</strong>
-          <span>${countHTML(item.value)}${escapeHTML(item.unit)} · ${escapeHTML(fmtDate(LIVE.updatedAt))}</span>
-        </span>
-      </button>
+    wrap.innerHTML = NUMBER_DECISION_BLUEPRINT.map((lane) => `
+      <article class="quant-decision-step reveal" data-decision-stage="${escapeHTML(lane.id)}">
+        <span>${escapeHTML(lane.step)} · ${escapeHTML(lane.label)}</span>
+        <strong>${escapeHTML(lane.title)}</strong>
+        <p>${escapeHTML(lane.question)}</p>
+      </article>
     `).join("");
-    wrap.querySelectorAll("[data-jump]").forEach((btn) => {
-      btn.addEventListener("click", () => jumpTo(btn.dataset.jump));
-    });
-    animateCounts(wrap);
-    animateMeters(wrap);
   }
 
   function renderNumberAnalysis() {
     const grid = $("#numberGrid");
     if (!grid) return;
-    const allItems = orderedNumberItems(numberAnalysisItems().filter(numberRelated));
+    const allItems = numberDecisionItems(numberAnalysisItems().filter(numberRelated));
     const items = allItems.filter((item) => numberLensRelated(item));
     renderNumberLiveRibbon();
-    renderNumberLensControls(allItems);
-    renderNumberLensSummary(items, allItems);
+    renderNumberLensControls();
+    renderNumberLensSummary();
     const meta = $("#numberMeta");
-    if (meta) meta.textContent = `${numberLensData().label} · ${fmtNum(items.length)}개 지표 · ${activeCategoryData()?.label || "전체"} · ${fmtDate(LIVE.updatedAt)}`;
+    if (meta) meta.textContent = `${numberLensData().label} · ${activeCategoryData()?.label || "전체"} · ${fmtDate(LIVE.updatedAt)}`;
     grid.innerHTML = "";
-    const fragment = document.createDocumentFragment();
-    items.forEach((item, index) => {
-      const payload = {
-        type: item.kind || "정량 분석",
-        tag: item.badge,
-        title: item.title,
-        body: item.note,
-        section: "numbers",
-        categories: item.linkedCategories || [],
-        watch: [item.alt, item.source, item.sourceDate].filter(Boolean),
-        metrics: [
-          { label: "Value", value: numberDisplayValue(item) },
-          { label: "Status", value: item.badge || item.statusClass || "Watch" },
-          { label: "Source", value: item.source || "baseline" },
-        ],
-      };
-      const card = el("article", "number-card reveal");
-      card.draggable = true;
-      card.dataset.numberId = item.id;
-      card.style.animationDelay = `${index * 30}ms`;
-      card.style.setProperty("--local-accent", categoryAccent((item.linkedCategories || [])[0]));
+    const visibleLanes = NUMBER_DECISION_BLUEPRINT.filter((lane) => items.some((item) => item.decisionAxis === lane.id));
+    grid.dataset.lanes = String(Math.max(visibleLanes.length, 1));
+    visibleLanes.forEach((lane, laneIndex) => {
+      const laneItems = items.filter((item) => item.decisionAxis === lane.id);
+      const card = el("article", "number-decision-lane reveal");
+      card.style.animationDelay = `${laneIndex * 35}ms`;
       card.innerHTML = `
-        <div class="number-card-head">
-          <span class="chip accent">${escapeHTML(item.kind || "KPI")}</span>
-          <div class="number-actions">
-            <button class="detail-btn" type="button" data-number-detail="${escapeHTML(item.id)}" aria-label="${escapeHTML(item.title)} 상세 보기">상세</button>
-          </div>
-        </div>
-        <h3>${escapeHTML(item.title)}</h3>
-        <strong class="number-value">${countHTML(item.value, {
-          prefix: item.prefix || "",
-          suffix: item.suffix || "",
-          decimals: item.decimals || 0,
-        })}</strong>
-        <div class="number-body">
-          <div class="number-status">
-            ${factBadge(item.badge || item.statusClass || "Watch", item.statusClass || "watch")}
-            <span>${escapeHTML(item.sourceDate || "")}</span>
-          </div>
-          <p>${escapeHTML(item.note || "")}</p>
-          ${item.alt ? `<small>${escapeHTML(item.alt)}</small>` : ""}
-          <div class="number-bar" aria-label="0 to 100 gauge"><i data-fill-to="${numberProgress(item)}" style="width:0%"></i></div>
-          <div class="number-scale"><span>0</span><span>${fmtNum(numberProgress(item))}/100</span></div>
-          <div class="number-source">${escapeHTML(item.source || "baseline")}</div>
-        </div>
+        <header>
+          <span>${escapeHTML(lane.step)} · ${escapeHTML(lane.label)}</span>
+          <h3>${escapeHTML(lane.title)}</h3>
+          <p>${escapeHTML(lane.question)}</p>
+        </header>
+        <div class="number-decision-metrics"></div>
+        <footer><span>DECISION</span><strong>${escapeHTML(lane.decision)}</strong></footer>
       `;
-      card.querySelector("[data-number-detail]")?.addEventListener("click", () => openInspector(payload));
-      card.addEventListener("dragstart", () => {
-        draggedNumberId = item.id;
-        card.classList.add("dragging");
+      const metricWrap = card.querySelector(".number-decision-metrics");
+      laneItems.sort((a, b) => a.decisionOrder - b.decisionOrder).forEach((item) => {
+        const payload = {
+          type: item.kind || "정량 분석",
+          tag: lane.label,
+          title: item.title,
+          body: item.note,
+          section: "numbers",
+          categories: item.linkedCategories || [],
+          watch: [item.decisionImplication, item.alt, item.sourceDate].filter(Boolean),
+          metrics: [
+            { label: "핵심 수치", value: numberDisplayValue(item) },
+            { label: "의사결정 의미", value: item.decisionImplication },
+            { label: "출처", value: item.source || "baseline" },
+          ],
+        };
+        const metric = el("button", "number-decision-metric");
+        metric.type = "button";
+        metric.dataset.numberDetail = item.id;
+        metric.setAttribute("aria-label", `${item.title} 상세 보기`);
+        metric.innerHTML = `
+          <span>${escapeHTML(item.title)}</span>
+          <strong>${countHTML(item.value, {
+            prefix: item.prefix || "",
+            suffix: item.suffix || "",
+            decimals: item.decimals || 0,
+          })}</strong>
+          <p>${escapeHTML(item.decisionImplication)}</p>
+          <small>${escapeHTML(item.source || "")}${item.sourceDate ? ` · ${escapeHTML(item.sourceDate)}` : ""}</small>
+        `;
+        metric.addEventListener("click", () => openInspector(payload));
+        metricWrap.appendChild(metric);
       });
-      card.addEventListener("dragend", () => {
-        draggedNumberId = null;
-        card.classList.remove("dragging");
-        $$(".number-card.drop-target").forEach((node) => node.classList.remove("drop-target"));
-      });
-      card.addEventListener("dragover", (event) => {
-        event.preventDefault();
-        if (draggedNumberId && draggedNumberId !== item.id) card.classList.add("drop-target");
-      });
-      card.addEventListener("dragleave", () => card.classList.remove("drop-target"));
-      card.addEventListener("drop", (event) => {
-        event.preventDefault();
-        card.classList.remove("drop-target");
-        if (!draggedNumberId || draggedNumberId === item.id) return;
-        const allIds = numberAnalysisItems().map((entry) => entry.id);
-        const currentOrder = (numberOrder.length ? numberOrder : allIds).filter((id) => allIds.includes(id));
-        allIds.forEach((id) => {
-          if (!currentOrder.includes(id)) currentOrder.push(id);
-        });
-        const from = currentOrder.indexOf(draggedNumberId);
-        const to = currentOrder.indexOf(item.id);
-        if (from < 0 || to < 0) return;
-        currentOrder.splice(from, 1);
-        currentOrder.splice(to, 0, draggedNumberId);
-        numberOrder = currentOrder;
-        saveNumberPrefs();
-        renderNumberAnalysis();
-      });
-      makeInspectable(card, payload);
-      fragment.appendChild(card);
+      grid.appendChild(card);
     });
-    grid.appendChild(fragment);
     if (!grid.children.length) grid.appendChild(el("div", "empty", "선택한 카테고리의 숫자 지표가 없습니다."));
     animateCounts(grid);
-    animateMeters(grid);
   }
 
   function relatedToActive(item) {

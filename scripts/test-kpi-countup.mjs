@@ -237,8 +237,11 @@ assert.doesNotMatch(app, /investment-focus-block is-monitor/, "the daily signal 
 assert.match(css, /\.investment-focus-flow::before \{[\s\S]*?linear-gradient\(180deg, #0f766e 0%, #0e7490 33%, #1d4ed8 67%, #4338ca 100%\)/, "investment detail should expose a professional gradient decision path");
 assert.match(css, /\.investment-focus-block\.is-priority \{ --focus-card-accent: #0f766e; \}[\s\S]*?\.investment-focus-block\.is-sources \{ --focus-card-accent: #475569; \}/, "remaining investment detail blocks should use a restrained consulting palette");
 assert.match(app, /class="investment-priority-meter"[\s\S]*?class="investment-formula"[\s\S]*?data-step="04"/, "investment detail should render the weighted decision flow as an infographic");
-assert.match(app, /data-number-detail="\$\{escapeHTML\(item\.id\)\}"[\s\S]*?>상세<\/button>/, "number cards should expose a dedicated detail button");
-assert.match(app, /querySelector\("\[data-number-detail\]"\)[\s\S]*?openInspector\(payload\)/, "number-card detail buttons should open the right-side inspector");
+assert.match(app, /const NUMBER_DECISION_BLUEPRINT = \[[\s\S]*?CUSTOMER REQUIREMENT[\s\S]*?MARKET ATTRACTIVENESS[\s\S]*?COMPETITIVE POSITION[\s\S]*?COMMERCIAL ACTION/, "number analysis should follow a four-stage consulting decision structure");
+assert.match(app, /function numberDecisionItems\(items = \[\]\)[\s\S]*?NUMBER_DECISION_BLUEPRINT\.flatMap[\s\S]*?filter\(Boolean\)/, "number analysis should select only decision-relevant baseline metrics");
+assert.match(app, /metric\.dataset\.numberDetail = item\.id[\s\S]*?metric\.addEventListener\("click", \(\) => openInspector\(payload\)\)/, "decision metrics should open the right-side inspector without a redundant detail button");
+assert.doesNotMatch(app, /class="number-bar"|class="number-scale"|draggable = true/, "number analysis should not expose arbitrary score gauges or drag ordering");
+assert.match(css, /\.number-decision-metric:hover[\s\S]*?background:\s*var\(--ink\)[\s\S]*?color:\s*var\(--panel\)/, "decision metrics should invert instantly with readable text");
 assert.doesNotMatch(app, /data-number-toggle|numberFolded|memory-number-folded", JSON\.stringify/, "number cards should not retain the broken fold toggle");
 assert.doesNotMatch(css, /\.number-card\.folded/, "number cards should not ship fold-only styling");
 assert.match(css, /\.ceo-challenge-prompt \{[\s\S]*?linear-gradient\(118deg, #071526 0%, #0b2944 58%, #123b55 100%\)/, "CEO challenge prompt should use a high-contrast executive header");
