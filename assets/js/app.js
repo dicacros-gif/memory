@@ -2213,6 +2213,7 @@
   let newsCompany = "all";
   let newsSource = "english";
   let newsRenderToken = 0;
+  let newsListExpanded = false;
   let communityType = "all";
   let communityPlatform = "all";
   let workbenchMode = "executive";
@@ -21261,11 +21262,13 @@
 
     $("#newsSearch")?.addEventListener("input", (event) => {
       newsSearch = event.target.value.trim().toLowerCase();
+      newsListExpanded = false;
       renderNewsList();
     });
 
     $("#newsCompanySelect")?.addEventListener("change", (event) => {
       newsCompany = event.target.value;
+      newsListExpanded = false;
       renderNews();
     });
 
@@ -24618,19 +24621,19 @@
     const summary = cleanInsightText(sourceSafeSummary(item));
     const category = CATEGORY_INSIGHTS[item.category] || "메모리 업계 가격·고객·공급망 변화를 함께 점검";
     const rows = [
-      newsSummaryLine(item, title, summary, category),
-      newsImpactLine(item, category),
-      newsActionLine(item, category),
+      koreanNewsBullet(newsSummaryLine(item, title, summary, category), newsKoreanSummaryFallback(item, category)),
+      koreanNewsBullet(newsImpactLine(item, category), "메모리 공급·가격·고객 인증에 미치는 사업 영향 확인"),
+      koreanNewsBullet(newsActionLine(item, category), "기준일·제품·출처가 일치할 때만 의사결정 근거로 반영"),
     ];
     const unique = uniqueInsightRows(rows);
     const fallbacks = [
-      `확인: ${category} 기준으로 원문 날짜와 직접 출처를 다음 브리핑에서 다시 대조합니다.`,
-      "확인: 동일 주제의 반대 방향 기사와 공개 가격·공시를 분리해 비교합니다.",
-      "확인: 숫자는 기준일·단위·대상 제품이 일치할 때만 의사결정 근거로 승격합니다.",
+      newsKoreanSummaryFallback(item, category),
+      "동일 주제의 반대 근거와 공개 가격·공시를 분리해 비교",
+      "숫자의 기준일·단위·대상 제품이 일치할 때만 의사결정 근거로 승격",
     ];
     for (const fallback of fallbacks) {
       if (unique.length >= 3) break;
-      const text = cleanInsightText(fallback);
+      const text = koreanNewsBullet(fallback, "공개 원문과 최신 데이터로 재검증");
       if (text && !unique.some((row) => sameInsightText(row, text))) unique.push(text);
     }
     return unique.slice(0, 3);
@@ -24641,6 +24644,30 @@
       .replace(/^(요약|관찰|인사이트|확인|확인 포인트)\s*[:：]\s*/i, "")
       .replace(/\s+/g, " ")
       .trim();
+  }
+
+  function hasReadableKorean(text = "") {
+    return (String(text).match(/[가-힣]/g) || []).length >= 5;
+  }
+
+  function koreanNewsBullet(value, fallback) {
+    const text = cleanInsightText(value)
+      .replace(/\s*\.{3,}\s*$/, "")
+      .replace(/[。]+$/g, "")
+      .trim();
+    return hasReadableKorean(text) ? text : cleanInsightText(fallback);
+  }
+
+  function newsKoreanSummaryFallback(item = {}, category = "") {
+    const hay = `${item.title || ""} ${item.titleKo || ""} ${item.summaryOriginal || ""} ${item.summary || ""}`.toLowerCase();
+    if (/hbm4|rubin|base die|cowos|chiplet|패키징/.test(hay)) return "HBM4 전환의 베이스다이·패키징·고객 인증 일정 변화";
+    if (/cxmt|changxin|长鑫/.test(hay) && /(ipo|listing|상장|공모)/.test(hay)) return "CXMT 자금 조달과 DDR5 캐파 확대가 중국 메모리 경쟁에 미치는 영향";
+    if (/cxmt|changxin|长鑫/.test(hay)) return "CXMT의 고객 승인·DDR5 캐파·가격 변화 신호";
+    if (/ymtc|yangtze|长江存储|nand|ssd|essd/.test(hay)) return "YMTC·eSSD의 고객 채택과 NAND 공급 변화 신호";
+    if (/price|contract|spot|asp|가격|계약/.test(hay)) return "메모리 제품별 가격·계약·공급 변화를 분리한 시장 신호";
+    if (/bis|export control|license|tariff|chips act|규제|수출통제/.test(hay)) return "수출통제와 장비 규제가 중국 생산·공급 일정에 미치는 영향";
+    if (/micron|samsung|earnings|revenue|profit|guidance|실적/.test(hay)) return "경쟁사의 제품 믹스·투자·고객 인증 변화";
+    return `${cleanInsightText(category) || "메모리 시장"} 관련 핵심 변화와 고객 영향`;
   }
 
   function newsSummaryLine(item, title, summary, category) {
@@ -24858,6 +24885,7 @@
       btn.type = "button";
       btn.addEventListener("click", () => {
         newsSource = tab.id;
+        newsListExpanded = false;
         renderNews();
       });
       wrap.appendChild(btn);
@@ -24899,6 +24927,7 @@
       btn.type = "button";
       btn.addEventListener("click", () => {
         newsCategory = opt.id;
+        newsListExpanded = false;
         renderNewsCompanySelect();
         renderNewsSourceTabs();
         renderNewsList();
@@ -24936,6 +24965,8 @@
   function renderNewsBucket(list, items, emptyMessage) {
     const renderToken = ++newsRenderToken;
     list.innerHTML = "";
+    list.classList.toggle("is-collapsed", !newsListExpanded);
+    list.classList.toggle("is-expanded", newsListExpanded);
     if (!items.length) {
       list.appendChild(el("li", "news-empty-row", `<span class="empty empty-action"><strong>${escapeHTML(emptyMessage)}</strong><em>업체 드롭다운을 전체 업체로 바꾸면 즉시 다시 계산됩니다.</em></span>`));
       return;
@@ -24960,14 +24991,9 @@
           <span class="news-evidence ${escapeHTML(evidence.className)}">${escapeHTML(evidence.label)}</span>
           <span class="news-meta">${escapeHTML(formatNewsDate(item.date || item.published))}</span>
         </div>
-        <div class="news-insights">
-          ${insights.map((line, index) => `
-            <span>
-              <b>${["기사 요약", "전략 시사점", "확인 조건"][index] || "근거"}</b>
-              <em>${strategicHighlightHTML(line)}</em>
-            </span>
-          `).join("")}
-        </div>
+        <ul class="news-insights news-summary-list" aria-label="기사 핵심 요약 3개">
+          ${insights.map((line) => `<li>${strategicHighlightHTML(line)}</li>`).join("")}
+        </ul>
         ${figureSignals}
       `;
       card.insertBefore(a, card.querySelector(".news-insights"));
@@ -24975,6 +25001,33 @@
       li.appendChild(card);
       list.appendChild(li);
     };
+
+    appendItem(sortedItems[0]);
+    cursor = 1;
+    list.dataset.renderedItems = `1/${sortedItems.length}`;
+
+    if (sortedItems.length > 1) {
+      const remaining = sortedItems.length - 1;
+      const control = el("li", "news-list-control");
+      const toggle = el("button", "news-list-toggle", `
+        <b>${newsListExpanded ? "기사 접기" : "기사 더 보기"}</b>
+        <span>${newsListExpanded ? "첫 기사만 표시" : `${fmtNum(remaining)}개 후속 기사 펼치기`}</span>
+        <i aria-hidden="true">${newsListExpanded ? "−" : "+"}</i>
+      `);
+      toggle.type = "button";
+      toggle.setAttribute("aria-expanded", newsListExpanded ? "true" : "false");
+      toggle.setAttribute("aria-controls", list.id);
+      toggle.addEventListener("click", () => {
+        newsListExpanded = !newsListExpanded;
+        renderNewsList();
+        window.requestAnimationFrame(() => $(`#${list.id} .news-list-toggle`)?.focus());
+      });
+      control.appendChild(toggle);
+      list.appendChild(control);
+    }
+
+    if (!newsListExpanded || cursor >= sortedItems.length) return;
+
     const appendBatch = (deadline = { didTimeout: true, timeRemaining: () => 8 }) => {
       if (renderToken !== newsRenderToken || !list.isConnected) return;
       let rendered = 0;

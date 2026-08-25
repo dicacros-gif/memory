@@ -150,8 +150,10 @@ if (!crawlText.includes("const byUrl = new Map();")
   || !crawlText.includes("const byTitle = new Map();")) {
   addIssue("error", "scripts/crawl.mjs", "crawler deduplication does not merge one article discovered through multiple syndication URLs");
 }
-if (!appText.includes('["기사 요약", "전략 시사점", "확인 조건"]')) {
-  addIssue("error", "assets/js/app.js", "news cards do not separate sourced summary from generated interpretation");
+if (!appText.includes('class="news-insights news-summary-list"')
+  || !appText.includes("function newsKoreanSummaryFallback")
+  || !appText.includes("let newsListExpanded = false")) {
+  addIssue("error", "assets/js/app.js", "news cards must render three Korean bullets and remain collapsed until the reader expands the list");
 }
 if (/snippet:\s*clause\.slice|contextKo:\s*article\.textKo\.slice/.test(crawlText)) {
   addIssue("error", "scripts/crawl.mjs", "live figure source text must not be cut at a fixed character count");

@@ -184,6 +184,10 @@ assert.doesNotMatch(html, /id="liveFigures"|실시간 수치 근거|오늘 확�
 assert.match(app, /function articleFigureSignalsHTML\([\s\S]*?기사 원문에서 추출한 정량 근거/, "article cards should receive matching crawled figures inline");
 assert.match(app, /const figureSignals = articleFigureSignalsHTML\(item\);[\s\S]*?\$\{figureSignals\}/, "full news cards should show their own quantitative evidence");
 assert.match(css, /\.article-figure-signals\s*\{[\s\S]*?display:\s*flex;/, "routed quantitative evidence should use a compact readable chip layout");
+assert.match(app, /function insightLines\(item\)[\s\S]*?koreanNewsBullet\([\s\S]*?return unique\.slice\(0, 3\);/, "every news card should normalize its summary into exactly three Korean bullets");
+assert.match(app, /class="news-insights news-summary-list"[\s\S]*?insights\.map\(\(line\) => `<li>/, "news cards should render the three summaries as bullet points");
+assert.match(app, /let newsListExpanded = false;[\s\S]*?appendItem\(sortedItems\[0\]\);[\s\S]*?if \(!newsListExpanded \|\| cursor >= sortedItems\.length\) return;/, "news lists should load one lead article before the reader expands the remaining stories");
+assert.match(css, /\.news-list\.is-collapsed \{[\s\S]*?grid-template-columns:\s*minmax\(0, 1fr\);/, "the lead article should use one readable full-width row while the list is collapsed");
 assert.doesNotMatch(app, /<li><b>신선도<\/b>|<small>\$\{escapeHTML\(kpi\.verificationNote\)\}<\/small>/, "KPI cards should not display the freshness row or verification copy");
 assert.doesNotMatch(app, /note:\s*`\$\{kpi\.note \|\| ""\}\$\{kpi\.verificationNote/, "number-analysis cards should not append the removed freshness copy");
 assert.doesNotMatch(app, /같은 기관의 전망 개정이며 SKHY 자체 전망이 아님|중국 eSSD 입찰·고객 인증 신호를 일일 보드 상단에 배치/, "removed dashboard copy should not be rendered again");
