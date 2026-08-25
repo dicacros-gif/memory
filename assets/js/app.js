@@ -13476,7 +13476,6 @@
           </tbody>
         </table>
       </div>` : ""}
-      <p class="sc-note">고객 Pain과 사업 영향 기준으로 핵심 인사이트만 선별 · 유사 신호 통합 · 수치와 인용은 연결 원문에서 확인</p>
     `;
     const onePagerMount = host.querySelector("#scExecutiveOnePagers");
     const ecosystemMount = host.querySelector("#scPartnerEcosystem");
