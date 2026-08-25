@@ -27702,6 +27702,18 @@ body.consulting-system #main > #c-level-cockpit {
   -webkit-text-fill-color: #16120a !important;
 }
 
+/* ASIC evidence-badge contrast lock
+   The card may invert, but this pale status surface keeps its own dark ink. */
+#intelligenceConsole #strategyConsulting .sc-asic-card-head em,
+#intelligenceConsole #strategyConsulting .sc-asic-priority-card:is(:hover, :focus-visible, :focus-within) .sc-asic-card-head em {
+  border-color: #5bc8bb !important;
+  background: #e7f7f4 !important;
+  color: #0d4744 !important;
+  -webkit-text-fill-color: #0d4744 !important;
+  text-shadow: none !important;
+  opacity: 1 !important;
+}
+
 /* Advanced decision module contrast lock
    Parent-card inversion must not leak white text into its paper scorecards. */
 #intelligenceConsole .advanced-module-card > p {
