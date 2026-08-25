@@ -257,6 +257,8 @@ assert.match(app, /item\.directSignalModel === "hbm" \? "" : `<div class="decisi
 assert.match(app, /direct \? "" : `<div class="agent-debate-metrics">/, "HBM council must hide internal count metrics");
 assert.doesNotMatch(app, /HBM 라이브 overlay|직접 신호 모델 · AI 수요/, "HBM decision header must not expose raw signal counts");
 assert.doesNotMatch(app, /직접 신호 점수 \$\{fmtNum\(active\.directMetrics\?\.score/, "HBM decision payload must not expose internal signal scores");
+assert.doesNotMatch(app, /직접 신호 점수/, "executive views must not expose internal HBM signal scores");
+assert.match(app, /metrics: item\.directSignalModel === "hbm" \? \[\] : \[/, "executive workbench must hide internal HBM evidence counts");
 assert.match(app, /hideCounts: active\.directSignalModel === "hbm"/, "HBM decision frames must suppress internal evidence counts");
 assert.doesNotMatch(app, /canonical 원문 \$\{fmtNum\(active\.directMetrics\?\.evidenceCount/, "HBM audit copy must not expose raw evidence counts");
 assert.ok(

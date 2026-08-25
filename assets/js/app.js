@@ -20316,15 +20316,15 @@
         tag: `${item.demand} · ${item.decision.label}`,
         title: item.label,
         body: item.directSignalModel === "hbm"
-          ? `${item.rationale} 직접 신호 점수 ${fmtNum(item.directMetrics?.score || 0)}점 · ${item.outcome.label}`
+          ? `${item.rationale} · ${item.outcome.label}`
           : `${item.rationale} 이후 실제 변화 ${item.actualChange == null ? "종료 시점 도래 전" : `${fmtNum(item.actualChange, 2)}%`} · ${item.outcome.label}`,
         section: "executive-decision",
         categories: [item.category],
         watch: [item.decision.logic, item.upside, item.downside],
-        metrics: [
-          { label: item.directSignalModel === "hbm" ? "고객·계약" : "당시", value: item.directSignalModel === "hbm" ? fmtNum(item.directMetrics?.customer || 0) : item.priorMomentum == null ? "NA" : `${fmtNum(item.priorMomentum, 2)}%` },
-          { label: item.directSignalModel === "hbm" ? "양산·출하" : "이후", value: item.directSignalModel === "hbm" ? fmtNum(item.directMetrics?.production || 0) : item.actualChange == null ? "NA" : `${fmtNum(item.actualChange, 2)}%` },
-          { label: item.directSignalModel === "hbm" ? "직접 근거" : "품목", value: fmtNum(item.directMetrics?.evidenceCount ?? item.observations.length) },
+        metrics: item.directSignalModel === "hbm" ? [] : [
+          { label: "당시", value: item.priorMomentum == null ? "NA" : `${fmtNum(item.priorMomentum, 2)}%` },
+          { label: "이후", value: item.actualChange == null ? "NA" : `${fmtNum(item.actualChange, 2)}%` },
+          { label: "품목", value: fmtNum(item.observations.length) },
         ],
         tags: item.products || [],
       }));
