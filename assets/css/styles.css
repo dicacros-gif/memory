@@ -28002,6 +28002,7 @@ body.consulting-system #main > #c-level-cockpit {
 }
 
 #intelligenceConsole .sc-dynamics-map {
+  position: relative;
   display: grid;
   grid-template-columns: repeat(4, minmax(145px, 1fr));
   min-height: 505px;
@@ -28010,7 +28011,37 @@ body.consulting-system #main > #c-level-cockpit {
   background-size: 48px 48px;
 }
 
+#intelligenceConsole .sc-dynamics-links {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  overflow: visible;
+  pointer-events: none;
+}
+
+#intelligenceConsole .sc-dynamics-links path {
+  fill: none;
+  stroke: var(--relation-accent, #9cb0c3);
+  stroke-width: 1.35;
+  stroke-linecap: round;
+  stroke-dasharray: 4 5;
+  opacity: .11;
+  vector-effect: non-scaling-stroke;
+  transition: opacity .06s linear, stroke-width .06s linear, filter .06s linear;
+}
+
+#intelligenceConsole .sc-dynamics-links path.is-active {
+  stroke-width: 3;
+  stroke-dasharray: none;
+  opacity: .96;
+  filter: drop-shadow(0 0 4px color-mix(in srgb, var(--relation-accent) 70%, transparent));
+}
+
+#intelligenceConsole .sc-dynamics-links path.is-muted { opacity: .055; }
+
 #intelligenceConsole .sc-dynamics-map > section {
+  position: relative;
+  z-index: 1;
   min-width: 145px;
   padding: 11px 8px 18px;
   border-left: 1px solid rgba(88, 127, 151, .42);
@@ -28108,7 +28139,19 @@ body.consulting-system #main > #c-level-cockpit {
 #intelligenceConsole .sc-dynamics-node.is-muted { opacity: .26; }
 #intelligenceConsole .sc-dynamics-node.is-muted:is(:hover, :focus-visible) { opacity: 1; }
 
+#intelligenceConsole .sc-dynamics-map-note {
+  margin: 0;
+  padding: 8px 11px;
+  border-top: 1px solid #31546b;
+  background: #091b2a;
+  color: #9eb1bf;
+  font: 800 9px/1.35 var(--mono, monospace);
+  letter-spacing: .02em;
+}
+
 #intelligenceConsole .sc-dynamics-detail {
+  position: sticky;
+  top: calc(var(--topbar-h, 49px) + 12px);
   align-self: start;
   overflow: hidden;
   color: #edf5f9;
@@ -28292,7 +28335,7 @@ body.consulting-system #main > #c-level-cockpit {
 
 @media (max-width: 1320px) {
   #intelligenceConsole .sc-dynamics-layout { grid-template-columns: minmax(150px, .2fr) minmax(0, 1fr); }
-  #intelligenceConsole .sc-dynamics-detail { grid-column: 1 / -1; }
+  #intelligenceConsole .sc-dynamics-detail { position: static; grid-column: 1 / -1; }
   #intelligenceConsole .sc-dynamics-facts { grid-template-columns: repeat(4, minmax(0, 1fr)); }
 }
 
@@ -28557,6 +28600,10 @@ body.consulting-system #main > #c-level-cockpit {
   #projection .projection-account-tabs { grid-template-columns: minmax(0, 1fr); }
   #projection .projection-account-flow { grid-template-columns: 1fr; }
   #projection .projection-account-flow > li { min-height: 0; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  #intelligenceConsole .sc-dynamics-links path { transition: none; }
 }
 
 @media (prefers-reduced-motion: reduce) {

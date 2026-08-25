@@ -52,7 +52,7 @@ export function renderCompetitiveDynamics(model = {}) {
   const companies = Array.isArray(model.companies) ? model.companies : [];
   if (!layers.length || !relations.length) return "";
   const first = companies[0] || {};
-  return `<section class="sc-broadcom-board sc-dynamics-board" aria-labelledby="competitiveDynamicsTitle"><header class="sc-broadcom-head"><div><span>${escapeHTML(model.eyebrow || "COMPETITIVE DYNAMICS · VALUE CHAIN")}</span><h4 id="competitiveDynamicsTitle">${escapeHTML(model.title || "경쟁 · 파트너십 · 투자 · 공급 관계 지도")}</h4></div><p>${escapeHTML(model.description)}</p></header><div class="sc-dynamics-layout"><nav class="sc-dynamics-layers" aria-label="밸류체인 계층 필터"><b>AI VALUE CHAIN</b><button type="button" data-dynamics-layer="all" aria-pressed="true"><span>ALL</span><strong>전체 밸류체인</strong><em>${companies.length}</em></button>${layers.map((layer) => `<button type="button" data-dynamics-layer="${escapeHTML(layer.id)}" aria-pressed="false"><span>${escapeHTML(layer.index)}</span><strong>${escapeHTML(layer.label)}</strong><em>${Number(layer.companies?.length || 0)}</em></button>`).join("")}</nav><div class="sc-dynamics-stage"><div class="sc-dynamics-toolbar" role="toolbar" aria-label="관계 유형 필터"><button type="button" data-dynamics-type="all" aria-pressed="true"><i style="--relation-accent:#9cb0c3"></i>전체 <em>${relations.length}</em></button>${(model.types || []).map((type) => `<button type="button" data-dynamics-type="${escapeHTML(type.id)}" aria-pressed="false"><i style="--relation-accent:${escapeHTML(dynamicsTypeMeta[type.id]?.accent || "#9cb0c3")}"></i>${escapeHTML(type.label)} <em>${Number(type.count || 0)}</em></button>`).join("")}</div><div class="sc-dynamics-map" aria-label="업체 원형 관계 지도">${layers.map((layer) => `<section data-dynamics-lane="${escapeHTML(layer.id)}"><header><b>${escapeHTML(layer.index)}</b><span>${escapeHTML(layer.label)}</span></header><div>${(layer.companies || []).map((company) => `<button type="button" class="sc-dynamics-node${company.id === first.id ? " is-selected" : ""}" data-dynamics-company="${escapeHTML(company.id)}" aria-pressed="${company.id === first.id ? "true" : "false"}" style="--company-accent:${escapeHTML(company.accent || "#21b5a7")}"><span>${escapeHTML(dynamicsInitials(company.company))}</span><strong>${escapeHTML(company.company)}</strong><em>${Number(company.relationCount || 0)}</em></button>`).join("")}</div></section>`).join("")}</div></div><aside class="sc-dynamics-detail" data-dynamics-detail aria-live="polite">${renderDynamicsDetail(first, relations, companies, layers)}</aside></div></section>`;
+  return `<section class="sc-broadcom-board sc-dynamics-board" aria-labelledby="competitiveDynamicsTitle"><header class="sc-broadcom-head"><div><span>${escapeHTML(model.eyebrow || "COMPETITIVE DYNAMICS · VALUE CHAIN")}</span><h4 id="competitiveDynamicsTitle">${escapeHTML(model.title || "경쟁 · 파트너십 · 투자 · 공급 관계 지도")}</h4></div><p>${escapeHTML(model.description)}</p></header><div class="sc-dynamics-layout"><nav class="sc-dynamics-layers" aria-label="밸류체인 계층 필터"><b>AI VALUE CHAIN</b><button type="button" data-dynamics-layer="all" aria-pressed="true"><span>ALL</span><strong>전체 밸류체인</strong><em>${companies.length}</em></button>${layers.map((layer) => `<button type="button" data-dynamics-layer="${escapeHTML(layer.id)}" aria-pressed="false"><span>${escapeHTML(layer.index)}</span><strong>${escapeHTML(layer.label)}</strong><em>${Number(layer.companies?.length || 0)}</em></button>`).join("")}</nav><div class="sc-dynamics-stage"><div class="sc-dynamics-toolbar" role="toolbar" aria-label="관계 유형 필터"><button type="button" data-dynamics-type="all" aria-pressed="true"><i style="--relation-accent:#9cb0c3"></i>전체 <em>${relations.length}</em></button>${(model.types || []).map((type) => `<button type="button" data-dynamics-type="${escapeHTML(type.id)}" aria-pressed="false"><i style="--relation-accent:${escapeHTML(dynamicsTypeMeta[type.id]?.accent || "#9cb0c3")}"></i>${escapeHTML(type.label)} <em>${Number(type.count || 0)}</em></button>`).join("")}</div><div class="sc-dynamics-map" aria-label="업체 원형 관계 지도"><svg class="sc-dynamics-links" data-dynamics-links aria-hidden="true"></svg>${layers.map((layer) => `<section data-dynamics-lane="${escapeHTML(layer.id)}"><header><b>${escapeHTML(layer.index)}</b><span>${escapeHTML(layer.label)}</span></header><div>${(layer.companies || []).map((company) => `<button type="button" class="sc-dynamics-node${company.id === first.id ? " is-selected" : ""}" data-dynamics-company="${escapeHTML(company.id)}" aria-pressed="${company.id === first.id ? "true" : "false"}" aria-label="${escapeHTML(company.company)} 관계 보기" style="--company-accent:${escapeHTML(company.accent || "#21b5a7")}"><span>${escapeHTML(dynamicsInitials(company.company))}</span><strong>${escapeHTML(company.company)}</strong><em>${Number(company.relationCount || 0)}</em></button>`).join("")}</div></section>`).join("")}</div><p class="sc-dynamics-map-note">기업 원 선택 → 직접 연결 관계 강조 → 우측 전략 설명 동기화</p></div><aside class="sc-dynamics-detail" data-dynamics-detail aria-live="polite">${renderDynamicsDetail(first, relations, companies, layers)}</aside></div></section>`;
 }
 
 export function bindCompetitiveDynamics(root, model = {}) {
@@ -65,9 +65,58 @@ export function bindCompetitiveDynamics(root, model = {}) {
   const layerFilters = [...root.querySelectorAll("[data-dynamics-layer]")];
   const nodes = [...root.querySelectorAll("[data-dynamics-company]")];
   const detail = root.querySelector("[data-dynamics-detail]");
+  const map = root.querySelector(".sc-dynamics-map");
+  const links = root.querySelector("[data-dynamics-links]");
+  const nodeById = new Map(nodes.map((node) => [node.dataset.dynamicsCompany || "", node]));
+  const edgeById = new Map();
   let selectedId = companyList[0]?.id || "";
   let activeType = "all";
   let activeLayer = "all";
+  let linkFrame = 0;
+  const svgNamespace = "http://www.w3.org/2000/svg";
+  const relationColor = (type) => dynamicsTypeMeta[type]?.accent || "#9cb0c3";
+  if (links) {
+    relations.forEach((relation, index) => {
+      const path = document.createElementNS(svgNamespace, "path");
+      const id = relation.id || `${relation.type}:${relation.from}:${relation.to}:${index}`;
+      path.dataset.dynamicsEdge = id;
+      path.dataset.dynamicsFrom = relation.from;
+      path.dataset.dynamicsTo = relation.to;
+      path.dataset.dynamicsRelationType = relation.type;
+      path.style.setProperty("--relation-accent", relationColor(relation.type));
+      links.appendChild(path);
+      edgeById.set(id, path);
+    });
+  }
+  const layoutLinks = () => {
+    if (!map || !links) return;
+    const mapRect = map.getBoundingClientRect();
+    const width = Math.max(map.clientWidth, map.scrollWidth);
+    const height = Math.max(map.clientHeight, map.scrollHeight);
+    links.setAttribute("viewBox", `0 0 ${width} ${height}`);
+    links.setAttribute("width", String(width));
+    links.setAttribute("height", String(height));
+    relations.forEach((relation, index) => {
+      const id = relation.id || `${relation.type}:${relation.from}:${relation.to}:${index}`;
+      const path = edgeById.get(id);
+      const from = nodeById.get(relation.from);
+      const to = nodeById.get(relation.to);
+      if (!path || !from || !to) return;
+      const fromRect = from.getBoundingClientRect();
+      const toRect = to.getBoundingClientRect();
+      const x1 = fromRect.left - mapRect.left + map.scrollLeft + fromRect.width / 2;
+      const y1 = fromRect.top - mapRect.top + map.scrollTop + fromRect.height / 2;
+      const x2 = toRect.left - mapRect.left + map.scrollLeft + toRect.width / 2;
+      const y2 = toRect.top - mapRect.top + map.scrollTop + toRect.height / 2;
+      const bend = Math.max(34, Math.abs(x2 - x1) * .42);
+      const direction = x2 >= x1 ? 1 : -1;
+      path.setAttribute("d", `M ${x1} ${y1} C ${x1 + bend * direction} ${y1}, ${x2 - bend * direction} ${y2}, ${x2} ${y2}`);
+    });
+  };
+  const scheduleLinkLayout = () => {
+    cancelAnimationFrame(linkFrame);
+    linkFrame = requestAnimationFrame(layoutLinks);
+  };
   const renderSelection = (companyId = selectedId) => {
     const company = companies.get(companyId);
     if (!company) return;
@@ -87,7 +136,17 @@ export function bindCompetitiveDynamics(root, model = {}) {
     });
     filters.forEach((button) => { button.ariaPressed = String(button.dataset.dynamicsType === activeType); });
     layerFilters.forEach((button) => { button.ariaPressed = String(button.dataset.dynamicsLayer === activeLayer); });
+    edgeById.forEach((edge) => {
+      const typeMatch = activeType === "all" || edge.dataset.dynamicsRelationType === activeType;
+      const selectedMatch = edge.dataset.dynamicsFrom === companyId || edge.dataset.dynamicsTo === companyId;
+      const fromLayer = companies.get(edge.dataset.dynamicsFrom)?.layer;
+      const toLayer = companies.get(edge.dataset.dynamicsTo)?.layer;
+      const layerMatch = activeLayer === "all" || fromLayer === activeLayer || toLayer === activeLayer;
+      edge.classList.toggle("is-active", typeMatch && selectedMatch && layerMatch);
+      edge.classList.toggle("is-muted", !typeMatch || !selectedMatch || !layerMatch);
+    });
     if (detail) detail.innerHTML = renderDynamicsDetail(company, activeType === "all" ? relations : relations.filter((relation) => relation.type === activeType), companyList, model.layers || []);
+    scheduleLinkLayout();
   };
   nodes.forEach((button) => button.addEventListener("click", () => renderSelection(button.dataset.dynamicsCompany || selectedId)));
   filters.forEach((button) => button.addEventListener("click", () => {
@@ -104,5 +163,10 @@ export function bindCompetitiveDynamics(root, model = {}) {
     const companyId = jump?.dataset.dynamicsJump || "";
     if (companies.has(companyId)) renderSelection(companyId);
   });
+  const resizeObserver = "ResizeObserver" in window ? new ResizeObserver(scheduleLinkLayout) : null;
+  if (resizeObserver && map) resizeObserver.observe(map);
+  window.addEventListener("resize", scheduleLinkLayout, { passive: true });
+  document.fonts?.ready?.then(scheduleLinkLayout).catch(() => {});
   renderSelection();
+  scheduleLinkLayout();
 }
