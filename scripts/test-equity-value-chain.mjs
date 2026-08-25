@@ -147,6 +147,8 @@ assert.match(css, /\.equity-ticker-grid button\.active:is\(:hover, :focus-visibl
   "selected listed-company cards must retain token-driven contrast when hover and focus overlap");
 assert.match(app, /function companyIntelligenceHTML[\s\S]*?companyOrganizationHTML\(profile\)[\s\S]*?companyStrategyHTML\(profile\)[\s\S]*?companyEvidenceHTML\(profile\)[\s\S]*?Corporate facts/,
   "company detail must separate market facts, leadership, official priorities, and recent evidence");
+assert.doesNotMatch(app, /<span><small>관측 범위<\/small>/,
+  "company intelligence must omit the low-value observation-count metric card");
 assert.match(app, /function companyRecentNews[\s\S]*?canonicalNewsKey\(item\)[\s\S]*?canonicalNewsStoryKey\(item\)/,
   "company evidence must use canonical story deduplication rather than repeat articles");
 assert.match(app, /function companyRecentNews[\s\S]*?profile\.entityAliases[\s\S]*?aliasHits > 0 && entry\.sourceScore >= 3/,

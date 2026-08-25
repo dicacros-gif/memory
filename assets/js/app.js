@@ -23653,7 +23653,6 @@
     const changePct = first && latest && Number(first.close) > 0
       ? ((Number(latest.close) - Number(first.close)) / Number(first.close)) * 100
       : Number.NaN;
-    const coverageDays = first && latest ? Math.max(0, Math.round((latest.time - first.time) / 86400000)) : 0;
     const category = EQUITY_CHAIN_REGIONS[region]?.categories?.find((item) => item.id === index.valueChain);
     const organization = profile ? companyOrganizationHTML(profile) : "";
     const strategy = profile ? companyStrategyHTML(profile) : "";
@@ -23685,7 +23684,6 @@
           <span><small>종목·거래소</small><b>${escapeHTML(index.symbol || "—")}</b><em>${escapeHTML(index.exchange || index.exchangeName || "")}</em></span>
           <span><small>최근 종가</small><b>${latest ? escapeHTML(equityCloseLabel(latest.close, index.currency)) : "—"}</b><em>${latest ? escapeHTML(shortKstDateWithYear(latest.time)) : "관측 전"}</em></span>
           <span><small>${escapeHTML(period.label)} 변화</small><b class="${changePct >= 0 ? "up" : "down"}">${Number.isFinite(changePct) ? `<i class="count" data-from="0" data-to="${escapeHTML(changePct.toFixed(2))}" data-decimals="2" data-prefix="${changePct > 0 ? "+" : ""}" data-suffix="%">${escapeHTML(equityPercent(changePct))}</i>` : "—"}</b><em>첫 종가 대비</em></span>
-          <span><small>관측 범위</small><b><i class="count" data-from="0" data-to="${points.length}" data-decimals="0">${points.length}</i>회</b><em>${coverageDays ? `${coverageDays.toLocaleString("ko-KR")}일` : "신규 관측"}</em></span>
         </div>
         <div class="company-intelligence-grid">
           <section class="company-intelligence-card company-fact-card">
