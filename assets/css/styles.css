@@ -27758,24 +27758,24 @@ body.consulting-system #main > #c-level-cockpit {
 /* Architecture-track contrast lock
    The track itself may invert, while paper metrics, tags and status pills keep
    their own dark-ink token pair instead of inheriting white from the card. */
-#intelligenceConsole #strategyConsulting .arch-track-card .metric,
-#intelligenceConsole #strategyConsulting .arch-track-card:is(:hover, :focus-visible, :focus-within) .metric {
+#intelligenceConsole .arch-track-card .metric,
+#intelligenceConsole .arch-track-card:is(:hover, :focus-visible, :focus-within) .metric {
   border-color: #b8c8d4 !important;
   background: #edf3f5 !important;
   color: #142438 !important;
   -webkit-text-fill-color: #142438 !important;
 }
 
-#intelligenceConsole #strategyConsulting .arch-track-card .metric :is(strong, span),
-#intelligenceConsole #strategyConsulting .arch-track-card:is(:hover, :focus-visible, :focus-within) .metric :is(strong, span) {
+#intelligenceConsole .arch-track-card .metric :is(strong, span),
+#intelligenceConsole .arch-track-card:is(:hover, :focus-visible, :focus-within) .metric :is(strong, span) {
   color: #142438 !important;
   -webkit-text-fill-color: #142438 !important;
   text-shadow: none !important;
   opacity: 1 !important;
 }
 
-#intelligenceConsole #strategyConsulting .arch-track-card .tag,
-#intelligenceConsole #strategyConsulting .arch-track-card:is(:hover, :focus-visible, :focus-within) .tag {
+#intelligenceConsole .arch-track-card .tag,
+#intelligenceConsole .arch-track-card:is(:hover, :focus-visible, :focus-within) .tag {
   border-color: #c4d0da !important;
   background: #f8fafc !important;
   color: #24364a !important;
@@ -27784,8 +27784,8 @@ body.consulting-system #main > #c-level-cockpit {
   opacity: 1 !important;
 }
 
-#intelligenceConsole #strategyConsulting .arch-track-card .chip.accent,
-#intelligenceConsole #strategyConsulting .arch-track-card:is(:hover, :focus-visible, :focus-within) .chip.accent {
+#intelligenceConsole .arch-track-card .chip.accent,
+#intelligenceConsole .arch-track-card:is(:hover, :focus-visible, :focus-within) .chip.accent {
   border-color: #c5b6df !important;
   background: #f2ecfa !important;
   color: #322550 !important;
@@ -27794,8 +27794,8 @@ body.consulting-system #main > #c-level-cockpit {
   opacity: 1 !important;
 }
 
-#intelligenceConsole #strategyConsulting .arch-track-card .baseline-freshness,
-#intelligenceConsole #strategyConsulting .arch-track-card:is(:hover, :focus-visible, :focus-within) .baseline-freshness {
+#intelligenceConsole .arch-track-card .baseline-freshness,
+#intelligenceConsole .arch-track-card:is(:hover, :focus-visible, :focus-within) .baseline-freshness {
   border-color: #82cec1 !important;
   background: #e3f7f3 !important;
   color: #0d4f4a !important;
@@ -27804,10 +27804,23 @@ body.consulting-system #main > #c-level-cockpit {
   opacity: 1 !important;
 }
 
-#intelligenceConsole #strategyConsulting .arch-track-card .baseline-freshness a,
-#intelligenceConsole #strategyConsulting .arch-track-card:is(:hover, :focus-visible, :focus-within) .baseline-freshness a {
+#intelligenceConsole .arch-track-card .baseline-freshness a,
+#intelligenceConsole .arch-track-card:is(:hover, :focus-visible, :focus-within) .baseline-freshness a {
   color: inherit !important;
   -webkit-text-fill-color: inherit !important;
+}
+
+#intelligenceConsole .arch-track-card:is(:hover, :focus-visible, :focus-within)
+  :is(h3, p, .watch-list li) {
+  color: #f4f9fc !important;
+  -webkit-text-fill-color: #f4f9fc !important;
+  text-shadow: none !important;
+  opacity: 1 !important;
+}
+
+#intelligenceConsole .arch-track-card:is(:hover, :focus-visible, :focus-within)
+  .watch-list li::before {
+  color: #7fe4d2 !important;
 }
 
 /* Console disclosure button contract
