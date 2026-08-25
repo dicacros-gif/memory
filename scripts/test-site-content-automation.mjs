@@ -247,6 +247,8 @@ assert.deepEqual(
   ["google", "microsoft", "aws", "apple", "spacex", "nvidia", "meta", "tesla"],
   "priority ASIC portfolio must keep the customer decision order",
 );
+assert.equal(rebuilt.strategyBoard.customerPortfolio.asicPortfolio.evidencePolicy, undefined, "ASIC portfolio must not render the removed disclosure line");
+assert.doesNotMatch(accountViews, /sc-asic-policy|미공개 사양은 추정하지 않음|공식 원문 기준/, "removed ASIC disclosure copy must not return through renderer fallbacks");
 assert.ok(
   rebuilt.strategyBoard.customerPortfolio.asicPortfolio.accounts.every((item) => item.chipPortfolio?.length && item.chipPortfolio.every((chip) => chip.memoryPain && chip.memoryProposal && chip.source?.url)),
   "every priority ASIC card must connect workload, memory implication, proposal, and source",

@@ -13260,7 +13260,6 @@
             </article>
           `}).join("")}
         </div>
-        <p class="sc-asic-policy">${escapeHTML(asicPortfolio.evidencePolicy || "공식 원문 기준")}</p>
       </section>` : ""}
       ${customerPillars.length ? `<div class="sc-partner-grid" aria-label="조직 미션 3필러">
         ${customerPillars.map((item) => `<article class="sc-partner"><strong>${escapeHTML(item.index || "")} · ${escapeHTML(item.label || "")}</strong><div class="sc-partner-row"><b>QUESTION</b><span>${escapeHTML(item.question || "")}</span></div></article>`).join("")}
