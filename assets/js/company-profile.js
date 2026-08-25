@@ -6,7 +6,7 @@
   const directoryUrl = new URL(`../../data/company-directory-client.json?v=${encodeURIComponent(revision)}`, script?.src || location.href);
   const styleUrl = new URL(`../css/company-profile.min.css?v=${encodeURIComponent(revision)}`, script?.src || location.href);
   const excluded = "script,style,template,noscript,textarea,input,select,option,code,pre,a,button,summary,[contenteditable],.company-profile-modal,.company-profile-link";
-  const state = { directory: null, byId: new Map(), aliasMap: new Map(), aliasPattern: null, activeLens: "memory" };
+  const state = { directory: null, byId: new Map(), aliasMap: new Map(), aliasPattern: null, activeLens: "overview" };
   let directoryPromise = null;
   let dialog = null;
   let pendingRoots = new Set();
@@ -168,6 +168,28 @@
     return `<div class="company-profile-baseline">${rows.map((item) => `<div><small>${escapeHTML(item.label || "PUBLIC SPEC")}</small><strong>${escapeHTML(item.value || "공개 확인 필요")}</strong></div>`).join("")}</div>`;
   }
 
+  function overviewLensHTML(profile = {}) {
+    const brief = profile.accountBrief || {};
+    const facts = brief.businessStatus || [];
+    const flow = brief.decisionFlow || [];
+    const raci = brief.organizationRaci || [];
+    const priorities = brief.priorities || [];
+    const leaders = (profile.organization || []).filter((item) => item?.name || item?.role).slice(0, 4);
+    return `
+      <section class="company-lens-panel is-active" data-company-lens-panel="overview">
+        <div class="company-profile-thesis company-profile-thesis--account"><span>ACCOUNT THESIS</span><strong>${escapeHTML(brief.mandate || profile.summary || "AI Infra 의사결정 연결")}</strong><p>${escapeHTML(profile.dataCenterLens?.operatingQuestion || profile.memoryLens?.gate || "고객 Roadmap과 Memory Buying Criteria를 동일 화면에 연결")}</p></div>
+        <div class="company-account-facts">${facts.map((item) => `<article><small>${escapeHTML(item.label)}</small><strong>${escapeHTML(item.value)}</strong></article>`).join("")}</div>
+        ${flow.length ? `<div class="company-account-flow" aria-label="고객 전략 연결 구조">${flow.map((item, index) => `<article><i>${escapeHTML(item.index || String(index + 1).padStart(2, "0"))}</i><small>${escapeHTML(item.label)}</small><strong>${escapeHTML(item.value)}</strong></article>`).join("")}</div>` : ""}
+        <section class="company-raci"><header><div><small>AI INFRA EXECUTION</small><strong>계정별 역할과 산출물</strong></div><span>GSM → HBM Business → MSR</span></header><div>${raci.map((item) => `<article><small>${escapeHTML(item.owner)}</small><strong>${escapeHTML(item.role)}</strong><p>${escapeHTML(item.action)}</p></article>`).join("")}</div></section>
+        ${(priorities.length || leaders.length) ? `<div class="company-profile-grid company-profile-grid--account">
+          ${priorities.length ? `<article><small>STRATEGIC PRIORITIES</small><h4>우선 확인 안건</h4><ul>${priorities.map((item) => `<li>${escapeHTML(item)}</li>`).join("")}</ul></article>` : ""}
+          ${leaders.length ? `<article><small>LEADERSHIP / BUYING CENTER</small><h4>공개 조직 신호</h4><ul>${leaders.map((item) => `<li><b>${escapeHTML(item.name || item.role)}</b>${item.name && item.role ? `<span>${escapeHTML(item.role)}</span>` : ""}</li>`).join("")}</ul></article>` : ""}
+          <article><small>PROFILE CONTROL</small><h4>공개 기준</h4><ul><li>${escapeHTML(profile.layerLabel || "Company")}</li><li>${escapeHTML(profile.verifiedAt ? `최종 확인 ${profile.verifiedAt}` : "2026 공개 원문 우선")}</li>${profile.officialUrl ? `<li><a href="${escapeHTML(profile.officialUrl)}" target="_blank" rel="noopener noreferrer">기업·제품 공식 원문 ↗</a></li>` : ""}</ul></article>
+        </div>` : ""}
+        ${executiveLensHTML(profile)}
+      </section>`;
+  }
+
   function memoryLensHTML(profile = {}) {
     const lens = profile.memoryLens || {};
     const relations = lens.supplierRelations || [];
@@ -175,13 +197,14 @@
       <section class="company-lens-panel is-active" data-company-lens-panel="memory">
         <div class="company-profile-thesis"><span>MEMORY THESIS</span><strong>${escapeHTML(lens.pain || "공개 Workload 신호 확인 필요")}</strong><p>${escapeHTML(lens.proposal || "Requirement Lock 우선")}</p></div>
         ${baselineHTML(profile)}
+        ${lens.buyingCriteria?.length ? `<div class="company-buying-criteria"><b>BUYING CRITERIA</b>${lens.buyingCriteria.map((item, index) => `<span><i>${String(index + 1).padStart(2, "0")}</i>${escapeHTML(item)}</span>`).join("")}</div>` : ""}
         <div class="company-profile-grid">
           <article><small>01 · CUSTOMER PAIN</small><h4>Memory bottleneck</h4><p>${escapeHTML(lens.pain || "공개 확인 필요")}</p></article>
           <article><small>02 · SKH OPTION</small><h4>Memory proposal</h4><p>${escapeHTML(lens.proposal || "Requirement Lock 우선")}</p></article>
           <article><small>03 · DECISION GATE</small><h4>Qualification criteria</h4><p>${escapeHTML(lens.gate || "동일 Workload·SLO 검증")}</p></article>
         </div>
         ${lens.painAxes?.length ? `<div class="company-profile-axis"><header><b>실측 Pain signal</b><span>최근 검증 데이터 기준</span></header>${lens.painAxes.map((axis) => `<div><span>${escapeHTML(axis.label)}</span><i style="--axis:${Math.min(100, Math.max(8, Number(axis.mentions || 0) * 14))}%"></i><b>${Number(axis.mentions || 0)}</b></div>`).join("")}</div>` : ""}
-        ${relations.length ? `<div class="company-profile-relations"><header><b>Supplier relationship</b><span>확정·추정·미확인 분리</span></header>${relations.map((item) => `<article><strong>${escapeHTML(item.supplier)}</strong><span>${escapeHTML(item.status)}</span><p>${escapeHTML(item.note)}</p></article>`).join("")}</div>` : ""}
+        ${relations.length ? `<div class="company-profile-relations"><header><b>Supplier relationship</b><span>확정·추정·미확인 분리</span></header>${relations.map((item) => `<article><strong>${escapeHTML(item.supplier)}</strong><span>${escapeHTML(item.status)}</span><p>${escapeHTML(item.note)}</p>${item.source?.url ? `<a href="${escapeHTML(item.source.url)}" target="_blank" rel="noopener noreferrer">${escapeHTML(item.source.name || "근거 원문")} ↗</a>` : ""}</article>`).join("")}</div>` : ""}
       </section>`;
   }
 
@@ -258,7 +281,7 @@
     return dialog;
   }
 
-  function setLens(lens = "memory") {
+  function setLens(lens = "overview") {
     state.activeLens = lens;
     dialog?.querySelectorAll("[data-company-lens]").forEach((button) => {
       const active = button.dataset.companyLens === lens;
@@ -288,19 +311,20 @@
           <div><small>MEMORY QUESTION</small><strong>${escapeHTML(profile.dataCenterLens?.operatingQuestion || profile.memoryLens?.gate || "공개 확인 필요")}</strong></div>
         </div>
         <nav class="company-profile-tabs" role="tablist" aria-label="기업 분석 관점">
+          <button type="button" data-company-lens="overview" role="tab">Account Brief</button>
           <button type="button" data-company-lens="memory" role="tab">Memory</button>
           <button type="button" data-company-lens="chip" role="tab">Chip</button>
           <button type="button" data-company-lens="datacenter" role="tab">Data Center</button>
         </nav>
         <main class="company-profile-body">
-          ${executiveLensHTML(profile)}
+          ${overviewLensHTML(profile)}
           ${memoryLensHTML(profile)}
           ${chipLensHTML(profile)}
           ${dataCenterLensHTML(profile)}
           ${evidenceHTML(profile)}
         </main>
       </div>`;
-    setLens(state.activeLens || "memory");
+    setLens(state.activeLens || "overview");
   }
 
   async function openProfile(id) {
@@ -310,7 +334,7 @@
     if (!profile) return;
     ensureStyle();
     ensureDialog();
-    state.activeLens = "memory";
+    state.activeLens = "overview";
     renderDialog(profile);
     document.body.classList.add("company-profile-open");
     if (typeof dialog.showModal === "function") dialog.showModal();

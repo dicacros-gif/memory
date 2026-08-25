@@ -90,6 +90,60 @@ const autoLinkAliases = (account = {}, legacy = {}) => unique([
   ...(legacy.entityAliases || []),
 ].filter((item) => String(item || "").replace(/[^a-z0-9가-힣]/gi, "").length >= 3));
 
+const layerMandate = Object.freeze({
+  "end-customer": "고객 AI Chip Roadmap과 Workload 변화를 Memory Requirement로 변환",
+  "asic-partner": "최종 고객과 Memory 공급사 사이의 XPU·Base Die·Package 공동설계",
+  "foundry-package": "Logic Node·CoWoS·Package Yield·Ramp 일정을 Memory 공급 게이트로 관리",
+  "memory-supplier": "고객별 Qualification·Capacity·Portfolio·Margin 조건으로 공급 포지션 관리",
+  "semiconductor-ecosystem": "차세대 기술 로드맵을 HBM·AI-D·AI-N 사업 기회와 실행 리스크로 변환",
+});
+
+function accountBrief(account = {}, legacy = {}, overview = {}, memoryLens = {}, chipLens = {}, dataCenterLens = {}) {
+  const layer = account.layer || "end-customer";
+  const buyingCriteria = unique(memoryLens.buyingCriteria || []).slice(0, 4);
+  const baseline = (memoryLens.baseline || []).slice(0, 3);
+  const platforms = unique((chipLens.portfolio || []).map((item) => item.name).filter(Boolean));
+  const priorities = unique([
+    ...(legacy.officialPriorities || []).map((item) => item.title || item.detail),
+    memoryLens.pain,
+    memoryLens.proposal,
+    dataCenterLens.executionGate,
+  ]).slice(0, 4);
+  return {
+    mandate: layerMandate[layer] || layerMandate["semiconductor-ecosystem"],
+    businessStatus: [
+      { label: "ACCOUNT ROLE", value: layerLabels[layer] || layer },
+      { label: "CHIP / PLATFORM", value: overview.platform || chipLens.primaryChip || "공개 확인 필요" },
+      { label: "MARKET POSITION", value: overview.relationship || "공개 관계 확인 필요" },
+      { label: "EXECUTION STAGE", value: overview.stage?.label || "공개 확인 필요" },
+    ],
+    decisionFlow: [
+      { index: "01", label: "ACCOUNT", value: overview.platform || chipLens.primaryChip || "Chip Roadmap" },
+      { index: "02", label: "PAIN", value: memoryLens.pain || "Workload Pain" },
+      { index: "03", label: "NEXT MEMORY", value: memoryLens.proposal || "Custom HBM·AI-D·AI-N" },
+      { index: "04", label: "DEAL GATE", value: memoryLens.gate || "Qualification·Capacity·LTA" },
+    ],
+    organizationRaci: [
+      {
+        owner: "GSM",
+        role: "Account Intelligence",
+        action: unique([overview.relationship, ...buyingCriteria]).slice(0, 3).join(" · ") || "고객 Roadmap·Buying Center·LTA 협상",
+      },
+      {
+        owner: "HBM BUSINESS",
+        role: "Qualification & Capacity",
+        action: unique([memoryLens.proposal, memoryLens.gate, ...baseline.map((item) => item.value)]).slice(0, 3).join(" · ") || "Custom HBM·인증·Capacity 실행",
+      },
+      {
+        owner: "MSR",
+        role: "Next Memory Pathfinding",
+        action: unique([dataCenterLens.architectureAction, ...platforms]).slice(0, 3).join(" · ") || "AI-D·AI-N·미래 Memory 기회 검증",
+      },
+    ],
+    priorities,
+  };
+}
+
 function accountProfile(account = {}, dynamic = {}, competitive = null, legacy = {}, executive = null) {
   const supplierRelations = (accountModel.supplierRelations || [])
     .filter((relation) => relation.accountId === account.id)
@@ -121,6 +175,41 @@ function accountProfile(account = {}, dynamic = {}, competitive = null, legacy =
     ...(account.chipPortfolio || []),
     ...(dynamic.chipPortfolio || []),
   ], (item) => item.name || item.publicSpec || JSON.stringify(item));
+  const overview = {
+    role: competitive?.role || (account.layer === "asic-partner" ? "XPU Architecture · Cost · Qualification" : "AI Chip Roadmap · Workload · Buying Criteria"),
+    platform: competitive?.portfolio || account.chip || "공개 확인 필요",
+    stage: plainStage(dynamic.chipStage || dynamic.stage || account.stage),
+    relationship: competitive?.position || account.relationship || "공개 관계 확인 필요",
+  };
+  const memoryLens = {
+    pain: account.pain || "공개 Workload 신호 확인 필요",
+    proposal: account.memory || "Requirement Lock 우선",
+    gate: account.gate || "Qualification · TCO · Capacity",
+    buyingCriteria: account.buyingCriteria || [],
+    baseline: account.baseline || [],
+    painAxes,
+    supplierRelations,
+    decisionFocus: legacy.decisionFocus || [],
+  };
+  const chipLens = {
+    primaryChip: account.chip || "공개 확인 필요",
+    portfolio: chipPortfolio,
+    generations: account.generations || [],
+    generationProgression: dynamic.generationProgression || null,
+    partner: account.xpuEcosystem || null,
+    servesAccounts: (account.servesAccounts || []).map((id) => {
+      const target = (accountModel.accounts || []).find((item) => item.id === id);
+      return target ? { id, company: target.company, chip: target.chip } : { id, company: id };
+    }),
+  };
+  const dataCenterLens = {
+    demandClass: account.demandClass || "ecosystem",
+    workloads: unique(chipPortfolio.map((item) => item.workload).filter(Boolean)),
+    systemBottleneck: account.pain || "공개 Workload 신호 확인 필요",
+    architectureAction: account.memory || "Memory Requirement Matrix 설계",
+    executionGate: account.gate || "동일 Workload·SLO 기반 검증",
+    operatingQuestion: account.broadcomStrategy?.accountQuestion || competitive?.decision || account.relationship || "고객 Workload와 Memory TCO를 같은 기준으로 검증",
+  };
   return {
     id: account.id,
     name: account.company,
@@ -134,41 +223,11 @@ function accountProfile(account = {}, dynamic = {}, competitive = null, legacy =
     summary: legacy.summary || competitive?.position || account.relationship || "메모리·칩·데이터센터 관점의 공개 정보 기반 기업 프로필",
     officialUrl: legacy.officialUrl || resolveSources(sourceIds)[0]?.url || "",
     verifiedAt: legacy.verifiedAt || dynamic.evidence?.asOf || "",
-    overview: {
-      role: competitive?.role || (account.layer === "asic-partner" ? "XPU Architecture · Cost · Qualification" : "AI Chip Roadmap · Workload · Buying Criteria"),
-      platform: competitive?.portfolio || account.chip || "공개 확인 필요",
-      stage: plainStage(dynamic.chipStage || dynamic.stage || account.stage),
-      relationship: competitive?.position || account.relationship || "공개 관계 확인 필요",
-    },
-    memoryLens: {
-      pain: account.pain || "공개 Workload 신호 확인 필요",
-      proposal: account.memory || "Requirement Lock 우선",
-      gate: account.gate || "Qualification · TCO · Capacity",
-      buyingCriteria: account.buyingCriteria || [],
-      baseline: account.baseline || [],
-      painAxes,
-      supplierRelations,
-      decisionFocus: legacy.decisionFocus || [],
-    },
-    chipLens: {
-      primaryChip: account.chip || "공개 확인 필요",
-      portfolio: chipPortfolio,
-      generations: account.generations || [],
-      generationProgression: dynamic.generationProgression || null,
-      partner: account.xpuEcosystem || null,
-      servesAccounts: (account.servesAccounts || []).map((id) => {
-        const target = (accountModel.accounts || []).find((item) => item.id === id);
-        return target ? { id, company: target.company, chip: target.chip } : { id, company: id };
-      }),
-    },
-    dataCenterLens: {
-      demandClass: account.demandClass || "ecosystem",
-      workloads: unique(chipPortfolio.map((item) => item.workload).filter(Boolean)),
-      systemBottleneck: account.pain || "공개 Workload 신호 확인 필요",
-      architectureAction: account.memory || "Memory Requirement Matrix 설계",
-      executionGate: account.gate || "동일 Workload·SLO 기반 검증",
-      operatingQuestion: account.broadcomStrategy?.accountQuestion || competitive?.decision || account.relationship || "고객 Workload와 Memory TCO를 같은 기준으로 검증",
-    },
+    overview,
+    accountBrief: accountBrief(account, legacy, overview, memoryLens, chipLens, dataCenterLens),
+    memoryLens,
+    chipLens,
+    dataCenterLens,
     executiveLens: {
       question: executive?.decisionQuestion || account.broadcomStrategy?.accountQuestion || account.gate || "고객 Workload와 Memory TCO를 같은 기준으로 검증",
       painSignals: (executive?.topPainAxes || painAxes).map((axis) => axis.label).filter(Boolean).slice(0, 3),
@@ -375,7 +434,17 @@ export function buildCompanyDirectory({ siteContentExtended = {}, runId = null, 
   for (const [id, entry] of sourceCompanies.entries()) {
     if (!profiles.has(id)) profiles.set(id, sourceCompanyProfile(id, entry.company, entry.sources));
   }
-  const orderedProfiles = [...profiles.values()].sort((a, b) => {
+  const orderedProfiles = [...profiles.values()].map((profile) => profile.accountBrief ? profile : {
+    ...profile,
+    accountBrief: accountBrief(
+      { layer: profile.layer },
+      {},
+      profile.overview || {},
+      profile.memoryLens || {},
+      profile.chipLens || {},
+      profile.dataCenterLens || {},
+    ),
+  }).sort((a, b) => {
     const order = ["asic-partner", "end-customer", "foundry-package", "memory-supplier", "semiconductor-ecosystem"];
     return order.indexOf(a.layer) - order.indexOf(b.layer) || a.name.localeCompare(b.name, "en");
   });

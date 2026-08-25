@@ -41,6 +41,72 @@
         },
         "relationship": "ASIC 설계 파트너를 Buying Center로 관리"
       },
+      "accountBrief": {
+        "mandate": "최종 고객과 Memory 공급사 사이의 XPU·Base Die·Package 공동설계",
+        "businessStatus": [
+          {
+            "label": "ACCOUNT ROLE",
+            "value": "ASIC · XPU Design Partner"
+          },
+          {
+            "label": "CHIP / PLATFORM",
+            "value": "3.5D XDSiP · XPU"
+          },
+          {
+            "label": "MARKET POSITION",
+            "value": "ASIC 설계 파트너를 Buying Center로 관리"
+          },
+          {
+            "label": "EXECUTION STAGE",
+            "value": "공식 플랫폼"
+          }
+        ],
+        "decisionFlow": [
+          {
+            "index": "01",
+            "label": "ACCOUNT",
+            "value": "3.5D XDSiP · XPU"
+          },
+          {
+            "index": "02",
+            "label": "PAIN",
+            "value": "Customer-owned Compute와 HBM PHY·Package·Network 통합"
+          },
+          {
+            "index": "03",
+            "label": "NEXT MEMORY",
+            "value": "Custom HBM · Logic Base Die · Package"
+          },
+          {
+            "index": "04",
+            "label": "DEAL GATE",
+            "value": "3자 Co-Design · Package Yield · NRE"
+          }
+        ],
+        "organizationRaci": [
+          {
+            "owner": "GSM",
+            "role": "Account Intelligence",
+            "action": "ASIC 설계 파트너를 Buying Center로 관리 · BOM·NRE · 원스톱 통합"
+          },
+          {
+            "owner": "HBM BUSINESS",
+            "role": "Qualification & Capacity",
+            "action": "Custom HBM · Logic Base Die · Package · 3자 Co-Design · Package Yield · NRE · 3.5D XDSiP"
+          },
+          {
+            "owner": "MSR",
+            "role": "Next Memory Pathfinding",
+            "action": "Custom HBM · Logic Base Die · Package"
+          }
+        ],
+        "priorities": [
+          "AI semiconductor scale",
+          "Long-term R&D and execution",
+          "Customer-owned Compute와 HBM PHY·Package·Network 통합",
+          "Custom HBM · Logic Base Die · Package"
+        ]
+      },
       "memoryLens": {
         "pain": "Customer-owned Compute와 HBM PHY·Package·Network 통합",
         "proposal": "Custom HBM · Logic Base Die · Package",
@@ -275,6 +341,71 @@
         },
         "relationship": "클라우드 고객을 롤업하되 개별 고객 관계는 직접 근거로만 승격"
       },
+      "accountBrief": {
+        "mandate": "최종 고객과 Memory 공급사 사이의 XPU·Base Die·Package 공동설계",
+        "businessStatus": [
+          {
+            "label": "ACCOUNT ROLE",
+            "value": "ASIC · XPU Design Partner"
+          },
+          {
+            "label": "CHIP / PLATFORM",
+            "value": "Custom HBM XPU · Multi-chip"
+          },
+          {
+            "label": "MARKET POSITION",
+            "value": "클라우드 고객을 롤업하되 개별 고객 관계는 직접 근거로만 승격"
+          },
+          {
+            "label": "EXECUTION STAGE",
+            "value": "공식 Custom ASIC 플랫폼"
+          }
+        ],
+        "decisionFlow": [
+          {
+            "index": "01",
+            "label": "ACCOUNT",
+            "value": "Custom HBM XPU · Multi-chip"
+          },
+          {
+            "index": "02",
+            "label": "PAIN",
+            "value": "XPU 성능·전력·HBM Base Die·Package를 하나의 설계 일정으로 잠금"
+          },
+          {
+            "index": "03",
+            "label": "NEXT MEMORY",
+            "value": "Custom HBM · Logic Base Die · Optical/CXL Fabric"
+          },
+          {
+            "index": "04",
+            "label": "DEAL GATE",
+            "value": "NRE · Interface Power · Package Yield · Time-to-Market"
+          }
+        ],
+        "organizationRaci": [
+          {
+            "owner": "GSM",
+            "role": "Account Intelligence",
+            "action": "클라우드 고객을 롤업하되 개별 고객 관계는 직접 근거로만 승격 · PPA·TCO · NRE"
+          },
+          {
+            "owner": "HBM BUSINESS",
+            "role": "Qualification & Capacity",
+            "action": "Custom HBM · Logic Base Die · Optical/CXL Fabric · NRE · Interface Power · Package Yield · Time-to-Market · Custom HBM · 3nm IP · Advanced Packaging"
+          },
+          {
+            "owner": "MSR",
+            "role": "Next Memory Pathfinding",
+            "action": "Custom HBM · Logic Base Die · Optical/CXL Fabric"
+          }
+        ],
+        "priorities": [
+          "XPU 성능·전력·HBM Base Die·Package를 하나의 설계 일정으로 잠금",
+          "Custom HBM · Logic Base Die · Optical/CXL Fabric",
+          "NRE · Interface Power · Package Yield · Time-to-Market"
+        ]
+      },
       "memoryLens": {
         "pain": "XPU 성능·전력·HBM Base Die·Package를 하나의 설계 일정으로 잠금",
         "proposal": "Custom HBM · Logic Base Die · Optical/CXL Fabric",
@@ -453,6 +584,71 @@
           "label": "공식 서비스"
         },
         "relationship": "공급사·물량 공개 검증 필요"
+      },
+      "accountBrief": {
+        "mandate": "고객 AI Chip Roadmap과 Workload 변화를 Memory Requirement로 변환",
+        "businessStatus": [
+          {
+            "label": "ACCOUNT ROLE",
+            "value": "Big Tech · Hyperscaler"
+          },
+          {
+            "label": "CHIP / PLATFORM",
+            "value": "Trainium3"
+          },
+          {
+            "label": "MARKET POSITION",
+            "value": "공급사·물량 공개 검증 필요"
+          },
+          {
+            "label": "EXECUTION STAGE",
+            "value": "공식 서비스"
+          }
+        ],
+        "decisionFlow": [
+          {
+            "index": "01",
+            "label": "ACCOUNT",
+            "value": "Trainium3"
+          },
+          {
+            "index": "02",
+            "label": "PAIN",
+            "value": "MoE Routing·Collective·HBM Data Movement 경제성"
+          },
+          {
+            "index": "03",
+            "label": "NEXT MEMORY",
+            "value": "Custom HBM · AI-D · System Memory"
+          },
+          {
+            "index": "04",
+            "label": "DEAL GATE",
+            "value": "Neuron Runtime · UltraServer Goodput/TCO"
+          }
+        ],
+        "organizationRaci": [
+          {
+            "owner": "GSM",
+            "role": "Account Intelligence",
+            "action": "공급사·물량 공개 검증 필요"
+          },
+          {
+            "owner": "HBM BUSINESS",
+            "role": "Qualification & Capacity",
+            "action": "Custom HBM · AI-D · System Memory · Neuron Runtime · UltraServer Goodput/TCO · 144GB HBM3e · 4.9TB/s"
+          },
+          {
+            "owner": "MSR",
+            "role": "Next Memory Pathfinding",
+            "action": "Custom HBM · AI-D · System Memory · Trainium3"
+          }
+        ],
+        "priorities": [
+          "MoE Routing·Collective·HBM Data Movement 경제성",
+          "Custom HBM · AI-D · System Memory",
+          "Neuron Runtime · UltraServer Goodput/TCO"
+        ]
       },
       "memoryLens": {
         "pain": "MoE Routing·Collective·HBM Data Movement 경제성",
@@ -702,6 +898,71 @@
         },
         "relationship": "AWS가 주 Training 파트너 · Google TPU·Broadcom 용량 확대 · NVIDIA GPU 병행"
       },
+      "accountBrief": {
+        "mandate": "고객 AI Chip Roadmap과 Workload 변화를 Memory Requirement로 변환",
+        "businessStatus": [
+          {
+            "label": "ACCOUNT ROLE",
+            "value": "Big Tech · Hyperscaler"
+          },
+          {
+            "label": "CHIP / PLATFORM",
+            "value": "AWS Trainium · Google TPU · NVIDIA GPU"
+          },
+          {
+            "label": "MARKET POSITION",
+            "value": "AWS가 주 Training 파트너 · Google TPU·Broadcom 용량 확대 · NVIDIA GPU 병행"
+          },
+          {
+            "label": "EXECUTION STAGE",
+            "value": "멀티플랫폼 Training·Serving 공개"
+          }
+        ],
+        "decisionFlow": [
+          {
+            "index": "01",
+            "label": "ACCOUNT",
+            "value": "AWS Trainium · Google TPU · NVIDIA GPU"
+          },
+          {
+            "index": "02",
+            "label": "PAIN",
+            "value": "플랫폼별 Kernel 최적화·HBM 용량/대역폭·Serving 품질 동등성"
+          },
+          {
+            "index": "03",
+            "label": "NEXT MEMORY",
+            "value": "Training HBM · Collective · KV Cache · Host/Scale Tier"
+          },
+          {
+            "index": "04",
+            "label": "DEAL GATE",
+            "value": "Model Equivalence · Goodput/W · Capacity Resilience"
+          }
+        ],
+        "organizationRaci": [
+          {
+            "owner": "GSM",
+            "role": "Account Intelligence",
+            "action": "AWS가 주 Training 파트너 · Google TPU·Broadcom 용량 확대 · NVIDIA GPU 병행"
+          },
+          {
+            "owner": "HBM BUSINESS",
+            "role": "Qualification & Capacity",
+            "action": "Training HBM · Collective · KV Cache · Host/Scale Tier · Model Equivalence · Goodput/W · Capacity Resilience · Trainium · TPU · NVIDIA GPU"
+          },
+          {
+            "owner": "MSR",
+            "role": "Next Memory Pathfinding",
+            "action": "Training HBM · Collective · KV Cache · Host/Scale Tier"
+          }
+        ],
+        "priorities": [
+          "플랫폼별 Kernel 최적화·HBM 용량/대역폭·Serving 품질 동등성",
+          "Training HBM · Collective · KV Cache · Host/Scale Tier",
+          "Model Equivalence · Goodput/W · Capacity Resilience"
+        ]
+      },
       "memoryLens": {
         "pain": "플랫폼별 Kernel 최적화·HBM 용량/대역폭·Serving 품질 동등성",
         "proposal": "Training HBM · Collective · KV Cache · Host/Scale Tier",
@@ -847,6 +1108,71 @@
         },
         "relationship": "Custom HBM 요청은 시장 추정으로 격리"
       },
+      "accountBrief": {
+        "mandate": "고객 AI Chip Roadmap과 Workload 변화를 Memory Requirement로 변환",
+        "businessStatus": [
+          {
+            "label": "ACCOUNT ROLE",
+            "value": "Big Tech · Hyperscaler"
+          },
+          {
+            "label": "CHIP / PLATFORM",
+            "value": "Apple Silicon · Private Cloud Compute"
+          },
+          {
+            "label": "MARKET POSITION",
+            "value": "Custom HBM 요청은 시장 추정으로 격리"
+          },
+          {
+            "label": "EXECUTION STAGE",
+            "value": "공식 인프라 공개"
+          }
+        ],
+        "decisionFlow": [
+          {
+            "index": "01",
+            "label": "ACCOUNT",
+            "value": "Apple Silicon · Private Cloud Compute"
+          },
+          {
+            "index": "02",
+            "label": "PAIN",
+            "value": "On-device/Cloud 분기·Privacy·저전력 Inference"
+          },
+          {
+            "index": "03",
+            "label": "NEXT MEMORY",
+            "value": "Unified Memory · AI-D E · Secure Cloud Tier"
+          },
+          {
+            "index": "04",
+            "label": "DEAL GATE",
+            "value": "Workload Placement · Privacy · Energy/Task"
+          }
+        ],
+        "organizationRaci": [
+          {
+            "owner": "GSM",
+            "role": "Account Intelligence",
+            "action": "Custom HBM 요청은 시장 추정으로 격리"
+          },
+          {
+            "owner": "HBM BUSINESS",
+            "role": "Qualification & Capacity",
+            "action": "Unified Memory · AI-D E · Secure Cloud Tier · Workload Placement · Privacy · Energy/Task · On-device + Private Cloud"
+          },
+          {
+            "owner": "MSR",
+            "role": "Next Memory Pathfinding",
+            "action": "Unified Memory · AI-D E · Secure Cloud Tier · Apple Silicon · PCC"
+          }
+        ],
+        "priorities": [
+          "On-device/Cloud 분기·Privacy·저전력 Inference",
+          "Unified Memory · AI-D E · Secure Cloud Tier",
+          "Workload Placement · Privacy · Energy/Task"
+        ]
+      },
       "memoryLens": {
         "pain": "On-device/Cloud 분기·Privacy·저전력 Inference",
         "proposal": "Unified Memory · AI-D E · Secure Cloud Tier",
@@ -989,6 +1315,71 @@
           "label": "TPU7x 제공"
         },
         "relationship": "Broadcom XPU 설계 협력은 보도 근거 · HBM 공급 관계와 분리"
+      },
+      "accountBrief": {
+        "mandate": "고객 AI Chip Roadmap과 Workload 변화를 Memory Requirement로 변환",
+        "businessStatus": [
+          {
+            "label": "ACCOUNT ROLE",
+            "value": "Big Tech · Hyperscaler"
+          },
+          {
+            "label": "CHIP / PLATFORM",
+            "value": "TPU7x · Ironwood"
+          },
+          {
+            "label": "MARKET POSITION",
+            "value": "Broadcom XPU 설계 협력은 보도 근거 · HBM 공급 관계와 분리"
+          },
+          {
+            "label": "EXECUTION STAGE",
+            "value": "TPU7x 제공"
+          }
+        ],
+        "decisionFlow": [
+          {
+            "index": "01",
+            "label": "ACCOUNT",
+            "value": "TPU7x · Ironwood"
+          },
+          {
+            "index": "02",
+            "label": "PAIN",
+            "value": "MXU Feeding·Pod Data Movement·전력 효율"
+          },
+          {
+            "index": "03",
+            "label": "NEXT MEMORY",
+            "value": "Custom HBM · HBM/Host Tier · AI-N"
+          },
+          {
+            "index": "04",
+            "label": "DEAL GATE",
+            "value": "MXU Feeding · D2D · Pod TCO"
+          }
+        ],
+        "organizationRaci": [
+          {
+            "owner": "GSM",
+            "role": "Account Intelligence",
+            "action": "Broadcom XPU 설계 협력은 보도 근거 · HBM 공급 관계와 분리"
+          },
+          {
+            "owner": "HBM BUSINESS",
+            "role": "Qualification & Capacity",
+            "action": "Custom HBM · HBM/Host Tier · AI-N · MXU Feeding · D2D · Pod TCO · 192GB HBM · 7.38TB/s"
+          },
+          {
+            "owner": "MSR",
+            "role": "Next Memory Pathfinding",
+            "action": "Custom HBM · HBM/Host Tier · AI-N · TPU7x · Ironwood"
+          }
+        ],
+        "priorities": [
+          "MXU Feeding·Pod Data Movement·전력 효율",
+          "Custom HBM · HBM/Host Tier · AI-N",
+          "MXU Feeding · D2D · Pod TCO"
+        ]
       },
       "memoryLens": {
         "pain": "MXU Feeding·Pod Data Movement·전력 효율",
@@ -1394,7 +1785,72 @@
           "sourceClass": "official",
           "tier": "primary-company"
         }
-      ]
+      ],
+      "accountBrief": {
+        "mandate": "고객 AI Chip Roadmap과 Workload 변화를 Memory Requirement로 변환",
+        "businessStatus": [
+          {
+            "label": "ACCOUNT ROLE",
+            "value": "Big Tech · Hyperscaler"
+          },
+          {
+            "label": "CHIP / PLATFORM",
+            "value": "Quantum Processor · Cryogenic I/O"
+          },
+          {
+            "label": "MARKET POSITION",
+            "value": "SK hynix 제품·파트너·경쟁 영향 추적"
+          },
+          {
+            "label": "EXECUTION STAGE",
+            "value": "공식 원문 모니터링"
+          }
+        ],
+        "decisionFlow": [
+          {
+            "index": "01",
+            "label": "ACCOUNT",
+            "value": "Quantum Processor · Cryogenic I/O"
+          },
+          {
+            "index": "02",
+            "label": "PAIN",
+            "value": "Control Memory · Error-Correction Data · Emerging Memory"
+          },
+          {
+            "index": "03",
+            "label": "NEXT MEMORY",
+            "value": "Workload Requirement → Memory Architecture → Qualification"
+          },
+          {
+            "index": "04",
+            "label": "DEAL GATE",
+            "value": "공식 Roadmap · 고객 적용 · Capacity · TCO"
+          }
+        ],
+        "organizationRaci": [
+          {
+            "owner": "GSM",
+            "role": "Account Intelligence",
+            "action": "SK hynix 제품·파트너·경쟁 영향 추적"
+          },
+          {
+            "owner": "HBM BUSINESS",
+            "role": "Qualification & Capacity",
+            "action": "Workload Requirement → Memory Architecture → Qualification · 공식 Roadmap · 고객 적용 · Capacity · TCO"
+          },
+          {
+            "owner": "MSR",
+            "role": "Next Memory Pathfinding",
+            "action": "Control Memory · Error-Correction Data · Emerging Memory · IBM Quantum Roadmap"
+          }
+        ],
+        "priorities": [
+          "Control Memory · Error-Correction Data · Emerging Memory",
+          "Workload Requirement → Memory Architecture → Qualification",
+          "동일 Workload·SLO · 상호운용성 · TCO"
+        ]
+      }
     },
     {
       "id": "meta",
@@ -1422,6 +1878,71 @@
           "label": "인프라 배포 공개"
         },
         "relationship": "Broadcom과 다세대 MTIA 공동개발 공식 발표 · Memory 공급과 분리"
+      },
+      "accountBrief": {
+        "mandate": "고객 AI Chip Roadmap과 Workload 변화를 Memory Requirement로 변환",
+        "businessStatus": [
+          {
+            "label": "ACCOUNT ROLE",
+            "value": "Big Tech · Hyperscaler"
+          },
+          {
+            "label": "CHIP / PLATFORM",
+            "value": "MTIA"
+          },
+          {
+            "label": "MARKET POSITION",
+            "value": "Broadcom과 다세대 MTIA 공동개발 공식 발표 · Memory 공급과 분리"
+          },
+          {
+            "label": "EXECUTION STAGE",
+            "value": "인프라 배포 공개"
+          }
+        ],
+        "decisionFlow": [
+          {
+            "index": "01",
+            "label": "ACCOUNT",
+            "value": "MTIA"
+          },
+          {
+            "index": "02",
+            "label": "PAIN",
+            "value": "추천·광고 추론의 HBM I/O·Chiplet·Package Scaling"
+          },
+          {
+            "index": "03",
+            "label": "NEXT MEMORY",
+            "value": "Custom HBM · AI-D · Fabric"
+          },
+          {
+            "index": "04",
+            "label": "DEAL GATE",
+            "value": "Generation Roadmap · Package · TCO"
+          }
+        ],
+        "organizationRaci": [
+          {
+            "owner": "GSM",
+            "role": "Account Intelligence",
+            "action": "Broadcom과 다세대 MTIA 공동개발 공식 발표 · Memory 공급과 분리"
+          },
+          {
+            "owner": "HBM BUSINESS",
+            "role": "Qualification & Capacity",
+            "action": "Custom HBM · AI-D · Fabric · Generation Roadmap · Package · TCO · MTIA Roadmap"
+          },
+          {
+            "owner": "MSR",
+            "role": "Next Memory Pathfinding",
+            "action": "Custom HBM · AI-D · Fabric"
+          }
+        ],
+        "priorities": [
+          "추천·광고 추론의 HBM I/O·Chiplet·Package Scaling",
+          "Custom HBM · AI-D · Fabric",
+          "Generation Roadmap · Package · TCO"
+        ]
       },
       "memoryLens": {
         "pain": "추천·광고 추론의 HBM I/O·Chiplet·Package Scaling",
@@ -1624,6 +2145,71 @@
         },
         "relationship": "HBM 공급 관계는 별도 직접 원문 필요"
       },
+      "accountBrief": {
+        "mandate": "고객 AI Chip Roadmap과 Workload 변화를 Memory Requirement로 변환",
+        "businessStatus": [
+          {
+            "label": "ACCOUNT ROLE",
+            "value": "Big Tech · Hyperscaler"
+          },
+          {
+            "label": "CHIP / PLATFORM",
+            "value": "Maia 200"
+          },
+          {
+            "label": "MARKET POSITION",
+            "value": "HBM 공급 관계는 별도 직접 원문 필요"
+          },
+          {
+            "label": "EXECUTION STAGE",
+            "value": "Region 배포"
+          }
+        ],
+        "decisionFlow": [
+          {
+            "index": "01",
+            "label": "ACCOUNT",
+            "value": "Maia 200"
+          },
+          {
+            "index": "02",
+            "label": "PAIN",
+            "value": "Inference Token 경제성·Memory Feeding·Scale-up Network"
+          },
+          {
+            "index": "03",
+            "label": "NEXT MEMORY",
+            "value": "Custom HBM · AI-D · Network Co-Design"
+          },
+          {
+            "index": "04",
+            "label": "DEAL GATE",
+            "value": "Model Portability · Region Ramp · TCO"
+          }
+        ],
+        "organizationRaci": [
+          {
+            "owner": "GSM",
+            "role": "Account Intelligence",
+            "action": "HBM 공급 관계는 별도 직접 원문 필요"
+          },
+          {
+            "owner": "HBM BUSINESS",
+            "role": "Qualification & Capacity",
+            "action": "Custom HBM · AI-D · Network Co-Design · Model Portability · Region Ramp · TCO · 216GB HBM3e · 7TB/s"
+          },
+          {
+            "owner": "MSR",
+            "role": "Next Memory Pathfinding",
+            "action": "Custom HBM · AI-D · Network Co-Design · Maia 200"
+          }
+        ],
+        "priorities": [
+          "Inference Token 경제성·Memory Feeding·Scale-up Network",
+          "Custom HBM · AI-D · Network Co-Design",
+          "Model Portability · Region Ramp · TCO"
+        ]
+      },
       "memoryLens": {
         "pain": "Inference Token 경제성·Memory Feeding·Scale-up Network",
         "proposal": "Custom HBM · AI-D · Network Co-Design",
@@ -1789,6 +2375,72 @@
           "label": "공식 플랫폼 공개"
         },
         "relationship": "공식 파트너십 근거만 연결"
+      },
+      "accountBrief": {
+        "mandate": "고객 AI Chip Roadmap과 Workload 변화를 Memory Requirement로 변환",
+        "businessStatus": [
+          {
+            "label": "ACCOUNT ROLE",
+            "value": "Big Tech · Hyperscaler"
+          },
+          {
+            "label": "CHIP / PLATFORM",
+            "value": "Vera Rubin"
+          },
+          {
+            "label": "MARKET POSITION",
+            "value": "공식 파트너십 근거만 연결"
+          },
+          {
+            "label": "EXECUTION STAGE",
+            "value": "공식 플랫폼 공개"
+          }
+        ],
+        "decisionFlow": [
+          {
+            "index": "01",
+            "label": "ACCOUNT",
+            "value": "Vera Rubin"
+          },
+          {
+            "index": "02",
+            "label": "PAIN",
+            "value": "Rack-scale Agentic AI의 Memory·Fabric·전력 동시 병목"
+          },
+          {
+            "index": "03",
+            "label": "NEXT MEMORY",
+            "value": "Custom HBM · AI-D · AI-N/eSSD"
+          },
+          {
+            "index": "04",
+            "label": "DEAL GATE",
+            "value": "Qualification · Ramp · Package Capacity"
+          }
+        ],
+        "organizationRaci": [
+          {
+            "owner": "GSM",
+            "role": "Account Intelligence",
+            "action": "공식 파트너십 근거만 연결"
+          },
+          {
+            "owner": "HBM BUSINESS",
+            "role": "Qualification & Capacity",
+            "action": "Custom HBM · AI-D · AI-N/eSSD · Qualification · Ramp · Package Capacity · Vera Rubin"
+          },
+          {
+            "owner": "MSR",
+            "role": "Next Memory Pathfinding",
+            "action": "Custom HBM · AI-D · AI-N/eSSD"
+          }
+        ],
+        "priorities": [
+          "Accelerated computing platform",
+          "Rack-scale Agentic AI의 Memory·Fabric·전력 동시 병목",
+          "Custom HBM · AI-D · AI-N/eSSD",
+          "Qualification · Ramp · Package Capacity"
+        ]
       },
       "memoryLens": {
         "pain": "Rack-scale Agentic AI의 Memory·Fabric·전력 동시 병목",
@@ -2087,6 +2739,71 @@
         },
         "relationship": "OpenAI 설계 XPU를 Broadcom이 Silicon·Network로 구현"
       },
+      "accountBrief": {
+        "mandate": "고객 AI Chip Roadmap과 Workload 변화를 Memory Requirement로 변환",
+        "businessStatus": [
+          {
+            "label": "ACCOUNT ROLE",
+            "value": "Big Tech · Hyperscaler"
+          },
+          {
+            "label": "CHIP / PLATFORM",
+            "value": "OpenAI-designed AI accelerator"
+          },
+          {
+            "label": "MARKET POSITION",
+            "value": "OpenAI 설계 XPU를 Broadcom이 Silicon·Network로 구현"
+          },
+          {
+            "label": "EXECUTION STAGE",
+            "value": "공식 공동개발"
+          }
+        ],
+        "decisionFlow": [
+          {
+            "index": "01",
+            "label": "ACCOUNT",
+            "value": "OpenAI-designed AI accelerator"
+          },
+          {
+            "index": "02",
+            "label": "PAIN",
+            "value": "LLM Inference의 Memory Movement·Utilization·전력·Reliability"
+          },
+          {
+            "index": "03",
+            "label": "NEXT MEMORY",
+            "value": "HBM · Ethernet Scale-up/out · Rack Co-Design"
+          },
+          {
+            "index": "04",
+            "label": "DEAL GATE",
+            "value": "Memory Balance · Tape-out · 2026 Deployment"
+          }
+        ],
+        "organizationRaci": [
+          {
+            "owner": "GSM",
+            "role": "Account Intelligence",
+            "action": "OpenAI 설계 XPU를 Broadcom이 Silicon·Network로 구현"
+          },
+          {
+            "owner": "HBM BUSINESS",
+            "role": "Qualification & Capacity",
+            "action": "HBM · Ethernet Scale-up/out · Rack Co-Design · Memory Balance · Tape-out · 2026 Deployment · OpenAI 설계 · Broadcom 구현·Network"
+          },
+          {
+            "owner": "MSR",
+            "role": "Next Memory Pathfinding",
+            "action": "HBM · Ethernet Scale-up/out · Rack Co-Design"
+          }
+        ],
+        "priorities": [
+          "LLM Inference의 Memory Movement·Utilization·전력·Reliability",
+          "HBM · Ethernet Scale-up/out · Rack Co-Design",
+          "Memory Balance · Tape-out · 2026 Deployment"
+        ]
+      },
       "memoryLens": {
         "pain": "LLM Inference의 Memory Movement·Utilization·전력·Reliability",
         "proposal": "HBM · Ethernet Scale-up/out · Rack Co-Design",
@@ -2217,6 +2934,71 @@
           "label": "Reference Monitor"
         },
         "relationship": "공식 Memory 근거 전까지 Opportunity Watch"
+      },
+      "accountBrief": {
+        "mandate": "고객 AI Chip Roadmap과 Workload 변화를 Memory Requirement로 변환",
+        "businessStatus": [
+          {
+            "label": "ACCOUNT ROLE",
+            "value": "Big Tech · Hyperscaler"
+          },
+          {
+            "label": "CHIP / PLATFORM",
+            "value": "Starlink Silicon · STARMIND"
+          },
+          {
+            "label": "MARKET POSITION",
+            "value": "공식 Memory 근거 전까지 Opportunity Watch"
+          },
+          {
+            "label": "EXECUTION STAGE",
+            "value": "Reference Monitor"
+          }
+        ],
+        "decisionFlow": [
+          {
+            "index": "01",
+            "label": "ACCOUNT",
+            "value": "Starlink Silicon · STARMIND"
+          },
+          {
+            "index": "02",
+            "label": "PAIN",
+            "value": "Edge Compute의 전력·방사선·통신·신뢰성"
+          },
+          {
+            "index": "03",
+            "label": "NEXT MEMORY",
+            "value": "Low-power DRAM/NAND · AI-D E 후보"
+          },
+          {
+            "index": "04",
+            "label": "DEAL GATE",
+            "value": "공식 Memory Spec · Qualification · Volume"
+          }
+        ],
+        "organizationRaci": [
+          {
+            "owner": "GSM",
+            "role": "Account Intelligence",
+            "action": "공식 Memory 근거 전까지 Opportunity Watch"
+          },
+          {
+            "owner": "HBM BUSINESS",
+            "role": "Qualification & Capacity",
+            "action": "Low-power DRAM/NAND · AI-D E 후보 · 공식 Memory Spec · Qualification · Volume · Custom Silicon · Orbital AI Compute"
+          },
+          {
+            "owner": "MSR",
+            "role": "Next Memory Pathfinding",
+            "action": "Low-power DRAM/NAND · AI-D E 후보 · Starlink Silicon · STARMIND"
+          }
+        ],
+        "priorities": [
+          "Edge Compute의 전력·방사선·통신·신뢰성",
+          "Low-power DRAM/NAND · AI-D E 후보",
+          "공식 Memory Spec · Qualification · Volume"
+        ]
       },
       "memoryLens": {
         "pain": "Edge Compute의 전력·방사선·통신·신뢰성",
@@ -2350,6 +3132,71 @@
           "label": "공식 Roadmap 모니터"
         },
         "relationship": "Memory 공급 관계 공개 검증 필요"
+      },
+      "accountBrief": {
+        "mandate": "고객 AI Chip Roadmap과 Workload 변화를 Memory Requirement로 변환",
+        "businessStatus": [
+          {
+            "label": "ACCOUNT ROLE",
+            "value": "Big Tech · Hyperscaler"
+          },
+          {
+            "label": "CHIP / PLATFORM",
+            "value": "AI5 · Dojo"
+          },
+          {
+            "label": "MARKET POSITION",
+            "value": "Memory 공급 관계 공개 검증 필요"
+          },
+          {
+            "label": "EXECUTION STAGE",
+            "value": "공식 Roadmap 모니터"
+          }
+        ],
+        "decisionFlow": [
+          {
+            "index": "01",
+            "label": "ACCOUNT",
+            "value": "AI5 · Dojo"
+          },
+          {
+            "index": "02",
+            "label": "PAIN",
+            "value": "차량·로봇 추론의 Latency·전력·학습 Data Loop"
+          },
+          {
+            "index": "03",
+            "label": "NEXT MEMORY",
+            "value": "AI-D E · LPDDR · High-capacity Training Tier"
+          },
+          {
+            "index": "04",
+            "label": "DEAL GATE",
+            "value": "Silicon Sample · Vehicle Validation · Ramp"
+          }
+        ],
+        "organizationRaci": [
+          {
+            "owner": "GSM",
+            "role": "Account Intelligence",
+            "action": "Memory 공급 관계 공개 검증 필요"
+          },
+          {
+            "owner": "HBM BUSINESS",
+            "role": "Qualification & Capacity",
+            "action": "AI-D E · LPDDR · High-capacity Training Tier · Silicon Sample · Vehicle Validation · Ramp · AI Silicon · Robotics"
+          },
+          {
+            "owner": "MSR",
+            "role": "Next Memory Pathfinding",
+            "action": "AI-D E · LPDDR · High-capacity Training Tier"
+          }
+        ],
+        "priorities": [
+          "차량·로봇 추론의 Latency·전력·학습 Data Loop",
+          "AI-D E · LPDDR · High-capacity Training Tier",
+          "Silicon Sample · Vehicle Validation · Ramp"
+        ]
       },
       "memoryLens": {
         "pain": "차량·로봇 추론의 Latency·전력·학습 Data Loop",
@@ -2559,7 +3406,72 @@
           "sourceClass": "official",
           "tier": "primary-company"
         }
-      ]
+      ],
+      "accountBrief": {
+        "mandate": "Logic Node·CoWoS·Package Yield·Ramp 일정을 Memory 공급 게이트로 관리",
+        "businessStatus": [
+          {
+            "label": "ACCOUNT ROLE",
+            "value": "Foundry · Advanced Packaging"
+          },
+          {
+            "label": "CHIP / PLATFORM",
+            "value": "Foveros · EMIB · Intel Foundry"
+          },
+          {
+            "label": "MARKET POSITION",
+            "value": "SK hynix 제품·파트너·경쟁 영향 추적"
+          },
+          {
+            "label": "EXECUTION STAGE",
+            "value": "공식 원문 모니터링"
+          }
+        ],
+        "decisionFlow": [
+          {
+            "index": "01",
+            "label": "ACCOUNT",
+            "value": "Foveros · EMIB · Intel Foundry"
+          },
+          {
+            "index": "02",
+            "label": "PAIN",
+            "value": "HBM Integration · CXL · Glass Substrate"
+          },
+          {
+            "index": "03",
+            "label": "NEXT MEMORY",
+            "value": "Workload Requirement → Memory Architecture → Qualification"
+          },
+          {
+            "index": "04",
+            "label": "DEAL GATE",
+            "value": "공식 Roadmap · 고객 적용 · Capacity · TCO"
+          }
+        ],
+        "organizationRaci": [
+          {
+            "owner": "GSM",
+            "role": "Account Intelligence",
+            "action": "SK hynix 제품·파트너·경쟁 영향 추적"
+          },
+          {
+            "owner": "HBM BUSINESS",
+            "role": "Qualification & Capacity",
+            "action": "Workload Requirement → Memory Architecture → Qualification · 공식 Roadmap · 고객 적용 · Capacity · TCO"
+          },
+          {
+            "owner": "MSR",
+            "role": "Next Memory Pathfinding",
+            "action": "HBM Integration · CXL · Glass Substrate · Intel Advanced Packaging · Intel Glass Substrate"
+          }
+        ],
+        "priorities": [
+          "HBM Integration · CXL · Glass Substrate",
+          "Workload Requirement → Memory Architecture → Qualification",
+          "동일 Workload·SLO · 상호운용성 · TCO"
+        ]
+      }
     },
     {
       "id": "tsmc",
@@ -2594,6 +3506,72 @@
           "label": "공식 플랫폼"
         },
         "relationship": "특정 고객 공급 관계가 아니라 실행 제약 계층으로 관리"
+      },
+      "accountBrief": {
+        "mandate": "Logic Node·CoWoS·Package Yield·Ramp 일정을 Memory 공급 게이트로 관리",
+        "businessStatus": [
+          {
+            "label": "ACCOUNT ROLE",
+            "value": "Foundry · Advanced Packaging"
+          },
+          {
+            "label": "CHIP / PLATFORM",
+            "value": "Logic Base Die · 3DFabric"
+          },
+          {
+            "label": "MARKET POSITION",
+            "value": "특정 고객 공급 관계가 아니라 실행 제약 계층으로 관리"
+          },
+          {
+            "label": "EXECUTION STAGE",
+            "value": "공식 플랫폼"
+          }
+        ],
+        "decisionFlow": [
+          {
+            "index": "01",
+            "label": "ACCOUNT",
+            "value": "Logic Base Die · 3DFabric"
+          },
+          {
+            "index": "02",
+            "label": "PAIN",
+            "value": "최선단 로직 Slot·CoWoS 캐파·수율을 고객 Ramp와 동기화"
+          },
+          {
+            "index": "03",
+            "label": "NEXT MEMORY",
+            "value": "HBM Logic Base Die · 2.5D/3D Package"
+          },
+          {
+            "index": "04",
+            "label": "DEAL GATE",
+            "value": "Node Slot · Yield · Package Allocation"
+          }
+        ],
+        "organizationRaci": [
+          {
+            "owner": "GSM",
+            "role": "Account Intelligence",
+            "action": "특정 고객 공급 관계가 아니라 실행 제약 계층으로 관리 · 공정 Slot · 수율"
+          },
+          {
+            "owner": "HBM BUSINESS",
+            "role": "Qualification & Capacity",
+            "action": "HBM Logic Base Die · 2.5D/3D Package · Node Slot · Yield · Package Allocation · Logic Process · CoWoS · Advanced Packaging"
+          },
+          {
+            "owner": "MSR",
+            "role": "Next Memory Pathfinding",
+            "action": "HBM Logic Base Die · 2.5D/3D Package"
+          }
+        ],
+        "priorities": [
+          "Technology and manufacturing leadership",
+          "Intelligent manufacturing",
+          "최선단 로직 Slot·CoWoS 캐파·수율을 고객 Ramp와 동기화",
+          "HBM Logic Base Die · 2.5D/3D Package"
+        ]
       },
       "memoryLens": {
         "pain": "최선단 로직 Slot·CoWoS 캐파·수율을 고객 Ramp와 동기화",
@@ -2821,6 +3799,72 @@
         },
         "relationship": "중국 범용 메모리 경쟁"
       },
+      "accountBrief": {
+        "mandate": "고객별 Qualification·Capacity·Portfolio·Margin 조건으로 공급 포지션 관리",
+        "businessStatus": [
+          {
+            "label": "ACCOUNT ROLE",
+            "value": "Memory Supplier"
+          },
+          {
+            "label": "CHIP / PLATFORM",
+            "value": "DRAM · LPDDR"
+          },
+          {
+            "label": "MARKET POSITION",
+            "value": "중국 범용 메모리 경쟁"
+          },
+          {
+            "label": "EXECUTION STAGE",
+            "value": "공개 확인 필요"
+          }
+        ],
+        "decisionFlow": [
+          {
+            "index": "01",
+            "label": "ACCOUNT",
+            "value": "DRAM · LPDDR"
+          },
+          {
+            "index": "02",
+            "label": "PAIN",
+            "value": "승인 · 캐파 · Contract Price"
+          },
+          {
+            "index": "03",
+            "label": "NEXT MEMORY",
+            "value": "DRAM · LPDDR"
+          },
+          {
+            "index": "04",
+            "label": "DEAL GATE",
+            "value": "Customer Qualification · Yield · Capacity · Margin"
+          }
+        ],
+        "organizationRaci": [
+          {
+            "owner": "GSM",
+            "role": "Account Intelligence",
+            "action": "중국 범용 메모리 경쟁"
+          },
+          {
+            "owner": "HBM BUSINESS",
+            "role": "Qualification & Capacity",
+            "action": "DRAM · LPDDR · Customer Qualification · Yield · Capacity · Margin"
+          },
+          {
+            "owner": "MSR",
+            "role": "Next Memory Pathfinding",
+            "action": "DRAM · LPDDR"
+          }
+        ],
+        "priorities": [
+          "DRAM capacity and process",
+          "승인 · 캐파 · Contract Price",
+          "DRAM · LPDDR",
+          "Customer Qualification · Yield · Capacity · Margin"
+        ]
+      },
       "memoryLens": {
         "pain": "승인 · 캐파 · Contract Price",
         "proposal": "DRAM · LPDDR",
@@ -3022,7 +4066,72 @@
           "sourceClass": "official",
           "tier": "primary-company"
         }
-      ]
+      ],
+      "accountBrief": {
+        "mandate": "고객별 Qualification·Capacity·Portfolio·Margin 조건으로 공급 포지션 관리",
+        "businessStatus": [
+          {
+            "label": "ACCOUNT ROLE",
+            "value": "Memory Supplier"
+          },
+          {
+            "label": "CHIP / PLATFORM",
+            "value": "BiCS FLASH · SSD Controller"
+          },
+          {
+            "label": "MARKET POSITION",
+            "value": "SK hynix 제품·파트너·경쟁 영향 추적"
+          },
+          {
+            "label": "EXECUTION STAGE",
+            "value": "공식 원문 모니터링"
+          }
+        ],
+        "decisionFlow": [
+          {
+            "index": "01",
+            "label": "ACCOUNT",
+            "value": "BiCS FLASH · SSD Controller"
+          },
+          {
+            "index": "02",
+            "label": "PAIN",
+            "value": "NAND · Enterprise SSD · AI Storage"
+          },
+          {
+            "index": "03",
+            "label": "NEXT MEMORY",
+            "value": "Workload Requirement → Memory Architecture → Qualification"
+          },
+          {
+            "index": "04",
+            "label": "DEAL GATE",
+            "value": "공식 Roadmap · 고객 적용 · Capacity · TCO"
+          }
+        ],
+        "organizationRaci": [
+          {
+            "owner": "GSM",
+            "role": "Account Intelligence",
+            "action": "SK hynix 제품·파트너·경쟁 영향 추적"
+          },
+          {
+            "owner": "HBM BUSINESS",
+            "role": "Qualification & Capacity",
+            "action": "Workload Requirement → Memory Architecture → Qualification · 공식 Roadmap · 고객 적용 · Capacity · TCO"
+          },
+          {
+            "owner": "MSR",
+            "role": "Next Memory Pathfinding",
+            "action": "NAND · Enterprise SSD · AI Storage · Kioxia Newsroom"
+          }
+        ],
+        "priorities": [
+          "NAND · Enterprise SSD · AI Storage",
+          "Workload Requirement → Memory Architecture → Qualification",
+          "동일 Workload·SLO · 상호운용성 · TCO"
+        ]
+      }
     },
     {
       "id": "micron",
@@ -3053,6 +4162,72 @@
           "label": "공개 확인 필요"
         },
         "relationship": "미국 공급망 · 효율 경쟁"
+      },
+      "accountBrief": {
+        "mandate": "고객별 Qualification·Capacity·Portfolio·Margin 조건으로 공급 포지션 관리",
+        "businessStatus": [
+          {
+            "label": "ACCOUNT ROLE",
+            "value": "Memory Supplier"
+          },
+          {
+            "label": "CHIP / PLATFORM",
+            "value": "HBM · DRAM · NAND"
+          },
+          {
+            "label": "MARKET POSITION",
+            "value": "미국 공급망 · 효율 경쟁"
+          },
+          {
+            "label": "EXECUTION STAGE",
+            "value": "공개 확인 필요"
+          }
+        ],
+        "decisionFlow": [
+          {
+            "index": "01",
+            "label": "ACCOUNT",
+            "value": "HBM · DRAM · NAND"
+          },
+          {
+            "index": "02",
+            "label": "PAIN",
+            "value": "Customer Qualification · Supply Mix"
+          },
+          {
+            "index": "03",
+            "label": "NEXT MEMORY",
+            "value": "HBM · DRAM · NAND"
+          },
+          {
+            "index": "04",
+            "label": "DEAL GATE",
+            "value": "Customer Qualification · Yield · Capacity · Margin"
+          }
+        ],
+        "organizationRaci": [
+          {
+            "owner": "GSM",
+            "role": "Account Intelligence",
+            "action": "미국 공급망 · 효율 경쟁"
+          },
+          {
+            "owner": "HBM BUSINESS",
+            "role": "Qualification & Capacity",
+            "action": "HBM · DRAM · NAND · Customer Qualification · Yield · Capacity · Margin"
+          },
+          {
+            "owner": "MSR",
+            "role": "Next Memory Pathfinding",
+            "action": "HBM · DRAM · NAND"
+          }
+        ],
+        "priorities": [
+          "AI memory and storage",
+          "End-to-end engineering",
+          "Customer Qualification · Supply Mix",
+          "HBM · DRAM · NAND"
+        ]
       },
       "memoryLens": {
         "pain": "Customer Qualification · Supply Mix",
@@ -3203,6 +4378,72 @@
           "label": "공개 확인 필요"
         },
         "relationship": "로직·메모리·패키징 통합 경쟁"
+      },
+      "accountBrief": {
+        "mandate": "고객별 Qualification·Capacity·Portfolio·Margin 조건으로 공급 포지션 관리",
+        "businessStatus": [
+          {
+            "label": "ACCOUNT ROLE",
+            "value": "Memory Supplier"
+          },
+          {
+            "label": "CHIP / PLATFORM",
+            "value": "HBM · Foundry · Package"
+          },
+          {
+            "label": "MARKET POSITION",
+            "value": "로직·메모리·패키징 통합 경쟁"
+          },
+          {
+            "label": "EXECUTION STAGE",
+            "value": "공개 확인 필요"
+          }
+        ],
+        "decisionFlow": [
+          {
+            "index": "01",
+            "label": "ACCOUNT",
+            "value": "HBM · Foundry · Package"
+          },
+          {
+            "index": "02",
+            "label": "PAIN",
+            "value": "HBM4 Ramp · Yield · Qualification"
+          },
+          {
+            "index": "03",
+            "label": "NEXT MEMORY",
+            "value": "HBM · Foundry · Package"
+          },
+          {
+            "index": "04",
+            "label": "DEAL GATE",
+            "value": "Customer Qualification · Yield · Capacity · Margin"
+          }
+        ],
+        "organizationRaci": [
+          {
+            "owner": "GSM",
+            "role": "Account Intelligence",
+            "action": "로직·메모리·패키징 통합 경쟁"
+          },
+          {
+            "owner": "HBM BUSINESS",
+            "role": "Qualification & Capacity",
+            "action": "HBM · Foundry · Package · Customer Qualification · Yield · Capacity · Margin"
+          },
+          {
+            "owner": "MSR",
+            "role": "Next Memory Pathfinding",
+            "action": "HBM · Foundry · Package"
+          }
+        ],
+        "priorities": [
+          "AI product-centric memory",
+          "Memory-foundry-packaging integration",
+          "HBM4 Ramp · Yield · Qualification",
+          "HBM · Foundry · Package"
+        ]
       },
       "memoryLens": {
         "pain": "HBM4 Ramp · Yield · Qualification",
@@ -3417,7 +4658,72 @@
           "sourceClass": "official",
           "tier": "primary-company"
         }
-      ]
+      ],
+      "accountBrief": {
+        "mandate": "고객별 Qualification·Capacity·Portfolio·Margin 조건으로 공급 포지션 관리",
+        "businessStatus": [
+          {
+            "label": "ACCOUNT ROLE",
+            "value": "Memory Supplier"
+          },
+          {
+            "label": "CHIP / PLATFORM",
+            "value": "HBM-HBF Hybrid · UCIe Interface"
+          },
+          {
+            "label": "MARKET POSITION",
+            "value": "SK hynix 제품·파트너·경쟁 영향 추적"
+          },
+          {
+            "label": "EXECUTION STAGE",
+            "value": "공식 원문 모니터링"
+          }
+        ],
+        "decisionFlow": [
+          {
+            "index": "01",
+            "label": "ACCOUNT",
+            "value": "HBM-HBF Hybrid · UCIe Interface"
+          },
+          {
+            "index": "02",
+            "label": "PAIN",
+            "value": "HBF · High-Capacity NAND · AI-N B"
+          },
+          {
+            "index": "03",
+            "label": "NEXT MEMORY",
+            "value": "Workload Requirement → Memory Architecture → Qualification"
+          },
+          {
+            "index": "04",
+            "label": "DEAL GATE",
+            "value": "공식 Roadmap · 고객 적용 · Capacity · TCO"
+          }
+        ],
+        "organizationRaci": [
+          {
+            "owner": "GSM",
+            "role": "Account Intelligence",
+            "action": "SK hynix 제품·파트너·경쟁 영향 추적"
+          },
+          {
+            "owner": "HBM BUSINESS",
+            "role": "Qualification & Capacity",
+            "action": "Workload Requirement → Memory Architecture → Qualification · 공식 Roadmap · 고객 적용 · Capacity · TCO"
+          },
+          {
+            "owner": "MSR",
+            "role": "Next Memory Pathfinding",
+            "action": "HBF · High-Capacity NAND · AI-N B · Sandisk Newsroom"
+          }
+        ],
+        "priorities": [
+          "HBF · High-Capacity NAND · AI-N B",
+          "Workload Requirement → Memory Architecture → Qualification",
+          "동일 Workload·SLO · 상호운용성 · TCO"
+        ]
+      }
     },
     {
       "id": "skhynix",
@@ -3453,6 +4759,72 @@
           "label": "공개 확인 필요"
         },
         "relationship": "AI Memory 공동설계 · Full-stack Memory"
+      },
+      "accountBrief": {
+        "mandate": "고객별 Qualification·Capacity·Portfolio·Margin 조건으로 공급 포지션 관리",
+        "businessStatus": [
+          {
+            "label": "ACCOUNT ROLE",
+            "value": "Memory Supplier"
+          },
+          {
+            "label": "CHIP / PLATFORM",
+            "value": "Custom HBM · AI-D · AI-N"
+          },
+          {
+            "label": "MARKET POSITION",
+            "value": "AI Memory 공동설계 · Full-stack Memory"
+          },
+          {
+            "label": "EXECUTION STAGE",
+            "value": "공개 확인 필요"
+          }
+        ],
+        "decisionFlow": [
+          {
+            "index": "01",
+            "label": "ACCOUNT",
+            "value": "Custom HBM · AI-D · AI-N"
+          },
+          {
+            "index": "02",
+            "label": "PAIN",
+            "value": "계정별 Architecture Lock · LTA · Capacity"
+          },
+          {
+            "index": "03",
+            "label": "NEXT MEMORY",
+            "value": "Custom HBM · AI-D · AI-N"
+          },
+          {
+            "index": "04",
+            "label": "DEAL GATE",
+            "value": "Customer Qualification · Yield · Capacity · Margin"
+          }
+        ],
+        "organizationRaci": [
+          {
+            "owner": "GSM",
+            "role": "Account Intelligence",
+            "action": "AI Memory 공동설계 · Full-stack Memory"
+          },
+          {
+            "owner": "HBM BUSINESS",
+            "role": "Qualification & Capacity",
+            "action": "Custom HBM · AI-D · AI-N · Customer Qualification · Yield · Capacity · Margin"
+          },
+          {
+            "owner": "MSR",
+            "role": "Next Memory Pathfinding",
+            "action": "Custom HBM · AI-D · AI-N"
+          }
+        ],
+        "priorities": [
+          "Full-stack AI memory",
+          "Customer co-design",
+          "계정별 Architecture Lock · LTA · Capacity",
+          "Custom HBM · AI-D · AI-N"
+        ]
       },
       "memoryLens": {
         "pain": "계정별 Architecture Lock · LTA · Capacity",
@@ -3663,7 +5035,72 @@
           "sourceClass": "official",
           "tier": "primary-company"
         }
-      ]
+      ],
+      "accountBrief": {
+        "mandate": "고객별 Qualification·Capacity·Portfolio·Margin 조건으로 공급 포지션 관리",
+        "businessStatus": [
+          {
+            "label": "ACCOUNT ROLE",
+            "value": "Memory Supplier"
+          },
+          {
+            "label": "CHIP / PLATFORM",
+            "value": "Enterprise SSD Controller · NAND"
+          },
+          {
+            "label": "MARKET POSITION",
+            "value": "SK hynix 제품·파트너·경쟁 영향 추적"
+          },
+          {
+            "label": "EXECUTION STAGE",
+            "value": "공식 원문 모니터링"
+          }
+        ],
+        "decisionFlow": [
+          {
+            "index": "01",
+            "label": "ACCOUNT",
+            "value": "Enterprise SSD Controller · NAND"
+          },
+          {
+            "index": "02",
+            "label": "PAIN",
+            "value": "QLC eSSD · AI-N D · High-Capacity Storage"
+          },
+          {
+            "index": "03",
+            "label": "NEXT MEMORY",
+            "value": "Workload Requirement → Memory Architecture → Qualification"
+          },
+          {
+            "index": "04",
+            "label": "DEAL GATE",
+            "value": "공식 Roadmap · 고객 적용 · Capacity · TCO"
+          }
+        ],
+        "organizationRaci": [
+          {
+            "owner": "GSM",
+            "role": "Account Intelligence",
+            "action": "SK hynix 제품·파트너·경쟁 영향 추적"
+          },
+          {
+            "owner": "HBM BUSINESS",
+            "role": "Qualification & Capacity",
+            "action": "Workload Requirement → Memory Architecture → Qualification · 공식 Roadmap · 고객 적용 · Capacity · TCO"
+          },
+          {
+            "owner": "MSR",
+            "role": "Next Memory Pathfinding",
+            "action": "QLC eSSD · AI-N D · High-Capacity Storage · Solidigm Newsroom"
+          }
+        ],
+        "priorities": [
+          "QLC eSSD · AI-N D · High-Capacity Storage",
+          "Workload Requirement → Memory Architecture → Qualification",
+          "동일 Workload·SLO · 상호운용성 · TCO"
+        ]
+      }
     },
     {
       "id": "amd",
@@ -3833,7 +5270,72 @@
           "sourceClass": "official",
           "tier": "primary-company"
         }
-      ]
+      ],
+      "accountBrief": {
+        "mandate": "차세대 기술 로드맵을 HBM·AI-D·AI-N 사업 기회와 실행 리스크로 변환",
+        "businessStatus": [
+          {
+            "label": "ACCOUNT ROLE",
+            "value": "Semiconductor Ecosystem"
+          },
+          {
+            "label": "CHIP / PLATFORM",
+            "value": "High-performance and adaptive computing · Data center and enterprise AI"
+          },
+          {
+            "label": "MARKET POSITION",
+            "value": "메모리 공급망·기술 로드맵 영향 추적"
+          },
+          {
+            "label": "EXECUTION STAGE",
+            "value": "공식 원문 모니터링"
+          }
+        ],
+        "decisionFlow": [
+          {
+            "index": "01",
+            "label": "ACCOUNT",
+            "value": "High-performance and adaptive computing · Data center and enterprise AI"
+          },
+          {
+            "index": "02",
+            "label": "PAIN",
+            "value": "GPU·CPU 플랫폼별 HBM·DDR 요구량"
+          },
+          {
+            "index": "03",
+            "label": "NEXT MEMORY",
+            "value": "High-performance and adaptive computing"
+          },
+          {
+            "index": "04",
+            "label": "DEAL GATE",
+            "value": "공식 Roadmap · 고객 인증 · Capacity"
+          }
+        ],
+        "organizationRaci": [
+          {
+            "owner": "GSM",
+            "role": "Account Intelligence",
+            "action": "메모리 공급망·기술 로드맵 영향 추적"
+          },
+          {
+            "owner": "HBM BUSINESS",
+            "role": "Qualification & Capacity",
+            "action": "High-performance and adaptive computing · 공식 Roadmap · 고객 인증 · Capacity"
+          },
+          {
+            "owner": "MSR",
+            "role": "Next Memory Pathfinding",
+            "action": "CPU·GPU·적응형 컴퓨팅 제품과 AI 솔루션을 단일 시장 전략으로 확대 · High-performance and adaptive computing · Data center and enterprise AI"
+          }
+        ],
+        "priorities": [
+          "GPU·CPU 플랫폼별 HBM·DDR 요구량",
+          "High-performance and adaptive computing",
+          "공식 원문 · 제품 Stage · 고객 적용"
+        ]
+      }
     },
     {
       "id": "amec",
@@ -3971,7 +5473,72 @@
           "sourceClass": "official",
           "tier": "primary-company"
         }
-      ]
+      ],
+      "accountBrief": {
+        "mandate": "차세대 기술 로드맵을 HBM·AI-D·AI-N 사업 기회와 실행 리스크로 변환",
+        "businessStatus": [
+          {
+            "label": "ACCOUNT ROLE",
+            "value": "Semiconductor Ecosystem"
+          },
+          {
+            "label": "CHIP / PLATFORM",
+            "value": "Etch and MOCVD innovation"
+          },
+          {
+            "label": "MARKET POSITION",
+            "value": "메모리 공급망·기술 로드맵 영향 추적"
+          },
+          {
+            "label": "EXECUTION STAGE",
+            "value": "공식 원문 모니터링"
+          }
+        ],
+        "decisionFlow": [
+          {
+            "index": "01",
+            "label": "ACCOUNT",
+            "value": "Etch and MOCVD innovation"
+          },
+          {
+            "index": "02",
+            "label": "PAIN",
+            "value": "식각·MOCVD 고객 검증과 반복 주문"
+          },
+          {
+            "index": "03",
+            "label": "NEXT MEMORY",
+            "value": "Etch and MOCVD innovation"
+          },
+          {
+            "index": "04",
+            "label": "DEAL GATE",
+            "value": "공식 Roadmap · 고객 인증 · Capacity"
+          }
+        ],
+        "organizationRaci": [
+          {
+            "owner": "GSM",
+            "role": "Account Intelligence",
+            "action": "메모리 공급망·기술 로드맵 영향 추적"
+          },
+          {
+            "owner": "HBM BUSINESS",
+            "role": "Qualification & Capacity",
+            "action": "Etch and MOCVD innovation · 공식 Roadmap · 고객 인증 · Capacity"
+          },
+          {
+            "owner": "MSR",
+            "role": "Next Memory Pathfinding",
+            "action": "공식 ESG·기술 자료에서 제품 개발·산학 협력·품질·수출통제 체계를 함께 확인 · Etch and MOCVD innovation"
+          }
+        ],
+        "priorities": [
+          "식각·MOCVD 고객 검증과 반복 주문",
+          "Etch and MOCVD innovation",
+          "공식 원문 · 제품 Stage · 고객 적용"
+        ]
+      }
     },
     {
       "id": "asml",
@@ -4138,7 +5705,72 @@
           "sourceClass": "official",
           "tier": "primary-company"
         }
-      ]
+      ],
+      "accountBrief": {
+        "mandate": "차세대 기술 로드맵을 HBM·AI-D·AI-N 사업 기회와 실행 리스크로 변환",
+        "businessStatus": [
+          {
+            "label": "ACCOUNT ROLE",
+            "value": "Semiconductor Ecosystem"
+          },
+          {
+            "label": "CHIP / PLATFORM",
+            "value": "EUV and High-NA industrialization · Strategic sourcing"
+          },
+          {
+            "label": "MARKET POSITION",
+            "value": "메모리 공급망·기술 로드맵 영향 추적"
+          },
+          {
+            "label": "EXECUTION STAGE",
+            "value": "공식 원문 모니터링"
+          }
+        ],
+        "decisionFlow": [
+          {
+            "index": "01",
+            "label": "ACCOUNT",
+            "value": "EUV and High-NA industrialization · Strategic sourcing"
+          },
+          {
+            "index": "02",
+            "label": "PAIN",
+            "value": "EUV·High-NA 출하와 고객 설치 속도"
+          },
+          {
+            "index": "03",
+            "label": "NEXT MEMORY",
+            "value": "EUV and High-NA industrialization"
+          },
+          {
+            "index": "04",
+            "label": "DEAL GATE",
+            "value": "공식 Roadmap · 고객 인증 · Capacity"
+          }
+        ],
+        "organizationRaci": [
+          {
+            "owner": "GSM",
+            "role": "Account Intelligence",
+            "action": "메모리 공급망·기술 로드맵 영향 추적"
+          },
+          {
+            "owner": "HBM BUSINESS",
+            "role": "Qualification & Capacity",
+            "action": "EUV and High-NA industrialization · 공식 Roadmap · 고객 인증 · Capacity"
+          },
+          {
+            "owner": "MSR",
+            "role": "Next Memory Pathfinding",
+            "action": "EUV 고객 양산 적용과 High-NA 제품 전환을 기술·운영·고객 조직이 공동 실행 · EUV and High-NA industrialization · Strategic sourcing"
+          }
+        ],
+        "priorities": [
+          "EUV·High-NA 출하와 고객 설치 속도",
+          "EUV and High-NA industrialization",
+          "공식 원문 · 제품 Stage · 고객 적용"
+        ]
+      }
     },
     {
       "id": "imec",
@@ -4242,7 +5874,72 @@
           "sourceClass": "official",
           "tier": "industry-research"
         }
-      ]
+      ],
+      "accountBrief": {
+        "mandate": "차세대 기술 로드맵을 HBM·AI-D·AI-N 사업 기회와 실행 리스크로 변환",
+        "businessStatus": [
+          {
+            "label": "ACCOUNT ROLE",
+            "value": "Semiconductor Ecosystem"
+          },
+          {
+            "label": "CHIP / PLATFORM",
+            "value": "Silicon Photonics · Optical I/O"
+          },
+          {
+            "label": "MARKET POSITION",
+            "value": "SK hynix 제품·파트너·경쟁 영향 추적"
+          },
+          {
+            "label": "EXECUTION STAGE",
+            "value": "공식 원문 모니터링"
+          }
+        ],
+        "decisionFlow": [
+          {
+            "index": "01",
+            "label": "ACCOUNT",
+            "value": "Silicon Photonics · Optical I/O"
+          },
+          {
+            "index": "02",
+            "label": "PAIN",
+            "value": "Optical Memory Fabric · CPO · Disaggregation"
+          },
+          {
+            "index": "03",
+            "label": "NEXT MEMORY",
+            "value": "Workload Requirement → Memory Architecture → Qualification"
+          },
+          {
+            "index": "04",
+            "label": "DEAL GATE",
+            "value": "공식 Roadmap · 고객 적용 · Capacity · TCO"
+          }
+        ],
+        "organizationRaci": [
+          {
+            "owner": "GSM",
+            "role": "Account Intelligence",
+            "action": "SK hynix 제품·파트너·경쟁 영향 추적"
+          },
+          {
+            "owner": "HBM BUSINESS",
+            "role": "Qualification & Capacity",
+            "action": "Workload Requirement → Memory Architecture → Qualification · 공식 Roadmap · 고객 적용 · Capacity · TCO"
+          },
+          {
+            "owner": "MSR",
+            "role": "Next Memory Pathfinding",
+            "action": "Optical Memory Fabric · CPO · Disaggregation · imec Silicon Photonics"
+          }
+        ],
+        "priorities": [
+          "Optical Memory Fabric · CPO · Disaggregation",
+          "Workload Requirement → Memory Architecture → Qualification",
+          "동일 Workload·SLO · 상호운용성 · TCO"
+        ]
+      }
     },
     {
       "id": "jcet",
@@ -4395,7 +6092,72 @@
           "sourceClass": "official",
           "tier": "primary-company"
         }
-      ]
+      ],
+      "accountBrief": {
+        "mandate": "차세대 기술 로드맵을 HBM·AI-D·AI-N 사업 기회와 실행 리스크로 변환",
+        "businessStatus": [
+          {
+            "label": "ACCOUNT ROLE",
+            "value": "Semiconductor Ecosystem"
+          },
+          {
+            "label": "CHIP / PLATFORM",
+            "value": "High-performance advanced packaging · Turnkey back-end manufacturing"
+          },
+          {
+            "label": "MARKET POSITION",
+            "value": "메모리 공급망·기술 로드맵 영향 추적"
+          },
+          {
+            "label": "EXECUTION STAGE",
+            "value": "공식 원문 모니터링"
+          }
+        ],
+        "decisionFlow": [
+          {
+            "index": "01",
+            "label": "ACCOUNT",
+            "value": "High-performance advanced packaging · Turnkey back-end manufacturing"
+          },
+          {
+            "index": "02",
+            "label": "PAIN",
+            "value": "고성능 패키징 고객 수주와 캐파 가동률"
+          },
+          {
+            "index": "03",
+            "label": "NEXT MEMORY",
+            "value": "High-performance advanced packaging"
+          },
+          {
+            "index": "04",
+            "label": "DEAL GATE",
+            "value": "공식 Roadmap · 고객 인증 · Capacity"
+          }
+        ],
+        "organizationRaci": [
+          {
+            "owner": "GSM",
+            "role": "Account Intelligence",
+            "action": "메모리 공급망·기술 로드맵 영향 추적"
+          },
+          {
+            "owner": "HBM BUSINESS",
+            "role": "Qualification & Capacity",
+            "action": "High-performance advanced packaging · 공식 Roadmap · 고객 인증 · Capacity"
+          },
+          {
+            "owner": "MSR",
+            "role": "Next Memory Pathfinding",
+            "action": "고성능 컴퓨팅·스토리지·자동차·전력 제품의 턴키 후공정과 첨단 패키징 캐파 확대 · High-performance advanced packaging · Turnkey back-end manufacturing"
+          }
+        ],
+        "priorities": [
+          "고성능 패키징 고객 수주와 캐파 가동률",
+          "High-performance advanced packaging",
+          "공식 원문 · 제품 Stage · 고객 적용"
+        ]
+      }
     },
     {
       "id": "naura",
@@ -4532,7 +6294,72 @@
           "sourceClass": "official",
           "tier": "primary-company"
         }
-      ]
+      ],
+      "accountBrief": {
+        "mandate": "차세대 기술 로드맵을 HBM·AI-D·AI-N 사업 기회와 실행 리스크로 변환",
+        "businessStatus": [
+          {
+            "label": "ACCOUNT ROLE",
+            "value": "Semiconductor Ecosystem"
+          },
+          {
+            "label": "CHIP / PLATFORM",
+            "value": "Equipment portfolio localization"
+          },
+          {
+            "label": "MARKET POSITION",
+            "value": "메모리 공급망·기술 로드맵 영향 추적"
+          },
+          {
+            "label": "EXECUTION STAGE",
+            "value": "공식 원문 모니터링"
+          }
+        ],
+        "decisionFlow": [
+          {
+            "index": "01",
+            "label": "ACCOUNT",
+            "value": "Equipment portfolio localization"
+          },
+          {
+            "index": "02",
+            "label": "PAIN",
+            "value": "제품군별 고객 인증과 반복 수주"
+          },
+          {
+            "index": "03",
+            "label": "NEXT MEMORY",
+            "value": "Equipment portfolio localization"
+          },
+          {
+            "index": "04",
+            "label": "DEAL GATE",
+            "value": "공식 Roadmap · 고객 인증 · Capacity"
+          }
+        ],
+        "organizationRaci": [
+          {
+            "owner": "GSM",
+            "role": "Account Intelligence",
+            "action": "메모리 공급망·기술 로드맵 영향 추적"
+          },
+          {
+            "owner": "HBM BUSINESS",
+            "role": "Qualification & Capacity",
+            "action": "Equipment portfolio localization · 공식 Roadmap · 고객 인증 · Capacity"
+          },
+          {
+            "owner": "MSR",
+            "role": "Next Memory Pathfinding",
+            "action": "전공정 장비별 고객 검증·반복 수주·서비스 역량을 제품군 단위로 추적 · Equipment portfolio localization"
+          }
+        ],
+        "priorities": [
+          "제품군별 고객 인증과 반복 수주",
+          "Equipment portfolio localization",
+          "공식 원문 · 제품 Stage · 고객 적용"
+        ]
+      }
     },
     {
       "id": "smic",
@@ -4672,7 +6499,72 @@
           "sourceClass": "official",
           "tier": "primary-company"
         }
-      ]
+      ],
+      "accountBrief": {
+        "mandate": "차세대 기술 로드맵을 HBM·AI-D·AI-N 사업 기회와 실행 리스크로 변환",
+        "businessStatus": [
+          {
+            "label": "ACCOUNT ROLE",
+            "value": "Semiconductor Ecosystem"
+          },
+          {
+            "label": "CHIP / PLATFORM",
+            "value": "Foundry capacity and utilization"
+          },
+          {
+            "label": "MARKET POSITION",
+            "value": "메모리 공급망·기술 로드맵 영향 추적"
+          },
+          {
+            "label": "EXECUTION STAGE",
+            "value": "공식 원문 모니터링"
+          }
+        ],
+        "decisionFlow": [
+          {
+            "index": "01",
+            "label": "ACCOUNT",
+            "value": "Foundry capacity and utilization"
+          },
+          {
+            "index": "02",
+            "label": "PAIN",
+            "value": "성숙·선단 공정별 가동률"
+          },
+          {
+            "index": "03",
+            "label": "NEXT MEMORY",
+            "value": "Foundry capacity and utilization"
+          },
+          {
+            "index": "04",
+            "label": "DEAL GATE",
+            "value": "공식 Roadmap · 고객 인증 · Capacity"
+          }
+        ],
+        "organizationRaci": [
+          {
+            "owner": "GSM",
+            "role": "Account Intelligence",
+            "action": "메모리 공급망·기술 로드맵 영향 추적"
+          },
+          {
+            "owner": "HBM BUSINESS",
+            "role": "Qualification & Capacity",
+            "action": "Foundry capacity and utilization · 공식 Roadmap · 고객 인증 · Capacity"
+          },
+          {
+            "owner": "MSR",
+            "role": "Next Memory Pathfinding",
+            "action": "공식 실적·공시에서 공정 믹스와 가동률·캐파 증설을 분리해 추적 · Foundry capacity and utilization"
+          }
+        ],
+        "priorities": [
+          "성숙·선단 공정별 가동률",
+          "Foundry capacity and utilization",
+          "공식 원문 · 제품 Stage · 고객 적용"
+        ]
+      }
     }
   ]
 }
