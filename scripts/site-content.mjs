@@ -439,9 +439,11 @@ function buildStrategyBoard(payload = {}, generatedAt = null, decisionIntelligen
   const dynamicsNodeById = new Map(dynamicsNodes.map((node) => [node.id, node]));
   const dynamicsRelations = [];
   const dynamicsRelationKeys = new Set();
+  const relationshipPairKey = (relation = {}) => `${relation.type || "relation"}:${[relation.from, relation.to].sort().join(":")}`;
+  const explicitRelationshipPairs = new Set((accountModel.ecosystemRelations || []).map(relationshipPairKey));
   const addDynamicsRelation = (relation) => {
     if (!dynamicsNodeById.has(relation.from) || !dynamicsNodeById.has(relation.to)) return;
-    const key = `${relation.type}:${relation.from}:${relation.to}`;
+    const key = relation.id || `${relation.type}:${relation.from}:${relation.to}`;
     if (dynamicsRelationKeys.has(key)) return;
     dynamicsRelationKeys.add(key);
     dynamicsRelations.push({ id: key, ...relation });
@@ -450,6 +452,7 @@ function buildStrategyBoard(payload = {}, generatedAt = null, decisionIntelligen
     for (const targetId of partner.servesAccounts) {
       const target = accountById.get(targetId);
       if (!target) continue;
+      if (explicitRelationshipPairs.has(relationshipPairKey({ type: "partnership", from: partner.id, to: targetId }))) continue;
       addDynamicsRelation({
         type: "partnership",
         from: partner.id,
@@ -492,13 +495,38 @@ function buildStrategyBoard(payload = {}, generatedAt = null, decisionIntelligen
   for (const relation of accountModel.ecosystemRelations || []) {
     const source = sourceById.get(relation.sourceId);
     addDynamicsRelation({
+      id: relation.id,
       type: relation.type,
       from: relation.from,
       to: relation.to,
       title: relation.title || `${dynamicsNodeById.get(relation.from)?.company || relation.from} → ${dynamicsNodeById.get(relation.to)?.company || relation.to}`,
       detail: relation.detail || "관계 변화 추적",
+      domain: relation.domain || "",
+      memoryImplication: relation.memoryImplication || "",
+      decisionImpact: relation.decisionImpact || "",
       status: relation.status || "monitoring",
+      effectiveAt: relation.effectiveAt || null,
+      evidenceGrade: relation.evidenceGrade || "",
       source: source && directUrl(source.url) ? { name: source.name, url: source.url } : null,
+    });
+  }
+  for (const relation of strategyAccountIntelligence.ecosystemRelationships?.promoted || []) {
+    const duplicate = dynamicsRelations.some((item) => relationshipPairKey(item) === relationshipPairKey(relation));
+    if (duplicate) continue;
+    addDynamicsRelation({
+      id: relation.id,
+      type: relation.type,
+      from: relation.from,
+      to: relation.to,
+      title: relation.title,
+      detail: relation.detail || "관계 변화 감지",
+      domain: "AUTO-DETECTED",
+      memoryImplication: "계정 Roadmap·Memory Interface·Capacity 영향 재검증",
+      decisionImpact: "공식 원문 또는 독립 출처 교차 후 계정 전략에 반영",
+      status: "자동 승격",
+      effectiveAt: relation.asOf || null,
+      evidenceGrade: relation.officialEvidenceCount ? "OFFICIAL" : "CORROBORATED",
+      source: relation.sourceUrl ? { name: relation.source || "원문", url: relation.sourceUrl } : null,
     });
   }
   const dynamicsCompanies = dynamicsNodes.map((node) => ({

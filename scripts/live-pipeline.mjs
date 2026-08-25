@@ -683,10 +683,57 @@ export function buildStrategyAccountIntelligence(context = {}, previous = {}, no
         title: item.title,
       }));
   }).sort((left, right) => String(right.asOf || "").localeCompare(String(left.asOf || "")));
+  const relationLens = STRATEGY_ACCOUNT_MODEL.ecosystemRelationLens || {};
+  const relationEvidence = new Map();
+  for (const item of corpus) {
+    const matchedAccounts = STRATEGY_ACCOUNT_REGISTRY.map((account) => {
+      const matches = (account.aliases || []).map((alias) => aliasMatch(item.text, [alias])).filter(Boolean).sort((left, right) => left.index - right.index);
+      return matches[0] ? { id: account.id, company: account.company, index: matches[0].index } : null;
+    }).filter(Boolean);
+    if (matchedAccounts.length < 2) continue;
+    const matchedTypes = (relationLens.types || []).filter((type) => (type.aliases || []).some((alias) => exactTermMatch(item.text, alias)));
+    if (!matchedTypes.length) continue;
+    for (let left = 0; left < matchedAccounts.length; left += 1) {
+      for (let right = left + 1; right < matchedAccounts.length; right += 1) {
+        const a = matchedAccounts[left];
+        const b = matchedAccounts[right];
+        if (!relationActionNearPair(item.text, a.index, b.index)) continue;
+        const [from, to] = [a, b].sort((x, y) => x.id.localeCompare(y.id));
+        for (const type of matchedTypes) {
+          const key = `${type.id}:${from.id}:${to.id}`;
+          const row = relationEvidence.get(key) || { key, type: type.id, from: from.id, to: to.id, fromCompany: from.company, toCompany: to.company, evidence: [], sources: new Set() };
+          row.evidence.push({ title: item.title, source: item.source, sourceClass: item.sourceClass, sourceUrl: item.url, asOf: item.date });
+          row.sources.add(evidenceSourceId(item));
+          relationEvidence.set(key, row);
+        }
+      }
+    }
+  }
+  const relationshipAlerts = [...relationEvidence.values()].map((row) => {
+    const evidence = row.evidence.sort((left, right) => String(right.asOf || "").localeCompare(String(left.asOf || "")));
+    const officialEvidenceCount = evidence.filter(officialEvidence).length;
+    const promoted = officialEvidenceCount >= 1 || row.sources.size >= 2;
+    return {
+      id: intelligenceEventId("ecosystem-relation", [row.type, row.from, row.to]),
+      type: row.type,
+      from: row.from,
+      to: row.to,
+      title: `${row.fromCompany} ↔ ${row.toCompany}`,
+      detail: evidence[0]?.title || "관계 변화",
+      status: promoted ? "evidence-connected" : "candidate",
+      sourceCount: row.sources.size,
+      officialEvidenceCount,
+      source: evidence[0]?.source || "원문",
+      sourceUrl: evidence[0]?.sourceUrl || "",
+      asOf: evidence[0]?.asOf || null,
+      evidence: evidence.slice(0, 3),
+    };
+  }).sort((left, right) => String(right.asOf || "").localeCompare(String(left.asOf || "")));
   for (const event of dealEvents) {
     event.id = intelligenceEventId("deal", [event.accountId || "unknown", event.eventType, event.asOf || "", event.sourceUrl || ""]);
   }
   const recentChangeItems = [
+    ...relationshipAlerts.filter((item) => item.status === "evidence-connected" && recentWithinDays(item.asOf, now)).map((item) => ({ ...item, kind: "ecosystem-relation", headline: `${item.title} · ${item.type}` })),
     ...supplierAlerts.filter((item) => recentWithinDays(item.asOf, now)).map((item) => ({ ...item, kind: "supplier-change", headline: item.title || `${item.accountId} · ${item.changeType}` })),
     ...dealEvents.filter((item) => recentWithinDays(item.asOf, now)).map((item) => ({ ...item, kind: "deal-event", headline: item.evidenceSpan || `${item.accountId} · ${item.eventType}` })),
     ...painAlerts.filter((item) => recentWithinDays(item.asOf, now)).map((item) => ({ ...item, kind: "pain-rise", headline: `${item.accountId} · ${item.label} 신호 상승` })),
@@ -789,6 +836,12 @@ export function buildStrategyAccountIntelligence(context = {}, previous = {}, no
         }),
       })),
       alerts: supplierAlerts,
+    },
+    ecosystemRelationships: {
+      promotionRule: relationLens.promotion || "공식·공시 1개 또는 독립 출처 2개",
+      events: relationshipAlerts,
+      promoted: relationshipAlerts.filter((item) => item.status === "evidence-connected"),
+      status: relationshipAlerts.some((item) => item.status === "evidence-connected") ? "evidence-connected" : "monitoring",
     },
     deals: {
       schema: STRATEGY_ACCOUNT_MODEL.dealSchema || {},

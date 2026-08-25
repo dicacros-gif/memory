@@ -214,16 +214,16 @@
     "evidenceCount": 82,
     "briefCount": 6,
     "sourceCount": 5,
-    "configuredSources": 72,
+    "configuredSources": 74,
     "observedSources": 4,
     "freshObservedSources": 3,
     "staleObservedSources": 1,
-    "officialConfigured": 59,
+    "officialConfigured": 61,
     "officialObserved": 2,
     "officialFreshObserved": 1,
-    "discoveryQueries": 78,
+    "discoveryQueries": 82,
     "connectedHealthChecks": 38,
-    "healthChecks": 43,
+    "healthChecks": 45,
     "scheduleHours": 1,
     "browserRecheckMinutes": 5,
     "sourceCatalogVersion": "1.0"
@@ -292,9 +292,9 @@
     "coverage": {
       "status": "LOW",
       "observed": 4,
-      "configured": 72,
-      "ratio": 0.056,
-      "freshRatio": 0.042
+      "configured": 74,
+      "ratio": 0.054,
+      "freshRatio": 0.041
     },
     "confidence": {
       "status": "REVIEW",
@@ -370,11 +370,11 @@
         "executionTrackingBriefs": 0
       },
       "catalogCoverage": {
-        "configured": 72,
+        "configured": 74,
         "observed": 4,
         "fresh": 3,
-        "observationRatePct": 5.6,
-        "officialConfigured": 59,
+        "observationRatePct": 5.4,
+        "officialConfigured": 61,
         "officialObserved": 2,
         "officialFresh": 1,
         "targetPct": 90
@@ -1752,6 +1752,15 @@
             },
             "accounts": [
               {
+                "id": "google",
+                "company": "Google",
+                "chip": "TPU7x · Ironwood",
+                "accent": "#00A88F",
+                "pain": "MXU Feeding·Pod Data Movement·전력 효율",
+                "memory": "Custom HBM · HBM/Host Tier · AI-N",
+                "gate": "MXU Feeding · D2D · Pod TCO"
+              },
+              {
                 "id": "microsoft",
                 "company": "Microsoft",
                 "chip": "Maia 200",
@@ -2088,17 +2097,17 @@
           {
             "id": "partnership",
             "label": "파트너십",
-            "count": 9
+            "count": 11
           },
           {
             "id": "investment",
             "label": "투자",
-            "count": 9
+            "count": 11
           },
           {
             "id": "supply",
             "label": "공급",
-            "count": 18
+            "count": 19
           },
           {
             "id": "adjacency",
@@ -2152,7 +2161,7 @@
                   "name": "SK hynix Newsroom",
                   "url": "https://news.skhynix.com/en/skhynix-nvidia-partnership-2026"
                 },
-                "relationCount": 8
+                "relationCount": 10
               },
               {
                 "id": "google",
@@ -2193,7 +2202,7 @@
                   "name": "Google Cloud TPU",
                   "url": "https://cloud.google.com/blog/products/compute/inside-the-ironwood-tpu-codesigned-ai-stack"
                 },
-                "relationCount": 6
+                "relationCount": 9
               },
               {
                 "id": "microsoft",
@@ -2638,6 +2647,7 @@
                 "stage": "고객 제안 단계 검토",
                 "demandClass": "ecosystem",
                 "servesAccounts": [
+                  "Google",
                   "Microsoft",
                   "Amazon AWS"
                 ],
@@ -2654,7 +2664,7 @@
                   "name": "Marvell Custom ASIC",
                   "url": "https://www.marvell.com/products/custom-asic.html"
                 },
-                "relationCount": 3
+                "relationCount": 8
               }
             ]
           },
@@ -2923,7 +2933,7 @@
               "name": "SK hynix Newsroom",
               "url": "https://news.skhynix.com/en/skhynix-nvidia-partnership-2026"
             },
-            "relationCount": 8
+            "relationCount": 10
           },
           {
             "id": "google",
@@ -2964,7 +2974,7 @@
               "name": "Google Cloud TPU",
               "url": "https://cloud.google.com/blog/products/compute/inside-the-ironwood-tpu-codesigned-ai-stack"
             },
-            "relationCount": 6
+            "relationCount": 9
           },
           {
             "id": "microsoft",
@@ -3246,6 +3256,7 @@
             "stage": "고객 제안 단계 검토",
             "demandClass": "ecosystem",
             "servesAccounts": [
+              "Google",
               "Microsoft",
               "Amazon AWS"
             ],
@@ -3262,7 +3273,7 @@
               "name": "Marvell Custom ASIC",
               "url": "https://www.marvell.com/products/custom-asic.html"
             },
-            "relationCount": 3
+            "relationCount": 8
           },
           {
             "id": "openai",
@@ -3929,221 +3940,362 @@
             }
           },
           {
-            "id": "partnership:skhynix:tsmc",
+            "id": "nvidia-marvell-equity-2026",
+            "type": "investment",
+            "from": "nvidia",
+            "to": "marvell",
+            "title": "NVIDIA → Marvell 전략 투자",
+            "detail": "$2B Series A 우선주 투자로 Custom XPU·Network·Optics 실행을 자본으로 정렬",
+            "domain": "STRATEGIC EQUITY",
+            "memoryImplication": "Marvell Custom XPU의 NVLink·HBM Interface 채택과 Qualification 영향력 확대",
+            "decisionImpact": "NVIDIA 생태계 연동 여부를 Marvell 계정의 Architecture Lock·HBM 수주 Gate로 추적",
+            "status": "SEC 공시",
+            "effectiveAt": "2026-03-31",
+            "evidenceGrade": "FILING",
+            "source": {
+              "name": "NVIDIA–Marvell Strategic Partnership and Investment",
+              "url": "https://investor.marvell.com/sec-filings/all-sec-filings/content/0001193125-26-134462/d113606d8k.htm"
+            }
+          },
+          {
+            "id": "nvidia-marvell-nvlink-2026",
+            "type": "partnership",
+            "from": "nvidia",
+            "to": "marvell",
+            "title": "NVIDIA × Marvell NVLink Fusion",
+            "detail": "NVLink Fusion 기반 Custom Silicon과 Silicon Photonics·CPO를 공동 확장",
+            "domain": "NVLINK · SILICON PHOTONICS",
+            "memoryImplication": "XPU–HBM–Scale-up Fabric을 별도 부품이 아닌 Rack Architecture로 공동 최적화",
+            "decisionImpact": "Marvell 설계 고객의 HBM·Base Die·Fabric Requirement를 NVIDIA Roadmap과 동시 잠금",
+            "status": "공식 파트너십",
+            "effectiveAt": "2026-03-31",
+            "evidenceGrade": "OFFICIAL",
+            "source": {
+              "name": "NVIDIA–Marvell Strategic Partnership and Investment",
+              "url": "https://investor.marvell.com/sec-filings/all-sec-filings/content/0001193125-26-134462/d113606d8k.htm"
+            }
+          },
+          {
+            "id": "marvell-google-custom-silicon-2026",
+            "type": "partnership",
+            "from": "marvell",
+            "to": "google",
+            "title": "Marvell × Google Custom Silicon",
+            "detail": "Google TPU 생태계의 Inference Accelerator·NIC·Storage·Memory Controller·Near-memory Compute 공동 실행",
+            "domain": "TPU ECOSYSTEM · CO-DESIGN",
+            "memoryImplication": "HBM Base Die·Memory Controller·Near-memory Compute가 TPU 세대별 PPA와 TCO의 공동 설계 변수로 전환",
+            "decisionImpact": "Google 단독 계정과 Marvell Buying Center를 함께 관리하고 Memory Interface·Package 일정을 하나의 Gate로 운영",
+            "status": "상업 계약",
+            "effectiveAt": "2026-07-29",
+            "evidenceGrade": "FILING",
+            "source": {
+              "name": "Google–Marvell Custom Silicon Commercial Agreement",
+              "url": "https://investor.marvell.com/sec-filings/all-sec-filings/content/0001193125-26-356217/d412696d8k.htm"
+            }
+          },
+          {
+            "id": "marvell-google-custom-products-2026",
+            "type": "supply",
+            "from": "marvell",
+            "to": "google",
+            "title": "Marvell → Google Custom Products",
+            "detail": "Custom Semiconductor 제품 공급 범위를 Accelerator·Controller·Near-memory Compute까지 확대",
+            "domain": "CUSTOM PRODUCT SUPPLY",
+            "memoryImplication": "세대별 제품 매출이 HBM Capacity·Package Qualification·Controller IP 수요로 직결",
+            "decisionImpact": "Google 제품 세대·출하 Ramp·Marvell 매출 조건을 SK hynix Capacity 제안의 선행 신호로 사용",
+            "status": "공식 공급 계약",
+            "effectiveAt": "2026-07-29",
+            "evidenceGrade": "FILING",
+            "source": {
+              "name": "Google–Marvell Custom Silicon Commercial Agreement",
+              "url": "https://investor.marvell.com/sec-filings/all-sec-filings/content/0001193125-26-356217/d412696d8k.htm"
+            }
+          },
+          {
+            "id": "google-marvell-warrant-2026",
+            "type": "investment",
+            "from": "google",
+            "to": "marvell",
+            "title": "Google → Marvell 구매 연동 Warrant",
+            "detail": "최대 58,970,907주 Warrant를 Custom Product 구매 실적과 연동해 단계 Vesting",
+            "domain": "COMMERCIAL WARRANT",
+            "memoryImplication": "Google의 Custom Silicon 구매 확대와 Marvell의 XPU·Memory Interface 투자가 장기 정렬",
+            "decisionImpact": "단기 기사량보다 구매 연동 Vesting·FY2033 계약 기간·제품 Ramp를 계정 수요 신호로 추적",
+            "status": "SEC 공시",
+            "effectiveAt": "2026-08-19",
+            "evidenceGrade": "FILING",
+            "source": {
+              "name": "Google–Marvell Custom Silicon Commercial Agreement",
+              "url": "https://investor.marvell.com/sec-filings/all-sec-filings/content/0001193125-26-356217/d412696d8k.htm"
+            }
+          },
+          {
             "type": "partnership",
             "from": "skhynix",
             "to": "tsmc",
             "title": "SK hynix × TSMC Logic Base Die",
             "detail": "HBM Logic Base Die 공정·3DFabric·CoWoS Ramp 공동 실행",
+            "domain": "",
+            "memoryImplication": "",
+            "decisionImpact": "",
             "status": "공동개발",
+            "evidenceGrade": "",
             "source": {
               "name": "TSMC 3DFabric",
               "url": "https://3dfabric.tsmc.com/english/dedicatedFoundry/technology/3DFabric.htm"
             }
           },
           {
-            "id": "investment:microsoft:openai",
             "type": "investment",
             "from": "microsoft",
             "to": "openai",
             "title": "Microsoft → OpenAI",
             "detail": "주요 주주·Azure 우선 파트너·차세대 Silicon 공동 실행",
+            "domain": "",
+            "memoryImplication": "",
+            "decisionImpact": "",
             "status": "주요 주주",
+            "evidenceGrade": "",
             "source": {
               "name": "Microsoft × OpenAI Partnership 2026",
               "url": "https://blogs.microsoft.com/blog/2026/04/27/the-next-phase-of-the-microsoft-openai-partnership/"
             }
           },
           {
-            "id": "investment:aws:openai",
             "type": "investment",
             "from": "aws",
             "to": "openai",
             "title": "Amazon → OpenAI",
             "detail": "$50B 투자·Trainium 2GW·장기 AI 인프라 협력",
+            "domain": "",
+            "memoryImplication": "",
+            "decisionImpact": "",
             "status": "발표",
+            "evidenceGrade": "",
             "source": {
               "name": "Amazon × OpenAI Strategic Partnership",
               "url": "https://www.aboutamazon.com/news/aws/amazon-open-ai-strategic-partnership-investment"
             }
           },
           {
-            "id": "supply:aws:openai",
             "type": "supply",
             "from": "aws",
             "to": "openai",
             "title": "AWS Trainium → OpenAI",
             "detail": "Trainium3·4 기반 약 2GW 장기 컴퓨트 Capacity",
+            "domain": "",
+            "memoryImplication": "",
+            "decisionImpact": "",
             "status": "장기 공급",
+            "evidenceGrade": "",
             "source": {
               "name": "Amazon × OpenAI Strategic Partnership",
               "url": "https://www.aboutamazon.com/news/aws/amazon-open-ai-strategic-partnership-investment"
             }
           },
           {
-            "id": "investment:nvidia:openai",
             "type": "investment",
             "from": "nvidia",
             "to": "openai",
             "title": "NVIDIA → OpenAI",
             "detail": "10GW AI Factory 배포와 연동한 단계별 투자 의향",
+            "domain": "",
+            "memoryImplication": "",
+            "decisionImpact": "",
             "status": "투자 의향",
+            "evidenceGrade": "",
             "source": {
               "name": "NVIDIA × OpenAI Infrastructure Partnership",
               "url": "https://nvidianews.nvidia.com/_gallery/download_pdf/68d173273d633288cb44040b/"
             }
           },
           {
-            "id": "supply:nvidia:openai",
             "type": "supply",
             "from": "nvidia",
             "to": "openai",
             "title": "NVIDIA Vera Rubin → OpenAI",
             "detail": "첫 1GW를 2026년 하반기 Vera Rubin으로 배포 계획",
+            "domain": "",
+            "memoryImplication": "",
+            "decisionImpact": "",
             "status": "배포 계획",
+            "evidenceGrade": "",
             "source": {
               "name": "NVIDIA × OpenAI Infrastructure Partnership",
               "url": "https://nvidianews.nvidia.com/_gallery/download_pdf/68d173273d633288cb44040b/"
             }
           },
           {
-            "id": "investment:google:anthropic",
             "type": "investment",
             "from": "google",
             "to": "anthropic",
             "title": "Google → Anthropic",
             "detail": "현금·컴퓨트 연계 최대 $40B 투자 계획 보도",
+            "domain": "",
+            "memoryImplication": "",
+            "decisionImpact": "",
             "status": "투자 계획",
+            "evidenceGrade": "",
             "source": {
               "name": "Reuters · Google × Anthropic Investment",
               "url": "https://www.reuters.com/business/google-plans-invest-up-40-billion-anthropic-bloomberg-news-reports-2026-04-24/"
             }
           },
           {
-            "id": "supply:google:anthropic",
             "type": "supply",
             "from": "google",
             "to": "anthropic",
             "title": "Google TPU → Anthropic",
             "detail": "TPU 최대 100만개·2027년부터 차세대 TPU 다중 GW Capacity",
+            "domain": "",
+            "memoryImplication": "",
+            "decisionImpact": "",
             "status": "공식 계약",
+            "evidenceGrade": "",
             "source": {
               "name": "Anthropic Compute Infrastructure",
               "url": "https://www.anthropic.com/news/google-broadcom-partnership-compute"
             }
           },
           {
-            "id": "investment:aws:anthropic",
             "type": "investment",
             "from": "aws",
             "to": "anthropic",
             "title": "Amazon → Anthropic",
             "detail": "추가 $5B·조건부 최대 $20B와 장기 Trainium 협력",
+            "domain": "",
+            "memoryImplication": "",
+            "decisionImpact": "",
             "status": "발표",
+            "evidenceGrade": "",
             "source": {
               "name": "Amazon × Anthropic Strategic Collaboration",
               "url": "https://www.aboutamazon.com/news/company-news/amazon-invests-additional-5-billion-anthropic-ai"
             }
           },
           {
-            "id": "supply:aws:anthropic",
             "type": "supply",
             "from": "aws",
             "to": "anthropic",
             "title": "AWS Trainium → Anthropic",
             "detail": "Trainium2·3·4 최대 5GW·10년 컴퓨트 Commitment",
+            "domain": "",
+            "memoryImplication": "",
+            "decisionImpact": "",
             "status": "장기 공급",
+            "evidenceGrade": "",
             "source": {
               "name": "Amazon × Anthropic Strategic Collaboration",
               "url": "https://www.aboutamazon.com/news/company-news/amazon-invests-additional-5-billion-anthropic-ai"
             }
           },
           {
-            "id": "investment:microsoft:anthropic",
             "type": "investment",
             "from": "microsoft",
             "to": "anthropic",
             "title": "Microsoft → Anthropic",
             "detail": "Azure Capacity와 연계한 최대 $5B 투자",
+            "domain": "",
+            "memoryImplication": "",
+            "decisionImpact": "",
             "status": "전략 투자",
+            "evidenceGrade": "",
             "source": {
               "name": "Anthropic Series G 2026",
               "url": "https://www.anthropic.com/news/anthropic-raises-30-billion-series-g-funding-380-billion-post-money-valuation"
             }
           },
           {
-            "id": "investment:nvidia:anthropic",
             "type": "investment",
             "from": "nvidia",
             "to": "anthropic",
             "title": "NVIDIA → Anthropic",
             "detail": "Grace Blackwell·Vera Rubin 공동 최적화와 최대 $10B 투자",
+            "domain": "",
+            "memoryImplication": "",
+            "decisionImpact": "",
             "status": "전략 투자",
+            "evidenceGrade": "",
             "source": {
               "name": "Anthropic Series G 2026",
               "url": "https://www.anthropic.com/news/anthropic-raises-30-billion-series-g-funding-380-billion-post-money-valuation"
             }
           },
           {
-            "id": "supply:spacex:anthropic",
             "type": "supply",
             "from": "spacex",
             "to": "anthropic",
             "title": "SpaceX Compute → Anthropic",
             "detail": "300MW 이상·NVIDIA GPU 22만개 이상 컴퓨트 Capacity 제공",
+            "domain": "",
+            "memoryImplication": "",
+            "decisionImpact": "",
             "status": "공식 계약",
+            "evidenceGrade": "",
             "source": {
               "name": "Anthropic × SpaceX Compute Partnership",
               "url": "https://www.anthropic.com/news/higher-limits-spacex"
             }
           },
           {
-            "id": "investment:nvidia:coreweave",
             "type": "investment",
             "from": "nvidia",
             "to": "coreweave",
             "title": "NVIDIA → CoreWeave",
             "detail": "$2B 지분 투자·2030년까지 5GW 이상 AI Factory 확장",
+            "domain": "",
+            "memoryImplication": "",
+            "decisionImpact": "",
             "status": "전략 투자",
+            "evidenceGrade": "",
             "source": {
               "name": "NVIDIA × CoreWeave AI Factories",
               "url": "https://nvidianews.nvidia.com/news/nvidia-and-coreweave-strengthen-collaboration-to-accelerate-buildout-of-ai-factories"
             }
           },
           {
-            "id": "supply:nvidia:coreweave",
             "type": "supply",
             "from": "nvidia",
             "to": "coreweave",
             "title": "NVIDIA Platform → CoreWeave",
             "detail": "Rubin·CPU·Storage Platform 다세대 도입",
+            "domain": "",
+            "memoryImplication": "",
+            "decisionImpact": "",
             "status": "플랫폼 공급",
+            "evidenceGrade": "",
             "source": {
               "name": "NVIDIA × CoreWeave AI Factories",
               "url": "https://nvidianews.nvidia.com/news/nvidia-and-coreweave-strengthen-collaboration-to-accelerate-buildout-of-ai-factories"
             }
           },
           {
-            "id": "investment:nvidia:coherent",
             "type": "investment",
             "from": "nvidia",
             "to": "coherent",
             "title": "NVIDIA → Coherent",
             "detail": "$2B 투자·차세대 데이터센터 Optics 공동개발·미국 생산 확대",
+            "domain": "",
+            "memoryImplication": "",
+            "decisionImpact": "",
             "status": "전략 투자",
+            "evidenceGrade": "",
             "source": {
               "name": "NVIDIA × Coherent Optics Partnership",
               "url": "https://nvidianews.nvidia.com/news/nvidia-and-coherent-announce-strategic-partnership-to-develop-optics-technology-to-scale-next-generation-data-center-architecture"
             }
           },
           {
-            "id": "adjacency:tesla:spacex",
             "type": "adjacency",
             "from": "tesla",
             "to": "spacex",
             "title": "Tesla ↔ SpaceX Physical AI",
             "detail": "저전력·고신뢰 Custom Silicon과 Edge Memory 요구를 공통 비교",
-            "status": "전략 유사"
+            "domain": "",
+            "memoryImplication": "",
+            "decisionImpact": "",
+            "status": "전략 유사",
+            "evidenceGrade": ""
           }
         ]
       }

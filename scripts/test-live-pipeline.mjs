@@ -142,6 +142,30 @@ assert.ok(strategyAccountIntelligence.whatChanged.items.some((item) => item.kind
 assert.ok(strategyAccountIntelligence.whatChanged.items.some((item) => item.kind === "deal-event"), "the weekly brief must surface newly detected deal events");
 assert.ok(strategyAccountIntelligence.executiveOnePagers.some((item) => item.accountId === "google" && item.topPainAxes.length));
 
+const nvidiaRelationshipIntelligence = buildStrategyAccountIntelligence({ news: [
+  article(
+    "NVIDIA invested in Marvell through a strategic partnership for NVLink Fusion",
+    "https://investor.marvell.com/sec-filings/all-sec-filings/content/0001193125-26-134462/d113606d8k.htm",
+    "2026-03-31",
+    "NVIDIA invested in Marvell and the companies formed a strategic partnership for NVLink Fusion custom silicon",
+    "Marvell SEC Filing",
+    "filing",
+  ),
+] }, {}, new Date("2026-04-01T12:00:00Z"));
+const googleRelationshipIntelligence = buildStrategyAccountIntelligence({ news: [
+  article(
+    "Google and Marvell sign commercial agreement for custom semiconductor products",
+    "https://investor.marvell.com/sec-filings/all-sec-filings/content/0001193125-26-356217/d412696d8k.htm",
+    "2026-08-19",
+    "Google and Marvell expand partnership for custom products, memory interface controllers and near-memory compute with a purchase-linked warrant",
+    "Marvell SEC Filing",
+    "filing",
+  ),
+] }, {}, new Date("2026-08-20T12:00:00Z"));
+assert.ok(nvidiaRelationshipIntelligence.ecosystemRelationships.promoted.some((item) => item.type === "investment" && [item.from, item.to].includes("nvidia") && [item.from, item.to].includes("marvell")), "an official NVIDIA–Marvell investment filing must promote a typed ecosystem relation");
+assert.ok(googleRelationshipIntelligence.ecosystemRelationships.promoted.some((item) => item.type === "partnership" && [item.from, item.to].includes("google") && [item.from, item.to].includes("marvell")), "an official Google–Marvell custom silicon agreement must promote a typed ecosystem relation");
+assert.ok([...nvidiaRelationshipIntelligence.ecosystemRelationships.promoted, ...googleRelationshipIntelligence.ecosystemRelationships.promoted].every((item) => item.sourceUrl && item.officialEvidenceCount >= 1), "promoted ecosystem relations must retain their filing link and promotion evidence");
+
 const risingPainIntelligence = buildStrategyAccountIntelligence({ news: [
   article("Google TPU HBM bandwidth update", "https://week-one.example/google-bandwidth-1", "2026-07-01"),
   article("Google TPU HBM bandwidth expansion", "https://week-two.example/google-bandwidth-1", "2026-07-08"),

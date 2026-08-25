@@ -58,8 +58,8 @@ assert.equal(artifactCore.strategyBoard.customerPortfolio.broadcomEcosystem.acco
 assert.equal(artifactCore.strategyBoard.customerPortfolio.partnerEcosystem.partners.length, 2, "Broadcom and Marvell must hydrate as top-level ASIC partners");
 assert.deepEqual(
   artifactCore.strategyBoard.customerPortfolio.partnerEcosystem.partners.find((item) => item.id === "marvell")?.accounts.map((item) => item.id),
-  ["microsoft", "aws"],
-  "Marvell must roll up Microsoft and AWS below the partner level",
+  ["google", "microsoft", "aws"],
+  "Marvell must roll up Google, Microsoft, and AWS below the partner level",
 );
 assert.equal(artifactCore.strategyBoard.customerPortfolio.executiveOnePagers.length, 8, "account one-pagers must hydrate without waiting for the extended payload");
 assert.equal(artifactCore.strategyBoard.customerPortfolio.layerModel.layers.length, 3, "the three-level account chain must be available at first paint");
@@ -197,7 +197,7 @@ assert.equal(rebuilt.strategyBoard.customerPortfolio.partnerEcosystem.partners.l
 assert.ok(rebuilt.strategyBoard.customerPortfolio.partnerEcosystem.partners.find((item) => item.id === "broadcom")?.accounts.some((item) => item.id === "anthropic"));
 assert.deepEqual(
   rebuilt.strategyBoard.customerPortfolio.partnerEcosystem.partners.find((item) => item.id === "marvell")?.accounts.map((item) => item.id),
-  ["microsoft", "aws"],
+  ["google", "microsoft", "aws"],
 );
 assert.deepEqual(rebuilt.strategyBoard.customerPortfolio.groups.map((item) => item.id), ["gpu", "hyperscaler-asic", "design-ecosystem", "edge-physical"]);
 assert.deepEqual(
@@ -237,6 +237,16 @@ assert.ok(competitiveDynamics.relations.some((item) => item.type === "investment
 assert.ok(competitiveDynamics.relations.some((item) => item.type === "investment" && item.from === "nvidia" && item.to === "anthropic"));
 assert.ok(competitiveDynamics.relations.some((item) => item.type === "investment" && item.from === "nvidia" && item.to === "coreweave"));
 assert.ok(competitiveDynamics.relations.some((item) => item.type === "investment" && item.from === "nvidia" && item.to === "coherent"));
+const nvidiaMarvellInvestment = competitiveDynamics.relations.find((item) => item.type === "investment" && item.from === "nvidia" && item.to === "marvell");
+const nvidiaMarvellPartnership = competitiveDynamics.relations.find((item) => item.type === "partnership" && item.from === "nvidia" && item.to === "marvell");
+const googleMarvellPartnership = competitiveDynamics.relations.find((item) => item.type === "partnership" && item.from === "marvell" && item.to === "google");
+const googleMarvellSupply = competitiveDynamics.relations.find((item) => item.type === "supply" && item.from === "marvell" && item.to === "google");
+const googleMarvellEconomicAlignment = competitiveDynamics.relations.find((item) => item.type === "investment" && item.from === "google" && item.to === "marvell");
+assert.ok(nvidiaMarvellInvestment?.source?.url && nvidiaMarvellInvestment.memoryImplication && nvidiaMarvellInvestment.decisionImpact, "NVIDIA–Marvell investment must retain filing, memory implication, and account action");
+assert.match(nvidiaMarvellPartnership?.domain || "", /NVLINK/i, "NVIDIA–Marvell technology partnership must remain distinct from its equity investment");
+assert.match(`${googleMarvellPartnership?.title || ""} ${googleMarvellPartnership?.domain || ""}`, /CUSTOM SILICON|CO-DESIGN/i, "Google–Marvell custom silicon partnership must be explicit");
+assert.match(googleMarvellSupply?.detail || "", /custom semiconductor/i, "Google–Marvell custom product supply relation must be explicit");
+assert.ok(googleMarvellEconomicAlignment?.detail?.includes("Warrant"), "Google's purchase-linked Marvell warrant must remain a separate economic-alignment edge");
 assert.ok(competitiveDynamics.relations.some((item) => item.type === "supply" && item.from === "google" && item.to === "anthropic"));
 assert.ok(competitiveDynamics.relations.some((item) => item.type === "supply" && item.from === "aws" && item.to === "anthropic"));
 assert.ok(competitiveDynamics.relations.some((item) => item.type === "supply" && item.from === "spacex" && item.to === "anthropic"));
@@ -249,6 +259,8 @@ assert.ok(competitiveDynamics.companies.every((item) => item.pain && item.memory
 assert.match(accountViews, /sc-dynamics-map[\s\S]*?sc-dynamics-node[\s\S]*?data-dynamics-detail/, "competitive dynamics must render circular nodes with a linked right-side detail panel");
 assert.match(accountViews, /data-dynamics-layer[\s\S]*?data-dynamics-type[\s\S]*?data-dynamics-jump/, "layer, relationship, and connected-company controls must stay interactive");
 assert.match(accountViews, /data-dynamics-links[\s\S]*?dynamicsEdge[\s\S]*?is-active/, "competitive dynamics must draw and highlight relation paths for the selected company");
+assert.match(accountViews, /dataset\.pi[\s\S]*?dataset\.pt/, "parallel relationship lanes must remain encoded for distinct paths");
+assert.match(accountViews, /sc-dynamics-memory[\s\S]*?sc-dynamics-action/, "memory implication and account action must remain visible in the relation detail panel");
 assert.match(styles, /\.sc-dynamics-node\s*\{[\s\S]*?border-radius:\s*50%[\s\S]*?\.sc-dynamics-detail\s*\{/, "competitive dynamics must preserve the circular selectable map and detailed panel");
 assert.match(styles, /\.sc-dynamics-links path\.is-active\s*\{[\s\S]*?stroke-width:\s*3/, "selected relation paths must remain visually distinct");
 assert.equal(rebuilt.strategyBoard.customerPortfolio.contractGate.ruleId, "contract-structure");

@@ -88,12 +88,26 @@ function sourceHost(value = "") {
 }
 
 export function catalogSourceForUrl(value = "", catalog = loadSourceCatalog()) {
-  const host = sourceHost(value);
+  const input = String(value || "").replace(/#.*$/, "").replace(/\/$/, "");
+  const host = sourceHost(input);
   if (!host) return null;
-  return catalog.sources.find((source) => source.enabled && source.domains.some((domain) => {
+  const exact = catalog.sources.find((source) => source.enabled
+    && String(source.url || "").replace(/#.*$/, "").replace(/\/$/, "") === input);
+  if (exact) return exact;
+  const candidates = catalog.sources.filter((source) => source.enabled && source.domains.some((domain) => {
     const normalized = String(domain).toLowerCase().replace(/^www\./, "");
     return host === normalized || host.endsWith(`.${normalized}`);
-  })) || null;
+  }));
+  const score = (source) => {
+    const sourceUrl = String(source.url || "");
+    const sourcePath = (() => { try { return new URL(sourceUrl).pathname.replace(/[^/]+$/, ""); } catch { return ""; } })();
+    let inputPath = "";
+    try { inputPath = new URL(input).pathname; } catch { /* already rejected above */ }
+    return (sourceHost(sourceUrl) === host ? 100000 : 0)
+      + (sourcePath && inputPath.startsWith(sourcePath) ? sourcePath.length * 100 : 0)
+      + Math.max(...source.domains.map((domain) => String(domain).length));
+  };
+  return candidates.sort((left, right) => score(right) - score(left))[0] || null;
 }
 
 export function buildSourceCatalogSnapshot({ catalog = loadSourceCatalog(), news = [], industrySourceChecks = {}, now = new Date() } = {}) {

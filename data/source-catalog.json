@@ -223,6 +223,42 @@
       "enabled": true
     },
     {
+      "id": "nvidia-marvell-investment-2026",
+      "name": "NVIDIA–Marvell Strategic Partnership and Investment",
+      "tier": "primary-regulatory",
+      "sourceClass": "official",
+      "url": "https://investor.marvell.com/sec-filings/all-sec-filings/content/0001193125-26-134462/d113606d8k.htm",
+      "domains": ["investor.marvell.com", "sec.gov"],
+      "topics": ["investment", "nvlink-fusion", "custom-asic", "silicon-photonics", "ai-infra"],
+      "roles": ["partner", "investment", "technology", "execution"],
+      "languages": ["en"],
+      "freshnessHours": 336,
+      "discoveryQueries": [
+        "site:investor.marvell.com NVIDIA Marvell investment NVLink Fusion",
+        "site:sec.gov Marvell NVIDIA Series A preferred stock 2026"
+      ],
+      "healthCheck": { "markers": ["NVIDIA", "Marvell", "2,000,000"] },
+      "enabled": true
+    },
+    {
+      "id": "google-marvell-custom-silicon-2026",
+      "name": "Google–Marvell Custom Silicon Commercial Agreement",
+      "tier": "primary-regulatory",
+      "sourceClass": "official",
+      "url": "https://investor.marvell.com/sec-filings/all-sec-filings/content/0001193125-26-356217/d412696d8k.htm",
+      "domains": ["investor.marvell.com", "sec.gov"],
+      "topics": ["google", "tpu", "custom-asic", "near-memory-compute", "memory-interface-controller", "investment"],
+      "roles": ["customer", "partner", "supply", "investment", "technology"],
+      "languages": ["en"],
+      "freshnessHours": 336,
+      "discoveryQueries": [
+        "site:investor.marvell.com Google Marvell custom semiconductor commercial agreement",
+        "site:sec.gov Marvell Google warrant custom products 2026"
+      ],
+      "healthCheck": { "markers": ["Google", "custom semiconductor products", "58,970,907"] },
+      "enabled": true
+    },
+    {
       "id": "apple-ai-infra",
       "name": "Apple AI Infrastructure",
       "tier": "primary-customer",
