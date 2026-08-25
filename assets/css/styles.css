@@ -27424,3 +27424,46 @@ body.consulting-system #main > #c-level-cockpit {
   color: #16120a !important;
   -webkit-text-fill-color: #16120a !important;
 }
+
+/* Advanced decision module contrast lock
+   Parent-card inversion must not leak white text into its paper scorecards. */
+#intelligenceConsole .advanced-module-card > p {
+  color: #33465a !important;
+  -webkit-text-fill-color: #33465a !important;
+  opacity: 1 !important;
+}
+
+#intelligenceConsole#intelligenceConsole .advanced-module-card:is(:hover, :focus-visible, :focus-within) > p {
+  color: #f8fbff !important;
+  -webkit-text-fill-color: #f8fbff !important;
+  opacity: 1 !important;
+}
+
+#intelligenceConsole .advanced-module-card .advanced-score,
+#intelligenceConsole .advanced-module-card:is(:hover, :focus-visible, :focus-within) .advanced-score {
+  border-color: #c6d3de !important;
+  background: #f8fafc !important;
+  color: #17263a !important;
+  -webkit-text-fill-color: #17263a !important;
+}
+
+#intelligenceConsole .advanced-module-card .advanced-score strong,
+#intelligenceConsole .advanced-module-card:is(:hover, :focus-visible, :focus-within) .advanced-score strong {
+  color: #0d5360 !important;
+  -webkit-text-fill-color: #0d5360 !important;
+  opacity: 1 !important;
+}
+
+#intelligenceConsole .advanced-module-card .advanced-score span,
+#intelligenceConsole .advanced-module-card:is(:hover, :focus-visible, :focus-within) .advanced-score span {
+  color: #0b6d66 !important;
+  -webkit-text-fill-color: #0b6d66 !important;
+  opacity: 1 !important;
+}
+
+#intelligenceConsole .advanced-module-card .advanced-score small,
+#intelligenceConsole .advanced-module-card:is(:hover, :focus-visible, :focus-within) .advanced-score small {
+  color: #33465a !important;
+  -webkit-text-fill-color: #33465a !important;
+  opacity: 1 !important;
+}
