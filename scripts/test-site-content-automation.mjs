@@ -42,7 +42,7 @@ assert.ok(rebuilt.freshness.configuredSources >= 42);
 assert.ok(rebuilt.freshness.officialConfigured >= 33);
 assert.equal(rebuilt.freshness.scheduleHours, 1);
 assert.equal(rebuilt.freshness.browserRecheckMinutes, 5);
-assert.deepEqual(rebuilt.hero.titleLines, ["AI Infra Strategy", "Hyperscaler Roadmap to Memory Business"]);
+assert.deepEqual(rebuilt.hero.titleLines, ["Hyperscaler Pain", "to Memory Growth"]);
 assert.equal(rebuilt.hero.capabilities.length, 3, "the homepage strategy scope must cover three MECE pillars");
 assert.equal(artifact.runId, payload.runId, "site content must use the verified live runId");
 assert.equal(manifest.runId, artifact.runId, "manifest and site content must be atomic");
@@ -500,7 +500,7 @@ assert.doesNotMatch(
   /data-live-source[^>]*>[\s\S]*?<\/a><\/div>\s*<dl>/,
   "decision evidence panels must not restore the deleted summary metric blocks",
 );
-assert.match(index, /Hyperscaler Roadmap to Memory Business/);
+assert.match(index, /Hyperscaler Pain/);
 assert.doesNotMatch(index, /LIVE DECISION QUEUE · CONSOLE-CONNECTED|businessHomeQueueStatus/);
 assert.match(index, /id="departmentDecisionQueue"/);
 assert.doesNotMatch(index, /business-hero-proof|CUSTOMER ACCOUNT BRIEF|WORKLOAD-TO-MEMORY|EXECUTIVE EXECUTION PACK/, "the removed homepage output summary row must stay absent");

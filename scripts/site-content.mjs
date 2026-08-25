@@ -12,7 +12,7 @@ const sourceCatalog = loadSourceCatalog();
 const siteMarkup = readFileSync(resolve(root, "index.html"), "utf8");
 
 const LANDING_SECTION_IDS = new Set([
-  "home", "departmentDecisionQueue", "keyAccounts", "decision-lab", "decision-automation", "initiatives",
+  "home", "departmentDecisionQueue", "keyAccounts", "strategy-architecture", "decision-lab", "decision-automation", "initiatives",
   "competencies", "ai-strategy", "pain-framework", "solutions", "ai-factory-system",
   "aiFactoryKpiTree", "workload-optimization", "ragOperatingModel",
   "workload-map", "memory-fabric", "insights", "execution-evidence", "businessFreshnessBoard",

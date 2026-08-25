@@ -120,13 +120,13 @@ assert.match(app, /btn\.removeAttribute\("title"\);[\s\S]*?btn\.dataset\.tooltip
 const businessNavLabels = [...html.matchAll(/<nav class="business-nav"[\s\S]*?<\/nav>/g)]
   .flatMap((match) => [...match[0].matchAll(/<a href="#[^"]+">([^<]+)<\/a>/g)].map((link) => link[1]));
 assert.deepEqual(businessNavLabels, [
-  "Home",
-  "Customer Pain",
-  "Workload Solutions",
-  "New Biz",
+  "Strategy",
+  "Mandate",
+  "Customer",
+  "Solutions",
   "Tech &amp; Market",
-  "Partners &amp; Cases",
-  "Execution Model",
+  "Ecosystem",
+  "Execution",
 ], "the public site must expose the AI Infra strategy information architecture");
 assert.match(html, /business-console-label--full">Open Intelligence Console<\/span>[\s\S]*?business-console-label--short"[^>]*>Console<\/span>/, "the header CTA must expose full and compact non-overlapping labels");
 assert.match(landingCss, /body\.landing-mode\s*\{[^}]*margin:\s*0;[^}]*max-width:\s*100%;[^}]*overflow-x:\s*clip;/, "the public page must stay within the viewport width without the browser's default body margin");

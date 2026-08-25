@@ -27748,6 +27748,36 @@ body.consulting-system #main > #c-level-cockpit {
   opacity: 1 !important;
 }
 
+/* The five-step framework keeps business phrases intact at standard laptop widths. */
+#intelligenceConsole #strategyConsulting .sc-framework-steps>li {
+  grid-template-columns:26px minmax(0,1fr);
+  gap:7px;
+  padding:17px 13px 16px 14px !important;
+  overflow-wrap:normal;
+  word-break:keep-all;
+}
+#intelligenceConsole #strategyConsulting .sc-framework-steps>li>div { gap:7px; }
+#intelligenceConsole #strategyConsulting .sc-framework-steps>li>div>span {
+  min-width:0;
+  max-width:100%;
+  font-size:9px;
+  line-height:1.35;
+  letter-spacing:0;
+  overflow-wrap:anywhere;
+  word-break:normal;
+}
+#intelligenceConsole #strategyConsulting .sc-framework-steps>li>div>strong {
+  font-size:12px;
+  line-height:1.35;
+}
+#intelligenceConsole #strategyConsulting .sc-framework-steps>li ul li {
+  padding-left:8px !important;
+  font-size:9px;
+  line-height:1.45;
+  overflow-wrap:anywhere;
+  word-break:normal;
+}
+
 /* Architecture-track contrast lock
    The track itself may invert, while paper metrics, tags and status pills keep
    their own dark-ink token pair instead of inheriting white from the card. */
@@ -28872,4 +28902,161 @@ body.consulting-system #main > #c-level-cockpit {
 
 @media (prefers-reduced-motion: reduce) {
   #intelligenceConsole .company-fact-card li { transition: none; }
+}
+
+/* MBB console layer — consistent hierarchy, immediate interaction, contrast-safe surfaces */
+#intelligenceConsole {
+  --mbb-surface: #f7f9fa;
+  --mbb-ink: #142c3f;
+  --mbb-muted: #526979;
+  --mbb-line: #aebdc7;
+  --mbb-navy: #0b2235;
+  --mbb-teal: #008f87;
+  --mbb-blue: #2b67d1;
+  --mbb-violet: #7655c9;
+  --mbb-gold: #bd7e00;
+}
+
+#intelligenceConsole .main {
+  counter-reset: mbb-board;
+  background:
+    linear-gradient(90deg, rgba(30, 70, 97, .03) 1px, transparent 1px),
+    linear-gradient(rgba(30, 70, 97, .03) 1px, transparent 1px),
+    #eef3f6;
+  background-size: 48px 48px;
+}
+
+#intelligenceConsole :is(.board, .visual-insight-bridge, .memory-video-hero) {
+  min-width: 0;
+  border-radius: 0 !important;
+  box-shadow: none !important;
+}
+
+#intelligenceConsole .board {
+  counter-increment: mbb-board;
+  overflow: visible;
+  border: 1px solid var(--mbb-line);
+  border-top: 4px solid var(--mbb-teal);
+  background: var(--mbb-surface);
+  color: var(--mbb-ink);
+  clip-path: polygon(0 0, calc(100% - 15px) 0, 100% 15px, 100% 100%, 0 100%);
+}
+
+#intelligenceConsole .board:nth-of-type(4n + 2) { border-top-color: var(--mbb-blue); }
+#intelligenceConsole .board:nth-of-type(4n + 3) { border-top-color: var(--mbb-violet); }
+#intelligenceConsole .board:nth-of-type(4n + 4) { border-top-color: var(--mbb-gold); }
+
+#intelligenceConsole .board-head {
+  position: relative;
+  min-width: 0;
+  padding: 20px 22px 18px 72px;
+  border-bottom: 1px solid var(--mbb-line);
+  background: #fff;
+  color: var(--mbb-ink);
+}
+
+#intelligenceConsole .board-head::before {
+  position: absolute;
+  top: 18px;
+  left: 20px;
+  display: grid;
+  place-items: center;
+  width: 36px;
+  height: 36px;
+  background: var(--mbb-navy);
+  color: #fff;
+  content: counter(mbb-board, decimal-leading-zero);
+  font: 900 10px/1 var(--mono, monospace);
+}
+
+#intelligenceConsole .board-head :is(h2, h3, p, span) { color: inherit; }
+#intelligenceConsole .board-head h2 { margin-top: 5px; font-size: clamp(24px, 2.7vw, 42px); line-height: 1.08; letter-spacing: -.035em; }
+#intelligenceConsole .board-head .eyebrow { color: var(--mbb-teal); font-size: 10px; letter-spacing: .08em; }
+#intelligenceConsole .board-meta { color: var(--mbb-muted) !important; }
+
+#intelligenceConsole :is(
+  .decision-loading-framework,
+  .visual-insight-route,
+  .console-static-flow,
+  .memory-hero-actions,
+  .qa-line,
+  .decision-control
+) :is(span, button, select, input) {
+  border-radius: 0 !important;
+}
+
+#intelligenceConsole :is(.decision-loading-framework span, .visual-insight-route span) {
+  min-width: 0;
+  border: 1px solid var(--mbb-line);
+  border-top: 3px solid var(--mbb-blue);
+  background: #fff;
+  color: var(--mbb-ink);
+  clip-path: polygon(0 0, calc(100% - 10px) 0, 100% 10px, 100% 100%, 0 100%);
+}
+
+#intelligenceConsole :is(
+  [class*="-card"],
+  [class*="-panel"],
+  [class*="-tile"],
+  [class*="-step"]
+) {
+  min-width: 0;
+  max-width: 100%;
+  overflow-wrap: anywhere;
+}
+
+#intelligenceConsole :is(
+  [class*="-card"],
+  [class*="-tile"],
+  [class*="-step"]
+) {
+  border-radius: 0 !important;
+}
+
+#intelligenceConsole :is(button, [role="button"], a, summary) {
+  transition-duration: .055s !important;
+  transition-delay: 0s !important;
+}
+
+#intelligenceConsole :is(button, [role="button"], summary):focus-visible {
+  outline: 3px solid #f0bd36;
+  outline-offset: 2px;
+}
+
+#intelligenceConsole :is(.memory-hero-actions button, .console-exit, .qa-line button) {
+  border: 1px solid #7390a2;
+  background: var(--mbb-navy);
+  color: #fff;
+}
+
+#intelligenceConsole :is(.memory-hero-actions button, .console-exit, .qa-line button):is(:hover, :focus-visible) {
+  border-color: var(--mbb-teal);
+  background: #fff;
+  color: var(--mbb-navy);
+  transform: translateY(-2px);
+}
+
+#intelligenceConsole .visual-insight-bridge {
+  border: 1px solid var(--mbb-line);
+  border-left: 6px solid var(--mbb-blue);
+  background: #fff;
+  color: var(--mbb-ink);
+  clip-path: polygon(0 0, calc(100% - 14px) 0, 100% 14px, 100% 100%, 0 100%);
+}
+
+#intelligenceConsole .visual-insight-bridge :is(h2, p, span) { color: inherit; }
+
+#intelligenceConsole :is(h1, h2, h3, h4, p, li, dd, dt, strong, span, small, a, button) {
+  max-width: 100%;
+  overflow-wrap: anywhere;
+}
+
+@media (max-width: 760px) {
+  #intelligenceConsole .board-head { padding: 64px 16px 16px; }
+  #intelligenceConsole .board-head::before { top: 16px; left: 16px; }
+  #intelligenceConsole .board { clip-path: none; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  #intelligenceConsole :is(button, [role="button"], a, summary) { transition: none !important; }
 }

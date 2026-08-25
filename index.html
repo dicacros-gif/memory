@@ -131,7 +131,7 @@
     (() => {
       if (!location.hash.startsWith("#console")) return;
       document.documentElement.classList.add("console-entry");
-      const revision = "infra-87018c05283b";
+      const revision = "infra-72e7c8e55e94";
       const assets = [
         ["consoleStylesPreload", "style", `assets/css/styles.min.css?v=${revision}`, "high"],
         ["consoleAppPreload", "script", `assets/js/app.min.js?v=${revision}`, "high"],
@@ -148,7 +148,7 @@
       }
     })();
   </script>
-  <link rel="stylesheet" href="assets/css/landing.min.css?v=infra-87018c05283b" />
+  <link rel="stylesheet" href="assets/css/landing.min.css?v=infra-72e7c8e55e94" />
 </head>
 <body class="landing-mode">
   <h1 class="site-document-title">AI Infra Strategy</h1>
@@ -163,13 +163,13 @@
         </span>
       </a>
       <nav class="business-nav" id="businessNav" aria-label="주요 메뉴">
-        <a href="#home">Home</a>
-        <a href="#decision-lab">Customer Pain</a>
-        <a href="#solutions">Workload Solutions</a>
-        <a href="#ai-strategy">New Biz</a>
+        <a href="#home">Strategy</a>
+        <a href="#strategy-architecture">Mandate</a>
+        <a href="#decision-lab">Customer</a>
+        <a href="#solutions">Solutions</a>
         <a href="#insights">Tech &amp; Market</a>
-        <a href="#partners">Partners &amp; Cases</a>
-        <a href="#team-operating-model">Execution Model</a>
+        <a href="#partners">Ecosystem</a>
+        <a href="#team-operating-model">Execution</a>
       </nav>
       <div class="business-header-actions">
         <button class="business-console-button business-console-button--compact" type="button" data-open-console aria-label="Open Intelligence Console">
@@ -199,11 +199,12 @@
         <div class="business-hero-grid" aria-hidden="true"></div>
         <div class="business-hero-content business-container">
           <div class="business-hero-copy">
-            <h2>AI Infra Strategy<br /><em>Hyperscaler Roadmap to Memory Business</em></h2>
+            <p class="business-hero-overline">SK HYNIX AI INFRA · STRATEGY TO EXECUTION</p>
+            <h2>Hyperscaler Pain<br /><em>to Memory Growth</em></h2>
             <ul class="business-hero-bullets" aria-label="핵심 전략 범위" data-copy-verbatim>
-              <li>Account Intelligence · Hyperscaler·GPU·ASIC Roadmap + Workload/SLO → Pain Map · Buying Criteria · Requirement</li>
-              <li>Tech &amp; Portfolio Strategy · AI App/HW/SW 변곡점 → Custom HBM·AI-D·AI-N → Next Memory Business</li>
-              <li>Executive Deal &amp; Execution · Partner/RACI + LTA·Qualification·Capacity → 90-Day Gate</li>
+              <li><b>Customer Strategy</b><span>빅테크 Roadmap·Workload·구매 기준 → Pain Map·맞춤형 Memory Proposal</span></li>
+              <li><b>Next Memory</b><span>AI App·HW/SW 변곡점 → Custom HBM·AI-D·AI-N·신규 Biz</span></li>
+              <li><b>Executive Execution</b><span>파트너·LTA·Qualification·Capacity → 경영진 판단·90일 Gate</span></li>
             </ul>
             <div class="business-hero-actions">
               <a class="business-primary-button" href="#departmentDecisionQueue">오늘의 의사결정 보기 <span aria-hidden="true">↓</span></a>
@@ -256,6 +257,83 @@
           <ol id="businessBroadcomFlow" class="business-broadcom-flow" aria-label="Broadcom XPU 계정 전략 흐름"></ol>
           <div id="businessBroadcomAccounts" class="business-broadcom-grid" aria-live="polite"></div>
         </section>
+      </section>
+
+      <section class="business-section business-strategy-architecture" id="strategy-architecture" aria-labelledby="strategyArchitectureTitle">
+        <div class="business-container">
+          <header class="strategy-architecture-head">
+            <div>
+              <p class="business-kicker">AI INFRA STRATEGY ARCHITECTURE</p>
+              <h2 id="strategyArchitectureTitle">고객 문제에서 메모리 성장과 실행까지</h2>
+            </div>
+            <p>산업 신호를 나열하지 않고 고객 Pain·사업 대안·경영진 결정을 한 흐름으로 연결</p>
+          </header>
+
+          <ol class="strategy-chevron-flow" aria-label="AI Infra 전략 5단계">
+            <li><span>01 · DISCOVER</span><strong>Customer Agenda</strong><p>고객 Roadmap · Workload · Buying Criteria</p></li>
+            <li><span>02 · DIAGNOSE</span><strong>System Bottleneck</strong><p>Application · HW/SW · Data Center · SLO</p></li>
+            <li><span>03 · DESIGN</span><strong>Memory · New Biz</strong><p>Custom HBM · AI-D · AI-N · Partner</p></li>
+            <li><span>04 · PROVE</span><strong>Business Case</strong><p>성능 · TCO · 차별화 · Right to Win</p></li>
+            <li><span>05 · EXECUTE</span><strong>Executive Gate</strong><p>PoC · Qualification · LTA · Capacity</p></li>
+          </ol>
+
+          <div class="strategy-mandate-grid" aria-label="AI Infra 핵심 미션">
+            <article>
+              <header><span>01</span><small>ACCOUNT INTELLIGENCE</small></header>
+              <h3>빅테크 고객 Pain 구조화</h3>
+              <ul><li>GPU·ASIC 세대별 Memory 요구</li><li>성능·용량·전력·패키징 병목</li><li>고객별 Buying Center와 경쟁 구도</li></ul>
+              <footer><b>OUTPUT</b><span>Account Fact Pack · Pain Map · Requirement Matrix</span></footer>
+            </article>
+            <article>
+              <header><span>02</span><small>FULL-STACK DIAGNOSIS</small></header>
+              <h3>데이터센터 병목을 시스템으로 진단</h3>
+              <ul><li>Training·Inference·RAG·Agent 분리</li><li>Memory·Network·Storage·Power/Cooling 계측</li><li>Goodput·SLO·Cost per Task 기준선</li></ul>
+              <footer><b>OUTPUT</b><span>Bottleneck Tree · Architecture Benchmark · TCO</span></footer>
+            </article>
+            <article>
+              <header><span>03</span><small>EXECUTIVE STRATEGY</small></header>
+              <h3>경영진 선택지를 실행안으로 전환</h3>
+              <ul><li>시장성·경제성·Risk·Right to Win</li><li>Partner RACI·LTA·Capacity 시나리오</li><li>Owner·KPI·Trigger·Kill Criteria</li></ul>
+              <footer><b>OUTPUT</b><span>Executive One-Pager · Deal Gate · 90-Day Roadmap</span></footer>
+            </article>
+          </div>
+
+          <section class="strategy-solution-system" aria-labelledby="strategySolutionsTitle">
+            <header><span>BUSINESS STRATEGY &amp; SOLUTIONS</span><h3 id="strategySolutionsTitle">세 가지 사업 축 · 하나의 고객 성과</h3></header>
+            <div>
+              <article><b>01</b><h4>Customized Memory Consulting</h4><p>고객 현황·기술·전략 분석 → Pain 기반 Custom HBM·AI-D·AI-N 조합</p><small>DESIGN WIN · QUALIFICATION · REVENUE</small></article>
+              <article><b>02</b><h4>Data Center Workload Optimization</h4><p>HW/SW·Fabric·Storage·전력·냉각 통합 진단 → Memory Placement·운영 전략</p><small>GOODPUT · SLO · COST / TASK</small></article>
+              <article><b>03</b><h4>New Biz &amp; Partnership</h4><p>AI 기술 변곡점 → Next Memory Thesis·사업모델·파트너 생태계</p><small>PIPELINE · POC · EXPECTED VALUE</small></article>
+            </div>
+          </section>
+
+          <div class="strategy-translation-grid">
+            <section>
+              <header><span>TECH &amp; MARKET INSIGHTS</span><h3>기술 신호를 메모리 전략으로 번역</h3></header>
+              <ol>
+                <li><b>AI Application / HW / SW</b><span>GPU·ASIC·Edge·Robotics · Serving Runtime · Data Center Architecture</span></li>
+                <li><b>LLM Technology</b><span>Transformer·MoE·Long Context·KV Cache·RAG·Vector DB</span></li>
+                <li><b>Memory Implication</b><span>Bandwidth·Capacity·Power·Data Movement·Reliability</span></li>
+                <li><b>Portfolio Decision</b><span>Custom HBM·AI-D·AI-N·CXL·eSSD·HBF</span></li>
+              </ol>
+            </section>
+            <section>
+              <header><span>PARTNERS &amp; CLIENTS</span><h3>검증 책임을 밸류체인에 배분</h3></header>
+              <ol>
+                <li><b>Customer</b><span>Hyperscaler · AI Model Company · Data Center Operator</span></li>
+                <li><b>Design</b><span>Accelerator / ASIC · Foundry · Advanced Packaging</span></li>
+                <li><b>Platform</b><span>Server OEM · Network · Storage · AI Serving Software</span></li>
+                <li><b>Scale</b><span>PoC · Qualification · Capacity · Commercial Ramp</span></li>
+              </ol>
+            </section>
+          </div>
+
+          <ol class="strategy-90d-roadmap" aria-label="90일 실행 로드맵">
+            <li><span>0–30D</span><strong>Requirement Lock</strong><p>고객 Trace·SLO·Buying Criteria·Baseline</p></li>
+            <li><span>31–60D</span><strong>Architecture &amp; TCO</strong><p>대안 Benchmark·Partner RACI·Business Case</p></li>
+            <li><span>61–90D</span><strong>Qualification &amp; Deal</strong><p>PoC Gate·LTA·Capacity·Owner KPI</p></li>
+          </ol>
+        </div>
       </section>
 
       <section class="business-section business-decision-lab" id="decision-lab">
@@ -953,8 +1031,8 @@
           <img class="memory-hero-static" src="assets/media/memory-hero-poster.webp" alt="" width="1280" height="720" decoding="async" fetchpriority="high" aria-hidden="true" />
           <div class="memory-hero-shade" aria-hidden="true"></div>
           <div class="memory-hero-content">
-            <h2 id="memoryHeroTitle">Hyperscaler Roadmap에서 Memory Business까지</h2>
-            <p>GPU·ASIC Roadmap → 고객별 Pain Point → Custom HBM·AI-D·AI-N → 계약·투자 Gate</p>
+            <h2 id="memoryHeroTitle">Hyperscaler Pain → Memory Growth → Executive Action</h2>
+            <p>고객 Roadmap·Workload → 지배 병목 → Custom HBM·AI-D·AI-N → 계약·투자 Gate</p>
             <div class="memory-hero-actions">
               <button type="button" data-hero-jump="strategy-consulting">전략 컨설팅 보기</button>
               <button type="button" data-hero-jump="c-level-cockpit">경영진 의사결정</button>
@@ -1917,7 +1995,7 @@
   <div class="qa-answer" id="qaAnswer" hidden></div>
   <div class="inspector" id="inspector" hidden></div>
   <div class="backdrop" id="backdrop"></div>
-  <script src="assets/js/company-profile.min.js?v=infra-87018c05283b" defer></script>
-  <script src="assets/js/landing.min.js?v=infra-87018c05283b" defer></script>
+  <script src="assets/js/company-profile.min.js?v=infra-72e7c8e55e94" defer></script>
+  <script src="assets/js/landing.min.js?v=infra-72e7c8e55e94" defer></script>
 </body>
 </html>
