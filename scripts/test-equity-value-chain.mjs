@@ -50,6 +50,10 @@ assert.match(app, /AI 가속기·CPU·ASIC[\s\S]*?EDA·CPU IP[\s\S]*?웨이퍼·
   "the global value chain should cover design through system infrastructure");
 assert.match(app, /AI 칩·CPU·엣지 SoC[\s\S]*?센서·아날로그·전력[\s\S]*?PCB·패키지 기판[\s\S]*?광모듈·네트워크/,
   "the China value chain should cover compute, analog, substrates, and optical interconnect");
+assert.doesNotMatch(app, /equityValueChainCards[\s\S]*?category\.stage/,
+  "value-chain cards must lead with unique categories instead of repeating lane names");
+assert.match(app, /equityValueChainCards[\s\S]*?categoryIndex[\s\S]*?category\.label/,
+  "value-chain cards must expose an ordered category heading");
 assert.match(app, /function wireEquityChartTooltip[\s\S]*?pointermove/,
   "the chart must provide a pointer crosshair and value tooltip");
 assert.match(app, /const EQUITY_CHART_VIEW = Object\.freeze\(\{[\s\S]*?right: 0[\s\S]*?left: 0/,

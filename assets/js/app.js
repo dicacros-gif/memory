@@ -22959,15 +22959,15 @@
         { id: "systems", label: "04 시스템", description: "광통신·네트워크·서버·전력·냉각", categories: ["interconnect", "infrastructure"] },
       ],
       categories: [
-        { id: "ai-chip", label: "AI 가속기·CPU·ASIC", stage: "설계", focus: "GPU·CPU·커스텀 실리콘" },
-        { id: "design-ip", label: "EDA·CPU IP", stage: "설계", focus: "설계 자동화·검증·아키텍처 IP" },
-        { id: "materials", label: "웨이퍼·소재", stage: "제조 기반", focus: "실리콘 웨이퍼·케미컬·오염 제어" },
-        { id: "equipment", label: "전공정·계측 장비", stage: "제조", focus: "노광·증착·식각·이온주입·계측" },
-        { id: "foundry", label: "파운드리", stage: "제조", focus: "선단·성숙 공정 위탁생산" },
-        { id: "memory", label: "HBM·DRAM·NAND·스토리지", stage: "통합", focus: "메모리 다이·인터페이스·SSD·HDD" },
-        { id: "packaging", label: "첨단 패키징·테스트", stage: "통합", focus: "CoWoS·본딩·절단·ATE·OSAT" },
-        { id: "interconnect", label: "광통신·네트워크", stage: "시스템", focus: "스위치·DSP·광모듈·PCIe/CXL 연결" },
-        { id: "infrastructure", label: "AI 서버·전력·냉각", stage: "시스템", focus: "서버·ODM·전력변환·열관리" },
+        { id: "ai-chip", label: "AI 가속기·CPU·ASIC", focus: "GPU·CPU·커스텀 실리콘" },
+        { id: "design-ip", label: "EDA·CPU IP", focus: "설계 자동화·검증·아키텍처 IP" },
+        { id: "materials", label: "웨이퍼·소재", focus: "실리콘 웨이퍼·케미컬·오염 제어" },
+        { id: "equipment", label: "전공정·계측 장비", focus: "노광·증착·식각·이온주입·계측" },
+        { id: "foundry", label: "파운드리", focus: "선단·성숙 공정 위탁생산" },
+        { id: "memory", label: "HBM·DRAM·NAND·스토리지", focus: "메모리 다이·인터페이스·SSD·HDD" },
+        { id: "packaging", label: "첨단 패키징·테스트", focus: "CoWoS·본딩·절단·ATE·OSAT" },
+        { id: "interconnect", label: "광통신·네트워크", focus: "스위치·DSP·광모듈·PCIe/CXL 연결" },
+        { id: "infrastructure", label: "AI 서버·전력·냉각", focus: "서버·ODM·전력변환·열관리" },
       ],
     },
     china: {
@@ -22982,17 +22982,17 @@
         { id: "systems", label: "04 시스템", description: "광통신·네트워크·AI 서버", categories: ["interconnect", "infrastructure"] },
       ],
       categories: [
-        { id: "ai-chip", label: "AI 칩·CPU·엣지 SoC", stage: "설계", focus: "가속기·서버 CPU·엣지 프로세서" },
-        { id: "design-ip", label: "EDA·IP·메모리 인터페이스", stage: "설계", focus: "EDA·검증·IP·서버 메모리 인터페이스" },
-        { id: "analog-power", label: "센서·아날로그·전력", stage: "설계", focus: "CIS·전력반도체·IDM" },
-        { id: "materials", label: "웨이퍼·CMP·타깃 소재", stage: "제조 기반", focus: "실리콘 웨이퍼·슬러리·스퍼터링 타깃" },
-        { id: "equipment", label: "증착·식각·세정·CMP 장비", stage: "제조", focus: "전공정·세정·트랙·CMP 국산화" },
-        { id: "foundry", label: "파운드리", stage: "제조", focus: "성숙 공정·특화 공정 위탁생산" },
-        { id: "memory", label: "DRAM·NOR·스토리지", stage: "통합", focus: "CXMT DRAM·NOR·SSD·메모리 모듈" },
-        { id: "packaging", label: "OSAT·첨단 패키징", stage: "통합", focus: "범핑·조립·테스트·2.5D/3D" },
-        { id: "substrates", label: "PCB·패키지 기판", stage: "통합", focus: "고다층 PCB·CCL·서버 기판" },
-        { id: "interconnect", label: "광모듈·네트워크", stage: "시스템", focus: "800G/1.6T 광모듈·데이터센터 연결" },
-        { id: "infrastructure", label: "AI 서버·시스템", stage: "시스템", focus: "AI 서버·컴퓨팅 시스템 통합" },
+        { id: "ai-chip", label: "AI 칩·CPU·엣지 SoC", focus: "가속기·서버 CPU·엣지 프로세서" },
+        { id: "design-ip", label: "EDA·IP·메모리 인터페이스", focus: "EDA·검증·IP·서버 메모리 인터페이스" },
+        { id: "analog-power", label: "센서·아날로그·전력", focus: "CIS·전력반도체·IDM" },
+        { id: "materials", label: "웨이퍼·CMP·타깃 소재", focus: "실리콘 웨이퍼·슬러리·스퍼터링 타깃" },
+        { id: "equipment", label: "증착·식각·세정·CMP 장비", focus: "전공정·세정·트랙·CMP 국산화" },
+        { id: "foundry", label: "파운드리", focus: "성숙 공정·특화 공정 위탁생산" },
+        { id: "memory", label: "DRAM·NOR·스토리지", focus: "CXMT DRAM·NOR·SSD·메모리 모듈" },
+        { id: "packaging", label: "OSAT·첨단 패키징", focus: "범핑·조립·테스트·2.5D/3D" },
+        { id: "substrates", label: "PCB·패키지 기판", focus: "고다층 PCB·CCL·서버 기판" },
+        { id: "interconnect", label: "광모듈·네트워크", focus: "800G/1.6T 광모듈·데이터센터 연결" },
+        { id: "infrastructure", label: "AI 서버·시스템", focus: "AI 서버·컴퓨팅 시스템 통합" },
       ],
     },
   };
@@ -23321,15 +23321,14 @@
 
   function equityValueChainCards(region, indexes = [], period) {
     const config = EQUITY_CHAIN_REGIONS[region];
-    return (config.categories || []).map((category) => {
+    return (config.categories || []).map((category, categoryIndex) => {
       const members = indexes.filter((index) => index.valueChain === category.id);
       const group = equityGroupSeries(indexes, period, category.id)[0];
       const ranked = (group?.members || []).slice().sort((a, b) => b.changePct - a.changePct);
       const change = group?.changePct ?? Number.NaN;
       return `
         <button class="equity-chain-card" type="button" data-equity-category="${escapeHTML(category.id)}" style="--chain-color:${escapeHTML(EQUITY_CHAIN_COLORS[category.id] || "#6ea8fe")}">
-          <span>${escapeHTML(category.stage || "밸류체인")}</span>
-          <b>${escapeHTML(category.label)}</b>
+          <span>${escapeHTML(`${String(categoryIndex + 1).padStart(2, "0")} · ${category.label}`)}</span>
           <strong>${escapeHTML(equityPercent(change))}</strong>
           <small>${escapeHTML(`${members.length}개사`)}${ranked[0] ? ` · 선도 ${escapeHTML(ranked[0].label)}` : ""}</small>
           <em>${escapeHTML(category.focus || "")}</em>
