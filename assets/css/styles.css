@@ -14821,18 +14821,153 @@ body.consulting-system {
 }
 
 .value-node {
+  --node-surface: var(--panel);
+  --node-ink: var(--ink);
+  --node-muted: var(--ink-2);
+  --node-line: var(--matrix-line, var(--line));
   display: grid;
   gap: 9px;
-  background:
-    linear-gradient(180deg, color-mix(in srgb, var(--local-accent, var(--teal)) 5%, transparent), transparent 44%),
-    var(--panel);
+  border: 1px solid var(--node-line);
+  border-top: 3px solid var(--local-accent, var(--teal));
+  border-radius: 2px;
+  background: var(--node-surface);
+  color: var(--node-ink);
+  box-shadow: 0 8px 20px rgba(25, 52, 77, .055);
+  transition: transform .07s cubic-bezier(.2, .8, .2, 1), border-color .07s ease, background .07s ease, color .07s ease, box-shadow .07s ease;
+}
+
+.strategic-value-node:hover,
+.strategic-value-node:focus-within {
+  --node-surface: #19344d;
+  --node-ink: #fff;
+  --node-muted: #d7e4ee;
+  --node-line: var(--local-accent, #14756f);
+  transform: translateY(-4px);
+  box-shadow: 0 18px 34px rgba(25, 52, 77, .22);
+}
+
+.strategic-value-node .value-node-head > span {
+  color: var(--local-accent, var(--teal));
+  font-size: 10.5px;
+  font-weight: 950;
+  letter-spacing: .08em;
 }
 
 .value-node-head small {
   flex: 0 0 auto;
-  color: var(--muted);
+  color: var(--node-muted);
   font-size: 10px;
   font-weight: 900;
+}
+
+.strategic-value-node h3,
+.strategic-value-node p,
+.strategic-value-node .strategy-highlight {
+  color: var(--node-ink);
+}
+
+.strategic-value-node .strategy-highlight {
+  background: none;
+  text-decoration-color: #e7b640;
+  text-decoration-thickness: 2px;
+}
+
+.value-node-items {
+  display: flex;
+  flex-wrap: wrap;
+  align-content: start;
+  gap: 5px;
+  margin-top: auto;
+}
+
+.value-node-items span {
+  border: 1px solid color-mix(in srgb, var(--local-accent, var(--teal)) 32%, var(--node-line));
+  background: color-mix(in srgb, var(--local-accent, var(--teal)) 7%, var(--node-surface));
+  color: var(--node-ink);
+  padding: 4px 6px;
+  font-size: 9.5px;
+  line-height: 1.25;
+  font-weight: 850;
+}
+
+.value-dependency-rail {
+  grid-column: 1 / -1;
+  border: 1px solid var(--matrix-line, var(--line));
+  border-radius: 2px;
+  background: var(--matrix-surface, var(--panel-2));
+}
+
+.value-dependency-rail > summary {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  min-height: 44px;
+  padding: 10px 12px;
+  color: var(--ink);
+  cursor: pointer;
+  list-style: none;
+}
+
+.value-dependency-rail > summary::-webkit-details-marker {
+  display: none;
+}
+
+.value-dependency-rail > summary strong {
+  color: var(--matrix-navy, var(--ink));
+  font-size: 11px;
+  letter-spacing: .08em;
+}
+
+.value-dependency-rail > summary span {
+  color: var(--muted);
+  font-size: 10px;
+  font-weight: 800;
+}
+
+.value-dependency-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 1px;
+  border-top: 1px solid var(--matrix-line, var(--line));
+  background: var(--matrix-line, var(--line));
+}
+
+.value-dependency-grid button {
+  min-width: 0;
+  border: 0;
+  border-radius: 0;
+  background: var(--panel);
+  color: var(--ink);
+  padding: 10px 12px;
+  text-align: left;
+  cursor: pointer;
+  transition: background .07s ease, color .07s ease, transform .07s ease;
+}
+
+.value-dependency-grid button:hover,
+.value-dependency-grid button:focus-visible {
+  background: #19344d;
+  color: #fff;
+  transform: translateY(-1px);
+}
+
+.value-dependency-grid b,
+.value-dependency-grid span {
+  display: block;
+  color: inherit;
+  overflow-wrap: anywhere;
+}
+
+.value-dependency-grid b {
+  font-size: 10.5px;
+}
+
+.value-dependency-grid span {
+  margin-top: 3px;
+  opacity: .82;
+  font-size: 9.5px;
+  line-height: 1.35;
 }
 
 .china-nand-board {
@@ -28030,4 +28165,9 @@ body.consulting-system #main > #c-level-cockpit {
 }
 @media (prefers-reduced-motion: reduce) {
   #hyperscaler-demand .forecast-cat-tab { transition: none; }
+}
+
+@media (max-width: 680px) {
+  .value-dependency-grid { grid-template-columns: minmax(0, 1fr); }
+  .value-dependency-rail > summary { align-items: flex-start; flex-direction: column; }
 }

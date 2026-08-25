@@ -247,6 +247,7 @@ function buildStrategyBoard(payload = {}, generatedAt = null, decisionIntelligen
     title: "Key Account Roadmap → Next Memory → Deal Gate",
     description: accountModel.description || "고객별 Chip Roadmap을 Pain Point·Memory Requirement·계약 Gate로 분리",
     disclosure: accountModel.evidencePolicy || "공급 관계와 계약 조건은 직접 근거 전까지 미확인",
+    missionModel: accountModel.missionModel || {},
     pillars: accountModel.pillars || [],
     asicPortfolio: accountModel.asicPortfolio || {},
     broadcomEcosystem: accountModel.broadcomEcosystem || {},

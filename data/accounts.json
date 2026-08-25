@@ -4,6 +4,75 @@
   "title": "Account Intelligence",
   "description": "고객 AI Chip Roadmap을 Pain Point·Memory Requirement·Deal Gate로 연결",
   "evidencePolicy": "공급 관계·물량·점유율·LTA 조건은 직접 원문 또는 복수 독립 출처 전까지 미확인",
+  "missionModel": {
+    "eyebrow": "AI INFRA STRATEGIC VALUE CHAIN",
+    "title": "고객 Pain에서 Next Memory와 Deal 실행까지",
+    "description": "빅테크 Roadmap·Workload 병목을 Custom HBM·AI-D·AI-N 기회와 GSM·HBM Business·MSR 실행 과제로 연결",
+    "lanes": [
+      {
+        "id": "account",
+        "index": "01",
+        "label": "ACCOUNT",
+        "title": "GPU·ASIC 고객 전략",
+        "source": "accounts",
+        "owner": "GSM",
+        "decision": "고객별 Chip Roadmap·Buying Criteria·수요 변곡점"
+      },
+      {
+        "id": "pain",
+        "index": "02",
+        "label": "DIAGNOSIS",
+        "title": "Workload Pain 분리",
+        "source": "painTaxonomy",
+        "owner": "GSM · MSR",
+        "decision": "대역폭·용량·전력·패키징·로직 경계"
+      },
+      {
+        "id": "portfolio",
+        "index": "03",
+        "label": "NEXT MEMORY",
+        "title": "맞춤형 Memory Portfolio",
+        "source": "productMap",
+        "owner": "HBM Business · MSR",
+        "decision": "Custom HBM·AI-D·AI-N 조합과 고객별 TCO"
+      },
+      {
+        "id": "ecosystem",
+        "index": "04",
+        "label": "ECOSYSTEM",
+        "title": "공동설계·공급망 실행",
+        "source": "partnerEcosystem",
+        "owner": "GSM · HBM Business",
+        "decision": "ASIC Partner·Foundry·Package·장비 의존성"
+      },
+      {
+        "id": "deal",
+        "index": "05",
+        "label": "DEAL GATE",
+        "title": "Qualification·LTA 판단",
+        "source": "contractGate",
+        "owner": "GSM · HBM Business",
+        "decision": "NRE·인증·Capacity·선급금·Margin Gate"
+      }
+    ],
+    "organizations": [
+      {
+        "id": "gsm",
+        "label": "GSM",
+        "role": "글로벌 고객 접점·Buying Center·LTA 협상"
+      },
+      {
+        "id": "hbm-business",
+        "label": "HBM Business",
+        "role": "Custom HBM·Qualification·Capacity 실행"
+      },
+      {
+        "id": "msr",
+        "label": "MSR",
+        "role": "HBM 이후 AI-D·AI-N·미래 메모리 Pathfinding"
+      }
+    ]
+  },
   "pillars": [
     {
       "id": "account-intelligence",

@@ -19,6 +19,7 @@ const workflow = text(".github/workflows/pages.yml");
 const packageConfig = text("package.json");
 const landing = text("assets/js/landing.js");
 const app = text("assets/js/app.js");
+const styles = text("assets/css/styles.css");
 const index = text("index.html");
 const consoleSnapshot = text("console/index.html");
 const executiveSnapshot = json("data/executive-latest.json");
@@ -197,6 +198,16 @@ assert.deepEqual(
   ["microsoft", "aws"],
 );
 assert.deepEqual(rebuilt.strategyBoard.customerPortfolio.groups.map((item) => item.id), ["gpu", "hyperscaler-asic", "design-ecosystem", "edge-physical"]);
+assert.deepEqual(
+  rebuilt.strategyBoard.customerPortfolio.missionModel.lanes.map((item) => item.id),
+  ["account", "pain", "portfolio", "ecosystem", "deal"],
+  "AI Infra mission value chain must remain MECE and data-driven",
+);
+assert.deepEqual(
+  rebuilt.strategyBoard.customerPortfolio.missionModel.organizations.map((item) => item.label),
+  ["GSM", "HBM Business", "MSR"],
+  "AI Infra execution ownership must remain explicit",
+);
 assert.ok(rebuilt.strategyBoard.customerPortfolio.accounts.every((item) => item.evidence?.status));
 assert.ok(rebuilt.strategyBoard.customerPortfolio.accounts.some((item) => item.company === "SpaceX"));
 assert.ok(rebuilt.strategyBoard.customerPortfolio.accounts.some((item) => item.company === "Anthropic" && item.xpuEcosystem?.source?.url));
@@ -428,6 +439,10 @@ assert.match(app, /window\.MEMORY_SITE_CONTENT\?\.agentCouncil\?\.agendas/);
 assert.match(app, /window\.MEMORY_SITE_CONTENT\?\.strategyBoard/);
 assert.match(app, /CUSTOMER & ASIC RADAR/);
 assert.match(app, /AI INFRA · 3 CUSTOMER PROJECTS/);
+assert.match(app, /aiInfraMissionNodes/);
+assert.match(index, /AI Infra Strategic Value Chain/);
+assert.match(styles, /--node-surface: var\(--panel\)/);
+assert.match(styles, /--node-ink: #fff/);
 assert.doesNotMatch(app, /GPU vs ASIC DEMAND MIX|CRAWL MEASURED|공식 Baseline · 최근 크롤 · 고객별 딥링크/);
 const hbfModule = baseline.architectureMatrix?.advancedModules?.find((module) => module.id === "hbf-inference-tier");
 assert.ok(hbfModule, "the HBF decision module must remain available");

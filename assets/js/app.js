@@ -14547,6 +14547,45 @@
     return { slider, slides };
   }
 
+  function aiInfraMissionNodes(matrix = {}) {
+    const portfolio = window.MEMORY_SITE_CONTENT?.strategyBoard?.customerPortfolio || {};
+    const mission = portfolio.missionModel || {};
+    const accounts = (portfolio.accounts || []).filter((account) => account.focus && account.layer === "end-customer");
+    const accountOrder = ["nvidia", "google", "microsoft", "aws", "meta", "openai", "anthropic"];
+    const orderedAccounts = accountOrder.map((id) => accounts.find((account) => account.id === id)).filter(Boolean);
+    const painLabels = (portfolio.painTaxonomy || []).map((item) => item.label).filter(Boolean);
+    const productLabels = Array.from(new Set((portfolio.productMap || []).map((item) => {
+      if (/custom hbm/i.test(item.label || "")) return "Custom HBM";
+      if (/^ai-d/i.test(item.label || "")) return "AI-D";
+      if (/^ai-n/i.test(item.label || "")) return "AI-N";
+      return item.label;
+    }).filter(Boolean)));
+    const partnerLabels = (portfolio.partnerEcosystem?.partners || []).map((item) => item.company).filter(Boolean);
+    const foundryLayer = (portfolio.layerModel?.summary || []).find((item) => item.id === "foundry-package")?.label;
+    const dealFieldLabels = {
+      qualification: "Qualification",
+      bindingVolume: "Binding Volume",
+      prepayment: "Prepayment",
+      marginFloor: "Margin Gate",
+      duration: "LTA 기간",
+    };
+    const dealLabels = (portfolio.contractGate?.fields || [])
+      .filter((field) => dealFieldLabels[field])
+      .map((field) => dealFieldLabels[field]);
+    const sourceItems = {
+      accounts: orderedAccounts.map((account) => account.company),
+      painTaxonomy: painLabels,
+      productMap: productLabels,
+      partnerEcosystem: partnerLabels.concat(foundryLayer ? [foundryLayer] : []),
+      contractGate: dealLabels,
+    };
+    return (mission.lanes || []).map((lane, index) => ({
+      ...lane,
+      items: (sourceItems[lane.source] || []).slice(0, lane.id === "account" ? 7 : 5),
+      accent: ["#14756f", "#315b7d", "#7357bd", "#b36b00", "#19344d"][index % 5],
+    }));
+  }
+
   function renderArchitectureMatrix() {
     const matrix = architectureMatrix();
     const summary = $("#architectureSummary");
@@ -14738,38 +14777,53 @@
     `).join("");
 
     valueWrap.innerHTML = "";
-    valueChain.forEach((node, index) => {
-      const card = el("article", "value-node reveal");
+    const missionNodes = aiInfraMissionNodes(matrix);
+    missionNodes.forEach((node, index) => {
+      const card = el("article", "value-node strategic-value-node reveal");
       card.style.animationDelay = `${index * 25}ms`;
-      card.style.setProperty("--local-accent", categoryAccent((node.linkedCategories || [])[0]));
+      card.style.setProperty("--local-accent", node.accent);
       card.innerHTML = `
         <div class="value-node-head">
-          <span class="chip accent">${escapeHTML(node.segment)}</span>
-          <small>${fmtNum((node.players || []).length)} vendors</small>
+          <span>${escapeHTML(node.index)} · ${escapeHTML(node.label)}</span>
+          <small>${escapeHTML(node.owner)}</small>
         </div>
-        <h3>${escapeHTML((node.players || []).join(" · "))}</h3>
-        <p>${escapeHTML(node.role || "")}</p>
-        <div class="insight-box"><span>Risk overlay</span>${escapeHTML(node.risk || "")}</div>
-        <div class="tag-row">${(node.signals || []).map((signal) => `<span class="tag">${escapeHTML(signal)}</span>`).join("")}</div>
+        <h3>${escapeHTML(node.title)}</h3>
+        <p>${strategicHighlightHTML(node.decision || "")}</p>
+        <div class="value-node-items">${(node.items || []).map((item) => `<span>${escapeHTML(item)}</span>`).join("")}</div>
       `;
       makeInspectable(card, {
-        type: "Supply Chain Explorer",
-        tag: node.segment,
-        title: (node.players || []).join(" · "),
-        body: `${node.role || ""} ${node.risk || ""}`,
+        type: "AI Infra Strategic Value Chain",
+        tag: `${node.index} · ${node.label}`,
+        title: node.title,
+        body: node.decision,
         section: "ai-matrix",
-        categories: node.linkedCategories || [],
-        watch: node.signals || [],
-        tags: node.players || [],
-        metrics: [
-          { label: "Vendors", value: fmtNum((node.players || []).length) },
-          { label: "Segment", value: node.segment },
-          { label: "Risk", value: "Overlay" },
-        ],
+        watch: node.items || [],
+        tags: [node.owner],
       });
       valueWrap.appendChild(card);
     });
-    if (!valueWrap.children.length) valueWrap.appendChild(el("div", "empty", "선택한 카테고리의 밸류체인 노드가 없습니다."));
+    if (valueChain.length) {
+      const dependencies = el("details", "value-dependency-rail");
+      dependencies.innerHTML = `
+        <summary><strong>실행 의존성</strong><span>장비·IP·Foundry·Package 리스크</span></summary>
+        <div class="value-dependency-grid">
+          ${valueChain.map((node) => `<button type="button" data-value-dependency="${escapeHTML(node.segment)}"><b>${escapeHTML(node.segment)}</b><span>${escapeHTML((node.players || []).join(" · "))}</span></button>`).join("")}
+        </div>
+      `;
+      dependencies.querySelectorAll("[data-value-dependency]").forEach((button) => {
+        const node = valueChain.find((item) => item.segment === button.dataset.valueDependency);
+        button.addEventListener("click", () => openInspector({
+          type: "실행 의존성",
+          tag: node?.segment,
+          title: (node?.players || []).join(" · "),
+          body: node?.role || "",
+          section: "ai-matrix",
+          watch: [node?.risk, ...(node?.signals || [])].filter(Boolean),
+        }));
+      });
+      valueWrap.appendChild(dependencies);
+    }
+    if (!valueWrap.children.length) valueWrap.appendChild(el("div", "empty", "AI Infra 전략 밸류체인을 준비 중입니다"));
 
   }
 
