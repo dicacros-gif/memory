@@ -1,7 +1,7 @@
 {
   "schemaVersion": "1.0",
-  "runId": "32804419677",
-  "generatedAt": "2026-08-25T03:28:03.683Z",
+  "runId": "32807537530",
+  "generatedAt": "2026-08-25T04:18:24.547Z",
   "automation": {
     "registry": "data/accounts.json",
     "companyFacts": "data/company-intelligence.json",
@@ -283,6 +283,16 @@
         ],
         "painAxes": [
           {
+            "id": "bandwidth",
+            "label": "대역폭",
+            "mentions": 1,
+            "trend": "up",
+            "productIds": [
+              "custom-hbm",
+              "ai-n-b"
+            ]
+          },
+          {
             "id": "logic-boundary",
             "label": "로직 경계",
             "mentions": 1,
@@ -358,6 +368,13 @@
           "source": "Tom's Hardware",
           "sourceClass": "authoritative-media",
           "url": "https://www.tomshardware.com/pc-components/dram/marvell-sells-cxl-memory-recycling-into-the-worst-dram-shortage-in-years",
+          "date": "2026-08-24"
+        },
+        {
+          "title": "Weekly news roundup: Google diversifies custom chips, TSMC share falls, SK Hynix deepens HBM co-design - digitimes",
+          "source": "digitimes",
+          "sourceClass": "authoritative-media",
+          "url": "https://www.digitimes.com/news/a20260823vl200/hbm-google-sk-hynix-chips-silicon.html",
           "date": "2026-08-24"
         }
       ],
@@ -917,7 +934,18 @@
             "sourceId": "google-cloud-tpu"
           }
         ],
-        "painAxes": [],
+        "painAxes": [
+          {
+            "id": "bandwidth",
+            "label": "대역폭",
+            "mentions": 1,
+            "trend": "up",
+            "productIds": [
+              "custom-hbm",
+              "ai-n-b"
+            ]
+          }
+        ],
         "supplierRelations": [
           {
             "supplierId": "samsung",
@@ -1133,6 +1161,13 @@
           "sourceClass": "public",
           "url": "https://cloud.google.com/blog/products/compute/inside-the-ironwood-tpu-codesigned-ai-stack",
           "date": "2025-11-06"
+        },
+        {
+          "title": "Weekly news roundup: Google diversifies custom chips, TSMC share falls, SK Hynix deepens HBM co-design - digitimes",
+          "source": "digitimes",
+          "sourceClass": "authoritative-media",
+          "url": "https://www.digitimes.com/news/a20260823vl200/hbm-google-sk-hynix-chips-silicon.html",
+          "date": "2026-08-24"
         },
         {
           "title": "Dwindling cash and soaring memory costs: Tech's AI buildout has ballooning price tag - CNBC",
@@ -2169,13 +2204,6 @@
           "date": ""
         },
         {
-          "title": "Tesla’s Terafab Takes Shape in Texas with $16.8B First Phase; Memory Engineering Hiring Signals DRAM Push - TrendForce",
-          "source": "TrendForce",
-          "sourceClass": "research",
-          "url": "https://www.trendforce.com/news/2026/08/07/news-teslas-terafab-takes-shape-in-texas-with-16-8b-first-phase-memory-engineering-hiring-signals-dram-push",
-          "date": "2026-08-07"
-        },
-        {
           "title": "Dwindling cash and soaring memory costs: Tech's AI buildout has ballooning price tag - CNBC",
           "source": "CNBC",
           "sourceClass": "authoritative-media",
@@ -2334,7 +2362,27 @@
             "sourceId": "tsmc-3dfabric"
           }
         ],
-        "painAxes": [],
+        "painAxes": [
+          {
+            "id": "bandwidth",
+            "label": "대역폭",
+            "mentions": 1,
+            "trend": "up",
+            "productIds": [
+              "custom-hbm",
+              "ai-n-b"
+            ]
+          },
+          {
+            "id": "package-foundry",
+            "label": "패키징·파운드리",
+            "mentions": 1,
+            "trend": "up",
+            "productIds": [
+              "custom-hbm"
+            ]
+          }
+        ],
         "supplierRelations": [],
         "decisionFocus": [
           "선단 노드 양산 램프와 고객 제품 전환",
@@ -2448,6 +2496,20 @@
           "sourceClass": "public",
           "url": "https://3dfabric.tsmc.com/english/dedicatedFoundry/technology/3DFabric.htm",
           "date": ""
+        },
+        {
+          "title": "Xiaomi XRING O3 Reportedly Features CXMT LPDDR6 and TSMC 3nm, May Expand TSMC Ties to AI and Auto Chips - TrendForce",
+          "source": "TrendForce",
+          "sourceClass": "research",
+          "url": "https://www.trendforce.com/news/2026/08/25/news-xiaomi-xring-o3-reportedly-features-cxmt-lpddr6-and-tsmc-3nm-may-expand-tsmc-ties-to-ai-and-auto-chips",
+          "date": "2026-08-25"
+        },
+        {
+          "title": "Weekly news roundup: Google diversifies custom chips, TSMC share falls, SK Hynix deepens HBM co-design - digitimes",
+          "source": "digitimes",
+          "sourceClass": "authoritative-media",
+          "url": "https://www.digitimes.com/news/a20260823vl200/hbm-google-sk-hynix-chips-silicon.html",
+          "date": "2026-08-24"
         }
       ],
       "sources": [
