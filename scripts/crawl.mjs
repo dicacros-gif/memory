@@ -4609,7 +4609,7 @@ function pruneOldDatedArticles(value, parentKey = "") {
   const articleLike = Boolean(
     date
     && (value.url || value.link)
-    && (value.title || value.headline || value.source || /news|evidence|signal|event|article|document/i.test(parentKey)),
+    && (value.title || value.headline || value.source || value.excerpt || /news|evidence|signal|event|article|document/i.test(parentKey)),
   );
   if (articleLike && !date.startsWith(CLIENT_NEWS_YEAR)) return null;
   const normalized = Object.fromEntries(Object.entries(value)
