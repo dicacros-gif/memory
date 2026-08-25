@@ -131,6 +131,8 @@ assert.ok(strategyAccountIntelligence.deals.events.some((item) => item.accountId
 assert.ok(strategyAccountIntelligence.supplierMatrix.alerts.some((item) => item.accountId === "google" && item.supplierId === "samsung" && item.changeType === "dual-source"));
 assert.ok(strategyAccountIntelligence.supplierMatrix.alerts.every((item) => item.id?.startsWith("supplier:")), "supplier changes must carry stable event ids for diffing and alerts");
 assert.ok(strategyAccountIntelligence.deals.events.every((item) => item.id?.startsWith("deal:")), "deal events must carry stable ids for weekly diffing");
+assert.ok(strategyAccountIntelligence.supplierMatrix.alerts.every((item) => /^https:\/\//.test(item.sourceUrl || "") && ["official-fact", "market-estimate"].includes(item.status)), "supplier alerts must retain source links and claim grades when UI governance labels are hidden");
+assert.ok(strategyAccountIntelligence.deals.events.every((item) => /^https:\/\//.test(item.sourceUrl || "") && ["reported", "confirmed", "filing"].includes(item.evidenceStage)), "deal events must retain source links and evidence stages when UI governance labels are hidden");
 assert.equal(strategyAccountIntelligence.applicationSignals.find((item) => item.id === "robotics").promotionStatus, "ai-d-e-opportunity");
 assert.ok(strategyAccountIntelligence.accounts.tesla.applicationOpportunityTags.includes("ai-d-e"), "application signals must promote an account-level AI-D E opportunity tag");
 assert.ok(strategyAccountIntelligence.generationCandidates.some((item) => item.accountId === "google" && item.status === "pending-review" && item.capacityGb === 192), "official product specifications must enter the pending-review gate");

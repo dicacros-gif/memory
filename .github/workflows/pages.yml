@@ -71,19 +71,31 @@ jobs:
         with:
           node-version: "24"
 
+      - name: Install pinned build toolchain
+        shell: bash
+        run: |
+          corepack enable
+          pnpm install --frozen-lockfile
+
+      - name: Reject stale browser bundles
+        run: pnpm run test:asset-bundle-freshness
+
       - name: Run intelligence agent
         env:
           INTELLIGENCE_REFRESH_TRIGGER: ${{ github.event.action || inputs.refresh_scope || github.event_name }}
           INTELLIGENCE_EVENT_KEY: ${{ github.event.client_payload.idempotency_key || github.event.client_payload.event_id || github.event.client_payload.delivery_id || '' }}
           INTELLIGENCE_EVENT_OCCURRED_AT: ${{ github.event.client_payload.occurred_at || github.event.client_payload.published_at || '' }}
           INTELLIGENCE_EVENT_SOURCE: ${{ github.event.client_payload.source || github.event.action || github.event_name }}
-        run: npm run crawl
+        run: pnpm run crawl
 
       - name: Pre-render executive decision snapshot
-        run: npm run prerender:decision
+        run: pnpm run prerender:decision
+
+      - name: Assert deployment runId coherence
+        run: pnpm run test:runid-coherence
 
       - name: Validate refreshed intelligence
-        run: npm run check:fast
+        run: pnpm run check:fast
 
       - name: Reject malformed generated files
         shell: bash

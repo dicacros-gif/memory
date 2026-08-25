@@ -7,6 +7,7 @@ const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "..");
 const sourceFiles = [
   "assets/js/landing.js",
   "assets/js/app.js",
+  "assets/js/account-one-pagers.js",
   "assets/js/company-profile.js",
   "assets/css/landing.css",
   "assets/css/styles.css",

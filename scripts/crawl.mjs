@@ -4999,17 +4999,18 @@ export function buildClientDataBundle({ payload = {}, quant = {}, priceHistory =
     .update(JSON.stringify({ runId, landingDecision, siteContent, siteContentExtended, companyDirectory }))
     .digest("hex")
     .slice(0, 16);
+  const serializedBytes = (value) => Buffer.byteLength(`${JSON.stringify(value, null, 2)}\n`, "utf8");
   const artifacts = {
-    live: { path: "data/live-client.json", bytes: Buffer.byteLength(JSON.stringify(live), "utf8") },
-    quant: { path: "data/quant-client.json", bytes: Buffer.byteLength(JSON.stringify(clientQuant), "utf8") },
-    priceHistory: { path: "data/price-history-client.json", bytes: Buffer.byteLength(JSON.stringify(price), "utf8") },
-    marketHistory: { path: "data/market-history-client.json", bytes: Buffer.byteLength(JSON.stringify(market), "utf8") },
-    quantBacktest: { path: "data/quant-backtest-client.json", bytes: Buffer.byteLength(JSON.stringify(backtest), "utf8") },
-    decisionHistory: { path: "data/decision-history-client.json", bytes: Buffer.byteLength(JSON.stringify(decisionHistory), "utf8") },
-    landingDecision: { path: "data/landing-decision-client.json", bytes: Buffer.byteLength(JSON.stringify(landingDecision), "utf8") },
-    siteContent: { path: "data/site-content-client.json", bytes: Buffer.byteLength(JSON.stringify(siteContent), "utf8") },
-    siteContentExtended: { path: "data/site-content-extended-client.json", bytes: Buffer.byteLength(JSON.stringify(siteContentExtended), "utf8") },
-    companyDirectory: { path: "data/company-directory-client.json", bytes: Buffer.byteLength(JSON.stringify(companyDirectory), "utf8") },
+    live: { path: "data/live-client.json", bytes: serializedBytes(live) },
+    quant: { path: "data/quant-client.json", bytes: serializedBytes(clientQuant) },
+    priceHistory: { path: "data/price-history-client.json", bytes: serializedBytes(price) },
+    marketHistory: { path: "data/market-history-client.json", bytes: serializedBytes(market) },
+    quantBacktest: { path: "data/quant-backtest-client.json", bytes: serializedBytes(backtest) },
+    decisionHistory: { path: "data/decision-history-client.json", bytes: serializedBytes(decisionHistory) },
+    landingDecision: { path: "data/landing-decision-client.json", bytes: serializedBytes(landingDecision) },
+    siteContent: { path: "data/site-content-client.json", bytes: serializedBytes(siteContent) },
+    siteContentExtended: { path: "data/site-content-extended-client.json", bytes: serializedBytes(siteContentExtended) },
+    companyDirectory: { path: "data/company-directory-client.json", bytes: serializedBytes(companyDirectory) },
   };
   return {
     manifest: {
