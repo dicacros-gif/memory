@@ -5821,3 +5821,34 @@ body.landing-mode {
   .business-decision-spine svg { min-width: 700px; }
   .business-spine-copy strong { font-size: 17px; }
 }
+
+/* LLM decision frame: keep the guide in the right analysis rail, clear of the title and lead card copy. */
+@media (min-width: 881px) {
+  .business-insights[data-frame]::before {
+    top: 18px;
+    left: 80%;
+    right: 0;
+    bottom: 0;
+    box-sizing: border-box;
+    max-width: none;
+    padding-left: 24px;
+    white-space: nowrap;
+    font-size: clamp(7px, .5vw, 9px);
+    background: linear-gradient(90deg, rgba(37, 133, 255, .1), rgba(37, 133, 255, .025) 58%, transparent);
+  }
+}
+
+@media (max-width: 880px) {
+  .business-insights[data-frame]::before {
+    top: 24px;
+    left: 22px;
+    right: 22px;
+    bottom: auto;
+    max-width: none;
+    padding: 8px 12px;
+    border-top: 2px solid currentColor;
+    border-left: 0;
+    white-space: normal;
+    background: linear-gradient(90deg, rgba(37, 133, 255, .1), transparent);
+  }
+}
