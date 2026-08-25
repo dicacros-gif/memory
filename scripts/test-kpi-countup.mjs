@@ -250,7 +250,10 @@ assert.match(app, /const HYPERSCALER_PROJECTION_ORDER = \[[\s\S]*?"nvidia"[\s\S]
 assert.match(app, /data-projection-account="\$\{escapeHTML\(account\.id\)\}" aria-pressed="\$\{account\.id === selected\.id \? "true" : "false"\}"/, "hyperscaler account controls should expose their pressed state");
 assert.match(css, /#projection \.projection-account-tab:is\(:hover, :focus-visible, \.active\) \{[\s\S]*?--surface: #102b3d;[\s\S]*?--ink: #fff;[\s\S]*?--sub-ink: #d9e6ed;/, "hyperscaler account controls should invert with readable text tokens");
 assert.match(css, /#projection \.projection-account-tab:active \{[\s\S]*?translateY\(1px\)[\s\S]*?box-shadow: none;/, "hyperscaler account controls should visibly depress on click");
-assert.match(app, /class="forecast-cat-tab\$\{c\.id === forecastCategory \? " active" : ""\}[\s\S]*?aria-pressed="\$\{c\.id === forecastCategory \? "true" : "false"\}"/, "forecast category filters should expose button and pressed semantics");
+assert.match(app, /class="forecast-cat-tab\$\{account\.id === focusId \? " active" : ""\}[\s\S]*?data-forecast-account=[\s\S]*?aria-pressed="\$\{account\.id === focusId \? "true" : "false"\}"/, "forecast should expose hyperscaler account selectors with pressed semantics");
+assert.match(app, /const order = \["nvidia", "google", "microsoft", "aws", "meta", "openai", "anthropic", "apple", "tesla", "spacex"\]/, "forecast should organize demand by named big-tech accounts");
+assert.match(css, /#hyperscaler-demand \.forecast-cat-tabs \{[\s\S]*?grid-template-columns: repeat\(5, minmax\(0, 1fr\)\)/, "hyperscaler selectors should use a responsive consulting grid");
+assert.match(css, /#hyperscaler-demand \.forecast-cat-tab:is\(:hover, :focus-visible\),[\s\S]*?--account-surface: #102b3d;[\s\S]*?--account-ink: #fff;/, "hyperscaler selectors should invert surface and ink together");
 assert.match(css, /\.forecast-cat-tabs button:active \{[\s\S]*?translateY\(2px\) scale\(\.985\)/, "forecast category filters should visibly depress when clicked");
 assert.match(css, /\.forecast-cat-tabs button\.active \{[\s\S]*?0 4px 0 color-mix/, "the selected forecast category should retain tactile depth");
 assert.match(app, /data-hs-scenario="\$\{escapeHTML\(s\.id\)\}" aria-pressed="\$\{s\.id === hyperscalerScenario \? "true" : "false"\}"/, "demand scenarios should expose their pressed state");

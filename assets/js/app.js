@@ -6174,14 +6174,14 @@
 
   // Today's crawled mention/direction signal for a demand-pool account.
   function forecastAccountSignal(account) {
-    return verifiedDerivedContract("accountSignals", "2.1")?.accounts?.[account?.id] || null;
+    return verifiedDerivedContract("accountSignals", "2.1")?.accounts?.[account?.signalId || account?.id] || null;
   }
 
   function forecastAccountDisplaySignal(account = {}) {
     const current = forecastAccountSignal(account);
     if (Number(current?.evidenceCount || 0) > 0) return current;
     const stop = new Set(["cloud", "group", "china", "server", "mobile", "automotive", "hyperscaler"]);
-    const terms = `${account.id || ""} ${account.name || ""}`
+    const terms = `${account.id || ""} ${account.name || ""} ${account.company || ""} ${account.chip || ""} ${(account.aliases || []).join(" ")}`
       .toLowerCase()
       .split(/[^a-z0-9가-힣]+/)
       .filter((term) => term.length >= 3 && !stop.has(term));
@@ -6239,6 +6239,17 @@
     return Math.round(clamp(liveScore * tilt, 0, 100));
   }
 
+  function forecastHyperscalerAccounts(category = forecastCategoryData("hyperscaler")) {
+    const order = ["nvidia", "google", "microsoft", "aws", "meta", "openai", "anthropic", "apple", "tesla", "spacex"];
+    const signalIds = { microsoft: "azure", openai: "oracle" };
+    const registry = window.MEMORY_SITE_CONTENT?.strategyBoard?.customerPortfolio?.accounts || [];
+    const byId = new Map(registry.map((account) => [account.id, account]));
+    const accounts = order.map((id) => byId.get(id)).filter(Boolean)
+      .map((account) => ({ ...account, name: account.company, signalId: signalIds[account.id] || account.id }));
+    if (accounts.length) return accounts;
+    return (category.accounts || []).map((account) => ({ ...account, company: account.name, chip: "AI Platform", signalId: signalIds[account.id] || account.id }));
+  }
+
   function renderHyperscalerDemand() {
     const catTabs = $("#forecastCategoryTabs");
     const logic = $("#hyperscalerLogic");
@@ -6252,10 +6263,12 @@
     const panelMeta = $("#hyperscalerPanelMeta");
     if (!tabs || !summary || !grid) return;
 
-    const category = forecastCategoryData();
+    const category = forecastCategoryData("hyperscaler");
     const scenario = forecastScenarioData();
     const d = forecastDrivers(category, scenario);
-    const accounts = category.accounts || [];
+    const accounts = forecastHyperscalerAccounts(category);
+    const focusId = accounts.some((a) => a.id === hyperscalerFocusId) ? hyperscalerFocusId : accounts[0]?.id;
+    const selectedAccount = accounts.find((account) => account.id === focusId) || accounts[0];
     const accountSignals = accounts.map((account) => forecastAccountSignal(account)).filter(Boolean);
     const liveAccountCount = accountSignals.filter(isUsableAccountSignal).length;
     const reviewAccountCount = accountSignals.filter((signal) => signal.status !== "live" && Number(signal.evidenceCount) > 0).length;
@@ -6271,25 +6284,40 @@
       if (assumptions) assumptions.innerHTML = "";
       return;
     }
-    if (meta) meta.textContent = `${category.label} · ${category.unitBasisLabel} · ${scenario.label} · ${fmtNum(d.units, d.units < 20 ? 1 : 0)}${category.unitLabel} × ${fmtNum(d.memPerUnit)}${category.memLabel} · ${evidenceCoverage}`;
-    if (panelTitle) panelTitle.textContent = category.panelTitle;
-    if (panelMeta) panelMeta.textContent = `${category.unitBasisLabel} · ${category.driverLabel} · ${category.techLabel} · ${category.pullLabel} · ${evidenceCoverage} · 계정 카드 점수는 집계 전망 산식에 미반영`;
+    if (meta) meta.textContent = selectedAccount
+      ? `${selectedAccount.company} · ${selectedAccount.chip || "AI Platform"} · ${scenario.label} 시장 기준`
+      : `${category.label} · ${scenario.label} 시장 기준`;
+    if (panelTitle) panelTitle.textContent = selectedAccount ? `${selectedAccount.company} · 수요 심층` : "계정별 실행 과제";
+    if (panelMeta) panelMeta.textContent = selectedAccount
+      ? `${selectedAccount.pain || "Memory Pain"} → ${selectedAccount.memory || "Memory Option"} → ${selectedAccount.gate || "Execution Gate"}`
+      : "선택 계정 기준";
+    const selectedPortfolio = selectedAccount?.chipPortfolio?.[0] || {};
+    const selectedBaseline = selectedAccount?.baseline?.[0] || {};
+    const selectedPartner = selectedAccount?.xpuEcosystem?.partner || (selectedAccount?.id === "nvidia" ? "직접 Co-Design" : "직접 Account 협의");
 
     if (catTabs) {
-      catTabs.innerHTML = orderedForecastCategories().map((c) => `
-        <button type="button" class="forecast-cat-tab${c.id === forecastCategory ? " active" : ""}" data-forecast-cat="${escapeHTML(c.id)}" aria-pressed="${c.id === forecastCategory ? "true" : "false"}" style="--cat-accent:${c.accent}">
-          <strong>${escapeHTML(c.label)}</strong>
+      catTabs.innerHTML = accounts.map((account, index) => `
+        <button type="button" class="forecast-cat-tab${account.id === focusId ? " active" : ""}" data-forecast-account="${escapeHTML(account.id)}" aria-pressed="${account.id === focusId ? "true" : "false"}" style="--cat-accent:${escapeHTML(account.accent || category.accent)};--delay:${index * 18}ms">
+          <span>${String(index + 1).padStart(2, "0")}</span>
+          <strong>${escapeHTML(account.company || account.name)}</strong>
+          <small>${escapeHTML(account.chip || "AI Platform")}</small>
         </button>
       `).join("");
     }
 
     if (logic) {
-      const steps = [
-        { k: `① ${category.unitStep} · ${category.unitBasisLabel}`, v: `${fmtNum(d.units, d.units < 20 ? 1 : 0)} ${category.unitLabel}`, s: category.unitNote },
-        { k: "② 메모리 탑재량", v: `${fmtNum(d.memPerUnit)} ${category.memLabel}`, s: `${category.memName} · ${category.memNote}` },
-        { k: "③ 총 메모리 수요", v: `${fmtNum(d.totalPb)} PB`, s: "①×② (백만 대 × GB)" },
+      const steps = selectedAccount ? [
+        { k: "01 ACCOUNT", v: selectedAccount.company, s: selectedAccount.relationship || "고객 전략·기술·구매 기준" },
+        { k: "02 CHIP ROADMAP", v: selectedAccount.chip || "AI Platform", s: selectedPortfolio.publicSpec || selectedBaseline.value || selectedPortfolio.workload || "공개 사양 기준" },
+        { k: "03 MEMORY PAIN", v: selectedAccount.pain || "병목 구조화", s: "대역폭·용량·전력·패키징·로직 경계" },
+        { k: "04 MEMORY OPTION", v: selectedAccount.memory || "Custom Memory", s: "Custom HBM · AI-D · AI-N" },
+        { k: "05 EXECUTION GATE", v: selectedAccount.gate || "Qualification · Capacity", s: "Owner · KPI · 90D Action" },
+      ] : [
+        { k: `① ${category.unitStep}`, v: `${fmtNum(d.units, d.units < 20 ? 1 : 0)} ${category.unitLabel}`, s: category.unitNote },
+        { k: "② 메모리 탑재량", v: `${fmtNum(d.memPerUnit)} ${category.memLabel}`, s: category.memName },
+        { k: "③ 총 메모리 수요", v: `${fmtNum(d.totalPb)} PB`, s: "①×②" },
         { k: "④ SKHY 점유율", v: `${fmtNum(d.skhyShare)}%`, s: category.shareNote },
-        { k: "⑤ SKHY 물량", v: `${fmtNum(d.skhyPb)} PB`, s: "③×④ 논리 추정" },
+        { k: "⑤ SKHY 물량", v: `${fmtNum(d.skhyPb)} PB`, s: "③×④" },
       ];
       const calib = d.calibration;
       const calibHTML = calib?.live
@@ -6312,19 +6340,19 @@
       const sd = forecastDrivers(category, s);
       return `
         <button type="button" class="${s.id === hyperscalerScenario ? "active" : ""}" data-hs-scenario="${escapeHTML(s.id)}" aria-pressed="${s.id === hyperscalerScenario ? "true" : "false"}" style="--tab-tone:${s.id === "bear" ? "#B7791F" : s.id === "bull" ? "#0B8F68" : "#52637A"}">
-          <strong>${escapeHTML(s.label)}</strong>
-          <small>총 ${fmtNum(sd.totalPb)} PB · SKHY ${fmtNum(sd.skhyPb)} PB</small>
+          <strong>${escapeHTML(s.label)} · 시장 기준</strong>
+          <small>산업 총수요 ${fmtNum(sd.totalPb)} PB · 고객 약정 물량 아님</small>
         </button>
       `;
     }).join("");
 
-    summary.innerHTML = `
-      <article class="hs-kpi"><span>총 메모리 수요</span><strong>${countHTML(d.totalPb)}<em>PB</em></strong><small>${escapeHTML(scenario.premise)}</small></article>
-      <article class="hs-kpi accent"><span>SKHY 물량</span><strong>${countHTML(d.skhyPb)}<em>PB</em></strong><small>점유율 ${fmtNum(d.skhyShare)}% 가정</small></article>
-      <article class="hs-kpi"><span>${escapeHTML(category.dramLabel)}</span><strong>+${countHTML(d.dramYoY)}<em>% YoY</em></strong><small>동반 DRAM 수요</small></article>
-      <article class="hs-kpi"><span>${escapeHTML(category.nandLabel)}</span><strong>+${countHTML(d.nandYoY)}<em>% YoY</em></strong><small>동반 NAND 수요</small></article>
-      <article class="hs-readout"><span>경영 판단</span><strong>${escapeHTML(scenario.readout)}</strong></article>
-    `;
+    summary.innerHTML = selectedAccount ? `
+      <article class="hs-kpi"><span>CHIP ROADMAP</span><strong>${escapeHTML(selectedAccount.chip || "AI Platform")}</strong><small>${escapeHTML(selectedPortfolio.workload || "AI Workload")}</small></article>
+      <article class="hs-kpi accent"><span>MEMORY PAIN</span><strong>${escapeHTML(selectedAccount.pain || "병목 구조화")}</strong><small>고객별 요구 사양</small></article>
+      <article class="hs-kpi"><span>MEMORY OPTION</span><strong>${escapeHTML(selectedAccount.memory || "Custom Memory")}</strong><small>Custom HBM · AI-D · AI-N</small></article>
+      <article class="hs-kpi"><span>DESIGN / BUYING CENTER</span><strong>${escapeHTML(selectedPartner)}</strong><small>고객·메모리 요구 연결</small></article>
+      <article class="hs-readout"><span>EXECUTION GATE</span><strong>${escapeHTML(selectedAccount.gate || "Qualification · Capacity")}</strong></article>
+    ` : `<article class="hs-readout"><span>시장 기준</span><strong>${escapeHTML(scenario.readout)}</strong></article>`;
 
     if (!accounts.length) {
       grid.innerHTML = `<div class="empty">동일 실행 ID·검증시각·유효기간을 통과한 수요처 추적 레지스트리가 없습니다.</div>`;
@@ -6332,7 +6360,6 @@
       if (assumptions) assumptions.innerHTML = "";
       return;
     }
-    const focusId = accounts.some((a) => a.id === hyperscalerFocusId) ? hyperscalerFocusId : accounts[0].id;
     grid.innerHTML = accounts.map((account, i) => {
       const pull = forecastAccountPull(account, scenario);
       const signal = forecastAccountDisplaySignal(account);
@@ -6348,7 +6375,7 @@
         <button class="hs-card ${account.id === focusId ? "active" : ""} reveal${hasPull ? "" : " insufficient"}" type="button" data-hs-account="${escapeHTML(account.id)}" style="--delay:${i * 40}ms; --pull:${hasPull ? pull : 0}%">
           <span class="hs-card-top"><em>${signal?.evidenceCount ? `${fmtNum(signal.independentSourceCount || signal.sourceCount)}개 독립 출처` : "30D"}</em><b>${escapeHTML(category.driverLabel)} ${escapeHTML(signal?.driverLabel || "근거 부족")}</b></span>
           <strong>${escapeHTML(account.name)}</strong>
-          <small>${signal?.latest ? `${escapeHTML(uniqueSourceLabel(signal.latest.source) || "원문")} · ${escapeHTML(signal.latest.date || "날짜 미상")}` : "직접 연결 근거 대기"}</small>
+          <small>${escapeHTML(account.chip || "AI Platform")}${signal?.latest ? ` · ${escapeHTML(uniqueSourceLabel(signal.latest.source) || "원문")} · ${escapeHTML(signal.latest.date || "날짜 미상")}` : ""}</small>
           <div class="hs-pull"><i style="width:${hasPull ? pull : 0}%"></i></div>
           <span class="hs-pull-label">${escapeHTML(category.pullLabel)} ${hasPull ? `${fmtNum(pull)}/100` : "N/A"}${signalBadge}</span>
         </button>
@@ -6372,14 +6399,14 @@
           ? `<div class="hs-focus-signal idle"><b>근거 품질 미달</b><span>독립 출처 2개 또는 공식·공시 원문 1건 확인 전까지 점수 산출 보류</span>${(signal.evidence || []).map((item) => `<a href="${escapeHTML(item.url)}" target="_blank" rel="noopener">${escapeHTML(newsTitle(item) || item.title)} — ${escapeHTML(displayNewsPublisher(item) || "원문")} ${escapeHTML(item.date || "")} ↗</a>`).join("")}</div>`
           : `<div class="hs-focus-signal idle"><b>공식 원문 추가 수집 중</b><span>누적 DB 검색과 신규 수집을 계속하며 확인 전 점수는 산출하지 않음</span></div>`;
       focus.innerHTML = `
-        <span class="hs-focus-tag">${escapeHTML(category.label)} · 수요 심층</span>
-        <strong>${escapeHTML(account.name)}</strong>
+        <span class="hs-focus-tag">${escapeHTML(account.name)} · ACCOUNT ONE-PAGER</span>
+        <strong>${escapeHTML(account.chip || "AI Platform")}</strong>
         <div class="hs-focus-metrics">
           <span><b>${escapeHTML(signal?.driverLabel || "근거 부족")}</b><small>${escapeHTML(category.driverLabel)}</small></span>
           <span><b>${escapeHTML(signal?.latest?.date || "N/A")}</b><small>최근 근거일</small></span>
           <span><b>${hasPull ? `${fmtNum(pull)}/100` : "N/A"}</b><small>${escapeHTML(category.pullLabel)}</small></span>
         </div>
-        <p>${escapeHTML(signal?.note || "공식 원문이 추가되면 계정별 방향과 견인도를 자동 재계산합니다")}</p>
+        <p>${escapeHTML(account.relationship || account.pain || signal?.note || "공개 원문이 추가되면 계정별 병목과 대안을 자동 갱신")}</p>
         ${signalHTML}
         <small class="hs-focus-note">${escapeHTML(scenario.label)} · Insight</small>
       `;
@@ -6394,10 +6421,9 @@
       `;
     }
 
-    if (catTabs) catTabs.querySelectorAll("[data-forecast-cat]").forEach((btn) => {
+    if (catTabs) catTabs.querySelectorAll("[data-forecast-account]").forEach((btn) => {
       btn.addEventListener("click", () => {
-        forecastCategory = btn.dataset.forecastCat;
-        hyperscalerFocusId = "";
+        hyperscalerFocusId = btn.dataset.forecastAccount;
         renderHyperscalerDemand();
       });
     });
@@ -10604,6 +10630,7 @@
     // customer portfolio as soon as the shared artifact is ready.
     if (document.getElementById("strategyConsulting")) renderStrategyConsulting();
     if (document.getElementById("projection")) renderProductProjection();
+    if (document.getElementById("hyperscaler-demand")) renderHyperscalerDemand();
     if (document.getElementById("cLevelDecisionGrid") && document.getElementById("cLevelAgentGrid")) {
       renderCLevelCockpit();
     }

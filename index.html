@@ -131,7 +131,7 @@
     (() => {
       if (!location.hash.startsWith("#console")) return;
       document.documentElement.classList.add("console-entry");
-      const revision = "infra-b057806da63c";
+      const revision = "infra-5bdc1dcafcf1";
       const assets = [
         ["consoleStylesPreload", "style", `assets/css/styles.min.css?v=${revision}`, "high"],
         ["consoleAppPreload", "script", `assets/js/app.min.js?v=${revision}`, "high"],
@@ -148,7 +148,7 @@
       }
     })();
   </script>
-  <link rel="stylesheet" href="assets/css/landing.min.css?v=infra-b057806da63c" />
+  <link rel="stylesheet" href="assets/css/landing.min.css?v=infra-5bdc1dcafcf1" />
 </head>
 <body class="landing-mode">
   <h1 class="site-document-title">AI Infra Strategy</h1>
@@ -1646,10 +1646,10 @@
         <section class="board hyperscaler-board" id="hyperscaler-demand">
           <div class="board-head">
             <div>
-              <p class="eyebrow">Memory demand forecast · scenario planning</p>
-              <h2>메모리 수요 예측 · 카테고리별</h2>
+              <p class="eyebrow">Hyperscaler demand · account scenario</p>
+              <h2>메모리 수요 예측 · 빅테크별</h2>
             </div>
-            <span class="board-meta" id="hyperscalerMeta">수요처 × 메모리 탑재량 → SKHY 물량 논리 추정</span>
+            <span class="board-meta" id="hyperscalerMeta">계정 → Chip Roadmap → Memory Pain → 실행 Gate</span>
           </div>
           <div class="forecast-cat-tabs" id="forecastCategoryTabs"></div>
           <div class="hs-logic" id="hyperscalerLogic"></div>
@@ -1658,8 +1658,8 @@
           <div class="hs-layout">
             <section class="hs-panel">
               <div class="intel-panel-head">
-                <h3 id="hyperscalerPanelTitle">수요처별 풀</h3>
-                <span id="hyperscalerPanelMeta">수요 견인 요인</span>
+                <h3 id="hyperscalerPanelTitle">계정별 실행 과제</h3>
+                <span id="hyperscalerPanelMeta">선택 계정 기준</span>
               </div>
               <div class="hs-grid" id="hyperscalerGrid"></div>
             </section>
@@ -1917,7 +1917,7 @@
   <div class="qa-answer" id="qaAnswer" hidden></div>
   <div class="inspector" id="inspector" hidden></div>
   <div class="backdrop" id="backdrop"></div>
-  <script src="assets/js/company-profile.min.js?v=infra-b057806da63c" defer></script>
-  <script src="assets/js/landing.min.js?v=infra-b057806da63c" defer></script>
+  <script src="assets/js/company-profile.min.js?v=infra-5bdc1dcafcf1" defer></script>
+  <script src="assets/js/landing.min.js?v=infra-5bdc1dcafcf1" defer></script>
 </body>
 </html>
