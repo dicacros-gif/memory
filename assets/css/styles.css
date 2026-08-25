@@ -28844,3 +28844,39 @@ body.consulting-system #main > #c-level-cockpit {
   .value-dependency-grid { grid-template-columns: minmax(0, 1fr); }
   .value-dependency-rail > summary { align-items: flex-start; flex-direction: column; }
 }
+
+/* Company fact-row contrast lock — light rows and inverted rows swap as a token pair. */
+#intelligenceConsole .company-fact-card {
+  --company-fact-surface: #eaf1f5;
+  --company-fact-ink: #17324d;
+  --company-fact-label: #08766f;
+}
+
+#intelligenceConsole .company-fact-card li {
+  background: var(--company-fact-surface) !important;
+  color: var(--company-fact-ink) !important;
+  transition: background-color .025s linear, color .025s linear, transform .06s ease-out;
+}
+
+#intelligenceConsole .company-fact-card li b {
+  color: var(--company-fact-label) !important;
+  -webkit-text-fill-color: var(--company-fact-label) !important;
+  opacity: 1 !important;
+}
+
+#intelligenceConsole .company-fact-card li span {
+  color: var(--company-fact-ink) !important;
+  -webkit-text-fill-color: var(--company-fact-ink) !important;
+  opacity: 1 !important;
+}
+
+#intelligenceConsole .company-fact-card li:is(:hover, :focus-within) {
+  --company-fact-surface: #17394f;
+  --company-fact-ink: #f7fbff;
+  --company-fact-label: #7fe4d2;
+  transform: translateX(2px);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  #intelligenceConsole .company-fact-card li { transition: none; }
+}

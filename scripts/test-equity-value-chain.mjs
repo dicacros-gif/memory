@@ -157,6 +157,8 @@ assert.match(app, /data-equity-stock[\s\S]*?state\.detailId = id[\s\S]*?renderEq
   "company selection must update the detail panel in the existing stock region");
 assert.match(css, /\.company-intelligence-grid \{[\s\S]*?grid-template-columns:\s*repeat\(2,[\s\S]*?\.company-org-executives \{[\s\S]*?grid-template-columns:\s*repeat\(auto-fit/,
   "company intelligence must use a responsive consulting-style grid and executive organization chart");
+assert.match(css, /Company fact-row contrast lock[\s\S]*?\.company-fact-card li b[\s\S]*?-webkit-text-fill-color:\s*var\(--company-fact-label\) !important;[\s\S]*?\.company-fact-card li span[\s\S]*?-webkit-text-fill-color:\s*var\(--company-fact-ink\) !important;/,
+  "company facts must override stale automatic contrast tags with explicit label and value colors");
 assert.match(css, /@keyframes companyPanelReveal[\s\S]*?@keyframes companyConnectorMove/,
   "company cards and organization connectors must include purposeful motion");
 assert.match(css, /@media \(prefers-reduced-motion: reduce\)[\s\S]*?\.equity-chart-line/,
