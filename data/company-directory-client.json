@@ -1,7 +1,7 @@
 {
   "schemaVersion": "1.0",
-  "runId": "32830816344",
-  "generatedAt": "2026-08-25T09:31:36.992Z",
+  "runId": "32834724155",
+  "generatedAt": "2026-08-25T10:17:37.700Z",
   "automation": {
     "registry": "data/accounts.json",
     "companyFacts": "data/company-intelligence.json",
@@ -294,16 +294,6 @@
         ],
         "painAxes": [
           {
-            "id": "bandwidth",
-            "label": "대역폭",
-            "mentions": 1,
-            "trend": "up",
-            "productIds": [
-              "custom-hbm",
-              "ai-n-b"
-            ]
-          },
-          {
             "id": "logic-boundary",
             "label": "로직 경계",
             "mentions": 1,
@@ -349,7 +339,6 @@
       "executiveLens": {
         "question": "NRE · Interface Power · Package Yield · Time-to-Market",
         "painSignals": [
-          "대역폭",
           "로직 경계"
         ],
         "riskSignals": [],
@@ -390,17 +379,10 @@
       "priorities": [],
       "evidence": [
         {
-          "title": "Marvell VP는 수년 만에 최악의 DRAM 부족 속에서도 CXL 메모리에 사용하기 위해 DDR4 재활용을 추진 · 회사는 3계층 AI 메모리 인프라를 도입",
+          "title": "Marvell VP pushes for DDR4 recycling for use in CXL memory, amid the worst DRAM shortage in years — company introduces three-tier AI memory infrastructure",
           "source": "Tom's Hardware",
           "sourceClass": "authoritative-media",
           "url": "https://www.tomshardware.com/pc-components/dram/marvell-sells-cxl-memory-recycling-into-the-worst-dram-shortage-in-years",
-          "date": "2026-08-24"
-        },
-        {
-          "title": "Weekly news roundup: Google diversifies custom chips, TSMC share falls, SK Hynix deepens HBM co-design",
-          "source": "digitimes",
-          "sourceClass": "authoritative-media",
-          "url": "https://www.digitimes.com/news/a20260823vl200/hbm-google-sk-hynix-chips-silicon.html",
           "date": "2026-08-24"
         }
       ],
@@ -657,7 +639,7 @@
           "date": "2026-07-31"
         },
         {
-          "title": "아마존, 메모리 비용 증가로 인해 2026년 자본 지출을 2,200억 달러로 인상",
+          "title": "Amazon hikes 2026 capex to $220 billion due to higher memory costs",
           "source": "CNBC",
           "sourceClass": "authoritative-media",
           "url": "https://www.cnbc.com/2026/07/30/amazon-amzn-q2-earnings-report-2026.html",
@@ -1002,18 +984,7 @@
             "sourceId": "google-cloud-tpu"
           }
         ],
-        "painAxes": [
-          {
-            "id": "bandwidth",
-            "label": "대역폭",
-            "mentions": 1,
-            "trend": "up",
-            "productIds": [
-              "custom-hbm",
-              "ai-n-b"
-            ]
-          }
-        ],
+        "painAxes": [],
         "supplierRelations": [
           {
             "supplierId": "samsung",
@@ -1154,16 +1125,11 @@
       },
       "executiveLens": {
         "question": "MXU Feeding · D2D · Pod TCO",
-        "painSignals": [
-          "대역폭"
-        ],
+        "painSignals": [],
         "riskSignals": [
           "가격 정책"
         ],
-        "recommendedProducts": [
-          "custom-hbm",
-          "ai-n-b"
-        ],
+        "recommendedProducts": [],
         "actions": [
           {
             "phase": "0–30D",
@@ -1253,13 +1219,6 @@
       "organization": [],
       "priorities": [],
       "evidence": [
-        {
-          "title": "Weekly news roundup: Google diversifies custom chips, TSMC share falls, SK Hynix deepens HBM co-design",
-          "source": "digitimes",
-          "sourceClass": "authoritative-media",
-          "url": "https://www.digitimes.com/news/a20260823vl200/hbm-google-sk-hynix-chips-silicon.html",
-          "date": "2026-08-24"
-        },
         {
           "title": "Dwindling cash and soaring memory costs: Tech's AI buildout has ballooning price tag",
           "source": "CNBC",
@@ -1564,7 +1523,7 @@
           "date": "2026-07-31"
         },
         {
-          "title": "AMD Helios AI 랙은 HBM4 메모리 에지로 NVIDIA에 도전 · Microsoft가 최신 고객으로 합류",
+          "title": "AMD Helios AI rack challenges NVIDIA with HBM4 memory edge; Microsoft joins as latest customer",
           "source": "TrendForce",
           "sourceClass": "research",
           "url": "https://www.trendforce.com/news/2026/07/21/news-amds-first-rack-scale-ai-system-helios-challenges-nvidia-with-hbm4-memory-edge-but-reportedly-comes-at-a-higher-price",
@@ -1734,14 +1693,14 @@
       "priorities": [],
       "evidence": [
         {
-          "title": "AMD Helios AI 랙은 HBM4 메모리 에지로 NVIDIA에 도전 · Microsoft가 최신 고객으로 합류",
+          "title": "AMD Helios AI rack challenges NVIDIA with HBM4 memory edge; Microsoft joins as latest customer",
           "source": "TrendForce",
           "sourceClass": "research",
           "url": "https://www.trendforce.com/news/2026/07/21/news-amds-first-rack-scale-ai-system-helios-challenges-nvidia-with-hbm4-memory-edge-but-reportedly-comes-at-a-higher-price",
           "date": "2026-07-21"
         },
         {
-          "title": "Microsoft, AMD를 통해 Azure AI 및 HPC 인프라 확장",
+          "title": "Microsoft expands Azure AI and HPC infrastructure with AMD",
           "source": "Microsoft",
           "sourceClass": "official",
           "url": "https://blogs.microsoft.com/blog/2026/07/20/microsoft-expands-azure-ai-and-hpc-infrastructure-with-amd",
@@ -2166,7 +2125,7 @@
       "priorities": [],
       "evidence": [
         {
-          "title": "AMD Helios AI 랙은 HBM4 메모리 에지로 NVIDIA에 도전 · Microsoft가 최신 고객으로 합류",
+          "title": "AMD Helios AI rack challenges NVIDIA with HBM4 memory edge; Microsoft joins as latest customer",
           "source": "TrendForce",
           "sourceClass": "research",
           "url": "https://www.trendforce.com/news/2026/07/21/news-amds-first-rack-scale-ai-system-helios-challenges-nvidia-with-hbm4-memory-edge-but-reportedly-comes-at-a-higher-price",
@@ -2298,7 +2257,7 @@
       "priorities": [],
       "evidence": [
         {
-          "title": "중국 최대 DRAM 생산업체인 CXMT, 상하이 상장에서 470% 상승",
+          "title": "CXMT, the largest Chinese DRAM producer, jumps 470% on Shanghai listing",
           "source": "CNBC TV18",
           "sourceClass": "news",
           "url": "https://www.cnbctv18.com/market/changxin-technology-group-cxmt-stellar-debut-shanghai-stock-exchange-strong-retail-subscription-ipo-star-market-valuations-peers-19954343.htm",
@@ -2419,13 +2378,6 @@
       "organization": [],
       "priorities": [],
       "evidence": [
-        {
-          "title": "Tesla’s Terafab Takes Shape in Texas with $16.8B First Phase; Memory Engineering Hiring Signals DRAM Push",
-          "source": "TrendForce",
-          "sourceClass": "research",
-          "url": "https://www.trendforce.com/news/2026/08/07/news-teslas-terafab-takes-shape-in-texas-with-16-8b-first-phase-memory-engineering-hiring-signals-dram-push",
-          "date": "2026-08-07"
-        },
         {
           "title": "Dwindling cash and soaring memory costs: Tech's AI buildout has ballooning price tag",
           "source": "CNBC",
@@ -2614,16 +2566,6 @@
         ],
         "painAxes": [
           {
-            "id": "bandwidth",
-            "label": "대역폭",
-            "mentions": 1,
-            "trend": "up",
-            "productIds": [
-              "custom-hbm",
-              "ai-n-b"
-            ]
-          },
-          {
             "id": "package-foundry",
             "label": "패키징·파운드리",
             "mentions": 1,
@@ -2673,7 +2615,6 @@
       "executiveLens": {
         "question": "Node Slot · Yield · Package Allocation",
         "painSignals": [
-          "대역폭",
           "패키징·파운드리"
         ],
         "riskSignals": [],
@@ -2768,13 +2709,6 @@
           "sourceClass": "research",
           "url": "https://www.trendforce.com/news/2026/08/25/news-xiaomi-xring-o3-reportedly-features-cxmt-lpddr6-and-tsmc-3nm-may-expand-tsmc-ties-to-ai-and-auto-chips",
           "date": "2026-08-25"
-        },
-        {
-          "title": "Weekly news roundup: Google diversifies custom chips, TSMC share falls, SK Hynix deepens HBM co-design",
-          "source": "digitimes",
-          "sourceClass": "authoritative-media",
-          "url": "https://www.digitimes.com/news/a20260823vl200/hbm-google-sk-hynix-chips-silicon.html",
-          "date": "2026-08-24"
         }
       ],
       "sources": [
