@@ -257,8 +257,8 @@ assert.match(css, /#hyperscaler-demand \.forecast-cat-tab:is\(:hover, :focus-vis
 assert.match(css, /\.forecast-cat-tabs button:active \{[\s\S]*?translateY\(2px\) scale\(\.985\)/, "forecast category filters should visibly depress when clicked");
 assert.match(css, /\.forecast-cat-tabs button\.active \{[\s\S]*?0 4px 0 color-mix/, "the selected forecast category should retain tactile depth");
 assert.match(app, /data-hs-scenario="\$\{escapeHTML\(s\.id\)\}" aria-pressed="\$\{s\.id === hyperscalerScenario \? "true" : "false"\}"/, "demand scenarios should expose their pressed state");
-assert.match(css, /\.hs-scenario-tabs button \{[\s\S]*?0 6px 0 color-mix[\s\S]*?inset 0 1px 0/, "demand scenario buttons should have a raised 3D face");
-assert.match(css, /\.hs-scenario-tabs button:active \{[\s\S]*?translateY\(3px\) scale\(\.992\)[\s\S]*?0 1px 0 color-mix/, "demand scenario buttons should visibly depress on click");
+assert.match(css, /\.hs-scenario-tabs button \{[\s\S]*?border-top: 4px solid var\(--tab-tone\)[\s\S]*?clip-path: polygon\(/, "demand scenarios should use directional consulting shapes");
+assert.match(css, /\.hs-scenario-tabs button\.active \{[\s\S]*?background: #102b3d;[\s\S]*?translateY\(-2px\)/, "the active demand scenario should invert with a clear selected state");
 assert.doesNotMatch(html, /id="chinaDynamicsOverview"/, "the redundant China dynamics metric strip should be removed");
 assert.doesNotMatch(html, /id="platformModules"/, "the platform implementation module section should be removed");
 assert.doesNotMatch(app, /const overview = \$\("#chinaDynamicsOverview"\)/, "China dynamics should no longer render the removed metric strip");
