@@ -13449,7 +13449,7 @@
           ${reports.map((item) => `<li>
             <span class="sc-ev-src">${escapeHTML(item.source || "출처")}</span>
             <a href="${escapeHTML(item.url)}" target="_blank" rel="noopener">${escapeHTML(String(item.title || "").slice(0, 84))} ↗</a>
-            <small>${escapeHTML(item.publishedAt || "")}</small>
+            <small>${escapeHTML(shortKstDate(item.publishedAt))}</small>
           </li>`).join("")}
         </ul>` : `<p class="sc-empty">업데이트 대기</p>`}
       </div>
@@ -21918,7 +21918,7 @@
   function shortKstDate(value) {
     const date = value instanceof Date ? value : new Date(value);
     if (Number.isNaN(date.getTime())) return "";
-    return date.toLocaleDateString("ko-KR", {
+    return date.toLocaleDateString("en-US", {
       timeZone: "Asia/Seoul",
       month: "numeric",
       day: "numeric",
