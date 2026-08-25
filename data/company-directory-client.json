@@ -1,7 +1,7 @@
 {
   "schemaVersion": "1.0",
-  "runId": "32834724155",
-  "generatedAt": "2026-08-25T10:17:37.700Z",
+  "runId": "32844159735",
+  "generatedAt": "2026-08-25T12:07:31.609Z",
   "automation": {
     "registry": "data/accounts.json",
     "companyFacts": "data/company-intelligence.json",
@@ -294,6 +294,16 @@
         ],
         "painAxes": [
           {
+            "id": "bandwidth",
+            "label": "대역폭",
+            "mentions": 1,
+            "trend": "up",
+            "productIds": [
+              "custom-hbm",
+              "ai-n-b"
+            ]
+          },
+          {
             "id": "logic-boundary",
             "label": "로직 경계",
             "mentions": 1,
@@ -339,6 +349,7 @@
       "executiveLens": {
         "question": "NRE · Interface Power · Package Yield · Time-to-Market",
         "painSignals": [
+          "대역폭",
           "로직 경계"
         ],
         "riskSignals": [],
@@ -383,6 +394,13 @@
           "source": "Tom's Hardware",
           "sourceClass": "authoritative-media",
           "url": "https://www.tomshardware.com/pc-components/dram/marvell-sells-cxl-memory-recycling-into-the-worst-dram-shortage-in-years",
+          "date": "2026-08-24"
+        },
+        {
+          "title": "Weekly news roundup: Google diversifies custom chips, TSMC share falls, SK Hynix deepens HBM co-design",
+          "source": "digitimes",
+          "sourceClass": "authoritative-media",
+          "url": "https://www.digitimes.com/news/a20260823vl200/hbm-google-sk-hynix-chips-silicon.html",
           "date": "2026-08-24"
         }
       ],
@@ -984,7 +1002,18 @@
             "sourceId": "google-cloud-tpu"
           }
         ],
-        "painAxes": [],
+        "painAxes": [
+          {
+            "id": "bandwidth",
+            "label": "대역폭",
+            "mentions": 1,
+            "trend": "up",
+            "productIds": [
+              "custom-hbm",
+              "ai-n-b"
+            ]
+          }
+        ],
         "supplierRelations": [
           {
             "supplierId": "samsung",
@@ -1125,11 +1154,16 @@
       },
       "executiveLens": {
         "question": "MXU Feeding · D2D · Pod TCO",
-        "painSignals": [],
+        "painSignals": [
+          "대역폭"
+        ],
         "riskSignals": [
           "가격 정책"
         ],
-        "recommendedProducts": [],
+        "recommendedProducts": [
+          "custom-hbm",
+          "ai-n-b"
+        ],
         "actions": [
           {
             "phase": "0–30D",
@@ -1219,6 +1253,13 @@
       "organization": [],
       "priorities": [],
       "evidence": [
+        {
+          "title": "Weekly news roundup: Google diversifies custom chips, TSMC share falls, SK Hynix deepens HBM co-design",
+          "source": "digitimes",
+          "sourceClass": "authoritative-media",
+          "url": "https://www.digitimes.com/news/a20260823vl200/hbm-google-sk-hynix-chips-silicon.html",
+          "date": "2026-08-24"
+        },
         {
           "title": "Dwindling cash and soaring memory costs: Tech's AI buildout has ballooning price tag",
           "source": "CNBC",
@@ -1994,11 +2035,11 @@
           "date": "2026-08-24"
         },
         {
-          "title": "핫 칩 깊이: HBM은 맞춤화 및 3차원 스태킹을 향해 나아가고 있으며 Samsung, NVIDIA 및 Micron은 각각 밝은 로드맵을 가지고 있습니다 - Sina Finance",
-          "source": "新浪财经",
-          "sourceClass": "general-media",
-          "url": "https://finance.sina.com.cn/stock/t/2026-08-24/doc-inipkvrw6209456.shtml",
-          "date": "2026-08-24"
+          "title": "Nvidia reportedly warns biggest customers of 15% price hikes on AI servers — memory costs continue to soar",
+          "source": "Tom's Hardware",
+          "sourceClass": "authoritative-media",
+          "url": "https://www.tomshardware.com/pc-components/dram/nvidia-reportedly-warns-biggest-customers-of-15-percent-price-hikes-on-ai-servers",
+          "date": "2026-08-23"
         }
       ],
       "sources": [
@@ -2379,6 +2420,13 @@
       "priorities": [],
       "evidence": [
         {
+          "title": "Tesla’s Terafab Takes Shape in Texas with $16.8B First Phase; Memory Engineering Hiring Signals DRAM Push",
+          "source": "TrendForce",
+          "sourceClass": "research",
+          "url": "https://www.trendforce.com/news/2026/08/07/news-teslas-terafab-takes-shape-in-texas-with-16-8b-first-phase-memory-engineering-hiring-signals-dram-push",
+          "date": "2026-08-07"
+        },
+        {
           "title": "Dwindling cash and soaring memory costs: Tech's AI buildout has ballooning price tag",
           "source": "CNBC",
           "sourceClass": "authoritative-media",
@@ -2566,6 +2614,16 @@
         ],
         "painAxes": [
           {
+            "id": "bandwidth",
+            "label": "대역폭",
+            "mentions": 1,
+            "trend": "up",
+            "productIds": [
+              "custom-hbm",
+              "ai-n-b"
+            ]
+          },
+          {
             "id": "package-foundry",
             "label": "패키징·파운드리",
             "mentions": 1,
@@ -2615,6 +2673,7 @@
       "executiveLens": {
         "question": "Node Slot · Yield · Package Allocation",
         "painSignals": [
+          "대역폭",
           "패키징·파운드리"
         ],
         "riskSignals": [],
@@ -2709,6 +2768,13 @@
           "sourceClass": "research",
           "url": "https://www.trendforce.com/news/2026/08/25/news-xiaomi-xring-o3-reportedly-features-cxmt-lpddr6-and-tsmc-3nm-may-expand-tsmc-ties-to-ai-and-auto-chips",
           "date": "2026-08-25"
+        },
+        {
+          "title": "Weekly news roundup: Google diversifies custom chips, TSMC share falls, SK Hynix deepens HBM co-design",
+          "source": "digitimes",
+          "sourceClass": "authoritative-media",
+          "url": "https://www.digitimes.com/news/a20260823vl200/hbm-google-sk-hynix-chips-silicon.html",
+          "date": "2026-08-24"
         }
       ],
       "sources": [
