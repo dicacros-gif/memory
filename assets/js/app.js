@@ -2391,7 +2391,7 @@
   let forecastCategory = "hyperscaler";
   let execDecisionCouncilRan = false;
   let execDecisionCouncilScenarioRun = 0;
-  let projectionFocusId = "ai-server";
+  let projectionFocusId = "nvidia";
   let projectionScenario = "neutral";
   let execDecisionFocusId = "hbm-ai-server";
   let selectedBacktestYear = "";
@@ -10603,6 +10603,7 @@
     // artifact arrives. Re-render the compact strategy board with the verified
     // customer portfolio as soon as the shared artifact is ready.
     if (document.getElementById("strategyConsulting")) renderStrategyConsulting();
+    if (document.getElementById("projection")) renderProductProjection();
     if (document.getElementById("cLevelDecisionGrid") && document.getElementById("cLevelAgentGrid")) {
       renderCLevelCockpit();
     }
@@ -19311,11 +19312,6 @@
     };
   }
 
-  function textHasAny(text, terms = []) {
-    const hay = String(text || "").toLowerCase();
-    return terms.some((term) => hay.includes(String(term || "").toLowerCase()));
-  }
-
   function projectionPriceRows(segment) {
     const terms = (segment.priceTerms || segment.keywords || []).map((term) => String(term).toLowerCase());
     return allPriceRows().filter((row) => {
@@ -19359,15 +19355,6 @@
 
   function projectionTotalSignals(segments = SKHYNIX_PRODUCT_PROJECTION) {
     return uniqueLiveSignalItems(segments.flatMap(projectionEvidenceItems)).length;
-  }
-
-  function projectionTotalPriceRows(segments = SKHYNIX_PRODUCT_PROJECTION) {
-    const rows = new Map();
-    for (const row of segments.flatMap(projectionPriceRows)) {
-      const key = String(row.historyKey || `${row.sectionId || row.sectionTitle || ""}::${row.item || ""}`).toLowerCase();
-      if (key) rows.set(key, row);
-    }
-    return rows.size;
   }
 
   function productProjectionSegments() {
@@ -19520,13 +19507,6 @@
     }).filter(Boolean);
   }
 
-  function projectionScenarioSeriesMap(segments = productProjectionSegments()) {
-    return liveProjectionScenarios().reduce((map, scenario) => {
-      map[scenario.id] = projectionSeries(segments, scenario.id);
-      return map;
-    }, {});
-  }
-
   function projectionShare(series, segmentId, point = -1) {
     const rows = Array.isArray(series) ? series : [];
     const row = rows.at(point) || rows[rows.length - 1];
@@ -19538,380 +19518,204 @@
     return ids.reduce((sum, id) => sum + projectionShare(series, id, point), 0);
   }
 
-  function projectionSegmentPayload(segment, series, scenario = projectionScenarioData()) {
-    const horizon = projectionWindowData();
-    const start = projectionShare(series, segment.id, 0);
-    const end = projectionShare(series, segment.id, -1);
+  const HYPERSCALER_PROJECTION_ORDER = [
+    "nvidia", "google", "microsoft", "aws", "meta", "openai", "anthropic", "apple", "tesla", "spacex",
+  ];
+
+  function hyperscalerProjectionModel() {
+    const portfolio = window.MEMORY_SITE_CONTENT?.strategyBoard?.customerPortfolio || {};
+    const accounts = Array.isArray(portfolio.accounts) ? portfolio.accounts : [];
+    const byId = new Map(accounts.map((account) => [account.id, account]));
+    const ordered = HYPERSCALER_PROJECTION_ORDER.map((id) => byId.get(id)).filter(Boolean);
     return {
-      type: "제품군 프로젝션",
-      tag: `${segment.demand} · ${scenario.label}`,
-      title: segment.title,
-      body: `${scenario.label} case: ${scenario.tone} ${segment.thesis} ${segment.risk}`,
-      section: "projection",
-      categories: segment.linkedCategories || [],
-      watch: (segment.triggers || []).concat(segment.actions || []),
-      tags: segment.products || [],
-      links: segment.links || [],
-      metrics: [
-        { label: `T+${horizon.startMonths}M 모델`, value: `${fmtNum(start, 1)}%` },
-        { label: `${horizon.yearCount}Y 모델`, value: `${fmtNum(end, 1)}%` },
-        { label: "Case", value: scenario.label },
-        { label: "현재 실행 고유 원문", value: fmtNum(segment.signals) },
-        { label: "가격 관측 행", value: fmtNum(segment.priceRows || 0) },
-        { label: "근거지수", value: fmtNum(segment.score) },
-      ],
+      portfolio,
+      accounts: ordered,
+      partners: Array.isArray(portfolio.partnerEcosystem?.partners) ? portfolio.partnerEcosystem.partners : [],
     };
   }
 
-  function projectionDriverCards(segments, series, scenario = projectionScenarioData()) {
-    const config = projectionModelConfig().driverCards || {};
-    const serverWeights = config.serverWeights || {};
-    const terminalWeights = config.terminalWeights || {};
-    const required = [
-      config.scenarioReference,
-      config.scenarioBiasWeight,
-      config.chinaSignalWeight,
-      config.chinaScoreMin,
-      config.nandReference,
-      config.nandPriceWeight,
-      config.nandSignalWeight,
-      serverWeights["ai-server"],
-      serverWeights["dc-storage"],
-      terminalWeights["mobile-smartphone"],
-      terminalWeights["pc-appliance"],
-      terminalWeights["auto-edge"],
-      scenario?.scoreBias,
-    ];
-    if (!Array.isArray(segments) || !segments.length || !Array.isArray(series) || !series.length || !scenario || !required.every((value) => Number.isFinite(Number(value)))) {
-      return [];
+  function hyperscalerProjectionPartner(account = {}, partners = []) {
+    const registryPartner = partners.find((partner) => (partner.accounts || []).some((item) => item.id === account.id));
+    const namedPartner = account.xpuEcosystem?.partner || registryPartner?.company || "";
+    if (namedPartner) {
+      return {
+        name: namedPartner,
+        role: account.xpuEcosystem?.role || `${account.company} 전용 ASIC·HBM·Package 설계 연결`,
+        criteria: registryPartner?.buyingCriteria || [],
+      };
     }
-    const segmentScore = (id) => Number(segments.find((item) => item.id === id)?.score);
-    const weightedScore = (weights) => Object.entries(weights).reduce((sum, [id, weight]) => {
-      const score = segmentScore(id);
-      return Number.isFinite(score) ? sum + score * Number(weight) : sum;
-    }, 0);
-    const serverScore = weightedScore(serverWeights);
-    const terminalScore = weightedScore(terminalWeights);
-    const chinaSignals = uniqueLiveSignalItems([
-      axisSignalItems(CHINA_DYNAMIC_AXES.find((axis) => axis.id === "capacity")),
-      axisSignalItems(CHINA_DYNAMIC_AXES.find((axis) => axis.id === "equipment")),
-      rawNews().filter(isChinaArticle),
-    ]).length;
-    const storageSegment = segments.find((item) => item.id === "dc-storage");
-    const nandMomentum = projectionPriceMomentum(storageSegment || {});
+    return {
+      name: account.id === "nvidia" ? "직접 Co-Design" : "직접 Account 협의",
+      role: account.relationship || "공개 근거 기준으로 고객·메모리 요구사항을 직접 연결",
+      criteria: [],
+    };
+  }
+
+  function hyperscalerProjectionNews(account = {}) {
+    const evidence = account.evidenceStream || account.evidence || [];
+    return evidence
+      .filter((item) => !item.date || Number(String(item.date).slice(0, 4)) >= 2026)
+      .slice(0, 3);
+  }
+
+  function hyperscalerProjectionProjects(account = {}, partner = {}) {
+    const portfolio = account.chipPortfolio?.[0] || {};
+    const workload = portfolio.workload || account.chip || "AI Workload";
     return [
       {
-        label: "선택 시나리오",
-        value: scenario.label,
-        score: clamp(Number(config.scenarioReference) + Number(scenario.scoreBias) * Number(config.scenarioBiasWeight)),
-        note: scenario.tone,
+        no: "01",
+        title: "Requirement Lock",
+        question: `${account.company} ${account.chip || "AI Chip"}의 Workload·구매 기준 확정`,
+        output: `${workload} Trace · Memory Requirement Matrix`,
       },
       {
-        label: "AI·데이터센터 프리미엄",
-        value: projectionGroupShare(series, ["ai-server", "dc-storage"]),
-        suffix: "%",
-        score: clamp(serverScore),
-        note: "HBM·서버 DRAM·eSSD가 전사 믹스를 끌어올리는 축",
+        no: "02",
+        title: "Architecture / TCO",
+        question: account.pain || portfolio.memoryPain || "지배 병목과 메모리 대안 분리",
+        output: `${account.memory || portfolio.memoryProposal || "Memory Option"} · 동일 Workload 비교`,
       },
       {
-        label: "단말·오토 방어",
-        value: projectionGroupShare(series, ["mobile-smartphone", "pc-appliance", "auto-edge"]),
-        suffix: "%",
-        score: clamp(terminalScore),
-        note: "모바일·PC·오토/엣지의 가격 방어와 고부가 선별이 핵심",
-      },
-      {
-        label: "중국 가격 압력",
-        value: chinaSignals,
-        suffix: "건",
-        score: clamp(chinaSignals * Number(config.chinaSignalWeight), Number(config.chinaScoreMin), 100),
-        note: "CXMT·YMTC 캐파, 장비 국산화, 정책자본 신호를 반영",
-      },
-      {
-        label: "NAND/eSSD 모멘텀",
-        value: nandMomentum,
-        suffix: "%",
-        decimals: 2,
-        score: clamp(Number(config.nandReference) + nandMomentum * Number(config.nandPriceWeight) + Number(storageSegment?.signals || 0) * Number(config.nandSignalWeight)),
-        note: "TrendForce NAND/SSD 가격 관측과 eSSD 고유 원문 신호를 분리 반영",
+        no: "03",
+        title: "Qualification / Deal",
+        question: `${partner.name} 역할·NRE·Capacity·LTA 조건 정렬`,
+        output: `${account.gate || "Qualification Gate"} · Owner · 90D Action`,
       },
     ];
   }
 
-  function projectionTrajectorySVG(scenarioMap, selected, horizon) {
-    if (!selected) return "";
-    const cases = [
-      { id: "neutral", label: "중립", color: "#3b82f6" },
-      { id: "best", label: "베스트", color: "#22c55e" },
-      { id: "worst", label: "워스트", color: "#ef4444" },
-    ];
-    const baseSeries = scenarioMap.neutral || scenarioMap[Object.keys(scenarioMap)[0]] || [];
-    const n = baseSeries.length;
-    if (n < 2) return "";
-    const W = 680, H = 240, padL = 42, padR = 14, padT = 14, padB = 28;
-    const lines = cases.map((c) => {
-      const ser = scenarioMap[c.id] || baseSeries;
-      return { ...c, pts: ser.map((row, i) => projectionShare(ser, selected.id, i)) };
-    });
-    const vals = lines.flatMap((l) => l.pts);
-    let lo = Math.min(...vals), hi = Math.max(...vals);
-    if (hi - lo < 4) { lo -= 2; hi += 2; }
-    const pad = (hi - lo) * 0.12;
-    lo = Math.max(0, lo - pad); hi = hi + pad;
-    const xAt = (i) => padL + (W - padL - padR) * (n <= 1 ? 0 : i / (n - 1));
-    const yAt = (v) => padT + (H - padT - padB) * (1 - (v - lo) / ((hi - lo) || 1));
-    const years = baseSeries.map((r) => r.year);
-    const grid = [0, 0.25, 0.5, 0.75, 1].map((g) => {
-      const yv = lo + (hi - lo) * (1 - g);
-      const yy = padT + (H - padT - padB) * g;
-      return `<line x1="${padL}" y1="${yy.toFixed(1)}" x2="${W - padR}" y2="${yy.toFixed(1)}" class="pl-grid"/><text x="6" y="${(yy + 3).toFixed(1)}" class="pl-ylab">${fmtNum(yv, 0)}%</text>`;
-    }).join("");
-    const xlabels = years.map((yr, i) => `<text x="${xAt(i).toFixed(1)}" y="${H - 8}" class="pl-xlab" text-anchor="middle">${escapeHTML(String(yr))}</text>`).join("");
-    const paths = lines.map((l) => {
-      const d = l.pts.map((v, i) => `${i === 0 ? "M" : "L"}${xAt(i).toFixed(1)},${yAt(v).toFixed(1)}`).join(" ");
-      const dots = l.pts.map((v, i) => `<circle cx="${xAt(i).toFixed(1)}" cy="${yAt(v).toFixed(1)}" r="2.6" fill="${l.color}"><title>${l.label} ${escapeHTML(String(years[i]))}: ${fmtNum(v, 1)}%</title></circle>`).join("");
-      return `<path d="${d}" fill="none" stroke="${l.color}" stroke-width="2.2" stroke-linejoin="round" stroke-linecap="round"/>${dots}`;
-    }).join("");
-    const legend = lines.map((l) => `<span><i style="background:${l.color}"></i>${l.label}</span>`).join("");
-    return `<div class="proj-line-wrap"><div class="proj-line-head"><span class="proj-line-title">${escapeHTML(selected.title || selected.short || "제품군")} · 점유율 궤적 T+${horizon.startMonths}M→${horizon.yearCount}Y</span><span class="proj-line-legend">${legend}</span></div><svg viewBox="0 0 ${W} ${H}" class="proj-line-chart" preserveAspectRatio="none" role="img" aria-label="제품군 점유율 3-case 궤적">${grid}${xlabels}${paths}</svg></div>`;
-  }
-
-  function renderProductProjection() {
+  function renderHyperscalerProjection() {
     const summary = $("#projectionSummary");
     const stack = $("#projectionStack");
     const tabs = $("#projectionTabs");
-    const scenarioTabs = $("#projectionScenarioTabs");
-    const scenarioChart = $("#projectionScenarioChart");
+    const accountTabs = $("#projectionScenarioTabs");
+    const accountMap = $("#projectionScenarioChart");
     const focus = $("#projectionFocus");
     const drivers = $("#projectionDrivers");
     const meta = $("#projectionMeta");
     const windowNode = $("#projectionWindow");
-    if (!summary || !stack || !tabs || !scenarioTabs || !scenarioChart || !focus || !drivers) return;
+    if (!summary || !stack || !tabs || !accountTabs || !accountMap || !focus || !drivers) return;
 
-    const horizon = projectionWindowData();
-    const segments = productProjectionSegments();
-    const scenarios = liveProjectionScenarios();
-    const scenario = projectionScenarioData();
-    if (!horizon.available || !segments.length || !scenario || !scenarios.length) {
-      summary.innerHTML = `
-        <article class="projection-stat projection-unavailable">
-          <span>정량 모델</span>
-          <strong>검증값 대기</strong>
-          <small>출처·기준일·모델 버전이 모두 확인된 입력만 표시합니다.</small>
-        </article>
-      `;
-      [stack, tabs, scenarioTabs, scenarioChart, focus, drivers].forEach((node) => { node.innerHTML = ""; });
-      if (meta) meta.textContent = "정량 모델 입력 검증 중";
-      if (windowNode) windowNode.textContent = horizon.detail || "모델 기간 설정 대기";
+    const model = hyperscalerProjectionModel();
+    if (!model.accounts.length) {
+      summary.innerHTML = `<article class="projection-stat projection-unavailable"><span>ACCOUNT VIEW</span><strong>계정 데이터 준비 중</strong><small>계정 레지스트리와 공개 원문이 연결되면 자동 표시</small></article>`;
+      [stack, tabs, accountTabs, accountMap, focus, drivers].forEach((node) => { node.innerHTML = ""; });
       return;
     }
-    const scenarioMap = projectionScenarioSeriesMap(segments);
-    const series = scenarioMap[scenario.id] || projectionSeries(segments, scenario.id);
-    if (!series.length) {
-      summary.innerHTML = `
-        <article class="projection-stat projection-unavailable">
-          <span>시나리오 산출</span>
-          <strong>검증값 대기</strong>
-          <small>필수 가격·뉴스·중국 압력 입력이 확인되면 자동 계산됩니다.</small>
-        </article>
-      `;
-      [stack, tabs, scenarioTabs, scenarioChart, focus, drivers].forEach((node) => { node.innerHTML = ""; });
-      if (meta) meta.textContent = "시나리오 입력 검증 중";
-      if (windowNode) windowNode.textContent = `${horizon.rangeLabel} · 현재 수집일 +${horizon.startMonths}개월부터`;
-      return;
-    }
-    if (!segments.some((item) => item.id === projectionFocusId)) projectionFocusId = segments[0]?.id || "ai-server";
-    const selected = segments.find((item) => item.id === projectionFocusId) || segments[0];
-    const serverShare = projectionGroupShare(series, ["ai-server", "dc-storage"]);
-    const terminalShare = projectionGroupShare(series, ["mobile-smartphone", "pc-appliance", "auto-edge"]);
-    const bestServerShare = projectionGroupShare(scenarioMap.best || series, ["ai-server", "dc-storage"]);
-    const worstServerShare = projectionGroupShare(scenarioMap.worst || series, ["ai-server", "dc-storage"]);
-    const totalSignals = projectionTotalSignals(segments);
-    const totalPriceRows = projectionTotalPriceRows(segments);
+    if (!model.accounts.some((account) => account.id === projectionFocusId)) projectionFocusId = model.accounts[0].id;
+    const selected = model.accounts.find((account) => account.id === projectionFocusId) || model.accounts[0];
+    const partner = hyperscalerProjectionPartner(selected, model.partners);
+    const latestNews = hyperscalerProjectionNews(selected);
+    const portfolio = selected.chipPortfolio?.[0] || {};
+    const baseline = selected.baseline?.[0] || {};
+    const source = portfolio.source || baseline.source || selected.xpuEcosystem?.source || selected.broadcomStrategy?.source || null;
+    const projects = hyperscalerProjectionProjects(selected, partner);
+    const accountQuestion = selected.broadcomStrategy?.accountQuestion
+      || `${selected.chip || "AI Platform"}의 성능·전력·공급 병목을 어떤 메모리 조합으로 해소할 것인가`;
 
-    if (meta) meta.textContent = `${scenario.label} case · 모델 산출 · ${horizon.detail} · 현재 실행 고유 원문 ${fmtNum(totalSignals)}건 · 가격 관측 ${fmtNum(totalPriceRows)}행 · ${fmtDate(LIVE.updatedAt)}`;
-    if (windowNode) windowNode.textContent = `${horizon.rangeLabel} · 현재 수집일 +${horizon.startMonths}개월부터`;
+    if (meta) meta.textContent = "계정 선택 → Chip Roadmap → Memory Pain → 맞춤형 Option → 실행 Gate";
+    if (windowNode) windowNode.textContent = "공개 원문 기반 · 계정별 자동 갱신";
 
-    const liveInputBits = [`고유 원문 ${fmtNum(totalSignals)}건`, `가격 관측 ${fmtNum(totalPriceRows)}행`, `중국압력지수 ${fmtNum(projectionChinaPressureIndex() * 100, 0)}/100`];
-    const qm = QUANT?.memoryMomentum || {};
-    if (Number.isFinite(qm.dramSpot30dPct)) liveInputBits.push(`DRAM spot 30d ${qm.dramSpot30dPct > 0 ? "+" : ""}${fmtNum(qm.dramSpot30dPct, 1)}%`);
-    if (Number.isFinite(qm.nandSpot30dPct)) liveInputBits.push(`NAND spot 30d ${qm.nandSpot30dPct > 0 ? "+" : ""}${fmtNum(qm.nandSpot30dPct, 1)}%`);
-    const summaryCards = [
-      { label: "선택 케이스", value: scenario.label, note: scenario.tone },
-      { label: "AI·데이터센터 믹스", value: serverShare, note: "모델 산출 · AI서버·하이퍼스케일러 + 데이터센터 스토리지", suffix: "%", decimals: 1 },
-      { label: "단말·오토 믹스", value: terminalShare, note: "모델 산출 · 모바일 + PC + 오토/엣지", suffix: "%", decimals: 1 },
-      { label: "AI·데이터센터 3-case 범위", value: `${fmtNum(worstServerShare, 1)}~${fmtNum(bestServerShare, 1)}%`, note: `Worst~Best ${horizon.yearCount}Y 민감도 · 실측 아님` },
-      { label: "라이브 입력", value: "매일 재계산", note: liveInputBits.join(" · ") },
-    ];
-    summary.innerHTML = summaryCards.map((card) => `
-      <article class="projection-stat reveal">
-        <span>${escapeHTML(card.label)}</span>
-        <strong>${typeof card.value === "number" ? countHTML(card.value, { suffix: card.suffix || "", decimals: card.decimals || 0 }) : escapeHTML(card.value)}</strong>
-        <small>${escapeHTML(card.note)}</small>
+    summary.innerHTML = [
+      ["ACCOUNT", selected.company, selected.chip || "AI Platform"],
+      ["CUSTOMER PAIN", selected.pain || portfolio.memoryPain || "지배 병목 구조화", "Workload·시스템 병목"],
+      ["MEMORY OPTION", selected.memory || portfolio.memoryProposal || "Custom Memory", "Custom HBM · AI-D · AI-N"],
+      ["EXECUTION GATE", selected.gate || "Qualification · Capacity", "Owner · KPI · 90D Action"],
+    ].map(([label, value, note]) => `
+      <article class="projection-stat projection-account-stat reveal">
+        <span>${escapeHTML(label)}</span>
+        <strong>${escapeHTML(value)}</strong>
+        <small>${escapeHTML(note)}</small>
       </article>
     `).join("");
 
-    scenarioTabs.innerHTML = scenarios.map((item) => {
-      const itemSeries = scenarioMap[item.id] || series;
-      const selectedShare = selected ? projectionShare(itemSeries, selected.id, -1) : 0;
-      return `
-        <button class="projection-scenario-tab is-${escapeHTML(item.id)} reveal${item.id === scenario.id ? " active" : ""}" type="button" data-projection-scenario="${escapeHTML(item.id)}" aria-pressed="${item.id === scenario.id ? "true" : "false"}">
-          <span>${escapeHTML(item.label)}</span>
-          <strong>${escapeHTML(item.sub)}</strong>
-          <em>${selected ? escapeHTML(selected.short) : "Product"} ${horizon.yearCount}Y 모델 ${fmtNum(selectedShare, 1)}%</em>
-        </button>
-      `;
-    }).join("");
+    accountTabs.className = "projection-scenario-tabs projection-account-tabs";
+    accountTabs.innerHTML = model.accounts.map((account, index) => `
+      <button class="projection-account-tab reveal${account.id === selected.id ? " active" : ""}" type="button" data-projection-account="${escapeHTML(account.id)}" aria-pressed="${account.id === selected.id ? "true" : "false"}" style="--account-accent:${escapeHTML(account.accent || "#08766f")};animation-delay:${index * 18}ms">
+        <span>${String(index + 1).padStart(2, "0")}</span>
+        <strong>${escapeHTML(account.company)}</strong>
+        <small>${escapeHTML(account.chip || "AI Platform")}</small>
+      </button>
+    `).join("");
 
-    scenarioChart.innerHTML = projectionTrajectorySVG(scenarioMap, selected, horizon) + scenarios.map((item, index) => {
-      const itemSeries = scenarioMap[item.id] || series;
-      const itemServer = projectionGroupShare(itemSeries, ["ai-server", "dc-storage"]);
-      const itemTerminal = projectionGroupShare(itemSeries, ["mobile-smartphone", "pc-appliance", "auto-edge"]);
-      const itemSelected = selected ? projectionShare(itemSeries, selected.id, -1) : 0;
-      return `
-        <button class="scenario-card reveal${item.id === scenario.id ? " active" : ""}" type="button" data-projection-scenario="${escapeHTML(item.id)}" style="animation-delay:${index * 35}ms">
-          <div class="scenario-card-head">
-            <span>${escapeHTML(item.label)}</span>
-            <strong>${countHTML(itemSelected, { suffix: "%", decimals: 1 })}</strong>
-          </div>
-          <p>${escapeHTML(item.tone)} · 모델 산출값</p>
-          <div class="scenario-bars">
-            <div class="scenario-bar-row">
-              <span>AI·데이터센터</span>
-              <i><b data-fill-to="${clamp(itemServer)}" style="width:0%"></b></i>
-              <em>${fmtNum(itemServer, 1)}%</em>
-            </div>
-            <div class="scenario-bar-row">
-              <span>단말·오토</span>
-              <i><b data-fill-to="${clamp(itemTerminal)}" style="width:0%"></b></i>
-              <em>${fmtNum(itemTerminal, 1)}%</em>
-            </div>
-            <div class="scenario-bar-row">
-              <span>${selected ? escapeHTML(selected.short) : "선택"}</span>
-              <i><b data-fill-to="${clamp(itemSelected)}" style="width:0%"></b></i>
-              <em>${fmtNum(itemSelected, 1)}%</em>
-            </div>
-          </div>
-        </button>
-      `;
-    }).join("");
+    accountMap.className = "projection-scenario-chart projection-account-map";
+    accountMap.innerHTML = `
+      <div class="projection-account-node partner">
+        <span>DESIGN / BUYING CENTER</span>
+        <strong>${escapeHTML(partner.name)}</strong>
+        <small>${escapeHTML(partner.role)}</small>
+      </div>
+      <i aria-hidden="true">→</i>
+      <div class="projection-account-node customer">
+        <span>BIG TECH / HYPERSCALER</span>
+        <strong>${escapeHTML(selected.company)}</strong>
+        <small>${escapeHTML(selected.relationship || "고객 전략·기술·구매 기준 추적")}</small>
+      </div>
+      <i aria-hidden="true">→</i>
+      <div class="projection-account-node platform">
+        <span>CHIP / PLATFORM</span>
+        <strong>${escapeHTML(selected.chip || portfolio.name || "AI Platform")}</strong>
+        <small>${escapeHTML(portfolio.publicSpec || baseline.value || portfolio.workload || "공개 사양 기준")}</small>
+      </div>
+    `;
 
-    stack.innerHTML = series.map((row, rowIndex) => `
-      <article class="projection-year reveal" style="animation-delay:${rowIndex * 30}ms">
-        <div class="projection-year-head">
-          <strong>${escapeHTML(row.year)}</strong>
-          <span>${rowIndex === 0 ? `T+${horizon.startMonths}M` : `Y+${rowIndex}`}</span>
-        </div>
-        <div class="projection-bar" aria-label="${escapeHTML(row.year)} 제품군 믹스">
-          ${row.items.map((item) => `
-            <button class="projection-bar-seg${item.segment.id === selected?.id ? " active" : ""}" type="button" data-projection-seg="${escapeHTML(item.segment.id)}" style="--w:${item.share.toFixed(2)}%;--local-accent:${categoryAccent((item.segment.linkedCategories || [])[0])}" title="${escapeHTML(item.segment.label)} ${fmtNum(item.share, 1)}%">
-              <span>${escapeHTML(item.segment.short)}</span>
-            </button>
-          `).join("")}
-        </div>
-        <div class="projection-year-list">
-          ${row.items.map((item) => `
-            <button type="button" data-projection-seg="${escapeHTML(item.segment.id)}">
-              <span style="--local-accent:${categoryAccent((item.segment.linkedCategories || [])[0])}"></span>
-              <em>${escapeHTML(item.segment.short)}</em>
-              <strong>${fmtNum(item.share, 1)}%</strong>
-            </button>
-          `).join("")}
-        </div>
+    stack.className = "projection-stack projection-account-flow-wrap";
+    stack.innerHTML = `
+      <ol class="sc-framework-steps projection-account-flow" aria-label="${escapeHTML(selected.company)} 메모리 전략 5단계">
+        <li tabindex="0"><b>01</b><div><span>Account Strategy</span><strong>고객 목표</strong><ul><li>${escapeHTML(accountQuestion)}</li></ul></div></li>
+        <li tabindex="0"><b>02</b><div><span>Workload</span><strong>Chip·서비스 부하</strong><ul><li>${escapeHTML(portfolio.workload || selected.chip || "AI Workload")}</li></ul></div></li>
+        <li tabindex="0"><b>03</b><div><span>Bottleneck</span><strong>지배 병목</strong><ul><li>${escapeHTML(selected.pain || portfolio.memoryPain || "Memory bottleneck")}</li></ul></div></li>
+        <li tabindex="0"><b>04</b><div><span>Memory Option</span><strong>맞춤형 대안</strong><ul><li>${escapeHTML(selected.memory || portfolio.memoryProposal || "Custom Memory")}</li></ul></div></li>
+        <li tabindex="0"><b>05</b><div><span>Execution</span><strong>승격 조건</strong><ul><li>${escapeHTML(selected.gate || "Qualification · Capacity")}</li></ul></div></li>
+      </ol>
+    `;
+
+    tabs.className = "projection-tabs projection-evidence-strip";
+    const evidenceItems = latestNews.length ? latestNews : (source ? [{ title: `${source.name || selected.company} 공식 원문`, link: source.url, source: source.name, date: "" }] : []);
+    tabs.innerHTML = evidenceItems.length ? `
+      <span class="projection-evidence-label">LATEST SIGNAL</span>
+      ${evidenceItems.map((item) => {
+        const url = item.url || item.link || item.sourceUrl || source?.url || "#";
+        const title = newsTitle(item) || item.title || "공개 원문";
+        const date = String(item.date || item.publishedAt || "").slice(0, 10);
+        return `<a href="${escapeHTML(url)}" target="_blank" rel="noopener noreferrer"><strong>${escapeHTML(title)}</strong><small>${escapeHTML(displayNewsPublisher(item) || item.source || source?.name || "공개 원문")}${date ? ` · ${escapeHTML(date)}` : ""}</small></a>`;
+      }).join("")}
+    ` : "";
+
+    focus.style.setProperty("--local-accent", selected.accent || "#08766f");
+    focus.innerHTML = `
+      <div class="projection-focus-head">
+        <span class="projection-focus-index">ACCOUNT ONE-PAGER · ${escapeHTML(selected.company)}</span>
+        <h3>${escapeHTML(accountQuestion)}</h3>
+        <p>${escapeHTML(portfolio.publicSpec || baseline.value || selected.relationship || "공개 원문 기반 계정 전략")}</p>
+      </div>
+      <div class="projection-focus-block"><strong>WORKLOAD / CHIP</strong><p>${escapeHTML(portfolio.workload || selected.chip || "AI Platform")}</p></div>
+      <div class="projection-focus-block"><strong>MEMORY PAIN</strong><p>${escapeHTML(portfolio.memoryPain || selected.pain || "Memory bottleneck")}</p></div>
+      <div class="projection-focus-block"><strong>SKH OPTION</strong><p>${escapeHTML(portfolio.memoryProposal || selected.memory || "Custom Memory")}</p></div>
+      <div class="projection-focus-block"><strong>PARTNER CHAIN</strong><p>${escapeHTML(`${partner.name} → ${selected.company} → ${selected.chip || "AI Platform"}`)}</p></div>
+      <div class="projection-focus-block"><strong>90D GATE</strong><p>${escapeHTML(selected.broadcomStrategy?.gate90d || selected.gate || "Qualification · Capacity · LTA")}</p></div>
+      ${source?.url ? `<a class="projection-source-link" href="${escapeHTML(source.url)}" target="_blank" rel="noopener noreferrer">공식 원문 확인 ↗</a>` : ""}
+    `;
+
+    drivers.className = "projection-drivers projection-project-grid";
+    drivers.innerHTML = projects.map((project, index) => `
+      <article class="projection-project reveal" style="animation-delay:${index * 30}ms">
+        <span>${escapeHTML(project.no)} · ${escapeHTML(project.title)}</span>
+        <strong>${escapeHTML(project.question)}</strong>
+        <small>OUTPUT · ${escapeHTML(project.output)}</small>
       </article>
     `).join("");
 
-    tabs.innerHTML = segments.map((segment, index) => {
-      const endShare = projectionShare(series, segment.id, -1);
-      return `
-        <button class="projection-tab reveal${segment.id === selected?.id ? " active" : ""}" type="button" data-projection-tab="${escapeHTML(segment.id)}" style="--local-accent:${categoryAccent((segment.linkedCategories || [])[0])}; animation-delay:${index * 25}ms">
-          ${scoreRingHTML(segment.score, "Score")}
-          <span>
-          <small>${escapeHTML(segment.demand)} · 근거지수</small>
-          <strong>${escapeHTML(segment.label)}</strong>
-          <em>${horizon.yearCount}Y 모델 ${fmtNum(endShare, 1)}% · 고유 원문 ${fmtNum(segment.signals)}건 · 가격 ${fmtNum(segment.priceRows)}행</em>
-          </span>
-        </button>
-      `;
-    }).join("");
-
-    if (selected) {
-      const payload = projectionSegmentPayload(selected, series, scenario);
-      const startShare = projectionShare(series, selected.id, 0);
-      const endShare = projectionShare(series, selected.id, -1);
-      focus.style.setProperty("--local-accent", categoryAccent((selected.linkedCategories || [])[0]));
-      focus.innerHTML = `
-        <div class="projection-focus-head">
-          <span class="chip accent">${escapeHTML(selected.label)} · ${escapeHTML(scenario.label)}</span>
-          <h3>${escapeHTML(selected.title)}</h3>
-          <p>${escapeHTML(selected.thesis)}</p>
-        </div>
-        <div class="projection-focus-block">
-          <strong>제품군</strong>
-          <div class="tag-row">${(selected.products || []).map((product) => `<span class="tag">${escapeHTML(product)}</span>`).join("")}</div>
-        </div>
-        <div class="projection-focus-block scenario-note">
-          <strong>선택 케이스</strong>
-          <p>${escapeHTML(scenario.tone)}</p>
-        </div>
-        <div class="projection-focus-block">
-          <strong>전망 가정</strong>
-          <ul class="watch-list">${(selected.assumptions || []).map((line) => `<li>${escapeHTML(line)}</li>`).join("")}</ul>
-        </div>
-        <div class="projection-focus-block">
-          <strong>매일 확인할 트리거</strong>
-          <ul class="watch-list">${(selected.triggers || []).map((line) => `<li>${escapeHTML(line)}</li>`).join("")}</ul>
-        </div>
-        <div class="insight-box"><span>리스크</span>${escapeHTML(selected.risk)}</div>
-        <div class="focus-actions">
-          <button type="button" data-projection-inspector>상세 패널</button>
-          <button type="button" data-projection-news>기사 보기</button>
-        </div>
-      `;
-      focus.querySelector("[data-projection-inspector]")?.addEventListener("click", () => openInspector(payload));
-      focus.querySelector("[data-projection-news]")?.addEventListener("click", () => jumpTo("news"));
-    }
-
-    drivers.innerHTML = projectionDriverCards(segments, series, scenario).map((driver, index) => `
-      <article class="projection-driver reveal" style="animation-delay:${index * 25}ms">
-        <div>
-          <span>${escapeHTML(driver.label)}</span>
-          <strong>${countHTML(driver.value, { suffix: driver.suffix || "", decimals: driver.decimals || 0 })}</strong>
-          <small>${escapeHTML(driver.note)}</small>
-        </div>
-        ${scoreRingHTML(driver.score, "Gauge")}
-      </article>
-    `).join("");
-
-    $$("#projectionStack [data-projection-seg], #projectionTabs [data-projection-tab]").forEach((btn) => {
-      const id = btn.dataset.projectionSeg || btn.dataset.projectionTab;
-      btn.addEventListener("click", () => {
-        projectionFocusId = id;
-        renderProductProjection();
-      });
-      btn.addEventListener("mouseenter", () => {
-        if (projectionFocusId === id) return;
-        projectionFocusId = id;
-        renderProductProjection();
+    accountTabs.querySelectorAll("[data-projection-account]").forEach((button) => {
+      button.addEventListener("click", () => {
+        projectionFocusId = button.dataset.projectionAccount || model.accounts[0].id;
+        renderHyperscalerProjection();
       });
     });
-    $$("#projectionScenarioTabs [data-projection-scenario], #projectionScenarioChart [data-projection-scenario]").forEach((btn) => {
-      btn.addEventListener("click", () => {
-        projectionScenario = btn.dataset.projectionScenario || "neutral";
-        renderProductProjection();
-      });
-    });
-    animateCounts(summary);
-    animateCounts(scenarioTabs);
-    animateCounts(scenarioChart);
-    animateCounts(stack);
-    animateCounts(tabs);
-    animateCounts(drivers);
-    animateMeters(scenarioChart);
-    animateMeters(tabs);
-    animateMeters(drivers);
   }
 
+  function renderProductProjection() {
+    renderHyperscalerProjection();
+  }
   function renderChinaDynamics() {
     const grid = $("#chinaDynamicsGrid");
     const summary = $("#chinaDynamicsSummary");
