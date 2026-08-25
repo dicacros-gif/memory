@@ -259,6 +259,10 @@ assert.doesNotMatch(app, /HBM 라이브 overlay|직접 신호 모델 · AI 수�
 assert.doesNotMatch(app, /직접 신호 점수 \$\{fmtNum\(active\.directMetrics\?\.score/, "HBM decision payload must not expose internal signal scores");
 assert.doesNotMatch(app, /직접 신호 점수/, "executive views must not expose internal HBM signal scores");
 assert.match(app, /metrics: item\.directSignalModel === "hbm" \? \[\] : \[/, "executive workbench must hide internal HBM evidence counts");
+assert.match(app, /<span>BUYING CENTER<\/span>/, "hyperscaler account map must expose the decision-chain buying center");
+assert.match(app, /DISCOVER · ACCOUNT/, "hyperscaler strategy must use a consulting-stage flow");
+assert.match(app, /<small>WHAT CHANGED<\/small>/, "latest evidence must be framed as a decision signal");
+assert.match(styles, /\.projection-account-node[\s\S]*?clip-path:/, "account map must render as a consulting infographic");
 assert.match(app, /hideCounts: active\.directSignalModel === "hbm"/, "HBM decision frames must suppress internal evidence counts");
 assert.doesNotMatch(app, /canonical 원문 \$\{fmtNum\(active\.directMetrics\?\.evidenceCount/, "HBM audit copy must not expose raw evidence counts");
 assert.ok(

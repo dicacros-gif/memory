@@ -28498,82 +28498,126 @@ body.consulting-system #main > #c-level-cockpit {
 
 #projection .projection-account-map {
   display: grid;
-  grid-template-columns: minmax(0, 1fr) 22px minmax(0, 1fr) 22px minmax(0, 1fr);
-  gap: 7px;
+  grid-template-columns: minmax(0, 1fr) 74px minmax(0, 1fr) 74px minmax(0, 1fr);
+  gap: 0;
   align-items: stretch;
+  padding: 8px;
+  background: #edf2f5;
+  border: 1px solid #c9d5dd;
 }
 
-#projection .projection-account-map > i {
+#projection .projection-account-link {
   align-self: center;
+  display: grid;
+  place-items: center;
+  gap: 3px;
   color: #08766f;
-  font-size: 19px;
-  font-style: normal;
-  font-weight: 900;
   text-align: center;
 }
+#projection .projection-account-link span { font: 900 7.5px/1 var(--display); letter-spacing: .08em; }
+#projection .projection-account-link i { font-size: 21px; font-style: normal; font-weight: 900; line-height: 1; }
 
 #projection .projection-account-node {
-  --surface: #f8fafb;
+  --chain-accent: #08766f;
+  --surface: #fff;
   --ink: #102638;
   --sub-ink: #52687a;
+  position: relative;
   min-width: 0;
   display: grid;
-  align-content: start;
-  gap: 6px;
-  min-height: 116px;
-  padding: 13px;
-  border: 1px solid #c9d5dd;
-  border-left: 4px solid #08766f;
-  background: var(--surface);
+  grid-template-columns: 34px minmax(0, 1fr);
+  grid-template-rows: 1fr auto;
+  gap: 8px 11px;
+  min-height: 136px;
+  padding: 16px 25px 13px 15px;
+  border: 0;
+  clip-path: polygon(0 0, calc(100% - 18px) 0, 100% 50%, calc(100% - 18px) 100%, 0 100%, 12px 50%);
+  background: linear-gradient(118deg, color-mix(in srgb, var(--chain-accent) 8%, var(--surface)), var(--surface) 62%);
+  box-shadow: inset 0 0 0 1px color-mix(in srgb, var(--chain-accent) 40%, #c9d5dd);
   color: var(--ink);
-  transition: background-color .025s linear, color .025s linear, transform .06s linear;
+  transition: background-color .02s linear, color .02s linear, transform .06s linear;
 }
 
-#projection .projection-account-node.customer { border-left-color: #7656c9; }
-#projection .projection-account-node.platform { border-left-color: #c88600; }
-#projection .projection-account-node span { color: #08766f; font: 900 9px/1.3 var(--display); letter-spacing: .06em; }
-#projection .projection-account-node strong { color: inherit; font-size: 14px; line-height: 1.3; }
-#projection .projection-account-node small { color: var(--sub-ink); font-size: 10.5px; line-height: 1.5; font-weight: 700; overflow-wrap: anywhere; }
-#projection .projection-account-node:is(:hover, :focus-within) { --surface: #102b3d; --ink: #fff; --sub-ink: #d9e6ed; transform: translateY(-2px); }
-#projection .projection-account-node:is(:hover, :focus-within) span { color: #7fe4d2; }
+#projection .projection-account-node.partner { clip-path: polygon(0 0, calc(100% - 18px) 0, 100% 50%, calc(100% - 18px) 100%, 0 100%); }
+#projection .projection-account-node.customer { --chain-accent: #7656c9; }
+#projection .projection-account-node.platform { --chain-accent: #8a5a00; }
+#projection .projection-account-node em { display: grid; place-items: center; width: 31px; height: 31px; background: var(--chain-accent); color: #fff; clip-path: polygon(50% 0, 100% 50%, 50% 100%, 0 50%); font: 900 9px/1 var(--display); font-style: normal; }
+#projection .projection-account-node > div { display: grid; align-content: start; gap: 5px; min-width: 0; }
+#projection .projection-account-node span { color: var(--chain-accent); font: 900 9px/1.3 var(--display); letter-spacing: .07em; }
+#projection .projection-account-node strong { color: inherit; font-size: 15px; line-height: 1.25; }
+#projection .projection-account-node small { color: var(--sub-ink); font-size: 10.5px; line-height: 1.48; font-weight: 700; overflow-wrap: anywhere; }
+#projection .projection-account-node > b { grid-column: 2; align-self: end; color: var(--chain-accent); font: 900 8px/1.2 var(--display); letter-spacing: .09em; }
+#projection .projection-account-node:is(:hover, :focus-visible) { --surface: #102b3d; --ink: #fff; --sub-ink: #d9e6ed; outline: none; transform: translateY(-3px); }
+#projection .projection-account-node:is(:hover, :focus-visible) span,
+#projection .projection-account-node:is(:hover, :focus-visible) > b { color: #ffd166; }
 
-#projection .projection-account-flow-wrap { overflow: hidden; border: 1px solid #c9d5dd; }
-#projection .projection-account-flow { grid-template-columns: repeat(5, minmax(0, 1fr)); }
-#projection .projection-account-flow > li { min-height: 146px; border-radius: 0; }
-#projection .projection-account-flow > li:is(:hover, :focus-visible) { background: #102b3d; transform: none; }
+#projection .projection-account-flow-wrap { overflow: visible; border: 0; background: #102b3d; padding: 10px; }
+#projection .projection-account-flow { grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 6px; }
+#projection .projection-account-flow > li {
+  --stage-accent: #1aa89a;
+  min-height: 158px;
+  padding: 20px 22px 18px 17px;
+  border: 0;
+  border-radius: 0;
+  clip-path: polygon(0 0, calc(100% - 16px) 0, 100% 50%, calc(100% - 16px) 100%, 0 100%, 12px 50%);
+  background: linear-gradient(125deg, color-mix(in srgb, var(--stage-accent) 20%, #fff), #fff 66%);
+  box-shadow: inset 0 0 0 1px color-mix(in srgb, var(--stage-accent) 40%, #ccd8df);
+  transition: background-color .02s linear, color .02s linear, transform .06s linear;
+}
+#projection .projection-account-flow > li:first-child { clip-path: polygon(0 0, calc(100% - 16px) 0, 100% 50%, calc(100% - 16px) 100%, 0 100%); }
+#projection .projection-account-flow > li:nth-child(2) { --stage-accent: #2d6cdf; }
+#projection .projection-account-flow > li:nth-child(3) { --stage-accent: #7656c9; }
+#projection .projection-account-flow > li:nth-child(4) { --stage-accent: #8a5a00; }
+#projection .projection-account-flow > li:nth-child(5) { --stage-accent: #08766f; }
+#projection .projection-account-flow > li > b { width: 34px; height: 34px; background: var(--stage-accent); color: #fff; clip-path: polygon(50% 0, 100% 50%, 50% 100%, 0 50%); }
+#projection .projection-account-flow > li:is(:hover, :focus-visible) { background: var(--stage-accent); color: #fff; outline: none; transform: translateY(-3px); }
 #projection .projection-account-flow > li:is(:hover, :focus-visible) :is(span, strong, li) { color: #fff; }
+#projection .projection-account-flow > li:is(:hover, :focus-visible) > b { background: #fff; color: var(--stage-accent); }
 
 #projection .projection-evidence-strip {
-  grid-template-columns: 120px repeat(3, minmax(0, 1fr));
-  border-top: 1px solid #c9d5dd;
-  padding-top: 10px;
+  grid-template-columns: 130px repeat(3, minmax(0, 1fr));
+  gap: 6px;
+  padding: 9px;
+  border: 1px solid #c9d5dd;
+  background: #edf2f5;
 }
 
 #projection .projection-evidence-label {
   align-self: stretch;
   display: grid;
-  place-items: center start;
-  color: #08766f;
-  font: 900 9px/1.3 var(--display);
-  letter-spacing: .08em;
+  align-content: center;
+  gap: 4px;
+  padding: 12px;
+  background: #102b3d;
+  color: #fff;
+  clip-path: polygon(0 0, calc(100% - 13px) 0, 100% 50%, calc(100% - 13px) 100%, 0 100%);
 }
+#projection .projection-evidence-label b { color: #7fe4d2; font: 900 10px/1.2 var(--display); letter-spacing: .1em; }
+#projection .projection-evidence-label small { color: #d9e6ed; font: 800 8px/1.2 var(--display); letter-spacing: .06em; }
 
 #projection .projection-evidence-strip a {
   min-width: 0;
   display: grid;
-  gap: 5px;
-  padding: 9px 11px;
-  border-left: 2px solid #08766f;
-  background: #f6f8fa;
+  grid-template-columns: 27px minmax(0, 1fr);
+  gap: 9px;
+  align-items: start;
+  padding: 11px 17px 11px 10px;
+  border: 0;
+  clip-path: polygon(0 0, calc(100% - 12px) 0, 100% 50%, calc(100% - 12px) 100%, 0 100%, 8px 50%);
+  background: #fff;
   color: #102638;
   text-decoration: none;
-  transition: background-color .025s linear, color .025s linear, transform .06s linear;
+  box-shadow: inset 0 0 0 1px #c9d5dd;
+  transition: background-color .02s linear, color .02s linear, transform .06s linear;
 }
 
+#projection .projection-evidence-strip a > i { display: grid; place-items: center; width: 26px; height: 26px; background: #08766f; color: #fff; clip-path: polygon(50% 0, 100% 50%, 50% 100%, 0 50%); font: 900 8px/1 var(--display); font-style: normal; }
+#projection .projection-evidence-strip a > span { display: grid; gap: 5px; min-width: 0; }
 #projection .projection-evidence-strip a strong { color: inherit; font-size: 10.5px; line-height: 1.45; }
 #projection .projection-evidence-strip a small { color: #5b6f80; font-size: 9px; line-height: 1.35; }
-#projection .projection-evidence-strip a:is(:hover, :focus-visible) { outline: none; background: #102b3d; color: #fff; transform: translateY(-2px); }
+#projection .projection-evidence-strip a:is(:hover, :focus-visible) { outline: none; background: #102b3d; color: #fff; transform: translateY(-3px); }
 #projection .projection-evidence-strip a:is(:hover, :focus-visible) small { color: #d9e6ed; }
+#projection .projection-evidence-strip a:is(:hover, :focus-visible) > i { background: #ffd166; color: #102638; }
 
 #projection .projection-focus {
   border: 1px solid #9db0bd;
@@ -28600,8 +28644,13 @@ body.consulting-system #main > #c-level-cockpit {
 @media (max-width: 1100px) {
   #projection .projection-account-tabs { grid-template-columns: repeat(2, minmax(0, 1fr)); }
   #projection .projection-account-map { grid-template-columns: 1fr; }
-  #projection .projection-account-map > i { transform: rotate(90deg); }
+  #projection .projection-account-link { min-height: 42px; }
+  #projection .projection-account-link i { transform: rotate(90deg); }
+  #projection .projection-account-node,
+  #projection .projection-account-node.partner { clip-path: polygon(0 0, 100% 0, 100% calc(100% - 13px), 50% 100%, 0 calc(100% - 13px)); }
   #projection .projection-account-flow { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  #projection .projection-account-flow > li,
+  #projection .projection-account-flow > li:first-child { clip-path: none; }
   #projection .projection-evidence-strip { grid-template-columns: 1fr; }
   #projection .projection-evidence-label { min-height: 30px; }
 }
@@ -28619,7 +28668,7 @@ body.consulting-system #main > #c-level-cockpit {
 }
 
 @media (prefers-reduced-motion: reduce) {
-  #projection :is(.projection-account-tab, .projection-account-node, .projection-evidence-strip a, .projection-project) { transition: none; }
+  #projection :is(.projection-account-tab, .projection-account-node, .projection-account-flow > li, .projection-evidence-strip a, .projection-project) { transition: none; }
 }
 
 /* Hyperscaler demand: account-first consulting selector */
