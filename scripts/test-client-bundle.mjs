@@ -145,6 +145,7 @@ assert.equal(bundle.siteContent.clientArtifact, true);
 assert.ok(bundle.manifest.artifacts.siteContent.bytes < 80_000, "site content artifact must remain first-page friendly");
 assert.equal(bundle.siteContentExtended.runId, runId);
 assert.equal(bundle.siteContentExtended.clientArtifact, true);
+assert.ok(bundle.siteContent.strategyBoard?.customerPortfolio?.competitiveDynamics?.relations?.length > 0, "competitive dynamics must remain available when the extended strategy snapshot is temporarily unavailable");
 assert.equal(bundle.manifest.artifacts.siteContentExtended.path, "data/site-content-extended-client.json");
 assert.equal(bundle.companyDirectory.runId, runId);
 assert.equal(bundle.manifest.artifacts.companyDirectory.path, "data/company-directory-client.json");

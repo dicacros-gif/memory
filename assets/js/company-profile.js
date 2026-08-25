@@ -80,9 +80,9 @@
   }
 
   function resolveCompanyId(target) {
-    const explicit = target?.closest?.("[data-company-id],[data-account-id],[data-dynamics-company],[data-equity-stock]");
+    const explicit = target?.closest?.("[data-company-id],[data-account-id],[data-equity-stock]");
     if (!explicit) return "";
-    const raw = explicit.dataset.companyId || explicit.dataset.accountId || explicit.dataset.dynamicsCompany || explicit.dataset.equityStock || "";
+    const raw = explicit.dataset.companyId || explicit.dataset.accountId || explicit.dataset.equityStock || "";
     return String(raw).replace(/-stock$/, "");
   }
 

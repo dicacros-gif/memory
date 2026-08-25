@@ -4947,6 +4947,7 @@ function splitSiteContentForClient(content = {}) {
         partnerEcosystem: initialPartnerEcosystem,
         layerModel: portfolio.layerModel || {},
         executiveOnePagers: initialOnePagers,
+        competitiveDynamics: portfolio.competitiveDynamics || {},
       },
     },
     caseClassification: content.caseClassification,

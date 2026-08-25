@@ -20,34 +20,89 @@ export function renderAccountEcosystem({ ecosystem = {}, layerModel = {} } = {})
   return `<section class="sc-broadcom-board sc-partner-ecosystem" aria-labelledby="partnerEcosystemTitle"><header class="sc-broadcom-head"><div><span>${escapeHTML(ecosystem.eyebrow || "CUSTOM SILICON PARTNER ECOSYSTEM")}</span><h4 id="partnerEcosystemTitle">${escapeHTML(ecosystem.title || "Broadcom · Marvell → Big Tech / Hyperscaler")}</h4></div><p>${escapeHTML(ecosystem.description)}</p></header><div class="sc-partner-hierarchy" aria-label="ASIC Partner와 Big Tech 고객 계층">${partners.map((partner) => { const served = Array.isArray(partner.accounts) ? partner.accounts : []; const rollup = partner.rollup || {}; const pains = (rollup.topPainAxes || []).filter((item) => Number(item.mentions || 0) > 0).slice(0, 3); return `<section class="sc-partner-lane" style="--lane-accent:${escapeHTML(partner.accent || "#D05A2B")}"><article class="sc-partner sc-partner-node" style="--sc-accent:${escapeHTML(partner.accent || "#D05A2B")}"><span class="sc-tech-en">01 · ASIC PARTNER</span><strong data-company-id="${escapeHTML(partner.id)}">${escapeHTML(partner.company)}</strong><p>${escapeHTML(partner.chip)}</p><div class="sc-partner-row"><b>BUYING</b><span>${escapeHTML(join(partner.buyingCriteria || partnerCriteria))}</span></div><div class="sc-partner-row"><b>ROLL-UP</b><span>${escapeHTML(join(served.map((account) => account.company)))}</span></div>${pains.length ? `<div class="sc-partner-row"><b>PAIN SIGNAL</b><span>${escapeHTML(join(pains.map((item) => `${item.label} ${item.mentions}`)))}</span></div>` : ""}</article><div class="sc-hierarchy-arrow" aria-hidden="true">↓</div><div class="sc-partner-children" aria-label="${escapeHTML(partner.company)} 연결 고객">${served.map((account) => `<article class="sc-hyperscaler-node" style="--account-accent:${escapeHTML(account.accent || partner.accent || "#2D6BFF")}"><span>02 · BIG TECH / HYPERSCALER</span><strong data-company-id="${escapeHTML(account.id)}">${escapeHTML(account.company)}</strong><small>${escapeHTML(account.chip)}</small><dl><div><dt>MEMORY PAIN</dt><dd>${highlight(account.pain)}</dd></div><div><dt>SKH OPTION</dt><dd>${highlight(account.memory)}</dd></div><div><dt>GATE</dt><dd>${escapeHTML(account.gate)}</dd></div></dl></article>`).join("")}</div></section>`; }).join("")}</div><div class="sc-hierarchy-criteria"><b>HYPERSCALER BUYING CRITERIA</b><span>${escapeHTML(join(customerCriteria))}</span></div><p class="sc-broadcom-policy">${escapeHTML(ecosystem.evidencePolicy)}</p></section>`;
 }
 
+const dynamicsTypeMeta = {
+  competition: { label: "경쟁", accent: "#ff5a67" },
+  partnership: { label: "파트너십", accent: "#4d7fff" },
+  investment: { label: "투자", accent: "#20bfa6" },
+  supply: { label: "공급", accent: "#e7a11a" },
+};
+
+const dynamicsLayerLabel = (layers = [], id = "") => layers.find((layer) => layer.id === id)?.label || "VALUE CHAIN";
+const dynamicsInitials = (value = "") => String(value).split(/\s+/).map((part) => part[0]).join("").slice(0, 3).toUpperCase();
+
+function renderDynamicsDetail(company = {}, relations = [], companies = [], layers = []) {
+  const companyById = new Map(companies.map((item) => [item.id, item]));
+  const connected = relations.filter((relation) => relation.from === company.id || relation.to === company.id);
+  const grouped = Object.keys(dynamicsTypeMeta).map((type) => ({
+    type,
+    ...dynamicsTypeMeta[type],
+    items: connected.filter((relation) => relation.type === type),
+  })).filter((group) => group.items.length);
+  const baseline = Array.isArray(company.baseline) ? company.baseline.slice(0, 3) : [];
+  const criteria = Array.isArray(company.buyingCriteria) ? company.buyingCriteria.slice(0, 4) : [];
+  const serves = Array.isArray(company.servesAccounts) ? company.servesAccounts : [];
+  const signal = company.latestSignal || null;
+  const source = company.source?.url ? company.source : null;
+  return `<div class="sc-dynamics-detail-head" style="--company-accent:${escapeHTML(company.accent || "#21b5a7")}"><span>${escapeHTML(dynamicsLayerLabel(layers, company.layer))}</span><div><strong>${escapeHTML(company.company || "업체 선택")}</strong><em>${escapeHTML(company.stage?.label || `${connected.length}개 관계`)}</em></div><p>${escapeHTML(company.portfolio || company.role || "메모리 의사결정 맥락")}</p></div><div class="sc-dynamics-facts"><div><b>MEMORY PAIN</b><p>${highlight(company.pain || company.position || "공개 Workload 병목 확인 필요")}</p></div><div><b>SKH OPTION</b><p>${highlight(company.memoryOption || company.portfolio || "Requirement Lock 우선")}</p></div><div><b>BUYING CRITERIA</b><p>${escapeHTML(join(criteria) || join(serves) || "성능 · 일정 · 공급 · 경제성")}</p></div><div><b>DECISION GATE</b><p>${highlight(company.decision || "Qualification · Capacity · TCO")}</p></div></div>${baseline.length ? `<div class="sc-dynamics-baseline">${baseline.map((item) => `<span><b>${escapeHTML(item.label)}</b>${escapeHTML(item.value)}</span>`).join("")}</div>` : ""}${signal ? `<div class="sc-dynamics-signal"><b>최근 계정 신호</b><p>${escapeHTML(signal.title)}</p><span>${escapeHTML(join([signal.source, signal.date]))}</span>${signal.url ? `<a href="${escapeHTML(signal.url)}" target="_blank" rel="noopener">원문 ↗</a>` : ""}</div>` : ""}<div class="sc-dynamics-proof"><span><b>${connected.length}</b> 연결 관계</span><span><b>${Number(company.evidenceCount || 0)}</b> 계정 근거</span>${source ? `<a href="${escapeHTML(source.url)}" target="_blank" rel="noopener">${escapeHTML(source.name || "대표 원문")} ↗</a>` : ""}</div><div class="sc-dynamics-relations">${grouped.length ? grouped.map((group) => `<section style="--relation-accent:${group.accent}"><header><b>${group.label}</b><span>${group.items.length}</span></header>${group.items.map((relation) => { const otherId = relation.from === company.id ? relation.to : relation.from; const other = companyById.get(otherId) || {}; return `<div class="sc-dynamics-relation"><button type="button" data-dynamics-jump="${escapeHTML(otherId)}">${escapeHTML(other.company || otherId)}</button><p>${escapeHTML(relation.detail)}</p><small>${escapeHTML(relation.status || "관찰")}</small>${relation.source?.url ? `<a href="${escapeHTML(relation.source.url)}" target="_blank" rel="noopener" aria-label="${escapeHTML(relation.title)} 원문">원문 ↗</a>` : ""}</div>`; }).join("")}</section>`).join("") : `<p class="sc-dynamics-empty">직접 연결 관계 확인 전</p>`}</div><button type="button" class="sc-dynamics-profile" data-company-id="${escapeHTML(company.id || "")}">기업 상세 프로필 열기 <span aria-hidden="true">↗</span></button>`;
+}
+
 export function renderCompetitiveDynamics(model = {}) {
   const layers = Array.isArray(model.layers) ? model.layers : [];
   const relations = Array.isArray(model.relations) ? model.relations : [];
   const companies = Array.isArray(model.companies) ? model.companies : [];
   if (!layers.length || !relations.length) return "";
   const first = companies[0] || {};
-  return `<section class="sc-broadcom-board" aria-labelledby="competitiveDynamicsTitle"><header class="sc-broadcom-head"><div><span>${escapeHTML(model.eyebrow || "COMPETITIVE DYNAMICS · VALUE CHAIN")}</span><h4 id="competitiveDynamicsTitle">${escapeHTML(model.title || "경쟁 · 파트너십 · 투자 · 공급 관계 지도")}</h4></div><p>${escapeHTML(model.description)}</p></header><div class="sc-kpi-strip" role="toolbar" aria-label="관계 유형 필터"><button type="button" class="sc-playbook-status is-fact" data-dynamics-type="all" aria-pressed="true">전체 · ${relations.length}</button>${(model.types || []).map((type) => `<button type="button" class="sc-playbook-status is-monitoring" data-dynamics-type="${escapeHTML(type.id)}" aria-pressed="false">${escapeHTML(type.label)} · ${Number(type.count || 0)}</button>`).join("")}</div><div class="sc-partner-hierarchy" style="grid-template-columns:repeat(auto-fit,minmax(220px,1fr))" aria-label="AI 메모리 밸류체인">${layers.map((layer) => `<section class="sc-partner-lane"><header class="sc-report-head"><strong>${escapeHTML(layer.index)} · ${escapeHTML(layer.label)}</strong><span>${escapeHTML(layer.role)}</span></header><div class="sc-partner-children">${(layer.companies || []).map((company) => `<button type="button" class="sc-partner sc-partner-node" data-dynamics-company="${escapeHTML(company.id)}" style="width:100%;text-align:left;--sc-accent:${escapeHTML(company.accent || "#255ba8")}"><span class="sc-tech-en">${Number(company.relationCount || 0)} RELATIONS</span><strong data-company-id="${escapeHTML(company.id)}">${escapeHTML(company.company)}</strong><p>${escapeHTML(company.portfolio)}</p></button>`).join("")}</div></section>`).join("")}</div><div class="sc-report"><div class="sc-report-head"><strong>RELATIONSHIP MAP</strong><span>업체 선택 → 연결 관계 · 개요</span></div><div class="sc-partner-grid">${relations.map((relation) => `<article class="sc-partner" data-dynamics-relation="${escapeHTML(relation.type)}" data-from="${escapeHTML(relation.from)}" data-to="${escapeHTML(relation.to)}" tabindex="0"><span class="sc-tech-en">${escapeHTML(relation.type.toUpperCase())}</span><strong>${escapeHTML(relation.title)}</strong><p>${escapeHTML(relation.detail)}</p></article>`).join("")}</div></div><article class="sc-partner"><span class="sc-tech-en">COMPANY OVERVIEW</span><strong data-profile-company data-company-id="${escapeHTML(first.id || "")}">${escapeHTML(first.company || "업체 선택")}</strong><div class="sc-partner-row"><b>VALUE CHAIN</b><span data-profile-role>${escapeHTML(first.role || "")}</span></div><div class="sc-partner-row"><b>PORTFOLIO</b><span data-profile-portfolio>${escapeHTML(first.portfolio || "")}</span></div><div class="sc-partner-row"><b>POSITION</b><span data-profile-position>${escapeHTML(first.position || "")}</span></div><div class="sc-decision-gate"><b>DECISION</b><span data-profile-decision>${escapeHTML(first.decision || "")}</span></div></article></section>`;
+  return `<section class="sc-broadcom-board sc-dynamics-board" aria-labelledby="competitiveDynamicsTitle"><header class="sc-broadcom-head"><div><span>${escapeHTML(model.eyebrow || "COMPETITIVE DYNAMICS · VALUE CHAIN")}</span><h4 id="competitiveDynamicsTitle">${escapeHTML(model.title || "경쟁 · 파트너십 · 투자 · 공급 관계 지도")}</h4></div><p>${escapeHTML(model.description)}</p></header><div class="sc-dynamics-layout"><nav class="sc-dynamics-layers" aria-label="밸류체인 계층 필터"><b>AI VALUE CHAIN</b><button type="button" data-dynamics-layer="all" aria-pressed="true"><span>ALL</span><strong>전체 밸류체인</strong><em>${companies.length}</em></button>${layers.map((layer) => `<button type="button" data-dynamics-layer="${escapeHTML(layer.id)}" aria-pressed="false"><span>${escapeHTML(layer.index)}</span><strong>${escapeHTML(layer.label)}</strong><em>${Number(layer.companies?.length || 0)}</em></button>`).join("")}</nav><div class="sc-dynamics-stage"><div class="sc-dynamics-toolbar" role="toolbar" aria-label="관계 유형 필터"><button type="button" data-dynamics-type="all" aria-pressed="true"><i style="--relation-accent:#9cb0c3"></i>전체 <em>${relations.length}</em></button>${(model.types || []).map((type) => `<button type="button" data-dynamics-type="${escapeHTML(type.id)}" aria-pressed="false"><i style="--relation-accent:${escapeHTML(dynamicsTypeMeta[type.id]?.accent || "#9cb0c3")}"></i>${escapeHTML(type.label)} <em>${Number(type.count || 0)}</em></button>`).join("")}</div><div class="sc-dynamics-map" aria-label="업체 원형 관계 지도">${layers.map((layer) => `<section data-dynamics-lane="${escapeHTML(layer.id)}"><header><b>${escapeHTML(layer.index)}</b><span>${escapeHTML(layer.label)}</span></header><div>${(layer.companies || []).map((company) => `<button type="button" class="sc-dynamics-node${company.id === first.id ? " is-selected" : ""}" data-dynamics-company="${escapeHTML(company.id)}" aria-pressed="${company.id === first.id ? "true" : "false"}" style="--company-accent:${escapeHTML(company.accent || "#21b5a7")}"><span>${escapeHTML(dynamicsInitials(company.company))}</span><strong>${escapeHTML(company.company)}</strong><em>${Number(company.relationCount || 0)}</em></button>`).join("")}</div></section>`).join("")}</div></div><aside class="sc-dynamics-detail" data-dynamics-detail aria-live="polite">${renderDynamicsDetail(first, relations, companies, layers)}</aside></div></section>`;
 }
 
 export function bindCompetitiveDynamics(root, model = {}) {
   if (!root) return;
-  const relations = [...root.querySelectorAll("[data-dynamics-relation]")];
+  root.dataset.dynamicsBound = "true";
+  const relations = Array.isArray(model.relations) ? model.relations : [];
+  const companyList = Array.isArray(model.companies) ? model.companies : [];
+  const companies = new Map(companyList.map((company) => [company.id, company]));
   const filters = [...root.querySelectorAll("[data-dynamics-type]")];
-  const companies = new Map((model.companies || []).map((company) => [company.id, company]));
-  const applyFilter = (type = "all", companyId = "") => {
-    relations.forEach((card) => { card.hidden = (type !== "all" && card.dataset.dynamicsRelation !== type) || (companyId && card.dataset.from !== companyId && card.dataset.to !== companyId); });
-    filters.forEach((button) => { const active = button.dataset.dynamicsType === type; button.ariaPressed = String(active); button.classList.toggle("is-fact", active); button.classList.toggle("is-monitoring", !active); });
-  };
-  filters.forEach((button) => button.addEventListener("click", () => applyFilter(button.dataset.dynamicsType || "all")));
-  root.querySelectorAll("[data-dynamics-company]").forEach((button) => button.addEventListener("click", () => {
-    const company = companies.get(button.dataset.dynamicsCompany || "");
+  const layerFilters = [...root.querySelectorAll("[data-dynamics-layer]")];
+  const nodes = [...root.querySelectorAll("[data-dynamics-company]")];
+  const detail = root.querySelector("[data-dynamics-detail]");
+  let selectedId = companyList[0]?.id || "";
+  let activeType = "all";
+  let activeLayer = "all";
+  const renderSelection = (companyId = selectedId) => {
+    const company = companies.get(companyId);
     if (!company) return;
-    root.querySelector("[data-profile-company]").textContent = company.company || "";
-    root.querySelector("[data-profile-company]").dataset.companyId = company.id || "";
-    root.querySelector("[data-profile-role]").textContent = company.role || "";
-    root.querySelector("[data-profile-portfolio]").textContent = company.portfolio || "";
-    root.querySelector("[data-profile-position]").textContent = company.position || "";
-    root.querySelector("[data-profile-decision]").textContent = company.decision || "";
-    applyFilter("all", company.id);
+    selectedId = companyId;
+    const activeRelations = relations.filter((relation) => (activeType === "all" || relation.type === activeType) && (relation.from === companyId || relation.to === companyId));
+    const relatedIds = new Set(activeRelations.flatMap((relation) => [relation.from, relation.to]));
+    nodes.forEach((node) => {
+      const id = node.dataset.dynamicsCompany || "";
+      const selected = id === companyId;
+      const related = relatedIds.has(id) && !selected;
+      const companyNode = companies.get(id);
+      const layerMatch = activeLayer === "all" || companyNode?.layer === activeLayer;
+      node.classList.toggle("is-selected", selected);
+      node.classList.toggle("is-related", related);
+      node.classList.toggle("is-muted", !selected && (!related || !layerMatch));
+      node.ariaPressed = String(selected);
+    });
+    filters.forEach((button) => { button.ariaPressed = String(button.dataset.dynamicsType === activeType); });
+    layerFilters.forEach((button) => { button.ariaPressed = String(button.dataset.dynamicsLayer === activeLayer); });
+    if (detail) detail.innerHTML = renderDynamicsDetail(company, activeType === "all" ? relations : relations.filter((relation) => relation.type === activeType), companyList, model.layers || []);
+  };
+  nodes.forEach((button) => button.addEventListener("click", () => renderSelection(button.dataset.dynamicsCompany || selectedId)));
+  filters.forEach((button) => button.addEventListener("click", () => {
+    activeType = button.dataset.dynamicsType || "all";
+    renderSelection();
   }));
+  layerFilters.forEach((button) => button.addEventListener("click", () => {
+    activeLayer = button.dataset.dynamicsLayer || "all";
+    const firstInLayer = activeLayer === "all" ? selectedId : companyList.find((company) => company.layer === activeLayer)?.id;
+    renderSelection(firstInLayer || selectedId);
+  }));
+  root.addEventListener("click", (event) => {
+    const jump = event.target.closest("[data-dynamics-jump]");
+    const companyId = jump?.dataset.dynamicsJump || "";
+    if (companies.has(companyId)) renderSelection(companyId);
+  });
+  renderSelection();
 }

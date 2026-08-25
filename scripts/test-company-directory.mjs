@@ -43,6 +43,7 @@ assert.match(consoleIndex, /assets\/js\/company-profile\.min\.js\?v=infra-[a-f0-
 assert.match(runtime, /data-company-lens="memory"[\s\S]*data-company-lens="chip"[\s\S]*data-company-lens="datacenter"/);
 assert.match(runtime, /MutationObserver/);
 assert.match(runtime, /company-directory-client\.json/);
+assert.doesNotMatch(runtime, /closest\?\.\("[^\"]*data-dynamics-company/, "circular dynamics nodes must update the linked detail panel instead of opening the company modal");
 assert.match(styles, /transition:color 70ms linear,background-color 70ms linear/);
 assert.match(styles, /\.company-profile-modal::backdrop/);
 assert.match(styles, /\.company-profile-modal\{position:fixed;inset:0;margin:auto/, "company profile dialog must be centered in the viewport");
