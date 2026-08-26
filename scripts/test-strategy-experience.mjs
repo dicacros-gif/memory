@@ -39,11 +39,13 @@ assert.equal((html.match(/<ol class="causal-chain">/g) || []).length, 1, "the si
 assert.match(html, /Market Shift[\s\S]*Account Pain[\s\S]*Full-stack Diagnosis[\s\S]*Memory Requirement[\s\S]*Portfolio &amp; New Biz[\s\S]*Economics &amp; Execution/);
 assert.match(html, /01 · WHY[\s\S]*02 · WHO[\s\S]*03 · WHAT[\s\S]*04 · TRANSLATE[\s\S]*05 · SO WHAT[\s\S]*06 · NOW WHAT/);
 assert.match(html, /01 · MEMORY STRATEGY[\s\S]*02 · NEW BUSINESS[\s\S]*03 · AI INFRA EXECUTION/);
-assert.match(html, /AI의 병목을<br \/>고객별 메모리<br \/>설계권으로 전환/);
+assert.match(html, /AI Infra Strategy<br \/><em>Hyperscaler Roadmap to Memory Business<\/em>/);
+assert.match(html, /legacy-strategy-flow[\s\S]*CUSTOMER PROBLEM[\s\S]*FULL-STACK DIAGNOSIS[\s\S]*STRATEGIC OPTIONS[\s\S]*EXECUTION GATE/);
+assert.match(html, /legacy-account-grid[\s\S]*OpenAI[\s\S]*Anthropic[\s\S]*Microsoft Azure[\s\S]*Google[\s\S]*Amazon AWS[\s\S]*Meta[\s\S]*NVIDIA[\s\S]*Dell · OEM\/ODM/);
 assert.match(html, /상용 사례[\s\S]*공동개발[\s\S]*프로토타입/);
-assert.match(html, /NORTH STAR · EXECUTIVE ANSWER[\s\S]*BUSINESS MANDATE[\s\S]*STRATEGIC ANSWER/);
-const priorityScope = html.match(/<div class="decision-ribbon"[\s\S]*?<\/div>/)?.[0] || "";
-assert.match(priorityScope, /P1 · ACCOUNT LOCK[\s\S]*P2 · ARCHITECTURE PROOF[\s\S]*P3 · NEW BIZ SCALE/);
+assert.match(html, /ACCOUNT INTELLIGENCE[\s\S]*Tech &amp; Portfolio[\s\S]*Deal &amp; Execution/);
+const priorityScope = html.match(/<section class="legacy-decision-queue"[\s\S]*?<\/section>/)?.[0] || "";
+assert.match(priorityScope, /01 · OPENAI \/ ANTHROPIC[\s\S]*02 · AZURE \/ GOOGLE \/ AWS[\s\S]*03 · NVIDIA \/ BROADCOM \/ MARVELL[\s\S]*04 · DELL \/ OEM \/ ODM/);
 assert.doesNotMatch(priorityScope, /100점|평균\s*\d|\d+(?:\.\d+)?점/, "priority board must not invent numeric scores");
 assert.equal((html.match(/class="panel-method"/g) || []).length, 6, "each Console lens needs one consulting method frame");
 assert.match(html, /console-proof-chain[\s\S]*QUESTION[\s\S]*EVIDENCE[\s\S]*ANALYSIS[\s\S]*OUTPUT[\s\S]*GATE/);

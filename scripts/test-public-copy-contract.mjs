@@ -1,6 +1,6 @@
 import assert from "node:assert/strict";
 import { readFile } from "node:fs/promises";
-import { consultingBullet, formatPublicDate, sourceLabel } from "../assets/js/public-copy-policy.js";
+import { consultingBullet, formatPublicDate, neutralizePublicBrand, sourceLabel } from "../assets/js/public-copy-policy.js";
 
 const root = new URL("../", import.meta.url);
 const read = (relativePath) => readFile(new URL(relativePath, root), "utf8");
@@ -14,6 +14,7 @@ assert.equal(formatPublicDate("2026-Q1"), "");
 assert.equal(formatPublicDate(""), "");
 assert.equal(sourceLabel("2026-08-05"), "8/05 · 원문 ↗");
 assert.equal(sourceLabel("invalid"), "원문 ↗");
+assert.equal(neutralizePublicBrand("SK hynix 판단 · SK하이닉스 제품 · SKHY"), "Memory Business 판단 · Memory Business 제품 · Memory Business");
 
 for (const [input, expected] of [
   ["확대합니다.", "확대"],
@@ -42,7 +43,9 @@ const visibleText = (html) => html
 
 const staticVisible = `${visibleText(index)}\n${visibleText(alias)}`;
 assert.doesNotMatch(staticVisible, /\b(?:19|20)\d{2}[-.]\d{1,2}[-.]\d{1,2}\b/, "visible dates must use M/DD");
+assert.doesNotMatch(staticVisible, /\bSK\s+HYNIX\b|SK\s*하이닉스|\bSKHY\b/i, "public UI must be brand-neutral");
 assert.doesNotMatch(`${index}\n${alias}\n${renderer}`, /근거\s*원문/, "public source label must be 원문");
+for (const account of ["OpenAI", "Azure", "Google", "Anthropic", "NVIDIA", "Dell"]) assert.match(index, new RegExp(account), `first screen needs named account: ${account}`);
 assert.doesNotMatch(renderer, /\$\{text\([^\n}]*(?:publishedAt|asOf)[^\n}]*\}/, "raw dates must not reach labels");
 assert.match(renderer, /linkMarkup\(item\.latest\.url, item\.latest\.publishedAt\)/);
 assert.match(renderer, /linkMarkup\(url, entry\.asOf\)/);
@@ -92,6 +95,11 @@ const readerCopy = [
   ...staticNodes.map((value) => ({ path: "static", value })),
   ...contentStrings,
 ];
+const brandFindings = readerCopy.filter(({ value }) => /\bSK\s+HYNIX\b|SK\s*하이닉스|\bSKHY\b/i.test(value));
+if (brandFindings.length) {
+  for (const finding of brandFindings.slice(0, 20)) console.error(`brand:${finding.path}: ${finding.value}`);
+}
+assert.deepEqual(brandFindings, [], "rendered reader copy must be brand-neutral");
 const narrativeEnding = /(?:[가-힣]다|[가-힣](?:인가|는가|은가)|합니다|됩니다|습니다|선택하세요)[.!?。]?$/u;
 const sentenceStop = /[가-힣][.!?。]$/u;
 const findings = readerCopy.filter(({ value }) => narrativeEnding.test(value.trim()) || sentenceStop.test(value.trim()));

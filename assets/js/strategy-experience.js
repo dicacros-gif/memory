@@ -280,7 +280,7 @@ import { consultingBullet, sourceLabel } from "./public-copy-policy.js";
       const implication = text(item.memoryImplication);
       const impact = text(item.decisionImpact);
       const evidence = text(item.evidenceGrade) || text(item.status);
-      return `<article class="relationship-card" data-relation-type="${esc(item.type)}"><header><span>${esc(item.type.toUpperCase())}</span>${evidence ? `<b>${esc(evidence)}</b>` : ""}</header><h3>${esc(copy(item.title))}</h3><p>${esc(copy(item.detail))}</p>${implication ? `<p>${esc(copy(implication))}</p>` : ""}${impact ? `<p class="impact">SK hynix 판단 · ${esc(copy(impact))}</p>` : ""}${item.source ? linkMarkup(item.source.url, item.effectiveAt) : ""}</article>`;
+      return `<article class="relationship-card" data-relation-type="${esc(item.type)}"><header><span>${esc(item.type.toUpperCase())}</span>${evidence ? `<b>${esc(evidence)}</b>` : ""}</header><h3>${esc(copy(item.title))}</h3><p>${esc(copy(item.detail))}</p>${implication ? `<p>${esc(copy(implication))}</p>` : ""}${impact ? `<p class="impact">사업 판단 · ${esc(copy(impact))}</p>` : ""}${item.source ? linkMarkup(item.source.url, item.effectiveAt) : ""}</article>`;
     }).join("");
     applyRelationshipFilter();
   };

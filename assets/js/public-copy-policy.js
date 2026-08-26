@@ -1,5 +1,14 @@
 const clean = (value) => typeof value === "string" ? value.trim().replace(/\s+/g, " ") : "";
 
+export function neutralizePublicBrand(value) {
+  return clean(value)
+    .replace(/SK\s*하이닉스/giu, "Memory Business")
+    .replace(/\bSK\s+HYNIX\b/giu, "Memory Business")
+    .replace(/\bSKHY\b/giu, "Memory Business")
+    .replace(/\s+/g, " ")
+    .trim();
+}
+
 export function formatPublicDate(value) {
   const raw = clean(value);
   const match = raw.match(/^(\d{4})-(\d{1,2})-(\d{1,2})(?:[T\s].*)?$/)
@@ -20,7 +29,7 @@ export function sourceLabel(dateValue) {
 }
 
 export function consultingBullet(value) {
-  const copy = clean(value);
+  const copy = neutralizePublicBrand(value);
   if (!copy) return "";
 
   const normalizeClause = (clause) => clause
