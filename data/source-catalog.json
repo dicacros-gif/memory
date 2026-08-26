@@ -169,6 +169,21 @@
       "enabled": true
     },
     {
+      "id": "oracle-ai-infrastructure",
+      "name": "Oracle Cloud Infrastructure AI",
+      "tier": "primary-customer",
+      "sourceClass": "official",
+      "url": "https://www.oracle.com/artificial-intelligence/ai-infrastructure/",
+      "domains": ["oracle.com"],
+      "topics": ["oci", "gpu-supercluster", "ai-infra", "data-center"],
+      "roles": ["customer", "demand", "workload"],
+      "languages": ["en"],
+      "freshnessHours": 168,
+      "discoveryQueries": ["site:oracle.com (OCI OR GPU Supercluster OR AI infrastructure) (memory OR data center OR inference)"],
+      "healthCheck": { "markers": ["Oracle", "AI infrastructure"] },
+      "enabled": true
+    },
+    {
       "id": "google-cloud-tpu",
       "name": "Google Cloud TPU",
       "tier": "primary-customer",

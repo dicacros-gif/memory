@@ -897,6 +897,61 @@
       ]
     },
     {
+      "id": "oracle",
+      "layer": "end-customer",
+      "focus": true,
+      "demandClass": "gpu-cloud",
+      "group": "hyperscaler-asic",
+      "company": "Oracle",
+      "chip": "OCI AI Infrastructure",
+      "aliases": [
+        "oracle",
+        "oracle cloud",
+        "oci",
+        "oracle cloud infrastructure",
+        "gpu supercluster"
+      ],
+      "sourceIds": [
+        "oracle-ai-infrastructure"
+      ],
+      "claimRuleIds": [
+        "customer-silicon-roadmap"
+      ],
+      "baseline": [
+        {
+          "label": "PLATFORM",
+          "value": "OCI AI Infrastructure · GPU Supercluster",
+          "sourceId": "oracle-ai-infrastructure"
+        }
+      ],
+      "chipPortfolio": [
+        {
+          "name": "OCI AI Infrastructure",
+          "type": "GPU CLOUD · AI SUPERCLUSTER",
+          "workload": "Training · Inference · Distributed AI",
+          "publicSpec": "GPU Supercluster · RDMA Cluster Network",
+          "memoryPain": "Region Capacity · Fabric · Checkpoint · Memory/Storage TCO",
+          "memoryProposal": "HBM · AI-D · AI-N/eSSD Reference Architecture",
+          "evidenceLabel": "OFFICIAL PLATFORM",
+          "sourceId": "oracle-ai-infrastructure"
+        }
+      ],
+      "stage": {
+        "id": "PRODUCTION",
+        "label": "공식 서비스",
+        "sourceId": "oracle-ai-infrastructure"
+      },
+      "pain": "Region Capacity·Fabric·Checkpoint·Memory/Storage TCO",
+      "memory": "HBM · AI-D · AI-N/eSSD",
+      "gate": "Region Ramp · Cluster Goodput · Cost/Task",
+      "relationship": "GPU Cloud 수요와 OpenAI 인프라 이벤트를 분리 추적",
+      "accent": "#B55235",
+      "newsQueries": [
+        "Oracle Cloud AI infrastructure memory",
+        "OCI GPU Supercluster data center"
+      ]
+    },
+    {
       "id": "meta",
       "layer": "end-customer",
       "focus": true,

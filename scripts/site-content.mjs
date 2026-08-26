@@ -806,6 +806,9 @@ function buildEcosystemExecution(generatedAt = null, runId = null) {
     automation: {
       taxonomy: "account-silicon-rack",
       painAxes: ["data-movement", "bandwidth-capacity", "power-thermal", "qualification-tco"],
+      decisionChain: (execution.decisionSpine || []).map((item) => item.label),
+      decisionLenses: (execution.decisionLenses || []).map((item) => item.label),
+      translationMode: "market-to-pain-to-memory-to-economics-to-execution",
       sourceMode: "catalog-official-first",
       updateMode: "daily-atomic-manifest",
     },
@@ -1536,11 +1539,14 @@ export function validateSiteContent(content = {}) {
   if (!Array.isArray(content.presentation?.readabilityPolicy?.hoverModes) || content.presentation.readabilityPolicy.hoverModes.length !== 2) errors.push("presentation.readabilityPolicy.hoverModes");
   if (!Array.isArray(content.organizationOperatingModel?.decisionLoop) || content.organizationOperatingModel.decisionLoop.length < 5) errors.push("organizationOperatingModel.decisionLoop");
   if (!Array.isArray(content.ecosystemExecution?.layers) || content.ecosystemExecution.layers.length !== 3) errors.push("ecosystemExecution.layers");
+  if (!Array.isArray(content.ecosystemExecution?.decisionSpine) || content.ecosystemExecution.decisionSpine.length !== 6) errors.push("ecosystemExecution.decisionSpine");
+  if (!Array.isArray(content.ecosystemExecution?.decisionLenses) || content.ecosystemExecution.decisionLenses.length !== 7) errors.push("ecosystemExecution.decisionLenses");
   if ((content.ecosystemExecution?.layers || []).reduce((sum, layer) => sum + Number(layer.companies?.length || 0), 0) < 18) errors.push("ecosystemExecution.companies");
   if (!Array.isArray(content.ecosystemExecution?.bottlenecks) || content.ecosystemExecution.bottlenecks.length !== 4) errors.push("ecosystemExecution.bottlenecks");
   if (!Array.isArray(content.ecosystemExecution?.technologyResponses) || content.ecosystemExecution.technologyResponses.length !== 3) errors.push("ecosystemExecution.technologyResponses");
   if (!Array.isArray(content.ecosystemExecution?.strategicProjects) || content.ecosystemExecution.strategicProjects.length !== 3) errors.push("ecosystemExecution.strategicProjects");
   if (!Array.isArray(content.ecosystemExecution?.sources) || content.ecosystemExecution.sources.length < 2 || !content.ecosystemExecution.sources.every((source) => directUrl(source.url))) errors.push("ecosystemExecution.sources");
+  if (content.ecosystemExecution?.automation?.translationMode !== "market-to-pain-to-memory-to-economics-to-execution") errors.push("ecosystemExecution.automation");
   if (!Array.isArray(content.organizationOperatingModel?.units) || content.organizationOperatingModel.units.map((item) => item.label).join("|") !== "GSM|HBM BUSINESS|MSR") errors.push("organizationOperatingModel.units");
   if (!directUrl(content.organizationOperatingModel?.source?.url)) errors.push("organizationOperatingModel.source");
   if (!Array.isArray(content.organizationOperatingModel?.workstreams) || content.organizationOperatingModel.workstreams.length !== 3) errors.push("organizationOperatingModel.workstreams");

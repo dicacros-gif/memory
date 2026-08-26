@@ -6193,6 +6193,44 @@ body.landing-mode {
   margin: 0;
 }
 
+.ecosystem-decision-spine {
+  counter-reset: none;
+  display: grid;
+  grid-template-columns: repeat(6, minmax(0, 1fr));
+  list-style: none;
+  margin: 0 0 28px;
+  overflow: hidden;
+  padding: 0;
+}
+
+.ecosystem-decision-spine li {
+  --surface: #fff;
+  --ink: #10263a;
+  --muted: #51677a;
+  --key: #008b82;
+  background: var(--surface);
+  border: 1px solid var(--eco-line);
+  clip-path: polygon(0 0, calc(100% - 18px) 0, 100% 50%, calc(100% - 18px) 100%, 0 100%, 12px 50%);
+  color: var(--ink);
+  display: grid;
+  min-height: 174px;
+  padding: 20px 25px;
+  transition: background-color .055s linear, border-color .055s linear, color .055s linear, transform .055s linear;
+}
+
+.ecosystem-decision-spine li:nth-child(2),
+.ecosystem-decision-spine li:nth-child(5) { --key: #7054c7; }
+.ecosystem-decision-spine li:nth-child(3),
+.ecosystem-decision-spine li:nth-child(6) { --key: #b77700; }
+.ecosystem-decision-spine li:hover,
+.ecosystem-decision-spine li:focus-visible { --surface: #102b3b; --ink: #fff; --muted: #d7e4eb; border-color: var(--key); transform: translateY(-2px); }
+.ecosystem-decision-spine span { color: var(--key); font-size: 12px; font-weight: 950; }
+.ecosystem-decision-spine small { color: var(--key); font-size: 10px; font-weight: 900; letter-spacing: .08em; margin-top: 16px; }
+.ecosystem-decision-spine strong { font-size: 16px; line-height: 1.35; margin-top: 7px; }
+.ecosystem-decision-spine p { color: var(--muted); font-size: 12px; font-weight: 700; line-height: 1.45; margin: 10px 0 0; }
+#businessSite .ecosystem-decision-spine li:hover :is(span, small, strong, p),
+#businessSite .ecosystem-decision-spine li:focus-visible :is(span, small, strong, p) { color: #fff !important; -webkit-text-fill-color: currentColor !important; }
+
 .ecosystem-layer-flow {
   display: grid;
   gap: 14px;
@@ -6350,10 +6388,12 @@ body.landing-mode {
 
 .ecosystem-pain-system,
 .ecosystem-response-system,
+.ecosystem-lens-system,
 .ecosystem-project-system { margin-top: 30px; }
 
 .ecosystem-pain-system > header,
 .ecosystem-response-system > header,
+.ecosystem-lens-system > header,
 .ecosystem-project-system > header {
   align-items: end;
   border-bottom: 1px solid var(--eco-line);
@@ -6364,11 +6404,50 @@ body.landing-mode {
 
 .ecosystem-pain-system > header h3,
 .ecosystem-response-system > header h3,
+.ecosystem-lens-system > header h3,
 .ecosystem-project-system > header h3 {
   font-size: clamp(22px, 2vw, 34px);
   letter-spacing: -.025em;
   margin: 0;
 }
+
+.ecosystem-lens-system > header span { color: var(--eco-key); display: block; font-size: 12px; font-weight: 900; letter-spacing: .12em; }
+
+#ecosystemDecisionLenses {
+  display: grid;
+  grid-template-columns: repeat(7, minmax(0, 1fr));
+  list-style: none;
+  margin: 0;
+  padding: 16px 0 0;
+}
+
+#ecosystemDecisionLenses li {
+  --surface: #fff;
+  --ink: #10263a;
+  --muted: #51677a;
+  --key: #008b82;
+  background: var(--surface);
+  border: 1px solid var(--eco-line);
+  color: var(--ink);
+  display: grid;
+  gap: 10px;
+  grid-template-columns: 34px minmax(0, 1fr);
+  min-height: 174px;
+  padding: 18px 14px;
+  transition: background-color .055s linear, border-color .055s linear, color .055s linear, transform .055s linear;
+}
+
+#ecosystemDecisionLenses li:nth-child(3n+2) { --key: #7054c7; }
+#ecosystemDecisionLenses li:nth-child(3n) { --key: #b77700; }
+#ecosystemDecisionLenses li:hover,
+#ecosystemDecisionLenses li:focus-visible { --surface: #102b3b; --ink: #fff; --muted: #d7e4eb; border-color: var(--key); transform: translateY(-2px); }
+#ecosystemDecisionLenses li > span { border: 1px solid currentColor; color: var(--key); display: grid; font-size: 11px; font-weight: 900; height: 32px; place-items: center; width: 32px; }
+#ecosystemDecisionLenses li > div { display: flex; flex-direction: column; }
+#ecosystemDecisionLenses small { color: var(--key); font-size: 10px; font-weight: 900; letter-spacing: .08em; }
+#ecosystemDecisionLenses strong { font-size: 13px; line-height: 1.45; margin-top: 9px; }
+#ecosystemDecisionLenses b { border-top: 1px solid currentColor; color: var(--muted); font-size: 11px; margin-top: auto; padding-top: 12px; }
+#businessSite #ecosystemDecisionLenses li:hover :is(span, small, strong, b),
+#businessSite #ecosystemDecisionLenses li:focus-visible :is(span, small, strong, b) { color: #fff !important; -webkit-text-fill-color: currentColor !important; }
 
 #ecosystemPainGrid {
   display: grid;
@@ -6468,15 +6547,18 @@ body.landing-mode {
 }
 
 @media (max-width: 1120px) {
+  .ecosystem-decision-spine { grid-template-columns: repeat(3, minmax(0, 1fr)); }
   .ecosystem-layer-flow { grid-template-columns: 1fr; }
   .ecosystem-layer-flow > article { min-height: 0; }
   #ecosystemPainGrid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  #ecosystemDecisionLenses { grid-template-columns: repeat(4, minmax(0, 1fr)); }
 }
 
 @media (max-width: 820px) {
   .ecosystem-execution-head { align-items: start; grid-template-columns: 1fr; }
   .ecosystem-pain-system > header,
   .ecosystem-response-system > header,
+  .ecosystem-lens-system > header,
   .ecosystem-project-system > header { align-items: start; flex-direction: column; gap: 8px; }
   #ecosystemResponseFlow,
   #ecosystemProjectGrid { grid-template-columns: 1fr; }
@@ -6484,6 +6566,9 @@ body.landing-mode {
 }
 
 @media (max-width: 560px) {
+  .ecosystem-decision-spine,
+  #ecosystemDecisionLenses { grid-template-columns: 1fr; }
+  .ecosystem-decision-spine li { min-height: 0; }
   #ecosystemPainGrid { grid-template-columns: 1fr; }
   .ecosystem-company-detail > div,
   .ecosystem-project-system dl > div { grid-template-columns: 1fr; }
@@ -6494,6 +6579,8 @@ body.landing-mode {
 @media (prefers-reduced-motion: reduce) {
   .ecosystem-layer-flow > article,
   .ecosystem-company-index button,
+  .ecosystem-decision-spine li,
+  #ecosystemDecisionLenses li,
   .ecosystem-pain-system article,
   .ecosystem-response-system article,
   .ecosystem-project-system article { transition: none; }

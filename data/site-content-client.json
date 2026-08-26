@@ -217,16 +217,16 @@
     "evidenceCount": 82,
     "briefCount": 6,
     "sourceCount": 5,
-    "configuredSources": 76,
+    "configuredSources": 77,
     "observedSources": 4,
     "freshObservedSources": 3,
     "staleObservedSources": 1,
-    "officialConfigured": 63,
+    "officialConfigured": 64,
     "officialObserved": 2,
     "officialFreshObserved": 1,
-    "discoveryQueries": 85,
+    "discoveryQueries": 86,
     "connectedHealthChecks": 38,
-    "healthChecks": 47,
+    "healthChecks": 48,
     "scheduleHours": 1,
     "browserRecheckMinutes": 5,
     "sourceCatalogVersion": "1.0"
@@ -295,8 +295,8 @@
     "coverage": {
       "status": "LOW",
       "observed": 4,
-      "configured": 76,
-      "ratio": 0.053,
+      "configured": 77,
+      "ratio": 0.052,
       "freshRatio": 0.039
     },
     "confidence": {
@@ -373,11 +373,11 @@
         "executionTrackingBriefs": 0
       },
       "catalogCoverage": {
-        "configured": 76,
+        "configured": 77,
         "observed": 4,
         "fresh": 3,
-        "observationRatePct": 5.3,
-        "officialConfigured": 63,
+        "observationRatePct": 5.2,
+        "officialConfigured": 64,
         "officialObserved": 2,
         "officialFresh": 1,
         "targetPct": 90
@@ -1386,6 +1386,14 @@
           "accent": "#C88600"
         },
         {
+          "id": "oracle",
+          "company": "Oracle",
+          "chip": "OCI AI Infrastructure",
+          "pain": "Region Capacity·Fabric·Checkpoint·Memory/Storage TCO",
+          "memory": "HBM · AI-D · AI-N/eSSD",
+          "accent": "#B55235"
+        },
+        {
           "id": "meta",
           "company": "Meta",
           "chip": "MTIA",
@@ -2290,6 +2298,40 @@
                 "relationCount": 8
               },
               {
+                "id": "oracle",
+                "company": "Oracle",
+                "layer": "end-customer",
+                "role": "AI Chip Roadmap · Workload · Buying Criteria",
+                "portfolio": "OCI AI Infrastructure",
+                "position": "GPU Cloud 수요와 OpenAI 인프라 이벤트를 분리 추적",
+                "decision": "Region Ramp · Cluster Goodput · Cost/Task",
+                "pain": "Region Capacity·Fabric·Checkpoint·Memory/Storage TCO",
+                "memoryOption": "HBM · AI-D · AI-N/eSSD",
+                "buyingCriteria": [],
+                "baseline": [
+                  {
+                    "label": "PLATFORM",
+                    "value": "OCI AI Infrastructure · GPU Supercluster",
+                    "sourceId": "oracle-ai-infrastructure",
+                    "source": {
+                      "id": "oracle-ai-infrastructure",
+                      "name": "Oracle Cloud Infrastructure AI",
+                      "url": "https://www.oracle.com/artificial-intelligence/ai-infrastructure/"
+                    }
+                  }
+                ],
+                "stage": "고객 제안 단계 검토",
+                "demandClass": "gpu-cloud",
+                "servesAccounts": [],
+                "evidenceCount": 0,
+                "accent": "#B55235",
+                "source": {
+                  "name": "Oracle Cloud Infrastructure AI",
+                  "url": "https://www.oracle.com/artificial-intelligence/ai-infrastructure/"
+                },
+                "relationCount": 0
+              },
+              {
                 "id": "meta",
                 "company": "Meta",
                 "layer": "end-customer",
@@ -3060,6 +3102,40 @@
               "url": "https://aws.amazon.com/ai/machine-learning/trainium/"
             },
             "relationCount": 8
+          },
+          {
+            "id": "oracle",
+            "company": "Oracle",
+            "layer": "end-customer",
+            "role": "AI Chip Roadmap · Workload · Buying Criteria",
+            "portfolio": "OCI AI Infrastructure",
+            "position": "GPU Cloud 수요와 OpenAI 인프라 이벤트를 분리 추적",
+            "decision": "Region Ramp · Cluster Goodput · Cost/Task",
+            "pain": "Region Capacity·Fabric·Checkpoint·Memory/Storage TCO",
+            "memoryOption": "HBM · AI-D · AI-N/eSSD",
+            "buyingCriteria": [],
+            "baseline": [
+              {
+                "label": "PLATFORM",
+                "value": "OCI AI Infrastructure · GPU Supercluster",
+                "sourceId": "oracle-ai-infrastructure",
+                "source": {
+                  "id": "oracle-ai-infrastructure",
+                  "name": "Oracle Cloud Infrastructure AI",
+                  "url": "https://www.oracle.com/artificial-intelligence/ai-infrastructure/"
+                }
+              }
+            ],
+            "stage": "고객 제안 단계 검토",
+            "demandClass": "gpu-cloud",
+            "servesAccounts": [],
+            "evidenceCount": 0,
+            "accent": "#B55235",
+            "source": {
+              "name": "Oracle Cloud Infrastructure AI",
+              "url": "https://www.oracle.com/artificial-intelligence/ai-infrastructure/"
+            },
+            "relationCount": 0
           },
           {
             "id": "meta",

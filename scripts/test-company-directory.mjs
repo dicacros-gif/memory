@@ -16,7 +16,7 @@ const styles = read("assets/css/company-profile.css");
 const workflow = read(".github/workflows/pages.yml");
 const profiles = new Map((directory.profiles || []).map((profile) => [profile.id, profile]));
 const required = [
-  "nvidia", "google", "microsoft", "aws", "meta", "apple", "tesla", "openai", "anthropic", "spacex",
+  "nvidia", "google", "microsoft", "aws", "oracle", "meta", "apple", "tesla", "openai", "anthropic", "spacex",
   "broadcom", "marvell", "tsmc", "skhynix", "samsung", "micron", "cxmt",
   "sandisk", "solidigm", "kioxia", "intel", "imec", "ibm",
 ];

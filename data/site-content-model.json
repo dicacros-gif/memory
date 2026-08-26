@@ -24,10 +24,27 @@
     ]
   },
   "ecosystemExecution": {
-    "eyebrow": "AI ECOSYSTEM → MEMORY ACTION",
-    "title": "고객·실리콘·랙 플랫폼을 메모리 성장 과제로 연결",
-    "thesis": "빅테크 수요와 시스템 병목을 Custom HBM·AI-D·AI-N 실행안으로 전환",
+    "eyebrow": "AI INFRA STRATEGY · SIGNAL TO GROWTH",
+    "title": "AI 변화에서 고객 Pain·메모리 성장·경영진 실행까지",
+    "thesis": "Hyperscaler·AI Silicon·Server Platform을 Workload와 TCO로 분석해 Custom HBM·AI-D·AI-N·신규 Biz로 연결",
     "sourceIds": ["skhynix-dtf-2026", "skhynix-newsroom", "purestorage-skhynix-qlc"],
+    "decisionSpine": [
+      { "index": "01", "label": "AI MARKET SHIFT", "title": "모델·가속기·데이터센터 변화", "detail": "Training → Inference·Agentic·Physical AI" },
+      { "index": "02", "label": "ACCOUNT PAIN", "title": "사업 목표와 지배 병목", "detail": "GPU Idle·Data Movement·Power·TCO" },
+      { "index": "03", "label": "FULL-STACK DIAGNOSIS", "title": "Workload·HW/SW·Facility", "detail": "SLO·Trace·Architecture·Buying Criteria" },
+      { "index": "04", "label": "MEMORY REQUIREMENT", "title": "대역폭·용량·전력·Tier", "detail": "HBM·Host DRAM·CXL·eSSD 배치" },
+      { "index": "05", "label": "PORTFOLIO & NEW BIZ", "title": "제품·파트너·사업모델", "detail": "Custom HBM·AI-D·AI-N·Ecosystem" },
+      { "index": "06", "label": "EXECUTIVE ACTION", "title": "경제성·계약·90일 Gate", "detail": "TCO·ROI·LTA·Qualification·Capacity" }
+    ],
+    "decisionLenses": [
+      { "index": "01", "label": "MARKET", "question": "어디에서 수요가 이동하는가", "output": "Demand Shift" },
+      { "index": "02", "label": "CUSTOMER", "question": "무엇이 고객 성과를 막는가", "output": "Pain Map" },
+      { "index": "03", "label": "TECHNOLOGY", "question": "어떤 메모리 요구가 생기는가", "output": "Requirement" },
+      { "index": "04", "label": "COMPETITOR", "question": "누가 어떤 구조로 이기는가", "output": "Right to Win" },
+      { "index": "05", "label": "BUSINESS", "question": "어떤 제품·서비스로 수익화할 것인가", "output": "Business Model" },
+      { "index": "06", "label": "ECONOMICS", "question": "TCO·ROI·단위경제성이 성립하는가", "output": "Business Case" },
+      { "index": "07", "label": "EXECUTION", "question": "누가 언제 무엇을 검증할 것인가", "output": "90-Day Gate" }
+    ],
     "layers": [
       {
         "id": "ai-accounts",
@@ -42,6 +59,7 @@
           { "id": "google", "name": "Google", "focus": "TPU·Gemini·Pod 확장", "pain": "MXU Feeding·Pod Data Movement·전력", "action": "Custom HBM·AI-D·AI-N 계층 설계" },
           { "id": "microsoft", "name": "Microsoft", "focus": "Azure·Maia·Copilot", "pain": "추론 Token 경제성·지역 Capacity·전력", "action": "Custom HBM·AI-D·Rack TCO" },
           { "id": "aws", "name": "AWS", "focus": "Trainium·Anthropic Capacity", "pain": "MoE Routing·Collective·메모리 이동", "action": "HBM·AI-D·System Memory 공동 최적화" },
+          { "id": "oracle", "name": "Oracle", "focus": "OCI·GPU Supercluster·AI Services", "pain": "Region Capacity·Fabric·Checkpoint·TCO", "action": "HBM·AI-D·eSSD Reference Architecture" },
           { "id": "tesla", "name": "Tesla", "focus": "AI5·Dojo·차량·로봇", "pain": "저지연·저전력·학습 Data Loop", "action": "AI-D E·LPDDR·고용량 Training Tier" }
         ]
       },
@@ -64,7 +82,7 @@
         "title": "랙·데이터 티어 인증과 상업 확장",
         "decision": "Interoperability·Thermal·Density·Supply",
         "companies": [
-          { "id": "dell", "name": "Dell", "focus": "AI Server·Rack Platform", "pain": "전력·냉각·DIMM/eSSD 인증", "action": "CMM·DDR5·eSSD 풀스택 Qualification" },
+          { "id": "dell", "name": "Dell", "focus": "AI Server·Rack Roadmap·GPU/CPU Platform", "pain": "Memory 구성·Network·Power/Cooling·TCO", "action": "DDR5/CMM·eSSD·Rack Reference Qualification" },
           { "id": "hpe", "name": "HPE", "focus": "Enterprise AI System", "pain": "Rack 통합·가용성·운영 이식성", "action": "HBM·Server DRAM·eSSD Reference Stack" },
           { "id": "lenovo", "name": "Lenovo", "focus": "Global AI Server", "pain": "지역별 인증·Thermal·Supply", "action": "공통 BOM·Qualification 재사용" },
           { "id": "supermicro", "name": "Supermicro", "focus": "고밀도 GPU Rack", "pain": "Rapid Ramp·Liquid Cooling·Storage", "action": "Rack Cell Memory Validation" },
@@ -87,7 +105,7 @@
       { "index": "03", "title": "CXL MEMORY POOLING", "role": "Stranded Memory와 GPU 대기시간 축소", "portfolio": "CMM-Ax · Niagara · CMM-DDR5", "gate": "Latency · Pool Utilization · Interoperability" }
     ],
     "strategicProjects": [
-      { "index": "01", "title": "ACCOUNT MEMORY BLUEPRINT", "accounts": "Meta · OpenAI · Anthropic · Google · Microsoft · AWS · Tesla", "question": "고객별 지배 병목과 Buying Criteria는 무엇인가", "output": "Account Fact Pack · Pain Map · Tailored Portfolio", "gate": "Workload Trace · Owner · Qualification Path" },
+      { "index": "01", "title": "ACCOUNT MEMORY BLUEPRINT", "accounts": "Meta · OpenAI · Anthropic · Google · Microsoft · AWS · Oracle · Tesla", "question": "고객별 지배 병목과 Buying Criteria는 무엇인가", "output": "Account Fact Pack · Pain Map · Tailored Portfolio", "gate": "Workload Trace · Owner · Qualification Path" },
       { "index": "02", "title": "AGENTIC INFERENCE MEMORY SYSTEM", "accounts": "Model Company · CSP · NVIDIA · Broadcom · Marvell", "question": "KV Cache와 데이터 이동을 어떤 Tier로 재배치할 것인가", "output": "HBM/CXL/eSSD Placement · Runtime Benchmark · TCO", "gate": "TPOT · Goodput · Tokens/W · Cost/Task" },
       { "index": "03", "title": "CERTIFIED AI RACK & DATA TIER", "accounts": "Dell · HPE · Lenovo · Supermicro · Foxconn · QCT · Wiwynn · Pure Storage", "question": "공통 인증을 Rack과 고밀도 QLC Data Tier로 어떻게 확장할 것인가", "output": "Rack/Storage Reference Stack · Partner RACI · Capacity Plan", "gate": "Thermal · Reliability · Density · Supply · Commercial Ramp" }
     ]

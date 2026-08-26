@@ -79,13 +79,17 @@ assert.deepEqual(artifact.siteAutomation.sectionIds.slice().sort(), uniqueSectio
 assert.equal(new Set(Object.values(artifact.siteAutomation.bindingGroups).flat()).size, uniqueSectionIds.length);
 assert.equal(artifact.organizationOperatingModel.workstreams.length, 3);
 assert.equal(artifact.ecosystemExecution.layers.length, 3, "main strategy board must separate account, silicon, and rack-platform layers");
-assert.ok(artifact.ecosystemExecution.layers.reduce((sum, layer) => sum + layer.companies.length, 0) >= 17, "ecosystem board must cover priority AI accounts and OEM/ODM platforms");
+assert.deepEqual(artifact.ecosystemExecution.decisionSpine.map((item) => item.index), ["01", "02", "03", "04", "05", "06"], "strategy must connect market change to executive action in one direction");
+assert.deepEqual(artifact.ecosystemExecution.decisionLenses.map((item) => item.label), ["MARKET", "CUSTOMER", "TECHNOLOGY", "COMPETITOR", "BUSINESS", "ECONOMICS", "EXECUTION"], "decision lenses must remain MECE");
+assert.ok(artifact.ecosystemExecution.layers.reduce((sum, layer) => sum + layer.companies.length, 0) >= 19, "ecosystem board must cover priority AI accounts and OEM/ODM platforms");
+assert.ok(artifact.ecosystemExecution.layers.flatMap((layer) => layer.companies).some((company) => company.id === "oracle"), "Oracle AI infrastructure must remain in the account lens");
 assert.equal(artifact.ecosystemExecution.bottlenecks.length, 4, "customer pain must remain MECE");
 assert.deepEqual(artifact.ecosystemExecution.technologyResponses.map((item) => item.index), ["01", "02", "03"], "3D, PIM, and CXL responses must remain a three-part system");
 assert.equal(artifact.ecosystemExecution.strategicProjects.length, 3, "the main board must recommend exactly three executable projects");
 assert.ok(artifact.ecosystemExecution.sources.every((source) => /^https?:\/\//.test(source.url)), "ecosystem strategy must retain official source links");
-assert.match(index, /id="ecosystem-execution"[\s\S]*?id="ecosystemLayerFlow"[\s\S]*?id="ecosystemProjectGrid"/, "main page must expose the complete ecosystem execution board");
-assert.match(landing, /function renderEcosystemExecution[\s\S]*?data-ecosystem-company[\s\S]*?renderEcosystemExecution\(content\)/, "ecosystem board must hydrate from the atomic site-content artifact");
+assert.equal(artifact.ecosystemExecution.automation.translationMode, "market-to-pain-to-memory-to-economics-to-execution");
+assert.match(index, /id="ecosystem-execution"[\s\S]*?id="ecosystemDecisionSpine"[\s\S]*?id="ecosystemLayerFlow"[\s\S]*?id="ecosystemDecisionLenses"[\s\S]*?id="ecosystemProjectGrid"/, "main page must expose the complete ecosystem execution board");
+assert.match(landing, /function renderEcosystemExecution[\s\S]*?ecosystemDecisionSpine[\s\S]*?data-ecosystem-company[\s\S]*?ecosystemDecisionLenses[\s\S]*?renderEcosystemExecution\(content\)/, "ecosystem board must hydrate from the atomic site-content artifact");
 assert.match(landingStyles, /--surface:[^;]+;[\s\S]*?--ink:[^;]+;[\s\S]*?article:hover[\s\S]*?--surface:[^;]+;[\s\S]*?--ink:/, "hover inversion must flip surface and ink tokens together");
 assert.equal(artifact.organizationOperatingModel.decisionLoop.length, 5);
 assert.equal(Object.hasOwn(artifact.organizationOperatingModel, "capabilityProofs"), false);
@@ -199,7 +203,8 @@ assert.ok(
   ),
   "photonic computing must retain an explicit evidence class",
 );
-assert.equal(rebuilt.strategyBoard.customerPortfolio.accounts.length, 15);
+assert.equal(rebuilt.strategyBoard.customerPortfolio.accounts.length, 16);
+assert.ok(rebuilt.strategyBoard.customerPortfolio.accounts.some((item) => item.id === "oracle" && item.layer === "end-customer"));
 assert.deepEqual(rebuilt.strategyBoard.customerPortfolio.layerModel.summary.map((item) => item.id), ["asic-partner", "end-customer", "foundry-package"]);
 assert.ok(rebuilt.strategyBoard.customerPortfolio.layerModel.partnerRollups.some((item) => item.partnerId === "broadcom" && item.accountIds.includes("openai")));
 assert.ok(rebuilt.strategyBoard.customerPortfolio.accounts.some((item) => item.id === "marvell" && item.layer === "asic-partner"));
@@ -274,7 +279,7 @@ assert.match(accountViews, /sc-dynamics-memory[\s\S]*?sc-dynamics-action/, "memo
 assert.match(styles, /\.sc-dynamics-node\s*\{[\s\S]*?border-radius:\s*50%[\s\S]*?\.sc-dynamics-detail\s*\{/, "competitive dynamics must preserve the circular selectable map and detailed panel");
 assert.match(styles, /\.sc-dynamics-links path\.is-active\s*\{[\s\S]*?stroke-width:\s*3/, "selected relation paths must remain visually distinct");
 assert.equal(rebuilt.strategyBoard.customerPortfolio.contractGate.ruleId, "contract-structure");
-assert.equal(rebuilt.strategyBoard.customerPortfolio.focusAccounts.length, 8);
+assert.equal(rebuilt.strategyBoard.customerPortfolio.focusAccounts.length, 9);
 assert.ok(rebuilt.strategyBoard.customerPortfolio.focusAccounts.every((item) => ["UNVERIFIED", "REQUEST", "DESIGN", "QUALIFICATION", "PRODUCTION"].includes(item.stageLedger.stage)), "every account must expose an evidence-gated Custom HBM stage");
 assert.ok(rebuilt.strategyBoard.customerPortfolio.focusAccounts.filter((item) => item.stageLedger.stage === "UNVERIFIED").every((item) => item.stageLedger.label === "고객 제안 단계 검토"), "unverified stages must use audience-facing review language without crawl jargon");
 assert.equal(rebuilt.strategyBoard.customerPortfolio.pillars.length, 3);

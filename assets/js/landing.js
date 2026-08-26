@@ -3,7 +3,7 @@
 
   const BUSINESS_TITLE = "AI Infra Strategy · Customer Pain to Executive Action";
   const CONSOLE_HASH = "#console";
-  const CONSOLE_REVISION = "infra-009e8490d15f";
+  const CONSOLE_REVISION = "infra-7e0acc475381";
   const DECISION_CLIENT_PATH = "data/landing-decision-client.json";
   const SITE_CONTENT_PATH = "data/site-content-client.json";
   const SITE_CONTENT_EXTENDED_PATH = "data/site-content-extended-client.json";
@@ -901,6 +901,11 @@
     if (title && execution.title) title.textContent = execution.title;
     if (thesis && execution.thesis) thesis.textContent = execution.thesis;
 
+    const spineHost = document.querySelector("#ecosystemDecisionSpine");
+    if (spineHost && execution.decisionSpine?.length) {
+      spineHost.innerHTML = execution.decisionSpine.map((step) => `<li tabindex="0"><span>${escapeBusinessHTML(step.index || "")}</span><small>${escapeBusinessHTML(step.label || "")}</small><strong>${escapeBusinessHTML(step.title || "")}</strong><p>${escapeBusinessHTML(step.detail || "")}</p></li>`).join("");
+    }
+
     const layerHost = document.querySelector("#ecosystemLayerFlow");
     if (layerHost && execution.layers?.length) {
       layerHost.innerHTML = execution.layers.map((layer, layerIndex) => {
@@ -944,6 +949,11 @@
     const responseHost = document.querySelector("#ecosystemResponseFlow");
     if (responseHost && execution.technologyResponses?.length) {
       responseHost.innerHTML = execution.technologyResponses.map((item) => `<article tabindex="0"><span>${escapeBusinessHTML(item.index || "")}</span><h4>${escapeBusinessHTML(item.title || "")}</h4><p>${escapeBusinessHTML(item.role || "")}</p><strong>${escapeBusinessHTML(item.portfolio || "")}</strong><small>GATE · ${escapeBusinessHTML(item.gate || "")}</small></article>`).join("");
+    }
+
+    const lensHost = document.querySelector("#ecosystemDecisionLenses");
+    if (lensHost && execution.decisionLenses?.length) {
+      lensHost.innerHTML = execution.decisionLenses.map((lens) => `<li tabindex="0"><span>${escapeBusinessHTML(lens.index || "")}</span><div><small>${escapeBusinessHTML(lens.label || "")}</small><strong>${escapeBusinessHTML(lens.question || "")}</strong><b>${escapeBusinessHTML(lens.output || "")}</b></div></li>`).join("");
     }
 
     const projectHost = document.querySelector("#ecosystemProjectGrid");

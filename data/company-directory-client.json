@@ -3124,6 +3124,189 @@
       ]
     },
     {
+      "id": "oracle",
+      "name": "Oracle",
+      "nameKo": "Oracle",
+      "aliases": [
+        "Oracle",
+        "oracle cloud",
+        "oci",
+        "oracle cloud infrastructure",
+        "gpu supercluster"
+      ],
+      "autoLinkAliases": [
+        "Oracle"
+      ],
+      "layer": "end-customer",
+      "layerLabel": "Big Tech · Hyperscaler",
+      "group": "hyperscaler-asic",
+      "accent": "#B55235",
+      "summary": "GPU Cloud 수요와 OpenAI 인프라 이벤트를 분리 추적",
+      "officialUrl": "https://www.oracle.com/artificial-intelligence/ai-infrastructure/",
+      "verifiedAt": "",
+      "overview": {
+        "role": "AI Chip Roadmap · Workload · Buying Criteria",
+        "platform": "OCI AI Infrastructure",
+        "stage": {
+          "label": "공식 서비스"
+        },
+        "relationship": "GPU Cloud 수요와 OpenAI 인프라 이벤트를 분리 추적"
+      },
+      "accountBrief": {
+        "mandate": "고객 AI Chip Roadmap과 Workload 변화를 Memory Requirement로 변환",
+        "businessStatus": [
+          {
+            "label": "ACCOUNT ROLE",
+            "value": "Big Tech · Hyperscaler"
+          },
+          {
+            "label": "CHIP / PLATFORM",
+            "value": "OCI AI Infrastructure"
+          },
+          {
+            "label": "MARKET POSITION",
+            "value": "GPU Cloud 수요와 OpenAI 인프라 이벤트를 분리 추적"
+          },
+          {
+            "label": "EXECUTION STAGE",
+            "value": "공식 서비스"
+          }
+        ],
+        "decisionFlow": [
+          {
+            "index": "01",
+            "label": "ACCOUNT",
+            "value": "OCI AI Infrastructure"
+          },
+          {
+            "index": "02",
+            "label": "PAIN",
+            "value": "Region Capacity·Fabric·Checkpoint·Memory/Storage TCO"
+          },
+          {
+            "index": "03",
+            "label": "NEXT MEMORY",
+            "value": "HBM · AI-D · AI-N/eSSD"
+          },
+          {
+            "index": "04",
+            "label": "DEAL GATE",
+            "value": "Region Ramp · Cluster Goodput · Cost/Task"
+          }
+        ],
+        "organizationRaci": [
+          {
+            "owner": "GSM",
+            "role": "Account Intelligence",
+            "action": "GPU Cloud 수요와 OpenAI 인프라 이벤트를 분리 추적"
+          },
+          {
+            "owner": "HBM BUSINESS",
+            "role": "Qualification & Capacity",
+            "action": "HBM · AI-D · AI-N/eSSD · Region Ramp · Cluster Goodput · Cost/Task · OCI AI Infrastructure · GPU Supercluster"
+          },
+          {
+            "owner": "MSR",
+            "role": "Next Memory Pathfinding",
+            "action": "HBM · AI-D · AI-N/eSSD · OCI AI Infrastructure"
+          }
+        ],
+        "priorities": [
+          "Region Capacity·Fabric·Checkpoint·Memory/Storage TCO",
+          "HBM · AI-D · AI-N/eSSD",
+          "Region Ramp · Cluster Goodput · Cost/Task"
+        ]
+      },
+      "memoryLens": {
+        "pain": "Region Capacity·Fabric·Checkpoint·Memory/Storage TCO",
+        "proposal": "HBM · AI-D · AI-N/eSSD",
+        "gate": "Region Ramp · Cluster Goodput · Cost/Task",
+        "buyingCriteria": [],
+        "baseline": [
+          {
+            "label": "PLATFORM",
+            "value": "OCI AI Infrastructure · GPU Supercluster",
+            "sourceId": "oracle-ai-infrastructure"
+          }
+        ],
+        "painAxes": [],
+        "supplierRelations": [],
+        "decisionFocus": []
+      },
+      "chipLens": {
+        "primaryChip": "OCI AI Infrastructure",
+        "portfolio": [
+          {
+            "name": "OCI AI Infrastructure",
+            "type": "GPU CLOUD · AI SUPERCLUSTER",
+            "workload": "Training · Inference · Distributed AI",
+            "publicSpec": "GPU Supercluster · RDMA Cluster Network",
+            "memoryPain": "Region Capacity · Fabric · Checkpoint · Memory/Storage TCO",
+            "memoryProposal": "HBM · AI-D · AI-N/eSSD Reference Architecture",
+            "evidenceLabel": "OFFICIAL PLATFORM",
+            "sourceId": "oracle-ai-infrastructure"
+          }
+        ],
+        "generations": [],
+        "generationProgression": {
+          "status": "insufficient",
+          "generations": []
+        },
+        "partner": null,
+        "servesAccounts": []
+      },
+      "dataCenterLens": {
+        "demandClass": "gpu-cloud",
+        "workloads": [
+          "Training · Inference · Distributed AI"
+        ],
+        "systemBottleneck": "Region Capacity·Fabric·Checkpoint·Memory/Storage TCO",
+        "architectureAction": "HBM · AI-D · AI-N/eSSD",
+        "executionGate": "Region Ramp · Cluster Goodput · Cost/Task",
+        "operatingQuestion": "Region Ramp · Cluster Goodput · Cost/Task"
+      },
+      "executiveLens": {
+        "question": "Region Ramp · Cluster Goodput · Cost/Task",
+        "painSignals": [],
+        "riskSignals": [],
+        "recommendedProducts": [],
+        "actions": [
+          {
+            "phase": "0–30D",
+            "title": "Requirement Lock",
+            "detail": "PLATFORM"
+          },
+          {
+            "phase": "31–60D",
+            "title": "Architecture / TCO",
+            "detail": "HBM · AI-D · AI-N/eSSD"
+          },
+          {
+            "phase": "61–90D",
+            "title": "Qualification / Deal",
+            "detail": "Region Ramp · Cluster Goodput · Cost/Task"
+          }
+        ]
+      },
+      "ecosystem": {
+        "partner": null,
+        "servesAccounts": [],
+        "supplierRelations": []
+      },
+      "organization": [],
+      "priorities": [],
+      "evidence": [],
+      "sources": [
+        {
+          "id": "oracle-ai-infrastructure",
+          "name": "Oracle Cloud Infrastructure AI",
+          "url": "https://www.oracle.com/artificial-intelligence/ai-infrastructure/",
+          "sourceClass": "official",
+          "tier": "primary-customer"
+        }
+      ]
+    },
+    {
       "id": "spacex",
       "name": "SpaceX",
       "nameKo": "SpaceX",

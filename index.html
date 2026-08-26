@@ -131,7 +131,7 @@
     (() => {
       if (!location.hash.startsWith("#console")) return;
       document.documentElement.classList.add("console-entry");
-      const revision = "infra-009e8490d15f";
+      const revision = "infra-7e0acc475381";
       const assets = [
         ["consoleStylesPreload", "style", `assets/css/styles.min.css?v=${revision}`, "high"],
         ["consoleAppPreload", "script", `assets/js/app.min.js?v=${revision}`, "high"],
@@ -148,7 +148,7 @@
       }
     })();
   </script>
-  <link rel="stylesheet" href="assets/css/landing.min.css?v=infra-009e8490d15f" />
+  <link rel="stylesheet" href="assets/css/landing.min.css?v=infra-7e0acc475381" />
 </head>
 <body class="landing-mode">
   <h1 class="site-document-title">AI Infra Strategy</h1>
@@ -343,6 +343,8 @@
             <p id="ecosystemExecutionThesis">빅테크 수요와 시스템 병목을 Custom HBM·AI-D·AI-N 실행안으로 전환</p>
           </header>
 
+          <ol class="ecosystem-decision-spine" id="ecosystemDecisionSpine" aria-label="AI 변화에서 경영진 실행까지 여섯 단계"></ol>
+
           <div class="ecosystem-layer-flow" id="ecosystemLayerFlow" aria-label="AI 생태계 세 계층"></div>
 
           <section class="ecosystem-pain-system" aria-labelledby="ecosystemPainTitle">
@@ -353,6 +355,11 @@
           <section class="ecosystem-response-system" aria-labelledby="ecosystemResponseTitle">
             <header><span>THREE TECHNOLOGY RESPONSES</span><h3 id="ecosystemResponseTitle">메모리 구조 혁신 → 고객 성과 → 실행 Gate</h3></header>
             <div id="ecosystemResponseFlow"></div>
+          </section>
+
+          <section class="ecosystem-lens-system" aria-labelledby="ecosystemLensTitle">
+            <header><span>SEVEN DECISION LENSES</span><h3 id="ecosystemLensTitle">시장 신호를 사업성과 실행 조건으로 압축</h3></header>
+            <ol id="ecosystemDecisionLenses"></ol>
           </section>
 
           <section class="ecosystem-project-system" aria-labelledby="ecosystemProjectTitle">
@@ -2023,7 +2030,7 @@
   <div class="qa-answer" id="qaAnswer" hidden></div>
   <div class="inspector" id="inspector" hidden></div>
   <div class="backdrop" id="backdrop"></div>
-  <script src="assets/js/company-profile.min.js?v=infra-009e8490d15f" defer></script>
-  <script src="assets/js/landing.min.js?v=infra-009e8490d15f" defer></script>
+  <script src="assets/js/company-profile.min.js?v=infra-7e0acc475381" defer></script>
+  <script src="assets/js/landing.min.js?v=infra-7e0acc475381" defer></script>
 </body>
 </html>
