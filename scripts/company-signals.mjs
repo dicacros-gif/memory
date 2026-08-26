@@ -103,27 +103,28 @@ function aliasMatcher(account = {}) {
   return aliases.length ? new Set(aliases) : null;
 }
 
-<<<<<<< Updated upstream
 function mentionsAlias(haystack, alias) {
-  if (!/^[a-z0-9 .&/+_-]+$/.test(alias)) return haystack.includes(alias);
+  // "775 마이크론" is a unit, not Micron: an alias directly preceded by a
+  // number is a measurement and does not count as a mention of the company.
+  const notAMeasurement = (at) => !/\d[\s\-–]?$/.test(haystack.slice(Math.max(0, at - 6), at));
+  if (!/^[a-z0-9 .&/+_-]+$/.test(alias)) {
+    let at = haystack.indexOf(alias);
+    while (at >= 0) {
+      if (notAMeasurement(at)) return true;
+      at = haystack.indexOf(alias, at + alias.length);
+    }
+    return false;
+  }
   const phrase = escapeRegExp(alias).replace(/\\ /g, "\\s+");
-  return new RegExp(`(^|[^a-z0-9])${phrase}(?=$|[^a-z0-9])`, "i").test(haystack);
+  const pattern = new RegExp(`(^|[^a-z0-9])${phrase}(?=$|[^a-z0-9])`, "gi");
+  let match;
+  while ((match = pattern.exec(haystack))) {
+    if (notAMeasurement(match.index + (match[1] || "").length)) return true;
+  }
+  return false;
 }
 
 const mentions = (haystack, aliases) => [...aliases].some((alias) => mentionsAlias(haystack, alias));
-=======
-// "775 마이크론" is a unit, not Micron. An alias directly preceded by a number
-// is a measurement, so it does not count as a mention of the company.
-const mentions = (haystack, aliases) => [...aliases].some((alias) => {
-  let at = haystack.indexOf(alias);
-  while (at >= 0) {
-    const before = haystack.slice(Math.max(0, at - 6), at);
-    if (!/\d[\s\-–]?$/.test(before)) return true;
-    at = haystack.indexOf(alias, at + alias.length);
-  }
-  return false;
-});
->>>>>>> Stashed changes
 
 function extractAmounts(text) {
   AMOUNT.lastIndex = 0;
@@ -257,16 +258,10 @@ export function buildCompanySignals({
     if (!stores.has(id)) {
       const prior = carried[id] || {};
       stores.set(id, {
-<<<<<<< Updated upstream
         capex: new Map((prior.capex || []).map((row) => [row.key, hydratePriorRow(row)])),
         quotes: new Map((prior.quotes || []).map((row) => [row.key, hydratePriorRow(row)])),
         tech: new Map((prior.tech || []).map((row) => [row.key, hydratePriorRow(row)])),
-=======
-        capex: new Map((prior.capex || []).map((row) => [row.key, { ...row }])),
-        quotes: new Map((prior.quotes || []).map((row) => [row.key, { ...row }])),
-        tech: new Map((prior.tech || []).map((row) => [row.key, { ...row }])),
-        stances: new Map((prior.stances || []).map((row) => [row.key, { ...row }])),
->>>>>>> Stashed changes
+        stances: new Map((prior.stances || []).map((row) => [row.key, hydratePriorRow(row)])),
       });
     }
     return stores.get(id);
@@ -367,15 +362,12 @@ export function buildCompanySignals({
     generatedAt,
     windowDays,
     addedThisRun: added,
-<<<<<<< Updated upstream
     coverageThisRun,
-=======
     // A term repeated across items is worth a look; one sighting is noise.
     trendCandidates: [...trendStore.values()]
       .filter((row) => row.seenCount >= 2)
       .sort((a, b) => b.seenCount - a.seenCount || String(b.lastSeen).localeCompare(String(a.lastSeen)))
       .slice(0, 24),
->>>>>>> Stashed changes
     companies,
   };
 }

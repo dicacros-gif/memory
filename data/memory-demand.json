@@ -6,7 +6,7 @@
   "coverage": {
     "companiesObserved": 15,
     "companiesWithDerivedDemand": 13,
-    "derivedRequirements": 40,
+    "derivedRequirements": 37,
     "rules": 32,
     "unmappedTechnologies": []
   },
@@ -363,45 +363,6 @@
           "url": "https://www.semiconductor-digest.com/primemas-at-fms-2026-cxl-full-stack-products-and-micron-collaboration-on-the-abaco-project/"
         },
         {
-          "technology": "HBM4E",
-          "systemShift": "세대 내 개선으로 사양 확정 시점이 앞당겨짐",
-          "memoryNeed": "Base Die·Bonding·Package Capacity를 사양과 동시에 잠금",
-          "productAxis": "HBM",
-          "stage": "SCALE",
-          "gate": "Thermal · Yield · Qualification Schedule",
-          "hold": "관측",
-          "firstSeen": "2026-08-24",
-          "lastSeen": "2026-08-24",
-          "evidence": "Hot Chips 2026: SKHY는 AI 메모리가 775 마이크론 천장에 도달함에 따라 HBM5에 하이브리드 본딩을 추진합니다. 회사는 Nvidia Rubin을 통해 MR-MUF를 확장합니다.",
-          "url": "https://www.tomshardware.com/tech-industry/semiconductors/sk-hynix-says-hybrid-bonding-wont-be-ready-for-hbm4e-as-ai-memory-runs-into-a-775-micron-ceiling"
-        },
-        {
-          "technology": "HBM5",
-          "systemShift": "차차세대 논의가 시작되며 구조 선택지가 다시 열림",
-          "memoryNeed": "적층 구조와 인터페이스를 고객 로드맵과 함께 선정",
-          "productAxis": "HBM",
-          "stage": "EXPLORE",
-          "gate": "Architecture Freeze 전 공동 정의",
-          "hold": "관측",
-          "firstSeen": "2026-08-24",
-          "lastSeen": "2026-08-24",
-          "evidence": "Hot Chips 2026: SKHY는 AI 메모리가 775 마이크론 천장에 도달함에 따라 HBM5에 하이브리드 본딩을 추진합니다. 회사는 Nvidia Rubin을 통해 MR-MUF를 확장합니다.",
-          "url": "https://www.tomshardware.com/tech-industry/semiconductors/sk-hynix-says-hybrid-bonding-wont-be-ready-for-hbm4e-as-ai-memory-runs-into-a-775-micron-ceiling"
-        },
-        {
-          "technology": "Hybrid Bonding",
-          "systemShift": "적층 높이가 올라가며 열과 수율이 동시 설계 변수로 이동",
-          "memoryNeed": "본딩 방식과 열 설계를 사양 단계에서 함께 결정",
-          "productAxis": "HBM",
-          "stage": "QUALIFY",
-          "gate": "Thermal · Yield",
-          "hold": "관측",
-          "firstSeen": "2026-08-24",
-          "lastSeen": "2026-08-24",
-          "evidence": "Hot Chips 2026: SKHY는 AI 메모리가 775 마이크론 천장에 도달함에 따라 HBM5에 하이브리드 본딩을 추진합니다. 회사는 Nvidia Rubin을 통해 MR-MUF를 확장합니다.",
-          "url": "https://www.tomshardware.com/tech-industry/semiconductors/sk-hynix-says-hybrid-bonding-wont-be-ready-for-hbm4e-as-ai-memory-runs-into-a-775-micron-ceiling"
-        },
-        {
           "technology": "TLC eSSD",
           "systemShift": "Retrieval Hot Path의 무작위 읽기가 병목",
           "memoryNeed": "높은 QPS와 낮은 P99를 지키는 저장 계층",
@@ -604,11 +565,7 @@
         "samsung",
         "skhynix"
       ],
-<<<<<<< Updated upstream
       "weight": 13
-=======
-      "weight": 58
->>>>>>> Stashed changes
     },
     {
       "memoryNeed": "대역폭·용량·열·수율을 같은 일정으로 동시 확보",
@@ -627,11 +584,7 @@
         "openai",
         "oracle"
       ],
-<<<<<<< Updated upstream
       "weight": 7
-=======
-      "weight": 46
->>>>>>> Stashed changes
     },
     {
       "memoryNeed": "Base Die·Bonding·Package Capacity를 사양과 동시에 잠금",
@@ -641,59 +594,14 @@
       "technologies": [
         "HBM4E"
       ],
-      "accountCount": 5,
+      "accountCount": 4,
       "accounts": [
         "intel",
-        "micron",
         "nvidia",
         "samsung",
         "skhynix"
       ],
-<<<<<<< Updated upstream
-      "weight": 6
-=======
-      "weight": 33
->>>>>>> Stashed changes
-    },
-    {
-      "memoryNeed": "적층 구조와 인터페이스를 고객 로드맵과 함께 선정",
-      "productAxis": "HBM",
-      "stage": "EXPLORE",
-      "gate": "Architecture Freeze 전 공동 정의",
-      "technologies": [
-        "HBM5"
-      ],
-      "accountCount": 3,
-      "accounts": [
-        "micron",
-        "nvidia",
-        "skhynix"
-      ],
-<<<<<<< Updated upstream
-      "weight": 3
-=======
-      "weight": 19
->>>>>>> Stashed changes
-    },
-    {
-      "memoryNeed": "본딩 방식과 열 설계를 사양 단계에서 함께 결정",
-      "productAxis": "HBM",
-      "stage": "QUALIFY",
-      "gate": "Thermal · Yield",
-      "technologies": [
-        "Hybrid Bonding"
-      ],
-      "accountCount": 3,
-      "accounts": [
-        "micron",
-        "nvidia",
-        "skhynix"
-      ],
-<<<<<<< Updated upstream
-      "weight": 3
-=======
-      "weight": 19
->>>>>>> Stashed changes
+      "weight": 5
     },
     {
       "memoryNeed": "Base Die 단계부터 고객 사양에 맞춘 공동 설계",
@@ -709,11 +617,7 @@
         "samsung",
         "skhynix"
       ],
-<<<<<<< Updated upstream
       "weight": 3
-=======
-      "weight": 18
->>>>>>> Stashed changes
     },
     {
       "memoryNeed": "저전력 우선의 메모리 구성",
@@ -743,11 +647,37 @@
         "cxmt",
         "tsmc"
       ],
-<<<<<<< Updated upstream
       "weight": 2
-=======
-      "weight": 14
->>>>>>> Stashed changes
+    },
+    {
+      "memoryNeed": "적층 구조와 인터페이스를 고객 로드맵과 함께 선정",
+      "productAxis": "HBM",
+      "stage": "EXPLORE",
+      "gate": "Architecture Freeze 전 공동 정의",
+      "technologies": [
+        "HBM5"
+      ],
+      "accountCount": 2,
+      "accounts": [
+        "nvidia",
+        "skhynix"
+      ],
+      "weight": 2
+    },
+    {
+      "memoryNeed": "본딩 방식과 열 설계를 사양 단계에서 함께 결정",
+      "productAxis": "HBM",
+      "stage": "QUALIFY",
+      "gate": "Thermal · Yield",
+      "technologies": [
+        "Hybrid Bonding"
+      ],
+      "accountCount": 2,
+      "accounts": [
+        "nvidia",
+        "skhynix"
+      ],
+      "weight": 2
     },
     {
       "memoryNeed": "풀링 가능한 공유 용량 계층과 낮은 지연",
@@ -762,41 +692,7 @@
         "marvell",
         "micron"
       ],
-<<<<<<< Updated upstream
       "weight": 2
-=======
-      "weight": 14
-    },
-    {
-      "memoryNeed": "Hot·Warm·Cold 수명별 용량 계층",
-      "productAxis": "AI-NAND",
-      "stage": "POC",
-      "gate": "Lighthouse Workload · 상호운용성 · Cost/Query",
-      "technologies": [
-        "HBF"
-      ],
-      "accountCount": 2,
-      "accounts": [
-        "intel",
-        "skhynix"
-      ],
-      "weight": 12
-    },
-    {
-      "memoryNeed": "Memory와 Fabric을 한 아키텍처에서 함께 비교",
-      "productAxis": "System",
-      "stage": "SELECTIVE",
-      "gate": "Goodput/MW · Bytes/Task",
-      "technologies": [
-        "CPO"
-      ],
-      "accountCount": 2,
-      "accounts": [
-        "intel",
-        "skhynix"
-      ],
-      "weight": 12
->>>>>>> Stashed changes
     },
     {
       "memoryNeed": "랙 레퍼런스 단위의 인증과 공급",
