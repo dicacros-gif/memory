@@ -119,6 +119,37 @@ const programMatrix = (frame) => `
       </div>`).join("")}
   </div>`;
 
+// A plain column/row table for the comparisons that only work side by side —
+// workload against bottleneck, product axis against gate. The first cell leads
+// the row, and every cell carries its column label for the stacked layout.
+const matrix = (frame) => `
+  ${frame.note ? `<p class="mbb-note">${esc(frame.note)}</p>` : ""}
+  <div class="mbb-matrix" role="table" aria-label="${esc(frame.kicker)}">
+    <div class="mbb-matrix-head" role="row">${frame.columns.map((c) => `<span role="columnheader">${esc(c)}</span>`).join("")}</div>
+    ${frame.rows.map((row) => `
+      <div class="mbb-matrix-row is-flex" role="row">
+        ${row.map((cell, i) => (i === 0
+          ? `<strong role="cell" data-label="${esc(frame.columns[i])}">${esc(cell)}</strong>`
+          : `<span role="cell"${i === row.length - 1 ? ' class="mbb-entry"' : ""} data-label="${esc(frame.columns[i] || "")}">${esc(cell)}</span>`)).join("")}
+      </div>`).join("")}
+  </div>`;
+
+// Cards whose rows are the same labelled sequence — fact, implication,
+// decision, gate — so the reader compares position to position across cards.
+const recordCards = (frame) => `
+  <div class="mbb-records">
+    ${frame.cards.map((card) => `
+      <article class="mbb-record" data-accent="${esc(card.accent)}">
+        <header>
+          <p class="mbb-index">${esc(card.index)}</p>
+          <strong>${esc(card.title)}</strong>
+        </header>
+        <dl>
+          ${card.entries.map((entry, i) => `<div><dt>${esc(frame.labels[i] || "")}</dt><dd${i === card.entries.length - 1 ? ' class="mbb-record-gate"' : ""}>${esc(entry)}</dd></div>`).join("")}
+        </dl>
+      </article>`).join("")}
+  </div>`;
+
 const chevronRail = (frame) => `
   <ol class="mbb-rail${frame.dense ? " is-dense" : ""}">
     ${frame.cards.map((card, i) => `
@@ -314,6 +345,8 @@ const SHAPES = {
   cascade,
   "metric-ladder": metricLadder,
   "capital-board": capitalBoard,
+  matrix,
+  "record-cards": recordCards,
   "account-play-board": accountPlayBoard,
   "worked-example": workedExample,
   "case-board": caseBoard,

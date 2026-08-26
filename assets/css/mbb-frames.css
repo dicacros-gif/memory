@@ -731,6 +731,55 @@
 .mbb-matrix-row:hover .mbb-designer { color: #00655e; }
 .mbb-matrix-row:hover .mbb-entry { color: #1f4fae; }
 
+/* A generic matrix sizes its columns evenly instead of using the fixed
+   programme layout above. Auto-flow rather than auto-fit, so the track count
+   follows the cells instead of generating empty tracks to fill the row. */
+.mbb-matrix-row.is-flex,
+.mbb-matrix:has(.is-flex) .mbb-matrix-head {
+  grid-template-columns: none;
+  grid-auto-flow: column;
+  grid-auto-columns: minmax(0, 1fr);
+}
+
+/* ------------------------------------------------------------- records */
+
+.mbb-records {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(242px, 1fr));
+  gap: clamp(10px, 1.1vw, 16px);
+}
+
+.mbb-record {
+  display: grid;
+  align-content: start;
+  gap: 10px;
+  margin: 0;
+  padding: 18px;
+  background: #0d3543;
+  border: 1px solid #1d4d5f;
+  border-top: 3px solid var(--mbb-accent, #5ed8c6);
+  color: #dbe7ea;
+  clip-path: polygon(0 0, 100% 0, 100% calc(100% - 14px), calc(100% - 14px) 100%, 0 100%);
+  transition: background-color 120ms linear, color 120ms linear, border-color 120ms linear;
+}
+
+.mbb-record header { display: grid; gap: 4px; }
+.mbb-record .mbb-index { color: var(--mbb-accent, #5ed8c6); }
+.mbb-record strong { color: #ffffff; font: 800 14.5px/1.34 var(--display, sans-serif); }
+
+.mbb-record dl { display: grid; gap: 9px; margin: 0; padding-top: 10px; border-top: 1px solid #1d4d5f; }
+.mbb-record dt { color: #9fb6bd; font: 900 9.5px/1.3 var(--mono, monospace); letter-spacing: .12em; }
+.mbb-record dd { margin: 2px 0 0; color: #dbe7ea; font-size: 12.3px; line-height: 1.55; }
+.mbb-record-gate { color: var(--mbb-accent, #5ed8c6); font-weight: 700; }
+
+.mbb-record:hover,
+.mbb-record:focus-within { background: #f3f1eb; border-color: #82969b; color: #102635; }
+.mbb-record:hover strong { color: #071f2d; }
+.mbb-record:hover .mbb-index { color: var(--mbb-accent-ink, #00655e); }
+.mbb-record:hover dt { color: #3b5360; }
+.mbb-record:hover dd { color: #102635; }
+.mbb-record:hover .mbb-record-gate { color: var(--mbb-accent-ink, #00655e); }
+
 /* --------------------------------------------------------- chevron rail */
 
 .mbb-rail {
@@ -1020,6 +1069,7 @@
   .mbb-play-head { display: none; }
   .mbb-matrix-row,
   .mbb-play { grid-template-columns: minmax(0, 1fr); }
+  .mbb-matrix-row.is-flex { grid-auto-flow: row; grid-auto-columns: minmax(0, 1fr); }
   .mbb-matrix-row > *::before,
   .mbb-play > *:not(.mbb-play-account)::before {
     display: block;
