@@ -266,7 +266,7 @@
 
   const hasTracking = (profile = {}) => Boolean(
     profile.signals?.capex?.length || profile.signals?.tech?.length
-    || profile.signals?.quotes?.length || profile.capitalPlan?.quotes?.length
+    || profile.signals?.quotes?.length || profile.signals?.stances?.length || profile.capitalPlan?.quotes?.length
     || profile.derivedDemand?.length,
   );
 
@@ -286,6 +286,20 @@
             <dl><div><dt>제품 축</dt><dd>${escapeHTML(row.productAxis)}</dd></div><div><dt>Gate</dt><dd>${escapeHTML(row.gate)}</dd></div></dl>
           </li>`).join("")}</ul>
       </section>`;
+  }
+
+  // "EXECUTION STAGE · 공식 원문 모니터링" told the reader nothing about the
+  // company. What earns that slot is the axis the feed says is actually moving,
+  // derived rather than authored — and when nothing is derived the slot is
+  // dropped rather than filled with a status word.
+  function movingAxis(profile = {}) {
+    const derived = (profile.derivedDemand || [])[0];
+    if (derived) return { label: "지금 움직이는 축", value: `${derived.technology} → ${derived.memoryNeed}` };
+    const stance = (profile.signals?.stances || [])[0];
+    if (stance) return { label: "최근 공개 입장", value: stance.statement };
+    const tech = (profile.signals?.tech || [])[0];
+    if (tech) return { label: "반복 관측 기술", value: tech.label };
+    return null;
   }
 
   function trackingLensHTML(profile = {}) {
@@ -316,6 +330,20 @@
           </li>`).join("")}</ul>
       </section>` : "";
 
+    // A headline where the company is the subject of a stated verb is an
+    // attributable position even without quotation marks, and the feed carries
+    // far more of these than it carries quotes.
+    const stances = signals.stances || [];
+    const stanceBlock = stances.length ? `
+      <section class="company-track-block">
+        <header><small>PUBLIC POSITION · 회사가 주어인 발표</small><h4>무엇을 하겠다고 밝혔는가</h4></header>
+        <ul class="company-track-quotes">${stances.map((row) => `
+          <li>
+            <blockquote>${escapeHTML(row.statement)}</blockquote>
+            <p><b>${escapeHTML(row.verb)}</b>${signalLink(row, row.source || "원문")}<em>${escapeHTML(row.asOf || "")}</em></p>
+          </li>`).join("")}</ul>
+      </section>` : "";
+
     const quoteBlock = quotes.length ? `
       <section class="company-track-block">
         <header><small>EXECUTIVE VIEW · 직접 발언</small><h4>경영진이 무엇을 문제로 지목했는가</h4></header>
@@ -338,10 +366,10 @@
       </section>` : "";
 
     const derived = derivedDemandHTML(profile);
-    if (!derived && !capexBlock && !quoteBlock && !techBlock) return "";
+    if (!derived && !capexBlock && !stanceBlock && !quoteBlock && !techBlock) return "";
     return `
       <section class="company-lens-panel" data-company-lens-panel="tracking" hidden>
-        <div class="company-tracking">${derived}${capexBlock}${quoteBlock}${techBlock}</div>
+        <div class="company-tracking">${derived}${capexBlock}${stanceBlock}${quoteBlock}${techBlock}</div>
       </section>`;
   }
 
@@ -424,7 +452,7 @@
   }
 
   function renderDialog(profile = {}) {
-    const stage = profile.overview?.stage?.label || "공개 확인 필요";
+    const axis = movingAxis(profile);
     dialog.innerHTML = `
       <div class="company-profile-shell" style="--company-accent:${escapeHTML(profile.accent || "#0b7189")}">
         <header class="company-profile-head">
@@ -433,10 +461,10 @@
           <button type="button" class="company-profile-close" data-company-close aria-label="기업 정보 닫기">×</button>
         </header>
         <div class="company-profile-executive-strip">
-          <div><small>ROLE</small><strong>${escapeHTML(profile.overview?.role || "공개 확인 필요")}</strong></div>
-          <div><small>CHIP / PLATFORM</small><strong>${escapeHTML(profile.overview?.platform || "공개 확인 필요")}</strong></div>
-          <div><small>EXECUTION STAGE</small><strong>${escapeHTML(stage)}</strong></div>
-          <div><small>MEMORY QUESTION</small><strong>${escapeHTML(profile.dataCenterLens?.operatingQuestion || profile.memoryLens?.gate || "공개 확인 필요")}</strong></div>
+          ${profile.overview?.role ? `<div><small>ROLE</small><strong>${escapeHTML(profile.overview.role)}</strong></div>` : ""}
+          ${profile.overview?.platform ? `<div><small>CHIP / PLATFORM</small><strong>${escapeHTML(profile.overview.platform)}</strong></div>` : ""}
+          ${axis ? `<div><small>${escapeHTML(axis.label)}</small><strong>${escapeHTML(axis.value)}</strong></div>` : ""}
+          ${(profile.dataCenterLens?.operatingQuestion || profile.memoryLens?.gate) ? `<div><small>MEMORY QUESTION</small><strong>${escapeHTML(profile.dataCenterLens?.operatingQuestion || profile.memoryLens?.gate)}</strong></div>` : ""}
         </div>
         <nav class="company-profile-tabs" role="tablist" aria-label="기업 분석 관점">
           <button type="button" data-company-lens="overview" role="tab">Account Brief</button>

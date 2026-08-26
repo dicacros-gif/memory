@@ -16,6 +16,7 @@ const base = script?.src || location.href;
 const dataUrl = new URL(`../../data/mbb-frames.json?v=${encodeURIComponent(revision)}`, base);
 const capitalUrl = new URL(`../../data/capital-plans.json?v=${encodeURIComponent(revision)}`, base);
 const demandUrl = new URL(`../../data/memory-demand.json?v=${encodeURIComponent(revision)}`, base);
+const signalsUrl = new URL(`../../data/company-signals.json?v=${encodeURIComponent(revision)}`, base);
 const siteContentUrl = new URL(`../../data/site-content-client.json?v=${encodeURIComponent(revision)}`, base);
 const styleUrl = new URL(`../css/mbb-frames.min.css?v=${encodeURIComponent(revision)}`, base);
 
@@ -451,7 +452,30 @@ const derivedDemandBoard = (frame) => {
     </ol>`;
 };
 
+// Terms the feed keeps using that the site's own rule table does not contain.
+// These are candidates for a human to judge, not findings, and the board says so
+// — the value is that nobody had to think of them first.
+const trendRadar = (frame) => {
+  const rows = frame.__candidates || [];
+  if (!rows.length) return "";
+  return `
+    <ol class="mbb-radar">
+      ${rows.map((row, i) => `
+        <li class="mbb-radar-item" data-accent="${accentAt(i)}">
+          <div class="mbb-radar-head">
+            <strong>${esc(row.term)}</strong>
+            <span>${esc(row.seenCount >= 5 ? "지속 등장" : "반복 등장")}</span>
+          </div>
+          ${row.url
+            ? `<a href="${esc(safeHref(row.url))}" target="_blank" rel="noopener noreferrer">${esc(row.headline)}</a>`
+            : `<p>${esc(row.headline)}</p>`}
+          <em>${esc(row.firstSeen && row.firstSeen !== row.lastSeen ? `${row.firstSeen} → ${row.lastSeen}` : row.lastSeen || "")}</em>
+        </li>`).join("")}
+    </ol>`;
+};
+
 const SHAPES = {
+  "trend-radar": trendRadar,
   "derived-demand": derivedDemandBoard,
   "economics-calculator": economicsCalculator,
   "mandate-fanout": mandateFanout,
@@ -717,6 +741,18 @@ async function boot() {
         if (frame.type !== "derived-demand") continue;
         frame.__rollup = demand?.rollup || [];
         frame.__coverage = demand?.coverage || {};
+      }
+    }
+  } catch {
+    // A frame with no derivation renders nothing rather than an empty shell.
+  }
+  try {
+    const signalsResponse = await fetch(signalsUrl.href, { cache: "force-cache" });
+    if (signalsResponse.ok) {
+      const signals = await signalsResponse.json();
+      for (const frame of model.frames) {
+        if (frame.type !== "trend-radar") continue;
+        frame.__candidates = signals?.trendCandidates || [];
       }
     }
   } catch {

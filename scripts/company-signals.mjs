@@ -48,6 +48,35 @@ const TECH_TERMS = [
   ["RAG", /\brag\b|retrieval[- ]augmented/i], ["Long Context", /long[- ]context|롱\s?컨텍스트/i],
 ];
 
+// A headline of the form "<Company> expects/plans/warns …" is an attributable
+// position even when nothing is in quotation marks, and the feed carries far
+// more of these than it carries quotes.
+const STANCE_VERBS = [
+  "says", "said", "expects", "expected", "warns", "warned", "plans", "plan to",
+  "targets", "sees", "forecasts", "raises", "raised", "cuts", "to invest",
+  "to build", "to expand", "announces", "announced", "unveils", "commits",
+  "밝혔", "전망", "계획", "예상", "발표", "확대", "추진", "경고",
+];
+
+// Technology the site does not yet know about. A candidate has to look like a
+// spec or a product name and has to appear next to memory vocabulary, or every
+// company and city name becomes a "trend".
+// Contiguous or hyphenated only: a space makes it a phrase, and "Chips 2026" is
+// a conference, not a specification. The third branch catches names like
+// "Z-Angle" that carry no digit at all.
+const CANDIDATE = /\b(?:[A-Z][A-Za-z]*-?\d{1,4}[A-Za-z]{0,2}|[A-Z]{2,6}\d?(?:-[A-Z0-9]{1,4})?|[A-Z][a-z]*-[A-Z][a-z]{2,})\b/g;
+const TREND_CONTEXT = /\b(memory|hbm|dram|nand|ssd|bandwidth|capacity|cache|inference|accelerator|package|interconnect|latency)\b|메모리|대역폭|용량|추론|패키징|지연/i;
+// Words that match the candidate shape but are never a technology.
+const CANDIDATE_STOPWORDS = new Set([
+  "AI", "US", "USA", "UK", "EU", "CEO", "CFO", "CTO", "COO", "IPO", "GDP", "API",
+  "Q1", "Q2", "Q3", "Q4", "FY", "PC", "TV", "IT", "OK", "NO", "ON", "IN", "OF",
+  "THE", "AND", "FOR", "NEW", "TOP", "ALL", "ONE", "TWO", "H1", "H2", "YoY", "QoQ",
+  "NYSE", "NASDAQ", "SEC", "USD", "KRW", "CNY", "JPY", "EPS", "ROI", "TCO",
+  // Category names, not technologies the site is missing.
+  "NAND", "DRAM", "HBM", "SSD", "HDD", "SRAM", "RAM", "ROM", "DIMM", "NVME",
+  "CPU", "GPU", "NPU", "XPU", "ASIC", "FPGA", "SOC", "PCB", "OEM", "ODM",
+]);
+
 const norm = (value) => String(value ?? "").replace(/\s+/g, " ").trim();
 const lower = (value) => norm(value).toLowerCase();
 const day = (value) => String(value || "").slice(0, 10);
@@ -74,6 +103,7 @@ function aliasMatcher(account = {}) {
   return aliases.length ? new Set(aliases) : null;
 }
 
+<<<<<<< Updated upstream
 function mentionsAlias(haystack, alias) {
   if (!/^[a-z0-9 .&/+_-]+$/.test(alias)) return haystack.includes(alias);
   const phrase = escapeRegExp(alias).replace(/\\ /g, "\\s+");
@@ -81,6 +111,19 @@ function mentionsAlias(haystack, alias) {
 }
 
 const mentions = (haystack, aliases) => [...aliases].some((alias) => mentionsAlias(haystack, alias));
+=======
+// "775 마이크론" is a unit, not Micron. An alias directly preceded by a number
+// is a measurement, so it does not count as a mention of the company.
+const mentions = (haystack, aliases) => [...aliases].some((alias) => {
+  let at = haystack.indexOf(alias);
+  while (at >= 0) {
+    const before = haystack.slice(Math.max(0, at - 6), at);
+    if (!/\d[\s\-–]?$/.test(before)) return true;
+    at = haystack.indexOf(alias, at + alias.length);
+  }
+  return false;
+});
+>>>>>>> Stashed changes
 
 function extractAmounts(text) {
   AMOUNT.lastIndex = 0;
@@ -108,6 +151,46 @@ function extractQuote(text) {
 }
 
 const extractTech = (text) => TECH_TERMS.filter(([, pattern]) => pattern.test(text)).map(([label]) => label);
+
+// The company's own stated position, taken from the headline rather than from a
+// quoted span. Returns the verb so the reader can see what kind of statement it
+// was — a plan reads differently from a warning.
+function extractStance(headline, aliases) {
+  const text = norm(headline);
+  if (!text) return null;
+  const lowered = lower(text);
+  if (!RELEVANCE.test(text)) return null;
+  const verb = STANCE_VERBS.find((term) => lowered.includes(term));
+  if (!verb) return null;
+  // The company has to be the subject, not merely mentioned somewhere after.
+  const verbAt = lowered.indexOf(verb);
+  const subject = lowered.slice(0, verbAt);
+  if (![...aliases].some((alias) => subject.includes(alias))) return null;
+  return { statement: text, verb: verb.trim() };
+}
+
+// Terms that look like technology, sit next to memory vocabulary, and are not
+// already in the known list. These are candidates for the reader to judge, not
+// findings — the site says so.
+function extractTrendCandidates(text, known, companyNames = new Set()) {
+  if (!TREND_CONTEXT.test(text)) return [];
+  CANDIDATE.lastIndex = 0;
+  const out = new Set();
+  for (const match of text.match(CANDIDATE) || []) {
+    const token = norm(match);
+    if (token.length < 3 || token.length > 18) continue;
+    if (CANDIDATE_STOPWORDS.has(token.toUpperCase())) continue;
+    if (/^\d/.test(token)) continue;
+    if (known.has(token.toLowerCase())) continue;
+    if (companyNames.has(token.toLowerCase())) continue;
+    // A year fragment is a date, and a bare capital word with no digit is a
+    // name; a specification carries a number or is a long acronym.
+    if (/(?:19|20)\d{2}/.test(token)) continue;
+    if (!/\d/.test(token) && token.length < 5) continue;
+    out.add(token);
+  }
+  return [...out].slice(0, 4);
+}
 
 const stamp = (date) => day(date) || "";
 
@@ -174,9 +257,16 @@ export function buildCompanySignals({
     if (!stores.has(id)) {
       const prior = carried[id] || {};
       stores.set(id, {
+<<<<<<< Updated upstream
         capex: new Map((prior.capex || []).map((row) => [row.key, hydratePriorRow(row)])),
         quotes: new Map((prior.quotes || []).map((row) => [row.key, hydratePriorRow(row)])),
         tech: new Map((prior.tech || []).map((row) => [row.key, hydratePriorRow(row)])),
+=======
+        capex: new Map((prior.capex || []).map((row) => [row.key, { ...row }])),
+        quotes: new Map((prior.quotes || []).map((row) => [row.key, { ...row }])),
+        tech: new Map((prior.tech || []).map((row) => [row.key, { ...row }])),
+        stances: new Map((prior.stances || []).map((row) => [row.key, { ...row }])),
+>>>>>>> Stashed changes
       });
     }
     return stores.get(id);
@@ -185,6 +275,13 @@ export function buildCompanySignals({
 
   const matchers = mergedAccountMatchers(accounts);
   const coverage = new Map(matchers.map(({ id }) => [id, new Map()]));
+
+  const knownTech = new Set(TECH_TERMS.map(([label]) => label.toLowerCase()));
+  const companyNames = new Set(accounts.flatMap((account) => [account.name, account.nameKo, ...(account.aliases || [])])
+    .filter(Boolean).map((value) => lower(value)));
+  // Trend candidates are site-wide, not per company: a term is new to us or it
+  // is not, regardless of who was mentioned alongside it.
+  const trendStore = new Map((previous.trendCandidates || []).map((row) => [row.term.toLowerCase(), { ...row }]));
 
   let added = 0;
   for (const item of news) {
@@ -213,9 +310,29 @@ export function buildCompanySignals({
         if (fold(store.quotes, key, { key, quote: spoken.quote, role: spoken.role.toUpperCase(), headline: norm(item.titleKo || item.title), url, source }, date)) added += 1;
       }
 
+      const stance = extractStance(item.titleKo || item.title || item.originalTitle, aliases);
+      if (stance) {
+        const key = `stance:${lower(stance.statement).slice(0, 70)}`;
+        if (fold(store.stances, key, { key, statement: stance.statement, verb: stance.verb, headline: stance.statement, url, source }, date)) added += 1;
+      }
+
       for (const label of extractTech(text)) {
         const key = `tech:${label}`;
         if (fold(store.tech, key, { key, label, headline: norm(item.titleKo || item.title), url, source }, date)) added += 1;
+      }
+    }
+    for (const term of extractTrendCandidates(text, knownTech, companyNames)) {
+      const key = term.toLowerCase();
+      const seen = trendStore.get(key);
+      if (seen) {
+        seen.seenCount += 1;
+        if (date > (seen.lastSeen || "")) {
+          seen.lastSeen = date;
+          seen.headline = norm(item.titleKo || item.title);
+          seen.url = url;
+        }
+      } else {
+        trendStore.set(key, { term, seenCount: 1, firstSeen: date, lastSeen: date, headline: norm(item.titleKo || item.title), url, source });
       }
     }
   }
@@ -229,8 +346,9 @@ export function buildCompanySignals({
     const tech = [...store.tech.values()]
       .sort((a, b) => b.seenCount - a.seenCount || String(b.lastSeen).localeCompare(String(a.lastSeen)))
       .slice(0, 12);
-    if (!capex.length && !quotes.length && !tech.length) continue;
-    companies[id] = { capex, quotes, tech };
+    const stances = [...store.stances.values()].sort(byRecency).slice(0, 5);
+    if (!capex.length && !quotes.length && !tech.length && !stances.length) continue;
+    companies[id] = { capex, quotes, tech, stances };
   }
 
   const coverageThisRun = Object.fromEntries([...coverage].map(([id, observations]) => {
@@ -249,7 +367,15 @@ export function buildCompanySignals({
     generatedAt,
     windowDays,
     addedThisRun: added,
+<<<<<<< Updated upstream
     coverageThisRun,
+=======
+    // A term repeated across items is worth a look; one sighting is noise.
+    trendCandidates: [...trendStore.values()]
+      .filter((row) => row.seenCount >= 2)
+      .sort((a, b) => b.seenCount - a.seenCount || String(b.lastSeen).localeCompare(String(a.lastSeen)))
+      .slice(0, 24),
+>>>>>>> Stashed changes
     companies,
   };
 }
