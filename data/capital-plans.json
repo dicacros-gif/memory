@@ -7,7 +7,12 @@
       "plan": "데이터센터 신설과 전력·그리드 확보를 동시 추진",
       "comment": "전력 제약형 백로그가 GPU 확보보다 앞선 병목",
       "memoryRead": "Performance/W가 구매 기준 상위 축 → 저전력 서버 DRAM·CXL 계층 제안 여지",
-      "tier": "보도"
+      "tier": "보도",
+      "outlook": {
+        "buys": "데이터센터 신설과 전력·그리드 확보",
+        "converts": "전력이 확보되는 순서대로 랙이 켜지므로 수요는 그리드 일정에 종속",
+        "window": "전력 제약이 풀리는 사이트부터 저전력 구성 제안 · 그리드 확정 시점이 곧 제안 시점"
+      }
     },
     "openai": {
       "capex": "2026년 컴퓨트 지출 500억 달러 예정",
@@ -21,105 +26,180 @@
           "quote": "컴퓨트가 가장 희소한 자원",
           "context": "2026년 컴퓨트 지출 500억 달러 · 매출 대비 2배 수준"
         }
-      ]
+      ],
+      "outlook": {
+        "buys": "컴퓨트 확보 · 자체 ASIC 프로그램",
+        "converts": "매출의 2배를 지출하는 구조라 단가 하락이 없으면 확장 자체가 제약",
+        "window": "Cost per Successful Task 개선폭을 계약 조건으로 환산할 수 있는 협상 구간"
+      }
     },
     "meta": {
       "capex": "자체 AI 인프라로 자원 재배분",
       "plan": "외부 컴퓨트 확보 무산 후 MTIA 등 자체 실리콘 가속",
       "comment": "인력 조정 후 인프라 우선순위 상향",
       "memoryRead": "MTIA 세대별 대역폭 확대가 추론 경제성의 직접 변수",
-      "tier": "보도"
+      "tier": "보도",
+      "outlook": {
+        "buys": "자체 AI 인프라와 자체 실리콘",
+        "converts": "외부 조달이 닫혀 자체 랙 효율이 유일한 레버 · 단위 효율 개선이 곧 증설 여력",
+        "window": "자체 실리콘 설계 동결 전 · Custom HBM 사양을 함께 정의할 수 있는 구간"
+      }
     },
     "google": {
       "capex": "TPU 자체 확충 + 외부 GPU 용량 대여 병행",
       "plan": "내부 수요가 자체 공급을 초과해 외부 조달 병행",
       "comment": "월 9.2억 달러 규모 외부 GPU 용량 대여",
       "memoryRead": "TPU 세대별 HBM 물량 동기화가 공급 리스크",
-      "tier": "보도"
+      "tier": "보도",
+      "outlook": {
+        "buys": "자체 TPU 증설과 외부 GPU Capacity 임차",
+        "converts": "TPU 세대 Ramp가 HBM 물량의 선행 지표 · 임차분은 피크 대응 용량 계층으로 남음",
+        "window": "차기 TPU 세대 사양 확정 전 · Package Capacity를 함께 잠글 수 있는 구간"
+      }
     },
     "aws": {
       "capex": "Trainium 용량 확충에 대규모 자본 투입",
       "plan": "고객 수요 대응 위해 컴퓨트 배분 우선순위 조정",
       "comment": "자체 실리콘 중심 조달로 공급사 이원화 추진",
       "memoryRead": "pin speed·용량 동시 상향 요구 → 커스텀 HBM 협상 지렛대",
-      "tier": "보도"
+      "tier": "보도",
+      "outlook": {
+        "buys": "Trainium 세대 확충과 고객 전용 용량",
+        "converts": "자본이 아니라 배분이 제약이라 동일 CapEx 내 처리량 개선이 곧 추가 수요",
+        "window": "Trainium 차기 Memory Interface 정의 시점 · HBM 직접 조달 구조 협상 구간"
+      }
     },
     "anthropic": {
       "capex": "신규 인프라 확보 지속",
       "plan": "컴퓨트 부족으로 사용한도 조정하며 용량 확보",
       "comment": "신규 인프라가 실가용 용량이 되기까지 12~24개월",
       "memoryRead": "전환 지연 → 기존 자산의 메모리 효율 개선 수요",
-      "tier": "보도"
+      "tier": "보도",
+      "outlook": {
+        "buys": "신규 인프라 용량",
+        "converts": "투입에서 가용 용량까지 12~24개월 지연 · 지출 시점과 수요 시점이 어긋남",
+        "window": "가용화 리드타임을 줄이는 사전 인증·재고 제안이 통하는 구간"
+      }
     },
     "nvidia": {
       "capex": "CoWoS 패키징 캐파 선확보 중심",
       "plan": "패키징·HBM 스택 동시 확보로 출하량 방어",
       "comment": "백오더가 패키징 병목에 종속",
       "memoryRead": "HBM 매칭 스택 확보가 출하량을 직접 제한",
-      "tier": "보도"
+      "tier": "보도",
+      "outlook": {
+        "buys": "패키징 용량 선점과 차세대 플랫폼",
+        "converts": "CoWoS 병목이 출하를 제한해 HBM 매칭 스택 확보가 곧 출하량",
+        "window": "차세대 플랫폼 Base Die·Bonding 사양 확정 전"
+      }
     },
     "broadcom": {
       "capex": "커스텀 ASIC 대형 계약 기반 투자",
       "plan": "인프라 계층 진출 위해 XPU 설계·공급 확대",
       "comment": "대규모 커스텀 ASIC 계약 확보",
       "memoryRead": "프로그램별 HBM 확보가 계약 이행의 전제",
-      "tier": "보도"
+      "tier": "보도",
+      "outlook": {
+        "buys": "하이퍼스케일러 전용 ASIC 설계 역량",
+        "converts": "프로그램마다 물량과 일정이 달라 회사 단위 예측이 성립하지 않음",
+        "window": "프로그램별 Requirement 확정 시점 · 각각 독립 트랙"
+      }
     },
     "marvell": {
       "capex": "커스텀 HBM·2nm SRAM·CXL 동시 개발 투자",
       "plan": "하이퍼스케일러 XPU 요구를 복합 기술로 대응",
       "comment": "커스텀 HBM 용량 최대 33%↑, 인터페이스 전력 최대 70%↓ 목표",
       "memoryRead": "공동개발(CMM-Ax) 확장 여지가 가장 큰 파트너",
-      "tier": "보도"
+      "tier": "보도",
+      "outlook": {
+        "buys": "커스텀 HBM·2nm SRAM·CXL 통합 개발",
+        "converts": "용량 33%↑와 인터페이스 전력 70%↓를 동시에 요구해 공동 설계 없이는 충족 불가",
+        "window": "Base Die 단계 · 커스텀 HBM과 CXL 모듈을 한 제안으로 묶을 수 있는 구간"
+      }
     },
     "oracle": {
       "capex": "AI 클라우드 캐파 확장 투자",
       "plan": "대형 AI 고객 전용 캐파 확보",
       "comment": "AI 인프라 수주 기반 설비 확장",
       "memoryRead": "서버 DRAM·eSSD 동시 수요 채널",
-      "tier": "추적"
+      "tier": "추적",
+      "outlook": {
+        "buys": "AI 전용 클라우드 리전 확장",
+        "converts": "리전 단위로 표준 구성이 복제되므로 인증 한 번이 여러 사이트로 확산",
+        "window": "레퍼런스 구성 확정 시점 · 인증 자산 재사용이 가장 크게 작동하는 구간"
+      }
     },
     "tesla": {
       "capex": "자체 AI 학습·추론 인프라 투자",
       "plan": "AI5 등 자체 실리콘과 학습 클러스터 병행",
       "comment": "차량·로봇 추론까지 확장",
       "memoryRead": "엣지 저전력 메모리(AI-D E) 선제 대상",
-      "tier": "추적"
+      "tier": "추적",
+      "outlook": {
+        "buys": "자체 학습 인프라와 차량·로보틱스용 추론",
+        "converts": "엣지 추론 비중이 커질수록 저전력 메모리 수요가 서버와 별도로 발생",
+        "window": "차세대 자율주행 플랫폼의 메모리 구성 확정 전"
+      }
     },
     "skhynix": {
       "capex": "HBM·AI 메모리 중심 설비투자",
       "plan": "Custom HBM·AI-D·AI-N 풀스택 확장",
       "comment": "AI 메모리 창조자로의 전환 선언",
       "memoryRead": "고객별 맞춤 설계로 락인 심화",
-      "tier": "공식"
+      "tier": "공식",
+      "outlook": {
+        "buys": "HBM 생산 능력과 후공정 패키징",
+        "converts": "고객 세대 일정과 맞물려야 물량이 매출이 되므로 증설만으로는 부족",
+        "window": "고객 Qualification 일정에 증설 계획을 맞추는 구간"
+      }
     },
     "samsung": {
       "capex": "HBM4·파운드리·패키징 원스톱 투자",
       "plan": "웨이퍼·HBM·패키징 통합 공급 역량 강화",
       "comment": "ASIC 설계사 대상 통합 공급 강조",
       "memoryRead": "원스톱 통합이 ASIC 진영의 경쟁 축",
-      "tier": "보도"
+      "tier": "보도",
+      "outlook": {
+        "buys": "HBM 팹과 후공정 증설",
+        "converts": "동일 고객·동일 레퍼런스를 두고 경쟁하므로 인증 속도가 점유율을 가름",
+        "window": "고객 인증 슬롯이 열리는 시점"
+      }
     },
     "micron": {
       "capex": "HBM 캐파 확장 투자",
       "plan": "GPU·ASIC 복수 고객 대상 공급 확대",
       "comment": "주요 고객 대상 대량 HBM 공급 언급",
       "memoryRead": "ASIC 진영에서 스펙 유연성으로 진입",
-      "tier": "보도"
+      "tier": "보도",
+      "outlook": {
+        "buys": "HBM 및 서버 DRAM 생산 확대",
+        "converts": "동일 세대에서 사양이 아니라 공급 확실성으로 갈리는 구간",
+        "window": "세대 전환기의 물량 약정 시점"
+      }
     },
     "tsmc": {
       "capex": "선단 공정·CoWoS 캐파 대규모 증설",
       "plan": "로직·패키징 동시 확장",
       "comment": "AI 수요 대응 위한 대규모 투자",
       "memoryRead": "베이스 다이·패키징 일정이 메모리 로드맵의 병목",
-      "tier": "보도"
+      "tier": "보도",
+      "outlook": {
+        "buys": "선단 공정과 CoWoS 패키징 용량",
+        "converts": "패키징 용량이 전체 AI 가속기 출하의 상한을 결정",
+        "window": "Base Die 공정과 3DFabric Ramp를 함께 계획하는 구간"
+      }
     },
     "cxmt": {
       "capex": "중국 내 DRAM 캐파 증설",
       "plan": "범용 DRAM 중심 캐파 확대",
       "comment": "내수 고객 기반 확장",
       "memoryRead": "범용 가격 하방 압력 요인",
-      "tier": "추적"
+      "tier": "추적",
+      "outlook": {
+        "buys": "국산 메모리 생산 능력",
+        "converts": "표준 제품 구간의 가격 압력으로 먼저 나타남",
+        "window": "표준 DRAM 대비 계층·커스텀으로 차별화를 유지해야 하는 구간"
+      }
     },
     "dell": {
       "quotes": [

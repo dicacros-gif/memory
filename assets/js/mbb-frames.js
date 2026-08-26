@@ -336,6 +336,9 @@ const capitalBoard = (frame) => {
                   ${row.plan ? `<div><dt>투자 계획</dt><dd>${esc(consultingBullet(row.plan))}</dd></div>` : ""}
                   ${row.comment ? `<div><dt>경영진 코멘트</dt><dd>${esc(consultingBullet(row.comment))}</dd></div>` : ""}
                   ${row.memoryRead ? `<div><dt>메모리 해석</dt><dd>${esc(consultingBullet(row.memoryRead))}</dd></div>` : ""}
+                  ${row.outlook?.buys ? `<div><dt>지출 대상</dt><dd>${esc(consultingBullet(row.outlook.buys))}</dd></div>` : ""}
+                  ${row.outlook?.converts ? `<div><dt>수요 전환</dt><dd>${esc(consultingBullet(row.outlook.converts))}</dd></div>` : ""}
+                  ${row.outlook?.window ? `<div class="mbb-capital-window"><dt>우리 개입 구간</dt><dd>${esc(consultingBullet(row.outlook.window))}</dd></div>` : ""}
                 </dl>
               </article>`).join("")}
           </div>

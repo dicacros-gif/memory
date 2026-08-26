@@ -335,6 +335,9 @@
       ["INVESTMENT PLAN", plan.plan],
       ["EXECUTIVE VIEW", plan.comment],
       ["MEMORY READ", plan.memoryRead],
+      ["지출 대상", plan.outlook?.buys],
+      ["수요 전환", plan.outlook?.converts],
+      ["우리 개입 구간", plan.outlook?.window],
     ].filter(([, value]) => value);
     const seen = plan.observed;
     if (!rows.length && !seen) return "";
