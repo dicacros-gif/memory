@@ -60,3 +60,15 @@
 @media(max-width:850px){.company-executive-plan>header{grid-template-columns:1fr}.company-executive-plan>header p{justify-content:flex-start}.company-executive-plan>div{grid-template-columns:1fr}.company-executive-plan article{border-right:0;border-bottom:1px solid #c7d1da}.company-executive-plan article:last-child{border-bottom:0}}
 @media(max-width:850px){.company-account-facts,.company-account-flow,.company-raci>div{grid-template-columns:1fr 1fr}.company-account-facts article:nth-child(2),.company-account-flow article:nth-child(2),.company-raci article:nth-child(2){border-right:0}.company-account-facts article:nth-child(-n+2),.company-account-flow article:nth-child(-n+2){border-bottom:1px solid #cbd4dc}.company-account-flow article::after{display:none}.company-raci article:last-child{grid-column:1/-1;border-top:1px solid #c7d1da}.company-buying-criteria{grid-template-columns:1fr 1fr}.company-buying-criteria>b{grid-column:1/-1}.company-buying-criteria>span{border-top:1px solid #cbd4dc}}
 @media(max-width:560px){.company-account-facts,.company-account-flow,.company-raci>div,.company-buying-criteria{grid-template-columns:1fr}.company-account-facts article,.company-account-flow article,.company-raci article,.company-buying-criteria>span{border-right:0;border-bottom:1px solid #cbd4dc}.company-raci article:last-child{grid-column:auto}.company-raci>header{align-items:start;flex-direction:column}.company-profile-tabs button{font-size:10px}}
+
+/* Capital & investment block: CapEx, plan, executive line, memory read. */
+.company-capital { margin-top: 12px; padding: 13px; border: 1px solid var(--line, #cbd5e1); border-left: 3px solid #0E7777; background: var(--panel-2, #f7f8fb); }
+.company-capital-head { display: flex; align-items: baseline; gap: 9px; flex-wrap: wrap; margin-bottom: 8px; }
+.company-capital-head small { font: 900 8.5px/1 var(--display, sans-serif); letter-spacing: .14em; color: #0E7777; }
+.company-capital-head h4 { margin: 0; font-size: 13px; font-weight: 900; color: var(--ink, #0e1525); }
+.company-capital-head b { margin-left: auto; padding: 2px 7px; border: 1px solid #0E7777; font-size: 9px; font-weight: 900; color: #0E7777; }
+.company-capital dl { display: grid; gap: 6px; margin: 0; }
+.company-capital dl > div { display: grid; grid-template-columns: 116px minmax(0, 1fr); gap: 9px; align-items: start; }
+.company-capital dt { font: 900 8.5px/1.5 var(--display, sans-serif); letter-spacing: .08em; color: #0E7777; }
+.company-capital dd { margin: 0; font-size: 11.5px; line-height: 1.5; font-weight: 660; color: var(--ink-2, #44506a); }
+@media (max-width: 560px) { .company-capital dl > div { grid-template-columns: 1fr; gap: 2px; } }

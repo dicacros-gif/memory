@@ -4,6 +4,13 @@ import { fileURLToPath } from "node:url";
 
 const root = resolve(dirname(fileURLToPath(import.meta.url)), "..");
 const readJson = (name) => JSON.parse(readFileSync(resolve(root, "data", name), "utf8"));
+// Investment posture per company: CapEx, plan, an executive line, and what it
+// means for memory demand. Kept beside the profile builders so every builder
+// can attach it.
+const CAPITAL_PLANS = (() => {
+  try { return readJson("capital-plans.json").plans || {}; } catch { return {}; }
+})();
+const capitalPlanFor = (id) => CAPITAL_PLANS[id] || null;
 
 const accountModel = readJson("accounts.json");
 const sourceCatalog = readJson("source-catalog.json");
@@ -246,6 +253,7 @@ function accountProfile(account = {}, dynamic = {}, competitive = null, legacy =
     },
     organization: legacy.organization || [],
     priorities: legacy.officialPriorities || [],
+    capitalPlan: capitalPlanFor(account.id),
     evidence,
     sources: resolveSources(sourceIds),
   };
@@ -312,6 +320,7 @@ function legacyProfile(id, legacy = {}) {
     ecosystem: { partner: null, servesAccounts: [], supplierRelations: [] },
     organization: legacy.organization || [],
     priorities: legacy.officialPriorities || [],
+    capitalPlan: capitalPlanFor(id),
     evidence: [],
     sources: unique([
       legacy.officialUrl ? { id: `${id}-official`, name: `${legacy.name || legacy.nameKo} 공식`, url: legacy.officialUrl, sourceClass: "official", tier: "primary-company" } : null,
@@ -374,6 +383,7 @@ function sourceCompanyProfile(id, company = {}, sources = []) {
       ],
     },
     ecosystem: { partner: null, servesAccounts: [], supplierRelations: [] },
+    capitalPlan: capitalPlanFor(id),
     organization: [], priorities: [], evidence: [], sources: compactSources,
   };
 }

@@ -1,0 +1,118 @@
+{
+  "schemaVersion": "1.0",
+  "note": "기업별 CapEx·투자 계획·경영진 코멘트와 메모리 관점 해석. tier는 공식/보도/추적으로 확실성을 구분",
+  "plans": {
+    "microsoft": {
+      "capex": "연 800억 달러 규모 AI 인프라 투자",
+      "plan": "데이터센터 신설과 전력·그리드 확보를 동시 추진",
+      "comment": "전력 제약형 백로그가 GPU 확보보다 앞선 병목",
+      "memoryRead": "Performance/W가 구매 기준 상위 축 → 저전력 서버 DRAM·CXL 계층 제안 여지",
+      "tier": "보도"
+    },
+    "openai": {
+      "capex": "2026년 컴퓨트 지출 500억 달러 예정",
+      "plan": "자체 가속기 공동개발로 컴퓨트 단가 구조 전환",
+      "comment": "컴퓨트가 가장 희소한 자원 (CFO)",
+      "memoryRead": "지출이 매출의 2배 수준 → 토큰당 비용 절감이 곧 메모리 계층화 수요",
+      "tier": "보도"
+    },
+    "meta": {
+      "capex": "자체 AI 인프라로 자원 재배분",
+      "plan": "외부 컴퓨트 확보 무산 후 MTIA 등 자체 실리콘 가속",
+      "comment": "인력 조정 후 인프라 우선순위 상향",
+      "memoryRead": "MTIA 세대별 대역폭 확대가 추론 경제성의 직접 변수",
+      "tier": "보도"
+    },
+    "google": {
+      "capex": "TPU 자체 확충 + 외부 GPU 용량 대여 병행",
+      "plan": "내부 수요가 자체 공급을 초과해 외부 조달 병행",
+      "comment": "월 9.2억 달러 규모 외부 GPU 용량 대여",
+      "memoryRead": "TPU 세대별 HBM 물량 동기화가 공급 리스크",
+      "tier": "보도"
+    },
+    "aws": {
+      "capex": "Trainium 용량 확충에 대규모 자본 투입",
+      "plan": "고객 수요 대응 위해 컴퓨트 배분 우선순위 조정",
+      "comment": "자체 실리콘 중심 조달로 공급사 이원화 추진",
+      "memoryRead": "pin speed·용량 동시 상향 요구 → 커스텀 HBM 협상 지렛대",
+      "tier": "보도"
+    },
+    "anthropic": {
+      "capex": "신규 인프라 확보 지속",
+      "plan": "컴퓨트 부족으로 사용한도 조정하며 용량 확보",
+      "comment": "신규 인프라가 실가용 용량이 되기까지 12~24개월",
+      "memoryRead": "전환 지연 → 기존 자산의 메모리 효율 개선 수요",
+      "tier": "보도"
+    },
+    "nvidia": {
+      "capex": "CoWoS 패키징 캐파 선확보 중심",
+      "plan": "패키징·HBM 스택 동시 확보로 출하량 방어",
+      "comment": "백오더가 패키징 병목에 종속",
+      "memoryRead": "HBM 매칭 스택 확보가 출하량을 직접 제한",
+      "tier": "보도"
+    },
+    "broadcom": {
+      "capex": "커스텀 ASIC 대형 계약 기반 투자",
+      "plan": "인프라 계층 진출 위해 XPU 설계·공급 확대",
+      "comment": "대규모 커스텀 ASIC 계약 확보",
+      "memoryRead": "프로그램별 HBM 확보가 계약 이행의 전제",
+      "tier": "보도"
+    },
+    "marvell": {
+      "capex": "커스텀 HBM·2nm SRAM·CXL 동시 개발 투자",
+      "plan": "하이퍼스케일러 XPU 요구를 복합 기술로 대응",
+      "comment": "커스텀 HBM 용량 최대 33%↑, 인터페이스 전력 최대 70%↓ 목표",
+      "memoryRead": "공동개발(CMM-Ax) 확장 여지가 가장 큰 파트너",
+      "tier": "보도"
+    },
+    "oracle": {
+      "capex": "AI 클라우드 캐파 확장 투자",
+      "plan": "대형 AI 고객 전용 캐파 확보",
+      "comment": "AI 인프라 수주 기반 설비 확장",
+      "memoryRead": "서버 DRAM·eSSD 동시 수요 채널",
+      "tier": "추적"
+    },
+    "tesla": {
+      "capex": "자체 AI 학습·추론 인프라 투자",
+      "plan": "AI5 등 자체 실리콘과 학습 클러스터 병행",
+      "comment": "차량·로봇 추론까지 확장",
+      "memoryRead": "엣지 저전력 메모리(AI-D E) 선제 대상",
+      "tier": "추적"
+    },
+    "skhynix": {
+      "capex": "HBM·AI 메모리 중심 설비투자",
+      "plan": "Custom HBM·AI-D·AI-N 풀스택 확장",
+      "comment": "AI 메모리 창조자로의 전환 선언",
+      "memoryRead": "고객별 맞춤 설계로 락인 심화",
+      "tier": "공식"
+    },
+    "samsung": {
+      "capex": "HBM4·파운드리·패키징 원스톱 투자",
+      "plan": "웨이퍼·HBM·패키징 통합 공급 역량 강화",
+      "comment": "ASIC 설계사 대상 통합 공급 강조",
+      "memoryRead": "원스톱 통합이 ASIC 진영의 경쟁 축",
+      "tier": "보도"
+    },
+    "micron": {
+      "capex": "HBM 캐파 확장 투자",
+      "plan": "GPU·ASIC 복수 고객 대상 공급 확대",
+      "comment": "주요 고객 대상 대량 HBM 공급 언급",
+      "memoryRead": "ASIC 진영에서 스펙 유연성으로 진입",
+      "tier": "보도"
+    },
+    "tsmc": {
+      "capex": "선단 공정·CoWoS 캐파 대규모 증설",
+      "plan": "로직·패키징 동시 확장",
+      "comment": "AI 수요 대응 위한 대규모 투자",
+      "memoryRead": "베이스 다이·패키징 일정이 메모리 로드맵의 병목",
+      "tier": "보도"
+    },
+    "cxmt": {
+      "capex": "중국 내 DRAM 캐파 증설",
+      "plan": "범용 DRAM 중심 캐파 확대",
+      "comment": "내수 고객 기반 확장",
+      "memoryRead": "범용 가격 하방 압력 요인",
+      "tier": "추적"
+    }
+  }
+}

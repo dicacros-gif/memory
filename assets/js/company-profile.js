@@ -186,6 +186,7 @@
           ${leaders.length ? `<article><small>LEADERSHIP / BUYING CENTER</small><h4>공개 조직 신호</h4><ul>${leaders.map((item) => `<li><b>${escapeHTML(item.name || item.role)}</b>${item.name && item.role ? `<span>${escapeHTML(item.role)}</span>` : ""}</li>`).join("")}</ul></article>` : ""}
           <article><small>PROFILE CONTROL</small><h4>공개 기준</h4><ul><li>${escapeHTML(profile.layerLabel || "Company")}</li><li>${escapeHTML(profile.verifiedAt ? `최종 확인 ${profile.verifiedAt}` : "2026 공개 원문 우선")}</li>${profile.officialUrl ? `<li><a href="${escapeHTML(profile.officialUrl)}" target="_blank" rel="noopener noreferrer">기업·제품 공식 원문 ↗</a></li>` : ""}</ul></article>
         </div>` : ""}
+        ${capitalPlanHTML(profile)}
         ${executiveLensHTML(profile)}
       </section>`;
   }
@@ -243,6 +244,24 @@
           <article><small>KPI · RESILIENCE</small><h4>Qualification · Recovery</h4><p>패키징·공급·장애복구·Capacity 일정을 동일 Gate로 관리</p></article>
         </div>
       </section>`;
+  }
+
+  // Investment posture: what the company is spending, what it plans, what its
+  // leadership said, and the memory read that follows from it.
+  function capitalPlanHTML(profile = {}) {
+    const plan = profile.capitalPlan;
+    if (!plan) return "";
+    const rows = [
+      ["CAPEX", plan.capex],
+      ["INVESTMENT PLAN", plan.plan],
+      ["EXECUTIVE VIEW", plan.comment],
+      ["MEMORY READ", plan.memoryRead],
+    ].filter(([, value]) => value);
+    if (!rows.length) return "";
+    return `<div class="company-capital">
+      <div class="company-capital-head"><small>CAPITAL &amp; INVESTMENT</small><h4>투자 계획과 메모리 해석</h4>${plan.tier ? `<b>${escapeHTML(plan.tier)}</b>` : ""}</div>
+      <dl>${rows.map(([label, value]) => `<div><dt>${escapeHTML(label)}</dt><dd>${escapeHTML(value)}</dd></div>`).join("")}</dl>
+    </div>`;
   }
 
   function executiveLensHTML(profile = {}) {
